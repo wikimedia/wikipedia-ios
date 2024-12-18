@@ -1,7 +1,7 @@
 import SwiftUI
 import WebKit
 
-struct WMFGIFfImageView: UIViewRepresentable {
+struct WMFGIFImageView: UIViewRepresentable {
     private let name: String
     init(_ name: String) {
         self.name = name
@@ -20,7 +20,7 @@ struct WMFGIFfImageView: UIViewRepresentable {
            let gifData = try? Data(contentsOf: url) {
             webview.load(gifData, mimeType: "image/gif", characterEncodingName: "UTF-8", baseURL: url.deletingLastPathComponent())
         } else {
-            print("Error: Could not find or load gif: \(name).")
+            debugPrint("Error: Could not find or load gif: \(name).")
         }
         
         return webview

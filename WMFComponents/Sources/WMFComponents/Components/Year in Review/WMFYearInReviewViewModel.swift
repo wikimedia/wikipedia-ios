@@ -67,7 +67,6 @@ public class WMFYearInReviewViewModel: ObservableObject {
         public let shareText: String
         
         public let wIconAccessibilityLabel: String
-        public let globeImageAccessibilityLabel: String
         public let wmfLogoImageAccessibilityLabel: String
         
         public let personalizedExploreAccessibilityLabel: String
@@ -83,10 +82,11 @@ public class WMFYearInReviewViewModel: ObservableObject {
         public let collectiveArticleViewsAccessibilityLabel: String
         public let collectiveSavedArticlesAccessibilityLabel: String
         public let collectiveAmountEditsAccessibilityLabel: String
+        public let englishEditsAccessibilityLabel: String
         public let collectiveEditsPerMinuteAccessibilityLabel: String
         public let collectiveZeroAdsAccessibilityLabel: String
         
-        public init(donateButtonTitle: String, doneButtonTitle: String, shareButtonTitle: String, nextButtonTitle: String, finishButtonTitle: String, firstSlideTitle: String, firstSlideSubtitle: String, firstSlideCTA: String, firstSlideLearnMore: String, shareText: String, wIconAccessibilityLabel: String, globeImageAccessibilityLabel: String, wmfLogoImageAccessibilityLabel: String, personalizedExploreAccessibilityLabel: String, personalizedYouReadAccessibilityLabel: String, personalizedUserEditsAccessibilityLabel: String, personalizedDonationThankYouAccessibilityLabel: String, personalizedSavedArticlesAccessibilityLabel: String, personalizedWeekdayAccessibilityLabel: String, personalizedYourEditsViewsAccessibilityLabel: String, collectiveExploreAccessibilityLabel: String, collectiveLanguagesAccessibilityLabel: String, collectiveArticleViewsAccessibilityLabel: String, collectiveSavedArticlesAccessibilityLabel: String, collectiveAmountEditsAccessibilityLabel: String, collectiveEditsPerMinuteAccessibilityLabel: String, collectiveZeroAdsAccessibilityLabel: String) {
+        public init(donateButtonTitle: String, doneButtonTitle: String, shareButtonTitle: String, nextButtonTitle: String, finishButtonTitle: String, firstSlideTitle: String, firstSlideSubtitle: String, firstSlideCTA: String, firstSlideLearnMore: String, shareText: String, wIconAccessibilityLabel: String, wmfLogoImageAccessibilityLabel: String, personalizedExploreAccessibilityLabel: String, personalizedYouReadAccessibilityLabel: String, personalizedUserEditsAccessibilityLabel: String, personalizedDonationThankYouAccessibilityLabel: String, personalizedSavedArticlesAccessibilityLabel: String, personalizedWeekdayAccessibilityLabel: String, personalizedYourEditsViewsAccessibilityLabel: String, collectiveExploreAccessibilityLabel: String, collectiveLanguagesAccessibilityLabel: String, collectiveArticleViewsAccessibilityLabel: String, collectiveSavedArticlesAccessibilityLabel: String, collectiveAmountEditsAccessibilityLabel: String, englishEditsAccessibilityLabel: String, collectiveEditsPerMinuteAccessibilityLabel: String, collectiveZeroAdsAccessibilityLabel: String) {
             self.donateButtonTitle = donateButtonTitle
             self.doneButtonTitle = doneButtonTitle
             self.shareButtonTitle = shareButtonTitle
@@ -98,7 +98,6 @@ public class WMFYearInReviewViewModel: ObservableObject {
             self.firstSlideLearnMore = firstSlideLearnMore
             self.shareText = shareText
             self.wIconAccessibilityLabel = wIconAccessibilityLabel
-            self.globeImageAccessibilityLabel = globeImageAccessibilityLabel
             self.wmfLogoImageAccessibilityLabel = wmfLogoImageAccessibilityLabel
             self.personalizedExploreAccessibilityLabel = personalizedExploreAccessibilityLabel
             self.personalizedYouReadAccessibilityLabel = personalizedYouReadAccessibilityLabel
@@ -112,6 +111,7 @@ public class WMFYearInReviewViewModel: ObservableObject {
             self.collectiveArticleViewsAccessibilityLabel = collectiveArticleViewsAccessibilityLabel
             self.collectiveSavedArticlesAccessibilityLabel = collectiveSavedArticlesAccessibilityLabel
             self.collectiveAmountEditsAccessibilityLabel = collectiveAmountEditsAccessibilityLabel
+            self.englishEditsAccessibilityLabel = englishEditsAccessibilityLabel
             self.collectiveEditsPerMinuteAccessibilityLabel = collectiveEditsPerMinuteAccessibilityLabel
             self.collectiveZeroAdsAccessibilityLabel = collectiveZeroAdsAccessibilityLabel
         }
@@ -206,10 +206,11 @@ public struct YearInReviewSlideContent: SlideShowProtocol {
     public let title: String
     let informationBubbleText: String?
     public let subtitle: String
+    public let isSubtitleAttributedString: Bool?
     public let loggingID: String
     public let hideDonateButton: Bool
     
-    public init(gifName: String, altText: String, title: String, informationBubbleText: String?, subtitle: String, loggingID: String, infoURL: URL? = nil, hideDonateButton: Bool) {
+    public init(gifName: String, altText: String, title: String, informationBubbleText: String?, subtitle: String, isSubtitleAttributedString: Bool? = false, loggingID: String, infoURL: URL? = nil, hideDonateButton: Bool) {
         self.altText = altText
         self.title = title
         self.informationBubbleText = informationBubbleText
@@ -218,6 +219,7 @@ public struct YearInReviewSlideContent: SlideShowProtocol {
         self.infoURL = infoURL
 		self.hideDonateButton = hideDonateButton
         self.gifName = gifName
+        self.isSubtitleAttributedString = isSubtitleAttributedString
     }
 }
 
