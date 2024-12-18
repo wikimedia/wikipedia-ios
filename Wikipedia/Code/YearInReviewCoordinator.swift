@@ -76,7 +76,10 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         }
     }
     
-    private lazy var localizedStrings: WMFYearInReviewViewModel.LocalizedStrings = {
+    var topReadBlogPost: String { "https://wikimediafoundation.org/news/2024/12/03/announcing-english-wikipedias-most-popular-articles-of-2024/"
+    }
+    
+    private var localizedStrings: WMFYearInReviewViewModel.LocalizedStrings {
         return WMFYearInReviewViewModel.LocalizedStrings.init(
             donateButtonTitle: CommonStrings.donateTitle,
             doneButtonTitle: CommonStrings.doneTitle,
@@ -89,24 +92,24 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
             firstSlideLearnMore: CommonStrings.learnMoreTitle(),
             shareText: WMFLocalizedString("year-in-review-share-text", value: "Here's my Wikipedia Year In Review. Created with the Wikipedia iOS app", comment: "Text shared the Year In Review slides"),
             wIconAccessibilityLabel: WMFLocalizedString("year-in-review-wikipedia-w-accessibility-label", value: "Wikipedia w logo", comment: "Accessibility label for the Wikipedia w logo"),
-            globeImageAccessibilityLabel: WMFLocalizedString("year-in-review-wikipedia-globe-accessibility-label", value: "Wikipedia globe logo", comment: "Accessibility label for the Wikipedia globe logo"),
             wmfLogoImageAccessibilityLabel: WMFLocalizedString("year-in-review-wmf-logo-accessibility-label", value: "Wikimedia Foundation logo", comment: "Accessibility label for the Wikimedia Foundation logo"),
-            personalizedExploreAccessibilityLabel: WMFLocalizedString("year-in-review-personalized-explore", value: "An animated illustration of a hand holding the Wikipedia globe, which gradually transforms into a small puzzle piece, symbolizing individual contributions to the platform.", comment: "Accessibility description for the personalized explore slide."),
+            personalizedExploreAccessibilityLabel: CommonStrings.personalizedExploreAccessibilityLabel,
             personalizedYouReadAccessibilityLabel: WMFLocalizedString("year-in-review-personalized-you-read", value: "A puzzle piece with the Wikimedia logo walking in from the left.", comment: "Accessibility description for the personalized 'You Read' slide."),
             personalizedUserEditsAccessibilityLabel: WMFLocalizedString("year-in-review-personalized-user-edits", value: "An animated illustration showing bytes stacking on top of each other, symbolizing the continuous creation of free knowledge.", comment: "Accessibility description for the personalized user edits slide."),
             personalizedDonationThankYouAccessibilityLabel: WMFLocalizedString("year-in-review-personalized-donation-thank-you", value: "Wikimedia logo", comment: "Accessibility description for the personalized donation thank you slide."),
             personalizedSavedArticlesAccessibilityLabel: WMFLocalizedString("year-in-review-personalized-saved-articles", value: "Illustration of a puzzle piece wearing a hardhat with computer screens in the back.", comment: "Accessibility description for the personalized saved articles slide."),
             personalizedWeekdayAccessibilityLabel: WMFLocalizedString("year-in-review-personalized-weekday", value: "A clock ticking, symbolizing the time spent by people reading Wikipedia.", comment: "Accessibility description for the personalized weekday slide."),
             personalizedYourEditsViewsAccessibilityLabel: WMFLocalizedString("year-in-review-personalized-your-edits-views", value: "An illustration featuring a Wikipedia puzzle piece alongside a pen.", comment: "Accessibility description for the personalized 'Your Edits Views' slide."),
-            collectiveExploreAccessibilityLabel: WMFLocalizedString("year-in-review-collective-explore", value: "An animated illustration depicting the iconic Wikipedia globe encircled by scaffolding, symbolizing the collaborative effort of people worldwide in building the project. The scene is surrounded by a cityscape, emphasizing its connection to humanity and global culture.", comment: "Accessibility description for the collective explore slide."),
+            collectiveExploreAccessibilityLabel: CommonStrings.collectiveExploreAccessibilityLabel,
             collectiveLanguagesAccessibilityLabel: WMFLocalizedString("year-in-review-collective-languages", value: "An animated illustration of a stone engraved with inscriptions representing various languages, symbolizing how Wikipedia collaboratively builds knowledge from diverse cultures and regions.", comment: "Accessibility description for the collective languages slide."),
-            collectiveArticleViewsAccessibilityLabel: WMFLocalizedString("year-in-review-collective-article-views", value: "An animated illustration depicting the iconic Wikipedia globe encircled by scaffolding, symbolizing the collaborative effort of people worldwide in building the project. The scene is surrounded by a cityscape, emphasizing its connection to humanity and global culture.", comment: "Accessibility description for the collective article views slide."),
+            collectiveArticleViewsAccessibilityLabel: WMFLocalizedString("year-in-review-collective-article-views", value: "An animated illustration of a computer screen with a web browser open, actively navigating through a Wikipedia article.", comment: "Accessibility description for the collective article views slide."),
             collectiveSavedArticlesAccessibilityLabel: WMFLocalizedString("year-in-review-collective-saved-articles", value: "A puzzle globe featuring Wikipedia's logo, representing global collaboration.", comment: "Accessibility description for the collective saved articles slide."),
-            collectiveAmountEditsAccessibilityLabel: WMFLocalizedString("year-in-review-collective-edits", value: " A graph showing the top 10 most edited Wikipedia language editions in 2024: English with over 31 million edits, German with 5,508,570 edits, French with 5,276,385 edits, Spanish with 4,786,205 edits, Russian with 3,303,066 edits, Italian with 3,200,398 edits, Japanese with 2,973,657 edits, Chinese with 2,505,032 edits, Polish with 1,383,808 edits, and Ukrainian with 1,376,980 edits. The total number of edits across all Wikipedia editions in 2024 is 81,987,181.", comment: "Accessibility description for the collective edits slide."),
-            collectiveEditsPerMinuteAccessibilityLabel: WMFLocalizedString("year-in-review-collective-edits-per-minute", value: "A clock ticking, symbolizing the time spent by people reading Wikipedia.", comment: "Accessibility description for the collective edits per minute slide."),
+            collectiveAmountEditsAccessibilityLabel: WMFLocalizedString("year-in-review-collective-edits", value: " A graph An illustration of two Wikipedia puzzle pieces, each carrying a piece of information.", comment: "Accessibility description for the collective edits slide."),
+            englishEditsAccessibilityLabel: WMFLocalizedString("year-in-review-english-edits", value: "A graph showing the top 10 most edited Wikipedia language editions in 2024: English with over 31 million edits, German with 5,508,570 edits, French with 5,276,385 edits, Spanish with 4,786,205 edits, Russian with 3,303,066 edits, Italian with 3,200,398 edits, Japanese with 2,973,657 edits, Chinese with 2,505,032 edits, Polish with 1,383,808 edits, and Ukrainian with 1,376,980 edits. The total number of edits across all Wikipedia editions in 2024 is 81,987,181.", comment: "Accessibility description for the collective edits slide."),
+            collectiveEditsPerMinuteAccessibilityLabel: WMFLocalizedString("year-in-review-collective-edits-per-minute", value: " clock ticking, symbolizing the time spent by people reading Wikipedia.", comment: "Accessibility description for the collective edits per minute slide."),
             collectiveZeroAdsAccessibilityLabel: WMFLocalizedString("year-in-review-collective-zero-ads", value: "Wikimedia logo", comment: "Accessibility description for the collective zero ads slide.")
         )
-    }()
+    }
 
 
     @objc public init(navigationController: UINavigationController, theme: Theme, dataStore: MWKDataStore, dataController: WMFYearInReviewDataController) {
@@ -125,14 +128,14 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
 
     // MARK: - Base Slide Strings
     
-    var collectiveReadingBroughtUsTogetherSlideTitle: String {
+    var collectiveLanguagesSlideTitle: String {
         let format = WMFLocalizedString("year-in-review-base-reading-title", value: "Wikipedia was available in more than 300 languages", comment: "Year in review, collective reading article count slide title, %1$@ is replaced with the number of languages available on Wikipedia, e.g. \"300\"")
         
         let numLanguagesString = formatNumber(300, fractionDigits: 0)
         return String.localizedStringWithFormat(format, numLanguagesString)
     }
 
-    var collectiveReadingBroughtUsTogetherSlideSubtitle: String {
+    var collectiveLanguagesSlideSubtitle: String {
         let format = WMFLocalizedString("year-in-review-base-reading-subtitle", value: "Wikipedia had more than %1$@ million articles across over %2$@ active languages this year. You joined millions in expanding knowledge and exploring diverse topics.", comment: "Year in review, collective reading count slide subtitle. %1$@ is replaced with a formatted number of articles available across Wikipedia, e.g. \"63\". %2$@ is replaced with the number of active languages available on Wikipedia, e.g. \"300\"")
 
         let numArticlesString = formatNumber(63, fractionDigits: 0)
@@ -165,9 +168,8 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
     }
 
     var collectiveSavedArticlesSlideSubtitle: String {
-        let format = WMFLocalizedString("year-in-review-base-saved-subtitle", value: "Active iOS App users had over %1$@ million reading lists this year. Adding articles to Reading lists allows you to access articles even while offline. You can also log in to sync reading lists across devices.", comment: "Year in review, collective saved articles count slide subtitle, %1$@ is replaced with the number of saved articles text, e.g. \"31.6\".")
-        let numSavedArticlesString = formatNumber(31.6, fractionDigits: 2)
-        return String.localizedStringWithFormat(format, numSavedArticlesString)
+        let format = WMFLocalizedString("year-in-review-base-saved-subtitle", value: "Active iOS App users had over 31.6 million reading lists this year. Adding articles to reading lists allows you to access articles even while offline. You can also log in to sync reading lists across devices.", comment: "Year in review, collective saved articles count slide subtitle")
+        return String.localizedStringWithFormat(format)
     }
 
     var collectiveAmountEditsSlideTitle: String {
@@ -179,7 +181,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
     }
 
     var collectiveAmountEditsSlideSubtitle: String {
-        let format = WMFLocalizedString("year-in-review-base-editors-subtitle", value: "Wikipedia's community of volunteer editors made more than %1$@ edits on the iOS app so far this year. The heart and soul of Wikipedia is our global community of volunteer contributors, donors, and billions of readers like yourself – all united to share unlimited access to reliable information.", comment: "Year in review, collective edits count slide subtitle, %1$@ is replaced with the number of edits text, e.g. \"452,257\"")
+        let format = WMFLocalizedString("year-in-review-base-editors-subtitle", value: "Volunteers made 81,987,181 changes across over 300 different language editions of Wikipedia. Over 31.2 million changes were made on English Wikipedia. Every hour of every day, volunteers are working to improve Wikipedia.", comment: "Year in review, collective edits count slide subtitle.")
 
         let numEditsString = formatNumber(452257, fractionDigits: 0)
 
@@ -211,10 +213,148 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
     }
 
     func collectiveZeroAdsSlideSubtitle() -> String {
-        let format = WMFLocalizedString("year-in-review-base-donate-subtitle", value: "With your help, the Wikimedia Foundation—the nonprofit behind Wikipedia—will continue to ensure that the information you rely on is ad-free and trustworthy, while keeping Wikipedia running smoothly with cutting-edge tools and technologies. Please consider making a donation today. [Learn more about our work](%1$@).", comment: "Year in review, donate slide subtitle when user has not made any donations that year. %1%@ is replaced with a MediaWiki url with more information about WMF. Do not alter markdown when translating.")
+        let format = WMFLocalizedString("year-in-review-base-donate-subtitle", value: "With your help, the Wikimedia Foundation—the nonprofit behind Wikipedia—will continue to ensure that the information you rely on is ad-free and trustworthy, while keeping Wikipedia running smoothly with cutting-edge tools and technologies. Please consider making a donation today. [Learn more about our work](%1$@).", comment: "Year in review, donate slide subtitle when user has not made any donations that year. %1$@ is replaced with a MediaWiki url with more information about WMF. Do not alter markdown when translating.")
         return String.localizedStringWithFormat(format, aboutWikimediaURL)
     }
     
+    // MARK: - English Slide Strings
+    var englishExploreSlideTitle: String {
+        let format = WMFLocalizedString(
+            "microsite-yir-english-explore-slide",
+            value: "Explore Wikipedia in Review",
+            comment: "Explore slide title for English Year in Review."
+        )
+        return String.localizedStringWithFormat(format)
+    }
+
+    var englishExploreSlideSubtitle: String {
+        let format = WMFLocalizedString(
+            "microsite-yir-english-explore-slide-subtitle",
+            value: "Wikipedia is the largest knowledge resource ever assembled in the history of the world, and it’s freely available to everyone everywhere. Look back on 2024 through the lens of Wikipedia.",
+            comment: "Explore slide subtitle for English Year in Review."
+        )
+        return String.localizedStringWithFormat(format)
+    }
+
+    var englishReadingSlideTitle: String {
+        let format = WMFLocalizedString(
+            "microsite-yir-english-reading-slide-title",
+            value: "We spent 2.4 billion hours reading",
+            comment: "Reading slide title for English Year in Review."
+        )
+        return String.localizedStringWithFormat(format)
+    }
+
+    var englishReadingSlideSubtitle: String {
+        let format = WMFLocalizedString(
+            "microsite-yir-english-reading-slide-subtitle",
+            value: "People spent an estimated 2.4 billion hours—nearly 275,000 years!—reading English Wikipedia in 2024. Wikipedia is there when you want to learn about our changing world, win a bet among friends, or answer a curious child’s question.",
+            comment: "Reading slide subtitle for English Year in Review."
+        )
+        return String.localizedStringWithFormat(format)
+    }
+    
+    var englishTopReadSlideTitle: String {
+        let format = WMFLocalizedString(
+            "microsite-yir-english-top-read-slide-title",
+            value: "English Wikipedia’s most popular articles",
+            comment: "Top read slide title for English Year in Review."
+        )
+        return String.localizedStringWithFormat(format)
+    }
+
+    var englishTopReadSlideSubtitle: String {
+        let format = WMFLocalizedString(
+            "microsite-yir-english-top-read-slide-subtitle",
+            value: """
+            When people want to learn about our world—the good, bad, weird, and wild alike—they turn to Wikipedia. The top 5 visited articles on English Wikipedia were:%1$@
+            Read more in %2$@our dedicated blog post%3$@.
+            """,
+            comment: "Top read slide subtitle for English Year in Review. %1$@ is replaced with an HTML ordered list of articles. %2$@ is replaced with the opening HTML anchor tag containing a link. %3$@ is replaced with the closing anchor tag.%3$@"
+        )
+        let list = "<ol><li>Deaths in 2024</li><li>Kamala Harris</li><li>2024 United States presidential election</li><li>Lyle and Erik Menendez</li><li>Donald Trump</li></ol>"
+        let linkOpening = "<a href=\"\(topReadBlogPost)\">"
+        let linkClosing = "</a>"
+        return String.localizedStringWithFormat(format, list, linkOpening, linkClosing)
+    }
+
+    var englishSavedReadingSlideTitle: String {
+        let format = WMFLocalizedString(
+            "microsite-yir-english-saved-reading-slide-title",
+            value: "We had over 31.6 million reading lists",
+            comment: "Saved reading slide title for English Year in Review."
+        )
+        return String.localizedStringWithFormat(format)
+    }
+
+    var englishSavedReadingSlideSubtitle: String {
+        let format = WMFLocalizedString(
+            "microsite-yir-english-saved-reading-slide-subtitle",
+            value: "Active iOS App users had over 31.6 million reading lists this year. Adding articles to reading lists allows you to access articles even while offline. You can also log in to sync reading lists across devices.",
+            comment: "Saved reading slide subtitle for English Year in Review."
+        )
+        return String.localizedStringWithFormat(format)
+    }
+    
+    var englishEditsSlideTitle: String {
+        let format = WMFLocalizedString(
+            "microsite-yir-english-edits-slide-title",
+            value: "Editors made nearly 82 million changes this year",
+            comment: "Edits slide title for English Year in Review."
+        )
+        return String.localizedStringWithFormat(format)
+    }
+
+    var englishEditsSlideSubtitle: String {
+        let format = WMFLocalizedString(
+            "microsite-yir-english-edits-slide-subtitle",
+            value: "Volunteers made 81,987,181 changes across over 300 different language editions of Wikipedia. Over 31.2 million changes were made on English Wikipedia. Every hour of every day, volunteers are working to improve Wikipedia.",
+            comment: "Edits slide subtitle for English Year in Review."
+        )
+        return String.localizedStringWithFormat(format)
+    }
+
+    var englishEditsBytesSlideTitle: String {
+        let format = WMFLocalizedString(
+            "microsite-yir-english-edits-bytes-slide-title",
+            value: "3.4 billion bytes added",
+            comment: "Edits bytes slide title for English Year in Review."
+        )
+        return String.localizedStringWithFormat(format)
+    }
+
+    var englishEditsBytesSlideSubtitle: String {
+        let format = WMFLocalizedString(
+            "microsite-yir-english-edits-bytes-slide-subtitle",
+            value: "In 2024, volunteers added 3,416,899,197 bytes to English Wikipedia. The sum of their work together leads to a steadily improving, fact-based, and reliable knowledge resource that they give to the world. All of us have knowledge to share, [learn how to participate](%1$@).",
+            comment: "Edits bytes slide subtitle for English Year in Review, %1$@ is replaced by link to learn to participate."
+        )
+        var editingFAQ: String
+        if languageCode == "es" {
+            editingFAQ = "https://www.mediawiki.org/wiki/Wikimedia_Apps/iOS_FAQ/es#Edici%C3%B3n"
+        } else {
+            editingFAQ = "https://www.mediawiki.org/wiki/Special:MyLanguage/Wikimedia_Apps/iOS_FAQ#Editing"
+        }
+        return String.localizedStringWithFormat(format, editingFAQ)
+    }
+    
+    var englishNonDonorSlideTitle: String {
+        let format = WMFLocalizedString(
+            "microsite-yir-english-non-donor-slide-title",
+            value: "0 ads served on Wikipedia",
+            comment: "Non-donor slide title for English Year in Review."
+        )
+        return String.localizedStringWithFormat(format)
+    }
+
+    var englishNonDonorSlideSubitle: String {
+        let format = WMFLocalizedString(
+            "microsite-yir-english-non-donor-slide-subtitle",
+            value: "With your help, the Wikimedia Foundation—the nonprofit behind Wikipedia—will continue to ensure that the information you rely on is ad-free and trustworthy, while keeping Wikipedia running smoothly with cutting-edge tools and technologies. Please consider making a donation today. [Learn more about our work](%1$@).",
+            comment: "Non-donor slide subtitle for English Year in Review with a link to learn more about Wikimedia's work. %1$@ is replaced by the link."
+        )
+        return String.localizedStringWithFormat(format, aboutWikimediaURL)
+    }
     
     // MARK: - Personalized Slide Strings
 
@@ -358,7 +498,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
     func personalizedYourEditsViewedSlideTitle(views: Int) -> String {
         let format = WMFLocalizedString(
             "year-in-review-personalized-edit-views-title-format",
-            value: "Your edits were viewed more than %1$@ times recently",
+            value: "Your edits have been viewed more than %1$@ times recently",
             comment: "Year in review, personalized slide title for users that display how many views their edits have. %1$@ is replaced with the amount of edit views."
         )
         
@@ -388,7 +528,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
             urlString = "https://www.mediawiki.org/wiki/Wikimedia_Apps/About_the_Wikimedia_Foundation"
         }
 
-        let format = WMFLocalizedString("year-in-review-personalized-donate-subtitle", value: "Thank you for investing in the future of free knowledge. In 2024, the Wikimedia Foundation advanced the technology to serve every reader and volunteer better, developed tools that empower collaboration, and supported Wikipedia in more languages. [Learn more about our work](%1$@).", comment: "Year in review, personalized donate slide subtitle for users that donated at least once that year. %1$@ is replaced with a MediaWiki url with more information about WMF. Do not alter markdown when translating.")
+        let format = WMFLocalizedString("year-in-review-personalized-donate-subtitle", value: "Thank you for investing in the future of free knowledge. This year, the Wikimedia Foundation improved the technology to serve every reader and volunteer better, developed tools that empower collaboration, and supported Wikipedia in more languages. [Learn more about our work](%1$@).", comment: "Year in review, personalized donate slide subtitle for users that donated at least once that year. %1$@ is replaced with a MediaWiki url with more information about WMF. Do not alter markdown when translating.")
         return String.localizedStringWithFormat(format, urlString)
     }
 
@@ -403,7 +543,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         let articleName2 = articleNames.count >= 3 ? articleNames[1] : ""
         let articleName3 = articleNames.count >= 3 ? articleNames[2] : ""
         
-        let format = WMFLocalizedString("year-in-review-personalized-saved-subtitle-format", value: "You saved {{PLURAL:%1$d|%1$d article|%1$d articles}} this year, including \"%2$@\", \"%3$@\" and \"%4$@\". Each saved article reflects your interests and helps build a personalized knowledge base on Wikipedia.", comment: "Year in review, personalized saved articles slide subtitle. %1$D is replaced with the number of articles the user saved, %2$@, %3$@ and %4$@ are replaced with the names  three random articles the user saved.")
+        let format = WMFLocalizedString("year-in-review-personalized-saved-subtitle-format", value: "You saved {{PLURAL:%1$d|%1$d article|%1$d articles}} this year, including %2$@, %3$@ and %4$@. Each saved article reflects your interests and helps build a personalized knowledge base on Wikipedia.", comment: "Year in review, personalized saved articles slide subtitle. %1$D is replaced with the number of articles the user saved, %2$@, %3$@ and %4$@ are replaced with the names  three random articles the user saved.")
         return String.localizedStringWithFormat(format, saveCount, articleName1, articleName2, articleName3)
     }
 
@@ -550,12 +690,12 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
     }
 
     func start() {
-        let collectiveReadingBroughtUsTogetherSlide = YearInReviewSlideContent(
+        let collectiveLanguagesSlide = YearInReviewSlideContent(
            gifName: "non-english-slide-01",
            altText: localizedStrings.collectiveLanguagesAccessibilityLabel,
-           title: collectiveReadingBroughtUsTogetherSlideTitle,
+           title: collectiveLanguagesSlideTitle,
            informationBubbleText: nil,
-           subtitle: collectiveReadingBroughtUsTogetherSlideSubtitle,
+           subtitle: collectiveLanguagesSlideSubtitle,
            loggingID: "read_count_base",
            infoURL: aboutYIRURL,
            hideDonateButton: shoudlHideDonateButton())
@@ -581,7 +721,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
             hideDonateButton: shoudlHideDonateButton())
 
         let collectiveAmountEditsSlide = YearInReviewSlideContent(
-           gifName: "english-slide-04",
+           gifName: "non-english-slide-04",
            altText: localizedStrings.collectiveAmountEditsAccessibilityLabel,
            title: collectiveAmountEditsSlideTitle,
            informationBubbleText: nil,
@@ -591,7 +731,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
            hideDonateButton: shoudlHideDonateButton())
         
         let collectiveEditsPerMinuteSlide = YearInReviewSlideContent(
-            gifName: "english-slide-05",
+            gifName: "english-slide-01",
             altText: localizedStrings.collectiveEditsPerMinuteAccessibilityLabel,
             title: collectiveEditsPerMinuteSlideTitle,
             informationBubbleText: nil,
@@ -609,26 +749,80 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
             loggingID: "ads_served_base",
             infoURL: aboutYIRURL,
             hideDonateButton: shoudlHideDonateButton())
-
-        let personalizedSlides = getPersonalizedSlides()
         
+        // MARK: - English Slides
+        
+        let englishHoursReadingSlide = YearInReviewSlideContent(
+            gifName: "english-slide-01",
+            altText: localizedStrings.collectiveEditsPerMinuteAccessibilityLabel,
+            title: englishReadingSlideTitle,
+            informationBubbleText: nil,
+            subtitle: englishReadingSlideSubtitle,
+            loggingID: "english_reading",
+            infoURL: aboutYIRURL,
+            hideDonateButton: shoudlHideDonateButton())
+        
+        let englishTopReadSlide = YearInReviewSlideContent(
+            gifName: "english-slide-02",
+            altText: localizedStrings.collectiveArticleViewsAccessibilityLabel,
+            title: englishTopReadSlideTitle,
+            informationBubbleText: nil,
+            subtitle: englishTopReadSlideSubtitle,
+            isSubtitleAttributedString: true,
+            loggingID: "english_top_read",
+            infoURL: aboutYIRURL,
+            hideDonateButton: shoudlHideDonateButton())
+        
+        let englishReadingListSlide = YearInReviewSlideContent(
+            gifName: "english-slide-03",
+            altText: localizedStrings.collectiveSavedArticlesAccessibilityLabel,
+            title: englishSavedReadingSlideTitle,
+            informationBubbleText: nil,
+            subtitle: englishSavedReadingSlideSubtitle,
+            loggingID: "english_reading_list",
+            infoURL: aboutYIRURL,
+            hideDonateButton: shoudlHideDonateButton())
+        
+        let englishEditsSlide = YearInReviewSlideContent(
+            gifName: "english-slide-04",
+            altText: localizedStrings.englishEditsAccessibilityLabel,
+            title: englishEditsSlideTitle,
+            informationBubbleText: nil,
+            subtitle: englishEditsSlideSubtitle,
+            loggingID: "english_edits",
+            infoURL: aboutYIRURL,
+            hideDonateButton: shoudlHideDonateButton())
+        
+        let englishEditsBytesSlide = YearInReviewSlideContent(
+            gifName: "english-slide-05",
+            altText: localizedStrings.personalizedUserEditsAccessibilityLabel,
+            title: englishEditsBytesSlideTitle,
+            informationBubbleText: nil,
+            subtitle: englishEditsBytesSlideSubtitle,
+            loggingID: "english_bytes_edits",
+            infoURL: aboutYIRURL,
+            hideDonateButton: shoudlHideDonateButton())
+        
+        let personalizedSlides = getPersonalizedSlides()
         
         let finalSlides: [YearInReviewSlideContent]
         
+        let isEnglish = dataStore.languageLinkController.appLanguage?.languageCode == "en"
+        
         // We should only show non-donate personalized slides to logged in users.
         if dataStore.authenticationManager.authStateIsPermanent {
-            finalSlides = [(personalizedSlides.readCount ?? collectiveReadingBroughtUsTogetherSlide),
-                           (personalizedSlides.mostReadDay ?? collectiveArticleViewsSlide),
-                           (personalizedSlides.saveCount ?? collectiveSavedArticlesSlide),
-                           (personalizedSlides.editCount ?? collectiveAmountEditsSlide),
-                           (personalizedSlides.viewCount ?? collectiveEditsPerMinuteSlide),
+            finalSlides = [(personalizedSlides.readCount ?? (isEnglish ? englishHoursReadingSlide : collectiveLanguagesSlide)),
+                           (personalizedSlides.mostReadDay ?? (isEnglish ? englishTopReadSlide : collectiveArticleViewsSlide)),
+                           (personalizedSlides.saveCount ?? (isEnglish ? englishReadingListSlide : collectiveSavedArticlesSlide)),
+                           (personalizedSlides.editCount ?? (isEnglish ? englishEditsSlide : collectiveAmountEditsSlide)),
+                           (personalizedSlides.viewCount ?? (isEnglish ? englishEditsBytesSlide : collectiveEditsPerMinuteSlide)),
                            (personalizedSlides.donateCount ?? collectiveZeroAdsSlide)]
         } else {
-            finalSlides = [(collectiveReadingBroughtUsTogetherSlide),
-                           (collectiveArticleViewsSlide),
-                           (collectiveSavedArticlesSlide),
-                           (collectiveAmountEditsSlide),
-                           (collectiveEditsPerMinuteSlide),
+            finalSlides = [(isEnglish ? englishHoursReadingSlide : collectiveLanguagesSlide),
+                           (isEnglish ? englishTopReadSlide : collectiveArticleViewsSlide),
+                           (isEnglish ? englishReadingListSlide : collectiveSavedArticlesSlide),
+                           (isEnglish ? englishEditsSlide : collectiveAmountEditsSlide),
+                           (isEnglish ? englishEditsBytesSlide : collectiveEditsPerMinuteSlide),
                            (personalizedSlides.donateCount ?? collectiveZeroAdsSlide)]
         }
         

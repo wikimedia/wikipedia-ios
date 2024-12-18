@@ -952,7 +952,7 @@
 	<key>year-in-review-personalized-saved-subtitle-format</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>You saved %#@v1@ this year, including "%2$@", "%3$@" and "%4$@". Each saved article reflects your interests and helps build a personalized knowledge base on Wikipedia.</string>
+		<string>You saved %#@v1@ this year, including %2$@, %3$@ and %4$@. Each saved article reflects your interests and helps build a personalized knowledge base on Wikipedia.</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>

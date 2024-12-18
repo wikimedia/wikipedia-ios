@@ -48,21 +48,22 @@ struct WMFFeatureAnnouncementView: View {
                                 .foregroundColor(Color(appEnvironment.theme.text))
                         }
                         
-                        if let gifName = viewModel.gifName {
+                        if let gifName = viewModel.gifName, let altText = viewModel.altText {
                             ZStack {
                                 Image(gifName, bundle: .module)
                                     .resizable()
-                                    .aspectRatio(contentMode: .fit)
+                                    .aspectRatio(1.5, contentMode: .fill)
                                     .frame(maxHeight: 220)
                                     .frame(maxWidth: geometry.size.width - 64)
                                     .cornerRadius(8)
-                                    .clipped()
-                                WMFGIFfImageView(gifName)
+                                WMFGIFImageView(gifName)
                                     .aspectRatio(1.5, contentMode: .fill)
                                     .frame(maxHeight: 220)
                                     .frame(maxWidth: geometry.size.width - 64)
                                     .cornerRadius(8)
                             }
+                            .accessibilityElement(children: .combine)
+                            .accessibilityLabel(altText)
                         } else if let image = viewModel.image {
                             ZStack(alignment: .center) {
                                 if let backgroundImage = viewModel.backgroundImage {
