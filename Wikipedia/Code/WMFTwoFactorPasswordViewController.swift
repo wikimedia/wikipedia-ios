@@ -1,4 +1,5 @@
 import UIKit
+import WMFComponents
 
 fileprivate enum WMFTwoFactorNextFirstResponderDirection: Int {
     case forward = 1
@@ -10,7 +11,7 @@ fileprivate enum WMFTwoFactorTokenDisplayMode {
     case longAlphaNumeric
 }
 
-class WMFTwoFactorPasswordViewController: WMFScrollViewController, UITextFieldDelegate, WMFDeleteBackwardReportingTextFieldDelegate, Themeable {
+class WMFTwoFactorPasswordViewController: WMFScrollViewController, UITextFieldDelegate, WMFDeleteBackwardReportingTextFieldDelegate, Themeable, WMFNavigationBarConfiguring {
     
     @IBOutlet fileprivate var titleLabel: UILabel!
     @IBOutlet fileprivate var subTitleLabel: UILabel!
@@ -130,6 +131,7 @@ class WMFTwoFactorPasswordViewController: WMFScrollViewController, UITextFieldDe
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         enableProgressiveButton(false)
+        configureNavigationBar()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -140,6 +142,14 @@ class WMFTwoFactorPasswordViewController: WMFScrollViewController, UITextFieldDe
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         enableProgressiveButton(false)
+    }
+    
+    private func configureNavigationBar() {
+        let titleConfig = WMFNavigationBarTitleConfig(title: "", customView: nil, alignment: .centerCompact)
+        
+        let closeConfig = WMFNavigationBarCloseButtonConfig(accessibilityLabel: CommonStrings.closeButtonAccessibilityLabel, target: self, action: #selector(closeButtonPushed(_:)), alignment: .leading)
+        
+        configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: closeConfig, profileButtonConfig: nil, searchBarConfig: nil, hideNavigationBarOnScroll: false)
     }
     
     fileprivate func allowedCharacterSet() -> CharacterSet {
@@ -221,9 +231,6 @@ class WMFTwoFactorPasswordViewController: WMFScrollViewController, UITextFieldDe
         } else {
             assertionFailure("Underlying oathTokenFields from storyboard were expected to be of type 'WMFDeleteBackwardReportingTextField'.")
         }
-        
-        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named:"close"), style: .plain, target:self, action:#selector(closeButtonPushed(_:)))
-        navigationItem.leftBarButtonItem?.accessibilityLabel = CommonStrings.closeButtonAccessibilityLabel
 
         loginButton.setTitle(WMFLocalizedString("two-factor-login-continue", value:"Continue log in", comment:"Button text for finishing two factor login"), for: .normal)
         titleLabel.text = WMFLocalizedString("two-factor-login-title", value:"Log in to your account", comment:"Title for two factor login interface")
@@ -309,7 +316,7 @@ class WMFTwoFactorPasswordViewController: WMFScrollViewController, UITextFieldDe
         changePasswordVC.apply(theme: theme)
         dismiss(animated: true, completion: {
             changePasswordVC.userName = self.userName
-            let navigationController = WMFThemeableNavigationController(rootViewController: changePasswordVC, theme: self.theme)
+            let navigationController = WMFComponentNavigationController(rootViewController: changePasswordVC, modalPresentationStyle: .fullScreen)
             presenter.present(navigationController, animated: true, completion: nil)
         })
     }

@@ -169,6 +169,7 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
             assertionFailure("One or more of the required parameters are nil")
             return
         }
+        
         dataStore.authenticationManager.login(username: username, password: password, retypePassword: nil, oathToken: nil, captchaID: captchaViewController?.captcha?.captchaID, captchaWord: captchaViewController?.solution) { (loginResult) in
             switch loginResult {
             case .success:
@@ -222,10 +223,13 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
             return
         }
         dismiss(animated: true, completion: {
-            let changePasswordVC = WMFChangePasswordViewController.wmf_initialViewControllerFromClassStoryboard()
-            changePasswordVC?.userName = self.usernameField!.text
-            changePasswordVC?.apply(theme: self.theme)
-            let navigationController = WMFThemeableNavigationController(rootViewController: changePasswordVC!, theme: self.theme, style: .sheet)
+            guard let changePasswordVC = WMFChangePasswordViewController.wmf_initialViewControllerFromClassStoryboard() else {
+                return
+            }
+            
+            changePasswordVC.userName = self.usernameField!.text
+            changePasswordVC.apply(theme: self.theme)
+            let navigationController = WMFComponentNavigationController(rootViewController: changePasswordVC, modalPresentationStyle: .fullScreen)
             presenter.present(navigationController, animated: true, completion: nil)
         })
     }
@@ -244,7 +248,7 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
             twoFactorViewController.captchaID = self.captchaViewController?.captcha?.captchaID
             twoFactorViewController.captchaWord = self.captchaViewController?.solution
             twoFactorViewController.apply(theme: self.theme)
-            let navigationController = WMFThemeableNavigationController(rootViewController: twoFactorViewController, theme: self.theme, style: .sheet)
+            let navigationController = WMFComponentNavigationController(rootViewController: twoFactorViewController, modalPresentationStyle: .fullScreen)
             presenter.present(navigationController, animated: true, completion: nil)
         })
     }
@@ -259,7 +263,7 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
             return
         }
         dismiss(animated: true, completion: {
-            let navigationController = WMFThemeableNavigationController(rootViewController: forgotPasswordVC, theme: self.theme, style: .sheet)
+            let navigationController = WMFComponentNavigationController(rootViewController: forgotPasswordVC, modalPresentationStyle: .fullScreen)
             forgotPasswordVC.apply(theme: self.theme)
             presenter.present(navigationController, animated: true, completion: nil)
         })
