@@ -869,22 +869,6 @@
 			<string>את %1$d המסננים</string>
 		</dict>
 	</dict>
-	<key>year-in-review-personalized-edit-views-title-format</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>העריכות שלך נצפו יותר %#@v1@ לאחרונה</string>
-		<key>v1</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>@</string>
-			<key>one</key>
-			<string>מפעם אחת</string>
-			<key>other</key>
-			<string>מ־%1$@ פעמים</string>
-		</dict>
-	</dict>
 	<key>year-in-review-personalized-editing-subtitle-format</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>

@@ -1466,7 +1466,7 @@
 // Fuzzy
 "year-in-review-personalized-donate-title" = "תודה רבה על התרומה שלך!";
 "year-in-review-personalized-edit-views-subtitle-format" = "קוראים ברחבי העולם מעריכים את התרומות שלך. במהלך החודשיים האחרונים, ערכים שערכת קיבלו $1 צפיות בסך הכול. הודות לעורכים כמוך, ויקיפדיה היא משאב ידע המשתפר בהתמדה, מבוסס עובדות ואמין עבור העולם";
-"year-in-review-personalized-edit-views-title-format" = "העריכות שלך נצפו יותר {{PLURAL:$1|מפעם אחת|מפעמיים|מ־$1 פעמים}} לאחרונה";
+"year-in-review-personalized-edit-views-title-format" = "העריכות שלך נצפו יותר מ־$1 פעמים לאחרונה";
 "year-in-review-personalized-editing-subtitle-format" = "ערכת את ויקיפדיה {{PLURAL:$1|פעם אחת|פעמיים|$1 פעמים}}. תודה שהיית אחד מהעורכים המתנדבים שעושים את ההבדל במיזמים של ויקימדיה ברחבי העולם.";
 "year-in-review-personalized-editing-subtitle-format-500plus" = "ערכת את ויקיפדיה יותר מ־500 פעמים. תודה שהיית אחד מהעורכים המתנדבים שעושים את ההבדל במיזמים של ויקימדיה ברחבי העולם.";
 "year-in-review-personalized-editing-title-format" = "ערכת את ויקיפדיה {{PLURAL:$1|פעם אחת|פעמיים|$1 פעמים}}";

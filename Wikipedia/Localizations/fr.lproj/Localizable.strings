@@ -1460,8 +1460,8 @@
 // Fuzzy
 "year-in-review-base-reading-title" = "La lecture nous a réunis";
 // Fuzzy
-"year-in-review-base-saved-subtitle" = "Les utilisateurs iOS actifs ont utilisés plus de $1 million{{PLURAL:$1||s}} de listes de lecture cette année. L'ajout d'articles à des listes de lecture vous permet d'accéder aux articles même hors ligne. Vous pouvez également vous connecter pour synchroniser vos listes de lecture sur plusieurs appareils.";
-"year-in-review-base-saved-title" = "Il a été utilisé plus de $1 million{{PLURAL:$1||s}} de listes de lecture";
+"year-in-review-base-saved-subtitle" = "Les utilisateurs iOS actifs ont utilisés plus de $1 million de listes de lecture cette année. L'ajout d'articles à des listes de lecture vous permet d'accéder aux articles même hors ligne. Vous pouvez également vous connecter pour synchroniser vos listes de lecture sur plusieurs appareils.";
+"year-in-review-base-saved-title" = "Il a été utilisé plus de $1 million de listes de lecture";
 "year-in-review-base-viewed-subtitle" = "Les utilisateurs de l'application iOS ont consulté des articles de Wikipédia $1 milliard de fois. Pour les gens du monde entier, Wikipédia est la première étape pour répondre à une question, rechercher des informations pour l'école ou le travail, ou apprendre un fait nouveau.";
 "year-in-review-base-viewed-title" = "Nous avons consulté des articles de Wikipédia $1 milliard de fois";
 "year-in-review-button-title" = "Bilan de l'Année";
