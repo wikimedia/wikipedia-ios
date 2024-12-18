@@ -1,7 +1,7 @@
 import Foundation
 import UIKit
 
-public final class WMFDonateViewController: WMFCanvasViewController {
+public final class WMFDonateViewController: WMFCanvasViewController, WMFNavigationBarConfiguring {
     
     // MARK: - Properties
 
@@ -26,21 +26,23 @@ public final class WMFDonateViewController: WMFCanvasViewController {
         self.title = viewModel.localizedStrings.title
         addComponent(hostingViewController, pinToEdges: true)
         
+        configureNavigationBar()
+    }
+    
+    private func configureNavigationBar() {
+        
+        let titleConfig = WMFNavigationBarTitleConfig(title: viewModel.localizedStrings.title, customView: nil, alignment: .centerCompact)
+        var closeConfig: WMFNavigationBarCloseButtonConfig? = nil
+        
         if navigationController?.viewControllers.first === self {
-            let image = WMFSFSymbolIcon.for(symbol: .close)
-            let closeButton = UIBarButtonItem(image: image, style: .plain, target: self, action: #selector(closeButtonTapped(_:)))
-            navigationItem.leftBarButtonItem = closeButton
+            closeConfig = WMFNavigationBarCloseButtonConfig(accessibilityLabel: "", target: self, action: #selector(closeButtonTapped(_:)), alignment: .trailing)
         }
+        
+        configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: closeConfig, profileButtonConfig: nil, searchBarConfig: nil, hideNavigationBarOnScroll: false)
     }
     
     @objc func closeButtonTapped(_ sender: UIButton) {
         dismiss(animated: true)
-    }
-    
-    public override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        navigationController?.setNavigationBarHidden(false, animated: false)
     }
     
     public override func viewDidAppear(_ animated: Bool) {

@@ -379,8 +379,7 @@ class DonateCoordinator: Coordinator {
                 return
             }
             
-            let newNavigationController = WMFThemeableNavigationController(rootViewController: donateViewController, theme: theme)
-            newNavigationController.modalPresentationStyle = .pageSheet
+            let newNavigationController = WMFComponentNavigationController(rootViewController: donateViewController, modalPresentationStyle: .pageSheet)
             presentedViewController.present(newNavigationController, animated: true)
         }
         

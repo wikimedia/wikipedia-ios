@@ -182,13 +182,16 @@ class SinglePageWebViewController: ThemeableViewController, WMFNavigationBarConf
     private func configureNavigationBar() {
         
         var closeConfig: WMFNavigationBarCloseButtonConfig? = nil
-        if navigationController?.viewControllers.first === self {
-            closeConfig = WMFNavigationBarCloseButtonConfig(accessibilityLabel: CommonStrings.closeButtonAccessibilityLabel, target: self, action: #selector(closeButtonTapped(_:)), alignment: .leading)
-        }
         
         if useSimpleNavigationBar {
             let titleConfig = WMFNavigationBarTitleConfig(title: "", customView: nil, alignment: .centerCompact)
+            
+            if navigationController?.viewControllers.first === self {
+                closeConfig = WMFNavigationBarCloseButtonConfig(accessibilityLabel: CommonStrings.closeButtonAccessibilityLabel, target: self, action: #selector(closeButtonTapped(_:)), alignment: .trailing)
+            }
+            
             configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: closeConfig, profileButtonConfig: nil, searchBarConfig: nil, hideNavigationBarOnScroll: false)
+
         } else {
             let wButton = UIButton(type: .custom)
             wButton.setImage(UIImage(named: "W"), for: .normal)
