@@ -76,8 +76,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         }
     }
     
-    var topReadBlogPost: URL? {
-        URL(string: "https://wikimediafoundation.org/news/2024/12/03/announcing-english-wikipedias-most-popular-articles-of-2024/")
+    var topReadBlogPost: String { "https://wikimediafoundation.org/news/2024/12/03/announcing-english-wikipedias-most-popular-articles-of-2024/"
     }
     
     private var localizedStrings: WMFYearInReviewViewModel.LocalizedStrings {
