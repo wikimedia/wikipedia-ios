@@ -340,7 +340,7 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
             }
 
             loginVC.apply(theme: theme)
-            present(WMFThemeableNavigationController(rootViewController: loginVC, theme: theme), animated: true)
+            present(WMFComponentNavigationController(rootViewController: loginVC, modalPresentationStyle: .fullScreen), animated: true)
         }
     }
     
