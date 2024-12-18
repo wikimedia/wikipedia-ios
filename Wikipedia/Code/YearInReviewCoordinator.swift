@@ -76,6 +76,10 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         }
     }
     
+    var topReadBlogPost: URL? {
+        URL(string: "https://wikimediafoundation.org/news/2024/12/03/announcing-english-wikipedias-most-popular-articles-of-2024/")
+    }
+    
     private var localizedStrings: WMFYearInReviewViewModel.LocalizedStrings {
         return WMFYearInReviewViewModel.LocalizedStrings.init(
             donateButtonTitle: CommonStrings.donateTitle,
@@ -270,7 +274,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
             comment: "Top read slide subtitle for English Year in Review. %1$@ is replaced with an HTML ordered list of articles. %2$@ is replaced with the opening HTML anchor tag containing a link. %3$@ is replaced with the closing anchor tag.%3$@"
         )
         let list = "<ol><li>Deaths in 2024</li><li>Kamala Harris</li><li>2024 United States presidential election</li><li>Lyle and Erik Menendez</li><li>Donald Trump</li></ol>"
-        let linkOpening = "<a href=\"\(aboutWikimediaURL)\">"
+        let linkOpening = "<a href=\"\(topReadBlogPost)\">"
         let linkClosing = "</a>"
         return String.localizedStringWithFormat(format, list, linkOpening, linkClosing)
     }
