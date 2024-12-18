@@ -120,7 +120,7 @@ class HistoryViewController: ArticleFetchedResultsViewController, WMFNavigationB
             }
         }
 
-        configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: nil, profileButtonConfig: nil, searchBarConfig: nil, hideNavigationBarOnScroll: true)
+        configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: nil, profileButtonConfig: nil, searchBarConfig: nil, hideNavigationBarOnScroll: false)
     }
 
     func titleForHeaderInSection(_ section: Int) -> String? {
