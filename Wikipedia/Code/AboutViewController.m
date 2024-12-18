@@ -225,7 +225,7 @@ static NSString *const kWMFContributorsKey = @"contributors";
     WMFDeveloperSettingsViewModel *viewModel = [[WMFDeveloperSettingsViewModel alloc] initWithLocalizedStrings:localizedStrings];
     
     WMFDeveloperSettingsViewController *viewController = [[WMFDeveloperSettingsViewController alloc] initWithViewModel:viewModel];
-    WMFThemeableNavigationController *navVC = [[WMFThemeableNavigationController alloc] initWithRootViewController: viewController theme: self.theme];
+    WMFComponentNavigationController *navVC = [[WMFComponentNavigationController alloc] initWithRootViewController:viewController modalPresentationStyle:UIModalPresentationFullScreen];
     [self presentViewController:navVC animated:YES completion:nil];
 }
 
@@ -333,7 +333,7 @@ static NSString *const kWMFContributorsKey = @"contributors";
         [vc applyTheme:self.theme];
         vc.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:self.navigationItem.backBarButtonItem.style target:nil action:nil];
 
-        WMFThemeableNavigationController *nc = [[WMFThemeableNavigationController alloc] initWithRootViewController:vc theme:self.theme];
+        WMFComponentNavigationController *nc = [[WMFComponentNavigationController alloc] initWithRootViewController:vc modalPresentationStyle:UIModalPresentationFullScreen];
         [self presentViewController:nc animated:YES completion:nil];
 
         decisionHandler(WKNavigationActionPolicyCancel);
