@@ -349,7 +349,7 @@ class TalkPageViewController: ThemeableViewController {
             if let themeableVC = languageVC as Themeable? {
                 themeableVC.apply(theme: self.theme)
             }
-            present(WMFThemeableNavigationController(rootViewController: languageVC, theme: self.theme), animated: true, completion: nil)
+            present(WMFComponentNavigationController(rootViewController: languageVC, modalPresentationStyle: .fullScreen), animated: true, completion: nil)
         } else if viewModel.pageType == .article {
             guard let languageCode  = viewModel.siteURL.wmf_languageCode else {
                 return
@@ -506,8 +506,7 @@ class TalkPageViewController: ThemeableViewController {
 
         let editorViewController = EditorViewController(pageURL: pageURL, sectionID: nil, editFlow: .editorSavePreview, source: .talk, dataStore: dataStore, articleSelectedInfo: nil, editTag: .appTalkSource, delegate: self, theme: theme)
         
-        let navigationController = WMFThemeableNavigationController(rootViewController: editorViewController, theme: theme)
-        navigationController.modalPresentationStyle = UIModalPresentationStyle.overFullScreen
+        let navigationController = WMFComponentNavigationController(rootViewController: editorViewController, modalPresentationStyle: .fullScreen)
         present(navigationController, animated: true)
         
         guard let url = viewModel.siteURL.wmf_URL(withTitle: viewModel.pageTitle) else {

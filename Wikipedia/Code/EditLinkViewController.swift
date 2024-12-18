@@ -31,8 +31,6 @@ class EditLinkViewController: ThemeableViewController, WMFNavigationBarConfiguri
     @IBOutlet private weak var removeLinkButton: AutoLayoutSafeMultiLineButton!
     @IBOutlet private var separatorViews: [UIView] = []
 
-    private lazy var doneButton = UIBarButtonItem(title: CommonStrings.doneTitle, style: .done, target: self, action: #selector(finishEditing(_:)))
-
     init?(link: Link, siteURL: URL?, dataStore: MWKDataStore) {
         guard
             let siteURL = siteURL ?? MWKDataStore.shared().primarySiteURL ?? NSURL.wmf_URLWithDefaultSiteAndCurrentLocale(),
@@ -81,11 +79,9 @@ class EditLinkViewController: ThemeableViewController, WMFNavigationBarConfiguri
     private func configureNavigationBar() {
         
         let titleConfig = WMFNavigationBarTitleConfig(title: CommonStrings.editLinkTitle, customView: nil, alignment: .centerCompact)
-        let closeButtonConfig = WMFNavigationBarCloseButtonConfig(accessibilityLabel: CommonStrings.closeButtonAccessibilityLabel, target: self, action: #selector(close(_:)), alignment: .leading)
+        let closeButtonConfig = WMFNavigationBarCloseButtonConfig(accessibilityLabel: CommonStrings.closeButtonAccessibilityLabel, target: self, action: #selector(close(_:)), alignment: .trailing)
         
         configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: closeButtonConfig, profileButtonConfig: nil, searchBarConfig: nil, hideNavigationBarOnScroll: false)
-        
-        navigationItem.rightBarButtonItem = doneButton
     }
 
     private func fetchArticle() {
@@ -186,7 +182,6 @@ class EditLinkViewController: ThemeableViewController, WMFNavigationBarConfiguri
         linkTargetLabel.textColor = theme.colors.secondaryText
         removeLinkButton.tintColor = theme.colors.destructive
         removeLinkButton.backgroundColor = theme.colors.paperBackground
-        doneButton.tintColor = theme.colors.link
         displayTextView.textColor = theme.colors.primaryText
         activityIndicatorView.color = theme.isDark ? .white : .gray
         

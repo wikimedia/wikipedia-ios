@@ -32,7 +32,7 @@ final class SettingsCoordinator: Coordinator {
         }
         
         let settingsViewController = WMFSettingsViewController(dataStore: dataStore, theme: theme)
-        let navVC = WMFComponentNavigationController(rootViewController: settingsViewController, modalPresentationStyle: .overFullScreen)
+        let navVC = WMFComponentNavigationController(rootViewController: settingsViewController, modalPresentationStyle: .fullScreen)
         navigationController.present(navVC, animated: true)
     }
 }
