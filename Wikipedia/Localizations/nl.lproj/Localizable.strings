@@ -1010,6 +1010,8 @@
 "profile-page-join-title" = "Bij Wikipedia inschrijven / Aanmelden";
 "profile-page-logged-out-year-in-review-subtext" = "Meld u aan of maak een account aan om volgend jaar een verbeterd jaaroverzicht te krijgen";
 "profile-page-title-logged-out" = "Account";
+"profile-year-in-review-login-subtitle" = "Meld u aan of maak een account aan om het jaaroverzicht opnieuw te bekijken en in aanmerking te komen voor meer op maat gemaakte inzichten.";
+"profile-year-in-review-login-title" = "Meld u aan voor toegang tot het jaaroverzicht";
 "project-name-mediawiki" = "MediaWiki";
 "project-name-wikibooks" = "Wikibooks";
 "project-name-wikidata" = "Wikidata";
@@ -1439,15 +1441,20 @@
 "wikitext-upload-save-sign-in" = "Aanmelden";
 "wikitext-upload-save-terms-and-licenses-ccsa4" = "Door wijzigingen te publiceren, ga je akkoord met de $1Gebruiksvoorwaarden$2 en stem je er onherroepelijk mee in je bijdrage vrij te geven onder de $3CC BY-SA 4.0-licentie$4 en de$5 GFDL-licentie$6. Je gaat ermee akkoord dat een hyperlink of URL voldoende toeschrijving is onder de Creative Commons-licentie.";
 "wikitext-upload-save-terms-name" = "Gebruiksvoorwaarden";
+// Fuzzy
 "year-in-review-base-donate-subtitle" = "Wikipedia is ondergebracht bij de Wikimedia Foundation en wordt gefinancierd door individuele donaties. We werken eraan om Wikimedia-sites voor iedereen beschikbaar te houden, functies en hulpmiddelen te bouwen om het delen van kennis eenvoudig te maken, vrijwillige redacteuren te ondersteunen, en nog veel meer. [Lees meer over ons werk]($1).";
 "year-in-review-base-donate-title" = "0 advertenties weergegeven op Wikipedia";
 "year-in-review-base-editors-subtitle" = "De gemeenschap van vrijwillige redacteuren van Wikipedia heeft dit jaar tot nu toe meer dan $1 bewerkingen gedaan op de iOS-app. Het hart en de ziel van Wikipedia is onze wereldwijde gemeenschap van vrijwillige bijdragers, donateurs en miljarden lezers zoals u, allen verenigd in het ideaal van onbeperkte toegang tot betrouwbare informatie.";
 "year-in-review-base-editors-title" = "Redacteuren op de iOS-app hebben meer dan $1 bewerkingen uitgevoerd";
-// Fuzzy
-"year-in-review-base-edits-subtitle" = "Dit jaar werd Wikipedia gemiddeld $1 keer per minuut bewerkt. Artikelen worden gezamenlijk gemaakt en verbeterd met behulp van betrouwbare bronnen. We hebben allemaal kennis om te delen. [Hier leest u hoe u kunt deelnemen.]($2)";
+"year-in-review-base-edits-subtitle" = "Dit jaar werd Wikipedia gemiddeld $1 keer per minuut bewerkt. Artikelen worden gezamenlijk en op basis van betrouwbare bronnen gemaakt en verbeterd. We hebben allemaal kennis om te delen. [Hier leest u hoe u kunt deelnemen]($2).";
 "year-in-review-base-edits-title" = "Wikipedia werd $1 keer per minuut bewerkt";
+// Fuzzy
 "year-in-review-base-reading-subtitle" = "Wikipedia had dit jaar $1 miljoen artikelen in meer dan $2 actieve talen. U hebt zich aangesloten bij miljoenen anderen die hun kennis hebben uitgebreid en diverse onderwerpen hebben verkend.";
+// Fuzzy
 "year-in-review-base-reading-title" = "Lezen bracht ons samen";
+// Fuzzy
+"year-in-review-base-saved-subtitle" = "Actieve iOS-gebruikers hadden dit jaar meer dan $1 miljoen leeslijsten. Door artikelen aan leeslijsten toe te voegen kunt u ze ook als u offline bent nog openen. Daarnaast kunt u, als u zich aanmeldt, uw leeslijsten tussen al uw apparaten laten synchroniseren.";
+"year-in-review-base-saved-title" = "We hadden meer dan $1 miljoen leeslijsten";
 "year-in-review-base-viewed-subtitle" = "iOS-appgebruikers hebben Wikipedia-artikelen $1 miljard keer bekeken. Voor mensen over de hele wereld is Wikipedia de eerste halte bij het beantwoorden van een vraag, het opzoeken van informatie voor school of werk, of het leren van een nieuw feit.";
 "year-in-review-base-viewed-title" = "We hebben Wikipedia-artikelen $1 miljard keer bekeken";
 "year-in-review-button-title" = "Jaaroverzicht";
@@ -1460,24 +1467,30 @@
 "year-in-review-day-wednesday" = "woensdag";
 "year-in-review-donate" = "Doneren";
 "year-in-review-donate-now" = "Nu doneren";
+// Fuzzy
 "year-in-review-feature-announcement-body" = "Bekijk inzichten over de artikelen die u leest in de Wikipedia-app, deel uw reis en ontdek hoogtepunten uit uw jaar.";
+// Fuzzy
 "year-in-review-feature-announcement-title" = "Verken uw Wikipedia-jaaroverzicht";
+"year-in-review-feature-explore-body-personalized" = "Bekijk inzichten over welke artikelen u in de Wikipedia-app leest en welke bewerkingen u hebt gemaakt. Uw leesgeschiedenis blijft beschermd. Leesinzichten worden berekend met behulp van lokaal op uw apparaat opgeslagen gegevens.";
 "year-in-review-finish" = "Voltooien";
 "year-in-review-login-subtitle" = "Meld u aan of maak een account aan om in aanmerking te komen voor meer gepersonaliseerde inzichten";
 "year-in-review-login-title" = "Verbeter uw jaaroverzicht";
 "year-in-review-personalized-day-subtitle-format" = "Op $1 leest u doorgaans de meeste artikelen. Het is dus duidelijk dat $1 uw beste weekdag is om nieuwe inhoud te verkennen. Fijn dat u het meeste uit uw leestijd haalt!";
 "year-in-review-personalized-day-title-format" = "U leest op $1 het meeste.";
+// Fuzzy
 "year-in-review-personalized-donate-subtitle" = "Bedankt voor uw steun aan Wikipedia voor een wereld waarin kennis voor iedereen vrij beschikbaar is. Elke bewerking en donatie helpt de toegang van mensen tot nauwkeurige en betrouwbare informatie te verbeteren, zeker in deze snel veranderende wereld. [Lees meer over ons werk]($1).";
+// Fuzzy
 "year-in-review-personalized-donate-title" = "Bedankt voor uw bijdrage!";
 "year-in-review-personalized-editing-subtitle-format" = "U hebt Wikipedia $1 keer bewerkt. Bedankt dat u een van de vrijwillige redacteuren bent die het verschil maakt in Wikimedia-projecten over de hele wereld.{{PLURAL:$1|}}";
 "year-in-review-personalized-editing-subtitle-format-500plus" = "U hebt Wikipedia meer dan 500 keer bewerkt. Bedankt dat u een van de vrijwillige redacteuren bent die het verschil maakt in Wikimedia-projecten over de hele wereld.";
 "year-in-review-personalized-editing-title-format" = "U hebt Wikipedia $1 keer bewerkt{{PLURAL:$1|}}";
 "year-in-review-personalized-editing-title-format-500plus" = "U hebt Wikipedia meer dan 500 keer bewerkt";
 // Fuzzy
-"year-in-review-personalized-reading-subtitle-format" = "Je hebt dit jaar $1 artikel{{PLURAL:$1||en}} gelezen. Dit jaar had Wikipedia $2 miljoen artikelen beschikbaar in meer dan $3 actieve talen. U hebt zich aangesloten bij miljoenen anderen die hun kennis hebben uitgebreid en diverse onderwerpen hebben verkend.";
+"year-in-review-personalized-reading-subtitle-format" = "Dit jaar hebt u $1 artikel{{PLURAL:$1||en}} gelezen en bood Wikipedia $2 miljoen artikelen in meer dan $3 actieve talen. Samen met miljoenen anderen hebt u uw kennis uitgebreid en diverse onderwerpen verkend.";
 "year-in-review-personalized-reading-title-format" = "U hebt dit jaar $1 artikel{{PLURAL:$1||en}} gelezen";
+"year-in-review-personalized-saved-subtitle-format" = "U hebt dit jaar $1 artikel{{PLURAL:$1||en}} opgeslagen, waaronder “$2”, “$3” en “$4”. Elk opgeslagen artikel weerspiegelt uw interesses en helpt bij het opbouwen van een gepersonaliseerde kennisbank op Wikipedia.";
+"year-in-review-personalized-saved-title-format" = "U hebt $1 artikel{{PLURAL:$1||en}} opgeslagen";
 "year-in-review-share-text" = "Hier is mijn Wikipedia-jaaroverzicht. Gemaakt met de iOS-app van Wikipedia";
-"year-in-review-subtitle" = "Bekijk inzichten over welke artikelen u in de Wikipedia-app leest en welke bewerkingen u hebt gemaakt. Uw leesgeschiedenis blijft beschermd. Leesinzichten worden berekend met behulp van lokaal op uw apparaat opgeslagen gegevens.";
 "year-in-review-survey-additional-thoughts" = "Hebt u nog aanvullende gedachten?";
 "year-in-review-survey-neutral" = "Neutraal";
 "year-in-review-survey-satisfied" = "Tevreden";
@@ -1486,3 +1499,6 @@
 "year-in-review-survey-unsatisfied" = "Niet tevreden";
 "year-in-review-survey-very-satisfied" = "Erg tevreden";
 "year-in-review-survey-very-unsatisfied" = "Erg ontevreden";
+"year-in-review-wikipedia-globe-accessibility-label" = "Wereldbol-logo van Wikipedia";
+"year-in-review-wikipedia-w-accessibility-label" = "W-logo van Wikipedia";
+"year-in-review-wmf-logo-accessibility-label" = "Logo van de Wikimedia Foundation";

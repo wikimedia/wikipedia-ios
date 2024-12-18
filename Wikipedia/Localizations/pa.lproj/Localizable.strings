@@ -131,6 +131,8 @@
 "alt-text-experiment-caption-title" = "ਚਿੱਤਰ ਦੀ ਸੁਰਖੀ";
 "alt-text-experiment-character-counter-warning" = "ਬਦਲਵੀਂ ਲਿਖਤ ਨੂੰ ਛੋਟਾ ਰੱਖਣ ਦੀ ਕੋਸ਼ਿਸ਼ ਕਰੋ ਤਾਂ ਜੋ ਵਰਤੋਂਕਾਰ ਚਿੱਤਰ ਦੀ ਸਮੱਗਰੀ ਨੂੰ ਅਸਾਨੀ ਨਾਲ ਸਮਝ ਸਕਣ।";
 "alt-text-experiment-edit-summary" = "ਬਦਲਵੀਂ ਲਿਖਤ ਜੋਡ਼ੀ ਗਈ";
+"alt-text-experiment-guidance-button" = "ਬਦਲਵੀਂ ਲਿਖਤ ਲਿਖਣ ਲਈ ਦਸਤੀ";
+"alt-text-experiment-onboarding-item-1-subtitle" = "ਸਾਦੇ ਪਾਠ ਦੀਆਂ 1-2 ਲਕੀਰਾਂ ਬਿਨਾਂ ਕਿਸੇ ਸੰਖੇਪ, ਸ਼ਬਦਾ ਦੇ ਪਹਿਲੇ ਅੱਖਰਾ ਤੋਂ ਜੁੜੇ ਸ਼ਬਦ ਜਾਂ ਬੇਤੁਕੀ ਸ਼ਬਦਾਵਲੀ ਦੇ।";
 "alt-text-experiment-onboarding-item-1-title" = "ਇਸਨੂੰ ਛੋਟਾ ਅਤੇ ਸਪਸ਼ਟ ਰੱਖੋ";
 "alt-text-experiment-onboarding-item-2-subtitle" = "ਆਪਣੀ ਖੁਦ ਦੀ ਖੋਜ, ਵਿਆਖਿਆ ਜਾਂ ਦ੍ਰਿਸ਼ਟੀਕੋਣ ਨਾ ਜੋਡ਼ੋ।";
 "alt-text-experiment-onboarding-item-2-title" = "ਜੋ ਦੇਖਿਆ ਜਾ ਸਕਦਾ ਹੈ ਉਸ ਦਾ ਵਰਣਨ ਕਰੋ";
@@ -462,7 +464,7 @@
 "image-rec-tooltip-1-title" = "ਪਰਖੋ";
 "image-rec-tooltip-2-body" = "ਤਸਵੀਰ ਅਤੇ ਇਸ ਨਾਲ ਜੁਡ਼ੀ ਜਾਣਕਾਰੀ ਦੀ ਜਾਂਚ ਕਰੋ";
 "image-rec-tooltip-2-title" = "ਨਿਰੀਖਣ ਕਰੋ";
-"image-rec-tooltip-3-body" = "ਫੈਸਲਾ ਕਰੋ ਕਿ ਕੀ ਤਸਵੀਰ ਪਾਠਕਾਂ ਨੂੰ ਇਸ ਵਿਸ਼ੇ ਨੂੰ ਬਿਹਤਰ ਢੰਗ ਨਾਲ ਸਮਝਣ ਵਿੱਚ ਮਦਦ ਕਰਦੀ ਹੈ";
+"image-rec-tooltip-3-body" = "ਫੈਸਲਾ ਕਰੋ ਕੀ ਤਸਵੀਰ ਪਾਠਕਾਂ ਨੂੰ ਇਸ ਵਿਸ਼ੇ ਨੂੰ ਬਿਹਤਰ ਢੰਗ ਨਾਲ ਸਮਝਣ ਵਿੱਚ ਮਦਦ ਕਰਦੀ ਹੈ";
 "image-rec-tooltip-3-title" = "ਫ਼ੈਸਲਾ ਕਰੋ";
 "image-rec-view-article" = "ਲੇਖ ਵੇਖੋ";
 "image-recs-no-title" = "ਨਹੀਂ";
@@ -676,7 +678,7 @@
 "reading-list-login-or-create-account-title" = "ਸੰਭਾਲੇ ਲੇਖਾਂ ਨੂੰ ਸਮਕਾਲੀ ਕਰਨ ਲਈ ਦਾਖ਼ਲ ਹੋਵੋ";
 "reading-list-login-title" = "ਆਪਣੇ ਸੰਭਾਲੇ ਲੇਖਾਂ ਨੂੰ ਸਮਕਾਲੀ ਕਰੋ?";
 "reading-list-name-user-created-annotation" = "_ [ਵਰਤੋਂਕਾਰ ਬਣਾਇਆ ਗਿਆ]";
-"reading-list-new-list-description-placeholder" = "ਇਖਤਿਆਰੀ ਛੋਟਾ ਵੇਰਵਾ";
+"reading-list-new-list-description-placeholder" = "ਚੋਣਵਾਂ ਛੋਟਾ ਵੇਰਵਾ";
 "reading-list-new-list-name-placeholder" = "ਪੜ੍ਹਨ ਦੀ ਸੂਚੀ ਦਾ ਸਿਰਲੇਖ";
 "reading-list-sync-disabled-panel-title" = "ਸਮਕਾਲੀਕਰਨ ਅਯੋਗ ਹੈ";
 "reading-list-sync-enable-button-title" = "ਸਮਕਾਲੀਕਰਨ ਚਾਲੂ ਕਰੋ";
@@ -741,7 +743,7 @@
 "search-recent-clear-delete-all" = "ਸਾਰੇ ਮਿਟਾਓ";
 "search-recent-empty" = "ਹਾਲੇ ਤੱਕ ਕੋਈ ਤਾਜ਼ਾ ਖੋਜ ਨਹੀਂ";
 "search-recent-title" = "ਹਾਲੀਆ ਖੋਜ਼ਾਂ";
-"search-result-redirected-from" = "$1 ਤੋਂ ਰੀਡਿਰੈਕਟ";
+"search-result-redirected-from" = "ਤੋਂ ਮੋੜਿਆ ਗਿਆ: $1";
 "search-title" = "ਖੋਜ";
 "settings-account" = "ਖਾਤਾ";
 "settings-appearance" = "ਪੜ੍ਹਨ ਦੀਆਂ ਤਰਜੀਹਾਂ";
@@ -965,6 +967,7 @@
 "year-in-review-base-donate-title" = "ਵਿਕੀਪੀਡੀਆ 'ਤੇ 0 ਮਸ਼ਹੂਰੀਆ ਦਿੱਤੀ ਗਇਆਂ";
 "year-in-review-base-editors-title" = "iOS ਐਪ ਦੇ ਸੋਧਕਾਂ ਨੇ $1 ਤੋਂ ਵੱਧ ਸੋਧ ਕੀਤੇ ਹਨ";
 "year-in-review-base-edits-title" = "ਵਿਕੀਪੀਡੀਆ ਨੂੰ $1 ਵਾਰ ਪ੍ਰਤੀ ਮਿੰਟ ਸੋਧਿਆ ਗਿਆ ਸੀ";
+// Fuzzy
 "year-in-review-base-reading-title" = "ਪੜ੍ਹਨਾ ਸਾਨੂੰ ਇਕੱਠੇ ਲੈ ਆਇਆ";
 "year-in-review-base-viewed-title" = "ਅਸੀਂ ਵਿਕੀਪੀਡੀਆ ਲੇਖ $1 ਅਰਬ ਵਾਰ ਦੇਖੇ ਹਨ।";
 "year-in-review-button-title" = "ਸਮੀਖਿਆ ਵਿੱਚ ਸਾਲ";
@@ -977,14 +980,20 @@
 "year-in-review-day-wednesday" = "ਬੁੱਧਵਾਰ";
 "year-in-review-donate" = "ਦਾਨ ਕਰੋ";
 "year-in-review-donate-now" = "ਹੁਣ ਦਾਨ ਕਰੋ";
+// Fuzzy
 "year-in-review-feature-announcement-body" = "ਵਿਕੀਪੀਡੀਆ ਐਪ ਉੱਤੇ ਤੁਹਾਡੇ ਵੱਲੋਂ ਪਡ਼੍ਹੇ ਗਏ ਲੇਖਾਂ ਬਾਰੇ ਅੰਤਰਦ੍ਰਿਸ਼ਟੀ ਵੇਖੋ, ਆਪਣੀ ਯਾਤਰਾ ਸਾਂਝੀ ਕਰੋ ਅਤੇ ਆਪਣੇ ਸਾਲ ਦੀਆਂ ਮੁੱਖ ਗੱਲਾਂ ਲੱਭੋ।";
+// Fuzzy
 "year-in-review-feature-announcement-title" = "ਸਮੀਖਿਆ ਵਿੱਚ ਆਪਣੇ ਵਿਕੀਪੀਡੀਆ ਸਾਲ ਦੀ ਪਡ਼ਚੋਲ ਕਰੋ";
+"year-in-review-feature-explore-body-personalized" = "ਵਿਕੀਪੀਡੀਆ ਐਪ 'ਤੇ ਤੁਸੀਂ ਕਿਹੜੇ ਲੇਖ ਪੜ੍ਹਦੇ ਹੋ ਅਤੇ ਤੁਹਾਡੇ ਵੱਲੋ ਕੀਤੇ ਗਏ ਸੋਧਾ ਬਾਰੇ ਜਾਣਕਾਰੀ ਵੇਖੋ। ਤੁਹਾਡਾ ਪੜ੍ਹਨ ਦਾ ਇਤਿਹਾਸ ਸੁਰੱਖਿਅਤ ਰੱਖਿਆ ਗਿਆ ਹੈ। ਪੜ੍ਹਨ ਦੀ ਜਾਣਕਾਰੀ ਦੀ ਗਣਨਾ ਤੁਹਾਡੇ ਜੰਤਰ 'ਤੇ ਸਥਾਨਕ ਤੌਰ 'ਤੇ ਭੰਡਾਰ ਕੀਤੇ ਡੇਟਾ ਦੀ ਵਰਤੋਂ ਕਰਕੇ ਗਣਨਾ ਕੀਤੀ ਜਾਂਦੀ ਹੈ।";
 "year-in-review-finish" = "ਖ਼ਤਮ";
 "year-in-review-login-subtitle" = "ਵਧੇਰੇ ਵਿਅਕਤੀਗਤ ਜਾਣਕਾਰੀ ਲਈ ਯੋਗ ਬਣਨ ਵਾਸਤੇ ਦਾਖ਼ਲ ਹੋਵੋ ਜਾਂ ਇੱਕ ਖਾਤਾ ਬਣਾਓ";
 "year-in-review-login-title" = "ਆਪਣੇ ਸਾਲ ਦੀ ਸਮੀਖਿਆ ਵਿੱਚ ਸੁਧਾਰ ਕਰੋ";
 "year-in-review-personalized-day-subtitle-format" = "ਤੁਸੀਂ $1 ਤੇ ਸਭ ਤੋਂ ਵੱਧ ਲੇਖ ਪੜ੍ਹਦੇ ਹੋ। ਇਹ ਸਪੱਸ਼ਟ ਹੈ ਕਿ ਨਵੀਂ ਸਮੱਗਰੀ ਦੀ ਪੜਚੋਲ ਕਰਨ ਲਈ $1 ਤੁਹਾਡਾ ਪ੍ਰਮੁੱਖ ਦਿਨ ਹੈ। ਆਪਣੇ ਪੜ੍ਹਨ ਦੇ ਸਮੇਂ ਦਾ ਵੱਧ ਤੋਂ ਵੱਧ ਲਾਹਾ  ਲੇਣ ਲਈ ਧੰਨਵਾਦ!";
 "year-in-review-personalized-day-title-format" = "ਤੁਸੀਂ ਸਭ ਤੋਂ ਵੱਧ $1 'ਤੇ ਪਡ਼੍ਹਦੇ ਹੋ।";
+// Fuzzy
 "year-in-review-personalized-donate-title" = "ਤੁਹਾਡੇ ਯੋਗਦਾਨ ਲਈ ਧੰਨਵਾਦ!";
+"year-in-review-personalized-edit-views-subtitle-format" = "ਦੁਨੀਆ ਭਰ ਦੇ ਪਾਠਕ ਤੁਹਾਡੇ ਯੋਗਦਾਨ ਦੀ ਸ਼ਲਾਘਾ ਕਰਦੇ ਹਨ। ਪਿਛਲੇ 2 ਮਹੀਨਿਆਂ ਵਿੱਚ, ਤੁਹਾਡੇ ਵੱਲੋਂ ਸੋਧੇ ਲੇਖਾਂ ਨੂੰ ਕੁੱਲ $1 ਵਾਰ ਵੇਖੇ ਗਏ ਹਨ। ਤੁਹਾਡੇ ਵਰਗੇ ਸੋਧਕਾਂ ਦਾ ਧੰਨਵਾਦ, ਵਿਕੀਪੀਡੀਆ ਦੁਨੀਆ ਲਈ ਇੱਕ ਨਿਰੰਤਰ ਸੁਧਾਰ, ਤੱਥ-ਅਧਾਰਤ ਅਤੇ ਭਰੋਸੇਯੋਗ ਗਿਆਨ ਸਰੋਤ ਹੈ।";
+"year-in-review-personalized-edit-views-title-format" = "ਤੁਹਾਡੇ ਸੋਧਾਂ ਨੂੰ ਹਾਲ ਹੀ ਵਿੱਚ $1 ਤੋਂ ਵੱਧ ਵਾਰ ਵੇਖਿਆ ਗਿਆ ਸੀ";
 "year-in-review-personalized-editing-subtitle-format" = "ਤੁਸੀਂ ਵਿਕੀਪੀਡੀਆ {{PLURAL:$1| $1 ਵਾਰ| $1 ਵਾਰੀ}} ਸੋਧਿਆ। ਦੁਨੀਆ ਭਰ ਵਿੱਚ ਵਿਕੀਮੀਡੀਆ ਪ੍ਰੋਜੈਕਟਾਂ ਵਿੱਚ ਇੱਕ ਫਰਕ ਲਿਆਉਣ ਵਾਲੇ ਸਵੈ-ਸੇਵੀ ਸੋਧਕਾਂ ਵਿੱਚੋਂ ਇੱਕ ਹੋਣ ਲਈ ਤੁਹਾਡਾ ਧੰਨਵਾਦ।";
 "year-in-review-personalized-editing-subtitle-format-500plus" = "ਤੁਸੀਂ ਵਿਕੀਪੀਡੀਆ ਨੂੰ 500 ਤੋਂ ਵੱਧ ਵਾਰ ਸੋਧਿਆ ਹੈ। ਦੁਨੀਆ ਭਰ ਵਿੱਚ ਵਿਕੀਮੀਡੀਆ ਪ੍ਰੋਜੈਕਟਾਂ ਵਿੱਚ ਇੱਕ ਫਰਕ ਲਿਆਉਣ ਵਾਲੇ ਸਵੈ-ਸੇਵੀ ਸੋਧਕਾਂ ਵਿੱਚੋਂ ਇੱਕ ਹੋਣ ਲਈ ਤੁਹਾਡਾ ਧੰਨਵਾਦ।";
 "year-in-review-personalized-editing-title-format" = "ਤੁਸੀਂ ਵਿਕੀਪੀਡੀਆ {{PLURAL:$1| $1 ਵਾਰ}} ਸੋਧਿਆ";
@@ -993,7 +1002,6 @@
 "year-in-review-personalized-reading-subtitle-format" = "ਤੁਸੀਂ ਇਸ ਸਾਲ {{PLURAL:$1|$1 ਲੇਖ ਪੜ੍ਹਿਆ ਹੈ|$1 ਲੇਖ ਪੜ੍ਹੇ ਹਨ}}। ਇਸ ਸਾਲ ਵਿਕੀਪੀਡੀਆ ਵਿੱਚ $3 ਤੋਂ ਵੱਧ ਸਰਗਰਮ ਭਾਸ਼ਾਵਾਂ ਵਿੱਚ $2 ਲੱਖ ਲੇਖ ਉਪਲਬਧ ਸਨ। ਤੁਸੀਂ ਗਿਆਨ ਨੂੰ ਵਧਾਉਣ ਅਤੇ ਵੱਖ-ਵੱਖ ਵਿਸ਼ਿਆਂ ਦੀ ਪੜਚੋਲ ਕਰਨ ਵਿੱਚ ਲੱਖਾਂ ਲੋਕਾਂ ਵਿੱਚ ਸ਼ਾਮਲ ਹੋਏ।";
 "year-in-review-personalized-reading-title-format" = "ਤੁਸੀਂ ਇਸ ਸਾਲ {{PLURAL:$1| $1 ਲੇਖ ਪੜ੍ਹਿਆ| $1 ਲੇਖ ਪੜ੍ਹੇ}}";
 "year-in-review-share-text" = "ਇਹ ਮੇਰੀ ਵਿਕੀਪੀਡੀਆ ਸਾਲ ਦੀ ਸਮੀਖਿਆ ਹੈ। ਵਿਕੀਪੀਡੀਆ iOS ਐਪ ਨਾਲ ਬਣਾਇਆ ਗਿਆ";
-"year-in-review-subtitle" = "ਵਿਕੀਪੀਡੀਆ ਐਪ 'ਤੇ ਤੁਸੀਂ ਕਿਹੜੇ ਲੇਖ ਪੜ੍ਹਦੇ ਹੋ ਅਤੇ ਤੁਹਾਡੇ ਵੱਲੋ ਕੀਤੇ ਗਏ ਸੋਧਾ ਬਾਰੇ ਜਾਣਕਾਰੀ ਵੇਖੋ। ਤੁਹਾਡਾ ਪੜ੍ਹਨ ਦਾ ਇਤਿਹਾਸ ਸੁਰੱਖਿਅਤ ਰੱਖਿਆ ਗਿਆ ਹੈ। ਪੜ੍ਹਨ ਦੀ ਜਾਣਕਾਰੀ ਦੀ ਗਣਨਾ ਤੁਹਾਡੇ ਜੰਤਰ 'ਤੇ ਸਥਾਨਕ ਤੌਰ 'ਤੇ ਭੰਡਾਰ ਕੀਤੇ ਡੇਟਾ ਦੀ ਵਰਤੋਂ ਕਰਕੇ ਗਣਨਾ ਕੀਤੀ ਜਾਂਦੀ ਹੈ।";
 "year-in-review-survey-additional-thoughts" = "ਕੋਈ ਹੋਰ ਵਿਚਾਰ?";
 "year-in-review-survey-neutral" = "ਨਿਰਪੱਖ";
 "year-in-review-survey-satisfied" = "ਸੰਤੁਸ਼ਟ";
