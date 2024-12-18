@@ -766,7 +766,7 @@ extension UIViewController {
     
     private func isAlreadyPresenting(_ presenter: UIViewController) -> Bool {
         let presenter = self.presentedViewController ?? self
-        guard presenter is WMFThemeableNavigationController else {
+        guard presenter is WMFComponentNavigationController else {
             return false
         }
         return presenter.presentedViewController != nil
@@ -816,7 +816,7 @@ extension UIViewController {
         loginVC.loginDismissedCompletion = loginDismissedCompletion
         loginVC.category = category
         loginVC.apply(theme: theme)
-        present(WMFThemeableNavigationController(rootViewController: loginVC, theme: theme), animated: true)
+        present(WMFComponentNavigationController(rootViewController: loginVC, modalPresentationStyle: .fullScreen), animated: true)
     }
 
     @objc func wmf_showLoggedOutPanel(theme: Theme, dismissHandler: @escaping ScrollableEducationPanelDismissHandler) {

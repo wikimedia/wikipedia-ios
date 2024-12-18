@@ -1,3 +1,5 @@
+import WMFComponents
+
 @objc public protocol ReadingListsAlertControllerDelegate: NSObjectProtocol {
     func readingListsAlertController(_ readingListsAlertController: ReadingListsAlertController, didSelectUnsaveForArticle: WMFArticle)
 }
@@ -103,7 +105,7 @@ public class ReadingListsAlertController: NSObject {
             presenter.presentedViewController?.dismiss(animated: true)
             let readingListDetailViewController = ReadingListDetailViewController(for: readingList, with: dataStore, displayType: .modal)
             readingListDetailViewController.apply(theme: theme)
-            let navigationController = WMFThemeableNavigationController(rootViewController: readingListDetailViewController, theme: theme)
+            let navigationController = WMFComponentNavigationController(rootViewController: readingListDetailViewController, modalPresentationStyle: .fullScreen)
             presenter.present(navigationController, animated: true)
         }
         presenter.wmf_showLimitHitForUnsortedArticlesPanelViewController(theme: theme, primaryButtonTapHandler: primaryButtonHandler) {
