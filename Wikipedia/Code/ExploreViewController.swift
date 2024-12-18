@@ -1404,8 +1404,7 @@ extension ExploreViewController: ExploreCardCollectionViewCellDelegate {
             exploreFeedSettingsViewController.showCloseButton = true
             exploreFeedSettingsViewController.dataStore = self.dataStore
             exploreFeedSettingsViewController.apply(theme: self.theme)
-            let themeableNavigationController = WMFThemeableNavigationController(rootViewController: exploreFeedSettingsViewController, theme: self.theme)
-            themeableNavigationController.modalPresentationStyle = .formSheet
+            let themeableNavigationController = WMFComponentNavigationController(rootViewController: exploreFeedSettingsViewController, modalPresentationStyle: .formSheet)
             self.present(themeableNavigationController, animated: true)
         }
         
