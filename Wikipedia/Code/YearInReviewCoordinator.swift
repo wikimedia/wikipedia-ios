@@ -76,7 +76,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         }
     }
     
-    private lazy var localizedStrings: WMFYearInReviewViewModel.LocalizedStrings = {
+    private var localizedStrings: WMFYearInReviewViewModel.LocalizedStrings {
         return WMFYearInReviewViewModel.LocalizedStrings.init(
             donateButtonTitle: CommonStrings.donateTitle,
             doneButtonTitle: CommonStrings.doneTitle,
@@ -106,7 +106,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
             collectiveEditsPerMinuteAccessibilityLabel: WMFLocalizedString("year-in-review-collective-edits-per-minute", value: " clock ticking, symbolizing the time spent by people reading Wikipedia.", comment: "Accessibility description for the collective edits per minute slide."),
             collectiveZeroAdsAccessibilityLabel: WMFLocalizedString("year-in-review-collective-zero-ads", value: "Wikimedia logo", comment: "Accessibility description for the collective zero ads slide.")
         )
-    }()
+    }
 
 
     @objc public init(navigationController: UINavigationController, theme: Theme, dataStore: MWKDataStore, dataController: WMFYearInReviewDataController) {
@@ -782,7 +782,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         
         let englishEditsSlide = YearInReviewSlideContent(
             gifName: "english-slide-04",
-            altText: localizedStrings.collectiveZeroAdsAccessibilityLabel,
+            altText: localizedStrings.englishEditsAccessibilityLabel,
             title: englishEditsSlideTitle,
             informationBubbleText: nil,
             subtitle: englishEditsSlideSubtitle,
@@ -792,7 +792,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         
         let englishEditsBytesSlide = YearInReviewSlideContent(
             gifName: "english-slide-05",
-            altText: localizedStrings.englishEditsAccessibilityLabel,
+            altText: localizedStrings.personalizedUserEditsAccessibilityLabel,
             title: englishEditsBytesSlideTitle,
             informationBubbleText: nil,
             subtitle: englishEditsBytesSlideSubtitle,
