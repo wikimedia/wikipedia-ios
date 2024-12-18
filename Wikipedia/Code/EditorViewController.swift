@@ -775,8 +775,7 @@ extension EditorViewController: WMFSourceEditorViewControllerDelegate {
         let insertMediaViewController = InsertMediaViewController(articleTitle: pageURL.wmf_title, siteURL: siteURL)
         insertMediaViewController.delegate = self
         insertMediaViewController.apply(theme: theme)
-        let navigationController = WMFThemeableNavigationController(rootViewController: insertMediaViewController, theme: theme)
-        navigationController.isNavigationBarHidden = true
+        let navigationController = WMFComponentNavigationController(rootViewController: insertMediaViewController, modalPresentationStyle: .fullScreen)
         present(navigationController, animated: true)
     }
 }
@@ -936,11 +935,11 @@ extension EditorViewController: InsertLinkViewControllerDelegate {
 // MARK: - InsertMediaViewControllerDelegate
 
 extension EditorViewController: InsertMediaViewControllerDelegate {
-    func insertMediaViewController(_ insertMediaViewController: InsertMediaViewController, didTapCloseButton button: UIBarButtonItem) {
+    func didTapCloseButton(insertMediaViewController: InsertMediaViewController) {
         insertMediaViewController.dismiss(animated: true)
     }
     
-    func insertMediaViewController(_ insertMediaViewController: InsertMediaViewController, didPrepareWikitextToInsert wikitext: String) {
+    func didPrepareWikitextToInsert(wikitext: String, insertMediaViewController: InsertMediaViewController) {
         sourceEditor?.insertImage(wikitext: wikitext)
         insertMediaViewController.dismiss(animated: true)
     }
