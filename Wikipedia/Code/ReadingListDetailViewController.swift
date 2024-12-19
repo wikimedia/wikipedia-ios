@@ -150,10 +150,6 @@ class ReadingListDetailViewController: ThemeableViewController, WMFNavigationBar
         readingListDetailHeaderView?.apply(theme: theme)
         searchBarExtendedViewController?.apply(theme: theme)
         savedProgressViewController?.apply(theme: theme)
-        
-        if displayType == .modal {
-            themeNavigationBarCloseButton(alignment: .leading)
-        }
     }
     
     private lazy var sortBarButtonItem: UIBarButtonItem = {

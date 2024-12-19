@@ -50,10 +50,6 @@ import WMFData
         themeNavigationBarLeadingTitleView()
     }
     
-    @objc func themeNavigationBarCloseButtonFromObjC() {
-        themeNavigationBarCloseButton(alignment: .trailing)
-    }
-    
     @objc func closeButtonPressed() {
         NavigationEventsFunnel.shared.logTappedSettingsCloseButton()
         dismiss(animated: true)

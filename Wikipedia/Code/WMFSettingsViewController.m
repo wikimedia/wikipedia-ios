@@ -654,7 +654,6 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
     [self loadSections];
     
     [self updateProfileButtonFromObjC];
-    [self themeNavigationBarCloseButtonFromObjC];
     [self themeNavigationBarLeadingTitleViewFromObjC];
 }
 

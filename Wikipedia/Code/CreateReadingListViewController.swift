@@ -268,10 +268,6 @@ extension CreateReadingListViewController: Themeable {
         readingListNameErrorLabel.textColor = theme.colors.error
         
         createReadingListButton.apply(theme: theme)
-        
-        let alignment: WMFNavigationBarCloseButtonConfig.Alignment = isInImportingMode ? .leading : .trailing
-        themeNavigationBarCloseButton(alignment: alignment)
-       
     }
 }
 

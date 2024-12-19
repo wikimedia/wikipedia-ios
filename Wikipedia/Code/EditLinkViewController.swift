@@ -184,8 +184,6 @@ class EditLinkViewController: ThemeableViewController, WMFNavigationBarConfiguri
         removeLinkButton.backgroundColor = theme.colors.paperBackground
         displayTextView.textColor = theme.colors.primaryText
         activityIndicatorView.color = theme.isDark ? .white : .gray
-        
-        themeNavigationBarCloseButton(alignment: .leading)
     }
 }
 

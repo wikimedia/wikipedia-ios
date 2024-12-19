@@ -75,6 +75,5 @@ extension PageIssuesTableViewController: Themeable {
         
         self.tableView.backgroundColor = theme.colors.baseBackground
         self.tableView.reloadData()
-        themeNavigationBarCloseButton(alignment: .leading)
     }
 }

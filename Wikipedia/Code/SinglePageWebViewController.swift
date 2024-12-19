@@ -487,7 +487,6 @@ class SinglePageWebViewController: ThemeableViewController, WMFNavigationBarConf
         super.apply(theme: theme)
         
         themeNavigationBarCustomCenteredTitleView()
-        themeNavigationBarCloseButton(alignment: .leading)
         
         if let rightBarButtonItems = navigationItem.rightBarButtonItems {
             for item in rightBarButtonItems {

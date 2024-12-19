@@ -106,7 +106,6 @@ class AddArticlesToReadingListViewController: ThemeableViewController, WMFNaviga
     override func apply(theme: Theme) {
         super.apply(theme: theme)
         readingListsViewController.apply(theme: theme)
-        themeNavigationBarCloseButton(alignment: .trailing)
     }
 }
 

@@ -169,8 +169,6 @@ public extension WMFNavigationBarConfiguring where Self: UIViewController {
             case .trailing:
                 navigationItem.rightBarButtonItem = closeButton
             }
-            
-            themeNavigationBarCloseButton(alignment: closeButtonConfig.alignment)
         }
         
         // Setup search bar if needed
@@ -206,19 +204,6 @@ public extension WMFNavigationBarConfiguring where Self: UIViewController {
             
             navigationItem.searchController = searchController
         }
-    }
-    
-    /// Call from UIViewController when theme changes
-    ///     - from apply(theme:) if legacy
-    ///     - from appEnvironmentDidChange() if WMFComponents
-    func themeNavigationBarCloseButton(alignment: WMFNavigationBarCloseButtonConfig.Alignment) {
-        // Leaving as default tint for now, 
-//        switch alignment {
-//        case .leading:
-//            navigationItem.leftBarButtonItem?.tintColor = WMFAppEnvironment.current.theme.inputAccessoryButtonTint
-//        case .trailing:
-//            navigationItem.rightBarButtonItem?.tintColor = WMFAppEnvironment.current.theme.inputAccessoryButtonTint
-//        }
     }
     
     /// Call from UIViewController when theme changes

@@ -463,7 +463,6 @@ static CGFloat const WMFLanguageHeaderHeight = 57.f;
     self.languageFilterField.searchBarStyle = UISearchBarStyleMinimal;
     self.languageFilterField.barTintColor = backgroundColor;
     [self.tableView reloadData];
-    [self themeNavigationBarCloseButtonFromObjC];
 }
 
 @end

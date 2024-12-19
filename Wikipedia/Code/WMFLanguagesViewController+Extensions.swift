@@ -14,8 +14,4 @@ extension WMFLanguagesViewController: WMFNavigationBarConfiguring {
             self.userDismissalCompletionBlock?()
         }
     }
-    
-    @objc func themeNavigationBarCloseButtonFromObjC() {
-        themeNavigationBarCloseButton(alignment: .leading)
-    }
 }

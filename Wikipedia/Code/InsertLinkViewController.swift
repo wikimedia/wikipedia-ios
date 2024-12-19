@@ -104,8 +104,6 @@ extension InsertLinkViewController: Themeable {
         }
         view.backgroundColor = theme.colors.inputAccessoryBackground
         view.layer.shadowColor = theme.colors.shadow.cgColor
-    
-        themeNavigationBarCloseButton(alignment: .leading)
         
         if let searchVC = navigationItem.searchController?.searchResultsController as? SearchViewController {
             searchVC.theme = theme

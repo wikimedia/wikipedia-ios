@@ -709,7 +709,6 @@ extension EditorViewController: Themeable {
         focusNavigationView.apply(theme: theme)
         view.backgroundColor = theme.colors.paperBackground
         spinner.color = theme.isDark ? .white : .gray
-        themeNavigationBarCloseButton(alignment: .leading)
     }
 }
 
