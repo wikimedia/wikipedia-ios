@@ -264,18 +264,23 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
     }
 
     var englishTopReadSlideSubtitle: String {
-        let format = WMFLocalizedString(
-            "microsite-yir-english-top-read-slide-subtitle",
-            value: """
-            When people want to learn about our world—the good, bad, weird, and wild alike—they turn to Wikipedia. The top 5 visited articles on English Wikipedia were:%1$@
-            Read more in %2$@our dedicated blog post%3$@.
-            """,
-            comment: "Top read slide subtitle for English Year in Review. %1$@ is replaced with an HTML ordered list of articles. %2$@ is replaced with the opening HTML anchor tag containing a link. %3$@ is replaced with the closing anchor tag.%3$@"
-        )
-        let list = "<ol><li>Deaths in 2024</li><li>Kamala Harris</li><li>2024 United States presidential election</li><li>Lyle and Erik Menendez</li><li>Donald Trump</li></ol>"
+        // Individual top read items
+        let item1 = "Deaths in 2024"
+        let item2 = "Kamala Harris"
+        let item3 = "2024 United States presidential election"
+        let item4 = "Lyle and Erik Menendez"
+        let item5 = "Donald Trump"
+        
         let linkOpening = "<a href=\"\(topReadBlogPost)\">"
         let linkClosing = "</a>"
-        return String.localizedStringWithFormat(format, list, linkOpening, linkClosing)
+        
+        let format = WMFLocalizedString(
+            "microsite-yir-english-top-read-slide-subtitle",
+            value: "When people want to learn about our world—the good, bad, weird, and wild alike—they turn to Wikipedia. The top 5 visited articles on English Wikipedia were:\n1. %1$@\n2. %2$@\n3. %3$@\n4. %4$@\n5. %5$@\nRead more in %6$@our dedicated blog post%7$@.",
+            comment: "Top read slide subtitle for English Year in Review. %1$@ %2$@ %3$@ %4$@ %5$@ are replaced with article titles, %6$@ and %7$@ wrap the blog post link."
+        )
+        
+        return String.localizedStringWithFormat(format, item1, item2, item3, item4, item5, linkOpening, linkClosing)
     }
 
     var englishSavedReadingSlideTitle: String {
@@ -502,7 +507,10 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
             comment: "Year in review, personalized slide title for users that display how many views their edits have. %1$@ is replaced with the amount of edit views."
         )
         
-        return String.localizedStringWithFormat(format, String(views))
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .decimal
+        let formattedViews = formatter.string(from: NSNumber(value: views)) ?? "\(views)"
+        return String.localizedStringWithFormat(format, formattedViews)
     }
     
     func personalizedYourEditsViewedSlideSubtitle(views: Int) -> String {
@@ -512,7 +520,10 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
             comment: "Year in review, personalized slide subtitle for users that display how many views their edits have. %1$@ is replaced with the amount of edit views."
         )
         
-        return String.localizedStringWithFormat(format, String(views))
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .decimal
+        let formattedViews = formatter.string(from: NSNumber(value: views)) ?? "\(views)"
+        return String.localizedStringWithFormat(format, formattedViews)
     }
     
     var personalizedThankYouTitle: String {
@@ -680,7 +691,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
                             subtitle: personalizedYourEditsViewedSlideSubtitle(views: viewCount),
                             loggingID: "view_count_custom",
                             infoURL: aboutYIRURL,
-                            hideDonateButton: true)
+                            hideDonateButton: shoudlHideDonateButton())
                     }
                 }
                 break
