@@ -5,7 +5,6 @@
 #import "WMFSettingsViewController.h"
 #import "WMFLanguagesViewController.h"
 #import "AboutViewController.h"
-#import "UIBarButtonItem+WMFButtonConvenience.h"
 #import "UIViewController+WMFStoryboardUtilities.h"
 @import WMFData;
 

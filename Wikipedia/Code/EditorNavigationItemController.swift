@@ -97,10 +97,13 @@ class EditorNavigationItemController: NSObject, Themeable {
     }
 
     private func configureNavigationButtonItems() {
+        
+        let fixedWidthSpacer = UIBarButtonItem(barButtonSystemItem: .fixedSpace, target: nil, action: nil)
+        fixedWidthSpacer.width = 16
 
         navigationItem?.rightBarButtonItems = [
             progressButton,
-            UIBarButtonItem.wmf_barButtonItem(ofFixedWidth: 16),
+            fixedWidthSpacer,
             separatorButton,
             readingThemesControlsButton,
             redoButton,

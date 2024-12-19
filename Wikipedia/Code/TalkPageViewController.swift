@@ -478,9 +478,13 @@ class TalkPageViewController: ThemeableViewController {
         }
     }
     
+    private var flexibleSpaceToolbarItem: UIBarButtonItem {
+        return UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+    }
+    
     fileprivate func setupToolbar() {
         
-        talkPageView.toolbar.items = [shareButton,  .flexibleSpaceToolbar(), revisionButton, .flexibleSpaceToolbar(), findButton,.flexibleSpaceToolbar(), addTopicButton]
+        talkPageView.toolbar.items = [shareButton,  flexibleSpaceToolbarItem, revisionButton, flexibleSpaceToolbarItem, findButton,flexibleSpaceToolbarItem, addTopicButton]
         
         shareButton.accessibilityLabel = TalkPageLocalizedStrings.shareButtonAccesibilityLabel
         findButton.accessibilityLabel = TalkPageLocalizedStrings.findButtonAccesibilityLabel

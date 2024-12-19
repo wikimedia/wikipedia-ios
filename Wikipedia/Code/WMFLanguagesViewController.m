@@ -2,7 +2,6 @@
 @import WMF;
 #import "MWKTitleLanguageController.h"
 #import "WMFLanguageCell.h"
-#import "UIBarButtonItem+WMFButtonConvenience.h"
 #import "Wikipedia-Swift.h"
 #import "WMFArticleLanguagesSectionHeader.h"
 #import "WMFArticleLanguagesSectionFooter.h"

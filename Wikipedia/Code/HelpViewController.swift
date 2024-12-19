@@ -73,8 +73,13 @@ class HelpViewController: SinglePageWebViewController {
         }
         
         let leadingSpace: CGFloat = isExportingUserData ? 30 : 8
+        let item1 = UIBarButtonItem(barButtonSystemItem: .fixedSpace, target: nil, action: nil)
+        item1.width = leadingSpace
+        let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        let item2 = UIBarButtonItem(barButtonSystemItem: .fixedSpace, target: nil, action: nil)
+        item2.width = 8
         
-        self.toolbar.items = [UIBarButtonItem.wmf_barButtonItem(ofFixedWidth: leadingSpace), exportItem, UIBarButtonItem.flexibleSpaceToolbar(), sendEmailToolbarItem, UIBarButtonItem.wmf_barButtonItem(ofFixedWidth: 8)]
+        self.toolbar.items = [item1, exportItem, flexibleSpace, sendEmailToolbarItem, item2]
     }
 
     private func setupToolbar() {

@@ -924,14 +924,18 @@ extension NotificationsCenterViewController: NotificationsCenterCellDelegate {
 // MARK: - Toolbar
 
 extension NotificationsCenterViewController {
+    
+    var flexibleSpaceToolbarItem: UIBarButtonItem {
+        return UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+    }
 
     /// Update the bar buttons displayed in the toolbar based on the editing state
     fileprivate func updateToolbarDisplayState(isEditing: Bool) {
         let markButton = createMarkButton()
         if isEditing {
-            toolbar.items = [markButton, .flexibleSpaceToolbar(), markAllAsReadButton]
+            toolbar.items = [markButton, flexibleSpaceToolbarItem, markAllAsReadButton]
         } else {
-            toolbar.items = [typeFilterButton, .flexibleSpaceToolbar(), statusBarButton, .flexibleSpaceToolbar(), projectFilterButton]
+            toolbar.items = [typeFilterButton, flexibleSpaceToolbarItem, statusBarButton, flexibleSpaceToolbarItem, projectFilterButton]
         }
         
         self.markButton = markButton

@@ -736,7 +736,6 @@
 "main-menu-terms-of-use" = "Button text for showing site terms of use {{Identical|Terms of use}}";
 "main-menu-title" = "Title for menu of secondary items. {{Identical|More}}";
 "main-menu-zero-faq" = "Button text for showing the Wikipedia Zero Frequently Asked Questions (FAQ) document";
-"menu-cancel-accessibility-label" = "Accessible label text for toolbar cancel button {{Identical|Cancel}}";
 "more-languages-tooltip-description" = "Description for tooltip explaining the 'More' button may be tapped to add more languages.";
 "more-languages-tooltip-title" = "Title for tooltip explaining the 'More' button may be tapped to add more languages.";
 "more-menu" = "Accessibility title for more button in toolbar.";

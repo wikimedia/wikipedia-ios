@@ -254,7 +254,6 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
     }
 
     private func setupButtonsAndTitle() {
-        // buttonX = UIBarButtonItem.wmf_buttonType(.X, target: self, action: #selector(self.goBack))
 
         buttonSave = UIBarButtonItem(title: CommonStrings.publishTitle, style: .done, target: self, action: #selector(self.goForward))
         buttonSave?.tintColor = theme.colors.secondaryText

@@ -1866,8 +1866,6 @@
 		B0DF6F811CFE1D0B0046E507 /* WKWebView+WMFWebViewControllerJavascript.m in Sources */ = {isa = PBXBuildFile; fileRef = B0DF6F801CFE1D0B0046E507 /* WKWebView+WMFWebViewControllerJavascript.m */; };
 		B0E294CD1DB2CF4300861D04 /* UIView+Animations.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E294CC1DB2CF4300861D04 /* UIView+Animations.swift */; };
 		B0E294D31DB2DC8900861D04 /* WMFWelcomeIntroductionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E294D21DB2DC8900861D04 /* WMFWelcomeIntroductionViewController.swift */; };
-		B0E802B81C0CD2140065EBC0 /* UIBarButtonItem+WMFButtonConvenience.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E802B71C0CD2140065EBC0 /* UIBarButtonItem+WMFButtonConvenience.m */; };
-		B0E802BE1C0CD2360065EBC0 /* UIButton+WMFButton.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E802BD1C0CD2360065EBC0 /* UIButton+WMFButton.m */; };
 		B0E802C11C0CD27F0065EBC0 /* WMFAppViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E802C01C0CD27F0065EBC0 /* WMFAppViewController.m */; };
 		B0E8031C1C0CD6820065EBC0 /* WMFCompassView.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8031B1C0CD6820065EBC0 /* WMFCompassView.m */; };
 		B0E803441C0CD7980065EBC0 /* WMFSearchFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E803431C0CD7980065EBC0 /* WMFSearchFetcher.m */; };
@@ -2283,7 +2281,6 @@
 		D8CE24EC1E698E2400DAE2E0 /* PlacesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D87233FF1E1FF0A500751E83 /* PlacesViewController.swift */; };
 		D8CE24EE1E698E2400DAE2E0 /* WMFReferencePanelViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B01490A41DB96EA7007F5391 /* WMFReferencePanelViewController.swift */; };
 		D8CE24F11E698E2400DAE2E0 /* WikidataFetcher+Places.swift in Sources */ = {isa = PBXBuildFile; fileRef = D88FCADE1E4B74D300505A9F /* WikidataFetcher+Places.swift */; };
-		D8CE24F21E698E2400DAE2E0 /* UIButton+WMFButton.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E802BD1C0CD2360065EBC0 /* UIButton+WMFButton.m */; };
 		D8CE24F31E698E2400DAE2E0 /* TableOfContentsAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E803701C0CD9A80065EBC0 /* TableOfContentsAnimator.swift */; };
 		D8CE24F61E698E2400DAE2E0 /* WMFReferencePageBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0338A831DBF0AF20012F588 /* WMFReferencePageBackgroundView.swift */; };
 		D8CE24F81E698E2400DAE2E0 /* UIApplication+RTL.swift in Sources */ = {isa = PBXBuildFile; fileRef = B00050131C52D73800515F70 /* UIApplication+RTL.swift */; };
@@ -2319,7 +2316,6 @@
 		D8CE254E1E698E2400DAE2E0 /* WKWebView+WMFWebViewControllerJavascript.m in Sources */ = {isa = PBXBuildFile; fileRef = B0DF6F801CFE1D0B0046E507 /* WKWebView+WMFWebViewControllerJavascript.m */; };
 		D8CE25521E698E2400DAE2E0 /* WMFArticleTextActivitySource.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EC044781C7917860033D773 /* WMFArticleTextActivitySource.m */; };
 		D8CE25571E698E2400DAE2E0 /* WMFPasswordResetter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0267CF21E32A0CB006B6D8D /* WMFPasswordResetter.swift */; };
-		D8CE255A1E698E2400DAE2E0 /* UIBarButtonItem+WMFButtonConvenience.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E802B71C0CD2140065EBC0 /* UIBarButtonItem+WMFButtonConvenience.m */; };
 		D8CE255B1E698E2400DAE2E0 /* UIViewController+WMFEmptyView.m in Sources */ = {isa = PBXBuildFile; fileRef = B08E7E9A1C1FA57A00EC3C99 /* UIViewController+WMFEmptyView.m */; };
 		D8CE25631E698E2400DAE2E0 /* NSUserDefaults+WMFApplicationDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = D87914DC1DFA04E10012C5DA /* NSUserDefaults+WMFApplicationDefaults.swift */; };
 		D8CE25651E698E2400DAE2E0 /* AboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E806931C0CEA7B0065EBC0 /* AboutViewController.m */; };
@@ -2497,7 +2493,6 @@
 		D8EC3DE31E9BDA35006712EB /* PlacesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D87233FF1E1FF0A500751E83 /* PlacesViewController.swift */; };
 		D8EC3DE51E9BDA35006712EB /* WMFReferencePanelViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B01490A41DB96EA7007F5391 /* WMFReferencePanelViewController.swift */; };
 		D8EC3DE81E9BDA35006712EB /* WikidataFetcher+Places.swift in Sources */ = {isa = PBXBuildFile; fileRef = D88FCADE1E4B74D300505A9F /* WikidataFetcher+Places.swift */; };
-		D8EC3DE91E9BDA35006712EB /* UIButton+WMFButton.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E802BD1C0CD2360065EBC0 /* UIButton+WMFButton.m */; };
 		D8EC3DEA1E9BDA35006712EB /* TableOfContentsAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E803701C0CD9A80065EBC0 /* TableOfContentsAnimator.swift */; };
 		D8EC3DED1E9BDA35006712EB /* WMFReferencePageBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0338A831DBF0AF20012F588 /* WMFReferencePageBackgroundView.swift */; };
 		D8EC3DEF1E9BDA35006712EB /* UIApplication+RTL.swift in Sources */ = {isa = PBXBuildFile; fileRef = B00050131C52D73800515F70 /* UIApplication+RTL.swift */; };
@@ -2534,7 +2529,6 @@
 		D8EC3E491E9BDA35006712EB /* WMFArticleTextActivitySource.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EC044781C7917860033D773 /* WMFArticleTextActivitySource.m */; };
 		D8EC3E4C1E9BDA35006712EB /* String?+WMFExtras.swift in Sources */ = {isa = PBXBuildFile; fileRef = B01CFC601E71069000B3546A /* String?+WMFExtras.swift */; };
 		D8EC3E4F1E9BDA35006712EB /* WMFPasswordResetter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0267CF21E32A0CB006B6D8D /* WMFPasswordResetter.swift */; };
-		D8EC3E521E9BDA35006712EB /* UIBarButtonItem+WMFButtonConvenience.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E802B71C0CD2140065EBC0 /* UIBarButtonItem+WMFButtonConvenience.m */; };
 		D8EC3E531E9BDA35006712EB /* UIViewController+WMFEmptyView.m in Sources */ = {isa = PBXBuildFile; fileRef = B08E7E9A1C1FA57A00EC3C99 /* UIViewController+WMFEmptyView.m */; };
 		D8EC3E5B1E9BDA35006712EB /* NSUserDefaults+WMFApplicationDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = D87914DC1DFA04E10012C5DA /* NSUserDefaults+WMFApplicationDefaults.swift */; };
 		D8EC3E5D1E9BDA35006712EB /* AboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E806931C0CEA7B0065EBC0 /* AboutViewController.m */; };
@@ -4009,10 +4003,6 @@
 		B0DF6F801CFE1D0B0046E507 /* WKWebView+WMFWebViewControllerJavascript.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "WKWebView+WMFWebViewControllerJavascript.m"; path = "Wikipedia/Code/WKWebView+WMFWebViewControllerJavascript.m"; sourceTree = SOURCE_ROOT; };
 		B0E294CC1DB2CF4300861D04 /* UIView+Animations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIView+Animations.swift"; path = "Wikipedia/Code/UIView+Animations.swift"; sourceTree = SOURCE_ROOT; };
 		B0E294D21DB2DC8900861D04 /* WMFWelcomeIntroductionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WMFWelcomeIntroductionViewController.swift; path = Wikipedia/Code/WMFWelcomeIntroductionViewController.swift; sourceTree = SOURCE_ROOT; };
-		B0E802B61C0CD2140065EBC0 /* UIBarButtonItem+WMFButtonConvenience.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIBarButtonItem+WMFButtonConvenience.h"; path = "Wikipedia/Code/UIBarButtonItem+WMFButtonConvenience.h"; sourceTree = SOURCE_ROOT; };
-		B0E802B71C0CD2140065EBC0 /* UIBarButtonItem+WMFButtonConvenience.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIBarButtonItem+WMFButtonConvenience.m"; path = "Wikipedia/Code/UIBarButtonItem+WMFButtonConvenience.m"; sourceTree = SOURCE_ROOT; };
-		B0E802BC1C0CD2360065EBC0 /* UIButton+WMFButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIButton+WMFButton.h"; path = "Wikipedia/Code/UIButton+WMFButton.h"; sourceTree = SOURCE_ROOT; };
-		B0E802BD1C0CD2360065EBC0 /* UIButton+WMFButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIButton+WMFButton.m"; path = "Wikipedia/Code/UIButton+WMFButton.m"; sourceTree = SOURCE_ROOT; };
 		B0E802BF1C0CD27F0065EBC0 /* WMFAppViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFAppViewController.h; path = Wikipedia/Code/WMFAppViewController.h; sourceTree = SOURCE_ROOT; };
 		B0E802C01C0CD27F0065EBC0 /* WMFAppViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFAppViewController.m; path = Wikipedia/Code/WMFAppViewController.m; sourceTree = SOURCE_ROOT; usesTabs = 0; };
 		B0E802FC1C0CD5000065EBC0 /* WMFLocationSearchFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFLocationSearchFetcher.h; path = Wikipedia/Code/WMFLocationSearchFetcher.h; sourceTree = SOURCE_ROOT; };
@@ -7401,10 +7391,6 @@
 		BC45D54F1C31EB3B007C72F3 /* Buttons */ = {
 			isa = PBXGroup;
 			children = (
-				B0E802B61C0CD2140065EBC0 /* UIBarButtonItem+WMFButtonConvenience.h */,
-				B0E802B71C0CD2140065EBC0 /* UIBarButtonItem+WMFButtonConvenience.m */,
-				B0E802BC1C0CD2360065EBC0 /* UIButton+WMFButton.h */,
-				B0E802BD1C0CD2360065EBC0 /* UIButton+WMFButton.m */,
 				B0EF42CE1C43FDD200D125A8 /* UIApplicationShortcutItem+WMFShortcutItem.h */,
 				B0EF42CF1C43FDD200D125A8 /* UIApplicationShortcutItem+WMFShortcutItem.m */,
 			);
@@ -10185,7 +10171,6 @@
 				FFD7B85924B3CA7A005C2471 /* ReferenceShowing.swift in Sources */,
 				676F39282745FB2000F4D33D /* NotificationsCenterFiltersViewModel.swift in Sources */,
 				83F1096E23D0E787003F3E9E /* RandomArticleViewController.swift in Sources */,
-				B0E802BE1C0CD2360065EBC0 /* UIButton+WMFButton.m in Sources */,
 				7A715661226972DF0066FEC4 /* InsertMediaImageTypeSettingsViewController.swift in Sources */,
 				7A20AE082057F39C005FB5DF /* UIView+Identifier.swift in Sources */,
 				7A29A5CE1F6C49C600E8F42B /* CollectionViewUpdater.swift in Sources */,
@@ -10374,7 +10359,6 @@
 				FF921857252E8F4F00C39A8F /* ThanksGiving.swift in Sources */,
 				BAA0D91C1F4F165A00091284 /* PageIssuesTableViewController.swift in Sources */,
 				8397601B2811ABC7000FE3B1 /* UNAuthorizationStatus+String.swift in Sources */,
-				B0E802B81C0CD2140065EBC0 /* UIBarButtonItem+WMFButtonConvenience.m in Sources */,
 				B08E7E9B1C1FA57A00EC3C99 /* UIViewController+WMFEmptyView.m in Sources */,
 				FFD7B85624B3B384005C2471 /* ReferenceBackLinksViewControllerDelegate.swift in Sources */,
 				009B8358298091BC00AABEA3 /* EditNoticesViewController.swift in Sources */,
@@ -11142,7 +11126,6 @@
 				7A71567A22699D5B0066FEC4 /* InsertMediaLabelTableFooterView.swift in Sources */,
 				D8CE24F11E698E2400DAE2E0 /* WikidataFetcher+Places.swift in Sources */,
 				67C9FC0128C77F350065A530 /* TalkPageTopicComposeViewController.swift in Sources */,
-				D8CE24F21E698E2400DAE2E0 /* UIButton+WMFButton.m in Sources */,
 				679A24002968DAB9008D7686 /* ShiftingTopView.swift in Sources */,
 				D8CE24F31E698E2400DAE2E0 /* TableOfContentsAnimator.swift in Sources */,
 				D82E956B1F156F77007BD960 /* UIView+SubviewEnumeration.swift in Sources */,
@@ -11288,7 +11271,6 @@
 				D8BDA8BF1E71B8D10031F4BF /* String?+WMFExtras.swift in Sources */,
 				67C6F78527E8BC2F00B9C864 /* NotificationsCenterIconType.swift in Sources */,
 				D8CE25571E698E2400DAE2E0 /* WMFPasswordResetter.swift in Sources */,
-				D8CE255A1E698E2400DAE2E0 /* UIBarButtonItem+WMFButtonConvenience.m in Sources */,
 				D8CE255B1E698E2400DAE2E0 /* UIViewController+WMFEmptyView.m in Sources */,
 				B0408C562127F2C100AC76CE /* WMFImageGalleryGradientViews.swift in Sources */,
 				BA69725B1F2BA2D800E35F78 /* SettingsTableViewSection.swift in Sources */,
@@ -11715,7 +11697,6 @@
 				6771C0CD2D0A39B1000B556F /* WMFSettingsViewController+Extensions.swift in Sources */,
 				7A71567B22699D5B0066FEC4 /* InsertMediaLabelTableFooterView.swift in Sources */,
 				D8EC3DE81E9BDA35006712EB /* WikidataFetcher+Places.swift in Sources */,
-				D8EC3DE91E9BDA35006712EB /* UIButton+WMFButton.m in Sources */,
 				67C9FC0028C77F350065A530 /* TalkPageTopicComposeViewController.swift in Sources */,
 				67B64D582507DE3E00FA27F3 /* ArticleAsLivingDocSectionHeaderView.swift in Sources */,
 				679A23FF2968DAB9008D7686 /* ShiftingTopView.swift in Sources */,
@@ -11877,7 +11858,6 @@
 				679A24042968DBFC008D7686 /* ShiftingNavigationBarView.swift in Sources */,
 				00AA5AAD276BF2AE005295B0 /* TextBarButtonItem.swift in Sources */,
 				67CE5D22222F70C0007B0A2C /* IconBarButtonItem.swift in Sources */,
-				D8EC3E521E9BDA35006712EB /* UIBarButtonItem+WMFButtonConvenience.m in Sources */,
 				D8EC3E531E9BDA35006712EB /* UIViewController+WMFEmptyView.m in Sources */,
 				B0CD9DE81F70997400051843 /* WMFWelcomeExplorationAnimationView.swift in Sources */,
 				67CEF26B2351111D00D5CA6C /* DiffNetworkModels.swift in Sources */,

@@ -2,7 +2,6 @@
 #import <WMF/WikipediaAppUtils.h>
 #import <WMF/NSString+WMFExtras.h>
 #import <WMF/NSBundle+WMFInfoUtils.h>
-#import "UIBarButtonItem+WMFButtonConvenience.h"
 #import "Wikipedia-Swift.h"
 @import WMFComponents;
 
@@ -102,8 +101,6 @@ static NSString *const kWMFContributorsKey = @"contributors";
 
 @property (nonatomic, strong) WMFTheme* theme;
 @property (strong, nonatomic) WKWebView *webView;
-@property (nonatomic, strong) UIBarButtonItem *buttonX;
-@property (nonatomic, strong) UIBarButtonItem *buttonCaretLeft;
 @property (nonatomic, strong) UILabel *navigationTitleLabel;
 @property (nonatomic, assign) NSInteger titleLabelTappedCount;
 
@@ -142,13 +139,6 @@ static NSString *const kWMFContributorsKey = @"contributors";
     self.webView.opaque = NO;
     [self applyTheme:self.theme];
     
-    self.buttonX = [UIBarButtonItem wmf_buttonType:WMFButtonTypeX target:self action:@selector(closeButtonPressed)];
-    
-    self.buttonCaretLeft = [UIBarButtonItem wmf_buttonType:WMFButtonTypeCaretLeft target:self action:@selector(leftButtonPressed)];
-    
-    self.buttonX.accessibilityLabel = WMFLocalizedStringWithDefaultValue(@"menu-cancel-accessibility-label", nil, nil, @"Cancel", @"Accessible label text for toolbar cancel button {{Identical|Cancel}}");
-    self.buttonCaretLeft.accessibilityLabel = WMFCommonStrings.accessibilityBackTitle;
-    
     [self setupNavigationBar];
     [self updateNavigationBar];
 }
@@ -157,10 +147,6 @@ static NSString *const kWMFContributorsKey = @"contributors";
     NSURL *assetsFolderURL = [[NSBundle wmf] wmf_assetsFolderURL];
     NSURL *aboutFileURL = [assetsFolderURL URLByAppendingPathComponent:@"about.html" isDirectory:NO];
     [self.webView loadFileURL:aboutFileURL allowingReadAccessToURL:assetsFolderURL];
-}
-- (void)closeButtonPressed {
-    [self.presentingViewController dismissViewControllerAnimated:YES
-                                                      completion:nil];
 }
 
 - (void)leftButtonPressed {
@@ -191,7 +177,6 @@ static NSString *const kWMFContributorsKey = @"contributors";
 
 - (void)updateNavigationBar {
     self.navigationTitleLabel.text = self.title;
-    self.navigationItem.leftBarButtonItem = [self isDisplayingLicense] ? self.buttonCaretLeft : nil;
     
     self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeNever;
     self.navigationController.hidesBarsOnSwipe = NO;
