@@ -748,7 +748,7 @@
 "microsite-yir-english-reading-slide-title" = "Reading slide title for English Year in Review.";
 "microsite-yir-english-saved-reading-slide-subtitle" = "Saved reading slide subtitle for English Year in Review.";
 "microsite-yir-english-saved-reading-slide-title" = "Saved reading slide title for English Year in Review.";
-"microsite-yir-english-top-read-slide-subtitle" = "Top read slide subtitle for English Year in Review. $1 is replaced with an HTML ordered list of articles. $2 is replaced with the opening HTML anchor tag containing a link. $3 is replaced with the closing anchor tag.$3";
+"microsite-yir-english-top-read-slide-subtitle" = "Top read slide subtitle for English Year in Review. $1 is replaced with the link to the blog post.";
 "microsite-yir-english-top-read-slide-title" = "Top read slide title for English Year in Review.";
 "more-languages-tooltip-description" = "Description for tooltip explaining the 'More' button may be tapped to add more languages.";
 "more-languages-tooltip-title" = "Title for tooltip explaining the 'More' button may be tapped to add more languages.";
