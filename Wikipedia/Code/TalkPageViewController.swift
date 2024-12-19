@@ -464,8 +464,7 @@ class TalkPageViewController: ThemeableViewController {
         if let url = viewModel.getTalkPageURL(encoded: false) {
             EditAttemptFunnel.shared.logInit(pageURL: url)
         }
-        let navVC = UINavigationController(rootViewController: topicComposeVC)
-        navVC.modalPresentationStyle = .pageSheet
+        let navVC = WMFComponentNavigationController(rootViewController: topicComposeVC, modalPresentationStyle: .pageSheet)
         navVC.presentationController?.delegate = self
         present(navVC, animated: true)
     }

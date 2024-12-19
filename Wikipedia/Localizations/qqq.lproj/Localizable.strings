@@ -1226,7 +1226,6 @@
 "talk-page-subscription-failed-alert" = "Text for the subscription failure alert";
 "talk-page-title-article-talk" = "This title label is displayed at the top of a talk page topic list, if the talk page type is an article talk page. Please prioritize for de, ar and zh wikis.";
 "talk-page-title-user-talk" = "This title label is displayed at the top of a talk page topic list, if the talk page type is a user talk page. Please prioritize for de, ar and zh wikis.";
-"talk-page-topic-close-button-hint" = "Accessibility hint for talk page new topic screen close button";
 "talk-page-topic-compose-terms-and-licenses-ccsa4" = "Text for information about the Terms of Use and edit licenses on talk pages when composing a new topic. Parameters:\n* $1 - app-specific non-text formatting, $2 - app-specific non-text formatting, $3 - app-specific non-text formatting, $4 - app-specific non-text formatting, $5 - app-specific non-text formatting,  $6 - app-specific non-text formatting. Please prioritize for de, ar and zh wikis.";
 "talk-page-unsubscribe-to-topic" = "Text used on button to unsubscribe from talk page topic.";
 "talk-page-unsubscribed-alert-subtitle" = "Subtitle for alert informing that the user will no longer receive notifications for a topic. Please prioritize for de, ar and zh wikis.";

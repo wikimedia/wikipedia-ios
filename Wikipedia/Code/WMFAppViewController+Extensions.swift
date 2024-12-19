@@ -672,4 +672,5 @@ extension WMFAppViewController {
         return WMFAppEnvironment.current.traitCollection != traitCollection
     }
 
+    
 }

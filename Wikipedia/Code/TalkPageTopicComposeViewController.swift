@@ -11,7 +11,7 @@ struct TalkPageTopicComposeViewModel {
     let pageLink: URL?
 }
 
-class TalkPageTopicComposeViewController: ThemeableViewController {
+class TalkPageTopicComposeViewController: ThemeableViewController, WMFNavigationBarConfiguring {
     
     enum TopicComposeStrings {
         static let navigationBarTitle = WMFLocalizedString("talk-pages-topic-compose-navbar-title", value: "Topic", comment: "Top navigation bar title of talk page topic compose screen. Please prioritize for de, ar and zh wikis.")
@@ -32,13 +32,6 @@ class TalkPageTopicComposeViewController: ThemeableViewController {
         view.backgroundColor = .clear
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
-    }()
-    
-    lazy var closeButton: UIBarButtonItem = {
-        let button = UIBarButtonItem(image: UIImage(named: "close-inverse"), style: .plain, target: self, action: #selector(tappedClose))
-        button.accessibilityLabel = CommonStrings.closeButtonAccessibilityLabel
-        button.accessibilityHint = WMFLocalizedString("talk-page-topic-close-button-hint", value: "Close new topic", comment: "Accessibility hint for talk page new topic screen close button")
-        return button
     }()
     
     lazy var publishButton: UIBarButtonItem = {
@@ -165,14 +158,27 @@ class TalkPageTopicComposeViewController: ThemeableViewController {
         setupContainerStackView()
         updateFonts()
         apply(theme: theme)
-        self.title = Self.TopicComposeStrings.navigationBarTitle
         
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillChangeFrame(_:)), name: UIWindow.keyboardWillChangeFrameNotification, object: nil)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        configureNavigationBar()
     }
     
     override func accessibilityPerformEscape() -> Bool {
         tappedClose()
         return true
+    }
+    
+    private func configureNavigationBar() {
+        let titleConfig = WMFNavigationBarTitleConfig(title: Self.TopicComposeStrings.navigationBarTitle, customView: nil, alignment: .centerCompact)
+        
+        let closeConfig = WMFNavigationBarCloseButtonConfig(accessibilityLabel: CommonStrings.closeButtonAccessibilityLabel, target: self, action: #selector(tappedClose), alignment: .leading)
+        
+        configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: closeConfig, profileButtonConfig: nil, searchBarConfig: nil, hideNavigationBarOnScroll: false)
     }
 
     private func setupSafeAreaBackgroundView() {
@@ -267,7 +273,6 @@ class TalkPageTopicComposeViewController: ThemeableViewController {
         }
         
         navigationItem.rightBarButtonItem = rightItem
-        navigationItem.leftBarButtonItem = closeButton
     }
     
     var shouldBlockDismissal: Bool {
@@ -310,7 +315,6 @@ class TalkPageTopicComposeViewController: ThemeableViewController {
         
         navigationController?.navigationBar.titleTextAttributes = theme.navigationBarTitleTextAttributes
         view.backgroundColor = theme.colors.midBackground
-        closeButton.tintColor = theme.colors.tertiaryText
         publishButton.tintColor = theme.colors.link
         containerScrollView.backgroundColor = .clear
         containerStackView.backgroundColor = .clear
