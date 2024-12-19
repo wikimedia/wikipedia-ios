@@ -1427,6 +1427,7 @@
 // Fuzzy
 "year-in-review-base-donate-subtitle" = "Wikipedia drivs av Wikimedia Foundation och finansieras av individuella donationer. Vi arbetar för att hålla Wikimedia-webbplatserna tillgängliga för alla, bygga funktioner och verktyg för att göra det enkelt att dela kunskap, stödjer gemenskaper av frivilliga redigerare och mer. [Läs mer om vårt arbete]($1).";
 "year-in-review-base-donate-title" = "0 annonser visas på Wikipedia";
+// Fuzzy
 "year-in-review-base-editors-subtitle" = "Wikipedias gemenskap av frivilliga redigerare har hittills gjort mer än $1 redigeringar på iOS-appen i år. Wikipedias viktigaste del är vår globala gemenskap av frivilliga bidragsgivare, donerare och miljarder läsare som du själv – alla som har förenats för att dela obegränsad tillgång till pålitlig information.";
 "year-in-review-base-editors-title" = "Redigerare i iOS-appen har gjort mer än $1 redigeringar";
 // Fuzzy
