@@ -23,7 +23,7 @@ final class LoginCoordinator: Coordinator {
     func start() {
         if let loginVC = WMFLoginViewController.wmf_initialViewControllerFromClassStoryboard() {
             loginVC.apply(theme: theme)
-            let loginNavVC = WMFComponentNavigationController(rootViewController: loginVC, modalPresentationStyle: .fullScreen)
+            let loginNavVC = WMFComponentNavigationController(rootViewController: loginVC, modalPresentationStyle: .overFullScreen)
             loginVC.loginSuccessCompletion = loginSuccessCompletion
             
             if let presentedVC = navigationController.presentedViewController {

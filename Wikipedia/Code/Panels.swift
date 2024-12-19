@@ -816,7 +816,7 @@ extension UIViewController {
         loginVC.loginDismissedCompletion = loginDismissedCompletion
         loginVC.category = category
         loginVC.apply(theme: theme)
-        present(WMFComponentNavigationController(rootViewController: loginVC, modalPresentationStyle: .fullScreen), animated: true)
+        present(WMFComponentNavigationController(rootViewController: loginVC, modalPresentationStyle: .overFullScreen), animated: true)
     }
 
     @objc func wmf_showLoggedOutPanel(theme: Theme, dismissHandler: @escaping ScrollableEducationPanelDismissHandler) {

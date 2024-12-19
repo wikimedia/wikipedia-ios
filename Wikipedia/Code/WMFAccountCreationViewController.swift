@@ -56,7 +56,7 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
         }
         dismiss(animated: true, completion: {
             loginVC.apply(theme: self.theme)
-            presenter.present(WMFComponentNavigationController(rootViewController: loginVC, modalPresentationStyle: .fullScreen), animated: true, completion: nil)
+            presenter.present(WMFComponentNavigationController(rootViewController: loginVC, modalPresentationStyle: .overFullScreen), animated: true, completion: nil)
         })
     }
     

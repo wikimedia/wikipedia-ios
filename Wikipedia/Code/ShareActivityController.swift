@@ -53,7 +53,7 @@ extension ShareableArticlesProvider where Self: UIViewController & MEPEventsProv
         var customActivities: [UIActivity] = []
         let addToReadingListActivity = AddToReadingListActivity {
             let addArticlesToReadingListViewController = AddArticlesToReadingListViewController(with: dataStore, articles: [article], theme: theme)
-            let navigationController = WMFComponentNavigationController(rootViewController: addArticlesToReadingListViewController, modalPresentationStyle: .fullScreen)
+            let navigationController = WMFComponentNavigationController(rootViewController: addArticlesToReadingListViewController, modalPresentationStyle: .overFullScreen)
             if let category = eventLoggingCategory, let label = eventLoggingLabel {
                 addArticlesToReadingListViewController.eventLogAction = { ReadingListsFunnel.shared.logSave(category: category, label: label, articleURL: article.url) }
             }
@@ -64,7 +64,7 @@ extension ShareableArticlesProvider where Self: UIViewController & MEPEventsProv
         if let readingListDetailVC = self as? ReadingListDetailViewController {
             let moveToReadingListActivity = MoveToReadingListActivity {
                 let addArticlesToReadingListViewController = AddArticlesToReadingListViewController(with: dataStore, articles: [article], moveFromReadingList: readingListDetailVC.readingList, theme: theme)
-                let navigationController = WMFComponentNavigationController(rootViewController: addArticlesToReadingListViewController, modalPresentationStyle: .fullScreen)
+                let navigationController = WMFComponentNavigationController(rootViewController: addArticlesToReadingListViewController, modalPresentationStyle: .overFullScreen)
                 self.present(navigationController, animated: true, completion: nil)
             }
             customActivities.append(moveToReadingListActivity)

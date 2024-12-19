@@ -531,7 +531,7 @@ static CGFloat const WMFLanguageHeaderHeight = 57.f;
     WMFLanguagesViewController *languagesVC = [WMFLanguagesViewController allLanguagesViewController];
     languagesVC.delegate = self;
     [languagesVC applyTheme:self.theme];
-    WMFComponentNavigationController *navVC = [[WMFComponentNavigationController alloc] initWithRootViewController:languagesVC modalPresentationStyle:UIModalPresentationFullScreen];
+    WMFComponentNavigationController *navVC = [[WMFComponentNavigationController alloc] initWithRootViewController:languagesVC modalPresentationStyle:UIModalPresentationOverFullScreen];
     [self presentViewController:navVC animated:YES completion:nil];
 }
 

@@ -67,7 +67,7 @@ class ViewControllerRouter: NSObject {
 
                 
                 let createReadingListNavVC =
-                WMFComponentNavigationController(rootViewController: createReadingListVC, modalPresentationStyle: .fullScreen)
+                WMFComponentNavigationController(rootViewController: createReadingListVC, modalPresentationStyle: .overFullScreen)
 
                 navigationController.present(createReadingListNavVC, animated: true, completion: completion)
             } else {

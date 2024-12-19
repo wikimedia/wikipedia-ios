@@ -420,7 +420,7 @@ extension ReadingListEntryCollectionViewController {
         switch action.type {
         case .addTo:
             let addArticlesToReadingListViewController = AddArticlesToReadingListViewController(with: dataStore, articles: articles, theme: theme)
-            let navigationController = WMFComponentNavigationController(rootViewController: addArticlesToReadingListViewController, modalPresentationStyle: .fullScreen)
+            let navigationController = WMFComponentNavigationController(rootViewController: addArticlesToReadingListViewController, modalPresentationStyle: .overFullScreen)
             addArticlesToReadingListViewController.delegate = self
             present(navigationController, animated: true) {
                 completion(true)
@@ -439,7 +439,7 @@ extension ReadingListEntryCollectionViewController {
             completion(true)
         case .moveTo:
             let addArticlesToReadingListViewController = AddArticlesToReadingListViewController(with: dataStore, articles: articles, moveFromReadingList: readingList, theme: theme)
-            let navigationController = WMFComponentNavigationController(rootViewController: addArticlesToReadingListViewController, modalPresentationStyle: .fullScreen)
+            let navigationController = WMFComponentNavigationController(rootViewController: addArticlesToReadingListViewController, modalPresentationStyle: .overFullScreen)
             addArticlesToReadingListViewController.delegate = self
             present(navigationController, animated: true) {
                 completion(true)

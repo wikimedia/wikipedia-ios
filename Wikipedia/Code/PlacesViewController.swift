@@ -1694,7 +1694,7 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
         case .share:
             let addToReadingListActivity = AddToReadingListActivity {
                 let addArticlesToReadingListViewController = AddArticlesToReadingListViewController(with: self.dataStore, articles: [article], theme: self.theme)
-                let navigationController = WMFComponentNavigationController(rootViewController: addArticlesToReadingListViewController, modalPresentationStyle: .fullScreen)
+                let navigationController = WMFComponentNavigationController(rootViewController: addArticlesToReadingListViewController, modalPresentationStyle: .overFullScreen)
                 addArticlesToReadingListViewController.eventLogAction = { ReadingListsFunnel.shared.logSaveInPlaces(url) }
                 self.present(navigationController, animated: true, completion: nil)
             }

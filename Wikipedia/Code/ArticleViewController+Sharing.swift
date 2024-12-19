@@ -56,7 +56,7 @@ extension ArticleViewController {
         let addToReadingListActivity = AddToReadingListActivity {
             let vc = AddArticlesToReadingListViewController(with: self.dataStore, articles: [self.article], theme: self.theme)
             vc.eventLogAction = eventLogAction
-            let navigationController = WMFComponentNavigationController(rootViewController: vc, modalPresentationStyle: .fullScreen)
+            let navigationController = WMFComponentNavigationController(rootViewController: vc, modalPresentationStyle: .overFullScreen)
             presenter.present(navigationController, animated: true)
         }
         return addToReadingListActivity

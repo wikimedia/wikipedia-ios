@@ -93,7 +93,7 @@ extension WMFAppViewController {
         languagesVC.showExploreFeedCustomizationSettings = true
         languagesVC.userDismissalCompletionBlock = completion
         languagesVC.apply(self.theme)
-        let navVC = WMFComponentNavigationController(rootViewController: languagesVC, modalPresentationStyle: .fullScreen)
+        let navVC = WMFComponentNavigationController(rootViewController: languagesVC, modalPresentationStyle: .overFullScreen)
         present(navVC, animated: true, completion: nil)
     }
 
@@ -347,7 +347,7 @@ extension WMFAppViewController: WMFWatchlistDelegate {
             viewModel?.reloadWikipedias(localizedProjectNames: localizedProjectNames)
         }
 
-        let navigationController = WMFComponentNavigationController(rootViewController: languagesController, modalPresentationStyle: .fullScreen)
+        let navigationController = WMFComponentNavigationController(rootViewController: languagesController, modalPresentationStyle: .overFullScreen)
         viewController.present(navigationController, animated: true)
     }
 

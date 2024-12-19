@@ -33,7 +33,7 @@ extension ArticleViewController: ArticleToolbarHandling {
     
     func saveButtonWasLongPressed(from controller: ArticleToolbarController) {
         let addArticlesToReadingListVC = AddArticlesToReadingListViewController(with: dataStore, articles: [article], theme: theme)
-        let navigationController = WMFComponentNavigationController(rootViewController: addArticlesToReadingListVC, modalPresentationStyle: .fullScreen)
+        let navigationController = WMFComponentNavigationController(rootViewController: addArticlesToReadingListVC, modalPresentationStyle: .overFullScreen)
         present(navigationController, animated: true)
         NavigationEventsFunnel.shared.logEvent(action: .articleToolbarSave)
     }

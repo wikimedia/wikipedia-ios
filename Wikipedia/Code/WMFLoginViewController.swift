@@ -229,7 +229,7 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
             
             changePasswordVC.userName = self.usernameField!.text
             changePasswordVC.apply(theme: self.theme)
-            let navigationController = WMFComponentNavigationController(rootViewController: changePasswordVC, modalPresentationStyle: .fullScreen)
+            let navigationController = WMFComponentNavigationController(rootViewController: changePasswordVC, modalPresentationStyle: .overFullScreen)
             presenter.present(navigationController, animated: true, completion: nil)
         })
     }
@@ -248,7 +248,7 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
             twoFactorViewController.captchaID = self.captchaViewController?.captcha?.captchaID
             twoFactorViewController.captchaWord = self.captchaViewController?.solution
             twoFactorViewController.apply(theme: self.theme)
-            let navigationController = WMFComponentNavigationController(rootViewController: twoFactorViewController, modalPresentationStyle: .fullScreen)
+            let navigationController = WMFComponentNavigationController(rootViewController: twoFactorViewController, modalPresentationStyle: .overFullScreen)
             presenter.present(navigationController, animated: true, completion: nil)
         })
     }
@@ -263,7 +263,7 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
             return
         }
         dismiss(animated: true, completion: {
-            let navigationController = WMFComponentNavigationController(rootViewController: forgotPasswordVC, modalPresentationStyle: .fullScreen)
+            let navigationController = WMFComponentNavigationController(rootViewController: forgotPasswordVC, modalPresentationStyle: .overFullScreen)
             forgotPasswordVC.apply(theme: self.theme)
             presenter.present(navigationController, animated: true, completion: nil)
         })
@@ -282,7 +282,7 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
         createAcctVC.apply(theme: theme)
         LoginFunnel.shared.logCreateAccountAttempt(category: category)
         dismiss(animated: true, completion: {
-            let navigationController = WMFComponentNavigationController(rootViewController: createAcctVC, modalPresentationStyle: .fullScreen)
+            let navigationController = WMFComponentNavigationController(rootViewController: createAcctVC, modalPresentationStyle: .overFullScreen)
             createAcctVC.category = self.category
             presenter.present(navigationController, animated: true, completion: nil)
         })

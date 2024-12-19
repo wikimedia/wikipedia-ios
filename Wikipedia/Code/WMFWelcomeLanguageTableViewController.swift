@@ -65,7 +65,7 @@ class WMFWelcomeLanguageTableViewController: ThemeableViewController, WMFPreferr
         let langsVC = WMFPreferredLanguagesViewController.preferredLanguagesViewController()
         langsVC.showExploreFeedCustomizationSettings = false
         langsVC.delegate = self
-        let navC = WMFComponentNavigationController(rootViewController: langsVC, modalPresentationStyle: .fullScreen)
+        let navC = WMFComponentNavigationController(rootViewController: langsVC, modalPresentationStyle: .overFullScreen)
         present(navC, animated: true, completion: nil)
     }
     

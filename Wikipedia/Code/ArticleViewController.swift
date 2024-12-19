@@ -1599,7 +1599,7 @@ private extension ArticleViewController {
 
 extension ArticleViewController {
     func presentEmbedded(_ viewController: UIViewController) {
-        let nc = WMFComponentNavigationController(rootViewController: viewController, modalPresentationStyle: .fullScreen)
+        let nc = WMFComponentNavigationController(rootViewController: viewController, modalPresentationStyle: .overFullScreen)
         present(nc, animated: true)
     }
 }

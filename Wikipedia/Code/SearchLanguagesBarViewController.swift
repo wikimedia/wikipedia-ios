@@ -302,7 +302,7 @@ class SearchLanguagesBarViewController: ThemeableViewController, WMFPreferredLan
         if let themeable = languagesVC as Themeable? {
             themeable.apply(theme: self.theme)
         }
-        let navVC = WMFComponentNavigationController(rootViewController: languagesVC, modalPresentationStyle: .fullScreen)
+        let navVC = WMFComponentNavigationController(rootViewController: languagesVC, modalPresentationStyle: .overFullScreen)
         present(navVC, animated: true, completion: nil)
     }
     

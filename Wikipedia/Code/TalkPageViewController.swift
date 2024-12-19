@@ -349,7 +349,7 @@ class TalkPageViewController: ThemeableViewController {
             if let themeableVC = languageVC as Themeable? {
                 themeableVC.apply(theme: self.theme)
             }
-            present(WMFComponentNavigationController(rootViewController: languageVC, modalPresentationStyle: .fullScreen), animated: true, completion: nil)
+            present(WMFComponentNavigationController(rootViewController: languageVC, modalPresentationStyle: .overFullScreen), animated: true, completion: nil)
         } else if viewModel.pageType == .article {
             guard let languageCode  = viewModel.siteURL.wmf_languageCode else {
                 return
@@ -358,7 +358,7 @@ class TalkPageViewController: ThemeableViewController {
                 if let articleURL = viewModel.siteURL.wmf_URL(withTitle: articleTitle) {
                     let languageVC = WMFArticleLanguagesViewController(articleURL: articleURL)
                     languageVC.delegate = self
-                    let navVC = WMFComponentNavigationController(rootViewController: languageVC, modalPresentationStyle: .fullScreen)
+                    let navVC = WMFComponentNavigationController(rootViewController: languageVC, modalPresentationStyle: .overFullScreen)
                     present(navVC, animated: true, completion: nil)
                 }
             }
@@ -509,7 +509,7 @@ class TalkPageViewController: ThemeableViewController {
 
         let editorViewController = EditorViewController(pageURL: pageURL, sectionID: nil, editFlow: .editorSavePreview, source: .talk, dataStore: dataStore, articleSelectedInfo: nil, editTag: .appTalkSource, delegate: self, theme: theme)
         
-        let navigationController = WMFComponentNavigationController(rootViewController: editorViewController, modalPresentationStyle: .fullScreen)
+        let navigationController = WMFComponentNavigationController(rootViewController: editorViewController, modalPresentationStyle: .overFullScreen)
         present(navigationController, animated: true)
         
         guard let url = viewModel.siteURL.wmf_URL(withTitle: viewModel.pageTitle) else {

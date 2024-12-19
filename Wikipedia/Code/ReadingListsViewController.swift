@@ -193,7 +193,7 @@ class ReadingListsViewController: ColumnarCollectionViewController2, EditableCol
             return
         }
         createReadingListViewController.delegate = self
-        let navigationController = WMFComponentNavigationController(rootViewController: createReadingListViewController, modalPresentationStyle: .fullScreen)
+        let navigationController = WMFComponentNavigationController(rootViewController: createReadingListViewController, modalPresentationStyle: .overFullScreen)
         
         present(navigationController, animated: true, completion: nil)
     }

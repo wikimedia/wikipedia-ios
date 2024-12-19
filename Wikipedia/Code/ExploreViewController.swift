@@ -1276,7 +1276,7 @@ extension ExploreViewController: SaveButtonsControllerDelegate {
     func showAddArticlesToReadingListViewController(for article: WMFArticle) {
         let addArticlesToReadingListViewController = AddArticlesToReadingListViewController(with: dataStore, articles: [article], moveFromReadingList: nil, theme: theme)
         addArticlesToReadingListViewController.delegate = self
-        let navigationController = WMFComponentNavigationController(rootViewController: addArticlesToReadingListViewController, modalPresentationStyle: .fullScreen)
+        let navigationController = WMFComponentNavigationController(rootViewController: addArticlesToReadingListViewController, modalPresentationStyle: .overFullScreen)
         present(navigationController, animated: true)
     }
 

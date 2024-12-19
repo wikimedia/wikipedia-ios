@@ -28,12 +28,12 @@ extension TalkPageTopicComposeViewController: TalkPageFormattingToolbarViewDeleg
                     return
                 }
                 editLinkViewController.delegate = self
-                let navigationController = WMFComponentNavigationController(rootViewController: editLinkViewController, modalPresentationStyle: .fullScreen)
+                let navigationController = WMFComponentNavigationController(rootViewController: editLinkViewController, modalPresentationStyle: .overFullScreen)
                 present(navigationController, animated: true)
             } else {
                 let insertLinkViewController = InsertLinkViewController(link: link, siteURL: viewModel.siteURL, dataStore: MWKDataStore.shared())
                 insertLinkViewController.delegate = self
-                let navigationController = WMFComponentNavigationController(rootViewController: insertLinkViewController, modalPresentationStyle: .fullScreen)
+                let navigationController = WMFComponentNavigationController(rootViewController: insertLinkViewController, modalPresentationStyle: .overFullScreen)
                 present(navigationController, animated: true)
             }
 

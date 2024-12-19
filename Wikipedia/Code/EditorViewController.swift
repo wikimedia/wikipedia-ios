@@ -748,7 +748,7 @@ extension EditorViewController: WMFSourceEditorViewControllerDelegate {
             }
             
             editLinkViewController.delegate = self
-            let navigationController = WMFComponentNavigationController(rootViewController: editLinkViewController, modalPresentationStyle: .fullScreen)
+            let navigationController = WMFComponentNavigationController(rootViewController: editLinkViewController, modalPresentationStyle: .overFullScreen)
             present(navigationController, animated: true)
         }
         
@@ -759,7 +759,7 @@ extension EditorViewController: WMFSourceEditorViewControllerDelegate {
             
             let insertLinkViewController = InsertLinkViewController(link: link, siteURL: siteURL, dataStore: dataStore)
             insertLinkViewController.delegate = self
-            let navigationController = WMFComponentNavigationController(rootViewController: insertLinkViewController, modalPresentationStyle: .fullScreen)
+            let navigationController = WMFComponentNavigationController(rootViewController: insertLinkViewController, modalPresentationStyle: .overFullScreen)
             present(navigationController, animated: true)
         }
     }
@@ -775,7 +775,7 @@ extension EditorViewController: WMFSourceEditorViewControllerDelegate {
         let insertMediaViewController = InsertMediaViewController(articleTitle: pageURL.wmf_title, siteURL: siteURL)
         insertMediaViewController.delegate = self
         insertMediaViewController.apply(theme: theme)
-        let navigationController = WMFComponentNavigationController(rootViewController: insertMediaViewController, modalPresentationStyle: .fullScreen)
+        let navigationController = WMFComponentNavigationController(rootViewController: insertMediaViewController, modalPresentationStyle: .overFullScreen)
         present(navigationController, animated: true)
     }
 }

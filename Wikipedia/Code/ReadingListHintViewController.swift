@@ -48,7 +48,7 @@ class ReadingListHintViewController: HintViewController {
         }
         let addArticlesToReadingListViewController = AddArticlesToReadingListViewController(with: dataStore, articles: [article], moveFromReadingList: nil, theme: theme)
         addArticlesToReadingListViewController.delegate = self
-        let navigationController = WMFComponentNavigationController(rootViewController: addArticlesToReadingListViewController, modalPresentationStyle: .fullScreen)
+        let navigationController = WMFComponentNavigationController(rootViewController: addArticlesToReadingListViewController, modalPresentationStyle: .overFullScreen)
         present(navigationController, animated: true)
     }
 
@@ -58,7 +58,7 @@ class ReadingListHintViewController: HintViewController {
         }
         let readingListDetailViewController = ReadingListDetailViewController(for: readingList, with: dataStore, displayType: .modal)
         readingListDetailViewController.apply(theme: theme)
-        let navigationController = WMFComponentNavigationController(rootViewController: readingListDetailViewController, modalPresentationStyle: .fullScreen)
+        let navigationController = WMFComponentNavigationController(rootViewController: readingListDetailViewController, modalPresentationStyle: .overFullScreen)
         themeableNavigationController = navigationController
         present(navigationController, animated: true) {
             self.delegate?.hintViewControllerDidPeformConfirmationAction(self)

@@ -208,7 +208,7 @@ protocol DescriptionEditViewControllerDelegate: AnyObject {
             return
         }
         
-        let navVC = WMFComponentNavigationController(rootViewController: vc, modalPresentationStyle: .fullScreen)
+        let navVC = WMFComponentNavigationController(rootViewController: vc, modalPresentationStyle: .overFullScreen)
         present(navVC, animated: true, completion: nil)
     }
     

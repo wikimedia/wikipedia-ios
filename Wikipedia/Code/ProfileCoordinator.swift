@@ -89,7 +89,7 @@ final class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegat
             yearInReviewDependencies: yearInReviewDependencies
         )
         
-        var profileView = WMFProfileView(viewModel: viewModel)
+        let profileView = WMFProfileView(viewModel: viewModel)
         self.viewModel = viewModel
         let finalView = profileView.environmentObject(targetRects)
         let hostingController = WMFProfileHostingController(rootView: finalView, viewModel: viewModel)
