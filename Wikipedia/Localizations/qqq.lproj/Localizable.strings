@@ -421,6 +421,7 @@
 "editor-replace-type-button-accessibility" = "Accessibility label for the replace type button on the editor. $1 is replaced by the replace type the user has set (single instance or all instances).";
 "editor-replace-type-single" = "Label indicating which replace type the user has set in the find and replace view on the editor. This type replaces a single instance of the find text.";
 "editor-replace-type-single-accessibility" = "Accessibility text for the replace single instance type on the editor.";
+"editor-title" = "Title of editor view.";
 "editor-toolbar-bold-accessibility" = "Accessibility label for bold toolbar button on the editor.";
 "editor-toolbar-cursor-down-accessibility" = "Accessibility label for move cursor down button on the editor. This button moves the cursor down to the next line.";
 "editor-toolbar-cursor-next-accessibility" = "Accessibility label for move cursor next button on the editor. This button moves the cursor to the next character.";
@@ -735,7 +736,6 @@
 "main-menu-terms-of-use" = "Button text for showing site terms of use {{Identical|Terms of use}}";
 "main-menu-title" = "Title for menu of secondary items. {{Identical|More}}";
 "main-menu-zero-faq" = "Button text for showing the Wikipedia Zero Frequently Asked Questions (FAQ) document";
-"menu-cancel-accessibility-label" = "Accessible label text for toolbar cancel button {{Identical|Cancel}}";
 "microsite-yir-english-edits-bytes-slide-subtitle" = "Edits bytes slide subtitle for English Year in Review, $1 is replaced by link to learn to participate.";
 "microsite-yir-english-edits-bytes-slide-title" = "Edits bytes slide title for English Year in Review.";
 "microsite-yir-english-edits-slide-subtitle" = "Edits slide subtitle for English Year in Review.";
@@ -1239,7 +1239,6 @@
 "talk-page-subscription-failed-alert" = "Text for the subscription failure alert";
 "talk-page-title-article-talk" = "This title label is displayed at the top of a talk page topic list, if the talk page type is an article talk page. Please prioritize for de, ar and zh wikis.";
 "talk-page-title-user-talk" = "This title label is displayed at the top of a talk page topic list, if the talk page type is a user talk page. Please prioritize for de, ar and zh wikis.";
-"talk-page-topic-close-button-hint" = "Accessibility hint for talk page new topic screen close button";
 "talk-page-topic-compose-terms-and-licenses-ccsa4" = "Text for information about the Terms of Use and edit licenses on talk pages when composing a new topic. Parameters:\n* $1 - app-specific non-text formatting, $2 - app-specific non-text formatting, $3 - app-specific non-text formatting, $4 - app-specific non-text formatting, $5 - app-specific non-text formatting,  $6 - app-specific non-text formatting. Please prioritize for de, ar and zh wikis.";
 "talk-page-unsubscribe-to-topic" = "Text used on button to unsubscribe from talk page topic.";
 "talk-page-unsubscribed-alert-subtitle" = "Subtitle for alert informing that the user will no longer receive notifications for a topic. Please prioritize for de, ar and zh wikis.";
