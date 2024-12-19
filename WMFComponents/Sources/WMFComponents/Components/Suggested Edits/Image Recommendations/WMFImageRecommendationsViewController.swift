@@ -59,13 +59,21 @@ fileprivate final class WMFImageRecommendationsHostingViewController: WMFCompone
         })
         super.init(rootView: rootView)
     }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        if isMovingFromParent {
+            print("yeah")
+        }
+    }
 
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 }
 
-public final class WMFImageRecommendationsViewController: WMFCanvasViewController {
+public final class WMFImageRecommendationsViewController: WMFCanvasViewController, WMFNavigationBarConfiguring {
 
     // MARK: - Properties
 
@@ -121,14 +129,8 @@ public final class WMFImageRecommendationsViewController: WMFCanvasViewControlle
 
     public override func viewDidLoad() {
         super.viewDidLoad()
-        title = viewModel.localizedStrings.title
-        navigationItem.backButtonDisplayMode = .generic
         setupOverflowMenu()
         addComponent(hostingViewController, pinToEdges: true, respectSafeArea: true)
-
-        navigationController?.interactivePopGestureRecognizer?.isEnabled = false
-        let image = WMFSFSymbolIcon.for(symbol: .chevronBackward, font: .boldCallout)
-        navigationItem.leftBarButtonItem = UIBarButtonItem(image: image, style: .plain, target: self, action: #selector(tappedBack))
     }
 
     public override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
@@ -141,8 +143,7 @@ public final class WMFImageRecommendationsViewController: WMFCanvasViewControlle
 
     public override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        navigationController?.setNavigationBarHidden(false, animated: false)
-        navigationController?.hidesBarsOnSwipe = false
+        configureNavigationBar()
     }
 
     public override func viewDidAppear(_ animated: Bool) {
@@ -180,6 +181,21 @@ public final class WMFImageRecommendationsViewController: WMFCanvasViewControlle
             cancellable.cancel()
         }
         cancellables.removeAll()
+    }
+    
+    public override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        
+        if parent == nil {
+            tappedBack()
+        }
+    }
+    
+    private func configureNavigationBar() {
+
+        let titleConfig = WMFNavigationBarTitleConfig(title: viewModel.localizedStrings.title, customView: nil, alignment: .centerCompact)
+        
+        configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: nil, profileButtonConfig: nil, searchBarConfig: nil, hideNavigationBarOnScroll: false)
     }
     
     public func presentImageRecommendationBottomSheet() {
@@ -246,9 +262,6 @@ public final class WMFImageRecommendationsViewController: WMFCanvasViewControlle
         if viewModel.imageRecommendations.isEmpty && viewModel.loadingError == nil {
             loggingDelegate?.logEmptyStateDidTapBack()
         }
-
-        navigationController?.interactivePopGestureRecognizer?.isEnabled = true
-        navigationController?.popViewController(animated: true)
     }
 
     private func setupOverflowMenu() {
