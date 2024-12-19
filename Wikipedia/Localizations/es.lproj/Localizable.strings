@@ -1125,6 +1125,7 @@
 // Fuzzy
 "year-in-review-base-donate-subtitle" = "Wikipedia está alojada por la Fundación Wikimedia y financiada por donaciones individuales. Trabajamos para mantener los sitios Wikimedia disponibles para todas las personas, crear funciones y herramientas para facilitar el intercambio de conocimientos, apoyar a las comunidades de editores voluntarios y mucho más. [Obtén más información sobre nuestro trabajo]($1).";
 "year-in-review-base-donate-title" = "0 anuncios en Wikipedia";
+// Fuzzy
 "year-in-review-base-editors-subtitle" = "La comunidad de editores voluntarios de Wikipedia ha realizado más de $1 ediciones en la aplicación para iOS en lo que va de año. El corazón y el alma de Wikipedia es nuestra comunidad global de colaboradores voluntarios, donantes y miles de millones de lectores como tú, todos unidos para compartir un acceso ilimitado a información confiable.";
 "year-in-review-base-editors-title" = "Los editores de la aplicación para iOS han realizado más de $1 ediciones.";
 // Fuzzy
