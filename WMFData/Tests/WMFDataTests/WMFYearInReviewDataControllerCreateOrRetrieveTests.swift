@@ -124,7 +124,7 @@ final class WMFYearInReviewDataControllerCreateOrRetrieveTests: XCTestCase {
         }
         
         dataController.shouldCreateOrRetrieve = false
-        let report = try await dataController.populateYearInReviewReportData(for: year, countryCode: countryCode, primaryAppLanguageProject: enProject, username: username, savedSlideDataDelegate: self, userID: nil)
+        let report = try await dataController.populateYearInReviewReportData(for: year, countryCode: countryCode, primaryAppLanguageProject: enProject, username: username, userID: nil, savedSlideDataDelegate: self, legacyPageViewsDataDelegate: self)
         XCTAssertNil(report, "Expected nil when shouldCreateOrRetrieveYearInReview returns false")
 
     }
@@ -135,7 +135,8 @@ final class WMFYearInReviewDataControllerCreateOrRetrieveTests: XCTestCase {
             throw TestsError.missingDataController
         }
         
-        var report = try await dataController.populateYearInReviewReportData(for: year, countryCode: countryCode, primaryAppLanguageProject: enProject, username: username, savedSlideDataDelegate: self, userID: nil)
+        var report = try await dataController.populateYearInReviewReportData(for: year, countryCode: countryCode, primaryAppLanguageProject: enProject, username: username, userID: nil, savedSlideDataDelegate: self, legacyPageViewsDataDelegate: self)
+        
         dataController.shouldCreateOrRetrieve = true
 
         let existingSlide1 = WMFYearInReviewSlide(year: year, id: .readCount, evaluated: true, display: true)
@@ -149,7 +150,8 @@ final class WMFYearInReviewDataControllerCreateOrRetrieveTests: XCTestCase {
 
         try await dataController.saveYearInReviewReport(existingReport)
 
-        report = try await dataController.populateYearInReviewReportData(for: year, countryCode: countryCode, primaryAppLanguageProject: enProject, username: username, savedSlideDataDelegate: self, userID: nil)
+        report = try await dataController.populateYearInReviewReportData(for: year, countryCode: countryCode, primaryAppLanguageProject: enProject, username: username, userID: nil, savedSlideDataDelegate: self, legacyPageViewsDataDelegate: self)
+
         XCTAssertNotNil(report, "Expected a report to be retrieved")
         XCTAssertEqual(report?.year, year)
         XCTAssertEqual(report?.slides.count, 6)
@@ -160,12 +162,13 @@ final class WMFYearInReviewDataControllerCreateOrRetrieveTests: XCTestCase {
         guard let dataController else {
             throw TestsError.missingDataController
         }
-        
-        var report = try await dataController.populateYearInReviewReportData(for: year, countryCode: countryCode, primaryAppLanguageProject: enProject, username: username, savedSlideDataDelegate: self, userID: nil)
+
+        var report = try await dataController.populateYearInReviewReportData(for: year, countryCode: countryCode, primaryAppLanguageProject: enProject, username: username, userID: nil, savedSlideDataDelegate: self, legacyPageViewsDataDelegate: self)
 
         try await dataController.deleteYearInReviewReport(year: year)
 
-        report = try await dataController.populateYearInReviewReportData(for: year, countryCode: countryCode, primaryAppLanguageProject: enProject, username: username, savedSlideDataDelegate: self, userID: nil)
+        report = try await dataController.populateYearInReviewReportData(for: year, countryCode: countryCode, primaryAppLanguageProject: enProject, username: username, userID: nil, savedSlideDataDelegate: self, legacyPageViewsDataDelegate: self)
+
         XCTAssertNotNil(report, "Expected a new report to be created")
         XCTAssertEqual(report?.year, year)
         XCTAssertEqual(report?.slides.count, 6)
@@ -176,4 +179,12 @@ extension WMFYearInReviewDataControllerCreateOrRetrieveTests: SavedArticleSlideD
     func getSavedArticleSlideData(from startDate: Date, to endEnd: Date) async -> WMFData.SavedArticleSlideData {
         return SavedArticleSlideData(savedArticlesCount: 30, articleTitles: ["Cat", "Dog", "Bird"])
     }
+}
+
+extension WMFYearInReviewDataControllerCreateOrRetrieveTests: LegacyPageViewsDataDelegate {
+    func getLegacyPageViews(from startDate: Date, to endDate: Date) async throws -> [WMFData.WMFLegacyPageView] {
+        return []
+    }
+    
+    
 }

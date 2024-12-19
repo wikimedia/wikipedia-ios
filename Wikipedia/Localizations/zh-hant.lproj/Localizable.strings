@@ -1446,6 +1446,7 @@
 "year-in-review-base-edits-title" = "在維基百科上發生的編輯為$1";
 // Fuzzy
 "year-in-review-base-reading-subtitle" = "今年在維基百科上有 $1，超過 $2。您與數百萬人一起擴展知識，並探索不同的主題。";
+// Fuzzy
 "year-in-review-base-reading-title" = "閱讀維基百科讓我們走在一起";
 // Fuzzy
 "year-in-review-base-viewed-subtitle" = "iOS 應用程式使用者已閱讀維基百科條目 $1。對於世界各地的人們來說，維基百科是回答問題、尋找在學校或工作時所需的資訊、或了解新真相的首選。";
@@ -1453,8 +1454,12 @@
 "year-in-review-base-viewed-title" = "我們在維基百科上閱讀條目有 $1 。";
 "year-in-review-button-title" = "年度回顧";
 "year-in-review-donate" = "捐款";
+// Fuzzy
 "year-in-review-feature-announcement-body" = "查看有關您在維基百科應用程式上閱讀條目的見解，分享您的旅程，並發現您這一年的精彩事項。";
+// Fuzzy
 "year-in-review-feature-announcement-title" = "探索您的維基百科年度回顧";
+// Fuzzy
+"year-in-review-feature-explore-body-personalized" = "查看您在維基百科應用程式上閱讀過的條目，以及您所做過編輯的見解。分享您的旅程，並發現今年對您來說最特別的事情。您的閱讀歷史紀錄會受到保護，閱讀見解是使用在您裝置上本地儲存的資料計算的，。";
 "year-in-review-personalized-editing-subtitle-format" = "您編輯了 {{PLURAL:$1|$1}} 次維基百科。感謝您成為替世界各維基媒體計畫做出貢獻的志工編輯者之一。";
 "year-in-review-personalized-editing-subtitle-format-500plus" = "您編輯了維基百科超過 500 次。感謝您成為替世界各維基媒體計畫做出貢獻的志工編輯者之一。";
 "year-in-review-personalized-editing-title-format" = "您編輯了 {{PLURAL:$1|$1}} 次維基百科";
@@ -1464,5 +1469,3 @@
 "year-in-review-personalized-reading-title-format" = "您今年閱讀了 {{PLURAL:$1|$1}} 篇條目";
 // Fuzzy
 "year-in-review-share-text" = "這是我使用維基百科 iOS 應用程式建立的維基百科年度回顧。";
-// Fuzzy
-"year-in-review-subtitle" = "查看您在維基百科應用程式上閱讀過的條目，以及您所做過編輯的見解。分享您的旅程，並發現今年對您來說最特別的事情。您的閱讀歷史紀錄會受到保護，閱讀見解是使用在您裝置上本地儲存的資料計算的，。";

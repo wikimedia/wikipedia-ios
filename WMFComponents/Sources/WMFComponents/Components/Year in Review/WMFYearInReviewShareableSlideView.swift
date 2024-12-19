@@ -9,8 +9,7 @@ struct WMFYearInReviewShareableSlideView: View {
     }
 
     let imageName: String
-    let imageOverlay: String?
-    let textOverlay: String?
+    var altText: String
     var slideTitle: String
     var slideSubtitle: String
     var hashtag: String
@@ -35,16 +34,6 @@ struct WMFYearInReviewShareableSlideView: View {
                             .frame(maxWidth: .infinity)
                             .ignoresSafeArea()
                             .padding(.horizontal, 0)
-
-                        if let imageOverlay {
-                            Image(imageOverlay, bundle: .module)
-                        }
-
-                        if let overlayText = textOverlay {
-                            Text(overlayText)
-                                .font(Font(WMFFont.for(.xxlTitleBold)))
-                                .foregroundColor(.white)
-                        }
                     }
                     .padding(.top, 10)
                     VStack(alignment: .leading, spacing: 12) {

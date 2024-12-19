@@ -40,8 +40,14 @@ public extension WMFFeatureAnnouncing where Self:UIViewController {
             guard canPresentWithoutCrashing else { return }
 
             let sheet = popover.adaptiveSheetPresentationController
-            sheet.detents = [.medium()]
             
+            let customDetent = UISheetPresentationController.Detent.custom(identifier: .init("slightlyTallerMedium")) { context in
+                return context.maximumDetentValue * 0.65
+            }
+            
+            sheet.detents = [customDetent]
+            sheet.selectedDetentIdentifier = customDetent.identifier
+
             present(viewController, animated: true)
         }
     }
