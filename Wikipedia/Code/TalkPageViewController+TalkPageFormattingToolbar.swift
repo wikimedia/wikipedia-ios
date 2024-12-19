@@ -27,14 +27,14 @@ extension TalkPageViewController: TalkPageFormattingToolbarViewDelegate {
             }
 
             if link.exists {
-                guard let editLinkViewController = EditLinkViewController(link: link, siteURL: viewModel.siteURL, dataStore: MWKDataStore.shared()) else {
+                guard let editLinkViewController = EditLinkViewController(link: link, siteURL: viewModel.siteURL, dataStore: MWKDataStore.shared(), theme: theme) else {
                     return
                 }
                 editLinkViewController.delegate = self
                 let navigationController = WMFComponentNavigationController(rootViewController: editLinkViewController, modalPresentationStyle: .overFullScreen)
                 present(navigationController, animated: true)
             } else {
-                let insertLinkViewController = InsertLinkViewController(link: link, siteURL: viewModel.siteURL, dataStore: MWKDataStore.shared())
+                let insertLinkViewController = InsertLinkViewController(link: link, siteURL: viewModel.siteURL, dataStore: MWKDataStore.shared(), theme: theme)
                 insertLinkViewController.delegate = self
                 let navigationController = WMFComponentNavigationController(rootViewController: insertLinkViewController, modalPresentationStyle: .overFullScreen)
                 present(navigationController, animated: true)

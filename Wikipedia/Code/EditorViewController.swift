@@ -742,7 +742,7 @@ extension EditorViewController: WMFSourceEditorViewControllerDelegate {
                 return
             }
             
-            guard let editLinkViewController = EditLinkViewController(link: link, siteURL: pageURL.wmf_site, dataStore: dataStore) else {
+            guard let editLinkViewController = EditLinkViewController(link: link, siteURL: pageURL.wmf_site, dataStore: dataStore, theme: theme) else {
                 return
             }
             
@@ -756,7 +756,7 @@ extension EditorViewController: WMFSourceEditorViewControllerDelegate {
                 return
             }
             
-            let insertLinkViewController = InsertLinkViewController(link: link, siteURL: siteURL, dataStore: dataStore)
+            let insertLinkViewController = InsertLinkViewController(link: link, siteURL: siteURL, dataStore: dataStore, theme: theme)
             insertLinkViewController.delegate = self
             let navigationController = WMFComponentNavigationController(rootViewController: insertLinkViewController, modalPresentationStyle: .overFullScreen)
             present(navigationController, animated: true)

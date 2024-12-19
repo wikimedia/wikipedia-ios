@@ -30,8 +30,11 @@ class EditLinkViewController: ThemeableViewController, WMFNavigationBarConfiguri
     @IBOutlet private weak var activityIndicatorView: UIActivityIndicatorView!
     @IBOutlet private weak var removeLinkButton: AutoLayoutSafeMultiLineButton!
     @IBOutlet private var separatorViews: [UIView] = []
+    
+    private lazy var finishEditingButton = UIBarButtonItem(title: CommonStrings.doneTitle, style: .done, target: self, action: #selector(finishEditing(_:)))
 
-    init?(link: Link, siteURL: URL?, dataStore: MWKDataStore) {
+
+    init?(link: Link, siteURL: URL?, dataStore: MWKDataStore, theme: Theme) {
         guard
             let siteURL = siteURL ?? MWKDataStore.shared().primarySiteURL ?? NSURL.wmf_URLWithDefaultSiteAndCurrentLocale(),
             let articleURL = link.articleURL(for: siteURL)
@@ -43,6 +46,7 @@ class EditLinkViewController: ThemeableViewController, WMFNavigationBarConfiguri
         self.articleURL = articleURL
         self.dataStore = dataStore
         super.init(nibName: "EditLinkViewController", bundle: nil)
+        self.theme = theme
     }
 
     deinit {
@@ -79,9 +83,11 @@ class EditLinkViewController: ThemeableViewController, WMFNavigationBarConfiguri
     private func configureNavigationBar() {
         
         let titleConfig = WMFNavigationBarTitleConfig(title: CommonStrings.editLinkTitle, customView: nil, alignment: .centerCompact)
-        let closeButtonConfig = WMFNavigationBarCloseButtonConfig(accessibilityLabel: CommonStrings.closeButtonAccessibilityLabel, target: self, action: #selector(close(_:)), alignment: .trailing)
+        let closeButtonConfig = WMFNavigationBarCloseButtonConfig(accessibilityLabel: CommonStrings.closeButtonAccessibilityLabel, target: self, action: #selector(close(_:)), alignment: .leading)
         
         configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: closeButtonConfig, profileButtonConfig: nil, searchBarConfig: nil, hideNavigationBarOnScroll: false)
+        
+        navigationItem.rightBarButtonItem = finishEditingButton
     }
 
     private func fetchArticle() {
@@ -184,6 +190,7 @@ class EditLinkViewController: ThemeableViewController, WMFNavigationBarConfiguri
         removeLinkButton.backgroundColor = theme.colors.paperBackground
         displayTextView.textColor = theme.colors.primaryText
         activityIndicatorView.color = theme.isDark ? .white : .gray
+        articleCell.apply(theme: theme)
     }
 }
 

@@ -8,15 +8,16 @@ protocol InsertLinkViewControllerDelegate: AnyObject {
 
 class InsertLinkViewController: UIViewController, WMFNavigationBarConfiguring {
     weak var delegate: InsertLinkViewControllerDelegate?
-    private var theme = Theme.standard
+    private var theme: Theme
     private let dataStore: MWKDataStore
     private let link: Link
     private let siteURL: URL?
 
-    init(link: Link, siteURL: URL?, dataStore: MWKDataStore) {
+    init(link: Link, siteURL: URL?, dataStore: MWKDataStore, theme: Theme) {
         self.link = link
         self.siteURL = siteURL
         self.dataStore = dataStore
+        self.theme = theme
         super.init(nibName: nil, bundle: nil)
     }
 
