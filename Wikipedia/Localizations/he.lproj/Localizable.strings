@@ -1428,6 +1428,7 @@
 // Fuzzy
 "year-in-review-base-donate-subtitle" = "ויקיפדיה מתארחת בחסות קרן ויקימדיה וממומנת על־ידי תרומת של אנשים פרטיים. אנו עמלים כדי לשמור על אתרי ויקימדיה זמינים לכל דורש, לבנות יכולות וכלים כדי להקל על שיתוף ידע, לתמוך בקהילות עורכים מתנדבים ועוד. [מידע נוסף על פעילותנו]($1).";
 "year-in-review-base-donate-title" = "0 פרסומות הופיעו בוויקיפדיה";
+// Fuzzy
 "year-in-review-base-editors-subtitle" = "קהילת העורכים המתנדבים של עשתה יותר מ־$1 עריכות דרך היישום ל־iOS עד כה השנה. הלב והנשמה של ויקיפדיה הם הקהילה הבין־לאומית של התורמים המתנדבים, המממנים ומיליארדי הקוראים כמוך - כולם במטרה אחת לשתף גישה בלתי־מוגבלת למידע אמין.";
 "year-in-review-base-editors-title" = "העורכים ביישום ל־iOS עשו יותר מ־$1 עריכות";
 "year-in-review-base-edits-subtitle" = "השנה, נערכה ויקיפדיה בקצב ממוצע של $1 פעמים בדקה. ערכים נוצרים ומשתפרים באופן שיתופי תוך שימוש במקורות אמינים. לכולנו יש ידע לשתף, [ואנו מזמינים אותך לקבל מידע נוסף על השתתפות]($2).";
@@ -1466,6 +1467,7 @@
 // Fuzzy
 "year-in-review-personalized-donate-title" = "תודה רבה על התרומה שלך!";
 "year-in-review-personalized-edit-views-subtitle-format" = "קוראים ברחבי העולם מעריכים את התרומות שלך. במהלך החודשיים האחרונים, ערכים שערכת קיבלו $1 צפיות בסך הכול. הודות לעורכים כמוך, ויקיפדיה היא משאב ידע המשתפר בהתמדה, מבוסס עובדות ואמין עבור העולם";
+// Fuzzy
 "year-in-review-personalized-edit-views-title-format" = "העריכות שלך נצפו יותר מ־$1 פעמים לאחרונה";
 "year-in-review-personalized-editing-subtitle-format" = "ערכת את ויקיפדיה {{PLURAL:$1|פעם אחת|פעמיים|$1 פעמים}}. תודה שהיית אחד מהעורכים המתנדבים שעושים את ההבדל במיזמים של ויקימדיה ברחבי העולם.";
 "year-in-review-personalized-editing-subtitle-format-500plus" = "ערכת את ויקיפדיה יותר מ־500 פעמים. תודה שהיית אחד מהעורכים המתנדבים שעושים את ההבדל במיזמים של ויקימדיה ברחבי העולם.";
@@ -1474,6 +1476,7 @@
 // Fuzzy
 "year-in-review-personalized-reading-subtitle-format" = "השנה קראת {{PLURAL:$1|ערך אחד|$1 ערכים}}, ובוויקיפדיה היא $2 מיליון ערכים זמינים ביותר מ־$3 שפות פעילות. הצטרפת למיליונים בהרחבת הידע ובחקירת נושאים מגוונים.";
 "year-in-review-personalized-reading-title-format" = "קראת {{PLURAL:$1|ערך|$1 ערכים}} השנה";
+// Fuzzy
 "year-in-review-personalized-saved-subtitle-format" = "שמרת {{PLURAL:$1|ערך|$1 ערכים}} השנה, לרבות „$2”, „$3” וגם „$4”. כל ערך שנשמר משקף את תחומי העניין שלך ומסייע לבנות מאגר ידע מותאם אישית בוויקיפדיה.";
 "year-in-review-personalized-saved-title-format" = "שמרת {{PLURAL:$1|ערך|$1 ערכים}}";
 "year-in-review-share-text" = "הנה הסקירה השנתית שלי בוויקיפדיה. נוצרה באמצעות יישום ויקיפדיה ל־iOS.";
@@ -1485,6 +1488,5 @@
 "year-in-review-survey-unsatisfied" = "לא מרוצה";
 "year-in-review-survey-very-satisfied" = "מאוד מרוצה";
 "year-in-review-survey-very-unsatisfied" = "מאוד לא מרוצה";
-"year-in-review-wikipedia-globe-accessibility-label" = "סמל הגלובוס של ויקיפדיה";
 "year-in-review-wikipedia-w-accessibility-label" = "סמל w של ויקיפדיה";
 "year-in-review-wmf-logo-accessibility-label" = "סמל קרן ויקימדיה";

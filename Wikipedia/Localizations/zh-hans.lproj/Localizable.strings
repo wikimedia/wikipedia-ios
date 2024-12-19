@@ -1473,6 +1473,7 @@
 // Fuzzy
 "year-in-review-base-donate-subtitle" = "维基百科由维基媒体基金会托管，资金来自个人捐款。我们致力于让所有人都能访问维基媒体网站，构建功能和工具，让知识共享更加轻松，支持志愿编辑社区等等。[详细了解我们的工作]( $1 )。";
 "year-in-review-base-donate-title" = "我们并未在维基百科上设置广告";
+// Fuzzy
 "year-in-review-base-editors-subtitle" = "今年，维基百科的志愿编者社群在iOS应用程序上作出了不少于$1笔编辑。由志愿者、捐赠者和像您一样千千万万的读者组成的社群，是维基百科的命脉所在，团结起来，不受限制地共享可靠的信息。";
 "year-in-review-base-editors-title" = "维基人在iOS应用程序上作出了不少于$1笔编辑。";
 "year-in-review-base-edits-subtitle" = "今年，维基百科的平均编辑率为每分钟$1 。文章是使用可靠来源协作创建和改进的。我们所有人都有知识可以分享，[了解如何参与]（ $2 ）。";
@@ -1517,6 +1518,7 @@
 // Fuzzy
 "year-in-review-personalized-reading-subtitle-format" = "今年，您阅读了{{PLURAL:$1| $1条目}}，维基百科上有超过$3种活跃语言的$2万篇条目。您与数百万人一起拓展知识面，探索各种主题。";
 "year-in-review-personalized-reading-title-format" = "您今年阅读了{{PLURAL:$1|$1篇条目}}。";
+// Fuzzy
 "year-in-review-personalized-saved-subtitle-format" = "您今年保存了{{PLURAL:$1| $1条目}}，包括“ $2 ”、“ $3 ”和“ $4 ”。每篇保存的条目都反映了您的兴趣，有助于在维基百科上建立个性化的知识库。";
 "year-in-review-personalized-saved-title-format" = "您保存了{{PLURAL:$1| $1条目}}";
 "year-in-review-share-text" = "这是我的维基百科年度回顾，使用维基百科iOS应用创建";
@@ -1528,6 +1530,5 @@
 "year-in-review-survey-unsatisfied" = "不满意";
 "year-in-review-survey-very-satisfied" = "非常满意";
 "year-in-review-survey-very-unsatisfied" = "非常不满意";
-"year-in-review-wikipedia-globe-accessibility-label" = "维基百科地球徽标";
 "year-in-review-wikipedia-w-accessibility-label" = "维基百科 w 徽标";
 "year-in-review-wmf-logo-accessibility-label" = "维基媒体基金会标志";

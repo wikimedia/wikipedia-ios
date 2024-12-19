@@ -1004,6 +1004,7 @@
 "wikitext-upload-save-terms-name" = "Condizioni d'uso";
 "year-in-review-base-donate-subtitle" = "Con il tuo aiuto, la Wikimedia Foundation, l'organizzazione non-profit dietro Wikipedia, continuerà a garantire che le informazioni su cui fai affidamento siano prive di pubblicità e affidabili, mantenendo Wikipedia in funzione senza problemi con strumenti e tecnologie all'avanguardia. Considera di fare una donazione oggi. [Scopri di più sul nostro lavoro]($1).";
 "year-in-review-base-donate-title" = "0 annunci pubblicati su Wikipedia";
+// Fuzzy
 "year-in-review-base-editors-subtitle" = "Quest'anno la community di redattori volontari di Wikipedia ha apportato più di $1 modifiche all'app iOS. Il cuore e l'anima di Wikipedia sono costituiti dalla community internazionale di contributori volontari, di donatori e di miliardi di lettori come te, uniti per condividere un accesso illimitato a un'informazione affidabile.";
 "year-in-review-base-editors-title" = "I redattori dell'app iOS hanno apportato più di $1 modifiche";
 "year-in-review-base-edits-subtitle" = "Quest'anno Wikipedia è stata modificata a una velocità media di $1 volte al minuto. Gli articoli vengono creati e perfezionati in modo collaborativo utilizzando fonti affidabili. Tutti noi abbiamo conoscenze da condividere: [impariamo a metterle a disposizione]($2).";
@@ -1020,6 +1021,7 @@
 "year-in-review-feature-announcement-title" = "Esplora la rassegna di Wikipedia";
 "year-in-review-feature-explore-body-personalized" = "Visualizza approfondimenti sugli articoli che leggi sull'app Wikipedia e sulle modifiche apportate. La cronologia delle tue letture rimane protetta. Gli approfondimenti sulle letture vengono determinati utilizzando i dati archiviati localmente sul tuo dispositivo.";
 "year-in-review-finish" = "Termina";
+// Fuzzy
 "year-in-review-personalized-donate-subtitle" = "Grazie per aver investito nel futuro della conoscenza libera. Nel 2024, la Wikimedia Foundation ha fatto progredire la tecnologia per servire meglio ogni lettore e volontario, ha sviluppato strumenti che potenziano la collaborazione e ha supportato Wikipedia in più lingue. [Scopri di più sul nostro lavoro]($1).";
 "year-in-review-personalized-donate-title" = "La tua generosità ha contribuito a far prosperare Wikipedia";
 "year-in-review-personalized-donation-thank-you" = "Logo di Wikimedia";
@@ -1039,6 +1041,5 @@
 "year-in-review-survey-unsatisfied" = "Insoddisfatto";
 "year-in-review-survey-very-satisfied" = "Molto soddisfatto";
 "year-in-review-survey-very-unsatisfied" = "Molto insoddisfatto";
-"year-in-review-wikipedia-globe-accessibility-label" = "Logo del globo di Wikipedia";
 "year-in-review-wikipedia-w-accessibility-label" = "Logo W di Wikipedia";
 "year-in-review-wmf-logo-accessibility-label" = "Logo della Wikimedia Foundation";
