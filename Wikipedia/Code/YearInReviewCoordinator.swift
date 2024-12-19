@@ -264,12 +264,23 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
     }
 
     var englishTopReadSlideSubtitle: String {
+        // Individual top read items
+        let item1 = "Deaths in 2024"
+        let item2 = "Kamala Harris"
+        let item3 = "2024 United States presidential election"
+        let item4 = "Lyle and Erik Menendez"
+        let item5 = "Donald Trump"
+        
+        let linkOpening = "<a href=\"\(topReadBlogPost)\">"
+        let linkClosing = "</a>"
+        
         let format = WMFLocalizedString(
             "microsite-yir-english-top-read-slide-subtitle",
-            value: "When people want to learn about our world—the good, bad, weird, and wild alike—they turn to Wikipedia. The top 5 visited articles on English Wikipedia were:\n1. Deaths in 2024\n2. Kamala Harris\n3. 2024 United States presidential election\n4. Lyle and Erik Menendez\n5. Donald Trump\nRead more in <a href=\"\(topReadBlogPost)\">our dedicated blog post</a>.",
-            comment: "Top read slide subtitle for English Year in Review. %1$@ is replaced with the link to the blog post."
+            value: "When people want to learn about our world—the good, bad, weird, and wild alike—they turn to Wikipedia. The top 5 visited articles on English Wikipedia were:\n1. %1$@\n2. %2$@\n3. %3$@\n4. %4$@\n5. %5$@\nRead more in %6$@our dedicated blog post%7$@.",
+            comment: "Top read slide subtitle for English Year in Review. %1$@ %2$@ %3$@ %4$@ %5$@ are replaced with article titles, %6$@ and %7$@ wrap the blog post link."
         )
-        return String.localizedStringWithFormat(format, topReadBlogPost)
+        
+        return String.localizedStringWithFormat(format, item1, item2, item3, item4, item5, linkOpening, linkClosing)
     }
 
     var englishSavedReadingSlideTitle: String {
