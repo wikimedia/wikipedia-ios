@@ -67,8 +67,6 @@ class ReferenceBackLinksViewController: ReferenceViewController {
             previousButton.isEnabled = false
             nextButton.isEnabled = false
         }
-        // enableToolbar()
-        // setToolbarHidden(false, animated: false)
     }
 
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
@@ -133,5 +131,9 @@ class ReferenceBackLinksViewController: ReferenceViewController {
         }
         countLabel.textColor = theme.colors.secondaryText
         view.backgroundColor = .clear
+        
+        toolbarContainerView.backgroundColor = theme.colors.paperBackground
+        toolbar.setBackgroundImage(theme.navigationBarBackgroundImage, forToolbarPosition: .any, barMetrics: .default)
+        toolbar.isTranslucent = false
     }
 }

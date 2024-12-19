@@ -230,6 +230,10 @@ final class NotificationsCenterViewController: ThemeableViewController, WMFNavig
         markButton?.apply(theme: theme)
         markAllAsReadButton.apply(theme: theme)
         statusBarButton.apply(theme: theme)
+        
+        toolbarContainerView.backgroundColor = theme.colors.paperBackground
+        toolbar.setBackgroundImage(theme.navigationBarBackgroundImage, forToolbarPosition: .any, barMetrics: .default)
+        toolbar.isTranslucent = false
     }
     
 }

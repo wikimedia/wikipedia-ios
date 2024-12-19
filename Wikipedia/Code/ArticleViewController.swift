@@ -1106,6 +1106,10 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
             searchVC.theme = theme
             searchVC.apply(theme: theme)
         }
+        
+        toolbarContainerView.backgroundColor = theme.colors.paperBackground
+        toolbar.setBackgroundImage(theme.navigationBarBackgroundImage, forToolbarPosition: .any, barMetrics: .default)
+        toolbar.isTranslucent = false
     }
     
     private func rethemeWebViewIfNecessary() {

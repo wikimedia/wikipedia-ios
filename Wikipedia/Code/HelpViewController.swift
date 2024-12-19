@@ -134,6 +134,14 @@ class HelpViewController: SinglePageWebViewController {
 
         UIApplication.shared.open(mailtoURL)
     }
+    
+    override func apply(theme: Theme) {
+        super.apply(theme: theme)
+        
+        toolbarContainerView.backgroundColor = theme.colors.paperBackground
+        toolbar.setBackgroundImage(theme.navigationBarBackgroundImage, forToolbarPosition: .any, barMetrics: .default)
+        toolbar.isTranslucent = false
+    }
 
 }
 

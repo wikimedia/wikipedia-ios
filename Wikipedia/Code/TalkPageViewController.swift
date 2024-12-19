@@ -168,6 +168,7 @@ class TalkPageViewController: ThemeableViewController {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
         self.theme = theme
+        hidesBottomBarWhenPushed = true
     }
     
     required init?(coder aDecoder: NSCoder) {
