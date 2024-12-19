@@ -1,6 +1,6 @@
 import WMFComponents
 
-class DescriptionHelpViewController: ThemeableViewController {
+class DescriptionHelpViewController: ThemeableViewController, WMFNavigationBarConfiguring {
 
     @IBOutlet private weak var helpScrollView: UIScrollView!
 
@@ -42,13 +42,7 @@ class DescriptionHelpViewController: ThemeableViewController {
     }
     
     public override func viewDidLoad() {
-        // scrollView = helpScrollView
         super.viewDidLoad()
-        
-        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named:"close"), style: .plain, target:self, action:#selector(closeButtonPushed(_:)))
-        navigationItem.leftBarButtonItem?.accessibilityLabel = CommonStrings.closeButtonAccessibilityLabel
-
-        title = WMFLocalizedString("description-help-title", value:"Article description help", comment:"Title for description editing help page")
         
         aboutTitleLabel.text = WMFLocalizedString("description-help-about-title", value:"About", comment:"Description editing about label text")
         aboutDescriptionLabel.text = WMFLocalizedString("description-help-about-description", value:"Article descriptions summarize an article to help readers understand the subject at a glance.", comment:"Description editing details label text")
@@ -71,12 +65,13 @@ class DescriptionHelpViewController: ThemeableViewController {
         updateFonts()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
+    private func configureNavigationBar() {
         
-        navigationController?.setNavigationBarHidden(false, animated: true)
-        navigationController?.hidesBarsOnSwipe = false
-        navigationItem.largeTitleDisplayMode = .never
+        let titleConfig = WMFNavigationBarTitleConfig(title: WMFLocalizedString("description-help-title", value:"Article description help", comment:"Title for description editing help page"), customView: nil, alignment: .centerCompact)
+        
+        let closeConfig = WMFNavigationBarCloseButtonConfig(accessibilityLabel: CommonStrings.closeButtonAccessibilityLabel, target: self, action: #selector(closeButtonPushed(_:)), alignment: .trailing)
+        
+        configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: closeConfig, profileButtonConfig: nil, searchBarConfig: nil, hideNavigationBarOnScroll: false)
     }
     
     @objc func closeButtonPushed(_ : UIBarButtonItem) {
