@@ -126,7 +126,7 @@ public extension WMFNavigationBarConfiguring where Self: UIViewController {
                 themeNavigationBarLeadingTitleView()
             } else {
                 let leadingTitleLabel = UILabel()
-                leadingTitleLabel.font = WMFFont.for(.boldTitle1)
+                leadingTitleLabel.font = WMFFont.navigationBarLeadingCompactTitleFont
                 leadingTitleLabel.text = titleConfig.title
                 // may still need this
                 // leadingTitleLabel.textColor = WMFAppEnvironment.current.theme.text
@@ -161,6 +161,7 @@ public extension WMFNavigationBarConfiguring where Self: UIViewController {
             // let image = WMFSFSymbolIcon.for(symbol: .close)
             // TODO: Localize
             let closeButton = UIBarButtonItem(title: "Done", style: .done, target: closeButtonConfig.target, action: closeButtonConfig.action)
+            closeButton.setTitleTextAttributes([.font: WMFFont.navigationBarDoneButtonFont], for: .normal)
             
             switch closeButtonConfig.alignment {
             case .leading:
@@ -249,12 +250,32 @@ public extension WMFNavigationBarConfiguring where Self: UIViewController {
         let paletteColors: [UIColor]
         
         if needsBadge {
-            paletteColors = [theme.destructive, theme.link]
+            paletteColors = [theme.destructive, theme.navigationBarTintColor]
         } else {
-            paletteColors = [theme.link]
+            paletteColors = [theme.navigationBarTintColor]
         }
         
         let symbol = WMFSFSymbolIcon.for(symbol: needsBadge ? .personCropCircleBadge : .personCropCircle, paletteColors: paletteColors)
         return symbol
+    }
+}
+
+public extension WMFFont {
+    static var navigationBarDoneButtonFont: UIFont {
+        return WMFFont.for(.semiboldHeadline)
+    }
+    
+    static var navigationBarLeadingCompactTitleFont: UIFont {
+        return WMFFont.for(.boldTitle1)
+    }
+    
+    static var navigationBarLeadingLargeTitleFont: UIFont {
+        return WMFFont.for(.boldTitle1)
+    }
+}
+
+public extension WMFTheme {
+    var navigationBarTintColor: UIColor {
+        return self.link
     }
 }

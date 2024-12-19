@@ -221,8 +221,12 @@ public final class WMFWatchlistViewController: WMFCanvasViewController {
 		let filterView = WMFWatchlistFilterView(viewModel: self.filterViewModel, doneAction: { [weak self] in
             self?.dismiss(animated: true)
         })
+        
+        let hostingController = WMFWatchlistFilterHostingController(viewModel: self.filterViewModel, filterView: filterView, delegate: self)
+        
+        let navigationViewController = WMFComponentNavigationController(rootViewController: hostingController, modalPresentationStyle: .pageSheet)
 
-        self.present(WMFWatchlistFilterHostingController(viewModel: self.filterViewModel, filterView: filterView, delegate: self), animated: true)
+        self.present(navigationViewController, animated: true)
     }
 }
 

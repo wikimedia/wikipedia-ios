@@ -37,8 +37,8 @@ public struct WMFYearInReviewView: View {
                         viewModel.handleDone()
                     }) {
                         Text(viewModel.localizedStrings.doneButtonTitle)
-                            .foregroundStyle(Color(uiColor: theme.link))
-                            .font(Font(WMFFont.for(.semiboldHeadline)))
+                            .font(Font(WMFFont.navigationBarDoneButtonFont))
+                            .foregroundColor(Color(theme.navigationBarTintColor))
                             .frame(maxWidth: .infinity, alignment: .trailing)
                     }
                     .frame(maxWidth: .infinity, alignment: .trailing)

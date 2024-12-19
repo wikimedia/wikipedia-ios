@@ -32,6 +32,12 @@ open class WMFComponentNavigationController: UINavigationController {
         setup()
     }
     
+    open override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        setBarAppearance()
+    }
+    
     required public init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -65,22 +71,33 @@ open class WMFComponentNavigationController: UINavigationController {
     public func appEnvironmentDidChange() {
         overrideUserInterfaceStyle = theme.userInterfaceStyle
         setNeedsStatusBarAppearanceUpdate()
+
+        setBarAppearance()
+    }
+    
+    private func setBarAppearance() {
+
+        let barAppearance = UINavigationBarAppearance()
+        barAppearance.configureWithOpaqueBackground()
+        barAppearance.largeTitleTextAttributes = [.font: WMFFont.navigationBarLeadingLargeTitleFont]
         
-        // Button colors
-        navigationBar.tintColor = theme.link
+        if modalPresentationStyle == .pageSheet {
+            barAppearance.backgroundColor = theme.midBackground
+            let backgroundImage = UIImage.roundedRectImage(with: theme.midBackground, cornerRadius: 1)
+            barAppearance.backgroundImage = backgroundImage
+        } else {
+            barAppearance.backgroundColor = theme.paperBackground
+            let backgroundImage = UIImage.roundedRectImage(with: theme.paperBackground, cornerRadius: 1)
+            barAppearance.backgroundImage = backgroundImage
+        }
         
-        // Other
-        let appearance = UINavigationBarAppearance()
-        appearance.configureWithOpaqueBackground()
-        appearance.largeTitleTextAttributes = [.font: WMFFont.for(.boldTitle1)]
-        appearance.backgroundColor = theme.paperBackground
-        appearance.backgroundImage = navigationBarBackgroundImage()
-        appearance.shadowImage = UIImage()
-        appearance.shadowColor = .clear
+        barAppearance.shadowImage = UIImage()
+        barAppearance.shadowColor = .clear
         
-        navigationBar.standardAppearance = appearance
-        navigationBar.scrollEdgeAppearance = appearance
-        navigationBar.compactAppearance = appearance
+        navigationBar.tintColor = theme.navigationBarTintColor
+        navigationBar.standardAppearance = barAppearance
+        navigationBar.scrollEdgeAppearance = barAppearance
+        navigationBar.compactAppearance = barAppearance
     }
     
     open override var preferredStatusBarStyle: UIStatusBarStyle {
@@ -92,11 +109,6 @@ open class WMFComponentNavigationController: UINavigationController {
     private func setup() {
         extendedLayoutIncludesOpaqueBars = true
         interactivePopGestureRecognizer?.delegate = self
-    }
-    
-    private func navigationBarBackgroundImage() -> UIImage? {
-        let image = UIImage.roundedRectImage(with: theme.paperBackground, cornerRadius: 1)
-        return image
     }
 
 }

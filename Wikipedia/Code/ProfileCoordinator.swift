@@ -90,20 +90,13 @@ final class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegat
         )
         
         var profileView = WMFProfileView(viewModel: viewModel)
-        profileView.donePressed = { [weak self] in
-            self?.navigationController.dismiss(animated: true, completion: nil)
-        }
         self.viewModel = viewModel
         let finalView = profileView.environmentObject(targetRects)
-        let hostingController = UIHostingController(rootView: finalView)
-        hostingController.modalPresentationStyle = .pageSheet
+        let hostingController = WMFProfileHostingController(rootView: finalView, viewModel: viewModel)
         
-        if let sheetPresentationController = hostingController.sheetPresentationController {
-            sheetPresentationController.detents = [.large()]
-            sheetPresentationController.prefersGrabberVisible = false
-        }
+        let profileNavVC = WMFComponentNavigationController(rootViewController: hostingController, modalPresentationStyle: .pageSheet)
         
-        navigationController.present(hostingController, animated: true, completion: nil)
+        navigationController.present(profileNavVC, animated: true, completion: nil)
     }
     
     // MARK: - ProfileCoordinatorDelegate Methods

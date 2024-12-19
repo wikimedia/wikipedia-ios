@@ -526,7 +526,7 @@ private extension NotificationsCenterViewController {
         
         let currentFilterState = viewModel.remoteNotificationsController.filterState
         
-        let nc = DisappearingCallbackNavigationController(rootViewController: hostingVC, theme: self.theme)
+        let nc = DisappearingCallbackNavigationController(rootViewController: hostingVC, modalPresentationStyle: .pageSheet)
         
         nc.willDisappearCallback = { [weak self] in
             guard let self = self else {
@@ -540,7 +540,6 @@ private extension NotificationsCenterViewController {
             }
         }
         
-        nc.modalPresentationStyle = .pageSheet
         self.present(nc, animated: true, completion: nil)
     }
     
