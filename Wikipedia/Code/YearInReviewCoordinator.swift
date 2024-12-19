@@ -520,7 +520,10 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
             comment: "Year in review, personalized slide subtitle for users that display how many views their edits have. %1$@ is replaced with the amount of edit views."
         )
         
-        return String.localizedStringWithFormat(format, String(views))
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .decimal
+        let formattedViews = formatter.string(from: NSNumber(value: views)) ?? "\(views)"
+        return String.localizedStringWithFormat(format, formattedViews)
     }
     
     var personalizedThankYouTitle: String {
