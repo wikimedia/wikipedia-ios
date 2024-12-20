@@ -107,10 +107,6 @@ class HistoryViewController: ArticleFetchedResultsViewController, WMFNavigationB
         }
     }
     
-//    override var headerStyle: ColumnarCollectionViewController.HeaderStyle {
-//        return .sections
-//    }
-    
     private func configureNavigationBar() {
         
         var titleConfig: WMFNavigationBarTitleConfig = WMFNavigationBarTitleConfig(title: CommonStrings.historyTabTitle, customView: nil, alignment: .leadingCompact)

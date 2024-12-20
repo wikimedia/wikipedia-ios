@@ -2013,12 +2013,6 @@
 		D81446021E7094290078D71E /* WMFAuthButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B027FD271E678F5C005644A9 /* WMFAuthButton.swift */; };
 		D81446041E70C2430078D71E /* WMFMapsActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = B389CFCD1E6F238300483C06 /* WMFMapsActivity.swift */; };
 		D8181FA52188DC1400FDEC59 /* String+Domains.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8181FA42188DC1400FDEC59 /* String+Domains.swift */; };
-		D818D3811ED7254D0076110D /* ColumnarCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D818D3801ED7254D0076110D /* ColumnarCollectionViewController.swift */; };
-		D818D3821ED7254D0076110D /* ColumnarCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D818D3801ED7254D0076110D /* ColumnarCollectionViewController.swift */; };
-		D818D3831ED7254D0076110D /* ColumnarCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D818D3801ED7254D0076110D /* ColumnarCollectionViewController.swift */; };
-		D818D3861ED750E40076110D /* ArticleCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D818D3851ED750E40076110D /* ArticleCollectionViewController.swift */; };
-		D818D3871ED750E40076110D /* ArticleCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D818D3851ED750E40076110D /* ArticleCollectionViewController.swift */; };
-		D818D3881ED750E40076110D /* ArticleCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D818D3851ED750E40076110D /* ArticleCollectionViewController.swift */; };
 		D818D38B1ED765470076110D /* ArticleLocationCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D818D38A1ED765470076110D /* ArticleLocationCollectionViewController.swift */; };
 		D818D38C1ED765470076110D /* ArticleLocationCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D818D38A1ED765470076110D /* ArticleLocationCollectionViewController.swift */; };
 		D818D38D1ED765470076110D /* ArticleLocationCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D818D38A1ED765470076110D /* ArticleLocationCollectionViewController.swift */; };
@@ -4459,8 +4453,6 @@
 		D813FD9F1EC3419400FA4690 /* ArticleRightAlignedImageCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ArticleRightAlignedImageCollectionViewCell.swift; path = Wikipedia/Code/ArticleRightAlignedImageCollectionViewCell.swift; sourceTree = SOURCE_ROOT; };
 		D813FDA41EC34B2600FA4690 /* WMFArticle+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "WMFArticle+Extensions.swift"; sourceTree = "<group>"; };
 		D8181FA42188DC1400FDEC59 /* String+Domains.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "String+Domains.swift"; path = "WMF Framework/String+Domains.swift"; sourceTree = SOURCE_ROOT; };
-		D818D3801ED7254D0076110D /* ColumnarCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColumnarCollectionViewController.swift; sourceTree = "<group>"; };
-		D818D3851ED750E40076110D /* ArticleCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArticleCollectionViewController.swift; sourceTree = "<group>"; };
 		D818D38A1ED765470076110D /* ArticleLocationCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArticleLocationCollectionViewController.swift; sourceTree = "<group>"; };
 		D818D3AA1ED87E8F0076110D /* ArticleLocationCellUpdating.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ArticleLocationCellUpdating.swift; path = Wikipedia/Code/ArticleLocationCellUpdating.swift; sourceTree = SOURCE_ROOT; };
 		D81930D81E9F97B200554B19 /* WMFExploreFeedContentController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFExploreFeedContentController.h; sourceTree = "<group>"; };
@@ -8079,13 +8071,11 @@
 				8368BB8324129F3D00BC88BA /* ViewController+ArticleErrorHandling.swift */,
 				83F1096D23D0E787003F3E9E /* RandomArticleViewController.swift */,
 				8386BDFA2386D754007EE89D /* SinglePageWebViewController.swift */,
-				D818D3801ED7254D0076110D /* ColumnarCollectionViewController.swift */,
 				677799B82BEED047007272C1 /* ColumnarCollectionViewController2.swift */,
 				8367A27E20D293BE00249A92 /* ColumnarCollectionViewLayoutManager.swift */,
 				8382F8D220D928BF00AE5250 /* ColumnarCollectionViewControllerLayoutCache.swift */,
 				830ECACE1FBDD8C00080B1EF /* ReadingListsViewController.swift */,
 				7A35CB861FD82B6300AAF3B7 /* ReadingListDetailViewController.swift */,
-				D818D3851ED750E40076110D /* ArticleCollectionViewController.swift */,
 				67B0B88D2BF51E3300480B46 /* ArticleCollectionViewController2.swift */,
 				830D71C21F703C980080078B /* ArticleURLListViewController.swift */,
 				830D71CE1F704DD40080078B /* ArticleFetchedResultsViewController.swift */,
@@ -10211,7 +10201,6 @@
 				D89DAE1B1D6CC6410089F7E1 /* MWKTitleLanguageController.m in Sources */,
 				67B64D5C2507E9FD00FA27F3 /* ArticleAsLivingDocSmallEventCollectionViewCell.swift in Sources */,
 				B0E803911C0CDABE0065EBC0 /* UIView+WMFSnapshotting.m in Sources */,
-				D818D3811ED7254D0076110D /* ColumnarCollectionViewController.swift in Sources */,
 				009B835D298091CD00AABEA3 /* EditNoticesView.swift in Sources */,
 				672428972362113400490629 /* DiffFetcher.swift in Sources */,
 				83E776A320FFA4D700E26A47 /* DetailTransition.swift in Sources */,
@@ -10472,7 +10461,6 @@
 				00BCB71826DEE04D002C3F72 /* InsetLabelView.swift in Sources */,
 				6782DB912343B6F9003FA21B /* DiffContainerViewController.swift in Sources */,
 				D8E6FF7C2405AAC400686272 /* ArticleViewController+Analytics.swift in Sources */,
-				D818D3861ED750E40076110D /* ArticleCollectionViewController.swift in Sources */,
 				7A9524CB22665E6400C55CDC /* InsertMediaSettingsImageView.swift in Sources */,
 				67B0B88E2BF51E3300480B46 /* ArticleCollectionViewController2.swift in Sources */,
 				B09B30D11DB817660012281F /* UIViewController+WMFWelcomeStoryboard.swift in Sources */,
@@ -11167,7 +11155,6 @@
 				00E75B6427EB87DC00A45B78 /* NotificationsCenterDetailView.swift in Sources */,
 				0072992128AC4D5300DCD2E6 /* TalkPageCellReplyDepthIndicator.swift in Sources */,
 				D8CE25241E698E2400DAE2E0 /* (null) in Sources */,
-				D818D3821ED7254D0076110D /* ColumnarCollectionViewController.swift in Sources */,
 				67B64D5E2507E9FD00FA27F3 /* ArticleAsLivingDocSmallEventCollectionViewCell.swift in Sources */,
 				B0524B66214854E900D8FD8D /* DescriptionWelcomeImageViewController.swift in Sources */,
 				6782DB922343B6F9003FA21B /* DiffContainerViewController.swift in Sources */,
@@ -11195,7 +11182,6 @@
 				677D8A622B75948200DD9B7D /* EditorButton.swift in Sources */,
 				679A23FB2968D865008D7686 /* ShiftingTopViewsData.swift in Sources */,
 				B0B423621EF9D6A300D3DC4C /* OnThisDayViewController.swift in Sources */,
-				D818D3871ED750E40076110D /* ArticleCollectionViewController.swift in Sources */,
 				00CB689A288B0CD3002EBB0A /* TalkPageHeaderView.swift in Sources */,
 				7A203F0C1FDEDCDD00A229EC /* ReadingListHintController.swift in Sources */,
 				6798331B22C174F00073CE6F /* LinkOnlyTextView.swift in Sources */,
@@ -11785,7 +11771,6 @@
 				D8EC3E331E9BDA35006712EB /* MWKImageInfoFetcher+PicOfTheDayInfo.m in Sources */,
 				8382F8CF20D9206000AE5250 /* ImageCollectionViewCell.swift in Sources */,
 				676F7D442B72D8B0006C211F /* EditInteractionFunnel.swift in Sources */,
-				D818D3831ED7254D0076110D /* ColumnarCollectionViewController.swift in Sources */,
 				D8EC3E381E9BDA35006712EB /* WMFScrollViewController.swift in Sources */,
 				83E52BC11F682E3E0045E776 /* LicenseView.swift in Sources */,
 				7AFEB3F71FE8511700D7BC57 /* SavedArticlesCollectionViewCell.swift in Sources */,
@@ -12125,7 +12110,6 @@
 				D8EC3F001E9BDA35006712EB /* DDLog+WMFLogger.m in Sources */,
 				7A70797F223AB69000A2BDFC /* WelcomePanelLabelContentViewController.swift in Sources */,
 				005E004228DE1F2800721584 /* TalkPageCoffeeRollViewModel.swift in Sources */,
-				D818D3881ED750E40076110D /* ArticleCollectionViewController.swift in Sources */,
 				D80ED25E1EE18D0900CE8C50 /* PlacesSearchSuggestionTableViewCell.swift in Sources */,
 				83B01F7923DA5348001185F4 /* ArticleViewController+ArticleToolbarHandling.swift in Sources */,
 				D8EC3F021E9BDA35006712EB /* WMFLegacyReference.swift in Sources */,
