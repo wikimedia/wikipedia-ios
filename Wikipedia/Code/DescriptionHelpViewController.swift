@@ -65,6 +65,12 @@ class DescriptionHelpViewController: ThemeableViewController, WMFNavigationBarCo
         updateFonts()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        configureNavigationBar()
+    }
+    
     private func configureNavigationBar() {
         
         let titleConfig = WMFNavigationBarTitleConfig(title: WMFLocalizedString("description-help-title", value:"Article description help", comment:"Title for description editing help page"), customView: nil, alignment: .centerCompact)
