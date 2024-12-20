@@ -309,7 +309,7 @@ final class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegat
     }
     
     func logYearInReviewTap() {
-        DonateFunnel.shared.logProfileDidTapYearInReview()
+        DonateFunnel.shared.logProfileDidTapYearInReview(isAnon: dataStore.authenticationManager.authStateIsPermanent) 
     }
 }
 
