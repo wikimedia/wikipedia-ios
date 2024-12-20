@@ -46,9 +46,6 @@ class DiffListViewController: ThemeableViewController {
     
     private var scrollDidFinishInfo: (indexPathToScrollTo: IndexPath, changeItemToScrollTo: Int)?
     
-    var diffHeaderView: DiffHeaderView?
-    var diffHeaderExtendedView: DiffHeaderExtendedView?
-    
     init(theme: Theme, type: DiffContainerViewModel.DiffType, diffHeaderViewModel: DiffHeaderViewModel, delegate: (DiffHeaderTitleViewTapDelegate & DiffHeaderActionDelegate)?) {
         self.type = type
         self.diffHeaderViewModel = diffHeaderViewModel
@@ -76,7 +73,7 @@ class DiffListViewController: ThemeableViewController {
         collectionView.register(DiffListContextCell.wmf_classNib(), forCellWithReuseIdentifier: DiffListContextCell.reuseIdentifier)
         collectionView.register(DiffListUneditedCell.wmf_classNib(), forCellWithReuseIdentifier: DiffListUneditedCell.reuseIdentifier)
         collectionView.register(DiffHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: Self.headerReuseIdentifier)
-        collectionView.register(DiffHeaderExtendedView.wmf_classNib(), forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: Self.headerExtendedReuseIdentifier)
+        collectionView.register(DiffHeaderExtendedView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: Self.headerExtendedReuseIdentifier)
     }
     
     override func viewDidLayoutSubviews() {
@@ -181,13 +178,13 @@ class DiffListViewController: ThemeableViewController {
         
         super.apply(theme: theme)
         
+        self.theme = theme
+        
         guard isViewLoaded else {
             return
         }
-        
-        updateListViewModels(listViewModel: dataSource, updateType: .theme(theme: theme))
-        applyListViewModelChanges(updateType: .theme(theme: theme))
 
+        collectionView.reloadData()
         collectionView.backgroundColor = theme.colors.paperBackground
     }
     
@@ -262,7 +259,6 @@ extension DiffListViewController: UICollectionViewDataSource {
             }
             
             headerView.configure(with: diffHeaderViewModel, titleViewTapDelegate: delegate, theme: theme)
-            self.diffHeaderView = headerView
             return headerView
         } else if indexPath.section == 1 {
             guard let headerExtendedView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: Self.headerExtendedReuseIdentifier, for: indexPath) as? DiffHeaderExtendedView else {
@@ -271,12 +267,10 @@ extension DiffListViewController: UICollectionViewDataSource {
             
             headerExtendedView.update(diffHeaderViewModel, theme: theme)
             headerExtendedView.delegate = delegate
-            self.diffHeaderExtendedView = headerExtendedView
             return headerExtendedView
         } else {
             return UICollectionReusableView()
         }
-        
         
     }
     
@@ -288,16 +282,19 @@ extension DiffListViewController: UICollectionViewDataSource {
         
         if let viewModel = viewModel as? DiffListChangeViewModel,
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DiffListChangeCell.reuseIdentifier, for: indexPath) as? DiffListChangeCell {
+            viewModel.theme = self.theme
             cell.update(viewModel)
             cell.delegate = self
             return cell
         } else if let viewModel = viewModel as? DiffListContextViewModel,
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DiffListContextCell.reuseIdentifier, for: indexPath) as? DiffListContextCell {
+            viewModel.theme = self.theme
             cell.update(viewModel, indexPath: indexPath)
             cell.delegate = self
             return cell
         } else if let viewModel = viewModel as? DiffListUneditedViewModel,
            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DiffListUneditedCell.reuseIdentifier, for: indexPath) as? DiffListUneditedCell {
+            viewModel.theme = self.theme
            cell.update(viewModel)
            return cell
         }
@@ -311,19 +308,28 @@ extension DiffListViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
         
         guard section == 0 || section == 1 else {
-            return CGSize.zero
+            return .zero
         }
         
-        // Get the view for the first header
-            let indexPath = IndexPath(row: 0, section: section)
-            let headerView = self.collectionView(collectionView, viewForSupplementaryElementOfKind: UICollectionView.elementKindSectionHeader, at: indexPath)
-
-            // Use this view to calculate the optimal size based on the collection view's width
+        if section == 0 {
+            let headerView = DiffHeaderContentView()
+            headerView.configure(with: diffHeaderViewModel, titleViewTapDelegate: delegate, theme: theme)
             let size =  headerView.systemLayoutSizeFitting(CGSize(width: collectionView.frame.width, height: UIView.layoutFittingExpandedSize.height),
                                                       withHorizontalFittingPriority: .required, // Width is fixed
                                                       verticalFittingPriority: .fittingSizeLevel) // Height can be as large as needed
+            return size
+        } else if section == 1 {
+            let headerExtendedView = DiffHeaderExtendedView()
+            headerExtendedView.update(diffHeaderViewModel, theme: theme)
+            headerExtendedView.delegate = delegate
+            
+            let size =  headerExtendedView.systemLayoutSizeFitting(CGSize(width: collectionView.frame.width, height: UIView.layoutFittingExpandedSize.height),
+                                                      withHorizontalFittingPriority: .required, // Width is fixed
+                                                      verticalFittingPriority: .fittingSizeLevel) // Height can be as large as needed
+            return size
+        }
         
-        return size
+        return .zero
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {

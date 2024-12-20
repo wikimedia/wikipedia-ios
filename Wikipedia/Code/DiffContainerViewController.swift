@@ -24,12 +24,7 @@ class DiffContainerViewController: ThemeableViewController {
     }
     
     private var containerViewModel: DiffContainerViewModel
-    private var diffHeaderExtendedView: DiffHeaderExtendedView? {
-        return diffListViewController?.diffHeaderExtendedView
-    }
-    private var diffHeaderView: DiffHeaderView? {
-        return diffListViewController?.diffHeaderView
-    }
+
     private var scrollingEmptyViewController: EmptyViewController?
     private var diffListViewController: DiffListViewController?
     private var diffToolbarView: DiffToolbarView?
@@ -263,9 +258,7 @@ class DiffContainerViewController: ThemeableViewController {
         default:
             view.backgroundColor = theme.colors.paperBackground
         }
-        
-        diffHeaderView?.apply(theme: theme)
-        diffHeaderExtendedView?.apply(theme: theme)
+
         diffListViewController?.apply(theme: theme)
         scrollingEmptyViewController?.apply(theme: theme)
         diffToolbarView?.apply(theme: theme)
@@ -733,7 +726,8 @@ private extension DiffContainerViewController {
             return
         }
         headerViewModel.imageURL = leadImageURL
-        diffHeaderView?.updateImageView(with: headerViewModel)
+        
+        diffListViewController?.collectionView.reloadData()
     }
 
     func updateHeaderWithIntermediateCounts(_ editCounts: EditCountsGroupedByType) {
@@ -746,7 +740,7 @@ private extension DiffContainerViewController {
 
             let newTitleViewModel = DiffHeaderViewModel.generateTitleViewModelForCompare(articleTitle: articleTitle, byteDifference: byteDifference)
             headerViewModel.title = newTitleViewModel
-            diffHeaderView?.updateTitleView(with: newTitleViewModel)
+            diffListViewController?.collectionView.reloadData()
         case .single:
             assertionFailure("Should not call this method for the compare type.")
         }
@@ -768,7 +762,7 @@ private extension DiffContainerViewController {
         }
         
         // update view
-        diffHeaderExtendedView?.update(headerViewModel, theme: theme)
+        diffListViewController?.collectionView.reloadData()
     }
     
     func fetchFirstDiff() {
@@ -970,7 +964,7 @@ private extension DiffContainerViewController {
                     let bottom = toolbarView.topAnchor.constraint(equalTo: listView.bottomAnchor)
                     let leading = view.leadingAnchor.constraint(equalTo: listView.leadingAnchor)
                     let trailing = view.trailingAnchor.constraint(equalTo: listView.trailingAnchor)
-                    let top = view.topAnchor.constraint(equalTo: listView.topAnchor)
+                    let top = view.safeAreaLayoutGuide.topAnchor.constraint(equalTo: listView.topAnchor)
                     NSLayoutConstraint.activate([top, leading, trailing, bottom])
                     diffListViewController.didMove(toParent: self)
                 }
