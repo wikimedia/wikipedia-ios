@@ -4,6 +4,7 @@ import UIKit
 public class WMFCanvas: WMFComponentView {
 
 	public override func appEnvironmentDidChange() {
+        super.appEnvironmentDidChange()
 		backgroundColor = WMFAppEnvironment.current.theme.paperBackground
 	}
 

@@ -1,7 +1,8 @@
 import WMF
+import WMFComponents
 
 @objc(WMFNewsViewController)
-class NewsViewController: ColumnarCollectionViewController {
+class NewsViewController: ColumnarCollectionViewController, WMFNavigationBarConfiguring {
     fileprivate static let cellReuseIdentifier = "NewsCollectionViewCell"
     fileprivate static let headerReuseIdentifier = "NewsCollectionViewHeader"
     
@@ -20,9 +21,9 @@ class NewsViewController: ColumnarCollectionViewController {
         self.dataStore = dataStore
         self.contentGroup = contentGroup
         contentGroupIDURIString = contentGroup?.objectID.uriRepresentation().absoluteString
-        super.init()
+        super.init(nibName: nil, bundle: nil)
         self.theme = theme
-        title = CommonStrings.inTheNewsTitle
+        hidesBottomBarWhenPushed = true
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -34,6 +35,16 @@ class NewsViewController: ColumnarCollectionViewController {
         layoutManager.register(NewsCollectionViewCell.self, forCellWithReuseIdentifier: NewsViewController.cellReuseIdentifier, addPlaceholder: true)
         layoutManager.register(UINib(nibName: NewsViewController.headerReuseIdentifier, bundle: nil), forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: NewsViewController.headerReuseIdentifier, addPlaceholder: false)
         collectionView.allowsSelection = false
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        configureNavigationBar()
+    }
+    
+    private func configureNavigationBar() {
+        let titleConfig = WMFNavigationBarTitleConfig(title: CommonStrings.inTheNewsTitle, customView: nil, alignment: .hidden)
+        configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: nil, profileButtonConfig: nil, searchBarConfig: nil, hideNavigationBarOnScroll: false)
     }
     
     override func metrics(with size: CGSize, readableWidth: CGFloat, layoutMargins: UIEdgeInsets) -> ColumnarCollectionViewLayoutMetrics {

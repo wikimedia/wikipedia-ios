@@ -1,10 +1,11 @@
 import UIKit
 import WMF
+import WMFComponents
 import WMFData
 import CocoaLumberjackSwift
 
 @objc(WMFHistoryViewController)
-class HistoryViewController: ArticleFetchedResultsViewController {
+class HistoryViewController: ArticleFetchedResultsViewController, WMFNavigationBarConfiguring {
 
     override func setupFetchedResultsController(with dataStore: MWKDataStore) {
         let articleRequest = WMFArticle.fetchRequest()
@@ -15,9 +16,9 @@ class HistoryViewController: ArticleFetchedResultsViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationBar.isBarHidingEnabled = false
-        navigationBar.isShadowHidingEnabled = true
-        navigationBar.displayType = .largeTitle
+//        navigationBar.isBarHidingEnabled = false
+//        navigationBar.isShadowHidingEnabled = true
+//        navigationBar.displayType = .largeTitle
 
         emptyViewType = .noHistory
         
@@ -33,9 +34,8 @@ class HistoryViewController: ArticleFetchedResultsViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         collectionViewUpdater.isGranularUpdatingEnabled = true
-
-        // Terrible hack to make back button text appropriate for iOS 14 - need to set the title on `WMFAppViewController`. For all app tabs, this is set in `viewWillAppear`.
-        (parent as? WMFAppViewController)?.navigationItem.backButtonTitle = title
+        
+        configureNavigationBar()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -46,6 +46,18 @@ class HistoryViewController: ArticleFetchedResultsViewController {
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         collectionViewUpdater.isGranularUpdatingEnabled = false
+    }
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        
+        if #available(iOS 18, *) {
+            if UIDevice.current.userInterfaceIdiom == .pad {
+                if previousTraitCollection?.horizontalSizeClass != traitCollection.horizontalSizeClass {
+                    configureNavigationBar()
+                }
+            }
+        }
     }
     
     override func deleteAll() {
@@ -95,8 +107,16 @@ class HistoryViewController: ArticleFetchedResultsViewController {
         }
     }
     
-    override var headerStyle: ColumnarCollectionViewController.HeaderStyle {
-        return .sections
+    private func configureNavigationBar() {
+        
+        var titleConfig: WMFNavigationBarTitleConfig = WMFNavigationBarTitleConfig(title: CommonStrings.historyTabTitle, customView: nil, alignment: .leadingCompact)
+        if #available(iOS 18, *) {
+            if UIDevice.current.userInterfaceIdiom == .pad && traitCollection.horizontalSizeClass == .regular {
+                titleConfig = WMFNavigationBarTitleConfig(title: CommonStrings.historyTabTitle, customView: nil, alignment: .leadingLarge)
+            }
+        }
+
+        configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: nil, profileButtonConfig: nil, searchBarConfig: nil, hideNavigationBarOnScroll: false)
     }
 
     func titleForHeaderInSection(_ section: Int) -> String? {

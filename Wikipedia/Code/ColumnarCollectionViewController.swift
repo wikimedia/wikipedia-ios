@@ -1,7 +1,7 @@
-import UIKit
+import Foundation
 import WMF
 
-class ColumnarCollectionViewController: ViewController, ColumnarCollectionViewLayoutDelegate, UICollectionViewDataSourcePrefetching, CollectionViewFooterDelegate, HintPresenting {
+class ColumnarCollectionViewController: ThemeableViewController, ColumnarCollectionViewLayoutDelegate, UICollectionViewDataSourcePrefetching, CollectionViewFooterDelegate, HintPresenting {
     
     enum HeaderStyle {
         case sections
@@ -27,7 +27,6 @@ class ColumnarCollectionViewController: ViewController, ColumnarCollectionViewLa
         cv.isPrefetchingEnabled = true
         cv.prefetchDataSource = self
         cv.preservesSuperviewLayoutMargins = true
-        scrollView = cv
         return cv
     }()
 
@@ -35,23 +34,31 @@ class ColumnarCollectionViewController: ViewController, ColumnarCollectionViewLa
         return ColumnarCollectionViewLayoutManager(view: view, collectionView: collectionView)
     }()
     
+    open var addsCollectionView: Bool {
+        return true
+    }
+    
     deinit {
         NotificationCenter.default.removeObserver(self)
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.wmf_addSubviewWithConstraintsToEdges(collectionView)
+        
+        if addsCollectionView {
+            view.wmf_addSubviewWithConstraintsToEdges(collectionView)
+        }
+        
         layoutManager.register(CollectionViewHeader.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: CollectionViewHeader.identifier, addPlaceholder: true)
         layoutManager.register(CollectionViewFooter.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: CollectionViewFooter.identifier, addPlaceholder: true)
         collectionView.alwaysBounceVertical = true
-        extendedLayoutIncludesOpaqueBars = true
     }
 
     @objc open func contentSizeCategoryDidChange(_ notification: Notification?) {
         collectionView.reloadData()
     }
 
+    var isFirstAppearance = true
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         if isFirstAppearance {
@@ -104,8 +111,7 @@ class ColumnarCollectionViewController: ViewController, ColumnarCollectionViewLa
     
     // MARK: - UIScrollViewDelegate
     
-    override func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
-        super.scrollViewWillBeginDragging(scrollView)
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         hintController?.dismissHintDueToUserInteraction()
     }
     
@@ -171,7 +177,7 @@ class ColumnarCollectionViewController: ViewController, ColumnarCollectionViewLa
     }
     
     private var emptyViewFrame: CGRect {
-        let insets = scrollView?.contentInset ?? UIEdgeInsets.zero
+        let insets = collectionView.contentInset
         let frame = view.bounds.inset(by: insets)
         return frame
     }
@@ -189,8 +195,19 @@ class ColumnarCollectionViewController: ViewController, ColumnarCollectionViewLa
         }
     }
     
-    override func scrollViewInsetsDidChange() {
-        super.scrollViewInsetsDidChange()
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        scrollViewInsetsDidChange()
+    }
+    
+    // MARK: - Scroll View Insets
+    
+    override func viewSafeAreaInsetsDidChange() {
+        super.viewSafeAreaInsetsDidChange()
+        scrollViewInsetsDidChange()
+    }
+    
+    func scrollViewInsetsDidChange() {
         wmf_setEmptyViewFrame(emptyViewFrame)
     }
     
@@ -240,11 +257,13 @@ class ColumnarCollectionViewController: ViewController, ColumnarCollectionViewLa
     
     var headerTitle: String?
     var headerSubtitle: String?
+    var removeTopHeaderSpacing = false
     
     open func configure(header: CollectionViewHeader, forSectionAt sectionIndex: Int, layoutOnly: Bool) {
         header.title = headerTitle
         header.subtitle = headerSubtitle
         header.style = .detail
+        header.removeDetailTopMargins = removeTopHeaderSpacing
         header.apply(theme: theme)
     }
 
@@ -321,8 +340,7 @@ class ColumnarCollectionViewController: ViewController, ColumnarCollectionViewLa
         return min(max(_maxViewed, percentViewed), 100)
     }
 
-    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        super.scrollViewDidScroll(scrollView)
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
         _maxViewed = max(_maxViewed, percentViewed)
     }
 
@@ -398,5 +416,35 @@ extension ColumnarCollectionViewController {
             previewedViewController.wmf_removePeekableChildViewControllers()
             self?.push(previewedViewController, animated: true)
         }
+    }
+}
+
+extension ColumnarCollectionViewController: ArticlePreviewingDelegate {
+    @objc func readMoreArticlePreviewActionSelected(with articleController: ArticleViewController) {
+        articleController.wmf_removePeekableChildViewControllers()
+        push(articleController, animated: true)
+    }
+    
+    @objc func saveArticlePreviewActionSelected(with articleController: ArticleViewController, didSave: Bool, articleURL: URL) {
+        guard let eventLoggingEventValuesProviding = self as? MEPEventsProviding else {
+            return
+        }
+        
+        if didSave {
+            ReadingListsFunnel.shared.logSave(category: eventLoggingEventValuesProviding.eventLoggingCategory, label: eventLoggingEventValuesProviding.eventLoggingLabel, articleURL: articleURL)
+        } else {
+            ReadingListsFunnel.shared.logUnsave(category: eventLoggingEventValuesProviding.eventLoggingCategory, label: eventLoggingEventValuesProviding.eventLoggingLabel, articleURL: articleURL)
+        }
+    }
+    
+    @objc func shareArticlePreviewActionSelected(with articleController: ArticleViewController, shareActivityController: UIActivityViewController) {
+        articleController.wmf_removePeekableChildViewControllers()
+        present(shareActivityController, animated: true, completion: nil)
+    }
+    
+    @objc func viewOnMapArticlePreviewActionSelected(with articleController: ArticleViewController) {
+        articleController.wmf_removePeekableChildViewControllers()
+        let placesURL = NSUserActivity.wmf_URLForActivity(of: .places, withArticleURL: articleController.articleURL)
+        UIApplication.shared.open(placesURL, options: [:], completionHandler: nil)
     }
 }

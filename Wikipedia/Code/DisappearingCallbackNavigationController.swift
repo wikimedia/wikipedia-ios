@@ -1,6 +1,7 @@
 import UIKit
+import WMFComponents
 
-class DisappearingCallbackNavigationController: WMFThemeableNavigationController {
+class DisappearingCallbackNavigationController: WMFComponentNavigationController {
     
     var willDisappearCallback: (() -> Void)?
     

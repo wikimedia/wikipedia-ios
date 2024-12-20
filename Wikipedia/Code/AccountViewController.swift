@@ -31,7 +31,7 @@ private struct Item {
 }
 
 @objc(WMFAccountViewController)
-class AccountViewController: SubSettingsViewController {
+class AccountViewController: SubSettingsViewController, WMFNavigationBarConfiguring {
     
     @objc var dataStore: MWKDataStore!
     @objc weak var delegate: AccountViewControllerDelegate?
@@ -91,7 +91,6 @@ class AccountViewController: SubSettingsViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = CommonStrings.account
         tableView.register(WMFSettingsTableViewCell.wmf_classNib(), forCellReuseIdentifier: WMFSettingsTableViewCell.identifier)
         tableView.register(WMFTableHeaderFooterLabelView.wmf_classNib(), forHeaderFooterViewReuseIdentifier: WMFTableHeaderFooterLabelView.identifier)
         tableView.sectionHeaderHeight = UITableView.automaticDimension
@@ -101,6 +100,18 @@ class AccountViewController: SubSettingsViewController {
         tableView.layoutIfNeeded()
 
         sections = createSections()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        configureNavigationBar()
+    }
+    
+    private func configureNavigationBar() {
+        let titleConfig = WMFNavigationBarTitleConfig(title: CommonStrings.account, customView: nil, alignment: .centerCompact)
+        
+        configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: nil, profileButtonConfig: nil, searchBarConfig: nil, hideNavigationBarOnScroll: false)
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {

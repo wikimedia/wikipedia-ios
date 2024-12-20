@@ -34,14 +34,12 @@
 #import "MWKLanguageLinkFetcher.h"
 
 // View Controllers
-#import "WMFThemeableNavigationController.h"
 #import "WMFLanguagesViewController.h"
 #import "WMFReferencePopoverMessageViewController.h"
 #import "WMFSettingsTableViewCell.h"
 #import "WMFSettingsViewController.h"
 #import "WMFEmptyView.h"
 #import "UIViewController+WMFEmptyView.h"
-#import "WMFThemeableNavigationController.h"
 #import "WMFBarButtonItemPopoverMessageViewController.h"
 #import "WMFFirstRandomViewController.h"
 #import "WMFImageGalleryViewController.h"
@@ -50,8 +48,6 @@
 #import "WMFTableHeaderFooterLabelView.h"
 #import "WMFFeedContentDisplaying.h"
 #import "WMFContentGroup+WMFFeedContentDisplaying.h"
-#import "UIBarButtonItem+WMFButtonConvenience.h"
-#import "UIButton+WMFButton.h"
 #import "UIView+WMFSnapshotting.h"
 #import "WMFLanguageCell.h"
 #import "WMFCompassView.h"

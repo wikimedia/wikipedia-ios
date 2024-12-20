@@ -1,6 +1,6 @@
 import Foundation
 
-extension ViewController {
+extension ThemeableViewController {
     func presentArticleErrorRecovery(with article: WMFArticle) {
         switch article.error {
         case .apiFailed:

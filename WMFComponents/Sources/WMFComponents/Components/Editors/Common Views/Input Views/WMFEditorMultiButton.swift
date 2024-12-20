@@ -62,6 +62,7 @@ final class WMFEditorMultiButton: WMFComponentView {
     // MARK: - Overrides
     
     override func appEnvironmentDidChange() {
+        super.appEnvironmentDidChange()
         
         for (viewModel, button) in zip(viewModels, buttons) {
             let buttonConfig = createButtonConfig(image: viewModel.icon)

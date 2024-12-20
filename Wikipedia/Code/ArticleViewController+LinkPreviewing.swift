@@ -137,8 +137,12 @@ extension ArticleViewController: ArticleContextMenuPresenting, WKUIDelegate {
         } else {
             if let vc = viewControllerToCommit as? WMFImageGalleryViewController {
                 vc.setOverlayViewTopBarHidden(false)
+                vc.modalTransitionStyle = .crossDissolve
+                present(vc, animated: true)
+                return
             }
-            presentEmbedded(viewControllerToCommit, style: .gallery)
+            
+            presentEmbedded(viewControllerToCommit)
         }
     }
 }

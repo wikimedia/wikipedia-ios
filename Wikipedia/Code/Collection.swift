@@ -96,7 +96,7 @@ protocol SortableCollection: UpdatableCollection {
     var defaultSortDescriptors: [NSSortDescriptor] { get }
     var sortActions: [SortActionType: SortAction] { get }
     var sortAlert: UIAlertController { get }
-    func presentSortAlert(from button: UIButton)
+    func presentSortAlert(from button: UIBarButtonItem)
     func updateSortActionCheckmark()
 }
 
@@ -118,10 +118,9 @@ extension SortableCollection where Self: UIViewController {
         checkedAction?.setValue(true, forKey: checkedKey)
     }
     
-    func presentSortAlert(from button: UIButton) {
+    func presentSortAlert(from button: UIBarButtonItem) {
         if let popoverController = sortAlert.popoverPresentationController {
-            popoverController.sourceView = button
-            popoverController.sourceRect = button.bounds
+            popoverController.barButtonItem = button
         }
         present(sortAlert, animated: true)
         updateSortActionCheckmark()

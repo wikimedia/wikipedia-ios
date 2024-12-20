@@ -23,12 +23,19 @@ open class WMFComponentViewController: UIViewController {
 	public init() {
 		super.init(nibName: nil, bundle: nil)
 		subscribeToAppEnvironmentChanges()
+        setup()
 	}
 
 	public required init?(coder: NSCoder) {
 		super.init(coder: coder)
 		subscribeToAppEnvironmentChanges()
+        setup()
 	}
+    
+    // MARK: - Lifecycle
+    
+    private func setup() {
+    }
 
 	// MARK: - AppEnvironment Subscription
 
@@ -41,7 +48,14 @@ open class WMFComponentViewController: UIViewController {
 	// MARK: - Subclass Overrides
 
 	public func appEnvironmentDidChange() {
-		// Subclasses should implement
+        overrideUserInterfaceStyle = appEnvironment.theme.userInterfaceStyle
+        setNeedsStatusBarAppearanceUpdate()
+        
+        // Subclasses should implement
 	}
+    
+    open override var preferredStatusBarStyle: UIStatusBarStyle {
+        return appEnvironment.theme.preferredStatusBarStyle
+    }
 
 }

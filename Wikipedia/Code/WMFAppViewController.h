@@ -4,7 +4,7 @@
 @class MWKDataStore;
 @class WMFTheme;
 @class ReadingList;
-@class WMFRootNavigationController;
+@class WMFComponentNavigationController;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -15,7 +15,6 @@ extern NSString *const WMFLanguageVariantAlertsLibraryVersion; // NSNumber
 @property (nonatomic, readonly, nullable) UINavigationController *currentNavigationController;
 @property (nonatomic, readonly) WMFTheme *theme;
 @property (nonatomic, readonly) MWKDataStore *dataStore;
-@property (strong, nonatomic, readonly, nullable) WMFRootNavigationController *currentTabNavigationController;
 
 - (void)launchAppInWindow:(UIWindow *)window waitToResumeApp:(BOOL)waitToResumeApp;
 

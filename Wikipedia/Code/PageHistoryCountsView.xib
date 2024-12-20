@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina5_9" orientation="landscape" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22685"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionReusableView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="XAI-VX-rCv" customClass="PageHistoryCountsView" customModule="Wikipedia" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="802" height="460"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ysz-nP-L3I" userLabel="Title + Main Stats View">
+                    <rect key="frame" x="50" y="20" width="702" height="159.66666666666666"/>
+                    <subviews>
+                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Emq-Dw-Dkw" userLabel="Title + Main Stats Stack View">
+                            <rect key="frame" x="15" y="0.0" width="436.33333333333331" height="134.66666666666666"/>
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="REVISION HISTORY" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0RG-Ee-h5K">
+                                    <rect key="frame" x="0.0" y="0.0" width="436.33333333333331" height="18"/>
+                                    <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
+                                    <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="Ching Shih" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QQA-9X-PaZ">
+                                    <rect key="frame" x="0.0" y="27.999999999999996" width="436.33333333333331" height="40.666666666666657"/>
+                                    <fontDescription key="fontDescription" style="UICTFontTextStyleTitle0"/>
+                                    <nil key="textColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ScX-bi-zQC">
+                                    <rect key="frame" x="0.0" y="78.666666666666671" width="436.33333333333331" height="56.000000000000014"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="text" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bve-t2-zGu">
+                                            <rect key="frame" x="0.0" y="0.0" width="436.33333333333331" height="56"/>
+                                            <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstAttribute="bottom" secondItem="Bve-t2-zGu" secondAttribute="bottom" id="0CM-gu-aEp"/>
+                                        <constraint firstItem="Bve-t2-zGu" firstAttribute="leading" secondItem="ScX-bi-zQC" secondAttribute="leading" id="5yA-HB-D7K"/>
+                                        <constraint firstItem="Bve-t2-zGu" firstAttribute="top" secondItem="ScX-bi-zQC" secondAttribute="top" id="YS8-wa-2eG"/>
+                                        <constraint firstAttribute="trailing" secondItem="Bve-t2-zGu" secondAttribute="trailing" id="d2d-oS-Iw5"/>
+                                    </constraints>
+                                </view>
+                            </subviews>
+                        </stackView>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Vjq-mc-2Ov" userLabel="Sparkline View" customClass="WMFSparklineView" customModule="WMF">
+                            <rect key="frame" x="476.33333333333343" y="12.000000000000007" width="210.66666666666669" height="122.66666666666669"/>
+                        </view>
+                    </subviews>
+                    <constraints>
+                        <constraint firstItem="Vjq-mc-2Ov" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Emq-Dw-Dkw" secondAttribute="trailing" constant="25" id="1U0-pG-P1h"/>
+                        <constraint firstAttribute="bottom" secondItem="Vjq-mc-2Ov" secondAttribute="bottom" constant="25" id="2LY-Ew-Rdx"/>
+                        <constraint firstItem="Emq-Dw-Dkw" firstAttribute="leading" secondItem="ysz-nP-L3I" secondAttribute="leading" constant="15" id="3UO-ij-BEd"/>
+                        <constraint firstAttribute="bottom" secondItem="Emq-Dw-Dkw" secondAttribute="bottom" constant="25" id="5o2-gR-CCW"/>
+                        <constraint firstAttribute="trailing" secondItem="Vjq-mc-2Ov" secondAttribute="trailing" constant="15" id="Kc6-09-1v8"/>
+                        <constraint firstItem="Vjq-mc-2Ov" firstAttribute="leading" secondItem="Emq-Dw-Dkw" secondAttribute="trailing" constant="25" id="PAU-VN-goS"/>
+                        <constraint firstItem="Emq-Dw-Dkw" firstAttribute="top" secondItem="ysz-nP-L3I" secondAttribute="top" id="XVG-kw-zdb"/>
+                        <constraint firstItem="Vjq-mc-2Ov" firstAttribute="top" secondItem="ysz-nP-L3I" secondAttribute="top" constant="12" id="upK-VC-vcD"/>
+                    </constraints>
+                    <variation key="heightClass=regular-widthClass=compact">
+                        <mask key="constraints">
+                            <exclude reference="1U0-pG-P1h"/>
+                        </mask>
+                    </variation>
+                    <variation key="heightClass=regular-widthClass=regular">
+                        <mask key="constraints">
+                            <exclude reference="PAU-VN-goS"/>
+                        </mask>
+                    </variation>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AuN-1p-8hf" userLabel="Separator View">
+                    <rect key="frame" x="0.0" y="179.66666666666666" width="802" height="0.66666666666665719"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="0.5" id="bnM-r7-NMo"/>
+                    </constraints>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ijp-FN-hau" userLabel="Filter Counts Container View">
+                    <rect key="frame" x="50" y="180.33333333333334" width="702" height="279.66666666666663"/>
+                </view>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="bpj-xF-zJ9"/>
+            <constraints>
+                <constraint firstItem="AuN-1p-8hf" firstAttribute="top" secondItem="ysz-nP-L3I" secondAttribute="bottom" id="7Qz-E2-07z"/>
+                <constraint firstItem="ysz-nP-L3I" firstAttribute="leading" secondItem="bpj-xF-zJ9" secondAttribute="leading" id="EQC-VO-mC9"/>
+                <constraint firstItem="AuN-1p-8hf" firstAttribute="leading" secondItem="XAI-VX-rCv" secondAttribute="leading" id="aeC-FH-Z24"/>
+                <constraint firstItem="ijp-FN-hau" firstAttribute="top" secondItem="AuN-1p-8hf" secondAttribute="bottom" id="bfG-oN-Nk1"/>
+                <constraint firstItem="bpj-xF-zJ9" firstAttribute="trailing" secondItem="ysz-nP-L3I" secondAttribute="trailing" id="dqN-t0-KAy"/>
+                <constraint firstAttribute="bottom" secondItem="ijp-FN-hau" secondAttribute="bottom" id="eY1-8X-Nqb"/>
+                <constraint firstItem="bpj-xF-zJ9" firstAttribute="trailing" secondItem="ijp-FN-hau" secondAttribute="trailing" id="h5S-qT-ebV"/>
+                <constraint firstAttribute="trailing" secondItem="AuN-1p-8hf" secondAttribute="trailing" id="nhn-Dg-bkO"/>
+                <constraint firstItem="ysz-nP-L3I" firstAttribute="top" secondItem="XAI-VX-rCv" secondAttribute="top" constant="20" id="pQZ-84-Q15"/>
+                <constraint firstItem="ijp-FN-hau" firstAttribute="leading" secondItem="bpj-xF-zJ9" secondAttribute="leading" id="rBP-s0-Apl"/>
+            </constraints>
+            <connections>
+                <outlet property="countsLabel" destination="Bve-t2-zGu" id="Zad-lY-GJh"/>
+                <outlet property="filterCountsContainerView" destination="ijp-FN-hau" id="rPP-8z-xtK"/>
+                <outlet property="pageTitleLabel" destination="QQA-9X-PaZ" id="A3f-82-fyg"/>
+                <outlet property="separator" destination="AuN-1p-8hf" id="3Hk-d8-QEr"/>
+                <outlet property="sparklineView" destination="Vjq-mc-2Ov" id="BlD-XU-9Zg"/>
+                <outlet property="titleLabel" destination="0RG-Ee-h5K" id="XdR-Eq-3p2"/>
+            </connections>
+            <point key="canvasLocation" x="59.852216748768477" y="268.80000000000001"/>
+        </collectionReusableView>
+    </objects>
+</document>

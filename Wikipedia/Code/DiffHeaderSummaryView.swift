@@ -1,19 +1,47 @@
 import WMFComponents
 
-class DiffHeaderSummaryView: UIView, Themeable {
-
-    @IBOutlet var contentView: UIView!
-    @IBOutlet var headingLabel: UILabel!
-    @IBOutlet var summaryLabel: UILabel!
+class DiffHeaderSummaryView: SetupView, Themeable {
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        commonInit()
-    }
+    private lazy var stackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.axis = .vertical
+        return stackView
+    }()
     
-    required init?(coder: NSCoder) {
-        super.init(coder: coder)
-        commonInit()
+    private lazy var headingLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.setContentCompressionResistancePriority(.required, for: .vertical)
+        label.setContentHuggingPriority(.required, for: .vertical)
+        label.numberOfLines = 0
+        label.lineBreakMode = .byWordWrapping
+        return label
+    }()
+    
+    private lazy var summaryLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.setContentCompressionResistancePriority(.required, for: .vertical)
+        label.setContentHuggingPriority(.required, for: .vertical)
+        label.numberOfLines = 0
+        label.lineBreakMode = .byWordWrapping
+        return label
+    }()
+    
+    override func setup() {
+        super.setup()
+        
+        addSubview(stackView)
+        NSLayoutConstraint.activate([
+            safeAreaLayoutGuide.leadingAnchor.constraint(equalTo: stackView.leadingAnchor, constant: -15),
+            safeAreaLayoutGuide.trailingAnchor.constraint(equalTo: stackView.trailingAnchor, constant: 15),
+            topAnchor.constraint(equalTo: stackView.topAnchor, constant: -14),
+            bottomAnchor.constraint(equalTo: stackView.bottomAnchor, constant: 14)
+        ])
+        
+        stackView.addArrangedSubview(headingLabel)
+        stackView.addArrangedSubview(summaryLabel)
     }
     
     func update(_ viewModel: DiffHeaderEditSummaryViewModel) {
@@ -56,20 +84,12 @@ class DiffHeaderSummaryView: UIView, Themeable {
 
     func apply(theme: Theme) {
         backgroundColor = theme.colors.paperBackground
-        contentView.backgroundColor = theme.colors.paperBackground
         headingLabel.textColor = theme.colors.secondaryText
         summaryLabel.textColor = theme.colors.primaryText
     }
 }
 
 private extension DiffHeaderSummaryView {
-
-    func commonInit() {
-        Bundle.main.loadNibNamed(DiffHeaderSummaryView.wmf_nibName(), owner: self, options: nil)
-            addSubview(contentView)
-            contentView.frame = self.bounds
-            contentView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
-    }
 
     func updateFonts(with traitCollection: UITraitCollection) {
         headingLabel.font = WMFFont.for(.boldFootnote, compatibleWith: traitCollection)

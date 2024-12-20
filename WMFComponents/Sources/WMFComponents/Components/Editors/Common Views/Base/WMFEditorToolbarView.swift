@@ -38,6 +38,7 @@ class WMFEditorToolbarView: WMFComponentView {
     }
     
     override func appEnvironmentDidChange() {
+        super.appEnvironmentDidChange()
         updateColors()
     }
     

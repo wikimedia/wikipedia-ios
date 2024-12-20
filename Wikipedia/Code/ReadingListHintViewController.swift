@@ -1,3 +1,5 @@
+import WMFComponents
+
 @objc(WMFReadingListHintViewController)
 class ReadingListHintViewController: HintViewController {
     var dataStore: MWKDataStore?
@@ -38,7 +40,7 @@ class ReadingListHintViewController: HintViewController {
     }
 
     private var readingList: ReadingList?
-    private var themeableNavigationController: WMFThemeableNavigationController?
+    private var themeableNavigationController: WMFComponentNavigationController?
 
     @IBAction open override func performDefaultAction(sender: Any) {
         guard let article = article, let dataStore = dataStore else {
@@ -46,8 +48,7 @@ class ReadingListHintViewController: HintViewController {
         }
         let addArticlesToReadingListViewController = AddArticlesToReadingListViewController(with: dataStore, articles: [article], moveFromReadingList: nil, theme: theme)
         addArticlesToReadingListViewController.delegate = self
-        let navigationController = WMFThemeableNavigationController(rootViewController: addArticlesToReadingListViewController, theme: theme)
-        navigationController.isNavigationBarHidden = true
+        let navigationController = WMFComponentNavigationController(rootViewController: addArticlesToReadingListViewController, modalPresentationStyle: .overFullScreen)
         present(navigationController, animated: true)
     }
 
@@ -57,7 +58,7 @@ class ReadingListHintViewController: HintViewController {
         }
         let readingListDetailViewController = ReadingListDetailViewController(for: readingList, with: dataStore, displayType: .modal)
         readingListDetailViewController.apply(theme: theme)
-        let navigationController = WMFThemeableNavigationController(rootViewController: readingListDetailViewController, theme: theme)
+        let navigationController = WMFComponentNavigationController(rootViewController: readingListDetailViewController, modalPresentationStyle: .overFullScreen)
         themeableNavigationController = navigationController
         present(navigationController, animated: true) {
             self.delegate?.hintViewControllerDidPeformConfirmationAction(self)

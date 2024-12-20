@@ -52,7 +52,7 @@ extension WMFContentGroup {
             guard let articleURLs = contentURLs else {
                 break
             }
-            vc = ArticleLocationCollectionViewController(articleURLs: articleURLs, dataStore: dataStore, contentGroup: self, theme: theme)
+            vc = ArticleLocationCollectionViewController(articleURLs: articleURLs, dataStore: dataStore, contentGroup: self, theme: theme, needsCloseButton: true)
         case .news:
             guard let stories = fullContent?.object as? [WMFFeedNewsStory] else {
                 break
@@ -75,14 +75,14 @@ extension WMFContentGroup {
         default:
             break
         }
-        if let customVC = vc as? ViewController {
-            customVC.navigationMode = .detail
-        }
+        
         if let customVC = vc as? ColumnarCollectionViewController {
             customVC.headerTitle = headerTitle
             customVC.footerButtonTitle = WMFLocalizedString("explore-detail-back-button-title", value: "Back to Explore feed", comment: "Title for button that allows users to exit detail view and return to Explore.")
             customVC.headerSubtitle = moreType != .onThisDay ? headerSubTitle : nil
+            customVC.removeTopHeaderSpacing = true
         }
+        
         return vc
     }
 }

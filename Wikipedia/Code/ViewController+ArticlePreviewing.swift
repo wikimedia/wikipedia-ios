@@ -1,5 +1,6 @@
 import Foundation
-extension ViewController: ArticlePreviewingDelegate {
+
+extension ArticleViewController: ArticlePreviewingDelegate {
     @objc func readMoreArticlePreviewActionSelected(with articleController: ArticleViewController) {
         articleController.wmf_removePeekableChildViewControllers()
         push(articleController, animated: true)

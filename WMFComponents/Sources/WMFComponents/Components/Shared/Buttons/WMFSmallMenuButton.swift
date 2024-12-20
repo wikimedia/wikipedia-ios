@@ -147,6 +147,7 @@ public class WMFSmallMenuButton: WMFComponentView {
     // MARK: - Component Conformance
 
     public override func appEnvironmentDidChange() {
+        super.appEnvironmentDidChange()
         let buttonConfig = createButtonConfig()
         button.configuration = buttonConfig
     }

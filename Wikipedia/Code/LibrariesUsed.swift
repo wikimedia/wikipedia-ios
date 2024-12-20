@@ -7,7 +7,7 @@ public struct LibraryUsed {
     let licenseText:String
 }
 
-class LibrariesUsedViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class LibrariesUsedViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, WMFNavigationBarConfiguring {
     var libraries:[LibraryUsed] = []
     @IBOutlet weak var tableView: UITableView!
     
@@ -29,8 +29,7 @@ class LibrariesUsedViewController: UIViewController, UITableViewDelegate, UITabl
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named:"close"), style: .plain, target:self, action:#selector(closeButtonPushed(_:)))
-        navigationItem.leftBarButtonItem?.accessibilityLabel = CommonStrings.closeButtonAccessibilityLabel
+        configureNavigationBar()
     }
     
     lazy private var tableHeaderView: UIView = {
@@ -62,8 +61,6 @@ class LibrariesUsedViewController: UIViewController, UITableViewDelegate, UITabl
         tableView.semanticContentAttribute = .forceLeftToRight
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target:nil, action:nil)
         
-        title = WMFLocalizedString("about-libraries", value:"Libraries used", comment:"Header text for libraries section (as in a collection of subprograms used to develop software) of the about page. Is not capitalised for aesthetic reasons, but could be capitalised in translations.")
-        
         let fileName = LibrariesUsedViewController.dataFileName
         guard
             let plistPath = Bundle.main.path(forResource: fileName.wmf_substring(before: "."), ofType: fileName.wmf_substring(after: "."))
@@ -72,6 +69,14 @@ class LibrariesUsedViewController: UIViewController, UITableViewDelegate, UITabl
             return
         }
         libraries = librariesUsed(from: plistPath)
+    }
+    
+    private func configureNavigationBar() {
+        
+        let titleConfig = WMFNavigationBarTitleConfig(title: WMFLocalizedString("about-libraries", value:"Libraries used", comment:"Header text for libraries section (as in a collection of subprograms used to develop software) of the about page. Is not capitalised for aesthetic reasons, but could be capitalised in translations."), customView: nil, alignment: .centerCompact)
+        let closeConfig = WMFNavigationBarCloseButtonConfig(accessibilityLabel: CommonStrings.closeButtonAccessibilityLabel, target: self, action: #selector(closeButtonPushed(_:)), alignment: .trailing)
+        
+        configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: closeConfig, profileButtonConfig: nil, searchBarConfig: nil, hideNavigationBarOnScroll: false)
     }
     
     private func librariesUsed(from plistPath: String) -> [LibraryUsed] {

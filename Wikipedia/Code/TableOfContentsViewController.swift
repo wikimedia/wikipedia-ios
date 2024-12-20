@@ -11,7 +11,6 @@ enum TableOfContentsDisplaySide {
     case right
 }
 
-
 protocol TableOfContentsViewControllerDelegate : UIViewController {
 
     /**
@@ -100,8 +99,6 @@ class TableOfContentsViewController: UIViewController, UITableViewDelegate, UITa
         super.init(nibName: nil, bundle: nil)
         modalPresentationStyle = .custom
         transitioningDelegate = animator
-        edgesForExtendedLayout = .all
-        extendedLayoutIncludesOpaqueBars = true
     }
     
     public required init?(coder aDecoder: NSCoder) {
@@ -199,7 +196,6 @@ class TableOfContentsViewController: UIViewController, UITableViewDelegate, UITa
 
         view.wmf_addSubviewWithConstraintsToEdges(tableView)
 
-        tableView.contentInsetAdjustmentBehavior = .never
         tableView.allowsMultipleSelection = false
         tableView.semanticContentAttribute = delegate?.tableOfContentsSemanticContentAttribute ?? .unspecified
 
@@ -287,6 +283,14 @@ class TableOfContentsViewController: UIViewController, UITableViewDelegate, UITa
         let index = indexPath.row
         selectItem(at: index)
         delegate?.tableOfContentsController(self, didSelectItem: items[index])
+    }
+    
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        navigationController?.hidesBarsOnSwipe = false
+    }
+    
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        navigationController?.hidesBarsOnSwipe = true
     }
 
     func tableOfContentsAnimatorDidTapBackground(_ controller: TableOfContentsAnimator) {

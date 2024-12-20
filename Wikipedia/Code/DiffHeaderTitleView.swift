@@ -4,32 +4,77 @@ protocol DiffHeaderTitleViewTapDelegate: AnyObject {
     func userDidTapTitleLabel()
 }
 
-class DiffHeaderTitleView: UIView {
+class DiffHeaderTitleView: SetupView {
+    
+    private lazy var stackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.axis = .vertical
+        return stackView
+    }()
 
-    @IBOutlet var contentView: UIView!
-    @IBOutlet var headingLabel: UILabel!
-    @IBOutlet var titleLabel: UILabel!
-    @IBOutlet var subtitleLabel: UILabel!
+    private lazy var headingLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.setContentCompressionResistancePriority(.required, for: .vertical)
+        label.setContentHuggingPriority(.required, for: .vertical)
+        label.numberOfLines = 0
+        label.lineBreakMode = .byWordWrapping
+        return label
+    }()
+    
+    private lazy var titleLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.setContentCompressionResistancePriority(.required, for: .vertical)
+        label.setContentHuggingPriority(.required, for: .vertical)
+        label.numberOfLines = 0
+        label.lineBreakMode = .byWordWrapping
+        return label
+    }()
+    
+    private lazy var subtitleLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.setContentCompressionResistancePriority(.required, for: .vertical)
+        label.setContentHuggingPriority(.required, for: .vertical)
+        label.numberOfLines = 0
+        label.lineBreakMode = .byWordWrapping
+        return label
+    }()
 
     weak var titleViewTapDelegate: DiffHeaderTitleViewTapDelegate?
 
     private(set) var viewModel: DiffHeaderTitleViewModel?
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        commonInit()
-    }
-    
-    required init?(coder: NSCoder) {
-        super.init(coder: coder)
-        commonInit()
+    override func setup() {
+        super.setup()
+        
+        addSubview(stackView)
+        NSLayoutConstraint.activate([
+            safeAreaLayoutGuide.leadingAnchor.constraint(equalTo: stackView.leadingAnchor),
+            safeAreaLayoutGuide.trailingAnchor.constraint(equalTo: stackView.trailingAnchor),
+            topAnchor.constraint(equalTo: stackView.topAnchor, constant: 5),
+            bottomAnchor.constraint(equalTo: stackView.bottomAnchor, constant: 16)
+        ])
+        
+        stackView.addArrangedSubview(headingLabel)
+        stackView.addArrangedSubview(titleLabel)
+        stackView.addArrangedSubview(subtitleLabel)
+        
+        updateFonts(with: traitCollection)
+        isAccessibilityElement = true
+
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(userDidTapTitleLabel))
+        titleLabel.isUserInteractionEnabled = true
+        titleLabel.addGestureRecognizer(tapGesture)
     }
     
     fileprivate func configureAccessibilityLabel(hasSubtitle: Bool) {
         if hasSubtitle {
-            contentView.accessibilityLabel = UIAccessibility.groupedAccessibilityLabel(for: [headingLabel.text, titleLabel.text, subtitleLabel.text])
+            accessibilityLabel = UIAccessibility.groupedAccessibilityLabel(for: [headingLabel.text, titleLabel.text, subtitleLabel.text])
         } else {
-            contentView.accessibilityLabel = UIAccessibility.groupedAccessibilityLabel(for: [headingLabel.text, titleLabel.text])
+            accessibilityLabel = UIAccessibility.groupedAccessibilityLabel(for: [headingLabel.text, titleLabel.text])
         }
     }
 
@@ -56,34 +101,9 @@ class DiffHeaderTitleView: UIView {
         super.traitCollectionDidChange(previousTraitCollection)
         updateFonts(with: traitCollection)
     }
-    
-    override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
-        guard !UIAccessibility.isVoiceOverRunning else {
-            return super.point(inside: point, with: event)
-        }
-
-        let titleConverted = convert(point, to: titleLabel)
-        if titleLabel.point(inside: titleConverted, with: event) {
-            return true
-        }
-
-        return false
-    }
 }
 
 private extension DiffHeaderTitleView {
-    func commonInit() {
-        Bundle.main.loadNibNamed(DiffHeaderTitleView.wmf_nibName(), owner: self, options: nil)
-        addSubview(contentView)
-        contentView.frame = self.bounds
-        contentView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
-        updateFonts(with: traitCollection)
-        contentView.isAccessibilityElement = true
-
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(userDidTapTitleLabel))
-        titleLabel.isUserInteractionEnabled = true
-        titleLabel.addGestureRecognizer(tapGesture)
-    }
     
     func updateFonts(with traitCollection: UITraitCollection) {
         headingLabel.font = WMFFont.for(.mediumFootnote, compatibleWith: traitCollection)
@@ -104,7 +124,7 @@ extension DiffHeaderTitleView: Themeable {
     func apply(theme: Theme) {
         
         backgroundColor = theme.colors.paperBackground
-        contentView.backgroundColor = theme.colors.paperBackground
+        backgroundColor = theme.colors.paperBackground
         headingLabel.textColor = theme.colors.secondaryText
         titleLabel.textColor = theme.colors.link
 

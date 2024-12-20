@@ -1,10 +1,5 @@
 import UIKit
 
-@objc(WMFArticleCollectionViewControllerDelegate)
-protocol ArticleCollectionViewControllerDelegate: NSObjectProtocol {
-    func articleCollectionViewController(_ articleCollectionViewController: ArticleCollectionViewController, didSelectArticleWith articleURL: URL, at indexPath: IndexPath)
-}
-
 @objc(WMFArticleCollectionViewController)
 class ArticleCollectionViewController: ColumnarCollectionViewController, EditableCollection, MEPEventsProviding, CollectionViewContextMenuShowing {
     @objc var dataStore: MWKDataStore!
@@ -12,8 +7,6 @@ class ArticleCollectionViewController: ColumnarCollectionViewController, Editabl
 
     var editController: CollectionViewEditController!
     var contentGroup: WMFContentGroup?
-    
-    @objc weak var delegate: ArticleCollectionViewControllerDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -189,8 +182,6 @@ extension ArticleCollectionViewController {
             return
         }
 
-        delegate?.articleCollectionViewController(self, didSelectArticleWith: articleURL, at: indexPath)
-        
         navigate(to: articleURL)
     }
     

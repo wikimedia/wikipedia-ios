@@ -1,6 +1,7 @@
 import UIKit
 import WMF
 import UserNotifications
+import WMFComponents
 
 fileprivate protocol PushNotificationsSettingsItem {
     var title: String { get }
@@ -8,7 +9,7 @@ fileprivate protocol PushNotificationsSettingsItem {
 }
 
 @objc(WMFPushNotificationsSettingsViewController)
-final class PushNotificationsSettingsViewController: SubSettingsViewController {
+final class PushNotificationsSettingsViewController: SubSettingsViewController, WMFNavigationBarConfiguring {
 
     // MARK: - Nested Types
 
@@ -61,7 +62,6 @@ final class PushNotificationsSettingsViewController: SubSettingsViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = CommonStrings.pushNotifications
 
         tableView.register(WMFSettingsTableViewCell.wmf_classNib(), forCellReuseIdentifier: WMFSettingsTableViewCell.identifier)
         tableView.sectionHeaderHeight = UITableView.automaticDimension
@@ -82,6 +82,14 @@ final class PushNotificationsSettingsViewController: SubSettingsViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         updateSections()
+        
+        configureNavigationBar()
+    }
+    
+    private func configureNavigationBar() {
+        let titleConfig = WMFNavigationBarTitleConfig(title: CommonStrings.pushNotifications, customView: nil, alignment: .centerCompact)
+        
+        configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: nil, profileButtonConfig: nil, searchBarConfig: nil, hideNavigationBarOnScroll: false)
     }
 
     // MARK: - Application Foreground Notification

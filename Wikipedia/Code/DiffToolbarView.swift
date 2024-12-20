@@ -184,7 +184,7 @@ class DiffToolbarView: UIView {
     }
 
     private func setItems() {
-        let flexibleSpace = UIBarButtonItem.flexibleSpaceToolbar()
+        let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
 
         toolbar.items = [flexibleSpace, nextButton, flexibleSpace, previousButton, flexibleSpace, undoButton, flexibleSpace, thankButton, flexibleSpace, moreButton, flexibleSpace]
     }

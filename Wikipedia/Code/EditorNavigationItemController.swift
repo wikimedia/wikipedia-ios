@@ -3,7 +3,6 @@ import WMFComponents
 
 protocol EditorNavigationItemControllerDelegate: AnyObject {
     func editorNavigationItemController(_ editorNavigationItemController: EditorNavigationItemController, didTapProgressButton progressButton: UIBarButtonItem)
-    func editorNavigationItemController(_ editorNavigationItemController: EditorNavigationItemController, didTapCloseButton closeButton: UIBarButtonItem)
     func editorNavigationItemController(_ editorNavigationItemController: EditorNavigationItemController, didTapUndoButton undoButton: UIBarButtonItem)
     func editorNavigationItemController(_ editorNavigationItemController: EditorNavigationItemController, didTapRedoButton redoButton: UIBarButtonItem)
     func editorNavigationItemController(_ editorNavigationItemController: EditorNavigationItemController, didTapReadingThemesControlsButton readingThemesControlsButton: UIBarButtonItem)
@@ -24,22 +23,14 @@ class EditorNavigationItemController: NSObject, Themeable {
     }
 
     func apply(theme: Theme) {
-        closeButton.tintColor = theme.colors.chromeText
         undoButton.tintColor = theme.colors.inputAccessoryButtonTint
         redoButton.tintColor = theme.colors.inputAccessoryButtonTint
         readingThemesControlsButton.tintColor = theme.colors.inputAccessoryButtonTint
         editNoticesButton.tintColor = theme.colors.inputAccessoryButtonTint
         (separatorButton.customView as? UIImageView)?.tintColor = theme.colors.newBorder
-        progressButton.tintColor = theme.colors.link
     }
 
     weak var delegate: EditorNavigationItemControllerDelegate?
-    
-    private(set) lazy var closeButton: UIBarButtonItem = {
-        let closeButton = UIBarButtonItem(image: WMFSFSymbolIcon.for(symbol: .close), style: .plain, target: self, action: #selector(close(_ :)))
-        closeButton.accessibilityLabel = CommonStrings.closeButtonAccessibilityLabel
-        return closeButton
-    }()
 
     private(set) lazy var progressButton: UIBarButtonItem = {
         let button = UIBarButtonItem(title: CommonStrings.nextTitle, style: .done, target: self, action: #selector(progress(_:)))
@@ -83,10 +74,6 @@ class EditorNavigationItemController: NSObject, Themeable {
         delegate?.editorNavigationItemController(self, didTapProgressButton: sender)
     }
 
-    @objc private func close(_ sender: UIBarButtonItem) {
-        delegate?.editorNavigationItemController(self, didTapCloseButton: sender)
-    }
-
     @objc private func undo(_ sender: UIBarButtonItem) {
         delegate?.editorNavigationItemController(self, didTapUndoButton: undoButton)
     }
@@ -110,12 +97,13 @@ class EditorNavigationItemController: NSObject, Themeable {
     }
 
     private func configureNavigationButtonItems() {
-
-        navigationItem?.leftBarButtonItem = closeButton
+        
+        let fixedWidthSpacer = UIBarButtonItem(barButtonSystemItem: .fixedSpace, target: nil, action: nil)
+        fixedWidthSpacer.width = 16
 
         navigationItem?.rightBarButtonItems = [
             progressButton,
-            UIBarButtonItem.wmf_barButtonItem(ofFixedWidth: 16),
+            fixedWidthSpacer,
             separatorButton,
             readingThemesControlsButton,
             redoButton,

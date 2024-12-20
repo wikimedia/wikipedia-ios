@@ -140,8 +140,8 @@ struct NotificationsCenterFilterView: View {
                         doneAction()
                     }) {
                         Text(CommonStrings.doneTitle)
-                            .fontWeight(Font.Weight.semibold)
-                            .foregroundColor(Color(viewModel.theme.colors.primaryText))
+                            .font(Font(WMFFont.navigationBarDoneButtonFont))
+                            .foregroundColor(Color(WMFAppEnvironment.current.theme.navigationBarTintColor))
                         }
             )
             .listBackgroundColor(Color(viewModel.theme.colors.baseBackground))

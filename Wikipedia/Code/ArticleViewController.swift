@@ -9,7 +9,7 @@ protocol AltTextDelegate: AnyObject {
 }
 
 @objc(WMFArticleViewController)
-class ArticleViewController: ViewController, HintPresenting {
+class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollViewDelegate, WMFNavigationBarConfiguring {
     enum ViewState {
         case initial
         case loading
@@ -163,6 +163,11 @@ class ArticleViewController: ViewController, HintPresenting {
     
     // Coordinator used to navigate a user to the donate form from campaign modal
     var donateCoordinator: DonateCoordinator?
+    
+    private var overlayHeightConstraint: NSLayoutConstraint?
+    private var overlayView: UIView?
+    private var stackViewTopConstraint: NSLayoutConstraint?
+    private var searchBarIsAnimating = false
 
     convenience init?(articleURL: URL, dataStore: MWKDataStore, theme: Theme, schemeHandler: SchemeHandler? = nil, altTextExperimentViewModel: WMFAltTextExperimentViewModel, needsAltTextExperimentSheet: Bool, altTextBottomSheetViewModel: WMFAltTextExperimentModalSheetViewModel?, altTextDelegate: AltTextDelegate?) {
         self.init(articleURL: articleURL, dataStore: dataStore, theme: theme)
@@ -187,18 +192,14 @@ class ArticleViewController: ViewController, HintPresenting {
         self.schemeHandler = schemeHandler ?? SchemeHandler(scheme: "app", session: dataStore.session)
         self.cacheController = cacheController
 
-        super.init(theme: theme)
-        
+        super.init(nibName: nil, bundle: nil)
+        self.theme = theme
+        hidesBottomBarWhenPushed = true
+
         self.schemeHandler.imageDidSuccessfullyLoad = { [weak self] in
             self?.imageDidSuccessfullyLoad()
         }
-        
         self.surveyTimerController = ArticleSurveyTimerController(delegate: self)
-
-        // `viewDidLoad` isn't called when re-creating the navigation stack on an iPad, and hence a cold launch on iPad doesn't properly show article names when long-pressing the back button if this code is in `viewDidLoad`
-        navigationItem.configureForEmptyNavBarTitle(backTitle: articleURL.wmf_title)
-        
-        hidesBottomBarWhenPushed = true
     }
     
     deinit {
@@ -222,9 +223,21 @@ class ArticleViewController: ViewController, HintPresenting {
         return configuration
     }()
     
+    lazy var toolbarContainerView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
+    lazy var toolbar: UIToolbar = {
+        let tb = UIToolbar()
+        tb.translatesAutoresizingMaskIntoConstraints = false
+        return tb
+    }()
+    
     lazy var webView: WKWebView = {
-        let webView = WMFWebView(frame: view.bounds, configuration: webViewConfiguration)
-        view.addSubview(webView)
+        let webView = WMFWebView(frame: .zero, configuration: webViewConfiguration)
+        webView.translatesAutoresizingMaskIntoConstraints = false
         return webView
     }()
     
@@ -360,14 +373,30 @@ class ArticleViewController: ViewController, HintPresenting {
     
     // MARK: Layout
     
-    override func scrollViewInsetsDidChange() {
-        super.scrollViewInsetsDidChange()
-        updateTableOfContentsInsets()
-    }
-    
     override func viewLayoutMarginsDidChange() {
         super.viewLayoutMarginsDidChange()
         updateArticleMargins()
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+        tableOfContentsController.updateVerticalPaddings(top: 10, bottom: 0)
+    }
+    
+    override func viewSafeAreaInsetsDidChange() {
+        super.viewSafeAreaInsetsDidChange()
+        
+        guard searchBarIsAnimating else {
+            stackViewTopConstraint?.constant = 0
+            view.layoutIfNeeded()
+            return
+        }
+        
+        stackViewTopConstraint?.constant = view.safeAreaInsets.top
+        UIView.animate(withDuration: 0.2) {
+            self.view.layoutIfNeeded()
+        }
     }
     
     internal func updateArticleMargins() {
@@ -399,6 +428,7 @@ class ArticleViewController: ViewController, HintPresenting {
             }
             
             self.watchlistController.calculatePopoverPosition(sender: self.toolbarController.moreButton, sourceView: self.toolbarController.moreButtonSourceView, sourceRect: self.toolbarController.moreButtonSourceRect)
+            self.overlayHeightConstraint?.constant = UIApplication.shared.workaroundStatusBarFrame.height
         }
     }
     
@@ -411,35 +441,27 @@ class ArticleViewController: ViewController, HintPresenting {
                 break
             case .reloading:
                 fallthrough
-            case .loading:
-                fakeProgressController.start()
-            case .loaded:
-                fakeProgressController.stop()
+            case .loading, .loaded:
                 rethemeWebViewIfNecessary()
             case .error:
-                fakeProgressController.stop()
+                break
             }
         }
     }
-    
-    lazy private var fakeProgressController: FakeProgressController = {
-        let progressController = FakeProgressController(progress: navigationBar, delegate: navigationBar)
-        progressController.delay = 0.0
-        return progressController
-    }()
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
     override func viewDidLoad() {
-        setup()
         super.viewDidLoad()
+
+        setup()
         
         if altTextExperimentViewModel == nil {
             setupToolbar() // setup toolbar needs to be after super.viewDidLoad because the superview owns the toolbar
         }
-        
+
         loadWatchStatusAndUpdateToolbar()
         setupForStateRestorationIfNecessary()
         surveyTimerController?.timerFireBlock = { [weak self] in
@@ -450,30 +472,38 @@ class ArticleViewController: ViewController, HintPresenting {
             
             self.showSurveyAnnouncementPanel(surveyAnnouncementResult: result, linkState: self.articleAsLivingDocController.surveyLinkState)
         }
+        
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        navigationController?.setNavigationBarHidden(true, animated: false)
         super.viewWillAppear(animated)
         tableOfContentsController.setup(with: traitCollection)
         toolbarController.update()
         loadIfNecessary()
         startSignificantlyViewedTimer()
         surveyTimerController?.viewWillAppear(withState: state)
-        setupSearchAndProfileButtons()
+
+        // Navigation Bar Setup
+        if altTextExperimentViewModel == nil {
+            configureNavigationBar()
+        }
     }
     
+    var isFirstAppearance = true
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
-        if altTextExperimentViewModel == nil {
-            setupWButton()
-            setupSearchAndProfileButtons()
-        }
-
         presentModalsIfNeeded()
     }
     
+    @objc func userDidTapProfile() {
+        guard let languageCode = dataStore.languageLinkController.appLanguage?.languageCode,
+        let metricsID = DonateCoordinator.metricsID(for: .articleProfile(articleURL), languageCode: languageCode),
+        let project else { return }
+        
+        DonateFunnel.shared.logArticleProfile(project: project, metricsID: metricsID)
+        profileCoordinator?.start()
+    }
     
     /// Catch-all method for deciding what is the best modal to present on top of Article at this point. This method needs careful if-else logic so that we do not present two modals at the same time, which may unexpectedly suppress one.
     private func presentModalsIfNeeded() {
@@ -495,13 +525,17 @@ class ArticleViewController: ViewController, HintPresenting {
         
         // Year in Review modal presentations
         } else if needsYearInReviewAnnouncement() {
-            setupSearchAndProfileButtons()
+            updateProfileButton()
             presentYearInReviewAnnouncement()
         
         // Campaign modal presentations
         } else {
             showFundraisingCampaignAnnouncementIfNeeded()
         }
+    }
+    
+    @objc private func wButtonTapped(_ sender: UIButton) {
+        navigationController?.popToRootViewController(animated: true)
     }
 
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
@@ -538,12 +572,13 @@ class ArticleViewController: ViewController, HintPresenting {
         
         return super.preferredInterfaceOrientationForPresentation
     }
-    
-    override func keyboardDidChangeFrame(from oldKeyboardFrame: CGRect?, newKeyboardFrame: CGRect?) {
-        super.keyboardDidChangeFrame(from: oldKeyboardFrame, newKeyboardFrame: newKeyboardFrame)
-        
-        updateContentInsetForAltTextExperiment(detentIdentifier: .medium)
-    }
+  
+    // Note: Might need to bring this updateContentInsetForAltTextExperiment call back
+//    override func keyboardDidChangeFrame(from oldKeyboardFrame: CGRect?, newKeyboardFrame: CGRect?) {
+//        super.keyboardDidChangeFrame(from: oldKeyboardFrame, newKeyboardFrame: newKeyboardFrame)
+//        
+//        updateContentInsetForAltTextExperiment(detentIdentifier: .medium)
+//    }
     
     // MARK: Article load
     
@@ -659,7 +694,8 @@ class ArticleViewController: ViewController, HintPresenting {
             return
         }
         
-        let tooltip1SourceRect = CGRect(x: 30, y: navigationBar.frame.height + 30, width: 0, height: 0)
+        // y: navigationBar.frame.height + 30
+        let tooltip1SourceRect = CGRect(x: 30, y: 30, width: 0, height: 0)
 
         let viewModel1 = WMFTooltipViewModel(localizedStrings: altTextExperimentViewModel.firstTooltipLocalizedStrings, buttonNeedsDisclosure: true, sourceView: tooltip1SourceView, sourceRect: tooltip1SourceRect, permittedArrowDirections: .up) { [weak self] in
             
@@ -792,6 +828,58 @@ class ArticleViewController: ViewController, HintPresenting {
                 }
             }
         }
+    }
+    
+    // MARK: Navigation Bar
+    
+    private func configureNavigationBar() {
+        let wButton = UIButton(type: .custom)
+        wButton.setImage(UIImage(named: "W"), for: .normal)
+        wButton.addTarget(self, action: #selector(wButtonTapped(_:)), for: .touchUpInside)
+        
+        let titleConfig = WMFNavigationBarTitleConfig(title: articleURL.wmf_title ?? "", customView: wButton, alignment: .centerCompact)
+        
+        let profileButtonConfig = self.profileButtonConfig()
+        
+        let searchViewController = SearchViewController()
+        searchViewController.dataStore = dataStore
+        searchViewController.theme = theme
+        searchViewController.recentlySearchedSelectionDelegate = self
+        
+        let searchBarConfig = WMFNavigationBarSearchConfig(searchResultsController: searchViewController, searchControllerDelegate: self, searchResultsUpdater: self, searchBarDelegate: nil, searchBarPlaceholder: WMFLocalizedString("search-field-placeholder-text", value: "Search Wikipedia", comment: "Search field placeholder text"), showsScopeBar: false, scopeButtonTitles: nil)
+        
+        configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: nil, profileButtonConfig: profileButtonConfig, searchBarConfig: searchBarConfig, hideNavigationBarOnScroll: true)
+    }
+    
+    private func updateProfileButton() {
+        let config = self.profileButtonConfig()
+        updateNavigationBarProfileButton(needsBadge: config.needsBadge)
+    }
+    
+    private func profileButtonConfig() -> WMFNavigationBarProfileButtonConfig {
+        var hasUnreadNotifications: Bool = false
+        if self.dataStore.authenticationManager.authStateIsPermanent {
+            let numberOfUnreadNotifications = try? dataStore.remoteNotificationsController.numberOfUnreadNotifications()
+            hasUnreadNotifications = (numberOfUnreadNotifications?.intValue ?? 0) != 0
+        } else {
+            hasUnreadNotifications = false
+        }
+
+        var needsYiRNotification = false
+        if let yirDataController,  let appLanguage = dataStore.languageLinkController.appLanguage {
+            let project = WMFProject.wikipedia(WMFLanguage(languageCode: appLanguage.languageCode, languageVariantCode: appLanguage.languageVariantCode))
+            needsYiRNotification = yirDataController.shouldShowYiRNotification(primaryAppLanguageProject: project)
+        }
+        
+        // do not override `hasUnreadNotifications` completely
+        if needsYiRNotification {
+            hasUnreadNotifications = true
+        }
+        
+        let accessibilityLabel = hasUnreadNotifications ? CommonStrings.profileButtonBadgeTitle : CommonStrings.profileButtonTitle
+        let accessibilityHint = CommonStrings.profileButtonAccessibilityHint
+        
+        return WMFNavigationBarProfileButtonConfig(accessibilityLabel: accessibilityLabel, accessibilityHint: accessibilityHint, needsBadge: hasUnreadNotifications, target: self, action: #selector(userDidTapProfile))
     }
     
     // MARK: History
@@ -992,10 +1080,11 @@ class ArticleViewController: ViewController, HintPresenting {
     
     override func apply(theme: Theme) {
         super.apply(theme: theme)
-        setupSearchAndProfileButtons()
+
         guard viewIfLoaded != nil else {
             return
         }
+        
         view.backgroundColor = theme.colors.paperBackground
         webView.scrollView.indicatorStyle = theme.scrollIndicatorStyle
         toolbarController.apply(theme: theme)
@@ -1006,6 +1095,21 @@ class ArticleViewController: ViewController, HintPresenting {
         }
         yirCoordinator?.theme = theme
         profileCoordinator?.theme = theme
+        
+        updateProfileButton()
+        
+        themeNavigationBarCustomCenteredTitleView()
+        
+        overlayView?.backgroundColor = theme.colors.paperBackground
+        
+        if let searchVC = navigationItem.searchController?.searchResultsController as? SearchViewController {
+            searchVC.theme = theme
+            searchVC.apply(theme: theme)
+        }
+        
+        toolbarContainerView.backgroundColor = theme.colors.paperBackground
+        toolbar.setBackgroundImage(theme.navigationBarBackgroundImage, forToolbarPosition: .any, barMetrics: .default)
+        toolbar.isTranslucent = false
     }
     
     private func rethemeWebViewIfNecessary() {
@@ -1055,7 +1159,6 @@ class ArticleViewController: ViewController, HintPresenting {
     
     /// Preserves the current scroll position, loads the provided revisionID or waits for a change in etag on the mobile-html response, then refreshes the page and restores the prior scroll position
     internal func waitForNewContentAndRefresh(_ revisionID: UInt64? = nil) {
-        showNavigationBar()
         state = .reloading
         saveArticleScrollPosition()
         isRestoringState = true
@@ -1202,31 +1305,33 @@ class ArticleViewController: ViewController, HintPresenting {
 
     var scrollToAnchorCompletions: [ScrollToAnchorCompletion] = []
     var scrollViewAnimationCompletions: [() -> Void] = []
-    
-    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        super.scrollViewDidScroll(scrollView)
+
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
         updateTableOfContentsHighlightIfNecessary()
+        
+        // prevents "sticky" hidden nav bar
+        let finalOffset = scrollView.contentOffset.y + scrollView.safeAreaInsets.top
+        if finalOffset < 5 && (navigationController?.navigationBar.isHidden ?? true) {
+            navigationController?.setNavigationBarHidden(false, animated: true)
+            view.setNeedsLayout() // fix TOC top padding
+        }
     }
     
-    override func scrollViewDidScrollToTop(_ scrollView: UIScrollView) {
-        super.scrollViewDidScrollToTop(scrollView)
+    func scrollViewDidScrollToTop(_ scrollView: UIScrollView) {
         updateTableOfContentsHighlight()
+        navigationController?.setNavigationBarHidden(false, animated: true)
     }
     
-    override func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
-        super.scrollViewWillBeginDragging(scrollView)
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         dismissReferencesPopover()
         hintController?.dismissHintDueToUserInteraction()
     }
 
-    override func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        super.scrollViewDidEndDecelerating(scrollView)
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         performWebRefreshAfterScrollViewDecelerationIfNeeded()
     }
     
-    override func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
-        super.scrollViewWillEndDragging(scrollView, withVelocity: velocity, targetContentOffset: targetContentOffset)
-
+    func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
         if velocity == .zero {
             performWebRefreshAfterScrollViewDecelerationIfNeeded()
         }
@@ -1240,6 +1345,7 @@ class ArticleViewController: ViewController, HintPresenting {
 private extension ArticleViewController {
     
     func setup() {
+        
         if let altTextExperimentViewModel {
             self.navigationItem.titleView = nil
             self.title = altTextExperimentViewModel.localizedStrings.articleNavigationBarTitle
@@ -1254,16 +1360,34 @@ private extension ArticleViewController {
             rightBarButtonItem.tintColor = theme.colors.link
             // add accessibility attrubutes
             rightBarButtonItem.accessibilityTraits = .button
-
-            self.navigationBar.updateNavigationItems()
-        } else {
-            setupWButton()
-            setupSearchAndProfileButtons()
         }
-        
+
         addNotificationHandlers()
+        setupToolbar()
         setupWebView()
         setupMessagingController()
+        
+        setupTopOverlay()
+    }
+    
+    private func setupTopOverlay() {
+        // Insert UIView covering below navigation bar, but above web view. This hides web view content beneath safe area.
+        // TODO: Update this upon theming change.
+        let overlayView = UIView()
+        overlayView.translatesAutoresizingMaskIntoConstraints = false
+        overlayView.backgroundColor = theme.colors.paperBackground
+        view.insertSubview(overlayView, aboveSubview: webView)
+        let statusBarHeight = UIApplication.shared.workaroundStatusBarFrame.height
+        let overlayHeightConstraint = overlayView.heightAnchor.constraint(equalToConstant: statusBarHeight)
+        NSLayoutConstraint.activate([
+            view.topAnchor.constraint(equalTo: overlayView.topAnchor),
+            view.leadingAnchor.constraint(equalTo: overlayView.leadingAnchor),
+            view.trailingAnchor.constraint(equalTo: overlayView.trailingAnchor),
+            overlayHeightConstraint
+        ])
+        
+        self.overlayHeightConstraint = overlayHeightConstraint
+        self.overlayView = overlayView
     }
 
     private var overflowMenu: UIMenu {
@@ -1366,60 +1490,35 @@ private extension ArticleViewController {
         surveyTimerController?.didBecomeActive(withState: state)
     }
     
-    func setupSearchAndProfileButtons() {
-        var hasUnreadNotifications: Bool = false
-        if self.dataStore.authenticationManager.authStateIsPermanent {
-            let numberOfUnreadNotifications = try? dataStore.remoteNotificationsController.numberOfUnreadNotifications()
-            hasUnreadNotifications = (numberOfUnreadNotifications?.intValue ?? 0) != 0
-        } else {
-            hasUnreadNotifications = false
-        }
-
-        var needsYiRNotification = false
-        if let yirDataController,  let appLanguage = dataStore.languageLinkController.appLanguage {
-            let project = WMFProject.wikipedia(WMFLanguage(languageCode: appLanguage.languageCode, languageVariantCode: appLanguage.languageVariantCode))
-            needsYiRNotification = yirDataController.shouldShowYiRNotification(primaryAppLanguageProject: project)
-        }
-        // do not override `hasUnreadNotifications` completely
-        if needsYiRNotification {
-            hasUnreadNotifications = true
-        }
-
-        let profileImage = BarButtonImageStyle.profileButtonImage(theme: theme, indicated: hasUnreadNotifications, isExplore: false)
-        let profileButton = UIBarButtonItem(image: profileImage, style: .plain, target: self, action: #selector(userDidTapProfile))
-        profileButton.accessibilityLabel = hasUnreadNotifications ? CommonStrings.profileButtonBadgeTitle : CommonStrings.profileButtonTitle
-        profileButton.accessibilityHint = CommonStrings.profileButtonAccessibilityHint
-        navigationItem.rightBarButtonItems = [AppSearchBarButtonItem.newAppSearchBarButtonItem, profileButton]
-        navigationBar.updateNavigationItems()
-    }
-    
-    @objc func userDidTapProfile() {
-        guard let languageCode = dataStore.languageLinkController.appLanguage?.languageCode,
-        let metricsID = DonateCoordinator.metricsID(for: .articleProfile(articleURL), languageCode: languageCode),
-        let project else { return }
-        
-        DonateFunnel.shared.logArticleProfile(project: project, metricsID: metricsID)
-        profileCoordinator?.start()
-    }
-    
     func setupMessagingController() {
         messagingController.delegate = self
     }
     
     func setupWebView() {
+
         // Add the stack view that contains the table of contents and the web view.
         // This stack view is owned by the tableOfContentsController to control presentation of the table of contents
-        view.wmf_addSubviewWithConstraintsToEdges(tableOfContentsController.stackView)
-        view.widthAnchor.constraint(equalTo: tableOfContentsController.inlineContainerView.widthAnchor, multiplier: 3).isActive = true
+        tableOfContentsController.stackView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(tableOfContentsController.stackView)
+        let stackViewTopConstraint = tableOfContentsController.stackView.topAnchor.constraint(equalTo: view.topAnchor, constant: 0)
+        NSLayoutConstraint.activate([
+            stackViewTopConstraint,
+            view.safeAreaLayoutGuide.leadingAnchor.constraint(equalTo: tableOfContentsController.stackView.leadingAnchor),
+            view.safeAreaLayoutGuide.trailingAnchor.constraint(equalTo: tableOfContentsController.stackView.trailingAnchor),
+            toolbarContainerView.topAnchor.constraint(equalTo: tableOfContentsController.stackView.bottomAnchor)
+        ])
         
+        self.stackViewTopConstraint = stackViewTopConstraint
+        
+        view.widthAnchor.constraint(equalTo: tableOfContentsController.inlineContainerView.widthAnchor, multiplier: 3).isActive = true
+
         // Prevent flash of white in dark mode
         webView.isOpaque = false
         webView.backgroundColor = .clear
         webView.scrollView.backgroundColor = .clear
         
         // Scroll view
-        scrollView = webView.scrollView // so that content insets are inherited
-        scrollView?.delegate = self
+        webView.scrollView.delegate = self
         webView.scrollView.keyboardDismissMode = .interactive
         webView.scrollView.refreshControl = refreshControl
         
@@ -1474,10 +1573,18 @@ private extension ArticleViewController {
     }
     
     func setupToolbar() {
-        enableToolbar()
-        toolbarController.apply(theme: theme)
-        toolbarController.setSavedState(isSaved: article.isAnyVariantSaved)
-        setToolbarHidden(false, animated: false)
+        toolbarContainerView.addSubview(toolbar)
+        view.addSubview(toolbarContainerView)
+        
+        NSLayoutConstraint.activate([
+            toolbarContainerView.safeAreaLayoutGuide.bottomAnchor.constraint(equalTo: toolbar.bottomAnchor),
+            toolbarContainerView.leadingAnchor.constraint(equalTo: toolbar.leadingAnchor),
+            toolbarContainerView.trailingAnchor.constraint(equalTo: toolbar.trailingAnchor),
+            toolbarContainerView.topAnchor.constraint(equalTo: toolbar.topAnchor),
+            view.bottomAnchor.constraint(equalTo: toolbarContainerView.bottomAnchor),
+            view.leadingAnchor.constraint(equalTo: toolbarContainerView.leadingAnchor),
+            view.trailingAnchor.constraint(equalTo: toolbarContainerView.trailingAnchor)
+        ])
     }
     
     var isWidgetCachedFeaturedArticle: Bool {
@@ -1495,8 +1602,8 @@ private extension ArticleViewController {
 }
 
 extension ArticleViewController {
-    func presentEmbedded(_ viewController: UIViewController, style: WMFThemeableNavigationControllerStyle) {
-        let nc = WMFThemeableNavigationController(rootViewController: viewController, theme: theme, style: style)
+    func presentEmbedded(_ viewController: UIViewController) {
+        let nc = WMFComponentNavigationController(rootViewController: viewController, modalPresentationStyle: .overFullScreen)
         present(nc, animated: true)
     }
 }
@@ -1534,7 +1641,6 @@ extension ArticleViewController: ImageScaleTransitionProviding {
 
 extension ArticleViewController {
     func handleArticleLoadFailure(with error: Error, showEmptyView: Bool) {
-        fakeProgressController.finish()
         if showEmptyView {
             wmf_showEmptyView(of: .articleDidNotLoad, theme: theme, frame: view.bounds)
         }
@@ -1608,7 +1714,7 @@ extension ArticleViewController: WKNavigationDelegate {
     }
 }
 
-extension ViewController { // Putting extension on ViewController rather than ArticleVC allows for re-use by EditPreviewVC
+extension ThemeableViewController { // Putting extension on ViewController rather than ArticleVC allows for re-use by EditPreviewVC
 
     var articleMargins: UIEdgeInsets {
         return UIEdgeInsets(top: 8, left: articleHorizontalMargin, bottom: 0, right: articleHorizontalMargin)
@@ -1759,6 +1865,48 @@ extension ArticleViewController: LogoutCoordinatorDelegate {
 
 extension ArticleViewController: YearInReviewBadgeDelegate {
     func didSeeFirstSlide() {
-        setupSearchAndProfileButtons()
+        updateProfileButton()
     }
+}
+
+extension ArticleViewController: SearchViewControllerRecentlySearchedSelectionDelegate {
+    func didSelectRecentlySearchedTerm(_ searchTerm: String, searchViewController: SearchViewController) {
+        navigationItem.searchController?.searchBar.text = searchTerm
+        navigationItem.searchController?.searchBar.becomeFirstResponder()
+    }
+}
+
+extension ArticleViewController: UISearchResultsUpdating {
+    func updateSearchResults(for searchController: UISearchController) {
+        guard let text = searchController.searchBar.text else {
+            return
+        }
+        
+        guard let searchViewController = navigationItem.searchController?.searchResultsController as? SearchViewController else {
+            return
+        }
+        
+        if text.isEmpty {
+            searchViewController.searchTerm = nil
+            searchViewController.updateRecentlySearchedVisibility(searchText: nil)
+        } else {
+            searchViewController.searchTerm = text
+            searchViewController.updateRecentlySearchedVisibility(searchText: text)
+            searchViewController.search()
+        }
+    }
+}
+
+extension ArticleViewController: UISearchControllerDelegate {
+        
+    func willPresentSearchController(_ searchController: UISearchController) {
+        navigationController?.hidesBarsOnSwipe = false
+        searchBarIsAnimating = true
+    }
+    
+    func didDismissSearchController(_ searchController: UISearchController) {
+        navigationController?.hidesBarsOnSwipe = true
+        searchBarIsAnimating = false
+    }
+
 }

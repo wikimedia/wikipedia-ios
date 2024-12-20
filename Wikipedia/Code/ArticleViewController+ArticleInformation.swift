@@ -5,7 +5,8 @@ extension ArticleViewController {
         let languagesVC = WMFArticleLanguagesViewController(articleURL: articleURL)
         themesPresenter.dismissReadingThemesPopoverIfActive(from: self)
         languagesVC.delegate = self
-        presentEmbedded(languagesVC, style: .sheet)
+        languagesVC.apply(theme)
+        presentEmbedded(languagesVC)
     }
     
     func showDisambiguation(with payload: Any?) {
@@ -62,7 +63,7 @@ extension ArticleViewController {
         let issues = payload.compactMap { ($0["html"] as? String)?.removingHTML }
         let issuesVC = PageIssuesTableViewController(style: .grouped)
         issuesVC.issues = issues
-        presentEmbedded(issuesVC, style: .sheet)
+        presentEmbedded(issuesVC)
     }
 }
 

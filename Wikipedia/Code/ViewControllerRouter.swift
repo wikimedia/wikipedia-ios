@@ -65,7 +65,10 @@ class ViewControllerRouter: NSObject {
             } else if let createReadingListVC = viewController as? CreateReadingListViewController,
                       createReadingListVC.isInImportingMode {
 
-                let createReadingListNavVC = WMFThemeableNavigationController(rootViewController: createReadingListVC, theme: self.appViewController.theme)
+                
+                let createReadingListNavVC =
+                WMFComponentNavigationController(rootViewController: createReadingListVC, modalPresentationStyle: .overFullScreen)
+
                 navigationController.present(createReadingListNavVC, animated: true, completion: completion)
             } else {
                 navigationController.pushViewController(viewController, animated: true)
@@ -153,7 +156,6 @@ class ViewControllerRouter: NSObject {
                 completion()
                 return false
             }
-            onThisDayVC.shouldShowNavigationBar = true
             if let index = indexOfSelectedEvent, let selectedEvent = onThisDayVC.events.first(where: { $0.index == NSNumber(value: index) }) {
                 onThisDayVC.initialEvent = selectedEvent
             }
@@ -317,9 +319,7 @@ class ViewControllerRouter: NSObject {
 
         let localizedStrings = WMFWatchlistViewModel.LocalizedStrings(title: CommonStrings.watchlist, filter: CommonStrings.watchlistFilter, userButtonUserPage: CommonStrings.userButtonPage, userButtonTalkPage: CommonStrings.userButtonTalkPage, userButtonContributions: CommonStrings.userButtonContributions, userButtonThank: CommonStrings.userButtonThank, emptyEditSummary: CommonStrings.emptyEditSummary, userAccessibility: CommonStrings.userTitle, summaryAccessibility: CommonStrings.editSummaryTitle, userAccessibilityButtonDiff: CommonStrings.watchlistGoToDiff, localizedProjectNames: watchlistFilterViewModel.localizedStrings.localizedProjectNames, byteChange: localizedByteChange,  htmlStripped: htmlStripped)
 
-        let presentationConfiguration = WMFWatchlistViewModel.PresentationConfiguration(showNavBarUponAppearance: true, hideNavBarUponDisappearance: true)
-
-        let viewModel = WMFWatchlistViewModel(localizedStrings: localizedStrings, presentationConfiguration: presentationConfiguration)
+        let viewModel = WMFWatchlistViewModel(localizedStrings: localizedStrings)
 
         let localizedStringsEmptyView = WMFEmptyViewModel.LocalizedStrings(title: CommonStrings.watchlistEmptyViewTitle, subtitle: CommonStrings.watchlistEmptyViewSubtitle, titleFilter: CommonStrings.watchlistEmptyViewFilterTitle, buttonTitle: CommonStrings.watchlistEmptyViewButtonTitle, attributedFilterString: attributedFilterString)
 

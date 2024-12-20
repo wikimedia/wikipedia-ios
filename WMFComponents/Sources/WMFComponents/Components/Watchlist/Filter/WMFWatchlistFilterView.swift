@@ -12,7 +12,6 @@ struct WMFWatchlistFilterView: View {
     let doneAction: () -> Void
 
     var body: some View {
-        NavigationView {
             WMFFormView(viewModel: viewModel.formViewModel)
                 .navigationTitle(viewModel.localizedStrings.title)
                 .navigationBarTitleDisplayMode(.inline)
@@ -22,14 +21,12 @@ struct WMFWatchlistFilterView: View {
                             doneAction()
                         }) {
                             Text(viewModel.localizedStrings.doneTitle)
-                                .font(Font(WMFFont.for(.headline)))
-                                .foregroundColor(Color(theme.link))
+                                .font(Font(WMFFont.navigationBarDoneButtonFont))
+                                .foregroundColor(Color(theme.navigationBarTintColor))
                             }
                 )
-        }
-        .navigationViewStyle(.stack)
-        .accessibilityAction(.escape) {
-            doneAction()
-        }
+                .accessibilityAction(.escape) {
+                    doneAction()
+                }
+            }
     }
-}

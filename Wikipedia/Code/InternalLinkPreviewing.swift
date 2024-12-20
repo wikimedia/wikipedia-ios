@@ -1,6 +1,6 @@
 import Foundation
 
-protocol InternalLinkPreviewing: ViewController { }
+protocol InternalLinkPreviewing: ThemeableViewController { }
 
 extension InternalLinkPreviewing {
     func showInternalLink(url: URL) {

@@ -302,7 +302,8 @@ class SearchLanguagesBarViewController: ThemeableViewController, WMFPreferredLan
         if let themeable = languagesVC as Themeable? {
             themeable.apply(theme: self.theme)
         }
-        present(WMFThemeableNavigationController(rootViewController: languagesVC, theme: self.theme), animated: true, completion: nil)
+        let navVC = WMFComponentNavigationController(rootViewController: languagesVC, modalPresentationStyle: .overFullScreen)
+        present(navVC, animated: true, completion: nil)
     }
     
     func languagesController(_ controller: WMFLanguagesViewController, didSelectLanguage language: MWKLanguageLink) {

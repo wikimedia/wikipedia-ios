@@ -1,5 +1,6 @@
 import UIKit
 import WMF
+import WMFComponents
 
 protocol EditPreviewViewControllerDelegate: NSObjectProtocol {
     func editPreviewViewControllerDidTapNext(pageURL: URL, sectionID: Int?, editPreviewViewController: EditPreviewViewController)
@@ -11,7 +12,7 @@ protocol EditPreviewViewControllerLoggingDelegate: AnyObject {
     func logEditPreviewDidTapNext()
 }
 
-class EditPreviewViewController: ViewController, WMFPreviewDelegate, InternalLinkPreviewing {
+class EditPreviewViewController: ThemeableViewController, WMFPreviewDelegate, InternalLinkPreviewing, WMFNavigationBarConfiguring {
     var sectionID: Int?
     var pageURL: URL
     var languageCode: String?
@@ -46,9 +47,7 @@ class EditPreviewViewController: ViewController, WMFPreviewDelegate, InternalLin
     init(pageURL: URL) {
         self.pageURL = pageURL
         self.previewWebViewContainer = PreviewWebViewContainer()
-        super.init()
-
-        webView.scrollView.delegate = self
+        super.init(nibName: nil, bundle: nil)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -83,12 +82,6 @@ class EditPreviewViewController: ViewController, WMFPreviewDelegate, InternalLin
         alertController.addAction(UIAlertAction(title: CommonStrings.okTitle, style: .default, handler: nil))
         present(alertController, animated: true)
     }
-
-    @objc func goBack() {
-        loggingDelegate?.logEditPreviewDidTapBack()
-        navigationController?.popViewController(animated: true)
-        
-    }
     
     @objc func goForward() {
         loggingDelegate?.logEditPreviewDidTapNext()
@@ -102,15 +95,6 @@ class EditPreviewViewController: ViewController, WMFPreviewDelegate, InternalLin
         view.wmf_addConstraintsToEdgesOfView(previewWebViewContainer)
         previewWebViewContainer.delegate = self
         
-        navigationItem.title = WMFLocalizedString("navbar-title-mode-edit-wikitext-preview", value: "Preview", comment: "Header text shown when wikitext changes are being previewed. {{Identical|Preview}}")
-                
-        navigationItem.leftBarButtonItem = UIBarButtonItem.wmf_buttonType(.caretLeft, target: self, action: #selector(self.goBack))
-        
-        if needsNextButton {
-            navigationItem.rightBarButtonItem = UIBarButtonItem(title: CommonStrings.nextTitle, style: .done, target: self, action: #selector(self.goForward))
-            navigationItem.rightBarButtonItem?.tintColor = theme.colors.link
-        }
-        
         apply(theme: theme)
         previewWebViewContainer.webView.uiDelegate = self
     }
@@ -118,11 +102,18 @@ class EditPreviewViewController: ViewController, WMFPreviewDelegate, InternalLin
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         loadPreviewIfNecessary()
+        
+        configureNavigationBar()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         WMFAlertManager.sharedInstance.dismissAlert()
         super.viewWillDisappear(animated)
+        
+        if isMovingFromParent {
+            // Tapped Back button in Navigation Bar
+            loggingDelegate?.logEditPreviewDidTapBack()
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -132,6 +123,16 @@ class EditPreviewViewController: ViewController, WMFPreviewDelegate, InternalLin
     
     deinit {
         messagingController.removeScriptMessageHandler()
+    }
+    
+    private func configureNavigationBar() {
+        let titleConfig = WMFNavigationBarTitleConfig(title: WMFLocalizedString("navbar-title-mode-edit-wikitext-preview", value: "Preview", comment: "Header text shown when wikitext changes are being previewed. {{Identical|Preview}}"), customView: nil, alignment: .centerCompact)
+        
+        configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: nil, profileButtonConfig: nil, searchBarConfig: nil, hideNavigationBarOnScroll: false)
+        
+        if needsNextButton {
+            navigationItem.rightBarButtonItem = UIBarButtonItem(title: CommonStrings.nextTitle, style: .done, target: self, action: #selector(self.goForward))
+        }
     }
     
     private var hasPreviewed = false

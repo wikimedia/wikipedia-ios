@@ -10,6 +10,18 @@ class HelpViewController: SinglePageWebViewController {
     static let emailSubject = "Bug:"
     let dataStore: MWKDataStore
     
+    lazy var toolbarContainerView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
+    lazy var toolbar: UIToolbar = {
+        let tb = UIToolbar()
+        tb.translatesAutoresizingMaskIntoConstraints = false
+        return tb
+    }()
+    
     @objc init?(dataStore: MWKDataStore, theme: Theme) {
         guard let faqURL = URL(string: HelpViewController.faqURLString) else {
             return nil
@@ -61,14 +73,36 @@ class HelpViewController: SinglePageWebViewController {
         }
         
         let leadingSpace: CGFloat = isExportingUserData ? 30 : 8
+        let item1 = UIBarButtonItem(barButtonSystemItem: .fixedSpace, target: nil, action: nil)
+        item1.width = leadingSpace
+        let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        let item2 = UIBarButtonItem(barButtonSystemItem: .fixedSpace, target: nil, action: nil)
+        item2.width = 8
         
-        self.toolbar.items = [UIBarButtonItem.wmf_barButtonItem(ofFixedWidth: leadingSpace), exportItem, UIBarButtonItem.flexibleSpaceToolbar(), sendEmailToolbarItem, UIBarButtonItem.wmf_barButtonItem(ofFixedWidth: 8)]
+        self.toolbar.items = [item1, exportItem, flexibleSpace, sendEmailToolbarItem, item2]
     }
 
     private func setupToolbar() {
-        enableToolbar()
+        toolbarContainerView.addSubview(toolbar)
+        view.addSubview(toolbarContainerView)
+        
+        NSLayoutConstraint.activate([
+            toolbarContainerView.safeAreaLayoutGuide.bottomAnchor.constraint(equalTo: toolbar.bottomAnchor),
+            toolbarContainerView.leadingAnchor.constraint(equalTo: toolbar.leadingAnchor),
+            toolbarContainerView.trailingAnchor.constraint(equalTo: toolbar.trailingAnchor),
+            toolbarContainerView.topAnchor.constraint(equalTo: toolbar.topAnchor),
+            view.bottomAnchor.constraint(equalTo: toolbarContainerView.bottomAnchor),
+            view.leadingAnchor.constraint(equalTo: toolbarContainerView.leadingAnchor),
+            view.trailingAnchor.constraint(equalTo: toolbarContainerView.trailingAnchor)
+        ])
+        
         setupToolbarItems(isExportingUserData: false)
-        setToolbarHidden(false, animated: false)
+        
+        toolbarContainerView.setNeedsLayout()
+        toolbarContainerView.layoutIfNeeded()
+        
+        let oldContentInset = webView.scrollView.contentInset
+        webView.scrollView.contentInset = UIEdgeInsets(top: oldContentInset.top, left: oldContentInset.left, bottom: oldContentInset.bottom + toolbarContainerView.frame.height, right: oldContentInset.right)
     }
     
     enum UserDataExportError: Error {
@@ -99,6 +133,14 @@ class HelpViewController: SinglePageWebViewController {
         }
 
         UIApplication.shared.open(mailtoURL)
+    }
+    
+    override func apply(theme: Theme) {
+        super.apply(theme: theme)
+        
+        toolbarContainerView.backgroundColor = theme.colors.paperBackground
+        toolbar.setBackgroundImage(theme.navigationBarBackgroundImage, forToolbarPosition: .any, barMetrics: .default)
+        toolbar.isTranslucent = false
     }
 
 }

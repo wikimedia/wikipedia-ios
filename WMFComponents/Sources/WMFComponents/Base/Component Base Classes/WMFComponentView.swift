@@ -43,6 +43,7 @@ public class WMFComponentView: UIView {
 	// MARK: - Subclass Overrides
 
 	public func appEnvironmentDidChange() {
+        overrideUserInterfaceStyle = appEnvironment.theme.userInterfaceStyle
 		// Subclasses should implement
 	}
 	

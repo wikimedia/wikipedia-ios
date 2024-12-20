@@ -1,5 +1,6 @@
 import Foundation
 import CocoaLumberjackSwift
+import WMFComponents
 
 extension TalkPageViewController: TalkPageFormattingToolbarViewDelegate {
 
@@ -26,17 +27,16 @@ extension TalkPageViewController: TalkPageFormattingToolbarViewDelegate {
             }
 
             if link.exists {
-                guard let editLinkViewController = EditLinkViewController(link: link, siteURL: viewModel.siteURL, dataStore: MWKDataStore.shared()) else {
+                guard let editLinkViewController = EditLinkViewController(link: link, siteURL: viewModel.siteURL, dataStore: MWKDataStore.shared(), theme: theme) else {
                     return
                 }
                 editLinkViewController.delegate = self
-                let navigationController = WMFThemeableNavigationController(rootViewController: editLinkViewController, theme: self.theme)
-                navigationController.isNavigationBarHidden = true
+                let navigationController = WMFComponentNavigationController(rootViewController: editLinkViewController, modalPresentationStyle: .overFullScreen)
                 present(navigationController, animated: true)
             } else {
-                let insertLinkViewController = InsertLinkViewController(link: link, siteURL: viewModel.siteURL, dataStore: MWKDataStore.shared())
+                let insertLinkViewController = InsertLinkViewController(link: link, siteURL: viewModel.siteURL, dataStore: MWKDataStore.shared(), theme: theme)
                 insertLinkViewController.delegate = self
-                let navigationController = WMFThemeableNavigationController(rootViewController: insertLinkViewController, theme: self.theme)
+                let navigationController = WMFComponentNavigationController(rootViewController: insertLinkViewController, modalPresentationStyle: .overFullScreen)
                 present(navigationController, animated: true)
             }
 

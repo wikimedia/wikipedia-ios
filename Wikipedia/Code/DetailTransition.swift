@@ -16,13 +16,13 @@ protocol ImageScaleTransitionProviding {
 
 class DetailTransition: NSObject, UIViewControllerAnimatedTransitioning {
     
-    let detailSourceViewController: DetailTransitionSourceProviding & ViewController
+    let detailSourceViewController: DetailTransitionSourceProviding & ThemeableViewController
     
     var theme: Theme {
         return detailSourceViewController.theme
     }
     
-    required init(detailSourceViewController: DetailTransitionSourceProviding & ViewController, incomingImageScaleTransitionProvider: ImageScaleTransitionProviding?, outgoingImageScaleTransitionProvider: ImageScaleTransitionProviding?) {
+    required init(detailSourceViewController: DetailTransitionSourceProviding & ThemeableViewController, incomingImageScaleTransitionProvider: ImageScaleTransitionProviding?, outgoingImageScaleTransitionProvider: ImageScaleTransitionProviding?) {
         self.detailSourceViewController = detailSourceViewController
         incomingImageScaleTransitionProvider?.prepareForIncomingImageScaleTransition?()
         outgoingImageScaleTransitionProvider?.prepareForOutgoingImageScaleTransition?()
@@ -71,9 +71,14 @@ class DetailTransition: NSObject, UIViewControllerAnimatedTransitioning {
         
         let fromFrame = transitionContext.initialFrame(for: fromViewController)
         
+        fromViewController.navigationController?.setNavigationBarHidden(true, animated: false)
+        let fromSnapshot = maybeFromISP.view.snapshotView(afterScreenUpdates: false)
+        toViewController.navigationController?.setNavigationBarHidden(false, animated: false)
+        let toSnapshot = maybeToISP.view.snapshotView(afterScreenUpdates: true)
+        
         guard
-            let toSnapshot = maybeToISP.view.snapshotView(afterScreenUpdates: true),
-            let fromSnapshot = maybeFromISP.view.snapshotView(afterScreenUpdates: false)
+            let toSnapshot,
+            let fromSnapshot
         else {
             transitionContext.completeTransition(true)
             return
@@ -143,6 +148,7 @@ class DetailTransition: NSObject, UIViewControllerAnimatedTransitioning {
         }
         
         let duration = self.transitionDuration(using: transitionContext)
+        
         UIView.animateKeyframes(withDuration: duration, delay: 0, options: [], animations: {
             toSnapshot.transform = .identity
             if isEnteringDetail {

@@ -181,6 +181,7 @@ public class WMFSourceEditorViewController: WMFComponentViewController {
     // MARK: Overrides
     
     public override func appEnvironmentDidChange() {
+        super.appEnvironmentDidChange()
         updateColorsAndFonts()
     }
     

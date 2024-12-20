@@ -1,4 +1,5 @@
 import UIKit
+import WMFComponents
 
 class DebugReadingListsViewController: UIViewController, UITextFieldDelegate, Themeable {
 
@@ -27,7 +28,7 @@ class DebugReadingListsViewController: UIViewController, UITextFieldDelegate, Th
         listLimitTextField.text = "\(moc.wmf_numberValue(forKey: "WMFCountOfListsToCreate")?.int64Value ?? 10)"
         entryLimitTextField.text = "\(moc.wmf_numberValue(forKey: "WMFCountOfEntriesToCreate")?.int64Value ?? 100)"
 
-        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "close"), style: .plain, target: self, action: #selector(close))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: WMFSFSymbolIcon.for(symbol: .close), style: .plain, target: self, action: #selector(close))
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {

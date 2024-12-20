@@ -1,6 +1,10 @@
 import UIKit
 import WMF
 
+protocol SearchResultsViewControllerDelegate: AnyObject {
+    func didSelectSearchResult(articleURL: URL, indexPath: IndexPath, searchResultsViewController: SearchResultsViewController)
+}
+
 class SearchResultsViewController: ArticleCollectionViewController {
     var resultsInfo: WMFSearchResults? = nil // don't use resultsInfo.results, it mutates
     var results: [MWKSearchResult] = [] {
@@ -9,13 +13,11 @@ class SearchResultsViewController: ArticleCollectionViewController {
             reload()
         }
     }
-
-    var delegatesSelection: Bool = false
-    var doesShowArticlePreviews = true
+    
+    weak var delegate: SearchResultsViewControllerDelegate?
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        useNavigationBarVisibleHeightForScrollViewInsets = true
         reload()
         NotificationCenter.default.addObserver(self, selector: #selector(updateArticleCell(_:)), name: NSNotification.Name.WMFArticleUpdated, object: nil)
     }
@@ -62,13 +64,7 @@ class SearchResultsViewController: ArticleCollectionViewController {
             return
         }
         
-        delegate?.articleCollectionViewController(self, didSelectArticleWith: articleURL, at: indexPath)
-        guard !delegatesSelection else {
-            return
-        }
-        
-        let userInfo: [AnyHashable : Any] = [RoutingUserInfoKeys.source: RoutingUserInfoSourceValue.search.rawValue]
-        navigate(to: articleURL, userInfo: userInfo)
+        delegate?.didSelectSearchResult(articleURL: articleURL, indexPath: indexPath, searchResultsViewController: self)
     }
 
     func redirectMappingForSearchResult(_ result: MWKSearchResult) -> MWKSearchRedirectMapping? {
@@ -149,12 +145,5 @@ class SearchResultsViewController: ArticleCollectionViewController {
 
             configure(cell: cell, forItemAt: indexPath, layoutOnly: false, configureForCompact: false)
         }
-    }
-
-    override func collectionView(_ collectionView: UICollectionView, contextMenuConfigurationForItemAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
-        guard doesShowArticlePreviews else {
-            return nil
-        }
-        return super.collectionView(collectionView, contextMenuConfigurationForItemAt: indexPath, point: point)
     }
 }

@@ -295,9 +295,10 @@ class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
         isTagsViewHidden = tags.readingLists.isEmpty || !isAlertButtonHidden
         
         if shouldShowSeparators {
-            topSeparator.isHidden = index != 0
+            topSeparator.isHidden = true
             bottomSeparator.isHidden = false
         } else {
+            topSeparator.isHidden = true
             bottomSeparator.isHidden = true
         }
         self.theme = theme

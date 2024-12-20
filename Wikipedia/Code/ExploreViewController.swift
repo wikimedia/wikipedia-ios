@@ -4,7 +4,7 @@ import CocoaLumberjackSwift
 import WMFComponents
 import WMFData
 
-class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewControllerDelegate, UISearchBarDelegate, CollectionViewUpdaterDelegate, ImageScaleTransitionProviding, DetailTransitionSourceProviding, MEPEventsProviding {
+class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewControllerDelegate, CollectionViewUpdaterDelegate, ImageScaleTransitionProviding, DetailTransitionSourceProviding, MEPEventsProviding, WMFNavigationBarConfiguring {
 
     public var presentedContentGroupKey: String?
     public var shouldRestoreScrollPosition = false
@@ -49,27 +49,18 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
             
             return existingYirCoordinator
     }
+    
+    private var overlayHeightConstraint: NSLayoutConstraint?
+    private var overlayView: UIView?
 
-    // MARK: - UIViewController
+    // MARK: - Lifecycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
         layoutManager.register(ExploreCardCollectionViewCell.self, forCellWithReuseIdentifier: ExploreCardCollectionViewCell.identifier, addPlaceholder: true)
 
-        navigationItem.titleView = titleView
-        navigationBar.addUnderNavigationBarView(searchBarContainerView)
-        navigationBar.isUnderBarViewHidingEnabled = true
-        navigationBar.displayType = dataStore.authenticationManager.authStateIsPermanent ? .centeredLargeTitle : .largeTitle
-        navigationBar.shouldTransformUnderBarViewWithBar = true
-        navigationBar.isShadowHidingEnabled = true
-
-        updateProfileViewButton()
-        updateNavigationBarVisibility()
-
         isRefreshControlEnabled = true
         collectionView.refreshControl?.layer.zPosition = 0
-
-        title = CommonStrings.exploreTabTitle
 
         NotificationCenter.default.addObserver(self, selector: #selector(exploreFeedPreferencesDidSave(_:)), name: NSNotification.Name.WMFExploreFeedPreferencesDidSave, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(articleDidChange(_:)), name: NSNotification.Name.WMFArticleUpdated, object: nil)
@@ -78,6 +69,8 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         NotificationCenter.default.addObserver(self, selector: #selector(viewContextDidReset(_:)), name: NSNotification.Name.WMFViewContextDidReset, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(databaseHousekeeperDidComplete), name: .databaseHousekeeperDidComplete, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(applicationDidBecomeActive), name: UIApplication.didBecomeActiveNotification, object: nil)
+        
+        setupTopOverlay()
     }
 
     @objc var isGranularUpdatingEnabled: Bool = true {
@@ -119,16 +112,11 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     }
 
     override func viewWillAppear(_ animated: Bool) {
-        navigationController?.setNavigationBarHidden(true, animated: false)
-
+        
         super.viewWillAppear(animated)
         isGranularUpdatingEnabled = true
         restoreScrollPositionIfNeeded()
-        updateProfileViewButton()
-
-        // Terrible hack to make back button text appropriate for iOS 14 - need to set the title on `WMFAppViewController`. For all app tabs, this is set in `viewWillAppear`.
-        (parent as? WMFAppViewController)?.navigationItem.backButtonTitle = title
-
+        configureNavigationBar()
     }
 
     override func viewWillTransition(to size: CGSize, with coordinator: any UIViewControllerTransitionCoordinator) {
@@ -136,26 +124,8 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
 
         coordinator.animate(alongsideTransition: nil) { [weak self] _ in
             self?.updateTabBarSnapshotImage()
+            self?.overlayHeightConstraint?.constant = UIApplication.shared.workaroundStatusBarFrame.height
         }
-    }
-
-    func presentUITestHelperController() {
-        let viewController = UITestHelperViewController(theme: theme)
-        present(viewController, animated: false)
-    }
-
-    private func restoreScrollPositionIfNeeded() {
-        guard
-            shouldRestoreScrollPosition,
-            let presentedContentGroupKey = presentedContentGroupKey,
-            let contentGroup = fetchedResultsController?.fetchedObjects?.first(where: { $0.key == presentedContentGroupKey }),
-            let indexPath = fetchedResultsController?.indexPath(forObject: contentGroup)
-        else {
-            return
-        }
-        collectionView.scrollToItem(at: indexPath, at: [], animated: false)
-        self.shouldRestoreScrollPosition = false
-        self.presentedContentGroupKey = nil
     }
 
     override func viewDidDisappear(_ animated: Bool) {
@@ -164,18 +134,91 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         stopMonitoringReachability()
         isGranularUpdatingEnabled = false
     }
-
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        
+        if #available(iOS 18, *) {
+            if UIDevice.current.userInterfaceIdiom == .pad {
+                if previousTraitCollection?.horizontalSizeClass != traitCollection.horizontalSizeClass {
+                    configureNavigationBar()
+                }
+            }
+        }
+    }
+    
+    open override func refresh() {
+        updateFeedSources(with: nil, userInitiated: true) {
+        }
+    }
+    
+    private func presentUITestHelperController() {
+        let viewController = UITestHelperViewController(theme: theme)
+        present(viewController, animated: false)
+    }
+    
     @objc private func databaseHousekeeperDidComplete() {
         DispatchQueue.main.async {
             self.refresh()
         }
     }
-
-    @objc public func updateNavigationBarVisibility() {
-        navigationBar.isBarHidingEnabled = UIAccessibility.isVoiceOverRunning ? false : true
+    
+    func setupTopOverlay() {
+        
+        // Insert UIView covering below navigation bar, but above collection view. This hides collection view content beneath safe area.
+        // TODO: Update this upon theming change.
+        let overlayView = UIView()
+        overlayView.translatesAutoresizingMaskIntoConstraints = false
+        overlayView.backgroundColor = theme.colors.paperBackground
+        view.insertSubview(overlayView, aboveSubview: collectionView)
+        let statusBarHeight = UIApplication.shared.workaroundStatusBarFrame.height
+        let overlayHeightConstraint = overlayView.heightAnchor.constraint(equalToConstant: statusBarHeight)
+        NSLayoutConstraint.activate([
+            view.topAnchor.constraint(equalTo: overlayView.topAnchor),
+            view.leadingAnchor.constraint(equalTo: overlayView.leadingAnchor),
+            view.trailingAnchor.constraint(equalTo: overlayView.trailingAnchor),
+            overlayHeightConstraint
+        ])
+        
+        self.overlayHeightConstraint = overlayHeightConstraint
+        self.overlayView = overlayView
+    }
+    
+    // MARK: Navigation Bar
+    
+    private func configureNavigationBar() {
+        
+        var titleConfig: WMFNavigationBarTitleConfig = WMFNavigationBarTitleConfig(title: CommonStrings.exploreTabTitle, customView: titleView, alignment: .leadingCompact)
+        if #available(iOS 18, *) {
+            if UIDevice.current.userInterfaceIdiom == .pad && traitCollection.horizontalSizeClass == .regular {
+                titleConfig = WMFNavigationBarTitleConfig(title: CommonStrings.exploreTabTitle, customView: titleView, alignment: .centerCompact)
+            }
+        }
+        
+        let profileButtonConfig = self.profileButtonConfig()
+        
+        let searchViewController = SearchViewController()
+        searchViewController.dataStore = dataStore
+        searchViewController.recentlySearchedSelectionDelegate = self
+        searchViewController.theme = theme
+        
+        let searchConfig = WMFNavigationBarSearchConfig(
+            searchResultsController: searchViewController,
+            searchControllerDelegate: self,
+            searchResultsUpdater: self,
+            searchBarDelegate: nil,
+            searchBarPlaceholder: WMFLocalizedString("search-field-placeholder-text", value: "Search Wikipedia", comment: "Search field placeholder text"),
+            showsScopeBar: false, scopeButtonTitles: nil)
+        
+        configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: nil, profileButtonConfig: profileButtonConfig, searchBarConfig: searchConfig, hideNavigationBarOnScroll: true)
+    }
+    
+    @objc func updateProfileButton() {
+        let config = self.profileButtonConfig()
+        updateNavigationBarProfileButton(needsBadge: config.needsBadge)
     }
 
-    @objc func updateProfileViewButton() {
+    private func profileButtonConfig() -> WMFNavigationBarProfileButtonConfig {
         var hasUnreadNotifications: Bool = false
         if self.dataStore.authenticationManager.authStateIsPermanent {
             let numberOfUnreadNotifications = try? dataStore.remoteNotificationsController.numberOfUnreadNotifications()
@@ -193,16 +236,18 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         if needsYiRNotification {
             hasUnreadNotifications = true
         }
-
-        let profileImage = BarButtonImageStyle.profileButtonImage(theme: theme, indicated: hasUnreadNotifications)
-        let profileButton = UIBarButtonItem(image: profileImage, style: .plain, target: self, action: #selector(userDidTapProfile))
-        profileButton.accessibilityLabel = hasUnreadNotifications ? CommonStrings.profileButtonBadgeTitle : CommonStrings.profileButtonTitle
-        profileButton.accessibilityHint = CommonStrings.profileButtonAccessibilityHint
-        navigationItem.rightBarButtonItem = profileButton
-        navigationBar.updateNavigationItems()
+        
+        let accessibilityLabel = hasUnreadNotifications ? CommonStrings.profileButtonBadgeTitle : CommonStrings.profileButtonTitle
+        let accessibilityHint = CommonStrings.profileButtonAccessibilityHint
+        
+        return WMFNavigationBarProfileButtonConfig(accessibilityLabel: accessibilityLabel, accessibilityHint: accessibilityHint, needsBadge: hasUnreadNotifications, target: self, action: #selector(userDidTapProfile))
     }
     
-    // MARK: - NavBar
+    @objc func scrollToTop() {
+        navigationController?.setNavigationBarHidden(false, animated: true)
+        // TODO: Fix
+        collectionView.setContentOffset(CGPoint(x: collectionView.contentOffset.x, y: 0 - collectionView.contentInset.top), animated: true)
+    }
     
     @objc func titleBarButtonPressed(_ sender: UIButton?) {
         scrollToTop()
@@ -242,16 +287,32 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         profileCoordinator?.start()
     }
     
-    open override func refresh() {
-        updateFeedSources(with: nil, userInitiated: true) {
-        }
-    }
-    
     // MARK: - Scroll
+    
+    private func restoreScrollPositionIfNeeded() {
+        guard
+            shouldRestoreScrollPosition,
+            let presentedContentGroupKey = presentedContentGroupKey,
+            let contentGroup = fetchedResultsController?.fetchedObjects?.first(where: { $0.key == presentedContentGroupKey }),
+            let indexPath = fetchedResultsController?.indexPath(forObject: contentGroup)
+        else {
+            return
+        }
+        collectionView.scrollToItem(at: indexPath, at: [], animated: false)
+        self.shouldRestoreScrollPosition = false
+        self.presentedContentGroupKey = nil
+    }
     
     var isLoadingOlderContent: Bool = false
     override func scrollViewDidScroll(_ scrollView: UIScrollView) {
         super.scrollViewDidScroll(scrollView)
+        
+        // prevents "sticky" hidden nav bar
+        let finalOffset = scrollView.contentOffset.y + scrollView.safeAreaInsets.top
+        if finalOffset < 5 && (navigationController?.navigationBar.isHidden ?? true) {
+            navigationController?.setNavigationBarHidden(false, animated: true)
+        }
+        
         guard !isLoadingOlderContent else {
             return
         }
@@ -280,6 +341,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
             return
         }
         
+        // TODO: Investigate why this isn't paging
         let calendar = NSCalendar.wmf_gregorian()
         let days: Int = calendar?.wmf_days(from: lastGroupMidnightUTC, to: midnightUTC) ?? 0
         guard days < Int(WMFExploreFeedMaximumNumberOfDays) else {
@@ -299,6 +361,10 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
         logFeedImpressionAfterDelay()
     }
+    
+    func scrollViewDidScrollToTop(_ scrollView: UIScrollView) {
+        navigationController?.setNavigationBarHidden(false, animated: true)
+    }
 
     // MARK: - Event logging
 
@@ -312,7 +378,9 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
             guard let group = group(at: indexPath), group.undoType == .none, let itemFrame = collectionView.layoutAttributesForItem(at: indexPath)?.frame else {
                 continue
             }
-            let visibleRectOrigin = CGPoint(x: collectionView.contentOffset.x, y: collectionView.contentOffset.y + navigationBar.visibleHeight)
+            // TODO: Test this.
+            let navBarVisibleHeight = CGFloat(0) // navigationBar.visibleHeight
+            let visibleRectOrigin = CGPoint(x: collectionView.contentOffset.x, y: collectionView.contentOffset.y + navBarVisibleHeight)
             let visibleRectSize = view.layoutMarginsGuide.layoutFrame.size
             let itemCenter = CGPoint(x: itemFrame.midX, y: itemFrame.midY)
             let visibleRect = CGRect(origin: visibleRectOrigin, size: visibleRectSize)
@@ -324,63 +392,9 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     }
     
     // MARK: - Search
-
-    public var wantsCustomSearchTransition: Bool {
-        return true
-    }
-    
-    lazy var searchBarContainerView: UIView = {
-        let searchContainerView = UIView()
-        searchBar.translatesAutoresizingMaskIntoConstraints = false
-        searchContainerView.addSubview(searchBar)
-        let leading = searchContainerView.layoutMarginsGuide.leadingAnchor.constraint(equalTo: searchBar.leadingAnchor)
-        let trailing = searchContainerView.layoutMarginsGuide.trailingAnchor.constraint(equalTo: searchBar.trailingAnchor)
-        let top = searchContainerView.topAnchor.constraint(equalTo: searchBar.topAnchor)
-        let bottom = searchContainerView.bottomAnchor.constraint(equalTo: searchBar.bottomAnchor)
-        searchContainerView.addConstraints([leading, trailing, top, bottom])
-        return searchContainerView
-    }()
-
-    private var _scribbleIgnoringDelegate: Any? = nil
-    
-    private var scribbleIgnoringDelegate: ScribbleIgnoringInteractionDelegate? {
-        if _scribbleIgnoringDelegate == nil {
-            _scribbleIgnoringDelegate = ScribbleIgnoringInteractionDelegate()
-        }
-        return _scribbleIgnoringDelegate as? ScribbleIgnoringInteractionDelegate
-    }
-
-    lazy var searchBar: UISearchBar = {
-        let searchBar = UISearchBar()
-        searchBar.delegate = self
-        searchBar.returnKeyType = .search
-        searchBar.searchBarStyle = .minimal
-        searchBar.placeholder =  WMFLocalizedString("search-field-placeholder-text", value: "Search Wikipedia", comment: "Search field placeholder text")
-
-        // Disable Scribble on this placeholder text field
-        if UIDevice.current.userInterfaceIdiom == .pad,
-        let scribbleIgnoringDelegate = scribbleIgnoringDelegate {
-            let existingInteractions = searchBar.searchTextField.interactions
-            existingInteractions.forEach { searchBar.searchTextField.removeInteraction($0) }
-            let scribbleIgnoringInteraction = UIScribbleInteraction(delegate: scribbleIgnoringDelegate)
-            searchBar.searchTextField.addInteraction(scribbleIgnoringInteraction)
-        }
-
-        return searchBar
-    }()
     
     @objc func ensureWikipediaSearchIsShowing() {
-        if self.navigationBar.underBarViewPercentHidden > 0 {
-            self.navigationBar.setNavigationBarPercentHidden(0, underBarViewPercentHidden: 0, extendedViewPercentHidden: 0, topSpacingPercentHidden: 1, animated: true)
-        }
-    }
-
-    // MARK: - UISearchBarDelegate
-    
-    func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
-        let searchActivity = NSUserActivity.wmf_searchView()
-        NotificationCenter.default.post(name: .WMFNavigateToActivity, object: searchActivity)
-        return false
+        navigationController?.setNavigationBarHidden(false, animated: true)
     }
     
     // MARK: - State
@@ -684,8 +698,6 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         self.theme = theme
         tabBarSnapshotImage = nil
 
-        searchBar.apply(theme: theme)
-        searchBarContainerView.backgroundColor = theme.colors.paperBackground
         collectionView.backgroundColor = .clear
         view.backgroundColor = theme.colors.paperBackground
         for cell in collectionView.visibleCells {
@@ -703,6 +715,17 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         
         yirCoordinator?.theme = theme
         profileCoordinator?.theme = theme
+        
+        updateProfileButton()
+        themeNavigationBarLeadingTitleView()
+        themeNavigationBarCustomCenteredTitleView()
+        
+        if let searchVC = navigationItem.searchController?.searchResultsController as? SearchViewController {
+            searchVC.theme = theme
+            searchVC.apply(theme: theme)
+        }
+        
+        overlayView?.backgroundColor = theme.colors.paperBackground
     }
     
     // MARK: - ColumnarCollectionViewLayoutDelegate
@@ -881,9 +904,6 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
                 avc.wmf_addPeekableChildViewController(for: avc.articleURL, dataStore: dataStore, theme: theme)
             } else if let otdVC = viewControllerToCommit as? OnThisDayViewController {
                 otdVC.initialEvent = (contentGroup.contentPreview as? [Any])?[itemIndex] as? WMFFeedOnThisDayEvent
-                otdVC.navigationMode = .bar
-            } else if let newsVC = viewControllerToCommit as? NewsViewController {
-                newsVC.navigationMode = .bar
             }
 
             previewed.indexPathItem = itemIndex
@@ -912,12 +932,6 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
             } else if let avc = viewControllerToCommit as? ArticleViewController {
                 avc.wmf_removePeekableChildViewControllers()
                 self.push(avc, animated: false)
-            } else if let otdVC = viewControllerToCommit as? OnThisDayViewController {
-                otdVC.navigationMode = .detail
-                self.push(viewControllerToCommit, animated: true)
-            } else if let newsVC = viewControllerToCommit as? NewsViewController {
-                newsVC.navigationMode = .detail
-                self.push(viewControllerToCommit, animated: true)
             } else {
                 self.push(viewControllerToCommit, animated: true)
             }
@@ -969,7 +983,7 @@ extension ExploreViewController {
     fileprivate func presentModalsIfNeeded() {
         
         if needsYearInReviewAnnouncement() {
-            updateProfileViewButton()
+            updateProfileButton()
             presentYearInReviewAnnouncement()
         } else if needsImageRecommendationsFeatureAnnouncement() {
             presentImageRecommendationsFeatureAnnouncement()
@@ -979,7 +993,7 @@ extension ExploreViewController {
     }
     
     private func needsYearInReviewAnnouncement() -> Bool {
-        if UIDevice.current.userInterfaceIdiom == .pad && navigationBar.hiddenHeight > 0 {
+        if UIDevice.current.userInterfaceIdiom == .pad && (navigationController?.navigationBar.isHidden ?? false) {
             return false
         }
         
@@ -1002,7 +1016,7 @@ extension ExploreViewController {
             return false
         }
         
-        return navigationBar.superview != nil
+        return true
     }
     
     private func needsImageRecommendationsFeatureAnnouncement() -> Bool {
@@ -1125,15 +1139,11 @@ extension ExploreViewController {
             DonateFunnel.shared.logYearInReviewFeatureAnnouncementDidTapClose()
         })
 
-        if  navigationBar.superview != nil {
-            let xOrigin = navigationBar.frame.width - 45
-            let yOrigin = view.safeAreaInsets.top + navigationBar.barTopSpacing + 15
-            let sourceRect = CGRect(x:  xOrigin, y: yOrigin, width: 25, height: 25)
-            announceFeature(viewModel: viewModel, sourceView: self.view, sourceRect: sourceRect)
+        if let profileBarButtonItem = navigationItem.rightBarButtonItem {
+            announceFeature(viewModel: viewModel, sourceView: nil, sourceRect: nil, barButtonItem: profileBarButtonItem)
             DonateFunnel.shared.logYearInReviewFeatureAnnouncementDidAppear()
+            yirDataController.hasPresentedYiRFeatureAnnouncementModel = true
         }
-
-        yirDataController.hasPresentedYiRFeatureAnnouncementModel = true
     }
     
     // TODO: - Remove after expiry date (5 Nov, 2024)
@@ -1173,7 +1183,7 @@ extension ExploreViewController {
             
         })
         
-        announceFeature(viewModel: viewModel, sourceView:view, sourceRect:sourceRect)
+        announceFeature(viewModel: viewModel, sourceView:view, sourceRect:sourceRect, barButtonItem: nil)
 
        imageRecommendationsDataController.hasPresentedFeatureAnnouncementModal = true
     }
@@ -1214,7 +1224,7 @@ extension ExploreViewController {
             
         })
         
-        announceFeature(viewModel: viewModel, sourceView:view, sourceRect:sourceRect)
+        announceFeature(viewModel: viewModel, sourceView:view, sourceRect:sourceRect, barButtonItem: nil)
 
         imageRecommendationsDataController.hasPresentedFeatureAnnouncementModalAgainForAltTextTargetWikis = true
     }
@@ -1268,8 +1278,7 @@ extension ExploreViewController: SaveButtonsControllerDelegate {
     func showAddArticlesToReadingListViewController(for article: WMFArticle) {
         let addArticlesToReadingListViewController = AddArticlesToReadingListViewController(with: dataStore, articles: [article], moveFromReadingList: nil, theme: theme)
         addArticlesToReadingListViewController.delegate = self
-        let navigationController = WMFThemeableNavigationController(rootViewController: addArticlesToReadingListViewController, theme: self.theme)
-        navigationController.isNavigationBarHidden = true
+        let navigationController = WMFComponentNavigationController(rootViewController: addArticlesToReadingListViewController, modalPresentationStyle: .overFullScreen)
         present(navigationController, animated: true)
     }
 
@@ -1397,8 +1406,7 @@ extension ExploreViewController: ExploreCardCollectionViewCellDelegate {
             exploreFeedSettingsViewController.showCloseButton = true
             exploreFeedSettingsViewController.dataStore = self.dataStore
             exploreFeedSettingsViewController.apply(theme: self.theme)
-            let themeableNavigationController = WMFThemeableNavigationController(rootViewController: exploreFeedSettingsViewController, theme: self.theme)
-            themeableNavigationController.modalPresentationStyle = .formSheet
+            let themeableNavigationController = WMFComponentNavigationController(rootViewController: exploreFeedSettingsViewController, modalPresentationStyle: .formSheet)
             self.present(themeableNavigationController, animated: true)
         }
         
@@ -1502,7 +1510,6 @@ extension ExploreViewController: WMFImageRecommendationsDelegate {
     func imageRecommendationsUserDidTapImageLink(commonsURL: URL) {
         navigate(to: commonsURL, useSafari: false)
         ImageRecommendationsFunnel.shared.logCommonsWebViewDidAppear()
-        navigationController?.setNavigationBarHidden(true, animated: false)
     }
 
     func imageRecommendationsUserDidTapInsertImage(viewModel: WMFImageRecommendationsViewModel, title: String, with imageData: WMFImageRecommendationsViewModel.WMFImageRecommendationData) {
@@ -1982,6 +1989,34 @@ extension ExploreViewController: EditSaveViewControllerImageRecLoggingDelegate {
     
 }
 
+extension ExploreViewController: UISearchResultsUpdating {
+    func updateSearchResults(for searchController: UISearchController) {
+        guard let text = searchController.searchBar.text else {
+            return
+        }
+        
+        guard let searchViewController = navigationItem.searchController?.searchResultsController as? SearchViewController else {
+            return
+        }
+        
+        if text.isEmpty {
+            searchViewController.searchTerm = nil
+            searchViewController.updateRecentlySearchedVisibility(searchText: nil)
+        } else {
+            searchViewController.searchTerm = text
+            searchViewController.updateRecentlySearchedVisibility(searchText: text)
+            searchViewController.search()
+        }
+    }
+}
+
+extension ExploreViewController: SearchViewControllerRecentlySearchedSelectionDelegate {
+    func didSelectRecentlySearchedTerm(_ searchTerm: String, searchViewController: SearchViewController) {
+        navigationItem.searchController?.searchBar.text = searchTerm
+        navigationItem.searchController?.searchBar.becomeFirstResponder()
+    }
+}
+
 extension ExploreViewController: AltTextDelegate {
     private func localizedAltTextFormat(siteURL: URL) -> String {
         let enFormat = "alt=%@"
@@ -2187,6 +2222,17 @@ extension ExploreViewController: LogoutCoordinatorDelegate {
 
 extension ExploreViewController: YearInReviewBadgeDelegate {
     func didSeeFirstSlide() {
-        updateProfileViewButton()
+        updateProfileButton()
+    }
+}
+
+extension ExploreViewController: UISearchControllerDelegate {
+    
+    func willPresentSearchController(_ searchController: UISearchController) {
+        navigationController?.hidesBarsOnSwipe = false
+    }
+    
+    func didDismissSearchController(_ searchController: UISearchController) {
+        navigationController?.hidesBarsOnSwipe = true
     }
 }

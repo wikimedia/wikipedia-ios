@@ -1,4 +1,5 @@
 import UIKit
+import WMFComponents
 
 // MARK: - Delegate
 @objc public protocol TableOfContentsPresentationControllerTapDelegate {
@@ -40,7 +41,7 @@ open class TableOfContentsPresentationController: UIPresentationController, Them
     lazy var closeButton:UIButton = {
         let button = UIButton(frame: CGRect.zero)
         
-        button.setImage(UIImage(named: "close"), for: .normal)
+        button.setImage(WMFSFSymbolIcon.for(symbol: .close), for: .normal)
         button.addTarget(self, action: #selector(TableOfContentsPresentationController.didTap(_:)), for: .touchUpInside)
         
         button.accessibilityHint = WMFLocalizedString("table-of-contents-close-accessibility-hint", value:"Close", comment:"Accessibility hint for closing table of contents {{Identical|Close}}")
@@ -233,7 +234,7 @@ open class TableOfContentsPresentationController: UIPresentationController, Them
         self.presentedView?.layer.shadowColor = theme.colors.shadow.cgColor
         self.presentedView?.layer.shadowOffset = CGSize(width: 3, height: 5)
         self.presentedView?.clipsToBounds = false
-        self.closeButton.setImage(UIImage(named: "close"), for: .normal)
+        self.closeButton.setImage(WMFSFSymbolIcon.for(symbol: .close), for: .normal)
         self.statusBarBackground.isHidden = false
         
         self.backgroundView.effect = UIBlurEffect(style: theme.blurEffectStyle)

@@ -17,16 +17,3 @@ extension UINavigationItem {
         backButtonDisplayMode = .generic
     }
 }
-
-extension UINavigationItem: @retroactive NSCopying {
-    public func copy(with zone: NSZone? = nil) -> Any {
-        let newItem = UINavigationItem(title: title ?? "")
-        newItem.titleView = titleView
-        newItem.leftBarButtonItems = leftBarButtonItems
-        newItem.rightBarButtonItems = rightBarButtonItems
-        newItem.backBarButtonItem = backBarButtonItem
-        newItem.backButtonTitle = backButtonTitle
-        newItem.backButtonDisplayMode = backButtonDisplayMode
-        return newItem
-    }
-}

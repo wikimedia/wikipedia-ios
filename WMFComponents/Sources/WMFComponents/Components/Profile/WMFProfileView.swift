@@ -17,16 +17,13 @@ public struct WMFProfileView: View {
     }
 
     @ObservedObject var viewModel: WMFProfileViewModel
-    public var donePressed: (() -> Void)?
 
     public init(viewModel: WMFProfileViewModel) {
         self.viewModel = viewModel
-        UINavigationBar.appearance().largeTitleTextAttributes = [.foregroundColor: theme.text]
-        UINavigationBar.appearance().backgroundColor = theme.midBackground
     }
 
     public var body: some View {
-        NavigationView {
+        Group {
             List {
                 ForEach(0..<viewModel.profileSections.count, id: \.self) { sectionIndex in
                     sectionView(items: viewModel.profileSections[sectionIndex])
@@ -34,22 +31,9 @@ public struct WMFProfileView: View {
             }
             .background(Color(uiColor: theme.midBackground))
             .scrollContentBackground(.hidden)
-            .navigationTitle(viewModel.localizedStrings.pageTitle)
-            .toolbar {
-                ToolbarItem(placement: .topBarTrailing) {
-                    Button(action: {
-                        donePressed?()
-                    }) {
-                        Text(viewModel.localizedStrings.doneButtonTitle)
-                            .foregroundStyle(Color(uiColor: theme.link))
-                            .font(Font(WMFFont.for(.semiboldHeadline)))
-                    }
-                }
-            }
             Spacer()
         }
         .background(Color(uiColor: theme.midBackground))
-        .navigationViewStyle(.stack)
         .environment(\.colorScheme, theme.preferredColorScheme)
     }
 

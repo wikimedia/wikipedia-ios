@@ -23,17 +23,25 @@ open class WMFComponentHostingController<HostedView: View>: UIHostingController<
 	public override init(rootView: HostedView) {
 		super.init(rootView: rootView)
 		subscribeToAppEnvironmentChanges()
+        setup()
 	}
 
 	public override init?(coder aDecoder: NSCoder, rootView: HostedView) {
 		super.init(coder: aDecoder, rootView: rootView)
 		subscribeToAppEnvironmentChanges()
+        setup()
 	}
 
 	public required init?(coder aDecoder: NSCoder) {
 		super.init(coder: aDecoder)
 		subscribeToAppEnvironmentChanges()
+        setup()
 	}
+    
+    // MARK: - Lifecycle
+    
+    private func setup() {
+    }
 
 	// MARK: - WMFAppEnvironment Subscription
 
@@ -46,6 +54,8 @@ open class WMFComponentHostingController<HostedView: View>: UIHostingController<
 	// MARK: - Subclass Overrides
 
 	public func appEnvironmentDidChange() {
+        overrideUserInterfaceStyle = appEnvironment.theme.userInterfaceStyle
+        setNeedsStatusBarAppearanceUpdate()
 		// Subclasses should implement
 	}
 

@@ -1,7 +1,8 @@
 import WMF
 import UIKit
+import WMFComponents
 
-class WMFChangePasswordViewController: WMFScrollViewController, Themeable {
+class WMFChangePasswordViewController: WMFScrollViewController, Themeable, WMFNavigationBarConfiguring {
     
     @IBOutlet fileprivate var titleLabel: UILabel!
     @IBOutlet fileprivate var subTitleLabel: UILabel!
@@ -41,6 +42,7 @@ class WMFChangePasswordViewController: WMFScrollViewController, Themeable {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         enableProgressiveButton(false)
+        configureNavigationBar()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -64,10 +66,6 @@ class WMFChangePasswordViewController: WMFScrollViewController, Themeable {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-
-        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named:"close"), style: .plain, target:self, action:#selector(closeButtonPushed(_:)))
-        navigationItem.leftBarButtonItem?.accessibilityLabel = CommonStrings.closeButtonAccessibilityLabel
 
         titleLabel.text = WMFLocalizedString("new-password-title", value:"Set your password", comment:"Title for password change interface")
         subTitleLabel.text = WMFLocalizedString("new-password-instructions", value:"You logged in with a temporary password. To finish logging in set a new password here.", comment:"Instructions for password change interface")
@@ -79,6 +77,14 @@ class WMFChangePasswordViewController: WMFScrollViewController, Themeable {
         view.wmf_configureSubviewsForDynamicType()
         
         apply(theme: theme)
+    }
+    
+    private func configureNavigationBar() {
+        let titleConfig = WMFNavigationBarTitleConfig(title: "", customView: nil, alignment: .centerCompact)
+        
+        let closeConfig = WMFNavigationBarCloseButtonConfig(accessibilityLabel: CommonStrings.closeButtonAccessibilityLabel, target: self, action: #selector(closeButtonPushed(_:)), alignment: .leading)
+        
+        configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: closeConfig, profileButtonConfig: nil, searchBarConfig: nil, hideNavigationBarOnScroll: false)
     }
     
     @objc func closeButtonPushed(_ : UIBarButtonItem) {

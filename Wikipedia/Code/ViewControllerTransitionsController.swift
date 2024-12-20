@@ -12,12 +12,15 @@ class ViewControllerTransitionsController: NSObject, UINavigationControllerDeleg
         guard !participatingViewControllerPrefersStandardAnimationStyle else {
             return nil
         }
-
-        if let searchController = searchAnimationController(for: operation, from: fromVC, to: toVC) {
-            return searchController
-        }
         
         if let detailController = detailAnimationController(for: operation, from: fromVC, to: toVC) {
+            // Looks better if we opt out entirely with iPad floating tab bar
+            if #available(iOS 18, *) {
+                if UIDevice.current.userInterfaceIdiom == .pad {
+                    return nil
+                }
+            }
+            
             return detailController
         }
         
@@ -40,40 +43,6 @@ class ViewControllerTransitionsController: NSObject, UINavigationControllerDeleg
         return DiffRevisionTransition(direction: direction)
     }
     
-    private func searchAnimationController(for operation: UINavigationController.Operation, from fromVC: UIViewController, to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        let actualFromVC: UIViewController?
-        if let fromTab = fromVC as? UITabBarController {
-            actualFromVC = fromTab.selectedViewController ?? fromVC
-        } else {
-            actualFromVC = fromVC
-        }
-        
-        let actualToVC: UIViewController?
-        if let toTab = toVC as? UITabBarController {
-            actualToVC = toTab.selectedViewController ?? toVC
-        } else {
-            actualToVC = toVC
-        }
-        
-        guard
-            let exploreVC = actualFromVC as? ExploreViewController ?? actualToVC as? ExploreViewController,
-            exploreVC.wantsCustomSearchTransition
-            else {
-                let searchVC = actualToVC as? SearchViewController ?? actualFromVC as? SearchViewController
-                searchVC?.shouldAnimateSearchBar = false // disable search bar animation on standard push
-                return nil
-        }
-        
-        if let searchVC = actualToVC as? SearchViewController {
-            return SearchTransition(searchViewController: searchVC, exploreViewController: exploreVC, isEnteringSearch: true)
-        } else if let searchVC = actualFromVC as? SearchViewController {
-            return SearchTransition(searchViewController: searchVC, exploreViewController: exploreVC, isEnteringSearch: false)
-        }
-        
-        return nil
-    }
-
-    
     private func detailAnimationController(for operation: UINavigationController.Operation, from fromVC: UIViewController, to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         let actualFromVC: UIViewController?
         if let fromTab = fromVC as? UITabBarController {
@@ -89,7 +58,7 @@ class ViewControllerTransitionsController: NSObject, UINavigationControllerDeleg
             actualToVC = toVC
         }
         
-        guard let source = actualFromVC as? (DetailTransitionSourceProviding & ViewController) ?? actualToVC as? (DetailTransitionSourceProviding & ViewController)
+        guard let source = actualFromVC as? (DetailTransitionSourceProviding & ThemeableViewController) ?? actualToVC as? (DetailTransitionSourceProviding & ThemeableViewController)
         else {
             return nil
         }
