@@ -55,7 +55,7 @@ class ArticleLocationCollectionViewController: ColumnarCollectionViewController2
         configureNavigationBar()
     }
     
-    private func configureNavigationBar() {
+    open func configureNavigationBar() {
         let titleConfig = WMFNavigationBarTitleConfig(title: "", customView: nil, alignment: .hidden)
         
         configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: nil, profileButtonConfig: nil, searchBarConfig: nil, hideNavigationBarOnScroll: false)

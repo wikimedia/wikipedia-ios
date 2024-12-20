@@ -238,7 +238,7 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
         }
     }
     
-    private func configureNavigationBar() {
+    override func configureNavigationBar() {
         
         var titleConfig: WMFNavigationBarTitleConfig = WMFNavigationBarTitleConfig(title: CommonStrings.placesTabTitle, customView: nil, alignment: .leadingCompact)
         if #available(iOS 18, *) {
