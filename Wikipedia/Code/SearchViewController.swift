@@ -298,10 +298,6 @@ class SearchViewController: ArticleCollectionViewController, WMFNavigationBarCon
         updateRecentlySearchedVisibility(searchText: navigationItem.searchController?.searchBar.text)
     }
     
-    func prepareForOutgoingTransition(with outgoingNavigationBar: NavigationBar) {
-        
-    }
-    
     lazy var resultsViewController: SearchResultsViewController = {
         let resultsViewController = SearchResultsViewController()
         resultsViewController.dataStore = dataStore

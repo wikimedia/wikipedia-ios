@@ -75,9 +75,6 @@ extension WMFContentGroup {
         default:
             break
         }
-        if let customVC = vc as? ViewController {
-            customVC.navigationMode = .detail
-        }
         
         if let customVC = vc as? ColumnarCollectionViewController {
             customVC.headerTitle = headerTitle

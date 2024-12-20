@@ -1057,9 +1057,6 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
                 
                 searchSuggestionView.isHidden = false
                 listAndSearchOverlayContainerView.isHidden = false
-                
-                searchSuggestionController.navigationBarHider = nil
-                
 
             case .search:
                 mapContainerView.isHidden = true
