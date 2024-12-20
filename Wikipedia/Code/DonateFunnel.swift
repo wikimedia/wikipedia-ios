@@ -369,11 +369,11 @@ import WMF
     }
     
     func logYearInReviewLoginPromptDidTapLoginProfile() {
-        logEvent(activeInterface: .wikiYiR, action: .accountEngageClick, actionData: ["slide": "yir_start_account_engage"])
+        logEvent(activeInterface: .wikiYiR, action: .accountEngageClick, actionData: ["slide": "entry_b_profile"])
     }
     
     func logYearInReviewLoginPromptDidTapNoThanks() {
-        logEvent(activeInterface: .wikiYiR, action: .rejectClick, actionData: ["slide": "new_account_engage"])
+        logEvent(activeInterface: .wikiYiR, action: .rejectClick, actionData: ["slide": "entry_b_profile"])
     }
     
     func logYearInReviewLoginPromptDidTapNoThanksProfile() {
