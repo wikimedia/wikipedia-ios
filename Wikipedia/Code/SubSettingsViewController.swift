@@ -11,14 +11,6 @@ class SubSettingsViewController: ThemeableViewController {
         dismiss(animated: true)
         return true
     }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        navigationController?.setNavigationBarHidden(false, animated: true)
-        navigationController?.hidesBarsOnSwipe = false
-        navigationItem.largeTitleDisplayMode = .never
-    }
 }
 
 extension SubSettingsViewController: UITableViewDataSource {

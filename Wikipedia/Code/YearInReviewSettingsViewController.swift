@@ -2,6 +2,7 @@ import UIKit
 import WMF
 import WMFData
 import CocoaLumberjackSwift
+import WMFComponents
 
 fileprivate protocol YearInReviewSettingsItem {
     var title: String { get }
@@ -11,7 +12,7 @@ fileprivate protocol YearInReviewSettingsItem {
 }
 
 @objc(WMFYearInReviewSettingsViewController)
-final class YearInReviewSettingsViewController: SubSettingsViewController {
+final class YearInReviewSettingsViewController: SubSettingsViewController, WMFNavigationBarConfiguring {
 
     // MARK: - Nested Types
 
@@ -52,7 +53,6 @@ final class YearInReviewSettingsViewController: SubSettingsViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = CommonStrings.yirTitle
 
         tableView.register(WMFSettingsTableViewCell.wmf_classNib(), forCellReuseIdentifier: WMFSettingsTableViewCell.identifier)
         tableView.sectionHeaderHeight = UITableView.automaticDimension
@@ -63,6 +63,14 @@ final class YearInReviewSettingsViewController: SubSettingsViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         updateSections()
+        
+        configureNavigationBar()
+    }
+    
+    private func configureNavigationBar() {
+        let titleConfig = WMFNavigationBarTitleConfig(title: CommonStrings.yirTitle, customView: nil, alignment: .centerCompact)
+        
+        configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: nil, profileButtonConfig: nil, searchBarConfig: nil, hideNavigationBarOnScroll: false)
     }
 
     // MARK: - UITableView Data

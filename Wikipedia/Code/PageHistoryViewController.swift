@@ -17,7 +17,7 @@ enum SelectionOrder: Int, CaseIterable {
 }
 
 @objc(WMFPageHistoryViewController)
-class PageHistoryViewController: ColumnarCollectionViewController2 {
+class PageHistoryViewController: ColumnarCollectionViewController2, WMFNavigationBarConfiguring {
     
     // fileprivate static let headerReuseIdentifier = "TestHeader"
     fileprivate static let headerReuseIdentifier = "PageHistoryCountsView"
@@ -165,18 +165,8 @@ class PageHistoryViewController: ColumnarCollectionViewController2 {
     override func viewDidLoad() {
         super.viewDidLoad()
         hintController = PageHistoryHintController()
-        title = CommonStrings.historyTabTitle
-        navigationItem.backButtonTitle = WMFLocalizedString("page-history-revision-history-title", value: "Revision history", comment: "Title for revision history view. Please prioritize for de, ar and zh wikis.")
-        navigationItem.backButtonDisplayMode = .generic
-        navigationItem.rightBarButtonItem = compareButton
-        // addChild(countsViewController)
-        // navigationBar.addUnderNavigationBarView(countsViewController.view)
-        // navigationBar.shadowColorKeyPath = \Theme.colors.border
-        // countsViewController.didMove(toParent: self)
 
-//        navigationBar.isBarHidingEnabled = false
-//        navigationBar.isUnderBarViewHidingEnabled = true
-//        navigationBar.allowsUnderbarHitsFallThrough = true
+        navigationItem.rightBarButtonItem = compareButton
 
         layoutManager.register(PageHistoryCollectionViewCell.self, forCellWithReuseIdentifier: PageHistoryCollectionViewCell.identifier, addPlaceholder: true)
         collectionView.dataSource = self
@@ -272,9 +262,7 @@ class PageHistoryViewController: ColumnarCollectionViewController2 {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        navigationController?.setNavigationBarHidden(false, animated: true)
-        navigationController?.hidesBarsOnSwipe = false
-        navigationItem.largeTitleDisplayMode = .never
+        configureNavigationBar()
     }
 
     override func viewWillDisappear(_ animated: Bool) {
@@ -285,6 +273,12 @@ class PageHistoryViewController: ColumnarCollectionViewController2 {
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
         cellLayoutEstimate = nil
+    }
+    
+    private func configureNavigationBar() {
+        let titleConfig = WMFNavigationBarTitleConfig(title:  CommonStrings.historyTabTitle, customView: nil, alignment: .centerCompact)
+        
+        configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: nil, profileButtonConfig: nil, searchBarConfig: nil, hideNavigationBarOnScroll: false)
     }
     
     private func appendSections(from results: HistoryFetchResults) {

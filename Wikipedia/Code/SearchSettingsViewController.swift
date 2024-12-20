@@ -1,4 +1,5 @@
 import UIKit
+import WMFComponents
 
 private struct Section {
     let items: [Item]
@@ -12,7 +13,7 @@ private struct Item {
 }
 
 @objc(WMFSearchSettingsViewController)
-final class SearchSettingsViewController: SubSettingsViewController {
+final class SearchSettingsViewController: SubSettingsViewController, WMFNavigationBarConfiguring {
 
     public override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,8 +21,19 @@ final class SearchSettingsViewController: SubSettingsViewController {
         tableView.register(WMFTableHeaderFooterLabelView.wmf_classNib(), forHeaderFooterViewReuseIdentifier: WMFTableHeaderFooterLabelView.identifier)
         tableView.sectionFooterHeight = UITableView.automaticDimension
         tableView.estimatedSectionFooterHeight = 44
-        title = CommonStrings.searchTitle
         reloadSectionData()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        configureNavigationBar()
+    }
+    
+    private func configureNavigationBar() {
+        let titleConfig = WMFNavigationBarTitleConfig(title: CommonStrings.searchTitle, customView: nil, alignment: .centerCompact)
+        
+        configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: nil, profileButtonConfig: nil, searchBarConfig: nil, hideNavigationBarOnScroll: false)
     }
 
     private lazy var sections: [Section] = []

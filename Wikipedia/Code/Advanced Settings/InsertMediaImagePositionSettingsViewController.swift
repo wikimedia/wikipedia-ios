@@ -1,4 +1,6 @@
-final class InsertMediaImagePositionSettingsViewController: ThemeableViewController {
+import WMFComponents
+
+final class InsertMediaImagePositionSettingsViewController: ThemeableViewController, WMFNavigationBarConfiguring {
     private let tableView = UITableView()
     private var selectedIndexPath: IndexPath?
 
@@ -34,25 +36,26 @@ final class InsertMediaImagePositionSettingsViewController: ThemeableViewControl
     }()
 
     override func viewDidLoad() {
-        // scrollView = tableView
         super.viewDidLoad()
-        // navigationBar.isBarHidingEnabled = false
         tableView.dataSource = self
         tableView.delegate = self
         view.wmf_addSubviewWithConstraintsToEdges(tableView)
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: UITableViewCell.identifier)
         tableView.separatorInset = .zero
         tableView.tableFooterView = UIView()
-        title = ImagePosition.displayTitle
         apply(theme: theme)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        navigationController?.setNavigationBarHidden(false, animated: true)
-        navigationController?.hidesBarsOnSwipe = false
-        navigationItem.largeTitleDisplayMode = .never
+        configureNavigationBar()
+    }
+    
+    private func configureNavigationBar() {
+        let titleConfig = WMFNavigationBarTitleConfig(title:  ImagePosition.displayTitle, customView: nil, alignment: .centerCompact)
+        
+        configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: nil, profileButtonConfig: nil, searchBarConfig: nil, hideNavigationBarOnScroll: false)
     }
 
     private func apply(theme: Theme, to cell: UITableViewCell) {

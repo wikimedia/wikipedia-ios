@@ -114,21 +114,10 @@ public final class WMFWatchlistViewModel: ObservableObject {
 			return DateFormatter.wmfFullDateFormatter.string(from: date)
 		}
 	}
-    
-    public struct PresentationConfiguration {
-        let showNavBarUponAppearance: Bool
-        let hideNavBarUponDisappearance: Bool
-        
-        public init(showNavBarUponAppearance: Bool = false, hideNavBarUponDisappearance: Bool = false) {
-            self.showNavBarUponAppearance = showNavBarUponAppearance
-            self.hideNavBarUponDisappearance = hideNavBarUponDisappearance
-        }
-    }
 
 	// MARK: - Properties
 
 	var localizedStrings: LocalizedStrings
-    let presentationConfiguration: PresentationConfiguration
 
 	private let dataController = WMFWatchlistDataController()
 	private var items: [ItemViewModel] = []
@@ -142,9 +131,8 @@ public final class WMFWatchlistViewModel: ObservableObject {
 
 	// MARK: - Lifecycle
 
-    public init(localizedStrings: LocalizedStrings, presentationConfiguration: PresentationConfiguration) {
+    public init(localizedStrings: LocalizedStrings) {
 		self.localizedStrings = localizedStrings
-        self.presentationConfiguration = presentationConfiguration
 		self.menuButtonItems = []
         self.menuButtonItemsWithoutThank = []
         setupMenuItems()

@@ -1,8 +1,10 @@
+import WMFComponents
+
 fileprivate protocol ViewModel {
     var title: String { get }
 }
 
-final class InsertMediaImageSizeSettingsViewController: ThemeableViewController {
+final class InsertMediaImageSizeSettingsViewController: ThemeableViewController, WMFNavigationBarConfiguring {
     private let tableView = UITableView()
 
     typealias ImageSize = InsertMediaSettings.Advanced.ImageSize
@@ -82,16 +84,19 @@ final class InsertMediaImageSizeSettingsViewController: ThemeableViewController 
         tableView.register(InsertMediaCustomImageSizeSettingTableViewCell.wmf_classNib(), forCellReuseIdentifier: InsertMediaCustomImageSizeSettingTableViewCell.identifier)
         tableView.separatorInset = .zero
         tableView.tableFooterView = UIView()
-        title = ImageSize.displayTitle
         apply(theme: theme)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        navigationController?.setNavigationBarHidden(false, animated: true)
-        navigationController?.hidesBarsOnSwipe = false
-        navigationItem.largeTitleDisplayMode = .never
+        configureNavigationBar()
+    }
+    
+    private func configureNavigationBar() {
+        let titleConfig = WMFNavigationBarTitleConfig(title:  ImageSize.displayTitle, customView: nil, alignment: .centerCompact)
+        
+        configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: nil, profileButtonConfig: nil, searchBarConfig: nil, hideNavigationBarOnScroll: false)
     }
 
     private func apply(theme: Theme, to cell: UITableViewCell) {

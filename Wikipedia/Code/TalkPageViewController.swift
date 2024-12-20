@@ -7,7 +7,7 @@ public enum InputAccessoryViewType {
     case findInPage
 }
 
-class TalkPageViewController: ThemeableViewController {
+class TalkPageViewController: ThemeableViewController, WMFNavigationBarConfiguring {
 
     // MARK: - Properties
 
@@ -215,8 +215,6 @@ class TalkPageViewController: ThemeableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        navigationItem.title = TalkPageLocalizedStrings.title
-
         setupOverflowMenu()
 
         talkPageView.collectionView.dataSource = self
@@ -224,9 +222,6 @@ class TalkPageViewController: ThemeableViewController {
 
         talkPageView.emptyView.scrollView.delegate = self
 
-        // Needed for reply compose views to display on top of navigation bar.
-//        navigationController?.setNavigationBarHidden(true, animated: false)
-        // navigationMode = .forceBar
         fetchTalkPage()
         setupToolbar()
         
@@ -236,9 +231,13 @@ class TalkPageViewController: ThemeableViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        navigationController?.setNavigationBarHidden(false, animated: true)
-        navigationController?.hidesBarsOnSwipe = false
-        navigationItem.largeTitleDisplayMode = .never
+        configureNavigationBar()
+    }
+    
+    private func configureNavigationBar() {
+        let titleConfig = WMFNavigationBarTitleConfig(title: TalkPageLocalizedStrings.title, customView: nil, alignment: .centerCompact)
+        
+        configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: nil, profileButtonConfig: nil, searchBarConfig: nil, hideNavigationBarOnScroll: false)
     }
     
     override func viewDidAppear(_ animated: Bool) {

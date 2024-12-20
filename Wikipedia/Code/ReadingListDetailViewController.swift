@@ -85,8 +85,7 @@ class ReadingListDetailViewController: ThemeableViewController, WMFNavigationBar
         addChild(readingListEntryCollectionViewController)
         view.addSubview(readingListEntryCollectionViewController.view)
         readingListEntryCollectionViewController.view.translatesAutoresizingMaskIntoConstraints = false
-        // readingListEntryCollectionViewController.edgesForExtendedLayout = .all
-        // scrollView = readingListEntryCollectionViewController.collectionView
+
         NSLayoutConstraint.activate(
             [
                 readingListEntryCollectionViewController.view.topAnchor.constraint(equalTo: view.topAnchor),

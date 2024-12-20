@@ -2,6 +2,7 @@ import UIKit
 import WMF
 import CocoaLumberjackSwift
 import WMFData
+import WMFComponents
 
 struct StubRevisionModel {
     let revisionId: Int
@@ -16,7 +17,7 @@ protocol DiffRevisionRetrieving: AnyObject {
     func refreshRevisions()
 }
 
-class DiffContainerViewController: ThemeableViewController {
+class DiffContainerViewController: ThemeableViewController, WMFNavigationBarConfiguring {
     
     struct NextPrevModel {
         let from: WMFPageHistoryRevision
@@ -166,7 +167,6 @@ class DiffContainerViewController: ThemeableViewController {
         super.viewDidLoad()
         
         WatchlistFunnel.shared.logDiffOpen(project: wikimediaProject)
-        setupBackButton()
 
         let onLoad = { [weak self] in
             
@@ -211,9 +211,7 @@ class DiffContainerViewController: ThemeableViewController {
             view.bringSubviewToFront(toolbarView)
         }
         
-        navigationController?.setNavigationBarHidden(false, animated: true)
-        navigationController?.hidesBarsOnSwipe = false
-        navigationItem.largeTitleDisplayMode = .never
+        configureNavigationBar()
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -263,20 +261,11 @@ class DiffContainerViewController: ThemeableViewController {
         scrollingEmptyViewController?.apply(theme: theme)
         diffToolbarView?.apply(theme: theme)
     }
-
-    private func setupBackButton() {
-        let buttonTitle: String
-        switch type {
-        case .compare: buttonTitle = CommonStrings.compareRevisionsTitle
-        case .single:
-            guard let toDate = toModel?.revisionDate as NSDate? else {
-                return
-            }
-            let dateString = toDate.wmf_fullyLocalizedRelativeDateStringFromLocalDateToNow()
-            buttonTitle = String.localizedStringWithFormat(CommonStrings.revisionMadeFormat, dateString.lowercased())
-        }
+    
+    private func configureNavigationBar() {
+        let titleConfig = WMFNavigationBarTitleConfig(title:  CommonStrings.compareRevisionsTitle, customView: nil, alignment: .hidden)
         
-        navigationItem.configureForEmptyNavBarTitle(backTitle: buttonTitle)
+        configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: nil, profileButtonConfig: nil, searchBarConfig: nil, hideNavigationBarOnScroll: false)
     }
 }
 
@@ -433,7 +422,6 @@ private extension DiffContainerViewController {
         fetchLeadImageIfNeeded()
         fetchWatchAndRollbackStatus()
         fetchEditCountIfNeeded()
-        setupBackButton()
         apply(theme: theme)
     }
     

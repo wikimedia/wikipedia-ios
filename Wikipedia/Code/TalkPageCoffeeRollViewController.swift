@@ -1,8 +1,9 @@
 import UIKit
 import WMF
 import CocoaLumberjackSwift
+import WMFComponents
 
-final class TalkPageCoffeeRollViewController: ThemeableViewController {
+final class TalkPageCoffeeRollViewController: ThemeableViewController, WMFNavigationBarConfiguring {
 
     // MARK: - Properties
 
@@ -34,16 +35,18 @@ final class TalkPageCoffeeRollViewController: ThemeableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         coffeeRollView.linkDelegate = self
-
-        navigationItem.title = TalkPageViewController.TalkPageLocalizedStrings.title
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        navigationController?.setNavigationBarHidden(false, animated: true)
-        navigationController?.hidesBarsOnSwipe = false
-        navigationItem.largeTitleDisplayMode = .never
+        configureNavigationBar()
+    }
+    
+    private func configureNavigationBar() {
+        let titleConfig = WMFNavigationBarTitleConfig(title: TalkPageViewController.TalkPageLocalizedStrings.title, customView: nil, alignment: .centerCompact)
+        
+        configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: nil, profileButtonConfig: nil, searchBarConfig: nil, hideNavigationBarOnScroll: false)
     }
 
     // MARK: - Themeable

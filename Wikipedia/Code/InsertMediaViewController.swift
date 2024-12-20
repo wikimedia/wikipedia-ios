@@ -119,9 +119,6 @@ final class InsertMediaViewController: ThemeableViewController, WMFNavigationBar
     }
 
     private func configureNavigationBar() {
-        navigationController?.setNavigationBarHidden(false, animated: true)
-        navigationController?.hidesBarsOnSwipe = false
-        navigationItem.largeTitleDisplayMode = .never
         
         let titleConfig = WMFNavigationBarTitleConfig(title: CommonStrings.insertMediaTitle, customView: nil, alignment: .centerCompact)
         let closeConfig = WMFNavigationBarCloseButtonConfig(accessibilityLabel: CommonStrings.closeButtonAccessibilityLabel, target: self, action: #selector(delegateCloseButtonTap(_:)), alignment: .leading)
