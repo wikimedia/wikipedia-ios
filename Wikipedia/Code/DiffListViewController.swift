@@ -16,7 +16,6 @@ class DiffListViewController: ThemeableViewController {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layoutCopy)
         collectionView.dataSource = self
         collectionView.delegate = self
-        collectionView.contentInsetAdjustmentBehavior = .never
         collectionView.alwaysBounceVertical = true
         return collectionView
     }()

@@ -39,7 +39,6 @@ class EmptyViewController: UIViewController {
         
         scrollView.delegate = self
         scrollView.alwaysBounceVertical = true
-        scrollView.contentInsetAdjustmentBehavior = .never
         
         if canRefresh {
             refreshControl.layer.zPosition = -100

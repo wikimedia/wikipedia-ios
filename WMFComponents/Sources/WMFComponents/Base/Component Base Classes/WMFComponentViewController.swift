@@ -35,8 +35,6 @@ open class WMFComponentViewController: UIViewController {
     // MARK: - Lifecycle
     
     private func setup() {
-        edgesForExtendedLayout = .all
-        extendedLayoutIncludesOpaqueBars = true
     }
 
 	// MARK: - AppEnvironment Subscription

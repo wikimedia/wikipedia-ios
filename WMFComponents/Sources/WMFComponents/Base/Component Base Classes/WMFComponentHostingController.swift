@@ -41,8 +41,6 @@ open class WMFComponentHostingController<HostedView: View>: UIHostingController<
     // MARK: - Lifecycle
     
     private func setup() {
-        edgesForExtendedLayout = .all
-        extendedLayoutIncludesOpaqueBars = true
     }
 
 	// MARK: - WMFAppEnvironment Subscription

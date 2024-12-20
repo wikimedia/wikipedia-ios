@@ -80,8 +80,6 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         self.wikidataFetcher =  WikidataFetcher(session: dataStore.session, configuration: dataStore.configuration)
-        extendedLayoutIncludesOpaqueBars = true
-        edgesForExtendedLayout = [UIRectEdge.top, UIRectEdge.left, UIRectEdge.right]
     }
     
     required init(articleURLs: [URL], dataStore: MWKDataStore, contentGroup: WMFContentGroup?, theme: Theme, needsCloseButton: Bool = false) {
@@ -171,7 +169,6 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
             view.trailingAnchor.constraint(equalTo: collectionView.trailingAnchor),
             view.bottomAnchor.constraint(equalTo: collectionView.bottomAnchor)
         ])
-        collectionView.contentInsetAdjustmentBehavior = .always
 
         let panGR = UIPanGestureRecognizer(target: self, action: #selector(handlePanGesture))
         panGR.delegate = self
@@ -1061,8 +1058,9 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
                 searchSuggestionView.isHidden = false
                 listAndSearchOverlayContainerView.isHidden = false
                 
-                searchSuggestionView.contentInsetAdjustmentBehavior = .automatic
                 searchSuggestionController.navigationBarHider = nil
+                
+
             case .search:
                 mapContainerView.isHidden = true
                 
@@ -1073,7 +1071,6 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
                 searchSuggestionView.isHidden = false
                 listAndSearchOverlayContainerView.isHidden = false
                 
-                searchSuggestionView.contentInsetAdjustmentBehavior = .never
             case .map:
                 fallthrough
             default:

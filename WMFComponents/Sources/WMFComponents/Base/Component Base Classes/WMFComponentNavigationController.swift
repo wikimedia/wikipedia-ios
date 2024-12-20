@@ -107,7 +107,6 @@ open class WMFComponentNavigationController: UINavigationController {
     // MARK: - Private
     
     private func setup() {
-        extendedLayoutIncludesOpaqueBars = true
         interactivePopGestureRecognizer?.delegate = self
     }
 

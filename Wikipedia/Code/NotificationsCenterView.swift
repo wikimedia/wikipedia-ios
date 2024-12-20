@@ -32,7 +32,6 @@ final class NotificationsCenterView: SetupView {
         scrollView.translatesAutoresizingMaskIntoConstraints = false
         scrollView.isUserInteractionEnabled = false
         scrollView.showsVerticalScrollIndicator = false
-        scrollView.contentInsetAdjustmentBehavior = .never
         scrollView.isHidden = true
         return scrollView
     }()

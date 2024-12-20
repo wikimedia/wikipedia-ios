@@ -581,6 +581,7 @@ extension UIScrollView {
             return false
         }
         return true
+        
     }
     
     func fixAdjustedContentInsetMismatchBugIfNecessary() {

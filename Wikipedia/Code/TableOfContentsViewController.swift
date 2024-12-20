@@ -99,7 +99,6 @@ class TableOfContentsViewController: UIViewController, UITableViewDelegate, UITa
         super.init(nibName: nil, bundle: nil)
         modalPresentationStyle = .custom
         transitioningDelegate = animator
-        extendedLayoutIncludesOpaqueBars = true
     }
     
     public required init?(coder aDecoder: NSCoder) {
