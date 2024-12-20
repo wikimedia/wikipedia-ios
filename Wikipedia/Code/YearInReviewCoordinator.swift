@@ -655,7 +655,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
                             title: personalizedSaveCountSlideTitle(saveCount: count),
                             informationBubbleText: nil,
                             subtitle: personalizedSaveCountSlideSubtitle(saveCount: count, articleNames: savedSlideData.articleTitles),
-                            loggingID: "saved_count_custom",
+                            loggingID: "save_count_custom",
                             infoURL: aboutYIRURL,
                             hideDonateButton: false)
                     }
@@ -672,7 +672,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
                             title: personalizedDaySlideTitle(day: mostReadDay.getDay()),
                             informationBubbleText: nil,
                             subtitle: personalizedDaySlideSubtitle(day: mostReadDay.getDay()),
-                            loggingID: "most_read_day_custom",
+                            loggingID: "read_day_custom",
                             infoURL: aboutYIRURL,
                             hideDonateButton: shoudlHideDonateButton())
                     }
@@ -689,7 +689,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
                             title: personalizedYourEditsViewedSlideTitle(views: viewCount),
                             informationBubbleText: nil,
                             subtitle: personalizedYourEditsViewedSlideSubtitle(views: viewCount),
-                            loggingID: "view_count_custom",
+                            loggingID: "edit_view_count_custom",
                             infoURL: aboutYIRURL,
                             hideDonateButton: shoudlHideDonateButton())
                     }
@@ -727,7 +727,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
             title: collectiveSavedArticlesSlideTitle,
             informationBubbleText: nil,
             subtitle: collectiveSavedArticlesSlideSubtitle,
-            loggingID: "saved_count_base",
+            loggingID: "list_count_base",
             infoURL: aboutYIRURL,
             hideDonateButton: shoudlHideDonateButton())
 
@@ -769,7 +769,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
             title: englishReadingSlideTitle,
             informationBubbleText: nil,
             subtitle: englishReadingSlideSubtitle,
-            loggingID: "english_reading",
+            loggingID: "en_read_hours_base",
             infoURL: aboutYIRURL,
             hideDonateButton: shoudlHideDonateButton())
         
@@ -780,7 +780,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
             informationBubbleText: nil,
             subtitle: englishTopReadSlideSubtitle,
             isSubtitleAttributedString: true,
-            loggingID: "english_top_read",
+            loggingID: "en_most_visit_base",
             infoURL: aboutYIRURL,
             hideDonateButton: shoudlHideDonateButton())
         
@@ -790,7 +790,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
             title: englishSavedReadingSlideTitle,
             informationBubbleText: nil,
             subtitle: englishSavedReadingSlideSubtitle,
-            loggingID: "english_reading_list",
+            loggingID: "en_list_count_base",
             infoURL: aboutYIRURL,
             hideDonateButton: shoudlHideDonateButton())
         
@@ -800,7 +800,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
             title: englishEditsSlideTitle,
             informationBubbleText: nil,
             subtitle: englishEditsSlideSubtitle,
-            loggingID: "english_edits",
+            loggingID: "en_edit_count_base",
             infoURL: aboutYIRURL,
             hideDonateButton: shoudlHideDonateButton())
         
@@ -810,7 +810,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
             title: englishEditsBytesSlideTitle,
             informationBubbleText: nil,
             subtitle: englishEditsBytesSlideSubtitle,
-            loggingID: "english_bytes_edits",
+            loggingID: "en_byte_base",
             infoURL: aboutYIRURL,
             hideDonateButton: shoudlHideDonateButton())
         
@@ -990,7 +990,7 @@ extension YearInReviewCoordinator: WMFYearInReviewLoggingDelegate {
     }
 
     func logYearInReviewIntroDidTapLearnMore() {
-        DonateFunnel.shared.logYearInReviewDidTapIntroLearnMore()
+        DonateFunnel.shared.logYearInReviewDidTapIntroLearnMore(isEntryC: dataStore.authenticationManager.authStateIsPermanent)
     }
 
     func logYearInReviewDonateDidTapLearnMore(slideLoggingID: String) {

@@ -3,7 +3,7 @@
 #if DEBUG
 
 // Change to DDLogLevelAll to enable all logging
-static const DDLogLevel ddLogLevel = DDLogLevelWarning;
+static const DDLogLevel ddLogLevel = DDLogLevelAll;
 
 #else
 

@@ -313,8 +313,8 @@ import WMF
     
     // MARK: - Year In Review
     
-    func logProfileDidTapYearInReview() {
-        logEvent(activeInterface: .wikiYiR, action: .startClick, actionData: ["slide": "entry_b_profile"])
+    func logProfileDidTapYearInReview(isAnon: Bool) {
+        logEvent(activeInterface: .wikiYiR, action: .startClick, actionData: ["slide": "entry_b_profile", "is_anon": isAnon.description])
     }
     
     func logYearInReviewSlideImpression(slideLoggingID: String) {
@@ -329,25 +329,26 @@ import WMF
         logEvent(activeInterface: .wikiYiR, action: .startClick, actionData: ["slide": "start"])
     }
     
-    func logYearInReviewDidTapIntroLearnMore() {
-        logEvent(activeInterface: .wikiYiR, action: .learnClick, actionData: ["slide": "start"])
+    func logYearInReviewDidTapIntroLearnMore(isEntryC: Bool = false) {
+        logEvent(activeInterface: .wikiYiR, action: .learnClick, actionData: ["slide": isEntryC ? "start_c" : "start"])
     }
     
     func logYearInReviewDidTapNext(slideLoggingID: String) {
         logEvent(activeInterface: .wikiYiR, action: .nextClick, actionData: ["slide": slideLoggingID])
     }
     
-    func logYearInReviewFeatureAnnouncementDidAppear() {
-        logEvent(activeInterface: .wikiYiR, action: .impression, actionData: ["slide": "entry_a"])
+    func logYearInReviewFeatureAnnouncementDidAppear(isEntryA: Bool = true) {
+        logEvent(activeInterface: .wikiYiR, action: .impression, actionData: ["slide": isEntryA ? "entry_a" : "entry_c"])
     }
     
-    func logYearInReviewFeatureAnnouncementDidTapContinue() {
-        logEvent(activeInterface: .wikiYiR, action: .continueClick, actionData: ["slide": "entry_a"])
+    func logYearInReviewFeatureAnnouncementDidTapContinue(isEntryA: Bool = true) {
+        logEvent(activeInterface: .wikiYiR, action: .continueClick, actionData: ["slide": isEntryA ? "entry_a" : "entry_c"])
     }
     
-    func logYearInReviewFeatureAnnouncementDidTapClose() {
-        logEvent(activeInterface: .wikiYiR, action: .closeClick, actionData: ["slide": "entry_a"])
+    func logYearInReviewFeatureAnnouncementDidTapClose(isEntryA: Bool = true) {
+        logEvent(activeInterface: .wikiYiR, action: .closeClick, actionData: ["slide": isEntryA ? "entry_a" : "entry_c"])
     }
+    
     
     func logYearInReviewDidTapDonate(slideLoggingID: String, metricsID: String) {
         logEvent(activeInterface: .wikiYiR, action: .donateStartClickYir, actionData: [
