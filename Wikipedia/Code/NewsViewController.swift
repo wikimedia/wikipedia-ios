@@ -2,7 +2,7 @@ import WMF
 import WMFComponents
 
 @objc(WMFNewsViewController)
-class NewsViewController: ColumnarCollectionViewController2, WMFNavigationBarConfiguring {
+class NewsViewController: ColumnarCollectionViewController, WMFNavigationBarConfiguring {
     fileprivate static let cellReuseIdentifier = "NewsCollectionViewCell"
     fileprivate static let headerReuseIdentifier = "NewsCollectionViewHeader"
     

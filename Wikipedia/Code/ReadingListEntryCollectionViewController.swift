@@ -9,7 +9,7 @@ protocol ReadingListEntryCollectionViewControllerDelegate: NSObjectProtocol {
     func setupReadingListDetailHeaderView(_ headerView: ReadingListDetailHeaderView)
 }
 
-class ReadingListEntryCollectionViewController: ColumnarCollectionViewController2, EditableCollection, UpdatableCollection, SearchableCollection, ActionDelegate, MEPEventsProviding {
+class ReadingListEntryCollectionViewController: ColumnarCollectionViewController, EditableCollection, UpdatableCollection, SearchableCollection, ActionDelegate, MEPEventsProviding {
     let dataStore: MWKDataStore
     var fetchedResultsController: NSFetchedResultsController<ReadingListEntry>?
     var collectionViewUpdater: CollectionViewUpdater<ReadingListEntry>?

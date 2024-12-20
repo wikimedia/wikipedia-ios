@@ -1,7 +1,7 @@
 import Foundation
 import WMF
 
-class ColumnarCollectionViewController2: ThemeableViewController, ColumnarCollectionViewLayoutDelegate, UICollectionViewDataSourcePrefetching, CollectionViewFooterDelegate, HintPresenting {
+class ColumnarCollectionViewController: ThemeableViewController, ColumnarCollectionViewLayoutDelegate, UICollectionViewDataSourcePrefetching, CollectionViewFooterDelegate, HintPresenting {
     
     enum HeaderStyle {
         case sections
@@ -352,7 +352,7 @@ class ColumnarCollectionViewController2: ThemeableViewController, ColumnarCollec
 }
 
 // MARK: - UICollectionViewDataSource
-extension ColumnarCollectionViewController2: UICollectionViewDataSource {
+extension ColumnarCollectionViewController: UICollectionViewDataSource {
     open func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 0
     }
@@ -385,12 +385,12 @@ extension ColumnarCollectionViewController2: UICollectionViewDataSource {
     }
 }
 
-extension ColumnarCollectionViewController2: UICollectionViewDelegate {
+extension ColumnarCollectionViewController: UICollectionViewDelegate {
     
 }
 
 // MARK: - CollectionViewContextMenuShowing
-extension ColumnarCollectionViewController2 {
+extension ColumnarCollectionViewController {
     func collectionView(_ collectionView: UICollectionView, contextMenuConfigurationForItemAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
         guard let contextMenuCollectionVC = self as? CollectionViewContextMenuShowing, let vc = contextMenuCollectionVC.previewingViewController(for: indexPath, at: point) else {
             return nil
@@ -419,7 +419,7 @@ extension ColumnarCollectionViewController2 {
     }
 }
 
-extension ColumnarCollectionViewController2: ArticlePreviewingDelegate {
+extension ColumnarCollectionViewController: ArticlePreviewingDelegate {
     @objc func readMoreArticlePreviewActionSelected(with articleController: ArticleViewController) {
         articleController.wmf_removePeekableChildViewControllers()
         push(articleController, animated: true)

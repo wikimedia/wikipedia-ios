@@ -1,7 +1,7 @@
 import WMF
 import WMFComponents
 
-class OnThisDayViewController: ColumnarCollectionViewController2, WMFNavigationBarConfiguring {
+class OnThisDayViewController: ColumnarCollectionViewController, WMFNavigationBarConfiguring {
     fileprivate static let cellReuseIdentifier = "OnThisDayCollectionViewCell"
     fileprivate static let headerReuseIdentifier = "OnThisDayViewControllerHeader"
     fileprivate static let blankHeaderReuseIdentifier = "OnThisDayViewControllerBlankHeader"

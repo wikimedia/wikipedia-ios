@@ -19,7 +19,7 @@ protocol ArticleDetailsShowing: AnyObject {
     func thankButtonTapped(for revisionID: Int, isUserAnonymous: Bool)
 }
 
-class ArticleAsLivingDocViewController: ColumnarCollectionViewController2 {
+class ArticleAsLivingDocViewController: ColumnarCollectionViewController {
     
     private let articleTitle: String?
     private var headerView: ArticleAsLivingDocHeaderView?

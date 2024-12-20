@@ -2,7 +2,7 @@ import UIKit
 import WMF
 
 @objc(WMFArticleFetchedResultsViewController)
-class ArticleFetchedResultsViewController: ArticleCollectionViewController2, CollectionViewUpdaterDelegate {
+class ArticleFetchedResultsViewController: ArticleCollectionViewController, CollectionViewUpdaterDelegate {
     var fetchedResultsController: NSFetchedResultsController<WMFArticle>!
     var collectionViewUpdater: CollectionViewUpdater<WMFArticle>!
 

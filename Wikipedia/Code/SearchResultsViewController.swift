@@ -5,7 +5,7 @@ protocol SearchResultsViewControllerDelegate: AnyObject {
     func didSelectSearchResult(articleURL: URL, indexPath: IndexPath, searchResultsViewController: SearchResultsViewController)
 }
 
-class SearchResultsViewController: ArticleCollectionViewController2 {
+class SearchResultsViewController: ArticleCollectionViewController {
     var resultsInfo: WMFSearchResults? = nil // don't use resultsInfo.results, it mutates
     var results: [MWKSearchResult] = [] {
         didSet {

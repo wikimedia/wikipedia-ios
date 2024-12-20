@@ -1,7 +1,7 @@
 import UIKit
 import WMFComponents
 
-class ArticleLocationCollectionViewController: ColumnarCollectionViewController2, WMFNavigationBarConfiguring {
+class ArticleLocationCollectionViewController: ColumnarCollectionViewController, WMFNavigationBarConfiguring {
     var articleURLs: [URL] {
         didSet {
             collectionView.reloadData()

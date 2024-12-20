@@ -11,7 +11,7 @@ protocol ReadingListsViewControllerDelegate: NSObjectProtocol {
 }
 
 @objc(WMFReadingListsViewController)
-class ReadingListsViewController: ColumnarCollectionViewController2, EditableCollection, UpdatableCollection, SearchableCollection {
+class ReadingListsViewController: ColumnarCollectionViewController, EditableCollection, UpdatableCollection, SearchableCollection {
     
     fileprivate static let headerReuseIdentifier = "CreateNewReadingListButtonView"
 

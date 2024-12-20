@@ -1,7 +1,7 @@
 import UIKit
 
-@objc(WMFArticleCollectionViewController2)
-class ArticleCollectionViewController2: ColumnarCollectionViewController2, EditableCollection, MEPEventsProviding, CollectionViewContextMenuShowing {
+@objc(WMFArticleCollectionViewController)
+class ArticleCollectionViewController: ColumnarCollectionViewController, EditableCollection, MEPEventsProviding, CollectionViewContextMenuShowing {
     @objc var dataStore: MWKDataStore!
     var cellLayoutEstimate: ColumnarCollectionViewLayoutHeightEstimate?
 
@@ -153,7 +153,7 @@ class ArticleCollectionViewController2: ColumnarCollectionViewController2, Edita
 }
 
 // MARK: - UICollectionViewDataSource
-extension ArticleCollectionViewController2 {
+extension ArticleCollectionViewController {
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }
@@ -175,7 +175,7 @@ extension ArticleCollectionViewController2 {
 }
 
 // MARK: - UICollectionViewDelegate
-extension ArticleCollectionViewController2 {
+extension ArticleCollectionViewController {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let articleURL = articleURL(at: indexPath) else {
             collectionView.deselectItem(at: indexPath, animated: true)
@@ -190,7 +190,7 @@ extension ArticleCollectionViewController2 {
     }
 }
 
-extension ArticleCollectionViewController2: ActionDelegate {
+extension ArticleCollectionViewController: ActionDelegate {
     
     func didPerformBatchEditToolbarAction(_ action: BatchEditToolbarAction, completion: @escaping (Bool) -> Void) {
         assert(false, "Subclassers should override this function")
@@ -265,4 +265,4 @@ extension ArticleCollectionViewController2: ActionDelegate {
     }
 }
 
-extension ArticleCollectionViewController2: ShareableArticlesProvider {}
+extension ArticleCollectionViewController: ShareableArticlesProvider {}

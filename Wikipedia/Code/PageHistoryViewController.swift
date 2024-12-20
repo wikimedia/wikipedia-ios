@@ -17,7 +17,7 @@ enum SelectionOrder: Int, CaseIterable {
 }
 
 @objc(WMFPageHistoryViewController)
-class PageHistoryViewController: ColumnarCollectionViewController2, WMFNavigationBarConfiguring {
+class PageHistoryViewController: ColumnarCollectionViewController, WMFNavigationBarConfiguring {
     
     // fileprivate static let headerReuseIdentifier = "TestHeader"
     fileprivate static let headerReuseIdentifier = "PageHistoryCountsView"
@@ -70,7 +70,7 @@ class PageHistoryViewController: ColumnarCollectionViewController2, WMFNavigatio
 
     private var pageHistorySections: [PageHistorySection] = []
 
-    override var headerStyle: ColumnarCollectionViewController2.HeaderStyle {
+    override var headerStyle: ColumnarCollectionViewController.HeaderStyle {
         return .sections
     }
 

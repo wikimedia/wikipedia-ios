@@ -9,7 +9,7 @@ protocol SearchViewControllerResultSelectionDelegate: AnyObject {
     func didSelectSearchResult(articleURL: URL, searchViewController: SearchViewController)
 }
 
-class SearchViewController: ArticleCollectionViewController2, WMFNavigationBarConfiguring {
+class SearchViewController: ArticleCollectionViewController, WMFNavigationBarConfiguring {
     
     // Assign so that the correct search bar will have it's field populated once a "recently searched" term is selected
     // todo: rename, confusing with UISearch
@@ -361,7 +361,7 @@ class SearchViewController: ArticleCollectionViewController2, WMFNavigationBarCo
     
     // MARK: Collection View - related methods. Note: All of these affect the "Recently searched" list, NOT the actual search results. The actual search results are in the SearchResultsViewController, which SearchViewController embeds and displays depending on the length of the search bar text.
     
-    override var headerStyle: ColumnarCollectionViewController2.HeaderStyle {
+    override var headerStyle: ColumnarCollectionViewController.HeaderStyle {
         return .sections
     }
     

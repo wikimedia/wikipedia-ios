@@ -1,7 +1,7 @@
 import UIKit
 import WMFComponents
 
-class ArticleURLListViewController: ArticleCollectionViewController2, WMFNavigationBarConfiguring {
+class ArticleURLListViewController: ArticleCollectionViewController, WMFNavigationBarConfiguring {
     let articleURLs: [URL]
     private let articleKeys: Set<String>
     var contentGroupIDURIString: String?
