@@ -1004,7 +1004,7 @@
 "wikitext-upload-save-terms-name" = "Condizioni d'uso";
 "year-in-review-base-donate-subtitle" = "Con il tuo aiuto, la Wikimedia Foundation, l'organizzazione non-profit dietro Wikipedia, continuerà a garantire che le informazioni su cui fai affidamento siano prive di pubblicità e affidabili, mantenendo Wikipedia in funzione senza problemi con strumenti e tecnologie all'avanguardia. Considera di fare una donazione oggi. [Scopri di più sul nostro lavoro]($1).";
 "year-in-review-base-donate-title" = "0 annunci pubblicati su Wikipedia";
-"year-in-review-base-editors-subtitle" = "Quest'anno la community di redattori volontari di Wikipedia ha apportato più di $1 modifiche all'app iOS. Il cuore e l'anima di Wikipedia sono costituiti dalla community internazionale di contributori volontari, di donatori e di miliardi di lettori come te, uniti per condividere un accesso illimitato a un'informazione affidabile.";
+"year-in-review-base-editors-subtitle" = "I volontari hanno apportato 81.987.181 modifiche in oltre 300 edizioni linguistiche diverse di Wikipedia. Sono state apportate oltre 31,2 milioni di modifiche alla Wikipedia inglese. Ogni ora di ogni giorno, i volontari lavorano per migliorare Wikipedia.";
 "year-in-review-base-editors-title" = "I redattori dell'app iOS hanno apportato più di $1 modifiche";
 "year-in-review-base-edits-subtitle" = "Quest'anno Wikipedia è stata modificata a una velocità media di $1 volte al minuto. Gli articoli vengono creati e perfezionati in modo collaborativo utilizzando fonti affidabili. Tutti noi abbiamo conoscenze da condividere: [impariamo a metterle a disposizione]($2).";
 "year-in-review-base-edits-title" = "Wikipedia è stata modificata $1 volte al minuto";
@@ -1020,7 +1020,7 @@
 "year-in-review-feature-announcement-title" = "Esplora la rassegna di Wikipedia";
 "year-in-review-feature-explore-body-personalized" = "Visualizza approfondimenti sugli articoli che leggi sull'app Wikipedia e sulle modifiche apportate. La cronologia delle tue letture rimane protetta. Gli approfondimenti sulle letture vengono determinati utilizzando i dati archiviati localmente sul tuo dispositivo.";
 "year-in-review-finish" = "Termina";
-"year-in-review-personalized-donate-subtitle" = "Grazie per aver investito nel futuro della conoscenza libera. Nel 2024, la Wikimedia Foundation ha fatto progredire la tecnologia per servire meglio ogni lettore e volontario, ha sviluppato strumenti che potenziano la collaborazione e ha supportato Wikipedia in più lingue. [Scopri di più sul nostro lavoro]($1).";
+"year-in-review-personalized-donate-subtitle" = "Grazie per aver investito nel futuro della conoscenza libera. Quest'anno, la Wikimedia Foundation ha migliorato la tecnologia per servire meglio ogni lettore e volontario, ha sviluppato strumenti che potenziano la collaborazione e ha supportato Wikipedia in più lingue. [Scopri di più sul nostro lavoro]($1).";
 "year-in-review-personalized-donate-title" = "La tua generosità ha contribuito a far prosperare Wikipedia";
 "year-in-review-personalized-donation-thank-you" = "Logo di Wikimedia";
 "year-in-review-personalized-editing-subtitle-format" = "Hai modificato Wikipedia {{PLURAL:$1|$1 volta|$1 volte}}. Grazie per essere uno dei redattori volontari che offrono il loro contributo nei progetti Wikimedia in tutto il mondo.";
@@ -1039,6 +1039,5 @@
 "year-in-review-survey-unsatisfied" = "Insoddisfatto";
 "year-in-review-survey-very-satisfied" = "Molto soddisfatto";
 "year-in-review-survey-very-unsatisfied" = "Molto insoddisfatto";
-"year-in-review-wikipedia-globe-accessibility-label" = "Logo del globo di Wikipedia";
 "year-in-review-wikipedia-w-accessibility-label" = "Logo W di Wikipedia";
 "year-in-review-wmf-logo-accessibility-label" = "Logo della Wikimedia Foundation";

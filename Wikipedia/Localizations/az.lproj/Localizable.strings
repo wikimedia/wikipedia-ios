@@ -742,6 +742,20 @@
 "main-menu-title" = "Daha çox";
 "main-menu-zero-faq" = "Wikipedia Zero TSS";
 "menu-cancel-accessibility-label" = "İmtina";
+"microsite-yir-english-edits-bytes-slide-subtitle" = "2024-cü ildə könüllülər İngiliscə Vikipediyaya 3.416.899.197 bayt əlavə etdilər. Birgə işin cəmi onların dünyaya verdiyi davamlı təkmilləşən, fakta əsaslanan və etibarlı bilik resursuna gətirib çıxarır. Hamımızın paylaşacaq biliyimiz var, [iştirak etməyi öyrənin]($1).";
+"microsite-yir-english-edits-bytes-slide-title" = "3,4 milyard bayt əlavə edildi";
+"microsite-yir-english-edits-slide-subtitle" = "Könüllülər Vikipediyanın 300-dən çox müxtəlif dildə nəşrlərində 81.987.181 dəyişiklik etdilər. İngiliscə Vikipediyada 31,2 milyondan çox dəyişiklik edilib. Hər günün hər saatında könüllülər Vikipediyanı təkmilləşdirmək üçün çalışırlar.";
+"microsite-yir-english-edits-slide-title" = "Bu il redaktorlar 82 milyona yaxın dəyişiklik edib";
+"microsite-yir-english-explore-slide" = "İlin İcmalını kəşf et";
+"microsite-yir-english-explore-slide-subtitle" = "Vikipediya dünya tarixində indiyə qədər yığılmış ən böyük bilik resursudur və o, hər yerdə hər kəs üçün azaddır. Vikipediyanın obyektivindən 2024-cü ilə baxın.";
+"microsite-yir-english-non-donor-slide-subtitle" = "Sizin köməyinizlə, Vikipediyanın sahibi qeyri-kommersiya təşkilatı olan Vikimedia Fondu etibar etdiyiniz məlumatların reklamsız və etibarlı olmasını təmin etməkdə davam edəcək, eyni zamanda ən müasir alətlər və texnologiyalarla Vikipediyanın problemsiz işləməsini təmin edəcək. Zəhmət olmasa, bu gün ianə etməyi düşünün. [İşimiz haqqında ətraflı öyrənin]($1).";
+"microsite-yir-english-non-donor-slide-title" = "Vikipediyada heç bir reklam göstərilmir";
+"microsite-yir-english-reading-slide-subtitle" = "İnsanlar 2024-cü ildə İngiliscə Vikipediyanı oxumaq üçün təqribən 2,4 milyard saat - təxminən 275 000 il sərf ediblər! Siz dəyişən dünyamız haqqında öyrənmək, dostlar arasında mərci qazanmaq və ya maraqlı suallar verən uşağa cavab vermək istədiyiniz zaman Vikipediya oradadır.";
+"microsite-yir-english-reading-slide-title" = "Kitab oxumağa 2,4 milyard saat sərf etmişik";
+"microsite-yir-english-saved-reading-slide-subtitle" = "Aktiv iOS tətbiqi istifadəçiləri bu il 31,6 milyon oxuma siyahısına sahib olub. Oxuma siyahıları onlara məqalələr əlavə etmək hətta oflayn olarkən məqalələrə daxil olmaq imkanı verir. Siz həmçinin cihazlar arasında oxuma siyahılarını sinxronlaşdırmaq üçün hesabınıza daxil ola bilərsiniz.";
+"microsite-yir-english-saved-reading-slide-title" = "31,6 milyondan çox oxuma siyahılarımız olub.";
+"microsite-yir-english-top-read-slide-subtitle" = "İnsanlar dünyamız haqqında öyrənmək istədikdə Vikipediyaya müraciət edirlər. İngiliscə Vikipediyada ən çox ziyarət edilən 5 məqalə bunlardır: \n1. $1\n2. $2\n3. $3\n4. $4\n5. $5\n$6Bizim xüsusi bloq yazımızı$7 oxuyun";
+"microsite-yir-english-top-read-slide-title" = "İngiliscə Vikipediyanın ən çox oxunan məqalələri";
 "more-languages-tooltip-description" = "300-dən çox dildə Vikipediyada axtarış edin";
 "more-languages-tooltip-title" = "Dil əlavə et";
 "more-menu" = "Daha çox";
@@ -1403,18 +1417,21 @@
 "wikitext-upload-save-terms-name" = "İstifadə şərtləri";
 "year-in-review-base-donate-subtitle" = "Sizin köməyinizlə, Vikipediyanın sahibi qeyri-kommersiya təşkilatı olan Vikimedia Fondu etibar etdiyiniz məlumatların reklamsız və etibarlı olmasını təmin etməkdə davam edəcək, eyni zamanda ən müasir alətlər və texnologiyalarla Vikipediyanın problemsiz işləməsini təmin edəcək. Zəhmət olmasa, bu gün ianə etməyi düşünün. [İşimiz haqqında ətraflı öyrənin]($1).";
 "year-in-review-base-donate-title" = "Vikipediyada 0 reklam göstərilir";
-"year-in-review-base-editors-subtitle" = "Vikipediyanın könüllü redaktorlar icması bu il iOS tətbiqində $1+ redaktə edib. Vikipediyanın ürəyi və ruhu bizim könüllü ianəçilər, donorlar və sizin kimi milyardlarla oxucudan ibarət qlobal birliyimizdir – hamısı etibarlı məlumatlara məhdudiyyətsiz çıxışı bölüşmək üçün birləşmişdir.";
+"year-in-review-base-editors-subtitle" = "Könüllülər Vikipediyanın 300-dən çox müxtəlif dildə nəşrlərində 81.987.181 dəyişiklik ediblər. İngiliscə Vikipediyada 31,2 milyondan çox dəyişiklik edilib. Hər günün hər saatında könüllülər Vikipediyanı təkmilləşdirmək üçün çalışırlar.";
 "year-in-review-base-editors-title" = "Redaktorlar iOS tətbiqində $1+ redaktə ediblər";
 "year-in-review-base-edits-subtitle" = "Bu il Vikipediya dəqiqədə orta hesabla $1 dəfə redaktə edilib. Məqalələr etibarlı mənbələrdən istifadə etməklə birgə yaradılır və təkmilləşdirilir. Hamımızın paylaşacaq biliyimiz var, [iştirak etməyi öyrənin]($2).";
 "year-in-review-base-edits-title" = "Vikipediya dəqiqədə $1 dəfə redaktə edilib";
 "year-in-review-base-reading-subtitle" = "Vikipediyada bu il $2+ aktiv dildə $1+ məqalə var. Siz biliyi genişləndirməkdə və müxtəlif mövzuları araşdırmaqda milyonlarla insana qoşulmusunuz.";
 "year-in-review-base-reading-title" = "Vikipediya 300-dən çox dildə mövcud idi";
-"year-in-review-base-saved-subtitle" = "Aktiv iOS tətbiqi istifadəçiləri bu il $1+ oxuma siyahısına sahib olub. Oxuma siyahıları onlara məqalələr əlavə etmək hətta oflayn olarkən məqalələrə daxil olmaq imkanı verir. Siz həmçinin cihazlar arasında oxuma siyahılarını sinxronlaşdırmaq üçün hesabınıza daxil ola bilərsiniz.";
+"year-in-review-base-saved-subtitle" = "Aktiv iOS tətbiqi istifadəçiləri bu il 31,6 milyon oxuma siyahısına sahib olub. Oxuma siyahıları onlara məqalələr əlavə etmək hətta oflayn olarkən məqalələrə daxil olmaq imkanı verir. Siz həmçinin cihazlar arasında oxuma siyahılarını sinxronlaşdırmaq üçün hesabınıza daxil ola bilərsiniz.";
 "year-in-review-base-saved-title" = "$1+ oxuma siyahıları olub";
 "year-in-review-base-viewed-subtitle" = "iOS tətbiqi istifadəçiləri Vikipediya məqalələrini $1 dəfə oxuyublar. Dünyanın hər yerindən insanlar üçün suala cavab verərkən, məktəb və ya iş üçün məlumat axtararkən və ya yeni fakt öyrənərkən Vikipediya ilk dayanacaqdır.";
 "year-in-review-base-viewed-title" = "Biz Vikipediya məqalələrini $1 milyard dəfə oxumuşuq";
 "year-in-review-button-title" = "İlə Baxış";
-"year-in-review-collective-article-views" = "Layihənin qurulmasında dünya miqyasında insanların birgə səylərini təsvir edən ikonik Vikipediya qlobusunu təsvir edən cizgi illüstrasiya. Səhnə şəhər mənzərəsi ilə əhatə olunub, onun bəşəriyyət və qlobal mədəniyyətlə əlaqəsini vurğulayır.";
+"year-in-review-collective-article-views" = "Vikipedia məqaləsində aktiv şəkildə naviqasiya edən veb-brauzeri açıq olan kompüter ekranının animasiya illüstrasiyası.";
+"year-in-review-collective-edits" = "Qrafik Hər biri bir məlumat daşıyan iki Vikipediya tapmacasının təsviri.";
+"year-in-review-collective-edits-per-minute" = "Vikipediyanı oxuyan insanların keçirdikləri vaxtı simvolizə edən saat əqrəbi.";
+"year-in-review-collective-explore" = "Layihənin qurulmasında dünya miqyasında insanların birgə səylərini simvolizə edən ikonik Vikipediya qlobusunu təsvir edən cizgi illüstrasiya. Səhnə şəhər mənzərəsi ilə əhatə olunub, onun bəşəriyyət və qlobal mədəniyyətlə əlaqəsini vurğulayır.";
 "year-in-review-day-friday" = "cümə günlərində";
 "year-in-review-day-monday" = "bazar ertəsi günlərində";
 "year-in-review-day-saturday" = "şənbə günlərində";
@@ -1433,10 +1450,12 @@
 "year-in-review-login-title" = "İliniz İcmalını təkmilləşdirin";
 "year-in-review-personalized-day-subtitle-format" = "Ən çox məqaləni $1 oxumusunuz. Aydındır ki, $1 yeni məzmunu araşdırmaq həvəsiniz daha çoxdur. Oxuma vaxtınızdan maksimum istifadə etdiyiniz üçün təşəkkür edirik!";
 "year-in-review-personalized-day-title-format" = "Ən çox $1 oxuyursunuz.";
+// Fuzzy
 "year-in-review-personalized-donate-subtitle" = "Pulsuz biliyin gələcəyinə sərmayə qoyduğunuz üçün təşəkkür edirik. 2024-cü ildə Vikimedia Fondu hər bir oxucuya və könüllülərə daha yaxşı xidmət göstərmək üçün texnologiyanı təkmilləşdirdi, əməkdaşlığı gücləndirən alətlər hazırladı və Vikipediyanı daha çox dildə dəstəklədi. [İşimiz haqqında ətraflı öyrənin]($1).";
 "year-in-review-personalized-donate-title" = "Səxavətiniz Vikipediyanın böyüməsinə kömək etdi";
 "year-in-review-personalized-donation-thank-you" = "Vikimedia loqosu";
 "year-in-review-personalized-edit-views-subtitle-format" = "Dünyanın hər yerindən olan oxucular töhfələrinizi yüksək qiymətləndirirlər. Son 2 ayda redaktə etdiyiniz məqalələr $1 ümumi baxış əldə edib. Sizin kimi redaktorların sayəsində Vikipediya dünya üçün davamlı olaraq təkmilləşən, faktlara əsaslanan və etibarlı məlumat mənbəyidir.";
+// Fuzzy
 "year-in-review-personalized-edit-views-title-format" = "Bu yaxınlarda redaktələrinizə $1 dəfədən çox baxılıb";
 "year-in-review-personalized-editing-subtitle-format" = "Siz Vikipediyada {{PLURAL:$1|$1 dəfə}} düzəliş etmisiniz. Bütün dünyada Vikimedia layihələrində fərq yaradan könüllü redaktorlardan biri olduğunuz üçün təşəkkür edirik.";
 "year-in-review-personalized-editing-subtitle-format-500plus" = "Siz Vikipediyada 500+ dəfə redaktə etmisiniz. Vikimedia layihələrində fərq yaradan könüllü redaktorlardan biri olduğunuz üçün təşəkkür edirik.";
@@ -1444,6 +1463,7 @@
 "year-in-review-personalized-editing-title-format-500plus" = "Vikipediyanı 500+ dəfə redaktə etmisiniz";
 "year-in-review-personalized-reading-subtitle-format" = "Siz bu il {{PLURAL:$1|$1 məqalə}} oxumusunuz. Vikipediyada $3+ aktiv dildə $2 məqalə var idi. Siz biliyi genişləndirməkdə və müxtəlif mövzuları araşdırmaqda milyonlarla insana qoşulmusunuz.";
 "year-in-review-personalized-reading-title-format" = "Siz bu il {{PLURAL:$1|$1 məqalə}} oxumusunuz";
+// Fuzzy
 "year-in-review-personalized-saved-subtitle-format" = "Siz bu il \"$2\", \"$3\" and \"$4\" daxil olmaqla {{PLURAL:$1|$1 məqalə}} yadda saxlamısınız. Hər bir saxlanılan məqalə sizin maraqlarınızı əks etdirir və Vikipediyada fərdiləşdirilmiş bilik bazası yaratmağa kömək edir.";
 "year-in-review-personalized-saved-title-format" = "{{PLURAL:$1|$1 məqalə}} yadda saxlamısınız";
 "year-in-review-share-text" = "Mənim Vikipediyada İlimin İcmalı. Vikipediya iOS tətbiqi ilə yaradıldı.";
@@ -1455,6 +1475,5 @@
 "year-in-review-survey-unsatisfied" = "Məmnun deyiləm";
 "year-in-review-survey-very-satisfied" = "Çox məmnunam";
 "year-in-review-survey-very-unsatisfied" = "Çox narazıyam";
-"year-in-review-wikipedia-globe-accessibility-label" = "Vikipediya qlobus loqosu";
 "year-in-review-wikipedia-w-accessibility-label" = "Vikipediya w loqosu";
 "year-in-review-wmf-logo-accessibility-label" = "Vikimedia Fondunun loqosu";
