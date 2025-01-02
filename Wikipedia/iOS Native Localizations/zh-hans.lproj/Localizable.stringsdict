@@ -829,7 +829,7 @@
 	<key>year-in-review-personalized-reading-subtitle-format</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>今年，您阅读了%#@v1@，维基百科上有超过%3$@种活跃语言的%2$@万篇条目。您与数百万人一起拓展知识面，探索各种主题。</string>
+		<string>今年，您阅读了%#@v1@。维基百科拥有超过%3$@种活跃语言的%2$@百万篇条目。您与数百万人一起拓展知识面，探索各种主题。</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -837,7 +837,7 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>other</key>
-			<string> %1$d条目</string>
+			<string>%1$d篇条目</string>
 		</dict>
 	</dict>
 	<key>year-in-review-personalized-reading-title-format</key>
@@ -857,7 +857,7 @@
 	<key>year-in-review-personalized-saved-subtitle-format</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>您今年保存了%#@v1@，包括“ %2$@ ”、“ %3$@ ”和“ %4$@ ”。每篇保存的条目都反映了您的兴趣，有助于在维基百科上建立个性化的知识库。</string>
+		<string>您今年保存了%#@v1@，包括%2$@、%3$@和%4$@。每篇保存的条目都反映了您的兴趣，有助于在维基百科上建立个性化的知识库。</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -865,7 +865,7 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>other</key>
-			<string> %1$d条目</string>
+			<string>%1$d篇条目</string>
 		</dict>
 	</dict>
 	<key>year-in-review-personalized-saved-title-format</key>

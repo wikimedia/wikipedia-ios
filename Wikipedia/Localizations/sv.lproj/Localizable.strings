@@ -765,6 +765,9 @@
 "main-menu-title" = "Mer";
 "main-menu-zero-faq" = "Vanliga frågor om Wikipedia Zero";
 "menu-cancel-accessibility-label" = "Avbryt";
+"microsite-yir-english-edits-bytes-slide-title" = "3,4 miljoner byte lades till";
+"microsite-yir-english-explore-slide" = "Utforska årsöversikt för Wikipedia";
+"microsite-yir-english-non-donor-slide-title" = "0 reklam visades på Wikipedia";
 "more-languages-tooltip-description" = "Sök på Wikipedia på över 300 språk";
 "more-languages-tooltip-title" = "Lägg till språk";
 "more-menu" = "Mer";
@@ -1427,6 +1430,7 @@
 // Fuzzy
 "year-in-review-base-donate-subtitle" = "Wikipedia drivs av Wikimedia Foundation och finansieras av individuella donationer. Vi arbetar för att hålla Wikimedia-webbplatserna tillgängliga för alla, bygga funktioner och verktyg för att göra det enkelt att dela kunskap, stödjer gemenskaper av frivilliga redigerare och mer. [Läs mer om vårt arbete]($1).";
 "year-in-review-base-donate-title" = "0 annonser visas på Wikipedia";
+// Fuzzy
 "year-in-review-base-editors-subtitle" = "Wikipedias gemenskap av frivilliga redigerare har hittills gjort mer än $1 redigeringar på iOS-appen i år. Wikipedias viktigaste del är vår globala gemenskap av frivilliga bidragsgivare, donerare och miljarder läsare som du själv – alla som har förenats för att dela obegränsad tillgång till pålitlig information.";
 "year-in-review-base-editors-title" = "Redigerare i iOS-appen har gjort mer än $1 redigeringar";
 // Fuzzy
@@ -1439,12 +1443,20 @@
 "year-in-review-base-viewed-subtitle" = "Användare har besökt Wikipedia-artiklar i iOS-appen $1 miljarder gånger. För människor runt om i världen är Wikipedia det första anhalten för att besvara en fråga, söka information för skolan eller jobbet eller lära sig ny fakta.";
 "year-in-review-base-viewed-title" = "Vi har besökt Wikipedia-artiklar $1 miljarder gånger";
 "year-in-review-button-title" = "Årsöversikt";
+"year-in-review-day-friday" = "Fredagar";
+"year-in-review-day-monday" = "Måndagar";
+"year-in-review-day-saturday" = "Lördagar";
+"year-in-review-day-sunday" = "Söndagar";
+"year-in-review-day-thursday" = "Torsdagar";
+"year-in-review-day-tuesday" = "Tisdagar";
+"year-in-review-day-wednesday" = "Onsdagar";
 "year-in-review-donate" = "Donera";
 "year-in-review-donate-now" = "Donera nu";
 // Fuzzy
 "year-in-review-feature-announcement-body" = "Se insikter om artiklarna du läser i Wikipedia-appen, dela din resa och upptäck höjdpunkterna från ditt år.";
 // Fuzzy
 "year-in-review-feature-announcement-title" = "Utforska ditt årsöversikt för Wikipedia";
+"year-in-review-feature-announcement-title-personalized" = "Utforska ditt årsöversikt för Wikipedia";
 "year-in-review-feature-explore-body-personalized" = "Se insikter om vilka artiklar du läser i Wikipedia-appen och de ändringar du har gjort. Din läshistorik hålls skyddad. Läsinsikter beräknas med hjälp av lokalt lagrad data på din enhet.";
 "year-in-review-finish" = "Slutför";
 // Fuzzy
@@ -1467,3 +1479,5 @@
 "year-in-review-survey-unsatisfied" = "Inte nöjd";
 "year-in-review-survey-very-satisfied" = "Mycket nöjd";
 "year-in-review-survey-very-unsatisfied" = "Mycket missnöjd";
+"year-in-review-wikipedia-w-accessibility-label" = "Wikipedias w-logotyp";
+"year-in-review-wmf-logo-accessibility-label" = "Wikimedia Foundations logotyp";
