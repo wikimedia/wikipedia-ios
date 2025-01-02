@@ -1142,8 +1142,7 @@
 "year-in-review-donate-now" = "Dona ahora";
 // Fuzzy
 "year-in-review-feature-announcement-body" = "Consulta la información sobre los artículos que lees en la aplicación Wikipedia, comparte tu viaje y descubre lo más destacado de tu año.";
-// Fuzzy
-"year-in-review-feature-announcement-title" = "Explora tu repaso anual en Wikipedia";
+"year-in-review-feature-announcement-title" = "Wikipedia en resumen";
 "year-in-review-feature-explore-body-personalized" = "Consulta los artículos que has leído en la aplicación de Wikipedia y las ediciones que has realizado. Tu historial de lectura se mantiene protegido. La información sobre las lecturas se calcula utilizando los datos almacenados localmente en tu dispositivo.";
 "year-in-review-finish" = "Terminar";
 // Fuzzy
