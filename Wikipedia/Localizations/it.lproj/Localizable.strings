@@ -192,7 +192,7 @@
 "back-button-accessibility-label" = "Indietro";
 "back-button-popover-title" = "Clicca per tornare indietro";
 "button-go-back" = "Torna indietro";
-"button-next" = "Successivo";
+"button-next" = "Prossimo";
 "button-ok" = "OK";
 "button-publish" = "Pubblica";
 "button-publish-anyway" = "Pubblica comunque";
@@ -537,7 +537,7 @@
 "languages-settings-title" = "Lingue";
 "languages-title" = "Cambia lingua";
 "languages-wikipedia" = "Lingue di Wikipedia";
-"learn-more-title" = "Ulteriori informazioni";
+"learn-more-title" = "Scopri di più";
 "logged-out-continue-without-logging-in-button-title" = "Continua senza accedere";
 "logged-out-log-back-in-button-title" = "Accedi nuovamente alla tua utenza";
 "logged-out-title" = "Sei stato disconnesso";
@@ -1009,15 +1009,15 @@
 "year-in-review-base-edits-subtitle" = "Quest'anno Wikipedia è stata modificata a una velocità media di $1 volte al minuto. Gli articoli vengono creati e perfezionati in modo collaborativo utilizzando fonti affidabili. Tutti noi abbiamo conoscenze da condividere: [impariamo a metterle a disposizione]($2).";
 "year-in-review-base-edits-title" = "Wikipedia è stata modificata $1 volte al minuto";
 "year-in-review-base-reading-subtitle" = "Wikipedia ha avuto più di $1 milione di voci in oltre $2 lingue attive. Ti sei unito a milioni di persone nell'espansione della conoscenza e nell'approfondimento di argomenti diversi.";
-"year-in-review-base-reading-title" = "Wikipedia era disponibile in più di 300 lingue";
-"year-in-review-base-viewed-subtitle" = "Gli utenti dell'app iOS hanno visualizzato articoli di Wikipedia $1 miliardi di volte. Wikipedia è la prima tappa per le persone di tutto il mondo quando si ha una domanda, quando si cercano informazioni per lo studio o il lavoro oppure quando si scopre un fatto nuovo.";
-"year-in-review-base-viewed-title" = "Abbiamo visto voci di Wikipedia $1 miliardi di volte";
+"year-in-review-base-reading-title" = "Wikipedia è stata disponibile in più di 300 lingue";
+"year-in-review-base-viewed-subtitle" = "Gli utenti dell'app iOS hanno visualizzato gli articoli di Wikipedia 1,5 miliardi di volte. Per le persone di tutto il mondo, Wikipedia è il punto di riferimento quando si risponde a una domanda, si cercano informazioni per scuola o lavoro o per imparare un nuovo fatto.";
+"year-in-review-base-viewed-title" = "Abbiamo visualizzato gli articoli di Wikipedia 1,5 miliardi di volte";
 "year-in-review-button-title" = "Rassegna annuale";
 "year-in-review-collective-zero-ads" = "Logo di Wikimedia";
 "year-in-review-donate" = "Dona";
 "year-in-review-donate-now" = "Dona ora";
-"year-in-review-feature-announcement-body" = "Scopri di più sulle voci che abbiamo letto e modificato, e condividi i momenti salienti del nostro anno su Wikipedia.";
-"year-in-review-feature-announcement-title" = "Esplora la rassegna di Wikipedia";
+"year-in-review-feature-announcement-body" = "Guarda informazioni utili su quali articoli abbiamo letto e modificato, e condividi i momenti salienti del nostro anno su Wikipedia.";
+"year-in-review-feature-announcement-title" = "Esplora Wikipedia in Rassegna";
 "year-in-review-feature-explore-body-personalized" = "Visualizza approfondimenti sugli articoli che leggi sull'app Wikipedia e sulle modifiche apportate. La cronologia delle tue letture rimane protetta. Gli approfondimenti sulle letture vengono determinati utilizzando i dati archiviati localmente sul tuo dispositivo.";
 "year-in-review-finish" = "Termina";
 "year-in-review-personalized-donate-subtitle" = "Grazie per aver investito nel futuro della conoscenza libera. Quest'anno, la Wikimedia Foundation ha migliorato la tecnologia per servire meglio ogni lettore e volontario, ha sviluppato strumenti che potenziano la collaborazione e ha supportato Wikipedia in più lingue. [Scopri di più sul nostro lavoro]($1).";
@@ -1041,3 +1041,6 @@
 "year-in-review-survey-very-unsatisfied" = "Molto insoddisfatto";
 "year-in-review-wikipedia-w-accessibility-label" = "Logo W di Wikipedia";
 "year-in-review-wmf-logo-accessibility-label" = "Logo della Wikimedia Foundation";
+"year-in-review-feature-explore-body" = "Wikipedia è la più grande risorsa di conoscenza mai raccolta nella storia mondiale, ed è disponibile gratuitamente a tutti ovunque. Guarda il 2024 passato tramite le lenti di Wikipedia.";
+"welcome-explore-continue-button" = "Comincia";
+ "year-in-review-base-saved-title" = "Abbiamo avuto più di 31,6 milioni di liste di lettura";

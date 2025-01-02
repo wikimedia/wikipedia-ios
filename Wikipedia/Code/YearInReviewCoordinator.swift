@@ -218,24 +218,6 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
     }
     
     // MARK: - English Slide Strings
-    var englishExploreSlideTitle: String {
-        let format = WMFLocalizedString(
-            "microsite-yir-english-explore-slide",
-            value: "Explore Wikipedia in Review",
-            comment: "Explore slide title for English Year in Review."
-        )
-        return String.localizedStringWithFormat(format)
-    }
-
-    var englishExploreSlideSubtitle: String {
-        let format = WMFLocalizedString(
-            "microsite-yir-english-explore-slide-subtitle",
-            value: "Wikipedia is the largest knowledge resource ever assembled in the history of the world, and it’s freely available to everyone everywhere. Look back on 2024 through the lens of Wikipedia.",
-            comment: "Explore slide subtitle for English Year in Review."
-        )
-        return String.localizedStringWithFormat(format)
-    }
-
     var englishReadingSlideTitle: String {
         let format = WMFLocalizedString(
             "microsite-yir-english-reading-slide-title",

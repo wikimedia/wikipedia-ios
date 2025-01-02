@@ -1456,8 +1456,7 @@
 "year-in-review-donate" = "捐款";
 // Fuzzy
 "year-in-review-feature-announcement-body" = "查看有關您在維基百科應用程式上閱讀條目的見解，分享您的旅程，並發現您這一年的精彩事項。";
-// Fuzzy
-"year-in-review-feature-announcement-title" = "探索您的維基百科年度回顧";
+"year-in-review-feature-announcement-title" = "探索 Wikipedia 年度回顧";
 // Fuzzy
 "year-in-review-feature-explore-body-personalized" = "查看您在維基百科應用程式上閱讀過的條目，以及您所做過編輯的見解。分享您的旅程，並發現今年對您來說最特別的事情。您的閱讀歷史紀錄會受到保護，閱讀見解是使用在您裝置上本地儲存的資料計算的，。";
 "year-in-review-personalized-editing-subtitle-format" = "您編輯了 {{PLURAL:$1|$1}} 次維基百科。感謝您成為替世界各維基媒體計畫做出貢獻的志工編輯者之一。";
