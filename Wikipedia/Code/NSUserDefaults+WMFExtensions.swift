@@ -35,6 +35,7 @@ let WMFTappedToImportSharedReadingListSurvey = "WMFTappedToImportSharedReadingLi
 public let WMFAlwaysDisplayEditNotices = "WMFAlwaysDisplayEditNotices"
 let WMFSessionBackgroundDate =  "WMFSessionBackgroundDate"
 let WMFSessionStartDate =  "WMFSessionStartDate"
+let WMFYiRSettingsToggleIsEnabled = "WMFYiRSettingsToggleIsEnabled"
 
 @objc public enum WMFAppDefaultTabType: Int {
     case explore
@@ -552,6 +553,18 @@ let WMFSessionStartDate =  "WMFSessionStartDate"
         }
         set {
             set(newValue, forKey: "WMFSessionID")
+        }
+    }
+
+    @objc var wmf_yirSettingToggleIsEnabled: Bool {
+        get {
+            if object(forKey: WMFYiRSettingsToggleIsEnabled) == nil {
+                return true
+            }
+            return bool(forKey: WMFYiRSettingsToggleIsEnabled)
+        }
+        set {
+            set(newValue, forKey: WMFYiRSettingsToggleIsEnabled)
         }
     }
 }
