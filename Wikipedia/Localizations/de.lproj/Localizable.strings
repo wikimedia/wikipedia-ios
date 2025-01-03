@@ -1028,7 +1028,7 @@
 "welcome-exploration-on-this-day-title" = "Heute";
 "welcome-exploration-places-description" = "Entdecke Wahrzeichen in deiner Nähe oder suche nach Orten auf der ganzen Welt";
 "welcome-exploration-places-title" = "Orte-Reiter";
-"welcome-explore-continue-button" = "Anfangen";
+"welcome-explore-continue-button" = "Los geht’s";
 "welcome-explore-new-ways-title" = "Neue Wege zum Entdecken";
 "welcome-explore-tell-me-more-done-button" = "Verstanden";
 "welcome-intro-free-encyclopedia-description" = "Wikipedia wurde kollaborativ von Freiwilligen verfasst und besteht aus mehr als 40 Millionen Artikeln in über 300 Sprachen.";
@@ -1070,3 +1070,9 @@
 "year-in-review-day-wednesday" = "Mittwochs";
 "year-in-review-personalized-day-title-format" = "Du hast am meisten am $1 gelesen.";
 "year-in-review-feature-announcement-title" = "Erkunde Wikipedia im Rückblick";
+"year-in-review-feature-announcement-body" = "Erfahre, welche Artikel wir gelesen und bearbeitet haben, und teile die Höhepunkte unseres Jahres auf Wikipedia.";
+"continue-button-title" = "Fortfahren";
+"year-in-review-feature-explore-body" = "Wikipedia ist die größte Wissensressource aller Zeiten – und sie ist für jeden frei zugänglich. Blicke durch die Linse von Wikipedia auf das Jahr 2024 zurück.";
+"learn-more-title" = "Mehr erfahren";
+"year-in-review-donate" = "Spenden";
+"year-in-review-base-reading-title" = "Wikipedia war in über $1 Sprachen verfügbar";
