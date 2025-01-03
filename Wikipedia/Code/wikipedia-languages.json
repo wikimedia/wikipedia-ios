@@ -12,7 +12,7 @@
   {
     "languageCode" : "ace",
     "languageName" : "Acèh",
-    "localName" : "Achinese"
+    "localName" : "Acehnese"
   },
   {
     "languageCode" : "ady",
@@ -53,6 +53,11 @@
     "languageCode" : "ang",
     "languageName" : "Ænglisc",
     "localName" : "Old English"
+  },
+  {
+    "languageCode" : "ann",
+    "languageName" : "Obolo",
+    "localName" : "Obolo"
   },
   {
     "languageCode" : "anp",
@@ -145,9 +150,19 @@
     "localName" : "Samogitian"
   },
   {
+    "languageCode" : "bbc",
+    "languageName" : "Batak Toba",
+    "localName" : "Batak Toba"
+  },
+  {
     "languageCode" : "bcl",
     "languageName" : "Bikol Central",
     "localName" : "Central Bikol"
+  },
+  {
+    "languageCode" : "bdr",
+    "languageName" : "Bajau Sama",
+    "localName" : "West Coast Bajau"
   },
   {
     "languageCode" : "be",
@@ -163,6 +178,11 @@
     "languageCode" : "be-x-old",
     "languageName" : "беларуская (тарашкевіца)",
     "localName" : "Belarusian (Taraškievica orthography)"
+  },
+  {
+    "languageCode" : "bew",
+    "languageName" : "Betawi",
+    "localName" : "Betawi"
   },
   {
     "languageCode" : "bg",
@@ -220,8 +240,13 @@
     "localName" : "Bosnian"
   },
   {
+    "languageCode" : "btm",
+    "languageName" : "Batak Mandailing",
+    "localName" : "Batak Mandailing"
+  },
+  {
     "languageCode" : "bug",
-    "languageName" : "ᨅᨔ ᨕᨘᨁᨗ",
+    "languageName" : "Basa Ugi",
     "localName" : "Buginese"
   },
   {
@@ -242,7 +267,7 @@
   {
     "languageCode" : "cdo",
     "languageName" : "閩東語 \/ Mìng-dĕ̤ng-ngṳ̄",
-    "localName" : "Min Dong Chinese"
+    "localName" : "Mindong"
   },
   {
     "languageCode" : "ce",
@@ -335,6 +360,11 @@
     "localName" : "German"
   },
   {
+    "languageCode" : "dga",
+    "languageName" : "Dagaare",
+    "localName" : "Dagaare"
+  },
+  {
     "languageCode" : "din",
     "languageName" : "Thuɔŋjäŋ",
     "localName" : "Dinka"
@@ -348,6 +378,11 @@
     "languageCode" : "dsb",
     "languageName" : "dolnoserbski",
     "localName" : "Lower Sorbian"
+  },
+  {
+    "languageCode" : "dtp",
+    "languageName" : "Kadazandusun",
+    "localName" : "Central Dusun"
   },
   {
     "languageCode" : "dty",
@@ -445,6 +480,11 @@
     "localName" : "Faroese"
   },
   {
+    "languageCode" : "fon",
+    "languageName" : "fɔ̀ngbè",
+    "localName" : "Fon"
+  },
+  {
     "languageCode" : "fr",
     "languageName" : "français",
     "localName" : "French"
@@ -482,7 +522,7 @@
   {
     "languageCode" : "gan",
     "languageName" : "贛語",
-    "localName" : "Gan Chinese"
+    "localName" : "Gan"
   },
   {
     "languageCode" : "gcr",
@@ -525,6 +565,16 @@
     "localName" : "Gothic"
   },
   {
+    "languageCode" : "gpe",
+    "languageName" : "Ghanaian Pidgin",
+    "localName" : "Ghanaian Pidgin"
+  },
+  {
+    "languageCode" : "gsw",
+    "languageName" : "Alemannisch",
+    "localName" : "Alemannic"
+  },
+  {
     "languageCode" : "gu",
     "languageName" : "ગુજરાતી",
     "localName" : "Gujarati"
@@ -556,7 +606,7 @@
   },
   {
     "languageCode" : "hak",
-    "languageName" : "客家語\/Hak-kâ-ngî",
+    "languageName" : "客家語 \/ Hak-kâ-ngî",
     "localName" : "Hakka Chinese"
   },
   {
@@ -625,6 +675,11 @@
     "localName" : "Interlingua"
   },
   {
+    "languageCode" : "iba",
+    "languageName" : "Jaku Iban",
+    "localName" : "Iban"
+  },
+  {
     "languageCode" : "id",
     "languageName" : "Bahasa Indonesia",
     "localName" : "Indonesian"
@@ -638,6 +693,11 @@
     "languageCode" : "ig",
     "languageName" : "Igbo",
     "localName" : "Igbo"
+  },
+  {
+    "languageCode" : "igl",
+    "languageName" : "Igala",
+    "localName" : "Igala"
   },
   {
     "languageCode" : "ii",
@@ -735,6 +795,11 @@
     "localName" : "Kongo"
   },
   {
+    "languageCode" : "kge",
+    "languageName" : "Kumoring",
+    "localName" : "Komering"
+  },
+  {
     "languageCode" : "ki",
     "languageName" : "Gĩkũyũ",
     "localName" : "Kikuyu"
@@ -798,6 +863,11 @@
     "languageCode" : "ku",
     "languageName" : "kurdî",
     "localName" : "Kurdish"
+  },
+  {
+    "languageCode" : "kus",
+    "languageName" : "Kʋsaal",
+    "localName" : "Kusaal"
   },
   {
     "languageCode" : "kv",
@@ -900,6 +970,11 @@
     "localName" : "Latvian"
   },
   {
+    "languageCode" : "lzh",
+    "languageName" : "文言",
+    "localName" : "Literary Chinese"
+  },
+  {
     "languageCode" : "mad",
     "languageName" : "Madhurâ",
     "localName" : "Madurese"
@@ -912,7 +987,7 @@
   {
     "languageCode" : "map-bms",
     "languageName" : "Basa Banyumasan",
-    "localName" : "Basa Banyumasan"
+    "localName" : "Banyumasan"
   },
   {
     "languageCode" : "mdf",
@@ -966,13 +1041,18 @@
   },
   {
     "languageCode" : "mnw",
-    "languageName" : "ဘာသာ မန်",
+    "languageName" : "ဘာသာမန်",
     "localName" : "Mon"
   },
   {
     "languageCode" : "mo",
     "languageName" : "молдовеняскэ",
     "localName" : "Moldovan"
+  },
+  {
+    "languageCode" : "mos",
+    "languageName" : "moore",
+    "localName" : "Mossi"
   },
   {
     "languageCode" : "mr",
@@ -1027,7 +1107,12 @@
   {
     "languageCode" : "nah",
     "languageName" : "Nāhuatl",
-    "localName" : "Nāhuatl"
+    "localName" : "Nahuatl"
+  },
+  {
+    "languageCode" : "nan",
+    "languageName" : "閩南語 \/ Bân-lâm-gú",
+    "localName" : "Minnan"
   },
   {
     "languageCode" : "nap",
@@ -1089,6 +1174,11 @@
     "languageCode" : "nqo",
     "languageName" : "ߒߞߏ",
     "localName" : "N’Ko"
+  },
+  {
+    "languageCode" : "nr",
+    "languageName" : "isiNdebele seSewula",
+    "localName" : "South Ndebele"
   },
   {
     "languageCode" : "nrm",
@@ -1256,6 +1346,11 @@
     "localName" : "Tarantino"
   },
   {
+    "languageCode" : "rsk",
+    "languageName" : "руски",
+    "localName" : "Pannonian Rusyn"
+  },
+  {
     "languageCode" : "ru",
     "languageName" : "русский",
     "localName" : "Russian"
@@ -1264,6 +1359,11 @@
     "languageCode" : "rue",
     "languageName" : "русиньскый",
     "localName" : "Rusyn"
+  },
+  {
+    "languageCode" : "rup",
+    "languageName" : "armãneashti",
+    "localName" : "Aromanian"
   },
   {
     "languageCode" : "rw",
@@ -1314,6 +1414,11 @@
     "languageCode" : "sg",
     "languageName" : "Sängö",
     "localName" : "Sango"
+  },
+  {
+    "languageCode" : "sgs",
+    "languageName" : "žemaitėška",
+    "localName" : "Samogitian"
   },
   {
     "languageCode" : "sh",
@@ -1451,6 +1556,11 @@
     "localName" : "Tulu"
   },
   {
+    "languageCode" : "tdd",
+    "languageName" : "ᥖᥭᥰ ᥖᥬᥲ ᥑᥨᥒᥰ",
+    "localName" : "Tai Nuea"
+  },
+  {
     "languageCode" : "te",
     "languageName" : "తెలుగు",
     "localName" : "Telugu"
@@ -1461,9 +1571,9 @@
     "localName" : "Test"
   },
   {
-      "languageCode" : "test2",
-      "languageName" : "Test 2",
-      "localName" : "Test 2"
+    "languageCode" : "test2",
+    "languageName" : "Test 2",
+    "localName" : "Test 2"
   },
   {
     "languageCode" : "tet",
@@ -1494,6 +1604,11 @@
     "languageCode" : "tl",
     "languageName" : "Tagalog",
     "localName" : "Tagalog"
+  },
+  {
+    "languageCode" : "tly",
+    "languageName" : "tolışi",
+    "localName" : "Talysh"
   },
   {
     "languageCode" : "tn",
@@ -1606,6 +1721,11 @@
     "localName" : "Volapük"
   },
   {
+    "languageCode" : "vro",
+    "languageName" : "võro",
+    "localName" : "Võro"
+  },
+  {
     "languageCode" : "wa",
     "languageName" : "walon",
     "localName" : "Walloon"
@@ -1623,7 +1743,7 @@
   {
     "languageCode" : "wuu",
     "languageName" : "吴语",
-    "localName" : "Wu Chinese"
+    "localName" : "Wu"
   },
   {
     "languageCode" : "xal",
@@ -1666,6 +1786,11 @@
     "localName" : "Zeelandic"
   },
   {
+    "languageCode" : "zgh",
+    "languageName" : "ⵜⴰⵎⴰⵣⵉⵖⵜ ⵜⴰⵏⴰⵡⴰⵢⵜ",
+    "localName" : "Standard Moroccan Tamazight"
+  },
+  {
     "languageCode" : "zh",
     "languageName" : "中文",
     "localName" : "Chinese"
@@ -1673,12 +1798,12 @@
   {
     "languageCode" : "zh-classical",
     "languageName" : "文言",
-    "localName" : "Classical Chinese"
+    "localName" : "Literary Chinese"
   },
   {
     "languageCode" : "zh-min-nan",
     "languageName" : "Bân-lâm-gú",
-    "localName" : "Chinese (Min Nan)"
+    "localName" : "Minnan"
   },
   {
     "languageCode" : "zh-yue",

@@ -7,10 +7,6 @@
     "DATOTEKA" : 6,
     "FILE" : 6,
     "FILE TALK" : 7,
-    "GADGET" : 2300,
-    "GADGET DEFINITION" : 2302,
-    "GADGET DEFINITION TALK" : 2303,
-    "GADGET TALK" : 2301,
     "HELP" : 12,
     "HELP TALK" : 13,
     "IMAGE" : 6,
@@ -41,14 +37,13 @@
     "RAZGOVOR O MODULU" : 829,
     "RAZGOVOR O POMOĆI" : 13,
     "RAZGOVOR O PORTALU" : 101,
-    "RAZGOVOR O ŠABLONU" : 11,
     "RAZGOVOR O WIKIPEDIJI" : 5,
+    "RAZGOVOR O ŠABLONU" : 11,
     "RAZGOVOR S KORISNIKOM" : 3,
     "RAZGOVOR S WIKIPEDIJOM" : 5,
     "RAZGOVOR S WIKIPEDIOM" : 5,
     "RAZGOVOR SA KORISNIKOM" : 3,
     "RAZGOVOR WIKIPEDIJOM" : 5,
-    "ŠABLON" : 10,
     "SLIKA" : 6,
     "SPECIAL" : -1,
     "TALK" : 1,
@@ -61,6 +56,7 @@
     "USER TALK" : 3,
     "WIKIPEDIA" : 4,
     "WIKIPEDIA TALK" : 5,
-    "WP" : 4
+    "WP" : 4,
+    "ŠABLON" : 10
   }
 }

@@ -1,5 +1,5 @@
 {
-  "mainpage" : "MAIN PAGE",
+  "mainpage" : "TSEBE YA KONOKONO",
   "namespace" : {
     "" : 0,
     "CATEGORY" : 14,
@@ -7,10 +7,6 @@
     "FAPHEGILENG" : -1,
     "FILE" : 6,
     "FILE TALK" : 7,
-    "GADGET" : 2300,
-    "GADGET DEFINITION" : 2302,
-    "GADGET DEFINITION TALK" : 2303,
-    "GADGET TALK" : 2301,
     "HELP" : 12,
     "HELP TALK" : 13,
     "IMAGE" : 6,

@@ -1,0 +1,160 @@
+[
+  {
+    "aliases" : [
+      "алт=$1",
+      "alt=$1"
+    ],
+    "name" : "img_alt"
+  },
+  {
+    "aliases" : [
+      "основа",
+      "baseline"
+    ],
+    "name" : "img_baseline"
+  },
+  {
+    "aliases" : [
+      "ивица",
+      "оивичено",
+      "border"
+    ],
+    "name" : "img_border"
+  },
+  {
+    "aliases" : [
+      "дно",
+      "bottom"
+    ],
+    "name" : "img_bottom"
+  },
+  {
+    "aliases" : [
+      "центар",
+      "ц",
+      "c",
+      "center",
+      "centre"
+    ],
+    "name" : "img_center"
+  },
+  {
+    "aliases" : [
+      "оквир",
+      "рам",
+      "framed",
+      "enframed",
+      "frame"
+    ],
+    "name" : "img_framed"
+  },
+  {
+    "aliases" : [
+      "безоквира",
+      "без_оквира",
+      "безрама",
+      "без_рама",
+      "frameless"
+    ],
+    "name" : "img_frameless"
+  },
+  {
+    "aliases" : [
+      "лево",
+      "лијево",
+      "л",
+      "left"
+    ],
+    "name" : "img_left"
+  },
+  {
+    "aliases" : [
+      "средина",
+      "middle"
+    ],
+    "name" : "img_middle"
+  },
+  {
+    "aliases" : [
+      "без",
+      "н",
+      "none"
+    ],
+    "name" : "img_none"
+  },
+  {
+    "aliases" : [
+      "десно",
+      "д",
+      "right"
+    ],
+    "name" : "img_right"
+  },
+  {
+    "aliases" : [
+      "под",
+      "sub"
+    ],
+    "name" : "img_sub"
+  },
+  {
+    "aliases" : [
+      "супер",
+      "super",
+      "sup"
+    ],
+    "name" : "img_super"
+  },
+  {
+    "aliases" : [
+      "срединатекста",
+      "средина_текста",
+      "text-bottom"
+    ],
+    "name" : "img_text_bottom"
+  },
+  {
+    "aliases" : [
+      "врхтекста",
+      "врх_текста",
+      "text-top"
+    ],
+    "name" : "img_text_top"
+  },
+  {
+    "aliases" : [
+      "мини",
+      "умањено",
+      "thumbnail",
+      "thumb"
+    ],
+    "name" : "img_thumbnail"
+  },
+  {
+    "aliases" : [
+      "врх",
+      "top"
+    ],
+    "name" : "img_top"
+  },
+  {
+    "aliases" : [
+      "усправно",
+      "усправно=$1",
+      "усправно_$1",
+      "upright",
+      "upright=$1",
+      "upright $1"
+    ],
+    "name" : "img_upright"
+  },
+  {
+    "aliases" : [
+      "Файл",
+      "Image",
+      "Слика",
+      "Фотографија"
+    ],
+    "name" : "file_namespace"
+  }
+]

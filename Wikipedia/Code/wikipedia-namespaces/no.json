@@ -1,5 +1,5 @@
 {
-  "mainpage" : "PORTAL:FORSIDE",
+  "mainpage" : "FORSIDE",
   "namespace" : {
     "" : 0,
     "BILDE" : 6,
@@ -13,10 +13,6 @@
     "FILDISKUSJON" : 7,
     "FILE" : 6,
     "FILE TALK" : 7,
-    "GADGET" : 2300,
-    "GADGET DEFINITION" : 2302,
-    "GADGET DEFINITION TALK" : 2303,
-    "GADGET TALK" : 2301,
     "HELP" : 12,
     "HELP TALK" : 13,
     "HJELP" : 12,
