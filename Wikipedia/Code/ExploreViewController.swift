@@ -1120,9 +1120,9 @@ extension ExploreViewController {
         let viewModel = WMFFeatureAnnouncementViewModel(title: title, body: body, primaryButtonTitle: primaryButtonTitle, image: image, backgroundImage: backgroundImage, gifName: gifName, altText: altText, primaryButtonAction: { [weak self] in
             guard let self else { return }
             yirCoordinator?.start()
-            DonateFunnel.shared.logYearInReviewFeatureAnnouncementDidTapContinue()
+            DonateFunnel.shared.logYearInReviewFeatureAnnouncementDidTapContinue(isEntryA: !dataStore.authenticationManager.authStateIsPermanent)
         }, closeButtonAction: {
-            DonateFunnel.shared.logYearInReviewFeatureAnnouncementDidTapClose()
+            DonateFunnel.shared.logYearInReviewFeatureAnnouncementDidTapClose(isEntryA: !self.dataStore.authenticationManager.authStateIsPermanent)
         })
 
         if  navigationBar.superview != nil {
@@ -1130,7 +1130,7 @@ extension ExploreViewController {
             let yOrigin = view.safeAreaInsets.top + navigationBar.barTopSpacing + 15
             let sourceRect = CGRect(x:  xOrigin, y: yOrigin, width: 25, height: 25)
             announceFeature(viewModel: viewModel, sourceView: self.view, sourceRect: sourceRect)
-            DonateFunnel.shared.logYearInReviewFeatureAnnouncementDidAppear()
+            DonateFunnel.shared.logYearInReviewFeatureAnnouncementDidAppear(isEntryA: !dataStore.authenticationManager.authStateIsPermanent)
         }
 
         yirDataController.hasPresentedYiRFeatureAnnouncementModel = true

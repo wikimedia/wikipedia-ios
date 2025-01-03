@@ -104,9 +104,9 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
             collectiveLanguagesAccessibilityLabel: WMFLocalizedString("year-in-review-collective-languages", value: "An animated illustration of a stone engraved with inscriptions representing various languages, symbolizing how Wikipedia collaboratively builds knowledge from diverse cultures and regions.", comment: "Accessibility description for the collective languages slide."),
             collectiveArticleViewsAccessibilityLabel: WMFLocalizedString("year-in-review-collective-article-views", value: "An animated illustration of a computer screen with a web browser open, actively navigating through a Wikipedia article.", comment: "Accessibility description for the collective article views slide."),
             collectiveSavedArticlesAccessibilityLabel: WMFLocalizedString("year-in-review-collective-saved-articles", value: "A puzzle globe featuring Wikipedia's logo, representing global collaboration.", comment: "Accessibility description for the collective saved articles slide."),
-            collectiveAmountEditsAccessibilityLabel: WMFLocalizedString("year-in-review-collective-edits", value: " A graph An illustration of two Wikipedia puzzle pieces, each carrying a piece of information.", comment: "Accessibility description for the collective edits slide."),
+            collectiveAmountEditsAccessibilityLabel: WMFLocalizedString("year-in-review-collective-edits", value: "An illustration of two Wikipedia puzzle pieces, each carrying a piece of information.", comment: "Accessibility description for the collective edits slide."),
             englishEditsAccessibilityLabel: WMFLocalizedString("year-in-review-english-edits", value: "A graph showing the top 10 most edited Wikipedia language editions in 2024: English with over 31 million edits, German with 5,508,570 edits, French with 5,276,385 edits, Spanish with 4,786,205 edits, Russian with 3,303,066 edits, Italian with 3,200,398 edits, Japanese with 2,973,657 edits, Chinese with 2,505,032 edits, Polish with 1,383,808 edits, and Ukrainian with 1,376,980 edits. The total number of edits across all Wikipedia editions in 2024 is 81,987,181.", comment: "Accessibility description for the collective edits slide."),
-            collectiveEditsPerMinuteAccessibilityLabel: WMFLocalizedString("year-in-review-collective-edits-per-minute", value: " clock ticking, symbolizing the time spent by people reading Wikipedia.", comment: "Accessibility description for the collective edits per minute slide."),
+            collectiveEditsPerMinuteAccessibilityLabel: WMFLocalizedString("year-in-review-collective-edits-per-minute", value: "A clock ticking, symbolizing the time spent by people reading Wikipedia.", comment: "Accessibility description for the collective edits per minute slide."),
             collectiveZeroAdsAccessibilityLabel: WMFLocalizedString("year-in-review-collective-zero-ads", value: "Wikimedia logo", comment: "Accessibility description for the collective zero ads slide.")
         )
     }
@@ -655,7 +655,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
                             title: personalizedSaveCountSlideTitle(saveCount: count),
                             informationBubbleText: nil,
                             subtitle: personalizedSaveCountSlideSubtitle(saveCount: count, articleNames: savedSlideData.articleTitles),
-                            loggingID: "saved_count_custom",
+                            loggingID: "save_count_custom",
                             infoURL: aboutYIRURL,
                             hideDonateButton: false)
                     }
@@ -672,7 +672,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
                             title: personalizedDaySlideTitle(day: mostReadDay.getDay()),
                             informationBubbleText: nil,
                             subtitle: personalizedDaySlideSubtitle(day: mostReadDay.getDay()),
-                            loggingID: "most_read_day_custom",
+                            loggingID: "read_day_custom",
                             infoURL: aboutYIRURL,
                             hideDonateButton: shoudlHideDonateButton())
                     }
@@ -689,7 +689,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
                             title: personalizedYourEditsViewedSlideTitle(views: viewCount),
                             informationBubbleText: nil,
                             subtitle: personalizedYourEditsViewedSlideSubtitle(views: viewCount),
-                            loggingID: "view_count_custom",
+                            loggingID: "edit_view_count_custom",
                             infoURL: aboutYIRURL,
                             hideDonateButton: shoudlHideDonateButton())
                     }
@@ -727,7 +727,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
             title: collectiveSavedArticlesSlideTitle,
             informationBubbleText: nil,
             subtitle: collectiveSavedArticlesSlideSubtitle,
-            loggingID: "saved_count_base",
+            loggingID: "list_count_base",
             infoURL: aboutYIRURL,
             hideDonateButton: shoudlHideDonateButton())
 
@@ -769,7 +769,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
             title: englishReadingSlideTitle,
             informationBubbleText: nil,
             subtitle: englishReadingSlideSubtitle,
-            loggingID: "english_reading",
+            loggingID: "en_read_hours_base",
             infoURL: aboutYIRURL,
             hideDonateButton: shoudlHideDonateButton())
         
@@ -780,7 +780,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
             informationBubbleText: nil,
             subtitle: englishTopReadSlideSubtitle,
             isSubtitleAttributedString: true,
-            loggingID: "english_top_read",
+            loggingID: "en_most_visit_base",
             infoURL: aboutYIRURL,
             hideDonateButton: shoudlHideDonateButton())
         
@@ -790,7 +790,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
             title: englishSavedReadingSlideTitle,
             informationBubbleText: nil,
             subtitle: englishSavedReadingSlideSubtitle,
-            loggingID: "english_reading_list",
+            loggingID: "en_list_count_base",
             infoURL: aboutYIRURL,
             hideDonateButton: shoudlHideDonateButton())
         
@@ -800,7 +800,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
             title: englishEditsSlideTitle,
             informationBubbleText: nil,
             subtitle: englishEditsSlideSubtitle,
-            loggingID: "english_edits",
+            loggingID: "en_edit_count_base",
             infoURL: aboutYIRURL,
             hideDonateButton: shoudlHideDonateButton())
         
@@ -810,7 +810,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
             title: englishEditsBytesSlideTitle,
             informationBubbleText: nil,
             subtitle: englishEditsBytesSlideSubtitle,
-            loggingID: "english_bytes_edits",
+            loggingID: "en_byte_base",
             infoURL: aboutYIRURL,
             hideDonateButton: shoudlHideDonateButton())
         
@@ -990,7 +990,7 @@ extension YearInReviewCoordinator: WMFYearInReviewLoggingDelegate {
     }
 
     func logYearInReviewIntroDidTapLearnMore() {
-        DonateFunnel.shared.logYearInReviewDidTapIntroLearnMore()
+        DonateFunnel.shared.logYearInReviewDidTapIntroLearnMore(isEntryC: dataStore.authenticationManager.authStateIsPermanent)
     }
 
     func logYearInReviewDonateDidTapLearnMore(slideLoggingID: String) {
