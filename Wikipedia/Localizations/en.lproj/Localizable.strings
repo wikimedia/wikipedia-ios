@@ -976,7 +976,7 @@
 "profile-button-badge-accessibility-label" = "Profile with unread badge";
 "profile-page-donate-subtext" = "Or support Wikipedia with a donation to keep it free and accessible for everyone around the world.";
 "profile-page-join-subtext" = "Sign up for a Wikipedia account to track your contributions, save articles offline, and sync across devices.";
-"profile-page-join-title" = "Join Wikipedia / Log in";
+"profile-page-join-title" = "Log in / Join Wikipedia";
 "profile-page-logged-out-year-in-review-subtext" = "Log in or create an account to get an improved year in review next year";
 "profile-page-title-logged-out" = "Account";
 "profile-year-in-review-login-subtitle" = "Log in or create an account to see Year in Review again and be eligible for more personalized insights.";
@@ -1412,7 +1412,7 @@
 "wikitext-upload-save-terms-name" = "Terms of Use";
 "year-in-review-base-donate-subtitle" = "With your help, the Wikimedia Foundation—the nonprofit behind Wikipedia—will continue to ensure that the information you rely on is ad-free and trustworthy, while keeping Wikipedia running smoothly with cutting-edge tools and technologies. Please consider making a donation today. [Learn more about our work]($1).";
 "year-in-review-base-donate-title" = "0 ads served on Wikipedia";
-"year-in-review-base-editors-subtitle" = "Volunteers made 81,987,181 changes across over 300 different language editions of Wikipedia. Over 31.2 million changes were made on English Wikipedia. Every hour of every day, volunteers are working to improve Wikipedia.";
+"year-in-review-base-editors-subtitle" = "Wikipedia's community of volunteer editors made more than 452,257 edits on the iOS app so far this year. The heart and soul of Wikipedia is our global community of volunteer contributors, donors, and billions of readers like yourself – all united to share unlimited access to reliable information.";
 "year-in-review-base-editors-title" = "Editors on the iOS app made more than $1 edits";
 "year-in-review-base-edits-subtitle" = "This year, Wikipedia was edited at an average rate of $1 times per minute. Articles are collaboratively created and improved using reliable sources. All of us have knowledge to share, [learn how to participate]($2).";
 "year-in-review-base-edits-title" = "Wikipedia was edited $1 times per minute";

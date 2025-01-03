@@ -181,7 +181,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
     }
 
     var collectiveAmountEditsSlideSubtitle: String {
-        let format = WMFLocalizedString("year-in-review-base-editors-subtitle", value: "Volunteers made 81,987,181 changes across over 300 different language editions of Wikipedia. Over 31.2 million changes were made on English Wikipedia. Every hour of every day, volunteers are working to improve Wikipedia.", comment: "Year in review, collective edits count slide subtitle.")
+        let format = WMFLocalizedString("year-in-review-base-editors-subtitle", value: "Wikipedia's community of volunteer editors made more than 452,257 edits on the iOS app so far this year. The heart and soul of Wikipedia is our global community of volunteer contributors, donors, and billions of readers like yourself – all united to share unlimited access to reliable information.", comment: "Year in review, collective edits count slide subtitle.")
 
         let numEditsString = formatNumber(452257, fractionDigits: 0)
 
