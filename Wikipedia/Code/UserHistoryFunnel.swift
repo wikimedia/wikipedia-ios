@@ -159,15 +159,15 @@ private typealias ContentGroupKindAndLoggingCode = (kind: WMFContentGroupKind, l
         let userDefaults = UserDefaults.standard
         let theme = userDefaults.themeAnalyticsName
         let isFeedDisabled = userDefaults.defaultTabType != .explore
-        let appOpensOnSearchTab = UserDefaults.standard.wmf_openAppOnSearchTab
+        let appOpensOnSearchTab = userDefaults.wmf_openAppOnSearchTab
         let inboxCount = try? dataStore.remoteNotificationsController.numberOfAllNotifications()
-        let fontSize = UserDefaults.standard.wmf_articleFontSizeMultiplier().intValue
+        let fontSize = userDefaults.wmf_articleFontSizeMultiplier().intValue
         let savedArticlesCount = dataStore.savedPageList.numberOfItems()
         let isSyncEnabled = dataStore.readingListsController.isSyncEnabled
         let isDefaultListEnabled = dataStore.readingListsController.isDefaultListEnabled
         let readingListCount = try? dataStore.viewContext.allReadingListsCount()
         let status = authorizationStatus?.getAuthorizationStatusString()
-        let yirEnabled = userDefaults.wmf_yirSettingToggleIsEnabled
+        let yirEnabled = userDefaults.wmf_yirSettingToggleShouldShow ? userDefaults.wmf_yirSettingToggleIsEnabled : nil
 
         let event = Event(measure_readinglist_listcount: savedArticlesCount, measure_readinglist_itemcount: readingListCount, measure_font_size: fontSize, readinglist_sync: isSyncEnabled, readinglist_showdefault: isDefaultListEnabled, theme: theme, feed_disabled: isFeedDisabled, search_tab: appOpensOnSearchTab, feed_enabled_list: getFeedEnabledList(), inbox_count: inboxCount, device_level_enabled: status, test_group: nil, yir_enabled: yirEnabled)
         return event
