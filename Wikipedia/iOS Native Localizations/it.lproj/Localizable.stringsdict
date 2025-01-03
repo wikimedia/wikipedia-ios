@@ -727,22 +727,6 @@
 			<string>%1$d volte</string>
 		</dict>
 	</dict>
-	<key>year-in-review-personalized-reading-subtitle-format</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>Quest'anno hai letto %#@v1@. Wikipedia aveva %2$@ milioni di voci disponibili in oltre %3$@ lingue attive. Ti sei unito a milioni di persone nell'espansione della conoscenza e nell'approfondimento di argomenti diversi.</string>
-		<key>v1</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
-			<key>one</key>
-			<string>%1$d voce</string>
-			<key>other</key>
-			<string>%1$d voci</string>
-		</dict>
-	</dict>
 	<key>year-in-review-personalized-reading-title-format</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -754,9 +738,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>%1$d voce</string>
+			<string>%1$d articol</string>
 			<key>other</key>
-			<string>%1$d voci</string>
+			<string>%1$d articoli</string>
 		</dict>
 	</dict>
 	<key>year-in-review-personalized-saved-title-format</key>
@@ -770,9 +754,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>%1$d voce</string>
+			<string>%1$d articol</string>
 			<key>other</key>
-			<string>%1$d voci</string>
+			<string>%1$d articoli</string>
 		</dict>
 	</dict>
 </dict>
