@@ -968,7 +968,7 @@ extension YearInReviewCoordinator: WMFYearInReviewLoggingDelegate {
     }
 
     func logYearInReviewIntroDidTapContinue() {
-        DonateFunnel.shared.logYearInReviewDidTapIntroContinue()
+        DonateFunnel.shared.logYearInReviewDidTapIntroContinue(isEntryC: dataStore.authenticationManager.authStateIsPermanent)
     }
 
     func logYearInReviewIntroDidTapLearnMore() {

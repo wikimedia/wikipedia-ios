@@ -313,8 +313,8 @@ import WMF
     
     // MARK: - Year In Review
     
-    func logProfileDidTapYearInReview(isAnon: Bool) {
-        logEvent(activeInterface: .wikiYiR, action: .startClick, actionData: ["slide": "entry_b_profile", "is_anon": isAnon.description])
+    func logProfileDidTapYearInReview() {
+        logEvent(activeInterface: .wikiYiR, action: .startClick, actionData: ["slide": "entry_b_profile")
     }
     
     func logYearInReviewSlideImpression(slideLoggingID: String) {
@@ -325,8 +325,8 @@ import WMF
         logEvent(activeInterface: .wikiYiR, action: .closeClick, actionData: ["slide": slideLoggingID])
     }
     
-    func logYearInReviewDidTapIntroContinue() {
-        logEvent(activeInterface: .wikiYiR, action: .startClick, actionData: ["slide": "start"])
+    func logYearInReviewDidTapIntroContinue(isEntryC: Bool = false) {
+        logEvent(activeInterface: .wikiYiR, action: .startClick, actionData: ["slide": isEntryC ? "start_c" : "start"])
     }
     
     func logYearInReviewDidTapIntroLearnMore(isEntryC: Bool = false) {
@@ -369,7 +369,7 @@ import WMF
     }
     
     func logYearInReviewLoginPromptDidTapNoThanks() {
-        logEvent(activeInterface: .wikiYiR, action: .rejectClick, actionData: ["slide": "entry_b_profile"])
+        logEvent(activeInterface: .wikiYiR, action: .rejectClick, actionData: ["slide": "new_account_engage"])
     }
     
     func logYearInReviewLoginPromptDidTapNoThanksProfile() {
