@@ -118,7 +118,7 @@ public class WMFYearInReviewViewModel: ObservableObject {
     }
 
     func handleShare(for slide: Int) {
-        let view = WMFYearInReviewShareableSlideView(imageName: slides[slide].gifName, altText: slides[slide].altText, slideTitle: slides[slide].title, slideSubtitle: slides[slide].subtitle, hashtag: hashtag)
+        let view = WMFYearInReviewShareableSlideView(imageName: slides[slide].gifName, altText: slides[slide].altText, slideTitle: slides[slide].title, slideSubtitle: slides[slide].subtitle, hashtag: hashtag, isAttributedString: slides[slide].isSubtitleAttributedString ?? false)
         let shareView = view.snapshot()
         coordinatorDelegate?.handleYearInReviewAction(.share(image: shareView))
     }
