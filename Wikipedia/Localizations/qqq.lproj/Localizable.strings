@@ -1419,7 +1419,7 @@
 "year-in-review-base-edits-subtitle" = "Year in review, collective edits per minute slide subtitle, $1 is replaced with the number of edits per minute text, e.g. \"342\". $2 is replaced with a link to the Mediawiki Apps team FAQ about editing.";
 "year-in-review-base-edits-title" = "Year in review, collective edits per minute slide title, $1 is replaced with the number of edits per minute text, e.g. \"342\".";
 "year-in-review-base-reading-subtitle" = "Year in review, collective reading count slide subtitle. $1 is replaced with a formatted number of articles available across Wikipedia, e.g. \"63\". $2 is replaced with the number of active languages available on Wikipedia, e.g. \"300\"";
-"year-in-review-base-reading-title" = "Year in review, collective reading article count slide title, $1 is replaced with the number of languages available on Wikipedia, e.g. \"300\"";
+"year-in-review-base-reading-title" = "Year in review, collective reading article count slide title";
 "year-in-review-base-saved-subtitle" = "Year in review, collective saved articles count slide subtitle";
 "year-in-review-base-saved-title" = "Year in review, collective saved articles count slide title, $1 is replaced with the number of saved articles text, e.g. \"31.6\".";
 "year-in-review-base-viewed-subtitle" = "Year in review, collective article view count subtitle, $1 is replaced with the number of article views text, e.g. \"1.5\"";

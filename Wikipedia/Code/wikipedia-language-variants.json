@@ -8,6 +8,13 @@
             "languageCode": "zh"
         },
         {
+            "languageVariantCode": "zh-Hans-CN",
+            "legacyLanguageVariantCode": "zh-cn",
+            "languageName": "中文（中国大陆）",
+            "localName": "Chinese (China)",
+            "languageCode": "zh"
+        },
+        {
             "languageVariantCode": "zh-Hant-HK",
             "legacyLanguageVariantCode": "zh-hk",
             "languageName": "香港繁體",
