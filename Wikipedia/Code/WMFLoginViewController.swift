@@ -17,6 +17,7 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
     @IBOutlet weak var scrollContainer: UIView!
     
     public var loginSuccessCompletion: (() -> Void)?
+    public var createAccountSuccessCustomDismissBlock: (() -> Void)?
     public var loginDismissedCompletion: (() -> Void)?
 
     private var startDate: Date? // to calculate time elapsed between login start and login success
@@ -269,6 +270,7 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
             return
         }
         createAcctVC.category = category
+        createAcctVC.createAccountSuccessCustomDismissBlock = createAccountSuccessCustomDismissBlock
         createAcctVC.apply(theme: theme)
         LoginFunnel.shared.logCreateAccountAttempt(category: category)
         dismiss(animated: true, completion: {
