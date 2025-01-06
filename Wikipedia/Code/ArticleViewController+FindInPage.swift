@@ -75,6 +75,7 @@ extension ArticleViewController {
         self.findInPage.view?.removeFromSuperview()
         self.view.layoutSubviews()
         self.findInPage.view = nil
+        self.view.becomeFirstResponder()
     }
 
     func resetFindInPage(_ completion: (() -> Void)? = nil) {

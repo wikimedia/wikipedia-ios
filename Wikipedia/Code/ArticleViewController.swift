@@ -474,7 +474,6 @@ class ArticleViewController: ViewController, HintPresenting {
         presentModalsIfNeeded()
     }
     
-    
     /// Catch-all method for deciding what is the best modal to present on top of Article at this point. This method needs careful if-else logic so that we do not present two modals at the same time, which may unexpectedly suppress one.
     private func presentModalsIfNeeded() {
 
