@@ -129,7 +129,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
     // MARK: - Base Slide Strings
     
     var collectiveLanguagesSlideTitle: String {
-        let format = WMFLocalizedString("year-in-review-base-reading-title", value: "Wikipedia was available in more than 300 languages", comment: "Year in review, collective reading article count slide title")
+        let format = WMFLocalizedString("year-in-review-base-reading-title", value: "Wikipedia was available in more than 300 languages", comment: "Year in review, collective reading article count slide title, %1$@ is replaced with the number of languages available on Wikipedia, e.g. \"300\"")
         
         let numLanguagesString = formatNumber(300, fractionDigits: 0)
         return String.localizedStringWithFormat(format, numLanguagesString)
