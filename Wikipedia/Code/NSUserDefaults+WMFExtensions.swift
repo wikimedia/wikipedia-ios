@@ -559,6 +559,9 @@ let WMFYiRSettingsToggleShouldShow = "WMFYiRSettingsToggleShouldShow"
 
     @objc var wmf_yirSettingToggleIsEnabled: Bool {
         get {
+            if object(forKey: WMFYiRSettingsToggleIsEnabled) == nil {
+                return true
+            }
             return bool(forKey: WMFYiRSettingsToggleIsEnabled)
         }
         set {
