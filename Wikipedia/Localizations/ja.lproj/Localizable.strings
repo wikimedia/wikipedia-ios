@@ -1213,9 +1213,7 @@
 "wikitext-upload-save-anonymously-warning" = "編集はあなたのデバイスのIPアドレスと関連付けて記録されます。$1すれば、よりプライバシーが高まります。";
 "wikitext-upload-save-sign-in" = "ログイン";
 "wikitext-upload-save-terms-name" = "利用規約";
-<<<<<<< Updated upstream
 "year-in-review-feature-announcement-title" = "ウィキペディアを振り返って見てみましょう";
-=======
 "year-in-review-feature-announcement-body" = "私達が読んだ記事や編集した記事に関する洞察を見て、ウィキペディアでの一年間のハイライトを共に確認しましょう。";
 "year-in-review-feature-explore-body" = "ウィキペディアは、世界の歴史の中でこれまでに組み立てられた最大の知識源で、誰もがどこからでも自由に利用できます。ウィキペディアのレンズを通して、2024年を振り返ってみましょう。";
 "year-in-review-donate" = "寄付する";

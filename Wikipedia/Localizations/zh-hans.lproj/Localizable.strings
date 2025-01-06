@@ -1479,10 +1479,9 @@
 "year-in-review-base-edits-title" = "维基百科每分钟被编辑 $1 次";
 "year-in-review-base-reading-subtitle" = "今年，维基百科拥有超过 6300 万篇文章，涵盖 300 多种活跃语言。您与数百万人一起拓展知识，探索各种主题。";
 "year-in-review-base-reading-title" = "维基百科提供 300 多种语言版本";
-// Fuzzy
-"year-in-review-base-saved-subtitle" = "今年，活跃的 iOS 应用用户共有超过 3160 万个阅读列表。将文章添加到阅读列表后，您就可以离线访问文章。您还可以登录账户，在不同设备上同步阅读列表。";
+"year-in-review-base-saved-subtitle" = "今年，活跃的 iOS 应用用户共有超过 6220 万个阅读列表。将文章添加到阅读列表后，您就可以离线访问文章。您还可以登录账户，在不同设备上同步阅读列表。";
 "year-in-review-base-saved-title" = "我们有超过 $1 万个阅读列表 ";
-"year-in-review-base-viewed-subtitle" = "iOS 应用用户浏览了维基百科文章 15 亿次。对于全世界的人们来说，维基百科是解答疑问、查找上学或工作所需信息或学习新知识的第一站。";
+"year-in-review-base-viewed-subtitle" = "iOS 应用用户浏览了维基百科文章 18 亿次。对于全世界的人们来说，维基百科是解答疑问、查找上学或工作所需信息或学习新知识的第一站。";
 "year-in-review-base-viewed-title" = "我们浏览了维基百科文章 $1 亿次";
 "year-in-review-button-title" = "年度回顾";
 "year-in-review-day-friday" = "星期五";
