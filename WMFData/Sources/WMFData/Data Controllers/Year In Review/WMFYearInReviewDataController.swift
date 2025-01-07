@@ -159,7 +159,8 @@ import CoreData
         }
         
         // Check persisted year in review report exists.
-        guard let yirReport = try? fetchYearInReviewReport(forYear: Self.targetYear) else {
+        let yirReport = try? fetchYearInReviewReport(forYear: Self.targetYear)
+        guard yirReport != nil else {
             return false
         }
         
