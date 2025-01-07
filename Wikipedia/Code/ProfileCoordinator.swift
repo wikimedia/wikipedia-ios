@@ -201,6 +201,12 @@ final class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegat
                     self.showYearInReview()
                 }
             }
+            
+            loginCoordinator.createAccountSuccessCustomDismissBlock = {
+                self.dismissProfile {
+                    self.showYearInReview()
+                }
+            }
 
             loginCoordinator.start()
         }
