@@ -276,7 +276,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         
         let format = WMFLocalizedString(
             "microsite-yir-english-top-read-slide-subtitle",
-            value: "When people want to learn about our world—the good, bad, weird, and wild alike—they turn to Wikipedia. The top 5 visited articles on English Wikipedia were:\n1. %1$@\n2. %2$@\n3. %3$@\n4. %4$@\n5. %5$@\nRead more in %6$@our dedicated blog post%7$@.",
+            value: "When people want to learn about our world—the good, bad, weird, and wild alike—they turn to Wikipedia. The top 5 visited articles on English Wikipedia were:\n\n1. %1$@\n2. %2$@\n3. %3$@\n4. %4$@\n5. %5$@\nRead more in %6$@our dedicated blog post%7$@.",
             comment: "Top read slide subtitle for English Year in Review. %1$@ %2$@ %3$@ %4$@ %5$@ are replaced with article titles, %6$@ and %7$@ wrap the blog post link."
         )
         
