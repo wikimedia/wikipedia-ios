@@ -1042,7 +1042,7 @@ extension ExploreViewController {
         }
         
         guard let cell = collectionView.cellForItem(at: indexPath),
-        let _ = cell.superview?.convert(cell.frame, to: view) else {
+              cell.superview?.convert(cell.frame, to: view) != nil  else {
             return false
         }
         
@@ -1096,7 +1096,7 @@ extension ExploreViewController {
         }
         
         guard let cell = collectionView.cellForItem(at: indexPath),
-        let _ = cell.superview?.convert(cell.frame, to: view) else {
+            cell.superview?.convert(cell.frame, to: view) != nil else {
             return false
         }
         
