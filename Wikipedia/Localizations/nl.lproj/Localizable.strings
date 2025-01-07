@@ -1010,7 +1010,7 @@
 "profile-page-join-title" = "Inloggen/Lid worden van Wikipedia";
 "profile-page-logged-out-year-in-review-subtext" = "Meld u aan of maak een account aan om volgend jaar een verbeterd jaaroverzicht te krijgen";
 "profile-page-title-logged-out" = "Account";
-"profile-year-in-review-login-subtitle" = "MLog in of maak een account aan om het jaaroverzicht opnieuw te bekijken en in aanmerking te komen voor meer gepersonaliseerde inzichten.";
+"profile-year-in-review-login-subtitle" = "Log in of maak een account aan om het jaaroverzicht opnieuw te bekijken en in aanmerking te komen voor meer gepersonaliseerde inzichten.";
 "profile-year-in-review-login-title" = "Log in voor toegang tot het jaaroverzicht";
 "project-name-mediawiki" = "MediaWiki";
 "project-name-wikibooks" = "Wikibooks";
@@ -1488,7 +1488,7 @@
 "year-in-review-personalized-reading-title-format" = "Je hebt dit jaar $1 artikelen gelezen";
 "year-in-review-personalized-saved-subtitle-format" = "Je hebt $1 artikelen opgeslagen, waaronder $2, $3 en $4. Elk opgeslagen artikel weerspiegelt je interesses en helpt bij het opbouwen van een persoonlijke kennisbank op Wikipedia.";
 "year-in-review-personalized-saved-title-format" = "Je hebt $1 artikelen opgeslagen";
-"year-in-review-share-text" = "Hier is mijn jaaroverzicht voor Wikipedia  Gemaakt met de Wikipedia-iOS=app (https://apps.apple.com/app/wikipedia/id324715238) #WikipediaJaaroverzicht";
+"year-in-review-share-text" = "Hier is mijn jaaroverzicht voor Wikipedia  Gemaakt met de Wikipedia-iOS=app (https://apps.apple.com/app/wikipedia/id324715238) #WikipediaYearInReview";
 "year-in-review-survey-additional-thoughts" = "Nog aanvullende gedachten?";
 "year-in-review-survey-neutral" = "Neutraal";
 "year-in-review-survey-satisfied" = "Tevreden";

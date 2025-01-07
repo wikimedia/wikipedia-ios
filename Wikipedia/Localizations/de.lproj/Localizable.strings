@@ -1115,11 +1115,11 @@
 "year-in-review-personalized-editing-title-format" = "Du hast Wikipedia $1 Mal bearbeitet";
 "year-in-review-personalized-editing-subtitle-format" = "Du hast Wikipedia $1 Mal bearbeitet. Vielen Dank, dass du einer der freiwilligen Editoren bist, die bei Wikimedia-Projekten auf der ganzen Welt etwas bewirken.";
 "year-in-review-personalized-edit-views-title-format" = "Deine Bearbeitungen wurden in letzter Zeit mehr als $1 Mal angesehen";
-"year-in-review-personalized-edit-views-subtitle-format" = "Leser in aller Welt schätzen deine Beiträge. In den letzten 2 Monaten wurden die von dir bearbeiteten Artikel insgesamt xxx Mal aufgerufen. Dank Editoren wie dir ist Wikipedia eine sich ständig verbessernde, faktenbasierte und zuverlässige Wissensquelle für die Welt.";
+"year-in-review-personalized-edit-views-subtitle-format" = "Leser in aller Welt schätzen deine Beiträge. In den letzten 2 Monaten wurden die von dir bearbeiteten Artikel insgesamt $1 Mal aufgerufen. Dank Editoren wie dir ist Wikipedia eine sich ständig verbessernde, faktenbasierte und zuverlässige Wissensquelle für die Welt.";
 "year-in-review-button-title" = "Jahresrückblick";
 "profile-year-in-review-login-title" = "Melde dich an, um auf den Jahresrückblick zuzugreifen";
 "profile-year-in-review-login-subtitle" = "Melde dich an oder erstelle ein Konto, um den Jahresrückblick erneut zu sehen und mehr personalisierte Einblicke zu erhalten.";
 "settings-year-in-review-header" = "Wenn du den Jahresrückblick deaktivierst, werden alle gespeicherten personalisierten Einblicke gelöscht und der Jahresrückblick ausgeblendet.";
-"year-in-review-share-text" = "Hier ist mein Wikipedia-Jahresrückblick. Erstellt mit der Wikipedia-App für iOS (https://apps.apple.com/app/wikipedia/id324715238) #WikipediaJahresrückblick";
+"year-in-review-share-text" = "Hier ist mein Wikipedia-Jahresrückblick. Erstellt mit der Wikipedia-App für iOS (https://apps.apple.com/app/wikipedia/id324715238) #WikipediaYearInReview";
 "return-button-title" = "Zurück";
 
