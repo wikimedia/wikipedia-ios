@@ -2,6 +2,7 @@ import Foundation
 import UIKit
 import CoreData
 
+@preconcurrency
 @objc public class WMFYearInReviewDataController: NSObject {
 
     public let coreDataStore: WMFCoreDataStore
