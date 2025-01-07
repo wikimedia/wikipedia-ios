@@ -21,6 +21,8 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
 
     @IBOutlet fileprivate weak var scrollContainer: UIView!
     
+    public var createAccountSuccessCustomDismissBlock: (() -> Void)?
+    
     // SINGLETONTODO
     let dataStore = MWKDataStore.shared()
     
@@ -227,10 +229,16 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
                 } else {
                     assertionFailure("startDate is nil; startDate is required to calculate timeElapsed")
                 }
-                let presenter = self.presentingViewController
-                self.dismiss(animated: true, completion: {
-                    presenter?.wmf_showEnableReadingListSyncPanel(theme: self.theme, oncePerLogin: true)
-                })
+                
+                if let customDismissBlock = self.createAccountSuccessCustomDismissBlock {
+                    customDismissBlock()
+                } else {
+                    let presenter = self.presentingViewController
+                    self.dismiss(animated: true, completion: {
+                        presenter?.wmf_showEnableReadingListSyncPanel(theme: self.theme, oncePerLogin: true)
+                    })
+                }
+                
             case .failure(let error):
                 self.setViewControllerUserInteraction(enabled: true)
                 self.enableProgressiveButtonIfNecessary()

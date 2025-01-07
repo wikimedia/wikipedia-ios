@@ -868,7 +868,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
 
     private func presentLoginPrompt() {
         let title = WMFLocalizedString("year-in-review-login-title", value: "Improve your Year in Review", comment: "Title of alert that asks user to login. Displayed after they completed the feature for the first time.")
-        let subtitle = WMFLocalizedString("year-in-review-login-subtitle", value: "Login or create an account to be eligible for more personalied insights", comment: "Subtitle of alert that asks user to login. Displayed after they completed the feature for the first time.")
+        let subtitle = WMFLocalizedString("year-in-review-login-subtitle", value: "Login or create an account to be eligible for more personalized insights", comment: "Subtitle of alert that asks user to login. Displayed after they completed the feature for the first time.")
         let button1Title = CommonStrings.joinLoginTitle
         let button2Title = CommonStrings.noThanksTitle
 
