@@ -1249,7 +1249,7 @@
 "year-in-review-feature-announcement-body-personalized" = "あなたがウィキペディアのアプリで読んだ記事についての洞察を確認し、あなたの歩みをシェアし、今年のハイライトを見てみましょう。";
 "year-in-review-feature-explore-body-personalized" = "あなたがウィキペディアのアプリで読んだ記事や行った編集に関する洞察をご覧ください。あなたの閲覧履歴は保護されています。 閲覧に関する洞察は、あなたの端末にローカル保存されているデータを使用して算出されます。";
 "year-in-review-personalized-reading-title-format" = "今年、あなたは$1件の記事を読みました";
-"year-in-review-personalized-reading-subtitle-format" = "今年、あなたは $1 件の記事を読みました。ウィキペディアでは、300以上の言語で6,300万以上の記事が利用可能でした。 あなたは、何百万人もの人々に加わって知識を広げ、多様なトピックを探求しました。";
+"year-in-review-personalized-reading-subtitle-format" = "今年、あなたは$2、$3、$4などを含む$1 件の記事を読みました。 ウィキペディアでは、300以上の言語で6,300万件以上の記事が利用可能でした。 あなたは何百万人もの人々に加わって知識を広げ、多様なトピックを探求しました。";
 "year-in-review-personalized-day-subtitle-format" = "あなたは$1に最も多くの記事を読みました。$1は、明らかにあなたが新しいコンテンツを探求するのに最適な曜日だと言えますね。 読書時間を最大限に活用していただき、ありがとうございます！";
 "year-in-review-day-friday" = "金曜日";
 "year-in-review-day-monday" = "月曜日";

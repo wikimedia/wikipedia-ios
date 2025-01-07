@@ -1028,9 +1028,8 @@
 "year-in-review-personalized-editing-subtitle-format" = "Hai modificato Wikipedia {{PLURAL:$1|$1 volta|$1 volte}}. Grazie per essere uno dei redattori volontari che offrono il loro contributo nei progetti Wikimedia in tutto il mondo."; 
 "year-in-review-personalized-editing-subtitle-format-500plus" = "Hai modificato Wikipedia più di 500 volte. Grazie per essere uno dei redattori volontari che offrono il loro contributo nei progetti Wikimedia in tutto il mondo.";
 "year-in-review-personalized-editing-title-format" = "Hai modificato Wikipedia {{PLURAL:$1|$1 volta|$1 volte}}";
-"year-in-review-personalized-editing-title-format-500plus" = "Hai modificato Wikipedia più di 500 volte";
-// fuzzy 
-"year-in-review-personalized-reading-subtitle-format" = "Quest'anno hai letto $1 articoli. Wikipedia ha avuto più di 63 milioni di articoli disponibili su più di 300 lingue. Ti sei unito a milioni nell'espandere la conoscenza e nell'esplorare argomenti diversi.";
+"year-in-review-personalized-editing-title-format-500plus" = "Hai modificato Wikipedia oltre 500 volte.";
+"year-in-review-personalized-reading-subtitle-format" = "Quest'anno hai letto $1 articoli, incluso $2, $3 e $4. Wikipedia ha avuto più di 63 milioni di articoli disponibili su più di 300 lingue. Ti sei unito a milioni nell'espandere la conoscenza e nell'esplorare argomenti diversi.";
 "year-in-review-personalized-reading-title-format" = "Hai letto {{PLURAL:$1|$1 articol|$1 articoli}} quest'anno";
 "year-in-review-personalized-saved-title-format" = "Hai salvato {{PLURAL:$1|$1 articol|$1 articoli}}";
 "year-in-review-share-text" = "Ecco il mio Anno in Rassegna su Wikipedia. Creato con l'app iOS di Wikipedia (https://apps.apple.com/app/wikipedia/id324715238) #WikipediaYearInReview";

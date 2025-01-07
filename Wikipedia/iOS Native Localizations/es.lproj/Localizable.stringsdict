@@ -627,22 +627,6 @@
 			<string>%1$d veces</string>
 		</dict>
 	</dict>
-	<key>year-in-review-personalized-reading-subtitle-format</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>Este año, leíste %#@v1@. Wikipedia tuvo más de %2$@ millones de artículos disponibles en más de %3$@ idiomas activos. Acompañaste a millones de personas en la expansión del conocimiento y la exploración de diversos temas.</string>
-		<key>v1</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
-			<key>one</key>
-			<string>%1$d artículo</string>
-			<key>other</key>
-			<string>%1$d artículos</string>
-		</dict>
-	</dict>
 	<key>year-in-review-personalized-reading-title-format</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>

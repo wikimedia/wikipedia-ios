@@ -1514,7 +1514,7 @@
 "year-in-review-personalized-editing-title-format" = "Vous avez modifié Wikipédia {{PLURAL:$1|une|$1}} fois";
 "year-in-review-personalized-editing-title-format-500plus" = "Vous avez modifié Wikipédia plus de 500 fois";
 "year-in-review-personalized-explore" = "Une illustration animée d'une main tenant le globe Wikipédia qui se transforme progressivement en une petite pièce de puzzle, symbolisant les contributions individuelles à la plateforme.";
-"year-in-review-personalized-reading-subtitle-format" = "Cette année, vous avez lu $1 article{{PLURAL:$1||s}}. Wikipédia comptait $2 million{{PLURAL:$2||s}} d'articles disponibles dans plus de $3 langues actives. Vous avez rejoint les millions de personnes qui ont élargi leurs connaissances et exploré des sujets divers.";
+"year-in-review-personalized-reading-subtitle-format" = "Cette année, vous avez consulté $1 articles, dont $2, $3 et $4. Wikipédia propose plus de 63 millions d’articles dans plus de 300 langues. Vous avez contribué à l’exploration et à l’enrichissement des connaissances.";
 "year-in-review-personalized-reading-title-format" = "Vous avez lu cette année $1 article{{PLURAL:$1||s}}";
 "year-in-review-personalized-saved-articles" = "Illustration d'une pièce de puzzle portant un casque de sécurité avec des écrans d'ordinateur à l'arrière.";
 "year-in-review-personalized-saved-subtitle-format" = "Vous avez enregistré cette année $1 article{{PLURAL:$1|1=, à savoir $2|2=s, à savoir $2 et $3|3=s, à savoir $2, $3 et $4|s, dont $2, $3 et $4}}. Chaque article sauvegardé reflète vos intérêts et contribue à créer une base de connaissances personnalisée sur Wikipédia.";

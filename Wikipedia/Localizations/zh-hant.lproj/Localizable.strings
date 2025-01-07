@@ -1453,8 +1453,8 @@
 "year-in-review-personalized-editing-subtitle-format" = "您在 Wikipedia 上進行了 XXX 次編輯。感謝您作為志願編輯者之一，為全球 Wikimedia 專案帶來改變。";
 "year-in-review-personalized-editing-subtitle-format-500plus" = "您編輯了維基百科超過 500 次。感謝您成為替世界各維基媒體計畫做出貢獻的志工編輯者之一。";
 "year-in-review-personalized-editing-title-format" = "您在 Wikipedia 上進行了 $1 次編輯";
-"year-in-review-personalized-editing-title-format-500plus" = "您編輯了維基百科超過 500 次";
-"year-in-review-personalized-reading-subtitle-format" = "今年，您閱讀了 $1 篇文章。Wikipedia 提供超過 $2 萬篇文章，涵蓋 $3 多種活躍語言版本。您與數百萬人一同擴展知識，探索多元主題。";
+"year-in-review-personalized-editing-title-format-500plus" = "您編輯了維基百科 500 多次。";
+"year-in-review-personalized-reading-subtitle-format" = "今年，您閱讀了 $1 篇文章，包括$2、 $3 和 $4。Wikipedia 提供超過 6,300 萬篇文章，涵蓋 300 多種語言版本。您與數百萬人一起拓展知識，探索多樣化的主題。";
 "year-in-review-personalized-reading-title-format" = "您今年閱讀了 {{PLURAL:$1|$1}} 篇條目";
 "year-in-review-share-text" = "這是我的 Wikipedia 年度回顧，由 Wikipedia iOS 應用程式製作。 (https://apps.apple.com/app/wikipedia/id324715238) #WikipediaYearInReview";
 "year-in-review-feature-explore-body" = "Wikipedia 是世界歷史上規模最大的知識資源，且免費提供給世界各地的每一個人。透過 Wikipedia 的視角，回顧 2024 年的點點滴滴。";

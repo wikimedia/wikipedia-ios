@@ -1146,8 +1146,7 @@
 "year-in-review-personalized-editing-subtitle-format-500plus" = "Has editado Wikipedia 500+ veces. Gracias por ser uno de los editores voluntarios que marcan la diferencia en los proyectos Wikimedia de todo el mundo.";
 "year-in-review-personalized-editing-title-format" = "Editaste Wikipedia {{PLURAL:$1|$1 vez|$1 veces}}";
 "year-in-review-personalized-editing-title-format-500plus" = "Has editado Wikipedia 500+ veces";
-// Fuzzy
-"year-in-review-personalized-reading-subtitle-format" = "Este año, leíste {{PLURAL:$1|$1 artículo|$1 artículos}}. Wikipedia tuvo más de $2 millones de artículos disponibles en más de $3 idiomas activos. Acompañaste a millones de personas en la expansión del conocimiento y la exploración de diversos temas.";
+"year-in-review-personalized-reading-subtitle-format" = "Este año, leíste $1 artículos, incluyendo $2, $3 y $4. Wikipedia tuvo más de 63 millones de artículos disponibles en más de 300 idiomas. Acompañaste a millones de personas en la expansión del conocimiento y la exploración de diversos temas.";
 "year-in-review-personalized-reading-title-format" = "Leíste {{PLURAL:$1|$1 artículo|$1 artículos}} este año";
 "year-in-review-share-text" = "Este es mi resumen anual de Wikipedia. Creado con la aplicación de Wikipedia para iOS (https://apps.apple.com/app/wikipedia/id324715238) #ResumenAnualDeWikipedia";
 "year-in-review-survey-additional-thoughts" = "¿Algún comentario adicional?";
