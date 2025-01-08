@@ -843,48 +843,6 @@
 			<string>%1$d 篩選功能</string>
 		</dict>
 	</dict>
-	<key>year-in-review-personalized-editing-subtitle-format</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>您編輯了 %#@v1@ 次維基百科。感謝您成為替世界各維基媒體計畫做出貢獻的志工編輯者之一。</string>
-		<key>v1</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
-			<key>other</key>
-			<string>%1$d</string>
-		</dict>
-	</dict>
-	<key>year-in-review-personalized-editing-title-format</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>您編輯了 %#@v1@ 次維基百科</string>
-		<key>v1</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
-			<key>other</key>
-			<string>%1$d</string>
-		</dict>
-	</dict>
-	<key>year-in-review-personalized-reading-subtitle-format</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>您今年閱讀了 %#@v1@ 篇條目。今年在維基百科上有 %2$@可用，超過 %3$@。您與數百萬人一起擴展知識，並探索不同的主題。</string>
-		<key>v1</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
-			<key>other</key>
-			<string>%1$d</string>
-		</dict>
-	</dict>
 	<key>year-in-review-personalized-reading-title-format</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
