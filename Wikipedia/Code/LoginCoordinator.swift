@@ -8,6 +8,7 @@ final class LoginCoordinator: Coordinator {
     var navigationController: UINavigationController
     
     var loginSuccessCompletion: (() -> Void)?
+    var createAccountSuccessCustomDismissBlock: (() -> Void)?
 
     // MARK: Properties
 
@@ -25,6 +26,7 @@ final class LoginCoordinator: Coordinator {
             loginVC.apply(theme: theme)
             let loginNavVC = WMFComponentNavigationController(rootViewController: loginVC, modalPresentationStyle: .overFullScreen)
             loginVC.loginSuccessCompletion = loginSuccessCompletion
+            loginVC.createAccountSuccessCustomDismissBlock = createAccountSuccessCustomDismissBlock
             
             if let presentedVC = navigationController.presentedViewController {
                 presentedVC.present(loginNavVC, animated: true)

@@ -385,7 +385,7 @@ import CocoaLumberjackSwift
         
         // App Language has changed. Fetch current user again to refresh currentUserCache.
         
-        guard let langController = notification.object, let appLanguage = (langController as AnyObject).appLanguage else {
+        guard let langController = notification.object as? MWKLanguageLinkController, langController.appLanguage != nil else {
             assertionFailure("Could not extract app language from WMFAppLanguageDidChangeNotification")
             return
         }

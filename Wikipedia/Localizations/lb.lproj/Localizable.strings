@@ -21,6 +21,7 @@
 "aaald-many-sections-description" = "a(n) $1 Abschnitter";
 "aaald-new-book-reference-title" = "Buch";
 "aaald-new-discussion" = "Nei Diskussioun";
+"aaald-new-journal-reference-database" = "iwwer $1";
 "aaald-new-news-reference-title" = "Neiegkeeten";
 "aaald-new-talk-topic-description-format" = "$1 iwwer dësen Artikel";
 "aaald-new-website-reference-archive-date-text" = "vum Original um $1";
@@ -71,13 +72,17 @@
 "action-add-to-reading-list" = "Op d'Lieslëscht derbäisetzen";
 "action-add-to-reading-list-short" = "Op d'Lëscht derbäisetzen";
 "action-cancel" = "Ofbriechen";
+"action-discard-edit" = "Ännerung verwerfen";
+"action-discard-edits" = "Ännerunge verwerfen";
 "action-find-in-page" = "Op der Säit sichen";
 "action-keep-editing" = "Virufuere mat Änneren";
 "action-language-accessibility" = "Sprooch wiesselen";
 "action-move-to" = "Réckelen op...";
+"action-move-to-reading-list" = "Op d'Lieslëscht réckelen";
 "action-next-revision-accessibility" = "Nächst Versioun";
 "action-previous-revision-accessibility" = "Vireg Versioun";
 "action-read" = "Liesen";
+"action-redo" = "Widderhuelen";
 "action-remove" = "Ewechhuelen";
 "action-retry" = "Nach eng Kéier probéieren";
 "action-save" = "Späicheren";
@@ -105,12 +110,14 @@
 "alt-text-experiment-text-field-description" = "Textbeschreiwung fir Lieser, déi d'Bild net gesi kënnen";
 "alt-text-feedback-survey-neutral" = "Neutral";
 "alt-text-feedback-survey-satisfied" = "Zefridden";
+"alt-text-feedback-survey-subtitle" = "Sidd Dir zefridde mat dëser Funktioun?";
 "alt-text-feedback-survey-toast-title" = "Feedback ofgeschéckt";
 "alt-text-feedback-survey-unsatisfied" = "Onzefridden";
 "alt-text-survey-option-4" = "Ech hunn technesch Problemer";
 "alt-text-survey-option-7" = "Ech hu keng Zäit";
 "announcements-dismiss" = "Verwerfen";
 "app-store-subtitle" = "Déi fräi Enzyklopedie";
+"appearance-settings-expand-tables" = "Tabellen opklappen";
 "appearance-settings-set-automatic-table-opening" = "Tabellenastellungen";
 "article-about-title" = "Iwwer dësen Artikel";
 "article-delete" = "Läschen";
@@ -179,6 +186,8 @@
 "diff-compare-header-heading" = "Versioune vergläichen";
 "diff-compare-header-to-info-heading" = "Gewisen Ännerung";
 "diff-compare-title" = "Versioune vergläichen";
+"diff-content-added" = "Inhalt derbäigesat, $1";
+"diff-content-removed" = "Inhalt ewechgeholl, $1";
 "diff-context-cell-collapse-section" = "$1 zouklappen";
 "diff-context-cell-expand-section" = "$1 opklappen";
 "diff-context-lines-collapsed-button-title" = "Weisen";
@@ -250,6 +259,7 @@
 "editor-keyboard-bold-accessibility" = "Fett";
 "editor-keyboard-heading-button" = "Iwwerschrëft";
 "editor-keyboard-paragraph-button" = "Abschnitt";
+"editor-keyboard-strikethrough-accessibility" = "Duerchsträichen";
 "editor-keyboard-subheading1-button" = "Ënneriwwerschrëft 1";
 "editor-keyboard-subheading2-button" = "Ënneriwwerschrëft 2";
 "editor-keyboard-subheading3-button" = "Ënneriwwerschrëft 3";
@@ -258,6 +268,7 @@
 "editor-keyboard-superscript-accessibility" = "Héichgestallt";
 "editor-keyboard-template-accessibility" = "Schabloun";
 "editor-keyboard-text-formatting-title" = "Textformatéierung";
+"editor-keyboard-underline-accessibility" = "Ënnersträichen";
 "editor-replace-textfield-accessibility" = "Ersetzen";
 "editor-replace-textfield-placeholder" = "Ersetzen duerch...";
 "editor-replace-type-all" = "All ersetzen";
@@ -383,6 +394,7 @@
 "image-rec-add-image-title" = "Dëst Bild derbäisetzen?";
 "image-rec-error-subtitle" = "Et ass eppes schif gaangen.";
 "image-rec-onboarding-item-1-body" = "Decidéiert, ob ee virgeschloent Bild an ee Wikipediaartikel derbäigesat soll ginn.";
+"image-rec-onboarding-item-1-title" = "E Virschlag weisen";
 "image-rec-onboarding-item-2-title" = "E Bild akzeptéieren oder refuséieren";
 "image-rec-onboarding-item-3-title" = "Lizenzéiert Biller";
 "image-rec-onboarding-learn-more-button" = "Méi iwwer Ännerungsvirschléi gewuer ginn";
@@ -465,6 +477,7 @@
 "main-menu-title" = "Méi";
 "main-menu-zero-faq" = "Wikipedia Zero FAQ";
 "menu-cancel-accessibility-label" = "Ofbriechen";
+"microsite-yir-english-edits-bytes-slide-title" = "3,4 Milliarde Byte derbäigesat";
 "more-languages-tooltip-description" = "Op Wikipedia a méi wéi 300 Sprooche sichen";
 "more-languages-tooltip-title" = "Sproochen derbäisetzen";
 "more-menu" = "Méi";
@@ -535,6 +548,7 @@
 "notifications-center-subheader-edit-reverted" = "Är Ännerung gouf zréckgesat";
 "notifications-center-subheader-email-from-other-user" = "Nei E-Mail";
 "notifications-center-subheader-login-success-unknown-device" = "Alogge vun engem onbekannten Apparat";
+"notifications-center-subheader-page-link" = "Säitelink";
 "notifications-center-subheader-page-reviewed" = "Säit nogekuckt";
 "notifications-center-subheader-thanks" = "Merci";
 "notifications-center-subheader-user-rights-change" = "Ännerung vun de Benotzerrechter";
@@ -548,6 +562,7 @@
 "notifications-center-type-item-description-welcome-verbose" = "Begréissungs-Message";
 "notifications-center-type-title-connection-with-wikidata" = "Verbindung mat Wikidata";
 "notifications-center-type-title-edit-reverted" = "Ännerung zréckgesat";
+"notifications-center-type-title-email-from-other-user" = "E-Mail vun engem anere Benotzer";
 "notifications-center-type-title-other" = "Anerer";
 "notifications-center-type-title-page-link" = "Säitelink";
 "notifications-center-type-title-page-review" = "Säiteniwwerpréiwung";
@@ -619,6 +634,7 @@
 "potd-empty-error-description" = "Bild vum Dag vum $1 konnt net erofgeluede ginn";
 "potd-widget-title" = "Bild vum Dag";
 "preference-summary-eventlogging-opt-in" = "Der Wikimedia Foundation erlaben Informatiounen iwwer d'Benotze vun der App ze sammele fir se ze verbesseren.";
+"problem-with-feature-title" = "Problem mat der Funktioun";
 "profile-button-accessibility-label" = "Profil";
 "profile-page-title-logged-out" = "Kont";
 "project-name-mediawiki" = "MediaWiki";
@@ -891,6 +907,7 @@
 "watchlist-user-button-user-contributions" = "Benotzerkontributiounen";
 "watchlist-user-button-user-page" = "Benotzersäit";
 "watchlist-user-button-user-talk-page" = "Benotzerdiskussiounssäit";
+"watchlist-watch-title" = "Artikelen iwwerwaachen";
 "welcome-exploration-on-this-day-title" = "Op dësem Dag";
 "welcome-explore-continue-button" = "Fir unzefänken";
 "welcome-explore-new-ways-title" = "Nei Manéiere fir z'entdecken";
@@ -921,11 +938,12 @@
 "wikitext-upload-save-sign-in" = "Aloggen";
 "wikitext-upload-save-terms-name" = "Benotzungs-Bedingungen";
 "year-in-review-base-edits-title" = "D'Wikipedia gouf $1 Mol pro Minutt geännert";
-// Fuzzy
-"year-in-review-base-reading-title" = "Liesen huet eis zesummebruecht";
+"year-in-review-base-reading-title" = "Wikipedia war a méi wéi 300 Sproochen disponibel";
+"year-in-review-collective-zero-ads" = "Wikimedia-Logo";
 "year-in-review-donate-now" = "Maacht elo en Don";
 // Fuzzy
 "year-in-review-personalized-donate-title" = "Merci fir Är Kontributioun!";
+"year-in-review-personalized-donation-thank-you" = "Wikimedia-Logo";
 "year-in-review-personalized-editing-title-format" = "Dir hutt d'Wikipedia {{PLURAL:$1|$1 Mol}} geännert";
 "year-in-review-personalized-editing-title-format-500plus" = "Dir hutt d'Wikipedia méi wéi 500 Mol geännert";
 "year-in-review-personalized-reading-title-format" = "Dir hutt dëst Joer {{PLURAL:$1|$1 Artikel|$1 Artikele}} gelies";

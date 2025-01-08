@@ -206,7 +206,7 @@
 "alt-text-feedback-survey-satisfied" = "Satisfecho";
 "alt-text-feedback-survey-subtitle" = "¿Está satisfecho con esta función?";
 "alt-text-feedback-survey-title" = "Ayudar a mejorar esta función";
-"alt-text-feedback-survey-toast-title" = "Opinión enviada";
+"alt-text-feedback-survey-toast-title" = "Comentarios enviados";
 "alt-text-feedback-survey-unsatisfied" = "Insatisfecho";
 // Fuzzy
 "alt-text-license" = "Al publicar cambios, acepta las [Condiciones de uso]($1) y se compromete irrevocablemente a publicar su aporte bajo la licencia [CC BY-SA 3.0]($2) y la [GFDL]($3). Usted acepta que un hipervínculo o URL es suficiente atribución conforme a la licencia Creative Commons.";
@@ -355,8 +355,8 @@
 "donate-monthly-recurring-text" = "Quiero hacer una donación recurrente.";
 "donate-payment-method-prompt-apple-pay-button-title" = "Donar con Apple Pay";
 "donate-payment-method-prompt-message" = "Dona con Apple Pay o elige otro método de pago.";
-"donate-payment-method-prompt-other-button-title" = "Otro método de pago";
-"donate-payment-method-prompt-title" = "¿Quieres donar con Apple Pay?";
+"donate-payment-method-prompt-other-button-title" = "Otra forma de pago";
+"donate-payment-method-prompt-title" = "¿Donar con Apple Pay?";
 "donate-success-title" = "¡Gracias!";
 "donate-title" = "Selecciona un importe";
 "donate-transaction-fee-opt-in-text" = "Generosamente, acepto añadir $1 a la donación para cubrir los gastos bancarios y que Wikimedia reciba el 100 %% de mi donación.";
@@ -658,7 +658,7 @@
 "languages-settings-title" = "Idiomas";
 "languages-title" = "Cambiar idioma";
 "languages-wikipedia" = "Idiomas de Wikipedia";
-"learn-more-title" = "Aprenda más";
+"learn-more-title" = "Más información";
 "logged-out-continue-without-logging-in-button-title" = "Continuar sin acceder";
 "logged-out-log-back-in-button-title" = "Volver a acceder a tu cuenta";
 "logged-out-subtitle" = "Hubo un problema al autenticar tu cuenta. Para poder sincronizar tus listas de lectura y editar bajo tu nombre de usuario, por favor, vuelve a acceder.";
@@ -806,7 +806,7 @@
 "problem-with-feature-title" = "Problema con la característica";
 "profile-page-donate-subtext" = "O apoyar a Wikipedia con una donación para mantenerla libre y accesible para todos en todo el mundo.";
 "profile-page-join-subtext" = "Regístrese a una cuenta de Wikipedia para rastrear sus contribuciones, guardar artículos fuera de línea y sincronizar entre dispositivos.";
-"profile-page-join-title" = "Únete a Wikipedia / Ingrese";
+"profile-page-join-title" = "Iniciar sesión / Registrarse en Wikipedia";
 "profile-page-logged-out-year-in-review-subtext" = "Conéctate o crea una cuenta para obtener una revisión mejorada el año que viene.";
 "profile-page-title-logged-out" = "Cuenta";
 "reading-list-add-generic-hint-title" = "¿Añadir este artículo a la lista de lectura?";
@@ -976,7 +976,7 @@
 "settings-storage-and-syncing-show-default-reading-list-title" = "Mostrar lista de lectura Guardados";
 "settings-storage-and-syncing-title" = "Almacenar y sincronizar artículos";
 "settings-title" = "Configuración";
-"settings-year-in-review-header" = "Al desactivar el repaso anual, se borrarán todos los datos personalizados almacenados y se ocultará el repaso anual.";
+"settings-year-in-review-header" = "Al desactivar el resumen anual, se borrarán todos los datos personalizados almacenados y se ocultará el resumen anual.";
 "share-a-fact-made-with" = "Creada con la aplicación de Wikipedia";
 "share-article-name-on-wikipedia" = "«$1» en Wikipedia:";
 "share-building" = "Construyendo una tarjeta comparte-un-hecho…";
@@ -1087,9 +1087,9 @@
 "welcome-exploration-on-this-day-title" = "Un día como hoy";
 "welcome-exploration-places-description" = "Descubre puntos de referencia cerca de ti o busca en lugares por todo el mundo";
 "welcome-exploration-places-title" = "Pestaña Lugares";
-"welcome-explore-continue-button" = "Empezar";
+"welcome-explore-continue-button" = "Comenzar";
 "welcome-explore-new-ways-title" = "Nuevas formas de explorar";
-"welcome-explore-tell-me-more-done-button" = "Entendido";
+"welcome-explore-tell-me-more-done-button" = "Listo";
 "welcome-intro-free-encyclopedia-description" = "Un colectivo de voluntarios escribe Wikipedia, la cual consiste de más de 40 millones de artículos en más de 300 lenguas.";
 "welcome-intro-free-encyclopedia-more" = "Más información sobre Wikipedia";
 "welcome-intro-free-encyclopedia-more-about" = "Acerca de Wikipedia";
@@ -1123,45 +1123,60 @@
 "wikitext-upload-save-terms-and-licenses-ccsa4" = "Al publicar los cambios, aceptas los $1Términos de Uso$2 y aceptas irrevocablemente publicar tu contribución bajo la Licencia $3CC BY-SA 3.0$4 y la $5GFDL$6. Aceptas que un hipervínculo o una URL son atribución suficiente bajo la licencia Creative Commons.";
 "wikitext-upload-save-terms-name" = "Términos de uso";
 // Fuzzy
-"year-in-review-base-donate-subtitle" = "Wikipedia está alojada por la Fundación Wikimedia y financiada por donaciones individuales. Trabajamos para mantener los sitios Wikimedia disponibles para todas las personas, crear funciones y herramientas para facilitar el intercambio de conocimientos, apoyar a las comunidades de editores voluntarios y mucho más. [Obtén más información sobre nuestro trabajo]($1).";
+"year-in-review-base-donate-subtitle" = "Con tu ayuda, la Fundación Wikimedia, la organización sin fines de lucro detrás de Wikipedia, seguirá garantizando que la información en la que confías esté libre de publicidad y sea confiable, al tiempo que mantendrá Wikipedia funcionando sin problemas con herramientas y tecnologías de vanguardia. Por favor, considera hacer una donación hoy. [Más información sobre nuestra labor]($1).";
 "year-in-review-base-donate-title" = "0 anuncios en Wikipedia";
-"year-in-review-base-editors-subtitle" = "La comunidad de editores voluntarios de Wikipedia ha realizado más de $1 ediciones en la aplicación para iOS en lo que va de año. El corazón y el alma de Wikipedia es nuestra comunidad global de colaboradores voluntarios, donantes y miles de millones de lectores como tú, todos unidos para compartir un acceso ilimitado a información confiable.";
-"year-in-review-base-editors-title" = "Los editores de la aplicación para iOS han realizado más de $1 ediciones.";
-// Fuzzy
-"year-in-review-base-edits-subtitle" = "Este año, Wikipedia se editó un promedio de $1 veces por minuto. Los artículos se crean y mejoran de forma colaborativa utilizando fuentes fiables. Todos tenemos conocimientos que compartir, [aprende a participar.]($2)";
-"year-in-review-base-edits-title" = "Wikipedia se editó $1 veces por minuto";
-// Fuzzy
-"year-in-review-base-reading-subtitle" = "Wikipedia tuvo $1 millones de artículos en más de $2 idiomas activos este año. Te uniste a millones de personas para ampliar conocimientos y explorar temas diversos.";
-// Fuzzy
-"year-in-review-base-reading-title" = "La lectura nos unió";
-"year-in-review-base-viewed-subtitle" = "Los usuarios de la aplicación iOS han visto artículos de Wikipedia $1 millones de veces. Para personas de todo el mundo, Wikipedia es la primera parada para responder a una pregunta, buscar información para la escuela o el trabajo, o aprender algo nuevo.";
+"year-in-review-base-editors-subtitle" = "La comunidad de editores voluntarios de Wikipedia ha realizado más de $1 ediciones en la aplicación para iOS en lo que va de año. El corazón y el alma de Wikipedia es nuestra comunidad global de colaboradores voluntarios, donadores y miles de millones de lectores como tú, todos unidos para compartir acceso ilimitado a información confiable.";
+"year-in-review-base-editors-title" = "Los editores de la aplicación para iOS realizaron más de $1 ediciones";
+"year-in-review-base-edits-subtitle" = "Este año, Wikipedia fue editada a un ritmo promedio de $1 veces por minuto. Los artículos se crean y mejoran de forma colaborativa a partir de fuentes confiables. Todos tenemos conocimientos que compartir, [descubre cómo participar]($2).";
+"year-in-review-base-edits-title" = "Wikipedia fue editada $1 veces por minuto";
+"year-in-review-base-reading-subtitle" = "Wikipedia tuvo más de $1 millones de artículos en más de $2 idiomas activos este año. Acompañaste a millones de personas en la expansión del conocimiento y la exploración de diversos temas.";
+"year-in-review-base-reading-title" = "Wikipedia estuvo disponible en más de 300 idiomas";
+"year-in-review-base-viewed-subtitle" = "Los usuarios de la aplicación para iOS han consultado artículos de Wikipedia $1 millones de veces. Para las personas de todo el mundo, Wikipedia es la primera opción a la hora de buscar una respuesta a una pregunta, buscar información para la escuela o el trabajo, o aprender algo nuevo.";
 "year-in-review-base-viewed-title" = "Hemos visto artículos de Wikipedia $1 millones de veces.";
-"year-in-review-button-title" = "Repaso anual";
+"year-in-review-button-title" = "Resumen del año";
 "year-in-review-donate" = "Donar";
 "year-in-review-donate-now" = "Dona ahora";
-// Fuzzy
-"year-in-review-feature-announcement-body" = "Consulta la información sobre los artículos que lees en la aplicación Wikipedia, comparte tu viaje y descubre lo más destacado de tu año.";
-// Fuzzy
-"year-in-review-feature-announcement-title" = "Explora tu repaso anual en Wikipedia";
-"year-in-review-feature-explore-body-personalized" = "Consulta los artículos que has leído en la aplicación de Wikipedia y las ediciones que has realizado. Tu historial de lectura se mantiene protegido. La información sobre las lecturas se calcula utilizando los datos almacenados localmente en tu dispositivo.";
+"year-in-review-feature-announcement-body" = "Descubre qué artículos leímos y editamos, y comparte lo más destacado de nuestro año en Wikipedia.";
+"year-in-review-feature-announcement-title" = "Wikipedia en resumen";
+"year-in-review-feature-explore-body-personalized" = "Consulta información sobre los artículos que has leído en la aplicación de Wikipedia y las ediciones que has realizado. Tu historial de lectura se mantiene protegido. Los datos de lectura se calculan utilizando los datos almacenados localmente en tu dispositivo.";
 "year-in-review-finish" = "Terminar";
-// Fuzzy
-"year-in-review-personalized-donate-subtitle" = "Gracias por apoyar a Wikipedia y a un mundo donde el conocimiento es libre para todas las personas. Cada edición y donación ayuda a mejorar el acceso de las personas a información precisa y confiable, sobre todo en un mundo que cambia rápidamente. [Más información sobre nuestro trabajo]($1).";
-// Fuzzy
-"year-in-review-personalized-donate-title" = "¡Gracias por tu contribución!";
-"year-in-review-personalized-editing-subtitle-format" = "Has editado Wikipedia {{PLURAL:$1|$1 vez|$1 veces}}. Gracias por ser uno de los editores voluntarios que marcan la diferencia en los proyectos Wikimedia de todo el mundo.";
+"year-in-review-personalized-donate-subtitle" = "Gracias por invertir en el futuro del conocimiento libre. Este año, la Fundación Wikimedia mejoró la tecnología para servir mejor a todos los lectores y voluntarios, desarrolló herramientas que potencian la colaboración y ofreció Wikipedia en más idiomas. [Más información sobre nuestra labor]($1).";
+"year-in-review-personalized-donate-title" = "Tu generosidad ayudó a que Wikipedia siga prosperando";
+"year-in-review-personalized-editing-subtitle-format" = "Editaste Wikipedia {{PLURAL:$1|$1 vez|$1 veces}}. Gracias por ser uno de los editores voluntarios que hacen la diferencia en los proyectos de Wikimedia en todo el mundo.";
 "year-in-review-personalized-editing-subtitle-format-500plus" = "Has editado Wikipedia 500+ veces. Gracias por ser uno de los editores voluntarios que marcan la diferencia en los proyectos Wikimedia de todo el mundo.";
-"year-in-review-personalized-editing-title-format" = "Has editado Wikipedia {{PLURAL:$1|$1 vez|$1 veces}}";
+"year-in-review-personalized-editing-title-format" = "Editaste Wikipedia {{PLURAL:$1|$1 vez|$1 veces}}";
 "year-in-review-personalized-editing-title-format-500plus" = "Has editado Wikipedia 500+ veces";
-// Fuzzy
-"year-in-review-personalized-reading-subtitle-format" = "Este año has leído {{PLURAL:$1|$1 artículo|$1 artículos}}. Este año Wikipedia tenía $2 millones de artículos disponibles en más de $3 lenguas activas. Te uniste a millones de personas para ampliar conocimientos y explorar temas diversos.";
-"year-in-review-personalized-reading-title-format" = "Has leído {{PLURAL:$1|$1 artículo|$1 artículos}} este año";
-"year-in-review-share-text" = "Este es mi repaso anual de Wikipedia. Creado con la aplicación Wikipedia iOS";
-"year-in-review-survey-additional-thoughts" = "¿Alguna opinión adicional?";
+"year-in-review-personalized-reading-subtitle-format" = "Este año, leíste $1 artículos, incluyendo $2, $3 y $4. Wikipedia tuvo más de 63 millones de artículos disponibles en más de 300 idiomas. Acompañaste a millones de personas en la expansión del conocimiento y la exploración de diversos temas.";
+"year-in-review-personalized-reading-title-format" = "Leíste {{PLURAL:$1|$1 artículo|$1 artículos}} este año";
+"year-in-review-share-text" = "Este es mi resumen anual de Wikipedia. Creado con la aplicación de Wikipedia para iOS (https://apps.apple.com/app/wikipedia/id324715238) #ResumenAnualDeWikipedia";
+"year-in-review-survey-additional-thoughts" = "¿Algún comentario adicional?";
 "year-in-review-survey-neutral" = "Neutro";
 "year-in-review-survey-satisfied" = "Satisfecho";
-"year-in-review-survey-subtitle" = "Ayuda a mejorar tu revisión anual. ¿Estás satisfecho con esta función?";
+"year-in-review-survey-subtitle" = "Ayuda a mejorar el resumen de tu año. ¿Estás satisfecho con esta función?";
 "year-in-review-survey-title" = "Encuesta de satisfacción";
 "year-in-review-survey-unsatisfied" = "Insatisfecho";
 "year-in-review-survey-very-satisfied" = "Muy satisfecho";
 "year-in-review-survey-very-unsatisfied" = "Muy insatisfecho";
+"year-in-review-feature-explore-body" = "Wikipedia es el mayor recurso de información jamás compilado en la historia del mundo y está disponible de forma gratuita para todos en cualquier lugar. Haz una retrospectiva de 2024 desde la perspectiva de Wikipedia.";
+"year-in-review-base-saved-title" = "Tuvimos más de $1 millones de listas de lectura";
+"year-in-review-base-saved-subtitle" = "Los usuarios activos de la aplicación para iOS tuvieron más de 62.2 millones de listas de lectura este año. Añadir artículos a listas de lectura te permite acceder a ellos incluso sin conexión. También puedes iniciar sesión para sincronizar listas de lectura entre dispositivos.";
+"year-in-review-donate-now" = "Donar ahora";
+"year-in-review-login-title" = "Mejora el resumen de tu año";
+"year-in-review-login-subtitle" = "Inicia sesión o crea una cuenta para poder acceder a información más personalizada";
+"year-in-review-feature-announcement-title-personalized" = "Consulta tu resumen anual de Wikipedia";
+"year-in-review-feature-announcement-body-personalized" = "Consulta información sobre los artículos que has leído en la aplicación de Wikipedia, comparte tu trayectoria y descubre lo más destacado de tu año.";
+"year-in-review-day-sunday" = "Domingos";
+"year-in-review-day-monday" = "Lunes";
+"year-in-review-day-tuesday" = "Martes";
+"year-in-review-day-wednesday" = "Miércoles";
+"year-in-review-day-thursday" = "Jueves";
+"year-in-review-day-friday" = "Viernes";
+"year-in-review-day-saturday" = "Sábados";
+"year-in-review-personalized-day-subtitle-format" = "Leíste el mayor número de artículos en $DAYOFTHEWEEK. Está claro que los $DAYOFTHEWEEK son tu día preferido para explorar nuevos contenidos. ¡Gracias por aprovechar al máximo tu tiempo de lectura!";
+"year-in-review-personalized-saved-title-format" = "Guardaste $1 artículos";
+"year-in-review-personalized-saved-subtitle-format" = "Tienes $1 artículos guardados, incluyendo $2, $3 y $4. Cada artículo guardado es reflejo de tus intereses y te ayuda a generar una base de conocimientos personalizada en Wikipedia.";
+"year-in-review-personalized-edit-views-title-format" = "Tus ediciones han sido vistas más de $1 veces recientemente";
+"year-in-review-personalized-edit-views-subtitle-format" = "Lectores de todo el mundo agradecen tus aportaciones. En los últimos 2 meses, los artículos que has editado han recibido $1 visitas totales. Gracias a editores como tú, Wikipedia es un recurso de información confiable, basado en hechos y en constante mejora para el mundo.";
+"profile-year-in-review-login-title" = "Inicia sesión para consultar el resumen anual";
+"profile-year-in-review-login-subtitle" = "Inicia sesión o crea una cuenta para volver a ver el resumen del año y poder acceder a más información personalizada.";
+"return-button-title" = "Volver";

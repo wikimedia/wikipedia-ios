@@ -904,7 +904,7 @@
 	<key>year-in-review-personalized-reading-subtitle-format</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>השנה קראת %#@v1@, ובוויקיפדיה היא %2$@ מיליון ערכים זמינים ביותר מ־%3$@ שפות פעילות. הצטרפת למיליונים בהרחבת הידע ובחקירת נושאים מגוונים.</string>
+		<string>השנה קראת %#@v1@. בוויקיפדיה היו %2$@ מיליון ערכים זמינים ביותר מ־%3$@ שפות פעילות. הצטרפת למיליונים בהרחבת הידע ובחקירת נושאים מגוונים.</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -936,7 +936,7 @@
 	<key>year-in-review-personalized-saved-subtitle-format</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>שמרת %#@v1@ השנה, לרבות „%2$@”, „%3$@” וגם „%4$@”. כל ערך שנשמר משקף את תחומי העניין שלך ומסייע לבנות מאגר ידע מותאם אישית בוויקיפדיה.</string>
+		<string>שמרת %#@v1@ השנה, לרבות %2$@, %3$@ וגם %4$@. כל ערך שנשמר משקף את תחומי העניין שלך ומסייע לבנות מאגר ידע מותאם אישית בוויקיפדיה.</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>

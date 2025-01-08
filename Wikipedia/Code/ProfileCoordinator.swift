@@ -189,6 +189,12 @@ final class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegat
                     self.showYearInReview()
                 }
             }
+            
+            loginCoordinator.createAccountSuccessCustomDismissBlock = {
+                self.dismissProfile {
+                    self.showYearInReview()
+                }
+            }
 
             loginCoordinator.start()
         }
@@ -297,7 +303,7 @@ final class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegat
     }
     
     func logYearInReviewTap() {
-        DonateFunnel.shared.logProfileDidTapYearInReview()
+        DonateFunnel.shared.logProfileDidTapYearInReview(isAnon: dataStore.authenticationManager.authStateIsPermanent) 
     }
 }
 

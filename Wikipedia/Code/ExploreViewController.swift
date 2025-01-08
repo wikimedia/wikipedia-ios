@@ -1056,7 +1056,7 @@ extension ExploreViewController {
         }
         
         guard let cell = collectionView.cellForItem(at: indexPath),
-        let _ = cell.superview?.convert(cell.frame, to: view) else {
+              cell.superview?.convert(cell.frame, to: view) != nil  else {
             return false
         }
         
@@ -1110,7 +1110,7 @@ extension ExploreViewController {
         }
         
         guard let cell = collectionView.cellForItem(at: indexPath),
-        let _ = cell.superview?.convert(cell.frame, to: view) else {
+            cell.superview?.convert(cell.frame, to: view) != nil else {
             return false
         }
         
@@ -1134,14 +1134,14 @@ extension ExploreViewController {
         let viewModel = WMFFeatureAnnouncementViewModel(title: title, body: body, primaryButtonTitle: primaryButtonTitle, image: image, backgroundImage: backgroundImage, gifName: gifName, altText: altText, primaryButtonAction: { [weak self] in
             guard let self else { return }
             yirCoordinator?.start()
-            DonateFunnel.shared.logYearInReviewFeatureAnnouncementDidTapContinue()
+            DonateFunnel.shared.logYearInReviewFeatureAnnouncementDidTapContinue(isEntryA: !dataStore.authenticationManager.authStateIsPermanent)
         }, closeButtonAction: {
-            DonateFunnel.shared.logYearInReviewFeatureAnnouncementDidTapClose()
+            DonateFunnel.shared.logYearInReviewFeatureAnnouncementDidTapClose(isEntryA: !self.dataStore.authenticationManager.authStateIsPermanent)
         })
 
         if let profileBarButtonItem = navigationItem.rightBarButtonItem {
             announceFeature(viewModel: viewModel, sourceView: nil, sourceRect: nil, barButtonItem: profileBarButtonItem)
-            DonateFunnel.shared.logYearInReviewFeatureAnnouncementDidAppear()
+            DonateFunnel.shared.logYearInReviewFeatureAnnouncementDidAppear(isEntryA: !dataStore.authenticationManager.authStateIsPermanent)
             yirDataController.hasPresentedYiRFeatureAnnouncementModel = true
         }
     }

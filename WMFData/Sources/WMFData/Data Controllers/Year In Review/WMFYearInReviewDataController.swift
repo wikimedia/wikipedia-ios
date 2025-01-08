@@ -2,6 +2,7 @@ import Foundation
 import UIKit
 import CoreData
 
+@preconcurrency
 @objc public class WMFYearInReviewDataController: NSObject {
 
     public let coreDataStore: WMFCoreDataStore
@@ -159,7 +160,8 @@ import CoreData
         }
         
         // Check persisted year in review report exists.
-        guard let yirReport = try? fetchYearInReviewReport(forYear: Self.targetYear) else {
+        let yirReport = try? fetchYearInReviewReport(forYear: Self.targetYear)
+        guard yirReport != nil else {
             return false
         }
         
@@ -1037,7 +1039,8 @@ import CoreData
 
                 for slide in slides {
 
-                    guard slide.id == WMFYearInReviewPersonalizedSlideID.editCount.rawValue else {
+                    guard slide.id == WMFYearInReviewPersonalizedSlideID.editCount.rawValue ||
+                            slide.id == WMFYearInReviewPersonalizedSlideID.viewCount.rawValue else {
                         continue
                     }
 

@@ -362,6 +362,7 @@
 "editor-keyboard-heading-button" = "Наслов";
 "editor-keyboard-italics-accessibility" = "Искошено";
 "editor-keyboard-link-accessibility" = "Веза";
+"editor-keyboard-list-ordered-accessibility" = "Сврстан списак";
 "editor-keyboard-paragraph-button" = "Пасус";
 "editor-keyboard-reference-accessibility" = "Референца";
 "editor-keyboard-subheading1-button" = "Поднаслов 1";
@@ -659,6 +660,8 @@
 "main-menu-title" = "Више";
 "main-menu-zero-faq" = "Честа питања о Википедији нула";
 "menu-cancel-accessibility-label" = "Откажи";
+"microsite-yir-english-edits-bytes-slide-title" = "3,4 милијарде бајтова додато";
+"microsite-yir-english-non-donor-slide-title" = "На Википедији нема реклама";
 "more-languages-tooltip-description" = "Претражујте Википедију на преко 300 језика";
 "more-languages-tooltip-title" = "Додај језике";
 "more-menu" = "Више";
@@ -1305,7 +1308,9 @@
 "year-in-review-base-donate-title" = "На Википедији нема реклама";
 "year-in-review-base-editors-title" = "Преко iOS апликације је начињено преко $1 измена";
 "year-in-review-base-edits-title" = "Википедија се уређује $1 пута у минуту";
+"year-in-review-base-reading-title" = "Википедија је доступна на више од 300 језика";
 "year-in-review-base-viewed-subtitle" = "Корисници апликације за iOS су посетили Википедијине чланке $1 милијарду пута. За људе широм света Википедија је почетна тачка за одговор на неко питање, тражење информација за школу или посао или једноставно учење нове чињенице.";
+"year-in-review-collective-zero-ads" = "Логотип Викимедије";
 "year-in-review-day-friday" = "петак";
 "year-in-review-day-monday" = "понедељак";
 "year-in-review-day-saturday" = "субота";
@@ -1318,8 +1323,8 @@
 "year-in-review-finish" = "Готово";
 "year-in-review-personalized-day-subtitle-format" = "Прочитали сте највише чланака у $1. Очигледно $1 је Ваш главни дан за истраживање новог садржаја. Хвала на утрошеном времену!";
 "year-in-review-personalized-day-title-format" = "Највише сте читали у $1.";
-// Fuzzy
 "year-in-review-personalized-donate-title" = "Хвала вам на Вашем прилогу!";
+"year-in-review-personalized-donation-thank-you" = "Логотип Викимедије";
 "year-in-review-personalized-editing-title-format-500plus" = "Уредили сте Википедију 500+ пута";
 "year-in-review-personalized-saved-title-format" = "Сачували сте $1 {{PLURAL:$1|чланка|чланака}}";
 "year-in-review-survey-neutral" = "Неутралан";
@@ -1327,6 +1332,5 @@
 "year-in-review-survey-unsatisfied" = "Незадовољан";
 "year-in-review-survey-very-satisfied" = "Веома задовољан";
 "year-in-review-survey-very-unsatisfied" = "Веома незадовољан";
-"year-in-review-wikipedia-globe-accessibility-label" = "Википедијин глобус логотип";
 "year-in-review-wikipedia-w-accessibility-label" = "Википедијин W логотип";
 "year-in-review-wmf-logo-accessibility-label" = "Логотип Задужбине Викимедије";
