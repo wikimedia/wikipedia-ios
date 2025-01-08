@@ -1,5 +1,4 @@
 import UIKit
-import WMFComponents
 
 public protocol WMFAltTextPreviewDelegate: AnyObject {
     func didTapPublish(viewModel: WMFAltTextExperimentPreviewViewModel)

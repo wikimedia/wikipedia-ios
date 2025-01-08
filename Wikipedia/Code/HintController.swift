@@ -79,7 +79,7 @@ class HintController: NSObject {
 
         containerView.translatesAutoresizingMaskIntoConstraints = false
         
-        var bottomAnchor: NSLayoutYAxisAnchor = extendsUnderSafeArea ? presenter.view.bottomAnchor : presenter.view.safeAreaLayoutGuide.bottomAnchor
+        let bottomAnchor: NSLayoutYAxisAnchor = extendsUnderSafeArea ? presenter.view.bottomAnchor : presenter.view.safeAreaLayoutGuide.bottomAnchor
         
         if let wmfVCPresenter = presenter as? ThemeableViewController { // not ideal, violates encapsulation
             wmfVCPresenter.view.addSubview(containerView)
