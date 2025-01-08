@@ -13,9 +13,18 @@ struct WMFYearInReviewShareableSlideView: View {
     var slideTitle: String
     var slideSubtitle: String
     var hashtag: String
+    var isAttributedString: Bool
     
-    private func subtitleAttributedString() -> AttributedString {
-        return (try? AttributedString(markdown: slideSubtitle)) ?? AttributedString(slideSubtitle)
+    private var attributedString: AttributedString {
+        return (try? HtmlUtils.attributedStringFromHtml(slideSubtitle, styles: styles)) ?? AttributedString(slideSubtitle)
+    }
+    
+    private var styles: HtmlUtils.Styles {
+        if isAttributedString {
+            return HtmlUtils.Styles(font: WMFFont.for(.headline), boldFont: WMFFont.for(.headline), italicsFont: WMFFont.for(.headline), boldItalicsFont: WMFFont.for(.title3), color: theme.text, linkColor: theme.link, lineSpacing: 3)
+        } else {
+            return HtmlUtils.Styles(font: WMFFont.for(.title3), boldFont: WMFFont.for(.title3), italicsFont: WMFFont.for(.title3), boldItalicsFont: WMFFont.for(.title3), color: theme.text, linkColor: theme.link, lineSpacing: 3)
+        }
     }
 
     var body: some View {
@@ -23,7 +32,7 @@ struct WMFYearInReviewShareableSlideView: View {
             VStack {
                 VStack(alignment: .leading, spacing: 16) {
                     Image("W-share-logo", bundle: .module)
-                        .frame(height: 70)
+                        .frame(height: 50)
                         .frame(maxWidth: .infinity)
                         .foregroundColor(Color(theme.text))
 
@@ -40,12 +49,13 @@ struct WMFYearInReviewShareableSlideView: View {
                         Text(slideTitle)
                             .font(Font(WMFFont.for(.boldTitle1, compatibleWith: UITraitCollection(preferredContentSizeCategory: .medium))))
                             .foregroundStyle(Color(uiColor: theme.text))
-                        Text(subtitleAttributedString())
+                        Text(attributedString)
                             .font(Font(WMFFont.for(.title3, compatibleWith: UITraitCollection(preferredContentSizeCategory: .medium))))
                             .foregroundStyle(Color(uiColor: theme.text))
                             .accentColor(Color(uiColor: theme.link))
                     }
-                    .padding(28)
+                    .padding([.top, .horizontal], 28)
+                    .padding(.bottom, isAttributedString ? 0 : 28)
                 }
 
                 Spacer(minLength: 10)
