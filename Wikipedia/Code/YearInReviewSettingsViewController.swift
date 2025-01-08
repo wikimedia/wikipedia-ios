@@ -78,6 +78,7 @@ final class YearInReviewSettingsViewController: SubSettingsViewController {
             return isEnabled
         }, action: { [weak self] isOn in
             self?.dataController?.yearInReviewSettingsIsEnabled = isOn
+            UserDefaults.standard.wmf_yirSettingToggleIsEnabled = isOn
             if !isOn {
                 Task {
                     do {
