@@ -1059,6 +1059,6 @@
 "year-in-review-day-saturday" = "Sabati";
 "year-in-review-personalized-saved-subtitle-format" = "Hai $1 articoli salvati, incluso $2, $3 e $4. Ogni articolo salvato rispecchia i tuoi interessi e aiuta a costruire una base di conoscenza personalizzata su Wikipedia.";
 "year-in-review-personalized-edit-views-title-format" = "Recentemente le tue modifiche sono state visualizzate più di $1 volte";
-"year-in-review-personalized-edit-views-subtitle-format" = "I lettori da tutto il mondo apprezzano i tuoi contributi. Negli ultimi 2 mesi, gli articoli che hai modificato hanno ricevuto xxx visualizzazioni totali. Grazie ad editor come te, Wikipedia è una risorsa affidabile di conoscenza in continuo miglioramento e basata sui fatti.";
+"year-in-review-personalized-edit-views-subtitle-format" = "I lettori da tutto il mondo apprezzano i tuoi contributi. Negli ultimi 2 mesi, gli articoli che hai modificato hanno ricevuto $1 visualizzazioni totali. Grazie ad editor come te, Wikipedia è una risorsa affidabile di conoscenza in continuo miglioramento e basata sui fatti.";
 "profile-year-in-review-login-title" = "Accedi per visualizzare l'Anno in Rassegna";
 "profile-year-in-review-login-subtitle" = "Accedi o crea un account per vedere l'Anno in Rassegna di nuovo ed essere idoneo per più informazioni utili personalizzate.";
