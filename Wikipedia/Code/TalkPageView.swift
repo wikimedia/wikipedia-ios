@@ -59,6 +59,9 @@ final class TalkPageView: SetupView {
         tb.translatesAutoresizingMaskIntoConstraints = false
         return tb
     }()
+    
+    private var emptyViewTopConstraint: NSLayoutConstraint?
+    private var errorViewTopConstraint: NSLayoutConstraint?
 
     // MARK: - Lifecycle
 
@@ -68,17 +71,19 @@ final class TalkPageView: SetupView {
         addSubview(errorView)
         toolbarContainerView.addSubview(toolbar)
         addSubview(toolbarContainerView)
+        let emptyViewTopConstraint = emptyView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor)
+        let errorViewTopConstraint = errorView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor)
         NSLayoutConstraint.activate([
             collectionView.topAnchor.constraint(equalTo: topAnchor),
             collectionView.bottomAnchor.constraint(equalTo: toolbarContainerView.topAnchor),
             collectionView.leadingAnchor.constraint(equalTo: leadingAnchor),
             collectionView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            emptyView.topAnchor.constraint(equalTo: topAnchor),
-            emptyView.bottomAnchor.constraint(equalTo: bottomAnchor),
+            emptyViewTopConstraint,
+            emptyView.bottomAnchor.constraint(equalTo: toolbarContainerView.topAnchor),
             emptyView.leadingAnchor.constraint(equalTo: leadingAnchor),
             emptyView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            errorView.topAnchor.constraint(equalTo: topAnchor),
-            errorView.bottomAnchor.constraint(equalTo: bottomAnchor),
+            errorViewTopConstraint,
+            errorView.bottomAnchor.constraint(equalTo: toolbarContainerView.topAnchor),
             errorView.leadingAnchor.constraint(equalTo: leadingAnchor),
             errorView.trailingAnchor.constraint(equalTo: trailingAnchor),
             toolbarContainerView.safeAreaLayoutGuide.bottomAnchor.constraint(equalTo: toolbar.bottomAnchor),
@@ -89,6 +94,8 @@ final class TalkPageView: SetupView {
             leadingAnchor.constraint(equalTo: toolbarContainerView.leadingAnchor),
             trailingAnchor.constraint(equalTo: toolbarContainerView.trailingAnchor)
         ])
+        self.emptyViewTopConstraint = emptyViewTopConstraint
+        self.errorViewTopConstraint = errorViewTopConstraint
     }
 
     func updateEmptyView(visible: Bool, animated: Bool = true) {
@@ -96,6 +103,11 @@ final class TalkPageView: SetupView {
             self.emptyView.isUserInteractionEnabled = visible
             self.emptyView.alpha = visible ? 1 : 0
         })
+    }
+    
+    func updateEmptyErrorViewsTopPadding(padding: CGFloat) {
+        emptyViewTopConstraint?.constant = padding
+        errorViewTopConstraint?.constant = padding
     }
 
     func updateErrorView(visible: Bool) {

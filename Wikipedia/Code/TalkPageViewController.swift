@@ -234,6 +234,13 @@ class TalkPageViewController: ThemeableViewController, WMFNavigationBarConfiguri
         configureNavigationBar()
     }
     
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+        let headerViewHeight = self.headerView?.frame.height ?? 0
+        talkPageView.updateEmptyErrorViewsTopPadding(padding: headerViewHeight)
+    }
+    
     private func configureNavigationBar() {
         let titleConfig = WMFNavigationBarTitleConfig(title: TalkPageLocalizedStrings.title, customView: nil, alignment: .centerCompact)
         
