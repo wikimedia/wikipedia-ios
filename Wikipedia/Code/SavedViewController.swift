@@ -15,7 +15,7 @@ protocol SavedViewControllerDelegate: NSObjectProtocol {
 }
 
 @objc(WMFSavedViewController)
-class SavedViewController: ThemeableViewController, WMFNavigationBarConfiguring {
+class SavedViewController: ThemeableViewController, WMFNavigationBarConfiguring, WMFNavigationBarHiding {
 
     private var savedArticlesViewController: SavedArticlesCollectionViewController?
     
@@ -27,6 +27,7 @@ class SavedViewController: ThemeableViewController, WMFNavigationBarConfiguring 
             return nil
         }
         let readingListsCollectionViewController = ReadingListsViewController(with: dataStore)
+        readingListsCollectionViewController.delegate = self
         return readingListsCollectionViewController
     }()
 
@@ -40,6 +41,9 @@ class SavedViewController: ThemeableViewController, WMFNavigationBarConfiguring 
     fileprivate lazy var savedProgressViewController: SavedProgressViewController? = SavedProgressViewController.wmf_initialViewControllerFromClassStoryboard()
 
     public weak var savedDelegate: SavedViewControllerDelegate?
+    
+    var topSafeAreaOverlayView: UIView?
+    var topSafeAreaOverlayHeightConstraint: NSLayoutConstraint?
 
     // MARK: - Initalization and setup
     
@@ -93,6 +97,9 @@ class SavedViewController: ThemeableViewController, WMFNavigationBarConfiguring 
                     searchBar.placeholder = "Search reading lists"
                 }
             }
+            
+            // Calculate hide bar on scroll flag on switch. We want to hide on scroll if there's content, otherwise no.
+            configureNavigationBar()
         }
     }
 
@@ -149,7 +156,9 @@ class SavedViewController: ThemeableViewController, WMFNavigationBarConfiguring 
             currentView = .savedArticles
         }
 
-        
+        if let collectionView = savedArticlesViewController?.collectionView {
+            setupTopSafeAreaOverlay(scrollView: collectionView)
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -179,6 +188,14 @@ class SavedViewController: ThemeableViewController, WMFNavigationBarConfiguring 
         }
     }
     
+    override func viewWillTransition(to size: CGSize, with coordinator: any UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+
+        coordinator.animate(alongsideTransition: nil) { [weak self] _ in
+            self?.calculateTopSafeAreaOverlayHeight()
+        }
+    }
+    
     private func configureNavigationBar() {
         
         var titleConfig: WMFNavigationBarTitleConfig = WMFNavigationBarTitleConfig(title: CommonStrings.savedTabTitle, customView: nil, alignment: .leadingCompact)
@@ -192,8 +209,20 @@ class SavedViewController: ThemeableViewController, WMFNavigationBarConfiguring 
         let readingListsButtonTitle = WMFLocalizedString("saved-reading-lists-title", value: "Reading lists", comment: "Title of the reading lists button on Saved screen")
         
         let searchConfig = WMFNavigationBarSearchConfig(searchResultsController: nil, searchControllerDelegate: nil, searchResultsUpdater: nil, searchBarDelegate: self, searchBarPlaceholder: WMFLocalizedString("saved-search-default-text", value:"Search saved articles", comment:"Placeholder text for the search bar in Saved"), showsScopeBar: true, scopeButtonTitles: [allArticlesButtonTitle, readingListsButtonTitle])
+        
+        var hidesNavigationBarOnScroll = true
+        switch self.currentView {
+        case .savedArticles:
+            if let savedArticlesViewController, savedArticlesViewController.isEmpty {
+                hidesNavigationBarOnScroll = false
+            }
+        case .readingLists:
+            if let readingListsViewController, readingListsViewController.isEmpty {
+                hidesNavigationBarOnScroll = false
+            }
+        }
 
-        configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: nil, profileButtonConfig: nil, searchBarConfig: searchConfig, hideNavigationBarOnScroll: false)
+        configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: nil, profileButtonConfig: nil, searchBarConfig: searchConfig, hideNavigationBarOnScroll: hidesNavigationBarOnScroll)
     }
     
     private func setSavedArticlesViewControllerIfNeeded() {
@@ -229,6 +258,7 @@ class SavedViewController: ThemeableViewController, WMFNavigationBarConfiguring 
         addReadingListBarButtonItem.tintColor = theme.colors.link
         
         themeNavigationBarLeadingTitleView()
+        themeTopSafeAreaOverlay()
         
         if let rightBarButtonItems = navigationItem.rightBarButtonItems {
             for barButtonItem in rightBarButtonItems {
@@ -337,6 +367,11 @@ extension SavedViewController: UISearchBarDelegate {
         searchBar.text = nil
         savedDelegate?.saved(self, scopeBarIndexDidChange: searchBar)
     }
+    
+    // Used in ReadingListEntryCollectionViewControllerDelegate & ReadingListsViewControllerDelegate
+    func scrollViewDidScroll(scrollView: UIScrollView) {
+        calculateNavigationBarHiddenState(scrollView: scrollView)
+    }
 }
 
 extension SavedViewController: ReadingListEntryCollectionViewControllerDelegate {
@@ -352,6 +387,18 @@ extension SavedViewController: ReadingListEntryCollectionViewControllerDelegate 
     
     func readingListEntryCollectionViewControllerDidSelectArticleURL(_ articleURL: URL, viewController: ReadingListEntryCollectionViewController) {
         navigate(to: articleURL)
+    }
+    
+    
+}
+
+extension SavedViewController: ReadingListsViewControllerDelegate {
+    func readingListsViewController(_ readingListsViewController: ReadingListsViewController, didAddArticles articles: [WMFArticle], to readingList: WMF.ReadingList) {
+        // no-op
+    }
+    
+    func readingListsViewControllerDidChangeEmptyState(_ readingListsViewController: ReadingListsViewController, isEmpty: Bool) {
+        // no-op
     }
     
 }

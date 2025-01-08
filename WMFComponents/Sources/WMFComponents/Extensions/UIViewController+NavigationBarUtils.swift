@@ -99,7 +99,7 @@ public extension WMFNavigationBarConfiguring where Self: UIViewController {
         navigationController?.setNavigationBarHidden(false, animated: true)
         navigationController?.hidesBarsOnSwipe = hideNavigationBarOnScroll
         
-        if hideNavigationBarOnScroll && (self is WMFNavigationBarHiding) {
+        if hideNavigationBarOnScroll && !(self is WMFNavigationBarHiding) {
             debugPrint("Consider conforming to WMFNavigationBarHiding, which has helper methods ensuring the system navigation bar has a proper top safe area overlay and does not stick in a hidden state when scrolled to the top.")
         }
         

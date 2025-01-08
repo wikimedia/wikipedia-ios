@@ -317,8 +317,8 @@ extension ReadingListDetailViewController: SearchBarExtendedViewControllerDelega
 
 // MARK: - ReadingListEntryCollectionViewControllerDelegate
 
-extension ReadingListDetailViewController: ReadingListEntryCollectionViewControllerDelegate {    
-    
+extension ReadingListDetailViewController: ReadingListEntryCollectionViewControllerDelegate {
+
     func setupReadingListDetailHeaderView(_ headerView: ReadingListDetailHeaderView) {
         headerView.delegate = self
         headerView.setup(for: readingList, listLimit: dataStore.viewContext.wmf_readingListsConfigMaxListsPerUser, entryLimit: dataStore.viewContext.wmf_readingListsConfigMaxEntriesPerList.intValue)
@@ -350,6 +350,10 @@ extension ReadingListDetailViewController: ReadingListEntryCollectionViewControl
         } else {
             navigate(to: articleURL)
         }
+    }
+    
+    func scrollViewDidScroll(scrollView: UIScrollView) {
+        // no-op
     }
 }
 

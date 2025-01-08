@@ -8,6 +8,7 @@ enum ReadingListsDisplayType {
 protocol ReadingListsViewControllerDelegate: NSObjectProtocol {
     func readingListsViewController(_ readingListsViewController: ReadingListsViewController, didAddArticles articles: [WMFArticle], to readingList: ReadingList)
     func readingListsViewControllerDidChangeEmptyState(_ readingListsViewController: ReadingListsViewController, isEmpty: Bool)
+    func scrollViewDidScroll(scrollView: UIScrollView)
 }
 
 @objc(WMFReadingListsViewController)
@@ -330,6 +331,7 @@ class ReadingListsViewController: ColumnarCollectionViewController, EditableColl
     override func scrollViewDidScroll(_ scrollView: UIScrollView) {
         super.scrollViewDidScroll(scrollView)
         editController.transformBatchEditPaneOnScroll()
+        delegate?.scrollViewDidScroll(scrollView: scrollView)
     }
 
     // MARK: Themeable
