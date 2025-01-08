@@ -52,6 +52,9 @@ class ColumnarCollectionViewController: ThemeableViewController, ColumnarCollect
         layoutManager.register(CollectionViewHeader.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: CollectionViewHeader.identifier, addPlaceholder: true)
         layoutManager.register(CollectionViewFooter.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: CollectionViewFooter.identifier, addPlaceholder: true)
         collectionView.alwaysBounceVertical = true
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillChangeFrame(_:)), name: UIWindow.keyboardWillChangeFrameNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: UIWindow.keyboardWillHideNotification, object: nil)
     }
 
     @objc open func contentSizeCategoryDidChange(_ notification: Notification?) {
@@ -103,6 +106,28 @@ class ColumnarCollectionViewController: ThemeableViewController, ColumnarCollect
             let invalidationContext = self.layout.invalidationContext(forBoundsChange: boundsChange)
             self.layout.invalidateLayout(with: invalidationContext)
         })
+    }
+    
+    // MARK: Keyboard
+    
+    private(set) var keyboardFrame: CGRect? {
+            didSet {
+                if oldValue != keyboardFrame {
+                    scrollViewInsetsDidChange()
+                }
+            }
+        }
+    
+    @objc func keyboardWillChangeFrame(_ notification: Notification) {
+        if let window = view.window, let endFrame = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect {
+            let windowFrame = window.convert(endFrame, from: nil)
+            keyboardFrame = window.convert(windowFrame, to: view)
+        }
+    }
+    
+    @objc func keyboardWillHide(_ notification: Notification) {
+        keyboardFrame = nil
+        updateEmptyViewFrame()
     }
 
     // MARK: HintPresenting
@@ -176,9 +201,19 @@ class ColumnarCollectionViewController: ThemeableViewController, ColumnarCollect
         isEmptyDidChange()
     }
     
-    private var emptyViewFrame: CGRect {
-        let insets = collectionView.contentInset
-        let frame = view.bounds.inset(by: insets)
+    private var emptyViewFrame: CGRect = .zero
+    
+    private func generateEmptyViewFrame() -> CGRect {
+        let insets = collectionView.adjustedContentInset
+        
+        var frame = view.bounds.inset(by: insets)
+        
+        if let keyboardFrame {
+            let amountOFKeyboardUnderView = keyboardFrame.maxY - view.bounds.height
+            let insetsFromKeyboard = UIEdgeInsets(top: 0, left: 0, bottom: keyboardFrame.height - amountOFKeyboardUnderView, right: 0)
+            frame = frame.inset(by: insetsFromKeyboard)
+        }
+        
         return frame
     }
 
@@ -208,7 +243,15 @@ class ColumnarCollectionViewController: ThemeableViewController, ColumnarCollect
     }
     
     func scrollViewInsetsDidChange() {
-        wmf_setEmptyViewFrame(emptyViewFrame)
+        updateEmptyViewFrame()
+    }
+    
+    func updateEmptyViewFrame() {
+        let newEmptyViewFrame = generateEmptyViewFrame()
+        if emptyViewFrame != newEmptyViewFrame {
+            emptyViewFrame = newEmptyViewFrame
+            wmf_setEmptyViewFrame(emptyViewFrame)
+        }
     }
     
     // MARK: - Themeable
@@ -447,4 +490,14 @@ extension ColumnarCollectionViewController: ArticlePreviewingDelegate {
         let placesURL = NSUserActivity.wmf_URLForActivity(of: .places, withArticleURL: articleController.articleURL)
         UIApplication.shared.open(placesURL, options: [:], completionHandler: nil)
     }
+    
+    func insetsBetween(rect1: CGRect, rect2: CGRect) -> UIEdgeInsets {
+        let top = rect2.minY - rect1.minY
+        let left = rect2.minX - rect1.minX
+        let bottom = rect1.maxY - rect2.maxY
+        let right = rect1.maxX - rect2.maxX
+
+        return UIEdgeInsets(top: top, left: left, bottom: bottom, right: right)
+    }
 }
+
