@@ -9,7 +9,7 @@ protocol AltTextDelegate: AnyObject {
 }
 
 @objc(WMFArticleViewController)
-class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollViewDelegate, WMFNavigationBarConfiguring {
+class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollViewDelegate, WMFNavigationBarConfiguring, WMFNavigationBarHiding {
     enum ViewState {
         case initial
         case loading
@@ -164,9 +164,10 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
     // Coordinator used to navigate a user to the donate form from campaign modal
     var donateCoordinator: DonateCoordinator?
     
-    private var overlayHeightConstraint: NSLayoutConstraint?
-    private var overlayView: UIView?
-    private var stackViewTopConstraint: NSLayoutConstraint?
+    var topSafeAreaOverlayHeightConstraint: NSLayoutConstraint?
+    var topSafeAreaOverlayView: UIView?
+    
+    private var tocStackViewTopConstraint: NSLayoutConstraint?
     private var searchBarIsAnimating = false
 
     convenience init?(articleURL: URL, dataStore: MWKDataStore, theme: Theme, schemeHandler: SchemeHandler? = nil, altTextExperimentViewModel: WMFAltTextExperimentViewModel, needsAltTextExperimentSheet: Bool, altTextBottomSheetViewModel: WMFAltTextExperimentModalSheetViewModel?, altTextDelegate: AltTextDelegate?) {
@@ -388,12 +389,12 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
         super.viewSafeAreaInsetsDidChange()
         
         guard searchBarIsAnimating else {
-            stackViewTopConstraint?.constant = 0
+            tocStackViewTopConstraint?.constant = 0
             view.layoutIfNeeded()
             return
         }
         
-        stackViewTopConstraint?.constant = view.safeAreaInsets.top
+        tocStackViewTopConstraint?.constant = view.safeAreaInsets.top
         UIView.animate(withDuration: 0.2) {
             self.view.layoutIfNeeded()
         }
@@ -428,7 +429,7 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
             }
             
             self.watchlistController.calculatePopoverPosition(sender: self.toolbarController.moreButton, sourceView: self.toolbarController.moreButtonSourceView, sourceRect: self.toolbarController.moreButtonSourceRect)
-            self.overlayHeightConstraint?.constant = UIApplication.shared.workaroundStatusBarFrame.height
+            self.calculateTopSafeAreaOverlayHeight()
         }
     }
     
@@ -1099,8 +1100,7 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
         updateProfileButton()
         
         themeNavigationBarCustomCenteredTitleView()
-        
-        overlayView?.backgroundColor = theme.colors.paperBackground
+        themeTopSafeAreaOverlay()
         
         if let searchVC = navigationItem.searchController?.searchResultsController as? SearchViewController {
             searchVC.theme = theme
@@ -1308,13 +1308,9 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
 
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         updateTableOfContentsHighlightIfNecessary()
-        
-        // prevents "sticky" hidden nav bar
-        let finalOffset = scrollView.contentOffset.y + scrollView.safeAreaInsets.top
-        if finalOffset < 5 && (navigationController?.navigationBar.isHidden ?? true) {
-            navigationController?.setNavigationBarHidden(false, animated: true)
-            view.setNeedsLayout() // fix TOC top padding
-        }
+
+        calculateNavigationBarHiddenState(scrollView: webView.scrollView)
+        // view.setNeedsLayout() // fix TOC top padding
     }
     
     func scrollViewDidScrollToTop(_ scrollView: UIScrollView) {
@@ -1367,27 +1363,7 @@ private extension ArticleViewController {
         setupWebView()
         setupMessagingController()
         
-        setupTopOverlay()
-    }
-    
-    private func setupTopOverlay() {
-        // Insert UIView covering below navigation bar, but above web view. This hides web view content beneath safe area.
-        // TODO: Update this upon theming change.
-        let overlayView = UIView()
-        overlayView.translatesAutoresizingMaskIntoConstraints = false
-        overlayView.backgroundColor = theme.colors.paperBackground
-        view.insertSubview(overlayView, aboveSubview: webView)
-        let statusBarHeight = UIApplication.shared.workaroundStatusBarFrame.height
-        let overlayHeightConstraint = overlayView.heightAnchor.constraint(equalToConstant: statusBarHeight)
-        NSLayoutConstraint.activate([
-            view.topAnchor.constraint(equalTo: overlayView.topAnchor),
-            view.leadingAnchor.constraint(equalTo: overlayView.leadingAnchor),
-            view.trailingAnchor.constraint(equalTo: overlayView.trailingAnchor),
-            overlayHeightConstraint
-        ])
-        
-        self.overlayHeightConstraint = overlayHeightConstraint
-        self.overlayView = overlayView
+        setupTopSafeAreaOverlay(scrollView: webView.scrollView)
     }
 
     private var overflowMenu: UIMenu {
@@ -1508,7 +1484,7 @@ private extension ArticleViewController {
             toolbarContainerView.topAnchor.constraint(equalTo: tableOfContentsController.stackView.bottomAnchor)
         ])
         
-        self.stackViewTopConstraint = stackViewTopConstraint
+        self.tocStackViewTopConstraint = stackViewTopConstraint
         
         view.widthAnchor.constraint(equalTo: tableOfContentsController.inlineContainerView.widthAnchor, multiplier: 3).isActive = true
 

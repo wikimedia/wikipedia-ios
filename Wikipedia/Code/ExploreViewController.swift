@@ -4,7 +4,7 @@ import CocoaLumberjackSwift
 import WMFComponents
 import WMFData
 
-class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewControllerDelegate, CollectionViewUpdaterDelegate, ImageScaleTransitionProviding, DetailTransitionSourceProviding, MEPEventsProviding, WMFNavigationBarConfiguring {
+class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewControllerDelegate, CollectionViewUpdaterDelegate, ImageScaleTransitionProviding, DetailTransitionSourceProviding, MEPEventsProviding, WMFNavigationBarConfiguring, WMFNavigationBarHiding {
 
     public var presentedContentGroupKey: String?
     public var shouldRestoreScrollPosition = false
@@ -50,8 +50,8 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
             return existingYirCoordinator
     }
     
-    private var overlayHeightConstraint: NSLayoutConstraint?
-    private var overlayView: UIView?
+    var topSafeAreaOverlayHeightConstraint: NSLayoutConstraint?
+    var topSafeAreaOverlayView: UIView?
 
     // MARK: - Lifecycle
 
@@ -70,7 +70,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         NotificationCenter.default.addObserver(self, selector: #selector(databaseHousekeeperDidComplete), name: .databaseHousekeeperDidComplete, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(applicationDidBecomeActive), name: UIApplication.didBecomeActiveNotification, object: nil)
         
-        setupTopOverlay()
+        setupTopSafeAreaOverlay(scrollView: collectionView)
     }
 
     @objc var isGranularUpdatingEnabled: Bool = true {
@@ -124,7 +124,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
 
         coordinator.animate(alongsideTransition: nil) { [weak self] _ in
             self?.updateTabBarSnapshotImage()
-            self?.overlayHeightConstraint?.constant = UIApplication.shared.workaroundStatusBarFrame.height
+            self?.calculateTopSafeAreaOverlayHeight()
         }
     }
 
@@ -161,27 +161,6 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         DispatchQueue.main.async {
             self.refresh()
         }
-    }
-    
-    func setupTopOverlay() {
-        
-        // Insert UIView covering below navigation bar, but above collection view. This hides collection view content beneath safe area.
-        // TODO: Update this upon theming change.
-        let overlayView = UIView()
-        overlayView.translatesAutoresizingMaskIntoConstraints = false
-        overlayView.backgroundColor = theme.colors.paperBackground
-        view.insertSubview(overlayView, aboveSubview: collectionView)
-        let statusBarHeight = UIApplication.shared.workaroundStatusBarFrame.height
-        let overlayHeightConstraint = overlayView.heightAnchor.constraint(equalToConstant: statusBarHeight)
-        NSLayoutConstraint.activate([
-            view.topAnchor.constraint(equalTo: overlayView.topAnchor),
-            view.leadingAnchor.constraint(equalTo: overlayView.leadingAnchor),
-            view.trailingAnchor.constraint(equalTo: overlayView.trailingAnchor),
-            overlayHeightConstraint
-        ])
-        
-        self.overlayHeightConstraint = overlayHeightConstraint
-        self.overlayView = overlayView
     }
     
     // MARK: Navigation Bar
@@ -307,11 +286,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     override func scrollViewDidScroll(_ scrollView: UIScrollView) {
         super.scrollViewDidScroll(scrollView)
         
-        // prevents "sticky" hidden nav bar
-        let finalOffset = scrollView.contentOffset.y + scrollView.safeAreaInsets.top
-        if finalOffset < 5 && (navigationController?.navigationBar.isHidden ?? true) {
-            navigationController?.setNavigationBarHidden(false, animated: true)
-        }
+        calculateNavigationBarHiddenState(scrollView: scrollView)
         
         guard !isLoadingOlderContent else {
             return
@@ -725,7 +700,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
             searchVC.apply(theme: theme)
         }
         
-        overlayView?.backgroundColor = theme.colors.paperBackground
+        themeTopSafeAreaOverlay()
     }
     
     // MARK: - ColumnarCollectionViewLayoutDelegate
