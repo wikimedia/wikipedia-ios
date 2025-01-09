@@ -1010,6 +1010,8 @@
 "profile-page-join-title" = "登入 / 加入 Wikipedia";
 "profile-page-logged-out-year-in-review-subtext" = "登入或建立帳號來取得明年的改善年度回顧";
 "profile-page-title-logged-out" = "帳號";
+"profile-year-in-review-login-subtitle" = "登入或建立帳戶即可再次查看年度回顧，並獲得更多個人化的洞察資訊。";
+"profile-year-in-review-login-title" = "登入以查看年度回顧";
 "project-name-mediawiki" = "MediaWiki";
 "project-name-wikibooks" = "維基教科書";
 "project-name-wikidata" = "維基數據";
@@ -1191,6 +1193,7 @@
 "settings-storage-and-syncing-show-default-reading-list-title" = "顯示已儲存的閱讀清單";
 "settings-storage-and-syncing-title" = "條目的儲存庫與同步";
 "settings-title" = "設定";
+"settings-year-in-review-header" = "關閉年度回顧將清除所有儲存的個人化洞察資訊，並隱藏年度回顧功能。";
 "share-a-fact-made-with" = "用維基百科應用程式製作";
 "share-article-name-on-wikipedia" = "維基百科上的「$1」：";
 "share-building" = "建立分享預覽卡中…";
@@ -1436,60 +1439,66 @@
 "wikitext-upload-save-sign-in" = "登入";
 "wikitext-upload-save-terms-and-licenses-ccsa4" = "透過發布更改，代表您同意$1使用條款$2，並且不反悔同意根據$3 CC BY-SA 4.0 許可$4和$5 GFDL $6來發布您的貢獻。您同意超連結或網址已足以代表創用 CC 授權條款的姓名標示。";
 "wikitext-upload-save-terms-name" = "使用條款";
+// Fuzzy
+"year-in-review-base-donate-subtitle" = "在您的支持下，維基媒體基金會——Wikipedia 背後的非營利組織——將繼續確保您所依賴的資訊無廣告且值得信賴，同時利用尖端工具和技術，讓 Wikipedia 平穩運行。請考慮今天捐款支持，並了解更多關於我們的工作內容。";
+"year-in-review-base-donate-title" = "Wikipedia 上顯示的廣告數量為 0";
+// Fuzzy
 "year-in-review-base-editors-subtitle" = "今年截至目前，Wikipedia 的志願編輯者社群在 iOS 應用程式上完成了超過 $1 次編輯。Wikipedia 的核心是我們的全球志願者社群，包括貢獻者、捐款者，以及像您一樣的數十億讀者——大家齊心協力，共同提供無限且可靠的資訊存取。";
 "year-in-review-base-editors-title" = "iOS 應用程式上的編輯者進行了超過 $1 次編輯。";
+// Fuzzy
 "year-in-review-base-edits-subtitle" = "今年，Wikipedia 的平均編輯速度為每分鐘 $1 次。文章是基於可靠來源由社群共同創建和改進的。我們每個人都有知識可以分享，歡迎學習如何參與其中。";
 "year-in-review-base-edits-title" = "Wikipedia 每分鐘被編輯 $1 次。";
-// Fuzzy
 "year-in-review-base-reading-subtitle" = "Wikipedia 在今年擁有超過 $1 萬篇文章，涵蓋 $2 多種活躍語言。您與數百萬人一起擴展知識，探索多元主題。";
 "year-in-review-base-reading-title" = "Wikipedia 提供超過 300 種語言版本";
+// Fuzzy
+"year-in-review-base-saved-subtitle" = "今年，活躍的 iOS 應用程式用戶創建了超過 $1 萬個閱讀清單。將文章增加到閱讀清單，可以讓您即使在離線時也能存取文章。此外，您還可以登入帳戶，將閱讀清單同步到不同裝置。";
+"year-in-review-base-saved-title" = "我們擁有超過 $1 萬個閱讀清單";
 "year-in-review-base-viewed-subtitle" = "iOS 應用程式用戶已瀏覽 Wikipedia 文章達 $1 億次。對於全球各地的人們來說，Wikipedia 是解答問題、查詢學校或工作相關資訊，或學習新知的第一站。";
 "year-in-review-base-viewed-title" = "我們已瀏覽了 $1 億次 Wikipedia 文章";
 "year-in-review-button-title" = "年度回顧";
-"year-in-review-donate" = "捐款";
-"year-in-review-feature-announcement-body" = "查看我們今年在 Wikipedia 上閱讀和編輯的文章的洞察，並分享我們一年的亮點時刻。";
-"year-in-review-feature-announcement-title" = "探索 Wikipedia 年度回顧";
-"year-in-review-feature-explore-body-personalized" = "查看您在 Wikipedia 應用程式上閱讀的文章以及所進行的編輯。您的閱讀歷史將受到保護，閱讀洞察是使用儲存在您裝置上的本地資料計算得出的。";
-"year-in-review-personalized-editing-subtitle-format" = "您在 Wikipedia 上進行了 $1 次編輯。感謝您作為志願編輯者之一，為全球 Wikimedia 專案帶來改變。";
-"year-in-review-personalized-editing-subtitle-format-500plus" = "您編輯了維基百科超過 500 次。感謝您成為替世界各維基媒體計畫做出貢獻的志工編輯者之一。";
-"year-in-review-personalized-editing-title-format" = "您在 Wikipedia 上進行了 $1 次編輯";
-"year-in-review-personalized-editing-title-format-500plus" = "您編輯了維基百科 500 多次。";
-"year-in-review-personalized-reading-subtitle-format" = "今年，您閱讀了 $1 篇文章，包括$2、 $3 和 $4。Wikipedia 提供超過 6,300 萬篇文章，涵蓋 300 多種語言版本。您與數百萬人一起拓展知識，探索多樣化的主題。";
-"year-in-review-personalized-reading-title-format" = "您今年閱讀了 {{PLURAL:$1|$1}} 篇條目";
-"year-in-review-share-text" = "這是我的 Wikipedia 年度回顧，由 Wikipedia iOS 應用程式製作。 (https://apps.apple.com/app/wikipedia/id324715238) #WikipediaYearInReview";
-"year-in-review-feature-explore-body" = "Wikipedia 是世界歷史上規模最大的知識資源，且免費提供給世界各地的每一個人。透過 Wikipedia 的視角，回顧 2024 年的點點滴滴。";
-"year-in-review-base-saved-title" = "我們擁有超過 $1 萬個閱讀清單";
-"year-in-review-base-saved-subtitle" = "今年，活躍的 iOS 應用程式用戶創建了超過 $1 萬個閱讀清單。將文章增加到閱讀清單，可以讓您即使在離線時也能存取文章。此外，您還可以登入帳戶，將閱讀清單同步到不同裝置。";
-"year-in-review-personalized-donate-title" = "您的慷慨幫助 Wikipedia 持續蓬勃發展";
-"year-in-review-personalized-donate-subtitle" = "感謝您為自由知識的未來投入支持。今年，Wikimedia 基金會改進了技術，以更好地服務每一位讀者和志願者，開發了促進合作的工具，並支持更多語言版本的 Wikipedia。了解更多關於我們的工作內容。";
-"year-in-review-base-donate-title" = "Wikipedia 上顯示的廣告數量為 0";
-"year-in-review-base-donate-subtitle" = "在您的支持下，維基媒體基金會——Wikipedia 背後的非營利組織——將繼續確保您所依賴的資訊無廣告且值得信賴，同時利用尖端工具和技術，讓 Wikipedia 平穩運行。請考慮今天捐款支持，並了解更多關於我們的工作內容。";
-"year-in-review-donate-now" = "立即捐款";
-"year-in-review-survey-title" = "滿意度調查";
-"year-in-review-survey-subtitle" = "協助改進您的年度回顧功能。您對此功能感到滿意嗎？";
-"year-in-review-survey-very-satisfied" = "非常滿意";
-"year-in-review-survey-satisfied" = "滿意";
-"year-in-review-survey-neutral" = "中立";
-"year-in-review-survey-unsatisfied" = "不滿意";
-"year-in-review-survey-very-unsatisfied" = "非常不滿意";
-"year-in-review-survey-additional-thoughts" = "還有其他想法嗎？";
-"year-in-review-login-title" = "改進您的年度回顧";
-"year-in-review-login-subtitle" = "登入或建立帳戶，以獲得更多個人化的洞察資訊。";
-"year-in-review-feature-announcement-title-personalized" = "探索您的 Wikipedia 年度回顧";
-"year-in-review-feature-announcement-body-personalized" = "查看您在 Wikipedia 應用程式上閱讀文章的洞察，分享您的旅程，並發掘您今年的亮點時刻。";
-"year-in-review-personalized-day-subtitle-format" = "您在 $1 閱讀了最多文章。顯然，$1 是您探索新內容的最佳時機。感謝您充分利用閱讀時間！";
-"year-in-review-day-monday" = "星期一";
-"year-in-review-day-tuesday" = "星期二";
-"year-in-review-day-wednesday" = "星期三";
-"year-in-review-day-thursday" = "星期四";
 "year-in-review-day-friday" = "星期五";
+"year-in-review-day-monday" = "星期一";
 "year-in-review-day-saturday" = "星期六";
 "year-in-review-day-sunday" = "星期日";
-"year-in-review-personalized-saved-title-format" = "您已儲存 $1 篇文章";
-"year-in-review-personalized-saved-subtitle-format" = "您已儲存 $1 篇文章，包括$2、$3和$4。每篇儲存的文章都反映了您的興趣，並幫助您在 Wikipedia 上建立個人化的知識庫。";
-"year-in-review-personalized-edit-views-title-format" = "您的編輯最近已被瀏覽超過 $1 次。";
+"year-in-review-day-thursday" = "星期四";
+"year-in-review-day-tuesday" = "星期二";
+"year-in-review-day-wednesday" = "星期三";
+"year-in-review-donate" = "捐款";
+"year-in-review-donate-now" = "立即捐款";
+"year-in-review-feature-announcement-body" = "查看我們今年在 Wikipedia 上閱讀和編輯的文章的洞察，並分享我們一年的亮點時刻。";
+"year-in-review-feature-announcement-body-personalized" = "查看您在 Wikipedia 應用程式上閱讀文章的洞察，分享您的旅程，並發掘您今年的亮點時刻。";
+"year-in-review-feature-announcement-title" = "探索 Wikipedia 年度回顧";
+"year-in-review-feature-announcement-title-personalized" = "探索您的 Wikipedia 年度回顧";
+"year-in-review-feature-explore-body" = "Wikipedia 是世界歷史上規模最大的知識資源，且免費提供給世界各地的每一個人。透過 Wikipedia 的視角，回顧 2024 年的點點滴滴。";
+"year-in-review-feature-explore-body-personalized" = "查看您在 Wikipedia 應用程式上閱讀的文章以及所進行的編輯。您的閱讀歷史將受到保護，閱讀洞察是使用儲存在您裝置上的本地資料計算得出的。";
+// Fuzzy
+"year-in-review-login-subtitle" = "登入或建立帳戶，以獲得更多個人化的洞察資訊。";
+"year-in-review-login-title" = "改進您的年度回顧";
+"year-in-review-personalized-day-subtitle-format" = "您在 $1 閱讀了最多文章。顯然，$1 是您探索新內容的最佳時機。感謝您充分利用閱讀時間！";
+// Fuzzy
+"year-in-review-personalized-donate-subtitle" = "感謝您為自由知識的未來投入支持。今年，Wikimedia 基金會改進了技術，以更好地服務每一位讀者和志願者，開發了促進合作的工具，並支持更多語言版本的 Wikipedia。了解更多關於我們的工作內容。";
+"year-in-review-personalized-donate-title" = "您的慷慨幫助 Wikipedia 持續蓬勃發展";
 "year-in-review-personalized-edit-views-subtitle-format" = "全球的讀者感謝您的貢獻。在過去兩個月中，您編輯過的文章共獲得了 $1 次瀏覽。正因為有像您這樣的編輯者，Wikipedia 才能持續改進，成為一個以事實為基礎且值得信賴的全球知識資源。";
-"profile-year-in-review-login-title" = "登入以查看年度回顧";
-"profile-year-in-review-login-subtitle" = "登入或建立帳戶即可再次查看年度回顧，並獲得更多個人化的洞察資訊。";
-"settings-year-in-review-header" = "關閉年度回顧將清除所有儲存的個人化洞察資訊，並隱藏年度回顧功能。";
-
+"year-in-review-personalized-edit-views-title-format" = "您的編輯最近已被瀏覽超過 $1 次。";
+// Fuzzy
+"year-in-review-personalized-editing-subtitle-format" = "您在 Wikipedia 上進行了 $1 次編輯。感謝您作為志願編輯者之一，為全球 Wikimedia 專案帶來改變。";
+"year-in-review-personalized-editing-subtitle-format-500plus" = "您編輯了維基百科超過 500 次。感謝您成為替世界各維基媒體計畫做出貢獻的志工編輯者之一。";
+// Fuzzy
+"year-in-review-personalized-editing-title-format" = "您在 Wikipedia 上進行了 $1 次編輯";
+"year-in-review-personalized-editing-title-format-500plus" = "您編輯了維基百科 500 多次。";
+// Fuzzy
+"year-in-review-personalized-reading-subtitle-format" = "今年，您閱讀了 $1 篇文章，包括$2、 $3 和 $4。Wikipedia 提供超過 6,300 萬篇文章，涵蓋 300 多種語言版本。您與數百萬人一起拓展知識，探索多樣化的主題。";
+"year-in-review-personalized-reading-title-format" = "您今年閱讀了 {{PLURAL:$1|$1}} 篇條目";
+// Fuzzy
+"year-in-review-personalized-saved-subtitle-format" = "您已儲存 $1 篇文章，包括$2、$3和$4。每篇儲存的文章都反映了您的興趣，並幫助您在 Wikipedia 上建立個人化的知識庫。";
+// Fuzzy
+"year-in-review-personalized-saved-title-format" = "您已儲存 $1 篇文章";
+"year-in-review-share-text" = "這是我的 Wikipedia 年度回顧，由 Wikipedia iOS 應用程式製作。 (https://apps.apple.com/app/wikipedia/id324715238) #WikipediaYearInReview";
+"year-in-review-survey-additional-thoughts" = "還有其他想法嗎？";
+"year-in-review-survey-neutral" = "中立";
+"year-in-review-survey-satisfied" = "滿意";
+"year-in-review-survey-subtitle" = "協助改進您的年度回顧功能。您對此功能感到滿意嗎？";
+"year-in-review-survey-title" = "滿意度調查";
+"year-in-review-survey-unsatisfied" = "不滿意";
+"year-in-review-survey-very-satisfied" = "非常滿意";
+"year-in-review-survey-very-unsatisfied" = "非常不滿意";

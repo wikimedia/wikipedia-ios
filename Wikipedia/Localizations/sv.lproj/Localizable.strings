@@ -766,7 +766,6 @@
 "main-menu-zero-faq" = "Vanliga frågor om Wikipedia Zero";
 "menu-cancel-accessibility-label" = "Avbryt";
 "microsite-yir-english-edits-bytes-slide-title" = "3,4 miljoner byte lades till";
-"microsite-yir-english-explore-slide" = "Utforska årsöversikt för Wikipedia";
 "microsite-yir-english-non-donor-slide-title" = "0 reklam visades på Wikipedia";
 "more-languages-tooltip-description" = "Sök på Wikipedia på över 300 språk";
 "more-languages-tooltip-title" = "Lägg till språk";
@@ -996,6 +995,7 @@
 "profile-button-badge-accessibility-label" = "Profil med märke för olästa aviseringar";
 "profile-page-donate-subtext" = "Eller stöd Wikipedia med en donation för att hålla den gratis och tillgänglig för alla runt om i världen.";
 "profile-page-join-subtext" = "Registrera ett Wikipedia-konto för att spåra dina bidrag, spara artiklar offline och synkronisera mellan enheter.";
+// Fuzzy
 "profile-page-join-title" = "Skapa konto på Wikipedia / Logga in";
 "profile-page-logged-out-year-in-review-subtext" = "Logga in eller skapa ett konto för att få en förbättrad årsöversikt nästa år";
 "profile-page-title-logged-out" = "Konto";

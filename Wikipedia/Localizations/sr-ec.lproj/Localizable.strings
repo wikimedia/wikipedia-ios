@@ -140,11 +140,17 @@
 "alt-text-experiment-onboarding-item-2-title" = "Опишите шта се може видети";
 "alt-text-experiment-onboarding-item-4-title" = "Врста слике";
 "alt-text-experiment-onboarding-secondary-button-title" = "Види примере";
+"alt-text-experiment-onboarding-tooltip-2-body" = "Подгледајте додатне информације о слици на Викимедијиној остави.";
 "alt-text-experiment-onboarding-tooltip-3-body" = "Додајте опис за слабовиде (или слепе) читаоце";
 "alt-text-experiment-onboarding-tooltip-3-title" = "Додај опис";
 "alt-text-experiment-review-title" = "Прегледај";
 "alt-text-experiment-text-field-placholder" = "Опишите слику";
 "alt-text-feedback-survey-neutral" = "Неутрално";
+"alt-text-feedback-survey-satisfied" = "Задовољан";
+"alt-text-feedback-survey-subtitle" = "Да ли сте задовољни са овом могућношћу?";
+"alt-text-feedback-survey-title" = "Помозите нам да је унапредимо";
+"alt-text-feedback-survey-toast-title" = "Повратне информације послате";
+"alt-text-feedback-survey-unsatisfied" = "Нисам задовољан";
 "alt-text-license" = "Објављивањем измена прихватате [услове коришћења]($1) и неопозиво објављивање свог доприноса под лиценцама [CC BY-SA 3.0]($2) и [GFDL]($3). Слажете се да су линк или URL довољни за признавање ауторства под лиценцом Creative Commons.";
 "alt-text-survey-option-1" = "Не знам како да опишем слику";
 "alt-text-survey-option-4" = "Имам техничких проблема";
@@ -885,6 +891,7 @@
 "privacy-policy-title" = "Политика приватности";
 "problem-with-feature-title" = "Проблем са функцијом";
 "profile-button-accessibility-label" = "Профил";
+// Fuzzy
 "profile-page-join-title" = "Придружите се Википедији / Пријава";
 "profile-page-title-logged-out" = "Налог";
 "project-name-mediawiki" = "Медијавики";
