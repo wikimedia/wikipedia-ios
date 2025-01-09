@@ -108,6 +108,7 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
     override func viewDidLoad() {
         
         listViewController = ArticleLocationCollectionViewController(articleURLs: [], dataStore: dataStore, contentGroup: nil, theme: theme)
+        listViewController.needsConfigNavBar = false
         addChild(listViewController)
         listViewController.view.frame = listContainerView.bounds
         listViewController.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
@@ -193,6 +194,7 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
             }
         }
         
+        super.needsConfigNavBar = false
         super.viewWillAppear(animated)
         
         configureNavigationBar()
@@ -238,7 +240,7 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
         }
     }
     
-    override func configureNavigationBar() {
+    private func configureNavigationBar() {
         
         var titleConfig: WMFNavigationBarTitleConfig = WMFNavigationBarTitleConfig(title: CommonStrings.placesTabTitle, customView: nil, alignment: .leadingCompact)
         if #available(iOS 18, *) {
