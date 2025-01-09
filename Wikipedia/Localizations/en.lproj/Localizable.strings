@@ -746,7 +746,7 @@
 "microsite-yir-english-reading-slide-title" = "We spent 2.9 billion hours reading";
 "microsite-yir-english-saved-reading-slide-subtitle" = "Active iOS App users had over 62.2 million reading lists this year. Adding articles to reading lists allows you to access articles even while offline. You can also log in to sync reading lists across devices.";
 "microsite-yir-english-saved-reading-slide-title" = "We had over 62.2 million reading lists";
-"microsite-yir-english-top-read-slide-subtitle" = "When people want to learn about our world—the good, bad, weird, and wild alike—they turn to Wikipedia. The top 5 visited articles on English Wikipedia were:\n\n1. $1\n2. $2\n3. $3\n4. $4\n5. $5\nRead more in $6our dedicated blog post$7.";
+"microsite-yir-english-top-read-slide-subtitle" = "The top 5 visited articles on English Wikipedia were:\n\n1. $1\n2. $2\n3. $3\n4. $4\n5. $5\nRead more in $6our dedicated blog post$7.";
 "microsite-yir-english-top-read-slide-title" = "English Wikipedia’s most popular articles";
 "more-languages-tooltip-description" = "Search Wikipedia in over 300 languages";
 "more-languages-tooltip-title" = "Add languages";
