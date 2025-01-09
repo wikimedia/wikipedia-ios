@@ -54,7 +54,7 @@ class InsertLinkViewController: UIViewController, WMFNavigationBarConfiguring {
             searchResultsController: searchViewController,
             searchControllerDelegate: nil,
             searchResultsUpdater: self,
-            searchBarDelegate: nil,
+            searchBarDelegate: self,
             searchBarPlaceholder: WMFLocalizedString("search-field-placeholder-text", value: "Search Wikipedia", comment: "Search field placeholder text"),
             showsScopeBar: false,
             scopeButtonTitles: nil)
@@ -135,6 +135,12 @@ extension InsertLinkViewController: UISearchResultsUpdating {
             searchViewController.updateRecentlySearchedVisibility(searchText: text)
             searchViewController.search()
         }
+    }
+}
+
+extension InsertLinkViewController: UISearchBarDelegate {
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        dismiss(animated: true)
     }
 }
 

@@ -833,6 +833,12 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
     
     // MARK: Navigation Bar
     
+    var needsSearchBar: Bool {
+        
+        // TODO: A/B test
+        return false
+    }
+    
     private func configureNavigationBar() {
         let wButton = UIButton(type: .custom)
         wButton.setImage(UIImage(named: "W"), for: .normal)
@@ -846,15 +852,29 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
         searchViewController.dataStore = dataStore
         searchViewController.theme = theme
         searchViewController.recentlySearchedSelectionDelegate = self
+       
         
-        let searchBarConfig = WMFNavigationBarSearchConfig(searchResultsController: searchViewController, searchControllerDelegate: self, searchResultsUpdater: self, searchBarDelegate: nil, searchBarPlaceholder: WMFLocalizedString("search-field-placeholder-text", value: "Search Wikipedia", comment: "Search field placeholder text"), showsScopeBar: false, scopeButtonTitles: nil)
-        
+        let searchBarConfig: WMFNavigationBarSearchConfig? = needsSearchBar ? WMFNavigationBarSearchConfig(searchResultsController: searchViewController, searchControllerDelegate: self, searchResultsUpdater: self, searchBarDelegate: nil, searchBarPlaceholder: WMFLocalizedString("search-field-placeholder-text", value: "Search Wikipedia", comment: "Search field placeholder text"), showsScopeBar: false, scopeButtonTitles: nil) : nil
+
         configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: nil, profileButtonConfig: profileButtonConfig, searchBarConfig: searchBarConfig, hideNavigationBarOnScroll: true)
+        
+        setupSearchNavigationButton()
+        
+    }
+    
+    private func setupSearchNavigationButton() {
+        if !needsSearchBar {
+            // WMFNavigationBarConfiguring methods set up profile as the rightmost button. We need to reset it as second to the right and append the search button.
+            if let profileButton = navigationItem.rightBarButtonItem {
+                navigationItem.rightBarButtonItems = [ AppSearchBarButtonItem.newAppSearchBarButtonItem, profileButton]
+            }
+        }
     }
     
     private func updateProfileButton() {
         let config = self.profileButtonConfig()
         updateNavigationBarProfileButton(needsBadge: config.needsBadge)
+        setupSearchNavigationButton()
     }
     
     private func profileButtonConfig() -> WMFNavigationBarProfileButtonConfig {

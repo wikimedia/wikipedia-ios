@@ -120,7 +120,7 @@ class SearchViewController: ArticleCollectionViewController, WMFNavigationBarCon
         }
         
         // TODO: Localize
-        let searchBarConfig = WMFNavigationBarSearchConfig(searchResultsController: nil, searchControllerDelegate: self, searchResultsUpdater: self, searchBarDelegate: nil, searchBarPlaceholder: "Type something here to search", showsScopeBar: false, scopeButtonTitles: nil)
+        let searchBarConfig = WMFNavigationBarSearchConfig(searchResultsController: nil, searchControllerDelegate: self, searchResultsUpdater: self, searchBarDelegate: self, searchBarPlaceholder: "Type something here to search", showsScopeBar: false, scopeButtonTitles: nil)
         
         configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: nil, profileButtonConfig: nil, searchBarConfig: searchBarConfig, hideNavigationBarOnScroll: true)
     }
@@ -567,6 +567,12 @@ extension SearchViewController: UISearchControllerDelegate {
     
     func didDismissSearchController(_ searchController: UISearchController) {
         needsAnimateLanguageBarMovement = false
+    }
+}
+
+extension SearchViewController: UISearchBarDelegate {
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        navigationController?.popViewController(animated: true)
     }
 }
 
