@@ -104,10 +104,11 @@ class SearchViewController: ArticleCollectionViewController, WMFNavigationBarCon
         let title = customTitle ?? CommonStrings.searchTitle
         
         var alignment: WMFNavigationBarTitleConfig.Alignment = needsCenteredTitle ? .centerCompact : .leadingCompact
-        
+        extendedLayoutIncludesOpaqueBars = false
         if #available(iOS 18, *) {
             if UIDevice.current.userInterfaceIdiom == .pad && traitCollection.horizontalSizeClass == .regular && alignment == .leadingCompact {
                 alignment = .leadingLarge
+                extendedLayoutIncludesOpaqueBars = true
             }
         }
         

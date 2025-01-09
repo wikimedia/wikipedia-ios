@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="pK5-Ai-Kzp">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="23094" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="pK5-Ai-Kzp">
     <device id="retina5_5" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22685"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23084"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -243,7 +243,7 @@
                             <constraint firstAttribute="trailingMargin" secondItem="mxh-CO-RQm" secondAttribute="trailing" id="Jrj-Yh-h1b"/>
                             <constraint firstItem="EsT-De-Ary" firstAttribute="leading" secondItem="MQo-ay-JlY" secondAttribute="leading" id="N4z-kS-Lfj"/>
                             <constraint firstItem="hEe-dF-AFg" firstAttribute="top" secondItem="mxh-CO-RQm" secondAttribute="top" id="S5v-Rm-6Vf"/>
-                            <constraint firstItem="MQo-ay-JlY" firstAttribute="bottom" secondItem="EsT-De-Ary" secondAttribute="bottom" id="Y57-cG-ifd"/>
+                            <constraint firstAttribute="bottom" secondItem="EsT-De-Ary" secondAttribute="bottom" id="Y57-cG-ifd"/>
                             <constraint firstItem="z6h-da-ewO" firstAttribute="top" secondItem="MQo-ay-JlY" secondAttribute="top" constant="17" placeholder="YES" id="ZmR-fp-6Jv"/>
                             <constraint firstItem="mxh-CO-RQm" firstAttribute="leading" secondItem="z6h-da-ewO" secondAttribute="trailing" constant="15" id="bVF-HO-Onf"/>
                             <constraint firstItem="hEe-dF-AFg" firstAttribute="leading" secondItem="MQo-ay-JlY" secondAttribute="leading" id="dye-ab-bxM">

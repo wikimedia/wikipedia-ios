@@ -9,9 +9,11 @@ import WMFData
         let needsProfileBadge = numUnreadNotifications != 0
         
         var titleConfig: WMFNavigationBarTitleConfig = WMFNavigationBarTitleConfig(title: CommonStrings.settingsTitle, customView: nil, alignment: .leadingCompact)
+        extendedLayoutIncludesOpaqueBars = false
         if #available(iOS 18, *) {
            if UIDevice.current.userInterfaceIdiom == .pad && traitCollection.horizontalSizeClass == .regular {
                titleConfig = WMFNavigationBarTitleConfig(title: CommonStrings.settingsTitle, customView: nil, alignment: .leadingLarge)
+               extendedLayoutIncludesOpaqueBars = true
            }
         }
         
