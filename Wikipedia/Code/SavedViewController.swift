@@ -98,7 +98,6 @@ class SavedViewController: ThemeableViewController, WMFNavigationBarConfiguring,
                 }
             }
             
-            // Calculate hide bar on scroll flag on switch. We want to hide on scroll if there's content, otherwise no.
             configureNavigationBar()
         }
     }
@@ -163,8 +162,6 @@ class SavedViewController: ThemeableViewController, WMFNavigationBarConfiguring,
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        configureNavigationBar()
         
         let savedArticlesWasNil = savedArticlesViewController == nil
         setSavedArticlesViewControllerIfNeeded()
@@ -383,6 +380,7 @@ extension SavedViewController: ReadingListEntryCollectionViewControllerDelegate 
     }
     
     func readingListEntryCollectionViewControllerDidChangeEmptyState(_ viewController: ReadingListEntryCollectionViewController) {
+        configureNavigationBar()
     }
     
     func readingListEntryCollectionViewControllerDidSelectArticleURL(_ articleURL: URL, viewController: ReadingListEntryCollectionViewController) {
@@ -398,7 +396,7 @@ extension SavedViewController: ReadingListsViewControllerDelegate {
     }
     
     func readingListsViewControllerDidChangeEmptyState(_ readingListsViewController: ReadingListsViewController, isEmpty: Bool) {
-        // no-op
+        configureNavigationBar()
     }
     
 }
