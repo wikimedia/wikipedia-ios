@@ -70,6 +70,7 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
                                                  name:[WMFAuthenticationManager didLogOutNotification]
                                                object:nil];
     
+    [self setupTopSafeAreaOverlayFromObjCWithScrollView:self.tableView];
     [self applyTheme:self.theme];
 }
 
@@ -99,6 +100,16 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
     [super traitCollectionDidChange:previousTraitCollection];
     
     [self configureNavigationBarFromObjC];
+}
+
+- (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
+    [super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
+    
+    @weakify(self);
+    [coordinator animateAlongsideTransition:nil completion:^(id<UIViewControllerTransitionCoordinatorContext>  _Nonnull context) {
+        @strongify(self);
+        [self calculateTopSafeAreaOverlayHeightFromObjC];
+    }];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
@@ -617,6 +628,7 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     //[self.navigationBarHider scrollViewDidScroll:scrollView];
+    [self calculateNavigationBarHiddenStateFromObjCWithScrollView:scrollView];
 }
 
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
@@ -658,6 +670,7 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
     
     [self updateProfileButtonFromObjC];
     [self themeNavigationBarLeadingTitleViewFromObjC];
+    [self themeTopSafeAreaOverlayFromObjCWithScrollView:self.tableView];
 }
 
 #pragma Mark WMFAccountViewControllerDelegate

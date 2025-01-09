@@ -1,8 +1,8 @@
 import WMFComponents
 import WMFData
 
-@objc extension WMFSettingsViewController: WMFNavigationBarConfiguring {
-    
+@objc extension WMFSettingsViewController: WMFNavigationBarConfiguring, WMFNavigationBarHiding {
+
     @objc func configureNavigationBarFromObjC() {
         
         let numUnreadNotifications = (try? dataStore.remoteNotificationsController.numberOfUnreadNotifications().intValue) ?? 0
@@ -30,7 +30,7 @@ import WMFData
             profileButtonConfig = WMFNavigationBarProfileButtonConfig(accessibilityLabel: profileAccessibilityLabel, accessibilityHint: profileAccessibilityHint, needsBadge: needsProfileBadge, target: self, action: #selector(tappedProfile))
         }
         
-        configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: closeButtonConfig, profileButtonConfig: profileButtonConfig, searchBarConfig: nil, hideNavigationBarOnScroll: false)
+        configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: closeButtonConfig, profileButtonConfig: profileButtonConfig, searchBarConfig: nil, hideNavigationBarOnScroll: true)
     }
     
     @objc func updateProfileButtonFromObjC() {
@@ -73,6 +73,22 @@ import WMFData
         
         self.profileCoordinator = profileCoordinator
         profileCoordinator.start()
+    }
+    
+    @objc func setupTopSafeAreaOverlayFromObjC(scrollView: UIScrollView) {
+        setupTopSafeAreaOverlay(scrollView: scrollView)
+    }
+    
+    @objc func themeTopSafeAreaOverlayFromObjC(scrollView: UIScrollView) {
+        themeTopSafeAreaOverlay()
+    }
+    
+    @objc func calculateTopSafeAreaOverlayHeightFromObjC() {
+        calculateTopSafeAreaOverlayHeight()
+    }
+    
+    @objc func calculateNavigationBarHiddenStateFromObjC(scrollView: UIScrollView) {
+        calculateNavigationBarHiddenState(scrollView: scrollView)
     }
 }
 
