@@ -5,7 +5,10 @@ import WMFData
 import CocoaLumberjackSwift
 
 @objc(WMFHistoryViewController)
-class HistoryViewController: ArticleFetchedResultsViewController, WMFNavigationBarConfiguring {
+class HistoryViewController: ArticleFetchedResultsViewController, WMFNavigationBarConfiguring, WMFNavigationBarHiding {
+    
+    var topSafeAreaOverlayHeightConstraint: NSLayoutConstraint?
+    var topSafeAreaOverlayView: UIView?
 
     override func setupFetchedResultsController(with dataStore: MWKDataStore) {
         let articleRequest = WMFArticle.fetchRequest()
@@ -29,6 +32,8 @@ class HistoryViewController: ArticleFetchedResultsViewController, WMFNavigationB
         deleteAllCancelText = WMFLocalizedString("history-clear-cancel", value: "Cancel", comment: "Button text for cancelling delete all action {{Identical|Cancel}}")
         deleteAllText = WMFLocalizedString("history-clear-delete-all", value: "Yes, delete all", comment: "Button text for confirming delete all action")
         isDeleteAllVisible = true
+        
+        setupTopSafeAreaOverlay(scrollView: collectionView)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -60,6 +65,19 @@ class HistoryViewController: ArticleFetchedResultsViewController, WMFNavigationB
         }
     }
     
+    override func viewWillTransition(to size: CGSize, with coordinator: any UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+
+        coordinator.animate(alongsideTransition: nil) { [weak self] _ in
+            self?.calculateTopSafeAreaOverlayHeight()
+        }
+    }
+    
+    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        super.scrollViewDidScroll(scrollView)
+        calculateNavigationBarHiddenState(scrollView: scrollView)
+    }
+    
     override func deleteAll() {
         do {
             try dataStore.viewContext.clearReadHistory()
@@ -71,11 +89,14 @@ class HistoryViewController: ArticleFetchedResultsViewController, WMFNavigationB
             do {
                 let dataController = try WMFPageViewsDataController()
                 try await dataController.deleteAllPageViews()
+
             } catch {
                 DDLogError("Failure deleting WMFData WMFPageViews: \(error)")
             }
             
         }
+        
+        
     }
     
     override func delete(at indexPath: IndexPath) {
@@ -115,8 +136,10 @@ class HistoryViewController: ArticleFetchedResultsViewController, WMFNavigationB
                 titleConfig = WMFNavigationBarTitleConfig(title: CommonStrings.historyTabTitle, customView: nil, alignment: .leadingLarge)
             }
         }
+        
+        let hideNavigationBarOnScroll = !isEmpty
 
-        configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: nil, profileButtonConfig: nil, searchBarConfig: nil, hideNavigationBarOnScroll: false)
+        configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: nil, profileButtonConfig: nil, searchBarConfig: nil, hideNavigationBarOnScroll: hideNavigationBarOnScroll)
     }
 
     func titleForHeaderInSection(_ section: Int) -> String? {
@@ -141,6 +164,9 @@ class HistoryViewController: ArticleFetchedResultsViewController, WMFNavigationB
     override func collectionViewUpdater<T>(_ updater: CollectionViewUpdater<T>, didUpdate collectionView: UICollectionView) {
         super.collectionViewUpdater(updater, didUpdate: collectionView)
         updateVisibleHeaders()
+        
+        // if it switched to empty state, this line will disable hide nav bar on scroll
+        configureNavigationBar()
     }
 
     func updateVisibleHeaders() {
@@ -154,5 +180,11 @@ class HistoryViewController: ArticleFetchedResultsViewController, WMFNavigationB
     
     override var eventLoggingCategory: EventCategoryMEP {
         return .history
+    }
+    
+    override func apply(theme: Theme) {
+        super.apply(theme: theme)
+        
+        themeTopSafeAreaOverlay()
     }
 }
