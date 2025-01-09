@@ -264,9 +264,32 @@ class SavedViewController: ThemeableViewController, WMFNavigationBarConfiguring,
         }
     }
     
-    private lazy var sortBarButtonItem: UIBarButtonItem = {
-        return UIBarButtonItem(title: CommonStrings.sortActionTitle, style: .plain, target: self, action: #selector(didTapSort(_:)))
+    private lazy var moreBarButtonItem: UIBarButtonItem = {
+        let button = UIBarButtonItem(image: UIImage(systemName: "ellipsis.circle"), primaryAction: nil, menu: overflowMenu)
+        // TODO: accessibility label needed
+        return button
     }()
+    
+    var overflowMenu: UIMenu {
+        
+        let sortAction = UIAction(title: CommonStrings.sortActionTitle, image: nil, handler: { _ in
+            self.didTapSort()
+        })
+        
+        let editAction = UIAction(title: CommonStrings.editContextMenuTitle, image: nil, handler: { _ in
+            switch self.currentView {
+            case .savedArticles:
+                self.savedArticlesViewController?.editController.changeEditingState(to: .open)
+            case .readingLists:
+                self.readingListsViewController?.editController.changeEditingState(to: .open)
+            }
+        })
+        
+        
+        let mainMenu = UIMenu(title: String(), children: [sortAction, editAction])
+
+        return mainMenu
+    }
     
     private lazy var fixedSpaceBarButtonItem: UIBarButtonItem = {
         let button = UIBarButtonItem(barButtonSystemItem: .fixedSpace, target: nil, action: nil)
@@ -274,8 +297,8 @@ class SavedViewController: ThemeableViewController, WMFNavigationBarConfiguring,
         return button
     }()
     
-    @objc func didTapSort(_ sender: UIBarButtonItem) {
-        savedDelegate?.savedWillShowSortAlert(self, from: sender)
+    func didTapSort() {
+        savedDelegate?.savedWillShowSortAlert(self, from: moreBarButtonItem)
     }
 }
 
@@ -288,12 +311,19 @@ extension SavedViewController: CollectionViewEditControllerNavigationDelegate {
     
     func didChangeEditingState(from oldEditingState: EditingState, to newEditingState: EditingState, rightBarButton: UIBarButtonItem?, leftBarButton: UIBarButtonItem?) {
 
-        let editButton = rightBarButton
-        let sortBarButtonItem = self.sortBarButtonItem
-        sortBarButtonItem.tintColor = theme.colors.link
-        editButton?.tintColor = theme.colors.link
+        guard let editButton = rightBarButton else {
+            return
+        }
         
-        navigationItem.rightBarButtonItems = [editButton, fixedSpaceBarButtonItem, sortBarButtonItem].compactMap {$0}
+        let moreBarButtonItem = self.moreBarButtonItem
+        if newEditingState == .open {
+            navigationItem.rightBarButtonItems = [editButton]
+        } else {
+            navigationItem.rightBarButtonItems = [moreBarButtonItem]
+        }
+        
+        moreBarButtonItem.tintColor = theme.colors.link
+        editButton.tintColor = theme.colors.link
         
         let editingStates: [EditingState] = [.swiping, .open, .editing]
         let isEditing = editingStates.contains(newEditingState)
