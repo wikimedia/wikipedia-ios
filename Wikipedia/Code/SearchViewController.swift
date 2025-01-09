@@ -9,7 +9,7 @@ protocol SearchViewControllerResultSelectionDelegate: AnyObject {
     func didSelectSearchResult(articleURL: URL, searchViewController: SearchViewController)
 }
 
-class SearchViewController: ArticleCollectionViewController, WMFNavigationBarConfiguring {
+class SearchViewController: ArticleCollectionViewController, WMFNavigationBarConfiguring, WMFNavigationBarHiding {
     
     // Assign so that the correct search bar will have it's field populated once a "recently searched" term is selected
     // todo: rename, confusing with UISearch
@@ -24,6 +24,9 @@ class SearchViewController: ArticleCollectionViewController, WMFNavigationBarCon
     private var searchLanguageBarViewController: SearchLanguagesBarViewController?
     private var needsAnimateLanguageBarMovement = false
     
+    var topSafeAreaOverlayView: UIView?
+    var topSafeAreaOverlayHeightConstraint: NSLayoutConstraint?
+    
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
     }
@@ -35,7 +38,7 @@ class SearchViewController: ArticleCollectionViewController, WMFNavigationBarCon
     override func viewDidLoad() {
         super.viewDidLoad()
         embedResultsViewController()
-        
+        setupTopSafeAreaOverlay(scrollView: collectionView)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -72,6 +75,7 @@ class SearchViewController: ArticleCollectionViewController, WMFNavigationBarCon
         
         let normalizedContentOffset = scrollView.contentOffset.y + (scrollView.safeAreaInsets.top + scrollView.contentInset.top)
         searchLanguageBarTopConstraint?.constant = scrollView.safeAreaInsets.top - normalizedContentOffset
+        calculateNavigationBarHiddenState(scrollView: scrollView)
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
@@ -85,6 +89,15 @@ class SearchViewController: ArticleCollectionViewController, WMFNavigationBarCon
             }
         }
     }
+    
+    override func viewWillTransition(to size: CGSize, with coordinator: any UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+
+        coordinator.animate(alongsideTransition: nil) { [weak self] _ in
+            self?.calculateTopSafeAreaOverlayHeight()
+        }
+    }
+    
     
     private func configureNavigationBar() {
         
@@ -108,7 +121,7 @@ class SearchViewController: ArticleCollectionViewController, WMFNavigationBarCon
         // TODO: Localize
         let searchBarConfig = WMFNavigationBarSearchConfig(searchResultsController: nil, searchControllerDelegate: self, searchResultsUpdater: self, searchBarDelegate: nil, searchBarPlaceholder: "Type something here to search", showsScopeBar: false, scopeButtonTitles: nil)
         
-        configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: nil, profileButtonConfig: nil, searchBarConfig: searchBarConfig, hideNavigationBarOnScroll: false)
+        configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: nil, profileButtonConfig: nil, searchBarConfig: searchBarConfig, hideNavigationBarOnScroll: true)
     }
     
     private func embedResultsViewController() {
@@ -338,6 +351,7 @@ class SearchViewController: ArticleCollectionViewController, WMFNavigationBarCon
         resultsViewController.apply(theme: theme)
         view.backgroundColor = theme.colors.paperBackground
         collectionView.backgroundColor = theme.colors.paperBackground
+        themeTopSafeAreaOverlay()
     }
     
     // Recent
