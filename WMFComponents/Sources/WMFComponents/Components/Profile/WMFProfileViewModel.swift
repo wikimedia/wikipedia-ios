@@ -110,7 +110,7 @@ enum ProfileState {
 
         var needsYiRNotification = false
         if let yearInReviewDependencies {
-            needsYiRNotification = yearInReviewDependencies.dataController.shouldShowYiRNotification(primaryAppLanguageProject: yearInReviewDependencies.primaryAppLanguageProject)
+            needsYiRNotification = yearInReviewDependencies.dataController.shouldShowYiRNotification(primaryAppLanguageProject: yearInReviewDependencies.primaryAppLanguageProject, isLoggedOut: !isLoggedIn)
         }
 
         if isLoggedIn {
@@ -275,7 +275,10 @@ enum ProfileState {
                 isDonate: false,
                 isLoadingDonateConfigs: false,
                 action: {
-                    badgeDelegate?.didSeeYIR()
+                    if let dataController = try? WMFYearInReviewDataController() {
+                        dataController.hasTappedProfileItem = true
+                        needsYiRNotification = false
+                    }
                     coordinatorDelegate?.handleProfileAction(.showYearInReview)
                     coordinatorDelegate?.handleProfileAction(.logYearInReviewTap)
                 }

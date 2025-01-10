@@ -1378,7 +1378,7 @@ private extension ArticleViewController {
         var needsYiRNotification = false
         if let yirDataController,  let appLanguage = dataStore.languageLinkController.appLanguage {
             let project = WMFProject.wikipedia(WMFLanguage(languageCode: appLanguage.languageCode, languageVariantCode: appLanguage.languageVariantCode))
-            needsYiRNotification = yirDataController.shouldShowYiRNotification(primaryAppLanguageProject: project)
+            needsYiRNotification = yirDataController.shouldShowYiRNotification(primaryAppLanguageProject: project, isLoggedOut: !dataStore.authenticationManager.authStateIsPermanent)
         }
         // do not override `hasUnreadNotifications` completely
         if needsYiRNotification {

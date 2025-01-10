@@ -56,9 +56,26 @@ import CoreData
     private var seenIntroSlideStatus: YiRNotificationAnnouncementStatus {
         return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.seenYearInReviewIntroSlide.rawValue)) ?? YiRNotificationAnnouncementStatus.default
     }
+    
+    private var tappedYIRStatus: YiRNotificationAnnouncementStatus {
+        return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.tappedYIR.rawValue)) ?? YiRNotificationAnnouncementStatus.default
+    }
 
-    public func shouldShowYiRNotification(primaryAppLanguageProject: WMFProject?) -> Bool {
+    public func shouldShowYiRNotification(primaryAppLanguageProject: WMFProject?, isLoggedOut: Bool) -> Bool {
+        if isLoggedOut {
+            return !hasTappedProfileItem && shouldShowYearInReviewEntryPoint(countryCode: Locale.current.region?.identifier, primaryAppLanguageProject: primaryAppLanguageProject)
+        }
         return !hasSeenYiRIntroSlide && shouldShowYearInReviewEntryPoint(countryCode: Locale.current.region?.identifier, primaryAppLanguageProject: primaryAppLanguageProject)
+    }
+    
+    public var hasTappedProfileItem: Bool {
+        get {
+            return tappedYIRStatus.hasSeenYiRIntroSlide
+        } set {
+            var currentStatus = tappedYIRStatus
+            currentStatus.hasSeenYiRIntroSlide = newValue
+            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.tappedYIR.rawValue, value: currentStatus)
+        }
     }
 
     public var hasSeenYiRIntroSlide: Bool {
