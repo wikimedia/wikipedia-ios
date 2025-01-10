@@ -757,8 +757,9 @@
 "microsite-yir-english-edits-bytes-slide-title" = "34억 바이트 추가됨";
 "microsite-yir-english-edits-slide-title" = "편집자들은 올해 약 8,200만 건의 변경을 수행했습니다";
 "microsite-yir-english-non-donor-slide-title" = "위키백과에 게재된 광고는 0개입니다";
-"microsite-yir-english-reading-slide-title" = "읽기에 24억 시간이 할애됐습니다";
-"microsite-yir-english-saved-reading-slide-title" = "3,160만 개가 넘는 읽기 목록이 있습니다";
+"microsite-yir-english-reading-slide-title" = "읽기에 29억 시간이 할애됐습니다";
+// Fuzzy
+"microsite-yir-english-saved-reading-slide-title" = "6,220만 개가 넘는 읽기 목록이 있습니다";
 "more-languages-tooltip-description" = "300개 이상의 언어에서 위키백과 검색";
 "more-languages-tooltip-title" = "언어 추가";
 "more-menu" = "더 보기";
@@ -981,6 +982,7 @@
 "problem-with-feature-title" = "기능에 문제가 있습니다";
 "profile-button-accessibility-label" = "프로필";
 "profile-button-badge-accessibility-label" = "읽지 않은 배지가 있는 프로필";
+// Fuzzy
 "profile-page-join-title" = "위키백과에 가입 / 로그인";
 "profile-page-title-logged-out" = "계정";
 "project-name-mediawiki" = "미디어위키";

@@ -221,7 +221,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
     var englishReadingSlideTitle: String {
         let format = WMFLocalizedString(
             "microsite-yir-english-reading-slide-title",
-            value: "We spent 2.4 billion hours reading",
+            value: "We spent 2.9 billion hours reading",
             comment: "Reading slide title for English Year in Review."
         )
         return String.localizedStringWithFormat(format)
@@ -230,7 +230,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
     var englishReadingSlideSubtitle: String {
         let format = WMFLocalizedString(
             "microsite-yir-english-reading-slide-subtitle",
-            value: "People spent an estimated 2.4 billion hours—nearly 275,000 years!—reading English Wikipedia in 2024. Wikipedia is there when you want to learn about our changing world, win a bet among friends, or answer a curious child’s question.",
+            value: "People spent an estimated 2.9 billion hours—over 331,000 years!—reading English Wikipedia in 2024. Wikipedia is there when you want to learn about our changing world, win a bet among friends, or answer a curious child’s question.",
             comment: "Reading slide subtitle for English Year in Review."
         )
         return String.localizedStringWithFormat(format)
@@ -248,17 +248,17 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
     var englishTopReadSlideSubtitle: String {
         // Individual top read items
         let item1 = "Deaths in 2024"
-        let item2 = "Kamala Harris"
-        let item3 = "2024 United States presidential election"
-        let item4 = "Lyle and Erik Menendez"
-        let item5 = "Donald Trump"
+        let item2 = "2024 United States presidential election"
+        let item3 = "Kamala Harris"
+        let item4 = "Donald Trump"
+        let item5 = "Lyle and Erik Menendez"
         
         let linkOpening = "<a href=\"\(topReadBlogPost)\">"
         let linkClosing = "</a>"
         
         let format = WMFLocalizedString(
             "microsite-yir-english-top-read-slide-subtitle",
-            value: "When people want to learn about our world—the good, bad, weird, and wild alike—they turn to Wikipedia. The top 5 visited articles on English Wikipedia were:\n\n1. %1$@\n2. %2$@\n3. %3$@\n4. %4$@\n5. %5$@\nRead more in %6$@our dedicated blog post%7$@.",
+            value: "The top 5 visited articles on English Wikipedia were:\n\n1. %1$@\n2. %2$@\n3. %3$@\n4. %4$@\n5. %5$@\nRead more in %6$@our dedicated blog post%7$@.",
             comment: "Top read slide subtitle for English Year in Review. %1$@ %2$@ %3$@ %4$@ %5$@ are replaced with article titles, %6$@ and %7$@ wrap the blog post link."
         )
         
@@ -286,7 +286,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
     var englishEditsSlideTitle: String {
         let format = WMFLocalizedString(
             "microsite-yir-english-edits-slide-title",
-            value: "Editors made nearly 82 million changes this year",
+            value: "Editors made nearly 98 million changes this year",
             comment: "Edits slide title for English Year in Review."
         )
         return String.localizedStringWithFormat(format)
@@ -295,7 +295,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
     var englishEditsSlideSubtitle: String {
         let format = WMFLocalizedString(
             "microsite-yir-english-edits-slide-subtitle",
-            value: "Volunteers made 81,987,181 changes across over 300 different language editions of Wikipedia. Over 31.2 million changes were made on English Wikipedia. Every hour of every day, volunteers are working to improve Wikipedia.",
+            value: "Volunteers made 98,222,407 changes across over 300 different language editions of Wikipedia. Over 38 million changes were made on English Wikipedia. Every hour of every day, volunteers are working to improve Wikipedia.",
             comment: "Edits slide subtitle for English Year in Review."
         )
         return String.localizedStringWithFormat(format)
@@ -304,7 +304,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
     var englishEditsBytesSlideTitle: String {
         let format = WMFLocalizedString(
             "microsite-yir-english-edits-bytes-slide-title",
-            value: "3.4 billion bytes added",
+            value: "4 billion bytes added",
             comment: "Edits bytes slide title for English Year in Review."
         )
         return String.localizedStringWithFormat(format)
@@ -313,7 +313,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
     var englishEditsBytesSlideSubtitle: String {
         let format = WMFLocalizedString(
             "microsite-yir-english-edits-bytes-slide-subtitle",
-            value: "In 2024, volunteers added 3,416,899,197 bytes to English Wikipedia. The sum of their work together leads to a steadily improving, fact-based, and reliable knowledge resource that they give to the world. All of us have knowledge to share, [learn how to participate](%1$@).",
+            value: "In 2024, volunteers added 4,104,852,969 bytes to English Wikipedia. The sum of all their work together leads to a steadily improving, fact-based, and reliable knowledge resource that they give to the world. All of us have knowledge to share, [learn how to participate](%1$@).",
             comment: "Edits bytes slide subtitle for English Year in Review, %1$@ is replaced by link to learn to participate."
         )
         var editingFAQ: String
@@ -639,7 +639,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
                             subtitle: personalizedSaveCountSlideSubtitle(saveCount: count, articleNames: savedSlideData.articleTitles),
                             loggingID: "save_count_custom",
                             infoURL: aboutYIRURL,
-                            hideDonateButton: false)
+                            hideDonateButton: shoudlHideDonateButton())
                     }
                 }
             case .mostReadDay:

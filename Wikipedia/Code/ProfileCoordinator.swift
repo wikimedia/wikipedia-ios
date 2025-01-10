@@ -222,8 +222,6 @@ final class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegat
             alert.addAction(action2)
             
             presentedViewController.present(alert, animated: true)
-            
-            DonateFunnel.shared.logYearInReviewLoginPromptDidAppearProfile()
         }
     }
     

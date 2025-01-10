@@ -1057,7 +1057,9 @@ import CoreData
                 for slide in slides {
 
                     guard slide.id == WMFYearInReviewPersonalizedSlideID.editCount.rawValue ||
-                            slide.id == WMFYearInReviewPersonalizedSlideID.viewCount.rawValue else {
+                            slide.id == WMFYearInReviewPersonalizedSlideID.viewCount.rawValue ||
+                            slide.id == WMFYearInReviewPersonalizedSlideID.saveCount.rawValue
+                    else {
                         continue
                     }
 

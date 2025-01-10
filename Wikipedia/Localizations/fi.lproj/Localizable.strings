@@ -847,6 +847,7 @@
 "preference-summary-eventlogging-opt-in" = "Salli Wikimedia-säätiön kerätä tietoja sovelluksen käyttämisestä käyttökokemuksen parantamiseksi.";
 "privacy-policy-title" = "Tietosuojakäytäntö";
 "problem-with-feature-title" = "Ongelma ominaisuudessa";
+// Fuzzy
 "profile-page-join-title" = "Liity Wikipediaan / Kirjaudu sisään";
 "profile-page-title-logged-out" = "Käyttäjätunnus";
 "project-name-mediawiki" = "MediaWiki";

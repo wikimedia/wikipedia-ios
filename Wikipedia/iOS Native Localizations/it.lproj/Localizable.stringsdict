@@ -754,9 +754,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>%1$d articol</string>
+			<string>%1$d voce</string>
 			<key>other</key>
-			<string>%1$d articoli</string>
+			<string>%1$d voci</string>
 		</dict>
 	</dict>
 </dict>

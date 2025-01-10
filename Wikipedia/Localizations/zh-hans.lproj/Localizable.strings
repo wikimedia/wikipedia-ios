@@ -1473,15 +1473,19 @@
 "wikitext-upload-save-terms-name" = "使用条款";
 "year-in-review-base-donate-subtitle" = "在您的帮助下，维基媒体基金会——维基百科背后的非营利组织——将继续努力，以确保您依赖的信息没有广告且值得信赖，同时通过尖端工具和技术，使维基百科保持流畅运行。请考虑在今天捐款。[进一步了解我们的工作]($1)。";
 "year-in-review-base-donate-title" = "维基百科投放了 0 条广告";
-"year-in-review-base-editors-subtitle" = "今年截止到现在，维基百科的志愿者编辑社区在 iOS 应用上进行了超过 $1 次编辑。维基百科的核心和灵魂是我们的全球社群，包括志愿者、捐赠者和像您一样的数十亿读者——所有人共享对可靠信息的不受限访问。";
+// Fuzzy
+"year-in-review-base-editors-subtitle" = "今年截止到现在，维基百科的志愿者编辑社区在 iOS 应用上进行了超过 555647 次编辑。维基百科的核心和灵魂是我们的全球社群，包括志愿者、捐赠者和像您一样的数十亿读者——所有人共享对可靠信息的不受限访问。";
 "year-in-review-base-editors-title" = "iOS 应用上的编辑者进行了超过 $1 次编辑";
 "year-in-review-base-edits-subtitle" = "今年，维基百科的平均编辑速度为每分钟 $1 次。文章由志愿者参考可靠信息来源协作创建和改进。我们所有人都有可以分享的知识。[了解如何参与]($2）。";
 "year-in-review-base-edits-title" = "维基百科每分钟被编辑 $1 次";
-"year-in-review-base-reading-subtitle" = "今年，维基百科拥有超过 6300 万篇文章，涵盖 300 多种活跃语言。您与数百万人一起拓展知识，探索各种主题。";
+// Fuzzy
+"year-in-review-base-reading-subtitle" = "今年，维基百科拥有超过 $2 万篇文章，涵盖 $2 多种活跃语言。您与数百万人一起拓展知识，探索各种主题。";
 "year-in-review-base-reading-title" = "维基百科提供 300 多种语言版本";
+// Fuzzy
 "year-in-review-base-saved-subtitle" = "今年，活跃的 iOS 应用用户共有超过 6220 万个阅读列表。将文章添加到阅读列表后，您就可以离线访问文章。您还可以登录账户，在不同设备上同步阅读列表。";
-"year-in-review-base-saved-title" = "我们有超过 $1 万个阅读列表 ";
-"year-in-review-base-viewed-subtitle" = "iOS 应用用户浏览了维基百科文章 18 亿次。对于全世界的人们来说，维基百科是解答疑问、查找上学或工作所需信息或学习新知识的第一站。";
+"year-in-review-base-saved-title" = "我们有超过 $1 万个阅读列表";
+// Fuzzy
+"year-in-review-base-viewed-subtitle" = "iOS 应用用户浏览了维基百科文章 $1 亿次。对于全世界的人们来说，维基百科是解答疑问、查找上学或工作所需信息或学习新知识的第一站。";
 "year-in-review-base-viewed-title" = "我们浏览了维基百科文章 $1 亿次";
 "year-in-review-button-title" = "年度回顾";
 "year-in-review-day-friday" = "星期五";
@@ -1497,6 +1501,7 @@
 "year-in-review-feature-announcement-body-personalized" = "查看您在维基百科应用上阅读的文章的分析数据，分享您的旅程，并发现您这一年的亮点。";
 "year-in-review-feature-announcement-title" = "探索维基百科回顾";
 "year-in-review-feature-announcement-title-personalized" = "探索您的维基百科年度回顾";
+"year-in-review-feature-explore-body" = "维基百科是世界历史上最大的知识资源库，向每个地方的每个人免费开放。通过维基百科的视角回顾 2024 年。";
 "year-in-review-feature-explore-body-personalized" = "查看关于您在维基百科应用上阅读了哪些文章以及所做编辑的分析数据。您的阅读历史记录受到保护。阅读分析数据是根据您设备上存储的本地数据计算出来的。";
 "year-in-review-finish" = "完成";
 "year-in-review-login-subtitle" = "登录或创建账户，以便有资格获得更多个性化分析数据";
@@ -1505,13 +1510,21 @@
 "year-in-review-personalized-day-title-format" = "您阅读最多的是$1 。";
 "year-in-review-personalized-donate-subtitle" = "感谢您对知识免费的未来投资。今年，维基媒体基金会改进了技术，从而更好地服务每一位读者和志愿者，并开发了增强协作的工具，另外还支持了维基百科的更多语言版本。[进一步了解我们的工作]($1)。";
 "year-in-review-personalized-donate-title" = "您的慷慨让维基百科兴旺";
-"year-in-review-personalized-editing-subtitle-format" = "您编辑了维基百科 $1 次。感谢您成为志愿者编辑，并对全世界的维基媒体项目产生影响。";
+"year-in-review-personalized-edit-views-subtitle-format" = "全世界的读者感谢您做出的贡献。在过去 2 个月中，您编辑的文章总浏览量已达 $1 次。正因为有像您这样的编辑者，维基百科才能不断改进，成为基于事实的、可靠的全球知识资源库。";
+"year-in-review-personalized-edit-views-title-format" = "您编辑的文章最近已被浏览超过 $1 次";
+// Fuzzy
+"year-in-review-personalized-editing-subtitle-format" = "今年，您阅读了 $1 篇文章。维基百科有超过 $2 万篇文章，涵盖 $3 多种语言。您与数百万人一起拓展知识，探索各种主题。";
 "year-in-review-personalized-editing-subtitle-format-500plus" = "您在维基百科上的编辑次数超过了500次。感谢您成为世界各地在维基媒体项目上作出贡献的志愿编者中的一员。";
+// Fuzzy
 "year-in-review-personalized-editing-title-format" = "您编辑了维基百科 $1 次";
 "year-in-review-personalized-editing-title-format-500plus" = "您编辑了维基百科 500 多次";
+// Fuzzy
 "year-in-review-personalized-reading-subtitle-format" = "今年，您阅读了 $1 篇文章，包括 $2、$3 和 $4。维基百科有超过 6300 万篇文章，涵盖 300 多种语言。您与数百万人一起拓展知识，探索各种主题。";
+// Fuzzy
 "year-in-review-personalized-reading-title-format" = "您今年阅读了 $1 篇文章";
+// Fuzzy
 "year-in-review-personalized-saved-subtitle-format" = "您保存了 $1 篇文章，包括 $2、$3 和 $4。每一篇保存的文章都反映了您的兴趣，并帮助您在维基百科上建立个性化的知识库。";
+// Fuzzy
 "year-in-review-personalized-saved-title-format" = "您保存了 $1 篇文章";
 "year-in-review-share-text" = "这里是我的维基百科年度回顾。通过 Wikipedia iOS 应用创建而成 (https://apps.apple.com/app/wikipedia/id324715238) #WikipediaYearInReview";
 "year-in-review-survey-additional-thoughts" = "您还有别的想法吗？";
@@ -1524,7 +1537,3 @@
 "year-in-review-survey-very-unsatisfied" = "非常不满意";
 "year-in-review-wikipedia-w-accessibility-label" = "维基百科 w 徽标";
 "year-in-review-wmf-logo-accessibility-label" = "维基媒体基金会标志";
-"year-in-review-feature-explore-body" = "维基百科是世界历史上最大的知识资源库，向每个地方的每个人免费开放。通过维基百科的视角回顾 2024 年。";
-"year-in-review-personalized-edit-views-title-format" = "您编辑的文章最近已被浏览超过 $1 次";
-"year-in-review-personalized-edit-views-subtitle-format" = "全世界的读者感谢您做出的贡献。在过去 2 个月中，您编辑的文章总浏览量已达 $1 次。正因为有像您这样的编辑者，维基百科才能不断改进，成为基于事实的、可靠的全球知识资源库。";
-
