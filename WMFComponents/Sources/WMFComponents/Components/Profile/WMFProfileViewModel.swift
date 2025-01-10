@@ -3,6 +3,7 @@ import SwiftUI
 import WMFData
 
 public class WMFProfileViewModel: ObservableObject {
+    weak var badgeDelegate: YearInReviewBadgeDelegate?
     
     public struct YearInReviewDependencies {
         let dataController: WMFYearInReviewDataController
@@ -33,12 +34,13 @@ public class WMFProfileViewModel: ObservableObject {
 
     private let yearInReviewDependencies: YearInReviewDependencies?
 
-    public init(isLoggedIn: Bool, localizedStrings: LocalizedStrings, inboxCount: Int, coordinatorDelegate: ProfileCoordinatorDelegate?, yearInReviewDependencies: YearInReviewDependencies?) {
+    public init(isLoggedIn: Bool, localizedStrings: LocalizedStrings, inboxCount: Int, coordinatorDelegate: ProfileCoordinatorDelegate?, yearInReviewDependencies: YearInReviewDependencies?, badgeDelegate: YearInReviewBadgeDelegate?) {
         self.isLoggedIn = isLoggedIn
         self.localizedStrings = localizedStrings
         self.inboxCount = inboxCount
         self.coordinatorDelegate = coordinatorDelegate
         self.yearInReviewDependencies = yearInReviewDependencies
+        self.badgeDelegate = badgeDelegate
         loadProfileSections()
     }
     
@@ -47,7 +49,7 @@ public class WMFProfileViewModel: ObservableObject {
     }
 
     private func loadProfileSections() {
-        profileSections = ProfileState.sections(isLoggedIn: isLoggedIn, localizedStrings: localizedStrings, inboxCount: inboxCount, coordinatorDelegate: coordinatorDelegate, isLoadingDonateConfigs: isLoadingDonateConfigs, yearInReviewDependencies: yearInReviewDependencies)
+        profileSections = ProfileState.sections(isLoggedIn: isLoggedIn, localizedStrings: localizedStrings, inboxCount: inboxCount, coordinatorDelegate: coordinatorDelegate, isLoadingDonateConfigs: isLoadingDonateConfigs, yearInReviewDependencies: yearInReviewDependencies, badgeDelegate: badgeDelegate)
     }
 
     public struct LocalizedStrings {
@@ -104,7 +106,7 @@ struct ProfileSection: Identifiable {
 }
 
 enum ProfileState {
-    static func sections(isLoggedIn: Bool, localizedStrings: WMFProfileViewModel.LocalizedStrings, inboxCount: Int = 0, coordinatorDelegate: ProfileCoordinatorDelegate?, isLoadingDonateConfigs: Bool, yearInReviewDependencies: WMFProfileViewModel.YearInReviewDependencies?) -> [ProfileSection] {
+    static func sections(isLoggedIn: Bool, localizedStrings: WMFProfileViewModel.LocalizedStrings, inboxCount: Int = 0, coordinatorDelegate: ProfileCoordinatorDelegate?, isLoadingDonateConfigs: Bool, yearInReviewDependencies: WMFProfileViewModel.YearInReviewDependencies?, badgeDelegate: YearInReviewBadgeDelegate?) -> [ProfileSection] {
 
         var needsYiRNotification = false
         if let yearInReviewDependencies {
@@ -189,6 +191,7 @@ enum ProfileState {
                 isDonate: false,
                 isLoadingDonateConfigs: false,
                 action: {
+                    badgeDelegate?.didSeeYIR()
                     coordinatorDelegate?.handleProfileAction(.showYearInReview)
                     coordinatorDelegate?.handleProfileAction(.logYearInReviewTap)
                 }
@@ -272,6 +275,7 @@ enum ProfileState {
                 isDonate: false,
                 isLoadingDonateConfigs: false,
                 action: {
+                    badgeDelegate?.didSeeYIR()
                     coordinatorDelegate?.handleProfileAction(.showYearInReview)
                     coordinatorDelegate?.handleProfileAction(.logYearInReviewTap)
                 }

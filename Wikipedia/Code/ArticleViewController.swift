@@ -62,6 +62,7 @@ class ArticleViewController: ViewController, HintPresenting {
         
         guard let existingProfileCoordinator = _profileCoordinator else {
             _profileCoordinator = ProfileCoordinator(navigationController: navigationController, theme: theme, dataStore: dataStore, donateSouce: .articleProfile(articleURL), logoutDelegate: self, sourcePage: ProfileCoordinatorSource.article, yirCoordinator: yirCoordinator)
+            _profileCoordinator?.badgeDelegate = self
             return _profileCoordinator
         }
         
@@ -1757,7 +1758,7 @@ extension ArticleViewController: LogoutCoordinatorDelegate {
 }
 
 extension ArticleViewController: YearInReviewBadgeDelegate {
-    func didSeeFirstSlide() {
+    func didSeeYIR() {
         setupSearchAndProfileButtons()
     }
 }

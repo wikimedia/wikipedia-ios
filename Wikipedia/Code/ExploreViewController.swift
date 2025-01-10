@@ -28,6 +28,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         
         guard let existingProfileCoordinator = _profileCoordinator else {
             _profileCoordinator = ProfileCoordinator(navigationController: navigationController, theme: theme, dataStore: dataStore, donateSouce: .exploreProfile, logoutDelegate: self, sourcePage: ProfileCoordinatorSource.explore, yirCoordinator: yirCoordinator)
+            _profileCoordinator?.badgeDelegate = self
             return _profileCoordinator
         }
 
@@ -2186,7 +2187,7 @@ extension ExploreViewController: LogoutCoordinatorDelegate {
 
 
 extension ExploreViewController: YearInReviewBadgeDelegate {
-    func didSeeFirstSlide() {
+    func didSeeYIR() {
         updateProfileViewButton()
     }
 }

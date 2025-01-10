@@ -26,6 +26,7 @@ final class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegat
     let dataStore: MWKDataStore
     
     private weak var viewModel: WMFProfileViewModel?
+    weak var badgeDelegate: YearInReviewBadgeDelegate?
     
     private let donateSouce: DonateCoordinator.Source
     private let targetRects = WMFProfileViewTargetRects()
@@ -91,7 +92,8 @@ final class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegat
             localizedStrings: localizedStrings,
             inboxCount: Int(truncating: inboxCount ?? 0),
             coordinatorDelegate: self,
-            yearInReviewDependencies: yearInReviewDependencies
+            yearInReviewDependencies: yearInReviewDependencies,
+            badgeDelegate: badgeDelegate
         )
         
         var profileView = WMFProfileView(viewModel: viewModel)
