@@ -15,8 +15,6 @@ import WMFComponents
             WMFFont.for(.subheadline, compatibleWith: traitCollection)
         case .title1:
             WMFFont.for(.title1, compatibleWith: traitCollection)
-        case .boldTitle1:
-            WMFFont.for(.boldTitle1, compatibleWith: traitCollection)
         }
     }
  }
@@ -31,5 +29,4 @@ import WMFComponents
     case semiboldHeadline
     case subheadline
     case title1
-    case boldTitle1
 }

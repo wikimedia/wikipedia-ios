@@ -7,7 +7,7 @@ public protocol WMFNavigationBarConfiguring {
     
 }
 
-/// Title config for a navigation bar. If hideTitleView = false, this title will appear in the navigation bar and in the long press back button stack. If hideTitleView = true, this title will only appear in the long press back button stack
+/// Title config for navigation bar
 public struct WMFNavigationBarTitleConfig {
     
     public enum Alignment {
@@ -36,13 +36,13 @@ public struct WMFNavigationBarCloseButtonConfig {
         case trailing
     }
     
-    let accessibilityLabel: String
+    let text: String
     let target: Any
     let action: Selector
     let alignment: Alignment
     
-    public init(accessibilityLabel: String, target: Any, action: Selector, alignment: Alignment) {
-        self.accessibilityLabel = accessibilityLabel
+    public init(text: String, target: Any, action: Selector, alignment: Alignment) {
+        self.text = text
         self.target = target
         self.action = action
         self.alignment = alignment
@@ -91,9 +91,11 @@ public extension WMFNavigationBarConfiguring where Self: UIViewController {
     
     /// Shared method to apply navigation bar styling on an individual view controller basis. Call within viewWillAppear. For common UINavigationBar styling that should be shared across the app, update WMFComponentNavigationController.
     /// - Parameters:
-    ///   - style: A style enum for setting up the navigation bar.
     ///   - titleConfig: Config for title setup
-    ///   - closeButtonConfig: Config for close button. If provided, a leading X button will be added to navigation bar, which will dismiss the view controller when tapped
+    ///   - closeButtonConfig: Config for close button
+    ///   - profileButtonConfig: Config for profile button
+    ///   - searchBarConfig: Config for search bar
+    ///   - hideNavigationBarOnScroll: If true, will hide the navigation bar when the user scrolls
     func configureNavigationBar(titleConfig: WMFNavigationBarTitleConfig, closeButtonConfig: WMFNavigationBarCloseButtonConfig?, profileButtonConfig: WMFNavigationBarProfileButtonConfig?, searchBarConfig: WMFNavigationBarSearchConfig?, hideNavigationBarOnScroll: Bool) {
         
         navigationController?.setNavigationBarHidden(false, animated: true)
@@ -103,19 +105,8 @@ public extension WMFNavigationBarConfiguring where Self: UIViewController {
             debugPrint("Consider conforming to WMFNavigationBarHiding, which has helper methods ensuring the system navigation bar has a proper top safe area overlay and does not stick in a hidden state when scrolled to the top.")
         }
         
-        // Allows detection when performing long press popping
         navigationItem.title = titleConfig.title
-        
-        // Sets title in long press back contextual menu
-        // navigationItem.backButtonTitle = titleConfig.title
-        
-        // Force full title to show in back button, not "Back"
-//        let backBarButtonItem = UIBarButtonItem(title: titleConfig.title, style: .plain, target: nil, action: nil)
-//        navigationItem.backBarButtonItem = backBarButtonItem
-        
-        // Enables back button to display only arrow
-        // navigationItem.backButtonDisplayMode = .minimal 
-        
+ 
         switch titleConfig.alignment {
         case .centerCompact:
             navigationController?.navigationBar.prefersLargeTitles = false
@@ -135,8 +126,6 @@ public extension WMFNavigationBarConfiguring where Self: UIViewController {
                 let leadingTitleLabel = UILabel()
                 leadingTitleLabel.font = WMFFont.navigationBarLeadingCompactTitleFont
                 leadingTitleLabel.text = titleConfig.title
-                // may still need this
-                // leadingTitleLabel.textColor = WMFAppEnvironment.current.theme.text
                 
                 navigationItem.leftBarButtonItem = UIBarButtonItem(customView: leadingTitleLabel)
                 
@@ -167,9 +156,7 @@ public extension WMFNavigationBarConfiguring where Self: UIViewController {
         
         // Setup close button if needed
         if let closeButtonConfig {
-            // let image = WMFSFSymbolIcon.for(symbol: .close)
-            // TODO: Localize
-            let closeButton = UIBarButtonItem(title: "Done", style: .done, target: closeButtonConfig.target, action: closeButtonConfig.action)
+            let closeButton = UIBarButtonItem(title: closeButtonConfig.text, style: .done, target: closeButtonConfig.target, action: closeButtonConfig.action)
             closeButton.setTitleTextAttributes([.font: WMFFont.navigationBarDoneButtonFont], for: .normal)
             
             switch closeButtonConfig.alignment {

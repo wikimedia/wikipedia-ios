@@ -40,7 +40,7 @@ fileprivate final class WMFDeveloperSettingsHostingController: WMFComponentHosti
     
     private func configureNavigationBar() {
         let titleConfig = WMFNavigationBarTitleConfig(title: viewModel.localizedStrings.developerSettings, customView: nil, alignment: .centerCompact)
-        let closeConfig = WMFNavigationBarCloseButtonConfig(accessibilityLabel: "", target: self, action: #selector(tappedClose), alignment: .trailing)
+        let closeConfig = WMFNavigationBarCloseButtonConfig(text: viewModel.localizedStrings.close, target: self, action: #selector(tappedClose), alignment: .trailing)
         configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: closeConfig, profileButtonConfig: nil, searchBarConfig: nil, hideNavigationBarOnScroll: false)
     }
     

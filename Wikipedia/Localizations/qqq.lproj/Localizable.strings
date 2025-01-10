@@ -244,7 +244,7 @@
 "description-help-tips-title" = "Description editing tips label text";
 "description-help-title" = "Title for description editing help page";
 "description-help-wikidata-guide" = "Wikidata guide label text";
-"description-published-button-title" = "Title for description panel done button.";
+"description-published-button-title" = "Title for done button.";
 "description-published-footer" = "Title for footer explaining articles may be edited too - not just descriptions.";
 "description-published-subtitle" = "Subtitle encouraging user to continue editing";
 "description-published-title" = "Title for letting the user know their description change succeeded.";

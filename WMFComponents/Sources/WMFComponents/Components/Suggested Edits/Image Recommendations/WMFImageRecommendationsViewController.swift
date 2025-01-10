@@ -59,14 +59,6 @@ fileprivate final class WMFImageRecommendationsHostingViewController: WMFCompone
         })
         super.init(rootView: rootView)
     }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        
-        if isMovingFromParent {
-            print("yeah")
-        }
-    }
 
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")

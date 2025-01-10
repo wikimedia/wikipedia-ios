@@ -132,11 +132,11 @@ public final class WMFWatchlistViewModel: ObservableObject {
 	// MARK: - Lifecycle
 
     public init(localizedStrings: LocalizedStrings) {
-		self.localizedStrings = localizedStrings
-		self.menuButtonItems = []
+        self.localizedStrings = localizedStrings
+        self.menuButtonItems = []
         self.menuButtonItemsWithoutThank = []
         setupMenuItems()
-	}
+    }
 
     private func setupMenuItems() {
         var menuItems: [WMFSmallMenuButton.MenuItem] = [
