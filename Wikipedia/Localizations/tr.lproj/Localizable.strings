@@ -947,6 +947,7 @@
 "problem-with-feature-title" = "Özellikle ilgili sorun";
 "profile-button-accessibility-label" = "Profil";
 "profile-page-join-subtext" = "Katkılarınızı takip etmek, maddeleri çevrimdışı kaydetmek ve aygıtlar arasında senkronize etmek için bir Vikipedi hesabına kaydolun.";
+// Fuzzy
 "profile-page-join-title" = "Vikipedi'ye katılın / Giriş yapın";
 "profile-page-title-logged-out" = "Hesap";
 "project-name-mediawiki" = "MediaWiki";
