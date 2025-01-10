@@ -55,12 +55,6 @@ class DiffContainerViewController: ThemeableViewController, WMFNavigationBarConf
     private var wmfProject: WMFProject? {
         return wikimediaProject?.wmfProject
     }
-    
-//    lazy private(set) var fakeProgressController: FakeProgressController = {
-//        let progressController = FakeProgressController(progress: navigationBar, delegate: navigationBar)
-//        progressController.delay = 0.0
-//        return progressController
-//    }()
 
     var hintController: HintController?
 
@@ -563,12 +557,10 @@ private extension DiffContainerViewController {
         switch containerViewModel.state {
 
         case .loading:
-            // fakeProgressController.start()
             scrollingEmptyViewController?.view.isHidden = true
             diffListViewController?.view.isHidden = true
             setThankAndMoreState(isEnabled: false)
         case .empty:
-            // fakeProgressController.stop()
             setupScrollingEmptyViewControllerIfNeeded()
             switch type {
             case .compare:
@@ -586,7 +578,6 @@ private extension DiffContainerViewController {
             diffListViewController?.view.isHidden = true
             setThankAndMoreState(isEnabled: true)
         case .error(let error):
-            // fakeProgressController.stop()
             showNoInternetConnectionAlertOrOtherWarning(from: error)
             setupScrollingEmptyViewControllerIfNeeded()
             switch type {
@@ -599,7 +590,6 @@ private extension DiffContainerViewController {
             diffListViewController?.view.isHidden = true
             setThankAndMoreState(isEnabled: false)
         case .data:
-            // fakeProgressController.stop()
             scrollingEmptyViewController?.view.isHidden = true
             
             if let direction = animateDirection {
@@ -826,51 +816,6 @@ private extension DiffContainerViewController {
         }
     }
 
-//    func setupHeaderViewIfNeeded() {
-//        
-//        guard let headerViewModel = containerViewModel.headerViewModel else {
-//            return
-//        }
-//        
-//        if self.diffHeaderView == nil {
-//            let headerView = DiffHeaderView(frame: .zero)
-//            headerView.translatesAutoresizingMaskIntoConstraints = false
-//            
-//            navigationBar.isUnderBarViewHidingEnabled = true
-//            navigationBar.allowsUnderbarHitsFallThrough = true
-//            navigationBar.addUnderNavigationBarView(headerView)
-//            navigationBar.underBarViewPercentHiddenForShowingTitle = 0.6
-//            navigationBar.isShadowShowing = false
-//            
-//            self.diffHeaderView = headerView
-//        }
-//        
-//        if self.headerExtendedView == nil {
-//            let headerExtendedView = DiffHeaderExtendedView(frame: .zero)
-//            headerExtendedView.translatesAutoresizingMaskIntoConstraints = false
-//            
-//            navigationBar.allowsUnderbarHitsFallThrough = true
-//            navigationBar.allowsExtendedHitsFallThrough = true
-//            navigationBar.addExtendedNavigationBarView(headerExtendedView)
-//            headerExtendedView.delegate = self
-//            
-//            self.headerExtendedView = headerExtendedView
-//        }
-//        
-//        navigationBar.isBarHidingEnabled = false
-//        useNavigationBarVisibleHeightForScrollViewInsets = true
-//        
-//        switch headerViewModel.headerType {
-//        case .compare(_, let navBarTitle):
-//            navigationBar.title = navBarTitle
-//        default:
-//            break
-//        }
-//        diffHeaderView?.configure(with: headerViewModel, titleViewTapDelegate: self)
-//        headerExtendedView?.update(headerViewModel)
-//        navigationBar.isExtendedViewHidingEnabled = headerViewModel.isExtendedViewHidingEnabled
-//    }
-    
     func setupScrollingEmptyViewControllerIfNeeded() {
         
         guard scrollingEmptyViewController == nil else {
@@ -1026,7 +971,7 @@ extension DiffContainerViewController: EmptyViewControllerDelegate {
     }
     
     func emptyViewScrollViewDidScroll(_ scrollView: UIScrollView) {
-       // self.scrollViewDidScroll(scrollView)
+       // no-op
     }
 }
 
@@ -1320,7 +1265,6 @@ extension DiffContainerViewController: DiffToolbarViewDelegate {
               let summary = undoAlertSummaryTextField?.text else {
             return
         }
-        // fakeProgressController.start()
 
         if let pageURL = self.fetchPageURL() {
             EditAttemptFunnel.shared.logSaveAttempt(pageURL: pageURL)
@@ -1365,7 +1309,6 @@ extension DiffContainerViewController: DiffToolbarViewDelegate {
             return
         }
 
-        // fakeProgressController.start()
         if let pageURL = self.fetchPageURL() {
             EditAttemptFunnel.shared.logSaveAttempt(pageURL: pageURL)
         }
@@ -1378,7 +1321,6 @@ extension DiffContainerViewController: DiffToolbarViewDelegate {
     }
     
     private func completeRollbackOrUndo(result: Result<WMFUndoOrRollbackResult, Error>, isRollback: Bool) {
-        // fakeProgressController.stop()
         
         switch result {
         case .success(let result):

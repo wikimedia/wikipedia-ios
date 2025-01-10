@@ -17,8 +17,6 @@ class EditLinkViewController: ThemeableViewController, WMFNavigationBarConfiguri
     private let articleCell = ArticleRightAlignedImageCollectionViewCell()
     private let dataStore: MWKDataStore
 
-    private var navigationBarVisibleHeightObservation: NSKeyValueObservation?
-
     @IBOutlet private weak var contentView: UIView!
     @IBOutlet private weak var scrollViewTopConstraint: NSLayoutConstraint!
     @IBOutlet private weak var displayTextLabel: UILabel!
@@ -47,11 +45,6 @@ class EditLinkViewController: ThemeableViewController, WMFNavigationBarConfiguri
         self.dataStore = dataStore
         super.init(nibName: "EditLinkViewController", bundle: nil)
         self.theme = theme
-    }
-
-    deinit {
-        navigationBarVisibleHeightObservation?.invalidate()
-        navigationBarVisibleHeightObservation = nil
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -83,7 +76,7 @@ class EditLinkViewController: ThemeableViewController, WMFNavigationBarConfiguri
     private func configureNavigationBar() {
         
         let titleConfig = WMFNavigationBarTitleConfig(title: CommonStrings.editLinkTitle, customView: nil, alignment: .centerCompact)
-        let closeButtonConfig = WMFNavigationBarCloseButtonConfig(accessibilityLabel: CommonStrings.closeButtonAccessibilityLabel, target: self, action: #selector(close(_:)), alignment: .leading)
+        let closeButtonConfig = WMFNavigationBarCloseButtonConfig(text: CommonStrings.doneTitle, target: self, action: #selector(close(_:)), alignment: .leading)
         
         configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: closeButtonConfig, profileButtonConfig: nil, searchBarConfig: nil, hideNavigationBarOnScroll: false)
         

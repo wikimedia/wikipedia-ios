@@ -573,14 +573,7 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
         
         return super.preferredInterfaceOrientationForPresentation
     }
-  
-    // Note: Might need to bring this updateContentInsetForAltTextExperiment call back
-//    override func keyboardDidChangeFrame(from oldKeyboardFrame: CGRect?, newKeyboardFrame: CGRect?) {
-//        super.keyboardDidChangeFrame(from: oldKeyboardFrame, newKeyboardFrame: newKeyboardFrame)
-//        
-//        updateContentInsetForAltTextExperiment(detentIdentifier: .medium)
-//    }
-    
+
     // MARK: Article load
     
     var articleLoadWaitGroup: DispatchGroup?
@@ -695,7 +688,6 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
             return
         }
         
-        // y: navigationBar.frame.height + 30
         let tooltip1SourceRect = CGRect(x: 30, y: 30, width: 0, height: 0)
 
         let viewModel1 = WMFTooltipViewModel(localizedStrings: altTextExperimentViewModel.firstTooltipLocalizedStrings, buttonNeedsDisclosure: true, sourceView: tooltip1SourceView, sourceRect: tooltip1SourceRect, permittedArrowDirections: .up) { [weak self] in
@@ -1330,7 +1322,6 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
         updateTableOfContentsHighlightIfNecessary()
 
         calculateNavigationBarHiddenState(scrollView: webView.scrollView)
-        // view.setNeedsLayout() // fix TOC top padding
     }
     
     func scrollViewDidScrollToTop(_ scrollView: UIScrollView) {
