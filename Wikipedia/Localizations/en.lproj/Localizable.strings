@@ -421,6 +421,7 @@
 "editor-replace-type-button-accessibility" = "Switch replace type. Currently set to $1. Select to change.";
 "editor-replace-type-single" = "Replace";
 "editor-replace-type-single-accessibility" = "Replace single instance";
+"editor-title" = "Editor";
 "editor-toolbar-bold-accessibility" = "Bold text formatting";
 "editor-toolbar-cursor-down-accessibility" = "Move cursor down to next line.";
 "editor-toolbar-cursor-next-accessibility" = "Move cursor to next character.";
@@ -735,7 +736,6 @@
 "main-menu-terms-of-use" = "Terms of Use";
 "main-menu-title" = "More";
 "main-menu-zero-faq" = "Wikipedia Zero FAQ";
-"menu-cancel-accessibility-label" = "Cancel";
 "microsite-yir-english-edits-bytes-slide-subtitle" = "In 2024, volunteers added 4,104,852,969 bytes to English Wikipedia. The sum of all their work together leads to a steadily improving, fact-based, and reliable knowledge resource that they give to the world. All of us have knowledge to share, [learn how to participate]($1).";
 "microsite-yir-english-edits-bytes-slide-title" = "4 billion bytes added";
 "microsite-yir-english-edits-slide-subtitle" = "Volunteers made 98,222,407 changes across over 300 different language editions of Wikipedia. Over 38 million changes were made on English Wikipedia. Every hour of every day, volunteers are working to improve Wikipedia.";
@@ -1237,7 +1237,6 @@
 "talk-page-subscription-failed-alert" = "Subscribing to the topic failed, please try again.";
 "talk-page-title-article-talk" = "Article Talk";
 "talk-page-title-user-talk" = "User Talk";
-"talk-page-topic-close-button-hint" = "Close new topic";
 "talk-page-topic-compose-terms-and-licenses-ccsa4" = "By publishing changes, you agree to the $1Terms of Use$2, and you irrevocably agree to release your contribution under the $3CC BY-SA 4.0 License$4 and the $5GFDL$6.";
 "talk-page-unsubscribe-to-topic" = "Unsubscribe";
 "talk-page-unsubscribed-alert-subtitle" = "You will no longer receive notifications about new comments in this topic.";
