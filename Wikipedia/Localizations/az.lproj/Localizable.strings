@@ -751,9 +751,9 @@
 "microsite-yir-english-reading-slide-subtitle" = "İnsanlar 2024-cü ildə İngiliscə Vikipediyanı oxumaq üçün təqribən 2,9 milyard saat - təxminən 331 000 il sərf ediblər! Siz dəyişən dünyamız haqqında öyrənmək, dostlar arasında mərci qazanmaq və ya maraqlı suallar verən uşağa cavab vermək istədiyiniz zaman Vikipediya oradadır.";
 "microsite-yir-english-reading-slide-title" = "Kitab oxumağa 2,9 milyard saat sərf etmişik";
 // Fuzzy
-"microsite-yir-english-saved-reading-slide-subtitle" = "Aktiv iOS tətbiqi istifadəçiləri bu il 31,6 milyon oxuma siyahısına sahib olub. Oxuma siyahıları onlara məqalələr əlavə etmək hətta oflayn olarkən məqalələrə daxil olmaq imkanı verir. Siz həmçinin cihazlar arasında oxuma siyahılarını sinxronlaşdırmaq üçün hesabınıza daxil ola bilərsiniz.";
+"microsite-yir-english-saved-reading-slide-subtitle" = "Aktiv iOS tətbiqi istifadəçiləri bu il 62,2 milyon oxuma siyahısına sahib olub. Oxuma siyahıları onlara məqalələr əlavə etmək hətta oflayn olarkən məqalələrə daxil olmaq imkanı verir. Siz həmçinin cihazlar arasında oxuma siyahılarını sinxronlaşdırmaq üçün hesabınıza daxil ola bilərsiniz.";
 // Fuzzy
-"microsite-yir-english-saved-reading-slide-title" = "31,6 milyondan çox oxuma siyahılarımız olub.";
+"microsite-yir-english-saved-reading-slide-title" = "62,2 milyondan çox oxuma siyahılarımız olub.";
 // Fuzzy
 "microsite-yir-english-top-read-slide-subtitle" = "İnsanlar dünyamız haqqında öyrənmək istədikdə Vikipediyaya müraciət edirlər. İngiliscə Vikipediyada ən çox ziyarət edilən 5 məqalə bunlardır: \n1. $1\n2. $2\n3. $3\n4. $4\n5. $5\n$6Bizim xüsusi bloq yazımızı$7 oxuyun";
 "microsite-yir-english-top-read-slide-title" = "İngiliscə Vikipediyanın ən çox oxunan məqalələri";
@@ -1420,14 +1420,14 @@
 "year-in-review-base-donate-subtitle" = "Sizin köməyinizlə, Vikipediyanın sahibi qeyri-kommersiya təşkilatı olan Vikimedia Fondu etibar etdiyiniz məlumatların reklamsız və etibarlı olmasını təmin etməkdə davam edəcək, eyni zamanda ən müasir alətlər və texnologiyalarla Vikipediyanın problemsiz işləməsini təmin edəcək. Zəhmət olmasa, bu gün ianə etməyi düşünün. [İşimiz haqqında ətraflı öyrənin]($1).";
 "year-in-review-base-donate-title" = "Vikipediyada 0 reklam göstərilir";
 // Fuzzy
-"year-in-review-base-editors-subtitle" = "Könüllülər Vikipediyanın 300-dən çox müxtəlif dildə nəşrlərində 81.987.181 dəyişiklik ediblər. İngiliscə Vikipediyada 31,2 milyondan çox dəyişiklik edilib. Hər günün hər saatında könüllülər Vikipediyanı təkmilləşdirmək üçün çalışırlar.";
+"year-in-review-base-editors-subtitle" = "Könüllülər Vikipediyanın 300-dən çox müxtəlif dildə nəşrlərində 98.222.407 dəyişiklik ediblər. İngiliscə Vikipediyada 38 milyondan çox dəyişiklik edilib. Hər günün hər saatında könüllülər Vikipediyanı təkmilləşdirmək üçün çalışırlar.";
 "year-in-review-base-editors-title" = "Redaktorlar iOS tətbiqində $1+ redaktə ediblər";
 "year-in-review-base-edits-subtitle" = "Bu il Vikipediya dəqiqədə orta hesabla $1 dəfə redaktə edilib. Məqalələr etibarlı mənbələrdən istifadə etməklə birgə yaradılır və təkmilləşdirilir. Hamımızın paylaşacaq biliyimiz var, [iştirak etməyi öyrənin]($2).";
 "year-in-review-base-edits-title" = "Vikipediya dəqiqədə $1 dəfə redaktə edilib";
 "year-in-review-base-reading-subtitle" = "Vikipediyada bu il $2+ aktiv dildə $1+ məqalə var. Siz biliyi genişləndirməkdə və müxtəlif mövzuları araşdırmaqda milyonlarla insana qoşulmusunuz.";
 "year-in-review-base-reading-title" = "Vikipediya 300-dən çox dildə mövcud idi";
 // Fuzzy
-"year-in-review-base-saved-subtitle" = "Aktiv iOS tətbiqi istifadəçiləri bu il 31,6 milyon oxuma siyahısına sahib olub. Oxuma siyahıları onlara məqalələr əlavə etmək hətta oflayn olarkən məqalələrə daxil olmaq imkanı verir. Siz həmçinin cihazlar arasında oxuma siyahılarını sinxronlaşdırmaq üçün hesabınıza daxil ola bilərsiniz.";
+"year-in-review-base-saved-subtitle" = "Aktiv iOS tətbiqi istifadəçiləri bu il 62,2 milyon oxuma siyahısına sahib olub. Oxuma siyahıları onlara məqalələr əlavə etmək hətta oflayn olarkən məqalələrə daxil olmaq imkanı verir. Siz həmçinin cihazlar arasında oxuma siyahılarını sinxronlaşdırmaq üçün hesabınıza daxil ola bilərsiniz.";
 "year-in-review-base-saved-title" = "$1+ oxuma siyahıları olub";
 "year-in-review-base-viewed-subtitle" = "iOS tətbiqi istifadəçiləri Vikipediya məqalələrini $1 dəfə oxuyublar. Dünyanın hər yerindən insanlar üçün suala cavab verərkən, məktəb və ya iş üçün məlumat axtararkən və ya yeni fakt öyrənərkən Vikipediya ilk dayanacaqdır.";
 "year-in-review-base-viewed-title" = "Biz Vikipediya məqalələrini $1 milyard dəfə oxumuşuq";

@@ -1010,19 +1010,19 @@
 "year-in-review-base-donate-title" = "0 inserzioni pubblicitarie servite su Wikipedia";
 "year-in-review-base-editors-subtitle" = "La comunità di editor volontari di Wikipedia ha effettuato più di 555.647 modifiche sull'app iOS finora quest'anno. Il cuore e l'anima di Wikipedia sono la nostra comunità globale di collaboratori volontari, donatori e miliardi di lettori come te, tutti uniti per condividere un accesso illimitato a informazioni affidabili.";
 // Fuzzy
-"year-in-review-base-editors-title" = "Gli editor hanno effettuato più di 452.257 modifiche sull'app iOS";
+"year-in-review-base-editors-title" = "Gli editor hanno effettuato più di $1 modifiche sull'app iOS";
 // Fuzzy
-"year-in-review-base-edits-subtitle" = "Quest'anno, Wikipedia è stata modificata ad un ritmo medio di 342 volte al minuto. Gli articoli vengono creati in maniera collaborativa e migliorati usando fonti affidabili. Tutti noi abbiamo conoscenza da condividere, [scopri come partecipare]($2).";
+"year-in-review-base-edits-subtitle" = "Quest'anno, Wikipedia è stata modificata ad un ritmo medio di $1 volte al minuto. Gli articoli vengono creati in maniera collaborativa e migliorati usando fonti affidabili. Tutti noi abbiamo conoscenza da condividere, [scopri come partecipare]($2).";
 "year-in-review-base-edits-title" = "Wikipedia è stata modificata $1 volte al minuto";
 "year-in-review-base-reading-subtitle" = "Wikipedia ha avuto più di $1 milione di voci in oltre $2 lingue attive. Ti sei unito a milioni di persone nell'espansione della conoscenza e nell'approfondimento di argomenti diversi.";
 "year-in-review-base-reading-title" = "Wikipedia è stata disponibile in più di 300 lingue";
 "year-in-review-base-saved-subtitle" = "Gli utenti attivi dell'app iOS hanno avuto oltre 62,2 milioni di elenchi di lettura quest'anno. Aggiungere voci agli elenchi di lettura ti consente di accedere alle voci anche quando sei offline. Puoi anche effettuare l'accesso per sincronizzare gli elenchi di lettura tra i dispositivi.";
 // Fuzzy
-"year-in-review-base-saved-title" = "Abbiamo avuto più di 62,2 milioni di liste di lettura";
+"year-in-review-base-saved-title" = "Abbiamo avuto più di $1 milioni di liste di lettura";
 // Fuzzy
-"year-in-review-base-viewed-subtitle" = "Gli utenti dell'app iOS hanno visualizzato gli articoli di Wikipedia 1,5 miliardi di volte. Per le persone di tutto il mondo, Wikipedia è il punto di riferimento quando si risponde a una domanda, si cercano informazioni per scuola o lavoro o per imparare un nuovo fatto.";
+"year-in-review-base-viewed-subtitle" = "Gli utenti dell'app iOS hanno visualizzato gli articoli di Wikipedia $1 miliardi di volte. Per le persone di tutto il mondo, Wikipedia è il punto di riferimento quando si risponde a una domanda, si cercano informazioni per scuola o lavoro o per imparare un nuovo fatto.";
 // Fuzzy
-"year-in-review-base-viewed-title" = "Abbiamo visualizzato gli articoli di Wikipedia 1,5 miliardi di volte";
+"year-in-review-base-viewed-title" = "Abbiamo visualizzato gli articoli di Wikipedia $1 miliardi di volte";
 "year-in-review-button-title" = "Anno in Rassegna";
 "year-in-review-collective-zero-ads" = "Logo di Wikimedia";
 "year-in-review-day-friday" = "Venerdì";
@@ -1054,7 +1054,7 @@
 "year-in-review-personalized-editing-title-format" = "Hai modificato Wikipedia {{PLURAL:$1|$1 volta|$1 volte}}";
 "year-in-review-personalized-editing-title-format-500plus" = "Hai modificato Wikipedia oltre 500 volte.";
 // Fuzzy
-"year-in-review-personalized-reading-subtitle-format" = "Quest'anno hai letto $1 articoli, incluso $2, $3 e $4. Wikipedia ha avuto più di 63 milioni di articoli disponibili su più di 300 lingue. Ti sei unito a milioni nell'espandere la conoscenza e nell'esplorare argomenti diversi.";
+"year-in-review-personalized-reading-subtitle-format" = "Quest'anno hai letto $1 articoli. Wikipedia ha avuto più di $2 milioni di articoli disponibili su più di $3 lingue. Ti sei unito a milioni nell'espandere la conoscenza e nell'esplorare argomenti diversi.";
 "year-in-review-personalized-reading-title-format" = "Hai letto {{PLURAL:$1|$1 articol|$1 articoli}} quest'anno";
 // Fuzzy
 "year-in-review-personalized-saved-subtitle-format" = "Hai $1 articoli salvati, incluso $2, $3 e $4. Ogni articolo salvato rispecchia i tuoi interessi e aiuta a costruire una base di conoscenza personalizzata su Wikipedia.";
