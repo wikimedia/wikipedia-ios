@@ -169,6 +169,8 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
     
     private var tocStackViewTopConstraint: NSLayoutConstraint?
     private var searchBarIsAnimating = false
+    
+    var profileBarButtonItem: UIBarButtonItem?
 
     convenience init?(articleURL: URL, dataStore: MWKDataStore, theme: Theme, schemeHandler: SchemeHandler? = nil, altTextExperimentViewModel: WMFAltTextExperimentViewModel, needsAltTextExperimentSheet: Bool, altTextBottomSheetViewModel: WMFAltTextExperimentModalSheetViewModel?, altTextDelegate: AltTextDelegate?) {
         self.init(articleURL: articleURL, dataStore: dataStore, theme: theme)
@@ -838,35 +840,42 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
         
         let titleConfig = WMFNavigationBarTitleConfig(title: articleURL.wmf_title ?? "", customView: wButton, alignment: .centerCompact)
         
-        let profileButtonConfig = self.profileButtonConfig()
+        var profileButtonConfig: WMFNavigationBarProfileButtonConfig?
+        if !needsSearchBar {
+            profileButtonConfig = self.profileButtonConfig()
+        }
         
         let searchViewController = SearchViewController()
         searchViewController.dataStore = dataStore
         searchViewController.theme = theme
         searchViewController.recentlySearchedSelectionDelegate = self
-       
         
         let searchBarConfig: WMFNavigationBarSearchConfig? = needsSearchBar ? WMFNavigationBarSearchConfig(searchResultsController: searchViewController, searchControllerDelegate: self, searchResultsUpdater: self, searchBarDelegate: nil, searchBarPlaceholder: WMFLocalizedString("search-field-placeholder-text", value: "Search Wikipedia", comment: "Search field placeholder text"), showsScopeBar: false, scopeButtonTitles: nil) : nil
 
         configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: nil, profileButtonConfig: profileButtonConfig, searchBarConfig: searchBarConfig, hideNavigationBarOnScroll: true)
         
-        setupSearchNavigationButton()
-        
-    }
-    
-    private func setupSearchNavigationButton() {
+        // Bypassing shared profile button config and using custom logic.
         if !needsSearchBar {
-            // WMFNavigationBarConfiguring methods set up profile as the rightmost button. We need to reset it as second to the right and append the search button.
-            if let profileButton = navigationItem.rightBarButtonItem {
-                navigationItem.rightBarButtonItems = [ AppSearchBarButtonItem.newAppSearchBarButtonItem, profileButton]
-            }
+            let profileButtonConfig = self.profileButtonConfig()
+            let profileButtonImage = self.profileButtonImage(theme: WMFAppEnvironment.current.theme, needsBadge: profileButtonConfig.needsBadge)
+            let profileButton = UIBarButtonItem(image: profileButtonImage, style: .plain, target: profileButtonConfig.target, action: profileButtonConfig.action)
+            profileButton.accessibilityLabel = profileButtonConfig.accessibilityLabel
+            
+            navigationItem.rightBarButtonItems = [AppSearchBarButtonItem.newAppSearchBarButtonItem, profileButton]
+            self.profileBarButtonItem = profileButton
+        } else {
+            self.profileBarButtonItem = navigationItem.rightBarButtonItem
         }
     }
     
     private func updateProfileButton() {
-        let config = self.profileButtonConfig()
-        updateNavigationBarProfileButton(needsBadge: config.needsBadge)
-        setupSearchNavigationButton()
+        
+        let profileButtonConfig = self.profileButtonConfig()
+        let profileButtonImage = self.profileButtonImage(theme: WMFAppEnvironment.current.theme, needsBadge: profileButtonConfig.needsBadge)
+        
+        if let profileBarButtonItem {
+            profileBarButtonItem.image = profileButtonImage
+        }
     }
     
     private func profileButtonConfig() -> WMFNavigationBarProfileButtonConfig {

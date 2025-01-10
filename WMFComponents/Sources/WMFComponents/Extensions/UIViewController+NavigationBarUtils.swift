@@ -51,11 +51,11 @@ public struct WMFNavigationBarCloseButtonConfig {
 
 /// Profile button config for navigation bar
 public struct WMFNavigationBarProfileButtonConfig {
-    let accessibilityLabel: String
-    let accessibilityHint: String
+    public let accessibilityLabel: String
+    public let accessibilityHint: String
     public let needsBadge: Bool
-    let target: Any
-    let action: Selector
+    public let target: Any
+    public let action: Selector
     
     public init(accessibilityLabel: String, accessibilityHint: String, needsBadge: Bool, target: Any, action: Selector) {
         self.accessibilityLabel = accessibilityLabel
@@ -227,7 +227,7 @@ public extension WMFNavigationBarConfiguring where Self: UIViewController {
         navigationItem.rightBarButtonItem?.image = image
     }
     
-    private func profileButtonImage(theme: WMFTheme, needsBadge: Bool) -> UIImage? {
+    func profileButtonImage(theme: WMFTheme, needsBadge: Bool) -> UIImage? {
         let paletteColors: [UIColor]
         
         if needsBadge {

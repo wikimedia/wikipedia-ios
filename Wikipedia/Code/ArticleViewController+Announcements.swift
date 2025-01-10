@@ -145,6 +145,12 @@ extension ArticleViewController {
     
     // TODO: remove after expiry date (1 March 2025)
     func presentYearInReviewAnnouncement() {
+        
+        // Do not show announcement when article is previewing. Fixes crash on preview long press.
+        guard articlePreviewingDelegate == nil else {
+            return
+        }
+        
         guard let yirDataController = try? WMFYearInReviewDataController() else {
             return
         }
@@ -163,7 +169,7 @@ extension ArticleViewController {
             DonateFunnel.shared.logYearInReviewFeatureAnnouncementDidTapClose(isEntryA: !self.dataStore.authenticationManager.authStateIsPermanent)
         })
         
-        if let profileBarButtonItem = navigationItem.rightBarButtonItems?.last {
+        if let profileBarButtonItem = self.profileBarButtonItem {
             announceFeature(viewModel: viewModel, sourceView: nil, sourceRect: nil, barButtonItem: profileBarButtonItem)
             DonateFunnel.shared.logYearInReviewFeatureAnnouncementDidAppear(isEntryA: !dataStore.authenticationManager.authStateIsPermanent)
             yirDataController.hasPresentedYiRFeatureAnnouncementModel = true
