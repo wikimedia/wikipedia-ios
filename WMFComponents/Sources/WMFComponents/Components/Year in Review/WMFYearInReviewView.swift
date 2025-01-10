@@ -169,6 +169,7 @@ public struct WMFYearInReviewView: View {
                 viewModel.coordinatorDelegate?.handleYearInReviewAction(.introLearnMore)
             }
 
-        }
+        }.accessibilityElement(children: .contain)
     }
+
 }
