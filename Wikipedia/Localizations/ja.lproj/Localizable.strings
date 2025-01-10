@@ -1221,16 +1221,24 @@
 "wikitext-upload-save-terms-name" = "利用規約";
 "year-in-review-base-donate-subtitle" = "ウィキメディア財団（ウィキペディアを運営する非営利団体）は、皆様のご支援により、皆さまが頼りにする情報が広告なしかつ信頼できるものであることを今後も保証しつつ、最先端のツールと技術でウィキペディアを円滑に運営していきます。ぜひ本日寄付をご検討ください。[私達の活動についてさらに詳しく知る]($1)。";
 "year-in-review-base-donate-title" = "ウィキペディアに掲載された広告は0件です";
-"year-in-review-base-editors-subtitle" = "ウィキペディアのボランティア編集者コミュニティは、今年に入ってからiOSアプリ上で452,257回以上の編集を行いました。ウィキペディアの心臓部、そして魂というべきは、ボランティアの寄稿者、寄付者、そしてあなたのような、信頼できる情報への無制限のアクセスを共にするために集まった、何十億もの読者からなるグローバルなコミュニティです。";
-"year-in-review-base-editors-title" = "iOSアプリの編集者は452,257回以上の編集を行いました";
-"year-in-review-base-edits-subtitle" = "今年、ウィキペディアは1分あたり平均342回編集されました。記事は信頼できる情報源を使用して共同で作成、改訂されています。私達は皆、共有すべき知識を持っています。[参加方法をご覧ください]($1)。";
-"year-in-review-base-edits-title" = "ウィキペディアは1分あたり342回編集されました";
-"year-in-review-base-reading-subtitle" = "今年、ウィキペディアには、活発に使用されている300以上の言語で6,300万件以上の記事が掲載されていました。 あなたは何百万人もの人々に加わり、知識を広げ、多様なトピックを探求しました。";
+// Fuzzy
+"year-in-review-base-editors-subtitle" = "ウィキペディアのボランティア編集者コミュニティは、今年に入ってからiOSアプリ上で555,647回以上の編集を行いました。ウィキペディアの心臓部、そして魂というべきは、ボランティアの寄稿者、寄付者、そしてあなたのような、信頼できる情報への無制限のアクセスを共にするために集まった、何十億もの読者からなるグローバルなコミュニティです。";
+// Fuzzy
+"year-in-review-base-editors-title" = "iOSアプリの編集者は$1回以上の編集を行いました";
+// Fuzzy
+"year-in-review-base-edits-subtitle" = "今年、ウィキペディアは1分あたり平均$1回編集されました。記事は信頼できる情報源を使用して共同で作成、改訂されています。私達は皆、共有すべき知識を持っています。[参加方法をご覧ください]($2)。";;
+// Fuzzy
+"year-in-review-base-edits-title" = "ウィキペディアは1分あたり$1回編集されました";;
+// Fuzzy
+"year-in-review-base-reading-subtitle" = "今年、ウィキペディアには、活発に使用されている$2以上の言語で$1万件以上の記事が掲載されていました。 あなたは何百万人もの人々に加わり、知識を広げ、多様なトピックを探求しました。";
 "year-in-review-base-reading-title" = "ウィキペディアは300以上の言語で利用可能でした。";
-"year-in-review-base-saved-subtitle" = "今年、iOSアプリのアクティブユーザーが登録したリーディングリストは3,160万件を超えました。リーディングリストに記事を追加しておくことで、オフラインの状態でも記事にアクセスできます。また、ログインして複数の端末間でリーディングリストを同期することもできます。";
-"year-in-review-base-saved-title" = "3,160万件以上のリーディングリストが登録されていました。";
-"year-in-review-base-viewed-subtitle" = "iOSアプリのユーザーは、ウィキペディアの記事を15億回閲覧しました。 世界中の人々にとって、ウィキペディアは、 疑問に答えたり、学校や仕事で情報を調べたり、新しい事実を学んだりする際に、最初に訪れる場所です。";
-"year-in-review-base-viewed-title" = "ウィキペディアの記事は15億回閲覧されました";
+"year-in-review-base-saved-subtitle" = "今年、iOSアプリのアクティブユーザーが登録したリーディングリストは6,220万件を超えました。リーディングリストに記事を追加しておくことで、オフラインの状態でも記事にアクセスできます。また、ログインして複数の端末間でリーディングリストを同期することもできます。";
+// Fuzzy
+"year-in-review-base-saved-title" = "$1万件以上のリーディングリストが登録されていました。";
+// Fuzzy
+"year-in-review-base-viewed-subtitle" = "iOSアプリのユーザーは、ウィキペディアの記事を$1億回閲覧しました。 世界中の人々にとって、ウィキペディアは、 疑問に答えたり、学校や仕事で情報を調べたり、新しい事実を学んだりする際に、最初に訪れる場所です。";
+// Fuzzy
+"year-in-review-base-viewed-title" = "ウィキペディアの記事は$1億回閲覧されました";
 "year-in-review-button-title" = "一年の振り返り";
 "year-in-review-day-friday" = "金曜日";
 "year-in-review-day-monday" = "月曜日";
@@ -1254,11 +1262,17 @@
 "year-in-review-personalized-donate-title" = "皆様の寛大なご支援により、ウィキペディアは発展を続けています";
 "year-in-review-personalized-edit-views-subtitle-format" = "世界中の読者があなたの貢献に感謝しています。この2か月間、あなたが編集した記事は合計で$1回閲覧されました。あなたのような編集者のおかげで、ウィキペディアは着実に改良され、事実に基づく信頼性の高い世界の知識源となっているのです。";
 "year-in-review-personalized-edit-views-title-format" = "あなたの編集は最近 $1 回以上閲覧されました";
+// Fuzzy
 "year-in-review-personalized-editing-subtitle-format" = "あなたは ウィキペディアを $1 回編集しました。 世界各地でウィキメディア・プロジェクトに変革をもたらすボランティア編集者の一人としてご協力いただき、ありがとうございます。";
+// Fuzzy
 "year-in-review-personalized-editing-title-format" = "あなたは ウィキペディアを $1 回編集しました";
-"year-in-review-personalized-reading-subtitle-format" = "今年、あなたは$2、$3、$4などを含む$1 件の記事を読みました。 ウィキペディアでは、300以上の言語で6,300万件以上の記事が利用可能でした。 あなたは何百万人もの人々に加わって知識を広げ、多様なトピックを探求しました。";
+// Fuzzy
+"year-in-review-personalized-reading-subtitle-format" = "今年、$1 件の記事を読みました。 ウィキペディアでは、$3以上の言語で$2万件以上の記事が利用可能でした。 あなたは何百万人もの人々に加わって知識を広げ、多様なトピックを探求しました。";
+// Fuzzy
 "year-in-review-personalized-reading-title-format" = "今年、あなたは$1件の記事を読みました";
+// Fuzzy
 "year-in-review-personalized-saved-subtitle-format" = "あなたは$2、$3、$4 を含め、$1 件の記事を保存しました。 保存された各記事はあなたの興味のある事柄を反映しており、ウィキペディア上のあなた専用の知識ベースの構築に役立ちます。";
+// Fuzzy
 "year-in-review-personalized-saved-title-format" = "あなたは $1 件の記事を保存しました";
 "year-in-review-share-text" = "私のウィキペディア「一年の振り返り」はこちらです。ウィキペディアのiOSアプリ（https://apps.apple.com/app/wikipedia/id324715238）で作成されました。#WikipediaYearInReview";
 "year-in-review-survey-additional-thoughts" = "その他に何かご意見はありますか？";

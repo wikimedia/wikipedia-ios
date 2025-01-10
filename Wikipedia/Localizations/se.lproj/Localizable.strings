@@ -690,7 +690,7 @@
 "notifications-center-applied-project-filters-accessibility-label" = "Prošeaktasilli – gustovaš sillit";
 "notifications-center-badge-button-accessibility-label" = "Almmuhusat main leat merkejumit logakeahtás almmuhusaide";
 "notifications-center-cell-notification-type-accessibility-label-format" = "$1 almmuhus";
-"notifications-center-change-password" = "Rievdat beassansáni";
+"notifications-center-change-password" = "Molsso beassansáni";
 "notifications-center-checking-for-notifications" = "Iskame almmuhusaid ...";
 "notifications-center-destination-app" = "Áppas";
 "notifications-center-destination-web" = "Neahtas";
@@ -1167,7 +1167,7 @@
 "two-factor-login-with-regular-code" = "Geavat duođaštankoda";
 "unable-to-load-talk-page-title" = "Ii sáhttán viežžat ságastallansiiddu.";
 "unknown-generic-text" = "Dovdameahttun";
-"unwatch" = "Heaite čuovvumis";
+"unwatch" = "Heaitte čuovvumis";
 "user-title" = "Geavaheaddji";
 "uzbek-variants-alert-body" = "Wikipedia-áppa doarju dál čuovvovaš usbeskalaš-variánttaid váldo- dahje nubbingiellan áppas, juoga mii dahká álkibun lohkat, ohcat, ja rievdadit iežat oidojuvvon variánttaid:\n\noʻzbekcha lotin latiinna usbekalaš (uz-latiinnagiella)\nўзбекча кирилл kyrillalaš usbekalaš (uz-cyrl)";
 "uzbek-variants-alert-title" = "Ođasmahttimat mat dorjot usbeskalaš-variánttaid";
