@@ -34,7 +34,6 @@
 "action-read" = "კითხვა";
 "action-save" = "შენახვა";
 "action-saved" = "შენახულია";
-"add-citation-title" = "ციტირების ჩასმა";
 "announcements-dismiss" = "უარყოფა";
 "article-languages-filter-placeholder" = "მოძებნე ენა";
 "article-languages-label" = "აირჩიეთ ენა";
@@ -113,7 +112,6 @@
 "main-menu-account-login" = "შესვლა";
 "main-menu-account-logout" = "გასვლა";
 "main-menu-account-logout-are-you-sure" = "დარწმუნებული ხართ, რომ გსურთ გასვლა?";
-"main-menu-account-logout-cancel" = "გაუქმება";
 "main-menu-account-title-logged-in" = "შესული ხართ როგორც $1.";
 "main-menu-heading-legal" = "კონფიდენციალურობა და პირობები";
 "main-menu-nearby" = "სიახლოვეს";
@@ -177,9 +175,7 @@
 "two-factor-login-with-regular-code" = "გამოიყენეთ დადასტურების კოდი";
 "welcome-explore-continue-button" = "დაწყება";
 "welcome-explore-tell-me-more-done-button" = "მიღება";
-"wikitext-downloading" = "შიგთავსი იტვირთება…";
 "wikitext-preview-changes" = "თქვენი ცვლილებების წინასწარი გადახედვის ჩვენება...";
-"wikitext-preview-changes-none" = "წინასწარ გადახედვისათვის არანაირი ცვლილება არ განხორციელებულა.";
 "wikitext-upload-captcha-error" = "CAPTCHA-ს დადასტურების შეცდომა.";
 "wikitext-upload-captcha-needed" = "საჭიროა CAPTCHA-ს დადასტურება.";
 "wikitext-upload-result-unknown" = "ვიკიტექსტის ატვირთვის შედეგის განსაზღვრა შეუძლებელია.";

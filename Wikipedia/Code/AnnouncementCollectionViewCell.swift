@@ -1,4 +1,4 @@
-import UIKit
+import WMFComponents
 
 public protocol AnnouncementCollectionViewCellDelegate: NSObjectProtocol {
     func announcementCellDidTapDismiss(_ cell: AnnouncementCollectionViewCell)
@@ -22,6 +22,8 @@ open class AnnouncementCollectionViewCell: CollectionViewCell {
     public let dismissButtonHeight: CGFloat = 32
     public var imageViewDimension: CGFloat = 150
     public let captionSpacing: CGFloat = 20
+
+    private var theme: Theme = .light
 
     open override func setup() {
         layoutMargins = UIEdgeInsets(top: 8, left: 15, bottom: 8, right: 15)
@@ -82,8 +84,8 @@ open class AnnouncementCollectionViewCell: CollectionViewCell {
     
     open override func updateFonts(with traitCollection: UITraitCollection) {
         super.updateFonts(with: traitCollection)
-        actionButton.titleLabel?.font = UIFont.wmf_font(.semiboldSubheadline, compatibleWithTraitCollection: traitCollection)
-        dismissButton.titleLabel?.font = UIFont.wmf_font(.footnote, compatibleWithTraitCollection: traitCollection)
+        actionButton.titleLabel?.font = WMFFont.for(.boldSubheadline, compatibleWith: traitCollection)
+        dismissButton.titleLabel?.font = WMFFont.for(.footnote, compatibleWith: traitCollection)
         updateCaptionTextViewWithAttributedCaption()
     }
     
@@ -107,7 +109,8 @@ open class AnnouncementCollectionViewCell: CollectionViewCell {
             isCaptionHidden = true
             return
         }
-        let attributedText = html.byAttributingHTML(with: .footnote, matching: traitCollection, color: captionTextView.textColor)
+        let styles = HtmlUtils.Styles(font: WMFFont.for(.footnote, compatibleWith: traitCollection), boldFont: WMFFont.for(.boldFootnote, compatibleWith: traitCollection), italicsFont: WMFFont.for(.italicFootnote, compatibleWith: traitCollection), boldItalicsFont: WMFFont.for(.boldItalicFootnote, compatibleWith: traitCollection), color: theme.colors.primaryText, linkColor: theme.colors.link, lineSpacing: 3)
+        let attributedText = NSMutableAttributedString.mutableAttributedStringFromHtml(html, styles: styles)
         let pStyle = NSMutableParagraphStyle()
         pStyle.lineBreakMode = .byWordWrapping
         pStyle.baseWritingDirection = .natural
@@ -116,7 +119,7 @@ open class AnnouncementCollectionViewCell: CollectionViewCell {
         captionTextView.attributedText = attributedText
         isCaptionHidden = false
     }
-    
+
     public var captionHTML: String? {
         didSet {
             updateCaptionTextViewWithAttributedCaption()
@@ -132,20 +135,9 @@ open class AnnouncementCollectionViewCell: CollectionViewCell {
             messageTextView.attributedText = nil
             return
         }
-        let attributedText = html.byAttributingHTML(with: .subheadline,
-                                                    boldWeight: .bold,
-                                                    matching: traitCollection,
-                                                    color: messageTextView.textColor,
-                                                    tagMapping: ["em": "i"], // em tags are generally italicized by default, match this behavior
-                                                    additionalTagAttributes: [
-            "u": [
-                NSAttributedString.Key.underlineColor: messageUnderlineColor,
-                NSAttributedString.Key.underlineStyle: NSNumber(value: NSUnderlineStyle.single.rawValue)
-            ],
-            "strong": [
-                NSAttributedString.Key.foregroundColor: messageEmphasisColor
-            ]
-        ])
+
+        let styles = HtmlUtils.Styles(font: WMFFont.for(.subheadline, compatibleWith: traitCollection), boldFont: WMFFont.for(.boldSubheadline, compatibleWith: traitCollection), italicsFont: WMFFont.for(.italicSubheadline, compatibleWith: traitCollection), boldItalicsFont: WMFFont.for(.boldItalicSubheadline, compatibleWith: traitCollection), color: theme.colors.primaryText, linkColor: theme.colors.link, strongColor: messageEmphasisColor, lineSpacing: 1)
+        let attributedText = NSMutableAttributedString.mutableAttributedStringFromHtml(html, styles: styles)
         let pStyle = NSMutableParagraphStyle()
         pStyle.lineHeightMultiple = messageLineHeightMultiple
         let attributes: [NSAttributedString.Key : Any] = [NSAttributedString.Key.paragraphStyle: pStyle]
@@ -228,6 +220,7 @@ extension AnnouncementCollectionViewCell: UITextViewDelegate {
 extension AnnouncementCollectionViewCell: Themeable {
     @objc(applyTheme:)
     public func apply(theme: Theme) {
+        self.theme = theme
         setBackgroundColors(theme.colors.cardBackground, selected: theme.colors.selectedCardBackground)
         messageTextView.textColor = theme.colors.primaryText
         messageTextView.backgroundColor = .clear

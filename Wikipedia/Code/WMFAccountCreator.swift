@@ -1,3 +1,5 @@
+import WMFComponents
+
 public enum WMFAccountCreatorError: LocalizedError {
     case cannotExtractStatus
     case statusNotPass(String?)
@@ -31,6 +33,73 @@ public struct WMFAccountCreatorResult {
 }
 
 public class WMFAccountCreator: Fetcher {
+    
+    struct CheckUsernameAPIResponse: Codable {
+        struct Query: Codable {
+            struct User: Codable {
+                struct CanCreateError: Codable {
+                    let message: String
+                    let params: [String]
+                    let type: String
+                    let code: String
+                }
+                
+                enum CodingKeys: String, CodingKey {
+                    case userId = "userid"
+                    case name
+                    case missing
+                    case canCreate = "cancreate"
+                    case canCreateError = "cancreateerror"
+                }
+                
+                let userId: Int?
+                let name: String
+                let missing: Bool?
+                let canCreate: Bool?
+                let canCreateError: [CanCreateError]?
+            }
+            
+            let users: [User]
+        }
+        
+        enum CodingKeys: String, CodingKey {
+            case batchComplete = "batchcomplete"
+            case query
+        }
+        
+        let batchComplete: Bool
+        let query: Query
+    }
+    
+    public func checkUsername(
+        _ username: String,
+        siteURL: URL,
+        success: @escaping (Bool) -> Void,
+        failure: @escaping WMFErrorHandler
+    ) {
+        let parameters: [String: String] = [
+            "action": "query",
+            "list": "users",
+            "ususers": username,
+            "usprop": "cancreate",
+            "formatversion": "2",
+            "format": "json"
+        ]
+        
+        performDecodableMediaWikiAPIGET(
+            for: siteURL,
+            with: parameters
+        ) { (result: Result<CheckUsernameAPIResponse, Error>) in
+            switch result {
+            case .failure(let error):
+                failure(error)
+            case .success(let apiResponse):
+                let usernameAvailable = apiResponse.query.users.first?.canCreate ?? false
+                success(usernameAvailable)
+            }
+        }
+    }
+    
     public func createAccount(username: String, password: String, retypePassword: String, email: String?, captchaID: String?, captchaWord: String?, siteURL: URL, success: @escaping WMFAccountCreatorResultBlock, failure: @escaping WMFErrorHandler) {
         var parameters: [String: String] = [
             "action": "createaccount",

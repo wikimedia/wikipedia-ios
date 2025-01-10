@@ -85,7 +85,7 @@
         case WMFContentGroupKindAnnouncement:
             URL = [WMFContentGroup announcementURLForSiteURL:self.siteURL identifier:[(WMFAnnouncement *)self.contentPreview identifier]];
         case WMFContentGroupKindSuggestedEdits:
-            URL = [WMFContentGroup suggestedEditsURL];
+            URL = [WMFContentGroup suggestedEditsURLForSiteURL:self.siteURL];
         default:
             break;
     }
@@ -175,35 +175,32 @@
         case WMFContentGroupKindFeaturedArticle:
             updatedDailySortPriority = contentLanguageSortOrder + 4;
             break;
-        case WMFContentGroupKindSuggestedEdits:
+        case WMFContentGroupKindTopRead:
             updatedDailySortPriority = contentLanguageSortOrder + 5;
             break;
-        case WMFContentGroupKindTopRead:
-            updatedDailySortPriority = contentLanguageSortOrder + 6;
-            break;
         case WMFContentGroupKindNews:
-            updatedDailySortPriority = contentLanguageSortOrder + 7;
+            updatedDailySortPriority = contentLanguageSortOrder + 6;
             break;
         case WMFContentGroupKindNotification:
             updatedDailySortPriority = -1;
             break;
         case WMFContentGroupKindPictureOfTheDay:
-            updatedDailySortPriority = 9;
+            updatedDailySortPriority = 8;
             break;
         case WMFContentGroupKindOnThisDay:
-            updatedDailySortPriority = contentLanguageSortOrder + 10;
+            updatedDailySortPriority = contentLanguageSortOrder + 9;
             break;
         case WMFContentGroupKindLocationPlaceholder:
-            updatedDailySortPriority = contentLanguageSortOrder + 11;
+            updatedDailySortPriority = contentLanguageSortOrder + 10;
             break;
         case WMFContentGroupKindLocation:
-            updatedDailySortPriority = contentLanguageSortOrder + 12;
+            updatedDailySortPriority = contentLanguageSortOrder + 11;
             break;
         case WMFContentGroupKindRandom:
-            updatedDailySortPriority = contentLanguageSortOrder + 13;
+            updatedDailySortPriority = contentLanguageSortOrder + 12;
             break;
         case WMFContentGroupKindMainPage:
-            updatedDailySortPriority = contentLanguageSortOrder + 14;
+            updatedDailySortPriority = contentLanguageSortOrder + 13;
             break;
         default:
             break;
@@ -527,8 +524,10 @@
     return URL;
 }
 
-+ (nullable NSURL *)suggestedEditsURL {
-    return [[self baseURL] URLByAppendingPathComponent:@"suggested-edits"];
++ (nullable NSURL *)suggestedEditsURLForSiteURL:(NSURL *)siteURL {
+    NSURL *URL = [[self baseURL] URLByAppendingPathComponent:@"suggested-edits"];
+    URL.wmf_languageVariantCode = siteURL.wmf_languageVariantCode;
+    return URL;
 }
 
 - (BOOL)isForLocalDate:(NSDate *)date {

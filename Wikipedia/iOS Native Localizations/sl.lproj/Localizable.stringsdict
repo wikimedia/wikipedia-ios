@@ -144,6 +144,78 @@
 			<string>članki izbrisani</string>
 		</dict>
 	</dict>
+	<key>diff-change-paragraph-lines-moved-down</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Odstavek je bil premaknjen navzdol za %#@v1@. Pojdite na novo mesto.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d vrstico</string>
+			<key>other</key>
+			<string>%1$d vrstic</string>
+			<key>zero</key>
+			<string>0 vrstic</string>
+		</dict>
+	</dict>
+	<key>diff-change-paragraph-lines-moved-up</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Odstavek je bil premaknjen navzgor za %#@v1@. Pojdite na novo mesto.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d vrstico</string>
+			<key>other</key>
+			<string>%1$d vrstic</string>
+			<key>zero</key>
+			<string>0 vrstic</string>
+		</dict>
+	</dict>
+	<key>diff-change-paragraph-sections-moved-down</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Odstavek je bil premaknjen navzdol za %#@v1@. Pojdite na novo mesto.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d razdelek</string>
+			<key>other</key>
+			<string>%1$d razdelkov</string>
+			<key>zero</key>
+			<string>0 razdelkov</string>
+		</dict>
+	</dict>
+	<key>diff-change-paragraph-sections-moved-up</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Odstavek je bil premaknjen navzgor za %#@v1@. Pojdite na novo mesto.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d razdelek</string>
+			<key>other</key>
+			<string>%1$d razdelkov</string>
+			<key>zero</key>
+			<string>0 razdelkov</string>
+		</dict>
+	</dict>
 	<key>diff-paragraph-moved-distance-line</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -712,22 +784,6 @@
 			<string>Pred %1$d leti</string>
 			<key>zero</key>
 			<string>Letos</string>
-		</dict>
-	</dict>
-	<key>replace-replace-all-results-count</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
-		<key>v1</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
-			<key>one</key>
-			<string>Zamenjana %1$d pojavitev</string>
-			<key>other</key>
-			<string>Zamenjanih %1$d pojavitev</string>
 		</dict>
 	</dict>
 	<key>saved-unsave-article-and-remove-from-reading-lists-message</key>

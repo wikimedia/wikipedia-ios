@@ -1,14 +1,15 @@
 import Foundation
-import WebKit
+@preconcurrency import WebKit
 import WMF
 
-@objc protocol WMFPreviewAnchorTapAlertDelegate: AnyObject {
+@objc protocol WMFPreviewDelegate: AnyObject {
     func previewWebViewContainer(_ previewWebViewContainer: PreviewWebViewContainer, didTapLink url: URL)
+    func previewWebViewContainer(_ previewWebViewContainer: PreviewWebViewContainer, didFailWithError error: Error)
 }
 
 class PreviewWebViewContainer: UIView, WKNavigationDelegate, Themeable {
     var theme: Theme = .standard
-    @IBOutlet weak var previewAnchorTapAlertDelegate: WMFPreviewAnchorTapAlertDelegate!
+    weak var delegate: WMFPreviewDelegate!
 
     lazy var webView: WKWebView = {
         let controller = WKUserContentController()
@@ -32,8 +33,12 @@ class PreviewWebViewContainer: UIView, WKNavigationDelegate, Themeable {
             decisionHandler(WKNavigationActionPolicy.allow)
             return
         }
-        previewAnchorTapAlertDelegate.previewWebViewContainer(self, didTapLink: url)
+        delegate?.previewWebViewContainer(self, didTapLink: url)
         decisionHandler(WKNavigationActionPolicy.cancel)
+    }
+    
+    func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: any Error) {
+        delegate?.previewWebViewContainer(self, didFailWithError: error)
     }
 
     func apply(theme: Theme) {

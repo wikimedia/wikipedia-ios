@@ -1,4 +1,4 @@
-import UIKit
+import WMFComponents
 
 class NotificationsCenterDetailHeaderCell: UITableViewCell, ReusableCell {
 
@@ -48,7 +48,7 @@ class NotificationsCenterDetailHeaderCell: UITableViewCell, ReusableCell {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.adjustsFontForContentSizeCategory = true
         label.numberOfLines = 0
-        label.font = UIFont.wmf_scaledSystemFont(forTextStyle: .body, weight: .bold, size: 17, maximumPointSize: 64)
+        label.font = WMFFont.for(.boldCallout, compatibleWith: traitCollection)
         return label
     }()
 
@@ -57,7 +57,7 @@ class NotificationsCenterDetailHeaderCell: UITableViewCell, ReusableCell {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.adjustsFontForContentSizeCategory = true
         label.numberOfLines = 0
-        label.font = UIFont.wmf_scaledSystemFont(forTextStyle: .body, weight: .regular, size: 13, maximumPointSize: 64)
+        label.font = WMFFont.for(.footnote, compatibleWith: traitCollection)
         label.textAlignment = effectiveUserInterfaceLayoutDirection == .rightToLeft ? .right : .left
         return label
     }()
@@ -67,7 +67,7 @@ class NotificationsCenterDetailHeaderCell: UITableViewCell, ReusableCell {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.adjustsFontForContentSizeCategory = true
         label.numberOfLines = 0
-        label.font = UIFont.wmf_scaledSystemFont(forTextStyle: .body, weight: .regular, size: 13, maximumPointSize: 64)
+        label.font = WMFFont.for(.footnote, compatibleWith: traitCollection)
         label.textAlignment = effectiveUserInterfaceLayoutDirection == .rightToLeft ? .left : .right
         return label
     }()

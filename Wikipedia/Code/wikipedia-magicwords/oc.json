@@ -1,0 +1,191 @@
+[
+  {
+    "aliases" : [
+      "linha_de_basa",
+      "baseline",
+      "línia de base",
+      "base",
+      "ligne-de-base"
+    ],
+    "name" : "img_baseline"
+  },
+  {
+    "aliases" : [
+      "bordadura",
+      "border",
+      "vora",
+      "bordure"
+    ],
+    "name" : "img_border"
+  },
+  {
+    "aliases" : [
+      "bas",
+      "bottom",
+      "baix"
+    ],
+    "name" : "img_bottom"
+  },
+  {
+    "aliases" : [
+      "centrat",
+      "center",
+      "centre",
+      "centré"
+    ],
+    "name" : "img_center"
+  },
+  {
+    "aliases" : [
+      "quadre",
+      "enquagrat",
+      "frame",
+      "framed",
+      "enframed",
+      "marc",
+      "cadre",
+      "encadré",
+      "encadre"
+    ],
+    "name" : "img_framed"
+  },
+  {
+    "aliases" : [
+      "sens_quadre",
+      "frameless",
+      "sense marc",
+      "sans_cadre",
+      "non_encadré",
+      "non_encadre"
+    ],
+    "name" : "img_frameless"
+  },
+  {
+    "aliases" : [
+      "esquèrra",
+      "senèstra",
+      "gaucha",
+      "left",
+      "esquerra",
+      "gauche"
+    ],
+    "name" : "img_left"
+  },
+  {
+    "aliases" : [
+      "mitan",
+      "middle",
+      "mitjà",
+      "milieu"
+    ],
+    "name" : "img_middle"
+  },
+  {
+    "aliases" : [
+      "neant",
+      "nonrés",
+      "none",
+      "cap",
+      "néant"
+    ],
+    "name" : "img_none"
+  },
+  {
+    "aliases" : [
+      "drecha",
+      "dreta",
+      "right",
+      "droite"
+    ],
+    "name" : "img_right"
+  },
+  {
+    "aliases" : [
+      "indici",
+      "ind",
+      "sub",
+      "indice"
+    ],
+    "name" : "img_sub"
+  },
+  {
+    "aliases" : [
+      "exp",
+      "super",
+      "sup",
+      "exposant"
+    ],
+    "name" : "img_super"
+  },
+  {
+    "aliases" : [
+      "bas-tèxte",
+      "bas-txt",
+      "text-bottom",
+      "baix-text",
+      "bas-texte"
+    ],
+    "name" : "img_text_bottom"
+  },
+  {
+    "aliases" : [
+      "naut-tèxte",
+      "naut-txt",
+      "text-top",
+      "dalt-text",
+      "haut-texte",
+      "haut-txt"
+    ],
+    "name" : "img_text_top"
+  },
+  {
+    "aliases" : [
+      "vinheta",
+      "thumb",
+      "thumbnail",
+      "miniatura",
+      "vignette"
+    ],
+    "name" : "img_thumbnail"
+  },
+  {
+    "aliases" : [
+      "naut",
+      "top",
+      "dalt",
+      "haut"
+    ],
+    "name" : "img_top"
+  },
+  {
+    "aliases" : [
+      "redreça",
+      "redreça$1",
+      "redreça $1",
+      "upright",
+      "upright=$1",
+      "upright $1",
+      "redreçat",
+      "redreçat=$1",
+      "redreçat $1",
+      "redresse",
+      "redresse=$1",
+      "redresse_$1"
+    ],
+    "name" : "img_upright"
+  },
+  {
+    "aliases" : [
+      "alt=$1"
+    ],
+    "name" : "img_alt"
+  },
+  {
+    "aliases" : [
+      "Fichièr",
+      "Image",
+      "Imatge"
+    ],
+    "name" : "file_namespace"
+  }
+]

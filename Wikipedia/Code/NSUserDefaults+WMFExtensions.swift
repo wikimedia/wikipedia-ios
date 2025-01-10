@@ -35,6 +35,8 @@ let WMFTappedToImportSharedReadingListSurvey = "WMFTappedToImportSharedReadingLi
 public let WMFAlwaysDisplayEditNotices = "WMFAlwaysDisplayEditNotices"
 let WMFSessionBackgroundDate =  "WMFSessionBackgroundDate"
 let WMFSessionStartDate =  "WMFSessionStartDate"
+let WMFYiRSettingsToggleIsEnabled = "WMFYiRSettingsToggleIsEnabled"
+let WMFYiRSettingsToggleShouldShow = "WMFYiRSettingsToggleShouldShow"
 
 @objc public enum WMFAppDefaultTabType: Int {
     case explore
@@ -47,6 +49,8 @@ let WMFSessionStartDate =  "WMFSessionStartDate"
         static let isUserUnawareOfLogout = "WMFIsUserUnawareOfLogout"
         static let didShowDescriptionPublishedPanel = "WMFDidShowDescriptionPublishedPanel"
         static let didShowEditingOnboarding = "WMFDidShowEditingOnboarding"
+        static let didShowInformationEditingMessage = "WMFdDidShowInformationEditingMessage"
+        static let isDifferentErrorBannerShown = "WMFIsDifferentErrorBannerShown"
         static let autoSignTalkPageDiscussions = "WMFAutoSignTalkPageDiscussions"
         static let talkPageForceRefreshRevisionIDs = "WMFTalkPageForceRefreshRevisionIDs"
     }
@@ -468,6 +472,15 @@ let WMFSessionStartDate =  "WMFSessionStartDate"
             set(newValue, forKey: UserDefaults.Key.didShowEditingOnboarding)
         }
     }
+    
+    var didShowInformationEditingMessage: Bool {
+        get {
+            return bool(forKey: UserDefaults.Key.didShowInformationEditingMessage)
+        }
+        set {
+            set(newValue, forKey: UserDefaults.Key.didShowInformationEditingMessage)
+        }
+    }
 
     var autoSignTalkPageDiscussions: Bool {
         get {
@@ -542,5 +555,25 @@ let WMFSessionStartDate =  "WMFSessionStartDate"
         set {
             set(newValue, forKey: "WMFSessionID")
         }
+    }
+
+    @objc var wmf_yirSettingToggleIsEnabled: Bool {
+        get {
+            if object(forKey: WMFYiRSettingsToggleIsEnabled) == nil {
+                return true
+            }
+            return bool(forKey: WMFYiRSettingsToggleIsEnabled)
+        }
+        set {
+            set(newValue, forKey: WMFYiRSettingsToggleIsEnabled)
+        }
+    }
+
+    @objc var wmf_yirSettingToggleShouldShow: Bool {
+        return bool(forKey: WMFYiRSettingsToggleShouldShow)
+    }
+
+    @objc func wmf_setShowYirSettingToggle(_ enabled: Bool) {
+        self.set(NSNumber(value: enabled as Bool), forKey: WMFYiRSettingsToggleShouldShow)
     }
 }

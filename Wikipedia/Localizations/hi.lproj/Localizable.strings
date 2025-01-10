@@ -1,6 +1,7 @@
 // Messages for Hindi (हिन्दी)
 // Exported from translatewiki.net
 // Author: Abijeet Patro
+// Author: Abijeet Patro - Normal
 // Author: Adithyavr
 // Author: Anamdas
 // Author: AnupamM
@@ -114,8 +115,6 @@
 "action-read" = "पढ़ें";
 "action-redo" = "रीडू";
 "action-remove" = "हटाएँ";
-"action-replace" = "बदलें";
-"action-replace-all" = "सभी बदलें";
 "action-retry" = "पुनः प्रयास करें";
 "action-save" = "सहेजें";
 "action-saved" = "सहेजा गया";
@@ -130,8 +129,32 @@
 "action-unsaved-accessibility-notification" = "असुरक्षित लेख";
 "action-update" = "अद्यतन";
 "add-articles-to-reading-list" = "पठन सूची में{{PLURAL:$1|$1 लेख}} जोड़ें";
-"add-citation-title" = "उद्धरण जोड़ें";
-"additional-information-email-title" = "अतिरिक्त जानकारी";
+"alt-text-add-button-title" = "जोड़ें";
+"alt-text-email-fifth-line" = "[स्क्रीनशॉट या लिंक]";
+"alt-text-email-first-line" = "मुझे ऑल्ट टेक्स्ट सुविधा के साथ एक समस्या का सामना करना पड़ा हैः";
+"alt-text-email-fourth-line" = "- [प्रस्तावित समाधान का वर्णन करें]";
+"alt-text-email-second-line" = "- [विशिष्ट समस्या का वर्णन करें]";
+"alt-text-email-third-line" = "मैं जो व्यवहार देखना चाहता हूँ वह है:";
+"alt-text-experiment-onboarding-secondary-button-title" = "उदाहरण देखें";
+"alt-text-experiment-onboarding-tooltip-1-body" = "लेख के संदर्भ में छवि को समझें।";
+"alt-text-experiment-onboarding-tooltip-1-title" = "पुनरीक्षण";
+"alt-text-experiment-onboarding-tooltip-2-title" = "निरीक्षण";
+"alt-text-experiment-onboarding-tooltip-3-title" = "विवरण जोड़ें";
+"alt-text-experiment-review-title" = "पुनरीक्षण";
+"alt-text-feedback-alert-subtitle-flow-C" = "क्या आप लेखों को संपादित करने के बाद उन पर सुझाए गए संपादनों के बारे में इसी प्रकार की सूचनाएं प्राप्त करने में रुचि रखते हैं?";
+"alt-text-feedback-alert-title" = "हम आपकी प्रतिक्रिया चाहते हैं";
+"alt-text-feedback-survey-neutral" = "तटस्थ";
+"alt-text-feedback-survey-satisfied" = "संतुष्ट";
+"alt-text-feedback-survey-subtitle" = "क्या आप इस सुविधा से संतुष्ट हैं?";
+"alt-text-feedback-survey-title" = "सुविधा को बेहतर बनाने में सहायता करें";
+"alt-text-feedback-survey-toast-title" = "प्रतिक्रिया प्रस्तुत की गई";
+"alt-text-feedback-survey-unsatisfied" = "असंतुष्ट";
+"alt-text-survey-option-1" = "मैं अनिश्चित हूँ कि किसी छवि का वर्णन कैसे करूँ";
+"alt-text-survey-option-2" = "मेरे पास ऑल्ट टेक्स्ट जोड़ने की विशेषज्ञता नहीं है";
+"alt-text-survey-option-4" = "मुझे तकनीकी समस्याएं हैं";
+"alt-text-survey-option-5" = "मुझे दृष्टि दोष है";
+"alt-text-survey-option-6" = "मुझे छवियों के लिए ऑल्ट टेक्स्ट लिखने में कोई दिलचस्पी नहीं है";
+"alt-text-survey-option-7" = "मेरे पास समय नहीं है";
 "announcements-dismiss" = "रद्द करें";
 "app-store-keywords" = "विकिपीडिया, संदर्भ, विकी, विश्वकोश, जानकारी, ज्ञान, अनुसंधान, जानकारी, अन्वेषण करें, सीखें";
 "app-store-release-notes" = "एक्सप्लोर फ़ीड पूरी तरह से अनुकूलन योग्य और पढ़ने में आसान है। स्थानीयकरण, प्रदर्शन में सुधार और बग फिक्स।";
@@ -185,7 +208,6 @@
 "data-migration-status" = "अपडेट हो रहा है...";
 "description-add-title" = "विवरण जोड़ें";
 "description-edit-for-article" = "$1 के लिए लेख विवरण";
-"description-edit-learn-more" = "अधिक जानें";
 "description-edit-length-warning" = "$1 / $2";
 "description-edit-license" = "लेख विवरण को बदलकर, मैं $1 और $2 लाइसेंस के तहत अपना योगदान अपरिवर्तनीय रूप से जारी करने के लिए सहमत हूं।";
 "description-edit-pencil-introduction" = "परिचय सम्पादित करें";
@@ -243,19 +265,10 @@
 "donate-help-other-ways-to-give" = "दान करने के दूसरे तरीके";
 "donate-success-title" = "धन्यवाद!";
 "donate-title" = "एक राशि चुनें";
-"edit-bold-remove-accessibility-label" = "मोटा स्वरुप हटायें";
-"edit-direction-left-accessibility-label" = "कर्सर बायें ले जायें";
-"edit-italic-accessibility-label" = "तिरक्षा अक्षर स्वरुप जोड़ें";
-"edit-reference-accessibility-label" = "सन्दर्भ विन्यास जोड़ें";
-"edit-signature-accessibility-label" = "हस्ताक्षर विन्यास जोड़ें";
-"edit-signature-remove-accessibility-label" = "हस्ताक्षर विन्यास हटायें";
 "edit-summary-add-summary-text" = "सम्पादन सारांश";
 "edit-summary-choice-fixed-grammar" = "व्याकरण सुधार";
 "edit-summary-choice-fixed-typos" = "टाइपो सुधारा गया";
 "edit-summary-choice-linked-words" = "कड़ियाँ लगाई";
-"edit-summary-learn-more-text" = "अधिक जानें";
-"edit-text-size-table-view-title" = "अक्षर आकार";
-"edit-underline-accessibility-label" = "अंडरलाइन जोड़ें";
 "editor-find-textfield-accessibility" = "खोजें";
 "editor-keyboard-paragraph-button" = "अनुच्छेद";
 "editor-replace-textfield-accessibility" = "बदलें";
@@ -334,6 +347,7 @@
 "icon-shortcut-random-title" = "कोईभी लेख";
 "icon-shortcut-search-title" = "विकिपीडिया में खोजें";
 "image-gallery-unknown-owner" = "अज्ञात लेखक";
+"image-rec-error-subtitle" = "कोई त्रुटि आई।";
 "import-shared-reading-list-survey-prompt-button-cancel" = "अभी नहीं";
 "import-shared-reading-list-survey-prompt-button-take-survey" = "सर्वे लें";
 "import-shared-reading-list-survey-prompt-footer" = "हमारी $1गोपनीयता स्टेटमेंट$2 देखें. सर्वे एक थर्ड पार्टी के ज़रिए पावर किया गया है. उनकी $3गोपनीयता नीति$4 देखें.";
@@ -344,6 +358,7 @@
 "in-the-news-title" = "समाचारों में";
 "languages-title" = "भाषा बदलें";
 "languages-wikipedia" = "विकिपीडिया भाषाएँ";
+"learn-more-title" = "अधिक जानिए";
 "login-forgot-password" = "अपना पासवर्ड भूल गए?";
 "login-join-wikipedia" = "विकिपीडिया से जुड़ें।";
 "login-no-account" = "खाता नहीं है? $1";
@@ -352,7 +367,6 @@
 "main-menu-account-login" = "लॉगिन करें";
 "main-menu-account-logout" = "लॉगआउट";
 "main-menu-account-logout-are-you-sure" = "क्या आप वास्तव में लॉग आउट करना चाहते हैं?";
-"main-menu-account-logout-cancel" = "रद्द करें";
 "main-menu-account-title-logged-in" = "$1 के रूप में लॉगड इन";
 "main-menu-heading-legal" = "गोपनीयता और शर्तें";
 "main-menu-nearby" = "पास में";
@@ -371,6 +385,7 @@
 "nearby-distance-label-miles" = "$1 माइल्स";
 "new-password-instructions" = "अपने एक अस्थाई पासवर्ड से लॉगिन किया। लॉगिन को पूरा करने के लिए यहाँ एक नया पासवर्ड जोड़ें।";
 "new-password-title" = "एक पासवर्ड जोड़ें";
+"next-action-title" = "अगला";
 "no-email-account-alert" = "कृपया अपनी डिवाइस पर एक ईमेल अकाउंट स्थापित करें और पुनः प्रयास करें।";
 "notifications-center-alert" = "चेतावनी";
 "notifications-center-change-password" = "पासवर्ड बदलें";
@@ -485,6 +500,8 @@
 "settings-notifications-push-notifications" = "पुश नोटिफिकेशन्स";
 "settings-notifications-system-turn-on" = "नोटिफिकेशन्स चालू करें";
 "settings-notifications-trending" = "रुझानों में हाल की घटनाएं";
+"settings-off" = "बंद";
+"settings-on" = "चालू";
 "settings-primary-language" = "प्राथमिक";
 "settings-primary-language-details" = "इस सूची में पहली भाषा का उपयोग ऐप के लिए प्राथमिक भाषा के रूप में किया जाता है।";
 "settings-title" = "सेटिंग्स";
@@ -502,6 +519,10 @@
 "share-social-mention-format" = "विकिपीडिया के माध्यम से \" $1 \": $2";
 "sort-by-recently-added-action" = "हाल ही में जोड़ा गया";
 "sort-by-title-action" = "शीर्षक";
+"survey-instructions" = "एक या अधिक विकल्प चुनें";
+"survey-other-placeholder" = "अन्य";
+"survey-submit" = "जमा करें";
+"survey-title" = "कारण";
 "table-of-contents-button-label" = "सामग्री सारणी (टेबल)";
 "table-of-contents-close-accessibility-hint" = "बंद करें";
 "table-of-contents-close-accessibility-label" = "सामग्री सारणी को बंद करें";
@@ -515,6 +536,8 @@
 "theme-dark-display-name" = "गहरा";
 "theme-default-display-name" = "डिफ़ॉल्ट";
 "theme-sepia-display-name" = "लाल-भूरा रंग";
+"try-now-title" = "अब कोशिश करें";
+"tutorial-title" = "अनुशिक्षण";
 "two-factor-login-continue" = "लॉग इन जारी रखें";
 "two-factor-login-instructions" = "कृपया टू फैक्टर वेरिफिकेशन कोड डालें";
 "two-factor-login-title" = "अपने अकाउंट में लॉगिन करें";
@@ -522,7 +545,6 @@
 "two-factor-login-with-regular-code" = "सत्यापन कोड का उपयोग करें";
 "user-title" = "सदस्य";
 "vanish-account-continue-button-title" = "जारी रखें";
-"vanish-account-learn-more-text" = "अधिक जानें";
 "watch" = "ध्यान रखें";
 "watchlist-user-button-thank" = "धन्यवाद";
 "welcome-exploration-explore-feed-description" = "हमारे समुदाय से पढ़ने के लिए निर्वाचित दैनिक लेख";
@@ -546,9 +568,7 @@
 "welcome-notifications-tell-me-more-creation" = "आप की डिवाइस पर नोटिफिकेशन एप द्वारा बनाये और भेजे जाते हैं, न कि हमारे (या थर्ड पार्टी) सर्वर्स द्वारा।";
 "welcome-notifications-tell-me-more-storage" = "नोटिफिकेशन वरीयताएं डिवाइस पर स्टोर की जातीं हैं और ये व्यक्तिगत जानकारी या क्रियाकलाप पर आधारित नहीं हैं।";
 "welcome-notifications-tell-me-more-title" = "नोटिफिकेशन्स के बारे में अधिक";
-"wikitext-downloading" = "सामग्री को लोड किया जा रहा है...";
 "wikitext-preview-changes" = "आपके बदलावों का प्रीव्यू लाया जा रहा है...";
-"wikitext-preview-changes-none" = "प्रीव्यू के लिए कोई बदलाव नहीं हैं।";
 "wikitext-preview-link-preview-description" = "यह लिंक $1 पर ले जाता है";
 "wikitext-preview-link-preview-title" = "लिंक प्रीव्यू";
 "wikitext-upload-captcha-error" = "कैप्चा सत्यापन में त्रुटि";
@@ -558,3 +578,4 @@
 "wikitext-upload-save-anonymously-warning" = "आपकी डिवाइस के आईपी एड्रेस को सम्पादनों श्रेय दिया जायेगा। अगर आप $1 चुनते हैं तो अधिक गोपनीयता प्राप्त होगी।";
 "wikitext-upload-save-sign-in" = "प्रवेश";
 "wikitext-upload-save-terms-name" = "उपयोग की शर्तें";
+"year-in-review-donate" = "दान करें";

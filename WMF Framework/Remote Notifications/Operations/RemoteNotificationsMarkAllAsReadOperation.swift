@@ -1,6 +1,6 @@
 import Foundation
 
-class RemoteNotificationsMarkAllAsReadOperation: RemoteNotificationsProjectOperation {
+class RemoteNotificationsMarkAllAsReadOperation: RemoteNotificationsProjectOperation, @unchecked Sendable {
     
     override func execute() {
         

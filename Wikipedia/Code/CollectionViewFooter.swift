@@ -1,3 +1,5 @@
+import WMFComponents
+
 protocol CollectionViewFooterDelegate: AnyObject {
     func collectionViewFooterButtonWasPressed(_ collectionViewFooter: CollectionViewFooter)
 }
@@ -30,7 +32,7 @@ class CollectionViewFooter: SizeThatFitsReusableView {
 
     override func updateFonts(with traitCollection: UITraitCollection) {
         super.updateFonts(with: traitCollection)
-        button.titleLabel?.font = UIFont.wmf_font(.semiboldSubheadline, compatibleWithTraitCollection: traitCollection)
+        button.titleLabel?.font = WMFFont.for(.mediumSubheadline, compatibleWith: traitCollection)
     }
 
     override func sizeThatFits(_ size: CGSize, apply: Bool) -> CGSize {

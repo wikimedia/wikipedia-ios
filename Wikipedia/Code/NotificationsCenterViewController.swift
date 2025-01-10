@@ -66,6 +66,7 @@ final class NotificationsCenterViewController: ViewController {
         self.viewModel = viewModel
         super.init(theme: theme)
         viewModel.delegate = self
+        hidesBottomBarWhenPushed = true
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -538,13 +539,13 @@ extension NotificationsCenterViewController: NotificationsCenterOnboardingDelega
             }
 
             DispatchQueue.main.async {
-                let primaryTapHandler: ScrollableEducationPanelButtonTapHandler = { [weak self] _ in
+                let primaryTapHandler: ScrollableEducationPanelButtonTapHandler = { [weak self] _, _ in
                     self?.dismiss(animated: true, completion: {
                         self?.userDidTapPushNotificationsOptIn()
                     })
                 }
 
-                let secondaryTapHandler: ScrollableEducationPanelButtonTapHandler = { [weak self] _ in
+                let secondaryTapHandler: ScrollableEducationPanelButtonTapHandler = { [weak self] _, _ in
                     self?.dismiss(animated: true)
                 }
 

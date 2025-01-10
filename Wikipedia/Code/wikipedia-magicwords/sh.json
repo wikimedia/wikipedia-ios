@@ -1,0 +1,183 @@
+[
+  {
+    "aliases" : [
+      "osnovnacrta",
+      "pocetna_linija",
+      "baseline",
+      "početna_linija",
+      "osnova"
+    ],
+    "name" : "img_baseline"
+  },
+  {
+    "aliases" : [
+      "granica",
+      "obrub",
+      "border",
+      "ivica",
+      "oivičeno"
+    ],
+    "name" : "img_border"
+  },
+  {
+    "aliases" : [
+      "dno",
+      "bottom",
+      "dugme"
+    ],
+    "name" : "img_bottom"
+  },
+  {
+    "aliases" : [
+      "centar",
+      "c",
+      "središte",
+      "center",
+      "centre"
+    ],
+    "name" : "img_center"
+  },
+  {
+    "aliases" : [
+      "okvir",
+      "ram",
+      "frame",
+      "framed",
+      "enframed"
+    ],
+    "name" : "img_framed"
+  },
+  {
+    "aliases" : [
+      "bezokvira",
+      "bez_okvira",
+      "frameless",
+      "bezrama",
+      "bez_rama"
+    ],
+    "name" : "img_frameless"
+  },
+  {
+    "aliases" : [
+      "lijevo",
+      "levo",
+      "left",
+      "l"
+    ],
+    "name" : "img_left"
+  },
+  {
+    "aliases" : [
+      "sredina",
+      "middle",
+      "pola"
+    ],
+    "name" : "img_middle"
+  },
+  {
+    "aliases" : [
+      "n",
+      "ništa",
+      "bez",
+      "none"
+    ],
+    "name" : "img_none"
+  },
+  {
+    "aliases" : [
+      "desno",
+      "right",
+      "d"
+    ],
+    "name" : "img_right"
+  },
+  {
+    "aliases" : [
+      "tekst-dno",
+      "text-bottom",
+      "tekst-dugme",
+      "sredinateksta",
+      "sredina_teksta"
+    ],
+    "name" : "img_text_bottom"
+  },
+  {
+    "aliases" : [
+      "vrh_teksta",
+      "tekst_vrh",
+      "text-top",
+      "vrhteksta",
+      "tekst-vrh"
+    ],
+    "name" : "img_text_top"
+  },
+  {
+    "aliases" : [
+      "mini",
+      "minijatura",
+      "thumb",
+      "thumbnail",
+      "umanjeno"
+    ],
+    "name" : "img_thumbnail"
+  },
+  {
+    "aliases" : [
+      "vrh",
+      "top"
+    ],
+    "name" : "img_top"
+  },
+  {
+    "aliases" : [
+      "na_gore",
+      "na_gore=$1",
+      "na_gore_$1",
+      "uspravno",
+      "uspravno=$1",
+      "uspravno_$1",
+      "upright",
+      "upright=$1",
+      "upright $1",
+      "uspravno $1"
+    ],
+    "name" : "img_upright"
+  },
+  {
+    "aliases" : [
+      "odjeljak",
+      "sub",
+      "pod",
+      "ind",
+      "potpis"
+    ],
+    "name" : "img_sub"
+  },
+  {
+    "aliases" : [
+      "super",
+      "sup",
+      "natpis",
+      "eks"
+    ],
+    "name" : "img_super"
+  },
+  {
+    "aliases" : [
+      "alt=$1"
+    ],
+    "name" : "img_alt"
+  },
+  {
+    "aliases" : [
+      "Datoteka",
+      "DT",
+      "Fotografija",
+      "Image",
+      "Slika",
+      "ДТ",
+      "Датотека"
+    ],
+    "name" : "file_namespace"
+  }
+]

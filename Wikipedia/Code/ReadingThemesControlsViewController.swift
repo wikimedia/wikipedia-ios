@@ -1,4 +1,4 @@
-import UIKit
+import WMFComponents
 
 protocol WMFReadingThemesControlsViewControllerDelegate: AnyObject {
     
@@ -13,7 +13,7 @@ class ReadingThemesControlsViewController: UIViewController {
     @objc static let WMFUserDidSelectThemeNotificationThemeNameKey = "themeName"
     @objc static let WMFUserDidSelectThemeNotificationIsImageDimmingEnabledKey = "isImageDimmingEnabled"
     @objc static let nibName = "ReadingThemesControlsViewController"
-    
+
     var theme = Theme.standard
     
     @IBOutlet fileprivate var slider: SWStepSlider!
@@ -152,6 +152,10 @@ class ReadingThemesControlsViewController: UIViewController {
         self.slider.value = current
     }
     
+    func updateSliderLayout() {
+        self.slider.setNeedsLayout()
+    }
+    
     override open func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         visible = true
@@ -165,7 +169,7 @@ class ReadingThemesControlsViewController: UIViewController {
     }
 
     private func updateFonts() {
-        syntaxHighlightingLabel.font = UIFont.wmf_font(.body, compatibleWithTraitCollection: traitCollection)
+        syntaxHighlightingLabel.font = WMFFont.for(.callout, compatibleWith: traitCollection)
     }
     
     @objc func screenBrightnessChangedInApp(notification: Notification) {

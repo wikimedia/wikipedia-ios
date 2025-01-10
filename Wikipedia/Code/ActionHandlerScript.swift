@@ -61,7 +61,7 @@ final class PageContentService {
     
     /// - Parameter encodable: the object to encode
     /// - Returns: a JavaScript string that will call JSON.parse on the JSON representation of the encodable
-    class func getJavascriptFor<T>(_ encodable: T) throws -> String where T: Encodable {
+    static func getJavascriptFor<T>(_ encodable: T) throws -> String where T: Encodable {
         let data = try PageContentService.paramsEncoder.encode(encodable)
         guard let string = String(data: data, encoding: .utf8) else {
             throw RequestError.invalidParameters

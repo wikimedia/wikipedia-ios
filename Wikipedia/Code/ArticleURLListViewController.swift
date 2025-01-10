@@ -1,6 +1,6 @@
 import UIKit
 
-class ArticleURLListViewController: ArticleCollectionViewController, DetailPresentingFromContentGroup {
+class ArticleURLListViewController: ArticleCollectionViewController {
     let articleURLs: [URL]
     private let articleKeys: Set<String>
     var contentGroupIDURIString: String?

@@ -1,4 +1,4 @@
-import UIKit
+import WMFComponents
 import WMF
 
 protocol DescriptionEditViewControllerDelegate: AnyObject {
@@ -50,7 +50,7 @@ protocol DescriptionEditViewControllerDelegate: AnyObject {
         
         publishDescriptionButton.setTitle(WMFLocalizedString("description-edit-publish", value:"Publish description", comment:"Title for publish description button"), for: .normal)
         
-        learnMoreButton.setTitle(WMFLocalizedString("description-edit-learn-more", value:"Learn more", comment:"Title text for description editing learn more button"), for: .normal)
+        learnMoreButton.setTitle(CommonStrings.learnMoreTitle(), for: .normal)
         
         descriptionPlaceholderLabel.text = WMFLocalizedString("description-edit-placeholder-title", value:"Short descriptions are best", comment:"Placeholder text shown inside description field until user taps on it")
 
@@ -92,7 +92,7 @@ protocol DescriptionEditViewControllerDelegate: AnyObject {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         enableProgressiveButton(false)
-        loginLabel.isHidden = dataStore.authenticationManager.isLoggedIn
+        loginLabel.isHidden = dataStore.authenticationManager.authStateIsPermanent
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -143,9 +143,15 @@ protocol DescriptionEditViewControllerDelegate: AnyObject {
         loginLabel.attributedText = loginLabelAttributedString
     }
 
+    private var styles: HtmlUtils.Styles {
+        return HtmlUtils.Styles(font: WMFFont.for(.mediumSubheadline, compatibleWith: traitCollection), boldFont: WMFFont.for(.boldSubheadline, compatibleWith: traitCollection), italicsFont: WMFFont.for(.italicSubheadline, compatibleWith: traitCollection), boldItalicsFont: WMFFont.for(.boldItalicSubheadline, compatibleWith: traitCollection), color: theme.colors.primaryText, linkColor: theme.colors.link, lineSpacing: 1)
+    }
+
     private var subTitleLabelAttributedString: NSAttributedString {
         let formatString = WMFLocalizedString("description-edit-for-article", value: "Article description for %1$@", comment: "String describing which article description is being edited. %1$@ is replaced with the article title")
-        return String.localizedStringWithFormat(formatString, articleDescriptionController.articleDisplayTitle ?? "").byAttributingHTML(with: .semiboldSubheadline, matching: traitCollection)
+        let localizedFormattedString = String.localizedStringWithFormat(formatString, articleDescriptionController.articleDisplayTitle ?? "")
+
+        return NSAttributedString.attributedStringFromHtml(localizedFormattedString, styles: styles)
     }
     
     private func characterCountWarningString(for descriptionCharacterCount: Int) -> String? {
@@ -341,7 +347,7 @@ protocol DescriptionEditViewControllerDelegate: AnyObject {
             return
         }
         
-        wmf_showAbuseFilterWarningPanel(messageHtml: error.messageHtml, linkBaseURL: error.linkBaseURL, currentTitle: currentTitle, theme: theme, goBackIsOnlyDismiss: true, publishAnywayTapHandler: { [weak self] _ in
+        wmf_showAbuseFilterWarningPanel(messageHtml: error.messageHtml, linkBaseURL: error.linkBaseURL, currentTitle: currentTitle, theme: theme, goBackIsOnlyDismiss: true, publishAnywayTapHandler: { [weak self] _, _ in
             
             self?.dismiss(animated: true) {
                 self?.save()

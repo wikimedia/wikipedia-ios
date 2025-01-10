@@ -36,6 +36,7 @@ open class Fetcher: NSObject {
             "format": "json"
         ]
         return performMediaWikiAPIPOST(for: URL, with: parameters) { (result, response, error) in
+            
             if let error = error {
                 completionHandler(Result.failure(error))
                 return
@@ -92,8 +93,10 @@ open class Fetcher: NSObject {
         let url = configuration.mediaWikiAPIURLForURL(URL, with: nil)
         let key = cancellationKey ?? UUID().uuidString
         let task = session.postFormEncodedBodyParametersToURL(to: url, bodyParameters: bodyParameters, reattemptLoginOn401Response:reattemptLoginOn401Response) { (result, response, error) in
+            
             completionHandler(result, response, error)
             self.untrack(taskFor: key)
+            self.session.cloneCentralAuthCookies()
         }
         track(task: task, for: key)
         return task
@@ -266,7 +269,7 @@ open class Fetcher: NSObject {
             let blockExpiryDisplayDate = self.blockedDateForDisplay(iso8601DateString: blockInfo.blockExpiry, siteURL: linkBaseURL)
             templateHtml = templateHtml.replacingOccurrences(of: "$6", with: blockExpiryDisplayDate)
             
-            let username = MWKDataStore.shared().authenticationManager.loggedInUsername ?? ""
+            let username = MWKDataStore.shared().authenticationManager.authStatePermanentUsername ?? ""
             templateHtml = templateHtml.replacingOccurrences(of: "$7", with: username)
 
             let blockedTimestampDisplayDate = self.blockedDateForDisplay(iso8601DateString: blockInfo.blockedTimestamp, siteURL: linkBaseURL)

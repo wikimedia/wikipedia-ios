@@ -79,8 +79,6 @@
 "action-read" = "Четене";
 "action-redo" = "Повторение";
 "action-remove" = "Премахване";
-"action-replace" = "Замяна";
-"action-replace-all" = "Замяна на всички";
 "action-retry" = "Повторен опит";
 "action-save" = "Съхраняване";
 "action-saved" = "Съхранени";
@@ -94,8 +92,7 @@
 "action-unsave" = "Отмяна на записа";
 "action-unsaved-accessibility-notification" = "Статията не е запазена";
 "action-update" = "Обновяване";
-"add-citation-title" = "Добавяне на цитат";
-"additional-information-email-title" = "Допълнителна информация";
+"alt-text-experiment-onboarding-tooltip-1-title" = "Проверка";
 "announcements-dismiss" = "Затваряне";
 "app-store-subtitle" = "Свободната енциклопедия";
 "appearance-settings-image-dimming-footer" = "Намалете непрозрачността на изображенията за тъмните и черните облици";
@@ -134,7 +131,6 @@
 "data-migration-status" = "Актуализиране...";
 "description-add-title" = "Добавяне на описание";
 "description-edit-for-article" = "Описание на статия „$1“";
-"description-edit-learn-more" = "Научете повече";
 "description-edit-length-warning" = "$1 / $2";
 "description-edit-license" = "Променяйки описанието на статията, се съгласявам с $1 и неотменимо публикувам приноса си под $2 лиценз.";
 "description-edit-pencil-introduction" = "Редактиране на въведението";
@@ -189,9 +185,6 @@
 "diff-thanks-send-title" = "Изпратете публично благодарност";
 "diff-thanks-sent-cannot-unsend" = "Изпращането на благодарност не може да бъде отменено";
 "diff-unedited-lines-format" = "{{PLURAL:$1|няма промяна в $1 ред|няма промяна в $1 реда}}";
-"edit-bold-accessibility-label" = "Добавяне на удебелено форматиране";
-"edit-bold-remove-accessibility-label" = "Премахване на удебеленото форматиране";
-"edit-clear-formatting-accessibility-label" = "Премахнете форматирането";
 "edit-link-display-text-title" = "Показване на текст";
 "edit-link-link-target-title" = "Цел на връзката";
 "edit-link-remove-link-title" = "Премахване на препратката";
@@ -202,17 +195,12 @@
 "edit-notices" = "Известия за редактиране";
 "edit-published" = "Редакцията е публикувана";
 "edit-published-subtitle" = "Току-що направихте Уикипедия по-добра за всички";
-"edit-style-table-view-title" = "Стил";
 "edit-summary-add-summary-text" = "Добавяне описание на редакцията";
 "edit-summary-choice-fixed-grammar" = "Поправена граматична грешка";
 "edit-summary-choice-fixed-typos" = "Поправена правописна грешка";
 "edit-summary-choice-linked-words" = "Добавени препратки";
-"edit-summary-learn-more-text" = "Научете повече";
 "edit-summary-placeholder-text" = "Как подобрихте статията?";
-"edit-text-clear-formatting" = "Премахване на форматирането";
-"edit-text-formatting-table-view-title" = "Форматиране на текста";
-"edit-text-size-table-view-title" = "Размер на текста";
-"edit-watch-list-learn-more-text" = "Научете повече за списъците за наблюдение";
+"edit-watch-list-learn-more-text" = "Научете повече за Вашия списък за наблюдение";
 "edit-watch-this-page-text" = "Наблюдаване на страницата";
 "editor-exit-confirmation-body" = "Сигурни ли сте, че искате да напуснете режима за редактиране, без да публикувате промените?";
 "empty-diff-compare-title" = "Няма разлики между версиите";
@@ -257,6 +245,7 @@
 "explore-random-article-sub-heading-from-language-wikipedia" = "От Уикипедия на $1";
 "explore-random-article-sub-heading-from-wikipedia" = "От Уикипедия";
 "explore-randomizer" = "Случайна статия";
+"explore-suggested-edits-image-recs-body" = "Добавете предложени изображения към статиите в Уикипедия, за да подобрите възприемането им.";
 "featured-widget-from-language-wikipedia" = "От Уикипедия на $1";
 "featured-widget-from-wikipedia" = "От Уикипедия";
 "featured-widget-title" = "Избрана статия";
@@ -314,6 +303,8 @@
 "home-title" = "Разгледайте!";
 "icon-shortcut-random-title" = "Случайна статия";
 "icon-shortcut-search-title" = "Търсене в Уикипедия";
+"image-rec-survey-instructions-1" = "Вашите отговори подобряват бъдещите предложения.";
+"image-rec-tooltip-1-title" = "Проверка";
 "import-shared-reading-list-survey-prompt-button-cancel" = "Не сега";
 "in-the-news-sub-title-from-language-wikipedia" = "От Уикипедия на $1";
 "in-the-news-sub-title-from-wikipedia" = "От Уикипедия";
@@ -340,7 +331,6 @@
 "insert-media-image-type-settings-title" = "Тип на изображението";
 "insert-media-media-settings-title" = "Мултимедийни настройки";
 "insert-media-title" = "Вмъкване на медиен файл";
-"insert-media-uploaded-image-title" = "Качено изображение";
 "languages-settings-title" = "Езици";
 "languages-title" = "Промяна на езика";
 "languages-wikipedia" = "Езици на Уикипедия";
@@ -351,7 +341,6 @@
 "main-menu-account-login" = "Влизане";
 "main-menu-account-logout" = "Излизане";
 "main-menu-account-logout-are-you-sure" = "Сигурен ли сте, че искате да излезете?";
-"main-menu-account-logout-cancel" = "Отказ";
 "main-menu-account-title-logged-in" = "Влезли сте като $1";
 "main-menu-heading-legal" = "Поверителност и условия";
 "main-menu-nearby" = "Наблизо";
@@ -535,6 +524,7 @@
 "settings-clear-cache-are-you-sure-title" = "Изчистване на кешираните данни?";
 "settings-clear-cache-cancel" = "Отказ";
 "settings-clear-cache-ok" = "Изчистване на кеша";
+"settings-donate" = "Направете дарение";
 "settings-help-and-feedback" = "Помощ и обратна връзка";
 "settings-language-bar" = "Показване на езиците при търсене";
 "settings-my-languages" = "Моите езици";
@@ -608,13 +598,7 @@
 "unable-to-load-talk-page-title" = "Страницата на беседата не може да бъде заредена";
 "unknown-generic-text" = "Неизвестно";
 "uzbek-variants-alert-title" = "Актуализации за поддръжка на узбекски вариант";
-"vanish-account-additional-information-field" = "Допълнителна информация";
-"vanish-account-additional-information-placeholder" = "Незадължително";
-"vanish-account-back-confirm-discard" = "Отхвърляне на заявката";
-"vanish-account-back-confirm-keep-editing" = "Продължаване на редактирането";
-"vanish-account-button-text" = "Изпращане на заявка";
 "vanish-account-continue-button-title" = "Продължаване";
-"vanish-account-learn-more-text" = "Научете повече";
 "vanish-account-warning-title" = "Предупреждение";
 "variants-alert-dismiss-button" = "Не, благодаря";
 "variants-alert-preferences-button" = "Преглед на настройките";
@@ -635,7 +619,6 @@
 "widget-onthisday-description" = "Прегледайте какво се е случило на този ден в историята.";
 "widget-onthisday-placeholder-article-snippet" = "Безплатна онлайн енциклопедия, която всеки може да редактира";
 "widget-onthisday-placeholder-event-snippet" = "Уикипедия, безплатната енциклопедия с уики съдържание, става онлайн.";
-"wikitext-downloading" = "Зареждане на съдържание...";
 "wikitext-preview-link-external-preview-title" = "Външна препратка";
 "wikitext-preview-link-not-found-preview-title" = "Няма намерена вътрешна препратка";
 "wikitext-preview-link-preview-title" = "Преглед на препратката";

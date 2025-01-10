@@ -1,4 +1,4 @@
-import UIKit
+import WMFComponents
 
 class ArticleAsLivingDocSectionHeaderView: SizeThatFitsReusableView {
     private let titleLabel = UILabel()
@@ -47,8 +47,8 @@ class ArticleAsLivingDocSectionHeaderView: SizeThatFitsReusableView {
     
     override func updateFonts(with traitCollection: UITraitCollection) {
         super.updateFonts(with: traitCollection)
-        titleLabel.font = UIFont.wmf_font(.semiboldSubheadline, compatibleWithTraitCollection: traitCollection)
-        subtitleLabel.font = UIFont.wmf_font(.subheadline, compatibleWithTraitCollection: traitCollection)
+        titleLabel.font = WMFFont.for(.mediumSubheadline, compatibleWith: traitCollection)
+        subtitleLabel.font = WMFFont.for(.subheadline, compatibleWith: traitCollection)
         setNeedsLayout()
     }
 }

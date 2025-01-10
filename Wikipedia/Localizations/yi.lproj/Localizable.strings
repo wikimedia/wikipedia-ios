@@ -73,7 +73,6 @@
 "main-menu-account-login" = "אַרײַנלאגירן";
 "main-menu-account-logout" = "אַרויסלאָגירן";
 "main-menu-account-logout-are-you-sure" = "איר ווילט טאקע ארויסלאגירן?";
-"main-menu-account-logout-cancel" = "אַנולירן";
 "main-menu-account-title-logged-in" = "ארײַנלאגירט ווי $1";
 "main-menu-heading-legal" = "פריוואטקייט און באדינגונגען";
 "main-menu-nearby" = "דערבײ";
@@ -128,9 +127,7 @@
 "talk-pages-empty-view-body-article" = "רעדן־בלעטער זענען וואו מענטשן דיסקוטירן וויאזוי צו מאכן דעם וויקיפעדיע־אינהאלט דאס סאמע בעסטע וואס קען זיין. **הייבט אן מיט צולייגן א נייע דיסקוסיע־טעמע** כדי צו פֿארבינדן און מיטארבעטן מיט א געמיינדע פון וויקיפעדן.";
 "theme-dark-display-name" = "טונקל";
 "theme-default-display-name" = "גרונטלעך";
-"wikitext-downloading" = "אנלאדן אינהאלט…";
 "wikitext-preview-changes" = "רופן פאראויסקוק פון אייערע ענדערונגען…";
-"wikitext-preview-changes-none" = "קיין ענדערונגען נישט געמאכט פאראויסצוזען.";
 "wikitext-upload-save" = "פֿארעפֿנטלעכן…";
 "wikitext-upload-save-sign-in" = "אַרײַנלאגירן";
 "wikitext-upload-save-terms-name" = "ניצבאדינגונגען";

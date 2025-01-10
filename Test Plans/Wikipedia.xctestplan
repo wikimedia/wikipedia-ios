@@ -17,6 +17,8 @@
         "value" : "1"
       }
     ],
+    "language" : "en",
+    "region" : "US",
     "targetForVariableExpansion" : {
       "containerPath" : "container:Wikipedia.xcodeproj",
       "identifier" : "D4991434181D51DE00E6073C",

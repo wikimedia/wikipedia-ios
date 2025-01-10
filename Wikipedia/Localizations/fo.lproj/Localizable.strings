@@ -36,7 +36,6 @@
 "main-menu-account-login" = "Rita inn";
 "main-menu-account-logout" = "Útrita";
 "main-menu-account-logout-are-you-sure" = "Ert tú vís(ur) í at tú ynskir at rita út?";
-"main-menu-account-logout-cancel" = "Angra";
 "main-menu-account-title-logged-in" = "Innritað/ur sum $1";
 "main-menu-heading-legal" = "Privatlívsvernd og treytir";
 "main-menu-nearby" = "Nærindis";
@@ -67,9 +66,7 @@
 // Fuzzy
 "share-article-name-on-wikipedia" = "\"$1\" á @Wikipedia:";
 "table-of-contents-close-accessibility-hint" = "Lat aftur";
-"wikitext-downloading" = "Innlesur innihald...";
 "wikitext-preview-changes" = "Heintar undansýning av tínum broytingum...";
-"wikitext-preview-changes-none" = "Ongar broytingar vóru gjørdar sum kunnu undanskoðast.";
 "wikitext-upload-captcha-error" = "CAPTCHA váttanarfeilur.";
 "wikitext-upload-captcha-needed" = "CAPTCHA váttan krevst.";
 // Fuzzy

@@ -78,6 +78,9 @@ extension FeedCardSettingsViewController {
             return
         }
         guard controlTag != -1 else { // main switch
+            if contentGroupKind == .suggestedEdits {
+                ImageRecommendationsFunnel.shared.logSettingsToggleSuggestedEditsCard(isOn: sender.isOn)
+            }
             feedContentController.toggleContentGroup(of: contentGroupKind, isOn: sender.isOn, updateFeed: false)
             return
         }

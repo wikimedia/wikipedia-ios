@@ -8,7 +8,7 @@ extension NSManagedObjectContext {
         request.propertiesToFetch = []
         var articles = try fetch(request)
         while articles.count > 0 {
-            try autoreleasepool { () -> Void in
+            try autoreleasepool { () in
                 for article in articles {
                     article.removeFromReadHistoryWithoutSaving()
                 }

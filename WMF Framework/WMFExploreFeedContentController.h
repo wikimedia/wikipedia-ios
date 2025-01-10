@@ -1,6 +1,5 @@
 #import <WMF/WMFContentGroup+Extensions.h>
-
-@import UIKit;
+#import <UIKit/UIKit.h>
 
 @class MWKDataStore;
 
@@ -36,6 +35,8 @@ extern const NSInteger WMFExploreFeedMaximumNumberOfDays;
 - (void)performDeduplicatedFetch:(nullable dispatch_block_t)completion;
 
 - (void)updateContentSource:(Class)class force:(BOOL)force completion:(nullable dispatch_block_t)completion;
+
+- (NSArray<NSSortDescriptor *> *)exploreFeedSortDescriptors;
 
 // Preferences
 

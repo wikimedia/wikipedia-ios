@@ -1,14 +1,14 @@
-import UIKit
+import WMFComponents
 
 class ArticleLocationCollectionViewCell: ArticleCollectionViewCell {
     let compassView: WMFCompassView = WMFCompassView()
     let compassViewDimension: CGFloat = 104
     let distanceLabel: UILabel = UILabel()
     let distanceLabelBackground: UIView = UIView()
-    let distanceTextStyle: DynamicTextStyle = .caption1
+    let distanceTextStyle: WMFFont = .caption1
     var articleLocation: CLLocation?
     var userLocation: CLLocation?
-    
+
     override func setup() {
         super.setup()
         insertSubview(compassView, belowSubview: imageView)
@@ -25,15 +25,18 @@ class ArticleLocationCollectionViewCell: ArticleCollectionViewCell {
     
     override func reset() {
         super.reset()
-        titleTextStyle = .georgiaTitle3
         descriptionTextStyle = .subheadline
         imageViewDimension = 72
         imageView.image = #imageLiteral(resourceName: "compass-w")
     }
     
+    override func updateStyles() {
+        styles =  HtmlUtils.Styles(font: WMFFont.for(.georgiaTitle3, compatibleWith: traitCollection), boldFont: WMFFont.for(.boldGeorgiaTitle3, compatibleWith: traitCollection), italicsFont: WMFFont.for(.italicGeorgiaTitle3, compatibleWith: traitCollection), boldItalicsFont: WMFFont.for(.boldItalicGeorgiaTitle3, compatibleWith: traitCollection), color: theme.colors.primaryText, linkColor: theme.colors.link, lineSpacing: 1)
+    }
+    
     override func updateFonts(with traitCollection: UITraitCollection) {
         super.updateFonts(with: traitCollection)
-        distanceLabel.font = UIFont.wmf_font(distanceTextStyle, compatibleWithTraitCollection: traitCollection)
+        distanceLabel.font = WMFFont.for(distanceTextStyle, compatibleWith: traitCollection)
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
@@ -122,7 +125,7 @@ class ArticleLocationCollectionViewCell: ArticleCollectionViewCell {
     
     override func apply(theme: Theme) {
         super.apply(theme: theme)
-        imageView.backgroundColor = .green600
+        imageView.backgroundColor = WMFColor.green600
         distanceLabel.textColor = theme.colors.secondaryText
         distanceLabelBackground.layer.borderColor = theme.colors.distanceBorder.cgColor
         compassView.lineColor = theme.colors.accent

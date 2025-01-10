@@ -148,11 +148,11 @@ class TableOfContentsAnimator: UIPercentDrivenInteractiveTransition, UIViewContr
         
         containerView.addSubview(presentedControllerView)
         
-        animateTransition(self.isInteractive, duration: self.transitionDuration(using: transitionContext), animations: { () -> Void in
+        animateTransition(self.isInteractive, duration: self.transitionDuration(using: transitionContext), animations: { () in
             var f = presentedControllerView.frame
             f.origin.x -= f.size.width * self.tocMultiplier
             presentedControllerView.frame = f
-            }, completion: {(completed: Bool) -> Void in
+            }, completion: {(completed: Bool) in
                 let cancelled = transitionContext.transitionWasCancelled
                 transitionContext.completeTransition(!cancelled)
         })
@@ -161,7 +161,7 @@ class TableOfContentsAnimator: UIPercentDrivenInteractiveTransition, UIViewContr
     func animateDismissalWithTransitionContext(_ transitionContext: UIViewControllerContextTransitioning) {
         let presentedControllerView = transitionContext.view(forKey: UITransitionContextViewKey.from)!
         
-        animateTransition(self.isInteractive, duration: self.transitionDuration(using: transitionContext), animations: { () -> Void in
+        animateTransition(self.isInteractive, duration: self.transitionDuration(using: transitionContext), animations: { () in
             var f = presentedControllerView.frame
             switch self.displaySide {
             case .left:
@@ -174,7 +174,7 @@ class TableOfContentsAnimator: UIPercentDrivenInteractiveTransition, UIViewContr
             }
             presentedControllerView.frame = f
 
-            }, completion: {(completed: Bool) -> Void in
+            }, completion: {(completed: Bool) in
                 let cancelled = transitionContext.transitionWasCancelled
                 transitionContext.completeTransition(!cancelled)
         })
@@ -183,16 +183,16 @@ class TableOfContentsAnimator: UIPercentDrivenInteractiveTransition, UIViewContr
     func animateTransition(_ interactive: Bool, duration: TimeInterval, animations: @escaping () -> Void, completion: ((Bool) -> Void)?) {
         
         if interactive {
-            UIView.animate(withDuration: duration, delay: 0.0, options: UIView.AnimationOptions(), animations: { () -> Void in
+            UIView.animate(withDuration: duration, delay: 0.0, options: UIView.AnimationOptions(), animations: { () in
                 animations()
-                }, completion: { (completed: Bool) -> Void in
+                }, completion: { (completed: Bool) in
                     completion?(completed)
             })
     
         } else {
             UIView.animate(withDuration: duration, delay: 0.0, usingSpringWithDamping: 1.0, initialSpringVelocity: 0.0, options: .allowUserInteraction, animations: {
                 animations()
-                }, completion: {(completed: Bool) -> Void in
+                }, completion: {(completed: Bool) in
                     completion?(completed)
             })
         }
@@ -273,7 +273,7 @@ class TableOfContentsAnimator: UIPercentDrivenInteractiveTransition, UIViewContr
             let transitionProgress = max(min(translation.x * tocMultiplier / self.presentedViewController!.view.bounds.maxX, 0.99), 0.01)
         
             self.update(transitionProgress)
-            DDLogVerbose("TOC transition progress: \(transitionProgress)")
+            DDLogDebug("TOC transition progress: \(transitionProgress)")
         case .ended:
             self.isInteractive = false
             let velocityRequiredToPresent = -gesture.view!.bounds.width * tocMultiplier

@@ -106,14 +106,9 @@ public enum RemoteNotificationsControllerError: LocalizedError {
     }
     
     @objc private func authManagerDidLogOut() {
-        do {
-            filterState = RemoteNotificationsFilterState(readStatus: .all, offTypes: [], offProjects: [])
-            allInboxProjects = []
-            try modelController?.resetDatabaseAndSharedCache()
-        } catch let error {
-            DDLogError("Error resetting notifications database on logout: \(error)")
-        }
-        
+        filterState = RemoteNotificationsFilterState(readStatus: .all, offTypes: [], offProjects: [])
+        allInboxProjects = []
+        modelController?.resetDatabaseAndSharedCache()
     }
     
     @objc private func authManagerDidLogIn() {
@@ -133,7 +128,7 @@ public enum RemoteNotificationsControllerError: LocalizedError {
             return
         }
         
-        guard authManager.isLoggedIn else {
+        guard authManager.authStateIsPermanent else {
             completion?(.failure(RequestError.unauthenticated))
             return
         }
@@ -182,7 +177,7 @@ public enum RemoteNotificationsControllerError: LocalizedError {
             return
         }
         
-        guard authManager.isLoggedIn else {
+        guard authManager.authStateIsPermanent else {
             completion?(.failure(RequestError.unauthenticated))
             return
         }
@@ -199,7 +194,7 @@ public enum RemoteNotificationsControllerError: LocalizedError {
             return
         }
         
-        guard authManager.isLoggedIn else {
+        guard authManager.authStateIsPermanent else {
             completion?(.failure(RequestError.unauthenticated))
             return
         }
@@ -210,7 +205,7 @@ public enum RemoteNotificationsControllerError: LocalizedError {
     /// Asks server to mark all notifications as seen for the primary app language
     public func markAllAsSeen(completion: @escaping ((Result<Void, Error>) -> Void)) {
         
-        guard authManager.isLoggedIn else {
+        guard authManager.authStateIsPermanent else {
             completion(.failure(RequestError.unauthenticated))
             return
         }
@@ -304,15 +299,19 @@ public enum RemoteNotificationsControllerError: LocalizedError {
     /// List of all possible inbox projects available Notifications Center. Used for populating the Inbox screen and the project count toolbar
     public private(set) var allInboxProjects: Set<WikimediaProject> = []
     
+    /// Convenience var to get a list of the inbox projects toggled on
+    private var onProjects: Set<WikimediaProject> {
+        return allInboxProjects.subtracting(filterState.offProjects)
+    }
+    
     /// A count of showing inbox projects (i.e. allInboxProjects minus those toggled off in the inbox filter screen)
     public var countOfShowingInboxProjects: Int {
-        let filteredProjects = filterState.offProjects
-        return allInboxProjects.subtracting(filteredProjects).count
+        return onProjects.count
     }
 
     @objc public func updateCacheWithCurrentUnreadNotificationsCount() throws {
         let currentCount = try numberOfUnreadNotifications().intValue
-        let sharedCache = SharedContainerCache<PushNotificationsCache>(fileName: SharedContainerCacheCommonNames.pushNotificationsCache)
+        let sharedCache = SharedContainerCache(fileName: SharedContainerCacheCommonNames.pushNotificationsCache)
         var pushCache = sharedCache.loadCache() ?? PushNotificationsCache(settings: .default, notifications: [])
         pushCache.currentUnreadCount = currentCount
         sharedCache.saveCache(pushCache)
@@ -437,7 +436,9 @@ public enum RemoteNotificationsControllerError: LocalizedError {
         }
         
         let offProjects = filterState.offProjects
-        let offProjectPredicates: [NSPredicate] = offProjects.compactMap { return NSPredicate(format: "NOT (wiki == %@)", $0.notificationsApiWikiIdentifier) }
+        let filteredOffProjects = offProjects.filter(offProjectShouldFilter)
+        
+        let offProjectPredicates: [NSPredicate] = filteredOffProjects.compactMap { return NSPredicate(format: "NOT (wiki == %@)", $0.notificationsApiWikiIdentifier) }
         
         guard readStatusPredicate != nil || typePredicates.count > 0 || offProjectPredicates.count > 0 else {
             return nil
@@ -460,6 +461,27 @@ public enum RemoteNotificationsControllerError: LocalizedError {
         let finalPredicates = [readStatusPredicate, combinedOffTypePredicate, combinedOffProjectPredicate].compactMap { $0 }
         
         return finalPredicates.count > 0 ? NSCompoundPredicate(andPredicateWithSubpredicates: finalPredicates) : nil
+    }
+    
+    private func offProjectShouldFilter(offProject: WikimediaProject) -> Bool {
+        
+        // Some offProjects have the same wiki ID (`zhwiki`) as an onProject
+        // This could happen with Chinese language variants, if the user has multiple Chinese language variant projects selected as preferred app languages, then only toggled on one in Notifications Center Inbox.
+        // In this case we want to ensure this project does not actually contribute to the filter predicate, because there is an onProject with the same language code.
+        
+        for onProject in onProjects {
+            switch onProject {
+            case .wikipedia(let languageCode, _, let languageVariantCode):
+                if languageVariantCode != nil &&
+                    offProject.languageCode == languageCode &&
+                    offProject.languageVariantCode != languageVariantCode {
+                    return false
+                }
+            default: break
+            }
+        }
+        
+        return true
     }
     
     /// Updates value of allInboxProjects by gathering list of static projects, app language projects, and local notifications projects. Involves a fetch to the local database. Uses the viewContext and must be called from the main thread

@@ -95,7 +95,6 @@
 "description-add-title" = "Cuir cur síos leis";
 // Fuzzy
 "description-edit-for-article" = "Sainchuntas teidil ar $1";
-"description-edit-learn-more" = "Foghlaim a thuilleadh";
 "description-edit-length-warning" = "$1 / $2";
 // Fuzzy
 "description-edit-license" = "Ach an sainchuntas teidil a athrú, glacaim leis na $1 agus le mo chuid dréachtaí a scaoileadh go neamh-inchúlghairthe faoin gceadúnas $2.";
@@ -135,12 +134,10 @@
 "diff-thanks-sent" = "Seoladh do 'Bhuíochas' chuig $1";
 "diff-thanks-sent-cannot-unsend" = "Ní féidir 'Buíochas' a tharraingt siar";
 "dim-images" = "Maolaigh íomhánna";
-"edit-style-table-view-title" = "Stíl";
 "edit-summary-choice-fixed-grammar" = "Réitíodh gramadach";
 "edit-summary-choice-fixed-typos" = "Réitíodh botún cló";
 "edit-summary-choice-linked-words" = "Cuireadh naisc leis";
 "edit-summary-placeholder-text" = "Conas mar a fheabhsaigh tú an t-alt?";
-"edit-text-size-table-view-title" = "Clómhéid";
 "empty-no-article-message" = "Tá brón orainn, níorbh fhéidir an t-alt a lódáil";
 "empty-no-feed-message" = "Féadfaidh tú do chuid alt molta a fhéachaint nuair a bheidh idirlíon agat";
 "empty-no-history-message" = "Coinnigh súil anseo ar na hailt atá léite agat";
@@ -285,7 +282,6 @@
 "main-menu-account-login" = "Logáil isteach";
 "main-menu-account-logout" = "Logáil amach";
 "main-menu-account-logout-are-you-sure" = "An bhfuil tú cinnte gur mhaith leat logáil amach?";
-"main-menu-account-logout-cancel" = "Cealaigh";
 "main-menu-account-title-logged-in" = "Logáilte isteach mar $1";
 "main-menu-heading-legal" = "Príobháideachas agus Coinníollacha";
 "main-menu-nearby" = "In aice láimhe";
@@ -304,8 +300,7 @@
 "nearby-distance-label-miles" = "$1 míle";
 "new-password-instructions" = "Logáil tú isteach le pasfhocal sealadach. Socraigh pasfhocal nua anseo chun an logáil isteach a chríochnú.";
 "new-password-title" = "Socraigh do phasfhocal";
-// Fuzzy
-"notifications-center-feed-news-notification-button-text" = "Cas air fógraí";
+"notifications-center-feed-news-notification-button-text" = "Cas air brúfhógraí";
 "notifications-center-filters-read-status-item-title-all" = "Uile";
 "notifications-center-inbox-wikipedias-section-title" = "Vicipéidí";
 "notifications-center-notifications-settings" = "Socruithe fógraí";
@@ -426,8 +421,7 @@
 "settings-clear-cache-ok" = "Glan taisce";
 "settings-help-and-feedback" = "Cabhair agus aiseolas";
 "settings-my-languages" = "Mo chuid teangacha";
-// Fuzzy
-"settings-notifications" = "Fógraí";
+"settings-notifications" = "Brúfhógraí";
 "settings-notifications-learn-more" = "Foghlaim tuilleadh maidir le fógraí";
 "settings-notifications-push-notifications" = "Brúfhógraí";
 "settings-notifications-system-turn-on" = "Cás Fógraí air";
@@ -441,19 +435,16 @@
 "settings-storage-and-syncing-show-default-reading-list-title" = "Taispeáin liosta léitheoireachta Sábháilte";
 "settings-title" = "Socruithe";
 "share-a-fact-made-with" = "Arna dhéanamh leis an aip Vicipéide";
-// Fuzzy
-"share-article-name-on-wikipedia" = "\"$1\" ar @Wikipedia:";
+"share-article-name-on-wikipedia" = "\"$1\" ar Vicipéid:";
 "share-default-format" = "“$1” ó “$2”: $3";
 "share-email-format" = "“$1”\n\nó “$2”\n\n$3";
 "share-get-directions-in-maps" = "Faigh Treoracha";
 "share-menu-item" = "Comhroinn...";
 "share-message-format" = "“$1” $2";
-// Fuzzy
-"share-on-twitter-sign-off" = "trí @Wikipedia";
+"share-on-twitter-sign-off" = "trí Vicipéid";
 "share-open-in-maps" = "Oscail in Maps";
 "share-social-format" = "“$1” trí Vicipéid: $2";
-// Fuzzy
-"share-social-mention-format" = "“$1” trí @Wikipedia: $2";
+"share-social-mention-format" = "“$1” trí Vicipéid: $2";
 "sort-by-recently-added-action" = "Curtha leis le déanaí";
 "sort-by-title-action" = "Teideal";
 "table-of-contents-button-label" = "Clár ábhair";
@@ -489,7 +480,6 @@
 "welcome-notifications-tell-me-more-creation" = "Ní chruthaítear agus ní sholáthraítear fógraí ónár gcuid freastálaithe (nó ó thríú páirtí), ach ón aip féin ar do ghléas.";
 "welcome-notifications-tell-me-more-storage" = "Stóráltar sainroghanna fógraí ar an ngléas agus ní bhunaítear ar sonraí pearsanta nó ar gníomhaíocht iad.";
 "welcome-notifications-tell-me-more-title" = "Tuilleadh maidir le fógraí";
-"wikitext-downloading" = "Ag lódáil inneachair...";
 "wikitext-preview-link-preview-title" = "Réamhamharc ar an nasc";
 "wikitext-upload-captcha-needed" = "Deimhniú CAPTCHA de dhíth";
 "wikitext-upload-save" = "Ag foilsiú...";

@@ -79,7 +79,7 @@ public class WMFSavedPageSpotlightManager: NSObject {
                 let item = CSSearchableItem(uniqueIdentifier: identifier, domainIdentifier: "org.wikimedia.wikipedia", attributeSet: searchableItemAttributes)
                 item.expirationDate = NSDate.distantFuture
                 
-                CSSearchableIndex.default().indexSearchableItems([item]) { (error) -> Void in
+                CSSearchableIndex.default().indexSearchableItems([item]) { (error) in
                     if let error = error {
                         DDLogError("Indexing error: \(error.localizedDescription)")
                     }

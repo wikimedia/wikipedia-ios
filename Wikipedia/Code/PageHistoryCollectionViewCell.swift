@@ -1,4 +1,4 @@
-import UIKit
+import WMFComponents
 
 class PageHistoryCollectionViewCell: CollectionViewCell {
     private let roundedContent = UIView()
@@ -151,10 +151,16 @@ class PageHistoryCollectionViewCell: CollectionViewCell {
 
     override func updateFonts(with traitCollection: UITraitCollection) {
         super.updateFonts(with: traitCollection)
-        timeLabel.font = UIFont.wmf_font(.semiboldSubheadline, compatibleWithTraitCollection: traitCollection)
-        sizeDiffLabel.font = UIFont.wmf_font(.semiboldSubheadline, compatibleWithTraitCollection: traitCollection)
-        authorButton.titleLabel?.font = UIFont.wmf_font(.footnote, compatibleWithTraitCollection: traitCollection)
-        commentLabel.font = UIFont.wmf_font(.footnote, compatibleWithTraitCollection: traitCollection)
+        timeLabel.font = WMFFont.for(.mediumSubheadline, compatibleWith: traitCollection)
+        sizeDiffLabel.font = WMFFont.for(.mediumSubheadline, compatibleWith: traitCollection)
+        authorButton.titleLabel?.font = WMFFont.for(.footnote, compatibleWith: traitCollection)
+        if let comment,
+           !comment.isEmpty {
+            commentLabel.font = WMFFont.for(.footnote, compatibleWith: traitCollection)
+        } else {
+            commentLabel.font = WMFFont.for(.italicFootnote, compatibleWith: traitCollection)
+        }
+        
     }
 
     override var isSelected: Bool {
@@ -240,17 +246,18 @@ class PageHistoryCollectionViewCell: CollectionViewCell {
                 let imageAttachment = NSTextAttachment()
                 imageAttachment.image = minorImage
                 let attributedText = NSMutableAttributedString(attachment: imageAttachment)
-                attributedText.append(NSAttributedString(string: " \(comment)"))
+                let attributedComment = comment.isEmpty ? CommonStrings.emptyEditSummary : comment
+                attributedText.append(NSAttributedString(string: " \(attributedComment)"))
                 commentLabel.attributedText = attributedText
             } else {
-                commentLabel.text = comment
+                commentLabel.text = comment.isEmpty ? CommonStrings.emptyEditSummary : comment
             }
             // TODO: Make sure all icons have the same sizes
             let commentLabelFrame = commentLabel.wmf_preferredFrame(at: trailingPaneOrigin, maximumWidth: trailingPaneAvailableWidth, alignedBy: semanticContentAttribute, apply: apply)
             trailingPaneOrigin.y += commentLabelFrame.layoutHeight(with: spacing)
             commentLabel.isHidden = false
         } else {
-            commentLabel.isHidden = true
+            commentLabel.text = CommonStrings.emptyEditSummary
         }
         let height = max(leadingPaneOrigin.y, trailingPaneOrigin.y) + layoutMargins.bottom
         selectView.frame.size = CGSize(width: selectView.frame.width, height: height)
@@ -267,7 +274,12 @@ extension PageHistoryCollectionViewCell: Themeable {
             roundedContent.backgroundColor = selectionThemeModel.backgroundColor
             authorButton.setTitleColor(selectionThemeModel.authorColor, for: .normal)
             authorButton.tintColor = selectionThemeModel.authorColor
-            commentLabel.textColor = selectionThemeModel.commentColor
+            if comment?.isEmpty ?? true {
+                commentLabel.textColor = selectionThemeModel.emptyCommentColor
+            } else {
+                commentLabel.textColor = selectionThemeModel.commentColor
+            }
+            
             timeLabel.textColor = selectionThemeModel.timeColor
 
             if let sizeDiff = sizeDiff {
@@ -281,11 +293,16 @@ extension PageHistoryCollectionViewCell: Themeable {
             }
         } else {
             // themeTODO: define a semantic color for this instead of checking isDark
-            roundedContent.layer.borderColor = theme.isDark ? UIColor.gray300.cgColor : theme.colors.border.cgColor
+            roundedContent.layer.borderColor = theme.isDark ? WMFColor.gray300.cgColor : theme.colors.border.cgColor
             roundedContent.backgroundColor = theme.colors.paperBackground
             authorButton.setTitleColor(theme.colors.link, for: .normal)
             authorButton.tintColor = theme.colors.link
-            commentLabel.textColor = theme.colors.primaryText
+            if comment?.isEmpty ?? true {
+                commentLabel.textColor = theme.colors.secondaryText
+            } else {
+                commentLabel.textColor = theme.colors.primaryText
+            }
+            
             timeLabel.textColor = theme.colors.secondaryText
 
             if let sizeDiff = sizeDiff {

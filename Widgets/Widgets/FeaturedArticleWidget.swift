@@ -1,7 +1,7 @@
 import SwiftUI
 import WidgetKit
 import WMF
-import UIKit
+import WMFComponents
 
 // MARK: - Widget
 
@@ -40,9 +40,9 @@ struct FeaturedArticleEntry: TimelineEntry {
 		return content?.languageCode
 	}
 
-	var title: String {
-		return (content?.displayTitle as NSString?)?.wmf_stringByRemovingHTML() ?? ""
-	}
+    var title: String {
+        return content?.displayTitle.removingHTML ?? ""
+    }
 
 	var description: String {
 		return content?.description ?? ""
@@ -175,15 +175,14 @@ struct FeaturedArticleView: View {
 				Spacer()
 				HStack {
 					Text(headerCaptionText)
-						.font(.caption2)
-						.fontWeight(.bold)
+                        .font(Font(WMFFont.for(.boldCaption1)))
 						.foregroundColor(.white)
 						.readableShadow(intensity: 0.8)
 					Spacer()
 				}
 				HStack {
 					Text(headerTitleText)
-						.font(.headline)
+                        .font(Font(WMFFont.for(.headline)))
 						.foregroundColor(.white)
 						.readableShadow(intensity: 0.8)
 					Spacer()
@@ -204,13 +203,13 @@ struct FeaturedArticleView: View {
 			HStack {
 				Text(entry.title)
 					.foregroundColor(Color(colorScheme == .light ? Theme.light.colors.primaryText : Theme.dark.colors.primaryText))
-					.font(.custom("Georgia", size: 21, relativeTo: .title))
+                    .font(Font(WMFFont.for(.georgiaTitle3)))
 				Spacer()
 			}
 			HStack {
 				Text(entry.description)
 					.foregroundColor(Color(colorScheme == .light ? Theme.light.colors.secondaryText : Theme.dark.colors.secondaryText))
-					.font(.caption)
+                    .font(Font(WMFFont.for(.caption1)))
 				Spacer()
 			}
 			Spacer()
@@ -218,7 +217,7 @@ struct FeaturedArticleView: View {
 			HStack {
 				Text(entry.extract)
 					.foregroundColor(Color(colorScheme == .light ? Theme.light.colors.primaryText : Theme.dark.colors.primaryText))
-					.font(.caption)
+                    .font(Font(WMFFont.for(.caption1)))
 					.lineLimit(5)
 					.lineSpacing(4)
 					.truncationMode(.tail)
@@ -237,10 +236,9 @@ struct FeaturedArticleView: View {
 			} else {
 				ZStack {
 					Rectangle()
-                        .foregroundColor(Color(UIColor.blue600))
+                        .foregroundColor(Color(WMFColor.blue600))
 					Text(entry.extract)
-						.font(.headline)
-						.fontWeight(.semibold)
+                        .font(Font(WMFFont.for(.semiboldHeadline)))
 						.lineSpacing(6)
 						.foregroundColor(Color.black.opacity(0.15))
 						.frame(width: proxy.size.width * 1.25, height: proxy.size.height * 2, alignment: .topLeading)
@@ -252,11 +250,10 @@ struct FeaturedArticleView: View {
 
 	func noContent(message: String) -> some View {
 		Rectangle()
-			.foregroundColor(Color(UIColor.gray500))
+			.foregroundColor(Color(WMFColor.gray500))
 			.overlay(
 				Text(message)
-					.font(.caption)
-					.bold()
+                    .font(Font(WMFFont.for(.boldCaption1)))
 					.multilineTextAlignment(.leading)
 					.frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottomLeading)
 					.foregroundColor(.white)

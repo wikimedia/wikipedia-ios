@@ -1,3 +1,4 @@
+import WMFComponents
 import SwiftUI
 import WMF
 
@@ -39,9 +40,9 @@ struct NotificationsCenterOnboardingView: View {
         }
     }
 
-    private let titleFont = UIFont.wmf_scaledSystemFont(forTextStyle: .body, weight: .bold, size: 28)
-    private let primaryButtonFont = UIFont.wmf_scaledSystemFont(forTextStyle: .body, weight: .semibold, size: 17)
-    private let secondaryButtonFont = UIFont.wmf_scaledSystemFont(forTextStyle: .body, weight: .medium, size: 17)
+    private let titleFont = WMFFont.for(.boldTitle3)
+    private let primaryButtonFont = WMFFont.for(.boldCallout)
+    private let secondaryButtonFont = WMFFont.for(.boldCallout)
 
     // MARK: - Content
 
@@ -114,8 +115,8 @@ fileprivate struct NotificationsCenterOnboardingRowView: View {
     var header: String
     var message: String
 
-    private let headerFont = UIFont.wmf_scaledSystemFont(forTextStyle: .headline, weight: .semibold, size: 15)
-    private let bodyFont = UIFont.wmf_scaledSystemFont(forTextStyle: .body, weight: .regular, size: 13)
+    private let headerFont = WMFFont.for(.semiboldHeadline)
+    private let bodyFont = WMFFont.for(.footnote)
 
     // MARK: - Content
 

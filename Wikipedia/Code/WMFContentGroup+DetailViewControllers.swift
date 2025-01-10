@@ -1,9 +1,14 @@
 import Foundation
-import Components
+import WMFComponents
 
 extension WMFContentGroup {
-	@objc(detailViewControllerForPreviewItemAtIndex:dataStore:theme:)
+    
+    @objc(detailViewControllerForPreviewItemAtIndex:dataStore:theme:)
     public func detailViewControllerForPreviewItemAtIndex(_ index: Int, dataStore: MWKDataStore, theme: Theme) -> UIViewController? {
+        detailViewControllerForPreviewItemAtIndex(index, dataStore: dataStore, theme: theme, imageRecDelegate: nil, imageRecLoggingDelegate: nil)
+    }
+	
+    public func detailViewControllerForPreviewItemAtIndex(_ index: Int, dataStore: MWKDataStore, theme: Theme, imageRecDelegate: WMFImageRecommendationsDelegate?, imageRecLoggingDelegate: WMFImageRecommendationsLoggingDelegate?) -> UIViewController? {
         switch detailType {
         case .page:
             guard let articleURL = previewArticleURLForItemAtIndex(index) else {
@@ -21,7 +26,9 @@ extension WMFContentGroup {
             }
             return WMFPOTDImageGalleryViewController(dates: [date], theme: theme, overlayViewTopBarHidden: false)
         case .story, .event:
-            return detailViewControllerWithDataStore(dataStore, theme: theme, imageRecDelegate: nil)
+            return detailViewControllerWithDataStore(dataStore, theme: theme, imageRecDelegate: nil, imageRecLoggingDelegate: nil)
+        case .suggestedEdits:
+            return detailViewControllerWithDataStore(dataStore, theme: theme, imageRecDelegate: imageRecDelegate, imageRecLoggingDelegate: imageRecLoggingDelegate)
         default:
             return nil
         }
@@ -29,10 +36,10 @@ extension WMFContentGroup {
     
     @objc(detailViewControllerWithDataStore:theme:)
     public func detailViewControllerWithDataStore(_ dataStore: MWKDataStore, theme: Theme) -> UIViewController? {
-        return detailViewControllerWithDataStore(dataStore, theme: theme, imageRecDelegate: nil)
+        return detailViewControllerWithDataStore(dataStore, theme: theme, imageRecDelegate: nil, imageRecLoggingDelegate: nil)
     }
     
-    public func detailViewControllerWithDataStore(_ dataStore: MWKDataStore, theme: Theme, imageRecDelegate: WKImageRecommendationsDelegate?) -> UIViewController? {
+    public func detailViewControllerWithDataStore(_ dataStore: MWKDataStore, theme: Theme, imageRecDelegate: WMFImageRecommendationsDelegate?, imageRecLoggingDelegate: WMFImageRecommendationsLoggingDelegate?) -> UIViewController? {
         var vc: UIViewController? = nil
         switch moreType {
         case .pageList:
@@ -64,19 +71,7 @@ extension WMFContentGroup {
             (firstRandom as Themeable).apply(theme: theme)
             vc = firstRandom
         case .imageRecommendations:
-            
-            guard let siteURL = dataStore.languageLinkController.appLanguage?.siteURL,
-                  let project = WikimediaProject(siteURL: siteURL)?.wkProject,
-                  let imageRecDelegate = imageRecDelegate else {
-                return nil
-            }
-            
-            let title = WMFLocalizedString("image-rec-title", value: "Add image", comment: "Title of the image recommendation view. Displayed in the navigation bar above an article summary.")
-            let viewArticle = WMFLocalizedString("image-rec-view-article", value: "View article", comment: "Button from an image recommendation article summary. Tapping the button displays the full article.")
-            let localizedStrings = WKImageRecommendationsViewModel.LocalizedStrings(title: title, viewArticle: viewArticle)
-            let viewModel = WKImageRecommendationsViewModel(project: project, localizedStrings: localizedStrings)
-            let imageRecommendationsViewController = WKImageRecommendationsViewController(viewModel: viewModel, delegate: imageRecDelegate)
-            return imageRecommendationsViewController
+            vc = WMFImageRecommendationsViewController.imageRecommendationsViewController(dataStore: dataStore, imageRecDelegate: imageRecDelegate, imageRecLoggingDelegate: imageRecLoggingDelegate)
         default:
             break
         }
@@ -91,3 +86,4 @@ extension WMFContentGroup {
         return vc
     }
 }
+

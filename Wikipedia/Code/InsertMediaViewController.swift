@@ -9,10 +9,12 @@ final class InsertMediaViewController: ViewController {
     private let searchResultsCollectionViewController = InsertMediaSearchResultsCollectionViewController()
 
     weak var delegate: InsertMediaViewControllerDelegate?
+    private let siteURL: URL
 
-    init(articleTitle: String?, siteURL: URL?) {
+    init(articleTitle: String?, siteURL: URL) {
         searchViewController = InsertMediaSearchViewController(articleTitle: articleTitle, siteURL: siteURL)
         searchResultsCollectionViewController.delegate = selectedImageViewController
+        self.siteURL = siteURL
         super.init()
         selectedImageViewController.delegate = self
         searchViewController.progressController = FakeProgressController(progress: navigationBar, delegate: navigationBar)
@@ -92,7 +94,6 @@ final class InsertMediaViewController: ViewController {
         isTransitioningToNewCollection = true
         super.willTransition(to: newCollection, with: coordinator)
         coordinator.animate(alongsideTransition: { _ in
-            //
         }) { _ in
             self.isTransitioningToNewCollection = false
         }
@@ -107,46 +108,9 @@ final class InsertMediaViewController: ViewController {
             assertionFailure("Selected image and search result should be set by now")
             return
         }
-        let settingsViewController = InsertMediaSettingsViewController(image: image, searchResult: selectedSearchResult)
-        settingsViewController.title = WMFLocalizedString("insert-media-media-settings-title", value: "Media settings", comment: "Title for media settings view")
-        let insertButton = UIBarButtonItem(title: WMFLocalizedString("insert-action-title", value: "Insert", comment: "Title for insert action"), style: .done, target: self, action: #selector(insertMedia(_:)))
-        insertButton.tintColor = theme.colors.link
-        settingsViewController.navigationItem.rightBarButtonItem = insertButton
-        settingsViewController.apply(theme: theme)
-        navigationController.pushViewController(settingsViewController, animated: true)
-    }
+        let settingsViewController = InsertMediaSettingsViewController(image: image, searchResult: selectedSearchResult, fromImageRecommendations: false, delegate: self, imageRecLoggingDelegate: nil, theme: theme, siteURL: siteURL)
 
-    @objc private func insertMedia(_ sender: UIBarButtonItem) {
-        guard let mediaSettingsTableViewController = navigationController?.topViewController as? InsertMediaSettingsViewController else {
-            assertionFailure()
-            return
-        }
-        let searchResult = mediaSettingsTableViewController.searchResult
-        let wikitext: String
-        switch mediaSettingsTableViewController.settings {
-        case nil:
-            wikitext = "[[\(searchResult.fileTitle)]]"
-        case let mediaSettings?:
-            switch (mediaSettings.caption, mediaSettings.alternativeText) {
-            case (let caption?, let alternativeText?):
-                wikitext = """
-                [[\(searchResult.fileTitle) | \(mediaSettings.advanced.imageType.rawValue) | \(mediaSettings.advanced.imageSize.rawValue) | \(mediaSettings.advanced.imagePosition.rawValue) | alt= \(alternativeText) | \(caption)]]
-                """
-            case (let caption?, nil):
-                wikitext = """
-                [[\(searchResult.fileTitle) | \(mediaSettings.advanced.imageType.rawValue) | \(mediaSettings.advanced.imageSize.rawValue) | \(mediaSettings.advanced.imagePosition.rawValue) | \(caption)]]
-                """
-            case (nil, let alternativeText?):
-                wikitext = """
-                [[\(searchResult.fileTitle) | \(mediaSettings.advanced.imageType.rawValue) | \(mediaSettings.advanced.imageSize.rawValue) | \(mediaSettings.advanced.imagePosition.rawValue) | alt= \(alternativeText)]]
-                """
-            default:
-                wikitext = """
-                [[\(searchResult.fileTitle) | \(mediaSettings.advanced.imageType.rawValue) | \(mediaSettings.advanced.imageSize.rawValue) | \(mediaSettings.advanced.imagePosition.rawValue)]]
-                """
-            }
-        }
-        delegate?.insertMediaViewController(self, didPrepareWikitextToInsert: wikitext)
+        navigationController.pushViewController(settingsViewController, animated: true)
     }
 
     @objc private func delegateCloseButtonTap(_ sender: UIBarButtonItem) {
@@ -339,4 +303,10 @@ extension InsertMediaViewController: UISearchBarDelegate {
 
 extension InsertMediaViewController: EditingFlowViewController {
     
+}
+
+extension InsertMediaViewController: InsertMediaSettingsViewControllerDelegate {
+    func insertMediaSettingsViewControllerDidTapProgress(imageWikitext: String, caption: String?, altText: String?, localizedFileTitle: String) {
+        delegate?.insertMediaViewController(self, didPrepareWikitextToInsert: imageWikitext)
+    }
 }

@@ -1,0 +1,176 @@
+[
+  {
+    "aliases" : [
+      "wak=$1",
+      "alt=$1"
+    ],
+    "name" : "img_alt"
+  },
+  {
+    "aliases" : [
+      "tiksisiqi",
+      "baseline"
+    ],
+    "name" : "img_baseline"
+  },
+  {
+    "aliases" : [
+      "saywa",
+      "borde",
+      "border"
+    ],
+    "name" : "img_border"
+  },
+  {
+    "aliases" : [
+      "sikipi",
+      "bottom",
+      "abajo"
+    ],
+    "name" : "img_bottom"
+  },
+  {
+    "aliases" : [
+      "chawpi",
+      "centro",
+      "centrado",
+      "centrada",
+      "centrar",
+      "center",
+      "centre"
+    ],
+    "name" : "img_center"
+  },
+  {
+    "aliases" : [
+      "inchuyuq",
+      "inchu",
+      "marco",
+      "enmarcado",
+      "enmarcada",
+      "frame",
+      "framed",
+      "enframed"
+    ],
+    "name" : "img_framed"
+  },
+  {
+    "aliases" : [
+      "inchunnaq",
+      "sinmarco",
+      "sin_embarcar",
+      "sinenmarcar",
+      "sin_enmarcar",
+      "frameless"
+    ],
+    "name" : "img_frameless"
+  },
+  {
+    "aliases" : [
+      "lluqi",
+      "ichuq",
+      "izquierda",
+      "izda",
+      "izq",
+      "left"
+    ],
+    "name" : "img_left"
+  },
+  {
+    "aliases" : [
+      "ukhupi",
+      "middle",
+      "medio"
+    ],
+    "name" : "img_middle"
+  },
+  {
+    "aliases" : [
+      "manaima",
+      "mana",
+      "ninguna",
+      "nada",
+      "no",
+      "ninguno",
+      "none"
+    ],
+    "name" : "img_none"
+  },
+  {
+    "aliases" : [
+      "paña",
+      "alliq",
+      "derecha",
+      "dcha",
+      "der",
+      "right"
+    ],
+    "name" : "img_right"
+  },
+  {
+    "aliases" : [
+      "uran",
+      "sub"
+    ],
+    "name" : "img_sub"
+  },
+  {
+    "aliases" : [
+      "hanan",
+      "super",
+      "sup"
+    ],
+    "name" : "img_super"
+  },
+  {
+    "aliases" : [
+      "qillqasiki",
+      "text-bottom"
+    ],
+    "name" : "img_text_bottom"
+  },
+  {
+    "aliases" : [
+      "qillqahawa",
+      "text-top"
+    ],
+    "name" : "img_text_top"
+  },
+  {
+    "aliases" : [
+      "rikchacha",
+      "miniaturadeimagen",
+      "mini",
+      "miniatura",
+      "thumb",
+      "thumbnail"
+    ],
+    "name" : "img_thumbnail"
+  },
+  {
+    "aliases" : [
+      "hawa",
+      "top",
+      "arriba"
+    ],
+    "name" : "img_top"
+  },
+  {
+    "aliases" : [
+      "sayaq",
+      "sayaq=$1",
+      "upright",
+      "upright=$1",
+      "upright $1"
+    ],
+    "name" : "img_upright"
+  },
+  {
+    "aliases" : [
+      "Rikcha",
+      "Image",
+      "Imagen"
+    ],
+    "name" : "file_namespace"
+  }
+]

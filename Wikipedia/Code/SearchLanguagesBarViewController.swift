@@ -1,4 +1,4 @@
-import UIKit
+import WMFComponents
 import WMF
 
 @objc protocol SearchLanguagesBarViewControllerDelegate: AnyObject {
@@ -38,7 +38,7 @@ class SearchLanguageButton: UnderlineButton {
         label.numberOfLines = 1
         label.textAlignment = .center
         label.baselineAdjustment = .alignCenters
-        label.font = .wmf_font(.boldSubheadline)
+        label.font = WMFFont.for(.boldSubheadline)
         label.adjustsFontForContentSizeCategory = true
         label.adjustsFontSizeToFitWidth = true
         return label
@@ -107,7 +107,7 @@ class SearchLanguageButton: UnderlineButton {
     
 }
 
-class SearchLanguagesBarViewController: UIViewController, WMFPreferredLanguagesViewControllerDelegate, WMFLanguagesViewControllerDelegate, Themeable {
+class SearchLanguagesBarViewController: ThemeableViewController, WMFPreferredLanguagesViewControllerDelegate, WMFLanguagesViewControllerDelegate {
     required init() {
         super.init(nibName: "SearchLanguagesBarViewController", bundle: nil)
     }
@@ -133,8 +133,6 @@ class SearchLanguagesBarViewController: UIViewController, WMFPreferredLanguagesV
         return stackView
     }()
 
-    @objc var theme: Theme = Theme.standard
-    
     fileprivate var selectedSearchContentLanguageCode: String? {
         get {
             if let contentLanguageCode = UserDefaults.standard.wmf_currentSearchContentLanguageCode() {
@@ -165,8 +163,8 @@ class SearchLanguagesBarViewController: UIViewController, WMFPreferredLanguagesV
     override func viewDidLoad() {
         super.viewDidLoad()
         otherLanguagesButton?.setTitle(WMFLocalizedString("main-menu-title", value:"More", comment:"Title for menu of secondary items. {{Identical|More}}"), for: .normal)
-        otherLanguagesButton?.titleLabel?.font = UIFont.wmf_font(.subheadline)
-        
+        otherLanguagesButton?.titleLabel?.font = WMFFont.for(.subheadline)
+
         if let otherLanguagesButton {
             var deprecatedOtherLanguagesButton = otherLanguagesButton as DeprecatedButton
             deprecatedOtherLanguagesButton.deprecatedTitleEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 5, right: 0)
@@ -285,7 +283,7 @@ class SearchLanguagesBarViewController: UIViewController, WMFPreferredLanguagesV
         guard let button = otherLanguagesButton else {
             return
         }
-        self.wmf_presentDynamicHeightPopoverViewController(forSourceRect: button.convert(button.bounds, to: self.view), withTitle: WMFLocalizedString("more-languages-tooltip-title", value:"Add languages", comment:"Title for tooltip explaining the 'More' button may be tapped to add more languages."), message: WMFLocalizedString("more-languages-tooltip-description", value:"Search Wikipedia in over 300 languages", comment:"Description for tooltip explaining the 'More' button may be tapped to add more languages."), width: 230.0, duration: 3.0)
+        self.wmf_presentDynamicHeightPopoverViewController(sourceRect: button.convert(button.bounds, to: self.view), title: WMFLocalizedString("more-languages-tooltip-title", value:"Add languages", comment:"Title for tooltip explaining the 'More' button may be tapped to add more languages."), message: WMFLocalizedString("more-languages-tooltip-description", value:"Search Wikipedia in over 300 languages", comment:"Description for tooltip explaining the 'More' button may be tapped to add more languages."), width: 230, duration: 3)
         UserDefaults.standard.wmf_setDidShowMoreLanguagesTooltip(true)
     }
     
@@ -329,8 +327,8 @@ class SearchLanguagesBarViewController: UIViewController, WMFPreferredLanguagesV
         updateSearchLanguageButtons()
     }
     
-    func apply(theme: Theme) {
-        self.theme = theme
+    override func apply(theme: Theme) {
+        super.apply(theme: theme)
         guard viewIfLoaded != nil else {
             return
         }

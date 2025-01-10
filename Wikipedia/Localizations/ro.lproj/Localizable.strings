@@ -4,6 +4,7 @@
 // Author: Alesaru
 // Author: Andreyyshore
 // Author: Cleinman
+// Author: Firilacroco
 // Author: GabiBil
 // Author: Kyouko
 // Author: MSClaudiu
@@ -12,6 +13,7 @@
 // Author: Minisarm
 // Author: NGC 54
 // Author: Nemo bis
+// Author: Paloi Sciurala
 // Author: Rapiteanu
 // Author: Strainu
 // Author: WebSourceContentRO
@@ -104,8 +106,6 @@
 "action-read" = "Citește";
 "action-redo" = "Refă";
 "action-remove" = "Elimină";
-"action-replace" = "Înlocuiește";
-"action-replace-all" = "Înlocuiește peste tot";
 "action-retry" = "Reîncercare";
 "action-save" = "Salvează";
 "action-saved" = "Salvat";
@@ -120,7 +120,6 @@
 "action-unsaved-accessibility-notification" = "Articol nesalvat";
 "action-update" = "Actualizați";
 "add-articles-to-reading-list" = "Adaugă {{PLURAL:$1|$1 articol|$1 articole}} la lista de citire";
-"add-citation-title" = "Adaugă referință";
 "announcements-dismiss" = "Respinge";
 "app-store-keywords" = "Wikipedia, referință, wiki, enciclopedie, informații, cunoștințe, cercetare, informații, explorați, învățați";
 "app-store-release-notes" = "Complet personalizabile și cel mai ușor de citit Explorare flux. Localizare, îmbunătățiri ale performanței și remedieri ale erorilor.";
@@ -146,6 +145,7 @@
 "article-reference-view-title" = "Referință $1";
 "article-save-error-not-enough-space" = "Nu aveți suficient spațiu pe dispozitiv pentru a salva acest articol";
 "article-share" = "Distribuie";
+"article-talk-page" = "Pagina de discuție a articolului";
 "article-toolbar-reading-themes-controls-toolbar-item" = "Controlul temelor de citire";
 "back-button-accessibility-label" = "Înapoi";
 "back-button-popover-title" = "Atingeți pentru a vă întoarce";
@@ -173,7 +173,6 @@
 "data-migration-status" = "Actualizare...";
 "description-add-title" = "Adaugă descriere";
 "description-edit-for-article" = "Descrierea articolului pentru $1";
-"description-edit-learn-more" = "Aflați mai multe";
 "description-edit-length-warning" = "$1 / $2";
 "description-edit-license" = "Prin schimbarea descrierii articolului, sunt de acord cu $1 și îmi eliberez irevocabil contribuțiile sub licența $2.";
 "description-edit-pencil-introduction" = "Modifică introducerea";
@@ -246,24 +245,8 @@
 "donate-payment-method-prompt-apple-pay-button-title" = "Donează cu Apple Pay";
 "donate-payment-method-prompt-title" = "Donați cu Apple Pay?";
 "donate-success-title" = "Mulțumim!";
-"edit-bold-accessibility-label" = "Adăugați formatare aldin";
-"edit-bold-remove-accessibility-label" = "Scoate formatare aldin";
-"edit-clear-formatting-accessibility-label" = "Scoate formatarea";
-"edit-comment-accessibility-label" = "Adaugă sintaxa comentariilor";
-"edit-comment-remove-accessibility-label" = "Eliminați sintaxa comentariului";
-"edit-decrease-indent-depth-accessibility-label" = "Scade adâncimea aliniatului";
-"edit-direction-down-accessibility-label" = "Mutați cursorul în jos";
-"edit-direction-left-accessibility-label" = "Mutați cursorul spre stânga";
-"edit-direction-right-accessibility-label" = "Mutați cursorul spre dreapta";
-"edit-direction-up-accessibility-label" = "Mutați cursorul în sus";
-"edit-increase-indent-depth-accessibility-label" = "Mărește adâncimea aliniatului";
-"edit-indent-accessibility-label" = "Aliniat linia actuală";
-"edit-italic-accessibility-label" = "Adăugați formatare cursivă";
-"edit-italic-remove-accessibility-label" = "Scoate formatare cursivă";
-"edit-link-accessibility-label" = "Adăugați sintaxa legăturii";
 "edit-link-display-text-title" = "Afișează text";
 "edit-link-link-target-title" = "Legătura țintă";
-"edit-link-remove-accessibility-label" = "Eliminați sintaxa legăturii";
 "edit-link-remove-link-title" = "Scoate legătura";
 "edit-link-title" = "Modifică legătura";
 "edit-menu-item" = "Modifică";
@@ -271,38 +254,14 @@
 "edit-menu-item-could-not-find-selection-alert-title" = "Textul selectat nu a putut fi localizat";
 "edit-minor-learn-more-text" = "Aflați mai multe despre modificările minore";
 "edit-minor-text" = "Aceasta este o modificare minoră";
-"edit-ordered-list-accessibility-label" = "Faceți rândul curent o listă ordonată";
-"edit-ordered-list-remove-accessibility-label" = "Eliminați lista ordonată din rândul curent";
 "edit-published" = "Editare publicată";
 "edit-published-subtitle" = "Tocmai ai făcut Wikipedia mai bună pentru toată lumea";
-"edit-reference-accessibility-label" = "Adăugați sintaxa referință";
-"edit-reference-remove-accessibility-label" = "Eliminați sintaxa referință";
-"edit-signature-accessibility-label" = "Adăugați sintaxa semnăturii";
-"edit-signature-remove-accessibility-label" = "Înlăturați sintaxa semnăturii";
-"edit-strikethrough-accessibility-label" = "Adăugați formatarea în dungi";
-"edit-strikethrough-remove-accessibility-label" = "Scoate formatarea în dungi";
-"edit-style-table-view-title" = "Stil";
-"edit-subscript-accessibility-label" = "Adăugați formatarea subscript";
-"edit-subscript-remove-accessibility-label" = "Eliminați formatarea subscript";
 "edit-summary-add-summary-text" = "Adăugați un rezumat al modificării";
 "edit-summary-choice-fixed-grammar" = "Ajustări gramaticale";
 "edit-summary-choice-fixed-typos" = "Corectat greșeli ortografice";
 "edit-summary-choice-linked-words" = "Adăugat legături";
-"edit-summary-learn-more-text" = "Aflați mai multe";
 "edit-summary-placeholder-text" = "Cum ai îmbunătățit articolul?";
-"edit-superscript-accessibility-label" = "Adăugați formatare superscript";
-"edit-superscript-remove-accessibility-label" = "Eliminare formatare superscript";
-"edit-template-accessibility-label" = "Adăugați sintaxa formatului";
-"edit-template-remove-accessibility-label" = "Scoate sintaxa formatului";
-"edit-text-clear-formatting" = "Formatare clară";
-"edit-text-formatting-accessibility-label" = "Afișați meniul de formatare a textului";
-"edit-text-formatting-table-view-title" = "Formatarea textului";
-"edit-text-size-table-view-title" = "Mărimea textului";
-"edit-text-style-accessibility-label" = "Afișați meniul stilului text";
-"edit-underline-accessibility-label" = "Adăugați subliniere";
-"edit-underline-remove-accessibility-label" = "Eliminați subliniere";
-"edit-unordered-list-accessibility-label" = "Faceți o listă curentă neordonată";
-"edit-unordered-list-remove-accessibility-label" = "Eliminați lista neordonată de pe rândul curent";
+// Fuzzy
 "edit-watch-list-learn-more-text" = "Aflați mai multe despre listele de urmărire";
 "edit-watch-this-page-text" = "Urmăriți această pagină";
 "editing-welcome-be-bold-subtitle" = "Fii îndrăzneț, dar nu nesăbuit în actualizarea articolelor. Nu agoniza dacă ai făcut greșeli: fiecare versiune anterioară a unei pagini este salvată, astfel încât greșelile pot fi ușor corectate de comunitatea noastră.";
@@ -315,6 +274,8 @@
 "editing-welcome-set-knowledge-free-title" = "Eliberează cunoașterea";
 "editor-exit-confirmation-body" = "Sigur doriți să părăsiți modul de editare fără a publica mai întâi?";
 "editor-exit-confirmation-title" = "Închideți modul de editare?";
+"editor-keyboard-list-ordered-accessibility" = "Listă ordonată";
+"editor-keyboard-list-unordered-accessibility" = "Lista neordonată";
 "editor-replace-textfield-accessibility" = "Înlocuiește";
 "editor-replace-textfield-placeholder" = "Înlocuiește cu...";
 "editor-replace-type-all" = "Înlocuiește peste tot";
@@ -518,7 +479,6 @@
 "insert-media-image-type-settings-title" = "Tipul imaginii";
 "insert-media-media-settings-title" = "Setări media";
 "insert-media-title" = "Introduceți media";
-"insert-media-uploaded-image-title" = "Imagine încărcată";
 "inuktitut-variants-alert-body" = "Aplicația Wikipedia acceptă acum următoarele variante inuktitut ca limbi principale sau secundare în cadrul aplicației, facilitând citirea, căutarea și editarea în variantele preferate:\n\nᐃᓄᒃᑎᑐᑦ ᑎᑎᕋᐅᓯᖅ ᓄᑖᖅ Inuktitut, Syllabics (ike-cans)\nInuktitut ilisautik, Inuktitut, Latin (ike-latn)";
 "inuktitut-variants-alert-title" = "Actualizări ale suportului pentru varianta Inuktitut";
 "kazakh-variants-alert-body" = "Aplicația Wikipedia acceptă acum următoarele variante kazahe ca limbi principale sau secundare în cadrul aplicației, facilitând citirea, căutarea și editarea în variantele preferate:\n\nҚазақша Kazakh (kk)\nҚазақша Кирил Kazakh, Cyrillic (kk-cyrl)\nqazaqşa latin Kazakh, Latin (kk-latn)\nتوتە قازاقشا Kazakh, Arabic (kk-arab)";
@@ -541,7 +501,6 @@
 "main-menu-account-logout" = "Închide sesiunea";
 "main-menu-account-logout-are-you-sure" = "Sigur doriți să închideți sesiunea?";
 "main-menu-account-logout-are-you-sure-message" = "Deconectarea va șterge datele contului stocate local (notificări și mesaje), dar datele contului dvs. vor fi în continuare disponibile pe web și vor fi re-descărcate dacă vă conectați din nou.";
-"main-menu-account-logout-cancel" = "Revocare";
 "main-menu-account-title-logged-in" = "Autentificat ca $1";
 "main-menu-heading-legal" = "Confidențialitate și Termeni";
 "main-menu-nearby" = "În apropiere";
@@ -661,7 +620,7 @@
 "notifications-center-subheader-thanks" = "Mulțumiri";
 "notifications-center-subheader-translate-milestone" = "Bornă traduceri";
 "notifications-center-subheader-user-rights-change" = "Modificări ale drepturilor de utilizator";
-"notifications-center-subheader-welcome" = "Bun venit!";
+"notifications-center-subheader-welcome" = "Bun-venit!";
 "notifications-center-subheader-wikidata-connection" = "Conexiunea Wikidata a fost realizată";
 "notifications-center-swipe-mark-as-read" = "Marchează ca citit";
 "notifications-center-swipe-mark-as-unread" = "Marchează ca necitit";
@@ -689,7 +648,7 @@
 "notifications-center-type-title-translation-milestone" = "Bornă traduceri";
 "notifications-center-type-title-user-rights-change" = "Modificări ale drepturilor de utilizator";
 "notifications-center-type-title-user-talk-page-messsage" = "Mesaj în pagina de discuție";
-"notifications-center-type-title-welcome" = "Bun venit";
+"notifications-center-type-title-welcome" = "Bun-venit";
 "notifications-push-fallback-body-text" = "Activitate nouă pe Wikipedia";
 "notifications-push-talk-body-format" = "{{PLURAL:$1|$1 mesaj nou|$1 mesaje noi}} pe $2";
 "notifications-push-talk-title-format" = "\n{{PLURAL:$1|Mesaj nou|Mesaje noi}}";
@@ -879,7 +838,6 @@
 "replace-infolabel-method-replace" = "Înlocuiește";
 "replace-infolabel-method-replace-all" = "Înlocuiește tot";
 "replace-method-button-accessibility" = "Metoda de înlocuire. Setat la $1. Selectați pentru a schimba.";
-"replace-replace-all-results-count" = "{{PLURAL:$1|$1 element înlocuit|$1 elemente înlocuite}}";
 "replace-textfield-accessibility" = "Înlocuiește";
 "replace-textfield-placeholder" = "Înlocuiește cu...";
 "reverted-edit-title" = "Modificare anulată";
@@ -970,6 +928,7 @@
 "tachelhit-variants-alert-title" = "Actualizări ale suportului pentru varianta Tachelhit";
 "tajik-variants-alert-body" = "Aplicația Wikipedia acceptă acum următoarele variante tajik ca limbi principale sau secundare în cadrul aplicației, facilitând citirea, căutarea și editarea în variantele preferate:\n\nтоҷикӣ кирилликӣ Tajik, Cyrillic (tg-cyrl)\ntojikī lotinī Tajik, Latin (tg-latn)";
 "tajik-variants-alert-title" = "Actualizări pentru sprijin varianta tadjică";
+"talk-page-article-about" = "Despre paginile de discuție";
 "talk-page-discussion-read-accessibility-label" = "Citește";
 "talk-page-discussion-unread-accessibility-label" = "Necitit";
 "talk-page-find-in-page-button" = "Găsește în pagină";
@@ -977,6 +936,7 @@
 "talk-page-new-banner-title" = "Vă rugăm să fiți amabili";
 "talk-page-new-reply-success-text" = "Răspunsul dvs. a fost publicat cu succes";
 "talk-page-new-topic-success-text" = "Discuția dvs. a fost publicată cu succes";
+"talk-page-share-button" = "Distribuie pagină de discuție";
 "talk-page-subscribed-alert-subtitle" = "Veți primi notificări despre noi comentarii din acest subiect.";
 "talk-page-title-article-talk" = "Discuție articol";
 "talk-page-title-user-talk" = "Discuție Utilizator";
@@ -984,7 +944,9 @@
 "talk-page-user-contributions" = "Contribuții";
 "talk-pages-coffee-roll-read-more" = "Citiți mai multe";
 "talk-pages-empty-view-button-user-start-discussion" = "Începeți o discuție";
+"talk-pages-empty-view-header-article" = "Conversația începe aici";
 "talk-pages-topic-compose-body-placeholder" = "Descriere";
+"talk-pages-topic-reply-onboarding-title" = "Pagini de discuții";
 "theme-black-display-name" = "Negru";
 "theme-dark-display-name" = "Închisă";
 "theme-default-display-name" = "Implicit";
@@ -999,7 +961,7 @@
 "two-factor-login-title" = "Conectați-vă la contul dvs.";
 "two-factor-login-with-backup-code" = "Utilizați unul dintre codurile de rezervă";
 "two-factor-login-with-regular-code" = "Utilizați codul de verificare";
-"unable-to-load-talk-page-title" = "Nu se poate încărca pagina de discuții";
+"unable-to-load-talk-page-title" = "Pagina de discuție nu putut fi încărcată";
 "unknown-generic-text" = "Necunoscut";
 "uzbek-variants-alert-body" = "Aplicația Wikipedia acceptă acum următoarele variante uzbece ca limbi principale sau secundare în cadrul aplicației, facilitând citirea, căutarea și editarea în variantele preferate:\n\noʻzbekcha lotin Uzbek, Latin (uz-latin)\nўзбекча кирилл Uzbek, Cyrillic (uz-cyrl)";
 "uzbek-variants-alert-title" = "Actualizări ale suportului pentru varianta uzbekă";
@@ -1068,9 +1030,7 @@
 "widget-onthisday-description" = "Explorează ce s-a întâmplat în această zi din istorie.";
 "widget-onthisday-placeholder-article-snippet" = "Enciclopedie online gratuită pe care oricine o poate modifica";
 "widget-onthisday-placeholder-event-snippet" = "Wikipedia, o enciclopedie gratuită de conținut wiki, intră online.";
-"wikitext-downloading" = "Se încarcă conținutul...";
 "wikitext-preview-changes" = "Se obține previzualizarea modificărilor dumneavoastră...";
-"wikitext-preview-changes-none" = "Nicio modificare efectuată pentru a fi previzualizată.";
 "wikitext-preview-link-external-preview-description" = "Această legătură duce la un site web extern: $1";
 "wikitext-preview-link-external-preview-title" = "Legătură externă";
 "wikitext-preview-link-not-found-preview-description" = "Wikipedia nu are un articol cu acest nume exact";
@@ -1085,5 +1045,4 @@
 "wikitext-upload-save-anonymously-or-login" = "Modificările vor fi atribuite adresei IP a dispozitivului. Dacă vă autentificați $1Log in$2, veți avea mai multă confidențialitate.";
 "wikitext-upload-save-anonymously-warning" = "Modificările vor fi atribuite adresei IP a dispozitivului dumneavoastră. Dacă recurgeți la $1 veți beneficia de mai multă confidențialitate.";
 "wikitext-upload-save-sign-in" = "Autentificare";
-"wikitext-upload-save-terms-and-licenses" = "Prin publicarea modificărilor, sunteți de acord cu $1Termenii de utilizare$2, și sunteți de acord irevocabil să vă eliberați contribuția în conformitate cu licența $3CC BY-SA 3.0$4 și $5GFDL$6. Sunteți de acord că un hyperlink sau o adresă URL este o atribuție suficientă sub licența Creative Commons.";
 "wikitext-upload-save-terms-name" = "Termeni de utilizare";

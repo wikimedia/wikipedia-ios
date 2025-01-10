@@ -1,7 +1,7 @@
-import UIKit
+import WMFComponents
 import WMF
 
-typealias ScrollableEducationPanelButtonTapHandler = ((_ sender: Any) -> Void)
+typealias ScrollableEducationPanelButtonTapHandler = ((_ button: UIButton, _ viewController: UIViewController) -> Void)
 typealias ScrollableEducationPanelDismissHandler = (() -> Void)
 typealias ScrollableEducationPanelTraceableDismissHandler = ((ScrollableEducationPanelViewController.LastAction) -> Void)
 
@@ -83,6 +83,7 @@ class ScrollableEducationPanelViewController: UIViewController, Themeable {
     }
     
     @IBOutlet fileprivate weak var inlinePrimaryButton: AutoLayoutSafeMultiLineButton!
+    @IBOutlet weak var inlinePrimaryButtonSpinner: UIActivityIndicatorView!
     @IBOutlet fileprivate weak var pinnedPrimaryButton: AutoLayoutSafeMultiLineButton!
     @IBOutlet fileprivate weak var inlineSecondaryButton: AutoLayoutSafeMultiLineButton!
     @IBOutlet fileprivate weak var pinnedSecondaryButton: AutoLayoutSafeMultiLineButton!
@@ -222,6 +223,21 @@ class ScrollableEducationPanelViewController: UIViewController, Themeable {
             updateFooterHTML()
         }
     }
+    
+    var isLoading: Bool = false {
+        didSet {
+            if isLoading {
+                inlinePrimaryButtonSpinner.startAnimating()
+                inlinePrimaryButtonSpinner.isHidden = false
+                inlinePrimaryButton.titleLabel?.alpha = 0
+            } else {
+                inlinePrimaryButtonSpinner.stopAnimating()
+                inlinePrimaryButton.titleLabel?.alpha = 1
+                inlinePrimaryButtonSpinner.isHidden = true
+            }
+            
+        }
+    }
 
     var footerLinkAction: ((URL) -> Void)? = nil
     var subheadingLinkAction: ((URL) -> Void)? = nil
@@ -238,24 +254,10 @@ class ScrollableEducationPanelViewController: UIViewController, Themeable {
             subheadingTextView.attributedText = nil
             return
         }
-        
-        let attributedText = subheadingHTML.byAttributingHTML(with: .subheadline,
-                                                                    boldWeight: .bold,
-                                                                    matching: traitCollection,
-                                                                    color: theme.colors.primaryText,
-                                                                    handlingLinks: true,
-                                                                    linkColor: theme.colors.link,
-                                                                    tagMapping: ["em": "i"], // em tags are generally italicized by default, match this behavior)
-                                                                    additionalTagAttributes: [
-                                                                        "u": [
-                                                                          NSAttributedString.Key.underlineColor: theme.colors.error,
-                                                                          NSAttributedString.Key.underlineStyle: NSNumber(value: NSUnderlineStyle.single.rawValue)
-                                                                        ],
-                                                                        "strong": [
-                                                                          NSAttributedString.Key.foregroundColor: theme.colors.primaryText
-                                                                        ]
-                                                                    ])
-        
+
+        let styles = HtmlUtils.Styles(font: WMFFont.for(.subheadline, compatibleWith: traitCollection), boldFont: WMFFont.for(.boldSubheadline, compatibleWith: traitCollection), italicsFont: WMFFont.for(.italicSubheadline, compatibleWith: traitCollection), boldItalicsFont: WMFFont.for(.boldItalicSubheadline, compatibleWith: traitCollection), color: theme.colors.primaryText, linkColor: theme.colors.link, lineSpacing: 1)
+
+        let attributedText =  NSMutableAttributedString.mutableAttributedStringFromHtml(subheadingHTML, styles: styles)
         var attributes: [NSAttributedString.Key : Any] = [:]
         if let subheadingParagraphStyle = subheadingParagraphStyle {
             attributes[NSAttributedString.Key.paragraphStyle] = subheadingParagraphStyle
@@ -279,7 +281,8 @@ class ScrollableEducationPanelViewController: UIViewController, Themeable {
             footerTextView.attributedText = nil
             return
         }
-        let attributedText = footerHTML.byAttributingHTML(with: .footnote, matching: traitCollection, color: theme.colors.secondaryText)
+        let styles = HtmlUtils.Styles(font: WMFFont.for(.footnote, compatibleWith: traitCollection), boldFont: WMFFont.for(.boldFootnote, compatibleWith: traitCollection), italicsFont: WMFFont.for(.italicFootnote, compatibleWith: traitCollection), boldItalicsFont: WMFFont.for(.boldItalicFootnote, compatibleWith: traitCollection), color: theme.colors.primaryText, linkColor: theme.colors.link, lineSpacing: 1)
+        let attributedText = NSMutableAttributedString.mutableAttributedStringFromHtml(footerHTML, styles: styles)
         let pStyle = NSMutableParagraphStyle()
         pStyle.lineBreakMode = .byWordWrapping
         pStyle.baseWritingDirection = .natural
@@ -418,6 +421,8 @@ class ScrollableEducationPanelViewController: UIViewController, Themeable {
             inlineCloseButtonStackView.layoutMargins = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
             inlineCloseButtonStackView.isLayoutMarginsRelativeArrangement = true
         }
+        
+        inlinePrimaryButtonSpinner.isHidden = true
 
         apply(theme: theme)
     }
@@ -461,13 +466,13 @@ class ScrollableEducationPanelViewController: UIViewController, Themeable {
         updateFonts()
     }
 
-    var secondaryButtonTextStyle: DynamicTextStyle = .semiboldFootnote {
+    var secondaryButtonTextStyle: WMFFont = .mediumFootnote {
         didSet {
             updateFonts()
         }
     }
 
-    var optionalButtonTextStyle: DynamicTextStyle = .boldSubheadline {
+    var optionalButtonTextStyle: WMFFont = .boldSubheadline {
         didSet {
             updateFonts()
         }
@@ -477,14 +482,14 @@ class ScrollableEducationPanelViewController: UIViewController, Themeable {
 
         switch buttonStyle {
         case .legacyStyle:
-            inlineSecondaryButton.titleLabel?.font = UIFont.wmf_font(secondaryButtonTextStyle, compatibleWithTraitCollection: traitCollection)
-            pinnedSecondaryButton.titleLabel?.font = UIFont.wmf_font(secondaryButtonTextStyle, compatibleWithTraitCollection: traitCollection)
+            inlineSecondaryButton.titleLabel?.font = WMFFont.for(secondaryButtonTextStyle, compatibleWith: traitCollection)
+            pinnedSecondaryButton.titleLabel?.font = WMFFont.for(secondaryButtonTextStyle, compatibleWith: traitCollection)
 
-            inlineOptionalButton.titleLabel?.font = UIFont.wmf_font(secondaryButtonTextStyle, compatibleWithTraitCollection: traitCollection)
+            inlineOptionalButton.titleLabel?.font = WMFFont.for(secondaryButtonTextStyle, compatibleWith: traitCollection)
         case .updatedStyle:
-            inlinePrimaryButton.titleLabel?.font = UIFont.wmf_font(.semiboldSubheadline, compatibleWithTraitCollection: traitCollection)
-            inlineSecondaryButton.titleLabel?.font = UIFont.wmf_font(.semiboldSubheadline, compatibleWithTraitCollection: traitCollection)
-            inlineOptionalButton.titleLabel?.font = UIFont.wmf_font(.semiboldSubheadline, compatibleWithTraitCollection: traitCollection)
+            inlinePrimaryButton.titleLabel?.font = WMFFont.for(optionalButtonTextStyle, compatibleWith: traitCollection)
+            inlineSecondaryButton.titleLabel?.font = WMFFont.for(optionalButtonTextStyle, compatibleWith: traitCollection)
+            inlineOptionalButton.titleLabel?.font = WMFFont.for(optionalButtonTextStyle, compatibleWith: traitCollection)
         }
     }
     
@@ -510,29 +515,29 @@ class ScrollableEducationPanelViewController: UIViewController, Themeable {
         dismiss(animated: true, completion: nil)
     }
     
-    @IBAction fileprivate func primaryButtonTapped(_ sender: Any) {
+    @IBAction fileprivate func primaryButtonTapped(_ button: UIButton) {
         lastAction = .tappedPrimary
         guard let primaryButtonTapHandler = primaryButtonTapHandler else {
             return
         }
         primaryButtonTapped = true
-        primaryButtonTapHandler(sender)
+        primaryButtonTapHandler(button, self)
     }
 
-    @IBAction fileprivate func secondaryButtonTapped(_ sender: Any) {
+    @IBAction fileprivate func secondaryButtonTapped(_ button: UIButton) {
         lastAction = .tappedSecondary
         guard let secondaryButtonTapHandler = secondaryButtonTapHandler else {
             return
         }
-        secondaryButtonTapHandler(sender)
+        secondaryButtonTapHandler(button, self)
     }
 
-    @IBAction fileprivate func optionalButtonTapped(_ sender: Any) {
+    @IBAction fileprivate func optionalButtonTapped(_ button: UIButton) {
         lastAction = .tappedOptional
         guard let optionalButtonTapHandler = optionalButtonTapHandler else {
             return
         }
-        optionalButtonTapHandler(sender)
+        optionalButtonTapHandler(button, self)
     }
 
 
@@ -604,6 +609,8 @@ class ScrollableEducationPanelViewController: UIViewController, Themeable {
             inlineOptionalButton.backgroundColor = .clear
             inlineOptionalButton.setTitleColor(theme.colors.link, for: .normal)
         }
+        
+        self.inlinePrimaryButtonSpinner.color = theme.colors.paperBackground
     }
 }
 

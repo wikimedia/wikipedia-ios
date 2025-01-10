@@ -385,8 +385,11 @@ class ExploreCardViewController: UIViewController, UICollectionViewDataSource, U
             return
         }
         
-        // TODO: Temporary UI
-        cell.caption = "Testing!"
+        let languageCode = dataStore.languageLinkController.appLanguage?.languageCode
+        
+        cell.title = WMFLocalizedString("explore-suggested-edits-image-recs-title", languageCode: languageCode, value: "Add an image", comment: "Title text shown in the image recommendations explore feed card.")
+        cell.body = WMFLocalizedString("explore-suggested-edits-image-recs-body", languageCode: languageCode, value: "Add suggested images to Wikipedia articles to enhance understanding.", comment: "Body text shown in the image recommendations explore feed card.")
+        cell.apply(theme: theme)
     }
 
     func updateLocationCells() {
@@ -598,7 +601,8 @@ extension ExploreCardViewController: SideScrollingCollectionViewCellDelegate {
 extension ExploreCardViewController: AnnouncementCollectionViewCellDelegate {
     func dismissAnnouncementCell(_ cell: AnnouncementCollectionViewCell) {
         contentGroup?.markDismissed()
-        contentGroup?.updateVisibilityForUserIsLogged(in: dataStore.session.isAuthenticated)
+        let isLoggedIn = dataStore.authenticationManager.authStateIsPermanent
+        contentGroup?.updateVisibilityForUserIsLogged(in: isLoggedIn)
         do {
             try dataStore.save()
         } catch let error {

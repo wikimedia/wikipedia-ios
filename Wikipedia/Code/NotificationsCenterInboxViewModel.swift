@@ -1,14 +1,14 @@
 import Foundation
 import WMF
 import UIKit
-import Components
+import WMFComponents
 import Combine
 
 class NotificationsCenterInboxViewModel: ObservableObject {
     
     @Published var theme: Theme
     let remoteNotificationsController: RemoteNotificationsController
-    let formViewModel: WKFormViewModel
+    let formViewModel: WMFFormViewModel
     private var subscribers: Set<AnyCancellable> = []
  
     init?(remoteNotificationsController: RemoteNotificationsController, allInboxProjects: Set<WikimediaProject>, theme: Theme) {
@@ -42,20 +42,20 @@ class NotificationsCenterInboxViewModel: ObservableObject {
             return lhs.projectName(shouldReturnCodedFormat: false) < rhs.projectName(shouldReturnCodedFormat: false)
         }
         
-        let firstSectionItems: [WKFormItemSelectViewModel] = nonLanguageProjects.compactMap {
+        let firstSectionItems: [WMFFormItemSelectViewModel] = nonLanguageProjects.compactMap {
             
             guard let projectIconName = $0.projectIconName else {
                 return nil
             }
             
-            let item = WKFormItemSelectViewModel.init(image: UIImage(named: projectIconName), title: $0.projectName(shouldReturnCodedFormat: false), isSelected: !unselectedProjects.contains($0))
+            let item = WMFFormItemSelectViewModel.init(image: UIImage(named: projectIconName), title: $0.projectName(shouldReturnCodedFormat: false), isSelected: !unselectedProjects.contains($0))
             
             return item
         }
         
-        let secondSectionItems: [WKFormItemSelectViewModel] = alphabeticalAppLanguageProjects.compactMap {
+        let secondSectionItems: [WMFFormItemSelectViewModel] = alphabeticalAppLanguageProjects.compactMap {
             
-            let item = WKFormItemSelectViewModel.init(image: nil, title: $0.projectName(shouldReturnCodedFormat: false), isSelected: !unselectedProjects.contains($0))
+            let item = WMFFormItemSelectViewModel.init(image: nil, title: $0.projectName(shouldReturnCodedFormat: false), isSelected: !unselectedProjects.contains($0))
             
             return item
             
@@ -65,10 +65,10 @@ class NotificationsCenterInboxViewModel: ObservableObject {
         let wikimediaProjectsSectionTitle = CommonStrings.wikimediaProjectsHeader
         let wikimediaProjectsSectionFooter = CommonStrings.wikimediaProjectsFooter
         
-        let firstSection = WKFormSectionSelectViewModel(header: wikimediaProjectsSectionTitle.uppercased(with: NSLocale.current), footer: wikimediaProjectsSectionFooter, items: firstSectionItems, selectType: .multi)
-        let secondSection = WKFormSectionSelectViewModel(header: wikipediasSectionTitle.uppercased(with: NSLocale.current), items: secondSectionItems, selectType: .multi)
+        let firstSection = WMFFormSectionSelectViewModel(header: wikimediaProjectsSectionTitle.uppercased(with: NSLocale.current), footer: wikimediaProjectsSectionFooter, items: firstSectionItems, selectType: .multi)
+        let secondSection = WMFFormSectionSelectViewModel(header: wikipediasSectionTitle.uppercased(with: NSLocale.current), items: secondSectionItems, selectType: .multi)
 
-        self.formViewModel = WKFormViewModel(sections: [firstSection, secondSection])
+        self.formViewModel = WMFFormViewModel(sections: [firstSection, secondSection])
         
         for (project, sectionItem) in zip(nonLanguageProjects, firstSectionItems) {
 

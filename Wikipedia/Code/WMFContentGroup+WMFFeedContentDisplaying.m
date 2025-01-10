@@ -53,7 +53,13 @@ NS_ASSUME_NONNULL_BEGIN
     if (language) {
         result = [NSString localizedStringWithFormat:string, language];
     } else {
-        result = genericString;
+        if ([self.siteURL.wmf_languageCode isEqualToString:@"test"]) {
+            result = [NSString localizedStringWithFormat:string, @"Test"];
+        } else if ([self.siteURL.wmf_languageCode isEqualToString:@"test2"]) {
+            result = [NSString localizedStringWithFormat:string, @"Test 2"];
+        } else {
+            result = genericString;
+        }
     }
     return result;
 }
@@ -261,7 +267,7 @@ NS_ASSUME_NONNULL_BEGIN
         case WMFContentGroupKindReadingList:
             return WMFFeedDetailTypeNone;
         case WMFContentGroupKindSuggestedEdits:
-            return WMFFeedDetailTypeNone;
+            return WMFFeedDetailTypeSuggestedEdits;
         case WMFContentGroupKindAnnouncement:
             return WMFFeedDetailTypeNone;
         case WMFContentGroupKindUnknown:

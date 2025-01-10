@@ -1,4 +1,4 @@
-import UIKit
+import WMFComponents
 import MessageUI
 
 extension NSError {
@@ -43,28 +43,30 @@ open class WMFAlertManager: NSObject, RMessageProtocol, Themeable {
          if (message ?? "").isEmpty {
              return
          }
-         showAlert(dismissPreviousAlerts, alertBlock: { () -> Void in
+         showAlert(dismissPreviousAlerts, alertBlock: { () in
             RMessage.showNotification(in: nil, title: message, subtitle: nil, iconImage: nil, type: .normal, customTypeName: nil, duration: sticky ? -1 : 2, callback: tapCallBack, buttonTitle: nil, buttonCallback: nil, at: .top, canBeDismissedByUser: canBeDismissedByUser)
         })
     }
 
     @objc func showSuccessAlert(_ message: String, sticky:Bool,dismissPreviousAlerts:Bool, tapCallBack: (() -> Void)?) {
         
-        showAlert(dismissPreviousAlerts, alertBlock: { () -> Void in
+        showAlert(dismissPreviousAlerts, alertBlock: { () in
             RMessage.showNotification(in: nil, title: message, subtitle: nil, iconImage: nil, type: .success, customTypeName: nil, duration: sticky ? -1 : 2, callback: tapCallBack, buttonTitle: nil, buttonCallback: nil, at: .top, canBeDismissedByUser: true)
 
         })
     }
 
-    @objc func showWarningAlert(_ message: String, sticky:Bool,dismissPreviousAlerts:Bool, tapCallBack: (() -> Void)? = nil) {
+    @objc func showWarningAlert(_ message: String, duration: NSNumber? = nil, sticky:Bool,dismissPreviousAlerts:Bool, tapCallBack: (() -> Void)? = nil) {
         
-        showAlert(dismissPreviousAlerts, alertBlock: { () -> Void in
-            RMessage.showNotification(in: nil, title: message, subtitle: nil, iconImage: nil, type: .warning, customTypeName: nil, duration: sticky ? -1 : 2, callback: tapCallBack, buttonTitle: nil, buttonCallback: nil, at: .top, canBeDismissedByUser: true)
+        let finalDuration = duration?.intValue ?? 2
+        
+        showAlert(dismissPreviousAlerts, alertBlock: { () in
+            RMessage.showNotification(in: nil, title: message, subtitle: nil, iconImage: nil, type: .warning, customTypeName: nil, duration: sticky ? -1 : TimeInterval(finalDuration), callback: tapCallBack, buttonTitle: nil, buttonCallback: nil, at: .top, canBeDismissedByUser: true)
         })
     }
 
     func showErrorAlert(_ error: Error, sticky:Bool, dismissPreviousAlerts:Bool, viewController: UIViewController? = nil, tapCallBack: (() -> Void)? = nil) {
-        showAlert(dismissPreviousAlerts, alertBlock: { () -> Void in
+        showAlert(dismissPreviousAlerts, alertBlock: { () in
             RMessage.showNotification(in: viewController, title: (error as NSError).alertMessage(), subtitle: nil, iconImage: nil, type: .error, customTypeName: nil, duration: sticky ? -1 : 2, callback: tapCallBack, buttonTitle: nil, buttonCallback: nil, at: .top, canBeDismissedByUser: true)
         })
     }
@@ -75,19 +77,19 @@ open class WMFAlertManager: NSObject, RMessageProtocol, Themeable {
     
     @objc func showErrorAlertWithMessage(_ message: String, sticky:Bool,dismissPreviousAlerts:Bool, tapCallBack: (() -> Void)? = nil) {
         
-        showAlert(dismissPreviousAlerts, alertBlock: { () -> Void in
+        showAlert(dismissPreviousAlerts, alertBlock: { () in
             RMessage.showNotification(in: nil, title: message, subtitle: nil, iconImage: nil, type: .error, customTypeName: nil, duration: sticky ? -1 : 2, callback: tapCallBack, buttonTitle: nil, buttonCallback: nil, at: .top, canBeDismissedByUser: true)
         })
     }
 
     @objc func showErrorAlertWithMessage(_ message: String, subtitle: String?, buttonTitle: String?, image: UIImage?, dismissPreviousAlerts:Bool, tapCallBack: (() -> Void)? = nil) {
-        showAlert(dismissPreviousAlerts, alertBlock: { () -> Void in
+        showAlert(dismissPreviousAlerts, alertBlock: { () in
             RMessage.showNotification(in: nil, title: message, subtitle: subtitle, iconImage: image, type: .custom, customTypeName: "connection", duration: 15, callback: tapCallBack, buttonTitle: buttonTitle, buttonCallback: tapCallBack, at: .top, canBeDismissedByUser: true)
         })
     }
     
     func showBottomAlertWithMessage(_ message: String, subtitle: String?, image: UIImage?, type: RMessageType, customTypeName: String?, duration: TimeInterval? = nil, dismissPreviousAlerts:Bool, callback: (() -> Void)? = nil, buttonTitle: String? = nil, buttonCallBack: (() -> Void)? = nil) {
-        showAlert(dismissPreviousAlerts, alertBlock: { () -> Void in
+        showAlert(dismissPreviousAlerts, alertBlock: { () in
             RMessage.showNotification(withTitle: message, subtitle: subtitle, iconImage: image, type: type, customTypeName: customTypeName, duration: duration ?? 5, callback: callback, buttonTitle: buttonTitle, buttonCallback: buttonCallBack, at: .bottom, canBeDismissedByUser: true)
         })
     }
@@ -128,6 +130,7 @@ open class WMFAlertManager: NSObject, RMessageProtocol, Themeable {
         messageView.closeIconColor = theme.colors.primaryText
         messageView.subtitleTextColor = theme.colors.secondaryText
         messageView.buttonTitleColor = theme.colors.link
+        messageView.imageViewTintColor = theme.colors.link
         switch messageView.messageType {
         case .error:
             messageView.titleTextColor = theme.colors.error
@@ -140,15 +143,19 @@ open class WMFAlertManager: NSObject, RMessageProtocol, Themeable {
             messageView.subtitleTextColor = theme.colors.primaryText
             if messageView.customTypeName == "connection" {
                 messageView.imageViewTintColor = theme.colors.error
-                messageView.buttonFont = UIFont.systemFont(ofSize: 14, weight: .semibold)
+                messageView.buttonFont = WMFFont.for(.boldSubheadline)
             } else if messageView.customTypeName == "subscription-error" {
                 messageView.imageViewTintColor = theme.colors.warning
             } else if messageView.customTypeName == "watchlist-add-remove-success" {
-                messageView.buttonFont = UIFont.systemFont(ofSize: 14, weight: .semibold)
+                messageView.buttonFont = WMFFont.for(.boldSubheadline)
             } else if messageView.customTypeName == "donate-success" {
                 messageView.imageViewTintColor = theme.colors.error
             } else if messageView.customTypeName == "edit-preview-simplified-format" {
                 // no additional customization needed
+            } else if messageView.customTypeName == "edit-published" {
+                messageView.titleTextColor = theme.colors.primaryText
+            } else if messageView.customTypeName == "feedback-submitted" {
+                messageView.titleTextColor = theme.colors.primaryText
             }
         default:
             messageView.titleTextColor = theme.colors.link

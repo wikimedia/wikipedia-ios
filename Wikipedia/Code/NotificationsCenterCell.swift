@@ -1,4 +1,4 @@
-import UIKit
+import WMFComponents
 
 protocol NotificationsCenterCellDelegate: AnyObject {
     func userDidTapMarkAsReadUnreadActionForCell(_ cell: NotificationsCenterCell)
@@ -33,7 +33,7 @@ final class NotificationsCenterCell: UICollectionViewCell {
 
         insetLabel.translatesAutoresizingMaskIntoConstraints = false
         insetLabel.label.setContentCompressionResistancePriority(.required, for: .vertical)
-        insetLabel.label.font = UIFont.wmf_font(.caption1, compatibleWithTraitCollection: traitCollection)
+        insetLabel.label.font = WMFFont.for(.caption1, compatibleWith: traitCollection)
         insetLabel.label.adjustsFontForContentSizeCategory = true
         insetLabel.label.numberOfLines = 1
         insetLabel.label.text = "EN"
@@ -64,7 +64,7 @@ final class NotificationsCenterCell: UICollectionViewCell {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.setContentCompressionResistancePriority(.required, for: .vertical)
-        label.font = UIFont.wmf_font(.headline, compatibleWithTraitCollection: traitCollection)
+        label.font = WMFFont.for(.headline, compatibleWith: traitCollection)
         label.adjustsFontForContentSizeCategory = true
         label.textAlignment = effectiveUserInterfaceLayoutDirection == .rightToLeft ? .right : .left
         label.numberOfLines = 1
@@ -79,7 +79,7 @@ final class NotificationsCenterCell: UICollectionViewCell {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.setContentCompressionResistancePriority(.required, for: .vertical)
-        label.font = UIFont.wmf_font(.subheadline, compatibleWithTraitCollection: traitCollection)
+        label.font = WMFFont.for(.subheadline, compatibleWith: traitCollection)
         label.adjustsFontForContentSizeCategory = true
         label.numberOfLines = 1
         label.textAlignment = effectiveUserInterfaceLayoutDirection == .rightToLeft ? .right : .left
@@ -92,7 +92,7 @@ final class NotificationsCenterCell: UICollectionViewCell {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.setContentCompressionResistancePriority(.required, for: .vertical)
         label.setContentHuggingPriority(.defaultLow, for: .vertical)
-        label.font = UIFont.wmf_font(.body, compatibleWithTraitCollection: traitCollection)
+        label.font = WMFFont.for(.callout, compatibleWith: traitCollection)
         label.adjustsFontForContentSizeCategory = true
         label.textContainer.lineBreakMode = .byTruncatingTail
         label.textAlignment = effectiveUserInterfaceLayoutDirection == .rightToLeft ? .right : .left
@@ -112,7 +112,7 @@ final class NotificationsCenterCell: UICollectionViewCell {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.setContentCompressionResistancePriority(.required, for: .vertical)
-        label.font = UIFont.wmf_font(.boldFootnote, compatibleWithTraitCollection: traitCollection)
+        label.font = WMFFont.for(.boldFootnote, compatibleWith: traitCollection)
         label.adjustsFontForContentSizeCategory = true
         label.numberOfLines = 1
         label.textAlignment = effectiveUserInterfaceLayoutDirection == .rightToLeft ? .left : .right
@@ -122,7 +122,7 @@ final class NotificationsCenterCell: UICollectionViewCell {
 
     lazy var metaLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.wmf_font(.mediumFootnote, compatibleWithTraitCollection: traitCollection)
+        label.font = WMFFont.for(.mediumFootnote, compatibleWith: traitCollection)
         label.adjustsFontForContentSizeCategory = true
         label.setContentCompressionResistancePriority(.required, for: .vertical)
         return label
@@ -200,7 +200,7 @@ final class NotificationsCenterCell: UICollectionViewCell {
         stack.translatesAutoresizingMaskIntoConstraints = false
         let configuration = UIImage.SymbolConfiguration(weight: .semibold)
         stack.imageView.image = UIImage(systemName: "ellipsis.circle.fill", withConfiguration: configuration)
-        stack.backgroundColor = .gray500
+        stack.backgroundColor = WMFColor.gray500
         stack.increaseLabelTopPadding = true
         return stack
     }()
@@ -210,14 +210,14 @@ final class NotificationsCenterCell: UICollectionViewCell {
         stack.translatesAutoresizingMaskIntoConstraints = false
         let configuration = UIImage.SymbolConfiguration(weight: .semibold)
         stack.imageView.image = UIImage(systemName: "envelope", withConfiguration: configuration)
-        stack.backgroundColor = .green600
+        stack.backgroundColor = WMFColor.green600
         return stack
     }()
 
     var swipeBackgroundFillView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = .gray500
+        view.backgroundColor = WMFColor.gray500
         return view
     }()
 
@@ -257,7 +257,7 @@ final class NotificationsCenterCell: UICollectionViewCell {
     lazy var swipeMoreActionContainer: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = .gray500
+        view.backgroundColor = WMFColor.gray500
         view.isUserInteractionEnabled = true
         return view
     }()
@@ -265,7 +265,7 @@ final class NotificationsCenterCell: UICollectionViewCell {
     lazy var swipeMarkAsReadUnreadActionContainer: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = .green100
+        view.backgroundColor = WMFColor.green100
         view.isUserInteractionEnabled = true
         return view
     }()

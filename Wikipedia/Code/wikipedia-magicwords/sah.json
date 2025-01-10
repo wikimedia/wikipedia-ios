@@ -1,0 +1,166 @@
+[
+  {
+    "aliases" : [
+      "альт=$1",
+      "alt=$1"
+    ],
+    "name" : "img_alt"
+  },
+  {
+    "aliases" : [
+      "олох-дьураа",
+      "baseline",
+      "основание"
+    ],
+    "name" : "img_baseline"
+  },
+  {
+    "aliases" : [
+      "кирбии",
+      "border",
+      "граница"
+    ],
+    "name" : "img_border"
+  },
+  {
+    "aliases" : [
+      "аллараа",
+      "bottom",
+      "снизу"
+    ],
+    "name" : "img_bottom"
+  },
+  {
+    "aliases" : [
+      "орто",
+      "center",
+      "centre",
+      "центр"
+    ],
+    "name" : "img_center"
+  },
+  {
+    "aliases" : [
+      "раамка",
+      "frame",
+      "framed",
+      "enframed",
+      "обрамить"
+    ],
+    "name" : "img_framed"
+  },
+  {
+    "aliases" : [
+      "раамката_суох",
+      "frameless",
+      "безрамки"
+    ],
+    "name" : "img_frameless"
+  },
+  {
+    "aliases" : [
+      "хаҥас",
+      "left",
+      "слева"
+    ],
+    "name" : "img_left"
+  },
+  {
+    "aliases" : [
+      "ортотунан",
+      "middle",
+      "посередине"
+    ],
+    "name" : "img_middle"
+  },
+  {
+    "aliases" : [
+      "суох",
+      "none",
+      "без"
+    ],
+    "name" : "img_none"
+  },
+  {
+    "aliases" : [
+      "уҥа",
+      "right",
+      "справа"
+    ],
+    "name" : "img_right"
+  },
+  {
+    "aliases" : [
+      "алын",
+      "sub",
+      "под"
+    ],
+    "name" : "img_sub"
+  },
+  {
+    "aliases" : [
+      "үрүт",
+      "super",
+      "sup",
+      "над"
+    ],
+    "name" : "img_super"
+  },
+  {
+    "aliases" : [
+      "тиэкис-аллара",
+      "text-bottom",
+      "текст-снизу"
+    ],
+    "name" : "img_text_bottom"
+  },
+  {
+    "aliases" : [
+      "тиэкис-үрдүгэр",
+      "text-top",
+      "текст-сверху"
+    ],
+    "name" : "img_text_top"
+  },
+  {
+    "aliases" : [
+      "мини",
+      "ойуучаан",
+      "thumb",
+      "thumbnail",
+      "миниатюра"
+    ],
+    "name" : "img_thumbnail"
+  },
+  {
+    "aliases" : [
+      "үрдүнэн",
+      "top",
+      "сверху"
+    ],
+    "name" : "img_top"
+  },
+  {
+    "aliases" : [
+      "үөһээуҥа",
+      "үөһээуҥа=$1",
+      "үөһээуҥа $1",
+      "upright",
+      "upright=$1",
+      "upright $1",
+      "сверхусправа",
+      "сверхусправа=$1",
+      "сверхусправа $1"
+    ],
+    "name" : "img_upright"
+  },
+  {
+    "aliases" : [
+      "Билэ",
+      "Image",
+      "Изображение",
+      "Ойуу"
+    ],
+    "name" : "file_namespace"
+  }
+]

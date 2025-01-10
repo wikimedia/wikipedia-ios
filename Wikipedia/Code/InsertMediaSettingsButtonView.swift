@@ -1,4 +1,4 @@
-import UIKit
+import WMFComponents
 
 final class InsertMediaSettingsButtonView: UIView {
     @IBOutlet private weak var separatorView: UIView!
@@ -19,7 +19,7 @@ final class InsertMediaSettingsButtonView: UIView {
     }
 
     private func updateFonts() {
-        button.titleLabel?.font = UIFont.wmf_font(.footnote, compatibleWithTraitCollection: traitCollection)
+        button.titleLabel?.font = WMFFont.for(.callout, compatibleWith: traitCollection)
     }
 
     @IBAction private func delegateButtonAction(_ sender: UIButton) {
@@ -30,8 +30,7 @@ final class InsertMediaSettingsButtonView: UIView {
 extension InsertMediaSettingsButtonView: Themeable {
     func apply(theme: Theme) {
         backgroundColor = theme.colors.paperBackground
-        button.setTitleColor(theme.colors.secondaryText, for: .normal)
-        button.tintColor = theme.colors.secondaryText
-        separatorView.backgroundColor = theme.colors.border
+        button.setTitleColor(theme.colors.link, for: .normal)
+        separatorView.backgroundColor = .clear
     }
 }

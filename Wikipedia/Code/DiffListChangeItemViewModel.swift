@@ -1,4 +1,4 @@
-import Foundation
+import WMFComponents
 
 final class DiffListChangeItemViewModel {
     let text: String
@@ -303,10 +303,10 @@ final class DiffListChangeItemViewModel {
         var modifiedText = text
         var modifiedHighlightedRanges = highlightedRanges
         
-        let regularFontStyle = DynamicTextStyle.subheadline
-        let boldFontStyle = DynamicTextStyle.boldSubheadline
+        let regularFontStyle = WMFFont.subheadline
+        let boldFontStyle = WMFFont.boldSubheadline
 
-        let font = diffItemType == .moveSource || diffItemType == .moveDestination ? UIFont.wmf_font(boldFontStyle, compatibleWithTraitCollection: traitCollection) : UIFont.wmf_font(regularFontStyle, compatibleWithTraitCollection: traitCollection)
+        let font = diffItemType == .moveSource || diffItemType == .moveDestination ? WMFFont.for(boldFontStyle, compatibleWith: traitCollection) : WMFFont.for(regularFontStyle, compatibleWith: traitCollection)
 
         var moveItemAttributedString: NSAttributedString?
         var lengthOfPrefix: Int?
@@ -379,7 +379,7 @@ final class DiffListChangeItemViewModel {
                 finalAttributedStringToHighlight.addAttributes(deletedAttributes, range: nsRange)
             }
 
-            let font = UIFont.wmf_font(boldFontStyle, compatibleWithTraitCollection: traitCollection)
+            let font = WMFFont.for(boldFontStyle, compatibleWith: traitCollection)
             finalAttributedStringToHighlight.addAttribute(NSAttributedString.Key.font, value: font, range: nsRange)
             
             if let highlightColor = highlightColor {

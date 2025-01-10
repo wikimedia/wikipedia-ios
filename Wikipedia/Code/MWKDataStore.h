@@ -1,5 +1,5 @@
-@import Foundation;
-@import WebKit;
+#import <Foundation/Foundation.h>
+#import <WebKit/WebKit.h>
 #import <WMF/WMFBlockDefinitions.h>
 
 @class MWKSavedPageList;
@@ -62,6 +62,7 @@ typedef NS_OPTIONS(NSUInteger, RemoteConfigOption) {
 @property (readonly, strong, nonatomic) WMFConfiguration *configuration;
 @property (readonly, strong, nonatomic) WMFPermanentCacheController *cacheController;
 
+- (BOOL)needsMigration;
 - (void)performLibraryUpdates:(dispatch_block_t)completion;
 - (void)performInitialLibrarySetup;
 #if TEST
@@ -101,12 +102,12 @@ typedef NS_OPTIONS(NSUInteger, RemoteConfigOption) {
 - (nullable WMFArticle *)fetchOrCreateArticleWithURL:(NSURL *)URL inManagedObjectContext:(NSManagedObjectContext *)moc;
 - (nullable WMFArticle *)fetchArticleWithKey:(NSString *)key variant:(nullable NSString *)variant inManagedObjectContext:(NSManagedObjectContext *)moc;
 
-- (nullable WMFArticle *)fetchArticleWithURL:(NSURL *)URL;         //uses the view context
-- (nullable WMFArticle *)fetchOrCreateArticleWithURL:(NSURL *)URL; //uses the view context
-- (nullable WMFArticle *)fetchArticleWithKey:(NSString *)key variant:(nullable NSString *)variant; //uses the view context
-- (nullable WMFArticle *)fetchArticleWithKey:(NSString *)key; // Temporary shim for areas like reading lists that are not yet variant-aware
+- (nullable WMFArticle *)fetchArticleWithURL:(NSURL *)URL;                                         // uses the view context
+- (nullable WMFArticle *)fetchOrCreateArticleWithURL:(NSURL *)URL;                                 // uses the view context
+- (nullable WMFArticle *)fetchArticleWithKey:(NSString *)key variant:(nullable NSString *)variant; // uses the view context
+- (nullable WMFArticle *)fetchArticleWithKey:(NSString *)key;                                      // Temporary shim for areas like reading lists that are not yet variant-aware
 
-- (nullable WMFArticle *)fetchArticleWithWikidataID:(NSString *)wikidataID; //uses the view context
+- (nullable WMFArticle *)fetchArticleWithWikidataID:(NSString *)wikidataID; // uses the view context
 
 - (BOOL)save:(NSError **)error;
 
@@ -137,7 +138,7 @@ typedef NS_OPTIONS(NSUInteger, RemoteConfigOption) {
 
 @property (readonly, strong, nonatomic) WMFABTestsController *abTestsController;
 
-- (void)setupAbTestsControllerWithPersistenceService: (id<ABTestsPersisting>)persistenceService;
+- (void)setupAbTestsControllerWithPersistenceService:(id<ABTestsPersisting>)persistenceService;
 
 @end
 

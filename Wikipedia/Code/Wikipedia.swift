@@ -10,7 +10,7 @@ struct Wikipedia: Codable {
 struct WikipediaLanguageVariant: Codable {
     let languageCode: String
     let languageVariantCode: String
+    let legacyLanguageVariantCode: String
     let languageName: String
     let localName: String
-    let altISOCode: String?
 }

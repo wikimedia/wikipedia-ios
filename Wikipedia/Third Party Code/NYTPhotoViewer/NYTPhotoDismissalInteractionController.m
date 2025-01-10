@@ -88,10 +88,6 @@ static const CGFloat NYTPhotoDismissalInteractionControllerReturnToCenterVelocit
             }
             else {
                 [self.transitionContext cancelInteractiveTransition];
-                
-                if (![[self class] isRadar20070670Fixed]) {
-                    [self fixCancellationStatusBarAppearanceBug];
-                }
             }
             
             self.viewToHideWhenBeginningTransition.alpha = 1.0;
@@ -115,44 +111,6 @@ static const CGFloat NYTPhotoDismissalInteractionControllerReturnToCenterVelocit
     CGFloat deltaAsPercentageOfMaximum = MIN(ABS(verticalDelta) / maximumDelta, 1.0);
     
     return startingAlpha - (deltaAsPercentageOfMaximum * totalAvailableAlpha);
-}
-
-#pragma mark - Bug Fix
-
-- (void)fixCancellationStatusBarAppearanceBug {
-    UIViewController *toViewController = [self.transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
-    UIViewController *fromViewController = [self.transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
-    
-    NSString *statusBarViewControllerSelectorPart1 = @"_setPresentedSta";
-    NSString *statusBarViewControllerSelectorPart2 = @"tusBarViewController:";
-    SEL setStatusBarViewControllerSelector = NSSelectorFromString([statusBarViewControllerSelectorPart1 stringByAppendingString:statusBarViewControllerSelectorPart2]);
-    
-    if ([toViewController respondsToSelector:setStatusBarViewControllerSelector] && fromViewController.modalPresentationCapturesStatusBarAppearance) {
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
-        [toViewController performSelector:setStatusBarViewControllerSelector withObject:fromViewController];
-#pragma clang diagnostic pop
-    }
-}
-
-+ (BOOL)isRadar20070670Fixed {
-    // per @bcapps, this was fixed in iOS 8.3 but not marked as such on bugreport.apple.com
-    // https://github.com/NYTimes/NYTPhotoViewer/issues/131#issue-126923817
-
-    static BOOL isRadar20070670Fixed;
-
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        NSOperatingSystemVersion const iOSVersion8Point3 = (NSOperatingSystemVersion) {
-            .majorVersion = 8,
-            .minorVersion = 3,
-            .patchVersion = 0
-        };
-
-        isRadar20070670Fixed = [[NSProcessInfo processInfo] isOperatingSystemAtLeastVersion:iOSVersion8Point3];
-    });
-
-    return isRadar20070670Fixed;
 }
 
 #pragma mark - UIViewControllerInteractiveTransitioning

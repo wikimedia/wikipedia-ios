@@ -1,4 +1,4 @@
-import UIKit
+import WMFComponents
 import WMF
 import CocoaLumberjackSwift
 
@@ -188,6 +188,7 @@ class PlacesViewController: ViewController, UISearchBarDelegate, ArticlePopoverV
         didYouMeanButton.isHidden = true
         didYouMeanButton.titleLabel?.adjustsFontSizeToFitWidth = true
         didYouMeanButton.titleLabel?.textAlignment = .center
+        didYouMeanButton.titleLabel?.font = WMFFont.for(.callout)
 
         // Setup recenter button
         recenterOnUserLocationButton.accessibilityLabel = WMFLocalizedString("places-accessibility-recenter-map-on-user-location", value:"Recenter on your location", comment:"Accessibility label for the recenter map on the user's location button")
@@ -660,7 +661,7 @@ class PlacesViewController: ViewController, UISearchBarDelegate, ArticlePopoverV
     
     func showDidYouMeanButton(search: PlaceSearch) {
         guard let description = search.localizedDescription else {
-            DDLogError("Could not show Did You Mean button = no description for search:\n\(search)")
+            DDLogWarn("Could not show Did You Mean button = no description for search:\n\(search)")
             return
         }
         
@@ -670,8 +671,8 @@ class PlacesViewController: ViewController, UISearchBarDelegate, ArticlePopoverV
         
         let title = String.localizedStringWithFormat(WMFLocalizedString("places-search-did-you-mean", value:"Did you mean %1$@?", comment:"Title displayed on a button shown when the current search has no results. %1$@ is replaced by the short description of the location of the most likely correction."), description)
         
-        let buttonFont = redoSearchButton.titleLabel?.font
-        let italicsFont = UIFont.italicSystemFont(ofSize: buttonFont?.pointSize ?? 15.0)
+        redoSearchButton.titleLabel?.font = WMFFont.for(.callout)
+        let italicsFont = WMFFont.for(.italicCallout)
         let nsTitle = title as NSString
         let attributedTitle = NSMutableAttributedString(string: title)
         let descriptionRange = nsTitle.range(of: description)
@@ -699,7 +700,7 @@ class PlacesViewController: ViewController, UISearchBarDelegate, ArticlePopoverV
         }
         
         wikidataFetcher.wikidataBoundingRegion(forArticleURL: articleURL, failure: { (error) in
-            DDLogError("Error fetching bounding region from Wikidata: \(error)")
+            DDLogWarn("Error fetching bounding region from Wikidata: \(error)")
             fail()
         }, success: { (region) in
             DispatchQueue.main.async {
@@ -820,7 +821,7 @@ class PlacesViewController: ViewController, UISearchBarDelegate, ArticlePopoverV
         }
         
         guard let search = self.didYouMeanSearch else {
-            DDLogError("Did You Mean search is unset")
+            DDLogWarn("Did You Mean search is unset")
             return
         }
         SearchFunnel.shared.logSearchDidYouMean(source: "places")
@@ -1203,7 +1204,7 @@ class PlacesViewController: ViewController, UISearchBarDelegate, ArticlePopoverV
     func promptForLocationAccess() {
         var skipSearchInDismissEnableLocationPanelHandler = false
         
-        let enableLocationButtonTapHandler: ScrollableEducationPanelButtonTapHandler = { _ in
+        let enableLocationButtonTapHandler: ScrollableEducationPanelButtonTapHandler = { _, _ in
             skipSearchInDismissEnableLocationPanelHandler = true // Needed because the call to 'sender.dismiss' below triggers the 'dismissHandler', but we only want to perform the default search if the primary button was not tapped.
             self.presentedViewController?.dismiss(animated: true, completion: {
                 guard self.locationManager.authorizationStatus == .notDetermined else {

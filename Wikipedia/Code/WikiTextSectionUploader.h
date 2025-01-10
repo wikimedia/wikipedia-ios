@@ -28,7 +28,7 @@ extern NSString *const NSErrorUserInfoDisplayError;
              baseRevID:(nullable NSNumber *)baseRevID
              captchaId:(nullable NSString *)captchaId
            captchaWord:(nullable NSString *)captchaWord
-        editSummaryTag:(nullable NSString *)editSummaryTag
+              editTags:(nullable NSArray<NSString *> *)editTags
             completion:(void (^)(NSDictionary * _Nullable result, NSError * _Nullable error))completion;
 
 - (void)addSectionWithSummary:(NSString *)summary
@@ -44,9 +44,10 @@ extern NSString *const NSErrorUserInfoDisplayError;
 - (void)prependToSectionID:(NSString *)sectionID
                          text:(NSString *)text
                 forArticleURL:(NSURL *)articleURL
-             isMinorEdit:(BOOL)isMinorEdit
+                      summary:(nullable NSString *)summary
+            isMinorEdit:(BOOL)isMinorEdit
                baseRevID:(nullable NSNumber *)baseRevID
-            editSummaryTag:(nullable NSString *)editSummaryTag
+             editTags:(nullable NSArray<NSString *> *)editTags
               completion:(void (^)(NSDictionary * _Nullable result, NSError * _Nullable error))completion;
 @end
 

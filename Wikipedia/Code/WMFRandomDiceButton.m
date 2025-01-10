@@ -36,7 +36,7 @@
 
     self.label = [[UILabel alloc] initWithFrame:CGRectZero];
     self.label.textColor = [UIColor whiteColor];
-    self.label.font = [UIFont systemFontOfSize:16];
+    self.label.font = [WMFFontWrapper fontFor:WMFFontsCallout compatibleWithTraitCollection:self.traitCollection];
     self.label.adjustsFontSizeToFitWidth = YES;
     self.label.minimumScaleFactor = 0.1;
     self.label.textAlignment = NSTextAlignmentCenter;
@@ -52,7 +52,7 @@
     NSString *diceJS = [NSString stringWithContentsOfURL:diceJSURL encoding:NSUTF8StringEncoding error:nil];
     [self.webView evaluateJavaScript:diceJS
                    completionHandler:^(id _Nullable obj, NSError *_Nullable error) {
-                       DDLogError(@"%@", error);
+                       DDLogWarn(@"%@", error);
                    }];
 }
 

@@ -1,4 +1,4 @@
-import Foundation
+import WMFComponents
 
 enum DiffListChangeType {
     case singleRevison
@@ -195,7 +195,7 @@ final class DiffListChangeViewModel: DiffListGroupViewModel {
             return nil
         }
         
-        let font = UIFont.wmf_font(DynamicTextStyle.semiboldFootnote, compatibleWithTraitCollection: traitCollection)
+        let font = WMFFont.for(.mediumFootnote, compatibleWith: traitCollection)
         let attributes: [NSAttributedString.Key: Any] = [
             NSAttributedString.Key.font: font,
             NSAttributedString.Key.foregroundColor: headingColor

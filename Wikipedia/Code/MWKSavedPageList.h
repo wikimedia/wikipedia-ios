@@ -1,4 +1,4 @@
-@import Foundation;
+#import <Foundation/Foundation.h>
 @class WMFArticle, MWKDataStore;
 
 NS_ASSUME_NONNULL_BEGIN
@@ -59,6 +59,10 @@ NS_ASSUME_NONNULL_BEGIN
  *  @param url The url of the page to remove
  */
 - (void)removeEntryWithURL:(NSURL *)url;
+
+- (NSInteger)savedArticleCountFor:(NSDate *)startDate endDate:(NSDate *)endDate;
+
+- (NSArray<NSString *> *)randomSavedArticleTitlesFor:(NSDate *)startDate endDate:(NSDate *)endDate;
 
 @end
 

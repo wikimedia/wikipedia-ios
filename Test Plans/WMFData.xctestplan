@@ -1,0 +1,26 @@
+{
+  "configurations" : [
+    {
+      "id" : "BAD75B0C-AB52-4988-86B4-ECD18DA1424E",
+      "name" : "Configuration 1",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "language" : "en",
+    "region" : "US",
+    "testTimeoutsEnabled" : true
+  },
+  "testTargets" : [
+    {
+      "target" : {
+        "containerPath" : "container:",
+        "identifier" : "WMFDataTests",
+        "name" : "WMFDataTests"
+      }
+    }
+  ],
+  "version" : 1
+}

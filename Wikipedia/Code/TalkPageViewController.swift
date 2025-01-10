@@ -1,7 +1,6 @@
-import UIKit
 import WMF
 import CocoaLumberjackSwift
-import Components
+import WMFComponents
 
 public enum InputAccessoryViewType {
     case format
@@ -139,13 +138,13 @@ class TalkPageViewController: ViewController {
             self?.pushToRevisionHistory()
         })
         
-        let editSourceAction = UIAction(title: TalkPageLocalizedStrings.editSource, image: WKIcon.pencil, handler: { [weak self] _ in
+        let editSourceAction = UIAction(title: TalkPageLocalizedStrings.editSource, image: WMFIcon.pencil, handler: { [weak self] _ in
             
             guard let self else {
                 return
             }
             
-            self.pushToPageEditor()
+            self.pushToEditor()
             
             if let project = WikimediaProject(siteURL: self.viewModel.siteURL) {
                 EditInteractionFunnel.shared.logTalkDidTapEditSourceButton(project: project)
@@ -157,7 +156,7 @@ class TalkPageViewController: ViewController {
         })
         
         let submenu = UIMenu(title: String(), options: .displayInline, children: overflowSubmenuActions)
-        let children: [UIMenuElement] = FeatureFlags.needsNativeSourceEditor ? [openAllAction, revisionHistoryAction, editSourceAction, openInWebAction, submenu] : [openAllAction, revisionHistoryAction, openInWebAction, submenu]
+        let children: [UIMenuElement] = [openAllAction, revisionHistoryAction, editSourceAction, openInWebAction, submenu]
         let mainMenu = UIMenu(title: String(), children: children)
 
         return mainMenu
@@ -168,6 +167,7 @@ class TalkPageViewController: ViewController {
     init(theme: Theme, viewModel: TalkPageViewModel) {
         self.viewModel = viewModel
         super.init(theme: theme)
+        hidesBottomBarWhenPushed = true
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -227,7 +227,6 @@ class TalkPageViewController: ViewController {
         // Needed for reply compose views to display on top of navigation bar.
         navigationController?.setNavigationBarHidden(true, animated: false)
         navigationMode = .forceBar
-
         fetchTalkPage()
         setupToolbar()
     }
@@ -472,17 +471,17 @@ class TalkPageViewController: ViewController {
         navigationController?.pushViewController(historyVC, animated: true)
     }
     
-    fileprivate func pushToPageEditor() {
+    fileprivate func pushToEditor() {
         guard let pageURL = viewModel.siteURL.wmf_URL(withTitle: viewModel.pageTitle) else {
             return
         }
         
         let dataStore = MWKDataStore.shared()
 
-        let pageEditorViewController = PageEditorViewController(pageURL: pageURL, sectionID: nil, editFlow: .editorSavePreview, source: .talk, dataStore: dataStore, articleSelectedInfo: nil, editSummaryTag: .talkFullSourceEditor, delegate: self, theme: theme)
+        let editorViewController = EditorViewController(pageURL: pageURL, sectionID: nil, editFlow: .editorSavePreview, source: .talk, dataStore: dataStore, articleSelectedInfo: nil, editTag: .appTalkSource, delegate: self, theme: theme)
         
-        let navigationController = WMFThemeableNavigationController(rootViewController: pageEditorViewController, theme: theme)
-        navigationController.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
+        let navigationController = WMFThemeableNavigationController(rootViewController: editorViewController, theme: theme)
+        navigationController.modalPresentationStyle = UIModalPresentationStyle.overFullScreen
         present(navigationController, animated: true)
         
         guard let url = viewModel.siteURL.wmf_URL(withTitle: viewModel.pageTitle) else {
@@ -684,7 +683,8 @@ class TalkPageViewController: ViewController {
         var targetCommentViewModel: TalkPageCellCommentViewModel?
         
         for (index, cellViewModel) in viewModel.topics.enumerated() {
-            if cellViewModel.topicTitleHtml.removingHTML == topicTitle {
+            let stringFromTitle = cellViewModel.topicTitleHtml.removingHTML
+            if stringFromTitle == topicTitle {
                 targetIndexPath = IndexPath(item: index, section: 0)
                 targetCellViewModel = cellViewModel
                 break
@@ -697,7 +697,6 @@ class TalkPageViewController: ViewController {
         }
         
         if let replyText = deepLinkData.replyText {
-            
             for commentViewModel in targetCellViewModel.allCommentViewModels {
                 if commentViewModel.html.removingHTML.contains(replyText.removingHTML) {
                     targetCommentViewModel = commentViewModel
@@ -1231,16 +1230,16 @@ extension TalkPageViewController: TalkPageTopicReplyOnboardingDelegate {
     }
 }
 
-// MARK: - PageEditorViewControllerDelegate
+// MARK: - EditorViewControllerDelegate
 
-extension TalkPageViewController: PageEditorViewControllerDelegate {
-    func pageEditorDidCancelEditing(_ pageEditor: PageEditorViewController, navigateToURL url: URL?) {
+extension TalkPageViewController: EditorViewControllerDelegate {
+    func editorDidCancelEditing(_ editor: EditorViewController, navigateToURL url: URL?) {
         dismiss(animated: true) {
             self.navigate(to: url)
         }
     }
     
-    func pageEditorDidFinishEditing(_ pageEditor: PageEditorViewController, result: Result<SectionEditorChanges, Error>) {
+    func editorDidFinishEditing(_ editor: EditorViewController, result: Result<EditorChanges, Error>) {
         switch result {
         case .failure(let error):
             showError(error)
@@ -1259,7 +1258,7 @@ extension TalkPageViewController: PageEditorViewControllerDelegate {
                         UIAccessibility.post(notification: UIAccessibility.Notification.announcement, argument: title)
                     }
                 } else {
-                    WMFAlertManager.sharedInstance.showBottomAlertWithMessage(title, subtitle: nil, image: image, type: .normal, customTypeName: nil, dismissPreviousAlerts: true)
+                    WMFAlertManager.sharedInstance.showBottomAlertWithMessage(title, subtitle: nil, image: image, type: .custom, customTypeName: "edit-published", dismissPreviousAlerts: true)
                 }
                 
                 // Refresh page

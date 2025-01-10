@@ -1,6 +1,12 @@
-import UIKit
 import WMF
+import SwiftUI
 import CocoaLumberjackSwift
+import WMFComponents
+import WMFData
+
+protocol AltTextDelegate: AnyObject {
+    func didTapNext(altText: String, uiImage: UIImage?, articleViewController: ArticleViewController, viewModel: WMFAltTextExperimentViewModel)
+}
 
 @objc(WMFArticleViewController)
 class ArticleViewController: ViewController, HintPresenting {
@@ -26,7 +32,7 @@ class ArticleViewController: ViewController, HintPresenting {
     /// Use separate properties for URL and language code since they're optional on WMFArticle and to save having to re-calculate them
     @objc public var articleURL: URL
     let articleLanguageCode: String
-    
+
     /// Set by the state restoration system
     /// Scroll to the last viewed scroll position in this case
     /// Also prioritize pulling data from cache (without revision/etag validation) so the user sees the article as quickly as possible
@@ -42,13 +48,61 @@ class ArticleViewController: ViewController, HintPresenting {
     internal let dataStore: MWKDataStore
     
     private let cacheController: ArticleCacheController
-    
+
+    internal var willDisplayFundraisingBanner: Bool = false
+
+    // Coordinator
+    private var _profileCoordinator: ProfileCoordinator?
+    private var profileCoordinator: ProfileCoordinator? {
+        
+        guard let navigationController,
+        let yirCoordinator = self.yirCoordinator else {
+            return nil
+        }
+        
+        guard let existingProfileCoordinator = _profileCoordinator else {
+            _profileCoordinator = ProfileCoordinator(navigationController: navigationController, theme: theme, dataStore: dataStore, donateSouce: .articleProfile(articleURL), logoutDelegate: self, sourcePage: ProfileCoordinatorSource.article, yirCoordinator: yirCoordinator)
+            return _profileCoordinator
+        }
+        
+        return existingProfileCoordinator
+    }
+
+    private var yirDataController: WMFYearInReviewDataController? {
+        return try? WMFYearInReviewDataController()
+    }
+
+    private var _yirCoordinator: YearInReviewCoordinator?
+    var yirCoordinator: YearInReviewCoordinator? {
+        
+        guard let navigationController,
+              let yirDataController else {
+            return nil
+        }
+
+        guard let existingYirCoordinator = _yirCoordinator else {
+            _yirCoordinator = YearInReviewCoordinator(navigationController: navigationController, theme: theme, dataStore: dataStore, dataController: yirDataController)
+            _yirCoordinator?.badgeDelegate = self
+            return _yirCoordinator
+        }
+        
+        return existingYirCoordinator
+    }
+
     var session: Session {
         return dataStore.session
     }
     
     var configuration: Configuration {
         return dataStore.configuration
+    }
+    
+    var project: WikimediaProject? {
+        guard let siteURL = articleURL.wmf_site,
+              let project = WikimediaProject(siteURL: siteURL) else {
+            return nil
+        }
+        return project
     }
     
     internal var authManager: WMFAuthenticationManager {
@@ -90,33 +144,68 @@ class ArticleViewController: ViewController, HintPresenting {
         SurveyAnnouncementsController.shared.activeSurveyAnnouncementResultForArticleURL(articleURL)
     }
     // END: Article As Living Doc properties
+
+    // MARK: Alt-text experiment Properties
+
+    private(set) var altTextBottomSheetViewModel: WMFAltTextExperimentModalSheetViewModel?
+    private(set) var altTextExperimentViewModel: WMFAltTextExperimentViewModel?
+    private(set) weak var altTextDelegate: AltTextDelegate?
+    private var needsAltTextExperimentSheet: Bool = false
+    private var isReturningFromFAQ = false
+    var altTextExperimentAcceptDate: Date?
+    var wasPresentingGalleryWhileInAltTextMode = false
+    var didTapPreview: Bool = false /// Set when coming back from alt text preview
+    var didTapAltTextFileName = false
+    var didTapAltTextGalleryInfoButton = false
+    var altTextArticleEditorOnboardingPresenter: AltTextArticleEditorOnboardingPresenter?
+    var altTextGuidancePresenter: AltTextGuidancePresenter?
+    private weak var altTextBottomSheetViewController: WMFAltTextExperimentModalSheetViewController?
+    
+    // Coordinator used to navigate a user to the donate form from campaign modal
+    var donateCoordinator: DonateCoordinator?
+
+    convenience init?(articleURL: URL, dataStore: MWKDataStore, theme: Theme, schemeHandler: SchemeHandler? = nil, altTextExperimentViewModel: WMFAltTextExperimentViewModel, needsAltTextExperimentSheet: Bool, altTextBottomSheetViewModel: WMFAltTextExperimentModalSheetViewModel?, altTextDelegate: AltTextDelegate?) {
+        self.init(articleURL: articleURL, dataStore: dataStore, theme: theme)
+        self.altTextExperimentViewModel = altTextExperimentViewModel
+        self.altTextBottomSheetViewModel = altTextBottomSheetViewModel
+        self.needsAltTextExperimentSheet = needsAltTextExperimentSheet
+        self.altTextDelegate = altTextDelegate
+    }
     
     @objc init?(articleURL: URL, dataStore: MWKDataStore, theme: Theme, schemeHandler: SchemeHandler? = nil) {
+
         guard let article = dataStore.fetchOrCreateArticle(with: articleURL) else {
                 return nil
         }
         let cacheController = dataStore.cacheController.articleCache
 
         self.articleURL = articleURL
-        self.articleLanguageCode = articleURL.wmf_languageCode ?? Locale.current.languageCode ?? "en"
+        self.articleLanguageCode = articleURL.wmf_languageCode ?? Locale.current.language.languageCode?.identifier ?? "en"
         self.article = article
         
         self.dataStore = dataStore
         self.schemeHandler = schemeHandler ?? SchemeHandler(scheme: "app", session: dataStore.session)
         self.cacheController = cacheController
-        
+
         super.init(theme: theme)
+        
+        self.schemeHandler.imageDidSuccessfullyLoad = { [weak self] in
+            self?.imageDidSuccessfullyLoad()
+        }
         
         self.surveyTimerController = ArticleSurveyTimerController(delegate: self)
 
         // `viewDidLoad` isn't called when re-creating the navigation stack on an iPad, and hence a cold launch on iPad doesn't properly show article names when long-pressing the back button if this code is in `viewDidLoad`
         navigationItem.configureForEmptyNavBarTitle(backTitle: articleURL.wmf_title)
+        
+        hidesBottomBarWhenPushed = true
     }
     
     deinit {
         contentSizeObservation?.invalidate()
         messagingController.removeScriptMessageHandler()
         articleLoadWaitGroup = nil
+        altTextBottomSheetViewModel = nil
         NotificationCenter.default.removeObserver(self)
     }
     
@@ -157,6 +246,24 @@ class ArticleViewController: ViewController, HintPresenting {
         return findInPage.view
     }
     
+    override func buildMenu(with builder: any UIMenuBuilder) {
+        
+        let shareMenuItemTitle = CommonStrings.shareMenuTitle
+        let shareAction = UIAction(title: shareMenuItemTitle) { [weak self] _ in
+            self?.shareMenuItemTapped()
+        }
+        let editMenuItemTitle = CommonStrings.editContextMenuTitle
+        let editAction = UIAction(title: editMenuItemTitle) { [weak self]  _ in
+            self?.editMenuItemTapped()
+        }
+        
+        builder.remove(menu: .share)
+        let menu = UIMenu(title: String(), image: nil, identifier: nil, options: .displayInline, children: [shareAction, editAction])
+        builder.insertSibling(menu, afterMenu: .standardEdit)
+        
+        super.buildMenu(with: builder)
+    }
+    
     // MARK: Lead Image
     
     @objc func userDidTapLeadImage() {
@@ -166,7 +273,7 @@ class ArticleViewController: ViewController, HintPresenting {
     func loadLeadImage(with leadImageURL: URL) {
         leadImageHeightConstraint.constant = leadImageHeight
         leadImageView.wmf_setImage(with: leadImageURL, detectFaces: true, onGPU: true, failure: { (error) in
-            DDLogError("Error loading lead image: \(error)")
+            DDLogWarn("Error loading lead image: \(error)")
         }) {
             self.updateLeadImageMargins()
             self.updateArticleMargins()
@@ -328,7 +435,11 @@ class ArticleViewController: ViewController, HintPresenting {
     override func viewDidLoad() {
         setup()
         super.viewDidLoad()
-        setupToolbar() // setup toolbar needs to be after super.viewDidLoad because the superview owns the toolbar
+        
+        if altTextExperimentViewModel == nil {
+            setupToolbar() // setup toolbar needs to be after super.viewDidLoad because the superview owns the toolbar
+        }
+        
         loadWatchStatusAndUpdateToolbar()
         setupForStateRestorationIfNecessary()
         surveyTimerController?.timerFireBlock = { [weak self] in
@@ -342,26 +453,56 @@ class ArticleViewController: ViewController, HintPresenting {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        navigationController?.setNavigationBarHidden(true, animated: false)
         super.viewWillAppear(animated)
         tableOfContentsController.setup(with: traitCollection)
         toolbarController.update()
         loadIfNecessary()
         startSignificantlyViewedTimer()
         surveyTimerController?.viewWillAppear(withState: state)
+        setupSearchAndProfileButtons()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-
-        /// When jumping back to an article via long pressing back button (on iOS 14 or above), W button disappears. Couldn't find cause. It disappears between `viewWillAppear` and `viewDidAppear`, as setting this on the `viewWillAppear`doesn't fix the problem. If we can find source of this bad behavior, we can remove this next line.
-        setupWButton()
-        guard isFirstAppearance else {
-            return
+        
+        if altTextExperimentViewModel == nil {
+            setupWButton()
+            setupSearchAndProfileButtons()
         }
-        showAnnouncementIfNeeded()
-        isFirstAppearance = false
+
+        presentModalsIfNeeded()
     }
     
+    /// Catch-all method for deciding what is the best modal to present on top of Article at this point. This method needs careful if-else logic so that we do not present two modals at the same time, which may unexpectedly suppress one.
+    private func presentModalsIfNeeded() {
+
+        // Alt-Text half-sheet modal presentations
+        if isReturningFromFAQ {
+            isReturningFromFAQ = false
+            needsAltTextExperimentSheet = true
+            presentAltTextModalSheet()
+        } else if didTapPreview {
+            presentAltTextModalSheet()
+            didTapPreview = false
+        } else if didTapAltTextFileName {
+            presentAltTextModalSheet()
+            didTapAltTextFileName = false
+        } else if didTapAltTextGalleryInfoButton {
+            presentAltTextModalSheet()
+            didTapAltTextGalleryInfoButton = false
+        
+        // Year in Review modal presentations
+        } else if needsYearInReviewAnnouncement() {
+            setupSearchAndProfileButtons()
+            presentYearInReviewAnnouncement()
+        
+        // Campaign modal presentations
+        } else {
+            showFundraisingCampaignAnnouncementIfNeeded()
+        }
+    }
+
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
         tableOfContentsController.update(with: traitCollection)
@@ -381,6 +522,28 @@ class ArticleViewController: ViewController, HintPresenting {
         surveyTimerController?.viewWillDisappear(withState: state)
     }
     
+    override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
+        if altTextExperimentViewModel != nil {
+            return .portrait
+        }
+        
+        return super.supportedInterfaceOrientations
+    }
+
+    override var preferredInterfaceOrientationForPresentation: UIInterfaceOrientation {
+        if altTextExperimentViewModel != nil {
+            return .portrait
+        }
+        
+        return super.preferredInterfaceOrientationForPresentation
+    }
+    
+    override func keyboardDidChangeFrame(from oldKeyboardFrame: CGRect?, newKeyboardFrame: CGRect?) {
+        super.keyboardDidChangeFrame(from: oldKeyboardFrame, newKeyboardFrame: newKeyboardFrame)
+        
+        updateContentInsetForAltTextExperiment(detentIdentifier: .medium)
+    }
+    
     // MARK: Article load
     
     var articleLoadWaitGroup: DispatchGroup?
@@ -397,7 +560,10 @@ class ArticleViewController: ViewController, HintPresenting {
         
         setupPageContentServiceJavaScriptInterface {
             let cachePolicy: WMFCachePolicy? = self.isRestoringState ? .foundation(.returnCacheDataElseLoad) : nil
-            self.loadPage(cachePolicy: cachePolicy)
+            
+            let revisionID = self.altTextExperimentViewModel != nil ? self.altTextExperimentViewModel?.lastRevisionID : nil
+            
+            self.loadPage(cachePolicy: cachePolicy, revisionID: revisionID)
         }
     }
     
@@ -419,10 +585,126 @@ class ArticleViewController: ViewController, HintPresenting {
             
             self.articleAsLivingDocController.articleContentFinishedLoading()
             
-            self.setupFooter()
+            if altTextExperimentViewModel != nil {
+                self.setupForAltTextExperiment()
+            } else {
+                self.setupFooter()
+            }
+            
             self.shareIfNecessary()
             self.restoreScrollStateIfNecessary()
             self.articleLoadWaitGroup = nil
+        }
+    }
+
+    private func setupForAltTextExperiment() {
+
+        guard let altTextExperimentViewModel,
+         altTextBottomSheetViewModel != nil else {
+            return
+        }
+        
+        updateContentInsetForAltTextExperiment(detentIdentifier: .medium)
+        messagingController.hideEditPencils()
+        messagingController.scrollToNewImage(filename: altTextExperimentViewModel.filename)
+        
+        presentAltTextModalSheet()
+    }
+    
+    func presentAltTextModalSheet() {
+        
+        guard altTextExperimentViewModel != nil,
+         let altTextBottomSheetViewModel else {
+            return
+        }
+
+        let bottomSheetViewController = WMFAltTextExperimentModalSheetViewController(viewModel: altTextBottomSheetViewModel, delegate: self, loggingDelegate: self)
+        
+        if #available(iOS 16.0, *) {
+            if let sheet = bottomSheetViewController.sheetPresentationController {
+                sheet.delegate = self
+                let customSmallId = UISheetPresentationController.Detent.Identifier("customSmall")
+                let customSmallDetent = UISheetPresentationController.Detent.custom(identifier: customSmallId) { context in
+                    return 44
+                }
+                sheet.detents = [customSmallDetent, .medium(), .large()]
+                sheet.selectedDetentIdentifier = .medium
+                sheet.largestUndimmedDetentIdentifier = .medium
+                sheet.prefersGrabberVisible = true
+            }
+            bottomSheetViewController.isModalInPresentation = true
+            self.altTextBottomSheetViewController = bottomSheetViewController
+            
+            present(bottomSheetViewController, animated: true) { [weak self] in
+                self?.presentAltTextTooltipsIfNecessary(force: false)
+            }
+        }
+    }
+    
+    private func presentAltTextTooltipsIfNecessary(force: Bool = false) {
+        
+        guard let altTextExperimentViewModel,
+              let bottomSheetViewController = altTextBottomSheetViewController,
+              let tooltip1SourceView = view,
+              let tooltip2SourceView = bottomSheetViewController.tooltip2SourceView,
+              let tooltip2SourceRect = bottomSheetViewController.tooltip2SourceRect,
+              let tooltip3SourceView = bottomSheetViewController.tooltip3SourceView,
+              let tooltip3SourceRect = bottomSheetViewController.tooltip3SourceRect,
+        let dataController = WMFAltTextDataController.shared else {
+            return
+        }
+
+        if !force && dataController.hasPresentedOnboardingTooltips {
+            return
+        }
+        
+        let tooltip1SourceRect = CGRect(x: 30, y: navigationBar.frame.height + 30, width: 0, height: 0)
+
+        let viewModel1 = WMFTooltipViewModel(localizedStrings: altTextExperimentViewModel.firstTooltipLocalizedStrings, buttonNeedsDisclosure: true, sourceView: tooltip1SourceView, sourceRect: tooltip1SourceRect, permittedArrowDirections: .up) { [weak self] in
+            
+            if let siteURL = self?.articleURL.wmf_site,
+               let project = WikimediaProject(siteURL: siteURL) {
+                EditInteractionFunnel.shared.logAltTextOnboardingDidTapNextOnFirstTooltip(project: project)
+            }
+        }
+
+        
+        let viewModel2 = WMFTooltipViewModel(localizedStrings: altTextExperimentViewModel.secondTooltipLocalizedStrings, buttonNeedsDisclosure: true, sourceView: tooltip2SourceView, sourceRect: tooltip2SourceRect, permittedArrowDirections: .down)
+
+        let viewModel3 = WMFTooltipViewModel(localizedStrings: altTextExperimentViewModel.thirdTooltipLocalizedStrings, buttonNeedsDisclosure: false, sourceView: tooltip3SourceView, sourceRect: tooltip3SourceRect, permittedArrowDirections: .down) { [weak self] in
+            
+            if let siteURL = self?.articleURL.wmf_site,
+               let project = WikimediaProject(siteURL: siteURL) {
+                EditInteractionFunnel.shared.logAltTextOnboardingDidTapDoneOnLastTooltip(project: project)
+            }
+            
+        }
+
+        bottomSheetViewController.displayTooltips(tooltipViewModels: [viewModel1, viewModel2, viewModel3])
+
+        if !force {
+            dataController.hasPresentedOnboardingTooltips = true
+        }
+    }
+    
+    private func imageDidSuccessfullyLoad() {
+        guard altTextExperimentViewModel != nil else {
+            return
+        }
+        
+        let presentedDetent = presentedViewController?.sheetPresentationController?.selectedDetentIdentifier ?? .medium
+        updateContentInsetForAltTextExperiment(detentIdentifier: presentedDetent)
+    }
+    
+    private func updateContentInsetForAltTextExperiment(detentIdentifier: UISheetPresentationController.Detent.Identifier) {
+
+        let oldContentInset = webView.scrollView.contentInset
+        
+        switch detentIdentifier {
+        case .large, .medium:
+            webView.scrollView.contentInset = UIEdgeInsets(top: oldContentInset.top, left: oldContentInset.left, bottom: view.bounds.height * 0.65, right: oldContentInset.right)
+        default:
+            webView.scrollView.contentInset = UIEdgeInsets(top: oldContentInset.top, left: oldContentInset.left, bottom: 75, right: oldContentInset.right)
         }
     }
     
@@ -442,7 +724,6 @@ class ArticleViewController: ViewController, HintPresenting {
         self.dataStore.articleSummaryController.updateOrCreateArticleSummaryForArticle(withKey: key, cachePolicy: cachePolicy) { (article, error) in
             defer {
                 self.articleLoadWaitGroup?.leave()
-                self.updateMenuItems()
             }
             guard let article = article else {
                 return
@@ -506,7 +787,7 @@ class ArticleViewController: ViewController, HintPresenting {
                 case .success(let itemKeys):
                     DDLogDebug("successfully synced \(itemKeys.count) resources")
                 case .failure(let error):
-                    DDLogDebug("failed to synced resources for \(groupKey): \(error)")
+                    DDLogError("failed to synced resources for \(groupKey): \(error)")
                 }
             }
         }
@@ -522,15 +803,38 @@ class ArticleViewController: ViewController, HintPresenting {
         try? article.addToReadHistory()
     }
     
+    func persistPageViewsForWikipediaInReview() {
+        if let title = self.articleURL.wmf_title,
+           let namespace = self.articleURL.namespace,
+           let siteURL = self.articleURL.wmf_site,
+           let project = WikimediaProject(siteURL: siteURL),
+           let wmfProject = project.wmfProject {
+            Task {
+                do {
+                    let pageViewsDataController = try WMFPageViewsDataController()
+                    try await pageViewsDataController.addPageView(title: title, namespaceID: Int16(namespace.rawValue), project: wmfProject)
+                } catch let error {
+                    DDLogError("Error saving viewed page: \(error)")
+                }
+            }
+        }
+    }
+    
     var significantlyViewedTimer: Timer?
     
     func startSignificantlyViewedTimer() {
         guard significantlyViewedTimer == nil, !article.wasSignificantlyViewed else {
             return
         }
+        
         significantlyViewedTimer = Timer.scheduledTimer(withTimeInterval: 30, repeats: false, block: { [weak self] (timer) in
-            self?.article.wasSignificantlyViewed = true
-            self?.stopSignificantlyViewedTimer()
+            
+            guard let self else {
+                return
+            }
+            
+            self.article.wasSignificantlyViewed = true
+            self.stopSignificantlyViewedTimer()
         })
     }
     
@@ -687,6 +991,7 @@ class ArticleViewController: ViewController, HintPresenting {
     
     override func apply(theme: Theme) {
         super.apply(theme: theme)
+        setupSearchAndProfileButtons()
         guard viewIfLoaded != nil else {
             return
         }
@@ -698,6 +1003,8 @@ class ArticleViewController: ViewController, HintPresenting {
         if state == .loaded {
             messagingController.updateTheme(theme)
         }
+        yirCoordinator?.theme = theme
+        profileCoordinator?.theme = theme
     }
     
     private func rethemeWebViewIfNecessary() {
@@ -813,6 +1120,11 @@ class ArticleViewController: ViewController, HintPresenting {
     // MARK: Overrideable functionality
     
     internal func handleLink(with href: String) {
+        
+        guard altTextExperimentViewModel == nil else {
+            return
+        }
+        
         guard let resolvedURL = articleURL.resolvingRelativeWikiHref(href) else {
             showGenericError()
             return
@@ -927,17 +1239,93 @@ class ArticleViewController: ViewController, HintPresenting {
 private extension ArticleViewController {
     
     func setup() {
-        setupWButton()
-        setupSearchButton()
+        if let altTextExperimentViewModel {
+            self.navigationItem.titleView = nil
+            self.title = altTextExperimentViewModel.localizedStrings.articleNavigationBarTitle
+
+            let rightBarButtonItem = 
+                UIBarButtonItem(
+                    image: WMFSFSymbolIcon.for(symbol: .ellipsisCircle),
+                    primaryAction: nil,
+                    menu: overflowMenu
+                )
+            navigationItem.rightBarButtonItem = rightBarButtonItem
+            rightBarButtonItem.tintColor = theme.colors.link
+            // add accessibility attrubutes
+            rightBarButtonItem.accessibilityTraits = .button
+
+            self.navigationBar.updateNavigationItems()
+        } else {
+            setupWButton()
+            setupSearchAndProfileButtons()
+        }
+        
         addNotificationHandlers()
         setupWebView()
         setupMessagingController()
     }
-    
+
+    private var overflowMenu: UIMenu {
+        let learnMore = UIAction(title: CommonStrings.learnMoreTitle(), image: WMFSFSymbolIcon.for(symbol: .infoCircle), handler: { [weak self] _ in
+            if let project = self?.project {
+                EditInteractionFunnel.shared.logAltTextEditingInterfaceOverflowLearnMore(project: project)
+            }
+            self?.goToFAQ()
+        })
+        
+        let tutorial = UIAction(title: CommonStrings.tutorialTitle, image: WMFSFSymbolIcon.for(symbol: .lightbulbMin), handler: { [weak self] _ in
+            if let project = self?.project {
+                EditInteractionFunnel.shared.logAltTextEditingInterfaceOverflowTutorial(project: project)
+            }
+            self?.showTutorial()
+        })
+
+        let reportIssues = UIAction(title: CommonStrings.problemWithFeatureTitle, image: WMFSFSymbolIcon.for(symbol: .flag), handler: { [weak self] _ in
+            if let project = self?.project {
+                EditInteractionFunnel.shared.logAltTextEditingInterfaceOverflowReport(project: project)
+            }
+            self?.reportIssue()
+        })
+
+        let menuItems: [UIMenuElement] = [learnMore, tutorial, reportIssues]
+
+        return UIMenu(title: String(), children: menuItems)
+    }
+
+    private func goToFAQ() {
+        if let altTextExperimentViewModel {
+            isReturningFromFAQ = true
+            navigate(to: altTextExperimentViewModel.learnMoreURL, useSafari: false)
+        }
+    }
+
+    private func showTutorial() {
+        presentAltTextTooltipsIfNecessary(force: true)
+    }
+
+    private func reportIssue() {
+        let emailAddress = "ios-support@wikimedia.org"
+        let emailSubject = WMFLocalizedString("alt-text-email-title", value: "Issue Report - Alt Text Feature", comment: "Title text for Alt Text pre-filled issue report email")
+        let emailBodyLine1 = WMFLocalizedString("alt-text-email-first-line", value: "I've encountered a problem with the Alt Text feature:", comment: "Text for Alt Text pre-filled issue report email")
+        let emailBodyLine2 = WMFLocalizedString("alt-text-email-second-line", value: "- [Describe specific problem]", comment: "Text for Alt Text pre-filled issue report email. This text is intended to be replaced by the user with a description of the problem they are encountering")
+        let emailBodyLine3 = WMFLocalizedString("alt-text-email-third-line", value: "The behavior I would like to see is:", comment: "Text for Alt Text pre-filled issue report email")
+        let emailBodyLine4 = WMFLocalizedString("alt-text-email-fourth-line", value: "- [Describe proposed solution]", comment: "Text for Alt Text pre-filled issue report email. This text is intended to be replaced by the user with a description of a user suggested solution")
+        let emailBodyLine5 = WMFLocalizedString("alt-text-email-fifth-line", value: "[Screenshots or Links]", comment: "Text for Alt Text pre-filled issue report email. This text is intended to be replaced by the user with a screenshot or link.")
+        let emailBody = "\(emailBodyLine1)\n\n\(emailBodyLine2)\n\n\(emailBodyLine3)\n\n\(emailBodyLine4)\n\n\(emailBodyLine5)"
+        let mailto = "mailto:\(emailAddress)?subject=\(emailSubject)&body=\(emailBody)".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
+
+        guard let encodedMailto = mailto, let mailtoURL = URL(string: encodedMailto), UIApplication.shared.canOpenURL(mailtoURL) else {
+            WMFAlertManager.sharedInstance.showErrorAlertWithMessage(CommonStrings.noEmailClient, sticky: false, dismissPreviousAlerts: false)
+            return
+        }
+        UIApplication.shared.open(mailtoURL)
+    }
+
     // MARK: Notifications
     
     func addNotificationHandlers() {
         NotificationCenter.default.addObserver(self, selector: #selector(didReceiveArticleUpdatedNotification), name: NSNotification.Name.WMFArticleUpdated, object: article)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.textSizeChanged(notification:)), name: NSNotification.Name(rawValue: FontSizeSliderViewController.WMFArticleFontSizeUpdatedNotification), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(applicationWillResignActive), name: UIApplication.willResignActiveNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(applicationDidBecomeActive), name: UIApplication.didBecomeActiveNotification, object: nil)
         contentSizeObservation = webView.scrollView.observe(\.contentSize) { [weak self] (scrollView, change) in
@@ -960,6 +1348,12 @@ private extension ArticleViewController {
         toolbarController.setSavedState(isSaved: article.isAnyVariantSaved)
     }
     
+    @objc func textSizeChanged(notification: Notification) {
+        if let multiplier = notification.userInfo?[FontSizeSliderViewController.WMFArticleFontSizeMultiplierKey] as? Int {
+            messagingController.updateTextSizeAdjustmentPercentage(multiplier)
+        }
+    }
+    
     @objc func applicationWillResignActive(_ notification: Notification) {
         saveArticleScrollPosition()
         stopSignificantlyViewedTimer()
@@ -971,8 +1365,40 @@ private extension ArticleViewController {
         surveyTimerController?.didBecomeActive(withState: state)
     }
     
-    func setupSearchButton() {
-        navigationItem.rightBarButtonItem = AppSearchBarButtonItem.newAppSearchBarButtonItem
+    func setupSearchAndProfileButtons() {
+        var hasUnreadNotifications: Bool = false
+        if self.dataStore.authenticationManager.authStateIsPermanent {
+            let numberOfUnreadNotifications = try? dataStore.remoteNotificationsController.numberOfUnreadNotifications()
+            hasUnreadNotifications = (numberOfUnreadNotifications?.intValue ?? 0) != 0
+        } else {
+            hasUnreadNotifications = false
+        }
+
+        var needsYiRNotification = false
+        if let yirDataController,  let appLanguage = dataStore.languageLinkController.appLanguage {
+            let project = WMFProject.wikipedia(WMFLanguage(languageCode: appLanguage.languageCode, languageVariantCode: appLanguage.languageVariantCode))
+            needsYiRNotification = yirDataController.shouldShowYiRNotification(primaryAppLanguageProject: project)
+        }
+        // do not override `hasUnreadNotifications` completely
+        if needsYiRNotification {
+            hasUnreadNotifications = true
+        }
+
+        let profileImage = BarButtonImageStyle.profileButtonImage(theme: theme, indicated: hasUnreadNotifications, isExplore: false)
+        let profileButton = UIBarButtonItem(image: profileImage, style: .plain, target: self, action: #selector(userDidTapProfile))
+        profileButton.accessibilityLabel = hasUnreadNotifications ? CommonStrings.profileButtonBadgeTitle : CommonStrings.profileButtonTitle
+        profileButton.accessibilityHint = CommonStrings.profileButtonAccessibilityHint
+        navigationItem.rightBarButtonItems = [AppSearchBarButtonItem.newAppSearchBarButtonItem, profileButton]
+        navigationBar.updateNavigationItems()
+    }
+    
+    @objc func userDidTapProfile() {
+        guard let languageCode = dataStore.languageLinkController.appLanguage?.languageCode,
+        let metricsID = DonateCoordinator.metricsID(for: .articleProfile(articleURL), languageCode: languageCode),
+        let project else { return }
+        
+        DonateFunnel.shared.logArticleProfile(project: project, metricsID: metricsID)
+        profileCoordinator?.start()
     }
     
     func setupMessagingController() {
@@ -1033,21 +1459,13 @@ private extension ArticleViewController {
         }
         
         // Need user groups to let the Page Content Service know if the page is editable for this user
-        authManager.getLoggedInUser(for: siteURL) { (result) in
-            assert(Thread.isMainThread)
-            switch result {
-            case .success(let user):
-                self.setupPageContentServiceJavaScriptInterface(with: user?.groups ?? [])
-            case .failure:
-                DDLogError("Error getting userinfo for \(siteURL)")
-                self.setupPageContentServiceJavaScriptInterface(with: [])
-            }
-            completion()
-        }
+        let user = authManager.permanentUser(siteURL: siteURL)
+        setupPageContentServiceJavaScriptInterface(with: user?.groups ?? [])
+        completion()
     }
     
     func setupPageContentServiceJavaScriptInterface(with userGroups: [String]) {
-        let areTablesInitiallyExpanded = UserDefaults.standard.wmf_isAutomaticTableOpeningEnabled
+        let areTablesInitiallyExpanded = altTextExperimentViewModel != nil ? true : UserDefaults.standard.wmf_isAutomaticTableOpeningEnabled
 
         messagingController.shouldAttemptToShowArticleAsLivingDoc = articleAsLivingDocController.shouldAttemptToShowArticleAsLivingDoc
 
@@ -1062,7 +1480,7 @@ private extension ArticleViewController {
     }
     
     var isWidgetCachedFeaturedArticle: Bool {
-        let sharedCache = SharedContainerCache<WidgetCache>(fileName: SharedContainerCacheCommonNames.widgetCache)
+        let sharedCache = SharedContainerCache(fileName: SharedContainerCacheCommonNames.widgetCache)
         
         let cache = sharedCache.loadCache() ?? WidgetCache(settings: .default, featuredContent: nil)
         guard let widgetFeaturedArticleURLString = cache.featuredContent?.featuredArticle?.contentURL.desktop.page,
@@ -1274,4 +1692,72 @@ extension ArticleViewController: ArticleSurveyTimerControllerDelegate {
     }
     
     
+}
+
+extension ArticleViewController: UISheetPresentationControllerDelegate {
+    func sheetPresentationControllerDidChangeSelectedDetentIdentifier(_ sheetPresentationController: UISheetPresentationController) {
+        
+        guard altTextExperimentViewModel != nil else {
+            return
+        }
+        
+        if let selectedDetentIdentifier = sheetPresentationController.selectedDetentIdentifier {
+            updateContentInsetForAltTextExperiment(detentIdentifier: selectedDetentIdentifier)
+            switch selectedDetentIdentifier {
+            case .medium, .large:
+                break
+            default:
+                logMinimized()
+            }
+        }
+    }
+    
+    private func logMinimized() {
+        if let project = project {
+            EditInteractionFunnel.shared.logAltTextInputDidMinimize(project: project)
+        }
+    }
+}
+
+extension ArticleViewController: WMFAltTextExperimentModalSheetLoggingDelegate {
+
+    func didTriggerCharacterWarning() {
+        if let project = project {
+            EditInteractionFunnel.shared.logAltTextInputDidTriggerWarning(project: project)
+        }
+    }
+    
+    func didTapFileName() {
+        if let project = project {
+            EditInteractionFunnel.shared.logAltTextInputDidTapFileName(project: project)
+        }
+    }
+    
+    func didAppear() {
+        if let project = project {
+            EditInteractionFunnel.shared.logAltTextInputDidAppear(project: project)
+        }
+    }
+    
+    func didFocusTextView() {
+        if let project = project {
+            EditInteractionFunnel.shared.logAltTextInputDidFocus(project: project)
+        }
+    }
+}
+
+// LogoutCoordinatorDelegate
+
+extension ArticleViewController: LogoutCoordinatorDelegate {
+    func didTapLogout() {
+        wmf_showKeepSavedArticlesOnDevicePanelIfNeeded(triggeredBy: .logout, theme: theme) {
+            self.dataStore.authenticationManager.logout(initiatedBy: .user)
+        }
+    }
+}
+
+extension ArticleViewController: YearInReviewBadgeDelegate {
+    func didSeeFirstSlide() {
+        setupSearchAndProfileButtons()
+    }
 }

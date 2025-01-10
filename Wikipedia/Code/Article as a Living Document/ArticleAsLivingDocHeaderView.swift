@@ -1,4 +1,4 @@
-import UIKit
+import WMFComponents
 
 class ArticleAsLivingDocHeaderView: UIView {
 
@@ -76,17 +76,17 @@ class ArticleAsLivingDocHeaderView: UIView {
     
     var contentSizeCategory: UIContentSizeCategory?
     fileprivate func maybeUpdateFonts(with traitCollection: UITraitCollection) {
-        guard contentSizeCategory == nil || contentSizeCategory != traitCollection.wmf_preferredContentSizeCategory else {
+        guard contentSizeCategory == nil || contentSizeCategory != traitCollection.preferredContentSizeCategory else {
             return
         }
-        contentSizeCategory = traitCollection.wmf_preferredContentSizeCategory
+        contentSizeCategory = traitCollection.preferredContentSizeCategory
         updateFonts(with: traitCollection)
     }
     
     func updateFonts(with traitCollection: UITraitCollection) {
-        headerLabel.font = UIFont.wmf_font(.semiboldSubheadline, compatibleWithTraitCollection: traitCollection)
-        titleLabel.font = UIFont.wmf_font(.mediumTitle1, compatibleWithTraitCollection: traitCollection)
-        summaryLabel.font = UIFont.wmf_font(.semiboldSubheadline, compatibleWithTraitCollection: traitCollection)
+        headerLabel.font = WMFFont.for(.mediumSubheadline, compatibleWith: traitCollection)
+        titleLabel.font = WMFFont.for(.boldTitle1, compatibleWith: traitCollection)
+        summaryLabel.font = WMFFont.for(.mediumSubheadline, compatibleWith: traitCollection)
         viewFullHistoryButton.updateFonts(with: traitCollection)
     }
 }

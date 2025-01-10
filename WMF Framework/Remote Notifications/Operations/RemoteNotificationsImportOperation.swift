@@ -1,6 +1,6 @@
 import CocoaLumberjackSwift
 
-class RemoteNotificationsImportOperation: RemoteNotificationsPagingOperation {
+class RemoteNotificationsImportOperation: RemoteNotificationsPagingOperation, @unchecked Sendable {
     
     // MARK: Overrides
     

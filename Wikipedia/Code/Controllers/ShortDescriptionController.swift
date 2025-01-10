@@ -1,6 +1,6 @@
 import Foundation
 import WMF
-import WKData
+import WMFData
 
 enum ShortDescriptionControllerError: Error {
     case failureConstructingRegexExpression
@@ -13,7 +13,7 @@ protocol ShortDescriptionControllerDelegate: AnyObject {
 
 class ShortDescriptionController: ArticleDescriptionControlling {
     
-    private let sectionFetcher: SectionFetcher
+    private let wikitextFetcher: WikitextFetcher
     private let sectionUploader: WikiTextSectionUploader
     
     private let articleURL: URL
@@ -21,6 +21,8 @@ class ShortDescriptionController: ArticleDescriptionControlling {
     let articleLanguageCode: String
     
     private let sectionID: Int = 0
+    
+    public var languageCode: String? = "en"
     
     let descriptionSource: ArticleDescriptionSource
     private weak var delegate: ShortDescriptionControllerDelegate?
@@ -31,15 +33,15 @@ class ShortDescriptionController: ArticleDescriptionControlling {
     
     /// Inits for use of updating EN Wikipedia article description
     /// - Parameters:
-    ///   - sectionFetcher: section fetcher that fetches the first section of wikitext. Injectable for unit tests.
+    ///   - wikitextFetcher: fetcher that fetches the first section of wikitext. Injectable for unit tests.
     ///   - sectionUploader: section uploader that uploads the new section wikitext. Injectable for unit tests.
     ///   - article: WMFArticle from ArticleViewController
     ///   - articleLanguageCode: Language code of article that we want to update (from ArticleViewController)
     ///   - articleURL: URL of article that we want to update (from ArticleViewController)
     ///   - descriptionSource: ArticleDescriptionSource determined via .edit action across ArticleViewController js bridge
     ///   - delegate: Delegate that can extract the current description from the article content
-    init(sectionFetcher: SectionFetcher = SectionFetcher(), sectionUploader: WikiTextSectionUploader = WikiTextSectionUploader(), article: WMFArticle, articleLanguageCode: String, articleURL: URL, descriptionSource: ArticleDescriptionSource, delegate: ShortDescriptionControllerDelegate) {
-        self.sectionFetcher = sectionFetcher
+    init(wikitextFetcher: WikitextFetcher = WikitextFetcher(), sectionUploader: WikiTextSectionUploader = WikiTextSectionUploader(), article: WMFArticle, articleLanguageCode: String, articleURL: URL, descriptionSource: ArticleDescriptionSource, delegate: ShortDescriptionControllerDelegate) {
+        self.wikitextFetcher = wikitextFetcher
         self.sectionUploader = sectionUploader
         self.article = article
         self.articleURL = articleURL
@@ -54,7 +56,7 @@ class ShortDescriptionController: ArticleDescriptionControlling {
     ///   - completion: Completion called when updated section upload call is successful.
     func publishDescription(_ description: String, editType: ArticleDescriptionEditType, completion: @escaping (Result<ArticleDescriptionPublishResult, Error>) -> Void) {
         
-        sectionFetcher.fetchSection(with: sectionID, articleURL: articleURL) { [weak self] (result) in
+        wikitextFetcher.fetchSection(with: sectionID, articleURL: articleURL) { [weak self] (result) in
             DispatchQueue.main.async {
 
                 guard let self = self else {
@@ -93,7 +95,7 @@ class ShortDescriptionController: ArticleDescriptionControlling {
         
         // Populate blocked error
         group.enter()
-        sectionFetcher.fetchSection(with: sectionID, articleURL: articleURL) { (result) in
+        wikitextFetcher.fetchSection(with: sectionID, articleURL: articleURL) { (result) in
             
             defer {
                 group.leave()
@@ -117,7 +119,9 @@ class ShortDescriptionController: ArticleDescriptionControlling {
             return nil
         }
         
-        return SinglePageWebViewController(url: url, theme: theme, doesUseSimpleNavigationBar: true)
+        let config = SinglePageWebViewController.StandardConfig(url: url, useSimpleNavigationBar: true)
+        
+        return SinglePageWebViewController(configType: .standard(config), theme: theme)
     }
     
     func warningTypesForDescription(_ description: String?) -> ArticleDescriptionWarningTypes {
@@ -149,45 +153,23 @@ private extension ShortDescriptionController {
         
         let newTemplateToPrepend = "{{Short description|\(newDescription)}}\n"
         
-        let editSummaryTag = editType == .add ? WKEditSummaryTag.articleDescriptionAdd.rawValue : WKEditSummaryTag.articleDescriptionChange.rawValue
-        
-        sectionUploader.prepend(toSectionID: "\(sectionID)", text: newTemplateToPrepend, forArticleURL: articleURL, isMinorEdit: true, baseRevID: baseRevisionID as NSNumber, editSummaryTag: editSummaryTag, completion: { [weak self] (result, error) in
-            
-            guard let self = self else {
-                completion(.failure(ShortDescriptionControllerError.missingSelf))
-                return
-            }
-            
-            if let error = error {
-                completion(.failure(error))
-                return
-            }
-            
-            guard let result = result,
-                  let revisionID = self.revisionIDFromResult(result: result) else {
-                completion(.failure(RequestError.unexpectedResponse))
-                return
-            }
-            
-            completion(.success(ArticleDescriptionPublishResult(newRevisionID: revisionID, newDescription: newDescription)))
-        })
-    }
-    
-    func replaceDescriptionInWikitextAndUpload(_ wikitext: String, newDescription: String, baseRevisionID: Int, editType: ArticleDescriptionEditType, completion: @escaping (Result<ArticleDescriptionPublishResult, Error>) -> Void) {
-        
-        do {
-            
-            let updatedWikitext = try wikitext.replacingShortDescription(with: newDescription)
-            
-            let editSummaryTag = editType == .add ? WKEditSummaryTag.articleDescriptionAdd.rawValue : WKEditSummaryTag.articleDescriptionChange.rawValue
-            
-            sectionUploader.uploadWikiText(updatedWikitext, forArticleURL: articleURL, section: "\(sectionID)", summary: nil, isMinorEdit: true, addToWatchlist: false, baseRevID: baseRevisionID as NSNumber, captchaId: nil, captchaWord: nil, editSummaryTag: editSummaryTag, completion: { [weak self] (result, error) in
-                
+        let editTag = editType == .add ? WMFEditTag.appDescriptionAdd.rawValue : WMFEditTag.appDescriptionChange.rawValue
+
+        sectionUploader.prepend(
+            toSectionID: "\(sectionID)",
+            text: newTemplateToPrepend,
+            forArticleURL: articleURL,
+            summary: CommonStrings.editSummaryShortDescriptionAdded(with: languageCode),
+            isMinorEdit: true,
+            baseRevID: baseRevisionID as NSNumber,
+            editTags: [editTag],
+            completion: { [weak self] (result, error) in
+
                 guard let self = self else {
                     completion(.failure(ShortDescriptionControllerError.missingSelf))
                     return
                 }
-   
+                
                 if let error = error {
                     completion(.failure(error))
                     return
@@ -200,8 +182,50 @@ private extension ShortDescriptionController {
                 }
                 
                 completion(.success(ArticleDescriptionPublishResult(newRevisionID: revisionID, newDescription: newDescription)))
-            })
+            }
+        )
+    }
+    
+    func replaceDescriptionInWikitextAndUpload(_ wikitext: String, newDescription: String, baseRevisionID: Int, editType: ArticleDescriptionEditType, completion: @escaping (Result<ArticleDescriptionPublishResult, Error>) -> Void) {
+        
+        do {
             
+            let updatedWikitext = try wikitext.replacingShortDescription(with: newDescription)
+            
+            let editTag = editType == .add ? WMFEditTag.appDescriptionAdd.rawValue : WMFEditTag.appDescriptionChange.rawValue
+            
+            sectionUploader.uploadWikiText(
+                updatedWikitext,
+                forArticleURL: articleURL,
+                section: "\(sectionID)",
+                summary: CommonStrings.editSummaryShortDescriptionUpdated(with: languageCode),
+                isMinorEdit: true,
+                addToWatchlist: false,
+                baseRevID: baseRevisionID as NSNumber,
+                captchaId: nil,
+                captchaWord: nil,
+                editTags: [editTag],
+                completion: { [weak self] (result, error) in
+                
+                    guard let self = self else {
+                        completion(.failure(ShortDescriptionControllerError.missingSelf))
+                        return
+                    }
+       
+                    if let error = error {
+                        completion(.failure(error))
+                        return
+                    }
+                    
+                    guard let result = result,
+                          let revisionID = self.revisionIDFromResult(result: result) else {
+                        completion(.failure(RequestError.unexpectedResponse))
+                        return
+                    }
+                    
+                    completion(.success(ArticleDescriptionPublishResult(newRevisionID: revisionID, newDescription: newDescription)))
+                }
+            )
         } catch let error {
             completion(.failure(error))
         }

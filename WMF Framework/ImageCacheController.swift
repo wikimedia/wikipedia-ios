@@ -111,7 +111,6 @@ public final class ImageCacheController: CacheController {
                 }
                 
                 self.dataCompletionManager.complete(uniqueKey, enumerator: { (completion) in
-                    // DDLogDebug("complete: \(url) \(token)")
                     switch result {
                     case .success(let result):
                         completion.success(result.data, result.response)
@@ -248,7 +247,7 @@ public final class ImageCacheController: CacheController {
         }
         let options = [kCGImageSourceShouldCache as String: NSNumber(value: true)] as CFDictionary
         guard let cgImage = CGImageSourceCreateImageAtIndex(source, 0, options) else {
-            return nil
+            return createImageForRejectedCGImage(with: data, mimeType: mimeType)
         }
         let image: UIImage
         if let orientation = getUIImageOrientation(from: source, options: options) {
@@ -277,6 +276,45 @@ public final class ImageCacheController: CacheController {
         case .right:  return .right
         case .rightMirrored: return .rightMirrored
         }
+    }
+    
+    private func createImageForRejectedCGImage(with data: Data, mimeType: String?) -> Image? {
+        
+        // https://phabricator.wikimedia.org/T357266
+        // Fallback mechanism for unrecognised CGImage sources (e.g. potentially corrupt PDFs)
+        
+        switch mimeType {
+        case "application/pdf": 
+            return generatePDFImage(from: data)
+        default: 
+            return nil
+        }
+    }
+    
+    private func generatePDFImage(from pdfData: Data) -> Image? {
+        
+        // Adapted from https://www.hackingwithswift.com/example-code/core-graphics/how-to-render-a-pdf-to-an-image
+        // Generates an image from the first page of a PDF file
+        
+        guard let dataProvider = CGDataProvider(data: pdfData as CFData),
+              let pdfDocument = CGPDFDocument(dataProvider),
+              let pageOne = pdfDocument.page(at: 1) // N.B. CGPDFDocument pages start at 1, not 0
+        else {
+            return nil
+        }
+        
+        let pageRect = pageOne.getBoxRect(.mediaBox)
+        let renderer = UIGraphicsImageRenderer(size: pageRect.size)
+        
+        let uiImage = renderer.image { ctx in
+            UIColor.white.set()
+            ctx.fill(pageRect)
+            ctx.cgContext.translateBy(x: 0.0, y: pageRect.size.height)
+            ctx.cgContext.scaleBy(x: 1.0, y: -1.0)
+            ctx.cgContext.drawPDFPage(pageOne)
+        }
+
+        return Image(staticImage: uiImage, animatedImage: nil)
     }
     
     public override func cancelAllTasks() {

@@ -35,7 +35,7 @@ NSUInteger const WMFMaxSearchResultLimit = 24;
     }
 
     if (resultLimit > WMFMaxSearchResultLimit) {
-        DDLogError(@"Illegal attempt to request %lu articles, limiting to %lu.",
+        DDLogWarn(@"Illegal attempt to request %lu articles, limiting to %lu.",
                    (unsigned long)resultLimit, (unsigned long)WMFMaxSearchResultLimit);
         resultLimit = WMFMaxSearchResultLimit;
     }
@@ -149,7 +149,7 @@ NSUInteger const WMFMaxSearchResultLimit = 24;
         return;
     }
     if (resultLimit > WMFMaxSearchResultLimit) {
-        DDLogError(@"Illegal attempt to request %lu articles, limiting to %lu.",
+        DDLogWarn(@"Illegal attempt to request %lu articles, limiting to %lu.",
                    (unsigned long)resultLimit, (unsigned long)WMFMaxSearchResultLimit);
         resultLimit = WMFMaxSearchResultLimit;
     }

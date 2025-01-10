@@ -1,0 +1,165 @@
+[
+  {
+    "aliases" : [
+      "替代=$1",
+      "替代文本=$1",
+      "alt=$1",
+      "替代文字"
+    ],
+    "name" : "img_alt"
+  },
+  {
+    "aliases" : [
+      "基线",
+      "baseline"
+    ],
+    "name" : "img_baseline"
+  },
+  {
+    "aliases" : [
+      "边框",
+      "border",
+      "邊框"
+    ],
+    "name" : "img_border"
+  },
+  {
+    "aliases" : [
+      "底部",
+      "bottom",
+      "垂直置底"
+    ],
+    "name" : "img_bottom"
+  },
+  {
+    "aliases" : [
+      "居中",
+      "center",
+      "centre",
+      "置中"
+    ],
+    "name" : "img_center"
+  },
+  {
+    "aliases" : [
+      "有框",
+      "framed",
+      "enframed",
+      "frame"
+    ],
+    "name" : "img_framed"
+  },
+  {
+    "aliases" : [
+      "无框",
+      "frameless",
+      "無框"
+    ],
+    "name" : "img_frameless"
+  },
+  {
+    "aliases" : [
+      "左",
+      "left"
+    ],
+    "name" : "img_left"
+  },
+  {
+    "aliases" : [
+      "中间",
+      "middle",
+      "垂直置中"
+    ],
+    "name" : "img_middle"
+  },
+  {
+    "aliases" : [
+      "无",
+      "none",
+      "無"
+    ],
+    "name" : "img_none"
+  },
+  {
+    "aliases" : [
+      "右",
+      "right"
+    ],
+    "name" : "img_right"
+  },
+  {
+    "aliases" : [
+      "子",
+      "sub",
+      "下標"
+    ],
+    "name" : "img_sub"
+  },
+  {
+    "aliases" : [
+      "超",
+      "super",
+      "sup",
+      "上標"
+    ],
+    "name" : "img_super"
+  },
+  {
+    "aliases" : [
+      "文字底部",
+      "text-bottom",
+      "文字置底"
+    ],
+    "name" : "img_text_bottom"
+  },
+  {
+    "aliases" : [
+      "文字顶部",
+      "text-top",
+      "文字置頂"
+    ],
+    "name" : "img_text_top"
+  },
+  {
+    "aliases" : [
+      "缩略图",
+      "thumbnail",
+      "thumb",
+      "縮圖"
+    ],
+    "name" : "img_thumbnail"
+  },
+  {
+    "aliases" : [
+      "顶部",
+      "top",
+      "垂直置頂"
+    ],
+    "name" : "img_top"
+  },
+  {
+    "aliases" : [
+      "右上",
+      "右上=$1",
+      "右上$1",
+      "upright",
+      "upright=$1",
+      "upright $1"
+    ],
+    "name" : "img_upright"
+  },
+  {
+    "aliases" : [
+      "File",
+      "Image",
+      "图像",
+      "图片",
+      "圖像",
+      "圖片",
+      "文件",
+      "档案",
+      "檔案"
+    ],
+    "name" : "file_namespace"
+  }
+]
