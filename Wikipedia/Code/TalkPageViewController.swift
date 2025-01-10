@@ -50,12 +50,6 @@ class TalkPageViewController: ThemeableViewController, WMFNavigationBarConfiguri
             return textFormattingToolbarView
         }
     }
-
-//    lazy private(set) var fakeProgressController: FakeProgressController = {
-//        let progressController = FakeProgressController(progress: navigationBar, delegate: navigationBar)
-//        progressController.delay = 0.0
-//        return progressController
-//    }()
     
     var scrollingToIndexPath: IndexPath?
     var scrollingToResult: TalkPageFindInPageSearchController.SearchResult?
@@ -181,19 +175,15 @@ class TalkPageViewController: ThemeableViewController, WMFNavigationBarConfiguri
     }
 
     fileprivate func fetchTalkPage() {
-        // navigationBar.removeUnderNavigationBarView()
         self.headerView = nil
-        // fakeProgressController.start()
         viewModel.fetchTalkPage { [weak self] result in
 
             guard let self = self else {
                 return
             }
 
-            // self.fakeProgressController.stop()
             switch result {
             case .success:
-                // self.setupHeaderView()
                 self.talkPageView.configure(viewModel: self.viewModel)
                 self.talkPageView.emptyView.actionButton.addTarget(self, action: #selector(self.userDidTapAddTopicButton), for: .primaryActionTriggered)
                 self.updateEmptyStateVisibility()
@@ -276,30 +266,6 @@ class TalkPageViewController: ThemeableViewController, WMFNavigationBarConfiguri
     @objc func tryAgain() {
         fetchTalkPage()
     }
-
-//    private func setupHeaderView() {
-//        
-//        if self.headerView != nil {
-//            navigationBar.removeUnderNavigationBarView()
-//            self.headerView = nil
-//        }
-//
-//        let headerView = TalkPageHeaderView()
-//        self.headerView = headerView
-//
-//        headerView.configure(viewModel: viewModel)
-//        navigationBar.isBarHidingEnabled = false
-//        navigationBar.isUnderBarViewHidingEnabled = true
-//        navigationBar.allowsUnderbarHitsFallThrough = true
-//        
-//        navigationBar.addUnderNavigationBarView(headerView, shouldIgnoreSafeArea: true)
-//        useNavigationBarVisibleHeightForScrollViewInsets = false
-//        updateScrollViewInsets()
-//        
-//        headerView.apply(theme: theme)
-//
-//        headerView.coffeeRollReadMoreButton.addTarget(self, action: #selector(userDidTapCoffeeRollReadMoreButton), for: .primaryActionTriggered)
-//    }
     
     private func setupOverflowMenu() {
         let rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "ellipsis.circle"), primaryAction: nil, menu: overflowMenu)
@@ -401,25 +367,6 @@ class TalkPageViewController: ThemeableViewController, WMFNavigationBarConfiguri
     let replyComposeController = TalkPageReplyComposeController()
     
     private var isClosing: Bool = false
-    
-//    override var keyboardIsIncludedInBottomContentInset: Bool {
-//        if replyComposeController.isShowing {
-//            return false
-//        }
-//
-//        return true
-//    }
-//    
-//    override var additionalBottomContentInset: CGFloat {
-//
-//        if let replyComposeView = replyComposeController.containerView {
-//            return max(0, toolbar.frame.minY - replyComposeView.frame.minY)
-//        } else if isShowingFindInPage {
-//            return toolbar.frame.height
-//        }
-//
-//        return 0
-//    }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
@@ -697,9 +644,7 @@ class TalkPageViewController: ThemeableViewController, WMFNavigationBarConfiguri
         cellViewModel.isThreadExpanded = true
         talkPageView.collectionView.reloadData()
         
-        // isProgramaticallyScrolling = true
         talkPageView.collectionView.scrollToItem(at: indexPath, at: .centeredVertically, animated: false)
-        // isProgramaticallyScrolling = false
         
         if let commentViewModel = commentViewModel {
             scrollToComment(commentViewModel: commentViewModel, animated: false)
@@ -913,28 +858,6 @@ extension TalkPageViewController: UICollectionViewDelegate, UICollectionViewData
     }
 }
 
-// MARK: - UICollectioViewDelegateFlowLayout
-
-// extension TalkPageViewController: UICollectionViewDelegateFlowLayout {
-//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-//        
-//        guard section == 0 else {
-//            return CGSize.zero
-//        }
-//        
-//        // Get the view for the first header
-//            let indexPath = IndexPath(row: 0, section: section)
-//            let headerView = self.collectionView(collectionView, viewForSupplementaryElementOfKind: UICollectionView.elementKindSectionHeader, at: indexPath)
-//
-//            // Use this view to calculate the optimal size based on the collection view's width
-//            let size =  headerView.systemLayoutSizeFitting(CGSize(width: collectionView.frame.width, height: UIView.layoutFittingExpandedSize.height),
-//                                                      withHorizontalFittingPriority: .required, // Width is fixed
-//                                                      verticalFittingPriority: .fittingSizeLevel) // Height can be as large as needed
-//        
-//        return size
-//    }
-// }
-
 // MARK: - TalkPageCellDelegate
 
 extension TalkPageViewController: TalkPageCellDelegate {
@@ -991,8 +914,6 @@ extension TalkPageViewController: TalkPageCellDelegate {
 
     fileprivate func updateEmptyStateVisibility() {
         talkPageView.updateEmptyView(visible: viewModel.topics.count == 0)
-        // scrollView = viewModel.topics.count == 0 ? talkPageView.emptyView.scrollView : talkPageView.collectionView
-        // updateScrollViewInsets()
     }
 
     fileprivate func updateErrorStateVisibility() {
@@ -1058,10 +979,8 @@ extension TalkPageViewController: TalkPageReplyComposeDelegate {
                 self.replyComposeController.closeAndReset()
                 
                 // Try to refresh page
-                // self.fakeProgressController.start()
                 self.viewModel.fetchTalkPage { [weak self] result in
                     
-                    // self?.fakeProgressController.stop()
                     switch result {
                     case .success(let revID):
                         self?.updateEmptyStateVisibility()
@@ -1131,10 +1050,8 @@ extension TalkPageViewController: TalkPageTopicComposeViewControllerDelegate {
                 }
                 
                 // Try to refresh page
-                // self?.fakeProgressController.start()
                 self?.viewModel.fetchTalkPage { [weak self] result in
                     
-                    // self?.fakeProgressController.stop()
                     
                     switch result {
                     case .success:
@@ -1335,10 +1252,8 @@ extension TalkPageViewController: EditorViewControllerDelegate {
                 }
                 
                 // Refresh page
-                // self.fakeProgressController.start()
                 self.viewModel.fetchTalkPage { [weak self] result in
                     
-                    // self?.fakeProgressController.stop()
                     
                     switch result {
                     case .success:

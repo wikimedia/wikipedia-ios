@@ -88,14 +88,6 @@ class PageHistoryFilterCountsView: UIView {
             activityIndicator.centerXAnchor.constraint(equalTo: centerXAnchor)
         ])
     }
-//
-//    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
-//        super.viewWillTransition(to: size, with: coordinator)
-//        coordinator.animate(alongsideTransition: { _ in
-//            self.collectionView.collectionViewLayout.invalidateLayout()
-//            self.calculateSizes()
-//        })
-//    }
 
     private var countOfColumns: CGFloat = 4 {
         didSet {

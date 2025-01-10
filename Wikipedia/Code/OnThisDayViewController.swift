@@ -56,9 +56,7 @@ class OnThisDayViewController: ColumnarCollectionViewController, WMFNavigationBa
             return
         }
         let sectionIndex = eventIndex + 1 // index + 1 because section 0 is the header
-        // isProgramaticallyScrolling = true
         collectionView.scrollToItem(at: IndexPath(item: 0, section: sectionIndex), at: sectionIndex < 1 ? .top : .centeredVertically, animated: false)
-        // isProgramaticallyScrolling = false
     }
     
     override func scrollViewInsetsDidChange() {

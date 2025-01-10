@@ -14,7 +14,6 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
     @IBOutlet weak var redoSearchButton: UIButton!
     @IBOutlet weak var didYouMeanButton: UIButton!
 
-   // var fakeProgressController: FakeProgressController!
     @IBOutlet weak var recenterOnUserLocationButton: UIButton!
     @IBOutlet weak var listAndSearchOverlayContainerView: RoundedCornerView!
     @IBOutlet weak var listAndSearchOverlaySliderSeparator: UIView!
@@ -73,6 +72,13 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
     
     override var addsCollectionView: Bool {
         return false
+    }
+    
+    private var mapTitle {
+        WMFLocalizedString("places-map-title", value: "Map", comment: "Button that switches the display mode to the Map view on the Places tab.")
+    }
+    private var listTitle {
+        WMFLocalizedString("places-list-title'", value: "List", comment: "Button that switches the display mode to the List view on the Places tab.")
     }
     
     // MARK: - View Lifecycle
@@ -253,7 +259,7 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
         }
 
         let showsScopeBar = isViewModeOverlay ? false : true
-        let scopeButtonTitles = isViewModeOverlay ? nil : ["Map","List"]
+        let scopeButtonTitles = isViewModeOverlay ? nil : [mapTitle, listTitle]
         
         let searchConfig = WMFNavigationBarSearchConfig(searchResultsController: nil, searchControllerDelegate: nil, searchResultsUpdater: self, searchBarDelegate: self, searchBarPlaceholder: WMFLocalizedString("places-search-default-text", value:"Search Places", comment:"Placeholder text that displays where is there no current place search {{Identical|Search}}"), showsScopeBar: showsScopeBar, scopeButtonTitles: scopeButtonTitles)
         
@@ -270,7 +276,7 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
         
         if !isViewModeOverlay {
             searchController.searchBar.showsScopeBar = true
-            searchController.searchBar.scopeButtonTitles = ["Map","List"]
+            searchController.searchBar.scopeButtonTitles = [mapTitle, listTitle]
         } else {
             searchController.searchBar.showsScopeBar = false
         }
@@ -1014,13 +1020,11 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
                 UIView.animate(withDuration: 0.3) {
                     self.mapListToggleContainer.alpha = 1
                     self.mapListToggleContainer.isHidden = false
-                    // self.navigationItem.searchController?.searchBar.setShowsCancelButton(false, animated: true)
                 }
             } else if oldValue != .search && viewMode == .search {
                 UIView.animate(withDuration: 0.3) {
                     self.mapListToggleContainer.isHidden = true
                     self.mapListToggleContainer.alpha = 0
-                    // self.navigationItem.searchController?.searchBar.setShowsCancelButton(true, animated: true)
                 }
             }
             switch traitBasedViewMode {
@@ -1029,7 +1033,6 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
                 listViewController.updateLocationOnVisibleCells()
                 updateLocationOnVisibleCells()
                 logListViewImpressionsForVisibleCells()
-                // mapView.isHidden = false
                 mapContainerView.isHidden = false
                 listContainerView.isHidden = false
                 listViewController.view.isHidden = false
@@ -1043,7 +1046,6 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
                 updateLocationOnVisibleCells()
                 logListViewImpressionsForVisibleCells()
                 emptySearchOverlayView.removeFromSuperview()
-                // mapView.isHidden = true
                 mapContainerView.isHidden = true
                 listContainerView.isHidden = true
                 listViewController.view.isHidden = true
@@ -1076,7 +1078,6 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
             case .map:
                 fallthrough
             default:
-                // mapView.isHidden = false
                 mapContainerView.isHidden = false
                 listContainerView.isHidden = true
                 listViewController.view.isHidden = true
@@ -1618,7 +1619,6 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
        
         addChild(articleVC)
         view.addSubview(articleVC.view)
-        // view.insertSubview(articleVC.view, belowSubview: navigationBar)
         articleVC.didMove(toParent: self)
         
         let size = articleVC.view.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize)
@@ -1756,7 +1756,6 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
         let left = totalWidth - annotationCenter.x
         let right = annotationCenter.x + totalWidth - viewSize.width
 
-        // let navBarHeight = navigationBar.visibleHeight
         let navBarHeight = CGFloat(0)
         var x = annotationCenter.x > viewCenter.x ? viewSize.width - popoverSize.width - spacing : spacing
         var y = annotationCenter.y > viewCenter.y ? viewSize.height - popoverSize.height - spacing : spacing + navBarHeight
@@ -2077,7 +2076,6 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
     
     private func closeSearch() {
         navigationItem.searchController?.isActive = false
-        // navigationItem.searchController?.searchBar.endEditing(true)
         currentSearch = nil
         performDefaultSearchIfNecessary(withRegion: nil)
         UIAccessibility.post(notification: UIAccessibility.Notification.screenChanged, argument: view)

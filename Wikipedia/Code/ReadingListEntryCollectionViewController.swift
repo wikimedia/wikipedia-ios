@@ -556,7 +556,6 @@ extension ReadingListEntryCollectionViewController: SavedViewControllerDelegate 
     }
     
     func saved(_ saved: SavedViewController, searchBarTextDidBeginEditing searchBar: UISearchBar) {
-        // navigationBar.isInteractiveHidingEnabled = false
     }
     
     func saved(_ saved: SavedViewController, searchBarTextDidEndEditing searchBar: UISearchBar) {
@@ -566,7 +565,6 @@ extension ReadingListEntryCollectionViewController: SavedViewControllerDelegate 
     
     private func makeSearchBarResignFirstResponder(_ searchBar: UISearchBar) {
         searchBar.resignFirstResponder()
-        // navigationBar.isInteractiveHidingEnabled = true
     }
     
     func saved(_ saved: SavedViewController, scopeBarIndexDidChange searchBar: UISearchBar) {

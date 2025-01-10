@@ -133,10 +133,10 @@ class ReadingListDetailViewController: ThemeableViewController, WMFNavigationBar
         
         let titleConfig = WMFNavigationBarTitleConfig(title: readingList.name ?? "", customView: nil, alignment: .centerCompact)
         
-        let closeButtonConfig: WMFNavigationBarCloseButtonConfig? = displayType == .modal ? WMFNavigationBarCloseButtonConfig(accessibilityLabel: CommonStrings.closeButtonAccessibilityLabel, target: self, action: #selector(dismissController), alignment: .leading) : nil
+        let closeButtonConfig: WMFNavigationBarCloseButtonConfig? = displayType == .modal ? WMFNavigationBarCloseButtonConfig(text: CommonStrings.doneTitle, target: self, action: #selector(dismissController), alignment: .leading) : nil
         
-        // TODO: Localize
-        let searchConfig = WMFNavigationBarSearchConfig(searchResultsController: nil, searchControllerDelegate: nil, searchResultsUpdater: self, searchBarDelegate: nil, searchBarPlaceholder: "Search reading list", showsScopeBar: false, scopeButtonTitles: nil)
+        let searchBarPlaceholder = WMFLocalizedString("reading-list-detail-search-placeholder", value: "Search reading list", comment: "Placeholder on search bar for reading list detail view.")
+        let searchConfig = WMFNavigationBarSearchConfig(searchResultsController: nil, searchControllerDelegate: nil, searchResultsUpdater: self, searchBarDelegate: nil, searchBarPlaceholder: searchBarPlaceholder, showsScopeBar: false, scopeButtonTitles: nil)
         
         configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: closeButtonConfig, profileButtonConfig: nil, searchBarConfig: searchConfig, hideNavigationBarOnScroll: false)
     }
@@ -266,7 +266,7 @@ extension ReadingListDetailViewController: SearchBarExtendedViewControllerDelega
     }
     
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
-        // navigationBar.isExtendedViewHidingEnabled = false
+
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
@@ -277,7 +277,6 @@ extension ReadingListDetailViewController: SearchBarExtendedViewControllerDelega
         searchBar.text = ""
         readingListEntryCollectionViewController.updateSearchString("")
         searchBar.resignFirstResponder()
-        // navigationBar.isExtendedViewHidingEnabled = true
     }
     
     func textStyle(for button: UIButton) -> WMFFont {
@@ -331,9 +330,7 @@ extension ReadingListDetailViewController: ReadingListEntryCollectionViewControl
         }
         if viewController.isEmpty {
             title = readingList.name
-            // navigationBar.removeExtendedNavigationBarView()
         }
-        // viewController.updateScrollViewInsets()
     }
     
     func readingListEntryCollectionViewControllerDidSelectArticleURL(_ articleURL: URL, viewController: ReadingListEntryCollectionViewController) {

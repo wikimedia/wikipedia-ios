@@ -100,7 +100,6 @@ class ReadingListsViewController: ColumnarCollectionViewController, EditableColl
         }
         
         let sortDescriptors = sortActions[sortActionType]?.sortDescriptors
-        // sortDescriptors.append(NSSortDescriptor(key: "canonicalName", ascending: true, selector: #selector(NSString.localizedCaseInsensitiveCompare)))
         request.sortDescriptors = sortDescriptors
         fetchedResultsController = NSFetchedResultsController(fetchRequest: request, managedObjectContext: dataStore.viewContext, sectionNameKeyPath: nil, cacheName: nil)
     }
@@ -544,7 +543,6 @@ extension ReadingListsViewController: SavedViewControllerDelegate {
     }
     
     func saved(_ saved: SavedViewController, searchBarTextDidBeginEditing searchBar: UISearchBar) {
-        // navigationBar.isInteractiveHidingEnabled = false
     }
     
     func saved(_ saved: SavedViewController, searchBarTextDidEndEditing searchBar: UISearchBar) {
@@ -554,7 +552,6 @@ extension ReadingListsViewController: SavedViewControllerDelegate {
     
     private func makeSearchBarResignFirstResponder(_ searchBar: UISearchBar) {
         searchBar.resignFirstResponder()
-        // navigationBar.isInteractiveHidingEnabled = true
     }
     
     func saved(_ saved: SavedViewController, scopeBarIndexDidChange searchBar: UISearchBar) {

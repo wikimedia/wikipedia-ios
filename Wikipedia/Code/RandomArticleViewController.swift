@@ -118,7 +118,6 @@ class RandomArticleViewController: ArticleViewController {
     }
 
     func setRandomButtonHidden(_ isRandomButtonHidden: Bool, animated: Bool) {
-        // TODO: animate off screen
         secondToolbar.isHidden = isRandomButtonHidden
     }
     

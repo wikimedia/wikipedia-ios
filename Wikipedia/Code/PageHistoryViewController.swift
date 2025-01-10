@@ -407,7 +407,6 @@ class PageHistoryViewController: ColumnarCollectionViewController, WMFNavigation
     override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         if indexPath.section == 0 {
             if let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: Self.headerReuseIdentifier, for: indexPath) as? PageHistoryCountsView {
-                // header.widthConstraint?.constant = collectionView.frame.width
                 header.configure(pageTitle: pageTitle, locale: NSLocale.wmf_locale(for: pageURL.wmf_languageCode), totalEditCount: totalEditCount, firstEditDate: firstEditDate, editCountsGroupedByType: editCountsGroupedByType, timeseriesOfEditsCounts: timeseriesOfEditsCounts, theme: theme)
                 self.countsView = header
                 return header

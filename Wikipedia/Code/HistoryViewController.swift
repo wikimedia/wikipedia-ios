@@ -19,9 +19,6 @@ class HistoryViewController: ArticleFetchedResultsViewController, WMFNavigationB
     
     override func viewDidLoad() {
         super.viewDidLoad()
-//        navigationBar.isBarHidingEnabled = false
-//        navigationBar.isShadowHidingEnabled = true
-//        navigationBar.displayType = .largeTitle
 
         emptyViewType = .noHistory
         

@@ -627,33 +627,26 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 #pragma mark - Scroll view
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    //[self.navigationBarHider scrollViewDidScroll:scrollView];
     [self calculateNavigationBarHiddenStateFromObjCWithScrollView:scrollView];
 }
 
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
-    //[self.navigationBarHider scrollViewWillBeginDragging:scrollView];
 }
 
 - (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset {
-    //[self.navigationBarHider scrollViewWillEndDragging:scrollView withVelocity:velocity targetContentOffset:targetContentOffset];
 }
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
-    //[self.navigationBarHider scrollViewDidEndDecelerating:scrollView];
 }
 
 - (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView {
-    //[self.navigationBarHider scrollViewDidEndScrollingAnimation:scrollView];
 }
 
 - (BOOL)scrollViewShouldScrollToTop:(UIScrollView *)scrollView {
-    //[self.navigationBarHider scrollViewWillScrollToTop:scrollView];
     return YES;
 }
 
 - (void)scrollViewDidScrollToTop:(UIScrollView *)scrollView {
-   // [self.navigationBarHider scrollViewDidScrollToTop:scrollView];
 }
 
 #pragma mark - WMFThemeable

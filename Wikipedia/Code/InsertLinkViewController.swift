@@ -41,7 +41,7 @@ class InsertLinkViewController: UIViewController, WMFNavigationBarConfiguring {
         
         let titleConfig = WMFNavigationBarTitleConfig(title: CommonStrings.insertLinkTitle, customView: nil, alignment: .centerCompact)
         
-        let closeButtonConfig = WMFNavigationBarCloseButtonConfig(accessibilityLabel: CommonStrings.closeButtonAccessibilityLabel, target: self, action: #selector(delegateCloseButtonTap(_:)), alignment: .trailing)
+        let closeButtonConfig = WMFNavigationBarCloseButtonConfig(text: CommonStrings.doneTitle, target: self, action: #selector(delegateCloseButtonTap(_:)), alignment: .trailing)
 
         let searchViewController = SearchViewController()
         searchViewController.showLanguageBar = false

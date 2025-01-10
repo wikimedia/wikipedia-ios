@@ -1520,7 +1520,6 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
 - (WMFPlacesViewController *)placesViewController {
     if (!_placesViewController) {
         _placesViewController = [[UIStoryboard storyboardWithName:@"Places" bundle:nil] instantiateInitialViewController];
-        //_placesViewController.dataStore = self.dataStore;
         [_placesViewController applyTheme:self.theme];
         _placesViewController.tabBarItem.image = [UIImage imageNamed:@"tabbar-nearby"];
         _placesViewController.title = [WMFCommonStrings placesTabTitle];
@@ -2051,7 +2050,6 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     [self dismissPresentedViewControllers];
     [self setSelectedIndex:WMFAppTabTypeSaved];
     [self.currentTabNavigationController popToRootViewControllerAnimated:NO];
-    //[self.savedViewController toggleCurrentView:WMFSavedViewControllerView.readingListsViewRawValue];
     ReadingListDetailViewController *detailVC = [[ReadingListDetailViewController alloc] initFor:readingList with:self.dataStore fromImport:YES theme:self.theme];
     [self.currentTabNavigationController pushViewController:detailVC animated:YES];
 }

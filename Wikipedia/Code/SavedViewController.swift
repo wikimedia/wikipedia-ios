@@ -44,6 +44,10 @@ class SavedViewController: ThemeableViewController, WMFNavigationBarConfiguring,
     
     var topSafeAreaOverlayView: UIView?
     var topSafeAreaOverlayHeightConstraint: NSLayoutConstraint?
+    
+    private var allArticlesSearchBarPlaceholder: String {
+        WMFLocalizedString("saved-search-default-text", value:"Search saved articles", comment:"Placeholder text for the search bar in Saved. Displayed in All Articles list.")
+    }
 
     // MARK: - Initalization and setup
     
@@ -82,7 +86,7 @@ class SavedViewController: ThemeableViewController, WMFNavigationBarConfiguring,
                 evaluateEmptyState()
                 ReadingListsFunnel.shared.logTappedAllArticlesTab()
                 if let searchBar = navigationItem.searchController?.searchBar {
-                    searchBar.placeholder = "Search saved articles"
+                    searchBar.placeholder = allArticlesSearchBarPlaceholder
                 }
             case .readingLists :
                 removeChild(savedArticlesViewController)
@@ -94,7 +98,7 @@ class SavedViewController: ThemeableViewController, WMFNavigationBarConfiguring,
                 evaluateEmptyState()
                 ReadingListsFunnel.shared.logTappedReadingListsTab()
                 if let searchBar = navigationItem.searchController?.searchBar {
-                    searchBar.placeholder = "Search reading lists"
+                    searchBar.placeholder = WMFLocalizedString("saved-reading-lists-search-placeholder", value: "Search reading lists", comment: "Search bar placeholder on Saved articles tab. Displayed in Reading Lists list.")
                 }
             }
             
@@ -207,7 +211,7 @@ class SavedViewController: ThemeableViewController, WMFNavigationBarConfiguring,
         let allArticlesButtonTitle = WMFLocalizedString("saved-all-articles-title", value: "All articles", comment: "Title of the all articles button on Saved screen")
         let readingListsButtonTitle = WMFLocalizedString("saved-reading-lists-title", value: "Reading lists", comment: "Title of the reading lists button on Saved screen")
         
-        let searchConfig = WMFNavigationBarSearchConfig(searchResultsController: nil, searchControllerDelegate: nil, searchResultsUpdater: nil, searchBarDelegate: self, searchBarPlaceholder: WMFLocalizedString("saved-search-default-text", value:"Search saved articles", comment:"Placeholder text for the search bar in Saved"), showsScopeBar: true, scopeButtonTitles: [allArticlesButtonTitle, readingListsButtonTitle])
+        let searchConfig = WMFNavigationBarSearchConfig(searchResultsController: nil, searchControllerDelegate: nil, searchResultsUpdater: nil, searchBarDelegate: self, searchBarPlaceholder: allArticlesSearchBarPlaceholder, showsScopeBar: true, scopeButtonTitles: [allArticlesButtonTitle, readingListsButtonTitle])
         
         var hidesNavigationBarOnScroll = true
         switch self.currentView {
@@ -268,7 +272,7 @@ class SavedViewController: ThemeableViewController, WMFNavigationBarConfiguring,
     
     private lazy var moreBarButtonItem: UIBarButtonItem = {
         let button = UIBarButtonItem(image: UIImage(systemName: "ellipsis.circle"), primaryAction: nil, menu: overflowMenu)
-        // TODO: accessibility label needed
+        button.accessibilityLabel = CommonStrings.moreButton
         return button
     }()
     
@@ -358,11 +362,7 @@ extension SavedViewController: CollectionViewEditControllerNavigationDelegate {
     }
     
     func emptyStateDidChange(_ empty: Bool) {
-        if empty {
-            
-        } else {
-            
-        }
+        //no-op
     }
 }
 

@@ -19,7 +19,6 @@ final class TalkPageCoffeeRollViewController: ThemeableViewController, WMFNaviga
         let coffeeRollView = TalkPageCoffeeRollView(theme: theme, viewModel: viewModel, frame: UIScreen.main.bounds)
         view = coffeeRollView
         coffeeRollView.configure(viewModel: viewModel)
-        // scrollView = coffeeRollView.scrollView
     }
 
     init(theme: Theme, viewModel: TalkPageCoffeeRollViewModel) {

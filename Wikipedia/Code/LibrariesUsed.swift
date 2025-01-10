@@ -74,7 +74,7 @@ class LibrariesUsedViewController: UIViewController, UITableViewDelegate, UITabl
     private func configureNavigationBar() {
         
         let titleConfig = WMFNavigationBarTitleConfig(title: WMFLocalizedString("about-libraries", value:"Libraries used", comment:"Header text for libraries section (as in a collection of subprograms used to develop software) of the about page. Is not capitalised for aesthetic reasons, but could be capitalised in translations."), customView: nil, alignment: .centerCompact)
-        let closeConfig = WMFNavigationBarCloseButtonConfig(accessibilityLabel: CommonStrings.closeButtonAccessibilityLabel, target: self, action: #selector(closeButtonPushed(_:)), alignment: .trailing)
+        let closeConfig = WMFNavigationBarCloseButtonConfig(text: CommonStrings.doneTitle, target: self, action: #selector(closeButtonPushed(_:)), alignment: .trailing)
         
         configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: closeConfig, profileButtonConfig: nil, searchBarConfig: nil, hideNavigationBarOnScroll: false)
     }

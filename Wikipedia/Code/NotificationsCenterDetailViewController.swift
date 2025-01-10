@@ -29,7 +29,6 @@ final class NotificationsCenterDetailViewController: ThemeableViewController, WM
     override func loadView() {
         let detailView = NotificationsCenterDetailView(frame: UIScreen.main.bounds)
         view = detailView
-        // scrollView = detailView.tableView
 
         detailView.tableView.dataSource = self
         detailView.tableView.delegate = self

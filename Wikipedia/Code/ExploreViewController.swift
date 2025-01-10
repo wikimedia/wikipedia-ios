@@ -226,7 +226,6 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     
     @objc func scrollToTop() {
         navigationController?.setNavigationBarHidden(false, animated: true)
-        // TODO: Fix
         collectionView.setContentOffset(CGPoint(x: collectionView.contentOffset.x, y: 0 - collectionView.contentInset.top), animated: true)
     }
     
@@ -318,7 +317,6 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
             return
         }
         
-        // TODO: Investigate why this isn't paging
         let calendar = NSCalendar.wmf_gregorian()
         let days: Int = calendar?.wmf_days(from: lastGroupMidnightUTC, to: midnightUTC) ?? 0
         guard days < Int(WMFExploreFeedMaximumNumberOfDays) else {
@@ -355,8 +353,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
             guard let group = group(at: indexPath), group.undoType == .none, let itemFrame = collectionView.layoutAttributesForItem(at: indexPath)?.frame else {
                 continue
             }
-            // TODO: Test this.
-            let navBarVisibleHeight = CGFloat(0) // navigationBar.visibleHeight
+            let navBarVisibleHeight = CGFloat(0)
             let visibleRectOrigin = CGPoint(x: collectionView.contentOffset.x, y: collectionView.contentOffset.y + navBarVisibleHeight)
             let visibleRectSize = view.layoutMarginsGuide.layoutFrame.size
             let itemCenter = CGPoint(x: itemFrame.midX, y: itemFrame.midY)

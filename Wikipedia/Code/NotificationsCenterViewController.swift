@@ -96,7 +96,6 @@ final class NotificationsCenterViewController: ThemeableViewController, WMFNavig
         let notificationsCenterView = NotificationsCenterView(frame: UIScreen.main.bounds)
         notificationsCenterView.addSubheaderTapGestureRecognizer(target: self, action: #selector(tappedEmptyStateSubheader))
         view = notificationsCenterView
-        // scrollView = notificationsView.collectionView
     }
     
     override func viewDidLoad() {

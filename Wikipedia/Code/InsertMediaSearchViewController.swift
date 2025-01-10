@@ -10,8 +10,6 @@ final class InsertMediaSearchViewController: UIViewController {
     private let articleTitle: String?
     private let siteURL: URL?
 
-    // var progressController: FakeProgressController!
-
     private let searchFetcher = WMFSearchFetcher()
     // SINGLETONTODO
     private let imageInfoFetcher = MWKImageInfoFetcher(dataStore: MWKDataStore.shared())
@@ -52,15 +50,9 @@ final class InsertMediaSearchViewController: UIViewController {
             searchForArticleTitle()
             return
         }
-        if isFirstSearch {
-            // progressController.delay = 0
-        } else {
-            // progressController.delay = 1.0
-        }
-        // progressController.start()
+
         let failure = { (error: Error) in
             DispatchQueue.main.async {
-                // self.progressController.stop()
                 self.delegate?.insertMediaSearchViewController(self, didFailWithError: error)
             }
         }
@@ -86,7 +78,6 @@ final class InsertMediaSearchViewController: UIViewController {
             assert(!Thread.isMainThread)
             let searchResults = searchResults(results)
             DispatchQueue.main.async {
-                // self.progressController.finish()
                 self.delegate?.insertMediaSearchViewController(self, didFind: searchResults)
             }
             for (index, searchResult) in searchResults.enumerated() {

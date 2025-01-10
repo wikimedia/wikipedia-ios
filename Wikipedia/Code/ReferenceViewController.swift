@@ -31,7 +31,6 @@ class ReferenceViewController: ThemeableViewController {
     }()
     
     func setupCustomNavbar() {
-        // navigationBar.displayType = .modal
         updateTitle()
         navigationItem.rightBarButtonItem = closeButton
         navigationItem.leftBarButtonItem = backToReferenceButton
@@ -46,7 +45,6 @@ class ReferenceViewController: ThemeableViewController {
         customNavigationBar.items = [navigationItem]
         
         // Insert UIView covering below navigation bar, but above collection view. This hides collection view content beneath safe area.
-        // TODO: Update this upon theming change.
         let overlayView = UIView()
         overlayView.translatesAutoresizingMaskIntoConstraints = false
         overlayView.backgroundColor = theme.colors.paperBackground
@@ -64,7 +62,6 @@ class ReferenceViewController: ThemeableViewController {
     // MARK: View Lifecycle
     
     override func viewDidLoad() {
-        // navigationMode = .forceBar
         super.viewDidLoad()
         setupCustomNavbar()
     }

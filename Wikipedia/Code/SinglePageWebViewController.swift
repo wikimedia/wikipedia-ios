@@ -103,12 +103,6 @@ class SinglePageWebViewController: ThemeableViewController, WMFNavigationBarConf
         webView.uiDelegate = self
         return webView
     }()
-    
-//    private lazy var fakeProgressController: FakeProgressController = {
-//        let fpc = FakeProgressController(progress: navigationBar, delegate: navigationBar)
-//        fpc.delay = 0
-//        return fpc
-//    }()
 
     private lazy var overlayButtonContainer: UIView = {
         let contentView = UIView(frame: .zero)
@@ -187,7 +181,7 @@ class SinglePageWebViewController: ThemeableViewController, WMFNavigationBarConf
             let titleConfig = WMFNavigationBarTitleConfig(title: "", customView: nil, alignment: .centerCompact)
             
             if navigationController?.viewControllers.first === self {
-                closeConfig = WMFNavigationBarCloseButtonConfig(accessibilityLabel: CommonStrings.closeButtonAccessibilityLabel, target: self, action: #selector(closeButtonTapped(_:)), alignment: .leading)
+                closeConfig = WMFNavigationBarCloseButtonConfig(text: CommonStrings.doneTitle, target: self, action: #selector(closeButtonTapped(_:)), alignment: .leading)
             }
             
             configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: closeConfig, profileButtonConfig: nil, searchBarConfig: nil, hideNavigationBarOnScroll: false)
@@ -218,7 +212,6 @@ class SinglePageWebViewController: ThemeableViewController, WMFNavigationBarConf
     }
 
     private func fetch() {
-        // fakeProgressController.start()
         webView.load(URLRequest(url: url))
     }
     
@@ -348,7 +341,6 @@ class SinglePageWebViewController: ThemeableViewController, WMFNavigationBarConf
     }
 
     private func load() {
-        // fakeProgressController.start()
         webView.load(URLRequest(url: url))
     }
 
@@ -518,7 +510,6 @@ extension SinglePageWebViewController: WKNavigationDelegate {
     func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: Error) {
         DDLogWarn("Error loading single page - did fail provisional navigation: \(error)")
         WMFAlertManager.sharedInstance.showErrorAlert(error as NSError, sticky: false, dismissPreviousAlerts: true)
-        // fakeProgressController.finish()
     }
     
     func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
@@ -526,16 +517,14 @@ extension SinglePageWebViewController: WKNavigationDelegate {
 
         // Avoid displaying "Plug-in handled load" noise to users.
         if (error as NSError).isPluginHandledLoadError {
-            // fakeProgressController.finish()
             return
         }
 
         WMFAlertManager.sharedInstance.showErrorAlert(error as NSError, sticky: false, dismissPreviousAlerts: false)
-        // fakeProgressController.finish()
     }
     
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
-        // fakeProgressController.finish()
+
     }
 }
 

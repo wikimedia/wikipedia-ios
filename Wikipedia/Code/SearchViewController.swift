@@ -12,7 +12,6 @@ protocol SearchViewControllerResultSelectionDelegate: AnyObject {
 class SearchViewController: ArticleCollectionViewController, WMFNavigationBarConfiguring, WMFNavigationBarHiding {
     
     // Assign so that the correct search bar will have it's field populated once a "recently searched" term is selected
-    // todo: rename, confusing with UISearch
     weak var recentlySearchedSelectionDelegate: SearchViewControllerRecentlySearchedSelectionDelegate?
     
     // Assign if you don't want search result selection to do default navigation, and instead want to perform your own custom logic upon selection.
@@ -119,8 +118,7 @@ class SearchViewController: ArticleCollectionViewController, WMFNavigationBarCon
             }
         }
         
-        // TODO: Localize
-        let searchBarConfig = WMFNavigationBarSearchConfig(searchResultsController: nil, searchControllerDelegate: self, searchResultsUpdater: self, searchBarDelegate: self, searchBarPlaceholder: "Type something here to search", showsScopeBar: false, scopeButtonTitles: nil)
+        let searchBarConfig = WMFNavigationBarSearchConfig(searchResultsController: nil, searchControllerDelegate: self, searchResultsUpdater: self, searchBarDelegate: self, searchBarPlaceholder: WMFLocalizedString("search-field-placeholder-text", value: "Search Wikipedia", comment: "Search field placeholder text"), showsScopeBar: false, scopeButtonTitles: nil)
         
         configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: nil, profileButtonConfig: nil, searchBarConfig: searchBarConfig, hideNavigationBarOnScroll: true)
     }

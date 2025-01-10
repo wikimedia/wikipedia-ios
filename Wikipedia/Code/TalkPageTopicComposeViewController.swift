@@ -176,7 +176,7 @@ class TalkPageTopicComposeViewController: ThemeableViewController, WMFNavigation
     private func configureNavigationBar() {
         let titleConfig = WMFNavigationBarTitleConfig(title: Self.TopicComposeStrings.navigationBarTitle, customView: nil, alignment: .centerCompact)
         
-        let closeConfig = WMFNavigationBarCloseButtonConfig(accessibilityLabel: CommonStrings.closeButtonAccessibilityLabel, target: self, action: #selector(tappedClose), alignment: .leading)
+        let closeConfig = WMFNavigationBarCloseButtonConfig(text: CommonStrings.doneTitle, target: self, action: #selector(tappedClose), alignment: .leading)
         
         configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: closeConfig, profileButtonConfig: nil, searchBarConfig: nil, hideNavigationBarOnScroll: false)
     }
