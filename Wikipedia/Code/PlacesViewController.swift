@@ -74,10 +74,10 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
         return false
     }
     
-    private var mapTitle {
+    private var mapTitle: String {
         WMFLocalizedString("places-map-title", value: "Map", comment: "Button that switches the display mode to the Map view on the Places tab.")
     }
-    private var listTitle {
+    private var listTitle: String {
         WMFLocalizedString("places-list-title'", value: "List", comment: "Button that switches the display mode to the List view on the Places tab.")
     }
     

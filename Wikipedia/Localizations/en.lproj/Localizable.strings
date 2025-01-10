@@ -949,7 +949,9 @@
 "places-filter-top-articles" = "Top read";
 "places-filter-top-articles-count" = "{{PLURAL:$1|$1 article|$1 articles}}";
 "places-filter-top-read-articles" = "Top read articles";
+"places-list-title'" = "List";
 "places-location-enabled" = "Location enabled";
+"places-map-title" = "Map";
 "places-no-saved-articles-have-location" = "None of your saved articles have location information";
 "places-search-articles-that-match" = "$1 matching “$2”";
 "places-search-default-text" = "Search Places";
@@ -1005,6 +1007,7 @@
 "reading-list-create-new-list-reading-list-name" = "Reading list name";
 "reading-list-create-new-list-title" = "Create a new list";
 "reading-list-deleted-accessibility-notification" = "Reading list deleted";
+"reading-list-detail-search-placeholder" = "Search reading list";
 "reading-list-do-not-keep-button-title" = "No, delete articles from device";
 "reading-list-entry-limit-exceeded-message" = "Please decrease your number of articles in this list to $1 to resume syncing of all articles in this list.";
 "reading-list-entry-limit-exceeded-title" = "You have exceeded the limit of {{PLURAL:$1|$1 article|$1 articles}} per account.";
@@ -1102,6 +1105,7 @@
 "saved-default-reading-list-tag" = "This list cannot be deleted";
 "saved-pages-image-download-error" = "Failed to download images for this saved page.";
 "saved-pages-progress-syncing" = "Article download in progress...";
+"saved-reading-lists-search-placeholder" = "Search reading lists";
 "saved-reading-lists-title" = "Reading lists";
 "saved-search-default-text" = "Search saved articles";
 "saved-title" = "Saved";

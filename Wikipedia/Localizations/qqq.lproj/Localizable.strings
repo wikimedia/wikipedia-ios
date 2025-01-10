@@ -949,7 +949,9 @@
 "places-filter-top-articles" = "Title of places search filter that searches top articles";
 "places-filter-top-articles-count" = "Describes how many top articles are found in the top articles filter - $1 is replaced with the number of articles";
 "places-filter-top-read-articles" = "Title for action that allows users to filter top read articles";
+"places-list-title'" = "Button that switches the display mode to the List view on the Places tab.";
 "places-location-enabled" = "Title for button informing user that they successfully enabled location services";
+"places-map-title" = "Button that switches the display mode to the Map view on the Places tab.";
 "places-no-saved-articles-have-location" = "Indicates to the user that none of their saved articles have location information";
 "places-search-articles-that-match" = "A search suggestion for filtering the articles in the area by the search string. $1 is replaced by the a string depending on the current filter ('Nearby' for 'Top Articles' or 'Saved articles'). $2 is replaced with the search string";
 "places-search-default-text" = "Placeholder text that displays where is there no current place search {{Identical|Search}}";
@@ -1005,6 +1007,7 @@
 "reading-list-create-new-list-reading-list-name" = "Title for label above text field for entering new list name.";
 "reading-list-create-new-list-title" = "Title for the view in charge of creating a new reading list.";
 "reading-list-deleted-accessibility-notification" = "Notification spoken after user deletes a reading list from the list.";
+"reading-list-detail-search-placeholder" = "Placeholder on search bar for reading list detail view.";
 "reading-list-do-not-keep-button-title" = "Title for button to remove saved articles from device.";
 "reading-list-entry-limit-exceeded-message" = "Informs the user that the reading list and its articles will not be synced until the number of articles in the list is decreased. $1 will be replaced with the maximum number of allowed articles in a list";
 "reading-list-entry-limit-exceeded-title" = "Informs the user that they have reached the allowed limit of articles per account. $1 will be replaced with the maximum number of allowed articles";
@@ -1102,8 +1105,9 @@
 "saved-default-reading-list-tag" = "Tag on the default reading list cell explaining that the list cannot be deleted";
 "saved-pages-image-download-error" = "Error message shown when one or more images fails to save for offline use.";
 "saved-pages-progress-syncing" = "Text for article download progress bar label";
+"saved-reading-lists-search-placeholder" = "Search bar placeholder on Saved articles tab. Displayed in Reading Lists list.";
 "saved-reading-lists-title" = "Title of the reading lists button on Saved screen";
-"saved-search-default-text" = "Placeholder text for the search bar in Saved";
+"saved-search-default-text" = "Placeholder text for the search bar in Saved. Displayed in All Articles list.";
 "saved-title" = "Title of the saved screen shown on the saved tab {{Identical|Saved}}";
 "saved-unsave-article-and-remove-from-reading-lists-message" = "Message of the alert action that unsaves a selected article and removes it from all associated reading lists. $1 will be replaced with the number of articles being unsaved.";
 "saved-unsave-article-and-remove-from-reading-lists-title" = "Title of the alert action that unsaves a selected article and removes it from all associated reading lists. $1 will be replaced with the number of articles to be unsaved.";

@@ -362,7 +362,7 @@ extension SavedViewController: CollectionViewEditControllerNavigationDelegate {
     }
     
     func emptyStateDidChange(_ empty: Bool) {
-        //no-op
+        // no-op
     }
 }
 

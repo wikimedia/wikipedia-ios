@@ -132,6 +132,6 @@ extension AddArticlesToReadingListViewController: ReadingListsViewControllerDele
     }
 
     func readingListsViewControllerDidChangeEmptyState(_ readingListsViewController: ReadingListsViewController, isEmpty: Bool) {
-        //no-op
+        // no-op
     }
 }
