@@ -356,6 +356,7 @@
 "profile-button-badge-accessibility-label" = "অপঠিত ব্যাজসহ প্রোফাইল";
 "profile-page-donate-subtext" = "অথবা উইকিপিডিয়াকে মুক্ত এবং বিশ্বজুড়ে প্রত্যেকের জন্য অবাধে প্রবেশযোগ্য রাখতে অনুদান দিয়ে সাহায্য করুন।";
 "profile-page-join-subtext" = "আপনার অবদান ট্র্যাক করতে, অফলাইনে নিবন্ধ সংরক্ষণ করতে এবং ডিভাইসগুলিতে সিঙ্ক করতে একটি উইকিপিডিয়া অ্যাকাউন্ট তৈরি করুন।";
+// Fuzzy
 "profile-page-join-title" = "উইকিপিডিয়ায় যোগ দিন / প্রবেশ করুন";
 "profile-page-title-logged-out" = "অ্যাকাউন্ট";
 "project-name-wikimedia-commons" = "উইকিমিডিয়া কমন্স";
