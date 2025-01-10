@@ -946,6 +946,7 @@
 "privacy-policy-title" = "Политика конфиденциальности";
 "problem-with-feature-title" = "Проблема с функцией";
 "profile-button-accessibility-label" = "Профиль";
+// Fuzzy
 "profile-page-join-title" = "Присоединяйтесь к Википедии / Войти";
 "profile-page-title-logged-out" = "Учётная запись";
 "project-name-mediawiki" = "MediaWiki";

@@ -953,14 +953,18 @@
 "wikitext-upload-save-sign-in" = "Zaloguj się";
 "wikitext-upload-save-terms-name" = "Warunki użytkowania";
 "year-in-review-base-donate-subtitle" = "Dzięki Twojej pomocy Fundacja Wikimedia – organizacja non-profit stojąca za Wikipedią – będzie nadal zapewniać, że informacje, na których polegasz, będą wolne od reklam i godne zaufania, a jednocześnie zapewni płynne działanie Wikipedii dzięki najnowocześniejszym narzędziom i technologiom. Prosimy o rozważenie dokonania darowizny już dziś. [Dowiedz się więcej o naszej pracy]($1).";
-"year-in-review-base-editors-subtitle" = "Wolontariusze wprowadzili 81 987 181 zmian w ponad 300 wersjach językowych Wikipedii. Z tego, 31,2 miliona to edycje w wersji angielskiej. Każdego dnia, o każdej godzinie wolontariusze pracują nad ulepszaniem Wikipedii.";
+// Fuzzy
+"year-in-review-base-editors-subtitle" = "Wolontariusze wprowadzili 555 647 zmian w ponad 300 wersjach językowych Wikipedii. Każdego dnia, o każdej godzinie wolontariusze pracują nad ulepszaniem Wikipedii.";
 "year-in-review-base-edits-subtitle" = "W tym roku Wikipedia była edytowana średnio $1 razy na minutę. Artykuły są tworzone wspólnie i ulepszane przy użyciu wiarygodnych źródeł. Wszyscy mamy wiedzę do podzielenia się, [dowiedz się, jak wziąć w tym udział]($2).";
 "year-in-review-base-reading-subtitle" = "W tym roku Wikipedia miała ponad $1 milion artykułów w ponad $2 językach. Dołączyłeś(-aś) do milionów ludzi, poszerzających wiedzę i zgłębiających różnorodne tematy.";
 "year-in-review-base-reading-title" = "Wikipedia była (i jest) dostępna w ponad 300 językach";
-"year-in-review-base-saved-subtitle" = "Aktywni użytkownicy aplikacji iOS mieli w tym roku ponad 31,6 miliona list do przeczytania. Dodawanie do nich artykułów pozwala na czytanie ich nawet bez dostępu do internetu. Możesz się zalogować, aby synchronizować zawartość list między urządzeniami.";
+// Fuzzy
+"year-in-review-base-saved-subtitle" = "Aktywni użytkownicy aplikacji iOS mieli w tym roku ponad 62,2 miliona list do przeczytania. Dodawanie do nich artykułów pozwala na czytanie ich nawet bez dostępu do internetu. Możesz się zalogować, aby synchronizować zawartość list między urządzeniami.";
 "year-in-review-base-saved-title" = "Mieliśmy ponad $1 mln list do przeczytania";
 "year-in-review-collective-article-views" = "Animowana ilustracja przedstawiająca ekran komputera z otwartą przeglądarką internetową i aktywnym przeglądaniem artykułu w Wikipedii.";
+// Fuzzy
 "year-in-review-collective-edits" = " Ilustracja dwóch kawałków puzzli Wikipedii, z których każdy przenosi informację.";
+// Fuzzy
 "year-in-review-collective-edits-per-minute" = " tykający zegar, symbolizujący czas spędzony przez ludzi czytających Wikipedię.";
 "year-in-review-collective-explore" = "Animowana ilustracja przedstawiająca ikoniczny glob Wikipedii otoczony rusztowaniem, symbolizujący wspólny wysiłek ludzi na całym świecie na rzecz budowy projektu. Scena jest otoczona miejskim krajobrazem, podkreślającym jej związek z ludzkością i globalną kulturą.";
 "year-in-review-collective-languages" = "Animowana ilustracja przedstawiająca kamień z wyrytymi inskrypcjami w różnych językach, symbolizującymi sposób, w jaki Wikipedia wspólnie gromadzi wiedzę z różnych kultur i regionów.";
