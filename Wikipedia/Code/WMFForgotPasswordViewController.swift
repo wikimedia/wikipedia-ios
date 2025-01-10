@@ -51,7 +51,7 @@ class WMFForgotPasswordViewController: WMFScrollViewController, Themeable, WMFNa
     }
     
     private func configureNavigationBar() {
-        let titleConfig = WMFNavigationBarTitleConfig(title: "", customView: nil, alignment: .centerCompact)
+        let titleConfig = WMFNavigationBarTitleConfig(title: "", customView: nil, alignment: .hidden)
         
         let closeConfig = WMFNavigationBarCloseButtonConfig(text: CommonStrings.doneTitle, target: self, action: #selector(closeButtonPushed(_:)), alignment: .leading)
         

@@ -178,7 +178,7 @@ class SinglePageWebViewController: ThemeableViewController, WMFNavigationBarConf
         var closeConfig: WMFNavigationBarCloseButtonConfig? = nil
         
         if useSimpleNavigationBar {
-            let titleConfig = WMFNavigationBarTitleConfig(title: "", customView: nil, alignment: .centerCompact)
+            let titleConfig = WMFNavigationBarTitleConfig(title: "", customView: nil, alignment: .hidden)
             
             if navigationController?.viewControllers.first === self {
                 closeConfig = WMFNavigationBarCloseButtonConfig(text: CommonStrings.doneTitle, target: self, action: #selector(closeButtonTapped(_:)), alignment: .leading)
@@ -191,7 +191,7 @@ class SinglePageWebViewController: ThemeableViewController, WMFNavigationBarConf
             wButton.setImage(UIImage(named: "W"), for: .normal)
             wButton.addTarget(self, action: #selector(wButtonTapped(_:)), for: .touchUpInside)
             
-            let titleConfig = WMFNavigationBarTitleConfig(title: "", customView: wButton, alignment: .centerCompact)
+            let titleConfig = WMFNavigationBarTitleConfig(title: "", customView: wButton, alignment: .hidden)
             
             configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: closeConfig, profileButtonConfig: nil, searchBarConfig: nil, hideNavigationBarOnScroll: true)
             
