@@ -61,11 +61,11 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
     }
 
     var aboutWikimediaURL: String {
-        if let languageCode {
-            "https://www.mediawiki.org/wiki/Wikimedia_Apps/About_the_Wikimedia_Foundation/\(languageCode)"
-        } else {
-            "https://www.mediawiki.org/wiki/Wikimedia_Apps/About_the_Wikimedia_Foundation"
+        var languageCodeSuffix = ""
+        if let primaryAppLanguageCode = dataStore.languageLinkController.appLanguage?.languageCode {
+            languageCodeSuffix = "\(primaryAppLanguageCode)"
         }
+        return "https://www.mediawiki.org/wiki/Wikimedia_Apps/About_the_Wikimedia_Foundation?uselang=\(languageCodeSuffix)"
     }
 
     var aboutYIRURL: URL? {
