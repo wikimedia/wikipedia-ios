@@ -286,7 +286,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
     var englishEditsSlideTitle: String {
         let format = WMFLocalizedString(
             "microsite-yir-english-edits-slide-title",
-            value: "Editors made nearly 98 million changes this year",
+            value: "Editors made 98 million changes this year",
             comment: "Edits slide title for English Year in Review."
         )
         return String.localizedStringWithFormat(format)
