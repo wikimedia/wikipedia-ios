@@ -57,7 +57,7 @@
 "about-libraries-license" = "ਲਸੰਸ";
 "about-libraries-licenses-title" = "ਸਾਨੂੰ ਖੁੱਲ੍ਹੇ ਸਰੋਤ ਸਾਫਟਵੇਅਰ ਨਾਲ ਪ੍ਰੇਮ ਹੈ $1";
 "about-places-maps-license" = "ਸਥਾਨਾਂ ਦੇ ਨਕਸ਼ੇ ਦਾ ਲਾਇਸੰਸ";
-"about-places-maps-license-details" = "ਸਥਾਨ ਐਪਲ ਨਕਸ਼ੇ ਦੁਆਰਾ ਪ੍ਰਦਾਨ ਕੀਤੇ ਨਕਸ਼ਿਆਂ ਦੀ ਵਰਤੋਂ ਕਰਦੇ ਹਨ। $1।";
+"about-places-maps-license-details" = "ਥਾਂਵਾਂ ਐਪਲ ਨਕਸ਼ੇ ਵੱਲੋਂ ਦਿੱਤੇ ਗਏ ਨਕਸ਼ਿਆਂ ਦੀ ਵਰਤੋਂ ਕਰਦੇ ਹਨ। $1।";
 "about-places-maps-license-details-link-text" = "ਕਿਰਪਾ ਕਰਕੇ ਲਸੰਸ ਦੇ ਵੇਰਵਿਆਂ ਲਈ ਇੱਥੇ ਵੇਖੋ";
 "about-product-of" = "$1 ਵੱਲੋਂ ਬਣਾਇਆ ਗਿਆ ਤੁਹਾਡੇ ਵਰਗੇ ਵਲੰਟੀਅਰਾਂ ਦੀ ਮਦਦ ਨਾਲ";
 "about-repositories" = "ਖਜ਼ਾਨਾਂ";
@@ -689,6 +689,7 @@
 "preference-summary-eventlogging-opt-in" = "ਇਸ ਐਪ ਨੂੰ ਚੰਗੇਰੀ ਬਣਾਉਣ ਵਾਸਤੇ ਵਿਕੀਮੀਡੀਆ ਨੂੰ ਤੁਹਾਡੇ ਇਸ ਐਪ ਨੂੰ ਵਰਤਣ ਦੇ ਤਰੀਕੇ ਬਾਬਤ ਜਾਣਕਾਰੀ ਇਕੱਠੀ ਕਰਨ ਦੀ ਇਜਾਜ਼ਤ ਦਿਉ।";
 "privacy-policy-title" = "ਨਿੱਜਤਾ ਨੀਤੀ";
 "problem-with-feature-title" = "ਵਿਸ਼ੇਸ਼ਤਾ ਨਾਲ ਸਮੱਸਿਆ";
+// Fuzzy
 "profile-page-join-title" = "ਵਿਕੀਪੀਡੀਆ ਨਾਲ ਜੁੜੋ / ਦਾਖਲ ਹੋਵੋ";
 "profile-page-title-logged-out" = "ਖਾਤਾ";
 "project-name-mediawiki" = "ਮੀਡੀਆਵਿਕੀ";
@@ -1036,6 +1037,7 @@
 "year-in-review-feature-announcement-title-personalized" = "ਸਮੀਖਿਆ ਵਿੱਚ ਆਪਣੇ ਵਿਕੀਪੀਡੀਆ ਸਾਲ ਦੀ ਪਡ਼ਚੋਲ ਕਰੋ";
 "year-in-review-feature-explore-body-personalized" = "ਵਿਕੀਪੀਡੀਆ ਐਪ 'ਤੇ ਤੁਸੀਂ ਕਿਹੜੇ ਲੇਖ ਪੜ੍ਹਦੇ ਹੋ ਅਤੇ ਤੁਹਾਡੇ ਵੱਲੋ ਕੀਤੇ ਗਏ ਸੋਧਾ ਬਾਰੇ ਜਾਣਕਾਰੀ ਵੇਖੋ। ਤੁਹਾਡਾ ਪੜ੍ਹਨ ਦਾ ਇਤਿਹਾਸ ਸੁਰੱਖਿਅਤ ਰੱਖਿਆ ਗਿਆ ਹੈ। ਪੜ੍ਹਨ ਦੀ ਜਾਣਕਾਰੀ ਦੀ ਗਣਨਾ ਤੁਹਾਡੇ ਜੰਤਰ 'ਤੇ ਸਥਾਨਕ ਤੌਰ 'ਤੇ ਭੰਡਾਰ ਕੀਤੇ ਡੇਟਾ ਦੀ ਵਰਤੋਂ ਕਰਕੇ ਗਣਨਾ ਕੀਤੀ ਜਾਂਦੀ ਹੈ।";
 "year-in-review-finish" = "ਖ਼ਤਮ";
+// Fuzzy
 "year-in-review-login-subtitle" = "ਵਧੇਰੇ ਵਿਅਕਤੀਗਤ ਜਾਣਕਾਰੀ ਲਈ ਯੋਗ ਬਣਨ ਵਾਸਤੇ ਦਾਖ਼ਲ ਹੋਵੋ ਜਾਂ ਇੱਕ ਖਾਤਾ ਬਣਾਓ";
 "year-in-review-login-title" = "ਆਪਣੇ ਸਾਲ ਦੀ ਸਮੀਖਿਆ ਵਿੱਚ ਸੁਧਾਰ ਕਰੋ";
 "year-in-review-personalized-day-subtitle-format" = "ਤੁਸੀਂ $1 ਤੇ ਸਭ ਤੋਂ ਵੱਧ ਲੇਖ ਪੜ੍ਹਦੇ ਹੋ। ਇਹ ਸਪੱਸ਼ਟ ਹੈ ਕਿ ਨਵੀਂ ਸਮੱਗਰੀ ਦੀ ਪੜਚੋਲ ਕਰਨ ਲਈ $1 ਤੁਹਾਡਾ ਪ੍ਰਮੁੱਖ ਦਿਨ ਹੈ। ਆਪਣੇ ਪੜ੍ਹਨ ਦੇ ਸਮੇਂ ਦਾ ਵੱਧ ਤੋਂ ਵੱਧ ਲਾਹਾ  ਲੇਣ ਲਈ ਧੰਨਵਾਦ!";
