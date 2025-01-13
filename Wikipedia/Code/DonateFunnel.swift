@@ -314,7 +314,7 @@ import WMF
     // MARK: - Year In Review
     
     func logProfileDidTapYearInReview() {
-        logEvent(activeInterface: .wikiYiR, action: .startClick, actionData: ["slide": "entry_b_profile")
+        logEvent(activeInterface: .wikiYiR, action: .startClick, actionData: ["slide": "entry_b_profile"])
     }
     
     func logYearInReviewSlideImpression(slideLoggingID: String) {
@@ -418,7 +418,7 @@ import WMF
     }
     
     func logYearInReviewDonateSlideLearnMoreWebViewDidTapDonateButton(metricsID: String) {
-        logEvent(activeInterface: .wikiYiR, action: .donateStartClickYir, actionData: ["slide": "about_wikimedia",
+        logEvent(activeInterface: .wikiYiR, action: .donateStartClickYir, actionData: ["slide": "about_wikimedia_base",
                                                                                        "campaign_id": metricsID])
     }
     
