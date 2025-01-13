@@ -180,7 +180,7 @@ public class WMFYearInReviewViewModel: ObservableObject {
     func markFirstSlideAsSeen() {
         if let dataController = try? WMFYearInReviewDataController() {
             dataController.hasSeenYiRIntroSlide = true
-            badgeDelegate?.didSeeYIR()
+            badgeDelegate?.updateYIRBadgeVisibility()
         }
     }
 
@@ -224,5 +224,5 @@ public struct YearInReviewSlideContent: SlideShowProtocol {
 }
 
 @objc public protocol YearInReviewBadgeDelegate: AnyObject {
-    @objc func didSeeYIR()
+    @objc func updateYIRBadgeVisibility()
 }

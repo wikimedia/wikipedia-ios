@@ -57,10 +57,6 @@ import CoreData
         return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.seenYearInReviewIntroSlide.rawValue)) ?? YiRNotificationAnnouncementStatus.default
     }
     
-    private var tappedYIRStatus: YiRNotificationAnnouncementStatus {
-        return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.tappedYIR.rawValue)) ?? YiRNotificationAnnouncementStatus.default
-    }
-
     public func shouldShowYiRNotification(primaryAppLanguageProject: WMFProject?, isLoggedOut: Bool) -> Bool {
         if isLoggedOut {
             return !hasTappedProfileItem && shouldShowYearInReviewEntryPoint(countryCode: Locale.current.region?.identifier, primaryAppLanguageProject: primaryAppLanguageProject)
@@ -70,11 +66,9 @@ import CoreData
     
     public var hasTappedProfileItem: Bool {
         get {
-            return tappedYIRStatus.hasSeenYiRIntroSlide
+            return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.tappedYIR.rawValue)) ?? false
         } set {
-            var currentStatus = tappedYIRStatus
-            currentStatus.hasSeenYiRIntroSlide = newValue
-            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.tappedYIR.rawValue, value: currentStatus)
+            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.tappedYIR.rawValue, value: newValue)
         }
     }
 

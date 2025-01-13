@@ -151,7 +151,6 @@ final class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegat
         case .logDonateTap:
             self.logDonateTap()
         case .showYearInReview:
-            
             if let viewModel, !viewModel.isUserLoggedIn() {
                 presentLoginPrompt()
             } else {

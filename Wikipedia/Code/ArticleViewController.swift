@@ -1758,7 +1758,7 @@ extension ArticleViewController: LogoutCoordinatorDelegate {
 }
 
 extension ArticleViewController: YearInReviewBadgeDelegate {
-    func didSeeYIR() {
+    func updateYIRBadgeVisibility() {
         setupSearchAndProfileButtons()
     }
 }

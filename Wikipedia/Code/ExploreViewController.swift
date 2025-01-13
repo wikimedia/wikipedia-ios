@@ -2187,7 +2187,7 @@ extension ExploreViewController: LogoutCoordinatorDelegate {
 
 
 extension ExploreViewController: YearInReviewBadgeDelegate {
-    func didSeeYIR() {
+    func updateYIRBadgeVisibility() {
         updateProfileViewButton()
     }
 }

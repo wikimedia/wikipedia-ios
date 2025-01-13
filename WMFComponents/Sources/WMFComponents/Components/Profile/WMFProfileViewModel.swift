@@ -191,7 +191,7 @@ enum ProfileState {
                 isDonate: false,
                 isLoadingDonateConfigs: false,
                 action: {
-                    badgeDelegate?.didSeeYIR()
+                    badgeDelegate?.updateYIRBadgeVisibility()
                     refreshAction()
                     coordinatorDelegate?.handleProfileAction(.showYearInReview)
                     coordinatorDelegate?.handleProfileAction(.logYearInReviewTap)
@@ -276,9 +276,9 @@ enum ProfileState {
                 isDonate: false,
                 isLoadingDonateConfigs: false,
                 action: {
-                    badgeDelegate?.didSeeYIR()
                     if let dataController = try? WMFYearInReviewDataController() {
                         dataController.hasTappedProfileItem = true
+                        badgeDelegate?.updateYIRBadgeVisibility()
                         needsYiRNotification = false
                     }
                     refreshAction()
