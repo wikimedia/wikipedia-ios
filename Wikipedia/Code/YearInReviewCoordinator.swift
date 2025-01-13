@@ -639,7 +639,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
                             subtitle: personalizedSaveCountSlideSubtitle(saveCount: count, articleNames: savedSlideData.articleTitles),
                             loggingID: "save_count_custom",
                             infoURL: aboutYIRURL,
-                            hideDonateButton: false)
+                            hideDonateButton: shoudlHideDonateButton())
                     }
                 }
             case .mostReadDay:
