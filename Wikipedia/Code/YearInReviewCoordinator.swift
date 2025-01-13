@@ -65,7 +65,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         if let primaryAppLanguageCode = dataStore.languageLinkController.appLanguage?.languageCode {
             languageCodeSuffix = "\(primaryAppLanguageCode)"
         }
-        return "https://www.mediawiki.org/wiki/Wikimedia_Apps/About_the_Wikimedia_Foundation?uselang=\(languageCodeSuffix)"
+        return "https://www.mediawiki.org/wiki/Special:MyLanguage/Wikimedia_Apps/About_the_Wikimedia_Foundation?uselang=\(languageCodeSuffix)"
     }
 
     var aboutYIRURL: URL? {
