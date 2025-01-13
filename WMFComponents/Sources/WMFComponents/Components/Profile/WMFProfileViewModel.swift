@@ -49,7 +49,7 @@ public class WMFProfileViewModel: ObservableObject {
     }
 
     private func loadProfileSections() {
-        profileSections = ProfileState.sections(isLoggedIn: isLoggedIn, localizedStrings: localizedStrings, inboxCount: inboxCount, coordinatorDelegate: coordinatorDelegate, isLoadingDonateConfigs: isLoadingDonateConfigs, yearInReviewDependencies: yearInReviewDependencies, badgeDelegate: badgeDelegate)
+        profileSections = ProfileState.sections(isLoggedIn: isLoggedIn, localizedStrings: localizedStrings, inboxCount: inboxCount, coordinatorDelegate: coordinatorDelegate, isLoadingDonateConfigs: isLoadingDonateConfigs, yearInReviewDependencies: yearInReviewDependencies, badgeDelegate: badgeDelegate, refreshAction: loadProfileSections)
     }
 
     public struct LocalizedStrings {
@@ -106,7 +106,7 @@ struct ProfileSection: Identifiable {
 }
 
 enum ProfileState {
-    static func sections(isLoggedIn: Bool, localizedStrings: WMFProfileViewModel.LocalizedStrings, inboxCount: Int = 0, coordinatorDelegate: ProfileCoordinatorDelegate?, isLoadingDonateConfigs: Bool, yearInReviewDependencies: WMFProfileViewModel.YearInReviewDependencies?, badgeDelegate: YearInReviewBadgeDelegate?) -> [ProfileSection] {
+    static func sections(isLoggedIn: Bool, localizedStrings: WMFProfileViewModel.LocalizedStrings, inboxCount: Int = 0, coordinatorDelegate: ProfileCoordinatorDelegate?, isLoadingDonateConfigs: Bool, yearInReviewDependencies: WMFProfileViewModel.YearInReviewDependencies?, badgeDelegate: YearInReviewBadgeDelegate?, refreshAction: @escaping () -> Void) -> [ProfileSection] {
 
         var needsYiRNotification = false
         if let yearInReviewDependencies {
@@ -192,6 +192,7 @@ enum ProfileState {
                 isLoadingDonateConfigs: false,
                 action: {
                     badgeDelegate?.didSeeYIR()
+                    refreshAction()
                     coordinatorDelegate?.handleProfileAction(.showYearInReview)
                     coordinatorDelegate?.handleProfileAction(.logYearInReviewTap)
                 }
@@ -275,10 +276,12 @@ enum ProfileState {
                 isDonate: false,
                 isLoadingDonateConfigs: false,
                 action: {
+                    badgeDelegate?.didSeeYIR()
                     if let dataController = try? WMFYearInReviewDataController() {
                         dataController.hasTappedProfileItem = true
                         needsYiRNotification = false
                     }
+                    refreshAction()
                     coordinatorDelegate?.handleProfileAction(.showYearInReview)
                     coordinatorDelegate?.handleProfileAction(.logYearInReviewTap)
                 }
