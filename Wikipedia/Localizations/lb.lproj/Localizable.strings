@@ -1,5 +1,6 @@
 // Messages for Luxembourgish (Lëtzebuergesch)
 // Exported from translatewiki.net
+// Author: GilPe
 // Author: JoeWalshWMF
 // Author: Les Meloures
 // Author: Macofe
@@ -939,6 +940,8 @@
 "wikitext-upload-save-terms-name" = "Benotzungs-Bedingungen";
 "year-in-review-base-edits-title" = "D'Wikipedia gouf $1 Mol pro Minutt geännert";
 "year-in-review-base-reading-title" = "Wikipedia war a méi wéi 300 Sproochen disponibel";
+"year-in-review-collective-edits" = "Eng Illustratioun vun zwee Wikipedia-Puzzelstécker, allebéid mat engem Deel vun Informatiounen.";
+"year-in-review-collective-edits-per-minute" = "Eng Auer déi tickt, fir d'Zäit ze symboliséieren, déi d'Leit mat Liesen op der Wikipedia verbréngen.";
 "year-in-review-collective-zero-ads" = "Wikimedia-Logo";
 "year-in-review-donate-now" = "Maacht elo en Don";
 // Fuzzy
