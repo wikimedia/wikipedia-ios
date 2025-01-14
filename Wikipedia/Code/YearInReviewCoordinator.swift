@@ -878,6 +878,20 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
 
             DonateFunnel.shared.logYearInReviewLoginPromptDidTapLogin()
             let loginCoordinator = LoginCoordinator(navigationController: self.navigationController, theme: self.theme)
+            
+            
+            loginCoordinator.loginSuccessCompletion = {
+                self.navigationController.dismiss(animated: true) {
+                    self.start()
+                }
+            }
+            
+            loginCoordinator.createAccountSuccessCustomDismissBlock = {
+                self.navigationController.dismiss(animated: true) {
+                    self.start()
+                }
+            }
+            
             loginCoordinator.start()
         }
         let action2 = UIAlertAction(title: button2Title, style: .default) { action in
