@@ -76,6 +76,8 @@ open class WMFComponentNavigationController: UINavigationController {
     }
     
     private func setBarAppearance() {
+        
+        return
 
         let barAppearance = UINavigationBarAppearance()
         barAppearance.configureWithOpaqueBackground()

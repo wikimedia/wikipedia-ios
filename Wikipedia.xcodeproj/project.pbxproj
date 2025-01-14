@@ -534,6 +534,9 @@
 		6761AEF82707E34F00E47BAD /* NotificationsCenterModelController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6761AEF62707E34F00E47BAD /* NotificationsCenterModelController.swift */; };
 		6761AEF92707E34F00E47BAD /* NotificationsCenterModelController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6761AEF62707E34F00E47BAD /* NotificationsCenterModelController.swift */; };
 		67623E112AFD2897007488C7 /* WKSourceEditorUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67623E102AFD2897007488C7 /* WKSourceEditorUITests.swift */; };
+		6768B9432D36C7680031003C /* logo-wikipedia.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6768B9422D36C7680031003C /* logo-wikipedia.ttf */; };
+		6768B9442D36C7680031003C /* logo-wikipedia.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6768B9422D36C7680031003C /* logo-wikipedia.ttf */; };
+		6768B9452D36C7680031003C /* logo-wikipedia.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6768B9422D36C7680031003C /* logo-wikipedia.ttf */; };
 		676C864B26D40AEB00A704C1 /* NotificationServiceExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 676C864426D40AEA00A704C1 /* NotificationServiceExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		676C867026D416FB00A704C1 /* NotificationServiceExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 676C864426D40AEA00A704C1 /* NotificationServiceExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		676C867326D4170100A704C1 /* NotificationServiceExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 676C864426D40AEA00A704C1 /* NotificationServiceExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
@@ -3297,6 +3300,7 @@
 		6761AEF62707E34F00E47BAD /* NotificationsCenterModelController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsCenterModelController.swift; sourceTree = "<group>"; };
 		67623E0C2AFD288B007488C7 /* WikipediaUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WikipediaUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		67623E102AFD2897007488C7 /* WKSourceEditorUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WKSourceEditorUITests.swift; sourceTree = "<group>"; };
+		6768B9422D36C7680031003C /* logo-wikipedia.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "logo-wikipedia.ttf"; sourceTree = "<group>"; };
 		676A8A8223A4013D0084B967 /* ArticleFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ArticleFetcher.swift; path = ../Wikipedia/Code/ArticleFetcher.swift; sourceTree = "<group>"; };
 		676AB5BE2C615C52003408C3 /* WMFComponents.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = WMFComponents.xctestplan; sourceTree = "<group>"; };
 		676AB5BF2C615C68003408C3 /* WMFData.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = WMFData.xctestplan; sourceTree = "<group>"; };
@@ -7960,6 +7964,7 @@
 				D4991453181D51DE00E6073C /* Images.xcassets */,
 				BC7C3A371C0FF94A0057F023 /* Code */,
 				BCF012321AD2FA38008D3675 /* assets */,
+				6768B9422D36C7680031003C /* logo-wikipedia.ttf */,
 				D8BA1F1F1DF1E19700502877 /* Resources */,
 			);
 			path = Wikipedia;
@@ -9376,6 +9381,7 @@
 				7A82765E226E4E41000A2389 /* EditPreviewInternalLinkViewController.xib in Resources */,
 				B0379A371D8B9D2400D973CF /* WMFReferencePopoverMessageViewController.storyboard in Resources */,
 				B0EFCD721EBF13B2008F36E5 /* LibrariesUsed.plist in Resources */,
+				6768B9452D36C7680031003C /* logo-wikipedia.ttf in Resources */,
 				83E52BB91F681F940045E776 /* ShareAFactViewController.xib in Resources */,
 				7A84224C2268BBE70074648E /* InsertMediaImageInfoView.xib in Resources */,
 				D8533ED91ECF581600E44F86 /* NewsCollectionViewHeader.xib in Resources */,
@@ -9515,6 +9521,7 @@
 				B0524AF72144D7BE00D8FD8D /* DescriptionHelpViewController.xib in Resources */,
 				D8CE266C1E698E2400DAE2E0 /* NotificationBackgroundSuccess@2x.png in Resources */,
 				D8CE266D1E698E2400DAE2E0 /* WMFChangePasswordViewController.storyboard in Resources */,
+				6768B9442D36C7680031003C /* logo-wikipedia.ttf in Resources */,
 				7ABAD6BA20338CFB006A364C /* ReadingListDetailHeaderView.xib in Resources */,
 				D8CE266F1E698E2400DAE2E0 /* NotificationBackgroundError.png in Resources */,
 				D8CE26701E698E2400DAE2E0 /* WMFReferencePanels.storyboard in Resources */,
@@ -9627,6 +9634,7 @@
 				B0524AF82144D7BE00D8FD8D /* DescriptionHelpViewController.xib in Resources */,
 				D8EC3F6C1E9BDA35006712EB /* NotificationBackgroundSuccess@2x.png in Resources */,
 				D8EC3F6D1E9BDA35006712EB /* WMFChangePasswordViewController.storyboard in Resources */,
+				6768B9432D36C7680031003C /* logo-wikipedia.ttf in Resources */,
 				7ABAD6BB20338CFB006A364C /* ReadingListDetailHeaderView.xib in Resources */,
 				D8EC3F6F1E9BDA35006712EB /* NotificationBackgroundError.png in Resources */,
 				D8EC3F701E9BDA35006712EB /* WMFReferencePanels.storyboard in Resources */,

@@ -171,7 +171,20 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         extendedLayoutIncludesOpaqueBars = false
         if #available(iOS 18, *) {
             if UIDevice.current.userInterfaceIdiom == .pad && traitCollection.horizontalSizeClass == .regular {
-                titleConfig = WMFNavigationBarTitleConfig(title: CommonStrings.exploreTabTitle, customView: titleView, alignment: .centerCompact)
+                
+                for family in UIFont.familyNames {
+                    print("Font family: \(family)")
+                    for font in UIFont.fontNames(forFamilyName: family) {
+                        print("  Font: \(font)")
+                    }
+                }
+                
+                var customLargeTitleFont: UIFont? = nil
+                if let logoFont = UIFont(name: "icomoon", size: 26) {
+                    customLargeTitleFont = logoFont // UIFontMetrics(forTextStyle: .title1).scaledFont(for: logoFont)
+                }
+                //
+                titleConfig = WMFNavigationBarTitleConfig(title: "", customView: nil, alignment: .leadingLarge, customLargeTitleFont: customLargeTitleFont)
                 extendedLayoutIncludesOpaqueBars = true
             }
         }
