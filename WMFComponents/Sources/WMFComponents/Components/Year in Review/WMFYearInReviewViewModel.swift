@@ -165,7 +165,11 @@ public class WMFYearInReviewViewModel: ObservableObject {
     }
     
     var slideLoggingID: String {
-        return isFirstSlide ? "start" : slides[currentSlide].loggingID
+        if isFirstSlide {
+            return isUserAuth ? "start_c" : "start"
+        }
+        
+        return slides[currentSlide].loggingID
     }
     
     var isLastSlide: Bool {

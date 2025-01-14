@@ -314,7 +314,7 @@ final class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegat
     }
     
     func logYearInReviewTap() {
-        DonateFunnel.shared.logProfileDidTapYearInReview(isAnon: dataStore.authenticationManager.authStateIsPermanent) 
+        DonateFunnel.shared.logProfileDidTapYearInReview()
     }
 }
 
