@@ -848,7 +848,13 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
         let searchViewController = SearchViewController()
         searchViewController.dataStore = dataStore
         searchViewController.theme = theme
-        searchViewController.recentlySearchedSelectionDelegate = self
+        
+        let populateSearchBarWithTextAction: (String) -> Void = { [weak self] searchTerm in
+            self?.navigationItem.searchController?.searchBar.text = searchTerm
+            self?.navigationItem.searchController?.searchBar.becomeFirstResponder()
+        }
+        
+        searchViewController.populateSearchBarWithTextAction = populateSearchBarWithTextAction
         
         let searchBarConfig: WMFNavigationBarSearchConfig? = needsSearchBar ? WMFNavigationBarSearchConfig(searchResultsController: searchViewController, searchControllerDelegate: self, searchResultsUpdater: self, searchBarDelegate: nil, searchBarPlaceholder: WMFLocalizedString("search-field-placeholder-text", value: "Search Wikipedia", comment: "Search field placeholder text"), showsScopeBar: false, scopeButtonTitles: nil) : nil
 
@@ -1862,13 +1868,6 @@ extension ArticleViewController: LogoutCoordinatorDelegate {
 extension ArticleViewController: YearInReviewBadgeDelegate {
     func didSeeFirstSlide() {
         updateProfileButton()
-    }
-}
-
-extension ArticleViewController: SearchViewControllerRecentlySearchedSelectionDelegate {
-    func didSelectRecentlySearchedTerm(_ searchTerm: String, searchViewController: SearchViewController) {
-        navigationItem.searchController?.searchBar.text = searchTerm
-        navigationItem.searchController?.searchBar.becomeFirstResponder()
     }
 }
 

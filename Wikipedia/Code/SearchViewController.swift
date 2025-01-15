@@ -1,21 +1,17 @@
 import UIKit
 import WMFComponents
 
-protocol SearchViewControllerRecentlySearchedSelectionDelegate: AnyObject {
-    func didSelectRecentlySearchedTerm(_ searchTerm: String, searchViewController: SearchViewController)
-}
-
 protocol SearchViewControllerResultSelectionDelegate: AnyObject {
     func didSelectSearchResult(articleURL: URL, searchViewController: SearchViewController)
 }
 
 class SearchViewController: ArticleCollectionViewController, WMFNavigationBarConfiguring, WMFNavigationBarHiding {
     
-    // Assign so that the correct search bar will have it's field populated once a "recently searched" term is selected
-    weak var recentlySearchedSelectionDelegate: SearchViewControllerRecentlySearchedSelectionDelegate?
-    
     // Assign if you don't want search result selection to do default navigation, and instead want to perform your own custom logic upon selection.
     weak var searchResultSelectionDelegate: SearchViewControllerResultSelectionDelegate?
+    
+    // Set so that the correct search bar will have it's field populated once a "recently searched" term is selected. If this is missing, logic will default to navigationController?.searchController.searchBar for population.
+    var populateSearchBarWithTextAction: ((String) -> Void)?
     
     var customTitle: String?
     @objc var needsCenteredTitle: Bool = false
@@ -485,8 +481,8 @@ class SearchViewController: ArticleCollectionViewController, WMFNavigationBarCon
         updateRecentlySearchedVisibility(searchText: recentSearch.searchTerm)
         collectionView.deselectItem(at: indexPath, animated: true)
         
-        if let recentlySearchedSelectionDelegate {
-            recentlySearchedSelectionDelegate.didSelectRecentlySearchedTerm(recentSearch.searchTerm, searchViewController: self)
+        if let populateSearchBarWithTextAction {
+            populateSearchBarWithTextAction(recentSearch.searchTerm)
         } else {
             navigationItem.searchController?.searchBar.text = recentSearch.searchTerm
             navigationItem.searchController?.searchBar.becomeFirstResponder()

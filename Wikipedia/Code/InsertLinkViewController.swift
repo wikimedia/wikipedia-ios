@@ -46,7 +46,13 @@ class InsertLinkViewController: UIViewController, WMFNavigationBarConfiguring {
         let searchViewController = SearchViewController()
         searchViewController.showLanguageBar = false
         searchViewController.dataStore = dataStore
-        searchViewController.recentlySearchedSelectionDelegate = self
+        
+        let populateSearchBarWithTextAction: (String) -> Void = { [weak self] searchTerm in
+            self?.navigationItem.searchController?.searchBar.text = searchTerm
+            self?.navigationItem.searchController?.searchBar.becomeFirstResponder()
+        }
+        
+        searchViewController.populateSearchBarWithTextAction = populateSearchBarWithTextAction
         searchViewController.searchResultSelectionDelegate = self
         searchViewController.theme = theme
         
@@ -141,12 +147,5 @@ extension InsertLinkViewController: UISearchResultsUpdating {
 extension InsertLinkViewController: UISearchBarDelegate {
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         dismiss(animated: true)
-    }
-}
-
-extension InsertLinkViewController: SearchViewControllerRecentlySearchedSelectionDelegate {
-    func didSelectRecentlySearchedTerm(_ searchTerm: String, searchViewController: SearchViewController) {
-        navigationItem.searchController?.searchBar.text = searchTerm
-        navigationItem.searchController?.searchBar.becomeFirstResponder()
     }
 }
