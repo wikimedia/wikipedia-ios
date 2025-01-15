@@ -1,10 +1,5 @@
 import UIKit
 
-protocol DiffHeaderActionDelegate: AnyObject {
-    func tappedUsername(username: String, destination: DiffHeaderUsernameDestination)
-    func tappedRevision(revisionID: Int)
-}
-
 enum DiffHeaderUsernameDestination {
     case userContributions
     case userTalkPage
@@ -18,12 +13,12 @@ class DiffHeaderExtendedView: UICollectionReusableView, Themeable {
         return view
     }()
     
-    weak var delegate: DiffHeaderActionDelegate? {
+    var tappedHeaderUsernameAction: ((Username, DiffHeaderUsernameDestination) -> Void)? {
         get {
-            return contentView.delegate
+            return contentView.tappedHeaderUsernameAction
         }
         set {
-            contentView.delegate = newValue
+            contentView.tappedHeaderUsernameAction = newValue
         }
     }
     
@@ -133,13 +128,13 @@ class DiffHeaderExtendedContentView: SetupView {
         ])
     }
     
-    weak var delegate: DiffHeaderActionDelegate? {
+    var tappedHeaderUsernameAction: ((Username, DiffHeaderUsernameDestination) -> Void)? {
         get {
-            return editorView.delegate
+            return editorView.tappedHeaderUsernameAction
         }
         set {
-            editorView.delegate = newValue
-            compareView.delegate = newValue
+            editorView.tappedHeaderUsernameAction = newValue
+            compareView.tappedHeaderUsernameAction = newValue
         }
     }
     

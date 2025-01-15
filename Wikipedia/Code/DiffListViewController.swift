@@ -2,6 +2,9 @@ import UIKit
 
 class DiffListViewController: ThemeableViewController {
     
+    typealias Username = String
+    typealias RevisionID = Int
+    
     fileprivate static let headerReuseIdentifier = "DiffHeaderView"
     fileprivate static let headerExtendedReuseIdentifier = "DiffHeaderExtendedView"
     
@@ -29,8 +32,8 @@ class DiffListViewController: ThemeableViewController {
     
     private var dataSource: [DiffListGroupViewModel] = []
     private let diffHeaderViewModel: DiffHeaderViewModel
-    weak var delegate: DiffHeaderActionDelegate?
     private let type: DiffContainerViewModel.DiffType
+    private var tappedHeaderUsernameAction: ((Username, DiffHeaderUsernameDestination) -> Void)?
     private var tappedHeaderTitleAction: (() -> Void)?
 
     private var updateWidthsOnLayoutSubviews = false
@@ -46,10 +49,14 @@ class DiffListViewController: ThemeableViewController {
     
     private var scrollDidFinishInfo: (indexPathToScrollTo: IndexPath, changeItemToScrollTo: Int)?
     
-    init(theme: Theme, type: DiffContainerViewModel.DiffType, diffHeaderViewModel: DiffHeaderViewModel, delegate: (DiffHeaderActionDelegate)?, tappedHeaderTitleAction: (() -> Void)?) {
+    init(theme: Theme,
+         type: DiffContainerViewModel.DiffType,
+         diffHeaderViewModel: DiffHeaderViewModel,
+         tappedHeaderUsernameAction: ((Username, DiffHeaderUsernameDestination) -> Void)?,
+         tappedHeaderTitleAction: (() -> Void)?) {
         self.type = type
         self.diffHeaderViewModel = diffHeaderViewModel
-        self.delegate = delegate
+        self.tappedHeaderUsernameAction = tappedHeaderUsernameAction
         self.tappedHeaderTitleAction = tappedHeaderTitleAction
         super.init(nibName: nil, bundle: nil)
         self.theme = theme
@@ -265,7 +272,7 @@ extension DiffListViewController: UICollectionViewDataSource {
             }
             
             headerExtendedView.update(diffHeaderViewModel, theme: theme)
-            headerExtendedView.delegate = delegate
+            headerExtendedView.tappedHeaderUsernameAction = tappedHeaderUsernameAction
             return headerExtendedView
         } else {
             return UICollectionReusableView()
@@ -320,7 +327,7 @@ extension DiffListViewController: UICollectionViewDelegateFlowLayout {
         } else if section == 1 {
             let headerExtendedView = DiffHeaderExtendedView()
             headerExtendedView.update(diffHeaderViewModel, theme: theme)
-            headerExtendedView.delegate = delegate
+            headerExtendedView.tappedHeaderUsernameAction = tappedHeaderUsernameAction
             
             let size =  headerExtendedView.systemLayoutSizeFitting(CGSize(width: collectionView.frame.width, height: UIView.layoutFittingExpandedSize.height),
                                                       withHorizontalFittingPriority: .required, // Width is fixed

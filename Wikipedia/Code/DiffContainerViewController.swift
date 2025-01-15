@@ -893,7 +893,26 @@ private extension DiffContainerViewController {
                 self?.navigate(to: navigationURL)
             }
             
-            let diffListViewController = DiffListViewController(theme: theme, type: type, diffHeaderViewModel: diffHeaderViewModel, delegate: self, tappedHeaderTitleAction: tappedHeaderTitleAction)
+            let tappedUsernameAction: (Username, DiffHeaderUsernameDestination) -> Void = { [weak self] username, destination in
+                guard let self,
+                      let username = username.normalizedPageTitle else {
+                    return
+                }
+                
+                let url: URL?
+                switch destination {
+                case .userContributions:
+                    url = self.siteURL.wmf_URL(withPath: "/wiki/Special:Contributions/\(username)", isMobile: true)
+                case .userTalkPage:
+                    url = self.siteURL.wmf_URL(withPath: "/wiki/User_talk:\(username)", isMobile: true)
+                case .userPage:
+                    url = self.siteURL.wmf_URL(withPath: "/wiki/User:\(username)", isMobile: true)
+                }
+                
+                navigate(to: url)
+            }
+            
+            let diffListViewController = DiffListViewController(theme: theme, type: type, diffHeaderViewModel: diffHeaderViewModel, tappedHeaderUsernameAction: tappedUsernameAction, tappedHeaderTitleAction: tappedHeaderTitleAction)
             self.diffListViewController = diffListViewController
             
             switch type {
@@ -983,54 +1002,6 @@ extension DiffContainerViewController: EmptyViewControllerDelegate {
        // no-op
     }
 }
-
-extension DiffContainerViewController: DiffHeaderActionDelegate {
-    
-    func tappedUsername(username: String, destination: DiffHeaderUsernameDestination) {
-        
-        guard let username = username.normalizedPageTitle else {
-            return
-        }
-        
-        let url: URL?
-        switch destination {
-        case .userContributions:
-            url = siteURL.wmf_URL(withPath: "/wiki/Special:Contributions/\(username)", isMobile: true)
-        case .userTalkPage:
-            url = siteURL.wmf_URL(withPath: "/wiki/User_talk:\(username)", isMobile: true)
-        case .userPage:
-            url = siteURL.wmf_URL(withPath: "/wiki/User:\(username)", isMobile: true)
-        }
-        
-        navigate(to: url)
-    }
-    
-    func tappedRevision(revisionID: Int) {
-        
-        guard let fromModel = fromModel,
-              let toModel = toModel,
-              let articleTitle = articleTitle else {
-            assertionFailure("Revision tapping is not supported on a page without models or articleTitle.")
-            return
-        }
-        
-        let revision: WMFPageHistoryRevision
-        if revisionID == fromModel.revisionID {
-            revision = fromModel
-        } else if revisionID == toModel.revisionID {
-            revision = toModel
-        } else {
-            assertionFailure("Trouble determining revision model to push on next")
-            return
-        }
-        
-        EditHistoryCompareFunnel.shared.logRevisionView(url: siteURL)
-        
-        let singleDiffVC = DiffContainerViewController(articleTitle: articleTitle, siteURL: siteURL, fromModel: nil, toModel: revision, theme: theme, revisionRetrievingDelegate: revisionRetrievingDelegate,  firstRevision: firstRevision, needsSetNavDelegate: needsSetNavDelegate, articleSummaryController: diffController.articleSummaryController, authenticationManager: diffController.authenticationManager)
-        push(singleDiffVC, animated: true)
-    }
-}
-
 extension DiffContainerViewController: ThanksGiving {
     var url: URL? {
         return siteURL

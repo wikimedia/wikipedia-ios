@@ -73,7 +73,7 @@ class DiffHeaderEditorView: SetupView {
     }()
 
     private var tapGestureRecognizer: UITapGestureRecognizer?
-    weak var delegate: DiffHeaderActionDelegate?
+    var tappedHeaderUsernameAction: ((Username, DiffHeaderUsernameDestination) -> Void)?
     
     private var viewModel: DiffHeaderEditorViewModel?
     
@@ -136,7 +136,7 @@ class DiffHeaderEditorView: SetupView {
         if let viewModel,
            let username = viewModel.username {
             WatchlistFunnel.shared.logDiffTapSingleEditorName(project: viewModel.project)
-            delegate?.tappedUsername(username: username, destination: .userPage)
+            tappedHeaderUsernameAction?(username, .userPage)
         }
     }
 }
