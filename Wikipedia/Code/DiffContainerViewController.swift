@@ -884,7 +884,16 @@ private extension DiffContainerViewController {
         }
         
         if diffListViewController == nil {
-            let diffListViewController = DiffListViewController(theme: theme, type: type, diffHeaderViewModel: diffHeaderViewModel, delegate: self)
+            
+            let tappedHeaderTitleAction = { [weak self] in
+                guard let navigationURL = self?.fetchPageURL() else {
+                    return
+                }
+
+                self?.navigate(to: navigationURL)
+            }
+            
+            let diffListViewController = DiffListViewController(theme: theme, type: type, diffHeaderViewModel: diffHeaderViewModel, delegate: self, tappedHeaderTitleAction: tappedHeaderTitleAction)
             self.diffListViewController = diffListViewController
             
             switch type {
@@ -1454,16 +1463,4 @@ extension DiffContainerViewController: WatchlistControllerDelegate {
     func didSuccessfullyUnwatch(_ controller: WatchlistController) {
         diffToolbarView?.updateMoreButton(needsWatchButton: true, needsUnwatchHalfButton: false, needsUnwatchFullButton: false, needsArticleEditHistoryButton: true)
     }
-}
-
-extension DiffContainerViewController: DiffHeaderTitleViewTapDelegate {
-
-    func userDidTapTitleLabel() {
-        guard let navigationURL = fetchPageURL() else {
-            return
-        }
-
-        navigate(to: navigationURL)
-    }
-
 }

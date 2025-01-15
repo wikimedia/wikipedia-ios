@@ -29,8 +29,9 @@ class DiffListViewController: ThemeableViewController {
     
     private var dataSource: [DiffListGroupViewModel] = []
     private let diffHeaderViewModel: DiffHeaderViewModel
-    weak var delegate: (DiffHeaderTitleViewTapDelegate & DiffHeaderActionDelegate)?
+    weak var delegate: DiffHeaderActionDelegate?
     private let type: DiffContainerViewModel.DiffType
+    private var tappedHeaderTitleAction: (() -> Void)?
 
     private var updateWidthsOnLayoutSubviews = false
     private var isRotating = false
@@ -45,10 +46,11 @@ class DiffListViewController: ThemeableViewController {
     
     private var scrollDidFinishInfo: (indexPathToScrollTo: IndexPath, changeItemToScrollTo: Int)?
     
-    init(theme: Theme, type: DiffContainerViewModel.DiffType, diffHeaderViewModel: DiffHeaderViewModel, delegate: (DiffHeaderTitleViewTapDelegate & DiffHeaderActionDelegate)?) {
+    init(theme: Theme, type: DiffContainerViewModel.DiffType, diffHeaderViewModel: DiffHeaderViewModel, delegate: (DiffHeaderActionDelegate)?, tappedHeaderTitleAction: (() -> Void)?) {
         self.type = type
         self.diffHeaderViewModel = diffHeaderViewModel
         self.delegate = delegate
+        self.tappedHeaderTitleAction = tappedHeaderTitleAction
         super.init(nibName: nil, bundle: nil)
         self.theme = theme
     }
@@ -255,7 +257,7 @@ extension DiffListViewController: UICollectionViewDataSource {
                 return UICollectionReusableView()
             }
             
-            headerView.configure(with: diffHeaderViewModel, titleViewTapDelegate: delegate, theme: theme)
+            headerView.configure(with: diffHeaderViewModel, tappedHeaderTitleAction: tappedHeaderTitleAction, theme: theme)
             return headerView
         } else if indexPath.section == 1 {
             guard let headerExtendedView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: Self.headerExtendedReuseIdentifier, for: indexPath) as? DiffHeaderExtendedView else {
@@ -310,7 +312,7 @@ extension DiffListViewController: UICollectionViewDelegateFlowLayout {
         
         if section == 0 {
             let headerView = DiffHeaderContentView()
-            headerView.configure(with: diffHeaderViewModel, titleViewTapDelegate: delegate, theme: theme)
+            headerView.configure(with: diffHeaderViewModel, tappedHeaderTitleAction: tappedHeaderTitleAction, theme: theme)
             let size =  headerView.systemLayoutSizeFitting(CGSize(width: collectionView.frame.width, height: UIView.layoutFittingExpandedSize.height),
                                                       withHorizontalFittingPriority: .required, // Width is fixed
                                                       verticalFittingPriority: .fittingSizeLevel) // Height can be as large as needed

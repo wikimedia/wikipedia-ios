@@ -1,9 +1,5 @@
 import WMFComponents
 
-protocol DiffHeaderTitleViewTapDelegate: AnyObject {
-    func userDidTapTitleLabel()
-}
-
 class DiffHeaderTitleView: SetupView {
     
     private lazy var stackView: UIStackView = {
@@ -43,9 +39,9 @@ class DiffHeaderTitleView: SetupView {
         return label
     }()
 
-    weak var titleViewTapDelegate: DiffHeaderTitleViewTapDelegate?
-
     private(set) var viewModel: DiffHeaderTitleViewModel?
+    
+    private var tappedHeaderTitleAction: (() -> Void)?
     
     override func setup() {
         super.setup()
@@ -78,10 +74,10 @@ class DiffHeaderTitleView: SetupView {
         }
     }
 
-    func update(_ viewModel: DiffHeaderTitleViewModel, titleViewTapDelegate: DiffHeaderTitleViewTapDelegate? = nil) {
+    func update(_ viewModel: DiffHeaderTitleViewModel, tappedHeaderTitleAction: (() -> Void)?) {
 
         self.viewModel = viewModel
-        self.titleViewTapDelegate = titleViewTapDelegate
+        self.tappedHeaderTitleAction = tappedHeaderTitleAction
 
         headingLabel.text = viewModel.heading
         titleLabel.text = viewModel.title
@@ -116,7 +112,7 @@ private extension DiffHeaderTitleView {
     }
 
     @objc func userDidTapTitleLabel() {
-        titleViewTapDelegate?.userDidTapTitleLabel()
+        tappedHeaderTitleAction?()
     }
 }
 

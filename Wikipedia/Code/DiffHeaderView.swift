@@ -27,8 +27,8 @@ final class DiffHeaderView: UICollectionReusableView, Themeable {
         ])
     }
     
-    func configure(with vm: DiffHeaderViewModel, titleViewTapDelegate: DiffHeaderTitleViewTapDelegate? = nil, theme: Theme) {
-        contentView.configure(with: vm, titleViewTapDelegate: titleViewTapDelegate, theme: theme)
+    func configure(with vm: DiffHeaderViewModel, tappedHeaderTitleAction: (() -> Void)?, theme: Theme) {
+        contentView.configure(with: vm, tappedHeaderTitleAction: tappedHeaderTitleAction, theme: theme)
     }
     
     func apply(theme: Theme) {
@@ -98,10 +98,10 @@ final class DiffHeaderContentView: UIView {
 
     }
 
-    func configure(with vm: DiffHeaderViewModel, titleViewTapDelegate: DiffHeaderTitleViewTapDelegate? = nil, theme: Theme) {
+    func configure(with vm: DiffHeaderViewModel, tappedHeaderTitleAction: (() -> Void)?, theme: Theme) {
         self.viewModel = vm
         if let viewModel {
-            updateTitleView(with: viewModel.title, titleViewTapDelegate: titleViewTapDelegate)
+            updateTitleView(with: viewModel.title, tappedHeaderTitleAction: tappedHeaderTitleAction)
             updateImageView(with: viewModel)
         }
         
@@ -122,8 +122,8 @@ final class DiffHeaderContentView: UIView {
         }
     }
 
-    func updateTitleView(with viewModel: DiffHeaderTitleViewModel, titleViewTapDelegate: DiffHeaderTitleViewTapDelegate? = nil) {
-        headerTitleView.update(viewModel, titleViewTapDelegate: titleViewTapDelegate)
+    func updateTitleView(with viewModel: DiffHeaderTitleViewModel, tappedHeaderTitleAction: (() -> Void)?) {
+        headerTitleView.update(viewModel, tappedHeaderTitleAction: tappedHeaderTitleAction)
     }
 }
 
