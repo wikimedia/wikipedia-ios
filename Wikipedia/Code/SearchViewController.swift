@@ -314,7 +314,26 @@ class SearchViewController: ArticleCollectionViewController, WMFNavigationBarCon
         let resultsViewController = SearchResultsViewController()
         resultsViewController.dataStore = dataStore
         resultsViewController.apply(theme: theme)
-        resultsViewController.delegate = self
+        
+        let tappedSearchResultAction: (URL, IndexPath) -> Void = { [weak self] articleURL, indexPath in
+            
+            guard let self else {
+                return
+            }
+            
+            SearchFunnel.shared.logSearchResultTap(position: indexPath.item, source: source)
+            saveLastSearch()
+            
+            if let searchResultSelectionDelegate {
+                searchResultSelectionDelegate.didSelectSearchResult(articleURL: articleURL, searchViewController: self)
+            } else {
+                let userInfo: [AnyHashable : Any] = [RoutingUserInfoKeys.source: RoutingUserInfoSourceValue.search.rawValue]
+                navigate(to: articleURL, userInfo: userInfo)
+            }
+        }
+        
+        resultsViewController.tappedSearchResultAction = tappedSearchResultAction
+        
         return resultsViewController
     }()
 
@@ -571,21 +590,6 @@ extension SearchViewController: UISearchControllerDelegate {
 extension SearchViewController: UISearchBarDelegate {
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         navigationController?.popViewController(animated: true)
-    }
-}
-
-extension SearchViewController: SearchResultsViewControllerDelegate {
-    func didSelectSearchResult(articleURL: URL, indexPath: IndexPath,  searchResultsViewController: SearchResultsViewController) {
-        
-        SearchFunnel.shared.logSearchResultTap(position: indexPath.item, source: source)
-        saveLastSearch()
-        
-        if let searchResultSelectionDelegate {
-            searchResultSelectionDelegate.didSelectSearchResult(articleURL: articleURL, searchViewController: self)
-        } else {
-            let userInfo: [AnyHashable : Any] = [RoutingUserInfoKeys.source: RoutingUserInfoSourceValue.search.rawValue]
-            navigate(to: articleURL, userInfo: userInfo)
-        }
     }
 }
 

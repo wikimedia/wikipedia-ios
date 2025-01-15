@@ -1,10 +1,6 @@
 import UIKit
 import WMF
 
-protocol SearchResultsViewControllerDelegate: AnyObject {
-    func didSelectSearchResult(articleURL: URL, indexPath: IndexPath, searchResultsViewController: SearchResultsViewController)
-}
-
 class SearchResultsViewController: ArticleCollectionViewController {
     var resultsInfo: WMFSearchResults? = nil // don't use resultsInfo.results, it mutates
     var results: [MWKSearchResult] = [] {
@@ -14,7 +10,7 @@ class SearchResultsViewController: ArticleCollectionViewController {
         }
     }
     
-    weak var delegate: SearchResultsViewControllerDelegate?
+    var tappedSearchResultAction: ((URL, IndexPath) -> Void)?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -64,7 +60,7 @@ class SearchResultsViewController: ArticleCollectionViewController {
             return
         }
         
-        delegate?.didSelectSearchResult(articleURL: articleURL, indexPath: indexPath, searchResultsViewController: self)
+        tappedSearchResultAction?(articleURL, indexPath)
     }
 
     func redirectMappingForSearchResult(_ result: MWKSearchResult) -> MWKSearchRedirectMapping? {
