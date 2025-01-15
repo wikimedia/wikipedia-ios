@@ -53,7 +53,17 @@ class InsertLinkViewController: UIViewController, WMFNavigationBarConfiguring {
         }
         
         searchViewController.populateSearchBarWithTextAction = populateSearchBarWithTextAction
-        searchViewController.searchResultSelectionDelegate = self
+        
+        let navigateToSearchResultAction: ((URL) -> Void) = { [weak self] articleURL in
+            guard let self,
+                  let title = articleURL.wmf_title else {
+                return
+            }
+            navigationItem.searchController?.isActive = false
+            self.delegate?.insertLinkViewController(self, didInsertLinkFor: title, withLabel: nil)
+        }
+        
+        searchViewController.navigateToSearchResultAction = navigateToSearchResultAction
         searchViewController.theme = theme
         
         let searchConfig = WMFNavigationBarSearchConfig(
@@ -90,16 +100,6 @@ class InsertLinkViewController: UIViewController, WMFNavigationBarConfiguring {
         
         delegate?.insertLinkViewController(self, didTapCloseButton: leftBarButtonItem)
         return true
-    }
-}
-
-extension InsertLinkViewController: SearchViewControllerResultSelectionDelegate {
-    func didSelectSearchResult(articleURL: URL, searchViewController: SearchViewController) {
-        guard let title = articleURL.wmf_title else {
-            return
-        }
-        navigationItem.searchController?.isActive = false
-        delegate?.insertLinkViewController(self, didInsertLinkFor: title, withLabel: nil)
     }
 }
 

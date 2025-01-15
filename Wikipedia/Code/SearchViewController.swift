@@ -1,14 +1,10 @@
 import UIKit
 import WMFComponents
 
-protocol SearchViewControllerResultSelectionDelegate: AnyObject {
-    func didSelectSearchResult(articleURL: URL, searchViewController: SearchViewController)
-}
-
 class SearchViewController: ArticleCollectionViewController, WMFNavigationBarConfiguring, WMFNavigationBarHiding {
     
-    // Assign if you don't want search result selection to do default navigation, and instead want to perform your own custom logic upon selection.
-    weak var searchResultSelectionDelegate: SearchViewControllerResultSelectionDelegate?
+    // Assign if you don't want search result selection to do default navigation, and instead want to perform your own custom logic upon search result selection.
+    var navigateToSearchResultAction: ((URL) -> Void)?
     
     // Set so that the correct search bar will have it's field populated once a "recently searched" term is selected. If this is missing, logic will default to navigationController?.searchController.searchBar for population.
     var populateSearchBarWithTextAction: ((String) -> Void)?
@@ -320,8 +316,8 @@ class SearchViewController: ArticleCollectionViewController, WMFNavigationBarCon
             SearchFunnel.shared.logSearchResultTap(position: indexPath.item, source: source)
             saveLastSearch()
             
-            if let searchResultSelectionDelegate {
-                searchResultSelectionDelegate.didSelectSearchResult(articleURL: articleURL, searchViewController: self)
+            if let navigateToSearchResultAction {
+                navigateToSearchResultAction(articleURL)
             } else {
                 let userInfo: [AnyHashable : Any] = [RoutingUserInfoKeys.source: RoutingUserInfoSourceValue.search.rawValue]
                 navigate(to: articleURL, userInfo: userInfo)

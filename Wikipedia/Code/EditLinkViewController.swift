@@ -157,7 +157,16 @@ class EditLinkViewController: ThemeableViewController, WMFNavigationBarConfiguri
         searchViewController.siteURL = siteURL
         searchViewController.shouldBecomeFirstResponder = true
         searchViewController.dataStore = MWKDataStore.shared()
-        searchViewController.searchResultSelectionDelegate = self
+        
+        let navigateToSearchResultAction: ((URL) -> Void) = { [weak self] articleURL in
+            guard let self else {
+                return
+            }
+            self.articleURL = articleURL
+            navigationController?.popViewController(animated: true)
+        }
+        
+        searchViewController.navigateToSearchResultAction = navigateToSearchResultAction
         searchViewController.showLanguageBar = false
         searchViewController.customTitle = CommonStrings.editLinkTitle
         searchViewController.needsCenteredTitle = true
@@ -184,12 +193,5 @@ class EditLinkViewController: ThemeableViewController, WMFNavigationBarConfiguri
         displayTextView.textColor = theme.colors.primaryText
         activityIndicatorView.color = theme.isDark ? .white : .gray
         articleCell.apply(theme: theme)
-    }
-}
-
-extension EditLinkViewController: SearchViewControllerResultSelectionDelegate {
-    func didSelectSearchResult(articleURL: URL, searchViewController: SearchViewController) {
-        self.articleURL = articleURL
-        navigationController?.popViewController(animated: true)
     }
 }
