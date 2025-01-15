@@ -55,9 +55,8 @@ open class WMFComponentHostingController<HostedView: View>: UIHostingController<
     // MARK: - Subclass Overrides
 
     public func appEnvironmentDidChange() {
-    overrideUserInterfaceStyle = appEnvironment.theme.userInterfaceStyle
-    setNeedsStatusBarAppearanceUpdate()
-        // Subclasses should implement
+        overrideUserInterfaceStyle = appEnvironment.theme.userInterfaceStyle
+        setNeedsStatusBarAppearanceUpdate()
     }
 
 }
