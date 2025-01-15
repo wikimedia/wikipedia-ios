@@ -124,7 +124,6 @@ extension DiffHeaderTitleView: Themeable {
     func apply(theme: Theme) {
         
         backgroundColor = theme.colors.paperBackground
-        backgroundColor = theme.colors.paperBackground
         headingLabel.textColor = theme.colors.secondaryText
         titleLabel.textColor = theme.colors.link
 
