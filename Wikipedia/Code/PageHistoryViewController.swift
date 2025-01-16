@@ -19,7 +19,6 @@ enum SelectionOrder: Int, CaseIterable {
 @objc(WMFPageHistoryViewController)
 class PageHistoryViewController: ColumnarCollectionViewController, WMFNavigationBarConfiguring {
     
-    // fileprivate static let headerReuseIdentifier = "TestHeader"
     fileprivate static let headerReuseIdentifier = "PageHistoryCountsView"
     
     private let pageTitle: String
