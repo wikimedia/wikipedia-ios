@@ -1440,12 +1440,12 @@
 "wikitext-upload-save-terms-and-licenses-ccsa4" = "透過發布更改，代表您同意$1使用條款$2，並且不反悔同意根據$3 CC BY-SA 4.0 許可$4和$5 GFDL $6來發布您的貢獻。您同意超連結或網址已足以代表創用 CC 授權條款的姓名標示。";
 "wikitext-upload-save-terms-name" = "使用條款";
 // Fuzzy
-"year-in-review-base-donate-subtitle" = "在您的支持下，維基媒體基金會——Wikipedia 背後的非營利組織——將繼續確保您所依賴的資訊無廣告且值得信賴，同時利用尖端工具和技術，讓 Wikipedia 平穩運行。請考慮今天捐款支持，並了解更多關於我們的工作內容。";
+"year-in-review-base-donate-subtitle" = "在您的支持下，維基媒體基金會——Wikipedia 背後的非營利組織——將繼續確保您所依賴的資訊無廣告且值得信賴，同時利用尖端工具和技術，讓 Wikipedia 平穩運行。請考慮今天捐款支持，[並了解更多關於我們的工作內容]($1)。";
 "year-in-review-base-donate-title" = "Wikipedia 上顯示的廣告數量為 0";
 "year-in-review-base-editors-subtitle" = "今年截至目前，Wikipedia 的志願編輯者社群在 iOS 應用程式上完成了超過 555,647 次編輯。Wikipedia 的核心是我們的全球志願者社群，包括貢獻者、捐款者，以及像您一樣的數十億讀者——大家齊心協力，共同提供無限且可靠的資訊存取。";
 "year-in-review-base-editors-title" = "iOS 應用程式上的編輯者進行了超過 $1 次編輯。";
 // Fuzzy
-"year-in-review-base-edits-subtitle" = "今年，Wikipedia 的平均編輯速度為每分鐘 $1 次。文章是基於可靠來源由社群共同創建和改進的。我們每個人都有知識可以分享，歡迎學習如何參與其中。";
+"year-in-review-base-edits-subtitle" = "今年，Wikipedia 的平均編輯速度為每分鐘 $1 次。文章是基於可靠來源由社群共同創建和改進的。我們每個人都有知識可以分享，[歡迎學習如何參與其中]($2)。";
 "year-in-review-base-edits-title" = "Wikipedia 每分鐘被編輯 $1 次。";
 "year-in-review-base-reading-subtitle" = "Wikipedia 在今年擁有超過 $1 萬篇文章，涵蓋 $2 多種活躍語言。您與數百萬人一起擴展知識，探索多元主題。";
 "year-in-review-base-reading-title" = "Wikipedia 提供超過 300 種語言版本";

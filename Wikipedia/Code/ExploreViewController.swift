@@ -28,6 +28,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         
         guard let existingProfileCoordinator = _profileCoordinator else {
             _profileCoordinator = ProfileCoordinator(navigationController: navigationController, theme: theme, dataStore: dataStore, donateSouce: .exploreProfile, logoutDelegate: self, sourcePage: ProfileCoordinatorSource.explore, yirCoordinator: yirCoordinator)
+            _profileCoordinator?.badgeDelegate = self
             return _profileCoordinator
         }
 
@@ -187,7 +188,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         var needsYiRNotification = false
         if let yirDataController,  let appLanguage = dataStore.languageLinkController.appLanguage {
             let project = WMFProject.wikipedia(WMFLanguage(languageCode: appLanguage.languageCode, languageVariantCode: appLanguage.languageVariantCode))
-            needsYiRNotification = yirDataController.shouldShowYiRNotification(primaryAppLanguageProject: project)
+            needsYiRNotification = yirDataController.shouldShowYiRNotification(primaryAppLanguageProject: project, isLoggedOut: !dataStore.authenticationManager.authStateIsPermanent)
         }
         // do not override `hasUnreadNotifications` completely
         if needsYiRNotification {
@@ -2186,7 +2187,7 @@ extension ExploreViewController: LogoutCoordinatorDelegate {
 
 
 extension ExploreViewController: YearInReviewBadgeDelegate {
-    func didSeeFirstSlide() {
+    func updateYIRBadgeVisibility() {
         updateProfileViewButton()
     }
 }
