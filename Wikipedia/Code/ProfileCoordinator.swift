@@ -26,6 +26,7 @@ final class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegat
     let dataStore: MWKDataStore
     
     private weak var viewModel: WMFProfileViewModel?
+    weak var badgeDelegate: YearInReviewBadgeDelegate?
     
     private let donateSouce: DonateCoordinator.Source
     private let targetRects = WMFProfileViewTargetRects()
@@ -86,7 +87,8 @@ final class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegat
             localizedStrings: localizedStrings,
             inboxCount: Int(truncating: inboxCount ?? 0),
             coordinatorDelegate: self,
-            yearInReviewDependencies: yearInReviewDependencies
+            yearInReviewDependencies: yearInReviewDependencies,
+            badgeDelegate: badgeDelegate
         )
         
         let profileView = WMFProfileView(viewModel: viewModel)
@@ -137,7 +139,6 @@ final class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegat
         case .logDonateTap:
             self.logDonateTap()
         case .showYearInReview:
-            
             if let viewModel, !viewModel.isUserLoggedIn() {
                 presentLoginPrompt()
             } else {
@@ -301,7 +302,7 @@ final class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegat
     }
     
     func logYearInReviewTap() {
-        DonateFunnel.shared.logProfileDidTapYearInReview(isAnon: dataStore.authenticationManager.authStateIsPermanent) 
+        DonateFunnel.shared.logProfileDidTapYearInReview()
     }
 }
 

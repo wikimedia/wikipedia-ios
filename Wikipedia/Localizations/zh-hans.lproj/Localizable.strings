@@ -1476,10 +1476,10 @@
 // Fuzzy
 "year-in-review-base-editors-subtitle" = "今年截止到现在，维基百科的志愿者编辑社区在 iOS 应用上进行了超过 555647 次编辑。维基百科的核心和灵魂是我们的全球社群，包括志愿者、捐赠者和像您一样的数十亿读者——所有人共享对可靠信息的不受限访问。";
 "year-in-review-base-editors-title" = "iOS 应用上的编辑者进行了超过 $1 次编辑";
-"year-in-review-base-edits-subtitle" = "今年，维基百科的平均编辑速度为每分钟 $1 次。文章由志愿者参考可靠信息来源协作创建和改进。我们所有人都有可以分享的知识。[了解如何参与]($2）。";
+"year-in-review-base-edits-subtitle" = "今年，维基百科的平均编辑速度为每分钟 $1 次。文章由志愿者参考可靠信息来源协作创建和改进。我们所有人都有可以分享的知识。[了解如何参与]($2)。";
 "year-in-review-base-edits-title" = "维基百科每分钟被编辑 $1 次";
 // Fuzzy
-"year-in-review-base-reading-subtitle" = "今年，维基百科拥有超过 $2 万篇文章，涵盖 $2 多种活跃语言。您与数百万人一起拓展知识，探索各种主题。";
+"year-in-review-base-reading-subtitle" = "今年，维基百科拥有超过 $1 万篇文章，涵盖 $2 多种活跃语言。您与数百万人一起拓展知识，探索各种主题。";
 "year-in-review-base-reading-title" = "维基百科提供 300 多种语言版本";
 // Fuzzy
 "year-in-review-base-saved-subtitle" = "今年，活跃的 iOS 应用用户共有超过 6220 万个阅读列表。将文章添加到阅读列表后，您就可以离线访问文章。您还可以登录账户，在不同设备上同步阅读列表。";

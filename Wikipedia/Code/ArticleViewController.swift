@@ -62,6 +62,7 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
         
         guard let existingProfileCoordinator = _profileCoordinator else {
             _profileCoordinator = ProfileCoordinator(navigationController: navigationController, theme: theme, dataStore: dataStore, donateSouce: .articleProfile(articleURL), logoutDelegate: self, sourcePage: ProfileCoordinatorSource.article, yirCoordinator: yirCoordinator)
+            _profileCoordinator?.badgeDelegate = self
             return _profileCoordinator
         }
         
@@ -896,7 +897,7 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
         var needsYiRNotification = false
         if let yirDataController,  let appLanguage = dataStore.languageLinkController.appLanguage {
             let project = WMFProject.wikipedia(WMFLanguage(languageCode: appLanguage.languageCode, languageVariantCode: appLanguage.languageVariantCode))
-            needsYiRNotification = yirDataController.shouldShowYiRNotification(primaryAppLanguageProject: project)
+            needsYiRNotification = yirDataController.shouldShowYiRNotification(primaryAppLanguageProject: project, isLoggedOut: !dataStore.authenticationManager.authStateIsPermanent)
         }
         
         // do not override `hasUnreadNotifications` completely
@@ -1866,7 +1867,7 @@ extension ArticleViewController: LogoutCoordinatorDelegate {
 }
 
 extension ArticleViewController: YearInReviewBadgeDelegate {
-    func didSeeFirstSlide() {
+    func updateYIRBadgeVisibility() {
         updateProfileButton()
     }
 }
