@@ -20,7 +20,8 @@
             "argument" : "UITestThemeSepia"
           }
         ],
-        "language" : "he"
+        "language" : "he",
+        "region" : "IL"
       }
     },
     {
@@ -32,7 +33,8 @@
             "argument" : "UITestThemeDark"
           }
         ],
-        "language" : "de"
+        "language" : "de",
+        "region" : "DE"
       }
     },
     {
@@ -44,11 +46,14 @@
             "argument" : "UITestThemeBlack"
           }
         ],
-        "language" : "vi"
+        "language" : "vi",
+        "region" : "VN"
       }
     }
   ],
   "defaultOptions" : {
+    "language" : "en",
+    "region" : "US",
     "testTimeoutsEnabled" : true,
     "userAttachmentLifetime" : "keepAlways"
   },

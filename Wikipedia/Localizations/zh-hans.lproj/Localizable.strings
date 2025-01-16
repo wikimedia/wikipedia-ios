@@ -4,7 +4,6 @@
 // Author: A Chinese Wikipedian
 // Author: A Retired User
 // Author: A2B4C
-// Author: Amire80
 // Author: Angrydog001
 // Author: Anterdc99
 // Author: Chixvv
@@ -43,10 +42,12 @@
 // Author: Shizhao
 // Author: StarrySky
 // Author: SunAfterRain
+// Author: TFX202X
 // Author: Tonylianlong
 // Author: Tsevener
 // Author: Viztor
 // Author: VulpesVulpes825
+// Author: WiiUf
 // Author: Willy1018
 // Author: Winston Sung
 // Author: Wxyveronica
@@ -183,6 +184,7 @@
 "alt-text-email-second-line" = "描述具体问题";
 "alt-text-email-third-line" = "我希望看到的操作状态是：";
 "alt-text-email-title" = "问题报告 - 替代文字功能";
+"alt-text-experiment-caption-title" = "图像说明";
 "alt-text-experiment-character-counter-format" = "$1/$2";
 "alt-text-experiment-character-counter-warning" = "尽量让替代文字保持简短，以便用户能够轻松理解图像内容";
 "alt-text-experiment-edit-summary" = "已添加替代文字";
@@ -216,8 +218,7 @@
 "alt-text-feedback-survey-title" = "帮助改进功能";
 "alt-text-feedback-survey-toast-title" = "反馈已提交";
 "alt-text-feedback-survey-unsatisfied" = "不满意";
-// Fuzzy
-"alt-text-license" = "发布更改即表示您同意相关[使用条款]($1)，同时，您同意依据 [CC BY-SA 3.0]($2) 许可协议及 [GFDL]($#) 授权您的贡献，并在 Creative Commons 许可协议下以超链接或网址 (URL) 等方式署名。";
+"alt-text-license" = "发布更改即代表您同意[使用条款]($1)，并且不可撤销地同意根据[CC BY-SA 3.0]($2)与[GFDL]($3)协议发布您的贡献。您同意超链接或网页链接足够代表知识共享协议所规定的署名。";
 "alt-text-modal-subtitle-image-recommendation" = "上一个​​图像缺少替代文字。为视障读者添加图像描述";
 "alt-text-modal-subtitle-regular-edit" = "本文中有一张缺少替代文字的图像。为视障读者添加描述？";
 "alt-text-modal-title" = "添加缺失的图像替代文字？";
@@ -280,6 +281,9 @@
 "clearing-cache-in-progress" = "正在清空缓存。";
 "close-button-accessibility-label" = "关闭";
 "compass-direction" = "$1点钟";
+"confirm-donation-history-deletion-subtitle" = "这仅适用于通过此设备进行的捐赠。";
+"confirm-donation-history-deletion-title" = "确认删除";
+"confirmed-donation-history-deletion" = "已删除本地历史记录";
 "continue-button-title" = "继续";
 "continue-reading-empty-description" = "探索维基百科阅读更多条目";
 "continue-reading-empty-title" = "没有最近阅读的条目";
@@ -287,6 +291,7 @@
 "crimean-tatar-variants-alert-title" = "更新克里米亚鞑靼语变体支持";
 "data-migration-status" = "正在更新...";
 "description-add-title" = "添加描述";
+"description-article-introduction-warning-message" = "编辑视图中的元素顺序与文章视图中的元素顺序不同。";
 "description-edit-for-article" = "$1的条目描述";
 "description-edit-length-warning" = "$1/$2";
 "description-edit-license" = "一旦更改条目描述，即表示我同意$1，并在$2的许可下不可撤销地发布我的贡献。";
@@ -322,12 +327,26 @@
 "description-welcome-promise-title" = "点击开始按钮即表明我不会滥用此功能";
 "description-welcome-start-editing-button" = "开始编辑";
 "developer-settings" = "开发者设置";
+"developer-settings-always-show-alt-text-entry-point" = "始终显示替代文本入口点。";
+"developer-settings-bypass-donation" = "绕过捐赠";
 "developer-settings-enable-alt-text-experiment-en" = "为英语维基百科启用替代文字实验功能。";
+"developer-settings-enable-year-in-review" = "启用年度回顾";
+"developer-settings-send-analytics-to-wmflabs" = "发送分析信息至wmflabs。";
+"developer-settings-suppress-image-rec-post" = "不发布图像推荐产生的编辑。";
 "diff-article-revision-history" = "条目修订历史";
+"diff-change-added" = "已新增：$1，新增结束。";
+"diff-change-paragraph-lines-moved-down" = "段落向下移动{{PLURAL:$1| 0=0 行| $1行}}。转到新位置。";
+"diff-change-paragraph-lines-moved-up" = "段落已上移{{PLURAL:$1| 0=0 行| $1行}}。转到新位置。";
+"diff-change-paragraph-moved" = "段落已移动。转到上一个位置。";
+"diff-change-paragraph-sections-moved-down" = "段落向下移动{{PLURAL:$1| 0=0 段落| $1段落}}。转到新位置。";
+"diff-change-paragraph-sections-moved-up" = "段落已上移{{PLURAL:$1| 0=0 段落| $1段落}}。转到新位置。";
+"diff-change-removal" = "已移除：$1，移除结束。";
 "diff-compare-header-from-info-heading" = "上一次编辑";
 "diff-compare-header-heading" = "对比修订";
 "diff-compare-header-to-info-heading" = "展示的编辑";
 "diff-compare-title" = "对比修订";
+"diff-content-added" = "已新增内容：$1";
+"diff-content-removed" = "已移除内容：$1";
 "diff-context-cell-collapse-section" = "折叠$1";
 "diff-context-cell-expand-section" = "展开$1";
 "diff-context-lines-collapsed-button-title" = "显示";
@@ -361,6 +380,7 @@
 "diff-thanks-sent" = "您的“感谢”已发送至$1";
 "diff-thanks-sent-already" = "您已为此次编辑发送“感谢”";
 "diff-thanks-sent-cannot-unsend" = "感谢无法撤回";
+"diff-unchanged-contextual-line" = "上下文行，未改变： $1";
 "diff-undo-message" = "此操作将会撤销显示的条目修订所作出的更改。若要继续，请提供撤销此编辑的理由。";
 "diff-undo-success" = "已撤销此修订版本。";
 "diff-unedited-lines-format" = "{{PLURAL:$1|$1行未被编辑|$1行未被编辑}}";
@@ -380,6 +400,7 @@
 "donate-help-other-ways-to-give" = "其他捐赠方式";
 "donate-help-problems-donating" = "捐款遇到问题？";
 "donate-help-tax-deductibility-information" = "减税信息";
+"donate-history-delete" = "删除本地捐赠记录";
 "donate-later-title" = "明天我们会再次提醒您。";
 "donate-maximum-error-text" = "我们的网站无法接收超过$1 $2的捐款。请通过benefactors@wikimedia.org联系我们的大件礼品专员。";
 "donate-minimum-error-text" = "请选择金额（最低$1 $2）。";
@@ -387,11 +408,13 @@
 "donate-payment-method-prompt-apple-pay-button-title" = "使用Apple Pay捐款";
 "donate-payment-method-prompt-message" = "使用Apple Pay或选择其他支付方式捐款。";
 "donate-payment-method-prompt-other-button-title" = "其他付款方式";
-"donate-payment-method-prompt-title" = "使用Apple Pay捐款？";
+"donate-payment-method-prompt-title" = "使用 Apple Pay 捐款？";
 "donate-success-subtitle" = "您的慷慨解囊对我们意义重大。";
 "donate-success-title" = "谢谢您！";
 "donate-title" = "选择金额";
 "donate-transaction-fee-opt-in-text" = "我愿意慷慨地增加$1来包含手续费，这样我的捐款就能100%%保留。";
+"donate-wikimedia-fine-print-1" = "我们不会向任何人出售或交易您的信息。通过捐款，您同意与维基媒体基金会共享您的个人信息。维基媒体基金会是非营利性组织，主要负责管理维基百科、其他维基媒体项目，并且其服务提供商遵照我们的[捐款人隐私政策]($1)。维基媒体基金会及其服务提供商位于美国和其他国家，这些国家的隐私法律与您所在国的可能不等价。关于更多信息，请阅读我们的[捐款人隐私政策]($1)。";
+"donate-wikimedia-fine-print-2" = "对于循环捐赠人，每月固定支付将记入维基媒体基金会账户，根据首次捐赠日期月月重复，直到您通知我们停止。每月29、30或31号开始的捐赠将会在较短月份的最后一天重复，尽量与原日期靠近。如有疑问，敬请联系donate@wikimedia.org。";
 "edit-link-display-text-title" = "显示文字";
 "edit-link-link-target-title" = "链接目标";
 "edit-link-remove-link-title" = "移除链接";
@@ -434,6 +457,7 @@
 "editor-exit-confirmation-title" = "关闭编辑模式？";
 "editor-find-clear-button-accessibility" = "清除查找内容";
 "editor-find-close-button-accessibility" = "关闭查找";
+"editor-find-current-match-info-accessibility" = "共找到$1匹配项。突出显示的匹配项编号为$2";
 "editor-find-current-match-info-zero-results-accessibility" = "未找到匹配项";
 "editor-find-next-button-accessibility" = "下一个查找结果";
 "editor-find-previous-button-accessibility" = "上一个查找结果";
@@ -460,11 +484,13 @@
 "editor-keyboard-template-accessibility" = "模板";
 "editor-keyboard-text-formatting-title" = "文本格式";
 "editor-keyboard-underline-accessibility" = "下划线";
+"editor-replace-button-format-accessibility" = "执行替换操作。替换类型设置为$1 。";
 "editor-replace-clear-button-accessibility" = "清空替换内容";
 "editor-replace-textfield-accessibility" = "替换";
 "editor-replace-textfield-placeholder" = "替换为…";
 "editor-replace-type-all" = "全部替换";
 "editor-replace-type-all-accessibility" = "替换所有实例";
+"editor-replace-type-button-accessibility" = "切换替换类型。当前设置为$1 。选择以更改。";
 "editor-replace-type-single" = "替换";
 "editor-replace-type-single-accessibility" = "替换单个实例";
 "editor-toolbar-bold-accessibility" = "粗体文本格式";
@@ -560,6 +586,7 @@
 "explore-feed-preferences-show-top-read-footer-text" = "关闭“热门阅读”将对所有可用语言关闭此卡片。";
 "explore-feed-preferences-show-top-read-title" = "显示“热门阅读”卡片";
 "explore-feed-preferences-suggested-edits-description" = "向维基百科添加内容的建议";
+"explore-feed-preferences-suggested-edits-title" = "显示建议的修改卡";
 "explore-feed-preferences-top-read-description" = "每日阅读量最多的条目";
 "explore-feed-preferences-turn-off-explore-feed-alert-action-title" = "关闭探索订阅源";
 "explore-feed-preferences-turn-off-explore-feed-alert-message" = "隐藏所有探索订阅源卡片将关闭探索标签页，并替换为设置标签页";
@@ -772,7 +799,6 @@
 "main-menu-account-logout" = "退出";
 "main-menu-account-logout-are-you-sure" = "您确定要退出登录吗？";
 "main-menu-account-logout-are-you-sure-message" = "退出登录将会删除本地存储的账户数据（通知和消息），不过您的账号数据仍然存储于网络上，如果您重新登录，将会重新下载。";
-"main-menu-account-logout-cancel" = "取消";
 "main-menu-account-title-logged-in" = "以$1的身份登录";
 "main-menu-heading-legal" = "隐私和条款";
 "main-menu-nearby" = "附近";
@@ -782,6 +808,7 @@
 "main-menu-title" = "更多";
 "main-menu-zero-faq" = "维基百科Zero常见问题";
 "menu-cancel-accessibility-label" = "取消";
+"microsite-yir-english-non-donor-slide-subtitle" = "有了您的帮助，支撑维基百科的非营利组织，维基媒体基金会将继续保障您需要的信息不含广告且足够可靠，同时采用最前沿工具和技术保证维基百科得以稳定运行。现在就考虑捐款吧。[详细了解我们的工作]($1)。";
 "more-languages-tooltip-description" = "在超过300种语言中搜索维基百科";
 "more-languages-tooltip-title" = "添加语言";
 "more-menu" = "更多";
@@ -852,10 +879,13 @@
 "notifications-center-notifications-settings" = "通知设置";
 "notifications-center-num-selected-messages-format" = "{{PLURAL:$1|$1 条消息}}";
 "notifications-center-onboarding-modal-continue-action" = "继续";
+"notifications-center-onboarding-modal-filters-message" = "按阅读状态和类型过滤通知，轻松缩小收件箱范围。";
 "notifications-center-onboarding-modal-filters-title" = "过滤器";
 "notifications-center-onboarding-modal-learn-more-action" = "了解更多有关通知";
+"notifications-center-onboarding-modal-notifications-alerts-message" = "通知可帮助您随时了解与您的编辑和帐户相关的活动。";
 "notifications-center-onboarding-modal-notifications-alerts-title" = "通知和警告";
 "notifications-center-onboarding-modal-project-inboxes-message" = "在一处查看来自不同语言维基百科和维基媒体项目的所有未读消息。";
+"notifications-center-onboarding-modal-project-inboxes-title" = "项目收件箱";
 "notifications-center-onboarding-modal-push-notifications-message" = "启用推送通知，以便在繁忙时也能及时收到您的编辑消息和警告。";
 "notifications-center-onboarding-modal-push-notifications-title" = "推送通知";
 "notifications-center-onboarding-modal-title" = "编辑通知";
@@ -866,7 +896,13 @@
 "notifications-center-project-filters-accessibility-label" = "项目过滤器";
 "notifications-center-status-all" = "全部";
 "notifications-center-status-all-notifications" = "所有通知";
+"notifications-center-status-double-concatenation" = "在$2个项目/收件箱中的$1个筛选条件";
+"notifications-center-status-filtered-by" = "筛选条件";
+"notifications-center-status-in-projects" = "{{PLURAL:$1| 1=在 1 个项目中|在$1项目中}}";
+"notifications-center-status-in-projects-plain" = "{{PLURAL:$1| 1=1 个项目| $1项目}}";
+"notifications-center-status-in-types" = "{{PLURAL:$1| 1=1 类型| $1类型}}";
 "notifications-center-status-read" = "已读";
+"notifications-center-status-triple-concatenation" = "$1，在 $3 个专案/收件箱上有 $2 个";
 "notifications-center-status-unread" = "未读";
 "notifications-center-subheader-edit-milestone" = "编辑里程碑";
 "notifications-center-subheader-edit-reverted" = "您的编辑已被回退";
@@ -891,9 +927,11 @@
 "notifications-center-swipe-mark-as-unread" = "标记为未读";
 "notifications-center-swipe-more" = "更多";
 "notifications-center-title" = "通知";
+"notifications-center-toolbar-mark-accessibility-label" = "标记选定的通知";
 "notifications-center-type-item-description-mentions" = "提及";
 "notifications-center-type-item-description-notice" = "提示";
 "notifications-center-type-item-description-welcome-verbose" = "欢迎消息";
+"notifications-center-type-title-connection-with-wikidata" = "与维基数据连接";
 "notifications-center-type-title-edit-milestone" = "编辑里程碑";
 "notifications-center-type-title-edit-reverted" = "编辑已被回退";
 "notifications-center-type-title-edit-summary-mention" = "编辑摘要提及";
@@ -960,7 +998,7 @@
 "places-accessibility-show-as-list" = "以列表显示";
 "places-accessibility-show-as-map" = "以地图显示";
 "places-accessibility-show-more" = "显示更多条目";
-"places-empty-search-description" = "浏览城市、国家、大陆、自然地标、历史事件、建筑物以及更多。";
+"places-empty-search-description" = "浏览城市、国家、大陆、自然地标、历史事件、建筑物以及更多内容。";
 "places-empty-search-title" = "使用地理位置搜索维基百科条目";
 "places-enable-location-action-button-title" = "启用位置";
 "places-enable-location-description" = "仅当本应用（或其功能之一）在屏幕上显示时才能访问您的位置。";
@@ -994,6 +1032,16 @@
 "preference-summary-eventlogging-opt-in" = "允许维基媒体基金会收集有关您使用本应用的信息，从而改善应用";
 "privacy-policy-title" = "隐私政策";
 "problem-with-feature-title" = "功能问题";
+"profile-button-accessibility-hint" = "导航到个人资料视图。";
+"profile-button-accessibility-label" = "个人资料";
+"profile-button-badge-accessibility-label" = "个人资料（带有未读消息标记）";
+"profile-page-donate-subtext" = "或通过捐款来支持维基百科，使之维持免费且人人可访问。";
+"profile-page-join-subtext" = "注册维基百科账号来追踪您的贡献、离线保存条目，以及跨设备同步。";
+"profile-page-join-title" = "登录/加入维基百科";
+"profile-page-logged-out-year-in-review-subtext" = "请登录或创建账号，以在来年获得更好的年度回顾";
+"profile-page-title-logged-out" = "账号";
+"profile-year-in-review-login-subtitle" = "登录或创建账户，以便再次查看年度回顾，并有资格获得更多个性化分析数据。";
+"profile-year-in-review-login-title" = "登录以访问年度回顾";
 "project-name-mediawiki" = "MediaWiki";
 "project-name-wikibooks" = "维基教科书";
 "project-name-wikidata" = "维基数据";
@@ -1157,6 +1205,8 @@
 "settings-notifications-push-notifications" = "推送通知";
 "settings-notifications-system-turn-on" = "打开通知";
 "settings-notifications-trending" = "时事趋势";
+"settings-off" = "关";
+"settings-on" = "开";
 "settings-primary-language" = "首选";
 "settings-primary-language-details" = "此列表中的第一种语言将作为应用程序的首选语言。";
 "settings-search-footer-text" = "设置应用开启时打开搜索而非探索标签页";
@@ -1175,6 +1225,7 @@
 "settings-storage-and-syncing-show-default-reading-list-title" = "显示保存的阅读列表";
 "settings-storage-and-syncing-title" = "条目存储与同步";
 "settings-title" = "设置";
+"settings-year-in-review-header" = "关闭年度回顾将清除所存储的所有个性化分析数据，并将年度回顾隐藏。";
 "share-a-fact-made-with" = "维基百科应用出品";
 "share-article-name-on-wikipedia" = "维基百科上的“$1”：";
 "share-building" = "正在构建分享预览卡片…";
@@ -1204,6 +1255,7 @@
 "tachelhit-variants-alert-title" = "更新塔切尔特语变体支持";
 "tajik-variants-alert-body" = "维基百科应用现在支持以下塔吉克语变体作为应用内的主要语言或次要语言，从而使您更易于阅读，搜索和编辑首选变体：\n\nтоҷикӣ кирилликӣ Tajik, Cyrillic (tg-cyrl)\ntojikī lotinī Tajik, Latin (tg-latn)";
 "tajik-variants-alert-title" = "更新塔吉克语变体支持";
+"talk-page-active-users-accessibilty-label" = "{{PLURAL:$1| $1活跃用户}}";
 "talk-page-add-topic-button" = "添加话题";
 "talk-page-archives" = "存档";
 "talk-page-article-about" = "关于讨论页";
@@ -1222,6 +1274,7 @@
 "talk-page-new-banner-title" = "请保持友善";
 "talk-page-new-reply-success-text" = "您的回复已成功发布";
 "talk-page-new-topic-success-text" = "您的讨论已成功发布";
+"talk-page-onboarding-button-accessibility-label" = "双击返回回复界面";
 "talk-page-overflow-menu-accessibility" = "更多讨论页选项";
 "talk-page-page-info" = "页面信息";
 "talk-page-permanent-link" = "固定链接";
@@ -1270,6 +1323,7 @@
 "talk-pages-topic-compose-body-placeholder" = "描述";
 "talk-pages-topic-compose-body-placeholder-accessibility" = "话题描述";
 "talk-pages-topic-compose-close-confirmation-discard-reply" = "丢弃回复";
+"talk-pages-topic-compose-close-confirmation-discard-topic" = "丢弃话题";
 "talk-pages-topic-compose-close-confirmation-title" = "您确定要丢弃这个新话题吗？";
 "talk-pages-topic-compose-navbar-title" = "话题";
 "talk-pages-topic-compose-title-placeholder" = "话题标题";
@@ -1311,13 +1365,21 @@
 "variants-alert-preferences-button" = "查看您的设置";
 "watch" = "监视";
 "watchlist" = "监视列表";
+"watchlist-added-toast-one-month" = "已添加至您的监视列表，为期1个月。";
+"watchlist-added-toast-one-week" = "已添加至您的监视列表，为期1周。";
+"watchlist-added-toast-one-year" = "已添加至您的监视列表，为期1年。";
+"watchlist-added-toast-permanently" = "已永久添加至您的监视列表。";
+"watchlist-added-toast-six-months" = "已添加至您的监视列表，为期6个月。";
+"watchlist-added-toast-three-months" = "已添加至您的监视列表，为期3个月。";
 "watchlist-added-toast-view-watchlist" = "查看监视列表";
+"watchlist-byte-change" = "{{PLURAL:$1|$1字节}}";
 "watchlist-change-expiry-option-one-month" = "1个月";
 "watchlist-change-expiry-option-one-week" = "1周";
 "watchlist-change-expiry-option-one-year" = "1年";
 "watchlist-change-expiry-option-permanent" = "永久";
 "watchlist-change-expiry-option-six-months" = "6个月";
 "watchlist-change-expiry-option-three-months" = "3个月";
+"watchlist-change-expiry-subtitle" = "选择监视列表持续时间";
 "watchlist-change-expiry-title" = "监视列表有效期限";
 "watchlist-diff-action-button-title" = "跳转到差异";
 "watchlist-edit-summary-accessibility" = "编辑摘要";
@@ -1325,6 +1387,7 @@
 "watchlist-empty-view-filter-title" = "您没有监视列表项目";
 "watchlist-empty-view-subtitle" = "跟踪您感兴趣条目的最新状况。点击条目中的菜单并选择“监视”来查看条目的更改。";
 "watchlist-empty-view-title" = "您添加到监视列表的条目会出现在这里";
+"watchlist-expiration-subtitle" = "页面保留默认设置，但可以选择临时观看，时间范围从一周到一年。";
 "watchlist-expiration-title" = "设置期限";
 "watchlist-filter" = "过滤";
 "watchlist-filter-activity-header" = "监视列表活动";
@@ -1349,17 +1412,20 @@
 "watchlist-filter-user-registration-options-registered" = "已注册";
 "watchlist-filter-user-registration-options-unregistered" = "未注册";
 "watchlist-filters-add-language" = "添加语言…";
+"watchlist-number-filters" = "修改 [ {{PLURAL:$1| $1 过滤器}}](wikipedia://watchlist/filter) 以查看更多监视列表项目";
 "watchlist-onboarding-button-title" = "了解有关监视列表的更多信息";
 "watchlist-onboarding-title" = "这是您的监视列表";
 "watchlist-removed" = "已从您的监视列表移除";
 "watchlist-thanks-success" = "您的“感谢”已发送给$1";
 "watchlist-track-subtitle" = "监视列表是可让您追踪感兴趣的页面或条目更改的工具。";
 "watchlist-track-title" = "追踪更改";
+"watchlist-updates-subtitle" = "您可以通过“设置”→“账号”访问您添加的页面的监视列表，例如编辑或讨论。";
 "watchlist-updates-title" = "查看更新";
 "watchlist-user-button-thank" = "感谢";
 "watchlist-user-button-user-contributions" = "用户贡献";
 "watchlist-user-button-user-page" = "用户页";
 "watchlist-user-button-user-talk-page" = "用户讨论页";
+"watchlist-watch-subtitle" = "点击条目底部工具栏的星星图标或者“监视”操作可添加该条目至您的监视列表。";
 "watchlist-watch-title" = "监视条目";
 "welcome-data-privacy-title" = "数据与隐私";
 "welcome-exploration-explore-feed-description" = "来自我们社群的推荐阅读和每日条目";
@@ -1403,4 +1469,71 @@
 "wikitext-upload-save-anonymously-or-login" = "编辑将使用您设备的IP地址发布，如果您想保护隐私，请$1登录$2。";
 "wikitext-upload-save-anonymously-warning" = "编辑将使用您设备的IP地址发布，如果您想保护隐私，请$1。";
 "wikitext-upload-save-sign-in" = "登录";
+"wikitext-upload-save-terms-and-licenses-ccsa4" = "发布更改即代表您同意$1使用条款$2，并且不可撤销地同意以$3CC BY-SA 4.0$4与$5GFDL$6协议发布您的贡献。您同意超链接或网页链接足够代表知识共享协议所规定的署名。";
 "wikitext-upload-save-terms-name" = "使用条款";
+"year-in-review-base-donate-subtitle" = "在您的帮助下，维基媒体基金会——维基百科背后的非营利组织——将继续努力，以确保您依赖的信息没有广告且值得信赖，同时通过尖端工具和技术，使维基百科保持流畅运行。请考虑在今天捐款。[进一步了解我们的工作]($1)。";
+"year-in-review-base-donate-title" = "维基百科投放了 0 条广告";
+// Fuzzy
+"year-in-review-base-editors-subtitle" = "今年截止到现在，维基百科的志愿者编辑社区在 iOS 应用上进行了超过 555647 次编辑。维基百科的核心和灵魂是我们的全球社群，包括志愿者、捐赠者和像您一样的数十亿读者——所有人共享对可靠信息的不受限访问。";
+"year-in-review-base-editors-title" = "iOS 应用上的编辑者进行了超过 $1 次编辑";
+"year-in-review-base-edits-subtitle" = "今年，维基百科的平均编辑速度为每分钟 $1 次。文章由志愿者参考可靠信息来源协作创建和改进。我们所有人都有可以分享的知识。[了解如何参与]($2）。";
+"year-in-review-base-edits-title" = "维基百科每分钟被编辑 $1 次";
+// Fuzzy
+"year-in-review-base-reading-subtitle" = "今年，维基百科拥有超过 $2 万篇文章，涵盖 $2 多种活跃语言。您与数百万人一起拓展知识，探索各种主题。";
+"year-in-review-base-reading-title" = "维基百科提供 300 多种语言版本";
+// Fuzzy
+"year-in-review-base-saved-subtitle" = "今年，活跃的 iOS 应用用户共有超过 6220 万个阅读列表。将文章添加到阅读列表后，您就可以离线访问文章。您还可以登录账户，在不同设备上同步阅读列表。";
+"year-in-review-base-saved-title" = "我们有超过 $1 万个阅读列表";
+// Fuzzy
+"year-in-review-base-viewed-subtitle" = "iOS 应用用户浏览了维基百科文章 $1 亿次。对于全世界的人们来说，维基百科是解答疑问、查找上学或工作所需信息或学习新知识的第一站。";
+"year-in-review-base-viewed-title" = "我们浏览了维基百科文章 $1 亿次";
+"year-in-review-button-title" = "年度回顾";
+"year-in-review-day-friday" = "星期五";
+"year-in-review-day-monday" = "星期一";
+"year-in-review-day-saturday" = "星期六";
+"year-in-review-day-sunday" = "星期日";
+"year-in-review-day-thursday" = "星期四";
+"year-in-review-day-tuesday" = "星期二";
+"year-in-review-day-wednesday" = "星期三";
+"year-in-review-donate" = "捐赠";
+"year-in-review-donate-now" = "立即捐款";
+"year-in-review-feature-announcement-body" = "查看我们阅读和编辑的文章的分析数据，并分享我们这一年使用维基百科的亮点。";
+"year-in-review-feature-announcement-body-personalized" = "查看您在维基百科应用上阅读的文章的分析数据，分享您的旅程，并发现您这一年的亮点。";
+"year-in-review-feature-announcement-title" = "探索维基百科回顾";
+"year-in-review-feature-announcement-title-personalized" = "探索您的维基百科年度回顾";
+"year-in-review-feature-explore-body" = "维基百科是世界历史上最大的知识资源库，向每个地方的每个人免费开放。通过维基百科的视角回顾 2024 年。";
+"year-in-review-feature-explore-body-personalized" = "查看关于您在维基百科应用上阅读了哪些文章以及所做编辑的分析数据。您的阅读历史记录受到保护。阅读分析数据是根据您设备上存储的本地数据计算出来的。";
+"year-in-review-finish" = "完成";
+"year-in-review-login-subtitle" = "登录或创建账户，以便有资格获得更多个性化分析数据";
+"year-in-review-login-title" = "改进您的年度回顾";
+"year-in-review-personalized-day-subtitle-format" = "您在 $1 阅读的文章最多。很明显，$1 是您探索新内容最重要的日子。感谢您充分利用您的阅读时间！";
+"year-in-review-personalized-day-title-format" = "您阅读最多的是$1 。";
+"year-in-review-personalized-donate-subtitle" = "感谢您对知识免费的未来投资。今年，维基媒体基金会改进了技术，从而更好地服务每一位读者和志愿者，并开发了增强协作的工具，另外还支持了维基百科的更多语言版本。[进一步了解我们的工作]($1)。";
+"year-in-review-personalized-donate-title" = "您的慷慨让维基百科兴旺";
+"year-in-review-personalized-edit-views-subtitle-format" = "全世界的读者感谢您做出的贡献。在过去 2 个月中，您编辑的文章总浏览量已达 $1 次。正因为有像您这样的编辑者，维基百科才能不断改进，成为基于事实的、可靠的全球知识资源库。";
+"year-in-review-personalized-edit-views-title-format" = "您编辑的文章最近已被浏览超过 $1 次";
+// Fuzzy
+"year-in-review-personalized-editing-subtitle-format" = "今年，您阅读了 $1 篇文章。维基百科有超过 $2 万篇文章，涵盖 $3 多种语言。您与数百万人一起拓展知识，探索各种主题。";
+"year-in-review-personalized-editing-subtitle-format-500plus" = "您在维基百科上的编辑次数超过了500次。感谢您成为世界各地在维基媒体项目上作出贡献的志愿编者中的一员。";
+// Fuzzy
+"year-in-review-personalized-editing-title-format" = "您编辑了维基百科 $1 次";
+"year-in-review-personalized-editing-title-format-500plus" = "您编辑了维基百科 500 多次";
+// Fuzzy
+"year-in-review-personalized-reading-subtitle-format" = "今年，您阅读了 $1 篇文章，包括 $2、$3 和 $4。维基百科有超过 6300 万篇文章，涵盖 300 多种语言。您与数百万人一起拓展知识，探索各种主题。";
+// Fuzzy
+"year-in-review-personalized-reading-title-format" = "您今年阅读了 $1 篇文章";
+// Fuzzy
+"year-in-review-personalized-saved-subtitle-format" = "您保存了 $1 篇文章，包括 $2、$3 和 $4。每一篇保存的文章都反映了您的兴趣，并帮助您在维基百科上建立个性化的知识库。";
+// Fuzzy
+"year-in-review-personalized-saved-title-format" = "您保存了 $1 篇文章";
+"year-in-review-share-text" = "这里是我的维基百科年度回顾。通过 Wikipedia iOS 应用创建而成 (https://apps.apple.com/app/wikipedia/id324715238) #WikipediaYearInReview";
+"year-in-review-survey-additional-thoughts" = "您还有别的想法吗？";
+"year-in-review-survey-neutral" = "一般";
+"year-in-review-survey-satisfied" = "满意";
+"year-in-review-survey-subtitle" = "帮助改进您的年度回顾。您对这个功能满意吗？";
+"year-in-review-survey-title" = "满意度调查";
+"year-in-review-survey-unsatisfied" = "不满意";
+"year-in-review-survey-very-satisfied" = "非常满意";
+"year-in-review-survey-very-unsatisfied" = "非常不满意";
+"year-in-review-wikipedia-w-accessibility-label" = "维基百科 w 徽标";
+"year-in-review-wmf-logo-accessibility-label" = "维基媒体基金会标志";

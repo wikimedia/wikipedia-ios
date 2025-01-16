@@ -44,6 +44,7 @@ public enum WMFSFSymbolIcon {
 	case personFilled
     case starLeadingHalfFilled
     case heart
+    case heartFilled
 	case conversation
     case quoteOpening
     case link
@@ -90,11 +91,22 @@ public enum WMFSFSymbolIcon {
     case flag
     case lightbulbMin
     case ellipsisCircle
+    case personCropCircleBadge
+    case personCropCircle
     case bookmark
     case bookmarkFill
     case book
     case map
     case squareAndArrowUp
+    case circleFill
+    case bellFill
+    case chatBubbleFilled
+    case textBadgeStar
+    case leave
+    case gear
+    case calendar
+    case share
+    case infoCircleFill
 
     public static func `for`(symbol: WMFSFSymbolIcon, font: WMFFont = .subheadline, compatibleWith traitCollection: UITraitCollection = WMFAppEnvironment.current.traitCollection, paletteColors: [UIColor]? = nil) -> UIImage? {
         let font = WMFFont.for(font, compatibleWith: traitCollection)
@@ -210,6 +222,10 @@ public enum WMFSFSymbolIcon {
             image = UIImage(systemName: "lightbulb.min", withConfiguration: configuration)
         case .ellipsisCircle:
             image = UIImage(systemName: "ellipsis.circle", withConfiguration: configuration)
+        case .personCropCircleBadge:
+            image = UIImage(systemName: "person.crop.circle.badge", withConfiguration: configuration)
+        case .personCropCircle:
+            image = UIImage(systemName: "person.crop.circle", withConfiguration: configuration)
         case .bookmark:
             image = UIImage(systemName: "bookmark", withConfiguration: configuration)
         case .bookmarkFill:
@@ -220,6 +236,26 @@ public enum WMFSFSymbolIcon {
             image = UIImage(systemName: "map", withConfiguration: configuration)
         case .squareAndArrowUp:
             image = UIImage(systemName: "square.and.arrow.up", withConfiguration: configuration)
+        case .circleFill:
+            image = UIImage(systemName: "circle.fill", withConfiguration: configuration)
+        case .bellFill:
+            image = UIImage(systemName: "bell.fill", withConfiguration: configuration)
+        case .chatBubbleFilled:
+            image = UIImage(systemName: "bubble.fill", withConfiguration: configuration)
+        case .textBadgeStar:
+            image = UIImage(systemName: "text.badge.star", withConfiguration: configuration)
+        case .leave:
+            image = UIImage(systemName: "rectangle.portrait.and.arrow.right", withConfiguration: configuration)
+        case .gear:
+            image = UIImage(systemName: "gear", withConfiguration: configuration)
+        case .heartFilled:
+            image = UIImage(systemName: "heart.fill", withConfiguration: configuration)
+        case .calendar:
+            image = UIImage(systemName: "calendar", withConfiguration: configuration)
+        case .share:
+            image = UIImage(systemName: "square.and.arrow.up", withConfiguration: configuration)
+        case .infoCircleFill:
+            image = UIImage(systemName: "info.circle.fill", withConfiguration: configuration)
         }
         
         image = image?.withRenderingMode(.alwaysTemplate)

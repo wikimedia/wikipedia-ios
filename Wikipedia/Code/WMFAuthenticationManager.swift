@@ -50,6 +50,7 @@ import CocoaLumberjackSwift
     
     @objc public static let didLogOutNotification = Notification.Name("WMFAuthenticationManagerDidLogOut")
     @objc public static let didLogInNotification = Notification.Name("WMFAuthenticationManagerDidLogIn")
+    @objc public static let didHandlePrimaryLanguageChange = Notification.Name("WMFAuthenticationManagerDidHandlePrimaryLanguageChange")
     
     @objc weak var delegate: WMFAuthenticationManagerDelegate?
     
@@ -61,10 +62,11 @@ import CocoaLumberjackSwift
     @objc public required init(session: Session, configuration: Configuration) {
         accountLoginLogoutFetcher = WMFAccountLoginLogoutFetcher(session: session, configuration: configuration)
         currentUserFetcher = WMFCurrentUserFetcher(session: session, configuration: configuration)
+        super.init()
+        NotificationCenter.default.addObserver(self, selector: #selector(appLanguageDidChange(_:)), name: NSNotification.Name.WMFAppLanguageDidChange, object: nil)
     }
     
     // MARK: Public
-    
     
     /// Pulls a current user from cache, according to the siteURL we want to check against.
     /// Current user cache is populated via a call to https://www.mediawiki.org/wiki/API:Userinfo.
@@ -126,6 +128,11 @@ import CocoaLumberjackSwift
         }
         
         return false
+    }
+    
+    @objc public var authStateIsTemporary: Bool {
+        // To match Android, is_temp = existence of central auth username cookie, but missing an entry in the local credential store
+        return session.hasCentralAuthUserCookie() && KeychainCredentialsManager.shared.username == nil && KeychainCredentialsManager.shared.password == nil
     }
     
     // MARK: Login
@@ -367,6 +374,32 @@ import CocoaLumberjackSwift
         set {
             UserDefaults.standard.isUserUnawareOfLogout = newValue
         }
+    }
+    
+    // MARK: NSNotifications
+    
+    @objc private func appLanguageDidChange(_ notification: Notification) {
+        guard let siteURL = loginSiteURL else {
+            return
+        }
+        
+        // App Language has changed. Fetch current user again to refresh currentUserCache.
+        
+        guard let langController = notification.object as? MWKLanguageLinkController, langController.appLanguage != nil else {
+            assertionFailure("Could not extract app language from WMFAppLanguageDidChangeNotification")
+            return
+        }
+        
+        self.currentUserFetcher.fetch(siteURL: siteURL, success: { user in
+            DispatchQueue.main.async {
+                if let host = siteURL.host {
+                    self.currentUserCache[host] = user
+                    NotificationCenter.default.post(name: WMFAuthenticationManager.didHandlePrimaryLanguageChange, object: nil)
+                }
+            }
+        }, failure: { error in
+            DDLogError("Failure refreshing currentUserCache after app language change: \(error)")
+        })
     }
     
     // MARK: Private

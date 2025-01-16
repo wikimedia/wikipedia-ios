@@ -5,7 +5,7 @@ import PackageDescription
 
 let package = Package(
     name: "WMFComponents",
-    platforms: [.iOS(.v15)],
+    platforms: [.iOS(.v16)],
     products: [
         // Products define the executables and libraries a package produces, and make them visible to other packages.
         .library(
@@ -29,7 +29,11 @@ let package = Package(
                 .product(name: "WMFData", package: "WMFData"),
                 .product(name: "WMFDataMocks", package: "WMFData")
             ],
-            path: "Sources/WMFComponents"),
+            path: "Sources/WMFComponents",
+            resources: [
+                .process("Resources")
+            ]
+        ),
         .testTarget(
             name: "WMFComponentsTests",
             dependencies: ["WMFComponents",

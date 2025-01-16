@@ -426,7 +426,6 @@
 "main-menu-account-logout" = "Và foeura";
 "main-menu-account-logout-are-you-sure" = "Te see sicur che te voeulet andà foeura?";
 "main-menu-account-logout-are-you-sure-message" = "A andà foeura te scancellareet i dati del cunt archiviad localment (notifiche e messagg), ma i dati i dati dal cunt i sarann an'mò disponibil in su l'internet e i sarann descaregad de noeuv se te veet dent an'mò.";
-"main-menu-account-logout-cancel" = "Anulla";
 "main-menu-account-title-logged-in" = "Te see dent come $1";
 "main-menu-heading-legal" = "Riservatezza e termin";
 "main-menu-nearby" = "Chì adree";

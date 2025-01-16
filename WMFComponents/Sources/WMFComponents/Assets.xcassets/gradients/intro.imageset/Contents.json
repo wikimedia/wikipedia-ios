@@ -1,0 +1,15 @@
+{
+  "images" : [
+    {
+      "filename" : "2-Explore your Wikipedia Year in Review.jpg",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  },
+  "properties" : {
+    "preserves-vector-representation" : true
+  }
+}

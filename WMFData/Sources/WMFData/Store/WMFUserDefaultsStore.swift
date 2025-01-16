@@ -1,6 +1,7 @@
 import Foundation
 
 class WMFUserDefaultsStore: WMFKeyValueStore {
+
     func load<T: Codable>(key: String...) throws -> T? {
         let defaultsKey = key.joined(separator: ".")
         return try load(defaultsKey: defaultsKey)
@@ -10,7 +11,12 @@ class WMFUserDefaultsStore: WMFKeyValueStore {
         let defaultsKey = key.joined(separator: ".")
         try save(defaultsKey: defaultsKey, value: value)
     }
-    
+
+    func remove(key: String...) throws {
+           let defaultsKey = key.joined(separator: ".")
+           UserDefaults.standard.removeObject(forKey: defaultsKey)
+       }
+
     private func load<T: Codable>(defaultsKey: String) throws -> T? {
         do {
             guard let data = UserDefaults.standard.value(forKey: defaultsKey) as? Data else {
@@ -32,4 +38,5 @@ class WMFUserDefaultsStore: WMFKeyValueStore {
             throw WMFUserDefaultsStoreError.failureEncodingJSON(error)
         }
     }
+
 }

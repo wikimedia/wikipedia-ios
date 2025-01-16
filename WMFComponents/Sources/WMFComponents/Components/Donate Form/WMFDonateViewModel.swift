@@ -18,7 +18,7 @@ public final class WMFDonateViewModel: NSObject, ObservableObject {
     public struct LocalizedStrings {
         public let title: String
         public let doneTitle: String
-        public let transactionFeeOptInText: String
+        public let transactionFeeOptInTextFormat: String
         public let monthlyRecurringText: String
         public let emailOptInText: String
         public let maximumErrorText: String?
@@ -39,10 +39,10 @@ public final class WMFDonateViewModel: NSObject, ObservableObject {
         public let accessibilityKeyboardDoneButtonHint: String
         public let accessibilityDonateButtonHintFormat: String
         
-        public init(title: String, doneTitle: String, transactionFeeOptInText: String, monthlyRecurringText: String, emailOptInText: String, maximumErrorText: String?, minimumErrorText: String, genericErrorTextFormat: String, helpLinkProblemsDonating: String, helpLinkOtherWaysToGive: String, helpLinkFrequentlyAskedQuestions: String, helpLinkTaxDeductibilityInformation: String, appleFinePrint: String, wikimediaFinePrint1: String, wikimediaFinePrint2: String, accessibilityAmountButtonHint: String, accessibilityTextfieldHint: String, accessibilityTransactionFeeHint: String, accessibilityMonthlyRecurringHint: String, accessibilityEmailOptInHint: String, accessibilityKeyboardDoneButtonHint: String, accessibilityDonateButtonHintFormat: String) {
+        public init(title: String, doneTitle: String, transactionFeeOptInTextFormat: String, monthlyRecurringText: String, emailOptInText: String, maximumErrorText: String?, minimumErrorText: String, genericErrorTextFormat: String, helpLinkProblemsDonating: String, helpLinkOtherWaysToGive: String, helpLinkFrequentlyAskedQuestions: String, helpLinkTaxDeductibilityInformation: String, appleFinePrint: String, wikimediaFinePrint1: String, wikimediaFinePrint2: String, accessibilityAmountButtonHint: String, accessibilityTextfieldHint: String, accessibilityTransactionFeeHint: String, accessibilityMonthlyRecurringHint: String, accessibilityEmailOptInHint: String, accessibilityKeyboardDoneButtonHint: String, accessibilityDonateButtonHintFormat: String) {
             self.title = title
             self.doneTitle = doneTitle
-            self.transactionFeeOptInText = transactionFeeOptInText
+            self.transactionFeeOptInTextFormat = transactionFeeOptInTextFormat
             self.monthlyRecurringText = monthlyRecurringText
             self.emailOptInText = emailOptInText
             self.maximumErrorText = maximumErrorText
@@ -65,10 +65,7 @@ public final class WMFDonateViewModel: NSObject, ObservableObject {
         }
     }
     
-    public final class AmountButtonViewModel: ObservableObject, Equatable, Identifiable {
-        public static func == (lhs: WMFDonateViewModel.AmountButtonViewModel, rhs: WMFDonateViewModel.AmountButtonViewModel) -> Bool {
-            return lhs.amount == rhs.amount
-        }
+    public final class AmountButtonViewModel: ObservableObject, Identifiable {
         
         @Published var amount: Decimal
         @Published var isSelected: Bool = false
@@ -76,12 +73,14 @@ public final class WMFDonateViewModel: NSObject, ObservableObject {
         let currencyCode: String
         let accessibilityHint: String
         weak var loggingDelegate: WMFDonateLoggingDelegate?
+        weak var coordinatorDelegate: DonateCoordinatorDelegate?
         
-        internal init(amount: Decimal, isSelected: Bool = false, currencyCode: String, accessibilityHint: String, loggingDelegate: WMFDonateLoggingDelegate?) {
+        internal init(amount: Decimal, isSelected: Bool = false, currencyCode: String, accessibilityHint: String, coordinatorDelegate: DonateCoordinatorDelegate?, loggingDelegate: WMFDonateLoggingDelegate?) {
             self.amount = amount
             self.isSelected = isSelected
             self.currencyCode = currencyCode
             self.accessibilityHint = accessibilityHint
+            self.coordinatorDelegate = coordinatorDelegate
             self.loggingDelegate = loggingDelegate
         }
     }
@@ -119,8 +118,9 @@ public final class WMFDonateViewModel: NSObject, ObservableObject {
 
         let localizedStrings: LocalizedStrings
         
-        init(localizedStrings: LocalizedStrings) {
+        init(localizedStrings: LocalizedStrings, isSelected: Bool = false) {
             self.localizedStrings = localizedStrings
+            self.isSelected = isSelected
         }
     }
     
@@ -169,7 +169,6 @@ public final class WMFDonateViewModel: NSObject, ObservableObject {
     private let languageCode: String
     
     private let merchantID: String
-    private let bannerID: String?
     private let metricsID: String?
     private let appVersion: String?
     
@@ -180,19 +179,23 @@ public final class WMFDonateViewModel: NSObject, ObservableObject {
     @Published var emailOptInViewModel: OptInViewModel?
     @Published var errorViewModel: ErrorViewModel?
     
-    private let transactionFeeAmount: Decimal
-    private(set) var finalAmount: Decimal
+    private var transactionFeeAmount: Decimal
+    private(set) var finalAmount: Decimal {
+        didSet {
+            recalculateTransactionFee()
+        }
+    }
     
     private var textFieldSubscribers: Set<AnyCancellable> = []
     private var buttonSubscribers: Set<AnyCancellable> = []
     private var transactionFeeSubscribers: Set<AnyCancellable> = []
     
-    private weak var delegate: WMFDonateDelegate?
+    private(set) weak var coordinatorDelegate: DonateCoordinatorDelegate?
     private(set) weak var loggingDelegate: WMFDonateLoggingDelegate?
-    
+
     // MARK: - Lifecycle
-    
-    public init?(localizedStrings: LocalizedStrings, donateConfig: WMFDonateConfig, paymentMethods: WMFPaymentMethods, countryCode: String, currencyCode: String, languageCode: String, merchantID: String, bannerID: String?, metricsID: String?, appVersion: String?, delegate: WMFDonateDelegate?, loggingDelegate: WMFDonateLoggingDelegate?) {
+
+    public init?(localizedStrings: LocalizedStrings, donateConfig: WMFDonateConfig, paymentMethods: WMFPaymentMethods, countryCode: String, currencyCode: String, languageCode: String, merchantID: String, metricsID: String?, appVersion: String?, coordinatorDelegate: DonateCoordinatorDelegate?, loggingDelegate: WMFDonateLoggingDelegate?) {
         self.localizedStrings = localizedStrings
         self.donateConfig = donateConfig
         self.paymentMethods = paymentMethods
@@ -200,13 +203,12 @@ public final class WMFDonateViewModel: NSObject, ObservableObject {
         self.currencyCode = currencyCode
         self.languageCode = languageCode
         self.merchantID = merchantID
-        self.bannerID = bannerID
         self.metricsID = metricsID
         self.appVersion = appVersion
-        self.delegate = delegate
+        self.coordinatorDelegate = coordinatorDelegate
         self.loggingDelegate = loggingDelegate
-        
-        guard let transactionFeeAmount = donateConfig.transactionFee(for: currencyCode) else {
+
+        guard let transactionFeeAmount = Self.transactionFee(donateConfig: donateConfig, currencyCode: currencyCode) else {
             return nil
         }
         
@@ -218,7 +220,7 @@ public final class WMFDonateViewModel: NSObject, ObservableObject {
         
         var buttonViewModels: [AmountButtonViewModel] = []
         for amount in configAmounts {
-            let viewModel = AmountButtonViewModel(amount: amount, currencyCode: currencyCode, accessibilityHint: localizedStrings.accessibilityAmountButtonHint, loggingDelegate: loggingDelegate)
+            let viewModel = AmountButtonViewModel(amount: amount, currencyCode: currencyCode, accessibilityHint: localizedStrings.accessibilityAmountButtonHint, coordinatorDelegate: coordinatorDelegate, loggingDelegate: loggingDelegate)
             buttonViewModels.append(viewModel)
         }
         
@@ -231,7 +233,11 @@ public final class WMFDonateViewModel: NSObject, ObservableObject {
         
         self.finalAmount = 0
         
-        self.transactionFeeOptInViewModel = OptInViewModel(localizedStrings: OptInViewModel.LocalizedStrings(text: localizedStrings.transactionFeeOptInText, accessibilityHint: localizedStrings.accessibilityTransactionFeeHint))
+        let formatter = NumberFormatter.wmfCurrencyFormatter
+        formatter.currencyCode = currencyCode
+        let transactionFeeString = formatter.string(from: transactionFeeAmount as NSNumber) ?? ""
+        let text = String.localizedStringWithFormat(localizedStrings.transactionFeeOptInTextFormat, transactionFeeString)
+        self.transactionFeeOptInViewModel = OptInViewModel(localizedStrings: OptInViewModel.LocalizedStrings(text: text, accessibilityHint: localizedStrings.accessibilityTransactionFeeHint))
         
         self.monthlyRecurringViewModel = OptInViewModel(localizedStrings: OptInViewModel.LocalizedStrings(text: localizedStrings.monthlyRecurringText, accessibilityHint: localizedStrings.accessibilityMonthlyRecurringHint))
         
@@ -258,14 +264,15 @@ public final class WMFDonateViewModel: NSObject, ObservableObject {
         
         return nil
     }
-    
+
     func logTappedApplePayButton() {
         
         var emailOptInNSNumber: NSNumber? = nil
         if let emailOptIn = emailOptInViewModel?.isSelected {
             emailOptInNSNumber = NSNumber(booleanLiteral: emailOptIn)
         }
-        loggingDelegate?.logDonateFormUserDidTapApplePayButton(transactionFeeIsSelected: transactionFeeOptInViewModel.isSelected, recurringMonthlyIsSelected: monthlyRecurringViewModel.isSelected, emailOptInIsSelected: emailOptInNSNumber)
+        
+        loggingDelegate?.handleDonateLoggingAction(.nativeFormDidTapApplePayButton(transactionFeeIsSelected: transactionFeeOptInViewModel.isSelected, recurringMonthlyIsSelected: monthlyRecurringViewModel.isSelected, emailOptInIsSelected: emailOptInNSNumber))
     }
     
     func validateAndSubmit() {
@@ -286,14 +293,14 @@ public final class WMFDonateViewModel: NSObject, ObservableObject {
         if finalAmount < minimum {
             let errorViewModel = ErrorViewModel(localizedStrings: errorLocalizedStrings, error: WMFDonateViewModel.Error.validationAmountMinimum, orderID: nil)
             self.errorViewModel = errorViewModel
-            loggingDelegate?.logDonateFormUserDidTriggerError(error: errorViewModel.error)
+            loggingDelegate?.handleDonateLoggingAction(.nativeFormDidTriggerError(error: errorViewModel.error))
             return
         }
 
         if finalAmount > donateConfig.getMaxAmount(for: currencyCode) {
             let errorViewModel = ErrorViewModel(localizedStrings: errorLocalizedStrings, error: WMFDonateViewModel.Error.validationAmountMaximum, orderID: nil)
             self.errorViewModel = errorViewModel
-            loggingDelegate?.logDonateFormUserDidTriggerError(error: errorViewModel.error)
+            loggingDelegate?.handleDonateLoggingAction(.nativeFormDidTriggerError(error: errorViewModel.error))
             return
         }
         
@@ -334,7 +341,7 @@ public final class WMFDonateViewModel: NSObject, ObservableObject {
 
         // Deselect other buttons
         for loopButtonViewModel in buttonViewModels {
-            if loopButtonViewModel != buttonViewModel {
+            if loopButtonViewModel.amount != buttonViewModel.amount {
                 loopButtonViewModel.isSelected = false
             }
         }
@@ -375,7 +382,7 @@ public final class WMFDonateViewModel: NSObject, ObservableObject {
         
         // Propagate new button selection values by replacing view models (changing isSelected directly causes infinite update loop)
         let targetButtonAmount = finalAmount - (transactionFeeOptInViewModel.isSelected ? transactionFeeAmount : 0)
-        let newButtonViewModels = buttonViewModels.map { AmountButtonViewModel(amount: $0.amount, isSelected: targetButtonAmount == $0.amount, currencyCode: currencyCode, accessibilityHint: localizedStrings.accessibilityAmountButtonHint, loggingDelegate: loggingDelegate) }
+        let newButtonViewModels = buttonViewModels.map { AmountButtonViewModel(amount: $0.amount, isSelected: targetButtonAmount == $0.amount, currencyCode: currencyCode, accessibilityHint: localizedStrings.accessibilityAmountButtonHint, coordinatorDelegate: coordinatorDelegate, loggingDelegate: loggingDelegate) }
         self.buttonViewModels = newButtonViewModels
         
         // Apply isSelected listeners again
@@ -402,6 +409,45 @@ public final class WMFDonateViewModel: NSObject, ObservableObject {
             self.finalAmount = isSelected ? self.finalAmount + self.transactionFeeAmount : max(0, self.finalAmount - self.transactionFeeAmount)
             textfieldViewModel.amount = self.finalAmount
         }
+    }
+    
+    private static func transactionFee(donateConfig: WMFDonateConfig, currencyCode: String, amount: Decimal = 0.0) -> Decimal? {
+        let percent = Decimal(0.04)
+        let percentageTransactionFee = amount * percent
+        
+        var finalTransactionFee: Decimal?
+        
+        if let minimumTransactionFee = donateConfig.currencyTransactionFees[currencyCode] {
+            finalTransactionFee = percentageTransactionFee > minimumTransactionFee ? percentageTransactionFee : minimumTransactionFee
+        } else if let defaultTransactionFee = donateConfig.currencyTransactionFees["default"] {
+            finalTransactionFee = percentageTransactionFee > defaultTransactionFee ? percentageTransactionFee : defaultTransactionFee
+        }
+        
+        return finalTransactionFee
+    }
+    
+    private func recalculateTransactionFee() {
+        
+        let originalAmount = transactionFeeOptInViewModel.isSelected ? finalAmount - transactionFeeAmount : finalAmount
+
+        guard let transactionFee = Self.transactionFee(donateConfig: donateConfig, currencyCode: currencyCode, amount: originalAmount) else {
+            return
+        }
+        
+        let formatter = NumberFormatter.wmfCurrencyFormatter
+        formatter.currencyCode = currencyCode
+        
+        guard let transactionFeeString = formatter.string(from: transactionFeeAmount as NSNumber) else {
+            return
+        }
+        
+        self.transactionFeeAmount = transactionFee
+        
+        // Assign transactionFeeOptInViewModel again so that SwiftUI form updates
+        let text = String.localizedStringWithFormat(localizedStrings.transactionFeeOptInTextFormat, transactionFeeString)
+        let isOldModelSelected = transactionFeeOptInViewModel.isSelected
+        transactionFeeOptInViewModel = OptInViewModel(localizedStrings: OptInViewModel.LocalizedStrings(text: text, accessibilityHint: localizedStrings.accessibilityTransactionFeeHint), isSelected: isOldModelSelected)
+        addTransactionFeeSelectionListener()
     }
     
     private func addButtonSelectionListener() {
@@ -466,15 +512,21 @@ extension WMFDonateViewModel: PKPaymentAuthorizationControllerDelegate {
         
         let presetIsSelected = buttonViewModels.first(where: {$0.isSelected}) != nil
         
-        loggingDelegate?.logDonateFormUserDidAuthorizeApplePayPaymentSheet(amount: finalAmount, presetIsSelected: presetIsSelected, recurringMonthlyIsSelected: monthlyRecurringViewModel.isSelected, donorEmail: payment.shippingContact?.emailAddress, metricsID: metricsID)
+        loggingDelegate?.handleDonateLoggingAction(.nativeFormDidAuthorizeApplePayPaymentSheet(amount: finalAmount, presetIsSelected: presetIsSelected, recurringMonthlyIsSelected: monthlyRecurringViewModel.isSelected, donorEmail: payment.shippingContact?.emailAddress, metricsID: metricsID))
 
-        guard !payment.token.paymentData.isEmpty,
-              let paymentToken = String(data: payment.token.paymentData, encoding: .utf8) else {
-            let error = Error.invalidToken
-            self.errorViewModel = ErrorViewModel(localizedStrings: errorLocalizedStrings, error: error, orderID: nil)
-            loggingDelegate?.logDonateFormUserDidTriggerError(error: error)
-            completion(PKPaymentAuthorizationResult(status: .failure, errors: [error]))
-            return
+        let paymentToken: String
+        if !WMFDeveloperSettingsDataController.shared.bypassDonation {
+            guard !payment.token.paymentData.isEmpty,
+                  let token = String(data: payment.token.paymentData, encoding: .utf8) else {
+                let error = Error.invalidToken
+                self.errorViewModel = ErrorViewModel(localizedStrings: errorLocalizedStrings, error: error, orderID: nil)
+                loggingDelegate?.handleDonateLoggingAction(.nativeFormDidTriggerError(error: error))
+                completion(PKPaymentAuthorizationResult(status: .failure, errors: [error]))
+                return
+            }
+            paymentToken = token
+        } else {
+            paymentToken = ""
         }
         
         guard let donorNameComponents = payment.billingContact?.name,
@@ -482,7 +534,7 @@ extension WMFDonateViewModel: PKPaymentAuthorizationControllerDelegate {
               let donorAddressComponents = payment.billingContact?.postalAddress else {
             let error = Error.missingDonorInfo
             self.errorViewModel = ErrorViewModel(localizedStrings: errorLocalizedStrings, error: error, orderID: nil)
-            loggingDelegate?.logDonateFormUserDidTriggerError(error: error)
+            loggingDelegate?.handleDonateLoggingAction(.nativeFormDidTriggerError(error: error))
             completion(PKPaymentAuthorizationResult(status: .failure, errors: [error]))
             return
         }
@@ -492,7 +544,7 @@ extension WMFDonateViewModel: PKPaymentAuthorizationControllerDelegate {
         let paymentNetwork = payment.token.paymentMethod.network?.rawValue
         
         let dataController = WMFDonateDataController.shared
-        dataController.submitPayment(amount: finalAmount, countryCode: countryCode, currencyCode: currencyCode, languageCode: languageCode, paymentToken: paymentToken, paymentNetwork: paymentNetwork, donorNameComponents: donorNameComponents, recurring: recurring, donorEmail: donorEmail, donorAddressComponents: donorAddressComponents, emailOptIn: emailOptIn, transactionFee: transactionFeeOptInViewModel.isSelected, bannerID: bannerID, appVersion: appVersion) { [weak self] result in
+        dataController.submitPayment(amount: finalAmount, countryCode: countryCode, currencyCode: currencyCode, languageCode: languageCode, paymentToken: paymentToken, paymentNetwork: paymentNetwork, donorNameComponents: donorNameComponents, recurring: recurring, donorEmail: donorEmail, donorAddressComponents: donorAddressComponents, emailOptIn: emailOptIn, transactionFee: transactionFeeOptInViewModel.isSelected, metricsID: metricsID, appVersion: appVersion) { [weak self] result in
             
             guard let self else {
                 return
@@ -501,10 +553,14 @@ extension WMFDonateViewModel: PKPaymentAuthorizationControllerDelegate {
             switch result {
             case .success:
                 completion(PKPaymentAuthorizationResult(status: .success, errors: []))
-                
                 // Wait for payment sheet to dismiss
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1.75, execute: { [weak self] in
-                    self?.delegate?.donateDidSuccessfullySubmitPayment()
+
+                    guard let self else { return }
+
+                    self.saveDonationToLocalHistory(with: dataController, recurring: recurring, currencyCode: self.currencyCode)
+                    self.coordinatorDelegate?.handleDonateAction(.nativeFormDidTriggerPaymentSuccess)
+                    self.loggingDelegate?.handleDonateLoggingAction(.nativeFormDidTriggerPaymentSuccess)
                 })
             case .failure(let error):
                 if let dataControllerError = error as? WMFDonateDataControllerError {
@@ -513,13 +569,13 @@ extension WMFDonateViewModel: PKPaymentAuthorizationControllerDelegate {
                         DispatchQueue.main.async {
                             self.errorViewModel = ErrorViewModel(localizedStrings: self.errorLocalizedStrings, error: error, orderID: orderID)
                         }
-                        loggingDelegate?.logDonateFormUserDidTriggerError(error: error)
+                        loggingDelegate?.handleDonateLoggingAction(.nativeFormDidTriggerError(error: error))
                     }
                 } else {
                     DispatchQueue.main.async {
                         self.errorViewModel = ErrorViewModel(localizedStrings: self.errorLocalizedStrings, error: error, orderID: nil)
                     }
-                    loggingDelegate?.logDonateFormUserDidTriggerError(error: error)
+                    loggingDelegate?.handleDonateLoggingAction(.nativeFormDidTriggerError(error: error))
                 }
                 
                 completion(PKPaymentAuthorizationResult(status: .failure, errors: [error]))
@@ -536,4 +592,11 @@ extension WMFDonateViewModel: PKPaymentAuthorizationControllerDelegate {
             
         }
     }
+
+    private func saveDonationToLocalHistory(with dataController: WMFDonateDataController, recurring: Bool, currencyCode: String) {
+        let donationType: WMFDonateLocalHistory.DonationType = recurring ? .recurring : .oneTime
+        
+        dataController.saveLocalDonationHistory(type: donationType, amount: finalAmount, currencyCode: currencyCode, isNative: true)
+    }
+
 }

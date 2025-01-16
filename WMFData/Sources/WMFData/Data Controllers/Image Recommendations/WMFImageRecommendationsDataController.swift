@@ -9,9 +9,10 @@ public class WMFImageRecommendationsDataController {
 		var hasPresentedOnboardingModal: Bool
         var hasPresentedOnboardingTooltips: Bool
         var hasPresentedFeatureAnnouncementModal: Bool
+        var hasPresentedFeatureAnnouncementModalAgainForAltTextTargetWikis: Bool?
 
 		static var `default`: OnboardingStatus {
-            return OnboardingStatus(hasPresentedOnboardingModal: false, hasPresentedOnboardingTooltips: false, hasPresentedFeatureAnnouncementModal: false)
+            return OnboardingStatus(hasPresentedOnboardingModal: false, hasPresentedOnboardingTooltips: false, hasPresentedFeatureAnnouncementModal: false, hasPresentedFeatureAnnouncementModalAgainForAltTextTargetWikis: false)
 		}
 	}
 
@@ -62,6 +63,16 @@ public class WMFImageRecommendationsDataController {
         }
     }
     
+    public var hasPresentedFeatureAnnouncementModalAgainForAltTextTargetWikis: Bool {
+        get {
+            return onboardingStatus.hasPresentedFeatureAnnouncementModalAgainForAltTextTargetWikis ?? false
+        } set {
+            var currentOnboardingStatus = onboardingStatus
+            currentOnboardingStatus.hasPresentedFeatureAnnouncementModalAgainForAltTextTargetWikis = newValue
+            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.imageRecommendationsOnboarding.rawValue, value: currentOnboardingStatus)
+        }
+    }
+    
     // MARK: - PUT Send Feedback
     
     public func sendFeedback(project: WMFProject, pageTitle: String, editRevId: UInt64?, fileName: String, accepted: Bool, reasons: [String] = [], caption: String?, completion: @escaping (Result<Void, Error>) -> Void) {
@@ -102,5 +113,4 @@ public class WMFImageRecommendationsDataController {
         
         service.perform(request: request, completion: completion)
     }
-
 }

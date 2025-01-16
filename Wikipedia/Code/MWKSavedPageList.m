@@ -35,6 +35,14 @@
     return request;
 }
 
+- (NSFetchRequest *)savedPageListFetchRequestForStartDate:(NSDate *)startDate endDate:(NSDate *)endDate {
+    NSFetchRequest *request = [WMFArticle fetchRequest];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"savedDate >= %@ AND savedDate <= %@", startDate, endDate];
+    request.predicate = predicate;
+    request.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"savedDate" ascending:NO]];
+    return request;
+}
+
 - (NSInteger)numberOfItems {
     return [self.dataStore.viewContext countForFetchRequest:self.savedPageListFetchRequest error:nil];
 }
@@ -142,5 +150,38 @@
     }
     [self.dataStore.readingListsController userUnsave:article];
 }
+
+- (NSInteger)savedArticleCountFor:(NSDate *)startDate endDate:(NSDate *)endDate {
+    return [self.dataStore.viewContext countForFetchRequest:[self savedPageListFetchRequestForStartDate:startDate endDate:endDate] error:nil];
+}
+
+- (NSArray<NSString *> *)randomSavedArticleTitlesFor:(NSDate *)startDate endDate:(NSDate *)endDate {
+    NSFetchRequest *fetchRequest = [self savedPageListFetchRequestForStartDate:startDate endDate:endDate];
+
+    NSError *error = nil;
+    NSArray<WMFArticle *> *allArticles = [self.dataStore.viewContext executeFetchRequest:fetchRequest error:&error];
+
+    if (error) {
+        NSLog(@"Error fetching articles: %@", error);
+        return @[];
+    }
+
+    NSUInteger count = MIN(allArticles.count, 3);
+    if (count == 0) {
+        return @[];
+    }
+
+    NSMutableArray<NSString *> *randomArticles = [NSMutableArray arrayWithCapacity:count];
+    NSMutableArray<WMFArticle *> *mutableArticles = [allArticles mutableCopy];
+
+    for (NSUInteger i = 0; i < count; i++) {
+        NSUInteger randomIndex = arc4random_uniform((uint32_t)mutableArticles.count);
+        [randomArticles addObject:mutableArticles[randomIndex].displayTitle];
+        [mutableArticles removeObjectAtIndex:randomIndex]; // so we do not repeat articles
+    }
+
+    return [randomArticles copy];
+}
+
 
 @end

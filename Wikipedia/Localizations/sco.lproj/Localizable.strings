@@ -1,7 +1,6 @@
 // Messages for Scots (Scots)
 // Exported from translatewiki.net
 // Author: AmaryllisGardener
-// Author: Amire80
 // Author: CiphriusKane
 // Author: Fitoschido
 // Author: John Reid
@@ -54,8 +53,7 @@
 // Fuzzy
 "appearance-settings-image-dimming-footer" = "Decrease the opacity o eemages on daurk theme";
 "appearance-settings-reading-themes" = "Readin themes";
-// Fuzzy
-"appearance-settings-text-sizing-example-text" = "Drag the slider abuin tae cheenge the airticle text sizin. Utilize yer seestem text size tae resize ither text auries in the app.";
+"appearance-settings-text-sizing-example-text" = "Drag the slider tae chynge the airticle text sizin. Utilise yer system text size tae resize ither text areas in the app.";
 "appearance-settings-theme-options" = "Theme options";
 "article-delete" = "Delete";
 // Fuzzy

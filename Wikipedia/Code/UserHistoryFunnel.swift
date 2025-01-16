@@ -21,7 +21,7 @@ private typealias ContentGroupKindAndLoggingCode = (kind: WMFContentGroupKind, l
         self.dataStore = dataStore
     }
 
-    private let sharedCache = SharedContainerCache<UserHistorySnapshotCache>.init(fileName: "User History Funnel Snapshot")
+    private let sharedCache = SharedContainerCache.init(fileName: "User History Funnel Snapshot")
 
     public struct FeedEnabledList: Codable, Equatable {
         let featuredArticle: ItemLanguages?
@@ -78,6 +78,7 @@ private typealias ContentGroupKindAndLoggingCode = (kind: WMFContentGroupKind, l
         let inbox_count: Int?
         let device_level_enabled: String?
         let test_group: String?
+        let yir_enabled: Bool?
 
         public static func == (lhs: UserHistoryFunnel.Event, rhs: UserHistoryFunnel.Event) -> Bool {
             return lhs.measure_readinglist_listcount == lhs.measure_readinglist_listcount
@@ -91,6 +92,7 @@ private typealias ContentGroupKindAndLoggingCode = (kind: WMFContentGroupKind, l
             && lhs.inbox_count == rhs.inbox_count
             && lhs.device_level_enabled == rhs.device_level_enabled
             && lhs.test_group == rhs.test_group
+            && lhs.yir_enabled == rhs.yir_enabled
         }
     }
 
@@ -139,7 +141,7 @@ private typealias ContentGroupKindAndLoggingCode = (kind: WMFContentGroupKind, l
     }
     
     private var cache: UserHistorySnapshotCache {
-        return sharedCache.loadCache() ?? UserHistorySnapshotCache(snapshot: UserHistoryFunnel.Event(measure_readinglist_listcount: nil, measure_readinglist_itemcount: nil, measure_font_size: nil, readinglist_sync: nil, readinglist_showdefault: nil, theme: nil, feed_disabled: nil, search_tab: nil, feed_enabled_list: nil, inbox_count: nil, device_level_enabled: nil, test_group: nil))
+        return sharedCache.loadCache() ?? UserHistorySnapshotCache(snapshot: UserHistoryFunnel.Event(measure_readinglist_listcount: nil, measure_readinglist_itemcount: nil, measure_font_size: nil, readinglist_sync: nil, readinglist_showdefault: nil, theme: nil, feed_disabled: nil, search_tab: nil, feed_enabled_list: nil, inbox_count: nil, device_level_enabled: nil, test_group: nil, yir_enabled: nil))
     }
 
 
@@ -157,16 +159,17 @@ private typealias ContentGroupKindAndLoggingCode = (kind: WMFContentGroupKind, l
         let userDefaults = UserDefaults.standard
         let theme = userDefaults.themeAnalyticsName
         let isFeedDisabled = userDefaults.defaultTabType != .explore
-        let appOpensOnSearchTab = UserDefaults.standard.wmf_openAppOnSearchTab
+        let appOpensOnSearchTab = userDefaults.wmf_openAppOnSearchTab
         let inboxCount = try? dataStore.remoteNotificationsController.numberOfAllNotifications()
-        let fontSize = UserDefaults.standard.wmf_articleFontSizeMultiplier().intValue
+        let fontSize = userDefaults.wmf_articleFontSizeMultiplier().intValue
         let savedArticlesCount = dataStore.savedPageList.numberOfItems()
         let isSyncEnabled = dataStore.readingListsController.isSyncEnabled
         let isDefaultListEnabled = dataStore.readingListsController.isDefaultListEnabled
         let readingListCount = try? dataStore.viewContext.allReadingListsCount()
         let status = authorizationStatus?.getAuthorizationStatusString()
+        let yirEnabled = userDefaults.wmf_yirSettingToggleShouldShow ? userDefaults.wmf_yirSettingToggleIsEnabled : nil
 
-        let event = Event(measure_readinglist_listcount: savedArticlesCount, measure_readinglist_itemcount: readingListCount, measure_font_size: fontSize, readinglist_sync: isSyncEnabled, readinglist_showdefault: isDefaultListEnabled, theme: theme, feed_disabled: isFeedDisabled, search_tab: appOpensOnSearchTab, feed_enabled_list: getFeedEnabledList(), inbox_count: inboxCount, device_level_enabled: status, test_group: nil)
+        let event = Event(measure_readinglist_listcount: savedArticlesCount, measure_readinglist_itemcount: readingListCount, measure_font_size: fontSize, readinglist_sync: isSyncEnabled, readinglist_showdefault: isDefaultListEnabled, theme: theme, feed_disabled: isFeedDisabled, search_tab: appOpensOnSearchTab, feed_enabled_list: getFeedEnabledList(), inbox_count: inboxCount, device_level_enabled: status, test_group: nil, yir_enabled: yirEnabled)
         return event
     }
     

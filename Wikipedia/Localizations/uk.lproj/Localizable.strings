@@ -553,7 +553,6 @@
 "main-menu-account-logout" = "Вихід";
 "main-menu-account-logout-are-you-sure" = "Ви справді хочете вийти?";
 "main-menu-account-logout-are-you-sure-message" = "Вихід призведе до видалення локально збережених даних облікового запису (сповіщень і повідомлень), але дані вашого облікового запису залишаться доступними в інтернеті та будуть повторно завантажені, якщо ви знову ввійдете.";
-"main-menu-account-logout-cancel" = "Скасувати";
 "main-menu-account-title-logged-in" = "Увійшов в систему як $1";
 "main-menu-heading-legal" = "Приватність та умови";
 "main-menu-nearby" = "Неподалік";

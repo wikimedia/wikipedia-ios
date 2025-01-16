@@ -219,6 +219,7 @@
 "diff-thanks-sent" = "Ucapan 'Terima kasih' anda diberi kepada $1";
 "diff-thanks-sent-cannot-unsend" = "Ucapan terima kasih tidak boleh dinyahhantar";
 "dim-images" = "Samarkan imej";
+"donate-payment-method-prompt-apple-pay-button-title" = "Derma menggunakan Apple Pay";
 "edit-link-display-text-title" = "Teks paparan";
 "edit-link-link-target-title" = "Sasaran pautan";
 "edit-link-remove-link-title" = "Buang pautan";
@@ -441,7 +442,6 @@
 "main-menu-account-login" = "Log masuk";
 "main-menu-account-logout" = "Log keluar";
 "main-menu-account-logout-are-you-sure" = "Adakah anda benar-benar ingin keluar?";
-"main-menu-account-logout-cancel" = "Batalkan";
 "main-menu-account-title-logged-in" = "Anda telah log masuk sebagai $1";
 "main-menu-heading-legal" = "Privasi dan Syarat-syarat";
 "main-menu-nearby" = "Berdekatan";
@@ -579,6 +579,11 @@
 "potd-description-prefix" = "Gambar pilihan pada $1";
 "potd-empty-error-description" = "Gagal untuk menerima gambar pilihan pada $1";
 "preference-summary-eventlogging-opt-in" = "Benarkan Wikimedia Foundation untuk mengumpul maklumat mengenai cara penggunaan aplikasi demi peningkatan kualiti aplikasi";
+"profile-button-accessibility-label" = "Profil";
+"profile-button-badge-accessibility-label" = "Profil dengan lencana yang belum dibaca";
+// Fuzzy
+"profile-page-join-title" = "Sertai Wikipedia / Log masuk";
+"profile-page-title-logged-out" = "Akaun";
 "project-name-wikibooks" = "Wikibuku";
 "project-name-wikinews" = "Wikiberita";
 "project-name-wikiquote" = "Wikipetikan";
@@ -710,6 +715,7 @@
 "settings-clear-cache-are-you-sure-title" = "Padamkan data dalam cache?";
 "settings-clear-cache-cancel" = "Batalkan";
 "settings-clear-cache-ok" = "Padamkan cache";
+"settings-donate" = "Derma";
 "settings-help-and-feedback" = "Bantuan dan maklum balas";
 "settings-language-bar" = "Tampilkan bahasa pada carian";
 "settings-languages-feed-customization" = "Anda boleh mengurus bahasa mana yang ditunjukkan pada suapan Teroka anda dengan menyesuaikan tetapan suapan Teroka anda.";
@@ -820,3 +826,4 @@
 "wikitext-upload-save-anonymously-warning" = "Suntingan akan diatribusikan kepada alamat IP peranti anda. Jika anda $1, anda akan dapat lebih banyak privasi.";
 "wikitext-upload-save-sign-in" = "Log masuk";
 "wikitext-upload-save-terms-name" = "Syarat-Syarat Penggunaan";
+"year-in-review-donate" = "Derma";

@@ -9,10 +9,6 @@ public struct WMFDonateConfig: Codable {
     public let countryCodeEmailOptInRequired: [String]
     public let countryCodeApplePayEnabled: [String]
     var cachedDate: Date?
-    
-    public func transactionFee(for currencyCode: String) -> Decimal? {
-        return currencyTransactionFees[currencyCode] ?? currencyTransactionFees["default"]
-    }
 
     public func getMaxAmount(for currencyCode: String) -> Decimal {
         var max = currencyMaximumDonation[currencyCode] ?? Decimal()

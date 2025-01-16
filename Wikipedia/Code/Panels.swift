@@ -440,7 +440,7 @@ class LanguageVariantEducationalPanelViewController: ScrollableEducationPanelVie
         subheading = alertBodyForLanguageCode(languageCode) + "\n"
         subheadingTextAlignment = .natural
         primaryButtonTitle = isFinalAlert ? CommonStrings.variantsAlertPreferencesButton : CommonStrings.gotItButtonTitle
-        secondaryButtonTitle = isFinalAlert ? CommonStrings.variantsAlertDismissButton : nil
+        secondaryButtonTitle = isFinalAlert ? CommonStrings.noThanksTitle : nil
     }
     
     func alertTitleForLanguageCode(_ languageCode: String) -> String {
@@ -561,16 +561,7 @@ extension UIViewController {
     func wmf_showFundraisingAnnouncement(theme: Theme, asset: WMFFundraisingCampaignConfig.WMFAsset, primaryButtonTapHandler: ScrollableEducationPanelButtonTapHandler?, secondaryButtonTapHandler: ScrollableEducationPanelButtonTapHandler?, optionalButtonTapHandler: ScrollableEducationPanelButtonTapHandler?,  footerLinkAction: ((URL) -> Void)?, traceableDismissHandler: ScrollableEducationPanelTraceableDismissHandler?, showMaybeLater: Bool) {
 
         let alert = FundraisingAnnouncementPanelViewController(announcement: asset, theme: theme, showOptionalButton: showMaybeLater, primaryButtonTapHandler: { button, viewController in
-            if let announcementVC = viewController as? FundraisingAnnouncementPanelViewController {
-                announcementVC.isLoading = true
-                let dataController = WMFDonateDataController.shared
-                dataController.fetchConfigs(for: asset.countryCode) { result in
-                    DispatchQueue.main.async {
-                        announcementVC.isLoading = false
-                        primaryButtonTapHandler?(button, viewController)
-                    }
-                }
-            }
+            primaryButtonTapHandler?(button, viewController)
         }, secondaryButtonTapHandler: { button, viewController in
             secondaryButtonTapHandler?(button, viewController)
             self.dismiss(animated: true)

@@ -14,7 +14,6 @@ struct WMFFeatureAnnouncementView: View {
         if let uiImage = WMFSFSymbolIcon.for(symbol: .closeCircleFill, font: .title1) {
             return Image(uiImage: uiImage)
         }
-        
         return nil
     }
     
@@ -33,7 +32,9 @@ struct WMFFeatureAnnouncementView: View {
                             HStack {
                                 Spacer()
                                 Button(
-                                    action: { viewModel.closeButtonAction?() },
+                                    action: {
+                                        viewModel.closeButtonAction?()
+                                    },
                                     label: {
                                         closeImage
                                     })
@@ -46,22 +47,53 @@ struct WMFFeatureAnnouncementView: View {
                                 .font(Font(WMFFont.for(.callout)))
                                 .foregroundColor(Color(appEnvironment.theme.text))
                         }
-                        if let image = viewModel.image {
-                            Image(uiImage: image)
-                                .resizable()
-                                .aspectRatio(contentMode: .fit)
-                                .frame(width: 132, height: 118)
-                                .foregroundColor(imageColor)
+                        
+                        if let gifName = viewModel.gifName, let altText = viewModel.altText {
+                            ZStack {
+                                Image(gifName, bundle: .module)
+                                    .resizable()
+                                    .aspectRatio(1.5, contentMode: .fill)
+                                    .frame(maxHeight: 220)
+                                    .frame(maxWidth: geometry.size.width - 64)
+                                    .cornerRadius(8)
+                                WMFGIFImageView(gifName)
+                                    .aspectRatio(1.5, contentMode: .fill)
+                                    .frame(maxHeight: 220)
+                                    .frame(maxWidth: geometry.size.width - 64)
+                                    .cornerRadius(8)
+                            }
+                            .accessibilityElement(children: .combine)
+                            .accessibilityLabel(altText)
+                        } else if let image = viewModel.image {
+                            ZStack(alignment: .center) {
+                                if let backgroundImage = viewModel.backgroundImage {
+                                    Image(uiImage: backgroundImage)
+                                        .resizable()
+                                        .aspectRatio(contentMode: .fill)
+                                        .frame(height: 140)
+                                        .frame(maxWidth: geometry.size.width - 64)
+                                        .cornerRadius(8)
+                                        .clipped()
+                                }
+                                Image(uiImage: image)
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fit)
+                                    .frame(width: 132, height: 118)
+                                    .foregroundColor(imageColor)
+                            }
+                            .frame(maxWidth: geometry.size.width - 64)
                         }
+
                         WMFLargeButton(configuration: .primary, title: viewModel.primaryButtonTitle, action: viewModel.primaryButtonAction)
                     }
-                    .padding()
+                    .padding([.leading, .trailing], 32)
+                    .padding(.top, 20)
                 }
             }
         }
     }
 }
 
-#Preview {
+ #Preview {
     WMFFeatureAnnouncementView(viewModel: WMFFeatureAnnouncementViewModel(title: "Try 'Add an image'", body: "Decide if an image gets added to a Wikipedia article. You can find the ‘Add an image’ card in your ‘Explore feed’.", primaryButtonTitle: "Try now", image:  WMFIcon.addPhoto, primaryButtonAction: {}, closeButtonAction: {}))
-}
+ }

@@ -1,0 +1,110 @@
+{
+    "common": {},
+    "ios": [
+        {
+            "version": 1,
+            "yir": [
+                {
+                    "yearID": "2024.1",
+                    "isEnabled": true,
+                    "countryCodes": [
+                        "MX",
+                        "IT"
+                    ],
+                    "primaryAppLanguageCodes": [
+                        "es",
+                        "it",
+                        "en"
+                    ],
+                    "dataPopulationStartDateString": "2024-01-01T00:00:00Z",
+                    "dataPopulationEndDateString": "2024-11-01T00:00:00Z",
+                    "personalizedSlides": {
+                        "readCount": {
+                            "isEnabled": true
+                        },
+                        "editCount": {
+                            "isEnabled": true
+                        },
+                        "donateCount": {
+                            "isEnabled": true
+                        },
+                        "mostReadDay": {
+                            "isEnabled": true
+                        },
+                        "viewCount": {
+                            "isEnabled": true
+                        },
+                    }
+                },
+                {
+                    "yearID": "2024.2",
+                    "isEnabled": true,
+                    "countryCodes": [
+                        "IT",
+                        "MX"
+                    ],
+                    "primaryAppLanguageCodes": [
+                        "es",
+                        "it",
+                        "en"
+                    ],
+                    "dataPopulationStartDateString": "2024-01-01T00:00:00Z",
+                    "dataPopulationEndDateString": "2024-12-31T23:59:59Z",
+                    "personalizedSlides": {
+                        "readCount": {
+                            "isEnabled": true
+                        },
+                        "editCount": {
+                            "isEnabled": true
+                        },
+                        "mostReadDay": {
+                            "isEnabled": true
+                        },
+                        "saveCount": {
+                            "isEnabled": true
+                        },
+                        "viewCount": {
+                            "isEnabled": true
+                        },
+                        "donateCount": {
+                            "isEnabled": true
+                        }
+                    },
+                    "hideDonateCountryCodes": [
+                        "AE",
+                        "AF",
+                        "AX",
+                        "BY",
+                        "CD",
+                        "CI",
+                        "CU",
+                        "FI",
+                        "ID",
+                        "IQ",
+                        "IR",
+                        "KP",
+                        "KR",
+                        "LB",
+                        "LY",
+                        "MM",
+                        "PY",
+                        "RU",
+                        "SA",
+                        "SD",
+                        "SO",
+                        "SS",
+                        "SY",
+                        "TM",
+                        "TR",
+                        "UA",
+                        "UZ",
+                        "XK",
+                        "YE",
+                        "ZW"
+                    ]
+                }
+            ]
+        }
+    ],
+    "android": {}
+}

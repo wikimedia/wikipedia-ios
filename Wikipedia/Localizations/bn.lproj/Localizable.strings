@@ -4,6 +4,7 @@
 // Author: Aftabuzzaman
 // Author: Ankan
 // Author: Bodhisattwa
+// Author: Borhan
 // Author: Elias Ahmmad
 // Author: FARMER
 // Author: JoeWalshWMF
@@ -14,6 +15,7 @@
 // Author: Nemo bis
 // Author: R4356th
 // Author: Rasal Lia
+// Author: San1joy23
 // Author: Sayma Jahan
 // Author: Tahmid
 // Author: Tahmid02016
@@ -64,6 +66,7 @@
 "account-creation-passwords-mismatched" = "পাসওয়ার্ড মিলেনি";
 "account-creation-saving" = "সংরক্ষণ হচ্ছে ...";
 "account-creation-title" = "নতুন অ্যাকাউন্ট তৈরি করুন";
+"account-talk-page-title" = "আলাপ পাতা";
 "action-cancel" = "বাতিল";
 "action-discard-edits" = "সম্পাদনা বাতিল করুন";
 "action-find-in-page" = "পাতায় খুঁজুন";
@@ -105,6 +108,9 @@
 "cc-zero" = "ক্রিয়েটিভ কমন্স সিসি জিরো";
 "close-button-accessibility-label" = "বন্ধ";
 "compass-direction" = "$1 টার সময়";
+"confirm-donation-history-deletion-subtitle" = "এটি শুধুমাত্র এই ডিভাইস থেকে করা অনুদানের ক্ষেত্রে প্রযোজ্য হবে।";
+"confirm-donation-history-deletion-title" = "মুছে ফেলা নিশ্চিত করুন";
+"confirmed-donation-history-deletion" = "স্থানীয় ইতিহাস মুছে ফেলা হয়েছে";
 "continue-reading-empty-description" = "আরও নিবন্ধ পাঠ করতে উইকিপিডিয়া অন্বেষণ করুন";
 "continue-reading-empty-title" = "সম্প্রতি পড়া কোনও নিবন্ধ নেই";
 "description-add-title" = "বিবরণ যোগ করুন";
@@ -118,11 +124,13 @@
 "description-published-button-title" = "সম্পন্ন";
 "description-welcome-descriptions-title" = "নিবন্ধের বিবরণ";
 "description-welcome-start-editing-button" = "সম্পাদনা শুরু করুন";
+"developer-settings-enable-year-in-review" = "বছরের পর্যালোচনা সক্ষম করুন";
 "diff-rollback" = "পুনর্বহাল";
 "diff-rollback-alert-title" = "সম্পাদনা পুনর্বহাল";
 "diff-rollback-success" = "সম্পাদনা পুনর্বহাল করা হয়েছে।";
 "diff-undo-success" = "সংশোধনটি পূর্বাবস্থায় ফেরানো হয়েছে।";
 "dim-images" = "অনুজ্জ্বল ছবি";
+"donate-history-delete" = "স্থানীয় অনুদানের ইতিহাস মুছুন";
 "donate-later-title" = "আমরা আপনাকে আবার আগামীকাল মনে করিয়ে দেব।";
 "edit-link-title" = "সংযোগ সম্পাদনা";
 "edit-published" = "সম্পাদনা প্রকাশিত হয়েছে";
@@ -239,7 +247,6 @@
 "main-menu-account-login" = "প্রবেশ করুন";
 "main-menu-account-logout" = "প্রস্থান";
 "main-menu-account-logout-are-you-sure" = "আপনি কি নিশ্চিত যে আপনি প্রস্থান করতে চান?";
-"main-menu-account-logout-cancel" = "বাতিল";
 "main-menu-account-title-logged-in" = "$1 হিসাবে প্রবেশ";
 "main-menu-heading-legal" = "আইনী তথ্য";
 "main-menu-nearby" = "কাছাকাছি";
@@ -344,6 +351,14 @@
 "potd-description-prefix" = "$1 তারিখে আজকের নির্বাচিত ছবি";
 "potd-empty-error-description" = "$1 দিনের ছবি পুনরুদ্ধার করতে ব্যর্থ হয়েছে";
 "preference-summary-eventlogging-opt-in" = "অ্যাপ আরও ভালো করতে উইকিমিডিয়া ফাউন্ডেশনকে আপনি কিভাবে অ্যাপ্লিকেশন ব্যবহার করছেন সেই সম্পর্কে তথ্য সংগ্রহ করার অনুমতি দিন";
+"profile-button-accessibility-hint" = "প্রোফাইল দৃশ্যে পরিভ্রমণ করে।";
+"profile-button-accessibility-label" = "প্রোফাইল";
+"profile-button-badge-accessibility-label" = "অপঠিত ব্যাজসহ প্রোফাইল";
+"profile-page-donate-subtext" = "অথবা উইকিপিডিয়াকে মুক্ত এবং বিশ্বজুড়ে প্রত্যেকের জন্য অবাধে প্রবেশযোগ্য রাখতে অনুদান দিয়ে সাহায্য করুন।";
+"profile-page-join-subtext" = "আপনার অবদান ট্র্যাক করতে, অফলাইনে নিবন্ধ সংরক্ষণ করতে এবং ডিভাইসগুলিতে সিঙ্ক করতে একটি উইকিপিডিয়া অ্যাকাউন্ট তৈরি করুন।";
+// Fuzzy
+"profile-page-join-title" = "উইকিপিডিয়ায় যোগ দিন / প্রবেশ করুন";
+"profile-page-title-logged-out" = "অ্যাকাউন্ট";
 "project-name-wikimedia-commons" = "উইকিমিডিয়া কমন্স";
 "project-name-wikiquote" = "উইকিউক্তি";
 "reading-list-create-new-list-description" = "বিবরণ";
@@ -445,3 +460,17 @@
 "wikitext-upload-save-anonymously-warning" = "সম্পাদনা আপনার ডিভাইসের আইপি ঠিকানায় আরোপিত করা হবে। আপনি যদি $1 করেন আপনি আরো গোপনীয়তা পাবেন।";
 "wikitext-upload-save-sign-in" = "প্রবেশ";
 "wikitext-upload-save-terms-name" = "ব্যবহারের শর্তাবলী";
+// Fuzzy
+"year-in-review-base-reading-title" = "পড়া আমাদের একত্রিত করেছে";
+"year-in-review-day-friday" = "শুক্রবার";
+"year-in-review-day-monday" = "সোমবার";
+"year-in-review-day-saturday" = "শনিবার";
+"year-in-review-day-sunday" = "রবিবার";
+"year-in-review-day-thursday" = "বৃহস্পতিবার";
+"year-in-review-day-tuesday" = "মঙ্গলবার";
+"year-in-review-day-wednesday" = "বুধবার";
+"year-in-review-donate" = "অনুদান";
+// Fuzzy
+"year-in-review-feature-announcement-title" = "আপনার উইকিপিডিয়া বছরের পর্যালোচনা দেখুন";
+// Fuzzy
+"year-in-review-feature-explore-body-personalized" = "উইকিপিডিয়া অ্যাপে আপনি কোন নিবন্ধগুলি পড়েন এবং যে সম্পাদনাগুলি করেছেন সে সম্পর্কে অন্তর্দৃষ্টি দেখুন। আপনার যাত্রা ভাগ করে নিন এবং আবিষ্কার করুন যে এই বছর আপনার জন্য কী আলাদা ছিল। আপনার পড়ার ইতিহাস গোপন রাখা হয়েছে। আপনার ডিভাইসে স্থানীয়ভাবে সংরক্ষিত ডেটা ব্যবহার করে পঠন অন্তর্দৃষ্টি গণনা করা হয়।";

@@ -1,6 +1,7 @@
 import MessageUI
 import CocoaLumberjackSwift
 import WMF
+import WMFComponents
 
 @objc(WMFHelpViewController)
 class HelpViewController: SinglePageWebViewController {
@@ -14,21 +15,18 @@ class HelpViewController: SinglePageWebViewController {
             return nil
         }
         self.dataStore = dataStore
-        super.init(url: faqURL, theme: theme)
+        let config = SinglePageWebViewController.StandardConfig(url: faqURL, useSimpleNavigationBar: false)
+        super.init(configType: .standard(config), theme: theme)
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    required init(url: URL, theme: Theme) {
-        fatalError("init(url:theme:) has not been implemented")
+    required init(configType: ConfigType, theme: Theme) {
+        fatalError("init(configType:theme:) has not been implemented")
     }
-
-    required init(url: URL, theme: Theme, doesUseSimpleNavigationBar: Bool = false, campaignArticleURL: URL? = nil, campaignMetricsID: String? = nil) {
-        fatalError("init(url:theme:doesUseSimpleNavigationBar:campaignArticleURL:campaignMetricsID:) has not been implemented")
-    }
-
+    
     lazy var sendEmailToolbarItem: UIBarButtonItem = {
         return UIBarButtonItem(title: WMFLocalizedString("button-report-a-bug", value: "Report a bug", comment: "Button text for reporting a bug"), style: .plain, target: self, action: #selector(sendEmail))
     }()
@@ -155,7 +153,7 @@ private extension HelpViewController {
         let dispatchQueue = DispatchQueue.global(qos: .userInitiated)
         dispatchQueue.async {
 
-            let sharedCache = SharedContainerCache<UserDataExportSyncInfo>.init(fileName: "User Data Export Sync Info")
+            let sharedCache = SharedContainerCache.init(fileName: "User Data Export Sync Info")
             
             apiController.getAllReadingLists { (serverReadingLists, _, _) in
                 dispatchQueue.async {

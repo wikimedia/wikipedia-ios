@@ -14,13 +14,24 @@ import Contacts
     private let cacheDirectoryName = WMFSharedCacheDirectoryNames.donorExperience.rawValue
     private let cacheDonateConfigContainerFileName = "AppsDonationConfig"
     private let cachePaymentMethodsResponseFileName = "PaymentMethods"
-    
+    private let cacheLocalDonateHistoryFileName = "AppLocalDonationHistory"
+
+    private let userDefaultsStore = WMFDataEnvironment.current.userDefaultsStore
+
+    public var hasLocallySavedDonations: Bool {
+        get {
+            return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.hasLocallySavedDonations.rawValue)) ?? false
+        } set {
+            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.hasLocallySavedDonations.rawValue, value: newValue)
+        }
+    }
+
     // MARK: - Lifecycle
     
     @objc(sharedInstance)
     public static let shared = WMFDonateDataController()
     
-    private init(service: WMFService? = WMFDataEnvironment.current.basicService, sharedCacheStore: WMFKeyValueStore? = WMFDataEnvironment.current.sharedCacheStore) {
+    public init(service: WMFService? = WMFDataEnvironment.current.basicService, sharedCacheStore: WMFKeyValueStore? = WMFDataEnvironment.current.sharedCacheStore) {
        self.service = service
         self.sharedCacheStore = sharedCacheStore
    }
@@ -158,7 +169,12 @@ import Contacts
         }
     }
     
-    public func submitPayment(amount: Decimal, countryCode: String, currencyCode: String, languageCode: String, paymentToken: String, paymentNetwork: String?, donorNameComponents: PersonNameComponents, recurring: Bool, donorEmail: String, donorAddressComponents: CNPostalAddress, emailOptIn: Bool?, transactionFee: Bool, bannerID: String?, appVersion: String?, completion: @escaping (Result<Void, Error>) -> Void) {
+    public func submitPayment(amount: Decimal, countryCode: String, currencyCode: String, languageCode: String, paymentToken: String, paymentNetwork: String?, donorNameComponents: PersonNameComponents, recurring: Bool, donorEmail: String, donorAddressComponents: CNPostalAddress, emailOptIn: Bool?, transactionFee: Bool, metricsID: String?, appVersion: String?, completion: @escaping (Result<Void, Error>) -> Void) {
+        
+        guard !WMFDeveloperSettingsDataController.shared.bypassDonation else {
+            completion(.success(()))
+            return
+        }
         
         guard let donatePaymentSubmissionURL = URL.donatePaymentSubmissionURL() else {
             completion(.failure(WMFDataControllerError.failureCreatingRequestURL))
@@ -201,8 +217,8 @@ import Contacts
             parameters["payment_network"] = paymentNetwork
         }
         
-        if let bannerID {
-            parameters["banner"] = bannerID
+        if let metricsID {
+            parameters["banner"] = metricsID
         }
         
         if let appVersion {
@@ -227,7 +243,75 @@ import Contacts
             }
         })
     }
+
+    @discardableResult
+    public func saveLocalDonationHistory(type: WMFDonateLocalHistory.DonationType, amount: Decimal, currencyCode: String, isNative: Bool) -> [WMFDonateLocalHistory]? {
+        
+        let currentDate = Date()
+        let timestamp = DateFormatter.mediaWikiAPIDateFormatter.string(from: currentDate)
+        
+        let donateHistory: [WMFDonateLocalHistory]? = loadLocalDonationHistory(startDate: nil, endDate: nil)
+        let isFirstDonation = donateHistory?.count ?? 0 == 0
+        
+        let donationHistoryEntry = WMFDonateLocalHistory(donationTimestamp: timestamp,
+                                                         donationType: type,
+                                                         donationAmount: amount,
+                                                         currencyCode: currencyCode,
+                                                         isNative: true,
+                                                         isFirstDonation: isFirstDonation)
+
+        if let donateHistory {
+            var donationArray: [WMFDonateLocalHistory] = donateHistory
+            donationArray.append(donationHistoryEntry)
+            try? self.sharedCacheStore?.save(key: self.cacheDirectoryName, self.cacheLocalDonateHistoryFileName, value: donationArray)
+        } else {
+            try? self.sharedCacheStore?.save(key: self.cacheDirectoryName, self.cacheLocalDonateHistoryFileName, value: [donationHistoryEntry])
+        }
+
+        hasLocallySavedDonations = true
+        return try? sharedCacheStore?.load(key: cacheDirectoryName, cacheLocalDonateHistoryFileName)
+
+    }
+
+    // Pass in startDate and endDate to return filtered donations.
+    // If either are nil, all local donations are returned.
     
+    /// Returns persisted local donation entries, filtered by date params if needed. If either startDate or endDate is nil, no filter is applied.
+    /// - Parameters:
+    ///   - startDate: Supply to filter out donations timestamped older than startDate
+    ///   - endDate: Supply to filter out donations timestamped older than endDate
+    /// - Returns:Array of local donation entries
+    public func loadLocalDonationHistory(startDate: Date?, endDate: Date?) -> [WMFDonateLocalHistory]? {
+        
+        guard let donations: [WMFDonateLocalHistory] = try? sharedCacheStore?.load(key: cacheDirectoryName, cacheLocalDonateHistoryFileName) else {
+            return nil
+        }
+        
+        guard let startDate, let endDate else {
+            return donations
+        }
+        
+        
+        let filteredDonationsByDate = donations.filter { donation in
+            
+            guard let timestamp = DateFormatter.mediaWikiAPIDateFormatter.date(from: donation.donationTimestamp) else {
+                return false
+            }
+            
+            if timestamp >= startDate && timestamp <= endDate {
+                return true
+            }
+            return false
+        }
+        
+        return filteredDonationsByDate
+    }
+
+    public func deleteLocalDonationHistory() {
+        hasLocallySavedDonations = false
+        try? self.sharedCacheStore?.remove(key: cacheDirectoryName, cacheLocalDonateHistoryFileName)
+    }
+
     // MARK: - Internal
     
     func reset() {

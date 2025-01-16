@@ -683,7 +683,6 @@
 "main-menu-account-logout" = "Logg ut";
 "main-menu-account-logout-are-you-sure" = "Er du sikker på at du vil logge ut?";
 "main-menu-account-logout-are-you-sure-message" = "Å logge ut vil slette dine lokalt lagrede kontodata (varsler og meldinger), men kontodataene dine vil still være tilgjengelige på nett og lastes ned på nytt hvis du logger inn igjen.";
-"main-menu-account-logout-cancel" = "Avbryt";
 "main-menu-account-title-logged-in" = "Innlogget som $1";
 "main-menu-heading-legal" = "Personvern og vilkår";
 "main-menu-nearby" = "I nærheten";
