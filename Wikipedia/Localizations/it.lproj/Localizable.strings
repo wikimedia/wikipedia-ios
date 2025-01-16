@@ -558,6 +558,9 @@
 "main-menu-title" = "Altro";
 "main-menu-zero-faq" = "FAQ di Wikipedia Zero";
 "menu-cancel-accessibility-label" = "Annulla";
+"microsite-yir-english-edits-bytes-slide-subtitle" = "Nel 2024, i volontari hanno aggiunto 4.104.852.969 byte alla Wikipedia in inglese. La somma di tutto il loro lavoro insieme porta a una risorsa di conoscenza in costante miglioramento, basata sui fatti e affidabile che danno al mondo. Tutti noi abbiamo conoscenze da condividere, [impara come partecipare]($1).";
+"microsite-yir-english-edits-bytes-slide-title" = "4 miliardi di byte aggiunti";
+"microsite-yir-english-edits-slide-title" = "Gli editori hanno apportato quasi 98 milioni di modifiche quest'anno";
 "microsite-yir-english-saved-reading-slide-subtitle" = "Gli utenti attivi dell'app iOS hanno avuto oltre 62,2 milioni di elenchi di lettura quest'anno. Aggiungere voci agli elenchi di lettura ti consente di accedere alle voci anche quando sei offline. Puoi anche effettuare l'accesso per sincronizzare gli elenchi di lettura tra i dispositivi.";
 "more-languages-tooltip-description" = "Cerca in Wikipedia in più di 300 lingue";
 "more-languages-tooltip-title" = "Aggiungi lingue";
@@ -972,7 +975,7 @@
 "welcome-exploration-on-this-day-title" = "In questo giorno";
 "welcome-exploration-places-description" = "Scopri i punti di riferimento vicino a te o cerca posti in tutto il mondo";
 "welcome-exploration-places-title" = "Scheda dei luoghi";
-"welcome-explore-continue-button" = "Comincia";
+"welcome-explore-continue-button" = "Inizia";
 "welcome-explore-new-ways-title" = "Nuovi modi per esplorare";
 "welcome-explore-tell-me-more-done-button" = "Capito";
 "welcome-intro-free-encyclopedia-description" = "Wikipedia è scritta collaborativamente da volontari e consiste in più di 40 milioni di voci in più di 300 lingue.";
@@ -1009,20 +1012,15 @@
 "year-in-review-base-donate-subtitle" = "Con il tuo aiuto Wikimedia Foundation, l'ente senza scopo di lucro dietro a Wikipedia, continuerà ad assicurare che le informazioni su cui fai affidamento siano senza pubblicità e affidabili, facendo funzionare al contempo Wikipedia senza interruzioni con strumenti e tecnologie innovative. Per favore, considera di fare una donazione oggi. [Scopri di più sul nostro lavoro]($1).";
 "year-in-review-base-donate-title" = "0 inserzioni pubblicitarie servite su Wikipedia";
 "year-in-review-base-editors-subtitle" = "La comunità di editor volontari di Wikipedia ha effettuato più di 555.647 modifiche sull'app iOS finora quest'anno. Il cuore e l'anima di Wikipedia sono la nostra comunità globale di collaboratori volontari, donatori e miliardi di lettori come te, tutti uniti per condividere un accesso illimitato a informazioni affidabili.";
-// Fuzzy
 "year-in-review-base-editors-title" = "Gli editor hanno effettuato più di $1 modifiche sull'app iOS";
-// Fuzzy
-"year-in-review-base-edits-subtitle" = "Quest'anno, Wikipedia è stata modificata ad un ritmo medio di $1 volte al minuto. Gli articoli vengono creati in maniera collaborativa e migliorati usando fonti affidabili. Tutti noi abbiamo conoscenza da condividere, [scopri come partecipare]($2).";
+"year-in-review-base-edits-subtitle" = "Quest'anno, Wikipedia è stata modificata ad un ritmo medio di $1 volte al minuto. Le voci vengono create in maniera collaborativa e migliorate usando fonti affidabili. Tutti noi abbiamo conoscenza da condividere, [scopri come partecipare]($2).";
 "year-in-review-base-edits-title" = "Wikipedia è stata modificata $1 volte al minuto";
 "year-in-review-base-reading-subtitle" = "Wikipedia ha avuto più di $1 milione di voci in oltre $2 lingue attive. Ti sei unito a milioni di persone nell'espansione della conoscenza e nell'approfondimento di argomenti diversi.";
 "year-in-review-base-reading-title" = "Wikipedia è stata disponibile in più di 300 lingue";
 "year-in-review-base-saved-subtitle" = "Gli utenti attivi dell'app iOS hanno avuto oltre 62,2 milioni di elenchi di lettura quest'anno. Aggiungere voci agli elenchi di lettura ti consente di accedere alle voci anche quando sei offline. Puoi anche effettuare l'accesso per sincronizzare gli elenchi di lettura tra i dispositivi.";
-// Fuzzy
-"year-in-review-base-saved-title" = "Abbiamo avuto più di $1 milioni di liste di lettura";
-// Fuzzy
-"year-in-review-base-viewed-subtitle" = "Gli utenti dell'app iOS hanno visualizzato gli articoli di Wikipedia $1 miliardi di volte. Per le persone di tutto il mondo, Wikipedia è il punto di riferimento quando si risponde a una domanda, si cercano informazioni per scuola o lavoro o per imparare un nuovo fatto.";
-// Fuzzy
-"year-in-review-base-viewed-title" = "Abbiamo visualizzato gli articoli di Wikipedia $1 miliardi di volte";
+"year-in-review-base-saved-title" = "Abbiamo avuto più di $1 milioni di elenchi di lettura";
+"year-in-review-base-viewed-subtitle" = "Gli utenti dell'app iOS hanno visualizzato le voci di Wikipedia $1 miliardi di volte. Per le persone di tutto il mondo, Wikipedia è il punto di riferimento quando si risponde a una domanda, si cercano informazioni per scuola o lavoro o per imparare un nuovo fatto.";
+"year-in-review-base-viewed-title" = "Abbiamo visualizzato le voci di Wikipedia $1 miliardi di volte";
 "year-in-review-button-title" = "Anno in Rassegna";
 "year-in-review-collective-zero-ads" = "Logo di Wikimedia";
 "year-in-review-day-friday" = "Venerdì";

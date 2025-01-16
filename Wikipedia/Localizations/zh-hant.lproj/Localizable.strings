@@ -1442,7 +1442,6 @@
 // Fuzzy
 "year-in-review-base-donate-subtitle" = "在您的支持下，維基媒體基金會——Wikipedia 背後的非營利組織——將繼續確保您所依賴的資訊無廣告且值得信賴，同時利用尖端工具和技術，讓 Wikipedia 平穩運行。請考慮今天捐款支持，並了解更多關於我們的工作內容。";
 "year-in-review-base-donate-title" = "Wikipedia 上顯示的廣告數量為 0";
-// Fuzzy
 "year-in-review-base-editors-subtitle" = "今年截至目前，Wikipedia 的志願編輯者社群在 iOS 應用程式上完成了超過 555,647 次編輯。Wikipedia 的核心是我們的全球志願者社群，包括貢獻者、捐款者，以及像您一樣的數十億讀者——大家齊心協力，共同提供無限且可靠的資訊存取。";
 "year-in-review-base-editors-title" = "iOS 應用程式上的編輯者進行了超過 $1 次編輯。";
 // Fuzzy
@@ -1450,7 +1449,6 @@
 "year-in-review-base-edits-title" = "Wikipedia 每分鐘被編輯 $1 次。";
 "year-in-review-base-reading-subtitle" = "Wikipedia 在今年擁有超過 $1 萬篇文章，涵蓋 $2 多種活躍語言。您與數百萬人一起擴展知識，探索多元主題。";
 "year-in-review-base-reading-title" = "Wikipedia 提供超過 300 種語言版本";
-// Fuzzy
 "year-in-review-base-saved-subtitle" = "今年，活躍的 iOS 應用程式用戶創建了超過 6220 萬個閱讀清單。將文章增加到閱讀清單，可以讓您即使在離線時也能存取文章。此外，您還可以登入帳戶，將閱讀清單同步到不同裝置。";
 "year-in-review-base-saved-title" = "我們擁有超過 $1 萬個閱讀清單";
 "year-in-review-base-viewed-subtitle" = "iOS 應用程式用戶已瀏覽 Wikipedia 文章達 $1 億次。對於全球各地的人們來說，Wikipedia 是解答問題、查詢學校或工作相關資訊，或學習新知的第一站。";

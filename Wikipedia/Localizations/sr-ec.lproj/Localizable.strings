@@ -162,7 +162,7 @@
 "app-store-subtitle" = "Слободна енциклопедија";
 "appearance-settings-adjust-text-sizing" = "Прилагоди величину текста";
 "appearance-settings-expand-tables" = "Прошири табеле";
-"appearance-settings-expand-tables-footer" = "Раширите све табеле у свим чланцима по подразумеваном, укључујући кратке чињенице, референце, белешке и спољашње линкове.";
+"appearance-settings-expand-tables-footer" = "Раширите све табеле у свим чланцима по подразумеваном, укључујући укратко, референце, белешке и спољашње линкове.";
 "appearance-settings-image-dimming-footer" = "Смањите непровидност слика у тамним и црним темама";
 "appearance-settings-reading-themes" = "Теме за читање";
 "appearance-settings-set-automatic-table-opening" = "Подешавања табела";
@@ -557,7 +557,7 @@
 "home-nearby-footer" = "Још места у близини";
 "home-nearby-location-footer" = "Још у близини $1";
 "home-news-footer" = "Још актуелних догађаја";
-"home-reading-list-prompt" = "Сачувани чланци се сада могу организовати у листама за читање и синхронизовати међу уређајима. Пријавите се и дозволите чување листа у вашим подешавањима.";
+"home-reading-list-prompt" = "Сачувани чланци се сада могу организовати у листама за читање и синхронизовати између уређаја. Пријавите се и дозволите чување листа у вашим подешавањима.";
 "home-themes-action-title" = "Управљај подешавањима";
 "home-themes-prompt" = "Прилагодите подешавања за читање (укључујући величину текста и тему) у траци за управљање чланцима или у вашим подешавањима.";
 "home-title" = "Истражи";
@@ -666,7 +666,8 @@
 "main-menu-title" = "Више";
 "main-menu-zero-faq" = "Честа питања о Википедији нула";
 "menu-cancel-accessibility-label" = "Откажи";
-"microsite-yir-english-edits-bytes-slide-title" = "3,4 милијарде бајтова додато";
+"microsite-yir-english-edits-bytes-slide-title" = "4 милијарде бајтова додато";
+"microsite-yir-english-edits-slide-title" = "Уредници су ове године начинили скоро 98 милиона измена";
 "microsite-yir-english-non-donor-slide-title" = "На Википедији нема реклама";
 "more-languages-tooltip-description" = "Претражујте Википедију на преко 300 језика";
 "more-languages-tooltip-title" = "Додај језике";
@@ -891,8 +892,7 @@
 "privacy-policy-title" = "Политика приватности";
 "problem-with-feature-title" = "Проблем са функцијом";
 "profile-button-accessibility-label" = "Профил";
-// Fuzzy
-"profile-page-join-title" = "Придружите се Википедији / Пријава";
+"profile-page-join-title" = "Пријава / Придружите се Википедији";
 "profile-page-title-logged-out" = "Налог";
 "project-name-mediawiki" = "Медијавики";
 "project-name-wikibooks" = "Викикњиге";
@@ -1192,7 +1192,7 @@
 "try-now-title" = "Пробајте сад";
 "tutorial-title" = "Упутство";
 "two-factor-login-continue" = "Настави пријаву";
-"two-factor-login-instructions" = "Унесите кôд двофакторске потврде идентитета";
+"two-factor-login-instructions" = "Двофакторски токен или код за опоравак";
 "two-factor-login-title" = "Пријавите се на свој налог";
 "two-factor-login-with-backup-code" = "Користите један од резервних кодова";
 "two-factor-login-with-regular-code" = "Користите кôд за верификацију";
@@ -1250,7 +1250,7 @@
 "watchlist-filter-type-of-change-options-page-creations" = "Прављење страница";
 "watchlist-filter-type-of-change-options-page-edits" = "Измене странице";
 "watchlist-filter-type-of-change-options-wikidata-edits" = "Измене на Википодацима";
-"watchlist-filter-user-registration-header" = "Корисничка регистрација и искуство";
+"watchlist-filter-user-registration-header" = "Уредници";
 "watchlist-filter-user-registration-options-registered" = "Регистровани";
 "watchlist-filter-user-registration-options-unregistered" = "Анонимни";
 "watchlist-filters-add-language" = "Додај језик...";

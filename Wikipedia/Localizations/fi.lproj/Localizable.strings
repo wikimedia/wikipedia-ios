@@ -643,6 +643,7 @@
 "main-menu-title" = "Lisää";
 "main-menu-zero-faq" = "Usein kysyttyjä kysymyksiä Wikipedia Zerosta";
 "menu-cancel-accessibility-label" = "Peru";
+// Fuzzy
 "microsite-yir-english-edits-bytes-slide-title" = "3,4 miljardia tavua lisätty";
 "more-languages-tooltip-description" = "Hae Wikipediasta yli 300 kielellä";
 "more-languages-tooltip-title" = "Lisää kieliä";

@@ -967,8 +967,7 @@
 "profile-button-badge-accessibility-label" = "Profilo con insignia non legite";
 "profile-page-donate-subtext" = "O appoia Wikipedia con un donation pro mantener lo gratuite e accessibile a tote le mundo.";
 "profile-page-join-subtext" = "Crea un conto de Wikipedia pro traciar tu contributiones, salveguardar articulos foras de linea, e synchronisar inter apparatos.";
-// Fuzzy
-"profile-page-join-title" = "Adherer a Wikipedia / Aperir session";
+"profile-page-join-title" = "Aperir session / Adherer a Wikipedia";
 "profile-page-logged-out-year-in-review-subtext" = "Aperi session o crea un conto pro obtener un summario del anno meliorate le proxime anno";
 "profile-page-title-logged-out" = "Conto";
 "project-name-mediawiki" = "MediaWiki";

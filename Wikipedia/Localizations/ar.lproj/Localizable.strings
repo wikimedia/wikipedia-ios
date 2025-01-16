@@ -11,6 +11,7 @@
 // Author: Dyolf77 (WMF)
 // Author: FShbib
 // Author: FiberAhmed
+// Author: HNordeen (WMF)
 // Author: Haytham morsy
 // Author: Hhaboh162002
 // Author: Hocinend1
@@ -39,6 +40,7 @@
 // Author: إزبيكييل
 // Author: بدارين
 // Author: بهتين شوكت
+// Author: جودت
 // Author: ديفيد
 // Author: علاء
 // Author: محمد أحمد عبد الفتاح
@@ -104,7 +106,7 @@
 "about-wikimedia-foundation" = "مؤسسة ويكيميديا";
 "about-wikipedia" = "ويكيبيديا";
 "account-creation-captcha-cannot-see-image" = "لا ترى الصورة؟ $1";
-"account-creation-captcha-obtaining" = "جار الحصول على كابتشا جديدة...";
+"account-creation-captcha-obtaining" = "جارٍ الحصول على حروف تحقق جديدة...";
 "account-creation-captcha-request-account" = "طلب حساب.";
 "account-creation-captcha-title" = "اختبار التحقق البشري";
 "account-creation-create-account" = "أنشئ حسابك";
@@ -785,11 +787,11 @@
 "menu-cancel-accessibility-label" = "ألغ";
 "microsite-yir-english-edits-bytes-slide-subtitle" = "في عام 2024، أضاف المتطوعون 4,104,852,969 بايت إلى ويكيبيديا الإنجليزية. ويؤدي مجموع عملهم معًا إلى توفير مصدر معرفي موثوق به يعتمد على الحقائق ويتحسن باستمرار، ويقدمونه للعالم. لدينا جميعًا المعرفة التي نشاركها، [تعرف على كيفية المشاركة]($1).";
 "microsite-yir-english-edits-bytes-slide-title" = "تمت إضافة 4 مليار بايت";
-"microsite-yir-english-edits-slide-subtitle" = "أجرى المتطوعون 98,222,407 تغييرًا في أكثر من 300 إصدار لغوي مختلف من ويكيبيديا. وتم إجراء أكثر من 38 مليون تغيير على ويكيبيديا الإنجليزية. وفي كل ساعة من كل يوم، يعمل المتطوعون على تحسين ويكيبيديا.";
+"microsite-yir-english-edits-slide-subtitle" = "أجرى المتطوعون 98,222,407 تغييرًا في أكثر من 300 إصدار لغوي مختلف من ويكيبيديا. وتم إجراء أكثر من 37 مليون تغيير على ويكيبيديا الإنجليزية. وفي كل ساعة من كل يوم، يعمل المتطوعون على تحسين ويكيبيديا.";
 "microsite-yir-english-edits-slide-title" = "أجرى المحررون ما يقرب من 98 مليون تغيير هذا العام";
 "microsite-yir-english-non-donor-slide-subtitle" = "بفضل مساعدتك، ستواصل مؤسسة ويكيميديا - المؤسسة غير الربحية التي تقف وراء ويكيبيديا - ضمان خلو المعلومات التي تعتمد عليها من الإعلانات وكونها جديرة بالثقة، مع الحفاظ على تشغيل ويكيبيديا بسلاسة باستخدام أدوات وتقنيات متطورة. يرجى التفكير في التبرع اليوم. [تعرف على المزيد حول عملنا]($1).";
 "microsite-yir-english-non-donor-slide-title" = "0 إعلان تم تقديمه على ويكيبيديا";
-"microsite-yir-english-reading-slide-subtitle" = "يُقدر عدد الساعات التي قضاها الناس في قراءة ويكيبيديا الإنجليزية في عام 2024 بنحو 2.9 مليار ساعة - أي ما يقرب من 331000 سنة!. وتوجد ويكيبيديا عندما تريد التعرف على عالمنا المتغير، أو الفوز في رهان بين الأصدقاء، أو الإجابة على سؤال طفل فضولي.";
+"microsite-yir-english-reading-slide-subtitle" = "في عام 2024، قضى الناس ما يقدر بنحو 2.9 مليار ساعة - أي أكثر من 331000 سنة! - في قراءة ويكيبيديا الإنجليزية. ويكيبيديا موجودة عندما تريد التعرف على عالمنا المتغير، أو الفوز في رهان بين الأصدقاء، أو الإجابة على سؤال طفل فضولي.";
 "microsite-yir-english-reading-slide-title" = "لقد قضينا 2.9 مليار ساعة في القراءة";
 "microsite-yir-english-saved-reading-slide-subtitle" = "كان لدى مستخدمي تطبيق iOS النشطين أكثر من 62.2 مليون قائمة قراءة هذا العام. تتيح لك إضافة المقالات إلى قوائم القراءة الوصول إلى المقالات حتى أثناء عدم الاتصال بالإنترنت. يمكنك أيضًا تسجيل الدخول لمزامنة قوائم القراءة عبر الأجهزة.";
 "microsite-yir-english-saved-reading-slide-title" = "كان لدينا أكثر من 62.2 مليون قائمة قراءة";
@@ -1449,7 +1451,7 @@
 "wikitext-preview-link-preview-title" = "معاينة الوصلة";
 "wikitext-preview-save-changes-title" = "حفظ التغييرات";
 "wikitext-upload-captcha-error" = "خطأ في التحقق من كابتشا.";
-"wikitext-upload-captcha-needed" = "مطلوب التحقق من كابتشا.";
+"wikitext-upload-captcha-needed" = "مطلوب التحقق من حروف التحقق.";
 "wikitext-upload-result-unknown" = "غير قادر على تحديد نتيجة تحميل النص";
 "wikitext-upload-save" = "جارٍ الحفظ...";
 "wikitext-upload-save-anonymously-or-login" = "ستُنسَب التعديلات إلى عنوان أيبي جهازك، إذا كنت $1مسجل الدخول$2 سيكون لديك المزيد من الخصوصية.";

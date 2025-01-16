@@ -201,8 +201,8 @@
 "diff-paragraph-moved-distance-section" = "{{PLURAL:$1|$1 Abschnitt|$1 Abschnitter}}";
 "diff-revision-error-title" = "Versioun konnt net geluede ginn";
 "diff-single-header-editor-number-edits-format" = "{{PLURAL:$1|$1 Ännerung|$1 Ännerungen}}";
-"diff-single-header-subtitle-bytes-added" = "{{PLURAL:$1|$1 Byte derbäigesat|$1 Byten derbäigesat}}";
-"diff-single-header-subtitle-bytes-removed" = "{{PLURAL:$1|$1 Byte ewechgeholl|$1 Byten ewechgeholl}}";
+"diff-single-header-subtitle-bytes-added" = "{{PLURAL:$1|$1 Byte derbäigesat}}";
+"diff-single-header-subtitle-bytes-removed" = "{{PLURAL:$1|$1 Byte ewechgeholl}}";
 "diff-single-header-summary-heading" = "Resumé vun der Ännerung";
 "diff-single-intro-title" = "Aféierung";
 "diff-single-line-format" = "Linn $1";
@@ -478,7 +478,7 @@
 "main-menu-title" = "Méi";
 "main-menu-zero-faq" = "Wikipedia Zero FAQ";
 "menu-cancel-accessibility-label" = "Ofbriechen";
-"microsite-yir-english-edits-bytes-slide-title" = "3,4 Milliarde Byte derbäigesat";
+"microsite-yir-english-edits-bytes-slide-title" = "4 Milliarde Byte derbäigesat";
 "more-languages-tooltip-description" = "Op Wikipedia a méi wéi 300 Sprooche sichen";
 "more-languages-tooltip-title" = "Sproochen derbäisetzen";
 "more-menu" = "Méi";
@@ -589,8 +589,8 @@
 "page-history-revision-comment-accessibility-label" = "Bemierkung $1";
 "page-history-revision-history-title" = "Historique vun de Versiounen";
 "page-history-revision-minor-edit-accessibility-label" = "Kleng Ännerung";
-"page-history-revision-size-diff-addition" = "({{PLURAL:$1|1 Byte|$1 Byten}}) derbäigesat";
-"page-history-revision-size-diff-subtraction" = "{{PLURAL:$1|$1 Byte|$1 Byten}} ewechgeholl";
+"page-history-revision-size-diff-addition" = "({{PLURAL:$1|1 Byte|$1 Byte}}) derbäigesat";
+"page-history-revision-size-diff-subtraction" = "{{PLURAL:$1|$1 Byte}} ewechgeholl";
 "page-history-stats-text" = "{{PLURAL:$1|1 Ännerung|$1 Ännerungen}} zanter $2";
 "page-history-user-edits" = "Ännerunge vum Benotzer";
 "page-issues" = "Problemer mat der Säit";
@@ -879,7 +879,7 @@
 "watchlist-added-toast-six-months" = "Fir 6 Méint op Är Iwwerwaachungslëscht gesat.";
 "watchlist-added-toast-three-months" = "Fir 3 Méint op Är Iwwerwaachungslëscht gesat.";
 "watchlist-added-toast-view-watchlist" = "Iwwerwaachungslëscht weisen";
-"watchlist-byte-change" = "({{PLURAL:$1|1 Byte|$1 Byten}})";
+"watchlist-byte-change" = "({{PLURAL:$1|1 Byte|$1 Byte}})";
 "watchlist-change-expiry-option-one-month" = "1 Mount";
 "watchlist-change-expiry-option-one-week" = "1 Woch";
 "watchlist-change-expiry-option-one-year" = "1 Joer";
