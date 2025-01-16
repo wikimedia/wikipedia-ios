@@ -165,7 +165,11 @@ public class WMFYearInReviewViewModel: ObservableObject {
     }
     
     var slideLoggingID: String {
-        return isFirstSlide ? "start" : slides[currentSlide].loggingID
+        if isFirstSlide {
+            return isUserAuth ? "start_c" : "start"
+        }
+        
+        return slides[currentSlide].loggingID
     }
     
     var isLastSlide: Bool {
@@ -180,7 +184,7 @@ public class WMFYearInReviewViewModel: ObservableObject {
     func markFirstSlideAsSeen() {
         if let dataController = try? WMFYearInReviewDataController() {
             dataController.hasSeenYiRIntroSlide = true
-            badgeDelegate?.didSeeFirstSlide()
+            badgeDelegate?.updateYIRBadgeVisibility()
         }
     }
 
@@ -223,7 +227,6 @@ public struct YearInReviewSlideContent: SlideShowProtocol {
     }
 }
 
-
 @objc public protocol YearInReviewBadgeDelegate: AnyObject {
-    @objc func didSeeFirstSlide()
+    @objc func updateYIRBadgeVisibility()
 }
