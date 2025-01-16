@@ -146,10 +146,8 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
-			<key>one</key>
-			<string>%1$d Byte derbäigesat</string>
 			<key>other</key>
-			<string>%1$d Byten derbäigesat</string>
+			<string>%1$d Byte derbäigesat</string>
 		</dict>
 	</dict>
 	<key>diff-single-header-subtitle-bytes-removed</key>
@@ -162,10 +160,8 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
-			<key>one</key>
-			<string>%1$d Byte ewechgeholl</string>
 			<key>other</key>
-			<string>%1$d Byten ewechgeholl</string>
+			<string>%1$d Byte ewechgeholl</string>
 		</dict>
 	</dict>
 	<key>move-articles-to-reading-list</key>
@@ -325,7 +321,7 @@
 			<key>one</key>
 			<string>1 Byte</string>
 			<key>other</key>
-			<string>%1$d Byten</string>
+			<string>%1$d Byte</string>
 		</dict>
 	</dict>
 	<key>page-history-revision-size-diff-subtraction</key>
@@ -338,10 +334,8 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
-			<key>one</key>
-			<string>%1$d Byte</string>
 			<key>other</key>
-			<string>%1$d Byten</string>
+			<string>%1$d Byte</string>
 		</dict>
 	</dict>
 	<key>page-history-stats-text</key>
@@ -638,7 +632,7 @@
 			<key>one</key>
 			<string>1 Byte</string>
 			<key>other</key>
-			<string>%1$d Byten</string>
+			<string>%1$d Byte</string>
 		</dict>
 	</dict>
 	<key>year-in-review-personalized-editing-title-format</key>
