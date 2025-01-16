@@ -21,6 +21,8 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
 
     @IBOutlet fileprivate weak var scrollContainer: UIView!
     
+    public var createAccountSuccessCustomDismissBlock: (() -> Void)?
+    
     // SINGLETONTODO
     let dataStore = MWKDataStore.shared()
     
@@ -227,10 +229,16 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
                 } else {
                     assertionFailure("startDate is nil; startDate is required to calculate timeElapsed")
                 }
-                let presenter = self.presentingViewController
-                self.dismiss(animated: true, completion: {
-                    presenter?.wmf_showEnableReadingListSyncPanel(theme: self.theme, oncePerLogin: true)
-                })
+                
+                if let customDismissBlock = self.createAccountSuccessCustomDismissBlock {
+                    customDismissBlock()
+                } else {
+                    let presenter = self.presentingViewController
+                    self.dismiss(animated: true, completion: {
+                        presenter?.wmf_showEnableReadingListSyncPanel(theme: self.theme, oncePerLogin: true)
+                    })
+                }
+                
             case .failure(let error):
                 self.setViewControllerUserInteraction(enabled: true)
                 self.enableProgressiveButtonIfNecessary()
@@ -254,7 +262,8 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
     
     fileprivate func save() {
         
-        usernameAlertLabel.isHidden = true
+        usernameAlertLabel.alpha = 0
+        usernameField.textColor = theme.colors.primaryText
         passwordRepeatAlertLabel.isHidden = true
         
         guard areRequiredFieldsPopulated() else {
@@ -277,7 +286,7 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
     @IBAction func textFieldDidBeginEditing(_ textField: UITextField) {
         switch textField {
         case usernameField:
-            usernameAlertLabel.text = ""
+            usernameAlertLabel.alpha = 0
             usernameField.textColor = theme.colors.primaryText
             usernameField.keyboardAppearance = theme.keyboardAppearance
         case passwordRepeatField:
@@ -307,6 +316,7 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
                 self.checkingUsernameAvailability = false
                 if !canCreate {
                     self.usernameAlertLabel.text = WMFAccountCreatorError.usernameUnavailable.localizedDescription
+                    self.usernameAlertLabel.alpha = 1
                     self.usernameField.textColor = self.theme.colors.error
                 }
             }
@@ -331,6 +341,7 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
                     switch error {
                     case .usernameUnavailable:
                         self.usernameAlertLabel.text = error.localizedDescription
+                        self.usernameAlertLabel.alpha = 1
                         self.usernameField.textColor = self.theme.colors.error
                         self.usernameField.keyboardAppearance = self.theme.keyboardAppearance
                         WMFAlertManager.sharedInstance.dismissAlert()

@@ -46,7 +46,7 @@ public final class WMFPageViewDay: Decodable, Encodable {
     }
 }
 
-public final class WMFPageViewImportRequest {
+public final class WMFLegacyPageView {
     let title: String
     let project: WMFProject
     let viewedDate: Date
@@ -139,7 +139,7 @@ public final class WMFPageViewsDataController {
         }
     }
     
-    public func importPageViews(requests: [WMFPageViewImportRequest]) async throws {
+    public func importPageViews(requests: [WMFLegacyPageView]) async throws {
         
         let backgroundContext = try coreDataStore.newBackgroundContext
         try await backgroundContext.perform {
@@ -231,6 +231,4 @@ public final class WMFPageViewsDataController {
         
         return results
     }
-
-
 }

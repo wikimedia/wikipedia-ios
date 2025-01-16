@@ -34,6 +34,7 @@ final class YearInReviewSettingsViewController: SubSettingsViewController {
 
     private let dataStore: MWKDataStore
     private var sections: [YearInReviewSettingsSection] = []
+    
     private let dataController = try? WMFYearInReviewDataController()
 
     fileprivate let headerText = WMFLocalizedString("settings-year-in-review-header", value: "Turning off Year in Review will clear all stored personalized insights and hide the Year in Review.", comment: "Text informing user of benefits of hiding the year in review feature.") + "\n"
@@ -77,6 +78,7 @@ final class YearInReviewSettingsViewController: SubSettingsViewController {
             return isEnabled
         }, action: { [weak self] isOn in
             self?.dataController?.yearInReviewSettingsIsEnabled = isOn
+            UserDefaults.standard.wmf_yirSettingToggleIsEnabled = isOn
             if !isOn {
                 Task {
                     do {
@@ -95,7 +97,7 @@ final class YearInReviewSettingsViewController: SubSettingsViewController {
 
         self.tableView.reloadData()
     }
-    
+
     private func populateYearInReviewReportData() {
         guard let language  = dataStore.languageLinkController.appLanguage?.languageCode,
               let countryCode = Locale.current.region?.identifier
@@ -105,12 +107,25 @@ final class YearInReviewSettingsViewController: SubSettingsViewController {
 
         Task {
             do {
+                
+                var userId: Int?
+
+                if let siteURL = dataStore.languageLinkController.appLanguage?.siteURL,
+                   let userID = dataStore.authenticationManager.permanentUser(siteURL: siteURL)?.userID {
+                    userId = userID
+                }
+                
+                let userIdString: String? = userId.map { String($0) }
+
                 let yirDataController = try WMFYearInReviewDataController()
                 try await yirDataController.populateYearInReviewReportData(
                     for: WMFYearInReviewDataController.targetYear,
                     countryCode: countryCode,
                     primaryAppLanguageProject: project,
-                    username: dataStore.authenticationManager.authStatePermanentUsername)
+                    username: dataStore.authenticationManager.authStatePermanentUsername,
+                    userID: userIdString,
+                    savedSlideDataDelegate: dataStore.savedPageList,
+                    legacyPageViewsDataDelegate: dataStore)
             } catch {
                 DDLogError("Failure populating year in review report: \(error)")
             }

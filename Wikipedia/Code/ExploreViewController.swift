@@ -1042,7 +1042,7 @@ extension ExploreViewController {
         }
         
         guard let cell = collectionView.cellForItem(at: indexPath),
-        let _ = cell.superview?.convert(cell.frame, to: view) else {
+              cell.superview?.convert(cell.frame, to: view) != nil  else {
             return false
         }
         
@@ -1096,7 +1096,7 @@ extension ExploreViewController {
         }
         
         guard let cell = collectionView.cellForItem(at: indexPath),
-        let _ = cell.superview?.convert(cell.frame, to: view) else {
+            cell.superview?.convert(cell.frame, to: view) != nil else {
             return false
         }
         
@@ -1105,23 +1105,24 @@ extension ExploreViewController {
 
     // TODO: Remove after expiry date (1 March 2025)
     private func presentYearInReviewAnnouncement() {
-        
         guard let yirDataController = try? WMFYearInReviewDataController() else {
             return
         }
 
-        let title = CommonStrings.exploreYiRTitle
-        let body = CommonStrings.yirFeatureAnnoucementBody
+        let title = dataStore.authenticationManager.authStateIsPermanent ?  CommonStrings.exploreYIRTitlePersonalized : CommonStrings.exploreYiRTitle
+        let body = dataStore.authenticationManager.authStateIsPermanent ? CommonStrings.yirFeatureAnnoucementBodyPersonalized : CommonStrings.yirFeatureAnnoucementBody
         let primaryButtonTitle = CommonStrings.continueButton
         let image = UIImage(named: "wikipedia-globe")
         let backgroundImage = UIImage(named: "Announcement")
+        let gifName = dataStore.authenticationManager.authStateIsPermanent ? "personal-slide-00" : "english-slide-00"
+        let altText = dataStore.authenticationManager.authStateIsPermanent ? CommonStrings.personalizedExploreAccessibilityLabel : CommonStrings.collectiveExploreAccessibilityLabel
 
-        let viewModel = WMFFeatureAnnouncementViewModel(title: title, body: body, primaryButtonTitle: primaryButtonTitle, image: image, backgroundImage: backgroundImage, primaryButtonAction: { [weak self] in
+        let viewModel = WMFFeatureAnnouncementViewModel(title: title, body: body, primaryButtonTitle: primaryButtonTitle, image: image, backgroundImage: backgroundImage, gifName: gifName, altText: altText, primaryButtonAction: { [weak self] in
             guard let self else { return }
             yirCoordinator?.start()
-            DonateFunnel.shared.logYearInReviewFeatureAnnouncementDidTapContinue()
+            DonateFunnel.shared.logYearInReviewFeatureAnnouncementDidTapContinue(isEntryA: !dataStore.authenticationManager.authStateIsPermanent)
         }, closeButtonAction: {
-            DonateFunnel.shared.logYearInReviewFeatureAnnouncementDidTapClose()
+            DonateFunnel.shared.logYearInReviewFeatureAnnouncementDidTapClose(isEntryA: !self.dataStore.authenticationManager.authStateIsPermanent)
         })
 
         if  navigationBar.superview != nil {
@@ -1129,7 +1130,7 @@ extension ExploreViewController {
             let yOrigin = view.safeAreaInsets.top + navigationBar.barTopSpacing + 15
             let sourceRect = CGRect(x:  xOrigin, y: yOrigin, width: 25, height: 25)
             announceFeature(viewModel: viewModel, sourceView: self.view, sourceRect: sourceRect)
-            DonateFunnel.shared.logYearInReviewFeatureAnnouncementDidAppear()
+            DonateFunnel.shared.logYearInReviewFeatureAnnouncementDidAppear(isEntryA: !dataStore.authenticationManager.authStateIsPermanent)
         }
 
         yirDataController.hasPresentedYiRFeatureAnnouncementModel = true

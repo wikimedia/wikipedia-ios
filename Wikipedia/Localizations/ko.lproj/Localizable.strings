@@ -171,8 +171,11 @@
 "alt-text-experiment-onboarding-tooltip-3-body" = "시각 장애가 있는 독자를 위한 설명을 추가합니다";
 "alt-text-experiment-onboarding-tooltip-3-title" = "설명 추가";
 "alt-text-experiment-review-title" = "검토";
+"alt-text-experiment-text-field-description" = "이미지를 볼 수 없는 독자를 위한 텍스트 설명";
 "alt-text-experiment-text-field-placholder" = "이미지 설명하기";
 "alt-text-experiment-view-title" = "대체 텍스트 추가";
+"alt-text-feedback-alert-subtitle" = "대체 텍스트가 필요한 이미지 피드를 제공하는 기능을 사용하시겠습니까?";
+"alt-text-feedback-alert-subtitle-flow-C" = "문서를 편집한 후 해당 문서의 제안된 편집 내용에 대한 유사한 알림을 받는 데 관심이 있으신가요?";
 "alt-text-feedback-alert-title" = "우리는 당신의 피드백을 원합니다";
 "alt-text-feedback-survey-neutral" = "중립";
 "alt-text-feedback-survey-satisfied" = "만족";
@@ -180,6 +183,7 @@
 "alt-text-feedback-survey-title" = "기능 개선 도움 제공";
 "alt-text-feedback-survey-toast-title" = "의견이 제출되었습니다";
 "alt-text-feedback-survey-unsatisfied" = "불만족";
+"alt-text-modal-subtitle-image-recommendation" = "이전 이미지에 대체 텍스트가 없습니다. 시각 장애인 독자를 위해 이미지에 설명을 추가하시겠습니까?";
 "alt-text-modal-subtitle-regular-edit" = "이 문서에 대체 텍스트가 없는 이미지가 있습니다. 시각 장애인 독자를 위한 설명을 추가하시겠습니까?";
 "alt-text-modal-title" = "이미지의 누락된 대체 텍스트를 추가할까요?";
 "alt-text-survey-option-1" = "이미지를 어떻게 설명해야 할지 모르겠습니다";
@@ -243,6 +247,7 @@
 "compass-direction" = "$1시에";
 "confirm-donation-history-deletion-subtitle" = "이 장치를 통해 이루어진 기부에만 적용됩니다.";
 "confirm-donation-history-deletion-title" = "삭제 확인";
+"confirmed-donation-history-deletion" = "로컬 기록이 삭제되었습니다";
 "continue-button-title" = "계속";
 "continue-reading-empty-description" = "더 많은 문서를 읽기 위해 위키백과 둘러보기";
 "continue-reading-empty-title" = "최근에 읽은 문서 없음";
@@ -292,10 +297,15 @@
 "developer-settings-send-analytics-to-wmflabs" = "wmflabs에 분석을 보냅니다.";
 "developer-settings-suppress-image-rec-post" = "이미지 제안 편집을 게시하지 않습니다.";
 "diff-article-revision-history" = "문서 편집 역사";
+"diff-change-added" = "추가, $1, 추가 끝.";
+"diff-change-paragraph-moved" = "문단이 이동되었습니다. 이전 위치로 이동합니다.";
+"diff-change-removal" = "제거, $1, 제거 끝.";
 "diff-compare-header-from-info-heading" = "이전 편집";
 "diff-compare-header-heading" = "판 비교";
 "diff-compare-header-to-info-heading" = "표시되는 편집";
 "diff-compare-title" = "판 비교";
+"diff-content-added" = "내용 추가됨, $1";
+"diff-content-removed" = "내용 제거됨, $1";
 "diff-context-cell-collapse-section" = "$1 접기";
 "diff-context-cell-expand-section" = "$1 펼치기";
 "diff-context-lines-collapsed-button-title" = "표시";
@@ -341,11 +351,13 @@
 "donate-accessibility-textfield-hint" = "기부용 맞춤 금액을 입력하세요.";
 "donate-accessibility-transaction-fee-hint" = "기부 금액에 거래 수수료를 추가하려면 두 번 탭하세요.";
 "donate-already-donated" = "기부해 주셔서 감사합니다! 당신의 관대한 선택으로 위키백과와 자매 사이트의 발전에 큰 힘이 되었습니다.";
+"donate-apple-fine-print" = "애플은 이 목적으로 자금을 모으는 일을 맡지 않습니다.";
 "donate-email-opt-in-text" = "네, 위키미디어 재단에서 가끔 이메일을 보내드릴 수 있게 됩니다.";
 "donate-help-frequently-asked-questions" = "자주 묻는 질문";
 "donate-help-other-ways-to-give" = "다른 기부 방법";
 "donate-help-problems-donating" = "기부하시는데 문제가 있습니까?";
 "donate-help-tax-deductibility-information" = "세금 공제 정보";
+"donate-history-delete" = "로컬 기부 내역 삭제";
 "donate-later-title" = "내일 다시 알려드리겠습니다.";
 "donate-maximum-error-text" = "저희 웹사이트에서는 $1 $2 이상의 기부를 받을 수 없습니다. benefactors@wikimedia.org를 통해 고액기부 담당자에게 문의하세요.";
 "donate-minimum-error-text" = "액수를 선택하세요 (최소 $1 $2).";
@@ -742,6 +754,12 @@
 "main-menu-title" = "더 보기";
 "main-menu-zero-faq" = "위키백과 제로 FAQ";
 "menu-cancel-accessibility-label" = "취소";
+"microsite-yir-english-edits-bytes-slide-title" = "34억 바이트 추가됨";
+"microsite-yir-english-edits-slide-title" = "편집자들은 올해 약 8,200만 건의 변경을 수행했습니다";
+"microsite-yir-english-non-donor-slide-title" = "위키백과에 게재된 광고는 0개입니다";
+"microsite-yir-english-reading-slide-title" = "읽기에 29억 시간이 할애됐습니다";
+// Fuzzy
+"microsite-yir-english-saved-reading-slide-title" = "6,220만 개가 넘는 읽기 목록이 있습니다";
 "more-languages-tooltip-description" = "300개 이상의 언어에서 위키백과 검색";
 "more-languages-tooltip-title" = "언어 추가";
 "more-menu" = "더 보기";
@@ -964,6 +982,7 @@
 "problem-with-feature-title" = "기능에 문제가 있습니다";
 "profile-button-accessibility-label" = "프로필";
 "profile-button-badge-accessibility-label" = "읽지 않은 배지가 있는 프로필";
+// Fuzzy
 "profile-page-join-title" = "위키백과에 가입 / 로그인";
 "profile-page-title-logged-out" = "계정";
 "project-name-mediawiki" = "미디어위키";
@@ -1386,6 +1405,7 @@
 "year-in-review-base-editors-title" = "iOS 앱의 편집자는 $1번 이상 편집을 했습니다";
 "year-in-review-base-edits-title" = "위키백과는 분당 편집 수는 $1회입니다";
 "year-in-review-base-viewed-title" = "위키백과 문서의 조회 수는 $1억 회입니다";
+"year-in-review-collective-zero-ads" = "위키미디어 로고";
 "year-in-review-day-friday" = "금요일";
 "year-in-review-day-monday" = "월요일";
 "year-in-review-day-saturday" = "토요일";
@@ -1397,10 +1417,14 @@
 "year-in-review-donate-now" = "지금 기부하기";
 "year-in-review-finish" = "완료";
 "year-in-review-personalized-day-subtitle-format" = "$1에 가장 많은 문서를 읽었습니다. $1이 새로운 콘텐츠를 둘러보기에 가장 좋은 날이라는 것은 분명합니다. 읽는 시간을 최대한 활용해주셔서 고맙습니다!";
+"year-in-review-personalized-day-title-format" = "읽기에 가장 많이 할애한 날은 $1입니다.";
+// Fuzzy
 "year-in-review-personalized-donate-title" = "기여해 주셔서 고맙습니다!";
+"year-in-review-personalized-donation-thank-you" = "위키미디어 로고";
 "year-in-review-personalized-editing-title-format" = "당신은 위키백과를 {{PLURAL:$1|$1회}} 편집했습니다";
 "year-in-review-personalized-editing-title-format-500plus" = "당신은 위키백과를 500회 이상 편집했습니다";
 "year-in-review-personalized-reading-title-format" = "올해에 {{PLURAL:$1|$1개 문서}}를 읽었습니다";
+"year-in-review-personalized-saved-title-format" = "{{PLURAL:$1|문서 $1개}}를 저장했습니다";
 "year-in-review-survey-additional-thoughts" = "추가 의견이 있으신가요?";
 "year-in-review-survey-neutral" = "중립";
 "year-in-review-survey-satisfied" = "만족";
@@ -1408,3 +1432,5 @@
 "year-in-review-survey-unsatisfied" = "불만족";
 "year-in-review-survey-very-satisfied" = "매우 만족";
 "year-in-review-survey-very-unsatisfied" = "매우 불만족";
+"year-in-review-wikipedia-w-accessibility-label" = "위키백과 w 로고";
+"year-in-review-wmf-logo-accessibility-label" = "위키미디어 재단 로고";

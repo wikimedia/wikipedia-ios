@@ -220,6 +220,22 @@
 			<string> %1$d ਲਕੀਰਾਂ ਨਹੀਂ ਸੋਧੀਆਂ</string>
 		</dict>
 	</dict>
+	<key>notifications-center-num-selected-messages-format</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d ਸੁਨੇਹਾ</string>
+			<key>other</key>
+			<string>%1$d ਸੁਨੇਹੇ</string>
+		</dict>
+	</dict>
 	<key>notifications-center-status-in-projects</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -619,7 +635,7 @@
 	<key>year-in-review-personalized-reading-subtitle-format</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>ਤੁਸੀਂ ਇਸ ਸਾਲ %#@v1@। ਇਸ ਸਾਲ ਵਿਕੀਪੀਡੀਆ ਵਿੱਚ %3$@ ਤੋਂ ਵੱਧ ਸਰਗਰਮ ਭਾਸ਼ਾਵਾਂ ਵਿੱਚ %2$@ ਲੱਖ ਲੇਖ ਉਪਲਬਧ ਸਨ। ਤੁਸੀਂ ਗਿਆਨ ਨੂੰ ਵਧਾਉਣ ਅਤੇ ਵੱਖ-ਵੱਖ ਵਿਸ਼ਿਆਂ ਦੀ ਪੜਚੋਲ ਕਰਨ ਵਿੱਚ ਲੱਖਾਂ ਲੋਕਾਂ ਵਿੱਚ ਸ਼ਾਮਲ ਹੋਏ।</string>
+		<string>ਇਸ ਸਾਲ, ਤੁਸੀਂ %#@v1@। ਵਿਕੀਪੀਡੀਆ ਵਿੱਚ %3$@ ਤੋਂ ਵੱਧ ਸਰਗਰਮ ਭਾਸ਼ਾਵਾਂ ਵਿੱਚ %2$@ ਲੱਖ ਲੇਖ ਉਪਲਬਧ ਸਨ। ਤੁਸੀਂ ਗਿਆਨ ਨੂੰ ਵਧਾਉਣ ਅਤੇ ਵੱਖ-ਵੱਖ ਵਿਸ਼ਿਆਂ ਦੀ ਪੜਚੋਲ ਕਰਨ ਵਿੱਚ ਲੱਖਾਂ ਲੋਕਾਂ ਵਿੱਚ ਸ਼ਾਮਲ ਹੋਏ।</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -646,6 +662,22 @@
 			<string> %1$d ਲੇਖ ਪੜ੍ਹਿਆ</string>
 			<key>other</key>
 			<string> %1$d ਲੇਖ ਪੜ੍ਹੇ</string>
+		</dict>
+	</dict>
+	<key>year-in-review-personalized-saved-title-format</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>ਤੁਸੀਂ %#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string> %1$d ਲੇਖ ਸਾੰਭਿਆ</string>
+			<key>other</key>
+			<string>%1$d ਲੇਖ ਸਾਂਭੇ</string>
 		</dict>
 	</dict>
 </dict>

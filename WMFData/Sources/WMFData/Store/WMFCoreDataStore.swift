@@ -156,12 +156,6 @@ public final class WMFCoreDataStore {
     
     public func performDatabaseHousekeeping() async throws {
         
-        guard let sevenDaysAgoDate = Calendar.current.date(byAdding: .day,
-                                                 value: -7,
-                                                       to: Date()) else {
-            return
-        }
-        
         let currentYear = Calendar.current.component(.year, from: Date())
         var dateComponents = DateComponents()
         dateComponents.year = currentYear - 1

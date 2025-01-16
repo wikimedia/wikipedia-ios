@@ -368,5 +368,59 @@
 			<string>Przed chwilą</string>
 		</dict>
 	</dict>
+	<key>year-in-review-personalized-reading-subtitle-format</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>W tym roku przeczytałeś(-aś) %#@v1@. Wikipedia miała %2$@ mln artykułów dostępnych w ponad %3$@ językach. Dołączyłeś(-aś) do milionów ludzi, poszerzających wiedzę i zgłębiających różnorodne tematy.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>few</key>
+			<string>%1$d artykuły</string>
+			<key>one</key>
+			<string>%1$d artykuł</string>
+			<key>other</key>
+			<string>%1$d artykułów</string>
+		</dict>
+	</dict>
+	<key>year-in-review-personalized-saved-subtitle-format</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Zapisałeś(-aś) %#@v1@ w tym roku, w tym %2$@, %3$@ i %4$@. Każdy z nich odzwierciedla Twoje zainteresowania i pomaga zbudować bazę wiedzy w Wikipedii.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>few</key>
+			<string>%1$d artykuły</string>
+			<key>one</key>
+			<string>%1$d artykuł</string>
+			<key>other</key>
+			<string>%1$d artykułów</string>
+		</dict>
+	</dict>
+	<key>year-in-review-personalized-saved-title-format</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Zapisałeś(-aś) %#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>few</key>
+			<string>%1$d artykuły</string>
+			<key>one</key>
+			<string>%1$d artykuł</string>
+			<key>other</key>
+			<string>%1$d artykułów</string>
+		</dict>
+	</dict>
 </dict>
 </plist>
