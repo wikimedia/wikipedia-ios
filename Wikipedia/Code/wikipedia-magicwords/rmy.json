@@ -136,10 +136,10 @@
   },
   {
     "aliases" : [
+      "Chitro",
       "Fişier",
       "Image",
-      "Imagine",
-      "Chitro"
+      "Imagine"
     ],
     "name" : "file_namespace"
   }

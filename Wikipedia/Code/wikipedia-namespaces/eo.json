@@ -11,10 +11,6 @@
     "DOSIERO-DISKUTO" : 7,
     "FILE" : 6,
     "FILE TALK" : 7,
-    "GADGET" : 2300,
-    "GADGET DEFINITION" : 2302,
-    "GADGET DEFINITION TALK" : 2303,
-    "GADGET TALK" : 2301,
     "HELP" : 12,
     "HELP TALK" : 13,
     "HELPA DISKUTO" : 13,
@@ -42,9 +38,6 @@
     "PROJECT TALK" : 5,
     "PROJEKTA DISKUTO" : 103,
     "PROJEKTO" : 102,
-    "ŜABLONA DISKUTO" : 11,
-    "ŜABLONO" : 10,
-    "ŜABLONO-DISKUTO" : 11,
     "SPECIAL" : -1,
     "SPECIALA" : -1,
     "SPECIALAĴO" : -1,
@@ -71,6 +64,9 @@
     "VP" : 4,
     "WIKIPEDIA" : 4,
     "WIKIPEDIA TALK" : 5,
-    "WP" : 4
+    "WP" : 4,
+    "ŜABLONA DISKUTO" : 11,
+    "ŜABLONO" : 10,
+    "ŜABLONO-DISKUTO" : 11
   }
 }
