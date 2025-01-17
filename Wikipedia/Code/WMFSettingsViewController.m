@@ -500,7 +500,7 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 #pragma mark - Year in Review
 
 - (void)showYearInReview {
-    WMFYearInReviewSettingsViewController *yearInReviewSettingsVC = [[WMFYearInReviewSettingsViewController alloc] initWithTheme:self.theme];
+    WMFYearInReviewSettingsViewController *yearInReviewSettingsVC = [[WMFYearInReviewSettingsViewController alloc] initWithDataStore:self.dataStore theme:self.theme];
     [self.navigationController pushViewController:yearInReviewSettingsVC animated:YES];
 }
 
@@ -596,6 +596,9 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
     
     if ([[WMFYearInReviewDataController dataControllerForObjectiveC] shouldShowYearInReviewSettingsItemWithCountryCode:NSLocale.currentLocale.countryCode primaryAppLanguageCode:self.dataStore.languageLinkController.appLanguage.languageCode]) {
         [items addObject:[WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_YearInReview]];
+        [[NSUserDefaults standardUserDefaults] wmf_setShowYirSettingToggle:YES];
+    } else {
+        [[NSUserDefaults standardUserDefaults] wmf_setShowYirSettingToggle:NO];
     }
 
     if (_authManager.authStateIsPermanent) {

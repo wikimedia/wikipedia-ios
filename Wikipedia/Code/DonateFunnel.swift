@@ -55,6 +55,11 @@ import WMF
         case nextClick = "next_click"
         case continueClick = "continue_click"
         case donateStartClickYir = "donate_start_click_yir"
+        case accountEngageClick = "account_engage_click"
+        case rejectClick = "reject_click"
+        case shareClick = "share_click"
+        case feedbackSubmitClick = "feedback_submit_click"
+        case feedbackSubmitted = "feedback_submitted"
     }
     
     private struct Event: EventInterface {
@@ -320,34 +325,101 @@ import WMF
         logEvent(activeInterface: .wikiYiR, action: .closeClick, actionData: ["slide": slideLoggingID])
     }
     
-    func logYearInReviewDidTapIntroContinue() {
-        logEvent(activeInterface: .wikiYiR, action: .startClick, actionData: ["slide": "start"])
+    func logYearInReviewDidTapIntroContinue(isEntryC: Bool = false) {
+        logEvent(activeInterface: .wikiYiR, action: .startClick, actionData: ["slide": isEntryC ? "start_c" : "start"])
     }
     
-    func logYearInReviewDidTapIntroLearnMore() {
-        logEvent(activeInterface: .wikiYiR, action: .learnClick, actionData: ["slide": "start"])
+    func logYearInReviewDidTapIntroLearnMore(isEntryC: Bool = false) {
+        logEvent(activeInterface: .wikiYiR, action: .learnClick, actionData: ["slide": isEntryC ? "start_c" : "start"])
     }
     
     func logYearInReviewDidTapNext(slideLoggingID: String) {
         logEvent(activeInterface: .wikiYiR, action: .nextClick, actionData: ["slide": slideLoggingID])
     }
     
-    func logYearInReviewFeatureAnnouncementDidAppear() {
-        logEvent(activeInterface: .wikiYiR, action: .impression, actionData: ["slide": "entry_a"])
+    func logYearInReviewFeatureAnnouncementDidAppear(isEntryA: Bool = true) {
+        logEvent(activeInterface: .wikiYiR, action: .impression, actionData: ["slide": isEntryA ? "entry_a" : "entry_c"])
     }
     
-    func logYearInReviewFeatureAnnouncementDidTapContinue() {
-        logEvent(activeInterface: .wikiYiR, action: .continueClick, actionData: ["slide": "entry_a"])
+    func logYearInReviewFeatureAnnouncementDidTapContinue(isEntryA: Bool = true) {
+        logEvent(activeInterface: .wikiYiR, action: .continueClick, actionData: ["slide": isEntryA ? "entry_a" : "entry_c"])
     }
     
-    func logYearInReviewFeatureAnnouncementDidTapClose() {
-        logEvent(activeInterface: .wikiYiR, action: .closeClick, actionData: ["slide": "entry_a"])
+    func logYearInReviewFeatureAnnouncementDidTapClose(isEntryA: Bool = true) {
+        logEvent(activeInterface: .wikiYiR, action: .closeClick, actionData: ["slide": isEntryA ? "entry_a" : "entry_c"])
     }
+    
     
     func logYearInReviewDidTapDonate(slideLoggingID: String, metricsID: String) {
         logEvent(activeInterface: .wikiYiR, action: .donateStartClickYir, actionData: [
             "slide": slideLoggingID,
             "campaign_id": metricsID])
+    }
+
+    func logYearInReviewLoginPromptDidAppear() {
+        logEvent(activeInterface: .wikiYiR, action: .impression, actionData: ["slide": "new_account_engage"])
+    }
+    
+    func logYearInReviewLoginPromptDidTapLogin() {
+        logEvent(activeInterface: .wikiYiR, action: .accountEngageClick, actionData: ["slide": "new_account_engage"])
+    }
+    
+    func logYearInReviewLoginPromptDidTapLoginProfile() {
+        logEvent(activeInterface: .wikiYiR, action: .accountEngageClick, actionData: ["slide": "entry_b_profile"])
+    }
+    
+    func logYearInReviewLoginPromptDidTapNoThanks() {
+        logEvent(activeInterface: .wikiYiR, action: .rejectClick, actionData: ["slide": "new_account_engage"])
+    }
+    
+    func logYearInReviewLoginPromptDidTapNoThanksProfile() {
+        logEvent(activeInterface: .wikiYiR, action: .rejectClick, actionData: ["slide": "entry_b_profile"])
+    }
+    
+    func logYearInReviewDidTapShare(slideLoggingID: String) {
+        logEvent(activeInterface: .wikiYiR, action: .shareClick, actionData: ["slide": slideLoggingID])
+    }
+    
+    func logYearInReviewSurveyDidAppear() {
+        logEvent(activeInterface: .wikiYiR, action: .impression, actionData: ["slide": "feedback_choice"])
+    }
+    
+    func logYearInReviewSurveyDidTapCancel() {
+        logEvent(activeInterface: .wikiYiR, action: .closeClick, actionData: ["slide": "feedback_choice"])
+    }
+    
+    func logYearInReviewSurveyDidSubmit(selected: [String], other: String?) {
+        
+        // strip "other", join by comma
+        let selectedJoined = selected.filter { $0 != "other" }.joined(separator: ",")
+        
+        var actionData: [String: String] = [
+            "slide": "feedback_choice",
+            "feedback_select": selectedJoined
+        ]
+
+        if let other, !other.isEmpty {
+            actionData["feedback_text"] = other
+        }
+        
+        logEvent(activeInterface: .wikiYiR, action: .feedbackSubmitClick, actionData: actionData)
+    }
+    
+    func logYearinReviewSurveySubmitSuccessToast() {
+        logEvent(activeInterface: .wikiYiR, action: .feedbackSubmitted)
+    }
+    
+    func logYearInReviewDonateSlideDidTapLearnMoreLink(slideLoggingID: String) {
+        logEvent(activeInterface: .wikiYiR, action: .learnClick, actionData: ["slide": slideLoggingID])
+    }
+    
+    func logYearInReviewDonateSlideLearnMoreWebViewDidAppear(slideLoggingID: String) {
+        logEvent(activeInterface: .wikiYiR, action: .impression, actionData: ["slide": slideLoggingID])
+    }
+    
+    func logYearInReviewDonateSlideLearnMoreWebViewDidTapDonateButton(metricsID: String) {
+        logEvent(activeInterface: .wikiYiR, action: .donateStartClickYir, actionData: ["slide": "about_wikimedia_base",
+                                                                                       "campaign_id": metricsID])
     }
     
     // Year in Review Donate flow events

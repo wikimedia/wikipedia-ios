@@ -790,7 +790,7 @@
 			<key>one</key>
 			<string>статијава ќе биде отстранета</string>
 			<key>other</key>
-			<string>статииве ќе бидат остранети</string>
+			<string>статииве ќе бидат отстранети</string>
 		</dict>
 	</dict>
 	<key>saved-unsave-article-and-remove-from-reading-lists-title</key>
@@ -908,7 +908,7 @@
 	<key>year-in-review-personalized-reading-subtitle-format</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Прочитавте %#@v1@ оваа година. Годинава Википедија имаше %2$@ милиони статии на преку %3$@ активни јазици. Се придруживте на милиони луѓе во проширување на знаењето и истражувањето на разновидни теми.</string>
+		<string>Годинава прочитавте %#@v1@. Википедија имаше %2$@ милиони статии на преку %3$@ активни јазици. Се придруживте на милиони луѓе во проширување на знаењето и истражувањето на разновидни теми.</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -921,10 +921,42 @@
 			<string>%1$d статии</string>
 		</dict>
 	</dict>
-	<key>year-in-review-personalized-reading-title- format</key>
+	<key>year-in-review-personalized-reading-title-format</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>Годинава прочитавте %#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d статија</string>
+			<key>other</key>
+			<string>%1$d статии</string>
+		</dict>
+	</dict>
+	<key>year-in-review-personalized-saved-subtitle-format</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Годинава зачувавте %#@v1@ како %2$@, %3$@ и %4$@. Секоја зачувана статија ги одразува вашите интереси и ни помага да изградиме персонализирана база на знаења на Википедија.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d статија</string>
+			<key>other</key>
+			<string>%1$d статии</string>
+		</dict>
+	</dict>
+	<key>year-in-review-personalized-saved-title-format</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Зачувавте %#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>

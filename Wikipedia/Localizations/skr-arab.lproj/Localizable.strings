@@ -373,6 +373,7 @@
 "places-title" = "جاہیں";
 "places-unknown-distance" = "نامعلوم پندھ";
 "profile-button-accessibility-label" = "پروفائل";
+// Fuzzy
 "profile-page-join-title" = "وکی پیڈیا نال رلت کرو/ لاگ ان تھیوو";
 "profile-page-title-logged-out" = "کھاتہ";
 "project-name-mediawiki" = "میڈیا وکی";
@@ -425,6 +426,8 @@
 "settings-notifications" = "اطلاع نامے";
 "settings-notifications-echo-failure-try-again" = "ولدا کوشش کرو";
 "settings-notifications-system-turn-on" = "اطلاع نامے چالو کرو";
+"settings-off" = "بند";
+"settings-on" = "آن";
 "settings-primary-language" = "ابتدائی";
 "settings-storage-and-syncing-erase-saved-articles-alert-title" = "محفوظ تھئے سارے مضمون مٹا ݙیووں؟";
 "settings-storage-and-syncing-erase-saved-articles-button-title" = "مٹاؤ";
@@ -523,13 +526,6 @@
 "wikitext-upload-save-sign-in" = "لاگ ان تھیوو";
 "wikitext-upload-save-terms-name" = "ورتݨ شرطاں";
 "year-in-review-donate" = "عطیہ";
-"year-in-review-done" = "تھی ڳیا";
-"year-in-review-get-started" = "شروع کرو";
-"year-in-review-next" = "اڳلا";
-"year-in-review-personalized-edit-count" = "$1";
-"year-in-review-personalized-read-count" = "$1";
-"year-in-review-share" = "شیئر";
-"year-in-review-start" = "ٻیا سِکھو";
 "year-in-review-survey-neutral" = "غیر جانبدار";
 "year-in-review-survey-satisfied" = "مطمئن";
 "year-in-review-survey-unsatisfied" = "غیر مطمئن";

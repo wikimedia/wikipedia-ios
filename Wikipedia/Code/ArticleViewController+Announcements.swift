@@ -131,7 +131,7 @@ extension ArticleViewController {
         if UIDevice.current.userInterfaceIdiom == .pad && navigationBar.hiddenHeight > 0 {
             return false
         }
-
+    
         guard let yirDataController = try? WMFYearInReviewDataController() else {
             return false
         }
@@ -145,23 +145,22 @@ extension ArticleViewController {
     
     // TODO: remove after expiry date (1 March 2025)
     func presentYearInReviewAnnouncement() {
-        
         guard let yirDataController = try? WMFYearInReviewDataController() else {
             return
         }
-
-        let title = CommonStrings.yirFeatureAnnoucementTitle
-        let body = CommonStrings.yirFeatureAnnoucementBody
+        
+        let title = dataStore.authenticationManager.authStateIsPermanent ?  CommonStrings.exploreYIRTitlePersonalized : CommonStrings.exploreYiRTitle
+        let body = dataStore.authenticationManager.authStateIsPermanent ? CommonStrings.yirFeatureAnnoucementBodyPersonalized : CommonStrings.yirFeatureAnnoucementBody
         let primaryButtonTitle = CommonStrings.continueButton
-        let image = UIImage(named: "wikipedia-globe")
-        let backgroundImage = UIImage(named: "Announcement")
+        let gifName = dataStore.authenticationManager.authStateIsPermanent ? "personal-slide-00" : "english-slide-00"
+        let altText = dataStore.authenticationManager.authStateIsPermanent ? CommonStrings.personalizedExploreAccessibilityLabel : CommonStrings.collectiveExploreAccessibilityLabel
 
-        let viewModel = WMFFeatureAnnouncementViewModel(title: title, body: body, primaryButtonTitle: primaryButtonTitle, image: image, backgroundImage:backgroundImage, primaryButtonAction: { [weak self] in
+        let viewModel = WMFFeatureAnnouncementViewModel(title: title, body: body, primaryButtonTitle: primaryButtonTitle, gifName: gifName, altText: altText, primaryButtonAction: { [weak self] in
             guard let self else { return }
             self.yirCoordinator?.start()
-            DonateFunnel.shared.logYearInReviewFeatureAnnouncementDidTapContinue()
+            DonateFunnel.shared.logYearInReviewFeatureAnnouncementDidTapContinue(isEntryA: !dataStore.authenticationManager.authStateIsPermanent)
         }, closeButtonAction: {
-            DonateFunnel.shared.logYearInReviewFeatureAnnouncementDidTapClose()
+            DonateFunnel.shared.logYearInReviewFeatureAnnouncementDidTapClose(isEntryA: !self.dataStore.authenticationManager.authStateIsPermanent)
         })
 
         if navigationBar.superview != nil {
@@ -169,7 +168,7 @@ extension ArticleViewController {
             let yOrigin = view.safeAreaInsets.top + navigationBar.barTopSpacing + 15
             let sourceRect = CGRect(x:  xOrigin, y: yOrigin, width: 30, height: 30)
             announceFeature(viewModel: viewModel, sourceView: self.view, sourceRect: sourceRect)
-            DonateFunnel.shared.logYearInReviewFeatureAnnouncementDidAppear()
+            DonateFunnel.shared.logYearInReviewFeatureAnnouncementDidAppear(isEntryA: !dataStore.authenticationManager.authStateIsPermanent)
         }
         
         yirDataController.hasPresentedYiRFeatureAnnouncementModel = true

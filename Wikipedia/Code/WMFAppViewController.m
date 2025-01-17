@@ -16,6 +16,8 @@
 #import "Wikipedia-Swift.h"
 #import "EXTScope.h"
 
+@import WMFData;
+
 /**
  *  Enums for each tab in the main tab bar.
  */
@@ -398,7 +400,6 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
     [self checkRemoteAppConfigIfNecessary];
     [self.periodicWorkerController start];
     [self.savedArticlesFetcher start];
-    [self populateYearInReviewReportFor:2024];
 }
 
 - (void)performTasksThatShouldOccurAfterAnnouncementsUpdated {
@@ -988,6 +989,9 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
     [resumeAndAnnouncementsCompleteGroup enter];
     [self.dataStore.authenticationManager
         attemptLoginWithCompletion:^{
+        
+            [self populateYearInReviewReportFor:WMFYearInReviewDataController.targetYear];
+        
             [self checkRemoteAppConfigIfNecessary];
             if (!self.reachabilityNotifier) {
                 @weakify(self);
@@ -2210,6 +2214,8 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
                                                             force:YES
                                                        completion:nil];
     });
+    
+    [self deleteYearInReviewPersonalizedEditingData];
 }
 
 - (void)userWasLoggedIn:(NSNotification *)note {
@@ -2222,6 +2228,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
             [self.dataStore.feedContentController updateContentSource:[WMFAnnouncementsContentSource class]
                                                                 force:YES
                                                            completion:nil];
+            [self populateYearInReviewReportFor:WMFYearInReviewDataController.targetYear];
         }
 
         [self.dataStore.feedContentController updateContentSource:[WMFSuggestedEditsContentSource class]

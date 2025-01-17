@@ -28,7 +28,25 @@ public final class WMFPageViewCount: Identifiable {
    }
  }
 
-public final class WMFPageViewImportRequest {
+public final class WMFPageViewDay: Decodable, Encodable {
+    public let day: Int
+    public let viewCount: Int
+    
+    public init(day: Int, viewCount: Int) {
+        self.day = day
+        self.viewCount = viewCount
+    }
+
+    public func getViewCount() -> Int {
+        viewCount
+    }
+    
+    public func getDay() -> Int {
+        day
+    }
+}
+
+public final class WMFLegacyPageView {
     let title: String
     let project: WMFProject
     let viewedDate: Date
@@ -75,7 +93,7 @@ public final class WMFPageViewsDataController {
             let viewedPage = try self.coreDataStore.create(entityType: CDPageView.self, in: backgroundContext)
             viewedPage.page = page
             viewedPage.timestamp = currentDate
-
+            
             try self.coreDataStore.saveIfNeeded(moc: backgroundContext)
         }
     }
@@ -116,12 +134,12 @@ public final class WMFPageViewsDataController {
             let batchPageViewDeleteRequest = NSBatchDeleteRequest(fetchRequest: pageViewFetchRequest)
             batchPageViewDeleteRequest.resultType = .resultTypeObjectIDs
             _ = try backgroundContext.execute(batchPageViewDeleteRequest) as? NSBatchDeleteResult
-
+            
             backgroundContext.refreshAllObjects()
         }
     }
     
-    public func importPageViews(requests: [WMFPageViewImportRequest]) async throws {
+    public func importPageViews(requests: [WMFLegacyPageView]) async throws {
         
         let backgroundContext = try coreDataStore.newBackgroundContext
         try await backgroundContext.perform {
@@ -165,7 +183,7 @@ public final class WMFPageViewsDataController {
                 }
                 
                 guard let page = context.object(with: objectID) as? CDPage,
-                    let projectID = page.projectID, let title = page.title else {
+                      let projectID = page.projectID, let title = page.title else {
                     continue
                 }
                 
@@ -174,6 +192,41 @@ public final class WMFPageViewsDataController {
                 pageViewCounts.append(WMFPageViewCount(page: WMFPage(namespaceID: Int(namespaceID), projectID: projectID, title: title), count: count))
             }
             return pageViewCounts
+        }
+        
+        return results
+    }
+    
+    public func fetchPageViewDates(startDate: Date, endDate: Date, moc: NSManagedObjectContext? = nil) throws -> [WMFPageViewDay] {
+        let context: NSManagedObjectContext
+        if let moc {
+            context = moc
+        } else {
+            context = try coreDataStore.viewContext
+        }
+        
+        let results: [WMFPageViewDay] = try context.performAndWait {
+            let predicate = NSPredicate(format: "timestamp >= %@ && timestamp <= %@", startDate as CVarArg, endDate as CVarArg)
+            let cdPageViews = try self.coreDataStore.fetch(entityType: CDPageView.self, predicate: predicate, fetchLimit: nil, in: context)
+            
+            guard let cdPageViews = cdPageViews else {
+                return []
+            }
+            
+            var countsDictionary: [Int: Int] = [:]
+            
+            for cdPageView in cdPageViews {
+                if let timestamp = cdPageView.timestamp {
+                    let calendar = Calendar.current
+                    let dayOfWeek = calendar.component(.weekday, from: timestamp) // Sunday = 1, Monday = 2, ..., Saturday = 7
+                    
+                    countsDictionary[dayOfWeek, default: 0] += 1
+                }
+            }
+            
+            return countsDictionary.sorted(by: { $0.key < $1.key }).map { dayOfWeek, count in
+                WMFPageViewDay(day: dayOfWeek, viewCount: count)
+            }
         }
         
         return results

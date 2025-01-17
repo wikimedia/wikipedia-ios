@@ -947,6 +947,7 @@
 "problem-with-feature-title" = "Özellikle ilgili sorun";
 "profile-button-accessibility-label" = "Profil";
 "profile-page-join-subtext" = "Katkılarınızı takip etmek, maddeleri çevrimdışı kaydetmek ve aygıtlar arasında senkronize etmek için bir Vikipedi hesabına kaydolun.";
+// Fuzzy
 "profile-page-join-title" = "Vikipedi'ye katılın / Giriş yapın";
 "profile-page-title-logged-out" = "Hesap";
 "project-name-mediawiki" = "MediaWiki";
@@ -1374,5 +1375,3 @@
 "wikitext-upload-save-sign-in" = "Oturum aç";
 "wikitext-upload-save-terms-and-licenses-ccsa4" = "Değişiklikleri yayımlayarak $1Kullanım Koşullarını$2 kabul eder ve katkınızı $3CC BY-SA 4.0$4 Lisansı ve $5GFDL$6 kapsamında yayımlamayı geri alınamaz şekilde kabul edersiniz. Creative Commons lisansı altında, bir bağlantı ya da URL'nin yeterli bir atıf olduğunu kabul edersiniz.";
 "wikitext-upload-save-terms-name" = "Kullanım Şartları";
-"year-in-review-next" = "Sonraki";
-"year-in-review-share" = "Paylaş";

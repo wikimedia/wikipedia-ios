@@ -9,12 +9,14 @@
     }
   ],
   "defaultOptions" : {
+    "language" : "en",
+    "region" : "US",
     "testTimeoutsEnabled" : true
   },
   "testTargets" : [
     {
       "target" : {
-        "containerPath" : "container:..\/WMFData",
+        "containerPath" : "container:",
         "identifier" : "WMFDataTests",
         "name" : "WMFDataTests"
       }
