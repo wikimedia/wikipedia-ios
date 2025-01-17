@@ -1,4 +1,5 @@
 import Foundation
+import WMFComponents
 
 enum ReadingListsDisplayType {
     case readingListsTab, addArticlesToReadingList
@@ -7,10 +8,13 @@ enum ReadingListsDisplayType {
 protocol ReadingListsViewControllerDelegate: NSObjectProtocol {
     func readingListsViewController(_ readingListsViewController: ReadingListsViewController, didAddArticles articles: [WMFArticle], to readingList: ReadingList)
     func readingListsViewControllerDidChangeEmptyState(_ readingListsViewController: ReadingListsViewController, isEmpty: Bool)
+    func scrollViewDidScroll(scrollView: UIScrollView)
 }
 
 @objc(WMFReadingListsViewController)
-class ReadingListsViewController: ColumnarCollectionViewController, EditableCollection, UpdatableCollection {
+class ReadingListsViewController: ColumnarCollectionViewController, EditableCollection, UpdatableCollection, SearchableCollection {
+    
+    fileprivate static let headerReuseIdentifier = "CreateNewReadingListButtonView"
 
     typealias T = ReadingList
     let dataStore: MWKDataStore
@@ -23,6 +27,43 @@ class ReadingListsViewController: ColumnarCollectionViewController, EditableColl
     private var displayType: ReadingListsDisplayType = .readingListsTab
     public weak var delegate: ReadingListsViewControllerDelegate?
     private var createReadingListViewController: CreateReadingListViewController?
+    private var needsCreateReadingListButton: Bool = false
+    
+    // MARK: - Searching
+    
+    var searchString: String?
+    
+    var searchPredicate: NSPredicate? {
+        guard let searchString = searchString else {
+            return nil
+        }
+        return NSPredicate(format: "(canonicalName CONTAINS[cd] '\(searchString)')")
+    }
+    
+    // MARK: - Sorting
+    
+    private var sortActionType = SortActionType.byTitle
+    
+    lazy var sortActions: [SortActionType: SortAction] = {
+        let moc = dataStore.viewContext
+        let updateSortOrder: (Int) -> Void = { [weak self] (rawValue: Int) in
+            self?.sortActionType = SortActionType(rawValue: rawValue) ?? .byTitle
+        }
+        
+        let handler: ([NSSortDescriptor], UIAlertAction, Int) -> Void = { [weak self] (_: [NSSortDescriptor], _: UIAlertAction, rawValue: Int) in
+            updateSortOrder(rawValue)
+            self?.reset()
+        }
+        
+        let titleSortAction = SortActionType.byTitle.action(with: [NSSortDescriptor(keyPath: \ReadingList.canonicalName, ascending: true)], handler: handler)
+        let recentlyAddedSortAction = SortActionType.byRecentlyAdded.action(with: [NSSortDescriptor(keyPath: \ReadingList.createdDate, ascending: false)], handler: handler)
+        
+        return [titleSortAction.type: titleSortAction, recentlyAddedSortAction.type: recentlyAddedSortAction]
+    }()
+    
+    lazy var sortAlert: UIAlertController = {
+        alert(title: CommonStrings.sortAlertTitle, message: nil)
+    }()
     
     func setupFetchedResultsController() {
         let request: NSFetchRequest<ReadingList> = ReadingList.fetchRequest()
@@ -43,15 +84,22 @@ class ReadingListsViewController: ColumnarCollectionViewController, EditableColl
             subpredicates.append(basePredicate)
             request.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: subpredicates)
         } else {
-            var predicate = basePredicate
+            
+            var predicates: [NSPredicate] = [basePredicate]
             if !isDefaultListEnabled {
-                predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [NSPredicate(format: "isDefault != YES"), basePredicate])
+                predicates.append(NSPredicate(format: "isDefault != YES"))
             }
-            request.predicate = predicate
+            
+            if let searchPredicate {
+                predicates.append(searchPredicate)
+            }
+            
+            let finalPredicate = predicates.count == 1 ? predicates.first : NSCompoundPredicate(andPredicateWithSubpredicates: predicates)
+
+            request.predicate = finalPredicate
         }
         
-        var sortDescriptors = baseSortDescriptors
-        sortDescriptors.append(NSSortDescriptor(key: "canonicalName", ascending: true, selector: #selector(NSString.localizedCaseInsensitiveCompare)))
+        let sortDescriptors = sortActions[sortActionType]?.sortDescriptors
         request.sortDescriptors = sortDescriptors
         fetchedResultsController = NSFetchedResultsController(fetchRequest: request, managedObjectContext: dataStore.viewContext, sectionNameKeyPath: nil, cacheName: nil)
     }
@@ -77,13 +125,14 @@ class ReadingListsViewController: ColumnarCollectionViewController, EditableColl
     init(with dataStore: MWKDataStore) {
         self.dataStore = dataStore
         self.readingListsController = dataStore.readingListsController
-        super.init()
+        super.init(nibName: nil, bundle: nil)
     }
     
-    convenience init(with dataStore: MWKDataStore, articles: [WMFArticle]) {
+    convenience init(with dataStore: MWKDataStore, articles: [WMFArticle], needsCreateReadingListButton: Bool = false) {
         self.init(with: dataStore)
         self.articles = articles
         self.displayType = .addArticlesToReadingList
+        self.needsCreateReadingListButton = needsCreateReadingListButton
     }
     
     convenience init(with dataStore: MWKDataStore, readingLists: [ReadingList]?) {
@@ -98,6 +147,7 @@ class ReadingListsViewController: ColumnarCollectionViewController, EditableColl
     override func viewDidLoad() {
         super.viewDidLoad()
         layoutManager.register(ReadingListsCollectionViewCell.self, forCellWithReuseIdentifier: ReadingListsCollectionViewCell.identifier, addPlaceholder: true)
+        layoutManager.register(UINib(nibName: Self.headerReuseIdentifier, bundle: nil), forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: Self.headerReuseIdentifier, addPlaceholder: false)
         emptyViewType = .noReadingLists
         emptyViewTarget = self
         emptyViewAction = #selector(presentCreateReadingListViewController)
@@ -143,8 +193,8 @@ class ReadingListsViewController: ColumnarCollectionViewController, EditableColl
             return
         }
         createReadingListViewController.delegate = self
-        let navigationController = WMFThemeableNavigationController(rootViewController: createReadingListViewController, theme: theme, style: .sheet)
-        createReadingListViewController.navigationItem.rightBarButtonItem = UIBarButtonItem.wmf_buttonType(WMFButtonType.X, target: self, action: #selector(dismissCreateReadingListViewController))
+        let navigationController = WMFComponentNavigationController(rootViewController: createReadingListViewController, modalPresentationStyle: .overFullScreen)
+        
         present(navigationController, animated: true, completion: nil)
     }
     
@@ -165,13 +215,7 @@ class ReadingListsViewController: ColumnarCollectionViewController, EditableColl
         }
     }
 
-    public lazy var createNewReadingListButtonView: CreateNewReadingListButtonView = {
-        let createNewReadingListButtonView = CreateNewReadingListButtonView.wmf_viewFromClassNib()
-        createNewReadingListButtonView?.title = CommonStrings.createNewListTitle
-        createNewReadingListButtonView?.button.addTarget(self, action: #selector(presentCreateReadingListViewController), for: .touchUpInside)
-        createNewReadingListButtonView?.apply(theme: theme)
-        return createNewReadingListButtonView!
-    }()
+    private var createNewReadingListButtonView: CreateNewReadingListButtonView?
     
     // MARK: - Cell configuration
     
@@ -209,6 +253,14 @@ class ReadingListsViewController: ColumnarCollectionViewController, EditableColl
         estimate.height = placeholderCell.sizeThatFits(CGSize(width: columnWidth, height: UIView.noIntrinsicMetric), apply: false).height
         estimate.precalculated = true
         return estimate
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, estimatedHeightForHeaderInSection section: Int, forColumnWidth columnWidth: CGFloat) -> ColumnarCollectionViewLayoutHeightEstimate {
+
+        guard section == 0, needsCreateReadingListButton else {
+            return ColumnarCollectionViewLayoutHeightEstimate(precalculated: false, height: 0)
+        }
+        return ColumnarCollectionViewLayoutHeightEstimate(precalculated: false, height: 100)
     }
     
     override func metrics(with size: CGSize, readableWidth: CGFloat, layoutMargins: UIEdgeInsets) -> ColumnarCollectionViewLayoutMetrics {
@@ -278,6 +330,7 @@ class ReadingListsViewController: ColumnarCollectionViewController, EditableColl
     override func scrollViewDidScroll(_ scrollView: UIScrollView) {
         super.scrollViewDidScroll(scrollView)
         editController.transformBatchEditPaneOnScroll()
+        delegate?.scrollViewDidScroll(scrollView: scrollView)
     }
 
     // MARK: Themeable
@@ -285,7 +338,7 @@ class ReadingListsViewController: ColumnarCollectionViewController, EditableColl
     override func apply(theme: Theme) {
         super.apply(theme: theme)
         view.backgroundColor = theme.colors.paperBackground
-        createNewReadingListButtonView.apply(theme: theme)
+        createNewReadingListButtonView?.apply(theme: theme)
     }
 }
 
@@ -342,6 +395,22 @@ extension ReadingListsViewController {
         }
         configure(cell: readingListCell, forItemAt: indexPath, layoutOnly: false)
         return cell
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        guard needsCreateReadingListButton, indexPath.section == 0 else {
+            return super.collectionView(collectionView, viewForSupplementaryElementOfKind: kind, at: indexPath)
+        }
+        
+        if let buttonView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: Self.headerReuseIdentifier, for: indexPath) as? CreateNewReadingListButtonView {
+            self.createNewReadingListButtonView = buttonView
+            buttonView.title = CommonStrings.createNewListTitle
+            buttonView.button.addTarget(self, action: #selector(presentCreateReadingListViewController), for: .touchUpInside)
+            buttonView.apply(theme: theme)
+            return buttonView
+        }
+    
+         return UICollectionReusableView()
     }
 }
 
@@ -452,4 +521,59 @@ extension ReadingListsViewController: ActionDelegate {
         return [ActionType.delete.action(with: self, indexPath: indexPath)]
     }
 
+}
+
+// MARK: - SavedViewControllerDelegate
+
+extension ReadingListsViewController: SavedViewControllerDelegate {
+    func savedWillShowSortAlert(_ saved: SavedViewController, from button: UIBarButtonItem) {
+        presentSortAlert(from: button)
+    }
+    
+    func saved(_ saved: SavedViewController, searchBar: UISearchBar, textDidChange searchText: String) {
+        updateSearchString(searchText)
+        
+        if searchText.isEmpty {
+            makeSearchBarResignFirstResponder(searchBar)
+        }
+    }
+    
+    func saved(_ saved: SavedViewController, searchBarSearchButtonClicked searchBar: UISearchBar) {
+        makeSearchBarResignFirstResponder(searchBar)
+    }
+    
+    func saved(_ saved: SavedViewController, searchBarTextDidBeginEditing searchBar: UISearchBar) {
+    }
+    
+    func saved(_ saved: SavedViewController, searchBarTextDidEndEditing searchBar: UISearchBar) {
+        updateSearchString("")
+        makeSearchBarResignFirstResponder(searchBar)
+    }
+    
+    private func makeSearchBarResignFirstResponder(_ searchBar: UISearchBar) {
+        searchBar.resignFirstResponder()
+    }
+    
+    func saved(_ saved: SavedViewController, scopeBarIndexDidChange searchBar: UISearchBar) {
+        updateSearchString("")
+        makeSearchBarResignFirstResponder(searchBar)
+    }
+}
+
+// MARK: - SortableCollection
+
+extension ReadingListsViewController: SortableCollection {
+    
+    var sort: (descriptors: [NSSortDescriptor], alertAction: UIAlertAction?) {
+
+        guard let sortAction = sortActions[sortActionType] else {
+            return ([], nil)
+        }
+        
+        return (sortAction.sortDescriptors, sortAction.alertAction)
+    }
+    
+    var defaultSortAction: SortAction? {
+        return sortActions[.byRecentlyAdded]
+    }
 }

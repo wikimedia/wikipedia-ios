@@ -31,6 +31,7 @@ public final class WMFFeatureAnnouncementViewController: WMFCanvasViewController
     }
     
     public override func appEnvironmentDidChange() {
+        super.appEnvironmentDidChange()
         view.backgroundColor = WMFAppEnvironment.current.theme.popoverBackground
         hostingViewController.view.backgroundColor = WMFAppEnvironment.current.theme.popoverBackground
     }

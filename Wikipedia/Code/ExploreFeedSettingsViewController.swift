@@ -155,11 +155,14 @@ private class FeedCard: ExploreFeedSettingsItem {
 }
 
 @objc(WMFExploreFeedSettingsViewController)
-class ExploreFeedSettingsViewController: BaseExploreFeedSettingsViewController {
+class ExploreFeedSettingsViewController: BaseExploreFeedSettingsViewController, WMFNavigationBarConfiguring {
+    
+    public var showCloseButton = false
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         tableView.reloadData()
+        configureNavigationBar()
     }
 
     override func viewWillDisappear(_ animated: Bool) {
@@ -169,21 +172,21 @@ class ExploreFeedSettingsViewController: BaseExploreFeedSettingsViewController {
         }
     }
 
-    public var showCloseButton = false {
-        didSet {
-            if showCloseButton {
-                navigationItem.leftBarButtonItem = UIBarButtonItem.wmf_buttonType(.X, target: self, action: #selector(closeButtonPressed))
-            } else {
-                navigationItem.leftBarButtonItem = nil
-            }
-        }
-    }
-
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = CommonStrings.exploreFeedTitle
         assert(!preferredLanguages.isEmpty)
         displayType = preferredLanguages.count == 1 ? .singleLanguage : .multipleLanguages
+    }
+    
+    private func configureNavigationBar() {
+        let titleConfig = WMFNavigationBarTitleConfig(title: CommonStrings.exploreFeedTitle, customView: nil, alignment: .centerCompact)
+        var closeConfig: WMFNavigationBarCloseButtonConfig? = nil
+        
+        if showCloseButton {
+            closeConfig = WMFNavigationBarCloseButtonConfig(text: CommonStrings.doneTitle, target: self, action: #selector(closeButtonPressed), alignment: .trailing)
+        }
+        
+        configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: closeConfig, profileButtonConfig: nil, searchBarConfig: nil, hideNavigationBarOnScroll: false)
     }
 
     @objc private func closeButtonPressed() {

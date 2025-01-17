@@ -15,7 +15,7 @@ enum ThanksGivingSource {
     case unknown
 }
 
-extension ThanksGiving where Self: ViewController {
+extension ThanksGiving where Self: ThemeableViewController {
 
     var source: ThanksGivingSource {
         

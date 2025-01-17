@@ -366,6 +366,7 @@ class WMFEditorInputView: WMFComponentView {
     // MARK: - Overrides
     
     override func appEnvironmentDidChange() {
+        super.appEnvironmentDidChange()
         updateColors()
     }
     

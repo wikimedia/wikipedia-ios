@@ -75,8 +75,6 @@ public struct NavigationState: Codable {
             public var readingListURIString: String?
             
             public var searchTerm: String?
-
-            public var shouldShowNavigationBar: Bool?
             
             public var contentGroupIDURIString: String?
 
@@ -86,7 +84,7 @@ public struct NavigationState: Codable {
             
             // TODO: Remove after moving to Swift 5.1 -
             // https://github.com/apple/swift-evolution/blob/master/proposals/0242-default-values-memberwise.md
-            public init(url: URL? = nil, selectedIndex: Int? = nil, articleKey: String? = nil, articleSectionAnchor: String? = nil, talkPageSiteURLString: String? = nil, talkPageTitle: String? = nil, talkPageTypeRawValue: Int? = nil, currentSavedViewRawValue: Int? = nil, readingListURIString: String? = nil, searchTerm: String? = nil, shouldShowNavigationBar: Bool? = nil, contentGroupIDURIString: String? = nil, presentedContentGroupKey: String? = nil) {
+            public init(url: URL? = nil, selectedIndex: Int? = nil, articleKey: String? = nil, articleSectionAnchor: String? = nil, talkPageSiteURLString: String? = nil, talkPageTitle: String? = nil, talkPageTypeRawValue: Int? = nil, currentSavedViewRawValue: Int? = nil, readingListURIString: String? = nil, searchTerm: String? = nil, contentGroupIDURIString: String? = nil, presentedContentGroupKey: String? = nil) {
                 self.url = url
                 self.selectedIndex = selectedIndex
                 self.articleKey = articleKey
@@ -97,7 +95,6 @@ public struct NavigationState: Codable {
                 self.currentSavedViewRawValue = currentSavedViewRawValue
                 self.readingListURIString = readingListURIString
                 self.searchTerm = searchTerm
-                self.shouldShowNavigationBar = shouldShowNavigationBar
                 self.contentGroupIDURIString = contentGroupIDURIString
                 self.presentedContentGroupKey = presentedContentGroupKey
             }

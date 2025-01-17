@@ -1,6 +1,7 @@
 import UIKit
+import WMFComponents
 
-class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewControllerDelegate, UITextFieldDelegate, UIScrollViewDelegate, Themeable {
+class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewControllerDelegate, UITextFieldDelegate, UIScrollViewDelegate, Themeable, WMFNavigationBarConfiguring {
     @IBOutlet fileprivate var usernameField: ThemeableTextField!
     @IBOutlet fileprivate var passwordRepeatField: ThemeableTextField!
     @IBOutlet fileprivate var emailField: ThemeableTextField!
@@ -57,7 +58,7 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
         }
         dismiss(animated: true, completion: {
             loginVC.apply(theme: self.theme)
-            presenter.present(WMFThemeableNavigationController(rootViewController: loginVC, theme: self.theme), animated: true, completion: nil)
+            presenter.present(WMFComponentNavigationController(rootViewController: loginVC, modalPresentationStyle: .overFullScreen), animated: true, completion: nil)
         })
     }
     
@@ -73,9 +74,6 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named:"close"), style: .plain, target:self, action:#selector(closeButtonPushed(_:)))
-        navigationItem.leftBarButtonItem?.accessibilityLabel = CommonStrings.closeButtonAccessibilityLabel
 
         createAccountButton.setTitle(WMFLocalizedString("account-creation-create-account", value:"Create your account", comment:"Text for create account button"), for: .normal)
         
@@ -112,6 +110,13 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
         
         updateEmailFieldReturnKeyType()
         enableProgressiveButtonIfNecessary()
+        configureNavigationBar()
+    }
+    
+    private func configureNavigationBar() {
+        let titleConfig = WMFNavigationBarTitleConfig(title: "", customView: nil, alignment: .hidden)
+        let closeConfig = WMFNavigationBarCloseButtonConfig(text: CommonStrings.doneTitle, target: self, action: #selector(closeButtonPushed(_:)), alignment: .leading)
+        configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: closeConfig, profileButtonConfig: nil, searchBarConfig: nil, hideNavigationBarOnScroll: false)
     }
     
     fileprivate func getCaptcha() {

@@ -28,7 +28,24 @@ extension WMFReferencePageViewAppearanceDelegate where Self: ArticleScrolling {
     }
 }
 
-extension UIPageViewControllerDelegate where Self: ArticleScrolling & ViewController {
+// TODO: Fix duplication
+
+extension UIPageViewControllerDelegate where Self: ArticleScrolling & EditPreviewViewController {
+    /// This function needs to be called by `pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool)`. Due to objc issues, the delegate's cannot have a default extension with this actual method that is called.
+    func didFinishAnimating(_ pageViewController: UIPageViewController) {
+        guard
+            let firstRefVC = pageViewController.viewControllers?.first as? WMFReferencePanelViewController,
+            let ref = firstRefVC.reference
+            else {
+                return
+        }
+        (presentedViewController as? WMFReferencePageViewController)?.currentReference = ref
+        webView.wmf_unHighlightAllLinkIDs()
+        webView.wmf_highlightLinkID(ref.refId)
+    }
+}
+
+extension UIPageViewControllerDelegate where Self: ArticleScrolling & ArticleViewController {
     /// This function needs to be called by `pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool)`. Due to objc issues, the delegate's cannot have a default extension with this actual method that is called.
     func didFinishAnimating(_ pageViewController: UIPageViewController) {
         guard

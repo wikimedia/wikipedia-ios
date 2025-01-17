@@ -16,7 +16,7 @@ final fileprivate class WMFAltTextExperimentPreviewHostingViewController: WMFCom
     }
 }
 
-final public class WMFAltTextExperimentPreviewViewController: WMFCanvasViewController {
+final public class WMFAltTextExperimentPreviewViewController: WMFCanvasViewController, WMFNavigationBarConfiguring {
 
     // MARK: Properties
 
@@ -44,18 +44,23 @@ final public class WMFAltTextExperimentPreviewViewController: WMFCanvasViewContr
 
     public override func viewDidLoad() {
         super.viewDidLoad()
-        title = viewModel.localizedStrings.title
-        navigationItem.backButtonDisplayMode = .generic
-        let image = WMFSFSymbolIcon.for(symbol: .chevronBackward, font: .boldCallout)
-        navigationItem.leftBarButtonItem = UIBarButtonItem(image: image, style: .plain, target: self, action: #selector(tappedBack))
-        publishButton = UIBarButtonItem(title: viewModel.localizedStrings.publishTitle, style: .done, target: self, action: #selector(publishWikitext))
-        navigationItem.rightBarButtonItem = publishButton
+ 
         addComponent(hostingViewController, pinToEdges: true)
     }
     
     public override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        navigationController?.setNavigationBarHidden(false, animated: false)
+        
+        configureNavigationBar()
+    }
+    
+    private func configureNavigationBar() {
+        let titleConfig = WMFNavigationBarTitleConfig(title: viewModel.localizedStrings.title, customView: nil, alignment: .centerCompact)
+        
+        configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: nil, profileButtonConfig: nil, searchBarConfig: nil, hideNavigationBarOnScroll: false)
+        
+        publishButton = UIBarButtonItem(title: viewModel.localizedStrings.publishTitle, style: .done, target: self, action: #selector(publishWikitext))
+        navigationItem.rightBarButtonItem = publishButton
     }
 
     // MARK: Public Methods
@@ -69,10 +74,6 @@ final public class WMFAltTextExperimentPreviewViewController: WMFCanvasViewContr
     @objc private func publishWikitext() {
         self.delegate?.didTapPublish(viewModel: self.viewModel)
         updatePublishButtonState(isEnabled: false)
-    }
-
-    @objc private func tappedBack() {
-        navigationController?.popViewController(animated: true)
     }
 
 }

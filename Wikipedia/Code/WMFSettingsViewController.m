@@ -5,7 +5,6 @@
 #import "WMFSettingsViewController.h"
 #import "WMFLanguagesViewController.h"
 #import "AboutViewController.h"
-#import "UIBarButtonItem+WMFButtonConvenience.h"
 #import "UIViewController+WMFStoryboardUtilities.h"
 @import WMFData;
 
@@ -18,7 +17,7 @@ static NSString *const WMFSettingsURLTerms = @"https://foundation.m.wikimedia.or
 static NSString *const WMFSettingsURLRate = @"itms-apps://itunes.apple.com/app/id324715238";
 static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?utm_medium=WikipediaApp&utm_campaign=iOS&utm_source=appmenu&app_version=<app-version>&uselang=<langcode>";
 
-@interface WMFSettingsViewController () <UITableViewDelegate, UITableViewDataSource, WMFAccountViewControllerDelegate, WMFLogoutCoordinatorDelegate>
+@interface WMFSettingsViewController () <UITableViewDelegate, UITableViewDataSource, WMFAccountViewControllerDelegate>
 
 @property (nonatomic, strong, readwrite) MWKDataStore *dataStore;
 
@@ -27,19 +26,18 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 
 @property (nullable, nonatomic) WMFAuthenticationManager *authManager;
 @property (readwrite, nonatomic, strong) WMFDonateDataController *donateDataController;
-@property (nullable, nonatomic, strong) WMFProfileCoordinator *profileCoordinator;
 @property (nullable, nonatomic, strong) WMFYearInReviewCoordinator *yirCoordinator;
 
 @end
 
 @implementation WMFSettingsViewController
 
-+ (instancetype)settingsViewControllerWithDataStore:(MWKDataStore *)store {
++ (instancetype)settingsViewControllerWithDataStore:(MWKDataStore *)store theme:(WMFTheme *)theme {
     NSParameterAssert(store);
     WMFSettingsViewController *vc = [WMFSettingsViewController wmf_initialViewControllerFromClassStoryboard];
     vc.dataStore = store;
     vc.donateDataController = [WMFDonateDataController sharedInstance];
-
+    vc.theme = theme;
     return vc;
 }
 
@@ -62,8 +60,6 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 
     self.authManager = self.dataStore.authenticationManager;
 
-    self.navigationBar.displayType = NavigationBarDisplayTypeLargeTitle;
-
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pushNotificationBannerDidDisplayInForeground:) name:NSNotification.pushNotificationBannerDidDisplayInForeground object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(userWasLoggedIn:)
@@ -73,6 +69,9 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
                                              selector:@selector(userWasLoggedOut:)
                                                  name:[WMFAuthenticationManager didLogOutNotification]
                                                object:nil];
+    
+    [self setupTopSafeAreaOverlayFromObjCWithScrollView:self.tableView];
+    [self applyTheme:self.theme];
 }
 
 - (void)dealloc {
@@ -91,46 +90,26 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 }
 
 - (void)viewWillAppear:(BOOL)animated {
-    [self configureBarButtonItems];
-    [self.navigationController setNavigationBarHidden:YES];
     [super viewWillAppear:animated];
-    self.navigationController.toolbarHidden = YES;
     [self loadSections];
-
-    /// Terrible hack to make back button text appropriate for iOS 14 - need to set the title on `WMFAppViewController`. For all app tabs, this is set in `viewWillAppear`.
-    self.parentViewController.navigationItem.backButtonTitle = self.title;
+    
+    [self configureNavigationBarFromObjC];
 }
 
-- (void)configureBarButtonItems {
-    if (self.tabBarController == nil) {
-        // Always show close button if presented modally
-        UIBarButtonItem *xButton = [UIBarButtonItem wmf_buttonType:WMFButtonTypeX target:self action:@selector(closeButtonPressed)];
-        xButton.accessibilityLabel = [WMFCommonStrings closeButtonAccessibilityLabel];
-        self.navigationItem.leftBarButtonItem = xButton;
-    } else {
-        [self updateProfileViewButton];
-    }
-
-    [self.navigationBar updateNavigationItems];
+- (void)traitCollectionDidChange:(nullable UITraitCollection *)previousTraitCollection {
+    [super traitCollectionDidChange:previousTraitCollection];
+    
+    [self configureNavigationBarFromObjC];
 }
 
-- (void)updateProfileViewButton {
-    NSInteger numUnreadNotifications = [[self.dataStore.remoteNotificationsController numberOfUnreadNotificationsAndReturnError:nil] integerValue];
-    BOOL hasUnreadNotifications = numUnreadNotifications != 0;
-    UIImage *image = [BarButtonImageStyle profileButtonImageForTheme:self.theme indicated:hasUnreadNotifications isExplore:true];
-    UIBarButtonItem *profileViewButtonItem = [[UIBarButtonItem alloc] initWithImage:image style:UIBarButtonItemStylePlain target:self action:@selector(userDidTapProfile)];
-    profileViewButtonItem.accessibilityLabel = hasUnreadNotifications ? WMFCommonStrings.profileButtonBadgeTitle : WMFCommonStrings.profileButtonTitle;
-    profileViewButtonItem.accessibilityHint = WMFCommonStrings.profileButtonAccessibilityHint;
-    self.navigationItem.leftBarButtonItem = profileViewButtonItem;
-}
-
-- (void)closeButtonPressed {
-    [[WMFNavigationEventsFunnel shared] logTappedSettingsCloseButton];
-    [self dismissViewControllerAnimated:YES completion:nil];
-}
-
-- (nullable NSString *)title {
-    return [WMFCommonStrings settingsTitle];
+- (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
+    [super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
+    
+    @weakify(self);
+    [coordinator animateAlongsideTransition:nil completion:^(id<UIViewControllerTransitionCoordinatorContext>  _Nonnull context) {
+        @strongify(self);
+        [self calculateTopSafeAreaOverlayHeightFromObjC];
+    }];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
@@ -331,8 +310,8 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 #pragma mark - Presentation
 
 - (void)presentViewControllerWrappedInNavigationController:(UIViewController<WMFThemeable> *)viewController {
-    WMFThemeableNavigationController *themeableNavController = [[WMFThemeableNavigationController alloc] initWithRootViewController:viewController theme:self.theme style:WMFThemeableNavigationControllerStyleSheet];
-    [self presentViewController:themeableNavController animated:YES completion:nil];
+    WMFComponentNavigationController *navVC = [[WMFComponentNavigationController alloc] initWithRootViewController:viewController modalPresentationStyle:UIModalPresentationOverFullScreen];
+    [self presentViewController:navVC animated:YES completion:nil];
 }
 
 #pragma mark - Log in and out
@@ -648,45 +627,43 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 #pragma mark - Scroll view
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    [self.navigationBarHider scrollViewDidScroll:scrollView];
+    [self calculateNavigationBarHiddenStateFromObjCWithScrollView:scrollView];
 }
 
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
-    [self.navigationBarHider scrollViewWillBeginDragging:scrollView];
 }
 
 - (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset {
-    [self.navigationBarHider scrollViewWillEndDragging:scrollView withVelocity:velocity targetContentOffset:targetContentOffset];
 }
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
-    [self.navigationBarHider scrollViewDidEndDecelerating:scrollView];
 }
 
 - (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView {
-    [self.navigationBarHider scrollViewDidEndScrollingAnimation:scrollView];
 }
 
 - (BOOL)scrollViewShouldScrollToTop:(UIScrollView *)scrollView {
-    [self.navigationBarHider scrollViewWillScrollToTop:scrollView];
     return YES;
 }
 
 - (void)scrollViewDidScrollToTop:(UIScrollView *)scrollView {
-    [self.navigationBarHider scrollViewDidScrollToTop:scrollView];
 }
 
 #pragma mark - WMFThemeable
 
 - (void)applyTheme:(WMFTheme *)theme {
-    [super applyTheme:theme];
     if (self.viewIfLoaded == nil) {
         return;
     }
+    self.theme = theme;
     self.tableView.backgroundColor = theme.colors.baseBackground;
     self.tableView.indicatorStyle = theme.scrollIndicatorStyle;
     self.view.backgroundColor = theme.colors.baseBackground;
     [self loadSections];
+    
+    [self updateProfileButtonFromObjC];
+    [self themeNavigationBarLeadingTitleViewFromObjC];
+    [self themeTopSafeAreaOverlayFromObjCWithScrollView:self.tableView];
 }
 
 #pragma Mark WMFAccountViewControllerDelegate
@@ -697,27 +674,6 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 }
 
 #pragma mark - Notifications Center
-
-- (void)userDidTapProfile {
-    WMFYearInReviewDataController *yirDataController = [WMFYearInReviewDataController dataControllerForObjectiveC];
-    
-    if (!yirDataController || !self.navigationController) {
-        return;
-    }
-    
-    WMFYearInReviewCoordinator *yirCoordinator = [[WMFYearInReviewCoordinator alloc] initWithNavigationController:self.navigationController theme:self.theme dataStore:self.dataStore dataController:yirDataController];
-    
-    WMFProfileCoordinator *profileCoordinator = [WMFProfileCoordinator profileCoordinatorForSettingsProfileButtonWithNavigationController:self.navigationController theme:self.theme dataStore:self.dataStore logoutDelegate:self sourcePage:ProfileCoordinatorSourceExploreOptOut yirCoordinator:yirCoordinator];
-    
-    NSString *metricsID = [WMFDonateCoordinatorWrapper metricsIDForSettingsProfileDonateSourceWithLanguageCode:self.dataStore.languageLinkController.appLanguage.languageCode];
-    
-    if (metricsID) {
-        [[WMFDonateFunnel shared] logExploreOptOutProfileClickWithMetricsID:metricsID];
-    }
-    
-    self.profileCoordinator = profileCoordinator;
-    [profileCoordinator start];
-}
 
 - (void)pushNotificationBannerDidDisplayInForeground:(NSNotification *)notification {
     [self.dataStore.remoteNotificationsController triggerLoadNotificationsWithForce:YES];
@@ -734,22 +690,6 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
         [self loadSections];
     });
 }
-
-#pragma mark WMFLogoutCoordinatorDelegate
-
-- (void)didTapLogout {
-    @weakify(self);
-    [self wmf_showKeepSavedArticlesOnDevicePanelIfNeededTriggeredBy:KeepSavedArticlesTriggerLogout
-                                                              theme:self.theme
-                                                         completion:^{
-                                                             @strongify(self);
-                                                             [self.dataStore.authenticationManager logoutInitiatedBy:LogoutInitiatorUser
-                                                                                                          completion:^{
-
-                                                                                                          }];
-                                                         }];
-}
-
 @end
 
 NS_ASSUME_NONNULL_END

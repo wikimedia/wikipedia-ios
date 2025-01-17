@@ -5,7 +5,7 @@ protocol DescriptionEditViewControllerDelegate: AnyObject {
     func descriptionEditViewControllerEditSucceeded(_ descriptionEditViewController: DescriptionEditViewController, result: ArticleDescriptionPublishResult)
 }
 
-@objc class DescriptionEditViewController: WMFScrollViewController, Themeable, UITextViewDelegate {
+@objc class DescriptionEditViewController: WMFScrollViewController, Themeable, UITextViewDelegate, WMFNavigationBarConfiguring {
     @objc public static let didPublishNotification = NSNotification.Name("DescriptionEditViewControllerDidPublishNotification")
 
     @IBOutlet private var learnMoreButton: UIButton!
@@ -35,15 +35,13 @@ protocol DescriptionEditViewControllerDelegate: AnyObject {
         let vc = wmf_initialViewControllerFromClassStoryboard()!
         vc.isAddingNewTitleDescription = articleDescriptionController.descriptionSource == .none
         vc.dataStore = dataStore
+        vc.theme = theme
         vc.articleDescriptionController = articleDescriptionController
         return vc
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named:"close"), style: .plain, target:self, action:#selector(closeButtonPushed(_:)))
-        navigationItem.leftBarButtonItem?.accessibilityLabel = CommonStrings.closeButtonAccessibilityLabel
 
         lengthWarningLabel.text = WMFLocalizedString("description-edit-warning", value:"Try to keep descriptions short so users can understand the article's subject at a glance", comment:"Title text for label reminding users to keep descriptions concise")
         casingWarningLabel.text = WMFLocalizedString("description-edit-warning-casing", value:"Only proper nouns should be capitalized, even at the start of the sentence.", comment:"Title text for label reminding users to begin article descriptions with a lowercase letter for non-EN wikis.")
@@ -67,12 +65,12 @@ protocol DescriptionEditViewControllerDelegate: AnyObject {
 
             if let currentDescription = description {
                 self.descriptionTextView.text = currentDescription
-                self.title = WMFLocalizedString("description-edit-title", value:"Edit description", comment:"Title text for description editing screen")
                 self.editType = .change
             } else {
-                self.title = WMFLocalizedString("description-add-title", value:"Add description", comment:"Title text for description addition screen")
                 self.editType = .add
             }
+            
+            configureNavigationBar()
 
             self.isPlaceholderLabelHidden = self.shouldHidePlaceholder()
             self.updateWarningLabels()
@@ -103,6 +101,22 @@ protocol DescriptionEditViewControllerDelegate: AnyObject {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         enableProgressiveButton(false)
+    }
+    
+    private func configureNavigationBar() {
+        let title: String
+        switch editType {
+        case .add:
+            title = WMFLocalizedString("description-add-title", value:"Add description", comment:"Title text for description addition screen")
+        case .change:
+            title = WMFLocalizedString("description-edit-title", value:"Edit description", comment:"Title text for description editing screen")
+        }
+        
+        let titleConfig = WMFNavigationBarTitleConfig(title: title, customView: nil, alignment: .centerCompact)
+        
+        let closeConfig = WMFNavigationBarCloseButtonConfig(text: CommonStrings.doneTitle, target: self, action: #selector(closeButtonPushed(_:)), alignment: .trailing)
+        
+        configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: closeConfig, profileButtonConfig: nil, searchBarConfig: nil, hideNavigationBarOnScroll: false)
     }
 
     private var isPlaceholderLabelHidden = true {
@@ -194,7 +208,7 @@ protocol DescriptionEditViewControllerDelegate: AnyObject {
             return
         }
         
-        let navVC = WMFThemeableNavigationController.init(rootViewController: vc, theme: theme)
+        let navVC = WMFComponentNavigationController(rootViewController: vc, modalPresentationStyle: .overFullScreen)
         present(navVC, animated: true, completion: nil)
     }
     

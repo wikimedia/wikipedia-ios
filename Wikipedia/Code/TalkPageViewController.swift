@@ -7,7 +7,7 @@ public enum InputAccessoryViewType {
     case findInPage
 }
 
-class TalkPageViewController: ViewController {
+class TalkPageViewController: ThemeableViewController, WMFNavigationBarConfiguring {
 
     // MARK: - Properties
 
@@ -50,12 +50,6 @@ class TalkPageViewController: ViewController {
             return textFormattingToolbarView
         }
     }
-
-    lazy private(set) var fakeProgressController: FakeProgressController = {
-        let progressController = FakeProgressController(progress: navigationBar, delegate: navigationBar)
-        progressController.delay = 0.0
-        return progressController
-    }()
     
     var scrollingToIndexPath: IndexPath?
     var scrollingToResult: TalkPageFindInPageSearchController.SearchResult?
@@ -166,7 +160,8 @@ class TalkPageViewController: ViewController {
 
     init(theme: Theme, viewModel: TalkPageViewModel) {
         self.viewModel = viewModel
-        super.init(theme: theme)
+        super.init(nibName: nil, bundle: nil)
+        self.theme = theme
         hidesBottomBarWhenPushed = true
     }
     
@@ -177,23 +172,18 @@ class TalkPageViewController: ViewController {
     override func loadView() {
         let talkPageView = TalkPageView(frame: UIScreen.main.bounds)
         view = talkPageView
-        scrollView = talkPageView.collectionView
     }
 
     fileprivate func fetchTalkPage() {
-        navigationBar.removeUnderNavigationBarView()
         self.headerView = nil
-        fakeProgressController.start()
         viewModel.fetchTalkPage { [weak self] result in
 
             guard let self = self else {
                 return
             }
 
-            self.fakeProgressController.stop()
             switch result {
             case .success:
-                self.setupHeaderView()
                 self.talkPageView.configure(viewModel: self.viewModel)
                 self.talkPageView.emptyView.actionButton.addTarget(self, action: #selector(self.userDidTapAddTopicButton), for: .primaryActionTriggered)
                 self.updateEmptyStateVisibility()
@@ -215,8 +205,6 @@ class TalkPageViewController: ViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        navigationItem.title = TalkPageLocalizedStrings.title
-
         setupOverflowMenu()
 
         talkPageView.collectionView.dataSource = self
@@ -224,11 +212,29 @@ class TalkPageViewController: ViewController {
 
         talkPageView.emptyView.scrollView.delegate = self
 
-        // Needed for reply compose views to display on top of navigation bar.
-        navigationController?.setNavigationBarHidden(true, animated: false)
-        navigationMode = .forceBar
         fetchTalkPage()
         setupToolbar()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillChangeFrame(_:)), name: UIWindow.keyboardWillChangeFrameNotification, object: nil)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        configureNavigationBar()
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+        let headerViewHeight = self.headerView?.frame.height ?? 0
+        talkPageView.updateEmptyErrorViewsTopPadding(padding: headerViewHeight)
+    }
+    
+    private func configureNavigationBar() {
+        let titleConfig = WMFNavigationBarTitleConfig(title: TalkPageLocalizedStrings.title, customView: nil, alignment: .centerCompact)
+        
+        configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: nil, profileButtonConfig: nil, searchBarConfig: nil, hideNavigationBarOnScroll: false)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -260,36 +266,45 @@ class TalkPageViewController: ViewController {
     @objc func tryAgain() {
         fetchTalkPage()
     }
-
-    private func setupHeaderView() {
-        
-        if self.headerView != nil {
-            navigationBar.removeUnderNavigationBarView()
-            self.headerView = nil
-        }
-
-        let headerView = TalkPageHeaderView()
-        self.headerView = headerView
-
-        headerView.configure(viewModel: viewModel)
-        navigationBar.isBarHidingEnabled = false
-        navigationBar.isUnderBarViewHidingEnabled = true
-        navigationBar.allowsUnderbarHitsFallThrough = true
-        
-        navigationBar.addUnderNavigationBarView(headerView, shouldIgnoreSafeArea: true)
-        useNavigationBarVisibleHeightForScrollViewInsets = false
-        updateScrollViewInsets()
-        
-        headerView.apply(theme: theme)
-
-        headerView.coffeeRollReadMoreButton.addTarget(self, action: #selector(userDidTapCoffeeRollReadMoreButton), for: .primaryActionTriggered)
-    }
     
     private func setupOverflowMenu() {
         let rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "ellipsis.circle"), primaryAction: nil, menu: overflowMenu)
         rightBarButtonItem.accessibilityLabel = Self.TalkPageLocalizedStrings.overflowMenuAccessibilityLabel
         navigationItem.rightBarButtonItem = rightBarButtonItem
         rightBarButtonItem.tintColor = theme.colors.link
+    }
+    
+    // MARK: - Keyboard
+    
+    @objc func keyboardWillChangeFrame(_ notification: Notification) {
+        if let window = view.window, let endFrame = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect {
+            let windowFrame = window.convert(endFrame, from: nil)
+            keyboardFrame = window.convert(windowFrame, to: view)
+        }
+    }
+        
+    @objc func keyboardDidHide(_ notification: Notification) {
+        keyboardFrame = nil
+    }
+    
+    private(set) var keyboardFrame: CGRect? {
+        didSet {
+            keyboardDidChangeFrame(from: oldValue, newKeyboardFrame: keyboardFrame)
+        }
+    }
+    
+    func keyboardDidChangeFrame(from oldKeyboardFrame: CGRect?, newKeyboardFrame: CGRect?) {
+
+        guard oldKeyboardFrame != newKeyboardFrame else {
+            return
+        }
+        
+        replyComposeController.calculateLayout(in: self, newKeyboardFrame: newKeyboardFrame)
+        
+        view.setNeedsLayout()
+        UIView.animate(withDuration: 0.2) {
+            self.view.layoutIfNeeded()
+        }
     }
 
     // MARK: - Coffee Roll
@@ -307,7 +322,7 @@ class TalkPageViewController: ViewController {
             if let themeableVC = languageVC as Themeable? {
                 themeableVC.apply(theme: self.theme)
             }
-            present(WMFThemeableNavigationController(rootViewController: languageVC, theme: self.theme), animated: true, completion: nil)
+            present(WMFComponentNavigationController(rootViewController: languageVC, modalPresentationStyle: .overFullScreen), animated: true, completion: nil)
         } else if viewModel.pageType == .article {
             guard let languageCode  = viewModel.siteURL.wmf_languageCode else {
                 return
@@ -316,7 +331,8 @@ class TalkPageViewController: ViewController {
                 if let articleURL = viewModel.siteURL.wmf_URL(withTitle: articleTitle) {
                     let languageVC = WMFArticleLanguagesViewController(articleURL: articleURL)
                     languageVC.delegate = self
-                    present(WMFThemeableNavigationController(rootViewController: languageVC, theme: self.theme), animated: true, completion: nil)
+                    let navVC = WMFComponentNavigationController(rootViewController: languageVC, modalPresentationStyle: .overFullScreen)
+                    present(navVC, animated: true, completion: nil)
                 }
             }
         }
@@ -351,40 +367,6 @@ class TalkPageViewController: ViewController {
     let replyComposeController = TalkPageReplyComposeController()
     
     private var isClosing: Bool = false
-    
-    override var keyboardIsIncludedInBottomContentInset: Bool {
-        if replyComposeController.isShowing {
-            return false
-        }
-
-        return true
-    }
-    
-    override var additionalBottomContentInset: CGFloat {
-
-        if let replyComposeView = replyComposeController.containerView {
-            return max(0, toolbar.frame.minY - replyComposeView.frame.minY)
-        } else if isShowingFindInPage {
-            return toolbar.frame.height
-        }
-
-        return 0
-    }
-    
-    override func keyboardDidChangeFrame(from oldKeyboardFrame: CGRect?, newKeyboardFrame: CGRect?) {
-        super.keyboardDidChangeFrame(from: oldKeyboardFrame, newKeyboardFrame: newKeyboardFrame)
-        
-        guard oldKeyboardFrame != newKeyboardFrame else {
-            return
-        }
-        
-        replyComposeController.calculateLayout(in: self, newKeyboardFrame: newKeyboardFrame)
-        
-        view.setNeedsLayout()
-        UIView.animate(withDuration: 0.2) {
-            self.view.layoutIfNeeded()
-        }
-    }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
@@ -436,8 +418,7 @@ class TalkPageViewController: ViewController {
         if let url = viewModel.getTalkPageURL(encoded: false) {
             EditAttemptFunnel.shared.logInit(pageURL: url)
         }
-        let navVC = UINavigationController(rootViewController: topicComposeVC)
-        navVC.modalPresentationStyle = .pageSheet
+        let navVC = WMFComponentNavigationController(rootViewController: topicComposeVC, modalPresentationStyle: .pageSheet)
         navVC.presentationController?.delegate = self
         present(navVC, animated: true)
     }
@@ -451,11 +432,13 @@ class TalkPageViewController: ViewController {
         }
     }
     
+    private var flexibleSpaceToolbarItem: UIBarButtonItem {
+        return UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+    }
+    
     fileprivate func setupToolbar() {
-        enableToolbar()
-        setToolbarHidden(false, animated: false)
         
-        toolbar.items = [shareButton,  .flexibleSpaceToolbar(), revisionButton, .flexibleSpaceToolbar(), findButton,.flexibleSpaceToolbar(), addTopicButton]
+        talkPageView.toolbar.items = [shareButton,  flexibleSpaceToolbarItem, revisionButton, flexibleSpaceToolbarItem, findButton,flexibleSpaceToolbarItem, addTopicButton]
         
         shareButton.accessibilityLabel = TalkPageLocalizedStrings.shareButtonAccesibilityLabel
         findButton.accessibilityLabel = TalkPageLocalizedStrings.findButtonAccesibilityLabel
@@ -480,8 +463,7 @@ class TalkPageViewController: ViewController {
 
         let editorViewController = EditorViewController(pageURL: pageURL, sectionID: nil, editFlow: .editorSavePreview, source: .talk, dataStore: dataStore, articleSelectedInfo: nil, editTag: .appTalkSource, delegate: self, theme: theme)
         
-        let navigationController = WMFThemeableNavigationController(rootViewController: editorViewController, theme: theme)
-        navigationController.modalPresentationStyle = UIModalPresentationStyle.overFullScreen
+        let navigationController = WMFComponentNavigationController(rootViewController: editorViewController, modalPresentationStyle: .overFullScreen)
         present(navigationController, animated: true)
         
         guard let url = viewModel.siteURL.wmf_URL(withTitle: viewModel.pageTitle) else {
@@ -662,9 +644,7 @@ class TalkPageViewController: ViewController {
         cellViewModel.isThreadExpanded = true
         talkPageView.collectionView.reloadData()
         
-        isProgramaticallyScrolling = true
         talkPageView.collectionView.scrollToItem(at: indexPath, at: .centeredVertically, animated: false)
-        isProgramaticallyScrolling = false
         
         if let commentViewModel = commentViewModel {
             scrollToComment(commentViewModel: commentViewModel, animated: false)
@@ -852,6 +832,22 @@ extension TalkPageViewController: UICollectionViewDelegate, UICollectionViewData
 
         return cell
     }
+    
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        guard indexPath.section == 0 else {
+            return UICollectionReusableView()
+        }
+        
+        if let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: TalkPageHeaderView.reuseIdentifier, for: indexPath) as? TalkPageHeaderView {
+            headerView.configure(viewModel: viewModel)
+            headerView.coffeeRollReadMoreButton.addTarget(self, action: #selector(userDidTapCoffeeRollReadMoreButton), for: .primaryActionTriggered)
+            headerView.apply(theme: theme)
+            self.headerView = headerView
+            return headerView
+        }
+        
+        return UICollectionReusableView()
+    }
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let cell = collectionView.cellForItem(at: indexPath) as? TalkPageCell else {
@@ -918,8 +914,6 @@ extension TalkPageViewController: TalkPageCellDelegate {
 
     fileprivate func updateEmptyStateVisibility() {
         talkPageView.updateEmptyView(visible: viewModel.topics.count == 0)
-        scrollView = viewModel.topics.count == 0 ? talkPageView.emptyView.scrollView : talkPageView.collectionView
-        updateScrollViewInsets()
     }
 
     fileprivate func updateErrorStateVisibility() {
@@ -985,10 +979,8 @@ extension TalkPageViewController: TalkPageReplyComposeDelegate {
                 self.replyComposeController.closeAndReset()
                 
                 // Try to refresh page
-                self.fakeProgressController.start()
                 self.viewModel.fetchTalkPage { [weak self] result in
                     
-                    self?.fakeProgressController.stop()
                     switch result {
                     case .success(let revID):
                         self?.updateEmptyStateVisibility()
@@ -1058,10 +1050,8 @@ extension TalkPageViewController: TalkPageTopicComposeViewControllerDelegate {
                 }
                 
                 // Try to refresh page
-                self?.fakeProgressController.start()
                 self?.viewModel.fetchTalkPage { [weak self] result in
                     
-                    self?.fakeProgressController.stop()
                     
                     switch result {
                     case .success:
@@ -1262,10 +1252,8 @@ extension TalkPageViewController: EditorViewControllerDelegate {
                 }
                 
                 // Refresh page
-                self.fakeProgressController.start()
                 self.viewModel.fetchTalkPage { [weak self] result in
                     
-                    self?.fakeProgressController.stop()
                     
                     switch result {
                     case .success:

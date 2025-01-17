@@ -3,11 +3,11 @@ import UIKit
 import SwiftUI
 
 public protocol WMFFeatureAnnouncing {
-    func announceFeature(viewModel: WMFFeatureAnnouncementViewModel, sourceView: UIView, sourceRect: CGRect)
+    func announceFeature(viewModel: WMFFeatureAnnouncementViewModel, sourceView: UIView?, sourceRect: CGRect?, barButtonItem: UIBarButtonItem?)
 }
 
 public extension WMFFeatureAnnouncing where Self:UIViewController {
-    func announceFeature(viewModel: WMFFeatureAnnouncementViewModel, sourceView: UIView, sourceRect: CGRect) {
+    func announceFeature(viewModel: WMFFeatureAnnouncementViewModel, sourceView: UIView?, sourceRect: CGRect?, barButtonItem: UIBarButtonItem?) {
         let oldPrimaryAction = viewModel.primaryButtonAction
         viewModel.primaryButtonAction = { [weak self] in
             self?.dismiss(animated: true) {
@@ -27,8 +27,17 @@ public extension WMFFeatureAnnouncing where Self:UIViewController {
         viewController.modalPresentationStyle = .popover
         if let popover = viewController.popoverPresentationController {
 
-            popover.sourceView = sourceView
-            popover.sourceRect = sourceRect
+            var canPresentWithoutCrashing = false
+            if let sourceView, let sourceRect {
+                popover.sourceView = sourceView
+                popover.sourceRect = sourceRect
+                canPresentWithoutCrashing = true
+            } else if let barButtonItem {
+                popover.barButtonItem = barButtonItem
+                canPresentWithoutCrashing = true
+            }
+            
+            guard canPresentWithoutCrashing else { return }
 
             let sheet = popover.adaptiveSheetPresentationController
             

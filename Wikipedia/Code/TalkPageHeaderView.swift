@@ -2,7 +2,9 @@ import WMFComponents
 import WMF
 import CocoaLumberjackSwift
 
-final class TalkPageHeaderView: SetupView {
+final class TalkPageHeaderView: UICollectionReusableView {
+    
+    static let reuseIdentifier = "TalkPageHeaderView"
 
     // MARK: - UI Elements
 
@@ -13,6 +15,7 @@ final class TalkPageHeaderView: SetupView {
         label.font = WMFFont.for(.mediumFootnote, compatibleWith: traitCollection)
         label.adjustsFontForContentSizeCategory = true
         label.accessibilityTraits = [.header]
+        label.setContentCompressionResistancePriority(.required, for: .vertical)
         return label
     }()
 
@@ -23,6 +26,7 @@ final class TalkPageHeaderView: SetupView {
         label.font = WMFFont.for(.boldTitle1, compatibleWith: traitCollection)
         label.adjustsFontForContentSizeCategory = true
         label.accessibilityTraits = [.header]
+        label.setContentCompressionResistancePriority(.required, for: .vertical)
         return label
     }()
 
@@ -32,6 +36,7 @@ final class TalkPageHeaderView: SetupView {
         label.numberOfLines = 3
         label.font = WMFFont.for(.footnote, compatibleWith: traitCollection)
         label.adjustsFontForContentSizeCategory = true
+        label.setContentCompressionResistancePriority(.required, for: .vertical)
         return label
     }()
 
@@ -147,6 +152,7 @@ final class TalkPageHeaderView: SetupView {
         label.numberOfLines = 2
         label.font = WMFFont.for(.callout, compatibleWith: traitCollection)
         label.adjustsFontForContentSizeCategory = true
+        label.setContentCompressionResistancePriority(.required, for: .vertical)
         return label
     }()
 
@@ -158,10 +164,19 @@ final class TalkPageHeaderView: SetupView {
         button.titleLabel?.adjustsFontForContentSizeCategory = true
         return button
     }()
-
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        setup()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     // MARK: - Lifecycle
 
-    override func setup() {
+    func setup() {
         // Primary data
         addSubview(verticalStackView)
         horizontalContainer.addSubview(horizontalStackView)
@@ -327,11 +342,9 @@ final class TalkPageHeaderView: SetupView {
         if let leadImageURL = viewModel.leadImageURL {
             imageView.wmf_setImage(with: leadImageURL, detectFaces: true, onGPU: true, failure: { (error) in
                 DDLogWarn("Failure loading talk page header image: \(error)")
-            }, success: { [weak self] in
-                self?.imageView.isHidden = false
+            }, success: {
+                // no-op
             })
-        } else {
-            imageView.isHidden = true
         }
         
         updateSemanticContentAttribute(viewModel.semanticContentAttribute)

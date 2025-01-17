@@ -65,7 +65,7 @@ fileprivate final class WMFImageRecommendationsHostingViewController: WMFCompone
     }
 }
 
-public final class WMFImageRecommendationsViewController: WMFCanvasViewController {
+public final class WMFImageRecommendationsViewController: WMFCanvasViewController, WMFNavigationBarConfiguring {
 
     // MARK: - Properties
 
@@ -121,16 +121,9 @@ public final class WMFImageRecommendationsViewController: WMFCanvasViewControlle
 
     public override func viewDidLoad() {
         super.viewDidLoad()
-        title = viewModel.localizedStrings.title
-        navigationItem.backButtonDisplayMode = .generic
         setupOverflowMenu()
-        addComponent(hostingViewController, pinToEdges: true)
-
-        navigationController?.interactivePopGestureRecognizer?.isEnabled = false
-        let image = WMFSFSymbolIcon.for(symbol: .chevronBackward, font: .boldCallout)
-        navigationItem.leftBarButtonItem = UIBarButtonItem(image: image, style: .plain, target: self, action: #selector(tappedBack))
+        addComponent(hostingViewController, pinToEdges: true, respectSafeArea: true)
     }
-
 
     public override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
         return .portrait
@@ -142,7 +135,7 @@ public final class WMFImageRecommendationsViewController: WMFCanvasViewControlle
 
     public override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        navigationController?.setNavigationBarHidden(false, animated: false)
+        configureNavigationBar()
     }
 
     public override func viewDidAppear(_ animated: Bool) {
@@ -161,16 +154,6 @@ public final class WMFImageRecommendationsViewController: WMFCanvasViewControlle
 
             }
         }
-        
-        // Fixes https://phabricator.wikimedia.org/T375445 caused by iPadOS18 floating tab bar
-        if #available(iOS 18, *) {
-            guard UIDevice.current.userInterfaceIdiom == .pad else {
-                return
-            }
-            
-            navigationController?.view.setNeedsLayout()
-            navigationController?.view.layoutIfNeeded()
-        }
     }
 
     public override func viewWillDisappear(_ animated: Bool) {
@@ -180,6 +163,21 @@ public final class WMFImageRecommendationsViewController: WMFCanvasViewControlle
             cancellable.cancel()
         }
         cancellables.removeAll()
+    }
+    
+    public override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        
+        if parent == nil {
+            tappedBack()
+        }
+    }
+    
+    private func configureNavigationBar() {
+
+        let titleConfig = WMFNavigationBarTitleConfig(title: viewModel.localizedStrings.title, customView: nil, alignment: .centerCompact)
+        
+        configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: nil, profileButtonConfig: nil, searchBarConfig: nil, hideNavigationBarOnScroll: false)
     }
     
     public func presentImageRecommendationBottomSheet() {
@@ -246,9 +244,6 @@ public final class WMFImageRecommendationsViewController: WMFCanvasViewControlle
         if viewModel.imageRecommendations.isEmpty && viewModel.loadingError == nil {
             loggingDelegate?.logEmptyStateDidTapBack()
         }
-
-        navigationController?.interactivePopGestureRecognizer?.isEnabled = true
-        navigationController?.popViewController(animated: true)
     }
 
     private func setupOverflowMenu() {

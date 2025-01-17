@@ -104,7 +104,6 @@ class InsertMediaSearchResultsCollectionViewController: UICollectionViewControll
 
     init() {
         super.init(collectionViewLayout: FlowLayout())
-        collectionView.contentInsetAdjustmentBehavior = .never
         title = CommonStrings.searchTitle
     }
 

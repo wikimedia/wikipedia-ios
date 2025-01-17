@@ -1,34 +1,34 @@
 import WMFComponents
 
-protocol ReadingListDetailUnderBarViewControllerDelegate: AnyObject {
-    func readingListDetailUnderBarViewController(_ underBarViewController: ReadingListDetailUnderBarViewController, didEdit name: String?, description: String?)
-    func readingListDetailUnderBarViewController(_ underBarViewController: ReadingListDetailUnderBarViewController, didBeginEditing textField: UITextField)
-    func readingListDetailUnderBarViewController(_ underBarViewController: ReadingListDetailUnderBarViewController, titleTextFieldTextDidChange textField: UITextField)
-    func readingListDetailUnderBarViewController(_ underBarViewController: ReadingListDetailUnderBarViewController, titleTextFieldWillClear textField: UITextField)
+protocol ReadingListDetailHeaderViewDelegate: AnyObject {
+    func readingListDetailHeaderView(_ headerView: ReadingListDetailHeaderView, didEdit name: String?, description: String?)
+    func readingListDetailHeaderView(_ headerView: ReadingListDetailHeaderView, didBeginEditing textField: UITextField)
+    func readingListDetailHeaderView(_ headerView: ReadingListDetailHeaderView, titleTextFieldTextDidChange textField: UITextField)
+    func readingListDetailHeaderView(_ headerView: ReadingListDetailHeaderView, titleTextFieldWillClear textField: UITextField)
 }
 
-class ReadingListDetailUnderBarViewController: UIViewController {
+class ReadingListDetailHeaderView: UICollectionReusableView {
     @IBOutlet private weak var articleCountLabel: UILabel!
     @IBOutlet private weak var titleTextField: ThemeableTextField!
     @IBOutlet private weak var descriptionTextField: ThemeableTextField!
-    @IBOutlet private weak var alertStackView: UIStackView?
+    @IBOutlet private weak var alertStackView: UIStackView!
     @IBOutlet private weak var alertTitleLabel: UILabel?
     @IBOutlet private weak var alertMessageLabel: UILabel?
-    
+
     private var readingListTitle: String?
     private var readingListDescription: String?
     
     private var listLimit: Int = 0
     private var entryLimit: Int = 0
     
-    public weak var delegate: ReadingListDetailUnderBarViewControllerDelegate?
+    public weak var delegate: ReadingListDetailHeaderViewDelegate?
     
     private var theme: Theme = Theme.standard
     
     private var firstResponder: UITextField? = nil
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    override func awakeFromNib() {
+        super.awakeFromNib()
         
         titleTextField.isUnderlined = false
         titleTextField.returnKeyType = .done
@@ -60,9 +60,6 @@ class ReadingListDetailUnderBarViewController: UIViewController {
     // Int64 instead of Int to so that we don't have to cast countOfEntries: Int64 property of ReadingList object to Int.
     var articleCount: Int64 = 0 {
         didSet {
-            guard viewIfLoaded != nil else {
-                return
-            }
             articleCountLabel.text = String.localizedStringWithFormat(CommonStrings.articleCountFormat, articleCount).uppercased()
         }
     }
@@ -114,32 +111,30 @@ class ReadingListDetailUnderBarViewController: UIViewController {
         setAlertType(for: readingList.APIError, listLimit: listLimit, entryLimit: entryLimit)
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        
+        alertStackView.isHidden = true
+    }
+    
     private func setAlertType(for error: APIReadingListError?, listLimit: Int, entryLimit: Int) {
-        guard let error = error else {
-            isAlertViewHidden = true
+        guard let error else {
+            alertStackView.isHidden = true
             return
         }
         switch error {
         case .listLimit:
             alertType = .listLimitExceeded(limit: listLimit)
-            isAlertViewHidden = false
+            alertStackView.isHidden = false
         case .entryLimit:
             alertType = .entryLimitExceeded(limit: entryLimit)
-            isAlertViewHidden = false
+            alertStackView.isHidden = false
         default:
-            isAlertViewHidden = true
+            alertStackView.isHidden = true
         }
-    }
-    
-    private var isAlertViewHidden: Bool = true {
-        didSet {
-            alertStackView?.spacing = isAlertViewHidden ? 0 : 7
-            alertStackView?.isHidden = isAlertViewHidden
-        }
-    }
-    
-    public func reconfigureAlert(for readingList: ReadingList) {
-        setAlertType(for: readingList.APIError, listLimit: listLimit, entryLimit: entryLimit)
+        
+        setNeedsLayout()
+        layoutIfNeeded()
     }
     
     public func dismissKeyboardIfNecessary() {
@@ -158,18 +153,18 @@ class ReadingListDetailUnderBarViewController: UIViewController {
     }
     
     public func finishEditing() {
-        delegate?.readingListDetailUnderBarViewController(self, didEdit: titleTextField.text, description: descriptionTextField.text)
+        delegate?.readingListDetailHeaderView(self, didEdit: titleTextField.text, description: descriptionTextField.text)
         dismissKeyboardIfNecessary()
     }
     
     
     @IBAction func titleTextFieldTextDidChange(_ sender: UITextField) {
-        delegate?.readingListDetailUnderBarViewController(self, titleTextFieldTextDidChange: sender)
+        delegate?.readingListDetailHeaderView(self, titleTextFieldTextDidChange: sender)
     }
     
 }
 
-extension ReadingListDetailUnderBarViewController: UITextFieldDelegate {
+extension ReadingListDetailHeaderView: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         finishEditing()
         return true
@@ -177,30 +172,27 @@ extension ReadingListDetailUnderBarViewController: UITextFieldDelegate {
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
         firstResponder = textField
-        delegate?.readingListDetailUnderBarViewController(self, didBeginEditing: textField)
+        delegate?.readingListDetailHeaderView(self, didBeginEditing: textField)
     }
     
     func textFieldShouldClear(_ textField: UITextField) -> Bool {
         if textField == titleTextField {
-            delegate?.readingListDetailUnderBarViewController(self, titleTextFieldWillClear: textField)
+            delegate?.readingListDetailHeaderView(self, titleTextFieldWillClear: textField)
         }
         return true
     }
     
 }
 
-extension ReadingListDetailUnderBarViewController: Themeable {
+extension ReadingListDetailHeaderView: Themeable {
     func apply(theme: Theme) {
         self.theme = theme
-        guard viewIfLoaded != nil else {
-            return
-        }
-        view.backgroundColor = theme.colors.paperBackground
+        backgroundColor = theme.colors.paperBackground
         articleCountLabel.textColor = theme.colors.secondaryText
-        articleCountLabel.backgroundColor = view.backgroundColor
+        articleCountLabel.backgroundColor = backgroundColor
         titleTextField.apply(theme: theme)
-        alertTitleLabel?.backgroundColor = view.backgroundColor
-        alertMessageLabel?.backgroundColor = view.backgroundColor
+        alertTitleLabel?.backgroundColor = backgroundColor
+        alertMessageLabel?.backgroundColor = backgroundColor
         descriptionTextField.apply(theme: theme)
         descriptionTextField.textColor = theme.colors.secondaryText
         alertTitleLabel?.textColor = theme.colors.error

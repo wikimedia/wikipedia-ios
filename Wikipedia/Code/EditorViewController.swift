@@ -9,7 +9,7 @@ protocol EditorViewControllerDelegate: AnyObject {
     func editorDidFinishEditing(_ editor: EditorViewController, result: Result<EditorChanges, Error>)
 }
 
-final class EditorViewController: UIViewController {
+final class EditorViewController: UIViewController, WMFNavigationBarConfiguring {
     
     // MARK: - Nested Types
     
@@ -113,7 +113,21 @@ final class EditorViewController: UIViewController {
         loadContent()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        configureNavigationBar()
+    }
+    
     // MARK: - Private Helpers
+    
+    private func configureNavigationBar() {
+
+        let titleConfig = WMFNavigationBarTitleConfig(title: CommonStrings.editorTitle, customView: nil, alignment: .hidden)
+        
+        let closeConfig = WMFNavigationBarCloseButtonConfig(text: CommonStrings.doneTitle, target: self, action: #selector(close(_ :)), alignment: .leading)
+        
+        configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: closeConfig, profileButtonConfig: nil, searchBarConfig: nil, hideNavigationBarOnScroll: false)
+    }
     
     private func setupFocusNavigationView() {
 
@@ -636,8 +650,8 @@ final class EditorViewController: UIViewController {
             return
         }
 
-        saveVC.savedData = editConfirmationSavedData
         saveVC.dataStore = dataStore
+        saveVC.savedData = editConfirmationSavedData
         saveVC.pageURL = pageURL
         saveVC.sectionID = sectionID
         saveVC.languageCode = pageURL.wmf_languageCode
@@ -653,6 +667,32 @@ final class EditorViewController: UIViewController {
         saveVC.theme = self.theme
         
         navigationController?.pushViewController(saveVC, animated: true)
+    }
+    
+    @objc private func close(_ sender: UIBarButtonItem) {
+        let progressButton = navigationItemController.progressButton
+        if progressButton.isEnabled {
+            showDestructiveDismissAlert(sender: sender) { [weak self] in
+                guard let self else {
+                    return
+                }
+                self.delegate?.editorDidCancelEditing(self, navigateToURL: nil)
+            }
+        } else {
+            
+            if let project = WikimediaProject(siteURL: pageURL) {
+                switch source {
+                case .article:
+                    EditInteractionFunnel.shared.logArticleEditorDidTapClose(problemSource: editCloseProblemSource, project: project)
+                case .talk:
+                    EditInteractionFunnel.shared.logTalkEditorDidTapClose(problemSource: editCloseProblemSource, project: project)
+                }
+            }
+            
+            EditAttemptFunnel.shared.logAbort(pageURL: pageURL)
+
+            delegate?.editorDidCancelEditing(self, navigateToURL: nil)
+        }
     }
 }
 
@@ -702,13 +742,12 @@ extension EditorViewController: WMFSourceEditorViewControllerDelegate {
                 return
             }
             
-            guard let editLinkViewController = EditLinkViewController(link: link, siteURL: pageURL.wmf_site, dataStore: dataStore) else {
+            guard let editLinkViewController = EditLinkViewController(link: link, siteURL: pageURL.wmf_site, dataStore: dataStore, theme: theme) else {
                 return
             }
             
             editLinkViewController.delegate = self
-            let navigationController = WMFThemeableNavigationController(rootViewController: editLinkViewController, theme: self.theme)
-            navigationController.isNavigationBarHidden = true
+            let navigationController = WMFComponentNavigationController(rootViewController: editLinkViewController, modalPresentationStyle: .overFullScreen)
             present(navigationController, animated: true)
         }
         
@@ -717,9 +756,9 @@ extension EditorViewController: WMFSourceEditorViewControllerDelegate {
                 return
             }
             
-            let insertLinkViewController = InsertLinkViewController(link: link, siteURL: siteURL, dataStore: dataStore)
+            let insertLinkViewController = InsertLinkViewController(link: link, siteURL: siteURL, dataStore: dataStore, theme: theme)
             insertLinkViewController.delegate = self
-            let navigationController = WMFThemeableNavigationController(rootViewController: insertLinkViewController, theme: self.theme)
+            let navigationController = WMFComponentNavigationController(rootViewController: insertLinkViewController, modalPresentationStyle: .overFullScreen)
             present(navigationController, animated: true)
         }
     }
@@ -735,8 +774,7 @@ extension EditorViewController: WMFSourceEditorViewControllerDelegate {
         let insertMediaViewController = InsertMediaViewController(articleTitle: pageURL.wmf_title, siteURL: siteURL)
         insertMediaViewController.delegate = self
         insertMediaViewController.apply(theme: theme)
-        let navigationController = WMFThemeableNavigationController(rootViewController: insertMediaViewController, theme: theme)
-        navigationController.isNavigationBarHidden = true
+        let navigationController = WMFComponentNavigationController(rootViewController: insertMediaViewController, modalPresentationStyle: .overFullScreen)
         present(navigationController, animated: true)
     }
 }
@@ -769,34 +807,6 @@ extension EditorViewController: EditorNavigationItemControllerDelegate {
         }
         
         EditAttemptFunnel.shared.logSaveIntent(pageURL: pageURL)
-    }
-    
-    func editorNavigationItemController(_ editorNavigationItemController: EditorNavigationItemController, didTapCloseButton closeButton: UIBarButtonItem) {
-        
-        let progressButton = navigationItemController.progressButton
-        let closeButton = navigationItemController.closeButton
-        if progressButton.isEnabled {
-            showDestructiveDismissAlert(sender: closeButton) { [weak self] in
-                guard let self else {
-                    return
-                }
-                self.delegate?.editorDidCancelEditing(self, navigateToURL: nil)
-            }
-        } else {
-            
-            if let project = WikimediaProject(siteURL: pageURL) {
-                switch source {
-                case .article:
-                    EditInteractionFunnel.shared.logArticleEditorDidTapClose(problemSource: editCloseProblemSource, project: project)
-                case .talk:
-                    EditInteractionFunnel.shared.logTalkEditorDidTapClose(problemSource: editCloseProblemSource, project: project)
-                }
-            }
-            
-            EditAttemptFunnel.shared.logAbort(pageURL: pageURL)
-
-            delegate?.editorDidCancelEditing(self, navigateToURL: nil)
-        }
     }
     
     func editorNavigationItemController(_ editorNavigationItemController: EditorNavigationItemController, didTapUndoButton undoButton: UIBarButtonItem) {
@@ -889,11 +899,11 @@ extension EditorViewController: ReadingThemesControlsPresenting {
 
 extension EditorViewController: EditLinkViewControllerDelegate {
     func editLinkViewController(_ editLinkViewController: EditLinkViewController, didTapCloseButton button: UIBarButtonItem) {
-        dismiss(animated: true)
+        editLinkViewController.dismiss(animated: true)
     }
     
     func editLinkViewController(_ editLinkViewController: EditLinkViewController, didFinishEditingLink displayText: String?, linkTarget: String) {
-        dismiss(animated: true)
+        editLinkViewController.dismiss(animated: true)
         sourceEditor?.editLink(newPageTitle: linkTarget, newPageLabel: displayText)
     }
     
@@ -903,7 +913,7 @@ extension EditorViewController: EditLinkViewControllerDelegate {
     }
     
     func editLinkViewControllerDidRemoveLink(_ editLinkViewController: EditLinkViewController) {
-        dismiss(animated: true)
+        editLinkViewController.dismiss(animated: true)
         sourceEditor?.removeLink()
     }
 }
@@ -912,25 +922,25 @@ extension EditorViewController: EditLinkViewControllerDelegate {
 
 extension EditorViewController: InsertLinkViewControllerDelegate {
     func insertLinkViewController(_ insertLinkViewController: InsertLinkViewController, didTapCloseButton button: UIBarButtonItem) {
-        dismiss(animated: true)
+        insertLinkViewController.dismiss(animated: true)
     }
     
     func insertLinkViewController(_ insertLinkViewController: InsertLinkViewController, didInsertLinkFor page: String, withLabel label: String?) {
         sourceEditor?.insertLink(pageTitle: page)
-        dismiss(animated: true)
+        insertLinkViewController.dismiss(animated: true)
     }
 }
 
 // MARK: - InsertMediaViewControllerDelegate
 
 extension EditorViewController: InsertMediaViewControllerDelegate {
-    func insertMediaViewController(_ insertMediaViewController: InsertMediaViewController, didTapCloseButton button: UIBarButtonItem) {
-        dismiss(animated: true)
+    func didTapCloseButton(insertMediaViewController: InsertMediaViewController) {
+        insertMediaViewController.dismiss(animated: true)
     }
     
-    func insertMediaViewController(_ insertMediaViewController: InsertMediaViewController, didPrepareWikitextToInsert wikitext: String) {
+    func didPrepareWikitextToInsert(wikitext: String, insertMediaViewController: InsertMediaViewController) {
         sourceEditor?.insertImage(wikitext: wikitext)
-        dismiss(animated: true)
+        insertMediaViewController.dismiss(animated: true)
     }
 }
 
@@ -964,7 +974,7 @@ extension EditorViewController: EditSaveViewControllerDelegate {
     func editSaveViewControllerDidSave(_ editSaveViewController: EditSaveViewController, result: Result<EditorChanges, Error>) {
         delegate?.editorDidFinishEditing(self, result: result)
     }
-
+    
     func editSaveViewControllerWillCancel(_ saveData: EditSaveViewController.SaveData) {
         editConfirmationSavedData = saveData
     }
@@ -1035,11 +1045,14 @@ extension EditorViewController: EditSaveViewControllerEditorLoggingDelegate {
 extension EditorViewController: EditNoticesViewControllerDelegate {
     func editNoticesControllerUserTapped(url: URL) {
         
+        guard let closeBarButtonItem = navigationItem.leftBarButtonItem else {
+            return
+        }
+        
         let progressButton = navigationItemController.progressButton
-        let closeButton = navigationItemController.closeButton
         if progressButton.isEnabled {
             editCloseProblemSource = .editNoticeLink
-            showDestructiveDismissAlert(sender: closeButton) { [weak self] in
+            showDestructiveDismissAlert(sender: closeBarButtonItem) { [weak self] in
                 guard let self else {
                     return
                 }

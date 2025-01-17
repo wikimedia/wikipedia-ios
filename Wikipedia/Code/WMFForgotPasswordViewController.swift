@@ -1,6 +1,7 @@
 import UIKit
+import WMFComponents
 
-class WMFForgotPasswordViewController: WMFScrollViewController, Themeable {
+class WMFForgotPasswordViewController: WMFScrollViewController, Themeable, WMFNavigationBarConfiguring {
 
     @IBOutlet fileprivate var titleLabel: UILabel!
     @IBOutlet fileprivate var subTitleLabel: UILabel!
@@ -19,9 +20,6 @@ class WMFForgotPasswordViewController: WMFScrollViewController, Themeable {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named:"close"), style: .plain, target:self, action:#selector(closeButtonPushed(_:)))
-        navigationItem.leftBarButtonItem?.accessibilityLabel = CommonStrings.closeButtonAccessibilityLabel
-
         titleLabel.text = WMFLocalizedString("forgot-password-title", value:"Reset password", comment:"Title for reset password interface {{Identical|Reset password}}")
         subTitleLabel.text = WMFLocalizedString("forgot-password-instructions", value:"Fill in one of the fields below to receive password reset instructions via email", comment:"Instructions for resetting password")
         usernameField.placeholder = WMFLocalizedString("field-username-placeholder", value:"enter username", comment:"Placeholder text shown inside username field until user taps on it")
@@ -39,6 +37,7 @@ class WMFForgotPasswordViewController: WMFScrollViewController, Themeable {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         enableProgressiveButton(false)
+        configureNavigationBar()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -49,6 +48,14 @@ class WMFForgotPasswordViewController: WMFScrollViewController, Themeable {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         enableProgressiveButton(false)
+    }
+    
+    private func configureNavigationBar() {
+        let titleConfig = WMFNavigationBarTitleConfig(title: "", customView: nil, alignment: .hidden)
+        
+        let closeConfig = WMFNavigationBarCloseButtonConfig(text: CommonStrings.doneTitle, target: self, action: #selector(closeButtonPushed(_:)), alignment: .leading)
+        
+        configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: closeConfig, profileButtonConfig: nil, searchBarConfig: nil, hideNavigationBarOnScroll: false)
     }
     
     public func textFieldShouldReturn(_ textField: UITextField) -> Bool {

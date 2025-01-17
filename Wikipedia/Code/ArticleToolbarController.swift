@@ -228,24 +228,28 @@ class ArticleToolbarController: Themeable {
         toolbar.items = items
     }
     
+    private var flexibleSpaceToolbarItem: UIBarButtonItem {
+        return UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+    }
+    
     func update() {
         
         let tocItem = delegate?.isTableOfContentsVisible ?? false ? hideTableOfContentsButton : showTableOfContentsButton
         
         toolbar.items = [
-            UIBarButtonItem.flexibleSpaceToolbar(),
+            flexibleSpaceToolbarItem,
             tocItem,
-            UIBarButtonItem.flexibleSpaceToolbar(),
+            flexibleSpaceToolbarItem,
             languagesButton,
-            UIBarButtonItem.flexibleSpaceToolbar(),
+            flexibleSpaceToolbarItem,
             saveButton,
-            UIBarButtonItem.flexibleSpaceToolbar(),
+            flexibleSpaceToolbarItem,
             findInPageButton,
-            UIBarButtonItem.flexibleSpaceToolbar(),
+            flexibleSpaceToolbarItem,
             themeButton,
-            UIBarButtonItem.flexibleSpaceToolbar(),
+            flexibleSpaceToolbarItem,
             moreButton,
-            UIBarButtonItem.flexibleSpaceToolbar()
+            flexibleSpaceToolbarItem
         ]
     }
 

@@ -1,10 +1,13 @@
 import UIKit
 import CocoaLumberjackSwift
+import WMFComponents
 
 protocol ReadingListEntryCollectionViewControllerDelegate: NSObjectProtocol {
     func readingListEntryCollectionViewController(_ viewController: ReadingListEntryCollectionViewController, didUpdate collectionView: UICollectionView)
     func readingListEntryCollectionViewControllerDidChangeEmptyState(_ viewController: ReadingListEntryCollectionViewController)
     func readingListEntryCollectionViewControllerDidSelectArticleURL(_ articleURL: URL, viewController: ReadingListEntryCollectionViewController)
+    func setupReadingListDetailHeaderView(_ headerView: ReadingListDetailHeaderView)
+    func scrollViewDidScroll(scrollView: UIScrollView)
 }
 
 class ReadingListEntryCollectionViewController: ColumnarCollectionViewController, EditableCollection, UpdatableCollection, SearchableCollection, ActionDelegate, MEPEventsProviding {
@@ -44,10 +47,14 @@ class ReadingListEntryCollectionViewController: ColumnarCollectionViewController
     
     weak var delegate: ReadingListEntryCollectionViewControllerDelegate?
     
+    var needsDetailHeaderView: Bool = false
+    var readingListDetailHeaderView: ReadingListDetailHeaderView?
+    fileprivate static let headerReuseIdentifier = "ReadingListDetailHeaderView"
+    
     init(for readingList: ReadingList, with dataStore: MWKDataStore) {
         self.readingList = readingList
         self.dataStore = dataStore
-        super.init()
+        super.init(nibName: nil, bundle: nil)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -62,6 +69,7 @@ class ReadingListEntryCollectionViewController: ColumnarCollectionViewController
         super.viewDidLoad()
         
         layoutManager.register(SavedArticlesCollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier, addPlaceholder: true)
+        layoutManager.register(UINib(nibName: Self.headerReuseIdentifier, bundle: nil), forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: Self.headerReuseIdentifier, addPlaceholder: false)
         setupEditController()
         isRefreshControlEnabled = true
         
@@ -218,6 +226,7 @@ class ReadingListEntryCollectionViewController: ColumnarCollectionViewController
     override func scrollViewDidScroll(_ scrollView: UIScrollView) {
         super.scrollViewDidScroll(scrollView)
         editController.transformBatchEditPaneOnScroll()
+        delegate?.scrollViewDidScroll(scrollView: scrollView)
     }
     
     override func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
@@ -239,6 +248,14 @@ class ReadingListEntryCollectionViewController: ColumnarCollectionViewController
     }
     
     // MARK: - ColumnarCollectionViewLayoutDelegate
+    
+    override func collectionView(_ collectionView: UICollectionView, estimatedHeightForHeaderInSection section: Int, forColumnWidth columnWidth: CGFloat) -> ColumnarCollectionViewLayoutHeightEstimate {
+
+        guard section == 0, needsDetailHeaderView else {
+            return ColumnarCollectionViewLayoutHeightEstimate(precalculated: false, height: 0)
+        }
+        return ColumnarCollectionViewLayoutHeightEstimate(precalculated: false, height: 150)
+    }
     
     override func collectionView(_ collectionView: UICollectionView, estimatedHeightForItemAt indexPath: IndexPath, forColumnWidth columnWidth: CGFloat) -> ColumnarCollectionViewLayoutHeightEstimate {
         // The layout estimate can be re-used in this case becuause both labels are one line, meaning the cell
@@ -325,6 +342,21 @@ extension ReadingListEntryCollectionViewController {
         configure(cell: savedArticleCell, for: entry, at: indexPath, layoutOnly: false)
         return cell
     }
+    
+    override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        guard needsDetailHeaderView, indexPath.section == 0 else {
+            return super.collectionView(collectionView, viewForSupplementaryElementOfKind: kind, at: indexPath)
+        }
+        
+        if let readingListDetailHeaderView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: Self.headerReuseIdentifier, for: indexPath) as? ReadingListDetailHeaderView {
+            self.readingListDetailHeaderView = readingListDetailHeaderView
+            delegate?.setupReadingListDetailHeaderView(readingListDetailHeaderView)
+            readingListDetailHeaderView.apply(theme: theme)
+            return readingListDetailHeaderView
+        }
+    
+         return UICollectionReusableView()
+    }
 }
 
 // MARK: - ActionDelegate
@@ -390,8 +422,7 @@ extension ReadingListEntryCollectionViewController {
         switch action.type {
         case .addTo:
             let addArticlesToReadingListViewController = AddArticlesToReadingListViewController(with: dataStore, articles: articles, theme: theme)
-            let navigationController = WMFThemeableNavigationController(rootViewController: addArticlesToReadingListViewController, theme: theme, style: .sheet)
-            navigationController.isNavigationBarHidden = true
+            let navigationController = WMFComponentNavigationController(rootViewController: addArticlesToReadingListViewController, modalPresentationStyle: .overFullScreen)
             addArticlesToReadingListViewController.delegate = self
             present(navigationController, animated: true) {
                 completion(true)
@@ -410,8 +441,7 @@ extension ReadingListEntryCollectionViewController {
             completion(true)
         case .moveTo:
             let addArticlesToReadingListViewController = AddArticlesToReadingListViewController(with: dataStore, articles: articles, moveFromReadingList: readingList, theme: theme)
-            let navigationController = WMFThemeableNavigationController(rootViewController: addArticlesToReadingListViewController, theme: theme, style: .sheet)
-            navigationController.isNavigationBarHidden = true
+            let navigationController = WMFComponentNavigationController(rootViewController: addArticlesToReadingListViewController, modalPresentationStyle: .overFullScreen)
             addArticlesToReadingListViewController.delegate = self
             present(navigationController, animated: true) {
                 completion(true)
@@ -465,6 +495,7 @@ extension ReadingListEntryCollectionViewController {
 // MARK: - SortableCollection
 
 extension ReadingListEntryCollectionViewController: SortableCollection {
+    
     var sort: (descriptors: [NSSortDescriptor], alertAction: UIAlertAction?) {
         guard let sortOrder = readingList.sortOrder, let sortActionType = SortActionType(rawValue: sortOrder.intValue), let sortAction = sortActions[sortActionType] else {
             return ([], nil)
@@ -508,7 +539,7 @@ extension ReadingListEntryCollectionViewController: ShareableArticlesProvider {}
 // MARK: - SavedViewControllerDelegate
 
 extension ReadingListEntryCollectionViewController: SavedViewControllerDelegate {
-    func savedWillShowSortAlert(_ saved: SavedViewController, from button: UIButton) {
+    func savedWillShowSortAlert(_ saved: SavedViewController, from button: UIBarButtonItem) {
         presentSortAlert(from: button)
     }
     
@@ -525,15 +556,19 @@ extension ReadingListEntryCollectionViewController: SavedViewControllerDelegate 
     }
     
     func saved(_ saved: SavedViewController, searchBarTextDidBeginEditing searchBar: UISearchBar) {
-        navigationBar.isInteractiveHidingEnabled = false
     }
     
     func saved(_ saved: SavedViewController, searchBarTextDidEndEditing searchBar: UISearchBar) {
+        updateSearchString("")
         makeSearchBarResignFirstResponder(searchBar)
     }
     
     private func makeSearchBarResignFirstResponder(_ searchBar: UISearchBar) {
         searchBar.resignFirstResponder()
-        navigationBar.isInteractiveHidingEnabled = true
+    }
+    
+    func saved(_ saved: SavedViewController, scopeBarIndexDidChange searchBar: UISearchBar) {
+        updateSearchString("")
+        makeSearchBarResignFirstResponder(searchBar)
     }
 }

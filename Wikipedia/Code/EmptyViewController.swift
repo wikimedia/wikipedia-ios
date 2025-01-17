@@ -39,7 +39,6 @@ class EmptyViewController: UIViewController {
         
         scrollView.delegate = self
         scrollView.alwaysBounceVertical = true
-        scrollView.contentInsetAdjustmentBehavior = .never
         
         if canRefresh {
             refreshControl.layer.zPosition = -100
@@ -59,20 +58,8 @@ class EmptyViewController: UIViewController {
         })
     }
     
-    func centerEmptyView(topInset: CGFloat, topEmptyViewSpacing: CGFloat) {
-        guard viewIfLoaded != nil else {
-            return
-        }
-        scrollView.contentInset = UIEdgeInsets(top: topInset, left: 0, bottom: 0, right: 0)
-        emptyContainerViewTopConstraint.constant = topEmptyViewSpacing
-    }
-    
-    func centerEmptyView(within targetRect: CGRect) {
-        scrollView.contentInset = UIEdgeInsets(top: targetRect.minY, left: 0, bottom: 0, right: 0)
-    }
-    
     private func determineTopOffset(emptyViewHeight: CGFloat) {
-        let availableHeight = view.bounds.height - scrollView.contentInset.top
+        let availableHeight = view.bounds.height - scrollView.adjustedContentInset.top
         let middle = availableHeight/2
         let heightMiddle = emptyViewHeight / 2
         let targetY = middle - heightMiddle

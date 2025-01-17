@@ -65,7 +65,6 @@ class ArticleFetchedResultsViewController: ArticleCollectionViewController, Coll
         }
 
         navigationItem.rightBarButtonItem?.isEnabled = !isEmpty
-        navigationBar.updateNavigationItems()
     }
     
     @objc fileprivate final func deleteButtonPressed(_ sender: UIBarButtonItem) {

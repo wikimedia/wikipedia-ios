@@ -421,6 +421,7 @@
 "editor-replace-type-button-accessibility" = "Switch replace type. Currently set to $1. Select to change.";
 "editor-replace-type-single" = "Replace";
 "editor-replace-type-single-accessibility" = "Replace single instance";
+"editor-title" = "Editor";
 "editor-toolbar-bold-accessibility" = "Bold text formatting";
 "editor-toolbar-cursor-down-accessibility" = "Move cursor down to next line.";
 "editor-toolbar-cursor-next-accessibility" = "Move cursor to next character.";
@@ -735,7 +736,6 @@
 "main-menu-terms-of-use" = "Terms of Use";
 "main-menu-title" = "More";
 "main-menu-zero-faq" = "Wikipedia Zero FAQ";
-"menu-cancel-accessibility-label" = "Cancel";
 "microsite-yir-english-edits-bytes-slide-subtitle" = "In 2024, volunteers added 4,104,852,969 bytes to English Wikipedia. The sum of all their work together leads to a steadily improving, fact-based, and reliable knowledge resource that they give to the world. All of us have knowledge to share, [learn how to participate]($1).";
 "microsite-yir-english-edits-bytes-slide-title" = "4 billion bytes added";
 "microsite-yir-english-edits-slide-subtitle" = "Volunteers made 98,222,407 changes across over 300 different language editions of Wikipedia. Over 37 million changes were made on English Wikipedia. Every hour of every day, volunteers are working to improve Wikipedia.";
@@ -949,7 +949,9 @@
 "places-filter-top-articles" = "Top read";
 "places-filter-top-articles-count" = "{{PLURAL:$1|$1 article|$1 articles}}";
 "places-filter-top-read-articles" = "Top read articles";
+"places-list-title'" = "List";
 "places-location-enabled" = "Location enabled";
+"places-map-title" = "Map";
 "places-no-saved-articles-have-location" = "None of your saved articles have location information";
 "places-search-articles-that-match" = "$1 matching “$2”";
 "places-search-default-text" = "Search Places";
@@ -1005,6 +1007,7 @@
 "reading-list-create-new-list-reading-list-name" = "Reading list name";
 "reading-list-create-new-list-title" = "Create a new list";
 "reading-list-deleted-accessibility-notification" = "Reading list deleted";
+"reading-list-detail-search-placeholder" = "Search reading list";
 "reading-list-do-not-keep-button-title" = "No, delete articles from device";
 "reading-list-entry-limit-exceeded-message" = "Please decrease your number of articles in this list to $1 to resume syncing of all articles in this list.";
 "reading-list-entry-limit-exceeded-title" = "You have exceeded the limit of {{PLURAL:$1|$1 article|$1 articles}} per account.";
@@ -1102,6 +1105,7 @@
 "saved-default-reading-list-tag" = "This list cannot be deleted";
 "saved-pages-image-download-error" = "Failed to download images for this saved page.";
 "saved-pages-progress-syncing" = "Article download in progress...";
+"saved-reading-lists-search-placeholder" = "Search reading lists";
 "saved-reading-lists-title" = "Reading lists";
 "saved-search-default-text" = "Search saved articles";
 "saved-title" = "Saved";
@@ -1237,7 +1241,6 @@
 "talk-page-subscription-failed-alert" = "Subscribing to the topic failed, please try again.";
 "talk-page-title-article-talk" = "Article Talk";
 "talk-page-title-user-talk" = "User Talk";
-"talk-page-topic-close-button-hint" = "Close new topic";
 "talk-page-topic-compose-terms-and-licenses-ccsa4" = "By publishing changes, you agree to the $1Terms of Use$2, and you irrevocably agree to release your contribution under the $3CC BY-SA 4.0 License$4 and the $5GFDL$6.";
 "talk-page-unsubscribe-to-topic" = "Unsubscribe";
 "talk-page-unsubscribed-alert-subtitle" = "You will no longer receive notifications about new comments in this topic.";

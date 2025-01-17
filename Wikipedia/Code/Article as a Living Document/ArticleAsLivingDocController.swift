@@ -2,6 +2,7 @@ import Foundation
 import UIKit
 import CocoaLumberjackSwift
 import WMF
+import WMFComponents
 
 protocol ArticleAsLivingDocControllerDelegate: AnyObject {
     var articleURL: URL { get }
@@ -328,9 +329,7 @@ class ArticleAsLivingDocController: NSObject {
             articleAsLivingDocViewController?.apply(theme: delegate.theme)
             
             if let articleAsLivingDocViewController = articleAsLivingDocViewController {
-                let navigationController = WMFThemeableNavigationController(rootViewController: articleAsLivingDocViewController, theme: delegate.theme)
-                navigationController.modalPresentationStyle = .pageSheet
-                navigationController.isNavigationBarHidden = true
+                let navigationController = WMFComponentNavigationController(rootViewController: articleAsLivingDocViewController, modalPresentationStyle: .pageSheet)
                 surveyLinkState = .inExperimentLoadedEventsDidSeeModal
                 delegate.extendTimerForPresentingModal()
                 delegate.present(navigationController, animated: true)
