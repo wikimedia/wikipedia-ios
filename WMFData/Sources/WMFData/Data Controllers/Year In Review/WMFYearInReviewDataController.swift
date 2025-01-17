@@ -2,6 +2,7 @@ import Foundation
 import UIKit
 import CoreData
 
+@preconcurrency
 @objc public class WMFYearInReviewDataController: NSObject {
 
     public let coreDataStore: WMFCoreDataStore
@@ -55,9 +56,20 @@ import CoreData
     private var seenIntroSlideStatus: YiRNotificationAnnouncementStatus {
         return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.seenYearInReviewIntroSlide.rawValue)) ?? YiRNotificationAnnouncementStatus.default
     }
-
-    public func shouldShowYiRNotification(primaryAppLanguageProject: WMFProject?) -> Bool {
+    
+    public func shouldShowYiRNotification(primaryAppLanguageProject: WMFProject?, isLoggedOut: Bool) -> Bool {
+        if isLoggedOut {
+            return !hasTappedProfileItem && !hasSeenYiRIntroSlide && shouldShowYearInReviewEntryPoint(countryCode: Locale.current.region?.identifier, primaryAppLanguageProject: primaryAppLanguageProject)
+        }
         return !hasSeenYiRIntroSlide && shouldShowYearInReviewEntryPoint(countryCode: Locale.current.region?.identifier, primaryAppLanguageProject: primaryAppLanguageProject)
+    }
+    
+    public var hasTappedProfileItem: Bool {
+        get {
+            return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.tappedYIR.rawValue)) ?? false
+        } set {
+            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.tappedYIR.rawValue, value: newValue)
+        }
     }
 
     public var hasSeenYiRIntroSlide: Bool {
@@ -157,6 +169,13 @@ import CoreData
               uppercaseConfigPrimaryAppLanguageCodes.contains(languageCode.uppercased()) else {
             return false
         }
+        
+        // Check persisted year in review report exists.
+        let yirReport = try? fetchYearInReviewReport(forYear: Self.targetYear)
+        guard yirReport != nil else {
+            return false
+        }
+        
         return true
     }
 
@@ -1031,7 +1050,10 @@ import CoreData
 
                 for slide in slides {
 
-                    guard slide.id == WMFYearInReviewPersonalizedSlideID.editCount.rawValue else {
+                    guard slide.id == WMFYearInReviewPersonalizedSlideID.editCount.rawValue ||
+                            slide.id == WMFYearInReviewPersonalizedSlideID.viewCount.rawValue ||
+                            slide.id == WMFYearInReviewPersonalizedSlideID.saveCount.rawValue
+                    else {
                         continue
                     }
 

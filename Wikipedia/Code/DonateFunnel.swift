@@ -325,29 +325,30 @@ import WMF
         logEvent(activeInterface: .wikiYiR, action: .closeClick, actionData: ["slide": slideLoggingID])
     }
     
-    func logYearInReviewDidTapIntroContinue() {
-        logEvent(activeInterface: .wikiYiR, action: .startClick, actionData: ["slide": "start"])
+    func logYearInReviewDidTapIntroContinue(isEntryC: Bool = false) {
+        logEvent(activeInterface: .wikiYiR, action: .startClick, actionData: ["slide": isEntryC ? "start_c" : "start"])
     }
     
-    func logYearInReviewDidTapIntroLearnMore() {
-        logEvent(activeInterface: .wikiYiR, action: .learnClick, actionData: ["slide": "start"])
+    func logYearInReviewDidTapIntroLearnMore(isEntryC: Bool = false) {
+        logEvent(activeInterface: .wikiYiR, action: .learnClick, actionData: ["slide": isEntryC ? "start_c" : "start"])
     }
     
     func logYearInReviewDidTapNext(slideLoggingID: String) {
         logEvent(activeInterface: .wikiYiR, action: .nextClick, actionData: ["slide": slideLoggingID])
     }
     
-    func logYearInReviewFeatureAnnouncementDidAppear() {
-        logEvent(activeInterface: .wikiYiR, action: .impression, actionData: ["slide": "entry_a"])
+    func logYearInReviewFeatureAnnouncementDidAppear(isEntryA: Bool = true) {
+        logEvent(activeInterface: .wikiYiR, action: .impression, actionData: ["slide": isEntryA ? "entry_a" : "entry_c"])
     }
     
-    func logYearInReviewFeatureAnnouncementDidTapContinue() {
-        logEvent(activeInterface: .wikiYiR, action: .continueClick, actionData: ["slide": "entry_a"])
+    func logYearInReviewFeatureAnnouncementDidTapContinue(isEntryA: Bool = true) {
+        logEvent(activeInterface: .wikiYiR, action: .continueClick, actionData: ["slide": isEntryA ? "entry_a" : "entry_c"])
     }
     
-    func logYearInReviewFeatureAnnouncementDidTapClose() {
-        logEvent(activeInterface: .wikiYiR, action: .closeClick, actionData: ["slide": "entry_a"])
+    func logYearInReviewFeatureAnnouncementDidTapClose(isEntryA: Bool = true) {
+        logEvent(activeInterface: .wikiYiR, action: .closeClick, actionData: ["slide": isEntryA ? "entry_a" : "entry_c"])
     }
+    
     
     func logYearInReviewDidTapDonate(slideLoggingID: String, metricsID: String) {
         logEvent(activeInterface: .wikiYiR, action: .donateStartClickYir, actionData: [
@@ -359,16 +360,12 @@ import WMF
         logEvent(activeInterface: .wikiYiR, action: .impression, actionData: ["slide": "new_account_engage"])
     }
     
-    func logYearInReviewLoginPromptDidAppearProfile() {
-        logEvent(activeInterface: .wikiYiR, action: .impression, actionData: ["slide": "yir_start_account_engage"])
-    }
-    
     func logYearInReviewLoginPromptDidTapLogin() {
         logEvent(activeInterface: .wikiYiR, action: .accountEngageClick, actionData: ["slide": "new_account_engage"])
     }
     
     func logYearInReviewLoginPromptDidTapLoginProfile() {
-        logEvent(activeInterface: .wikiYiR, action: .accountEngageClick, actionData: ["slide": "yir_start_account_engage"])
+        logEvent(activeInterface: .wikiYiR, action: .accountEngageClick, actionData: ["slide": "entry_b_profile"])
     }
     
     func logYearInReviewLoginPromptDidTapNoThanks() {
@@ -376,7 +373,7 @@ import WMF
     }
     
     func logYearInReviewLoginPromptDidTapNoThanksProfile() {
-        logEvent(activeInterface: .wikiYiR, action: .rejectClick, actionData: ["slide": "yir_start_account_engage"])
+        logEvent(activeInterface: .wikiYiR, action: .rejectClick, actionData: ["slide": "entry_b_profile"])
     }
     
     func logYearInReviewDidTapShare(slideLoggingID: String) {
@@ -421,7 +418,7 @@ import WMF
     }
     
     func logYearInReviewDonateSlideLearnMoreWebViewDidTapDonateButton(metricsID: String) {
-        logEvent(activeInterface: .wikiYiR, action: .donateStartClickYir, actionData: ["slide": "about_wikimedia",
+        logEvent(activeInterface: .wikiYiR, action: .donateStartClickYir, actionData: ["slide": "about_wikimedia_base",
                                                                                        "campaign_id": metricsID])
     }
     

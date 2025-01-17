@@ -66,16 +66,14 @@ extension ArticleViewController {
     }
     
     func hideFindInPage(_ completion: (() -> Void)? = nil) {
-        resetFindInPage {
-            self.findInPage.view?.hide()
-            self.resignFirstResponder()
-            completion?()
+            resetFindInPage {
+                self.findInPage.view?.hide()
+                self.findInPage.view?.removeFromSuperview()
+                self.findInPage.view = nil
+                self.resignFirstResponder()
+                completion?()
+            }
         }
-
-        self.findInPage.view?.removeFromSuperview()
-        self.view.layoutSubviews()
-        self.findInPage.view = nil
-    }
 
     func resetFindInPage(_ completion: (() -> Void)? = nil) {
         webView.evaluateJavaScript("window.wmf.findInPage.removeSearchTermHighlights()", completionHandler: { obj, error in

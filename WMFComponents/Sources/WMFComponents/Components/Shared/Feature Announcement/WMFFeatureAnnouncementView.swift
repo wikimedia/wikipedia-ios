@@ -1,26 +1,26 @@
 import SwiftUI
 
 struct WMFFeatureAnnouncementView: View {
-
+    
     @ObservedObject var appEnvironment = WMFAppEnvironment.current
-
+    
     let viewModel: WMFFeatureAnnouncementViewModel
-
+    
     var imageColor: Color? {
         Color(uiColor: appEnvironment.theme.link)
     }
-
+    
     var closeImage: Image? {
         if let uiImage = WMFSFSymbolIcon.for(symbol: .closeCircleFill, font: .title1) {
             return Image(uiImage: uiImage)
         }
         return nil
     }
-
+    
     func spacingForAvailableHeight(_ height: CGFloat) -> CGFloat {
         return max(height * 0.04, 8)
     }
-
+    
     var body: some View {
         GeometryReader { geometry in
             ZStack {
@@ -47,8 +47,24 @@ struct WMFFeatureAnnouncementView: View {
                                 .font(Font(WMFFont.for(.callout)))
                                 .foregroundColor(Color(appEnvironment.theme.text))
                         }
-
-                        if let image = viewModel.image {
+                        
+                        if let gifName = viewModel.gifName, let altText = viewModel.altText {
+                            ZStack {
+                                Image(gifName, bundle: .module)
+                                    .resizable()
+                                    .aspectRatio(1.5, contentMode: .fill)
+                                    .frame(maxHeight: 220)
+                                    .frame(maxWidth: geometry.size.width - 64)
+                                    .cornerRadius(8)
+                                WMFGIFImageView(gifName)
+                                    .aspectRatio(1.5, contentMode: .fill)
+                                    .frame(maxHeight: 220)
+                                    .frame(maxWidth: geometry.size.width - 64)
+                                    .cornerRadius(8)
+                            }
+                            .accessibilityElement(children: .combine)
+                            .accessibilityLabel(altText)
+                        } else if let image = viewModel.image {
                             ZStack(alignment: .center) {
                                 if let backgroundImage = viewModel.backgroundImage {
                                     Image(uiImage: backgroundImage)
@@ -78,6 +94,6 @@ struct WMFFeatureAnnouncementView: View {
     }
 }
 
-#Preview {
+ #Preview {
     WMFFeatureAnnouncementView(viewModel: WMFFeatureAnnouncementViewModel(title: "Try 'Add an image'", body: "Decide if an image gets added to a Wikipedia article. You can find the ‘Add an image’ card in your ‘Explore feed’.", primaryButtonTitle: "Try now", image:  WMFIcon.addPhoto, primaryButtonAction: {}, closeButtonAction: {}))
-}
+ }

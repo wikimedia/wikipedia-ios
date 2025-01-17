@@ -581,6 +581,7 @@
 "preference-summary-eventlogging-opt-in" = "Benarkan Wikimedia Foundation untuk mengumpul maklumat mengenai cara penggunaan aplikasi demi peningkatan kualiti aplikasi";
 "profile-button-accessibility-label" = "Profil";
 "profile-button-badge-accessibility-label" = "Profil dengan lencana yang belum dibaca";
+// Fuzzy
 "profile-page-join-title" = "Sertai Wikipedia / Log masuk";
 "profile-page-title-logged-out" = "Akaun";
 "project-name-wikibooks" = "Wikibuku";

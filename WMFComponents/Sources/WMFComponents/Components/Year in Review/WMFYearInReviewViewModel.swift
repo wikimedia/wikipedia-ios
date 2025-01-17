@@ -25,10 +25,11 @@ public class WMFYearInReviewViewModel: ObservableObject {
     weak var badgeDelegate: YearInReviewBadgeDelegate?
     private(set) weak var loggingDelegate: WMFYearInReviewLoggingDelegate?
     var hasSeenTwoSlides: Bool = false
+    public let isUserAuth: Bool
 
     @Published public var isLoading: Bool = false
 
-    public init(isFirstSlide: Bool = true, localizedStrings: LocalizedStrings, slides: [YearInReviewSlideContent], shareLink: String, hashtag: String, hasPersonalizedDonateSlide: Bool, coordinatorDelegate: YearInReviewCoordinatorDelegate?, loggingDelegate: WMFYearInReviewLoggingDelegate, badgeDelegate: YearInReviewBadgeDelegate?) {
+    public init(isFirstSlide: Bool = true, localizedStrings: LocalizedStrings, slides: [YearInReviewSlideContent], shareLink: String, hashtag: String, hasPersonalizedDonateSlide: Bool, coordinatorDelegate: YearInReviewCoordinatorDelegate?, loggingDelegate: WMFYearInReviewLoggingDelegate, badgeDelegate: YearInReviewBadgeDelegate?, isUserAuth: Bool) {
         self.isFirstSlide = isFirstSlide
         self.localizedStrings = localizedStrings
         self.slides = slides
@@ -38,6 +39,7 @@ public class WMFYearInReviewViewModel: ObservableObject {
         self.coordinatorDelegate = coordinatorDelegate
         self.loggingDelegate = loggingDelegate
         self.badgeDelegate = badgeDelegate
+        self.isUserAuth = isUserAuth
     }
 
     public func getStarted() {
@@ -63,11 +65,28 @@ public class WMFYearInReviewViewModel: ObservableObject {
         let firstSlideCTA: String
         let firstSlideLearnMore: String
         public let shareText: String
+        
         public let wIconAccessibilityLabel: String
-        public let globeImageAccessibilityLabel: String
         public let wmfLogoImageAccessibilityLabel: String
-
-        public init(donateButtonTitle: String, doneButtonTitle: String, shareButtonTitle: String, nextButtonTitle: String, finishButtonTitle: String, firstSlideTitle: String, firstSlideSubtitle: String, firstSlideCTA: String, firstSlideLearnMore: String, shareText: String, wIconAccessibilityLabel: String, globeImageAccessibilityLabel: String, wmfLogoImageAccessibilityLabel: String) {
+        
+        public let personalizedExploreAccessibilityLabel: String
+        public let personalizedYouReadAccessibilityLabel: String
+        public let personalizedUserEditsAccessibilityLabel: String
+        public let personalizedDonationThankYouAccessibilityLabel: String
+        public let personalizedSavedArticlesAccessibilityLabel: String
+        public let personalizedWeekdayAccessibilityLabel: String
+        public let personalizedYourEditsViewsAccessibilityLabel: String
+        
+        public let collectiveExploreAccessibilityLabel: String
+        public let collectiveLanguagesAccessibilityLabel: String
+        public let collectiveArticleViewsAccessibilityLabel: String
+        public let collectiveSavedArticlesAccessibilityLabel: String
+        public let collectiveAmountEditsAccessibilityLabel: String
+        public let englishEditsAccessibilityLabel: String
+        public let collectiveEditsPerMinuteAccessibilityLabel: String
+        public let collectiveZeroAdsAccessibilityLabel: String
+        
+        public init(donateButtonTitle: String, doneButtonTitle: String, shareButtonTitle: String, nextButtonTitle: String, finishButtonTitle: String, firstSlideTitle: String, firstSlideSubtitle: String, firstSlideCTA: String, firstSlideLearnMore: String, shareText: String, wIconAccessibilityLabel: String, wmfLogoImageAccessibilityLabel: String, personalizedExploreAccessibilityLabel: String, personalizedYouReadAccessibilityLabel: String, personalizedUserEditsAccessibilityLabel: String, personalizedDonationThankYouAccessibilityLabel: String, personalizedSavedArticlesAccessibilityLabel: String, personalizedWeekdayAccessibilityLabel: String, personalizedYourEditsViewsAccessibilityLabel: String, collectiveExploreAccessibilityLabel: String, collectiveLanguagesAccessibilityLabel: String, collectiveArticleViewsAccessibilityLabel: String, collectiveSavedArticlesAccessibilityLabel: String, collectiveAmountEditsAccessibilityLabel: String, englishEditsAccessibilityLabel: String, collectiveEditsPerMinuteAccessibilityLabel: String, collectiveZeroAdsAccessibilityLabel: String) {
             self.donateButtonTitle = donateButtonTitle
             self.doneButtonTitle = doneButtonTitle
             self.shareButtonTitle = shareButtonTitle
@@ -79,14 +98,27 @@ public class WMFYearInReviewViewModel: ObservableObject {
             self.firstSlideLearnMore = firstSlideLearnMore
             self.shareText = shareText
             self.wIconAccessibilityLabel = wIconAccessibilityLabel
-            self.globeImageAccessibilityLabel = globeImageAccessibilityLabel
             self.wmfLogoImageAccessibilityLabel = wmfLogoImageAccessibilityLabel
+            self.personalizedExploreAccessibilityLabel = personalizedExploreAccessibilityLabel
+            self.personalizedYouReadAccessibilityLabel = personalizedYouReadAccessibilityLabel
+            self.personalizedUserEditsAccessibilityLabel = personalizedUserEditsAccessibilityLabel
+            self.personalizedDonationThankYouAccessibilityLabel = personalizedDonationThankYouAccessibilityLabel
+            self.personalizedSavedArticlesAccessibilityLabel = personalizedSavedArticlesAccessibilityLabel
+            self.personalizedWeekdayAccessibilityLabel = personalizedWeekdayAccessibilityLabel
+            self.personalizedYourEditsViewsAccessibilityLabel = personalizedYourEditsViewsAccessibilityLabel
+            self.collectiveExploreAccessibilityLabel = collectiveExploreAccessibilityLabel
+            self.collectiveLanguagesAccessibilityLabel = collectiveLanguagesAccessibilityLabel
+            self.collectiveArticleViewsAccessibilityLabel = collectiveArticleViewsAccessibilityLabel
+            self.collectiveSavedArticlesAccessibilityLabel = collectiveSavedArticlesAccessibilityLabel
+            self.collectiveAmountEditsAccessibilityLabel = collectiveAmountEditsAccessibilityLabel
+            self.englishEditsAccessibilityLabel = englishEditsAccessibilityLabel
+            self.collectiveEditsPerMinuteAccessibilityLabel = collectiveEditsPerMinuteAccessibilityLabel
+            self.collectiveZeroAdsAccessibilityLabel = collectiveZeroAdsAccessibilityLabel
         }
-
     }
 
     func handleShare(for slide: Int) {
-        let view = WMFYearInReviewShareableSlideView(imageName: slides[slide].imageName, imageOverlay: slides[slide].imageOverlay, textOverlay: slides[slide].textOverlay, slideTitle: slides[slide].title, slideSubtitle: slides[slide].subtitle, hashtag: hashtag)
+        let view = WMFYearInReviewShareableSlideView(imageName: slides[slide].gifName, altText: slides[slide].altText, slideTitle: slides[slide].title, slideSubtitle: slides[slide].subtitle, hashtag: hashtag, isAttributedString: slides[slide].isSubtitleAttributedString ?? false)
         let shareView = view.snapshot()
         coordinatorDelegate?.handleYearInReviewAction(.share(image: shareView))
     }
@@ -133,7 +165,11 @@ public class WMFYearInReviewViewModel: ObservableObject {
     }
     
     var slideLoggingID: String {
-        return isFirstSlide ? "start" : slides[currentSlide].loggingID
+        if isFirstSlide {
+            return isUserAuth ? "start_c" : "start"
+        }
+        
+        return slides[currentSlide].loggingID
     }
     
     var isLastSlide: Bool {
@@ -148,7 +184,7 @@ public class WMFYearInReviewViewModel: ObservableObject {
     func markFirstSlideAsSeen() {
         if let dataController = try? WMFYearInReviewDataController() {
             dataController.hasSeenYiRIntroSlide = true
-            badgeDelegate?.didSeeFirstSlide()
+            badgeDelegate?.updateYIRBadgeVisibility()
         }
     }
 
@@ -169,31 +205,28 @@ public class WMFYearInReviewViewModel: ObservableObject {
 public struct YearInReviewSlideContent: SlideShowProtocol {
 
     public var infoURL: URL?
-    public let imageName: String
-    public let imageOverlay: String?
-    public let imageOverlayAccessibilityLabel: String?
-    public let textOverlay: String?
+    public let gifName: String
+    public let altText: String
     public let title: String
     let informationBubbleText: String?
     public let subtitle: String
+    public let isSubtitleAttributedString: Bool?
     public let loggingID: String
     public let hideDonateButton: Bool
     
-    public init(imageName: String, imageOverlay: String? = nil, imageOverlayAccessibilityLabel: String? = nil, textOverlay: String? = nil, title: String, informationBubbleText: String?, subtitle: String, loggingID: String, infoURL: URL? = nil, hideDonateButton: Bool) {
-        self.imageName = imageName
-        self.imageOverlay = imageOverlay
-        self.imageOverlayAccessibilityLabel = imageOverlayAccessibilityLabel
-        self.textOverlay = textOverlay
+    public init(gifName: String, altText: String, title: String, informationBubbleText: String?, subtitle: String, isSubtitleAttributedString: Bool? = false, loggingID: String, infoURL: URL? = nil, hideDonateButton: Bool) {
+        self.altText = altText
         self.title = title
         self.informationBubbleText = informationBubbleText
         self.subtitle = subtitle
         self.loggingID = loggingID
         self.infoURL = infoURL
 		self.hideDonateButton = hideDonateButton
+        self.gifName = gifName
+        self.isSubtitleAttributedString = isSubtitleAttributedString
     }
 }
 
-
 @objc public protocol YearInReviewBadgeDelegate: AnyObject {
-    @objc func didSeeFirstSlide()
+    @objc func updateYIRBadgeVisibility()
 }

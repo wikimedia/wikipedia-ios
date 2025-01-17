@@ -946,6 +946,7 @@
 "privacy-policy-title" = "Политика конфиденциальности";
 "problem-with-feature-title" = "Проблема с функцией";
 "profile-button-accessibility-label" = "Профиль";
+// Fuzzy
 "profile-page-join-title" = "Присоединяйтесь к Википедии / Войти";
 "profile-page-title-logged-out" = "Учётная запись";
 "project-name-mediawiki" = "MediaWiki";
@@ -1357,7 +1358,7 @@
 "wikitext-upload-save-terms-name" = "Условия использования";
 "year-in-review-base-editors-title" = "Редакторы приложения для iOS сделали более $1 правок";
 "year-in-review-base-edits-title" = "Википедия редактировалась $1 раз в минуту";
-"year-in-review-base-reading-title" = "Чтение объединило нас";
+"year-in-review-base-reading-title" = "Википедия доступна на более чем 300 языках";
 "year-in-review-base-viewed-title" = "Мы просмотрели статьи Википедии $1 миллиард раз";
 "year-in-review-button-title" = "Обзор года";
 "year-in-review-day-friday" = "Пятницы";
@@ -1371,6 +1372,7 @@
 "year-in-review-donate-now" = "Сделать пожертвование сейчас";
 "year-in-review-finish" = "Завершить";
 "year-in-review-personalized-day-subtitle-format" = "$1 — тот день, когда вы читали больше всего статей. Очевидно, что это ваш главный день для изучения нового контента. Спасибо, что максимально используете время чтения!";
+// Fuzzy
 "year-in-review-personalized-donate-title" = "Спасибо за ваше пожертвование!";
 "year-in-review-personalized-editing-subtitle-format" = "Вы редактировали Википедию {{PLURAL:$1|$1 раз|раз}}. Спасибо, что вы один из добровольных редакторов, которые вносят свой вклад в проекты Викимедиа по всему миру.";
 "year-in-review-personalized-editing-title-format" = "Вы редактировали Википедию {{PLURAL:$1|$1 раз|раз}}";

@@ -26,6 +26,7 @@ final class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegat
     let dataStore: MWKDataStore
     
     private weak var viewModel: WMFProfileViewModel?
+    weak var badgeDelegate: YearInReviewBadgeDelegate?
     
     private let donateSouce: DonateCoordinator.Source
     private let targetRects = WMFProfileViewTargetRects()
@@ -91,7 +92,8 @@ final class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegat
             localizedStrings: localizedStrings,
             inboxCount: Int(truncating: inboxCount ?? 0),
             coordinatorDelegate: self,
-            yearInReviewDependencies: yearInReviewDependencies
+            yearInReviewDependencies: yearInReviewDependencies,
+            badgeDelegate: badgeDelegate
         )
         
         var profileView = WMFProfileView(viewModel: viewModel)
@@ -149,7 +151,6 @@ final class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegat
         case .logDonateTap:
             self.logDonateTap()
         case .showYearInReview:
-            
             if let viewModel, !viewModel.isUserLoggedIn() {
                 presentLoginPrompt()
             } else {
@@ -201,6 +202,12 @@ final class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegat
                     self.showYearInReview()
                 }
             }
+            
+            loginCoordinator.createAccountSuccessCustomDismissBlock = {
+                self.dismissProfile {
+                    self.showYearInReview()
+                }
+            }
 
             loginCoordinator.start()
         }
@@ -214,8 +221,6 @@ final class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegat
             alert.addAction(action2)
             
             presentedViewController.present(alert, animated: true)
-            
-            DonateFunnel.shared.logYearInReviewLoginPromptDidAppearProfile()
         }
     }
     

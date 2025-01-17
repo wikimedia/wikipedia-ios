@@ -107,7 +107,7 @@ extension ArticleViewController: ArticleWebMessageHandling {
     
     func setupFooter() {
         // Always use Configuration.production for related articles
-        guard let baseURL = Configuration.production.pageContentServiceAPIURLForURL(articleURL, appending: []) else {
+        guard let baseURL = Configuration.production.pageContentServiceAPIURLForURL(articleURL, appending: [])?.wmf_site else {
             return
         }
         var menuItems: [PageContentService.Footer.Menu.Item] = [.talkPage, .lastEdited, .pageIssues, .disambiguation]
