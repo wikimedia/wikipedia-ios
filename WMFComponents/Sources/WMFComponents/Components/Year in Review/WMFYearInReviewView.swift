@@ -1,4 +1,5 @@
 import SwiftUI
+import WebKit
 
 public struct WMFYearInReviewView: View {
     @ObservedObject var appEnvironment = WMFAppEnvironment.current
@@ -17,7 +18,7 @@ public struct WMFYearInReviewView: View {
     public var body: some View {
         NavigationView {
             VStack {
-                HStack {
+                HStack(alignment: .center) {
                     if viewModel.shouldShowDonateButton {
                         WMFYearInReviewDonateButton(viewModel: viewModel)
                             .frame(maxWidth: .infinity, alignment: .leading)
@@ -28,8 +29,11 @@ public struct WMFYearInReviewView: View {
                     }
                     Spacer()
                     Image("W", bundle: .module)
-                        .frame(maxWidth: .infinity)
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(height: 20)
                         .foregroundColor(Color(theme.text))
+                        .accessibilityLabel(viewModel.localizedStrings.wIconAccessibilityLabel)
                     Spacer()
                     Button(action: {
                         viewModel.logYearInReviewDidTapDone()
@@ -42,15 +46,15 @@ public struct WMFYearInReviewView: View {
                     }
                     .frame(maxWidth: .infinity, alignment: .trailing)
                 }
-                .padding()
+                .padding(.bottom, 5)
+                .padding([.top, .horizontal], 16)
                 if viewModel.isFirstSlide {
                     WMFYearInReviewScrollView(
                         scrollViewContents: scrollViewContent,
                         contents: { AnyView(buttons) },
-                        imageName: "intro",
-                        imageOverlay: "globe_yir")
+                        gifName: viewModel.isUserAuth ? "personal-slide-00" : "english-slide-00",
+                        altText: viewModel.isUserAuth ? viewModel.localizedStrings.personalizedExploreAccessibilityLabel : viewModel.localizedStrings.collectiveExploreAccessibilityLabel)
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
-                        .padding(.top, 48)
                         .onAppear {
                             viewModel.logYearInReviewSlideDidAppear()
                             viewModel.markFirstSlideAsSeen()
@@ -66,7 +70,6 @@ public struct WMFYearInReviewView: View {
                         }
                         .tabViewStyle(.page(indexDisplayMode: .never))
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
-                        .padding(.top, 48)
                     }
                     .ignoresSafeArea(edges: .bottom)
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -79,6 +82,9 @@ public struct WMFYearInReviewView: View {
             .onChange(of: viewModel.currentSlide) { newSlide in
                 // Logs slide impressions and next taps
                 viewModel.logYearInReviewSlideDidAppear()
+                if newSlide == 1 {
+                    viewModel.hasSeenTwoSlides = true
+                }
             }
             .toolbar {
                 if !viewModel.isFirstSlide {
@@ -157,12 +163,13 @@ public struct WMFYearInReviewView: View {
                     viewModel.getStarted()
                 }
             }
-            WMFSmallButton(configuration: configuration, title: viewModel.localizedStrings.firstSlideLearnMore) {
+
+            WMFLargeButton(configuration: .secondary, title: viewModel.localizedStrings.firstSlideLearnMore) {
                 viewModel.loggingDelegate?.logYearInReviewIntroDidTapLearnMore()
                 viewModel.coordinatorDelegate?.handleYearInReviewAction(.introLearnMore)
-                // TODO: Implement hide this feature
             }
+
         }
     }
-}
 
+}

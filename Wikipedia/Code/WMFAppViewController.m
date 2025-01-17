@@ -400,7 +400,6 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
     [self checkRemoteAppConfigIfNecessary];
     [self.periodicWorkerController start];
     [self.savedArticlesFetcher start];
-    [self populateYearInReviewReportFor:WMFYearInReviewDataController.targetYear];
 }
 
 - (void)performTasksThatShouldOccurAfterAnnouncementsUpdated {
@@ -990,6 +989,9 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
     [resumeAndAnnouncementsCompleteGroup enter];
     [self.dataStore.authenticationManager
         attemptLoginWithCompletion:^{
+        
+            [self populateYearInReviewReportFor:WMFYearInReviewDataController.targetYear];
+        
             [self checkRemoteAppConfigIfNecessary];
             if (!self.reachabilityNotifier) {
                 @weakify(self);
