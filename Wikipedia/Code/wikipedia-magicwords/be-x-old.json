@@ -130,7 +130,9 @@
   },
   {
     "aliases" : [
-      "Файл"
+      "Файл",
+      "Image",
+      "Выява"
     ],
     "name" : "file_namespace"
   }
