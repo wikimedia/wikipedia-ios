@@ -13,6 +13,7 @@
 // Author: Fitoschido
 // Author: Gomoko
 // Author: Grey Olson
+// Author: HNordeen (WMF)
 // Author: Hydros
 // Author: Iketsi
 // Author: John Trololo
@@ -34,6 +35,7 @@
 // Author: Oujon
 // Author: Oupsa
 // Author: Pols12
+// Author: Pyb
 // Author: Selhom
 // Author: SleaY
 // Author: Solucer
@@ -546,7 +548,7 @@
 "explore-feed-preferences-languages-footer-text" = "Masquer toutes les cartes du flux d'exploration dans toutes vos langues désactivera l’onglet Explorer.";
 "explore-feed-preferences-on-this-day-description" = "Événements de ce jour dans l’historique";
 "explore-feed-preferences-places-description" = "Articles de Wikipédia proches de votre emplacement";
-"explore-feed-preferences-potd-description" = "Image du jour en vedette sur Commons";
+"explore-feed-preferences-potd-description" = "Image remarquable du jour sur Commons";
 "explore-feed-preferences-randomizer-description" = "Générer des articles aléatoires à lire";
 "explore-feed-preferences-related-pages-description" = "Suggestions basées sur l’historique de lecture";
 "explore-feed-preferences-show-continue-reading-title" = "Afficher Poursuivre la lecture de carte";
@@ -786,19 +788,21 @@
 "main-menu-terms-of-use" = "Conditions d’utilisation";
 "main-menu-title" = "Plus";
 "main-menu-zero-faq" = "FAQ de Wikipédia Zéro";
-"menu-cancel-accessibility-label" = "Annuler";
+// Fuzzy
 "microsite-yir-english-edits-bytes-slide-subtitle" = "En 2024, les bénévoles ont ajouté 4 104 852 969 octets à Wikipédia en anglais. La somme de leur travail commun conduit à une ressource de connaissances en constante amélioration, fondée sur des faits et fiable, qu'ils mettent à la disposition du monde. Nous avons tous des connaissances à partager, [apprenez à participer]($1).";
 "microsite-yir-english-edits-bytes-slide-title" = "4 milliards d'octets ajoutés";
-"microsite-yir-english-edits-slide-subtitle" = "Les bénévoles ont apporté 98 222 407 modifications dans plus de 300 versions linguistiques différentes de Wikipédia. Plus de 38 millions de modifications ont été apportées à Wikipédia en anglais. Chaque heure de chaque jour, des bénévoles travaillent à l'amélioration de Wikipédia.";
+// Fuzzy
+"microsite-yir-english-edits-slide-subtitle" = "Les bénévoles ont apporté 98 222 407 modifications dans plus de 300 versions linguistiques différentes de Wikipédia. Plus de 37 millions de modifications ont été apportées à Wikipédia en anglais. Chaque heure de chaque jour, des bénévoles travaillent à l'amélioration de Wikipédia.";
+// Fuzzy
 "microsite-yir-english-edits-slide-title" = "Les contributeurs ont apporté près de 98 millions de modifications cette année";
 "microsite-yir-english-non-donor-slide-subtitle" = "Grâce à votre aide, la Fondation Wikimédia, l'organisme à but non lucratif à l'origine de Wikipédia, continuera à garantir que les informations sur lesquelles vous comptez sont exemptes de publicité et fiables, tout en permettant à Wikipédia de fonctionner sans problème avec des outils et des technologies de pointe. N'hésitez pas à faire un don dès aujourd'hui. [En savoir plus sur notre travail]($1).";
 "microsite-yir-english-non-donor-slide-title" = "Aucune publicité n'est diffusée sur Wikipédia";
+// Fuzzy
 "microsite-yir-english-reading-slide-subtitle" = "Les utilisateurs ont passé environ 2,9 milliards d'heures (près de 331 000 ans !) à lire Wikipédia en anglais en 2024. Wikipédia est là lorsque vous souhaitez en savoir plus sur l'évolution de notre monde, gagner un pari entre amis ou répondre à la question d'un enfant curieux.";
 "microsite-yir-english-reading-slide-title" = "Nous avons passé 2,9 milliards d’heures à lire";
 // Fuzzy
 "microsite-yir-english-saved-reading-slide-subtitle" = "Les utilisateurs actifs de l'application iOS comptaient plus de 62,2 millions de listes de lecture cette année. L'ajout d'articles aux listes de lecture vous permet d'accéder aux articles même hors ligne. Vous pouvez également vous connecter pour synchroniser les listes de lecture sur plusieurs appareils.";
 "microsite-yir-english-saved-reading-slide-title" = "Nous avions plus de 62,2 millions de listes de lecture";
-// Fuzzy
 "microsite-yir-english-top-read-slide-subtitle" = "Les 5 articles les plus consultés sur Wikipédia en anglais ont été :\n1. $1\n2. $2\n3. $3\n4. $4\n5. $5\nLisez $6notre article de blog dédié$7.";
 "microsite-yir-english-top-read-slide-title" = "Les articles les plus populaires de Wikipédia en anglais";
 "more-languages-tooltip-description" = "Rechercher sur Wikipédia dans plus de 300 langues";
@@ -1291,7 +1295,6 @@
 "talk-page-subscription-failed-alert" = "L’abonnement au sujet a échoué, veuillez essayer à nouveau.";
 "talk-page-title-article-talk" = "Discussion de l’article";
 "talk-page-title-user-talk" = "Discussion de l’utilisateur";
-"talk-page-topic-close-button-hint" = "Fermer le nouveau sujet";
 "talk-page-topic-compose-terms-and-licenses-ccsa4" = "En enregistrant les modifications, vous acceptez les $1Conditions d’utilisation$2 et acceptez irrévocablement de publier vos contributions sous les licences $3CC BY-SA 3.0$4 et $5GFDL$6.";
 "talk-page-unsubscribe-to-topic" = "Se désabonner";
 "talk-page-unsubscribed-alert-subtitle" = "Vous ne recevrez plus de notifications concernant les nouveaux commentaires sur ce sujet.";
@@ -1469,8 +1472,10 @@
 // Fuzzy
 "year-in-review-base-editors-subtitle" = "La communauté de bénévoles de Wikipédia a réalisé plus de 555 647 modifications via l’application mobile cette année. Le cœur de Wikipédia réside dans sa communauté mondiale de contributeurs volontaires, de donateurs et de lecteurs — tous unis pour partager un accès universel à des informations fiables.";
 "year-in-review-base-editors-title" = "Plus de $1 modifications ont été faites par les contributeurs";
+// Fuzzy
 "year-in-review-base-edits-subtitle" = "Cette année, Wikipédia a été modifié en moyenne $1 fois par minute. Les articles sont créés et améliorés collectivement, en s’appuyant sur des sources vérifiées. [Chacun peut contribuer au savoir collectif]($2).";
 "year-in-review-base-edits-title" = "Wikipédia a été modifié $1 fois par minute";
+// Fuzzy
 "year-in-review-base-reading-subtitle" = "Cette année, Wikipédia a atteint plus de $1 millions d'articles dans plus de $2 langues actives. Vous avez rejoint des millions de personnes qui ont souhaité élargir leurs connaissances et explorer des sujets divers.";
 "year-in-review-base-reading-title" = "Wikipédia était disponible dans plus de 300 langues";
 // Fuzzy
@@ -1503,6 +1508,7 @@
 "year-in-review-feature-announcement-title" = "Découvrez le bilan de Wikipédia";
 "year-in-review-feature-announcement-title-personalized" = "Explorez votre Bilan Wikipédia de l'Année";
 "year-in-review-feature-explore-body" = "Wikipédia est la plus grande ressource de connaissances jamais constituée dans l'histoire du monde. Elle est accessible gratuitement à tous, partout dans le monde. Voici un aperçu de l'année 2024 à travers le prisme de Wikipédia.";
+// Fuzzy
 "year-in-review-feature-explore-body-personalized" = "Consultez des informations sur les articles que vous lisez sur l'application Wikipédia et les modifications que vous avez apportées. Votre historique de lecture est protégé. Les informations de lecture sont calculées à l'aide des données stockées localement sur votre appareil.";
 "year-in-review-finish" = "Terminer";
 // Fuzzy
@@ -1522,6 +1528,7 @@
 "year-in-review-personalized-explore" = "Une illustration animée d'une main tenant le globe Wikipédia qui se transforme progressivement en une petite pièce de puzzle, symbolisant les contributions individuelles à la plateforme.";
 // Fuzzy
 "year-in-review-personalized-reading-subtitle-format" = "Cette année, vous avez consulté $1 articles. Wikipédia propose plus de $2 millions d’articles dans plus de $3 langues. Vous avez contribué à l’exploration et à l’enrichissement des connaissances.";
+// Fuzzy
 "year-in-review-personalized-reading-title-format" = "Vous avez lu cette année $1 article{{PLURAL:$1||s}}";
 "year-in-review-personalized-saved-articles" = "Illustration d'une pièce de puzzle portant un casque de sécurité avec des écrans d'ordinateur à l'arrière.";
 "year-in-review-personalized-saved-subtitle-format" = "Vous avez enregistré cette année $1 article{{PLURAL:$1|1=, à savoir $2|2=s, à savoir $2 et $3|3=s, à savoir $2, $3 et $4|s, dont $2, $3 et $4}}. Chaque article sauvegardé reflète vos intérêts et contribue à créer une base de connaissances personnalisée sur Wikipédia.";

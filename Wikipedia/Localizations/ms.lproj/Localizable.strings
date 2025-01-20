@@ -450,7 +450,6 @@
 "main-menu-terms-of-use" = "Syarat-syarat Penggunaan";
 "main-menu-title" = "Lagi";
 "main-menu-zero-faq" = "Soalan Lazim Wikipedia Zero";
-"menu-cancel-accessibility-label" = "Batal";
 "more-languages-tooltip-description" = "Cari Wikipedia dalam lebih 300 bahasa";
 "more-languages-tooltip-title" = "Tambahkan bahasa";
 "move-articles-to-reading-list" = "Pindahkan {{PLURAL:$1|$1 rencana|$1 rencana}} ke daftar bacaan";
@@ -512,7 +511,7 @@
 "notifications-center-title" = "Pemberitahuan";
 "notifications-center-type-item-description-notice" = "Notis";
 "notifications-center-type-item-description-welcome-verbose" = "Pesanan selamat datang";
-"notifications-center-type-title-connection-with-wikidata" = "Sambungan dengan Wikidata";
+"notifications-center-type-title-connection-with-wikidata" = "Pautan dengan Wikidata";
 "notifications-center-type-title-edit-milestone" = "Pencapaian suntingan";
 "notifications-center-type-title-edit-reverted" = "Suntingan diundurkan";
 "notifications-center-type-title-email-from-other-user" = "E-mel daripada pengguna lain";
@@ -667,7 +666,9 @@
 "reading-themes-controls-accessibility-dark-theme-button" = "Tema gelap";
 "reading-themes-controls-accessibility-light-theme-button" = "Tema terang";
 "reading-themes-controls-accessibility-sepia-theme-button" = "Tema sepia";
+"reading-themes-controls-accessibility-syntax-highlighting-switch" = "Penyerlahan Sintaks";
 "reading-themes-controls-accessibility-text-size-slider" = "Slider saiz teks";
+"reading-themes-controls-syntax-highlighting" = "Penyerlahan Sintaks";
 "reference-title" = "Referensi $1";
 "relative-date-days-ago" = "{{PLURAL:$1|0=Hari ini|1=Semalam|$1 hari yang lalu}}";
 "relative-date-hours-abbreviated" = "$1j";

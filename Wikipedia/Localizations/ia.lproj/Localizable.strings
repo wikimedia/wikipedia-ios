@@ -738,7 +738,6 @@
 "main-menu-terms-of-use" = "Conditiones de uso";
 "main-menu-title" = "Plus";
 "main-menu-zero-faq" = "FAQ de Wikipedia Zero";
-"menu-cancel-accessibility-label" = "Cancellar";
 "more-languages-tooltip-description" = "Cercar in Wikipedia in plus de 300 linguas";
 "more-languages-tooltip-title" = "Adder linguas";
 "more-menu" = "Plus";
@@ -967,8 +966,7 @@
 "profile-button-badge-accessibility-label" = "Profilo con insignia non legite";
 "profile-page-donate-subtext" = "O appoia Wikipedia con un donation pro mantener lo gratuite e accessibile a tote le mundo.";
 "profile-page-join-subtext" = "Crea un conto de Wikipedia pro traciar tu contributiones, salveguardar articulos foras de linea, e synchronisar inter apparatos.";
-// Fuzzy
-"profile-page-join-title" = "Adherer a Wikipedia / Aperir session";
+"profile-page-join-title" = "Aperir session / Adherer a Wikipedia";
 "profile-page-logged-out-year-in-review-subtext" = "Aperi session o crea un conto pro obtener un summario del anno meliorate le proxime anno";
 "profile-page-title-logged-out" = "Conto";
 "project-name-mediawiki" = "MediaWiki";
@@ -1224,7 +1222,6 @@
 "talk-page-subscription-failed-alert" = "Le abonamento a iste topico ha fallite. Per favor tenta lo de novo.";
 "talk-page-title-article-talk" = "Discussion de articulo";
 "talk-page-title-user-talk" = "Discussion de usator";
-"talk-page-topic-close-button-hint" = "Clauder nove topico";
 "talk-page-topic-compose-terms-and-licenses-ccsa4" = "Publicante le cambiamentos, tu accepta le $1Conditiones de uso$2 e libera irrevocabilemente tu contribution sub le licentias $3CC BY-SA 4.0$4 e $5GFDL$6.";
 "talk-page-unsubscribe-to-topic" = "Disabonar me";
 "talk-page-unsubscribed-alert-subtitle" = "Tu non recipera plus notificationes sur nove commentos in iste topico.";
@@ -1401,4 +1398,5 @@
 "year-in-review-button-title" = "Summario del anno";
 "year-in-review-donate" = "Donar";
 "year-in-review-feature-announcement-title" = "Explorar tu summario del anno de Wikipedia";
+// Fuzzy
 "year-in-review-feature-explore-body-personalized" = "Vide perspectivas sur le articulos que tu ha legite in le app de Wikipedia e le modificationes que tu ha facite. Tu historia de lectura es guardate secur. Le perspectivas de lectura es calculate usante datos immagazinate localmente sur tu apparato.";

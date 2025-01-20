@@ -632,7 +632,6 @@
 "main-menu-terms-of-use" = "Condições de utilização";
 "main-menu-title" = "Mais";
 "main-menu-zero-faq" = "Perguntas frequentes sobre a Wikipédia Zero";
-"menu-cancel-accessibility-label" = "Cancelar";
 "more-languages-tooltip-description" = "Pesquise a Wikipédia em mais de 300 línguas";
 "more-languages-tooltip-title" = "Adicionar línguas";
 "more-menu" = "Mais";
@@ -1103,7 +1102,6 @@
 "talk-page-subscription-failed-alert" = "Ocorreu uma falha ao subscrever o tópico. Tente novamente, por favor.";
 "talk-page-title-article-talk" = "Discussão de artigo";
 "talk-page-title-user-talk" = "Discussão do utilizador";
-"talk-page-topic-close-button-hint" = "Fechar novo tópico";
 "talk-page-unsubscribe-to-topic" = "Cancelar subscrição";
 "talk-page-unsubscribed-alert-subtitle" = "Deixará de receber notificações sobre comentários novos neste tópico.";
 "talk-page-unsubscribed-alert-title" = "Subscrição do tópico cancelada.";

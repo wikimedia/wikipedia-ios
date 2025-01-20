@@ -721,7 +721,6 @@
 "main-menu-terms-of-use" = "Условия использования";
 "main-menu-title" = "Ещё";
 "main-menu-zero-faq" = "ЧЗВ по Wikipedia Zero";
-"menu-cancel-accessibility-label" = "Отмена";
 "more-languages-tooltip-description" = "Искать в Википедии на более чем 300 языках";
 "more-languages-tooltip-title" = "Добавить языки";
 "more-menu" = "Ещё";
@@ -1198,7 +1197,6 @@
 "talk-page-subscription-failed-alert" = "Не удалось подписаться на тему, попробуйте ещё раз.";
 "talk-page-title-article-talk" = "Обсуждение статьи";
 "talk-page-title-user-talk" = "Обсуждение участника";
-"talk-page-topic-close-button-hint" = "Закрыть новую тему";
 "talk-page-topic-compose-terms-and-licenses-ccsa4" = "Сохраняя изменения, вы соглашаетесь с $1Условиями использования$2 и безвозвратно соглашаетесь опубликовать свой вклад под лицензиями $3CC BY-SA 4.0$4 и $5GFDL$6.";
 "talk-page-unsubscribe-to-topic" = "Отписаться";
 "talk-page-unsubscribed-alert-subtitle" = "Вы больше не будете получать уведомления о новых сообщениях в этой теме.";
@@ -1377,6 +1375,7 @@
 "year-in-review-personalized-editing-subtitle-format" = "Вы редактировали Википедию {{PLURAL:$1|$1 раз|раз}}. Спасибо, что вы один из добровольных редакторов, которые вносят свой вклад в проекты Викимедиа по всему миру.";
 "year-in-review-personalized-editing-title-format" = "Вы редактировали Википедию {{PLURAL:$1|$1 раз|раз}}";
 "year-in-review-personalized-editing-title-format-500plus" = "Вы редактировали Википедию более 500 раз";
+// Fuzzy
 "year-in-review-personalized-reading-title-format" = "Вы прочитали $1 {{PLURAL:$1|статью|статьи|статей}} в этом году";
 "year-in-review-survey-additional-thoughts" = "Есть ли у вас какие-нибудь дополнительные мысли?";
 "year-in-review-survey-title" = "Опрос по удовлетворённости";

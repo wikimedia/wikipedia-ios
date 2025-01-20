@@ -778,7 +778,6 @@
 "main-menu-terms-of-use" = "使用條款";
 "main-menu-title" = "更多";
 "main-menu-zero-faq" = "維基百科零計劃常見問題";
-"menu-cancel-accessibility-label" = "取消";
 "more-languages-tooltip-description" = "在超過 300 種語言的維基百科裡搜尋";
 "more-languages-tooltip-title" = "新增語言";
 "more-menu" = "更多";
@@ -1266,7 +1265,6 @@
 "talk-page-subscription-failed-alert" = "訂閱話題失敗，請重試。";
 "talk-page-title-article-talk" = "條目討論";
 "talk-page-title-user-talk" = "使用者討論";
-"talk-page-topic-close-button-hint" = "關閉新主題";
 "talk-page-topic-compose-terms-and-licenses-ccsa4" = "透過發布更改，代表您同意$1使用條款$2，並且不反悔同意根據$3 CC BY-SA 4.0 許可$4和$5 GFDL $6來發布您的貢獻。";
 "talk-page-unsubscribe-to-topic" = "取消訂閱";
 "talk-page-unsubscribed-alert-subtitle" = "您將不再收到此主題的新留言通知。";
@@ -1439,7 +1437,6 @@
 "wikitext-upload-save-sign-in" = "登入";
 "wikitext-upload-save-terms-and-licenses-ccsa4" = "透過發布更改，代表您同意$1使用條款$2，並且不反悔同意根據$3 CC BY-SA 4.0 許可$4和$5 GFDL $6來發布您的貢獻。您同意超連結或網址已足以代表創用 CC 授權條款的姓名標示。";
 "wikitext-upload-save-terms-name" = "使用條款";
-// Fuzzy
 "year-in-review-base-donate-subtitle" = "在您的支持下，維基媒體基金會——Wikipedia 背後的非營利組織——將繼續確保您所依賴的資訊無廣告且值得信賴，同時利用尖端工具和技術，讓 Wikipedia 平穩運行。請考慮今天捐款支持，[並了解更多關於我們的工作內容]($1)。";
 "year-in-review-base-donate-title" = "Wikipedia 上顯示的廣告數量為 0";
 // Fuzzy
@@ -1448,6 +1445,7 @@
 // Fuzzy
 "year-in-review-base-edits-subtitle" = "今年，Wikipedia 的平均編輯速度為每分鐘 $1 次。文章是基於可靠來源由社群共同創建和改進的。我們每個人都有知識可以分享，[歡迎學習如何參與其中]($2)。";
 "year-in-review-base-edits-title" = "Wikipedia 每分鐘被編輯 $1 次。";
+// Fuzzy
 "year-in-review-base-reading-subtitle" = "Wikipedia 在今年擁有超過 $1 萬篇文章，涵蓋 $2 多種活躍語言。您與數百萬人一起擴展知識，探索多元主題。";
 "year-in-review-base-reading-title" = "Wikipedia 提供超過 300 種語言版本";
 // Fuzzy
@@ -1470,6 +1468,7 @@
 "year-in-review-feature-announcement-title" = "探索 Wikipedia 年度回顧";
 "year-in-review-feature-announcement-title-personalized" = "探索您的 Wikipedia 年度回顧";
 "year-in-review-feature-explore-body" = "Wikipedia 是世界歷史上規模最大的知識資源，且免費提供給世界各地的每一個人。透過 Wikipedia 的視角，回顧 2024 年的點點滴滴。";
+// Fuzzy
 "year-in-review-feature-explore-body-personalized" = "查看您在 Wikipedia 應用程式上閱讀的文章以及所進行的編輯。您的閱讀歷史將受到保護，閱讀洞察是使用儲存在您裝置上的本地資料計算得出的。";
 // Fuzzy
 "year-in-review-login-subtitle" = "登入或建立帳戶，以獲得更多個人化的洞察資訊。";
@@ -1488,6 +1487,7 @@
 "year-in-review-personalized-editing-title-format-500plus" = "您編輯了維基百科 500 多次。";
 // Fuzzy
 "year-in-review-personalized-reading-subtitle-format" = "今年，您閱讀了 $1 篇文章。Wikipedia 提供超過 $2 萬篇文章，涵蓋 $3 多種語言版本。您與數百萬人一起拓展知識，探索多樣化的主題。";
+// Fuzzy
 "year-in-review-personalized-reading-title-format" = "您今年閱讀了 {{PLURAL:$1|$1}} 篇條目";
 // Fuzzy
 "year-in-review-personalized-saved-subtitle-format" = "您已儲存 $1 篇文章，包括$2、$3和$4。每篇儲存的文章都反映了您的興趣，並幫助您在 Wikipedia 上建立個人化的知識庫。";

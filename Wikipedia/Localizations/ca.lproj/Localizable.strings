@@ -599,7 +599,6 @@
 "main-menu-terms-of-use" = "Condicions d’ús";
 "main-menu-title" = "Més";
 "main-menu-zero-faq" = "Preguntes més freqüents sobre Viquipèdia Zero";
-"menu-cancel-accessibility-label" = "Cancel·la";
 "more-languages-tooltip-description" = "Cerca a la Viquipèdia en més de 300 llengües";
 "more-languages-tooltip-title" = "Afegeix llengües";
 "more-menu" = "Més";
@@ -1070,7 +1069,6 @@
 "talk-page-subscription-failed-alert" = "La subscripció al tema ha fallat. Torneu-ho a provar.";
 "talk-page-title-article-talk" = "Discussió de l'article";
 "talk-page-title-user-talk" = "Discussió de l'usuari";
-"talk-page-topic-close-button-hint" = "Tanca el tema nou";
 "talk-page-unsubscribe-to-topic" = "Cancel·la la subscripció";
 "talk-page-unsubscribed-alert-subtitle" = "No rebreu cap més notificació de nous comentaris en aquest tema.";
 "talk-page-unsubscribed-alert-title" = "Heu cancel·lat la subscripció.";

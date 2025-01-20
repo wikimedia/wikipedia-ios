@@ -638,7 +638,6 @@
 "main-menu-terms-of-use" = "Pogoji uporabe";
 "main-menu-title" = "Več";
 "main-menu-zero-faq" = "Pogosta vprašanja o Wikipedija Zero";
-"menu-cancel-accessibility-label" = "Prekliči";
 "more-languages-tooltip-description" = "Iščite v Wikipediji v več kot 300 jezikih";
 "more-languages-tooltip-title" = "Dodaj jezike";
 "more-menu" = "Več";
@@ -1110,7 +1109,6 @@
 "talk-page-subscription-failed-alert" = "Naročanje na temo ni uspelo, poskusite znova.";
 "talk-page-title-article-talk" = "Pogovor o članku";
 "talk-page-title-user-talk" = "Uporabniški pogovor";
-"talk-page-topic-close-button-hint" = "Zapri novo temo";
 "talk-page-unsubscribe-to-topic" = "Odnaroči";
 "talk-page-unsubscribed-alert-subtitle" = "O novih komentarjih pri tej temi ne boste več prejemali obvestil.";
 "talk-page-unsubscribed-alert-title" = "Odnaročeni ste.";

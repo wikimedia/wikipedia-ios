@@ -492,7 +492,6 @@
 "main-menu-terms-of-use" = "Naudojimo sąlygos";
 "main-menu-title" = "Daugiau";
 "main-menu-zero-faq" = "Vikipedija Zero DUK";
-"menu-cancel-accessibility-label" = "Atšaukti";
 "more-languages-tooltip-description" = "Ieškokite Vikipedijoje daugiau nei 300 kalbų";
 "more-languages-tooltip-title" = "Pridėti kalbas";
 "more-menu" = "Daugiau";
@@ -936,7 +935,6 @@
 "talk-page-subscription-failed-alert" = "Užsiprenumeruoti šios temos nepavyko, bandykite dar kartą.";
 "talk-page-title-article-talk" = "Straipsnio aptarimas";
 "talk-page-title-user-talk" = "Naudotojo aptarimas";
-"talk-page-topic-close-button-hint" = "Uždaryti naują temą";
 "talk-page-unsubscribe-to-topic" = "Nutraukti prenumeratą";
 "talk-page-unsubscribed-alert-subtitle" = "Nebegausite pranešimų apie naujus komentarus šioje temoje.";
 "talk-page-unsubscribed-alert-title" = "Nebeprenumeruojate.";

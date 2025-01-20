@@ -561,7 +561,6 @@
 "main-menu-terms-of-use" = "Умови використання";
 "main-menu-title" = "Ще";
 "main-menu-zero-faq" = "ЧАП по Вікіпедія Zero";
-"menu-cancel-accessibility-label" = "Скасувати";
 "more-languages-tooltip-description" = "Шукати у Вікіпедії майже 300 мовами";
 "more-languages-tooltip-title" = "Додати мови";
 "more-menu" = "Більше";
@@ -1030,7 +1029,6 @@
 "talk-page-subscription-failed-alert" = "Не вдалося підписатися на тему, повторіть спробу.";
 "talk-page-title-article-talk" = "Обговорення статті";
 "talk-page-title-user-talk" = "Обговорення користувача";
-"talk-page-topic-close-button-hint" = "Закрити нову тему";
 "talk-page-unsubscribe-to-topic" = "Відписатись";
 "talk-page-unsubscribed-alert-subtitle" = "Ви більше не будете отримувати сповіщення про нові коментарі в цій темі.";
 "talk-page-unsubscribed-alert-title" = "Ви скасували підписку.";

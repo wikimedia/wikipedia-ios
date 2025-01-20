@@ -753,12 +753,13 @@
 "main-menu-terms-of-use" = "이용 약관";
 "main-menu-title" = "더 보기";
 "main-menu-zero-faq" = "위키백과 제로 FAQ";
-"menu-cancel-accessibility-label" = "취소";
+// Fuzzy
 "microsite-yir-english-edits-bytes-slide-title" = "34억 바이트 추가됨";
+// Fuzzy
 "microsite-yir-english-edits-slide-title" = "편집자들은 올해 약 8,200만 건의 변경을 수행했습니다";
 "microsite-yir-english-non-donor-slide-title" = "위키백과에 게재된 광고는 0개입니다";
-"microsite-yir-english-reading-slide-title" = "읽기에 29억 시간이 할애됐습니다";
 // Fuzzy
+"microsite-yir-english-reading-slide-title" = "읽기에 29억 시간이 할애됐습니다";
 "microsite-yir-english-saved-reading-slide-title" = "6,220만 개가 넘는 읽기 목록이 있습니다";
 "more-languages-tooltip-description" = "300개 이상의 언어에서 위키백과 검색";
 "more-languages-tooltip-title" = "언어 추가";
@@ -982,8 +983,7 @@
 "problem-with-feature-title" = "기능에 문제가 있습니다";
 "profile-button-accessibility-label" = "프로필";
 "profile-button-badge-accessibility-label" = "읽지 않은 배지가 있는 프로필";
-// Fuzzy
-"profile-page-join-title" = "위키백과에 가입 / 로그인";
+"profile-page-join-title" = "위키백과에 로그인 / 가입";
 "profile-page-title-logged-out" = "계정";
 "project-name-mediawiki" = "미디어위키";
 "project-name-wikibooks" = "위키책";
@@ -1236,7 +1236,6 @@
 "talk-page-subscription-failed-alert" = "주제를 구독하지 못했습니다. 다시 시도해 주십시오.";
 "talk-page-title-article-talk" = "문서 토론";
 "talk-page-title-user-talk" = "사용자토론";
-"talk-page-topic-close-button-hint" = "새 주제 닫기";
 "talk-page-unsubscribe-to-topic" = "구독 해지";
 "talk-page-unsubscribed-alert-subtitle" = "이 주제의 새 댓글에 관한 알림을 더 이상 받지 않게 됩니다.";
 "talk-page-unsubscribed-alert-title" = "구독을 해지했습니다.";
@@ -1423,6 +1422,7 @@
 "year-in-review-personalized-donation-thank-you" = "위키미디어 로고";
 "year-in-review-personalized-editing-title-format" = "당신은 위키백과를 {{PLURAL:$1|$1회}} 편집했습니다";
 "year-in-review-personalized-editing-title-format-500plus" = "당신은 위키백과를 500회 이상 편집했습니다";
+// Fuzzy
 "year-in-review-personalized-reading-title-format" = "올해에 {{PLURAL:$1|$1개 문서}}를 읽었습니다";
 "year-in-review-personalized-saved-title-format" = "{{PLURAL:$1|문서 $1개}}를 저장했습니다";
 "year-in-review-survey-additional-thoughts" = "추가 의견이 있으신가요?";
