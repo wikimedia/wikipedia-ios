@@ -1,6 +1,7 @@
 import UIKit
+import WMFComponents
 
-class ArticleLocationCollectionViewController: ColumnarCollectionViewController {
+class ArticleLocationCollectionViewController: ColumnarCollectionViewController, WMFNavigationBarConfiguring {
     var articleURLs: [URL] {
         didSet {
             collectionView.reloadData()
@@ -10,20 +11,33 @@ class ArticleLocationCollectionViewController: ColumnarCollectionViewController 
     fileprivate let locationManager = LocationManager()
     private var previewedIndexPath: IndexPath?
     private let contentGroup: WMFContentGroup?
+    private let needsCloseButton: Bool
 
     let contentGroupIDURIString: String?
 
-    required init(articleURLs: [URL], dataStore: MWKDataStore, contentGroup: WMFContentGroup?, theme: Theme) {
+    required init(articleURLs: [URL], dataStore: MWKDataStore, contentGroup: WMFContentGroup?, theme: Theme, needsCloseButton: Bool = false) {
         self.articleURLs = articleURLs
         self.dataStore = dataStore
         self.contentGroup = contentGroup
         contentGroupIDURIString = contentGroup?.objectID.uriRepresentation().absoluteString
-        super.init()
+        self.needsCloseButton = needsCloseButton
+        super.init(nibName: nil, bundle: nil)
         self.theme = theme
+        if needsCloseButton {
+            hidesBottomBarWhenPushed = true
+        }
     }
     
     required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) not supported")
+        self.articleURLs = []
+        self.dataStore = MWKDataStore.shared()
+        self.contentGroup = nil
+        self.contentGroupIDURIString = nil
+        self.needsCloseButton = false
+        super.init(coder: aDecoder)
+        if needsCloseButton {
+            hidesBottomBarWhenPushed = true
+        }
     }
     
     override func viewDidLoad() {
@@ -31,12 +45,23 @@ class ArticleLocationCollectionViewController: ColumnarCollectionViewController 
         layoutManager.register(ArticleLocationCollectionViewCell.self, forCellWithReuseIdentifier: ArticleLocationCollectionViewCell.identifier, addPlaceholder: true)
     }
     
+    var needsConfigNavBar = true
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         locationManager.delegate = self
         if locationManager.isAuthorized {
             locationManager.startMonitoringLocation()
         }
+        
+        if needsConfigNavBar {
+            configureNavigationBar()
+        }
+    }
+    
+    private func configureNavigationBar() {
+        let titleConfig = WMFNavigationBarTitleConfig(title: "", customView: nil, alignment: .hidden)
+        
+        configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: nil, profileButtonConfig: nil, searchBarConfig: nil, hideNavigationBarOnScroll: false)
     }
     
     override func viewDidDisappear(_ animated: Bool) {

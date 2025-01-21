@@ -1,12 +1,7 @@
 import UIKit
 
-class SubSettingsViewController: ViewController {
+class SubSettingsViewController: ThemeableViewController {
     @IBOutlet weak var tableView: UITableView!
-
-    override func viewDidLoad() {
-        scrollView = tableView
-        super.viewDidLoad()
-    }
 
     override var nibName: String? {
         return "SubSettingsViewController"

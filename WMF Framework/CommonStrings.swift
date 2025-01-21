@@ -169,7 +169,7 @@ public class CommonStrings: NSObject {
     @objc public static let userTitle = WMFLocalizedString("user-title", value: "User", comment: "Text that refers to a user in the app")
 
 
-    @objc public static let doneTitle = WMFLocalizedString("description-published-button-title", value: "Done", comment: "Title for description panel done button.")
+    @objc public static let doneTitle = WMFLocalizedString("description-published-button-title", value: "Done", comment: "Title for done button.")
     public static let goBackTitle = WMFLocalizedString("button-go-back", value: "Go back", comment: "Button text for Go back button used in various places")
     public static let publishAnywayTitle = WMFLocalizedString("button-publish-anyway", value: "Publish anyway", comment: "Button text for publish button used when first warned against publishing.")
 
@@ -449,7 +449,7 @@ public class CommonStrings: NSObject {
     public static let donateThankTitle = WMFLocalizedString("donate-success-title", value: "Thank you!", comment: "Thank you toast title displayed after a user successfully donates.")
     public static let donateThankSubtitle = WMFLocalizedString("donate-success-subtitle", value: "Your generosity means so much to us.", comment: "Thank you toast subtitle displayed after a user successfully donates.")
 
-     public static let donateTitle = WMFLocalizedString("settings-donate", value: "Donate", comment: "Link to donate")
+     @objc public static let donateTitle = WMFLocalizedString("settings-donate", value: "Donate", comment: "Link to donate")
 
     // Article As A Living Doucment Strings - for some reason build script doesn't auto generate these when used directly in SignificantEventsViewModels.swift
 
@@ -647,6 +647,8 @@ public class CommonStrings: NSObject {
     
     public static let editContextMenuTitle = WMFLocalizedString("edit-menu-item", value: "Edit", comment: "Button label for 'Edit' context menu item")
     
+    public static let editorTitle = WMFLocalizedString("editor-title", value: "Editor", comment: "Title of editor view.")
+    
     public static let editSource = WMFLocalizedString("editor-edit-source", value: "Edit source", comment: "Title for menu option to edit the source of a page.")
     
     public static let editPublishedToastTitle = WMFLocalizedString("editor-edit-published", value: "Your edit was published.", comment: "Title for alert informing that the user's new edit was successfully published.")
@@ -767,7 +769,7 @@ public class CommonStrings: NSObject {
 
     public static let logoutAlertMessage = WMFLocalizedString("main-menu-account-logout-are-you-sure-message", value: "Logging out will delete your locally stored account data (notifications and messages), but your account data will still be available on the web and will be re-downloaded if you log back in.", comment: "Message explaining what happens to local data when logging out.")
     
-    public static let joinLoginTitle = WMFLocalizedString("profile-page-join-title", value: "Join Wikipedia / Log in", comment: "Link to sign up or sign in")
+    public static let joinLoginTitle = WMFLocalizedString("profile-page-join-title", value: "Log in / Join Wikipedia", comment: "Link to sign up or sign in")
     
     public static let noThanksTitle = WMFLocalizedString("variants-alert-dismiss-button", value: "No thanks", comment: "Dismiss button on alert used to inform users about variant support.")
 
@@ -785,8 +787,17 @@ public class CommonStrings: NSObject {
 
     @objc public static let yirTitle = WMFLocalizedString("year-in-review-button-title", value: "Year in Review", comment: "Year in review title. Appears on buttons in the profile and settings menu.")
     
-    public static let exploreYiRTitle = WMFLocalizedString("year-in-review-feature-announcement-title", value: "Explore your Wikipedia Year in Review", comment: "Title for year in review feature announcement")
-    public static let yirFeatureAnnoucementBody =  WMFLocalizedString("year-in-review-feature-announcement-body", value: "See insights about the articles you read on the Wikipedia app, share your journey, and discover highlights from your year.", comment: "Body for year in review feature announcement")
+    public static let exploreYIRTitlePersonalized = WMFLocalizedString("year-in-review-feature-announcement-title-personalized", value: "Explore your Wikipedia Year in Review", comment: "Title for year in review feature announcement")
+    public static let exploreYIRBodyPersonalized =  WMFLocalizedString("year-in-review-feature-explore-body-personalized", value: "See insights about which articles you read on the Wikipedia app and the edits you made in 2024. Your reading history is kept protected. Reading insights are calculated using locally stored data on your device.", comment: "Body for year in review feature announcement")
+
+    public static let exploreYiRTitle = WMFLocalizedString("year-in-review-feature-announcement-title", value: "Explore Wikipedia in Review", comment: "Title for year in review feature announcement")
+    public static let exploreYIRBody =  WMFLocalizedString("year-in-review-feature-explore-body", value: "Wikipedia is the largest knowledge resource ever assembled in the history of the world, and it’s freely available to everyone everywhere. Here’s a review of 2024 through the lens of Wikipedia. ", comment: "Body for year in review feature announcement")
+    
+    public static let yirFeatureAnnoucementBody =  WMFLocalizedString("year-in-review-feature-announcement-body", value: "See insights about what articles we read and edited, and share highlights from our year on Wikipedia.", comment: "Body for year in review feature announcement")
+    public static let yirFeatureAnnoucementBodyPersonalized =  WMFLocalizedString("year-in-review-feature-announcement-body-personalized", value: "See insights about the articles you read on the Wikipedia app, share your journey, and discover highlights from your year.", comment: "Body for year in review feature announcement")
+    
+    public static let personalizedExploreAccessibilityLabel = WMFLocalizedString("year-in-review-personalized-explore", value: "An animated illustration of a hand holding the Wikipedia globe, which gradually transforms into a small puzzle piece, symbolizing individual contributions to the platform.", comment: "Accessibility description for the personalized explore slide.")
+    public static let collectiveExploreAccessibilityLabel = WMFLocalizedString("year-in-review-collective-explore", value: "An animated illustration depicting the iconic Wikipedia globe encircled by scaffolding, symbolizing the collaborative effort of people worldwide in building the project. The scene is surrounded by a cityscape, emphasizing its connection to humanity and global culture.", comment: "Accessibility description for the collective explore slide.")
 }
 // Language variant strings
 public extension CommonStrings {

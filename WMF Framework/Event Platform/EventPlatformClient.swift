@@ -149,7 +149,7 @@ import WMFData
         case remoteNotificationsInteraction = "/analytics/mobile_apps/ios_notification_interaction/2.2.0"
         case talkPages = "/analytics/mobile_apps/ios_talk_page_interaction/2.1.0"
         case readingLists = "/analytics/mobile_apps/ios_reading_lists/2.2.0"
-        case userHistory = "/analytics/mobile_apps/ios_user_history/1.1.0"
+        case userHistory = "/analytics/mobile_apps/ios_user_history/2.0.0"
         case search = "/analytics/mobile_apps/ios_search/2.2.0"
         case sessions = "/analytics/mobile_apps/app_session/1.1.0"
         case settings = "/analytics/mobile_apps/ios_setting_action/1.1.0"

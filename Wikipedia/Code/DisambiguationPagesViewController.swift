@@ -1,8 +1,9 @@
 import UIKit
 import WMF
+import WMFComponents
 
 @objc(WMFDisambiguationPagesViewController)
-class DisambiguationPagesViewController: ArticleFetchedResultsViewController {
+class DisambiguationPagesViewController: ArticleFetchedResultsViewController, WMFNavigationBarConfiguring {
     
     let siteURL: URL
     let articleURLs: [URL]
@@ -12,10 +13,9 @@ class DisambiguationPagesViewController: ArticleFetchedResultsViewController {
     required init(with URLs: [URL], siteURL: URL, dataStore: MWKDataStore, theme: Theme) {
         self.siteURL = siteURL
         self.articleURLs = URLs
-        super.init()
+        super.init(nibName: nil, bundle: nil)
         self.dataStore = dataStore
         self.theme = theme
-        self.title = WMFLocalizedString("page-similar-titles", value: "Similar pages", comment: "Label for button that shows a list of similar titles (disambiguation) for the current page")
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -32,17 +32,17 @@ class DisambiguationPagesViewController: ArticleFetchedResultsViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         fetch()
+        configureNavigationBar()
     }
     
-    lazy var fakeProgressController: FakeProgressController = {
-        return FakeProgressController(progress: navigationBar, delegate: navigationBar)
-    }()
+    private func configureNavigationBar() {
+        let titleConfig = WMFNavigationBarTitleConfig(title: WMFLocalizedString("page-similar-titles", value: "Similar pages", comment: "Label for button that shows a list of similar titles (disambiguation) for the current page"), customView: nil, alignment: .centerCompact)
+        configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: nil, profileButtonConfig: nil, searchBarConfig: nil, hideNavigationBarOnScroll: false)
+    }
     
     func fetch() {
-        fakeProgressController.start()
         let articleKeys = articleURLs.compactMap { $0.wmf_inMemoryKey }
         self.dataStore.articleSummaryController.updateOrCreateArticleSummariesForArticles(withKeys: articleKeys) { (_, error) in
-            self.fakeProgressController.finish()
             if let error = error {
                 self.wmf_showAlertWithError(error as NSError)
                 return

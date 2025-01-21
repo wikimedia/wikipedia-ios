@@ -1,96 +1,108 @@
 import UIKit
 import WMF
 import SwiftUI
+import WMFComponents
 
 @objc
-final class NotificationsCenterViewController: ViewController {
-
+final class NotificationsCenterViewController: ThemeableViewController, WMFNavigationBarConfiguring {
+    
     // MARK: - Properties
-
+    
     var notificationsView: NotificationsCenterView {
         return view as! NotificationsCenterView
     }
-
+    
     let viewModel: NotificationsCenterViewModel
     
     var didUpdateFiltersCallback: (() -> Void)?
-
+    
     // MARK: - Properties: Onboarding
-
+    
     fileprivate var onboardingHostingViewController: NotificationsCenterOnboardingHostingViewController?
     fileprivate var deviceTokenRetryTask: RetryBlockTask?
     
     // MARK: Properties: Diffable Data Source
-
+    
     typealias DataSource = UICollectionViewDiffableDataSource<NotificationsCenterSection, NotificationsCenterCellViewModel>
     typealias Snapshot = NSDiffableDataSourceSnapshot<NotificationsCenterSection, NotificationsCenterCellViewModel>
     private var dataSource: DataSource?
     private let snapshotUpdateQueue = DispatchQueue(label: "org.wikipedia.notificationscenter.snapshotUpdateQueue", qos: .userInteractive)
-
+    
     // MARK: - Properties: Toolbar Buttons
-
+    
     fileprivate lazy var typeFilterButton: IconBarButtonItem = IconBarButtonItem(image: viewModel.typeFilterButtonImage, style: .plain, target: self, action: #selector(userDidTapTypeFilterButton))
     fileprivate lazy var projectFilterButton: IconBarButtonItem = IconBarButtonItem(image: viewModel.projectFilterButtonImage, style: .plain, target: self, action: #selector(userDidTapProjectFilterButton))
     
     fileprivate var markButton: TextBarButtonItem?
     fileprivate lazy var markAllAsReadButton: TextBarButtonItem = TextBarButtonItem(title: WMFLocalizedString("notifications-center-mark-all-as-read", value: "Mark all as read", comment: "Toolbar button text in Notifications Center that marks all user notifications as read."), target: self, action: #selector(didTapMarkAllAsReadButton(_:)))
     fileprivate lazy var statusBarButton: StatusTextBarButtonItem = StatusTextBarButtonItem(text: "")
-
+    
     // MARK: - Properties: Cell Swipe Actions
-
+    
     fileprivate struct CellSwipeData {
         var activelyPannedCellIndexPath: IndexPath? // `IndexPath` of actively panned or open or opening cell
         var activelyPannedCellTranslationX: CGFloat? // current translation on x-axis of open or opening cell
-
+        
         func activeCell(in collectionView: UICollectionView) -> NotificationsCenterCell? {
             guard let activelyPannedCellIndexPath = activelyPannedCellIndexPath else {
                 return nil
             }
-
+            
             return collectionView.cellForItem(at: activelyPannedCellIndexPath) as? NotificationsCenterCell
         }
-
+        
         mutating func resetActiveData() {
             activelyPannedCellIndexPath = nil
             activelyPannedCellTranslationX = nil
         }
     }
-
+    
     fileprivate lazy var cellPanGestureRecognizer = UIPanGestureRecognizer()
     fileprivate lazy var cellSwipeData = CellSwipeData()
-
+    
+    lazy var toolbarContainerView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
+    lazy var toolbar: UIToolbar = {
+        let tb = UIToolbar()
+        tb.translatesAutoresizingMaskIntoConstraints = false
+        return tb
+    }()
+    
     // MARK: - Lifecycle
-
+    
     @objc
     init(theme: Theme, viewModel: NotificationsCenterViewModel) {
         self.viewModel = viewModel
-        super.init(theme: theme)
+        super.init(nibName: nil, bundle: nil)
+        self.theme = theme
         viewModel.delegate = self
         hidesBottomBarWhenPushed = true
     }
-
+    
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
+    
     deinit {
         deviceTokenRetryTask = nil
         NotificationCenter.default.removeObserver(self)
     }
-
+    
     override func loadView() {
         let notificationsCenterView = NotificationsCenterView(frame: UIScreen.main.bounds)
         notificationsCenterView.addSubheaderTapGestureRecognizer(target: self, action: #selector(tappedEmptyStateSubheader))
         view = notificationsCenterView
-        scrollView = notificationsView.collectionView
     }
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         notificationsView.apply(theme: theme)
-
-        title = CommonStrings.notificationsCenterTitle
+        
         setupBarButtons()
         notificationsView.collectionView.delegate = self
         setupDataSource()
@@ -100,13 +112,20 @@ final class NotificationsCenterViewController: ViewController {
         notificationsView.collectionView.addGestureRecognizer(cellPanGestureRecognizer)
         cellPanGestureRecognizer.addTarget(self, action: #selector(userDidPanCell(_:)))
         cellPanGestureRecognizer.delegate = self
-
+        
         notificationsView.refreshControl.addTarget(self, action: #selector(userDidPullToRefresh), for: .valueChanged)
-
+        
         NotificationCenter.default.addObserver(self, selector: #selector(applicationWillResignActive), name: UIApplication.willResignActiveNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(pushNotificationBannerDidDisplayInForeground(_:)), name: .pushNotificationBannerDidDisplayInForeground, object: nil)
     }
-
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        configureNavigationBar()
+    }
+    
+    private var isFirstAppearance = true
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
@@ -118,35 +137,59 @@ final class NotificationsCenterViewController: ViewController {
         viewModel.markAllAsSeen()
         presentOnboardingEducationModalIfNecessary()
     }
-
+    
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         endRefreshing()
         closeSwipeActionsPanelIfNecessary()
     }
-
+    
     @objc fileprivate func applicationWillResignActive() {
         closeSwipeActionsPanelIfNecessary()
     }
-
+    
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
-
+        
         if previousTraitCollection?.preferredContentSizeCategory != traitCollection.preferredContentSizeCategory {
             closeSwipeActionsPanelIfNecessary()
             notificationsView.collectionView.reloadData()
         }
     }
-
-	// MARK: - Configuration
-
+    
+    // MARK: - Configuration
+    
     fileprivate func setupBarButtons() {
-        enableToolbar()
-        setToolbarHidden(false, animated: false)
-
+        
+        toolbarContainerView.addSubview(toolbar)
+        view.addSubview(toolbarContainerView)
+        
+        NSLayoutConstraint.activate([
+            toolbarContainerView.safeAreaLayoutGuide.bottomAnchor.constraint(equalTo: toolbar.bottomAnchor),
+            toolbarContainerView.leadingAnchor.constraint(equalTo: toolbar.leadingAnchor),
+            toolbarContainerView.trailingAnchor.constraint(equalTo: toolbar.trailingAnchor),
+            toolbarContainerView.topAnchor.constraint(equalTo: toolbar.topAnchor),
+            view.bottomAnchor.constraint(equalTo: toolbarContainerView.bottomAnchor),
+            view.leadingAnchor.constraint(equalTo: toolbarContainerView.leadingAnchor),
+            view.trailingAnchor.constraint(equalTo: toolbarContainerView.trailingAnchor)
+        ])
+        
+        toolbarContainerView.setNeedsLayout()
+        toolbarContainerView.layoutIfNeeded()
+        
+        let oldContentInset = notificationsView.collectionView.contentInset
+        notificationsView.collectionView.contentInset = UIEdgeInsets(top: oldContentInset.top, left: oldContentInset.left, bottom: oldContentInset.bottom + toolbarContainerView.frame.height, right: oldContentInset.right)
+    }
+    
+    fileprivate func configureNavigationBar() {
+        
+        let titleConfig = WMFNavigationBarTitleConfig(title: CommonStrings.notificationsCenterTitle, customView: nil, alignment: .centerCompact)
+        
+        configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: nil, profileButtonConfig: nil, searchBarConfig: nil, hideNavigationBarOnScroll: false)
+        
         navigationItem.rightBarButtonItem = editButtonItem
         isEditing = false
-	}
+    }
 
 	// MARK: - Public
     
@@ -186,6 +229,10 @@ final class NotificationsCenterViewController: ViewController {
         markButton?.apply(theme: theme)
         markAllAsReadButton.apply(theme: theme)
         statusBarButton.apply(theme: theme)
+        
+        toolbarContainerView.backgroundColor = theme.colors.paperBackground
+        toolbar.setBackgroundImage(theme.navigationBarBackgroundImage, forToolbarPosition: .any, barMetrics: .default)
+        toolbar.isTranslucent = false
     }
     
 }
@@ -482,7 +529,7 @@ private extension NotificationsCenterViewController {
         
         let currentFilterState = viewModel.remoteNotificationsController.filterState
         
-        let nc = DisappearingCallbackNavigationController(rootViewController: hostingVC, theme: self.theme)
+        let nc = DisappearingCallbackNavigationController(rootViewController: hostingVC, modalPresentationStyle: .pageSheet)
         
         nc.willDisappearCallback = { [weak self] in
             guard let self = self else {
@@ -496,8 +543,11 @@ private extension NotificationsCenterViewController {
             }
         }
         
-        nc.modalPresentationStyle = .pageSheet
         self.present(nc, animated: true, completion: nil)
+    }
+    
+    private func scrollToTop() {
+        notificationsView.collectionView.setContentOffset(CGPoint(x: notificationsView.collectionView.contentOffset.x, y: 0 - notificationsView.collectionView.contentInset.top), animated: true)
     }
 }
 
@@ -664,8 +714,7 @@ extension NotificationsCenterViewController: UICollectionViewDelegate {
 
 @objc extension NotificationsCenterViewController: UIGestureRecognizerDelegate {
 
-    override func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
-        super.scrollViewWillBeginDragging(scrollView)
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         closeSwipeActionsPanelIfNecessary()
     }
 
@@ -878,14 +927,18 @@ extension NotificationsCenterViewController: NotificationsCenterCellDelegate {
 // MARK: - Toolbar
 
 extension NotificationsCenterViewController {
+    
+    var flexibleSpaceToolbarItem: UIBarButtonItem {
+        return UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+    }
 
     /// Update the bar buttons displayed in the toolbar based on the editing state
     fileprivate func updateToolbarDisplayState(isEditing: Bool) {
         let markButton = createMarkButton()
         if isEditing {
-            toolbar.items = [markButton, .flexibleSpaceToolbar(), markAllAsReadButton]
+            toolbar.items = [markButton, flexibleSpaceToolbarItem, markAllAsReadButton]
         } else {
-            toolbar.items = [typeFilterButton, .flexibleSpaceToolbar(), statusBarButton, .flexibleSpaceToolbar(), projectFilterButton]
+            toolbar.items = [typeFilterButton, flexibleSpaceToolbarItem, statusBarButton, flexibleSpaceToolbarItem, projectFilterButton]
         }
         
         self.markButton = markButton

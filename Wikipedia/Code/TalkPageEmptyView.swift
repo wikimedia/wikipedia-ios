@@ -39,7 +39,6 @@ final class TalkPageEmptyView: SetupView {
         let scrollView = UIScrollView()
         scrollView.alwaysBounceVertical = true
         scrollView.translatesAutoresizingMaskIntoConstraints = false
-        scrollView.contentInsetAdjustmentBehavior = .never
         scrollView.automaticallyAdjustsScrollIndicatorInsets = false
         scrollView.showsVerticalScrollIndicator = true
         return scrollView

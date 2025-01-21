@@ -671,5 +671,21 @@
 			<string>%1$d Artikele</string>
 		</dict>
 	</dict>
+	<key>year-in-review-personalized-saved-title-format</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Dir hutt %#@v1@ gespäichert</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d Artikel</string>
+			<key>other</key>
+			<string>%1$d Artikele</string>
+		</dict>
+	</dict>
 </dict>
 </plist>

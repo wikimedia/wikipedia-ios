@@ -128,10 +128,10 @@ extension ArticleViewController {
 
     // TODO: remove after expiry date (1 March 2025)
     func needsYearInReviewAnnouncement() -> Bool {
-        if UIDevice.current.userInterfaceIdiom == .pad && navigationBar.hiddenHeight > 0 {
+        if UIDevice.current.userInterfaceIdiom == .pad && (navigationController?.navigationBar.isHidden ?? false) {
             return false
         }
-
+    
         guard let yirDataController = try? WMFYearInReviewDataController() else {
             return false
         }
@@ -140,39 +140,40 @@ extension ArticleViewController {
             return false
         }
         
-        return navigationBar.superview != nil
+        return true
     }
     
     // TODO: remove after expiry date (1 March 2025)
     func presentYearInReviewAnnouncement() {
         
+        // Do not show announcement when article is previewing. Fixes crash on preview long press.
+        guard articlePreviewingDelegate == nil else {
+            return
+        }
+        
         guard let yirDataController = try? WMFYearInReviewDataController() else {
             return
         }
-
-        let title = CommonStrings.exploreYiRTitle
-        let body = CommonStrings.yirFeatureAnnoucementBody
+        
+        let title = dataStore.authenticationManager.authStateIsPermanent ?  CommonStrings.exploreYIRTitlePersonalized : CommonStrings.exploreYiRTitle
+        let body = dataStore.authenticationManager.authStateIsPermanent ? CommonStrings.yirFeatureAnnoucementBodyPersonalized : CommonStrings.yirFeatureAnnoucementBody
         let primaryButtonTitle = CommonStrings.continueButton
-        let image = UIImage(named: "wikipedia-globe")
-        let backgroundImage = UIImage(named: "Announcement")
+        let gifName = dataStore.authenticationManager.authStateIsPermanent ? "personal-slide-00" : "english-slide-00"
+        let altText = dataStore.authenticationManager.authStateIsPermanent ? CommonStrings.personalizedExploreAccessibilityLabel : CommonStrings.collectiveExploreAccessibilityLabel
 
-        let viewModel = WMFFeatureAnnouncementViewModel(title: title, body: body, primaryButtonTitle: primaryButtonTitle, image: image, backgroundImage:backgroundImage, primaryButtonAction: { [weak self] in
+        let viewModel = WMFFeatureAnnouncementViewModel(title: title, body: body, primaryButtonTitle: primaryButtonTitle, gifName: gifName, altText: altText, primaryButtonAction: { [weak self] in
             guard let self else { return }
             self.yirCoordinator?.start()
-            DonateFunnel.shared.logYearInReviewFeatureAnnouncementDidTapContinue()
+            DonateFunnel.shared.logYearInReviewFeatureAnnouncementDidTapContinue(isEntryA: !dataStore.authenticationManager.authStateIsPermanent)
         }, closeButtonAction: {
-            DonateFunnel.shared.logYearInReviewFeatureAnnouncementDidTapClose()
+            DonateFunnel.shared.logYearInReviewFeatureAnnouncementDidTapClose(isEntryA: !self.dataStore.authenticationManager.authStateIsPermanent)
         })
-
-        if navigationBar.superview != nil {
-            let xOrigin = navigationBar.frame.width - 100
-            let yOrigin = view.safeAreaInsets.top + navigationBar.barTopSpacing + 15
-            let sourceRect = CGRect(x:  xOrigin, y: yOrigin, width: 30, height: 30)
-            announceFeature(viewModel: viewModel, sourceView: self.view, sourceRect: sourceRect)
-            DonateFunnel.shared.logYearInReviewFeatureAnnouncementDidAppear()
-        }
         
-        yirDataController.hasPresentedYiRFeatureAnnouncementModel = true
+        if let profileBarButtonItem = self.profileBarButtonItem {
+            announceFeature(viewModel: viewModel, sourceView: nil, sourceRect: nil, barButtonItem: profileBarButtonItem)
+            DonateFunnel.shared.logYearInReviewFeatureAnnouncementDidAppear(isEntryA: !dataStore.authenticationManager.authStateIsPermanent)
+            yirDataController.hasPresentedYiRFeatureAnnouncementModel = true
+        }
     }
 }
 

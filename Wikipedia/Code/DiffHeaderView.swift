@@ -1,7 +1,42 @@
 import UIKit
 import CocoaLumberjackSwift
 
-final class DiffHeaderView: SetupView {
+final class DiffHeaderView: UICollectionReusableView, Themeable {
+    lazy var contentView: DiffHeaderContentView = {
+        let view = DiffHeaderContentView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        setup()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    func setup() {
+        addSubview(contentView)
+        NSLayoutConstraint.activate([
+            topAnchor.constraint(equalTo: contentView.topAnchor),
+            leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
+        ])
+    }
+    
+    func configure(with vm: DiffHeaderViewModel, tappedHeaderTitleAction: (() -> Void)?, theme: Theme) {
+        contentView.configure(with: vm, tappedHeaderTitleAction: tappedHeaderTitleAction, theme: theme)
+    }
+    
+    func apply(theme: Theme) {
+        contentView.apply(theme: theme)
+    }
+}
+
+final class DiffHeaderContentView: UIView {
 
     var viewModel: DiffHeaderViewModel?
 
@@ -28,11 +63,19 @@ final class DiffHeaderView: SetupView {
     lazy var headerTitleView: DiffHeaderTitleView = {
         let titleView = DiffHeaderTitleView()
         titleView.translatesAutoresizingMaskIntoConstraints = false
-        titleView.masksToBounds = true
         return titleView
     }()
-
-    override func setup() {
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        setup()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    func setup() {
         addSubview(horizontalStackView)
         horizontalStackView.addArrangedSubview(headerTitleView)
 
@@ -55,12 +98,14 @@ final class DiffHeaderView: SetupView {
 
     }
 
-    func configure(with vm: DiffHeaderViewModel, titleViewTapDelegate: DiffHeaderTitleViewTapDelegate? = nil) {
+    func configure(with vm: DiffHeaderViewModel, tappedHeaderTitleAction: (() -> Void)?, theme: Theme) {
         self.viewModel = vm
         if let viewModel {
-            updateTitleView(with: viewModel.title, titleViewTapDelegate: titleViewTapDelegate)
+            updateTitleView(with: viewModel.title, tappedHeaderTitleAction: tappedHeaderTitleAction)
             updateImageView(with: viewModel)
         }
+        
+        apply(theme: theme)
     }
 
     func updateImageView(with new: DiffHeaderViewModel) {
@@ -77,26 +122,12 @@ final class DiffHeaderView: SetupView {
         }
     }
 
-    func updateTitleView(with viewModel: DiffHeaderTitleViewModel, titleViewTapDelegate: DiffHeaderTitleViewTapDelegate? = nil) {
-        headerTitleView.update(viewModel, titleViewTapDelegate: titleViewTapDelegate)
+    func updateTitleView(with viewModel: DiffHeaderTitleViewModel, tappedHeaderTitleAction: (() -> Void)?) {
+        headerTitleView.update(viewModel, tappedHeaderTitleAction: tappedHeaderTitleAction)
     }
-
-    override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
-        guard !UIAccessibility.isVoiceOverRunning else {
-            return super.point(inside: point, with: event)
-        }
-
-        let headerTitleViewConvertedPoint = convert(point, to: headerTitleView)
-        if headerTitleView.point(inside: headerTitleViewConvertedPoint, with: event) {
-            return true
-        }
-
-        return false
-    }
-
 }
 
-extension DiffHeaderView: Themeable {
+extension DiffHeaderContentView: Themeable {
     func apply(theme: Theme) {
         headerTitleView.apply(theme: theme)
     }

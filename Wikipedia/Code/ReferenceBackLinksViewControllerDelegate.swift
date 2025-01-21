@@ -2,7 +2,7 @@ protocol ReferenceBackLinksViewControllerDelegate: ArticleScrolling, ReferenceVi
     func referenceBackLinksViewControllerUserDidNavigateTo(referenceBackLink: ReferenceBackLink, referenceBackLinksViewController: ReferenceBackLinksViewController)
 }
 
-extension ReferenceBackLinksViewControllerDelegate where Self: ViewController {
+extension ReferenceBackLinksViewControllerDelegate where Self: ThemeableViewController {
     func referenceBackLinksViewControllerUserDidNavigateTo(referenceBackLink: ReferenceBackLink, referenceBackLinksViewController: ReferenceBackLinksViewController) {
         scroll(to: referenceBackLink.id, centered: true, highlighted: true, animated: true)
     }

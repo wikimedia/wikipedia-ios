@@ -765,6 +765,8 @@
 "main-menu-title" = "Mer";
 "main-menu-zero-faq" = "Vanliga frågor om Wikipedia Zero";
 "menu-cancel-accessibility-label" = "Avbryt";
+"microsite-yir-english-edits-bytes-slide-title" = "3,4 miljoner byte lades till";
+"microsite-yir-english-non-donor-slide-title" = "0 reklam visades på Wikipedia";
 "more-languages-tooltip-description" = "Sök på Wikipedia på över 300 språk";
 "more-languages-tooltip-title" = "Lägg till språk";
 "more-menu" = "Mer";
@@ -993,6 +995,7 @@
 "profile-button-badge-accessibility-label" = "Profil med märke för olästa aviseringar";
 "profile-page-donate-subtext" = "Eller stöd Wikipedia med en donation för att hålla den gratis och tillgänglig för alla runt om i världen.";
 "profile-page-join-subtext" = "Registrera ett Wikipedia-konto för att spåra dina bidrag, spara artiklar offline och synkronisera mellan enheter.";
+// Fuzzy
 "profile-page-join-title" = "Skapa konto på Wikipedia / Logga in";
 "profile-page-logged-out-year-in-review-subtext" = "Logga in eller skapa ett konto för att få en förbättrad årsöversikt nästa år";
 "profile-page-title-logged-out" = "Konto";
@@ -1424,32 +1427,50 @@
 "wikitext-upload-save-sign-in" = "logga in";
 "wikitext-upload-save-terms-and-licenses-ccsa4" = "Genom att publicera ändringarna samtycker du till $1användaravtalet$2 och du oåterkalleligen går med på att släppa ditt bidrag under licensen $3CC BY-SA 4.0$4 och $5GFDL$6. Du samtycker till att en hyperlänk eller webbadress är tillräckligt tillskrivande under licensen Creative Commons.";
 "wikitext-upload-save-terms-name" = "Användarvillkor";
+// Fuzzy
 "year-in-review-base-donate-subtitle" = "Wikipedia drivs av Wikimedia Foundation och finansieras av individuella donationer. Vi arbetar för att hålla Wikimedia-webbplatserna tillgängliga för alla, bygga funktioner och verktyg för att göra det enkelt att dela kunskap, stödjer gemenskaper av frivilliga redigerare och mer. [Läs mer om vårt arbete]($1).";
 "year-in-review-base-donate-title" = "0 annonser visas på Wikipedia";
+// Fuzzy
 "year-in-review-base-editors-subtitle" = "Wikipedias gemenskap av frivilliga redigerare har hittills gjort mer än $1 redigeringar på iOS-appen i år. Wikipedias viktigaste del är vår globala gemenskap av frivilliga bidragsgivare, donerare och miljarder läsare som du själv – alla som har förenats för att dela obegränsad tillgång till pålitlig information.";
 "year-in-review-base-editors-title" = "Redigerare i iOS-appen har gjort mer än $1 redigeringar";
+// Fuzzy
 "year-in-review-base-edits-subtitle" = "I år redigerades Wikipedia med en genomsnittlig hastighet av $1 gånger per minut. Artiklar skapas och förbättras tillsammans med hjälp av tillförlitliga källor. Allihopa har kunskap att dela med, så [läs hur man kan delta.]( $2 )";
 "year-in-review-base-edits-title" = "Wikipedia redigerades $1 gånger per minut";
+// Fuzzy
 "year-in-review-base-reading-subtitle" = "Wikipedia hade $1 miljon artiklar på över $2 aktiva språk i år. Du anslut dig till miljontals andra för att utöka kunskapen och utforska olika ämnen.";
+// Fuzzy
 "year-in-review-base-reading-title" = "Läsningen förde oss samman";
 "year-in-review-base-viewed-subtitle" = "Användare har besökt Wikipedia-artiklar i iOS-appen $1 miljarder gånger. För människor runt om i världen är Wikipedia det första anhalten för att besvara en fråga, söka information för skolan eller jobbet eller lära sig ny fakta.";
 "year-in-review-base-viewed-title" = "Vi har besökt Wikipedia-artiklar $1 miljarder gånger";
 "year-in-review-button-title" = "Årsöversikt";
+"year-in-review-day-friday" = "Fredagar";
+"year-in-review-day-monday" = "Måndagar";
+"year-in-review-day-saturday" = "Lördagar";
+"year-in-review-day-sunday" = "Söndagar";
+"year-in-review-day-thursday" = "Torsdagar";
+"year-in-review-day-tuesday" = "Tisdagar";
+"year-in-review-day-wednesday" = "Onsdagar";
 "year-in-review-donate" = "Donera";
 "year-in-review-donate-now" = "Donera nu";
+// Fuzzy
 "year-in-review-feature-announcement-body" = "Se insikter om artiklarna du läser i Wikipedia-appen, dela din resa och upptäck höjdpunkterna från ditt år.";
+// Fuzzy
 "year-in-review-feature-announcement-title" = "Utforska ditt årsöversikt för Wikipedia";
+"year-in-review-feature-announcement-title-personalized" = "Utforska ditt årsöversikt för Wikipedia";
+"year-in-review-feature-explore-body-personalized" = "Se insikter om vilka artiklar du läser i Wikipedia-appen och de ändringar du har gjort. Din läshistorik hålls skyddad. Läsinsikter beräknas med hjälp av lokalt lagrad data på din enhet.";
 "year-in-review-finish" = "Slutför";
+// Fuzzy
 "year-in-review-personalized-donate-subtitle" = "Tack för att ger ditt stöd till Wikipedia och en värld där kunskap är gratis för alla. Varje enskild redigering och donation hjälper till att förbättra människors tillgång till korrekt och tillförlitlig information, särskilt i en snabbt föränderlig värld. [Läs mer om vårt arbete]($1).";
+// Fuzzy
 "year-in-review-personalized-donate-title" = "Tack för ditt bidrag!";
 "year-in-review-personalized-editing-subtitle-format" = "Du har redigerat Wikipedia {{PLURAL:$1|$1 gång|$1 gånger}}. Tack för att du är en av de frivilliga redigerarna som gör skillnad i Wikimedia-projekten runt om i världen.";
 "year-in-review-personalized-editing-subtitle-format-500plus" = "Du har redigerat Wikipedia 500+ gånger. Tack för att du är en av de frivilliga redigerarna som gör skillnad i Wikimedia-projekten runt om i världen.";
 "year-in-review-personalized-editing-title-format" = "Du har redigerat Wikipedia {{PLURAL:$1|$1 gång|$1 gånger}}";
 "year-in-review-personalized-editing-title-format-500plus" = "Du har redigerat Wikipedia 500+ gånger";
+// Fuzzy
 "year-in-review-personalized-reading-subtitle-format" = "Du har läst {{PLURAL:$1|$1 artikel|$1 artiklar}} i år. I år hade Wikipedia $2 miljoner artiklar tillgängliga på över $3 aktiva språk. Du anslöt dig till miljoner andra för att utöka kunskapen och utforska olika ämnen.";
 "year-in-review-personalized-reading-title-format" = "Du har läst {{PLURAL:$1|$1 artikel|$1 artiklar}} i år";
 "year-in-review-share-text" = "Här kommer min årsöversikt för Wikipedia, som skapades med Wikipedias iOS-app.";
-"year-in-review-subtitle" = "Se insikter om vilka artiklar du läser i Wikipedia-appen och de ändringar du har gjort. Din läshistorik hålls skyddad. Läsinsikter beräknas med hjälp av lokalt lagrad data på din enhet.";
 "year-in-review-survey-additional-thoughts" = "Några ytterligare kommentarer?";
 "year-in-review-survey-neutral" = "Neutral";
 "year-in-review-survey-satisfied" = "Nöjd";
@@ -1458,3 +1479,5 @@
 "year-in-review-survey-unsatisfied" = "Inte nöjd";
 "year-in-review-survey-very-satisfied" = "Mycket nöjd";
 "year-in-review-survey-very-unsatisfied" = "Mycket missnöjd";
+"year-in-review-wikipedia-w-accessibility-label" = "Wikipedias w-logotyp";
+"year-in-review-wmf-logo-accessibility-label" = "Wikimedia Foundations logotyp";

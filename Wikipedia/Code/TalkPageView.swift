@@ -11,6 +11,13 @@ final class TalkPageView: SetupView {
         let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),heightDimension: heightDimension)
         let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize,subitems: [item])
         let section = NSCollectionLayoutSection(group: group)
+        let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
+                                                                  heightDimension: .estimated(225))
+        let header = NSCollectionLayoutBoundarySupplementaryItem(
+                        layoutSize: headerSize,
+                        elementKind: UICollectionView.elementKindSectionHeader,
+                        alignment: .top)
+        section.boundarySupplementaryItems = [header]
         section.contentInsets = NSDirectionalEdgeInsets(top: 8, leading: 0, bottom: 8, trailing: 0)
         let layout = UICollectionViewCompositionalLayout(section: section)
         return layout
@@ -21,6 +28,7 @@ final class TalkPageView: SetupView {
     lazy var collectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: topicGroupLayout)
         collectionView.register(TalkPageCell.self, forCellWithReuseIdentifier: TalkPageCell.reuseIdentifier)
+        collectionView.register(TalkPageHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: TalkPageHeaderView.reuseIdentifier)
         collectionView.alwaysBounceVertical = true
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         return collectionView
@@ -39,6 +47,21 @@ final class TalkPageView: SetupView {
         view.alpha = 0
         return view
     }()
+    
+    lazy var toolbarContainerView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
+    lazy var toolbar: UIToolbar = {
+        let tb = UIToolbar()
+        tb.translatesAutoresizingMaskIntoConstraints = false
+        return tb
+    }()
+    
+    private var emptyViewTopConstraint: NSLayoutConstraint?
+    private var errorViewTopConstraint: NSLayoutConstraint?
 
     // MARK: - Lifecycle
 
@@ -46,20 +69,33 @@ final class TalkPageView: SetupView {
         addSubview(collectionView)
         addSubview(emptyView)
         addSubview(errorView)
+        toolbarContainerView.addSubview(toolbar)
+        addSubview(toolbarContainerView)
+        let emptyViewTopConstraint = emptyView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor)
+        let errorViewTopConstraint = errorView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor)
         NSLayoutConstraint.activate([
             collectionView.topAnchor.constraint(equalTo: topAnchor),
-            collectionView.bottomAnchor.constraint(equalTo: bottomAnchor),
+            collectionView.bottomAnchor.constraint(equalTo: toolbarContainerView.topAnchor),
             collectionView.leadingAnchor.constraint(equalTo: leadingAnchor),
             collectionView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            emptyView.topAnchor.constraint(equalTo: topAnchor),
-            emptyView.bottomAnchor.constraint(equalTo: bottomAnchor),
+            emptyViewTopConstraint,
+            emptyView.bottomAnchor.constraint(equalTo: toolbarContainerView.topAnchor),
             emptyView.leadingAnchor.constraint(equalTo: leadingAnchor),
             emptyView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            errorView.topAnchor.constraint(equalTo: topAnchor),
-            errorView.bottomAnchor.constraint(equalTo: bottomAnchor),
+            errorViewTopConstraint,
+            errorView.bottomAnchor.constraint(equalTo: toolbarContainerView.topAnchor),
             errorView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            errorView.trailingAnchor.constraint(equalTo: trailingAnchor)
+            errorView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            toolbarContainerView.safeAreaLayoutGuide.bottomAnchor.constraint(equalTo: toolbar.bottomAnchor),
+            toolbarContainerView.leadingAnchor.constraint(equalTo: toolbar.leadingAnchor),
+            toolbarContainerView.trailingAnchor.constraint(equalTo: toolbar.trailingAnchor),
+            toolbarContainerView.topAnchor.constraint(equalTo: toolbar.topAnchor),
+            bottomAnchor.constraint(equalTo: toolbarContainerView.bottomAnchor),
+            leadingAnchor.constraint(equalTo: toolbarContainerView.leadingAnchor),
+            trailingAnchor.constraint(equalTo: toolbarContainerView.trailingAnchor)
         ])
+        self.emptyViewTopConstraint = emptyViewTopConstraint
+        self.errorViewTopConstraint = errorViewTopConstraint
     }
 
     func updateEmptyView(visible: Bool, animated: Bool = true) {
@@ -67,6 +103,11 @@ final class TalkPageView: SetupView {
             self.emptyView.isUserInteractionEnabled = visible
             self.emptyView.alpha = visible ? 1 : 0
         })
+    }
+    
+    func updateEmptyErrorViewsTopPadding(padding: CGFloat) {
+        emptyViewTopConstraint?.constant = padding
+        errorViewTopConstraint?.constant = padding
     }
 
     func updateErrorView(visible: Bool) {
@@ -89,6 +130,10 @@ extension TalkPageView: Themeable {
         collectionView.backgroundColor = theme.colors.midBackground
         emptyView.apply(theme: theme)
         errorView.apply(theme: theme)
+        
+        toolbarContainerView.backgroundColor = theme.colors.paperBackground
+        toolbar.setBackgroundImage(theme.navigationBarBackgroundImage, forToolbarPosition: .any, barMetrics: .default)
+        toolbar.isTranslucent = false
     }
 
 }

@@ -356,6 +356,7 @@
 "profile-button-badge-accessibility-label" = "অপঠিত ব্যাজসহ প্রোফাইল";
 "profile-page-donate-subtext" = "অথবা উইকিপিডিয়াকে মুক্ত এবং বিশ্বজুড়ে প্রত্যেকের জন্য অবাধে প্রবেশযোগ্য রাখতে অনুদান দিয়ে সাহায্য করুন।";
 "profile-page-join-subtext" = "আপনার অবদান ট্র্যাক করতে, অফলাইনে নিবন্ধ সংরক্ষণ করতে এবং ডিভাইসগুলিতে সিঙ্ক করতে একটি উইকিপিডিয়া অ্যাকাউন্ট তৈরি করুন।";
+// Fuzzy
 "profile-page-join-title" = "উইকিপিডিয়ায় যোগ দিন / প্রবেশ করুন";
 "profile-page-title-logged-out" = "অ্যাকাউন্ট";
 "project-name-wikimedia-commons" = "উইকিমিডিয়া কমন্স";
@@ -459,8 +460,17 @@
 "wikitext-upload-save-anonymously-warning" = "সম্পাদনা আপনার ডিভাইসের আইপি ঠিকানায় আরোপিত করা হবে। আপনি যদি $1 করেন আপনি আরো গোপনীয়তা পাবেন।";
 "wikitext-upload-save-sign-in" = "প্রবেশ";
 "wikitext-upload-save-terms-name" = "ব্যবহারের শর্তাবলী";
+// Fuzzy
 "year-in-review-base-reading-title" = "পড়া আমাদের একত্রিত করেছে";
+"year-in-review-day-friday" = "শুক্রবার";
+"year-in-review-day-monday" = "সোমবার";
+"year-in-review-day-saturday" = "শনিবার";
+"year-in-review-day-sunday" = "রবিবার";
+"year-in-review-day-thursday" = "বৃহস্পতিবার";
+"year-in-review-day-tuesday" = "মঙ্গলবার";
+"year-in-review-day-wednesday" = "বুধবার";
 "year-in-review-donate" = "অনুদান";
+// Fuzzy
 "year-in-review-feature-announcement-title" = "আপনার উইকিপিডিয়া বছরের পর্যালোচনা দেখুন";
 // Fuzzy
-"year-in-review-subtitle" = "উইকিপিডিয়া অ্যাপে আপনি কোন নিবন্ধগুলি পড়েন এবং যে সম্পাদনাগুলি করেছেন সে সম্পর্কে অন্তর্দৃষ্টি দেখুন। আপনার যাত্রা ভাগ করে নিন এবং আবিষ্কার করুন যে এই বছর আপনার জন্য কী আলাদা ছিল। আপনার পড়ার ইতিহাস গোপন রাখা হয়েছে। আপনার ডিভাইসে স্থানীয়ভাবে সংরক্ষিত ডেটা ব্যবহার করে পঠন অন্তর্দৃষ্টি গণনা করা হয়।";
+"year-in-review-feature-explore-body-personalized" = "উইকিপিডিয়া অ্যাপে আপনি কোন নিবন্ধগুলি পড়েন এবং যে সম্পাদনাগুলি করেছেন সে সম্পর্কে অন্তর্দৃষ্টি দেখুন। আপনার যাত্রা ভাগ করে নিন এবং আবিষ্কার করুন যে এই বছর আপনার জন্য কী আলাদা ছিল। আপনার পড়ার ইতিহাস গোপন রাখা হয়েছে। আপনার ডিভাইসে স্থানীয়ভাবে সংরক্ষিত ডেটা ব্যবহার করে পঠন অন্তর্দৃষ্টি গণনা করা হয়।";

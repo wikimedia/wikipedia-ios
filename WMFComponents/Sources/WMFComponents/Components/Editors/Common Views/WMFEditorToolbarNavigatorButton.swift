@@ -51,6 +51,7 @@ class WMFEditorToolbarNavigatorButton: WMFComponentView {
     }
     
     override func appEnvironmentDidChange() {
+        super.appEnvironmentDidChange()
         
         guard let button else {
             return

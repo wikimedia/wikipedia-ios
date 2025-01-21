@@ -93,7 +93,7 @@ extension WMFAppViewController {
         languagesVC.showExploreFeedCustomizationSettings = true
         languagesVC.userDismissalCompletionBlock = completion
         languagesVC.apply(self.theme)
-        let navVC = WMFThemeableNavigationController(rootViewController: languagesVC, theme: theme)
+        let navVC = WMFComponentNavigationController(rootViewController: languagesVC, modalPresentationStyle: .overFullScreen)
         present(navVC, animated: true, completion: nil)
     }
 
@@ -107,6 +107,7 @@ extension WMFAppViewController: NotificationsCenterPresentationDelegate {
     public func userDidTapNotificationsCenter(from viewController: UIViewController? = nil) {
         let viewModel = NotificationsCenterViewModel(notificationsController: dataStore.notificationsController, remoteNotificationsController: dataStore.remoteNotificationsController, languageLinkController: self.dataStore.languageLinkController)
         let notificationsCenterViewController = NotificationsCenterViewController(theme: theme, viewModel: viewModel)
+        
         currentTabNavigationController?.pushViewController(notificationsCenterViewController, animated: true)
     }
 }
@@ -158,6 +159,14 @@ extension WMFAppViewController {
             currentController = presentedViewController
         }
 
+        return nil
+    }
+    
+    @objc var currentTabNavigationController: WMFComponentNavigationController? {
+        if let componentNavVC = selectedViewController as? WMFComponentNavigationController {
+            return componentNavVC
+        }
+        
         return nil
     }
     
@@ -338,7 +347,7 @@ extension WMFAppViewController: WMFWatchlistDelegate {
             viewModel?.reloadWikipedias(localizedProjectNames: localizedProjectNames)
         }
 
-        let navigationController = WMFThemeableNavigationController(rootViewController: languagesController, theme: theme)
+        let navigationController = WMFComponentNavigationController(rootViewController: languagesController, modalPresentationStyle: .overFullScreen)
         viewController.present(navigationController, animated: true)
     }
 
@@ -607,12 +616,21 @@ extension WMFAppViewController {
         }
     }
 
+
     @objc func populateYearInReviewReport(for year: Int) {
         guard let language  = dataStore.languageLinkController.appLanguage?.languageCode,
               let countryCode = Locale.current.region?.identifier
         else { return }
         let wmfLanguage = WMFLanguage(languageCode: language, languageVariantCode: nil)
         let project = WMFProject.wikipedia(wmfLanguage)
+        var userId: Int?
+
+        if let siteURL = dataStore.languageLinkController.appLanguage?.siteURL,
+           let userID = dataStore.authenticationManager.permanentUser(siteURL: siteURL)?.userID {
+            userId = userID
+        }
+        
+        let userIdString: String? = userId.map { String($0) }
 
         Task {
             do {
@@ -621,7 +639,10 @@ extension WMFAppViewController {
                     for: year,
                     countryCode: countryCode,
                     primaryAppLanguageProject: project,
-                    username: dataStore.authenticationManager.authStatePermanentUsername)
+                    username: dataStore.authenticationManager.authStatePermanentUsername,
+                    userID: userIdString,
+                    savedSlideDataDelegate: dataStore.savedPageList,
+                    legacyPageViewsDataDelegate: dataStore)
             } catch {
                 DDLogError("Failure populating year in review report: \(error)")
             }
@@ -652,4 +673,5 @@ extension WMFAppViewController {
         return WMFAppEnvironment.current.traitCollection != traitCollection
     }
 
+    
 }

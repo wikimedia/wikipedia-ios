@@ -17,6 +17,7 @@
 // Author: Macofe
 // Author: Matma Rex
 // Author: Mazab IZW
+// Author: Msz2001
 // Author: Nemo bis
 // Author: Nharateh
 // Author: Pawel Niemczuk
@@ -684,6 +685,8 @@
 "potd-widget-title" = "Grafika dnia";
 "preference-summary-eventlogging-opt-in" = "Pozwól Fundacji Wikimedia zbierać informacje o tym, jak korzystasz z aplikacji, aby ją ulepszać";
 "profile-page-title-logged-out" = "Konto";
+"profile-year-in-review-login-subtitle" = "Zaloguj się lub utwórz konto, aby ponownie zobaczyć Podsumowanie roku i uzyskać dostęp do bardziej spersonalizowanych informacji.";
+"profile-year-in-review-login-title" = "Zaloguj się, aby uzyskać dostęp do Podsumowania roku";
 "project-name-mediawiki" = "MediaWiki";
 "project-name-wikibooks" = "Wikibooks";
 "project-name-wikidata" = "Wikidane";
@@ -949,5 +952,45 @@
 "wikitext-upload-save-anonymously-warning" = "Zmiany będą oznaczone przez adres IP urządzenia. Jeśli $1, otrzymasz wyższy poziom prywatności.";
 "wikitext-upload-save-sign-in" = "Zaloguj się";
 "wikitext-upload-save-terms-name" = "Warunki użytkowania";
+"year-in-review-base-donate-subtitle" = "Dzięki Twojej pomocy Fundacja Wikimedia – organizacja non-profit stojąca za Wikipedią – będzie nadal zapewniać, że informacje, na których polegasz, będą wolne od reklam i godne zaufania, a jednocześnie zapewni płynne działanie Wikipedii dzięki najnowocześniejszym narzędziom i technologiom. Prosimy o rozważenie dokonania darowizny już dziś. [Dowiedz się więcej o naszej pracy]($1).";
+// Fuzzy
+"year-in-review-base-editors-subtitle" = "Wolontariusze wprowadzili 555 647 zmian w ponad 300 wersjach językowych Wikipedii. Każdego dnia, o każdej godzinie wolontariusze pracują nad ulepszaniem Wikipedii.";
+"year-in-review-base-edits-subtitle" = "W tym roku Wikipedia była edytowana średnio $1 razy na minutę. Artykuły są tworzone wspólnie i ulepszane przy użyciu wiarygodnych źródeł. Wszyscy mamy wiedzę do podzielenia się, [dowiedz się, jak wziąć w tym udział]($2).";
+"year-in-review-base-reading-subtitle" = "W tym roku Wikipedia miała ponad $1 milion artykułów w ponad $2 językach. Dołączyłeś(-aś) do milionów ludzi, poszerzających wiedzę i zgłębiających różnorodne tematy.";
+"year-in-review-base-reading-title" = "Wikipedia była (i jest) dostępna w ponad 300 językach";
+// Fuzzy
+"year-in-review-base-saved-subtitle" = "Aktywni użytkownicy aplikacji iOS mieli w tym roku ponad 62,2 miliona list do przeczytania. Dodawanie do nich artykułów pozwala na czytanie ich nawet bez dostępu do internetu. Możesz się zalogować, aby synchronizować zawartość list między urządzeniami.";
+"year-in-review-base-saved-title" = "Mieliśmy ponad $1 mln list do przeczytania";
+"year-in-review-collective-article-views" = "Animowana ilustracja przedstawiająca ekran komputera z otwartą przeglądarką internetową i aktywnym przeglądaniem artykułu w Wikipedii.";
+// Fuzzy
+"year-in-review-collective-edits" = " Ilustracja dwóch kawałków puzzli Wikipedii, z których każdy przenosi informację.";
+// Fuzzy
+"year-in-review-collective-edits-per-minute" = " tykający zegar, symbolizujący czas spędzony przez ludzi czytających Wikipedię.";
+"year-in-review-collective-explore" = "Animowana ilustracja przedstawiająca ikoniczny glob Wikipedii otoczony rusztowaniem, symbolizujący wspólny wysiłek ludzi na całym świecie na rzecz budowy projektu. Scena jest otoczona miejskim krajobrazem, podkreślającym jej związek z ludzkością i globalną kulturą.";
+"year-in-review-collective-languages" = "Animowana ilustracja przedstawiająca kamień z wyrytymi inskrypcjami w różnych językach, symbolizującymi sposób, w jaki Wikipedia wspólnie gromadzi wiedzę z różnych kultur i regionów.";
+"year-in-review-collective-saved-articles" = "Kula z puzzli, opowiadająca logo Wikipedii, reprezentująca globalną współpracę.";
+"year-in-review-collective-zero-ads" = "Logo Wikimedia";
+"year-in-review-english-edits" = "Wykres, pokazujący 10 najczęściej edytowanych wersji językowych Wikipedii w 2024: angielska z ponad 31 milionami edycji, niemiecka z 5 508 570 edycjami, francuska z 5 276 385 edycjami, hiszpańska z 4 786 205 edycjami, rosyjska z 3 303 066 edycjami, włoska z 3 200 398 edycjami, japońska z 2 973 657 edycjami, chińska z 2 505 032 edycjami, polska z 1 383 808 edycjami i ukraińska z 1 376 980 edycjami. Całkowita liczba edycji we wszystkich wersjach językowych Wikipedii w 2024 roku to 81 987 181.";
+"year-in-review-feature-announcement-body" = "Zobacz, jakie artykuły czytano i edytowano, oraz podziel się najważniejszymi wydarzeniami z naszego roku w Wikipedii.";
+"year-in-review-feature-announcement-body-personalized" = "Zobacz podsumowanie artykułów, które czytasz w aplikacji Wikipedii, podziel się swoją podróżą i odkryj najważniejsze wydarzenia z mijającego roku.";
+"year-in-review-feature-announcement-title" = "Zobacz Podsumowanie roku w Wikipedii";
+"year-in-review-feature-announcement-title-personalized" = "Zobacz swoje Podsumowanie roku w Wikipedii.";
+"year-in-review-feature-explore-body" = "Wikipedia jest największym zasobem wiedzy, jaki kiedykolwiek zgromadzono w historii świata i jest on dostępny swobodnie dla każdego, wszędzie. Oto przegląd 2024 roku przez pryzmat Wikipedii.";
 "year-in-review-finish" = "Zakończ";
+"year-in-review-personalized-donate-subtitle" = "Dziękujemy za inwestowanie w przyszłość wolnej wiedzy. W tym roku Fundacja Wikimedia udoskonaliła technologię, aby lepiej służyła każdemu czytelnikowi i wolontariuszowi, pomagała we współpracy oraz wspierała Wikipedię w kolejnych językach. [Dowiedz się więcej o naszej pracy]($1).";
+"year-in-review-personalized-donate-title" = "Twoja hojność pomogła Wikipedii w dalszym rozwoju";
+"year-in-review-personalized-donation-thank-you" = "Logo Wikipedii";
+"year-in-review-personalized-edit-views-subtitle-format" = "Czytelnicy na całym świecie doceniają Twój wkład. W ciągu ostatnich 2 miesięcy artykuły, które edytowałeś(-aś), uzyskały łącznie $1 wyświetleń. Dzięki takim redaktorom jak Ty, Wikipedia jest stale rozwijającym się, opartym na faktach i wiarygodnym źródłem wiedzy dla świata";
+"year-in-review-personalized-edit-views-title-format" = "Twoje edycje zostały ostatnio wyświetlone więcej niż $1 razy";
+"year-in-review-personalized-explore" = "Animowana ilustracja ręki trzymającej kulę Wikipedii, która stopniowo przekształca się w mały element układanki, symbolizujący indywidualny wkład w rozwój platformy.";
+"year-in-review-personalized-reading-subtitle-format" = "W tym roku przeczytałeś(-aś) {{PLURAL:$1|$1 artykuł|$1 artykuły|$1 artykułów}}. Wikipedia miała $2 mln artykułów dostępnych w ponad $3 językach. Dołączyłeś(-aś) do milionów ludzi, poszerzających wiedzę i zgłębiających różnorodne tematy.";
+"year-in-review-personalized-saved-articles" = "Ilustracja puzzla noszącego hask z ekranami komputerów w tle.";
+"year-in-review-personalized-saved-subtitle-format" = "Zapisałeś(-aś) {{PLURAL:$1|$1 artykuł|$1 artykuły|$1 artykułów}} w tym roku, w tym $2, $3 i $4. Każdy z nich odzwierciedla Twoje zainteresowania i pomaga zbudować bazę wiedzy w Wikipedii.";
+"year-in-review-personalized-saved-title-format" = "Zapisałeś(-aś) {{PLURAL:$1|$1 artykuł|$1 artykuły|$1 artykułów}}";
+"year-in-review-personalized-user-edits" = "Animowana ilustracja przedstawiająca bajty układające się jeden na drugim, symbolizujące nieustanne tworzenie wolnej wiedzy.";
+"year-in-review-personalized-weekday" = "Tykający zegar, symbolizujący czas spędzony przez ludzi czytających Wikipedię.";
+"year-in-review-personalized-you-read" = "Puzzel z logo Wikimedia wchodzący z lewej strony.";
+"year-in-review-personalized-your-edits-views" = "Ilustracja przedstawiająca puzzel Wikipedii obok długopisu.";
 "year-in-review-survey-neutral" = "Neutralny";
+"year-in-review-wikipedia-w-accessibility-label" = "Logo „W” Wikipedii";
+"year-in-review-wmf-logo-accessibility-label" = "Logo Fundacji Wikimedia";

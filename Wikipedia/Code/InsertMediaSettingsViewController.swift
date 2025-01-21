@@ -1,14 +1,15 @@
 import UIKit
 import WMFData
 import WMF
+import WMFComponents
 
 typealias InsertMediaSettings = InsertMediaSettingsViewController.Settings
 
-protocol InsertMediaSettingsViewControllerDelegate: ViewController {
+protocol InsertMediaSettingsViewControllerDelegate: UIViewController {
     func insertMediaSettingsViewControllerDidTapProgress(imageWikitext: String, caption: String?, altText: String?, localizedFileTitle: String)
 }
 
-protocol InsertMediaSettingsViewControllerLoggingDelegate: ViewController {
+protocol InsertMediaSettingsViewControllerLoggingDelegate: UIViewController {
     func logInsertMediaSettingsViewControllerDidAppear()
     func logInsertMediaSettingsViewControllerDidTapFileName()
     func logInsertMediaSettingsViewControllerDidTapCaptionLearnMore()
@@ -16,7 +17,7 @@ protocol InsertMediaSettingsViewControllerLoggingDelegate: ViewController {
     func logInsertMediaSettingsViewControllerDidTapAdvancedSettings()
 }
 
-final class InsertMediaSettingsViewController: ViewController {
+final class InsertMediaSettingsViewController: ThemeableViewController, WMFNavigationBarConfiguring {
     
     private let fromImageRecommendations: Bool
     private weak var delegate: InsertMediaSettingsViewControllerDelegate?
@@ -28,6 +29,7 @@ final class InsertMediaSettingsViewController: ViewController {
     let searchResult: InsertMediaSearchResult
     let siteURL: URL
     private var nextButton: UIBarButtonItem?
+    private var insertButton: UIBarButtonItem?
 
     private var textViewHeightDelta: (value: CGFloat, row: Int)?
     private var textViewsGroupedByType = [TextViewType: UITextView]()
@@ -192,18 +194,22 @@ final class InsertMediaSettingsViewController: ViewController {
         let learnMoreUrl: String
 
         init(type: TextViewType) {
+            var languageCodeSuffix = ""
+            if let deviceLanguageCode = Locale.current.language.languageCode {
+                languageCodeSuffix = "\(deviceLanguageCode)"
+            }
             self.type = type
             switch type {
             case .caption:
                 headerText = WMFLocalizedString("insert-media-caption-title", value: "Caption", comment: "Title for setting that allows users to add image captions")
                 placeholder = WMFLocalizedString("insert-media-caption-caption-placeholder", value: "How does this image relate to the article?", comment: "Placeholder text for setting that allows users to add image captions")
                 footerText = WMFLocalizedString("insert-media-caption-description", value: "Label that shows next to the item for all readers", comment: "Description for setting that allows users to add image captions")
-                learnMoreUrl = "https://www.mediawiki.org/wiki/Wikimedia_Apps/iOS_Suggested_edits#Image_captions"
+                learnMoreUrl = "https://www.mediawiki.org/wiki/Special:MyLanguage/Wikimedia_Apps/iOS_Suggested_edits?uselang=\(languageCodeSuffix)#Image_captions"
             case .alternativeText:
                 headerText = WMFLocalizedString("insert-media-alternative-text-title", value: "Alternative text", comment: "Title for setting that allows users to add image alternative text")
                 placeholder = WMFLocalizedString("insert-media-alternative-text-placeholder", value: "Describe this image", comment: "Placeholder text for setting that allows users to add image alternative text")
                 footerText = WMFLocalizedString("insert-media-alternative-text-description", value: "Text description for readers who cannot see the image", comment: "Description for setting that allows users to add image alternative text")
-                learnMoreUrl = "https://www.mediawiki.org/wiki/Wikimedia_Apps/iOS_Suggested_edits#Tips_for_creating_alt-text"
+                learnMoreUrl = "https://www.mediawiki.org/wiki/Special:MyLanguage/Wikimedia_Apps/iOS_Suggested_edits?uselang=\(languageCodeSuffix)#Tips_for_creating_alt-text"
             }
         }
     }
@@ -241,7 +247,7 @@ final class InsertMediaSettingsViewController: ViewController {
         self.delegate = delegate
         self.imageRecLoggingDelegate = imageRecLoggingDelegate
         self.siteURL = siteURL
-        super.init()
+        super.init(nibName: nil, bundle: nil)
         self.theme = theme
     }
 
@@ -250,27 +256,13 @@ final class InsertMediaSettingsViewController: ViewController {
     }
 
     override func viewDidLoad() {
-        scrollView = tableView
         super.viewDidLoad()
-        navigationBar.isBarHidingEnabled = false
         tableView.dataSource = self
         tableView.delegate = self
         view.wmf_addSubviewWithConstraintsToEdges(tableView)
         tableView.register(InsertMediaSettingsTextTableViewCell.wmf_classNib(), forCellReuseIdentifier: InsertMediaSettingsTextTableViewCell.identifier)
         tableView.separatorStyle = .none
 
-        if fromImageRecommendations {
-            title = WMFLocalizedString("insert-media-add-image-details-title", value: "Add image details", comment: "Title for add image details view")
-            nextButton = UIBarButtonItem(title: WMFLocalizedString("next-action-title", value: "Next", comment: "Title for insert action indicating the user can go to the next step"), style: .done, target: self, action: #selector(tappedProgress(_:)))
-            nextButton?.tintColor = theme.colors.secondaryText
-            navigationItem.rightBarButtonItem = nextButton
-        } else {
-            title = WMFLocalizedString("insert-media-media-settings-title", value: "Media settings", comment: "Title for media settings view")
-            let insertButton = UIBarButtonItem(title: WMFLocalizedString("insert-action-title", value: "Insert", comment: "Title for insert action"), style: .done, target: self, action:  #selector(tappedProgress(_:)))
-            insertButton.tintColor = theme.colors.link
-            navigationItem.rightBarButtonItem = insertButton
-        }
-        
         apply(theme: theme)
     }
 
@@ -285,6 +277,12 @@ final class InsertMediaSettingsViewController: ViewController {
         let localizedFileTitle = info.localizedFileTitle
         
         delegate?.insertMediaSettingsViewControllerDidTapProgress(imageWikitext: wikitext, caption: captionToSend, altText: altTextToSend, localizedFileTitle: localizedFileTitle)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        configureNavigationBar()
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -315,6 +313,27 @@ final class InsertMediaSettingsViewController: ViewController {
             self.textViewHeightDelta = nil
             self.tableView.beginUpdates()
             self.tableView.endUpdates()
+        }
+    }
+    
+    private func configureNavigationBar() {
+        
+        if fromImageRecommendations {
+            let titleConfig = WMFNavigationBarTitleConfig(title: WMFLocalizedString("insert-media-add-image-details-title", value: "Add image details", comment: "Title for add image details view"), customView: nil, alignment: .centerCompact)
+            
+            configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: nil, profileButtonConfig: nil, searchBarConfig: nil, hideNavigationBarOnScroll: false)
+            
+            nextButton = UIBarButtonItem(title: WMFLocalizedString("next-action-title", value: "Next", comment: "Title for insert action indicating the user can go to the next step"), style: .done, target: self, action: #selector(tappedProgress(_:)))
+            nextButton?.tintColor = theme.colors.secondaryText
+            navigationItem.rightBarButtonItem = nextButton
+        } else {
+            let titleConfig = WMFNavigationBarTitleConfig(title: WMFLocalizedString("insert-media-media-settings-title", value: "Media settings", comment: "Title for media settings view"), customView: nil, alignment: .centerCompact)
+            
+            configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: nil, profileButtonConfig: nil, searchBarConfig: nil, hideNavigationBarOnScroll: false)
+            
+            insertButton = UIBarButtonItem(title: WMFLocalizedString("insert-action-title", value: "Insert", comment: "Title for insert action"), style: .done, target: self, action:  #selector(tappedProgress(_:)))
+            insertButton?.tintColor = theme.colors.link
+            navigationItem.rightBarButtonItem = insertButton
         }
     }
     
@@ -469,6 +488,7 @@ final class InsertMediaSettingsViewController: ViewController {
         tableView.backgroundColor = view.backgroundColor
         imageView.apply(theme: theme)
         buttonView.apply(theme: theme)
+        nextButton?.tintColor = theme.colors.link
         tableView.reloadData()
     }
 }

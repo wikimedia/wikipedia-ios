@@ -41,8 +41,8 @@ private enum NavigationMode : Int {
     case captcha
 }
 
-class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDelegate, UIScrollViewDelegate, WMFCaptchaViewControllerDelegate, EditSummaryViewDelegate {
-
+class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDelegate, UIScrollViewDelegate, WMFCaptchaViewControllerDelegate, EditSummaryViewDelegate, WMFNavigationBarConfiguring {
+    
     struct SaveData {
         let summmaryText: String
         let isMinorEdit: Bool
@@ -68,6 +68,7 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
     weak var imageRecLoggingDelegate: EditSaveViewControllerImageRecLoggingDelegate?
 
     private lazy var captchaViewController: WMFCaptchaViewController? = WMFCaptchaViewController.wmf_initialViewControllerFromClassStoryboard()
+    private var editSummaryViewController: EditSummaryViewController?
     @IBOutlet private var captchaContainer: UIView!
     @IBOutlet private var editSummaryVCContainer: UIView!
     @IBOutlet private var licenseTitleTextView: UITextView!
@@ -92,7 +93,6 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
     private var buttonSave: UIBarButtonItem?
     private var buttonNext: UIBarButtonItem?
     private var buttonX: UIBarButtonItem?
-    private var buttonLeftCaret: UIBarButtonItem?
     private var abuseFilterCode = ""
     private var summaryText = ""
     
@@ -143,37 +143,27 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
 
 
     private func updateNavigation(for mode: NavigationMode) {
-        var backButton: UIBarButtonItem?
         var forwardButton: UIBarButtonItem?
         
         switch mode {
         case .wikitext:
-            backButton = buttonLeftCaret
             forwardButton = buttonNext
         case .abuseFilterWarning:
-            backButton = buttonLeftCaret
             forwardButton = buttonSave
         case .abuseFilterDisallow:
-            backButton = buttonLeftCaret
             forwardButton = nil
         case .preview:
-            backButton = buttonLeftCaret
             forwardButton = buttonSave
         case .captcha:
-            backButton = buttonX
             forwardButton = buttonSave
         }
-        navigationItem.leftBarButtonItem = backButton
         navigationItem.rightBarButtonItem = forwardButton
     }
-
-    @objc private func goBack() {
-        
+    
+    private func tappedBack() {
         imageRecLoggingDelegate?.logEditSaveViewControllerDidTapBack()
         
         delegate?.editSaveViewControllerWillCancel(SaveData(summmaryText: summaryText, isMinorEdit: minorEditToggle.isOn, shouldAddToWatchList: addToWatchlistToggle.isOn))
-        
-        navigationController?.popViewController(animated: true)
     }
     
     @objc private func goForward() {
@@ -215,12 +205,13 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
         vc.apply(theme: theme)
         vc.setLanguage(for: pageURL)
         vc.cannedSummaryTypes = cannedSummaryTypes
+        self.editSummaryViewController = vc
         wmf_add(childController: vc, andConstrainToEdgesOfContainerView: editSummaryVCContainer)
 
         if isPermanent {
             licenseLoginTextView.isHidden = true
         }
-
+        
         if let savedData = savedData {
             vc.updateInputText(to: savedData.summmaryText)
             minorEditToggle.isOn = savedData.isMinorEdit
@@ -230,10 +221,21 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
         addToWatchlistToggle.addTarget(self, action: #selector(toggledWatchlist), for: .valueChanged)
         fetchWatchlistStatusAndUpdateToggle()
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        configureNavigationBar()
+    }
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         imageRecLoggingDelegate?.logEditSaveViewControllerDidAppear()
+    }
+    
+    private func configureNavigationBar() {
+        let titleConfig = WMFNavigationBarTitleConfig(title: WMFLocalizedString("wikitext-preview-save-changes-title", value: "Save changes", comment: "Title for edit preview screens"), customView: nil, alignment: .centerCompact)
+        configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: nil, profileButtonConfig: nil, searchBarConfig: nil, hideNavigationBarOnScroll: false)
     }
 
     func setupSemanticContentAttibute() {
@@ -252,9 +254,6 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
     }
 
     private func setupButtonsAndTitle() {
-        navigationItem.title = WMFLocalizedString("wikitext-preview-save-changes-title", value: "Save changes", comment: "Title for edit preview screens")
-        buttonX = UIBarButtonItem.wmf_buttonType(.X, target: self, action: #selector(self.goBack))
-        buttonLeftCaret = UIBarButtonItem.wmf_buttonType(.caretLeft, target: self, action: #selector(self.goBack))
 
         buttonSave = UIBarButtonItem(title: CommonStrings.publishTitle, style: .done, target: self, action: #selector(self.goForward))
         buttonSave?.tintColor = theme.colors.secondaryText
@@ -340,7 +339,7 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
             }
 
             loginVC.apply(theme: theme)
-            present(WMFThemeableNavigationController(rootViewController: loginVC, theme: theme), animated: true)
+            present(WMFComponentNavigationController(rootViewController: loginVC, modalPresentationStyle: .overFullScreen), animated: true)
         }
     }
     
@@ -351,6 +350,10 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
     override func viewWillDisappear(_ animated: Bool) {
         WMFAlertManager.sharedInstance.dismissAlert()
         super.viewWillDisappear(animated)
+        
+        if isMovingFromParent {
+            tappedBack()
+        }
     }
 
     private func save() {
@@ -617,10 +620,15 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
 
         minorEditLabel.textColor = theme.colors.primaryText
         minorEditButton.titleLabel?.textColor = theme.colors.link
+        minorEditButton.tintColor = theme.colors.link
         addToWatchlistLabel.textColor = theme.colors.primaryText
         addToWatchlistButton.titleLabel?.textColor = theme.colors.link
+        addToWatchlistButton.tintColor = theme.colors.link
         scrollContainer.backgroundColor = theme.colors.paperBackground
         captchaContainer.backgroundColor = theme.colors.paperBackground
+        
+        editSummaryViewController?.apply(theme: theme)
+        captchaViewController?.apply(theme: theme)
         
         applyThemeToTextViews()
         

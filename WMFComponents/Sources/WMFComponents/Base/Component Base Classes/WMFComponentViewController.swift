@@ -4,44 +4,59 @@ import Combine
 /// UIKit `UIViewController` based Component
 open class WMFComponentViewController: UIViewController {
 
-	// MARK: - Private Properties
+    // MARK: - Private Properties
 
-	private var cancellables = Set<AnyCancellable>()
+    private var cancellables = Set<AnyCancellable>()
 
-	// MARK: - Public Properties
+    // MARK: - Public Properties
 
-	var appEnvironment: WMFAppEnvironment {
-		return WMFAppEnvironment.current
-	}
+    var appEnvironment: WMFAppEnvironment {
+        return WMFAppEnvironment.current
+    }
 
-	var theme: WMFTheme {
-		return WMFAppEnvironment.current.theme
-	}
+    var theme: WMFTheme {
+        return WMFAppEnvironment.current.theme
+    }
 
-	// MARK: - Public
+    // MARK: - Public
 
-	public init() {
-		super.init(nibName: nil, bundle: nil)
-		subscribeToAppEnvironmentChanges()
-	}
+    public init() {
+        super.init(nibName: nil, bundle: nil)
+        subscribeToAppEnvironmentChanges()
+        setup()
+    }
 
-	public required init?(coder: NSCoder) {
-		super.init(coder: coder)
-		subscribeToAppEnvironmentChanges()
-	}
+    public required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        subscribeToAppEnvironmentChanges()
+        setup()
+    }
 
-	// MARK: - AppEnvironment Subscription
+    // MARK: - Lifecycle
 
-	private func subscribeToAppEnvironmentChanges() {
-		WMFAppEnvironment.publisher
-			.sink(receiveValue: { [weak self] _ in self?.appEnvironmentDidChange() })
-			.store(in: &cancellables)
-	}
+    private func setup() {
+        
+    }
 
-	// MARK: - Subclass Overrides
+    // MARK: - AppEnvironment Subscription
 
-	public func appEnvironmentDidChange() {
-		// Subclasses should implement
-	}
+    private func subscribeToAppEnvironmentChanges() {
+        WMFAppEnvironment.publisher
+        .sink(receiveValue: { [weak self] _ in self?.appEnvironmentDidChange() })
+        .store(in: &cancellables)
+    }
+
+    // MARK: - Subclass Overrides
+
+    public func appEnvironmentDidChange() {
+        overrideUserInterfaceStyle = appEnvironment.theme.userInterfaceStyle
+        setNeedsStatusBarAppearanceUpdate()
+
+        // Subclasses should implement
+    }
+
+    open override var preferredStatusBarStyle: UIStatusBarStyle {
+        return appEnvironment.theme.preferredStatusBarStyle
+    }
 
 }

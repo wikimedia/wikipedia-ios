@@ -79,13 +79,10 @@ class HintController: NSObject {
 
         containerView.translatesAutoresizingMaskIntoConstraints = false
         
-        var bottomAnchor: NSLayoutYAxisAnchor = extendsUnderSafeArea ? presenter.view.bottomAnchor : presenter.view.safeAreaLayoutGuide.bottomAnchor
+        let bottomAnchor: NSLayoutYAxisAnchor = extendsUnderSafeArea ? presenter.view.bottomAnchor : presenter.view.safeAreaLayoutGuide.bottomAnchor
         
-        if let wmfVCPresenter = presenter as? ViewController { // not ideal, violates encapsulation
-            wmfVCPresenter.view.insertSubview(containerView, belowSubview: wmfVCPresenter.toolbar)
-            if !wmfVCPresenter.isToolbarHidden && wmfVCPresenter.toolbar.superview != nil {
-                bottomAnchor = wmfVCPresenter.toolbar.topAnchor
-            }
+        if let wmfVCPresenter = presenter as? ThemeableViewController { // not ideal, violates encapsulation
+            wmfVCPresenter.view.addSubview(containerView)
         } else if let subview = subview {
             presenter.view.insertSubview(containerView, belowSubview: subview)
         } else {
@@ -150,8 +147,6 @@ class HintController: NSObject {
             addHint(to: presenter)
         }
 
-        self.adjustSpacingIfPresenterHasSecondToolbar(hintHidden: hidden)
-
         UIView.animate(withDuration: 0.3, delay: 0, options: [.curveEaseInOut], animations: {
             if hidden {
                 self.containerViewConstraint.bottom?.isActive = false
@@ -164,7 +159,6 @@ class HintController: NSObject {
         }, completion: { (_) in
             // remove hint after animation is completed
             if hidden {
-                self.adjustSpacingIfPresenterHasSecondToolbar(hintHidden: hidden)
                 self.removeHint()
                 if let completion = completion {
                     completion()
@@ -181,16 +175,6 @@ class HintController: NSObject {
         }
         self.hintVisibilityTime = 0
     }
-
-    private func adjustSpacingIfPresenterHasSecondToolbar(hintHidden: Bool) {
-        guard
-            let viewController = presenter as? ViewController,
-            !viewController.isSecondToolbarHidden && !hintHidden
-        else {
-            return
-        }
-        viewController.setSecondToolbarHidden(true, animated: true)
-    }
 }
 
 extension HintController: HintViewControllerDelegate {
@@ -199,7 +183,7 @@ extension HintController: HintViewControllerDelegate {
     }
 
     func hintViewControllerHeightDidChange(_ hintViewController: HintViewController) {
-        adjustSpacingIfPresenterHasSecondToolbar(hintHidden: isHintHidden)
+
     }
 
     func hintViewControllerViewTypeDidChange(_ hintViewController: HintViewController, newViewType: HintViewController.ViewType) {
