@@ -10,6 +10,10 @@ class HistoryViewController: ArticleFetchedResultsViewController, WMFNavigationB
     var topSafeAreaOverlayHeightConstraint: NSLayoutConstraint?
     var topSafeAreaOverlayView: UIView?
 
+    override var headerStyle: ColumnarCollectionViewController.HeaderStyle {
+        return .sections
+    }
+
     override func setupFetchedResultsController(with dataStore: MWKDataStore) {
         let articleRequest = WMFArticle.fetchRequest()
         articleRequest.predicate = NSPredicate(format: "viewedDate != NULL")
@@ -90,10 +94,7 @@ class HistoryViewController: ArticleFetchedResultsViewController, WMFNavigationB
             } catch {
                 DDLogError("Failure deleting WMFData WMFPageViews: \(error)")
             }
-            
         }
-        
-        
     }
     
     override func delete(at indexPath: IndexPath) {
@@ -121,7 +122,6 @@ class HistoryViewController: ArticleFetchedResultsViewController, WMFNavigationB
             } catch {
                 DDLogError("Failure deleting WMFData WMFPageViews: \(error)")
             }
-            
         }
     }
     
