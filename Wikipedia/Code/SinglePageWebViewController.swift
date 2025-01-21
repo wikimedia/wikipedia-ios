@@ -4,7 +4,7 @@ import WMF
 import WMFComponents
 import WMFData
 
-class SinglePageWebViewController: ViewController {
+class SinglePageWebViewController: ThemeableViewController, WMFNavigationBarConfiguring {
     
     // MARK: - Nested Types
     
@@ -97,17 +97,11 @@ class SinglePageWebViewController: ViewController {
         return config
     }()
 
-    private lazy var webView: WKWebView = {
+    private(set) lazy var webView: WKWebView = {
         let webView = WKWebView(frame: UIScreen.main.bounds, configuration: webViewConfiguration)
         webView.navigationDelegate = self
         webView.uiDelegate = self
         return webView
-    }()
-    
-    private lazy var fakeProgressController: FakeProgressController = {
-        let fpc = FakeProgressController(progress: navigationBar, delegate: navigationBar)
-        fpc.delay = 0
-        return fpc
     }()
 
     private lazy var overlayButtonContainer: UIView = {
@@ -153,11 +147,9 @@ class SinglePageWebViewController: ViewController {
 
     required init(configType: ConfigType, theme: Theme) {
         self.configType = configType
-        super.init()
+        super.init(nibName: nil, bundle: nil)
         self.theme = theme
         
-        self.navigationItem.backButtonTitle = url.lastPathComponent
-        self.navigationItem.backButtonDisplayMode = .generic
         hidesBottomBarWhenPushed = true
     }
     
@@ -166,39 +158,66 @@ class SinglePageWebViewController: ViewController {
     }
 
     override func viewDidLoad() {
+        super.viewDidLoad()
+        
         view.wmf_addSubviewWithConstraintsToEdges(webView)
-        scrollView = webView.scrollView
-        scrollView?.delegate = self
 
         if useSimpleNavigationBar {
             navigationItem.setRightBarButtonItems([], animated: false)
             navigationItem.titleView = nil
         } else {
-            let safariItem = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(tappedAction(_:)))
-            let searchItem = AppSearchBarButtonItem.newAppSearchBarButtonItem
-            navigationItem.setRightBarButtonItems([searchItem, safariItem], animated: false)
-
-            setupWButton()
-        }
-        
-        if case .donate = configType {
-            navigationBar.isInteractiveHidingEnabled = false
+            
         }
 
         copyCookiesFromSession()
+    }
+    
+    
+    private func configureNavigationBar() {
         
-        super.viewDidLoad()
+        var closeConfig: WMFNavigationBarCloseButtonConfig? = nil
+        
+        if useSimpleNavigationBar {
+            let titleConfig = WMFNavigationBarTitleConfig(title: "", customView: nil, alignment: .hidden)
+            
+            if navigationController?.viewControllers.first === self {
+                closeConfig = WMFNavigationBarCloseButtonConfig(text: CommonStrings.doneTitle, target: self, action: #selector(closeButtonTapped(_:)), alignment: .leading)
+            }
+            
+            configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: closeConfig, profileButtonConfig: nil, searchBarConfig: nil, hideNavigationBarOnScroll: false)
+
+        } else {
+            let wButton = UIButton(type: .custom)
+            wButton.setImage(UIImage(named: "W"), for: .normal)
+            wButton.addTarget(self, action: #selector(wButtonTapped(_:)), for: .touchUpInside)
+            
+            let titleConfig = WMFNavigationBarTitleConfig(title: "", customView: wButton, alignment: .hidden)
+            
+            configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: closeConfig, profileButtonConfig: nil, searchBarConfig: nil, hideNavigationBarOnScroll: true)
+            
+            let safariItem = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(tappedAction(_:)))
+            let searchItem = AppSearchBarButtonItem.newAppSearchBarButtonItem
+            navigationItem.setRightBarButtonItems([searchItem, safariItem], animated: false)
+            
+            if let rightBarButtonItems = navigationItem.rightBarButtonItems {
+                for item in rightBarButtonItems {
+                    item.tintColor = theme.colors.link
+                }
+            }
+        }
+    }
+    
+    @objc private func wButtonTapped(_ sender: UIButton) {
+        navigationController?.popToRootViewController(animated: true)
     }
 
+    private func fetch() {
+        webView.load(URLRequest(url: url))
+    }
+    
+    var fetched = false
+
     override func viewWillAppear(_ animated: Bool) {
-        navigationController?.setNavigationBarHidden(true, animated: false)
-        
-        if navigationController?.viewControllers.first === self {
-            let image = WMFSFSymbolIcon.for(symbol: .close)
-            let closeButton = UIBarButtonItem(image: image, style: .plain, target: self, action: #selector(closeButtonTapped(_:)))
-            navigationItem.leftBarButtonItem = closeButton
-        }
-        
         super.viewWillAppear(animated)
 
         guard !loaded else {
@@ -206,6 +225,8 @@ class SinglePageWebViewController: ViewController {
         }
         loaded = true
         load()
+        
+        configureNavigationBar()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -320,7 +341,6 @@ class SinglePageWebViewController: ViewController {
     }
 
     private func load() {
-        fakeProgressController.start()
         webView.load(URLRequest(url: url))
     }
 
@@ -454,6 +474,18 @@ class SinglePageWebViewController: ViewController {
             DDLogError("Unexpected config for setOverlayButtonLoading")
         }
     }
+    
+    override func apply(theme: Theme) {
+        super.apply(theme: theme)
+        
+        themeNavigationBarCustomCenteredTitleView()
+        
+        if let rightBarButtonItems = navigationItem.rightBarButtonItems {
+            for item in rightBarButtonItems {
+                item.tintColor = theme.colors.link
+            }
+        }
+    }
 }
 
 // MARK: - WKNavigationDelegate
@@ -478,7 +510,6 @@ extension SinglePageWebViewController: WKNavigationDelegate {
     func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: Error) {
         DDLogWarn("Error loading single page - did fail provisional navigation: \(error)")
         WMFAlertManager.sharedInstance.showErrorAlert(error as NSError, sticky: false, dismissPreviousAlerts: true)
-        fakeProgressController.finish()
     }
     
     func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
@@ -486,16 +517,14 @@ extension SinglePageWebViewController: WKNavigationDelegate {
 
         // Avoid displaying "Plug-in handled load" noise to users.
         if (error as NSError).isPluginHandledLoadError {
-            fakeProgressController.finish()
             return
         }
 
         WMFAlertManager.sharedInstance.showErrorAlert(error as NSError, sticky: false, dismissPreviousAlerts: false)
-        fakeProgressController.finish()
     }
     
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
-        fakeProgressController.finish()
+
     }
 }
 

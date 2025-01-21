@@ -134,9 +134,9 @@
   },
   {
     "aliases" : [
+      "Plik",
       "Grafika",
-      "Image",
-      "Plik"
+      "Image"
     ],
     "name" : "file_namespace"
   }

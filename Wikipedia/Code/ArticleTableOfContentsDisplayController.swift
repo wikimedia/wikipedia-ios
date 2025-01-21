@@ -58,6 +58,7 @@ class ArticleTableOfContentsDisplayController: Themeable {
     
     lazy var inlineContainerView: UIView = {
         let cv = UIView(frame: .zero)
+        cv.translatesAutoresizingMaskIntoConstraints = false
         cv.isHidden = true
         return cv
     }()
@@ -142,6 +143,19 @@ class ArticleTableOfContentsDisplayController: Themeable {
         setupTableOfContentsViewController()
     }
     
+    func updateVerticalPaddings(top: CGFloat, bottom: CGFloat) {
+        
+        switch viewController.displayMode {
+        case .inline:
+            let oldTableViewContentInset = self.viewController.tableView.contentInset
+            self.viewController.tableView.contentInset = UIEdgeInsets(top: top, left: oldTableViewContentInset.left, bottom: bottom, right: oldTableViewContentInset.right)
+            let oldScrollIndicatorInset = self.viewController.tableView.verticalScrollIndicatorInsets
+            self.viewController.tableView.verticalScrollIndicatorInsets = UIEdgeInsets(top: oldScrollIndicatorInset.top, left: oldScrollIndicatorInset.left, bottom: bottom, right: oldScrollIndicatorInset.right)
+        case .modal:
+            break
+        }
+    }
+    
     func setupTableOfContentsViewController() {
         switch viewController.displayMode {
         case .inline:
@@ -155,7 +169,17 @@ class ArticleTableOfContentsDisplayController: Themeable {
             viewController = recreateTableOfContentsViewController()
             viewController.displayMode = .inline
             delegate?.addChild(viewController)
-            inlineContainerView.wmf_addSubviewWithConstraintsToEdges(viewController.view)
+            
+            viewController.view.translatesAutoresizingMaskIntoConstraints = false
+            inlineContainerView.addSubview(viewController.view)
+            
+            NSLayoutConstraint.activate([
+                inlineContainerView.topAnchor.constraint(equalTo: viewController.view.topAnchor),
+                inlineContainerView.leadingAnchor.constraint(equalTo: viewController.view.leadingAnchor),
+                inlineContainerView.trailingAnchor.constraint(equalTo: viewController.view.trailingAnchor),
+                inlineContainerView.bottomAnchor.constraint(equalTo: viewController.view.bottomAnchor)
+            ])
+            
             viewController.didMove(toParent: delegate)
             if wasVisible {
                 showInline()

@@ -115,6 +115,7 @@ final class WMFTooltipViewController: WMFComponentViewController {
     }
     
     override func appEnvironmentDidChange() {
+        super.appEnvironmentDidChange()
         let theme = WMFAppEnvironment.current.theme
         view.backgroundColor = theme.popoverBackground
         titleLabel.textColor = theme.text

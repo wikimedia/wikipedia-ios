@@ -1,8 +1,8 @@
 @import WebKit;
 @import WMF.Swift;
-#import "WMFViewController.h"
+@import UIKit;
 
-@interface AboutViewController : WMFViewController <WKNavigationDelegate>
+@interface AboutViewController : UIViewController <WKNavigationDelegate>
 
 - (instancetype)initWithTheme:(WMFTheme *)theme;
 

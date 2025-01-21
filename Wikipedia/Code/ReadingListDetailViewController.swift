@@ -4,13 +4,15 @@ enum ReadingListDetailDisplayType {
     case modal, pushed
 }
 
-class ReadingListDetailViewController: ViewController {
+class ReadingListDetailViewController: ThemeableViewController, WMFNavigationBarConfiguring {
     let dataStore: MWKDataStore
     let readingList: ReadingList
     
     let readingListEntryCollectionViewController: ReadingListEntryCollectionViewController
+    var readingListDetailHeaderView: ReadingListDetailHeaderView? {
+        return readingListEntryCollectionViewController.readingListDetailHeaderView
+    }
     
-    private let readingListDetailUnderBarViewController: ReadingListDetailUnderBarViewController
     private var searchBarExtendedViewController: SearchBarExtendedViewController?
     private var displayType: ReadingListDetailDisplayType = .pushed
     
@@ -42,15 +44,13 @@ class ReadingListDetailViewController: ViewController {
         self.dataStore = dataStore
         self.displayType = displayType
         self.fromImport = fromImport
-        readingListDetailUnderBarViewController = ReadingListDetailUnderBarViewController()
         readingListEntryCollectionViewController = ReadingListEntryCollectionViewController(for: readingList, with: dataStore)
         readingListEntryCollectionViewController.emptyViewType = .noSavedPagesInReadingList
-        super.init()
+        readingListEntryCollectionViewController.needsDetailHeaderView = true
+        super.init(nibName: nil, bundle: nil)
         searchBarExtendedViewController = SearchBarExtendedViewController()
         searchBarExtendedViewController?.dataSource = self
         searchBarExtendedViewController?.delegate = self
-        readingListDetailUnderBarViewController.delegate = self
-        hidesBottomBarWhenPushed = true
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -85,8 +85,7 @@ class ReadingListDetailViewController: ViewController {
         addChild(readingListEntryCollectionViewController)
         view.addSubview(readingListEntryCollectionViewController.view)
         readingListEntryCollectionViewController.view.translatesAutoresizingMaskIntoConstraints = false
-        readingListEntryCollectionViewController.edgesForExtendedLayout = .all
-        scrollView = readingListEntryCollectionViewController.collectionView
+
         NSLayoutConstraint.activate(
             [
                 readingListEntryCollectionViewController.view.topAnchor.constraint(equalTo: view.topAnchor),
@@ -104,34 +103,7 @@ class ReadingListDetailViewController: ViewController {
         super.viewDidLoad()
         
         setUpArticlesViewController()
-        
-        navigationBar.title = readingList.name
-
-        navigationItem.backButtonTitle = readingList.name
-        navigationItem.backButtonDisplayMode = .generic
-
-        navigationBar.addUnderNavigationBarView(readingListDetailUnderBarViewController.view)
-        navigationBar.underBarViewPercentHiddenForShowingTitle = 0.6
-        navigationBar.isBarHidingEnabled = false
-        navigationBar.isUnderBarViewHidingEnabled = true
-        navigationBar.isExtendedViewHidingEnabled = true
-        addExtendedView()
-        
-        if displayType == .modal {
-            navigationItem.leftBarButtonItem = UIBarButtonItem.wmf_buttonType(WMFButtonType.X, target: self, action: #selector(dismissController))
-            title = readingList.name
-        }
-        
-        wmf_add(childController: savedProgressViewController, andConstrainToEdgesOfContainerView: progressContainerView)
-        
         apply(theme: theme)
-    }
-    
-    private func addExtendedView() {
-        guard let extendedView = searchBarExtendedViewController?.view else {
-            return
-        }
-        navigationBar.addExtendedNavigationBarView(extendedView)
     }
     
     @objc private func dismissController() {
@@ -140,7 +112,7 @@ class ReadingListDetailViewController: ViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        readingListDetailUnderBarViewController.setup(for: readingList, listLimit: dataStore.viewContext.wmf_readingListsConfigMaxListsPerUser, entryLimit: dataStore.viewContext.wmf_readingListsConfigMaxEntriesPerList.intValue)
+        configureNavigationBar()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -157,14 +129,34 @@ class ReadingListDetailViewController: ViewController {
         showImportSharedReadingListSurveyPromptIfNeeded()
     }
     
+    private func configureNavigationBar() {
+        
+        let titleConfig = WMFNavigationBarTitleConfig(title: readingList.name ?? "", customView: nil, alignment: .centerCompact)
+        
+        let closeButtonConfig: WMFNavigationBarCloseButtonConfig? = displayType == .modal ? WMFNavigationBarCloseButtonConfig(text: CommonStrings.doneTitle, target: self, action: #selector(dismissController), alignment: .leading) : nil
+        
+        let searchBarPlaceholder = WMFLocalizedString("reading-list-detail-search-placeholder", value: "Search reading list", comment: "Placeholder on search bar for reading list detail view.")
+        let searchConfig = WMFNavigationBarSearchConfig(searchResultsController: nil, searchControllerDelegate: nil, searchResultsUpdater: self, searchBarDelegate: nil, searchBarPlaceholder: searchBarPlaceholder, showsScopeBar: false, scopeButtonTitles: nil)
+        
+        configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: closeButtonConfig, profileButtonConfig: nil, searchBarConfig: searchConfig, hideNavigationBarOnScroll: false)
+    }
+    
     // MARK: - Theme
     
     override func apply(theme: Theme) {
         super.apply(theme: theme)
         readingListEntryCollectionViewController.apply(theme: theme)
-        readingListDetailUnderBarViewController.apply(theme: theme)
+        readingListDetailHeaderView?.apply(theme: theme)
         searchBarExtendedViewController?.apply(theme: theme)
         savedProgressViewController?.apply(theme: theme)
+    }
+    
+    private lazy var sortBarButtonItem: UIBarButtonItem = {
+        return UIBarButtonItem(title: CommonStrings.sortActionTitle, style: .plain, target: self, action: #selector(didTapSort(_:)))
+    }()
+    
+    @objc func didTapSort(_ sender: UIBarButtonItem) {
+        readingListEntryCollectionViewController.presentSortAlert(from: sender)
     }
 }
 
@@ -197,51 +189,48 @@ extension ReadingListDetailViewController: CollectionViewEditControllerNavigatio
     }
     
     func didChangeEditingState(from oldEditingState: EditingState, to newEditingState: EditingState, rightBarButton: UIBarButtonItem?, leftBarButton: UIBarButtonItem?) {
-        navigationItem.rightBarButtonItem = rightBarButton
-        navigationItem.rightBarButtonItem?.tintColor = theme.colors.link // no need to do a whole apply(theme:) pass
         
-        if displayType == .pushed {
-            navigationItem.leftBarButtonItem = leftBarButton
-            navigationItem.leftBarButtonItem?.tintColor = theme.colors.link
+        if let editButton = rightBarButton {
+            navigationItem.rightBarButtonItems = [editButton, sortBarButtonItem]
+            rightBarButton?.tintColor = theme.colors.link // no need to do a whole apply(theme:) pass
+            sortBarButtonItem.tintColor = theme.colors.link
         }
         
         switch newEditingState {
         case .editing:
             fallthrough
         case .open where readingListEntryCollectionViewController.isEmpty:
-            readingListDetailUnderBarViewController.beginEditing()
+            readingListDetailHeaderView?.beginEditing()
         case .done:
-            readingListDetailUnderBarViewController.finishEditing()
+            readingListDetailHeaderView?.finishEditing()
         case .closed where readingListEntryCollectionViewController.isEmpty:
             fallthrough
         case .cancelled:
-            readingListDetailUnderBarViewController.cancelEditing()
+            readingListDetailHeaderView?.cancelEditing()
         default:
             break
         }
-        
-        navigationBar.updateNavigationItems()
     }
 }
 
 // MARK: - ReadingListDetailUnderBarViewControllerDelegate
 
-extension ReadingListDetailViewController: ReadingListDetailUnderBarViewControllerDelegate {
-    func readingListDetailUnderBarViewController(_ underBarViewController: ReadingListDetailUnderBarViewController, didEdit name: String?, description: String?) {
+extension ReadingListDetailViewController: ReadingListDetailHeaderViewDelegate {
+    func readingListDetailHeaderView(_ headerView: ReadingListDetailHeaderView, didEdit name: String?, description: String?) {
         dataStore.readingListsController.updateReadingList(readingList, with: name, newDescription: description)
         title = name
     }
     
-    func readingListDetailUnderBarViewController(_ underBarViewController: ReadingListDetailUnderBarViewController, didBeginEditing textField: UITextField) {
+    func readingListDetailHeaderView(_ headerView: ReadingListDetailHeaderView, didBeginEditing textField: UITextField) {
         readingListEntryCollectionViewController.editController.isTextEditing = true
     }
     
-    func readingListDetailUnderBarViewController(_ underBarViewController: ReadingListDetailUnderBarViewController, titleTextFieldTextDidChange textField: UITextField) {
-        navigationItem.rightBarButtonItem?.isEnabled = textField.text?.wmf_hasNonWhitespaceText ?? false
+    func readingListDetailHeaderView(_ headerView: ReadingListDetailHeaderView, titleTextFieldTextDidChange textField: UITextField) {
+        navigationItem.rightBarButtonItems?.first?.isEnabled = textField.text?.wmf_hasNonWhitespaceText ?? false
     }
     
-    func readingListDetailUnderBarViewController(_ underBarViewController: ReadingListDetailUnderBarViewController, titleTextFieldWillClear textField: UITextField) {
-        navigationItem.rightBarButtonItem?.isEnabled = false
+    func readingListDetailHeaderView(_ headerView: ReadingListDetailHeaderView, titleTextFieldWillClear textField: UITextField) {
+        navigationItem.rightBarButtonItems?.first?.isEnabled = false
     }
 }
 
@@ -277,7 +266,7 @@ extension ReadingListDetailViewController: SearchBarExtendedViewControllerDelega
     }
     
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
-        navigationBar.isExtendedViewHidingEnabled = false
+
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
@@ -288,7 +277,6 @@ extension ReadingListDetailViewController: SearchBarExtendedViewControllerDelega
         searchBar.text = ""
         readingListEntryCollectionViewController.updateSearchString("")
         searchBar.resignFirstResponder()
-        navigationBar.isExtendedViewHidingEnabled = true
     }
     
     func textStyle(for button: UIButton) -> WMFFont {
@@ -312,7 +300,8 @@ extension ReadingListDetailViewController: SearchBarExtendedViewControllerDelega
         }
         switch buttonType {
         case .sort:
-            readingListEntryCollectionViewController.presentSortAlert(from: button)
+            break
+            // readingListEntryCollectionViewController.presentSortAlert(from: button)
         case .cancel:
             makeSearchBarResignFirstResponder(searchBar)
         }
@@ -322,9 +311,15 @@ extension ReadingListDetailViewController: SearchBarExtendedViewControllerDelega
 // MARK: - ReadingListEntryCollectionViewControllerDelegate
 
 extension ReadingListDetailViewController: ReadingListEntryCollectionViewControllerDelegate {
+
+    func setupReadingListDetailHeaderView(_ headerView: ReadingListDetailHeaderView) {
+        headerView.delegate = self
+        headerView.setup(for: readingList, listLimit: dataStore.viewContext.wmf_readingListsConfigMaxListsPerUser, entryLimit: dataStore.viewContext.wmf_readingListsConfigMaxEntriesPerList.intValue)
+    }
+    
     func readingListEntryCollectionViewController(_ viewController: ReadingListEntryCollectionViewController, didUpdate collectionView: UICollectionView) {
-        readingListDetailUnderBarViewController.reconfigureAlert(for: readingList)
-        readingListDetailUnderBarViewController.updateArticleCount(readingList.countOfEntries)
+        let sections = IndexSet(integer: 0)
+        viewController.collectionView.reloadSections(sections)
     }
     
     func readingListEntryCollectionViewControllerDidChangeEmptyState(_ viewController: ReadingListEntryCollectionViewController) {
@@ -335,11 +330,7 @@ extension ReadingListDetailViewController: ReadingListEntryCollectionViewControl
         }
         if viewController.isEmpty {
             title = readingList.name
-            navigationBar.removeExtendedNavigationBarView()
-        } else {
-            addExtendedView()
         }
-        viewController.updateScrollViewInsets()
     }
     
     func readingListEntryCollectionViewControllerDidSelectArticleURL(_ articleURL: URL, viewController: ReadingListEntryCollectionViewController) {
@@ -350,6 +341,10 @@ extension ReadingListDetailViewController: ReadingListEntryCollectionViewControl
         } else {
             navigate(to: articleURL)
         }
+    }
+    
+    func scrollViewDidScroll(scrollView: UIScrollView) {
+        // no-op
     }
 }
 
@@ -399,5 +394,12 @@ private extension ReadingListDetailViewController {
                 // Do nothing
             }, theme: self.theme, languageCode: languageCode)
         })
+    }
+}
+
+extension ReadingListDetailViewController: UISearchResultsUpdating {
+    func updateSearchResults(for searchController: UISearchController) {
+        guard let text = searchController.searchBar.text else { return }
+        readingListEntryCollectionViewController.updateSearchString(text)
     }
 }

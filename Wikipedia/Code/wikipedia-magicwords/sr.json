@@ -180,13 +180,13 @@
   },
   {
     "aliases" : [
+      "Датотека",
       "Datoteka",
       "Fotografija",
       "Image",
       "Slika",
       "Слика",
-      "Фотографија",
-      "Датотека"
+      "Фотографија"
     ],
     "name" : "file_namespace"
   }

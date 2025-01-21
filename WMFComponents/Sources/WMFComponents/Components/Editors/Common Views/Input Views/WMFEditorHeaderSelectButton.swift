@@ -48,6 +48,7 @@ final class WMFEditorHeaderSelectButton: WMFComponentView {
     }
     
     override func appEnvironmentDidChange() {
+        super.appEnvironmentDidChange()
         
         guard let button else {
             return

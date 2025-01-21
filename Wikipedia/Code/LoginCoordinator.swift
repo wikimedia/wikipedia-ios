@@ -1,4 +1,5 @@
 import UIKit
+import WMFComponents
 
 final class LoginCoordinator: Coordinator {
 
@@ -23,7 +24,7 @@ final class LoginCoordinator: Coordinator {
     func start() {
         if let loginVC = WMFLoginViewController.wmf_initialViewControllerFromClassStoryboard() {
             loginVC.apply(theme: theme)
-            let loginNavVC = WMFThemeableNavigationController(rootViewController: loginVC, theme: theme)
+            let loginNavVC = WMFComponentNavigationController(rootViewController: loginVC, modalPresentationStyle: .overFullScreen)
             loginVC.loginSuccessCompletion = loginSuccessCompletion
             loginVC.createAccountSuccessCustomDismissBlock = createAccountSuccessCustomDismissBlock
             

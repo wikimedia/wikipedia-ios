@@ -9,13 +9,11 @@ class SearchResultsViewController: ArticleCollectionViewController {
             reload()
         }
     }
-
-    var delegatesSelection: Bool = false
-    var doesShowArticlePreviews = true
+    
+    var tappedSearchResultAction: ((URL, IndexPath) -> Void)?
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        useNavigationBarVisibleHeightForScrollViewInsets = true
         reload()
         NotificationCenter.default.addObserver(self, selector: #selector(updateArticleCell(_:)), name: NSNotification.Name.WMFArticleUpdated, object: nil)
     }
@@ -62,13 +60,7 @@ class SearchResultsViewController: ArticleCollectionViewController {
             return
         }
         
-        delegate?.articleCollectionViewController(self, didSelectArticleWith: articleURL, at: indexPath)
-        guard !delegatesSelection else {
-            return
-        }
-        
-        let userInfo: [AnyHashable : Any] = [RoutingUserInfoKeys.source: RoutingUserInfoSourceValue.search.rawValue]
-        navigate(to: articleURL, userInfo: userInfo)
+        tappedSearchResultAction?(articleURL, indexPath)
     }
 
     func redirectMappingForSearchResult(_ result: MWKSearchResult) -> MWKSearchRedirectMapping? {
@@ -149,12 +141,5 @@ class SearchResultsViewController: ArticleCollectionViewController {
 
             configure(cell: cell, forItemAt: indexPath, layoutOnly: false, configureForCompact: false)
         }
-    }
-
-    override func collectionView(_ collectionView: UICollectionView, contextMenuConfigurationForItemAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
-        guard doesShowArticlePreviews else {
-            return nil
-        }
-        return super.collectionView(collectionView, contextMenuConfigurationForItemAt: indexPath, point: point)
     }
 }

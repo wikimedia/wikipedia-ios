@@ -1,6 +1,7 @@
 import UIKit
+import WMFComponents
 
-class ArticleURLListViewController: ArticleCollectionViewController {
+class ArticleURLListViewController: ArticleCollectionViewController, WMFNavigationBarConfiguring {
     let articleURLs: [URL]
     private let articleKeys: Set<String>
     var contentGroupIDURIString: String?
@@ -8,11 +9,12 @@ class ArticleURLListViewController: ArticleCollectionViewController {
     required init(articleURLs: [URL], dataStore: MWKDataStore, contentGroup: WMFContentGroup? = nil, theme: Theme) {
         self.articleURLs = articleURLs
         self.articleKeys = Set<String>(articleURLs.compactMap { $0.wmf_databaseKey })
-        super.init()
+        super.init(nibName: nil, bundle: nil)
         self.contentGroup = contentGroup
         self.contentGroupIDURIString = contentGroup?.objectID.uriRepresentation().absoluteString
         self.theme = theme
         self.dataStore = dataStore
+        hidesBottomBarWhenPushed = true
     }
     
     deinit {
@@ -53,6 +55,18 @@ class ArticleURLListViewController: ArticleCollectionViewController {
         super.viewDidLoad()
         collectionView.reloadData()
         NotificationCenter.default.addObserver(self, selector: #selector(articleDidChange(_:)), name: NSNotification.Name.WMFArticleUpdated, object: nil)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        configureNavigationBar()
+    }
+    
+    private func configureNavigationBar() {
+        let titleConfig = WMFNavigationBarTitleConfig(title: title ?? "", customView: nil, alignment: .hidden)
+        
+        configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: nil, profileButtonConfig: nil, searchBarConfig: nil, hideNavigationBarOnScroll: false)
     }
 
     override var eventLoggingCategory: EventCategoryMEP {

@@ -19,7 +19,7 @@ class TalkPageReplyComposeController {
     // containerView - the view that contains the contentView. It has the drag handle and pan gesture attached.
     // contentView - the view with the reply compose UI elements (close button, publish button, text views)
     
-    typealias ReplyComposableViewController = ViewController & TalkPageReplyComposeDelegate & TalkPageTextViewLinkHandling
+    typealias ReplyComposableViewController = TalkPageViewController & TalkPageReplyComposeDelegate & TalkPageTextViewLinkHandling
     private var viewController: ReplyComposableViewController?
     private(set) var commentViewModel: TalkPageCellCommentViewModel?
     

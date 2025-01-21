@@ -51,8 +51,7 @@ extension ArticleViewController {
         
         let editVC = DescriptionEditViewController.with(dataStore: dataStore, theme: theme, articleDescriptionController: descriptionController)
         editVC.delegate = self
-        let navigationController = WMFThemeableNavigationController(rootViewController: editVC, theme: theme)
-        navigationController.modalPresentationStyle = .overFullScreen
+        let navigationController = WMFComponentNavigationController(rootViewController: editVC, modalPresentationStyle: .overFullScreen)
         navigationController.view.isOpaque = false
         navigationController.view.backgroundColor = .clear
        let needsIntro = !UserDefaults.standard.wmf_didShowTitleDescriptionEditingIntro()
@@ -78,8 +77,7 @@ extension ArticleViewController {
     
     private func presentEditor(editorViewController: UIViewController) {
         
-        let navigationController = WMFThemeableNavigationController(rootViewController: editorViewController, theme: theme)
-        navigationController.modalPresentationStyle = UIModalPresentationStyle.overFullScreen
+        let navigationController = WMFComponentNavigationController(rootViewController: editorViewController, modalPresentationStyle: .overFullScreen)
         
         let needsIntro = !UserDefaults.standard.didShowEditingOnboarding
         if needsIntro {
