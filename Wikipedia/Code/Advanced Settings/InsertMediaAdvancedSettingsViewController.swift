@@ -1,6 +1,7 @@
 import UIKit
+import WMFComponents
 
-final class InsertMediaAdvancedSettingsViewController: ViewController {
+final class InsertMediaAdvancedSettingsViewController: ThemeableViewController, WMFNavigationBarConfiguring {
     static let title = WMFLocalizedString("advanced-settings-title", value: "Advanced settings", comment: "Title for advanced settings screen")
     private let tableView = UITableView()
 
@@ -74,27 +75,37 @@ final class InsertMediaAdvancedSettingsViewController: ViewController {
     }
 
     override func viewDidLoad() {
-        scrollView = tableView
         super.viewDidLoad()
-        navigationBar.isBarHidingEnabled = false
         tableView.dataSource = self
         tableView.delegate = self
         view.wmf_addSubviewWithConstraintsToEdges(tableView)
         tableView.separatorInset = .zero
         tableView.tableFooterView = UIView()
-        title = InsertMediaAdvancedSettingsViewController.title
         apply(theme: theme)
     }
 
+    var isFirstAppearance = false
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
         defer {
             isFirstAppearance = false
         }
+        
+        
+        configureNavigationBar()
+        
         guard !isFirstAppearance else {
             return
         }
+        
         tableView.reloadData()
+    }
+    
+    private func configureNavigationBar() {
+        let titleConfig = WMFNavigationBarTitleConfig(title:  InsertMediaAdvancedSettingsViewController.title, customView: nil, alignment: .centerCompact)
+        
+        configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: nil, profileButtonConfig: nil, searchBarConfig: nil, hideNavigationBarOnScroll: false)
     }
 
     // MARK: - Themeable

@@ -32,8 +32,8 @@ struct NotificationsCenterInboxView: View {
                         doneAction()
                     }) {
                         Text(CommonStrings.doneTitle)
-                            .fontWeight(Font.Weight.semibold)
-                            .foregroundColor(Color(viewModel.theme.colors.primaryText))
+                            .font(Font(WMFFont.navigationBarDoneButtonFont))
+                            .foregroundColor(Color(WMFAppEnvironment.current.theme.navigationBarTintColor))
                         }
             )
             .padding(.horizontal, horizontalSizeClass == .regular ? WMFFont.for(.footnote).pointSize : 0)

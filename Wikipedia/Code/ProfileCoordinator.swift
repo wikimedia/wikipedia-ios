@@ -38,11 +38,6 @@ final class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegat
     
     // MARK: Lifecycle
     
-    // Convenience method to output a Settings coordinator from Objective-C
-    @objc static func profileCoordinatorForSettingsProfileButton(navigationController: UINavigationController, theme: Theme, dataStore: MWKDataStore, logoutDelegate: LogoutCoordinatorDelegate?, sourcePage: ProfileCoordinatorSource, yirCoordinator: YearInReviewCoordinator) -> ProfileCoordinator {
-        return ProfileCoordinator(navigationController: navigationController, theme: theme, dataStore: dataStore, donateSouce: .settingsProfile, logoutDelegate: logoutDelegate, sourcePage: sourcePage, yirCoordinator: yirCoordinator)
-    }
-    
     init(navigationController: UINavigationController, theme: Theme, dataStore: MWKDataStore, donateSouce: DonateCoordinator.Source, logoutDelegate: LogoutCoordinatorDelegate?, sourcePage: ProfileCoordinatorSource, yirCoordinator: YearInReviewCoordinator) {
         self.navigationController = navigationController
         self.theme = theme
@@ -96,21 +91,14 @@ final class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegat
             badgeDelegate: badgeDelegate
         )
         
-        var profileView = WMFProfileView(viewModel: viewModel)
-        profileView.donePressed = { [weak self] in
-            self?.navigationController.dismiss(animated: true, completion: nil)
-        }
+        let profileView = WMFProfileView(viewModel: viewModel)
         self.viewModel = viewModel
         let finalView = profileView.environmentObject(targetRects)
-        let hostingController = UIHostingController(rootView: finalView)
-        hostingController.modalPresentationStyle = .pageSheet
+        let hostingController = WMFProfileHostingController(rootView: finalView, viewModel: viewModel)
         
-        if let sheetPresentationController = hostingController.sheetPresentationController {
-            sheetPresentationController.detents = [.large()]
-            sheetPresentationController.prefersGrabberVisible = false
-        }
+        let profileNavVC = WMFComponentNavigationController(rootViewController: hostingController, modalPresentationStyle: .pageSheet)
         
-        navigationController.present(hostingController, animated: true, completion: nil)
+        navigationController.present(profileNavVC, animated: true, completion: nil)
     }
     
     // MARK: - ProfileCoordinatorDelegate Methods

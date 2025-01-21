@@ -1,5 +1,6 @@
 import UIKit
 import CocoaLumberjackSwift
+import WMFComponents
 
 protocol AddArticlesToReadingListDelegate: NSObjectProtocol {
     func addArticlesToReadingListWillClose(_ addArticlesToReadingList: AddArticlesToReadingListViewController)
@@ -24,7 +25,7 @@ extension AddArticlesToReadingListDelegate {
 }
 
 @objc(WMFAddArticlesToReadingListViewController)
-class AddArticlesToReadingListViewController: ViewController {
+class AddArticlesToReadingListViewController: ThemeableViewController, WMFNavigationBarConfiguring {
     
     private let dataStore: MWKDataStore
     private let articles: [WMFArticle]
@@ -39,8 +40,8 @@ class AddArticlesToReadingListViewController: ViewController {
         self.dataStore = dataStore
         self.articles = articles
         self.moveFromReadingList = moveFromReadingList
-        self.readingListsViewController = ReadingListsViewController(with: dataStore, articles: articles)
-        super.init()
+        self.readingListsViewController = ReadingListsViewController(with: dataStore, articles: articles, needsCreateReadingListButton: true)
+        super.init(nibName: nil, bundle: nil)
         self.theme = theme
     }
     
@@ -66,34 +67,38 @@ class AddArticlesToReadingListViewController: ViewController {
         closeButtonPressed()
         return true
     }
-
-    private var isCreateNewReadingListButtonViewHidden: Bool = false {
-        didSet {
-            if isCreateNewReadingListButtonViewHidden {
-                navigationBar.removeUnderNavigationBarView()
-                readingListsViewController.createNewReadingListButtonView.button.removeTarget(self, action: #selector(createNewReadingListButtonPressed), for: .touchUpInside)
-            } else {
-                readingListsViewController.createNewReadingListButtonView.button.addTarget(self, action: #selector(createNewReadingListButtonPressed), for: .touchUpInside)
-                navigationBar.addUnderNavigationBarView(readingListsViewController.createNewReadingListButtonView)
-            }
-        }
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "close"), style: .plain, target: self, action: #selector(closeButtonPressed))
-        let title = moveFromReadingList != nil ? WMFLocalizedString("move-articles-to-reading-list", value:"Move {{PLURAL:%1$d|%1$d article|%1$d articles}} to reading list", comment:"Title for the view in charge of moving articles to a reading list - %1$@ is replaced with the number of articles to move") : WMFLocalizedString("add-articles-to-reading-list", value:"Add {{PLURAL:%1$d|%1$d article|%1$d articles}} to reading list", comment:"Title for the view in charge of adding articles to a reading list - %1$@ is replaced with the number of articles to add")
-        navigationItem.title = String.localizedStringWithFormat(title, articles.count)
-        navigationBar.displayType = .modal
-        navigationBar.isBarHidingEnabled = false
-        navigationBar.isUnderBarViewHidingEnabled = true
-        isCreateNewReadingListButtonViewHidden = readingListsViewController.isEmpty
         addChild(readingListsViewController)
-        view.wmf_addSubviewWithConstraintsToEdges(readingListsViewController.view)
+        readingListsViewController.view.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(readingListsViewController.view)
+        NSLayoutConstraint.activate([
+            view.safeAreaLayoutGuide.topAnchor.constraint(equalTo: readingListsViewController.view.topAnchor),
+            view.leadingAnchor.constraint(equalTo: readingListsViewController.view.leadingAnchor),
+            view.trailingAnchor.constraint(equalTo: readingListsViewController.view.trailingAnchor),
+            view.bottomAnchor.constraint(equalTo: readingListsViewController.view.bottomAnchor)
+        ])
         readingListsViewController.didMove(toParent: self)
+        
         readingListsViewController.delegate = self
-        scrollView = readingListsViewController.scrollView
         apply(theme: theme)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        configureNavigationBar()
+    }
+    
+    private func configureNavigationBar() {
+        let title = moveFromReadingList != nil ? WMFLocalizedString("move-articles-to-reading-list", value:"Move {{PLURAL:%1$d|%1$d article|%1$d articles}} to reading list", comment:"Title for the view in charge of moving articles to a reading list - %1$@ is replaced with the number of articles to move") : WMFLocalizedString("add-articles-to-reading-list", value:"Add {{PLURAL:%1$d|%1$d article|%1$d articles}} to reading list", comment:"Title for the view in charge of adding articles to a reading list - %1$@ is replaced with the number of articles to add")
+        
+        let titleConfig = WMFNavigationBarTitleConfig(title: String.localizedStringWithFormat(title, articles.count), customView: nil, alignment: .centerCompact)
+        
+        let closeButtonConfig = WMFNavigationBarCloseButtonConfig(text: CommonStrings.doneTitle, target: self, action: #selector(closeButtonPressed), alignment: .trailing)
+        
+        configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: closeButtonConfig, profileButtonConfig: nil, searchBarConfig: nil, hideNavigationBarOnScroll: false)
     }
 
     // MARK: Themeable
@@ -107,6 +112,10 @@ class AddArticlesToReadingListViewController: ViewController {
 // MARK: ReadingListsViewControllerDelegate
 
 extension AddArticlesToReadingListViewController: ReadingListsViewControllerDelegate {
+    func scrollViewDidScroll(scrollView: UIScrollView) {
+        // no-op
+    }
+    
     func readingListsViewController(_ readingListsViewController: ReadingListsViewController, didAddArticles articles: [WMFArticle], to readingList: ReadingList) {
         if let moveFromReadingList = moveFromReadingList {
             do {
@@ -123,6 +132,6 @@ extension AddArticlesToReadingListViewController: ReadingListsViewControllerDele
     }
 
     func readingListsViewControllerDidChangeEmptyState(_ readingListsViewController: ReadingListsViewController, isEmpty: Bool) {
-        isCreateNewReadingListButtonViewHidden = isEmpty
+        // no-op
     }
 }

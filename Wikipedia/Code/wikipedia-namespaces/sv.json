@@ -2,7 +2,6 @@
   "mainpage" : "PORTAL:HUVUDSIDA",
   "namespace" : {
     "" : 0,
-    "ÄMNE" : 2600,
     "ANVÄNDARDISKUSSION" : 3,
     "ANVÄNDARE" : 2,
     "BILD" : 6,
@@ -16,10 +15,6 @@
     "FILDISKUSSION" : 7,
     "FILE" : 6,
     "FILE TALK" : 7,
-    "GADGET" : 2300,
-    "GADGET DEFINITION" : 2302,
-    "GADGET DEFINITION TALK" : 2303,
-    "GADGET TALK" : 2301,
     "HELP" : 12,
     "HELP TALK" : 13,
     "HJÄLP" : 12,
@@ -56,6 +51,7 @@
     "WIKIPEDIA" : 4,
     "WIKIPEDIA TALK" : 5,
     "WIKIPEDIADISKUSSION" : 5,
-    "WP" : 4
+    "WP" : 4,
+    "ÄMNE" : 2600
   }
 }

@@ -2,7 +2,6 @@
 @import WMF;
 #import "MWKTitleLanguageController.h"
 #import "WMFLanguageCell.h"
-#import "UIBarButtonItem+WMFButtonConvenience.h"
 #import "Wikipedia-Swift.h"
 #import "WMFArticleLanguagesSectionHeader.h"
 #import "WMFArticleLanguagesSectionFooter.h"
@@ -108,9 +107,6 @@ static CGFloat const WMFLanguageHeaderHeight = 57.f;
 
     NSAssert(self.title, @"Don't forget to set a title!");
 
-    UIBarButtonItem *xButton = [UIBarButtonItem wmf_buttonType:WMFButtonTypeX target:self action:@selector(closeButtonPressed)];
-    self.navigationItem.leftBarButtonItems = @[xButton];
-
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.tableView.estimatedRowHeight = WMFOtherLanguageRowHeight;
     self.tableView.rowHeight = UITableViewAutomaticDimension;
@@ -136,10 +132,6 @@ static CGFloat const WMFLanguageHeaderHeight = 57.f;
     [self applyTheme:self.theme];
 }
 
-- (void)closeButtonPressed {
-    [self dismissViewControllerAnimated:YES completion:self.userDismissalCompletionBlock];
-}
-
 - (void)setHideLanguageFilter:(BOOL)hideLanguageFilter {
     _hideLanguageFilter = hideLanguageFilter;
     self.filterHeightConstraint.constant = hideLanguageFilter ? 0 : 44;
@@ -153,6 +145,11 @@ static CGFloat const WMFLanguageHeaderHeight = 57.f;
 - (void)setDisableSelection:(BOOL)disableSelection {
     _disableSelection = disableSelection;
     self.tableView.allowsSelection = !disableSelection;
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self configureNavigationBarFromObjCWithTitle:self.title];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -533,7 +530,8 @@ static CGFloat const WMFLanguageHeaderHeight = 57.f;
     WMFLanguagesViewController *languagesVC = [WMFLanguagesViewController allLanguagesViewController];
     languagesVC.delegate = self;
     [languagesVC applyTheme:self.theme];
-    [self presentViewController:[[WMFThemeableNavigationController alloc] initWithRootViewController:languagesVC theme:self.theme style:WMFThemeableNavigationControllerStyleSheet] animated:YES completion:NULL];
+    WMFComponentNavigationController *navVC = [[WMFComponentNavigationController alloc] initWithRootViewController:languagesVC modalPresentationStyle:UIModalPresentationOverFullScreen];
+    [self presentViewController:navVC animated:YES completion:nil];
 }
 
 - (void)languagesController:(WMFLanguagesViewController *)controller didSelectLanguage:(MWKLanguageLink *)language {

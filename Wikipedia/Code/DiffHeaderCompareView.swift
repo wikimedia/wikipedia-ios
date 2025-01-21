@@ -95,7 +95,7 @@ class DiffHeaderCompareView: SetupView {
         return stackView
     }()
 
-    weak var delegate: DiffHeaderActionDelegate?
+    var tappedHeaderUsernameAction: ((Username, DiffHeaderUsernameDestination) -> Void)?
     private var viewModel: DiffHeaderCompareViewModel?
 
     override func setup() {
@@ -276,13 +276,13 @@ extension DiffHeaderCompareView: WMFSmallMenuButtonDelegate {
 
         if item == userButtonMenuItems[0] {
             WatchlistFunnel.shared.logDiffTapUserContributions(project: viewModel.project)
-            delegate?.tappedUsername(username: username, destination: .userContributions)
+            tappedHeaderUsernameAction?(username, .userContributions)
         } else if item == userButtonMenuItems[1] {
             WatchlistFunnel.shared.logDiffTapUserTalk(project: viewModel.project)
-            delegate?.tappedUsername(username: username, destination: .userTalkPage)
+            tappedHeaderUsernameAction?(username, .userTalkPage)
         } else if item == userButtonMenuItems[2] {
             WatchlistFunnel.shared.logDiffTapUserPage(project: viewModel.project)
-            delegate?.tappedUsername(username: username, destination: .userPage)
+            tappedHeaderUsernameAction?(username, .userPage)
         }
     }
     

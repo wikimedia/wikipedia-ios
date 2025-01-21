@@ -1,9 +1,11 @@
+import WMFComponents
+
 protocol InsertMediaViewControllerDelegate: AnyObject {
-    func insertMediaViewController(_ insertMediaViewController: InsertMediaViewController, didTapCloseButton button: UIBarButtonItem)
-    func insertMediaViewController(_ insertMediaViewController: InsertMediaViewController, didPrepareWikitextToInsert wikitext: String)
+    func didTapCloseButton(insertMediaViewController: InsertMediaViewController)
+    func didPrepareWikitextToInsert(wikitext: String, insertMediaViewController: InsertMediaViewController)
 }
 
-final class InsertMediaViewController: ViewController {
+final class InsertMediaViewController: ThemeableViewController, WMFNavigationBarConfiguring {
     private let selectedImageViewController = InsertMediaSelectedImageViewController()
     private let searchViewController: InsertMediaSearchViewController
     private let searchResultsCollectionViewController = InsertMediaSearchResultsCollectionViewController()
@@ -15,9 +17,8 @@ final class InsertMediaViewController: ViewController {
         searchViewController = InsertMediaSearchViewController(articleTitle: articleTitle, siteURL: siteURL)
         searchResultsCollectionViewController.delegate = selectedImageViewController
         self.siteURL = siteURL
-        super.init()
+        super.init(nibName: nil, bundle: nil)
         selectedImageViewController.delegate = self
-        searchViewController.progressController = FakeProgressController(progress: navigationBar, delegate: navigationBar)
         searchViewController.delegate = self
         searchViewController.searchBarDelegate = self
         searchResultsCollectionViewController.scrollDelegate = self
@@ -27,53 +28,71 @@ final class InsertMediaViewController: ViewController {
         fatalError("init(coder:) has not been implemented")
     }
 
-    private lazy var closeButton: UIBarButtonItem = {
-        let closeButton = UIBarButtonItem.wmf_buttonType(.X, target: self, action: #selector(delegateCloseButtonTap(_:)))
-        closeButton.accessibilityLabel = CommonStrings.closeButtonAccessibilityLabel
-        return closeButton
-    }()
-
     private lazy var nextButton: UIBarButtonItem = {
         let nextButton = UIBarButtonItem(title: CommonStrings.nextTitle, style: .done, target: self, action: #selector(goToMediaSettings(_:)))
         nextButton.isEnabled = false
         return nextButton
     }()
 
+    private var selectedImageTopConstraint: NSLayoutConstraint?
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationController?.isNavigationBarHidden = true
-        title = CommonStrings.insertMediaTitle
-        navigationItem.leftBarButtonItem = closeButton
-        navigationItem.rightBarButtonItem = nextButton
-        navigationItem.backBarButtonItem = UIBarButtonItem(title: CommonStrings.accessibilityBackTitle, style: .plain, target: nil, action: nil)
-        navigationBar.displayType = .modal
-        navigationBar.isBarHidingEnabled = false
-        navigationBar.isUnderBarViewHidingEnabled = true
-        navigationBar.isExtendedViewHidingEnabled = true
-        navigationBar.isTopSpacingHidingEnabled = false
+        
+        addChild(searchResultsCollectionViewController)
+        searchResultsCollectionViewController.view.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(searchResultsCollectionViewController.view)
+        NSLayoutConstraint.activate([
+            view.safeAreaLayoutGuide.topAnchor.constraint(equalTo: searchResultsCollectionViewController.view.topAnchor),
+            view.safeAreaLayoutGuide.leadingAnchor.constraint(equalTo: searchResultsCollectionViewController.view.leadingAnchor),
+            view.safeAreaLayoutGuide.trailingAnchor.constraint(equalTo: searchResultsCollectionViewController.view.trailingAnchor),
+            view.safeAreaLayoutGuide.bottomAnchor.constraint(equalTo: searchResultsCollectionViewController.view.bottomAnchor)
+        ])
+        searchResultsCollectionViewController.didMove(toParent: self)
 
         addChild(selectedImageViewController)
-        navigationBar.addUnderNavigationBarView(selectedImageViewController.view, shouldIgnoreSafeArea: true)
+        selectedImageViewController.view.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(selectedImageViewController.view)
+        let selectedImageTopConstraint = view.safeAreaLayoutGuide.topAnchor.constraint(equalTo: selectedImageViewController.view.topAnchor)
+        self.selectedImageTopConstraint = selectedImageTopConstraint
+        NSLayoutConstraint.activate([
+            selectedImageTopConstraint,
+            view.safeAreaLayoutGuide.leadingAnchor.constraint(equalTo: selectedImageViewController.view.leadingAnchor),
+            view.safeAreaLayoutGuide.trailingAnchor.constraint(equalTo: selectedImageViewController.view.trailingAnchor),
+            selectedImageViewController.view.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.3)
+        ])
         selectedImageViewController.didMove(toParent: self)
 
         addChild(searchViewController)
-        navigationBar.addExtendedNavigationBarView(searchViewController.view)
+        searchViewController.view.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(searchViewController.view)
+        NSLayoutConstraint.activate([
+            selectedImageViewController.view.bottomAnchor.constraint(equalTo: searchViewController.view.topAnchor),
+            view.safeAreaLayoutGuide.leadingAnchor.constraint(equalTo: searchViewController.view.leadingAnchor),
+            view.safeAreaLayoutGuide.trailingAnchor.constraint(equalTo: searchViewController.view.trailingAnchor)
+        ])
         searchViewController.didMove(toParent: self)
 
-        wmf_add(childController: searchResultsCollectionViewController, andConstrainToEdgesOfContainerView: view)
-
-        additionalSafeAreaInsets = searchResultsCollectionViewController.additionalSafeAreaInsets
-        scrollView = searchResultsCollectionViewController.collectionView
+        determineResultsContentInset()
     }
-
-    private var selectedImageViewHeightConstraint: NSLayoutConstraint?
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+        determineResultsContentInset()
+    }
+    
+    private func determineResultsContentInset() {
+        view.setNeedsLayout()
+        selectedImageViewController.view.layoutIfNeeded()
+        searchViewController.view.layoutIfNeeded()
+        
+        searchResultsCollectionViewController.collectionView.contentInset = UIEdgeInsets(top: selectedImageViewController.view.frame.height + searchViewController.view.frame.height, left: 0, bottom: 0, right: 0)
+    }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        if selectedImageViewHeightConstraint == nil {
-            selectedImageViewHeightConstraint = selectedImageViewController.view.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.3)
-            selectedImageViewHeightConstraint?.isActive = true
-        }
+
+        configureNavigationBar()
     }
 
     private var isDisappearing = false
@@ -99,6 +118,16 @@ final class InsertMediaViewController: ViewController {
         }
     }
 
+    private func configureNavigationBar() {
+        
+        let titleConfig = WMFNavigationBarTitleConfig(title: CommonStrings.insertMediaTitle, customView: nil, alignment: .centerCompact)
+        let closeConfig = WMFNavigationBarCloseButtonConfig(text: CommonStrings.doneTitle, target: self, action: #selector(delegateCloseButtonTap(_:)), alignment: .leading)
+
+        configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: closeConfig, profileButtonConfig: nil, searchBarConfig: nil, hideNavigationBarOnScroll: false)
+        
+        navigationItem.rightBarButtonItem = nextButton
+    }
+    
     @objc private func goToMediaSettings(_ sender: UIBarButtonItem) {
         guard
             let navigationController = navigationController,
@@ -114,7 +143,7 @@ final class InsertMediaViewController: ViewController {
     }
 
     @objc private func delegateCloseButtonTap(_ sender: UIBarButtonItem) {
-        delegate?.insertMediaViewController(self, didTapCloseButton: sender)
+        delegate?.didTapCloseButton(insertMediaViewController: self)
     }
 
     override func apply(theme: Theme) {
@@ -125,65 +154,12 @@ final class InsertMediaViewController: ViewController {
         selectedImageViewController.apply(theme: theme)
         searchViewController.apply(theme: theme)
         searchResultsCollectionViewController.apply(theme: theme)
-        closeButton.tintColor = theme.colors.primaryText
         nextButton.tintColor = theme.colors.link
     }
-
-    override func scrollViewInsetsDidChange() {
-        super.scrollViewInsetsDidChange()
-        searchResultsCollectionViewController.scrollViewInsetsDidChange()
-    }
-
-    override func keyboardDidChangeFrame(from oldKeyboardFrame: CGRect?, newKeyboardFrame: CGRect?) {
-        guard !isAnimatingSearchBarState else {
-            return
-        }
-        super.keyboardDidChangeFrame(from: oldKeyboardFrame, newKeyboardFrame: newKeyboardFrame)
-    }
-
-    override func accessibilityPerformEscape() -> Bool {
-        delegate?.insertMediaViewController(self, didTapCloseButton: closeButton)
-        return true
-    }
-
-    var isAnimatingSearchBarState: Bool = false
     
-    override var shouldAnimateWhileUpdatingScrollViewInsets: Bool {
+    override func accessibilityPerformEscape() -> Bool {
+        delegate?.didTapCloseButton(insertMediaViewController: self)
         return true
-    }
-
-    func focusSearch(_ focus: Bool, animated: Bool = true, additionalAnimations: (() -> Void)? = nil) {
-        useNavigationBarVisibleHeightForScrollViewInsets = focus
-        navigationBar.isAdjustingHidingFromContentInsetChangesEnabled = true
-        let completion = { (finished: Bool) in
-            self.isAnimatingSearchBarState = false
-            self.useNavigationBarVisibleHeightForScrollViewInsets = focus
-        }
-
-        let animations = {
-            let underBarViewPercentHidden: CGFloat
-            let extendedViewPercentHidden: CGFloat
-            if let scrollView = self.scrollView, scrollView.isAtTop, !focus {
-                underBarViewPercentHidden = 0
-                extendedViewPercentHidden = 0
-            } else {
-                underBarViewPercentHidden = 1
-                extendedViewPercentHidden = focus ? 0 : 1
-            }
-            self.navigationBar.setNavigationBarPercentHidden(0, underBarViewPercentHidden: underBarViewPercentHidden, extendedViewPercentHidden: extendedViewPercentHidden, topSpacingPercentHidden: 0, animated: false)
-            self.searchViewController.searchBar.setShowsCancelButton(focus, animated: animated)
-            additionalAnimations?()
-            self.view.layoutIfNeeded()
-            self.updateScrollViewInsets()
-        }
-        guard animated else {
-            animations()
-            completion(true)
-            return
-        }
-        isAnimatingSearchBarState = true
-        self.view.layoutIfNeeded()
-        UIView.animate(withDuration: 0.3, animations: animations, completion: completion)
     }
 }
 
@@ -224,34 +200,28 @@ extension InsertMediaViewController: InsertMediaSelectedImageViewControllerDeleg
 
 extension InsertMediaViewController: InsertMediaSearchResultsCollectionViewControllerScrollDelegate {
     func insertMediaSearchResultsCollectionViewController(_ insertMediaSearchResultsCollectionViewController: InsertMediaSearchResultsCollectionViewController, scrollViewDidScroll scrollView: UIScrollView) {
-        guard !isAnimatingSearchBarState else {
-            return
-        }
-        scrollViewDidScroll(scrollView)
+        
+        let delta = scrollView.contentInset.top - (scrollView.contentOffset.y * -1)
+        selectedImageTopConstraint?.constant = delta
     }
 
     func insertMediaSearchResultsCollectionViewController(_ insertMediaSearchResultsCollectionViewController: InsertMediaSearchResultsCollectionViewController, scrollViewWillBeginDragging scrollView: UIScrollView) {
-        scrollViewWillBeginDragging(scrollView)
     }
 
     func insertMediaSearchResultsCollectionViewController(_ insertMediaSearchResultsCollectionViewController: InsertMediaSearchResultsCollectionViewController, scrollViewWillEndDragging scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
-        scrollViewWillEndDragging(scrollView, withVelocity: velocity, targetContentOffset: targetContentOffset)
     }
 
     func insertMediaSearchResultsCollectionViewController(_ insertMediaSearchResultsCollectionViewController: InsertMediaSearchResultsCollectionViewController, scrollViewDidEndDecelerating scrollView: UIScrollView) {
-        scrollViewDidEndDecelerating(scrollView)
     }
 
     func insertMediaSearchResultsCollectionViewController(_ insertMediaSearchResultsCollectionViewController: InsertMediaSearchResultsCollectionViewController, scrollViewDidEndScrollingAnimation scrollView: UIScrollView) {
-        scrollViewDidEndScrollingAnimation(scrollView)
     }
 
     func insertMediaSearchResultsCollectionViewController(_ insertMediaSearchResultsCollectionViewController: InsertMediaSearchResultsCollectionViewController, scrollViewShouldScrollToTop scrollView: UIScrollView) -> Bool {
-        return scrollViewShouldScrollToTop(scrollView)
+        return true
     }
 
     func insertMediaSearchResultsCollectionViewController(_ insertMediaSearchResultsCollectionViewController: InsertMediaSearchResultsCollectionViewController, scrollViewDidScrollToTop scrollView: UIScrollView) {
-        scrollViewDidScrollToTop(scrollView)
     }
 }
 
@@ -261,43 +231,12 @@ extension InsertMediaViewController: UISearchBarDelegate {
     }
 
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        unfocusSearch {
-            searchBar.endEditing(true)
-        }
+        searchBar.endEditing(true)
     }
-
-    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
-        navigationBar.isUnderBarViewHidingEnabled = false
-        navigationBar.isExtendedViewHidingEnabled = false
-    }
-
+    
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        guard !isAnimatingSearchBarState else {
-            return
-        }
-        unfocusSearch {
-            searchBar.endEditing(true)
-            searchBar.text = nil
-        }
-    }
-
-    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
-        navigationBar.isUnderBarViewHidingEnabled = true
-        navigationBar.isExtendedViewHidingEnabled = true
-    }
-
-    func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
-        guard !isAnimatingSearchBarState else {
-            return false
-        }
-        focusSearch(true)
-        return true
-    }
-
-    private func unfocusSearch(additionalAnimations: (() -> Void)? = nil) {
-        navigationBar.isUnderBarViewHidingEnabled = true
-        navigationBar.isExtendedViewHidingEnabled = true
-        focusSearch(false, additionalAnimations: additionalAnimations)
+        searchBar.endEditing(true)
+        searchBar.text = nil
     }
 }
 
@@ -307,6 +246,6 @@ extension InsertMediaViewController: EditingFlowViewController {
 
 extension InsertMediaViewController: InsertMediaSettingsViewControllerDelegate {
     func insertMediaSettingsViewControllerDidTapProgress(imageWikitext: String, caption: String?, altText: String?, localizedFileTitle: String) {
-        delegate?.insertMediaViewController(self, didPrepareWikitextToInsert: imageWikitext)
+        delegate?.didPrepareWikitextToInsert(wikitext: imageWikitext, insertMediaViewController: self)
     }
 }

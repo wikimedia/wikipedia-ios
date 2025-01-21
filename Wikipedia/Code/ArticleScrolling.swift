@@ -13,7 +13,7 @@ protocol ArticleScrolling: AnyObject {
 // Must set `webView.scrollView.delegate = self` in `viewDidLoad`, as it is not permitted to override functions in extensions.
 // There is also some related code in ViewController.scrollViewDidEndScrollingAnimation
 // It's a tad hacky, but we need to call something on it and the function can't be overridden here.
-extension ArticleScrolling where Self: ViewController {
+extension ArticleScrolling where Self: UIViewController {
 
     /// Scroll to a given offset in the article
     ///
@@ -60,7 +60,7 @@ extension ArticleScrolling where Self: ViewController {
             completion?(false)
             return
         }
-        let overlayTop = self.webView.yOffsetHack + self.navigationBar.hiddenHeight
+        let overlayTop = CGFloat(0)
         let adjustmentY: CGFloat
         if centered {
             let overlayBottom = self.webView.scrollView.contentInset.bottom

@@ -7,7 +7,7 @@ protocol EditLinkViewControllerDelegate: AnyObject {
     func editLinkViewControllerDidRemoveLink(_ editLinkViewController: EditLinkViewController)
 }
 
-class EditLinkViewController: ViewController {
+class EditLinkViewController: ThemeableViewController, WMFNavigationBarConfiguring {
     weak var delegate: EditLinkViewControllerDelegate?
 
     private let link: Link
@@ -16,8 +16,6 @@ class EditLinkViewController: ViewController {
 
     private let articleCell = ArticleRightAlignedImageCollectionViewCell()
     private let dataStore: MWKDataStore
-
-    private var navigationBarVisibleHeightObservation: NSKeyValueObservation?
 
     @IBOutlet private weak var contentView: UIView!
     @IBOutlet private weak var scrollViewTopConstraint: NSLayoutConstraint!
@@ -30,16 +28,11 @@ class EditLinkViewController: ViewController {
     @IBOutlet private weak var activityIndicatorView: UIActivityIndicatorView!
     @IBOutlet private weak var removeLinkButton: AutoLayoutSafeMultiLineButton!
     @IBOutlet private var separatorViews: [UIView] = []
+    
+    private lazy var finishEditingButton = UIBarButtonItem(title: CommonStrings.doneTitle, style: .done, target: self, action: #selector(finishEditing(_:)))
 
-    private lazy var closeButton: UIBarButtonItem = {
-        let closeButton = UIBarButtonItem.wmf_buttonType(.X, target: self, action: #selector(close(_:)))
-        closeButton.accessibilityLabel = CommonStrings.closeButtonAccessibilityLabel
-        return closeButton
-    }()
 
-    private lazy var doneButton = UIBarButtonItem(title: CommonStrings.doneTitle, style: .done, target: self, action: #selector(finishEditing(_:)))
-
-    init?(link: Link, siteURL: URL?, dataStore: MWKDataStore) {
+    init?(link: Link, siteURL: URL?, dataStore: MWKDataStore, theme: Theme) {
         guard
             let siteURL = siteURL ?? MWKDataStore.shared().primarySiteURL ?? NSURL.wmf_URLWithDefaultSiteAndCurrentLocale(),
             let articleURL = link.articleURL(for: siteURL)
@@ -51,11 +44,7 @@ class EditLinkViewController: ViewController {
         self.articleURL = articleURL
         self.dataStore = dataStore
         super.init(nibName: "EditLinkViewController", bundle: nil)
-    }
-
-    deinit {
-        navigationBarVisibleHeightObservation?.invalidate()
-        navigationBarVisibleHeightObservation = nil
+        self.theme = theme
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -64,11 +53,6 @@ class EditLinkViewController: ViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationBar.displayType = .modal
-        title = CommonStrings.editLinkTitle
-        navigationItem.leftBarButtonItem = closeButton
-        navigationItem.rightBarButtonItem = doneButton
-        navigationItem.backBarButtonItem = UIBarButtonItem(title: CommonStrings.accessibilityBackTitle, style: .plain, target: nil, action: nil)
         var textContainerInset = displayTextView.textContainerInset
         textContainerInset.top = 15
         displayTextLabel.text = WMFLocalizedString("edit-link-display-text-title", value: "Display text", comment: "Title for the display text label")
@@ -79,12 +63,6 @@ class EditLinkViewController: ViewController {
         removeLinkButton.setTitle(WMFLocalizedString("edit-link-remove-link-title", value: "Remove link", comment: "Title for the remove link button"), for: .normal)
         articleCell.isHidden = true
         linkTargetContainerView.addSubview(articleCell)
-        navigationBarVisibleHeightObservation = navigationBar.observe(\.visibleHeight, options: [.new, .initial], changeHandler: { [weak self] (observation, change) in
-            guard let self = self else {
-                return
-            }
-            self.scrollViewTopConstraint.constant = self.navigationBar.visibleHeight
-        })
         updateFonts()
         apply(theme: theme)
     }
@@ -92,6 +70,17 @@ class EditLinkViewController: ViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         fetchArticle()
+        configureNavigationBar()
+    }
+    
+    private func configureNavigationBar() {
+        
+        let titleConfig = WMFNavigationBarTitleConfig(title: CommonStrings.editLinkTitle, customView: nil, alignment: .centerCompact)
+        let closeButtonConfig = WMFNavigationBarCloseButtonConfig(text: CommonStrings.doneTitle, target: self, action: #selector(close(_:)), alignment: .leading)
+        
+        configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: closeButtonConfig, profileButtonConfig: nil, searchBarConfig: nil, hideNavigationBarOnScroll: false)
+        
+        navigationItem.rightBarButtonItem = finishEditingButton
     }
 
     private func fetchArticle() {
@@ -165,21 +154,25 @@ class EditLinkViewController: ViewController {
 
     @IBAction private func searchArticles(_ sender: UITapGestureRecognizer) {
         let searchViewController = SearchViewController()
-        searchViewController.shouldSetTitleViewWhenRecentSearchesAreDisabled = false
-        searchViewController.shouldAdjustNavigationBarInsetHidingOnAppearance = false
         searchViewController.siteURL = siteURL
-        searchViewController.shouldSetSearchVisible = false
         searchViewController.shouldBecomeFirstResponder = true
-        searchViewController.displayType = .backVisible
-        searchViewController.areRecentSearchesEnabled = true
         searchViewController.dataStore = MWKDataStore.shared()
-        searchViewController.shouldShowCancelButton = false
-        searchViewController.delegate = self
-        searchViewController.delegatesSelection = true
+        
+        let navigateToSearchResultAction: ((URL) -> Void) = { [weak self] articleURL in
+            guard let self else {
+                return
+            }
+            self.articleURL = articleURL
+            navigationController?.popViewController(animated: true)
+        }
+        
+        searchViewController.navigateToSearchResultAction = navigateToSearchResultAction
         searchViewController.showLanguageBar = false
-        searchViewController.navigationItem.title = title
+        searchViewController.customTitle = CommonStrings.editLinkTitle
+        searchViewController.needsCenteredTitle = true
         searchViewController.searchTerm = articleURL.wmf_title
         searchViewController.search()
+        searchViewController.theme = theme
         searchViewController.apply(theme: theme)
         navigationController?.pushViewController(searchViewController, animated: true)
     }
@@ -197,16 +190,8 @@ class EditLinkViewController: ViewController {
         linkTargetLabel.textColor = theme.colors.secondaryText
         removeLinkButton.tintColor = theme.colors.destructive
         removeLinkButton.backgroundColor = theme.colors.paperBackground
-        closeButton.tintColor = theme.colors.primaryText
-        doneButton.tintColor = theme.colors.link
         displayTextView.textColor = theme.colors.primaryText
         activityIndicatorView.color = theme.isDark ? .white : .gray
-    }
-}
-
-extension EditLinkViewController: ArticleCollectionViewControllerDelegate {
-    func articleCollectionViewController(_ articleCollectionViewController: ArticleCollectionViewController, didSelectArticleWith articleURL: URL, at indexPath: IndexPath) {
-        self.articleURL = articleURL
-        navigationController?.popViewController(animated: true)
+        articleCell.apply(theme: theme)
     }
 }

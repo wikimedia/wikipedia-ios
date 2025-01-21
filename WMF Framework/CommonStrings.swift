@@ -169,7 +169,7 @@ public class CommonStrings: NSObject {
     @objc public static let userTitle = WMFLocalizedString("user-title", value: "User", comment: "Text that refers to a user in the app")
 
 
-    @objc public static let doneTitle = WMFLocalizedString("description-published-button-title", value: "Done", comment: "Title for description panel done button.")
+    @objc public static let doneTitle = WMFLocalizedString("description-published-button-title", value: "Done", comment: "Title for done button.")
     public static let goBackTitle = WMFLocalizedString("button-go-back", value: "Go back", comment: "Button text for Go back button used in various places")
     public static let publishAnywayTitle = WMFLocalizedString("button-publish-anyway", value: "Publish anyway", comment: "Button text for publish button used when first warned against publishing.")
 
@@ -646,6 +646,8 @@ public class CommonStrings: NSObject {
     public static let editorReplaceTypeAllAccessibility = WMFLocalizedString("editor-replace-type-all-accessibility", value: "Replace all instances", comment: "Accessibility text for the replace all instances type on the editor.")
     
     public static let editContextMenuTitle = WMFLocalizedString("edit-menu-item", value: "Edit", comment: "Button label for 'Edit' context menu item")
+    
+    public static let editorTitle = WMFLocalizedString("editor-title", value: "Editor", comment: "Title of editor view.")
     
     public static let editSource = WMFLocalizedString("editor-edit-source", value: "Edit source", comment: "Title for menu option to edit the source of a page.")
     

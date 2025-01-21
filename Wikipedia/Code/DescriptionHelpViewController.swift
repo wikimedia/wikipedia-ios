@@ -1,6 +1,6 @@
 import WMFComponents
 
-class DescriptionHelpViewController: ViewController {
+class DescriptionHelpViewController: ThemeableViewController, WMFNavigationBarConfiguring {
 
     @IBOutlet private weak var helpScrollView: UIScrollView!
 
@@ -32,17 +32,17 @@ class DescriptionHelpViewController: ViewController {
     @IBOutlet private var dividerViews: [UIView]!
     
     required convenience init?(coder aDecoder: NSCoder) {
-        self.init(theme: Theme.standard)
+        self.init(coder: aDecoder)
+        self.theme = Theme.standard
+    }
+    
+    init(theme: Theme) {
+        super.init(nibName: nil, bundle: nil)
+        self.theme = theme
     }
     
     public override func viewDidLoad() {
-        scrollView = helpScrollView
         super.viewDidLoad()
-        
-        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named:"close"), style: .plain, target:self, action:#selector(closeButtonPushed(_:)))
-        navigationItem.leftBarButtonItem?.accessibilityLabel = CommonStrings.closeButtonAccessibilityLabel
-
-        title = WMFLocalizedString("description-help-title", value:"Article description help", comment:"Title for description editing help page")
         
         aboutTitleLabel.text = WMFLocalizedString("description-help-about-title", value:"About", comment:"Description editing about label text")
         aboutDescriptionLabel.text = WMFLocalizedString("description-help-about-description", value:"Article descriptions summarize an article to help readers understand the subject at a glance.", comment:"Description editing details label text")
@@ -63,6 +63,21 @@ class DescriptionHelpViewController: ViewController {
         aboutWikidataLabel.text = WMFLocalizedString("description-help-about-wikidata", value:"About Wikidata", comment:"About Wikidata label text")
         wikidataGuideLabel.text = WMFLocalizedString("description-help-wikidata-guide", value:"Wikidata guide for writing descriptions", comment:"Wikidata guide label text")
         updateFonts()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        configureNavigationBar()
+    }
+    
+    private func configureNavigationBar() {
+        
+        let titleConfig = WMFNavigationBarTitleConfig(title: WMFLocalizedString("description-help-title", value:"Article description help", comment:"Title for description editing help page"), customView: nil, alignment: .centerCompact)
+        
+        let closeConfig = WMFNavigationBarCloseButtonConfig(text: CommonStrings.doneTitle, target: self, action: #selector(closeButtonPushed(_:)), alignment: .trailing)
+        
+        configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: closeConfig, profileButtonConfig: nil, searchBarConfig: nil, hideNavigationBarOnScroll: false)
     }
     
     @objc func closeButtonPushed(_ : UIBarButtonItem) {

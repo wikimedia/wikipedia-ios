@@ -5,7 +5,7 @@ fileprivate final class WMFDeveloperSettingsHostingController: WMFComponentHosti
     
 }
 
-@objc public final class WMFDeveloperSettingsViewController: WMFCanvasViewController {
+@objc public final class WMFDeveloperSettingsViewController: WMFCanvasViewController, WMFNavigationBarConfiguring {
     
     // MARK: - Properties
 
@@ -28,11 +28,20 @@ fileprivate final class WMFDeveloperSettingsHostingController: WMFComponentHosti
     
     public override func viewDidLoad() {
         super.viewDidLoad()
-        
-        self.title = viewModel.localizedStrings.developerSettings
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: viewModel.localizedStrings.close, style: .plain, target: self, action: #selector(tappedClose))
-        
+
         addComponent(hostingViewController, pinToEdges: true)
+    }
+    
+    public override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        configureNavigationBar()
+    }
+    
+    private func configureNavigationBar() {
+        let titleConfig = WMFNavigationBarTitleConfig(title: viewModel.localizedStrings.developerSettings, customView: nil, alignment: .centerCompact)
+        let closeConfig = WMFNavigationBarCloseButtonConfig(text: viewModel.localizedStrings.close, target: self, action: #selector(tappedClose), alignment: .trailing)
+        configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: closeConfig, profileButtonConfig: nil, searchBarConfig: nil, hideNavigationBarOnScroll: false)
     }
     
     @objc private func tappedClose() {

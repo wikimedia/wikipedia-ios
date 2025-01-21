@@ -128,7 +128,7 @@ extension ArticleViewController {
 
     // TODO: remove after expiry date (1 March 2025)
     func needsYearInReviewAnnouncement() -> Bool {
-        if UIDevice.current.userInterfaceIdiom == .pad && navigationBar.hiddenHeight > 0 {
+        if UIDevice.current.userInterfaceIdiom == .pad && (navigationController?.navigationBar.isHidden ?? false) {
             return false
         }
     
@@ -140,11 +140,17 @@ extension ArticleViewController {
             return false
         }
         
-        return navigationBar.superview != nil
+        return true
     }
     
     // TODO: remove after expiry date (1 March 2025)
     func presentYearInReviewAnnouncement() {
+        
+        // Do not show announcement when article is previewing. Fixes crash on preview long press.
+        guard articlePreviewingDelegate == nil else {
+            return
+        }
+        
         guard let yirDataController = try? WMFYearInReviewDataController() else {
             return
         }
@@ -162,16 +168,12 @@ extension ArticleViewController {
         }, closeButtonAction: {
             DonateFunnel.shared.logYearInReviewFeatureAnnouncementDidTapClose(isEntryA: !self.dataStore.authenticationManager.authStateIsPermanent)
         })
-
-        if navigationBar.superview != nil {
-            let xOrigin = navigationBar.frame.width - 100
-            let yOrigin = view.safeAreaInsets.top + navigationBar.barTopSpacing + 15
-            let sourceRect = CGRect(x:  xOrigin, y: yOrigin, width: 30, height: 30)
-            announceFeature(viewModel: viewModel, sourceView: self.view, sourceRect: sourceRect)
-            DonateFunnel.shared.logYearInReviewFeatureAnnouncementDidAppear(isEntryA: !dataStore.authenticationManager.authStateIsPermanent)
-        }
         
-        yirDataController.hasPresentedYiRFeatureAnnouncementModel = true
+        if let profileBarButtonItem = self.profileBarButtonItem {
+            announceFeature(viewModel: viewModel, sourceView: nil, sourceRect: nil, barButtonItem: profileBarButtonItem)
+            DonateFunnel.shared.logYearInReviewFeatureAnnouncementDidAppear(isEntryA: !dataStore.authenticationManager.authStateIsPermanent)
+            yirDataController.hasPresentedYiRFeatureAnnouncementModel = true
+        }
     }
 }
 

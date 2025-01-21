@@ -847,7 +847,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
 
         hostingController.presentationController?.delegate = self
 
-        (self.navigationController as? RootNavigationController)?.turnOnForcePortrait()
+        (self.navigationController as? WMFComponentNavigationController)?.turnOnForcePortrait()
         navigationController.present(hostingController, animated: true, completion: nil)
     }
 
@@ -1004,7 +1004,7 @@ extension YearInReviewCoordinator: WMFYearInReviewLoggingDelegate {
 extension YearInReviewCoordinator: UIAdaptivePresentationControllerDelegate {
     public func presentationControllerWillDismiss(_ presentationController: UIPresentationController) {
         viewModel?.logYearInReviewDidTapDone()
-        (self.navigationController as? RootNavigationController)?.turnOffForcePortrait()
+        (self.navigationController as? WMFComponentNavigationController)?.turnOffForcePortrait()
     }
 }
 
@@ -1044,7 +1044,7 @@ extension YearInReviewCoordinator: YearInReviewCoordinatorDelegate {
                 visibleVC.present(activityController, animated: true, completion: nil)
             }
         case .dismiss(let hasSeenTwoSlides):
-            (self.navigationController as? RootNavigationController)?.turnOffForcePortrait()
+            (self.navigationController as? WMFComponentNavigationController)?.turnOffForcePortrait()
             navigationController.dismiss(animated: true, completion: { [weak self] in
                 guard let self else { return }
 
@@ -1066,8 +1066,8 @@ extension YearInReviewCoordinator: YearInReviewCoordinatorDelegate {
             if let url = URL(string: "https://www.mediawiki.org/wiki/Special:MyLanguage/Wikimedia_Apps/Team/iOS/Personalized_Wikipedia_Year_in_Review/How_your_data_is_used?uselang=\(languageCodeSuffix)") {
                 let config = SinglePageWebViewController.StandardConfig(url: url, useSimpleNavigationBar: true)
                 let webVC = SinglePageWebViewController(configType: .standard(config), theme: theme)
-                let newNavigationVC = WMFThemeableNavigationController(rootViewController: webVC, theme: theme)
-                newNavigationVC.modalPresentationStyle = .formSheet
+                let newNavigationVC =
+                WMFComponentNavigationController(rootViewController: webVC, modalPresentationStyle: .formSheet)
                 presentedViewController.present(newNavigationVC, animated: true)
             }
 
@@ -1091,8 +1091,8 @@ extension YearInReviewCoordinator: YearInReviewCoordinatorDelegate {
                 slideLoggingID = "about_wikimedia_custom"
             }
 
-            let newNavigationVC = WMFThemeableNavigationController(rootViewController: webVC, theme: theme)
-            newNavigationVC.modalPresentationStyle = .formSheet
+            let newNavigationVC =
+            WMFComponentNavigationController(rootViewController: webVC, modalPresentationStyle: .formSheet)
             presentedViewController.present(newNavigationVC, animated: true, completion: { DonateFunnel.shared.logYearInReviewDonateSlideLearnMoreWebViewDidAppear(slideLoggingID: slideLoggingID)})
         case .info(let url):
             guard let presentedViewController = navigationController.presentedViewController else {
@@ -1102,8 +1102,8 @@ extension YearInReviewCoordinator: YearInReviewCoordinatorDelegate {
 
             let config = SinglePageWebViewController.StandardConfig(url: url, useSimpleNavigationBar: true)
             let webVC = SinglePageWebViewController(configType: .standard(config), theme: theme)
-            let newNavigationVC = WMFThemeableNavigationController(rootViewController: webVC, theme: theme)
-            newNavigationVC.modalPresentationStyle = .formSheet
+            let newNavigationVC =
+            WMFComponentNavigationController(rootViewController: webVC, modalPresentationStyle: .formSheet)
             presentedViewController.present(newNavigationVC, animated: true)
         }
     }

@@ -1,21 +1,23 @@
 import UIKit
+import WMFComponents
 
 protocol InsertLinkViewControllerDelegate: AnyObject {
     func insertLinkViewController(_ insertLinkViewController: InsertLinkViewController, didTapCloseButton button: UIBarButtonItem)
     func insertLinkViewController(_ insertLinkViewController: InsertLinkViewController, didInsertLinkFor page: String, withLabel label: String?)
 }
 
-class InsertLinkViewController: UIViewController {
+class InsertLinkViewController: UIViewController, WMFNavigationBarConfiguring {
     weak var delegate: InsertLinkViewControllerDelegate?
-    private var theme = Theme.standard
+    private var theme: Theme
     private let dataStore: MWKDataStore
     private let link: Link
     private let siteURL: URL?
 
-    init(link: Link, siteURL: URL?, dataStore: MWKDataStore) {
+    init(link: Link, siteURL: URL?, dataStore: MWKDataStore, theme: Theme) {
         self.link = link
         self.siteURL = siteURL
         self.dataStore = dataStore
+        self.theme = theme
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -23,60 +25,81 @@ class InsertLinkViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
 
-    private lazy var closeButton: UIBarButtonItem = {
-        let closeButton = UIBarButtonItem.wmf_buttonType(.X, target: self, action: #selector(delegateCloseButtonTap(_:)))
-        closeButton.accessibilityLabel = CommonStrings.closeButtonAccessibilityLabel
-        return closeButton
-    }()
-
-    private lazy var searchViewController: SearchViewController = {
-        let searchViewController = SearchViewController()
-        searchViewController.dataStore = dataStore
-        searchViewController.siteURL = siteURL
-        searchViewController.searchTerm = link.page
-        searchViewController.areRecentSearchesEnabled = true
-        searchViewController.shouldBecomeFirstResponder = true
-        searchViewController.dataStore = MWKDataStore.shared()
-        searchViewController.shouldShowCancelButton = false
-        searchViewController.delegate = self
-        searchViewController.delegatesSelection = true
-        searchViewController.showLanguageBar = false
-        searchViewController.updateRecentlySearchedVisibility(searchText: link.page)
-        searchViewController.doResultsShowArticlePreviews = false
-        return searchViewController
-    }()
-
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = CommonStrings.insertLinkTitle
-        navigationItem.leftBarButtonItem = closeButton
-        let navigationController = WMFThemeableNavigationController(rootViewController: searchViewController)
-        navigationController.isNavigationBarHidden = true
-        wmf_add(childController: navigationController, andConstrainToEdgesOfContainerView: view)
+
         apply(theme: theme)
     }
-
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        searchViewController.search()
+        
+        configureNavigationBar()
+    }
+    
+    func configureNavigationBar() {
+        
+        let titleConfig = WMFNavigationBarTitleConfig(title: CommonStrings.insertLinkTitle, customView: nil, alignment: .centerCompact)
+        
+        let closeButtonConfig = WMFNavigationBarCloseButtonConfig(text: CommonStrings.doneTitle, target: self, action: #selector(delegateCloseButtonTap(_:)), alignment: .trailing)
+
+        let searchViewController = SearchViewController()
+        searchViewController.showLanguageBar = false
+        searchViewController.dataStore = dataStore
+        
+        let populateSearchBarWithTextAction: (String) -> Void = { [weak self] searchTerm in
+            self?.navigationItem.searchController?.searchBar.text = searchTerm
+            self?.navigationItem.searchController?.searchBar.becomeFirstResponder()
+        }
+        
+        searchViewController.populateSearchBarWithTextAction = populateSearchBarWithTextAction
+        
+        let navigateToSearchResultAction: ((URL) -> Void) = { [weak self] articleURL in
+            guard let self,
+                  let title = articleURL.wmf_title else {
+                return
+            }
+            navigationItem.searchController?.isActive = false
+            self.delegate?.insertLinkViewController(self, didInsertLinkFor: title, withLabel: nil)
+        }
+        
+        searchViewController.navigateToSearchResultAction = navigateToSearchResultAction
+        searchViewController.theme = theme
+        
+        let searchConfig = WMFNavigationBarSearchConfig(
+            searchResultsController: searchViewController,
+            searchControllerDelegate: nil,
+            searchResultsUpdater: self,
+            searchBarDelegate: self,
+            searchBarPlaceholder: WMFLocalizedString("search-field-placeholder-text", value: "Search Wikipedia", comment: "Search field placeholder text"),
+            showsScopeBar: false,
+            scopeButtonTitles: nil)
+        
+        configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: closeButtonConfig, profileButtonConfig: nil, searchBarConfig: searchConfig, hideNavigationBarOnScroll: false)
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        DispatchQueue.main.async {[weak self] in
+            self?.navigationItem.searchController?.searchBar.becomeFirstResponder()
+        }
     }
 
     @objc private func delegateCloseButtonTap(_ sender: UIBarButtonItem) {
+        navigationItem.searchController?.isActive = false
+        
         delegate?.insertLinkViewController(self, didTapCloseButton: sender)
     }
 
     override func accessibilityPerformEscape() -> Bool {
-        delegate?.insertLinkViewController(self, didTapCloseButton: closeButton)
-        return true
-    }
-}
-
-extension InsertLinkViewController: ArticleCollectionViewControllerDelegate {
-    func articleCollectionViewController(_ articleCollectionViewController: ArticleCollectionViewController, didSelectArticleWith articleURL: URL, at indexPath: IndexPath) {
-        guard let title = articleURL.wmf_title else {
-            return
+        
+        guard let leftBarButtonItem = navigationItem.leftBarButtonItem else {
+            return false
         }
-        delegate?.insertLinkViewController(self, didInsertLinkFor: title, withLabel: nil)
+        
+        delegate?.insertLinkViewController(self, didTapCloseButton: leftBarButtonItem)
+        return true
     }
 }
 
@@ -88,11 +111,41 @@ extension InsertLinkViewController: Themeable {
         }
         view.backgroundColor = theme.colors.inputAccessoryBackground
         view.layer.shadowColor = theme.colors.shadow.cgColor
-        closeButton.tintColor = theme.colors.primaryText
-        searchViewController.apply(theme: theme)
+        
+        if let searchVC = navigationItem.searchController?.searchResultsController as? SearchViewController {
+            searchVC.theme = theme
+            searchVC.apply(theme: theme)
+        }
     }
 }
 
 extension InsertLinkViewController: EditingFlowViewController {
     
+}
+
+extension InsertLinkViewController: UISearchResultsUpdating {
+    func updateSearchResults(for searchController: UISearchController) {
+        guard let text = searchController.searchBar.text else {
+            return
+        }
+        
+        guard let searchViewController = navigationItem.searchController?.searchResultsController as? SearchViewController else {
+            return
+        }
+        
+        if text.isEmpty {
+            searchViewController.searchTerm = nil
+            searchViewController.updateRecentlySearchedVisibility(searchText: nil)
+        } else {
+            searchViewController.searchTerm = text
+            searchViewController.updateRecentlySearchedVisibility(searchText: text)
+            searchViewController.search()
+        }
+    }
+}
+
+extension InsertLinkViewController: UISearchBarDelegate {
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        dismiss(animated: true)
+    }
 }

@@ -1,59 +1,144 @@
 import UIKit
 
-protocol DiffHeaderActionDelegate: AnyObject {
-    func tappedUsername(username: String, destination: DiffHeaderUsernameDestination)
-    func tappedRevision(revisionID: Int)
-}
-
 enum DiffHeaderUsernameDestination {
     case userContributions
     case userTalkPage
     case userPage
 }
 
-class DiffHeaderExtendedView: UIView {
- 
-    @IBOutlet var contentView: UIView!
-    @IBOutlet var stackView: UIStackView!
-    @IBOutlet var summaryView: DiffHeaderSummaryView!
-    @IBOutlet var editorView: DiffHeaderEditorView!
-    @IBOutlet var compareView: DiffHeaderCompareView!
-    @IBOutlet var divViews: [UIView]!
-    @IBOutlet var summaryDivView: UIView!
-    @IBOutlet var editorDivView: UIView!
-    @IBOutlet var compareDivView: UIView!
+class DiffHeaderExtendedView: UICollectionReusableView, Themeable {
+    lazy var contentView: DiffHeaderExtendedContentView = {
+        let view = DiffHeaderExtendedContentView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
     
-    private var viewModel: DiffHeaderViewModel?
-    
-    weak var delegate: DiffHeaderActionDelegate? {
+    var tappedHeaderUsernameAction: ((Username, DiffHeaderUsernameDestination) -> Void)? {
         get {
-            return editorView.delegate
+            return contentView.tappedHeaderUsernameAction
         }
         set {
-            editorView.delegate = newValue
-            compareView.delegate = newValue
+            contentView.tappedHeaderUsernameAction = newValue
         }
     }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        commonInit()
+        setup()
     }
     
     required init?(coder: NSCoder) {
-        super.init(coder: coder)
-        commonInit()
+        fatalError("init(coder:) has not been implemented")
     }
     
-    private func commonInit() {
-        Bundle.main.loadNibNamed(DiffHeaderExtendedView.wmf_nibName(), owner: self, options: nil)
-            addSubview(contentView)
-            contentView.frame = self.bounds
-            contentView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
+    func setup() {
+        addSubview(contentView)
+        NSLayoutConstraint.activate([
+            topAnchor.constraint(equalTo: contentView.topAnchor),
+            leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
+        ])
+    }
+    
+    func update(_ new: DiffHeaderViewModel, theme: Theme) {
+        contentView.update(new, theme: theme)
+    }
+    
+    func apply(theme: Theme) {
+        contentView.apply(theme: theme)
+    }
+}
+
+class DiffHeaderExtendedContentView: SetupView {
+    
+    private lazy var stackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.axis = .vertical
+        return stackView
+    }()
+    
+    private lazy var summaryView: DiffHeaderSummaryView = {
+        let view = DiffHeaderSummaryView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
+    private lazy var editorView: DiffHeaderEditorView = {
+        let view = DiffHeaderEditorView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
+    private lazy var compareView: DiffHeaderCompareView = {
+        let view = DiffHeaderCompareView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
+    private lazy var topDivView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
+    private lazy var summaryDivView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
+    private lazy var editorDivView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
+    private lazy var compareDivView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+ 
+    private var viewModel: DiffHeaderViewModel?
+    
+    override func setup() {
+        super.setup()
         
+        stackView.addArrangedSubview(topDivView)
+        stackView.addArrangedSubview(summaryView)
+        stackView.addArrangedSubview(summaryDivView)
+        stackView.addArrangedSubview(editorView)
+        stackView.addArrangedSubview(editorDivView)
+        stackView.addArrangedSubview(compareView)
+        stackView.addArrangedSubview(compareDivView)
+        
+        addSubview(stackView)
+        
+        NSLayoutConstraint.activate([
+            topAnchor.constraint(equalTo: stackView.topAnchor),
+            leadingAnchor.constraint(equalTo: stackView.leadingAnchor),
+            trailingAnchor.constraint(equalTo: stackView.trailingAnchor),
+            bottomAnchor.constraint(equalTo: stackView.bottomAnchor),
+            topDivView.heightAnchor.constraint(equalToConstant: 1),
+            summaryDivView.heightAnchor.constraint(equalToConstant: 1),
+            editorDivView.heightAnchor.constraint(equalToConstant: 1),
+            compareDivView.heightAnchor.constraint(equalToConstant: 1)
+        ])
     }
     
-    func update(_ new: DiffHeaderViewModel) {
+    var tappedHeaderUsernameAction: ((Username, DiffHeaderUsernameDestination) -> Void)? {
+        get {
+            return editorView.tappedHeaderUsernameAction
+        }
+        set {
+            editorView.tappedHeaderUsernameAction = newValue
+            compareView.tappedHeaderUsernameAction = newValue
+        }
+    }
+    
+    func update(_ new: DiffHeaderViewModel, theme: Theme) {
         
         self.viewModel = new
         
@@ -81,39 +166,21 @@ class DiffHeaderExtendedView: UIView {
             }
             editorView.update(editorViewModel)
         }
-    }
-    
-    override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
         
-        let summaryConvertedPoint = self.convert(point, to: summaryView)
-        if summaryView.point(inside: summaryConvertedPoint, with: event) {
-            return true
-        }
-        
-        let editorConvertedPoint = self.convert(point, to: editorView)
-        if editorView.point(inside: editorConvertedPoint, with: event) {
-            return true
-        }
-        
-        let compareConvertedPoint = self.convert(point, to: compareView)
-        if compareView.point(inside: compareConvertedPoint, with: event) {
-            return true
-        }
-        
-        return false
+        apply(theme: theme)
     }
 }
 
-extension DiffHeaderExtendedView: Themeable {
+extension DiffHeaderExtendedContentView: Themeable {
 
     func apply(theme: Theme) {
         backgroundColor = theme.colors.paperBackground
         summaryView.apply(theme: theme)
         editorView.apply(theme: theme)
         compareView.apply(theme: theme)
-        
-        for view in divViews {
-            view.backgroundColor = theme.colors.baseBackground
-        }
+        topDivView.backgroundColor = theme.colors.baseBackground
+        summaryDivView.backgroundColor = theme.colors.baseBackground
+        editorDivView.backgroundColor = theme.colors.baseBackground
+        compareDivView.backgroundColor = theme.colors.baseBackground
     }
 }
