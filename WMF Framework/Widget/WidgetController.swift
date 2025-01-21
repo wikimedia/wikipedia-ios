@@ -323,6 +323,8 @@ public extension WidgetController {
                         }
                     }
                 } else {
+                    widgetCache.featuredContent = nil
+                    self.sharedCache.saveCache(widgetCache)
                     performCompletion(result: .failure(.contentFailure))
                 }
             case .failure(let error):
@@ -373,11 +375,13 @@ public extension WidgetController {
                         }
                     }
                 } else {
-                    widgetCache.featuredContent = featuredContent
-                    self.sharedCache.saveCache(widgetCache)
                     if let featureArticle = featuredContent.featuredArticle {
+                        widgetCache.featuredContent = featuredContent
+                        self.sharedCache.saveCache(widgetCache)
                         performCompletion(result: .success(featureArticle))
                     } else {
+                        widgetCache.featuredContent = nil
+                        self.sharedCache.saveCache(widgetCache)
                         performCompletion(result: .failure(.contentFailure))
                     }
                 }
@@ -427,7 +431,7 @@ public extension WidgetController {
                         }
                     }
                 } else {
-                    widgetCache.featuredContent = featuredContent
+                    widgetCache.featuredContent = nil
                     self.sharedCache.saveCache(widgetCache)
                     performCompletion(result: .failure(.contentFailure))
                 }
