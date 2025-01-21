@@ -35,9 +35,14 @@
     return request;
 }
 
-- (NSFetchRequest *)savedPageListFetchRequestForStartDate:(NSDate *)startDate endDate:(NSDate *)endDate {
+- (NSFetchRequest *)savedPageListFetchRequestForStartDate:(NSDate *)startDate endDate:(NSDate *)endDate filterNilDisplayTitles:(BOOL)filterNilDisplayTitles {
     NSFetchRequest *request = [WMFArticle fetchRequest];
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"savedDate >= %@ AND savedDate <= %@", startDate, endDate];
+
+    if (filterNilDisplayTitles) {
+        predicate = [NSPredicate predicateWithFormat:@"savedDate >= %@ AND savedDate <= %@ AND displayTitle != nil", startDate, endDate];
+    }
+
     request.predicate = predicate;
     request.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"savedDate" ascending:NO]];
     return request;
@@ -152,11 +157,11 @@
 }
 
 - (NSInteger)savedArticleCountFor:(NSDate *)startDate endDate:(NSDate *)endDate {
-    return [self.dataStore.viewContext countForFetchRequest:[self savedPageListFetchRequestForStartDate:startDate endDate:endDate] error:nil];
+    return [self.dataStore.viewContext countForFetchRequest:[self savedPageListFetchRequestForStartDate:startDate endDate:endDate filterNilDisplayTitles:NO] error:nil];
 }
 
 - (NSArray<NSString *> *)randomSavedArticleTitlesFor:(NSDate *)startDate endDate:(NSDate *)endDate {
-    NSFetchRequest *fetchRequest = [self savedPageListFetchRequestForStartDate:startDate endDate:endDate];
+    NSFetchRequest *fetchRequest = [self savedPageListFetchRequestForStartDate:startDate endDate:endDate filterNilDisplayTitles:YES];
 
     NSError *error = nil;
     NSArray<WMFArticle *> *allArticles = [self.dataStore.viewContext executeFetchRequest:fetchRequest error:&error];
@@ -176,12 +181,15 @@
 
     for (NSUInteger i = 0; i < count; i++) {
         NSUInteger randomIndex = arc4random_uniform((uint32_t)mutableArticles.count);
-        [randomArticles addObject:mutableArticles[randomIndex].displayTitle];
-        [mutableArticles removeObjectAtIndex:randomIndex]; // so we do not repeat articles
+        if (mutableArticles[randomIndex].displayTitle != nil) {
+            [randomArticles addObject:mutableArticles[randomIndex].displayTitle];
+            [mutableArticles removeObjectAtIndex:randomIndex]; // so we do not repeat articles
+        } else {
+            continue;
+        }
     }
 
     return [randomArticles copy];
 }
-
 
 @end
