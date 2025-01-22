@@ -1,8 +1,9 @@
 {
   "images" : [
     {
-      "filename" : "userTemporary.svg",
-      "idiom" : "universal"
+      "filename" : "temp.svg",
+      "idiom" : "universal",
+      "language-direction" : "left-to-right"
     }
   ],
   "info" : {

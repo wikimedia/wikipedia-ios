@@ -1,4 +1,5 @@
 import UIKit
+import WMFComponents
 
 protocol PageHistoryFilterCountsViewDelegate: AnyObject {
     func didDetermineFilterCountsAvailability(_ available: Bool, view: PageHistoryFilterCountsView)
@@ -28,7 +29,7 @@ class PageHistoryFilterCountsView: UIView {
                 counts.append(Count(title: WMFLocalizedString("page-history-logged-in-edits", value: "logged-in", comment: "Text for view that shows many edits were made by logged-in users"), image: UIImage(named: "user-edit"), count: loggedInEdits))
             }
             if let unregisteredEdits = editCounts[.customUnregistered]?.count {
-                counts.append(Count(title: WMFLocalizedString("page-history-unregistered-edits", value: "unregistered edits", comment: "Text for view that shows many edits were made by unregistered users"), image: UIImage(named: "temp"), count: unregisteredEdits))
+                counts.append(Count(title: WMFLocalizedString("page-history-unregistered-edits", value: "unregistered edits", comment: "Text for view that shows many edits were made by unregistered users"), image: WMFIcon.temp, count: unregisteredEdits))
             }
             if let botEdits = editCounts[.bot]?.count {
                 counts.append(Count(title: WMFLocalizedString("page-history-bot-edits", value: "bot edits", comment: "Text for view that shows many edits were made by bots"), image: UIImage(named: "bot"), count: botEdits))
