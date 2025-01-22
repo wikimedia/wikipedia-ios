@@ -9,6 +9,7 @@ enum ProfileCoordinatorSource: Int {
     case exploreOptOut
     case explore
     case article
+    case saved
 }
 
 @objc(WMFProfileCoordinator)
@@ -298,6 +299,8 @@ final class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegat
             default:
                 return
             }
+        case .saved:
+            debugPrint("TODO: Do we need to log this?")
         }
     }
     
