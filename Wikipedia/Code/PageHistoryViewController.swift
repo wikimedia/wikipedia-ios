@@ -504,7 +504,14 @@ class PageHistoryViewController: ColumnarCollectionViewController, WMFNavigation
                     cell.displayTime = DateFormatter.wmf_24hshortTimeWithUTCTimeZone()?.string(from: date)
                 }
             }
-            cell.authorImage = item.isAnon ? UIImage(named: "anon") : UIImage(named: "user-edit")
+            
+            if item.isAnon {
+                cell.authorImage = UIImage(named: "anon")
+            } else if item.isTemp == "" {
+                cell.authorImage = UIImage(named: "temp")
+            } else {
+                cell.authorImage = UIImage(named: "user-edit")
+            }
             cell.author = item.user
             cell.sizeDiff = item.revisionSize
             if let comment = item.parsedComment {

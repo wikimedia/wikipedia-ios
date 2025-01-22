@@ -7,6 +7,7 @@
 @property (nonatomic, copy, readonly) NSString *_Nullable parsedComment;
 @property (nonatomic, assign, readonly) BOOL isAnon;
 @property (nonatomic, assign, readonly) BOOL isMinor;
+@property (nonatomic, copy, readonly) NSString *_Nullable isTemp;
 @property (nonatomic, assign, readonly) NSInteger parentID;
 @property (nonatomic, assign, readonly) NSInteger revisionID;
 @property (nonatomic, assign, readonly) NSInteger articleSizeAtRevision;

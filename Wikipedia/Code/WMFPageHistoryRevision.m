@@ -21,6 +21,7 @@
         WMF_SAFE_KEYPATH(WMFPageHistoryRevision.new, articleSizeAtRevision): @"size",
         WMF_SAFE_KEYPATH(WMFPageHistoryRevision.new, isAnon): @"anon",
         WMF_SAFE_KEYPATH(WMFPageHistoryRevision.new, isMinor): @"minor",
+        WMF_SAFE_KEYPATH(WMFPageHistoryRevision.new, isTemp): @"temp",
     };
 }
 
