@@ -836,16 +836,17 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
     }
     
     private func configureNavigationBar() {
+
         let wButton = UIButton(type: .custom)
         wButton.setImage(UIImage(named: "W"), for: .normal)
         wButton.addTarget(self, action: #selector(wButtonTapped(_:)), for: .touchUpInside)
         
         let titleConfig = WMFNavigationBarTitleConfig(title: articleURL.wmf_title ?? "", customView: wButton, alignment: .centerCompact)
         
-        var profileButtonConfig: WMFNavigationBarProfileButtonConfig?
         let trailingBarButtonItem: UIBarButtonItem? = needsSearchBar ? nil : AppSearchBarButtonItem.newAppSearchBarButtonItem
+        let profileButtonConfig = profileButtonConfig(target: self, action: #selector(userDidTapProfile), dataStore: dataStore, yirDataController: yirDataController, leadingBarButtonItem: nil, trailingBarButtonItem: trailingBarButtonItem)
+        
         self.searchBarButtonItem = trailingBarButtonItem
-        profileButtonConfig = self.profileButtonConfig(target: self, action: #selector(userDidTapProfile), dataStore: dataStore, yirDataController: yirDataController, leadingBarButtonItem: nil, trailingBarButtonItem: trailingBarButtonItem)
         
         let searchViewController = SearchViewController()
         searchViewController.dataStore = dataStore
@@ -1862,5 +1863,4 @@ extension ArticleViewController: UISearchControllerDelegate {
         navigationController?.hidesBarsOnSwipe = true
         searchBarIsAnimating = false
     }
-
 }
