@@ -62,7 +62,7 @@ final class DiffHeaderViewModel: Themeable {
 
             let summaryViewModel = DiffHeaderEditSummaryViewModel(heading: WMFLocalizedString("diff-single-header-summary-heading", value: "Edit summary", comment: "Heading label in header summary view when viewing a single revision."), isMinor: toModel.isMinor, summary: toModel.parsedComment)
             
-            let editorViewModel = DiffHeaderEditorViewModel(heading: WMFLocalizedString("diff-single-header-editor-title", value: "Editor information", comment: "Title label in header editor view when viewing a single revision."), username: toModel.user, project: project, isTemp: toModel.isTemp != nil)
+            let editorViewModel = DiffHeaderEditorViewModel(heading: WMFLocalizedString("diff-single-header-editor-title", value: "Editor information", comment: "Title label in header editor view when viewing a single revision."), username: toModel.user, project: project, isTemp: toModel.isTemp)
             
             self.title = titleViewModel
             self.headerType = .single(editorViewModel: editorViewModel, summaryViewModel: summaryViewModel)
@@ -196,7 +196,7 @@ final class DiffHeaderCompareItemViewModel: Themeable {
         
         self.username = model.user
         self.isMinor = model.isMinor
-        self.isTemp = model.isTemp != nil
+        self.isTemp = model.isTemp
         self.summary = model.parsedComment?.removingHTML
 
         if let date = model.revisionDate {

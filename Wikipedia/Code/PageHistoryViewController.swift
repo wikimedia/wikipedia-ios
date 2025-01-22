@@ -507,7 +507,7 @@ class PageHistoryViewController: ColumnarCollectionViewController, WMFNavigation
             
             if item.isAnon {
                 cell.authorImage = UIImage(named: "anon")
-            } else if item.isTemp == "" {
+            } else if item.isTemp {
                 cell.authorImage = WMFIcon.temp
             } else {
                 cell.authorImage = UIImage(named: "user-edit")
