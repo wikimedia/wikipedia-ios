@@ -843,7 +843,7 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
         
         var profileButtonConfig: WMFNavigationBarProfileButtonConfig?
         if !needsSearchBar {
-            profileButtonConfig = self.profileButtonConfig()
+            profileButtonConfig = self.profileButtonConfig(target: self, action: #selector(userDidTapProfile), dataStore: dataStore, yirDataController: yirDataController)
         }
         
         let searchViewController = SearchViewController()
@@ -863,7 +863,7 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
         
         // Bypassing shared profile button config and using custom logic.
         if !needsSearchBar {
-            let profileButtonConfig = self.profileButtonConfig()
+            let profileButtonConfig = self.profileButtonConfig(target: self, action: #selector(userDidTapProfile), dataStore: dataStore, yirDataController: yirDataController)
             let profileButtonImage = self.profileButtonImage(theme: WMFAppEnvironment.current.theme, needsBadge: profileButtonConfig.needsBadge)
             let profileButton = UIBarButtonItem(image: profileButtonImage, style: .plain, target: profileButtonConfig.target, action: profileButtonConfig.action)
             profileButton.accessibilityLabel = profileButtonConfig.accessibilityLabel
@@ -876,39 +876,12 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
     }
     
     private func updateProfileButton() {
-        
-        let profileButtonConfig = self.profileButtonConfig()
+        let profileButtonConfig = self.profileButtonConfig(target: self, action: #selector(userDidTapProfile), dataStore: dataStore, yirDataController: yirDataController)
         let profileButtonImage = self.profileButtonImage(theme: WMFAppEnvironment.current.theme, needsBadge: profileButtonConfig.needsBadge)
         
         if let profileBarButtonItem {
             profileBarButtonItem.image = profileButtonImage
         }
-    }
-    
-    private func profileButtonConfig() -> WMFNavigationBarProfileButtonConfig {
-        var hasUnreadNotifications: Bool = false
-        if self.dataStore.authenticationManager.authStateIsPermanent {
-            let numberOfUnreadNotifications = try? dataStore.remoteNotificationsController.numberOfUnreadNotifications()
-            hasUnreadNotifications = (numberOfUnreadNotifications?.intValue ?? 0) != 0
-        } else {
-            hasUnreadNotifications = false
-        }
-
-        var needsYiRNotification = false
-        if let yirDataController,  let appLanguage = dataStore.languageLinkController.appLanguage {
-            let project = WMFProject.wikipedia(WMFLanguage(languageCode: appLanguage.languageCode, languageVariantCode: appLanguage.languageVariantCode))
-            needsYiRNotification = yirDataController.shouldShowYiRNotification(primaryAppLanguageProject: project, isLoggedOut: !dataStore.authenticationManager.authStateIsPermanent)
-        }
-        
-        // do not override `hasUnreadNotifications` completely
-        if needsYiRNotification {
-            hasUnreadNotifications = true
-        }
-        
-        let accessibilityLabel = hasUnreadNotifications ? CommonStrings.profileButtonBadgeTitle : CommonStrings.profileButtonTitle
-        let accessibilityHint = CommonStrings.profileButtonAccessibilityHint
-        
-        return WMFNavigationBarProfileButtonConfig(accessibilityLabel: accessibilityLabel, accessibilityHint: accessibilityHint, needsBadge: hasUnreadNotifications, target: self, action: #selector(userDidTapProfile))
     }
     
     // MARK: History
