@@ -117,7 +117,9 @@ public extension WMFNavigationBarConfiguring where Self: UIViewController {
             navigationItem.largeTitleDisplayMode = .never
             navigationItem.titleView = UIView()
             if let customTitleView = titleConfig.customView {
-                navigationItem.leftBarButtonItem = UIBarButtonItem(customView: customTitleView)
+                let button = UIBarButtonItem(customView: customTitleView)
+                button.accessibilityTraits = .staticText
+                navigationItem.leftBarButtonItem = button
                 themeNavigationBarLeadingTitleView()
             } else {
                 let leadingTitleLabel = UILabel()
