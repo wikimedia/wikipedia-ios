@@ -204,7 +204,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     
     @objc func updateProfileButton() {
         let config = self.profileButtonConfig()
-        updateNavigationBarProfileButton(needsBadge: config.needsBadge)
+        updateNavigationBarProfileButton(needsBadge: config.needsBadge, needsBadgeLabel: CommonStrings.profileButtonBadgeTitle, noBadgeLabel: CommonStrings.profileButtonTitle)
     }
 
     private func profileButtonConfig() -> WMFNavigationBarProfileButtonConfig {
@@ -226,10 +226,9 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
             hasUnreadNotifications = true
         }
         
-        let accessibilityLabel = hasUnreadNotifications ? CommonStrings.profileButtonBadgeTitle : CommonStrings.profileButtonTitle
         let accessibilityHint = CommonStrings.profileButtonAccessibilityHint
         
-        return WMFNavigationBarProfileButtonConfig(accessibilityLabel: accessibilityLabel, accessibilityHint: accessibilityHint, needsBadge: hasUnreadNotifications, target: self, action: #selector(userDidTapProfile))
+        return WMFNavigationBarProfileButtonConfig(accessibilityLabelNoNotifications: CommonStrings.profileButtonTitle, accessibilityLabelHasNotifications: CommonStrings.profileButtonBadgeTitle,  accessibilityHint: accessibilityHint, needsBadge: hasUnreadNotifications, target: self, action: #selector(userDidTapProfile))
     }
     
     @objc func scrollToTop() {

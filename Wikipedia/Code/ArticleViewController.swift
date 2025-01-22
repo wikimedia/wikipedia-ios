@@ -866,8 +866,8 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
             let profileButtonConfig = self.profileButtonConfig()
             let profileButtonImage = self.profileButtonImage(theme: WMFAppEnvironment.current.theme, needsBadge: profileButtonConfig.needsBadge)
             let profileButton = UIBarButtonItem(image: profileButtonImage, style: .plain, target: profileButtonConfig.target, action: profileButtonConfig.action)
-            profileButton.accessibilityLabel = profileButtonConfig.accessibilityLabel
-            
+            profileButton.accessibilityLabel = self.profileButtonAccessibilityStrings(config: profileButtonConfig)
+
             navigationItem.rightBarButtonItems = [AppSearchBarButtonItem.newAppSearchBarButtonItem, profileButton]
             self.profileBarButtonItem = profileButton
         } else {
@@ -879,13 +879,15 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
         
         let profileButtonConfig = self.profileButtonConfig()
         let profileButtonImage = self.profileButtonImage(theme: WMFAppEnvironment.current.theme, needsBadge: profileButtonConfig.needsBadge)
-        
+        let profileButtonAccessibilityString =  self.profileButtonAccessibilityStrings(config: profileButtonConfig)
+
         if let profileBarButtonItem {
             profileBarButtonItem.image = profileButtonImage
+            profileBarButtonItem.accessibilityLabel = profileButtonAccessibilityString
         }
     }
-    
-    private func profileButtonConfig() -> WMFNavigationBarProfileButtonConfig {
+
+    private func hasUnreadNotifications() -> Bool {
         var hasUnreadNotifications: Bool = false
         if self.dataStore.authenticationManager.authStateIsPermanent {
             let numberOfUnreadNotifications = try? dataStore.remoteNotificationsController.numberOfUnreadNotifications()
@@ -899,16 +901,19 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
             let project = WMFProject.wikipedia(WMFLanguage(languageCode: appLanguage.languageCode, languageVariantCode: appLanguage.languageVariantCode))
             needsYiRNotification = yirDataController.shouldShowYiRNotification(primaryAppLanguageProject: project, isLoggedOut: !dataStore.authenticationManager.authStateIsPermanent)
         }
-        
+
         // do not override `hasUnreadNotifications` completely
         if needsYiRNotification {
             hasUnreadNotifications = true
         }
-        
-        let accessibilityLabel = hasUnreadNotifications ? CommonStrings.profileButtonBadgeTitle : CommonStrings.profileButtonTitle
+
+        return hasUnreadNotifications
+    }
+
+    private func profileButtonConfig() -> WMFNavigationBarProfileButtonConfig {
         let accessibilityHint = CommonStrings.profileButtonAccessibilityHint
-        
-        return WMFNavigationBarProfileButtonConfig(accessibilityLabel: accessibilityLabel, accessibilityHint: accessibilityHint, needsBadge: hasUnreadNotifications, target: self, action: #selector(userDidTapProfile))
+
+        return WMFNavigationBarProfileButtonConfig(accessibilityLabelNoNotifications: CommonStrings.profileButtonTitle, accessibilityLabelHasNotifications: CommonStrings.profileButtonBadgeTitle, accessibilityHint: accessibilityHint, needsBadge: hasUnreadNotifications(), target: self, action: #selector(userDidTapProfile))
     }
     
     // MARK: History
