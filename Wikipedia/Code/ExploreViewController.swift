@@ -204,7 +204,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     
     @objc func updateProfileButton() {
         let config = self.profileButtonConfig(target: self, action: #selector(userDidTapProfile), dataStore: dataStore, yirDataController: yirDataController, leadingBarButtonItem: nil, trailingBarButtonItem: nil)
-        updateNavigationBarProfileButton(needsBadge: config.needsBadge)
+        updateNavigationBarProfileButton(needsBadge: config.needsBadge, needsBadgeLabel: CommonStrings.profileButtonBadgeTitle, noBadgeLabel: CommonStrings.profileButtonTitle)
     }
     
     @objc func scrollToTop() {
