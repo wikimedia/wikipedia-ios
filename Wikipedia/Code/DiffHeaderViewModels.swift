@@ -62,7 +62,7 @@ final class DiffHeaderViewModel: Themeable {
 
             let summaryViewModel = DiffHeaderEditSummaryViewModel(heading: WMFLocalizedString("diff-single-header-summary-heading", value: "Edit summary", comment: "Heading label in header summary view when viewing a single revision."), isMinor: toModel.isMinor, summary: toModel.parsedComment)
             
-            let editorViewModel = DiffHeaderEditorViewModel(heading: WMFLocalizedString("diff-single-header-editor-title", value: "Editor information", comment: "Title label in header editor view when viewing a single revision."), username: toModel.user, project: project)
+            let editorViewModel = DiffHeaderEditorViewModel(heading: WMFLocalizedString("diff-single-header-editor-title", value: "Editor information", comment: "Title label in header editor view when viewing a single revision."), username: toModel.user, project: project, isTemp: toModel.isTemp != nil)
             
             self.title = titleViewModel
             self.headerType = .single(editorViewModel: editorViewModel, summaryViewModel: summaryViewModel)
@@ -146,11 +146,13 @@ final class DiffHeaderEditorViewModel {
     private(set) var numberOfEditsForDisplay: String?
     private let numberOfEditsFormat = WMFLocalizedString("diff-single-header-editor-number-edits-format", value:"{{PLURAL:%1$d|%1$d edit|%1$d edits}}", comment:"Label to show the number of total edits made by the editor when viewing a single revision. %1$d is replaced with the editor's number of edits.")
     let project: WikimediaProject?
+    let isTemp: Bool
     
-    init(heading: String, username: String?, project: WikimediaProject?) {
+    init(heading: String, username: String?, project: WikimediaProject?, isTemp: Bool) {
         self.heading = heading
         self.username = username
         self.project = project
+        self.isTemp = isTemp
     }
 }
 
@@ -174,10 +176,11 @@ final class DiffHeaderCompareViewModel: Themeable {
 final class DiffHeaderCompareItemViewModel: Themeable {
     let type: DiffHeaderCompareType
     let heading: String
-    let username: String? // tonitodo: because WMFPageHistoryRevision.user is nullable, can we make not nullable
+    let username: String?
     let isMinor: Bool
-    let summary: String? // tonitodo: because WMFPageHistoryRevision.parsedComment is nullable, can we make not nullable
-    let timestampString: String? // tonitodo: because WMFPageHistoryRevision.revisionDate is nullable, can we make not nullable
+    let isTemp: Bool
+    let summary: String?
+    let timestampString: String?
     var accentColor: UIColor
     let revisionID: Int
     
@@ -193,6 +196,7 @@ final class DiffHeaderCompareItemViewModel: Themeable {
         
         self.username = model.user
         self.isMinor = model.isMinor
+        self.isTemp = model.isTemp != nil
         self.summary = model.parsedComment?.removingHTML
 
         if let date = model.revisionDate {
