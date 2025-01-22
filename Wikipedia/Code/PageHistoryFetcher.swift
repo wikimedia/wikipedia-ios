@@ -154,7 +154,11 @@ public final class PageHistoryFetcher: WMFLegacyFetcher {
             let group = DispatchGroup()
             var editCountsGroupedByType = EditCountsGroupedByType()
             var mostRecentError: Error?
-            for editCountType in editCountTypes {
+            
+            // An API call with the userEdits type would actually fail. userEdits are inferred below by other count responses (edits minus anonEdits)
+            let editCountTypesMinusUserEdits = editCountTypes.filter { $0 != .userEdits }
+            
+            for editCountType in editCountTypesMinusUserEdits {
                 guard let url = self.editCountsURL(for: editCountType, pageTitle: pageTitle, pageURL: pageURL, from: fromRevisionID, to: toRevisionID) else {
                     continue
                 }
