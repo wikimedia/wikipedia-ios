@@ -318,7 +318,7 @@ class SavedViewController: ThemeableViewController, WMFNavigationBarConfiguring,
         }
         
         let config = self.profileButtonConfig(target: self, action: #selector(userDidTapProfile), dataStore: dataStore, yirDataController: yirDataController, leadingBarButtonItem: nil, trailingBarButtonItem: moreBarButtonItem)
-        updateNavigationBarProfileButton(needsBadge: config.needsBadge)
+        updateNavigationBarProfileButton(needsBadge: config.needsBadge, needsBadgeLabel: CommonStrings.profileButtonBadgeTitle, noBadgeLabel: CommonStrings.profileButtonTitle)
     }
     
     private func setSavedArticlesViewControllerIfNeeded() {
