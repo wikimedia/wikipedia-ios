@@ -640,7 +640,6 @@
 "main-menu-terms-of-use" = "Ketentuan Penggunaan";
 "main-menu-title" = "Lainnya";
 "main-menu-zero-faq" = "Tanya jawab Wikipedia Zero";
-"menu-cancel-accessibility-label" = "Batal";
 "more-languages-tooltip-description" = "Cari Wikipedia dalam lebih dari 300 bahasa";
 "more-languages-tooltip-title" = "Tambah bahasa";
 "more-menu" = "Selengkapnya";
@@ -1109,7 +1108,6 @@
 "talk-page-subscription-failed-alert" = "Berlangganan ke topik gagal, silakan coba lagi.";
 "talk-page-title-article-talk" = "Pembicaraan Artikel";
 "talk-page-title-user-talk" = "Pembicaraan pengguna";
-"talk-page-topic-close-button-hint" = "Tutup topik baru";
 "talk-page-unsubscribe-to-topic" = "Berhenti berlangganan";
 "talk-page-unsubscribed-alert-subtitle" = "Anda tidak akan menerima lagi pemberitahuan tentang komentar baru di topik ini.";
 "talk-page-unsubscribed-alert-title" = "Anda telah berhenti berlangganan";

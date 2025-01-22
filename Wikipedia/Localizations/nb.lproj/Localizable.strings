@@ -691,7 +691,6 @@
 "main-menu-terms-of-use" = "Bruksvilkår";
 "main-menu-title" = "Mer";
 "main-menu-zero-faq" = "Wikipedia Zero-FAQ";
-"menu-cancel-accessibility-label" = "Avbryt";
 "more-languages-tooltip-description" = "Søk i Wikipedia på over 300 språk";
 "more-languages-tooltip-title" = "Legg til språk";
 "more-menu" = "Mer";
@@ -1164,7 +1163,6 @@
 "talk-page-subscription-failed-alert" = "Abonnering feilet, prøv igjen.";
 "talk-page-title-article-talk" = "Artikkeldiskusjon";
 "talk-page-title-user-talk" = "Brukerdiskusjon";
-"talk-page-topic-close-button-hint" = "Lukk nytt emne";
 "talk-page-topic-compose-terms-and-licenses-ccsa4" = "Ved å publisere endringene samtykker du i $1bruksvilkårene$2, og samtykker i å ugjenkallelig utgi bidraget ditt under lisensene $3CC BY-SA 4.0$4 og $5GFDL$6.";
 "talk-page-unsubscribe-to-topic" = "Avslutt abonnement";
 "talk-page-unsubscribed-alert-subtitle" = "Du vil ikke lenger motta varsler om nye kommentarer på dette emnet.";

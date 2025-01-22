@@ -668,7 +668,6 @@
 "main-menu-terms-of-use" = "Geavahaneavttut";
 "main-menu-title" = "Eambbo";
 "main-menu-zero-faq" = "Wikipedia Zero-FAQ";
-"menu-cancel-accessibility-label" = "Gaskkalduhte";
 "more-languages-tooltip-description" = "Oza Wikipedias badjel 300 gillii";
 "more-languages-tooltip-title" = "Lasit gielaid";
 "more-menu" = "Eambbo";
@@ -1066,6 +1065,8 @@
 "sort-by-recently-added-action" = "Aitto lasihuvvon";
 "sort-by-title-action" = "Bajilčála";
 "suggested-edits-title" = "Evttohuvvon rievdadeamit";
+"survey-instructions" = "Vállje ovtta dahje eanet molssaeavttuid";
+"survey-submit" = "Sádde";
 "table-of-contents-button-label" = "Sisdoallologahallan";
 "table-of-contents-close-accessibility-hint" = "Gidde";
 "table-of-contents-close-accessibility-label" = "Gidde sisdoallologahallama";
@@ -1116,7 +1117,6 @@
 "talk-page-subscription-failed-alert" = "Doallan ii menestuvvan, geahččal ođđasit.";
 "talk-page-title-article-talk" = "Artihkaldigaštallan";
 "talk-page-title-user-talk" = "Geavaheaddjidigaštallan";
-"talk-page-topic-close-button-hint" = "Gidde ođđa fáttá";
 "talk-page-topic-compose-terms-and-licenses-ccsa4" = "Rievdadusaid almmuheami bokte mieđat $1geavahaneavttuide$2, ja mieđat eretgeassemeahttumit almmuhit iežat čállosa $3CC BY-SA 4.0$4 ja $5GFDL$6 liseanssaid vuolde.";
 "talk-page-unsubscribe-to-topic" = "Heaittit doallama";
 "talk-page-unsubscribed-alert-subtitle" = "It šat oaččo almmuhusaid ođđa kommentárain dán fáttás.";

@@ -553,7 +553,6 @@
 "main-menu-terms-of-use" = "Nutzungsbedingungen";
 "main-menu-title" = "Weitere";
 "main-menu-zero-faq" = "FAQ zu Wikipedia Zero";
-"menu-cancel-accessibility-label" = "Abbrechen";
 "more-languages-tooltip-description" = "Wikipedia in über 300 Sprachen durchsuchen";
 "more-languages-tooltip-title" = "Sprachen hinzufügen";
 "more-menu" = "Mehr";
@@ -973,7 +972,6 @@
 "talk-page-subscription-failed-alert" = "Das Abonnieren des Themas ist fehlgeschlagen. Bitte versuche es erneut.";
 "talk-page-title-article-talk" = "Artikeldiskussionsseite";
 "talk-page-title-user-talk" = "Benutzerdiskussionsseite";
-"talk-page-topic-close-button-hint" = "Neues Thema schließen";
 "talk-page-topic-compose-terms-and-licenses-ccsa4" = "Indem du Änderungen veröffentlichst, stimmst du den $1Nutzungsbedingungen$2 zu und erklärst dich damit einverstanden, deinen Beitrag unter den Lizenzen $3CC BY-SA 4.0$4 und den $5GFDL$6 zu veröffentlichen.";
 "talk-page-unsubscribe-to-topic" = "Abbestellen";
 "talk-page-unsubscribed-alert-subtitle" = "Du wirst keine Benachrichtigungen mehr über neue Kommentare in diesem Thema erhalten.";
@@ -1076,8 +1074,10 @@
 // Fuzzy
 "year-in-review-base-editors-subtitle" = "Die Wikipedia-Gemeinschaft freiwilliger Editoren hat in diesem Jahr bereits mehr als 555.647 Änderungen auf der iOS-App vorgenommen. Das Herz und die Seele von Wikipedia ist unsere globale Gemeinschaft von freiwilligen Mitarbeitern, Spendern und Milliarden von Lesern wie dir – alle vereint, um unbegrenzten Zugang zu zuverlässigen Informationen zu teilen.";
 "year-in-review-base-editors-title" = "Editoren auf der iOS-App haben mehr als $1 Bearbeitungen vorgenommen";
+// Fuzzy
 "year-in-review-base-edits-subtitle" = "In diesem Jahr wurde Wikipedia durchschnittlich $1 Mal pro Minute bearbeitet. Artikel werden gemeinschaftlich erstellt und mit Hilfe zuverlässiger Quellen verbessert. Wir alle haben Wissen, das wir weitergeben können – [erfahre, wie du dich beteiligen kannst]($2).";
 "year-in-review-base-edits-title" = "Wikipedia wurde $1 Mal pro Minute bearbeitet";
+// Fuzzy
 "year-in-review-base-reading-subtitle" = "Wikipedia hatte dieses Jahr mehr als $1 Millionen Artikel in über $2 aktiven Sprachen. Gemeinsam mit Millionen anderen hast du dein Wissen erweitert und verschiedene Themen erkundet.";
 "year-in-review-base-reading-title" = "Wikipedia war in über 300 Sprachen verfügbar";
 // Fuzzy
@@ -1100,6 +1100,7 @@
 "year-in-review-feature-announcement-title" = "Erkunde Wikipedia im Rückblick";
 "year-in-review-feature-announcement-title-personalized" = "Entdecke dein Wikipedia-Jahr im Rückblick";
 "year-in-review-feature-explore-body" = "Wikipedia ist die größte Wissensressource aller Zeiten – und sie ist für jeden frei zugänglich. Blicke durch die Linse von Wikipedia auf das Jahr 2024 zurück.";
+// Fuzzy
 "year-in-review-feature-explore-body-personalized" = "Erfahre, welche Artikel du in der Wikipedia-App gelesen und welche Änderungen du vorgenommen hast. Dein Leseverlauf wird geschützt aufbewahrt. Die Leseeinblicke werden anhand der lokal gespeicherten Daten auf deinem Gerät erstellt.";
 "year-in-review-login-subtitle" = "Melde dich an oder erstelle ein Konto, um mehr personalisierte Einblicke zu erhalten";
 "year-in-review-login-title" = "Verbessere deinen Jahresrückblick";

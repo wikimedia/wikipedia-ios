@@ -549,7 +549,7 @@
 "main-menu-terms-of-use" = "ਵਰਤੋਂ ਦੀਆਂ ਸ਼ਰਤਾਂ";
 "main-menu-title" = "ਹੋਰ";
 "main-menu-zero-faq" = "ਵਿਕੀਪੀਡੀਆ ਜ਼ੀਰੋ ਬਾਬਤ ਆਮ ਸੁਆਲ";
-"menu-cancel-accessibility-label" = "ਰੱਦ ਕਰੋ";
+// Fuzzy
 "microsite-yir-english-edits-bytes-slide-title" = "3. 4 ਅਰਬ ਬਾਈਟਾਂ ਜੋਡ਼ਿਆਂ";
 "more-languages-tooltip-title" = "ਭਾਸ਼ਾ ਜੋੜੋ";
 "more-menu" = "ਹੋਰ";
@@ -873,7 +873,6 @@
 "talk-page-subscription-failed-alert" = "ਵਿਸ਼ੇ ਦੀ ਗਾਹਕੀ ਲੈਣ ਵਿੱਚ ਅਸਫਲ, ਕਿਰਪਾ ਕਰਕੇ ਮੁੜ ਕੋਸ਼ਿਸ਼ ਕਰੋ।";
 "talk-page-title-article-talk" = "ਲੇਖ ਗੱਲਬਾਤ";
 "talk-page-title-user-talk" = "ਵਰਤੋਂਕਾਰ ਗੱਲਬਾਤ";
-"talk-page-topic-close-button-hint" = "ਨਵਾਂ ਵਿਸ਼ਾ ਬੰਦ ਕਰੋ";
 "talk-page-unsubscribe-to-topic" = "ਗਾਹਕੀ ਰੱਦ ਕਰੋ";
 "talk-page-unsubscribed-alert-title" = "ਤੁਸੀਂ ਗਾਹਕੀ ਰੱਦ ਕਰ ਦਿੱਤੀ ਹੈ।";
 "talk-page-unsubscription-failed-alert" = "ਵਿਸ਼ੇ ਦੀ ਗਾਹਕੀ ਰੱਦ ਕਰਨ ਵਿੱਚ ਅਸਫਲ, ਕਿਰਪਾ ਕਰਕੇ ਮੁੜ ਕੋਸ਼ਿਸ਼ ਕਰੋ।";
@@ -1035,6 +1034,7 @@
 "year-in-review-feature-announcement-body-personalized" = "ਵਿਕੀਪੀਡੀਆ ਐਪ ਉੱਤੇ ਤੁਹਾਡੇ ਵੱਲੋਂ ਪਡ਼੍ਹੇ ਗਏ ਲੇਖਾਂ ਬਾਰੇ ਸੂਝ ਵੇਖੋ, ਆਪਣਾ ਸਫ਼ਰ ਸਾਂਝਾਂ ਕਰੋ ਅਤੇ ਆਪਣੇ ਸਾਲ ਦੀਆਂ ਮੁੱਖ ਗੱਲਾਂ ਲੱਭੋ।";
 "year-in-review-feature-announcement-title" = "ਸਮੀਖਿਆ ਵਿੱਚ ਵਿਕੀਪੀਡੀਆ ਦੀ ਪਡ਼ਚੋਲ ਕਰੋ";
 "year-in-review-feature-announcement-title-personalized" = "ਸਮੀਖਿਆ ਵਿੱਚ ਆਪਣੇ ਵਿਕੀਪੀਡੀਆ ਸਾਲ ਦੀ ਪਡ਼ਚੋਲ ਕਰੋ";
+// Fuzzy
 "year-in-review-feature-explore-body-personalized" = "ਵਿਕੀਪੀਡੀਆ ਐਪ 'ਤੇ ਤੁਸੀਂ ਕਿਹੜੇ ਲੇਖ ਪੜ੍ਹਦੇ ਹੋ ਅਤੇ ਤੁਹਾਡੇ ਵੱਲੋ ਕੀਤੇ ਗਏ ਸੋਧਾ ਬਾਰੇ ਜਾਣਕਾਰੀ ਵੇਖੋ। ਤੁਹਾਡਾ ਪੜ੍ਹਨ ਦਾ ਇਤਿਹਾਸ ਸੁਰੱਖਿਅਤ ਰੱਖਿਆ ਗਿਆ ਹੈ। ਪੜ੍ਹਨ ਦੀ ਜਾਣਕਾਰੀ ਦੀ ਗਣਨਾ ਤੁਹਾਡੇ ਜੰਤਰ 'ਤੇ ਸਥਾਨਕ ਤੌਰ 'ਤੇ ਭੰਡਾਰ ਕੀਤੇ ਡੇਟਾ ਦੀ ਵਰਤੋਂ ਕਰਕੇ ਗਣਨਾ ਕੀਤੀ ਜਾਂਦੀ ਹੈ।";
 "year-in-review-finish" = "ਖ਼ਤਮ";
 // Fuzzy
@@ -1049,7 +1049,9 @@
 "year-in-review-personalized-editing-subtitle-format-500plus" = "ਤੁਸੀਂ ਵਿਕੀਪੀਡੀਆ ਨੂੰ 500 ਤੋਂ ਵੱਧ ਵਾਰ ਸੋਧਿਆ ਹੈ। ਦੁਨੀਆ ਭਰ ਵਿੱਚ ਵਿਕੀਮੀਡੀਆ ਪ੍ਰੋਜੈਕਟਾਂ ਵਿੱਚ ਇੱਕ ਫਰਕ ਲਿਆਉਣ ਵਾਲੇ ਸਵੈ-ਸੇਵੀ ਸੋਧਕਾਂ ਵਿੱਚੋਂ ਇੱਕ ਹੋਣ ਲਈ ਤੁਹਾਡਾ ਧੰਨਵਾਦ।";
 "year-in-review-personalized-editing-title-format" = "ਤੁਸੀਂ ਵਿਕੀਪੀਡੀਆ {{PLURAL:$1| $1 ਵਾਰ}} ਸੋਧਿਆ";
 "year-in-review-personalized-editing-title-format-500plus" = "ਤੁਸੀਂ ਵਿਕੀਪੀਡੀਆ ਨੂੰ 500 + ਵਾਰ ਸੋਧਿਆ ਹੈ।";
+// Fuzzy
 "year-in-review-personalized-reading-subtitle-format" = "ਇਸ ਸਾਲ, ਤੁਸੀਂ {{PLURAL:$1|$1 ਲੇਖ ਪੜ੍ਹਿਆ ਹੈ|$1 ਲੇਖ ਪੜ੍ਹੇ ਹਨ}}। ਵਿਕੀਪੀਡੀਆ ਵਿੱਚ $3 ਤੋਂ ਵੱਧ ਸਰਗਰਮ ਭਾਸ਼ਾਵਾਂ ਵਿੱਚ $2 ਲੱਖ ਲੇਖ ਉਪਲਬਧ ਸਨ। ਤੁਸੀਂ ਗਿਆਨ ਨੂੰ ਵਧਾਉਣ ਅਤੇ ਵੱਖ-ਵੱਖ ਵਿਸ਼ਿਆਂ ਦੀ ਪੜਚੋਲ ਕਰਨ ਵਿੱਚ ਲੱਖਾਂ ਲੋਕਾਂ ਵਿੱਚ ਸ਼ਾਮਲ ਹੋਏ।";
+// Fuzzy
 "year-in-review-personalized-reading-title-format" = "ਤੁਸੀਂ ਇਸ ਸਾਲ {{PLURAL:$1| $1 ਲੇਖ ਪੜ੍ਹਿਆ| $1 ਲੇਖ ਪੜ੍ਹੇ}}";
 "year-in-review-personalized-saved-title-format" = "ਤੁਸੀਂ {{PLURAL:$1| $1 ਲੇਖ ਸਾੰਭਿਆ|$1 ਲੇਖ ਸਾਂਭੇ}}";
 "year-in-review-share-text" = "ਇਹ ਮੇਰੀ ਵਿਕੀਪੀਡੀਆ ਸਾਲ ਦੀ ਸਮੀਖਿਆ ਹੈ। ਵਿਕੀਪੀਡੀਆ iOS ਐਪ ਨਾਲ ਬਣਾਇਆ ਗਿਆ";

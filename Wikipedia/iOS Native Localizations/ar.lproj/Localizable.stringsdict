@@ -876,13 +876,15 @@
 	<key>year-in-review-personalized-reading-subtitle-format</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>هذا العام، قرأت %#@v1@. كان لدى ويكيبيديا %2$@ مليون مقالة متاحة بأكثر من %3$@ لغات نشطة. لقد انضممت إلى ملايين الأشخاص في توسيع المعرفة واستكشاف مواضيع متنوعة.</string>
+		<string>لقد قرأت %#@v1@. تحتوي ويكيبيديا على %2$@ مليون مقالة متاحة بأكثر من %3$@ لغات نشطة. لقد انضممت إلى ملايين الأشخاص في توسيع المعرفة واستكشاف مواضيع متنوعة.</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
+			<key>one</key>
+			<string>%1$d مقال</string>
 			<key>other</key>
 			<string>%1$d مقالة</string>
 		</dict>
@@ -890,13 +892,15 @@
 	<key>year-in-review-personalized-reading-title-format</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>لقد قرأت %#@v1@ هذا العام</string>
+		<string>لقد قرأت %#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
+			<key>one</key>
+			<string>%1$d مقال</string>
 			<key>other</key>
 			<string>%1$d مقالة</string>
 		</dict>

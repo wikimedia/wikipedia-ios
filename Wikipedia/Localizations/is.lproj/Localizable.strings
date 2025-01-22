@@ -537,7 +537,6 @@
 "main-menu-terms-of-use" = "Notkunarskilmálar";
 "main-menu-title" = "Fleira";
 "main-menu-zero-faq" = "Algengar spurningar um Wikipedia Zero";
-"menu-cancel-accessibility-label" = "Hætta við";
 "more-languages-tooltip-description" = "Leita í Wikipedia á yfir 300 tungumálum";
 "more-languages-tooltip-title" = "Bæta við tungumálum";
 "more-menu" = "Meira";
@@ -988,7 +987,6 @@
 "talk-page-subscription-failed-alert" = "Ekki tókst að gerast áskrifandi að efninu, endilega prófaðu aftur.";
 "talk-page-title-article-talk" = "Spjall greinar";
 "talk-page-title-user-talk" = "Spjall notanda";
-"talk-page-topic-close-button-hint" = "Loka nýju umræðuefni";
 "talk-page-unsubscribe-to-topic" = "Segja upp áskrift";
 "talk-page-unsubscribed-alert-subtitle" = "Þú munt ekki lengur fá tilkynningar um nýjar athugasemdir í þessu efni.";
 "talk-page-unsubscribed-alert-title" = "Þú hefur sagt upp áskrift.";

@@ -566,7 +566,6 @@
 "main-menu-terms-of-use" = "ข้อกำหนดการใช้งาน";
 "main-menu-title" = "เพิ่มเติม";
 "main-menu-zero-faq" = "คำถามที่พบบ่อยเกี่ยวกับ Wikipedia Zero";
-"menu-cancel-accessibility-label" = "ยกเลิก";
 "more-languages-tooltip-description" = "ค้นหาวิกิพีเดียในกว่า 300 ภาษา";
 "more-languages-tooltip-title" = "เพิ่มภาษา";
 "more-menu" = "เพิ่มเติม";
@@ -978,7 +977,6 @@
 "talk-page-subscription-failed-alert" = "การสมัครรับหัวข้อล้มเหลว โปรดลองอีกครั้ง";
 "talk-page-title-article-talk" = "พูดคุยบทความ";
 "talk-page-title-user-talk" = "พูดคุยกับผู้ใช้";
-"talk-page-topic-close-button-hint" = "ปิดหัวข้อใหม่";
 "talk-page-unsubscribe-to-topic" = "เลิกสมัครรับ";
 "talk-page-unsubscribed-alert-subtitle" = "คุณจะไม่ได้รับการแจ้งเตือนเกี่ยวกับความเห็นใหม่ในหัวข้อนี้อีกต่อไป";
 "talk-page-unsubscribed-alert-title" = "คุณได้ยกเลิกการสมัครรับแล้ว";

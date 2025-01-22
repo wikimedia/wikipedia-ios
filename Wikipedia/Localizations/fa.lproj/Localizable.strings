@@ -460,6 +460,7 @@
 "editor-replace-type-button-accessibility" = "تغییر نوع جایگزینی. اکنون روی $1 تنظیم شده است. برای تغییر، انتخاب کنید.";
 "editor-replace-type-single" = "جایگزینی";
 "editor-replace-type-single-accessibility" = "جایگزینی یک مورد";
+"editor-title" = "ویرایشگر";
 "editor-toolbar-bold-accessibility" = "قالب‌بندی متن پررنگ";
 "editor-toolbar-cursor-down-accessibility" = "انتقال مکان‌نما به سطر پایینی بعدی.";
 "editor-toolbar-cursor-next-accessibility" = "انتقال مکان‌نما به نویسهٔ بعدی.";
@@ -774,7 +775,6 @@
 "main-menu-terms-of-use" = "شرایط استفاده";
 "main-menu-title" = "بیشتر";
 "main-menu-zero-faq" = "پرسش‌های رایج ویکی‌پدیا صفر";
-"menu-cancel-accessibility-label" = "لغو";
 "more-languages-tooltip-description" = "جستجو در ویکی‌پدیا به بیش از ۳۰۰ زبان";
 "more-languages-tooltip-title" = "افزودن زبان";
 "more-menu" = "بیشتر";
@@ -976,7 +976,9 @@
 "places-filter-top-articles" = "پربازدیدترین‌ها";
 "places-filter-top-articles-count" = "{{PLURAL:$1|$1 مقاله|$1 مقاله}}";
 "places-filter-top-read-articles" = "پربازدید‌ترین مقاله‌ها";
+"places-list-title'" = "فهرست";
 "places-location-enabled" = "مختصات فعال شد";
+"places-map-title" = "نقشه";
 "places-no-saved-articles-have-location" = "اطلاعات موقعیت هیچ‌یک از مقالات ذخیره‌شدهٔ شما وارد نشده است";
 "places-search-articles-that-match" = "$1 منتطبق با «$2»";
 "places-search-default-text" = "جستجوی مکان‌ها";
@@ -998,6 +1000,7 @@
 "preference-summary-eventlogging-opt-in" = "به بنیاد ویکی‌مدیا برای جمع‌آوری اطلاعات درباره چگونگی استفاده‌تان از این نرم‌افزار جهت بهتر ساختن نرم‌افزار اجازه دهید";
 "privacy-policy-title" = "سیاست محرمانگی";
 "problem-with-feature-title" = "مشکل با ویژگی";
+"profile-page-join-title" = "ورود / پیوستن به ویکی‌پدیا";
 "project-name-mediawiki" = "مدیاویکی";
 "project-name-wikibooks" = "ویکی‌کتاب";
 "project-name-wikidata" = "ویکی‌داده";
@@ -1022,6 +1025,7 @@
 "reading-list-create-new-list-reading-list-name" = "نام فهرست مطالعه";
 "reading-list-create-new-list-title" = "ایجاد یک فهرست تازه";
 "reading-list-deleted-accessibility-notification" = "فهرست مطالعه حذف شد";
+"reading-list-detail-search-placeholder" = "جستجو در فهرست مطالعه";
 "reading-list-do-not-keep-button-title" = "نه، مقاله‌ها را از دستگاه حذف کن";
 "reading-list-entry-limit-exceeded-message" = "برای ادامهٔ همگام‌سازی مقاله‌های موجود در این فهرست، لطفاً تعداد مقاله‌های این فهرست را به $1 کاهش دهید.";
 "reading-list-entry-limit-exceeded-title" = "شما به محدودیت {{PLURAL:$1|$1 مقاله|$1 مقاله}} برای هر حساب رسیده‌اید.";
@@ -1119,6 +1123,7 @@
 "saved-default-reading-list-tag" = "این فهرست را نمی‌توان حذف کرد";
 "saved-pages-image-download-error" = "ناتوان در بارگیری تصاویر برای این صفحهٔ ذخیره‌شده.";
 "saved-pages-progress-syncing" = "در حال بارگیری مقاله...";
+"saved-reading-lists-search-placeholder" = "جستجو در فهرست‌های مطالعه";
 "saved-reading-lists-title" = "فهرست‌های مطالعه";
 "saved-search-default-text" = "جستجو در مقالات ذخیره‌شده";
 "saved-title" = "ذخیره‌شده";
@@ -1251,7 +1256,6 @@
 "talk-page-subscription-failed-alert" = "اشتراک در مبحث ناموفق بود، لطفاً دوباره تلاش کنید.";
 "talk-page-title-article-talk" = "بحث مقاله";
 "talk-page-title-user-talk" = "بحث کاربر";
-"talk-page-topic-close-button-hint" = "بستن مبحث تازه";
 "talk-page-topic-compose-terms-and-licenses-ccsa4" = "با انتشار تغییرات، شما $1شرایط استفاده$2 را می‌پذیرید و به‌طور غیرقابل بازگشتی با انتشار مشارکت خود تحت اجازه‌نامه‌های $3CC BY-SA 3.0$4 و $5GFDL$6 موافقت می‌کنید.";
 "talk-page-unsubscribe-to-topic" = "لغو اشتراک";
 "talk-page-unsubscribed-alert-subtitle" = "در آینده دیگر برای هر نظر ارسال‌شده در این مبحث آگاه‌سازی‌‌هایی دریافت نخواهید کرد.";

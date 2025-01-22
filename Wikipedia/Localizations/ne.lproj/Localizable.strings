@@ -227,7 +227,7 @@
 "home-more-like-footer" = "$1 जस्तो अरु";
 "home-nearby-footer" = "तपाईंको स्थान नजिकै थप ठाउँहरू";
 "home-nearby-location-footer" = "नजिकै थप $1";
-"home-news-footer" = "अधिक हालैका घटनाहरू";
+"home-news-footer" = "अधिक वर्तमानका घटनाहरू";
 "home-themes-action-title" = "अभिरुचीहरू व्यवस्थापन गर्नुहोस्";
 "home-title" = "अन्वेषण";
 "icon-shortcut-nearby-title" = "नजिकैका लेखहरू";
@@ -273,7 +273,6 @@
 "main-menu-terms-of-use" = "प्रयोगका सर्तहरू";
 "main-menu-title" = "थप";
 "main-menu-zero-faq" = "विकिपिडिया शून्य प्रायः सोधिने प्रश्नहरू";
-"menu-cancel-accessibility-label" = "रद्द गर्नुहोस्";
 // Fuzzy
 "more-languages-tooltip-description" = "विकिपिडिया करिब ३०० भाषाहरूमा खोज्नुहोस्।";
 "more-languages-tooltip-title" = "भाषाहरू थप्नुहोस्";

@@ -661,7 +661,6 @@
 "main-menu-terms-of-use" = "Хайырланыу Шартла";
 "main-menu-title" = "Энтда";
 "main-menu-zero-faq" = "Wikipedia Zero FAQ";
-"menu-cancel-accessibility-label" = "Ызына ал";
 "more-languages-tooltip-description" = "Википедияда 300-дан аслам тилде излегиз";
 "more-languages-tooltip-title" = "Тилле къош";
 "more-menu" = "Энтда";
@@ -1134,7 +1133,6 @@
 "talk-page-subscription-failed-alert" = "Темагъа джаздырылылмады, тилейбиз, джангыдан сынагъыз.";
 "talk-page-title-article-talk" = "Статья сюзюу";
 "talk-page-title-user-talk" = "Хайырланыучу Сюзюу";
-"talk-page-topic-close-button-hint" = "Джангы теманы джаб";
 "talk-page-topic-compose-terms-and-licenses-ccsa4" = "Тюзетиулени басмалаб $1Хайырланыу Шартланы$2 къабыл этер эмда къошумугъузну $3CC BY-SA 4.0 Лицензия$4 эмда $5GFDL$6 тамалында кери алынмаз бичимде басмалауну къабыл этериксиз.";
 "talk-page-unsubscribe-to-topic" = "Джаздырылыуну кери ал";
 "talk-page-unsubscribed-alert-subtitle" = "Мындан ары бу темада джангы комментарийлени юсюнден хапарландырыула аллыкъ тюлсюз.";

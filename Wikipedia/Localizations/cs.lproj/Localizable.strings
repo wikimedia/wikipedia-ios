@@ -29,6 +29,7 @@
 // Author: Patriccck
 // Author: Patrik L.
 // Author: Pavreh
+// Author: Segoulas
 // Author: Tsevener
 // Author: Vojtěch Dostál
 // Author: Walter Klosse
@@ -134,6 +135,9 @@
 "action-unsaved-accessibility-notification" = "Zrušeno uložení článku";
 "action-update" = "Aktualizovat";
 "add-articles-to-reading-list" = "Přidat {{PLURAL:$1|$1 článek|$1 články|$1 článků}} do seznamu k přečtení";
+"advanced-settings-title" = "Pokročilé nastavení";
+"alt-text-add-button-title" = "Přidat";
+"alt-text-do-not-add-button-title" = "Nepřidávat";
 "announcements-dismiss" = "Zrušit";
 "app-store-keywords" = "Wikipedie, reference, wiki, encyklopedie, info, znalosti, výzkum, informace, objevování, učení";
 "app-store-release-notes" = "Plně přizpůsobitelné a snadnější čtení zdroje informací. Lokalizace, vylepšení výkonu a opravy chyb.";
@@ -500,7 +504,6 @@
 "main-menu-terms-of-use" = "Podmínky užití";
 "main-menu-title" = "Více";
 "main-menu-zero-faq" = "FAQ Wikipedia Zero";
-"menu-cancel-accessibility-label" = "Zrušit";
 "more-languages-tooltip-description" = "Vyhledávejte a čtěte Wikipedii ve více než 300 jazycích";
 "more-languages-tooltip-title" = "Přidat jazyky";
 "move-articles-to-reading-list" = "Přidat {{PLURAL:$1|$1 článek|$1 články|$1 článků}} do seznamu k přečtení";

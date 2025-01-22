@@ -527,7 +527,6 @@
 "main-menu-terms-of-use" = "Uslovi korišćenja";
 "main-menu-title" = "Više";
 "main-menu-zero-faq" = "Česta pitanja o Vikipediji nula";
-"menu-cancel-accessibility-label" = "Otkaži";
 "more-languages-tooltip-description" = "Pretražujte Vikipediju na preko 300 jezika";
 "more-languages-tooltip-title" = "Dodaj jezike";
 "more-menu" = "Više";
@@ -989,7 +988,6 @@
 "talk-page-subscription-failed-alert" = "Praćenje teme nije uspelo, pokušajte ponovo.";
 "talk-page-title-article-talk" = "Stranica za razgovor članka";
 "talk-page-title-user-talk" = "Korisnička stranica za razgovor";
-"talk-page-topic-close-button-hint" = "Zatvori novu temu";
 "talk-page-unsubscribe-to-topic" = "Prekini praćenje";
 "talk-page-unsubscribed-alert-subtitle" = "Više nećete dobijati obaveštenja o novim komentarima.";
 "talk-page-unsubscribed-alert-title" = "Više ne pratite.";
