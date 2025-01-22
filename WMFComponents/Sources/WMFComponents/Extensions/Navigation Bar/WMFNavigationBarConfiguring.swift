@@ -53,13 +53,17 @@ public struct WMFNavigationBarProfileButtonConfig {
     public let needsBadge: Bool
     public let target: Any
     public let action: Selector
+    public let leadingBarButtonItem: UIBarButtonItem?
+    public let trailingBarButtonItem: UIBarButtonItem?
     
-    public init(accessibilityLabel: String, accessibilityHint: String, needsBadge: Bool, target: Any, action: Selector) {
+    public init(accessibilityLabel: String, accessibilityHint: String, needsBadge: Bool, target: Any, action: Selector, leadingBarButtonItem: UIBarButtonItem?, trailingBarButtonItem: UIBarButtonItem?) {
         self.accessibilityLabel = accessibilityLabel
         self.accessibilityHint = accessibilityHint
         self.needsBadge = needsBadge
         self.target = target
         self.action = action
+        self.leadingBarButtonItem = leadingBarButtonItem
+        self.trailingBarButtonItem = trailingBarButtonItem
     }
 }
 
@@ -85,6 +89,10 @@ public struct WMFNavigationBarSearchConfig {
 }
 
 public extension WMFNavigationBarConfiguring where Self: UIViewController {
+    
+    private var profileButtonAccessibilityID: String {
+        "profile-button"
+    }
     
     /// Shared method to apply navigation bar styling on an individual view controller basis. Call within viewWillAppear. For common UINavigationBar styling that should be shared across the app, update WMFComponentNavigationController.
     /// - Parameters:
@@ -148,7 +156,18 @@ public extension WMFNavigationBarConfiguring where Self: UIViewController {
             let image = profileButtonImage(theme: WMFAppEnvironment.current.theme, needsBadge: profileButtonConfig.needsBadge)
             let profileButton = UIBarButtonItem(image: image, style: .plain, target: profileButtonConfig.target, action: profileButtonConfig.action)
             profileButton.accessibilityLabel = profileButtonConfig.accessibilityLabel
-            navigationItem.rightBarButtonItem = profileButton
+            profileButton.accessibilityIdentifier = profileButtonAccessibilityID
+            
+            var rightBarButtonItems: [UIBarButtonItem] = [profileButton]
+            if let leadingBarButtonItem = profileButtonConfig.leadingBarButtonItem {
+                rightBarButtonItems.append(leadingBarButtonItem)
+            }
+            
+            if let trailingBarButtonItem = profileButtonConfig.trailingBarButtonItem {
+                rightBarButtonItems.insert(trailingBarButtonItem, at: 0)
+            }
+            
+            navigationItem.rightBarButtonItems = rightBarButtonItems
         }
         
         // Setup close button if needed
@@ -214,6 +233,10 @@ public extension WMFNavigationBarConfiguring where Self: UIViewController {
         navigationItem.titleView?.tintColor = WMFAppEnvironment.current.theme.text
     }
     
+    var currentProfileBarButtonItem: UIBarButtonItem? {
+        return navigationItem.rightBarButtonItems?.filter { $0.accessibilityIdentifier == profileButtonAccessibilityID }.first
+    }
+    
     /// Call from UIViewController when theme changes, or when badge needs to change
     ///     - from apply(theme:) if legacy
     ///     - from appEnvironmentDidChange() if WMFComponents
@@ -221,10 +244,13 @@ public extension WMFNavigationBarConfiguring where Self: UIViewController {
     ///     - Parameter needsBadge: true if red dot needs to be applied to profile button, false if not
     func updateNavigationBarProfileButton(needsBadge: Bool) {
         let image = profileButtonImage(theme: WMFAppEnvironment.current.theme, needsBadge: needsBadge)
-        navigationItem.rightBarButtonItem?.image = image
+        
+        if let currentProfileBarButtonItem {
+            currentProfileBarButtonItem.image = image
+        }
     }
     
-    func profileButtonImage(theme: WMFTheme, needsBadge: Bool) -> UIImage? {
+    private func profileButtonImage(theme: WMFTheme, needsBadge: Bool) -> UIImage? {
         let paletteColors: [UIColor]
         
         if needsBadge {

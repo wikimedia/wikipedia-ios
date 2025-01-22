@@ -171,7 +171,8 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
     private var tocStackViewTopConstraint: NSLayoutConstraint?
     private var searchBarIsAnimating = false
     
-    var profileBarButtonItem: UIBarButtonItem?
+    // Will be populated if needsSearchBar = false
+    private var searchBarButtonItem: UIBarButtonItem?
 
     convenience init?(articleURL: URL, dataStore: MWKDataStore, theme: Theme, schemeHandler: SchemeHandler? = nil, altTextExperimentViewModel: WMFAltTextExperimentViewModel, needsAltTextExperimentSheet: Bool, altTextBottomSheetViewModel: WMFAltTextExperimentModalSheetViewModel?, altTextDelegate: AltTextDelegate?) {
         self.init(articleURL: articleURL, dataStore: dataStore, theme: theme)
@@ -842,9 +843,9 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
         let titleConfig = WMFNavigationBarTitleConfig(title: articleURL.wmf_title ?? "", customView: wButton, alignment: .centerCompact)
         
         var profileButtonConfig: WMFNavigationBarProfileButtonConfig?
-        if !needsSearchBar {
-            profileButtonConfig = self.profileButtonConfig(target: self, action: #selector(userDidTapProfile), dataStore: dataStore, yirDataController: yirDataController)
-        }
+        let trailingBarButtonItem: UIBarButtonItem? = needsSearchBar ? nil : AppSearchBarButtonItem.newAppSearchBarButtonItem
+        self.searchBarButtonItem = trailingBarButtonItem
+        profileButtonConfig = self.profileButtonConfig(target: self, action: #selector(userDidTapProfile), dataStore: dataStore, yirDataController: yirDataController, leadingBarButtonItem: nil, trailingBarButtonItem: trailingBarButtonItem)
         
         let searchViewController = SearchViewController()
         searchViewController.dataStore = dataStore
@@ -860,28 +861,12 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
         let searchBarConfig: WMFNavigationBarSearchConfig? = needsSearchBar ? WMFNavigationBarSearchConfig(searchResultsController: searchViewController, searchControllerDelegate: self, searchResultsUpdater: self, searchBarDelegate: nil, searchBarPlaceholder: WMFLocalizedString("search-field-placeholder-text", value: "Search Wikipedia", comment: "Search field placeholder text"), showsScopeBar: false, scopeButtonTitles: nil) : nil
 
         configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: nil, profileButtonConfig: profileButtonConfig, searchBarConfig: searchBarConfig, hideNavigationBarOnScroll: true)
-        
-        // Bypassing shared profile button config and using custom logic.
-        if !needsSearchBar {
-            let profileButtonConfig = self.profileButtonConfig(target: self, action: #selector(userDidTapProfile), dataStore: dataStore, yirDataController: yirDataController)
-            let profileButtonImage = self.profileButtonImage(theme: WMFAppEnvironment.current.theme, needsBadge: profileButtonConfig.needsBadge)
-            let profileButton = UIBarButtonItem(image: profileButtonImage, style: .plain, target: profileButtonConfig.target, action: profileButtonConfig.action)
-            profileButton.accessibilityLabel = profileButtonConfig.accessibilityLabel
-            
-            navigationItem.rightBarButtonItems = [AppSearchBarButtonItem.newAppSearchBarButtonItem, profileButton]
-            self.profileBarButtonItem = profileButton
-        } else {
-            self.profileBarButtonItem = navigationItem.rightBarButtonItem
-        }
     }
     
     private func updateProfileButton() {
-        let profileButtonConfig = self.profileButtonConfig(target: self, action: #selector(userDidTapProfile), dataStore: dataStore, yirDataController: yirDataController)
-        let profileButtonImage = self.profileButtonImage(theme: WMFAppEnvironment.current.theme, needsBadge: profileButtonConfig.needsBadge)
         
-        if let profileBarButtonItem {
-            profileBarButtonItem.image = profileButtonImage
-        }
+        let config = self.profileButtonConfig(target: self, action: #selector(userDidTapProfile), dataStore: dataStore, yirDataController: yirDataController, leadingBarButtonItem: nil, trailingBarButtonItem: searchBarButtonItem)
+        updateNavigationBarProfileButton(needsBadge: config.needsBadge)
     }
     
     // MARK: History

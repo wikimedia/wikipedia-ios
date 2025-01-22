@@ -29,7 +29,7 @@ import WMFData
             closeButtonConfig = WMFNavigationBarCloseButtonConfig(text: CommonStrings.doneTitle, target: self, action: #selector(closeButtonPressed), alignment: .trailing)
         } else {
             closeButtonConfig = nil
-            profileButtonConfig = WMFNavigationBarProfileButtonConfig(accessibilityLabel: profileAccessibilityLabel, accessibilityHint: profileAccessibilityHint, needsBadge: needsProfileBadge, target: self, action: #selector(tappedProfile))
+            profileButtonConfig = WMFNavigationBarProfileButtonConfig(accessibilityLabel: profileAccessibilityLabel, accessibilityHint: profileAccessibilityHint, needsBadge: needsProfileBadge, target: self, action: #selector(tappedProfile), leadingBarButtonItem: nil, trailingBarButtonItem: nil)
         }
         
         configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: closeButtonConfig, profileButtonConfig: profileButtonConfig, searchBarConfig: nil, hideNavigationBarOnScroll: true)

@@ -3,7 +3,7 @@ import WMFData
 
 extension UIViewController {
     
-    func profileButtonConfig(target: Any, action: Selector, dataStore: MWKDataStore, yirDataController: WMFYearInReviewDataController?) -> WMFNavigationBarProfileButtonConfig {
+    func profileButtonConfig(target: Any, action: Selector, dataStore: MWKDataStore, yirDataController: WMFYearInReviewDataController?, leadingBarButtonItem: UIBarButtonItem?, trailingBarButtonItem: UIBarButtonItem?) -> WMFNavigationBarProfileButtonConfig {
         var hasUnreadNotifications: Bool = false
         if dataStore.authenticationManager.authStateIsPermanent {
             let numberOfUnreadNotifications = try? dataStore.remoteNotificationsController.numberOfUnreadNotifications()
@@ -25,6 +25,6 @@ extension UIViewController {
         let accessibilityLabel = hasUnreadNotifications ? CommonStrings.profileButtonBadgeTitle : CommonStrings.profileButtonTitle
         let accessibilityHint = CommonStrings.profileButtonAccessibilityHint
         
-        return WMFNavigationBarProfileButtonConfig(accessibilityLabel: accessibilityLabel, accessibilityHint: accessibilityHint, needsBadge: hasUnreadNotifications, target: target, action: action)
+        return WMFNavigationBarProfileButtonConfig(accessibilityLabel: accessibilityLabel, accessibilityHint: accessibilityHint, needsBadge: hasUnreadNotifications, target: target, action: action, leadingBarButtonItem: leadingBarButtonItem, trailingBarButtonItem: trailingBarButtonItem)
     }
 }

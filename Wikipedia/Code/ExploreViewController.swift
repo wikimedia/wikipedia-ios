@@ -177,7 +177,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
             }
         }
         
-        let profileButtonConfig = profileButtonConfig(target: self, action: #selector(userDidTapProfile), dataStore: dataStore, yirDataController: yirDataController)
+        let profileButtonConfig = profileButtonConfig(target: self, action: #selector(userDidTapProfile), dataStore: dataStore, yirDataController: yirDataController, leadingBarButtonItem: nil, trailingBarButtonItem: nil)
         
         let searchViewController = SearchViewController()
         searchViewController.dataStore = dataStore
@@ -203,7 +203,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     }
     
     @objc func updateProfileButton() {
-        let config = self.profileButtonConfig(target: self, action: #selector(userDidTapProfile), dataStore: dataStore, yirDataController: yirDataController)
+        let config = self.profileButtonConfig(target: self, action: #selector(userDidTapProfile), dataStore: dataStore, yirDataController: yirDataController, leadingBarButtonItem: nil, trailingBarButtonItem: nil)
         updateNavigationBarProfileButton(needsBadge: config.needsBadge)
     }
     
