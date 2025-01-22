@@ -48,14 +48,16 @@ public struct WMFNavigationBarCloseButtonConfig {
 
 /// Profile button config for navigation bar
 public struct WMFNavigationBarProfileButtonConfig {
-    public let accessibilityLabel: String
+    public let accessibilityLabelNoNotifications: String
+    public let accessibilityLabelHasNotifications: String
     public let accessibilityHint: String
     public let needsBadge: Bool
     public let target: Any
     public let action: Selector
     
-    public init(accessibilityLabel: String, accessibilityHint: String, needsBadge: Bool, target: Any, action: Selector) {
-        self.accessibilityLabel = accessibilityLabel
+    public init(accessibilityLabelNoNotifications: String, accessibilityLabelHasNotifications: String, accessibilityHint: String, needsBadge: Bool, target: Any, action: Selector) {
+        self.accessibilityLabelNoNotifications = accessibilityLabelNoNotifications
+        self.accessibilityLabelHasNotifications = accessibilityLabelHasNotifications
         self.accessibilityHint = accessibilityHint
         self.needsBadge = needsBadge
         self.target = target
@@ -149,7 +151,7 @@ public extension WMFNavigationBarConfiguring where Self: UIViewController {
         if let profileButtonConfig {
             let image = profileButtonImage(theme: WMFAppEnvironment.current.theme, needsBadge: profileButtonConfig.needsBadge)
             let profileButton = UIBarButtonItem(image: image, style: .plain, target: profileButtonConfig.target, action: profileButtonConfig.action)
-            profileButton.accessibilityLabel = profileButtonConfig.accessibilityLabel
+            profileButton.accessibilityLabel = profileButtonAccessibilityStrings(config: profileButtonConfig)
             navigationItem.rightBarButtonItem = profileButton
         }
         
@@ -221,9 +223,11 @@ public extension WMFNavigationBarConfiguring where Self: UIViewController {
     ///     - from appEnvironmentDidChange() if WMFComponents
     ///     - whenever badge logic changes (YiR or unread notifications)
     ///     - Parameter needsBadge: true if red dot needs to be applied to profile button, false if not
-    func updateNavigationBarProfileButton(needsBadge: Bool) {
+    func updateNavigationBarProfileButton(needsBadge: Bool, needsBadgeLabel: String, noBadgeLabel: String) {
         let image = profileButtonImage(theme: WMFAppEnvironment.current.theme, needsBadge: needsBadge)
+
         navigationItem.rightBarButtonItem?.image = image
+        navigationItem.rightBarButtonItem?.accessibilityLabel = needsBadge ? needsBadgeLabel : noBadgeLabel
     }
     
     func profileButtonImage(theme: WMFTheme, needsBadge: Bool) -> UIImage? {
@@ -237,5 +241,9 @@ public extension WMFNavigationBarConfiguring where Self: UIViewController {
         
         let symbol = WMFSFSymbolIcon.for(symbol: needsBadge ? .personCropCircleBadge : .personCropCircle, paletteColors: paletteColors)
         return symbol
+    }
+
+    func profileButtonAccessibilityStrings(config: WMFNavigationBarProfileButtonConfig) -> String {
+        return config.needsBadge ? config.accessibilityLabelHasNotifications : config.accessibilityLabelNoNotifications
     }
 }
