@@ -918,7 +918,7 @@
 "reading-themes-controls-syntax-highlighting" = "Resaltado de sintaxis";
 "reference-section-button-accessibility-label" = "Saltar a la sección de referencias";
 "reference-title" = "Referencia $1";
-"relative-date-days-ago" = "\n{{PLURAL:$1|0=Hoy|Ayer|Hace $1 días}}";
+"relative-date-days-ago" = "{{PLURAL:$1|0=Hoy|Ayer|Hace $1 días}}";
 "relative-date-hours-abbreviated" = "$1h";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=Recientemente|Hace $1 hora|Hace $1 horas}}";
 "relative-date-hours-ago-abbreviated" = "hace $1h";
