@@ -225,6 +225,7 @@ public class WMFWatchlistDataController {
                 username: item.username,
                 isAnon: item.isAnon,
                 isBot: item.isBot,
+                isTemp: item.isTemp,
                 timestamp: timestamp,
                 commentWikitext: item.commentWikitext ?? "",
                 commentHtml: item.commentHtml ?? "",
@@ -603,6 +604,7 @@ private extension WMFWatchlistDataController {
                 let username: String
                 let isAnon: Bool
                 let isBot: Bool
+                let isTemp: Bool
                 let timestampString: String
                 let commentWikitext: String?
                 let commentHtml: String?
@@ -616,6 +618,7 @@ private extension WMFWatchlistDataController {
                     case username = "user"
                     case isAnon = "anon"
                     case isBot = "bot"
+                    case isTemp = "temp"
                     case timestampString = "timestamp"
                     case commentWikitext = "comment"
                     case commentHtml = "parsedcomment"

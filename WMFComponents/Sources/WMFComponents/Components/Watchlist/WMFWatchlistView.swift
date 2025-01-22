@@ -126,6 +126,10 @@ fileprivate struct WMFWatchlistViewCell: View {
     var editSummaryCommentFont: UIFont {
         return itemViewModel.comment.isEmpty ? WMFFont.for(.italicFootnote) : WMFFont.for(.footnote)
     }
+    
+    var userIcon: UIImage? {
+        return itemViewModel.isTemp ? WMFIcon.temp : WMFSFSymbolIcon.for(symbol: .personFilled)
+    }
 
 	var body: some View {
 				ZStack {
@@ -172,10 +176,11 @@ fileprivate struct WMFWatchlistViewCell: View {
                                 .frame(maxWidth: .infinity, alignment: .topLeading)
                                 .accessibilityHidden(true)
 
+                            
 							HStack {
 								WMFSmallSwiftUIMenuButton(configuration: WMFSmallMenuButton.Configuration(
 									title: itemViewModel.username,
-									image: WMFSFSymbolIcon.for(symbol: .personFilled),
+									image: userIcon,
 									primaryColor: \.link,
 									menuItems: menuItemsForRevisionAuthor,
 									metadata: [

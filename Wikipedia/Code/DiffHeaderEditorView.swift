@@ -114,7 +114,7 @@ class DiffHeaderEditorView: SetupView {
         
         headingLabel.text = viewModel.heading
         usernameLabel.text = viewModel.username
-        userIconImageView.image = UIImage(named: "user-edit")
+        userIconImageView.image = viewModel.isTemp ? WMFIcon.temp : UIImage(named: "user-edit")
         
         if let numberOfEditsForDisplay = viewModel.numberOfEditsForDisplay,
         !numberOfEditsForDisplay.isEmpty {
