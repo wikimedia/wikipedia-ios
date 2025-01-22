@@ -224,7 +224,7 @@ class PageHistoryViewController: ColumnarCollectionViewController, WMFNavigation
             }
         }
         
-        pageHistoryFetcher.fetchEditCounts(.edits, .userEdits, .anonymous, .bot, for: pageTitle, pageURL: pageURL) { [weak self] result in
+        pageHistoryFetcher.fetchEditCounts(.edits, .anonymous, .bot, .temporary, .customLoggedIn, .customUnregistered, for: pageTitle, pageURL: pageURL) { [weak self] result in
             DispatchQueue.main.async {
                 guard let self = self else {
                     return

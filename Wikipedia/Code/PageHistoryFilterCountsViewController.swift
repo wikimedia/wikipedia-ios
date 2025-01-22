@@ -24,11 +24,11 @@ class PageHistoryFilterCountsView: UIView {
                 delegate?.didDetermineFilterCountsAvailability(false, view: self)
                 return
             }
-            if let userEdits = editCounts[.userEdits]?.count {
-                counts.append(Count(title: WMFLocalizedString("page-history-user-edits", value: "user edits", comment: "Text for view that shows many edits were made by logged-in users"), image: UIImage(named: "user-edit"), count: userEdits))
+            if let loggedInEdits = editCounts[.customLoggedIn]?.count {
+                counts.append(Count(title: WMFLocalizedString("page-history-logged-in-edits", value: "logged-in", comment: "Text for view that shows many edits were made by logged-in users"), image: UIImage(named: "user-edit"), count: loggedInEdits))
             }
-            if let anonEdits = editCounts[.anonymous]?.count {
-                counts.append(Count(title: WMFLocalizedString("page-history-anonymous-edits", value: "anon edits", comment: "Text for view that shows many edits were made by anonymous users"), image: UIImage(named: "anon"), count: anonEdits))
+            if let unregisteredEdits = editCounts[.customUnregistered]?.count {
+                counts.append(Count(title: WMFLocalizedString("page-history-unregistered-edits", value: "unregistered edits", comment: "Text for view that shows many edits were made by unregistered users"), image: UIImage(named: "temp"), count: unregisteredEdits))
             }
             if let botEdits = editCounts[.bot]?.count {
                 counts.append(Count(title: WMFLocalizedString("page-history-bot-edits", value: "bot edits", comment: "Text for view that shows many edits were made by bots"), image: UIImage(named: "bot"), count: botEdits))

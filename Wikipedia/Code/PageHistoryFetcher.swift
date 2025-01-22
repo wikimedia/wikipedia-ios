@@ -121,7 +121,9 @@ public final class PageHistoryFetcher: WMFLegacyFetcher {
         case minor
         case bot
         case anonymous
-        case userEdits
+        case temporary
+        case customLoggedIn
+        case customUnregistered
     }
 
     private func editCountsURL(for editCountType: EditCountType, pageTitle: String, pageURL: URL, from fromRevisionID: Int? = nil , to toRevisionID: Int? = nil) -> URL? {
@@ -155,10 +157,10 @@ public final class PageHistoryFetcher: WMFLegacyFetcher {
             var editCountsGroupedByType = EditCountsGroupedByType()
             var mostRecentError: Error?
             
-            // An API call with the userEdits type would actually fail. userEdits are inferred below by other count responses (edits minus anonEdits)
-            let editCountTypesMinusUserEdits = editCountTypes.filter { $0 != .userEdits }
+            // An API call with the custom types would actually fail. customLoggedIn and customUnregistered are inferred below (edits - anon - temporary, anon + temporary respectively)
+            let editCountTypesMinusCustomTypes = editCountTypes.filter { $0 != .customLoggedIn && $0 != .customUnregistered }
             
-            for editCountType in editCountTypesMinusUserEdits {
+            for editCountType in editCountTypesMinusCustomTypes {
                 guard let url = self.editCountsURL(for: editCountType, pageTitle: pageTitle, pageURL: pageURL, from: fromRevisionID, to: toRevisionID) else {
                     continue
                 }
@@ -183,9 +185,18 @@ public final class PageHistoryFetcher: WMFLegacyFetcher {
                 }
             }
             group.notify(queue: DispatchQueue.global(qos: .userInitiated)) {
-                if editCountTypes.contains(.userEdits), let edits = editCountsGroupedByType[.edits], !edits.limit, let anonEdits = editCountsGroupedByType[.anonymous], !anonEdits.limit {
-                    editCountsGroupedByType[.userEdits] = (edits.count - anonEdits.count, false)
+                let typesContainsCustom = editCountTypes.contains {$0 == .customUnregistered || $0 == .customLoggedIn}
+                if typesContainsCustom, let anonEdits = editCountsGroupedByType[.anonymous], !anonEdits.limit, let tempEdits = editCountsGroupedByType[.temporary], !tempEdits.limit {
+                    
+                    if editCountTypes.contains(.customLoggedIn),
+                       let edits = editCountsGroupedByType[.edits], !edits.limit {
+                        editCountsGroupedByType[.customLoggedIn] = (edits.count - anonEdits.count - tempEdits.count, false)
+                    }
+                    
+                    editCountsGroupedByType[.customUnregistered] = (anonEdits.count + tempEdits.count, false)
+                    
                 }
+                
                 if editCountsGroupedByType.isEmpty, let mostRecentError = mostRecentError {
                     completion(.failure(mostRecentError))
                 } else {
