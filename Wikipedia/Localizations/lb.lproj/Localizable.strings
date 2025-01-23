@@ -276,6 +276,7 @@
 "editor-replace-type-all-accessibility" = "All Instanzen ersetzen";
 "editor-replace-type-single" = "Ersetzen";
 "editor-replace-type-single-accessibility" = "Eenzel Instanz ersetzen";
+"editor-title" = "Editeur";
 "editor-toolbar-find-accessibility" = "Op der Säit sichen";
 "empty-diff-compare-title" = "Keen Ënnerscheed tëscht de Versiounen";
 "empty-edit-summary" = "Eidele Resumé vun der Ännerung";
@@ -617,7 +618,9 @@
 "places-filter-top-articles" = "Am dackste gelies";
 "places-filter-top-articles-count" = "{{PLURAL:$1|Een Artikel|$1 Artikelen}}";
 "places-filter-top-read-articles" = "Am dackste gelies Artikelen";
+"places-list-title'" = "Lëscht";
 "places-location-enabled" = "Geolokalisatioun aktivéiert";
+"places-map-title" = "Kaart";
 "places-no-saved-articles-have-location" = "Kee vun Äre gespäicherten Artikelen huet Lokalisatiouns-Informatiounen";
 "places-search-default-text" = "Plaze sichen";
 "places-search-did-you-mean" = "Mengt Dir $1?";
