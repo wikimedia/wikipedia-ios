@@ -718,6 +718,9 @@
 		679E6FA82C44537B00B6E9F1 /* WMFBarButtonItemPopoverMessageViewController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 679E6FA52C44537B00B6E9F1 /* WMFBarButtonItemPopoverMessageViewController+Extensions.swift */; };
 		679F0AAD24574AD400EF4A6A /* ArticleViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 679F0AAC24574AD400EF4A6A /* ArticleViewControllerTests.swift */; };
 		679FA104242E651C0095F3C6 /* ArticleManualPerformanceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 679FA103242E651C0095F3C6 /* ArticleManualPerformanceTests.swift */; };
+		67A0699E2D417C4A00290D70 /* UIViewController+ProfileButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67A0699D2D417C4000290D70 /* UIViewController+ProfileButton.swift */; };
+		67A0699F2D417C4A00290D70 /* UIViewController+ProfileButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67A0699D2D417C4000290D70 /* UIViewController+ProfileButton.swift */; };
+		67A069A02D417C4A00290D70 /* UIViewController+ProfileButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67A0699D2D417C4000290D70 /* UIViewController+ProfileButton.swift */; };
 		67A486872BEAE0D6001D3FF9 /* WMFAnnouncementsContentSource+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67A486862BEAE0D6001D3FF9 /* WMFAnnouncementsContentSource+Extensions.swift */; };
 		67A486A42BEBF3C5001D3FF9 /* MagicWord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67A486A32BEBF3C5001D3FF9 /* MagicWord.swift */; };
 		67A486A52BEBF40F001D3FF9 /* MagicWord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67A486A32BEBF3C5001D3FF9 /* MagicWord.swift */; };
@@ -3379,6 +3382,7 @@
 		679E6FA52C44537B00B6E9F1 /* WMFBarButtonItemPopoverMessageViewController+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WMFBarButtonItemPopoverMessageViewController+Extensions.swift"; sourceTree = "<group>"; };
 		679F0AAC24574AD400EF4A6A /* ArticleViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleViewControllerTests.swift; sourceTree = "<group>"; };
 		679FA103242E651C0095F3C6 /* ArticleManualPerformanceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleManualPerformanceTests.swift; sourceTree = "<group>"; };
+		67A0699D2D417C4000290D70 /* UIViewController+ProfileButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+ProfileButton.swift"; sourceTree = "<group>"; };
 		67A486862BEAE0D6001D3FF9 /* WMFAnnouncementsContentSource+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WMFAnnouncementsContentSource+Extensions.swift"; sourceTree = "<group>"; };
 		67A486A32BEBF3C5001D3FF9 /* MagicWord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MagicWord.swift; sourceTree = "<group>"; };
 		67A486A72BEC009F001D3FF9 /* MagicWordUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MagicWordUtils.swift; sourceTree = "<group>"; };
@@ -7502,6 +7506,7 @@
 				7616D4941C5A67D20077ADF7 /* WMFUtilityMacros.h */,
 				D84BF62E1DBE616D00E0C85E /* UIViewController+WMFAlerts.swift */,
 				7AFEB1BB1FA236A100B8DF32 /* UIViewController+Peekable.swift */,
+				67A0699D2D417C4000290D70 /* UIViewController+ProfileButton.swift */,
 				D8FEECCB1DE3729400B883F0 /* WMFChange.h */,
 				D8FEECCC1DE3729400B883F0 /* WMFChange.m */,
 				D87914DC1DFA04E10012C5DA /* NSUserDefaults+WMFApplicationDefaults.swift */,
@@ -10049,6 +10054,7 @@
 				B0C7A0801F710E94008415E7 /* WMFWelcomeLanguagesAnimationBackgroundView.swift in Sources */,
 				00E75B6C27EB92DE00A45B78 /* NotificationsCenterDetailHeaderCell.swift in Sources */,
 				8382F8D320D928BF00AE5250 /* ColumnarCollectionViewControllerLayoutCache.swift in Sources */,
+				67A0699E2D417C4A00290D70 /* UIViewController+ProfileButton.swift in Sources */,
 				D88FCADF1E4B74D300505A9F /* WikidataFetcher+Places.swift in Sources */,
 				B0432344210680A900A9A6B6 /* WMFContentGroupKind+FeedCustomization.swift in Sources */,
 				FFD7B85924B3CA7A005C2471 /* ReferenceShowing.swift in Sources */,
@@ -11241,6 +11247,7 @@
 				D8E6FF6D24056AC300686272 /* ArticleViewController+ContextMenu.swift in Sources */,
 				8386BDFC2386D754007EE89D /* SinglePageWebViewController.swift in Sources */,
 				D8CE258F1E698E2400DAE2E0 /* WMFWelcomeAnimationViewControllers.swift in Sources */,
+				67A0699F2D417C4A00290D70 /* UIViewController+ProfileButton.swift in Sources */,
 				D8CE25901E698E2400DAE2E0 /* TableOfContentsCell.swift in Sources */,
 				D8CE25931E698E2400DAE2E0 /* WMFSettingsMenuItem.m in Sources */,
 				674E8ABA2382DF020053D206 /* DiffTransformer.swift in Sources */,
@@ -11802,6 +11809,7 @@
 				009B835E298091CD00AABEA3 /* EditNoticesView.swift in Sources */,
 				D8EC3E8B1E9BDA35006712EB /* WMFWelcomeAnimationViewControllers.swift in Sources */,
 				D8EC3E8C1E9BDA35006712EB /* TableOfContentsCell.swift in Sources */,
+				67A069A02D417C4A00290D70 /* UIViewController+ProfileButton.swift in Sources */,
 				FFD7B85724B3B39A005C2471 /* ReferenceBackLinksViewControllerDelegate.swift in Sources */,
 				832289DD1F7291BA0081A5FB /* SizeThatFitsReusableView.swift in Sources */,
 				674E8ABB2382DF030053D206 /* DiffTransformer.swift in Sources */,
