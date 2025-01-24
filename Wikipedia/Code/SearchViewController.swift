@@ -441,6 +441,8 @@ class SearchViewController: ArticleCollectionViewController, WMFNavigationBarCon
         view.backgroundColor = theme.colors.paperBackground
         collectionView.backgroundColor = theme.colors.paperBackground
         themeTopSafeAreaOverlay()
+        updateProfileButton()
+        profileCoordinator?.theme = theme
     }
     
     // Recent
