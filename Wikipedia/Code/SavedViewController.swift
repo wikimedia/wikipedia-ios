@@ -362,6 +362,7 @@ class SavedViewController: ThemeableViewController, WMFNavigationBarConfiguring,
             }
         }
         
+        profileCoordinator?.theme = theme
         updateProfileButton()
     }
     
