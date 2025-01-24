@@ -2307,6 +2307,8 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
             searchBar.apply(theme: theme)
             searchBar.backgroundColor = theme.colors.paperBackground
         }
+        profileCoordinator?.theme = theme
+        updateProfileButton()
 
         searchSuggestionController.apply(theme: theme)
 
