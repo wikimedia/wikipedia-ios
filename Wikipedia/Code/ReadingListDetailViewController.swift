@@ -195,7 +195,15 @@ extension ReadingListDetailViewController: CollectionViewEditControllerNavigatio
             rightBarButton?.tintColor = theme.colors.link // no need to do a whole apply(theme:) pass
             sortBarButtonItem.tintColor = theme.colors.link
         }
-        
+
+        if let rightBarButton, newEditingState == .open {
+            navigationItem.rightBarButtonItems = [rightBarButton]
+            navigationItem.leftBarButtonItem = nil
+        } else {
+            configureNavigationBar()
+        }
+
+
         switch newEditingState {
         case .editing:
             fallthrough
