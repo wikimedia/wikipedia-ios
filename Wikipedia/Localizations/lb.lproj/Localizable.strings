@@ -215,7 +215,7 @@
 "diff-thanks-sent-cannot-unsend" = "Mercie kënnen net zréckgeholl ginn";
 "diff-undo-success" = "D'Versioun gouf réckgängeg gemaach.";
 "dim-images" = "Biller dimmen";
-"donate-email-opt-in-text" = "Jo, d'Wikimedia Foundation däerf mir heiansdo eng E-Mail schreiwen.";
+"donate-email-opt-in-text" = "Jo, d'Wikimedia Foundation däerf mir heiansdo eng E-Mail schécken.";
 "donate-help-frequently-asked-questions" = "Dacks gestallte Froen";
 "donate-help-problems-donating" = "Problemer beim Spenden?";
 "donate-later-title" = "Mir erënneren Iech muer nach eng Kéier.";
@@ -411,7 +411,7 @@
 "image-rec-survey-submit-button" = "Schécken";
 "image-rec-survey-title" = "Grond";
 "image-rec-title" = "Bild derbäisetzen";
-"image-rec-tooltip-2-body" = "Inspizéiert d'Bild an déi dozougehéiereg Informatiounen un.";
+"image-rec-tooltip-2-body" = "Inspizéiert d'Bild an déi dozougehéiereg Informatiounen.";
 "image-rec-tooltip-2-title" = "Inspizéieren";
 "image-rec-tooltip-3-body" = "Entscheet, ob d'Bild dem Lieser dobäi hëlleft d'Theema besser ze verstoen.";
 "image-rec-tooltip-3-title" = "Entscheeden";
