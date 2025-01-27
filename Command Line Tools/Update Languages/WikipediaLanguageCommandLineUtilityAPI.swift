@@ -52,6 +52,24 @@ class WikipediaLanguageCommandLineUtilityAPI {
                     return Wikipedia(languageCode: code, languageName: name, localName: localname, altISOCode: "nb")
                 }
                 
+                // If there's a site array populated with a subdomain that does NOT equal languageCode, skip. It might show up as a dupe in the languages list.
+                if let site = result["site"] as? [[String : Any]] {
+                    let wikipediaSite = site.first(where: { dict in
+                        (dict["sitename"] as? String) == "Wikipedia"
+                    })
+                    
+                    if let siteURLString = wikipediaSite?["url"] as? String,
+                       let components = URLComponents(string: siteURLString),
+                       let host = components.host,
+                       let hostLangCode = host.components(separatedBy: ".").first {
+                        
+                        if code != hostLangCode {
+                            return nil
+                        }
+                        
+                    }
+                }
+                
                 return Wikipedia(languageCode: code, languageName: name, localName: localname, altISOCode: nil)
             }
             // Add testwiki and test2wiki, they are not returned by the site matrix

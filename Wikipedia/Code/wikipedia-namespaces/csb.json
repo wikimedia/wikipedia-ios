@@ -9,10 +9,10 @@
     "DISKÙSËJÔ BRËKÒWNIKA" : 3,
     "DISKÙSËJÔ KATEGÒRËJI" : 15,
     "DISKÙSËJÔ MEDIAWIKI" : 9,
+    "DISKÙSËJÔ ÒBRÔZKÓW" : 7,
     "DISKÙSËJÔ PÒMÒCË" : 13,
     "DISKÙSËJÔ SZABLÓNË" : 11,
     "DISKÙSËJÔ WIKI" : 5,
-    "DISKÙSËJÔ ÒBRÔZKÓW" : 7,
     "DYSKUSJA GRAFIKI" : 7,
     "DYSKUSJA MODUŁU" : 829,
     "DYSKUSJA UŻYTKOWNICZKI" : 3,
@@ -28,12 +28,13 @@
     "MEDIA" : -2,
     "MEDIAWIKI" : 8,
     "MEDIAWIKI TALK" : 9,
+    "MODUŁ" : 828,
     "MODULE" : 828,
     "MODULE TALK" : 829,
-    "MODUŁ" : 828,
+    "ÒBRÔZK" : 6,
+    "PÒMÒC" : 12,
     "PROJECT" : 4,
     "PROJECT TALK" : 5,
-    "PÒMÒC" : 12,
     "SPECIAL" : -1,
     "SPECJALNÔ" : -1,
     "SZABLÓNA" : 10,
@@ -49,7 +50,6 @@
     "WIKI" : 4,
     "WIKIPEDIA" : 4,
     "WIKIPEDIA TALK" : 5,
-    "WP" : 4,
-    "ÒBRÔZK" : 6
+    "WP" : 4
   }
 }
