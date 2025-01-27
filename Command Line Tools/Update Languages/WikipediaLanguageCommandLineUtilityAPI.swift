@@ -53,18 +53,19 @@ class WikipediaLanguageCommandLineUtilityAPI {
                 }
                 
                 // If there's a site array populated with a subdomain that does NOT equal languageCode, skip. It might show up as a dupe in the languages list.
-                if let site = result["site"] as? [[String : Any]] {
-                    let wikipediaSite = site.first(where: { dict in
-                        (dict["sitename"] as? String) == "Wikipedia"
-                    })
+                // TODO: This is a temporary workaround to remove duplicated languages, but eventually a proper data migration for the user might need to occur to switch from the old language code to the new.
+                if let sites = result["site"] as? [[String : Any]] {
+                    let site = sites.first
                     
-                    if let siteURLString = wikipediaSite?["url"] as? String,
+                    if let siteURLString = site?["url"] as? String,
                        let components = URLComponents(string: siteURLString),
                        let host = components.host,
                        let hostLangCode = host.components(separatedBy: ".").first {
                         
-                        if code != hostLangCode {
-                            return nil
+                        if siteURLString.hasSuffix("wikipedia.org") {
+                            if code != hostLangCode && code != "yue" { // Cantonese has already slipped in here twice, so leaving it in as a dupe until we can clean up user databases.
+                                return nil
+                            }
                         }
                         
                     }
