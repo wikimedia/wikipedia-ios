@@ -79,6 +79,10 @@ final class EditorViewController: UIViewController, WMFNavigationBarConfiguring 
         return spinner
     }()
     
+    internal var authManager: WMFAuthenticationManager {
+        return dataStore.authenticationManager
+    }
+    
     // MARK: - Lifecycle
     
     init(pageURL: URL, sectionID: Int?, editFlow: EditFlow, source: Source, dataStore: MWKDataStore, articleSelectedInfo: SelectedTextEditInfo?, editTag: WMFEditTag, delegate: EditorViewControllerDelegate, theme: Theme) {
@@ -111,6 +115,13 @@ final class EditorViewController: UIViewController, WMFNavigationBarConfiguring 
         apply(theme: theme)
         
         loadContent()
+        
+        let user = authManager.user(siteURL: pageURL)
+        if user?.authState == .temporary {
+            tempEditorSheet()
+        } else if user?.authState == .ip {
+            ipEditorSheet()
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -119,6 +130,24 @@ final class EditorViewController: UIViewController, WMFNavigationBarConfiguring 
     }
     
     // MARK: - Private Helpers
+    
+    private func tempEditorSheet() {
+        let vm = WMFTempAccountsSheetViewModel(
+            image: "",
+            title: "",
+            subtitle: "",
+            ctaTopString: "",
+            ctaBottomString: "")
+    }
+    
+    private func ipEditorSheet() {
+        let vm = WMFTempAccountsSheetViewModel(
+            image: "",
+            title: "",
+            subtitle: "",
+            ctaTopString: "",
+            ctaBottomString: "")
+    }
     
     private func configureNavigationBar() {
 
