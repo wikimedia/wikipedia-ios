@@ -917,6 +917,22 @@
 			<string>%1$d</string>
 		</dict>
 	</dict>
+	<key>year-in-review-personalized-reading-subtitle-format</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Cette année, vous avez consulté %#@v1@. Wikipédia propose %2$@ millions d’articles dans plus de %3$@ langues actives. Vous avez rejoint des millions de personnes pour le développement de la connaissance et l’exploration de divers sujets.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d article</string>
+			<key>other</key>
+			<string>%1$d articles</string>
+		</dict>
+	</dict>
 	<key>year-in-review-personalized-reading-title-format</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
