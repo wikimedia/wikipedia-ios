@@ -800,7 +800,7 @@
 "main-menu-account-login" = "登录";
 "main-menu-account-logout" = "退出";
 "main-menu-account-logout-are-you-sure" = "您确定要退出登录吗？";
-"main-menu-account-logout-are-you-sure-message" = "退出登录将会删除本地存储的账户数据（通知和消息），不过您的账号数据仍然存储于网络上，如果您重新登录，将会重新下载。";
+"main-menu-account-logout-are-you-sure-message" = "退出登录将会删除本地存储的账号数据（通知和消息），不过您的账号数据仍然存储于网络上，如果您重新登录，将会重新下载。";
 "main-menu-account-title-logged-in" = "以$1的身份登录";
 "main-menu-heading-legal" = "隐私和条款";
 "main-menu-nearby" = "附近";
@@ -1054,7 +1054,7 @@
 "profile-page-join-title" = "登录/加入维基百科";
 "profile-page-logged-out-year-in-review-subtext" = "请登录或创建账号，以在来年获得更好的年度回顾";
 "profile-page-title-logged-out" = "账号";
-"profile-year-in-review-login-subtitle" = "登录或创建账户，以便再次查看年度回顾，并有资格获得更多个性化分析数据。";
+"profile-year-in-review-login-subtitle" = "登录或创建账号，以便再次查看年度回顾，并有资格获得更多个性化分析数据。";
 "profile-year-in-review-login-title" = "登录以访问年度回顾";
 "project-name-mediawiki" = "MediaWiki";
 "project-name-wikibooks" = "维基教科书";
@@ -1523,7 +1523,7 @@
 "year-in-review-feature-explore-body" = "维基百科是世界历史上最大的知识资源库，向每个地方的每个人免费开放。通过维基百科的视角回顾 2024 年。";
 "year-in-review-feature-explore-body-personalized" = "查看您在维基百科应用上阅读的文章以及您在 2024 年所做的编辑的分析。您的阅读历史将受到保护。阅读见解使用存储在您设备上的本地数据计算。";
 "year-in-review-finish" = "完成";
-"year-in-review-login-subtitle" = "登录或创建账户，以便有资格获得更多个性化分析数据";
+"year-in-review-login-subtitle" = "登录或创建账号，以便有资格获得更多个性化分析数据";
 "year-in-review-login-title" = "改进您的年度回顾";
 "year-in-review-personalized-day-subtitle-format" = "您在 $1 阅读的文章最多。很明显，$1 是您探索新内容最重要的日子。感谢您充分利用您的阅读时间！";
 "year-in-review-personalized-day-title-format" = "您阅读最多的是$1 。";
