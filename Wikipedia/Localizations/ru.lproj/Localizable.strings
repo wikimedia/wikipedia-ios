@@ -922,7 +922,9 @@
 "places-filter-top-articles" = "Самые читаемые";
 "places-filter-top-articles-count" = "$1 {{PLURAL:$1|статья|статей|статьи}}";
 "places-filter-top-read-articles" = "Самые читаемые статьи";
+"places-list-title'" = "Список";
 "places-location-enabled" = "Определение местоположения включено";
+"places-map-title" = "Карта";
 "places-no-saved-articles-have-location" = "Ни в одной из ваших сохранённых статей нет информации о местоположении";
 "places-search-articles-that-match" = "$1 подходит для “$2”";
 "places-search-default-text" = "Места поиска";
@@ -945,8 +947,7 @@
 "privacy-policy-title" = "Политика конфиденциальности";
 "problem-with-feature-title" = "Проблема с функцией";
 "profile-button-accessibility-label" = "Профиль";
-// Fuzzy
-"profile-page-join-title" = "Присоединяйтесь к Википедии / Войти";
+"profile-page-join-title" = "Войдите / Присоединитесь к Википедии";
 "profile-page-title-logged-out" = "Учётная запись";
 "project-name-mediawiki" = "MediaWiki";
 "project-name-wikibooks" = "Викиучебник";
@@ -1111,6 +1112,8 @@
 "settings-notifications-push-notifications" = "Push-уведомления";
 "settings-notifications-system-turn-on" = "Включить уведомления";
 "settings-notifications-trending" = "В тренде текущих событий";
+"settings-off" = "выкл.";
+"settings-on" = "вкл.";
 "settings-primary-language" = "Основной";
 "settings-primary-language-details" = "Первый язык в этом списке используется как основной язык приложения.";
 "settings-search-footer-text" = "Открывать при запуске приложения вкладку \"Поиск\", вместо вкладки \"Лента\"";
@@ -1359,6 +1362,9 @@
 "year-in-review-base-reading-title" = "Википедия доступна на более чем 300 языках";
 "year-in-review-base-viewed-title" = "Мы просмотрели статьи Википедии $1 миллиард раз";
 "year-in-review-button-title" = "Обзор года";
+"year-in-review-collective-edits" = "Иллюстрация двух объединённых фрагментов пазла с логотипом Википедии, каждый из которых несёт информацию.";
+"year-in-review-collective-edits-per-minute" = "Тиканье часов, которое символизирует время, потраченное людьми за чтением Википедии.";
+"year-in-review-collective-zero-ads" = "Логотип Викимедиа";
 "year-in-review-day-friday" = "Пятницы";
 "year-in-review-day-monday" = "Понедельники";
 "year-in-review-day-saturday" = "Субботы";
@@ -1382,3 +1388,4 @@
 "year-in-review-survey-unsatisfied" = "Недоволен";
 "year-in-review-survey-very-satisfied" = "Очень доволен";
 "year-in-review-survey-very-unsatisfied" = "Очень недоволен";
+"year-in-review-wmf-logo-accessibility-label" = "Логотип Фонда Викимедиа";
