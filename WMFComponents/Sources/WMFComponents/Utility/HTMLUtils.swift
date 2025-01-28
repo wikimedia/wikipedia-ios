@@ -471,12 +471,17 @@ public struct HtmlUtils {
             }
             
             if tagNameString == "/ol" {
-                types.removeLast()
-                indent = indent - 1
-                orderedListCounts.removeLast()
+                
+                if !types.isEmpty && !orderedListCounts.isEmpty { // Prevent crashes from malformed html
+                    types.removeLast()
+                    indent = indent - 1
+                    orderedListCounts.removeLast()
+                }
             } else if tagNameString == "/ul" {
-                types.removeLast()
-                indent = indent - 1
+                if !types.isEmpty { // Prevent crashes from malformed html
+                    types.removeLast()
+                    indent = indent - 1
+                }
             }
             
             if tagNameString == "li" {
