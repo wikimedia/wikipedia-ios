@@ -1,5 +1,6 @@
 import UIKit
 import WMFComponents
+import WMFData
 
 class SearchViewController: ArticleCollectionViewController, WMFNavigationBarConfiguring, WMFNavigationBarHiding {
     
