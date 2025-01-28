@@ -31,9 +31,9 @@
     "MEDIAWIKI TALK" : 9,
     "MODULE" : 828,
     "MODULE TALK" : 829,
-    "MULTIMÉDIA" : -2,
     "MÓDULO" : 828,
     "MÓDULO DISCUSSÃO" : 829,
+    "MULTIMÉDIA" : -2,
     "PORTAL" : 100,
     "PORTAL DISCUSSÃO" : 101,
     "PREDEFINIÇÃO" : 10,
@@ -63,10 +63,10 @@
     "UTILIZADORA" : 2,
     "UTILIZADORA DISCUSSÃO" : 3,
     "WIKIPEDIA" : 4,
-    "WIKIPEDIA DISCUSSÃO" : 5,
-    "WIKIPEDIA TALK" : 5,
     "WIKIPÉDIA" : 4,
+    "WIKIPEDIA DISCUSSÃO" : 5,
     "WIKIPÉDIA DISCUSSÃO" : 5,
+    "WIKIPEDIA TALK" : 5,
     "WP" : 4
   }
 }
