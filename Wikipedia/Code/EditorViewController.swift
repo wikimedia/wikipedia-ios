@@ -1,4 +1,5 @@
 import UIKit
+import SwiftUI
 import WMFComponents
 import WMF
 import CocoaLumberjackSwift
@@ -83,6 +84,10 @@ final class EditorViewController: UIViewController, WMFNavigationBarConfiguring 
         return dataStore.authenticationManager
     }
     
+    // MARK: - Grey here
+    var learnMoreURL = "www.google.com"
+    var otherURL = "www.google.com"
+    
     // MARK: - Lifecycle
     
     init(pageURL: URL, sectionID: Int?, editFlow: EditFlow, source: Source, dataStore: MWKDataStore, articleSelectedInfo: SelectedTextEditInfo?, editTag: WMFEditTag, delegate: EditorViewControllerDelegate, theme: Theme) {
@@ -117,7 +122,7 @@ final class EditorViewController: UIViewController, WMFNavigationBarConfiguring 
         loadContent()
         
         let user = authManager.user(siteURL: pageURL)
-        if user?.authState == .temporary {
+        if true { // user?.authState == .temporary {
             tempEditorSheet()
         } else if user?.authState == .ip {
             ipEditorSheet()
@@ -133,20 +138,51 @@ final class EditorViewController: UIViewController, WMFNavigationBarConfiguring 
     
     private func tempEditorSheet() {
         let vm = WMFTempAccountsSheetViewModel(
-            image: "",
-            title: "",
-            subtitle: "",
-            ctaTopString: "",
-            ctaBottomString: "")
+            image: "pageMessage",
+            title: WMFLocalizedString("temp-account-edit-sheet-title", value: "You are using a temporary account", comment: "Temporary account sheet for editors"),
+            subtitle: tempEditorSubtitleString(tempUsername: "fakeUsername"),
+            ctaTopString: WMFLocalizedString("temp-account-edit-sheet-cta-top", value: "Log in or create an account", comment: "Temporary account sheet for editors, log in/sign up."),
+            ctaBottomString: WMFLocalizedString("temp-account-got-it", value: "Got it", comment: "Got it button"))
+        let tempAccountsSheetView = WMFTempAccountsSheetView(viewModel: vm)
+        let hostingController = UIHostingController(rootView: tempAccountsSheetView)
+        hostingController.modalPresentationStyle = .pageSheet
+
+        if let sheet = hostingController.sheetPresentationController {
+            sheet.detents = [.large()]
+        }
+
+        present(hostingController, animated: true, completion: nil)
+    }
+    
+    func tempEditorSubtitleString(tempUsername: String) -> String {
+        let format = WMFLocalizedString("temp-account-edit-sheet-subtitle", value: "Your edit will be attributed to <b>%1$@</b>. Your <a href=\"\(learnMoreURL)\">IP address</a> will be visible to administrators.<br/><br/>If you log in or create an account, your edits will be attributed to a name you choose, among other benefits.",
+          comment: "Information on temporary accounts, $1 is the temporary username.")
+        return String.localizedStringWithFormat(format, tempUsername)
     }
     
     private func ipEditorSheet() {
         let vm = WMFTempAccountsSheetViewModel(
-            image: "",
-            title: "",
-            subtitle: "",
-            ctaTopString: "",
-            ctaBottomString: "")
+            image: "lockedEdit",
+            title: WMFLocalizedString("ip-account-edit-sheet", value: "You are not logged in", comment: "IP account sheet for editors"),
+            subtitle: ipEditorSubtitleString(),
+            ctaTopString: WMFLocalizedString("ip-account-cta-top", value: "Log in or create an account", comment: "Log in or create an account button title"),
+            ctaBottomString: WMFLocalizedString("ip-account-cta-bottom", value: "Contnue without logging in", comment: "Continue without logging in button title"))
+        
+        let tempAccountsSheetView = WMFTempAccountsSheetView(viewModel: vm)
+        let hostingController = UIHostingController(rootView: tempAccountsSheetView)
+        hostingController.modalPresentationStyle = .pageSheet
+
+        if let sheet = hostingController.sheetPresentationController {
+            sheet.detents = [.large()]
+        }
+
+        present(hostingController, animated: true, completion: nil)
+    }
+    
+    func ipEditorSubtitleString() -> String {
+        WMFLocalizedString("ip-account-edit-sheet-subtitle", value:
+          "Once you make an edit, a <b>temporary account</b> will be created for you to protect your privacy. <a href=\"\(learnMoreURL)\">Learn more.</a><br/><br/>Log in or create an account to get credit for future edits and to access other features.",
+          comment: "Information on temporary accounts")
     }
     
     private func configureNavigationBar() {
