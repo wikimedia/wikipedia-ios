@@ -7,7 +7,7 @@ Before developing, please read the [setup instructions](README.md).
 Once your contributions are ready for review, add yourself in alphabetical order under contributors in `Code/AboutViewController.plist` and post a pull request on GitHub. One of the maintainers will review the PR. Thanks for contributing! 🎉
 
 ## What can I work on?
-If you're looking for easy work, look at the tasks marked with the "good first bug" tag. [This link](https://phabricator.wikimedia.org/project/board/782/query/7vYTqNgpvqjh/) will show you all the "good first bug" tasks in the iOS backlog.
+If you're looking for easy work, look at the tasks marked with the "good first task" tag. [This link](https://phabricator.wikimedia.org/project/board/782/query/7vYTqNgpvqjh/) will show you all the "good first task" tasks in the iOS backlog.
 
 If you're ready to pick up more difficult work, look at the iOS backlog and pick something from the Bug Backlog column. [This link](https://phabricator.wikimedia.org/project/board/782/) will show you all the tasks in the iOS backlog. If the status of the task is unclear or you need more information, feel free to leave a comment and we'll try to respond as soon as possible.
 
