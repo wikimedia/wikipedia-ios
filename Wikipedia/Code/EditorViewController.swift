@@ -147,7 +147,8 @@ final class EditorViewController: UIViewController, WMFNavigationBarConfiguring 
             title: WMFLocalizedString("temp-account-edit-sheet-title", value: "You are using a temporary account", comment: "Temporary account sheet for editors"),
             subtitle: tempEditorSubtitleString(tempUsername: "fakeUsername"),
             ctaTopString: WMFLocalizedString("temp-account-edit-sheet-cta-top", value: "Log in or create an account", comment: "Temporary account sheet for editors, log in/sign up."),
-            ctaBottomString: WMFLocalizedString("temp-account-got-it", value: "Got it", comment: "Got it button"))
+            ctaBottomString: WMFLocalizedString("temp-account-got-it", value: "Got it", comment: "Got it button"),
+            done: CommonStrings.doneTitle)
         let tempAccountsSheetView = WMFTempAccountsSheetView(viewModel: vm)
         let hostingController = UIHostingController(rootView: tempAccountsSheetView)
         hostingController.modalPresentationStyle = .pageSheet
@@ -171,7 +172,8 @@ final class EditorViewController: UIViewController, WMFNavigationBarConfiguring 
             title: WMFLocalizedString("ip-account-edit-sheet", value: "You are not logged in", comment: "IP account sheet for editors"),
             subtitle: ipEditorSubtitleString(),
             ctaTopString: WMFLocalizedString("ip-account-cta-top", value: "Log in or create an account", comment: "Log in or create an account button title"),
-            ctaBottomString: WMFLocalizedString("ip-account-cta-bottom", value: "Continue without logging in", comment: "Continue without logging in button title"))
+            ctaBottomString: WMFLocalizedString("ip-account-cta-bottom", value: "Continue without logging in", comment: "Continue without logging in button title"),
+            done: CommonStrings.doneTitle)
         
         let tempAccountsSheetView = WMFTempAccountsSheetView(viewModel: vm)
         let hostingController = UIHostingController(rootView: tempAccountsSheetView)

@@ -8,14 +8,16 @@ public class WMFTempAccountsSheetViewModel: ObservableObject {
     let subtitle: String
     let ctaTopString: String
     let ctaBottomString: String
+    let done: String
     // let ctaTopAction: () -> ()
     
-    public init(image: String, title: String, subtitle: String, ctaTopString: String, ctaBottomString: String) {
+    public init(image: String, title: String, subtitle: String, ctaTopString: String, ctaBottomString: String, done: String) {
         self.image = image
         self.title = title
         self.subtitle = subtitle
         self.ctaTopString = ctaTopString
         self.ctaBottomString = ctaBottomString
+        self.done = done
     }
     
     public struct LocalizedStrings {

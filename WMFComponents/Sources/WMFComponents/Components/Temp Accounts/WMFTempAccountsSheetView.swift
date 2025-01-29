@@ -32,11 +32,13 @@ public struct WMFTempAccountsSheetView: View {
                     dismiss()
                 },
                 label: {
-                    closeImage
+                    Text(viewModel.done)
+                        .font(Font(WMFFont.navigationBarDoneButtonFont))
+                        .foregroundColor(Color(theme.navigationBarTintColor))
+                        .frame(maxWidth: .infinity, alignment: .topLeading)
                 })
-            .foregroundColor(Color(uiColor: appEnvironment.theme.icon))
             .padding(15)
-            .frame(maxWidth: .infinity, alignment: .topTrailing)
+            .frame(maxWidth: .infinity, alignment: .topLeading)
             VStack(spacing: 17) {
                 VStack(spacing: 22) {
                     Image(viewModel.image, bundle: .module)
