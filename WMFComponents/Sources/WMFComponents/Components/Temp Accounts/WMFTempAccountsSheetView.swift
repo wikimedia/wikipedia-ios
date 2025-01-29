@@ -4,6 +4,7 @@ import WMFData
 public struct WMFTempAccountsSheetView: View {
     @ObservedObject var appEnvironment = WMFAppEnvironment.current
     @ObservedObject var viewModel: WMFTempAccountsSheetViewModel
+    @Environment(\.dismiss) private var dismiss
 
     var theme: WMFTheme {
         return appEnvironment.theme
@@ -17,23 +18,43 @@ public struct WMFTempAccountsSheetView: View {
         HtmlUtils.Styles(font: WMFFont.for(.subheadline), boldFont: WMFFont.for(.boldSubheadline), italicsFont: WMFFont.for(.subheadline), boldItalicsFont: WMFFont.for(.subheadline), color: theme.text, linkColor: theme.link, lineSpacing: 1)
     }
     
+    var closeImage: Image? {
+        if let uiImage = WMFSFSymbolIcon.for(symbol: .closeCircleFill, font: .title1) {
+            return Image(uiImage: uiImage)
+        }
+        return nil
+    }
+    
     public var body: some View {
-        VStack(spacing: 17) {
-            VStack(spacing: 22) {
-                Image(viewModel.image, bundle: .module)
-                textInfo
+        VStack {
+            Button(
+                action: {
+                    dismiss()
+                },
+                label: {
+                    closeImage
+                })
+            .foregroundColor(Color(uiColor: appEnvironment.theme.icon))
+            .padding(15)
+            .frame(maxWidth: .infinity, alignment: .topTrailing)
+            VStack(spacing: 17) {
+                VStack(spacing: 22) {
+                    Image(viewModel.image, bundle: .module)
+                    textInfo
+                }
+                WMFLargeButton(configuration: .primary, title: viewModel.ctaTopString, action: {
+                    // TODO
+                })
+                .frame(maxWidth: .infinity)
+                WMFLargeButton(configuration: .secondary, title: viewModel.ctaBottomString, action: {
+                    // TODO
+                })
+                .frame(maxWidth: .infinity)
             }
-            WMFLargeButton(configuration: .primary, title: viewModel.ctaTopString, action: {
-                print("First CTA pressed")
-            })
-            .frame(maxWidth: .infinity)
-            WMFLargeButton(configuration: .secondary, title: viewModel.ctaBottomString, action: {
-                print("Second CTA pressed")
-            })
-            .frame(maxWidth: .infinity)
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .padding(.horizontal, 51)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .padding(.horizontal, 51)
         .background(Color(uiColor: theme.midBackground))
         .environment(\.colorScheme, theme.preferredColorScheme)
     }

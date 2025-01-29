@@ -122,7 +122,7 @@ final class EditorViewController: UIViewController, WMFNavigationBarConfiguring 
         loadContent()
         
         let user = authManager.user(siteURL: pageURL)
-        if true { // user?.authState == .temporary {
+        if user?.authState == .temporary {
             tempEditorSheet()
         } else if user?.authState == .ip {
             ipEditorSheet()
