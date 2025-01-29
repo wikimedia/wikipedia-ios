@@ -838,9 +838,16 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
     // MARK: Navigation Bar
     
     var needsSearchBar: Bool {
+        guard let assignment = try? WMFNavigationExperimentsDataController.shared?.articleSearchBarExperimentAssignment() else {
+            return false
+        }
         
-        // TODO: A/B test
-        return false
+        switch assignment {
+        case .control:
+            return false
+        case .test:
+            return true
+        }
     }
     
     private func configureNavigationBar() {
