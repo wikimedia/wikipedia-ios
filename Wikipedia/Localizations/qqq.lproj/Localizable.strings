@@ -710,7 +710,7 @@
 "ip-account-cta-bottom" = "Continue without logging in button title";
 "ip-account-cta-top" = "Log in or create an account button title";
 "ip-account-edit-sheet" = "IP account sheet for editors";
-"ip-account-edit-sheet-subtitle" = "Information on temporary accounts";
+"ip-account-edit-sheet-subtitle" = "Information on temporary accounts, $1 is the link";
 "kazakh-variants-alert-body" = "Body text of alert used to inform users about Kazakh variant support. Please do not translate the newlines (\n) or Kazakh characters (Қазақша, etc.).";
 "kazakh-variants-alert-title" = "Title of alert used to inform users about Kazakh variant support.";
 "kurdish-variants-alert-body" = "Body text of alert used to inform users about Kurdish variant support. Please do not translate the newlines (\n) or Kurdish characters (كوردی, etc.).";
@@ -1281,7 +1281,7 @@
 "talk-pages-user-logs" = "Title for menu option to consult the user's public logs. Please prioritize for de, ar and zh wikis.";
 "talk-pages-view-title" = "Title of user and article talk pages view. Please prioritize for de, ar and zh wikis.";
 "temp-account-edit-sheet-cta-top" = "Temporary account sheet for editors, log in/sign up.";
-"temp-account-edit-sheet-subtitle" = "Information on temporary accounts, $1 is the temporary username.";
+"temp-account-edit-sheet-subtitle" = "Information on temporary accounts, $1 is the temporary username, $2 is the URL.";
 "temp-account-edit-sheet-title" = "Temporary account sheet for editors";
 "temp-account-got-it" = "Got it button";
 "terms-of-use-title" = "Title for the terms of use";

@@ -59,6 +59,10 @@ public struct WMFTempAccountsSheetView: View {
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(Color(uiColor: theme.midBackground))
         .environment(\.colorScheme, theme.preferredColorScheme)
+        .environment(\.openURL, OpenURLAction { url in
+            viewModel.handleURL(url)
+            return .handled
+        })
     }
     
     private var textInfo: some View {

@@ -91,7 +91,13 @@ final class EditorViewController: UIViewController, WMFNavigationBarConfiguring 
         }
         return "https://www.mediawiki.org/wiki/Special:MyLanguage/Help:Temporary_accounts?uselang=\(languageCodeSuffix)"
     }
-    var ipURL = "https://www.google.com"
+    var ipURL: String {
+        var languageCodeSuffix = ""
+        if let primaryAppLanguageCode = dataStore.languageLinkController.appLanguage?.languageCode {
+            languageCodeSuffix = "\(primaryAppLanguageCode)"
+        }
+        return "https://www.mediawiki.org/wiki/Special:MyLanguage/Help:Temporary_accounts?uselang=\(languageCodeSuffix)"
+    }
     
     // MARK: - Lifecycle
     
@@ -127,9 +133,9 @@ final class EditorViewController: UIViewController, WMFNavigationBarConfiguring 
         loadContent()
         
         let user = authManager.user(siteURL: pageURL)
-        if false { // user?.authState == .temporary {
+        if user?.authState == .temporary {
             tempEditorSheet()
-        } else if true { // user?.authState == .ip {
+        } else if user?.authState == .ip {
             ipEditorSheet()
         }
     }
@@ -148,7 +154,21 @@ final class EditorViewController: UIViewController, WMFNavigationBarConfiguring 
             subtitle: tempEditorSubtitleString(tempUsername: "fakeUsername"),
             ctaTopString: WMFLocalizedString("temp-account-edit-sheet-cta-top", value: "Log in or create an account", comment: "Temporary account sheet for editors, log in/sign up."),
             ctaBottomString: WMFLocalizedString("temp-account-got-it", value: "Got it", comment: "Got it button"),
-            done: CommonStrings.doneTitle)
+            done: CommonStrings.doneTitle,
+            handleURL: { url in
+                guard let presentedViewController = self.navigationController?.presentedViewController else {
+                    DDLogError("Unexpected navigation controller state. Skipping Learn More presentation.")
+                    return
+                }
+
+                let webVC: SinglePageWebViewController
+
+                let config = SinglePageWebViewController.StandardConfig(url: url, useSimpleNavigationBar: true)
+                webVC = SinglePageWebViewController(configType: .standard(config), theme: self.theme)
+
+                let newNavigationVC = WMFComponentNavigationController(rootViewController: webVC, modalPresentationStyle: .formSheet)
+                presentedViewController.present(newNavigationVC, animated: true)
+            })
         let tempAccountsSheetView = WMFTempAccountsSheetView(viewModel: vm)
         let hostingController = UIHostingController(rootView: tempAccountsSheetView)
         hostingController.modalPresentationStyle = .pageSheet
@@ -161,9 +181,9 @@ final class EditorViewController: UIViewController, WMFNavigationBarConfiguring 
     }
     
     func tempEditorSubtitleString(tempUsername: String) -> String {
-        let format = WMFLocalizedString("temp-account-edit-sheet-subtitle", value: "Your edit will be attributed to <b>%1$@</b>. Your <a href=\"\(ipURL)\">IP address</a> will be visible to administrators.<br/><br/>If you log in or create an account, your edits will be attributed to a name you choose, among other benefits.",
-          comment: "Information on temporary accounts, $1 is the temporary username.")
-        return String.localizedStringWithFormat(format, tempUsername)
+        let format = WMFLocalizedString("temp-account-edit-sheet-subtitle", value: "Your edit will be attributed to <b>%1$@</b>. Your <a href=\"%2$@\">IP address</a> will be visible to administrators.<br/><br/>If you log in or create an account, your edits will be attributed to a name you choose, among other benefits.",
+          comment: "Information on temporary accounts, $1 is the temporary username, $2 is the URL.")
+        return String.localizedStringWithFormat(format, tempUsername, ipURL)
     }
     
     private func ipEditorSheet() {
@@ -173,8 +193,21 @@ final class EditorViewController: UIViewController, WMFNavigationBarConfiguring 
             subtitle: ipEditorSubtitleString(),
             ctaTopString: WMFLocalizedString("ip-account-cta-top", value: "Log in or create an account", comment: "Log in or create an account button title"),
             ctaBottomString: WMFLocalizedString("ip-account-cta-bottom", value: "Continue without logging in", comment: "Continue without logging in button title"),
-            done: CommonStrings.doneTitle)
-        
+            done: CommonStrings.doneTitle,
+            handleURL: { url in
+                guard let presentedViewController = self.navigationController?.presentedViewController else {
+                    DDLogError("Unexpected navigation controller state. Skipping Learn More presentation.")
+                    return
+                }
+
+                let webVC: SinglePageWebViewController
+
+                let config = SinglePageWebViewController.StandardConfig(url: url, useSimpleNavigationBar: true)
+                webVC = SinglePageWebViewController(configType: .standard(config), theme: self.theme)
+
+                let newNavigationVC = WMFComponentNavigationController(rootViewController: webVC, modalPresentationStyle: .formSheet)
+                presentedViewController.present(newNavigationVC, animated: true)
+            })
         let tempAccountsSheetView = WMFTempAccountsSheetView(viewModel: vm)
         let hostingController = UIHostingController(rootView: tempAccountsSheetView)
         hostingController.modalPresentationStyle = .pageSheet
@@ -187,9 +220,10 @@ final class EditorViewController: UIViewController, WMFNavigationBarConfiguring 
     }
     
     func ipEditorSubtitleString() -> String {
-        WMFLocalizedString("ip-account-edit-sheet-subtitle", value:
-          "Once you make an edit, a <b>temporary account</b> will be created for you to protect your privacy. <a href=\"\(learnMoreURL)\">Learn more.</a><br/><br/>Log in or create an account to get credit for future edits and to access other features.",
-          comment: "Information on temporary accounts")
+        let format = WMFLocalizedString("ip-account-edit-sheet-subtitle", value:
+          "Once you make an edit, a <b>temporary account</b> will be created for you to protect your privacy. <a href=\"%1$@\">Learn more.</a><br/><br/>Log in or create an account to get credit for future edits and to access other features.",
+          comment: "Information on temporary accounts, $1 is the link")
+        return String.localizedStringWithFormat(format, learnMoreURL)
     }
     
     private func configureNavigationBar() {
