@@ -84,9 +84,14 @@ final class EditorViewController: UIViewController, WMFNavigationBarConfiguring 
         return dataStore.authenticationManager
     }
     
-    // MARK: - Grey here
-    var learnMoreURL = "www.google.com"
-    var otherURL = "www.google.com"
+    var learnMoreURL: String {
+        var languageCodeSuffix = ""
+        if let primaryAppLanguageCode = dataStore.languageLinkController.appLanguage?.languageCode {
+            languageCodeSuffix = "\(primaryAppLanguageCode)"
+        }
+        return "https://www.mediawiki.org/wiki/Special:MyLanguage/Help:Temporary_accounts?uselang=\(languageCodeSuffix)"
+    }
+    var ipURL = "www.google.com"
     
     // MARK: - Lifecycle
     
@@ -112,7 +117,7 @@ final class EditorViewController: UIViewController, WMFNavigationBarConfiguring 
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         setTextSizeInAppEnvironment()
         setupFocusNavigationView()
         setupNavigationItemController()
@@ -122,9 +127,9 @@ final class EditorViewController: UIViewController, WMFNavigationBarConfiguring 
         loadContent()
         
         let user = authManager.user(siteURL: pageURL)
-        if user?.authState == .temporary {
+        if false { // user?.authState == .temporary {
             tempEditorSheet()
-        } else if user?.authState == .ip {
+        } else if true { // user?.authState == .ip {
             ipEditorSheet()
         }
     }
@@ -155,7 +160,7 @@ final class EditorViewController: UIViewController, WMFNavigationBarConfiguring 
     }
     
     func tempEditorSubtitleString(tempUsername: String) -> String {
-        let format = WMFLocalizedString("temp-account-edit-sheet-subtitle", value: "Your edit will be attributed to <b>%1$@</b>. Your <a href=\"\(learnMoreURL)\">IP address</a> will be visible to administrators.<br/><br/>If you log in or create an account, your edits will be attributed to a name you choose, among other benefits.",
+        let format = WMFLocalizedString("temp-account-edit-sheet-subtitle", value: "Your edit will be attributed to <b>%1$@</b>. Your <a href=\"\(ipURL)\">IP address</a> will be visible to administrators.<br/><br/>If you log in or create an account, your edits will be attributed to a name you choose, among other benefits.",
           comment: "Information on temporary accounts, $1 is the temporary username.")
         return String.localizedStringWithFormat(format, tempUsername)
     }
@@ -166,7 +171,7 @@ final class EditorViewController: UIViewController, WMFNavigationBarConfiguring 
             title: WMFLocalizedString("ip-account-edit-sheet", value: "You are not logged in", comment: "IP account sheet for editors"),
             subtitle: ipEditorSubtitleString(),
             ctaTopString: WMFLocalizedString("ip-account-cta-top", value: "Log in or create an account", comment: "Log in or create an account button title"),
-            ctaBottomString: WMFLocalizedString("ip-account-cta-bottom", value: "Contnue without logging in", comment: "Continue without logging in button title"))
+            ctaBottomString: WMFLocalizedString("ip-account-cta-bottom", value: "Continue without logging in", comment: "Continue without logging in button title"))
         
         let tempAccountsSheetView = WMFTempAccountsSheetView(viewModel: vm)
         let hostingController = UIHostingController(rootView: tempAccountsSheetView)
