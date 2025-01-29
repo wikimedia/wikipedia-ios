@@ -173,6 +173,11 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
     
     // Will be populated if needsSearchBar = false
     private var searchBarButtonItem: UIBarButtonItem?
+    
+    private lazy var tabsBarButtonItem: UIBarButtonItem = {
+        let button = UIBarButtonItem(image: WMFSFSymbolIcon.for(symbol: .tabs), style: .plain, target: self, action: #selector(tappedTabs))
+        return button
+    }()
 
     convenience init?(articleURL: URL, dataStore: MWKDataStore, theme: Theme, schemeHandler: SchemeHandler? = nil, altTextExperimentViewModel: WMFAltTextExperimentViewModel, needsAltTextExperimentSheet: Bool, altTextBottomSheetViewModel: WMFAltTextExperimentModalSheetViewModel?, altTextDelegate: AltTextDelegate?) {
         self.init(articleURL: articleURL, dataStore: dataStore, theme: theme)
@@ -840,7 +845,15 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
     var needsSearchBar: Bool {
         
         // TODO: A/B test
-        return false
+        return true
+    }
+    
+    @objc func tappedTabs() {
+        guard let navigationController else {
+            return
+        }
+        let coordinator = TabsCoordinator(navigationController: navigationController)
+        coordinator.start()
     }
     
     private func configureNavigationBar() {
@@ -851,7 +864,7 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
         
         let titleConfig = WMFNavigationBarTitleConfig(title: articleURL.wmf_title ?? "", customView: wButton, alignment: .centerCompact)
         
-        let trailingBarButtonItem: UIBarButtonItem? = needsSearchBar ? nil : AppSearchBarButtonItem.newAppSearchBarButtonItem
+        let trailingBarButtonItem: UIBarButtonItem? = needsSearchBar ? tabsBarButtonItem : AppSearchBarButtonItem.newAppSearchBarButtonItem
         let profileButtonConfig = profileButtonConfig(target: self, action: #selector(userDidTapProfile), dataStore: dataStore, yirDataController: yirDataController, leadingBarButtonItem: nil, trailingBarButtonItem: trailingBarButtonItem)
         
         self.searchBarButtonItem = trailingBarButtonItem
