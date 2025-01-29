@@ -91,7 +91,7 @@ final class EditorViewController: UIViewController, WMFNavigationBarConfiguring 
         }
         return "https://www.mediawiki.org/wiki/Special:MyLanguage/Help:Temporary_accounts?uselang=\(languageCodeSuffix)"
     }
-    var ipURL = "www.google.com"
+    var ipURL = "https://www.google.com"
     
     // MARK: - Lifecycle
     
