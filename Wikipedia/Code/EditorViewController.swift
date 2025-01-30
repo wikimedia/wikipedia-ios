@@ -181,9 +181,14 @@ final class EditorViewController: UIViewController, WMFNavigationBarConfiguring 
     }
     
     func tempEditorSubtitleString(tempUsername: String) -> String {
-        let format = WMFLocalizedString("temp-account-edit-sheet-subtitle", value: "Your edit will be attributed to <b>%1$@</b>. Your <a href=\"%2$@\">IP address</a> will be visible to administrators.<br/><br/>If you log in or create an account, your edits will be attributed to a name you choose, among other benefits.",
-          comment: "Information on temporary accounts, $1 is the temporary username, $2 is the URL.")
-        return String.localizedStringWithFormat(format, tempUsername, ipURL)
+        let openingLink = "<a href=\"\(ipURL)\">"
+        let closingLink = "</a>"
+        let openingBold = "<b>"
+        let closingBold = "</b>"
+        let lineBreaks = "<br/><br/>"
+        let format = WMFLocalizedString("temp-account-edit-sheet-subtitle", value: "Your edit will be attributed to %2$@%1$@%3$@. %4$@IP address%5$@ will be visible to administrators.%6$@If you log in or create an account, your edits will be attributed to a name you choose, among other benefits.",
+          comment: "Information on temporary accounts, $1 is the temporary username, $2 and $3 are opening and closing bold, $4 is the URL opening tag, and $5 is the closing. $6 is the linebreaks.")
+        return String.localizedStringWithFormat(format, tempUsername, openingBold, closingBold, openingLink, closingLink, lineBreaks)
     }
     
     private func ipEditorSheet() {
@@ -220,10 +225,15 @@ final class EditorViewController: UIViewController, WMFNavigationBarConfiguring 
     }
     
     func ipEditorSubtitleString() -> String {
+        let openingLink = "<a href=\"\(learnMoreURL)\">"
+        let closingLink = "</a>"
+        let openingBold = "<b>"
+        let closingBold = "</b>"
+        let lineBreaks = "<br/><br/>"
         let format = WMFLocalizedString("ip-account-edit-sheet-subtitle", value:
-          "Once you make an edit, a <b>temporary account</b> will be created for you to protect your privacy. <a href=\"%1$@\">Learn more.</a><br/><br/>Log in or create an account to get credit for future edits and to access other features.",
-          comment: "Information on temporary accounts, $1 is the link")
-        return String.localizedStringWithFormat(format, learnMoreURL)
+          "Once you make an edit, a %1$@temporary account%2$@ will be created for you to protect your privacy. %3$@Learn more.%4$@%5$@Log in or create an account to get credit for future edits and to access other features.",
+          comment: "Information on temporary accounts, $1 is the opening bold bracket, $2 is the closing, $3 is the opening HTML link, $4 is the closing link, $5 is the line breaks.")
+        return String.localizedStringWithFormat(format, openingBold, closingBold, openingLink, closingLink, lineBreaks)
     }
     
     private func configureNavigationBar() {
