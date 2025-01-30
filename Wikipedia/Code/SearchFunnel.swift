@@ -26,7 +26,7 @@ import WMFData
     public struct Event: EventInterface {
         public static let schema: EventPlatformClient.Schema = .search
         let action: Action
-        let actionData: String?
+        let action_data: String?
         let source: String
         let position: Int?
         let search_type: String?
@@ -59,7 +59,7 @@ import WMFData
             }
         }
         
-        let event = Event(action: action, actionData: actionDataString, source: source, position: position, search_type: searchType?.rawValue, number_of_results: numberOfResults, time_to_display_results: timeToDisplay, session_token: searchSessionToken, wiki_id: wikiId)
+        let event = Event(action: action, action_data: actionDataString, source: source, position: position, search_type: searchType?.rawValue, number_of_results: numberOfResults, time_to_display_results: timeToDisplay, session_token: searchSessionToken, wiki_id: wikiId)
         EventPlatformClient.shared.submit(stream: .search, event: event)
     }
 
