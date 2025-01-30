@@ -570,11 +570,6 @@
     "localName" : "Ghanaian Pidgin"
   },
   {
-    "languageCode" : "gsw",
-    "languageName" : "Alemannisch",
-    "localName" : "Alemannic"
-  },
-  {
     "languageCode" : "gu",
     "languageName" : "ગુજરાતી",
     "localName" : "Gujarati"
@@ -970,11 +965,6 @@
     "localName" : "Latvian"
   },
   {
-    "languageCode" : "lzh",
-    "languageName" : "文言",
-    "localName" : "Literary Chinese"
-  },
-  {
     "languageCode" : "mad",
     "languageName" : "Madhurâ",
     "localName" : "Madurese"
@@ -1108,11 +1098,6 @@
     "languageCode" : "nah",
     "languageName" : "Nāhuatl",
     "localName" : "Nahuatl"
-  },
-  {
-    "languageCode" : "nan",
-    "languageName" : "閩南語 \/ Bân-lâm-gú",
-    "localName" : "Minnan"
   },
   {
     "languageCode" : "nap",
@@ -1361,11 +1346,6 @@
     "localName" : "Rusyn"
   },
   {
-    "languageCode" : "rup",
-    "languageName" : "armãneashti",
-    "localName" : "Aromanian"
-  },
-  {
     "languageCode" : "rw",
     "languageName" : "Ikinyarwanda",
     "localName" : "Kinyarwanda"
@@ -1414,11 +1394,6 @@
     "languageCode" : "sg",
     "languageName" : "Sängö",
     "localName" : "Sango"
-  },
-  {
-    "languageCode" : "sgs",
-    "languageName" : "žemaitėška",
-    "localName" : "Samogitian"
   },
   {
     "languageCode" : "sh",
@@ -1596,6 +1571,11 @@
     "localName" : "Tigrinya"
   },
   {
+    "languageCode" : "tig",
+    "languageName" : "ትግሬ",
+    "localName" : "Tigre"
+  },
+  {
     "languageCode" : "tk",
     "languageName" : "Türkmençe",
     "localName" : "Turkmen"
@@ -1719,11 +1699,6 @@
     "languageCode" : "vo",
     "languageName" : "Volapük",
     "localName" : "Volapük"
-  },
-  {
-    "languageCode" : "vro",
-    "languageName" : "võro",
-    "localName" : "Võro"
   },
   {
     "languageCode" : "wa",

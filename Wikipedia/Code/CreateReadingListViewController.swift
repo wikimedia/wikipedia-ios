@@ -120,13 +120,12 @@ class CreateReadingListViewController: WMFScrollViewController, UITextFieldDeleg
     private func configureNavigationBar() {
         
         let title = isInImportingMode ? WMFLocalizedString("import-shared-reading-list-title", value: "Import shared reading list", comment: "Title of screen that imports a shared reading list.") : CommonStrings.createNewListTitle
-        let closeAlignment: WMFNavigationBarCloseButtonConfig.Alignment = isInImportingMode ? .leading : .trailing
         
         view.wmf_addSubviewWithConstraintsToEdges(importLoadingView)
         
         let titleConfig = WMFNavigationBarTitleConfig(title: title, customView: nil, alignment: .centerCompact)
-        let closeButtonConfig = WMFNavigationBarCloseButtonConfig(text: CommonStrings.doneTitle, target: self, action: #selector(closeButtonTapped(_:)), alignment: closeAlignment)
-        
+        let closeButtonConfig = WMFNavigationBarCloseButtonConfig(text: CommonStrings.cancelActionTitle, target: self, action: #selector(closeButtonTapped(_:)), alignment: .leading)
+
         configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: closeButtonConfig, profileButtonConfig: nil, searchBarConfig: nil, hideNavigationBarOnScroll: false)
     }
     
