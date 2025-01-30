@@ -171,7 +171,8 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
     private var tocStackViewTopConstraint: NSLayoutConstraint?
     private var searchBarIsAnimating = false
     
-    var profileBarButtonItem: UIBarButtonItem?
+    // Will be populated if needsSearchBar = false
+    private var searchBarButtonItem: UIBarButtonItem?
 
     convenience init?(articleURL: URL, dataStore: MWKDataStore, theme: Theme, schemeHandler: SchemeHandler? = nil, altTextExperimentViewModel: WMFAltTextExperimentViewModel, needsAltTextExperimentSheet: Bool, altTextBottomSheetViewModel: WMFAltTextExperimentModalSheetViewModel?, altTextDelegate: AltTextDelegate?) {
         self.init(articleURL: articleURL, dataStore: dataStore, theme: theme)
@@ -626,6 +627,14 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
             
             self.shareIfNecessary()
             self.restoreScrollStateIfNecessary()
+            
+            if let pageID = article.pageID,
+            let siteURL = self.articleURL.wmf_site,
+                  let project = WikimediaProject(siteURL: siteURL) {
+                ArticleLinkInteractionFunnel.shared.logArticleView(pageID: pageID.intValue, project: project)
+            }
+            
+            
             self.articleLoadWaitGroup = nil
         }
     }
@@ -835,16 +844,17 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
     }
     
     private func configureNavigationBar() {
+
         let wButton = UIButton(type: .custom)
         wButton.setImage(UIImage(named: "W"), for: .normal)
         wButton.addTarget(self, action: #selector(wButtonTapped(_:)), for: .touchUpInside)
         
         let titleConfig = WMFNavigationBarTitleConfig(title: articleURL.wmf_title ?? "", customView: wButton, alignment: .centerCompact)
         
-        var profileButtonConfig: WMFNavigationBarProfileButtonConfig?
-        if !needsSearchBar {
-            profileButtonConfig = self.profileButtonConfig()
-        }
+        let trailingBarButtonItem: UIBarButtonItem? = needsSearchBar ? nil : AppSearchBarButtonItem.newAppSearchBarButtonItem
+        let profileButtonConfig = profileButtonConfig(target: self, action: #selector(userDidTapProfile), dataStore: dataStore, yirDataController: yirDataController, leadingBarButtonItem: nil, trailingBarButtonItem: trailingBarButtonItem)
+        
+        self.searchBarButtonItem = trailingBarButtonItem
         
         let searchViewController = SearchViewController()
         searchViewController.dataStore = dataStore
@@ -860,60 +870,11 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
         let searchBarConfig: WMFNavigationBarSearchConfig? = needsSearchBar ? WMFNavigationBarSearchConfig(searchResultsController: searchViewController, searchControllerDelegate: self, searchResultsUpdater: self, searchBarDelegate: nil, searchBarPlaceholder: WMFLocalizedString("search-field-placeholder-text", value: "Search Wikipedia", comment: "Search field placeholder text"), showsScopeBar: false, scopeButtonTitles: nil) : nil
 
         configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: nil, profileButtonConfig: profileButtonConfig, searchBarConfig: searchBarConfig, hideNavigationBarOnScroll: true)
-        
-        // Bypassing shared profile button config and using custom logic.
-        if !needsSearchBar {
-            let profileButtonConfig = self.profileButtonConfig()
-            let profileButtonImage = self.profileButtonImage(theme: WMFAppEnvironment.current.theme, needsBadge: profileButtonConfig.needsBadge)
-            let profileButton = UIBarButtonItem(image: profileButtonImage, style: .plain, target: profileButtonConfig.target, action: profileButtonConfig.action)
-            profileButton.accessibilityLabel = self.profileButtonAccessibilityStrings(config: profileButtonConfig)
-
-            navigationItem.rightBarButtonItems = [AppSearchBarButtonItem.newAppSearchBarButtonItem, profileButton]
-            self.profileBarButtonItem = profileButton
-        } else {
-            self.profileBarButtonItem = navigationItem.rightBarButtonItem
-        }
     }
     
     private func updateProfileButton() {
-        
-        let profileButtonConfig = self.profileButtonConfig()
-        let profileButtonImage = self.profileButtonImage(theme: WMFAppEnvironment.current.theme, needsBadge: profileButtonConfig.needsBadge)
-        let profileButtonAccessibilityString =  self.profileButtonAccessibilityStrings(config: profileButtonConfig)
-
-        if let profileBarButtonItem {
-            profileBarButtonItem.image = profileButtonImage
-            profileBarButtonItem.accessibilityLabel = profileButtonAccessibilityString
-        }
-    }
-
-    private func hasUnreadNotifications() -> Bool {
-        var hasUnreadNotifications: Bool = false
-        if self.dataStore.authenticationManager.authStateIsPermanent {
-            let numberOfUnreadNotifications = try? dataStore.remoteNotificationsController.numberOfUnreadNotifications()
-            hasUnreadNotifications = (numberOfUnreadNotifications?.intValue ?? 0) != 0
-        } else {
-            hasUnreadNotifications = false
-        }
-
-        var needsYiRNotification = false
-        if let yirDataController,  let appLanguage = dataStore.languageLinkController.appLanguage {
-            let project = WMFProject.wikipedia(WMFLanguage(languageCode: appLanguage.languageCode, languageVariantCode: appLanguage.languageVariantCode))
-            needsYiRNotification = yirDataController.shouldShowYiRNotification(primaryAppLanguageProject: project, isLoggedOut: !dataStore.authenticationManager.authStateIsPermanent)
-        }
-
-        // do not override `hasUnreadNotifications` completely
-        if needsYiRNotification {
-            hasUnreadNotifications = true
-        }
-
-        return hasUnreadNotifications
-    }
-
-    private func profileButtonConfig() -> WMFNavigationBarProfileButtonConfig {
-        let accessibilityHint = CommonStrings.profileButtonAccessibilityHint
-
-        return WMFNavigationBarProfileButtonConfig(accessibilityLabelNoNotifications: CommonStrings.profileButtonTitle, accessibilityLabelHasNotifications: CommonStrings.profileButtonBadgeTitle, accessibilityHint: accessibilityHint, needsBadge: hasUnreadNotifications(), target: self, action: #selector(userDidTapProfile))
+        let config = self.profileButtonConfig(target: self, action: #selector(userDidTapProfile), dataStore: dataStore, yirDataController: yirDataController, leadingBarButtonItem: nil, trailingBarButtonItem: searchBarButtonItem)
+        updateNavigationBarProfileButton(needsBadge: config.needsBadge, needsBadgeLabel: CommonStrings.profileButtonBadgeTitle, noBadgeLabel: CommonStrings.profileButtonTitle)
     }
     
     // MARK: History
@@ -1909,5 +1870,4 @@ extension ArticleViewController: UISearchControllerDelegate {
         navigationController?.hidesBarsOnSwipe = true
         searchBarIsAnimating = false
     }
-
 }

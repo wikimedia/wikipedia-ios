@@ -1,5 +1,6 @@
 import UIKit
 import WMFComponents
+import WMFData
 
 class SearchViewController: ArticleCollectionViewController, WMFNavigationBarConfiguring, WMFNavigationBarHiding {
     
@@ -17,6 +18,50 @@ class SearchViewController: ArticleCollectionViewController, WMFNavigationBarCon
     
     var topSafeAreaOverlayView: UIView?
     var topSafeAreaOverlayHeightConstraint: NSLayoutConstraint?
+    
+    // Properties needed for Profile Button
+    
+    private var _yirCoordinator: YearInReviewCoordinator?
+    var yirCoordinator: YearInReviewCoordinator? {
+        
+        guard let navigationController,
+              let yirDataController,
+              let dataStore else {
+            return nil
+        }
+
+        guard let existingYirCoordinator = _yirCoordinator else {
+            _yirCoordinator = YearInReviewCoordinator(navigationController: navigationController, theme: theme, dataStore: dataStore, dataController: yirDataController)
+            _yirCoordinator?.badgeDelegate = self
+            return _yirCoordinator
+        }
+        
+        return existingYirCoordinator
+    }
+    
+    private var _profileCoordinator: ProfileCoordinator?
+    private var profileCoordinator: ProfileCoordinator? {
+        
+        guard let navigationController,
+        let yirCoordinator = self.yirCoordinator,
+            let dataStore else {
+            return nil
+        }
+        
+        guard let existingProfileCoordinator = _profileCoordinator else {
+            _profileCoordinator = ProfileCoordinator(navigationController: navigationController, theme: theme, dataStore: dataStore, donateSouce: .savedProfile, logoutDelegate: self, sourcePage: ProfileCoordinatorSource.saved, yirCoordinator: yirCoordinator)
+            _profileCoordinator?.badgeDelegate = self
+            return _profileCoordinator
+        }
+        
+        return existingProfileCoordinator
+    }
+    
+    private var yirDataController: WMFYearInReviewDataController? {
+        return try? WMFYearInReviewDataController()
+    }
+    
+    // MARK: - Funcs
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
@@ -110,9 +155,43 @@ class SearchViewController: ArticleCollectionViewController, WMFNavigationBarCon
             }
         }
         
+        let profileButtonConfig: WMFNavigationBarProfileButtonConfig?
+        if let dataStore {
+            profileButtonConfig = self.profileButtonConfig(target: self, action: #selector(userDidTapProfile), dataStore: dataStore, yirDataController: yirDataController, leadingBarButtonItem: nil, trailingBarButtonItem: nil)
+        } else {
+            profileButtonConfig = nil
+        }
+        
         let searchBarConfig = WMFNavigationBarSearchConfig(searchResultsController: nil, searchControllerDelegate: self, searchResultsUpdater: self, searchBarDelegate: self, searchBarPlaceholder: WMFLocalizedString("search-field-placeholder-text", value: "Search Wikipedia", comment: "Search field placeholder text"), showsScopeBar: false, scopeButtonTitles: nil)
         
-        configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: nil, profileButtonConfig: nil, searchBarConfig: searchBarConfig, hideNavigationBarOnScroll: true)
+        configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: nil, profileButtonConfig: profileButtonConfig, searchBarConfig: searchBarConfig, hideNavigationBarOnScroll: true)
+    }
+    
+    private func updateProfileButton() {
+        
+        guard let dataStore else {
+            return
+        }
+
+        let config = self.profileButtonConfig(target: self, action: #selector(userDidTapProfile), dataStore: dataStore, yirDataController: yirDataController, leadingBarButtonItem: nil, trailingBarButtonItem: nil)
+        updateNavigationBarProfileButton(needsBadge: config.needsBadge, needsBadgeLabel: CommonStrings.profileButtonBadgeTitle, noBadgeLabel: CommonStrings.profileButtonTitle)
+    }
+    
+    @objc func userDidTapProfile() {
+        
+        guard let dataStore else {
+            return
+        }
+        
+        guard let languageCode = dataStore.languageLinkController.appLanguage?.languageCode,
+              let metricsID = DonateCoordinator.metricsID(for: .savedProfile, languageCode: languageCode) else {
+            return
+        }
+        
+        // TODO: Do we need logging like this?
+        // DonateFunnel.shared.logExploreProfile(metricsID: metricsID)
+              
+        profileCoordinator?.start()
     }
     
     private func embedResultsViewController() {
@@ -362,6 +441,8 @@ class SearchViewController: ArticleCollectionViewController, WMFNavigationBarCon
         view.backgroundColor = theme.colors.paperBackground
         collectionView.backgroundColor = theme.colors.paperBackground
         themeTopSafeAreaOverlay()
+        updateProfileButton()
+        profileCoordinator?.theme = theme
     }
     
     // Recent
@@ -588,3 +669,23 @@ extension SearchViewController: UISearchBarDelegate {
 // Keep
 // WMFLocalizedStringWithDefaultValue(@"search-did-you-mean", nil, nil, @"Did you mean %1$@?", @"Button text for searching for an alternate spelling of the search term. Parameters: * %1$@ - alternate spelling of the search term the user entered - ie if user types 'thunk' the API can suggest the alternate term 'think'")
 
+// LogoutCoordinatorDelegate
+
+extension SearchViewController: LogoutCoordinatorDelegate {
+    func didTapLogout() {
+        
+        guard let dataStore else {
+            return
+        }
+        
+        wmf_showKeepSavedArticlesOnDevicePanelIfNeeded(triggeredBy: .logout, theme: theme) {
+            dataStore.authenticationManager.logout(initiatedBy: .user)
+        }
+    }
+}
+
+extension SearchViewController: YearInReviewBadgeDelegate {
+    func updateYIRBadgeVisibility() {
+        updateProfileButton()
+    }
+}
