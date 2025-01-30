@@ -26,7 +26,7 @@ import WMFData
     public struct Event: EventInterface {
         public static let schema: EventPlatformClient.Schema = .search
         let action: Action
-        let actionData: [String: String]?
+        let actionData: String?
         let source: String
         let position: Int?
         let search_type: String?
@@ -44,46 +44,72 @@ import WMFData
 
     func logEvent(action: Action, actionData: [String: String]? = nil, source: String, position: Int? = nil, searchType: WMFSearchType? = nil, numberOfResults: Int? = nil, timeToDisplay: Int? = nil, wikiId: String?) {
         guard let searchSessionToken else { return }
-        let event = Event(action: action, actionData: actionData, source: source, position: position, search_type: searchType?.rawValue, number_of_results: numberOfResults, time_to_display_results: timeToDisplay, session_token: searchSessionToken, wiki_id: wikiId)
+        
+        var actionDataString: String? = nil
+        if let actionData {
+            actionDataString = ""
+            for (key, value) in actionData {
+                actionDataString?.append("\(key):\(value), ")
+            }
+            
+            // remove last ", "
+            if let finalActionDataString = actionDataString,
+               finalActionDataString.count > 1 {
+                actionDataString?.removeLast(2)
+            }
+        }
+        
+        let event = Event(action: action, actionData: actionDataString, source: source, position: position, search_type: searchType?.rawValue, number_of_results: numberOfResults, time_to_display_results: timeToDisplay, session_token: searchSessionToken, wiki_id: wikiId)
         EventPlatformClient.shared.submit(stream: .search, event: event)
     }
 
-    func logSearchStart(source: String) {
+    func logSearchStart(source: String, assignment: WMFNavigationExperimentsDataController.ArticleSearchBarExperimentAssignment?) {
         _searchSessionToken = nil
-        logEvent(action: .start, source: source, wikiId: searchLanguage)
+        logEvent(action: .start, actionData: actionDataForAssignment(assignment), source: source, wikiId: searchLanguage)
     }
 
-    func logSearchDidYouMean(source: String) {
-        logEvent(action: .didYouMean, source: source, wikiId: searchLanguage)
+    func logSearchDidYouMean(source: String, assignment: WMFNavigationExperimentsDataController.ArticleSearchBarExperimentAssignment?) {
+        logEvent(action: .didYouMean, actionData: actionDataForAssignment(assignment), source: source, wikiId: searchLanguage)
     }
 
-    func logSearchResultTap(position: Int, source: String) {
-        logEvent(action: .click, source: source, position: position, wikiId: searchLanguage)
+    func logSearchResultTap(position: Int, source: String, assignment: WMFNavigationExperimentsDataController.ArticleSearchBarExperimentAssignment?) {
+        logEvent(action: .click, actionData: actionDataForAssignment(assignment), source: source, position: position, wikiId: searchLanguage)
     }
 
-    func logSearchCancel(source: String) {
-        logEvent(action: .cancel, source: source, wikiId: searchLanguage)
+    func logSearchCancel(source: String, assignment: WMFNavigationExperimentsDataController.ArticleSearchBarExperimentAssignment?) {
+        logEvent(action: .cancel, actionData: actionDataForAssignment(assignment), source: source, wikiId: searchLanguage)
     }
 
-    func logSearchLangSwitch(source: String) {
-        logEvent(action: .langSwitch, source: source, wikiId: searchLanguage)
+    func logSearchLangSwitch(source: String, assignment: WMFNavigationExperimentsDataController.ArticleSearchBarExperimentAssignment?) {
+        logEvent(action: .langSwitch, actionData: actionDataForAssignment(assignment), source: source, wikiId: searchLanguage)
     }
 
-    func logSearchResults(with type: WMFSearchType, resultCount: Int, elapsedTime: Double, source: String) {
-        logEvent(action: .results, source: source, searchType: type, numberOfResults: resultCount, timeToDisplay: Int(elapsedTime * 1000), wikiId: searchLanguage)
+    func logSearchResults(with type: WMFSearchType, resultCount: Int, elapsedTime: Double, source: String, assignment: WMFNavigationExperimentsDataController.ArticleSearchBarExperimentAssignment?) {
+        logEvent(action: .results, actionData: actionDataForAssignment(assignment), source: source, searchType: type, numberOfResults: resultCount, timeToDisplay: Int(elapsedTime * 1000), wikiId: searchLanguage)
     }
 
-    func logShowSearchError(with type: WMFSearchType, elapsedTime: Double, source: String) {
-        logEvent(action: .error, source: source, searchType: type, timeToDisplay: Int(elapsedTime * 1000), wikiId: searchLanguage)
+    func logShowSearchError(with type: WMFSearchType, elapsedTime: Double, source: String, assignment: WMFNavigationExperimentsDataController.ArticleSearchBarExperimentAssignment?) {
+        logEvent(action: .error, actionData: actionDataForAssignment(assignment), source: source, searchType: type, timeToDisplay: Int(elapsedTime * 1000), wikiId: searchLanguage)
     }
     
     func logDidAssignArticleSearchExperiment(assignment: WMFNavigationExperimentsDataController.ArticleSearchBarExperimentAssignment) {
+        
+        logEvent(action: .launch, actionData: actionDataForAssignment(assignment), source: "unknown", wikiId: nil)
+    }
+    
+    private func actionDataForAssignment(_ assignment: WMFNavigationExperimentsDataController.ArticleSearchBarExperimentAssignment?) -> [String: String]? {
+        
+        guard let assignment else {
+            return nil
+        }
+        
         let group: String
         switch assignment {
         case .control: group = "a"
         case .test: group = "b"
         }
-        logEvent(action: .launch, actionData: ["group": group], source: "unknown", wikiId: nil)
+        
+        return ["group": group]
     }
 
 }

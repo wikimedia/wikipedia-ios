@@ -1,6 +1,7 @@
 import UIKit
 import WMFComponents
 import WMFData
+import CocoaLumberjackSwift
 
 class SearchViewController: ArticleCollectionViewController, WMFNavigationBarConfiguring, WMFNavigationBarHiding {
     
@@ -109,7 +110,7 @@ class SearchViewController: ArticleCollectionViewController, WMFNavigationBarCon
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        SearchFunnel.shared.logSearchStart(source: source.stringValue)
+        SearchFunnel.shared.logSearchStart(source: source.stringValue, assignment: articleSearchBarExperimentAssignment)
         NSUserActivity.wmf_makeActive(NSUserActivity.wmf_searchView())
         
         if shouldBecomeFirstResponder {
@@ -157,6 +158,14 @@ class SearchViewController: ArticleCollectionViewController, WMFNavigationBarCon
         }
     }
     
+    private var articleSearchBarExperimentAssignment: WMFNavigationExperimentsDataController.ArticleSearchBarExperimentAssignment? {
+        
+        guard let assignment = try? WMFNavigationExperimentsDataController.shared?.articleSearchBarExperimentAssignment() else {
+            return nil
+        }
+        
+        return assignment
+    }
     
     private func configureNavigationBar() {
         
@@ -345,7 +354,7 @@ class SearchViewController: ArticleCollectionViewController, WMFNavigationBarCon
                 }
                 self.resultsViewController.emptyViewType = (error as NSError).wmf_isNetworkConnectionError() ? .noInternetConnection : .noSearchResults
                 self.resultsViewController.results = []
-                SearchFunnel.shared.logShowSearchError(with: type, elapsedTime: Date().timeIntervalSince(start), source: self.source.stringValue)
+                SearchFunnel.shared.logShowSearchError(with: type, elapsedTime: Date().timeIntervalSince(start), source: self.source.stringValue, assignment: articleSearchBarExperimentAssignment)
             }
         }
         
@@ -362,7 +371,7 @@ class SearchViewController: ArticleCollectionViewController, WMFNavigationBarCon
                 guard !suggested else {
                     return
                 }
-                SearchFunnel.shared.logSearchResults(with: type, resultCount: Int(resultsArray.count), elapsedTime: Date().timeIntervalSince(start), source: self.source.stringValue)
+                SearchFunnel.shared.logSearchResults(with: type, resultCount: Int(resultsArray.count), elapsedTime: Date().timeIntervalSince(start), source: self.source.stringValue, assignment: articleSearchBarExperimentAssignment)
             }
         }
         
@@ -396,7 +405,7 @@ class SearchViewController: ArticleCollectionViewController, WMFNavigationBarCon
         resultsViewController.emptyViewType = .none
         resultsViewController.results = []
         navigationItem.searchController?.searchBar.text = nil
-        SearchFunnel.shared.logSearchCancel(source: source.stringValue)
+        SearchFunnel.shared.logSearchCancel(source: source.stringValue, assignment: articleSearchBarExperimentAssignment)
     }
     
     @objc func clear() {
@@ -415,7 +424,7 @@ class SearchViewController: ArticleCollectionViewController, WMFNavigationBarCon
                 return
             }
             
-            SearchFunnel.shared.logSearchResultTap(position: indexPath.item, source: source.stringValue)
+            SearchFunnel.shared.logSearchResultTap(position: indexPath.item, source: source.stringValue, assignment: articleSearchBarExperimentAssignment)
             saveLastSearch()
             
             if let navigateToSearchResultAction {
@@ -615,7 +624,7 @@ extension SearchViewController: CollectionViewHeaderDelegate {
 
 extension SearchViewController: SearchLanguagesBarViewControllerDelegate {
     func searchLanguagesBarViewController(_ controller: SearchLanguagesBarViewController, didChangeSelectedSearchContentLanguageCode contentLanguageCode: String) {
-        SearchFunnel.shared.logSearchLangSwitch(source: source.stringValue)
+        SearchFunnel.shared.logSearchLangSwitch(source: source.stringValue, assignment: articleSearchBarExperimentAssignment)
         search()
     }
 }
