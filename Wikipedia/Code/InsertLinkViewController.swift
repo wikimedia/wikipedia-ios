@@ -43,7 +43,7 @@ class InsertLinkViewController: UIViewController, WMFNavigationBarConfiguring {
         
         let closeButtonConfig = WMFNavigationBarCloseButtonConfig(text: CommonStrings.doneTitle, target: self, action: #selector(delegateCloseButtonTap(_:)), alignment: .trailing)
 
-        let searchViewController = SearchViewController()
+        let searchViewController = SearchViewController(source: .unknown)
         searchViewController.showLanguageBar = false
         searchViewController.dataStore = dataStore
         

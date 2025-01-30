@@ -153,7 +153,7 @@ class EditLinkViewController: ThemeableViewController, WMFNavigationBarConfiguri
     }
 
     @IBAction private func searchArticles(_ sender: UITapGestureRecognizer) {
-        let searchViewController = SearchViewController()
+        let searchViewController = SearchViewController(source: .unknown)
         searchViewController.siteURL = siteURL
         searchViewController.shouldBecomeFirstResponder = true
         searchViewController.dataStore = MWKDataStore.shared()

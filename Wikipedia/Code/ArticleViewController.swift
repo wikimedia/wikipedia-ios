@@ -863,7 +863,7 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
         
         self.searchBarButtonItem = trailingBarButtonItem
         
-        let searchViewController = SearchViewController()
+        let searchViewController = SearchViewController(source: .article)
         searchViewController.dataStore = dataStore
         searchViewController.theme = theme
         
