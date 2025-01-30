@@ -105,11 +105,11 @@ extension WMFAppViewController {
         }
         
         do {
-            try dataController.assignArticleSearchBarExperiment(project: project)
+            let assignment = try dataController.assignArticleSearchBarExperiment(project: project)
+            SearchFunnel.shared.logDidAssignArticleSearchExperiment(assignment: assignment)
         } catch {
             DDLogWarn("Error assigning article search experiment: \(error)")
         }
-        
     }
 
 }

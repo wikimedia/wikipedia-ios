@@ -26,7 +26,7 @@ public final class WMFNavigationExperimentsDataController {
         self.experimentsDataController = WMFExperimentsDataController(store: experimentStore)
     }
     
-    public func assignArticleSearchBarExperiment(project: WMFProject) throws {
+    public func assignArticleSearchBarExperiment(project: WMFProject) throws -> ArticleSearchBarExperimentAssignment {
         
         guard project.qualifiesForNavigationV2Experiment() else {
             throw CustomError.invalidProject
@@ -40,7 +40,16 @@ public final class WMFNavigationExperimentsDataController {
             throw CustomError.alreadyAssignedBucket
         }
         
-        try experimentsDataController.determineBucketForExperiment(.articleSearchBar, withPercentage: articleSearchBarExperimentPercentage)
+        let bucketValue = try experimentsDataController.determineBucketForExperiment(.articleSearchBar, withPercentage: articleSearchBarExperimentPercentage)
+        
+        switch bucketValue {
+        case .articleSearchBarTest:
+            return ArticleSearchBarExperimentAssignment.test
+        case .articleSearchBarControl:
+            return ArticleSearchBarExperimentAssignment.control
+        default:
+            throw CustomError.unexpectedAssignment
+        }
     }
     
     public func articleSearchBarExperimentAssignment() throws -> ArticleSearchBarExperimentAssignment {
