@@ -143,6 +143,16 @@ class SinglePageWebViewController: ThemeableViewController, WMFNavigationBarConf
         return button
     }()
     
+    lazy var searchBarButtonItem: UIBarButtonItem = {
+        let button = UIBarButtonItem(image: UIImage(named: "search"), style: .plain, target: self, action: #selector(userDidTapSearchButton))
+        button.accessibilityLabel = CommonStrings.searchButtonAccessibilityLabel
+        return button
+    }()
+    
+    private var dataStore: MWKDataStore {
+        return MWKDataStore.shared()
+    }
+    
     // MARK: - Lifecycle
 
     required init(configType: ConfigType, theme: Theme) {
@@ -196,8 +206,7 @@ class SinglePageWebViewController: ThemeableViewController, WMFNavigationBarConf
             configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: closeConfig, profileButtonConfig: nil, searchBarConfig: nil, hideNavigationBarOnScroll: true)
             
             let safariItem = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(tappedAction(_:)))
-            let searchItem = AppSearchBarButtonItem.newAppSearchBarButtonItem
-            navigationItem.setRightBarButtonItems([searchItem, safariItem], animated: false)
+            navigationItem.setRightBarButtonItems([searchBarButtonItem, safariItem], animated: false)
             
             if let rightBarButtonItems = navigationItem.rightBarButtonItems {
                 for item in rightBarButtonItems {
@@ -270,6 +279,16 @@ class SinglePageWebViewController: ThemeableViewController, WMFNavigationBarConf
     
     // MARK: - Actions
     
+    @objc func userDidTapSearchButton() {
+        let searchVC = SearchViewController(source: .unknown)
+        searchVC.shouldBecomeFirstResponder = true
+        searchVC.apply(theme: theme)
+        searchVC.dataStore = dataStore
+        searchVC.needsCenteredTitle = true
+        
+        navigationController?.pushViewController(searchVC, animated: true)
+    }
+    
     @objc private func tappedAction(_ sender: UIBarButtonItem) {
         let activityViewController = UIActivityViewController(activityItems: [url], applicationActivities: [TUSafariActivity()])
         
@@ -307,8 +326,6 @@ class SinglePageWebViewController: ThemeableViewController, WMFNavigationBarConf
                 return
             }
             
-            let dataStore = MWKDataStore.shared()
-            
             if let metricsID = DonateCoordinator.metricsID(for: .yearInReview, languageCode: dataStore.languageLinkController.appLanguage?.languageCode) {
                 DonateFunnel.shared.logYearInReviewDonateSlideLearnMoreWebViewDidTapDonateButton(metricsID: metricsID)
             }
@@ -317,7 +334,7 @@ class SinglePageWebViewController: ThemeableViewController, WMFNavigationBarConf
                 navigationController: navigationController,
                 donateButtonGlobalRect: overlayButtonContainer.frame,
                 source: .yearInReview,
-                dataStore: MWKDataStore.shared(),
+                dataStore: dataStore,
                 theme: theme,
                 navigationStyle: .push,
                 setLoadingBlock: { [weak self] isLoading in
