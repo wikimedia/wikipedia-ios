@@ -131,13 +131,6 @@ final class EditorViewController: UIViewController, WMFNavigationBarConfiguring 
         apply(theme: theme)
         
         loadContent()
-        
-        let user = authManager.user(siteURL: pageURL)
-        if user?.authState == .temporary {
-            tempEditorSheet()
-        } else if user?.authState == .ip {
-            ipEditorSheet()
-        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -147,37 +140,39 @@ final class EditorViewController: UIViewController, WMFNavigationBarConfiguring 
     
     // MARK: - Private Helpers
     
-    private func tempEditorSheet() {
-        let vm = WMFTempAccountsSheetViewModel(
-            image: "pageMessage",
-            title: WMFLocalizedString("temp-account-edit-sheet-title", value: "You are using a temporary account", comment: "Temporary account sheet for editors"),
-            subtitle: tempEditorSubtitleString(tempUsername: "fakeUsername"),
-            ctaTopString: WMFLocalizedString("temp-account-edit-sheet-cta-top", value: "Log in or create an account", comment: "Temporary account sheet for editors, log in/sign up."),
-            ctaBottomString: WMFLocalizedString("temp-account-got-it", value: "Got it", comment: "Got it button"),
-            done: CommonStrings.doneTitle,
-            handleURL: { url in
-                guard let presentedViewController = self.navigationController?.presentedViewController else {
-                    DDLogError("Unexpected navigation controller state. Skipping Learn More presentation.")
-                    return
-                }
-
-                let webVC: SinglePageWebViewController
-
-                let config = SinglePageWebViewController.StandardConfig(url: url, useSimpleNavigationBar: true)
-                webVC = SinglePageWebViewController(configType: .standard(config), theme: self.theme)
-
-                let newNavigationVC = WMFComponentNavigationController(rootViewController: webVC, modalPresentationStyle: .formSheet)
-                presentedViewController.present(newNavigationVC, animated: true)
-            })
-        let tempAccountsSheetView = WMFTempAccountsSheetView(viewModel: vm)
-        let hostingController = UIHostingController(rootView: tempAccountsSheetView)
-        hostingController.modalPresentationStyle = .pageSheet
-
-        if let sheet = hostingController.sheetPresentationController {
-            sheet.detents = [.large()]
+    private func presentTempEditorSheet() {
+        if let tempUser = authManager.authStateTemporaryUsername {
+            let vm = WMFTempAccountsSheetViewModel(
+                image: "pageMessage",
+                title: WMFLocalizedString("temp-account-edit-sheet-title", value: "You are using a temporary account", comment: "Temporary account sheet for editors"),
+                subtitle: tempEditorSubtitleString(tempUsername: tempUser),
+                ctaTopString: WMFLocalizedString("temp-account-edit-sheet-cta-top", value: "Log in or create an account", comment: "Temporary account sheet for editors, log in/sign up."),
+                ctaBottomString: WMFLocalizedString("temp-account-got-it", value: "Got it", comment: "Got it button"),
+                done: CommonStrings.doneTitle,
+                handleURL: { url in
+                    guard let presentedViewController = self.navigationController?.presentedViewController else {
+                        DDLogError("Unexpected navigation controller state. Skipping Learn More presentation.")
+                        return
+                    }
+                    
+                    let webVC: SinglePageWebViewController
+                    
+                    let config = SinglePageWebViewController.StandardConfig(url: url, useSimpleNavigationBar: true)
+                    webVC = SinglePageWebViewController(configType: .standard(config), theme: self.theme)
+                    
+                    let newNavigationVC = WMFComponentNavigationController(rootViewController: webVC, modalPresentationStyle: .formSheet)
+                    presentedViewController.present(newNavigationVC, animated: true)
+                })
+            let tempAccountsSheetView = WMFTempAccountsSheetView(viewModel: vm)
+            let hostingController = UIHostingController(rootView: tempAccountsSheetView)
+            hostingController.modalPresentationStyle = .pageSheet
+            
+            if let sheet = hostingController.sheetPresentationController {
+                sheet.detents = [.large()]
+            }
+            
+            present(hostingController, animated: true, completion: nil)
         }
-
-        present(hostingController, animated: true, completion: nil)
     }
     
     func tempEditorSubtitleString(tempUsername: String) -> String {
@@ -191,7 +186,7 @@ final class EditorViewController: UIViewController, WMFNavigationBarConfiguring 
         return String.localizedStringWithFormat(format, tempUsername, openingBold, closingBold, openingLink, closingLink, lineBreaks)
     }
     
-    private func ipEditorSheet() {
+    private func presentIPEditorSheet() {
         let vm = WMFTempAccountsSheetViewModel(
             image: "lockedEdit",
             title: WMFLocalizedString("ip-account-edit-sheet", value: "You are not logged in", comment: "IP account sheet for editors"),
@@ -360,6 +355,12 @@ final class EditorViewController: UIViewController, WMFNavigationBarConfiguring 
             } else if let otherError = wikitextFetchResponse.otherError {
                 WMFAlertManager.sharedInstance.showErrorAlertWithMessage(otherError.messageHtml.removingHTML, sticky: false, dismissPreviousAlerts: true)
                 isDifferentErrorBannerShown = true
+            } else if authManager.permanentUser(siteURL: pageURL) == nil {
+                if authManager.authStateIsTemporary {
+                    presentTempEditorSheet()
+                } else {
+                    presentIPEditorSheet()
+                }
             }
             
             if let editNoticesViewModel,

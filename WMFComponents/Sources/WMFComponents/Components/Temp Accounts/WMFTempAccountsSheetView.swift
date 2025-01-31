@@ -26,43 +26,45 @@ public struct WMFTempAccountsSheetView: View {
     }
     
     public var body: some View {
-        VStack {
-            Button(
-                action: {
-                    dismiss()
-                },
-                label: {
-                    Text(viewModel.done)
-                        .font(Font(WMFFont.navigationBarDoneButtonFont))
-                        .foregroundColor(Color(theme.navigationBarTintColor))
-                        .frame(maxWidth: .infinity, alignment: .topLeading)
-                })
-            .padding(15)
-            .frame(maxWidth: .infinity, alignment: .topLeading)
-            VStack(spacing: 17) {
-                VStack(spacing: 22) {
-                    Image(viewModel.image, bundle: .module)
-                    textInfo
+        ScrollView {
+            VStack {
+                Button(
+                    action: {
+                        dismiss()
+                    },
+                    label: {
+                        Text(viewModel.done)
+                            .font(Font(WMFFont.navigationBarDoneButtonFont))
+                            .foregroundColor(Color(theme.navigationBarTintColor))
+                            .frame(maxWidth: .infinity, alignment: .topLeading)
+                    })
+                .padding(15)
+                .frame(maxWidth: .infinity, alignment: .topLeading)
+                VStack(spacing: 17) {
+                    VStack(spacing: 22) {
+                        Image(viewModel.image, bundle: .module)
+                        textInfo
+                    }
+                    WMFLargeButton(configuration: .primary, title: viewModel.ctaTopString, action: {
+                        // TODO
+                    })
+                    .frame(maxWidth: .infinity)
+                    WMFLargeButton(configuration: .secondary, title: viewModel.ctaBottomString, action: {
+                        // TODO
+                    })
+                    .frame(maxWidth: .infinity)
                 }
-                WMFLargeButton(configuration: .primary, title: viewModel.ctaTopString, action: {
-                    // TODO
-                })
-                .frame(maxWidth: .infinity)
-                WMFLargeButton(configuration: .secondary, title: viewModel.ctaBottomString, action: {
-                    // TODO
-                })
-                .frame(maxWidth: .infinity)
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .padding(.horizontal, 51)
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .padding(.horizontal, 51)
+            .background(Color(uiColor: theme.midBackground))
+            .environment(\.colorScheme, theme.preferredColorScheme)
+            .environment(\.openURL, OpenURLAction { url in
+                viewModel.handleURL(url)
+                return .handled
+            })
         }
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(Color(uiColor: theme.midBackground))
-        .environment(\.colorScheme, theme.preferredColorScheme)
-        .environment(\.openURL, OpenURLAction { url in
-            viewModel.handleURL(url)
-            return .handled
-        })
     }
     
     private var textInfo: some View {

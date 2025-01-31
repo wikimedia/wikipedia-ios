@@ -10,7 +10,6 @@ public class WMFTempAccountsSheetViewModel: ObservableObject {
     let ctaBottomString: String
     let done: String
     let handleURL: (_ url: URL) -> Void
-    // let ctaTopAction: () -> ()
     
     public init(image: String, title: String, subtitle: String, ctaTopString: String, ctaBottomString: String, done: String, handleURL: @escaping (_ url: URL) -> Void) {
         self.image = image
