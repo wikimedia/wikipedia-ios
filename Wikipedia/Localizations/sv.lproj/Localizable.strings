@@ -1486,6 +1486,7 @@
 "year-in-review-personalized-donate-subtitle" = "Tack för att du investerar i framtiden för gratis kunskap. I år förbättrade Wikimedia Foundation tekniken som alla läsare och volontärer använder, utvecklade samarbetsverktyg och lade till stöd för Wikipedia på fler språk. [Läs mer om vårt arbete]($1).";
 "year-in-review-personalized-donate-title" = "Din generositet bidrog till att låta Wikipedia blomstra";
 "year-in-review-personalized-donation-thank-you" = "Wikimedia-logotyp";
+// Fuzzy
 "year-in-review-personalized-edit-views-subtitle-format" = "Läsare runt om i världen uppskattar dina bidrag. Under de senaste två månaderna har artiklarna som du redigerade fått totalt $1 visningar. Tack vare redigerare som dig är Wikipedia en faktabaserad och pålitlig kunskapsresurs för hela världen som ständigt förbättras";
 "year-in-review-personalized-edit-views-title-format" = "Dina redigeringar har nyligen visats mer än $1 gånger";
 "year-in-review-personalized-editing-subtitle-format" = "Du har redigerat Wikipedia {{PLURAL:$1|$1 gång|$1 gånger}}. Tack för att du är en av de frivilliga redigerarna som gör skillnad i Wikimedia-projekten runt om i världen.";

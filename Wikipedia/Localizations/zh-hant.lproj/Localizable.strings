@@ -1472,6 +1472,7 @@
 "year-in-review-personalized-day-subtitle-format" = "您在 $1 閱讀了最多文章。顯然，$1 是您探索新內容的最佳時機。感謝您充分利用閱讀時間！";
 "year-in-review-personalized-donate-subtitle" = "感謝您為自由知識的未來投入支持。今年，維基媒體基金會改進了技術，以更好地服務每一位讀者和志願者，開發了促進合作的工具，並支持更多語言版本的維基百科。[了解更多關於我們的工作內容]。($1)";
 "year-in-review-personalized-donate-title" = "您的慷慨幫助 Wikipedia 持續蓬勃發展";
+// Fuzzy
 "year-in-review-personalized-edit-views-subtitle-format" = "全球的讀者感謝您的貢獻。在過去兩個月中，您編輯過的文章共獲得了 $1 次瀏覽。正因為有像您這樣的編輯者，Wikipedia 才能持續改進，成為一個以事實為基礎且值得信賴的全球知識資源。";
 "year-in-review-personalized-edit-views-title-format" = "您的編輯最近已被瀏覽超過 $1 次。";
 "year-in-review-personalized-editing-subtitle-format" = "您在維基百科上進行了{{PLURAL:$1|$1次}}編輯。感謝您作為志願編輯者之一，為全球維基媒體的專案帶來改變。";

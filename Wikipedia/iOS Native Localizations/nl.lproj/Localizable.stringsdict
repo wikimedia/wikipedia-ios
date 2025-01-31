@@ -900,7 +900,7 @@
 	<key>year-in-review-personalized-reading-subtitle-format</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Dit jaar heb je %#@v1@ gelezen. Wikipedia had meer dan %2$@ miljoen artikelen beschikbaar in meer dan %3$@ talen. Je hebt je aangesloten bij miljoenen mensen die hun kennis uitbreiden en verschillende onderwerpen verkennen.</string>
+		<string>U hebt %1$d artikel%#@v1@ gelezen. Wikipedia bevatte %2$@ miljoen artikelen in meer dan %3$@ actieve talen. Samen met miljoenen anderen hebt u uw kennis uitgebreid en diverse onderwerpen verkend.</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -908,15 +908,15 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>%1$d artikel</string>
+			<string></string>
 			<key>other</key>
-			<string>%1$d artikelen</string>
+			<string>en</string>
 		</dict>
 	</dict>
 	<key>year-in-review-personalized-reading-title-format</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Je hebt dit jaar %#@v1@ gelezen</string>
+		<string>U hebt %#@v1@ gelezen</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>

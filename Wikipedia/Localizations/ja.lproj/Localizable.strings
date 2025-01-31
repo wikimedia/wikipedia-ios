@@ -1251,6 +1251,7 @@
 "year-in-review-personalized-day-subtitle-format" = "あなたは$1に最も多くの記事を読みました。$1は、あなたにとって新しいコンテンツを探求するのに最適な曜日だと言えるのかもしれません。読書時間を最大限に活用していただき、ありがとうございます！";
 "year-in-review-personalized-donate-subtitle" = "自由な知識の未来への投資に感謝いたします。今年、ウィキメディア財団は、すべての読者とボランティアにより良いサービスを提供するための技術改善、共同作業を強化するツールの開発、そしてより多くの言語でのウィキペディアのサポートを行いました。[私達の活動についてさらに詳しく知る]($1)。";
 "year-in-review-personalized-donate-title" = "皆様の寛大なご支援により、ウィキペディアは発展を続けています";
+// Fuzzy
 "year-in-review-personalized-edit-views-subtitle-format" = "世界中の読者があなたの貢献に感謝しています。この2か月間、あなたが編集した記事は合計で $1 回閲覧されました。あなたのような編集者のおかげで、ウィキペディアは着実に改良され、事実に基づく信頼性の高い世界の知識源となっているのです。";
 "year-in-review-personalized-edit-views-title-format" = "あなたの編集は最近 $1 回以上閲覧されました";
 "year-in-review-personalized-editing-subtitle-format" = "あなたがウィキペディアを編集した回数は{{PLURAL:$1 回}}です。世界各地でウィキメディア・プロジェクトに変革をもたらすボランティア編集者の一人としてご協力いただき、ありがとうございます。";

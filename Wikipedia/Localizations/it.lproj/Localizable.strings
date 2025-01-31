@@ -1048,6 +1048,7 @@
 "year-in-review-personalized-donate-subtitle" = "Grazie per aver investito nel futuro della conoscenza libera. Quest'anno, Wikimedia Foundation ha migliorato la tecnologia per servire meglio ogni lettore e volontario, ha sviluppato strumenti che promuovono la collaborazione e ha supportato Wikipedia in più lingue. [Scopri di più sul nostro lavoro]($1).";
 "year-in-review-personalized-donate-title" = "La tua generosità ha aiutato Wikipedia a continuare a prosperare";
 "year-in-review-personalized-donation-thank-you" = "Logo di Wikimedia";
+// Fuzzy
 "year-in-review-personalized-edit-views-subtitle-format" = "I lettori da tutto il mondo apprezzano i tuoi contributi. Negli ultimi 2 mesi, gli articoli che hai modificato hanno ricevuto $1 visualizzazioni totali. Grazie ad editor come te, Wikipedia è una risorsa affidabile di conoscenza in continuo miglioramento e basata sui fatti.";
 "year-in-review-personalized-edit-views-title-format" = "Recentemente le tue modifiche sono state visualizzate più di $1 volte";
 "year-in-review-personalized-editing-subtitle-format" = "Hai modificato Wikipedia {{PLURAL:$1|$1 volta|$1 volte}}. Grazie per essere uno dei redattori volontari che offrono il loro contributo nei progetti Wikimedia in tutto il mondo.";
