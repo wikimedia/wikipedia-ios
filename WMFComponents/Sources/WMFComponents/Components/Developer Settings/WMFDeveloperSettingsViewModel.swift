@@ -10,7 +10,7 @@ import WMFData
     let sendAnalyticsToWMFLabs: String
     let enableYearinReview: String
     let bypassDonation: String
-    let close: String
+    let done: String
 
     @objc public init(developerSettings: String, doNotPostImageRecommendations: String, enableAltTextExperimentForEN: String, alwaysShowAltTextEntryPoint: String, sendAnalyticsToWMFLabs: String, enableYearinReview: String, bypassDonation: String, close: String) {
         self.developerSettings = developerSettings
@@ -20,7 +20,7 @@ import WMFData
         self.sendAnalyticsToWMFLabs = sendAnalyticsToWMFLabs
         self.enableYearinReview = enableYearinReview
         self.bypassDonation = bypassDonation
-        self.close = close
+        self.done = close
     }
 }
 

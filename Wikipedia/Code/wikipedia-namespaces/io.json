@@ -37,6 +37,7 @@
     "MODULO-DISKUTO" : 829,
     "PROJECT" : 4,
     "PROJECT TALK" : 5,
+    "ŜABLONA DISKUTO" : 11,
     "SHABLONO" : 10,
     "SHABLONO DEBATO" : 11,
     "SPECALA" : -1,
@@ -63,7 +64,6 @@
     "WIKIPEDIO" : 4,
     "WIKIPEDIO DEBATO" : 5,
     "WIKIPEDIO DISKUTO" : 5,
-    "WP" : 4,
-    "ŜABLONA DISKUTO" : 11
+    "WP" : 4
   }
 }
