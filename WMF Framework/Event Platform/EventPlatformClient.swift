@@ -322,8 +322,8 @@ import WMFData
      */
     private func loadStreamConfiguration(_ data: Data) {
         #if DEBUG
-        if let raw = String.init(data: data, encoding: String.Encoding.utf8) {
-            DDLogDebug("EPC: Downloaded stream configs (raw): \(raw)")
+        if String.init(data: data, encoding: String.Encoding.utf8) != nil {
+            DDLogDebug("EPC: Downloaded stream configs (line break here to read raw configs)")
         }
         #endif
         guard let storageManager = self.storageManager else {
@@ -633,8 +633,12 @@ import WMFData
             let data = try encoder.encode(eventPayload)
             
             #if DEBUG
-            let jsonString = String(data: data, encoding: .utf8)!
-            DDLogDebug("EPC: Scheduling event to be sent to \(EventPlatformClient.eventIntakeURI) with POST body:\n\(jsonString)")
+            // Convert to loose dictionary so we can sort keys and print that way.
+            if let dict = try? JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] {
+                let printablePayload = PrintableEventPayload(payload: dict)
+                DDLogDebug("\n\n📊EPC: Scheduling event to be sent to \(EventPlatformClient.eventIntakeURI):")
+                DDLogDebug("\(printablePayload)")
+            }
             #endif
             
             guard let streamConfigs = streamConfigurations else {
@@ -642,11 +646,11 @@ import WMFData
                 return
             }
             guard let config = streamConfigs[stream] else {
-                DDLogDebug("EPC: Event submitted to '\(stream)' but only the following streams are configured: \(streamConfigs.keys.map(\.rawValue).joined(separator: ", "))")
+                DDLogError("EPC: Event submitted to '\(stream)' but only the following streams are configured: \(streamConfigs.keys.map(\.rawValue).joined(separator: ", "))")
                 return
             }
             guard samplingController.inSample(stream: stream, config: config) else {
-                DDLogDebug("EPC: Stream '\(stream.rawValue)' is not in sample")
+                DDLogWarn("EPC: Stream '\(stream.rawValue)' is not in sample")
                 return
             }
             storageManager.push(data: data, stream: stream)
@@ -771,4 +775,25 @@ public protocol EventInterface: Codable {
      * Check the documentation for `EPC.Schema` for more information.
      */
     static var schema: EventPlatformClient.Schema { get }
+}
+
+private class PrintableEventPayload: CustomStringConvertible {
+    let payload: [String: Any]
+    
+    init(payload: [String : Any]) {
+        self.payload = payload
+    }
+    
+    var description: String {
+        var description = ""
+        let sortedElements = payload.sorted( by: { $0.0 < $1.0 })
+        
+        for (key, value) in sortedElements {
+            description += "\n\(key): \(value)"
+        }
+        
+        description += "\n\n"
+        
+        return description
+    }
 }
