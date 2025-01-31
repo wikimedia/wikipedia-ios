@@ -286,11 +286,11 @@ class TableOfContentsViewController: UIViewController, UITableViewDelegate, UITa
     }
     
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
-        navigationController?.hidesBarsOnSwipe = false
+        // navigationController?.hidesBarsOnSwipe = false
     }
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        navigationController?.hidesBarsOnSwipe = true
+        // navigationController?.hidesBarsOnSwipe = true
     }
 
     func tableOfContentsAnimatorDidTapBackground(_ controller: TableOfContentsAnimator) {

@@ -128,13 +128,20 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
             self?.calculateTopSafeAreaOverlayHeight()
         }
     }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        
+        super.viewWillDisappear(animated)
+        
+        resetNavBarAppearance()
+        
+    }
 
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         dataStore.feedContentController.dismissCollapsedContentGroups()
         stopMonitoringReachability()
         isGranularUpdatingEnabled = false
-        resetNavBarAppearance()
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
@@ -213,7 +220,9 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
             searchBarPlaceholder: WMFLocalizedString("search-field-placeholder-text", value: "Search Wikipedia", comment: "Search field placeholder text"),
             showsScopeBar: false, scopeButtonTitles: nil)
         
-        configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: nil, profileButtonConfig: profileButtonConfig, searchBarConfig: searchConfig, hideNavigationBarOnScroll: true)
+        configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: nil, profileButtonConfig: profileButtonConfig, searchBarConfig: searchConfig, hideNavigationBarOnScroll: false)
+        
+        navigationItem.backButtonTitle = CommonStrings.exploreTabTitle
     }
     
     @objc func updateProfileButton() {
@@ -2193,10 +2202,10 @@ extension ExploreViewController: YearInReviewBadgeDelegate {
 extension ExploreViewController: UISearchControllerDelegate {
     
     func willPresentSearchController(_ searchController: UISearchController) {
-        navigationController?.hidesBarsOnSwipe = false
+        // navigationController?.hidesBarsOnSwipe = false
     }
     
     func didDismissSearchController(_ searchController: UISearchController) {
-        navigationController?.hidesBarsOnSwipe = true
+        // navigationController?.hidesBarsOnSwipe = true
     }
 }
