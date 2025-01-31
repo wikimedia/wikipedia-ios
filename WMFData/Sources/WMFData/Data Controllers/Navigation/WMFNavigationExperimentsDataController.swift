@@ -35,10 +35,11 @@ public final class WMFNavigationExperimentsDataController {
         }
         
         guard isBeforeEndDate else {
+            reset()
             throw CustomError.invalidDate
         }
         
-        if let assignmentCache {
+        if assignmentCache != nil {
             throw CustomError.alreadyAssignedBucket
         }
         
@@ -64,6 +65,10 @@ public final class WMFNavigationExperimentsDataController {
     
     public func articleSearchBarExperimentAssignment() throws -> ArticleSearchBarExperimentAssignment {
         
+        guard isBeforeEndDate else {
+            throw CustomError.invalidDate
+        }
+        
         // Check cache first
         if let assignmentCache {
             return assignmentCache
@@ -87,11 +92,16 @@ public final class WMFNavigationExperimentsDataController {
         return assignment
     }
     
+    private func reset() {
+        assignmentCache = nil
+        try? experimentsDataController.resetExperiment(.articleSearchBar)
+    }
+    
     private var experimentStopDate: Date? {
         var dateComponents = DateComponents()
         dateComponents.year = 2025
-        dateComponents.month = 31
-        dateComponents.day = 5
+        dateComponents.month = 3
+        dateComponents.day = 31
         return Calendar.current.date(from: dateComponents)
     }
     

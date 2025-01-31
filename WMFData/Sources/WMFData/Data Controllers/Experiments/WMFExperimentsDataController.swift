@@ -133,6 +133,13 @@ final class WMFExperimentsDataController {
         return BucketValue(rawValue: rawValue)
     }
     
+    func resetExperiment(_ experiment: Experiment) throws {
+        let bucketKey = experiment.config.bucketFileName.rawValue
+        let percentKey = experiment.config.percentageFileName.rawValue
+        try store.remove(key: cacheDirectoryName, bucketKey)
+        try store.remove(key: cacheDirectoryName, percentKey)
+    }
+    
     // MARK: Private
     
     private func percentageForExperiment(_ experiment: Experiment) -> Int? {
