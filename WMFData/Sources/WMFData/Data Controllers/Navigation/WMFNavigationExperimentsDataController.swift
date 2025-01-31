@@ -19,6 +19,8 @@ public final class WMFNavigationExperimentsDataController {
     private let experimentsDataController: WMFExperimentsDataController
     private let articleSearchBarExperimentPercentage: Int = 50
     
+    private var assignmentCache: ArticleSearchBarExperimentAssignment?
+    
     private init?(experimentStore: WMFKeyValueStore? = WMFDataEnvironment.current.sharedCacheStore) {
         guard let experimentStore else {
             return nil
@@ -36,35 +38,53 @@ public final class WMFNavigationExperimentsDataController {
             throw CustomError.invalidDate
         }
         
+        if let assignmentCache {
+            throw CustomError.alreadyAssignedBucket
+        }
+        
         if experimentsDataController.bucketForExperiment(.articleSearchBar) != nil {
             throw CustomError.alreadyAssignedBucket
         }
         
         let bucketValue = try experimentsDataController.determineBucketForExperiment(.articleSearchBar, withPercentage: articleSearchBarExperimentPercentage)
         
+        let assignment: ArticleSearchBarExperimentAssignment
         switch bucketValue {
         case .articleSearchBarTest:
-            return ArticleSearchBarExperimentAssignment.test
+            assignment = ArticleSearchBarExperimentAssignment.test
         case .articleSearchBarControl:
-            return ArticleSearchBarExperimentAssignment.control
+            assignment = ArticleSearchBarExperimentAssignment.control
         default:
             throw CustomError.unexpectedAssignment
         }
+        
+        self.assignmentCache = assignment
+        return assignment
     }
     
     public func articleSearchBarExperimentAssignment() throws -> ArticleSearchBarExperimentAssignment {
+        
+        // Check cache first
+        if let assignmentCache {
+            return assignmentCache
+        }
+        
         guard let bucketValue = experimentsDataController.bucketForExperiment(.articleSearchBar) else {
             throw CustomError.missingAssignment
         }
         
+        let assignment: ArticleSearchBarExperimentAssignment
         switch bucketValue {
         case .articleSearchBarTest:
-            return ArticleSearchBarExperimentAssignment.test
+            assignment = ArticleSearchBarExperimentAssignment.test
         case .articleSearchBarControl:
-            return ArticleSearchBarExperimentAssignment.control
+            assignment = ArticleSearchBarExperimentAssignment.control
         default:
             throw CustomError.unexpectedAssignment
         }
+        
+        self.assignmentCache = assignment
+        return assignment
     }
     
     private var experimentStopDate: Date? {
