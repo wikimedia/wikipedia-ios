@@ -1700,28 +1700,15 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
         switch (tabBarController.selectedIndex) {
             case WMFAppTabTypeMain: {
                 ExploreViewController *exploreViewController = (ExploreViewController *)[self exploreViewController];
-                if (exploreViewController.navigationController.viewControllers.count == 1) {
-                    [exploreViewController scrollToTop];
-                    return NO;
-                } else {
-                    return YES;
-                }
-                
+                [exploreViewController scrollToTop];
             } break;
             case WMFAppTabTypeSearch: {
-                if (self.searchViewController.navigationController.viewControllers.count == 1) {
-                    
-                    
-                    // Must return NO if already visible to prevent unintended effect when tapping the Search tab bar button multiple times.
-                    SearchViewController *searchViewController = (SearchViewController *)[self searchViewController];
-                    [searchViewController makeSearchBarBecomeFirstResponder];
-                    return NO;
-                } else {
-                    return YES;
-                }
-                
+                SearchViewController *searchViewController = (SearchViewController *)[self searchViewController];
+                [searchViewController makeSearchBarBecomeFirstResponder];
             } break;
         }
+        // Must return NO if already visible to prevent unintended effect when tapping the Search tab bar button multiple times.
+        return NO;
     }
     return YES;
 }

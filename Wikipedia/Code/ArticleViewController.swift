@@ -840,35 +840,16 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
     var needsSearchBar: Bool {
         
         // TODO: A/B test
-        return true
+        return false
     }
     
     private func configureNavigationBar() {
-        
+
         let wButton = UIButton(type: .custom)
         wButton.setImage(UIImage(named: "W"), for: .normal)
         wButton.addTarget(self, action: #selector(wButtonTapped(_:)), for: .touchUpInside)
         
-        var titleConfig = WMFNavigationBarTitleConfig(title: nil, customView: nil, alignment: .centerCompact)
-        
-//        if #available(iOS 18, *) {
-//            if UIDevice.current.userInterfaceIdiom == .pad && traitCollection.horizontalSizeClass == .regular {
-//                
-//                for family in UIFont.familyNames {
-//                    print("Font family: \(family)")
-//                    for font in UIFont.fontNames(forFamilyName: family) {
-//                        print("  Font: \(font)")
-//                    }
-//                }
-//                
-//                var customLargeTitleFont: UIFont? = nil
-//                if let logoFont = UIFont(name: "icomoon", size: 26) {
-//                    customLargeTitleFont = logoFont // UIFontMetrics(forTextStyle: .title1).scaledFont(for: logoFont)
-//                }
-//                //
-//                titleConfig = WMFNavigationBarTitleConfig(title: "", customView: nil, alignment: .leadingLarge, customLargeTitleFont: customLargeTitleFont)
-//            }
-//        }
+        let titleConfig = WMFNavigationBarTitleConfig(title: articleURL.wmf_title ?? "", customView: wButton, alignment: .centerCompact)
         
         let trailingBarButtonItem: UIBarButtonItem? = needsSearchBar ? nil : AppSearchBarButtonItem.newAppSearchBarButtonItem
         let profileButtonConfig = profileButtonConfig(target: self, action: #selector(userDidTapProfile), dataStore: dataStore, yirDataController: yirDataController, leadingBarButtonItem: nil, trailingBarButtonItem: trailingBarButtonItem)
@@ -888,9 +869,7 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
         
         let searchBarConfig: WMFNavigationBarSearchConfig? = needsSearchBar ? WMFNavigationBarSearchConfig(searchResultsController: searchViewController, searchControllerDelegate: self, searchResultsUpdater: self, searchBarDelegate: nil, searchBarPlaceholder: WMFLocalizedString("search-field-placeholder-text", value: "Search Wikipedia", comment: "Search field placeholder text"), showsScopeBar: false, scopeButtonTitles: nil) : nil
 
-        configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: nil, profileButtonConfig: profileButtonConfig, searchBarConfig: searchBarConfig, hideNavigationBarOnScroll: false)
-        
-        navigationItem.backButtonTitle = articleURL.wmf_title ?? ""
+        configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: nil, profileButtonConfig: profileButtonConfig, searchBarConfig: searchBarConfig, hideNavigationBarOnScroll: true)
     }
     
     private func updateProfileButton() {

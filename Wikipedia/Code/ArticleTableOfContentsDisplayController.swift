@@ -174,7 +174,7 @@ class ArticleTableOfContentsDisplayController: Themeable {
             inlineContainerView.addSubview(viewController.view)
             
             NSLayoutConstraint.activate([
-                inlineContainerView.safeAreaLayoutGuide.topAnchor.constraint(equalTo: viewController.view.topAnchor),
+                inlineContainerView.topAnchor.constraint(equalTo: viewController.view.topAnchor),
                 inlineContainerView.leadingAnchor.constraint(equalTo: viewController.view.leadingAnchor),
                 inlineContainerView.trailingAnchor.constraint(equalTo: viewController.view.trailingAnchor),
                 inlineContainerView.bottomAnchor.constraint(equalTo: viewController.view.bottomAnchor)
