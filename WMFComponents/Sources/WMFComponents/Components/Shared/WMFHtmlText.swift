@@ -11,7 +11,6 @@ struct WMFHtmlText: View {
     }
     
     private var attributedString: AttributedString {
-        
         return (try? HtmlUtils.attributedStringFromHtml(html, styles: styles)) ?? AttributedString(html)
     }
     
