@@ -19,6 +19,8 @@
     "MODULE" : 828,
     "MODULE TALK" : 829,
     "NTAP-UBỌK" : 12,
+    "ỌGBỌN̄" : 14,
+    "ÒSIKWAAN̄" : 2,
     "PROJECT" : 4,
     "PROJECT TALK" : 5,
     "SPECIAL" : -1,
@@ -32,17 +34,15 @@
     "UKPATU FAILU" : 7,
     "UKPATU MEDIAWIKI" : 9,
     "UKPATU NTAP-UBỌK" : 13,
+    "UKPATU ỌGBỌN̄" : 15,
+    "UKPATU ÒSIKWAAN̄" : 3,
     "UKPATU TEMPULET" : 11,
     "UKPATU WÌKÌPEDIA" : 5,
-    "UKPATU ÒSIKWAAN̄" : 3,
-    "UKPATU ỌGBỌN̄" : 15,
     "USER" : 2,
     "USER TALK" : 3,
     "WIKIPEDIA" : 4,
-    "WIKIPEDIA TALK" : 5,
-    "WP" : 4,
     "WÌKÌPEDIA" : 4,
-    "ÒSIKWAAN̄" : 2,
-    "ỌGBỌN̄" : 14
+    "WIKIPEDIA TALK" : 5,
+    "WP" : 4
   }
 }

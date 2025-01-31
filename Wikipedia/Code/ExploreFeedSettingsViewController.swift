@@ -183,7 +183,7 @@ class ExploreFeedSettingsViewController: BaseExploreFeedSettingsViewController, 
         var closeConfig: WMFNavigationBarCloseButtonConfig? = nil
         
         if showCloseButton {
-            closeConfig = WMFNavigationBarCloseButtonConfig(text: CommonStrings.doneTitle, target: self, action: #selector(closeButtonPressed), alignment: .trailing)
+            closeConfig = WMFNavigationBarCloseButtonConfig(text: CommonStrings.doneTitle, target: self, action: #selector(closeButtonPressed), alignment: .leading)
         }
         
         configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: closeConfig, profileButtonConfig: nil, searchBarConfig: nil, hideNavigationBarOnScroll: false)

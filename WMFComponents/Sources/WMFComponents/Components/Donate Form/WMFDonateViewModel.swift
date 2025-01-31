@@ -17,7 +17,7 @@ public final class WMFDonateViewModel: NSObject, ObservableObject {
     
     public struct LocalizedStrings {
         public let title: String
-        public let doneTitle: String
+        public let cancelTitle: String
         public let transactionFeeOptInTextFormat: String
         public let monthlyRecurringText: String
         public let emailOptInText: String
@@ -39,9 +39,9 @@ public final class WMFDonateViewModel: NSObject, ObservableObject {
         public let accessibilityKeyboardDoneButtonHint: String
         public let accessibilityDonateButtonHintFormat: String
         
-        public init(title: String, doneTitle: String, transactionFeeOptInTextFormat: String, monthlyRecurringText: String, emailOptInText: String, maximumErrorText: String?, minimumErrorText: String, genericErrorTextFormat: String, helpLinkProblemsDonating: String, helpLinkOtherWaysToGive: String, helpLinkFrequentlyAskedQuestions: String, helpLinkTaxDeductibilityInformation: String, appleFinePrint: String, wikimediaFinePrint1: String, wikimediaFinePrint2: String, accessibilityAmountButtonHint: String, accessibilityTextfieldHint: String, accessibilityTransactionFeeHint: String, accessibilityMonthlyRecurringHint: String, accessibilityEmailOptInHint: String, accessibilityKeyboardDoneButtonHint: String, accessibilityDonateButtonHintFormat: String) {
+        public init(title: String, cancelTitle: String, transactionFeeOptInTextFormat: String, monthlyRecurringText: String, emailOptInText: String, maximumErrorText: String?, minimumErrorText: String, genericErrorTextFormat: String, helpLinkProblemsDonating: String, helpLinkOtherWaysToGive: String, helpLinkFrequentlyAskedQuestions: String, helpLinkTaxDeductibilityInformation: String, appleFinePrint: String, wikimediaFinePrint1: String, wikimediaFinePrint2: String, accessibilityAmountButtonHint: String, accessibilityTextfieldHint: String, accessibilityTransactionFeeHint: String, accessibilityMonthlyRecurringHint: String, accessibilityEmailOptInHint: String, accessibilityKeyboardDoneButtonHint: String, accessibilityDonateButtonHintFormat: String) {
             self.title = title
-            self.doneTitle = doneTitle
+            self.cancelTitle = cancelTitle
             self.transactionFeeOptInTextFormat = transactionFeeOptInTextFormat
             self.monthlyRecurringText = monthlyRecurringText
             self.emailOptInText = emailOptInText
@@ -229,7 +229,7 @@ public final class WMFDonateViewModel: NSObject, ObservableObject {
         }
         
         self.buttonViewModels = buttonViewModels
-        self.textfieldViewModel = AmountTextFieldViewModel(localizedStrings: AmountTextFieldViewModel.LocalizedStrings(doneTitle: localizedStrings.doneTitle, textfieldAccessibilityHint: localizedStrings.accessibilityTextfieldHint, doneAccessibilityHint: localizedStrings.accessibilityKeyboardDoneButtonHint), currencyCode: currencyCode, amount: 0, hasFocus: true)
+        self.textfieldViewModel = AmountTextFieldViewModel(localizedStrings: AmountTextFieldViewModel.LocalizedStrings(doneTitle: localizedStrings.cancelTitle, textfieldAccessibilityHint: localizedStrings.accessibilityTextfieldHint, doneAccessibilityHint: localizedStrings.accessibilityKeyboardDoneButtonHint), currencyCode: currencyCode, amount: 0, hasFocus: true)
         
         self.finalAmount = 0
         
