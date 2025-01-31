@@ -5,6 +5,7 @@ public struct WMFTempAccountsSheetView: View {
     @ObservedObject var appEnvironment = WMFAppEnvironment.current
     @ObservedObject var viewModel: WMFTempAccountsSheetViewModel
     @Environment(\.dismiss) private var dismiss
+    @Environment(\.verticalSizeClass) var verticalSizeClass
 
     var theme: WMFTheme {
         return appEnvironment.theme
@@ -56,15 +57,17 @@ public struct WMFTempAccountsSheetView: View {
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .padding(.horizontal, 51)
+                .padding(.top, verticalSizeClass == .regular ? 45 : 0)
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .background(Color(uiColor: theme.midBackground))
-            .environment(\.colorScheme, theme.preferredColorScheme)
-            .environment(\.openURL, OpenURLAction { url in
-                viewModel.handleURL(url)
-                return .handled
-            })
         }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(Color(uiColor: theme.midBackground))
+        .environment(\.colorScheme, theme.preferredColorScheme)
+        .environment(\.openURL, OpenURLAction { url in
+            viewModel.handleURL(url)
+            return .handled
+        })
     }
     
     private var textInfo: some View {
