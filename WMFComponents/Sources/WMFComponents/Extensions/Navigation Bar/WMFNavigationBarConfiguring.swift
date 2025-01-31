@@ -17,11 +17,13 @@ public struct WMFNavigationBarTitleConfig {
     let title: String
     let customView: UIView?
     let alignment: Alignment
+    let customLargeTitleFont: UIFont?
     
-    public init(title: String, customView: UIView?, alignment: Alignment) {
+    public init(title: String, customView: UIView?, alignment: Alignment, customLargeTitleFont: UIFont? = nil) {
         self.title = title
         self.customView = customView
         self.alignment = alignment
+        self.customLargeTitleFont = customLargeTitleFont
     }
 }
 
@@ -149,6 +151,37 @@ public extension WMFNavigationBarConfiguring where Self: UIViewController {
                 navigationItem.titleView = nil
             }
             navigationItem.leftBarButtonItem = nil
+            
+            if let customLargeTitleFont = titleConfig.customLargeTitleFont {
+                customizeNavBarAppearance(customLargeTitleFont: customLargeTitleFont)
+            }
+            
+//            if let customLargeTitleFont = titleConfig.customLargeTitleFont {
+//                let appearance = UINavigationBarAppearance()
+//                appearance.largeTitleTextAttributes = [.font: customLargeTitleFont]
+//                
+//                appearance.configureWithOpaqueBackground()
+//                
+//                appearance.backgroundColor = WMFAppEnvironment.current.theme.paperBackground
+//                let backgroundImage = UIImage.roundedRectImage(with: WMFAppEnvironment.current.theme.paperBackground, cornerRadius: 1)
+//                appearance.backgroundImage = backgroundImage
+//                
+//                appearance.shadowImage = UIImage()
+//                appearance.shadowColor = .clear
+//                
+//                navigationController?.navigationBar.tintColor = WMFAppEnvironment.current.theme.navigationBarTintColor
+//                
+//                navigationController?.navigationBar.standardAppearance = appearance
+//                navigationController?.navigationBar.scrollEdgeAppearance = appearance
+//                navigationController?.navigationBar.compactAppearance = appearance
+//                
+//            } else {
+//                let appearance = UINavigationBarAppearance()
+//                appearance.largeTitleTextAttributes = [.font: WMFFont.navigationBarLeadingLargeTitleFont]
+//                navigationController?.navigationBar.standardAppearance = appearance
+//                navigationController?.navigationBar.scrollEdgeAppearance = appearance
+//                navigationController?.navigationBar.compactAppearance = appearance
+//            }
         case .hidden:
             navigationController?.navigationBar.prefersLargeTitles = false
             navigationItem.largeTitleDisplayMode = .never
@@ -221,6 +254,27 @@ public extension WMFNavigationBarConfiguring where Self: UIViewController {
             
             navigationItem.searchController = searchController
         }
+    }
+    
+    func customizeNavBarAppearance(customLargeTitleFont: UIFont) {
+        guard let navVC = navigationController,
+        let componentNavVC = navVC as? WMFComponentNavigationController else {
+            return
+        }
+        
+        componentNavVC.setBarAppearance(customLargeTitleFont: customLargeTitleFont)
+    }
+    
+    
+    /// Call on viewWillDisappear(), IF navigation bar large title was set with a custom font.
+    func resetNavBarAppearance() {
+        
+        guard let navVC = navigationController,
+        let componentNavVC = navVC as? WMFComponentNavigationController else {
+            return
+        }
+        
+        componentNavVC.setBarAppearance(customLargeTitleFont: nil)
     }
     
     /// Call from UIViewController when theme changes
