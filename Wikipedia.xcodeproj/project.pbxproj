@@ -1980,9 +1980,6 @@
 		D80A792A1F31E63C00EC06AB /* NSCharacterSet+WMFLinkParsing.m in Sources */ = {isa = PBXBuildFile; fileRef = D80A79281F31E63C00EC06AB /* NSCharacterSet+WMFLinkParsing.m */; };
 		D80ACD281EA0DD0000DC3F20 /* FLAnimatedImage+SafeForSwift.h in Headers */ = {isa = PBXBuildFile; fileRef = D80ACD261EA0DD0000DC3F20 /* FLAnimatedImage+SafeForSwift.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D80ACD291EA0DD0000DC3F20 /* FLAnimatedImage+SafeForSwift.m in Sources */ = {isa = PBXBuildFile; fileRef = D80ACD271EA0DD0000DC3F20 /* FLAnimatedImage+SafeForSwift.m */; };
-		D80BF0A32347735E00B3B522 /* AppSearchButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D80BF0A22347735E00B3B522 /* AppSearchButton.swift */; };
-		D80BF0A42347735E00B3B522 /* AppSearchButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D80BF0A22347735E00B3B522 /* AppSearchButton.swift */; };
-		D80BF0A52347735E00B3B522 /* AppSearchButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D80BF0A22347735E00B3B522 /* AppSearchButton.swift */; };
 		D80ED2591EE178A800CE8C50 /* Gradient.swift in Sources */ = {isa = PBXBuildFile; fileRef = D80ED2581EE178A800CE8C50 /* Gradient.swift */; };
 		D80ED25C1EE18D0900CE8C50 /* PlacesSearchSuggestionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D80ED25A1EE18D0900CE8C50 /* PlacesSearchSuggestionTableViewCell.swift */; };
 		D80ED25D1EE18D0900CE8C50 /* PlacesSearchSuggestionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D80ED25A1EE18D0900CE8C50 /* PlacesSearchSuggestionTableViewCell.swift */; };
@@ -4411,7 +4408,6 @@
 		D80A79281F31E63C00EC06AB /* NSCharacterSet+WMFLinkParsing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSCharacterSet+WMFLinkParsing.m"; path = "WMF Framework/NSCharacterSet+WMFLinkParsing.m"; sourceTree = SOURCE_ROOT; };
 		D80ACD261EA0DD0000DC3F20 /* FLAnimatedImage+SafeForSwift.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "FLAnimatedImage+SafeForSwift.h"; path = "Wikipedia/Code/FLAnimatedImage+SafeForSwift.h"; sourceTree = SOURCE_ROOT; };
 		D80ACD271EA0DD0000DC3F20 /* FLAnimatedImage+SafeForSwift.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "FLAnimatedImage+SafeForSwift.m"; path = "Wikipedia/Code/FLAnimatedImage+SafeForSwift.m"; sourceTree = SOURCE_ROOT; };
-		D80BF0A22347735E00B3B522 /* AppSearchButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSearchButton.swift; sourceTree = "<group>"; };
 		D80ED2581EE178A800CE8C50 /* Gradient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Gradient.swift; sourceTree = "<group>"; };
 		D80ED25A1EE18D0900CE8C50 /* PlacesSearchSuggestionTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlacesSearchSuggestionTableViewCell.swift; sourceTree = "<group>"; };
 		D80ED25B1EE18D0900CE8C50 /* PlacesSearchSuggestionTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PlacesSearchSuggestionTableViewCell.xib; sourceTree = "<group>"; };
@@ -5755,7 +5751,6 @@
 			isa = PBXGroup;
 			children = (
 				0EAED8561BE95090006B01E6 /* View Controller */,
-				D80BF0A22347735E00B3B522 /* AppSearchButton.swift */,
 			);
 			name = Search;
 			path = Wikipedia/Code;
@@ -10252,7 +10247,6 @@
 				009B8358298091BC00AABEA3 /* EditNoticesViewController.swift in Sources */,
 				003CD3E928EF7C77000158E4 /* TalkPageFindInPageSearchController.swift in Sources */,
 				B0524B1F214854E900D8FD8D /* DescriptionWelcomeInitialViewController.swift in Sources */,
-				D80BF0A32347735E00B3B522 /* AppSearchButton.swift in Sources */,
 				8330532E23EF107D00123141 /* MediaListGalleryViewController.swift in Sources */,
 				83E3E7252440F1FE00AA2E9A /* LoadingAnimationViewController.swift in Sources */,
 				D87914DD1DFA04E10012C5DA /* NSUserDefaults+WMFApplicationDefaults.swift in Sources */,
@@ -11503,7 +11497,6 @@
 				67C6F79927E8C0EF00B9C864 /* NotificationsCenterCommonViewModel.swift in Sources */,
 				7AB20A0D22FC8432006FECB4 /* PageHistoryCountsView.swift in Sources */,
 				671F5E002367EDC600111116 /* GlobalUserInfoFetcher.swift in Sources */,
-				D80BF0A42347735E00B3B522 /* AppSearchButton.swift in Sources */,
 				6758451B2C73B03900F1A4A5 /* AltTextGuidancePresenter.swift in Sources */,
 				833B8C8A281AE2110021C12C /* RemoteNotificationsFunnel.swift in Sources */,
 				676E813529380D8A00F15258 /* TalkPagesFunnel.swift in Sources */,
@@ -12066,7 +12059,6 @@
 				67C6F79827E8C0EF00B9C864 /* NotificationsCenterCommonViewModel.swift in Sources */,
 				7AB20A0E22FC8432006FECB4 /* PageHistoryCountsView.swift in Sources */,
 				671F5E012367EDC600111116 /* GlobalUserInfoFetcher.swift in Sources */,
-				D80BF0A52347735E00B3B522 /* AppSearchButton.swift in Sources */,
 				6758451A2C73B03900F1A4A5 /* AltTextGuidancePresenter.swift in Sources */,
 				833B8C89281AE2100021C12C /* RemoteNotificationsFunnel.swift in Sources */,
 				676E813429380D8A00F15258 /* TalkPagesFunnel.swift in Sources */,
