@@ -61,6 +61,8 @@ class SearchViewController: ArticleCollectionViewController, WMFNavigationBarCon
         return try? WMFYearInReviewDataController()
     }
     
+    private var presentingSearchResults: Bool = false
+    
     // MARK: - Funcs
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
@@ -164,7 +166,7 @@ class SearchViewController: ArticleCollectionViewController, WMFNavigationBarCon
         
         let searchBarConfig = WMFNavigationBarSearchConfig(searchResultsController: nil, searchControllerDelegate: self, searchResultsUpdater: self, searchBarDelegate: self, searchBarPlaceholder: WMFLocalizedString("search-field-placeholder-text", value: "Search Wikipedia", comment: "Search field placeholder text"), showsScopeBar: false, scopeButtonTitles: nil)
         
-        configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: nil, profileButtonConfig: profileButtonConfig, searchBarConfig: searchBarConfig, hideNavigationBarOnScroll: true)
+        configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: nil, profileButtonConfig: profileButtonConfig, searchBarConfig: searchBarConfig, hideNavigationBarOnScroll: !presentingSearchResults)
     }
     
     private func updateProfileButton() {
@@ -648,6 +650,7 @@ extension SearchViewController: UISearchControllerDelegate {
     }
     
     func willPresentSearchController(_ searchController: UISearchController) {
+        presentingSearchResults.toggle()
         needsAnimateLanguageBarMovement = true
         navigationController?.hidesBarsOnSwipe = false
     }
@@ -657,6 +660,7 @@ extension SearchViewController: UISearchControllerDelegate {
     }
     
     func didDismissSearchController(_ searchController: UISearchController) {
+        presentingSearchResults.toggle()
         needsAnimateLanguageBarMovement = false
         navigationController?.hidesBarsOnSwipe = true
     }

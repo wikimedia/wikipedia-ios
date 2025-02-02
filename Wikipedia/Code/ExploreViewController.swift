@@ -53,6 +53,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     
     var topSafeAreaOverlayHeightConstraint: NSLayoutConstraint?
     var topSafeAreaOverlayView: UIView?
+    private var presentingSearchResults: Bool = false
 
     // MARK: - Lifecycle
 
@@ -199,7 +200,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
             searchBarPlaceholder: WMFLocalizedString("search-field-placeholder-text", value: "Search Wikipedia", comment: "Search field placeholder text"),
             showsScopeBar: false, scopeButtonTitles: nil)
         
-        configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: nil, profileButtonConfig: profileButtonConfig, searchBarConfig: searchConfig, hideNavigationBarOnScroll: true)
+        configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: nil, profileButtonConfig: profileButtonConfig, searchBarConfig: searchConfig, hideNavigationBarOnScroll: !presentingSearchResults)
     }
     
     @objc func updateProfileButton() {
@@ -2179,10 +2180,12 @@ extension ExploreViewController: YearInReviewBadgeDelegate {
 extension ExploreViewController: UISearchControllerDelegate {
     
     func willPresentSearchController(_ searchController: UISearchController) {
+        presentingSearchResults.toggle()
         navigationController?.hidesBarsOnSwipe = false
     }
     
     func didDismissSearchController(_ searchController: UISearchController) {
+        presentingSearchResults.toggle()
         navigationController?.hidesBarsOnSwipe = true
     }
 }
