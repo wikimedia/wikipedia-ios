@@ -181,7 +181,7 @@ final class EditorViewController: UIViewController, WMFNavigationBarConfiguring 
         let openingBold = "<b>"
         let closingBold = "</b>"
         let lineBreaks = "<br/><br/>"
-        let format = WMFLocalizedString("temp-account-edit-sheet-subtitle", value: "Your edit will be attributed to %2$@%1$@%3$@. %4$@IP address%5$@ will be visible to administrators.%6$@If you log in or create an account, your edits will be attributed to a name you choose, among other benefits.",
+        let format = WMFLocalizedString("temp-account-edit-sheet-subtitle", value: "Your edit will be attributed to %2$@%1$@%3$@. Your %4$@IP address%5$@ will be visible to administrators.%6$@If you log in or create an account, your edits will be attributed to a name you choose, among other benefits.",
           comment: "Information on temporary accounts, $1 is the temporary username, $2 and $3 are opening and closing bold, $4 is the URL opening tag, and $5 is the closing. $6 is the linebreaks.")
         return String.localizedStringWithFormat(format, tempUsername, openingBold, closingBold, openingLink, closingLink, lineBreaks)
     }
@@ -355,21 +355,19 @@ final class EditorViewController: UIViewController, WMFNavigationBarConfiguring 
             } else if let otherError = wikitextFetchResponse.otherError {
                 WMFAlertManager.sharedInstance.showErrorAlertWithMessage(otherError.messageHtml.removingHTML, sticky: false, dismissPreviousAlerts: true)
                 isDifferentErrorBannerShown = true
+            } else if let editNoticesViewModel,
+              !editNoticesViewModel.notices.isEmpty {
+               self.editNoticesViewModel = editNoticesViewModel
+               self.navigationItemController.addEditNoticesButton()
+               self.navigationItemController.apply(theme: self.theme)
+               self.presentEditNoticesIfNecessary(viewModel: editNoticesViewModel, blockedError: wikitextFetchResponse.blockedError, userGroupLevelCanEdit: wikitextFetchResponse.userGroupLevelCanEdit)
+               isDifferentErrorBannerShown = true
             } else if authManager.permanentUser(siteURL: pageURL) == nil {
                 if authManager.authStateIsTemporary {
                     presentTempEditorSheet()
                 } else {
                     presentIPEditorSheet()
                 }
-            }
-            
-            if let editNoticesViewModel,
-               !editNoticesViewModel.notices.isEmpty {
-                self.editNoticesViewModel = editNoticesViewModel
-                self.navigationItemController.addEditNoticesButton()
-                self.navigationItemController.apply(theme: self.theme)
-                self.presentEditNoticesIfNecessary(viewModel: editNoticesViewModel, blockedError: wikitextFetchResponse.blockedError, userGroupLevelCanEdit: wikitextFetchResponse.userGroupLevelCanEdit)
-                isDifferentErrorBannerShown = true
             }
             
             let needsReadOnly = (wikitextFetchResponse.blockedError != nil) || (wikitextFetchResponse.protectedPageError != nil && !wikitextFetchResponse.userGroupLevelCanEdit)
