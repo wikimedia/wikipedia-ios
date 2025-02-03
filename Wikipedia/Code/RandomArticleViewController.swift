@@ -106,7 +106,7 @@ class RandomArticleViewController: ArticleViewController {
             DispatchQueue.main.async {
                 guard
                     let articleURL = articleURL,
-                    let randomVC = RandomArticleViewController(articleURL: articleURL, dataStore: self.dataStore, theme: self.theme)
+                    let randomVC = RandomArticleViewController(articleURL: articleURL, dataStore: self.dataStore, theme: self.theme, source: .undefined)
                 else {
                     WMFAlertManager.sharedInstance.showErrorAlert(error ?? RequestError.unexpectedResponse, sticky: true, dismissPreviousAlerts: true)
                     return

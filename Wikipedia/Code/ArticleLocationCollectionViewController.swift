@@ -192,8 +192,9 @@ extension ArticleLocationCollectionViewController {
 // MARK: - CollectionViewContextMenuShowing
 extension ArticleLocationCollectionViewController: CollectionViewContextMenuShowing {
     func articleViewController(for indexPath: IndexPath) -> ArticleViewController? {
+        
         let articleURL = articleURL(at: indexPath)
-        let articleViewController = ArticleViewController(articleURL: articleURL, dataStore: dataStore, theme: theme)
+        let articleViewController = ArticleViewController(articleURL: articleURL, dataStore: dataStore, theme: theme, source: .places)
         return articleViewController
     }
 

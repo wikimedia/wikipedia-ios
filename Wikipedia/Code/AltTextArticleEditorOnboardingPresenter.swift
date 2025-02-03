@@ -84,9 +84,9 @@ final class AltTextArticleEditorOnboardingPresenter {
         let sheetLocalizedStrings = WMFAltTextExperimentModalSheetViewModel.LocalizedStrings(title: addAltTextTitle, nextButton: CommonStrings.nextTitle, textViewPlaceholder: textViewPlaceholder, textViewBottomDescription: textViewBottomDescription, characterCounterWarning: characterCounterWarningText, characterCounterFormat: characterCounterFormat, guidance: guidanceText)
 
         let bottomSheetViewModel = WMFAltTextExperimentModalSheetViewModel(altTextViewModel: altTextViewModel, localizedStrings: sheetLocalizedStrings)
-        
-        if let articleViewController = ArticleViewController(articleURL: articleViewController.articleURL, dataStore: articleViewController.dataStore, theme: articleViewController.theme, altTextExperimentViewModel: altTextViewModel, needsAltTextExperimentSheet: true, altTextBottomSheetViewModel: bottomSheetViewModel, altTextDelegate: articleViewController) {
-            
+
+        if let articleViewController = ArticleViewController(articleURL: articleViewController.articleURL, dataStore: articleViewController.dataStore, theme: articleViewController.theme, source: .undefined, altTextExperimentViewModel: altTextViewModel, needsAltTextExperimentSheet: true, altTextBottomSheetViewModel: bottomSheetViewModel, altTextDelegate: articleViewController) {
+
             self.articleViewController?.navigationController?.pushViewController(articleViewController, animated: true)
         }
     }

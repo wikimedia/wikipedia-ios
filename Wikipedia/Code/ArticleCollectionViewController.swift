@@ -7,7 +7,9 @@ class ArticleCollectionViewController: ColumnarCollectionViewController, Editabl
 
     var editController: CollectionViewEditController!
     var contentGroup: WMFContentGroup?
-    
+
+    var articleSource: ArticleSource = .undefined
+
     override func viewDidLoad() {
         super.viewDidLoad()
         layoutManager.register(ArticleRightAlignedImageCollectionViewCell.self, forCellWithReuseIdentifier: ArticleRightAlignedImageCollectionViewCell.identifier, addPlaceholder: true)
@@ -142,7 +144,7 @@ class ArticleCollectionViewController: ColumnarCollectionViewController, Editabl
 
         previewedIndexPath = indexPath
 
-        guard let articleViewController = ArticleViewController(articleURL: articleURL, dataStore: dataStore, theme: self.theme) else {
+        guard let articleViewController = ArticleViewController(articleURL: articleURL, dataStore: dataStore, theme: self.theme, source: articleSource) else {
             return nil
         }
         articleViewController.articlePreviewingDelegate = self
