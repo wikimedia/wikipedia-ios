@@ -96,7 +96,15 @@ final class EditorViewController: UIViewController, WMFNavigationBarConfiguring 
         if let primaryAppLanguageCode = dataStore.languageLinkController.appLanguage?.languageCode {
             languageCodeSuffix = "\(primaryAppLanguageCode)"
         }
-        return "https://www.mediawiki.org/wiki/Special:MyLanguage/Help:Temporary_accounts?uselang=\(languageCodeSuffix)"
+        return "https://en.wikipedia.org/wiki/Special:MyLanguage/IP_address?uselang=\(languageCodeSuffix)"
+    }
+    
+    var ipLearnMoreURL: String {
+        var languageCodeSuffix = ""
+        if let primaryAppLanguageCode = dataStore.languageLinkController.appLanguage?.languageCode {
+            languageCodeSuffix = "\(primaryAppLanguageCode)"
+        }
+        return "https://www.mediawiki.org/wiki/Special:MyLanguage/Help:Temporary_accounts?uselang=\(languageCodeSuffix)#Who_can_see_IP_address_data_associated_with_temporary_accounts?"
     }
     
     // MARK: - Lifecycle
@@ -177,13 +185,14 @@ final class EditorViewController: UIViewController, WMFNavigationBarConfiguring 
     
     func tempEditorSubtitleString(tempUsername: String) -> String {
         let openingLink = "<a href=\"\(ipURL)\">"
+        let openingLinkLearnMore = "<a href=\"\(ipLearnMoreURL)\">"
         let closingLink = "</a>"
         let openingBold = "<b>"
         let closingBold = "</b>"
         let lineBreaks = "<br/><br/>"
-        let format = WMFLocalizedString("temp-account-edit-sheet-subtitle", value: "Your edit will be attributed to %2$@%1$@%3$@. Your %4$@IP address%5$@ will be visible to administrators.%6$@If you log in or create an account, your edits will be attributed to a name you choose, among other benefits.",
-          comment: "Information on temporary accounts, $1 is the temporary username, $2 and $3 are opening and closing bold, $4 is the URL opening tag, and $5 is the closing. $6 is the linebreaks.")
-        return String.localizedStringWithFormat(format, tempUsername, openingBold, closingBold, openingLink, closingLink, lineBreaks)
+        let format = WMFLocalizedString("temp-account-edit-sheet-subtitle", value: "Your edit will be attributed to %2$@%1$@%3$@. Your %4$@IP address%5$@ will be visible to administrators. %7$@Learn more.%5$@%6$@ If you log in or create an account, your edits will be attributed to a name you choose, among other benefits.",
+          comment: "Information on temporary accounts, $1 is the temporary username, $2 and $3 are opening and closing bold, $4 is the URL opening tag, and $5 is the closing. $6 is the linebreaks. $7 is the opening for the learn more link.")
+        return String.localizedStringWithFormat(format, tempUsername, openingBold, closingBold, openingLink, closingLink, lineBreaks, openingLinkLearnMore)
     }
     
     private func presentIPEditorSheet() {
