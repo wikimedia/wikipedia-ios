@@ -80,6 +80,30 @@
     return twnLprojFiles;
 }
 
++ (NSArray *)twnLFilePaths {
+    static dispatch_once_t onceToken;
+    static NSArray *twnLFilePaths;
+    dispatch_once(&onceToken, ^{
+        NSFileManager *fileManager = [NSFileManager defaultManager];
+        NSString *localizationPath = [TWNStringsTests twnLocalizationsDirectory];
+
+        NSArray *lprojDirectories = [[[fileManager contentsOfDirectoryAtPath:localizationPath error:nil] filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"pathExtension='lproj'"]] valueForKey:@"lowercaseString"];
+
+        // Generate full paths of Localizable.strings
+        NSMutableArray *localizationFilePaths = [NSMutableArray array];
+
+        for (NSString *lprojDir in lprojDirectories) {
+            NSString *localizablePath = [localizationPath stringByAppendingPathComponent:[lprojDir stringByAppendingPathComponent:@"Localizable.strings"]];
+
+            if ([fileManager fileExistsAtPath:localizablePath]) {
+                [localizationFilePaths addObject:localizablePath];
+            }
+        }
+        twnLFilePaths = [localizationFilePaths copy];
+    });
+    return twnLFilePaths;
+}
+
 + (NSArray *)iOSLprojFiles {
     static dispatch_once_t onceToken;
     static NSArray *iOSLprojFiles;
@@ -421,6 +445,84 @@
             NSDictionary *translationPluralizableStringsDict = [self getPluralizableStringsDictFromLprogAtPath:[TWNStringsTests.bundleRoot stringByAppendingPathComponent:lprojFileName]];
             for (NSString *key in translationPluralizableStringsDict) {
                 XCTAssertNotNil([enPluralizableStringsDict objectForKey:key], @"\n\n\"%@\" translation containing plurals syntax received for \"%@\" string. The original EN string...\n\thttps://translatewiki.net/w/i.php?title=Wikimedia:Wikipedia-ios-%@/en&action=edit\n...doesn't have (or possibly need) plural syntax - either plural syntax will need to be added to the EN string or the translation...\n\thttps://translatewiki.net/w/i.php?title=Wikimedia:Wikipedia-ios-%@/%@&action=edit\n...will need to be updated to remove plural syntax.\n(Note: after loading the link above you can tap the \"Ask question\" button to pre-fill a Phabricator ticket for asking `i18n` folks for assistance for this string)\n\n", lprojFileName, key, key, key, [lprojFileName stringByReplacingOccurrencesOfString:@".lproj" withString:@""]);
+            }
+        }
+    }
+}
+
+- (void)testLocalizableStringsSingleSemicolonEnd {
+    NSArray *localizationFiles = [TWNStringsTests twnLFilePaths]; // Fetch all Localizable.strings file paths
+
+    XCTAssertTrue(localizationFiles.count > 0, @"No Localizable.strings files found");
+
+    for (NSString *filePath in localizationFiles) {
+        NSError *error = nil;
+        NSString *fileContents = [NSString stringWithContentsOfFile:filePath encoding:NSUTF8StringEncoding error:&error];
+
+        XCTAssertNil(error, @"Error reading file %@: %@", filePath, error.localizedDescription);
+        XCTAssertNotNil(fileContents, @"File contents should not be nil for file %@", filePath);
+
+        // Split file into lines
+        NSArray<NSString *> *lines = [fileContents componentsSeparatedByCharactersInSet:[NSCharacterSet newlineCharacterSet]];
+
+        // Check each line for multiple semicolons at the end
+        for (NSString *line in lines) {
+            if (line.length == 0) {
+                continue; // Skip empty lines
+            }
+
+            // Trim trailing whitespace
+            NSString *trimmedLine = [line stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+
+            // Count the number of semicolons at the end
+            NSUInteger semicolonCount = 0;
+            for (NSInteger i = trimmedLine.length - 1; i >= 0; i--) {
+                unichar character = [trimmedLine characterAtIndex:i];
+                if (character == ';') {
+                    semicolonCount++;
+                } else {
+                    break; // Stop counting once a non-semicolon character is found
+                }
+            }
+
+            // Fail if multiple semicolons exist at the end of the line
+            XCTAssertLessThanOrEqual(semicolonCount, 1, @"File %@ has a line with multiple semicolons at the end: %@", filePath, trimmedLine);
+        }
+    }
+}
+
+- (void)testLocalizableStringsMissingSemicolon {
+    NSArray *localizationFiles = [TWNStringsTests twnLFilePaths]; // Fetch all Localizable.strings file paths
+
+    XCTAssertTrue(localizationFiles.count > 0, @"No Localizable.strings files found");
+
+    for (NSString *filePath in localizationFiles) {
+        NSError *error = nil;
+        NSString *fileContents = [NSString stringWithContentsOfFile:filePath encoding:NSUTF8StringEncoding error:&error];
+
+        XCTAssertNil(error, @"Error reading file %@: %@", filePath, error.localizedDescription);
+        XCTAssertNotNil(fileContents, @"File contents should not be nil for file %@", filePath);
+
+        // Split file into lines
+        NSArray<NSString *> *lines = [fileContents componentsSeparatedByCharactersInSet:[NSCharacterSet newlineCharacterSet]];
+
+        // Check each line for missing semicolon at the end
+        for (NSString *line in lines) {
+            if (line.length == 0) {
+                continue; // Skip empty lines
+            }
+
+            // Trim trailing whitespace
+            NSString *trimmedLine = [line stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+
+            // Ignore comments (lines starting with "//")
+            if ([trimmedLine hasPrefix:@"//"]) {
+                continue;
+            }
+
+            // Fail if the last character is NOT a semicolon
+            if (![trimmedLine hasSuffix:@";"]) {
+                XCTFail(@"File %@ has a line missing a semicolon at the end: %@", filePath, trimmedLine);
             }
         }
     }
