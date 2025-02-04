@@ -175,7 +175,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
             if UIDevice.current.userInterfaceIdiom == .pad && traitCollection.horizontalSizeClass == .regular {
 
                 var customLargeTitleFont: UIFont? = nil
-                if let logoFont = UIFont(name: "icomoon", size: 26) {
+                if let logoFont = UIFont(name: "icomoon", size: 17) {
                     customLargeTitleFont = logoFont
                     titleConfig = WMFNavigationBarTitleConfig(title: "", customView: nil, alignment: .leadingLarge, customLargeTitleFont: customLargeTitleFont)
                 } else {
