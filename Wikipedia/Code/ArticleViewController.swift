@@ -547,6 +547,14 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
         super.traitCollectionDidChange(previousTraitCollection)
         tableOfContentsController.update(with: traitCollection)
         toolbarController.update()
+        
+        if #available(iOS 18, *) {
+            if UIDevice.current.userInterfaceIdiom == .pad {
+                if previousTraitCollection?.horizontalSizeClass != traitCollection.horizontalSizeClass {
+                    configureNavigationBar()
+                }
+            }
+        }
     }
     
     override func wmf_removePeekableChildViewControllers() {
@@ -849,7 +857,13 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
         wButton.setImage(UIImage(named: "W"), for: .normal)
         wButton.addTarget(self, action: #selector(wButtonTapped(_:)), for: .touchUpInside)
         
-        let titleConfig = WMFNavigationBarTitleConfig(title: articleURL.wmf_title ?? "", customView: wButton, alignment: .centerCompact)
+        var titleConfig: WMFNavigationBarTitleConfig = WMFNavigationBarTitleConfig(title: articleURL.wmf_title ?? "", customView: wButton, alignment: .centerCompact)
+        
+        if #available(iOS 18, *) {
+            if UIDevice.current.userInterfaceIdiom == .pad && traitCollection.horizontalSizeClass == .regular {
+                titleConfig = WMFNavigationBarTitleConfig(title: articleURL.wmf_title ?? "", customView: nil, alignment: .hidden)
+            }
+        }
         
         let trailingBarButtonItem: UIBarButtonItem? = needsSearchBar ? nil : AppSearchBarButtonItem.newAppSearchBarButtonItem
         let profileButtonConfig = profileButtonConfig(target: self, action: #selector(userDidTapProfile), dataStore: dataStore, yirDataController: yirDataController, leadingBarButtonItem: nil, trailingBarButtonItem: trailingBarButtonItem)

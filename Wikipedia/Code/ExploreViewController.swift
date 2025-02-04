@@ -173,20 +173,15 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         extendedLayoutIncludesOpaqueBars = false
         if #available(iOS 18, *) {
             if UIDevice.current.userInterfaceIdiom == .pad && traitCollection.horizontalSizeClass == .regular {
-                
-                for family in UIFont.familyNames {
-                    print("Font family: \(family)")
-                    for font in UIFont.fontNames(forFamilyName: family) {
-                        print("  Font: \(font)")
-                    }
-                }
-                
+
                 var customLargeTitleFont: UIFont? = nil
                 if let logoFont = UIFont(name: "icomoon", size: 26) {
-                    customLargeTitleFont = logoFont // UIFontMetrics(forTextStyle: .title1).scaledFont(for: logoFont)
+                    customLargeTitleFont = logoFont
+                    titleConfig = WMFNavigationBarTitleConfig(title: "", customView: nil, alignment: .leadingLarge, customLargeTitleFont: customLargeTitleFont)
+                } else {
+                    titleConfig = WMFNavigationBarTitleConfig(title: CommonStrings.exploreTabTitle, customView: nil, alignment: .hidden, customLargeTitleFont: nil)
                 }
-                //
-                titleConfig = WMFNavigationBarTitleConfig(title: "", customView: nil, alignment: .leadingLarge, customLargeTitleFont: customLargeTitleFont)
+                
                 extendedLayoutIncludesOpaqueBars = true
             }
         }
@@ -214,6 +209,9 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
             showsScopeBar: false, scopeButtonTitles: nil)
         
         configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: nil, profileButtonConfig: profileButtonConfig, searchBarConfig: searchConfig, hideNavigationBarOnScroll: true)
+        
+        // Need to override this so that "" does not appear as back button title.
+        navigationItem.backButtonTitle = CommonStrings.exploreTabTitle
     }
     
     @objc func updateProfileButton() {
