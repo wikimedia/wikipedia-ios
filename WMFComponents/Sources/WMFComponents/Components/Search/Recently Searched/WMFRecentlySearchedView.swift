@@ -1,7 +1,19 @@
 import SwiftUI
 
 public struct WMFRecentlySearchedView: View {
-    let items: [String] = ["Recently Searched 1", "Recently Searched 2", "Recently Searched 3"]
+    let items: [String] = ["Recently Searched 1", "Recently Searched 2", "Recently Searched 3",
+                           "Recently Searched 3",
+                           "Recently Searched 4",
+                           "Recently Searched 5",
+                           "Recently Searched 6",
+                           "Recently Searched 7",
+                           "Recently Searched 8",
+                           "Recently Searched 9",
+                           "Recently Searched 10",
+                           "Recently Searched 11",
+                           "Recently Searched 12",
+                           "Recently Searched 13",
+                           "Recently Searched 14"]
     
     public init() {
         
