@@ -1,5 +1,7 @@
 import UIKit
 import WMF
+import WMFComponents
+import SwiftUI
 
 class SearchResultsViewController: ArticleCollectionViewController {
     
@@ -11,17 +13,34 @@ class SearchResultsViewController: ArticleCollectionViewController {
         }
     }
     
+    lazy var recentlySearchedViewController: UIViewController = {
+        let recentlySearchedView = WMFRecentlySearchedView()
+        let hostingVC = UIHostingController(rootView: recentlySearchedView)
+        return hostingVC
+    }()
+    
     var tappedSearchResultAction: ((URL, IndexPath) -> Void)?
 
     override func viewDidLoad() {
         super.viewDidLoad()
         reload()
         NotificationCenter.default.addObserver(self, selector: #selector(updateArticleCell(_:)), name: NSNotification.Name.WMFArticleUpdated, object: nil)
+        embedRecentlySearchedViewController()
+    }
+    
+    private func embedRecentlySearchedViewController() {
+        addChild(recentlySearchedViewController)
+        view.wmf_addSubviewWithConstraintsToEdges(recentlySearchedViewController.view)
+        recentlySearchedViewController.didMove(toParent: self)
     }
     
     func reload() {
         collectionView.reloadData()
         updateEmptyState()
+    }
+    
+    func updateRecentlySearchedVisibility(searchTerm: String?) {
+        recentlySearchedViewController.view.isHidden = searchTerm != nil
     }
     
     var searchSiteURL: URL? = nil

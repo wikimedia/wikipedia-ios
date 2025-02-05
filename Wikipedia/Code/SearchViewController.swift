@@ -654,7 +654,7 @@ extension SearchViewController: UISearchResultsUpdating {
         guard let text = searchController.searchBar.text,
         !text.isEmpty else {
             searchTerm = nil
-            // updateRecentlySearchedVisibility(searchText: nil)
+            resultsViewController.updateRecentlySearchedVisibility(searchTerm: nil)
             return
         }
         
@@ -665,7 +665,7 @@ extension SearchViewController: UISearchResultsUpdating {
         }
         
         searchTerm = text
-        // updateRecentlySearchedVisibility(searchText: text)
+        resultsViewController.updateRecentlySearchedVisibility(searchTerm: text)
         search(for: text, suggested: false)
     }
 }
