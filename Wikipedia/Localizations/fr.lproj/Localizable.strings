@@ -1511,6 +1511,7 @@
 "year-in-review-personalized-donate-subtitle" = "Merci d'investir dans l'avenir du savoir en accès libre. Cette année, la Fondation Wikimédia a fait progresser la technologie pour mieux servir chaque lecteur et bénévole, a développé des outils qui favorisent la collaboration et a soutenu Wikipédia dans davantage de langues. [En savoir plus sur notre travail]($1).";
 "year-in-review-personalized-donate-title" = "Votre générosité a contribué au dynamisme de Wikipédia";
 "year-in-review-personalized-donation-thank-you" = "Logo Wikimédia";
+// Fuzzy
 "year-in-review-personalized-edit-views-subtitle-format" = "Les lecteurs du monde entier apprécient vos contributions. Au cours des deux derniers mois, les articles que vous avez édités ont été vus au total $1 fois. Grâce à des éditeurs comme vous, Wikipédia est une source de connaissances fiable en s'appuyant sur des faits réels et en constante amélioration pour le monde entier.";
 "year-in-review-personalized-edit-views-title-format" = "Vos modifications ont été consultées récemment plus de $1 fois";
 "year-in-review-personalized-editing-subtitle-format" = "Vous avez modifié Wikipédia {{PLURAL:$1|une|$1}} fois. Merci d'être l'un des contributeurs bénévoles qui font la différence sur les projets Wikimédia du monde entier.";
