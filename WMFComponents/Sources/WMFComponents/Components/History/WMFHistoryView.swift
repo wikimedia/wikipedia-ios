@@ -24,6 +24,6 @@ public struct WMFHistoryView: View {
                 }
             }
         }
-        .listStyle(.plain)
+        .listStyle(.grouped)
     }
 }

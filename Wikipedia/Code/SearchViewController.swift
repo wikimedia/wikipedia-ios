@@ -3,7 +3,9 @@ import WMFComponents
 import WMFData
 import SwiftUI
 
-class SearchViewController: ArticleCollectionViewController, WMFNavigationBarConfiguring, WMFNavigationBarHiding {
+class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring, WMFNavigationBarHiding {
+    
+    @objc var dataStore: MWKDataStore?
     
     // Assign if you don't want search result selection to do default navigation, and instead want to perform your own custom logic upon search result selection.
     var navigateToSearchResultAction: ((URL) -> Void)?
@@ -74,17 +76,17 @@ class SearchViewController: ArticleCollectionViewController, WMFNavigationBarCon
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        embedResultsViewController()
+        // embedResultsViewController()
         // TODO: Maybe only do this when living in search tab (there will be a valid source property eventually when a/b search bar PR is merged).
         embedHistoryViewController()
-        setupTopSafeAreaOverlay(scrollView: collectionView)
+        setupTopSafeAreaOverlay(scrollView: nil)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         configureNavigationBar()
-        updateLanguageBarVisibility()
-        reloadRecentSearches()
+        // updateLanguageBarVisibility()
+        // reloadRecentSearches()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -100,22 +102,27 @@ class SearchViewController: ArticleCollectionViewController, WMFNavigationBarCon
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
+        // TODO: Try to accomplish this with SwiftUI padding instead
         if let searchLanguageBarViewController {
-            collectionView.contentInset.top = searchLanguageBarViewController.view.bounds.height
+            // collectionView.contentInset.top = searchLanguageBarViewController.view.bounds.height
             resultsViewController.collectionView.contentInset.top = searchLanguageBarViewController.view.bounds.height
         } else {
-            collectionView.contentInset.top = 0
-            resultsViewController.collectionView.contentInset.top = 0
+            // collectionView.contentInset.top = 0
+            // resultsViewController.collectionView.contentInset.top = 0
         }
     }
-    
-    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        super.scrollViewDidScroll(scrollView)
-        
-        let normalizedContentOffset = scrollView.contentOffset.y + (scrollView.safeAreaInsets.top + scrollView.contentInset.top)
-        searchLanguageBarTopConstraint?.constant = scrollView.safeAreaInsets.top - normalizedContentOffset
-        calculateNavigationBarHiddenState(scrollView: scrollView)
-    }
+
+    // TODO: Try to accomplish this two ways:
+    // 1. Listening for first section onAppear / onDisappear events from History SwiftUI view. When onAppear triggered, ensure nav bar is revealed.
+    // 2.first section onAppear / onDisappear events will not trigger when there are very few items. So we may need to check and see if the LAST item has appeared after landing on screen / upon rotation(?). If so, all content is displaying, so disable nav bar hiding.
+//
+//    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
+//        super.scrollViewDidScroll(scrollView)
+//        
+//        let normalizedContentOffset = scrollView.contentOffset.y + (scrollView.safeAreaInsets.top + scrollView.contentInset.top)
+//        searchLanguageBarTopConstraint?.constant = scrollView.safeAreaInsets.top - normalizedContentOffset
+//        calculateNavigationBarHiddenState(scrollView: scrollView)
+//    }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
@@ -123,7 +130,7 @@ class SearchViewController: ArticleCollectionViewController, WMFNavigationBarCon
         if #available(iOS 18, *) {
             if UIDevice.current.userInterfaceIdiom == .pad {
                 if previousTraitCollection?.horizontalSizeClass != traitCollection.horizontalSizeClass {
-                    configureNavigationBar()
+                    // configureNavigationBar()
                 }
             }
         }
@@ -133,7 +140,7 @@ class SearchViewController: ArticleCollectionViewController, WMFNavigationBarCon
         super.viewWillTransition(to: size, with: coordinator)
 
         coordinator.animate(alongsideTransition: nil) { [weak self] _ in
-            self?.calculateTopSafeAreaOverlayHeight()
+            // self?.calculateTopSafeAreaOverlayHeight()
         }
     }
     
@@ -165,7 +172,7 @@ class SearchViewController: ArticleCollectionViewController, WMFNavigationBarCon
             profileButtonConfig = nil
         }
         
-        let searchBarConfig = WMFNavigationBarSearchConfig(searchResultsController: nil, searchControllerDelegate: self, searchResultsUpdater: self, searchBarDelegate: self, searchBarPlaceholder: WMFLocalizedString("search-field-placeholder-text", value: "Search Wikipedia", comment: "Search field placeholder text"), showsScopeBar: false, scopeButtonTitles: nil)
+        let searchBarConfig = WMFNavigationBarSearchConfig(searchResultsController: resultsViewController, searchControllerDelegate: self, searchResultsUpdater: self, searchBarDelegate: self, searchBarPlaceholder: WMFLocalizedString("search-field-placeholder-text", value: "Search Wikipedia", comment: "Search field placeholder text"), showsScopeBar: false, scopeButtonTitles: nil)
         
         configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: nil, profileButtonConfig: profileButtonConfig, searchBarConfig: searchBarConfig, hideNavigationBarOnScroll: true)
     }
@@ -221,12 +228,12 @@ class SearchViewController: ArticleCollectionViewController, WMFNavigationBarCon
         historyHostingVC.didMove(toParent: self)
     }
     
-    private func embedResultsViewController() {
-        addChild(resultsViewController)
-        view.wmf_addSubviewWithConstraintsToEdges(resultsViewController.view)
-        resultsViewController.didMove(toParent: self)
-        updateRecentlySearchedVisibility(searchText: nil)
-    }
+//    private func embedResultsViewController() {
+//        addChild(resultsViewController)
+//        view.wmf_addSubviewWithConstraintsToEdges(resultsViewController.view)
+//        resultsViewController.didMove(toParent: self)
+//        updateRecentlySearchedVisibility(searchText: nil)
+//    }
     
     private func setupLanguageBarViewController() -> SearchLanguagesBarViewController {
         if let vc = self.searchLanguageBarViewController {
@@ -384,18 +391,18 @@ class SearchViewController: ArticleCollectionViewController, WMFNavigationBarCon
             }
         }
     }
-    
+ 
     // MARK: - Search
-    
+ 
     lazy var fetcher: WMFSearchFetcher = {
         return WMFSearchFetcher()
     }()
-    
+   
     func resetSearchResults() {
         resultsViewController.emptyViewType = .none
         resultsViewController.results = []
     }
-    
+   
     func didCancelSearch() {
         resultsViewController.emptyViewType = .none
         resultsViewController.results = []
@@ -405,7 +412,7 @@ class SearchViewController: ArticleCollectionViewController, WMFNavigationBarCon
     
     @objc func clear() {
         didCancelSearch()
-        updateRecentlySearchedVisibility(searchText: navigationItem.searchController?.searchBar.text)
+        // updateRecentlySearchedVisibility(searchText: navigationItem.searchController?.searchBar.text)
     }
     
     lazy var resultsViewController: SearchResultsViewController = {
@@ -435,8 +442,8 @@ class SearchViewController: ArticleCollectionViewController, WMFNavigationBarCon
         return resultsViewController
     }()
 
-    // MARK: - Recent Search Saving
-    
+//    // MARK: - Recent Search Saving
+
     func saveLastSearch() {
         guard
             let term = resultsViewController.resultsInfo?.searchTerm,
@@ -445,8 +452,8 @@ class SearchViewController: ArticleCollectionViewController, WMFNavigationBarCon
         else {
             return
         }
-        dataStore.recentSearchList.addEntry(entry)
-        dataStore.recentSearchList.save()
+        dataStore?.recentSearchList.addEntry(entry)
+        dataStore?.recentSearchList.save()
         reloadRecentSearches()
     }
 
@@ -466,156 +473,156 @@ class SearchViewController: ArticleCollectionViewController, WMFNavigationBarCon
         searchLanguageBarViewController?.apply(theme: theme)
         resultsViewController.apply(theme: theme)
         view.backgroundColor = theme.colors.paperBackground
-        collectionView.backgroundColor = theme.colors.paperBackground
+        // collectionView.backgroundColor = theme.colors.paperBackground
         themeTopSafeAreaOverlay()
         updateProfileButton()
         profileCoordinator?.theme = theme
     }
     
     // Recent
-
-    func updateRecentlySearchedVisibility(searchText: String?) {
-		guard let searchText = searchText else {
-			resultsViewController.view.isHidden = true
-			return
-		}
-
-         resultsViewController.view.isHidden = searchText.isEmpty
-    }
+//
+//    func updateRecentlySearchedVisibility(searchText: String?) {
+//		guard let searchText = searchText else {
+//			resultsViewController.view.isHidden = true
+//			return
+//		}
+//
+//         resultsViewController.view.isHidden = searchText.isEmpty
+//    }
 
     var recentSearches: MWKRecentSearchList? {
-        return self.dataStore.recentSearchList
+        return self.dataStore?.recentSearchList
     }
     
     // MARK: Collection View - related methods. Note: All of these affect the "Recently searched" list, NOT the actual search results. The actual search results are in the SearchResultsViewController, which SearchViewController embeds and displays depending on the length of the search bar text.
     
-    override var headerStyle: ColumnarCollectionViewController.HeaderStyle {
-        return .sections
-    }
-    
+//    override var headerStyle: ColumnarCollectionViewController.HeaderStyle {
+//        return .sections
+//    }
+//    
     func reloadRecentSearches() {
-        collectionView.reloadData()
+        // collectionView.reloadData()
     }
-
-    func deselectAll(animated: Bool) {
-        guard let selected = collectionView.indexPathsForSelectedItems else {
-            return
-        }
-        for indexPath in selected {
-            collectionView.deselectItem(at: indexPath, animated: animated)
-        }
-    }
-    
-    override func articleURL(at indexPath: IndexPath) -> URL? {
-        return nil
-    }
-    
-    override func article(at indexPath: IndexPath) -> WMFArticle? {
-        return nil
-    }
-    
-    override func canDelete(at indexPath: IndexPath) -> Bool {
-        return indexPath.row < countOfRecentSearches // ensures user can't delete the empty state row
-    }
-    
-    override func willPerformAction(_ action: Action) -> Bool {
-        return self.editController.didPerformAction(action)
-    }
-    
-    override func delete(at indexPath: IndexPath) {
-        guard
-            let entries = recentSearches?.entries,
-            entries.indices.contains(indexPath.item) else {
-            return
-        }
-        let entry = entries[indexPath.item]
-        recentSearches?.removeEntry(entry)
-        recentSearches?.save()
-        guard countOfRecentSearches > 0 else {
-            collectionView.reloadData() // reload instead of deleting the row to get to empty state
-            return
-        }
-        collectionView.performBatchUpdates({
-            self.collectionView.deleteItems(at: [indexPath])
-        }) { (finished) in
-            self.collectionView.reloadData()
-        }
-    }
-    
-    var countOfRecentSearches: Int {
-        return recentSearches?.entries.count ?? 0
-    }
-    
-    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return max(countOfRecentSearches, 1) // 1 for empty state
-    }
-    
-    override func configure(cell: ArticleRightAlignedImageCollectionViewCell, forItemAt indexPath: IndexPath, layoutOnly: Bool) {
-        cell.articleSemanticContentAttribute = .unspecified
-        cell.configureForCompactList(at: indexPath.item)
-        cell.isImageViewHidden = true
-        cell.apply(theme: theme)
-        editController.configureSwipeableCell(cell, forItemAt: indexPath, layoutOnly: layoutOnly)
-        cell.topSeparator.isHidden = indexPath.item == 0
-        cell.bottomSeparator.isHidden = indexPath.item == self.collectionView(collectionView, numberOfItemsInSection: indexPath.section) - 1
-        cell.titleLabel.textColor = theme.colors.secondaryText
-        guard
-            indexPath.row < countOfRecentSearches,
-            let entry = recentSearches?.entries[indexPath.item]
-        else {
-            cell.titleLabel.text = WMFLocalizedString("search-recent-empty", value: "No recent searches yet", comment: "String for no recent searches available")
-            return
-        }
-        cell.titleLabel.text = entry.searchTerm
-    }
-    
-    override func configure(header: CollectionViewHeader, forSectionAt sectionIndex: Int, layoutOnly: Bool) {
-        header.style = .recentSearches
-        header.apply(theme: theme)
-        header.title = WMFLocalizedString("search-recent-title", value: "Recently searched", comment: "Title for list of recent search terms")
-        header.buttonTitle = countOfRecentSearches > 0 ? WMFLocalizedString("search-clear-title", value: "Clear", comment: "Text of the button shown to clear recent search terms") : nil
-        header.delegate = self
-    }
-    
-    // This hook is when you select a recently searched term
-    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        guard let recentSearch = recentSearches?.entry(at: UInt(indexPath.item)) else {
-            return
-        }
-        updateRecentlySearchedVisibility(searchText: recentSearch.searchTerm)
-        collectionView.deselectItem(at: indexPath, animated: true)
-        
-        if let populateSearchBarWithTextAction {
-            populateSearchBarWithTextAction(recentSearch.searchTerm)
-        } else {
-            navigationItem.searchController?.searchBar.text = recentSearch.searchTerm
-            navigationItem.searchController?.searchBar.becomeFirstResponder()
-        }
-
-        search()
-    }
-
-    func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
-        guard let recentSearches = recentSearches, recentSearches.countOfEntries() > 0 else {
-            return false
-        }
-        return true
-    }
+//
+//    func deselectAll(animated: Bool) {
+//        guard let selected = collectionView.indexPathsForSelectedItems else {
+//            return
+//        }
+//        for indexPath in selected {
+//            collectionView.deselectItem(at: indexPath, animated: animated)
+//        }
+//    }
+//    
+//    override func articleURL(at indexPath: IndexPath) -> URL? {
+//        return nil
+//    }
+//    
+//    override func article(at indexPath: IndexPath) -> WMFArticle? {
+//        return nil
+//    }
+//    
+//    override func canDelete(at indexPath: IndexPath) -> Bool {
+//        return indexPath.row < countOfRecentSearches // ensures user can't delete the empty state row
+//    }
+//    
+//    override func willPerformAction(_ action: Action) -> Bool {
+//        return self.editController.didPerformAction(action)
+//    }
+//    
+//    override func delete(at indexPath: IndexPath) {
+//        guard
+//            let entries = recentSearches?.entries,
+//            entries.indices.contains(indexPath.item) else {
+//            return
+//        }
+//        let entry = entries[indexPath.item]
+//        recentSearches?.removeEntry(entry)
+//        recentSearches?.save()
+//        guard countOfRecentSearches > 0 else {
+//            collectionView.reloadData() // reload instead of deleting the row to get to empty state
+//            return
+//        }
+//        collectionView.performBatchUpdates({
+//            self.collectionView.deleteItems(at: [indexPath])
+//        }) { (finished) in
+//            self.collectionView.reloadData()
+//        }
+//    }
+//    
+//    var countOfRecentSearches: Int {
+//        return recentSearches?.entries.count ?? 0
+//    }
+//    
+//    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+//        // return max(countOfRecentSearches, 1) // 1 for empty state
+//    }
+//    
+//    override func configure(cell: ArticleRightAlignedImageCollectionViewCell, forItemAt indexPath: IndexPath, layoutOnly: Bool) {
+//        cell.articleSemanticContentAttribute = .unspecified
+//        cell.configureForCompactList(at: indexPath.item)
+//        cell.isImageViewHidden = true
+//        cell.apply(theme: theme)
+//        editController.configureSwipeableCell(cell, forItemAt: indexPath, layoutOnly: layoutOnly)
+//        cell.topSeparator.isHidden = indexPath.item == 0
+//        cell.bottomSeparator.isHidden = indexPath.item == self.collectionView(collectionView, numberOfItemsInSection: indexPath.section) - 1
+//        cell.titleLabel.textColor = theme.colors.secondaryText
+//        guard
+//            indexPath.row < countOfRecentSearches,
+//            let entry = recentSearches?.entries[indexPath.item]
+//        else {
+//            cell.titleLabel.text = WMFLocalizedString("search-recent-empty", value: "No recent searches yet", comment: "String for no recent searches available")
+//            return
+//        }
+//        cell.titleLabel.text = entry.searchTerm
+//    }
+//    
+//    override func configure(header: CollectionViewHeader, forSectionAt sectionIndex: Int, layoutOnly: Bool) {
+//        header.style = .recentSearches
+//        header.apply(theme: theme)
+//        header.title = WMFLocalizedString("search-recent-title", value: "Recently searched", comment: "Title for list of recent search terms")
+//        header.buttonTitle = countOfRecentSearches > 0 ? WMFLocalizedString("search-clear-title", value: "Clear", comment: "Text of the button shown to clear recent search terms") : nil
+//        header.delegate = self
+//    }
+//    
+//    // This hook is when you select a recently searched term
+//    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+//        guard let recentSearch = recentSearches?.entry(at: UInt(indexPath.item)) else {
+//            return
+//        }
+//        updateRecentlySearchedVisibility(searchText: recentSearch.searchTerm)
+//        collectionView.deselectItem(at: indexPath, animated: true)
+//        
+//        if let populateSearchBarWithTextAction {
+//            populateSearchBarWithTextAction(recentSearch.searchTerm)
+//        } else {
+//            navigationItem.searchController?.searchBar.text = recentSearch.searchTerm
+//            navigationItem.searchController?.searchBar.becomeFirstResponder()
+//        }
+//
+//        search()
+//    }
+//
+//    func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
+//        guard let recentSearches = recentSearches, recentSearches.countOfEntries() > 0 else {
+//            return false
+//        }
+//        return true
+//    }
 }
 
-extension SearchViewController: CollectionViewHeaderDelegate {
-    func collectionViewHeaderButtonWasPressed(_ collectionViewHeader: CollectionViewHeader) {
-        let dialog = UIAlertController(title: WMFLocalizedString("search-recent-clear-confirmation-heading", value: "Delete all recent searches?", comment: "Heading text of delete all confirmation dialog"), message: WMFLocalizedString("search-recent-clear-confirmation-sub-heading", value: "This action cannot be undone!", comment: "Sub-heading text of delete all confirmation dialog"), preferredStyle: .alert)
-        dialog.addAction(UIAlertAction(title: WMFLocalizedString("search-recent-clear-cancel", value: "Cancel", comment: "Button text for cancelling delete all action {{Identical|Cancel}}"), style: .cancel, handler: nil))
-        dialog.addAction(UIAlertAction(title: WMFLocalizedString("search-recent-clear-delete-all", value: "Delete All", comment: "Button text for confirming delete all action {{Identical|Delete all}}"), style: .destructive, handler: { (action) in
-            self.didCancelSearch()
-            self.dataStore.recentSearchList.removeAllEntries()
-            self.dataStore.recentSearchList.save()
-            self.reloadRecentSearches()
-        }))
-        present(dialog, animated: true)
-    }
-}
+// extension SearchViewController: CollectionViewHeaderDelegate {
+//    func collectionViewHeaderButtonWasPressed(_ collectionViewHeader: CollectionViewHeader) {
+//        let dialog = UIAlertController(title: WMFLocalizedString("search-recent-clear-confirmation-heading", value: "Delete all recent searches?", comment: "Heading text of delete all confirmation dialog"), message: WMFLocalizedString("search-recent-clear-confirmation-sub-heading", value: "This action cannot be undone!", comment: "Sub-heading text of delete all confirmation dialog"), preferredStyle: .alert)
+//        dialog.addAction(UIAlertAction(title: WMFLocalizedString("search-recent-clear-cancel", value: "Cancel", comment: "Button text for cancelling delete all action {{Identical|Cancel}}"), style: .cancel, handler: nil))
+//        dialog.addAction(UIAlertAction(title: WMFLocalizedString("search-recent-clear-delete-all", value: "Delete All", comment: "Button text for confirming delete all action {{Identical|Delete all}}"), style: .destructive, handler: { (action) in
+//            self.didCancelSearch()
+//            self.dataStore.recentSearchList.removeAllEntries()
+//            self.dataStore.recentSearchList.save()
+//            self.reloadRecentSearches()
+//        }))
+//        present(dialog, animated: true)
+//    }
+// }
 
 extension SearchViewController: SearchLanguagesBarViewControllerDelegate {
     func searchLanguagesBarViewController(_ controller: SearchLanguagesBarViewController, didChangeSelectedSearchContentLanguageCode contentLanguageCode: String) {
@@ -647,7 +654,7 @@ extension SearchViewController: UISearchResultsUpdating {
         guard let text = searchController.searchBar.text,
         !text.isEmpty else {
             searchTerm = nil
-            updateRecentlySearchedVisibility(searchText: nil)
+            // updateRecentlySearchedVisibility(searchText: nil)
             return
         }
         
@@ -658,7 +665,7 @@ extension SearchViewController: UISearchResultsUpdating {
         }
         
         searchTerm = text
-        updateRecentlySearchedVisibility(searchText: text)
+        // updateRecentlySearchedVisibility(searchText: text)
         search(for: text, suggested: false)
     }
 }

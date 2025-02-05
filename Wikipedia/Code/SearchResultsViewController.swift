@@ -2,6 +2,7 @@ import UIKit
 import WMF
 
 class SearchResultsViewController: ArticleCollectionViewController {
+    
     var resultsInfo: WMFSearchResults? = nil // don't use resultsInfo.results, it mutates
     var results: [MWKSearchResult] = [] {
         didSet {

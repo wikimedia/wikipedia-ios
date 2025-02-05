@@ -1850,10 +1850,10 @@ extension ArticleViewController: UISearchResultsUpdating {
         
         if text.isEmpty {
             searchViewController.searchTerm = nil
-            searchViewController.updateRecentlySearchedVisibility(searchText: nil)
+            // searchViewController.updateRecentlySearchedVisibility(searchText: nil)
         } else {
             searchViewController.searchTerm = text
-            searchViewController.updateRecentlySearchedVisibility(searchText: text)
+            // searchViewController.updateRecentlySearchedVisibility(searchText: text)
             searchViewController.search()
         }
     }
