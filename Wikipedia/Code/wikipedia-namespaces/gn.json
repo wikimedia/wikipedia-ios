@@ -20,9 +20,11 @@
     "MEDIO" : -2,
     "MODULE" : 828,
     "MODULE TALK" : 829,
-    "MYANGEKÕI" : 1,
     "MÓDULO" : 828,
     "MÓDULO DISCUSIÓN" : 829,
+    "MYANGEKÕI" : 1,
+    "ÑEMOHENDA" : 14,
+    "ÑEMOHENDA MYANGEKÕI" : 15,
     "PROJECT" : 4,
     "PROJECT TALK" : 5,
     "PURUHÁRA" : 2,
@@ -45,8 +47,6 @@
     "VIKIPETÃ MYANGEKÕI" : 5,
     "WIKIPEDIA" : 4,
     "WIKIPEDIA TALK" : 5,
-    "WP" : 4,
-    "ÑEMOHENDA" : 14,
-    "ÑEMOHENDA MYANGEKÕI" : 15
+    "WP" : 4
   }
 }
