@@ -1,6 +1,7 @@
 import UIKit
 import WMFComponents
 import WMFData
+import SwiftUI
 
 class SearchViewController: ArticleCollectionViewController, WMFNavigationBarConfiguring, WMFNavigationBarHiding {
     
@@ -74,6 +75,8 @@ class SearchViewController: ArticleCollectionViewController, WMFNavigationBarCon
     override func viewDidLoad() {
         super.viewDidLoad()
         embedResultsViewController()
+        // TODO: Maybe only do this when living in search tab (there will be a valid source property eventually when a/b search bar PR is merged).
+        embedHistoryViewController()
         setupTopSafeAreaOverlay(scrollView: collectionView)
     }
     
@@ -192,6 +195,30 @@ class SearchViewController: ArticleCollectionViewController, WMFNavigationBarCon
         // DonateFunnel.shared.logExploreProfile(metricsID: metricsID)
               
         profileCoordinator?.start()
+    }
+    
+    private func embedHistoryViewController() {
+        
+        let deleteAllHistoryAction: () -> Void = {
+            print("delete all in legacy data store")
+        }
+        let deleteHistoryItemAction: (WMFHistoryViewModel.Item) -> Void = { item in
+            print("delete item in legacy data store")
+        }
+        
+        var items: [WMFHistoryViewModel.Item] = []
+        for i in 1...20 {
+            items.append(WMFHistoryViewModel.Item(id: String(i), titleHtml: "Cat"))
+        }
+        let section = WMFHistoryViewModel.Section(dateWithoutTime: Date(), items: items)
+        
+        let historyViewModel = WMFHistoryViewModel(sections: [section], deleteAllHistoryAction: deleteAllHistoryAction, deleteHistoryItemAction: deleteHistoryItemAction)
+        let historyView = WMFHistoryView(viewModel: historyViewModel)
+        let historyHostingVC = UIHostingController(rootView: historyView)
+        
+        addChild(historyHostingVC)
+        view.wmf_addSubviewWithConstraintsToEdges(historyHostingVC.view)
+        historyHostingVC.didMove(toParent: self)
     }
     
     private func embedResultsViewController() {
