@@ -632,8 +632,8 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
             let siteURL = self.articleURL.wmf_site,
                   let project = WikimediaProject(siteURL: siteURL) {
                 ArticleLinkInteractionFunnel.shared.logArticleView(pageID: pageID.intValue, project: project)
+                ArticleLinkInteractionFunnel.shared.logArticleImpression(pageID: pageID.intValue, project: project, source: articleViewSource)
             }
-            
             
             self.articleLoadWaitGroup = nil
         }
@@ -1870,12 +1870,4 @@ extension ArticleViewController: UISearchControllerDelegate {
         navigationController?.hidesBarsOnSwipe = true
         searchBarIsAnimating = false
     }
-}
-
-@objc
-public enum ArticleSource: Int {
-    case undefined = 0 // temp
-    case search = 1
-    case history = 4
-    case places = 9
 }

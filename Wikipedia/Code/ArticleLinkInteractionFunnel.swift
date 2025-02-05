@@ -37,10 +37,21 @@ final class ArticleLinkInteractionFunnel {
     }
 
     func logArticleImpression(pageID: Int, project: WikimediaProject, source: ArticleSource) {
-        ///Undefined is a temporary property we're using before we add all sources to the app. No need to log undefined as it is not expected by the backend. This can be removed when all sources are logged.
+        /// Undefined is a temporary property we're using until we add all sources to the app. No need to log as it is not expected by the backend. This check can be removed when all sources are logged.
         guard source != .undefined else { return }
 
         logEvent(action: .navigate, pageID: pageID, project: project, source: source.rawValue)
     }
 }
 
+@objc
+public enum ArticleSource: Int {
+    case undefined = 0 // temporary
+    case search = 1
+    case history = 4
+    case places = 9
+}
+
+public struct ArticleSourceUserInfoKeys {
+    static let articleSource = "articleSource"
+}
