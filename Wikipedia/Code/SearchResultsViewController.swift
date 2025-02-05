@@ -9,13 +9,11 @@ class SearchResultsViewController: ArticleCollectionViewController {
             reload()
         }
     }
-    
     var tappedSearchResultAction: ((URL, IndexPath) -> Void)?
 
     override func viewDidLoad() {
         super.viewDidLoad()
         reload()
-        articleSource = .search
         NotificationCenter.default.addObserver(self, selector: #selector(updateArticleCell(_:)), name: NSNotification.Name.WMFArticleUpdated, object: nil)
     }
     

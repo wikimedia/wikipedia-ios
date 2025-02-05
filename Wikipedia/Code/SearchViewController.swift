@@ -63,15 +63,6 @@ class SearchViewController: ArticleCollectionViewController, WMFNavigationBarCon
     
     // MARK: - Funcs
     
-    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
-        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
-        articleSource = .search
-    }
-    
-    @MainActor required init?(coder: NSCoder) {
-        super.init(coder: coder)
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         embedResultsViewController()
@@ -399,7 +390,7 @@ class SearchViewController: ArticleCollectionViewController, WMFNavigationBarCon
             if let navigateToSearchResultAction {
                 navigateToSearchResultAction(articleURL)
             } else {
-                let userInfo: [AnyHashable : Any] = [RoutingUserInfoKeys.source: RoutingUserInfoSourceValue.search.rawValue]
+                let userInfo: [AnyHashable : Any] = [RoutingUserInfoKeys.source: RoutingUserInfoSourceValue.search.rawValue, ArticleSourceUserInfoKeys.articleSource : ArticleSource.search.rawValue]
                 navigate(to: articleURL, userInfo: userInfo)
             }
         }

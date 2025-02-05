@@ -2,13 +2,12 @@ import UIKit
 
 @objc(WMFArticleCollectionViewController)
 class ArticleCollectionViewController: ColumnarCollectionViewController, EditableCollection, MEPEventsProviding, CollectionViewContextMenuShowing {
+
     @objc var dataStore: MWKDataStore!
     var cellLayoutEstimate: ColumnarCollectionViewLayoutHeightEstimate?
 
     var editController: CollectionViewEditController!
     var contentGroup: WMFContentGroup?
-
-    var articleSource: ArticleSource = .undefined
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -144,7 +143,7 @@ class ArticleCollectionViewController: ColumnarCollectionViewController, Editabl
 
         previewedIndexPath = indexPath
 
-        guard let articleViewController = ArticleViewController(articleURL: articleURL, dataStore: dataStore, theme: self.theme, source: articleSource) else {
+        guard let articleViewController = ArticleViewController(articleURL: articleURL, dataStore: dataStore, theme: self.theme, source: .undefined) else {
             return nil
         }
         articleViewController.articlePreviewingDelegate = self
@@ -183,8 +182,9 @@ extension ArticleCollectionViewController {
             collectionView.deselectItem(at: indexPath, animated: true)
             return
         }
-
-        navigate(to: articleURL)
+        let userInfo: [AnyHashable:Any]? = [ArticleSourceUserInfoKeys.articleSource: ArticleSource.history.rawValue]
+        navigate(to: articleURL, userInfo: userInfo)
+        
     }
     
     func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {

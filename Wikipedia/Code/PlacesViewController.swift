@@ -1736,7 +1736,8 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
         }
         switch action {
         case .read:
-            navigate(to: url)
+            let userInfo: [AnyHashable: Any]? = [ArticleSourceUserInfoKeys.articleSource: ArticleSource.places.rawValue]
+            navigate(to: url, userInfo: userInfo)
             break
         case .save:
             let didSave = dataStore.savedPageList.toggleSavedPage(for: url)

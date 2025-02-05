@@ -170,7 +170,9 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
     
     private var tocStackViewTopConstraint: NSLayoutConstraint?
     private var searchBarIsAnimating = false
-    
+
+    private var articleViewSource: ArticleSource
+
     // Will be populated if needsSearchBar = false
     private var searchBarButtonItem: UIBarButtonItem?
  
@@ -196,6 +198,7 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
         self.dataStore = dataStore
         self.schemeHandler = schemeHandler ?? SchemeHandler(scheme: "app", session: dataStore.session)
         self.cacheController = cacheController
+        self.articleViewSource = source
 
         super.init(nibName: nil, bundle: nil)
         self.theme = theme
@@ -477,8 +480,7 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
             
             self.showSurveyAnnouncementPanel(surveyAnnouncementResult: result, linkState: self.articleAsLivingDocController.surveyLinkState)
         }
-        
-        
+
     }
     
     override func viewWillAppear(_ animated: Bool) {
