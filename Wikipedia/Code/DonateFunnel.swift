@@ -17,6 +17,10 @@ import WMF
         case articleProfile = "article_profile"
         case exploreProfile = "explore_profile"
         case exploreOptOut = "explore_optout_profile"
+        case placesProfile = "places_profile"
+        case historyProfile = "history_profile"
+        case savedProfile = "saved_profile"
+        case searchProfile = "search_profile"
         case wikiYiR = "wiki_yir"
     }
     
@@ -308,7 +312,39 @@ import WMF
     }
     
     @objc func logExploreOptOutProfileClick(metricsID: String) {
-        logEvent(activeInterface: .exploreOptOut, action: . profileClick, actionData: ["campaign_id": metricsID])
+        logEvent(activeInterface: .exploreOptOut, action: .profileClick, actionData: ["campaign_id": metricsID])
+    }
+    
+    func logPlacesProfile(metricsID: String) {
+        logEvent(activeInterface: .placesProfile, action: .profileClick, actionData: ["campaign_id": metricsID])
+    }
+    
+    func logPlacesProfileDonate(metricsID: String) {
+        logEvent(activeInterface: .placesProfile, action: .donateStartClick, actionData: ["campaign_id": metricsID])
+    }
+    
+    func logSavedProfile(metricsID: String) {
+        logEvent(activeInterface: .savedProfile, action: .profileClick, actionData: ["campaign_id": metricsID])
+    }
+    
+    func logSavedProfileDonate(metricsID: String) {
+        logEvent(activeInterface: .savedProfile, action: .donateStartClick, actionData: ["campaign_id": metricsID])
+    }
+    
+    func logHistoryProfile(metricsID: String) {
+        logEvent(activeInterface: .historyProfile, action: .profileClick, actionData: ["campaign_id": metricsID])
+    }
+    
+    func logHistoryProfileDonate(metricsID: String) {
+        logEvent(activeInterface: .historyProfile, action: .donateStartClick, actionData: ["campaign_id": metricsID])
+    }
+    
+    func logSearchProfile(metricsID: String) {
+        logEvent(activeInterface: .searchProfile, action: .profileClick, actionData: ["campaign_id": metricsID])
+    }
+    
+    func logSearchProfileDonate(metricsID: String) {
+        logEvent(activeInterface: .searchProfile, action: .donateStartClick, actionData: ["campaign_id": metricsID])
     }
     
     // MARK: - Year In Review

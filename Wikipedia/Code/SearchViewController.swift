@@ -49,7 +49,7 @@ class SearchViewController: ArticleCollectionViewController, WMFNavigationBarCon
         }
         
         guard let existingProfileCoordinator = _profileCoordinator else {
-            _profileCoordinator = ProfileCoordinator(navigationController: navigationController, theme: theme, dataStore: dataStore, donateSouce: .savedProfile, logoutDelegate: self, sourcePage: ProfileCoordinatorSource.saved, yirCoordinator: yirCoordinator)
+            _profileCoordinator = ProfileCoordinator(navigationController: navigationController, theme: theme, dataStore: dataStore, donateSouce: .savedProfile, logoutDelegate: self, sourcePage: ProfileCoordinatorSource.search, yirCoordinator: yirCoordinator)
             _profileCoordinator?.badgeDelegate = self
             return _profileCoordinator
         }
@@ -188,8 +188,7 @@ class SearchViewController: ArticleCollectionViewController, WMFNavigationBarCon
             return
         }
         
-        // TODO: Do we need logging like this?
-        // DonateFunnel.shared.logExploreProfile(metricsID: metricsID)
+        DonateFunnel.shared.logSearchProfile(metricsID: metricsID)
               
         profileCoordinator?.start()
     }

@@ -40,7 +40,7 @@ class HistoryViewController: ArticleFetchedResultsViewController, WMFNavigationB
        }
 
        guard let existingProfileCoordinator = _profileCoordinator else {
-           _profileCoordinator = ProfileCoordinator(navigationController: navigationController, theme: theme, dataStore: dataStore, donateSouce: .savedProfile, logoutDelegate: self, sourcePage: ProfileCoordinatorSource.saved, yirCoordinator: yirCoordinator)
+           _profileCoordinator = ProfileCoordinator(navigationController: navigationController, theme: theme, dataStore: dataStore, donateSouce: .savedProfile, logoutDelegate: self, sourcePage: ProfileCoordinatorSource.history, yirCoordinator: yirCoordinator)
            _profileCoordinator?.badgeDelegate = self
            return _profileCoordinator
        }
@@ -213,8 +213,7 @@ class HistoryViewController: ArticleFetchedResultsViewController, WMFNavigationB
             return
         }
         
-        // TODO: Do we need logging like this?
-        // DonateFunnel.shared.logExploreProfile(metricsID: metricsID)
+        DonateFunnel.shared.logHistoryProfile(metricsID: metricsID)
         
         profileCoordinator?.start()
     }
