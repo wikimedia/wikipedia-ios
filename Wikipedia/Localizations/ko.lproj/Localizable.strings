@@ -1289,6 +1289,7 @@
 "uzbek-variants-alert-title" = "우즈베크어 변이형 지원 업데이트";
 "vanish-account-continue-button-title" = "계속";
 "vanish-account-username-field" = "사용자 이름 및 사용자 문서";
+"vanish-account-warning-body" = "버리기는 **최후의 수단**이며 **영원히 편집을 중단하고 싶을 때**와 가능한 한 많은 과거 연관성을 숨기고 싶을 때만 사용해야 합니다.\n\n위키백과에서 계정을 삭제하려면 계정 이름을 변경하여 다른 사람이 기여한 내용을 알아볼 수 없도록 하는 계정 버리기라는 프로세스를 거쳐야 합니다. **버리기는 완전한 익명성을 보장하지 않으며 프로젝트에 수행한 기여를 제거하지 않습니다**.";
 "vanish-account-warning-title" = "경고";
 "variants-alert-dismiss-button" = "괜찮습니다";
 "variants-alert-preferences-button" = "내 환경 설정 검토하기";
