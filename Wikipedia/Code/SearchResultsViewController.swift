@@ -13,8 +13,23 @@ class SearchResultsViewController: ArticleCollectionViewController {
         }
     }
     
+    var recentlySearchedTopPadding: CGFloat = 0 {
+        didSet {
+            recentlySearchedViewModel?.topPadding = recentlySearchedTopPadding
+        }
+    }
+    private var recentlySearchedViewModel: WMFRecentlySearchedViewModel?
     lazy var recentlySearchedViewController: UIViewController = {
-        let recentlySearchedView = WMFRecentlySearchedView()
+        
+        let recentSearchTerms: [WMFRecentlySearchedViewModel.Item] = [
+            WMFRecentlySearchedViewModel.Item(text: "Recently searched 1"),
+            WMFRecentlySearchedViewModel.Item(text: "Recently searched 2"),
+            WMFRecentlySearchedViewModel.Item(text: "Recently searched 3")
+        ]
+        
+        let viewModel = WMFRecentlySearchedViewModel(recentSearchTerms: recentSearchTerms)
+        self.recentlySearchedViewModel = viewModel
+        let recentlySearchedView = WMFRecentlySearchedView(viewModel: viewModel)
         let hostingVC = UIHostingController(rootView: recentlySearchedView)
         return hostingVC
     }()

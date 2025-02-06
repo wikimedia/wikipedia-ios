@@ -36,6 +36,7 @@ public final class WMFHistoryViewModel: ObservableObject {
     private let deleteHistoryItemAction: (Item) -> Void
     
     @Published var sections: [Section] = []
+    @Published public var topPadding: CGFloat = 0
     
     public init(sections: [WMFHistoryViewModel.Section], deleteAllHistoryAction: @escaping () -> Void, deleteHistoryItemAction: @escaping (WMFHistoryViewModel.Item) -> Void) {
         self.sections = sections

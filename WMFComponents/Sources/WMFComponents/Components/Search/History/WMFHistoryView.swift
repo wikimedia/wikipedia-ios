@@ -2,7 +2,7 @@ import SwiftUI
 
 public struct WMFHistoryView: View {
 
-    public let viewModel: WMFHistoryViewModel
+    @ObservedObject var viewModel: WMFHistoryViewModel
     
     public init(viewModel: WMFHistoryViewModel) {
         self.viewModel = viewModel
@@ -25,5 +25,6 @@ public struct WMFHistoryView: View {
             }
         }
         .listStyle(.grouped)
+        .padding([.top], viewModel.topPadding)
     }
 }

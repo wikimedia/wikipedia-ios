@@ -34,7 +34,7 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
     }
     
     // TODO: Reference A/B test source PR instead
-    var isEditLinkOrArticleMagnifyingGlassButton: Bool {
+    var isEditLinkOrArticleSearchButtonSearch: Bool {
         return !isSearchTab && navigationController != nil
     }
     
@@ -48,7 +48,7 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
               let dataStore else {
             return nil
         }
-
+        
         guard let existingYirCoordinator = _yirCoordinator else {
             _yirCoordinator = YearInReviewCoordinator(navigationController: navigationController, theme: theme, dataStore: dataStore, dataController: yirDataController)
             _yirCoordinator?.badgeDelegate = self
@@ -62,8 +62,8 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
     private var profileCoordinator: ProfileCoordinator? {
         
         guard let navigationController,
-        let yirCoordinator = self.yirCoordinator,
-            let dataStore else {
+              let yirCoordinator = self.yirCoordinator,
+              let dataStore else {
             return nil
         }
         
@@ -97,7 +97,7 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
         // article
         if isSearchTab {
             embedHistoryViewController()
-        } else if !isEditLinkOrArticleMagnifyingGlassButton {
+        } else if !isEditLinkOrArticleSearchButtonSearch { // Edit link & article magnifying glass add results via the navigation bar search controller, so no need to embed in those cases.
             embedResultsViewController()
         }
         setupTopSafeAreaOverlay(scrollView: nil)
@@ -106,8 +106,8 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         configureNavigationBar()
-        // updateLanguageBarVisibility()
-        // reloadRecentSearches()
+        updateLanguageBarVisibility()
+        reloadRecentSearches()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -123,27 +123,34 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
-        // TODO: Try to accomplish this with SwiftUI padding instead
         if let searchLanguageBarViewController {
-            // collectionView.contentInset.top = searchLanguageBarViewController.view.bounds.height
-            resultsViewController.collectionView.contentInset.top = searchLanguageBarViewController.view.bounds.height
+            historyViewModel?.topPadding = searchLanguageBarViewController.view.frame.height
+            if !isSearchTab && !isEditLinkOrArticleSearchButtonSearch {
+                resultsViewController.collectionView.contentInset.top = searchLanguageBarViewController.view.frame.height
+                resultsViewController.recentlySearchedTopPadding = searchLanguageBarViewController.view.frame.height
+            }
         } else {
-            // collectionView.contentInset.top = 0
-            // resultsViewController.collectionView.contentInset.top = 0
+            historyViewModel?.topPadding = 0
+            resultsViewController.collectionView.contentInset.top = 0
+            resultsViewController.recentlySearchedTopPadding = 0
         }
     }
-
-    // TODO: Try to accomplish this two ways:
-    // 1. Listening for first section onAppear / onDisappear events from History SwiftUI view. When onAppear triggered, ensure nav bar is revealed.
-    // 2.first section onAppear / onDisappear events will not trigger when there are very few items. So we may need to check and see if the LAST item has appeared after landing on screen / upon rotation(?). If so, all content is displaying, so disable nav bar hiding.
-//
-//    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
-//        super.scrollViewDidScroll(scrollView)
-//        
-//        let normalizedContentOffset = scrollView.contentOffset.y + (scrollView.safeAreaInsets.top + scrollView.contentInset.top)
-//        searchLanguageBarTopConstraint?.constant = scrollView.safeAreaInsets.top - normalizedContentOffset
-//        calculateNavigationBarHiddenState(scrollView: scrollView)
-//    }
+    
+    // TODO: This is old logic that only worked with a UIKit collection view for displaying the navigation bar upon scroll.
+    // It fixed these bugs:
+    // 1. When there are many items, if you scroll up very very slowly, you can get to a state where you are scrolled to the top and the navigation bar is not shown.
+    // 2. When there are very few items, scrolling causes a bounce, and the navigation bar would hide and not reappear. This would listen for that content offset back to zero and force it to reappear.
+    
+    // Try to accomplish these fixes with SwiftUI in these ways:
+    // 1. For bug 1, listen for first section onAppear / onDisappear events from History SwiftUI view. When onAppear is triggered, ensure nav bar is revealed via navigationController?.setNavigationBarHidden(false, animated: true)
+    // 2. For bug 2, in viewDidLayoutSubviews, check and see the both first and last items are on screen using SwiftUI onAppear/onDisappear modifiers. If they are displaying, disable nav bar hiding via navigationController?.hidesBarsOnSwipe = false
+    //
+    //    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
+    //        super.scrollViewDidScroll(scrollView)
+    //
+    //        let normalizedContentOffset = scrollView.contentOffset.y + (scrollView.safeAreaInsets.top + scrollView.contentInset.top)
+    //        calculateNavigationBarHiddenState(scrollView: scrollView)
+    //    }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
@@ -151,7 +158,7 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
         if #available(iOS 18, *) {
             if UIDevice.current.userInterfaceIdiom == .pad {
                 if previousTraitCollection?.horizontalSizeClass != traitCollection.horizontalSizeClass {
-                    // configureNavigationBar()
+                    configureNavigationBar()
                 }
             }
         }
@@ -159,12 +166,11 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
     
     override func viewWillTransition(to size: CGSize, with coordinator: any UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
-
+        
         coordinator.animate(alongsideTransition: nil) { [weak self] _ in
-            // self?.calculateTopSafeAreaOverlayHeight()
+            self?.calculateTopSafeAreaOverlayHeight()
         }
     }
-    
     
     private func configureNavigationBar() {
         
@@ -203,7 +209,7 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
         guard let dataStore else {
             return
         }
-
+        
         let config = self.profileButtonConfig(target: self, action: #selector(userDidTapProfile), dataStore: dataStore, yirDataController: yirDataController, leadingBarButtonItem: nil, trailingBarButtonItem: nil)
         updateNavigationBarProfileButton(needsBadge: config.needsBadge, needsBadgeLabel: CommonStrings.profileButtonBadgeTitle, noBadgeLabel: CommonStrings.profileButtonTitle)
     }
@@ -221,7 +227,7 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
         
         // TODO: Do we need logging like this?
         // DonateFunnel.shared.logExploreProfile(metricsID: metricsID)
-              
+        
         profileCoordinator?.start()
     }
     
@@ -394,18 +400,18 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
             }
         }
     }
- 
+    
     // MARK: - Search
- 
+    
     lazy var fetcher: WMFSearchFetcher = {
         return WMFSearchFetcher()
     }()
-   
+    
     func resetSearchResults() {
         resultsViewController.emptyViewType = .none
         resultsViewController.results = []
     }
-   
+    
     func didCancelSearch() {
         resultsViewController.emptyViewType = .none
         resultsViewController.results = []
@@ -445,6 +451,8 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
         return resultsViewController
     }()
     
+    private var historyViewModel: WMFHistoryViewModel?
+    
     lazy var historyViewController: UIViewController = {
         let deleteAllHistoryAction: () -> Void = {
             print("delete all in legacy data store")
@@ -454,19 +462,20 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
         }
         
         var items: [WMFHistoryViewModel.Item] = []
-        for i in 1...20 {
+        for i in 1...100 {
             items.append(WMFHistoryViewModel.Item(id: String(i), titleHtml: "Cat"))
         }
         let section = WMFHistoryViewModel.Section(dateWithoutTime: Date(), items: items)
         
         let historyViewModel = WMFHistoryViewModel(sections: [section], deleteAllHistoryAction: deleteAllHistoryAction, deleteHistoryItemAction: deleteHistoryItemAction)
+        self.historyViewModel = historyViewModel
         let historyView = WMFHistoryView(viewModel: historyViewModel)
         let historyHostingVC = UIHostingController(rootView: historyView)
         return historyHostingVC
     }()
-
-//    // MARK: - Recent Search Saving
-
+    
+    // MARK: - Recent Search Saving
+    
     func saveLastSearch() {
         guard
             let term = resultsViewController.resultsInfo?.searchTerm,
@@ -479,13 +488,13 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
         dataStore?.recentSearchList.save()
         reloadRecentSearches()
     }
-
+    
     @objc func makeSearchBarBecomeFirstResponder() {
         if !(navigationItem.searchController?.searchBar.isFirstResponder ?? false) {
             navigationItem.searchController?.searchBar.becomeFirstResponder()
         }
     }
-
+    
     // MARK: - Theme
     
     override func apply(theme: Theme) {
@@ -496,135 +505,53 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
         searchLanguageBarViewController?.apply(theme: theme)
         resultsViewController.apply(theme: theme)
         view.backgroundColor = theme.colors.paperBackground
-        // collectionView.backgroundColor = theme.colors.paperBackground
         themeTopSafeAreaOverlay()
         updateProfileButton()
         profileCoordinator?.theme = theme
     }
     
     // Recent
-
+    
     func updateRecentlySearchedVisibility(searchText: String?) {
         resultsViewController.updateRecentlySearchedVisibility(searchText: searchText)
     }
-
+    
     var recentSearches: MWKRecentSearchList? {
         return self.dataStore?.recentSearchList
     }
     
-    // MARK: Collection View - related methods. Note: All of these affect the "Recently searched" list, NOT the actual search results. The actual search results are in the SearchResultsViewController, which SearchViewController embeds and displays depending on the length of the search bar text.
-    
-//    override var headerStyle: ColumnarCollectionViewController.HeaderStyle {
-//        return .sections
-//    }
-//    
     func reloadRecentSearches() {
+        // TODO: Update SwiftUI recent searches data. This was the old UIKit call.
         // collectionView.reloadData()
     }
-//
-//    func deselectAll(animated: Bool) {
-//        guard let selected = collectionView.indexPathsForSelectedItems else {
-//            return
-//        }
-//        for indexPath in selected {
-//            collectionView.deselectItem(at: indexPath, animated: animated)
-//        }
-//    }
-//    
-//    override func articleURL(at indexPath: IndexPath) -> URL? {
-//        return nil
-//    }
-//    
-//    override func article(at indexPath: IndexPath) -> WMFArticle? {
-//        return nil
-//    }
-//    
-//    override func canDelete(at indexPath: IndexPath) -> Bool {
-//        return indexPath.row < countOfRecentSearches // ensures user can't delete the empty state row
-//    }
-//    
-//    override func willPerformAction(_ action: Action) -> Bool {
-//        return self.editController.didPerformAction(action)
-//    }
-//    
-//    override func delete(at indexPath: IndexPath) {
-//        guard
-//            let entries = recentSearches?.entries,
-//            entries.indices.contains(indexPath.item) else {
-//            return
-//        }
-//        let entry = entries[indexPath.item]
-//        recentSearches?.removeEntry(entry)
-//        recentSearches?.save()
-//        guard countOfRecentSearches > 0 else {
-//            collectionView.reloadData() // reload instead of deleting the row to get to empty state
-//            return
-//        }
-//        collectionView.performBatchUpdates({
-//            self.collectionView.deleteItems(at: [indexPath])
-//        }) { (finished) in
-//            self.collectionView.reloadData()
-//        }
-//    }
-//    
-//    var countOfRecentSearches: Int {
-//        return recentSearches?.entries.count ?? 0
-//    }
-//    
-//    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-//        // return max(countOfRecentSearches, 1) // 1 for empty state
-//    }
-//    
-//    override func configure(cell: ArticleRightAlignedImageCollectionViewCell, forItemAt indexPath: IndexPath, layoutOnly: Bool) {
-//        cell.articleSemanticContentAttribute = .unspecified
-//        cell.configureForCompactList(at: indexPath.item)
-//        cell.isImageViewHidden = true
-//        cell.apply(theme: theme)
-//        editController.configureSwipeableCell(cell, forItemAt: indexPath, layoutOnly: layoutOnly)
-//        cell.topSeparator.isHidden = indexPath.item == 0
-//        cell.bottomSeparator.isHidden = indexPath.item == self.collectionView(collectionView, numberOfItemsInSection: indexPath.section) - 1
-//        cell.titleLabel.textColor = theme.colors.secondaryText
-//        guard
-//            indexPath.row < countOfRecentSearches,
-//            let entry = recentSearches?.entries[indexPath.item]
-//        else {
-//            cell.titleLabel.text = WMFLocalizedString("search-recent-empty", value: "No recent searches yet", comment: "String for no recent searches available")
-//            return
-//        }
-//        cell.titleLabel.text = entry.searchTerm
-//    }
-//    
+    
+    // Old UIKit code, keeping for WMFLocalizedStrings generation
+    
+    //    override func configure(cell: ArticleRightAlignedImageCollectionViewCell, forItemAt indexPath: IndexPath, layoutOnly: Bool) {
+    //        cell.articleSemanticContentAttribute = .unspecified
+    //        cell.configureForCompactList(at: indexPath.item)
+    //        cell.isImageViewHidden = true
+    //        cell.apply(theme: theme)
+    //        editController.configureSwipeableCell(cell, forItemAt: indexPath, layoutOnly: layoutOnly)
+    //        cell.topSeparator.isHidden = indexPath.item == 0
+    //        cell.bottomSeparator.isHidden = indexPath.item == self.collectionView(collectionView, numberOfItemsInSection: indexPath.section) - 1
+    //        cell.titleLabel.textColor = theme.colors.secondaryText
+    //        guard
+    //            indexPath.row < countOfRecentSearches,
+    //            let entry = recentSearches?.entries[indexPath.item]
+    //        else {
+    //            cell.titleLabel.text = WMFLocalizedString("search-recent-empty", value: "No recent searches yet", comment: "String for no recent searches available")
+    //            return
+    //        }
+    //        cell.titleLabel.text = entry.searchTerm
+    //    }
+    
 //    override func configure(header: CollectionViewHeader, forSectionAt sectionIndex: Int, layoutOnly: Bool) {
 //        header.style = .recentSearches
 //        header.apply(theme: theme)
 //        header.title = WMFLocalizedString("search-recent-title", value: "Recently searched", comment: "Title for list of recent search terms")
 //        header.buttonTitle = countOfRecentSearches > 0 ? WMFLocalizedString("search-clear-title", value: "Clear", comment: "Text of the button shown to clear recent search terms") : nil
 //        header.delegate = self
-//    }
-//    
-//    // This hook is when you select a recently searched term
-//    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-//        guard let recentSearch = recentSearches?.entry(at: UInt(indexPath.item)) else {
-//            return
-//        }
-//        updateRecentlySearchedVisibility(searchText: recentSearch.searchTerm)
-//        collectionView.deselectItem(at: indexPath, animated: true)
-//        
-//        if let populateSearchBarWithTextAction {
-//            populateSearchBarWithTextAction(recentSearch.searchTerm)
-//        } else {
-//            navigationItem.searchController?.searchBar.text = recentSearch.searchTerm
-//            navigationItem.searchController?.searchBar.becomeFirstResponder()
-//        }
-//
-//        search()
-//    }
-//
-//    func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
-//        guard let recentSearches = recentSearches, recentSearches.countOfEntries() > 0 else {
-//            return false
-//        }
-//        return true
 //    }
 }
 
