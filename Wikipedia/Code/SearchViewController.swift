@@ -93,8 +93,6 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // search tab
-        // article
         if isSearchTab {
             embedHistoryViewController()
         } else if !isEditLinkOrArticleSearchButtonSearch { // Edit link & article magnifying glass add results via the navigation bar search controller, so no need to embed in those cases.
