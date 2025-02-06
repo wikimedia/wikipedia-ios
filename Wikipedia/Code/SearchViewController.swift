@@ -22,6 +22,22 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
     var topSafeAreaOverlayView: UIView?
     var topSafeAreaOverlayHeightConstraint: NSLayoutConstraint?
     
+    // TODO: Reference A/B test source PR instead
+    var isSearchTab: Bool {
+        if let navigationController,
+           navigationController.viewControllers.count == 1 {
+            // Indicates this is the root view, so likely the Search tab.
+            return true
+        }
+        
+        return false
+    }
+    
+    // TODO: Reference A/B test source PR instead
+    var isEditLinkOrArticleMagnifyingGlassButton: Bool {
+        return !isSearchTab && navigationController != nil
+    }
+    
     // Properties needed for Profile Button
     
     private var _yirCoordinator: YearInReviewCoordinator?
@@ -77,10 +93,11 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // TODO: Improve logic to reference source enum from A/B test PR
-        if tabBarController != nil {
+        // search tab
+        // article
+        if isSearchTab {
             embedHistoryViewController()
-        } else {
+        } else if !isEditLinkOrArticleMagnifyingGlassButton {
             embedResultsViewController()
         }
         setupTopSafeAreaOverlay(scrollView: nil)
@@ -684,10 +701,8 @@ extension SearchViewController: UISearchControllerDelegate {
     
     func willPresentSearchController(_ searchController: UISearchController) {
         
-        // TODO: Reference source from A/B test PR instead
-        
         // There's an annoying jump on the history layout during the search bar display animation. Hiding it entirely before the animation starts looks a little better.
-        if tabBarController != nil {
+        if isSearchTab {
             historyViewController.view.isHidden = true
         }
         needsAnimateLanguageBarMovement = true
@@ -695,7 +710,9 @@ extension SearchViewController: UISearchControllerDelegate {
     }
     
     func willDismissSearchController(_ searchController: UISearchController) {
-        historyViewController.view.isHidden = false
+        if isSearchTab {
+            historyViewController.view.isHidden = false
+        }
         needsAnimateLanguageBarMovement = true
     }
     
