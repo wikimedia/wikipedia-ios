@@ -80,10 +80,6 @@ final class EditorViewController: UIViewController, WMFNavigationBarConfiguring 
         return spinner
     }()
     
-    internal var authManager: WMFAuthenticationManager {
-        return dataStore.authenticationManager
-    }
-    
     // MARK: - Lifecycle
     
     init(pageURL: URL, sectionID: Int?, editFlow: EditFlow, source: Source, dataStore: MWKDataStore, articleSelectedInfo: SelectedTextEditInfo?, editTag: WMFEditTag, delegate: EditorViewControllerDelegate, theme: Theme) {

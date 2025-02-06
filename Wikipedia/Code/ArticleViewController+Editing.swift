@@ -102,7 +102,6 @@ extension ArticleViewController {
     }
     
     private func presentEditor(editorViewController: UIViewController) {
-        
         let presentEditorAction = {
             let navigationController = WMFComponentNavigationController(rootViewController: editorViewController, modalPresentationStyle: .overFullScreen)
             
@@ -122,18 +121,19 @@ extension ArticleViewController {
             }
         }
         
-        if authManager.permanentUser(siteURL: articleURL) == nil {
+        if !authManager.authStateIsPermanent {
             if authManager.authStateIsTemporary {
-                presentTempEditorSheet()
+                presentTempEditorSheet(presentEditorAction)
             } else {
-                presentIPEditorSheet()
+                presentIPEditorSheet(presentEditorAction)
             }
         } else {
                 presentEditorAction()
         }
     }
     
-    private func presentTempEditorSheet() {
+    private func presentTempEditorSheet(_ presentEditorAction: @escaping () -> Void) {
+        var hostingController: UIHostingController<WMFTempAccountsSheetView>?
         if let tempUser = authManager.authStateTemporaryUsername {
             let vm = WMFTempAccountsSheetViewModel(
                 image: "pageMessage",
@@ -155,16 +155,22 @@ extension ArticleViewController {
                     
                     let newNavigationVC = WMFComponentNavigationController(rootViewController: webVC, modalPresentationStyle: .formSheet)
                     presentedViewController.present(newNavigationVC, animated: true)
+                },
+                didTapDone: {
+                    hostingController?.dismiss(animated: true)
+                    presentEditorAction()
                 })
             let tempAccountsSheetView = WMFTempAccountsSheetView(viewModel: vm)
-            let hostingController = UIHostingController(rootView: tempAccountsSheetView)
-            hostingController.modalPresentationStyle = .pageSheet
-            
-            if let sheet = hostingController.sheetPresentationController {
-                sheet.detents = [.large()]
+            hostingController = UIHostingController(rootView: tempAccountsSheetView)
+            if let hostingController {
+                hostingController.modalPresentationStyle = .pageSheet
+                
+                if let sheet = hostingController.sheetPresentationController {
+                    sheet.detents = [.large()]
+                }
+                
+                present(hostingController, animated: true, completion: nil)
             }
-            
-            present(hostingController, animated: true, completion: nil)
         }
     }
     
@@ -180,7 +186,8 @@ extension ArticleViewController {
         return String.localizedStringWithFormat(format, tempUsername, openingBold, closingBold, openingLink, closingLink, lineBreaks, openingLinkLearnMore)
     }
     
-    private func presentIPEditorSheet() {
+    private func presentIPEditorSheet(_ presentEditorAction: @escaping () -> Void) {
+        var hostingController: UIHostingController<WMFTempAccountsSheetView>?
         let vm = WMFTempAccountsSheetViewModel(
             image: "lockedEdit",
             title: WMFLocalizedString("ip-account-edit-sheet", value: "You are not logged in", comment: "IP account sheet for editors"),
@@ -201,16 +208,22 @@ extension ArticleViewController {
 
                 let newNavigationVC = WMFComponentNavigationController(rootViewController: webVC, modalPresentationStyle: .formSheet)
                 presentedViewController.present(newNavigationVC, animated: true)
+            },
+            didTapDone: {
+                hostingController?.dismiss(animated: true)
+                presentEditorAction()
             })
         let tempAccountsSheetView = WMFTempAccountsSheetView(viewModel: vm)
-        let hostingController = UIHostingController(rootView: tempAccountsSheetView)
-        hostingController.modalPresentationStyle = .pageSheet
-
-        if let sheet = hostingController.sheetPresentationController {
-            sheet.detents = [.large()]
+        hostingController = UIHostingController(rootView: tempAccountsSheetView)
+        if let hostingController {
+            hostingController.modalPresentationStyle = .pageSheet
+            
+            if let sheet = hostingController.sheetPresentationController {
+                sheet.detents = [.large()]
+            }
+            
+            present(hostingController, animated: true, completion: nil)
         }
-
-        present(hostingController, animated: true, completion: nil)
     }
     
     func ipEditorSubtitleString() -> String {

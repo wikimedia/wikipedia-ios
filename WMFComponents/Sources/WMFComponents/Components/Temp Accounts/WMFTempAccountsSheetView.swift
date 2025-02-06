@@ -31,7 +31,7 @@ public struct WMFTempAccountsSheetView: View {
             VStack {
                 Button(
                     action: {
-                        dismiss()
+                        viewModel.didTapDone()
                     },
                     label: {
                         Text(viewModel.done)
