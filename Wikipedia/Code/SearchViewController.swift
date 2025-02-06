@@ -2,10 +2,31 @@ import UIKit
 import WMFComponents
 import WMFData
 import SwiftUI
+import CocoaLumberjackSwift
 
 class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring, WMFNavigationBarHiding {
     
     @objc var dataStore: MWKDataStore?
+    
+    @objc enum EventLoggingSource: Int {
+        case searchTab
+        case topOfFeed
+        case article
+        case unknown
+        
+        var stringValue: String {
+            switch self {
+            case .article:
+                return "article"
+            case .topOfFeed:
+                return "top_of_feed"
+            case .searchTab:
+                return "search_tab"
+            case .unknown:
+                return "unknown"
+            }
+        }
+    }
     
     // Assign if you don't want search result selection to do default navigation, and instead want to perform your own custom logic upon search result selection.
     var navigateToSearchResultAction: ((URL) -> Void)?
@@ -80,14 +101,17 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
         return try? WMFYearInReviewDataController()
     }
     
+    private let source: EventLoggingSource
+    
     // MARK: - Funcs
     
-    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
-        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+    @objc required init(source: EventLoggingSource) {
+        self.source = source
+        super.init(nibName: nil, bundle: nil)
     }
     
     @MainActor required init?(coder: NSCoder) {
-        super.init(coder: coder)
+        fatalError("init(coder:) has not been implemented")
     }
     
     override func viewDidLoad() {
@@ -110,7 +134,7 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        SearchFunnel.shared.logSearchStart(source: source)
+        SearchFunnel.shared.logSearchStart(source: source.stringValue, assignment: articleSearchBarExperimentAssignment)
         NSUserActivity.wmf_makeActive(NSUserActivity.wmf_searchView())
         
         if shouldBecomeFirstResponder {
@@ -169,7 +193,16 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
             self?.calculateTopSafeAreaOverlayHeight()
         }
     }
-    
+
+    private var articleSearchBarExperimentAssignment: WMFNavigationExperimentsDataController.ArticleSearchBarExperimentAssignment? {
+        
+        guard let assignment = try? WMFNavigationExperimentsDataController.shared?.articleSearchBarExperimentAssignment() else {
+            return nil
+        }
+        
+        return assignment
+    }
+
     private func configureNavigationBar() {
         
         let title = customTitle ?? CommonStrings.searchTitle
@@ -363,7 +396,7 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
                 }
                 self.resultsViewController.emptyViewType = (error as NSError).wmf_isNetworkConnectionError() ? .noInternetConnection : .noSearchResults
                 self.resultsViewController.results = []
-                SearchFunnel.shared.logShowSearchError(with: type, elapsedTime: Date().timeIntervalSince(start), source: self.source)
+                SearchFunnel.shared.logShowSearchError(with: type, elapsedTime: Date().timeIntervalSince(start), source: self.source.stringValue, assignment: articleSearchBarExperimentAssignment)
             }
         }
         
@@ -380,7 +413,7 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
                 guard !suggested else {
                     return
                 }
-                SearchFunnel.shared.logSearchResults(with: type, resultCount: Int(resultsArray.count), elapsedTime: Date().timeIntervalSince(start), source: self.source)
+                SearchFunnel.shared.logSearchResults(with: type, resultCount: Int(resultsArray.count), elapsedTime: Date().timeIntervalSince(start), source: self.source.stringValue, assignment: articleSearchBarExperimentAssignment)
             }
         }
         
@@ -414,7 +447,7 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
         resultsViewController.emptyViewType = .none
         resultsViewController.results = []
         navigationItem.searchController?.searchBar.text = nil
-        SearchFunnel.shared.logSearchCancel(source: source)
+        SearchFunnel.shared.logSearchCancel(source: source.stringValue, assignment: articleSearchBarExperimentAssignment)
     }
     
     @objc func clear() {
@@ -433,7 +466,7 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
                 return
             }
             
-            SearchFunnel.shared.logSearchResultTap(position: indexPath.item, source: source)
+            SearchFunnel.shared.logSearchResultTap(position: indexPath.item, source: source.stringValue, assignment: articleSearchBarExperimentAssignment)
             saveLastSearch()
             
             if let navigateToSearchResultAction {
@@ -569,26 +602,8 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
 
 extension SearchViewController: SearchLanguagesBarViewControllerDelegate {
     func searchLanguagesBarViewController(_ controller: SearchLanguagesBarViewController, didChangeSelectedSearchContentLanguageCode contentLanguageCode: String) {
-        SearchFunnel.shared.logSearchLangSwitch(source: source)
+        SearchFunnel.shared.logSearchLangSwitch(source: source.stringValue, assignment: articleSearchBarExperimentAssignment)
         search()
-    }
-}
-
-// MARK: - Event logging
-extension SearchViewController {
-    private var source: String {
-        guard let navigationController = navigationController, !navigationController.viewControllers.isEmpty else {
-            return "unknown"
-        }
-        let viewControllers = navigationController.viewControllers
-        let viewControllersCount = viewControllers.count
-        if viewControllersCount == 1 {
-            return "search_tab"
-        } else if viewControllersCount == 2 {
-            return "top_of_feed"
-        } else {
-            return "article"
-        }
     }
 }
 
