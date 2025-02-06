@@ -323,12 +323,44 @@ import WMF
         logEvent(activeInterface: .placesProfile, action: .donateStartClick, actionData: ["campaign_id": metricsID])
     }
     
+    func logPlacesProfileDonateCancel(metricsID: String) {
+        logEvent(activeInterface: .placesProfile, action: .cancelClick, actionData: ["campaign_id": metricsID])
+    }
+    
+    func logPlacesProfileDonateApplePay(metricsID: String) {
+        logEvent(activeInterface: .placesProfile, action: .applePayClick, actionData: ["campaign_id": metricsID])
+    }
+    
+    func logPlacesProfileDonateWebPay(metricsID: String) {
+        logEvent(activeInterface: .placesProfile, action: .webPayClick, actionData: ["campaign_id": metricsID])
+    }
+    
+    func logPlacesProfileDidSeeApplePayDonateSuccessToast(metricsID: String) {
+        logEvent(activeInterface: .placesProfile, action: .successToastProfile, actionData: ["campaign_id": metricsID])
+    }
+    
     func logSavedProfile(metricsID: String) {
         logEvent(activeInterface: .savedProfile, action: .profileClick, actionData: ["campaign_id": metricsID])
     }
     
     func logSavedProfileDonate(metricsID: String) {
         logEvent(activeInterface: .savedProfile, action: .donateStartClick, actionData: ["campaign_id": metricsID])
+    }
+    
+    func logSavedProfileDonateCancel(metricsID: String) {
+        logEvent(activeInterface: .savedProfile, action: .cancelClick, actionData: ["campaign_id": metricsID])
+    }
+    
+    func logSavedProfileDonateApplePay(metricsID: String) {
+        logEvent(activeInterface: .savedProfile, action: .applePayClick, actionData: ["campaign_id": metricsID])
+    }
+    
+    func logSavedProfileDonateWebPay(metricsID: String) {
+        logEvent(activeInterface: .savedProfile, action: .webPayClick, actionData: ["campaign_id": metricsID])
+    }
+    
+    func logSavedProfileDidSeeApplePayDonateSuccessToast(metricsID: String) {
+        logEvent(activeInterface: .savedProfile, action: .successToastProfile, actionData: ["campaign_id": metricsID])
     }
     
     func logHistoryProfile(metricsID: String) {
@@ -339,12 +371,44 @@ import WMF
         logEvent(activeInterface: .historyProfile, action: .donateStartClick, actionData: ["campaign_id": metricsID])
     }
     
+    func logHistoryProfileDonateCancel(metricsID: String) {
+        logEvent(activeInterface: .historyProfile, action: .cancelClick, actionData: ["campaign_id": metricsID])
+    }
+    
+    func logHistoryProfileDonateApplePay(metricsID: String) {
+        logEvent(activeInterface: .historyProfile, action: .applePayClick, actionData: ["campaign_id": metricsID])
+    }
+    
+    func logHistoryProfileDonateWebPay(metricsID: String) {
+        logEvent(activeInterface: .historyProfile, action: .webPayClick, actionData: ["campaign_id": metricsID])
+    }
+    
+    func logHistoryProfileDidSeeApplePayDonateSuccessToast(metricsID: String) {
+        logEvent(activeInterface: .historyProfile, action: .successToastProfile, actionData: ["campaign_id": metricsID])
+    }
+    
     func logSearchProfile(metricsID: String) {
         logEvent(activeInterface: .searchProfile, action: .profileClick, actionData: ["campaign_id": metricsID])
     }
     
     func logSearchProfileDonate(metricsID: String) {
         logEvent(activeInterface: .searchProfile, action: .donateStartClick, actionData: ["campaign_id": metricsID])
+    }
+    
+    func logSearchProfileDonateCancel(metricsID: String) {
+        logEvent(activeInterface: .searchProfile, action: .cancelClick, actionData: ["campaign_id": metricsID])
+    }
+    
+    func logSearchProfileDonateApplePay(metricsID: String) {
+        logEvent(activeInterface: .searchProfile, action: .applePayClick, actionData: ["campaign_id": metricsID])
+    }
+    
+    func logSearchProfileDonateWebPay(metricsID: String) {
+        logEvent(activeInterface: .searchProfile, action: .webPayClick, actionData: ["campaign_id": metricsID])
+    }
+    
+    func logSearchProfileDidSeeApplePayDonateSuccessToast(metricsID: String) {
+        logEvent(activeInterface: .searchProfile, action: .successToastProfile, actionData: ["campaign_id": metricsID])
     }
     
     // MARK: - Year In Review
