@@ -663,6 +663,7 @@ extension SearchViewController: UISearchControllerDelegate {
     
     func willPresentSearchController(_ searchController: UISearchController) {
         needsAnimateLanguageBarMovement = true
+        navigationController?.hidesBarsOnSwipe = false
     }
     
     func willDismissSearchController(_ searchController: UISearchController) {
@@ -671,6 +672,7 @@ extension SearchViewController: UISearchControllerDelegate {
     
     func didDismissSearchController(_ searchController: UISearchController) {
         needsAnimateLanguageBarMovement = false
+        navigationController?.hidesBarsOnSwipe = true
     }
 }
 
