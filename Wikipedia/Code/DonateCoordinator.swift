@@ -208,13 +208,13 @@ class DonateCoordinator: Coordinator {
             case .yearInReview:
                 DonateFunnel.shared.logYearInReviewDidTapDonateCancel(metricsID: metricsID)
             case .placesProfile:
-                debugPrint("TODO: Do we need to log this?")
+                DonateFunnel.shared.logPlacesProfileDonateCancel(metricsID: metricsID)
             case .savedProfile:
-                debugPrint("TODO: Do we need to log this?")
+                DonateFunnel.shared.logSavedProfileDonateCancel(metricsID: metricsID)
             case .historyProfile:
-                debugPrint("TODO: Do we need to log this?")
+                DonateFunnel.shared.logHistoryProfileDonateCancel(metricsID: metricsID)
             case .searchProfile:
-                debugPrint("TODO: Do we need to log this?")
+                DonateFunnel.shared.logSearchProfileDonateCancel(metricsID: metricsID)
             }
         }))
         
@@ -240,13 +240,13 @@ class DonateCoordinator: Coordinator {
             case .yearInReview:
                 DonateFunnel.shared.logYearInReviewDidTapDonateApplePay(metricsID: metricsID)
             case .placesProfile:
-                debugPrint("TODO: Do we need to log this?")
+                DonateFunnel.shared.logPlacesProfileDonateApplePay(metricsID: metricsID)
             case .savedProfile:
-                debugPrint("TODO: Do we need to log this?")
+                DonateFunnel.shared.logSavedProfileDonateApplePay(metricsID: metricsID)
             case .historyProfile:
-                debugPrint("TODO: Do we need to log this?")
+                DonateFunnel.shared.logHistoryProfileDonateApplePay(metricsID: metricsID)
             case .searchProfile:
-                debugPrint("TODO: Do we need to log this?")
+                DonateFunnel.shared.logSearchProfileDonateApplePay(metricsID: metricsID)
             }
             self.navigateToNativeDonateForm(donateViewModel: donateViewModel)
         })
@@ -274,13 +274,13 @@ class DonateCoordinator: Coordinator {
             case .yearInReview:
                 DonateFunnel.shared.logYearInReviewDidTapDonateOtherPaymentMethod(metricsID: metricsID)
             case .placesProfile:
-                debugPrint("TODO: Do we need to log this?")
+                DonateFunnel.shared.logPlacesProfileDonateWebPay(metricsID: metricsID)
             case .savedProfile:
-                debugPrint("TODO: Do we need to log this?")
+                DonateFunnel.shared.logSavedProfileDonateWebPay(metricsID: metricsID)
             case .historyProfile:
-                debugPrint("TODO: Do we need to log this?")
+                DonateFunnel.shared.logHistoryProfileDonateWebPay(metricsID: metricsID)
             case .searchProfile:
-                debugPrint("TODO: Do we need to log this?")
+                DonateFunnel.shared.logSearchProfileDonateWebPay(metricsID: metricsID)
             }
             navigateToOtherPaymentMethod()
         }))
@@ -707,13 +707,13 @@ extension DonateCoordinator: WMFDonateLoggingDelegate {
         case .yearInReview:
             DonateFunnel.shared.logYearInReviewDidSeeApplePayDonateSuccessToast(metricsID: metricsID)
         case .placesProfile:
-            debugPrint("TODO: Do we need to log this?")
+            DonateFunnel.shared.logPlacesProfileDidSeeApplePayDonateSuccessToast(metricsID: metricsID)
         case .savedProfile:
-            debugPrint("TODO: Do we need to log this?")
+            DonateFunnel.shared.logSavedProfileDidSeeApplePayDonateSuccessToast(metricsID: metricsID)
         case .historyProfile:
-            debugPrint("TODO: Do we need to log this?")
+            DonateFunnel.shared.logHistoryProfileDidSeeApplePayDonateSuccessToast(metricsID: metricsID)
         case .searchProfile:
-            debugPrint("TODO: Do we need to log this?")
+            DonateFunnel.shared.logSearchProfileDidSeeApplePayDonateSuccessToast(metricsID: metricsID)
         }
     }
     
@@ -822,13 +822,13 @@ extension DonateCoordinator: WMFDonateLoggingDelegate {
             case .yearInReview:
                 DonateFunnel.shared.logYearInReviewDidSeeApplePayDonateSuccessToast(metricsID: metricsID)
             case .placesProfile:
-                debugPrint("TODO: Do we need to log this?")
+                DonateFunnel.shared.logPlacesProfileDidSeeApplePayDonateSuccessToast(metricsID: metricsID)
             case .savedProfile:
-                debugPrint("TODO: Do we need to log this?")
+                DonateFunnel.shared.logSavedProfileDidSeeApplePayDonateSuccessToast(metricsID: metricsID)
             case .historyProfile:
-                debugPrint("TODO: Do we need to log this?")
+                DonateFunnel.shared.logHistoryProfileDidSeeApplePayDonateSuccessToast(metricsID: metricsID)
             case .searchProfile:
-                debugPrint("TODO: Do we need to log this?")
+                DonateFunnel.shared.logSearchProfileDidSeeApplePayDonateSuccessToast(metricsID: metricsID)
             }
         }
     }
