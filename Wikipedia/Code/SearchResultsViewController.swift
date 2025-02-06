@@ -39,8 +39,15 @@ class SearchResultsViewController: ArticleCollectionViewController {
         updateEmptyState()
     }
     
-    func updateRecentlySearchedVisibility(searchTerm: String?) {
-        recentlySearchedViewController.view.isHidden = searchTerm != nil
+    func updateRecentlySearchedVisibility(searchText: String?) {
+        
+        guard let searchText,
+              !searchText.isEmpty else {
+            recentlySearchedViewController.view.isHidden = false
+            return
+        }
+        
+        recentlySearchedViewController.view.isHidden = true
     }
     
     var searchSiteURL: URL? = nil

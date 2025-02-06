@@ -76,9 +76,13 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // embedResultsViewController()
-        // TODO: Maybe only do this when living in search tab (there will be a valid source property eventually when a/b search bar PR is merged).
-        embedHistoryViewController()
+        
+        // TODO: Improve logic to reference source enum from A/B test PR
+        if tabBarController != nil {
+            embedHistoryViewController()
+        } else {
+            embedResultsViewController()
+        }
         setupTopSafeAreaOverlay(scrollView: nil)
     }
     
@@ -205,35 +209,17 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
     }
     
     private func embedHistoryViewController() {
-        
-        let deleteAllHistoryAction: () -> Void = {
-            print("delete all in legacy data store")
-        }
-        let deleteHistoryItemAction: (WMFHistoryViewModel.Item) -> Void = { item in
-            print("delete item in legacy data store")
-        }
-        
-        var items: [WMFHistoryViewModel.Item] = []
-        for i in 1...20 {
-            items.append(WMFHistoryViewModel.Item(id: String(i), titleHtml: "Cat"))
-        }
-        let section = WMFHistoryViewModel.Section(dateWithoutTime: Date(), items: items)
-        
-        let historyViewModel = WMFHistoryViewModel(sections: [section], deleteAllHistoryAction: deleteAllHistoryAction, deleteHistoryItemAction: deleteHistoryItemAction)
-        let historyView = WMFHistoryView(viewModel: historyViewModel)
-        let historyHostingVC = UIHostingController(rootView: historyView)
-        
-        addChild(historyHostingVC)
-        view.wmf_addSubviewWithConstraintsToEdges(historyHostingVC.view)
-        historyHostingVC.didMove(toParent: self)
+        addChild(historyViewController)
+        view.wmf_addSubviewWithConstraintsToEdges(historyViewController.view)
+        historyViewController.didMove(toParent: self)
     }
     
-//    private func embedResultsViewController() {
-//        addChild(resultsViewController)
-//        view.wmf_addSubviewWithConstraintsToEdges(resultsViewController.view)
-//        resultsViewController.didMove(toParent: self)
-//        updateRecentlySearchedVisibility(searchText: nil)
-//    }
+    private func embedResultsViewController() {
+        addChild(resultsViewController)
+        view.wmf_addSubviewWithConstraintsToEdges(resultsViewController.view)
+        resultsViewController.didMove(toParent: self)
+        updateRecentlySearchedVisibility(searchText: nil)
+    }
     
     private func setupLanguageBarViewController() -> SearchLanguagesBarViewController {
         if let vc = self.searchLanguageBarViewController {
@@ -412,7 +398,7 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
     
     @objc func clear() {
         didCancelSearch()
-        // updateRecentlySearchedVisibility(searchText: navigationItem.searchController?.searchBar.text)
+        updateRecentlySearchedVisibility(searchText: navigationItem.searchController?.searchBar.text)
     }
     
     lazy var resultsViewController: SearchResultsViewController = {
@@ -440,6 +426,26 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
         resultsViewController.tappedSearchResultAction = tappedSearchResultAction
         
         return resultsViewController
+    }()
+    
+    lazy var historyViewController: UIViewController = {
+        let deleteAllHistoryAction: () -> Void = {
+            print("delete all in legacy data store")
+        }
+        let deleteHistoryItemAction: (WMFHistoryViewModel.Item) -> Void = { item in
+            print("delete item in legacy data store")
+        }
+        
+        var items: [WMFHistoryViewModel.Item] = []
+        for i in 1...20 {
+            items.append(WMFHistoryViewModel.Item(id: String(i), titleHtml: "Cat"))
+        }
+        let section = WMFHistoryViewModel.Section(dateWithoutTime: Date(), items: items)
+        
+        let historyViewModel = WMFHistoryViewModel(sections: [section], deleteAllHistoryAction: deleteAllHistoryAction, deleteHistoryItemAction: deleteHistoryItemAction)
+        let historyView = WMFHistoryView(viewModel: historyViewModel)
+        let historyHostingVC = UIHostingController(rootView: historyView)
+        return historyHostingVC
     }()
 
 //    // MARK: - Recent Search Saving
@@ -480,15 +486,10 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
     }
     
     // Recent
-//
-//    func updateRecentlySearchedVisibility(searchText: String?) {
-//		guard let searchText = searchText else {
-//			resultsViewController.view.isHidden = true
-//			return
-//		}
-//
-//         resultsViewController.view.isHidden = searchText.isEmpty
-//    }
+
+    func updateRecentlySearchedVisibility(searchText: String?) {
+        resultsViewController.updateRecentlySearchedVisibility(searchText: searchText)
+    }
 
     var recentSearches: MWKRecentSearchList? {
         return self.dataStore?.recentSearchList
@@ -654,7 +655,7 @@ extension SearchViewController: UISearchResultsUpdating {
         guard let text = searchController.searchBar.text,
         !text.isEmpty else {
             searchTerm = nil
-            resultsViewController.updateRecentlySearchedVisibility(searchTerm: nil)
+            updateRecentlySearchedVisibility(searchText: nil)
             return
         }
         
@@ -665,7 +666,7 @@ extension SearchViewController: UISearchResultsUpdating {
         }
         
         searchTerm = text
-        resultsViewController.updateRecentlySearchedVisibility(searchTerm: text)
+        updateRecentlySearchedVisibility(searchText: text)
         search(for: text, suggested: false)
     }
 }
@@ -682,11 +683,19 @@ extension SearchViewController: UISearchControllerDelegate {
     }
     
     func willPresentSearchController(_ searchController: UISearchController) {
+        
+        // TODO: Reference source from A/B test PR instead
+        
+        // There's an annoying jump on the history layout during the search bar display animation. Hiding it entirely before the animation starts looks a little better.
+        if tabBarController != nil {
+            historyViewController.view.isHidden = true
+        }
         needsAnimateLanguageBarMovement = true
         navigationController?.hidesBarsOnSwipe = false
     }
     
     func willDismissSearchController(_ searchController: UISearchController) {
+        historyViewController.view.isHidden = false
         needsAnimateLanguageBarMovement = true
     }
     
