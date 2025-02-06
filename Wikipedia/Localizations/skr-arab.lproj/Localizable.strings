@@ -1,6 +1,7 @@
 // Messages for Saraiki (Arabic script) (سرائیکی)
 // Exported from translatewiki.net
 // Author: Saraiki
+// Author: Umar Shahid
 
 "aaald-added-text-description-2" = "$1 شامل تھی ڳیا";
 "aaald-article-description-updated-description" = "مضمون تفصیل اپ ڈیٹ تھی ڳئی";
@@ -524,6 +525,7 @@
 "wikitext-upload-save-sign-in" = "لاگ ان تھیوو";
 "wikitext-upload-save-terms-name" = "ورتݨ شرطاں";
 "year-in-review-donate" = "عطیہ";
+"year-in-review-personalized-edit-views-subtitle-format" = "دنیا بھر دے پڑھݨ ہار تہاݙی ہتھ بھرائی کوں سُلاہیندن۔  پچھلے 2 مہیناں وچ، تُہاݙے وٹا پھیر کردہ مضامین کوں $1 کل ملاحظات ملے ہِن۔  تہاݙے سویں ایڈیٹرز دا شکریہ، ویکیپیڈیا دنیا کیتے ہک پکا بہتر کرݨ آالا، حقائق تے مبنی، اَتے قابلِ اعتماد علمی وسیلہ ہے۔";
 "year-in-review-survey-neutral" = "غیر جانبدار";
 "year-in-review-survey-satisfied" = "مطمئن";
 "year-in-review-survey-unsatisfied" = "غیر مطمئن";
