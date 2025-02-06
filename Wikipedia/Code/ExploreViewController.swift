@@ -134,6 +134,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         dataStore.feedContentController.dismissCollapsedContentGroups()
         stopMonitoringReachability()
         isGranularUpdatingEnabled = false
+        resetNavBarAppearance()
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
@@ -172,7 +173,15 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         extendedLayoutIncludesOpaqueBars = false
         if #available(iOS 18, *) {
             if UIDevice.current.userInterfaceIdiom == .pad && traitCollection.horizontalSizeClass == .regular {
-                titleConfig = WMFNavigationBarTitleConfig(title: CommonStrings.exploreTabTitle, customView: titleView, alignment: .centerCompact)
+
+                var customLargeTitleFont: UIFont? = nil
+                if let logoFont = UIFont(name: "icomoon", size: 18) {
+                    customLargeTitleFont = logoFont
+                    titleConfig = WMFNavigationBarTitleConfig(title: "", customView: nil, alignment: .leadingLarge, customLargeTitleFont: customLargeTitleFont)
+                } else {
+                    titleConfig = WMFNavigationBarTitleConfig(title: CommonStrings.exploreTabTitle, customView: nil, alignment: .hidden, customLargeTitleFont: nil)
+                }
+                
                 extendedLayoutIncludesOpaqueBars = true
             }
         }
@@ -200,6 +209,9 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
             showsScopeBar: false, scopeButtonTitles: nil)
         
         configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: nil, profileButtonConfig: profileButtonConfig, searchBarConfig: searchConfig, hideNavigationBarOnScroll: true)
+        
+        // Need to override this so that "" does not appear as back button title.
+        navigationItem.backButtonTitle = CommonStrings.exploreTabTitle
     }
     
     @objc func updateProfileButton() {
