@@ -102,7 +102,8 @@ extension ArticleViewController {
     }
     
     private func presentEditor(editorViewController: UIViewController) {
-        let presentEditorAction = {
+        let presentEditorAction = { [weak self] in
+              guard let self else { return }
             let navigationController = WMFComponentNavigationController(rootViewController: editorViewController, modalPresentationStyle: .overFullScreen)
             
             let needsIntro = !UserDefaults.standard.didShowEditingOnboarding
@@ -156,8 +157,8 @@ extension ArticleViewController {
                     let newNavigationVC = WMFComponentNavigationController(rootViewController: webVC, modalPresentationStyle: .formSheet)
                     presentedViewController.present(newNavigationVC, animated: true)
                 },
-                didTapDone: {
-                    hostingController?.dismiss(animated: true)
+                didTapDone: { [weak self] in
+                    self?.dismiss(animated: true)
                     presentEditorAction()
                 })
             let tempAccountsSheetView = WMFTempAccountsSheetView(viewModel: vm)
@@ -209,8 +210,8 @@ extension ArticleViewController {
                 let newNavigationVC = WMFComponentNavigationController(rootViewController: webVC, modalPresentationStyle: .formSheet)
                 presentedViewController.present(newNavigationVC, animated: true)
             },
-            didTapDone: {
-                hostingController?.dismiss(animated: true)
+            didTapDone: { [weak self] in
+                self?.dismiss(animated: true)
                 presentEditorAction()
             })
         let tempAccountsSheetView = WMFTempAccountsSheetView(viewModel: vm)
