@@ -1038,6 +1038,8 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
     [defaults wmf_setLocationAuthorized:locationAuthorized];
 
     [self.savedArticlesFetcher start];
+    
+    [self assignAndLogArticleSearchBarExperiment];
 }
 
 - (NSTimeInterval)timeBeforeRefreshingExploreFeed {
@@ -1486,7 +1488,7 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
 
 - (SearchViewController *)searchViewController {
     if (!_searchViewController) {
-        _searchViewController = [[SearchViewController alloc] init];
+        _searchViewController = [[SearchViewController alloc] initWithSource:EventLoggingSourceSearchTab];
         [_searchViewController applyTheme:self.theme];
         _searchViewController.dataStore = self.dataStore;
         _searchViewController.tabBarItem.image = [UIImage imageNamed:@"search"];
@@ -2035,7 +2037,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
         [searchVC clear]; // clear search VC before bringing it forward
         [nc setViewControllers:mutableVCs animated:NO];
     } else {
-        searchVC = [[SearchViewController alloc] init];
+        searchVC = [[SearchViewController alloc] initWithSource:EventLoggingSourceUnknown];
         searchVC.shouldBecomeFirstResponder = YES;
         [searchVC applyTheme:self.theme];
         searchVC.dataStore = self.dataStore;

@@ -289,8 +289,7 @@ class SavedViewController: ThemeableViewController, WMFNavigationBarConfiguring,
             return
         }
         
-        // TODO: Do we need logging like this?
-        // DonateFunnel.shared.logExploreProfile(metricsID: metricsID)
+        DonateFunnel.shared.logSavedProfile(metricsID: metricsID)
               
         profileCoordinator?.start()
     }

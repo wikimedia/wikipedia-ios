@@ -171,6 +171,7 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
     private var tocStackViewTopConstraint: NSLayoutConstraint?
     private var searchBarIsAnimating = false
 
+<<<<<<< HEAD
     private var articleViewSource: ArticleSource
 
     // Will be populated if needsSearchBar = false
@@ -360,6 +361,12 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
         return view
     }()
     
+    lazy var searchBarButtonItem: UIBarButtonItem = {
+        let button = UIBarButtonItem(image: UIImage(named: "search"), style: .plain, target: self, action: #selector(userDidTapSearchButton))
+        button.accessibilityLabel = CommonStrings.searchButtonAccessibilityLabel
+        return button
+    }()
+    
     override func updateViewConstraints() {
         super.updateViewConstraints()
         updateLeadImageMargins()
@@ -512,6 +519,16 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
         profileCoordinator?.start()
     }
     
+    @objc func userDidTapSearchButton() {
+        let searchVC = SearchViewController(source: .article)
+        searchVC.shouldBecomeFirstResponder = true
+        searchVC.apply(theme: theme)
+        searchVC.dataStore = dataStore
+        searchVC.needsCenteredTitle = true
+        
+        navigationController?.pushViewController(searchVC, animated: true)
+    }
+    
     /// Catch-all method for deciding what is the best modal to present on top of Article at this point. This method needs careful if-else logic so that we do not present two modals at the same time, which may unexpectedly suppress one.
     private func presentModalsIfNeeded() {
 
@@ -549,6 +566,14 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
         super.traitCollectionDidChange(previousTraitCollection)
         tableOfContentsController.update(with: traitCollection)
         toolbarController.update()
+        
+        if #available(iOS 18, *) {
+            if UIDevice.current.userInterfaceIdiom == .pad {
+                if previousTraitCollection?.horizontalSizeClass != traitCollection.horizontalSizeClass {
+                    configureNavigationBar()
+                }
+            }
+        }
     }
     
     override func wmf_removePeekableChildViewControllers() {
@@ -841,9 +866,16 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
     // MARK: Navigation Bar
     
     var needsSearchBar: Bool {
+        guard let assignment = try? WMFNavigationExperimentsDataController.shared?.articleSearchBarExperimentAssignment() else {
+            return false
+        }
         
-        // TODO: A/B test
-        return false
+        switch assignment {
+        case .control:
+            return false
+        case .test:
+            return true
+        }
     }
     
     private func configureNavigationBar() {
@@ -852,14 +884,18 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
         wButton.setImage(UIImage(named: "W"), for: .normal)
         wButton.addTarget(self, action: #selector(wButtonTapped(_:)), for: .touchUpInside)
         
-        let titleConfig = WMFNavigationBarTitleConfig(title: articleURL.wmf_title ?? "", customView: wButton, alignment: .centerCompact)
+        var titleConfig: WMFNavigationBarTitleConfig = WMFNavigationBarTitleConfig(title: articleURL.wmf_title ?? "", customView: wButton, alignment: .centerCompact)
         
-        let trailingBarButtonItem: UIBarButtonItem? = needsSearchBar ? nil : AppSearchBarButtonItem.newAppSearchBarButtonItem
+        if #available(iOS 18, *) {
+            if UIDevice.current.userInterfaceIdiom == .pad && traitCollection.horizontalSizeClass == .regular {
+                titleConfig = WMFNavigationBarTitleConfig(title: articleURL.wmf_title ?? "", customView: nil, alignment: .hidden)
+            }
+        }
+        
+        let trailingBarButtonItem: UIBarButtonItem? = needsSearchBar ? nil : self.searchBarButtonItem
         let profileButtonConfig = profileButtonConfig(target: self, action: #selector(userDidTapProfile), dataStore: dataStore, yirDataController: yirDataController, leadingBarButtonItem: nil, trailingBarButtonItem: trailingBarButtonItem)
         
-        self.searchBarButtonItem = trailingBarButtonItem
-        
-        let searchViewController = SearchViewController()
+        let searchViewController = SearchViewController(source: .article)
         searchViewController.dataStore = dataStore
         searchViewController.theme = theme
         
@@ -876,7 +912,9 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
     }
     
     private func updateProfileButton() {
-        let config = self.profileButtonConfig(target: self, action: #selector(userDidTapProfile), dataStore: dataStore, yirDataController: yirDataController, leadingBarButtonItem: nil, trailingBarButtonItem: searchBarButtonItem)
+        // Checking A/B Test here as we don't want to instantiate the searchBarButtonItem lazy property unnecessarily
+        let resolvedSearchBarButtonItem: UIBarButtonItem? = needsSearchBar ? nil : self.searchBarButtonItem
+        let config = self.profileButtonConfig(target: self, action: #selector(userDidTapProfile), dataStore: dataStore, yirDataController: yirDataController, leadingBarButtonItem: nil, trailingBarButtonItem: resolvedSearchBarButtonItem)
         updateNavigationBarProfileButton(needsBadge: config.needsBadge, needsBadgeLabel: CommonStrings.profileButtonBadgeTitle, noBadgeLabel: CommonStrings.profileButtonTitle)
     }
     

@@ -17,11 +17,13 @@ public struct WMFNavigationBarTitleConfig {
     let title: String
     let customView: UIView?
     let alignment: Alignment
+    let customLargeTitleFont: UIFont?
     
-    public init(title: String, customView: UIView?, alignment: Alignment) {
+    public init(title: String, customView: UIView?, alignment: Alignment, customLargeTitleFont: UIFont? = nil) {
         self.title = title
         self.customView = customView
         self.alignment = alignment
+        self.customLargeTitleFont = customLargeTitleFont
     }
 }
 
@@ -111,11 +113,10 @@ public extension WMFNavigationBarConfiguring where Self: UIViewController {
         if hideNavigationBarOnScroll && !(self is WMFNavigationBarHiding) {
             debugPrint("Consider conforming to WMFNavigationBarHiding, which has helper methods ensuring the system navigation bar has a proper top safe area overlay and does not stick in a hidden state when scrolled to the top.")
         }
-        
-        navigationItem.title = titleConfig.title
  
         switch titleConfig.alignment {
         case .centerCompact:
+            navigationItem.title = titleConfig.title
             navigationController?.navigationBar.prefersLargeTitles = false
             navigationItem.largeTitleDisplayMode = .never
             if let customTitleView = titleConfig.customView {
@@ -123,6 +124,7 @@ public extension WMFNavigationBarConfiguring where Self: UIViewController {
                 themeNavigationBarCustomCenteredTitleView()
             }
         case .leadingCompact:
+            navigationItem.title = titleConfig.title
             navigationController?.navigationBar.prefersLargeTitles = false
             navigationItem.largeTitleDisplayMode = .never
             navigationItem.titleView = UIView()
@@ -141,6 +143,7 @@ public extension WMFNavigationBarConfiguring where Self: UIViewController {
                 themeNavigationBarLeadingTitleView()
             }
         case .leadingLarge:
+            navigationItem.title = titleConfig.title
             navigationController?.navigationBar.prefersLargeTitles = true
             navigationItem.largeTitleDisplayMode = .always
             if let customTitleView = titleConfig.customView {
@@ -149,15 +152,22 @@ public extension WMFNavigationBarConfiguring where Self: UIViewController {
                 navigationItem.titleView = nil
             }
             navigationItem.leftBarButtonItem = nil
+            
+            if let customLargeTitleFont = titleConfig.customLargeTitleFont {
+                customizeNavBarAppearance(customLargeTitleFont: customLargeTitleFont)
+            }
         case .hidden:
+            navigationItem.title = nil
             navigationController?.navigationBar.prefersLargeTitles = false
             navigationItem.largeTitleDisplayMode = .never
-            navigationItem.titleView = UIView()
+            navigationItem.backButtonTitle = titleConfig.title
+            navigationItem.titleView = nil
         }
         
         // Setup profile button if needed
         if let profileButtonConfig {
             let image = profileButtonImage(theme: WMFAppEnvironment.current.theme, needsBadge: profileButtonConfig.needsBadge)
+            
             let profileButton = UIBarButtonItem(image: image, style: .plain, target: profileButtonConfig.target, action: profileButtonConfig.action)
             
             profileButton.accessibilityLabel = profileButtonAccessibilityStrings(config: profileButtonConfig)
@@ -221,6 +231,27 @@ public extension WMFNavigationBarConfiguring where Self: UIViewController {
             
             navigationItem.searchController = searchController
         }
+    }
+    
+    func customizeNavBarAppearance(customLargeTitleFont: UIFont) {
+        guard let navVC = navigationController,
+        let componentNavVC = navVC as? WMFComponentNavigationController else {
+            return
+        }
+        
+        componentNavVC.setBarAppearance(customLargeTitleFont: customLargeTitleFont)
+    }
+    
+    
+    /// Call on viewWillDisappear(), IF navigation bar large title was set with a custom font.
+    func resetNavBarAppearance() {
+        
+        guard let navVC = navigationController,
+        let componentNavVC = navVC as? WMFComponentNavigationController else {
+            return
+        }
+        
+        componentNavVC.setBarAppearance(customLargeTitleFont: nil)
     }
     
     /// Call from UIViewController when theme changes
