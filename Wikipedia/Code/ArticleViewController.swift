@@ -171,7 +171,6 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
     private var tocStackViewTopConstraint: NSLayoutConstraint?
     private var searchBarIsAnimating = false
 
-<<<<<<< HEAD
     private var articleViewSource: ArticleSource
 
     // Will be populated if needsSearchBar = false
