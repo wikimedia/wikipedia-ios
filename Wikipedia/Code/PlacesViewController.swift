@@ -89,7 +89,7 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
         self.wikidataFetcher =  WikidataFetcher(session: dataStore.session, configuration: dataStore.configuration)
     }
 
-    required init(articleURLs: [URL], dataStore: MWKDataStore, contentGroup: WMFContentGroup?, theme: Theme, needsCloseButton: Bool = false) {
+    required init(articleURLs: [URL], dataStore: MWKDataStore, contentGroup: WMFContentGroup?, theme: Theme, needsCloseButton: Bool = false, source: ArticleSource) {
         fatalError("init(articleURLs:dataStore:contentGroup:theme:needsCloseButton:) has not been implemented")
     }
 
@@ -114,7 +114,7 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
 
     override func viewDidLoad() {
 
-        listViewController = ArticleLocationCollectionViewController(articleURLs: [], dataStore: dataStore, contentGroup: nil, theme: theme)
+        listViewController = ArticleLocationCollectionViewController(articleURLs: [], dataStore: dataStore, contentGroup: nil, theme: theme, source: .places)
         listViewController.needsConfigNavBar = false
         addChild(listViewController)
         listViewController.view.frame = listContainerView.bounds

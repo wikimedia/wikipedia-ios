@@ -52,7 +52,7 @@ extension WMFContentGroup {
             guard let articleURLs = contentURLs else {
                 break
             }
-            vc = ArticleLocationCollectionViewController(articleURLs: articleURLs, dataStore: dataStore, contentGroup: self, theme: theme, needsCloseButton: true)
+            vc = ArticleLocationCollectionViewController(articleURLs: articleURLs, dataStore: dataStore, contentGroup: self, theme: theme, needsCloseButton: true, source: .undefined)
         case .news:
             guard let stories = fullContent?.object as? [WMFFeedNewsStory] else {
                 break

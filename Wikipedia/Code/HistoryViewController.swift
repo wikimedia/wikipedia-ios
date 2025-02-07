@@ -246,6 +246,16 @@ class HistoryViewController: ArticleFetchedResultsViewController, WMFNavigationB
         configureNavigationBar()
     }
 
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard let articleURL = articleURL(at: indexPath) else {
+            collectionView.deselectItem(at: indexPath, animated: true)
+            return
+        }
+
+        let userInfo: [AnyHashable:Any]? = [ArticleSourceUserInfoKeys.articleSource: ArticleSource.history.rawValue]
+        navigate(to: articleURL, userInfo: userInfo)
+    }
+
     func updateVisibleHeaders() {
         for indexPath in collectionView.indexPathsForVisibleSupplementaryElements(ofKind: UICollectionView.elementKindSectionHeader) {
             guard let headerView = collectionView.supplementaryView(forElementKind: UICollectionView.elementKindSectionHeader, at: indexPath) as? CollectionViewHeader else {

@@ -1138,7 +1138,7 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
     } else if ([item.type isEqualToString:WMFIconShortcutTypeNearby]) {
         [self showNearbyAnimated:NO];
     } else if ([item.type isEqualToString:WMFIconShortcutTypeContinueReading]) {
-        [self showLastReadArticleAnimated:NO source:0];
+        [self showLastReadArticleAnimated:NO source:ArticleSourceUndefined];
     }
     if (completion) {
         completion(YES);

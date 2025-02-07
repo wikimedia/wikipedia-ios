@@ -12,15 +12,17 @@ class ArticleLocationCollectionViewController: ColumnarCollectionViewController,
     private var previewedIndexPath: IndexPath?
     private let contentGroup: WMFContentGroup?
     private let needsCloseButton: Bool
+    private let articleSource: ArticleSource
 
     let contentGroupIDURIString: String?
 
-    required init(articleURLs: [URL], dataStore: MWKDataStore, contentGroup: WMFContentGroup?, theme: Theme, needsCloseButton: Bool = false) {
+    required init(articleURLs: [URL], dataStore: MWKDataStore, contentGroup: WMFContentGroup?, theme: Theme, needsCloseButton: Bool = false, source: ArticleSource) {
         self.articleURLs = articleURLs
         self.dataStore = dataStore
         self.contentGroup = contentGroup
         contentGroupIDURIString = contentGroup?.objectID.uriRepresentation().absoluteString
         self.needsCloseButton = needsCloseButton
+        self.articleSource = source
         super.init(nibName: nil, bundle: nil)
         self.theme = theme
         if needsCloseButton {
@@ -34,6 +36,7 @@ class ArticleLocationCollectionViewController: ColumnarCollectionViewController,
         self.contentGroup = nil
         self.contentGroupIDURIString = nil
         self.needsCloseButton = false
+        self.articleSource = .undefined 
         super.init(coder: aDecoder)
         if needsCloseButton {
             hidesBottomBarWhenPushed = true
@@ -185,7 +188,8 @@ extension ArticleLocationCollectionViewController: LocationManagerDelegate {
 // MARK: - UICollectionViewDelegate
 extension ArticleLocationCollectionViewController {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        navigate(to: articleURLs[indexPath.item])
+        let userInfo: [AnyHashable:Any]? = [ArticleSourceUserInfoKeys.articleSource: articleSource.rawValue]
+        navigate(to: articleURLs[indexPath.item], userInfo: userInfo)
     }
 }
 
@@ -194,7 +198,7 @@ extension ArticleLocationCollectionViewController: CollectionViewContextMenuShow
     func articleViewController(for indexPath: IndexPath) -> ArticleViewController? {
         
         let articleURL = articleURL(at: indexPath)
-        let articleViewController = ArticleViewController(articleURL: articleURL, dataStore: dataStore, theme: theme, source: .places)
+        let articleViewController = ArticleViewController(articleURL: articleURL, dataStore: dataStore, theme: theme, source: articleSource)
         return articleViewController
     }
 

@@ -182,9 +182,7 @@ extension ArticleCollectionViewController {
             collectionView.deselectItem(at: indexPath, animated: true)
             return
         }
-        let userInfo: [AnyHashable:Any]? = [ArticleSourceUserInfoKeys.articleSource: ArticleSource.history.rawValue]
-        navigate(to: articleURL, userInfo: userInfo)
-        
+        navigate(to: articleURL)
     }
     
     func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
