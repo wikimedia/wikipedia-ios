@@ -86,6 +86,7 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
 
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
+        self.articleSource = .places
         self.wikidataFetcher =  WikidataFetcher(session: dataStore.session, configuration: dataStore.configuration)
     }
 

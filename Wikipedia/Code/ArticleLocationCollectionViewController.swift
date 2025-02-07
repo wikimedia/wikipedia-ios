@@ -12,7 +12,7 @@ class ArticleLocationCollectionViewController: ColumnarCollectionViewController,
     private var previewedIndexPath: IndexPath?
     private let contentGroup: WMFContentGroup?
     private let needsCloseButton: Bool
-    private let articleSource: ArticleSource
+    var articleSource: ArticleSource
 
     let contentGroupIDURIString: String?
 
@@ -36,7 +36,7 @@ class ArticleLocationCollectionViewController: ColumnarCollectionViewController,
         self.contentGroup = nil
         self.contentGroupIDURIString = nil
         self.needsCloseButton = false
-        self.articleSource = .undefined 
+        self.articleSource = .undefined
         super.init(coder: aDecoder)
         if needsCloseButton {
             hidesBottomBarWhenPushed = true
