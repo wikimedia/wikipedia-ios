@@ -9,7 +9,9 @@ enum ProfileCoordinatorSource: Int {
     case exploreOptOut
     case explore
     case article
+    case places
     case saved
+    case history
     case search
 }
 
@@ -300,10 +302,14 @@ final class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegat
             default:
                 return
             }
+        case .places:
+            DonateFunnel.shared.logPlacesProfileDonate(metricsID: metricsID)
         case .saved:
-            debugPrint("TODO: Do we need to log this?")
+            DonateFunnel.shared.logSavedProfileDonate(metricsID: metricsID)
+        case .history:
+            DonateFunnel.shared.logHistoryProfileDonate(metricsID: metricsID)
         case .search:
-            debugPrint("TODO: Do we need to log this?")
+            DonateFunnel.shared.logSearchProfileDonate(metricsID: metricsID)
         }
     }
     

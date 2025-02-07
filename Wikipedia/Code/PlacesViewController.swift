@@ -413,7 +413,7 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
         }
 
         guard let existingProfileCoordinator = _profileCoordinator else {
-            _profileCoordinator = ProfileCoordinator(navigationController: navigationController, theme: theme, dataStore: dataStore, donateSouce: .savedProfile, logoutDelegate: self, sourcePage: ProfileCoordinatorSource.saved, yirCoordinator: yirCoordinator)
+            _profileCoordinator = ProfileCoordinator(navigationController: navigationController, theme: theme, dataStore: dataStore, donateSouce: .placesProfile, logoutDelegate: self, sourcePage: ProfileCoordinatorSource.places, yirCoordinator: yirCoordinator)
             _profileCoordinator?.badgeDelegate = self
             return _profileCoordinator
         }
@@ -426,6 +426,14 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
     }
 
     @objc private func didTapProfileButton() {
+        
+        guard let languageCode = dataStore.languageLinkController.appLanguage?.languageCode,
+              let metricsID = DonateCoordinator.metricsID(for: .placesProfile, languageCode: languageCode) else {
+            return
+        }
+        
+        DonateFunnel.shared.logPlacesProfile(metricsID: metricsID)
+        
         profileCoordinator?.start()
     }
 
