@@ -136,6 +136,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         dataStore.feedContentController.dismissCollapsedContentGroups()
         stopMonitoringReachability()
         isGranularUpdatingEnabled = false
+        resetNavBarAppearance()
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
@@ -174,14 +175,22 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         extendedLayoutIncludesOpaqueBars = false
         if #available(iOS 18, *) {
             if UIDevice.current.userInterfaceIdiom == .pad && traitCollection.horizontalSizeClass == .regular {
-                titleConfig = WMFNavigationBarTitleConfig(title: CommonStrings.exploreTabTitle, customView: titleView, alignment: .centerCompact)
+
+                var customLargeTitleFont: UIFont? = nil
+                if let logoFont = UIFont(name: "icomoon", size: 18) {
+                    customLargeTitleFont = logoFont
+                    titleConfig = WMFNavigationBarTitleConfig(title: "", customView: nil, alignment: .leadingLarge, customLargeTitleFont: customLargeTitleFont)
+                } else {
+                    titleConfig = WMFNavigationBarTitleConfig(title: CommonStrings.exploreTabTitle, customView: nil, alignment: .hidden, customLargeTitleFont: nil)
+                }
+                
                 extendedLayoutIncludesOpaqueBars = true
             }
         }
         
         let profileButtonConfig = profileButtonConfig(target: self, action: #selector(userDidTapProfile), dataStore: dataStore, yirDataController: yirDataController, leadingBarButtonItem: nil, trailingBarButtonItem: nil)
         
-        let searchViewController = SearchViewController()
+        let searchViewController = SearchViewController(source: .topOfFeed)
         searchViewController.dataStore = dataStore
         
         let populateSearchBarWithTextAction: (String) -> Void = { [weak self] searchTerm in
@@ -201,7 +210,11 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
             searchBarPlaceholder: WMFLocalizedString("search-field-placeholder-text", value: "Search Wikipedia", comment: "Search field placeholder text"),
             showsScopeBar: false, scopeButtonTitles: nil)
         
+
         configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: nil, profileButtonConfig: profileButtonConfig, searchBarConfig: searchConfig, hideNavigationBarOnScroll: !presentingSearchResults)
+        
+        // Need to override this so that "" does not appear as back button title.
+        navigationItem.backButtonTitle = CommonStrings.exploreTabTitle
     }
     
     @objc func updateProfileButton() {

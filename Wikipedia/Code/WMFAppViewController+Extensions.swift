@@ -96,6 +96,21 @@ extension WMFAppViewController {
         let navVC = WMFComponentNavigationController(rootViewController: languagesVC, modalPresentationStyle: .overFullScreen)
         present(navVC, animated: true, completion: nil)
     }
+    
+    @objc func assignAndLogArticleSearchBarExperiment() {
+        guard let dataController = WMFNavigationExperimentsDataController.shared,
+        let primaryLanguage = dataStore.languageLinkController.appLanguage,
+        let project = WikimediaProject(siteURL: primaryLanguage.siteURL)?.wmfProject else {
+            return
+        }
+        
+        do {
+            let assignment = try dataController.assignArticleSearchBarExperiment(project: project)
+            SearchFunnel.shared.logDidAssignArticleSearchExperiment(assignment: assignment)
+        } catch {
+            DDLogWarn("Error assigning article search experiment: \(error)")
+        }
+    }
 
 }
 
