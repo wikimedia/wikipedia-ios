@@ -33,7 +33,9 @@ final class ArticleLinkInteractionFunnel {
     }
     
     func logArticleView(pageID: Int, project: WikimediaProject, source: ArticleSource? = nil) {
-        logEvent(action: .navigate, pageID: pageID, project: project, source: source?.rawValue)
+        // Avoid sending 0 to backend. It doesn't throw an error, but is unexpected
+        let loggingSource = source == .undefined ? nil : source?.rawValue
+        logEvent(action: .navigate, pageID: pageID, project: project, source: loggingSource)
     }
 }
 

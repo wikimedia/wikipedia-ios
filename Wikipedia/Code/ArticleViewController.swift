@@ -360,12 +360,6 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
         return view
     }()
     
-    lazy var searchBarButtonItem: UIBarButtonItem = {
-        let button = UIBarButtonItem(image: UIImage(named: "search"), style: .plain, target: self, action: #selector(userDidTapSearchButton))
-        button.accessibilityLabel = CommonStrings.searchButtonAccessibilityLabel
-        return button
-    }()
-    
     override func updateViewConstraints() {
         super.updateViewConstraints()
         updateLeadImageMargins()
