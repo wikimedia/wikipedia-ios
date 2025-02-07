@@ -53,6 +53,8 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     
     var topSafeAreaOverlayHeightConstraint: NSLayoutConstraint?
     var topSafeAreaOverlayView: UIView?
+    
+    private var presentingSearchResults: Bool = false
 
     // MARK: - Lifecycle
 
@@ -208,7 +210,8 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
             searchBarPlaceholder: WMFLocalizedString("search-field-placeholder-text", value: "Search Wikipedia", comment: "Search field placeholder text"),
             showsScopeBar: false, scopeButtonTitles: nil)
         
-        configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: nil, profileButtonConfig: profileButtonConfig, searchBarConfig: searchConfig, hideNavigationBarOnScroll: true)
+
+        configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: nil, profileButtonConfig: profileButtonConfig, searchBarConfig: searchConfig, hideNavigationBarOnScroll: !presentingSearchResults)
         
         // Need to override this so that "" does not appear as back button title.
         navigationItem.backButtonTitle = CommonStrings.exploreTabTitle
@@ -2191,10 +2194,12 @@ extension ExploreViewController: YearInReviewBadgeDelegate {
 extension ExploreViewController: UISearchControllerDelegate {
     
     func willPresentSearchController(_ searchController: UISearchController) {
+        presentingSearchResults = true
         navigationController?.hidesBarsOnSwipe = false
     }
     
     func didDismissSearchController(_ searchController: UISearchController) {
+        presentingSearchResults = false
         navigationController?.hidesBarsOnSwipe = true
     }
 }
