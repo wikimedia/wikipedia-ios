@@ -800,7 +800,7 @@
 "main-menu-account-login" = "登录";
 "main-menu-account-logout" = "退出";
 "main-menu-account-logout-are-you-sure" = "您确定要退出登录吗？";
-"main-menu-account-logout-are-you-sure-message" = "退出登录将会删除本地存储的账户数据（通知和消息），不过您的账号数据仍然存储于网络上，如果您重新登录，将会重新下载。";
+"main-menu-account-logout-are-you-sure-message" = "退出登录将会删除本地存储的账号数据（通知和消息），不过您的账号数据仍然存储于网络上，如果您重新登录，将会重新下载。";
 "main-menu-account-title-logged-in" = "以$1的身份登录";
 "main-menu-heading-legal" = "隐私和条款";
 "main-menu-nearby" = "附近";
@@ -1054,7 +1054,7 @@
 "profile-page-join-title" = "登录/加入维基百科";
 "profile-page-logged-out-year-in-review-subtext" = "请登录或创建账号，以在来年获得更好的年度回顾";
 "profile-page-title-logged-out" = "账号";
-"profile-year-in-review-login-subtitle" = "登录或创建账户，以便再次查看年度回顾，并有资格获得更多个性化分析数据。";
+"profile-year-in-review-login-subtitle" = "登录或创建账号，以便再次查看年度回顾，并有资格获得更多个性化分析数据。";
 "profile-year-in-review-login-title" = "登录以访问年度回顾";
 "project-name-mediawiki" = "MediaWiki";
 "project-name-wikibooks" = "维基教科书";
@@ -1523,13 +1523,14 @@
 "year-in-review-feature-explore-body" = "维基百科是世界历史上最大的知识资源库，向每个地方的每个人免费开放。通过维基百科的视角回顾 2024 年。";
 "year-in-review-feature-explore-body-personalized" = "查看您在维基百科应用上阅读的文章以及您在 2024 年所做的编辑的分析。您的阅读历史将受到保护。阅读见解使用存储在您设备上的本地数据计算。";
 "year-in-review-finish" = "完成";
-"year-in-review-login-subtitle" = "登录或创建账户，以便有资格获得更多个性化分析数据";
+"year-in-review-login-subtitle" = "登录或创建账号，以便有资格获得更多个性化分析数据";
 "year-in-review-login-title" = "改进您的年度回顾";
 "year-in-review-personalized-day-subtitle-format" = "您在 $1 阅读的文章最多。很明显，$1 是您探索新内容最重要的日子。感谢您充分利用您的阅读时间！";
 "year-in-review-personalized-day-title-format" = "您阅读最多的是$1 。";
 "year-in-review-personalized-donate-subtitle" = "感谢您对知识免费的未来投资。今年，维基媒体基金会改进了技术，从而更好地服务每一位读者和志愿者，并开发了增强协作的工具，另外还支持了维基百科的更多语言版本。[进一步了解我们的工作]($1)。";
 "year-in-review-personalized-donate-title" = "您的慷慨让维基百科兴旺";
 "year-in-review-personalized-donation-thank-you" = "维基百科标志";
+// Fuzzy
 "year-in-review-personalized-edit-views-subtitle-format" = "全世界的读者感谢您做出的贡献。在过去 2 个月中，您编辑的文章总浏览量已达 $1 次。正因为有像您这样的编辑者，维基百科才能不断改进，成为基于事实的、可靠的全球知识资源库。";
 "year-in-review-personalized-edit-views-title-format" = "您编辑的文章最近已被浏览超过 $1 次";
 "year-in-review-personalized-editing-subtitle-format" = "您编辑了维基百科{{PLURAL:$1| $1次}}。感谢您成为志愿编辑之一，为全球各地的维基媒体项目做出贡献。";

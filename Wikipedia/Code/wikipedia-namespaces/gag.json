@@ -32,14 +32,18 @@
     "MEDYA" : -2,
     "MEDYAVIKI" : 8,
     "MEDYAVIKI TARTIŞMA" : 9,
-    "MODULE" : 828,
-    "MODULE TALK" : 829,
     "MODÜL" : 828,
     "MODÜL TARTIŞMA" : 829,
+    "MODULE" : 828,
+    "MODULE TALK" : 829,
+    "ÖZEL" : -1,
     "PROJECT" : 4,
     "PROJECT TALK" : 5,
     "RESIM" : 6,
     "RESIM TARTIŞMA" : 7,
+    "ŞABLON" : 10,
+    "ŞABLON DARTIŞMA" : 11,
+    "ŞABLON TARTIŞMA" : 11,
     "SPECIAL" : -1,
     "TALK" : 1,
     "TARTIŞMA" : 1,
@@ -57,10 +61,6 @@
     "WP" : 4,
     "YARDIM" : 12,
     "YARDIM DARTIŞMA" : 13,
-    "YARDIM TARTIŞMA" : 13,
-    "ÖZEL" : -1,
-    "ŞABLON" : 10,
-    "ŞABLON DARTIŞMA" : 11,
-    "ŞABLON TARTIŞMA" : 11
+    "YARDIM TARTIŞMA" : 13
   }
 }

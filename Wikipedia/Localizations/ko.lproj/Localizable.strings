@@ -753,12 +753,10 @@
 "main-menu-terms-of-use" = "이용 약관";
 "main-menu-title" = "더 보기";
 "main-menu-zero-faq" = "위키백과 제로 FAQ";
-// Fuzzy
-"microsite-yir-english-edits-bytes-slide-title" = "34억 바이트 추가됨";
+"microsite-yir-english-edits-bytes-slide-title" = "40억 바이트 추가됨";
 // Fuzzy
 "microsite-yir-english-edits-slide-title" = "편집자들은 올해 약 8,200만 건의 변경을 수행했습니다";
 "microsite-yir-english-non-donor-slide-title" = "위키백과에 게재된 광고는 0개입니다";
-// Fuzzy
 "microsite-yir-english-reading-slide-title" = "읽기에 29억 시간이 할애됐습니다";
 "microsite-yir-english-saved-reading-slide-title" = "6,220만 개가 넘는 읽기 목록이 있습니다";
 "more-languages-tooltip-description" = "300개 이상의 언어에서 위키백과 검색";
@@ -1291,6 +1289,7 @@
 "uzbek-variants-alert-title" = "우즈베크어 변이형 지원 업데이트";
 "vanish-account-continue-button-title" = "계속";
 "vanish-account-username-field" = "사용자 이름 및 사용자 문서";
+"vanish-account-warning-body" = "버리기는 **최후의 수단**이며 **영원히 편집을 중단하고 싶을 때**와 가능한 한 많은 과거 연관성을 숨기고 싶을 때만 사용해야 합니다.\n\n위키백과에서 계정을 삭제하려면 계정 이름을 변경하여 다른 사람이 기여한 내용을 알아볼 수 없도록 하는 계정 버리기라는 프로세스를 거쳐야 합니다. **버리기는 완전한 익명성을 보장하지 않으며 프로젝트에 수행한 기여를 제거하지 않습니다**.";
 "vanish-account-warning-title" = "경고";
 "variants-alert-dismiss-button" = "괜찮습니다";
 "variants-alert-preferences-button" = "내 환경 설정 검토하기";

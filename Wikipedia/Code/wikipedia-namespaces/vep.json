@@ -33,6 +33,7 @@
     "PILT" : 6,
     "PROJECT" : 4,
     "PROJECT TALK" : 5,
+    "ŠABLON" : 10,
     "SPECIAL" : -1,
     "SPECIALINE" : -1,
     "TALK" : 1,
@@ -46,7 +47,6 @@
     "VIKIPEDII ARUTELU" : 5,
     "WIKIPEDIA" : 4,
     "WIKIPEDIA TALK" : 5,
-    "WP" : 4,
-    "ŠABLON" : 10
+    "WP" : 4
   }
 }

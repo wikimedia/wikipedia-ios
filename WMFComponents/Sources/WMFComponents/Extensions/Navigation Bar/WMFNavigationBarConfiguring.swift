@@ -48,18 +48,24 @@ public struct WMFNavigationBarCloseButtonConfig {
 
 /// Profile button config for navigation bar
 public struct WMFNavigationBarProfileButtonConfig {
-    public let accessibilityLabel: String
+    public let accessibilityLabelNoNotifications: String
+    public let accessibilityLabelHasNotifications: String
     public let accessibilityHint: String
     public let needsBadge: Bool
     public let target: Any
     public let action: Selector
+    public let leadingBarButtonItem: UIBarButtonItem?
+    public let trailingBarButtonItem: UIBarButtonItem?
     
-    public init(accessibilityLabel: String, accessibilityHint: String, needsBadge: Bool, target: Any, action: Selector) {
-        self.accessibilityLabel = accessibilityLabel
+    public init(accessibilityLabelNoNotifications: String, accessibilityLabelHasNotifications: String, accessibilityHint: String, needsBadge: Bool, target: Any, action: Selector, leadingBarButtonItem: UIBarButtonItem?, trailingBarButtonItem: UIBarButtonItem?) {
+        self.accessibilityLabelNoNotifications = accessibilityLabelNoNotifications
+        self.accessibilityLabelHasNotifications = accessibilityLabelHasNotifications
         self.accessibilityHint = accessibilityHint
         self.needsBadge = needsBadge
         self.target = target
         self.action = action
+        self.leadingBarButtonItem = leadingBarButtonItem
+        self.trailingBarButtonItem = trailingBarButtonItem
     }
 }
 
@@ -85,6 +91,10 @@ public struct WMFNavigationBarSearchConfig {
 }
 
 public extension WMFNavigationBarConfiguring where Self: UIViewController {
+    
+    private var profileButtonAccessibilityID: String {
+        "profile-button"
+    }
     
     /// Shared method to apply navigation bar styling on an individual view controller basis. Call within viewWillAppear. For common UINavigationBar styling that should be shared across the app, update WMFComponentNavigationController.
     /// - Parameters:
@@ -117,7 +127,9 @@ public extension WMFNavigationBarConfiguring where Self: UIViewController {
             navigationItem.largeTitleDisplayMode = .never
             navigationItem.titleView = UIView()
             if let customTitleView = titleConfig.customView {
-                navigationItem.leftBarButtonItem = UIBarButtonItem(customView: customTitleView)
+                let button = UIBarButtonItem(customView: customTitleView)
+                button.accessibilityTraits = .staticText
+                navigationItem.leftBarButtonItem = button
                 themeNavigationBarLeadingTitleView()
             } else {
                 let leadingTitleLabel = UILabel()
@@ -147,8 +159,20 @@ public extension WMFNavigationBarConfiguring where Self: UIViewController {
         if let profileButtonConfig {
             let image = profileButtonImage(theme: WMFAppEnvironment.current.theme, needsBadge: profileButtonConfig.needsBadge)
             let profileButton = UIBarButtonItem(image: image, style: .plain, target: profileButtonConfig.target, action: profileButtonConfig.action)
-            profileButton.accessibilityLabel = profileButtonConfig.accessibilityLabel
-            navigationItem.rightBarButtonItem = profileButton
+            
+            profileButton.accessibilityLabel = profileButtonAccessibilityStrings(config: profileButtonConfig)
+            profileButton.accessibilityIdentifier = profileButtonAccessibilityID
+            
+            var rightBarButtonItems: [UIBarButtonItem] = [profileButton]
+            if let leadingBarButtonItem = profileButtonConfig.leadingBarButtonItem {
+                rightBarButtonItems.append(leadingBarButtonItem)
+            }
+            
+            if let trailingBarButtonItem = profileButtonConfig.trailingBarButtonItem {
+                rightBarButtonItems.insert(trailingBarButtonItem, at: 0)
+            }
+            
+            navigationItem.rightBarButtonItems = rightBarButtonItems
         }
         
         // Setup close button if needed
@@ -214,17 +238,24 @@ public extension WMFNavigationBarConfiguring where Self: UIViewController {
         navigationItem.titleView?.tintColor = WMFAppEnvironment.current.theme.text
     }
     
+    var currentProfileBarButtonItem: UIBarButtonItem? {
+        return navigationItem.rightBarButtonItems?.filter { $0.accessibilityIdentifier == profileButtonAccessibilityID }.first
+    }
+    
     /// Call from UIViewController when theme changes, or when badge needs to change
     ///     - from apply(theme:) if legacy
     ///     - from appEnvironmentDidChange() if WMFComponents
     ///     - whenever badge logic changes (YiR or unread notifications)
     ///     - Parameter needsBadge: true if red dot needs to be applied to profile button, false if not
-    func updateNavigationBarProfileButton(needsBadge: Bool) {
+    func updateNavigationBarProfileButton(needsBadge: Bool, needsBadgeLabel: String, noBadgeLabel: String) {
         let image = profileButtonImage(theme: WMFAppEnvironment.current.theme, needsBadge: needsBadge)
-        navigationItem.rightBarButtonItem?.image = image
+        if let currentProfileBarButtonItem {
+            currentProfileBarButtonItem.image = image
+            currentProfileBarButtonItem.accessibilityLabel = needsBadge ? needsBadgeLabel : noBadgeLabel
+        }
     }
     
-    func profileButtonImage(theme: WMFTheme, needsBadge: Bool) -> UIImage? {
+    private func profileButtonImage(theme: WMFTheme, needsBadge: Bool) -> UIImage? {
         let paletteColors: [UIColor]
         
         if needsBadge {
@@ -235,5 +266,9 @@ public extension WMFNavigationBarConfiguring where Self: UIViewController {
         
         let symbol = WMFSFSymbolIcon.for(symbol: needsBadge ? .personCropCircleBadge : .personCropCircle, paletteColors: paletteColors)
         return symbol
+    }
+
+    func profileButtonAccessibilityStrings(config: WMFNavigationBarProfileButtonConfig) -> String {
+        return config.needsBadge ? config.accessibilityLabelHasNotifications : config.accessibilityLabelNoNotifications
     }
 }

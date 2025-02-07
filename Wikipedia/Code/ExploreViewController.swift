@@ -177,7 +177,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
             }
         }
         
-        let profileButtonConfig = self.profileButtonConfig()
+        let profileButtonConfig = profileButtonConfig(target: self, action: #selector(userDidTapProfile), dataStore: dataStore, yirDataController: yirDataController, leadingBarButtonItem: nil, trailingBarButtonItem: nil)
         
         let searchViewController = SearchViewController()
         searchViewController.dataStore = dataStore
@@ -203,33 +203,8 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     }
     
     @objc func updateProfileButton() {
-        let config = self.profileButtonConfig()
-        updateNavigationBarProfileButton(needsBadge: config.needsBadge)
-    }
-
-    private func profileButtonConfig() -> WMFNavigationBarProfileButtonConfig {
-        var hasUnreadNotifications: Bool = false
-        if self.dataStore.authenticationManager.authStateIsPermanent {
-            let numberOfUnreadNotifications = try? dataStore.remoteNotificationsController.numberOfUnreadNotifications()
-            hasUnreadNotifications = (numberOfUnreadNotifications?.intValue ?? 0) != 0
-        } else {
-            hasUnreadNotifications = false
-        }
-
-        var needsYiRNotification = false
-        if let yirDataController,  let appLanguage = dataStore.languageLinkController.appLanguage {
-            let project = WMFProject.wikipedia(WMFLanguage(languageCode: appLanguage.languageCode, languageVariantCode: appLanguage.languageVariantCode))
-            needsYiRNotification = yirDataController.shouldShowYiRNotification(primaryAppLanguageProject: project, isLoggedOut: !dataStore.authenticationManager.authStateIsPermanent)
-        }
-        // do not override `hasUnreadNotifications` completely
-        if needsYiRNotification {
-            hasUnreadNotifications = true
-        }
-        
-        let accessibilityLabel = hasUnreadNotifications ? CommonStrings.profileButtonBadgeTitle : CommonStrings.profileButtonTitle
-        let accessibilityHint = CommonStrings.profileButtonAccessibilityHint
-        
-        return WMFNavigationBarProfileButtonConfig(accessibilityLabel: accessibilityLabel, accessibilityHint: accessibilityHint, needsBadge: hasUnreadNotifications, target: self, action: #selector(userDidTapProfile))
+        let config = self.profileButtonConfig(target: self, action: #selector(userDidTapProfile), dataStore: dataStore, yirDataController: yirDataController, leadingBarButtonItem: nil, trailingBarButtonItem: nil)
+        updateNavigationBarProfileButton(needsBadge: config.needsBadge, needsBadgeLabel: CommonStrings.profileButtonBadgeTitle, noBadgeLabel: CommonStrings.profileButtonTitle)
     }
     
     @objc func scrollToTop() {

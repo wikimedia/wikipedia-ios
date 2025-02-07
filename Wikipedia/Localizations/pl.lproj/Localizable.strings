@@ -20,6 +20,7 @@
 // Author: Msz2001
 // Author: Nemo bis
 // Author: Nharateh
+// Author: PanWor
 // Author: Pawel Niemczuk
 // Author: Peter Bowman
 // Author: Pio387
@@ -136,6 +137,7 @@
 "add-articles-to-reading-list" = "Dodaj {{PLURAL:$1|$1 artykuł|$1 artykuły}} do listy do przeczytania";
 "alt-text-add-button-title" = "Dodaj";
 "alt-text-do-not-add-button-title" = "Nie dodawaj";
+"alt-text-feedback-alert-subtitle-flow-C" = "Czy chciałbyś otrzymywać podobne powiadomienia o sugerowanych zmianach w artykułach po ich edycji?";
 "announcements-dismiss" = "Odrzuć";
 "app-store-keywords" = "Wikipedia, referencje, wiki, encyklopedia, informacje, wiedza, badania, informacje, eksploracja, nauka";
 "app-store-release-notes" = "W pełni konfigurowalny i łatwiejszy do odczytania kanał Eksploruj. Lokalizacja, ulepszenia wydajności i poprawki błędów.";
@@ -362,6 +364,8 @@
 "explore-feed-preferences-show-related-pages-title" = "Pokaż kartę Ponieważ czytasz";
 "explore-feed-preferences-show-top-read-footer-text" = "Wyłączenie karty Najczęściej czytane wyłączy tę kartę we wszystkich dostępnych językach";
 "explore-feed-preferences-show-top-read-title" = "Pokaż kartę Najczęściej czytane";
+"explore-feed-preferences-suggested-edits-description" = "Sugestie dotyczące dodania treści do Wikipedii";
+"explore-feed-preferences-suggested-edits-title" = "Pokaż kartę Sugerowane edycje";
 "explore-feed-preferences-top-read-description" = "Najczęściej dzisiaj czytane artykuły";
 "explore-feed-preferences-turn-off-explore-feed-alert-action-title" = "Wyłącz kanał Eksploruj";
 "explore-feed-preferences-turn-off-explore-feed-alert-message" = "Wyłączenie wszystkich kart wyłączy Odkryj i zastąpi je Ustawieniami";
@@ -395,6 +399,8 @@
 "explore-random-article-sub-heading-from-wikipedia" = "Z Wikipedii";
 "explore-randomizer" = "Losowy artykuł";
 "explore-suggested-edits-footer" = "Dodaj";
+"explore-suggested-edits-image-recs-body" = "Dodaj sugerowane obrazy do artykułów na Wikipedii, aby pomóc czytelnikom w ich zrozumieniu.";
+"explore-suggested-edits-image-recs-title" = "Dodaj obraz";
 "featured-widget-content-failure-for-date" = "Polecany artykuł nie jest dostępny w tym dniu.";
 "featured-widget-description" = "Odkryj najlepsze artykuły w Wikipedii, wybierane codziennie przez naszą społeczność.";
 "featured-widget-from-language-wikipedia" = "Z Wikipedii $1";
@@ -458,6 +464,9 @@
 "icon-shortcut-random-title" = "Losowy artykuł";
 "icon-shortcut-search-title" = "Szukaj w Wikipedii";
 "image-gallery-unknown-owner" = "Autor nieznany.";
+"image-rec-empty-title" = "W tej chwili nie są już dostępne żadne sugerowane obrazy.";
+"image-rec-onboarding-item-1-body" = "Zdecyduj, czy sugerowany obraz powinien zostać umieszczony w artykule w Wikipedii.";
+"image-rec-onboarding-learn-more-button" = "Dowiedz się więcej o sugerowanych edycjach";
 "image-rec-survey-option-6" = "Inne";
 "image-recs-no-title" = "Nie";
 "image-recs-yes-title" = "Tak";
@@ -858,6 +867,7 @@
 "share-social-mention-format" = "\"$1\" przez Wikipedię: $2";
 "sort-by-recently-added-action" = "Ostatnio dodane";
 "sort-by-title-action" = "Tytuł";
+"suggested-edits-title" = "Sugerowane edycje";
 "table-of-contents-button-label" = "Spis treści";
 "table-of-contents-close-accessibility-hint" = "Zamknij";
 "table-of-contents-close-accessibility-label" = "Zamknij spis treści";
@@ -980,6 +990,7 @@
 "year-in-review-personalized-donate-subtitle" = "Dziękujemy za inwestowanie w przyszłość wolnej wiedzy. W tym roku Fundacja Wikimedia udoskonaliła technologię, aby lepiej służyła każdemu czytelnikowi i wolontariuszowi, pomagała we współpracy oraz wspierała Wikipedię w kolejnych językach. [Dowiedz się więcej o naszej pracy]($1).";
 "year-in-review-personalized-donate-title" = "Twoja hojność pomogła Wikipedii w dalszym rozwoju";
 "year-in-review-personalized-donation-thank-you" = "Logo Wikipedii";
+// Fuzzy
 "year-in-review-personalized-edit-views-subtitle-format" = "Czytelnicy na całym świecie doceniają Twój wkład. W ciągu ostatnich 2 miesięcy artykuły, które edytowałeś(-aś), uzyskały łącznie $1 wyświetleń. Dzięki takim redaktorom jak Ty, Wikipedia jest stale rozwijającym się, opartym na faktach i wiarygodnym źródłem wiedzy dla świata";
 "year-in-review-personalized-edit-views-title-format" = "Twoje edycje zostały ostatnio wyświetlone więcej niż $1 razy";
 "year-in-review-personalized-explore" = "Animowana ilustracja ręki trzymającej kulę Wikipedii, która stopniowo przekształca się w mały element układanki, symbolizujący indywidualny wkład w rozwój platformy.";

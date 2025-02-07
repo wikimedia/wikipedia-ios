@@ -4,6 +4,7 @@
     "" : 0,
     "CATEGORY" : 14,
     "CATEGORY TALK" : 15,
+    "ÇEKIŞME" : 1,
     "FAÝL" : 6,
     "FAÝL ÇEKIŞME" : 7,
     "FILE" : 6,
@@ -16,12 +17,14 @@
     "KATEGORIÝA ÇEKIŞME" : 15,
     "MEDIA" : -2,
     "MEDIAWIKI" : 8,
-    "MEDIAWIKI TALK" : 9,
     "MEDIAWIKI ÇEKIŞME" : 9,
+    "MEDIAWIKI TALK" : 9,
     "MODULE" : 828,
     "MODULE TALK" : 829,
     "PROJECT" : 4,
     "PROJECT TALK" : 5,
+    "ŞABLON" : 10,
+    "ŞABLON ÇEKIŞME" : 11,
     "SPECIAL" : -1,
     "TALK" : 1,
     "TEMPLATE" : 10,
@@ -37,11 +40,8 @@
     "WIKIPEDIÝA" : 4,
     "WIKIPEDIÝA ÇEKIŞME" : 5,
     "WP" : 4,
-    "ÇEKIŞME" : 1,
     "ÝARDAM" : 12,
     "ÝARDAM ÇEKIŞME" : 13,
-    "ÝÖRITE" : -1,
-    "ŞABLON" : 10,
-    "ŞABLON ÇEKIŞME" : 11
+    "ÝÖRITE" : -1
   }
 }

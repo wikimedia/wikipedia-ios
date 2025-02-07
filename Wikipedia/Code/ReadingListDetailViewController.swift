@@ -133,8 +133,8 @@ class ReadingListDetailViewController: ThemeableViewController, WMFNavigationBar
         
         let titleConfig = WMFNavigationBarTitleConfig(title: readingList.name ?? "", customView: nil, alignment: .centerCompact)
         
-        let closeButtonConfig: WMFNavigationBarCloseButtonConfig? = displayType == .modal ? WMFNavigationBarCloseButtonConfig(text: CommonStrings.doneTitle, target: self, action: #selector(dismissController), alignment: .leading) : nil
-        
+        let closeButtonConfig: WMFNavigationBarCloseButtonConfig? = displayType == .modal ? WMFNavigationBarCloseButtonConfig(text: CommonStrings.cancelActionTitle, target: self, action: #selector(dismissController), alignment: .leading) : nil
+
         let searchBarPlaceholder = WMFLocalizedString("reading-list-detail-search-placeholder", value: "Search reading list", comment: "Placeholder on search bar for reading list detail view.")
         let searchConfig = WMFNavigationBarSearchConfig(searchResultsController: nil, searchControllerDelegate: nil, searchResultsUpdater: self, searchBarDelegate: nil, searchBarPlaceholder: searchBarPlaceholder, showsScopeBar: false, scopeButtonTitles: nil)
         
@@ -195,7 +195,15 @@ extension ReadingListDetailViewController: CollectionViewEditControllerNavigatio
             rightBarButton?.tintColor = theme.colors.link // no need to do a whole apply(theme:) pass
             sortBarButtonItem.tintColor = theme.colors.link
         }
-        
+
+        if let rightBarButton, newEditingState == .open {
+            navigationItem.rightBarButtonItems = [rightBarButton]
+            navigationItem.leftBarButtonItem = nil
+        } else {
+            configureNavigationBar()
+        }
+
+
         switch newEditingState {
         case .editing:
             fallthrough
@@ -288,7 +296,7 @@ extension ReadingListDetailViewController: SearchBarExtendedViewControllerDelega
         case nil:
             return .sort
         case .cancel?:
-            return .sort
+            return nil
         case .sort?:
             return .cancel
         }

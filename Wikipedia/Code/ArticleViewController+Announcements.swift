@@ -169,7 +169,7 @@ extension ArticleViewController {
             DonateFunnel.shared.logYearInReviewFeatureAnnouncementDidTapClose(isEntryA: !self.dataStore.authenticationManager.authStateIsPermanent)
         })
         
-        if let profileBarButtonItem = self.profileBarButtonItem {
+        if let profileBarButtonItem = self.currentProfileBarButtonItem {
             announceFeature(viewModel: viewModel, sourceView: nil, sourceRect: nil, barButtonItem: profileBarButtonItem)
             DonateFunnel.shared.logYearInReviewFeatureAnnouncementDidAppear(isEntryA: !dataStore.authenticationManager.authStateIsPermanent)
             yirDataController.hasPresentedYiRFeatureAnnouncementModel = true

@@ -21,8 +21,8 @@ public class WMFProfileHostingController<HostedView: View>: WMFComponentHostingC
     private func configureNavigationBar() {
         let titleConfig = WMFNavigationBarTitleConfig(title: viewModel.localizedStrings.pageTitle, customView: nil, alignment: .leadingLarge)
         
-        let closeConfig = WMFNavigationBarCloseButtonConfig(text: viewModel.localizedStrings.doneButtonTitle, target: self, action: #selector(tappedDone), alignment: .trailing)
-        
+        let closeConfig = WMFNavigationBarCloseButtonConfig(text: viewModel.localizedStrings.doneButtonTitle, target: self, action: #selector(tappedDone), alignment: .leading)
+
         configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: closeConfig, profileButtonConfig: nil, searchBarConfig: nil, hideNavigationBarOnScroll: false)
     }
     

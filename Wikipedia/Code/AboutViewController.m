@@ -206,7 +206,7 @@ static NSString *const kWMFContributorsKey = @"contributors";
 
     NSString *bypassDonation = WMFLocalizedStringWithDefaultValue(@"developer-settings-bypass-donation", nil, nil, @"Bypass Donation", @"Title for option to bypass a donation in developer settings menu.");
 
-    WMFDeveloperSettingsLocalizedStrings *localizedStrings = [[WMFDeveloperSettingsLocalizedStrings alloc] initWithDeveloperSettings:developerSettings doNotPostImageRecommendations:doNotPostImageRecommendations enableAltTextExperimentForEN:enableAltTextExperimentForEN alwaysShowAltTextEntryPoint:alwaysShowAltTextEntryPoint sendAnalyticsToWMFLabs:sendAnalyticsToWMFLabs enableYearinReview:enableYearInReview bypassDonation:bypassDonation close:WMFCommonStrings.closeButtonAccessibilityLabel];
+    WMFDeveloperSettingsLocalizedStrings *localizedStrings = [[WMFDeveloperSettingsLocalizedStrings alloc] initWithDeveloperSettings:developerSettings doNotPostImageRecommendations:doNotPostImageRecommendations enableAltTextExperimentForEN:enableAltTextExperimentForEN alwaysShowAltTextEntryPoint:alwaysShowAltTextEntryPoint sendAnalyticsToWMFLabs:sendAnalyticsToWMFLabs enableYearinReview:enableYearInReview bypassDonation:bypassDonation close:WMFCommonStrings.doneTitle];
     WMFDeveloperSettingsViewModel *viewModel = [[WMFDeveloperSettingsViewModel alloc] initWithLocalizedStrings:localizedStrings];
 
     WMFDeveloperSettingsViewController *viewController = [[WMFDeveloperSettingsViewController alloc] initWithViewModel:viewModel];
