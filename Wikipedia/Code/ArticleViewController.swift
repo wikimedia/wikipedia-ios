@@ -172,9 +172,6 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
     private var searchBarIsAnimating = false
 
     private var articleViewSource: ArticleSource
-
-    // Will be populated if needsSearchBar = false
-    private var searchBarButtonItem: UIBarButtonItem?
  
     convenience init?(articleURL: URL, dataStore: MWKDataStore, theme: Theme, source: ArticleSource, schemeHandler: SchemeHandler? = nil, altTextExperimentViewModel: WMFAltTextExperimentViewModel, needsAltTextExperimentSheet: Bool, altTextBottomSheetViewModel: WMFAltTextExperimentModalSheetViewModel?, altTextDelegate: AltTextDelegate?) {
         self.init(articleURL: articleURL, dataStore: dataStore, theme: theme, source: source)
@@ -359,7 +356,13 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
         view.isUserInteractionEnabled = true
         return view
     }()
-    
+
+    lazy var searchBarButtonItem: UIBarButtonItem = {
+        let button = UIBarButtonItem(image: UIImage(named: "search"), style: .plain, target: self, action: #selector(userDidTapSearchButton))
+        button.accessibilityLabel = CommonStrings.searchButtonAccessibilityLabel
+        return button
+    }()
+
     override func updateViewConstraints() {
         super.updateViewConstraints()
         updateLeadImageMargins()
