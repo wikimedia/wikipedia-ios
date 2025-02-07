@@ -170,6 +170,8 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
     
     private var tocStackViewTopConstraint: NSLayoutConstraint?
     private var searchBarIsAnimating = false
+    
+    private var finishedLoadingArticleDuringPeek = false
 
     convenience init?(articleURL: URL, dataStore: MWKDataStore, theme: Theme, schemeHandler: SchemeHandler? = nil, altTextExperimentViewModel: WMFAltTextExperimentViewModel, needsAltTextExperimentSheet: Bool, altTextBottomSheetViewModel: WMFAltTextExperimentModalSheetViewModel?, altTextDelegate: AltTextDelegate?) {
         self.init(articleURL: articleURL, dataStore: dataStore, theme: theme)
@@ -501,6 +503,7 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
     var isFirstAppearance = true
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        logPageViewAfterArticleAppearance()
         presentModalsIfNeeded()
     }
     
@@ -649,15 +652,40 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
             self.shareIfNecessary()
             self.restoreScrollStateIfNecessary()
             
-            if let pageID = article.pageID,
-            let siteURL = self.articleURL.wmf_site,
-                  let project = WikimediaProject(siteURL: siteURL) {
-                ArticleLinkInteractionFunnel.shared.logArticleView(pageID: pageID.intValue, project: project)
-            }
-            
-            
+            self.logPageViewAfterArticleLoad()
             self.articleLoadWaitGroup = nil
         }
+    }
+    
+    private func logPageViewAfterArticleLoad() {
+        if let pageID = article.pageID,
+        let siteURL = self.articleURL.wmf_site,
+              let project = WikimediaProject(siteURL: siteURL) {
+            
+            if !isBeingPresentedAsPeek {
+                ArticleLinkInteractionFunnel.shared.logArticleView(pageID: pageID.intValue, project: project)
+            } else {
+                // Set flag, will log later in viewDidAppear()
+                finishedLoadingArticleDuringPeek = true
+            }
+        }
+    }
+    
+    private func logPageViewAfterArticleAppearance() {
+        
+        defer {
+            finishedLoadingArticleDuringPeek = false
+        }
+        
+        guard finishedLoadingArticleDuringPeek,
+        let pageID = article.pageID,
+        let siteURL = self.articleURL.wmf_site,
+        let project = WikimediaProject(siteURL: siteURL)
+        else {
+            return
+        }
+        
+        ArticleLinkInteractionFunnel.shared.logArticleView(pageID: pageID.intValue, project: project)
     }
 
     private func setupForAltTextExperiment() {
