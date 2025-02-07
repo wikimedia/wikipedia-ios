@@ -633,8 +633,7 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
             if let pageID = article.pageID,
             let siteURL = self.articleURL.wmf_site,
                   let project = WikimediaProject(siteURL: siteURL) {
-                ArticleLinkInteractionFunnel.shared.logArticleView(pageID: pageID.intValue, project: project)
-                ArticleLinkInteractionFunnel.shared.logArticleImpression(pageID: pageID.intValue, project: project, source: articleViewSource)
+                ArticleLinkInteractionFunnel.shared.logArticleView(pageID: pageID.intValue, project: project, source: articleViewSource)
             }
             
             self.articleLoadWaitGroup = nil

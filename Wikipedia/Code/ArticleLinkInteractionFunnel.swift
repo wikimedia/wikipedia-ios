@@ -32,15 +32,8 @@ final class ArticleLinkInteractionFunnel {
         EventPlatformClient.shared.submit(stream: .articleLinkInteraction, event: event)
     }
     
-    func logArticleView(pageID: Int, project: WikimediaProject) {
-        logEvent(action: .navigate, pageID: pageID, project: project)
-    }
-
-    func logArticleImpression(pageID: Int, project: WikimediaProject, source: ArticleSource) {
-        /// Undefined is a temporary property we're using until we add all sources to the app. No need to log as it is not expected by the backend. This check can be removed when all sources are logged.
-        guard source != .undefined else { return }
-
-        logEvent(action: .navigate, pageID: pageID, project: project, source: source.rawValue)
+    func logArticleView(pageID: Int, project: WikimediaProject, source: ArticleSource? = nil) {
+        logEvent(action: .navigate, pageID: pageID, project: project, source: source?.rawValue)
     }
 }
 
