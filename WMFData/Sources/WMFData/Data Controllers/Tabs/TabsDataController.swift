@@ -1,46 +1,85 @@
 import Foundation
 
-struct Tab: Equatable {
-    
-    struct Article: Equatable {
-        let id: UUID = UUID()
-        let title: String
+public final class Tab: Equatable {
+    public final class Article: Equatable {
+        public let title: String
         let project: WMFProject
         
-        static func == (lhs: Article, rhs: Article) -> Bool {
+        public static func == (lhs: Article, rhs: Article) -> Bool {
             return
-                lhs.id == rhs.id &&
                 lhs.title == rhs.title &&
                 lhs.project == rhs.project
+        }
+        
+        public init(title: String, project: WMFProject) {
+            self.title = title
+            self.project = project
         }
     }
     
     let id: UUID = UUID()
-    private(set) var articles: [Article]
+    public private(set) var articles: [Article]
     
-    static func == (lhs: Tab, rhs: Tab) -> Bool {
+    public init(articles: [Tab.Article]) {
+        self.articles = articles
+    }
+    
+    public static func == (lhs: Tab, rhs: Tab) -> Bool {
         return lhs.articles == rhs.articles &&
             lhs.id == rhs.id
     }
     
-    mutating func addArticle(article: Article) {
+    func addArticle(article: Article) {
         articles.append(article)
     }
     
-    mutating func removeArticle(article: Article) {
-        articles.removeAll { $0 == article }
+    func removeLastArticle() {
+        articles.removeLast()
     }
-    
 }
 
-final class TabsDataController {
+public final class TabsDataController {
    
-    static let shared = TabsDataController(tabs: [])
+    public static let shared = TabsDataController(tabs: [])
     
-    private(set) var tabs: [Tab]
+    public var currentTab: Tab?
+    
+    public private(set) var tabs: [Tab]
     
     init(tabs: [Tab]) {
         self.tabs = tabs
+    }
+    
+    public func addArticleToCurrentTab(article: Tab.Article) {
+        
+        // if article is already top of current tab, do nothing
+        if let topArticle = currentTab?.articles.last,
+              article == topArticle {
+            return
+        }
+        
+        let currentTab = self.currentTab ?? Tab(articles: [article])
+        if self.currentTab == nil {
+            tabs.append(currentTab)
+        } else {
+            currentTab.addArticle(article: article)
+        }
+        self.currentTab = currentTab
+    }
+    
+    public func removeLastArticleFromCurrentTab() {
+        
+        guard let currentTab else {
+            return
+        }
+        
+        currentTab.removeLastArticle()
+        
+        if currentTab.articles.count == 0 {
+            removeTab(tab: currentTab)
+        }
+        
+        self.currentTab = nil
     }
     
     func addTab(tab: Tab) {

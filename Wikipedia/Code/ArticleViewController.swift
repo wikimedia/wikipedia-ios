@@ -504,6 +504,23 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         presentModalsIfNeeded()
+        addArticleToCurrentTab()
+    }
+    
+    private func addArticleToCurrentTab() {
+        
+        guard let title = articleURL.wmf_title,
+              let project = project?.wmfProject else {
+            return
+        }
+        
+        guard title != "Main Page" else {
+            return
+        }
+        
+        let dataController = TabsDataController.shared
+        let tabArticle: WMFData.Tab.Article = WMFData.Tab.Article(title: title, project: project)
+        dataController.addArticleToCurrentTab(article: tabArticle)
     }
     
     @objc func userDidTapProfile() {
@@ -565,6 +582,11 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
         saveArticleScrollPosition()
         stopSignificantlyViewedTimer()
         surveyTimerController?.viewWillDisappear(withState: state)
+        
+        if isMovingToParent {
+            let tabsDataController = TabsDataController.shared
+            tabsDataController.removeLastArticleFromCurrentTab()
+        }
     }
     
     override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
