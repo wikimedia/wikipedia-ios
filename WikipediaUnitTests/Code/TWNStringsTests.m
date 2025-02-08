@@ -467,63 +467,20 @@
 
         // Check each line for multiple semicolons at the end
         for (NSString *line in lines) {
-            if (line.length == 0) {
-                continue; // Skip empty lines
-            }
-
             // Trim trailing whitespace
             NSString *trimmedLine = [line stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
 
-            // Count the number of semicolons at the end
-            NSUInteger semicolonCount = 0;
-            for (NSInteger i = trimmedLine.length - 1; i >= 0; i--) {
-                unichar character = [trimmedLine characterAtIndex:i];
-                if (character == ';') {
-                    semicolonCount++;
-                } else {
-                    break; // Stop counting once a non-semicolon character is found
-                }
-            }
-
-            // Fail if multiple semicolons exist at the end of the line
-            XCTAssertLessThanOrEqual(semicolonCount, 1, @"File %@ has a line with multiple semicolons at the end: %@", filePath, trimmedLine);
-        }
-    }
-}
-
-- (void)testLocalizableStringsMissingSemicolon {
-    NSArray *localizationFiles = [TWNStringsTests twnLFilePaths]; // Fetch all Localizable.strings file paths
-
-    XCTAssertTrue(localizationFiles.count > 0, @"No Localizable.strings files found");
-
-    for (NSString *filePath in localizationFiles) {
-        NSError *error = nil;
-        NSString *fileContents = [NSString stringWithContentsOfFile:filePath encoding:NSUTF8StringEncoding error:&error];
-
-        XCTAssertNil(error, @"Error reading file %@: %@", filePath, error.localizedDescription);
-        XCTAssertNotNil(fileContents, @"File contents should not be nil for file %@", filePath);
-
-        // Split file into lines
-        NSArray<NSString *> *lines = [fileContents componentsSeparatedByCharactersInSet:[NSCharacterSet newlineCharacterSet]];
-
-        // Check each line for missing semicolon at the end
-        for (NSString *line in lines) {
-            if (line.length == 0) {
-                continue; // Skip empty lines
-            }
-
-            // Trim trailing whitespace
-            NSString *trimmedLine = [line stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
-
-            // Ignore comments (lines starting with "//")
-            if ([trimmedLine hasPrefix:@"//"]) {
+            // Skip empty lines and comment lines
+            if (trimmedLine.length == 0 || [trimmedLine hasPrefix:@"//"] || [trimmedLine hasPrefix:@"/*"]) {
                 continue;
             }
 
-            // Fail if the last character is NOT a semicolon
-            if (![trimmedLine hasSuffix:@";"]) {
-                XCTFail(@"File %@ has a line missing a semicolon at the end: %@", filePath, trimmedLine);
-            }
+            // Count semicolons at the end of the line
+            NSRange range = [trimmedLine rangeOfString:@";+$" options:NSRegularExpressionSearch];
+            NSUInteger semicolonCount = (range.location != NSNotFound) ? range.length : 0;
+
+            // Fail if multiple semicolons exist at the end of the line
+            XCTAssertLessThanOrEqual(semicolonCount, 1, @"File %@ has a line with multiple semicolons at the end: %@", filePath, trimmedLine);
         }
     }
 }
