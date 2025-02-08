@@ -55,6 +55,11 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     var topSafeAreaOverlayView: UIView?
     
     private var presentingSearchResults: Bool = false
+    
+    private lazy var tabsBarButtonItem: UIBarButtonItem = {
+        let button = UIBarButtonItem(image: WMFSFSymbolIcon.for(symbol: .tabs), style: .plain, target: self, action: #selector(tappedTabs))
+        return button
+    }()
 
     // MARK: - Lifecycle
 
@@ -151,6 +156,14 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         }
     }
     
+    @objc func tappedTabs() {
+        guard let navigationController else {
+            return
+        }
+        let coordinator = TabsCoordinator(navigationController: navigationController)
+        coordinator.start()
+    }
+    
     open override func refresh() {
         updateFeedSources(with: nil, userInitiated: true) {
         }
@@ -188,7 +201,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
             }
         }
         
-        let profileButtonConfig = profileButtonConfig(target: self, action: #selector(userDidTapProfile), dataStore: dataStore, yirDataController: yirDataController, leadingBarButtonItem: nil, trailingBarButtonItem: nil)
+        let profileButtonConfig = profileButtonConfig(target: self, action: #selector(userDidTapProfile), dataStore: dataStore, yirDataController: yirDataController, leadingBarButtonItem: nil, trailingBarButtonItem: tabsBarButtonItem)
         
         let searchViewController = SearchViewController(source: .topOfFeed)
         searchViewController.dataStore = dataStore

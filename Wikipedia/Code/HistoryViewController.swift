@@ -51,6 +51,11 @@ class HistoryViewController: ArticleFetchedResultsViewController, WMFNavigationB
    private var yirDataController: WMFYearInReviewDataController? {
        return try? WMFYearInReviewDataController()
    }
+    
+    private lazy var tabsBarButtonItem: UIBarButtonItem = {
+        let button = UIBarButtonItem(image: WMFSFSymbolIcon.for(symbol: .tabs), style: .plain, target: self, action: #selector(tappedTabs))
+        return button
+    }()
 
     override var headerStyle: ColumnarCollectionViewController.HeaderStyle {
         return .sections
@@ -113,6 +118,14 @@ class HistoryViewController: ArticleFetchedResultsViewController, WMFNavigationB
         coordinator.animate(alongsideTransition: nil) { [weak self] _ in
             self?.calculateTopSafeAreaOverlayHeight()
         }
+    }
+    
+    @objc func tappedTabs() {
+        guard let navigationController else {
+            return
+        }
+        let coordinator = TabsCoordinator(navigationController: navigationController)
+        coordinator.start()
     }
     
     override func scrollViewDidScroll(_ scrollView: UIScrollView) {
@@ -184,7 +197,7 @@ class HistoryViewController: ArticleFetchedResultsViewController, WMFNavigationB
         
         let profileButtonConfig: WMFNavigationBarProfileButtonConfig?
         if let dataStore {
-            profileButtonConfig = self.profileButtonConfig(target: self, action: #selector(userDidTapProfile), dataStore: dataStore, yirDataController: yirDataController, leadingBarButtonItem: deleteButton, trailingBarButtonItem: nil)
+            profileButtonConfig = self.profileButtonConfig(target: self, action: #selector(userDidTapProfile), dataStore: dataStore, yirDataController: yirDataController, leadingBarButtonItem: deleteButton, trailingBarButtonItem: tabsBarButtonItem)
         } else {
             profileButtonConfig = nil
         }

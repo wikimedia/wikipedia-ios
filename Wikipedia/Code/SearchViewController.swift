@@ -84,6 +84,11 @@ class SearchViewController: ArticleCollectionViewController, WMFNavigationBarCon
     
     private let source: EventLoggingSource
     
+    private lazy var tabsBarButtonItem: UIBarButtonItem = {
+        let button = UIBarButtonItem(image: WMFSFSymbolIcon.for(symbol: .tabs), style: .plain, target: self, action: #selector(tappedTabs))
+        return button
+    }()
+    
     // MARK: - Funcs
     
     @objc required init(source: EventLoggingSource) {
@@ -189,7 +194,7 @@ class SearchViewController: ArticleCollectionViewController, WMFNavigationBarCon
         
         let profileButtonConfig: WMFNavigationBarProfileButtonConfig?
         if let dataStore {
-            profileButtonConfig = self.profileButtonConfig(target: self, action: #selector(userDidTapProfile), dataStore: dataStore, yirDataController: yirDataController, leadingBarButtonItem: nil, trailingBarButtonItem: nil)
+            profileButtonConfig = self.profileButtonConfig(target: self, action: #selector(userDidTapProfile), dataStore: dataStore, yirDataController: yirDataController, leadingBarButtonItem: nil, trailingBarButtonItem: tabsBarButtonItem)
         } else {
             profileButtonConfig = nil
         }
@@ -207,6 +212,15 @@ class SearchViewController: ArticleCollectionViewController, WMFNavigationBarCon
 
         let config = self.profileButtonConfig(target: self, action: #selector(userDidTapProfile), dataStore: dataStore, yirDataController: yirDataController, leadingBarButtonItem: nil, trailingBarButtonItem: nil)
         updateNavigationBarProfileButton(needsBadge: config.needsBadge, needsBadgeLabel: CommonStrings.profileButtonBadgeTitle, noBadgeLabel: CommonStrings.profileButtonTitle)
+    }
+    
+    
+    @objc func tappedTabs() {
+        guard let navigationController else {
+            return
+        }
+        let coordinator = TabsCoordinator(navigationController: navigationController)
+        coordinator.start()
     }
     
     @objc func userDidTapProfile() {

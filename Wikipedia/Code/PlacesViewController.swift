@@ -81,6 +81,11 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
     private var listTitle: String {
         WMFLocalizedString("places-list-title'", value: "List", comment: "Button that switches the display mode to the List view on the Places tab.")
     }
+    
+    private lazy var tabsBarButtonItem: UIBarButtonItem = {
+        let button = UIBarButtonItem(image: WMFSFSymbolIcon.for(symbol: .tabs), style: .plain, target: self, action: #selector(tappedTabs))
+        return button
+    }()
 
     // MARK: - View Lifecycle
 
@@ -246,13 +251,21 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
             }
         }
     }
+    
+    @objc func tappedTabs() {
+        guard let navigationController else {
+            return
+        }
+        let coordinator = TabsCoordinator(navigationController: navigationController)
+        coordinator.start()
+    }
 
     private var filterButtonItem: UIBarButtonItem {
         return UIBarButtonItem(title: WMFLocalizedString("places-filter-button-title", value: "Filter", comment: "Title for button that allows users to filter places"), style: .plain, target: self, action: #selector(filterButtonPressed(_:)))
     }
 
     private var profileButtonConfig: WMFNavigationBarProfileButtonConfig {
-        return self.profileButtonConfig(target: self, action: #selector(didTapProfileButton), dataStore: dataStore, yirDataController: yirDataController, leadingBarButtonItem: filterButtonItem, trailingBarButtonItem: nil)
+        return self.profileButtonConfig(target: self, action: #selector(didTapProfileButton), dataStore: dataStore, yirDataController: yirDataController, leadingBarButtonItem: filterButtonItem, trailingBarButtonItem: tabsBarButtonItem)
     }
 
     private func configureNavigationBar() {

@@ -91,6 +91,11 @@ class SavedViewController: ThemeableViewController, WMFNavigationBarConfiguring,
     private var yirDataController: WMFYearInReviewDataController? {
         return try? WMFYearInReviewDataController()
     }
+    
+    private lazy var tabsBarButtonItem: UIBarButtonItem = {
+        let button = UIBarButtonItem(image: WMFSFSymbolIcon.for(symbol: .tabs), style: .plain, target: self, action: #selector(tappedTabs))
+        return button
+    }()
 
     // MARK: - Initalization and setup
     
@@ -253,7 +258,7 @@ class SavedViewController: ThemeableViewController, WMFNavigationBarConfiguring,
         
         let profileButtonConfig: WMFNavigationBarProfileButtonConfig?
         if let dataStore {
-            profileButtonConfig = self.profileButtonConfig(target: self, action: #selector(userDidTapProfile), dataStore: dataStore, yirDataController: yirDataController, leadingBarButtonItem: moreBarButtonItem, trailingBarButtonItem: nil)
+            profileButtonConfig = self.profileButtonConfig(target: self, action: #selector(userDidTapProfile), dataStore: dataStore, yirDataController: yirDataController, leadingBarButtonItem: moreBarButtonItem, trailingBarButtonItem: tabsBarButtonItem)
         } else {
             profileButtonConfig = nil
         }
@@ -276,6 +281,14 @@ class SavedViewController: ThemeableViewController, WMFNavigationBarConfiguring,
         }
 
         configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: nil, profileButtonConfig: profileButtonConfig, searchBarConfig: searchConfig, hideNavigationBarOnScroll: hidesNavigationBarOnScroll)
+    }
+    
+    @objc func tappedTabs() {
+        guard let navigationController else {
+            return
+        }
+        let coordinator = TabsCoordinator(navigationController: navigationController)
+        coordinator.start()
     }
     
     @objc func userDidTapProfile() {
