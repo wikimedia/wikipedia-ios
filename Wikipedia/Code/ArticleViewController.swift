@@ -604,7 +604,7 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
         stopSignificantlyViewedTimer()
         surveyTimerController?.viewWillDisappear(withState: state)
         
-        if isMovingToParent {
+        if isMovingFromParent {
             let tabsDataController = TabsDataController.shared
             tabsDataController.removeLastArticleFromCurrentTab()
         }
@@ -886,6 +886,7 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
     // MARK: Navigation Bar
     
     var needsSearchBar: Bool {
+        return true
         guard let assignment = try? WMFNavigationExperimentsDataController.shared?.articleSearchBarExperimentAssignment() else {
             return false
         }

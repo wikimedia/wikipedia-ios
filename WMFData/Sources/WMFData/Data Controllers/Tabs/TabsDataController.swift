@@ -52,19 +52,20 @@ public final class TabsDataController {
     
     public func addArticleToCurrentTab(article: Tab.Article) {
         
+        guard let currentTab else {
+            let newTab = Tab(articles: [article])
+            addTab(tab: newTab)
+            self.currentTab = newTab
+            return
+        }
+        
         // if article is already top of current tab, do nothing
-        if let topArticle = currentTab?.articles.last,
+        if let topArticle = currentTab.articles.last,
               article == topArticle {
             return
         }
         
-        let currentTab = self.currentTab ?? Tab(articles: [article])
-        if self.currentTab == nil {
-            tabs.append(currentTab)
-        } else {
-            currentTab.addArticle(article: article)
-        }
-        self.currentTab = currentTab
+        currentTab.addArticle(article: article)
     }
     
     public func removeLastArticleFromCurrentTab() {
@@ -77,9 +78,8 @@ public final class TabsDataController {
         
         if currentTab.articles.count == 0 {
             removeTab(tab: currentTab)
+            self.currentTab = nil
         }
-        
-        self.currentTab = nil
     }
     
     func addTab(tab: Tab) {
