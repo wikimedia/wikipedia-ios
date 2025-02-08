@@ -38,6 +38,9 @@
     "PROJECT TALK" : 5,
     "PROJEKTA DISKUTO" : 103,
     "PROJEKTO" : 102,
+    "ŜABLONA DISKUTO" : 11,
+    "ŜABLONO" : 10,
+    "ŜABLONO-DISKUTO" : 11,
     "SPECIAL" : -1,
     "SPECIALA" : -1,
     "SPECIALAĴO" : -1,
@@ -64,9 +67,6 @@
     "VP" : 4,
     "WIKIPEDIA" : 4,
     "WIKIPEDIA TALK" : 5,
-    "WP" : 4,
-    "ŜABLONA DISKUTO" : 11,
-    "ŜABLONO" : 10,
-    "ŜABLONO-DISKUTO" : 11
+    "WP" : 4
   }
 }

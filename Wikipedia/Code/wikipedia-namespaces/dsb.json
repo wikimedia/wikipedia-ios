@@ -9,13 +9,13 @@
     "DATAJA" : 6,
     "DISKUSIJA" : 1,
     "DISKUSIJA K WOBRAZEJ" : 7,
-    "DISKUSIJA WUŽYWARJA" : 3,
-    "DISKUSIJA WUŽYWARKI" : 3,
     "DISKUSIJA WÓ DATAJI" : 7,
     "DISKUSIJA WÓ KATEGORIJI" : 15,
     "DISKUSIJA WÓ POMOCY" : 13,
     "DISKUSIJA WÓ PŚEDŁOZE" : 11,
     "DISKUSIJA WÓ WOBRAZU" : 7,
+    "DISKUSIJA WUŽYWARJA" : 3,
+    "DISKUSIJA WUŽYWARKI" : 3,
     "FILE" : 6,
     "FILE TALK" : 7,
     "HELP" : 12,
@@ -51,7 +51,7 @@
     "WIKIPEDIJA DISKUSIJA" : 5,
     "WOBRAZ" : 6,
     "WP" : 4,
-    "WUŽYWARKA" : 2,
-    "WUŽYWAŔ" : 2
+    "WUŽYWAŔ" : 2,
+    "WUŽYWARKA" : 2
   }
 }

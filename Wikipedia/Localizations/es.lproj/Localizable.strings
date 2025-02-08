@@ -729,13 +729,21 @@
 "notifications-center-feed-news-notification-button-text" = "Activar las notificaciones push";
 "notifications-center-feed-news-notification-dismiss-button-text" = "Ahora no";
 "notifications-center-filters-accessibility-label" = "Filtro de notificaciones";
+"notifications-center-filters-read-status-section-title" = "Estado de lectura";
+"notifications-center-filters-title" = "Filtros";
 "notifications-center-go-to-article" = "Artículo";
 "notifications-center-go-to-article-talk-format" = "página de discusión $1";
 "notifications-center-go-to-diff" = "Dif";
 "notifications-center-go-to-talk-page" = "Página de discusión";
 "notifications-center-go-to-user-page" = "Página de usuario de $1";
+"notifications-center-go-to-wikidata-item" = "Elemento de Wikidata";
 "notifications-center-inbox-title" = "Proyectos";
+"notifications-center-language-project-name-format" = "$2 en $1";
 "notifications-center-login-notifications" = "Notificaciones de inicio de sesión";
+"notifications-center-mark" = "Marcar";
+"notifications-center-mark-all-as-read" = "Marcar todo como leído";
+"notifications-center-mark-as-read" = "Marcar como leído";
+"notifications-center-mark-as-unread" = "Marcar como no leído";
 "notifications-center-onboarding-modal-continue-action" = "Continuar";
 "notifications-center-onboarding-modal-filters-title" = "Filtros";
 "notifications-center-onboarding-modal-notifications-alerts-title" = "Notificaciones y alertas";
@@ -749,10 +757,18 @@
 "notifications-center-status-all-notifications" = "Todas las notificaciones";
 "notifications-center-status-double-concatenation" = "$1 en $2";
 "notifications-center-status-filtered-by" = "Filtrado por";
+"notifications-center-status-in-projects" = "{{PLURAL:$1|1=En 1 proyecto|En $1 proyectos}}";
+"notifications-center-subheader-edit-reverted" = "Tu edición fue revertida";
+"notifications-center-subheader-email-from-other-user" = "Nuevo correo electrónico";
+"notifications-center-subheader-mention-edit-summary" = "Mención en el resumen de edición";
+"notifications-center-swipe-mark-as-read" = "Marcar como leí­do";
+"notifications-center-swipe-mark-as-unread" = "Marcar como no leído";
 "notifications-center-toolbar-mark-accessibility-label" = "Marcar notificaciones seleccionadas";
 "notifications-center-type-item-description-mentions" = "Menciones";
 "notifications-center-type-item-description-welcome-verbose" = "Mensaje de bienvenida";
+"notifications-center-type-title-email-from-other-user" = "Correo electrónico de otro usuario";
 "notifications-center-type-title-other" = "Otra";
+"notifications-center-type-title-user-rights-change" = "Cambios de derechos de usuario";
 "notifications-push-talk-title-format" = "{{PLURAL:$1|Nuevo mensaje|Nuevos mensajes}}";
 "number-billions" = "$1B";
 "number-millions" = "$1M";
@@ -1189,6 +1205,7 @@
 "year-in-review-personalized-day-subtitle-format" = "Leíste el mayor número de artículos en $1. Está claro que los $1 son tu día preferido para explorar nuevos contenidos. ¡Gracias por aprovechar al máximo tu tiempo de lectura!";
 "year-in-review-personalized-donate-subtitle" = "Gracias por invertir en el futuro del conocimiento libre. Este año, la Fundación Wikimedia mejoró la tecnología para servir mejor a todos los lectores y voluntarios, desarrolló herramientas que potencian la colaboración y ofreció Wikipedia en más idiomas. [Más información sobre nuestra labor]($1).";
 "year-in-review-personalized-donate-title" = "Tu generosidad ayudó a que Wikipedia siga prosperando";
+// Fuzzy
 "year-in-review-personalized-edit-views-subtitle-format" = "Lectores de todo el mundo agradecen tus aportaciones. En los últimos 2 meses, los artículos que has editado han recibido $1 visitas totales. Gracias a editores como tú, Wikipedia es un recurso de información confiable, basado en hechos y en constante mejora para el mundo.";
 "year-in-review-personalized-edit-views-title-format" = "Tus ediciones han sido vistas más de $1 veces recientemente";
 "year-in-review-personalized-editing-subtitle-format" = "Editaste Wikipedia {{PLURAL:$1|$1 vez|$1 veces}}. Gracias por ser uno de los editores voluntarios que hacen la diferencia en los proyectos de Wikimedia en todo el mundo.";

@@ -35,7 +35,7 @@ open class WMFComponentNavigationController: UINavigationController {
     open override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        setBarAppearance()
+        setBarAppearance(customLargeTitleFont: self.customLargeTitleFont)
     }
     
     required public init?(coder aDecoder: NSCoder) {
@@ -72,14 +72,20 @@ open class WMFComponentNavigationController: UINavigationController {
         overrideUserInterfaceStyle = theme.userInterfaceStyle
         setNeedsStatusBarAppearanceUpdate()
 
-        setBarAppearance()
+        setBarAppearance(customLargeTitleFont: customLargeTitleFont)
     }
     
-    private func setBarAppearance() {
-
+    private var customLargeTitleFont: UIFont?
+    public func setBarAppearance(customLargeTitleFont: UIFont? = nil) {
+        
+        if let customLargeTitleFont {
+            self.customLargeTitleFont = customLargeTitleFont
+        } else {
+            self.customLargeTitleFont = nil
+        }
+        
         let barAppearance = UINavigationBarAppearance()
         barAppearance.configureWithOpaqueBackground()
-        barAppearance.largeTitleTextAttributes = [.font: WMFFont.navigationBarLeadingLargeTitleFont]
         
         if modalPresentationStyle == .pageSheet {
             barAppearance.backgroundColor = theme.midBackground
@@ -93,6 +99,9 @@ open class WMFComponentNavigationController: UINavigationController {
         
         barAppearance.shadowImage = UIImage()
         barAppearance.shadowColor = .clear
+        
+        let largeTitleFont = self.customLargeTitleFont ?? WMFFont.navigationBarLeadingLargeTitleFont
+        barAppearance.largeTitleTextAttributes = [.font: largeTitleFont]
         
         navigationBar.tintColor = theme.navigationBarTintColor
         navigationBar.standardAppearance = barAppearance

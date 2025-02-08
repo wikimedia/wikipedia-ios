@@ -23,9 +23,12 @@ class DonateCoordinator: Coordinator {
         case articleCampaignModal(ArticleURL, MetricsID, DonateURL)
         case settingsProfile
         case exploreProfile
-        case savedProfile
         case articleProfile(ArticleURL)
         case yearInReview // TODO: Do it properly T376062
+        case placesProfile
+        case savedProfile
+        case historyProfile
+        case searchProfile
     }
     
     enum NavigationStyle {
@@ -61,7 +64,7 @@ class DonateCoordinator: Coordinator {
             }
             
             return wikimediaProject
-        case .exploreProfile, .settingsProfile, .yearInReview, .savedProfile:
+        case .exploreProfile, .settingsProfile, .yearInReview, .placesProfile, .savedProfile, .historyProfile, .searchProfile:
             return nil
         }
     }()
@@ -112,7 +115,7 @@ class DonateCoordinator: Coordinator {
         switch donateSource {
         case .articleCampaignModal(_, let metricsID, _):
             return metricsID
-        case .articleProfile, .exploreProfile, .settingsProfile, .savedProfile:
+        case .articleProfile, .exploreProfile, .settingsProfile, .placesProfile, .savedProfile, .historyProfile, .searchProfile:
             guard let languageCode,
                   let countryCode = Locale.current.region?.identifier else {
                 return nil
@@ -194,8 +197,6 @@ class DonateCoordinator: Coordinator {
                     return
                 }
                 DonateFunnel.shared.logArticleProfileDonateCancel(project: project, metricsID: metricsID)
-            case .savedProfile:
-                debugPrint("TODO: Do we need to log this?")
             case .settingsProfile:
                 DonateFunnel.shared.logExploreOptOutProfileDonateCancel(metricsID: metricsID)
             case .articleCampaignModal:
@@ -206,6 +207,14 @@ class DonateCoordinator: Coordinator {
                 DonateFunnel.shared.logArticleDidTapCancel(project: project, metricsID: metricsID)
             case .yearInReview:
                 DonateFunnel.shared.logYearInReviewDidTapDonateCancel(metricsID: metricsID)
+            case .placesProfile:
+                DonateFunnel.shared.logPlacesProfileDonateCancel(metricsID: metricsID)
+            case .savedProfile:
+                DonateFunnel.shared.logSavedProfileDonateCancel(metricsID: metricsID)
+            case .historyProfile:
+                DonateFunnel.shared.logHistoryProfileDonateCancel(metricsID: metricsID)
+            case .searchProfile:
+                DonateFunnel.shared.logSearchProfileDonateCancel(metricsID: metricsID)
             }
         }))
         
@@ -221,8 +230,6 @@ class DonateCoordinator: Coordinator {
                     return
                 }
                 DonateFunnel.shared.logArticleProfileDonateApplePay(project: project, metricsID: metricsID)
-            case .savedProfile:
-                debugPrint("TODO: Do we need to log this?")
             case .settingsProfile:
                 DonateFunnel.shared.logExploreOptOutProfileDonateApplePay(metricsID: metricsID)
             case .articleCampaignModal:
@@ -232,6 +239,14 @@ class DonateCoordinator: Coordinator {
                 DonateFunnel.shared.logArticleDidTapDonateWithApplePay(project: project, metricsID: metricsID)
             case .yearInReview:
                 DonateFunnel.shared.logYearInReviewDidTapDonateApplePay(metricsID: metricsID)
+            case .placesProfile:
+                DonateFunnel.shared.logPlacesProfileDonateApplePay(metricsID: metricsID)
+            case .savedProfile:
+                DonateFunnel.shared.logSavedProfileDonateApplePay(metricsID: metricsID)
+            case .historyProfile:
+                DonateFunnel.shared.logHistoryProfileDonateApplePay(metricsID: metricsID)
+            case .searchProfile:
+                DonateFunnel.shared.logSearchProfileDonateApplePay(metricsID: metricsID)
             }
             self.navigateToNativeDonateForm(donateViewModel: donateViewModel)
         })
@@ -249,8 +264,6 @@ class DonateCoordinator: Coordinator {
                     return
                 }
                 DonateFunnel.shared.logArticleProfileDonateWebPay(project: project, metricsID: metricsID)
-            case .savedProfile:
-                debugPrint("TODO: Do we need to log this?")
             case .settingsProfile:
                 DonateFunnel.shared.logExploreOptOutProfileDonateWebPay(metricsID: metricsID)
             case .articleCampaignModal:
@@ -260,6 +273,14 @@ class DonateCoordinator: Coordinator {
                 DonateFunnel.shared.logArticleDidTapOtherPaymentMethod(project: project, metricsID: metricsID)
             case .yearInReview:
                 DonateFunnel.shared.logYearInReviewDidTapDonateOtherPaymentMethod(metricsID: metricsID)
+            case .placesProfile:
+                DonateFunnel.shared.logPlacesProfileDonateWebPay(metricsID: metricsID)
+            case .savedProfile:
+                DonateFunnel.shared.logSavedProfileDonateWebPay(metricsID: metricsID)
+            case .historyProfile:
+                DonateFunnel.shared.logHistoryProfileDonateWebPay(metricsID: metricsID)
+            case .searchProfile:
+                DonateFunnel.shared.logSearchProfileDonateWebPay(metricsID: metricsID)
             }
             navigateToOtherPaymentMethod()
         }))
@@ -315,8 +336,8 @@ class DonateCoordinator: Coordinator {
         let maximumString = formatter.string(from: maximumValue as NSNumber)
 
         let donate = WMFLocalizedString("donate-title", value: "Select an amount", comment: "Title for donate form.")
-        let done = CommonStrings.doneTitle
-        
+        let cancel = CommonStrings.cancelActionTitle
+
         let transactionFeeFormat = WMFLocalizedString("donate-transaction-fee-opt-in-text", value: "I’ll generously add %1$@ to cover the transaction fees so you can keep 100%% of my donation.", comment: "Transaction fee checkbox on donate form. Checking it adds transaction fee to donation amount. Parameters: * %1$@ - transaction fee amount. Please leave %% unchanged for proper formatting.")
         
         let minimumFormat = WMFLocalizedString("donate-minimum-error-text", value: "Please select an amount (minimum %1$@ %2$@).", comment: "Error text displayed when user enters donation amount below the allowed minimum. Parameters: * %1$@ - the minimum amount allowed, %2$@ - the currency code. (For example, '$1 USD')")
@@ -360,7 +381,7 @@ class DonateCoordinator: Coordinator {
         
         let accessibilityDonateHintButtonFormat = WMFLocalizedString("donate-accessibility-donate-hint-format", value: "Double tap to donate %1$@ to the Wikimedia Foundation.", comment: "Accessibility hint on donate form Apple Pay button for screen readers. Parameters: * %1$@ - the donation amount entered by the user.")
 
-        let localizedStrings = WMFDonateViewModel.LocalizedStrings(title: donate, doneTitle: done, transactionFeeOptInTextFormat: transactionFeeFormat, monthlyRecurringText: monthlyRecurring, emailOptInText: emailOptIn, maximumErrorText: maximum, minimumErrorText: minimum, genericErrorTextFormat: genericErrorFormat, helpLinkProblemsDonating: helpProblemsDonating, helpLinkOtherWaysToGive: helpOtherWaysToGive, helpLinkFrequentlyAskedQuestions: helpFrequentlyAskedQuestions, helpLinkTaxDeductibilityInformation: helpTaxDeductibilityInformation, appleFinePrint: appleFinePrint, wikimediaFinePrint1: wikimediaFinePrint1, wikimediaFinePrint2: wikimediaFinePrint2, accessibilityAmountButtonHint: accessibilityAmountButtonHint, accessibilityTextfieldHint: accessibilityTextfieldHint, accessibilityTransactionFeeHint: accessibilityTransactionFeeHint, accessibilityMonthlyRecurringHint: accessibilityMonthlyRecurringHint, accessibilityEmailOptInHint: accessibilityEmailOptInHint, accessibilityKeyboardDoneButtonHint: accessibilityKeyboardDoneButtonHint, accessibilityDonateButtonHintFormat: accessibilityDonateHintButtonFormat)
+        let localizedStrings = WMFDonateViewModel.LocalizedStrings(title: donate, cancelTitle: cancel, transactionFeeOptInTextFormat: transactionFeeFormat, monthlyRecurringText: monthlyRecurring, emailOptInText: emailOptIn, maximumErrorText: maximum, minimumErrorText: minimum, genericErrorTextFormat: genericErrorFormat, helpLinkProblemsDonating: helpProblemsDonating, helpLinkOtherWaysToGive: helpOtherWaysToGive, helpLinkFrequentlyAskedQuestions: helpFrequentlyAskedQuestions, helpLinkTaxDeductibilityInformation: helpTaxDeductibilityInformation, appleFinePrint: appleFinePrint, wikimediaFinePrint1: wikimediaFinePrint1, wikimediaFinePrint2: wikimediaFinePrint2, accessibilityAmountButtonHint: accessibilityAmountButtonHint, accessibilityTextfieldHint: accessibilityTextfieldHint, accessibilityTransactionFeeHint: accessibilityTransactionFeeHint, accessibilityMonthlyRecurringHint: accessibilityMonthlyRecurringHint, accessibilityEmailOptInHint: accessibilityEmailOptInHint, accessibilityKeyboardDoneButtonHint: accessibilityKeyboardDoneButtonHint, accessibilityDonateButtonHintFormat: accessibilityDonateHintButtonFormat)
 
         guard let viewModel = WMFDonateViewModel(localizedStrings: localizedStrings, donateConfig: donateConfig, paymentMethods: paymentMethods, countryCode: countryCode, currencyCode: currencyCode, languageCode: languageCode, merchantID: merchantID, metricsID: metricsID, appVersion: appVersion, coordinatorDelegate: self, loggingDelegate: self) else {
             return nil
@@ -399,7 +420,7 @@ class DonateCoordinator: Coordinator {
         switch source {
         case .articleCampaignModal, .articleProfile:
             completeButtonTitle = CommonStrings.returnToArticle
-        case .exploreProfile, .settingsProfile, .yearInReview, .savedProfile:
+        case .exploreProfile, .settingsProfile, .yearInReview, .placesProfile, .savedProfile, .historyProfile, .searchProfile:
             completeButtonTitle = CommonStrings.returnButtonTitle
         }
         let donateConfig = SinglePageWebViewController.DonateConfig(url: webViewURL, dataController: WMFDonateDataController.shared, coordinatorDelegate: self, loggingDelegate: self, completeButtonTitle: completeButtonTitle)
@@ -677,8 +698,6 @@ extension DonateCoordinator: WMFDonateLoggingDelegate {
             if let wikimediaProject = self.wikimediaProject {
                 DonateFunnel.shared.logArticleProfileDidSeeApplePayDonateSuccessToast(project: wikimediaProject, metricsID: metricsID)
             }
-        case .savedProfile:
-            debugPrint("TODO: Do we need to log this?")
         case .settingsProfile:
             DonateFunnel.shared.logExploreOptOutProfileDidSeeApplePayDonateSuccessToast(metricsID: metricsID)
         case .articleCampaignModal:
@@ -687,6 +706,14 @@ extension DonateCoordinator: WMFDonateLoggingDelegate {
             }
         case .yearInReview:
             DonateFunnel.shared.logYearInReviewDidSeeApplePayDonateSuccessToast(metricsID: metricsID)
+        case .placesProfile:
+            DonateFunnel.shared.logPlacesProfileDidSeeApplePayDonateSuccessToast(metricsID: metricsID)
+        case .savedProfile:
+            DonateFunnel.shared.logSavedProfileDidSeeApplePayDonateSuccessToast(metricsID: metricsID)
+        case .historyProfile:
+            DonateFunnel.shared.logHistoryProfileDidSeeApplePayDonateSuccessToast(metricsID: metricsID)
+        case .searchProfile:
+            DonateFunnel.shared.logSearchProfileDidSeeApplePayDonateSuccessToast(metricsID: metricsID)
         }
     }
     
@@ -758,10 +785,8 @@ extension DonateCoordinator: WMFDonateLoggingDelegate {
             }
             
             DonateFunnel.shared.logDonateFormInAppWebViewDidTapArticleReturnButton(project: wikimediaProject, metricsID: metricsID)
-        case .exploreProfile, .settingsProfile, .yearInReview:
+        case .exploreProfile, .settingsProfile, .yearInReview, .placesProfile, .savedProfile, .historyProfile, .searchProfile:
             DonateFunnel.shared.logDonateFormInAppWebViewDidTapReturnButton(metricsID: metricsID)
-        case .savedProfile:
-            debugPrint("TODO: Do we need to log this?")
         }
     }
     
@@ -792,12 +817,18 @@ extension DonateCoordinator: WMFDonateLoggingDelegate {
                 DonateFunnel.shared.logArticleProfileDidSeeApplePayDonateSuccessToast(project: wikimediaProject, metricsID: metricsID)
             case .exploreProfile:
                 DonateFunnel.shared.logExploreProfileDidSeeApplePayDonateSuccessToast(metricsID: metricsID)
-            case .savedProfile:
-                debugPrint("TODO: Do we need to log this?")
             case .settingsProfile:
                 DonateFunnel.shared.logExploreOptOutProfileDidSeeApplePayDonateSuccessToast(metricsID: metricsID)
             case .yearInReview:
                 DonateFunnel.shared.logYearInReviewDidSeeApplePayDonateSuccessToast(metricsID: metricsID)
+            case .placesProfile:
+                DonateFunnel.shared.logPlacesProfileDidSeeApplePayDonateSuccessToast(metricsID: metricsID)
+            case .savedProfile:
+                DonateFunnel.shared.logSavedProfileDidSeeApplePayDonateSuccessToast(metricsID: metricsID)
+            case .historyProfile:
+                DonateFunnel.shared.logHistoryProfileDidSeeApplePayDonateSuccessToast(metricsID: metricsID)
+            case .searchProfile:
+                DonateFunnel.shared.logSearchProfileDidSeeApplePayDonateSuccessToast(metricsID: metricsID)
             }
         }
     }
