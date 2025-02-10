@@ -686,7 +686,7 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
             return
         }
         
-        ArticleLinkInteractionFunnel.shared.logArticleView(pageID: pageID.intValue, project: project)
+        ArticleLinkInteractionFunnel.shared.logArticleView(pageID: pageID.intValue, project: project, source: articleViewSource)
     }
 
     private func setupForAltTextExperiment() {
