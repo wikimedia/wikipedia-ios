@@ -1,7 +1,10 @@
 import UIKit
 import WMF
+import WMFComponents
+import SwiftUI
 
 class SearchResultsViewController: ArticleCollectionViewController {
+    
     var resultsInfo: WMFSearchResults? = nil // don't use resultsInfo.results, it mutates
     var results: [MWKSearchResult] = [] {
         didSet {
@@ -10,17 +13,56 @@ class SearchResultsViewController: ArticleCollectionViewController {
         }
     }
     
+    var recentlySearchedTopPadding: CGFloat = 0 {
+        didSet {
+            recentlySearchedViewModel?.topPadding = recentlySearchedTopPadding
+        }
+    }
+    private var recentlySearchedViewModel: WMFRecentlySearchedViewModel?
+    lazy var recentlySearchedViewController: UIViewController = {
+        
+        let recentSearchTerms: [WMFRecentlySearchedViewModel.Item] = [
+            WMFRecentlySearchedViewModel.Item(text: "Recently searched 1"),
+            WMFRecentlySearchedViewModel.Item(text: "Recently searched 2"),
+            WMFRecentlySearchedViewModel.Item(text: "Recently searched 3")
+        ]
+        
+        let viewModel = WMFRecentlySearchedViewModel(recentSearchTerms: recentSearchTerms)
+        self.recentlySearchedViewModel = viewModel
+        let recentlySearchedView = WMFRecentlySearchedView(viewModel: viewModel)
+        let hostingVC = UIHostingController(rootView: recentlySearchedView)
+        return hostingVC
+    }()
+    
     var tappedSearchResultAction: ((URL, IndexPath) -> Void)?
 
     override func viewDidLoad() {
         super.viewDidLoad()
         reload()
         NotificationCenter.default.addObserver(self, selector: #selector(updateArticleCell(_:)), name: NSNotification.Name.WMFArticleUpdated, object: nil)
+        embedRecentlySearchedViewController()
+    }
+    
+    private func embedRecentlySearchedViewController() {
+        addChild(recentlySearchedViewController)
+        view.wmf_addSubviewWithConstraintsToEdges(recentlySearchedViewController.view)
+        recentlySearchedViewController.didMove(toParent: self)
     }
     
     func reload() {
         collectionView.reloadData()
         updateEmptyState()
+    }
+    
+    func updateRecentlySearchedVisibility(searchText: String?) {
+        
+        guard let searchText,
+              !searchText.isEmpty else {
+            recentlySearchedViewController.view.isHidden = false
+            return
+        }
+        
+        recentlySearchedViewController.view.isHidden = true
     }
     
     var searchSiteURL: URL? = nil
