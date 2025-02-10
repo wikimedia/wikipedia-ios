@@ -108,9 +108,9 @@ class ArticleToolbarController: Themeable {
         actions.append(UIAction(title: CommonStrings.shortShareTitle, image: UIImage(systemName: "square.and.arrow.up"), handler: { [weak self] _ in self?.share()}))
         
         let menu = UIMenu(title: "", options: .displayInline, children: actions)
-        
-        let moreImage = UIImage(systemName: "ellipsis.circle", withConfiguration: UIImage.SymbolConfiguration(weight: .light))
-        
+
+        let moreImage = WMFSFSymbolIcon.for(symbol: .ellipsisCircle)?.withConfiguration(UIImage.SymbolConfiguration(weight: .light))
+
         let item = IconBarButtonItem(image: moreImage, menu: menu)
 
         item.accessibilityLabel = CommonStrings.moreButton
