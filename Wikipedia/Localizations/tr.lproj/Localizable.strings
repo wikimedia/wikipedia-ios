@@ -29,6 +29,7 @@
 // Author: Mirzali
 // Author: MrSchipunov
 // Author: MuratTheTurkish
+// Author: Nabbegat
 // Author: Nemo bis
 // Author: Rapsar
 // Author: Sadrettin
@@ -162,7 +163,7 @@
 "announcements-dismiss" = "Kapat";
 "app-store-keywords" = "Vikipedi, referans, viki, ansiklopedi, bilgi, bilgilenme, araştırma, bilme, keşfet, öğren";
 "app-store-release-notes" = "Tamamen özelleştirilebilir beslemeleri keşfedin. Yerelleştirme, performans iyileştirmeleri ve hata düzeltmeleri.";
-"app-store-short-description" = "Size yakın yerler keşfetmek, çevrimdışı makaleler okumak ve okuma deneyiminizi özelleştirmek için Vikipedi uygulamasını indirin.";
+"app-store-short-description" = "Size yakın yerler keşfetmek, çevrimdışı maddeler okumak ve okuma deneyiminizi özelleştirmek için Vikipedi uygulamasını indirin.";
 "app-store-subtitle" = "Özgür ansiklopedi";
 "appearance-settings-adjust-text-sizing" = "Madde metin boyutunu ayarla";
 "appearance-settings-expand-tables" = "Tabloları genişlet";
@@ -358,7 +359,7 @@
 "edit-watch-this-page-text" = "Bu sayfayı izle";
 "editing-welcome-be-bold-subtitle" = "Maddeleri güncellerken dikkatsiz değil cesur olun. Hata yapmaktan çekinmeyin. Sayfanın her eski sürümü kaydedilir böylece hatalar topluluğumuz tarafından kolayca düzeltilebilir.";
 "editing-welcome-be-bold-title" = "Sizin sözünüz önemli";
-"editing-welcome-citations-subtitle" = "Bütün içerik doğrulanabilir olmalıdır. Katkı yapanlar, bir makaleye yeni bilgi eklerken, onu doğrudan destekleyen metin içi atıflar da sunmalıdır.";
+"editing-welcome-citations-subtitle" = "Bütün içerik doğrulanabilir olmalıdır. Katkı yapanlar, bir maddeye yeni bilgi eklerken, onu doğrudan destekleyen metin içi atıflar da sunmalıdır.";
 "editing-welcome-citations-title" = "Güvenilir kaynaklara atıf yapın";
 "editing-welcome-impartial-tone-subtitle" = "Maddelerin tarafsız bir bakış açısıyla yazılması için gayret gösteriyoruz. Düzenlerken güvenilir bir kaynak olarak tanımlandığı şekilde dünyanın adil bir şekilde temsil edilmesini sağlayın.";
 "editing-welcome-impartial-tone-title" = "Tarafsız bir bakış açısıyla yazın";
@@ -432,7 +433,7 @@
 "empty-insert-media-title" = "Wikimedia Commons'tan bir dosya seç";
 "empty-no-article-message" = "Üzgünüz, madde yüklenemedi";
 "empty-no-feed-action-message" = "Hâlâ kaydedilen sayfaları okuyabilirsiniz";
-"empty-no-feed-message" = "İnternet bağlantınız olduğunda, size önerilen makaleleri görebilirsiniz";
+"empty-no-feed-message" = "İnternet bağlantınız olduğunda, size önerilen maddeleri görebilirsiniz";
 "empty-no-history-message" = "Okuduklarını buradan takip et";
 "empty-no-history-title" = "Görüntülenebilecek bir geçmiş yok";
 "empty-no-other-article-languages-message" = "Bu madde henüz başka hiç bir dilde yazılmadı";
