@@ -29,7 +29,7 @@ public final class Tab: Equatable {
             lhs.id == rhs.id
     }
     
-    func addArticle(article: Article) {
+    public func addArticle(article: Article) {
         articles.append(article)
     }
     
@@ -82,11 +82,11 @@ public final class TabsDataController {
         }
     }
     
-    func addTab(tab: Tab) {
+    public func addTab(tab: Tab) {
         tabs.append(tab)
     }
     
-    func removeTab(tab: Tab) {
+    public func removeTab(tab: Tab) {
         tabs.removeAll { $0 == tab }
     }
 }

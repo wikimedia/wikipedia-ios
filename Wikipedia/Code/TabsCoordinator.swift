@@ -15,6 +15,8 @@ final class TabsCoordinator: Coordinator {
             self.tappedAddTab()
         }, tappedTabAction: { tab in
             self.tappedTab(tab: tab)
+        }, tappedCloseTabAction: { tab in
+            self.tappedCloseTab(tab: tab)
         })
         let tabsHostingController = WMFTabsHostingController(viewModel: viewModel)
         let navVC = WMFComponentNavigationController(rootViewController: tabsHostingController)
@@ -56,5 +58,16 @@ final class TabsCoordinator: Coordinator {
             navigationController.setViewControllers(newStack, animated: true)
         }
         
+    }
+    
+    private func tappedCloseTab(tab: WMFData.Tab) {
+        
+//        if TabsDataController.shared.currentTab == nil {
+//            navigationController.dismiss(animated: true) {
+//                self.navigationController.popToRootViewController(animated: true)
+//            }
+//        }
+//        
+//        
     }
 }

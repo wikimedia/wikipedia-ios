@@ -16,15 +16,32 @@ public struct WMFTabsView: View {
         ScrollView {
             LazyVGrid(columns: adaptiveColumn, spacing: 20) {
                 ForEach(viewModel.tabViewModels) { tabViewModel in
-                    Text(String(tabViewModel.topArticleTitle))
-                        .frame(width: 150, height: 150, alignment: .center)
-                        .background(.gray)
-                        .cornerRadius(10)
-                        .foregroundColor(.white)
-                        .font(.title)
-                        .onTapGesture {
-                            viewModel.tappedTabAction(tabViewModel.tab)
-                        }
+                    ZStack(alignment: .topLeading) {
+                                RoundedRectangle(cornerRadius: 10)
+                                    .fill(Color.gray.opacity(0.3))
+                                    .onTapGesture {
+                                        viewModel.tappedTabAction(tabViewModel.tab)
+                                    }
+                                
+                                VStack {
+                                    Spacer()
+                                    Text(tabViewModel.topArticleTitle)
+                                        .font(.headline)
+                                        .foregroundColor(.black)
+                                        .lineLimit(3)
+                                    Spacer()
+                                }
+                                
+                                Button(action: {
+                                    viewModel.tappedCloseTabAction(tabViewModel.tab)
+                                }) {
+                                    Image(systemName: "xmark.circle.fill")
+                                        .foregroundColor(.black)
+                                        .padding(5)
+                                }
+                            }
+                            .frame(width: 150, height: 150)
+                    
                 }
             }
             

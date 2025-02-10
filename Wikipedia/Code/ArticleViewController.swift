@@ -1302,14 +1302,21 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
         guard resolvedURL.wmf_inMemoryKey == articleURL.wmf_inMemoryKey else {
             
             // Present in new tab or not
-            let action1 = UIAlertAction(title: "Current tab", style: .default) { action in
+            let action1 = UIAlertAction(title: "Read now", style: .default) { action in
                 let userInfo: [AnyHashable : Any] = [RoutingUserInfoKeys.source: RoutingUserInfoSourceValue.article.rawValue]
                 self.navigate(to: resolvedURL, userInfo: userInfo)
             }
-            let action2 = UIAlertAction(title: "New tab", style: .default) { action in
-                TabsDataController.shared.currentTab = nil
-                let userInfo: [AnyHashable : Any] = [RoutingUserInfoKeys.source: RoutingUserInfoSourceValue.article.rawValue]
-                self.navigate(to: resolvedURL, userInfo: userInfo)
+            let action2 = UIAlertAction(title: "Open new tab", style: .default) { action in
+                guard let title = resolvedURL.wmf_title,
+                      let project = self.project?.wmfProject else {
+                    return
+                }
+                let article = WMFData.Tab.Article(title: title, project: project)
+                let newTab = WMFData.Tab(articles: [article])
+                TabsDataController.shared.addTab(tab: newTab)
+                // Don't route!
+//                let userInfo: [AnyHashable : Any] = [RoutingUserInfoKeys.source: RoutingUserInfoSourceValue.article.rawValue]
+//                self.navigate(to: resolvedURL, userInfo: userInfo)
             }
             let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
             let alert = UIAlertController(title: "Link Preview", message: nil, preferredStyle: .alert)
