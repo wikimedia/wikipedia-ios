@@ -1361,6 +1361,7 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
     }
 
     UINavigationController *nc = [self currentNavigationController];
+    
     if (!nc) {
         completion();
         return nil;
@@ -1369,9 +1370,23 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
     if (nc.presentedViewController) {
         [nc dismissViewControllerAnimated:NO completion:NULL];
     }
-
+    
     WMFArticleViewController *articleVC = [[WMFArticleViewController alloc] initWithArticleURL:articleURL dataStore:self.dataStore theme:self.theme schemeHandler:nil];
     articleVC.loadCompletion = completion;
+    
+    if ([self needsNewArticleTab]) {
+        // We want to remove all other items in the stack except the first one.
+        
+        if (nc.viewControllers.count < 1) {
+            completion();
+            return nil;
+        }
+        
+        UIViewController *rootVC = nc.viewControllers[0];
+
+        [nc setViewControllers:@[rootVC, articleVC] animated:YES];
+        return articleVC;
+    }
 
 #if DEBUG
     if ([[[NSProcessInfo processInfo] environment] objectForKey:@"DYLD_PRINT_STATISTICS"]) {

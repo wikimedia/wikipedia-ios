@@ -1301,8 +1301,24 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
         // Check if this is the same article by comparing in-memory keys
         guard resolvedURL.wmf_inMemoryKey == articleURL.wmf_inMemoryKey else {
             
-            let userInfo: [AnyHashable : Any] = [RoutingUserInfoKeys.source: RoutingUserInfoSourceValue.article.rawValue]
-            navigate(to: resolvedURL, userInfo: userInfo)
+            // Present in new tab or not
+            let action1 = UIAlertAction(title: "Current tab", style: .default) { action in
+                let userInfo: [AnyHashable : Any] = [RoutingUserInfoKeys.source: RoutingUserInfoSourceValue.article.rawValue]
+                self.navigate(to: resolvedURL, userInfo: userInfo)
+            }
+            let action2 = UIAlertAction(title: "New tab", style: .default) { action in
+                TabsDataController.shared.currentTab = nil
+                let userInfo: [AnyHashable : Any] = [RoutingUserInfoKeys.source: RoutingUserInfoSourceValue.article.rawValue]
+                self.navigate(to: resolvedURL, userInfo: userInfo)
+            }
+            let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+            let alert = UIAlertController(title: "Link Preview", message: nil, preferredStyle: .alert)
+            alert.addAction(action1)
+            alert.addAction(action2)
+            alert.addAction(cancel)
+            
+            present(alert, animated: true)
+            
             
             return
         }
