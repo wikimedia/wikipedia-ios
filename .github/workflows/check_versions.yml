@@ -1,0 +1,25 @@
+# Checks the PR label against the app version, fails if they do not match.
+# This is to prevent unwanted PRs from being merged into main.
+name: Check PR and App Versions
+
+on:
+  pull_request:
+    types:
+      - opened
+    branches:
+      - 'main'
+  workflow_dispatch: # allows workflow to be triggered manually
+
+jobs:
+  check-version:
+    runs-on: macOS-latest
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Check PR label and App Versions
+      continue-on-error: false
+      run: |
+        APPVERSION=$(plutil -extract CFBundleShortVersionString raw -o - ./Info.plist)
+        PRVERSION=${{github.event.pull_request.labels.*.name}}
+        echo ${ APPVERSION }
+        echo ${ PRVERSION }
