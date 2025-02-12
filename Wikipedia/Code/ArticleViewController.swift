@@ -173,8 +173,8 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
     
     private var finishedLoadingArticleDuringPeek = false
 
-    private var articleViewSource: ArticleSource
- 
+    internal var articleViewSource: ArticleSource
+
     convenience init?(articleURL: URL, dataStore: MWKDataStore, theme: Theme, source: ArticleSource, schemeHandler: SchemeHandler? = nil, altTextExperimentViewModel: WMFAltTextExperimentViewModel, needsAltTextExperimentSheet: Bool, altTextBottomSheetViewModel: WMFAltTextExperimentModalSheetViewModel?, altTextDelegate: AltTextDelegate?) {
         self.init(articleURL: articleURL, dataStore: dataStore, theme: theme, source: source)
         self.altTextExperimentViewModel = altTextExperimentViewModel

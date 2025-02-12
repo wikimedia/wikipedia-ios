@@ -88,7 +88,26 @@ class SearchResultsViewController: ArticleCollectionViewController {
     override func configure(cell: ArticleRightAlignedImageCollectionViewCell, forItemAt indexPath: IndexPath, layoutOnly: Bool) {
         configure(cell: cell, forItemAt: indexPath, layoutOnly: layoutOnly, configureForCompact: true)
     }
-    
+
+    override func previewingViewController(for indexPath: IndexPath, at location: CGPoint) -> UIViewController? {
+        guard let vc = super.previewingViewController(for: indexPath, at: location) else {
+            return nil
+        }
+
+        guard let articleVC = (vc as? ArticleViewController) else {
+            return nil
+        }
+
+        guard let articleURL = articleURL(at: indexPath) else {
+            return nil
+        }
+
+        articleVC.articleViewSource = .search
+        articleVC.articlePreviewingDelegate = self
+        articleVC.wmf_addPeekableChildViewController(for: articleURL, dataStore: dataStore, theme: theme)
+        return articleVC
+    }
+
     private func configure(cell: ArticleRightAlignedImageCollectionViewCell, forItemAt indexPath: IndexPath, layoutOnly: Bool, configureForCompact: Bool) {
         guard indexPath.item < results.count else {
             return
