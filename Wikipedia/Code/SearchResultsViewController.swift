@@ -98,13 +98,7 @@ class SearchResultsViewController: ArticleCollectionViewController {
             return nil
         }
 
-        guard let articleURL = articleURL(at: indexPath) else {
-            return nil
-        }
-
         articleVC.articleViewSource = .search
-        articleVC.articlePreviewingDelegate = self
-        articleVC.wmf_addPeekableChildViewController(for: articleURL, dataStore: dataStore, theme: theme)
         return articleVC
     }
 
