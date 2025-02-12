@@ -122,7 +122,7 @@ extension ArticleViewController: ArticleContextMenuPresenting, WKUIDelegate {
               return nil
             }
 
-            let articleVC = ArticleViewController(articleURL: newArticleURL, dataStore: dataStore, theme: theme)
+            let articleVC = ArticleViewController(articleURL: newArticleURL, dataStore: dataStore, theme: theme, source: .undefined)
             articleVC?.articlePreviewingDelegate = self
             articleVC?.wmf_addPeekableChildViewController(for: newArticleURL, dataStore: dataStore, theme: theme)
             return articleVC

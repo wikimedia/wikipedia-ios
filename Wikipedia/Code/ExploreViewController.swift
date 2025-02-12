@@ -177,7 +177,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
             if UIDevice.current.userInterfaceIdiom == .pad && traitCollection.horizontalSizeClass == .regular {
 
                 var customLargeTitleFont: UIFont? = nil
-                if let logoFont = UIFont(name: "icomoon", size: 18) {
+                if let logoFont = UIFont(name: "icomoon", size: 24) {
                     customLargeTitleFont = logoFont
                     titleConfig = WMFNavigationBarTitleConfig(title: "", customView: nil, alignment: .leadingLarge, customLargeTitleFont: customLargeTitleFont)
                 } else {
@@ -611,7 +611,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
             return
         }
         
-        if let vc = group.detailViewControllerForPreviewItemAtIndex(0, dataStore: dataStore, theme: theme) {
+        if let vc = group.detailViewControllerForPreviewItemAtIndex(0, dataStore: dataStore, theme: theme, source: .undefined) {
             if vc is WMFImageGalleryViewController {
                 present(vc, animated: true)
             } else {
@@ -749,7 +749,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     func exploreCardViewController(_ exploreCardViewController: ExploreCardViewController, didSelectItemAtIndexPath indexPath: IndexPath) {
         guard
             let contentGroup = exploreCardViewController.contentGroup,
-            let vc = contentGroup.detailViewControllerForPreviewItemAtIndex(indexPath.row, dataStore: dataStore, theme: theme, imageRecDelegate: self, imageRecLoggingDelegate: self) else {
+            let vc = contentGroup.detailViewControllerForPreviewItemAtIndex(indexPath.row, dataStore: dataStore, theme: theme, source: .undefined, imageRecDelegate: self, imageRecLoggingDelegate: self) else {
             return
         }
         
@@ -868,7 +868,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     func viewController(for contentGroup: WMFContentGroup, at itemIndex: Int) -> UIViewController? {
         previewed.context = contentGroup
 
-        if let viewControllerToCommit = contentGroup.detailViewControllerForPreviewItemAtIndex(itemIndex, dataStore: dataStore, theme: theme) {
+        if let viewControllerToCommit = contentGroup.detailViewControllerForPreviewItemAtIndex(itemIndex, dataStore: dataStore, theme: theme, source: .undefined) {
             if let potd = viewControllerToCommit as? WMFImageGalleryViewController {
                 potd.setOverlayViewTopBarHidden(true)
             } else if let avc = viewControllerToCommit as? ArticleViewController {
@@ -1472,7 +1472,7 @@ extension ExploreViewController: WMFImageRecommendationsDelegate {
         
         guard let siteURL = project.siteURL,
               let articleURL = siteURL.wmf_URL(withTitle: title),
-              let articleViewController = ArticleViewController(articleURL: articleURL, dataStore: dataStore, theme: theme) else {
+              let articleViewController = ArticleViewController(articleURL: articleURL, dataStore: dataStore, theme: theme, source: .undefined) else {
             return
         }
         

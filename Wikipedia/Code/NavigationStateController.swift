@@ -68,8 +68,8 @@ final class NavigationStateController: NSObject {
             return
         }
         
-        let viewControllerToPush = ArticleViewController(articleURL: articleURL, dataStore: dataStore, theme: theme)
-        
+        let viewControllerToPush = ArticleViewController(articleURL: articleURL, dataStore: dataStore, theme: theme, source: .undefined)
+
         guard let viewControllerToPush else {
             completion()
             return

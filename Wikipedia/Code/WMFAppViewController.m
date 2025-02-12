@@ -1140,7 +1140,7 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
     } else if ([item.type isEqualToString:WMFIconShortcutTypeNearby]) {
         [self showNearbyAnimated:NO];
     } else if ([item.type isEqualToString:WMFIconShortcutTypeContinueReading]) {
-        [self showLastReadArticleAnimated:NO];
+        [self showLastReadArticleAnimated:NO source:ArticleSourceUndefined];
     }
     if (completion) {
         completion(YES);
@@ -1224,7 +1224,7 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
             if (group) {
                 switch (group.detailType) {
                     case WMFFeedDisplayTypePhoto: {
-                        UIViewController *vc = [group detailViewControllerForPreviewItemAtIndex:0 dataStore:self.dataStore theme:self.theme];
+                        UIViewController *vc = [group detailViewControllerForPreviewItemAtIndex:0 dataStore:self.dataStore theme:self.theme source: ArticleSourceUndefined];
                         [self.currentTabNavigationController presentViewController:vc animated:false completion:nil];
                     }
                     default: {
@@ -1337,14 +1337,15 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
 
 #pragma mark - Utilities
 
-- (WMFArticleViewController *)showArticleWithURL:(NSURL *)articleURL animated:(BOOL)animated {
+- (WMFArticleViewController *)showArticleWithURL:(NSURL *)articleURL source:(NSInteger)source animated:(BOOL)animated {
     return [self showArticleWithURL:articleURL
+                             source:source
                            animated:animated
                          completion:^{
                          }];
 }
 
-- (WMFArticleViewController *)showArticleWithURL:(NSURL *)articleURL animated:(BOOL)animated completion:(nonnull dispatch_block_t)completion {
+- (WMFArticleViewController *)showArticleWithURL:(NSURL *)articleURL source:(NSInteger)source animated:(BOOL)animated  completion:(nonnull dispatch_block_t)completion {
     if (!articleURL.wmf_title) {
         completion();
         return nil;
@@ -1369,8 +1370,8 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
     if (nc.presentedViewController) {
         [nc dismissViewControllerAnimated:NO completion:NULL];
     }
-
-    WMFArticleViewController *articleVC = [[WMFArticleViewController alloc] initWithArticleURL:articleURL dataStore:self.dataStore theme:self.theme schemeHandler:nil];
+    
+    WMFArticleViewController *articleVC = [[WMFArticleViewController alloc] initWithArticleURL:articleURL dataStore:self.dataStore theme:self.theme source:source schemeHandler:nil];
     articleVC.loadCompletion = completion;
 
 #if DEBUG
@@ -1390,8 +1391,8 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
     return articleVC;
 }
 
-- (void)swiftCompatibleShowArticleWithURL:(NSURL *)articleURL animated:(BOOL)animated completion:(nonnull dispatch_block_t)completion {
-    [self showArticleWithURL:articleURL animated:animated completion:completion];
+- (void)swiftCompatibleShowArticleWithURL:(NSURL *)articleURL source:(NSInteger)source animated:(BOOL)animated completion:(nonnull dispatch_block_t)completion {
+    [self showArticleWithURL:articleURL source:source animated:animated completion:completion];
 }
 
 - (BOOL)shouldShowExploreScreenOnLaunch {
@@ -1615,9 +1616,9 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 
 #pragma mark - Last Read Article
 
-- (void)showLastReadArticleAnimated:(BOOL)animated {
+- (void)showLastReadArticleAnimated:(BOOL)animated source:(NSInteger)source {
     NSURL *lastRead = [self.dataStore.viewContext wmf_openArticleURL];
-    [self showArticleWithURL:lastRead animated:animated];
+    [self showArticleWithURL:lastRead source:source animated:animated];
 }
 
 #pragma mark - Show Search

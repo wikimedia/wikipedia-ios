@@ -95,7 +95,8 @@ class ViewControllerRouter: NSObject {
         let destination = router.destination(for: url, permanentUsername: permanentUsername)
         switch destination {
         case .article(let articleURL):
-            appViewController.swiftCompatibleShowArticle(with: articleURL, animated: true, completion: completion)
+            let articleSource = articleSource(from: userInfo)
+            appViewController.swiftCompatibleShowArticle(with: articleURL, source: articleSource.rawValue, animated: true, completion: completion)
             return true
         case .externalLink(let linkURL):
             appViewController.navigate(to: linkURL, useSafari: true)
@@ -210,7 +211,15 @@ class ViewControllerRouter: NSObject {
 
         return source
     }
-    
+
+    private func articleSource(from userInfo:[AnyHashable: Any]?) -> ArticleSource {
+        guard let sourceString = userInfo?[ArticleSourceUserInfoKeys.articleSource] as? Int,
+              let source = ArticleSource(rawValue: sourceString) else {
+            return .undefined
+        }
+        return source
+    }
+
     private func watchlistTargetNavigationController() -> UINavigationController? {
         var targetNavigationController: UINavigationController? = appViewController.currentTabNavigationController
         if let presentedNavigationController = appViewController.presentedViewController as? UINavigationController,
