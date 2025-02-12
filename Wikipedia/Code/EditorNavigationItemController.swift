@@ -3,6 +3,8 @@ import WMFComponents
 
 protocol EditorNavigationItemControllerDelegate: AnyObject {
     func editorNavigationItemController(_ editorNavigationItemController: EditorNavigationItemController, didTapProgressButton progressButton: UIBarButtonItem)
+    func editorNavigationItemController(_ editorNavigationItemController: EditorNavigationItemController, didTapTemporaryAccountNoticesButton: UIBarButtonItem)
+    func editorNavigationItemController(_ editorNavigationItemController: EditorNavigationItemController, didTapIPAccountNoticesButton: UIBarButtonItem)
     func editorNavigationItemController(_ editorNavigationItemController: EditorNavigationItemController, didTapUndoButton undoButton: UIBarButtonItem)
     func editorNavigationItemController(_ editorNavigationItemController: EditorNavigationItemController, didTapRedoButton redoButton: UIBarButtonItem)
     func editorNavigationItemController(_ editorNavigationItemController: EditorNavigationItemController, didTapReadingThemesControlsButton readingThemesControlsButton: UIBarButtonItem)
@@ -55,6 +57,18 @@ class EditorNavigationItemController: NSObject, Themeable {
         return button
     }()
     
+    private lazy var temporaryAccountNoticesButton: UIBarButtonItem = {
+        let button = UIBarButtonItem(image: WMFSFSymbolIcon.for(symbol: .exclamationMarkCircleFill), style: .plain, target: self, action: #selector(editNotices(_ :)))
+        button.accessibilityLabel = CommonStrings.editNotices
+        return button
+    }()
+    
+    private lazy var ipAccountNoticesButton: UIBarButtonItem = {
+        let button = UIBarButtonItem(image: WMFSFSymbolIcon.for(symbol: .exclamationMarkCircleFill), style: .plain, target: self, action: #selector(editNotices(_ :)))
+        button.accessibilityLabel = CommonStrings.editNotices
+        return button
+    }()
+    
     private lazy var readingThemesControlsButton: UIBarButtonItem = {
         let button = UIBarButtonItem(image: WMFSFSymbolIcon.for(symbol: .textFormatSize), style: .plain, target: self, action: #selector(showReadingThemesControls(_ :)))
         button.accessibilityLabel = CommonStrings.readingThemesControls
@@ -72,6 +86,14 @@ class EditorNavigationItemController: NSObject, Themeable {
 
     @objc private func progress(_ sender: UIBarButtonItem) {
         delegate?.editorNavigationItemController(self, didTapProgressButton: sender)
+    }
+    
+    @objc private func temporaryAccount(_ sender: UIBarButtonItem) {
+        delegate?.editorNavigationItemController(self, didTapTemporaryAccountNoticesButton: temporaryAccountNoticesButton)
+    }
+    
+    @objc private func ipAccount(_ sender: UIBarButtonItem) {
+        delegate?.editorNavigationItemController(self, didTapIPAccountNoticesButton: ipAccountNoticesButton)
     }
 
     @objc private func undo(_ sender: UIBarButtonItem) {

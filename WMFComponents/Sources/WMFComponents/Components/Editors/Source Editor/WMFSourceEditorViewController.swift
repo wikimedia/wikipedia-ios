@@ -283,6 +283,14 @@ public class WMFSourceEditorViewController: WMFComponentViewController {
     public func removeFocus() {
         textView.resignFirstResponder()
     }
+    
+    public func tappedTempAccounts() {
+        
+    }
+    
+    public func tappedIPAccounts() {
+        
+    }
 }
 
 // MARK: - Private
