@@ -574,7 +574,6 @@ final class EditorViewController: UIViewController, WMFNavigationBarConfiguring 
         let textSizeAdjustment =  WMFFontSizeMultiplier(rawValue: UserDefaults.standard.wmf_articleFontSizeMultiplier().intValue) ?? .large
         WMFAppEnvironment.current.set(articleAndEditorTextSize: textSizeAdjustment.contentSizeCategory)
     }
-    
 
     private func showDestructiveDismissAlert(sender: UIBarButtonItem, confirmCompletion: @escaping () -> Void) {
         let alert = UIAlertController(title: nil, message: CommonStrings.editorExitConfirmationMessage, preferredStyle: .actionSheet)
@@ -815,6 +814,14 @@ extension EditorViewController: EditorNavigationItemControllerDelegate {
     
     func editorNavigationItemController(_ editorNavigationItemController: EditorNavigationItemController, didTapRedoButton redoButton: UIBarButtonItem) {
         sourceEditor?.redo()
+    }
+    
+    func editorNavigationItemController(_ editorNavigationItemController: EditorNavigationItemController, didTapTemporaryAccountNoticesButton tempButton: UIBarButtonItem) {
+        sourceEditor?.tappedTempAccounts()
+    }
+    
+    func editorNavigationItemController(_ editorNavigationItemController: EditorNavigationItemController, didTapIPAccountNoticesButton ipButton: UIBarButtonItem) {
+        sourceEditor?.tappedIPAccounts()
     }
     
     func editorNavigationItemController(_ editorNavigationItemController: EditorNavigationItemController, didTapReadingThemesControlsButton readingThemesControlsButton: UIBarButtonItem) {
