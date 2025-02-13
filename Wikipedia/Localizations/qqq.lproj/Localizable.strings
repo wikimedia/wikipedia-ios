@@ -908,11 +908,11 @@
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "Subtext beneath the 'On this day' header when describing the date and which specific Wikipedia. $1 will be substituted with the date. $2 will be replaced with the language - for example, 'June 8th from English Wikipedia'";
 "on-this-day-title" = "Title for the 'On this day' feed section";
 "original-tab-button-popover-description" = "Description for popover explaining the 'W' icon may be tapped to return to the original tab.";
-"page-history-anonymous-edits" = "Text for view that shows many edits were made by anonymous users";
 "page-history-bot-edits" = "Text for view that shows many edits were made by bots";
 "page-history-compare-accessibility-hint" = "Accessibility hint describing the role of the Compare button";
 "page-history-compare-title" = "Title for action button that allows users to contrast different items";
 "page-history-graph-accessibility-label" = "Accessibility label text used for edits graph";
+"page-history-logged-in-edits" = "Text for view that shows many edits were made by logged-in users";
 "page-history-minor-edits" = "Text for view that shows many edits were marked as minor edits";
 "page-history-revision-author-accessibility-label" = "Accessibility label text telling the user who authored a revision. $1 is replaced with the author.";
 "page-history-revision-comment-accessibility-label" = "Accessibility label text of author's comment on the revision  - $1 is replaced with revision comment";
@@ -923,7 +923,7 @@
 "page-history-revision-time-accessibility-label" = "Label text telling the user what time revision was made - $1 is replaced with the time";
 "page-history-revisions-comparison-warning" = "Text telling the user how many revisions can be selected for comparison";
 "page-history-stats-text" = "Text for representing the number of edits that were made to an article and the year when the first edit was made. $1 is replaced with the number of edits, $2 is replaced with they year when the first edit was made.";
-"page-history-user-edits" = "Text for view that shows many edits were made by logged-in users";
+"page-history-unregistered-edits" = "Text for view that shows many edits were made by unregistered users";
 "page-issues" = "Label for the button that shows the \"Page issues\" dialog, where information about the imperfections of the current page is provided (by displaying the warning/cleanup templates). {{Identical|Page issue}}";
 "page-location" = "Label for button used to show an article on the map";
 "page-protected-can-not-edit" = "Text of alert dialog shown when trying to edit a page that is protected beyond what the user can edit.";
