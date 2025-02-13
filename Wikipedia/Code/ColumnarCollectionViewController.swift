@@ -385,6 +385,14 @@ class ColumnarCollectionViewController: ThemeableViewController, ColumnarCollect
 
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         _maxViewed = max(_maxViewed, percentViewed)
+        if #available(iOS 18.0, *) {
+            let velocity = scrollView.panGestureRecognizer.velocity(in: scrollView).y
+            if velocity < 0 { // Scrolling down
+                tabBarController?.setTabBarHidden(true, animated: true)
+            } else if velocity > 0 { // Scrolling up
+                tabBarController?.setTabBarHidden(false, animated: true)
+            }
+        }
     }
 
     // MARK: - CollectionViewFooterDelegate
