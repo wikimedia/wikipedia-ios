@@ -1,4 +1,5 @@
 import UIKit
+import SwiftUI
 import WMFComponents
 import WMF
 import CocoaLumberjackSwift
@@ -103,7 +104,7 @@ final class EditorViewController: UIViewController, WMFNavigationBarConfiguring 
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         setTextSizeInAppEnvironment()
         setupFocusNavigationView()
         setupNavigationItemController()
@@ -119,6 +120,7 @@ final class EditorViewController: UIViewController, WMFNavigationBarConfiguring 
     }
     
     // MARK: - Private Helpers
+    
     
     private func configureNavigationBar() {
 
@@ -244,15 +246,13 @@ final class EditorViewController: UIViewController, WMFNavigationBarConfiguring 
             } else if let otherError = wikitextFetchResponse.otherError {
                 WMFAlertManager.sharedInstance.showErrorAlertWithMessage(otherError.messageHtml.removingHTML, sticky: false, dismissPreviousAlerts: true)
                 isDifferentErrorBannerShown = true
-            }
-            
-            if let editNoticesViewModel,
-               !editNoticesViewModel.notices.isEmpty {
-                self.editNoticesViewModel = editNoticesViewModel
-                self.navigationItemController.addEditNoticesButton()
-                self.navigationItemController.apply(theme: self.theme)
-                self.presentEditNoticesIfNecessary(viewModel: editNoticesViewModel, blockedError: wikitextFetchResponse.blockedError, userGroupLevelCanEdit: wikitextFetchResponse.userGroupLevelCanEdit)
-                isDifferentErrorBannerShown = true
+            } else if let editNoticesViewModel,
+              !editNoticesViewModel.notices.isEmpty {
+               self.editNoticesViewModel = editNoticesViewModel
+               self.navigationItemController.addEditNoticesButton()
+               self.navigationItemController.apply(theme: self.theme)
+               self.presentEditNoticesIfNecessary(viewModel: editNoticesViewModel, blockedError: wikitextFetchResponse.blockedError, userGroupLevelCanEdit: wikitextFetchResponse.userGroupLevelCanEdit)
+               isDifferentErrorBannerShown = true
             }
             
             let needsReadOnly = (wikitextFetchResponse.blockedError != nil) || (wikitextFetchResponse.protectedPageError != nil && !wikitextFetchResponse.userGroupLevelCanEdit)
