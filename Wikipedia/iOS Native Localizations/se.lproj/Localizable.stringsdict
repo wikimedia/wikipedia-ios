@@ -82,7 +82,7 @@
 	<key>add-articles-to-reading-list</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Lasit  %#@v1@ lohkanlistui</string>
+		<string>Lasit %#@v1@ lohkanlistui</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
