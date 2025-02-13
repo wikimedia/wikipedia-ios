@@ -113,6 +113,7 @@
 "action-cancel" = "Zrušit";
 "action-discard-edits" = "Zahodit úpravy";
 "action-find-in-page" = "Najít na stránce";
+"action-keep-editing" = "Pokračujte v editování";
 "action-language-accessibility" = "Změnit jazyk";
 "action-move-to" = "Přesunout do…";
 "action-move-to-reading-list" = "Přesunout do seznamu k přečtení";
@@ -138,6 +139,12 @@
 "advanced-settings-title" = "Pokročilé nastavení";
 "alt-text-add-button-title" = "Přidat";
 "alt-text-do-not-add-button-title" = "Nepřidávat";
+"alt-text-email-fifth-line" = "[Snímky obrazovky nebo odkazy]";
+"alt-text-experiment-caption-title" = "Popisek obrázku";
+"alt-text-experiment-edit-summary" = "Přidán alternativní text";
+"alt-text-experiment-onboarding-item-1-title" = "Ponechte to krátké a jasné.";
+"alt-text-experiment-onboarding-item-2-subtitle" = "Nepřidávejte prosím svůj vlastní výzkum, interpertace nebo svůj úhel pohledu.";
+"alt-text-experiment-onboarding-tooltip-3-title" = "Přidejte popis";
 "announcements-dismiss" = "Zrušit";
 "app-store-keywords" = "Wikipedie, reference, wiki, encyklopedie, info, znalosti, výzkum, informace, objevování, učení";
 "app-store-release-notes" = "Plně přizpůsobitelné a snadnější čtení zdroje informací. Lokalizace, vylepšení výkonu a opravy chyb.";
@@ -180,6 +187,7 @@
 "chinese-variants-alert-body" = "Aplikace wikipedie nyní podporuje následující Čínské varianty jako primární nebo sekundární jazyky v aplikaci, aby bylo jednodušší číst, hledat nebo upravovat ve vaší oblíbené variantě.\n\n简体 Čínština, Zjednodušená (zh-hans)\n香港繁體 Hong Kongská tradiční (zh-hk)\n澳門繁體 Macauská tradiční (zh-mo)\n大马简体 Malajská zjednodušená (zh-my)\n新加坡简体 Singapurská zjednodušená (zh-sg)\n臺灣正體 Taiwanská Tradiční (zh-tw)";
 "chinese-variants-alert-title" = "Aktualizace podpory čínských variant";
 "clear-title-accessibility-label" = "Vymazat";
+"clearing-cache-in-progress" = "Probíhá čištění cache.";
 "close-button-accessibility-label" = "Zavřít";
 "compass-direction" = "na $1. hodině";
 "continue-reading-empty-description" = "Procházet další články na Wikipedii";
