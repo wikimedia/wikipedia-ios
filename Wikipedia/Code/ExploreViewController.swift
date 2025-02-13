@@ -53,6 +53,8 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     
     var topSafeAreaOverlayHeightConstraint: NSLayoutConstraint?
     var topSafeAreaOverlayView: UIView?
+    
+    private var presentingSearchResults: Bool = false
 
     // MARK: - Lifecycle
 
@@ -134,6 +136,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         dataStore.feedContentController.dismissCollapsedContentGroups()
         stopMonitoringReachability()
         isGranularUpdatingEnabled = false
+        resetNavBarAppearance()
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
@@ -172,14 +175,22 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         extendedLayoutIncludesOpaqueBars = false
         if #available(iOS 18, *) {
             if UIDevice.current.userInterfaceIdiom == .pad && traitCollection.horizontalSizeClass == .regular {
-                titleConfig = WMFNavigationBarTitleConfig(title: CommonStrings.exploreTabTitle, customView: titleView, alignment: .centerCompact)
+
+                var customLargeTitleFont: UIFont? = nil
+                if let logoFont = UIFont(name: "icomoon", size: 24) {
+                    customLargeTitleFont = logoFont
+                    titleConfig = WMFNavigationBarTitleConfig(title: "", customView: nil, alignment: .leadingLarge, customLargeTitleFont: customLargeTitleFont)
+                } else {
+                    titleConfig = WMFNavigationBarTitleConfig(title: CommonStrings.exploreTabTitle, customView: nil, alignment: .hidden, customLargeTitleFont: nil)
+                }
+                
                 extendedLayoutIncludesOpaqueBars = true
             }
         }
         
         let profileButtonConfig = profileButtonConfig(target: self, action: #selector(userDidTapProfile), dataStore: dataStore, yirDataController: yirDataController, leadingBarButtonItem: nil, trailingBarButtonItem: nil)
         
-        let searchViewController = SearchViewController()
+        let searchViewController = SearchViewController(source: .topOfFeed)
         searchViewController.dataStore = dataStore
         
         let populateSearchBarWithTextAction: (String) -> Void = { [weak self] searchTerm in
@@ -199,7 +210,11 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
             searchBarPlaceholder: WMFLocalizedString("search-field-placeholder-text", value: "Search Wikipedia", comment: "Search field placeholder text"),
             showsScopeBar: false, scopeButtonTitles: nil)
         
-        configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: nil, profileButtonConfig: profileButtonConfig, searchBarConfig: searchConfig, hideNavigationBarOnScroll: true)
+
+        configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: nil, profileButtonConfig: profileButtonConfig, searchBarConfig: searchConfig, hideNavigationBarOnScroll: !presentingSearchResults)
+        
+        // Need to override this so that "" does not appear as back button title.
+        navigationItem.backButtonTitle = CommonStrings.exploreTabTitle
     }
     
     @objc func updateProfileButton() {
@@ -596,7 +611,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
             return
         }
         
-        if let vc = group.detailViewControllerForPreviewItemAtIndex(0, dataStore: dataStore, theme: theme) {
+        if let vc = group.detailViewControllerForPreviewItemAtIndex(0, dataStore: dataStore, theme: theme, source: .undefined) {
             if vc is WMFImageGalleryViewController {
                 present(vc, animated: true)
             } else {
@@ -734,7 +749,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     func exploreCardViewController(_ exploreCardViewController: ExploreCardViewController, didSelectItemAtIndexPath indexPath: IndexPath) {
         guard
             let contentGroup = exploreCardViewController.contentGroup,
-            let vc = contentGroup.detailViewControllerForPreviewItemAtIndex(indexPath.row, dataStore: dataStore, theme: theme, imageRecDelegate: self, imageRecLoggingDelegate: self) else {
+            let vc = contentGroup.detailViewControllerForPreviewItemAtIndex(indexPath.row, dataStore: dataStore, theme: theme, source: .undefined, imageRecDelegate: self, imageRecLoggingDelegate: self) else {
             return
         }
         
@@ -853,7 +868,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     func viewController(for contentGroup: WMFContentGroup, at itemIndex: Int) -> UIViewController? {
         previewed.context = contentGroup
 
-        if let viewControllerToCommit = contentGroup.detailViewControllerForPreviewItemAtIndex(itemIndex, dataStore: dataStore, theme: theme) {
+        if let viewControllerToCommit = contentGroup.detailViewControllerForPreviewItemAtIndex(itemIndex, dataStore: dataStore, theme: theme, source: .undefined) {
             if let potd = viewControllerToCommit as? WMFImageGalleryViewController {
                 potd.setOverlayViewTopBarHidden(true)
             } else if let avc = viewControllerToCommit as? ArticleViewController {
@@ -1457,7 +1472,7 @@ extension ExploreViewController: WMFImageRecommendationsDelegate {
         
         guard let siteURL = project.siteURL,
               let articleURL = siteURL.wmf_URL(withTitle: title),
-              let articleViewController = ArticleViewController(articleURL: articleURL, dataStore: dataStore, theme: theme) else {
+              let articleViewController = ArticleViewController(articleURL: articleURL, dataStore: dataStore, theme: theme, source: .undefined) else {
             return
         }
         
@@ -2179,10 +2194,12 @@ extension ExploreViewController: YearInReviewBadgeDelegate {
 extension ExploreViewController: UISearchControllerDelegate {
     
     func willPresentSearchController(_ searchController: UISearchController) {
+        presentingSearchResults = true
         navigationController?.hidesBarsOnSwipe = false
     }
     
     func didDismissSearchController(_ searchController: UISearchController) {
+        presentingSearchResults = false
         navigationController?.hidesBarsOnSwipe = true
     }
 }

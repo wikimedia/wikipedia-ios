@@ -40,7 +40,7 @@ class HistoryViewController: ArticleFetchedResultsViewController, WMFNavigationB
        }
 
        guard let existingProfileCoordinator = _profileCoordinator else {
-           _profileCoordinator = ProfileCoordinator(navigationController: navigationController, theme: theme, dataStore: dataStore, donateSouce: .savedProfile, logoutDelegate: self, sourcePage: ProfileCoordinatorSource.saved, yirCoordinator: yirCoordinator)
+           _profileCoordinator = ProfileCoordinator(navigationController: navigationController, theme: theme, dataStore: dataStore, donateSouce: .historyProfile, logoutDelegate: self, sourcePage: ProfileCoordinatorSource.history, yirCoordinator: yirCoordinator)
            _profileCoordinator?.badgeDelegate = self
            return _profileCoordinator
        }
@@ -165,7 +165,21 @@ class HistoryViewController: ArticleFetchedResultsViewController, WMFNavigationB
             }
         }
     }
-    
+
+    override func previewingViewController(for indexPath: IndexPath, at location: CGPoint) -> UIViewController? {
+        guard let vc = super.previewingViewController(for: indexPath, at: location) else {
+            return nil
+        }
+
+        guard let articleVC = (vc as? ArticleViewController) else {
+            return nil
+        }
+
+        articleVC.articleViewSource = .history
+
+        return articleVC
+    }
+
     private func configureNavigationBar() {
         
         var titleConfig: WMFNavigationBarTitleConfig = WMFNavigationBarTitleConfig(title: CommonStrings.historyTabTitle, customView: nil, alignment: .leadingCompact)
@@ -209,12 +223,11 @@ class HistoryViewController: ArticleFetchedResultsViewController, WMFNavigationB
         }
         
         guard let languageCode = dataStore.languageLinkController.appLanguage?.languageCode,
-              let metricsID = DonateCoordinator.metricsID(for: .savedProfile, languageCode: languageCode) else {
+              let metricsID = DonateCoordinator.metricsID(for: .historyProfile, languageCode: languageCode) else {
             return
         }
         
-        // TODO: Do we need logging like this?
-        // DonateFunnel.shared.logExploreProfile(metricsID: metricsID)
+        DonateFunnel.shared.logHistoryProfile(metricsID: metricsID)
         
         profileCoordinator?.start()
     }
@@ -244,6 +257,16 @@ class HistoryViewController: ArticleFetchedResultsViewController, WMFNavigationB
         
         // if it switched to empty state, this line will disable hide nav bar on scroll
         configureNavigationBar()
+    }
+
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard let articleURL = articleURL(at: indexPath) else {
+            collectionView.deselectItem(at: indexPath, animated: true)
+            return
+        }
+
+        let userInfo: [AnyHashable:Any]? = [ArticleSourceUserInfoKeys.articleSource: ArticleSource.history.rawValue]
+        navigate(to: articleURL, userInfo: userInfo)
     }
 
     func updateVisibleHeaders() {

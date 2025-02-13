@@ -9,7 +9,6 @@ class SearchResultsViewController: ArticleCollectionViewController {
             reload()
         }
     }
-    
     var tappedSearchResultAction: ((URL, IndexPath) -> Void)?
 
     override func viewDidLoad() {
@@ -89,7 +88,20 @@ class SearchResultsViewController: ArticleCollectionViewController {
     override func configure(cell: ArticleRightAlignedImageCollectionViewCell, forItemAt indexPath: IndexPath, layoutOnly: Bool) {
         configure(cell: cell, forItemAt: indexPath, layoutOnly: layoutOnly, configureForCompact: true)
     }
-    
+
+    override func previewingViewController(for indexPath: IndexPath, at location: CGPoint) -> UIViewController? {
+        guard let vc = super.previewingViewController(for: indexPath, at: location) else {
+            return nil
+        }
+
+        guard let articleVC = (vc as? ArticleViewController) else {
+            return nil
+        }
+
+        articleVC.articleViewSource = .search
+        return articleVC
+    }
+
     private func configure(cell: ArticleRightAlignedImageCollectionViewCell, forItemAt indexPath: IndexPath, layoutOnly: Bool, configureForCompact: Bool) {
         guard indexPath.item < results.count else {
             return

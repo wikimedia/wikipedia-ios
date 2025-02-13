@@ -69,7 +69,7 @@ final class AltTextImageRecommendationsOnboardingPresenter {
         
         if let siteURL = imageRecommendationsViewModel.project.siteURL,
            let articleURL = siteURL.wmf_URL(withTitle: articleTitle),
-           let articleViewController = ArticleViewController(articleURL: articleURL, dataStore: exploreViewController.dataStore, theme: exploreViewController.theme, altTextExperimentViewModel: altTextViewModel, needsAltTextExperimentSheet: true, altTextBottomSheetViewModel: bottomSheetViewModel, altTextDelegate: exploreViewController) {
+           let articleViewController = ArticleViewController(articleURL: articleURL, dataStore: exploreViewController.dataStore, theme: exploreViewController.theme, source: .undefined, altTextExperimentViewModel: altTextViewModel, needsAltTextExperimentSheet: true, altTextBottomSheetViewModel: bottomSheetViewModel, altTextDelegate: exploreViewController) {
 
             imageRecommendationsViewController.navigationController?.pushViewController(articleViewController, animated: true)
         }
