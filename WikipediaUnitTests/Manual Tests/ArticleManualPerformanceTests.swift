@@ -46,7 +46,7 @@ class ArticleManualPerformanceTests: XCTestCase {
 
         self.measure {
 
-            guard let articleVC = ArticleViewController(articleURL: articleURL, dataStore: dataStore, theme: .light) else {
+            guard let articleVC = ArticleViewController(articleURL: articleURL, dataStore: dataStore, theme: .light, source: .undefined) else {
                 XCTFail("Unable to instantiate ArticleViewController")
                 return
             }
@@ -80,7 +80,7 @@ class ArticleManualPerformanceTests: XCTestCase {
         
         self.measure {
             
-            guard let articleVC = ArticleViewController(articleURL: articleURL, dataStore: dataStore, theme: .light) else {
+            guard let articleVC = ArticleViewController(articleURL: articleURL, dataStore: dataStore, theme: .light, source: .undefined) else {
                 XCTFail("Unable to instantiate ArticleViewController")
                 return
             }

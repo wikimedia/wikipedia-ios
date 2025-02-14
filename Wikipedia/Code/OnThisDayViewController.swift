@@ -232,7 +232,7 @@ extension OnThisDayViewController: MEPEventsProviding {
 extension OnThisDayViewController: NestedCollectionViewContextMenuDelegate {
     func contextMenu(with contentGroup: WMFContentGroup? = nil, for articleURL: URL? = nil, at itemIndex: Int) -> UIContextMenuConfiguration? {
 
-        guard let articleURL = articleURL, let vc = ArticleViewController(articleURL: articleURL, dataStore: dataStore, theme: theme) else {
+        guard let articleURL = articleURL, let vc = ArticleViewController(articleURL: articleURL, dataStore: dataStore, theme: theme, source: .undefined) else {
             return nil
         }
         vc.articlePreviewingDelegate = self

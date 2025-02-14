@@ -86,10 +86,11 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
 
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
+        self.articleSource = .places
         self.wikidataFetcher =  WikidataFetcher(session: dataStore.session, configuration: dataStore.configuration)
     }
 
-    required init(articleURLs: [URL], dataStore: MWKDataStore, contentGroup: WMFContentGroup?, theme: Theme, needsCloseButton: Bool = false) {
+    required init(articleURLs: [URL], dataStore: MWKDataStore, contentGroup: WMFContentGroup?, theme: Theme, needsCloseButton: Bool = false, source: ArticleSource) {
         fatalError("init(articleURLs:dataStore:contentGroup:theme:needsCloseButton:) has not been implemented")
     }
 
@@ -114,7 +115,7 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
 
     override func viewDidLoad() {
 
-        listViewController = ArticleLocationCollectionViewController(articleURLs: [], dataStore: dataStore, contentGroup: nil, theme: theme)
+        listViewController = ArticleLocationCollectionViewController(articleURLs: [], dataStore: dataStore, contentGroup: nil, theme: theme, source: .places)
         listViewController.needsConfigNavBar = false
         addChild(listViewController)
         listViewController.view.frame = listContainerView.bounds
@@ -1753,7 +1754,8 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
         }
         switch action {
         case .read:
-            navigate(to: url)
+            let userInfo: [AnyHashable: Any]? = [ArticleSourceUserInfoKeys.articleSource: ArticleSource.places.rawValue]
+            navigate(to: url, userInfo: userInfo)
             break
         case .save:
             let didSave = dataStore.savedPageList.toggleSavedPage(for: url)

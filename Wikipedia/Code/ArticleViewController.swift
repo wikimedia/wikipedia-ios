@@ -173,15 +173,17 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
     
     private var finishedLoadingArticleDuringPeek = false
 
-    convenience init?(articleURL: URL, dataStore: MWKDataStore, theme: Theme, schemeHandler: SchemeHandler? = nil, altTextExperimentViewModel: WMFAltTextExperimentViewModel, needsAltTextExperimentSheet: Bool, altTextBottomSheetViewModel: WMFAltTextExperimentModalSheetViewModel?, altTextDelegate: AltTextDelegate?) {
-        self.init(articleURL: articleURL, dataStore: dataStore, theme: theme)
+    internal var articleViewSource: ArticleSource
+
+    convenience init?(articleURL: URL, dataStore: MWKDataStore, theme: Theme, source: ArticleSource, schemeHandler: SchemeHandler? = nil, altTextExperimentViewModel: WMFAltTextExperimentViewModel, needsAltTextExperimentSheet: Bool, altTextBottomSheetViewModel: WMFAltTextExperimentModalSheetViewModel?, altTextDelegate: AltTextDelegate?) {
+        self.init(articleURL: articleURL, dataStore: dataStore, theme: theme, source: source)
         self.altTextExperimentViewModel = altTextExperimentViewModel
         self.altTextBottomSheetViewModel = altTextBottomSheetViewModel
         self.needsAltTextExperimentSheet = needsAltTextExperimentSheet
         self.altTextDelegate = altTextDelegate
     }
     
-    @objc init?(articleURL: URL, dataStore: MWKDataStore, theme: Theme, schemeHandler: SchemeHandler? = nil) {
+    @objc init?(articleURL: URL, dataStore: MWKDataStore, theme: Theme, source: ArticleSource, schemeHandler: SchemeHandler? = nil) {
 
         guard let article = dataStore.fetchOrCreateArticle(with: articleURL) else {
                 return nil
@@ -195,6 +197,7 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
         self.dataStore = dataStore
         self.schemeHandler = schemeHandler ?? SchemeHandler(scheme: "app", session: dataStore.session)
         self.cacheController = cacheController
+        self.articleViewSource = source
 
         super.init(nibName: nil, bundle: nil)
         self.theme = theme
@@ -355,13 +358,13 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
         view.isUserInteractionEnabled = true
         return view
     }()
-    
+
     lazy var searchBarButtonItem: UIBarButtonItem = {
         let button = UIBarButtonItem(image: UIImage(named: "search"), style: .plain, target: self, action: #selector(userDidTapSearchButton))
         button.accessibilityLabel = CommonStrings.searchButtonAccessibilityLabel
         return button
     }()
-    
+
     override func updateViewConstraints() {
         super.updateViewConstraints()
         updateLeadImageMargins()
@@ -482,8 +485,7 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
             
             self.showSurveyAnnouncementPanel(surveyAnnouncementResult: result, linkState: self.articleAsLivingDocController.surveyLinkState)
         }
-        
-        
+
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -651,7 +653,6 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
             
             self.shareIfNecessary()
             self.restoreScrollStateIfNecessary()
-            
             self.logPageViewAfterArticleLoad()
             self.articleLoadWaitGroup = nil
         }
@@ -663,7 +664,7 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
               let project = WikimediaProject(siteURL: siteURL) {
             
             if !isBeingPresentedAsPeek {
-                ArticleLinkInteractionFunnel.shared.logArticleView(pageID: pageID.intValue, project: project)
+                ArticleLinkInteractionFunnel.shared.logArticleView(pageID: pageID.intValue, project: project, source: articleViewSource)
             } else {
                 // Set flag, will log later in viewDidAppear()
                 finishedLoadingArticleDuringPeek = true
@@ -685,7 +686,7 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
             return
         }
         
-        ArticleLinkInteractionFunnel.shared.logArticleView(pageID: pageID.intValue, project: project)
+        ArticleLinkInteractionFunnel.shared.logArticleView(pageID: pageID.intValue, project: project, source: articleViewSource)
     }
 
     private func setupForAltTextExperiment() {
