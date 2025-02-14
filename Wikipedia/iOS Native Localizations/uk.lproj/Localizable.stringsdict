@@ -881,5 +881,101 @@
 			<string>%1$d фільтрів</string>
 		</dict>
 	</dict>
+	<key>year-in-review-personalized-editing-subtitle-format</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Ви редагували Вікіпедію %#@v1@. Дякуємо вам приналежність до волонтерів-редакторів по всьому світу, які змінюють проєкти Вікімедіа на краще.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d раз</string>
+			<key>other</key>
+			<string>%1$d разів</string>
+		</dict>
+	</dict>
+	<key>year-in-review-personalized-editing-title-format</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Ви редагували Вікіпедію %#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d раз</string>
+			<key>other</key>
+			<string>%1$d разів</string>
+		</dict>
+	</dict>
+	<key>year-in-review-personalized-reading-subtitle-format</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Ви прочитали %#@v1@. У Вікіпедії було доступно %2$@ мільйона статей понад %3$@ активними мовами. Ви приєдналися до мільйонів у розширенні знань і дослідженні різноманітних тем.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d статтю</string>
+			<key>other</key>
+			<string>%1$d статей</string>
+		</dict>
+	</dict>
+	<key>year-in-review-personalized-reading-title-format</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Ви прочитали %1$d %#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>статтю</string>
+			<key>other</key>
+			<string>статей</string>
+		</dict>
+	</dict>
+	<key>year-in-review-personalized-saved-subtitle-format</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Ви зберегли %#@v1@ цього року, зокрема %2$@, %3$@ і %4$@. Кожна збережена стаття відображає ваші інтереси та допомагає створити персональну базу знань у Вікіпедії.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d статтю</string>
+			<key>other</key>
+			<string>%1$d статей</string>
+		</dict>
+	</dict>
+	<key>year-in-review-personalized-saved-title-format</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Ви зберегли %1$d %#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>статтю</string>
+			<key>other</key>
+			<string>статей</string>
+		</dict>
+	</dict>
 </dict>
 </plist>
