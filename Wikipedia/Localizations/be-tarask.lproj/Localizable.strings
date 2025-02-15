@@ -82,6 +82,7 @@
 "nearby-distance-label-km" = "$1 км";
 "nearby-distance-label-meters" = "$1 м";
 "nearby-distance-label-miles" = "$1 міл";
+"notifications-center-type-title-email-from-other-user" = "Э-ліст ад іншага карыстальніка";
 "page-protected-can-not-edit" = "Вы ня маеце правоў рэдагаваць гэтую старонку";
 "page-protected-can-not-edit-title" = "Гэтая старонка абароненая";
 "potd-description-prefix" = "Выява дня за $1";

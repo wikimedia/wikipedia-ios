@@ -971,6 +971,7 @@
 "saved-default-reading-list-tag" = "Tätä listaa ei voi poistaa";
 "saved-pages-image-download-error" = "Tämän tallennetun sivun kuvien lataaminen epäonnistui.";
 "saved-pages-progress-syncing" = "Artikkelin lataus käynnissä...";
+"saved-reading-lists-search-placeholder" = "Hae lukulistoista";
 "saved-reading-lists-title" = "Lukulistat";
 "saved-search-default-text" = "Hae tallennetuista artikkeleista";
 "saved-title" = "Tallennettu";
