@@ -4,22 +4,32 @@ import WMFComponents
 import WMFData
 import CocoaLumberjackSwift
 
-@objc(WMFProfileCoordinator)
+@objc(TempAccountSheetCoordinator)
 final class TempAccountSheetCoordinator: NSObject, Coordinator {
     var navigationController: UINavigationController
     var theme: Theme
     let dataStore: MWKDataStore
-    let didTapDone: () -> ()
+    let didTapDone: () -> Void
+    let isTempAccount: Bool
     
     func start() {
-        print("yay I'm a coordinator")
+        if isTempAccount {
+            presentTempEditorSheet { [weak self] in
+                self?.didTapDone()
+            }
+        } else {
+            presentIPEditorSheet { [weak self] in
+                self?.didTapDone()
+            }
+        }
     }
     
-    public init(navigationController: UINavigationController, theme: Theme, dataStore: MWKDataStore, didTapDone: @escaping () -> ()) {
+    public init(navigationController: UINavigationController, theme: Theme, dataStore: MWKDataStore, didTapDone: @escaping () -> Void, isTempAccount: Bool) {
         self.navigationController = navigationController
         self.theme = theme
         self.dataStore = dataStore
         self.didTapDone = didTapDone
+        self.isTempAccount = isTempAccount
     }
     
     internal var authManager: WMFAuthenticationManager {
