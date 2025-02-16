@@ -99,15 +99,19 @@ extension ArticleViewController {
             }
         }
         
-        if !authManager.authStateIsPermanent {
-            if authManager.authStateIsTemporary {
-                presentTempEditorSheet(presentEditorAction)
-            } else {
-                presentIPEditorSheet(presentEditorAction)
-            }
-        } else {
-                presentEditorAction()
-        }
+        guard let navigationController else { return }
+        
+        let tempAccountsCoordinator = TempAccountSheetCoordinator(
+            navigationController: navigationController,
+            theme: theme,
+            dataStore: dataStore,
+            didTapDone: { [weak self] in
+                print("yipee")
+            },
+            isTempAccount: authManager.authStateIsTemporary
+        )
+        
+        tempAccountsCoordinator.start()
     }
     
     func showEditSectionOrTitleDescriptionDialogForSection(with id: Int, descriptionSource: ArticleDescriptionSource, selectedTextEditInfo: SelectedTextEditInfo? = nil) {
