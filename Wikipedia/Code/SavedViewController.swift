@@ -366,7 +366,7 @@ class SavedViewController: ThemeableViewController, WMFNavigationBarConfiguring,
     }
     
     private lazy var moreBarButtonItem: UIBarButtonItem = {
-        let button = UIBarButtonItem(image: UIImage(systemName: "ellipsis.circle"), primaryAction: nil, menu: overflowMenu)
+        let button = UIBarButtonItem(image: WMFSFSymbolIcon.for(symbol: .ellipsisCircle), primaryAction: nil, menu: overflowMenu)
         button.accessibilityLabel = CommonStrings.moreButton
         return button
     }()

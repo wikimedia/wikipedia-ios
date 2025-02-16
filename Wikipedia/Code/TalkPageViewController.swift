@@ -268,7 +268,7 @@ class TalkPageViewController: ThemeableViewController, WMFNavigationBarConfiguri
     }
     
     private func setupOverflowMenu() {
-        let rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "ellipsis.circle"), primaryAction: nil, menu: overflowMenu)
+        let rightBarButtonItem = UIBarButtonItem(image: WMFSFSymbolIcon.for(symbol: .ellipsisCircle), primaryAction: nil, menu: overflowMenu)
         rightBarButtonItem.accessibilityLabel = Self.TalkPageLocalizedStrings.overflowMenuAccessibilityLabel
         navigationItem.rightBarButtonItem = rightBarButtonItem
         rightBarButtonItem.tintColor = theme.colors.link

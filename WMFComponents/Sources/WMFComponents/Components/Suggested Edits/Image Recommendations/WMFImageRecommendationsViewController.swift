@@ -247,7 +247,7 @@ public final class WMFImageRecommendationsViewController: WMFCanvasViewControlle
     }
 
     private func setupOverflowMenu() {
-        let rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "ellipsis.circle"), primaryAction: nil, menu: overflowMenu)
+        let rightBarButtonItem = UIBarButtonItem(image: WMFSFSymbolIcon.for(symbol: .ellipsisCircle), primaryAction: nil, menu: overflowMenu)
         navigationItem.rightBarButtonItem = rightBarButtonItem
         rightBarButtonItem.tintColor = theme.link
     }

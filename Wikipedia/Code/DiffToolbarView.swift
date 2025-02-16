@@ -1,4 +1,4 @@
-import UIKit
+import WMFComponents
 
 protocol DiffToolbarViewDelegate: AnyObject {
     func tappedPrevious()
@@ -163,7 +163,7 @@ class DiffToolbarView: UIView {
         
         let menu = UIMenu(title: "", options: .displayInline, children: actions)
         
-        let item = IconBarButtonItem(title: nil, image: UIImage(systemName: "ellipsis.circle"), primaryAction: nil, menu: menu)
+        let item = IconBarButtonItem(title: nil, image: WMFSFSymbolIcon.for(symbol: .ellipsisCircle), primaryAction: nil, menu: menu)
 
         item.accessibilityLabel = CommonStrings.moreButton
         return item

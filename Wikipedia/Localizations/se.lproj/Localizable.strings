@@ -111,13 +111,14 @@
 "action-unsave" = "Sihko vurkejumi";
 "action-unsaved-accessibility-notification" = "Artihkal ii leat šat vurkejuvvon";
 "action-update" = "Ođasmahte";
-"add-articles-to-reading-list" = "Lasit  {{PLURAL:$1|$1 artihkkala}} lohkanlistui";
+"add-articles-to-reading-list" = "Lasit {{PLURAL:$1|$1 artihkkala}} lohkanlistui";
 "advanced-settings-title" = "Lasseásahusat";
 "alt-text-add-button-title" = "Lasit";
 "alt-text-do-not-add-button-title" = "Ale lasit";
 "alt-text-email-fifth-line" = "[Šearbmagovat dahje liŋkkat]";
 "alt-text-experiment-caption-title" = "Govvateaksta";
 "alt-text-experiment-onboarding-secondary-button-title" = "Čájet ovdamearkkaid";
+"alt-text-experiment-onboarding-tooltip-3-title" = "Lasit govvádusa";
 "announcements-dismiss" = "Gidde";
 "app-store-keywords" = "Wikipedia, gáldu, wiki, encyklopediija, diehtu, máhttu, info, fuomášupmi, oahppan";
 "app-store-release-notes" = "Áibbas heivehahtti ja eanet logahahtti guorahallansiidu. Báikkálašvuohta, doaibmabuorideamit ja boasttudivvumat.";
@@ -714,7 +715,7 @@
 "notifications-center-filters-types-item-title-all" = "Buot šlájat";
 "notifications-center-filters-types-section-title" = "Almmuhustiipa";
 "notifications-center-go-to-article" = "Artihkal";
-"notifications-center-go-to-article-talk-format" = "$1 digaštallan";
+"notifications-center-go-to-article-talk-format" = "Siiddu $1 ságastallansiidu";
 "notifications-center-go-to-diff" = "Erohus";
 "notifications-center-go-to-talk-page" = "Ságastallansiidu";
 "notifications-center-go-to-user-page" = "{{GRAMMAR:genitive|$1}} geavaheaddjisiidu";
@@ -908,6 +909,7 @@
 "reading-list-create-new-list-reading-list-name" = "Lohkanlisttu namma";
 "reading-list-create-new-list-title" = "Ráhkat ođđa listtu";
 "reading-list-deleted-accessibility-notification" = "Lohkanlistu sihkkojuvvui";
+"reading-list-detail-search-placeholder" = "Oza lohkanlisttus";
 "reading-list-do-not-keep-button-title" = "Ii, sihko artihkkaliid ovttadagas";
 "reading-list-entry-limit-exceeded-message" = "Fertet unnidit artihkkaliid logu dán listtus $1:ii vai sáhtát joatkit dán listtu artihkkaliid synkroniseremiin.";
 "reading-list-entry-limit-exceeded-title" = "Don leat rihkkon ráji mii lea {{PLURAL:$1|$1 artihkal|$1 artihkkala}} juohke geavaheaddjidovddaldaga namas.";
@@ -995,6 +997,7 @@
 "saved-default-reading-list-tag" = "Listu ii sáhte sihkkojuvvot";
 "saved-pages-image-download-error" = "Ii nagodan viežžat govaid dan vurkejuvvon siidui.";
 "saved-pages-progress-syncing" = "Viežžame artihkkaliid...";
+"saved-reading-lists-search-placeholder" = "Oza lohkanlisttuin";
 "saved-reading-lists-title" = "Lohkanlisttut";
 "saved-search-default-text" = "Oza vurkejuvvon artihkkaliin";
 "saved-title" = "Vurkejuvvon";
