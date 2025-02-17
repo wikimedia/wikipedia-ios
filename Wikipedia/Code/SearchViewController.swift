@@ -485,26 +485,41 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
     private var historyViewModel: WMFHistoryViewModel?
     
     lazy var historyViewController: UIViewController = {
-        let deleteAllHistoryAction: () -> Void = {
-            print("delete all in legacy data store")
-        }
-        let deleteHistoryItemAction: (WMFHistoryViewModel.Item) -> Void = { item in
-            print("delete item in legacy data store")
-        }
-        
-        var items: [WMFHistoryViewModel.Item] = []
-        for i in 1...100 {
-            items.append(WMFHistoryViewModel.Item(id: String(i), titleHtml: "Cat"))
-        }
-        let section = WMFHistoryViewModel.Section(dateWithoutTime: Date(), items: items)
-        
-        let historyViewModel = WMFHistoryViewModel(sections: [section], deleteAllHistoryAction: deleteAllHistoryAction, deleteHistoryItemAction: deleteHistoryItemAction)
-        self.historyViewModel = historyViewModel
-        let historyView = WMFHistoryView(viewModel: historyViewModel)
-        let historyHostingVC = UIHostingController(rootView: historyView)
-        return historyHostingVC
-    }()
-    
+
+            let recordsProvider: WMFHistoryDataController.RecordsProvider = {
+                // Mock data
+                (1...100).map { i in
+                    return HistoryRecord(
+                        id: "\(i)",
+                        titleHtml: "Cat",
+                        description: nil,
+                        imageURL: nil,
+                        viewedDate: Date() // Grouping?
+                    )
+                }
+            }
+
+            let deleteRecordAction: WMFHistoryDataController.DeleteRecordAction = { recordID in
+                print("Delete record with id: \(recordID)")
+            }
+
+            let deleteAllRecordsAction: WMFHistoryDataController.DeleteAllRecordsAction = {
+                print("Delete all records")
+            }
+
+            let dataController = WMFHistoryDataController(
+                recordsProvider: recordsProvider,
+                deleteRecordAction: deleteRecordAction,
+                deleteAllRecordsAction: deleteAllRecordsAction
+            )
+
+            let viewModel = WMFHistoryViewModel(historyDataController: dataController)
+            self.historyViewModel = viewModel
+
+            let historyView = WMFHistoryView(viewModel: viewModel)
+            return UIHostingController(rootView: historyView)
+        }()
+
     // MARK: - Recent Search Saving
     
     func saveLastSearch() {

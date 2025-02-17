@@ -1,66 +1,83 @@
-import Foundation
+import SwiftUI
+import WMFData
 
 public final class WMFHistoryViewModel: ObservableObject {
-    
+
     public final class Section: Identifiable {
         let dateWithoutTime: Date
         @Published var items: [Item]
-        
+
         public init(dateWithoutTime: Date, items: [WMFHistoryViewModel.Item]) {
             self.dateWithoutTime = dateWithoutTime
             self.items = items
         }
     }
-    
+
     public final class Item: Identifiable, Equatable {
         public let id: String
         let titleHtml: String
         let description: String?
         let imageURL: URL?
-        
+
         public init(id: String, titleHtml: String, description: String? = nil, imageURL: URL? = nil) {
             self.id = id
             self.titleHtml = titleHtml
             self.description = description
             self.imageURL = imageURL
         }
-        
+
         public static func == (lhs: WMFHistoryViewModel.Item, rhs: WMFHistoryViewModel.Item) -> Bool {
             return lhs.id == rhs.id
         }
     }
 
-    // Closures that call back to the Core Data methods
-    // Eventually we want to call a WMFData data controller instead.
-    private let deleteAllHistoryAction: () -> Void
-    private let deleteHistoryItemAction: (Item) -> Void
-    
     @Published var sections: [Section] = []
     @Published public var topPadding: CGFloat = 0
-    
-    public init(sections: [WMFHistoryViewModel.Section], deleteAllHistoryAction: @escaping () -> Void, deleteHistoryItemAction: @escaping (WMFHistoryViewModel.Item) -> Void) {
-        self.sections = sections
-        self.deleteAllHistoryAction = deleteAllHistoryAction
-        self.deleteHistoryItemAction = deleteHistoryItemAction
+
+    private let historyDataController: WMFHistoryDataController
+
+    public init(historyDataController: WMFHistoryDataController, topPadding: CGFloat = 0) {
+        self.historyDataController = historyDataController
+        self.topPadding = topPadding
+        loadHistory()
     }
-    
+
+    public func loadHistory() {
+        let dataSections = historyDataController.fetchHistorySections()
+        let viewModelSections = dataSections.map { dataSection -> Section in
+            let items = dataSection.items.map { dataItem in
+                Item(id: dataItem.id,
+                     titleHtml: dataItem.titleHtml,
+                     description: dataItem.description,
+                     imageURL: dataItem.imageURL)
+            }
+            return Section(dateWithoutTime: dataSection.dateWithoutTime, items: items)
+        }
+
+        DispatchQueue.main.async {
+            self.sections = viewModelSections
+        }
+    }
+
     func deleteAll() {
-        
-        // Note: I am assuming this will succeed app-side. Should we pass back a success / fail flag in this action?
-        deleteAllHistoryAction()
-        self.sections = []
+
+        historyDataController.deleteAllHistory()
+        DispatchQueue.main.async {
+            self.sections.removeAll()
+        }
     }
-    
-    func delete(section: Section, item: Item) {
-        
-        // Assuming we won't have multiple items in the same section
+
+    public func delete(section: Section, item: Item) {
         guard let itemIndex = section.items.firstIndex(of: item) else {
             return
         }
-        
-        // Note: I am assuming this will succeed app-side. Should we pass back a success / fail flag in this action?
-        deleteHistoryItemAction(item)
+        historyDataController.deleteHistoryItem(withID: item.id)
         section.items.remove(at: itemIndex)
-        sections.removeAll(where: { $0.items.isEmpty })
+
+        if section.items.isEmpty {
+            DispatchQueue.main.async {
+                self.sections.removeAll(where: { $0.dateWithoutTime == section.dateWithoutTime })
+            }
+        }
     }
 }
