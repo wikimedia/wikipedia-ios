@@ -897,6 +897,7 @@
 "watchlist-change-expiry-option-six-months" = "6 Méint";
 "watchlist-change-expiry-option-three-months" = "3 Méint";
 "watchlist-edit-summary-accessibility" = "Resumé vun der Ännerung";
+"watchlist-filter-automated-contributions-header" = "Automatiséiert Kontributiounen";
 "watchlist-filter-automated-contributions-options-bot" = "Bot";
 "watchlist-filter-automated-contributions-options-human" = "Mënsch (kee Bot)";
 "watchlist-filter-latest-revisions-header" = "Lescht Versiounen";
