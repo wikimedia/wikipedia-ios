@@ -263,11 +263,16 @@
 "cancel" = "Cancelar";
 "cc-zero" = "Creative Commons CC0";
 "clear-title-accessibility-label" = "Limpiar";
+"clearing-cache-complete" = "Limpieza de caché completada.";
+"clearing-cache-in-progress" = "Limpieza de caché en curso.";
 "close-button-accessibility-label" = "Cerrar";
 "compass-direction" = "a las $1 en punto";
+"confirmed-donation-history-deletion" = "Historial local eliminado.";
 "continue-button-title" = "Continuar";
 "continue-reading-empty-description" = "Explorar más artículos para leer en Wikipedia";
 "continue-reading-empty-title" = "No hay artículos leídos recientemente";
+"crimean-tatar-variants-alert-body" = "La aplicación de Wikipedia ahora admite las siguientes variantes del tártaro de Crimea como idiomas primarios o secundarios dentro de la aplicación, lo que facilita la lectura, búsqueda y edición en tu variante preferida:  \n\nQırımtatarca, tártaro de Crimea en alfabeto latino (crh-latn)  \nкъырымтатарджа, tártaro de Crimea en alfabeto cirílico (crh-cyrl)";
+"crimean-tatar-variants-alert-title" = "Actualizaciones en la compatibilidad con variantes del tártaro de Crimea";
 "data-migration-status" = "Actualizando...";
 "description-add-title" = "Añadir descripción";
 "description-edit-for-article" = "Descripción de título para $1";
@@ -303,6 +308,9 @@
 "description-welcome-descriptions-title" = "Descripciones de títulos";
 "description-welcome-promise-title" = "Para empezar, prometo no abusar de esta característica";
 "description-welcome-start-editing-button" = "Empezar a editar";
+"developer-settings" = "Configuración de desarrollador";
+"developer-settings-enable-year-in-review" = "Habilitar Resumen del año";
+"developer-settings-send-analytics-to-wmflabs" = "Enviar análisis a wmflabs";
 "diff-change-added" = "Adición, $1, final de adición.";
 "diff-change-paragraph-lines-moved-down" = "Párrafo movido hacia arriba {{PLURAL:$1|0=0 líneas| $1 línea| líneas $1 }}. Ir a nueva ubicación.";
 "diff-change-paragraph-lines-moved-up" = "Párrafo movido hacia arriba {{PLURAL:$1|0=0 líneas| $1 línea| líneas $1 }}. Ir a nueva ubicación.";
@@ -351,12 +359,19 @@
 "donate-already-donated" = "¡Gracias por tu donación! Tu generosidad mantiene viva la Wikipedia y otros proyectos relacionados.";
 "donate-apple-fine-print" = "Apple no es responsable de recaudar fondos para esta causa.";
 "donate-email-opt-in-text" = "Sí, acepto que Wikimedia Foundation me envíe correos ocasionalmente.";
+"donate-help-frequently-asked-questions" = "Preguntas frecuentes";
+"donate-help-problems-donating" = "¿Problemas al donar?";
+"donate-help-tax-deductibility-information" = "Información de desgravación de impuestos";
+"donate-history-delete" = "Eliminar historial de donaciones local";
 "donate-later-title" = "Volveremos a intentarlo mañana.";
+"donate-maximum-error-text" = "No podemos aceptar donaciones superiores a $1 $2 a través de nuestro sitio web. Por favor, contacta a nuestro equipo de donaciones mayores en benefactors@wikimedia.org.";
+"donate-minimum-error-text" = "Por favor, selecciona un monto (mínimo $1 $2).";
 "donate-monthly-recurring-text" = "Quiero hacer una donación recurrente.";
 "donate-payment-method-prompt-apple-pay-button-title" = "Donar con Apple Pay";
 "donate-payment-method-prompt-message" = "Dona con Apple Pay o elige otro método de pago.";
 "donate-payment-method-prompt-other-button-title" = "Otra forma de pago";
 "donate-payment-method-prompt-title" = "¿Donar con Apple Pay?";
+"donate-success-subtitle" = "Su generosidad significa mucho para nosotros.";
 "donate-success-title" = "¡Gracias!";
 "donate-title" = "Selecciona un importe";
 "donate-transaction-fee-opt-in-text" = "Generosamente, acepto añadir $1 a la donación para cubrir los gastos bancarios y que Wikimedia reciba el 100 %% de mi donación.";
@@ -697,6 +712,7 @@
 "main-menu-account-login" = "Acceder";
 "main-menu-account-logout" = "Salir";
 "main-menu-account-logout-are-you-sure" = "¿Confirmas que quieres salir de la sesión?";
+"main-menu-account-logout-are-you-sure-message" = "Cerrar sesión eliminará los datos de tu cuenta almacenados localmente (notificaciones y mensajes), pero tu información seguirá disponible en la web y se volverá a descargar si inicias sesión nuevamente.";
 "main-menu-account-title-logged-in" = "Sesión iniciada como $1";
 "main-menu-heading-legal" = "Privacidad y términos";
 "main-menu-nearby" = "Cercanos";
@@ -729,6 +745,7 @@
 "notifications-center-feed-news-notification-button-text" = "Activar las notificaciones push";
 "notifications-center-feed-news-notification-dismiss-button-text" = "Ahora no";
 "notifications-center-filters-accessibility-label" = "Filtro de notificaciones";
+"notifications-center-filters-read-status-item-title-unread" = "Sin leer";
 "notifications-center-filters-read-status-section-title" = "Estado de lectura";
 "notifications-center-filters-title" = "Filtros";
 "notifications-center-go-to-article" = "Artículo";
@@ -738,6 +755,7 @@
 "notifications-center-go-to-user-page" = "Página de usuario de $1";
 "notifications-center-go-to-wikidata-item" = "Elemento de Wikidata";
 "notifications-center-inbox-title" = "Proyectos";
+"notifications-center-inbox-wikimedia-projects-section-title" = "Proyectos Wikimedia";
 "notifications-center-language-project-name-format" = "$2 en $1";
 "notifications-center-login-notifications" = "Notificaciones de inicio de sesión";
 "notifications-center-mark" = "Marcar";
@@ -760,9 +778,12 @@
 "notifications-center-status-in-projects" = "{{PLURAL:$1|1=En 1 proyecto|En $1 proyectos}}";
 "notifications-center-subheader-edit-reverted" = "Tu edición fue revertida";
 "notifications-center-subheader-email-from-other-user" = "Nuevo correo electrónico";
+"notifications-center-subheader-login-success-unknown-device" = "Acceso a la cuenta desde un dispositivo inusual";
 "notifications-center-subheader-mention-edit-summary" = "Mención en el resumen de edición";
+"notifications-center-subheader-user-rights-change" = "Cambios de derechos de usuario";
 "notifications-center-swipe-mark-as-read" = "Marcar como leí­do";
 "notifications-center-swipe-mark-as-unread" = "Marcar como no leído";
+"notifications-center-title" = "Notificaciones";
 "notifications-center-toolbar-mark-accessibility-label" = "Marcar notificaciones seleccionadas";
 "notifications-center-type-item-description-mentions" = "Menciones";
 "notifications-center-type-item-description-welcome-verbose" = "Mensaje de bienvenida";
@@ -805,6 +826,7 @@
 "page-similar-titles" = "Páginas similares";
 "panel-compare-revisions-text" = "Comparar revisiones ayuda a ver cómo ha cambiado un artículo a lo largo del tiempo. Comparar dos revisiones de un artículo mostrará la diferencia entre esas revisiones al resaltar cualquier contenido que fue cambiado.";
 "panel-compare-revisions-title" = "Comparando revisiones";
+"panel-not-logged-in-title" = "No has iniciado sesión";
 "pictured" = "retratado";
 "places-accessibility-clear-saved-searches" = "Borrar búsquedas guardadas";
 "places-accessibility-group" = "$1 artículos";
@@ -844,10 +866,10 @@
 "potd-widget-description" = "Disfruta una hermosa foto diaria seleccionada por nuestra comunidad.";
 "potd-widget-title" = "Imagen del día";
 "preference-summary-eventlogging-opt-in" = "Permitir que la Fundación Wikimedia recopile información acerca de cómo utilizas la aplicación para mejorarla";
+"privacy-policy-title" = "Política de privacidad";
 "problem-with-feature-title" = "Problema con la característica";
 "profile-page-donate-subtext" = "O apoyar a Wikipedia con una donación para mantenerla libre y accesible para todos en todo el mundo.";
 "profile-page-join-subtext" = "Regístrese a una cuenta de Wikipedia para rastrear sus contribuciones, guardar artículos fuera de línea y sincronizar entre dispositivos.";
-// Fuzzy
 "profile-page-join-title" = "Iniciar sesión / Registrarse en Wikipedia";
 "profile-page-logged-out-year-in-review-subtext" = "Conéctate o crea una cuenta para obtener una revisión mejorada el año que viene.";
 "profile-page-title-logged-out" = "Cuenta";
@@ -938,6 +960,8 @@
 "relative-date-hours-abbreviated" = "$1h";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=Recientemente|Hace $1 hora|Hace $1 horas}}";
 "relative-date-hours-ago-abbreviated" = "hace $1h";
+"relative-date-hrs-ago" = "{{PLURAL:$1|0=Recientemente|Hace $1 hora|Hace $1 horas}}";
+"relative-date-min-ago" = "{{PLURAL:$1|0=Recién|Hace $1 minuto|Hace $1 minutos}}";
 "relative-date-minutes-abbreviated" = "$1 m";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=Recién|Hace $1 minuto|Hace $1 minutos}}";
 "relative-date-minutes-ago-abbreviated" = "hace $1 m";
