@@ -34,8 +34,10 @@ class EditorNavigationItemController: NSObject, Themeable {
     func apply(theme: Theme) {
         undoButton.tintColor = theme.colors.inputAccessoryButtonTint
         redoButton.tintColor = theme.colors.inputAccessoryButtonTint
+        editNoticesButton.tintColor = theme.colors.diffCompareAccent
+        temporaryAccountNoticesButton.tintColor = theme.colors.inputAccessoryButtonTint
+        ipAccountNoticesButton.tintColor = theme.colors.destructive
         readingThemesControlsButton.tintColor = theme.colors.inputAccessoryButtonTint
-        editNoticesButton.tintColor = theme.colors.inputAccessoryButtonTint
         (separatorButton.customView as? UIImageView)?.tintColor = theme.colors.newBorder
     }
 
@@ -59,22 +61,19 @@ class EditorNavigationItemController: NSObject, Themeable {
     }()
 
     private lazy var editNoticesButton: UIBarButtonItem = {
-        let image = WMFSFSymbolIcon.for(symbol: .exclamationMarkCircleFill)?
-            .withTintColor(.orange, renderingMode: .alwaysOriginal)
-
-        let button = UIBarButtonItem(image: image, style: .plain, target: self, action: #selector(editNotices(_:)))
+        let button = UIBarButtonItem(image: WMFSFSymbolIcon.for(symbol: .exclamationMarkCircleFill), style: .plain, target: self, action: #selector(editNotices(_:)))
         button.accessibilityLabel = CommonStrings.editNotices
         return button
     }()
     
     private lazy var temporaryAccountNoticesButton: UIBarButtonItem = {
-        let button = UIBarButtonItem(image: WMFSFSymbolIcon.for(symbol: .exclamationMarkCircleFill), style: .plain, target: self, action: #selector(temporaryAccount(_ :)))
+        let button = UIBarButtonItem(image: WMFIcon.temp, style: .plain, target: self, action: #selector(temporaryAccount(_ :)))
         button.accessibilityLabel = CommonStrings.editNotices
         return button
     }()
     
     private lazy var ipAccountNoticesButton: UIBarButtonItem = {
-        let button = UIBarButtonItem(image: WMFSFSymbolIcon.for(symbol: .exclamationMarkCircleFill), style: .plain, target: self, action: #selector(ipAccount(_ :)))
+        let button = UIBarButtonItem(image: WMFSFSymbolIcon.for(symbol: .temporaryAccountIcon), style: .plain, target: self, action: #selector(ipAccount(_ :)))
         button.accessibilityLabel = CommonStrings.editNotices
         return button
     }()
