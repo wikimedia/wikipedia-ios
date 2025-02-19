@@ -5,10 +5,12 @@ final class TabsCoordinator: Coordinator {
     
     var navigationController: UINavigationController
     private let dataStore: MWKDataStore
+    var theme: Theme
     
-    init(navigationController: UINavigationController, dataStore: MWKDataStore) {
+    init(navigationController: UINavigationController, dataStore: MWKDataStore, theme: Theme) {
         self.navigationController = navigationController
         self.dataStore = dataStore
+        self.theme = theme
     }
     
     func start() {
@@ -27,18 +29,50 @@ final class TabsCoordinator: Coordinator {
     
     private func tappedAddTab() {
         
-        // Add main on top of root
-        guard let firstVC = navigationController.viewControllers.first,
-        let mainPageURL = URL(string: "https://en.wikipedia.org/wiki/Main_Page"),
-        let mainVC = ArticleViewController(articleURL: mainPageURL, dataStore: dataStore, theme: Theme.light, source: .undefined) else {
+        guard let rootVC = navigationController.viewControllers.first else {
             return
         }
         
-        // first reset navigation stack underneath modal
-        navigationController.setViewControllers([firstVC, mainVC], animated: false)
+        let rootExploreVC = rootVC as? ExploreViewController
+        let rootSearchVC = rootVC as? SearchViewController
+        var newSearchVC: SearchViewController?
+        
+        // User is unintentionally clearing their nav stack, so do not remove articles from tab stack
+        for viewController in navigationController.viewControllers {
+            if let articleVC = viewController as? ArticleViewController {
+                articleVC.removeFromTabUponDisappearance = false
+            }
+        }
+        
+        // Create new search on top of root
+        if rootExploreVC != nil {
+            navigationController.popToRootViewController(animated: false)
+        } else if rootSearchVC != nil {
+            navigationController.popToRootViewController(animated: false)
+        } else {
+            newSearchVC = SearchViewController(source: .unknown, hidesBottomBarWhenPushed: true)
+            newSearchVC?.apply(theme: theme)
+            newSearchVC?.dataStore = dataStore
+            newSearchVC?.needsCenteredTitle = true
+            
+            if let newSearchVC {
+                navigationController.setViewControllers([rootVC, newSearchVC], animated: false)
+            }
+        }
         
         // then dismiss tabs modal
-        navigationController.dismiss(animated: true)
+        navigationController.dismiss(animated: true) {
+            
+            // Focuses search bar after appearance
+            if let rootExploreVC {
+                rootExploreVC.focusSearchBar()
+            } else if let rootSearchVC {
+                rootSearchVC.focusSearchBar()
+            } else if let newSearchVC {
+                newSearchVC.focusSearchBar()
+            }
+            
+        }
     }
     
     private func tappedTab(tab: WMFData.Tab, alreadyCurrentTab: Bool) {

@@ -34,6 +34,8 @@ class SearchViewController: ArticleCollectionViewController, WMFNavigationBarCon
     var customTitle: String?
     @objc var needsCenteredTitle: Bool = false
     
+    @objc var needsTabsButton: Bool = false
+    
     private var searchLanguageBarViewController: SearchLanguagesBarViewController?
     private var needsAnimateLanguageBarMovement = false
     
@@ -88,7 +90,7 @@ class SearchViewController: ArticleCollectionViewController, WMFNavigationBarCon
         guard let navigationController, let dataStore else {
             return nil
         }
-        return TabsCoordinator(navigationController: navigationController, dataStore: dataStore)
+        return TabsCoordinator(navigationController: navigationController, dataStore: dataStore, theme: theme)
     }()
     
     private lazy var tabsBarButtonItem: UIBarButtonItem = {
@@ -100,9 +102,10 @@ class SearchViewController: ArticleCollectionViewController, WMFNavigationBarCon
 
     // MARK: - Funcs
 
-    @objc required init(source: EventLoggingSource) {
+    @objc required init(source: EventLoggingSource, hidesBottomBarWhenPushed: Bool = false) {
         self.source = source
         super.init(nibName: nil, bundle: nil)
+        self.hidesBottomBarWhenPushed = hidesBottomBarWhenPushed
     }
     
     @MainActor required init?(coder: NSCoder) {
@@ -202,8 +205,9 @@ class SearchViewController: ArticleCollectionViewController, WMFNavigationBarCon
         }
         
         let profileButtonConfig: WMFNavigationBarProfileButtonConfig?
+        let tabsButton: UIBarButtonItem? = needsTabsButton ? tabsBarButtonItem : nil
         if let dataStore {
-            profileButtonConfig = self.profileButtonConfig(target: self, action: #selector(userDidTapProfile), dataStore: dataStore, yirDataController: yirDataController, leadingBarButtonItem: nil, trailingBarButtonItem: tabsBarButtonItem)
+            profileButtonConfig = self.profileButtonConfig(target: self, action: #selector(userDidTapProfile), dataStore: dataStore, yirDataController: yirDataController, leadingBarButtonItem: nil, trailingBarButtonItem: tabsButton)
         } else {
             profileButtonConfig = nil
         }
@@ -242,6 +246,10 @@ class SearchViewController: ArticleCollectionViewController, WMFNavigationBarCon
         DonateFunnel.shared.logSearchProfile(metricsID: metricsID)
               
         profileCoordinator?.start()
+    }
+    
+    func focusSearchBar() {
+        navigationItem.searchController?.searchBar.becomeFirstResponder()
     }
     
     private func embedResultsViewController() {

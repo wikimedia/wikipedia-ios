@@ -86,7 +86,7 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
         guard let navigationController else {
             return nil
         }
-        return TabsCoordinator(navigationController: navigationController, dataStore: dataStore)
+        return TabsCoordinator(navigationController: navigationController, dataStore: dataStore, theme: theme)
     }()
     
     private lazy var tabsBarButtonItem: UIBarButtonItem = {

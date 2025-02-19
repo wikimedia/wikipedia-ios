@@ -60,14 +60,15 @@ public final class WMFTabsViewModel: ObservableObject {
         let dataTabs = dataController.tabs
         let currentTab = dataController.currentTab
         
-        guard let currentTab else {
-            return
-        }
-        
         let otherSortedDataTabs = dataTabs.filter { $0 !== currentTab }.sorted { tab1, tab2 in
             return tab1.dateCreated > tab2.dateCreated
         }
-        let sortedDataTabs = [currentTab] + otherSortedDataTabs
+        let sortedDataTabs: [WMFData.Tab]
+        if let currentTab {
+            sortedDataTabs = [currentTab] + otherSortedDataTabs
+        } else {
+            sortedDataTabs = otherSortedDataTabs
+        }
         
         for dataTab in sortedDataTabs {
             guard let topArticleTitle = dataTab.articles.last?.title else {

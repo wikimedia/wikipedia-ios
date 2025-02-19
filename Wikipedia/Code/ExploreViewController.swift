@@ -60,7 +60,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         guard let navigationController, let dataStore else {
             return nil
         }
-        return TabsCoordinator(navigationController: navigationController, dataStore: dataStore)
+        return TabsCoordinator(navigationController: navigationController, dataStore: dataStore, theme: theme)
     }()
     
     private lazy var tabsBarButtonItem: UIBarButtonItem = {
@@ -236,6 +236,10 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     @objc func updateProfileButton() {
         let config = self.profileButtonConfig(target: self, action: #selector(userDidTapProfile), dataStore: dataStore, yirDataController: yirDataController, leadingBarButtonItem: nil, trailingBarButtonItem: nil)
         updateNavigationBarProfileButton(needsBadge: config.needsBadge, needsBadgeLabel: CommonStrings.profileButtonBadgeTitle, noBadgeLabel: CommonStrings.profileButtonTitle)
+    }
+    
+    func focusSearchBar() {
+        navigationItem.searchController?.searchBar.becomeFirstResponder()
     }
     
     @objc func scrollToTop() {

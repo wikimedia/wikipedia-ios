@@ -177,13 +177,15 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
         guard let navigationController else {
             return nil
         }
-        return TabsCoordinator(navigationController: navigationController, dataStore: dataStore)
+        return TabsCoordinator(navigationController: navigationController, dataStore: dataStore, theme: theme)
     }()
 
     private lazy var tabsBarButtonItem: UIBarButtonItem = {
         let button = UIBarButtonItem(image: WMFSFSymbolIcon.for(symbol: .tabs), style: .plain, target: self, action: #selector(tappedTabs))
         return button
     }()
+    
+    var removeFromTabUponDisappearance = true
     
     internal var articleViewSource: ArticleSource
 
@@ -529,11 +531,7 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
               let project = project?.wmfProject else {
             return
         }
-        
-        guard title != "Main Page" else {
-            return
-        }
-        
+
         let dataController = TabsDataController.shared
         let tabArticle: WMFData.Tab.Article = WMFData.Tab.Article(title: title, project: project)
         dataController.addArticleToCurrentTab(article: tabArticle)
@@ -617,7 +615,7 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
         stopSignificantlyViewedTimer()
         surveyTimerController?.viewWillDisappear(withState: state)
         
-        if isMovingFromParent {
+        if isMovingFromParent && removeFromTabUponDisappearance {
             let tabsDataController = TabsDataController.shared
             tabsDataController.removeLastArticleFromCurrentTab()
         }

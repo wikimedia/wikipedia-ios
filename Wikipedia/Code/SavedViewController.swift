@@ -96,7 +96,7 @@ class SavedViewController: ThemeableViewController, WMFNavigationBarConfiguring,
         guard let navigationController, let dataStore else {
             return nil
         }
-        return TabsCoordinator(navigationController: navigationController, dataStore: dataStore)
+        return TabsCoordinator(navigationController: navigationController, dataStore: dataStore, theme: theme)
     }()
     
     private lazy var tabsBarButtonItem: UIBarButtonItem = {
