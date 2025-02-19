@@ -180,6 +180,8 @@
 "article-languages-label" = "Choose language";
 "article-languages-others" = "Other languages";
 "article-languages-yours" = "Your languages";
+"article-preview-menu-open" = "Open";
+"article-preview-menu-open-new-tab" = "Open in new tab";
 "article-read-more-title" = "Read more";
 "article-reference-view-title" = "Reference $1";
 "article-revision-history" = "Article revision history";
@@ -194,7 +196,6 @@
 "button-ok" = "OK";
 "button-publish" = "Publish";
 "button-publish-anyway" = "Publish anyway";
-"button-read-now" = "Read now";
 "button-report-a-bug" = "Report a bug";
 "button-save-for-later" = "Save for later";
 "button-saved-for-later" = "Saved for later";

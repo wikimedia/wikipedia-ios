@@ -518,9 +518,9 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
     var isFirstAppearance = true
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        addToCurrentTabAfterArticleAppearance()
         logPageViewAfterArticleAppearance()
         presentModalsIfNeeded()
-        addArticleToCurrentTab()
     }
     
     private func addArticleToCurrentTab() {
@@ -688,6 +688,7 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
             
             self.shareIfNecessary()
             self.restoreScrollStateIfNecessary()
+            self.addToCurrentTabAfterArticleLoad()
             self.logPageViewAfterArticleLoad()
             self.articleLoadWaitGroup = nil
         }
@@ -722,6 +723,21 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
         }
         
         ArticleLinkInteractionFunnel.shared.logArticleView(pageID: pageID.intValue, project: project, source: articleViewSource)
+    }
+    
+    private func addToCurrentTabAfterArticleLoad() {
+        
+        if !isBeingPresentedAsPeek {
+            addArticleToCurrentTab()
+        }
+    }
+    
+    private func addToCurrentTabAfterArticleAppearance() {
+        guard finishedLoadingArticleDuringPeek else {
+            return
+        }
+        
+        addArticleToCurrentTab()
     }
 
     private func setupForAltTextExperiment() {
@@ -1331,37 +1347,14 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
             showGenericError()
             return
         }
+        
         // Check if this is the same article by comparing in-memory keys
         guard resolvedURL.wmf_inMemoryKey == articleURL.wmf_inMemoryKey else {
-            
-            // Present in new tab or not
-            let action1 = UIAlertAction(title: "Read now", style: .default) { action in
-                let userInfo: [AnyHashable : Any] = [RoutingUserInfoKeys.source: RoutingUserInfoSourceValue.article.rawValue]
-                self.navigate(to: resolvedURL, userInfo: userInfo)
-            }
-            let action2 = UIAlertAction(title: "Open new tab", style: .default) { action in
-                guard let title = resolvedURL.wmf_title,
-                      let project = self.project?.wmfProject else {
-                    return
-                }
-                let article = WMFData.Tab.Article(title: title, project: project)
-                let newTab = WMFData.Tab(articles: [article])
-                TabsDataController.shared.addTab(tab: newTab)
-                // Don't route!
-//                let userInfo: [AnyHashable : Any] = [RoutingUserInfoKeys.source: RoutingUserInfoSourceValue.article.rawValue]
-//                self.navigate(to: resolvedURL, userInfo: userInfo)
-            }
-            let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-            let alert = UIAlertController(title: "Link Preview", message: nil, preferredStyle: .alert)
-            alert.addAction(action1)
-            alert.addAction(action2)
-            alert.addAction(cancel)
-            
-            present(alert, animated: true)
-            
-            
+            let userInfo: [AnyHashable : Any] = [RoutingUserInfoKeys.source: RoutingUserInfoSourceValue.article.rawValue]
+            navigate(to: resolvedURL, userInfo: userInfo)
             return
         }
+        
         // Check for a fragment - if this is the same article and there's no fragment just do nothing?
         guard let anchor = resolvedURL.fragment?.removingPercentEncoding else {
             return

@@ -180,6 +180,8 @@
 "article-languages-label" = "Header label for per-article language selector screen. {{Identical|Choose language}}";
 "article-languages-others" = "Title for list of languages not in user's preferred languages";
 "article-languages-yours" = "Title for list of user's preferred languages";
+"article-preview-menu-open" = "Button text displayed in a menu after long pressing an article link.";
+"article-preview-menu-open-new-tab" = "Button text displayed in a menu after long pressing an article link.";
 "article-read-more-title" = "The text that is displayed before the read more section at the bottom of an article {{Identical|Read more}}";
 "article-reference-view-title" = "Title for the reference view. $1 is replaced by the reference link name, for example [1].";
 "article-revision-history" = "Title for menu option that leads to article revision history.";
@@ -194,7 +196,6 @@
 "button-ok" = "Button text for ok button used in various places {{Identical|OK}}";
 "button-publish" = "Button text for publish button used in various places. Please prioritize for de, ar and zh wikis. {{Identical|Publish}}";
 "button-publish-anyway" = "Button text for publish button used when first warned against publishing.";
-"button-read-now" = "Read now button text used in various places.";
 "button-report-a-bug" = "Button text for reporting a bug";
 "button-save-for-later" = "Longer button text for save button used in various places.";
 "button-saved-for-later" = "Longer button text for already saved button used in various places.";

@@ -1,4 +1,5 @@
 import WMFComponents
+import WMFData
 
 // MARK: - Context Menu for ArticleVC (iOS 13 and later)
 // All functions in this extension are for Context Menus (used in iOS 13 and later)
@@ -30,13 +31,28 @@ extension ArticleViewController: ArticleContextMenuPresenting, WKUIDelegate {
     }
 
     var contextMenuItems: [UIAction] {
-        // Read action
-        let readActionTitle = WMFLocalizedString("button-read-now", value: "Read now", comment: "Read now button text used in various places.")
-        let readAction = UIAction(title: readActionTitle, image: WMFSFSymbolIcon.for(symbol: .book), handler: { (action) in
+        // Open action
+        let openActionTitle = WMFLocalizedString("article-preview-menu-open", value: "Open", comment: "Button text displayed in a menu after long pressing an article link.")
+        let openAction = UIAction(title: openActionTitle, image: WMFSFSymbolIcon.for(symbol: .book), handler: { (action) in
             self.articlePreviewingDelegate?.readMoreArticlePreviewActionSelected(with: self)
         })
+        
+        // Open in new tab action
+        let openInNewTabActionTitle = WMFLocalizedString("article-preview-menu-open-new-tab", value: "Open in new tab", comment: "Button text displayed in a menu after long pressing an article link.")
+        let openInNewTabAction = UIAction(title: openInNewTabActionTitle, image: WMFSFSymbolIcon.for(symbol: .tabs), handler: { [weak self] (action) in
+            
+                guard let self,
+                let title = articleURL.wmf_title,
+                let project = project?.wmfProject else {
+                    return
+                }
+            
+               let article = WMFData.Tab.Article(title: title, project: project)
+               let newTab = WMFData.Tab(articles: [article])
+               TabsDataController.shared.addTab(tab: newTab)
+        })
 
-        var actions = [readAction]
+        var actions = [openAction, openInNewTabAction]
 
         // Save action
         let logReadingListsSaveIfNeeded = { [weak self] in
