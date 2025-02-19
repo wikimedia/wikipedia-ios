@@ -323,7 +323,7 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
     switch ([NSUserDefaults standardUserDefaults].defaultTabType) {
         case WMFAppDefaultTabTypeSettings:
             mainViewController = self.settingsViewController;
-            
+
             break;
         default:
             mainViewController = self.exploreViewController;
@@ -974,9 +974,8 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
     [resumeAndAnnouncementsCompleteGroup enter];
     [self.dataStore.authenticationManager
         attemptLoginWithCompletion:^{
-        
             [self populateYearInReviewReportFor:WMFYearInReviewDataController.targetYear];
-        
+
             [self checkRemoteAppConfigIfNecessary];
             if (!self.reachabilityNotifier) {
                 @weakify(self);
@@ -1038,7 +1037,7 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
     [defaults wmf_setLocationAuthorized:locationAuthorized];
 
     [self.savedArticlesFetcher start];
-    
+
     [self assignAndLogArticleSearchBarExperiment];
 }
 
@@ -1224,7 +1223,7 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
             if (group) {
                 switch (group.detailType) {
                     case WMFFeedDisplayTypePhoto: {
-                        UIViewController *vc = [group detailViewControllerForPreviewItemAtIndex:0 dataStore:self.dataStore theme:self.theme source: ArticleSourceUndefined];
+                        UIViewController *vc = [group detailViewControllerForPreviewItemAtIndex:0 dataStore:self.dataStore theme:self.theme source:ArticleSourceUndefined];
                         [self.currentTabNavigationController presentViewController:vc animated:false completion:nil];
                     }
                     default: {
@@ -1341,7 +1340,7 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
     return [self showArticleWithURL:articleURL
                              source:source
                            animated:animated
-                       needsNewTab:needsNewTab
+                        needsNewTab:needsNewTab
                          completion:^{
                          }];
 }
@@ -1363,7 +1362,7 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
     }
 
     UINavigationController *nc = [self currentNavigationController];
-    
+
     if (!nc) {
         completion();
         return nil;
@@ -1372,23 +1371,23 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
     if (nc.presentedViewController) {
         [nc dismissViewControllerAnimated:NO completion:NULL];
     }
-    
+
     WMFArticleViewController *articleVC = [[WMFArticleViewController alloc] initWithArticleURL:articleURL dataStore:self.dataStore theme:self.theme source:source schemeHandler:nil];
 
     articleVC.loadCompletion = completion;
-    
+
     if (needsNewTab) {
         [self resetCurrentTab];
     }
-    
+
     if ([self needsNewArticleTab]) {
         // We want to remove all other items in the stack except the first one.
-        
+
         if (nc.viewControllers.count < 1) {
             completion();
             return nil;
         }
-        
+
         // User is unintentionally clearing their nav stack, so do not remove articles from tab stack
         for (UIViewController *viewController in nc.viewControllers) {
             if ([viewController isKindOfClass:[WMFArticleViewController class]]) {
@@ -1396,7 +1395,7 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
                 articleVC.removeFromTabUponDisappearance = NO;
             }
         }
-        
+
         UIViewController *rootVC = nc.viewControllers[0];
 
         [nc setViewControllers:@[rootVC, articleVC] animated:YES];
@@ -1743,6 +1742,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
         // Must return NO if already visible to prevent unintended effect when tapping the Search tab bar button multiple times.
         return NO;
     }
+    [self resetCurrentTab];
     return YES;
 }
 
@@ -1892,7 +1892,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
         [[WMFAlertManager sharedInstance] applyTheme:theme];
 
         [self applyTheme:theme toNavigationControllers:[self allNavigationControllers]];
-        
+
         [self.tabBar applyTheme:theme];
 
         [[UISwitch appearance] setOnTintColor:theme.colors.accent];
@@ -2072,7 +2072,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
         [searchVC applyTheme:self.theme];
         searchVC.dataStore = self.dataStore;
     }
-    
+
     searchVC.needsCenteredTitle = YES;
 
     [nc pushViewController:searchVC
