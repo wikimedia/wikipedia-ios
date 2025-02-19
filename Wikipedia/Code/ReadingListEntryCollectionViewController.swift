@@ -458,7 +458,7 @@ extension ReadingListEntryCollectionViewController: CollectionViewContextMenuSho
     func previewingViewController(for indexPath: IndexPath, at location: CGPoint) -> UIViewController? {
         guard !editController.isActive, // don't allow previewing when swipe actions are active
               let articleURL = articleURL(at: indexPath),
-              let articleViewController = ArticleViewController(articleURL: articleURL, dataStore: dataStore, theme: theme) else {
+              let articleViewController = ArticleViewController(articleURL: articleURL, dataStore: dataStore, theme: theme, source: .undefined) else {
             return nil
         }
 

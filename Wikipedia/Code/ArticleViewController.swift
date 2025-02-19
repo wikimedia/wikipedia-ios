@@ -170,21 +170,26 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
     
     private var tocStackViewTopConstraint: NSLayoutConstraint?
     private var searchBarIsAnimating = false
+    
+    private var finishedLoadingArticleDuringPeek = false
 
     private lazy var tabsBarButtonItem: UIBarButtonItem = {
         let button = UIBarButtonItem(image: WMFSFSymbolIcon.for(symbol: .tabs), style: .plain, target: self, action: #selector(tappedTabs))
         return button
     }()
+    
+    internal var articleViewSource: ArticleSource
 
-    convenience init?(articleURL: URL, dataStore: MWKDataStore, theme: Theme, schemeHandler: SchemeHandler? = nil, altTextExperimentViewModel: WMFAltTextExperimentViewModel, needsAltTextExperimentSheet: Bool, altTextBottomSheetViewModel: WMFAltTextExperimentModalSheetViewModel?, altTextDelegate: AltTextDelegate?) {
-        self.init(articleURL: articleURL, dataStore: dataStore, theme: theme)
+    convenience init?(articleURL: URL, dataStore: MWKDataStore, theme: Theme, source: ArticleSource, schemeHandler: SchemeHandler? = nil, altTextExperimentViewModel: WMFAltTextExperimentViewModel, needsAltTextExperimentSheet: Bool, altTextBottomSheetViewModel: WMFAltTextExperimentModalSheetViewModel?, altTextDelegate: AltTextDelegate?) {
+        self.init(articleURL: articleURL, dataStore: dataStore, theme: theme, source: source)
+
         self.altTextExperimentViewModel = altTextExperimentViewModel
         self.altTextBottomSheetViewModel = altTextBottomSheetViewModel
         self.needsAltTextExperimentSheet = needsAltTextExperimentSheet
         self.altTextDelegate = altTextDelegate
     }
     
-    @objc init?(articleURL: URL, dataStore: MWKDataStore, theme: Theme, schemeHandler: SchemeHandler? = nil) {
+    @objc init?(articleURL: URL, dataStore: MWKDataStore, theme: Theme, source: ArticleSource, schemeHandler: SchemeHandler? = nil) {
 
         guard let article = dataStore.fetchOrCreateArticle(with: articleURL) else {
                 return nil
@@ -198,6 +203,7 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
         self.dataStore = dataStore
         self.schemeHandler = schemeHandler ?? SchemeHandler(scheme: "app", session: dataStore.session)
         self.cacheController = cacheController
+        self.articleViewSource = source
 
         super.init(nibName: nil, bundle: nil)
         self.theme = theme
@@ -358,13 +364,13 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
         view.isUserInteractionEnabled = true
         return view
     }()
-    
+
     lazy var searchBarButtonItem: UIBarButtonItem = {
         let button = UIBarButtonItem(image: UIImage(named: "search"), style: .plain, target: self, action: #selector(userDidTapSearchButton))
         button.accessibilityLabel = CommonStrings.searchButtonAccessibilityLabel
         return button
     }()
-    
+
     override func updateViewConstraints() {
         super.updateViewConstraints()
         updateLeadImageMargins()
@@ -485,8 +491,7 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
             
             self.showSurveyAnnouncementPanel(surveyAnnouncementResult: result, linkState: self.articleAsLivingDocController.surveyLinkState)
         }
-        
-        
+
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -506,6 +511,7 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
     var isFirstAppearance = true
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        logPageViewAfterArticleAppearance()
         presentModalsIfNeeded()
         addArticleToCurrentTab()
     }
@@ -675,16 +681,40 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
             
             self.shareIfNecessary()
             self.restoreScrollStateIfNecessary()
-            
-            if let pageID = article.pageID,
-            let siteURL = self.articleURL.wmf_site,
-                  let project = WikimediaProject(siteURL: siteURL) {
-                ArticleLinkInteractionFunnel.shared.logArticleView(pageID: pageID.intValue, project: project)
-            }
-            
-            
+            self.logPageViewAfterArticleLoad()
             self.articleLoadWaitGroup = nil
         }
+    }
+    
+    private func logPageViewAfterArticleLoad() {
+        if let pageID = article.pageID,
+        let siteURL = self.articleURL.wmf_site,
+              let project = WikimediaProject(siteURL: siteURL) {
+            
+            if !isBeingPresentedAsPeek {
+                ArticleLinkInteractionFunnel.shared.logArticleView(pageID: pageID.intValue, project: project, source: articleViewSource)
+            } else {
+                // Set flag, will log later in viewDidAppear()
+                finishedLoadingArticleDuringPeek = true
+            }
+        }
+    }
+    
+    private func logPageViewAfterArticleAppearance() {
+        
+        defer {
+            finishedLoadingArticleDuringPeek = false
+        }
+        
+        guard finishedLoadingArticleDuringPeek,
+        let pageID = article.pageID,
+        let siteURL = self.articleURL.wmf_site,
+        let project = WikimediaProject(siteURL: siteURL)
+        else {
+            return
+        }
+        
+        ArticleLinkInteractionFunnel.shared.logArticleView(pageID: pageID.intValue, project: project, source: articleViewSource)
     }
 
     private func setupForAltTextExperiment() {

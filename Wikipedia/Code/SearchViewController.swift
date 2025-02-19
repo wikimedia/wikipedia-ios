@@ -88,9 +88,11 @@ class SearchViewController: ArticleCollectionViewController, WMFNavigationBarCon
         let button = UIBarButtonItem(image: WMFSFSymbolIcon.for(symbol: .tabs), style: .plain, target: self, action: #selector(tappedTabs))
         return button
     }()
-    
+
+    private var presentingSearchResults: Bool = false
+
     // MARK: - Funcs
-    
+
     @objc required init(source: EventLoggingSource) {
         self.source = source
         super.init(nibName: nil, bundle: nil)
@@ -99,7 +101,7 @@ class SearchViewController: ArticleCollectionViewController, WMFNavigationBarCon
     @MainActor required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         embedResultsViewController()
@@ -201,7 +203,7 @@ class SearchViewController: ArticleCollectionViewController, WMFNavigationBarCon
         
         let searchBarConfig = WMFNavigationBarSearchConfig(searchResultsController: nil, searchControllerDelegate: self, searchResultsUpdater: self, searchBarDelegate: self, searchBarPlaceholder: WMFLocalizedString("search-field-placeholder-text", value: "Search Wikipedia", comment: "Search field placeholder text"), showsScopeBar: false, scopeButtonTitles: nil)
         
-        configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: nil, profileButtonConfig: profileButtonConfig, searchBarConfig: searchBarConfig, hideNavigationBarOnScroll: true)
+        configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: nil, profileButtonConfig: profileButtonConfig, searchBarConfig: searchBarConfig, hideNavigationBarOnScroll: !presentingSearchResults)
     }
     
     private func updateProfileButton() {
@@ -443,7 +445,7 @@ class SearchViewController: ArticleCollectionViewController, WMFNavigationBarCon
             if let navigateToSearchResultAction {
                 navigateToSearchResultAction(articleURL)
             } else {
-                let userInfo: [AnyHashable : Any] = [RoutingUserInfoKeys.source: RoutingUserInfoSourceValue.search.rawValue]
+                let userInfo: [AnyHashable : Any] = [RoutingUserInfoKeys.source: RoutingUserInfoSourceValue.search.rawValue, ArticleSourceUserInfoKeys.articleSource : ArticleSource.search.rawValue]
                 navigate(to: articleURL, userInfo: userInfo)
             }
         }
@@ -677,6 +679,7 @@ extension SearchViewController: UISearchControllerDelegate {
     func willPresentSearchController(_ searchController: UISearchController) {
         needsAnimateLanguageBarMovement = true
         navigationController?.hidesBarsOnSwipe = false
+        presentingSearchResults = true
     }
     
     func willDismissSearchController(_ searchController: UISearchController) {
@@ -686,6 +689,7 @@ extension SearchViewController: UISearchControllerDelegate {
     func didDismissSearchController(_ searchController: UISearchController) {
         needsAnimateLanguageBarMovement = false
         navigationController?.hidesBarsOnSwipe = true
+        presentingSearchResults = false
     }
 }
 

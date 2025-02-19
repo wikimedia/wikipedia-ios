@@ -635,7 +635,7 @@
 	<key>year-in-review-personalized-reading-subtitle-format</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>ਇਸ ਸਾਲ, ਤੁਸੀਂ %#@v1@। ਵਿਕੀਪੀਡੀਆ ਵਿੱਚ %3$@ ਤੋਂ ਵੱਧ ਸਰਗਰਮ ਭਾਸ਼ਾਵਾਂ ਵਿੱਚ %2$@ ਲੱਖ ਲੇਖ ਉਪਲਬਧ ਸਨ। ਤੁਸੀਂ ਗਿਆਨ ਨੂੰ ਵਧਾਉਣ ਅਤੇ ਵੱਖ-ਵੱਖ ਵਿਸ਼ਿਆਂ ਦੀ ਪੜਚੋਲ ਕਰਨ ਵਿੱਚ ਲੱਖਾਂ ਲੋਕਾਂ ਵਿੱਚ ਸ਼ਾਮਲ ਹੋਏ।</string>
+		<string>ਤੁਸੀਂ %#@v1@। ਵਿਕੀਪੀਡੀਆ ਵਿੱਚ %3$@ ਤੋਂ ਵੱਧ ਸਰਗਰਮ ਭਾਸ਼ਾਵਾਂ ਵਿੱਚ %2$@ ਲੱਖ ਲੇਖ ਉਪਲਬਧ ਸਨ। ਤੁਸੀਂ ਗਿਆਨ ਨੂੰ ਵਧਾਉਣ ਅਤੇ ਵੱਖ-ਵੱਖ ਵਿਸ਼ਿਆਂ ਦੀ ਪੜਚੋਲ ਕਰਨ ਵਿੱਚ ਲੱਖਾਂ ਲੋਕਾਂ ਵਿੱਚ ਸ਼ਾਮਲ ਹੋਏ।</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -651,7 +651,7 @@
 	<key>year-in-review-personalized-reading-title-format</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>ਤੁਸੀਂ ਇਸ ਸਾਲ %#@v1@</string>
+		<string>ਤੁਸੀਂ %#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -659,9 +659,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string> %1$d ਲੇਖ ਪੜ੍ਹਿਆ</string>
+			<string> %1$d ਲੇਖ ਪੜ੍ਹਿਆ ਏ</string>
 			<key>other</key>
-			<string> %1$d ਲੇਖ ਪੜ੍ਹੇ</string>
+			<string> %1$d ਲੇਖ ਪੜ੍ਹੇ ਹਨ</string>
 		</dict>
 	</dict>
 	<key>year-in-review-personalized-saved-title-format</key>
