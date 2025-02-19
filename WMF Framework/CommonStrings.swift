@@ -290,6 +290,8 @@ public class CommonStrings: NSObject {
         WMFLocalizedString("talk-page-title-article-talk", languageCode: languageCode, value: "Article Talk", comment: "This title label is displayed at the top of a talk page topic list, if the talk page type is an article talk page. Please prioritize for de, ar and zh wikis.")
     }
 
+    public static let clearTitle = WMFLocalizedString("search-clear-title", value: "Clear", comment: "Text of the button shown to clear recent search terms")
+
     public static let accessibilityClearTitle = WMFLocalizedString("clear-title-accessibility-label", value: "Clear", comment: "Accessibility label title for action that clears text")
 
     public static let successfullyPublishedDiscussion = WMFLocalizedString("talk-page-new-topic-success-text", value: "Your discussion was successfully published", comment: "Banner text that appears after a new discussion was successfully published on a talk page.")

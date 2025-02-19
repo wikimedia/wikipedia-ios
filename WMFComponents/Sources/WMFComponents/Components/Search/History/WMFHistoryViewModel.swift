@@ -15,7 +15,11 @@ public final class WMFHistoryViewModel: ObservableObject {
     @Published public var topPadding: CGFloat = 0
 
     private let historyDataController: WMFHistoryDataController
-    let localizedStrings: LocalizedStrings
+    internal let localizedStrings: LocalizedStrings
+
+    public var isEmpty: Bool {
+        return sections.allSatisfy { $0.items.isEmpty }
+    }
 
     public init(localizedStrings: WMFHistoryViewModel.LocalizedStrings, historyDataController: WMFHistoryDataController, topPadding: CGFloat = 0) {
         self.localizedStrings = localizedStrings
@@ -29,9 +33,9 @@ public final class WMFHistoryViewModel: ObservableObject {
         let viewModelSections = dataSections.map { dataSection -> HistorySection in
             let items = dataSection.items.map { dataItem in
                 HistoryItem(id: dataItem.id,
-                     titleHtml: dataItem.titleHtml,
-                     description: dataItem.description,
-                     imageURL: dataItem.imageURL)
+                            titleHtml: dataItem.titleHtml,
+                            description: dataItem.description,
+                            imageURL: dataItem.imageURL)
             }
             return HistorySection(dateWithoutTime: dataSection.dateWithoutTime, items: items)
         }

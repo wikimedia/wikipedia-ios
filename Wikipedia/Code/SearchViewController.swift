@@ -224,8 +224,12 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
         }
         
         let profileButtonConfig: WMFNavigationBarProfileButtonConfig?
-        let deleteButton = UIBarButtonItem(title: "Clear", style: .plain, target: self, action: #selector(deleteButtonPressed(_:)))
-//        deleteButton.isEnabled = !isEmpty
+        let deleteButton = UIBarButtonItem(title: CommonStrings.clearTitle, style: .plain, target: self, action: #selector(deleteButtonPressed(_:)))
+        if let historyViewModel {
+            deleteButton.isEnabled = !historyViewModel.isEmpty
+        } else {
+            deleteButton.isEnabled = false // TODO - clean this logic
+        }
 
         if let dataStore {
             profileButtonConfig = self.profileButtonConfig(target: self, action: #selector(userDidTapProfile), dataStore: dataStore, yirDataController: yirDataController, leadingBarButtonItem: deleteButton, trailingBarButtonItem: nil)
@@ -582,7 +586,7 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
             deleteRecordAction: deleteRecordAction
         )
 
-        let localizedStrings = WMFHistoryViewModel.LocalizedStrings(title: "History")
+        let localizedStrings = WMFHistoryViewModel.LocalizedStrings(title: CommonStrings.historyTabTitle)
         let viewModel = WMFHistoryViewModel(localizedStrings: localizedStrings, historyDataController: dataController)
         self.historyViewModel = viewModel
 

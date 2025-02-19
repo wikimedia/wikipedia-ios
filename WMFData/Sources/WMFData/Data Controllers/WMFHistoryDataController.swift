@@ -24,7 +24,7 @@ public final class WMFHistoryDataController {
     /// Closure that returns an array of history records
     public typealias RecordsProvider = () -> [HistoryRecord]
 
-    /// Closure that deletes a single history record 
+    /// Closure that deletes a single history record
     public typealias DeleteRecordAction = (HistorySection, HistoryItem) -> Void
 
 

@@ -23,7 +23,6 @@ public struct WMFEmptyView: View {
 
     public var body: some View {
         GeometryReader { geometry in
-
             ZStack {
                 Color(appEnvironment.theme.paperBackground)
                     .ignoresSafeArea()
