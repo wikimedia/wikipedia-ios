@@ -31,12 +31,22 @@ public final class WMFHistoryViewModel: ObservableObject {
         }
     }
 
+    public struct LocalizedStrings {
+        let title: String
+
+        public init(title: String) {
+            self.title = title
+        }
+    }
+
     @Published var sections: [Section] = []
     @Published public var topPadding: CGFloat = 0
 
     private let historyDataController: WMFHistoryDataController
+    let localizedStrings: LocalizedStrings
 
-    public init(historyDataController: WMFHistoryDataController, topPadding: CGFloat = 0) {
+    public init(localizedStrings: WMFHistoryViewModel.LocalizedStrings, historyDataController: WMFHistoryDataController, topPadding: CGFloat = 0) {
+        self.localizedStrings = localizedStrings
         self.historyDataController = historyDataController
         self.topPadding = topPadding
         loadHistory()

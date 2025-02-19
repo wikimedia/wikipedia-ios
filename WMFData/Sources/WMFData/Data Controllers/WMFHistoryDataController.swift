@@ -2,15 +2,15 @@ import Foundation
 
 /// A WMFArticle representation
 public struct HistoryRecord {
-    public let id: String
-    public let titleHtml: String
+    public let id: Int
+    public let title: String
     public let description: String?
-    public let imageURL: URL?
+    public let imageURL: String?
     public let viewedDate: Date
 
-    public init(id: String, titleHtml: String, description: String? = nil, imageURL: URL? = nil, viewedDate: Date) {
+    public init(id: Int, title: String, description: String? = nil, imageURL: String? = nil, viewedDate: Date) {
         self.id = id
-        self.titleHtml = titleHtml
+        self.title = title
         self.description = description
         self.imageURL = imageURL
         self.viewedDate = viewedDate
@@ -87,10 +87,10 @@ public final class WMFHistoryDataController {
 
         let sections: [HistorySection] = groupedRecords.map { (day, records) in
             let items = records.map { record in
-                HistoryItem(id: record.id,
-                            titleHtml: record.titleHtml,
+                HistoryItem(id: String(record.id),
+                            titleHtml: record.title,
                             description: record.description,
-                            imageURL: record.imageURL)
+                            imageURL: getURL(record.imageURL))
             }
             return HistorySection(dateWithoutTime: day, items: items)
         }
@@ -98,6 +98,10 @@ public final class WMFHistoryDataController {
         return sections.sorted(by: { $0.dateWithoutTime > $1.dateWithoutTime })
     }
 
+    func getURL(_ string: String?) -> URL? {
+        guard let string else { return nil } 
+        return URL(string: string)
+    }
     /// Deletes a single history record by its identifier.
     /// - Parameter id: The identifier of the record to be deleted
     public func deleteHistoryItem(withID id: String) {

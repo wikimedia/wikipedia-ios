@@ -486,39 +486,65 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
     
     lazy var historyViewController: UIViewController = {
 
-            let recordsProvider: WMFHistoryDataController.RecordsProvider = {
-                // Mock data
-                (1...100).map { i in
-                    return HistoryRecord(
-                        id: "\(i)",
-                        titleHtml: "Cat",
-                        description: nil,
-                        imageURL: nil,
-                        viewedDate: Date() // Grouping?
-                    )
+        let recordsProvider: WMFHistoryDataController.RecordsProvider = { [weak self] in
+
+            guard let self, let dataStore else {
+                return []
+            }
+            
+            let request: NSFetchRequest<WMFArticle> = WMFArticle.fetchRequest()
+            request.predicate = NSPredicate(format: "viewedDate != NULL")
+            request.sortDescriptors = [
+                NSSortDescriptor(keyPath: \WMFArticle.viewedDateWithoutTime, ascending: false),
+                NSSortDescriptor(keyPath: \WMFArticle.viewedDate, ascending: false)
+            ]
+
+            do {
+                var articles: [HistoryRecord] = []
+                let articleFetchRequest = try dataStore.viewContext.fetch(request)
+
+                for article in articleFetchRequest {
+                    if let viewedDate = article.viewedDate, let pageID = article.pageID {
+                        let record =  HistoryRecord(
+                            id: Int(truncating: pageID),
+                            title: article.displayTitle ?? article.displayTitleHTML,
+                            description: article.description,
+                            imageURL: article.imageURLString,
+                            viewedDate: viewedDate
+                        )
+                        articles.append(record)
+                    }
                 }
+
+                return articles
+
+            } catch {
+                DDLogError("Error fetching history: \(error)")
+                return []
             }
+        }
 
-            let deleteRecordAction: WMFHistoryDataController.DeleteRecordAction = { recordID in
-                print("Delete record with id: \(recordID)")
-            }
+        let deleteRecordAction: WMFHistoryDataController.DeleteRecordAction = { recordID in
+            print("Delete record with id: \(recordID)")
+        }
 
-            let deleteAllRecordsAction: WMFHistoryDataController.DeleteAllRecordsAction = {
-                print("Delete all records")
-            }
+        let deleteAllRecordsAction: WMFHistoryDataController.DeleteAllRecordsAction = {
+            print("Delete all records")
+        }
 
-            let dataController = WMFHistoryDataController(
-                recordsProvider: recordsProvider,
-                deleteRecordAction: deleteRecordAction,
-                deleteAllRecordsAction: deleteAllRecordsAction
-            )
+        let dataController = WMFHistoryDataController(
+            recordsProvider: recordsProvider,
+            deleteRecordAction: deleteRecordAction,
+            deleteAllRecordsAction: deleteAllRecordsAction
+        )
 
-            let viewModel = WMFHistoryViewModel(historyDataController: dataController)
-            self.historyViewModel = viewModel
+        let localizedStrings = WMFHistoryViewModel.LocalizedStrings(title: "History")
+        let viewModel = WMFHistoryViewModel(localizedStrings: localizedStrings, historyDataController: dataController)
+        self.historyViewModel = viewModel
 
-            let historyView = WMFHistoryView(viewModel: viewModel)
-            return UIHostingController(rootView: historyView)
-        }()
+        let historyView = WMFHistoryView(viewModel: viewModel)
+        return UIHostingController(rootView: historyView)
+    }()
 
     // MARK: - Recent Search Saving
     
