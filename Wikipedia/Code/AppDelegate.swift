@@ -101,6 +101,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     private func shouldRestoreNavigationStackOnResumeAfterBecomingActive() -> Bool {
+        return false
         let shouldOpenAppOnSearchTab = UserDefaults.standard.wmf_openAppOnSearchTab
         return !shouldOpenAppOnSearchTab
     }
