@@ -3,34 +3,6 @@ import WMFData
 
 public final class WMFHistoryViewModel: ObservableObject {
 
-    public final class Section: Identifiable {
-        let dateWithoutTime: Date
-        @Published var items: [Item]
-
-        public init(dateWithoutTime: Date, items: [WMFHistoryViewModel.Item]) {
-            self.dateWithoutTime = dateWithoutTime
-            self.items = items
-        }
-    }
-
-    public final class Item: Identifiable, Equatable {
-        public let id: String
-        let titleHtml: String
-        let description: String?
-        let imageURL: URL?
-
-        public init(id: String, titleHtml: String, description: String? = nil, imageURL: URL? = nil) {
-            self.id = id
-            self.titleHtml = titleHtml
-            self.description = description
-            self.imageURL = imageURL
-        }
-
-        public static func == (lhs: WMFHistoryViewModel.Item, rhs: WMFHistoryViewModel.Item) -> Bool {
-            return lhs.id == rhs.id
-        }
-    }
-
     public struct LocalizedStrings {
         let title: String
 
@@ -39,7 +11,7 @@ public final class WMFHistoryViewModel: ObservableObject {
         }
     }
 
-    @Published var sections: [Section] = []
+    @Published var sections: [HistorySection] = []
     @Published public var topPadding: CGFloat = 0
 
     private let historyDataController: WMFHistoryDataController
@@ -54,14 +26,14 @@ public final class WMFHistoryViewModel: ObservableObject {
 
     public func loadHistory() {
         let dataSections = historyDataController.fetchHistorySections()
-        let viewModelSections = dataSections.map { dataSection -> Section in
+        let viewModelSections = dataSections.map { dataSection -> HistorySection in
             let items = dataSection.items.map { dataItem in
-                Item(id: dataItem.id,
+                HistoryItem(id: dataItem.id,
                      titleHtml: dataItem.titleHtml,
                      description: dataItem.description,
                      imageURL: dataItem.imageURL)
             }
-            return Section(dateWithoutTime: dataSection.dateWithoutTime, items: items)
+            return HistorySection(dateWithoutTime: dataSection.dateWithoutTime, items: items)
         }
 
         DispatchQueue.main.async {
@@ -70,24 +42,22 @@ public final class WMFHistoryViewModel: ObservableObject {
     }
 
     func deleteAll() {
-
-        historyDataController.deleteAllHistory()
         DispatchQueue.main.async {
             self.sections.removeAll()
         }
     }
 
-    public func delete(section: Section, item: Item) {
+    public func delete(section: HistorySection, item: HistoryItem) {
         guard let itemIndex = section.items.firstIndex(of: item) else {
             return
         }
-        historyDataController.deleteHistoryItem(withID: item.id)
-        section.items.remove(at: itemIndex)
 
+        section.items.remove(at: itemIndex)
         if section.items.isEmpty {
             DispatchQueue.main.async {
                 self.sections.removeAll(where: { $0.dateWithoutTime == section.dateWithoutTime })
             }
         }
+        historyDataController.deleteHistoryItem(with: section, item)
     }
 }

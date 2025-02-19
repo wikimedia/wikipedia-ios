@@ -224,8 +224,11 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
         }
         
         let profileButtonConfig: WMFNavigationBarProfileButtonConfig?
+        let deleteButton = UIBarButtonItem(title: "Clear", style: .plain, target: self, action: #selector(deleteButtonPressed(_:)))
+//        deleteButton.isEnabled = !isEmpty
+
         if let dataStore {
-            profileButtonConfig = self.profileButtonConfig(target: self, action: #selector(userDidTapProfile), dataStore: dataStore, yirDataController: yirDataController, leadingBarButtonItem: nil, trailingBarButtonItem: nil)
+            profileButtonConfig = self.profileButtonConfig(target: self, action: #selector(userDidTapProfile), dataStore: dataStore, yirDataController: yirDataController, leadingBarButtonItem: deleteButton, trailingBarButtonItem: nil)
         } else {
             profileButtonConfig = nil
         }
@@ -234,7 +237,41 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
         
         configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: nil, profileButtonConfig: profileButtonConfig, searchBarConfig: searchBarConfig, hideNavigationBarOnScroll: true)
     }
-    
+
+    @objc final func deleteButtonPressed(_ sender: UIBarButtonItem) {
+
+        let deleteAllConfirmationText = WMFLocalizedString("history-clear-confirmation-heading", value: "Are you sure you want to delete all your recent items?", comment: "Heading text of delete all confirmation dialog")
+        let deleteAllText = WMFLocalizedString("history-clear-delete-all", value: "Yes, delete all", comment: "Button text for confirming delete all action")
+
+        let alertController = UIAlertController(title: deleteAllConfirmationText, message: nil, preferredStyle: .actionSheet)
+        alertController.addAction(UIAlertAction(title: deleteAllText, style: .destructive, handler: { (action) in
+            self.deleteAll()
+        }))
+        alertController.addAction(UIAlertAction(title: CommonStrings.cancelActionTitle, style: .cancel, handler: nil))
+        alertController.popoverPresentationController?.barButtonItem = sender
+        alertController.popoverPresentationController?.permittedArrowDirections = .any
+        present(alertController, animated: true, completion: nil)
+    }
+
+    private func deleteAll() {
+        guard let dataStore else { return }
+        do {
+            try dataStore.viewContext.clearReadHistory()
+        } catch let error {
+            showError(error)
+        }
+
+        Task {
+            do {
+                let dataController = try WMFPageViewsDataController()
+                try await dataController.deleteAllPageViews()
+
+            } catch {
+                DDLogError("Failure deleting WMFData WMFPageViews: \(error)")
+            }
+        }
+    }
+
     private func updateProfileButton() {
         
         guard let dataStore else {
@@ -524,18 +561,25 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
             }
         }
 
-        let deleteRecordAction: WMFHistoryDataController.DeleteRecordAction = { recordID in
-            print("Delete record with id: \(recordID)")
-        }
+        let deleteRecordAction: WMFHistoryDataController.DeleteRecordAction = { [weak self] historySection, historyItem in
+            guard let self, let dataStore = self.dataStore else { return }
+            let request: NSFetchRequest<WMFArticle> = WMFArticle.fetchRequest()
+            request.predicate = NSPredicate(format: "pageID == %@", historyItem.id)
+            do {
+                if let article = try dataStore.viewContext.fetch(request).first {
+                    try article.removeFromReadHistory()
+                }
 
-        let deleteAllRecordsAction: WMFHistoryDataController.DeleteAllRecordsAction = {
-            print("Delete all records")
+            } catch {
+                showError(error)
+
+            }
+            // TODO: Delete from WMFPageviews
         }
 
         let dataController = WMFHistoryDataController(
             recordsProvider: recordsProvider,
-            deleteRecordAction: deleteRecordAction,
-            deleteAllRecordsAction: deleteAllRecordsAction
+            deleteRecordAction: deleteRecordAction
         )
 
         let localizedStrings = WMFHistoryViewModel.LocalizedStrings(title: "History")
