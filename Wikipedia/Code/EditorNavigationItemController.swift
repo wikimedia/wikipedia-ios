@@ -13,13 +13,20 @@ protocol EditorNavigationItemControllerDelegate: AnyObject {
 
 class EditorNavigationItemController: NSObject, Themeable {
     weak var navigationItem: UINavigationItem?
+    
+    let dataStore: MWKDataStore
+    
+    internal var authManager: WMFAuthenticationManager {
+       return dataStore.authenticationManager
+   }
 
     var readingThemesControlsToolbarItem: UIBarButtonItem {
         return readingThemesControlsButton
     }
 
-    init(navigationItem: UINavigationItem) {
+    init(navigationItem: UINavigationItem, dataStore: MWKDataStore) {
         self.navigationItem = navigationItem
+        self.dataStore = dataStore
         super.init()
         configureNavigationButtonItems()
     }
@@ -52,19 +59,22 @@ class EditorNavigationItemController: NSObject, Themeable {
     }()
 
     private lazy var editNoticesButton: UIBarButtonItem = {
-        let button = UIBarButtonItem(image: WMFSFSymbolIcon.for(symbol: .exclamationMarkCircleFill), style: .plain, target: self, action: #selector(editNotices(_ :)))
+        let image = WMFSFSymbolIcon.for(symbol: .exclamationMarkCircleFill)?
+            .withTintColor(.orange, renderingMode: .alwaysOriginal)
+
+        let button = UIBarButtonItem(image: image, style: .plain, target: self, action: #selector(editNotices(_:)))
         button.accessibilityLabel = CommonStrings.editNotices
         return button
     }()
     
     private lazy var temporaryAccountNoticesButton: UIBarButtonItem = {
-        let button = UIBarButtonItem(image: WMFSFSymbolIcon.for(symbol: .exclamationMarkCircleFill), style: .plain, target: self, action: #selector(editNotices(_ :)))
+        let button = UIBarButtonItem(image: WMFSFSymbolIcon.for(symbol: .exclamationMarkCircleFill), style: .plain, target: self, action: #selector(temporaryAccount(_ :)))
         button.accessibilityLabel = CommonStrings.editNotices
         return button
     }()
     
     private lazy var ipAccountNoticesButton: UIBarButtonItem = {
-        let button = UIBarButtonItem(image: WMFSFSymbolIcon.for(symbol: .exclamationMarkCircleFill), style: .plain, target: self, action: #selector(editNotices(_ :)))
+        let button = UIBarButtonItem(image: WMFSFSymbolIcon.for(symbol: .exclamationMarkCircleFill), style: .plain, target: self, action: #selector(ipAccount(_ :)))
         button.accessibilityLabel = CommonStrings.editNotices
         return button
     }()
@@ -117,12 +127,22 @@ class EditorNavigationItemController: NSObject, Themeable {
             editNoticesButton
         ])
     }
+    
+    func addTempAccountsNoticesButtons() {
+        if !authManager.authStateIsPermanent {
+            if authManager.authStateIsTemporary {
+                navigationItem?.rightBarButtonItems?.append(temporaryAccountNoticesButton)
+            } else {
+                navigationItem?.rightBarButtonItems?.append(ipAccountNoticesButton)
+            }
+        }
+    }
 
     private func configureNavigationButtonItems() {
         
         let fixedWidthSpacer = UIBarButtonItem(barButtonSystemItem: .fixedSpace, target: nil, action: nil)
         fixedWidthSpacer.width = 16
-
+        
         navigationItem?.rightBarButtonItems = [
             progressButton,
             fixedWidthSpacer,
