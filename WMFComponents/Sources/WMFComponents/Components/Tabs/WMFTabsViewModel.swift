@@ -14,11 +14,11 @@ public final class WMFTabsViewModel: ObservableObject {
     }
     
     @Published var tabViewModels: [WMFTabViewModel] = []
-    let tappedAddTabAction: () -> Void
-    let tappedTabAction: (WMFData.Tab) -> Void
-    private(set)var tappedCloseTabAction: (WMFData.Tab) -> Void
+    let tappedAddTabAction: (() -> Void)?
+    let tappedTabAction: ((WMFData.Tab) -> Void)?
+    private(set) var tappedCloseTabAction: ((WMFData.Tab) -> Void)?
     
-    public init(tappedAddTabAction: @escaping () -> Void, tappedTabAction: @escaping (WMFData.Tab) -> Void, tappedCloseTabAction: @escaping (WMFData.Tab) -> Void) {
+    public init(tappedAddTabAction: @escaping () -> Void, tappedTabAction: @escaping (WMFData.Tab, Bool) -> Void, tappedCloseTabAction: @escaping (WMFData.Tab, Bool) -> Void) {
         self.tappedAddTabAction = {
             let dataController = TabsDataController.shared
             dataController.currentTab = nil
@@ -26,20 +26,21 @@ public final class WMFTabsViewModel: ObservableObject {
         }
         
         self.tappedTabAction = { tab in
+            
             let dataController = TabsDataController.shared
-            dataController.currentTab = tab
-            tappedTabAction(tab)
+            let alreadyCurrentTab = tab == dataController.currentTab
+            if !alreadyCurrentTab {
+                dataController.currentTab = tab
+            }
+            
+            tappedTabAction(tab, alreadyCurrentTab)
         }
         
-        // first set here to avoid compiler complaint, then reset to closure below that references self
-        self.tappedCloseTabAction = tappedCloseTabAction
-
-        self.tappedCloseTabAction = { tab in
+        self.tappedCloseTabAction = { [weak self] tab in
+            guard let self else { return }
+            
             let dataController = TabsDataController.shared
             dataController.removeTab(tab: tab)
-            if dataController.currentTab == tab {
-                dataController.currentTab = nil
-            }
             
             var mutableTabViewModels = self.tabViewModels
             for (index, tabViewModel) in self.tabViewModels.enumerated() {
@@ -49,7 +50,8 @@ public final class WMFTabsViewModel: ObservableObject {
             }
             
             self.tabViewModels = mutableTabViewModels
-            tappedCloseTabAction(tab)
+            let currentTabClosed = dataController.currentTab == nil
+            tappedCloseTabAction(tab, currentTabClosed)
         }
     }
     

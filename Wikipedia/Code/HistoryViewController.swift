@@ -52,6 +52,13 @@ class HistoryViewController: ArticleFetchedResultsViewController, WMFNavigationB
        return try? WMFYearInReviewDataController()
    }
     
+    private lazy var tabsCoordinator: TabsCoordinator? = {
+        guard let navigationController, let dataStore else {
+            return nil
+        }
+        return TabsCoordinator(navigationController: navigationController, dataStore: dataStore)
+    }()
+    
     private lazy var tabsBarButtonItem: UIBarButtonItem = {
         let button = UIBarButtonItem(image: WMFSFSymbolIcon.for(symbol: .tabs), style: .plain, target: self, action: #selector(tappedTabs))
         return button
@@ -121,11 +128,7 @@ class HistoryViewController: ArticleFetchedResultsViewController, WMFNavigationB
     }
     
     @objc func tappedTabs() {
-        guard let navigationController else {
-            return
-        }
-        let coordinator = TabsCoordinator(navigationController: navigationController)
-        coordinator.start()
+        tabsCoordinator?.start()
     }
     
     override func scrollViewDidScroll(_ scrollView: UIScrollView) {

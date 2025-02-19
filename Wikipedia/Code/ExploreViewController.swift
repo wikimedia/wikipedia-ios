@@ -56,6 +56,13 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     
     private var presentingSearchResults: Bool = false
     
+    private lazy var tabsCoordinator: TabsCoordinator? = {
+        guard let navigationController, let dataStore else {
+            return nil
+        }
+        return TabsCoordinator(navigationController: navigationController, dataStore: dataStore)
+    }()
+    
     private lazy var tabsBarButtonItem: UIBarButtonItem = {
         let button = UIBarButtonItem(image: WMFSFSymbolIcon.for(symbol: .tabs), style: .plain, target: self, action: #selector(tappedTabs))
         return button
@@ -157,11 +164,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     }
     
     @objc func tappedTabs() {
-        guard let navigationController else {
-            return
-        }
-        let coordinator = TabsCoordinator(navigationController: navigationController)
-        coordinator.start()
+        tabsCoordinator?.start()
     }
     
     open override func refresh() {

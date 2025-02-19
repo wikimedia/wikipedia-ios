@@ -172,6 +172,13 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
     private var searchBarIsAnimating = false
     
     private var finishedLoadingArticleDuringPeek = false
+    
+    private lazy var tabsCoordinator: TabsCoordinator? = {
+        guard let navigationController else {
+            return nil
+        }
+        return TabsCoordinator(navigationController: navigationController, dataStore: dataStore)
+    }()
 
     private lazy var tabsBarButtonItem: UIBarButtonItem = {
         let button = UIBarButtonItem(image: WMFSFSymbolIcon.for(symbol: .tabs), style: .plain, target: self, action: #selector(tappedTabs))
@@ -930,11 +937,7 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
     }
     
     @objc func tappedTabs() {
-        guard let navigationController else {
-            return
-        }
-        let coordinator = TabsCoordinator(navigationController: navigationController)
-        coordinator.start()
+        tabsCoordinator?.start()
     }
     
     private func configureNavigationBar() {

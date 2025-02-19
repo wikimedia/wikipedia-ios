@@ -34,6 +34,6 @@ public class WMFTabsHostingController: WMFComponentHostingController<WMFTabsView
     }
     
     @objc func tappedAdd() {
-        viewModel.tappedAddTabAction()
+        viewModel.tappedAddTabAction?()
     }
 }

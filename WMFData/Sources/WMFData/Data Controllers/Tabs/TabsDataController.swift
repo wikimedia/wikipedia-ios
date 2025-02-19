@@ -20,11 +20,11 @@ public final class Tab: Equatable {
     let id: UUID = UUID()
     public private(set) var articles: [Article]
     
-    public init(articles: [Tab.Article]) {
+    public init(articles: [WMFData.Tab.Article]) {
         self.articles = articles
     }
     
-    public static func == (lhs: Tab, rhs: Tab) -> Bool {
+    public static func == (lhs: WMFData.Tab, rhs: WMFData.Tab) -> Bool {
         return lhs.articles == rhs.articles &&
             lhs.id == rhs.id
     }
@@ -42,18 +42,18 @@ public final class TabsDataController {
    
     public static let shared = TabsDataController(tabs: [])
     
-    public var currentTab: Tab?
+    public var currentTab: WMFData.Tab?
     
-    public private(set) var tabs: [Tab]
+    public private(set) var tabs: [WMFData.Tab]
     
-    init(tabs: [Tab]) {
+    init(tabs: [WMFData.Tab]) {
         self.tabs = tabs
     }
     
-    public func addArticleToCurrentTab(article: Tab.Article) {
+    public func addArticleToCurrentTab(article: WMFData.Tab.Article) {
         
         guard let currentTab else {
-            let newTab = Tab(articles: [article])
+            let newTab = WMFData.Tab(articles: [article])
             addTab(tab: newTab)
             self.currentTab = newTab
             return
@@ -78,15 +78,18 @@ public final class TabsDataController {
         
         if currentTab.articles.count == 0 {
             removeTab(tab: currentTab)
-            self.currentTab = nil
         }
     }
     
-    public func addTab(tab: Tab) {
+    public func addTab(tab: WMFData.Tab) {
         tabs.append(tab)
     }
     
-    public func removeTab(tab: Tab) {
+    public func removeTab(tab: WMFData.Tab) {
         tabs.removeAll { $0 == tab }
+        
+        if currentTab == tab {
+            currentTab = nil
+        }
     }
 }

@@ -20,7 +20,7 @@ public struct WMFTabsView: View {
                                 RoundedRectangle(cornerRadius: 10)
                                     .fill(Color.gray.opacity(0.3))
                                     .onTapGesture {
-                                        viewModel.tappedTabAction(tabViewModel.tab)
+                                        viewModel.tappedTabAction?(tabViewModel.tab)
                                     }
                                 
                                 VStack {
@@ -33,7 +33,7 @@ public struct WMFTabsView: View {
                                 }
                                 
                                 Button(action: {
-                                    viewModel.tappedCloseTabAction(tabViewModel.tab)
+                                    viewModel.tappedCloseTabAction?(tabViewModel.tab)
                                 }) {
                                     Image(systemName: "xmark.circle.fill")
                                         .foregroundColor(.black)
