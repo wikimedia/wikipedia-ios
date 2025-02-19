@@ -185,7 +185,7 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
         return button
     }()
     
-    var removeFromTabUponDisappearance = true
+    @objc var removeFromTabUponDisappearance = true
     
     internal var articleViewSource: ArticleSource
 

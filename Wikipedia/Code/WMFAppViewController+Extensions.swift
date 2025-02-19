@@ -116,6 +116,9 @@ extension WMFAppViewController {
         return TabsDataController.shared.currentTab == nil
     }
 
+    @objc func resetCurrentTab() {
+        TabsDataController.shared.currentTab = nil
+    }
 }
 
 // MARK: - Notifications

@@ -1337,15 +1337,16 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
 
 #pragma mark - Utilities
 
-- (WMFArticleViewController *)showArticleWithURL:(NSURL *)articleURL source:(NSInteger)source animated:(BOOL)animated {
+- (WMFArticleViewController *)showArticleWithURL:(NSURL *)articleURL source:(NSInteger)source animated:(BOOL)animated needsNewTab:(BOOL)needsNewTab {
     return [self showArticleWithURL:articleURL
                              source:source
                            animated:animated
+                       needsNewTab:needsNewTab
                          completion:^{
                          }];
 }
 
-- (WMFArticleViewController *)showArticleWithURL:(NSURL *)articleURL source:(NSInteger)source animated:(BOOL)animated  completion:(nonnull dispatch_block_t)completion {
+- (WMFArticleViewController *)showArticleWithURL:(NSURL *)articleURL source:(NSInteger)source animated:(BOOL)animated needsNewTab:(BOOL)needsNewTab completion:(nonnull dispatch_block_t)completion {
     if (!articleURL.wmf_title) {
         completion();
         return nil;
@@ -1376,12 +1377,24 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
 
     articleVC.loadCompletion = completion;
     
+    if (needsNewTab) {
+        [self resetCurrentTab];
+    }
+    
     if ([self needsNewArticleTab]) {
         // We want to remove all other items in the stack except the first one.
         
         if (nc.viewControllers.count < 1) {
             completion();
             return nil;
+        }
+        
+        // User is unintentionally clearing their nav stack, so do not remove articles from tab stack
+        for (UIViewController *viewController in nc.viewControllers) {
+            if ([viewController isKindOfClass:[WMFArticleViewController class]]) {
+                WMFArticleViewController *articleVC = (WMFArticleViewController *)viewController;
+                articleVC.removeFromTabUponDisappearance = NO;
+            }
         }
         
         UIViewController *rootVC = nc.viewControllers[0];
@@ -1407,8 +1420,8 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
     return articleVC;
 }
 
-- (void)swiftCompatibleShowArticleWithURL:(NSURL *)articleURL source:(NSInteger)source animated:(BOOL)animated completion:(nonnull dispatch_block_t)completion {
-    [self showArticleWithURL:articleURL source:source animated:animated completion:completion];
+- (void)swiftCompatibleShowArticleWithURL:(NSURL *)articleURL source:(NSInteger)source animated:(BOOL)animated needsNewTab:(BOOL)needsNewTab completion:(nonnull dispatch_block_t)completion {
+    [self showArticleWithURL:articleURL source:source animated:animated needsNewTab:needsNewTab completion:completion];
 }
 
 - (BOOL)shouldShowExploreScreenOnLaunch {
@@ -1635,7 +1648,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 
 - (void)showLastReadArticleAnimated:(BOOL)animated source:(NSInteger)source {
     NSURL *lastRead = [self.dataStore.viewContext wmf_openArticleURL];
-    [self showArticleWithURL:lastRead source:source animated:animated];
+    [self showArticleWithURL:lastRead source:source animated:animated needsNewTab:YES];
 }
 
 #pragma mark - Show Search

@@ -37,7 +37,7 @@ extern NSString *const WMFLanguageVariantAlertsLibraryVersion; // NSNumber
 - (void)showImportedReadingList:(ReadingList *)readingList;
 
 /// Returning WMFArticleViewController (which is ArticleViewController in Swift) makes this not work from Swift
-- (void)swiftCompatibleShowArticleWithURL:(NSURL *)articleURL source:(NSInteger)source animated:(BOOL)animated  completion:(nonnull dispatch_block_t)completion;
+- (void)swiftCompatibleShowArticleWithURL:(NSURL *)articleURL source:(NSInteger)source animated:(BOOL)animated needsNewTab:(BOOL)needsNewTab completion:(nonnull dispatch_block_t)completion;
 
 NS_ASSUME_NONNULL_END
 

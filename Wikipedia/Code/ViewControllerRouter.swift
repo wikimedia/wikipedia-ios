@@ -96,7 +96,9 @@ class ViewControllerRouter: NSObject {
         switch destination {
         case .article(let articleURL):
             let articleSource = articleSource(from: userInfo)
-            appViewController.swiftCompatibleShowArticle(with: articleURL, source: articleSource.rawValue, animated: true, completion: completion)
+            let routingSource = source(from: userInfo)
+            let needsNewTab = routingSource == .deepLink
+            appViewController.swiftCompatibleShowArticle(with: articleURL, source: articleSource.rawValue, animated: true, needsNewTab: needsNewTab, completion: completion)
             return true
         case .externalLink(let linkURL):
             appViewController.navigate(to: linkURL, useSafari: true)
