@@ -19,9 +19,11 @@ public final class Tab: Equatable {
     
     let id: UUID = UUID()
     public private(set) var articles: [Article]
+    public let dateCreated: Date
     
     public init(articles: [WMFData.Tab.Article]) {
         self.articles = articles
+        self.dateCreated = Date()
     }
     
     public static func == (lhs: WMFData.Tab, rhs: WMFData.Tab) -> Bool {

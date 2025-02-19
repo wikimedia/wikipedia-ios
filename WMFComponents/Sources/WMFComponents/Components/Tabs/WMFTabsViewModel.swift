@@ -58,8 +58,18 @@ public final class WMFTabsViewModel: ObservableObject {
     func fetchTabs() {
         let dataController = TabsDataController.shared
         let dataTabs = dataController.tabs
+        let currentTab = dataController.currentTab
         
-        for dataTab in dataTabs {
+        guard let currentTab else {
+            return
+        }
+        
+        let otherSortedDataTabs = dataTabs.filter { $0 !== currentTab }.sorted { tab1, tab2 in
+            return tab1.dateCreated > tab2.dateCreated
+        }
+        let sortedDataTabs = [currentTab] + otherSortedDataTabs
+        
+        for dataTab in sortedDataTabs {
             guard let topArticleTitle = dataTab.articles.last?.title else {
                 continue
             }
