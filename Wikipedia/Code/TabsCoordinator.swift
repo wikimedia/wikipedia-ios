@@ -33,7 +33,7 @@ final class TabsCoordinator: Coordinator {
                 return
             }
             
-            let articleVC = ArticleViewController(articleURL: URL(string: "https://en.wikipedia.org/wiki/Main_Page")!, dataStore: MWKDataStore.shared(), theme: Theme.light)!
+            let articleVC = ArticleViewController(articleURL: URL(string: "https://en.wikipedia.org/wiki/Main_Page")!, dataStore: MWKDataStore.shared(), theme: Theme.light, source: .undefined)!
             
             navigationController.setViewControllers([firstVC, articleVC], animated: true)
         }
@@ -51,7 +51,7 @@ final class TabsCoordinator: Coordinator {
             var newStack: [UIViewController] = [firstVC]
             
             for article in tab.articles {
-                let articleVC = ArticleViewController(articleURL: URL(string: "https://en.wikipedia.org/wiki/\(article.title.replacing(" ", with: "_"))")!, dataStore: MWKDataStore.shared(), theme: Theme.light)!
+                let articleVC = ArticleViewController(articleURL: URL(string: "https://en.wikipedia.org/wiki/\(article.title.replacing(" ", with: "_"))")!, dataStore: MWKDataStore.shared(), theme: Theme.light, source: .undefined)!
                 newStack.append(articleVC)
             }
             
