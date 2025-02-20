@@ -142,6 +142,12 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
             self?.calculateTopSafeAreaOverlayHeight()
         }
     }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        navigationItem.searchController?.isActive = false
+    }
 
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)

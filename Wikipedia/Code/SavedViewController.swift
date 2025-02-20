@@ -232,6 +232,11 @@ class SavedViewController: ThemeableViewController, WMFNavigationBarConfiguring,
         }
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        navigationItem.searchController?.isActive = false
+    }
+    
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
         
