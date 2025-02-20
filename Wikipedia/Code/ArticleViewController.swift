@@ -135,16 +135,6 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
         tapGR.isEnabled = false
         return tapGR
     }()
-    
-    // BEGIN: Article As Living Doc properties
-    private(set) var surveyTimerController: ArticleSurveyTimerController?
-    
-    lazy var articleAsLivingDocController = ArticleAsLivingDocController(delegate: self)
-    
-    var surveyAnnouncementResult: SurveyAnnouncementsController.SurveyAnnouncementResult? {
-        SurveyAnnouncementsController.shared.activeSurveyAnnouncementResultForArticleURL(articleURL)
-    }
-    // END: Article As Living Doc properties
 
     // MARK: Alt-text experiment Properties
 
@@ -206,7 +196,6 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
         self.schemeHandler.imageDidSuccessfullyLoad = { [weak self] in
             self?.imageDidSuccessfullyLoad()
         }
-        self.surveyTimerController = ArticleSurveyTimerController(delegate: self)
     }
     
     deinit {
@@ -418,11 +407,7 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
             self.messagingController.updateMargins(with: self.articleMargins, leadImageHeight: self.leadImageHeightConstraint.constant)
         }
         
-        if articleAsLivingDocController.shouldAttemptToShowArticleAsLivingDoc {
-            messagingController.customUpdateMargins(with: articleMargins, leadImageHeight: self.leadImageHeightConstraint.constant)
-        } else {
-            defaultUpdateBlock()
-        }
+        defaultUpdateBlock()
         
         updateLeadImageMargins()
     }
@@ -477,15 +462,6 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
 
         loadWatchStatusAndUpdateToolbar()
         setupForStateRestorationIfNecessary()
-        surveyTimerController?.timerFireBlock = { [weak self] in
-            guard let self = self,
-                  let result = self.surveyAnnouncementResult else {
-                return
-            }
-            
-            self.showSurveyAnnouncementPanel(surveyAnnouncementResult: result, linkState: self.articleAsLivingDocController.surveyLinkState)
-        }
-
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -494,7 +470,6 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
         toolbarController.update()
         loadIfNecessary()
         startSignificantlyViewedTimer()
-        surveyTimerController?.viewWillAppear(withState: state)
 
         // Navigation Bar Setup
         if altTextExperimentViewModel == nil {
@@ -585,7 +560,6 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
         cancelWIconPopoverDisplay()
         saveArticleScrollPosition()
         stopSignificantlyViewedTimer()
-        surveyTimerController?.viewWillDisappear(withState: state)
     }
     
     override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
@@ -642,8 +616,6 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
             guard let self = self else {
                 return
             }
-            
-            self.articleAsLivingDocController.articleContentFinishedLoading()
             
             if altTextExperimentViewModel != nil {
                 self.setupForAltTextExperiment()
@@ -856,8 +828,6 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
             urlComponents.fragment = articleFragment
             request.url = urlComponents.url
         }
-        
-        articleAsLivingDocController.articleContentWillBeginLoading(traitCollection: traitCollection, theme: theme)
 
         webView.load(request)
     }
@@ -1245,8 +1215,6 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
 
     internal func performWebViewRefresh(_ revisionID: UInt64? = nil) {
 
-        articleAsLivingDocController.articleDidTriggerPullToRefresh()
-        
         switch Configuration.current.environment {
         case .local(let options):
             if options.contains(.localPCS) {
@@ -1302,8 +1270,7 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
         guard let anchor = resolvedURL.fragment?.removingPercentEncoding else {
             return
         }
-        
-        articleAsLivingDocController.handleArticleAsLivingDocLinkForAnchor(anchor, articleURL: articleURL)
+
         scroll(to: anchor, animated: true)
     }
     
@@ -1514,12 +1481,10 @@ private extension ArticleViewController {
     @objc func applicationWillResignActive(_ notification: Notification) {
         saveArticleScrollPosition()
         stopSignificantlyViewedTimer()
-        surveyTimerController?.willResignActive(withState: state)
     }
     
     @objc func applicationDidBecomeActive(_ notification: Notification) {
         startSignificantlyViewedTimer()
-        surveyTimerController?.didBecomeActive(withState: state)
     }
     
     func setupMessagingController() {
@@ -1579,8 +1544,6 @@ private extension ArticleViewController {
         imageTopConstraint.priority = UILayoutPriority(rawValue: 999)
         let imageBottomConstraint = leadImageContainerView.bottomAnchor.constraint(equalTo: leadImageView.bottomAnchor, constant: leadImageBorderHeight)
         NSLayoutConstraint.activate([topConstraint, leadingConstraint, trailingConstraint, leadImageHeightConstraint, imageTopConstraint, imageBottomConstraint, leadImageLeadingMarginConstraint, leadImageTrailingMarginConstraint])
-        
-        articleAsLivingDocController.setupLeadImageView()
     }
     
     func setupPageContentServiceJavaScriptInterface(with completion: @escaping () -> Void) {
@@ -1598,8 +1561,6 @@ private extension ArticleViewController {
     
     func setupPageContentServiceJavaScriptInterface(with userGroups: [String]) {
         let areTablesInitiallyExpanded = altTextExperimentViewModel != nil ? true : UserDefaults.standard.wmf_isAutomaticTableOpeningEnabled
-
-        messagingController.shouldAttemptToShowArticleAsLivingDoc = articleAsLivingDocController.shouldAttemptToShowArticleAsLivingDoc
 
         messagingController.setup(with: webView, languageCode: articleLanguageCode, theme: theme, layoutMargins: articleMargins, leadImageHeight: leadImageHeight, areTablesInitiallyExpanded: areTablesInitiallyExpanded, userGroups: userGroups)
     }
@@ -1764,73 +1725,6 @@ extension ThemeableViewController { // Putting extension on ViewController rathe
             return viewForCalculation.readableContentGuide.layoutFrame.minX
         }
     }
-}
-
-// MARK: Article As Living Doc Protocols
-
-extension ArticleViewController: ArticleAsLivingDocViewControllerDelegate {
-    func livingDocViewWillPush() {
-        surveyTimerController?.livingDocViewWillPush(withState: state)
-    }
-    
-    func livingDocViewWillAppear() {
-        surveyTimerController?.livingDocViewWillAppear(withState: state)
-    }
-    
-    var articleAsLivingDocViewModel: ArticleAsLivingDocViewModel? {
-        return articleAsLivingDocController.articleAsLivingDocViewModel
-    }
-    
-    func fetchNextPage(nextRvStartId: UInt, theme: Theme) {
-        articleAsLivingDocController.fetchNextPage(nextRvStartId: nextRvStartId, traitCollection: traitCollection, theme: theme)
-    }
-
-    var isFetchingAdditionalPages: Bool {
-        return articleAsLivingDocController.isFetchingAdditionalPages
-    }
-}
-
-extension ArticleViewController: ArticleAsLivingDocControllerDelegate {
-    var abTestsController: ABTestsController {
-        return dataStore.abTestsController
-    }
-    
-    var isInValidSurveyCampaignAndArticleList: Bool {
-        surveyAnnouncementResult != nil
-    }
-    
-    func extendTimerForPresentingModal() {
-        surveyTimerController?.extendTimer()
-    }
-}
-
-extension ArticleViewController: ArticleSurveyTimerControllerDelegate {
-    var displayDelay: TimeInterval? {
-        surveyAnnouncementResult?.displayDelay
-    }
-    
-    var shouldAttemptToShowArticleAsLivingDoc: Bool {
-        return articleAsLivingDocController.shouldAttemptToShowArticleAsLivingDoc
-    }
-    
-    var userHasSeenSurveyPrompt: Bool {
-        
-        guard let identifier = surveyAnnouncementResult?.campaignIdentifier else {
-            return false
-        }
-        
-        return SurveyAnnouncementsController.shared.userHasSeenSurveyPrompt(forCampaignIdentifier: identifier)
-    }
-    
-    var shouldShowArticleAsLivingDoc: Bool {
-        return articleAsLivingDocController.shouldShowArticleAsLivingDoc
-    }
-    
-    var livingDocSurveyLinkState: ArticleAsLivingDocSurveyLinkState {
-        return articleAsLivingDocController.surveyLinkState
-    }
-    
-    
 }
 
 extension ArticleViewController: UISheetPresentationControllerDelegate {
