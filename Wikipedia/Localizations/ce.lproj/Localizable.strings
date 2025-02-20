@@ -14,7 +14,7 @@
 // Fuzzy
 "about-testers" = "тестераш";
 "about-wikipedia" = "Википеди";
-"account-creation-logging-in" = "Системин чу дахар...";
+"account-creation-logging-in" = "Системи чу дахар...";
 "account-group-title" = "Хьан хьесапан запись";
 "action-previous-revision-accessibility" = "Хьалхара верси";
 "action-save" = "Ӏалашйан";
@@ -74,5 +74,5 @@
 "table-of-contents-heading" = "Чулацам";
 // Fuzzy
 "wikitext-upload-save" = "Ӏалашъеш ю...";
-"wikitext-upload-save-sign-in" = "ЧугӀо";
+"wikitext-upload-save-sign-in" = "Чувала";
 "wikitext-upload-save-terms-name" = "Лелоран статус";

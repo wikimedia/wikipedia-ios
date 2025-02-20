@@ -246,6 +246,7 @@
 "description-welcome-start-editing-button" = "Почни са уређивањем";
 "developer-settings" = "Подешавања за програмере";
 "developer-settings-bypass-donation" = "Заобилажење донирања";
+"developer-settings-send-analytics-to-wmflabs" = "Пошаљи аналитику wmflabs-у.";
 "diff-article-revision-history" = "Историја чланка";
 "diff-change-added" = "Додато, $1, додавање завршено.";
 "diff-change-removal" = "Уклоњено, $1, уклањање завршено.";
@@ -319,6 +320,7 @@
 "donate-title" = "Износ донације";
 "donate-transaction-fee-opt-in-text" = "Платићу и провизију ($1), да би добили цео износ моје донације.";
 "donate-wikimedia-fine-print-1" = "Ми не продајемо нити размењујемо Ваше податке ни са ким. Донирањем, Ви делите своје податке са Задужбином Викимедија, непрофитном организацијом која покреће Википедију и друге Викимедијине пројекте, и с њеним добављачима у складу са [donor policy]($1). Задужбина Викимедија и њени добављачи се налазе у САД-у и другим земљама чији закони о приватности не морају бити исти Вашим. За више информација молимо прочитајте [donor policy]($1).";
+"donate-wikimedia-fine-print-2" = "За редовне донаторе, Задужбина Викимедија ће аутоматски сваког месеца узимати фиксни износ на дан првог донирања, све док не откажете претплату. Донације извршене 29, 30 или 31 у месецу ће бити поновљене задњег дана у месецу, за краће месеце. За питања контактирајте donate@wikimedia.org.";
 "edit-link-display-text-title" = "Прикажи текст";
 "edit-link-link-target-title" = "Циљ везе";
 "edit-link-remove-link-title" = "Уклони везу";
@@ -361,6 +363,7 @@
 "editor-exit-confirmation-title" = "Одбаци режим уређивања?";
 "editor-find-clear-button-accessibility" = "Очисти поље";
 "editor-find-close-button-accessibility" = "Затвори претрагу";
+"editor-find-current-match-info-accessibility" = "Укупно поклапања пронађено: $1. Истакнуто поклапање број $2";
 "editor-find-current-match-info-zero-results-accessibility" = "Нема подударања";
 "editor-find-next-button-accessibility" = "Следећи резултат претраге";
 "editor-find-textfield-accessibility" = "Пронађи";
@@ -387,6 +390,7 @@
 "editor-replace-type-all" = "Замени све";
 "editor-replace-type-all-accessibility" = "Замени све";
 "editor-replace-type-single" = "Замени";
+"editor-title" = "Уређивач";
 "editor-toolbar-bold-accessibility" = "Подебљано";
 "editor-toolbar-find-accessibility" = "Пронађи у страници";
 "editor-wikitext-loading-accessibility" = "Учитавање уређивача текста";
@@ -870,7 +874,9 @@
 "places-filter-top-articles" = "Најчитанији";
 "places-filter-top-articles-count" = "$1 {{PLURAL:$1|чланак|чланка|чланака}}";
 "places-filter-top-read-articles" = "Најчитанији чланци";
+"places-list-title'" = "Списак";
 "places-location-enabled" = "Локација је омогућена";
+"places-map-title" = "Мапа";
 "places-no-saved-articles-have-location" = "Ниједан од ваших сачуваних чланака нема информације о локацији";
 "places-search-articles-that-match" = "$1 одговара за „$2”";
 "places-search-default-text" = "Претражи места";
