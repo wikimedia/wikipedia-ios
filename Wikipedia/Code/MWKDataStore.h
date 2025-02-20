@@ -133,4 +133,6 @@ typedef NS_OPTIONS(NSUInteger, RemoteConfigOption) {
 
 - (NSError *)removeFolderAtBasePath;
 
+@end
+
 NS_ASSUME_NONNULL_END
