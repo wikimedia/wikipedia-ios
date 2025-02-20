@@ -759,6 +759,7 @@
 "microsite-yir-english-non-donor-slide-title" = "위키백과에 게재된 광고는 0개입니다";
 "microsite-yir-english-reading-slide-title" = "읽기에 29억 시간이 할애됐습니다";
 "microsite-yir-english-saved-reading-slide-title" = "6,220만 개가 넘는 읽기 목록이 있습니다";
+"microsite-yir-english-top-read-slide-title" = "영어 위키백과의 가장 인기 있는 문서";
 "more-languages-tooltip-description" = "300개 이상의 언어에서 위키백과 검색";
 "more-languages-tooltip-title" = "언어 추가";
 "more-menu" = "더 보기";
@@ -958,7 +959,9 @@
 "places-filter-top-articles" = "가장 많이 읽은 글";
 "places-filter-top-articles-count" = "{{PLURAL:$1|$1개의 문서}}";
 "places-filter-top-read-articles" = "가장 많이 읽은 문서";
+"places-list-title'" = "목록";
 "places-location-enabled" = "위치가 켜져 있습니다";
+"places-map-title" = "지도";
 "places-no-saved-articles-have-location" = "저장한 문서 중 어느 것도 위치 정보가 없습니다";
 "places-search-articles-that-match" = "\"$2\"에 일치하는 $1";
 "places-search-default-text" = "장소 검색";
@@ -1402,6 +1405,7 @@
 "year-in-review-base-donate-title" = "위키백과에 게재된 광고는 0개입니다";
 "year-in-review-base-editors-title" = "iOS 앱의 편집자는 $1번 이상 편집을 했습니다";
 "year-in-review-base-edits-title" = "위키백과는 분당 편집 수는 $1회입니다";
+"year-in-review-base-saved-title" = "$1백만 개가 넘는 읽기 목록이 있습니다";
 "year-in-review-base-viewed-title" = "위키백과 문서의 조회 수는 $1억 회입니다";
 "year-in-review-collective-zero-ads" = "위키미디어 로고";
 "year-in-review-day-friday" = "금요일";

@@ -862,6 +862,7 @@
 "places-filter-top-articles" = "Eanemusat lohkkojuvvon";
 "places-filter-top-articles-count" = "{{PLURAL:$1|$1 artihkal|$1 artihkkala}}";
 "places-filter-top-read-articles" = "Eanemusat lohkkojuvvon artihkkalat";
+"places-list-title'" = "Listu";
 "places-location-enabled" = "Báikebálvalusat leat váldojuvvon atnui";
 "places-no-saved-articles-have-location" = "Ii ovttasge dain du vurkejuvvon artihkkaliin lean báikedieđut";
 "places-search-articles-that-match" = "$1 lea ovttamađu «$2»:in";

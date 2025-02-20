@@ -1,6 +1,7 @@
 // Messages for German (Deutsch)
 // Exported from translatewiki.net
 // Author: 1233qwer1234qwer4
+// Author: AnnaTheProgrammer777
 // Author: BodminPill
 // Author: Brettchenweber
 // Author: DraconicDark
@@ -1108,7 +1109,6 @@
 "year-in-review-personalized-day-title-format" = "Du hast am meisten am $1 gelesen.";
 "year-in-review-personalized-donate-subtitle" = "Danke, dass du in die Zukunft des freien Wissens investierst. In diesem Jahr hat die Wikimedia Foundation die Technologie verbessert, um alle Leser und freiwilligen Helfer besser zu unterstützen, Tools entwickelt, die die Zusammenarbeit fördern, und Wikipedia in mehr Sprachen zur Verfügung gestellt. [Erfahre mehr über unsere Arbeit]($1).";
 "year-in-review-personalized-donate-title" = "Deine Großzügigkeit hat Wikipedia in Schwung gehalten";
-// Fuzzy
 "year-in-review-personalized-edit-views-subtitle-format" = "Leser in aller Welt schätzen deine Beiträge. In den letzten 2 Monaten wurden die von dir bearbeiteten Artikel insgesamt $1 Mal aufgerufen. Dank Editoren wie dir ist Wikipedia eine sich ständig verbessernde, faktenbasierte und zuverlässige Wissensquelle für die Welt.";
 "year-in-review-personalized-edit-views-title-format" = "Deine Bearbeitungen wurden in letzter Zeit mehr als $1 Mal angesehen";
 // Fuzzy

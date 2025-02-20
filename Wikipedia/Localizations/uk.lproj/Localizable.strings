@@ -845,7 +845,7 @@
 "notifications-center-onboarding-panel-heading" = "Увімкнути push-сповіщення?";
 "notifications-center-onboarding-panel-primary-button" = "Увімкнути push-сповіщення";
 "notifications-center-onboarding-panel-secondary-button" = "Ні, дякую";
-"notifications-center-onboarding-panel-subheading" = "Вікіпедія — це спільний проект, і ввімкнення push-сповіщень може полегшити отримання повідомлень, сповіщень і подяк від колег-редакторів.";
+"notifications-center-onboarding-panel-subheading" = "Вікіпедія — це спільний проєкт, і ввімкнення push-сповіщень може полегшити отримання повідомлень, сповіщень і подяк від колег-редакторів.";
 "notifications-center-project-filters-accessibility-label" = "Фільтр проєктів";
 "notifications-center-status-all" = "Усі";
 "notifications-center-status-all-notifications" = "Усі сповіщення";
