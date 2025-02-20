@@ -16,7 +16,6 @@
 @class WMFPermanentCacheController;
 @class WMFNotificationsController;
 @class WMFAuthenticationManager;
-@class WMFABTestsController;
 
 @protocol ABTestsPersisting;
 
@@ -133,13 +132,5 @@ typedef NS_OPTIONS(NSUInteger, RemoteConfigOption) {
 // Storage helper methods
 
 - (NSError *)removeFolderAtBasePath;
-
-#pragma mark - ABTestsController
-
-@property (readonly, strong, nonatomic) WMFABTestsController *abTestsController;
-
-- (void)setupAbTestsControllerWithPersistenceService:(id<ABTestsPersisting>)persistenceService;
-
-@end
 
 NS_ASSUME_NONNULL_END
