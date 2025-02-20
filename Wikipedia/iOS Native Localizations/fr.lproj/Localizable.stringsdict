@@ -936,7 +936,7 @@
 	<key>year-in-review-personalized-reading-title-format</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Vous avez lu cette année %1$d article%#@v1@</string>
+		<string>Vous avez lu %#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -944,9 +944,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string></string>
+			<string> %1$d article</string>
 			<key>other</key>
-			<string>s</string>
+			<string> %1$d articles</string>
 		</dict>
 	</dict>
 	<key>year-in-review-personalized-saved-subtitle-format</key>
