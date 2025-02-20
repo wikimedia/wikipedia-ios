@@ -64,6 +64,22 @@ public protocol WMFDeveloperSettingsDataControlling: AnyObject {
             try? userDefaultsStore?.save(key: WMFUserDefaultsKey.bypassDonation.rawValue, value: newValue)
         }
     }
+    
+    public var tabsPreserveRabbitHole: Bool {
+        get {
+            return ( try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsTabsPreserveRabbitHole.rawValue)) ?? false
+        } set {
+            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsTabsPreserveRabbitHole.rawValue, value: newValue)
+        }
+    }
+    
+    public var tabsDeepLinkInNewTab: Bool {
+        get {
+            return ( try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsTabsDeepLinkInNewTab.rawValue)) ?? false
+        } set {
+            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsTabsDeepLinkInNewTab.rawValue, value: newValue)
+        }
+    }
 
     // MARK: - Remote Settings from donatewiki AppsFeatureConfig json
     

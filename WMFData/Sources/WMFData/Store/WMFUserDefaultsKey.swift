@@ -15,4 +15,6 @@ enum WMFUserDefaultsKey: String {
     case bypassDonation = "bypass-donation"
     case seenYearInReviewIntroSlide = "seen-year-in-review-intro-slide"
     case tappedYIR = "tapped-yir"
+    case developerSettingsTabsPreserveRabbitHole = "tabs-preserve-rabbit-hole"
+    case developerSettingsTabsDeepLinkInNewTab = "tabs-deep-link-in-new-tab"
 }

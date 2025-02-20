@@ -3,7 +3,7 @@ import Foundation
 public final class Tab: Equatable {
     public final class Article: Equatable {
         public let title: String
-        let project: WMFProject
+        public let project: WMFProject
         
         public static func == (lhs: Article, rhs: Article) -> Bool {
             return

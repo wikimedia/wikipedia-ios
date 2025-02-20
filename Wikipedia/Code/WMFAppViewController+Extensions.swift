@@ -113,7 +113,7 @@ extension WMFAppViewController {
     }
     
     @objc func needsNewArticleTab() -> Bool {
-        return TabsDataController.shared.currentTab == nil
+        return TabsDataController.shared.currentTab == nil && !WMFDeveloperSettingsDataController.shared.tabsPreserveRabbitHole
     }
 
     @objc func resetCurrentTab() {

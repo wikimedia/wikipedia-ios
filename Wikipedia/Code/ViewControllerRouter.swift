@@ -97,7 +97,7 @@ class ViewControllerRouter: NSObject {
         case .article(let articleURL):
             let articleSource = articleSource(from: userInfo)
             let routingSource = source(from: userInfo)
-            let needsNewTab = routingSource == .deepLink
+            let needsNewTab = routingSource == .deepLink && WMFDeveloperSettingsDataController.shared.tabsDeepLinkInNewTab
             appViewController.swiftCompatibleShowArticle(with: articleURL, source: articleSource.rawValue, animated: true, needsNewTab: needsNewTab, completion: completion)
             return true
         case .externalLink(let linkURL):

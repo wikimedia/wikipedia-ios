@@ -39,8 +39,12 @@ import WMFData
         let sendAnalyticsToWMFLabsItem = WMFFormItemSelectViewModel(title: localizedStrings.sendAnalyticsToWMFLabs, isSelected: WMFDeveloperSettingsDataController.shared.sendAnalyticsToWMFLabs)
 
         let bypassDonationItem = WMFFormItemSelectViewModel(title: localizedStrings.bypassDonation, isSelected: WMFDeveloperSettingsDataController.shared.bypassDonation)
+        
+        let tabsPreserveRabbitHoleItem = WMFFormItemSelectViewModel(title: "Tabs - Preserve Rabbit Hole", isSelected: WMFDeveloperSettingsDataController.shared.tabsPreserveRabbitHole)
+        
+        let tabsDeepLinkInNewTabItem = WMFFormItemSelectViewModel(title: "Tabs - Deep Link In New Tab", isSelected: WMFDeveloperSettingsDataController.shared.tabsDeepLinkInNewTab)
 
-        formViewModel = WMFFormViewModel(sections: [WMFFormSectionSelectViewModel(items: [doNotPostImageRecommendationsEditItem, enableAltTextExperimentItemForENItem, alwaysShowAltTextEntryPointItem, sendAnalyticsToWMFLabsItem, bypassDonationItem], selectType: .multi)])
+        formViewModel = WMFFormViewModel(sections: [WMFFormSectionSelectViewModel(items: [doNotPostImageRecommendationsEditItem, enableAltTextExperimentItemForENItem, alwaysShowAltTextEntryPointItem, sendAnalyticsToWMFLabsItem, bypassDonationItem, tabsPreserveRabbitHoleItem, tabsDeepLinkInNewTabItem], selectType: .multi)])
 
         doNotPostImageRecommendationsEditItem.$isSelected.sink { isSelected in
             WMFDeveloperSettingsDataController.shared.doNotPostImageRecommendationsEdit = isSelected
@@ -60,6 +64,14 @@ import WMFData
 
         bypassDonationItem.$isSelected.sink { isSelected in
             WMFDeveloperSettingsDataController.shared.bypassDonation = isSelected
+        }.store(in: &subscribers)
+        
+        tabsPreserveRabbitHoleItem.$isSelected.sink { isSelected in
+            WMFDeveloperSettingsDataController.shared.tabsPreserveRabbitHole = isSelected
+        }.store(in: &subscribers)
+        
+        tabsDeepLinkInNewTabItem.$isSelected.sink { isSelected in
+            WMFDeveloperSettingsDataController.shared.tabsDeepLinkInNewTab = isSelected
         }.store(in: &subscribers)
     }
 

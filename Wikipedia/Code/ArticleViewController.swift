@@ -510,6 +510,7 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
         loadIfNecessary()
         startSignificantlyViewedTimer()
         surveyTimerController?.viewWillAppear(withState: state)
+        addToCurrentTabDuringArticleAppearance()
 
         // Navigation Bar Setup
         if altTextExperimentViewModel == nil {
@@ -520,21 +521,8 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
     var isFirstAppearance = true
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        addToCurrentTabAfterArticleAppearance()
         logPageViewAfterArticleAppearance()
         presentModalsIfNeeded()
-    }
-    
-    private func addArticleToCurrentTab() {
-        
-        guard let title = articleURL.wmf_title,
-              let project = project?.wmfProject else {
-            return
-        }
-
-        let dataController = TabsDataController.shared
-        let tabArticle: WMFData.Tab.Article = WMFData.Tab.Article(title: title, project: project)
-        dataController.addArticleToCurrentTab(article: tabArticle)
     }
     
     @objc func userDidTapProfile() {
@@ -586,6 +574,13 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
     }
     
     @objc private func wButtonTapped(_ sender: UIButton) {
+        if !WMFDeveloperSettingsDataController.shared.tabsPreserveRabbitHole {
+            // Clear out tab stack
+            if let currentTab = TabsDataController.shared.currentTab {
+                TabsDataController.shared.removeTab(tab: currentTab)
+            }
+            
+        }
         navigationController?.popToRootViewController(animated: true)
     }
 
@@ -616,8 +611,15 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
         surveyTimerController?.viewWillDisappear(withState: state)
         
         if isMovingFromParent && removeFromTabUponDisappearance {
-            let tabsDataController = TabsDataController.shared
-            tabsDataController.removeLastArticleFromCurrentTab()
+            if !WMFDeveloperSettingsDataController.shared.tabsPreserveRabbitHole {
+                let tabsDataController = TabsDataController.shared
+                tabsDataController.removeLastArticleFromCurrentTab()
+            } else {
+                if let navigationController,
+                   navigationController.viewControllers.count == 1 {
+                    TabsDataController.shared.currentTab = nil
+                }
+            }
         }
     }
     
@@ -686,7 +688,6 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
             
             self.shareIfNecessary()
             self.restoreScrollStateIfNecessary()
-            self.addToCurrentTabAfterArticleLoad()
             self.logPageViewAfterArticleLoad()
             self.articleLoadWaitGroup = nil
         }
@@ -723,19 +724,18 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
         ArticleLinkInteractionFunnel.shared.logArticleView(pageID: pageID.intValue, project: project, source: articleViewSource)
     }
     
-    private func addToCurrentTabAfterArticleLoad() {
-        
-        if !isBeingPresentedAsPeek {
-            addArticleToCurrentTab()
-        }
-    }
-    
-    private func addToCurrentTabAfterArticleAppearance() {
-        guard finishedLoadingArticleDuringPeek else {
+    private func addToCurrentTabDuringArticleAppearance() {
+        guard let title = articleURL.wmf_title,
+              let project = project?.wmfProject else {
             return
         }
         
-        addArticleToCurrentTab()
+        let dataController = TabsDataController.shared
+
+        if isMovingToParent { // This ensures it is added only when pushed onto stack, not when it is revealed from popping an article.
+            let tabArticle: WMFData.Tab.Article = WMFData.Tab.Article(title: title, project: project)
+            dataController.addArticleToCurrentTab(article: tabArticle)
+        }
     }
 
     private func setupForAltTextExperiment() {
