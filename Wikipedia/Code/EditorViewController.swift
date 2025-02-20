@@ -64,7 +64,7 @@ final class EditorViewController: UIViewController, WMFNavigationBarConfiguring 
     }
 
     private lazy var navigationItemController: EditorNavigationItemController = {
-        let navigationItemController = EditorNavigationItemController(navigationItem: navigationItem)
+        let navigationItemController = EditorNavigationItemController(navigationItem: navigationItem, dataStore: dataStore)
         navigationItemController.delegate = self
         return navigationItemController
     }()
@@ -79,6 +79,10 @@ final class EditorViewController: UIViewController, WMFNavigationBarConfiguring 
         spinner.translatesAutoresizingMaskIntoConstraints = false
         return spinner
     }()
+    
+    internal var authManager: WMFAuthenticationManager {
+        return dataStore.authenticationManager
+    }
     
     // MARK: - Lifecycle
     
@@ -254,6 +258,8 @@ final class EditorViewController: UIViewController, WMFNavigationBarConfiguring 
                self.presentEditNoticesIfNecessary(viewModel: editNoticesViewModel, blockedError: wikitextFetchResponse.blockedError, userGroupLevelCanEdit: wikitextFetchResponse.userGroupLevelCanEdit)
                isDifferentErrorBannerShown = true
             }
+            
+            self.navigationItemController.addTempAccountsNoticesButtons()
             
             let needsReadOnly = (wikitextFetchResponse.blockedError != nil) || (wikitextFetchResponse.protectedPageError != nil && !wikitextFetchResponse.userGroupLevelCanEdit)
             
@@ -574,7 +580,6 @@ final class EditorViewController: UIViewController, WMFNavigationBarConfiguring 
         let textSizeAdjustment =  WMFFontSizeMultiplier(rawValue: UserDefaults.standard.wmf_articleFontSizeMultiplier().intValue) ?? .large
         WMFAppEnvironment.current.set(articleAndEditorTextSize: textSizeAdjustment.contentSizeCategory)
     }
-    
 
     private func showDestructiveDismissAlert(sender: UIBarButtonItem, confirmCompletion: @escaping () -> Void) {
         let alert = UIAlertController(title: nil, message: CommonStrings.editorExitConfirmationMessage, preferredStyle: .actionSheet)
@@ -815,6 +820,24 @@ extension EditorViewController: EditorNavigationItemControllerDelegate {
     
     func editorNavigationItemController(_ editorNavigationItemController: EditorNavigationItemController, didTapRedoButton redoButton: UIBarButtonItem) {
         sourceEditor?.redo()
+    }
+    
+    func editorNavigationItemController(_ editorNavigationItemController: EditorNavigationItemController, didTapTemporaryAccountNoticesButton tempButton: UIBarButtonItem) {
+        guard let navigationController else { return }
+        let tempAccountSheetCoordinator = TempAccountSheetCoordinator(navigationController: navigationController, theme: theme, dataStore: dataStore, didTapDone: { [weak self] in
+            self?.dismiss(animated: true)
+        }, isTempAccount: true)
+        
+        tempAccountSheetCoordinator.start()
+    }
+    
+    func editorNavigationItemController(_ editorNavigationItemController: EditorNavigationItemController, didTapIPAccountNoticesButton ipButton: UIBarButtonItem) {
+        guard let navigationController else { return }
+        let tempAccountSheetCoordinator = TempAccountSheetCoordinator(navigationController: navigationController, theme: theme, dataStore: dataStore, didTapDone: { [weak self] in
+            self?.dismiss(animated: true)
+        }, isTempAccount: false)
+        
+        tempAccountSheetCoordinator.start()
     }
     
     func editorNavigationItemController(_ editorNavigationItemController: EditorNavigationItemController, didTapReadingThemesControlsButton readingThemesControlsButton: UIBarButtonItem) {
