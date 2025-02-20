@@ -173,6 +173,8 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
     
     private var finishedLoadingArticleDuringPeek = false
     
+    var currentTab: WMFData.Tab?
+    
     private lazy var tabsCoordinator: TabsCoordinator? = {
         guard let navigationController else {
             return nil
@@ -222,6 +224,8 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
             self?.imageDidSuccessfullyLoad()
         }
         self.surveyTimerController = ArticleSurveyTimerController(delegate: self)
+        
+        self.currentTab = TabsDataController.shared.currentTab
     }
     
     deinit {
@@ -500,7 +504,6 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
             
             self.showSurveyAnnouncementPanel(surveyAnnouncementResult: result, linkState: self.articleAsLivingDocController.surveyLinkState)
         }
-
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -615,9 +618,9 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
                 let tabsDataController = TabsDataController.shared
                 tabsDataController.removeLastArticleFromCurrentTab()
             } else {
-                if let navigationController,
-                   navigationController.viewControllers.count == 1 {
-                    TabsDataController.shared.currentTab = nil
+                if let currentTab {
+                    let tabsDataController = TabsDataController.shared
+                    tabsDataController.removeLastArticleTab(currentTab)
                 }
             }
         }
@@ -734,7 +737,11 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
 
         if isMovingToParent { // This ensures it is added only when pushed onto stack, not when it is revealed from popping an article.
             let tabArticle: WMFData.Tab.Article = WMFData.Tab.Article(title: title, project: project)
+            let articleCurrentTabIsEmpty = currentTab == nil
             dataController.addArticleToCurrentTab(article: tabArticle)
+            if articleCurrentTabIsEmpty {
+                self.currentTab = dataController.currentTab
+            }
         }
     }
 

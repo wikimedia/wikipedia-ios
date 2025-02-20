@@ -36,6 +36,7 @@ public final class Tab: Equatable {
     }
     
     func removeLastArticle() {
+        guard articles.count > 0 else { return }
         articles.removeLast()
     }
 }
@@ -80,6 +81,14 @@ public final class TabsDataController {
         
         if currentTab.articles.count == 0 {
             removeTab(tab: currentTab)
+        }
+    }
+    
+    public func removeLastArticleTab(_ tab: WMFData.Tab) {
+        tab.removeLastArticle()
+        
+        if tab.articles.count == 0 {
+            removeTab(tab: tab)
         }
     }
     

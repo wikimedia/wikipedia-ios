@@ -105,6 +105,7 @@ final class TabsCoordinator: Coordinator {
                 }
                 
                 let articleVC = ArticleViewController(articleURL: articleURL, dataStore: MWKDataStore.shared(), theme: Theme.light, source: .undefined)!
+                articleVC.currentTab = tab
                 newStack.append(articleVC)
             }
             

@@ -1371,14 +1371,14 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
     if (nc.presentedViewController) {
         [nc dismissViewControllerAnimated:NO completion:NULL];
     }
+    
+    if (needsNewTab) {
+        [self resetCurrentTab];
+    }
 
     WMFArticleViewController *articleVC = [[WMFArticleViewController alloc] initWithArticleURL:articleURL dataStore:self.dataStore theme:self.theme source:source schemeHandler:nil];
 
     articleVC.loadCompletion = completion;
-
-    if (needsNewTab) {
-        [self resetCurrentTab];
-    }
 
     if ([self needsNewArticleTab]) {
         // We want to remove all other items in the stack except the first one.
