@@ -13,10 +13,10 @@ final class LinkCoordinator: Coordinator {
     var theme: Theme
     private let articleSource: ArticleSource
     
-    init(navigationController: UINavigationController, url: URL, dataStore: MWKDataStore, theme: Theme, articleSource: ArticleSource) {
+    init(navigationController: UINavigationController, url: URL, dataStore: MWKDataStore?, theme: Theme, articleSource: ArticleSource) {
         self.navigationController = navigationController
         self.url = url
-        self.dataStore = dataStore
+        self.dataStore = dataStore ?? MWKDataStore.shared()
         self.theme = theme
         self.articleSource = articleSource
     }
