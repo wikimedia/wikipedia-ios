@@ -6,13 +6,15 @@ final class ArticleCoordinator: Coordinator {
     private let dataStore: MWKDataStore
     var theme: Theme
     private let source: ArticleSource
+    private let isRestoringState: Bool
     
-    init(navigationController: UINavigationController, articleURL: URL, dataStore: MWKDataStore, theme: Theme, source: ArticleSource) {
+    init(navigationController: UINavigationController, articleURL: URL, dataStore: MWKDataStore, theme: Theme, source: ArticleSource, isRestoringState: Bool = false) {
         self.navigationController = navigationController
         self.articleURL = articleURL
         self.dataStore = dataStore
         self.theme = theme
         self.source = source
+        self.isRestoringState = isRestoringState
     }
     
     @discardableResult
@@ -26,6 +28,7 @@ final class ArticleCoordinator: Coordinator {
         guard let articleVC = ArticleViewController(articleURL: articleURL, dataStore: dataStore, theme: theme, source: source) else {
             return false
         }
+        articleVC.isRestoringState = isRestoringState
         navigationController.pushViewController(articleVC, animated: true)
         return true
     }
