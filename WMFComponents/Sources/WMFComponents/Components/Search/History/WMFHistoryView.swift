@@ -4,6 +4,7 @@ import WMFData
 public struct WMFHistoryView: View {
 
     @ObservedObject var appEnvironment = WMFAppEnvironment.current
+    @State private var refreshId = UUID()
 
     var theme: WMFTheme {
         return appEnvironment.theme
@@ -40,6 +41,7 @@ public struct WMFHistoryView: View {
                                 imageURL: item.imageURL,
                                 deleteItemAction: { _ in
                                     viewModel.delete(section: section, item: item)
+                                    refreshId = UUID()
                                 }
                             )
                         }
@@ -48,10 +50,14 @@ public struct WMFHistoryView: View {
             }
             .listStyle(.grouped)
             .padding(.top, viewModel.topPadding)
+            .id(refreshId)
+            .onAppear {
+                refreshId = UUID()
+                viewModel.loadHistory()
+            }
         } else {
-            // TODO: - get localized strings, copy and image
-            let locStrings = WMFEmptyViewModel.LocalizedStrings(title: "Empty", subtitle: "Subtitle", titleFilter: nil, buttonTitle: nil, attributedFilterString: nil)
-            let emptyViewModel = WMFEmptyViewModel(localizedStrings: locStrings, image: UIImage(systemName: "bookmark"), imageColor: .blue, numberOfFilters: 0)
+            let locStrings = WMFEmptyViewModel.LocalizedStrings(title: viewModel.localizedStrings.emptyViewTitle, subtitle: viewModel.localizedStrings.emptyViewSubtitle, titleFilter: nil, buttonTitle: nil, attributedFilterString: nil)
+            let emptyViewModel = WMFEmptyViewModel(localizedStrings: locStrings, image: nil, imageColor: .blue, numberOfFilters: 0)
             WMFEmptyView(viewModel: emptyViewModel, type: .noItems)
         }
     }

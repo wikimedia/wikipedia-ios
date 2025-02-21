@@ -1,13 +1,18 @@
 import SwiftUI
 import WMFData
+import Combine
 
 public final class WMFHistoryViewModel: ObservableObject {
 
     public struct LocalizedStrings {
         let title: String
+        let emptyViewTitle: String
+        let emptyViewSubtitle: String
 
-        public init(title: String) {
+        public init(title: String, emptyViewTitle: String, emptyViewSubtitle: String) {
             self.title = title
+            self.emptyViewTitle = emptyViewTitle
+            self.emptyViewSubtitle = emptyViewSubtitle
         }
     }
 
@@ -17,9 +22,7 @@ public final class WMFHistoryViewModel: ObservableObject {
     private let historyDataController: WMFHistoryDataController
     internal let localizedStrings: LocalizedStrings
 
-    public var isEmpty: Bool {
-        return sections.allSatisfy { $0.items.isEmpty }
-    }
+    public var isEmpty: Bool = true
 
     public init(localizedStrings: WMFHistoryViewModel.LocalizedStrings, historyDataController: WMFHistoryDataController, topPadding: CGFloat = 0) {
         self.localizedStrings = localizedStrings
@@ -43,12 +46,7 @@ public final class WMFHistoryViewModel: ObservableObject {
         DispatchQueue.main.async {
             self.sections = viewModelSections
         }
-    }
-
-    func deleteAll() {
-        DispatchQueue.main.async {
-            self.sections.removeAll()
-        }
+        isEmpty = dataSections.isEmpty || dataSections.allSatisfy { $0.items.isEmpty }
     }
 
     public func delete(section: HistorySection, item: HistoryItem) {
@@ -63,5 +61,8 @@ public final class WMFHistoryViewModel: ObservableObject {
             }
         }
         historyDataController.deleteHistoryItem(with: section, item)
+
+        isEmpty = sections.isEmpty || sections.allSatisfy { $0.items.isEmpty }
+
     }
 }

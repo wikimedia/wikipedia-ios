@@ -146,13 +146,13 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
         super.viewDidLayoutSubviews()
         
         if let searchLanguageBarViewController {
-            historyViewModel?.topPadding = searchLanguageBarViewController.view.frame.height
+            historyViewModel.topPadding = searchLanguageBarViewController.view.frame.height
             if !isSearchTab && !isEditLinkOrArticleSearchButtonSearch {
                 resultsViewController.collectionView.contentInset.top = searchLanguageBarViewController.view.frame.height
                 resultsViewController.recentlySearchedTopPadding = searchLanguageBarViewController.view.frame.height
             }
         } else {
-            historyViewModel?.topPadding = 0
+            historyViewModel.topPadding = 0
             resultsViewController.collectionView.contentInset.top = 0
             resultsViewController.recentlySearchedTopPadding = 0
         }
@@ -225,11 +225,7 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
         
         let profileButtonConfig: WMFNavigationBarProfileButtonConfig?
         let deleteButton = UIBarButtonItem(title: CommonStrings.clearTitle, style: .plain, target: self, action: #selector(deleteButtonPressed(_:)))
-        if let historyViewModel {
-            deleteButton.isEnabled = !historyViewModel.isEmpty
-        } else {
-            deleteButton.isEnabled = false // TODO - clean this logic
-        }
+        deleteButton.isEnabled = !historyViewModel.isEmpty
 
         if let dataStore {
             profileButtonConfig = self.profileButtonConfig(target: self, action: #selector(userDidTapProfile), dataStore: dataStore, yirDataController: yirDataController, leadingBarButtonItem: deleteButton, trailingBarButtonItem: nil)
@@ -261,6 +257,8 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
         guard let dataStore else { return }
         do {
             try dataStore.viewContext.clearReadHistory()
+            historyViewModel.isEmpty = true
+
         } catch let error {
             showError(error)
         }
@@ -523,16 +521,20 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
         return resultsViewController
     }()
     
-    private var historyViewModel: WMFHistoryViewModel?
-    
-    lazy var historyViewController: UIViewController = {
+    lazy var historyViewModel: WMFHistoryViewModel = {
+        // TODO: - get empty view localized strings, copy and image
+        let localizedStrings = WMFHistoryViewModel.LocalizedStrings(title: CommonStrings.historyTabTitle, emptyViewTitle: "Empty view", emptyViewSubtitle: "Subtitle")
+        let viewModel = WMFHistoryViewModel(localizedStrings: localizedStrings, historyDataController: historyDataController)
+        return viewModel
+    }()
 
+    lazy var historyDataController: WMFHistoryDataController = {
         let recordsProvider: WMFHistoryDataController.RecordsProvider = { [weak self] in
 
             guard let self, let dataStore else {
                 return []
             }
-            
+
             let request: NSFetchRequest<WMFArticle> = WMFArticle.fetchRequest()
             request.predicate = NSPredicate(format: "viewedDate != NULL")
             request.sortDescriptors = [
@@ -585,12 +587,12 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
             recordsProvider: recordsProvider,
             deleteRecordAction: deleteRecordAction
         )
+        return dataController
 
-        let localizedStrings = WMFHistoryViewModel.LocalizedStrings(title: CommonStrings.historyTabTitle)
-        let viewModel = WMFHistoryViewModel(localizedStrings: localizedStrings, historyDataController: dataController)
-        self.historyViewModel = viewModel
+    }()
 
-        let historyView = WMFHistoryView(viewModel: viewModel)
+    lazy var historyViewController: UIViewController = {
+        let historyView = WMFHistoryView(viewModel: historyViewModel)
         return UIHostingController(rootView: historyView)
     }()
 
