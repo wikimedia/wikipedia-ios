@@ -1300,6 +1300,12 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
             }
         } break;
         default: {
+            if ([self processLinkUserActivity:activity]) {
+                done();
+                return YES;
+            }
+            
+            // Fall back to legacy navigaton
             NSURL *linkURL = [activity wmf_linkURL];
             // Ensure incoming link is fetched in user's preferred variant if applicable
             if (!linkURL.wmf_languageVariantCode) {

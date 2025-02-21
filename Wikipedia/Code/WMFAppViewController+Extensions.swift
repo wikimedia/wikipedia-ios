@@ -16,6 +16,20 @@ extension Notification.Name {
 }
 
 extension WMFAppViewController {
+    
+    @objc internal func processLinkUserActivity(_ userActivity: NSUserActivity) -> Bool {
+        
+        guard let linkURL = userActivity.wmf_linkURL() else {
+            return false
+        }
+        
+        guard let navigationController = self.currentTabNavigationController else {
+            return false
+        }
+        
+        let linkCoordinator = LinkCoordinator(navigationController: navigationController, url: linkURL, dataStore: dataStore, theme: theme, articleSource: .undefined)
+        return linkCoordinator.start()
+    }
 
     // MARK: - Language Variant Migration Alerts
     
