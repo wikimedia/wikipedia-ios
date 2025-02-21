@@ -697,7 +697,7 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
         let trailingBarButtonItem: UIBarButtonItem? = needsSearchBar ? nil : self.searchBarButtonItem
         let profileButtonConfig = profileButtonConfig(target: self, action: #selector(userDidTapProfile), dataStore: dataStore, yirDataController: yirDataController, leadingBarButtonItem: nil, trailingBarButtonItem: trailingBarButtonItem)
         
-        let searchViewController = SearchViewController(source: .article)
+        let searchViewController = SearchViewController(source: .article, customArticleCoordinatorNavigationController: navigationController)
         searchViewController.dataStore = dataStore
         searchViewController.theme = theme
         

@@ -189,7 +189,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         
         let profileButtonConfig = profileButtonConfig(target: self, action: #selector(userDidTapProfile), dataStore: dataStore, yirDataController: yirDataController, leadingBarButtonItem: nil, trailingBarButtonItem: nil)
         
-        let searchViewController = SearchViewController(source: .topOfFeed)
+        let searchViewController = SearchViewController(source: .topOfFeed, customArticleCoordinatorNavigationController: navigationController)
         searchViewController.dataStore = dataStore
         
         let populateSearchBarWithTextAction: (String) -> Void = { [weak self] searchTerm in

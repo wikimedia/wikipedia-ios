@@ -84,12 +84,16 @@ class SearchViewController: ArticleCollectionViewController, WMFNavigationBarCon
     
     private let source: EventLoggingSource
     
+    // Used to push on after tapping search result. This is needed when SearchViewController is embedded directly as the system navigation bar's searchResultsController.
+    private var customArticleCoordinatorNavigationController: UINavigationController?
+    
     private var presentingSearchResults: Bool = false
     
     // MARK: - Funcs
 
-    @objc required init(source: EventLoggingSource) {
+    @objc required init(source: EventLoggingSource, customArticleCoordinatorNavigationController: UINavigationController? = nil) {
         self.source = source
+        self.customArticleCoordinatorNavigationController = customArticleCoordinatorNavigationController
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -430,9 +434,12 @@ class SearchViewController: ArticleCollectionViewController, WMFNavigationBarCon
             
             if let navigateToSearchResultAction {
                 navigateToSearchResultAction(articleURL)
-            } else {
-                let userInfo: [AnyHashable : Any] = [RoutingUserInfoKeys.source: RoutingUserInfoSourceValue.search.rawValue, ArticleSourceUserInfoKeys.articleSource : ArticleSource.search.rawValue]
-                navigate(to: articleURL, userInfo: userInfo)
+            } else if let customArticleCoordinatorNavigationController {
+                let coordinator = ArticleCoordinator(navigationController: customArticleCoordinatorNavigationController, articleURL: articleURL, dataStore: dataStore, theme: theme, source: .search)
+                coordinator.start()
+            } else if let navigationController {
+                let coordinator = ArticleCoordinator(navigationController: navigationController, articleURL: articleURL, dataStore: dataStore, theme: theme, source: .search)
+                coordinator.start()
             }
         }
         
