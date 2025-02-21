@@ -10,11 +10,6 @@ extension WMFContentGroup {
 	
     public func detailViewControllerForPreviewItemAtIndex(_ index: Int, dataStore: MWKDataStore, theme: Theme, source: ArticleSource, imageRecDelegate: WMFImageRecommendationsDelegate?, imageRecLoggingDelegate: WMFImageRecommendationsLoggingDelegate?) -> UIViewController? {
         switch detailType {
-        case .page:
-            guard let articleURL = previewArticleURLForItemAtIndex(index) else {
-                return nil
-            }
-            return ArticleViewController(articleURL: articleURL, dataStore: dataStore, theme: theme, source: source)
         case .pageWithRandomButton:
             guard let articleURL = previewArticleURLForItemAtIndex(index) else {
                 return nil

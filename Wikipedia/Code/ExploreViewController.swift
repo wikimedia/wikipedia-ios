@@ -746,9 +746,32 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     // MARK: - ExploreCardViewControllerDelegate
     
     func exploreCardViewController(_ exploreCardViewController: ExploreCardViewController, didSelectItemAtIndexPath indexPath: IndexPath) {
-        guard
-            let contentGroup = exploreCardViewController.contentGroup,
-            let vc = contentGroup.detailViewControllerForPreviewItemAtIndex(indexPath.row, dataStore: dataStore, theme: theme, source: .undefined, imageRecDelegate: self, imageRecLoggingDelegate: self) else {
+        
+        guard let contentGroup = exploreCardViewController.contentGroup else {
+            return
+        }
+        
+        // First try pushing Article via ArticleCoordinator
+        if let navigationController,
+           contentGroup.detailType == .page,
+            let articleURL = contentGroup.previewArticleURLForItemAtIndex(indexPath.row) {
+            
+            var articleSource = ArticleSource.undefined
+            // todo: we may want to switch to get article source if we want to be more specific:
+            switch contentGroup.contentGroupKind {
+            case .featuredArticle:
+                // articleSource = explore featured article cell, etc.
+                break
+            default:
+                break
+            }
+            
+            let articleCoordinator = ArticleCoordinator(navigationController: navigationController, articleURL: articleURL, dataStore: dataStore, theme: theme, source: articleSource)
+            articleCoordinator.start()
+            return
+        }
+        
+        guard let vc = contentGroup.detailViewControllerForPreviewItemAtIndex(indexPath.row, dataStore: dataStore, theme: theme, source: .undefined, imageRecDelegate: self, imageRecLoggingDelegate: self) else {
             return
         }
         
