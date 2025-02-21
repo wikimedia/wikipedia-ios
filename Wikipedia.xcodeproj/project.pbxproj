@@ -495,6 +495,9 @@
 		675826792D68D10B002B0EE7 /* LinkCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 675826772D68D108002B0EE7 /* LinkCoordinator.swift */; };
 		6758267A2D68D10B002B0EE7 /* LinkCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 675826772D68D108002B0EE7 /* LinkCoordinator.swift */; };
 		675826802D68F543002B0EE7 /* MWKLanguageLinkController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6758267F2D68F543002B0EE7 /* MWKLanguageLinkController+Extensions.swift */; };
+		675826822D693953002B0EE7 /* RandomArticleCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 675826812D69394E002B0EE7 /* RandomArticleCoordinator.swift */; };
+		675826832D693953002B0EE7 /* RandomArticleCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 675826812D69394E002B0EE7 /* RandomArticleCoordinator.swift */; };
+		675826842D693953002B0EE7 /* RandomArticleCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 675826812D69394E002B0EE7 /* RandomArticleCoordinator.swift */; };
 		675A3D6B2A21600100F9B653 /* MediaWikiFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 675A3D6A2A21600100F9B653 /* MediaWikiFetcher.swift */; };
 		675D875A2B8EA16D007D63F8 /* WMFSuggestedEditsContentSource.h in Headers */ = {isa = PBXBuildFile; fileRef = 675D87582B8EA16D007D63F8 /* WMFSuggestedEditsContentSource.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		675D875B2B8EA16D007D63F8 /* WMFSuggestedEditsContentSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 675D87592B8EA16D007D63F8 /* WMFSuggestedEditsContentSource.m */; };
@@ -3229,6 +3232,7 @@
 		675826732D68CEB8002B0EE7 /* ArticleCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleCoordinator.swift; sourceTree = "<group>"; };
 		675826772D68D108002B0EE7 /* LinkCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkCoordinator.swift; sourceTree = "<group>"; };
 		6758267F2D68F543002B0EE7 /* MWKLanguageLinkController+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MWKLanguageLinkController+Extensions.swift"; sourceTree = "<group>"; };
+		675826812D69394E002B0EE7 /* RandomArticleCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomArticleCoordinator.swift; sourceTree = "<group>"; };
 		675A3D6A2A21600100F9B653 /* MediaWikiFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaWikiFetcher.swift; sourceTree = "<group>"; };
 		675BC8BB2AFD2ACD00771C4B /* UITests.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = UITests.xctestplan; sourceTree = "<group>"; };
 		675D87582B8EA16D007D63F8 /* WMFSuggestedEditsContentSource.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMFSuggestedEditsContentSource.h; sourceTree = "<group>"; };
@@ -6750,6 +6754,7 @@
 			isa = PBXGroup;
 			children = (
 				675826732D68CEB8002B0EE7 /* ArticleCoordinator.swift */,
+				675826812D69394E002B0EE7 /* RandomArticleCoordinator.swift */,
 				675826772D68D108002B0EE7 /* LinkCoordinator.swift */,
 				3717C38B2CAB2A0700978DB2 /* YearInReviewCoordinator.swift */,
 				830795262C9DE91900E453BD /* LoginCoordinator.swift */,
@@ -9949,6 +9954,7 @@
 				7A13A8992028BB3600F28254 /* ReadingListsAlertController.swift in Sources */,
 				6780CF282967690200D45927 /* TalkPageArchivesView.swift in Sources */,
 				67C6F7AB27E8D22400B9C864 /* NotificationsCenterDetailViewModel.swift in Sources */,
+				675826842D693953002B0EE7 /* RandomArticleCoordinator.swift in Sources */,
 				83510B0728F4CF6400B6235B /* TalkPageErrorStateView.swift in Sources */,
 				B083375D1DB16A09002860D2 /* WMFWelcomePanelViewController.swift in Sources */,
 				67C6F7A627E8CB9000B9C864 /* NotificationsCenterCommonViewModel+TextExtensions.swift in Sources */,
@@ -10936,6 +10942,7 @@
 				0072992128AC4D5300DCD2E6 /* TalkPageCellReplyDepthIndicator.swift in Sources */,
 				D8CE25241E698E2400DAE2E0 /* (null) in Sources */,
 				B0524B66214854E900D8FD8D /* DescriptionWelcomeImageViewController.swift in Sources */,
+				675826822D693953002B0EE7 /* RandomArticleCoordinator.swift in Sources */,
 				6782DB922343B6F9003FA21B /* DiffContainerViewController.swift in Sources */,
 				6780D5BB237AF8A10087A5D1 /* DiffToolbarView.swift in Sources */,
 				0042811B25E6E841004945B3 /* NYTPhotosOverlayView.m in Sources */,
@@ -11484,6 +11491,7 @@
 				0072992028AC4D5300DCD2E6 /* TalkPageCellReplyDepthIndicator.swift in Sources */,
 				D8EC3E171E9BDA35006712EB /* MWKTitleLanguageController.m in Sources */,
 				B0016CC521362DB300FA1096 /* SetupGradientView.swift in Sources */,
+				675826832D693953002B0EE7 /* RandomArticleCoordinator.swift in Sources */,
 				B0524B67214854E900D8FD8D /* DescriptionWelcomeImageViewController.swift in Sources */,
 				6782DB932343B6F9003FA21B /* DiffContainerViewController.swift in Sources */,
 				6780D5BC237AF8A10087A5D1 /* DiffToolbarView.swift in Sources */,

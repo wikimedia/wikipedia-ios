@@ -600,14 +600,27 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         // When a random article title is tapped, show the previewed article, not another random article
         let useRandomArticlePreviewItem = titleAreaTapped && group.moreType == .pageWithRandomButton
 
-        if !useRandomArticlePreviewItem, let vc = group.detailViewControllerWithDataStore(dataStore, theme: theme, imageRecDelegate: self, imageRecLoggingDelegate: self) {
+        if !useRandomArticlePreviewItem {
             
-            if vc is WMFImageRecommendationsViewController {
-                ImageRecommendationsFunnel.shared.logExploreCardDidTapAddImage()
+            // first try random coordinator
+            if let navigationController,
+               group.contentGroupKind == .random,
+               let randomSiteURL = group.siteURL {
+                
+                // todo: accurate source
+                // let articleSource = Explore tapped "Another random article" title
+                let randomCoordinator = RandomArticleCoordinator(navigationController: navigationController, articleURL: nil, siteURL: randomSiteURL, dataStore: dataStore, theme: theme, source: .undefined)
+                randomCoordinator.start()
+                return
+            } else if let vc = group.detailViewControllerWithDataStore(dataStore, theme: theme, imageRecDelegate: self, imageRecLoggingDelegate: self) {
+                
+                if vc is WMFImageRecommendationsViewController {
+                    ImageRecommendationsFunnel.shared.logExploreCardDidTapAddImage()
+                }
+                
+                push(vc, animated: true)
+                return
             }
-            
-            push(vc, animated: true)
-            return
         }
         
         if let vc = group.detailViewControllerForPreviewItemAtIndex(0, dataStore: dataStore, theme: theme, source: .undefined) {
@@ -751,30 +764,6 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
             return
         }
         
-        // First try pushing Article via ArticleCoordinator
-        if let navigationController,
-           contentGroup.detailType == .page,
-            let articleURL = contentGroup.previewArticleURLForItemAtIndex(indexPath.row) {
-            
-            var articleSource = ArticleSource.undefined
-            // todo: we may want to switch to get article source if we want to be more specific:
-            switch contentGroup.contentGroupKind {
-            case .featuredArticle:
-                // articleSource = explore featured article cell, etc.
-                break
-            default:
-                break
-            }
-            
-            let articleCoordinator = ArticleCoordinator(navigationController: navigationController, articleURL: articleURL, dataStore: dataStore, theme: theme, source: articleSource)
-            articleCoordinator.start()
-            return
-        }
-        
-        guard let vc = contentGroup.detailViewControllerForPreviewItemAtIndex(indexPath.row, dataStore: dataStore, theme: theme, source: .undefined, imageRecDelegate: self, imageRecLoggingDelegate: self) else {
-            return
-        }
-        
         if let cell = exploreCardViewController.collectionView.cellForItem(at: indexPath) {
             detailTransitionSourceRect = view.convert(cell.frame, from: exploreCardViewController.collectionView)
             if let articleCell = cell as? ArticleCollectionViewCell, !articleCell.imageView.isHidden {
@@ -782,6 +771,18 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
             } else {
                 imageScaleTransitionView = nil
             }
+        }
+        
+        // First try pushing articles via coordinators
+        let successWithCoordinators = pushArticlesViaCoordinators(contentGroup: contentGroup, indexPath: indexPath)
+        
+        if successWithCoordinators {
+            return
+        }
+        
+        // If that didn't work (probably not pushing to an article), fall back to legacy logic
+        guard let vc = contentGroup.detailViewControllerForPreviewItemAtIndex(indexPath.row, dataStore: dataStore, theme: theme, source: .undefined, imageRecDelegate: self, imageRecLoggingDelegate: self) else {
+            return
         }
     
         if let otdvc = vc as? OnThisDayViewController {
@@ -799,6 +800,47 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         default:
             push(vc, animated: true)
         }
+    }
+    
+    private func pushArticlesViaCoordinators(contentGroup: WMFContentGroup, indexPath: IndexPath) -> Bool {
+        // First try pushing articles via coordinators
+        if let navigationController,
+           let articleURL = contentGroup.previewArticleURLForItemAtIndex(indexPath.row) {
+            switch contentGroup.detailType {
+            case .page:
+                var articleSource = ArticleSource.undefined
+                // todo: we may want to switch to get article source if we want to be more specific:
+                switch contentGroup.contentGroupKind {
+                case .featuredArticle:
+                    // articleSource = explore featured article cell, etc.
+                    break
+                default:
+                    break
+                }
+                
+                let articleCoordinator = ArticleCoordinator(navigationController: navigationController, articleURL: articleURL, dataStore: dataStore, theme: theme, source: articleSource)
+                articleCoordinator.start()
+                return true
+            case .pageWithRandomButton:
+                var articleSource = ArticleSource.undefined
+                // todo: we may want to switch to get article source if we want to be more specific:
+                switch contentGroup.contentGroupKind {
+                case .random:
+                    // articleSource = explore random article, etc.
+                    break
+                default:
+                    break
+                }
+                
+                let randomArticleCoordinator = RandomArticleCoordinator(navigationController: navigationController, articleURL: articleURL, siteURL: nil, dataStore: dataStore, theme: theme, source: articleSource)
+                randomArticleCoordinator.start()
+                return true
+            default:
+                break
+            }
+        }
+        
+        return false
     }
     
     // MARK: - Prefetching

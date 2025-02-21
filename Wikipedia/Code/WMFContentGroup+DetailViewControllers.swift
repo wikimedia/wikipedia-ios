@@ -10,11 +10,6 @@ extension WMFContentGroup {
 	
     public func detailViewControllerForPreviewItemAtIndex(_ index: Int, dataStore: MWKDataStore, theme: Theme, source: ArticleSource, imageRecDelegate: WMFImageRecommendationsDelegate?, imageRecLoggingDelegate: WMFImageRecommendationsLoggingDelegate?) -> UIViewController? {
         switch detailType {
-        case .pageWithRandomButton:
-            guard let articleURL = previewArticleURLForItemAtIndex(index) else {
-                return nil
-            }
-            return RandomArticleViewController(articleURL: articleURL, dataStore: dataStore, theme: theme, source: source)
         case .gallery:
             guard let date = self.date else {
                 return nil
@@ -73,13 +68,6 @@ extension WMFContentGroup {
                 break
             }
             vc = OnThisDayViewController(events: events, dataStore: dataStore, midnightUTCDate: date, contentGroup: self, theme: theme)
-        case .pageWithRandomButton:
-            guard let siteURL = siteURL else {
-                break
-            }
-            let firstRandom = WMFFirstRandomViewController(siteURL: siteURL, dataStore: dataStore, theme: theme)
-            (firstRandom as Themeable).apply(theme: theme)
-            vc = firstRandom
         case .imageRecommendations:
             vc = WMFImageRecommendationsViewController.imageRecommendationsViewController(dataStore: dataStore, imageRecDelegate: imageRecDelegate, imageRecLoggingDelegate: imageRecLoggingDelegate)
         default:
