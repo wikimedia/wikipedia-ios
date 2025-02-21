@@ -1265,13 +1265,14 @@ extension ExploreViewController: WMFImageRecommendationsDelegate {
 
     func imageRecommendationsUserDidTapViewArticle(project: WMFData.WMFProject, title: String) {
         
-        guard let siteURL = project.siteURL,
-              let articleURL = siteURL.wmf_URL(withTitle: title),
-              let articleViewController = ArticleViewController(articleURL: articleURL, dataStore: dataStore, theme: theme, source: .undefined) else {
+        guard let navigationController,
+              let siteURL = project.siteURL,
+              let articleURL = siteURL.wmf_URL(withTitle: title) else {
             return
         }
         
-        navigationController?.pushViewController(articleViewController, animated: true)
+        let coordinator = ArticleCoordinator(navigationController: navigationController, articleURL: articleURL, dataStore: dataStore, theme: theme, source: .undefined)
+        coordinator.start()
     }
     
     func imageRecommendationsUserDidTapImageLink(commonsURL: URL) {
