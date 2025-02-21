@@ -28,12 +28,6 @@ final class LinkCoordinator: Coordinator {
         
         switch destination {
         case .article:
-            
-            // Handy for deep links, where we aren't sure what state the navigation controller is in. Dismiss presented view controllers.
-            if navigationController.presentedViewController != nil {
-                navigationController.dismiss(animated: false)
-            }
-            
             let articleCoordinator = ArticleCoordinator(
                 navigationController: navigationController,
                 articleURL: url,

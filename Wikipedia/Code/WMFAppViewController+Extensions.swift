@@ -23,7 +23,7 @@ extension WMFAppViewController {
             return false
         }
         
-        guard let navigationController = self.currentTabNavigationController else {
+        guard let navigationController = self.currentNavigationController else {
             return false
         }
         
