@@ -13,10 +13,12 @@ final class ArticleCoordinator: Coordinator {
         self.source = source
     }
     
-    func start() {
+    @discardableResult
+    func start() -> Bool {
         guard let articleVC = ArticleViewController(articleURL: articleURL, dataStore: dataStore, theme: theme, source: source) else {
-            return
+            return false
         }
         navigationController.pushViewController(articleVC, animated: true)
+        return true
     }
 }

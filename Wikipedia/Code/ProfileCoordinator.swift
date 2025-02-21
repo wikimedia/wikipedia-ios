@@ -54,7 +54,8 @@ final class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegat
     
     // MARK: Coordinator Protocol Methods
     
-    @objc func start() {
+    @discardableResult
+    @objc func start() -> Bool {
         let username = dataStore.authenticationManager.authStatePermanentUsername
         let isLoggedIn = dataStore.authenticationManager.authStateIsPermanent
         
@@ -103,6 +104,8 @@ final class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegat
         let profileNavVC = WMFComponentNavigationController(rootViewController: hostingController, modalPresentationStyle: .pageSheet)
         
         navigationController.present(profileNavVC, animated: true, completion: nil)
+        
+        return true
     }
     
     // MARK: - ProfileCoordinatorDelegate Methods

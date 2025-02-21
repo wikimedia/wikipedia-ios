@@ -21,10 +21,12 @@ public final class NotificationsCoordinator: Coordinator {
 
     // MARK: Coordinator Protocol Methods
 
-    func start() {
+    @discardableResult
+    func start() -> Bool {
         let viewModel = NotificationsCenterViewModel(notificationsController: dataStore.notificationsController, remoteNotificationsController: dataStore.remoteNotificationsController, languageLinkController: self.dataStore.languageLinkController)
         let notificationsVC = NotificationsCenterViewController(theme: theme, viewModel: viewModel)
         navigationController.pushViewController(notificationsVC, animated: true)
+        return true
     }
 
 }
