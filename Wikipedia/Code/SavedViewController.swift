@@ -511,7 +511,13 @@ extension SavedViewController: ReadingListEntryCollectionViewControllerDelegate 
     }
     
     func readingListEntryCollectionViewControllerDidSelectArticleURL(_ articleURL: URL, viewController: ReadingListEntryCollectionViewController) {
-        navigate(to: articleURL)
+        
+        guard let navigationController else {
+            return
+        }
+        
+        let coordinator = ArticleCoordinator(navigationController: navigationController, articleURL: articleURL, dataStore: dataStore ?? MWKDataStore.shared(), theme: theme, source: .undefined)
+        coordinator.start()
     }
 }
 
