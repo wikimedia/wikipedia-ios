@@ -1754,8 +1754,11 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
         }
         switch action {
         case .read:
-            let userInfo: [AnyHashable: Any]? = [ArticleSourceUserInfoKeys.articleSource: ArticleSource.places.rawValue]
-            navigate(to: url, userInfo: userInfo)
+            guard let navigationController else {
+                return
+            }
+            let articleCoordinator = ArticleCoordinator(navigationController: navigationController, articleURL: url, dataStore: dataStore, theme: theme, source: .places)
+            articleCoordinator.start()
             break
         case .save:
             let didSave = dataStore.savedPageList.toggleSavedPage(for: url)
