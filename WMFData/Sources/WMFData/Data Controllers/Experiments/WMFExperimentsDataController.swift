@@ -17,15 +17,12 @@ final class WMFExperimentsDataController {
     }
     
     public enum Experiment {
-        case articleAsLivingDoc
         case altTextImageRecommendations
         case altTextArticleEditor
         case articleSearchBar
         
         var config: ExperimentConfig {
             switch self {
-            case .articleAsLivingDoc:
-                return WMFExperimentsDataController.articleAsLivingDocConfig
             case .altTextImageRecommendations:
                 return WMFExperimentsDataController.altTextImageRecommendationsConfig
             case .altTextArticleEditor:
@@ -37,22 +34,18 @@ final class WMFExperimentsDataController {
     }
     
     public enum PercentageFileName: String {
-        case articleAsLivingDocPercent
         case altTextImageRecommendationsPercent
         case altTextArticleEditorPercent
         case articleSearchBarPercent
     }
     
     enum BucketFileName: String {
-        case articleAsLivingDocBucket
         case altTextImageRecommendationsBucket
         case altTextArticleEditorBucket
         case articleSearchBarBucket
     }
     
     public enum BucketValue: String {
-        case articleAsLivingDocTest = "LivingDoc_Test"
-        case articleAsLivingDocControl = "LivingDoc_Control"
         case altTextImageRecommendationsTest = "AltTextImageRecommendations_Test"
         case altTextImageRecommendationsControl = "AltTextImageRecommendations_Control"
         case altTextArticleEditorTest = "AltTextArticleEditor_Test"
@@ -64,8 +57,6 @@ final class WMFExperimentsDataController {
     // MARK: Properties
     
     private let cacheDirectoryName = WMFSharedCacheDirectoryNames.experiments.rawValue
-    
-    private static let articleAsLivingDocConfig = ExperimentConfig(experiment: .articleAsLivingDoc, percentageFileName: .articleAsLivingDocPercent, bucketFileName: .articleAsLivingDocBucket, bucketValueControl: .articleAsLivingDocControl, bucketValueTest: .articleAsLivingDocTest)
     
     private static let altTextImageRecommendationsConfig = ExperimentConfig(experiment: .altTextImageRecommendations, percentageFileName: .altTextImageRecommendationsPercent, bucketFileName: .altTextImageRecommendationsBucket, bucketValueControl: .altTextImageRecommendationsControl, bucketValueTest: .altTextImageRecommendationsTest)
     
@@ -107,8 +98,6 @@ final class WMFExperimentsDataController {
         let bucket: BucketValue
         
         switch experiment {
-        case .articleAsLivingDoc:
-            bucket = isInTest ? .articleAsLivingDocTest : .articleAsLivingDocControl
         case .altTextImageRecommendations:
             bucket = isInTest ? .altTextImageRecommendationsTest : .altTextImageRecommendationsControl
         case .altTextArticleEditor:
