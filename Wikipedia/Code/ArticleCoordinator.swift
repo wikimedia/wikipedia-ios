@@ -1,6 +1,8 @@
+import WMF
+
 final class ArticleCoordinator: Coordinator {
     let navigationController: UINavigationController
-    private let articleURL: URL
+    private(set) var articleURL: URL
     private let dataStore: MWKDataStore
     var theme: Theme
     private let source: ArticleSource
@@ -15,6 +17,12 @@ final class ArticleCoordinator: Coordinator {
     
     @discardableResult
     func start() -> Bool {
+        
+        // assign language variant code if needed (taken from AppVC's processUserActivity method)
+        if articleURL.wmf_languageVariantCode == nil {
+            articleURL.wmf_languageVariantCode = dataStore.languageLinkController .swiftCompatiblePreferredLanguageVariantCodeForLanguageCode(articleURL.wmf_languageCode)
+        }
+        
         guard let articleVC = ArticleViewController(articleURL: articleURL, dataStore: dataStore, theme: theme, source: source) else {
             return false
         }
