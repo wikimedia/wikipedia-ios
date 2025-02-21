@@ -27,9 +27,9 @@ final class SettingsCoordinator: Coordinator {
     func start() -> Bool {
         
         // If navigation controller already has WMFSettingsViewController as it's root view controller, no need to navigate anywhere
-        guard navigationController.viewControllers.count == 1,
-           (navigationController.viewControllers.first as? WMFSettingsViewController) != nil else {
-            return false
+        if navigationController.viewControllers.count == 1,
+           (navigationController.viewControllers.first as? WMFSettingsViewController) != nil {
+            return true
         }
         
         let settingsViewController = WMFSettingsViewController(dataStore: dataStore, theme: theme)
