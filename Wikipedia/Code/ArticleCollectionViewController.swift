@@ -8,6 +8,8 @@ class ArticleCollectionViewController: ColumnarCollectionViewController, Editabl
 
     var editController: CollectionViewEditController!
     var contentGroup: WMFContentGroup?
+    
+    var articleSource: ArticleSource = .undefined
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -178,11 +180,14 @@ extension ArticleCollectionViewController {
 // MARK: - UICollectionViewDelegate
 extension ArticleCollectionViewController {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        guard let articleURL = articleURL(at: indexPath) else {
+        guard let navigationController,
+              let articleURL = articleURL(at: indexPath) else {
             collectionView.deselectItem(at: indexPath, animated: true)
             return
         }
-        navigate(to: articleURL)
+        
+        let articleCoordinator = ArticleCoordinator(navigationController: navigationController, articleURL: articleURL, dataStore: dataStore, theme: theme, source: articleSource)
+        articleCoordinator.start()
     }
     
     func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {

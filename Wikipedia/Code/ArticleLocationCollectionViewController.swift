@@ -16,13 +16,13 @@ class ArticleLocationCollectionViewController: ColumnarCollectionViewController,
 
     let contentGroupIDURIString: String?
 
-    required init(articleURLs: [URL], dataStore: MWKDataStore, contentGroup: WMFContentGroup?, theme: Theme, needsCloseButton: Bool = false, source: ArticleSource) {
+    required init(articleURLs: [URL], dataStore: MWKDataStore, contentGroup: WMFContentGroup?, theme: Theme, needsCloseButton: Bool = false, articleSource: ArticleSource) {
         self.articleURLs = articleURLs
         self.dataStore = dataStore
         self.contentGroup = contentGroup
         contentGroupIDURIString = contentGroup?.objectID.uriRepresentation().absoluteString
         self.needsCloseButton = needsCloseButton
-        self.articleSource = source
+        self.articleSource = articleSource
         super.init(nibName: nil, bundle: nil)
         self.theme = theme
         if needsCloseButton {
@@ -188,8 +188,14 @@ extension ArticleLocationCollectionViewController: LocationManagerDelegate {
 // MARK: - UICollectionViewDelegate
 extension ArticleLocationCollectionViewController {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let userInfo: [AnyHashable:Any]? = [ArticleSourceUserInfoKeys.articleSource: articleSource.rawValue]
-        navigate(to: articleURLs[indexPath.item], userInfo: userInfo)
+
+        guard let navigationController else {
+            return
+        }
+        let articleURL = articleURLs[indexPath.item]
+        
+        let articleCoordinator = ArticleCoordinator(navigationController: navigationController, articleURL: articleURL, dataStore: dataStore, theme: theme, source: articleSource)
+        articleCoordinator.start()
     }
 }
 

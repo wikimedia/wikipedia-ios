@@ -47,12 +47,27 @@ extension WMFContentGroup {
                 break
             }
             vc = ArticleURLListViewController(articleURLs: articleURLs, dataStore: dataStore, contentGroup: self, theme: theme)
+            
+            switch self.contentGroupKind {
+            case .relatedPages:
+                // todo
+                // vc.articleSource = Explore > Related Pages List here.
+                break
+            case .topRead:
+                // todo
+                // vc.articleSource = Explore > Top Read List here.
+                break
+            default:
+                break
+            }
+            
             vc?.title = moreTitle
         case .pageListWithLocation:
             guard let articleURLs = contentURLs else {
                 break
             }
-            vc = ArticleLocationCollectionViewController(articleURLs: articleURLs, dataStore: dataStore, contentGroup: self, theme: theme, needsCloseButton: true, source: .undefined)
+            // todo: pass in article source Explore > Nearby List
+            vc = ArticleLocationCollectionViewController(articleURLs: articleURLs, dataStore: dataStore, contentGroup: self, theme: theme, needsCloseButton: true, articleSource: .undefined)
         case .news:
             guard let stories = fullContent?.object as? [WMFFeedNewsStory] else {
                 break
