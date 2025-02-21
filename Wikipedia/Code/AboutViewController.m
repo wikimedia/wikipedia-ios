@@ -196,17 +196,13 @@ static NSString *const kWMFContributorsKey = @"contributors";
     NSString *developerSettings = WMFLocalizedStringWithDefaultValue(@"developer-settings", nil, nil, @"Developer Settings", @"Title for developer settings view.");
     NSString *doNotPostImageRecommendations = WMFLocalizedStringWithDefaultValue(@"developer-settings-suppress-image-rec-post", nil, nil, @"Do not post image recommendations edit.", @"Title for setting to suppress image recommendations edit postsing. Displayed on the developer settings view.");
 
-    NSString *enableAltTextExperimentForEN = WMFLocalizedStringWithDefaultValue(@"developer-settings-enable-alt-text-experiment-en", nil, nil, @"Enable Alt Text experiment for English Wikipedia.", @"Title for setting to enable alt text experiment for English Wikipedia. Displayed on the developer settings view.");
-
-    NSString *alwaysShowAltTextEntryPoint = WMFLocalizedStringWithDefaultValue(@"developer-settings-always-show-alt-text-entry-point", nil, nil, @"Always show alt text entry point.", @"Title for always showing the alt text experiment entry point. Displayed on the developer settings view.");
-
     NSString *sendAnalyticsToWMFLabs = WMFLocalizedStringWithDefaultValue(@"developer-settings-send-analytics-to-wmflabs", nil, nil, @"Send analytics to wmflabs.", @"Title for setting to send analytics to a different backend. Displayed on the developer settings view.");
 
     NSString *enableYearInReview = WMFLocalizedStringWithDefaultValue(@"developer-settings-enable-year-in-review", nil, nil, @"Enable Year in Review", @"Title for enabling the Year in Review feature. Displayed on the developer settings view.");
 
     NSString *bypassDonation = WMFLocalizedStringWithDefaultValue(@"developer-settings-bypass-donation", nil, nil, @"Bypass Donation", @"Title for option to bypass a donation in developer settings menu.");
 
-    WMFDeveloperSettingsLocalizedStrings *localizedStrings = [[WMFDeveloperSettingsLocalizedStrings alloc] initWithDeveloperSettings:developerSettings doNotPostImageRecommendations:doNotPostImageRecommendations enableAltTextExperimentForEN:enableAltTextExperimentForEN alwaysShowAltTextEntryPoint:alwaysShowAltTextEntryPoint sendAnalyticsToWMFLabs:sendAnalyticsToWMFLabs enableYearinReview:enableYearInReview bypassDonation:bypassDonation close:WMFCommonStrings.doneTitle];
+    WMFDeveloperSettingsLocalizedStrings *localizedStrings = [[WMFDeveloperSettingsLocalizedStrings alloc] initWithDeveloperSettings:developerSettings doNotPostImageRecommendations:doNotPostImageRecommendations sendAnalyticsToWMFLabs:sendAnalyticsToWMFLabs enableYearinReview:enableYearInReview bypassDonation:bypassDonation close:WMFCommonStrings.doneTitle];
     WMFDeveloperSettingsViewModel *viewModel = [[WMFDeveloperSettingsViewModel alloc] initWithLocalizedStrings:localizedStrings];
 
     WMFDeveloperSettingsViewController *viewController = [[WMFDeveloperSettingsViewController alloc] initWithViewModel:viewModel];

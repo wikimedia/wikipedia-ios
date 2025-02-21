@@ -57,9 +57,7 @@ extension ArticleViewController: ArticleWebMessageHandling {
         let oldState = state
         state = .loaded
         
-        if altTextExperimentViewModel == nil {
-            showWIconPopoverIfNecessary()
-        }
+        showWIconPopoverIfNecessary()
         
         refreshControl.endRefreshing()
         loadSummary(oldState: oldState)

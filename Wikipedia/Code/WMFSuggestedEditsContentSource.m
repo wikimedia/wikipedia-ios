@@ -48,7 +48,7 @@
 
         BOOL isEligibleForImageRecommendations = (user && user.editCount > 50 && !user.isBlocked && !UIAccessibilityIsVoiceOverRunning());
 
-        if ([self isEligibleForAltText:user] || isEligibleForImageRecommendations) {
+        if (isEligibleForImageRecommendations) {
             [self.growthTasksDataController hasImageRecommendationsWithCompletion:^(BOOL hasRecommendations) {
                 if (hasRecommendations) {
                     NSURL *URL = [WMFContentGroup suggestedEditsURLForSiteURL:appLanguageSiteURL];
@@ -65,40 +65,8 @@
     }];
 }
 
-- (BOOL)isEligibleForAltText:(WMFCurrentUser *)user {
-    NSString *applanguage = self.dataStore.languageLinkController.appLanguage.languageCode;
-    BOOL enableAltTextExperimentForEN = [[WMFDeveloperSettingsDataController shared] enableAltTextExperimentForEN];
-    NSSet *targetWikisForAltText = enableAltTextExperimentForEN ? [NSSet setWithObjects:@"pt", @"es", @"fr", @"zh", @"en", nil] : [NSSet setWithObjects:@"pt", @"es", @"fr", @"zh", nil];
-    BOOL appLanguageIsTarget = [targetWikisForAltText containsObject:applanguage];
-
-    // Alt text Experiment Business Logic:
-    // logged in users for target wikis, bypass minimum edit count, before Oct 21st
-
-    if (@available(iOS 16.0, *)) {
-        return (user && !user.isBlocked && appLanguageIsTarget && !UIAccessibilityIsVoiceOverRunning() && self.shouldAltTextExperimentBeActive && self.isDeviceIPhone);
-    }
-    return NO;
-}
-
 - (BOOL)isDeviceIPhone {
     return [UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone;
-}
-
-- (BOOL)shouldAltTextExperimentBeActive {
-    NSDateComponents *dateComponents = [[NSDateComponents alloc] init];
-    [dateComponents setYear:2024];
-    [dateComponents setMonth:11];
-    [dateComponents setDay:5];
-
-    NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
-    NSDate *experimentDate = [calendar dateFromComponents:dateComponents];
-
-    NSDate *currentDate = [NSDate date];
-
-    if ([currentDate compare:experimentDate] == NSOrderedDescending) {
-        return NO;
-    }
-    return YES;
 }
 
 - (void)removeAllContentInManagedObjectContext:(nonnull NSManagedObjectContext *)moc {
