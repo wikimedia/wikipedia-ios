@@ -488,6 +488,9 @@
 		675175DD276D3B9700CD2974 /* DisappearingCallbackNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 675175DB276D3B9700CD2974 /* DisappearingCallbackNavigationController.swift */; };
 		675175DE276D3B9700CD2974 /* DisappearingCallbackNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 675175DB276D3B9700CD2974 /* DisappearingCallbackNavigationController.swift */; };
 		67540CA924D221E3008B2894 /* LocationManagerFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67540CA824D221E3008B2894 /* LocationManagerFactory.swift */; };
+		675826742D68CEBC002B0EE7 /* ArticleCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 675826732D68CEB8002B0EE7 /* ArticleCoordinator.swift */; };
+		675826752D68CEBC002B0EE7 /* ArticleCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 675826732D68CEB8002B0EE7 /* ArticleCoordinator.swift */; };
+		675826762D68CEBC002B0EE7 /* ArticleCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 675826732D68CEB8002B0EE7 /* ArticleCoordinator.swift */; };
 		675A3D6B2A21600100F9B653 /* MediaWikiFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 675A3D6A2A21600100F9B653 /* MediaWikiFetcher.swift */; };
 		675D875A2B8EA16D007D63F8 /* WMFSuggestedEditsContentSource.h in Headers */ = {isa = PBXBuildFile; fileRef = 675D87582B8EA16D007D63F8 /* WMFSuggestedEditsContentSource.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		675D875B2B8EA16D007D63F8 /* WMFSuggestedEditsContentSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 675D87592B8EA16D007D63F8 /* WMFSuggestedEditsContentSource.m */; };
@@ -3219,6 +3222,7 @@
 		674E8AB82382DEFF0053D206 /* DiffTransformer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiffTransformer.swift; sourceTree = "<group>"; };
 		675175DB276D3B9700CD2974 /* DisappearingCallbackNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisappearingCallbackNavigationController.swift; sourceTree = "<group>"; };
 		67540CA824D221E3008B2894 /* LocationManagerFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManagerFactory.swift; sourceTree = "<group>"; };
+		675826732D68CEB8002B0EE7 /* ArticleCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleCoordinator.swift; sourceTree = "<group>"; };
 		675A3D6A2A21600100F9B653 /* MediaWikiFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaWikiFetcher.swift; sourceTree = "<group>"; };
 		675BC8BB2AFD2ACD00771C4B /* UITests.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = UITests.xctestplan; sourceTree = "<group>"; };
 		675D87582B8EA16D007D63F8 /* WMFSuggestedEditsContentSource.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMFSuggestedEditsContentSource.h; sourceTree = "<group>"; };
@@ -6738,6 +6742,7 @@
 		83796B012C9C6F6000E55C69 /* Coordinators */ = {
 			isa = PBXGroup;
 			children = (
+				675826732D68CEB8002B0EE7 /* ArticleCoordinator.swift */,
 				3717C38B2CAB2A0700978DB2 /* YearInReviewCoordinator.swift */,
 				830795262C9DE91900E453BD /* LoginCoordinator.swift */,
 				830795222C9DB3BA00E453BD /* LogoutCoordinatorDelegate.swift */,
@@ -10250,6 +10255,7 @@
 				6782DB912343B6F9003FA21B /* DiffContainerViewController.swift in Sources */,
 				D8E6FF7C2405AAC400686272 /* ArticleViewController+Analytics.swift in Sources */,
 				7A9524CB22665E6400C55CDC /* InsertMediaSettingsImageView.swift in Sources */,
+				675826752D68CEBC002B0EE7 /* ArticleCoordinator.swift in Sources */,
 				67B0B88E2BF51E3300480B46 /* ArticleCollectionViewController.swift in Sources */,
 				B09B30D11DB817660012281F /* UIViewController+WMFWelcomeStoryboard.swift in Sources */,
 				83B5DF9929F6C7E300F8329D /* EditAttemptFunnel.swift in Sources */,
@@ -11005,6 +11011,7 @@
 				7A9524CC22665E6400C55CDC /* InsertMediaSettingsImageView.swift in Sources */,
 				B0524B70214854E900D8FD8D /* DescriptionWelcomeContentsViewController.swift in Sources */,
 				7A2FE55D20517BAE00F92F8F /* EraseSavedArticlesView.swift in Sources */,
+				675826742D68CEBC002B0EE7 /* ArticleCoordinator.swift in Sources */,
 				6730FD1028998EFD000E5F40 /* TalkPageReplyComposeContentView.swift in Sources */,
 				83250BED2CDA7CED00DA42DC /* WMFDonateDataControllerWrapper.swift in Sources */,
 				D8CE256D1E698E2400DAE2E0 /* UIViewController+WMFHideKeyboard.swift in Sources */,
@@ -11551,6 +11558,7 @@
 				7A393283236CBDD500A89C2F /* PageHistoryComparisonSelectionViewController.swift in Sources */,
 				7A9524CD22665E6400C55CDC /* InsertMediaSettingsImageView.swift in Sources */,
 				B0524B71214854E900D8FD8D /* DescriptionWelcomeContentsViewController.swift in Sources */,
+				675826762D68CEBC002B0EE7 /* ArticleCoordinator.swift in Sources */,
 				83250BEC2CDA7CED00DA42DC /* WMFDonateDataControllerWrapper.swift in Sources */,
 				6730FD0F28998EFD000E5F40 /* TalkPageReplyComposeContentView.swift in Sources */,
 				D8EC3E5D1E9BDA35006712EB /* AboutViewController.m in Sources */,

@@ -7,7 +7,7 @@ import UIKit
 /// Methods:
 /// start():  Starts the coordinator's navigation flow. Should be called to trigger the presentation of the View Controllers.
 protocol Coordinator: AnyObject {
-    var navigationController: UINavigationController { get set }
+    var navigationController: UINavigationController { get }
 
     func start()
 }
