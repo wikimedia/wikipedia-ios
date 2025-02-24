@@ -70,30 +70,6 @@
 // Author: Yllelder
 // Author: Zpizza
 
-"aaald-added-text-description-2" = "$1 añadido";
-"aaald-article-description-updated-description" = "Se publicó la descripción del artículo.";
-"aaald-article-insert-header" = "Actualizaciones significativas";
-"aaald-article-insert-last-updated" = "Última actualización";
-"aaald-article-insert-new-changes" = "Cambios nuevos";
-"aaald-article-insert-read-more" = "Consulta las actualizaciones";
-"aaald-characters-text-description" = "{{PLURAL:$1|0=caracteres|caracter|caracteres}}";
-"aaald-deleted-text-description-2" = "$1 eliminado";
-"aaald-error-subitle" = "Actualiza la página para probar otra vez";
-"aaald-many-sections-description" = "en $1 secciones";
-"aaald-new-book-reference-title" = "Libro";
-"aaald-new-discussion" = "Nueva discusión";
-"aaald-new-journal-reference-database" = "via $1";
-"aaald-new-journal-reference-title" = "Revista";
-"aaald-new-journal-reference-volume" = "Volumen $1:";
-"aaald-new-news-reference-retrieved-date" = "Consultado el $1";
-"aaald-new-news-reference-title" = "Noticias";
-"aaald-new-talk-topic-description-format" = "$1 acerca de este artículo";
-"aaald-new-website-reference-archive-date-text" = "desde el original en $1";
-"aaald-new-website-reference-archive-url-text" = "URL de Archive.org";
-"aaald-new-website-reference-title" = "Sitio web";
-"aaald-one-section-description" = "en la sección $1";
-"aaald-vandalism-revert-description" = "Se revirtió por sospecha de vandalismo";
-"aaald-view-full-history-button" = "Ver el historial completo del artículo";
 "about-content-license" = "Licencia del contenido";
 "about-content-license-details" = "A menos que se especifique lo contrario, el contenido está disponible bajo una $1.";
 "about-content-license-details-share-alike-license" = "Licencia Creative Commons Atribución-CompartirIgual";
@@ -208,8 +184,7 @@
 "alt-text-feedback-survey-title" = "Ayudar a mejorar esta función";
 "alt-text-feedback-survey-toast-title" = "Comentarios enviados";
 "alt-text-feedback-survey-unsatisfied" = "Insatisfecho";
-// Fuzzy
-"alt-text-license" = "Al publicar cambios, acepta las [Condiciones de uso]($1) y se compromete irrevocablemente a publicar su aporte bajo la licencia [CC BY-SA 3.0]($2) y la [GFDL]($3). Usted acepta que un hipervínculo o URL es suficiente atribución conforme a la licencia Creative Commons.";
+"alt-text-license" = "Al publicar cambios, aceptas los [Términos de uso]($1) y aceptas irrevocablemente liberar tu contribución bajo la licencia [CC BY-SA 3.0]($2) y la [GFDL]($3). Aceptas que un hipervínculo o URL es una atribución suficiente según la licencia de Creative Commons.";
 "alt-text-modal-subtitle-image-recommendation" = "A la imagen anterior le falta el texto alternativo. ¿Añadir una descripción a la imagen para lectores con problemas de la vista?";
 "alt-text-modal-subtitle-regular-edit" = "Hay una imagen en este artículo a la que le falta el texto alternativo. ¿Añadir una descripción para los lectores con problemas de la vista?";
 "alt-text-modal-title" = "¿Añadir el texto alternativo faltante a la imagen?";
@@ -262,11 +237,14 @@
 "button-skip" = "Omitir";
 "cancel" = "Cancelar";
 "cc-zero" = "Creative Commons CC0";
+"chinese-variants-alert-body" = "La aplicación Wikipedia ahora admite las siguientes variantes del chino como idiomas principales o secundarios dentro de la aplicación, lo que facilita la lectura, la búsqueda y la edición en sus variantes preferidas:\n\n简体 Chino simplificado (zh-hans)\n香港繁體 Tradicional de Hong Kong (zh-hk)\n澳門繁體 Tradicional de Macao (zh-mo)\n大马简体 Malasia simplificado (zh-my)\n新加坡简体 Singapur simplificado (zh-sg)\n臺灣正體 Tradicional taiwanés (zh-tw)";
+"chinese-variants-alert-title" = "Actualizaciones del soporte de variantes chinas";
 "clear-title-accessibility-label" = "Limpiar";
 "clearing-cache-complete" = "Limpieza de caché completada.";
 "clearing-cache-in-progress" = "Limpieza de caché en curso.";
 "close-button-accessibility-label" = "Cerrar";
 "compass-direction" = "a las $1 en punto";
+"confirm-donation-history-deletion-subtitle" = "Esto sólo se aplicará a las donaciones realizadas desde este dispositivo.";
 "confirmed-donation-history-deletion" = "Historial local eliminado.";
 "continue-button-title" = "Continuar";
 "continue-reading-empty-description" = "Explorar más artículos para leer en Wikipedia";
@@ -360,6 +338,7 @@
 "donate-apple-fine-print" = "Apple no es responsable de recaudar fondos para esta causa.";
 "donate-email-opt-in-text" = "Sí, acepto que Wikimedia Foundation me envíe correos ocasionalmente.";
 "donate-help-frequently-asked-questions" = "Preguntas frecuentes";
+"donate-help-other-ways-to-give" = "Otras maneras de donar";
 "donate-help-problems-donating" = "¿Problemas al donar?";
 "donate-help-tax-deductibility-information" = "Información de desgravación de impuestos";
 "donate-history-delete" = "Eliminar historial de donaciones local";
@@ -375,6 +354,8 @@
 "donate-success-title" = "¡Gracias!";
 "donate-title" = "Selecciona un importe";
 "donate-transaction-fee-opt-in-text" = "Generosamente, acepto añadir $1 a la donación para cubrir los gastos bancarios y que Wikimedia reciba el 100 %% de mi donación.";
+"donate-wikimedia-fine-print-1" = "No vendemos ni intercambiamos tu información con nadie. Al donar, aceptas compartir tu información personal con la Fundación Wikimedia, la organización sin fines de lucro que aloja Wikipedia y otros proyectos de Wikimedia, y con sus proveedores de servicios de acuerdo con nuestra [política de donantes]($1). La Fundación Wikimedia y sus proveedores de servicios están ubicados en los Estados Unidos y en otros países cuyas leyes de privacidad pueden no ser equivalentes a las de tu país. Para más información, consulta nuestra [política de donantes]($1).";
+"donate-wikimedia-fine-print-2" = "Para donantes recurrentes, la Fundación Wikimedia debitará pagos mensuales fijos en el aniversario mensual de la primera donación, hasta que nos notifiques que deseas interrumpirlos. Las donaciones iniciadas el 29, 30 o 31 del mes se repetirán el último día del mes en meses más cortos, lo más cerca posible de la fecha original. Para consultas, por favor contacta a donate@wikimedia.org.";
 "edit-link-display-text-title" = "Mostrar texto";
 "edit-link-link-target-title" = "Enlace destino";
 "edit-link-remove-link-title" = "Eliminar enlace";
@@ -736,6 +717,7 @@
 "no-internet-connection" = "Sin conexión a internet";
 "no-internet-connection-article-reload" = "Una versión más reciente de este artículo puede estar disponible, pero se puede cargar sin conexión a internet";
 "no-internet-connection-article-reload-button" = "Volver a la última versión guardada";
+"notifications-center-agent-description-from-format" = "De $1";
 "notifications-center-alert" = "Alerta";
 "notifications-center-applied-filters-accessibility-label" = "Filtro de notificaciones - tiene filtros aplicados";
 "notifications-center-applied-project-filters-accessibility-label" = "Filtro de proyectos - tiene filtros aplicados";
@@ -748,6 +730,8 @@
 "notifications-center-filters-read-status-item-title-unread" = "Sin leer";
 "notifications-center-filters-read-status-section-title" = "Estado de lectura";
 "notifications-center-filters-title" = "Filtros";
+"notifications-center-filters-types-item-title-all" = "Todos los tipos";
+"notifications-center-filters-types-section-title" = "Tipos de notificaciones";
 "notifications-center-go-to-article" = "Artículo";
 "notifications-center-go-to-article-talk-format" = "página de discusión $1";
 "notifications-center-go-to-diff" = "Dif";
@@ -762,6 +746,7 @@
 "notifications-center-mark-all-as-read" = "Marcar todo como leído";
 "notifications-center-mark-as-read" = "Marcar como leído";
 "notifications-center-mark-as-unread" = "Marcar como no leído";
+"notifications-center-num-selected-messages-format" = "{{PLURAL:$1|$1 mensaje|$1 mensajes}}";
 "notifications-center-onboarding-modal-continue-action" = "Continuar";
 "notifications-center-onboarding-modal-filters-title" = "Filtros";
 "notifications-center-onboarding-modal-notifications-alerts-title" = "Notificaciones y alertas";
@@ -780,15 +765,24 @@
 "notifications-center-subheader-email-from-other-user" = "Nuevo correo electrónico";
 "notifications-center-subheader-login-success-unknown-device" = "Acceso a la cuenta desde un dispositivo inusual";
 "notifications-center-subheader-mention-edit-summary" = "Mención en el resumen de edición";
+"notifications-center-subheader-message-user-talk-page" = "Mensaje en tu página de discusión";
+"notifications-center-subheader-page-link" = "Página enlazada";
 "notifications-center-subheader-user-rights-change" = "Cambios de derechos de usuario";
+"notifications-center-subheader-wikidata-connection" = "Conexión a Wikidata realizada";
 "notifications-center-swipe-mark-as-read" = "Marcar como leí­do";
 "notifications-center-swipe-mark-as-unread" = "Marcar como no leído";
 "notifications-center-title" = "Notificaciones";
 "notifications-center-toolbar-mark-accessibility-label" = "Marcar notificaciones seleccionadas";
 "notifications-center-type-item-description-mentions" = "Menciones";
 "notifications-center-type-item-description-welcome-verbose" = "Mensaje de bienvenida";
+"notifications-center-type-title-connection-with-wikidata" = "Conexión con Wikidata";
+"notifications-center-type-title-edit-reverted" = "Ediciones revertidas";
 "notifications-center-type-title-email-from-other-user" = "Correo electrónico de otro usuario";
+"notifications-center-type-title-login-attempts" = "Intentos de inicio de sesión";
+"notifications-center-type-title-login-attempts-subtitle" = "Intentos de inicio de sesión fallidos en su cuenta";
+"notifications-center-type-title-login-success" = "Inicio de sesión exitoso";
 "notifications-center-type-title-other" = "Otra";
+"notifications-center-type-title-page-link" = "Página enlazada";
 "notifications-center-type-title-user-rights-change" = "Cambios de derechos de usuario";
 "notifications-push-talk-title-format" = "{{PLURAL:$1|Nuevo mensaje|Nuevos mensajes}}";
 "number-billions" = "$1B";
@@ -1075,6 +1069,7 @@
 "tachelhit-variants-alert-title" = "Actualizaciones a soporte de variantes del tashelhit";
 "tajik-variants-alert-body" = "La aplicación de Wikipedia ahora soporta las variantes del tayiko siguientes como lenguas primarias o secundarias dentro de la aplicación, haciéndolo más fácil de leer, buscar y editar en tus variantes preferidas:\n\nтоҷикӣ кирилликӣ tayiko, cirílico (tg-cyrl)\ntojikī lotinī tayiko, latino (tg-latn)";
 "tajik-variants-alert-title" = "Actualizaciones a soporte de variantes del tayiko";
+"talk-page-active-users-accessibilty-label" = "{{PLURAL:$1|$1 usuario activo|$1 usuarios activos}}";
 "talk-page-add-topic-button" = "Añadir tema";
 "talk-page-discussion-read-accessibility-label" = "Leer";
 "talk-page-discussion-unread-accessibility-label" = "Sin leer";
@@ -1083,6 +1078,8 @@
 "talk-page-new-banner-title" = "Sé amable";
 "talk-page-new-reply-success-text" = "La respuesta se publicó correctamente";
 "talk-page-new-topic-success-text" = "Tu discusión se publicó correctamente";
+"talk-page-publish-reply-error-subtitle" = "Por favor verifique su conexión a Internet.";
+"talk-page-replies-count-accessibilty-label" = "{{PLURAL:$1|$1 respuesta|$1 respuestas}}";
 "talk-page-reply-terms-and-licenses-ccsa4" = "Tenga en cuenta que su respuesta se firmará automáticamente con su nombre de usuario. Al guardar los cambios, acepta los Términos de uso $1 $2 y acepta liberar su contribución bajo las licencias de $3CC BY-SA 4.0$4 y $5GFDL$6.";
 "talk-page-revision-history" = "Historial de revisiones";
 "talk-page-share-button" = "Compartir página de discusión";
@@ -1114,6 +1111,13 @@
 "variants-alert-dismiss-button" = "No, gracias";
 "variants-alert-preferences-button" = "Revisar tus preferencias";
 "watchlist" = "Lista de seguimiento";
+"watchlist-added-toast-one-month" = "Agregado a tu lista de seguimiento por 1 mes.";
+"watchlist-added-toast-one-week" = "Agregado a tu lista de seguimiento por 1 semana.";
+"watchlist-added-toast-one-year" = "Agregado a tu lista de seguimiento por 1 año.";
+"watchlist-added-toast-permanently" = "Agregado a tu lista de seguimiento de forma permanente.";
+"watchlist-added-toast-six-months" = "Agregado a tu lista de seguimiento por 6 meses.";
+"watchlist-added-toast-three-months" = "Agregado a tu lista de seguimiento por 3 meses.";
+"watchlist-added-toast-view-watchlist" = "Ver lista de seguimiento";
 "watchlist-change-expiry-option-one-month" = "1 mes";
 "watchlist-change-expiry-option-one-week" = "1 semana";
 "watchlist-change-expiry-option-one-year" = "1 año";
@@ -1150,6 +1154,7 @@
 "watchlist-user-button-user-page" = "Página de usuario";
 "watchlist-user-button-user-talk-page" = "Página de discusión del usuario";
 "watchlist-watch-title" = "Artículos en seguimiento";
+"welcome-data-privacy-title" = "Datos y privacidad";
 "welcome-exploration-explore-feed-description" = "Lecturas recomendadas y artículos diarios de nuestra comunidad";
 "welcome-exploration-explore-feed-title" = "Canal Explorar";
 "welcome-exploration-on-this-day-description" = "Viaja en el tiempo para saber qué sucedió un día como hoy";

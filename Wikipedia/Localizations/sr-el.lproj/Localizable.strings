@@ -5,40 +5,6 @@
 // Author: McDutchie
 // Author: Milicevic01
 
-"aaald-added-text-description-2" = "Dodato $1";
-"aaald-article-description-updated-description" = "Opis članka je izmenjen";
-"aaald-article-insert-header" = "Značajna dodavanja";
-"aaald-article-insert-last-updated" = "Poslednje ažuriranje";
-"aaald-article-insert-new-changes" = "Nove promene";
-"aaald-article-insert-read-more" = "Čitaj još dodavanja";
-"aaald-characters-text-description" = "{{PLURAL:$1|0=znak|znakova}}";
-"aaald-deleted-text-description-2" = "Obrisano $1";
-"aaald-error-subitle" = "Osveži";
-"aaald-error-title" = "Nije moguće učitati istoriju članaka na liniji";
-"aaald-many-sections-description" = "u $1 odeljaka";
-"aaald-multiple-changes-description" = "Napravljeno više izmena";
-"aaald-multiple-references-added-description" = "Dodato više referenci";
-"aaald-new-book-reference-title" = "Knjiga";
-"aaald-new-discussion" = "Nova diskusija";
-"aaald-new-journal-reference-database" = "preko $1";
-"aaald-new-journal-reference-title" = "Žurnal";
-"aaald-new-journal-reference-volume" = "Tom $1:";
-"aaald-new-news-reference-retrieved-date" = "Preuzeto $1";
-"aaald-new-news-reference-title" = "Novosti";
-"aaald-new-talk-topic-description-format" = "$1 o ovom članku";
-"aaald-new-website-reference-archive-date-text" = "sa originala na $1";
-"aaald-new-website-reference-archive-url-text" = "Veza ka Archive.org";
-"aaald-new-website-reference-title" = "Veb-sajt";
-"aaald-numerical-multiple-references-added-description" = "dodato {{PLURAL:$1|0=0 referenci|$1 referenci|$1 reference}}";
-"aaald-one-section-description" = "U odeljku $1";
-"aaald-revision-by-anonymous" = "Izmena anonimnog korisnika";
-"aaald-revision-userInfo" = "Izmenjeno od strane $1 ($2 izmena)";
-"aaald-single-reference-added-description" = "Dodata referenca";
-"aaald-small-change-description" = "{{PLURAL:$1|0=Nisu napravljene male izmene|$1 mala izmena je napravljena|$1 malih izmena je napravljeno}}";
-"aaald-summary-title" = "{{PLURAL:$1|0=0 izmena|$1 izmena}} od {{PLURAL:$2|0=0 urednika|$2 urednik|$2 urednika}} u {{PLURAL:$3|0=0 dana|$3 danu|$3 dana}}";
-"aaald-two-sections-description" = "u odeljku $1 i odeljku $2";
-"aaald-vandalism-revert-description" = "Verovatni vandalizam vraćen";
-"aaald-view-full-history-button" = "Prikaži celu istoriju članka";
 "about-content-license" = "Licenca sadržaja";
 "about-content-license-details" = "Osim ako nije drugačije navedeno, sadržaj je dostupan pod $1.";
 "about-content-license-details-share-alike-license" = "licencom Creative Commons Autorstvo-Deliti pod istim uslovima";

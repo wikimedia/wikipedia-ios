@@ -7,40 +7,6 @@
 // Author: Tsevener
 // Author: Upwinxp
 
-"aaald-added-text-description-2" = "$1 dodano";
-"aaald-article-description-updated-description" = "Opis članka posodobljen";
-"aaald-article-insert-header" = "Pomembne posodobitve";
-"aaald-article-insert-last-updated" = "Zadnja posodobitev";
-"aaald-article-insert-new-changes" = "Nove spremembe";
-"aaald-article-insert-read-more" = "Preberi več posodobitev";
-"aaald-characters-text-description" = "{{PLURAL:$1|0=znakov|one=znak|two=znaka|few=znaki|znakov}}";
-"aaald-deleted-text-description-2" = "$1 izbrisano";
-"aaald-error-subitle" = "Osvežite za ponovni poskus";
-"aaald-error-title" = "Zgodovine v članku ni mogoče naložiti";
-"aaald-many-sections-description" = "v $1 razdelkih";
-"aaald-multiple-changes-description" = "Opravljenih več sprememb";
-"aaald-multiple-references-added-description" = "Več dodanih sklicev";
-"aaald-new-book-reference-title" = "Knjiga";
-"aaald-new-discussion" = "Nov pogovor";
-"aaald-new-journal-reference-database" = "iz $1";
-"aaald-new-journal-reference-title" = "Revija";
-"aaald-new-journal-reference-volume" = "Zvezek $1:";
-"aaald-new-news-reference-retrieved-date" = "Pridobljeno: $1";
-"aaald-new-news-reference-title" = "Novice";
-"aaald-new-talk-topic-description-format" = "$1 o tem članku";
-"aaald-new-website-reference-archive-date-text" = "iz izvirnika dne $1";
-"aaald-new-website-reference-archive-url-text" = "URL na archive.org";
-"aaald-new-website-reference-title" = "Spletno mesto";
-"aaald-numerical-multiple-references-added-description" = "{{PLURAL:$1|0=Dodanih 0 sklicev|one=Dodan $1 sklic|two=Dodana $1 sklica|few=Dodani $1 sklici|Dodanih $1 sklicev}}";
-"aaald-one-section-description" = "v razdelku $1";
-"aaald-revision-by-anonymous" = "Urejanje anonimnega uporabnika";
-"aaald-revision-userInfo" = "Urejanje uporabnika_ce $1 ($2 urejanj)";
-"aaald-single-reference-added-description" = "Dodan sklic";
-"aaald-small-change-description" = "{{PLURAL:$1|0=Brez manjših urejanj|one=Eno manjše urejanje|two=Dve manjši urejanji|few=$1 manjših urejanj|$1 manjših urejanj}}";
-"aaald-summary-title" = "{{PLURAL:$1|0=0 sprememb|$1 sprememba|$1 spremembi|$1 spremembe|$1 sprememb}} {{PLURAL:$2|0=0 urejevalcev|$2 urejevalca|$2 urejevalcev}} v {{PLURAL:$3|0=0 dneh|$3 dnevu|$3 dnevih|$3 dneh}}";
-"aaald-two-sections-description" = "v razdelkih $1 in $2";
-"aaald-vandalism-revert-description" = "Domnevni vandalizem razveljavljen";
-"aaald-view-full-history-button" = "Ogled celotne zgodovine članka";
 "about-content-license" = "Vsebina licence";
 "about-content-license-details" = "Če ni določeno drugače, je vsebina na voljo pod $1.";
 "about-content-license-details-share-alike-license" = "licenco Creative Commons Priznanje avtorstva-Deljenje pod enakimi pogoji";

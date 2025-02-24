@@ -7,37 +7,6 @@
 // Author: Tsevener
 // Author: Youssoufkadialy
 
-"aaald-added-text-description-2" = "$1 ߓߘߊ߫ ߝߙߊ߬";
-"aaald-article-description-updated-description" = "ߞߎߡߘߊ ߞߎ߲߬ߕߐ߮ ߞߊ߲߬ߛߓߍߟߌ ߓߘߊ߫ ߟߊߞߎߘߦߊ߫";
-"aaald-article-insert-header" = "ߟߊ߬ߞߎ߬ߘߦߊ߬ߟߊ߫ ߞߘߐߡߊ ߟߎ߫";
-"aaald-article-insert-last-updated" = "ߟߏ߲ߘߐߦߊߟߌ ߞߐ߯ߟߕߊ";
-"aaald-article-insert-new-changes" = "ߡߊ߬ߦߟߍ߬ߡߊ߲߬ߠߌ߲ ߞߎߘߊ ߟߎ߬";
-"aaald-article-insert-read-more" = "ߟߏ߲ߘߐߦߊߣߍ߲߫ ߜߘߍ߫ ߟߎ߫ ߘߐߞߊ߬ߙߊ߲߬";
-"aaald-characters-text-description" = "{{PLURAL:$1|ߛߓߍߘߋ߲߫ ߟߎ߬|ߛߓߍߘߋ߲|ߛߓߍߘߋ߲ ߠߎ߬}}";
-"aaald-deleted-text-description-2" = "$1 ߓߘߊ߫ ߖߏ߬ߛߌ߬";
-"aaald-error-subitle" = "ߊ߬ ߟߊߛߎߡߦߊ߫ ߞߵߊ߬ ߡߊߝߍߣߍ߲߫ ߕߎ߲߯ߣߌ߲߫";
-"aaald-error-title" = "ߞߎߡߘߊ ߘߐ߬ߝߐ ߓߟߐߟߐߞߊ߲߫ ߟߊߢߎ߲ߠߌ߲ ߓߌߟߴߊ߬ ߟߊ߫";
-"aaald-many-sections-description" = "ߕߍߕߍ߮ $1 ߘߐ߫";
-"aaald-multiple-changes-description" = "ߡߊ߬ߦߟߍ߬ߡߊ߲߬ߠߌ߲߬ ߦߙߌߞߊ ߟߎ߬ ߓߘߊ߫ ߛߌ߲ߘߌ߫";
-"aaald-multiple-references-added-description" = "ߦߟߌߡߊߛߙߋ߫ ߥߙߍߓߊߓߊ ߓߘߊ߫ ߝߙߊ߬";
-"aaald-new-book-reference-title" = "ߞߊ߬ߝߊ";
-"aaald-new-discussion" = "ߘߊߘߐߖߊߥߏ߫ ߞߎߘߊ";
-"aaald-new-journal-reference-database" = "$1 ߟߊ߫";
-"aaald-new-journal-reference-title" = "ߝߐ߰ߓߍ";
-"aaald-new-journal-reference-volume" = "ߢߊ߲ߞߊ߲ $1:";
-"aaald-new-news-reference-retrieved-date" = "ߟߊߛߐ߬ߘߐ߲߬ ߘߊ߫ $1";
-"aaald-new-news-reference-title" = "ߝߐ߰ߓߍ";
-"aaald-new-talk-topic-description-format" = "ߞߊ߬ ߓߍ߲߬ ߞߎߡߘߊ ߣߌ߲߬ $1 ߡߊ߬";
-"aaald-new-website-reference-archive-date-text" = "ߞߊ߬ ߝߘߊ߫ ߓߐߛߎ߲ $1 ߠߊ߫";
-"aaald-new-website-reference-archive-url-text" = "Archive.org URL";
-"aaald-new-website-reference-title" = "ߓߟߐߟߐ߫ ߞߍߦߙߐ";
-"aaald-one-section-description" = "$1 ߕߍߕߍ߮ ߘߐ߫";
-"aaald-revision-by-anonymous" = "ߊ߬ ߡߊߦߟߍ߬ߡߊ߲߬ߣߍ߲߫ ߦߋ߫ ߟߊ߬ߓߊ߰ߙߊ߬ߟߊ߫ ߕߐ߯ߒߕߊ߲ ߠߋ߬ ߓߟߏ߫";
-"aaald-revision-userInfo" = "(ߡߊ߬ߦߟߍ߬ߡߊ߲߬ߠߌ߲ $2) ߡߊߦߟߍ߬ߡߊ߲߬ߣߍ߲߫ $1 ߟߋ߬ ߓߟߏ߫";
-"aaald-single-reference-added-description" = "ߦߟߌߡߊߛߙߋ ߓߘߊ߫ ߝߊ߬ߙߊ߫";
-"aaald-two-sections-description" = "ߕߍߕߍ߮ $1 ߣߌ߫ $2 ߟߎ߫ ߘߐ߫";
-"aaald-vandalism-revert-description" = "ߊ߬ ߓߘߊ߫ ߟߊߕߊ߲߬ߞߌ߫ ߓߊߏ߬ ߛߌߞߊ߫ ߞߍߣߍ߲߫ ߕߌߢߍߟߌߞߏ ߘߐ߫";
-"aaald-view-full-history-button" = "ߞߎߡߘߊ߫ ߘߝߊߣߍ߲ ߘߐ߬ߝߐ ߘߐߜߍ߫";
 "about-content-license" = "ߞߣߐߘߐ ߕߌ߰ߦߊ";
 "about-content-license-details" = "ߝߴߊ߬ ߛߌ߬ߣߦߊ߬ ߢߊߝߐߟߌ߫ ߘߋ߬߸ ߞߣߐߘߐ ߦߋ߫ $1 ߟߊߓߌ߬ߟߊ ߟߋ߬ ߘߐ߫.";
 "about-contributors" = "ߓߟߏߓߌߟߊߢߐ߲߯ߞߊ߲ߠߊ ߟߎ߬";
