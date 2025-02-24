@@ -1104,8 +1104,6 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
         return YES;
     } else if ([item.type isEqualToString:WMFIconShortcutTypeNearby]) {
         return YES;
-    } else if ([item.type isEqualToString:WMFIconShortcutTypeContinueReading]) {
-        return YES;
     } else {
         return NO;
     }
@@ -1139,8 +1137,6 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
         [self showRandomArticleAnimated:NO];
     } else if ([item.type isEqualToString:WMFIconShortcutTypeNearby]) {
         [self showNearbyAnimated:NO];
-    } else if ([item.type isEqualToString:WMFIconShortcutTypeContinueReading]) {
-        [self showLastReadArticleAnimated:NO source:ArticleSourceUndefined];
     }
     if (completion) {
         completion(YES);
@@ -1618,13 +1614,6 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 - (void)showExplore {
     [self setSelectedIndex:WMFAppTabTypeMain];
     [self.currentTabNavigationController popToRootViewControllerAnimated:NO];
-}
-
-#pragma mark - Last Read Article
-
-- (void)showLastReadArticleAnimated:(BOOL)animated source:(NSInteger)source {
-    NSURL *lastRead = [self.dataStore.viewContext wmf_openArticleURL];
-    [self showArticleWithURL:lastRead source:source animated:animated];
 }
 
 #pragma mark - Show Search
