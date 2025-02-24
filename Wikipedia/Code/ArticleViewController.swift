@@ -873,7 +873,7 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
         } else {
             self.profileBarButtonItem = navigationItem.rightBarButtonItem
         }
-        navigationController?.setNavigationBarHidden(true, animated: false)
+        navigationController?.setNavigationBarHidden(false, animated: false)
     }
     
     private func updateProfileButton() {
