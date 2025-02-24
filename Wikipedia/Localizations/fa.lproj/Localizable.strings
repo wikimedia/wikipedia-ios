@@ -45,40 +45,6 @@
 // Author: Yoosef Pooranvary
 // Author: درفش کاویانی
 
-"aaald-added-text-description-2" = "$1 نویسه افزوده شد";
-"aaald-article-description-updated-description" = "توضیحات مقاله به روز شد";
-"aaald-article-insert-header" = "به‌روزرسانی‌های مهم";
-"aaald-article-insert-last-updated" = "آخرین به‌روزرسانی";
-"aaald-article-insert-new-changes" = "تغییرات جدید";
-"aaald-article-insert-read-more" = "خواندن به‌روزسانی‌های بیشتر";
-"aaald-characters-text-description" = "{{PLURAL:$1|0=نویسه|نویسه}}";
-"aaald-deleted-text-description-2" = "$1 نویسه حذف شد";
-"aaald-error-subitle" = "نوسازی برای تلاش مجدد";
-"aaald-error-title" = "ناتوان در بارگذاری تاریخچهٔ درخط مقاله";
-"aaald-many-sections-description" = "در $1 بخش";
-"aaald-multiple-changes-description" = "چندین تغییر اعمال شد";
-"aaald-multiple-references-added-description" = "چندین ارجاع افزوده شد";
-"aaald-new-book-reference-title" = "کتاب";
-"aaald-new-discussion" = "گفتگوی تازه";
-"aaald-new-journal-reference-database" = "از طریق $1";
-"aaald-new-journal-reference-title" = "مجله";
-"aaald-new-journal-reference-volume" = "شمارهٔ $1:";
-"aaald-new-news-reference-retrieved-date" = "بازبینی‌شده در $1";
-"aaald-new-news-reference-title" = "اخبار";
-"aaald-new-talk-topic-description-format" = "$1 دربارهٔ این مقاله";
-"aaald-new-website-reference-archive-date-text" = "از اصلی در $1";
-"aaald-new-website-reference-archive-url-text" = "نشانی Archive.org";
-"aaald-new-website-reference-title" = "وب‌گاه";
-"aaald-numerical-multiple-references-added-description" = "{{PLURAL:$1|0=۰ ارجاع|$1 ارجاع|$1 ارجاع}} افزوده شد";
-"aaald-one-section-description" = "در بخش $1";
-"aaald-revision-by-anonymous" = "ویرایش‌شده توسط کاربر ناشناس";
-"aaald-revision-userInfo" = "ویرایش توسط $1 ($2 ویرایش)";
-"aaald-single-reference-added-description" = "ارجاع افزوده شد";
-"aaald-small-change-description" = "{{PLURAL:$1|0=خیچ تغییر جزئی اعمال نشد|$1 تغییر جزئی اعمال شد|$1 تغییر جزئی اعمال شد}}";
-"aaald-summary-title" = "{{PLURAL:$1|0=۰ تغییر|$1 تغییر|$1 تغییر}} توسط {{PLURAL:$2|0=۰ ویرایشگر|$2 ویرایشگر|$2 ویرایشگر}} در {{PLURAL:$3|0=۰ روز|$3 روز|$3 روز}}";
-"aaald-two-sections-description" = "در بخش‌های $1 و $2";
-"aaald-vandalism-revert-description" = "خرابکاری مشکوک برگردانده شد";
-"aaald-view-full-history-button" = "مشاهده تاریخچۀ کامل مقاله";
 "about-content-license" = "مجوز محتوا";
 "about-content-license-details" = "در صورتی که حالت دیگری اعلام نشود،‌ محتوا تحت $1 در دسترس است.";
 "about-content-license-details-share-alike-license" = "مجوز کریتیو کامنز اشتراک‌گذاری یکسان";

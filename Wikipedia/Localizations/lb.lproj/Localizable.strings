@@ -10,31 +10,6 @@
 // Author: Soued031
 // Author: Volvox
 
-"aaald-added-text-description-2" = "$1 derbäigesat";
-"aaald-article-description-updated-description" = "Artikelbeschreiwung aktualiséiert";
-"aaald-article-insert-header" = "Bedeitend Aktualiséierungen";
-"aaald-article-insert-last-updated" = "Lescht Aktualiséierung";
-"aaald-article-insert-new-changes" = "Nei Ännerungen";
-"aaald-article-insert-read-more" = "Liest méi Aktualiséierungen";
-"aaald-characters-text-description" = "{{PLURAL:$1|0=Zeechen|Zeechen|Zeechen}}";
-"aaald-deleted-text-description-2" = "$1 geläscht";
-"aaald-error-subitle" = "Aktualiséiert fir nach eng Kéier ze probéieren";
-"aaald-many-sections-description" = "a(n) $1 Abschnitter";
-"aaald-new-book-reference-title" = "Buch";
-"aaald-new-discussion" = "Nei Diskussioun";
-"aaald-new-journal-reference-database" = "iwwer $1";
-"aaald-new-news-reference-title" = "Neiegkeeten";
-"aaald-new-talk-topic-description-format" = "$1 iwwer dësen Artikel";
-"aaald-new-website-reference-archive-date-text" = "vum Original um $1";
-"aaald-new-website-reference-archive-url-text" = "Archive.org-URL";
-"aaald-new-website-reference-title" = "Internetsite";
-"aaald-numerical-multiple-references-added-description" = "{{PLURAL:$1|0=0 Referenzen|$1 Referenz|$1 Referenzen}} derbäigesat";
-"aaald-one-section-description" = "am Abschnitt $1";
-"aaald-revision-by-anonymous" = "Geännert vun engem anonymme Benotzer";
-"aaald-revision-userInfo" = "Geännert vum $1 ($2 Ännerungen)";
-"aaald-single-reference-added-description" = "Referenz derbäigesat";
-"aaald-small-change-description" = "{{PLURAL:$1|0=Keng kleng Ännerung gemaach|$1 kleng Ännerung gemaach|$1 kleng Ännerunge gemaach}}";
-"aaald-two-sections-description" = "an den Abschnitter $1 an $2";
 "about-content-license" = "Lizenz vum Inhalt";
 "about-content-license-details" = "Wann et net anescht uginn ass, ass den Inhalt ënnert enger $1 disponibel.";
 "about-content-license-details-share-alike-license" = "Creative-Commons-Attribution-ShareAlike Lizenz";

@@ -18,13 +18,6 @@
 // Author: SucreRouge
 // Author: Tgkarounos
 
-"aaald-article-insert-last-updated" = "Τελευταία ενημέρωση";
-"aaald-article-insert-new-changes" = "Νέες αλλαγές";
-"aaald-new-book-reference-title" = "Βιβλίο";
-"aaald-new-discussion" = "Νέα συζήτηση";
-"aaald-new-journal-reference-volume" = "Ένταση $1:";
-"aaald-new-news-reference-title" = "Νέα";
-"aaald-new-website-reference-title" = "Ιστότοπος";
 "about-content-license" = "Άδεια περιεχομένου";
 "about-content-license-details" = "Όλα τα κείμενα είναι διαθέσιμα υπό την $1· μπορεί να ισχύουν και πρόσθετοι όροι";
 "about-content-license-details-share-alike-license" = "Creative Commons Attribution-ShareAlike License";

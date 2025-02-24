@@ -7,40 +7,6 @@
 // Author: Nemo bis
 // Author: Robin Owain
 
-"aaald-added-text-description-2" = "$1 wedi'u hychwanegu";
-"aaald-article-description-updated-description" = "Wedi diweddaru disgrifiad yr erthygl";
-"aaald-article-insert-header" = "Diweddariadau Sylweddol";
-"aaald-article-insert-last-updated" = "Golygwyd ddiwethaf";
-"aaald-article-insert-new-changes" = "Newidiadau newydd";
-"aaald-article-insert-read-more" = "Darllen diweddariadau eraill";
-"aaald-characters-text-description" = "{{PLURAL:$1|0=nod|nod}}";
-"aaald-deleted-text-description-2" = "$1 wedi'u dileu";
-"aaald-error-subitle" = "Adnewyddu i geisio eto";
-"aaald-error-title" = "Methwyd a llwytho hanes yr erthygl";
-"aaald-many-sections-description" = "mewn $1 adran";
-"aaald-multiple-changes-description" = "Wedi gwneud nifer o newidiadau";
-"aaald-multiple-references-added-description" = "Ychwanegwyd sawl cyfeiriad";
-"aaald-new-book-reference-title" = "Llyfr";
-"aaald-new-discussion" = "Sgwrs newydd";
-"aaald-new-journal-reference-database" = "via $1";
-"aaald-new-journal-reference-title" = "Cyfnodolyn";
-"aaald-new-journal-reference-volume" = "Cyfrol $1:";
-"aaald-new-news-reference-retrieved-date" = "Adalwyd $1";
-"aaald-new-news-reference-title" = "Newyddion";
-"aaald-new-talk-topic-description-format" = "$1 am yr erthygl";
-"aaald-new-website-reference-archive-date-text" = "o'r $1 gwreiddiol";
-"aaald-new-website-reference-archive-url-text" = "URL Archive.org";
-"aaald-new-website-reference-title" = "Gwefan";
-"aaald-numerical-multiple-references-added-description" = "Ychwanegwyd {{PLURAL:$1|0=0 cyfeiriad|$1 cyfeiriad|$1 gyfeiriad|$1 chyfeiriad|$1 cyfeiriad}}";
-"aaald-one-section-description" = "yn yr adran $1";
-"aaald-revision-by-anonymous" = "Golygiad gan ddefnyddiwr dienw";
-"aaald-revision-userInfo" = "Golygiad gan $1 ($2 golygiad)";
-"aaald-single-reference-added-description" = "Ychwanegwyd y cyfeiriad";
-"aaald-small-change-description" = "{{PLURAL:$1|0=Dim newidiadau bychan|$1 newid bychan|$1 newid bychan}}";
-"aaald-summary-title" = "{{PLURAL:$1|0=0 newidiadau|$1 newid}} gan {{PLURAL:$1|0=0 golygyddion|$2 golygydd|$2 olygydd|$2 golygydd}} o fewn {{PLURAL:$3|0=0 diwrnodau|$3 diwrnod|$3 ddiwrnod|$3 diwrnod}}";
-"aaald-two-sections-description" = "o fewn adran $1 a $2";
-"aaald-vandalism-revert-description" = "wedi gwrthdroi fandaliaeth";
-"aaald-view-full-history-button" = "Edrych ar hanes lawn yr erthygl";
 "about-content-license" = "Trwydded cynnwys";
 "about-content-license-details" = "Oni nodir yn wahanol, mae'r cynnwys o dan drwydded $1.";
 "about-content-license-details-share-alike-license" = "Creative Commons Attribution-ShareAlike License";

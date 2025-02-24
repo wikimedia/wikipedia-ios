@@ -3,40 +3,6 @@
 // Author: Lifeway
 // Author: Mxalexandrov86
 
-"aaald-added-text-description-2" = "$1 ешаралтын";
-"aaald-article-description-updated-description" = "Статьян возен ончыктымашыжым уэмдыме";
-"aaald-article-insert-header" = "Кугу уэмдымаш";
-"aaald-article-insert-last-updated" = "Пытартыш уэмдымаш";
-"aaald-article-insert-new-changes" = "У вашталтыш";
-"aaald-article-insert-read-more" = "Шукырак уэмдымашым лудаш";
-"aaald-characters-text-description" = "{{PLURAL:$1|0=символ|символ}}";
-"aaald-deleted-text-description-2" = "$1 кораҥдалтын";
-"aaald-error-subitle" = "Эше ик гана тӧчен ончаш манын, уэмде";
-"aaald-error-title" = "Статьян историйжым вераҥдаш огеш лий";
-"aaald-many-sections-description" = "$1 ужашлаште";
-"aaald-multiple-changes-description" = "Икмыняр вашталтышым ыштыме";
-"aaald-multiple-references-added-description" = "Икмыняр палемдымашым ешарыме";
-"aaald-new-book-reference-title" = "Книга";
-"aaald-new-discussion" = "У каҥашымаш";
-"aaald-new-journal-reference-database" = "$1 гоч";
-"aaald-new-journal-reference-title" = "Журнал";
-"aaald-new-journal-reference-volume" = "$1 кугыт:";
-"aaald-new-news-reference-retrieved-date" = "$1 налалтын";
-"aaald-new-news-reference-title" = "Увер";
-"aaald-new-talk-topic-description-format" = "тиде статья нерген $1";
-"aaald-new-website-reference-archive-date-text" = "оригинал гыч: $1";
-"aaald-new-website-reference-archive-url-text" = "Archive.org URL";
-"aaald-new-website-reference-title" = "Веб-сайт";
-"aaald-numerical-multiple-references-added-description" = "{{PLURAL:$1|0=0 палемдымашым|$1 палемдымашым}} ешарыме";
-"aaald-one-section-description" = "$1 ужашыште";
-"aaald-revision-by-anonymous" = "Лӱмдымӧ ушнышым тӧрлымаш";
-"aaald-revision-userInfo" = "$1 тӧрлалталтын ($2 тӧрлымаш)";
-"aaald-single-reference-added-description" = "Палемдымашым ешарыме";
-"aaald-small-change-description" = "{{PLURAL:$1|0=Изи вашталтышым ыштыме огыл|$1 изи вашталтышым ыштыме}}";
-"aaald-summary-title" = "{{PLURAL:$1|0=0 вашталтыш-влак|$1 вашталтыш|$1 вашталтыш-влак}} by {{PLURAL:$2|0=0 тӧрлатыше-влак|$2 тӧрлатыше|$2 тӧрлатыше-влак}} in {{PLURAL:$3|0=0 кече|$3 кечылаште|$3 кече}}";
-"aaald-two-sections-description" = "$1 да $2 ужашлаште";
-"aaald-vandalism-revert-description" = "Лийын кертше вандализмым жапыштыже чарыме";
-"aaald-view-full-history-button" = "Статьян чыла историйжым ончалаш";
 "about-content-license" = "Контентын лицензийже";
 "about-content-license-details" = "Весым ончыктымо огыл гын, контентым $1 почеш кучылташ лиеш.";
 "about-content-license-details-share-alike-license" = "Creative Commons Attribution-ShareAlike лицензий";

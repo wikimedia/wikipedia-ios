@@ -16,39 +16,6 @@
 // Author: Pon44695
 // Author: Trisorn Triboon
 
-"aaald-added-text-description-2" = "เพิ่ม $1 แล้ว";
-"aaald-article-description-updated-description" = "ปรับปรุงคำอธิบายบทความแล้ว";
-"aaald-article-insert-header" = "การปรับปรุงที่สำคัญ";
-"aaald-article-insert-last-updated" = "ปรับปรุงล่าสุด";
-"aaald-article-insert-new-changes" = "การเปลี่ยนแปลงใหม่";
-"aaald-article-insert-read-more" = "อ่านการปรับปรุงเพิ่มเติม";
-"aaald-characters-text-description" = "{{PLURAL:$1|0=อักขระ|อักขระ|อักขระ}}";
-"aaald-deleted-text-description-2" = "ลบ $1 แล้ว";
-"aaald-error-subitle" = "รีเฟรชเพื่อลองอีกครั้ง";
-"aaald-error-title" = "ไม่สามารถโหลดประวัติบทความแบบอินไลน์ได้";
-"aaald-many-sections-description" = "ใน $1 ส่วน";
-"aaald-multiple-changes-description" = "มีการเปลี่ยนแปลงหลายจุด";
-"aaald-multiple-references-added-description" = "มีการเพิ่มการอ้างอิงหลายจุด";
-"aaald-new-book-reference-title" = "หนังสือ";
-"aaald-new-discussion" = "การอภิปรายใหม่";
-"aaald-new-journal-reference-database" = "ผ่าน $1";
-"aaald-new-journal-reference-title" = "วารสาร";
-"aaald-new-journal-reference-volume" = "ฉบับ $1:";
-"aaald-new-news-reference-retrieved-date" = "เข้าถึงเมื่อ $1";
-"aaald-new-news-reference-title" = "ข่าว";
-"aaald-new-talk-topic-description-format" = "$1 เกี่ยวกับบทความนี้";
-"aaald-new-website-reference-archive-date-text" = "จากต้นฉบับบน $1";
-"aaald-new-website-reference-archive-url-text" = "URL ของ Archive.org";
-"aaald-new-website-reference-title" = "เว็บไซต์";
-"aaald-numerical-multiple-references-added-description" = "เพิ่ม {{PLURAL:$1|0=0 อ้างอิง|$1 อ้างอิง}} แล้ว";
-"aaald-one-section-description" = "ในส่วน $1";
-"aaald-revision-by-anonymous" = "การแก้ไขโดยผู้ใช้นิรนาม";
-"aaald-revision-userInfo" = "แก้ไขโดย $1 (แก้ไข $2)";
-"aaald-single-reference-added-description" = "เพิ่มอ้างอิงแล้ว";
-"aaald-small-change-description" = "{{PLURAL:$1|0=ไม่มีการเปลี่ยนแปลงเล็กน้อย|$1 ทำการเปลี่ยนแปลงเล็กน้อย}}";
-"aaald-summary-title" = "{{PLURAL:$1|0=0 เปลี่ยนแปลง|$1 เปลี่ยนแปลง}} โดย {{PLURAL:$2|0=0 ผู้แก้ไข|$2 ผู้แก้ไข}} ใน {{PLURAL:$3|0=0 วัน|$3 วัน}}";
-"aaald-two-sections-description" = "ในส่วน $1 และ $2";
-"aaald-view-full-history-button" = "ดูประวัติบทความแบบเต็ม";
 "about-content-license" = "สัญญาอนุญาตเนื้อหา";
 "about-content-license-details" = "นอกเหนือจากที่ระบุไว้ เนื้อหาทั้งหมดใช้ได้ภายใต้ $1";
 "about-content-license-details-share-alike-license" = "สัญญาอนุญาตครีเอทีฟคอมมอนส์แบบแสดงที่มา-อนุญาตแบบเดียวกัน";
