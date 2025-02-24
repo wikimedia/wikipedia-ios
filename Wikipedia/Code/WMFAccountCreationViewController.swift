@@ -100,6 +100,8 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
         wmf_add(childController:captchaViewController, andConstrainToEdgesOfContainerView: captchaContainer)
         
         apply(theme: theme)
+        
+        // Here Grey
     }
     
     override func viewWillAppear(_ animated: Bool) {

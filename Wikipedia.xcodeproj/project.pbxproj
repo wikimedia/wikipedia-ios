@@ -379,6 +379,9 @@
 		3717C38C2CAB2A0D00978DB2 /* YearInReviewCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3717C38B2CAB2A0700978DB2 /* YearInReviewCoordinator.swift */; };
 		3717C38D2CAB2A0D00978DB2 /* YearInReviewCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3717C38B2CAB2A0700978DB2 /* YearInReviewCoordinator.swift */; };
 		3717C38E2CAB2A0D00978DB2 /* YearInReviewCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3717C38B2CAB2A0700978DB2 /* YearInReviewCoordinator.swift */; };
+		37F2CB992D68D419001FFA59 /* TempAccountsToastCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37F2CB982D68D410001FFA59 /* TempAccountsToastCoordinator.swift */; };
+		37F2CB9A2D68D419001FFA59 /* TempAccountsToastCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37F2CB982D68D410001FFA59 /* TempAccountsToastCoordinator.swift */; };
+		37F2CB9B2D68D419001FFA59 /* TempAccountsToastCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37F2CB982D68D410001FFA59 /* TempAccountsToastCoordinator.swift */; };
 		41CCB67421CC1F9700206B47 /* SavedArticlesCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41CCB67321CC1F9700206B47 /* SavedArticlesCollectionViewController.swift */; };
 		41CCB67521CC1F9700206B47 /* SavedArticlesCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41CCB67321CC1F9700206B47 /* SavedArticlesCollectionViewController.swift */; };
 		41CCB67621CC1F9700206B47 /* SavedArticlesCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41CCB67321CC1F9700206B47 /* SavedArticlesCollectionViewController.swift */; };
@@ -3177,6 +3180,7 @@
 		19A172FA6AE61E76FCEF4259 /* NSUserActivity+WMFExtensionsTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSUserActivity+WMFExtensionsTest.m"; sourceTree = "<group>"; };
 		370107A92D5EEBF600E17486 /* TempAccountSheetCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TempAccountSheetCoordinator.swift; sourceTree = "<group>"; };
 		3717C38B2CAB2A0700978DB2 /* YearInReviewCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YearInReviewCoordinator.swift; sourceTree = "<group>"; };
+		37F2CB982D68D410001FFA59 /* TempAccountsToastCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TempAccountsToastCoordinator.swift; sourceTree = "<group>"; };
 		41CCB67321CC1F9700206B47 /* SavedArticlesCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedArticlesCollectionViewController.swift; sourceTree = "<group>"; };
 		41FCAA3521C844CB001D8411 /* ReadingListEntryCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadingListEntryCollectionViewController.swift; sourceTree = "<group>"; };
 		533AB8AD259792A9003A43D9 /* wikipedia-language-variants.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "wikipedia-language-variants.json"; sourceTree = "<group>"; };
@@ -6751,6 +6755,7 @@
 		83796B012C9C6F6000E55C69 /* Coordinators */ = {
 			isa = PBXGroup;
 			children = (
+				37F2CB982D68D410001FFA59 /* TempAccountsToastCoordinator.swift */,
 				370107A92D5EEBF600E17486 /* TempAccountSheetCoordinator.swift */,
 				675826732D68CEB8002B0EE7 /* ArticleCoordinator.swift */,
 				675826812D69394E002B0EE7 /* RandomArticleCoordinator.swift */,
@@ -9958,6 +9963,7 @@
 				007CCF0126D5A10200D5EA7C /* NotificationsCenterViewController.swift in Sources */,
 				7A610CB7220A30C900C266AE /* HintViewController.swift in Sources */,
 				D84BF62F1DBE616D00E0C85E /* UIViewController+WMFAlerts.swift in Sources */,
+				37F2CB9B2D68D419001FFA59 /* TempAccountsToastCoordinator.swift in Sources */,
 				67CEF263235110F700D5CA6C /* DiffNetworkModels.swift in Sources */,
 				7AC19E322301EF7D00E25B83 /* PageHistoryFilterCountsViewController.swift in Sources */,
 				BCCB813E1C110702008BC602 /* NSDate+WMFPOTDTitle.m in Sources */,
@@ -11087,6 +11093,7 @@
 				D82117FD1EE58C080076C040 /* MapAnnotation.swift in Sources */,
 				B0CD9DE01F70997400051843 /* WMFWelcomeIntroductionAnimationView.swift in Sources */,
 				67E8B07B226A57DE00537BC9 /* AccountViewController.swift in Sources */,
+				37F2CB992D68D419001FFA59 /* TempAccountsToastCoordinator.swift in Sources */,
 				83842A8B2B0CFF8300EFC55F /* UITestHelperViewController.swift in Sources */,
 				6707C033237DBCEE0017E7B6 /* DiffRevisionTransition.swift in Sources */,
 				8382F8D420D928BF00AE5250 /* ColumnarCollectionViewControllerLayoutCache.swift in Sources */,
@@ -11635,6 +11642,7 @@
 				53A575FB2602C845009835E6 /* WMFAppViewController+Extensions.swift in Sources */,
 				7A71567022697AAF0066FEC4 /* InsertMediaCustomImageSizeSettingTableViewCell.swift in Sources */,
 				67E8B07C226A57DE00537BC9 /* AccountViewController.swift in Sources */,
+				37F2CB9A2D68D419001FFA59 /* TempAccountsToastCoordinator.swift in Sources */,
 				6707C034237DBCEE0017E7B6 /* DiffRevisionTransition.swift in Sources */,
 				83842A8A2B0CFF8200EFC55F /* UITestHelperViewController.swift in Sources */,
 				8382F8D520D928BF00AE5250 /* ColumnarCollectionViewControllerLayoutCache.swift in Sources */,
