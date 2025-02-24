@@ -7,14 +7,16 @@ final class RandomArticleCoordinator: Coordinator {
     private let dataStore: MWKDataStore
     var theme: Theme
     private let source: ArticleSource
+    private let animated: Bool
     
-    init(navigationController: UINavigationController, articleURL: URL?, siteURL: URL?, dataStore: MWKDataStore, theme: Theme, source: ArticleSource) {
+    init(navigationController: UINavigationController, articleURL: URL?, siteURL: URL?, dataStore: MWKDataStore, theme: Theme, source: ArticleSource, animated: Bool) {
         self.navigationController = navigationController
         self.articleURL = articleURL
         self.siteURL = siteURL
         self.dataStore = dataStore
         self.theme = theme
         self.source = source
+        self.animated = animated
     }
     
     @discardableResult
@@ -30,7 +32,7 @@ final class RandomArticleCoordinator: Coordinator {
             guard let vc = RandomArticleViewController(articleURL: articleURL, dataStore: dataStore, theme: theme, source: source) else {
                 return false
             }
-            navigationController.pushViewController(vc, animated: true)
+            navigationController.pushViewController(vc, animated: animated)
             
         // Push on any old random article
         } else if var siteURL {
@@ -41,7 +43,7 @@ final class RandomArticleCoordinator: Coordinator {
             }
             
             let vc = WMFFirstRandomViewController(siteURL: siteURL, dataStore: dataStore, theme: theme)
-            navigationController.pushViewController(vc, animated: true)
+            navigationController.pushViewController(vc, animated: animated)
             
         }
         return true

@@ -114,7 +114,7 @@ class RandomArticleViewController: ArticleViewController {
                 }
                 self.secondToolbar.items = []
                 
-                let randomCoordinator = RandomArticleCoordinator(navigationController: navigationController, articleURL: articleURL, siteURL: nil, dataStore: dataStore, theme: theme, source: .undefined)
+                let randomCoordinator = RandomArticleCoordinator(navigationController: navigationController, articleURL: articleURL, siteURL: nil, dataStore: dataStore, theme: theme, source: .undefined, animated: true)
                 randomCoordinator.start()
             }
         }

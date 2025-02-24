@@ -609,7 +609,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
                 
                 // todo: accurate source
                 // let articleSource = Explore tapped "Another random article" title
-                let randomCoordinator = RandomArticleCoordinator(navigationController: navigationController, articleURL: nil, siteURL: randomSiteURL, dataStore: dataStore, theme: theme, source: .undefined)
+                let randomCoordinator = RandomArticleCoordinator(navigationController: navigationController, articleURL: nil, siteURL: randomSiteURL, dataStore: dataStore, theme: theme, source: .undefined, animated: true)
                 randomCoordinator.start()
                 return
             } else if let vc = group.detailViewControllerWithDataStore(dataStore, theme: theme, imageRecDelegate: self, imageRecLoggingDelegate: self) {
@@ -832,7 +832,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
                     break
                 }
                 
-                let randomArticleCoordinator = RandomArticleCoordinator(navigationController: navigationController, articleURL: articleURL, siteURL: nil, dataStore: dataStore, theme: theme, source: articleSource)
+                let randomArticleCoordinator = RandomArticleCoordinator(navigationController: navigationController, articleURL: articleURL, siteURL: nil, dataStore: dataStore, theme: theme, source: articleSource, animated: true)
                 randomArticleCoordinator.start()
                 return true
             default:

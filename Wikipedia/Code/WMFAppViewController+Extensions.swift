@@ -225,7 +225,12 @@ extension WMFAppViewController {
         alertController.addAction(cancelAction)
         
         viewController.present(alertController, animated: true, completion: nil)
-        
+    }
+    
+    @objc func showRandomArticleFromShortcut(siteURL: URL?, animated: Bool) {
+        guard let navVC = currentTabNavigationController else { return }
+        let coordinator = RandomArticleCoordinator(navigationController: navVC, articleURL: nil, siteURL: siteURL, dataStore: dataStore, theme: theme, source: .undefined, animated: animated)
+        coordinator.start()
     }
 }
 

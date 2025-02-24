@@ -1134,7 +1134,7 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
             [self.searchViewController makeSearchBarBecomeFirstResponder];
         }
     } else if ([item.type isEqualToString:WMFIconShortcutTypeRandom]) {
-        [self showRandomArticleAnimated:NO];
+        [self showRandomArticleFromShortcutAnimated:NO];
     } else if ([item.type isEqualToString:WMFIconShortcutTypeNearby]) {
         [self showNearbyAnimated:NO];
     }
@@ -1638,13 +1638,9 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     }
 }
 
-- (void)showRandomArticleAnimated:(BOOL)animated {
+- (void)showRandomArticleFromShortcutAnimated:(BOOL)animated {
     [self dismissPresentedViewControllers];
-    [self setSelectedIndex:WMFAppTabTypeMain];
-    UINavigationController *exploreNavController = self.currentTabNavigationController;
-    WMFFirstRandomViewController *vc = [[WMFFirstRandomViewController alloc] initWithSiteURL:[self siteURL] dataStore:self.dataStore theme:self.theme];
-    [vc applyTheme:self.theme];
-    [exploreNavController pushViewController:vc animated:animated];
+    [self showRandomArticleFromShortcutWithSiteURL:[self siteURL] animated:animated];
 }
 
 - (void)showNearbyAnimated:(BOOL)animated {
