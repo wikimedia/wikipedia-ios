@@ -221,48 +221,13 @@ class ExploreFeedSettingsViewController: BaseExploreFeedSettingsViewController, 
 
             let shouldShowSuggestedEdits = !UIAccessibility.isVoiceOverRunning && editCount >= 50
 
-            if shouldShowSuggestedEdits || self.shouldEnableForAltTextExperiment() {
+            if shouldShowSuggestedEdits {
                 feedCards.append(suggestedEditsOption)
             }
 
         return feedCards
 
     }()
-
-    private func shouldEnableForAltTextExperiment() -> Bool {
-        let altTextDevSettingsFeatureFlagForEN = WMFDeveloperSettingsDataController.shared.enableAltTextExperimentForEN
-        let targetWikisForAltText = altTextDevSettingsFeatureFlagForEN ? ["es", "fr", "pt", "zh", "en"] : ["es", "fr", "pt", "zh"]
-        let language = self.dataStore?.languageLinkController.appLanguage?.languageCode ?? String()
-
-        if #available(iOS 16, *) {
-            
-            let isUserPermanent = dataStore?.authenticationManager.authStateIsPermanent ?? false
-            
-            return isUserPermanent && targetWikisForAltText.contains(language) && !UIAccessibility.isVoiceOverRunning && UIDevice.current.userInterfaceIdiom == .phone
-            && shouldAltTextExperimentBeActive()
-        }
-        return false
-    }
-
-    func shouldAltTextExperimentBeActive() -> Bool {
-        var dateComponents = DateComponents()
-        dateComponents.year = 2024
-        dateComponents.month = 11
-        dateComponents.day = 5
-
-        let calendar = Calendar(identifier: .gregorian)
-        guard let experimentDate = calendar.date(from: dateComponents) else {
-            return false
-        }
-
-        let currentDate = Date()
-
-        if currentDate > experimentDate {
-            return false
-        }
-
-        return true
-    }
 
     private lazy var globalCards: ExploreFeedSettingsGlobalCards = {
         return ExploreFeedSettingsGlobalCards()
