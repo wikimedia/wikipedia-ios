@@ -75,6 +75,13 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
         wmf_add(childController:captchaViewController, andConstrainToEdgesOfContainerView: captchaContainer)
         
         apply(theme: theme)
+        
+        guard let navigationController else { return }
+        let authManager = dataStore.authenticationManager
+        
+        if authManager.authStateIsTemporary {
+            // show sheet
+        }
     }
     
     private func configureNavigationBar() {
