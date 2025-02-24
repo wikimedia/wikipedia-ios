@@ -26,40 +26,6 @@
 // Author: Дар'я Козлова
 // Author: Пан Хаунд
 
-"aaald-added-text-description-2" = "$1 додано";
-"aaald-article-description-updated-description" = "Опис заголовку статті оновлено";
-"aaald-article-insert-header" = "Важливі оновлення";
-"aaald-article-insert-last-updated" = "Останнє оновлення";
-"aaald-article-insert-new-changes" = "Нові зміни";
-"aaald-article-insert-read-more" = "Дивитися нові оновлення";
-"aaald-characters-text-description" = "{{PLURAL:$1|0=символів|символ|символи|символів}}";
-"aaald-deleted-text-description-2" = "$1 вилучено";
-"aaald-error-subitle" = "Оновіть, аби спробувати знову";
-"aaald-error-title" = "Не вдалося завантажити історію статті";
-"aaald-many-sections-description" = "у $1 розділах";
-"aaald-multiple-changes-description" = "Виконано декілька змін";
-"aaald-multiple-references-added-description" = "Додано декілька приміток";
-"aaald-new-book-reference-title" = "Книжка";
-"aaald-new-discussion" = "Нове обговорення";
-"aaald-new-journal-reference-database" = "за $1";
-"aaald-new-journal-reference-title" = "Журнал";
-"aaald-new-journal-reference-volume" = "Том $1:";
-"aaald-new-news-reference-retrieved-date" = "Процитовано $1";
-"aaald-new-news-reference-title" = "Новини";
-"aaald-new-talk-topic-description-format" = "$1 про цю статтю";
-"aaald-new-website-reference-archive-date-text" = "З оригінала в $1";
-"aaald-new-website-reference-archive-url-text" = "Archive.org URL";
-"aaald-new-website-reference-title" = "Вебсайт";
-"aaald-numerical-multiple-references-added-description" = "{{PLURAL:$1|0=0 приміток|$1 примітка|$1 примітки|$1 приміток}} додано";
-"aaald-one-section-description" = "у розділі $1";
-"aaald-revision-by-anonymous" = "Редагування аноніма";
-"aaald-revision-userInfo" = "Відредаговано $1 ($2 змін)";
-"aaald-single-reference-added-description" = "Примітку додано";
-"aaald-small-change-description" = "{{PLURAL:$1|0=Не виконано жодних незначних редагувань|Виконано $1 незначне редагування|Виконано $1 незначні редагування|Виконано $1 незначних редагувань}}";
-"aaald-summary-title" = "{{PLURAL:$1|0=0 змін|$1 зміна|$1 зміни|$1 змін}} від {{PLURAL:$2|0=0 дописувачів|$2 дописувачі|$2 дописувачів}} протягом {{PLURAL:$3|0=0 днів|$3 день|$3 днів}}";
-"aaald-two-sections-description" = "у розділах $1 і $2";
-"aaald-vandalism-revert-description" = "Імовірний вандалізм відкочено";
-"aaald-view-full-history-button" = "Переглянути всю історію статті";
 "about-content-license" = "Ліцензія на вміст";
 "about-content-license-details" = "Якщо не вказано інше, вміст доступний під ліцензією $1.";
 "about-content-license-details-share-alike-license" = "Ліцензія Creative Commons Attribution-ShareAlike";

@@ -55,8 +55,6 @@ public final class WMFNavigationExperimentsDataController {
             assignment = ArticleSearchBarExperimentAssignment.test
         case .articleSearchBarControl:
             assignment = ArticleSearchBarExperimentAssignment.control
-        default:
-            throw CustomError.unexpectedAssignment
         }
         
         self.assignmentCache = assignment
@@ -84,8 +82,6 @@ public final class WMFNavigationExperimentsDataController {
             assignment = ArticleSearchBarExperimentAssignment.test
         case .articleSearchBarControl:
             assignment = ArticleSearchBarExperimentAssignment.control
-        default:
-            throw CustomError.unexpectedAssignment
         }
         
         self.assignmentCache = assignment

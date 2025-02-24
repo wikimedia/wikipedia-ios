@@ -44,40 +44,6 @@
 // Author: 神樂坂秀吉
 // Author: 阿南之人
 
-"aaald-added-text-description-2" = "$1已新增";
-"aaald-article-description-updated-description" = "條目描述已更新";
-"aaald-article-insert-header" = "重要更新";
-"aaald-article-insert-last-updated" = "上一次更新";
-"aaald-article-insert-new-changes" = "新的更改";
-"aaald-article-insert-read-more" = "閱讀更多更新內容";
-"aaald-characters-text-description" = "{{PLURAL:$1|字元}}";
-"aaald-deleted-text-description-2" = "$1已刪除";
-"aaald-error-subitle" = "重新整理來再次嘗試";
-"aaald-error-title" = "無法載入內嵌條目的歷史紀錄";
-"aaald-many-sections-description" = "在第 $1 段";
-"aaald-multiple-changes-description" = "做出多次更改";
-"aaald-multiple-references-added-description" = "添加多個參考資料";
-"aaald-new-book-reference-title" = "書籍";
-"aaald-new-discussion" = "新討論";
-"aaald-new-journal-reference-database" = "透過 $1";
-"aaald-new-journal-reference-title" = "期刊";
-"aaald-new-journal-reference-volume" = "卷 $1：";
-"aaald-new-news-reference-retrieved-date" = "檢索於 $1";
-"aaald-new-news-reference-title" = "新聞";
-"aaald-new-talk-topic-description-format" = "關於此條目的$1";
-"aaald-new-website-reference-archive-date-text" = "來自於 $1 的原有內容";
-"aaald-new-website-reference-archive-url-text" = "Archive.org URL";
-"aaald-new-website-reference-title" = "網站";
-"aaald-numerical-multiple-references-added-description" = "增加 {{PLURAL:$1|0=0|$1|$1}} 個參考資料";
-"aaald-one-section-description" = "在$1段落";
-"aaald-revision-by-anonymous" = "由匿名使用者做出的編輯";
-"aaald-revision-userInfo" = "由$1編輯（$2次編輯）";
-"aaald-single-reference-added-description" = "參考資料已添加";
-"aaald-small-change-description" = "做出 {{PLURAL:$1|0=0|$1|$1}} 次小更改";
-"aaald-summary-title" = "在 {{PLURAL:$3|0=0|$3|$3}} 天裡由 {{PLURAL:$2|0=0|$2|$2}} 位編者做出 {{PLURAL:$1|0=0|$1|$1}} 更改";
-"aaald-two-sections-description" = "在$1與$2段落";
-"aaald-vandalism-revert-description" = "回退了疑似破壞內容";
-"aaald-view-full-history-button" = "查看完整的條目歷史";
 "about-content-license" = "內容許可協議";
 "about-content-license-details" = "除非另有聲明，內容皆基於$1授權。";
 "about-content-license-details-share-alike-license" = "創作共用 姓名標示 - 相同方式分享";

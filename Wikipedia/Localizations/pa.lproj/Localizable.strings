@@ -14,40 +14,6 @@
 // Author: ਗੁਰਪ੍ਰੀਤ ਹੁੰਦਲ
 // Author: ਪ੍ਰਚਾਰਕ
 
-"aaald-added-text-description-2" = "$1 ਜੋੜਿਆ ਗਿਆ";
-"aaald-article-description-updated-description" = "ਲੇਖ ਦਾ ਵੇਰਵਾ ਨਵਿਆਈਆਂ ਗਿਆ";
-"aaald-article-insert-header" = "ਮਹੱਤਵਪੂਰਨ ਅੱਪਡੇਟ";
-"aaald-article-insert-last-updated" = "ਆਖਰੀ ਵਾਰ ਨਵਿਆਈਆ ਗਿਆ";
-"aaald-article-insert-new-changes" = "ਨਵੀਆਂ ਤਬਦੀਲੀਆਂ";
-"aaald-article-insert-read-more" = "ਹੋਰ ਅੱਪਡੇਟ ਪੜ੍ਹੋ";
-"aaald-characters-text-description" = "{{PLURAL:$1|0=ਅੱਖਰ|ਅੱਖਰ}}";
-"aaald-deleted-text-description-2" = "$1 ਮਿਟਾਇਆ ਗਿਆ";
-"aaald-error-subitle" = "ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰਨ ਲਈ ਤਾਜ਼ਾ ਕਰੋ";
-"aaald-error-title" = "ਲਕੀਰ-ਅੰਦਰ ਲੇਖ ਇਤਿਹਾਸ ਨੂੰ ਲੱਦਣ ਵਿੱਚ ਨਾਕਾਮ";
-"aaald-many-sections-description" = "$1 ਭਾਗਾਂ ਵਿੱਚ";
-"aaald-multiple-changes-description" = "ਕਈ ਤਬਦੀਲੀਆਂ ਕੀਤੀਆਂ ਗਈਆਂ";
-"aaald-multiple-references-added-description" = "ਕਈ ਹਵਾਲੇ ਜੋਡ਼ੇ ਗਏ";
-"aaald-new-book-reference-title" = "ਕਿਤਾਬ";
-"aaald-new-discussion" = "ਨਵੀਂ ਚਰਚਾ";
-"aaald-new-journal-reference-database" = "$1 ਰਾਹੀਂ";
-"aaald-new-journal-reference-title" = "ਰਸਾਲਾ";
-"aaald-new-journal-reference-volume" = "ਜਿਲਦ $1:";
-"aaald-new-news-reference-retrieved-date" = "$1 ਮੁੜ ਪ੍ਰਾਪਤ ਕੀਤਾ";
-"aaald-new-news-reference-title" = "ਖ਼ਬਰਾਂ";
-"aaald-new-talk-topic-description-format" = "ਇਸ ਲੇਖ ਬਾਰੇ $1";
-"aaald-new-website-reference-archive-date-text" = "ਮੂਲ ਤੋਂ $1 ਉੱਤੇ";
-"aaald-new-website-reference-archive-url-text" = "Archive.org ਯੂਆਰਐੱਲ";
-"aaald-new-website-reference-title" = "ਵੈੱਬਸਾਈਟ";
-"aaald-numerical-multiple-references-added-description" = "{{PLURAL:$1|0=0 ਹਵਾਲੇ|$1 ਹਵਾਲਾ|$1 ਹਵਾਲੇ}} ਸ਼ਾਮਲ ਕੀਤੇ ਗਏ";
-"aaald-one-section-description" = "$1 ਭਾਗ ਵਿੱਚ";
-"aaald-revision-by-anonymous" = "ਅਗਿਆਤ ਵਰਤੋਂਕਾਰ ਵੱਲੋਂ ਸੋਧ";
-"aaald-revision-userInfo" = "$1 ਨਾਲ ਸੋਧ ($2 ਸੋਧਾਂ)";
-"aaald-single-reference-added-description" = "ਹਵਾਲਾ ਜੋੜਿਆ ਗਿਆ";
-"aaald-small-change-description" = "{{PLURAL:$1|0=ਕੋਈ ਛੋਟੀਆਂ ਤਬਦੀਲੀਆਂ ਨਹੀਂ ਕੀਤੀਆਂ|$1 ਛੋਟੀ ਤਬਦੀਲੀ ਕੀਤੀ|$1 ਛੋਟੀਆਂ ਤਬਦੀਲੀਆਂ ਕੀਤੀਆਂ}}";
-"aaald-summary-title" = "{{PLURAL:$1|0=0 ਤਬਦੀਲੀਆਂ|$1 ਤਬਦੀਲੀ|$1 ਤਬਦੀਲੀਆਂ}} ਵੱਲੋਂ {{PLURAL:$2|0=0 ਸੋਧਕ|$2 ਸੋਧਕ}} {{PLURAL:$3|0=0 ਦਿਨਾਂ|$3 ਦਿਨ|$3 ਦਿਨਾਂ}} ਵਿੱਚ";
-"aaald-two-sections-description" = "$1 ਅਤੇ $2 ਭਾਗਾਂ ਵਿੱਚ";
-"aaald-vandalism-revert-description" = "ਸ਼ੱਕੀ ਭੰਨ-ਤੋੜ ਵਾਪਸ ਕੀਤੀ ਗਈ";
-"aaald-view-full-history-button" = "ਲੇਖ ਦਾ ਪੂਰਾ ਇਤਿਹਾਸ ਵੇਖੋ";
 "about-content-license" = "ਸਮੱਗਰੀ ਲਸੰਸ";
 "about-content-license-details" = "ਜੇ ਕੁਝ ਹੋਰ ਨਹੀਂ ਕਿਹਾ ਗਿਆ ਤਾਂ ਸਮੱਗਰੀ $1 ਹੇਠ ਉਪਲੱਬਧ ਹੈ।";
 "about-content-license-details-share-alike-license" = "ਕਰੀਏਟਿਵ ਕਾਮਨਜ਼ ਐਟ੍ਰੀਰਬ੍ਯੂਸ਼ਨ-ਸ਼ੇਅਰ ਅਲਾਈਕ ਲਸੰਸ";
@@ -496,7 +462,7 @@
 "import-shared-reading-list-survey-prompt-button-cancel" = "ਹਾਲੇ ਨਹੀਂ";
 "import-shared-reading-list-survey-prompt-button-take-survey" = "ਸਰਵੇਖਣ ਲਵੋ";
 "import-shared-reading-list-survey-prompt-title" = "ਕੀ ਤੁਸੀਂ \"ਪਡ਼੍ਹਨ ਦੀਆਂ ਸੂਚੀਆਂ ਸਾਂਝੀਆਂ ਕਰੋ\" ਨੂੰ ਬਿਹਤਰ ਬਣਾਉਣ ਵਿੱਚ ਸਾਡੀ ਮਦਦ ਕਰ ਸਕਦੇ ਹੋ?";
-"import-shared-reading-list-title" = "ਸਾਂਝੀ ਪਡ਼੍ਹੀ ਸੂਚੀ ਨੂੰ ਦਰਾਮਦ ਕਰੋ";
+"import-shared-reading-list-title" = "ਸਾਂਝੀ ਪੜੀ ਸੂਚੀ ਨੂੰ ਦਰਾਮਦ ਕਰੋ";
 "in-the-news-sub-title-from-language-wikipedia" = "$1 ਵਿਕੀਪੀਡੀਆ ਤੋਂ";
 "in-the-news-sub-title-from-wikipedia" = "ਵਿਕੀਪੀਡੀਆ ਤੋਂ";
 "in-the-news-title" = "ਖ਼ਬਰਾਂ 'ਚ";

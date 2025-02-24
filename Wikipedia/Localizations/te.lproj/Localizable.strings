@@ -11,39 +11,6 @@
 // Author: V Bhavya
 // Author: Veeven
 
-"aaald-added-text-description-2" = "$1 చేర్చాం";
-"aaald-article-description-updated-description" = "వ్యాస వివరణను తాజాకరించాం!";
-"aaald-article-insert-header" = "ప్రముఖ తాజాకరణలు";
-"aaald-article-insert-last-updated" = "చివరిగా తాజాకరించినది";
-"aaald-article-insert-new-changes" = "కొత్త మార్పులు";
-"aaald-article-insert-read-more" = "మరిన్ని తాజాకరణలను చదవండి";
-"aaald-characters-text-description" = "{{PLURAL:$1|0=కారెక్టర్లను|కారెక్టరును|కారెక్టర్లను}}";
-"aaald-deleted-text-description-2" = "$1 తొలగించారు";
-"aaald-error-subitle" = "మళ్ళీ ప్రయత్నించడానికి రిఫ్రెష్ చెయ్యండి";
-"aaald-many-sections-description" = "$1 విభాగాల్లో";
-"aaald-multiple-changes-description" = "బహుళ మార్పులు చేసారు";
-"aaald-multiple-references-added-description" = "బహుళ మూలాలను చేర్చారు";
-"aaald-new-book-reference-title" = "పుస్తకం";
-"aaald-new-discussion" = "కొత్త చర్చ";
-"aaald-new-journal-reference-database" = "$1 ద్వారా";
-"aaald-new-journal-reference-title" = "జర్నల్";
-"aaald-new-journal-reference-volume" = "సంపుటి $1:";
-"aaald-new-news-reference-retrieved-date" = "తెచ్చినది $1";
-"aaald-new-news-reference-title" = "వార్తలు";
-"aaald-new-talk-topic-description-format" = "ఈ వ్యాసం గురించి $1";
-"aaald-new-website-reference-archive-date-text" = "$1 నాటి ఒరిజినలు నుండి";
-"aaald-new-website-reference-archive-url-text" = "Archive.org URL";
-"aaald-new-website-reference-title" = "వెబ్‌సైటు";
-"aaald-numerical-multiple-references-added-description" = "{{PLURAL:$1|0=0 మూలాలను|$1 మూలాన్ని|$1 మూలాలను}} చేర్చారు";
-"aaald-one-section-description" = "$1 విభాగంలో";
-"aaald-revision-by-anonymous" = "అజ్ఞాత చేసిన దిద్దుబాటు";
-"aaald-revision-userInfo" = "$1 చేసిన దిద్దుబాటు ($2 దిద్దుబాట్లు)";
-"aaald-single-reference-added-description" = "మూలాన్ని చేర్చాం";
-"aaald-small-change-description" = "{{PLURAL:$1|0=చిన్న మార్పులేమీ చెయ్యలేదు|$1 చిన్న మార్పు చేసారు|$1 చిన్న మార్పులు చేసారు}}";
-"aaald-summary-title" = "{{PLURAL:$2|0=0 ఎడిటర్లు|$2 ఎడిటరు|$2 ఎడిటర్లు}} {{PLURAL:$3|0=0 రోజుల్లో|$3 రోజులో|$3 రోజుల్లో}} {{PLURAL:$1|0=0 మార్పులు|$1 మార్పు|$1 మార్పులు}}";
-"aaald-two-sections-description" = "$1, $2 విభాగాల్లో";
-"aaald-vandalism-revert-description" = "అనుమానాస్పద దుశ్చర్యను తిరగ్గొట్టారు";
-"aaald-view-full-history-button" = "వ్యాసపిఉ పూర్తి చరిత్రను చూపించు";
 "about-content-license" = "విషయపు లైసెన్సు";
 "about-content-license-details" = "ప్రత్యేకంగా చెప్పకపోతే, కంటెంటు $1 కింద లభ్యం.";
 "about-content-license-details-share-alike-license" = "Creative Commons Attribution-ShareAlike లైసెన్సు";

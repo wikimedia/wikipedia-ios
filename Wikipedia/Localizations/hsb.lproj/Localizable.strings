@@ -4,28 +4,6 @@
 // Author: Michawiki
 // Author: Tsevener
 
-"aaald-article-description-updated-description" = "Wopisanje zapiska bu aktualizowane";
-"aaald-article-insert-last-updated" = "Poslednja aktualizacija";
-"aaald-article-insert-new-changes" = "Nowe změny";
-"aaald-article-insert-read-more" = "Wjace aktualizacijow widźeć";
-"aaald-characters-text-description" = "{{PLURAL:$1|pismik|pismikaj|pismiki|pismikow}}";
-"aaald-error-subitle" = "Wobnowić a znowa spytać";
-"aaald-many-sections-description" = "w(e) $1 wotrězkach";
-"aaald-multiple-references-added-description" = "Wjacore nóžki přidate";
-"aaald-new-book-reference-title" = "Kniha";
-"aaald-new-discussion" = "Nowa diskusija";
-"aaald-new-journal-reference-database" = "přez $1";
-"aaald-new-journal-reference-title" = "Časopis";
-"aaald-new-journal-reference-volume" = "Wudaće $1:";
-"aaald-new-news-reference-title" = "Powěsće";
-"aaald-new-website-reference-archive-date-text" = "z originala na $1";
-"aaald-new-website-reference-title" = "Websydło";
-"aaald-revision-by-anonymous" = "Wot anonymneho wužiwarja wobdźěłane";
-"aaald-revision-userInfo" = "Wobdźěłane wot $1 ($2 změnow)";
-"aaald-single-reference-added-description" = "Nóžka přidata";
-"aaald-summary-title" = "{{PLURAL:$1|$1 změna|$1 změnje|$1 změny|$1 změnow}} wot {{PLURAL:$2|$2 wužiwarja|$2 wužiwarjow}} w(e) {{PLURAL:$3|$3 dnju|$3 dnjomaj|$3 dnjach}}";
-"aaald-vandalism-revert-description" = "Pozdatny wandalizm cofnjeny";
-"aaald-view-full-history-button" = "Dospołne wersijowe stawizny pokazać";
 "about-content-license" = "Licenca wobsaha";
 "about-content-license-details" = "Wobsah steji pod $1 k dispoziciji, chibazo je něšto hinaše podate.";
 "about-contributors" = "Awtorojo";

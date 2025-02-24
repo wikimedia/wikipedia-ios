@@ -8,19 +8,6 @@
 // Author: Paradox
 // Author: Simbu123
 
-"aaald-article-insert-last-updated" = "অন্তিম সংশোধন";
-"aaald-article-insert-new-changes" = "নতুন সাল-সলনি";
-"aaald-new-book-reference-title" = "কিতাপ";
-"aaald-new-discussion" = "নতুন আলোচনা";
-"aaald-new-journal-reference-title" = "পত্ৰিকা";
-"aaald-new-journal-reference-volume" = "খণ্ড $1:";
-"aaald-new-news-reference-title" = "বাতৰি";
-"aaald-new-website-reference-title" = "ৱেবছাইট";
-"aaald-numerical-multiple-references-added-description" = "{{PLURAL:$1|0=০ উদ্ধৃতি|$1টা উদ্ধৃতি|$1টা উদ্ধৃতি}} যোগ কৰা হ'ল";
-"aaald-one-section-description" = "$1 অনুচ্ছেদত";
-"aaald-revision-by-anonymous" = "বেনামী সদস্যই কৰা সম্পাদনা";
-"aaald-revision-userInfo" = "$1ই কৰা সম্পাদনা ($2টা সম্পাদনা)";
-"aaald-single-reference-added-description" = "উদ্ধৃতি যোগ কৰা হ'ল";
 "about-content-license" = "সমল অনুজ্ঞাপত্ৰ";
 "about-content-license-details" = "একো নিৰ্দিষ্ট কৰা নাথাকিলে সমলসমূহ $1ৰ অধীনত উপলব্ধ।";
 "about-content-license-details-share-alike-license" = "ক্ৰিয়েটিভ কমন্স এট্ৰিবিউচন-শ্বেয়াৰ এলাইক অনুজ্ঞাপত্ৰ";

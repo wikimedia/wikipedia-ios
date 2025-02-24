@@ -10,40 +10,6 @@
 // Author: Əkrəm
 // Author: Əkrəm Cəfər
 
-"aaald-added-text-description-2" = "$1 əlavə edildi";
-"aaald-article-description-updated-description" = "Məqalənin təsviri yeniləndi";
-"aaald-article-insert-header" = "Əhəmiyyətli Yeniləmələr";
-"aaald-article-insert-last-updated" = "Son yeniləmə";
-"aaald-article-insert-new-changes" = "Yeni dəyişikliklər";
-"aaald-article-insert-read-more" = "Daha çox yeniləmə oxuyun";
-"aaald-characters-text-description" = "{{PLURAL:$1|0=simvol|simvol}}";
-"aaald-deleted-text-description-2" = "$1 silindi";
-"aaald-error-subitle" = "Yenidən cəhd etmək üçün yeniləyin";
-"aaald-error-title" = "Daxili məqalə tarixçəsini yükləmək mümkün deyil";
-"aaald-many-sections-description" = "$1 bölmələrində";
-"aaald-multiple-changes-description" = "Çoxsaylı dəyişikliklər edilib";
-"aaald-multiple-references-added-description" = "Çoxsaylı istinadlar əlavə edilib";
-"aaald-new-book-reference-title" = "Kitab";
-"aaald-new-discussion" = "yeni müzakirə";
-"aaald-new-journal-reference-database" = "$1 vasitəsilə";
-"aaald-new-journal-reference-title" = "Jurnal";
-"aaald-new-journal-reference-volume" = "Cild $1:";
-"aaald-new-news-reference-retrieved-date" = "$1 tarixində əldə olunub";
-"aaald-new-news-reference-title" = "Xəbər";
-"aaald-new-talk-topic-description-format" = "Bu məqalə haqqında $1";
-"aaald-new-website-reference-archive-date-text" = "orijinaldan $1 tarixində";
-"aaald-new-website-reference-archive-url-text" = "Archive.org URL-si";
-"aaald-new-website-reference-title" = "Veb-sayt";
-"aaald-numerical-multiple-references-added-description" = "{{PLURAL:$1|0=0 istinad|$1 istinad}} əlavə edilib";
-"aaald-one-section-description" = "$1 bölməsində";
-"aaald-revision-by-anonymous" = "Anonim istifadəçi tərəfindən edilmiş redaktə";
-"aaald-revision-userInfo" = "$1 tərəfindən edilmiş redaktə ($2 redaktə)";
-"aaald-single-reference-added-description" = "İstinad əlavə edildi";
-"aaald-small-change-description" = "{{PLURAL:$1|0=Heç bir kiçik dəyişiklik edilməyib|$1 kiçik dəyişiklik edilib}}";
-"aaald-summary-title" = "{{PLURAL:$3|0=0 gün|$3 gün}} ərzində {{PLURAL:$2|0=0 istifadəçi|$2 istifadəçi}} tərəfindən edilmiş {{PLURAL:$1|0=0 redaktə|$1 redaktə}}";
-"aaald-two-sections-description" = "$1 və $2 bölmələrində";
-"aaald-vandalism-revert-description" = "Şübhəli Vandalizm geri qaytarıldı";
-"aaald-view-full-history-button" = "Tam məqalə tarixçəsinə bax";
 "about-content-license" = "Məzmun lisenziyası";
 "about-content-license-details" = "Əksi göstərilmədiyi təqdirdə, məzmun $1 altında mövcuddur.";
 "about-content-license-details-share-alike-license" = "Creative Commons Attribution-ShareAlike Lisenziyası";

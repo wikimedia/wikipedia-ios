@@ -16,40 +16,6 @@
 // Author: Sarrus
 // Author: Weblars
 
-"aaald-added-text-description-2" = "$1 tilføjet";
-"aaald-article-description-updated-description" = "Artikelbeskrivelse opdateret";
-"aaald-article-insert-header" = "Væsentlige opdateringer";
-"aaald-article-insert-last-updated" = "Sidst opdateret";
-"aaald-article-insert-new-changes" = "Nye ændringer";
-"aaald-article-insert-read-more" = "Læs flere opdateringer";
-"aaald-characters-text-description" = "{{PLURAL:$1|tegn}}";
-"aaald-deleted-text-description-2" = "$1 slettet";
-"aaald-error-subitle" = "Genindlæs for at prøve igen";
-"aaald-error-title" = "Kunne ikke indlæse inline artikelhistorik";
-"aaald-many-sections-description" = "i $1 sektioner";
-"aaald-multiple-changes-description" = "Flere ændringer er foretaget";
-"aaald-multiple-references-added-description" = "Flere referencer er tilføjet";
-"aaald-new-book-reference-title" = "Bog";
-"aaald-new-discussion" = "Ny diskussion";
-"aaald-new-journal-reference-database" = "via $1";
-"aaald-new-journal-reference-title" = "Journal";
-"aaald-new-journal-reference-volume" = "Bind $1:";
-"aaald-new-news-reference-retrieved-date" = "Hentet $1";
-"aaald-new-news-reference-title" = "Nyheder";
-"aaald-new-talk-topic-description-format" = "$1 om denne artikel";
-"aaald-new-website-reference-archive-date-text" = "fra den originale på $1";
-"aaald-new-website-reference-archive-url-text" = "Archive.org URL";
-"aaald-new-website-reference-title" = "Webside";
-"aaald-numerical-multiple-references-added-description" = "{{PLURAL:$1|0=0 referencer|$1 reference|$1 referencer}} tilføjet";
-"aaald-one-section-description" = "i sektion $1";
-"aaald-revision-by-anonymous" = "Redigering af anonym bruger";
-"aaald-revision-userInfo" = "Redigering af $1 ($2 redigeringer)";
-"aaald-single-reference-added-description" = "Reference tilføjet";
-"aaald-small-change-description" = "{{PLURAL:$1|0=Ingen ændringer foretaget|$1 lille ændring foretaget|$1 mindre ændringer foretaget}}";
-"aaald-summary-title" = "{{PLURAL:$1|0=0 ændringer|$1 ændring|$1 ændringer}} af {{PLURAL:$2|0=0 bidragsydere|$2 bidragsyder|$2 bidragsydere}} på  {{PLURAL:$3|0=0 dage|$3 dag|$3 dage}}";
-"aaald-two-sections-description" = "i sektion $1 og $2";
-"aaald-vandalism-revert-description" = "Mistænkt vandalisme tilbageført";
-"aaald-view-full-history-button" = "Vis den fulde historik for siden";
 "about-content-license" = "Indholdslicens";
 "about-content-license-details" = "Medmindre andet er specificeret er indholdet tilgængeligt under $1.";
 "about-content-license-details-share-alike-license" = "Creative Commons Kreditering-DelPåSammeVilkår-licensen";
