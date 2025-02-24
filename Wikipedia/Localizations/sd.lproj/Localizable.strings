@@ -8,40 +8,6 @@
 // Author: Nemo bis
 // Author: Tweety
 
-"aaald-added-text-description-2" = "$1 شامل ڪيل";
-"aaald-article-description-updated-description" = "مضمون جي تشريح جي تجديد ٿي وئي";
-"aaald-article-insert-header" = "وڏيون تجديدون";
-"aaald-article-insert-last-updated" = "آخري ڀيرو تجديد ٿي";
-"aaald-article-insert-new-changes" = "نيون تبديليون";
-"aaald-article-insert-read-more" = "وڌيڪ تجديدون پڙھو";
-"aaald-characters-text-description" = "{{PLURAL:$1|0=حرفَ|حرف|حرفَ}}";
-"aaald-deleted-text-description-2" = "$1 ڊاٿا ويا";
-"aaald-error-subitle" = "ٻيھر ڪوشش ڪرڻ لاءِ تازو ڪريو";
-"aaald-error-title" = "سِٽَ وار مضمون جي سوانح لاھڻ ۾ ناڪام";
-"aaald-many-sections-description" = "$1 حصن ۾";
-"aaald-multiple-changes-description" = "ڪيتريون ئي تبديليون ڪيون ويون";
-"aaald-multiple-references-added-description" = "ڪيترائي حوالا وڌا ويا";
-"aaald-new-book-reference-title" = "ڪتاب";
-"aaald-new-discussion" = "نئون حصو";
-"aaald-new-journal-reference-database" = "$1 ذريعي";
-"aaald-new-journal-reference-title" = "جرنل";
-"aaald-new-journal-reference-volume" = "جلد $1:";
-"aaald-new-news-reference-retrieved-date" = "$1 تي حاصل ڪيل";
-"aaald-new-news-reference-title" = "خبرون";
-"aaald-new-talk-topic-description-format" = "ھن مضمون بابت $1";
-"aaald-new-website-reference-archive-date-text" = "$1 تان اصل حالت ۾ ورتل";
-"aaald-new-website-reference-archive-url-text" = "Archive.org يوآرايل";
-"aaald-new-website-reference-title" = "ويبسائيٽ";
-"aaald-numerical-multiple-references-added-description" = "{{PLURAL:$1|0=0 حوالا|$1 حوالو|$1 حوالا}} وڌا/وڌو ويا/ويو";
-"aaald-one-section-description" = "$1 حصي ۾";
-"aaald-revision-by-anonymous" = "غمنام واپرائيندڙ پاران سنوار";
-"aaald-revision-userInfo" = "$1 پاران سنوار ($2 سنوارون)";
-"aaald-single-reference-added-description" = "حوالو وڌو ويو";
-"aaald-small-change-description" = "{{PLURAL:$1|0=ڪي بہ ننڍيون تبديليون نہ ڪيون ويون|$1 ننڍي تبديلي ڪئي وئي|$1 ننڍيون تبديليون ڪيون ويون}}";
-"aaald-summary-title" = "{{PLURAL:$3|0=0 ڏينھن|$3 ڏينھن|$3 ڏينھن}} ۾ {{PLURAL:$2|0=0 سنواريندڙن|$2 سنواريندڙ|$2 سنواريندڙن}} پاران {{PLURAL:$1|0=0 تبديليون|$1 تبديلي|$1 تبديليون}}";
-"aaald-two-sections-description" = "$1 ۽ $2 حصن ۾";
-"aaald-vandalism-revert-description" = "مشڪوڪ تخريبڪاري موٽائي وئي";
-"aaald-view-full-history-button" = "مضمون جي مڪمل سوانح ڏسو";
 "about-content-license" = "مواد جو اجازتنامو";
 "about-content-license-details" = "مواد $1 تحت موجود آھي، جيسيتائين ٻي صورت واضع نہ ڪئي وڃي.";
 "about-content-license-details-share-alike-license" = "ڪريئيٽو ڪامنز انتساب-ھڪجھڙي-ونڊ اجازتنامو";

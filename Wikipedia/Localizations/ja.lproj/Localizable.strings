@@ -55,40 +55,6 @@
 // Author: 翻訳者a
 // Author: 아라
 
-"aaald-added-text-description-2" = "$1追加";
-"aaald-article-description-updated-description" = "記事の説明が更新されました";
-"aaald-article-insert-header" = "重要な更新";
-"aaald-article-insert-last-updated" = "最終更新";
-"aaald-article-insert-new-changes" = "新しい変更";
-"aaald-article-insert-read-more" = "更新の詳細を読む";
-"aaald-characters-text-description" = "{{PLURAL:$1|文字}}";
-"aaald-deleted-text-description-2" = "$1は削除されました";
-"aaald-error-subitle" = "リフレッシュして再試行";
-"aaald-error-title" = "インライン記事履歴を読み込めません";
-"aaald-many-sections-description" = "節 \"$1\"";
-"aaald-multiple-changes-description" = "複数の変更をしました";
-"aaald-multiple-references-added-description" = "複数の注釈を追加しました";
-"aaald-new-book-reference-title" = "本";
-"aaald-new-discussion" = "新規議論";
-"aaald-new-journal-reference-database" = "$1経由";
-"aaald-new-journal-reference-title" = "ジャーナル";
-"aaald-new-journal-reference-volume" = "$1巻:";
-"aaald-new-news-reference-retrieved-date" = "$1を取得しました";
-"aaald-new-news-reference-title" = "ニュース";
-"aaald-new-talk-topic-description-format" = "この記事に関する$1";
-"aaald-new-website-reference-archive-date-text" = "$1 にあるオリジナルから";
-"aaald-new-website-reference-archive-url-text" = "Archive.orgのURL";
-"aaald-new-website-reference-title" = "ウェブサイト";
-"aaald-numerical-multiple-references-added-description" = "{{PLURAL:$1|$1 件の参考文献}}を追加しました";
-"aaald-one-section-description" = "$1セクションにある";
-"aaald-revision-by-anonymous" = "匿名利用者による編集";
-"aaald-revision-userInfo" = "$1（$2編集数）による編集";
-"aaald-single-reference-added-description" = "参考文献を追加しました";
-"aaald-small-change-description" = "{{PLURAL:$1|0=小さな変更をしていません|$1個の小さな変更をしました}}";
-"aaald-summary-title" = "{{PLURAL:$3|$3日間}}で {{PLURAL:$2|$2 人の編集者}}による {{PLURAL:$1|$1 件の変更}}";
-"aaald-two-sections-description" = "$1と$2セクション";
-"aaald-vandalism-revert-description" = "荒らしの疑いを差し戻し";
-"aaald-view-full-history-button" = "すべての記事履歴を表示";
 "about-content-license" = "コンテンツのライセンス";
 "about-content-license-details" = "特記がない場合、コンテンツは$1で利用可能です。";
 "about-content-license-details-share-alike-license" = "クリエイティブ・コモンズ 表示-継承 (CC BY-SA)";
