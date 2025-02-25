@@ -115,6 +115,13 @@ final class TabsCoordinator: Coordinator {
             
         } else {
             
+            // User is unintentionally clearing their nav stack, so do not remove articles from current stack
+            for viewController in navigationController.viewControllers {
+                if let articleVC = viewController as? ArticleViewController {
+                    articleVC.removeFromTabUponDisappearance = false
+                }
+            }
+            
             // Add on top of root
             guard let firstVC = navigationController.viewControllers.first else {
                 return
