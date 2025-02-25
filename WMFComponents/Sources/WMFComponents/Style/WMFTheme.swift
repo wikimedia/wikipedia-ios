@@ -41,6 +41,7 @@ public struct WMFTheme: Equatable {
     public let editorKeyboardShadow: UIColor
     public let chromeBackground: UIColor
     public let navigationBarTintColor: UIColor
+    public let secondaryAction: UIColor
 
     public var preferredColorScheme: ColorScheme {
     return (self == WMFTheme.light || self == WMFTheme.sepia) ? .light : .dark
@@ -87,7 +88,8 @@ public struct WMFTheme: Equatable {
         editorButtonSelectedBackground: WMFColor.gray200,
         editorKeyboardShadow: WMFColor.gray200,
         chromeBackground: WMFColor.white,
-        navigationBarTintColor: WMFColor.blue600
+        navigationBarTintColor: WMFColor.blue600,
+        secondaryAction: WMFColor.blue700
     )
 
     public static let sepia = WMFTheme(
@@ -127,7 +129,8 @@ public struct WMFTheme: Equatable {
         editorButtonSelectedBackground: WMFColor.beige400,
         editorKeyboardShadow: WMFColor.taupe200,
         chromeBackground: WMFColor.beige100,
-        navigationBarTintColor: WMFColor.blue600
+        navigationBarTintColor: WMFColor.blue600,
+        secondaryAction: WMFColor.blue700
     )
 
     public static let dark = WMFTheme(
@@ -167,7 +170,7 @@ public struct WMFTheme: Equatable {
         editorButtonSelectedBackground: WMFColor.gray600,
         editorKeyboardShadow: WMFColor.gray800,
         chromeBackground: WMFColor.gray650,
-        navigationBarTintColor: WMFColor.blue300
+        navigationBarTintColor: WMFColor.blue300,secondaryAction: WMFColor.blue700
     )
 
     public static let black = WMFTheme(
@@ -207,7 +210,8 @@ public struct WMFTheme: Equatable {
         editorButtonSelectedBackground: WMFColor.gray600,
         editorKeyboardShadow: WMFColor.gray700,
         chromeBackground: WMFColor.gray650,
-        navigationBarTintColor: WMFColor.blue300
+        navigationBarTintColor: WMFColor.blue300,
+        secondaryAction: WMFColor.blue700
     )
 
 }

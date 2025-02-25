@@ -18,37 +18,48 @@ public struct WMFHistoryView: View {
 
     private func headerViewForSection(_ section: HistorySection) -> some View {
         return Text(DateFormatter.wmfFullDateFormatter.string(from: section.dateWithoutTime))
+            .font(Font(WMFFont.for(.boldHeadline)))
+            .foregroundStyle(Color(uiColor: theme.text))
     }
 
     public var body: some View {
+
+        // TODO: Data loading needs fixing
         if !viewModel.isEmpty {
             List {
-                // TODO: - fix row height
+
                 Text(viewModel.localizedStrings.title)
                     .font(Font(WMFFont.for(.boldTitle3)))
                     .foregroundStyle(Color(uiColor: theme.text))
-                    .listRowInsets(EdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 0))
+                    .listRowInsets(EdgeInsets(top: 0, leading: 20, bottom: 0, trailing: 0))
                     .listRowSeparator(.hidden)
                     .listRowBackground(Color.clear)
                 ForEach(viewModel.sections) { section in
-                    // TODO: Fix style
                     Section(header: headerViewForSection(section)) {
                         ForEach(section.items) { item in
                             WMFPageRow(
                                 id: item.id,
                                 titleHtml: item.titleHtml,
-                                description: item.description,
+                                articleDescription: item.description,
                                 imageURL: item.imageURL,
+                                isSaved: true,  // Fix
                                 deleteItemAction: { _ in
                                     viewModel.delete(section: section, item: item)
                                     refreshId = UUID()
+                                },
+                                shareItemAction: { _ in
+                                    viewModel.share(section: section, item: item)
+                                },
+                                saveItemAction: { _ in
+                                    viewModel.save(section: section, item: item)
                                 }
                             )
                         }
                     }
                 }
             }
-            .listStyle(.grouped)
+            .listStyle(.plain)
+            .scrollContentBackground(.hidden)
             .padding(.top, viewModel.topPadding)
             .id(refreshId)
             .onAppear {
@@ -56,9 +67,28 @@ public struct WMFHistoryView: View {
                 viewModel.loadHistory()
             }
         } else {
-            let locStrings = WMFEmptyViewModel.LocalizedStrings(title: viewModel.localizedStrings.emptyViewTitle, subtitle: viewModel.localizedStrings.emptyViewSubtitle, titleFilter: nil, buttonTitle: nil, attributedFilterString: nil)
-            let emptyViewModel = WMFEmptyViewModel(localizedStrings: locStrings, image: nil, imageColor: .blue, numberOfFilters: 0)
-            WMFEmptyView(viewModel: emptyViewModel, type: .noItems)
+            GeometryReader { geometry in
+                ScrollView(showsIndicators: true) {
+                    VStack {
+                        let locStrings = WMFEmptyViewModel.LocalizedStrings(
+                            title: viewModel.localizedStrings.emptyViewTitle,
+                            subtitle: viewModel.localizedStrings.emptyViewSubtitle,
+                            titleFilter: nil,
+                            buttonTitle: nil,
+                            attributedFilterString: nil
+                        )
+                        let emptyViewModel = WMFEmptyViewModel(
+                            localizedStrings: locStrings,
+                            image: nil,
+                            imageColor: .blue,
+                            numberOfFilters: 0
+                        )
+                        WMFEmptyView(viewModel: emptyViewModel, type: .noItems)
+                    }
+                    .frame(width: geometry.size.width, height: geometry.size.height, alignment: .center)
+                }
+
+            }
         }
     }
 }

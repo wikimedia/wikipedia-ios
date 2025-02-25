@@ -551,7 +551,7 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
                         let record =  HistoryRecord(
                             id: Int(truncating: pageID),
                             title: article.displayTitle ?? article.displayTitleHTML,
-                            description: article.description,
+                            description: article.capitalizedWikidataDescriptionOrSnippet,
                             imageURL: article.imageURLString,
                             viewedDate: viewedDate
                         )
@@ -583,9 +583,21 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
             // TODO: Delete from WMFPageviews
         }
 
+        let saveArticleAction: WMFHistoryDataController.SaveArticleAction = { [weak self] historySection, historyItem in
+            guard let self, let dataStore = self.dataStore else { return }
+            print("saved!!!!!!")
+        }
+
+        let shareArticleAction: WMFHistoryDataController.ShareArticleAction = { [weak self] historySection, historyItem in
+            guard let self else { return }
+            print("Share!!!!!!!")
+        }
+
         let dataController = WMFHistoryDataController(
             recordsProvider: recordsProvider,
-            deleteRecordAction: deleteRecordAction
+            deleteRecordAction: deleteRecordAction,
+            saveArticleAction: saveArticleAction,
+            shareArticleAction: shareArticleAction
         )
         return dataController
 

@@ -27,19 +27,27 @@ public final class WMFHistoryDataController {
     /// Closure that deletes a single history record
     public typealias DeleteRecordAction = (HistorySection, HistoryItem) -> Void
 
+    ///
+    public typealias SaveArticleAction = (HistorySection, HistoryItem) -> Void
+
+    ///
+    public typealias ShareArticleAction = (HistorySection, HistoryItem) -> Void
 
     private let recordsProvider: RecordsProvider
     private let deleteRecordAction: DeleteRecordAction
+    private let saveArticleAction: SaveArticleAction
+    private let shareArticleAction: ShareArticleAction
 
     /// Initializes the history data controller.
     /// - Parameters:
     ///   - recordsProvider: A closure returning an array of `HistoryRecord`.
     ///   - deleteRecordAction: A closure that deletes a record (by id).
     ///   - deleteAllRecordsAction: A closure that deletes all history records.
-    public init(recordsProvider: @escaping RecordsProvider,
-                deleteRecordAction: @escaping DeleteRecordAction) {
+    public init(recordsProvider: @escaping RecordsProvider, deleteRecordAction: @escaping DeleteRecordAction, saveArticleAction: @escaping SaveArticleAction, shareArticleAction: @escaping ShareArticleAction) {
         self.recordsProvider = recordsProvider
         self.deleteRecordAction = deleteRecordAction
+        self.saveArticleAction = saveArticleAction
+        self.shareArticleAction = shareArticleAction
     }
 
     // MARK: - Data Access Methods

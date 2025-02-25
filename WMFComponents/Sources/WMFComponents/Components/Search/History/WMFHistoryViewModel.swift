@@ -65,4 +65,13 @@ public final class WMFHistoryViewModel: ObservableObject {
         isEmpty = sections.isEmpty || sections.allSatisfy { $0.items.isEmpty }
 
     }
+
+    public func save(section: HistorySection, item: HistoryItem) {
+        print("click save")
+    }
+
+    public func share(section: HistorySection, item: HistoryItem) {
+        print("click share")
+
+    }
 }
