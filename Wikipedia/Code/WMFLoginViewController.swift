@@ -79,8 +79,15 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
         guard let navigationController else { return }
         let authManager = dataStore.authenticationManager
         
-        if authManager.authStateIsTemporary {
-            // show sheet
+        if true { // authManager.authStateIsTemporary {
+            let toastCoordinator = TempAccountsToastCoordinator(navigationController: navigationController, didTapReadMore: {
+                
+            }, didTapClose: {
+                
+            },
+            title: "Title",
+            readMoreButtonTitle: "Read more")
+            toastCoordinator.start()
         }
     }
     
