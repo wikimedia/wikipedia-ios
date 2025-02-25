@@ -10,7 +10,6 @@
 // Author: Xuacu
 // Author: YoaR
 
-"aaald-new-book-reference-title" = "Llibru";
 "about-content-license" = "Llicencia del conteníu";
 "about-content-license-details" = "Sacante que s'especifique lo contrario, el conteníu ta disponible baxo una $1.";
 "about-content-license-details-share-alike-license" = "Llicencia Creative Commons Reconocimientu CompartirIgual";
@@ -334,7 +333,6 @@
 "main-menu-terms-of-use" = "Condiciones d'usu";
 "main-menu-title" = "Más";
 "main-menu-zero-faq" = "EMF de Wikipedia Zero";
-"menu-cancel-accessibility-label" = "Zarrar";
 // Fuzzy
 "more-languages-tooltip-description" = "Buscar nes casi 300 llingües de Wikipedia";
 "more-languages-tooltip-title" = "Amestar llingües";
@@ -571,7 +569,7 @@
 "welcome-explore-continue-button" = "Primeros pasos";
 "welcome-explore-new-ways-title" = "Nueves formes d'esplorar";
 "welcome-explore-tell-me-more-done-button" = "Entendílo";
-"welcome-intro-free-encyclopedia-description" = "Wikipedia ta escrita n'andecha por voluntarios, y contien más de 40 millones d'artículos en más de 300 llingües.";
+"welcome-intro-free-encyclopedia-description" = "Wikipedia ta escrita n'andecha por voluntarios, y contién más de 40 millones d'artículos en más de 300 llingües.";
 "welcome-intro-free-encyclopedia-more" = "Saber más sobre Wikipedia";
 "welcome-intro-free-encyclopedia-more-about" = "Tocante a Wikipedia";
 "welcome-intro-free-encyclopedia-more-description" = "Wikipedia ye un proyectu global pa crear enciclopedies llibres en toles llingües del mundu. Virtualmente cualquiera con accesu a Internet tien llibertá pa participar apurriendo información neutral y con referencies.";

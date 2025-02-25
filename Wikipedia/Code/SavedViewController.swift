@@ -1,4 +1,5 @@
 import WMFComponents
+import WMFData
 
 protocol SavedViewControllerDelegate: NSObjectProtocol {
     func savedWillShowSortAlert(_ saved: SavedViewController, from button: UIBarButtonItem)
@@ -47,6 +48,48 @@ class SavedViewController: ThemeableViewController, WMFNavigationBarConfiguring,
     
     private var allArticlesSearchBarPlaceholder: String {
         WMFLocalizedString("saved-search-default-text", value:"Search saved articles", comment:"Placeholder text for the search bar in Saved. Displayed in All Articles list.")
+    }
+    
+    // Properties needed for Profile Button
+    
+    private var _yirCoordinator: YearInReviewCoordinator?
+    var yirCoordinator: YearInReviewCoordinator? {
+        
+        guard let navigationController,
+              let yirDataController,
+              let dataStore else {
+            return nil
+        }
+
+        guard let existingYirCoordinator = _yirCoordinator else {
+            _yirCoordinator = YearInReviewCoordinator(navigationController: navigationController, theme: theme, dataStore: dataStore, dataController: yirDataController)
+            _yirCoordinator?.badgeDelegate = self
+            return _yirCoordinator
+        }
+        
+        return existingYirCoordinator
+    }
+    
+    private var _profileCoordinator: ProfileCoordinator?
+    private var profileCoordinator: ProfileCoordinator? {
+        
+        guard let navigationController,
+        let yirCoordinator = self.yirCoordinator,
+            let dataStore else {
+            return nil
+        }
+        
+        guard let existingProfileCoordinator = _profileCoordinator else {
+            _profileCoordinator = ProfileCoordinator(navigationController: navigationController, theme: theme, dataStore: dataStore, donateSouce: .savedProfile, logoutDelegate: self, sourcePage: ProfileCoordinatorSource.saved, yirCoordinator: yirCoordinator)
+            _profileCoordinator?.badgeDelegate = self
+            return _profileCoordinator
+        }
+        
+        return existingProfileCoordinator
+    }
+    
+    private var yirDataController: WMFYearInReviewDataController? {
+        return try? WMFYearInReviewDataController()
     }
 
     // MARK: - Initalization and setup
@@ -208,6 +251,13 @@ class SavedViewController: ThemeableViewController, WMFNavigationBarConfiguring,
             }
         }
         
+        let profileButtonConfig: WMFNavigationBarProfileButtonConfig?
+        if let dataStore {
+            profileButtonConfig = self.profileButtonConfig(target: self, action: #selector(userDidTapProfile), dataStore: dataStore, yirDataController: yirDataController, leadingBarButtonItem: moreBarButtonItem, trailingBarButtonItem: nil)
+        } else {
+            profileButtonConfig = nil
+        }
+        
         let allArticlesButtonTitle = WMFLocalizedString("saved-all-articles-title", value: "All articles", comment: "Title of the all articles button on Saved screen")
         let readingListsButtonTitle = WMFLocalizedString("saved-reading-lists-title", value: "Reading lists", comment: "Title of the reading lists button on Saved screen")
         
@@ -225,7 +275,49 @@ class SavedViewController: ThemeableViewController, WMFNavigationBarConfiguring,
             }
         }
 
-        configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: nil, profileButtonConfig: nil, searchBarConfig: searchConfig, hideNavigationBarOnScroll: hidesNavigationBarOnScroll)
+        configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: nil, profileButtonConfig: profileButtonConfig, searchBarConfig: searchConfig, hideNavigationBarOnScroll: hidesNavigationBarOnScroll)
+    }
+    
+    @objc func userDidTapProfile() {
+        
+        guard let dataStore else {
+            return
+        }
+        
+        guard let languageCode = dataStore.languageLinkController.appLanguage?.languageCode,
+              let metricsID = DonateCoordinator.metricsID(for: .savedProfile, languageCode: languageCode) else {
+            return
+        }
+        
+        DonateFunnel.shared.logSavedProfile(metricsID: metricsID)
+              
+        profileCoordinator?.start()
+    }
+    
+    private func updateProfileButton() {
+        
+        guard let dataStore else {
+            return
+        }
+        
+        let editController: CollectionViewEditController?
+        switch self.currentView {
+        case .savedArticles:
+            editController = self.savedArticlesViewController?.editController
+        case .readingLists:
+            editController = self.readingListsViewController?.editController
+        }
+        
+        guard let editController else {
+            return
+        }
+        
+        guard !editController.isBatchEditing else {
+            return
+        }
+        
+        let config = self.profileButtonConfig(target: self, action: #selector(userDidTapProfile), dataStore: dataStore, yirDataController: yirDataController, leadingBarButtonItem: nil, trailingBarButtonItem: moreBarButtonItem)
+        updateNavigationBarProfileButton(needsBadge: config.needsBadge, needsBadgeLabel: CommonStrings.profileButtonBadgeTitle, noBadgeLabel: CommonStrings.profileButtonTitle)
     }
     
     private func setSavedArticlesViewControllerIfNeeded() {
@@ -268,10 +360,13 @@ class SavedViewController: ThemeableViewController, WMFNavigationBarConfiguring,
                 barButtonItem.tintColor = theme.colors.link
             }
         }
+        
+        profileCoordinator?.theme = theme
+        updateProfileButton()
     }
     
     private lazy var moreBarButtonItem: UIBarButtonItem = {
-        let button = UIBarButtonItem(image: UIImage(systemName: "ellipsis.circle"), primaryAction: nil, menu: overflowMenu)
+        let button = UIBarButtonItem(image: WMFSFSymbolIcon.for(symbol: .ellipsisCircle), primaryAction: nil, menu: overflowMenu)
         button.accessibilityLabel = CommonStrings.moreButton
         return button
     }()
@@ -325,7 +420,7 @@ extension SavedViewController: CollectionViewEditControllerNavigationDelegate {
         if newEditingState == .open {
             navigationItem.rightBarButtonItems = [editButton]
         } else {
-            navigationItem.rightBarButtonItems = [moreBarButtonItem]
+            configureNavigationBar() // Switches back to More and Profile
         }
         
         moreBarButtonItem.tintColor = theme.colors.link
@@ -418,8 +513,6 @@ extension SavedViewController: ReadingListEntryCollectionViewControllerDelegate 
     func readingListEntryCollectionViewControllerDidSelectArticleURL(_ articleURL: URL, viewController: ReadingListEntryCollectionViewController) {
         navigate(to: articleURL)
     }
-    
-    
 }
 
 extension SavedViewController: ReadingListsViewControllerDelegate {
@@ -431,4 +524,25 @@ extension SavedViewController: ReadingListsViewControllerDelegate {
         configureNavigationBar()
     }
     
+}
+
+extension SavedViewController: YearInReviewBadgeDelegate {
+    func updateYIRBadgeVisibility() {
+        updateProfileButton()
+    }
+}
+
+// LogoutCoordinatorDelegate
+
+extension SavedViewController: LogoutCoordinatorDelegate {
+    func didTapLogout() {
+        
+        guard let dataStore else {
+            return
+        }
+        
+        wmf_showKeepSavedArticlesOnDevicePanelIfNeeded(triggeredBy: .logout, theme: theme) {
+            dataStore.authenticationManager.logout(initiatedBy: .user)
+        }
+    }
 }

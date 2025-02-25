@@ -14,33 +14,6 @@
 // Author: Tofeiku
 // Author: Ultron90
 
-"aaald-added-text-description-2" = "$1 ditambah";
-"aaald-article-description-updated-description" = "Pemerihalan rencana terkemaskini";
-"aaald-article-insert-header" = "Kemaskinian Ketara";
-"aaald-article-insert-last-updated" = "Kemaskini terakhir";
-"aaald-article-insert-new-changes" = "Perubahan baru";
-"aaald-article-insert-read-more" = "Baca kemaskinian lebih";
-"aaald-deleted-text-description-2" = "$1 dipadamkan";
-"aaald-error-subitle" = "Langsegar untuk cuba lagi";
-"aaald-error-title" = "Nirboleh untuk memuatkan sejarah rencana sebaris";
-"aaald-many-sections-description" = "dalam keratan-keratan $1";
-"aaald-multiple-changes-description" = "Pelbagai perubahan dilakukan";
-"aaald-multiple-references-added-description" = "Pelbagai rujukan ditambahkan";
-"aaald-new-book-reference-title" = "Buku";
-"aaald-new-discussion" = "Perbincangan baru";
-"aaald-new-journal-reference-database" = "melalui $1";
-"aaald-new-journal-reference-title" = "Jurnal";
-"aaald-new-journal-reference-volume" = "Jilid $1:";
-"aaald-new-news-reference-retrieved-date" = "Dicapai $1";
-"aaald-new-news-reference-title" = "Berita";
-"aaald-new-talk-topic-description-format" = "$1 tentang rencana ini";
-"aaald-new-website-reference-archive-date-text" = "dari yang asli pada $1";
-"aaald-new-website-reference-archive-url-text" = "URL Archive.org";
-"aaald-new-website-reference-title" = "Tapakweb";
-"aaald-revision-by-anonymous" = "Suntingan oleh pengguna awanama";
-"aaald-revision-userInfo" = "Suntingan oleh $1 ($2 suntingan)";
-"aaald-single-reference-added-description" = "Rujukan ditambah";
-"aaald-view-full-history-button" = "Lihat sejarah penuh rencana";
 "about-content-license" = "Lesen kandungan";
 "about-content-license-details" = "Kecuali ditentukan lain, kandungan tersedia di bawah $1.";
 "about-content-license-details-share-alike-license" = "Lesen Atribusi-BerbagiSerupa Creative Commons";
@@ -450,7 +423,6 @@
 "main-menu-terms-of-use" = "Syarat-syarat Penggunaan";
 "main-menu-title" = "Lagi";
 "main-menu-zero-faq" = "Soalan Lazim Wikipedia Zero";
-"menu-cancel-accessibility-label" = "Batal";
 "more-languages-tooltip-description" = "Cari Wikipedia dalam lebih 300 bahasa";
 "more-languages-tooltip-title" = "Tambahkan bahasa";
 "move-articles-to-reading-list" = "Pindahkan {{PLURAL:$1|$1 rencana|$1 rencana}} ke daftar bacaan";
@@ -512,7 +484,7 @@
 "notifications-center-title" = "Pemberitahuan";
 "notifications-center-type-item-description-notice" = "Notis";
 "notifications-center-type-item-description-welcome-verbose" = "Pesanan selamat datang";
-"notifications-center-type-title-connection-with-wikidata" = "Sambungan dengan Wikidata";
+"notifications-center-type-title-connection-with-wikidata" = "Pautan dengan Wikidata";
 "notifications-center-type-title-edit-milestone" = "Pencapaian suntingan";
 "notifications-center-type-title-edit-reverted" = "Suntingan diundurkan";
 "notifications-center-type-title-email-from-other-user" = "E-mel daripada pengguna lain";
@@ -667,7 +639,9 @@
 "reading-themes-controls-accessibility-dark-theme-button" = "Tema gelap";
 "reading-themes-controls-accessibility-light-theme-button" = "Tema terang";
 "reading-themes-controls-accessibility-sepia-theme-button" = "Tema sepia";
+"reading-themes-controls-accessibility-syntax-highlighting-switch" = "Penyerlahan Sintaks";
 "reading-themes-controls-accessibility-text-size-slider" = "Slider saiz teks";
+"reading-themes-controls-syntax-highlighting" = "Penyerlahan Sintaks";
 "reference-title" = "Referensi $1";
 "relative-date-days-ago" = "{{PLURAL:$1|0=Hari ini|1=Semalam|$1 hari yang lalu}}";
 "relative-date-hours-abbreviated" = "$1j";

@@ -48,26 +48,12 @@ class ArticleFetchedResultsViewController: ArticleCollectionViewController, Coll
     var deleteAllConfirmationText: String? = nil
     var deleteAllCancelText: String? = nil
     var deleteAllText: String? = nil
-    var isDeleteAllVisible: Bool = false
     
     open func deleteAll() {
         
     }
     
-    fileprivate final func updateDeleteButton() {
-        guard isDeleteAllVisible else {
-            navigationItem.rightBarButtonItem = nil
-            return
-        }
-        
-        if navigationItem.rightBarButtonItem == nil {
-            navigationItem.rightBarButtonItem = UIBarButtonItem(title: deleteAllButtonText, style: .plain, target: self, action: #selector(deleteButtonPressed(_:)))
-        }
-
-        navigationItem.rightBarButtonItem?.isEnabled = !isEmpty
-    }
-    
-    @objc fileprivate final func deleteButtonPressed(_ sender: UIBarButtonItem) {
+    @objc final func deleteButtonPressed(_ sender: UIBarButtonItem) {
         let alertController = UIAlertController(title: deleteAllConfirmationText, message: nil, preferredStyle: .actionSheet)
         alertController.addAction(UIAlertAction(title: deleteAllText, style: .destructive, handler: { (action) in
             self.deleteAll()
@@ -90,11 +76,6 @@ class ArticleFetchedResultsViewController: ArticleCollectionViewController, Coll
     
     func collectionViewUpdater<T: NSFetchRequestResult>(_ updater: CollectionViewUpdater<T>, updateItemAtIndexPath indexPath: IndexPath, in collectionView: UICollectionView) {
         
-    }
-    
-    override func isEmptyDidChange() {
-        super.isEmptyDidChange()
-        updateDeleteButton()
     }
 
     override func viewDidDisappear(_ animated: Bool) {

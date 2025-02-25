@@ -29,7 +29,7 @@ class EditLinkViewController: ThemeableViewController, WMFNavigationBarConfiguri
     @IBOutlet private weak var removeLinkButton: AutoLayoutSafeMultiLineButton!
     @IBOutlet private var separatorViews: [UIView] = []
     
-    private lazy var finishEditingButton = UIBarButtonItem(title: CommonStrings.doneTitle, style: .done, target: self, action: #selector(finishEditing(_:)))
+    private lazy var finishEditingButton = UIBarButtonItem(title: CommonStrings.surveySubmitActionTitle, style: .done, target: self, action: #selector(finishEditing(_:)))
 
 
     init?(link: Link, siteURL: URL?, dataStore: MWKDataStore, theme: Theme) {
@@ -76,7 +76,7 @@ class EditLinkViewController: ThemeableViewController, WMFNavigationBarConfiguri
     private func configureNavigationBar() {
         
         let titleConfig = WMFNavigationBarTitleConfig(title: CommonStrings.editLinkTitle, customView: nil, alignment: .centerCompact)
-        let closeButtonConfig = WMFNavigationBarCloseButtonConfig(text: CommonStrings.doneTitle, target: self, action: #selector(close(_:)), alignment: .leading)
+        let closeButtonConfig = WMFNavigationBarCloseButtonConfig(text: CommonStrings.cancelActionTitle, target: self, action: #selector(close(_:)), alignment: .leading)
         
         configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: closeButtonConfig, profileButtonConfig: nil, searchBarConfig: nil, hideNavigationBarOnScroll: false)
         
@@ -153,7 +153,7 @@ class EditLinkViewController: ThemeableViewController, WMFNavigationBarConfiguri
     }
 
     @IBAction private func searchArticles(_ sender: UITapGestureRecognizer) {
-        let searchViewController = SearchViewController()
+        let searchViewController = SearchViewController(source: .unknown)
         searchViewController.siteURL = siteURL
         searchViewController.shouldBecomeFirstResponder = true
         searchViewController.dataStore = MWKDataStore.shared()

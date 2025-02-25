@@ -7,40 +7,6 @@
 // Author: WMNO sámeprošeakta
 // Author: Yupik
 
-"aaald-added-text-description-2" = "$1 lasihuvvon";
-"aaald-article-description-updated-description" = "Artihkkala govvádus ođasmahttejuvvon";
-"aaald-article-insert-header" = "Mearkkašahtti beaivádeamit";
-"aaald-article-insert-last-updated" = "Maŋemus ođastuvvon";
-"aaald-article-insert-new-changes" = "Ođđa rievdadusat";
-"aaald-article-insert-read-more" = "Loga eambbo beaivádemiid";
-"aaald-characters-text-description" = "{{PLURAL:$1|0=Ii oktage mearka|1=mearka|mearkka}}";
-"aaald-deleted-text-description-2" = "$1 sihkkojuvvon";
-"aaald-error-subitle" = "Ođasmahte vai geahččalat ođđasit";
-"aaald-error-title" = "Ii sáhttán viežžat artihkalhistorihka";
-"aaald-many-sections-description" = "$1 oasis";
-"aaald-multiple-changes-description" = "Máŋga rievdadusat dahkkojuvvon";
-"aaald-multiple-references-added-description" = "Máŋga čujuhusat lasihuvvojedje";
-"aaald-new-book-reference-title" = "Girji";
-"aaald-new-discussion" = "Ođđa ságastallan";
-"aaald-new-journal-reference-database" = "$1 čađa";
-"aaald-new-journal-reference-title" = "Áigečála";
-"aaald-new-journal-reference-volume" = "Geassu $1:";
-"aaald-new-news-reference-retrieved-date" = "Čujuhuvvon $1";
-"aaald-new-news-reference-title" = "Ođđasat";
-"aaald-new-talk-topic-description-format" = "$1 dán artihkkala birra";
-"aaald-new-website-reference-archive-date-text" = "álgovuolggalaš veršuvnnas $1";
-"aaald-new-website-reference-archive-url-text" = "Archive.org URL";
-"aaald-new-website-reference-title" = "Neahttasiidu";
-"aaald-numerical-multiple-references-added-description" = "{{PLURAL:$1|0=Ii oktage gáldu|$1 gáldu}} lasihuvvon";
-"aaald-one-section-description" = "$1 oasis";
-"aaald-revision-by-anonymous" = "Rievdaduvvon namaheames geavaheaddjis";
-"aaald-revision-userInfo" = "Geavaheaddji $1 rievdadus ($2 rievdadusa)";
-"aaald-single-reference-added-description" = "Čujuheapmi lasihuvvon";
-"aaald-small-change-description" = "{{PLURAL:$1|0=Ii oktage unna rievdadus leat dahkkojuvvon|$1 unna rievdadus dahkkojuvvon|$1 unna rievdadusa dahkkojuvvon}}";
-"aaald-summary-title" = "$1 {{PLURAL:$1|rievdadus|rievdadusa}} dahkkojuvvon $2 {{PLURAL:$2|čállis|čálliin}} $3 {{PLURAL:$1|beaivvis}}";
-"aaald-two-sections-description" = "osiin $1 ja $2";
-"aaald-vandalism-revert-description" = "Balahuvvon billisteapmi máhcahuvvon";
-"aaald-view-full-history-button" = "Čájet olles artihkalhistorihka";
 "about-content-license" = "Sisdoalloliseansa";
 "about-content-license-details" = "Sisdoalu sáhttá geavahit liseanssain $1, jus ii boađe eará diehtu.";
 "about-content-license-details-share-alike-license" = "Creative Commons Nammadeapmi-JuogeSeammaEavttuiguin liseansa";
@@ -111,13 +77,14 @@
 "action-unsave" = "Sihko vurkejumi";
 "action-unsaved-accessibility-notification" = "Artihkal ii leat šat vurkejuvvon";
 "action-update" = "Ođasmahte";
-"add-articles-to-reading-list" = "Lasit  {{PLURAL:$1|$1 artihkkala}} lohkanlistui";
+"add-articles-to-reading-list" = "Lasit {{PLURAL:$1|$1 artihkkala}} lohkanlistui";
 "advanced-settings-title" = "Lasseásahusat";
 "alt-text-add-button-title" = "Lasit";
 "alt-text-do-not-add-button-title" = "Ale lasit";
 "alt-text-email-fifth-line" = "[Šearbmagovat dahje liŋkkat]";
 "alt-text-experiment-caption-title" = "Govvateaksta";
 "alt-text-experiment-onboarding-secondary-button-title" = "Čájet ovdamearkkaid";
+"alt-text-experiment-onboarding-tooltip-3-title" = "Lasit govvádusa";
 "announcements-dismiss" = "Gidde";
 "app-store-keywords" = "Wikipedia, gáldu, wiki, encyklopediija, diehtu, máhttu, info, fuomášupmi, oahppan";
 "app-store-release-notes" = "Áibbas heivehahtti ja eanet logahahtti guorahallansiidu. Báikkálašvuohta, doaibmabuorideamit ja boasttudivvumat.";
@@ -668,7 +635,6 @@
 "main-menu-terms-of-use" = "Geavahaneavttut";
 "main-menu-title" = "Eambbo";
 "main-menu-zero-faq" = "Wikipedia Zero-FAQ";
-"menu-cancel-accessibility-label" = "Gaskkalduhte";
 "more-languages-tooltip-description" = "Oza Wikipedias badjel 300 gillii";
 "more-languages-tooltip-title" = "Lasit gielaid";
 "more-menu" = "Eambbo";
@@ -715,7 +681,7 @@
 "notifications-center-filters-types-item-title-all" = "Buot šlájat";
 "notifications-center-filters-types-section-title" = "Almmuhustiipa";
 "notifications-center-go-to-article" = "Artihkal";
-"notifications-center-go-to-article-talk-format" = "$1 digaštallan";
+"notifications-center-go-to-article-talk-format" = "Siiddu $1 ságastallansiidu";
 "notifications-center-go-to-diff" = "Erohus";
 "notifications-center-go-to-talk-page" = "Ságastallansiidu";
 "notifications-center-go-to-user-page" = "{{GRAMMAR:genitive|$1}} geavaheaddjisiidu";
@@ -862,6 +828,7 @@
 "places-filter-top-articles" = "Eanemusat lohkkojuvvon";
 "places-filter-top-articles-count" = "{{PLURAL:$1|$1 artihkal|$1 artihkkala}}";
 "places-filter-top-read-articles" = "Eanemusat lohkkojuvvon artihkkalat";
+"places-list-title'" = "Listu";
 "places-location-enabled" = "Báikebálvalusat leat váldojuvvon atnui";
 "places-no-saved-articles-have-location" = "Ii ovttasge dain du vurkejuvvon artihkkaliin lean báikedieđut";
 "places-search-articles-that-match" = "$1 lea ovttamađu «$2»:in";
@@ -909,6 +876,7 @@
 "reading-list-create-new-list-reading-list-name" = "Lohkanlisttu namma";
 "reading-list-create-new-list-title" = "Ráhkat ođđa listtu";
 "reading-list-deleted-accessibility-notification" = "Lohkanlistu sihkkojuvvui";
+"reading-list-detail-search-placeholder" = "Oza lohkanlisttus";
 "reading-list-do-not-keep-button-title" = "Ii, sihko artihkkaliid ovttadagas";
 "reading-list-entry-limit-exceeded-message" = "Fertet unnidit artihkkaliid logu dán listtus $1:ii vai sáhtát joatkit dán listtu artihkkaliid synkroniseremiin.";
 "reading-list-entry-limit-exceeded-title" = "Don leat rihkkon ráji mii lea {{PLURAL:$1|$1 artihkal|$1 artihkkala}} juohke geavaheaddjidovddaldaga namas.";
@@ -996,6 +964,7 @@
 "saved-default-reading-list-tag" = "Listu ii sáhte sihkkojuvvot";
 "saved-pages-image-download-error" = "Ii nagodan viežžat govaid dan vurkejuvvon siidui.";
 "saved-pages-progress-syncing" = "Viežžame artihkkaliid...";
+"saved-reading-lists-search-placeholder" = "Oza lohkanlisttuin";
 "saved-reading-lists-title" = "Lohkanlisttut";
 "saved-search-default-text" = "Oza vurkejuvvon artihkkaliin";
 "saved-title" = "Vurkejuvvon";
@@ -1066,6 +1035,8 @@
 "sort-by-recently-added-action" = "Aitto lasihuvvon";
 "sort-by-title-action" = "Bajilčála";
 "suggested-edits-title" = "Evttohuvvon rievdadeamit";
+"survey-instructions" = "Vállje ovtta dahje eanet molssaeavttuid";
+"survey-submit" = "Sádde";
 "table-of-contents-button-label" = "Sisdoallologahallan";
 "table-of-contents-close-accessibility-hint" = "Gidde";
 "table-of-contents-close-accessibility-label" = "Gidde sisdoallologahallama";
@@ -1116,7 +1087,6 @@
 "talk-page-subscription-failed-alert" = "Doallan ii menestuvvan, geahččal ođđasit.";
 "talk-page-title-article-talk" = "Artihkaldigaštallan";
 "talk-page-title-user-talk" = "Geavaheaddjidigaštallan";
-"talk-page-topic-close-button-hint" = "Gidde ođđa fáttá";
 "talk-page-topic-compose-terms-and-licenses-ccsa4" = "Rievdadusaid almmuheami bokte mieđat $1geavahaneavttuide$2, ja mieđat eretgeassemeahttumit almmuhit iežat čállosa $3CC BY-SA 4.0$4 ja $5GFDL$6 liseanssaid vuolde.";
 "talk-page-unsubscribe-to-topic" = "Heaittit doallama";
 "talk-page-unsubscribed-alert-subtitle" = "It šat oaččo almmuhusaid ođđa kommentárain dán fáttás.";

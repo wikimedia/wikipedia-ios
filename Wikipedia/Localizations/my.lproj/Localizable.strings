@@ -9,26 +9,6 @@
 // Author: Ninjastrikers
 // Author: Teitei
 
-"aaald-added-text-description-2" = "$1 ပေါင်းထည့်ခဲ့သည်";
-"aaald-article-description-updated-description" = "ဆောင်းပါးခေါင်းစဉ် ဖော်ပြချက် မွမ်းမံခဲ့သည်";
-"aaald-article-insert-header" = "သိသာသော မွမ်းမံမှုများ";
-"aaald-article-insert-last-updated" = "နောက်ဆုံး မွမ်းမံခဲ့သည်";
-"aaald-article-insert-new-changes" = "ပြောင်းလဲမှု အသစ်များ";
-"aaald-article-insert-read-more" = "ပိုမိုသောမွမ်းမံမှုများ ဖတ်ရန်";
-"aaald-deleted-text-description-2" = "$1 ဖျက်ခဲ့သည်";
-"aaald-multiple-changes-description" = "အပြောင်းအလဲများစွာ ပြုလုပ်ခဲ့သည်";
-"aaald-multiple-references-added-description" = "အကိုးအကားများစွာ ပေါင်းထည့်ခဲ့သည်";
-"aaald-new-book-reference-title" = "စာအုပ်";
-"aaald-new-discussion" = "ဆွေးနွေးချက် အသစ်";
-"aaald-new-journal-reference-database" = "$1 မှတဆင့်";
-"aaald-new-journal-reference-title" = "ဂျာနယ်";
-"aaald-new-news-reference-title" = "သတင်းများ";
-"aaald-new-talk-topic-description-format" = "ဤဆောင်းပါးအကြောင်း $1";
-"aaald-new-website-reference-title" = "ဝဘ်ဆိုဒ်";
-"aaald-revision-by-anonymous" = "အမည်မသိအသုံးပြုသူမှ တည်းဖြတ်မှု";
-"aaald-revision-userInfo" = "$1 မှ တည်းဖြတ်မှု ($2 တည်းဖြတ်မှုများ)";
-"aaald-single-reference-added-description" = "ကိုးကားချက် ပေါင်းထည့်ခဲ့သည်";
-"aaald-view-full-history-button" = "ဆောင်းပါးရာဇဝင် အပြည့်အစုံကြည့်ရန်";
 "about-content-license" = "အကြောင်းအရာလိုင်စင်";
 "about-content-license-details" = "အခြား ဖော်ပြချက်မရှိပါက၊ အကြောင်းအရာသည် $1 ဖြင့် ရရှိနိုင်သည်။";
 "about-content-license-details-share-alike-license" = "Creative Commons Attribution-ShareAlike License";
@@ -373,7 +353,6 @@
 "main-menu-terms-of-use" = "အသုံးပြုခြင်းဆိုင်ရာ သတ်မှတ်ချက်များ";
 "main-menu-title" = "ပို၍";
 "main-menu-zero-faq" = "ဝီကီပီးဒီးယားသုည FAQ";
-"menu-cancel-accessibility-label" = "မလုပ်တော့ပါ";
 "more-languages-tooltip-description" = "ဝီကီပီးဒီးယားကို ဘာသာစကားပေါင်း ၃၀၀ ကျော်ခန့်တွင် ရှာဖွေရန်";
 "more-languages-tooltip-title" = "ဘာသာစကားများ ထည့်သွင်းရန်";
 "move-articles-to-reading-list" = "စာဖတ်စာရင်းသို့ ဆောင်းပါးပေါင်း {{PLURAL:$1|$1 ခု|$1 ခု}} ရွေ့ရန်";

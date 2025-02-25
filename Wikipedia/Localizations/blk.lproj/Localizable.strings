@@ -4,17 +4,6 @@
 // Author: လွိုင်ႏအာထင်ႏထိုထဲင်း
 // Author: 咽頭べさ
 
-"aaald-added-text-description-2" = "$1 ထဲမ်သော့ꩻခါꩻလဲဉ်း";
-"aaald-article-description-updated-description" = "ဒင်ႏထိုထွူလဲဉ်း ရောမ်ဖြုဲင်ꩻအွောန်ႏနယ်ချက်ခရာႏ";
-"aaald-article-insert-last-updated" = "အဆုဲင်ꩻသွတ်ꩻ ဒင်ႏထိုခါꩻလဲဉ်း";
-"aaald-article-insert-new-changes" = "ပြောင်ꩻလုဲင်ႏမုꩻတသာ";
-"aaald-article-insert-read-more" = "ဟော်ꩻထွားထဲင်းဒင်ႏထိုမုꩻဖိုင်ႏ";
-"aaald-deleted-text-description-2" = "$1 ယားကုဲင်ထွူလဲဉ်း";
-"aaald-new-book-reference-title" = "လိတ်ဖွူꩻ";
-"aaald-new-discussion" = "အိုင်ကိုမ်မုꩻတသာ";
-"aaald-new-journal-reference-title" = "စျာနယ်";
-"aaald-new-news-reference-title" = "သꩻတင်ꩻ";
-"aaald-new-website-reference-title" = "ဝဲက်သုဲက်";
 "about-content-license" = "အကျောင်ꩻခရာႏလုဲင်သိဉ်";
 "about-contributors" = "ခွုမ်မာꩻသားဖုံႏ";
 "about-libraries" = "ကထွားခါꩻဖို ထွားလိတ်ခင်ႏလမ်းဖုံႏ";
@@ -290,7 +279,6 @@
 "main-menu-terms-of-use" = "သုင်ꩻအီခရာႏ အွောန်ႏထွော့ချက်ဖိုင်ႏ";
 "main-menu-title" = "ထဲင်းယင်း";
 "main-menu-zero-faq" = "ဝီခီပီးဒီးယားသုည ငဝ်းရီငဝ်းစေကဏ္ဍ";
-"menu-cancel-accessibility-label" = "မာꩻတဝ်းဒွုမ်";
 "more-languages-tooltip-description" = "ထိုမ်ႏထွားဝီခီပီးဒီးယား တောမ်ႏဘာႏသာႏငဝ်းငွါ ၃၀၀ လွို";
 "more-languages-tooltip-title" = "ထဲမ်သော့ꩻဘာႏသာႏငဝ်းငွါဖိုင်ႏ";
 "move-articles-to-reading-list" = "ဟော်ꩻထွားစာႏရင်ꩻကို ခြုဲင်းလွေꩻရောမ်ဖြုဲင်ꩻ {{PLURAL:$1|$1 ဗာႏ|$1 ဗာႏ}}";

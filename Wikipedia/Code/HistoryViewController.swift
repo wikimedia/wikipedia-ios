@@ -9,6 +9,52 @@ class HistoryViewController: ArticleFetchedResultsViewController, WMFNavigationB
     
     var topSafeAreaOverlayHeightConstraint: NSLayoutConstraint?
     var topSafeAreaOverlayView: UIView?
+    
+    // Properties needed for Profile Button
+
+   private var _yirCoordinator: YearInReviewCoordinator?
+   var yirCoordinator: YearInReviewCoordinator? {
+
+       guard let navigationController,
+             let yirDataController,
+             let dataStore else {
+           return nil
+       }
+
+       guard let existingYirCoordinator = _yirCoordinator else {
+           _yirCoordinator = YearInReviewCoordinator(navigationController: navigationController, theme: theme, dataStore: dataStore, dataController: yirDataController)
+           _yirCoordinator?.badgeDelegate = self
+           return _yirCoordinator
+       }
+
+       return existingYirCoordinator
+   }
+
+   private var _profileCoordinator: ProfileCoordinator?
+   private var profileCoordinator: ProfileCoordinator? {
+
+       guard let navigationController,
+       let yirCoordinator = self.yirCoordinator,
+           let dataStore else {
+           return nil
+       }
+
+       guard let existingProfileCoordinator = _profileCoordinator else {
+           _profileCoordinator = ProfileCoordinator(navigationController: navigationController, theme: theme, dataStore: dataStore, donateSouce: .historyProfile, logoutDelegate: self, sourcePage: ProfileCoordinatorSource.history, yirCoordinator: yirCoordinator)
+           _profileCoordinator?.badgeDelegate = self
+           return _profileCoordinator
+       }
+
+       return existingProfileCoordinator
+   }
+
+   private var yirDataController: WMFYearInReviewDataController? {
+       return try? WMFYearInReviewDataController()
+   }
+
+    override var headerStyle: ColumnarCollectionViewController.HeaderStyle {
+        return .sections
+    }
 
     override func setupFetchedResultsController(with dataStore: MWKDataStore) {
         let articleRequest = WMFArticle.fetchRequest()
@@ -28,7 +74,6 @@ class HistoryViewController: ArticleFetchedResultsViewController, WMFNavigationB
         deleteAllConfirmationText =  WMFLocalizedString("history-clear-confirmation-heading", value: "Are you sure you want to delete all your recent items?", comment: "Heading text of delete all confirmation dialog")
         deleteAllCancelText = WMFLocalizedString("history-clear-cancel", value: "Cancel", comment: "Button text for cancelling delete all action {{Identical|Cancel}}")
         deleteAllText = WMFLocalizedString("history-clear-delete-all", value: "Yes, delete all", comment: "Button text for confirming delete all action")
-        isDeleteAllVisible = true
         
         setupTopSafeAreaOverlay(scrollView: collectionView)
     }
@@ -90,10 +135,7 @@ class HistoryViewController: ArticleFetchedResultsViewController, WMFNavigationB
             } catch {
                 DDLogError("Failure deleting WMFData WMFPageViews: \(error)")
             }
-            
         }
-        
-        
     }
     
     override func delete(at indexPath: IndexPath) {
@@ -121,10 +163,23 @@ class HistoryViewController: ArticleFetchedResultsViewController, WMFNavigationB
             } catch {
                 DDLogError("Failure deleting WMFData WMFPageViews: \(error)")
             }
-            
         }
     }
-    
+
+    override func previewingViewController(for indexPath: IndexPath, at location: CGPoint) -> UIViewController? {
+        guard let vc = super.previewingViewController(for: indexPath, at: location) else {
+            return nil
+        }
+
+        guard let articleVC = (vc as? ArticleViewController) else {
+            return nil
+        }
+
+        articleVC.articleViewSource = .history
+
+        return articleVC
+    }
+
     private func configureNavigationBar() {
         
         var titleConfig: WMFNavigationBarTitleConfig = WMFNavigationBarTitleConfig(title: CommonStrings.historyTabTitle, customView: nil, alignment: .leadingCompact)
@@ -137,8 +192,44 @@ class HistoryViewController: ArticleFetchedResultsViewController, WMFNavigationB
         }
         
         let hideNavigationBarOnScroll = !isEmpty
+        
+        let deleteButton = UIBarButtonItem(title: deleteAllButtonText, style: .plain, target: self, action: #selector(deleteButtonPressed(_:)))
+        deleteButton.isEnabled = !isEmpty
+        
+        let profileButtonConfig: WMFNavigationBarProfileButtonConfig?
+        if let dataStore {
+            profileButtonConfig = self.profileButtonConfig(target: self, action: #selector(userDidTapProfile), dataStore: dataStore, yirDataController: yirDataController, leadingBarButtonItem: deleteButton, trailingBarButtonItem: nil)
+        } else {
+            profileButtonConfig = nil
+        }
 
-        configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: nil, profileButtonConfig: nil, searchBarConfig: nil, hideNavigationBarOnScroll: hideNavigationBarOnScroll)
+        configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: nil, profileButtonConfig: profileButtonConfig, searchBarConfig: nil, hideNavigationBarOnScroll: hideNavigationBarOnScroll)
+    }
+    
+    private func updateProfileButton() {
+
+        guard let dataStore else {
+            return
+        }
+
+        let config = self.profileButtonConfig(target: self, action: #selector(userDidTapProfile), dataStore: dataStore, yirDataController: yirDataController, leadingBarButtonItem: nil, trailingBarButtonItem: nil)
+        updateNavigationBarProfileButton(needsBadge: config.needsBadge, needsBadgeLabel: CommonStrings.profileButtonBadgeTitle, noBadgeLabel: CommonStrings.profileButtonTitle)
+    }
+
+    @objc func userDidTapProfile() {
+        
+        guard let dataStore else {
+            return
+        }
+        
+        guard let languageCode = dataStore.languageLinkController.appLanguage?.languageCode,
+              let metricsID = DonateCoordinator.metricsID(for: .historyProfile, languageCode: languageCode) else {
+            return
+        }
+        
+        DonateFunnel.shared.logHistoryProfile(metricsID: metricsID)
+        
+        profileCoordinator?.start()
     }
 
     func titleForHeaderInSection(_ section: Int) -> String? {
@@ -168,6 +259,16 @@ class HistoryViewController: ArticleFetchedResultsViewController, WMFNavigationB
         configureNavigationBar()
     }
 
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard let articleURL = articleURL(at: indexPath) else {
+            collectionView.deselectItem(at: indexPath, animated: true)
+            return
+        }
+
+        let userInfo: [AnyHashable:Any]? = [ArticleSourceUserInfoKeys.articleSource: ArticleSource.history.rawValue]
+        navigate(to: articleURL, userInfo: userInfo)
+    }
+
     func updateVisibleHeaders() {
         for indexPath in collectionView.indexPathsForVisibleSupplementaryElements(ofKind: UICollectionView.elementKindSectionHeader) {
             guard let headerView = collectionView.supplementaryView(forElementKind: UICollectionView.elementKindSectionHeader, at: indexPath) as? CollectionViewHeader else {
@@ -184,6 +285,28 @@ class HistoryViewController: ArticleFetchedResultsViewController, WMFNavigationB
     override func apply(theme: Theme) {
         super.apply(theme: theme)
         
+        updateProfileButton()
+        profileCoordinator?.theme = theme
+        
         themeTopSafeAreaOverlay()
+    }
+}
+
+extension HistoryViewController: LogoutCoordinatorDelegate {
+    func didTapLogout() {
+
+        guard let dataStore else {
+            return
+        }
+
+        wmf_showKeepSavedArticlesOnDevicePanelIfNeeded(triggeredBy: .logout, theme: theme) {
+            dataStore.authenticationManager.logout(initiatedBy: .user)
+        }
+    }
+}
+
+extension HistoryViewController: YearInReviewBadgeDelegate {
+    func updateYIRBadgeVisibility() {
+        updateProfileButton()
     }
 }

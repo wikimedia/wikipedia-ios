@@ -20,6 +20,7 @@
 // Author: Msz2001
 // Author: Nemo bis
 // Author: Nharateh
+// Author: PanWor
 // Author: Pawel Niemczuk
 // Author: Peter Bowman
 // Author: Pio387
@@ -37,35 +38,6 @@
 // Author: Wiochman
 // Author: Woytecr
 
-"aaald-added-text-description-2" = "Dodano $1";
-"aaald-article-description-updated-description" = "Zaktualizowano opis artykułu";
-"aaald-article-insert-header" = "Istotne aktualizacje";
-"aaald-article-insert-last-updated" = "Ostatnia aktualizacja";
-"aaald-article-insert-new-changes" = "Nowe zmiany";
-"aaald-article-insert-read-more" = "Przeczytaj więcej zaktualizowanych";
-"aaald-characters-text-description" = "{{PLURAL:$1|symbol|symbole|symboli}}";
-"aaald-deleted-text-description-2" = "Usunięto $1";
-"aaald-error-subitle" = "Odśwież, aby spróbować ponownie";
-"aaald-error-title" = "Nie można wczytać wbudowanej historii artykułów";
-"aaald-many-sections-description" = "w $1 sekcjach";
-"aaald-multiple-changes-description" = "Wykonano wiele zmian";
-"aaald-multiple-references-added-description" = "Podano wiele przypisów";
-"aaald-new-book-reference-title" = "Książka";
-"aaald-new-discussion" = "Nowa dyskusja";
-"aaald-new-journal-reference-database" = "przez $1";
-"aaald-new-journal-reference-title" = "Czasopismo";
-"aaald-new-journal-reference-volume" = "Wolumen $1:";
-"aaald-new-news-reference-retrieved-date" = "Pobrano $1";
-"aaald-new-news-reference-title" = "Aktualności";
-"aaald-new-talk-topic-description-format" = "O tym artykule $1";
-"aaald-new-website-reference-archive-url-text" = "Adres URL Archive.org";
-"aaald-new-website-reference-title" = "Strona internetowa";
-"aaald-one-section-description" = "w sekcji „$1”";
-"aaald-revision-by-anonymous" = "Edycja przez anonimowego użytkownika";
-"aaald-revision-userInfo" = "Edycja przez $1 (edycji: $2)";
-"aaald-single-reference-added-description" = "Dodano odniesienie";
-"aaald-vandalism-revert-description" = "Wycofano domniemany wandalizm";
-"aaald-view-full-history-button" = "Zobacz pełną historię artykułu";
 "about-content-license" = "Licencja";
 "about-content-license-details" = "O ile nie zaznaczono inaczej, treść jest dostępna na licencji $1.";
 "about-content-license-details-share-alike-license" = "Licencja Creative Commons Uznanie autorstwa-Na tych samych warunkach";
@@ -136,6 +108,7 @@
 "add-articles-to-reading-list" = "Dodaj {{PLURAL:$1|$1 artykuł|$1 artykuły}} do listy do przeczytania";
 "alt-text-add-button-title" = "Dodaj";
 "alt-text-do-not-add-button-title" = "Nie dodawaj";
+"alt-text-feedback-alert-subtitle-flow-C" = "Czy chciałbyś otrzymywać podobne powiadomienia o sugerowanych zmianach w artykułach po ich edycji?";
 "announcements-dismiss" = "Odrzuć";
 "app-store-keywords" = "Wikipedia, referencje, wiki, encyklopedia, informacje, wiedza, badania, informacje, eksploracja, nauka";
 "app-store-release-notes" = "W pełni konfigurowalny i łatwiejszy do odczytania kanał Eksploruj. Lokalizacja, ulepszenia wydajności i poprawki błędów.";
@@ -362,6 +335,8 @@
 "explore-feed-preferences-show-related-pages-title" = "Pokaż kartę Ponieważ czytasz";
 "explore-feed-preferences-show-top-read-footer-text" = "Wyłączenie karty Najczęściej czytane wyłączy tę kartę we wszystkich dostępnych językach";
 "explore-feed-preferences-show-top-read-title" = "Pokaż kartę Najczęściej czytane";
+"explore-feed-preferences-suggested-edits-description" = "Sugestie dotyczące dodania treści do Wikipedii";
+"explore-feed-preferences-suggested-edits-title" = "Pokaż kartę Sugerowane edycje";
 "explore-feed-preferences-top-read-description" = "Najczęściej dzisiaj czytane artykuły";
 "explore-feed-preferences-turn-off-explore-feed-alert-action-title" = "Wyłącz kanał Eksploruj";
 "explore-feed-preferences-turn-off-explore-feed-alert-message" = "Wyłączenie wszystkich kart wyłączy Odkryj i zastąpi je Ustawieniami";
@@ -395,6 +370,8 @@
 "explore-random-article-sub-heading-from-wikipedia" = "Z Wikipedii";
 "explore-randomizer" = "Losowy artykuł";
 "explore-suggested-edits-footer" = "Dodaj";
+"explore-suggested-edits-image-recs-body" = "Dodaj sugerowane obrazy do artykułów na Wikipedii, aby pomóc czytelnikom w ich zrozumieniu.";
+"explore-suggested-edits-image-recs-title" = "Dodaj obraz";
 "featured-widget-content-failure-for-date" = "Polecany artykuł nie jest dostępny w tym dniu.";
 "featured-widget-description" = "Odkryj najlepsze artykuły w Wikipedii, wybierane codziennie przez naszą społeczność.";
 "featured-widget-from-language-wikipedia" = "Z Wikipedii $1";
@@ -458,6 +435,9 @@
 "icon-shortcut-random-title" = "Losowy artykuł";
 "icon-shortcut-search-title" = "Szukaj w Wikipedii";
 "image-gallery-unknown-owner" = "Autor nieznany.";
+"image-rec-empty-title" = "W tej chwili nie są już dostępne żadne sugerowane obrazy.";
+"image-rec-onboarding-item-1-body" = "Zdecyduj, czy sugerowany obraz powinien zostać umieszczony w artykule w Wikipedii.";
+"image-rec-onboarding-learn-more-button" = "Dowiedz się więcej o sugerowanych edycjach";
 "image-rec-survey-option-6" = "Inne";
 "image-recs-no-title" = "Nie";
 "image-recs-yes-title" = "Tak";
@@ -521,7 +501,6 @@
 "main-menu-terms-of-use" = "Warunki użytkowania";
 "main-menu-title" = "Więcej";
 "main-menu-zero-faq" = "Wikipedia Zero FAQ";
-"menu-cancel-accessibility-label" = "Anuluj";
 "more-languages-tooltip-description" = "Szukaj na Wikipedii w ponad 300 językach";
 "more-languages-tooltip-title" = "Dodaj języki";
 "more-menu" = "Więcej";
@@ -859,6 +838,7 @@
 "share-social-mention-format" = "\"$1\" przez Wikipedię: $2";
 "sort-by-recently-added-action" = "Ostatnio dodane";
 "sort-by-title-action" = "Tytuł";
+"suggested-edits-title" = "Sugerowane edycje";
 "table-of-contents-button-label" = "Spis treści";
 "table-of-contents-close-accessibility-hint" = "Zamknij";
 "table-of-contents-close-accessibility-label" = "Zamknij spis treści";
@@ -882,7 +862,6 @@
 "talk-page-new-topic-success-text" = "Twoja dyskusja została pomyślnie opublikowana";
 "talk-page-title-article-talk" = "Dyskusja o artykule";
 "talk-page-title-user-talk" = "Dyskusja użytkownika";
-"talk-page-topic-close-button-hint" = "Zamknij nowy temat";
 "talk-pages-coffee-roll-read-more" = "Czytaj więcej";
 "talk-pages-comment-added-alert-title" = "Twój komentarz został dodany";
 "talk-pages-empty-view-button-user-start-discussion" = "Rozpocznij dyskusję";
@@ -955,7 +934,9 @@
 "year-in-review-base-donate-subtitle" = "Dzięki Twojej pomocy Fundacja Wikimedia – organizacja non-profit stojąca za Wikipedią – będzie nadal zapewniać, że informacje, na których polegasz, będą wolne od reklam i godne zaufania, a jednocześnie zapewni płynne działanie Wikipedii dzięki najnowocześniejszym narzędziom i technologiom. Prosimy o rozważenie dokonania darowizny już dziś. [Dowiedz się więcej o naszej pracy]($1).";
 // Fuzzy
 "year-in-review-base-editors-subtitle" = "Wolontariusze wprowadzili 555 647 zmian w ponad 300 wersjach językowych Wikipedii. Każdego dnia, o każdej godzinie wolontariusze pracują nad ulepszaniem Wikipedii.";
+// Fuzzy
 "year-in-review-base-edits-subtitle" = "W tym roku Wikipedia była edytowana średnio $1 razy na minutę. Artykuły są tworzone wspólnie i ulepszane przy użyciu wiarygodnych źródeł. Wszyscy mamy wiedzę do podzielenia się, [dowiedz się, jak wziąć w tym udział]($2).";
+// Fuzzy
 "year-in-review-base-reading-subtitle" = "W tym roku Wikipedia miała ponad $1 milion artykułów w ponad $2 językach. Dołączyłeś(-aś) do milionów ludzi, poszerzających wiedzę i zgłębiających różnorodne tematy.";
 "year-in-review-base-reading-title" = "Wikipedia była (i jest) dostępna w ponad 300 językach";
 // Fuzzy
@@ -980,9 +961,11 @@
 "year-in-review-personalized-donate-subtitle" = "Dziękujemy za inwestowanie w przyszłość wolnej wiedzy. W tym roku Fundacja Wikimedia udoskonaliła technologię, aby lepiej służyła każdemu czytelnikowi i wolontariuszowi, pomagała we współpracy oraz wspierała Wikipedię w kolejnych językach. [Dowiedz się więcej o naszej pracy]($1).";
 "year-in-review-personalized-donate-title" = "Twoja hojność pomogła Wikipedii w dalszym rozwoju";
 "year-in-review-personalized-donation-thank-you" = "Logo Wikipedii";
+// Fuzzy
 "year-in-review-personalized-edit-views-subtitle-format" = "Czytelnicy na całym świecie doceniają Twój wkład. W ciągu ostatnich 2 miesięcy artykuły, które edytowałeś(-aś), uzyskały łącznie $1 wyświetleń. Dzięki takim redaktorom jak Ty, Wikipedia jest stale rozwijającym się, opartym na faktach i wiarygodnym źródłem wiedzy dla świata";
 "year-in-review-personalized-edit-views-title-format" = "Twoje edycje zostały ostatnio wyświetlone więcej niż $1 razy";
 "year-in-review-personalized-explore" = "Animowana ilustracja ręki trzymającej kulę Wikipedii, która stopniowo przekształca się w mały element układanki, symbolizujący indywidualny wkład w rozwój platformy.";
+// Fuzzy
 "year-in-review-personalized-reading-subtitle-format" = "W tym roku przeczytałeś(-aś) {{PLURAL:$1|$1 artykuł|$1 artykuły|$1 artykułów}}. Wikipedia miała $2 mln artykułów dostępnych w ponad $3 językach. Dołączyłeś(-aś) do milionów ludzi, poszerzających wiedzę i zgłębiających różnorodne tematy.";
 "year-in-review-personalized-saved-articles" = "Ilustracja puzzla noszącego hask z ekranami komputerów w tle.";
 "year-in-review-personalized-saved-subtitle-format" = "Zapisałeś(-aś) {{PLURAL:$1|$1 artykuł|$1 artykuły|$1 artykułów}} w tym roku, w tym $2, $3 i $4. Każdy z nich odzwierciedla Twoje zainteresowania i pomaga zbudować bazę wiedzy w Wikipedii.";

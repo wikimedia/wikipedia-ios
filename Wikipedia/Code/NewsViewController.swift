@@ -161,6 +161,7 @@ extension NewsViewController {
         let headerDateFormatter = DateFormatter()
         headerDateFormatter.locale = Locale.autoupdatingCurrent
         headerDateFormatter.timeZone = TimeZone(secondsFromGMT: 0)
+        
         headerDateFormatter.setLocalizedDateFormatFromTemplate("EEEEMMMMd") // Year is invalid on news content dates, we can only show month and day
         return headerDateFormatter
     }()
@@ -172,11 +173,33 @@ extension NewsViewController {
         return stories[section - 1]
     }
     
+    func combineStoryDateWithCurrentYear(storyDate: Date) -> Date? {
+        let calendar = Calendar.current
+        
+        let dayAndMonth = Calendar.current.dateComponents([.day, .month], from: storyDate)
+        let currentYear = Calendar.current.dateComponents([.year], from: Date())
+        
+        var formattedYearComponent = DateComponents()
+        formattedYearComponent.year = currentYear.year! - 1
+        
+        var formattedDayAndMonthComponent = DateComponents()
+        formattedDayAndMonthComponent.day = dayAndMonth.day! + 1
+        formattedDayAndMonthComponent.month = dayAndMonth.month
+        
+        guard let date1 = calendar.date(from: formattedDayAndMonthComponent),
+              let mergedDate = calendar.date(byAdding: formattedYearComponent, to: date1) else { return nil }
+        
+        return mergedDate
+    }
+    
     func headerTitle(for section: Int) -> String? {
         guard let story = story(for: section), let date = story.midnightUTCMonthAndDay else {
             return nil
         }
-        return NewsViewController.headerDateFormatter.string(from: date)
+        
+        guard let formattedDate = combineStoryDateWithCurrentYear(storyDate: date) else { return nil }
+        
+        return NewsViewController.headerDateFormatter.string(from: formattedDate)
     }
 }
 
@@ -201,7 +224,7 @@ extension NewsViewController: MEPEventsProviding {
 // MARK: - NestedCollectionViewContextMenuDelegate
 extension NewsViewController: NestedCollectionViewContextMenuDelegate {
     func contextMenu(with contentGroup: WMFContentGroup? = nil, for articleURL: URL? = nil, at itemIndex: Int) -> UIContextMenuConfiguration? {
-        guard let articleURL = articleURL, let vc = ArticleViewController(articleURL: articleURL, dataStore: dataStore, theme: theme) else {
+        guard let articleURL = articleURL, let vc = ArticleViewController(articleURL: articleURL, dataStore: dataStore, theme: theme, source: .undefined) else {
             return nil
         }
         vc.articlePreviewingDelegate = self

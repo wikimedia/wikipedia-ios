@@ -18,31 +18,6 @@
 // Author: Tsevener
 // Author: Urbalazs
 
-"aaald-added-text-description-2" = "$1 hozzáadva";
-"aaald-article-description-updated-description" = "Leírás frissítve";
-"aaald-article-insert-header" = "Fontos frissítések";
-"aaald-article-insert-last-updated" = "Utoljára frissítve";
-"aaald-article-insert-new-changes" = "Új változtatások";
-"aaald-article-insert-read-more" = "További frissítések elolvasása";
-"aaald-characters-text-description" = "{{PLURAL:$1|0=karakter|karakter|karakter}}";
-"aaald-deleted-text-description-2" = "$1 törölve";
-"aaald-error-subitle" = "Frissítsd és próbáld újra";
-"aaald-multiple-changes-description" = "Több változtatás is történt";
-"aaald-multiple-references-added-description" = "Referenciák hozzáadva";
-"aaald-new-book-reference-title" = "Könyv";
-"aaald-new-discussion" = "Új téma";
-"aaald-new-journal-reference-title" = "Folyóirat";
-"aaald-new-news-reference-title" = "Hírek";
-"aaald-new-talk-topic-description-format" = "$1 erről a szócikkről";
-"aaald-new-website-reference-archive-url-text" = "Archive.org URL";
-"aaald-new-website-reference-title" = "Weboldal";
-"aaald-numerical-multiple-references-added-description" = "$1 referencia hozzáadva";
-"aaald-revision-by-anonymous" = "Névtelen szerkesztés";
-"aaald-revision-userInfo" = "Szerkesztette $1 ($2 szerkesztés)";
-"aaald-single-reference-added-description" = "Referencia hozzáadva";
-"aaald-small-change-description" = "{{PLURAL:$1|0=Nem történt apró változtatás|$1 apró változtatás történt}}";
-"aaald-summary-title" = "Az elmúlt $3 napban $2 szerkesztő $1 változtatást végzett";
-"aaald-view-full-history-button" = "Teljes cikktörténet megtekintése";
 "about-content-license" = "Tartalom licence";
 "about-content-license-details" = "Ha nincs másképp jelezve, a tartalom $1 alatt érhető el.";
 "about-content-license-details-share-alike-license" = "Creative Commons Nevezd meg! – Így add tovább! licenc";
@@ -514,7 +489,6 @@
 "main-menu-terms-of-use" = "Felhasználási feltételek";
 "main-menu-title" = "Több";
 "main-menu-zero-faq" = "Wikipédia Zéró GYIK";
-"menu-cancel-accessibility-label" = "Mégse";
 "more-languages-tooltip-description" = "Keress a Wikipédián közel 300 nyelven";
 "more-languages-tooltip-title" = "Nyelvek hozzáadása";
 "more-menu" = "Több";

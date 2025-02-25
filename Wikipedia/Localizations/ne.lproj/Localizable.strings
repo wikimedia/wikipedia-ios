@@ -16,15 +16,6 @@
 // Author: सरोज कुमार ढकाल
 // Author: हिमाल सुबेदी
 
-"aaald-added-text-description-2" = "$1 थप्नुभयो";
-"aaald-article-description-updated-description" = "लेख विवरण अद्यावधिक गरियो";
-"aaald-article-insert-last-updated" = "अन्तिम सम्पादन";
-"aaald-article-insert-new-changes" = "नयाँ परिवर्तनहरू";
-"aaald-new-book-reference-title" = "पुस्तक";
-"aaald-new-journal-reference-database" = "$1 मार्फत";
-"aaald-new-news-reference-title" = "समाचार";
-"aaald-new-talk-topic-description-format" = "यस लेखको बारेमा $1";
-"aaald-new-website-reference-title" = "वेबसाइट";
 "about-content-license" = "सामग्री इजाजतपत्र";
 "about-content-license-details" = "खुलाइएको समयमा बाहेक, सामग्री $1 मातहत उपलब्ध छ";
 "about-content-license-details-share-alike-license" = "क्रियटिभ कमन्स एट्रिव्युसन- सेयर अलाइक";
@@ -227,7 +218,7 @@
 "home-more-like-footer" = "$1 जस्तो अरु";
 "home-nearby-footer" = "तपाईंको स्थान नजिकै थप ठाउँहरू";
 "home-nearby-location-footer" = "नजिकै थप $1";
-"home-news-footer" = "अधिक हालैका घटनाहरू";
+"home-news-footer" = "अधिक वर्तमानका घटनाहरू";
 "home-themes-action-title" = "अभिरुचीहरू व्यवस्थापन गर्नुहोस्";
 "home-title" = "अन्वेषण";
 "icon-shortcut-nearby-title" = "नजिकैका लेखहरू";
@@ -273,7 +264,6 @@
 "main-menu-terms-of-use" = "प्रयोगका सर्तहरू";
 "main-menu-title" = "थप";
 "main-menu-zero-faq" = "विकिपिडिया शून्य प्रायः सोधिने प्रश्नहरू";
-"menu-cancel-accessibility-label" = "रद्द गर्नुहोस्";
 // Fuzzy
 "more-languages-tooltip-description" = "विकिपिडिया करिब ३०० भाषाहरूमा खोज्नुहोस्।";
 "more-languages-tooltip-title" = "भाषाहरू थप्नुहोस्";

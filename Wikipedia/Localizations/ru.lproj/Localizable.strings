@@ -65,40 +65,6 @@
 // Author: Артём 13327
 // Author: Марио
 
-"aaald-added-text-description-2" = "$1 добавлено";
-"aaald-article-description-updated-description" = "Описание статьи обновлено";
-"aaald-article-insert-header" = "Значительные обновления";
-"aaald-article-insert-last-updated" = "Последнее обновление";
-"aaald-article-insert-new-changes" = "Новые изменения";
-"aaald-article-insert-read-more" = "Читать больше обновлений";
-"aaald-characters-text-description" = "{{PLURAL:$1|0=символов|символ|символа|символы}}";
-"aaald-deleted-text-description-2" = "$1 удалено";
-"aaald-error-subitle" = "Обновите, чтобы попробовать еще раз";
-"aaald-error-title" = "Невозможно загрузить историю статьи";
-"aaald-many-sections-description" = "в $1 разделах";
-"aaald-multiple-changes-description" = "Сделано несколько изменений";
-"aaald-multiple-references-added-description" = "Добавлено несколько примечаний";
-"aaald-new-book-reference-title" = "Книга";
-"aaald-new-discussion" = "Новое обсуждение";
-"aaald-new-journal-reference-database" = "через $1";
-"aaald-new-journal-reference-title" = "Журнал";
-"aaald-new-journal-reference-volume" = "Объём $1:";
-"aaald-new-news-reference-retrieved-date" = "Получена $1";
-"aaald-new-news-reference-title" = "Новости";
-"aaald-new-talk-topic-description-format" = "$1 об этой статье";
-"aaald-new-website-reference-archive-date-text" = "из оригинала в $1";
-"aaald-new-website-reference-archive-url-text" = "Archive.org URL";
-"aaald-new-website-reference-title" = "Веб-сайт";
-"aaald-numerical-multiple-references-added-description" = "{{PLURAL:$1|0=0 примечаний|$1 примечание|$1 примечаний}} добавлено";
-"aaald-one-section-description" = "в разделе $1";
-"aaald-revision-by-anonymous" = "Правка анонимного пользователя";
-"aaald-revision-userInfo" = "Отредактировано $1 ($2 правок)";
-"aaald-single-reference-added-description" = "Примечание добавлено";
-"aaald-small-change-description" = "{{PLURAL:$1|0=Не сделано малых изменений|Сделано $1 малое изменение|Сделано $1 малых изменений}}";
-"aaald-summary-title" = "{{PLURAL:$1|0=0 изменений|$1 изменение|$1 изменений}} от {{PLURAL:$2|0=0 редакторов|$2 редактора|$2 редакторов}} за {{PLURAL:$3|0=0 дней|$3 день|$3 дней}}";
-"aaald-two-sections-description" = "в разделах $1 и $2";
-"aaald-vandalism-revert-description" = "Предотвращен вероятный вандализм";
-"aaald-view-full-history-button" = "Посмотреть всю историю статьи";
 "about-content-license" = "Лицензия содержимого";
 "about-content-license-details" = "Если не указано иное, содержание доступно в соответствии с $1.";
 "about-content-license-details-share-alike-license" = "лицензией Creative Commons Attribution-ShareAlike";
@@ -721,7 +687,6 @@
 "main-menu-terms-of-use" = "Условия использования";
 "main-menu-title" = "Ещё";
 "main-menu-zero-faq" = "ЧЗВ по Wikipedia Zero";
-"menu-cancel-accessibility-label" = "Отмена";
 "more-languages-tooltip-description" = "Искать в Википедии на более чем 300 языках";
 "more-languages-tooltip-title" = "Добавить языки";
 "more-menu" = "Ещё";
@@ -923,7 +888,9 @@
 "places-filter-top-articles" = "Самые читаемые";
 "places-filter-top-articles-count" = "$1 {{PLURAL:$1|статья|статей|статьи}}";
 "places-filter-top-read-articles" = "Самые читаемые статьи";
+"places-list-title'" = "Список";
 "places-location-enabled" = "Определение местоположения включено";
+"places-map-title" = "Карта";
 "places-no-saved-articles-have-location" = "Ни в одной из ваших сохранённых статей нет информации о местоположении";
 "places-search-articles-that-match" = "$1 подходит для “$2”";
 "places-search-default-text" = "Места поиска";
@@ -946,8 +913,7 @@
 "privacy-policy-title" = "Политика конфиденциальности";
 "problem-with-feature-title" = "Проблема с функцией";
 "profile-button-accessibility-label" = "Профиль";
-// Fuzzy
-"profile-page-join-title" = "Присоединяйтесь к Википедии / Войти";
+"profile-page-join-title" = "Войдите / Присоединитесь к Википедии";
 "profile-page-title-logged-out" = "Учётная запись";
 "project-name-mediawiki" = "MediaWiki";
 "project-name-wikibooks" = "Викиучебник";
@@ -1112,6 +1078,8 @@
 "settings-notifications-push-notifications" = "Push-уведомления";
 "settings-notifications-system-turn-on" = "Включить уведомления";
 "settings-notifications-trending" = "В тренде текущих событий";
+"settings-off" = "выкл.";
+"settings-on" = "вкл.";
 "settings-primary-language" = "Основной";
 "settings-primary-language-details" = "Первый язык в этом списке используется как основной язык приложения.";
 "settings-search-footer-text" = "Открывать при запуске приложения вкладку \"Поиск\", вместо вкладки \"Лента\"";
@@ -1198,7 +1166,6 @@
 "talk-page-subscription-failed-alert" = "Не удалось подписаться на тему, попробуйте ещё раз.";
 "talk-page-title-article-talk" = "Обсуждение статьи";
 "talk-page-title-user-talk" = "Обсуждение участника";
-"talk-page-topic-close-button-hint" = "Закрыть новую тему";
 "talk-page-topic-compose-terms-and-licenses-ccsa4" = "Сохраняя изменения, вы соглашаетесь с $1Условиями использования$2 и безвозвратно соглашаетесь опубликовать свой вклад под лицензиями $3CC BY-SA 4.0$4 и $5GFDL$6.";
 "talk-page-unsubscribe-to-topic" = "Отписаться";
 "talk-page-unsubscribed-alert-subtitle" = "Вы больше не будете получать уведомления о новых сообщениях в этой теме.";
@@ -1361,6 +1328,9 @@
 "year-in-review-base-reading-title" = "Википедия доступна на более чем 300 языках";
 "year-in-review-base-viewed-title" = "Мы просмотрели статьи Википедии $1 миллиард раз";
 "year-in-review-button-title" = "Обзор года";
+"year-in-review-collective-edits" = "Иллюстрация двух объединённых фрагментов пазла с логотипом Википедии, каждый из которых несёт информацию.";
+"year-in-review-collective-edits-per-minute" = "Тиканье часов, которое символизирует время, потраченное людьми за чтением Википедии.";
+"year-in-review-collective-zero-ads" = "Логотип Викимедиа";
 "year-in-review-day-friday" = "Пятницы";
 "year-in-review-day-monday" = "Понедельники";
 "year-in-review-day-saturday" = "Субботы";
@@ -1377,9 +1347,11 @@
 "year-in-review-personalized-editing-subtitle-format" = "Вы редактировали Википедию {{PLURAL:$1|$1 раз|раз}}. Спасибо, что вы один из добровольных редакторов, которые вносят свой вклад в проекты Викимедиа по всему миру.";
 "year-in-review-personalized-editing-title-format" = "Вы редактировали Википедию {{PLURAL:$1|$1 раз|раз}}";
 "year-in-review-personalized-editing-title-format-500plus" = "Вы редактировали Википедию более 500 раз";
+// Fuzzy
 "year-in-review-personalized-reading-title-format" = "Вы прочитали $1 {{PLURAL:$1|статью|статьи|статей}} в этом году";
 "year-in-review-survey-additional-thoughts" = "Есть ли у вас какие-нибудь дополнительные мысли?";
 "year-in-review-survey-title" = "Опрос по удовлетворённости";
 "year-in-review-survey-unsatisfied" = "Недоволен";
 "year-in-review-survey-very-satisfied" = "Очень доволен";
 "year-in-review-survey-very-unsatisfied" = "Очень недоволен";
+"year-in-review-wmf-logo-accessibility-label" = "Логотип Фонда Викимедиа";

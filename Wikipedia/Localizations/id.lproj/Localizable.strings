@@ -37,40 +37,6 @@
 // Author: Veracious
 // Author: WongKentir
 
-"aaald-added-text-description-2" = "$1 ditambahkan";
-"aaald-article-description-updated-description" = "Deskripsi artikel diperbarui";
-"aaald-article-insert-header" = "Pembaruan Signifikan";
-"aaald-article-insert-last-updated" = "Terakhir diperbarui";
-"aaald-article-insert-new-changes" = "Perubahan terbaru";
-"aaald-article-insert-read-more" = "Baca lebih banyak pembaruan";
-"aaald-characters-text-description" = "{{PLURAL:$1|0=0 karakter|$1 karakter|$1 karakter}}";
-"aaald-deleted-text-description-2" = "$1 dihapus";
-"aaald-error-subitle" = "Muat ulang untuk mencoba lagi";
-"aaald-error-title" = "Tidak dapat memuat riwayat artikel";
-"aaald-many-sections-description" = "di $1 bagian";
-"aaald-multiple-changes-description" = "Beberapa perubahan dibuat";
-"aaald-multiple-references-added-description" = "Beberapa referensi dibuat";
-"aaald-new-book-reference-title" = "Buku";
-"aaald-new-discussion" = "Diskusi baru";
-"aaald-new-journal-reference-database" = "melalui $1";
-"aaald-new-journal-reference-title" = "Jurnal";
-"aaald-new-journal-reference-volume" = "Jilid $1:";
-"aaald-new-news-reference-retrieved-date" = "Diakses $1";
-"aaald-new-news-reference-title" = "Berita";
-"aaald-new-talk-topic-description-format" = "Diskusi baru mengenai artikel ini";
-"aaald-new-website-reference-archive-date-text" = "dari aslinya pada $1";
-"aaald-new-website-reference-archive-url-text" = "URL Archive.org";
-"aaald-new-website-reference-title" = "Situs web";
-"aaald-numerical-multiple-references-added-description" = "{{PLURAL:$1|0=0 referensi|$1 referensi|$1 referensi}} ditambahkan";
-"aaald-one-section-description" = "di dalam bagian $1";
-"aaald-revision-by-anonymous" = "Suntingan oleh pengguna anonim";
-"aaald-revision-userInfo" = "Penyuntingan oleh $1 ($2 penyuntingan)";
-"aaald-single-reference-added-description" = "Referensi telah ditambahkan";
-"aaald-small-change-description" = "{{PLURAL:$1|0=Tidak ada penyuntingan kecil dibuat|$1 penyuntingan kecil dibuat|$1 penyuntingan kecil dibuat}}";
-"aaald-summary-title" = "{{PLURAL:$1|0=0 perubahan|$1 perubahan|$1 perubahan}} by {{PLURAL:$2|0=0 penyunting|$2 penyunting|$2 penyunting}} in {{PLURAL:$3|0=0 hari|$3 hari|$3 hari}}";
-"aaald-two-sections-description" = "di bagian $1 dan $2";
-"aaald-vandalism-revert-description" = "Terduga Vandalisme dikembalikan";
-"aaald-view-full-history-button" = "Lihat riwayat artikel penuh";
 "about-content-license" = "Lisensi konten";
 "about-content-license-details" = "Konten tersedia di bawah $1 kecuali dinyatakan lain.";
 "about-content-license-details-share-alike-license" = "Lisensi Atribusi-BerbagiSerupa Creative Commons";
@@ -640,7 +606,6 @@
 "main-menu-terms-of-use" = "Ketentuan Penggunaan";
 "main-menu-title" = "Lainnya";
 "main-menu-zero-faq" = "Tanya jawab Wikipedia Zero";
-"menu-cancel-accessibility-label" = "Batal";
 "more-languages-tooltip-description" = "Cari Wikipedia dalam lebih dari 300 bahasa";
 "more-languages-tooltip-title" = "Tambah bahasa";
 "more-menu" = "Selengkapnya";
@@ -1109,7 +1074,6 @@
 "talk-page-subscription-failed-alert" = "Berlangganan ke topik gagal, silakan coba lagi.";
 "talk-page-title-article-talk" = "Pembicaraan Artikel";
 "talk-page-title-user-talk" = "Pembicaraan pengguna";
-"talk-page-topic-close-button-hint" = "Tutup topik baru";
 "talk-page-unsubscribe-to-topic" = "Berhenti berlangganan";
 "talk-page-unsubscribed-alert-subtitle" = "Anda tidak akan menerima lagi pemberitahuan tentang komentar baru di topik ini.";
 "talk-page-unsubscribed-alert-title" = "Anda telah berhenti berlangganan";

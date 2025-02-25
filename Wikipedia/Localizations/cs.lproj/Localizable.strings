@@ -29,42 +29,12 @@
 // Author: Patriccck
 // Author: Patrik L.
 // Author: Pavreh
+// Author: Segoulas
 // Author: Tsevener
 // Author: Vojtěch Dostál
 // Author: Walter Klosse
 // Author: Zbyso23
 
-"aaald-added-text-description-2" = "přidáno $1";
-"aaald-article-description-updated-description" = "Popis článku byl aktualizován";
-"aaald-article-insert-header" = "Významné aktualizace";
-"aaald-article-insert-last-updated" = "Naposledy aktualizováno";
-"aaald-article-insert-new-changes" = "Nové změny";
-"aaald-article-insert-read-more" = "Zobrazit další aktualizace";
-"aaald-characters-text-description" = "{{PLURAL:$1|znak|znaky|znaků}}";
-"aaald-deleted-text-description-2" = "$1 smazáno";
-"aaald-error-subitle" = "Zkuste to znovu obnovením stránky";
-"aaald-error-title" = "Nelze načíst historii článku";
-"aaald-many-sections-description" = "v $1 sekcích";
-"aaald-multiple-changes-description" = "Provedeno více změn";
-"aaald-multiple-references-added-description" = "Přidáno více referencí";
-"aaald-new-book-reference-title" = "Kniha";
-"aaald-new-discussion" = "Nová diskuse";
-"aaald-new-journal-reference-database" = "přes $1";
-"aaald-new-journal-reference-title" = "Časopis";
-"aaald-new-journal-reference-volume" = "Svazek $1:";
-"aaald-new-news-reference-retrieved-date" = "Citováno $1";
-"aaald-new-news-reference-title" = "Novinky";
-"aaald-new-talk-topic-description-format" = "$1 o tomto článku";
-"aaald-new-website-reference-archive-date-text" = "z originálu na $1";
-"aaald-new-website-reference-archive-url-text" = "URL Archive.org";
-"aaald-new-website-reference-title" = "Webová stránka";
-"aaald-one-section-description" = "v sekci $1";
-"aaald-revision-by-anonymous" = "Editace neregistrovaného uživatele";
-"aaald-revision-userInfo" = "Editoval $1 ($2 editací)";
-"aaald-single-reference-added-description" = "Přidána reference";
-"aaald-two-sections-description" = "v sekcích $1 a $2";
-"aaald-vandalism-revert-description" = "Revertováno kvůli podezření na vandalismus";
-"aaald-view-full-history-button" = "Zobrazit celou historii článku";
 "about-content-license" = "Licence obsahu";
 "about-content-license-details" = "Pokud není uvedeno jinak, obsah je k dispozici pod $1.";
 "about-content-license-details-share-alike-license" = "Creative Commons Uveďte autora-Zachovejte licenci";
@@ -112,6 +82,7 @@
 "action-cancel" = "Zrušit";
 "action-discard-edits" = "Zahodit úpravy";
 "action-find-in-page" = "Najít na stránce";
+"action-keep-editing" = "Pokračujte v editování";
 "action-language-accessibility" = "Změnit jazyk";
 "action-move-to" = "Přesunout do…";
 "action-move-to-reading-list" = "Přesunout do seznamu k přečtení";
@@ -134,6 +105,15 @@
 "action-unsaved-accessibility-notification" = "Zrušeno uložení článku";
 "action-update" = "Aktualizovat";
 "add-articles-to-reading-list" = "Přidat {{PLURAL:$1|$1 článek|$1 články|$1 článků}} do seznamu k přečtení";
+"advanced-settings-title" = "Pokročilé nastavení";
+"alt-text-add-button-title" = "Přidat";
+"alt-text-do-not-add-button-title" = "Nepřidávat";
+"alt-text-email-fifth-line" = "[Snímky obrazovky nebo odkazy]";
+"alt-text-experiment-caption-title" = "Popisek obrázku";
+"alt-text-experiment-edit-summary" = "Přidán alternativní text";
+"alt-text-experiment-onboarding-item-1-title" = "Ponechte to krátké a jasné.";
+"alt-text-experiment-onboarding-item-2-subtitle" = "Nepřidávejte prosím svůj vlastní výzkum, interpertace nebo svůj úhel pohledu.";
+"alt-text-experiment-onboarding-tooltip-3-title" = "Přidejte popis";
 "announcements-dismiss" = "Zrušit";
 "app-store-keywords" = "Wikipedie, reference, wiki, encyklopedie, info, znalosti, výzkum, informace, objevování, učení";
 "app-store-release-notes" = "Plně přizpůsobitelné a snadnější čtení zdroje informací. Lokalizace, vylepšení výkonu a opravy chyb.";
@@ -176,6 +156,7 @@
 "chinese-variants-alert-body" = "Aplikace wikipedie nyní podporuje následující Čínské varianty jako primární nebo sekundární jazyky v aplikaci, aby bylo jednodušší číst, hledat nebo upravovat ve vaší oblíbené variantě.\n\n简体 Čínština, Zjednodušená (zh-hans)\n香港繁體 Hong Kongská tradiční (zh-hk)\n澳門繁體 Macauská tradiční (zh-mo)\n大马简体 Malajská zjednodušená (zh-my)\n新加坡简体 Singapurská zjednodušená (zh-sg)\n臺灣正體 Taiwanská Tradiční (zh-tw)";
 "chinese-variants-alert-title" = "Aktualizace podpory čínských variant";
 "clear-title-accessibility-label" = "Vymazat";
+"clearing-cache-in-progress" = "Probíhá čištění cache.";
 "close-button-accessibility-label" = "Zavřít";
 "compass-direction" = "na $1. hodině";
 "continue-reading-empty-description" = "Procházet další články na Wikipedii";
@@ -500,7 +481,6 @@
 "main-menu-terms-of-use" = "Podmínky užití";
 "main-menu-title" = "Více";
 "main-menu-zero-faq" = "FAQ Wikipedia Zero";
-"menu-cancel-accessibility-label" = "Zrušit";
 "more-languages-tooltip-description" = "Vyhledávejte a čtěte Wikipedii ve více než 300 jazycích";
 "more-languages-tooltip-title" = "Přidat jazyky";
 "move-articles-to-reading-list" = "Přidat {{PLURAL:$1|$1 článek|$1 články|$1 článků}} do seznamu k přečtení";

@@ -2,60 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>aaald-characters-text-description</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
-		<key>v1</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
-			<key>one</key>
-			<string>carattere</string>
-			<key>other</key>
-			<string>caratteri</string>
-			<key>zero</key>
-			<string>caratteri</string>
-		</dict>
-	</dict>
-	<key>aaald-numerical-multiple-references-added-description</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
-		<key>v1</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
-			<key>one</key>
-			<string>%1$d fonte aggiunta</string>
-			<key>other</key>
-			<string>%1$d fonti aggiunte</string>
-			<key>zero</key>
-			<string>0 fonti aggiunte</string>
-		</dict>
-	</dict>
-	<key>aaald-small-change-description</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
-		<key>v1</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
-			<key>one</key>
-			<string>%1$d modifica minore effettuata</string>
-			<key>other</key>
-			<string>%1$d modifiche minori effettuate</string>
-			<key>zero</key>
-			<string>Nessuna modifica minore effettuata</string>
-		</dict>
-	</dict>
 	<key>add-articles-to-reading-list</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -727,10 +673,10 @@
 			<string>%1$d volte</string>
 		</dict>
 	</dict>
-	<key>year-in-review-personalized-reading-title-format</key>
+	<key>year-in-review-personalized-reading-subtitle-format</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Hai letto %#@v1@ quest'anno</string>
+		<string>Hai letto %1$d %#@v1@. Wikipedia ha avuto più di %2$@ milioni di voci disponibili in oltre %3$@ lingue. Ti sei unito a milioni di persone nell'espandere la conoscenza e nell'esplorare argomenti diversi.</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -738,9 +684,25 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>%1$d articol</string>
+			<string>voce</string>
 			<key>other</key>
-			<string>%1$d articoli</string>
+			<string>voci</string>
+		</dict>
+	</dict>
+	<key>year-in-review-personalized-reading-title-format</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Hai letto %#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d voce</string>
+			<key>other</key>
+			<string>%1$d voci</string>
 		</dict>
 	</dict>
 	<key>year-in-review-personalized-saved-title-format</key>

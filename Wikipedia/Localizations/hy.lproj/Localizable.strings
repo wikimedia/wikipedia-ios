@@ -11,8 +11,6 @@
 // Author: Դավիթ Սարոյան
 // Author: Սերգեյ Սաֆարյան
 
-"aaald-new-book-reference-title" = "Գիրք";
-"aaald-new-website-reference-title" = "Կայք";
 "about-contributors" = "Հեղինակներ";
 "about-libraries-license" = "Թույլատրագիր";
 "about-testers" = "Փորձարկողներ";
@@ -135,7 +133,6 @@
 "main-menu-terms-of-use" = "Օգտագործման պայմաններ";
 "main-menu-title" = "Ավելին";
 "main-menu-zero-faq" = "Վիքիպեդիա Զրո ՀՏՀ";
-"menu-cancel-accessibility-label" = "Չեղարկել";
 "more-languages-tooltip-title" = "Ավելացնել լեզուներ";
 "navbar-title-mode-edit-wikitext-preview" = "Նախադիտում";
 "nearby-distance-label-feet" = "$1 ֆուտ";

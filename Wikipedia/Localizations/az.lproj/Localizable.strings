@@ -1,47 +1,15 @@
 // Messages for Azerbaijani (azərbaycanca)
 // Exported from translatewiki.net
+// Author: HNordeen (WMF)
 // Author: Hüseynzadə
 // Author: Nemoralis
 // Author: Toghrul Rahimli
 // Author: Tsevener
 // Author: Wertuose
 // Author: Şeyx Şamil
+// Author: Əkrəm
 // Author: Əkrəm Cəfər
 
-"aaald-added-text-description-2" = "$1 əlavə edildi";
-"aaald-article-description-updated-description" = "Məqalənin təsviri yeniləndi";
-"aaald-article-insert-header" = "Əhəmiyyətli Yeniləmələr";
-"aaald-article-insert-last-updated" = "Son yeniləmə";
-"aaald-article-insert-new-changes" = "Yeni dəyişikliklər";
-"aaald-article-insert-read-more" = "Daha çox yeniləmə oxuyun";
-"aaald-characters-text-description" = "{{PLURAL:$1|0=simvol|simvol}}";
-"aaald-deleted-text-description-2" = "$1 silindi";
-"aaald-error-subitle" = "Yenidən cəhd etmək üçün yeniləyin";
-"aaald-error-title" = "Daxili məqalə tarixçəsini yükləmək mümkün deyil";
-"aaald-many-sections-description" = "$1 bölmələrində";
-"aaald-multiple-changes-description" = "Çoxsaylı dəyişikliklər edilib";
-"aaald-multiple-references-added-description" = "Çoxsaylı istinadlar əlavə edilib";
-"aaald-new-book-reference-title" = "Kitab";
-"aaald-new-discussion" = "yeni müzakirə";
-"aaald-new-journal-reference-database" = "$1 vasitəsilə";
-"aaald-new-journal-reference-title" = "Jurnal";
-"aaald-new-journal-reference-volume" = "Cild $1:";
-"aaald-new-news-reference-retrieved-date" = "$1 tarixində əldə olunub";
-"aaald-new-news-reference-title" = "Xəbər";
-"aaald-new-talk-topic-description-format" = "Bu məqalə haqqında $1";
-"aaald-new-website-reference-archive-date-text" = "orijinaldan $1 tarixində";
-"aaald-new-website-reference-archive-url-text" = "Archive.org URL-si";
-"aaald-new-website-reference-title" = "Veb-sayt";
-"aaald-numerical-multiple-references-added-description" = "{{PLURAL:$1|0=0 istinad|$1 istinad}} əlavə edilib";
-"aaald-one-section-description" = "$1 bölməsində";
-"aaald-revision-by-anonymous" = "Anonim istifadəçi tərəfindən edilmiş redaktə";
-"aaald-revision-userInfo" = "$1 tərəfindən edilmiş redaktə ($2 redaktə)";
-"aaald-single-reference-added-description" = "İstinad əlavə edildi";
-"aaald-small-change-description" = "{{PLURAL:$1|0=Heç bir kiçik dəyişiklik edilməyib|$1 kiçik dəyişiklik edilib}}";
-"aaald-summary-title" = "{{PLURAL:$3|0=0 gün|$3 gün}} ərzində {{PLURAL:$2|0=0 istifadəçi|$2 istifadəçi}} tərəfindən edilmiş {{PLURAL:$1|0=0 redaktə|$1 redaktə}}";
-"aaald-two-sections-description" = "$1 və $2 bölmələrində";
-"aaald-vandalism-revert-description" = "Şübhəli Vandalizm geri qaytarıldı";
-"aaald-view-full-history-button" = "Tam məqalə tarixçəsinə bax";
 "about-content-license" = "Məzmun lisenziyası";
 "about-content-license-details" = "Əksi göstərilmədiyi təqdirdə, məzmun $1 altında mövcuddur.";
 "about-content-license-details-share-alike-license" = "Creative Commons Attribution-ShareAlike Lisenziyası";
@@ -741,10 +709,11 @@
 "main-menu-terms-of-use" = "İstifadə Şərtləri";
 "main-menu-title" = "Daha çox";
 "main-menu-zero-faq" = "Wikipedia Zero TSS";
-"menu-cancel-accessibility-label" = "İmtina";
 "microsite-yir-english-edits-bytes-slide-subtitle" = "2024-cü ildə könüllülər İngiliscə Vikipediyaya 4.104.852.969 bayt əlavə etdilər. Birgə işin cəmi onların dünyaya verdiyi davamlı təkmilləşən, fakta əsaslanan və etibarlı bilik resursuna gətirib çıxarır. Hamımızın paylaşacaq biliyimiz var, [iştirak etməyi öyrənin]($1).";
 "microsite-yir-english-edits-bytes-slide-title" = "4 milyard bayt əlavə edildi";
-"microsite-yir-english-edits-slide-subtitle" = "Könüllülər Vikipediyanın 300-dən çox müxtəlif dildə nəşrlərində 98.222.407 dəyişiklik etdilər. İngiliscə Vikipediyada 38 milyondan çox dəyişiklik edilib. Hər günün hər saatında könüllülər Vikipediyanı təkmilləşdirmək üçün çalışırlar.";
+// Fuzzy
+"microsite-yir-english-edits-slide-subtitle" = "Könüllülər Vikipediyanın 300-dən çox müxtəlif dildə nəşrlərində 98.222.407 dəyişiklik etdilər. İngiliscə Vikipediyada 37 milyondan çox dəyişiklik edilib. Hər günün hər saatında könüllülər Vikipediyanı təkmilləşdirmək üçün çalışırlar.";
+// Fuzzy
 "microsite-yir-english-edits-slide-title" = "Bu il redaktorlar 98 milyona yaxın dəyişiklik edib";
 "microsite-yir-english-non-donor-slide-subtitle" = "Sizin köməyinizlə, Vikipediyanın sahibi qeyri-kommersiya təşkilatı olan Vikimedia Fondu etibar etdiyiniz məlumatların reklamsız və etibarlı olmasını təmin etməkdə davam edəcək, eyni zamanda ən müasir alətlər və texnologiyalarla Vikipediyanın problemsiz işləməsini təmin edəcək. Zəhmət olmasa, bu gün ianə etməyi düşünün. [İşimiz haqqında ətraflı öyrənin]($1).";
 "microsite-yir-english-non-donor-slide-title" = "Vikipediyada heç bir reklam göstərilmir";
@@ -752,10 +721,8 @@
 "microsite-yir-english-reading-slide-title" = "Kitab oxumağa 2,9 milyard saat sərf etmişik";
 // Fuzzy
 "microsite-yir-english-saved-reading-slide-subtitle" = "Aktiv iOS tətbiqi istifadəçiləri bu il 62,2 milyon oxuma siyahısına sahib olub. Oxuma siyahıları onlara məqalələr əlavə etmək hətta oflayn olarkən məqalələrə daxil olmaq imkanı verir. Siz həmçinin cihazlar arasında oxuma siyahılarını sinxronlaşdırmaq üçün hesabınıza daxil ola bilərsiniz.";
-// Fuzzy
 "microsite-yir-english-saved-reading-slide-title" = "62,2 milyondan çox oxuma siyahılarımız olub.";
-// Fuzzy
-"microsite-yir-english-top-read-slide-subtitle" = "İnsanlar dünyamız haqqında öyrənmək istədikdə Vikipediyaya müraciət edirlər. İngiliscə Vikipediyada ən çox ziyarət edilən 5 məqalə bunlardır: \n1. $1\n2. $2\n3. $3\n4. $4\n5. $5\n$6Bizim xüsusi bloq yazımızı$7 oxuyun";
+"microsite-yir-english-top-read-slide-subtitle" = "İngiliscə Vikipediyada ən çox ziyarət edilən 5 məqalə bunlardır: \n1. $1\n2. $2\n3. $3\n4. $4\n5. $5\n$6Bizim xüsusi bloq yazımızı$7 oxuyun";
 "microsite-yir-english-top-read-slide-title" = "İngiliscə Vikipediyanın ən çox oxunan məqalələri";
 "more-languages-tooltip-description" = "300-dən çox dildə Vikipediyada axtarış edin";
 "more-languages-tooltip-title" = "Dil əlavə et";
@@ -982,7 +949,6 @@
 "profile-button-badge-accessibility-label" = "Oxunmamış nişanlı profil";
 "profile-page-donate-subtext" = "Və ya Vikipediyanı pulsuz və dünyada hər kəs üçün əlçatan saxlamaq üçün ianə ilə dəstəkləyin.";
 "profile-page-join-subtext" = "Töhfələrinizi izləmək, məqalələri oflayn yadda saxlamaq və cihazlar arasında sinxronizasiya etmək üçün Vikipediyada qeydiyyatdan keçin.";
-// Fuzzy
 "profile-page-join-title" = "Vikipediyaya qoşul / Daxil ol";
 "profile-page-logged-out-year-in-review-subtext" = "Gələn il illik statistika əldə etmək üçün daxil olun və ya hesab yaradın";
 "profile-page-title-logged-out" = "Hesab";
@@ -1244,7 +1210,6 @@
 "talk-page-subscription-failed-alert" = "Mövzuya abunə olmaq alınmadı, yenidən cəhd edin.";
 "talk-page-title-article-talk" = "Məqalə Müzakirəsi";
 "talk-page-title-user-talk" = "İstifadəçi Müzakirəsi";
-"talk-page-topic-close-button-hint" = "Yeni mövzunu bağla";
 "talk-page-topic-compose-terms-and-licenses-ccsa4" = "Dəyişiklikləri dərc etməklə siz $1İstifadə Şərtləri$2 ilə razılaşırsınız və töhfələrinizin $3CC BY-SA 4.0 Lisenziyası$4 və $5GFDL$6 altında geri qaytarılmadan dərcinə razılaşırsınız.";
 "talk-page-unsubscribe-to-topic" = "Abunəlikdən çıx";
 "talk-page-unsubscribed-alert-subtitle" = "Artıq bu mövzuda yeni şərhlər haqqında bildirişlər almayacaqsınız.";
@@ -1420,10 +1385,12 @@
 "year-in-review-base-donate-subtitle" = "Sizin köməyinizlə, Vikipediyanın sahibi qeyri-kommersiya təşkilatı olan Vikimedia Fondu etibar etdiyiniz məlumatların reklamsız və etibarlı olmasını təmin etməkdə davam edəcək, eyni zamanda ən müasir alətlər və texnologiyalarla Vikipediyanın problemsiz işləməsini təmin edəcək. Zəhmət olmasa, bu gün ianə etməyi düşünün. [İşimiz haqqında ətraflı öyrənin]($1).";
 "year-in-review-base-donate-title" = "Vikipediyada 0 reklam göstərilir";
 // Fuzzy
-"year-in-review-base-editors-subtitle" = "Könüllülər Vikipediyanın 300-dən çox müxtəlif dildə nəşrlərində 98.222.407 dəyişiklik ediblər. İngiliscə Vikipediyada 38 milyondan çox dəyişiklik edilib. Hər günün hər saatında könüllülər Vikipediyanı təkmilləşdirmək üçün çalışırlar.";
+"year-in-review-base-editors-subtitle" = "Vikipediyanın könüllü redaktorlar icması bu il iOS proqramında 555 647-dən çox redaktə edib. Vikipediyanın ürəyi və ruhu bizim könüllü redaktorlar, ianəçilər və sizin kimi milyardlarla oxucudan ibarət qlobal birliyimizdir. Hamısı etibarlı məlumatı məhdudiyyətsiz əldə etmək üçün birləşib.";
 "year-in-review-base-editors-title" = "Redaktorlar iOS tətbiqində $1+ redaktə ediblər";
+// Fuzzy
 "year-in-review-base-edits-subtitle" = "Bu il Vikipediya dəqiqədə orta hesabla $1 dəfə redaktə edilib. Məqalələr etibarlı mənbələrdən istifadə etməklə birgə yaradılır və təkmilləşdirilir. Hamımızın paylaşacaq biliyimiz var, [iştirak etməyi öyrənin]($2).";
 "year-in-review-base-edits-title" = "Vikipediya dəqiqədə $1 dəfə redaktə edilib";
+// Fuzzy
 "year-in-review-base-reading-subtitle" = "Vikipediyada bu il $2+ aktiv dildə $1+ məqalə var. Siz biliyi genişləndirməkdə və müxtəlif mövzuları araşdırmaqda milyonlarla insana qoşulmusunuz.";
 "year-in-review-base-reading-title" = "Vikipediya 300-dən çox dildə mövcud idi";
 // Fuzzy
@@ -1433,9 +1400,7 @@
 "year-in-review-base-viewed-title" = "Biz Vikipediya məqalələrini $1 milyard dəfə oxumuşuq";
 "year-in-review-button-title" = "İlə Baxış";
 "year-in-review-collective-article-views" = "Vikipedia məqaləsində aktiv şəkildə naviqasiya edən veb-brauzeri açıq olan kompüter ekranının animasiya illüstrasiyası.";
-// Fuzzy
-"year-in-review-collective-edits" = "Qrafik Hər biri bir məlumat daşıyan iki Vikipediya tapmacasının təsviri.";
-// Fuzzy
+"year-in-review-collective-edits" = "Hər biri bir məlumat daşıyan iki Vikipediya tapmacasının təsviri.";
 "year-in-review-collective-edits-per-minute" = "Vikipediyanı oxuyan insanların keçirdikləri vaxtı simvolizə edən saat əqrəbi.";
 "year-in-review-collective-explore" = "Layihənin qurulmasında dünya miqyasında insanların birgə səylərini simvolizə edən ikonik Vikipediya qlobusunu təsvir edən cizgi illüstrasiya. Səhnə şəhər mənzərəsi ilə əhatə olunub, onun bəşəriyyət və qlobal mədəniyyətlə əlaqəsini vurğulayır.";
 "year-in-review-day-friday" = "cümə günlərində";
@@ -1450,6 +1415,7 @@
 // Fuzzy
 "year-in-review-feature-announcement-body" = "Vikipediya tətbiqində oxuduğunuz məqalələr haqqında məlumatlara baxın, səyahətinizi paylaşın və ilinizdə diqqət çəkən məqamları kəşf edin.";
 "year-in-review-feature-announcement-title" = "Vikipediyadakı İlinizin İcmalına baxın";
+// Fuzzy
 "year-in-review-feature-explore-body-personalized" = "Vikipediya proqramında oxuduğunuz məqalələr və etdiyiniz redaktələr haqqında statistikaya baxın. Oxuma tarixçəniz qorunur. Oxuma statistikası cihazınızda lokal olaraq saxlanılan datadan istifadə etməklə hesablanır.";
 "year-in-review-finish" = "Bitir";
 // Fuzzy
@@ -1461,6 +1427,7 @@
 "year-in-review-personalized-donate-subtitle" = "Pulsuz biliyin gələcəyinə sərmayə qoyduğunuz üçün təşəkkür edirik. 2024-cü ildə Vikimedia Fondu hər bir oxucuya və könüllülərə daha yaxşı xidmət göstərmək üçün texnologiyanı təkmilləşdirdi, əməkdaşlığı gücləndirən alətlər hazırladı və Vikipediyanı daha çox dildə dəstəklədi. [İşimiz haqqında ətraflı öyrənin]($1).";
 "year-in-review-personalized-donate-title" = "Səxavətiniz Vikipediyanın böyüməsinə kömək etdi";
 "year-in-review-personalized-donation-thank-you" = "Vikimedia loqosu";
+// Fuzzy
 "year-in-review-personalized-edit-views-subtitle-format" = "Dünyanın hər yerindən olan oxucular töhfələrinizi yüksək qiymətləndirirlər. Son 2 ayda redaktə etdiyiniz məqalələr $1 ümumi baxış əldə edib. Sizin kimi redaktorların sayəsində Vikipediya dünya üçün davamlı olaraq təkmilləşən, faktlara əsaslanan və etibarlı məlumat mənbəyidir.";
 // Fuzzy
 "year-in-review-personalized-edit-views-title-format" = "Bu yaxınlarda redaktələrinizə $1 dəfədən çox baxılıb";
@@ -1468,7 +1435,9 @@
 "year-in-review-personalized-editing-subtitle-format-500plus" = "Siz Vikipediyada 500+ dəfə redaktə etmisiniz. Vikimedia layihələrində fərq yaradan könüllü redaktorlardan biri olduğunuz üçün təşəkkür edirik.";
 "year-in-review-personalized-editing-title-format" = "Vikipediyanı {{PLURAL:$1|$1 dəfə}} redaktə etmisiniz";
 "year-in-review-personalized-editing-title-format-500plus" = "Vikipediyanı 500+ dəfə redaktə etmisiniz";
+// Fuzzy
 "year-in-review-personalized-reading-subtitle-format" = "Siz bu il {{PLURAL:$1|$1 məqalə}} oxumusunuz. Vikipediyada $3+ aktiv dildə $2 məqalə var idi. Siz biliyi genişləndirməkdə və müxtəlif mövzuları araşdırmaqda milyonlarla insana qoşulmusunuz.";
+// Fuzzy
 "year-in-review-personalized-reading-title-format" = "Siz bu il {{PLURAL:$1|$1 məqalə}} oxumusunuz";
 // Fuzzy
 "year-in-review-personalized-saved-subtitle-format" = "Siz bu il \"$2\", \"$3\" and \"$4\" daxil olmaqla {{PLURAL:$1|$1 məqalə}} yadda saxlamısınız. Hər bir saxlanılan məqalə sizin maraqlarınızı əks etdirir və Vikipediyada fərdiləşdirilmiş bilik bazası yaratmağa kömək edir.";

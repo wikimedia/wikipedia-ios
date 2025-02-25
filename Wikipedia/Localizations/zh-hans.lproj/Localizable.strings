@@ -6,6 +6,7 @@
 // Author: A2B4C
 // Author: Angrydog001
 // Author: Anterdc99
+// Author: Chimes
 // Author: Chixvv
 // Author: Cookai1205
 // Author: Crowley666
@@ -70,40 +71,6 @@
 // Author: 科劳
 // Author: 铁桶
 
-"aaald-added-text-description-2" = "添加了$1";
-"aaald-article-description-updated-description" = "更新了条目描述";
-"aaald-article-insert-header" = "重要更新";
-"aaald-article-insert-last-updated" = "最后更新";
-"aaald-article-insert-new-changes" = "有新更改";
-"aaald-article-insert-read-more" = "阅读更多更新内容";
-"aaald-characters-text-description" = "{{PLURAL:$1|0=个字符|个字符|个字符}}";
-"aaald-deleted-text-description-2" = "删除了$1";
-"aaald-error-subitle" = "刷新后重试";
-"aaald-error-title" = "无法加载行内条目历史";
-"aaald-many-sections-description" = "在$1个章节内";
-"aaald-multiple-changes-description" = "进行了多项更改";
-"aaald-multiple-references-added-description" = "添加了多个参考文献";
-"aaald-new-book-reference-title" = "书籍";
-"aaald-new-discussion" = "新讨论";
-"aaald-new-journal-reference-database" = "通过$1";
-"aaald-new-journal-reference-title" = "期刊";
-"aaald-new-journal-reference-volume" = "第$1卷：";
-"aaald-new-news-reference-retrieved-date" = "检索于$1";
-"aaald-new-news-reference-title" = "新闻";
-"aaald-new-talk-topic-description-format" = "关于此条目的$1";
-"aaald-new-website-reference-archive-date-text" = "原始存档于$1";
-"aaald-new-website-reference-archive-url-text" = "互联网档案馆URL";
-"aaald-new-website-reference-title" = "网站";
-"aaald-numerical-multiple-references-added-description" = "添加了{{PLURAL:$1|0=0个参考文献|$1个参考文献|$1个参考文献}}";
-"aaald-one-section-description" = "在$1章节内";
-"aaald-revision-by-anonymous" = "由匿名用户编辑";
-"aaald-revision-userInfo" = "由$1编辑（$2笔编辑）";
-"aaald-single-reference-added-description" = "已添加参考文献";
-"aaald-small-change-description" = "{{PLURAL:$1|0=未作小修改|$1次小修改|$1次小修改}}";
-"aaald-summary-title" = "在{{PLURAL:$3|0=0天|$3天|$3天}}内由{{PLURAL:$2|0=0位编者|$2位编者|$2位编者}}进行了{{PLURAL:$1|0=0次更改|$1次更改|$1次更改}}";
-"aaald-two-sections-description" = "在$1和$2章节";
-"aaald-vandalism-revert-description" = "回退了疑似破坏内容";
-"aaald-view-full-history-button" = "查看完整的条目修订历史";
 "about-content-license" = "内容许可协议";
 "about-content-license-details" = "除非另有声明，内容基于$1授权。";
 "about-content-license-details-share-alike-license" = "知识共享-署名-相同方式共享许可协议";
@@ -493,6 +460,7 @@
 "editor-replace-type-button-accessibility" = "切换替换类型。当前设置为$1 。选择以更改。";
 "editor-replace-type-single" = "替换";
 "editor-replace-type-single-accessibility" = "替换单个实例";
+"editor-title" = "编辑者";
 "editor-toolbar-bold-accessibility" = "粗体文本格式";
 "editor-toolbar-cursor-down-accessibility" = "将光标移至下一行。";
 "editor-toolbar-cursor-next-accessibility" = "将光标移至下一个字符。";
@@ -798,7 +766,7 @@
 "main-menu-account-login" = "登录";
 "main-menu-account-logout" = "退出";
 "main-menu-account-logout-are-you-sure" = "您确定要退出登录吗？";
-"main-menu-account-logout-are-you-sure-message" = "退出登录将会删除本地存储的账户数据（通知和消息），不过您的账号数据仍然存储于网络上，如果您重新登录，将会重新下载。";
+"main-menu-account-logout-are-you-sure-message" = "退出登录将会删除本地存储的账号数据（通知和消息），不过您的账号数据仍然存储于网络上，如果您重新登录，将会重新下载。";
 "main-menu-account-title-logged-in" = "以$1的身份登录";
 "main-menu-heading-legal" = "隐私和条款";
 "main-menu-nearby" = "附近";
@@ -807,8 +775,18 @@
 "main-menu-terms-of-use" = "使用条款";
 "main-menu-title" = "更多";
 "main-menu-zero-faq" = "维基百科Zero常见问题";
-"menu-cancel-accessibility-label" = "取消";
+"microsite-yir-english-edits-bytes-slide-subtitle" = "在2024年，志愿者们为英文维基百科增添了4,104,852,969字节的内容。他们众志成城，共同铸就了一个日臻完善、以事实为依据且可靠的全球知识资源库。其实我们每个人都有知识可以分享，[快来学习如何参与。]($1)";
+"microsite-yir-english-edits-bytes-slide-title" = "增加了 40 亿字节";
+"microsite-yir-english-edits-slide-subtitle" = "志愿者们在超过300种不同语言版本的维基百科上共完成了98222407次修改。其中，英文维基百科的修改次数就超过了3700万次。每一天的每一个小时，都有志愿者在努力完善维基百科。";
+"microsite-yir-english-edits-slide-title" = "编辑者们今年进行了9800万次修改";
 "microsite-yir-english-non-donor-slide-subtitle" = "有了您的帮助，支撑维基百科的非营利组织，维基媒体基金会将继续保障您需要的信息不含广告且足够可靠，同时采用最前沿工具和技术保证维基百科得以稳定运行。现在就考虑捐款吧。[详细了解我们的工作]($1)。";
+"microsite-yir-english-non-donor-slide-title" = "维基百科上没有投放任何广告";
+"microsite-yir-english-reading-slide-subtitle" = "2024年，人们花费了大约29亿小时——相当于超过33.1万年！——阅读英文维基百科。无论是想要了解这个不断变化的世界，赢得朋友之间的打赌，还是回答一个好奇孩子的问题，维基百科都能随时为你提供帮助。";
+"microsite-yir-english-reading-slide-title" = "我们花了29亿小时阅读";
+"microsite-yir-english-saved-reading-slide-subtitle" = "活跃的iOS应用用户拥有超过6220万份阅读清单。将文章加入阅读清单，就能在离线状态下随时查看。此外，登录后还能在不同设备上同步阅读清单。";
+"microsite-yir-english-saved-reading-slide-title" = "我们有超过6220万份阅读清单";
+"microsite-yir-english-top-read-slide-subtitle" = "英语维基百科上访问量最高的五篇文章是：\n\n1. $1\n2. $2\n3. $3\n4. $4\n5. $5\n在我们的$6 专门博客文章$7 中了解更多。";
+"microsite-yir-english-top-read-slide-title" = "英语维基百科最受欢迎的文章";
 "more-languages-tooltip-description" = "在超过300种语言中搜索维基百科";
 "more-languages-tooltip-title" = "添加语言";
 "more-menu" = "更多";
@@ -1010,7 +988,9 @@
 "places-filter-top-articles" = "热门阅读";
 "places-filter-top-articles-count" = "{{PLURAL:$1|$1个条目}}";
 "places-filter-top-read-articles" = "阅读量最多的条目";
+"places-list-title'" = "列表";
 "places-location-enabled" = "位置已启用";
+"places-map-title" = "地图";
 "places-no-saved-articles-have-location" = "您保存的条目均没有位置信息";
 "places-search-articles-that-match" = "$1匹配“$2”";
 "places-search-default-text" = "搜索地点";
@@ -1040,7 +1020,7 @@
 "profile-page-join-title" = "登录/加入维基百科";
 "profile-page-logged-out-year-in-review-subtext" = "请登录或创建账号，以在来年获得更好的年度回顾";
 "profile-page-title-logged-out" = "账号";
-"profile-year-in-review-login-subtitle" = "登录或创建账户，以便再次查看年度回顾，并有资格获得更多个性化分析数据。";
+"profile-year-in-review-login-subtitle" = "登录或创建账号，以便再次查看年度回顾，并有资格获得更多个性化分析数据。";
 "profile-year-in-review-login-title" = "登录以访问年度回顾";
 "project-name-mediawiki" = "MediaWiki";
 "project-name-wikibooks" = "维基教科书";
@@ -1066,6 +1046,7 @@
 "reading-list-create-new-list-reading-list-name" = "阅读列表名称";
 "reading-list-create-new-list-title" = "创建新列表";
 "reading-list-deleted-accessibility-notification" = "阅读列表已删除";
+"reading-list-detail-search-placeholder" = "搜索阅读列表";
 "reading-list-do-not-keep-button-title" = "否，从设备中删除条目";
 "reading-list-entry-limit-exceeded-message" = "请减少您在此列表中的条目数至$1以恢复同步所有此列表的条目。";
 "reading-list-entry-limit-exceeded-title" = "您已超过每账号{{PLURAL:$1|$1个条目}}的限制。";
@@ -1163,6 +1144,7 @@
 "saved-default-reading-list-tag" = "此列表不可删除";
 "saved-pages-image-download-error" = "下载本已保存页面的图片时失败。";
 "saved-pages-progress-syncing" = "条目下载正在进行...";
+"saved-reading-lists-search-placeholder" = "搜索阅读列表";
 "saved-reading-lists-title" = "阅读列表";
 "saved-search-default-text" = "在已保存的文章中检索";
 "saved-title" = "已保存";
@@ -1298,7 +1280,6 @@
 "talk-page-subscription-failed-alert" = "无法订阅话题，请重试。";
 "talk-page-title-article-talk" = "条目讨论";
 "talk-page-title-user-talk" = "用户讨论";
-"talk-page-topic-close-button-hint" = "关闭新话题";
 "talk-page-topic-compose-terms-and-licenses-ccsa4" = "发布更改即表明您同意$1使用条款$2，并且不可撤回地同意通过$3CC BY-SA 4.0$4和$5GFDL$6协议发布您的贡献。";
 "talk-page-unsubscribe-to-topic" = "取消订阅";
 "talk-page-unsubscribed-alert-subtitle" = "您将不再收到对于此话题的新留言的通知。";
@@ -1473,21 +1454,24 @@
 "wikitext-upload-save-terms-name" = "使用条款";
 "year-in-review-base-donate-subtitle" = "在您的帮助下，维基媒体基金会——维基百科背后的非营利组织——将继续努力，以确保您依赖的信息没有广告且值得信赖，同时通过尖端工具和技术，使维基百科保持流畅运行。请考虑在今天捐款。[进一步了解我们的工作]($1)。";
 "year-in-review-base-donate-title" = "维基百科投放了 0 条广告";
-// Fuzzy
-"year-in-review-base-editors-subtitle" = "今年截止到现在，维基百科的志愿者编辑社区在 iOS 应用上进行了超过 555647 次编辑。维基百科的核心和灵魂是我们的全球社群，包括志愿者、捐赠者和像您一样的数十亿读者——所有人共享对可靠信息的不受限访问。";
+"year-in-review-base-editors-subtitle" = "维基百科的志愿编辑社区在 iOS 应用上进行了超过 555,647 次编辑。维基百科的核心和灵魂是我们全球的志愿贡献者、捐赠者和像您一样的数十亿读者的社区——大家团结一致，共享对可靠信息的无限访问。";
 "year-in-review-base-editors-title" = "iOS 应用上的编辑者进行了超过 $1 次编辑";
 "year-in-review-base-edits-subtitle" = "今年，维基百科的平均编辑速度为每分钟 $1 次。文章由志愿者参考可靠信息来源协作创建和改进。我们所有人都有可以分享的知识。[了解如何参与]($2)。";
 "year-in-review-base-edits-title" = "维基百科每分钟被编辑 $1 次";
-// Fuzzy
-"year-in-review-base-reading-subtitle" = "今年，维基百科拥有超过 $1 万篇文章，涵盖 $2 多种活跃语言。您与数百万人一起拓展知识，探索各种主题。";
+"year-in-review-base-reading-subtitle" = "维基百科拥有超过$1万篇文章，涵盖超过$2种活跃语言。您与数百万人一起扩展知识，探索多样化的主题。";
 "year-in-review-base-reading-title" = "维基百科提供 300 多种语言版本";
-// Fuzzy
-"year-in-review-base-saved-subtitle" = "今年，活跃的 iOS 应用用户共有超过 6220 万个阅读列表。将文章添加到阅读列表后，您就可以离线访问文章。您还可以登录账户，在不同设备上同步阅读列表。";
+"year-in-review-base-saved-subtitle" = "活跃的 iOS 应用用户拥有超过 6220 万个阅读列表。将文章添加到阅读列表中可以让您即使在离线状态下也能访问文章。您还可以登录以在设备之间同步阅读列表。";
 "year-in-review-base-saved-title" = "我们有超过 $1 万个阅读列表";
-// Fuzzy
 "year-in-review-base-viewed-subtitle" = "iOS 应用用户浏览了维基百科文章 $1 亿次。对于全世界的人们来说，维基百科是解答疑问、查找上学或工作所需信息或学习新知识的第一站。";
 "year-in-review-base-viewed-title" = "我们浏览了维基百科文章 $1 亿次";
 "year-in-review-button-title" = "年度回顾";
+"year-in-review-collective-article-views" = "一个动画插图展示了一台电脑屏幕，上面打开了一个网络浏览器，正在浏览维基百科文章。";
+"year-in-review-collective-edits" = "一幅插画，两个维基百科拼图碎片各带一条信息。";
+"year-in-review-collective-edits-per-minute" = "时钟滴答作响，象征着人们花费在阅读维基百科上的时间。";
+"year-in-review-collective-explore" = "一幅动画插画，描绘了维基百科标志性的地球仪被脚手架环绕，象征着全球各地人们携手共建这一项目的齐心协力。画面周围是城市景观，凸显了它与人类社会和全球文化的紧密联系。";
+"year-in-review-collective-languages" = "一幅动画插画，描绘了一块刻有多种语言文字的石头，象征着维基百科汇聚各方力量，从不同文化和地区汲取知识，共同铸就知识宝库。";
+"year-in-review-collective-saved-articles" = "一个带有维基百科标志的拼图地球仪，寓意着全球协作。";
+"year-in-review-collective-zero-ads" = "维基百科标志";
 "year-in-review-day-friday" = "星期五";
 "year-in-review-day-monday" = "星期一";
 "year-in-review-day-saturday" = "星期六";
@@ -1497,35 +1481,38 @@
 "year-in-review-day-wednesday" = "星期三";
 "year-in-review-donate" = "捐赠";
 "year-in-review-donate-now" = "立即捐款";
+"year-in-review-english-edits" = "2024年维基百科编辑次数最多的前10种语言版本：英文版以超过3100万次编辑位居榜首，德文版有5508570次编辑，法文版有5276385次编辑，西班牙文版有4786205次编辑，俄文版有3303066次编辑，意大利文版有3200398次编辑，日文版有2973657次编辑，中文版有2505032次编辑，波兰文版有1383808次编辑，乌克兰文版有1376980次编辑。2024年所有维基百科语言版本的总编辑次数为81987181次。";
 "year-in-review-feature-announcement-body" = "查看我们阅读和编辑的文章的分析数据，并分享我们这一年使用维基百科的亮点。";
 "year-in-review-feature-announcement-body-personalized" = "查看您在维基百科应用上阅读的文章的分析数据，分享您的旅程，并发现您这一年的亮点。";
 "year-in-review-feature-announcement-title" = "探索维基百科回顾";
 "year-in-review-feature-announcement-title-personalized" = "探索您的维基百科年度回顾";
 "year-in-review-feature-explore-body" = "维基百科是世界历史上最大的知识资源库，向每个地方的每个人免费开放。通过维基百科的视角回顾 2024 年。";
-"year-in-review-feature-explore-body-personalized" = "查看关于您在维基百科应用上阅读了哪些文章以及所做编辑的分析数据。您的阅读历史记录受到保护。阅读分析数据是根据您设备上存储的本地数据计算出来的。";
+"year-in-review-feature-explore-body-personalized" = "查看您在维基百科应用上阅读的文章以及您在 2024 年所做的编辑的分析。您的阅读历史将受到保护。阅读见解使用存储在您设备上的本地数据计算。";
 "year-in-review-finish" = "完成";
-"year-in-review-login-subtitle" = "登录或创建账户，以便有资格获得更多个性化分析数据";
+"year-in-review-login-subtitle" = "登录或创建账号，以便有资格获得更多个性化分析数据";
 "year-in-review-login-title" = "改进您的年度回顾";
 "year-in-review-personalized-day-subtitle-format" = "您在 $1 阅读的文章最多。很明显，$1 是您探索新内容最重要的日子。感谢您充分利用您的阅读时间！";
 "year-in-review-personalized-day-title-format" = "您阅读最多的是$1 。";
 "year-in-review-personalized-donate-subtitle" = "感谢您对知识免费的未来投资。今年，维基媒体基金会改进了技术，从而更好地服务每一位读者和志愿者，并开发了增强协作的工具，另外还支持了维基百科的更多语言版本。[进一步了解我们的工作]($1)。";
 "year-in-review-personalized-donate-title" = "您的慷慨让维基百科兴旺";
+"year-in-review-personalized-donation-thank-you" = "维基百科标志";
+// Fuzzy
 "year-in-review-personalized-edit-views-subtitle-format" = "全世界的读者感谢您做出的贡献。在过去 2 个月中，您编辑的文章总浏览量已达 $1 次。正因为有像您这样的编辑者，维基百科才能不断改进，成为基于事实的、可靠的全球知识资源库。";
 "year-in-review-personalized-edit-views-title-format" = "您编辑的文章最近已被浏览超过 $1 次";
-// Fuzzy
-"year-in-review-personalized-editing-subtitle-format" = "今年，您阅读了 $1 篇文章。维基百科有超过 $2 万篇文章，涵盖 $3 多种语言。您与数百万人一起拓展知识，探索各种主题。";
+"year-in-review-personalized-editing-subtitle-format" = "您编辑了维基百科{{PLURAL:$1| $1次}}。感谢您成为志愿编辑之一，为全球各地的维基媒体项目做出贡献。";
 "year-in-review-personalized-editing-subtitle-format-500plus" = "您在维基百科上的编辑次数超过了500次。感谢您成为世界各地在维基媒体项目上作出贡献的志愿编者中的一员。";
-// Fuzzy
-"year-in-review-personalized-editing-title-format" = "您编辑了维基百科 $1 次";
+"year-in-review-personalized-editing-title-format" = "您编辑了维基百科 {{PLURAL:$1|$1 次}}";
 "year-in-review-personalized-editing-title-format-500plus" = "您编辑了维基百科 500 多次";
-// Fuzzy
-"year-in-review-personalized-reading-subtitle-format" = "今年，您阅读了 $1 篇文章，包括 $2、$3 和 $4。维基百科有超过 6300 万篇文章，涵盖 300 多种语言。您与数百万人一起拓展知识，探索各种主题。";
-// Fuzzy
-"year-in-review-personalized-reading-title-format" = "您今年阅读了 $1 篇文章";
-// Fuzzy
-"year-in-review-personalized-saved-subtitle-format" = "您保存了 $1 篇文章，包括 $2、$3 和 $4。每一篇保存的文章都反映了您的兴趣，并帮助您在维基百科上建立个性化的知识库。";
-// Fuzzy
-"year-in-review-personalized-saved-title-format" = "您保存了 $1 篇文章";
+"year-in-review-personalized-explore" = "一幅动画插画，一只手中握着维基百科的地球仪，它逐渐变成了一块小小的拼图碎片，寓意着众人拾柴火焰高，每个人都在为这个平台添砖加瓦。";
+"year-in-review-personalized-reading-subtitle-format" = "您阅读了{{PLURAL:$1|$1 篇文章}}。维基百科有$2 百万篇文章可供使用，涵盖超过$3 种活跃语言。您与数百万人一起扩展知识，探索多样化的主题。";
+"year-in-review-personalized-reading-title-format" = "你阅读了{{PLURAL:$1|$1 篇文章}}";
+"year-in-review-personalized-saved-articles" = "插画中，一块拼图碎片戴着安全帽，后面是电脑屏幕。";
+"year-in-review-personalized-saved-subtitle-format" = "您今年保存了{{PLURAL:$1|$1 篇文章}}，包括$2、$3 和$4。每篇保存的文章都反映了您的兴趣所在，并帮助在维基百科上建立个性化的知识库。";
+"year-in-review-personalized-saved-title-format" = "您保存了{{PLURAL:$1|$1 篇文章}}";
+"year-in-review-personalized-user-edits" = "一幅动画插画，数据字节层层堆叠，象征着自由知识的不断积累。";
+"year-in-review-personalized-weekday" = "时钟滴答作响，象征着人们花费在阅读维基百科上的时间。";
+"year-in-review-personalized-you-read" = "一块带有维基百科徽标的拼图从左侧走进来。";
+"year-in-review-personalized-your-edits-views" = "一幅插画，维基百科的拼图碎片与一支笔相伴。";
 "year-in-review-share-text" = "这里是我的维基百科年度回顾。通过 Wikipedia iOS 应用创建而成 (https://apps.apple.com/app/wikipedia/id324715238) #WikipediaYearInReview";
 "year-in-review-survey-additional-thoughts" = "您还有别的想法吗？";
 "year-in-review-survey-neutral" = "一般";

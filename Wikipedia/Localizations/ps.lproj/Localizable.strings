@@ -6,6 +6,7 @@
 // Author: Baloch Khan
 // Author: Macofe
 // Author: Nemo bis
+// Author: شاه زمان پټان
 
 "about-content-license" = "د مېنځپانگې منښتليک";
 "about-contributors" = "ونډه وال";
@@ -53,7 +54,7 @@
 "explore-potd-heading" = "د نن ورځې انځور";
 "explore-random-article-heading" = "ناټاکلې ليکنه";
 "field-password-title" = "پټنوم";
-"field-username-title" = "کارن-نوم";
+"field-username-title" = "کارن‌نوم";
 "history-clear-all" = "سپينول";
 "history-clear-cancel" = "ناگارل";
 "history-clear-confirmation-heading" = "آيا ډاډمن يې چې خپل ټول وروستني توکي ړنگول غواړې؟";
@@ -75,7 +76,6 @@
 "main-menu-rate-app" = "کاريال ارزول";
 "main-menu-terms-of-use" = "د کارولو شرطونه";
 "main-menu-title" = "نور";
-"menu-cancel-accessibility-label" = "ناگارل";
 "navbar-title-mode-edit-wikitext-preview" = "مخليدنه";
 "nearby-distance-label-feet" = "$1 گام";
 "nearby-distance-label-km" = "$1 کیلومتر";

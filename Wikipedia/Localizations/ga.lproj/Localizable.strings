@@ -6,9 +6,6 @@
 // Author: Smirkybec
 // Author: Tem
 
-"aaald-new-book-reference-title" = "Leabhar";
-"aaald-new-website-reference-archive-url-text" = "URL ag Archive.org";
-"aaald-new-website-reference-title" = "Suíomh gréasáin";
 "about-content-license" = "Ceadúnas inneachair";
 "about-content-license-details" = "Mura luaitear a mhalairt, tá an t-inneachar ar fáil faoin $1.";
 "about-content-license-details-share-alike-license" = "Ceadúnas Sannta-ComhroinnteComhionnaine Creative Commons";
@@ -290,7 +287,6 @@
 "main-menu-terms-of-use" = "Coinníollacha Úsáide";
 "main-menu-title" = "Tuilleadh";
 "main-menu-zero-faq" = "CCanna Vicipéid a Náid";
-"menu-cancel-accessibility-label" = "Cealaigh";
 "more-languages-tooltip-description" = "Cuardaigh i Vicipéid i níos mó ná 300 teanga";
 "more-languages-tooltip-title" = "Cuir teangacha leis";
 "navbar-title-mode-edit-wikitext-preview" = "Réamhamharc";

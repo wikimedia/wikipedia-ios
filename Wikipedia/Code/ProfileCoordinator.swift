@@ -9,6 +9,10 @@ enum ProfileCoordinatorSource: Int {
     case exploreOptOut
     case explore
     case article
+    case places
+    case saved
+    case history
+    case search
 }
 
 @objc(WMFProfileCoordinator)
@@ -298,6 +302,14 @@ final class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegat
             default:
                 return
             }
+        case .places:
+            DonateFunnel.shared.logPlacesProfileDonate(metricsID: metricsID)
+        case .saved:
+            DonateFunnel.shared.logSavedProfileDonate(metricsID: metricsID)
+        case .history:
+            DonateFunnel.shared.logHistoryProfileDonate(metricsID: metricsID)
+        case .search:
+            DonateFunnel.shared.logSearchProfileDonate(metricsID: metricsID)
         }
     }
     

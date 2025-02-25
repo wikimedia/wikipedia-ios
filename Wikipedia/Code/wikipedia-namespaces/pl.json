@@ -28,9 +28,9 @@
     "MEDIA" : -2,
     "MEDIAWIKI" : 8,
     "MEDIAWIKI TALK" : 9,
+    "MODUŁ" : 828,
     "MODULE" : 828,
     "MODULE TALK" : 829,
-    "MODUŁ" : 828,
     "PLIK" : 6,
     "POMOC" : 12,
     "PORTAL" : 100,
@@ -47,12 +47,12 @@
     "TOPIC" : 2600,
     "USER" : 2,
     "USER TALK" : 3,
+    "WĄTEK" : 2600,
     "WIKIPEDIA" : 4,
     "WIKIPEDIA TALK" : 5,
     "WIKIPEDYSTA" : 2,
     "WIKIPEDYSTKA" : 2,
     "WIKIPROJEKT" : 102,
-    "WP" : 4,
-    "WĄTEK" : 2600
+    "WP" : 4
   }
 }

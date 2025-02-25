@@ -18,40 +18,6 @@
 // Author: Strainu
 // Author: WebSourceContentRO
 
-"aaald-added-text-description-2" = "$1 adăugat";
-"aaald-article-description-updated-description" = "Descrierea articolului a fost actualizată";
-"aaald-article-insert-header" = "Actualizări semnificative";
-"aaald-article-insert-last-updated" = "Ultima actualizare";
-"aaald-article-insert-new-changes" = "Schimbări recente";
-"aaald-article-insert-read-more" = "Citește mai multe actualizări";
-"aaald-characters-text-description" = "{{PLURAL:$1|0=caractere|caracter|caractere}}";
-"aaald-deleted-text-description-2" = "$1 șters";
-"aaald-error-subitle" = "Reîncărcă pentru a încerca din nou";
-"aaald-error-title" = "Imposibil de încărcat istoricul articolelor în linie";
-"aaald-many-sections-description" = "în $1 secțiuni";
-"aaald-multiple-changes-description" = "Modificări multiple efectuate";
-"aaald-multiple-references-added-description" = "S-au adăugat mai multe referințe";
-"aaald-new-book-reference-title" = "Carte";
-"aaald-new-discussion" = "Discuție nouă";
-"aaald-new-journal-reference-database" = "via $1";
-"aaald-new-journal-reference-title" = "Jurnal";
-"aaald-new-journal-reference-volume" = "Volum $1:";
-"aaald-new-news-reference-retrieved-date" = "Recuperat $1";
-"aaald-new-news-reference-title" = "Știri";
-"aaald-new-talk-topic-description-format" = "$1 despre acest articol";
-"aaald-new-website-reference-archive-date-text" = "de la original pe $1";
-"aaald-new-website-reference-archive-url-text" = "Archive.org URL";
-"aaald-new-website-reference-title" = "Site web";
-"aaald-numerical-multiple-references-added-description" = "{{PLURAL:$1|0=0 referințe|$1 referință|$1 referințe}} adăugate";
-"aaald-one-section-description" = "în secțiunea $1";
-"aaald-revision-by-anonymous" = "Modificări de utilizator anonim";
-"aaald-revision-userInfo" = "Modificări de $1 ($2 editări)";
-"aaald-single-reference-added-description" = "Referințe adăugate";
-"aaald-small-change-description" = "{{PLURAL:$1|0=Nu au fost efectuate modificări minore|$1 modificare minoră efectuată|$1 modificări minore efectuate}}";
-"aaald-summary-title" = "{{PLURAL:$1|0=0 modificări|$1 modificare|$1 modificări}} de {{PLURAL:$2|0=0 editori|$2 editor|$2 editori}} în {{PLURAL:$3|0=0 zile|$3 zi|$3 zile}}";
-"aaald-two-sections-description" = "în secțiunile $1 și $2";
-"aaald-vandalism-revert-description" = "Suspiciunea de vandalism a fost revenită";
-"aaald-view-full-history-button" = "Vedeți istoricul articolului complet";
 "about-content-license" = "Licență conținut";
 "about-content-license-details" = "Dacă nu se specifică altfel, conținutul este disponibil sub $1.";
 "about-content-license-details-share-alike-license" = "Licența Creative Commons Atribuire și distribuire în condiții identice";
@@ -509,7 +475,6 @@
 "main-menu-terms-of-use" = "Termeni de utilizare";
 "main-menu-title" = "Mai mult";
 "main-menu-zero-faq" = "Într. frecv. Wikipedia Zero";
-"menu-cancel-accessibility-label" = "Revocare";
 "more-languages-tooltip-description" = "Căutați Wikipedia în peste 300 de limbi";
 "more-languages-tooltip-title" = "Adaugă limbi";
 "more-menu" = "Mai mult";

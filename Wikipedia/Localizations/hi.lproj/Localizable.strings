@@ -26,40 +26,6 @@
 // Author: चक्रपाणी
 // Author: संजीव कुमार
 
-"aaald-added-text-description-2" = "$1 जोड़ा गया";
-"aaald-article-description-updated-description" = "लेख विवरण अपडेट किया गया";
-"aaald-article-insert-header" = "महत्वपूर्ण अपडेट";
-"aaald-article-insert-last-updated" = "आखरी अपडेट";
-"aaald-article-insert-new-changes" = "नए बदलाव";
-"aaald-article-insert-read-more" = "और अपडेट पढ़ें";
-"aaald-characters-text-description" = "{{PLURAL:$1|अक्षर}}";
-"aaald-deleted-text-description-2" = "$1 हटाया गया";
-"aaald-error-subitle" = "पुनः प्रयास करने के लिए ताज़ा करें";
-"aaald-error-title" = "इनलाइन लेख इतिहास लोड करने में असमर्थ";
-"aaald-many-sections-description" = "$1 अनुभागों में";
-"aaald-multiple-changes-description" = "कई बदलाव किए गए";
-"aaald-multiple-references-added-description" = "कई संदर्भ जोड़े गए";
-"aaald-new-book-reference-title" = "पुस्तक";
-"aaald-new-discussion" = "नई चर्चा";
-"aaald-new-journal-reference-database" = "$1 के माध्यम से";
-"aaald-new-journal-reference-title" = "पत्रिका";
-"aaald-new-journal-reference-volume" = "श्रृंखला $1 :";
-"aaald-new-news-reference-retrieved-date" = "$1 प्राप्त किया";
-"aaald-new-news-reference-title" = "समाचार";
-"aaald-new-talk-topic-description-format" = "इस लेख के बारे में $1";
-"aaald-new-website-reference-archive-date-text" = "$1 पर मूल से";
-"aaald-new-website-reference-archive-url-text" = "Archive.org यूआरएल";
-"aaald-new-website-reference-title" = "वेबसाइट";
-"aaald-numerical-multiple-references-added-description" = "{{PLURAL:$1|$1 संदर्भ}} जोड़ा गया/जोड़े गए";
-"aaald-one-section-description" = "$1 खंड में";
-"aaald-revision-by-anonymous" = "अनाम उपयोगकर्ता द्वारा संपादन";
-"aaald-revision-userInfo" = "$1 द्वारा संपादित ( $2 संपादन)";
-"aaald-single-reference-added-description" = "संदर्भ जोड़ा गया";
-"aaald-small-change-description" = "{{PLURAL:$1| 0=कोई छोटा परिवर्तन नहीं किया गया| $1 छोटे परिवर्तन किए गए}}";
-"aaald-summary-title" = "{{PLURAL:$1|$1 परिवर्तन}} {{PLURAL:$2|$2 संपादक(कों)}} द्वारा {{PLURAL:$3| $3 दिन}} में";
-"aaald-two-sections-description" = "$1 और $2 अनुभागों में";
-"aaald-vandalism-revert-description" = "संदिग्ध बर्बरता पूर्ववत";
-"aaald-view-full-history-button" = "पूरा लेख इतिहास देखें";
 "about-content-license" = "सामग्री लाइसेंस";
 "about-content-license-details" = "जब तक अलग से बताया गया हो तब तक सामग्री $1 के अंतर्गत उपलब्ध है।";
 "about-content-license-details-share-alike-license" = "क्रिएटिव कॉमन्स अट्ट्रिब्यूशन-शेयरअलाइक लाइसेंस";
@@ -375,7 +341,6 @@
 "main-menu-terms-of-use" = "उपयोग की शर्तें";
 "main-menu-title" = "अधिक";
 "main-menu-zero-faq" = "विकिपीडिया ज़ीरो FAQ";
-"menu-cancel-accessibility-label" = "रद्द करें";
 "more-languages-tooltip-description" = "विकिपीडिया को 300 से अधिक भाषाओं में खोजें";
 "more-languages-tooltip-title" = "भाषाएँ जोड़ें";
 "navbar-title-mode-edit-wikitext-preview" = "पूर्वावलोकन";

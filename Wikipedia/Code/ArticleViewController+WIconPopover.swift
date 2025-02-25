@@ -8,6 +8,12 @@ extension ArticleViewController {
             return false
         }
         
+        if #available(iOS 18, *) {
+            if UIDevice.current.userInterfaceIdiom == .pad && traitCollection.horizontalSizeClass == .regular {
+                return false
+            }
+        }
+        
         guard
             !UserDefaults.standard.wmf_didShowWIconPopover(),
             presentedViewController == nil,

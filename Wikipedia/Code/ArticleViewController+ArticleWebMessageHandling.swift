@@ -34,8 +34,6 @@ extension ArticleViewController: ArticleWebMessageHandling {
             scrollToAnchorCompletions.removeAll()
         case .viewInBrowser:
             navigate(to: self.articleURL, useSafari: true)
-        case .aaaldInsertOnScreen:
-            handleAaaLDInsertOnScreenEvent()
         }
     }
     
@@ -59,12 +57,9 @@ extension ArticleViewController: ArticleWebMessageHandling {
         let oldState = state
         state = .loaded
         
-        if altTextExperimentViewModel == nil {
-            showWIconPopoverIfNecessary()
-        }
+        showWIconPopoverIfNecessary()
         
         refreshControl.endRefreshing()
-        surveyTimerController?.articleContentDidLoad()
         loadSummary(oldState: oldState)
         initialSetupCompletion?()
         initialSetupCompletion = nil
@@ -115,9 +110,5 @@ extension ArticleViewController: ArticleWebMessageHandling {
             menuItems.append(.coordinate)
         }
         messagingController.addFooter(articleURL: articleURL, restAPIBaseURL: baseURL, menuItems: menuItems, lastModified: article.lastModifiedDate)
-    }
-    
-    func handleAaaLDInsertOnScreenEvent() {
-        surveyTimerController?.userDidScrollPastLivingDocArticleContentInsert(withState: state)
     }
 }

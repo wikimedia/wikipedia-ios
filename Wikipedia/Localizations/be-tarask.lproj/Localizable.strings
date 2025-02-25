@@ -6,11 +6,6 @@
 // Author: Red Winged Duck
 // Author: Renessaince
 
-"aaald-added-text-description-2" = "дададзена $1";
-"aaald-article-description-updated-description" = "Апісаньне артыкулу абноўленае";
-"aaald-article-insert-header" = "Значныя абнаўленьні";
-"aaald-article-insert-last-updated" = "Апошняе абнаўленьне";
-"aaald-article-insert-new-changes" = "Новыя зьмены";
 "about-contributors" = "Аўтары";
 "about-libraries" = "Выкарыстаныя бібліятэкі";
 "about-libraries-license" = "Ліцэнзія";
@@ -77,12 +72,12 @@
 "main-menu-terms-of-use" = "Умовы выкарыстаньня";
 "main-menu-title" = "Болей";
 "main-menu-zero-faq" = "Частыя пытаньні па Вікіпэдыя Zero";
-"menu-cancel-accessibility-label" = "Скасаваць";
 "navbar-title-mode-edit-wikitext-preview" = "Папярэдні прагляд";
 "nearby-distance-label-feet" = "$1 фт";
 "nearby-distance-label-km" = "$1 км";
 "nearby-distance-label-meters" = "$1 м";
 "nearby-distance-label-miles" = "$1 міл";
+"notifications-center-type-title-email-from-other-user" = "Э-ліст ад іншага карыстальніка";
 "page-protected-can-not-edit" = "Вы ня маеце правоў рэдагаваць гэтую старонку";
 "page-protected-can-not-edit-title" = "Гэтая старонка абароненая";
 "potd-description-prefix" = "Выява дня за $1";

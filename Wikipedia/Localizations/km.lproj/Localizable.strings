@@ -6,38 +6,6 @@
 // Author: Y.snsqr
 // Author: គីមស៊្រុន
 
-"aaald-added-text-description-2" = "បានបន្ថែម $1";
-"aaald-article-description-updated-description" = "បានបន្ទាន់សម័យការពិពណ៌នាអត្ថបទ";
-"aaald-article-insert-header" = "ការបន្ទាន់សម័យសំខាន់ៗ";
-"aaald-article-insert-last-updated" = "បានបន្ទាន់សម័យថ្មីជាងគេ";
-"aaald-article-insert-new-changes" = "បន្លាស់ប្ដូរថ្មីៗ";
-"aaald-article-insert-read-more" = "អានការបន្ទាន់សម័យលម្អិត";
-"aaald-characters-text-description" = "{{PLURAL:$1| 0=តួអក្សរ|តួអក្សរ|តួអក្សរ}}";
-"aaald-deleted-text-description-2" = "បានលុបចោល $1";
-"aaald-error-subitle" = "ផ្ទុកឡើងវិញដើម្បីសាកល្បងម្តងទៀត";
-"aaald-many-sections-description" = "ក្នុងផ្នែកចំនួន $1";
-"aaald-multiple-changes-description" = "បានផ្លាស់ប្ដូរច្រើនកន្លែង";
-"aaald-multiple-references-added-description" = "បានបន្ថែមឯកសារយោងច្រើនកន្លែង";
-"aaald-new-book-reference-title" = "សៀវភៅ";
-"aaald-new-discussion" = "ការពិភាក្សាថ្មីៗ";
-"aaald-new-journal-reference-database" = "តាមរយៈ $1";
-"aaald-new-journal-reference-title" = "ព្រឹត្តិប័ត្រ";
-"aaald-new-journal-reference-volume" = "លេខ $1 ៖";
-"aaald-new-news-reference-retrieved-date" = "បានទៅយក $1";
-"aaald-new-news-reference-title" = "ព័ត៌មាន";
-"aaald-new-talk-topic-description-format" = "$1អំពីអត្ថបទនេះ";
-"aaald-new-website-reference-archive-date-text" = "ពីច្បាប់ដើមនៅ$1";
-"aaald-new-website-reference-title" = "វិបសាយ";
-"aaald-numerical-multiple-references-added-description" = "បានបន្ថែម{{PLURAL:$1| 0=ឯកសារយោងចំនួន០| ឯកសារយោងចំនួន$1| ឯកសារយោងចំនួន$1}}";
-"aaald-one-section-description" = "នៅក្នុងផ្នែក $1";
-"aaald-revision-by-anonymous" = "កែប្រែដោយអ្នកប្រើប្រាស់អនាមិក";
-"aaald-revision-userInfo" = "កែប្រែដោយ $1 (ចំនួន $2 )";
-"aaald-single-reference-added-description" = "បានបន្ថែមឯកសារយោង";
-"aaald-small-change-description" = "{{PLURAL:$1|0=គ្មានបន្លាស់ប្ដូរ|បានផ្លាស់ប្ដូរ$1កន្លែង|បានផ្លាស់ប្ដូរ$1កន្លែង}}";
-"aaald-summary-title" = "{{PLURAL:$1|0=0 បន្លាស់ប្ដូរ|$1 បន្លាស់ប្ដូរ|$1 បន្លាស់ប្ដូរ}} ដោយ {{PLURAL:$2|0=អ្នកកែប្រែ 0នាក់|អ្នកកែប្រែ $2នាក់|អ្នកកែប្រែ $2នាក់}} ក្នុងរយៈពេល {{PLURAL:$3|0=0 ថ្ងៃ|$3 ថ្ងៃ|$3 ថ្ងៃ}}";
-"aaald-two-sections-description" = "នៅក្នុងផ្នែក $1 និង $2";
-"aaald-vandalism-revert-description" = "បានកែត្រឡប់ការកែប្រែដែលសង្ស័យថាជាការបំផ្លិចបំផ្លាញ";
-"aaald-view-full-history-button" = "មើលប្រវត្តិអត្ថបទទាំងមូល";
 "about-content-license" = "អាជ្ញាប័ណ្ណអត្ថបទ";
 "about-content-license-details" = "អត្ថបទនេះត្រូវបានផ្ដល់ជូនក្រោម $1 លើកលែងមានការសម្គាល់ផ្សេងពីនេះ។";
 "about-content-license-details-share-alike-license" = "Creative Commons Attribution-ShareAlike License";
@@ -449,7 +417,6 @@
 "main-menu-terms-of-use" = "លក្ខខណ្ឌប្រើប្រាស់";
 "main-menu-title" = "បន្ថែមទៀត";
 "main-menu-zero-faq" = "សំនួរញឹកញាប់សម្រាប់វិគីភីឌាសូន្យ";
-"menu-cancel-accessibility-label" = "បោះបង់";
 "more-languages-tooltip-description" = "ស្វែងរកក្នុងវិគីភីឌាជាភាសាជាង៣០០ភាសា";
 "more-languages-tooltip-title" = "បន្ថែមភាសា";
 "move-articles-to-reading-list" = "ប្ដូរទីតាំង{{PLURAL:$1|អត្ថបទចំនួន$1|អត្ថបទចំនួន$1}}ទៅក្នុងបញ្ជីអំណាន";

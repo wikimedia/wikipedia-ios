@@ -33,22 +33,6 @@ public protocol WMFDeveloperSettingsDataControlling: AnyObject {
         }
     }
     
-    @objc public var enableAltTextExperimentForEN: Bool {
-        get {
-            return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsEnableAltTextExperimentForEN.rawValue)) ?? false
-        } set {
-            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsEnableAltTextExperimentForEN.rawValue, value: newValue)
-        }
-    }
-    
-    @objc public var alwaysShowAltTextEntryPoint: Bool {
-        get {
-            return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.alwaysShowAltTextEntryPoint.rawValue)) ?? false
-        } set {
-            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.alwaysShowAltTextEntryPoint.rawValue, value: newValue)
-        }
-    }
-    
     @objc public var sendAnalyticsToWMFLabs: Bool {
         get {
             return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsSendAnalyticsToWMFLabs.rawValue)) ?? false

@@ -5,40 +5,6 @@
 // Author: Joseagush
 // Author: McDutchie
 
-"aaald-added-text-description-2" = "$1 katambahin";
-"aaald-article-description-updated-description" = "Pidarta suratan kaanyarin";
-"aaald-article-insert-header" = "Panganyaran akéh";
-"aaald-article-insert-last-updated" = "Panganyaran untat";
-"aaald-article-insert-new-changes" = "Uahan anyar";
-"aaald-article-insert-read-more" = "Wacak malih panganyaran";
-"aaald-characters-text-description" = "{{PLURAL:$1|0=aksara|aksara|aksara}}";
-"aaald-deleted-text-description-2" = "$1 kaapus";
-"aaald-error-subitle" = "Segerin antuk nyoba malih";
-"aaald-error-title" = "Nénten prasida ngamuat lelintihan suratan abaris";
-"aaald-many-sections-description" = "ring $1 wagian";
-"aaald-multiple-changes-description" = "Makudang-kudang uahan kalaksanayang";
-"aaald-multiple-references-added-description" = "silih tunggil pustaka kakaryanin";
-"aaald-new-book-reference-title" = "Buku";
-"aaald-new-discussion" = "Pabligbagan anyar";
-"aaald-new-journal-reference-database" = "saking $1";
-"aaald-new-journal-reference-title" = "Jurnal";
-"aaald-new-journal-reference-volume" = "Jilid $1:";
-"aaald-new-news-reference-retrieved-date" = "Kaaksés $1";
-"aaald-new-news-reference-title" = "Orti";
-"aaald-new-talk-topic-description-format" = "$1 suratan suratan puniki";
-"aaald-new-website-reference-archive-date-text" = "saking sujati nyané ring $1";
-"aaald-new-website-reference-archive-url-text" = "URL Archive.org";
-"aaald-new-website-reference-title" = "Situs wéb";
-"aaald-numerical-multiple-references-added-description" = "{{PLURAL:$1|0=0 pustaka|$1 pustaka}} kawewehin";
-"aaald-one-section-description" = "ring jero pahan $1";
-"aaald-revision-by-anonymous" = "Uahan olih anganggé anonim";
-"aaald-revision-userInfo" = "Uahan olih $1 ($2 panguahan)";
-"aaald-single-reference-added-description" = "Pustaka kawewehin";
-"aaald-small-change-description" = "{{PLURAL:$1|0=Ten wénten uahan alit kakardi|$1 uahan alit kakardi}}";
-"aaald-summary-title" = "{{PLURAL:$1|0=0 gentosan|$1 gentosan}} by {{PLURAL:$2|0=0 panguah|$2 panguah}} ring {{PLURAL:$3|0=0 rahina|$3 rahina}}";
-"aaald-two-sections-description" = "ring pahan $1 miwah $2";
-"aaald-vandalism-revert-description" = "kaduga pandalisme kawaliang";
-"aaald-view-full-history-button" = "cingakin babad ring  artikel";
 "about-content-license" = "Lisénsi  kontén";
 "about-content-license-details" = "Kontén wenten ring sor $1 sajabaning kabaosang lianan";
 "about-content-license-details-share-alike-license" = "Lisénsi Atribusi-MawagiArupa Creative Commons";
@@ -289,7 +255,6 @@
 "main-menu-rate-app" = "Icenin nilai aplikasi";
 "main-menu-terms-of-use" = "Katentuan Pawigunaan";
 "main-menu-title" = "Malih";
-"menu-cancel-accessibility-label" = "Wangdé";
 "more-languages-tooltip-description" = "Rereh Wikipédia ring langkung 300 basa";
 "more-languages-tooltip-title" = "Weweh basa";
 "more-menu" = "Malih";

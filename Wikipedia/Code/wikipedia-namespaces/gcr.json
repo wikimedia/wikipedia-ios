@@ -18,9 +18,10 @@
     "DISKISYON KATÉGORI" : 15,
     "DISKISYON LÈD" : 13,
     "DISKISYON MEDIAWIKI" : 9,
-    "DISKISYON MODJOUL" : 829,
     "DISKISYON MODÈL" : 11,
+    "DISKISYON MODJOUL" : 829,
     "DISKISYON WIKIPÉDJA" : 5,
+    "ÈSPÉSYAL" : -1,
     "FICHÉ" : 6,
     "FILE" : 6,
     "FILE TALK" : 7,
@@ -34,11 +35,11 @@
     "MEDIA" : -2,
     "MEDIAWIKI" : 8,
     "MEDIAWIKI TALK" : 9,
+    "MÉDJA" : -2,
+    "MODÈL" : 10,
     "MODJOUL" : 828,
     "MODULE" : 828,
     "MODULE TALK" : 829,
-    "MODÈL" : 10,
-    "MÉDJA" : -2,
     "PROJECT" : 4,
     "PROJECT TALK" : 5,
     "SPECIAL" : -1,
@@ -54,7 +55,6 @@
     "WIKIPEDIA" : 4,
     "WIKIPEDIA TALK" : 5,
     "WIKIPÉDJA" : 4,
-    "WP" : 4,
-    "ÈSPÉSYAL" : -1
+    "WP" : 4
   }
 }

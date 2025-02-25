@@ -113,7 +113,6 @@
             [group updateVisibilityForUserIsLoggedIn:self.isLoggedIn];
         }];
 
-        [[WMFSurveyAnnouncementsController shared] setAnnouncements:announcements forSiteURL:self.siteURL dataStore:self.userDataStore];
         if (completion) {
             completion();
         }

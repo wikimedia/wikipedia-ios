@@ -10,40 +10,6 @@
 // Author: Sveinki
 // Author: Sveinn í Felli
 
-"aaald-added-text-description-2" = "$1 bætt við";
-"aaald-article-description-updated-description" = "Lýsing á grein uppfærð";
-"aaald-article-insert-header" = "Markverðar uppfærslur";
-"aaald-article-insert-last-updated" = "Síðast uppfært";
-"aaald-article-insert-new-changes" = "Nýjar breytingar";
-"aaald-article-insert-read-more" = "Lesa fleiri uppfærslur";
-"aaald-characters-text-description" = "{{PLURAL:$1|0=stafir|stafur|stafir}}";
-"aaald-deleted-text-description-2" = "$1 eytt";
-"aaald-error-subitle" = "Endurlestu síðuna til að reyna aftur";
-"aaald-error-title" = "Gat ekki hlaðið innfelldum ferli greinar";
-"aaald-many-sections-description" = "í $1 efnishlutum";
-"aaald-multiple-changes-description" = "Margar breytingar gerðar";
-"aaald-multiple-references-added-description" = "Mörgum tilvísunum bætt við";
-"aaald-new-book-reference-title" = "Bók";
-"aaald-new-discussion" = "Ný umræða";
-"aaald-new-journal-reference-database" = "í gegnum $1";
-"aaald-new-journal-reference-title" = "Dagbók";
-"aaald-new-journal-reference-volume" = "Bindi $1:";
-"aaald-new-news-reference-retrieved-date" = "Sótti $1";
-"aaald-new-news-reference-title" = "Fréttir";
-"aaald-new-talk-topic-description-format" = "$1 um þessa grein";
-"aaald-new-website-reference-archive-date-text" = "úr upprunalegri heimild á $1";
-"aaald-new-website-reference-archive-url-text" = "Slóð á Archive.org";
-"aaald-new-website-reference-title" = "Vefsvæði";
-"aaald-numerical-multiple-references-added-description" = "{{PLURAL:$1|0=0 tilvísun|$1 tilvísun|$1 tilvísunum}} bætt við";
-"aaald-one-section-description" = "í $1 efnishlutanum";
-"aaald-revision-by-anonymous" = "Breyting frá óþekktum notanda";
-"aaald-revision-userInfo" = "Breyting frá $1 ($2 breytingar)";
-"aaald-single-reference-added-description" = "Tilvísun bætt við";
-"aaald-small-change-description" = "{{PLURAL:$1|0=Engar minniháttar breytingar gerðar|$1 minniháttar breyting gerð|$1 minniháttar breytingar gerðar}}";
-"aaald-summary-title" = "{{PLURAL:$1|0=0 breytingar|$1 breyting|$1 breytingar}} frá {{PLURAL:$2|0=0 ritara|$2 ritara|$2 riturum}} síðustu {{PLURAL:$3|0=0 dag|$3 dag|$3 daga}}";
-"aaald-two-sections-description" = "í $1 og $2 efnishlutunum";
-"aaald-vandalism-revert-description" = "Afturkallaði grun um skemmdarverk";
-"aaald-view-full-history-button" = "Skoða fulla breytingaskrá greinar";
 "about-content-license" = "Notkunarleyfi efnis";
 "about-content-license-details" = "Ef ekki er annað tekið fram, er efnið gefið út með $1.";
 "about-content-license-details-share-alike-license" = "Creative Commons Attribution-Deilist-áfram notkunarleyfinu";
@@ -537,7 +503,6 @@
 "main-menu-terms-of-use" = "Notkunarskilmálar";
 "main-menu-title" = "Fleira";
 "main-menu-zero-faq" = "Algengar spurningar um Wikipedia Zero";
-"menu-cancel-accessibility-label" = "Hætta við";
 "more-languages-tooltip-description" = "Leita í Wikipedia á yfir 300 tungumálum";
 "more-languages-tooltip-title" = "Bæta við tungumálum";
 "more-menu" = "Meira";
@@ -988,7 +953,6 @@
 "talk-page-subscription-failed-alert" = "Ekki tókst að gerast áskrifandi að efninu, endilega prófaðu aftur.";
 "talk-page-title-article-talk" = "Spjall greinar";
 "talk-page-title-user-talk" = "Spjall notanda";
-"talk-page-topic-close-button-hint" = "Loka nýju umræðuefni";
 "talk-page-unsubscribe-to-topic" = "Segja upp áskrift";
 "talk-page-unsubscribed-alert-subtitle" = "Þú munt ekki lengur fá tilkynningar um nýjar athugasemdir í þessu efni.";
 "talk-page-unsubscribed-alert-title" = "Þú hefur sagt upp áskrift.";

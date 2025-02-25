@@ -7,13 +7,6 @@
 // Author: Mhenni
 // Author: SlimaneAmiri
 
-"aaald-article-insert-last-updated" = "Asetrer aneggar";
-"aaald-article-insert-new-changes" = "Isniflen imaynuten";
-"aaald-article-insert-read-more" = "Ɣer ugar n isetraren";
-"aaald-new-book-reference-title" = "Adlis";
-"aaald-new-journal-reference-title" = "Aɣmis";
-"aaald-new-news-reference-title" = "Isallen";
-"aaald-new-talk-topic-description-format" = "$1 ɣef umagrad-a";
 "about-content-license" = "Turagt n ugbur";
 "about-content-license-details" = "Arama yettwammel kan akken-nniḍen, agbur yella daw n $1.";
 "about-content-license-details-share-alike-license" = "Turagt Creative Commons Attribution-ShareAlike";
@@ -198,7 +191,6 @@
 "main-menu-terms-of-use" = "Tiwtilin n useqdec";
 "main-menu-title" = "Ugar";
 "main-menu-zero-faq" = "Isteqsiyen FAQ Wikipedia Zero";
-"menu-cancel-accessibility-label" = "Sefsex";
 "navbar-title-mode-edit-wikitext-preview" = "Taskany";
 "nearby-distance-label-feet" = "$1 n uḍaṛ";
 "nearby-distance-label-km" = "$1 km";

@@ -14,40 +14,6 @@
 // Author: ਗੁਰਪ੍ਰੀਤ ਹੁੰਦਲ
 // Author: ਪ੍ਰਚਾਰਕ
 
-"aaald-added-text-description-2" = "$1 ਜੋੜਿਆ ਗਿਆ";
-"aaald-article-description-updated-description" = "ਲੇਖ ਦਾ ਵੇਰਵਾ ਨਵਿਆਈਆਂ ਗਿਆ";
-"aaald-article-insert-header" = "ਮਹੱਤਵਪੂਰਨ ਅੱਪਡੇਟ";
-"aaald-article-insert-last-updated" = "ਆਖਰੀ ਵਾਰ ਨਵਿਆਈਆ ਗਿਆ";
-"aaald-article-insert-new-changes" = "ਨਵੀਆਂ ਤਬਦੀਲੀਆਂ";
-"aaald-article-insert-read-more" = "ਹੋਰ ਅੱਪਡੇਟ ਪੜ੍ਹੋ";
-"aaald-characters-text-description" = "{{PLURAL:$1|0=ਅੱਖਰ|ਅੱਖਰ}}";
-"aaald-deleted-text-description-2" = "$1 ਮਿਟਾਇਆ ਗਿਆ";
-"aaald-error-subitle" = "ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰਨ ਲਈ ਤਾਜ਼ਾ ਕਰੋ";
-"aaald-error-title" = "ਲਕੀਰ-ਅੰਦਰ ਲੇਖ ਇਤਿਹਾਸ ਨੂੰ ਲੱਦਣ ਵਿੱਚ ਨਾਕਾਮ";
-"aaald-many-sections-description" = "$1 ਭਾਗਾਂ ਵਿੱਚ";
-"aaald-multiple-changes-description" = "ਕਈ ਤਬਦੀਲੀਆਂ ਕੀਤੀਆਂ ਗਈਆਂ";
-"aaald-multiple-references-added-description" = "ਕਈ ਹਵਾਲੇ ਜੋਡ਼ੇ ਗਏ";
-"aaald-new-book-reference-title" = "ਕਿਤਾਬ";
-"aaald-new-discussion" = "ਨਵੀਂ ਚਰਚਾ";
-"aaald-new-journal-reference-database" = "$1 ਰਾਹੀਂ";
-"aaald-new-journal-reference-title" = "ਰਸਾਲਾ";
-"aaald-new-journal-reference-volume" = "ਜਿਲਦ $1:";
-"aaald-new-news-reference-retrieved-date" = "$1 ਮੁੜ ਪ੍ਰਾਪਤ ਕੀਤਾ";
-"aaald-new-news-reference-title" = "ਖ਼ਬਰਾਂ";
-"aaald-new-talk-topic-description-format" = "ਇਸ ਲੇਖ ਬਾਰੇ $1";
-"aaald-new-website-reference-archive-date-text" = "ਮੂਲ ਤੋਂ $1 ਉੱਤੇ";
-"aaald-new-website-reference-archive-url-text" = "Archive.org ਯੂਆਰਐੱਲ";
-"aaald-new-website-reference-title" = "ਵੈੱਬਸਾਈਟ";
-"aaald-numerical-multiple-references-added-description" = "{{PLURAL:$1|0=0 ਹਵਾਲੇ|$1 ਹਵਾਲਾ|$1 ਹਵਾਲੇ}} ਸ਼ਾਮਲ ਕੀਤੇ ਗਏ";
-"aaald-one-section-description" = "$1 ਭਾਗ ਵਿੱਚ";
-"aaald-revision-by-anonymous" = "ਅਗਿਆਤ ਵਰਤੋਂਕਾਰ ਵੱਲੋਂ ਸੋਧ";
-"aaald-revision-userInfo" = "$1 ਨਾਲ ਸੋਧ ($2 ਸੋਧਾਂ)";
-"aaald-single-reference-added-description" = "ਹਵਾਲਾ ਜੋੜਿਆ ਗਿਆ";
-"aaald-small-change-description" = "{{PLURAL:$1|0=ਕੋਈ ਛੋਟੀਆਂ ਤਬਦੀਲੀਆਂ ਨਹੀਂ ਕੀਤੀਆਂ|$1 ਛੋਟੀ ਤਬਦੀਲੀ ਕੀਤੀ|$1 ਛੋਟੀਆਂ ਤਬਦੀਲੀਆਂ ਕੀਤੀਆਂ}}";
-"aaald-summary-title" = "{{PLURAL:$1|0=0 ਤਬਦੀਲੀਆਂ|$1 ਤਬਦੀਲੀ|$1 ਤਬਦੀਲੀਆਂ}} ਵੱਲੋਂ {{PLURAL:$2|0=0 ਸੋਧਕ|$2 ਸੋਧਕ}} {{PLURAL:$3|0=0 ਦਿਨਾਂ|$3 ਦਿਨ|$3 ਦਿਨਾਂ}} ਵਿੱਚ";
-"aaald-two-sections-description" = "$1 ਅਤੇ $2 ਭਾਗਾਂ ਵਿੱਚ";
-"aaald-vandalism-revert-description" = "ਸ਼ੱਕੀ ਭੰਨ-ਤੋੜ ਵਾਪਸ ਕੀਤੀ ਗਈ";
-"aaald-view-full-history-button" = "ਲੇਖ ਦਾ ਪੂਰਾ ਇਤਿਹਾਸ ਵੇਖੋ";
 "about-content-license" = "ਸਮੱਗਰੀ ਲਸੰਸ";
 "about-content-license-details" = "ਜੇ ਕੁਝ ਹੋਰ ਨਹੀਂ ਕਿਹਾ ਗਿਆ ਤਾਂ ਸਮੱਗਰੀ $1 ਹੇਠ ਉਪਲੱਬਧ ਹੈ।";
 "about-content-license-details-share-alike-license" = "ਕਰੀਏਟਿਵ ਕਾਮਨਜ਼ ਐਟ੍ਰੀਰਬ੍ਯੂਸ਼ਨ-ਸ਼ੇਅਰ ਅਲਾਈਕ ਲਸੰਸ";
@@ -496,7 +462,7 @@
 "import-shared-reading-list-survey-prompt-button-cancel" = "ਹਾਲੇ ਨਹੀਂ";
 "import-shared-reading-list-survey-prompt-button-take-survey" = "ਸਰਵੇਖਣ ਲਵੋ";
 "import-shared-reading-list-survey-prompt-title" = "ਕੀ ਤੁਸੀਂ \"ਪਡ਼੍ਹਨ ਦੀਆਂ ਸੂਚੀਆਂ ਸਾਂਝੀਆਂ ਕਰੋ\" ਨੂੰ ਬਿਹਤਰ ਬਣਾਉਣ ਵਿੱਚ ਸਾਡੀ ਮਦਦ ਕਰ ਸਕਦੇ ਹੋ?";
-"import-shared-reading-list-title" = "ਸਾਂਝੀ ਪਡ਼੍ਹੀ ਸੂਚੀ ਨੂੰ ਦਰਾਮਦ ਕਰੋ";
+"import-shared-reading-list-title" = "ਸਾਂਝੀ ਪੜੀ ਸੂਚੀ ਨੂੰ ਦਰਾਮਦ ਕਰੋ";
 "in-the-news-sub-title-from-language-wikipedia" = "$1 ਵਿਕੀਪੀਡੀਆ ਤੋਂ";
 "in-the-news-sub-title-from-wikipedia" = "ਵਿਕੀਪੀਡੀਆ ਤੋਂ";
 "in-the-news-title" = "ਖ਼ਬਰਾਂ 'ਚ";
@@ -549,8 +515,7 @@
 "main-menu-terms-of-use" = "ਵਰਤੋਂ ਦੀਆਂ ਸ਼ਰਤਾਂ";
 "main-menu-title" = "ਹੋਰ";
 "main-menu-zero-faq" = "ਵਿਕੀਪੀਡੀਆ ਜ਼ੀਰੋ ਬਾਬਤ ਆਮ ਸੁਆਲ";
-"menu-cancel-accessibility-label" = "ਰੱਦ ਕਰੋ";
-"microsite-yir-english-edits-bytes-slide-title" = "3. 4 ਅਰਬ ਬਾਈਟਾਂ ਜੋਡ਼ਿਆਂ";
+"microsite-yir-english-edits-bytes-slide-title" = "4 ਅਰਬ ਬਾਈਟਾਂ ਜੋੜਿਆਂ";
 "more-languages-tooltip-title" = "ਭਾਸ਼ਾ ਜੋੜੋ";
 "more-menu" = "ਹੋਰ";
 "navbar-title-mode-edit-wikitext-preview" = "ਝਾਤ";
@@ -637,6 +602,7 @@
 "on-this-day-detail-header-title" = "{{PLURAL:$1| $1 ਇਤਿਹਾਸਕ ਘਟਨਾ| $1 ਇਤਿਹਾਸਕ ਘਟਨਾਵਾਂ}}";
 "on-this-day-footer" = "ਇਸ ਦਿਨ ਦੀਆਂ ਹੋਰ ਇਤਿਹਾਸਕ ਘਟਨਾਵਾਂ";
 "on-this-day-footer-showing-event-count" = "ਇਸ ਦਿਨ ਦੀਆਂ {{PLURAL:$1| $1 ਹੋਰ ਇਤਿਹਾਸਕ ਘਟਨਾ| $1 ਹੋਰ ਇਤਿਹਾਸਕ ਘਟਨਾਵਾਂ}}";
+"on-this-day-no-internet-error" = "ਕੋਈ ਡਾਟਾ ਮੌਜ਼ੂਦ ਨਹੀਂ ਏ";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$2 ਵਿਕੀਪੀਡੀਆ ਤੋਂ $1";
 "on-this-day-title" = "ਅੱਜ ਦੇ ਦਿਨ";
 "page-history-anonymous-edits" = "ਗੁਮਨਾਮ ਵੱਲੋਂ ਸੋਧਾਂ";
@@ -661,6 +627,9 @@
 "page-similar-titles" = "ਮਿਲਦੇ-ਜੁਲਦੇ ਸਫ਼ੇ";
 "panel-compare-revisions-title" = "ਸੋਧਾਂ ਦੀ ਤੁਲਨਾ ਕਰੋ";
 "panel-not-logged-in-continue-edit-action-title" = "ਦਾਖਲ ਹੋਏ ਬਿਨਾਂ ਸੋਧ ਕਰੋ";
+"panel-not-logged-in-title" = "ਤੁਸੀਂ ਦਾਖ਼ਲ ਨਹੀਂ ਹੋ";
+"pictured" = "ਤਸਵੀਰ ਵਿੱਚ";
+"places-accessibility-clear-saved-searches" = "ਸੰਭਾਲੀਆਂ ਖੋਜਾਂ ਸਾਫ਼ ਕਰੋ";
 "places-accessibility-group" = "$1 ਲੇਖ";
 "places-accessibility-show-as-list" = "ਸੂਚੀ ਵਜੋਂ ਵਿਖਾਓ";
 "places-accessibility-show-as-map" = "ਨਕਸ਼ੇ ਵਜੋਂ ਵਿਖਾਓ";
@@ -671,7 +640,9 @@
 "places-filter-top-articles" = "ਸਭ ਤੋਂ ਵੱਧ ਪੜ੍ਹੇ ਜਾਣ ਵਾਲੇ";
 "places-filter-top-articles-count" = "{{PLURAL:$1| $1 ਲੇਖ}}";
 "places-filter-top-read-articles" = "ਸਭ ਤੋਂ ਵੱਧ ਪੜ੍ਹੇ ਗਏ ਲੇਖ";
+"places-list-title'" = "ਸੂਚੀ";
 "places-location-enabled" = "ਟਿਕਾਣਾ ਚਾਲੂ ਕੀਤਾ ਗਿਆ";
+"places-map-title" = "ਨਕਸ਼ਾ";
 "places-no-saved-articles-have-location" = "ਤੁਹਾਡੇ ਸੰਭਾਲੇ ਲੇਖਾਂ ਵਿੱਚੋਂ ਕਿਸੇ ਵਿੱਚ ਵੀ ਟਿਕਾਣਾ ਜਾਣਕਾਰੀ ਨਹੀਂ ਹੈ";
 "places-search-default-text" = "ਥਾਵਾਂ ਲੱਭੋ";
 "places-search-did-you-mean" = "ਕੀ ਤੁਹਾਡਾ ਮਤਲਬ $1 ਸੀ?";
@@ -689,12 +660,12 @@
 "preference-summary-eventlogging-opt-in" = "ਇਸ ਐਪ ਨੂੰ ਚੰਗੇਰੀ ਬਣਾਉਣ ਵਾਸਤੇ ਵਿਕੀਮੀਡੀਆ ਨੂੰ ਤੁਹਾਡੇ ਇਸ ਐਪ ਨੂੰ ਵਰਤਣ ਦੇ ਤਰੀਕੇ ਬਾਬਤ ਜਾਣਕਾਰੀ ਇਕੱਠੀ ਕਰਨ ਦੀ ਇਜਾਜ਼ਤ ਦਿਉ।";
 "privacy-policy-title" = "ਨਿੱਜਤਾ ਨੀਤੀ";
 "problem-with-feature-title" = "ਵਿਸ਼ੇਸ਼ਤਾ ਨਾਲ ਸਮੱਸਿਆ";
-// Fuzzy
 "profile-page-join-title" = "ਵਿਕੀਪੀਡੀਆ ਨਾਲ ਜੁੜੋ / ਦਾਖਲ ਹੋਵੋ";
 "profile-page-title-logged-out" = "ਖਾਤਾ";
 "project-name-mediawiki" = "ਮੀਡੀਆਵਿਕੀ";
 "project-name-wikibooks" = "ਵਿਕੀਕਿਤਾਬਾਂ";
 "project-name-wikidata" = "ਵਿਕੀਡਾਟਾ";
+"project-name-wikimedia-commons" = "ਵਿਕੀਮੀਡੀਆ ਭਾਈਚਾਰਾ";
 "project-name-wikinews" = "ਵਿਕੀਖ਼ਬਰਾਂ";
 "project-name-wikiquote" = "ਵਿਕੀਹਵਾਲਾ";
 "project-name-wikisource" = "ਵਿਕੀਸਰੋਤ";
@@ -774,6 +745,8 @@
 "saved-all-articles-title" = "ਸਾਰੇ ਲੇਖ";
 "saved-default-reading-list-tag" = "ਇਸ ਸੂਚੀ ਨੂੰ ਮਿਟਾਇਆ ਨਹੀਂ ਜਾ ਸਕਦਾ ਹੈ";
 "saved-pages-image-download-error" = "ਇਸ ਸਾਂਭੇ ਹੋਏ ਸਾਫ਼ ਲਈ ਤਸਵੀਰਾਂ ਉਤਾਰੀਆਂ ਨਹੀਂ ਜਾ ਸਕੀਆਂ।";
+"saved-pages-progress-syncing" = "ਲੇਖ ਉਤਾਰੇ ਦਾ ਕੰਮ ਚੱਲ ਰਿਹਾ ਹੈ...";
+"saved-reading-lists-search-placeholder" = "ਪੜ੍ਹਨਵਾਲੀ ਸੂਚੀਆਂ ਲੱਭੋ";
 "saved-reading-lists-title" = "ਪੜ੍ਹਣ ਦੀ ਸੂਚੀਆਂ";
 "saved-search-default-text" = "ਸੰਭਾਲੇ ਲੇਖਾਂ ਦੀ ਖੋਜ ਕਰੋ";
 "saved-title" = "ਸੰਭਾਲਿਆ";
@@ -873,7 +846,6 @@
 "talk-page-subscription-failed-alert" = "ਵਿਸ਼ੇ ਦੀ ਗਾਹਕੀ ਲੈਣ ਵਿੱਚ ਅਸਫਲ, ਕਿਰਪਾ ਕਰਕੇ ਮੁੜ ਕੋਸ਼ਿਸ਼ ਕਰੋ।";
 "talk-page-title-article-talk" = "ਲੇਖ ਗੱਲਬਾਤ";
 "talk-page-title-user-talk" = "ਵਰਤੋਂਕਾਰ ਗੱਲਬਾਤ";
-"talk-page-topic-close-button-hint" = "ਨਵਾਂ ਵਿਸ਼ਾ ਬੰਦ ਕਰੋ";
 "talk-page-unsubscribe-to-topic" = "ਗਾਹਕੀ ਰੱਦ ਕਰੋ";
 "talk-page-unsubscribed-alert-title" = "ਤੁਸੀਂ ਗਾਹਕੀ ਰੱਦ ਕਰ ਦਿੱਤੀ ਹੈ।";
 "talk-page-unsubscription-failed-alert" = "ਵਿਸ਼ੇ ਦੀ ਗਾਹਕੀ ਰੱਦ ਕਰਨ ਵਿੱਚ ਅਸਫਲ, ਕਿਰਪਾ ਕਰਕੇ ਮੁੜ ਕੋਸ਼ਿਸ਼ ਕਰੋ।";
@@ -1035,9 +1007,8 @@
 "year-in-review-feature-announcement-body-personalized" = "ਵਿਕੀਪੀਡੀਆ ਐਪ ਉੱਤੇ ਤੁਹਾਡੇ ਵੱਲੋਂ ਪਡ਼੍ਹੇ ਗਏ ਲੇਖਾਂ ਬਾਰੇ ਸੂਝ ਵੇਖੋ, ਆਪਣਾ ਸਫ਼ਰ ਸਾਂਝਾਂ ਕਰੋ ਅਤੇ ਆਪਣੇ ਸਾਲ ਦੀਆਂ ਮੁੱਖ ਗੱਲਾਂ ਲੱਭੋ।";
 "year-in-review-feature-announcement-title" = "ਸਮੀਖਿਆ ਵਿੱਚ ਵਿਕੀਪੀਡੀਆ ਦੀ ਪਡ਼ਚੋਲ ਕਰੋ";
 "year-in-review-feature-announcement-title-personalized" = "ਸਮੀਖਿਆ ਵਿੱਚ ਆਪਣੇ ਵਿਕੀਪੀਡੀਆ ਸਾਲ ਦੀ ਪਡ਼ਚੋਲ ਕਰੋ";
-"year-in-review-feature-explore-body-personalized" = "ਵਿਕੀਪੀਡੀਆ ਐਪ 'ਤੇ ਤੁਸੀਂ ਕਿਹੜੇ ਲੇਖ ਪੜ੍ਹਦੇ ਹੋ ਅਤੇ ਤੁਹਾਡੇ ਵੱਲੋ ਕੀਤੇ ਗਏ ਸੋਧਾ ਬਾਰੇ ਜਾਣਕਾਰੀ ਵੇਖੋ। ਤੁਹਾਡਾ ਪੜ੍ਹਨ ਦਾ ਇਤਿਹਾਸ ਸੁਰੱਖਿਅਤ ਰੱਖਿਆ ਗਿਆ ਹੈ। ਪੜ੍ਹਨ ਦੀ ਜਾਣਕਾਰੀ ਦੀ ਗਣਨਾ ਤੁਹਾਡੇ ਜੰਤਰ 'ਤੇ ਸਥਾਨਕ ਤੌਰ 'ਤੇ ਭੰਡਾਰ ਕੀਤੇ ਡੇਟਾ ਦੀ ਵਰਤੋਂ ਕਰਕੇ ਗਣਨਾ ਕੀਤੀ ਜਾਂਦੀ ਹੈ।";
+"year-in-review-feature-explore-body-personalized" = "ਵਿਕੀਪੀਡੀਆ ਐਪ 'ਤੇ ਤੁਸੀਂ ਕਿਹੜੇ ਲੇਖ ਪੜ੍ਹਦੇ ਹੋ ਅਤੇ 2024 ਵਿੱਚ ਤੁਹਾਡੇ ਵੱਲੋ ਕੀਤੇ ਗਏ ਸੋਧਾ ਬਾਰੇ ਜਾਣਕਾਰੀ ਵੇਖੋ। ਤੁਹਾਡਾ ਪੜ੍ਹਨ ਦਾ ਇਤਿਹਾਸ ਸੁਰੱਖਿਅਤ ਰੱਖਿਆ ਗਿਆ ਹੈ। ਪੜ੍ਹਨ ਦੀ ਜਾਣਕਾਰੀ ਦੀ ਗਣਨਾ ਤੁਹਾਡੇ ਜੰਤਰ 'ਤੇ ਸਥਾਨਕ ਤੌਰ 'ਤੇ ਭੰਡਾਰ ਕੀਤੇ ਡੇਟਾ ਦੀ ਵਰਤੋਂ ਕਰਕੇ ਗਣਨਾ ਕੀਤੀ ਜਾਂਦੀ ਹੈ।";
 "year-in-review-finish" = "ਖ਼ਤਮ";
-// Fuzzy
 "year-in-review-login-subtitle" = "ਵਧੇਰੇ ਵਿਅਕਤੀਗਤ ਜਾਣਕਾਰੀ ਲਈ ਯੋਗ ਬਣਨ ਵਾਸਤੇ ਦਾਖ਼ਲ ਹੋਵੋ ਜਾਂ ਇੱਕ ਖਾਤਾ ਬਣਾਓ";
 "year-in-review-login-title" = "ਆਪਣੇ ਸਾਲ ਦੀ ਸਮੀਖਿਆ ਵਿੱਚ ਸੁਧਾਰ ਕਰੋ";
 "year-in-review-personalized-day-subtitle-format" = "ਤੁਸੀਂ $1 ਤੇ ਸਭ ਤੋਂ ਵੱਧ ਲੇਖ ਪੜ੍ਹਦੇ ਹੋ। ਇਹ ਸਪੱਸ਼ਟ ਹੈ ਕਿ ਨਵੀਂ ਸਮੱਗਰੀ ਦੀ ਪੜਚੋਲ ਕਰਨ ਲਈ $1 ਤੁਹਾਡਾ ਪ੍ਰਮੁੱਖ ਦਿਨ ਹੈ। ਆਪਣੇ ਪੜ੍ਹਨ ਦੇ ਸਮੇਂ ਦਾ ਵੱਧ ਤੋਂ ਵੱਧ ਲਾਹਾ  ਲੇਣ ਲਈ ਧੰਨਵਾਦ!";
@@ -1049,8 +1020,8 @@
 "year-in-review-personalized-editing-subtitle-format-500plus" = "ਤੁਸੀਂ ਵਿਕੀਪੀਡੀਆ ਨੂੰ 500 ਤੋਂ ਵੱਧ ਵਾਰ ਸੋਧਿਆ ਹੈ। ਦੁਨੀਆ ਭਰ ਵਿੱਚ ਵਿਕੀਮੀਡੀਆ ਪ੍ਰੋਜੈਕਟਾਂ ਵਿੱਚ ਇੱਕ ਫਰਕ ਲਿਆਉਣ ਵਾਲੇ ਸਵੈ-ਸੇਵੀ ਸੋਧਕਾਂ ਵਿੱਚੋਂ ਇੱਕ ਹੋਣ ਲਈ ਤੁਹਾਡਾ ਧੰਨਵਾਦ।";
 "year-in-review-personalized-editing-title-format" = "ਤੁਸੀਂ ਵਿਕੀਪੀਡੀਆ {{PLURAL:$1| $1 ਵਾਰ}} ਸੋਧਿਆ";
 "year-in-review-personalized-editing-title-format-500plus" = "ਤੁਸੀਂ ਵਿਕੀਪੀਡੀਆ ਨੂੰ 500 + ਵਾਰ ਸੋਧਿਆ ਹੈ।";
-"year-in-review-personalized-reading-subtitle-format" = "ਇਸ ਸਾਲ, ਤੁਸੀਂ {{PLURAL:$1|$1 ਲੇਖ ਪੜ੍ਹਿਆ ਹੈ|$1 ਲੇਖ ਪੜ੍ਹੇ ਹਨ}}। ਵਿਕੀਪੀਡੀਆ ਵਿੱਚ $3 ਤੋਂ ਵੱਧ ਸਰਗਰਮ ਭਾਸ਼ਾਵਾਂ ਵਿੱਚ $2 ਲੱਖ ਲੇਖ ਉਪਲਬਧ ਸਨ। ਤੁਸੀਂ ਗਿਆਨ ਨੂੰ ਵਧਾਉਣ ਅਤੇ ਵੱਖ-ਵੱਖ ਵਿਸ਼ਿਆਂ ਦੀ ਪੜਚੋਲ ਕਰਨ ਵਿੱਚ ਲੱਖਾਂ ਲੋਕਾਂ ਵਿੱਚ ਸ਼ਾਮਲ ਹੋਏ।";
-"year-in-review-personalized-reading-title-format" = "ਤੁਸੀਂ ਇਸ ਸਾਲ {{PLURAL:$1| $1 ਲੇਖ ਪੜ੍ਹਿਆ| $1 ਲੇਖ ਪੜ੍ਹੇ}}";
+"year-in-review-personalized-reading-subtitle-format" = "ਤੁਸੀਂ {{PLURAL:$1|$1 ਲੇਖ ਪੜ੍ਹਿਆ ਹੈ|$1 ਲੇਖ ਪੜ੍ਹੇ ਹਨ}}। ਵਿਕੀਪੀਡੀਆ ਵਿੱਚ $3 ਤੋਂ ਵੱਧ ਸਰਗਰਮ ਭਾਸ਼ਾਵਾਂ ਵਿੱਚ $2 ਲੱਖ ਲੇਖ ਉਪਲਬਧ ਸਨ। ਤੁਸੀਂ ਗਿਆਨ ਨੂੰ ਵਧਾਉਣ ਅਤੇ ਵੱਖ-ਵੱਖ ਵਿਸ਼ਿਆਂ ਦੀ ਪੜਚੋਲ ਕਰਨ ਵਿੱਚ ਲੱਖਾਂ ਲੋਕਾਂ ਵਿੱਚ ਸ਼ਾਮਲ ਹੋਏ।";
+"year-in-review-personalized-reading-title-format" = "ਤੁਸੀਂ {{PLURAL:$1| $1 ਲੇਖ ਪੜ੍ਹਿਆ ਏ| $1 ਲੇਖ ਪੜ੍ਹੇ ਹਨ}}";
 "year-in-review-personalized-saved-title-format" = "ਤੁਸੀਂ {{PLURAL:$1| $1 ਲੇਖ ਸਾੰਭਿਆ|$1 ਲੇਖ ਸਾਂਭੇ}}";
 "year-in-review-share-text" = "ਇਹ ਮੇਰੀ ਵਿਕੀਪੀਡੀਆ ਸਾਲ ਦੀ ਸਮੀਖਿਆ ਹੈ। ਵਿਕੀਪੀਡੀਆ iOS ਐਪ ਨਾਲ ਬਣਾਇਆ ਗਿਆ";
 "year-in-review-survey-additional-thoughts" = "ਕੋਈ ਹੋਰ ਵਿਚਾਰ?";

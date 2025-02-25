@@ -1,9 +1,8 @@
-// Messages for Shan (ၽႃႇသႃႇတႆး )
+// Messages for Shan (တႆး)
 // Exported from translatewiki.net
 // Author: Nemo bis
 // Author: Saimawnkham
 
-"aaald-added-text-description-2" = "ထႅမ်သႂ်ႇ $1 ဝႆႉယဝ်ႉ";
 "about-content-license" = "ဝႂ်ၶႂၢင်း ၶေႃႈၼႂ်း";
 "about-content-license-details" = "သင်ၸိူဝ်ႉဝႃႈ ဢမ်ႇပႆႇလႆႈမၵ်းမၼ်ႈဝႆႉၼႆ တူဝ်ၼႂ်းမၼ်း ၸၢင်ႈၵႂႃႇဢဝ်လႆႈ ၽၢႆႇတႂ်ႈ  $1 လႆႈယူႇ။";
 "about-content-license-details-share-alike-license" = "Creative Commons Attribution-ShareAlike License";
@@ -399,7 +398,6 @@
 "main-menu-terms-of-use" = "ၶေႃႈၽၢင်ႉလွင်ႈၸႂ်ႉတိုဝ်း";
 "main-menu-title" = "ၼမ်လိူဝ်";
 "main-menu-zero-faq" = "ၶေႃႈၵႆႉထၢမ်တွပ်ႇ တႃႇ ဝီႇၶီႇၽီးတီးယႃး သုၼ်";
-"menu-cancel-accessibility-label" = "ဢမ်ႇႁဵတ်း";
 "more-languages-tooltip-description" = "ၶူၼ်ႉႁႃ ဝီႇၶီႇၽီးတီးယႃး ၼႂ်းၽႃႇသႃႇၵႂၢမ်း 300 လိူဝ်";
 "more-languages-tooltip-title" = "ထႅမ်သႂ်ႇ ၽႃႇသႃႇ";
 "move-articles-to-reading-list" = "ၶၢႆႉ {{PLURAL:$1|$1 ပွင်ႈၵႂၢမ်း|$1 ပွင်ႈၵႂၢမ်း}} ၸူး သဵၼ်ႈမၢႆလူ";

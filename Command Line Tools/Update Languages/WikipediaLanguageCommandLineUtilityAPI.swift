@@ -52,6 +52,25 @@ class WikipediaLanguageCommandLineUtilityAPI {
                     return Wikipedia(languageCode: code, languageName: name, localName: localname, altISOCode: "nb")
                 }
                 
+                // If there's a site array populated with a subdomain that does NOT equal languageCode, skip. It might show up as a dupe in the languages list.
+                // TODO: This is a temporary workaround to remove duplicated languages, but eventually a proper data migration for the user might need to occur to switch from the old language code to the new.
+                if let sites = result["site"] as? [[String : Any]] {
+                    let site = sites.first
+                    
+                    if let siteURLString = site?["url"] as? String,
+                       let components = URLComponents(string: siteURLString),
+                       let host = components.host,
+                       let hostLangCode = host.components(separatedBy: ".").first {
+                        
+                        if siteURLString.hasSuffix("wikipedia.org") {
+                            if code != hostLangCode && code != "yue" { // Cantonese has already slipped in here twice, so leaving it in as a dupe until we can clean up user databases.
+                                return nil
+                            }
+                        }
+                        
+                    }
+                }
+                
                 return Wikipedia(languageCode: code, languageName: name, localName: localname, altISOCode: nil)
             }
             // Add testwiki and test2wiki, they are not returned by the site matrix

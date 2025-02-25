@@ -33,12 +33,14 @@
 // Author: Sonic N800
 // Author: Tarawneh
 // Author: Tsevener
+// Author: XIDME
 // Author: Zinou2go
 // Author: Zpizza
 // Author: أَحمد
 // Author: إزبيكييل
 // Author: بدارين
 // Author: بهتين شوكت
+// Author: جودت
 // Author: ديفيد
 // Author: علاء
 // Author: محمد أحمد عبد الفتاح
@@ -46,40 +48,6 @@
 // Author: مصعب
 // Author: يونس
 
-"aaald-added-text-description-2" = "أُضيف $1";
-"aaald-article-description-updated-description" = "حُدِّث وصف المقالة";
-"aaald-article-insert-header" = "تحديثات ملحوظة";
-"aaald-article-insert-last-updated" = "التحديث الأخير";
-"aaald-article-insert-new-changes" = "تغييرات جديدة";
-"aaald-article-insert-read-more" = "اقرأ المزيد من التحديثات";
-"aaald-characters-text-description" = "{{PLURAL:$1| 0 = أحرف | حرف | أحرف}}";
-"aaald-deleted-text-description-2" = "تم حذف $1";
-"aaald-error-subitle" = "حدِّث للمحاولة مجدداً";
-"aaald-error-title" = "لا يمكن تحميل تاريخ الصفحة المختصر";
-"aaald-many-sections-description" = "في $1 أقسام";
-"aaald-multiple-changes-description" = "أجريت تغييرات عديدة";
-"aaald-multiple-references-added-description" = "أُضيفت مراجع مُتعدِّدة";
-"aaald-new-book-reference-title" = "كتاب";
-"aaald-new-discussion" = "نقاش حديد";
-"aaald-new-journal-reference-database" = "بواسطة $1";
-"aaald-new-journal-reference-title" = "دورية";
-"aaald-new-journal-reference-volume" = "المجلد $1:";
-"aaald-new-news-reference-retrieved-date" = "استرجاع $1";
-"aaald-new-news-reference-title" = "أخبار";
-"aaald-new-talk-topic-description-format" = "$1 حول هذه المقالة";
-"aaald-new-website-reference-archive-date-text" = "من الأصل على $1";
-"aaald-new-website-reference-archive-url-text" = "مسار موقع الأرشيف";
-"aaald-new-website-reference-title" = "موقع ويب";
-"aaald-numerical-multiple-references-added-description" = "تمت إضافة {{PLURAL:$1|0=0 مرجع|مرجع|مرجعين|$1 مراجع}}";
-"aaald-one-section-description" = "في قسم $1";
-"aaald-revision-by-anonymous" = "تعديل بواسطة مستخدم مجهول";
-"aaald-revision-userInfo" = "عُدِّل بواسطة $1 ($2 تعديل)";
-"aaald-single-reference-added-description" = "أضيف المرجع";
-"aaald-small-change-description" = "{{PLURAL:$1| 0 = لم يتم إجراء تغييرات طفيفة | تم إجراء تغيير بسيط $1 | تم إجراء $1 من التغييرات الطفيفة}}";
-"aaald-summary-title" = "{{PLURAL:$1| 0 = 0 تغييرات | تغيير $1 | يتغير $1 }} بواسطة {{PLURAL:$2| 0 = 0 محرر | محرر $2 | المحررين $2 }} في {{PLURAL:$3| 0 = 0 يوم | يوم $3 | $3 أيام}}";
-"aaald-two-sections-description" = "في القسمين $1 و $2";
-"aaald-vandalism-revert-description" = "ارتد التخريب المشتبه به";
-"aaald-view-full-history-button" = "عرض كامل تاريخ المقالة";
 "about-content-license" = "رخصة المحتوى";
 "about-content-license-details" = "إن لم يذكر خلاف ذلك، المحتوى متاح بموجب $1.";
 "about-content-license-details-share-alike-license" = "ترخيص المشاع الإبداعي الإيعاز والمشاركة بالمثل";
@@ -104,7 +72,7 @@
 "about-wikimedia-foundation" = "مؤسسة ويكيميديا";
 "about-wikipedia" = "ويكيبيديا";
 "account-creation-captcha-cannot-see-image" = "لا ترى الصورة؟ $1";
-"account-creation-captcha-obtaining" = "جار الحصول على كابتشا جديدة...";
+"account-creation-captcha-obtaining" = "جارٍ الحصول على حروف تحقق جديدة...";
 "account-creation-captcha-request-account" = "طلب حساب.";
 "account-creation-captcha-title" = "اختبار التحقق البشري";
 "account-creation-create-account" = "أنشئ حسابك";
@@ -247,7 +215,7 @@
 "button-saved-for-later" = "احفظها لوقت لاحق";
 "button-saved-remove" = "حذف من المحفوظات";
 "button-skip" = "تخطٍ";
-"cancel" = "ألغ";
+"cancel" = "إلغاء";
 "cc-zero" = "المشاع الإبداعي CC0";
 "chinese-variants-alert-body" = "يدعم تطبيق Wikipedia الآن المتغيرات الصينية التالية كلغات أساسية أو ثانوية داخل التطبيق، مما يسهل القراءة والبحث والتحرير في المتغيرات المفضلة لديك:\n\n简体 الصينية، المبسطة (zh-hans)\n香港繁體 هونج كونج التقليدية (zh-hk)\n澳門繁體 ماكاو التقليدية (zh-mo)\n大马简体 ماليزيا المبسطة (zh-my)\n新加坡简体 سنغافورة المبسطة (zh-sg)\n臺灣正體 التايوانية التقليدية (zh-tw)";
 "chinese-variants-alert-title" = "تحديثات لدعم النسخة الصينية";
@@ -468,6 +436,7 @@
 "editor-replace-type-button-accessibility" = "تبديل نوع الاستبدال. تم ضبطه حاليًا على $1 . حدده للتغيير.";
 "editor-replace-type-single" = "استبدال";
 "editor-replace-type-single-accessibility" = "استبدال مثيل واحد";
+"editor-title" = "محرر";
 "editor-toolbar-bold-accessibility" = "تنسيق النص الغامق";
 "editor-toolbar-cursor-down-accessibility" = "حرك المؤشر إلى الأسفل إلى السطر التالي.";
 "editor-toolbar-cursor-next-accessibility" = "نقل المؤشر إلى الحرف التالي.";
@@ -782,16 +751,15 @@
 "main-menu-terms-of-use" = "شروط الاستخدام";
 "main-menu-title" = "المزيد";
 "main-menu-zero-faq" = "الأسئلة المتكررة عن ويكيبيديا زيرو";
-"menu-cancel-accessibility-label" = "ألغ";
 "microsite-yir-english-edits-bytes-slide-subtitle" = "في عام 2024، أضاف المتطوعون 4,104,852,969 بايت إلى ويكيبيديا الإنجليزية. ويؤدي مجموع عملهم معًا إلى توفير مصدر معرفي موثوق به يعتمد على الحقائق ويتحسن باستمرار، ويقدمونه للعالم. لدينا جميعًا المعرفة التي نشاركها، [تعرف على كيفية المشاركة]($1).";
 "microsite-yir-english-edits-bytes-slide-title" = "تمت إضافة 4 مليار بايت";
-"microsite-yir-english-edits-slide-subtitle" = "أجرى المتطوعون 98,222,407 تغييرًا في أكثر من 300 إصدار لغوي مختلف من ويكيبيديا. وتم إجراء أكثر من 38 مليون تغيير على ويكيبيديا الإنجليزية. وفي كل ساعة من كل يوم، يعمل المتطوعون على تحسين ويكيبيديا.";
-"microsite-yir-english-edits-slide-title" = "أجرى المحررون ما يقرب من 98 مليون تغيير هذا العام";
+"microsite-yir-english-edits-slide-subtitle" = "أجرى المتطوعون 98,222,407 تعديلاً على أكثر من 300 إصدار لغوي مختلف من ويكيبيديا. وتم إجراء أكثر من 37 مليون تعديل على ويكيبيديا الإنجليزية. وفي كل ساعة من كل يوم، يعمل المتطوعون على تحسين ويكيبيديا.";
+"microsite-yir-english-edits-slide-title" = "أجرى المحررون 98 مليون تغيير هذا العام";
 "microsite-yir-english-non-donor-slide-subtitle" = "بفضل مساعدتك، ستواصل مؤسسة ويكيميديا - المؤسسة غير الربحية التي تقف وراء ويكيبيديا - ضمان خلو المعلومات التي تعتمد عليها من الإعلانات وكونها جديرة بالثقة، مع الحفاظ على تشغيل ويكيبيديا بسلاسة باستخدام أدوات وتقنيات متطورة. يرجى التفكير في التبرع اليوم. [تعرف على المزيد حول عملنا]($1).";
 "microsite-yir-english-non-donor-slide-title" = "0 إعلان تم تقديمه على ويكيبيديا";
-"microsite-yir-english-reading-slide-subtitle" = "يُقدر عدد الساعات التي قضاها الناس في قراءة ويكيبيديا الإنجليزية في عام 2024 بنحو 2.9 مليار ساعة - أي ما يقرب من 331000 سنة!. وتوجد ويكيبيديا عندما تريد التعرف على عالمنا المتغير، أو الفوز في رهان بين الأصدقاء، أو الإجابة على سؤال طفل فضولي.";
+"microsite-yir-english-reading-slide-subtitle" = "في عام 2024، قضى الناس ما يقدر بنحو 2.9 مليار ساعة - أي أكثر من 331000 سنة! - في قراءة ويكيبيديا الإنجليزية. ويكيبيديا موجودة عندما تريد التعرف على عالمنا المتغير، أو الفوز في رهان بين الأصدقاء، أو الإجابة على سؤال طفل فضولي.";
 "microsite-yir-english-reading-slide-title" = "لقد قضينا 2.9 مليار ساعة في القراءة";
-"microsite-yir-english-saved-reading-slide-subtitle" = "كان لدى مستخدمي تطبيق iOS النشطين أكثر من 62.2 مليون قائمة قراءة هذا العام. تتيح لك إضافة المقالات إلى قوائم القراءة الوصول إلى المقالات حتى أثناء عدم الاتصال بالإنترنت. يمكنك أيضًا تسجيل الدخول لمزامنة قوائم القراءة عبر الأجهزة.";
+"microsite-yir-english-saved-reading-slide-subtitle" = "كان لدى مستخدمي تطبيق iOS النشطين أكثر من 62.2 مليون قائمة قراءة. تتيح لك إضافة المقالات إلى قوائم القراءة الوصول إلى المقالات حتى أثناء عدم الاتصال بالإنترنت. يمكنك أيضًا تسجيل الدخول لمزامنة قوائم القراءة عبر الأجهزة.";
 "microsite-yir-english-saved-reading-slide-title" = "كان لدينا أكثر من 62.2 مليون قائمة قراءة";
 "microsite-yir-english-top-read-slide-subtitle" = "كانت المقالات الخمس الأكثر زيارة على ويكيبيديا الإنجليزية هي:\n\n1. $1 \n2. $2 \n3. $3 \n4. $4 \n5. $5 \nاقرأ المزيد في منشور مدونتنا المخصص بقيمة $6 $7 .";
 "microsite-yir-english-top-read-slide-title" = "المقالات الأكثر شعبية في ويكيبيديا الإنجليزية";
@@ -996,7 +964,9 @@
 "places-filter-top-articles" = "الأعلى قراءة";
 "places-filter-top-articles-count" = "{{PLURAL:$1|مقالة|مقالات}}";
 "places-filter-top-read-articles" = "المقالات الأعلى قراءة";
+"places-list-title'" = "قائمة";
 "places-location-enabled" = "تم تمكين الموقع";
+"places-map-title" = "خريطة";
 "places-no-saved-articles-have-location" = "لا مقالة من مقالاتك المحفوظة تتضمن معلومات عن الموقع";
 "places-search-articles-that-match" = "$1 التي تطابق \"$2\"";
 "places-search-default-text" = "ابحث عن أماكن";
@@ -1052,6 +1022,7 @@
 "reading-list-create-new-list-reading-list-name" = "اسم قائمة القراءة";
 "reading-list-create-new-list-title" = "إنشاء قائمة جديدة";
 "reading-list-deleted-accessibility-notification" = "تم حذف قائمة القراءة";
+"reading-list-detail-search-placeholder" = "البحث في قائمة القراءة";
 "reading-list-do-not-keep-button-title" = "لا، احذف المقالات من القوائم";
 "reading-list-entry-limit-exceeded-message" = "الرجاء تقليل عدد المقالات في هذه القائمة إلى $1 لاستئناف المزامنة لجميع المقالات في هذه القائمة.";
 "reading-list-entry-limit-exceeded-title" = "لقد تجاوزت الحد الأقصى وهو {{PLURAL:$1|$1 مقالة|$1 مقالات}} لكل حساب.";
@@ -1149,6 +1120,7 @@
 "saved-default-reading-list-tag" = "لا يمكن حذف هذه القائمة";
 "saved-pages-image-download-error" = "فشل تنزيل الصور لهذه الصفحة المحفوظة.";
 "saved-pages-progress-syncing" = "تنزيل المقالة قيد التقدم...";
+"saved-reading-lists-search-placeholder" = "البحث في قوائم القراءة";
 "saved-reading-lists-title" = "قوائم القراءة";
 "saved-search-default-text" = "البحث في المقالات المحفوظة";
 "saved-title" = "المحفوظة";
@@ -1174,7 +1146,7 @@
 "settings-clear-cache" = "مسح المحتوى المخزن";
 "settings-clear-cache-are-you-sure-message" = "مسح المحتوى المخزن سيتيح حوالي مساحة $1. هذا لن يحذف المقالات المحفوظة.";
 "settings-clear-cache-are-you-sure-title" = "مسح المحتوى المخزن؟";
-"settings-clear-cache-cancel" = "ألغ";
+"settings-clear-cache-cancel" = "إلغاء";
 "settings-clear-cache-ok" = "مسح المخزون";
 "settings-donate" = "تبرع";
 "settings-help-and-feedback" = "المساعدة والآراء والملاحظات";
@@ -1284,7 +1256,6 @@
 "talk-page-subscription-failed-alert" = "الاشتراك في الموضوع فشل ، يرجى المحاولة مرة أخرى.";
 "talk-page-title-article-talk" = "نقاش المقالة";
 "talk-page-title-user-talk" = "نقاش المستخدم";
-"talk-page-topic-close-button-hint" = "إغلاق موضوع جديد";
 "talk-page-topic-compose-terms-and-licenses-ccsa4" = "من خلال نشر التغييرات، فإنك توافق على شروط الاستخدام $1 $2 ، وتوافق بشكل لا رجعة فيه على إصدار مساهمتك بموجب ترخيص CC BY-SA 4.0 $3 $4 دولار ورخصة GFDL $5 $6 .";
 "talk-page-unsubscribe-to-topic" = "إلغاء الاشتراك";
 "talk-page-unsubscribed-alert-subtitle" = "لن تتلقّى بعد الآن أي تنبيهات حول وجود تعليقات جديدة على هذا الموضوع.";
@@ -1449,7 +1420,7 @@
 "wikitext-preview-link-preview-title" = "معاينة الوصلة";
 "wikitext-preview-save-changes-title" = "حفظ التغييرات";
 "wikitext-upload-captcha-error" = "خطأ في التحقق من كابتشا.";
-"wikitext-upload-captcha-needed" = "مطلوب التحقق من كابتشا.";
+"wikitext-upload-captcha-needed" = "مطلوب التحقق من حروف التحقق.";
 "wikitext-upload-result-unknown" = "غير قادر على تحديد نتيجة تحميل النص";
 "wikitext-upload-save" = "جارٍ الحفظ...";
 "wikitext-upload-save-anonymously-or-login" = "ستُنسَب التعديلات إلى عنوان أيبي جهازك، إذا كنت $1مسجل الدخول$2 سيكون لديك المزيد من الخصوصية.";
@@ -1459,13 +1430,13 @@
 "wikitext-upload-save-terms-name" = "شروط الاستخدام";
 "year-in-review-base-donate-subtitle" = "بفضل مساعدتك، ستواصل مؤسسة ويكيميديا - المؤسسة غير الربحية التي تقف وراء ويكيبيديا - ضمان خلو المعلومات التي تعتمد عليها من الإعلانات وكونها جديرة بالثقة، مع الحفاظ على تشغيل ويكيبيديا بسلاسة باستخدام أدوات وتقنيات متطورة. يرجى التفكير في التبرع اليوم. [تعرف على المزيد حول عملنا]($1).";
 "year-in-review-base-donate-title" = "0 إعلان تم تقديمه على ويكيبيديا";
-"year-in-review-base-editors-subtitle" = "أجرى مجتمع محرري ويكيبيديا المتطوعين أكثر من 555,647 تعديلاً على تطبيق iOS حتى الآن هذا العام. إن قلب وروح ويكيبيديا هو مجتمعنا العالمي من المساهمين المتطوعين والمانحين ومليارات القراء مثلك - كلهم متحدون لمشاركة الوصول غير المحدود إلى المعلومات الموثوقة.";
+"year-in-review-base-editors-subtitle" = "أجرى مجتمع محرري ويكيبيديا المتطوعين أكثر من 555,647 تعديلاً على تطبيق iOS. إن جوهر ويكيبيديا هو مجتمعنا العالمي من المساهمين المتطوعين والمانحين ومليارات القراء مثلك - كلهم متحدون لمشاركة الوصول غير المحدود إلى المعلومات الموثوقة.";
 "year-in-review-base-editors-title" = "قام المحررون على تطبيق iOS بإجراء تعديلات تزيد قيمتها عن $1";
-"year-in-review-base-edits-subtitle" = "في هذا العام، تم تحرير ويكيبيديا بمعدل متوسط قدره $1 في الدقيقة. يتم إنشاء المقالات وتحسينها بشكل تعاوني باستخدام مصادر موثوقة. لدينا جميعًا المعرفة التي نشاركها، [تعرف على كيفية المشاركة] ($2).";
+"year-in-review-base-edits-subtitle" = "تم تحرير ويكيبيديا بمعدل $1 في الدقيقة. يتم إنشاء المقالات وتحسينها بشكل تعاوني باستخدام مصادر موثوقة. لدينا جميعًا المعرفة التي نشاركها، [تعرف على كيفية المشاركة] ( $2 ).";
 "year-in-review-base-edits-title" = "تم تعديل ويكيبيديا $1 مرة في الدقيقة";
-"year-in-review-base-reading-subtitle" = "كان لدى ويكيبيديا أكثر من $1 مقالة في أكثر من $2 لغة نشطة هذا العام. لقد انضممت إلى ملايين الأشخاص في توسيع المعرفة واستكشاف مواضيع متنوعة.";
+"year-in-review-base-reading-subtitle" = "تحتوي ويكيبيديا على أكثر من $1 مقالة بأكثر من $2 لغة نشطة. لقد انضممت إلى ملايين الأشخاص في توسيع المعرفة واستكشاف مواضيع متنوعة.";
 "year-in-review-base-reading-title" = "كانت ويكيبيديا متاحة بأكثر من 300 لغة";
-"year-in-review-base-saved-subtitle" = "كان لدى مستخدمي تطبيق iOS النشطين أكثر من 62.2 مليون قائمة قراءة هذا العام. تتيح لك إضافة المقالات إلى قوائم القراءة الوصول إلى المقالات حتى أثناء عدم الاتصال بالإنترنت. يمكنك أيضًا تسجيل الدخول لمزامنة قوائم القراءة عبر الأجهزة.";
+"year-in-review-base-saved-subtitle" = "كان لدى مستخدمي تطبيق iOS النشطين أكثر من 62.2 مليون قائمة قراءة. تتيح لك إضافة المقالات إلى قوائم القراءة الوصول إلى المقالات حتى أثناء عدم الاتصال بالإنترنت. يمكنك أيضًا تسجيل الدخول لمزامنة قوائم القراءة عبر الأجهزة.";
 "year-in-review-base-saved-title" = "لقد كانت لدينا قوائم قراءة بقيمة أكثر من مليون $1";
 "year-in-review-base-viewed-subtitle" = "لقد شاهد مستخدمو تطبيقات iOS مقالات ويكيبيديا $1 مرة. بالنسبة للأشخاص في جميع أنحاء العالم، تعد ويكيبيديا هي المحطة الأولى للإجابة على سؤال أو البحث عن معلومات للمدرسة أو العمل أو تعلم حقيقة جديدة.";
 "year-in-review-base-viewed-title" = "لقد شاهدنا مقالات ويكيبيديا بقيمة مليار $1";
@@ -1492,7 +1463,7 @@
 "year-in-review-feature-announcement-title" = "استكشف ويكيبيديا في المراجعة";
 "year-in-review-feature-announcement-title-personalized" = "استكشف مراجعة العام على ويكيبيديا";
 "year-in-review-feature-explore-body" = "ويكيبيديا هي أكبر مصدر للمعرفة تم تجميعه على الإطلاق في تاريخ العالم، وهي متاحة مجانًا للجميع في كل مكان. إليكم مراجعة لعام 2024 من خلال عدسة ويكيبيديا.";
-"year-in-review-feature-explore-body-personalized" = "اطلع على رؤى حول المقالات التي تقرأها على تطبيق ويكيبيديا والتعديلات التي أجريتها. يتم حماية سجل القراءة الخاص بك. يتم حساب رؤى القراءة باستخدام البيانات المخزنة محليًا على جهازك.";
+"year-in-review-feature-explore-body-personalized" = "اطلع على رؤى حول المقالات التي تقرأها على تطبيق ويكيبيديا والتعديلات التي أجريتها في عام 2024. يتم حماية سجل القراءة الخاص بك. يتم حساب رؤى القراءة باستخدام البيانات المخزنة محليًا على جهازك.";
 "year-in-review-finish" = "إنهاء";
 "year-in-review-login-subtitle" = "قم بتسجيل الدخول أو إنشاء حساب لتكون مؤهلاً للحصول على رؤى أكثر تخصيصا";
 "year-in-review-login-title" = "تحسين مراجعة العام الخاص بك";
@@ -1501,15 +1472,15 @@
 "year-in-review-personalized-donate-subtitle" = "نشكرك على الاستثمار في مستقبل المعرفة المجانية. هذا العام، قامت مؤسسة ويكيميديا بتحسين التكنولوجيا لخدمة كل قارئ ومتطوع بشكل أفضل، وتطوير أدوات تعمل على تمكين التعاون، ودعم ويكيبيديا بمزيد من اللغات. [تعرف على المزيد حول عملنا]($1).";
 "year-in-review-personalized-donate-title" = "كرمك ساعد في الحفاظ على ازدهار ويكيبيديا";
 "year-in-review-personalized-donation-thank-you" = "شعار ويكيميديا";
-"year-in-review-personalized-edit-views-subtitle-format" = "يقدر القراء في جميع أنحاء العالم مساهماتك. في الشهرين الماضيين، حصلت المقالات التي قمت بتحريرها على $1 إجمالي عدد المشاهدات. بفضل محررين مثلك، أصبحت ويكيبيديا مصدرًا موثوقًا للمعرفة يعتمد على الحقائق ويتطور باستمرار للعالم.";
+"year-in-review-personalized-edit-views-subtitle-format" = "يقدر القراء في جميع أنحاء العالم مساهماتك. في الشهرين الماضيين، حصلت المقالات التي قمت بتحريرها على $1 إجمالي عدد المشاهدات. بفضل محررين مثلك، أصبحت ويكيبيديا مصدرًا موثوقًا للمعرفة يعتمد على الحقائق ويتحسن باستمرار للعالم.";
 "year-in-review-personalized-edit-views-title-format" = "لقد تمت مشاهدة تعديلاتك أكثر من $1 مرة مؤخرًا";
 "year-in-review-personalized-editing-subtitle-format" = "لقد قمت بتحرير ويكيبيديا {{PLURAL:$1|$1 مرة}}. شكرًا لك على كونك أحد المحررين المتطوعين الذين يصنعون الفارق في مشاريع ويكيميديا حول العالم.";
 "year-in-review-personalized-editing-subtitle-format-500plus" = "لقد قمت بتحرير ويكيبيديا أكثر من 500 مرة. شكرًا لك على كونك أحد المحررين المتطوعين الذين يصنعون الفارق في مشاريع ويكيميديا حول العالم.";
 "year-in-review-personalized-editing-title-format" = "لقد قمت بتحرير ويكيبيديا {{PLURAL:$1|$1 مرة}}";
 "year-in-review-personalized-editing-title-format-500plus" = "لقد قمت بتعديل ويكيبيديا 500 مرة+";
 "year-in-review-personalized-explore" = "رسم متحرك ليد تحمل مجسم الكرة الأرضية لويكيبيديا، والذي يتحول تدريجيًا إلى قطعة صغيرة من اللغز، ترمز إلى المساهمات الفردية في المنصة.";
-"year-in-review-personalized-reading-subtitle-format" = "هذا العام، قرأت {{PLURAL:$1|$1 مقالة}}. كان لدى ويكيبيديا $2 مليون مقالة متاحة بأكثر من $3 لغات نشطة. لقد انضممت إلى ملايين الأشخاص في توسيع المعرفة واستكشاف مواضيع متنوعة.";
-"year-in-review-personalized-reading-title-format" = "لقد قرأت {{PLURAL:$1|$1 مقالة}} هذا العام";
+"year-in-review-personalized-reading-subtitle-format" = "لقد قرأت {{PLURAL:$1|$1 مقال|$1 مقالة}}. تحتوي ويكيبيديا على $2 مليون مقالة متاحة بأكثر من $3 لغات نشطة. لقد انضممت إلى ملايين الأشخاص في توسيع المعرفة واستكشاف مواضيع متنوعة.";
+"year-in-review-personalized-reading-title-format" = "لقد قرأت {{PLURAL:$1|$1 مقال|$1 مقالة}}";
 "year-in-review-personalized-saved-articles" = "رسم توضيحي لقطعة من اللغز ترتدي خوذة صلبة مع شاشات كمبيوتر في الخلف.";
 "year-in-review-personalized-saved-subtitle-format" = "لقد قمت بحفظ {{PLURAL:$1|$1 مقالة}} هذا العام، بما في ذلك $2 و $3 و $4. تعكس كل مقالة محفوظة اهتماماتك وتساعد في بناء قاعدة معرفية مخصصة على ويكيبيديا.";
 "year-in-review-personalized-saved-title-format" = "لقد قمت بحفظ {{PLURAL:$1|$1 مقالة}}";

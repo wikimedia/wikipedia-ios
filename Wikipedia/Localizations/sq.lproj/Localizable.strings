@@ -7,18 +7,6 @@
 // Author: Nemo bis
 // Author: Olsi
 
-"aaald-new-discussion" = "Diskutim i ri";
-"aaald-new-news-reference-title" = "Lajme";
-"aaald-new-talk-topic-description-format" = "$1 rreth këtij artikulli";
-"aaald-new-website-reference-archive-date-text" = "nga origjinali në";
-"aaald-new-website-reference-archive-url-text" = "Lidhja për në Archive.org";
-"aaald-new-website-reference-title" = "Faqe rrjeti";
-"aaald-one-section-description" = "në kapitullin $1";
-"aaald-revision-by-anonymous" = "Redaktim nga përdorues anonim";
-"aaald-single-reference-added-description" = "U shtuan referime";
-"aaald-small-change-description" = "{{PLURAL:$1| 0=Nuk janë bërë ndryshime të vogla|U bë $1 ndryshim i vogël|U bënë $1 ndryshime të vogla}}";
-"aaald-vandalism-revert-description" = "U rikthye një vandalizëm i dyshuar";
-"aaald-view-full-history-button" = "Shih historinë e plotë të artikullit";
 "about-contributors" = "Kontribuesit";
 "about-libraries-complete-list" = "Lista e plotë";
 "about-libraries-license" = "Licensa";
@@ -76,7 +64,6 @@
 "main-menu-terms-of-use" = "Kushtet e përdorimit";
 "main-menu-title" = "Më tepër...";
 "main-menu-zero-faq" = "Pyetje dhe përgjigje për Wikipedia Zero";
-"menu-cancel-accessibility-label" = "Anulo";
 "navbar-title-mode-edit-wikitext-preview" = "Parapamje";
 "nearby-distance-label-feet" = "$1 feet (1 feet = 0.3048 m)";
 "nearby-distance-label-km" = "$1 km";

@@ -16,40 +16,6 @@
 // Author: Танзиля Кутлугильдина
 // Author: Янмурза Баки
 
-"aaald-added-text-description-2" = "$1 өҫтәлгән";
-"aaald-article-description-updated-description" = "Мәҡәлә тасуирламаһы яңыртылды";
-"aaald-article-insert-header" = "Әһәмиәтле яңыртыуҙар";
-"aaald-article-insert-last-updated" = "Һуңғы яңыртыу";
-"aaald-article-insert-new-changes" = "Яңы үҙгәртеүҙәр";
-"aaald-article-insert-read-more" = "Яңыртылғандарҙы күберәк уҡырға";
-"aaald-characters-text-description" = "{{PLURAL:$1|0=символ|символдар}}";
-"aaald-deleted-text-description-2" = "$1 юйылды";
-"aaald-error-subitle" = "Яңынан ҡабатлап ҡарау өсөн, яңыртығыҙ";
-"aaald-error-title" = "Мәҡәләнең тарихын йөкләү мөмкин түгел";
-"aaald-many-sections-description" = "$1 бүлектәрҙә";
-"aaald-multiple-changes-description" = "Бер нисә үҙгәртеү эшләнгән";
-"aaald-multiple-references-added-description" = "Бер нисә иҫкәрмә өҫтәлгән";
-"aaald-new-book-reference-title" = "Китап";
-"aaald-new-discussion" = "Яңы фекер алышыу";
-"aaald-new-journal-reference-database" = "$1 аша";
-"aaald-new-journal-reference-title" = "Журнал";
-"aaald-new-journal-reference-volume" = "Күләме $1:";
-"aaald-new-news-reference-retrieved-date" = "Алынған $1";
-"aaald-new-news-reference-title" = "Яңылыҡтар";
-"aaald-new-talk-topic-description-format" = "$1 был мәҡәлә тураһында";
-"aaald-new-website-reference-archive-date-text" = "Төп нөхсәнән $1";
-"aaald-new-website-reference-archive-url-text" = "Archive.org URL";
-"aaald-new-website-reference-title" = "Веб-сайт";
-"aaald-numerical-multiple-references-added-description" = "{{PLURAL:$1|0=0 иҫкәрмә|$1 иҫкәрмә}} өҫтәлгән";
-"aaald-one-section-description" = "$1 бүлегендә";
-"aaald-revision-by-anonymous" = "Аноним ҡатнашыусы төҙәтеүҙәре";
-"aaald-revision-userInfo" = "$1 тарафынан мөхәррирләнгән ($2 төҙәтеүҙәр)";
-"aaald-single-reference-added-description" = "Иҫкәрмәләр өҫтәлгән";
-"aaald-small-change-description" = "{{PLURAL:$1|0=Әһәмиәтһеҙ үҙгәрештәр индерелмәгән|$1 бер аҙ үҙгәрештәр индерелгән}}";
-"aaald-summary-title" = "{{PLURAL:$3|0=0 көн|$3 көн}} эсендә {{PLURAL:$2|0=0 мөхәррир|$2 мөхәррир}} тарафынан {{PLURAL:$1|0=0 үҙгәреш|$1 үҙгәреш}}";
-"aaald-two-sections-description" = "$1 һәм $2 бүлектәрендә";
-"aaald-vandalism-revert-description" = "Вандализм ихтималлығына юл ҡуйылманы";
-"aaald-view-full-history-button" = "Мәҡәләнең бөтә тарихын ҡарарға";
 "about-content-license" = "Эстәлек лицензияһы";
 "about-content-license-details" = "Башҡаһы күрһәтелмәһә, эстәлек $1 ярашлы асыҡ.";
 "about-content-license-details-share-alike-license" = "Creative Commons Attribution-ShareAlike лицензияһы менән";
@@ -516,7 +482,6 @@
 "main-menu-terms-of-use" = "Ҡулланыу шарттары";
 "main-menu-title" = "Тағы ла";
 "main-menu-zero-faq" = "Zero Википедияһы буйынса йыш бирелгән һорауҙар";
-"menu-cancel-accessibility-label" = "Баш тартыу";
 "more-languages-tooltip-description" = "Википедияла 300-ҙән ашыу телдә эҙләргә";
 "more-languages-tooltip-title" = "Телдәр өҫтәргә";
 "more-menu" = "Күберәк";

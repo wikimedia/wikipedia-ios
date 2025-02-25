@@ -5,7 +5,6 @@
 // Author: Nemo bis
 // Author: Tumsaa
 
-"aaald-article-description-updated-description" = "Ibsa harguya keeyyataa";
 "about-contributors" = "Hirmaattota";
 "about-libraries-license" = "Eeyyama";
 "about-title" = "Waa'ee";
@@ -31,7 +30,6 @@
 "main-menu-nearby" = "Dhihoo";
 "main-menu-terms-of-use" = "Wayetii fayyadamaa";
 "main-menu-title" = "Dabalata";
-"menu-cancel-accessibility-label" = "Dhiisi";
 "navbar-title-mode-edit-wikitext-preview" = "Durargii";
 "nearby-distance-label-feet" = "Fiitii $1";
 "nearby-distance-label-km" = "$1 km";

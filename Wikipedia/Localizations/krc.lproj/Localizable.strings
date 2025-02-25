@@ -4,40 +4,6 @@
 // Author: Iltever
 // Author: Къарачайлы
 
-"aaald-added-text-description-2" = "$1 къошулду";
-"aaald-article-description-updated-description" = "Статья ачыкълау джангыртылды";
-"aaald-article-insert-header" = "Магъаналы Джангыртыула";
-"aaald-article-insert-last-updated" = "Ахыр джангыртылгъан";
-"aaald-article-insert-new-changes" = "Джангы тюрлениуле";
-"aaald-article-insert-read-more" = "Аслам джангыртыуланы окъугъуз";
-"aaald-characters-text-description" = "{{PLURAL:$1|0=0 символла|символ}}";
-"aaald-deleted-text-description-2" = "$1 кетерилди";
-"aaald-error-subitle" = "Джангыдан сынар ючюн джангырт";
-"aaald-error-title" = "Статьяны тарихи джюкленирча тюлдю";
-"aaald-many-sections-description" = "$1 бёлюмледе";
-"aaald-multiple-changes-description" = "Бирден аслам тюрлениу этилди";
-"aaald-multiple-references-added-description" = "Талай белгилениуле къошулду";
-"aaald-new-book-reference-title" = "Китаб";
-"aaald-new-discussion" = "Джангы сюзюу";
-"aaald-new-journal-reference-database" = "$1 юсю бла";
-"aaald-new-journal-reference-title" = "Журнал";
-"aaald-new-journal-reference-volume" = "Том $1:";
-"aaald-new-news-reference-retrieved-date" = "$1 датада алынды";
-"aaald-new-news-reference-title" = "Джангылыкъла";
-"aaald-new-talk-topic-description-format" = "Бу статьяны юсюнден $1";
-"aaald-new-website-reference-archive-date-text" = "оригиналындан $1 датада";
-"aaald-new-website-reference-archive-url-text" = "Archive.org URL";
-"aaald-new-website-reference-title" = "Веб-сайт";
-"aaald-numerical-multiple-references-added-description" = "{{PLURAL:$1|0=0 белгилеу|$1 белгилеу}} къошулду";
-"aaald-one-section-description" = "$1 бёлюмде";
-"aaald-revision-by-anonymous" = "Аноним хайырланыучу тюзетген";
-"aaald-revision-userInfo" = "$1 тюзетгенди ($2 тюзетиу)";
-"aaald-single-reference-added-description" = "Белгилениу къошулгъанды";
-"aaald-small-change-description" = "{{PLURAL:$1|0=Гитче тюрлениу этилмеди|$1 гитче тюрлениу этилди}}";
-"aaald-summary-title" = "{{PLURAL:$3|0=0 кюн|$3 кюн}} ичинде {{PLURAL:$2|0=0 редактор|$2 редактор}} этген {{PLURAL:$1|0=0 тюрлениу|$1 тюрлениу}}";
-"aaald-two-sections-description" = "$1 ve $2 бёлюмледе";
-"aaald-vandalism-revert-description" = "Ишекли Вандализм кери алынды";
-"aaald-view-full-history-button" = "Толу статья тарихни кёр";
 "about-content-license" = "Контент лицензия";
 "about-content-license-details" = "Башха белгиленмесе, контентге $1 тамалында джетиширчады.";
 "about-content-license-details-share-alike-license" = "Creative Commons Attribution-ShareAlike Лицензия";
@@ -661,7 +627,6 @@
 "main-menu-terms-of-use" = "Хайырланыу Шартла";
 "main-menu-title" = "Энтда";
 "main-menu-zero-faq" = "Wikipedia Zero FAQ";
-"menu-cancel-accessibility-label" = "Ызына ал";
 "more-languages-tooltip-description" = "Википедияда 300-дан аслам тилде излегиз";
 "more-languages-tooltip-title" = "Тилле къош";
 "more-menu" = "Энтда";
@@ -1134,7 +1099,6 @@
 "talk-page-subscription-failed-alert" = "Темагъа джаздырылылмады, тилейбиз, джангыдан сынагъыз.";
 "talk-page-title-article-talk" = "Статья сюзюу";
 "talk-page-title-user-talk" = "Хайырланыучу Сюзюу";
-"talk-page-topic-close-button-hint" = "Джангы теманы джаб";
 "talk-page-topic-compose-terms-and-licenses-ccsa4" = "Тюзетиулени басмалаб $1Хайырланыу Шартланы$2 къабыл этер эмда къошумугъузну $3CC BY-SA 4.0 Лицензия$4 эмда $5GFDL$6 тамалында кери алынмаз бичимде басмалауну къабыл этериксиз.";
 "talk-page-unsubscribe-to-topic" = "Джаздырылыуну кери ал";
 "talk-page-unsubscribed-alert-subtitle" = "Мындан ары бу темада джангы комментарийлени юсюнден хапарландырыула аллыкъ тюлсюз.";

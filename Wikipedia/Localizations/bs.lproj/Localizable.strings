@@ -9,40 +9,6 @@
 // Author: Srđan
 // Author: Tsevener
 
-"aaald-added-text-description-2" = "$1 dodano";
-"aaald-article-description-updated-description" = "Opis članka je ažuriran";
-"aaald-article-insert-header" = "Značajna ažuriranja";
-"aaald-article-insert-last-updated" = "Posljednje ažuriranje";
-"aaald-article-insert-new-changes" = "Nove izmjene";
-"aaald-article-insert-read-more" = "Prikaži još ažuriranja";
-"aaald-characters-text-description" = "{{PLURAL:$1|znak|znaka|znakova}}";
-"aaald-deleted-text-description-2" = "$1 izbrisano";
-"aaald-error-subitle" = "Osvježite da pokušate ponovo";
-"aaald-error-title" = "Nije moguće učitati umetnutu historiju članka";
-"aaald-many-sections-description" = "u $1 odlomaka";
-"aaald-multiple-changes-description" = "Napravljeno više izmjena";
-"aaald-multiple-references-added-description" = "Dodano više referenci";
-"aaald-new-book-reference-title" = "Knjiga";
-"aaald-new-discussion" = "Nova rasprava";
-"aaald-new-journal-reference-database" = "preko $1";
-"aaald-new-journal-reference-title" = "Časopis";
-"aaald-new-journal-reference-volume" = "Volumen $1:";
-"aaald-new-news-reference-retrieved-date" = "Pristupljeno $1";
-"aaald-new-news-reference-title" = "Novosti";
-"aaald-new-talk-topic-description-format" = "$1 o ovom članku";
-"aaald-new-website-reference-archive-date-text" = "iz originalna na datum $1";
-"aaald-new-website-reference-archive-url-text" = "Archive.org URL";
-"aaald-new-website-reference-title" = "Veb-sajt";
-"aaald-numerical-multiple-references-added-description" = "{{PLURAL:$1|Dodana $1 referenca|Dodane $1 reference|Dodano $1 referenci}}";
-"aaald-one-section-description" = "u odlomku $1";
-"aaald-revision-by-anonymous" = "Izmjena anonimnog korisnika";
-"aaald-revision-userInfo" = "Izmjenio $1 ($2 izmjena)";
-"aaald-single-reference-added-description" = "Referenca dodana";
-"aaald-small-change-description" = "{{PLURAL:$1|0=Bez manjih izmjena|napravljena $1 manja izmjena|napravljene $1 manje izmjene|napravljeno $1 manjih izmjena}}";
-"aaald-summary-title" = "{{PLURAL:$1|0=0 promjena|$1 promjena|$1 promjene|$1 promjena}} od $2 urednika za {{PLURAL:$3|0=0 dana|$3 dan|$3 dana}}";
-"aaald-two-sections-description" = "u odlomcima $1 i $2";
-"aaald-vandalism-revert-description" = "Vraćen sumnjivi vandalizam";
-"aaald-view-full-history-button" = "Prikaži cijelu historiju članka";
 "about-content-license" = "Licenca sadržaja";
 "about-content-license-details" = "Osim ako nije drukčije navedeno, sadržaj je dostupan pod $1.";
 "about-content-license-details-share-alike-license" = "licencom Creative Commons Autorstvo-Dijeliti pod istim uslovima";
@@ -541,7 +507,6 @@
 "main-menu-terms-of-use" = "Uslovi korištenja";
 "main-menu-title" = "Više";
 "main-menu-zero-faq" = "ČPP o Wikipediji Zero";
-"menu-cancel-accessibility-label" = "Otkaži";
 "more-languages-tooltip-description" = "Pretražujte Wikipediju na preko 300 jezika";
 "more-languages-tooltip-title" = "Dodaj jezike";
 "move-articles-to-reading-list" = "Premjesti {{PLURAL:$1|$1 članak|$1 članka|$1 članaka}} na spisak za čitanje";

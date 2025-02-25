@@ -20,9 +20,7 @@ class SchemeHandler: NSObject {
     
     private let cacheQueue: OperationQueue = OperationQueue()
     private let pageLoadMeasurementUrlString = "page/mobile-html/"
-    
-    var imageDidSuccessfullyLoad: (() -> Void)?
-    
+
     required init(scheme: String, session: Session) {
         self.scheme = scheme
         self.session = session
@@ -165,8 +163,6 @@ private extension SchemeHandler {
             SessionsFunnel.shared.setPageLoadStartTime()
         }
         
-        let isImage = request.value(forHTTPHeaderField: Header.persistentCacheItemType) == Header.PersistItemType.image.rawValue
-        
         let callback = Session.Callback(response: {  [weak urlSchemeTask] response in
             DispatchQueue.main.async {
                 guard let urlSchemeTask = urlSchemeTask else {
@@ -232,10 +228,6 @@ private extension SchemeHandler {
                     } else {
                         SessionsFunnel.shared.endPageLoadStartTime()
                     }
-                }
-                
-                if isImage {
-                    self.imageDidSuccessfullyLoad?()
                 }
             }
             

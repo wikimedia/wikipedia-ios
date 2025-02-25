@@ -13,31 +13,6 @@
 // Author: Таржимон
 // Author: Шоҳидахоним
 
-"aaald-added-text-description-2" = "$1 qoʻshildi";
-"aaald-article-description-updated-description" = "Maqola sarlavhasi yangilandi";
-"aaald-article-insert-header" = "Muhim yangilanishlar";
-"aaald-article-insert-last-updated" = "Soʻnggi tahrir";
-"aaald-article-insert-new-changes" = "Yangi oʻzgarishlar";
-"aaald-article-insert-read-more" = "Yangilash haqida batafsil";
-"aaald-characters-text-description" = "{{PLURAL:$1|0=belgi|belgi|belgi}}";
-"aaald-deleted-text-description-2" = "$1 oʻchirildi";
-"aaald-error-subitle" = "Qaytadan urinmoq";
-"aaald-error-title" = "Ichki maqola tarixini yuklab boʻlmadi";
-"aaald-many-sections-description" = "$1dagi boʻlim";
-"aaald-multiple-changes-description" = "Koʻplab oʻzgarishlar qilindi";
-"aaald-multiple-references-added-description" = "Koʻplab izohlar qoʻshildi";
-"aaald-new-book-reference-title" = "Kitob";
-"aaald-new-discussion" = "Yangi munozara";
-"aaald-new-journal-reference-database" = "$1 orqali";
-"aaald-new-journal-reference-title" = "Jurnal";
-"aaald-new-journal-reference-volume" = "$1 jild:";
-"aaald-new-news-reference-retrieved-date" = "$1dan olingan";
-"aaald-new-news-reference-title" = "Yangiliklar";
-"aaald-new-talk-topic-description-format" = "$1 maqolasi haqida";
-"aaald-new-website-reference-archive-date-text" = "asl manba $1";
-"aaald-new-website-reference-archive-url-text" = "Archive.org URL";
-"aaald-new-website-reference-title" = "Veb-sayt";
-"aaald-numerical-multiple-references-added-description" = "{{PLURAL:$1|0=0 ta manba|$1 ta manba}} qoʻshildi";
 "about-libraries-license" = "Litsenziya";
 "about-repositories-app-source-license-mit" = "MIT litsenziyasi";
 "about-send-feedback" = "Ilova haqida fikr bildirish";
@@ -211,7 +186,6 @@
 "main-menu-terms-of-use" = "Foydalanish shartlari";
 "main-menu-title" = "Yana";
 "main-menu-zero-faq" = "Wikipedia Zero TTS";
-"menu-cancel-accessibility-label" = "Bekor qilish";
 "more-languages-tooltip-description" = "Vikipediyani 300 dan ortiq tillarda qidiring";
 "more-languages-tooltip-title" = "Til qoʻshish";
 "navbar-title-mode-edit-wikitext-preview" = "Ko‘rib chiqish";

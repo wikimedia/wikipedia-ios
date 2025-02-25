@@ -2,100 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>aaald-characters-text-description</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
-		<key>v1</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
-			<key>other</key>
-			<string>ਅੱਖਰ</string>
-			<key>zero</key>
-			<string>ਅੱਖਰ</string>
-		</dict>
-	</dict>
-	<key>aaald-numerical-multiple-references-added-description</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@ ਸ਼ਾਮਲ ਕੀਤੇ ਗਏ</string>
-		<key>v1</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
-			<key>one</key>
-			<string>%1$d ਹਵਾਲਾ</string>
-			<key>other</key>
-			<string>%1$d ਹਵਾਲੇ</string>
-			<key>zero</key>
-			<string>0 ਹਵਾਲੇ</string>
-		</dict>
-	</dict>
-	<key>aaald-small-change-description</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
-		<key>v1</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
-			<key>one</key>
-			<string>%1$d ਛੋਟੀ ਤਬਦੀਲੀ ਕੀਤੀ</string>
-			<key>other</key>
-			<string>%1$d ਛੋਟੀਆਂ ਤਬਦੀਲੀਆਂ ਕੀਤੀਆਂ</string>
-			<key>zero</key>
-			<string>ਕੋਈ ਛੋਟੀਆਂ ਤਬਦੀਲੀਆਂ ਨਹੀਂ ਕੀਤੀਆਂ</string>
-		</dict>
-	</dict>
-	<key>aaald-summary-title</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@ ਵੱਲੋਂ %#@v2@ %#@v3@ ਵਿੱਚ</string>
-		<key>v1</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
-			<key>one</key>
-			<string>%1$d ਤਬਦੀਲੀ</string>
-			<key>other</key>
-			<string>%1$d ਤਬਦੀਲੀਆਂ</string>
-			<key>zero</key>
-			<string>0 ਤਬਦੀਲੀਆਂ</string>
-		</dict>
-		<key>v2</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
-			<key>other</key>
-			<string>%2$d ਸੋਧਕ</string>
-			<key>zero</key>
-			<string>0 ਸੋਧਕ</string>
-		</dict>
-		<key>v3</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
-			<key>one</key>
-			<string>%3$d ਦਿਨ</string>
-			<key>other</key>
-			<string>%3$d ਦਿਨਾਂ</string>
-			<key>zero</key>
-			<string>0 ਦਿਨਾਂ</string>
-		</dict>
-	</dict>
 	<key>add-articles-to-reading-list</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -635,7 +541,7 @@
 	<key>year-in-review-personalized-reading-subtitle-format</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>ਇਸ ਸਾਲ, ਤੁਸੀਂ %#@v1@। ਵਿਕੀਪੀਡੀਆ ਵਿੱਚ %3$@ ਤੋਂ ਵੱਧ ਸਰਗਰਮ ਭਾਸ਼ਾਵਾਂ ਵਿੱਚ %2$@ ਲੱਖ ਲੇਖ ਉਪਲਬਧ ਸਨ। ਤੁਸੀਂ ਗਿਆਨ ਨੂੰ ਵਧਾਉਣ ਅਤੇ ਵੱਖ-ਵੱਖ ਵਿਸ਼ਿਆਂ ਦੀ ਪੜਚੋਲ ਕਰਨ ਵਿੱਚ ਲੱਖਾਂ ਲੋਕਾਂ ਵਿੱਚ ਸ਼ਾਮਲ ਹੋਏ।</string>
+		<string>ਤੁਸੀਂ %#@v1@। ਵਿਕੀਪੀਡੀਆ ਵਿੱਚ %3$@ ਤੋਂ ਵੱਧ ਸਰਗਰਮ ਭਾਸ਼ਾਵਾਂ ਵਿੱਚ %2$@ ਲੱਖ ਲੇਖ ਉਪਲਬਧ ਸਨ। ਤੁਸੀਂ ਗਿਆਨ ਨੂੰ ਵਧਾਉਣ ਅਤੇ ਵੱਖ-ਵੱਖ ਵਿਸ਼ਿਆਂ ਦੀ ਪੜਚੋਲ ਕਰਨ ਵਿੱਚ ਲੱਖਾਂ ਲੋਕਾਂ ਵਿੱਚ ਸ਼ਾਮਲ ਹੋਏ।</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -651,7 +557,7 @@
 	<key>year-in-review-personalized-reading-title-format</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>ਤੁਸੀਂ ਇਸ ਸਾਲ %#@v1@</string>
+		<string>ਤੁਸੀਂ %#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -659,9 +565,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string> %1$d ਲੇਖ ਪੜ੍ਹਿਆ</string>
+			<string> %1$d ਲੇਖ ਪੜ੍ਹਿਆ ਏ</string>
 			<key>other</key>
-			<string> %1$d ਲੇਖ ਪੜ੍ਹੇ</string>
+			<string> %1$d ਲੇਖ ਪੜ੍ਹੇ ਹਨ</string>
 		</dict>
 	</dict>
 	<key>year-in-review-personalized-saved-title-format</key>
