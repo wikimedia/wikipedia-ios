@@ -100,15 +100,6 @@ class ArticleCollectionViewController: ColumnarCollectionViewController, Editabl
         return nil
     }
 
-    var eventLoggingIndex: NSNumber? {
-        guard let index = previewedIndexPath?.item else {
-            return nil
-        }
-        return NSNumber(value: index)
-    }
-
-    var previewedIndexPath: IndexPath?
-
     // MARK: - Layout
     
     override func collectionView(_ collectionView: UICollectionView, estimatedHeightForItemAt indexPath: IndexPath, forColumnWidth columnWidth: CGFloat) -> ColumnarCollectionViewLayoutHeightEstimate {
