@@ -613,7 +613,9 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
         stopSignificantlyViewedTimer()
         surveyTimerController?.viewWillDisappear(withState: state)
         
-        if isMovingFromParent && removeFromTabUponDisappearance {
+        let tabsBackUnwindsArticleStack = WMFDeveloperSettingsDataController.shared.tabsBackUnwindsArticleStack
+        
+        if isMovingFromParent && removeFromTabUponDisappearance && tabsBackUnwindsArticleStack {
             if !WMFDeveloperSettingsDataController.shared.tabsPreserveRabbitHole {
                 let tabsDataController = TabsDataController.shared
                 tabsDataController.removeLastArticleFromCurrentTab()
@@ -622,6 +624,12 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
                     let tabsDataController = TabsDataController.shared
                     tabsDataController.removeLastArticleTab(currentTab)
                 }
+            }
+        }
+        
+        if !tabsBackUnwindsArticleStack {
+            if self.navigationController?.viewControllers.count == 1 {
+                TabsDataController.shared.currentTab = nil
             }
         }
     }

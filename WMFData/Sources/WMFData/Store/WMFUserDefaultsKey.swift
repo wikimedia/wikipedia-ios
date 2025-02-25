@@ -17,4 +17,5 @@ enum WMFUserDefaultsKey: String {
     case tappedYIR = "tapped-yir"
     case developerSettingsTabsPreserveRabbitHole = "tabs-preserve-rabbit-hole"
     case developerSettingsTabsDeepLinkInNewTab = "tabs-deep-link-in-new-tab"
+    case developerSettingsTabsBackUnwindsArticleStack = "tabs-back-unwind-article-stack"
 }

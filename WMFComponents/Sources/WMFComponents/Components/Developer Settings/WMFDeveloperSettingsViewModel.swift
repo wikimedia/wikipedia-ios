@@ -43,8 +43,10 @@ import WMFData
         let tabsPreserveRabbitHoleItem = WMFFormItemSelectViewModel(title: "Tabs - Preserve Rabbit Hole", isSelected: WMFDeveloperSettingsDataController.shared.tabsPreserveRabbitHole)
         
         let tabsDeepLinkInNewTabItem = WMFFormItemSelectViewModel(title: "Tabs - Deep Link In New Tab", isSelected: WMFDeveloperSettingsDataController.shared.tabsDeepLinkInNewTab)
+        
+        let tabsBackUnwindsArticleStackItem = WMFFormItemSelectViewModel(title: "Tabs - Back Unwinds Article Stack", isSelected: WMFDeveloperSettingsDataController.shared.tabsBackUnwindsArticleStack)
 
-        formViewModel = WMFFormViewModel(sections: [WMFFormSectionSelectViewModel(items: [doNotPostImageRecommendationsEditItem, enableAltTextExperimentItemForENItem, alwaysShowAltTextEntryPointItem, sendAnalyticsToWMFLabsItem, bypassDonationItem, tabsPreserveRabbitHoleItem, tabsDeepLinkInNewTabItem], selectType: .multi)])
+        formViewModel = WMFFormViewModel(sections: [WMFFormSectionSelectViewModel(items: [doNotPostImageRecommendationsEditItem, enableAltTextExperimentItemForENItem, alwaysShowAltTextEntryPointItem, sendAnalyticsToWMFLabsItem, bypassDonationItem, tabsPreserveRabbitHoleItem, tabsDeepLinkInNewTabItem, tabsBackUnwindsArticleStackItem], selectType: .multi)])
 
         doNotPostImageRecommendationsEditItem.$isSelected.sink { isSelected in
             WMFDeveloperSettingsDataController.shared.doNotPostImageRecommendationsEdit = isSelected
@@ -73,6 +75,9 @@ import WMFData
         tabsDeepLinkInNewTabItem.$isSelected.sink { isSelected in
             WMFDeveloperSettingsDataController.shared.tabsDeepLinkInNewTab = isSelected
         }.store(in: &subscribers)
+        
+        tabsBackUnwindsArticleStackItem.$isSelected.sink { isSelected in
+            WMFDeveloperSettingsDataController.shared.tabsBackUnwindsArticleStack = isSelected
+        }.store(in: &subscribers)
     }
-
 }

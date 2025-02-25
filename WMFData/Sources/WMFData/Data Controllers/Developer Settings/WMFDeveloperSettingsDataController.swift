@@ -80,6 +80,14 @@ public protocol WMFDeveloperSettingsDataControlling: AnyObject {
             try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsTabsDeepLinkInNewTab.rawValue, value: newValue)
         }
     }
+    
+    public var tabsBackUnwindsArticleStack: Bool {
+        get {
+            return ( try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsTabsBackUnwindsArticleStack.rawValue)) ?? false
+        } set {
+            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsTabsBackUnwindsArticleStack.rawValue, value: newValue)
+        }
+    }
 
     // MARK: - Remote Settings from donatewiki AppsFeatureConfig json
     
