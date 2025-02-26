@@ -490,14 +490,5 @@ extension ColumnarCollectionViewController: ArticlePreviewingDelegate {
         let placesURL = NSUserActivity.wmf_URLForActivity(of: .places, withArticleURL: articleController.articleURL)
         UIApplication.shared.open(placesURL, options: [:], completionHandler: nil)
     }
-    
-    func insetsBetween(rect1: CGRect, rect2: CGRect) -> UIEdgeInsets {
-        let top = rect2.minY - rect1.minY
-        let left = rect2.minX - rect1.minX
-        let bottom = rect1.maxY - rect2.maxY
-        let right = rect1.maxX - rect2.maxX
-
-        return UIEdgeInsets(top: top, left: left, bottom: bottom, right: right)
-    }
 }
 
