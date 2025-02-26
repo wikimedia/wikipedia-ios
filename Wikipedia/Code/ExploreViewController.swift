@@ -922,7 +922,9 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         }
         return UIContextMenuConfiguration(identifier: nil, previewProvider: previewProvider) { (suggestedActions) -> UIMenu? in
             if let articleVC = vc as? ArticleViewController {
-                return UIMenu(title: "", image: nil, identifier: nil, options: [], children: articleVC.contextMenuItems)
+                // return UIMenu(title: "", image: nil, identifier: nil, options: [], children: articleVC.contextMenuItems)
+                assertionFailure("I don't think this is possible?")
+                return nil
             } else {
                 return nil
             }
@@ -936,8 +938,10 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
             if let potd = viewControllerToCommit as? WMFImageGalleryViewController {
                 potd.setOverlayViewTopBarHidden(true)
             } else if let avc = viewControllerToCommit as? ArticleViewController {
-                avc.articlePreviewingDelegate = self
-                avc.wmf_addPeekableChildViewController(for: avc.articleURL, dataStore: dataStore, theme: theme)
+//                avc.articlePreviewingDelegate = self
+//                avc.wmf_addPeekableChildViewController(for: avc.articleURL, dataStore: dataStore, theme: theme)
+                assertionFailure("I don't think this is possible?")
+                return nil
             } else if let otdVC = viewControllerToCommit as? OnThisDayViewController {
                 otdVC.initialEvent = (contentGroup.contentPreview as? [Any])?[itemIndex] as? WMFFeedOnThisDayEvent
             }
@@ -974,12 +978,13 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         }
     }
 
-    override func readMoreArticlePreviewActionSelected(with articleController: ArticleViewController) {
-        articleController.wmf_removePeekableChildViewControllers()
-        push(articleController, animated: true)
+    override func readMoreArticlePreviewActionSelected(with peekController: ArticlePeekPreviewViewController) {
+        guard let navVC = navigationController else { return }
+        let coordinator = ArticleCoordinator(navigationController: navVC, articleURL: peekController.articleURL, dataStore: dataStore, theme: theme, source: .undefined)
+        coordinator.start()
     }
 
-    override func saveArticlePreviewActionSelected(with articleController: ArticleViewController, didSave: Bool, articleURL: URL) {
+    override func saveArticlePreviewActionSelected(with peekController: ArticlePeekPreviewViewController, didSave: Bool, articleURL: URL) {
         if let date = previewed.context?.midnightUTCDate {
             if didSave {
                 ReadingListsFunnel.shared.logSaveInFeed(label: previewed.context?.getAnalyticsLabel(), measureAge: date, articleURL: articleURL, index: previewed.indexPathItem)

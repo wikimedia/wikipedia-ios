@@ -101,9 +101,9 @@ class ArticleLocationCollectionViewController: ColumnarCollectionViewController,
     
     // MARK: ArticlePreviewingDelegate
 
-    override func saveArticlePreviewActionSelected(with articleController: ArticleViewController, didSave: Bool, articleURL: URL) {
+    override func saveArticlePreviewActionSelected(with peekController: ArticlePeekPreviewViewController, didSave: Bool, articleURL: URL) {
         guard let context = contentGroup, let contextDate = context.midnightUTCDate else {
-            super.saveArticlePreviewActionSelected(with: articleController, didSave: didSave, articleURL: articleURL)
+            super.saveArticlePreviewActionSelected(with: peekController, didSave: didSave, articleURL: articleURL)
             return
         }
         if didSave {
@@ -201,23 +201,14 @@ extension ArticleLocationCollectionViewController {
 
 // MARK: - CollectionViewContextMenuShowing
 extension ArticleLocationCollectionViewController: CollectionViewContextMenuShowing {
-    func articleViewController(for indexPath: IndexPath) -> ArticleViewController? {
-        
-        let articleURL = articleURL(at: indexPath)
-        let articleViewController = ArticleViewController(articleURL: articleURL, dataStore: dataStore, theme: theme, source: articleSource)
-        return articleViewController
-    }
 
     func previewingViewController(for indexPath: IndexPath, at location: CGPoint) -> UIViewController? {
-        guard let articleViewController = articleViewController(for: indexPath) else {
-            return nil
-        }
-        let articleURL = articleViewController.articleURL
-        articleViewController.articlePreviewingDelegate = self
-        articleViewController.wmf_addPeekableChildViewController(for: articleURL, dataStore: dataStore, theme: theme)
+        let articleURL = articleURL(at: indexPath)
+        
+        let peekController = ArticlePeekPreviewViewController(articleURL: articleURL, article: nil, dataStore: dataStore, theme: theme, articlePreviewingDelegate: self)
 
         previewedIndexPath = indexPath
-        return articleViewController
+        return peekController
     }
 
 }

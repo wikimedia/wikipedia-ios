@@ -1,19 +1,27 @@
 import UIKit
 import WMF
+import WMFComponents
 
 @objc(WMFArticlePeekPreviewViewController)
 class ArticlePeekPreviewViewController: UIViewController, Peekable {
     
     let articleURL: URL
+    private(set) var article: WMFArticle?
     fileprivate let dataStore: MWKDataStore
     fileprivate var theme: Theme
     fileprivate let activityIndicatorView: UIActivityIndicatorView = UIActivityIndicatorView(style: .large)
     fileprivate let expandedArticleView = ArticleFullWidthImageCollectionViewCell()
+    
+    // MARK: Previewing
+    
+    public weak var articlePreviewingDelegate: ArticlePreviewingDelegate?
 
-    @objc required init(articleURL: URL, dataStore: MWKDataStore, theme: Theme) {
+    @objc required init(articleURL: URL, article: WMFArticle?, dataStore: MWKDataStore, theme: Theme, articlePreviewingDelegate: ArticlePreviewingDelegate?) {
         self.articleURL = articleURL
+        self.article = article
         self.dataStore = dataStore
         self.theme = theme
+        self.articlePreviewingDelegate = articlePreviewingDelegate
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -41,6 +49,7 @@ class ArticlePeekPreviewViewController: UIViewController, Peekable {
                 self.activityIndicatorView.stopAnimating()
                 return
             }
+            self.article = article
             self.updateView(with: article)
         }
     }
@@ -94,6 +103,89 @@ class ArticlePeekPreviewViewController: UIViewController, Peekable {
             return
         }
         expandedArticleView.updateFonts(with: traitCollection)
+    }
+    
+    var contextMenuItems: [UIAction] {
+        // Read action
+        let readActionTitle = WMFLocalizedString("button-read-now", value: "Read now", comment: "Read now button text used in various places.")
+        let readAction = UIAction(title: readActionTitle, image: WMFSFSymbolIcon.for(symbol: .book), handler: { (action) in
+            self.articlePreviewingDelegate?.readMoreArticlePreviewActionSelected(with: self)
+        })
+
+        var actions = [readAction]
+
+        // Save action
+        let logReadingListsSaveIfNeeded = { [weak self] in
+            guard let delegate = self?.articlePreviewingDelegate as? MEPEventsProviding else {
+                return
+            }
+            ReadingListsFunnel.shared.logSave(category: delegate.eventLoggingCategory, label: delegate.eventLoggingLabel, articleURL: self?.articleURL)
+        }
+        if articleURL.namespace == .main,
+        let article {
+            let saveActionTitle = article.isAnyVariantSaved ? WMFLocalizedString("button-saved-remove", value: "Remove from saved", comment: "Remove from saved button text used in various places.") : CommonStrings.saveTitle
+            let saveAction = UIAction(title: saveActionTitle, image: WMFSFSymbolIcon.for(symbol: article.isAnyVariantSaved ? .bookmarkFill : .bookmark), handler: { (action) in
+                let isSaved = self.dataStore.savedPageList.toggleSavedPage(for: self.articleURL)
+                let notification = isSaved ? CommonStrings.accessibilitySavedNotification : CommonStrings.accessibilityUnsavedNotification
+                UIAccessibility.post(notification: .announcement, argument: notification)
+                self.articlePreviewingDelegate?.saveArticlePreviewActionSelected(with: self, didSave: isSaved, articleURL: self.articleURL)
+            })
+            actions.append(saveAction)
+        }
+
+        // Location action
+        if let article,
+           article.location != nil {
+            let placeActionTitle = WMFLocalizedString("page-location", value: "View on a map", comment: "Label for button used to show an article on the map")
+            let placeAction = UIAction(title: placeActionTitle, image: WMFSFSymbolIcon.for(symbol: .map), handler: { (action) in
+                self.articlePreviewingDelegate?.viewOnMapArticlePreviewActionSelected(with: self)
+            })
+            actions.append(placeAction)
+        }
+
+        // Share action
+        let shareActionTitle = CommonStrings.shareMenuTitle
+        let shareAction = UIAction(title: shareActionTitle, image: WMFSFSymbolIcon.for(symbol: .squareAndArrowUp), handler: { (action) in
+            guard let presenter = self.articlePreviewingDelegate as? UIViewController else {
+                return
+            }
+            let customActivity = self.addToReadingListActivity(with: presenter, eventLogAction: logReadingListsSaveIfNeeded)
+            guard let shareActivityViewController = self.sharingActivityViewController(with: nil, button: nil, customActivities: [customActivity]) else {
+                return
+            }
+            self.articlePreviewingDelegate?.shareArticlePreviewActionSelected(with: self, shareActivityController: shareActivityViewController)
+        })
+
+        actions.append(shareAction)
+
+        return actions
+    }
+    
+    // TODO: these two methods are practically copied from ArticleViewController. We could consider de-duping into a protocol extension.
+    func addToReadingListActivity(with presenter: UIViewController, eventLogAction: @escaping () -> Void) -> UIActivity {
+        let addToReadingListActivity = AddToReadingListActivity {
+            guard let article = self.article else { return }
+            let vc = AddArticlesToReadingListViewController(with: self.dataStore, articles: [article], theme: self.theme)
+            vc.eventLogAction = eventLogAction
+            let navigationController = WMFComponentNavigationController(rootViewController: vc, modalPresentationStyle: .overFullScreen)
+            presenter.present(navigationController, animated: true)
+        }
+        return addToReadingListActivity
+    }
+    
+    func sharingActivityViewController(with textSnippet: String?, button: UIBarButtonItem?, customActivities: [UIActivity]?) -> ShareActivityController? {
+        guard let article else {
+            return nil
+        }
+        let vc: ShareActivityController
+        let textActivitySource = WMFArticleTextActivitySource(article: article, shareText: textSnippet)
+        if let customActivities = customActivities, !customActivities.isEmpty {
+            vc = ShareActivityController(customActivities: customActivities, article: article, textActivitySource: textActivitySource)
+        } else {
+            vc = ShareActivityController(article: article, textActivitySource: textActivitySource)
+        }
+        vc.popoverPresentationController?.barButtonItem = button
+        return vc
     }
 
 }

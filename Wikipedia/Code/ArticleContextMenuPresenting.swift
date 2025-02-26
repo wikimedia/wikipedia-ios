@@ -6,7 +6,6 @@ protocol ArticleContextMenuPresenting {
 
     func hideFindInPage(_ completion: (() -> Void)?)
     var configuration: Configuration { get }
-    var previewMenuItems: [UIMenuElement]? { get }
 }
 
 enum ContextMenuCompletionType {
@@ -104,10 +103,12 @@ extension ArticleContextMenuPresenting {
     }
 
     var previewMenu: UIMenu? {
-        guard let previewMenuItems = previewMenuItems else {
-            return nil
-        }
-
-        return UIMenu(title: "", image: nil, identifier: nil, options: [], children: previewMenuItems)
+//        guard let previewMenuItems = previewMenuItems else {
+//            return nil
+//        }
+//
+//        return UIMenu(title: "", image: nil, identifier: nil, options: [], children: previewMenuItems)
+        // todo: from articleVC, we might need to get context items from articlepeek somehow.
+        return nil
     }
 }

@@ -336,10 +336,6 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
         leadImageTrailingMarginConstraint.constant = marginWidth
     }
     
-    // MARK: Previewing
-    
-    public var articlePreviewingDelegate: ArticlePreviewingDelegate?
-    
     // MARK: Layout
     
     override func viewLayoutMarginsDidChange() {

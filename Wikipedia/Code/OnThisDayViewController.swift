@@ -105,14 +105,16 @@ class OnThisDayViewController: ColumnarCollectionViewController, WMFNavigationBa
     
     // MARK: ArticlePreviewingDelegate
     
-    override func shareArticlePreviewActionSelected(with articleController: ArticleViewController, shareActivityController: UIActivityViewController) {
-        super.shareArticlePreviewActionSelected(with: articleController, shareActivityController: shareActivityController)
+    override func shareArticlePreviewActionSelected(with peekController: ArticlePeekPreviewViewController, shareActivityController: UIActivityViewController) {
+        super.shareArticlePreviewActionSelected(with: peekController, shareActivityController: shareActivityController)
         previewedIndex = nil
     }
 
-    override func readMoreArticlePreviewActionSelected(with articleController: ArticleViewController) {
-        articleController.wmf_removePeekableChildViewControllers()
-        push(articleController, animated: true)
+    override func readMoreArticlePreviewActionSelected(with peekController: ArticlePeekPreviewViewController) {
+        
+        guard let navVC = navigationController else { return }
+        let coordinator = ArticleCoordinator(navigationController: navVC, articleURL: peekController.articleURL, dataStore: dataStore, theme: theme, source: .undefined)
+        coordinator.start()
     }
 }
 
@@ -235,19 +237,15 @@ extension OnThisDayViewController: MEPEventsProviding {
 extension OnThisDayViewController: NestedCollectionViewContextMenuDelegate {
     func contextMenu(with contentGroup: WMFContentGroup? = nil, for articleURL: URL? = nil, at itemIndex: Int) -> UIContextMenuConfiguration? {
 
-        guard let articleURL = articleURL, let vc = ArticleViewController(articleURL: articleURL, dataStore: dataStore, theme: theme, source: .undefined) else {
+        guard let articleURL = articleURL else {
             return nil
         }
-        vc.articlePreviewingDelegate = self
-        vc.wmf_addPeekableChildViewController(for: articleURL, dataStore: dataStore, theme: theme)
-        if let themeable = vc as Themeable? {
-            themeable.apply(theme: self.theme)
-        }
-
+        
+        let peekVC = ArticlePeekPreviewViewController(articleURL: articleURL, article: nil, dataStore: dataStore, theme: theme, articlePreviewingDelegate: self)
         previewedIndex = itemIndex
 
         let previewProvider: () -> UIViewController? = {
-            return vc
+            return peekVC
         }
         return UIContextMenuConfiguration(identifier: nil, previewProvider: previewProvider) { (suggestedActions) -> UIMenu? in
             return nil
@@ -256,7 +254,7 @@ extension OnThisDayViewController: NestedCollectionViewContextMenuDelegate {
             // results in an assertion failure in dev mode due to constraints that are automatically added by the preview's action menu, which
             // further results in the horizontally scrollable collection view being broken when coming back to it. I'm not sure that this
             // functionality was present before this re-write, and so leaving it out for now.
-//            return UIMenu(title: "", image: nil, identifier: nil, options: [], children: vc.contextMenuItems)
+//            return UIMenu(title: "", image: nil, identifier: nil, options: [], children: peekVC.contextMenuItems)
         }
     }
 

@@ -130,16 +130,13 @@ class ArticleCollectionViewController: ColumnarCollectionViewController, Editabl
     // MARK: - CollectionViewContextMenuShowing
     func previewingViewController(for indexPath: IndexPath, at location: CGPoint) -> UIViewController? {
         guard !editController.isActive,  // don't allow previewing when swipe actions are active
-              let articleURL = articleURL(at: indexPath) else {
+              let articleURL = articleURL(at: indexPath),
+              let article = article(at: indexPath) else {
             return nil
         }
-
-        guard let articleViewController = ArticleViewController(articleURL: articleURL, dataStore: dataStore, theme: self.theme, source: .undefined) else {
-            return nil
-        }
-        articleViewController.articlePreviewingDelegate = self
-        articleViewController.wmf_addPeekableChildViewController(for: articleURL, dataStore: dataStore, theme: theme)
-        return articleViewController
+        
+        let peekVC = ArticlePeekPreviewViewController(articleURL: articleURL, article: article, dataStore: dataStore, theme: theme, articlePreviewingDelegate: self)
+        return peekVC
     }
 
 }
