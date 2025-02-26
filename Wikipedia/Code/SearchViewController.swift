@@ -3,9 +3,17 @@ import WMFComponents
 import WMFData
 import SwiftUI
 import CocoaLumberjackSwift
+import WMF
 
-class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring, WMFNavigationBarHiding {
-    
+class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring, WMFNavigationBarHiding, MEPEventsProviding {
+    var eventLoggingCategory: EventCategoryMEP {
+        return .history
+    }
+
+   var eventLoggingLabel: EventLabelMEP? {
+        return nil
+    }
+
     @objc var dataStore: MWKDataStore?
     
     @objc enum EventLoggingSource: Int {
@@ -520,11 +528,25 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
         
         return resultsViewController
     }()
-    
+
+    func tappedArticle(_ item: HistoryItem) -> Void? {
+        print("tap article")
+    }
+
     lazy var historyViewModel: WMFHistoryViewModel = {
-        // TODO: - get empty view localized strings, copy and image
+        // TODO: - get empty view localized strings, copy and image, accessibility strings
+        let shareArticleAction: WMFHistoryViewModel.ShareRecordAction = { [weak self] historySection, historyItem in
+            guard let self else { return }
+
+        }
+
+        let onTapArticleAction: WMFHistoryViewModel.OnRecordTapAction = { [weak self] historyItem in
+            guard let self else { return }
+            self.tappedArticle(historyItem)
+        }
+
         let localizedStrings = WMFHistoryViewModel.LocalizedStrings(title: CommonStrings.historyTabTitle, emptyViewTitle: "Empty view", emptyViewSubtitle: "Subtitle")
-        let viewModel = WMFHistoryViewModel(localizedStrings: localizedStrings, historyDataController: historyDataController)
+        let viewModel = WMFHistoryViewModel(localizedStrings: localizedStrings, historyDataController: historyDataController, onTapRecord: onTapArticleAction, shareRecordAction: shareArticleAction)
         return viewModel
     }()
 
@@ -548,12 +570,14 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
 
                 for article in articleFetchRequest {
                     if let viewedDate = article.viewedDate, let pageID = article.pageID {
-                        let record =  HistoryRecord(
+                        let record = HistoryRecord(
                             id: Int(truncating: pageID),
                             title: article.displayTitle ?? article.displayTitleHTML,
                             description: article.capitalizedWikidataDescriptionOrSnippet,
+                            articleURL: article.url,
                             imageURL: article.imageURLString,
-                            viewedDate: viewedDate
+                            viewedDate: viewedDate,
+                            isSaved: article.isSaved
                         )
                         articles.append(record)
                     }
@@ -583,21 +607,22 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
             // TODO: Delete from WMFPageviews
         }
 
-        let saveArticleAction: WMFHistoryDataController.SaveArticleAction = { [weak self] historySection, historyItem in
+        let saveArticleAction: WMFHistoryDataController.SaveRecordAction = { [weak self] historySection, historyItem in
             guard let self, let dataStore = self.dataStore else { return }
-            print("saved!!!!!!")
+
         }
 
-        let shareArticleAction: WMFHistoryDataController.ShareArticleAction = { [weak self] historySection, historyItem in
-            guard let self else { return }
-            print("Share!!!!!!!")
+        let unsaveArticleAction: WMFHistoryDataController.UnsaveRecordAction = { [weak self] historySection, historyItem in
+            guard let self, let dataStore = self.dataStore else { return }
+
         }
+
 
         let dataController = WMFHistoryDataController(
             recordsProvider: recordsProvider,
             deleteRecordAction: deleteRecordAction,
             saveArticleAction: saveArticleAction,
-            shareArticleAction: shareArticleAction
+            unsaveArticleAction: unsaveArticleAction
         )
         return dataController
 

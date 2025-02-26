@@ -5,15 +5,19 @@ public struct HistoryRecord {
     public let id: Int
     public let title: String
     public let description: String?
+    public let articleURL: URL?
     public let imageURL: String?
     public let viewedDate: Date
+    public let isSaved: Bool
 
-    public init(id: Int, title: String, description: String? = nil, imageURL: String? = nil, viewedDate: Date) {
+    public init(id: Int, title: String, description: String?, articleURL: URL?, imageURL: String?, viewedDate: Date, isSaved: Bool) {
         self.id = id
         self.title = title
         self.description = description
+        self.articleURL = articleURL
         self.imageURL = imageURL
         self.viewedDate = viewedDate
+        self.isSaved = isSaved
     }
 }
 
@@ -28,26 +32,31 @@ public final class WMFHistoryDataController {
     public typealias DeleteRecordAction = (HistorySection, HistoryItem) -> Void
 
     ///
-    public typealias SaveArticleAction = (HistorySection, HistoryItem) -> Void
+    public typealias SaveRecordAction = (HistorySection, HistoryItem) -> Void
 
     ///
-    public typealias ShareArticleAction = (HistorySection, HistoryItem) -> Void
+    public typealias UnsaveRecordAction = (HistorySection, HistoryItem) -> Void
 
     private let recordsProvider: RecordsProvider
     private let deleteRecordAction: DeleteRecordAction
-    private let saveArticleAction: SaveArticleAction
-    private let shareArticleAction: ShareArticleAction
+    private let saveRecordAction: SaveRecordAction
+    private let unsaveRecordAction: UnsaveRecordAction
 
     /// Initializes the history data controller.
     /// - Parameters:
     ///   - recordsProvider: A closure returning an array of `HistoryRecord`.
     ///   - deleteRecordAction: A closure that deletes a record (by id).
     ///   - deleteAllRecordsAction: A closure that deletes all history records.
-    public init(recordsProvider: @escaping RecordsProvider, deleteRecordAction: @escaping DeleteRecordAction, saveArticleAction: @escaping SaveArticleAction, shareArticleAction: @escaping ShareArticleAction) {
+    public init(recordsProvider: @escaping RecordsProvider, deleteRecordAction: @escaping DeleteRecordAction, saveArticleAction: @escaping SaveRecordAction, unsaveArticleAction: @escaping UnsaveRecordAction) {
         self.recordsProvider = recordsProvider
         self.deleteRecordAction = deleteRecordAction
-        self.saveArticleAction = saveArticleAction
-        self.shareArticleAction = shareArticleAction
+        self.saveRecordAction = saveArticleAction
+        self.unsaveRecordAction = unsaveArticleAction
+    }
+
+    private func getURL(_ string: String?) -> URL? {
+        guard let string else { return nil }
+        return URL(string: string)
     }
 
     // MARK: - Data Access Methods
@@ -64,9 +73,12 @@ public final class WMFHistoryDataController {
         let sections: [HistorySection] = groupedRecords.map { (day, records) in
             let items = records.map { record in
                 HistoryItem(id: String(record.id),
+                            url: record.articleURL,
                             titleHtml: record.title,
                             description: record.description,
-                            imageURL: getURL(record.imageURL))
+                            imageURL: getURL(record.imageURL),
+                            isSaved: record.isSaved
+                )
             }
             return HistorySection(dateWithoutTime: day, items: items)
         }
@@ -74,15 +86,18 @@ public final class WMFHistoryDataController {
         return sections.sorted(by: { $0.dateWithoutTime > $1.dateWithoutTime })
     }
 
-    func getURL(_ string: String?) -> URL? {
-        guard let string else { return nil } 
-        return URL(string: string)
-    }
-    /// Deletes a single history record by its identifier.
-    /// - Parameter id: The identifier of the record to be deleted
     public func deleteHistoryItem(with section: HistorySection, _ item: HistoryItem) {
         deleteRecordAction(section, item)
     }
+
+    public func saveHistoryItem(with section: HistorySection, _ item: HistoryItem) {
+        saveRecordAction(section, item)
+    }
+
+    public func unsaveHistoryItem(with section: HistorySection, _ item: HistoryItem) {
+        unsaveRecordAction(section, item)
+    }
+
 }
 
 public final class HistorySection: Identifiable {
@@ -97,15 +112,19 @@ public final class HistorySection: Identifiable {
 
 public final class HistoryItem: Identifiable, Equatable {
     public let id: String
+    public let url: URL?
     public let titleHtml: String
     public let description: String?
     public let imageURL: URL?
+    public let isSaved: Bool
 
-    public init(id: String, titleHtml: String, description: String? = nil, imageURL: URL? = nil) {
+    public init(id: String, url: URL?, titleHtml: String, description: String? = nil, imageURL: URL? = nil, isSaved: Bool) {
         self.id = id
+        self.url = url
         self.titleHtml = titleHtml
         self.description = description
         self.imageURL = imageURL
+        self.isSaved = isSaved
     }
 
     public static func == (lhs: HistoryItem, rhs: HistoryItem) -> Bool {

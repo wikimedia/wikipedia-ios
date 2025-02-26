@@ -16,18 +16,30 @@ public final class WMFHistoryViewModel: ObservableObject {
         }
     }
 
+    ///
+    public typealias ShareRecordAction = (HistorySection, HistoryItem) -> Void
+
+    ///
+    public typealias OnRecordTapAction = ((HistoryItem) -> Void)?
+
     @Published var sections: [HistorySection] = []
     @Published public var topPadding: CGFloat = 0
 
-    private let historyDataController: WMFHistoryDataController
     internal let localizedStrings: LocalizedStrings
+    private let historyDataController: WMFHistoryDataController
 
+    public var onTapArticle: OnRecordTapAction
     public var isEmpty: Bool = true
 
-    public init(localizedStrings: WMFHistoryViewModel.LocalizedStrings, historyDataController: WMFHistoryDataController, topPadding: CGFloat = 0) {
+    private let shareRecordAction: ShareRecordAction
+
+    public init(localizedStrings: WMFHistoryViewModel.LocalizedStrings, historyDataController: WMFHistoryDataController, topPadding: CGFloat = 0, onTapRecord: OnRecordTapAction, shareRecordAction: @escaping ShareRecordAction) {
         self.localizedStrings = localizedStrings
         self.historyDataController = historyDataController
         self.topPadding = topPadding
+        self.onTapArticle = onTapRecord
+        self.shareRecordAction = shareRecordAction
+
         loadHistory()
     }
 
@@ -36,9 +48,11 @@ public final class WMFHistoryViewModel: ObservableObject {
         let viewModelSections = dataSections.map { dataSection -> HistorySection in
             let items = dataSection.items.map { dataItem in
                 HistoryItem(id: dataItem.id,
+                            url: dataItem.url,
                             titleHtml: dataItem.titleHtml,
                             description: dataItem.description,
-                            imageURL: dataItem.imageURL)
+                            imageURL: dataItem.imageURL,
+                            isSaved: dataItem.isSaved)
             }
             return HistorySection(dateWithoutTime: dataSection.dateWithoutTime, items: items)
         }
@@ -66,12 +80,19 @@ public final class WMFHistoryViewModel: ObservableObject {
 
     }
 
-    public func save(section: HistorySection, item: HistoryItem) {
-        print("click save")
+    public func saveOrUnsave(section: HistorySection, item: HistoryItem) {
+        if item.isSaved {
+            historyDataController.unsaveHistoryItem(with: section, item)
+        } else {
+            historyDataController.saveHistoryItem(with: section, item)
+        }
     }
 
     public func share(section: HistorySection, item: HistoryItem) {
-        print("click share")
+        shareRecordAction(section, item)
+    }
 
+    public func onTap(item: HistoryItem) {
+        onTapArticle?(item)
     }
 }
