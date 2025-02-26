@@ -18,41 +18,4 @@ public class WMFTempAccountsToastHostingController: UIHostingController<WMFTempA
         super.viewDidLoad()
         view.backgroundColor = .clear
     }
-
-    func showToast(viewModel: WMFTempAccountsToastViewModel) {
-        removeToast()
-
-        let toastVC = WMFTempAccountsToastHostingController(viewModel: viewModel)
-        toastVC.view.translatesAutoresizingMaskIntoConstraints = false
-        toastVC.view.alpha = 0
-
-        addChild(toastVC)
-        view.addSubview(toastVC.view)
-        toastVC.didMove(toParent: self)
-
-        NSLayoutConstraint.activate([
-            toastVC.view.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            toastVC.view.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 8),
-            toastVC.view.widthAnchor.constraint(lessThanOrEqualToConstant: 350)
-        ])
-
-        toastViewController = toastVC
-
-        UIView.animate(withDuration: 0.3) {
-            toastVC.view.alpha = 1
-        }
-    }
-
-    func removeToast() {
-        guard let toastVC = toastViewController else { return }
-
-        UIView.animate(withDuration: 0.3, animations: {
-            toastVC.view.alpha = 0
-        }) { _ in
-            toastVC.willMove(toParent: nil)
-            toastVC.view.removeFromSuperview()
-            toastVC.removeFromParent()
-            self.toastViewController = nil
-        }
-    }
 }

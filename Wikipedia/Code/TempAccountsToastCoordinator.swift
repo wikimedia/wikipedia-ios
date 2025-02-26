@@ -52,8 +52,9 @@ final class TempAccountsToastCoordinator: NSObject, Coordinator {
 
         NSLayoutConstraint.activate([
             toastController.view.centerXAnchor.constraint(equalTo: topViewController.view.centerXAnchor),
-            toastController.view.topAnchor.constraint(equalTo: topViewController.view.safeAreaLayoutGuide.topAnchor, constant: 8),
-            toastController.view.widthAnchor.constraint(lessThanOrEqualToConstant: 350)
+            toastController.view.topAnchor.constraint(equalTo: topViewController.view.safeAreaLayoutGuide.topAnchor),
+            toastController.view.leadingAnchor.constraint(equalTo: topViewController.view.leadingAnchor),
+            toastController.view.trailingAnchor.constraint(equalTo: topViewController.view.trailingAnchor)
         ])
 
         toastController.view.alpha = 0
