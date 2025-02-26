@@ -14,33 +14,42 @@ public struct WMFTempAccountsToastView: View {
     public init(viewModel: WMFTempAccountsToastViewModel) {
         self.viewModel = viewModel
     }
-    
-    private var titleStyles: HtmlUtils.Styles {
-        HtmlUtils.Styles(font: WMFFont.for(.subheadline), boldFont: WMFFont.for(.boldSubheadline), italicsFont: WMFFont.for(.subheadline), boldItalicsFont: WMFFont.for(.subheadline), color: theme.text, linkColor: theme.link, lineSpacing: 1)
+
+    private func subtitleAttributedString() -> AttributedString {
+        return (try? AttributedString(markdown: viewModel.title)) ?? AttributedString(viewModel.title)
     }
     
     public var body: some View {
         VStack(spacing: 12) {
             if let xCircleFill = WMFSFSymbolIcon.for(symbol: .xCircleFill) {
-                Image(uiImage: xCircleFill)
-                    .frame(maxWidth: .infinity, alignment: .topTrailing)
+                Button(action: {
+                    viewModel.didTapClose()
+                }) {
+                    Image(uiImage: xCircleFill)
+                        .foregroundStyle(Color(theme.newBorder))
+                        .frame(width: 15)
+                }
+                .frame(maxWidth: .infinity, alignment: .topTrailing)
             }
             VStack(spacing: 8) {
                 HStack(spacing: 8) {
                     if let exclamationPointCircle = WMFIcon.exclamationPointCircle {
                         Image(uiImage: exclamationPointCircle)
                             .foregroundStyle(Color(theme.editorMatchForeground))
+                            .frame(width: 15)
                     }
-                    WMFHtmlText(html: viewModel.title, styles: titleStyles)
+                    Text(subtitleAttributedString())
                         .lineLimit(2)
                 }
-                WMFSmallButton(configuration: WMFSmallButton.Configuration(style: .neutral), title: viewModel.readMoreButtonTitle, action: {
+                WMFSmallButton(configuration: WMFSmallButton.Configuration(style: .quiet), title: viewModel.readMoreButtonTitle, action: {
                     viewModel.didTapReadMore()
                 })
+                .frame(maxWidth: .infinity, alignment: .trailing)
             }
-            .padding(.vertical, 12)
             Divider()
         }
+        .padding(.horizontal, 16)
+        .padding(.vertical, 12)
         .frame(maxWidth: .infinity)
         .ignoresSafeArea()
         .background(Color(theme.midBackground))
