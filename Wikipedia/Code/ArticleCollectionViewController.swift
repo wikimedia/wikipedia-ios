@@ -134,8 +134,6 @@ class ArticleCollectionViewController: ColumnarCollectionViewController, Editabl
             return nil
         }
 
-        previewedIndexPath = indexPath
-
         guard let articleViewController = ArticleViewController(articleURL: articleURL, dataStore: dataStore, theme: self.theme, source: .undefined) else {
             return nil
         }
