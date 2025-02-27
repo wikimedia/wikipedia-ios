@@ -169,7 +169,6 @@ class ArticlePeekPreviewViewController: UIViewController {
         return actions
     }
     
-    // TODO: these two methods are practically copied from ArticleViewController. We could consider de-duping into a protocol extension.
     func addToReadingListActivity(with presenter: UIViewController, eventLogAction: @escaping () -> Void) -> UIActivity {
         let addToReadingListActivity = AddToReadingListActivity {
             guard let article = self.article else { return }
