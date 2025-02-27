@@ -3,7 +3,7 @@ import WMF
 import WMFComponents
 
 @objc(WMFArticlePeekPreviewViewController)
-class ArticlePeekPreviewViewController: UIViewController, Peekable {
+class ArticlePeekPreviewViewController: UIViewController {
     
     let articleURL: URL
     private(set) var article: WMFArticle?
