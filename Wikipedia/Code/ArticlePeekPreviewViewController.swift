@@ -11,17 +11,19 @@ class ArticlePeekPreviewViewController: UIViewController, Peekable {
     fileprivate var theme: Theme
     fileprivate let activityIndicatorView: UIActivityIndicatorView = UIActivityIndicatorView(style: .large)
     fileprivate let expandedArticleView = ArticleFullWidthImageCollectionViewCell()
+    private let needsEmptyContextMenuItems: Bool
     
     // MARK: Previewing
     
     public weak var articlePreviewingDelegate: ArticlePreviewingDelegate?
 
-    @objc required init(articleURL: URL, article: WMFArticle?, dataStore: MWKDataStore, theme: Theme, articlePreviewingDelegate: ArticlePreviewingDelegate?) {
+    @objc required init(articleURL: URL, article: WMFArticle?, dataStore: MWKDataStore, theme: Theme, articlePreviewingDelegate: ArticlePreviewingDelegate?, needsEmptyContextMenuItems: Bool = false) {
         self.articleURL = articleURL
         self.article = article
         self.dataStore = dataStore
         self.theme = theme
         self.articlePreviewingDelegate = articlePreviewingDelegate
+        self.needsEmptyContextMenuItems = needsEmptyContextMenuItems
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -106,6 +108,10 @@ class ArticlePeekPreviewViewController: UIViewController, Peekable {
     }
     
     var contextMenuItems: [UIAction] {
+        guard !needsEmptyContextMenuItems else {
+            return []
+        }
+        
         // Read action
         let readActionTitle = WMFLocalizedString("button-read-now", value: "Read now", comment: "Read now button text used in various places.")
         let readAction = UIAction(title: readActionTitle, image: WMFSFSymbolIcon.for(symbol: .book), handler: { (action) in

@@ -166,20 +166,6 @@ class HistoryViewController: ArticleFetchedResultsViewController, WMFNavigationB
         }
     }
 
-    override func previewingViewController(for indexPath: IndexPath, at location: CGPoint) -> UIViewController? {
-        guard let vc = super.previewingViewController(for: indexPath, at: location) else {
-            return nil
-        }
-
-        guard let articleVC = (vc as? ArticleViewController) else {
-            return nil
-        }
-
-        articleVC.articleViewSource = .history
-
-        return articleVC
-    }
-
     private func configureNavigationBar() {
         
         var titleConfig: WMFNavigationBarTitleConfig = WMFNavigationBarTitleConfig(title: CommonStrings.historyTabTitle, customView: nil, alignment: .leadingCompact)

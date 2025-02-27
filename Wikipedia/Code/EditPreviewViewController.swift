@@ -306,7 +306,7 @@ extension EditPreviewViewController: ArticleContextMenuPresenting, WKUIDelegate 
         let dataStore = MWKDataStore.shared()
         switch destination {
         case .article(let articleURL):
-            return ArticlePeekPreviewViewController(articleURL: articleURL, article: nil, dataStore: dataStore, theme: theme, articlePreviewingDelegate: nil)
+            return ArticlePeekPreviewViewController(articleURL: articleURL, article: nil, dataStore: dataStore, theme: theme, articlePreviewingDelegate: nil, needsEmptyContextMenuItems: true)
         default:
             return nil
         }

@@ -3,7 +3,6 @@ import UIKit
 
 protocol ArticleContextMenuPresenting {
     func getPeekViewControllerAsync(for destination: Router.Destination, completion: @escaping (UIViewController?) -> Void)
-
     func hideFindInPage(_ completion: (() -> Void)?)
     var configuration: Configuration { get }
 }
@@ -60,9 +59,9 @@ extension ArticleContextMenuPresenting {
             }
         }
 
-        getPeekViewControllerAsync(for: linkURL) { (peekParentVC) in
+        getPeekViewControllerAsync(for: linkURL) { (peekVC) in
             assert(Thread.isMainThread)
-            guard let peekParentVC = peekParentVC else {
+            guard let peekVC = peekVC else {
                 if !didCallCompletion {
                     completionHandler(.bail, nil)
                     didCallCompletion = true
@@ -70,13 +69,15 @@ extension ArticleContextMenuPresenting {
                 return
             }
 
-            let peekVC = peekParentVC.wmf_PeekableChildViewController
-
             self.hideFindInPage(nil)
             let config = UIContextMenuConfiguration(identifier: linkURL as NSURL, previewProvider: { () -> UIViewController? in
-                return peekParentVC
+                return peekVC
             }) { (suggestedActions) -> UIMenu? in
-                return (peekParentVC as? ArticleContextMenuPresenting)?.previewMenu
+                if let contextItems = (peekVC as? ArticlePeekPreviewViewController)?.contextMenuItems {
+                    return UIMenu(title: "", image: nil, identifier: nil, options: [], children: contextItems)
+                }
+                
+                return nil
             }
 
             if let articlePeekVC = peekVC as? ArticlePeekPreviewViewController {
@@ -103,12 +104,6 @@ extension ArticleContextMenuPresenting {
     }
 
     var previewMenu: UIMenu? {
-//        guard let previewMenuItems = previewMenuItems else {
-//            return nil
-//        }
-//
-//        return UIMenu(title: "", image: nil, identifier: nil, options: [], children: previewMenuItems)
-        // todo: from articleVC, we might need to get context items from articlepeek somehow.
         return nil
     }
 }
