@@ -6,6 +6,7 @@ public enum WMFIcon {
     static let checkmark = UIImage(named: "checkmark", in: .module, with: nil)
     static let close = UIImage(named: "close", in: .module, with: nil)
     static let closeCircle = UIImage(named: "close-circle", in: .module, with: nil)
+    static let closeCircleInverse = UIImage(named: "close-circle-inverse", in: .module, with: nil)
     static let exclamationPointCircle = UIImage(named: "exclamation-point-circle", in: .module, with: nil)
     static let find = UIImage(named: "find", in: .module, with: nil)
     static let findInPage = UIImage(named: "find-in-page", in: .module, with: nil)

@@ -20,6 +20,7 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
     public var loginSuccessCompletion: (() -> Void)?
     public var createAccountSuccessCustomDismissBlock: (() -> Void)?
     public var loginDismissedCompletion: (() -> Void)?
+    public var tempAccountsToastCoordinator: TempAccountsToastCoordinator?
 
     private var startDate: Date? // to calculate time elapsed between login start and login success
     
@@ -80,14 +81,12 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
         let authManager = dataStore.authenticationManager
         
         if true { // authManager.authStateIsTemporary {
-            let toastCoordinator = TempAccountsToastCoordinator(navigationController: navigationController, didTapReadMore: {
+            tempAccountsToastCoordinator = TempAccountsToastCoordinator(navigationController: navigationController, didTapReadMore: {
                 
             }, didTapClose: {
-                
-            },
-            title: "Title",
-            readMoreButtonTitle: "Read more")
-            toastCoordinator.start()
+                // Logging
+            })
+            tempAccountsToastCoordinator?.start()
         }
     }
     
