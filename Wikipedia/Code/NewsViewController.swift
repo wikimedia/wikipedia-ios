@@ -232,7 +232,7 @@ extension NewsViewController: MEPEventsProviding {
 
 // MARK: - NestedCollectionViewContextMenuDelegate
 extension NewsViewController: NestedCollectionViewContextMenuDelegate {
-    func contextMenu(with contentGroup: WMFContentGroup? = nil, for articleURL: URL? = nil, at itemIndex: Int) -> UIContextMenuConfiguration? {
+    func contextMenu(contentGroup: WMFContentGroup? = nil, articleURL: URL? = nil, article: WMFArticle? = nil, itemIndex: Int) -> UIContextMenuConfiguration? {
         guard let articleURL = articleURL else {
             return nil
         }

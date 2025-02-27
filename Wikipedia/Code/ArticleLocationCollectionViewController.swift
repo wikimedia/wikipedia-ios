@@ -204,8 +204,11 @@ extension ArticleLocationCollectionViewController: CollectionViewContextMenuShow
 
     func previewingViewController(for indexPath: IndexPath, at location: CGPoint) -> UIViewController? {
         let articleURL = articleURL(at: indexPath)
+        guard let article = dataStore.fetchArticle(with: articleURL) else {
+            return nil
+        }
         
-        let peekController = ArticlePeekPreviewViewController(articleURL: articleURL, article: nil, dataStore: dataStore, theme: theme, articlePreviewingDelegate: self)
+        let peekController = ArticlePeekPreviewViewController(articleURL: articleURL, article: article, dataStore: dataStore, theme: theme, articlePreviewingDelegate: self)
 
         previewedIndexPath = indexPath
         return peekController

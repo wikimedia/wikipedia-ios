@@ -912,27 +912,25 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     // MARK: - For NestedCollectionViewContextMenuDelegate
     private var previewed: (context: WMFContentGroup?, indexPathItem: Int?)
 
-    func contextMenu(with contentGroup: WMFContentGroup? = nil, for articleURL: URL? = nil, at itemIndex: Int) -> UIContextMenuConfiguration? {
+    func contextMenu(contentGroup: WMFContentGroup? = nil, articleURL: URL? = nil, article: WMFArticle? = nil, itemIndex: Int) -> UIContextMenuConfiguration? {
         guard let contentGroup = contentGroup else {
             return nil
         }
         
-        var previewVC: UIViewController?
+        var previewVC: UIViewController? = viewController(for: contentGroup, at: itemIndex)
         
-        if let navigationController {
-           switch contentGroup.detailType {
+        if let articleURL,
+           let article {
+            switch contentGroup.detailType {
             case .page:
-               if let articleURL = contentGroup.previewArticleURLForItemAtIndex(itemIndex) {
-                   previewVC = ArticlePeekPreviewViewController(articleURL: articleURL, article: nil, dataStore: dataStore, theme: theme, articlePreviewingDelegate: self)
-               }
+                 previewVC = ArticlePeekPreviewViewController(articleURL: articleURL, article: article, dataStore: dataStore, theme: theme, articlePreviewingDelegate: self)
 
             case .pageWithRandomButton:
-               if let articleURL = contentGroup.previewArticleURLForItemAtIndex(itemIndex) {
-                   previewVC = ArticlePeekPreviewViewController(articleURL: articleURL, article: nil, dataStore: dataStore, theme: theme, articlePreviewingDelegate: self, needsRandomOnPush: true)
-               }
+                previewVC = ArticlePeekPreviewViewController(articleURL: articleURL, article: article, dataStore: dataStore, theme: theme, articlePreviewingDelegate: self, needsRandomOnPush: true)
+                
             default:
-               previewVC = viewController(for: contentGroup, at: itemIndex)
-           }
+                break
+            }
         }
 
         let previewProvider: () -> UIViewController? = {
@@ -1004,8 +1002,14 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
 
     override func readMoreArticlePreviewActionSelected(with peekController: ArticlePeekPreviewViewController) {
         guard let navVC = navigationController else { return }
-        let coordinator = ArticleCoordinator(navigationController: navVC, articleURL: peekController.articleURL, dataStore: dataStore, theme: theme, source: .undefined)
-        coordinator.start()
+        if peekController.needsRandomOnPush {
+            let coordinator = RandomArticleCoordinator(navigationController: navVC, articleURL: peekController.articleURL, siteURL: nil, dataStore: dataStore, theme: theme, source: .undefined, animated: true)
+            coordinator.start()
+        } else {
+            let coordinator = ArticleCoordinator(navigationController: navVC, articleURL: peekController.articleURL, dataStore: dataStore, theme: theme, source: .undefined)
+            coordinator.start()
+        }
+        
     }
 
     override func saveArticlePreviewActionSelected(with peekController: ArticlePeekPreviewViewController, didSave: Bool, articleURL: URL) {

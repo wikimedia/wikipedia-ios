@@ -726,8 +726,11 @@ extension ExploreCardViewController {
         guard indexPath.item < numberOfItems else {
             return nil
         }
-
-        return delegate?.contextMenu(with: contentGroup, for: nil, at: indexPath.item)
+        
+        let articleURL = articleURL(at: indexPath)
+        let article = article(at: indexPath)
+        
+        return delegate?.contextMenu(contentGroup: contentGroup, articleURL: articleURL, article: article, itemIndex: indexPath.item)
     }
 
     public func collectionView(_ collectionView: UICollectionView, willPerformPreviewActionForMenuWith configuration: UIContextMenuConfiguration, animator: UIContextMenuInteractionCommitAnimating) {
