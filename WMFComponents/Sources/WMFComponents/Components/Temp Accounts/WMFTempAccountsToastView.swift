@@ -16,30 +16,39 @@ public struct WMFTempAccountsToastView: View {
     }
 
     private func subtitleAttributedString() -> AttributedString {
-        return (try? AttributedString(markdown: viewModel.title)) ?? AttributedString(viewModel.title)
+        return (try? HtmlUtils.attributedStringFromHtml(viewModel.title, styles: titleStyles)) ?? AttributedString(viewModel.title)
+    }
+    
+    private var titleStyles: HtmlUtils.Styles {
+        HtmlUtils.Styles(font: WMFFont.for(.callout), boldFont: WMFFont.for(.boldCallout), italicsFont: WMFFont.for(.italicCallout), boldItalicsFont: WMFFont.for(.boldItalicCallout), color: theme.text, linkColor: theme.link, lineSpacing: 3)
     }
     
     public var body: some View {
-        VStack(spacing: 12) {
-            if let xCircleFill = WMFSFSymbolIcon.for(symbol: .xCircleFill) {
+        VStack(spacing: 0) {
+            if let xCircleFill = WMFIcon.closeCircleInverse {
                 Button(action: {
                     viewModel.didTapClose()
                 }) {
                     Image(uiImage: xCircleFill)
-                        .foregroundStyle(Color(theme.newBorder))
-                        .frame(width: 15)
+                        .resizable()
+                        .frame(width: 30, height: 30)
+//                        .foregroundStyle(Color(theme.icon))
+//                        .tint(Color(theme.iconBackground))
                 }
                 .frame(maxWidth: .infinity, alignment: .topTrailing)
             }
             VStack(spacing: 8) {
-                HStack(spacing: 8) {
+                HStack(alignment: .top, spacing: 8) {
                     if let exclamationPointCircle = WMFIcon.exclamationPointCircle {
                         Image(uiImage: exclamationPointCircle)
+                            .resizable()
                             .foregroundStyle(Color(theme.editorMatchForeground))
-                            .frame(width: 15)
+                            .frame(width: 16, height: 16)
                     }
                     Text(subtitleAttributedString())
                         .lineLimit(2)
+                        .lineSpacing(titleStyles.lineSpacing)
+                        .fixedSize(horizontal: false, vertical: true)
                 }
                 WMFSmallButton(configuration: WMFSmallButton.Configuration(style: .quiet), title: viewModel.readMoreButtonTitle, action: {
                     viewModel.didTapReadMore()
@@ -52,6 +61,6 @@ public struct WMFTempAccountsToastView: View {
         .padding(.vertical, 12)
         .frame(maxWidth: .infinity)
         .ignoresSafeArea()
-        .background(Color(theme.midBackground))
+        .background(Color(theme.paperBackground))
     }
 }
