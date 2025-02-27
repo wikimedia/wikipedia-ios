@@ -75,12 +75,6 @@
 "action-update" = "Уэмдаш";
 "add-articles-to-reading-list" = "{{PLURAL:$1|$1 статьям}} лудашлан спискыш ешараш";
 "advanced-settings-title" = "Ешартыш тӧрлымаш";
-"alt-text-add-button-title" = "Ешараш";
-"alt-text-do-not-add-button-title" = "Ит ешаре";
-"alt-text-experiment-edit-summary" = "alt текстым ешарыме";
-"alt-text-experiment-text-field-placholder" = "Тиде сӱрет нерген каласкале";
-"alt-text-experiment-view-title" = "alt текстым ешаре";
-"alt-text-modal-title" = "Ситыдыме сӱретым alt текстыш ешараш?";
 "announcements-dismiss" = "Петыраш";
 "app-store-keywords" = "Википедий, статья, вики, энциклопедий, инфо, шинчымаш, лудаш, информаций, лудмаш, палемдымаш";
 "app-store-release-notes" = "Explore ленте тичмашнек тӧрлаташ лийше да лудаш йӧнанрак. Локализаций, паша лектышым саемдымаш да йоҥылышым тӧрлымаш.";
@@ -167,7 +161,6 @@
 "description-welcome-promise-title" = "Пашам ышташ тӱҥалшыла, тиде функцийым утыжден кучылташ ом тӱҥал манын сӧрем";
 "description-welcome-start-editing-button" = "Тӧрлытымашым тӱҥалаш";
 "developer-settings" = "Разработчик тӧрлымаш";
-"developer-settings-enable-alt-text-experiment-en" = "Англичан Википедийлан Alt Text экспериментым чӱктӧ.";
 "developer-settings-send-analytics-to-wmflabs" = "Иктешлымашым wmflabs колто";
 "developer-settings-suppress-image-rec-post" = "Сӱрет тӧрлымӧ темлымашым нигуш ит лук.";
 "diff-article-revision-history" = "Статьям угыч тергымаш эртылык";
@@ -499,7 +492,6 @@
 "image-rec-empty-title" = "Кызытсе татлан тыйын темлыме сӱретет уке.";
 "image-rec-error-subtitle" = "Ала-могай йоҥылыш.";
 "image-rec-error-title" = "Велыжым почаш ок лий";
-"image-rec-feature-announce-title" = "'Сӱретым ешараш' тӧчен ончо";
 "import-shared-reading-list-default-title" = "Лудашлан мыйын спискем";
 "import-shared-reading-list-survey-prompt-button-cancel" = "Кызыт огыл";
 "import-shared-reading-list-survey-prompt-button-take-survey" = "Йодыштмашыш ушнаш";

@@ -137,25 +137,6 @@
 "action-update" = "Обновить";
 "add-articles-to-reading-list" = "Добавить {{PLURAL:$1|$1 статью|$1 статьи|$1 статей}} в список для чтения";
 "advanced-settings-title" = "Дополнительные настройки";
-"alt-text-add-button-title" = "Довавить";
-"alt-text-do-not-add-button-title" = "Не добавлять";
-"alt-text-email-fifth-line" = "[Скриншоты или ссылки]";
-"alt-text-experiment-caption-title" = "Описание изображения";
-"alt-text-experiment-onboarding-item-1-subtitle" = "1-2 строки простого текста без сокращений, аббревиатур и жаргона.";
-"alt-text-experiment-onboarding-item-1-title" = "Излагайте кратко и ясно.";
-"alt-text-experiment-onboarding-item-2-subtitle" = "Не добавляйте собственные исследования, интерпретации или точки зрения.";
-"alt-text-experiment-onboarding-item-2-title" = "Опишите, что можно увидеть";
-"alt-text-experiment-onboarding-item-3-subtitle" = "Но не повторяйте текст, который уже есть в подписи.";
-"alt-text-experiment-onboarding-item-3-title" = "Сосредоточьтесь на том, что имеет отношение к статье";
-"alt-text-experiment-onboarding-item-4-subtitle" = "Не начинайте со слов «Это изображение...», а опишите средство или стиль, если это уместно.";
-"alt-text-experiment-onboarding-item-4-title" = "Тип изображения";
-"alt-text-experiment-onboarding-secondary-button-title" = "Посмотреть примеры";
-"alt-text-experiment-onboarding-title" = "Как написать альтернативный текст для изображений";
-"alt-text-experiment-onboarding-tooltip-3-title" = "Добавить описание";
-"alt-text-feedback-alert-title" = "Мы хотим получить ваши отзывы";
-"alt-text-survey-option-4" = "У меня технические проблемы";
-"alt-text-survey-option-7" = "У меня нет времени";
-"alt-text-title" = "Альтернативный текст";
 "announcements-dismiss" = "Закрыть";
 "app-store-keywords" = "Википедия, статья, вики, энциклопедия, инфо, знание, прочитать, информация, чтение, определение";
 "app-store-release-notes" = "Лента в приложении теперь сделана полностью настраиваемой и лёгкой в использовании. Были улучшены сообщения локализации, а также повышена производительность приложения и, традиционно, исправлены некоторые ошибки.";
@@ -393,6 +374,7 @@
 "editor-replace-type-all-accessibility" = "Заменить все вхождения";
 "editor-replace-type-single" = "Заменить";
 "editor-replace-type-single-accessibility" = "Заменить одно вхождение";
+"editor-title" = "Редактор";
 "editor-toolbar-bold-accessibility" = "Полужирное форматирование текста";
 "editor-toolbar-cursor-down-accessibility" = "Переместить курсор вниз на следующую строку.";
 "editor-toolbar-cursor-next-accessibility" = "Переместить курсор к следующему символу.";
@@ -687,6 +669,7 @@
 "main-menu-terms-of-use" = "Условия использования";
 "main-menu-title" = "Ещё";
 "main-menu-zero-faq" = "ЧЗВ по Wikipedia Zero";
+"microsite-yir-english-top-read-slide-title" = "Самые популярные статьи английской Википедии";
 "more-languages-tooltip-description" = "Искать в Википедии на более чем 300 языках";
 "more-languages-tooltip-title" = "Добавить языки";
 "more-menu" = "Ещё";
@@ -1342,8 +1325,8 @@
 "year-in-review-donate-now" = "Сделать пожертвование сейчас";
 "year-in-review-finish" = "Завершить";
 "year-in-review-personalized-day-subtitle-format" = "$1 — тот день, когда вы читали больше всего статей. Очевидно, что это ваш главный день для изучения нового контента. Спасибо, что максимально используете время чтения!";
-// Fuzzy
-"year-in-review-personalized-donate-title" = "Спасибо за ваше пожертвование!";
+"year-in-review-personalized-donate-title" = "Ваша щедрость помогла Википедии процветать";
+"year-in-review-personalized-donation-thank-you" = "Логотип Викимедиа";
 "year-in-review-personalized-editing-subtitle-format" = "Вы редактировали Википедию {{PLURAL:$1|$1 раз|раз}}. Спасибо, что вы один из добровольных редакторов, которые вносят свой вклад в проекты Викимедиа по всему миру.";
 "year-in-review-personalized-editing-title-format" = "Вы редактировали Википедию {{PLURAL:$1|$1 раз|раз}}";
 "year-in-review-personalized-editing-title-format-500plus" = "Вы редактировали Википедию более 500 раз";

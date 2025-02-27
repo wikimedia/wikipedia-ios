@@ -35,8 +35,6 @@
 "action-sort" = "Տեսակավորել";
 "action-undo" = "Հետ շրջել";
 "action-update" = "Թարմացնել";
-"alt-text-experiment-onboarding-secondary-button-title" = "Դիտել օրինակներ";
-"alt-text-survey-option-7" = "Ես ժամանակ չունեմ";
 "announcements-dismiss" = "Փակել";
 "article-delete" = "Ջնջել";
 "article-deleted-accessibility-notification" = "{{PLURAL:$1|Հոդվածը}} ջնջվել է";

@@ -91,18 +91,6 @@
 "action-update" = "Aktualizovať";
 "add-articles-to-reading-list" = "Pridať {{PLURAL:$1|$1 článok|$1 články}} k zoznamu na prečítanie";
 "advanced-settings-title" = "Rozšírené nastavenia";
-"alt-text-add-button-title" = "Pridať";
-"alt-text-do-not-add-button-title" = "Nepridávať";
-"alt-text-email-fifth-line" = "[Snímky obrazovky alebo odkazy]";
-"alt-text-experiment-character-counter-warning" = "Skúste mať alt text krátky, aby používatelia mohli ľahko pochopiť obsah obrázka";
-"alt-text-experiment-edit-summary" = "Pridaný alt text";
-"alt-text-experiment-guidance-button" = "Návod na písanie alt textu";
-"alt-text-experiment-text-field-description" = "Textový opis pre čitateľov, ktorí nemôžu vidieť obrázok";
-"alt-text-experiment-text-field-placholder" = "Opíšte obrázok";
-"alt-text-experiment-view-title" = "Pridajte alt text";
-"alt-text-modal-subtitle-image-recommendation" = "Na predchádzajúcom obrázku chýba alternatívny text. Pridať k obrázku popis pre čitateľov so zrakovým postihnutím?";
-"alt-text-modal-subtitle-regular-edit" = "V tomto článku je obrázok, ktorému chýba alternatívny text. Pridať popis pre čitateľov so zrakovým postihnutím?";
-"alt-text-modal-title" = "Pridať chýbajúci text obrázku?";
 "announcements-dismiss" = "Zrušiť";
 "app-store-keywords" = "Wikipédia, referencie, wiki, encyklopédia, informácie, vedomosti, výskum, informácie, objaviť, učenie";
 "app-store-release-notes" = "Plne prispôsobiteľné a jednoduchšie čítanie zdroja informácií. Lokalizácia, vylepšenie výkonu a opravy chýb.";
@@ -195,7 +183,6 @@
 "description-welcome-promise-title" = "Sľubujem, že nezneužijem túto funkciu.";
 "description-welcome-start-editing-button" = "Začať editovať";
 "developer-settings" = "Nastavenia vývojára";
-"developer-settings-enable-alt-text-experiment-en" = "Akcializovať Alt Text experiment pre anglickú Wikipédiu.";
 "developer-settings-send-analytics-to-wmflabs" = "Pošlite analytické údaje do wmflabs.";
 "developer-settings-suppress-image-rec-post" = "Neuverejňujte úpravu odporúčaní obrázkov.";
 "diff-article-revision-history" = "Dejiny revízií článku";

@@ -78,8 +78,6 @@
 "action-unsaved-accessibility-notification" = "Članek neshranjen";
 "action-update" = "Posodobi";
 "add-articles-to-reading-list" = "Dodaj {{PLURAL:$1|$1 članek|$1 članka|$1 članke|$1 člankov}} na bralni seznam";
-"alt-text-experiment-text-field-placholder" = "Opišite sliko";
-"alt-text-experiment-view-title" = "Dodajanje alt. besedila";
 "announcements-dismiss" = "Opusti";
 "app-store-keywords" = "Wikipedija, referenca, viki, enciklopedija, info, znanje, raziskovanje, informacije, odkrivanje, učenje";
 "app-store-release-notes" = "Popolnoma prilagodljiv in za branje preprostejši vir Razišči. Lokalizacija, izboljšave delovanja in popravki napak.";

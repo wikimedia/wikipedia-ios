@@ -79,12 +79,6 @@
 "action-update" = "Ođasmahte";
 "add-articles-to-reading-list" = "Lasit {{PLURAL:$1|$1 artihkkala}} lohkanlistui";
 "advanced-settings-title" = "Lasseásahusat";
-"alt-text-add-button-title" = "Lasit";
-"alt-text-do-not-add-button-title" = "Ale lasit";
-"alt-text-email-fifth-line" = "[Šearbmagovat dahje liŋkkat]";
-"alt-text-experiment-caption-title" = "Govvateaksta";
-"alt-text-experiment-onboarding-secondary-button-title" = "Čájet ovdamearkkaid";
-"alt-text-experiment-onboarding-tooltip-3-title" = "Lasit govvádusa";
 "announcements-dismiss" = "Gidde";
 "app-store-keywords" = "Wikipedia, gáldu, wiki, encyklopediija, diehtu, máhttu, info, fuomášupmi, oahppan";
 "app-store-release-notes" = "Áibbas heivehahtti ja eanet logahahtti guorahallansiidu. Báikkálašvuohta, doaibmabuorideamit ja boasttudivvumat.";
@@ -532,8 +526,6 @@
 "image-rec-empty-title" = "Dus eai leat eanet evttohuvvon govat juste dál.";
 "image-rec-error-subtitle" = "Juogamii manai endorii.";
 "image-rec-error-title" = "Ii sáhttán viežžat siiddu";
-"image-rec-feature-announce-body" = "Mearrit galgá go govva biddjojuvvot Wikipedia-artihkkalii. Gávnnat «Lasit gova»-goartta iežat Guorahallan-feedas.";
-"image-rec-feature-announce-title" = "Geahččal «Lasit gova»";
 "image-rec-onboarding-item-1-body" = "Mearrit galgá go evttohuvvon govva biddjojuvvot Wikipedia-artihkkalii.";
 "image-rec-onboarding-item-1-title" = "Čájet evttohusa";
 "image-rec-onboarding-item-2-body" = "Evttohusat leat dihtorráhkaduvvon ja don mearridat áiggut go dohkkehit vuoi hilgut daid.";
