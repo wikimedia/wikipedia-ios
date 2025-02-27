@@ -12,18 +12,20 @@ class ArticlePeekPreviewViewController: UIViewController, Peekable {
     fileprivate let activityIndicatorView: UIActivityIndicatorView = UIActivityIndicatorView(style: .large)
     fileprivate let expandedArticleView = ArticleFullWidthImageCollectionViewCell()
     private let needsEmptyContextMenuItems: Bool
+    let needsRandomOnPush: Bool
     
     // MARK: Previewing
     
     public weak var articlePreviewingDelegate: ArticlePreviewingDelegate?
 
-    @objc required init(articleURL: URL, article: WMFArticle?, dataStore: MWKDataStore, theme: Theme, articlePreviewingDelegate: ArticlePreviewingDelegate?, needsEmptyContextMenuItems: Bool = false) {
+    @objc required init(articleURL: URL, article: WMFArticle?, dataStore: MWKDataStore, theme: Theme, articlePreviewingDelegate: ArticlePreviewingDelegate?, needsEmptyContextMenuItems: Bool = false, needsRandomOnPush: Bool = false) {
         self.articleURL = articleURL
         self.article = article
         self.dataStore = dataStore
         self.theme = theme
         self.articlePreviewingDelegate = articlePreviewingDelegate
         self.needsEmptyContextMenuItems = needsEmptyContextMenuItems
+        self.needsRandomOnPush = needsRandomOnPush
         super.init(nibName: nil, bundle: nil)
     }
     

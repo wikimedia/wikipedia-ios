@@ -913,18 +913,34 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     private var previewed: (context: WMFContentGroup?, indexPathItem: Int?)
 
     func contextMenu(with contentGroup: WMFContentGroup? = nil, for articleURL: URL? = nil, at itemIndex: Int) -> UIContextMenuConfiguration? {
-        guard let contentGroup = contentGroup, let vc = viewController(for: contentGroup, at: itemIndex) else {
+        guard let contentGroup = contentGroup else {
             return nil
+        }
+        
+        var previewVC: UIViewController?
+        
+        if let navigationController {
+           switch contentGroup.detailType {
+            case .page:
+               if let articleURL = contentGroup.previewArticleURLForItemAtIndex(itemIndex) {
+                   previewVC = ArticlePeekPreviewViewController(articleURL: articleURL, article: nil, dataStore: dataStore, theme: theme, articlePreviewingDelegate: self)
+               }
+
+            case .pageWithRandomButton:
+               if let articleURL = contentGroup.previewArticleURLForItemAtIndex(itemIndex) {
+                   previewVC = ArticlePeekPreviewViewController(articleURL: articleURL, article: nil, dataStore: dataStore, theme: theme, articlePreviewingDelegate: self, needsRandomOnPush: true)
+               }
+            default:
+               previewVC = viewController(for: contentGroup, at: itemIndex)
+           }
         }
 
         let previewProvider: () -> UIViewController? = {
-            return vc
+            return previewVC
         }
         return UIContextMenuConfiguration(identifier: nil, previewProvider: previewProvider) { (suggestedActions) -> UIMenu? in
-            if let articleVC = vc as? ArticleViewController {
-                // return UIMenu(title: "", image: nil, identifier: nil, options: [], children: articleVC.contextMenuItems)
-                assertionFailure("I don't think this is possible?")
-                return nil
+            if let previewVC = previewVC as? ArticlePeekPreviewViewController {
+                return UIMenu(title: "", image: nil, identifier: nil, options: [], children: previewVC.contextMenuItems)
             } else {
                 return nil
             }
@@ -969,9 +985,17 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
             if let potd = viewControllerToCommit as? WMFImageGalleryViewController {
                 potd.setOverlayViewTopBarHidden(false)
                 self.present(potd, animated: false)
-            } else if let avc = viewControllerToCommit as? ArticleViewController {
-                avc.wmf_removePeekableChildViewControllers()
-                self.push(avc, animated: false)
+            } else if let peekVC = viewControllerToCommit as? ArticlePeekPreviewViewController {
+                if let navVC = navigationController {
+                    if peekVC.needsRandomOnPush {
+                        let coordinator = RandomArticleCoordinator(navigationController: navVC, articleURL: peekVC.articleURL, siteURL: nil, dataStore: dataStore, theme: theme, source: .undefined, animated: true)
+                        coordinator.start()
+                    } else {
+                        let coordinator = ArticleCoordinator(navigationController: navVC, articleURL: peekVC.articleURL, dataStore: dataStore, theme: theme, source: .undefined)
+                        coordinator.start()
+                    }
+                }
+                
             } else {
                 self.push(viewControllerToCommit, animated: true)
             }
