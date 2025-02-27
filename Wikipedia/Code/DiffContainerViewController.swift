@@ -42,7 +42,6 @@ class DiffContainerViewController: ThemeableViewController, WMFNavigationBarConf
     private let siteURL: URL
     private let wikimediaProject: WikimediaProject?
     private var articleTitle: String?
-    private let needsSetNavDelegate: Bool
     private let safeAreaBottomAlignView = UIView()
     
     private var type: DiffContainerViewModel.DiffType
@@ -98,7 +97,7 @@ class DiffContainerViewController: ThemeableViewController, WMFNavigationBarConf
     private weak var undoAlertUndoAction: UIAlertAction?
     private weak var undoAlertSummaryTextField: UITextField?
     
-    init(siteURL: URL, theme: Theme, fromRevisionID: Int?, toRevisionID: Int?, articleTitle: String?, needsSetNavDelegate: Bool = false, articleSummaryController: ArticleSummaryController, authenticationManager: WMFAuthenticationManager) {
+    init(siteURL: URL, theme: Theme, fromRevisionID: Int?, toRevisionID: Int?, articleTitle: String?, articleSummaryController: ArticleSummaryController, authenticationManager: WMFAuthenticationManager) {
         self.siteURL = siteURL
         let wikimediaProject = WikimediaProject(siteURL: siteURL)
         self.wikimediaProject = wikimediaProject
@@ -114,7 +113,6 @@ class DiffContainerViewController: ThemeableViewController, WMFNavigationBarConf
         self.revisionRetrievingDelegate = nil
         self.toModel = nil
         self.fromModel = nil
-        self.needsSetNavDelegate = needsSetNavDelegate
         
         super.init(nibName: nil, bundle: nil)
         self.theme = theme
@@ -124,7 +122,7 @@ class DiffContainerViewController: ThemeableViewController, WMFNavigationBarConf
         }
     }
     
-    init(articleTitle: String, siteURL: URL, fromModel: WMFPageHistoryRevision?, toModel: WMFPageHistoryRevision, pageHistoryFetcher: PageHistoryFetcher? = nil, theme: Theme, revisionRetrievingDelegate: DiffRevisionRetrieving?, firstRevision: WMFPageHistoryRevision?, needsSetNavDelegate: Bool = false, articleSummaryController: ArticleSummaryController, authenticationManager: WMFAuthenticationManager) {
+    init(articleTitle: String, siteURL: URL, fromModel: WMFPageHistoryRevision?, toModel: WMFPageHistoryRevision, pageHistoryFetcher: PageHistoryFetcher? = nil, theme: Theme, revisionRetrievingDelegate: DiffRevisionRetrieving?, firstRevision: WMFPageHistoryRevision?, articleSummaryController: ArticleSummaryController, authenticationManager: WMFAuthenticationManager) {
 
         self.type = .compare
         
@@ -141,8 +139,6 @@ class DiffContainerViewController: ThemeableViewController, WMFNavigationBarConf
         self.diffController = DiffController(siteURL: siteURL, pageHistoryFetcher: pageHistoryFetcher, revisionRetrievingDelegate: revisionRetrievingDelegate, type: type, articleSummaryController: articleSummaryController, authenticationManager: authenticationManager)
 
         self.containerViewModel = DiffContainerViewModel(type: type, fromModel: fromModel, toModel: toModel, listViewModel: nil, articleTitle: articleTitle, imageURL: nil, byteDifference: nil, theme: theme, project: project)
-        
-        self.needsSetNavDelegate = needsSetNavDelegate
         
         super.init(nibName: nil, bundle: nil)
         
@@ -398,11 +394,6 @@ private extension DiffContainerViewController {
     func startSetup() {
         setupToolbarIfNeeded()
         containerViewModel.state = .loading
-        
-        // For some reason this is needed when coming from Article As A Living Document screens
-        if needsSetNavDelegate {
-            navigationController?.delegate = self
-        }
     }
     
     func midSetup() {
@@ -886,11 +877,29 @@ private extension DiffContainerViewController {
         if diffListViewController == nil {
             
             let tappedHeaderTitleAction = { [weak self] in
-                guard let navigationURL = self?.fetchPageURL() else {
+                
+                guard let self else { return }
+                
+                guard let navigationURL = self.fetchPageURL() else {
                     return
                 }
+                
+                let legacyNavigateAction = { [weak self] in
+                    self?.navigate(to: navigationURL)
+                }
 
-                self?.navigate(to: navigationURL)
+                // first try to navigate using LinkCoordinator. If it fails, use the legacy approach.
+                if let navigationController = self.navigationController {
+                    
+                    let linkCoordinator = LinkCoordinator(navigationController: navigationController, url: navigationURL, dataStore: nil, theme: theme, articleSource: .undefined)
+                    let success = linkCoordinator.start()
+                    guard success else {
+                        legacyNavigateAction()
+                        return
+                    }
+                } else {
+                    legacyNavigateAction()
+                }
             }
             
             let tappedUsernameAction: (Username, DiffHeaderUsernameDestination) -> Void = { [weak self] username, destination in
@@ -1104,7 +1113,7 @@ extension DiffContainerViewController: DiffToolbarViewDelegate {
         
         WatchlistFunnel.shared.logDiffToolbarTapPrevious(project: wikimediaProject)
         
-        let diffVC = DiffContainerViewController(articleTitle: articleTitle, siteURL: siteURL, fromModel: fromModel, toModel: toModel, theme: theme, revisionRetrievingDelegate: revisionRetrievingDelegate, firstRevision: firstRevision, needsSetNavDelegate: needsSetNavDelegate, articleSummaryController: diffController.articleSummaryController, authenticationManager: diffController.authenticationManager)
+        let diffVC = DiffContainerViewController(articleTitle: articleTitle, siteURL: siteURL, fromModel: fromModel, toModel: toModel, theme: theme, revisionRetrievingDelegate: revisionRetrievingDelegate, firstRevision: firstRevision, articleSummaryController: diffController.articleSummaryController, authenticationManager: diffController.authenticationManager)
 
         replaceLastAndPush(with: diffVC)
     }
@@ -1121,7 +1130,7 @@ extension DiffContainerViewController: DiffToolbarViewDelegate {
         
         WatchlistFunnel.shared.logDiffToolbarTapNext(project: wikimediaProject)
         
-        let diffVC = DiffContainerViewController(articleTitle: articleTitle, siteURL: siteURL, fromModel: nextModel.from, toModel: nextModel.to, theme: theme, revisionRetrievingDelegate: revisionRetrievingDelegate, firstRevision: firstRevision, needsSetNavDelegate: needsSetNavDelegate, articleSummaryController: diffController.articleSummaryController, authenticationManager: diffController.authenticationManager)
+        let diffVC = DiffContainerViewController(articleTitle: articleTitle, siteURL: siteURL, fromModel: nextModel.from, toModel: nextModel.to, theme: theme, revisionRetrievingDelegate: revisionRetrievingDelegate, firstRevision: firstRevision, articleSummaryController: diffController.articleSummaryController, authenticationManager: diffController.authenticationManager)
 
         replaceLastAndPush(with: diffVC)
     }

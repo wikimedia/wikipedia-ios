@@ -19,40 +19,6 @@
 // Author: Tsevener
 // Author: Yardom78
 
-"aaald-added-text-description-2" = "pridané $1";
-"aaald-article-description-updated-description" = "Aktualizovaný popis článku";
-"aaald-article-insert-header" = "Významné aktualizácie";
-"aaald-article-insert-last-updated" = "Naposledy aktualizované";
-"aaald-article-insert-new-changes" = "Nové zmeny";
-"aaald-article-insert-read-more" = "Zobraziť viac aktualizácií";
-"aaald-characters-text-description" = "{{PLURAL:$1|0=znakov|znak|znaky}}";
-"aaald-deleted-text-description-2" = "$1 vymazané";
-"aaald-error-subitle" = "Skúste znovu obnovením stránky";
-"aaald-error-title" = "Nedá sa načítať história článku";
-"aaald-many-sections-description" = "v $1 sekciách";
-"aaald-multiple-changes-description" = "Urobených viacero zmien";
-"aaald-multiple-references-added-description" = "Pridaných viacero referencií";
-"aaald-new-book-reference-title" = "Kniha";
-"aaald-new-discussion" = "Nová diskusia";
-"aaald-new-journal-reference-database" = "cez $1";
-"aaald-new-journal-reference-title" = "Časopis";
-"aaald-new-journal-reference-volume" = "Zväzok $1:";
-"aaald-new-news-reference-retrieved-date" = "Načítané $1";
-"aaald-new-news-reference-title" = "Novinky";
-"aaald-new-talk-topic-description-format" = "$1 o tomto článku";
-"aaald-new-website-reference-archive-date-text" = "z originálu dňa $1";
-"aaald-new-website-reference-archive-url-text" = "Archive.org URL";
-"aaald-new-website-reference-title" = "Webová stránka";
-"aaald-numerical-multiple-references-added-description" = "{{PLURAL:$1|0=pridaných 0 referencií|pridaná $1 referencia|pridané referencie $1}}";
-"aaald-one-section-description" = "v sekcii $1";
-"aaald-revision-by-anonymous" = "Úprava anonymným používateľom";
-"aaald-revision-userInfo" = "Upravil/a $1 (počet úprav $2)";
-"aaald-single-reference-added-description" = "Pridaná referencia";
-"aaald-small-change-description" = "{{PLURAL:$1|0=Nebola urobená žiadna malá zmena|Urobená $1 malá zmena|Urobených malých zmien $1 }}";
-"aaald-summary-title" = "{{PLURAL:$1|0=0 zmien|$1 zmena|zmeny $1}}  {{PLURAL:$2|0=0 redaktorov|$2 redaktor|redaktorov $2}} počas {{PLURAL:$3|0=0 dní|$3 dňa|$3 dní}}";
-"aaald-two-sections-description" = "v sekciách $1 a $2";
-"aaald-vandalism-revert-description" = "Vrátené späť kvôli podozreniu z vandalizmu";
-"aaald-view-full-history-button" = "Zobraziť úplnú históriu článku";
 "about-content-license" = "Licencia obsahu";
 "about-content-license-details" = "Pokiaľ nie je uvedené inak, je obsah dostupný v rámci licencie $1.";
 "about-content-license-details-share-alike-license" = "Creative Commons Attribution-ShareAlike License";
@@ -127,6 +93,7 @@
 "advanced-settings-title" = "Rozšírené nastavenia";
 "alt-text-add-button-title" = "Pridať";
 "alt-text-do-not-add-button-title" = "Nepridávať";
+"alt-text-email-fifth-line" = "[Snímky obrazovky alebo odkazy]";
 "alt-text-experiment-character-counter-warning" = "Skúste mať alt text krátky, aby používatelia mohli ľahko pochopiť obsah obrázka";
 "alt-text-experiment-edit-summary" = "Pridaný alt text";
 "alt-text-experiment-guidance-button" = "Návod na písanie alt textu";

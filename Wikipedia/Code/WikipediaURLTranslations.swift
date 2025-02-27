@@ -1,6 +1,6 @@
 import Foundation
 
-struct WikipediaURLTranslations {
+public struct WikipediaURLTranslations {
     private static var sharedLookupTable: [String: WikipediaSiteInfoLookup.NamespaceInfo] = [:]
 
     private static func lookupTable(for languageCode: String) -> WikipediaSiteInfoLookup.NamespaceInfo? {
@@ -21,7 +21,7 @@ struct WikipediaURLTranslations {
         return lookupTable(for: languageCode)?.namespace[canonicalNamespace]
     }
     
-    static func isMainpageTitle(_ maybeMainpage: String, in languageCode: String) -> Bool {
+    public static func isMainpageTitle(_ maybeMainpage: String, in languageCode: String) -> Bool {
         return lookupTable(for: languageCode)?.mainpage == canonicalized(maybeMainpage)
     }
     

@@ -442,7 +442,7 @@ extension ColumnarCollectionViewController {
             return vc
         }
         return UIContextMenuConfiguration(identifier: nil, previewProvider: previewProvider) { (suggestedActions) -> UIMenu? in
-            guard let previewActions = (vc as? ArticleViewController)?.contextMenuItems else {
+            guard let previewActions = (vc as? ArticlePeekPreviewViewController)?.contextMenuItems else {
                 return nil
             }
             return UIMenu(title: "", image: nil, identifier: nil, options: [], children: previewActions)
@@ -451,24 +451,33 @@ extension ColumnarCollectionViewController {
 
     func collectionView(_ collectionView: UICollectionView, willPerformPreviewActionForMenuWith configuration: UIContextMenuConfiguration, animator: UIContextMenuInteractionCommitAnimating) {
 
-        guard let previewedViewController = animator.previewViewController else {
+        guard let peekVC = animator.previewViewController as? ArticlePeekPreviewViewController,
+            let navVC = navigationController else {
             assertionFailure("Should be able to find previewed VC")
             return
         }
         animator.addCompletion { [weak self] in
-            previewedViewController.wmf_removePeekableChildViewControllers()
-            self?.push(previewedViewController, animated: true)
+            
+            guard let self else { return }
+            
+            let coordinator = ArticleCoordinator(navigationController: navVC, articleURL: peekVC.articleURL, dataStore: MWKDataStore.shared(), theme: self.theme, source: .undefined)
+            coordinator.start()
         }
     }
 }
 
 extension ColumnarCollectionViewController: ArticlePreviewingDelegate {
-    @objc func readMoreArticlePreviewActionSelected(with articleController: ArticleViewController) {
-        articleController.wmf_removePeekableChildViewControllers()
-        push(articleController, animated: true)
+    @objc func readMoreArticlePreviewActionSelected(with peekController: ArticlePeekPreviewViewController) {
+        
+        guard let navVC = self.navigationController else {
+            return
+        }
+        
+        let coordinator = ArticleCoordinator(navigationController: navVC, articleURL: peekController.articleURL, dataStore: MWKDataStore.shared(), theme: theme, source: .undefined)
+        coordinator.start()
     }
     
-    @objc func saveArticlePreviewActionSelected(with articleController: ArticleViewController, didSave: Bool, articleURL: URL) {
+    @objc func saveArticlePreviewActionSelected(with peekController: ArticlePeekPreviewViewController, didSave: Bool, articleURL: URL) {
         guard let eventLoggingEventValuesProviding = self as? MEPEventsProviding else {
             return
         }
@@ -480,24 +489,13 @@ extension ColumnarCollectionViewController: ArticlePreviewingDelegate {
         }
     }
     
-    @objc func shareArticlePreviewActionSelected(with articleController: ArticleViewController, shareActivityController: UIActivityViewController) {
-        articleController.wmf_removePeekableChildViewControllers()
+    @objc func shareArticlePreviewActionSelected(with peekController: ArticlePeekPreviewViewController, shareActivityController: UIActivityViewController) {
         present(shareActivityController, animated: true, completion: nil)
     }
     
-    @objc func viewOnMapArticlePreviewActionSelected(with articleController: ArticleViewController) {
-        articleController.wmf_removePeekableChildViewControllers()
-        let placesURL = NSUserActivity.wmf_URLForActivity(of: .places, withArticleURL: articleController.articleURL)
+    @objc func viewOnMapArticlePreviewActionSelected(with peekController: ArticlePeekPreviewViewController) {
+        let placesURL = NSUserActivity.wmf_URLForActivity(of: .places, withArticleURL: peekController.articleURL)
         UIApplication.shared.open(placesURL, options: [:], completionHandler: nil)
-    }
-    
-    func insetsBetween(rect1: CGRect, rect2: CGRect) -> UIEdgeInsets {
-        let top = rect2.minY - rect1.minY
-        let left = rect2.minX - rect1.minX
-        let bottom = rect1.maxY - rect2.maxY
-        let right = rect1.maxX - rect2.maxX
-
-        return UIEdgeInsets(top: top, left: left, bottom: bottom, right: right)
     }
 }
 

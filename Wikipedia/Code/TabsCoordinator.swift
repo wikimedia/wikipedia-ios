@@ -2,7 +2,7 @@ import WMFComponents
 import WMFData
 
 final class TabsCoordinator: Coordinator {
-    
+
     var navigationController: UINavigationController
     private let dataStore: MWKDataStore
     var theme: Theme
@@ -13,7 +13,8 @@ final class TabsCoordinator: Coordinator {
         self.theme = theme
     }
     
-    func start() {
+    @discardableResult
+    func start() -> Bool {
         
         let viewModel = WMFTabsViewModel(tappedAddTabAction: { [weak self] in
             self?.tappedAddTab()
@@ -25,12 +26,13 @@ final class TabsCoordinator: Coordinator {
         let tabsHostingController = WMFTabsHostingController(viewModel: viewModel)
         let navVC = WMFComponentNavigationController(rootViewController: tabsHostingController)
         self.navigationController.present(navVC, animated: true)
+        return true
     }
     
     private func tappedAddTab() {
         
         if WMFDeveloperSettingsDataController.shared.tabsPreserveRabbitHole {
-            let newSearchVC = SearchViewController(source: .unknown, hidesBottomBarWhenPushed: true)
+            let newSearchVC = SearchViewController(source: .unknown, customArticleCoordinatorNavigationController: navigationController)
             newSearchVC.apply(theme: theme)
             newSearchVC.dataStore = dataStore
             newSearchVC.needsCenteredTitle = true
@@ -49,20 +51,13 @@ final class TabsCoordinator: Coordinator {
             let rootSearchVC = rootVC as? SearchViewController
             var newSearchVC: SearchViewController?
             
-            // User is unintentionally clearing their nav stack, so do not remove articles from tab stack
-            for viewController in navigationController.viewControllers {
-                if let articleVC = viewController as? ArticleViewController {
-                    articleVC.removeFromTabUponDisappearance = false
-                }
-            }
-            
             // Create new search on top of root
             if rootExploreVC != nil {
                 navigationController.popToRootViewController(animated: false)
             } else if rootSearchVC != nil {
                 navigationController.popToRootViewController(animated: false)
             } else {
-                newSearchVC = SearchViewController(source: .unknown, hidesBottomBarWhenPushed: true)
+                newSearchVC = SearchViewController(source: .unknown, customArticleCoordinatorNavigationController: navigationController)
                 newSearchVC?.apply(theme: theme)
                 newSearchVC?.dataStore = dataStore
                 newSearchVC?.needsCenteredTitle = true
@@ -105,7 +100,6 @@ final class TabsCoordinator: Coordinator {
                 }
                 
                 let articleVC = ArticleViewController(articleURL: articleURL, dataStore: MWKDataStore.shared(), theme: Theme.light, source: .undefined)!
-                articleVC.currentTab = tab
                 newStack.append(articleVC)
             }
             
@@ -114,13 +108,6 @@ final class TabsCoordinator: Coordinator {
             navigationController.dismiss(animated: true)
             
         } else {
-            
-            // User is unintentionally clearing their nav stack, so do not remove articles from current stack
-            for viewController in navigationController.viewControllers {
-                if let articleVC = viewController as? ArticleViewController {
-                    articleVC.removeFromTabUponDisappearance = false
-                }
-            }
             
             // Add on top of root
             guard let firstVC = navigationController.viewControllers.first else {

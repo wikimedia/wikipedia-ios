@@ -1103,8 +1103,6 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
         return YES;
     } else if ([item.type isEqualToString:WMFIconShortcutTypeNearby]) {
         return YES;
-    } else if ([item.type isEqualToString:WMFIconShortcutTypeContinueReading]) {
-        return YES;
     } else {
         return NO;
     }
@@ -1135,11 +1133,9 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
             [self.searchViewController makeSearchBarBecomeFirstResponder];
         }
     } else if ([item.type isEqualToString:WMFIconShortcutTypeRandom]) {
-        [self showRandomArticleAnimated:NO];
+        [self showRandomArticleFromShortcutAnimated:NO];
     } else if ([item.type isEqualToString:WMFIconShortcutTypeNearby]) {
         [self showNearbyAnimated:NO];
-    } else if ([item.type isEqualToString:WMFIconShortcutTypeContinueReading]) {
-        [self showLastReadArticleAnimated:NO source:ArticleSourceUndefined];
     }
     if (completion) {
         completion(YES);
@@ -1299,6 +1295,12 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
             }
         } break;
         default: {
+            if ([self processLinkUserActivity:activity]) {
+                done();
+                return YES;
+            }
+            
+            // Fall back to legacy navigaton
             NSURL *linkURL = [activity wmf_linkURL];
             // Ensure incoming link is fetched in user's preferred variant if applicable
             if (!linkURL.wmf_languageVariantCode) {
@@ -1386,14 +1388,6 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
         if (nc.viewControllers.count < 1) {
             completion();
             return nil;
-        }
-
-        // User is unintentionally clearing their nav stack, so do not remove articles from tab stack
-        for (UIViewController *viewController in nc.viewControllers) {
-            if ([viewController isKindOfClass:[WMFArticleViewController class]]) {
-                WMFArticleViewController *articleVC = (WMFArticleViewController *)viewController;
-                articleVC.removeFromTabUponDisappearance = NO;
-            }
         }
 
         UIViewController *rootVC = nc.viewControllers[0];
@@ -1516,7 +1510,7 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
 
 - (SearchViewController *)searchViewController {
     if (!_searchViewController) {
-        _searchViewController = [[SearchViewController alloc] initWithSource:EventLoggingSourceSearchTab hidesBottomBarWhenPushed:NO];
+        _searchViewController = [[SearchViewController alloc] initWithSource:EventLoggingSourceSearchTab customArticleCoordinatorNavigationController:nil];
         [_searchViewController applyTheme:self.theme];
         _searchViewController.needsTabsButton = YES;
         _searchViewController.dataStore = self.dataStore;
@@ -1643,13 +1637,6 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     [self.currentTabNavigationController popToRootViewControllerAnimated:NO];
 }
 
-#pragma mark - Last Read Article
-
-- (void)showLastReadArticleAnimated:(BOOL)animated source:(NSInteger)source {
-    NSURL *lastRead = [self.dataStore.viewContext wmf_openArticleURL];
-    [self showArticleWithURL:lastRead source:source animated:animated needsNewTab:YES];
-}
-
 #pragma mark - Show Search
 
 - (void)switchToSearchAnimated:(BOOL)animated {
@@ -1672,13 +1659,9 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     }
 }
 
-- (void)showRandomArticleAnimated:(BOOL)animated {
+- (void)showRandomArticleFromShortcutAnimated:(BOOL)animated {
     [self dismissPresentedViewControllers];
-    [self setSelectedIndex:WMFAppTabTypeMain];
-    UINavigationController *exploreNavController = self.currentTabNavigationController;
-    WMFFirstRandomViewController *vc = [[WMFFirstRandomViewController alloc] initWithSiteURL:[self siteURL] dataStore:self.dataStore theme:self.theme];
-    [vc applyTheme:self.theme];
-    [exploreNavController pushViewController:vc animated:animated];
+    [self showRandomArticleFromShortcutWithSiteURL:[self siteURL] animated:animated];
 }
 
 - (void)showNearbyAnimated:(BOOL)animated {
@@ -2067,7 +2050,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
         [searchVC clear]; // clear search VC before bringing it forward
         [nc setViewControllers:mutableVCs animated:NO];
     } else {
-        searchVC = [[SearchViewController alloc] initWithSource:EventLoggingSourceUnknown hidesBottomBarWhenPushed:NO];
+        searchVC = [[SearchViewController alloc] initWithSource:EventLoggingSourceUnknown customArticleCoordinatorNavigationController:nc];
         searchVC.shouldBecomeFirstResponder = YES;
         [searchVC applyTheme:self.theme];
         searchVC.dataStore = self.dataStore;

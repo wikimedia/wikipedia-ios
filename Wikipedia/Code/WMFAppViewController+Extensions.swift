@@ -16,6 +16,20 @@ extension Notification.Name {
 }
 
 extension WMFAppViewController {
+    
+    @objc internal func processLinkUserActivity(_ userActivity: NSUserActivity) -> Bool {
+        
+        guard let linkURL = userActivity.wmf_linkURL() else {
+            return false
+        }
+        
+        guard let navigationController = self.currentNavigationController else {
+            return false
+        }
+        
+        let linkCoordinator = LinkCoordinator(navigationController: navigationController, url: linkURL, dataStore: dataStore, theme: theme, articleSource: .undefined)
+        return linkCoordinator.start()
+    }
 
     // MARK: - Language Variant Migration Alerts
     
@@ -218,7 +232,12 @@ extension WMFAppViewController {
         alertController.addAction(cancelAction)
         
         viewController.present(alertController, animated: true, completion: nil)
-        
+    }
+    
+    @objc func showRandomArticleFromShortcut(siteURL: URL?, animated: Bool) {
+        guard let navVC = currentTabNavigationController else { return }
+        let coordinator = RandomArticleCoordinator(navigationController: navVC, articleURL: nil, siteURL: siteURL, dataStore: dataStore, theme: theme, source: .undefined, animated: animated)
+        coordinator.start()
     }
 }
 

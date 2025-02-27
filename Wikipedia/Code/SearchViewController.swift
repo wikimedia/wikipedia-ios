@@ -92,18 +92,21 @@ class SearchViewController: ArticleCollectionViewController, WMFNavigationBarCon
         }
         return TabsCoordinator(navigationController: navigationController, dataStore: dataStore, theme: theme)
     }()
+
+    // Used to push on after tapping search result. This is needed when SearchViewController is embedded directly as the system navigation bar's searchResultsController.
+    private var customArticleCoordinatorNavigationController: UINavigationController?
+    
+    private var presentingSearchResults: Bool = false
     
     private lazy var tabsBarButtonItem: UIBarButtonItem = {
         let button = UIBarButtonItem(image: WMFSFSymbolIcon.for(symbol: .tabs), style: .plain, target: self, action: #selector(tappedTabs))
         return button
     }()
 
-    private var presentingSearchResults: Bool = false
-
     // MARK: - Funcs
-
-    @objc required init(source: EventLoggingSource, hidesBottomBarWhenPushed: Bool = false) {
+    @objc required init(source: EventLoggingSource, customArticleCoordinatorNavigationController: UINavigationController? = nil) {
         self.source = source
+        self.customArticleCoordinatorNavigationController = customArticleCoordinatorNavigationController
         super.init(nibName: nil, bundle: nil)
         self.hidesBottomBarWhenPushed = hidesBottomBarWhenPushed
     }
@@ -461,13 +464,24 @@ class SearchViewController: ArticleCollectionViewController, WMFNavigationBarCon
             
             if let navigateToSearchResultAction {
                 navigateToSearchResultAction(articleURL)
-            } else {
-                let userInfo: [AnyHashable : Any] = [RoutingUserInfoKeys.source: RoutingUserInfoSourceValue.search.rawValue, ArticleSourceUserInfoKeys.articleSource : ArticleSource.search.rawValue]
-                navigate(to: articleURL, userInfo: userInfo)
+            } else if let customArticleCoordinatorNavigationController {
+                let coordinator = ArticleCoordinator(navigationController: customArticleCoordinatorNavigationController, articleURL: articleURL, dataStore: dataStore, theme: theme, source: .search)
+                coordinator.start()
+            } else if let navigationController {
+                let coordinator = ArticleCoordinator(navigationController: navigationController, articleURL: articleURL, dataStore: dataStore, theme: theme, source: .search)
+                coordinator.start()
             }
         }
         
+        let longPressSearchResultAndCommitAction: (URL) -> Void = { [weak self] articleURL in
+            guard let self else { return }
+            guard let navVC = customArticleCoordinatorNavigationController ?? navigationController else { return }
+            let coordinator = ArticleCoordinator(navigationController: navVC, articleURL: articleURL, dataStore: self.dataStore, theme: self.theme, source: .search)
+            coordinator.start()
+        }
+        
         resultsViewController.tappedSearchResultAction = tappedSearchResultAction
+        resultsViewController.longPressSearchResultAndCommitAction = longPressSearchResultAndCommitAction
         
         return resultsViewController
     }()

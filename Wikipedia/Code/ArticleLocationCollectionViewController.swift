@@ -16,13 +16,13 @@ class ArticleLocationCollectionViewController: ColumnarCollectionViewController,
 
     let contentGroupIDURIString: String?
 
-    required init(articleURLs: [URL], dataStore: MWKDataStore, contentGroup: WMFContentGroup?, theme: Theme, needsCloseButton: Bool = false, source: ArticleSource) {
+    required init(articleURLs: [URL], dataStore: MWKDataStore, contentGroup: WMFContentGroup?, theme: Theme, needsCloseButton: Bool = false, articleSource: ArticleSource) {
         self.articleURLs = articleURLs
         self.dataStore = dataStore
         self.contentGroup = contentGroup
         contentGroupIDURIString = contentGroup?.objectID.uriRepresentation().absoluteString
         self.needsCloseButton = needsCloseButton
-        self.articleSource = source
+        self.articleSource = articleSource
         super.init(nibName: nil, bundle: nil)
         self.theme = theme
         if needsCloseButton {
@@ -101,9 +101,9 @@ class ArticleLocationCollectionViewController: ColumnarCollectionViewController,
     
     // MARK: ArticlePreviewingDelegate
 
-    override func saveArticlePreviewActionSelected(with articleController: ArticleViewController, didSave: Bool, articleURL: URL) {
+    override func saveArticlePreviewActionSelected(with peekController: ArticlePeekPreviewViewController, didSave: Bool, articleURL: URL) {
         guard let context = contentGroup, let contextDate = context.midnightUTCDate else {
-            super.saveArticlePreviewActionSelected(with: articleController, didSave: didSave, articleURL: articleURL)
+            super.saveArticlePreviewActionSelected(with: peekController, didSave: didSave, articleURL: articleURL)
             return
         }
         if didSave {
@@ -188,30 +188,56 @@ extension ArticleLocationCollectionViewController: LocationManagerDelegate {
 // MARK: - UICollectionViewDelegate
 extension ArticleLocationCollectionViewController {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let userInfo: [AnyHashable:Any]? = [ArticleSourceUserInfoKeys.articleSource: articleSource.rawValue]
-        navigate(to: articleURLs[indexPath.item], userInfo: userInfo)
+
+        guard let navigationController else {
+            return
+        }
+        let articleURL = articleURLs[indexPath.item]
+        
+        let articleCoordinator = ArticleCoordinator(navigationController: navigationController, articleURL: articleURL, dataStore: dataStore, theme: theme, source: articleSource)
+        articleCoordinator.start()
     }
 }
 
 // MARK: - CollectionViewContextMenuShowing
 extension ArticleLocationCollectionViewController: CollectionViewContextMenuShowing {
-    func articleViewController(for indexPath: IndexPath) -> ArticleViewController? {
-        
-        let articleURL = articleURL(at: indexPath)
-        let articleViewController = ArticleViewController(articleURL: articleURL, dataStore: dataStore, theme: theme, source: articleSource)
-        return articleViewController
-    }
 
     func previewingViewController(for indexPath: IndexPath, at location: CGPoint) -> UIViewController? {
-        guard let articleViewController = articleViewController(for: indexPath) else {
+        let articleURL = articleURL(at: indexPath)
+        guard let article = dataStore.fetchArticle(with: articleURL) else {
             return nil
         }
-        let articleURL = articleViewController.articleURL
-        articleViewController.articlePreviewingDelegate = self
-        articleViewController.wmf_addPeekableChildViewController(for: articleURL, dataStore: dataStore, theme: theme)
+        
+        let peekController = ArticlePeekPreviewViewController(articleURL: articleURL, article: article, dataStore: dataStore, theme: theme, articlePreviewingDelegate: self)
 
         previewedIndexPath = indexPath
-        return articleViewController
+        return peekController
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, willPerformPreviewActionForMenuWith configuration: UIContextMenuConfiguration, animator: UIContextMenuInteractionCommitAnimating) {
+
+        guard let peekVC = animator.previewViewController as? ArticlePeekPreviewViewController,
+            let navVC = navigationController else {
+            assertionFailure("Should be able to find previewed VC")
+            return
+        }
+        animator.addCompletion { [weak self] in
+            
+            guard let self else { return }
+            
+            let coordinator = ArticleCoordinator(navigationController: navVC, articleURL: peekVC.articleURL, dataStore: MWKDataStore.shared(), theme: self.theme, source: articleSource)
+            coordinator.start()
+        }
+    }
+    
+    override func readMoreArticlePreviewActionSelected(with peekController: ArticlePeekPreviewViewController) {
+        
+        guard let navVC = self.navigationController else {
+            return
+        }
+        
+        let coordinator = ArticleCoordinator(navigationController: navVC, articleURL: peekController.articleURL, dataStore: MWKDataStore.shared(), theme: theme, source: articleSource)
+        coordinator.start()
     }
 
 }

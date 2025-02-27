@@ -17,19 +17,10 @@ final class WMFExperimentsDataController {
     }
     
     public enum Experiment {
-        case articleAsLivingDoc
-        case altTextImageRecommendations
-        case altTextArticleEditor
         case articleSearchBar
         
         var config: ExperimentConfig {
             switch self {
-            case .articleAsLivingDoc:
-                return WMFExperimentsDataController.articleAsLivingDocConfig
-            case .altTextImageRecommendations:
-                return WMFExperimentsDataController.altTextImageRecommendationsConfig
-            case .altTextArticleEditor:
-                return WMFExperimentsDataController.altTextArticleEditorConfig
             case .articleSearchBar:
                 return WMFExperimentsDataController.articleSearchBarConfig
             }
@@ -37,26 +28,14 @@ final class WMFExperimentsDataController {
     }
     
     public enum PercentageFileName: String {
-        case articleAsLivingDocPercent
-        case altTextImageRecommendationsPercent
-        case altTextArticleEditorPercent
         case articleSearchBarPercent
     }
     
     enum BucketFileName: String {
-        case articleAsLivingDocBucket
-        case altTextImageRecommendationsBucket
-        case altTextArticleEditorBucket
         case articleSearchBarBucket
     }
     
     public enum BucketValue: String {
-        case articleAsLivingDocTest = "LivingDoc_Test"
-        case articleAsLivingDocControl = "LivingDoc_Control"
-        case altTextImageRecommendationsTest = "AltTextImageRecommendations_Test"
-        case altTextImageRecommendationsControl = "AltTextImageRecommendations_Control"
-        case altTextArticleEditorTest = "AltTextArticleEditor_Test"
-        case altTextArticleEditorControl = "AltTextArticleEditor_Control"
         case articleSearchBarTest = "ArticleSearchBar_Test"
         case articleSearchBarControl = "ArticleSearchBar_Control"
     }
@@ -64,12 +43,6 @@ final class WMFExperimentsDataController {
     // MARK: Properties
     
     private let cacheDirectoryName = WMFSharedCacheDirectoryNames.experiments.rawValue
-    
-    private static let articleAsLivingDocConfig = ExperimentConfig(experiment: .articleAsLivingDoc, percentageFileName: .articleAsLivingDocPercent, bucketFileName: .articleAsLivingDocBucket, bucketValueControl: .articleAsLivingDocControl, bucketValueTest: .articleAsLivingDocTest)
-    
-    private static let altTextImageRecommendationsConfig = ExperimentConfig(experiment: .altTextImageRecommendations, percentageFileName: .altTextImageRecommendationsPercent, bucketFileName: .altTextImageRecommendationsBucket, bucketValueControl: .altTextImageRecommendationsControl, bucketValueTest: .altTextImageRecommendationsTest)
-    
-    private static let altTextArticleEditorConfig = ExperimentConfig(experiment: .altTextArticleEditor, percentageFileName: .altTextArticleEditorPercent, bucketFileName: .altTextArticleEditorBucket, bucketValueControl: .altTextArticleEditorControl, bucketValueTest: .altTextArticleEditorTest)
     
     private static let articleSearchBarConfig = ExperimentConfig(experiment: .articleSearchBar, percentageFileName: .articleSearchBarPercent, bucketFileName: .articleSearchBarBucket, bucketValueControl: .articleSearchBarControl, bucketValueTest: .articleSearchBarTest)
     
@@ -107,12 +80,6 @@ final class WMFExperimentsDataController {
         let bucket: BucketValue
         
         switch experiment {
-        case .articleAsLivingDoc:
-            bucket = isInTest ? .articleAsLivingDocTest : .articleAsLivingDocControl
-        case .altTextImageRecommendations:
-            bucket = isInTest ? .altTextImageRecommendationsTest : .altTextImageRecommendationsControl
-        case .altTextArticleEditor:
-            bucket = isInTest ? .altTextArticleEditorTest : .altTextArticleEditorControl
         case .articleSearchBar:
             bucket = isInTest ? .articleSearchBarTest : .articleSearchBarControl
         }
