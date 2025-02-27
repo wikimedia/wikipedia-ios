@@ -94,12 +94,9 @@ class ViewControllerRouter: NSObject {
         
         let destination = router.destination(for: url, permanentUsername: permanentUsername)
         switch destination {
-        case .article(let articleURL):
-            let articleSource = articleSource(from: userInfo)
-            let routingSource = source(from: userInfo)
-            let needsNewTab = routingSource == .deepLink && WMFDeveloperSettingsDataController.shared.tabsDeepLinkInNewTab
-            appViewController.swiftCompatibleShowArticle(with: articleURL, source: articleSource.rawValue, animated: true, needsNewTab: needsNewTab, completion: completion)
-            return true
+        case .article:
+            assertionFailure("Use Article Coordinator instead")
+            return false
         case .externalLink(let linkURL):
             appViewController.navigate(to: linkURL, useSafari: true)
             completion()

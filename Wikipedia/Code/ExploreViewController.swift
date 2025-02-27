@@ -834,7 +834,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
            let articleURL = contentGroup.previewArticleURLForItemAtIndex(indexPath.row) {
             switch contentGroup.detailType {
             case .page:
-                var articleSource = ArticleSource.undefined
+                let articleSource = ArticleSource.undefined
                 // todo: we may want to switch to get article source if we want to be more specific:
                 switch contentGroup.contentGroupKind {
                 case .featuredArticle:
@@ -848,7 +848,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
                 articleCoordinator.start()
                 return true
             case .pageWithRandomButton:
-                var articleSource = ArticleSource.undefined
+                let articleSource = ArticleSource.undefined
                 // todo: we may want to switch to get article source if we want to be more specific:
                 switch contentGroup.contentGroupKind {
                 case .random:
