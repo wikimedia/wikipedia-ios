@@ -259,17 +259,17 @@ extension OnThisDayViewController: NestedCollectionViewContextMenuDelegate {
     }
 
     func willCommitPreview(with animator: UIContextMenuInteractionCommitAnimating) {
-        guard let previewedViewController = animator.previewViewController else {
+        guard let peekVC = animator.previewViewController as? ArticlePeekPreviewViewController,
+            let navVC = navigationController else {
             assertionFailure("Should be able to find previewed VC")
             return
         }
         animator.addCompletion { [weak self] in
-            previewedViewController.wmf_removePeekableChildViewControllers()
-
-            guard let self = self else {
-                return
-            }
-            self.push(previewedViewController, animated: true)
+            
+            guard let self else { return }
+            
+            let coordinator = ArticleCoordinator(navigationController: navVC, articleURL: peekVC.articleURL, dataStore: MWKDataStore.shared(), theme: self.theme, source: .undefined)
+            coordinator.start()
             self.previewedIndex = nil
         }
     }
