@@ -10,6 +10,7 @@ class SearchResultsViewController: ArticleCollectionViewController {
         }
     }
     var tappedSearchResultAction: ((URL, IndexPath) -> Void)?
+    var longPressSearchResultAndCommitAction: ((URL) -> Void)?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -140,5 +141,24 @@ class SearchResultsViewController: ArticleCollectionViewController {
 
             configure(cell: cell, forItemAt: indexPath, layoutOnly: false, configureForCompact: false)
         }
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, willPerformPreviewActionForMenuWith configuration: UIContextMenuConfiguration, animator: UIContextMenuInteractionCommitAnimating) {
+
+        guard let peekVC = animator.previewViewController as? ArticlePeekPreviewViewController else {
+            assertionFailure("Should be able to find previewed VC")
+            return
+        }
+        animator.addCompletion { [weak self] in
+            
+            guard let self else { return }
+            
+            self.longPressSearchResultAndCommitAction?(peekVC.articleURL)
+        }
+    }
+    
+    override func readMoreArticlePreviewActionSelected(with peekController: ArticlePeekPreviewViewController) {
+        
+        longPressSearchResultAndCommitAction?(peekController.articleURL)
     }
 }

@@ -443,7 +443,15 @@ class SearchViewController: ArticleCollectionViewController, WMFNavigationBarCon
             }
         }
         
+        let longPressSearchResultAndCommitAction: (URL) -> Void = { [weak self] articleURL in
+            guard let self else { return }
+            guard let navVC = customArticleCoordinatorNavigationController ?? navigationController else { return }
+            let coordinator = ArticleCoordinator(navigationController: navVC, articleURL: articleURL, dataStore: self.dataStore, theme: self.theme, source: .search)
+            coordinator.start()
+        }
+        
         resultsViewController.tappedSearchResultAction = tappedSearchResultAction
+        resultsViewController.longPressSearchResultAndCommitAction = longPressSearchResultAndCommitAction
         
         return resultsViewController
     }()

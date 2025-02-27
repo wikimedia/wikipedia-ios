@@ -213,6 +213,32 @@ extension ArticleLocationCollectionViewController: CollectionViewContextMenuShow
         previewedIndexPath = indexPath
         return peekController
     }
+    
+    override func collectionView(_ collectionView: UICollectionView, willPerformPreviewActionForMenuWith configuration: UIContextMenuConfiguration, animator: UIContextMenuInteractionCommitAnimating) {
+
+        guard let peekVC = animator.previewViewController as? ArticlePeekPreviewViewController,
+            let navVC = navigationController else {
+            assertionFailure("Should be able to find previewed VC")
+            return
+        }
+        animator.addCompletion { [weak self] in
+            
+            guard let self else { return }
+            
+            let coordinator = ArticleCoordinator(navigationController: navVC, articleURL: peekVC.articleURL, dataStore: MWKDataStore.shared(), theme: self.theme, source: articleSource)
+            coordinator.start()
+        }
+    }
+    
+    override func readMoreArticlePreviewActionSelected(with peekController: ArticlePeekPreviewViewController) {
+        
+        guard let navVC = self.navigationController else {
+            return
+        }
+        
+        let coordinator = ArticleCoordinator(navigationController: navVC, articleURL: peekController.articleURL, dataStore: MWKDataStore.shared(), theme: theme, source: articleSource)
+        coordinator.start()
+    }
 
 }
 
