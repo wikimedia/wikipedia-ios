@@ -102,8 +102,4 @@ extension ArticleContextMenuPresenting {
         let destination = configuration.router.destination(for: linkURL, permanentUsername: permanentUsername)
         getPeekViewControllerAsync(for: destination, completion: completion)
     }
-
-    var previewMenu: UIMenu? {
-        return nil
-    }
 }
