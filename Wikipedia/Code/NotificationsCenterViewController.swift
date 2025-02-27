@@ -874,15 +874,35 @@ extension NotificationsCenterViewController: NotificationsCenterCellDelegate {
                     self.logNotificationInteraction(with: data.actionType, model: cellViewModel)
                 })
             case .custom(let data):
-                alertAction = UIAlertAction(title: data.text, style: .default, handler: { alertAction in
+                alertAction = UIAlertAction(title: data.text, style: .default, handler: { [weak self] alertAction in
+                    
+                    guard let self else { return }
+                    
                     self.logNotificationInteraction(with: data.actionType, model: cellViewModel)
                     let url = data.url
                     
                     let replyText = cellViewModel.bodyText
-                    let userInfo: [AnyHashable : Any] = [RoutingUserInfoKeys.talkPageReplyText: replyText as Any,
-                                                         RoutingUserInfoKeys.source: RoutingUserInfoSourceValue.notificationsCenter.rawValue]
                     
-                    self.navigate(to: url, userInfo: userInfo)
+                    let legacyNavigateAction = { [weak self] in
+                        let userInfo: [AnyHashable : Any] = [RoutingUserInfoKeys.talkPageReplyText: replyText as Any,
+                                                             RoutingUserInfoKeys.source: RoutingUserInfoSourceValue.notificationsCenter.rawValue]
+                        
+                        self?.navigate(to: url, userInfo: userInfo)
+                    }
+                    
+                    // first try to navigate using LinkCoordinator. If it fails, use the legacy approach.
+                    if let navigationController = self.navigationController,
+                    let url {
+                        
+                        let linkCoordinator = LinkCoordinator(navigationController: navigationController, url: url, dataStore: nil, theme: self.theme, articleSource: .undefined)
+                        let success = linkCoordinator.start()
+                        guard success else {
+                            legacyNavigateAction()
+                            return
+                        }
+                    } else {
+                        legacyNavigateAction()
+                    }
                     
                     if !cellViewModel.isRead {
                         self.viewModel.markAsReadOrUnread(viewModels: [cellViewModel], shouldMarkRead: true)

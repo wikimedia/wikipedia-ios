@@ -681,7 +681,8 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         return PersonalizedSlides(readCount: readCountSlide, editCount: editCountSlide, donateCount: donateCountSlide, saveCount: saveCountSlide, mostReadDay: mostReadDaySlide, viewCount: viewCountSlide)
     }
 
-    func start() {
+    @discardableResult
+    func start() -> Bool {
         let collectiveLanguagesSlide = YearInReviewSlideContent(
            gifName: "non-english-slide-01",
            altText: localizedStrings.collectiveLanguagesAccessibilityLabel,
@@ -849,6 +850,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
 
         (self.navigationController as? WMFComponentNavigationController)?.turnOnForcePortrait()
         navigationController.present(hostingController, animated: true, completion: nil)
+        return true
     }
 
     private func presentSurveyIfNeeded() {

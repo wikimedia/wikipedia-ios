@@ -103,16 +103,19 @@ class RandomArticleViewController: ArticleViewController {
         }
         configureViews(isRandomArticleLoading: true, animated: true)
         randomArticleFetcher.fetchRandomArticle(withSiteURL: siteURL) { (error, articleURL, summary) in
-            DispatchQueue.main.async {
+            DispatchQueue.main.async { [weak self] in
                 guard
-                    let articleURL = articleURL,
-                    let randomVC = RandomArticleViewController(articleURL: articleURL, dataStore: self.dataStore, theme: self.theme, source: .undefined)
+                    let self,
+                    let articleURL,
+                    let navigationController
                 else {
                     WMFAlertManager.sharedInstance.showErrorAlert(error ?? RequestError.unexpectedResponse, sticky: true, dismissPreviousAlerts: true)
                     return
                 }
                 self.secondToolbar.items = []
-                self.push(randomVC, animated: true)
+                
+                let randomCoordinator = RandomArticleCoordinator(navigationController: navigationController, articleURL: articleURL, siteURL: nil, dataStore: dataStore, theme: theme, source: .undefined, animated: true)
+                randomCoordinator.start()
             }
         }
     }

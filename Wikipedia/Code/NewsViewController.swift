@@ -84,9 +84,12 @@ class NewsViewController: ColumnarCollectionViewController, WMFNavigationBarConf
         collectionView.backgroundColor = theme.colors.paperBackground
     }
 
-    override func readMoreArticlePreviewActionSelected(with articleController: ArticleViewController) {
-        articleController.wmf_removePeekableChildViewControllers()
-        push(articleController, animated: true)
+    override func readMoreArticlePreviewActionSelected(with peekController: ArticlePeekPreviewViewController) {
+        
+        guard let navVC = navigationController else { return }
+        
+        let coordinator = ArticleCoordinator(navigationController: navVC, articleURL: peekController.articleURL, dataStore: dataStore, theme: theme, source: .undefined)
+        coordinator.start()
         previewedIndex = nil
     }
 
@@ -206,7 +209,13 @@ extension NewsViewController {
 // MARK: - SideScrollingCollectionViewCellDelegate
 extension NewsViewController: SideScrollingCollectionViewCellDelegate {
     func sideScrollingCollectionViewCell(_ sideScrollingCollectionViewCell: SideScrollingCollectionViewCell, didSelectArticleWithURL articleURL: URL, at indexPath: IndexPath) {
-        navigate(to: articleURL)
+        
+        guard let navigationController else {
+            return
+        }
+        
+        let articleCoordinator = ArticleCoordinator(navigationController: navigationController, articleURL: articleURL, dataStore: dataStore, theme: theme, source: .undefined)
+        articleCoordinator.start()
     }
 }
 
@@ -223,16 +232,15 @@ extension NewsViewController: MEPEventsProviding {
 
 // MARK: - NestedCollectionViewContextMenuDelegate
 extension NewsViewController: NestedCollectionViewContextMenuDelegate {
-    func contextMenu(with contentGroup: WMFContentGroup? = nil, for articleURL: URL? = nil, at itemIndex: Int) -> UIContextMenuConfiguration? {
-        guard let articleURL = articleURL, let vc = ArticleViewController(articleURL: articleURL, dataStore: dataStore, theme: theme, source: .undefined) else {
+    func contextMenu(contentGroup: WMFContentGroup? = nil, articleURL: URL? = nil, article: WMFArticle? = nil, itemIndex: Int) -> UIContextMenuConfiguration? {
+        guard let articleURL = articleURL else {
             return nil
         }
-        vc.articlePreviewingDelegate = self
-        vc.wmf_addPeekableChildViewController(for: articleURL, dataStore: dataStore, theme: theme)
+        let peekVC = ArticlePeekPreviewViewController(articleURL: articleURL, article: nil, dataStore: dataStore, theme: theme, articlePreviewingDelegate: self)
         previewedIndex = itemIndex
 
         let previewProvider: () -> UIViewController? = {
-            return vc
+            return peekVC
         }
         return UIContextMenuConfiguration(identifier: nil, previewProvider: previewProvider) { (suggestedActions) -> UIMenu? in
             return nil
@@ -241,22 +249,22 @@ extension NewsViewController: NestedCollectionViewContextMenuDelegate {
             // results in an assertion failure in dev mode due to constraints that are automatically added by the preview's action menu, which
             // further results in the horizontally scrollable collection view being broken when coming back to it. I'm not sure that this
             // functionality was present before this re-write, and so leaving it out for now.
-//              return UIMenu(title: "", image: nil, identifier: nil, options: [], children: vc.contextMenuItems)
+//              return UIMenu(title: "", image: nil, identifier: nil, options: [], children: peekVC.contextMenuItems)
         }
     }
 
     func willCommitPreview(with animator: UIContextMenuInteractionCommitAnimating) {
-        guard let previewedViewController = animator.previewViewController else {
+        guard let peekVC = animator.previewViewController as? ArticlePeekPreviewViewController,
+            let navVC = navigationController else {
             assertionFailure("Should be able to find previewed VC")
             return
         }
         animator.addCompletion { [weak self] in
-            previewedViewController.wmf_removePeekableChildViewControllers()
-
-            guard let self = self else {
-                return
-            }
-            self.push(previewedViewController, animated: true)
+            
+            guard let self else { return }
+            
+            let coordinator = ArticleCoordinator(navigationController: navVC, articleURL: peekVC.articleURL, dataStore: MWKDataStore.shared(), theme: self.theme, source: .undefined)
+            coordinator.start()
             self.previewedIndex = nil
         }
     }

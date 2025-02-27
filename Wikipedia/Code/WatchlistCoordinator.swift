@@ -17,12 +17,14 @@ final class WatchlistCoordinator: Coordinator {
         self.dataStore = dataStore
     }
 
-    func start() {
+    @discardableResult
+    func start() -> Bool {
         guard let linkURL = dataStore.primarySiteURL?.wmf_URL(withTitle: "Special:Watchlist"),
-        let userActivity = NSUserActivity.wmf_activity(for: linkURL) else {
-            return
+              let userActivity = NSUserActivity.wmf_activity(for: linkURL) else {
+            return false
         }
 
         NSUserActivity.wmf_navigate(to: userActivity)
+        return true
     }
 }

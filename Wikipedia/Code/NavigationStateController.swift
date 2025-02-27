@@ -68,15 +68,8 @@ final class NavigationStateController: NSObject {
             return
         }
         
-        let viewControllerToPush = ArticleViewController(articleURL: articleURL, dataStore: dataStore, theme: theme, source: .undefined)
-
-        guard let viewControllerToPush else {
-            completion()
-            return
-        }
-        
-        viewControllerToPush.isRestoringState = true
-        pushOrPresent(viewControllerToPush, navigationController: selectedNavigationController, presentation: .push)
+        let articleCoordinator = ArticleCoordinator(navigationController: selectedNavigationController, articleURL: articleURL, dataStore: dataStore, theme: theme, source: .undefined, isRestoringState: true)
+        articleCoordinator.start()
         completion()
     }
     

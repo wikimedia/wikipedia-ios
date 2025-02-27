@@ -140,8 +140,6 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
     
     private var tocStackViewTopConstraint: NSLayoutConstraint?
     private var searchBarIsAnimating = false
-    
-    private var finishedLoadingArticleDuringPeek = false
 
     internal var articleViewSource: ArticleSource
     
@@ -336,10 +334,6 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
         leadImageTrailingMarginConstraint.constant = marginWidth
     }
     
-    // MARK: Previewing
-    
-    public var articlePreviewingDelegate: ArticlePreviewingDelegate?
-    
     // MARK: Layout
     
     override func viewLayoutMarginsDidChange() {
@@ -440,7 +434,6 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
     var isFirstAppearance = true
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        logPageViewAfterArticleAppearance()
         presentModalsIfNeeded()
     }
     
@@ -495,11 +488,6 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
         }
     }
     
-    override func wmf_removePeekableChildViewControllers() {
-        super.wmf_removePeekableChildViewControllers()
-        addToHistory()
-    }
-    
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         cancelWIconPopoverDisplay()
@@ -552,30 +540,9 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
     }
     
     private func logPageViewAfterArticleLoad() {
-        if let pageID = article.pageID,
+        guard let pageID = article.pageID,
         let siteURL = self.articleURL.wmf_site,
-              let project = WikimediaProject(siteURL: siteURL) {
-            
-            if !isBeingPresentedAsPeek {
-                ArticleLinkInteractionFunnel.shared.logArticleView(pageID: pageID.intValue, project: project, source: articleViewSource)
-            } else {
-                // Set flag, will log later in viewDidAppear()
-                finishedLoadingArticleDuringPeek = true
-            }
-        }
-    }
-    
-    private func logPageViewAfterArticleAppearance() {
-        
-        defer {
-            finishedLoadingArticleDuringPeek = false
-        }
-        
-        guard finishedLoadingArticleDuringPeek,
-        let pageID = article.pageID,
-        let siteURL = self.articleURL.wmf_site,
-        let project = WikimediaProject(siteURL: siteURL)
-        else {
+              let project = WikimediaProject(siteURL: siteURL) else {
             return
         }
         
@@ -697,7 +664,7 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
         let trailingBarButtonItem: UIBarButtonItem? = needsSearchBar ? nil : self.searchBarButtonItem
         let profileButtonConfig = profileButtonConfig(target: self, action: #selector(userDidTapProfile), dataStore: dataStore, yirDataController: yirDataController, leadingBarButtonItem: nil, trailingBarButtonItem: trailingBarButtonItem)
         
-        let searchViewController = SearchViewController(source: .article)
+        let searchViewController = SearchViewController(source: .article, customArticleCoordinatorNavigationController: navigationController)
         searchViewController.dataStore = dataStore
         searchViewController.theme = theme
         
@@ -723,10 +690,6 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
     // MARK: History
 
     func addToHistory() {
-        // Don't add to history if we're in peek/pop
-        guard self.wmf_PeekableChildViewController == nil else {
-            return
-        }
         try? article.addToReadHistory()
     }
     
@@ -1067,8 +1030,23 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
         // Check if this is the same article by comparing in-memory keys
         guard resolvedURL.wmf_inMemoryKey == articleURL.wmf_inMemoryKey else {
             
-            let userInfo: [AnyHashable : Any] = [RoutingUserInfoKeys.source: RoutingUserInfoSourceValue.article.rawValue]
-            navigate(to: resolvedURL, userInfo: userInfo)
+            let legacyNavigateAction = { [weak self] in
+                let userInfo: [AnyHashable : Any] = [RoutingUserInfoKeys.source: RoutingUserInfoSourceValue.article.rawValue]
+                self?.navigate(to: resolvedURL, userInfo: userInfo)
+            }
+            
+            // first try to navigate using LinkCoordinator. If it fails, use the legacy approach.
+            if let navigationController {
+                
+                let linkCoordinator = LinkCoordinator(navigationController: navigationController, url: resolvedURL, dataStore: dataStore, theme: theme, articleSource: .undefined)
+                let success = linkCoordinator.start()
+                guard success else {
+                    legacyNavigateAction()
+                    return
+                }
+            } else {
+                legacyNavigateAction()
+            }
             
             return
         }

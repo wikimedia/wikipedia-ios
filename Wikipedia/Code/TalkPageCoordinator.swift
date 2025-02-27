@@ -23,19 +23,21 @@ final class UserTalkCoordinator: Coordinator {
         self.siteURL = dataStore.primarySiteURL
     }
 
-    func start() {
+    @discardableResult
+    func start() -> Bool {
         guard let siteURL else {
-            return
+            return false
         }
         
         let title = TalkPageType.user.titleWithCanonicalNamespacePrefix(title: username, siteURL: siteURL)
         
         guard let viewModel = TalkPageViewModel(pageType: .user, pageTitle: title, siteURL: siteURL, source: .profile, articleSummaryController: dataStore.articleSummaryController, authenticationManager: dataStore.authenticationManager, languageLinkController: dataStore.languageLinkController) else {
-            return
+            return false
         }
 
         let talkPageViewController = TalkPageViewController(theme: theme, viewModel: viewModel)
         navigationController.pushViewController(talkPageViewController, animated: true)
+        return true
     }
 
 }

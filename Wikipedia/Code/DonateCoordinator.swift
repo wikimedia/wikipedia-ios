@@ -131,10 +131,11 @@ class DonateCoordinator: Coordinator {
         }
     }
     
-    func start() {
+    @discardableResult
+    func start() -> Bool {
         
         guard let countryCode = Locale.current.region?.identifier else {
-            return
+            return false
         }
         
         setLoadingBlock(true)
@@ -158,6 +159,8 @@ class DonateCoordinator: Coordinator {
                 self.presentActionSheet(donateViewModel: donateViewModel)
             }
         }
+        
+        return true
     }
     
     // MARK: Private

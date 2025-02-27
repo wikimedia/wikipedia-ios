@@ -877,11 +877,29 @@ private extension DiffContainerViewController {
         if diffListViewController == nil {
             
             let tappedHeaderTitleAction = { [weak self] in
-                guard let navigationURL = self?.fetchPageURL() else {
+                
+                guard let self else { return }
+                
+                guard let navigationURL = self.fetchPageURL() else {
                     return
                 }
+                
+                let legacyNavigateAction = { [weak self] in
+                    self?.navigate(to: navigationURL)
+                }
 
-                self?.navigate(to: navigationURL)
+                // first try to navigate using LinkCoordinator. If it fails, use the legacy approach.
+                if let navigationController = self.navigationController {
+                    
+                    let linkCoordinator = LinkCoordinator(navigationController: navigationController, url: navigationURL, dataStore: nil, theme: theme, articleSource: .undefined)
+                    let success = linkCoordinator.start()
+                    guard success else {
+                        legacyNavigateAction()
+                        return
+                    }
+                } else {
+                    legacyNavigateAction()
+                }
             }
             
             let tappedUsernameAction: (Username, DiffHeaderUsernameDestination) -> Void = { [weak self] username, destination in

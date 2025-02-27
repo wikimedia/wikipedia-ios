@@ -414,8 +414,25 @@ class SinglePageWebViewController: ThemeableViewController, WMFNavigationBarConf
         }
         
         if action.navigationType == .linkActivated {
-            let userInfo: [AnyHashable : Any] = [RoutingUserInfoKeys.source: RoutingUserInfoSourceValue.inAppWebView.rawValue]
-            navigate(to: actionURL, userInfo: userInfo)
+            
+            let legacyNavigateAction = { [weak self] in
+                let userInfo: [AnyHashable : Any] = [RoutingUserInfoKeys.source: RoutingUserInfoSourceValue.inAppWebView.rawValue]
+                self?.navigate(to: actionURL, userInfo: userInfo)
+            }
+            
+            // first try to navigate using LinkCoordinator. If it fails, use the legacy approach.
+            if let navigationController {
+                let linkCoordinator = LinkCoordinator(navigationController: navigationController, url: actionURL, dataStore: dataStore, theme: theme, articleSource: .undefined)
+                let success = linkCoordinator.start()
+                guard success else {
+                    legacyNavigateAction()
+                    return false
+                }
+                
+                return false
+            }
+            
+            legacyNavigateAction()
             return false
         } else if action.navigationType == .other {
             
