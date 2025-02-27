@@ -90,13 +90,6 @@ class ArticleURLListViewController: ArticleCollectionViewController, WMFNavigati
         let coordinator = ArticleCoordinator(navigationController: navVC, articleURL: peekController.articleURL, dataStore: dataStore, theme: theme, source: .undefined)
         coordinator.start()
     }
-
-    // MARK: - CollectionViewContextMenuShowing
-    override func previewingViewController(for indexPath: IndexPath, at location: CGPoint) -> UIViewController? {
-        let vc = super.previewingViewController(for: indexPath, at: location)
-        return vc
-    }
-
 }
 
 // MARK: - UICollectionViewDataSource
