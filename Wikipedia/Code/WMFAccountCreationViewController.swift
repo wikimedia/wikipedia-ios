@@ -19,10 +19,36 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
     @IBOutlet fileprivate var titleLabel: UILabel!
     @IBOutlet fileprivate var stackView: UIStackView!
     @IBOutlet fileprivate var createAccountButton: WMFAuthButton!
-
+    @IBOutlet weak var scrollContainerTopConstraint: NSLayoutConstraint!
+    
     @IBOutlet fileprivate weak var scrollContainer: UIView!
     
     public var createAccountSuccessCustomDismissBlock: (() -> Void)?
+    private var toastView: UIView?
+    
+    var readMoreTitle = WMFLocalizedString("temp-account-toast-read-more-title", value: "Read more", comment: "Read more button for the toast for temporary accounts.")
+    
+    var fullPageInformation = {
+        let openingLinkLogIn = "<a href=\"\">"
+        let openingLinkCreateAccount = "<a href=\"\">"
+        let openingLinkOtherFeatures = "<a href=\"\">"
+        let closingLink = "</a>"
+        let openingBold = "<b>"
+        let closingBold = "</b>"
+        let lineBreaks = "<br/><br/>"
+        let username = "abc"
+        let format = WMFLocalizedString("temp-account-toast-full-information", value: "%1$@You are using a temporary account.%2$@ Edits are being attributed to %1$@%3$@.%2$@%4$@ %5$@Log in%6$@ or %7$@create an account%6$@ to get credit for future edits, and access %8$@other features%6$@.",
+          comment: "Temporary accounts toast information. $1 and $2 are opening and closing bold, $3 is the temporary username, $4 is linebreaks, $5 is the opening link for logging in, $6 is closing link, $7 is the opening link for creating an account, and $8 is the opening link for other features.")
+        return String.localizedStringWithFormat(format, openingBold, closingBold, username, lineBreaks, openingLinkLogIn, closingLink, openingLinkCreateAccount, openingLinkOtherFeatures)
+    }
+    
+    var toastTitle = {
+        let openingBold = "<b>"
+        let closingBold = "</b>"
+        let format = WMFLocalizedString("temp-account-toast-title", value: "%1$@You are currently using a temporary account.%2$@ Edits made with the temporary...",
+          comment: "Temporary accounts toast information. $1 and $2 are opening and closing bold")
+        return String.localizedStringWithFormat(format, openingBold, closingBold)
+    }
     
     // SINGLETONTODO
     let dataStore = MWKDataStore.shared()
@@ -101,8 +127,37 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
         
         apply(theme: theme)
         
-        // Here Grey
+        let authManager = dataStore.authenticationManager
+        
+        if authManager.authStateIsTemporary {
+            let viewModel = WMFTempAccountsToastViewModel(
+                    didTapReadMore: {
+                       // Todo
+                    },
+                    title: toastTitle(),
+                    readMoreButtonTitle: readMoreTitle
+                )
+
+            let toastController = WMFTempAccountsToastHostingController(viewModel: viewModel)
+            self.toastView = toastController.view
+
+            addChild(toastController)
+            view.addSubview(toastController.view)
+            toastController.didMove(toParent: self)
+            toastController.view.translatesAutoresizingMaskIntoConstraints = false
+
+            NSLayoutConstraint.activate([
+               toastController.view.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0),
+               toastController.view.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0),
+               toastController.view.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor)
+            ])
+        }
     }
+    
+    override func viewDidLayoutSubviews() {
+         super.viewDidLayoutSubviews()
+        scrollContainerTopConstraint.constant = toastView?.frame.height ?? 0
+     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)

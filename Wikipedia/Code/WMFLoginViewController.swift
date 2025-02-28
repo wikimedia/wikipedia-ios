@@ -13,6 +13,7 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
     @IBOutlet fileprivate var createAccountButton: WMFAuthLinkLabel!
     @IBOutlet fileprivate var forgotPasswordButton: UILabel!
     @IBOutlet fileprivate var titleLabel: UILabel!
+    @IBOutlet weak var scrollContainerTopConstraint: NSLayoutConstraint!
     @IBOutlet fileprivate var captchaContainer: UIView!
     @IBOutlet fileprivate var loginButton: WMFAuthButton!
     @IBOutlet weak var scrollContainer: UIView!
@@ -20,9 +21,33 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
     public var loginSuccessCompletion: (() -> Void)?
     public var createAccountSuccessCustomDismissBlock: (() -> Void)?
     public var loginDismissedCompletion: (() -> Void)?
-    public var tempAccountsToastCoordinator: TempAccountsToastCoordinator?
 
     private var startDate: Date? // to calculate time elapsed between login start and login success
+    private var toastView: UIView?
+    
+    var readMoreTitle = WMFLocalizedString("temp-account-toast-read-more-title", value: "Read more", comment: "Read more button for the toast for temporary accounts.")
+    
+    var fullPageInformation = {
+        let openingLinkLogIn = "<a href=\"\">"
+        let openingLinkCreateAccount = "<a href=\"\">"
+        let openingLinkOtherFeatures = "<a href=\"\">"
+        let closingLink = "</a>"
+        let openingBold = "<b>"
+        let closingBold = "</b>"
+        let lineBreaks = "<br/><br/>"
+        let username = "abc"
+        let format = WMFLocalizedString("temp-account-toast-full-information", value: "%1$@You are using a temporary account.%2$@ Edits are being attributed to %1$@%3$@.%2$@%4$@ %5$@Log in%6$@ or %7$@create an account%6$@ to get credit for future edits, and access %8$@other features%6$@.",
+          comment: "Temporary accounts toast information. $1 and $2 are opening and closing bold, $3 is the temporary username, $4 is linebreaks, $5 is the opening link for logging in, $6 is closing link, $7 is the opening link for creating an account, and $8 is the opening link for other features.")
+        return String.localizedStringWithFormat(format, openingBold, closingBold, username, lineBreaks, openingLinkLogIn, closingLink, openingLinkCreateAccount, openingLinkOtherFeatures)
+    }
+    
+    var toastTitle = {
+        let openingBold = "<b>"
+        let closingBold = "</b>"
+        let format = WMFLocalizedString("temp-account-toast-title", value: "%1$@You are currently using a temporary account.%2$@ Edits made with the temporary...",
+          comment: "Temporary accounts toast information. $1 and $2 are opening and closing bold")
+        return String.localizedStringWithFormat(format, openingBold, closingBold)
+    }
     
     var category: EventCategoryMEP?
     fileprivate var theme: Theme = Theme.standard
@@ -77,29 +102,36 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
         
         apply(theme: theme)
         
-        guard let navigationController else { return }
         let authManager = dataStore.authenticationManager
         
-        if true { // authManager.authStateIsTemporary {
-            tempAccountsToastCoordinator = TempAccountsToastCoordinator(navigationController: navigationController,
-            didTapReadMore: {
-                
-            })
-            
-            tempAccountsToastCoordinator?.start()
+        if authManager.authStateIsTemporary {
+            let viewModel = WMFTempAccountsToastViewModel(
+                    didTapReadMore: {
+                       // Todo
+                    },
+                    title: toastTitle(),
+                    readMoreButtonTitle: readMoreTitle
+                )
 
-            if let toastView = tempAccountsToastCoordinator?.toastController?.view {
-                toastView.translatesAutoresizingMaskIntoConstraints = false
-                
-                guard let superview = titleLabel.superview else { return }
+            let toastController = WMFTempAccountsToastHostingController(viewModel: viewModel)
+            self.toastView = toastController.view
 
-                superview.addSubview(toastView)
+            addChild(toastController)
+            view.addSubview(toastController.view)
+            toastController.didMove(toParent: self)
+            toastController.view.translatesAutoresizingMaskIntoConstraints = false
 
-                NSLayoutConstraint.activate([
-                    titleLabel.topAnchor.constraint(equalTo: toastView.bottomAnchor)
-                ])
-            }
+            NSLayoutConstraint.activate([
+               toastController.view.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0),
+               toastController.view.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0),
+               toastController.view.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor)
+            ])
         }
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        scrollContainerTopConstraint.constant = toastView?.frame.height ?? 0
     }
     
     private func configureNavigationBar() {

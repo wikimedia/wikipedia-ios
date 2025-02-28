@@ -24,8 +24,8 @@ public struct WMFTempAccountsToastView: View {
     }
     
     public var body: some View {
-        VStack(spacing: 0) {
-            VStack(spacing: 8) {
+        VStack(alignment: .leading, spacing: 0) {
+            VStack(spacing: 0) {
                 HStack(alignment: .top, spacing: 8) {
                     if let exclamationPointCircle = WMFIcon.exclamationPointCircle {
                         Image(uiImage: exclamationPointCircle)
@@ -38,17 +38,18 @@ public struct WMFTempAccountsToastView: View {
                         .lineSpacing(titleStyles.lineSpacing)
                         .fixedSize(horizontal: false, vertical: true)
                 }
-                WMFSmallButton(configuration: WMFSmallButton.Configuration(style: .quiet), title: viewModel.readMoreButtonTitle, action: {
-                    viewModel.didTapReadMore()
-                })
+                Group {
+                    WMFSmallButton(configuration: WMFSmallButton.Configuration(style: .quiet), title: viewModel.readMoreButtonTitle, action: {
+                        viewModel.didTapReadMore()
+                    })
+                }
                 .frame(maxWidth: .infinity, alignment: .trailing)
             }
             .padding(.horizontal, 16)
-            .padding(.vertical, 12)
             Divider()
         }
+        .padding(.top, 12)
         .frame(maxWidth: .infinity)
-        .ignoresSafeArea()
-        .background(Color(theme.paperBackground))
+        .background(Color(theme.midBackground))
     }
 }

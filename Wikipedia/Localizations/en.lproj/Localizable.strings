@@ -1195,6 +1195,7 @@
 "temp-account-edit-sheet-title" = "You are using a temporary account";
 "temp-account-got-it" = "Got it";
 "temp-account-toast-full-information" = "$1You are using a temporary account.$2 Edits are being attributed to $1$3.$2$4 $5Log in$6 or $7create an account$6 to get credit for future edits, and access $8other features$6.";
+"temp-account-toast-read-more-title" = "Read more";
 "temp-account-toast-title" = "$1You are currently using a temporary account.$2 Edits made with the temporary...";
 "terms-of-use-title" = "Terms of use";
 "theme-black-display-name" = "Black";
