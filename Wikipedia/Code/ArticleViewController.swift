@@ -153,9 +153,11 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
         return button
     }()
     
+    let articleCoordinator: ArticleCoordinator?
+    
     internal var articleViewSource: ArticleSource
     
-    @objc init?(articleURL: URL, dataStore: MWKDataStore, theme: Theme, source: ArticleSource, schemeHandler: SchemeHandler? = nil) {
+    @objc init?(articleURL: URL, dataStore: MWKDataStore, theme: Theme, source: ArticleSource, schemeHandler: SchemeHandler? = nil, articleCoordinator: ArticleCoordinator? = nil) {
 
         guard let article = dataStore.fetchOrCreateArticle(with: articleURL) else {
                 return nil
@@ -170,6 +172,7 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
         self.schemeHandler = schemeHandler ?? SchemeHandler(scheme: "app", session: dataStore.session)
         self.cacheController = cacheController
         self.articleViewSource = source
+        self.articleCoordinator = articleCoordinator
 
         super.init(nibName: nil, bundle: nil)
         self.theme = theme

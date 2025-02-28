@@ -51,12 +51,13 @@ final class TabsCoordinator: Coordinator {
             let rootSearchVC = rootVC as? SearchViewController
             var newSearchVC: SearchViewController?
             
-            // Create new search on top of root
+            // Explore and Search tabs already have search bar, so just pop back and focus
             if rootExploreVC != nil {
                 navigationController.popToRootViewController(animated: false)
             } else if rootSearchVC != nil {
                 navigationController.popToRootViewController(animated: false)
             } else {
+                // If root is not Explore or Search tab, create new search on top of root
                 newSearchVC = SearchViewController(source: .unknown, customArticleCoordinatorNavigationController: navigationController)
                 newSearchVC?.apply(theme: theme)
                 newSearchVC?.dataStore = dataStore
@@ -91,7 +92,6 @@ final class TabsCoordinator: Coordinator {
         }
         
         if WMFDeveloperSettingsDataController.shared.tabsPreserveRabbitHole {
-            var newStack: [UIViewController] = []
             
             for article in tab.articles {
                 guard let articleTitle = article.title.denormalizedPageTitle,
@@ -99,11 +99,10 @@ final class TabsCoordinator: Coordinator {
                     continue
                 }
                 
-                let articleVC = ArticleViewController(articleURL: articleURL, dataStore: MWKDataStore.shared(), theme: Theme.light, source: .undefined)!
-                newStack.append(articleVC)
+                // Article is already a part of a tab, no need to add it again.
+                let articleCoordinator = ArticleCoordinator(navigationController: navigationController, articleURL: articleURL, dataStore: MWKDataStore.shared(), theme: Theme.light, source: .undefined, needsAnimation: false, startShouldAddArticleToCurrentTab: false)
+                articleCoordinator.start()
             }
-            
-            navigationController.setViewControllers(navigationController.viewControllers + newStack, animated: false)
             
             navigationController.dismiss(animated: true)
             
@@ -114,7 +113,8 @@ final class TabsCoordinator: Coordinator {
                 return
             }
             
-            var newStack: [UIViewController] = [firstVC]
+            // first reset navigation stack underneath modal
+            navigationController.setViewControllers([firstVC], animated: false)
             
             for article in tab.articles {
                 guard let articleTitle = article.title.denormalizedPageTitle,
@@ -122,12 +122,10 @@ final class TabsCoordinator: Coordinator {
                     continue
                 }
                 
-                let articleVC = ArticleViewController(articleURL: articleURL, dataStore: MWKDataStore.shared(), theme: Theme.light, source: .undefined)!
-                newStack.append(articleVC)
+                // Kick off coordinator to add to stack. Article is already a part of a tab, no need to add it again.
+                let articleCoordinator = ArticleCoordinator(navigationController: navigationController, articleURL: articleURL, dataStore: MWKDataStore.shared(), theme: Theme.light, source: .undefined, needsAnimation: false, startShouldAddArticleToCurrentTab: false)
+                articleCoordinator.start()
             }
-            
-            // first reset navigation stack underneath modal
-            navigationController.setViewControllers(newStack, animated: false)
             
             // then dismiss tabs modal
             navigationController.dismiss(animated: true)

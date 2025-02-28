@@ -31,13 +31,22 @@ public final class Tab: Equatable {
             lhs.id == rhs.id
     }
     
-    public func addArticle(article: Article) {
+    public func addArticle(_ article: Article) {
         articles.append(article)
     }
     
-    func removeLastArticle() {
-        guard articles.count > 0 else { return }
-        articles.removeLast()
+    func removeArticle(_ article: Article) {
+        var indexToRemove: Int?
+        for (index, reverseArticle) in articles.reversed().enumerated() {
+            if reverseArticle == article {
+                indexToRemove = articles.count - 1 - index
+            }
+        }
+        
+        if let indexToRemove,
+           articles.count > indexToRemove {
+            articles.remove(at: indexToRemove)
+        }
     }
 }
 
@@ -68,24 +77,20 @@ public final class TabsDataController {
             return
         }
         
-        currentTab.addArticle(article: article)
+        currentTab.addArticle(article)
     }
     
-    public func removeLastArticleFromCurrentTab() {
-        
+    public func removeArticleFromCurrentTab(article: WMFData.Tab.Article) {
         guard let currentTab else {
+            assertionFailure("No current tab!")
             return
         }
         
-        currentTab.removeLastArticle()
-        
-        if currentTab.articles.count == 0 {
-            removeTab(tab: currentTab)
-        }
+        remove(article: article, from: currentTab)
     }
-    
-    public func removeLastArticleTab(_ tab: WMFData.Tab) {
-        tab.removeLastArticle()
+
+    public func remove(article: WMFData.Tab.Article, from tab: WMFData.Tab) {
+        tab.removeArticle(article)
         
         if tab.articles.count == 0 {
             removeTab(tab: tab)
