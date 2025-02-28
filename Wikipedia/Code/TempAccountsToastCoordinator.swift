@@ -8,7 +8,6 @@ import CocoaLumberjackSwift
 final class TempAccountsToastCoordinator: NSObject, Coordinator {
     var navigationController: UINavigationController
     var didTapReadMore: () -> Void
-    var didTapClose: () -> Void
     var toastController: WMFTempAccountsToastHostingController? = nil
     var readMoreButtonTitle: String
     
@@ -34,10 +33,9 @@ final class TempAccountsToastCoordinator: NSObject, Coordinator {
         return String.localizedStringWithFormat(format, openingBold, closingBold)
     }
     
-    public init(navigationController: UINavigationController, didTapReadMore: @escaping () -> Void, didTapClose: @escaping () -> Void, toastController: WMFTempAccountsToastHostingController? = nil) {
+    public init(navigationController: UINavigationController, didTapReadMore: @escaping () -> Void, toastController: WMFTempAccountsToastHostingController? = nil) {
         self.navigationController = navigationController
         self.didTapReadMore = didTapReadMore
-        self.didTapClose = didTapClose
         self.toastController = toastController
         readMoreButtonTitle = "Read more"
     }
@@ -50,9 +48,6 @@ final class TempAccountsToastCoordinator: NSObject, Coordinator {
         let viewModel = WMFTempAccountsToastViewModel(
             didTapReadMore: { [weak self] in
                 self?.didTapReadMore()
-            },
-            didTapClose: { [weak self] in
-                self?.dismissToast()
             },
             title: title(),
             readMoreButtonTitle: readMoreButtonTitle
@@ -68,13 +63,13 @@ final class TempAccountsToastCoordinator: NSObject, Coordinator {
         toastController.didMove(toParent: topViewController)
 
         toastController.view.translatesAutoresizingMaskIntoConstraints = false
-
+        
         NSLayoutConstraint.activate([
             toastController.view.centerXAnchor.constraint(equalTo: topViewController.view.centerXAnchor),
-            toastController.view.topAnchor.constraint(equalTo: topViewController.view.safeAreaLayoutGuide.topAnchor),
-            toastController.view.leadingAnchor.constraint(equalTo: topViewController.view.leadingAnchor),
-            toastController.view.trailingAnchor.constraint(equalTo: topViewController.view.trailingAnchor)
+            toastController.view.leadingAnchor.constraint(equalTo: topViewController.view.leadingAnchor, constant: 4),
+            toastController.view.trailingAnchor.constraint(equalTo: topViewController.view.trailingAnchor, constant: -16)
         ])
+
 
         toastController.view.alpha = 0
         UIView.animate(withDuration: 0.3) {
