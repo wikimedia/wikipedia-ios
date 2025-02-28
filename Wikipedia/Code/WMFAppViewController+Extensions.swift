@@ -125,10 +125,6 @@ extension WMFAppViewController {
             DDLogWarn("Error assigning article search experiment: \(error)")
         }
     }
-    
-    @objc func needsNewArticleTab() -> Bool {
-        return TabsDataController.shared.currentTab == nil && !WMFDeveloperSettingsDataController.shared.tabsPreserveRabbitHole
-    }
 
     @objc func resetCurrentTab() {
         TabsDataController.shared.currentTab = nil
