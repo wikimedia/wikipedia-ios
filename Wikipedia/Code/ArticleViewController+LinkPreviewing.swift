@@ -31,8 +31,7 @@ extension ArticleViewController: ArticleContextMenuPresenting, WKUIDelegate {
 
     var contextMenuItems: [UIAction] {
         // Read action
-        let readActionTitle = WMFLocalizedString("button-read-now", value: "Read now", comment: "Read now button text used in various places.")
-        let readAction = UIAction(title: readActionTitle, image: WMFSFSymbolIcon.for(symbol: .book), handler: { (action) in
+        let readAction = UIAction(title: CommonStrings.readNowActionTitle, image: WMFSFSymbolIcon.for(symbol: .book), handler: { (action) in
             self.articlePreviewingDelegate?.readMoreArticlePreviewActionSelected(with: self)
         })
 

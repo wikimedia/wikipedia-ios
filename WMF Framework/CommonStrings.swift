@@ -802,6 +802,11 @@ public class CommonStrings: NSObject {
     public static let collectiveExploreAccessibilityLabel = WMFLocalizedString("year-in-review-collective-explore", value: "An animated illustration depicting the iconic Wikipedia globe encircled by scaffolding, symbolizing the collaborative effort of people worldwide in building the project. The scene is surrounded by a cityscape, emphasizing its connection to humanity and global culture.", comment: "Accessibility description for the collective explore slide.")
     
     public static let searchButtonAccessibilityLabel = WMFLocalizedString("search-button-accessibility-label", value: "Search Wikipedia", comment: "Accessibility label for a button that opens a search box to search Wikipedia.")
+
+    public static let readNowActionTitle = WMFLocalizedString("button-read-now", value: "Read now", comment: "Read now button text used in various places.")
+
+    @objc public static let emptyNoHistoryTitle = WMFLocalizedString("empty-no-history-title", value: "No history to show", comment: "Title of a blank screen shown when a user has no history")
+    @objc public static let emptyNoHistorySubtitle = WMFLocalizedString("empty-no-history-message", value: "Keep track of what you've been reading here", comment: "Message of a blank screen shown when a user has no history")
 }
 // Language variant strings
 public extension CommonStrings {
