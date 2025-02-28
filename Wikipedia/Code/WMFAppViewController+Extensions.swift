@@ -125,10 +125,6 @@ extension WMFAppViewController {
             DDLogWarn("Error assigning article search experiment: \(error)")
         }
     }
-
-    @objc func resetCurrentTab() {
-        TabsDataController.shared.currentTab = nil
-    }
 }
 
 // MARK: - Notifications
@@ -743,6 +739,22 @@ extension WMFAppViewController: UINavigationControllerDelegate {
         
         // If this, we are now back on a root view, clear out current tab
         if navigationController.viewControllers.count == 1 {
+            TabsDataController.shared.currentTab = nil
+        }
+    }
+    
+    @objc func resetCurrentTabToViewController(viewController: UIViewController) {
+        
+        if let navVC = viewController as? UINavigationController,
+           let articleVC = navVC.viewControllers.last as? ArticleViewController,
+           let coordinator = articleVC.articleCoordinator,
+           let newTab = coordinator.tab,
+           let newArticle = coordinator.article,
+           let newArticleIndex = newTab.articles.firstIndex(of: newArticle) {
+            
+            newTab.currentArticleIndex = newArticleIndex
+            TabsDataController.shared.currentTab = newTab
+        } else {
             TabsDataController.shared.currentTab = nil
         }
     }

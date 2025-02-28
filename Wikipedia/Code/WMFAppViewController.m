@@ -1644,7 +1644,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
         // Must return NO if already visible to prevent unintended effect when tapping the Search tab bar button multiple times.
         return NO;
     }
-    [self resetCurrentTab];
+    [self resetCurrentTabToViewControllerWithViewController:viewController];
     return YES;
 }
 
