@@ -14,10 +14,13 @@ struct WMFPageRow: View {
     let articleDescription: String?
     let imageURL: URL?
     let isSaved: Bool
+    let deleteAccessibilityLabel: String
+    let shareAccessibilityLabel: String
+    let saveAccessibilityLabel: String
+    let unsaveAccessibilityLabel: String
     let deleteItemAction: () -> Void
     let shareItemAction: () -> Void
     let saveOrUnsaveItemAction: () -> Void
-    // TODO: get accessibility labels
 
     var body: some View {
         HStack(spacing: 4) {
@@ -33,29 +36,28 @@ struct WMFPageRow: View {
                         .lineLimit(1)
                 }
             }
-
             Spacer()
-
             if let imageURL = imageURL {
                 AsyncImage(url: imageURL) { image in
                     image
                         .resizable()
                         .scaledToFill()
                         .frame(width: 40, height: 40)
-                        .clipShape(RoundedRectangle(cornerRadius: 8))
+                        .clipShape(RoundedRectangle(cornerRadius: 4))
                 } placeholder: {
                     Color.clear
                         .frame(width: 40, height: 40)
                 }
             }
         }
+        .background(Color(theme.paperBackground))
         .padding(.vertical, 8)
         .swipeActions {
             Button {
                 deleteItemAction()
             } label: {
                 Image(uiImage: WMFSFSymbolIcon.for(symbol: .trash) ?? UIImage())
-                    .accessibilityLabel("Delete")
+                    .accessibilityLabel(deleteAccessibilityLabel)
             }
             .tint(Color(theme.destructive))
             .labelStyle(.iconOnly)
@@ -64,7 +66,7 @@ struct WMFPageRow: View {
                 shareItemAction()
             } label: {
                 Image(uiImage: WMFSFSymbolIcon.for(symbol: .share) ?? UIImage())
-                    .accessibilityLabel("Share")
+                    .accessibilityLabel(shareAccessibilityLabel)
             }
             .tint(Color(theme.secondaryAction))
             .labelStyle(.iconOnly)
@@ -73,11 +75,11 @@ struct WMFPageRow: View {
                 saveOrUnsaveItemAction()
             } label: {
                 if isSaved {
-                    Image(uiImage: WMFSFSymbolIcon.for(symbol: .bookmark) ?? UIImage())
-                        .accessibilityLabel("Save")
-                } else {
                     Image(uiImage: WMFSFSymbolIcon.for(symbol: .bookmarkFill) ?? UIImage())
-                        .accessibilityLabel("Unsave")
+                        .accessibilityLabel(saveAccessibilityLabel)
+                } else {
+                    Image(uiImage: WMFSFSymbolIcon.for(symbol: .bookmark) ?? UIImage())
+                        .accessibilityLabel(unsaveAccessibilityLabel)
                 }
             }
             .tint(Color(theme.link))

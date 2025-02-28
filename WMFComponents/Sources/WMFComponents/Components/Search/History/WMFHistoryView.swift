@@ -43,6 +43,7 @@ public struct WMFHistoryView: View {
                 }
                 .frame(width: geometry.size.width, height: geometry.size.height, alignment: .center)
             }
+            .background(Color(theme.paperBackground))
         }
     }
 
@@ -53,6 +54,10 @@ public struct WMFHistoryView: View {
             articleDescription: item.description,
             imageURL: item.imageURL,
             isSaved: item.isSaved,
+            deleteAccessibilityLabel: viewModel.localizedStrings.deleteSwipeActionLabel,
+            shareAccessibilityLabel: viewModel.localizedStrings.shareActionTitle,
+            saveAccessibilityLabel: viewModel.localizedStrings.saveForLaterActionTitle,
+            unsaveAccessibilityLabel: viewModel.localizedStrings.unsaveActionTitle,
             deleteItemAction: {
                 viewModel.delete(section: section, item: item)
                 refreshId = UUID()
@@ -66,7 +71,37 @@ public struct WMFHistoryView: View {
         )
     }
 
-    public func listView() -> some View {
+    private func getTextForAction(_ item: HistoryItem) -> String {
+        if item.isSaved {
+            return viewModel.localizedStrings.unsaveActionTitle
+        } else {
+            return viewModel.localizedStrings.saveForLaterActionTitle
+        }
+    }
+
+    private func row(for section: HistorySection, _ item: HistoryItem) -> some View {
+        Button(action: {
+            viewModel.onTap(item)
+        }) {
+            rowView(for: section, item: item)
+        }
+        .buttonStyle(.plain)
+        .contextMenu {
+            Button(viewModel.localizedStrings.readNowActionTitle) {
+                viewModel.onTap(item)
+            }
+            Button(getTextForAction(item)) {
+                viewModel.saveOrUnsave(section: section, item: item)
+            }
+            Button(viewModel.localizedStrings.shareActionTitle) {
+                viewModel.share(section: section, item: item)
+            }
+        } preview: {
+            WMFArticlePreviewView(item: item)
+        }
+    }
+
+    private func listView() -> some View {
         List {
             Text(viewModel.localizedStrings.title)
                 .font(Font(WMFFont.for(.boldTitle3)))
@@ -77,18 +112,18 @@ public struct WMFHistoryView: View {
             ForEach(viewModel.sections) { section in
                 Section(header: headerViewForSection(section)) {
                     ForEach(section.items) { item in
-                        Button(action: {
-                            viewModel.onTap(item: item)
-                        }) {
-                            rowView(for: section, item: item)
-                        }
-                        .buttonStyle(.plain)
+                        row(for: section, item)
+                            .listRowBackground(Color(theme.paperBackground))
                     }
                 }
+
             }
+
         }
         .listStyle(.plain)
         .padding(.top, viewModel.topPadding)
+        .scrollContentBackground(.hidden)
+        .background(Color(theme.paperBackground))
         .id(refreshId)
         .onAppear {
             refreshId = UUID()
@@ -97,7 +132,6 @@ public struct WMFHistoryView: View {
     }
 
     public var body: some View {
-
         // TODO: Data loading needs fixing
         if !viewModel.isEmpty {
             listView()
@@ -105,4 +139,5 @@ public struct WMFHistoryView: View {
             emptyView()
         }
     }
+
 }

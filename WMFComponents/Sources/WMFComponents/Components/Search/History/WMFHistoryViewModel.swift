@@ -8,18 +8,27 @@ public final class WMFHistoryViewModel: ObservableObject {
         let title: String
         let emptyViewTitle: String
         let emptyViewSubtitle: String
+        // preview button strings
+        let readNowActionTitle: String
+        let saveForLaterActionTitle: String
+        let unsaveActionTitle: String
+        let shareActionTitle: String
+        // acessibility labels for swipe actions
+        let deleteSwipeActionLabel: String
 
-        public init(title: String, emptyViewTitle: String, emptyViewSubtitle: String) {
+        public init(title: String, emptyViewTitle: String, emptyViewSubtitle: String, readNowActionTitle: String, saveForLaterActionTitle: String, unsaveActionTitle: String, shareActionTitle: String, deleteSwipeActionLabel: String) {
             self.title = title
             self.emptyViewTitle = emptyViewTitle
             self.emptyViewSubtitle = emptyViewSubtitle
+            self.readNowActionTitle = readNowActionTitle
+            self.saveForLaterActionTitle = saveForLaterActionTitle
+            self.unsaveActionTitle = unsaveActionTitle
+            self.shareActionTitle = shareActionTitle
+            self.deleteSwipeActionLabel = deleteSwipeActionLabel
         }
     }
 
-    ///
     public typealias ShareRecordAction = (HistorySection, HistoryItem) -> Void
-
-    ///
     public typealias OnRecordTapAction = ((HistoryItem) -> Void)?
 
     @Published var sections: [HistorySection] = []
@@ -92,7 +101,7 @@ public final class WMFHistoryViewModel: ObservableObject {
         shareRecordAction(section, item)
     }
 
-    public func onTap(item: HistoryItem) {
+    public func onTap(_ item: HistoryItem) {
         onTapArticle?(item)
     }
 }

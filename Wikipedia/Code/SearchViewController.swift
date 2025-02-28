@@ -530,11 +530,15 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
     }()
 
     func tappedArticle(_ item: HistoryItem) -> Void? {
-        print("tap article")
+        // TODO: Swap for coordinator when available
+        if let articleURL = item.url, let dataStore, let articleViewController = ArticleViewController(articleURL: articleURL, dataStore: dataStore, theme: theme) {
+            return self.navigationController?.pushViewController(articleViewController, animated: true)
+        }
+        return nil
     }
 
     lazy var historyViewModel: WMFHistoryViewModel = {
-        // TODO: - get empty view localized strings, copy and image, accessibility strings
+
         let shareArticleAction: WMFHistoryViewModel.ShareRecordAction = { [weak self] historySection, historyItem in
             guard let self else { return }
 
@@ -545,7 +549,8 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
             self.tappedArticle(historyItem)
         }
 
-        let localizedStrings = WMFHistoryViewModel.LocalizedStrings(title: CommonStrings.historyTabTitle, emptyViewTitle: "Empty view", emptyViewSubtitle: "Subtitle")
+        // TODO: check if accesibility labels need more info
+        let localizedStrings = WMFHistoryViewModel.LocalizedStrings(title: CommonStrings.historyTabTitle, emptyViewTitle: CommonStrings.emptyNoHistoryTitle, emptyViewSubtitle: CommonStrings.emptyNoHistorySubtitle, readNowActionTitle: CommonStrings.readNowActionTitle, saveForLaterActionTitle: CommonStrings.saveTitle, unsaveActionTitle: CommonStrings.shortUnsaveTitle, shareActionTitle: CommonStrings.shareMenuTitle, deleteSwipeActionLabel: CommonStrings.deleteActionTitle)
         let viewModel = WMFHistoryViewModel(localizedStrings: localizedStrings, historyDataController: historyDataController, onTapRecord: onTapArticleAction, shareRecordAction: shareArticleAction)
         return viewModel
     }()
@@ -591,7 +596,7 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
             }
         }
 
-        let deleteRecordAction: WMFHistoryDataController.DeleteRecordAction = { [weak self] historySection, historyItem in
+        let deleteRecordAction: WMFHistoryDataController.DeleteRecordAction = { [weak self] _ , historyItem in
             guard let self, let dataStore = self.dataStore else { return }
             let request: NSFetchRequest<WMFArticle> = WMFArticle.fetchRequest()
             request.predicate = NSPredicate(format: "pageID == %@", historyItem.id)
@@ -608,15 +613,27 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
         }
 
         let saveArticleAction: WMFHistoryDataController.SaveRecordAction = { [weak self] historySection, historyItem in
-            guard let self, let dataStore = self.dataStore else { return }
+            guard let self, let dataStore = self.dataStore, let articleURL = historyItem.url else { return }
+            dataStore.savedPageList.addSavedPage(with: articleURL)
+            if let article = dataStore.savedPageList.entry(for: articleURL) {
 
+                let hintVC = ReadingListHintViewController()
+                hintVC.dataStore = dataStore
+                hintVC.article = article
+
+                // TODO: ReadingListHintViewController
+
+            }
         }
 
         let unsaveArticleAction: WMFHistoryDataController.UnsaveRecordAction = { [weak self] historySection, historyItem in
-            guard let self, let dataStore = self.dataStore else { return }
+            guard let self, let dataStore = self.dataStore, let articleURL = historyItem.url else { return }
+
+            dataStore.savedPageList.removeEntry(with: articleURL)
+
+            // TODO: ReadingListHintViewController
 
         }
-
 
         let dataController = WMFHistoryDataController(
             recordsProvider: recordsProvider,
@@ -625,7 +642,6 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
             unsaveArticleAction: unsaveArticleAction
         )
         return dataController
-
     }()
 
     lazy var historyViewController: UIViewController = {
