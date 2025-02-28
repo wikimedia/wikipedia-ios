@@ -25,18 +25,6 @@ public struct WMFTempAccountsToastView: View {
     
     public var body: some View {
         VStack(spacing: 0) {
-            if let xCircleFill = WMFIcon.closeCircleInverse {
-                Button(action: {
-                    viewModel.didTapClose()
-                }) {
-                    Image(uiImage: xCircleFill)
-                        .resizable()
-                        .frame(width: 30, height: 30)
-//                        .foregroundStyle(Color(theme.icon))
-//                        .tint(Color(theme.iconBackground))
-                }
-                .frame(maxWidth: .infinity, alignment: .topTrailing)
-            }
             VStack(spacing: 8) {
                 HStack(alignment: .top, spacing: 8) {
                     if let exclamationPointCircle = WMFIcon.exclamationPointCircle {
@@ -55,10 +43,10 @@ public struct WMFTempAccountsToastView: View {
                 })
                 .frame(maxWidth: .infinity, alignment: .trailing)
             }
+            .padding(.horizontal, 16)
+            .padding(.vertical, 12)
             Divider()
         }
-        .padding(.horizontal, 16)
-        .padding(.vertical, 12)
         .frame(maxWidth: .infinity)
         .ignoresSafeArea()
         .background(Color(theme.paperBackground))

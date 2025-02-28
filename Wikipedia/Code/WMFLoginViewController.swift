@@ -81,12 +81,24 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
         let authManager = dataStore.authenticationManager
         
         if true { // authManager.authStateIsTemporary {
-            tempAccountsToastCoordinator = TempAccountsToastCoordinator(navigationController: navigationController, didTapReadMore: {
+            tempAccountsToastCoordinator = TempAccountsToastCoordinator(navigationController: navigationController,
+            didTapReadMore: {
                 
-            }, didTapClose: {
-                // Logging
             })
+            
             tempAccountsToastCoordinator?.start()
+
+            if let toastView = tempAccountsToastCoordinator?.toastController?.view {
+                toastView.translatesAutoresizingMaskIntoConstraints = false
+                
+                guard let superview = titleLabel.superview else { return }
+
+                superview.addSubview(toastView)
+
+                NSLayoutConstraint.activate([
+                    titleLabel.topAnchor.constraint(equalTo: toastView.bottomAnchor)
+                ])
+            }
         }
     }
     
