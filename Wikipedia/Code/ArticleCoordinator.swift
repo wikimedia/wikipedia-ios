@@ -10,7 +10,8 @@ final class ArticleCoordinator: NSObject, Coordinator {
     private let source: ArticleSource
     private let isRestoringState: Bool
     private let needsAnimation: Bool
-    private let startShouldAddArticleToCurrentTab: Bool
+    private(set) var tab: WMFData.Tab?
+    private(set) var article: WMFData.Tab.Article?
     
     private var project: WikimediaProject? {
         guard let siteURL = articleURL.wmf_site,
@@ -20,7 +21,7 @@ final class ArticleCoordinator: NSObject, Coordinator {
         return project
     }
     
-    init(navigationController: UINavigationController, articleURL: URL, dataStore: MWKDataStore, theme: Theme, source: ArticleSource, isRestoringState: Bool = false, needsAnimation: Bool = true, startShouldAddArticleToCurrentTab: Bool = true) {
+    init(navigationController: UINavigationController, articleURL: URL, dataStore: MWKDataStore, theme: Theme, source: ArticleSource, isRestoringState: Bool = false, needsAnimation: Bool = true, tab: WMFData.Tab? = nil, article: WMFData.Tab.Article? = nil) {
         self.navigationController = navigationController
         self.articleURL = articleURL
         self.dataStore = dataStore
@@ -28,7 +29,8 @@ final class ArticleCoordinator: NSObject, Coordinator {
         self.source = source
         self.isRestoringState = isRestoringState
         self.needsAnimation = needsAnimation
-        self.startShouldAddArticleToCurrentTab = startShouldAddArticleToCurrentTab
+        self.tab = tab
+        self.article = article
     }
     
     @discardableResult
@@ -44,7 +46,9 @@ final class ArticleCoordinator: NSObject, Coordinator {
         }
         articleVC.isRestoringState = isRestoringState
         navigationController.pushViewController(articleVC, animated: needsAnimation)
-        if startShouldAddArticleToCurrentTab {
+        
+        // If instantiated with a tab, article is already associated with tab. No need to add again.
+        if tab == nil && article == nil {
             addArticleToCurrentTab()
         }
         return true
@@ -56,17 +60,19 @@ final class ArticleCoordinator: NSObject, Coordinator {
             return
         }
         
-        let tabArticle: WMFData.Tab.Article = WMFData.Tab.Article(title: title, project: project)
-        TabsDataController.shared.addArticleToCurrentTab(article: tabArticle)
+        let article: WMFData.Tab.Article = WMFData.Tab.Article(title: title, project: project)
+        TabsDataController.shared.addArticleToCurrentTab(article: article)
+    
+        self.tab = TabsDataController.shared.currentTab
+        self.article = article
     }
     
-    public func removeArticleFromCurrentTab() {
-        guard let title = articleURL.wmf_title,
-              let project = project?.wmfProject else {
+    public func tappedBack() {
+        
+        guard let tab else {
             return
         }
         
-        let tabArticle: WMFData.Tab.Article = WMFData.Tab.Article(title: title, project: project)
-        TabsDataController.shared.removeArticleFromCurrentTab(article: tabArticle)
+        TabsDataController.shared.back(tab: tab)
     }
 }

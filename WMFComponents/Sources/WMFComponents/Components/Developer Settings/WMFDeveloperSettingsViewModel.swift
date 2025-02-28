@@ -34,11 +34,11 @@ import WMFData
 
         let bypassDonationItem = WMFFormItemSelectViewModel(title: localizedStrings.bypassDonation, isSelected: WMFDeveloperSettingsDataController.shared.bypassDonation)
         
-        let tabsPreserveRabbitHoleItem = WMFFormItemSelectViewModel(title: "Tabs - Preserve Rabbit Hole", isSelected: WMFDeveloperSettingsDataController.shared.tabsPreserveRabbitHole)
+        let tabsDoNotPreserveBackHistoryItem = WMFFormItemSelectViewModel(title: "Tabs - Do not preserve back history", isSelected: WMFDeveloperSettingsDataController.shared.tabsDoNotPreserveBackHistory)
         
-        let tabsDeepLinkInNewTabItem = WMFFormItemSelectViewModel(title: "Tabs - Deep Link In New Tab", isSelected: WMFDeveloperSettingsDataController.shared.tabsDeepLinkInNewTab)
+        let tabsDeepLinkInCurrentTabItem = WMFFormItemSelectViewModel(title: "Tabs - Deep Link In current tab", isSelected: WMFDeveloperSettingsDataController.shared.tabsDeepLinkInCurrentTab)
 
-        formViewModel = WMFFormViewModel(sections: [WMFFormSectionSelectViewModel(items: [doNotPostImageRecommendationsEditItem, sendAnalyticsToWMFLabsItem, bypassDonationItem, tabsPreserveRabbitHoleItem, tabsDeepLinkInNewTabItem], selectType: .multi)])
+        formViewModel = WMFFormViewModel(sections: [WMFFormSectionSelectViewModel(items: [doNotPostImageRecommendationsEditItem, sendAnalyticsToWMFLabsItem, bypassDonationItem, tabsDoNotPreserveBackHistoryItem, tabsDeepLinkInCurrentTabItem], selectType: .multi)])
 
         doNotPostImageRecommendationsEditItem.$isSelected.sink { isSelected in
             WMFDeveloperSettingsDataController.shared.doNotPostImageRecommendationsEdit = isSelected
@@ -52,12 +52,12 @@ import WMFData
             WMFDeveloperSettingsDataController.shared.bypassDonation = isSelected
         }.store(in: &subscribers)
         
-        tabsPreserveRabbitHoleItem.$isSelected.sink { isSelected in
-            WMFDeveloperSettingsDataController.shared.tabsPreserveRabbitHole = isSelected
+        tabsDoNotPreserveBackHistoryItem.$isSelected.sink { isSelected in
+            WMFDeveloperSettingsDataController.shared.tabsDoNotPreserveBackHistory = isSelected
         }.store(in: &subscribers)
         
-        tabsDeepLinkInNewTabItem.$isSelected.sink { isSelected in
-            WMFDeveloperSettingsDataController.shared.tabsDeepLinkInNewTab = isSelected
+        tabsDeepLinkInCurrentTabItem.$isSelected.sink { isSelected in
+            WMFDeveloperSettingsDataController.shared.tabsDeepLinkInCurrentTab = isSelected
         }.store(in: &subscribers)
     }
 }

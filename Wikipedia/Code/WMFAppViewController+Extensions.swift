@@ -27,7 +27,7 @@ extension WMFAppViewController {
             return false
         }
         
-        let linkCoordinator = LinkCoordinator(navigationController: navigationController, url: linkURL, dataStore: dataStore, theme: theme, articleSource: .undefined)
+        let linkCoordinator = LinkCoordinator(navigationController: navigationController, url: linkURL, dataStore: dataStore, theme: theme, articleSource: .undefined, fromDeepLink: true)
         return linkCoordinator.start()
     }
 
@@ -715,7 +715,8 @@ extension WMFAppViewController: UINavigationControllerDelegate {
     public func navigationController(_ navigationController: UINavigationController, didShow viewController: UIViewController, animated: Bool) {
         
         // Read the view controller we’re moving from.
-        guard let fromViewController = navigationController.transitionCoordinator?.viewController(forKey: .from) else {
+        guard let fromViewController = navigationController.transitionCoordinator?.viewController(forKey: .from),
+        let toViewController = navigationController.transitionCoordinator?.viewController(forKey: .to) else {
             return
         }
 
@@ -724,9 +725,25 @@ extension WMFAppViewController: UINavigationControllerDelegate {
             return
         }
 
-        // We’re still here – it means we’re popping the view controller, so we can check whether it’s an article view controller
-        if let articleVC = fromViewController as? ArticleViewController {
-            articleVC.articleCoordinator?.removeArticleFromCurrentTab()
+        // We’re still here – it means we’re popping the view controller. Check if we came from an article view controller, if so, we tapped back on that article view controller. Telling the coordinator that we tapped back will move the current article index of the tab.
+        if let fromArticleVC = fromViewController as? ArticleViewController {
+            fromArticleVC.articleCoordinator?.tappedBack()
+        }
+        
+        // There's a chance that, while backing out of the navigation stack, that we switch to an article that resides in a different tab (this is prevalent when preserve rabbit holes is on). If so, set that as the current tab and update the current article index.
+        if let toArticleVC = toViewController as? ArticleViewController,
+           let coordinator = toArticleVC.articleCoordinator,
+           let newTab = coordinator.tab,
+           let newArticle = coordinator.article,
+           let newArticleIndex = newTab.articles.firstIndex(of: newArticle) {
+            
+            newTab.currentArticleIndex = newArticleIndex
+            TabsDataController.shared.currentTab = newTab
+        }
+        
+        // If this, we are now back on a root view, clear out current tab
+        if navigationController.viewControllers.count == 1 {
+            TabsDataController.shared.currentTab = nil
         }
     }
 }

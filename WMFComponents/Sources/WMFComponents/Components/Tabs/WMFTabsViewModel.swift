@@ -32,6 +32,7 @@ public final class WMFTabsViewModel: ObservableObject {
             if !alreadyCurrentTab {
                 dataController.currentTab = tab
             }
+            tab.dateInteracted = Date()
             
             tappedTabAction(tab, alreadyCurrentTab)
         }
@@ -61,7 +62,7 @@ public final class WMFTabsViewModel: ObservableObject {
         let currentTab = dataController.currentTab
         
         let otherSortedDataTabs = dataTabs.filter { $0 !== currentTab }.sorted { tab1, tab2 in
-            return tab1.dateCreated > tab2.dateCreated
+            return tab1.dateInteracted > tab2.dateInteracted
         }
         let sortedDataTabs: [WMFData.Tab]
         if let currentTab {
@@ -71,9 +72,11 @@ public final class WMFTabsViewModel: ObservableObject {
         }
         
         for dataTab in sortedDataTabs {
-            guard let topArticleTitle = dataTab.articles.last?.title else {
+            guard dataTab.currentArticleIndex < dataTab.articles.count else {
                 continue
             }
+            
+            let topArticleTitle = dataTab.articles[dataTab.currentArticleIndex].title
             
             tabViewModels.append(WMFTabViewModel(tab: dataTab, topArticleTitle: topArticleTitle))
         }

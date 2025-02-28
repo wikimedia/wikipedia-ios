@@ -19,11 +19,13 @@ public final class Tab: Equatable {
     
     let id: UUID = UUID()
     public private(set) var articles: [Article]
-    public let dateCreated: Date
+    public var currentArticleIndex: Int
+    public var dateInteracted: Date
     
-    public init(articles: [WMFData.Tab.Article]) {
-        self.articles = articles
-        self.dateCreated = Date()
+    public init(article: WMFData.Tab.Article) {
+        articles = [article]
+        currentArticleIndex = 0
+        dateInteracted = Date()
     }
     
     public static func == (lhs: WMFData.Tab, rhs: WMFData.Tab) -> Bool {
@@ -32,21 +34,46 @@ public final class Tab: Equatable {
     }
     
     public func addArticle(_ article: Article) {
-        articles.append(article)
-    }
-    
-    func removeArticle(_ article: Article) {
-        var indexToRemove: Int?
-        for (index, reverseArticle) in articles.reversed().enumerated() {
-            if reverseArticle == article {
-                indexToRemove = articles.count - 1 - index
-            }
+        
+        guard articles.count > 0 else {
+            articles.append(article)
+            self.currentArticleIndex = 0
+            dateInteracted = Date()
+            return
         }
         
-        if let indexToRemove,
-           articles.count > indexToRemove {
-            articles.remove(at: indexToRemove)
+        let delta = (articles.count - 1) - currentArticleIndex
+        if delta > 0 { // We are adding an article in the middle of a stack. We must insert it, then delete the remaining stack.
+            articles.insert(article, at: currentArticleIndex + 1)
+            articles.removeLast(delta)
+        } else {
+            articles.append(article)
         }
+        
+        self.currentArticleIndex = articles.count - 1
+        dateInteracted = Date()
+    }
+    
+    func back() {
+        guard currentArticleIndex > 0 else {
+            return
+        }
+        currentArticleIndex -= 1
+        dateInteracted = Date()
+    }
+    
+    func canGoForward() -> Bool {
+        return currentArticleIndex < articles.count - 1
+    }
+    
+    func forward() {
+        guard currentArticleIndex > articles.count - 1 else {
+            assertionFailure("Unexpected setup. Be sure to check canGoForward() before enabling a forward button.")
+            return
+        }
+        
+        currentArticleIndex += 1
+        dateInteracted = Date()
     }
 }
 
@@ -65,36 +92,21 @@ public final class TabsDataController {
     public func addArticleToCurrentTab(article: WMFData.Tab.Article) {
         
         guard let currentTab else {
-            let newTab = WMFData.Tab(articles: [article])
-            addTab(tab: newTab)
-            self.currentTab = newTab
-            return
-        }
-        
-        // if article is already top of current tab, do nothing
-        if let topArticle = currentTab.articles.last,
-              article == topArticle {
+            let tab = WMFData.Tab(article: article)
+            self.addTab(tab: tab)
+            self.currentTab = tab
             return
         }
         
         currentTab.addArticle(article)
     }
     
-    public func removeArticleFromCurrentTab(article: WMFData.Tab.Article) {
-        guard let currentTab else {
-            assertionFailure("No current tab!")
-            return
-        }
-        
-        remove(article: article, from: currentTab)
+    public func back(tab: WMFData.Tab) {
+        tab.back()
     }
-
-    public func remove(article: WMFData.Tab.Article, from tab: WMFData.Tab) {
-        tab.removeArticle(article)
-        
-        if tab.articles.count == 0 {
-            removeTab(tab: tab)
-        }
+    
+    public func forward(tab: WMFData.Tab) {
+        tab.forward()
     }
     
     public func addTab(tab: WMFData.Tab) {

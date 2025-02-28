@@ -31,18 +31,7 @@ final class TabsCoordinator: Coordinator {
     
     private func tappedAddTab() {
         
-        if WMFDeveloperSettingsDataController.shared.tabsPreserveRabbitHole {
-            let newSearchVC = SearchViewController(source: .unknown, customArticleCoordinatorNavigationController: navigationController)
-            newSearchVC.apply(theme: theme)
-            newSearchVC.dataStore = dataStore
-            newSearchVC.needsCenteredTitle = true
-            
-            navigationController.pushViewController(newSearchVC, animated: false)
-            
-            navigationController.dismiss(animated: true) {
-                newSearchVC.focusSearchBar()
-            }
-        } else {
+        if WMFDeveloperSettingsDataController.shared.tabsDoNotPreserveBackHistory {
             guard let rootVC = navigationController.viewControllers.first else {
                 return
             }
@@ -81,6 +70,17 @@ final class TabsCoordinator: Coordinator {
                 }
                 
             }
+        } else {
+            let newSearchVC = SearchViewController(source: .unknown, customArticleCoordinatorNavigationController: navigationController)
+            newSearchVC.apply(theme: theme)
+            newSearchVC.dataStore = dataStore
+            newSearchVC.needsCenteredTitle = true
+            
+            navigationController.pushViewController(newSearchVC, animated: false)
+            
+            navigationController.dismiss(animated: true) {
+                newSearchVC.focusSearchBar()
+            }
         }
     }
     
@@ -91,22 +91,12 @@ final class TabsCoordinator: Coordinator {
             return
         }
         
-        if WMFDeveloperSettingsDataController.shared.tabsPreserveRabbitHole {
+        if WMFDeveloperSettingsDataController.shared.tabsDoNotPreserveBackHistory {
             
-            for article in tab.articles {
-                guard let articleTitle = article.title.denormalizedPageTitle,
-                      let articleURL = URL(string: "https://en.wikipedia.org/wiki/\(articleTitle)") else {
-                    continue
-                }
-                
-                // Article is already a part of a tab, no need to add it again.
-                let articleCoordinator = ArticleCoordinator(navigationController: navigationController, articleURL: articleURL, dataStore: MWKDataStore.shared(), theme: Theme.light, source: .undefined, needsAnimation: false, startShouldAddArticleToCurrentTab: false)
-                articleCoordinator.start()
+            guard tab.currentArticleIndex <= tab.articles.count - 1 else {
+                assertionFailure("Unexpected currentArticleIndex")
+                return
             }
-            
-            navigationController.dismiss(animated: true)
-            
-        } else {
             
             // Add on top of root
             guard let firstVC = navigationController.viewControllers.first else {
@@ -116,31 +106,53 @@ final class TabsCoordinator: Coordinator {
             // first reset navigation stack underneath modal
             navigationController.setViewControllers([firstVC], animated: false)
             
-            for article in tab.articles {
+            let articlesToPush = tab.articles[0...tab.currentArticleIndex]
+            
+            for article in articlesToPush {
                 guard let articleTitle = article.title.denormalizedPageTitle,
                       let articleURL = URL(string: "https://en.wikipedia.org/wiki/\(articleTitle)") else {
                     continue
                 }
                 
-                // Kick off coordinator to add to stack. Article is already a part of a tab, no need to add it again.
-                let articleCoordinator = ArticleCoordinator(navigationController: navigationController, articleURL: articleURL, dataStore: MWKDataStore.shared(), theme: Theme.light, source: .undefined, needsAnimation: false, startShouldAddArticleToCurrentTab: false)
+                let articleCoordinator = ArticleCoordinator(navigationController: navigationController, articleURL: articleURL, dataStore: MWKDataStore.shared(), theme: Theme.light, source: .undefined, needsAnimation: false, tab: tab, article: article)
                 articleCoordinator.start()
             }
             
             // then dismiss tabs modal
+            navigationController.dismiss(animated: true)
+
+        } else {
+            
+            guard tab.currentArticleIndex <= tab.articles.count - 1 else {
+                assertionFailure("Unexpected currentArticleIndex")
+                return
+            }
+            
+            let articlesToPush = tab.articles[0...tab.currentArticleIndex]
+            
+            for article in articlesToPush {
+                guard let articleTitle = article.title.denormalizedPageTitle,
+                      let articleURL = URL(string: "https://en.wikipedia.org/wiki/\(articleTitle)") else {
+                    continue
+                }
+
+                let articleCoordinator = ArticleCoordinator(navigationController: navigationController, articleURL: articleURL, dataStore: MWKDataStore.shared(), theme: Theme.light, source: .undefined, needsAnimation: false, tab: tab, article: article)
+                articleCoordinator.start()
+            }
+            
             navigationController.dismiss(animated: true)
         }
     }
     
     private func tappedCloseTab(tab: WMFData.Tab, currentTabClosed: Bool) {
         
-        if WMFDeveloperSettingsDataController.shared.tabsPreserveRabbitHole {
-            // do nothing?
-        } else {
+        if WMFDeveloperSettingsDataController.shared.tabsDoNotPreserveBackHistory {
             if currentTabClosed {
                 // reset navigation stack underneath modal
                 navigationController.popToRootViewController(animated: false)
             }
+        } else {
+            // do nothing?
         }
     }
 }

@@ -49,19 +49,19 @@ public protocol WMFDeveloperSettingsDataControlling: AnyObject {
         }
     }
     
-    public var tabsPreserveRabbitHole: Bool {
+    public var tabsDoNotPreserveBackHistory: Bool {
         get {
-            return ( try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsTabsPreserveRabbitHole.rawValue)) ?? false
+            return ( try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsTabsDoNotPreserveBackHistory.rawValue)) ?? false
         } set {
-            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsTabsPreserveRabbitHole.rawValue, value: newValue)
+            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsTabsDoNotPreserveBackHistory.rawValue, value: newValue)
         }
     }
     
-    public var tabsDeepLinkInNewTab: Bool {
+    public var tabsDeepLinkInCurrentTab: Bool {
         get {
-            return ( try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsTabsDeepLinkInNewTab.rawValue)) ?? false
+            return ( try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsTabsDeepLinkInCurrentTab.rawValue)) ?? false
         } set {
-            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsTabsDeepLinkInNewTab.rawValue, value: newValue)
+            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsTabsDeepLinkInCurrentTab.rawValue, value: newValue)
         }
     }
 

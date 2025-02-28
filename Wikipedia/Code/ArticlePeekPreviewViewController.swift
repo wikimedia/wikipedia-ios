@@ -140,7 +140,7 @@ class ArticlePeekPreviewViewController: UIViewController {
                 }
             
                let article = WMFData.Tab.Article(title: title, project: project)
-               let newTab = WMFData.Tab(articles: [article])
+               let newTab = WMFData.Tab(article: article)
                TabsDataController.shared.addTab(tab: newTab)
         })
 

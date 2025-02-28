@@ -1,4 +1,5 @@
 import WMF
+import WMFData
 
 final class LinkCoordinator: Coordinator {
     
@@ -12,13 +13,15 @@ final class LinkCoordinator: Coordinator {
     private let dataStore: MWKDataStore
     var theme: Theme
     private let articleSource: ArticleSource
+    private let fromDeepLink: Bool
     
-    init(navigationController: UINavigationController, url: URL, dataStore: MWKDataStore?, theme: Theme, articleSource: ArticleSource) {
+    init(navigationController: UINavigationController, url: URL, dataStore: MWKDataStore?, theme: Theme, articleSource: ArticleSource, fromDeepLink: Bool = false) {
         self.navigationController = navigationController
         self.url = url
         self.dataStore = dataStore ?? MWKDataStore.shared()
         self.theme = theme
         self.articleSource = articleSource
+        self.fromDeepLink = fromDeepLink
     }
     
     @discardableResult
@@ -28,6 +31,9 @@ final class LinkCoordinator: Coordinator {
         
         switch destination {
         case .article:
+            if !WMFDeveloperSettingsDataController.shared.tabsDeepLinkInCurrentTab && fromDeepLink {
+                TabsDataController.shared.currentTab = nil
+            }
             let articleCoordinator = ArticleCoordinator(
                 navigationController: navigationController,
                 articleURL: url,
