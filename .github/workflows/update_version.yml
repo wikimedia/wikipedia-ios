@@ -3,7 +3,7 @@ name: Update App Version
 on:
   workflow_dispatch:
     inputs:
-      new_value:
+      NEW_VALUE:
         description: "New App Version"
         required: true
         type: string
@@ -32,7 +32,6 @@ jobs:
           )
 
           KEY="CFBundleShortVersionString"
-          NEW_VALUE="${{ inputs.new_value }}"
 
           for PLIST_PATH in "${INFO_PLIST_FILES[@]}"; do
             if [ -f "$PLIST_PATH" ]; then
