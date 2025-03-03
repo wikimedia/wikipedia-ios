@@ -78,4 +78,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          echo "Creating PR with title: Update app version to ${NEW_VALUE}"
+          gh pr create --title "Update app version to ${NEW_VALUE}" \
+                       --body "Automated update of Info.plist values to ${NEW_VALUE}" \
+                       --base main \
+                       --head "$(git branch --show-current)"
