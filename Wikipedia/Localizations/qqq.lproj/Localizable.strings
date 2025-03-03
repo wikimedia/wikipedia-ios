@@ -1194,7 +1194,6 @@
 "temp-account-edit-sheet-subtitle" = "Information on temporary accounts, $1 is the temporary username, $2 and $3 are opening and closing bold, $4 is the URL opening tag, and $5 is the closing. $6 is the linebreaks. $7 is the opening for the learn more link.";
 "temp-account-edit-sheet-title" = "Temporary account sheet for editors";
 "temp-account-got-it" = "Got it button";
-"temp-account-toast-full-information" = "Temporary accounts toast information. $1 and $2 are opening and closing bold, $3 is the temporary username, $4 is linebreaks, $5 is the opening link for logging in, $6 is closing link, $7 is the opening link for creating an account, and $8 is the opening link for other features.";
 "temp-account-toast-read-more-title" = "Read more button for the toast for temporary accounts.";
 "temp-account-toast-title" = "Temporary accounts toast information. $1 and $2 are opening and closing bold";
 "terms-of-use-title" = "Title for the terms of use";

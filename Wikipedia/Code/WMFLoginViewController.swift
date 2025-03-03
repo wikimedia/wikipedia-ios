@@ -27,20 +27,6 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
     
     var readMoreTitle = WMFLocalizedString("temp-account-toast-read-more-title", value: "Read more", comment: "Read more button for the toast for temporary accounts.")
     
-    var fullPageInformation = {
-        let openingLinkLogIn = "<a href=\"\">"
-        let openingLinkCreateAccount = "<a href=\"\">"
-        let openingLinkOtherFeatures = "<a href=\"\">"
-        let closingLink = "</a>"
-        let openingBold = "<b>"
-        let closingBold = "</b>"
-        let lineBreaks = "<br/><br/>"
-        let username = "abc"
-        let format = WMFLocalizedString("temp-account-toast-full-information", value: "%1$@You are using a temporary account.%2$@ Edits are being attributed to %1$@%3$@.%2$@%4$@ %5$@Log in%6$@ or %7$@create an account%6$@ to get credit for future edits, and access %8$@other features%6$@.",
-          comment: "Temporary accounts toast information. $1 and $2 are opening and closing bold, $3 is the temporary username, $4 is linebreaks, $5 is the opening link for logging in, $6 is closing link, $7 is the opening link for creating an account, and $8 is the opening link for other features.")
-        return String.localizedStringWithFormat(format, openingBold, closingBold, username, lineBreaks, openingLinkLogIn, closingLink, openingLinkCreateAccount, openingLinkOtherFeatures)
-    }
-    
     var toastTitle = {
         let openingBold = "<b>"
         let closingBold = "</b>"
