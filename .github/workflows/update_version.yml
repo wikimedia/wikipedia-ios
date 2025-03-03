@@ -9,7 +9,7 @@ on:
         type: string
 
 jobs:
-  update-plist:
+  update-app-version:
     runs-on: macos-latest
 
     steps:
@@ -57,7 +57,17 @@ jobs:
           fi
           BRANCH_NAME="update-app-version-$(date +%Y%m%d%H%M%S)"
           git checkout -b "$BRANCH_NAME"
-          git add "${INFO_PLIST_FILES[@]}"
+          echo "Staging changes..."
+          git add ContinueReadingWidget/Info.plist
+          git add NotificationServiceExtension/Info.plist
+          git add "WMF Framework/Info.plist"
+          git add Widgets/Info.plist
+          git add "Wikipedia Stickers/Info.plist"
+          git add Wikipedia/Experimental-Info.plist
+          git add Wikipedia/Local-Info.plist
+          git add Wikipedia/Staging-Info.plist
+          git add Wikipedia/Wikipedia-Info.plist
+          git add WikipediaUnitTests/Info.plist
           git commit -m "Update app version: $NEW_VALUE"
           git push origin "$BRANCH_NAME"
 
