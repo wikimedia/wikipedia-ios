@@ -8,6 +8,8 @@ class ArticleCollectionViewController: ColumnarCollectionViewController, Editabl
 
     var editController: CollectionViewEditController!
     var contentGroup: WMFContentGroup?
+    
+    var articleSource: ArticleSource = .undefined
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -98,15 +100,6 @@ class ArticleCollectionViewController: ColumnarCollectionViewController, Editabl
         return nil
     }
 
-    var eventLoggingIndex: NSNumber? {
-        guard let index = previewedIndexPath?.item else {
-            return nil
-        }
-        return NSNumber(value: index)
-    }
-
-    var previewedIndexPath: IndexPath?
-
     // MARK: - Layout
     
     override func collectionView(_ collectionView: UICollectionView, estimatedHeightForItemAt indexPath: IndexPath, forColumnWidth columnWidth: CGFloat) -> ColumnarCollectionViewLayoutHeightEstimate {
@@ -137,18 +130,13 @@ class ArticleCollectionViewController: ColumnarCollectionViewController, Editabl
     // MARK: - CollectionViewContextMenuShowing
     func previewingViewController(for indexPath: IndexPath, at location: CGPoint) -> UIViewController? {
         guard !editController.isActive,  // don't allow previewing when swipe actions are active
-              let articleURL = articleURL(at: indexPath) else {
+              let articleURL = articleURL(at: indexPath),
+              let article = article(at: indexPath) else {
             return nil
         }
-
-        previewedIndexPath = indexPath
-
-        guard let articleViewController = ArticleViewController(articleURL: articleURL, dataStore: dataStore, theme: self.theme, source: .undefined) else {
-            return nil
-        }
-        articleViewController.articlePreviewingDelegate = self
-        articleViewController.wmf_addPeekableChildViewController(for: articleURL, dataStore: dataStore, theme: theme)
-        return articleViewController
+        
+        let peekVC = ArticlePeekPreviewViewController(articleURL: articleURL, article: article, dataStore: dataStore, theme: theme, articlePreviewingDelegate: self)
+        return peekVC
     }
 
 }
@@ -178,11 +166,14 @@ extension ArticleCollectionViewController {
 // MARK: - UICollectionViewDelegate
 extension ArticleCollectionViewController {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        guard let articleURL = articleURL(at: indexPath) else {
+        guard let navigationController,
+              let articleURL = articleURL(at: indexPath) else {
             collectionView.deselectItem(at: indexPath, animated: true)
             return
         }
-        navigate(to: articleURL)
+        
+        let articleCoordinator = ArticleCoordinator(navigationController: navigationController, articleURL: articleURL, dataStore: dataStore, theme: theme, source: articleSource)
+        articleCoordinator.start()
     }
     
     func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {

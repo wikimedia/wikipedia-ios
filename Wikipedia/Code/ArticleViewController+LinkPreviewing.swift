@@ -29,64 +29,6 @@ extension ArticleViewController: ArticleContextMenuPresenting, WKUIDelegate {
         }
     }
 
-    var contextMenuItems: [UIAction] {
-        // Read action
-        let readActionTitle = WMFLocalizedString("button-read-now", value: "Read now", comment: "Read now button text used in various places.")
-        let readAction = UIAction(title: readActionTitle, image: WMFSFSymbolIcon.for(symbol: .book), handler: { (action) in
-            self.articlePreviewingDelegate?.readMoreArticlePreviewActionSelected(with: self)
-        })
-
-        var actions = [readAction]
-
-        // Save action
-        let logReadingListsSaveIfNeeded = { [weak self] in
-            guard let delegate = self?.articlePreviewingDelegate as? MEPEventsProviding else {
-                return
-            }
-            self?.readingListsFunnel.logSave(category: delegate.eventLoggingCategory, label: delegate.eventLoggingLabel, articleURL: self?.articleURL)
-        }
-        if articleURL.namespace == .main {
-            let saveActionTitle = article.isAnyVariantSaved ? WMFLocalizedString("button-saved-remove", value: "Remove from saved", comment: "Remove from saved button text used in various places.") : CommonStrings.saveTitle
-            let saveAction = UIAction(title: saveActionTitle, image: WMFSFSymbolIcon.for(symbol: article.isAnyVariantSaved ? .bookmarkFill : .bookmark), handler: { (action) in
-                let isSaved = self.dataStore.savedPageList.toggleSavedPage(for: self.articleURL)
-                let notification = isSaved ? CommonStrings.accessibilitySavedNotification : CommonStrings.accessibilityUnsavedNotification
-                UIAccessibility.post(notification: .announcement, argument: notification)
-                self.articlePreviewingDelegate?.saveArticlePreviewActionSelected(with: self, didSave: isSaved, articleURL: self.articleURL)
-            })
-            actions.append(saveAction)
-        }
-
-        // Location action
-        if article.location != nil {
-            let placeActionTitle = WMFLocalizedString("page-location", value: "View on a map", comment: "Label for button used to show an article on the map")
-            let placeAction = UIAction(title: placeActionTitle, image: WMFSFSymbolIcon.for(symbol: .map), handler: { (action) in
-                self.articlePreviewingDelegate?.viewOnMapArticlePreviewActionSelected(with: self)
-            })
-            actions.append(placeAction)
-        }
-
-        // Share action
-        let shareActionTitle = CommonStrings.shareMenuTitle
-        let shareAction = UIAction(title: shareActionTitle, image: WMFSFSymbolIcon.for(symbol: .squareAndArrowUp), handler: { (action) in
-            guard let presenter = self.articlePreviewingDelegate as? UIViewController else {
-                return
-            }
-            let customActivity = self.addToReadingListActivity(with: presenter, eventLogAction: logReadingListsSaveIfNeeded)
-            guard let shareActivityViewController = self.sharingActivityViewController(with: nil, button: self.toolbarController.shareButton, customActivities: [customActivity]) else {
-                return
-            }
-            self.articlePreviewingDelegate?.shareArticlePreviewActionSelected(with: self, shareActivityController: shareActivityViewController)
-        })
-
-        actions.append(shareAction)
-
-        return actions
-    }
-
-    var previewMenuItems: [UIMenuElement]? {
-        return contextMenuItems
-    }
-
     func webView(_ webView: WKWebView, contextMenuConfigurationForElement elementInfo: WKContextMenuElementInfo, completionHandler: @escaping (UIContextMenuConfiguration?) -> Void) {
         self.contextMenuConfigurationForElement(elementInfo, completionHandler: completionHandler)
     }
@@ -122,17 +64,15 @@ extension ArticleViewController: ArticleContextMenuPresenting, WKUIDelegate {
               return nil
             }
 
-            let articleVC = ArticleViewController(articleURL: newArticleURL, dataStore: dataStore, theme: theme, source: .undefined)
-            articleVC?.articlePreviewingDelegate = self
-            articleVC?.wmf_addPeekableChildViewController(for: newArticleURL, dataStore: dataStore, theme: theme)
-            return articleVC
+            let peekVC = ArticlePeekPreviewViewController(articleURL: newArticleURL, article: nil, dataStore: dataStore, theme: theme, articlePreviewingDelegate: self)
+            return peekVC
         default:
             return nil
         }
     }
 
     func commitPreview(of viewControllerToCommit: UIViewController) {
-        if let vc = viewControllerToCommit as? ArticleViewController {
+        if let vc = viewControllerToCommit as? ArticlePeekPreviewViewController {
             readMoreArticlePreviewActionSelected(with: vc)
         } else {
             if let vc = viewControllerToCommit as? WMFImageGalleryViewController {

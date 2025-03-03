@@ -13,7 +13,7 @@ public protocol SideScrollingCollectionViewCellDelegate: AnyObject {
 }
 
 public protocol NestedCollectionViewContextMenuDelegate: AnyObject {
-    func contextMenu(with contentGroup: WMFContentGroup?, for articleURL: URL?, at itemIndex: Int) -> UIContextMenuConfiguration?
+    func contextMenu(contentGroup: WMFContentGroup?, articleURL: URL?, article: WMFArticle?, itemIndex: Int) -> UIContextMenuConfiguration?
     func willCommitPreview(with animator: UIContextMenuInteractionCommitAnimating)
 }
 
@@ -197,7 +197,7 @@ extension SideScrollingCollectionViewCell: UICollectionViewDelegate {
             return nil
         }
 
-        return contextMenuShowingDelegate?.contextMenu(with: nil, for: articleURL, at: indexPath.item)
+        return contextMenuShowingDelegate?.contextMenu(contentGroup: nil, articleURL: articleURL, article: nil, itemIndex: indexPath.item)
     }
 
     public func collectionView(_ collectionView: UICollectionView, willPerformPreviewActionForMenuWith configuration: UIContextMenuConfiguration, animator: UIContextMenuInteractionCommitAnimating) {

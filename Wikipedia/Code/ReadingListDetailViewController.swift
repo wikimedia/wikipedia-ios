@@ -342,12 +342,23 @@ extension ReadingListDetailViewController: ReadingListEntryCollectionViewControl
     }
     
     func readingListEntryCollectionViewControllerDidSelectArticleURL(_ articleURL: URL, viewController: ReadingListEntryCollectionViewController) {
-        if displayType == .modal {
+        
+        if displayType == .modal,
+           let navVC = (presentingViewController as? WMFAppViewController)?.currentTabNavigationController {
             dismiss(animated: true) { [weak self] in
-                self?.navigate(to: articleURL)
+                
+                guard let self else { return }
+                
+                let coordinator = ArticleCoordinator(navigationController: navVC, articleURL: articleURL, dataStore: dataStore, theme: theme, source: .undefined)
+                coordinator.start()
             }
         } else {
-            navigate(to: articleURL)
+            guard let navigationController else {
+                return
+            }
+            
+            let coordinator = ArticleCoordinator(navigationController: navigationController, articleURL: articleURL, dataStore: dataStore, theme: theme, source: .undefined)
+            coordinator.start()
         }
     }
     

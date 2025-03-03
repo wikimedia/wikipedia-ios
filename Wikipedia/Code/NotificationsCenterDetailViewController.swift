@@ -111,13 +111,30 @@ extension NotificationsCenterDetailViewController: UITableViewDelegate, UITableV
             
             logNotificationInteraction(with: actionCell.action)
             
-            var userInfo: [AnyHashable : Any] = [RoutingUserInfoKeys.source: RoutingUserInfoSourceValue.notificationsCenter.rawValue]
-            
-            if let replyText = viewModel.contentBody {
-                userInfo[RoutingUserInfoKeys.talkPageReplyText] = replyText as Any
+            let legacyNavigateAction = { [weak self] in
+                
+                guard let self else { return }
+                var userInfo: [AnyHashable : Any] = [RoutingUserInfoKeys.source: RoutingUserInfoSourceValue.notificationsCenter.rawValue]
+                
+                if let replyText = viewModel.contentBody {
+                    userInfo[RoutingUserInfoKeys.talkPageReplyText] = replyText as Any
+                }
+                
+                navigate(to: url, userInfo: userInfo)
             }
             
-            navigate(to: url, userInfo: userInfo)
+            // first try to navigate using LinkCoordinator. If it fails, use the legacy approach.
+            if let navigationController {
+                
+                let linkCoordinator = LinkCoordinator(navigationController: navigationController, url: url, dataStore: nil, theme: theme, articleSource: .undefined)
+                let success = linkCoordinator.start()
+                guard success else {
+                    legacyNavigateAction()
+                    return
+                }
+            } else {
+                legacyNavigateAction()
+            }
         }
 
         tableView.deselectRow(at: indexPath, animated: true)

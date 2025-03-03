@@ -1160,8 +1160,25 @@ extension TalkPageViewController: TalkPageTextViewLinkHandling {
             return
         }
         
-        let userInfo: [AnyHashable : Any] = [RoutingUserInfoKeys.source: RoutingUserInfoSourceValue.talkPage.rawValue]
-        navigate(to: url.absoluteURL, userInfo: userInfo)
+        let legacyNavigateAction = { [weak self] in
+            
+            guard let self else { return }
+            let userInfo: [AnyHashable : Any] = [RoutingUserInfoKeys.source: RoutingUserInfoSourceValue.talkPage.rawValue]
+            navigate(to: url.absoluteURL, userInfo: userInfo)
+        }
+        
+        // first try to navigate using LinkCoordinator. If it fails, use the legacy approach.
+        if let navigationController {
+            
+            let linkCoordinator = LinkCoordinator(navigationController: navigationController, url: url.absoluteURL, dataStore: nil, theme: theme, articleSource: .undefined)
+            let success = linkCoordinator.start()
+            guard success else {
+                legacyNavigateAction()
+                return
+            }
+        } else {
+            legacyNavigateAction()
+        }
     }
 }
 
