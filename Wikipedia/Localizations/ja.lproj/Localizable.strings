@@ -127,14 +127,6 @@
 "action-update" = "更新";
 "add-articles-to-reading-list" = "{{PLURAL:$1|$1 件の記事}}をあとで読むリストに追加";
 "advanced-settings-title" = "高度な設定";
-"alt-text-add-button-title" = "追加";
-"alt-text-do-not-add-button-title" = "追加しない";
-"alt-text-email-fifth-line" = "[スクリーンショットまたはリンク]";
-"alt-text-email-first-line" = "代替テキスト機能で問題が発生しました:";
-"alt-text-email-fourth-line" = "- [提案された解決策を記載]";
-"alt-text-email-second-line" = "- [具体的な問題を記載]";
-"alt-text-experiment-caption-title" = "画像キャプション";
-"alt-text-experiment-onboarding-tooltip-1-title" = "査読";
 "alt-text-feedback-survey-toast-title" = "フィードバックを送信しました";
 "announcements-dismiss" = "断る";
 "app-store-keywords" = "ウィキペディア、参考資料、ウィキ、百科事典、情報、知識、リサーチ、情報、発見、学習";

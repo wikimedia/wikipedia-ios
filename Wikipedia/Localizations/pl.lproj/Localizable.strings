@@ -106,9 +106,6 @@
 "action-unsaved-accessibility-notification" = "Artykuł niezapisany";
 "action-update" = "Aktualizuj";
 "add-articles-to-reading-list" = "Dodaj {{PLURAL:$1|$1 artykuł|$1 artykuły}} do listy do przeczytania";
-"alt-text-add-button-title" = "Dodaj";
-"alt-text-do-not-add-button-title" = "Nie dodawaj";
-"alt-text-feedback-alert-subtitle-flow-C" = "Czy chciałbyś otrzymywać podobne powiadomienia o sugerowanych zmianach w artykułach po ich edycji?";
 "announcements-dismiss" = "Odrzuć";
 "app-store-keywords" = "Wikipedia, referencje, wiki, encyklopedia, informacje, wiedza, badania, informacje, eksploracja, nauka";
 "app-store-release-notes" = "W pełni konfigurowalny i łatwiejszy do odczytania kanał Eksploruj. Lokalizacja, ulepszenia wydajności i poprawki błędów.";
