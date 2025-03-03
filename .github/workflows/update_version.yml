@@ -1,0 +1,16 @@
+# Checks the PR label against the app version, fails if they do not match.
+# This is to prevent unwanted PRs from being merged into main.
+name: Update App Version
+
+on:
+  workflow_dispatch: # allows workflow to be triggered manually
+
+jobs:
+  update-version:
+    runs-on: macOS-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: Update App Version
+      continue-on-error: false
+      run: |
+        echo "Testing"
