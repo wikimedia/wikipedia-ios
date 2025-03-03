@@ -633,7 +633,7 @@
 	<key>year-in-review-personalized-reading-title-format</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>올해에 %#@v1@를 읽었습니다</string>
+		<string>%#@v1@를 읽었습니다</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>

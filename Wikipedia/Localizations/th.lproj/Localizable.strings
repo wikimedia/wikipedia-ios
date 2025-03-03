@@ -456,8 +456,6 @@
 "image-rec-add-image-title" = "เพิ่มภาพนี้?";
 "image-rec-error-subtitle" = "มีอะไรบางอย่างผิดพลาด";
 "image-rec-error-title" = "ไม่สามารถโหลดหน้าได้";
-"image-rec-feature-announce-body" = "ตัดสินใจว่าจะเพิ่มรูปภาพลงในบทความวิกิพีเดียหรือไม่ คุณจะพบการ์ด ‘เพิ่มรูปภาพ’ ได้ใน ‘ฟีดสำรวจ’";
-"image-rec-feature-announce-title" = "ลอง 'เพิ่มรูปภาพ'";
 "image-rec-onboarding-learn-more-button" = "เรียนรู้เพิ่มเติมเกี่ยวกับการแก้ไขที่แนะนำ";
 "image-rec-survey-instructions-1" = "คำตอบของคุณจะช่วยปรับปรุงข้อเสนอแนะในอนาคต";
 "image-rec-survey-instructions-2" = "เลือกตัวเลือกหนึ่งรายการหรือมากกว่า";

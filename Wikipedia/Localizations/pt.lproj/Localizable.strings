@@ -493,8 +493,6 @@
 "image-rec-add-image-title" = "Adicionar esta imagem?";
 "image-rec-empty-subtitle" = "Tente voltar mais tarde.";
 "image-rec-empty-title" = "Você não possui imagens sugeridas no momento.";
-"image-rec-feature-announce-body" = "Decida se uma imagem será adicionada a um artigo da Wikipédia. Você pode encontrar o cartão ‘Adicionar uma imagem’ no seu feed ‘Explorar’.";
-"image-rec-feature-announce-title" = "Experimente ‘Adicionar uma imagem’";
 "image-rec-onboarding-item-1-body" = "Decida se uma imagem sugerida deve ser colocada em um artigo da Wikipédia.";
 "image-rec-onboarding-item-1-title" = "Ver uma sugestão";
 "image-rec-onboarding-item-2-body" = "As sugestões são geradas automaticamente e você deverá julgar se deve aceitá-las ou rejeitá-las.";

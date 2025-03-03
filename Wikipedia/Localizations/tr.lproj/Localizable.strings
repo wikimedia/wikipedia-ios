@@ -119,14 +119,7 @@
 "action-update" = "Güncelle";
 "add-articles-to-reading-list" = "{{PLURAL:$1|$1 maddeyi|$1 maddeyi}} okuma listesine ekleyin";
 "advanced-settings-title" = "Gelişmiş ayarlar";
-"alt-text-add-button-title" = "Ekle";
-"alt-text-do-not-add-button-title" = "Ekleme";
-"alt-text-email-fifth-line" = "[Ekran görüntüleri ya da Bağlantılar]";
-"alt-text-email-fourth-line" = "- [Önerilen çözümü tanımlayın]";
-"alt-text-email-second-line" = "- [Belirli bir sorunu tanımlayın]";
-"alt-text-email-third-line" = "Görmek istediğim davranış:";
-"alt-text-experiment-caption-title" = "Görsel alt yazısı";
-"alt-text-experiment-onboarding-secondary-button-title" = "Örnekleri görüntüle";
+"alt-text-feedback-survey-toast-title" = "Geri bildirim gönderildi";
 "announcements-dismiss" = "Kapat";
 "app-store-keywords" = "Vikipedi, referans, viki, ansiklopedi, bilgi, bilgilenme, araştırma, bilme, keşfet, öğren";
 "app-store-release-notes" = "Tamamen özelleştirilebilir beslemeleri keşfedin. Yerelleştirme, performans iyileştirmeleri ve hata düzeltmeleri.";
@@ -177,6 +170,9 @@
 "clearing-cache-in-progress" = "Önbellek temizleniyor.";
 "close-button-accessibility-label" = "Kapat";
 "compass-direction" = "saat $1 yönünde";
+"confirm-donation-history-deletion-subtitle" = "Bu yalnızca bu aygıttan yapılan bağışlar için geçerli olacaktır.";
+"confirm-donation-history-deletion-title" = "Silmeyi onayla";
+"confirmed-donation-history-deletion" = "Yerel geçmiş silindi";
 "continue-button-title" = "Devam et";
 "continue-reading-empty-description" = "Daha fazla madde okumak için Vikipedi'yi keşfedin";
 "continue-reading-empty-title" = "Son okunan madde yok";
@@ -579,8 +575,6 @@
 "image-rec-empty-title" = "Şu anda başka önerilen görsel yok.";
 "image-rec-error-subtitle" = "Bir şeyler yanlış gitti.";
 "image-rec-error-title" = "Sayfa yüklenemiyor";
-"image-rec-feature-announce-body" = "Bir Vikipedi maddesine görsel eklenip eklenmeyeceğine karar verin. 'Görsel ekle' kartını 'Keşfet akışınızda' bulabilirsiniz.";
-"image-rec-feature-announce-title" = "'Görsel ekle'yi deneyin";
 "image-rec-onboarding-item-1-body" = "Önerilen bir görselin bir Vikipedi maddesine yerleştirilip yerleştirilmeyeceğine karar verin.";
 "image-rec-onboarding-item-1-title" = "Bir öneri görüntüle";
 "image-rec-onboarding-item-2-body" = "Öneriler makine ile oluşturulmuştur ve bunları kabul edip etmemeye karar vermek için sağduyunuzu kullanırsınız.";
