@@ -3,7 +3,7 @@ name: Update App Version
 on:
   workflow_dispatch:
     inputs:
-      NEW_VALUE:
+      new_value:
         description: "New App Version"
         required: true
         type: string
@@ -32,6 +32,7 @@ jobs:
           )
 
           KEY="CFBundleShortVersionString"
+          NEW_VALUE="${{ inputs.new_value }}"
 
           for PLIST_PATH in "${INFO_PLIST_FILES[@]}"; do
             if [ -f "$PLIST_PATH" ]; then
@@ -42,6 +43,9 @@ jobs:
               echo "Warning: $PLIST_PATH not found, skipping."
             fi
           done
+
+          # Export NEW_VALUE so that it can be used in future steps
+          echo "NEW_VALUE=${{ github.event.inputs.NEW_VALUE }}" >> $GITHUB_ENV
 
       - name: Set up Git
         run: |
