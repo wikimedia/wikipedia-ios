@@ -1,16 +1,71 @@
-# Checks the PR label against the app version, fails if they do not match.
-# This is to prevent unwanted PRs from being merged into main.
 name: Update App Version
 
 on:
-  workflow_dispatch: # allows workflow to be triggered manually
+  workflow_dispatch:
+    inputs:
+      new_value:
+        description: "New App Version"
+        required: true
+        type: string
 
 jobs:
-  update-version:
-    runs-on: macOS-latest
+  update-plist:
+    runs-on: macos-latest
+
     steps:
-    - uses: actions/checkout@v4
-    - name: Update App Version
-      continue-on-error: false
-      run: |
-        echo "Testing"
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Update all Info.plist files with plutil
+        run: |
+          INFO_PLIST_FILES=(
+            "ContinueReadingWidget/Info.plist"
+            "NotificationServiceExtension/Info.plist"
+            "WMF Framework/Info.plist"
+            "Widgets/Info.plist"
+            "Wikipedia Stickers/Info.plist"
+            "Wikipedia/Experimental-Info.plist"
+            "Wikipedia/Local-Info.plist"
+            "Wikipedia/Staging-Info.plist"
+            "Wikipedia/Wikipedia-Info.plist"
+            "WikipediaUnitTests/Info.plist"
+          )
+
+          KEY="CFBundleShortVersionString"
+          NEW_VALUE="${{ inputs.new_value }}"
+
+          for PLIST_PATH in "${INFO_PLIST_FILES[@]}"; do
+            if [ -f "$PLIST_PATH" ]; then
+              echo "Updating $KEY in $PLIST_PATH to $NEW_VALUE"
+              plutil -replace "$KEY" -string "$NEW_VALUE" "$PLIST_PATH"
+              cat "$PLIST_PATH"
+            else
+              echo "Warning: $PLIST_PATH not found, skipping."
+            fi
+          done
+
+      - name: Set up Git
+        run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+
+      - name: Commit changes
+        run: |
+          if git diff --quiet; then
+            echo "No changes detected, exiting."
+            exit 0
+          fi
+          BRANCH_NAME="update-app-version-$(date +%Y%m%d%H%M%S)"
+          git checkout -b "$BRANCH_NAME"
+          git add "${INFO_PLIST_FILES[@]}"
+          git commit -m "Update app version: $NEW_VALUE"
+          git push origin "$BRANCH_NAME"
+
+      - name: Create Pull Request
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh pr create --title "Update app version to $NEW_VALUE" \
+                       --body "Automated update of Info.plist values to $NEW_VALUE" \
+                       --base main \
+                       --head "$(git branch --show-current)"
