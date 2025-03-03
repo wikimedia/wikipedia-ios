@@ -68,14 +68,14 @@ jobs:
           git add Wikipedia/Staging-Info.plist
           git add Wikipedia/Wikipedia-Info.plist
           git add WikipediaUnitTests/Info.plist
-          git commit -m "Update app version: $NEW_VALUE"
+          git commit -m "Update app version: ${NEW_VALUE}"
           git push origin "$BRANCH_NAME"
 
       - name: Create Pull Request
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          gh pr create --title "Update app version to $NEW_VALUE" \
-                       --body "Automated update of Info.plist values to $NEW_VALUE" \
+          gh pr create --title "Update app version to ${NEW_VALUE}" \
+                       --body "Automated update of Info.plist values to ${NEW_VALUE}" \
                        --base main \
                        --head "$(git branch --show-current)"
