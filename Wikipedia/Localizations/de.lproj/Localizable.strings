@@ -845,6 +845,7 @@
 "saved-default-reading-list-tag" = "Diese Liste kann nicht gelöscht werden";
 "saved-pages-image-download-error" = "Die Bilder für diese gespeicherte Seite konnten nicht heruntergeladen werden.";
 "saved-pages-progress-syncing" = "Herunterladen der Artikel läuft …";
+"saved-reading-lists-search-placeholder" = "Leselisten durchsuchen";
 "saved-reading-lists-title" = "Leselisten";
 "saved-search-default-text" = "Gespeicherte Artikel durchsuchen";
 "saved-title" = "Gespeichert";
