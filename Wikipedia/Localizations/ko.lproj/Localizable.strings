@@ -37,40 +37,6 @@
 // Author: 밥풀떼기
 // Author: 아라
 
-"aaald-added-text-description-2" = "$1 추가됨";
-"aaald-article-description-updated-description" = "문서 설명이 업데이트됨";
-"aaald-article-insert-header" = "중요 업데이트";
-"aaald-article-insert-last-updated" = "최근 업데이트";
-"aaald-article-insert-new-changes" = "새 변경사항";
-"aaald-article-insert-read-more" = "더 많은 업데이트 읽기";
-"aaald-characters-text-description" = "{{PLURAL:$1|0=자|자|자}}";
-"aaald-deleted-text-description-2" = "$1 삭제됨";
-"aaald-error-subitle" = "다시 시도하려면 새로 고침을 하십시오";
-"aaald-error-title" = "줄 내 문서 역사를 불러올 수 없습니다";
-"aaald-many-sections-description" = "$1개 문단에서";
-"aaald-multiple-changes-description" = "변경사항이 여러 개 있음";
-"aaald-multiple-references-added-description" = "각주가 여러 개 추가됨";
-"aaald-new-book-reference-title" = "책";
-"aaald-new-discussion" = "새 토론";
-"aaald-new-journal-reference-database" = "$1을(를) 통해";
-"aaald-new-journal-reference-title" = "저널";
-"aaald-new-journal-reference-volume" = "$1권:";
-"aaald-new-news-reference-retrieved-date" = "$1에 검색함";
-"aaald-new-news-reference-title" = "뉴스";
-"aaald-new-talk-topic-description-format" = "이 문서의 $1";
-"aaald-new-website-reference-archive-date-text" = "$1에 원본에서 가져옴";
-"aaald-new-website-reference-archive-url-text" = "Archive.org URL";
-"aaald-new-website-reference-title" = "웹사이트";
-"aaald-numerical-multiple-references-added-description" = "{{PLURAL:$1|0=0개 각주|$1개 각주|$1개 각주}} 추가됨";
-"aaald-one-section-description" = "$1 문단에서";
-"aaald-revision-by-anonymous" = "익명 사용자의 편집";
-"aaald-revision-userInfo" = "편집자: $1 (편집 $2개)";
-"aaald-single-reference-added-description" = "각주 추가됨";
-"aaald-small-change-description" = "{{PLURAL:$1|0=사소한 편집 없었음|사소한 편집 $1건 있음|사소한 편집 $1건 있음}}";
-"aaald-summary-title" = "{{PLURAL:$3|0=0일 간|$3일 간|$3일 간}} {{PLURAL:$2|0=편집자 0명이|편집자 $2명이|편집자 $2명이}} {{PLURAL:$1|0=0번 변경함|$1번 변경함|$1번 변경함}}";
-"aaald-two-sections-description" = "$1 및 $2 문단에서";
-"aaald-vandalism-revert-description" = "문서 훼손으로 의심되는 판이 되돌려짐";
-"aaald-view-full-history-button" = "모든 문서 역사 보기";
 "about-content-license" = "콘텐츠 라이선스";
 "about-content-license-details" = "특별한 언급이 없는 경우, 콘텐츠는 $1 하에 이용이 가능합니다.";
 "about-content-license-details-share-alike-license" = "크리에이티브 커먼즈 저작권표시-동일조건변경허락 라이선스";
@@ -759,6 +725,7 @@
 "microsite-yir-english-non-donor-slide-title" = "위키백과에 게재된 광고는 0개입니다";
 "microsite-yir-english-reading-slide-title" = "읽기에 29억 시간이 할애됐습니다";
 "microsite-yir-english-saved-reading-slide-title" = "6,220만 개가 넘는 읽기 목록이 있습니다";
+"microsite-yir-english-top-read-slide-title" = "영어 위키백과의 가장 인기 있는 문서";
 "more-languages-tooltip-description" = "300개 이상의 언어에서 위키백과 검색";
 "more-languages-tooltip-title" = "언어 추가";
 "more-menu" = "더 보기";
@@ -958,7 +925,9 @@
 "places-filter-top-articles" = "가장 많이 읽은 글";
 "places-filter-top-articles-count" = "{{PLURAL:$1|$1개의 문서}}";
 "places-filter-top-read-articles" = "가장 많이 읽은 문서";
+"places-list-title'" = "목록";
 "places-location-enabled" = "위치가 켜져 있습니다";
+"places-map-title" = "지도";
 "places-no-saved-articles-have-location" = "저장한 문서 중 어느 것도 위치 정보가 없습니다";
 "places-search-articles-that-match" = "\"$2\"에 일치하는 $1";
 "places-search-default-text" = "장소 검색";
@@ -1402,6 +1371,7 @@
 "year-in-review-base-donate-title" = "위키백과에 게재된 광고는 0개입니다";
 "year-in-review-base-editors-title" = "iOS 앱의 편집자는 $1번 이상 편집을 했습니다";
 "year-in-review-base-edits-title" = "위키백과는 분당 편집 수는 $1회입니다";
+"year-in-review-base-saved-title" = "$1백만 개가 넘는 읽기 목록이 있습니다";
 "year-in-review-base-viewed-title" = "위키백과 문서의 조회 수는 $1억 회입니다";
 "year-in-review-collective-zero-ads" = "위키미디어 로고";
 "year-in-review-day-friday" = "금요일";

@@ -7,33 +7,6 @@
 // Author: Vlad5250
 // Author: Vodnokon4e
 
-"aaald-added-text-description-2" = "$1 добавени";
-"aaald-article-description-updated-description" = "Описанието на статията е актуализирано";
-"aaald-article-insert-header" = "Значителни актуализации";
-"aaald-article-insert-last-updated" = "Последно обновяване";
-"aaald-article-insert-new-changes" = "Нови промени";
-"aaald-article-insert-read-more" = "Прочетете повече актуализации";
-"aaald-characters-text-description" = "{{PLURAL:$1|0=знака|знак|знака}}";
-"aaald-deleted-text-description-2" = "$1 изтрити";
-"aaald-error-subitle" = "Опреснете, за да опитате отново";
-"aaald-error-title" = "Не може да се зареди вградена хронология на статиите";
-"aaald-many-sections-description" = "в $1 раздела";
-"aaald-multiple-changes-description" = "Направени са множество промени";
-"aaald-multiple-references-added-description" = "Добавени са множество препратки";
-"aaald-new-book-reference-title" = "Книга";
-"aaald-new-discussion" = "Нова дискусия";
-"aaald-new-journal-reference-database" = "чрез $1";
-"aaald-new-journal-reference-title" = "Статия";
-"aaald-new-journal-reference-volume" = "Том $1:";
-"aaald-new-news-reference-retrieved-date" = "Извлечено на $1";
-"aaald-new-news-reference-title" = "Новини";
-"aaald-new-talk-topic-description-format" = "$1 за тази статия";
-"aaald-new-website-reference-archive-url-text" = "Archive.org URL адрес";
-"aaald-new-website-reference-title" = "Уебсайт";
-"aaald-revision-by-anonymous" = "Редакция от анонимен потребител";
-"aaald-revision-userInfo" = "Редакция от $1 ($2 редакции)";
-"aaald-single-reference-added-description" = "Добавени източници";
-"aaald-small-change-description" = "{{PLURAL:$1|0=Няма малки промени|$1 малка промяна|$1 малки промени}}";
 "about-content-license" = "Лиценз на съдържанието";
 "about-content-license-details-share-alike-license" = "Криейтив Комънс Признание-Споделяне на споделеното";
 "about-contributors" = "Сътрудници";

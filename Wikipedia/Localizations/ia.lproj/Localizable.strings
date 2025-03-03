@@ -4,40 +4,6 @@
 // Author: McDutchie
 // Author: Tsevener
 
-"aaald-added-text-description-2" = "$1 addite";
-"aaald-article-description-updated-description" = "Description del articulo actualisate";
-"aaald-article-insert-header" = "Actualisationes significative";
-"aaald-article-insert-last-updated" = "Ultime actualisation";
-"aaald-article-insert-new-changes" = "Nove cambiamentos";
-"aaald-article-insert-read-more" = "Leger plus actualisationes";
-"aaald-characters-text-description" = "{{PLURAL:$1|0=characteres|character|characteres}}";
-"aaald-deleted-text-description-2" = "$1 delite";
-"aaald-error-subitle" = "Refresca pro tentar de novo";
-"aaald-error-title" = "Impossibile cargar historia in linea del articulo";
-"aaald-many-sections-description" = "in $1 sectiones";
-"aaald-multiple-changes-description" = "Plure cambiamentos facite";
-"aaald-multiple-references-added-description" = "Plure referentias addite";
-"aaald-new-book-reference-title" = "Libro";
-"aaald-new-discussion" = "Nove discussion";
-"aaald-new-journal-reference-database" = "via $1";
-"aaald-new-journal-reference-title" = "Periodico";
-"aaald-new-journal-reference-volume" = "Volumine $1:";
-"aaald-new-news-reference-retrieved-date" = "$1 recuperate";
-"aaald-new-news-reference-title" = "Novas";
-"aaald-new-talk-topic-description-format" = "$1 sur iste articulo";
-"aaald-new-website-reference-archive-date-text" = "desde le original sur $1";
-"aaald-new-website-reference-archive-url-text" = "URL de Archive.org";
-"aaald-new-website-reference-title" = "Sito web";
-"aaald-numerical-multiple-references-added-description" = "{{PLURAL:$1|0=0 referentias|$1 referentia|$1 referentias}} addite";
-"aaald-one-section-description" = "in le section $1";
-"aaald-revision-by-anonymous" = "Modification de usator anonyme";
-"aaald-revision-userInfo" = "Modificate per $1 ($2 modificationes)";
-"aaald-single-reference-added-description" = "Referentia addite";
-"aaald-small-change-description" = "{{PLURAL:$1|0=Necun cambiamento minor facite|$1 cambiamento minor facite|$1 cambiamentos minor facite}}";
-"aaald-summary-title" = "{{PLURAL:$1|0=0 cambiamentos|$1 cambiamento|$1 cambiamentos}} de {{PLURAL:$2|0=0 contributores|$2 contributor|$2 contributores}} in {{PLURAL:$3|0=0 dies|$3 die|$3 dies}}";
-"aaald-two-sections-description" = "in le sectiones $1 e $2";
-"aaald-vandalism-revert-description" = "Vandalismo suspectate revertite";
-"aaald-view-full-history-button" = "Vider le historia complete del articulo";
 "about-content-license" = "Licentia del contento";
 "about-content-license-details" = "Si non alteremente specificate, le contento es disponibile sub un $1.";
 "about-content-license-details-share-alike-license" = "licentia Creative Commons Attribution-CompartiSimile";

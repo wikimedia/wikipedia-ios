@@ -26,40 +26,6 @@
 // Author: נדב ס
 // Author: שמזן
 
-"aaald-added-text-description-2" = "$1 נוספו";
-"aaald-article-description-updated-description" = "תיאור הערך עודכן";
-"aaald-article-insert-header" = "עדכונים משמעותיים";
-"aaald-article-insert-last-updated" = "עדכון אחרון";
-"aaald-article-insert-new-changes" = "שינויים חדשים";
-"aaald-article-insert-read-more" = "לקרוא עדכונים נוספים";
-"aaald-characters-text-description" = "{{PLURAL:$1|0=characters|character|characters}}";
-"aaald-deleted-text-description-2" = "$1 נמחקו";
-"aaald-error-subitle" = "נא לרענן כדי לנסות שוב";
-"aaald-error-title" = "לא ניתן לטעון היסטוריית ערך להצגה פנימית";
-"aaald-many-sections-description" = "ב־$1 פרקים";
-"aaald-multiple-changes-description" = "בוצעו כמה שינויים";
-"aaald-multiple-references-added-description" = "נוספו כמה הערות שוליים";
-"aaald-new-book-reference-title" = "ספר";
-"aaald-new-discussion" = "דיון חדש";
-"aaald-new-journal-reference-database" = "דרך $1";
-"aaald-new-journal-reference-title" = "כתב־עת";
-"aaald-new-journal-reference-volume" = "כרך $1:";
-"aaald-new-news-reference-retrieved-date" = "התקבל ב־$1";
-"aaald-new-news-reference-title" = "חדשות";
-"aaald-new-talk-topic-description-format" = "$1 על הערך הזה";
-"aaald-new-website-reference-archive-date-text" = "מהמקור ב־$1";
-"aaald-new-website-reference-archive-url-text" = "כתובת באתר Archive.org";
-"aaald-new-website-reference-title" = "אתר אינטרנט";
-"aaald-numerical-multiple-references-added-description" = "{{PLURAL:$1|0=לא נוספו מקורות|מקור אחד נוסף|$1 מקורות נוספו}}";
-"aaald-one-section-description" = "בפרק $1";
-"aaald-revision-by-anonymous" = "עריכה של משתמש אלמוני";
-"aaald-revision-userInfo" = "עריכה מאת $1 ($2 עריכות)";
-"aaald-single-reference-added-description" = "נוסף מקור";
-"aaald-small-change-description" = "{{PLURAL:$1|0=לא בוצעו שינויים קטנים|בוצע שינוי קטן|בוצעו $1 שינויים קטנים}}";
-"aaald-summary-title" = "{{PLURAL:$1|0=0 שינויים|שינוי אחד|$1 שינויים}} מאת {{PLURAL:$2|0=0 עורכים|עורך או עורכת|$2 עורכים}} תוך {{PLURAL:$3|0=0 ימים|1=יום|2=יומיים|$3 ימים}}";
-"aaald-two-sections-description" = "בפרקים $1 ו$2";
-"aaald-vandalism-revert-description" = "חשש להשחתה הוחזר למוטב";
-"aaald-view-full-history-button" = "הצגת ההיסטוריה המלאה של הערך";
 "about-content-license" = "רישיון תוכן";
 "about-content-license-details" = "אלא אם נאמר אחרת, התוכן זמין לפי תנאי $1.";
 "about-content-license-details-share-alike-license" = "קריאייטיב קומונז–ייחוס–שיתוף זהה";
@@ -1328,7 +1294,7 @@
 "uzbek-variants-alert-title" = "עדכונים לתמיכה בהגוונים של אוזבקית";
 "vanish-account-continue-button-title" = "המשך";
 "vanish-account-username-field" = "שם משתמש ודף משתמש";
-"vanish-account-warning-body" = "היעלמות היא **מוצא אחרון** וצריך להשתמש בה **רק כשברצונך להפסיק לערוך לתמיד** וגם להסתיר את הקשרים הקודמים שלך במידת האפשר.\n\nמחיקת חשבון בוויקיפדיה מתבצעת על ידי שינוי שם החשבון שלך כדי להסוות אותו מפני אחרים כדי שלא יוכלו לזהות את התרומות שלך בתהליך שנקרא העלמת חשבון. **העלמה לא מבטיחה אלמוניות מלאה או הסרת התרומות למיזמים**.";
+"vanish-account-warning-body" = "היעלמות היא **מוצא אחרון** וצריך להשתמש בה **רק כשברצונך להפסיק לערוך לנצח** וגם להסתיר את הקשרים הקודמים שלך במידת האפשר.\n\nמחיקת חשבון בוויקיפדיה מתבצעת על־ידי שינוי שם החשבון שלך כדי להסוות אותו מפני אחרים כדי שלא יוכלו לזהות את התרומות שלך בתהליך שנקרא העלמת חשבון. **העלמה לא מבטיחה אלמוניות מלאה או הסרת התרומות למיזמים**.";
 "vanish-account-warning-title" = "אזהרה";
 "variants-alert-dismiss-button" = "לא, תודה";
 "variants-alert-preferences-button" = "סקירת ההעדפות שלך";

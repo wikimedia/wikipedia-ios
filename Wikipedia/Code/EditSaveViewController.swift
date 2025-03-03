@@ -5,7 +5,6 @@ import WMFData
 
 struct EditorChanges {
     let newRevisionID: UInt64
-    let fullArticleWikitextForAltTextExperiment: String?
 }
 
 protocol EditSaveViewControllerDelegate: NSObjectProtocol {
@@ -426,7 +425,7 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
             return
         }
         
-        let completion: (UInt64, String?) -> Void = { [weak self] newRevID, fullArticleWikitextForAltTextExperiment in
+        let completion: (UInt64) -> Void = { [weak self] newRevID in
             
             guard let self else {
                 return
@@ -447,33 +446,11 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
                 
                 self.imageRecLoggingDelegate?.logEditSaveViewControllerPublishSuccess(revisionID: Int(newRevID), summaryAdded: !self.summaryText.isEmpty)
                 
-                notifyDelegate(.success(EditorChanges(newRevisionID: newRevID, fullArticleWikitextForAltTextExperiment: fullArticleWikitextForAltTextExperiment)))
+                notifyDelegate(.success(EditorChanges(newRevisionID: newRevID)))
             }
         }
         
-        // If needed, load full article wikitext for alt text experiment.
-        // We are doing lots of checks here so the fewest number of people take the additional load.
-        let isPermanent = dataStore?.authenticationManager.authStateIsPermanent ?? false
-        if sectionID != nil, // if sectionID is nil, then wikitext property already represents the latest full article posted wikitext. If sectionID is populated, then we need to fetch the full article wikitext
-           let altTextDataController = WMFAltTextDataController(),
-           let pageURL,
-           let project = WikimediaProject(siteURL: pageURL)?.wmfProject,
-           altTextDataController.shouldFetchFullArticleWikitextFromArticleEditor(isPermanent: isPermanent, project: project) {
-            wikitextFetcher.fetchSection(with: nil, articleURL: pageURL, revisionID: newRevID) { result in
-                switch result {
-                case .success(let response):
-                    let fullArticleWikitext = response.wikitext
-                    completion(newRevID, fullArticleWikitext)
-                default:
-                    completion(newRevID, nil)
-                }
-            }
-        } else if sectionID == nil {
-            // self.wikitext property already represents the full article wikitext
-            completion(newRevID, wikitext)
-        } else {
-            completion(newRevID, nil)
-        }
+        completion(newRevID)
     }
     
     private func handleEditFailure(with error: Error) {

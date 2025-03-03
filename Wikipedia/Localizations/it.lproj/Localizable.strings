@@ -22,6 +22,7 @@
 // Author: GpieroMW
 // Author: Greis
 // Author: HNordeen (WMF)
+// Author: HaukweKwor
 // Author: IrsY
 // Author: JackLantern
 // Author: Lorelai87
@@ -35,6 +36,7 @@
 // Author: Nemo bis
 // Author: Nivit
 // Author: Ontsed
+// Author: PPenloglou-WMF
 // Author: Peg60
 // Author: Redredsonia
 // Author: S4b1nuz E.656
@@ -50,39 +52,6 @@
 // Author: Vivbod
 // Author: Yacine Boussoufa
 
-"aaald-added-text-description-2" = "$1 aggiunto";
-"aaald-article-description-updated-description" = "Descrizione della voce aggiornata";
-"aaald-article-insert-header" = "Aggiornamenti significativi";
-"aaald-article-insert-last-updated" = "Ultimo aggiornamento";
-"aaald-article-insert-new-changes" = "Nuove modifiche";
-"aaald-article-insert-read-more" = "Vedi altri aggiornamenti";
-"aaald-characters-text-description" = "{{PLURAL:$1|0=caratteri|carattere|caratteri}}";
-"aaald-deleted-text-description-2" = "$1 cancellato";
-"aaald-error-subitle" = "Aggiorna la pagina per riprovare";
-"aaald-error-title" = "Non è stato possibile caricare la cronologia in linea della voce";
-"aaald-many-sections-description" = "nelle sezioni $1";
-"aaald-multiple-changes-description" = "Molte modifiche effettuate";
-"aaald-multiple-references-added-description" = "Più fonti aggiunte";
-"aaald-new-book-reference-title" = "Libro";
-"aaald-new-discussion" = "Nuova discussione";
-"aaald-new-journal-reference-database" = "tramite $1";
-"aaald-new-journal-reference-title" = "Pubblicazione";
-"aaald-new-journal-reference-volume" = "Volume $1:";
-"aaald-new-news-reference-retrieved-date" = "Reperito $1";
-"aaald-new-news-reference-title" = "Notizie";
-"aaald-new-talk-topic-description-format" = "$1 su questa voce";
-"aaald-new-website-reference-archive-date-text" = "dall'originale su $1";
-"aaald-new-website-reference-archive-url-text" = "URL di Archive.org";
-"aaald-new-website-reference-title" = "Sito web";
-"aaald-numerical-multiple-references-added-description" = "{{PLURAL:$1|0=0 fonti aggiunte|$1 fonte aggiunta|$1 fonti aggiunte}}";
-"aaald-one-section-description" = "nella sezione $1";
-"aaald-revision-by-anonymous" = "Modificato da un utente anonimo";
-"aaald-revision-userInfo" = "Modificato da $1 ($2 modifiche)";
-"aaald-single-reference-added-description" = "Riferimenti aggiunti";
-"aaald-small-change-description" = "{{PLURAL:$1|0=Nessuna modifica minore effettuata|$1 modifica minore effettuata|$1 modifiche minori effettuate}}";
-"aaald-two-sections-description" = "nelle sezioni $1 e $2";
-"aaald-vandalism-revert-description" = "Sospetto vandalismo annullato";
-"aaald-view-full-history-button" = "Vedi la cronologia completa dell'articolo";
 "about-content-license" = "Licenza contenuto";
 "about-content-license-details" = "Se non diversamente specificato, il contenuto è disponibile il base alla $1.";
 "about-content-license-details-share-alike-license" = "Licenza Creative Commons Attribuzione-Condividi allo stesso modo";
@@ -92,6 +61,7 @@
 "about-libraries-license" = "Licenza";
 "about-libraries-licenses-title" = "Noi amiamo il software open source $1";
 "about-places-maps-license" = "Licenza di mappe di Luoghi";
+"about-places-maps-license-details" = "Places utilizza le mappe fornite da Apple Maps. $1.";
 "about-places-maps-license-details-link-text" = "Per favore, vedi qui i dettagli della licenza";
 "about-product-of" = "Realizzato da $1, con l'aiuto di volontari come te";
 "about-repositories" = "Archivi";
@@ -155,6 +125,8 @@
 "add-articles-to-reading-list" = "Aggiungi $1 {{PLURAL:$1|voce|voci}} all'elenco di lettura";
 "advanced-settings-title" = "Impostazioni avanzate";
 "alt-text-add-button-title" = "Aggiungi";
+"alt-text-do-not-add-button-title" = "Non aggiungere";
+"alt-text-email-fifth-line" = "[Screenshot o Link]";
 "alt-text-email-fourth-line" = "- [Descrivi la soluzione proposta]";
 "alt-text-email-second-line" = "- [Descrivi il problema specifico]";
 "alt-text-email-third-line" = "Il comportamento che vorrei vedere è:";
@@ -294,9 +266,9 @@
 "donate-accessibility-monthly-recurring-hint" = "Tocca due volte per rendere le donazioni mensili automatiche con questo importo.";
 "donate-accessibility-textfield-hint" = "Inserisci un importo personalizzato da donare.";
 "donate-accessibility-transaction-fee-hint" = "Tocca due volte per aggiungere la commissione di transazione all'importo della donazione.";
-"donate-already-donated" = "Grazie a te che hai donato! La tua generosità aiuta a far crescere Wikipedia e i suoi siti correlati.";
+"donate-already-donated" = "Grazie a te che hai donato! La tua generosità ci aiuta a sostenere Wikipedia e i suoi siti correlati.";
 "donate-apple-fine-print" = "Apple non è incaricata di raccogliere fondi per questo scopo.";
-"donate-email-opt-in-text" = "Sì, la Wikimedia Foundation può mandarmi delle email occasionali.";
+"donate-email-opt-in-text" = "Sì, la Wikimedia Foundation può inviarmi e-mail di tanto in tanto.";
 "donate-help-frequently-asked-questions" = "Domande frequenti";
 "donate-help-other-ways-to-give" = "Altri modi per donare";
 "donate-help-problems-donating" = "Hai problemi con la donazione?";
@@ -305,7 +277,7 @@
 "donate-later-title" = "Te lo ricorderemo di nuovo domani.";
 "donate-maximum-error-text" = "Non possiamo accettare donazioni superiori a $1 $2 attraverso il nostro sito web. Si prega di contattare il nostro ufficio per le grandi donazioni all'indirizzo benefactors@wikimedia.org.";
 "donate-minimum-error-text" = "Si prega di selezionare un importo (minimo $1 $2)";
-"donate-monthly-recurring-text" = "Rendila una donazione mensile ricorrente.";
+"donate-monthly-recurring-text" = "Imposta questa donazione come mensile";
 "donate-payment-method-prompt-apple-pay-button-title" = "Dona con Apple Pay";
 "donate-payment-method-prompt-message" = "Dona con Apple Pay o scegli un altro metodo di pagamento.";
 "donate-payment-method-prompt-other-button-title" = "Altro metodo di pagamento";
@@ -313,7 +285,7 @@
 "donate-success-subtitle" = "La tua generosità significa molto per noi.";
 "donate-success-title" = "Grazie!";
 "donate-title" = "Seleziona un importo";
-"donate-transaction-fee-opt-in-text" = "Vorrei generosamente aggiungere $1 per coprire le spese di transazione in modo che possiate utilizzare il 100%% della mia donazione.";
+"donate-transaction-fee-opt-in-text" = "Voglio generosamente aggiungere $1 per coprire le spese di transazione così potete tenere il 100%% della mia donazione";
 "edit-link-display-text-title" = "Mostra testo";
 "edit-link-link-target-title" = "Destinazione collegamento";
 "edit-link-remove-link-title" = "Rimuovi collegamento";

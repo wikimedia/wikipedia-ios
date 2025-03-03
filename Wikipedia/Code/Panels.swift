@@ -491,31 +491,6 @@ class NotificationsCenterOnboardingPushPanelViewController: ScrollableEducationP
     }
 }
 
-class AltTextExperimentPanelViewController: ScrollableEducationPanelViewController {
-    let isFlowB: Bool
-
-   init(showCloseButton: Bool, buttonStyle: ScrollableEducationPanelViewController.ButtonStyle = .legacyStyle, primaryButtonTapHandler: ScrollableEducationPanelButtonTapHandler?, secondaryButtonTapHandler: ScrollableEducationPanelButtonTapHandler?, traceableDismissHandler: ScrollableEducationPanelTraceableDismissHandler?, theme: Theme, isFlowB: Bool) {
-       self.isFlowB = isFlowB
-        super.init(showCloseButton: showCloseButton, primaryButtonTapHandler: primaryButtonTapHandler, secondaryButtonTapHandler: secondaryButtonTapHandler, traceableDismissHandler: traceableDismissHandler, theme: theme)
-    }
-
-    required public init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        let imageRecsSubtitle = WMFLocalizedString("alt-text-modal-subtitle-image-recommendation", value: "The previous image is missing alt text. Add a description to the image for visually impaired readers?", comment: "Subtitle text for the alt text suggested edit prompt modal when the user is adding images from the add an image task")
-        let regularEditSubtitle =  WMFLocalizedString("alt-text-modal-subtitle-regular-edit", value: "There is an image in this article that is missing alt text. Add a description for visually impaired readers?", comment: "Subtitle text for the alt text suggested edit prompt modal when the user is finished editing an article")
-        image = WMFSFSymbolIcon.for(symbol: .textBelowPhoto, font: .title1, paletteColors: [theme.colors.link])
-        heading = WMFLocalizedString("alt-text-modal-title", value: "Add missing image alt text?", comment: "Title text for the alt text suggested edit prompt modal")
-        subheading = isFlowB ? imageRecsSubtitle : regularEditSubtitle
-        primaryButtonTitle = WMFLocalizedString("alt-text-add-button-title", value: "Add", comment: "Title for the Add button on the alt text modal")
-        secondaryButtonTitle = WMFLocalizedString("alt-text-do-not-add-button-title", value: "Do not add", comment: "Title for the Do Not Add button on the alt text modal")
-    }
-}
-
 extension UIViewController {
     
     fileprivate func hasSavedArticles() -> Bool {

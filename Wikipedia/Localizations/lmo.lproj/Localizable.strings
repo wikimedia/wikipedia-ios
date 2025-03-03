@@ -4,40 +4,6 @@
 // Author: Salvemm el lombard
 // Author: Tsevener
 
-"aaald-added-text-description-2" = "$1 sgiontad";
-"aaald-article-description-updated-description" = "Descrizzion de la vos atualizada";
-"aaald-article-insert-header" = "Atualizazzion significative";
-"aaald-article-insert-last-updated" = "Darera atualizazzion";
-"aaald-article-insert-new-changes" = "Noeuv cambiament";
-"aaald-article-insert-read-more" = "Varda di alter atualizazzion";
-"aaald-characters-text-description" = "{{PLURAL:$1|0=carater de stampa|$1 carater de stampa}}";
-"aaald-deleted-text-description-2" = "$1 scancellad";
-"aaald-error-subitle" = "Atualiza per provàgh an'mò";
-"aaald-error-title" = "A l'è stad minga possibil caregà la storia in linea de la vos";
-"aaald-many-sections-description" = "in di sezzion $1";
-"aaald-multiple-changes-description" = "Tante modifeghe fade";
-"aaald-multiple-references-added-description" = "Tanti riferiment sgiontad";
-"aaald-new-book-reference-title" = "Liber";
-"aaald-new-discussion" = "Noeuva discussion";
-"aaald-new-journal-reference-database" = "per mez de $1";
-"aaald-new-journal-reference-title" = "Rivista";
-"aaald-new-journal-reference-volume" = "Volum $1:";
-"aaald-new-news-reference-retrieved-date" = "Recuperad $1";
-"aaald-new-news-reference-title" = "Notizzie";
-"aaald-new-talk-topic-description-format" = "$1 a proposit de questa vos chì";
-"aaald-new-website-reference-archive-date-text" = "de l'orisginal in su $1";
-"aaald-new-website-reference-archive-url-text" = "URL de Archive.org";
-"aaald-new-website-reference-title" = "Sit de la red";
-"aaald-numerical-multiple-references-added-description" = "{{PLURAL:$1|0=0 riferimencc|$1 referiment|$1 riferiment}} sgiontad";
-"aaald-one-section-description" = "in la sezzion $1";
-"aaald-revision-by-anonymous" = "Modifegad d'on utent anonim";
-"aaald-revision-userInfo" = "Modefegad de $1 ($2 modifeghe)";
-"aaald-single-reference-added-description" = "Riferiment sgiontad";
-"aaald-small-change-description" = "{{PLURAL:$1|0=nanca ona modifega piscinina fada|$1 modifega piscinina fada|$1 modifeghe piscinine fade}}";
-"aaald-summary-title" = "{{PLURAL:$1|0=0 modifeghe|$1 modifega|$1 modifeghe}} de {{PLURAL:$2|0=0 editor|$2 editor|$2 editor}} in {{PLURAL:$3|0=0 dì|$3 dì|$3 dì}}";
-"aaald-two-sections-description" = "in di sezzion $1 e $2";
-"aaald-vandalism-revert-description" = "Sospet vandalismo inversad";
-"aaald-view-full-history-button" = "Varda tuta la storia de la vos";
 "about-content-license" = "Licenza contegnud";
 "about-content-license-details" = "Se l'è minga specifegad diversament, el contegnud l'è disponibil a termin de la $1.";
 "about-content-license-details-share-alike-license" = "Licenza Creative Commons Atribuzion-Condivid a l'istessa manera";

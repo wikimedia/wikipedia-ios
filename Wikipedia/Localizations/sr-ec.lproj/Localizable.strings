@@ -22,40 +22,6 @@
 // Author: Милан Јелисавчић
 // Author: Сербијана
 
-"aaald-added-text-description-2" = "Додато $1";
-"aaald-article-description-updated-description" = "Опис чланка је измењен";
-"aaald-article-insert-header" = "Значајна додавања";
-"aaald-article-insert-last-updated" = "Последње ажурирање";
-"aaald-article-insert-new-changes" = "Нове промене";
-"aaald-article-insert-read-more" = "Читај још додавања";
-"aaald-characters-text-description" = "{{PLURAL:$1|0=знак|знакова}}";
-"aaald-deleted-text-description-2" = "Обрисано $1";
-"aaald-error-subitle" = "Освежи";
-"aaald-error-title" = "Није могуће учитати историју чланака на линији";
-"aaald-many-sections-description" = "у $1 одељака";
-"aaald-multiple-changes-description" = "Направљено више измена";
-"aaald-multiple-references-added-description" = "Додато више референци";
-"aaald-new-book-reference-title" = "Књига";
-"aaald-new-discussion" = "Нова дискусија";
-"aaald-new-journal-reference-database" = "преко $1";
-"aaald-new-journal-reference-title" = "Журнал";
-"aaald-new-journal-reference-volume" = "Том $1:";
-"aaald-new-news-reference-retrieved-date" = "Преузето $1";
-"aaald-new-news-reference-title" = "Новости";
-"aaald-new-talk-topic-description-format" = "$1 о овом чланку";
-"aaald-new-website-reference-archive-date-text" = "са оригинала на $1";
-"aaald-new-website-reference-archive-url-text" = "Archive.org URL";
-"aaald-new-website-reference-title" = "Веб-сајт";
-"aaald-numerical-multiple-references-added-description" = "додато {{PLURAL:$1|0=0 референци|$1 референци|$1 референце}}";
-"aaald-one-section-description" = "У одељку $1";
-"aaald-revision-by-anonymous" = "Измена анонимног корисника";
-"aaald-revision-userInfo" = "Измењено од стране $1 ($2 измена)";
-"aaald-single-reference-added-description" = "Додата референца";
-"aaald-small-change-description" = "{{PLURAL:$1|0=Нису направљене мале измене|$1 мала измена је направљена|$1 малих измена је направљено}}";
-"aaald-summary-title" = "{{PLURAL:$1|0=0 измена|$1 измена}} од {{PLURAL:$2|0=0 уредника|$2 уредник|$2 уредника}} у {{PLURAL:$3|0=0 дана|$3 дану|$3 дана}}";
-"aaald-two-sections-description" = "у одељку $1 и одељку $2";
-"aaald-vandalism-revert-description" = "Вероватни вандализам враћен";
-"aaald-view-full-history-button" = "Прикажи целу историју чланка";
 "about-content-license" = "Лиценца садржаја";
 "about-content-license-details" = "Осим ако није другачије наведено, садржај је доступан под $1.";
 "about-content-license-details-share-alike-license" = "Creative Commons Ауторство-Делити под истим условима";
@@ -246,6 +212,7 @@
 "description-welcome-start-editing-button" = "Почни са уређивањем";
 "developer-settings" = "Подешавања за програмере";
 "developer-settings-bypass-donation" = "Заобилажење донирања";
+"developer-settings-send-analytics-to-wmflabs" = "Пошаљи аналитику wmflabs-у.";
 "diff-article-revision-history" = "Историја чланка";
 "diff-change-added" = "Додато, $1, додавање завршено.";
 "diff-change-removal" = "Уклоњено, $1, уклањање завршено.";
@@ -319,6 +286,7 @@
 "donate-title" = "Износ донације";
 "donate-transaction-fee-opt-in-text" = "Платићу и провизију ($1), да би добили цео износ моје донације.";
 "donate-wikimedia-fine-print-1" = "Ми не продајемо нити размењујемо Ваше податке ни са ким. Донирањем, Ви делите своје податке са Задужбином Викимедија, непрофитном организацијом која покреће Википедију и друге Викимедијине пројекте, и с њеним добављачима у складу са [donor policy]($1). Задужбина Викимедија и њени добављачи се налазе у САД-у и другим земљама чији закони о приватности не морају бити исти Вашим. За више информација молимо прочитајте [donor policy]($1).";
+"donate-wikimedia-fine-print-2" = "За редовне донаторе, Задужбина Викимедија ће аутоматски сваког месеца узимати фиксни износ на дан првог донирања, све док не откажете претплату. Донације извршене 29, 30 или 31 у месецу ће бити поновљене задњег дана у месецу, за краће месеце. За питања контактирајте donate@wikimedia.org.";
 "edit-link-display-text-title" = "Прикажи текст";
 "edit-link-link-target-title" = "Циљ везе";
 "edit-link-remove-link-title" = "Уклони везу";
@@ -361,6 +329,7 @@
 "editor-exit-confirmation-title" = "Одбаци режим уређивања?";
 "editor-find-clear-button-accessibility" = "Очисти поље";
 "editor-find-close-button-accessibility" = "Затвори претрагу";
+"editor-find-current-match-info-accessibility" = "Укупно поклапања пронађено: $1. Истакнуто поклапање број $2";
 "editor-find-current-match-info-zero-results-accessibility" = "Нема подударања";
 "editor-find-next-button-accessibility" = "Следећи резултат претраге";
 "editor-find-textfield-accessibility" = "Пронађи";
@@ -387,6 +356,7 @@
 "editor-replace-type-all" = "Замени све";
 "editor-replace-type-all-accessibility" = "Замени све";
 "editor-replace-type-single" = "Замени";
+"editor-title" = "Уређивач";
 "editor-toolbar-bold-accessibility" = "Подебљано";
 "editor-toolbar-find-accessibility" = "Пронађи у страници";
 "editor-wikitext-loading-accessibility" = "Учитавање уређивача текста";
@@ -870,7 +840,9 @@
 "places-filter-top-articles" = "Најчитанији";
 "places-filter-top-articles-count" = "$1 {{PLURAL:$1|чланак|чланка|чланака}}";
 "places-filter-top-read-articles" = "Најчитанији чланци";
+"places-list-title'" = "Списак";
 "places-location-enabled" = "Локација је омогућена";
+"places-map-title" = "Мапа";
 "places-no-saved-articles-have-location" = "Ниједан од ваших сачуваних чланака нема информације о локацији";
 "places-search-articles-that-match" = "$1 одговара за „$2”";
 "places-search-default-text" = "Претражи места";

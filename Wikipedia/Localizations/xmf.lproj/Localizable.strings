@@ -3,27 +3,6 @@
 // Author: Narazeni
 // Author: Silovan
 
-"aaald-added-text-description-2" = "$1 გეძინელი რე";
-"aaald-article-description-updated-description" = "სტატიაშ ეჭარუა მოახალებური რე";
-"aaald-article-insert-header" = "შანულამი მოახალებეფი";
-"aaald-article-insert-last-updated" = "ეკონია მოახალაფა";
-"aaald-article-insert-new-changes" = "ახალი თირუეფი";
-"aaald-article-insert-read-more" = "უმოსი მოახალებეფიშ კითხირი";
-"aaald-characters-text-description" = "{{PLURAL:$1|0=სიმბოლო|სიმბოლო}}";
-"aaald-deleted-text-description-2" = "$1 ლასირი რე";
-"aaald-error-subitle" = "მაახალით ხოლო ართშა ოცადებელო";
-"aaald-error-title" = "ვამიხუჯინუ სტატიაშ ისტორიაშ ინოხარგუაქ";
-"aaald-many-sections-description" = "$1 გიმნართეფს";
-"aaald-multiple-changes-description" = "მუსხირენ თირუაქ იკეთინჷ";
-"aaald-multiple-references-added-description" = "მუსხირენ სქოლიოქ გიაძინჷ";
-"aaald-new-book-reference-title" = "კჷრბი";
-"aaald-new-discussion" = "ახალი სხუნუა";
-"aaald-new-journal-reference-database" = "$1-შე";
-"aaald-new-journal-reference-title" = "ჟურნალი";
-"aaald-new-news-reference-title" = "ახალი ამბეეფი";
-"aaald-new-talk-topic-description-format" = "$1 თე სტატიაშ გეშა";
-"aaald-new-website-reference-archive-date-text" = "ორიგინალშე $1-ს";
-"aaald-new-website-reference-title" = "ვებ-საიტი";
 "about-content-license" = "დინორეშ ლიცენზია";
 // Fuzzy
 "account-creation-captcha-obtaining" = "ახალ CAPTCHA-შ მეღება.";
