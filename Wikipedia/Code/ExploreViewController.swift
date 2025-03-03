@@ -607,7 +607,6 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
                group.contentGroupKind == .random,
                let randomSiteURL = group.siteURL {
                 
-                // todo: accurate source
                 // let articleSource = Explore tapped "Another random article" title
                 let randomCoordinator = RandomArticleCoordinator(navigationController: navigationController, articleURL: nil, siteURL: randomSiteURL, dataStore: dataStore, theme: theme, source: .undefined, animated: true)
                 randomCoordinator.start()
