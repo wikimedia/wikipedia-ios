@@ -106,14 +106,6 @@
 "action-update" = "Aktualizovat";
 "add-articles-to-reading-list" = "Přidat {{PLURAL:$1|$1 článek|$1 články|$1 článků}} do seznamu k přečtení";
 "advanced-settings-title" = "Pokročilé nastavení";
-"alt-text-add-button-title" = "Přidat";
-"alt-text-do-not-add-button-title" = "Nepřidávat";
-"alt-text-email-fifth-line" = "[Snímky obrazovky nebo odkazy]";
-"alt-text-experiment-caption-title" = "Popisek obrázku";
-"alt-text-experiment-edit-summary" = "Přidán alternativní text";
-"alt-text-experiment-onboarding-item-1-title" = "Ponechte to krátké a jasné.";
-"alt-text-experiment-onboarding-item-2-subtitle" = "Nepřidávejte prosím svůj vlastní výzkum, interpertace nebo svůj úhel pohledu.";
-"alt-text-experiment-onboarding-tooltip-3-title" = "Přidejte popis";
 "announcements-dismiss" = "Zrušit";
 "app-store-keywords" = "Wikipedie, reference, wiki, encyklopedie, info, znalosti, výzkum, informace, objevování, učení";
 "app-store-release-notes" = "Plně přizpůsobitelné a snadnější čtení zdroje informací. Lokalizace, vylepšení výkonu a opravy chyb.";
