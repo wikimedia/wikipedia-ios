@@ -32,7 +32,6 @@ public final class WMFTabsViewModel: ObservableObject {
             if !alreadyCurrentTab {
                 dataController.currentTab = tab
             }
-            tab.dateInteracted = Date()
             
             tappedTabAction(tab, alreadyCurrentTab)
         }
@@ -59,16 +58,9 @@ public final class WMFTabsViewModel: ObservableObject {
     func fetchTabs() {
         let dataController = TabsDataController.shared
         let dataTabs = dataController.tabs
-        let currentTab = dataController.currentTab
         
-        let otherSortedDataTabs = dataTabs.filter { $0 !== currentTab }.sorted { tab1, tab2 in
-            return tab1.dateInteracted > tab2.dateInteracted
-        }
-        let sortedDataTabs: [WMFData.Tab]
-        if let currentTab {
-            sortedDataTabs = [currentTab] + otherSortedDataTabs
-        } else {
-            sortedDataTabs = otherSortedDataTabs
+        let sortedDataTabs = dataTabs.sorted { tab1, tab2 in
+            return tab1.dateCreated > tab2.dateCreated
         }
         
         for dataTab in sortedDataTabs {
@@ -81,5 +73,4 @@ public final class WMFTabsViewModel: ObservableObject {
             tabViewModels.append(WMFTabViewModel(tab: dataTab, topArticleTitle: topArticleTitle))
         }
     }
-    
 }

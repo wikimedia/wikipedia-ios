@@ -47,11 +47,36 @@ final class ArticleCoordinator: NSObject, Coordinator {
         articleVC.isRestoringState = isRestoringState
         navigationController.pushViewController(articleVC, animated: needsAnimation)
         
+        // First try to assign existing tab. This will prevent tab explosion as users are navigating to the same articles (like featured article from Explore).
+        if tab == nil && article == nil {
+            assignExistingTab()
+        }
+        
         // If instantiated with a tab, article is already associated with tab. No need to add again.
         if tab == nil && article == nil {
             addArticleToCurrentTab()
         }
         return true
+    }
+    
+    private func assignExistingTab() {
+        guard let title = articleURL.wmf_title,
+              let project = project?.wmfProject else {
+            return
+        }
+        let newArticle = WMFData.Tab.Article(title: title, project: project)
+        let tabs = TabsDataController.shared.tabs
+        
+        for tab in tabs {
+            guard tab.articles.count > tab.currentArticleIndex else { continue }
+            let currentArticle = tab.articles[tab.currentArticleIndex]
+            if currentArticle == newArticle {
+                self.tab = tab
+                self.article = currentArticle
+                TabsDataController.shared.currentTab = tab
+                break
+            }
+        }
     }
     
     private func addArticleToCurrentTab() {

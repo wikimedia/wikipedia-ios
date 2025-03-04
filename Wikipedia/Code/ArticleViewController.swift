@@ -156,6 +156,7 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
     let articleCoordinator: ArticleCoordinator?
     
     internal var articleViewSource: ArticleSource
+    var isPoppingToRoot: Bool = false
     
     @objc init?(articleURL: URL, dataStore: MWKDataStore, theme: Theme, source: ArticleSource, schemeHandler: SchemeHandler? = nil, articleCoordinator: ArticleCoordinator? = nil) {
 
@@ -485,6 +486,7 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
     }
     
     @objc private func wButtonTapped(_ sender: UIButton) {
+        isPoppingToRoot = true
         navigationController?.popToRootViewController(animated: true)
     }
 

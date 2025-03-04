@@ -20,12 +20,12 @@ public final class Tab: Equatable {
     let id: UUID = UUID()
     public private(set) var articles: [Article]
     public var currentArticleIndex: Int
-    public var dateInteracted: Date
+    public var dateCreated: Date
     
     public init(article: WMFData.Tab.Article) {
         articles = [article]
         currentArticleIndex = 0
-        dateInteracted = Date()
+        dateCreated = Date()
     }
     
     public static func == (lhs: WMFData.Tab, rhs: WMFData.Tab) -> Bool {
@@ -38,7 +38,6 @@ public final class Tab: Equatable {
         guard articles.count > 0 else {
             articles.append(article)
             self.currentArticleIndex = 0
-            dateInteracted = Date()
             return
         }
         
@@ -51,7 +50,6 @@ public final class Tab: Equatable {
         }
         
         self.currentArticleIndex = articles.count - 1
-        dateInteracted = Date()
     }
     
     func back() {
@@ -59,7 +57,6 @@ public final class Tab: Equatable {
             return
         }
         currentArticleIndex -= 1
-        dateInteracted = Date()
     }
     
     func canGoForward() -> Bool {
@@ -73,7 +70,6 @@ public final class Tab: Equatable {
         }
         
         currentArticleIndex += 1
-        dateInteracted = Date()
     }
 }
 

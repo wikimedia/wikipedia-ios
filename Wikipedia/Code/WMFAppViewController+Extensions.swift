@@ -721,8 +721,9 @@ extension WMFAppViewController: UINavigationControllerDelegate {
             return
         }
 
-        // We’re still here – it means we’re popping the view controller. Check if we came from an article view controller, if so, we tapped back on that article view controller. Telling the coordinator that we tapped back will move the current article index of the tab.
-        if let fromArticleVC = fromViewController as? ArticleViewController {
+        // We’re still here – it means we’re popping the view controller. Check if we came from an article view controller, if so, we tapped back on that article view controller. Telling the coordinator that we tapped back will move the current article index of the tab. If they are popping to root (tapped floating tab bar on iPad, or W icon on iPhone), don't change the index.
+        if let fromArticleVC = fromViewController as? ArticleViewController,
+           !fromArticleVC.isPoppingToRoot {
             fromArticleVC.articleCoordinator?.tappedBack()
         }
         
@@ -756,6 +757,13 @@ extension WMFAppViewController: UINavigationControllerDelegate {
             TabsDataController.shared.currentTab = newTab
         } else {
             TabsDataController.shared.currentTab = nil
+        }
+    }
+    
+    @objc func setArticleIsPoppingToRoot() {
+        if let navVC = self.selectedViewController as? UINavigationController,
+           let articleVC = navVC.viewControllers.last as? ArticleViewController {
+            articleVC.isPoppingToRoot = true
         }
     }
 }
