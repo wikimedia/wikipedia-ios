@@ -189,7 +189,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         
         let profileButtonConfig = profileButtonConfig(target: self, action: #selector(userDidTapProfile), dataStore: dataStore, yirDataController: yirDataController, leadingBarButtonItem: nil, trailingBarButtonItem: nil)
         
-        let searchViewController = SearchViewController(source: .topOfFeed)
+        let searchViewController = SearchViewController(source: .topOfFeed, customArticleCoordinatorNavigationController: navigationController)
         searchViewController.dataStore = dataStore
         
         let populateSearchBarWithTextAction: (String) -> Void = { [weak self] searchTerm in
@@ -600,14 +600,26 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         // When a random article title is tapped, show the previewed article, not another random article
         let useRandomArticlePreviewItem = titleAreaTapped && group.moreType == .pageWithRandomButton
 
-        if !useRandomArticlePreviewItem, let vc = group.detailViewControllerWithDataStore(dataStore, theme: theme, imageRecDelegate: self, imageRecLoggingDelegate: self) {
+        if !useRandomArticlePreviewItem {
             
-            if vc is WMFImageRecommendationsViewController {
-                ImageRecommendationsFunnel.shared.logExploreCardDidTapAddImage()
+            // first try random coordinator
+            if let navigationController,
+               group.contentGroupKind == .random,
+               let randomSiteURL = group.siteURL {
+                
+                // let articleSource = Explore tapped "Another random article" title
+                let randomCoordinator = RandomArticleCoordinator(navigationController: navigationController, articleURL: nil, siteURL: randomSiteURL, dataStore: dataStore, theme: theme, source: .undefined, animated: true)
+                randomCoordinator.start()
+                return
+            } else if let vc = group.detailViewControllerWithDataStore(dataStore, theme: theme, imageRecDelegate: self, imageRecLoggingDelegate: self) {
+                
+                if vc is WMFImageRecommendationsViewController {
+                    ImageRecommendationsFunnel.shared.logExploreCardDidTapAddImage()
+                }
+                
+                push(vc, animated: true)
+                return
             }
-            
-            push(vc, animated: true)
-            return
         }
         
         if let vc = group.detailViewControllerForPreviewItemAtIndex(0, dataStore: dataStore, theme: theme, source: .undefined) {
@@ -746,9 +758,8 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     // MARK: - ExploreCardViewControllerDelegate
     
     func exploreCardViewController(_ exploreCardViewController: ExploreCardViewController, didSelectItemAtIndexPath indexPath: IndexPath) {
-        guard
-            let contentGroup = exploreCardViewController.contentGroup,
-            let vc = contentGroup.detailViewControllerForPreviewItemAtIndex(indexPath.row, dataStore: dataStore, theme: theme, source: .undefined, imageRecDelegate: self, imageRecLoggingDelegate: self) else {
+        
+        guard let contentGroup = exploreCardViewController.contentGroup else {
             return
         }
         
@@ -759,6 +770,18 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
             } else {
                 imageScaleTransitionView = nil
             }
+        }
+        
+        // First try pushing articles via coordinators
+        let successWithCoordinators = pushArticlesViaCoordinators(contentGroup: contentGroup, indexPath: indexPath)
+        
+        if successWithCoordinators {
+            return
+        }
+        
+        // If that didn't work (probably not pushing to an article), fall back to legacy logic
+        guard let vc = contentGroup.detailViewControllerForPreviewItemAtIndex(indexPath.row, dataStore: dataStore, theme: theme, source: .undefined, imageRecDelegate: self, imageRecLoggingDelegate: self) else {
+            return
         }
     
         if let otdvc = vc as? OnThisDayViewController {
@@ -776,6 +799,47 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         default:
             push(vc, animated: true)
         }
+    }
+    
+    private func pushArticlesViaCoordinators(contentGroup: WMFContentGroup, indexPath: IndexPath) -> Bool {
+        // First try pushing articles via coordinators
+        if let navigationController,
+           let articleURL = contentGroup.previewArticleURLForItemAtIndex(indexPath.row) {
+            switch contentGroup.detailType {
+            case .page:
+                let articleSource = ArticleSource.undefined
+                // todo: we may want to switch to get article source if we want to be more specific:
+                switch contentGroup.contentGroupKind {
+                case .featuredArticle:
+                    // articleSource = explore featured article cell, etc.
+                    break
+                default:
+                    break
+                }
+                
+                let articleCoordinator = ArticleCoordinator(navigationController: navigationController, articleURL: articleURL, dataStore: dataStore, theme: theme, source: articleSource)
+                articleCoordinator.start()
+                return true
+            case .pageWithRandomButton:
+                let articleSource = ArticleSource.undefined
+                // todo: we may want to switch to get article source if we want to be more specific:
+                switch contentGroup.contentGroupKind {
+                case .random:
+                    // articleSource = explore random article, etc.
+                    break
+                default:
+                    break
+                }
+                
+                let randomArticleCoordinator = RandomArticleCoordinator(navigationController: navigationController, articleURL: articleURL, siteURL: nil, dataStore: dataStore, theme: theme, source: articleSource, animated: true)
+                randomArticleCoordinator.start()
+                return true
+            default:
+                break
+            }
+        }
+        
+        return false
     }
     
     // MARK: - Prefetching
@@ -847,17 +911,33 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     // MARK: - For NestedCollectionViewContextMenuDelegate
     private var previewed: (context: WMFContentGroup?, indexPathItem: Int?)
 
-    func contextMenu(with contentGroup: WMFContentGroup? = nil, for articleURL: URL? = nil, at itemIndex: Int) -> UIContextMenuConfiguration? {
-        guard let contentGroup = contentGroup, let vc = viewController(for: contentGroup, at: itemIndex) else {
+    func contextMenu(contentGroup: WMFContentGroup? = nil, articleURL: URL? = nil, article: WMFArticle? = nil, itemIndex: Int) -> UIContextMenuConfiguration? {
+        guard let contentGroup = contentGroup else {
             return nil
+        }
+        
+        var previewVC: UIViewController? = viewController(for: contentGroup, at: itemIndex)
+        
+        if let articleURL,
+           let article {
+            switch contentGroup.detailType {
+            case .page:
+                 previewVC = ArticlePeekPreviewViewController(articleURL: articleURL, article: article, dataStore: dataStore, theme: theme, articlePreviewingDelegate: self)
+
+            case .pageWithRandomButton:
+                previewVC = ArticlePeekPreviewViewController(articleURL: articleURL, article: article, dataStore: dataStore, theme: theme, articlePreviewingDelegate: self, needsRandomOnPush: true)
+                
+            default:
+                break
+            }
         }
 
         let previewProvider: () -> UIViewController? = {
-            return vc
+            return previewVC
         }
         return UIContextMenuConfiguration(identifier: nil, previewProvider: previewProvider) { (suggestedActions) -> UIMenu? in
-            if let articleVC = vc as? ArticleViewController {
-                return UIMenu(title: "", image: nil, identifier: nil, options: [], children: articleVC.contextMenuItems)
+            if let previewVC = previewVC as? ArticlePeekPreviewViewController {
+                return UIMenu(title: "", image: nil, identifier: nil, options: [], children: previewVC.contextMenuItems)
             } else {
                 return nil
             }
@@ -870,9 +950,6 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         if let viewControllerToCommit = contentGroup.detailViewControllerForPreviewItemAtIndex(itemIndex, dataStore: dataStore, theme: theme, source: .undefined) {
             if let potd = viewControllerToCommit as? WMFImageGalleryViewController {
                 potd.setOverlayViewTopBarHidden(true)
-            } else if let avc = viewControllerToCommit as? ArticleViewController {
-                avc.articlePreviewingDelegate = self
-                avc.wmf_addPeekableChildViewController(for: avc.articleURL, dataStore: dataStore, theme: theme)
             } else if let otdVC = viewControllerToCommit as? OnThisDayViewController {
                 otdVC.initialEvent = (contentGroup.contentPreview as? [Any])?[itemIndex] as? WMFFeedOnThisDayEvent
             }
@@ -900,21 +977,36 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
             if let potd = viewControllerToCommit as? WMFImageGalleryViewController {
                 potd.setOverlayViewTopBarHidden(false)
                 self.present(potd, animated: false)
-            } else if let avc = viewControllerToCommit as? ArticleViewController {
-                avc.wmf_removePeekableChildViewControllers()
-                self.push(avc, animated: false)
+            } else if let peekVC = viewControllerToCommit as? ArticlePeekPreviewViewController {
+                if let navVC = navigationController {
+                    if peekVC.needsRandomOnPush {
+                        let coordinator = RandomArticleCoordinator(navigationController: navVC, articleURL: peekVC.articleURL, siteURL: nil, dataStore: dataStore, theme: theme, source: .undefined, animated: true)
+                        coordinator.start()
+                    } else {
+                        let coordinator = ArticleCoordinator(navigationController: navVC, articleURL: peekVC.articleURL, dataStore: dataStore, theme: theme, source: .undefined)
+                        coordinator.start()
+                    }
+                }
+                
             } else {
                 self.push(viewControllerToCommit, animated: true)
             }
         }
     }
 
-    override func readMoreArticlePreviewActionSelected(with articleController: ArticleViewController) {
-        articleController.wmf_removePeekableChildViewControllers()
-        push(articleController, animated: true)
+    override func readMoreArticlePreviewActionSelected(with peekController: ArticlePeekPreviewViewController) {
+        guard let navVC = navigationController else { return }
+        if peekController.needsRandomOnPush {
+            let coordinator = RandomArticleCoordinator(navigationController: navVC, articleURL: peekController.articleURL, siteURL: nil, dataStore: dataStore, theme: theme, source: .undefined, animated: true)
+            coordinator.start()
+        } else {
+            let coordinator = ArticleCoordinator(navigationController: navVC, articleURL: peekController.articleURL, dataStore: dataStore, theme: theme, source: .undefined)
+            coordinator.start()
+        }
+        
     }
 
-    override func saveArticlePreviewActionSelected(with articleController: ArticleViewController, didSave: Bool, articleURL: URL) {
+    override func saveArticlePreviewActionSelected(with peekController: ArticlePeekPreviewViewController, didSave: Bool, articleURL: URL) {
         if let date = previewed.context?.midnightUTCDate {
             if didSave {
                 ReadingListsFunnel.shared.logSaveInFeed(label: previewed.context?.getAnalyticsLabel(), measureAge: date, articleURL: articleURL, index: previewed.indexPathItem)
@@ -1265,13 +1357,14 @@ extension ExploreViewController: WMFImageRecommendationsDelegate {
 
     func imageRecommendationsUserDidTapViewArticle(project: WMFData.WMFProject, title: String) {
         
-        guard let siteURL = project.siteURL,
-              let articleURL = siteURL.wmf_URL(withTitle: title),
-              let articleViewController = ArticleViewController(articleURL: articleURL, dataStore: dataStore, theme: theme, source: .undefined) else {
+        guard let navigationController,
+              let siteURL = project.siteURL,
+              let articleURL = siteURL.wmf_URL(withTitle: title) else {
             return
         }
         
-        navigationController?.pushViewController(articleViewController, animated: true)
+        let coordinator = ArticleCoordinator(navigationController: navigationController, articleURL: articleURL, dataStore: dataStore, theme: theme, source: .undefined)
+        coordinator.start()
     }
     
     func imageRecommendationsUserDidTapImageLink(commonsURL: URL) {

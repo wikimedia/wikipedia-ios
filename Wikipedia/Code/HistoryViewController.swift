@@ -166,20 +166,6 @@ class HistoryViewController: ArticleFetchedResultsViewController, WMFNavigationB
         }
     }
 
-    override func previewingViewController(for indexPath: IndexPath, at location: CGPoint) -> UIViewController? {
-        guard let vc = super.previewingViewController(for: indexPath, at: location) else {
-            return nil
-        }
-
-        guard let articleVC = (vc as? ArticleViewController) else {
-            return nil
-        }
-
-        articleVC.articleViewSource = .history
-
-        return articleVC
-    }
-
     private func configureNavigationBar() {
         
         var titleConfig: WMFNavigationBarTitleConfig = WMFNavigationBarTitleConfig(title: CommonStrings.historyTabTitle, customView: nil, alignment: .leadingCompact)
@@ -260,13 +246,14 @@ class HistoryViewController: ArticleFetchedResultsViewController, WMFNavigationB
     }
 
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        guard let articleURL = articleURL(at: indexPath) else {
+        guard let navigationController,
+              let articleURL = articleURL(at: indexPath) else {
             collectionView.deselectItem(at: indexPath, animated: true)
             return
         }
-
-        let userInfo: [AnyHashable:Any]? = [ArticleSourceUserInfoKeys.articleSource: ArticleSource.history.rawValue]
-        navigate(to: articleURL, userInfo: userInfo)
+        
+        let articleCoordinator = ArticleCoordinator(navigationController: navigationController, articleURL: articleURL, dataStore: dataStore, theme: theme, source: .history)
+        articleCoordinator.start()
     }
 
     func updateVisibleHeaders() {

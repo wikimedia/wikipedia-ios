@@ -145,12 +145,7 @@ extension ArticleViewController {
     
     // TODO: remove after expiry date (1 March 2025)
     func presentYearInReviewAnnouncement() {
-        
-        // Do not show announcement when article is previewing. Fixes crash on preview long press.
-        guard articlePreviewingDelegate == nil else {
-            return
-        }
-        
+
         guard let yirDataController = try? WMFYearInReviewDataController() else {
             return
         }

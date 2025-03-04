@@ -1104,8 +1104,6 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
         return YES;
     } else if ([item.type isEqualToString:WMFIconShortcutTypeNearby]) {
         return YES;
-    } else if ([item.type isEqualToString:WMFIconShortcutTypeContinueReading]) {
-        return YES;
     } else {
         return NO;
     }
@@ -1136,11 +1134,9 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
             [self.searchViewController makeSearchBarBecomeFirstResponder];
         }
     } else if ([item.type isEqualToString:WMFIconShortcutTypeRandom]) {
-        [self showRandomArticleAnimated:NO];
+        [self showRandomArticleFromShortcutAnimated:NO];
     } else if ([item.type isEqualToString:WMFIconShortcutTypeNearby]) {
         [self showNearbyAnimated:NO];
-    } else if ([item.type isEqualToString:WMFIconShortcutTypeContinueReading]) {
-        [self showLastReadArticleAnimated:NO source:ArticleSourceUndefined];
     }
     if (completion) {
         completion(YES);
@@ -1300,6 +1296,12 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
             }
         } break;
         default: {
+            if ([self processLinkUserActivity:activity]) {
+                done();
+                return YES;
+            }
+            
+            // Fall back to legacy navigaton
             NSURL *linkURL = [activity wmf_linkURL];
             // Ensure incoming link is fetched in user's preferred variant if applicable
             if (!linkURL.wmf_languageVariantCode) {
@@ -1333,66 +1335,6 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
     }
 
     return contentURL;
-}
-
-#pragma mark - Utilities
-
-- (WMFArticleViewController *)showArticleWithURL:(NSURL *)articleURL source:(NSInteger)source animated:(BOOL)animated {
-    return [self showArticleWithURL:articleURL
-                             source:source
-                           animated:animated
-                         completion:^{
-                         }];
-}
-
-- (WMFArticleViewController *)showArticleWithURL:(NSURL *)articleURL source:(NSInteger)source animated:(BOOL)animated  completion:(nonnull dispatch_block_t)completion {
-    if (!articleURL.wmf_title) {
-        completion();
-        return nil;
-    }
-    WMFArticleViewController *visibleArticleViewController = self.visibleArticleViewController;
-    WMFInMemoryURLKey *visibleKey = visibleArticleViewController.articleURL.wmf_inMemoryKey;
-    WMFInMemoryURLKey *articleKey = articleURL.wmf_inMemoryKey;
-    if (visibleKey && articleKey && [visibleKey isEqualToInMemoryURLKey:articleKey]) {
-        if (articleURL.fragment) {
-            [visibleArticleViewController showAnchor:articleURL.fragment];
-        }
-        completion();
-        return visibleArticleViewController;
-    }
-
-    UINavigationController *nc = [self currentNavigationController];
-    if (!nc) {
-        completion();
-        return nil;
-    }
-
-    if (nc.presentedViewController) {
-        [nc dismissViewControllerAnimated:NO completion:NULL];
-    }
-    
-    WMFArticleViewController *articleVC = [[WMFArticleViewController alloc] initWithArticleURL:articleURL dataStore:self.dataStore theme:self.theme source:source schemeHandler:nil];
-    articleVC.loadCompletion = completion;
-
-#if DEBUG
-    if ([[[NSProcessInfo processInfo] environment] objectForKey:@"DYLD_PRINT_STATISTICS"]) {
-        NSDate *start = [NSDate date];
-
-        articleVC.initialSetupCompletion = ^{
-            NSDate *end = [NSDate date];
-            NSTimeInterval articleLoadTime = [end timeIntervalSinceDate:start];
-            DDLogDebug(@"article load time = %f", articleLoadTime);
-        };
-    }
-#endif
-
-    [nc pushViewController:articleVC
-                  animated:YES];
-    return articleVC;
-}
-
-- (void)swiftCompatibleShowArticleWithURL:(NSURL *)articleURL source:(NSInteger)source animated:(BOOL)animated completion:(nonnull dispatch_block_t)completion {
-    [self showArticleWithURL:articleURL source:source animated:animated completion:completion];
 }
 
 - (BOOL)shouldShowExploreScreenOnLaunch {
@@ -1488,7 +1430,7 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
 
 - (SearchViewController *)searchViewController {
     if (!_searchViewController) {
-        _searchViewController = [[SearchViewController alloc] initWithSource:EventLoggingSourceSearchTab];
+        _searchViewController = [[SearchViewController alloc] initWithSource:EventLoggingSourceSearchTab customArticleCoordinatorNavigationController:nil];
         [_searchViewController applyTheme:self.theme];
         _searchViewController.dataStore = self.dataStore;
         _searchViewController.tabBarItem.image = [UIImage imageNamed:@"search"];
@@ -1614,13 +1556,6 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     [self.currentTabNavigationController popToRootViewControllerAnimated:NO];
 }
 
-#pragma mark - Last Read Article
-
-- (void)showLastReadArticleAnimated:(BOOL)animated source:(NSInteger)source {
-    NSURL *lastRead = [self.dataStore.viewContext wmf_openArticleURL];
-    [self showArticleWithURL:lastRead source:source animated:animated];
-}
-
 #pragma mark - Show Search
 
 - (void)switchToSearchAnimated:(BOOL)animated {
@@ -1643,13 +1578,9 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     }
 }
 
-- (void)showRandomArticleAnimated:(BOOL)animated {
+- (void)showRandomArticleFromShortcutAnimated:(BOOL)animated {
     [self dismissPresentedViewControllers];
-    [self setSelectedIndex:WMFAppTabTypeMain];
-    UINavigationController *exploreNavController = self.currentTabNavigationController;
-    WMFFirstRandomViewController *vc = [[WMFFirstRandomViewController alloc] initWithSiteURL:[self siteURL] dataStore:self.dataStore theme:self.theme];
-    [vc applyTheme:self.theme];
-    [exploreNavController pushViewController:vc animated:animated];
+    [self showRandomArticleFromShortcutWithSiteURL:[self siteURL] animated:animated];
 }
 
 - (void)showNearbyAnimated:(BOOL)animated {
@@ -2037,7 +1968,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
         [searchVC clear]; // clear search VC before bringing it forward
         [nc setViewControllers:mutableVCs animated:NO];
     } else {
-        searchVC = [[SearchViewController alloc] initWithSource:EventLoggingSourceUnknown];
+        searchVC = [[SearchViewController alloc] initWithSource:EventLoggingSourceUnknown customArticleCoordinatorNavigationController:nc];
         searchVC.shouldBecomeFirstResponder = YES;
         [searchVC applyTheme:self.theme];
         searchVC.dataStore = self.dataStore;

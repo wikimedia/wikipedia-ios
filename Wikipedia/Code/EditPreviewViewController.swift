@@ -306,7 +306,7 @@ extension EditPreviewViewController: ArticleContextMenuPresenting, WKUIDelegate 
         let dataStore = MWKDataStore.shared()
         switch destination {
         case .article(let articleURL):
-            return ArticlePeekPreviewViewController(articleURL: articleURL, dataStore: dataStore, theme: theme)
+            return ArticlePeekPreviewViewController(articleURL: articleURL, article: nil, dataStore: dataStore, theme: theme, articlePreviewingDelegate: nil, needsEmptyContextMenuItems: true)
         default:
             return nil
         }
@@ -314,10 +314,6 @@ extension EditPreviewViewController: ArticleContextMenuPresenting, WKUIDelegate 
 
     // This function needed is for ArticleContextMenuPresenting, but not applicable to EditPreviewVC
     func hideFindInPage(_ completion: (() -> Void)? = nil) {
-    }
-
-    var previewMenuItems: [UIMenuElement]? {
-        return nil
     }
 }
 

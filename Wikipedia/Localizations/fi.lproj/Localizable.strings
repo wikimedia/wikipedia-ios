@@ -106,15 +106,6 @@
 "action-update" = "Päivitä";
 "add-articles-to-reading-list" = "Lisää {{PLURAL:$1|$1 artikkeli|$1 artikkelia}} lukulistaan";
 "advanced-settings-title" = "Lisäasetukset";
-"alt-text-add-button-title" = "Lisää";
-"alt-text-do-not-add-button-title" = "Älä lisää";
-"alt-text-experiment-onboarding-tooltip-3-title" = "Lisää kuvaus";
-"alt-text-experiment-text-field-placholder" = "Kuvaile tätä kuvaa";
-"alt-text-experiment-view-title" = "Lisää vaihtoehtoinen teksti";
-"alt-text-survey-option-4" = "Minulla on teknisiä ongelmia";
-"alt-text-survey-option-5" = "Minulla on näkövamma";
-"alt-text-survey-option-6" = "En ole kiinnostunut kirjoittamaan kuville vaihtoehtoista tekstiä";
-"alt-text-survey-option-7" = "Minulla ei ole aikaa";
 "announcements-dismiss" = "Sulje";
 "app-store-keywords" = "Wikipedia, viittaus, wiki, tietosanakirja, tieto, info, tutkimus, tutki, opi";
 "app-store-release-notes" = "Täysin mukautettava ja helpommin luettava Tutki-syöte. Paikallistamista, suorituskykyparannuksia ja bugikorjauksia.";
