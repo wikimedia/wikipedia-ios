@@ -268,6 +268,8 @@
 "edit-preview-simplified-format-message" = "Message displayed when the edit preview view loads. Preview is in a simplified web format.";
 "edit-published" = "Title edit published panel letting user know their edit was saved.";
 "edit-published-subtitle" = "Subtitle for letting users know their edit improved Wikipedia.";
+"edit-sheet-ip-account-notice" = "Temporary account sheet for editors";
+"edit-sheet-temp-account-notice" = "Temporary account sheet for editors";
 "edit-show-web-preview" = "Title of button that will show a web preview of the edit.";
 "edit-summary-add-summary-text" = "Text for add summary label";
 "edit-summary-choice-added-image" = "Button text for quick 'added image' edit summary selection";
