@@ -60,7 +60,8 @@ final class ArticleCoordinator: NSObject, Coordinator {
     }
     
     private func assignExistingTab() {
-        guard let title = articleURL.wmf_title,
+        guard navigationController.viewControllers.count == 1,
+              let title = articleURL.wmf_title,
               let project = project?.wmfProject else {
             return
         }
@@ -68,7 +69,7 @@ final class ArticleCoordinator: NSObject, Coordinator {
         let tabs = TabsDataController.shared.tabs
         
         for tab in tabs {
-            guard tab.articles.count > tab.currentArticleIndex else { continue }
+            guard tab.articles.count == 1 && tab.currentArticleIndex == 0 else { continue }
             let currentArticle = tab.articles[tab.currentArticleIndex]
             if currentArticle == newArticle {
                 self.tab = tab
