@@ -41,16 +41,17 @@ final class ArticleCoordinator: NSObject, Coordinator {
             articleURL.wmf_languageVariantCode = dataStore.languageLinkController .swiftCompatiblePreferredLanguageVariantCodeForLanguageCode(articleURL.wmf_languageCode)
         }
         
-        guard let articleVC = ArticleViewController(articleURL: articleURL, dataStore: dataStore, theme: theme, source: source, articleCoordinator: self) else {
-            return false
-        }
-        articleVC.isRestoringState = isRestoringState
-        navigationController.pushViewController(articleVC, animated: needsAnimation)
         
         // First try to assign existing tab. This will prevent tab explosion as users are navigating to the same articles (like featured article from Explore).
         if tab == nil && article == nil {
             assignExistingTab()
         }
+        
+        guard let articleVC = ArticleViewController(articleURL: articleURL, dataStore: dataStore, theme: theme, source: source, articleCoordinator: self) else {
+            return false
+        }
+        articleVC.isRestoringState = isRestoringState
+        navigationController.pushViewController(articleVC, animated: needsAnimation)
         
         // If instantiated with a tab, article is already associated with tab. No need to add again.
         if tab == nil && article == nil {
@@ -69,7 +70,7 @@ final class ArticleCoordinator: NSObject, Coordinator {
         let tabs = TabsDataController.shared.tabs
         
         for tab in tabs {
-            guard tab.articles.count == 1 && tab.currentArticleIndex == 0 else { continue }
+            guard tab.articles.count > 0 && tab.currentArticleIndex == 0 else { continue }
             let currentArticle = tab.articles[tab.currentArticleIndex]
             if currentArticle == newArticle {
                 self.tab = tab
