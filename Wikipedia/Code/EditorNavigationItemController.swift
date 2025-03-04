@@ -80,7 +80,7 @@ class EditorNavigationItemController: NSObject, Themeable {
     
     private lazy var readingThemesControlsButton: UIBarButtonItem = {
         let button = UIBarButtonItem(image: WMFSFSymbolIcon.for(symbol: .textFormatSize), style: .plain, target: self, action: #selector(showReadingThemesControls(_ :)))
-        button.accessibilityLabel = CommonStrings.editNotices
+        button.accessibilityLabel = CommonStrings.readingThemesControls
         return button
     }()
 
