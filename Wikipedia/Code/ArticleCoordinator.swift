@@ -69,7 +69,7 @@ final class ArticleCoordinator: NSObject, Coordinator {
         let tabs = TabsDataController.shared.tabs
         
         for tab in tabs {
-            guard tab.articles.count == 1 && tab.currentArticleIndex == 0 else { continue }
+            guard tab.articles.count > 0 && tab.currentArticleIndex == 0 else { continue }
             let currentArticle = tab.articles[tab.currentArticleIndex]
             if currentArticle == newArticle {
                 self.tab = tab
