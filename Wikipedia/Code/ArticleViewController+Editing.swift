@@ -101,18 +101,22 @@ extension ArticleViewController {
         
         guard let navigationController else { return }
         
-        let tempAccountsCoordinator = TempAccountSheetCoordinator(
-            navigationController: navigationController,
-            theme: theme,
-            dataStore: dataStore,
-            didTapDone: { [weak self] in
-                self?.dismiss(animated: true)
-                presentEditorAction()
-            },
-            isTempAccount: authManager.authStateIsTemporary
-        )
-        
-        tempAccountsCoordinator.start()
+        if !authManager.authStateIsPermanent {
+            let tempAccountsCoordinator = TempAccountSheetCoordinator(
+                navigationController: navigationController,
+                theme: theme,
+                dataStore: dataStore,
+                didTapDone: { [weak self] in
+                    self?.dismiss(animated: true)
+                    presentEditorAction()
+                },
+                isTempAccount: authManager.authStateIsTemporary
+            )
+            
+            tempAccountsCoordinator.start()
+        } else {
+            presentEditorAction()
+        }
     }
     
     func showEditSectionOrTitleDescriptionDialogForSection(with id: Int, descriptionSource: ArticleDescriptionSource, selectedTextEditInfo: SelectedTextEditInfo? = nil) {

@@ -4,7 +4,6 @@ import WMFComponents
 import WMFData
 import CocoaLumberjackSwift
 
-@objc(TempAccountSheetCoordinator)
 final class TempAccountSheetCoordinator: NSObject, Coordinator {
     var navigationController: UINavigationController
     var theme: Theme
@@ -12,16 +11,13 @@ final class TempAccountSheetCoordinator: NSObject, Coordinator {
     let didTapDone: () -> Void
     let isTempAccount: Bool
     
-    func start() {
+    func start() -> Bool {
         if isTempAccount {
-            presentTempEditorSheet { [weak self] in
-                self?.didTapDone()
-            }
+            presentTempEditorSheet()
         } else {
-            presentIPEditorSheet { [weak self] in
-                self?.didTapDone()
-            }
+            presentIPEditorSheet()
         }
+        return true
     }
     
     public init(navigationController: UINavigationController, theme: Theme, dataStore: MWKDataStore, didTapDone: @escaping () -> Void, isTempAccount: Bool) {
@@ -59,7 +55,7 @@ final class TempAccountSheetCoordinator: NSObject, Coordinator {
         return "https://www.mediawiki.org/wiki/Special:MyLanguage/Help:Temporary_accounts?uselang=\(languageCodeSuffix)#Who_can_see_IP_address_data_associated_with_temporary_accounts?"
     }
     
-    private func presentTempEditorSheet(_ presentEditorAction: @escaping () -> Void) {
+    private func presentTempEditorSheet() {
         var hostingController: UIHostingController<WMFTempAccountsSheetView>?
         if let tempUser = authManager.authStateTemporaryUsername {
             let vm = WMFTempAccountsSheetViewModel(
@@ -110,7 +106,7 @@ final class TempAccountSheetCoordinator: NSObject, Coordinator {
         return String.localizedStringWithFormat(format, tempUsername, openingBold, closingBold, openingLink, closingLink, lineBreaks, openingLinkLearnMore)
     }
     
-    private func presentIPEditorSheet(_ presentEditorAction: @escaping () -> Void) {
+    private func presentIPEditorSheet() {
         var hostingController: UIHostingController<WMFTempAccountsSheetView>?
         let vm = WMFTempAccountsSheetViewModel(
             image: "lockedEdit",

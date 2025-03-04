@@ -74,13 +74,13 @@ class EditorNavigationItemController: NSObject, Themeable {
     
     private lazy var ipAccountNoticesButton: UIBarButtonItem = {
         let button = UIBarButtonItem(image: WMFSFSymbolIcon.for(symbol: .temporaryAccountIcon), style: .plain, target: self, action: #selector(ipAccount(_ :)))
-        button.accessibilityLabel = CommonStrings.editNotices
+        button.accessibilityLabel = WMFLocalizedString("edit-sheet-ip-account-notice", value: "IP Account Notice", comment: "Temporary account sheet for editors")
         return button
     }()
     
     private lazy var readingThemesControlsButton: UIBarButtonItem = {
         let button = UIBarButtonItem(image: WMFSFSymbolIcon.for(symbol: .textFormatSize), style: .plain, target: self, action: #selector(showReadingThemesControls(_ :)))
-        button.accessibilityLabel = CommonStrings.readingThemesControls
+        button.accessibilityLabel = WMFLocalizedString("edit-sheet-temp-account-notice", value: "Temporary Account Notice", comment: "Temporary account sheet for editors")
         return button
     }()
 
