@@ -1,5 +1,8 @@
 import UIKit
 import WMFComponents
+import SwiftUI
+import WMFData
+import CocoaLumberjackSwift
 
 class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFCaptchaViewControllerDelegate, Themeable, WMFNavigationBarConfiguring {
     // SINGLETONTODO
@@ -13,6 +16,7 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
     @IBOutlet fileprivate var createAccountButton: WMFAuthLinkLabel!
     @IBOutlet fileprivate var forgotPasswordButton: UILabel!
     @IBOutlet fileprivate var titleLabel: UILabel!
+    @IBOutlet weak var scrollContainerTopConstraint: NSLayoutConstraint!
     @IBOutlet fileprivate var captchaContainer: UIView!
     @IBOutlet fileprivate var loginButton: WMFAuthButton!
     @IBOutlet weak var scrollContainer: UIView!
@@ -22,6 +26,7 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
     public var loginDismissedCompletion: (() -> Void)?
 
     private var startDate: Date? // to calculate time elapsed between login start and login success
+    private var toastView: UIView?
     
     var category: EventCategoryMEP?
     fileprivate var theme: Theme = Theme.standard
@@ -75,6 +80,37 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
         wmf_add(childController:captchaViewController, andConstrainToEdgesOfContainerView: captchaContainer)
         
         apply(theme: theme)
+        
+        let authManager = dataStore.authenticationManager
+        
+        if authManager.authStateIsTemporary {
+            let viewModel = WMFTempAccountsToastViewModel(
+                    didTapReadMore: {
+                       // Todo
+                    },
+                    title: CommonStrings.tempAccountsToastTitle(),
+                    readMoreButtonTitle: CommonStrings.tempAccountsReadMoreTitle
+                )
+
+            let toastController = WMFTempAccountsToastHostingController(viewModel: viewModel)
+            self.toastView = toastController.view
+
+            addChild(toastController)
+            view.addSubview(toastController.view)
+            toastController.didMove(toParent: self)
+            toastController.view.translatesAutoresizingMaskIntoConstraints = false
+
+            NSLayoutConstraint.activate([
+               toastController.view.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0),
+               toastController.view.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0),
+               toastController.view.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor)
+            ])
+        }
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        scrollContainerTopConstraint.constant = toastView?.frame.height ?? 0
     }
     
     private func configureNavigationBar() {

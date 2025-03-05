@@ -41,7 +41,7 @@ public struct WMFTempAccountsSheetView: View {
                     })
                 .padding(15)
                 .frame(maxWidth: .infinity, alignment: .topLeading)
-                VStack(spacing: 17) {
+                VStack(spacing: 10) {
                     VStack(spacing: 22) {
                         Image(viewModel.image, bundle: .module)
                         textInfo
@@ -50,6 +50,7 @@ public struct WMFTempAccountsSheetView: View {
                         // TODO
                     })
                     .frame(maxWidth: .infinity)
+                    .padding(.top, 7)
                     WMFLargeButton(configuration: .secondary, title: viewModel.ctaBottomString, action: {
                         // TODO
                     })
