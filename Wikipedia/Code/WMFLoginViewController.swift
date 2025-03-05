@@ -1,5 +1,8 @@
 import UIKit
 import WMFComponents
+import SwiftUI
+import WMFData
+import CocoaLumberjackSwift
 
 class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFCaptchaViewControllerDelegate, Themeable, WMFNavigationBarConfiguring {
     // SINGLETONTODO
@@ -24,16 +27,6 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
 
     private var startDate: Date? // to calculate time elapsed between login start and login success
     private var toastView: UIView?
-    
-    var readMoreTitle = WMFLocalizedString("temp-account-toast-read-more-title", value: "Read more", comment: "Read more button for the toast for temporary accounts.")
-    
-    var toastTitle = {
-        let openingBold = "<b>"
-        let closingBold = "</b>"
-        let format = WMFLocalizedString("temp-account-toast-title", value: "%1$@You are currently using a temporary account.%2$@ Edits made with the temporary...",
-          comment: "Temporary accounts toast information. $1 and $2 are opening and closing bold")
-        return String.localizedStringWithFormat(format, openingBold, closingBold)
-    }
     
     var category: EventCategoryMEP?
     fileprivate var theme: Theme = Theme.standard
@@ -95,8 +88,8 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
                     didTapReadMore: {
                        // Todo
                     },
-                    title: toastTitle(),
-                    readMoreButtonTitle: readMoreTitle
+                    title: CommonStrings.tempAccountsToastTitle(),
+                    readMoreButtonTitle: CommonStrings.tempAccountsReadMoreTitle
                 )
 
             let toastController = WMFTempAccountsToastHostingController(viewModel: viewModel)

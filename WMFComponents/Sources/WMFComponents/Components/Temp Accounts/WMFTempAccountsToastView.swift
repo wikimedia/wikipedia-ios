@@ -30,13 +30,14 @@ public struct WMFTempAccountsToastView: View {
                     if let exclamationPointCircle = WMFIcon.exclamationPointCircle {
                         Image(uiImage: exclamationPointCircle)
                             .resizable()
-                            .foregroundStyle(Color(theme.editorMatchForeground))
+                            .foregroundStyle(Color(theme.text))
                             .frame(width: 16, height: 16)
                     }
                     Text(subtitleAttributedString())
                         .lineLimit(2)
                         .lineSpacing(titleStyles.lineSpacing)
                         .fixedSize(horizontal: false, vertical: true)
+                        .foregroundStyle(Color(theme.text))
                 }
                 Group {
                     WMFSmallButton(configuration: WMFSmallButton.Configuration(style: .quiet), title: viewModel.readMoreButtonTitle, action: {

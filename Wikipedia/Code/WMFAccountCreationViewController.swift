@@ -26,16 +26,6 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
     public var createAccountSuccessCustomDismissBlock: (() -> Void)?
     private var toastView: UIView?
     
-    var readMoreTitle = WMFLocalizedString("temp-account-toast-read-more-title", value: "Read more", comment: "Read more button for the toast for temporary accounts.")
-    
-    var toastTitle = {
-        let openingBold = "<b>"
-        let closingBold = "</b>"
-        let format = WMFLocalizedString("temp-account-toast-title", value: "%1$@You are currently using a temporary account.%2$@ Edits made with the temporary...",
-          comment: "Temporary accounts toast information. $1 and $2 are opening and closing bold")
-        return String.localizedStringWithFormat(format, openingBold, closingBold)
-    }
-    
     // SINGLETONTODO
     let dataStore = MWKDataStore.shared()
     
@@ -120,8 +110,8 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
                     didTapReadMore: {
                        // Todo
                     },
-                    title: toastTitle(),
-                    readMoreButtonTitle: readMoreTitle
+                    title: CommonStrings.tempAccountsToastTitle(),
+                    readMoreButtonTitle: CommonStrings.tempAccountsReadMoreTitle
                 )
 
             let toastController = WMFTempAccountsToastHostingController(viewModel: viewModel)

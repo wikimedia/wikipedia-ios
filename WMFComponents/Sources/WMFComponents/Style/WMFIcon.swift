@@ -6,7 +6,6 @@ public enum WMFIcon {
     static let checkmark = UIImage(named: "checkmark", in: .module, with: nil)
     static let close = UIImage(named: "close", in: .module, with: nil)
     static let closeCircle = UIImage(named: "close-circle", in: .module, with: nil)
-    static let closeCircleInverse = UIImage(named: "close-circle-inverse", in: .module, with: nil)
     static let exclamationPointCircle = UIImage(named: "exclamation-point-circle", in: .module, with: nil)
     static let find = UIImage(named: "find", in: .module, with: nil)
     static let findInPage = UIImage(named: "find-in-page", in: .module, with: nil)
@@ -110,7 +109,6 @@ public enum WMFSFSymbolIcon {
     case share
     case infoCircleFill
     case temporaryAccountIcon
-    case xCircleFill
 
     public static func `for`(symbol: WMFSFSymbolIcon, font: WMFFont = .subheadline, compatibleWith traitCollection: UITraitCollection = WMFAppEnvironment.current.traitCollection, paletteColors: [UIColor]? = nil) -> UIImage? {
         let font = WMFFont.for(font, compatibleWith: traitCollection)
@@ -262,8 +260,6 @@ public enum WMFSFSymbolIcon {
             image = UIImage(systemName: "info.circle.fill", withConfiguration: configuration)
         case .temporaryAccountIcon:
             image = UIImage(systemName: "person.crop.circle.badge.xmark", withConfiguration: configuration)
-        case .xCircleFill:
-            image = UIImage(systemName: "x.circle.fill", withConfiguration: configuration)
         }
         
         image = image?.withRenderingMode(.alwaysTemplate)
