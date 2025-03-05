@@ -4,7 +4,7 @@ import WMFComponents
 import WMFData
 import CocoaLumberjackSwift
 
-final class TempAccountSheetCoordinator: NSObject, Coordinator {
+final class TempAccountSheetCoordinator: Coordinator {
     var navigationController: UINavigationController
     var theme: Theme
     let dataStore: MWKDataStore

@@ -68,7 +68,7 @@ class EditorNavigationItemController: NSObject, Themeable {
     
     private lazy var temporaryAccountNoticesButton: UIBarButtonItem = {
         let button = UIBarButtonItem(image: WMFIcon.temp, style: .plain, target: self, action: #selector(temporaryAccount(_ :)))
-        button.accessibilityLabel = CommonStrings.editNotices
+        button.accessibilityLabel = WMFLocalizedString("edit-sheet-temp-account-notice", value: "Temporary Account Notice", comment: "Temporary account sheet for editors")
         return button
     }()
     
@@ -80,7 +80,7 @@ class EditorNavigationItemController: NSObject, Themeable {
     
     private lazy var readingThemesControlsButton: UIBarButtonItem = {
         let button = UIBarButtonItem(image: WMFSFSymbolIcon.for(symbol: .textFormatSize), style: .plain, target: self, action: #selector(showReadingThemesControls(_ :)))
-        button.accessibilityLabel = WMFLocalizedString("edit-sheet-temp-account-notice", value: "Temporary Account Notice", comment: "Temporary account sheet for editors")
+        button.accessibilityLabel = CommonStrings.readingThemesControls
         return button
     }()
 
