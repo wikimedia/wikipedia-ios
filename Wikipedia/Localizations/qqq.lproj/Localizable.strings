@@ -895,6 +895,7 @@
 "profile-page-join-title" = "Link to sign up or sign in";
 "profile-page-logged-out-year-in-review-subtext" = "Footer text that appears underneath the Year in Review item in the Profile menu when the user is in a logged out state.";
 "profile-page-title-logged-out" = "Page title for non-logged in users";
+"profile-page-title-temp-account" = "Page title for temporary account users";
 "profile-year-in-review-login-subtitle" = "Subtitle of alert that asks user to login. Displayed after they completed the feature for the first time.";
 "profile-year-in-review-login-title" = "Title of alert that asks user to login if they are entering Year in Review.";
 "project-name-mediawiki" = "Project name for MediaWiki.";

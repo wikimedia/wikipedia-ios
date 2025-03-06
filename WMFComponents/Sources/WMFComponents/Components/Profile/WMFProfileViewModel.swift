@@ -23,6 +23,7 @@ public class WMFProfileViewModel: ObservableObject {
         return appEnvironment.theme
     }
     let isLoggedIn: Bool
+    let isTemporaryAccount: Bool
     let localizedStrings: LocalizedStrings
     let inboxCount: Int
     private weak var coordinatorDelegate: ProfileCoordinatorDelegate?
@@ -34,8 +35,9 @@ public class WMFProfileViewModel: ObservableObject {
 
     private let yearInReviewDependencies: YearInReviewDependencies?
 
-    public init(isLoggedIn: Bool, localizedStrings: LocalizedStrings, inboxCount: Int, coordinatorDelegate: ProfileCoordinatorDelegate?, yearInReviewDependencies: YearInReviewDependencies?, badgeDelegate: YearInReviewBadgeDelegate?) {
+    public init(isLoggedIn: Bool, isTemporaryAccount: Bool, localizedStrings: LocalizedStrings, inboxCount: Int, coordinatorDelegate: ProfileCoordinatorDelegate?, yearInReviewDependencies: YearInReviewDependencies?, badgeDelegate: YearInReviewBadgeDelegate?) {
         self.isLoggedIn = isLoggedIn
+        self.isTemporaryAccount = isTemporaryAccount
         self.localizedStrings = localizedStrings
         self.inboxCount = inboxCount
         self.coordinatorDelegate = coordinatorDelegate
@@ -49,7 +51,7 @@ public class WMFProfileViewModel: ObservableObject {
     }
 
     private func loadProfileSections() {
-        profileSections = ProfileState.sections(isLoggedIn: isLoggedIn, localizedStrings: localizedStrings, inboxCount: inboxCount, coordinatorDelegate: coordinatorDelegate, isLoadingDonateConfigs: isLoadingDonateConfigs, yearInReviewDependencies: yearInReviewDependencies, badgeDelegate: badgeDelegate, refreshAction: loadProfileSections)
+        profileSections = ProfileState.sections(isLoggedIn: isLoggedIn, isTemporaryAccount: isTemporaryAccount, localizedStrings: localizedStrings, inboxCount: inboxCount, coordinatorDelegate: coordinatorDelegate, isLoadingDonateConfigs: isLoadingDonateConfigs, yearInReviewDependencies: yearInReviewDependencies, badgeDelegate: badgeDelegate, refreshAction: loadProfileSections)
     }
 
     public struct LocalizedStrings {
@@ -90,7 +92,7 @@ public class WMFProfileViewModel: ObservableObject {
 struct ProfileListItem: Identifiable {
     var id = UUID()
     let text: String
-    let image: WMFSFSymbolIcon?
+    let image: UIImage?
     let imageColor: UIColor?
     let hasNotifications: Bool?
     var needsNotificationCount: Bool = false
@@ -106,7 +108,7 @@ struct ProfileSection: Identifiable {
 }
 
 enum ProfileState {
-    static func sections(isLoggedIn: Bool, localizedStrings: WMFProfileViewModel.LocalizedStrings, inboxCount: Int = 0, coordinatorDelegate: ProfileCoordinatorDelegate?, isLoadingDonateConfigs: Bool, yearInReviewDependencies: WMFProfileViewModel.YearInReviewDependencies?, badgeDelegate: YearInReviewBadgeDelegate?, refreshAction: @escaping () -> Void) -> [ProfileSection] {
+    static func sections(isLoggedIn: Bool, isTemporaryAccount: Bool, localizedStrings: WMFProfileViewModel.LocalizedStrings, inboxCount: Int = 0, coordinatorDelegate: ProfileCoordinatorDelegate?, isLoadingDonateConfigs: Bool, yearInReviewDependencies: WMFProfileViewModel.YearInReviewDependencies?, badgeDelegate: YearInReviewBadgeDelegate?, refreshAction: @escaping () -> Void) -> [ProfileSection] {
 
         var needsYiRNotification = false
         if let yearInReviewDependencies {
@@ -116,7 +118,7 @@ enum ProfileState {
         if isLoggedIn {
             let notificationsItem = ProfileListItem(
                 text: localizedStrings.notificationsTitle,
-                image: .bellFill,
+                image: WMFSFSymbolIcon.for(symbol: .bellFill),
                 imageColor: UIColor(Color.blue),
                 hasNotifications: inboxCount > 0,
                 needsNotificationCount: true,
@@ -128,7 +130,7 @@ enum ProfileState {
             )
             let userPageItem = ProfileListItem(
                 text: localizedStrings.userPageTitle,
-                image: .personFilled,
+                image: WMFSFSymbolIcon.for(symbol: .personFilled),
                 imageColor: UIColor(Color.purple),
                 hasNotifications: nil,
                 isDonate: false,
@@ -139,7 +141,7 @@ enum ProfileState {
             )
             let talkPageItem = ProfileListItem(
                 text: localizedStrings.talkPageTitle,
-                image: .chatBubbleFilled,
+                image: WMFSFSymbolIcon.for(symbol: .chatBubbleFilled),
                 imageColor: UIColor(Color.green),
                 hasNotifications: nil,
                 isDonate: false,
@@ -150,7 +152,7 @@ enum ProfileState {
             )
             let watchlistItem = ProfileListItem(
                 text: localizedStrings.watchlistTitle,
-                image: .textBadgeStar,
+                image: WMFSFSymbolIcon.for(symbol: .textBadgeStar),
                 imageColor: UIColor(Color.orange),
                 hasNotifications: nil,
                 isDonate: false,
@@ -161,7 +163,7 @@ enum ProfileState {
             )
             let logoutItem = ProfileListItem(
                 text: localizedStrings.logOutTitle,
-                image: .leave,
+                image: WMFSFSymbolIcon.for(symbol: .leave),
                 imageColor: UIColor(Color.gray),
                 hasNotifications: nil,
                 isDonate: false,
@@ -172,7 +174,7 @@ enum ProfileState {
             )
             let donateItem = ProfileListItem(
                 text: localizedStrings.donateTitle,
-                image: .heartFilled,
+                image: WMFSFSymbolIcon.for(symbol: .heartFilled),
                 imageColor: UIColor(Color.red),
                 hasNotifications: nil,
                 isDonate: true,
@@ -185,7 +187,7 @@ enum ProfileState {
 
             let yearInReviewItem = ProfileListItem(
                 text: localizedStrings.yearInReviewTitle,
-                image: .calendar,
+                image: WMFSFSymbolIcon.for(symbol: .calendar),
                 imageColor: WMFColor.blue600,
                 hasNotifications: needsYiRNotification,
                 isDonate: false,
@@ -206,7 +208,7 @@ enum ProfileState {
             
             let settingsItem = ProfileListItem(
                 text: localizedStrings.settingsTitle,
-                image: .gear,
+                image: WMFSFSymbolIcon.for(symbol: .gear),
                 imageColor: UIColor(Color.gray),
                 hasNotifications: nil,
                 isDonate: false,
@@ -242,10 +244,44 @@ enum ProfileState {
                     subtext: nil
                 )
             ]
-        } else {
+        } else if isTemporaryAccount {
+            let notificationsItem = ProfileListItem(
+                text: localizedStrings.notificationsTitle,
+                image: WMFSFSymbolIcon.for(symbol: .bellFill),
+                imageColor: UIColor(Color.blue),
+                hasNotifications: inboxCount > 0,
+                needsNotificationCount: true,
+                isDonate: false,
+                isLoadingDonateConfigs: false,
+                action: {
+                    coordinatorDelegate?.handleProfileAction(.showNotifications)
+                }
+            )
+            let userPageItem = ProfileListItem(
+                text: localizedStrings.userPageTitle,
+                image: WMFIcon.temp,
+                imageColor: UIColor(Color.orange),
+                hasNotifications: nil,
+                isDonate: false,
+                isLoadingDonateConfigs: false,
+                action: {
+                    coordinatorDelegate?.handleProfileAction(.showUserPage)
+                }
+            )
+            let talkPageItem = ProfileListItem(
+                text: localizedStrings.talkPageTitle,
+                image: WMFSFSymbolIcon.for(symbol: .chatBubbleFilled),
+                imageColor: UIColor(Color.green),
+                hasNotifications: nil,
+                isDonate: false,
+                isLoadingDonateConfigs: false,
+                action: {
+                    coordinatorDelegate?.handleProfileAction(.showUserTalkPage)
+                }
+            )
             let joinWikipediaItem = ProfileListItem(
                 text: localizedStrings.joinWikipediaTitle,
-                image: .leave,
+                image: WMFSFSymbolIcon.for(symbol: .leave),
                 imageColor: UIColor(Color.gray),
                 hasNotifications: nil,
                 isDonate: false,
@@ -257,7 +293,63 @@ enum ProfileState {
             )
             let donateItem = ProfileListItem(
                 text: localizedStrings.donateTitle,
-                image: .heartFilled,
+                image: WMFSFSymbolIcon.for(symbol: .heartFilled),
+                imageColor: UIColor(Color.red),
+                hasNotifications: nil,
+                isDonate: true,
+                isLoadingDonateConfigs: isLoadingDonateConfigs,
+                action: {
+                    coordinatorDelegate?.handleProfileAction(.showDonate)
+                    coordinatorDelegate?.handleProfileAction(.logDonateTap)
+                }
+            )
+            let settingsItem = ProfileListItem(
+                text: localizedStrings.settingsTitle,
+                image: WMFSFSymbolIcon.for(symbol: .gear),
+                imageColor: UIColor(Color.gray),
+                hasNotifications: nil,
+                isDonate: false,
+                isLoadingDonateConfigs: false,
+                action: {
+                    coordinatorDelegate?.handleProfileAction(.showSettings)
+                }
+            )
+            
+            let joinSection = ProfileSection(
+                listItems: [
+                    userPageItem,
+                    talkPageItem,
+                    joinWikipediaItem
+                ],
+                subtext: localizedStrings.joinWikipediaSubtext
+            )
+            let donateSection = ProfileSection(
+                listItems: [
+                    donateItem
+                ],
+                subtext: localizedStrings.donateSubtext
+            )
+            let notificationsSection = ProfileSection(listItems: [notificationsItem], subtext: nil)
+            let settingsSection = ProfileSection(listItems: [settingsItem], subtext: nil)
+            
+            let sections = [notificationsSection, joinSection, donateSection, settingsSection]
+            return sections
+        } else {
+            let joinWikipediaItem = ProfileListItem(
+                text: localizedStrings.joinWikipediaTitle,
+                image: WMFSFSymbolIcon.for(symbol: .leave),
+                imageColor: UIColor(Color.gray),
+                hasNotifications: nil,
+                isDonate: false,
+                isLoadingDonateConfigs: false,
+                action: {
+                    coordinatorDelegate?.handleProfileAction(.login)
+                    
+                }
+            )
+            let donateItem = ProfileListItem(
+                text: localizedStrings.donateTitle,
+                image: WMFSFSymbolIcon.for(symbol: .heartFilled),
                 imageColor: UIColor(Color.red),
                 hasNotifications: nil,
                 isDonate: true,
@@ -270,7 +362,7 @@ enum ProfileState {
 
             let yearInReviewItem = ProfileListItem(
                 text: localizedStrings.yearInReviewTitle,
-                image: .calendar,
+                image: WMFSFSymbolIcon.for(symbol: .calendar),
                 imageColor: WMFColor.blue600,
                 hasNotifications: needsYiRNotification,
                 isDonate: false,
@@ -289,7 +381,7 @@ enum ProfileState {
             
             let settingsItem = ProfileListItem(
                 text: localizedStrings.settingsTitle,
-                image: .gear,
+                image: WMFSFSymbolIcon.for(symbol: .gear),
                 imageColor: UIColor(Color.gray),
                 hasNotifications: nil,
                 isDonate: false,
