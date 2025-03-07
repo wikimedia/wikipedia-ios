@@ -3,7 +3,6 @@ import WMFData
 
 struct WMFArticlePreviewView: View {
     let item: HistoryItem
-
     @ObservedObject var appEnvironment = WMFAppEnvironment.current
 
     var theme: WMFTheme {
@@ -11,57 +10,67 @@ struct WMFArticlePreviewView: View {
     }
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 8) {
+        let screenWidth = UIScreen.main.bounds.width
+        let width = screenWidth - 32
+        let hasImage = item.imageURL != nil
+        let finalHeight = hasImage ? width : width / 2
 
+        VStack(alignment: .leading, spacing: 0) {
             if let url = item.imageURL {
-                AsyncImage(url: url) { result in // fix loading
-                    switch result {
+                AsyncImage(url: url) { phase in
+                    switch phase {
                     case .empty:
                         ProgressView()
-                            .frame(height: 200)
                             .frame(maxWidth: .infinity)
+                            .frame(height: width * 0.5)
                             .background(Color.gray.opacity(0.2))
                     case .success(let image):
                         image
                             .resizable()
-                            .scaledToFit()
-                            .frame(width: 200, height: 150)
+                            .scaledToFill()
+                            .frame(width: width, height: width * 0.5)
                             .clipped()
                     case .failure:
                         EmptyView()
                             .frame(height: 0)
-                            .foregroundColor(.clear)
                     @unknown default:
                         EmptyView()
                     }
                 }
             }
+            VStack(alignment: .leading) {
+                Text(item.titleHtml)
+                    .font(Font(WMFFont.for(.georgiaTitle3)))
+                    .foregroundColor(Color(theme.text))
+                    .padding([.leading, .trailing], 8)
+                    .padding(.top, 16)
 
-            Text(item.titleHtml)
-                .font(.headline)
-                .foregroundColor(.white)
-
-
-            if let description = item.description, !description.isEmpty { // article description
-                Text(description)
-                    .font(.subheadline)
-                    .foregroundColor(.white.opacity(0.85))
+                if let description = item.description, !description.isEmpty {
+                    Text(description)
+                        .font(Font(WMFFont.for(.subheadline)))
+                        .foregroundColor(Color(theme.secondaryText))
+                        .padding([.leading, .trailing], 8)
+                        .padding(.bottom, 8)
+                }
             }
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .background(Color(theme.midBackground))
+            .padding(0)
 
-            if let summary = item.description, !summary.isEmpty { // article summary
+            if let summary = item.description, !summary.isEmpty {
                 Text(summary)
-                    .font(.body)
-                    .foregroundColor(.white.opacity(0.9))
-                    .lineLimit(3)
+                    .font(Font(WMFFont.for(.subheadline)))
+                    .foregroundColor(Color(theme.text))
                     .multilineTextAlignment(.leading)
+                    .lineLimit(nil)
                     .truncationMode(.tail)
+                    .padding(8)
             }
+            Spacer()
         }
-        .padding()
-        .background(Color.black.opacity(0.85))
-        .cornerRadius(12)
+        .frame(width: width, height: finalHeight)
+        .background(Color(theme.paperBackground))
+        .cornerRadius(8)
         .shadow(radius: 4)
     }
 }
-
-
