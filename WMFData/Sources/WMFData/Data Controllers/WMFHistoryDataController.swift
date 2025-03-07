@@ -4,20 +4,24 @@ import Foundation
 public struct HistoryRecord {
     public let id: Int
     public let title: String
-    public let description: String?
+    public let descriptionOrSnippet: String?
+    public let shortDescription: String?
     public let articleURL: URL?
     public let imageURL: String?
     public let viewedDate: Date
     public let isSaved: Bool
+    public let snippet: String?
 
-    public init(id: Int, title: String, description: String?, articleURL: URL?, imageURL: String?, viewedDate: Date, isSaved: Bool) {
+    public init(id: Int, title: String, descriptionOrSnippet: String?, shortDescription: String?, articleURL: URL?, imageURL: String?, viewedDate: Date, isSaved: Bool, snippet: String?) {
         self.id = id
         self.title = title
-        self.description = description
+        self.descriptionOrSnippet = descriptionOrSnippet
+        self.shortDescription = shortDescription
         self.articleURL = articleURL
         self.imageURL = imageURL
         self.viewedDate = viewedDate
         self.isSaved = isSaved
+        self.snippet = snippet
     }
 }
 
@@ -75,9 +79,11 @@ public final class WMFHistoryDataController {
                 HistoryItem(id: String(record.id),
                             url: record.articleURL,
                             titleHtml: record.title,
-                            description: record.description,
+                            snippetOrDescription: record.descriptionOrSnippet,
+                            shortDescription: record.shortDescription,
                             imageURL: getURL(record.imageURL),
-                            isSaved: record.isSaved
+                            isSaved: record.isSaved,
+                            snippet: record.snippet
                 )
             }
             return HistorySection(dateWithoutTime: day, items: items)
@@ -115,16 +121,20 @@ public final class HistoryItem: Identifiable, Equatable {
     public let url: URL?
     public let titleHtml: String
     public let description: String?
+    public let shortDescription: String?
     public let imageURL: URL?
     public let isSaved: Bool
+    public let snippet: String?
 
-    public init(id: String, url: URL?, titleHtml: String, description: String? = nil, imageURL: URL? = nil, isSaved: Bool) {
+    public init(id: String, url: URL?, titleHtml: String, snippetOrDescription: String?, shortDescription: String?, imageURL: URL?, isSaved: Bool, snippet: String?) {
         self.id = id
         self.url = url
         self.titleHtml = titleHtml
-        self.description = description
+        self.description = snippetOrDescription
+        self.shortDescription = shortDescription
         self.imageURL = imageURL
         self.isSaved = isSaved
+        self.snippet = snippet
     }
 
     public static func == (lhs: HistoryItem, rhs: HistoryItem) -> Bool {

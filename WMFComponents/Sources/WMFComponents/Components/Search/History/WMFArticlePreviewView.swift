@@ -38,7 +38,7 @@ struct WMFArticlePreviewView: View {
                     }
                 }
             }
-            VStack(alignment: .leading) {
+            VStack(alignment: .leading) { // adjust on iPad
                 Text(item.titleHtml)
                     .font(Font(WMFFont.for(.georgiaTitle3)))
                     .foregroundColor(Color(theme.text))
@@ -57,7 +57,7 @@ struct WMFArticlePreviewView: View {
             .background(Color(theme.midBackground))
             .padding(0)
 
-            if let summary = item.description, !summary.isEmpty {
+            if let summary = item.snippet, !summary.isEmpty {
                 Text(summary)
                     .font(Font(WMFFont.for(.subheadline)))
                     .foregroundColor(Color(theme.text))

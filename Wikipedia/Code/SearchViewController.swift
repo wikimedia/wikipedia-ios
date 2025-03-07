@@ -575,14 +575,17 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
 
                 for article in articleFetchRequest {
                     if let viewedDate = article.viewedDate, let pageID = article.pageID {
+                        
                         let record = HistoryRecord(
                             id: Int(truncating: pageID),
                             title: article.displayTitle ?? article.displayTitleHTML,
-                            description: article.capitalizedWikidataDescriptionOrSnippet,
+                            descriptionOrSnippet: article.capitalizedWikidataDescriptionOrSnippet,
+                            shortDescription: article.snippet,
                             articleURL: article.url,
                             imageURL: article.imageURLString,
                             viewedDate: viewedDate,
-                            isSaved: article.isSaved
+                            isSaved: article.isSaved,
+                            snippet: article.snippet
                         )
                         articles.append(record)
                     }
