@@ -537,23 +537,9 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
         return nil
     }
 
-    lazy var historyViewModel: WMFHistoryViewModel = {
+    func share(_ item: HistoryItem) {
 
-        let shareArticleAction: WMFHistoryViewModel.ShareRecordAction = { [weak self] historySection, historyItem in
-            guard let self else { return }
-
-        }
-
-        let onTapArticleAction: WMFHistoryViewModel.OnRecordTapAction = { [weak self] historyItem in
-            guard let self else { return }
-            self.tappedArticle(historyItem)
-        }
-
-        // TODO: check if accesibility labels need more info
-        let localizedStrings = WMFHistoryViewModel.LocalizedStrings(title: CommonStrings.historyTabTitle, emptyViewTitle: CommonStrings.emptyNoHistoryTitle, emptyViewSubtitle: CommonStrings.emptyNoHistorySubtitle, readNowActionTitle: CommonStrings.readNowActionTitle, saveForLaterActionTitle: CommonStrings.saveTitle, unsaveActionTitle: CommonStrings.shortUnsaveTitle, shareActionTitle: CommonStrings.shareMenuTitle, deleteSwipeActionLabel: CommonStrings.deleteActionTitle)
-        let viewModel = WMFHistoryViewModel(localizedStrings: localizedStrings, historyDataController: historyDataController, onTapRecord: onTapArticleAction, shareRecordAction: shareArticleAction)
-        return viewModel
-    }()
+    }
 
     lazy var historyDataController: WMFHistoryDataController = {
         let recordsProvider: WMFHistoryDataController.RecordsProvider = { [weak self] in
@@ -599,7 +585,7 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
             }
         }
 
-        let deleteRecordAction: WMFHistoryDataController.DeleteRecordAction = { [weak self] _ , historyItem in
+        let deleteRecordAction: WMFHistoryDataController.DeleteRecordAction = { [weak self] historyItem in
             guard let self, let dataStore = self.dataStore else { return }
             let request: NSFetchRequest<WMFArticle> = WMFArticle.fetchRequest()
             request.predicate = NSPredicate(format: "pageID == %@", historyItem.id)
@@ -615,7 +601,7 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
             // TODO: Delete from WMFPageviews
         }
 
-        let saveArticleAction: WMFHistoryDataController.SaveRecordAction = { [weak self] historySection, historyItem in
+        let saveArticleAction: WMFHistoryDataController.SaveRecordAction = { [weak self] historyItem in
             guard let self, let dataStore = self.dataStore, let articleURL = historyItem.url else { return }
             dataStore.savedPageList.addSavedPage(with: articleURL)
             if let article = dataStore.savedPageList.entry(for: articleURL) {
@@ -629,7 +615,7 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
             }
         }
 
-        let unsaveArticleAction: WMFHistoryDataController.UnsaveRecordAction = { [weak self] historySection, historyItem in
+        let unsaveArticleAction: WMFHistoryDataController.UnsaveRecordAction = { [weak self] historyItem in
             guard let self, let dataStore = self.dataStore, let articleURL = historyItem.url else { return }
 
             dataStore.savedPageList.removeEntry(with: articleURL)

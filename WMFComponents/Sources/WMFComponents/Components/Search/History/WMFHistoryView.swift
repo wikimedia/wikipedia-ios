@@ -63,10 +63,10 @@ public struct WMFHistoryView: View {
                 refreshId = UUID()
             },
             shareItemAction: {
-                viewModel.share(section: section, item: item)
+                viewModel.share(item: item)
             },
             saveOrUnsaveItemAction: {
-                viewModel.saveOrUnsave(section: section, item: item)
+                viewModel.saveOrUnsave(item: item)
             }
         )
     }
@@ -91,10 +91,10 @@ public struct WMFHistoryView: View {
                 viewModel.onTap(item)
             }
             Button(getTextForAction(item)) {
-                viewModel.saveOrUnsave(section: section, item: item)
+                viewModel.saveOrUnsave(item: item)
             }
             Button(viewModel.localizedStrings.shareActionTitle) {
-                viewModel.share(section: section, item: item)
+                viewModel.share(item: item)
             }
         } preview: {
             WMFArticlePreviewView(item: item)

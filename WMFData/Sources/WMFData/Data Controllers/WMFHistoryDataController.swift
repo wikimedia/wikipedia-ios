@@ -33,13 +33,13 @@ public final class WMFHistoryDataController {
     public typealias RecordsProvider = () -> [HistoryRecord]
 
     /// Closure that deletes a single history record
-    public typealias DeleteRecordAction = (HistorySection, HistoryItem) -> Void
+    public typealias DeleteRecordAction = (HistoryItem) -> Void
 
     ///
-    public typealias SaveRecordAction = (HistorySection, HistoryItem) -> Void
+    public typealias SaveRecordAction = (HistoryItem) -> Void
 
     ///
-    public typealias UnsaveRecordAction = (HistorySection, HistoryItem) -> Void
+    public typealias UnsaveRecordAction = (HistoryItem) -> Void
 
     private let recordsProvider: RecordsProvider
     private let deleteRecordAction: DeleteRecordAction
@@ -92,16 +92,16 @@ public final class WMFHistoryDataController {
         return sections.sorted(by: { $0.dateWithoutTime > $1.dateWithoutTime })
     }
 
-    public func deleteHistoryItem(with section: HistorySection, _ item: HistoryItem) {
-        deleteRecordAction(section, item)
+    public func deleteHistoryItem(_ item: HistoryItem) {
+        deleteRecordAction(item)
     }
 
-    public func saveHistoryItem(with section: HistorySection, _ item: HistoryItem) {
-        saveRecordAction(section, item)
+    public func saveHistoryItem(_ item: HistoryItem) {
+        saveRecordAction(item)
     }
 
-    public func unsaveHistoryItem(with section: HistorySection, _ item: HistoryItem) {
-        unsaveRecordAction(section, item)
+    public func unsaveHistoryItem(_ item: HistoryItem) {
+        unsaveRecordAction(item)
     }
 
 }

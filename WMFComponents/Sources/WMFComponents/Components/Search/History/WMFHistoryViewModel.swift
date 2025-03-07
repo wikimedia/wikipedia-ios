@@ -28,7 +28,7 @@ public final class WMFHistoryViewModel: ObservableObject {
         }
     }
 
-    public typealias ShareRecordAction = (HistorySection, HistoryItem) -> Void
+    public typealias ShareRecordAction = (HistoryItem) -> Void
     public typealias OnRecordTapAction = ((HistoryItem) -> Void)?
 
     @Published var sections: [HistorySection] = []
@@ -85,22 +85,22 @@ public final class WMFHistoryViewModel: ObservableObject {
                 self.sections.removeAll(where: { $0.dateWithoutTime == section.dateWithoutTime })
             }
         }
-        historyDataController.deleteHistoryItem(with: section, item)
+        historyDataController.deleteHistoryItem(item)
 
         isEmpty = sections.isEmpty || sections.allSatisfy { $0.items.isEmpty }
 
     }
 
-    public func saveOrUnsave(section: HistorySection, item: HistoryItem) {
+    public func saveOrUnsave(item: HistoryItem) {
         if item.isSaved {
-            historyDataController.unsaveHistoryItem(with: section, item)
+            historyDataController.unsaveHistoryItem(item)
         } else {
-            historyDataController.saveHistoryItem(with: section, item)
+            historyDataController.saveHistoryItem(item)
         }
     }
 
-    public func share(section: HistorySection, item: HistoryItem) {
-        shareRecordAction(section, item)
+    public func share(item: HistoryItem) {
+        shareRecordAction(item)
     }
 
     public func onTap(_ item: HistoryItem) {
