@@ -1,21 +1,21 @@
 import UIKit
 import WMFComponents
 
-private struct Section {
+ private struct Section {
     let items: [Item]
     let footerTitle: String
-}
+ }
 
-private struct Item {
+ private struct Item {
     let title: String
     let isOn: Bool
     let controlTag: Int
-}
+ }
 
-@objc(WMFSearchSettingsViewController)
-final class SearchSettingsViewController: SubSettingsViewController, WMFNavigationBarConfiguring {
+@objc(WMFTempAccountsSettingsViewController)
+final class TempAccountsSettingsViewController: SubSettingsViewController, WMFNavigationBarConfiguring {
     private lazy var sections: [Section] = []
-
+    
     public override func viewDidLoad() {
         super.viewDidLoad()
         tableView.register(WMFSettingsTableViewCell.wmf_classNib(), forCellReuseIdentifier: WMFSettingsTableViewCell.identifier)
@@ -32,19 +32,17 @@ final class SearchSettingsViewController: SubSettingsViewController, WMFNavigati
     }
     
     private func configureNavigationBar() {
-        let titleConfig = WMFNavigationBarTitleConfig(title: CommonStrings.searchTitle, customView: nil, alignment: .centerCompact)
+        let titleConfig = WMFNavigationBarTitleConfig(title: CommonStrings.tempAccount, customView: nil, alignment: .centerCompact)
         
         configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: nil, profileButtonConfig: nil, searchBarConfig: nil, hideNavigationBarOnScroll: false)
     }
-
+    
     private func reloadSectionData() {
-        let showLanguagesOnSearch = Item(title: WMFLocalizedString("settings-language-bar", value: "Show languages on search", comment: "Title in Settings for toggling the display the language bar in the search view"), isOn: UserDefaults.standard.wmf_showSearchLanguageBar(), controlTag: 1)
-        let openAppOnSearchTab = Item(title: WMFLocalizedString("settings-search-open-app-on-search", value: "Open app on Search tab", comment: "Title for setting that allows users to open app on Search tab"), isOn: UserDefaults.standard.wmf_openAppOnSearchTab, controlTag: 2)
-        let items = [showLanguagesOnSearch, openAppOnSearchTab]
-        let sections = [Section(items: items, footerTitle: WMFLocalizedString("settings-search-footer-text", value: "Set the app to open to the Search tab instead of the Explore tab", comment: "Footer text for section that allows users to customize certain Search settings"))]
+        let talkPage = Item(title: WMFLocalizedString("settings-temp-accounts-talk-page", value: "Talk page", comment: "Title in Settings > Temporary Account > to view the user's talk page"), isOn: true, controlTag: 1)
+        let sections = [Section(items: [talkPage], footerTitle: WMFLocalizedString("settings-temp-accounts-talk-page-footer", value: "Temporary account will expire in 90 days", comment: "Footer below temporary account user's talk page, letting them know their account will expire"))]
         self.sections = sections
     }
-
+    
     private func getSection(at index: Int) -> Section {
         assert(sections.indices.contains(index), "Section at index \(index) doesn't exist")
         return sections[index]
@@ -55,7 +53,7 @@ final class SearchSettingsViewController: SubSettingsViewController, WMFNavigati
         assert(items.indices.contains(indexPath.row), "Item at indexPath \(indexPath) doesn't exist")
         return items[indexPath.row]
     }
-
+    
     // MARK: - Themeable
 
     override public func apply(theme: Theme) {
@@ -69,7 +67,8 @@ final class SearchSettingsViewController: SubSettingsViewController, WMFNavigati
     }
 }
 
-extension SearchSettingsViewController {
+// MARK: - Extensions
+extension TempAccountsSettingsViewController {
     override public func numberOfSections(in tableView: UITableView) -> Int {
         return sections.count
     }
@@ -84,9 +83,8 @@ extension SearchSettingsViewController {
             return UITableViewCell()
         }
         let item = getItem(at: indexPath)
-        cell.disclosureType = .switch
+        cell.disclosureType = .viewController
         cell.tag = item.controlTag
-        cell.disclosureSwitch.isOn = item.isOn
         cell.iconName = nil
         cell.title = item.title
         cell.apply(theme)
@@ -95,7 +93,7 @@ extension SearchSettingsViewController {
     }
 }
 
-extension SearchSettingsViewController {
+extension TempAccountsSettingsViewController {
     @objc func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         
         let text = getSection(at: section).footerTitle
@@ -113,7 +111,7 @@ extension SearchSettingsViewController {
     }
 }
 
-extension SearchSettingsViewController: WMFSettingsTableViewCellDelegate {
+extension TempAccountsSettingsViewController: WMFSettingsTableViewCellDelegate {
     public func settingsTableViewCell(_ settingsTableViewCell: WMFSettingsTableViewCell!, didToggleDisclosureSwitch sender: UISwitch!) {
         let controlTag = settingsTableViewCell.tag
         switch controlTag {
@@ -127,3 +125,4 @@ extension SearchSettingsViewController: WMFSettingsTableViewCellDelegate {
         reloadSectionData()
     }
 }
+

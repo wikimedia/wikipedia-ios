@@ -1198,6 +1198,7 @@
 "temp-account-got-it" = "Got it button";
 "temp-account-toast-read-more-title" = "Read more button for the toast for temporary accounts.";
 "temp-account-toast-title" = "Temporary accounts toast information. $1 and $2 are opening and closing bold";
+"temporary-account" = "Temporary account title text";
 "terms-of-use-title" = "Title for the terms of use";
 "theme-black-display-name" = "Black theme name presented to the user";
 "theme-dark-display-name" = "Dark theme name presented to the user";

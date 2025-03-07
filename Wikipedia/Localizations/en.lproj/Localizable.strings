@@ -1198,6 +1198,7 @@
 "temp-account-got-it" = "Got it";
 "temp-account-toast-read-more-title" = "Read more";
 "temp-account-toast-title" = "$1You are currently using a temporary account.$2 Edits made with the temporary...";
+"temporary-account" = "Temporary Account";
 "terms-of-use-title" = "Terms of use";
 "theme-black-display-name" = "Black";
 "theme-dark-display-name" = "Dark";
