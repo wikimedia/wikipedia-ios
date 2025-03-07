@@ -1082,6 +1082,7 @@
 "settings-storage-and-syncing-show-default-reading-list-footer-text" = "Footer text of the settings option that enables showing the default reading list";
 "settings-storage-and-syncing-show-default-reading-list-title" = "Title of the settings option that enables showing the default reading list";
 "settings-storage-and-syncing-title" = "Title of the saved articles storage and syncing settings screen";
+"settings-temp-account-title" = "Temporary account title.";
 "settings-title" = "Title of the view where app settings are displayed. {{Identical|Settings}}";
 "settings-year-in-review-header" = "Text informing user of benefits of hiding the year in review feature.";
 "share-a-fact-made-with" = "Indicates that the share-a-fact card was made with the Wikipedia app";

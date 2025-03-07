@@ -57,7 +57,7 @@ final class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegat
     @discardableResult
     @objc func start() -> Bool {
         let username = dataStore.authenticationManager.authStatePermanentUsername
-        let tempAccountUsername = "~2025-7894561"// dataStore.authenticationManager.authStateTemporaryUsername
+        let tempAccountUsername = dataStore.authenticationManager.authStateTemporaryUsername
         let isLoggedIn = dataStore.authenticationManager.authStateIsPermanent
         let isTemporaryAccount = true // dataStore.authenticationManager.authStateIsTemporary
         
