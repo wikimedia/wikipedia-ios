@@ -50,7 +50,9 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
     
     var topSafeAreaOverlayView: UIView?
     var topSafeAreaOverlayHeightConstraint: NSLayoutConstraint?
-    
+
+    var readingListHintController: ReadingListHintController?
+
     // TODO: Reference A/B test source PR instead
     var isSearchTab: Bool {
         if let navigationController,
@@ -121,7 +123,11 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
     @MainActor required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -131,6 +137,7 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
             embedResultsViewController()
         }
         setupTopSafeAreaOverlay(scrollView: nil)
+        setupReadingListsHelpers()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -529,6 +536,8 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
         return resultsViewController
     }()
 
+    // MARK: - Embed search
+
     func tappedArticle(_ item: HistoryItem) -> Void? {
         // TODO: Swap for coordinator when available
         if let articleURL = item.url, let dataStore, let articleViewController = ArticleViewController(articleURL: articleURL, dataStore: dataStore, theme: theme) {
@@ -604,24 +613,20 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
         let saveArticleAction: WMFHistoryDataController.SaveRecordAction = { [weak self] historyItem in
             guard let self, let dataStore = self.dataStore, let articleURL = historyItem.url else { return }
             dataStore.savedPageList.addSavedPage(with: articleURL)
-            if let article = dataStore.savedPageList.entry(for: articleURL) {
-
-                let hintVC = ReadingListHintViewController()
-                hintVC.dataStore = dataStore
-                hintVC.article = article
-
-                // TODO: ReadingListHintViewController
-
-            }
+            NotificationCenter.default.addObserver(self,
+                                                   selector: #selector(userDidSaveOrUnsaveArticle(_:)),
+                                                   name: WMFReadingListsController.userDidSaveOrUnsaveArticleNotification,
+                                                   object: nil)
         }
 
         let unsaveArticleAction: WMFHistoryDataController.UnsaveRecordAction = { [weak self] historyItem in
             guard let self, let dataStore = self.dataStore, let articleURL = historyItem.url else { return }
 
             dataStore.savedPageList.removeEntry(with: articleURL)
-
-            // TODO: ReadingListHintViewController
-
+            NotificationCenter.default.addObserver(self,
+                                                   selector: #selector(userDidSaveOrUnsaveArticle(_:)),
+                                                   name: WMFReadingListsController.userDidSaveOrUnsaveArticleNotification,
+                                                   object: nil)
         }
 
         let dataController = WMFHistoryDataController(
@@ -633,10 +638,74 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
         return dataController
     }()
 
+    lazy var historyViewModel: WMFHistoryViewModel = {
+
+        let shareArticleAction: WMFHistoryViewModel.ShareRecordAction = { [weak self] historyItem in
+            guard let self else { return }
+            self.share(historyItem)
+
+        }
+
+        let onTapArticleAction: WMFHistoryViewModel.OnRecordTapAction = { [weak self] historyItem in
+            guard let self else { return }
+            self.tappedArticle(historyItem)
+        }
+
+        // TODO: check if accesibility labels need more info
+        let localizedStrings = WMFHistoryViewModel.LocalizedStrings(title: CommonStrings.historyTabTitle, emptyViewTitle: CommonStrings.emptyNoHistoryTitle, emptyViewSubtitle: CommonStrings.emptyNoHistorySubtitle, readNowActionTitle: CommonStrings.readNowActionTitle, saveForLaterActionTitle: CommonStrings.saveTitle, unsaveActionTitle: CommonStrings.shortUnsaveTitle, shareActionTitle: CommonStrings.shareMenuTitle, deleteSwipeActionLabel: CommonStrings.deleteActionTitle)
+        let viewModel = WMFHistoryViewModel(localizedStrings: localizedStrings, historyDataController: historyDataController, onTapRecord: onTapArticleAction, shareRecordAction: shareArticleAction)
+        return viewModel
+    }()
+
     lazy var historyViewController: UIViewController = {
         let historyView = WMFHistoryView(viewModel: historyViewModel)
         return UIHostingController(rootView: historyView)
     }()
+
+    // MARK: - Reading lists hint controller
+
+    private func setupReadingListsHelpers() {
+        guard let dataStore else { return }
+        readingListHintController = ReadingListHintController(dataStore: dataStore)
+        readingListHintController?.apply(theme: theme)
+
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(userDidSaveOrUnsaveArticle(_:)),
+                                               name: WMFReadingListsController.userDidSaveOrUnsaveArticleNotification,
+                                               object: nil)
+    }
+
+    @objc private func userDidSaveOrUnsaveArticle(_ notification: Notification) {
+        guard let article = notification.object as? WMFArticle else {
+            return
+        }
+
+        showReadingListHint(for: article)
+    }
+
+    private func showReadingListHint(for article: WMFArticle) {
+
+        guard let presentingVC = visibleHintPresentingViewController() else {
+            return
+        }
+
+        let context: [String: Any] = [ReadingListHintController.ContextArticleKey: article]
+        toggleHint(readingListHintController, context: context, presentingIn: presentingVC)
+    }
+
+    func visibleHintPresentingViewController() -> (UIViewController & HintPresenting)? {
+        if let visibleVC = navigationController?.visibleViewController {
+            return visibleVC as? (UIViewController & HintPresenting)
+        }
+        return nil
+    }
+
+    private func toggleHint(_ hintController: ReadingListHintController?, context: [String: Any], presentingIn presentingVC: UIViewController) {
+
+        if let presenting = presentingVC as? (UIViewController & HintPresenting) {
+            hintController?.toggle(presenter: presenting, context: context, theme: theme)
+        }
+    }
 
     // MARK: - Recent Search Saving
     
