@@ -145,6 +145,7 @@
 "article-reference-view-title" = "Riferimento $1";
 "article-save-error-not-enough-space" = "Memoria insufficiente per salvare questo articolo sul dispositivo";
 "article-share" = "Condividi";
+"article-talk-page" = "Pagina di discussione della voce";
 "back-button-accessibility-label" = "Indietro";
 "back-button-popover-title" = "Clicca per tornare indietro";
 "button-go-back" = "Torna indietro";

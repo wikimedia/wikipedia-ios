@@ -144,6 +144,7 @@
 "description-welcome-descriptions-title" = "Artikelbeschreiwungen";
 "description-welcome-start-editing-button" = "Ufänke mat Änneren";
 "developer-settings" = "Entwécklerastellungen";
+"developer-settings-enable-year-in-review" = "Joresréckbléck aktivéieren";
 "diff-compare-header-from-info-heading" = "Vireg Ännerung";
 "diff-compare-header-heading" = "Versioune vergläichen";
 "diff-compare-header-to-info-heading" = "Gewisen Ännerung";
@@ -601,7 +602,9 @@
 "preference-summary-eventlogging-opt-in" = "Der Wikimedia Foundation erlaben Informatiounen iwwer d'Benotze vun der App ze sammele fir se ze verbesseren.";
 "problem-with-feature-title" = "Problem mat der Funktioun";
 "profile-button-accessibility-label" = "Profil";
+"profile-page-logged-out-year-in-review-subtext" = "Loggt Iech an oder leet e Benotzerkont u fir d'nächst Joer e verbesserte Joresréckbléck ze kréien";
 "profile-page-title-logged-out" = "Kont";
+"profile-year-in-review-login-title" = "Loggt Iech a fir op de Joresréckbléck zouzegräifen";
 "project-name-mediawiki" = "MediaWiki";
 "project-name-wikibooks" = "Wikibooks";
 "project-name-wikidata" = "Wikidata";
@@ -904,10 +907,13 @@
 "wikitext-upload-save-terms-name" = "Benotzungs-Bedingungen";
 "year-in-review-base-edits-title" = "D'Wikipedia gouf $1 Mol pro Minutt geännert";
 "year-in-review-base-reading-title" = "Wikipedia war a méi wéi 300 Sproochen disponibel";
+"year-in-review-button-title" = "Joresréckbléck";
 "year-in-review-collective-edits" = "Eng Illustratioun vun zwee Wikipedia-Puzzelstécker, allebéid mat engem Deel vun Informatiounen.";
 "year-in-review-collective-edits-per-minute" = "Eng Auer déi tickt, fir d'Zäit ze symboliséieren, déi d'Leit mat Liesen op der Wikipedia verbréngen.";
 "year-in-review-collective-zero-ads" = "Wikimedia-Logo";
 "year-in-review-donate-now" = "Maacht elo en Don";
+"year-in-review-feature-announcement-title-personalized" = "Entdeckt Äre Wikipedia-Joresréckbléck";
+"year-in-review-login-title" = "Verbessert Äre Joresréckbléck";
 // Fuzzy
 "year-in-review-personalized-donate-title" = "Merci fir Är Kontributioun!";
 "year-in-review-personalized-donation-thank-you" = "Wikimedia-Logo";
@@ -915,8 +921,10 @@
 "year-in-review-personalized-editing-title-format-500plus" = "Dir hutt d'Wikipedia méi wéi 500 Mol geännert";
 "year-in-review-personalized-reading-title-format" = "Dir hutt {{PLURAL:$1|$1 Artikel|$1 Artikele}} gelies";
 "year-in-review-personalized-saved-title-format" = "Dir hutt {{PLURAL:$1|$1 Artikel|$1 Artikele}} gespäichert";
+"year-in-review-share-text" = "Hei ass mäi Wikipedia-Joresréckbléck. Mat der Wikipedia-iOS-App erstallt";
 "year-in-review-survey-neutral" = "Neutral";
 "year-in-review-survey-satisfied" = "Zefridden";
+"year-in-review-survey-subtitle" = "Hëlleft mat fir de Wikipedia-Joresréckbléck ze verbesseren. Sidd Dir zefridde mat dëser Funktioun? Wat géift Dir d'nächst Joer gäre gesinn?";
 "year-in-review-survey-title" = "Zefriddenheetsëmfro";
 "year-in-review-survey-unsatisfied" = "Onzefridden";
 "year-in-review-survey-very-satisfied" = "Ganz zefridden";
