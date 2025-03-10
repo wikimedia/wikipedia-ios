@@ -5,12 +5,14 @@ import SwiftUI
 import CocoaLumberjackSwift
 import WMF
 
-class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring, WMFNavigationBarHiding, MEPEventsProviding {
+class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring, WMFNavigationBarHiding, MEPEventsProviding, HintPresenting {
+    var hintController: HintController?
+
     var eventLoggingCategory: EventCategoryMEP {
         return .history
     }
 
-   var eventLoggingLabel: EventLabelMEP? {
+   var eventLoggingLabel: EventLabelMEP? { 
         return nil
     }
 
@@ -50,8 +52,6 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
     
     var topSafeAreaOverlayView: UIView?
     var topSafeAreaOverlayHeightConstraint: NSLayoutConstraint?
-
-    var readingListHintController: ReadingListHintController?
 
     // TODO: Reference A/B test source PR instead
     var isSearchTab: Bool {
@@ -666,8 +666,8 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
 
     private func setupReadingListsHelpers() {
         guard let dataStore else { return }
-        readingListHintController = ReadingListHintController(dataStore: dataStore)
-        readingListHintController?.apply(theme: theme)
+        hintController = ReadingListHintController(dataStore: dataStore)
+        hintController?.apply(theme: theme)
 
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(userDidSaveOrUnsaveArticle(_:)),
@@ -690,17 +690,17 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
         }
 
         let context: [String: Any] = [ReadingListHintController.ContextArticleKey: article]
-        toggleHint(readingListHintController, context: context, presentingIn: presentingVC)
+        toggleHint(hintController, context: context, presentingIn: presentingVC)
     }
 
     func visibleHintPresentingViewController() -> (UIViewController & HintPresenting)? {
-        if let visibleVC = navigationController?.visibleViewController {
-            return visibleVC as? (UIViewController & HintPresenting)
+        if let nav = self.tabBarController?.selectedViewController as? UINavigationController {
+            return nav.topViewController as? (UIViewController & HintPresenting)
         }
         return nil
     }
 
-    private func toggleHint(_ hintController: ReadingListHintController?, context: [String: Any], presentingIn presentingVC: UIViewController) {
+    private func toggleHint(_ hintController: HintController?, context: [String: Any], presentingIn presentingVC: UIViewController) {
 
         if let presenting = presentingVC as? (UIViewController & HintPresenting) {
             hintController?.toggle(presenter: presenting, context: context, theme: theme)
