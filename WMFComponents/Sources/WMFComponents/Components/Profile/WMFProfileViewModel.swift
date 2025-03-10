@@ -265,7 +265,7 @@ enum ProfileState {
                 isDonate: false,
                 isLoadingDonateConfigs: false,
                 action: {
-                    coordinatorDelegate?.handleProfileAction(.showUserPage)
+                    coordinatorDelegate?.handleProfileAction(.showUserPageTempAccount)
                 }
             )
             let talkPageItem = ProfileListItem(
@@ -276,7 +276,7 @@ enum ProfileState {
                 isDonate: false,
                 isLoadingDonateConfigs: false,
                 action: {
-                    coordinatorDelegate?.handleProfileAction(.showUserTalkPage)
+                    coordinatorDelegate?.handleProfileAction(.showUserTalkPageTempAccount)
                 }
             )
             let joinWikipediaItem = ProfileListItem(

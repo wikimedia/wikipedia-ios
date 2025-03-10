@@ -169,6 +169,14 @@ final class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegat
             }
         case .logYearInReviewTap:
             self.logYearInReviewTap()
+        case .showUserPageTempAccount:
+            dismissProfile {
+                self.showUserPageTempAccount()
+            }
+        case .showUserTalkPageTempAccount:
+            dismissProfile {
+                self.showUserTalkPageTempAccount()
+            }
         }
     }
     
@@ -258,8 +266,24 @@ final class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegat
         }
     }
     
+    private func showUserPageTempAccount() {
+        let username = dataStore.authenticationManager.authStateTemporaryUsername
+        if let siteURL = dataStore.primarySiteURL, let username {
+            let userPageCoordinator = UserPageCoordinator(navigationController: navigationController, theme: theme, username: username, siteURL: siteURL)
+            userPageCoordinator.start()
+        }
+    }
+    
     private func showUserTalkPage() {
         let username = dataStore.authenticationManager.authStatePermanentUsername
+        if let siteURL = dataStore.primarySiteURL, let username {
+            let userTalkCoordinator = UserTalkCoordinator(navigationController: navigationController, theme: theme, username: username, siteURL: siteURL, dataStore: dataStore)
+            userTalkCoordinator.start()
+        }
+    }
+    
+    private func showUserTalkPageTempAccount() {
+        let username = dataStore.authenticationManager.authStateTemporaryUsername
         if let siteURL = dataStore.primarySiteURL, let username {
             let userTalkCoordinator = UserTalkCoordinator(navigationController: navigationController, theme: theme, username: username, siteURL: siteURL, dataStore: dataStore)
             userTalkCoordinator.start()
