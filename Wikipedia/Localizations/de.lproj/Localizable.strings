@@ -30,6 +30,7 @@
 // Author: ThisCarthing
 // Author: TomatoCake
 // Author: Tsevener
+// Author: Tte
 // Author: Ubahnverleih
 // Author: Umlaut
 // Author: ZiqiLiang
@@ -702,7 +703,9 @@
 "places-filter-top-articles" = "Meistgelesen";
 "places-filter-top-articles-count" = "{{PLURAL:$1|Ein|$1}} Artikel";
 "places-filter-top-read-articles" = "Am meisten gelesene Artikel";
+"places-list-title'" = "Liste";
 "places-location-enabled" = "Standort aktiviert";
+"places-map-title" = "Karte";
 "places-no-saved-articles-have-location" = "Keiner deiner gespeicherten Artikel besitzt Standortinformationen";
 "places-search-articles-that-match" = "$1, die mit „$2“ übereinstimmen";
 "places-search-default-text" = "Orte suchen";
@@ -721,8 +724,11 @@
 "potd-widget-description" = "Genieße täglich ein schönes Foto, das von unserer Gemeinschaft ausgewählt wurde.";
 "potd-widget-title" = "Bild des Tages";
 "preference-summary-eventlogging-opt-in" = "Der Wikimedia Foundation erlauben, Informationen über deine Verwendung der App zu sammeln, um die App zu verbessern.";
-"profile-page-donate-subtext" = "Oder Wikipedia mit einer Spende unterstützen, um es kostenlos und für alle auf der Welt zugänglich zu halten.";
+"profile-page-donate-subtext" = "Oder unterstützen Sie Wikipedia mit einer Spende, damit die Seite weiterhin kostenlos und für alle Menschen auf der Welt zugänglich bleibt.";
+"profile-page-join-subtext" = "Registriere dich für ein Wikipedia-Konto, um deine Beiträge zu verfolgen, Artikel offline zu speichern und geräteübergreifend zu synchronisieren.";
 "profile-page-join-title" = "Anmelden / Wikipedia beitreten";
+"profile-page-logged-out-year-in-review-subtext" = "Melde dich an oder erstelle ein Konto, um nächstes Jahr einen verbesserten Jahresrückblick zu erhalten";
+"profile-page-title-logged-out" = "Konto";
 "profile-year-in-review-login-subtitle" = "Melde dich an oder erstelle ein Konto, um den Jahresrückblick erneut zu sehen und mehr personalisierte Einblicke zu erhalten.";
 "profile-year-in-review-login-title" = "Melde dich an, um auf den Jahresrückblick zuzugreifen";
 "project-name-mediawiki" = "MediaWiki";
@@ -845,6 +851,7 @@
 "saved-default-reading-list-tag" = "Diese Liste kann nicht gelöscht werden";
 "saved-pages-image-download-error" = "Die Bilder für diese gespeicherte Seite konnten nicht heruntergeladen werden.";
 "saved-pages-progress-syncing" = "Herunterladen der Artikel läuft …";
+"saved-reading-lists-search-placeholder" = "Leselisten durchsuchen";
 "saved-reading-lists-title" = "Leselisten";
 "saved-search-default-text" = "Gespeicherte Artikel durchsuchen";
 "saved-title" = "Gespeichert";

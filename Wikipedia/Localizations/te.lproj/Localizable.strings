@@ -649,6 +649,7 @@
 "reading-themes-controls-accessibility-dark-theme-button" = "చీకటి థీము";
 "reading-themes-controls-accessibility-light-theme-button" = "వెలుతురు థీము";
 "reading-themes-controls-accessibility-sepia-theme-button" = "సేపియా థీము";
+"reading-themes-controls-accessibility-syntax-highlighting-switch" = "సింటాక్స్ హైలైటింగు";
 "reference-title" = "మూలం $1";
 "relative-date-days-ago" = "{{PLURAL:$1|0=ఈరోజు|1=నిన్న|$1 రోజుల క్రితం}}";
 "relative-date-hours-abbreviated" = "$1గం";
