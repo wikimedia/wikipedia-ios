@@ -375,7 +375,7 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 
 #pragma mark - Show temporary account
 - (void) showTemporaryAccount {
-    WMFTempAccountsSettingsViewController *tempAccountSettingsViewController = [[WMFTempAccountsSettingsViewController alloc] init];
+    WMFTempAccountsSettingsViewController *tempAccountSettingsViewController = [[WMFTempAccountsSettingsViewController alloc] initWithDataStore:self.dataStore];
     [tempAccountSettingsViewController applyTheme:self.theme];
     [self.navigationController pushViewController:tempAccountSettingsViewController animated:YES];
 }
