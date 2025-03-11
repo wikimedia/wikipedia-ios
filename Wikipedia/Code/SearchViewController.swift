@@ -622,6 +622,7 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
                                                    selector: #selector(userDidSaveOrUnsaveArticle(_:)),
                                                    name: WMFReadingListsController.userDidSaveOrUnsaveArticleNotification,
                                                    object: nil)
+            historyItem.isSaved = true
         }
 
         let unsaveArticleAction: WMFHistoryDataController.UnsaveRecordAction = { [weak self] historyItem in
@@ -632,6 +633,7 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
                                                    selector: #selector(userDidSaveOrUnsaveArticle(_:)),
                                                    name: WMFReadingListsController.userDidSaveOrUnsaveArticleNotification,
                                                    object: nil)
+            historyItem.isSaved = false
         }
 
         let dataController = WMFHistoryDataController(

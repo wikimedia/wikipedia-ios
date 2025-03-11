@@ -123,7 +123,7 @@ public final class HistoryItem: Identifiable, Equatable {
     public let description: String?
     public let shortDescription: String?
     public let imageURL: URL?
-    public let isSaved: Bool
+    public var isSaved: Bool
     public let snippet: String?
 
     public init(id: String, url: URL?, titleHtml: String, snippetOrDescription: String?, shortDescription: String?, imageURL: URL?, isSaved: Bool, snippet: String?) {

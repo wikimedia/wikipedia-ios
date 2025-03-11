@@ -87,7 +87,7 @@ struct WMFPageRow: View {
             .labelStyle(.iconOnly)
         }
         .overlay(
-            GeometryReader { geometry in //TODO: Fix geometry reading for ipad
+            GeometryReader { geometry in // TODO: Fix geometry reading for ipad
                 Color.clear
                     .onAppear {
                         globalFrame = geometry.frame(in: .global)
