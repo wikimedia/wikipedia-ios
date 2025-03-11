@@ -1,6 +1,7 @@
 #import "WMFAppViewController.h"
 @import WMF;
 @import SystemConfiguration;
+@import SwiftUI;
 #import "Wikipedia-Swift.h"
 
 #define DEBUG_THEMES 1
@@ -924,6 +925,23 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
                 }];
             });
         };
+        
+        if (true)/*([self.dataStore.authenticationManager authStateIsTemporary])*/ {
+            [[WMFAlertManager sharedInstance] showBottomAlertWithMessage:WMFLocalizedStringWithDefaultValue(@"alert-temporary-account", nil, nil, @"You are using a temporary account. Account will expire in 1 year. After it expires, a new one will be created the next time you make an edit without logging in. Log in or create an account to get credit for future edits, and access other features.", @"Alert message informing user that they are using a temporary account")
+                subtitle:@"Subtitle"
+                buttonTitle:@"Button title"
+                image:[UIImage imageNamed:@"exclamation-point"]
+                dismissPreviousAlerts:true
+                tapCallBack:^{
+                    
+                }
+
+            ];
+        }
+        
+        /*
+         [[WMFAlertManager sharedInstance] showWarningAlert:[NSString localizedStringWithFormat:WMFLocalizedStringWithDefaultValue(@"reading-lists-split-notification", nil, nil, @"There is a limit of %1$d articles per reading list. Existing lists with more than this limit have been split into multiple lists.", @"Alert message informing user that existing lists exceeding the entry limit have been split into multiple lists. %1$d will be replaced with the maximum number of articles allowed per reading list."), entryLimit] duration:nil sticky:YES dismissPreviousAlerts:YES tapCallBack:nil];
+         */
 
         if (self.notificationUserInfoToShow) {
             [self hideSplashView];

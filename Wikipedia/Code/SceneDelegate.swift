@@ -56,6 +56,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func sceneDidBecomeActive(_ scene: UIScene) {
 
         resumeAppIfNecessary()
+        // Grey here
+        
     }
 
     func sceneWillResignActive(_ scene: UIScene) {

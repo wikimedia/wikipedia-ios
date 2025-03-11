@@ -59,7 +59,7 @@ final class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegat
         let username = dataStore.authenticationManager.authStatePermanentUsername
         let tempAccountUsername = dataStore.authenticationManager.authStateTemporaryUsername
         let isLoggedIn = dataStore.authenticationManager.authStateIsPermanent
-        let isTemporaryAccount = true // dataStore.authenticationManager.authStateIsTemporary
+        let isTemporaryAccount = dataStore.authenticationManager.authStateIsTemporary
         
         let nonLoggedInUsersPageTitle = WMFLocalizedString("profile-page-title-logged-out", value: "Account", comment: "Page title for non-logged in users")
         let tempAccountPageTitle = WMFLocalizedString("profile-page-title-temp-account", value: "Temporary account", comment: "Page title for temporary account users")
