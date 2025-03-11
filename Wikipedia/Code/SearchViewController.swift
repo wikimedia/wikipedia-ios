@@ -4,6 +4,7 @@ import WMFData
 import SwiftUI
 import CocoaLumberjackSwift
 import WMF
+import Combine
 
 class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring, WMFNavigationBarHiding, MEPEventsProviding, HintPresenting, ShareableArticlesProvider {
     var hintController: HintController?
@@ -17,7 +18,10 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
     }
 
     @objc var dataStore: MWKDataStore?
-    
+
+    var deleteButton: UIBarButtonItem?
+    private var cancellables = Set<AnyCancellable>()
+
     @objc enum EventLoggingSource: Int {
         case searchTab
         case topOfFeed
@@ -138,6 +142,15 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
         }
         setupTopSafeAreaOverlay(scrollView: nil)
         setupReadingListsHelpers()
+
+        deleteButton = UIBarButtonItem(title: CommonStrings.clearTitle, style: .plain, target: self, action: #selector(deleteButtonPressed(_:)))
+
+        historyViewModel.$isEmpty
+            .receive(on: RunLoop.main)
+            .sink { [weak self] isEmpty in
+                self?.deleteButton?.isEnabled = !isEmpty
+            }
+            .store(in: &cancellables)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -239,8 +252,8 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
         }
         
         let profileButtonConfig: WMFNavigationBarProfileButtonConfig?
-        let deleteButton = UIBarButtonItem(title: CommonStrings.clearTitle, style: .plain, target: self, action: #selector(deleteButtonPressed(_:)))
-        deleteButton.isEnabled = !historyViewModel.isEmpty
+        deleteButton = UIBarButtonItem(title: CommonStrings.clearTitle, style: .plain, target: self, action: #selector(deleteButtonPressed(_:)))
+        deleteButton?.isEnabled = !historyViewModel.isEmpty
 
         if let dataStore {
             profileButtonConfig = self.profileButtonConfig(target: self, action: #selector(userDidTapProfile), dataStore: dataStore, yirDataController: yirDataController, leadingBarButtonItem: deleteButton, trailingBarButtonItem: nil)
@@ -272,7 +285,7 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
         guard let dataStore else { return }
         do {
             try dataStore.viewContext.clearReadHistory()
-            historyViewModel.isEmpty = true
+            historyViewModel.sections = []
 
         } catch let error {
             showError(error)

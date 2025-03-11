@@ -31,7 +31,11 @@ public final class WMFHistoryViewModel: ObservableObject {
     public typealias ShareRecordAction = (CGRect?, HistoryItem) -> Void
     public typealias OnRecordTapAction = ((HistoryItem) -> Void)?
 
-    @Published var sections: [HistorySection] = []
+    @Published public var sections: [HistorySection] = [] {
+        didSet {
+            isEmpty = sections.isEmpty
+        }
+    }
     @Published var geometryFrames: [String: CGRect] = [:]
     @Published public var topPadding: CGFloat = 0
 
@@ -40,7 +44,7 @@ public final class WMFHistoryViewModel: ObservableObject {
     private let historyDataController: WMFHistoryDataController
 
     public var onTapArticle: OnRecordTapAction
-    public var isEmpty: Bool = true
+    @Published public var isEmpty: Bool = true
 
     private let shareRecordAction: ShareRecordAction
 
