@@ -71,6 +71,7 @@
 "add-articles-to-reading-list" = "Title for the view in charge of adding articles to a reading list - $1 is replaced with the number of articles to add";
 "advanced-settings-title" = "Title for advanced settings screen";
 "alert-temporary-account" = "Alert message informing user that they are using a temporary account";
+"alert-temporary-account-learn-more" = "Button on alert for temporary accounts to learn more.";
 "alt-text-feedback-survey-toast-title" = "Text for the toast displayed after a user answers a survey";
 "announcements-dismiss" = "Button text indicating a user wants to dismiss an announcement {{Identical|No thanks}}";
 "app-store-keywords" = "Short list of keywords describing the app for the app store. It is required that these are individual words, not phrases, and are comma separated.";

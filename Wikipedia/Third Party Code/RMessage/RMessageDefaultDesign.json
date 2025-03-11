@@ -44,6 +44,15 @@
     "subTitleTextColor": "#222222",
     "blurBackground": 0
   },
+  "temporary-account": {
+      "backgroundColor": "#F8F9FA",
+      "backgroundColorAlpha": 1.0,
+      "titleTextColor": "#202122",
+      "titleFontSize": 15,
+      "subTitleFontSize": 14,
+      "subTitleTextColor": "#222222",
+      "blurBackground": 0
+  },
   "subscription-success": {
     "backgroundColor": "#F8F9FA",
     "backgroundColorAlpha": 1.0,

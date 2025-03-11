@@ -70,7 +70,8 @@
 "action-update" = "Update";
 "add-articles-to-reading-list" = "Add {{PLURAL:$1|$1 article|$1 articles}} to reading list";
 "advanced-settings-title" = "Advanced settings";
-"alert-temporary-account" = "You are using a temporary account. Account will expire in 1 year. After it expires, a new one will be created the next time you make an edit without logging in. Log in or create an account to get credit for future edits, and access other features.";
+"alert-temporary-account" = "You are using a temporary account. Account will expire in 1 year.";
+"alert-temporary-account-learn-more" = "Learn more.";
 "alt-text-feedback-survey-toast-title" = "Feedback submitted";
 "announcements-dismiss" = "Dismiss";
 "app-store-keywords" = "Wikipedia, reference, wiki, encyclopedia, info, knowledge, research, information, explore, learn";

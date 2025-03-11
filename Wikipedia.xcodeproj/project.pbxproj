@@ -382,6 +382,9 @@
 		372F04842D7B7554002C6D2C /* TempAccountsSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 372F04832D7B754B002C6D2C /* TempAccountsSettingsViewController.swift */; };
 		372F04852D7B7554002C6D2C /* TempAccountsSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 372F04832D7B754B002C6D2C /* TempAccountsSettingsViewController.swift */; };
 		372F04862D7B7554002C6D2C /* TempAccountsSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 372F04832D7B754B002C6D2C /* TempAccountsSettingsViewController.swift */; };
+		372F048D2D80C205002C6D2C /* TempAccountExpiryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 372F048C2D80C1F9002C6D2C /* TempAccountExpiryViewController.swift */; };
+		372F048E2D80C205002C6D2C /* TempAccountExpiryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 372F048C2D80C1F9002C6D2C /* TempAccountExpiryViewController.swift */; };
+		372F048F2D80C205002C6D2C /* TempAccountExpiryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 372F048C2D80C1F9002C6D2C /* TempAccountExpiryViewController.swift */; };
 		41CCB67421CC1F9700206B47 /* SavedArticlesCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41CCB67321CC1F9700206B47 /* SavedArticlesCollectionViewController.swift */; };
 		41CCB67521CC1F9700206B47 /* SavedArticlesCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41CCB67321CC1F9700206B47 /* SavedArticlesCollectionViewController.swift */; };
 		41CCB67621CC1F9700206B47 /* SavedArticlesCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41CCB67321CC1F9700206B47 /* SavedArticlesCollectionViewController.swift */; };
@@ -3181,6 +3184,7 @@
 		370107A92D5EEBF600E17486 /* TempAccountSheetCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TempAccountSheetCoordinator.swift; sourceTree = "<group>"; };
 		3717C38B2CAB2A0700978DB2 /* YearInReviewCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YearInReviewCoordinator.swift; sourceTree = "<group>"; };
 		372F04832D7B754B002C6D2C /* TempAccountsSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TempAccountsSettingsViewController.swift; sourceTree = "<group>"; };
+		372F048C2D80C1F9002C6D2C /* TempAccountExpiryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TempAccountExpiryViewController.swift; sourceTree = "<group>"; };
 		41CCB67321CC1F9700206B47 /* SavedArticlesCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedArticlesCollectionViewController.swift; sourceTree = "<group>"; };
 		41FCAA3521C844CB001D8411 /* ReadingListEntryCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadingListEntryCollectionViewController.swift; sourceTree = "<group>"; };
 		533AB8AD259792A9003A43D9 /* wikipedia-language-variants.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "wikipedia-language-variants.json"; sourceTree = "<group>"; };
@@ -7900,6 +7904,7 @@
 		D818D37F1ED725240076110D /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				372F048C2D80C1F9002C6D2C /* TempAccountExpiryViewController.swift */,
 				83023C1720E6581A00EC7592 /* Transitions */,
 				41FCAA3521C844CB001D8411 /* ReadingListEntryCollectionViewController.swift */,
 				41CCB67321CC1F9700206B47 /* SavedArticlesCollectionViewController.swift */,
@@ -10032,6 +10037,7 @@
 				00474A2A28DD1AE2002E3C09 /* TalkPageCoffeeRollViewController.swift in Sources */,
 				B0E803E61C0CDD450065EBC0 /* UIViewController+WMFStoryboardUtilities.m in Sources */,
 				B0524B75214856A400D8FD8D /* UIViewController+DescriptionWelcomeStoryboard.swift in Sources */,
+				372F048F2D80C205002C6D2C /* TempAccountExpiryViewController.swift in Sources */,
 				83155BA62A0D70B7003D141D /* NavigationEventsFunnel.swift in Sources */,
 				0ED2E9FA1CB2B3B300D1C844 /* UIVIewController+WMFCommonRotationSupport.swift in Sources */,
 				3717C38E2CAB2A0D00978DB2 /* YearInReviewCoordinator.swift in Sources */,
@@ -10933,6 +10939,7 @@
 				D87B13A61F276B0F00B27227 /* ShareActivityController.swift in Sources */,
 				D8CE25181E698E2400DAE2E0 /* WMFReferencePopoverMessageViewController.m in Sources */,
 				D8CE25191E698E2400DAE2E0 /* WMFSearchFetcher.m in Sources */,
+				372F048D2D80C205002C6D2C /* TempAccountExpiryViewController.swift in Sources */,
 				6782DBD42343FE03003FA21B /* DiffListGroupViewModel.swift in Sources */,
 				67E0690C22399D1D008550AC /* ReadingThemesControlsViewController.swift in Sources */,
 				7A9A611F21124D0F00403154 /* CreateNewReadingListButtonView.swift in Sources */,
@@ -11483,6 +11490,7 @@
 				83155BA72A0D70B7003D141D /* NavigationEventsFunnel.swift in Sources */,
 				D8EC3E091E9BDA35006712EB /* WMFEmptyView.m in Sources */,
 				7A35CB891FD82B6300AAF3B7 /* ReadingListDetailViewController.swift in Sources */,
+				372F048E2D80C205002C6D2C /* TempAccountExpiryViewController.swift in Sources */,
 				7A9A612021124D0F00403154 /* CreateNewReadingListButtonView.swift in Sources */,
 				6782DBD52343FE03003FA21B /* DiffListGroupViewModel.swift in Sources */,
 				67E0690B22399D1C008550AC /* ReadingThemesControlsViewController.swift in Sources */,
