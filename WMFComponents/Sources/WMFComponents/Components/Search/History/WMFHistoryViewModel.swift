@@ -28,10 +28,11 @@ public final class WMFHistoryViewModel: ObservableObject {
         }
     }
 
-    public typealias ShareRecordAction = (HistoryItem) -> Void
+    public typealias ShareRecordAction = (CGRect?, HistoryItem) -> Void
     public typealias OnRecordTapAction = ((HistoryItem) -> Void)?
 
     @Published var sections: [HistorySection] = []
+    @Published var geometryFrames: [String: CGRect] = [:]
     @Published public var topPadding: CGFloat = 0
 
     internal let localizedStrings: LocalizedStrings
@@ -99,8 +100,8 @@ public final class WMFHistoryViewModel: ObservableObject {
         }
     }
 
-    public func share(item: HistoryItem) {
-        shareRecordAction(item)
+    public func share(frame: CGRect?, item: HistoryItem) {
+        shareRecordAction(frame, item)
     }
 
     public func onTap(_ item: HistoryItem) {

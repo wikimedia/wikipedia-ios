@@ -957,6 +957,7 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
 
                                                            done();
                                                        }];
+            [self.dataStore.authenticationManager authStateIsTemporary];
         } else if ([self shouldShowExploreScreenOnLaunch]) {
             [self hideSplashView];
             [self showExplore];

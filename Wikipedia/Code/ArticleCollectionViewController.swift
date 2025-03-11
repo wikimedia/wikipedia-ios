@@ -239,7 +239,7 @@ extension ArticleCollectionViewController: ActionDelegate {
                 return true
             }
         case .share:
-            return share(article: article(at: indexPath), articleURL: articleURL(at: indexPath), at: indexPath, dataStore: dataStore, theme: theme, eventLoggingCategory: eventLoggingCategory, eventLoggingLabel: eventLoggingLabel, sourceView: sourceView)
+            return share(article: article(at: indexPath), articleURL: articleURL(at: indexPath), dataStore: dataStore, theme: theme, eventLoggingCategory: eventLoggingCategory, eventLoggingLabel: eventLoggingLabel, sourceView: sourceView)
         }
         return false
     }

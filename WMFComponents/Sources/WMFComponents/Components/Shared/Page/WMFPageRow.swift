@@ -19,8 +19,9 @@ struct WMFPageRow: View {
     let saveAccessibilityLabel: String
     let unsaveAccessibilityLabel: String
     let deleteItemAction: () -> Void
-    let shareItemAction: () -> Void
+    let shareItemAction: ((CGRect?) -> Void)
     let saveOrUnsaveItemAction: () -> Void
+    @State private var globalFrame: CGRect = .zero
 
     var body: some View {
         HStack(spacing: 4) {
@@ -63,7 +64,7 @@ struct WMFPageRow: View {
             .labelStyle(.iconOnly)
 
             Button {
-                shareItemAction()
+                shareItemAction(globalFrame)
             } label: {
                 Image(uiImage: WMFSFSymbolIcon.for(symbol: .share) ?? UIImage())
                     .accessibilityLabel(shareAccessibilityLabel)
@@ -85,5 +86,16 @@ struct WMFPageRow: View {
             .tint(Color(theme.link))
             .labelStyle(.iconOnly)
         }
+        .overlay(
+            GeometryReader { geometry in //TODO: Fix geometry reading for ipad
+                Color.clear
+                    .onAppear {
+                        globalFrame = geometry.frame(in: .global)
+                    }
+                    .onChange(of: geometry.frame(in: .global)) { newValue in
+                        globalFrame = newValue
+                    }
+            }
+        )
     }
 }

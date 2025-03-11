@@ -62,8 +62,8 @@ public struct WMFHistoryView: View {
                 viewModel.delete(section: section, item: item)
                 refreshId = UUID()
             },
-            shareItemAction: {
-                viewModel.share(item: item)
+            shareItemAction: { frame in
+                viewModel.share(frame: frame, item: item)
             },
             saveOrUnsaveItemAction: {
                 viewModel.saveOrUnsave(item: item)
@@ -79,6 +79,14 @@ public struct WMFHistoryView: View {
         }
     }
 
+    private func getImageForAction(_ item: HistoryItem) -> UIImage {
+        if item.isSaved {
+            return WMFSFSymbolIcon.for(symbol: .bookmarkFill) ?? UIImage()
+        } else {
+            return WMFSFSymbolIcon.for(symbol: .bookmark) ?? UIImage()
+        }
+    }
+
     private func row(for section: HistorySection, _ item: HistoryItem) -> some View {
         Button(action: {
             viewModel.onTap(item)
@@ -87,15 +95,27 @@ public struct WMFHistoryView: View {
         }
         .buttonStyle(.plain)
         .contextMenu {
-            Button(viewModel.localizedStrings.readNowActionTitle) {
+            Button {
                 viewModel.onTap(item)
+            } label: {
+                Text(viewModel.localizedStrings.readNowActionTitle)
+                Image(uiImage: WMFSFSymbolIcon.for(symbol: .trash) ?? UIImage())
             }
-            Button(getTextForAction(item)) {
+            .labelStyle(.titleAndIcon)
+            Button {
                 viewModel.saveOrUnsave(item: item)
+            } label: {
+                Text(getTextForAction(item))
+                Image(uiImage: getImageForAction(item))
             }
-            Button(viewModel.localizedStrings.shareActionTitle) {
-                viewModel.share(item: item)
+            .labelStyle(.titleAndIcon)
+            Button {
+                viewModel.share(frame: .zero, item: item) // TODO: - get frame for iPad
+            } label: {
+                Text(viewModel.localizedStrings.shareActionTitle)
+                Image(uiImage: WMFSFSymbolIcon.for(symbol: .share) ?? UIImage())
             }
+            .labelStyle(.titleAndIcon)
         } preview: {
             WMFArticlePreviewView(item: item)
         }

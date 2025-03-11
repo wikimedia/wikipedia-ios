@@ -5,7 +5,7 @@ import SwiftUI
 import CocoaLumberjackSwift
 import WMF
 
-class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring, WMFNavigationBarHiding, MEPEventsProviding, HintPresenting {
+class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring, WMFNavigationBarHiding, MEPEventsProviding, HintPresenting, ShareableArticlesProvider {
     var hintController: HintController?
 
     var eventLoggingCategory: EventCategoryMEP {
@@ -546,8 +546,13 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
         return nil
     }
 
-    func share(_ item: HistoryItem) {
 
+    func share(item: HistoryItem, frame: CGRect?) {
+        if let dataStore, let url = item.url {
+            let article = dataStore.fetchArticle(with: url)
+            let dummyView = UIView(frame: frame ?? CGRect.zero)
+            _ = share(article: article, articleURL: url, dataStore: dataStore, theme: theme, eventLoggingCategory: eventLoggingCategory, eventLoggingLabel: eventLoggingLabel, sourceView: dummyView)
+        }
     }
 
     lazy var historyDataController: WMFHistoryDataController = {
@@ -640,10 +645,9 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
 
     lazy var historyViewModel: WMFHistoryViewModel = {
 
-        let shareArticleAction: WMFHistoryViewModel.ShareRecordAction = { [weak self] historyItem in
+        let shareArticleAction: WMFHistoryViewModel.ShareRecordAction = { [weak self] frame, historyItem in
             guard let self else { return }
-            self.share(historyItem)
-
+            self.share(item:historyItem, frame: frame)
         }
 
         let onTapArticleAction: WMFHistoryViewModel.OnRecordTapAction = { [weak self] historyItem in
