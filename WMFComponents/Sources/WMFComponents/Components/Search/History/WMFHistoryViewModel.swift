@@ -35,6 +35,7 @@ public final class WMFHistoryViewModel: ObservableObject {
     @Published var geometryFrames: [String: CGRect] = [:]
     @Published public var topPadding: CGFloat = 0
 
+    let emptyViewImage: UIImage?
     internal let localizedStrings: LocalizedStrings
     private let historyDataController: WMFHistoryDataController
 
@@ -43,7 +44,8 @@ public final class WMFHistoryViewModel: ObservableObject {
 
     private let shareRecordAction: ShareRecordAction
 
-    public init(localizedStrings: WMFHistoryViewModel.LocalizedStrings, historyDataController: WMFHistoryDataController, topPadding: CGFloat = 0, onTapRecord: OnRecordTapAction, shareRecordAction: @escaping ShareRecordAction) {
+    public init(emptyViewImage: UIImage?, localizedStrings: WMFHistoryViewModel.LocalizedStrings, historyDataController: WMFHistoryDataController, topPadding: CGFloat = 0, onTapRecord: OnRecordTapAction, shareRecordAction: @escaping ShareRecordAction) {
+        self.emptyViewImage = emptyViewImage
         self.localizedStrings = localizedStrings
         self.historyDataController = historyDataController
         self.topPadding = topPadding

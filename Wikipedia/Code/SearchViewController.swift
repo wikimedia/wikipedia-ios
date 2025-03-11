@@ -658,8 +658,8 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
         }
 
         // TODO: check if accesibility labels need more info
-        let localizedStrings = WMFHistoryViewModel.LocalizedStrings(title: CommonStrings.historyTabTitle, emptyViewTitle: CommonStrings.emptyNoHistoryTitle, emptyViewSubtitle: CommonStrings.emptyNoHistorySubtitle, readNowActionTitle: CommonStrings.readNowActionTitle, saveForLaterActionTitle: CommonStrings.saveTitle, unsaveActionTitle: CommonStrings.shortUnsaveTitle, shareActionTitle: CommonStrings.shareMenuTitle, deleteSwipeActionLabel: CommonStrings.deleteActionTitle)
-        let viewModel = WMFHistoryViewModel(localizedStrings: localizedStrings, historyDataController: historyDataController, onTapRecord: onTapArticleAction, shareRecordAction: shareArticleAction)
+        let localizedStrings = WMFHistoryViewModel.LocalizedStrings(title: CommonStrings.historyTabTitle,  emptyViewTitle: CommonStrings.emptyNoHistoryTitle, emptyViewSubtitle: CommonStrings.emptyNoHistorySubtitle, readNowActionTitle: CommonStrings.readNowActionTitle, saveForLaterActionTitle: CommonStrings.saveTitle, unsaveActionTitle: CommonStrings.shortUnsaveTitle, shareActionTitle: CommonStrings.shareMenuTitle, deleteSwipeActionLabel: CommonStrings.deleteActionTitle)
+        let viewModel = WMFHistoryViewModel(emptyViewImage: UIImage(named: "history-blank"), localizedStrings: localizedStrings, historyDataController: historyDataController, onTapRecord: onTapArticleAction, shareRecordAction: shareArticleAction)
         return viewModel
     }()
 

@@ -35,7 +35,7 @@ public struct WMFHistoryView: View {
                     )
                     let emptyViewModel = WMFEmptyViewModel(
                         localizedStrings: locStrings,
-                        image: WMFSFSymbolIcon.for(symbol: .docTextMagnifyingGlass), // fix image
+                        image: viewModel.emptyViewImage,
                         imageColor: .blue,
                         numberOfFilters: 0
                     )
