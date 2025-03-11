@@ -152,11 +152,17 @@ public struct WMFHistoryView: View {
     }
 
     public var body: some View {
-        // TODO: Data loading needs fixing
-        if !viewModel.isEmpty {
-            listView()
-        } else {
-            emptyView()
+        ZStack {
+            Color(theme.paperBackground)
+                .ignoresSafeArea()
+            if !viewModel.isEmpty {
+                listView()
+            } else {
+                emptyView()
+            }
+        }
+        .onAppear {
+            viewModel.loadHistory()
         }
     }
 
