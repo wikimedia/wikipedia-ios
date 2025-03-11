@@ -35,8 +35,9 @@ public class CommonStrings: NSObject {
     }
 
     @objc public static let shortSaveTitle = WMFLocalizedString("action-save", value: "Save", comment: "Title for the 'Save' action {{Identical|Save}}")
-    @objc public static let savedTitle:String = CommonStrings.savedTitle(languageCode: nil)
-    @objc public static let saveTitle:String = CommonStrings.saveTitle(languageCode: nil)
+    @objc public static let savedTitle: String = CommonStrings.savedTitle(languageCode: nil)
+    @objc public static let saveTitle: String = CommonStrings.saveTitle(languageCode: nil)
+    @objc public static let unsaveTitle: String = WMFLocalizedString("button-saved-remove", value: "Remove from saved", comment: "Remove from saved button text used in various places.")
     @objc public static let dimImagesTitle = WMFLocalizedString("dim-images", value: "Dim images", comment: "Label for image dimming setting")
 
     @objc public static let searchTitle = WMFLocalizedString("search-title", value: "Search", comment: "Title for search interface. {{Identical|Search}}")

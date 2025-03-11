@@ -45,7 +45,7 @@ extension ArticleViewController: ArticleContextMenuPresenting, WKUIDelegate {
             self?.readingListsFunnel.logSave(category: delegate.eventLoggingCategory, label: delegate.eventLoggingLabel, articleURL: self?.articleURL)
         }
         if articleURL.namespace == .main {
-            let saveActionTitle = article.isAnyVariantSaved ? WMFLocalizedString("button-saved-remove", value: "Remove from saved", comment: "Remove from saved button text used in various places.") : CommonStrings.saveTitle
+            let saveActionTitle = article.isAnyVariantSaved ? CommonStrings.unsaveTitle : CommonStrings.saveTitle
             let saveAction = UIAction(title: saveActionTitle, image: WMFSFSymbolIcon.for(symbol: article.isAnyVariantSaved ? .bookmarkFill : .bookmark), handler: { (action) in
                 let isSaved = self.dataStore.savedPageList.toggleSavedPage(for: self.articleURL)
                 let notification = isSaved ? CommonStrings.accessibilitySavedNotification : CommonStrings.accessibilityUnsavedNotification
