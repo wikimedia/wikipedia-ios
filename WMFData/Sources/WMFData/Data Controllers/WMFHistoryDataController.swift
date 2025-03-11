@@ -11,8 +11,9 @@ public struct HistoryRecord {
     public let viewedDate: Date
     public let isSaved: Bool
     public let snippet: String?
+    public let variant: String?
 
-    public init(id: Int, title: String, descriptionOrSnippet: String?, shortDescription: String?, articleURL: URL?, imageURL: String?, viewedDate: Date, isSaved: Bool, snippet: String?) {
+    public init(id: Int, title: String, descriptionOrSnippet: String?, shortDescription: String?, articleURL: URL?, imageURL: String?, viewedDate: Date, isSaved: Bool, snippet: String?, variant: String?) {
         self.id = id
         self.title = title
         self.descriptionOrSnippet = descriptionOrSnippet
@@ -22,6 +23,7 @@ public struct HistoryRecord {
         self.viewedDate = viewedDate
         self.isSaved = isSaved
         self.snippet = snippet
+        self.variant = variant
     }
 }
 
@@ -79,11 +81,12 @@ public final class WMFHistoryDataController {
                 HistoryItem(id: String(record.id),
                             url: record.articleURL,
                             titleHtml: record.title,
-                            snippetOrDescription: record.descriptionOrSnippet,
+                            description: record.descriptionOrSnippet,
                             shortDescription: record.shortDescription,
                             imageURL: getURL(record.imageURL),
                             isSaved: record.isSaved,
-                            snippet: record.snippet
+                            snippet: record.snippet,
+                            variant: record.variant
                 )
             }
             return HistorySection(dateWithoutTime: day, items: items)
@@ -125,16 +128,18 @@ public final class HistoryItem: Identifiable, Equatable {
     public let imageURL: URL?
     public var isSaved: Bool
     public let snippet: String?
+    public let variant: String?
 
-    public init(id: String, url: URL?, titleHtml: String, snippetOrDescription: String?, shortDescription: String?, imageURL: URL?, isSaved: Bool, snippet: String?) {
+    public init(id: String, url: URL?, titleHtml: String, description: String?, shortDescription: String?, imageURL: URL?, isSaved: Bool, snippet: String?, variant: String?) {
         self.id = id
         self.url = url
         self.titleHtml = titleHtml
-        self.description = snippetOrDescription
+        self.description = description
         self.shortDescription = shortDescription
         self.imageURL = imageURL
         self.isSaved = isSaved
         self.snippet = snippet
+        self.variant = variant
     }
 
     public static func == (lhs: HistoryItem, rhs: HistoryItem) -> Bool {

@@ -62,11 +62,12 @@ public final class WMFHistoryViewModel: ObservableObject {
                 HistoryItem(id: dataItem.id,
                             url: dataItem.url,
                             titleHtml: dataItem.titleHtml,
-                            snippetOrDescription: dataItem.description,
+                            description: dataItem.description,
                             shortDescription: dataItem.shortDescription,
                             imageURL: dataItem.imageURL,
                             isSaved: dataItem.isSaved,
-                            snippet: dataItem.snippet)
+                            snippet: dataItem.snippet,
+                            variant: dataItem.variant)
             }
             return HistorySection(dateWithoutTime: dataSection.dateWithoutTime, items: items)
         }

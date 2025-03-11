@@ -585,7 +585,8 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
                             imageURL: article.imageURLString,
                             viewedDate: viewedDate,
                             isSaved: article.isSaved,
-                            snippet: article.snippet
+                            snippet: article.snippet,
+                            variant: article.variant
                         )
                         articles.append(record)
                     }
@@ -612,7 +613,23 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
                 showError(error)
 
             }
-            // TODO: Delete from WMFPageviews
+            guard let title = historyItem.url?.wmf_title,
+                  let languageCode = historyItem.url?.wmf_languageCode else {
+                return
+            }
+
+            let variant = historyItem.variant
+
+            let project = WMFProject.wikipedia(WMFLanguage(languageCode: languageCode, languageVariantCode: variant))
+
+            Task {
+                do {
+                    let dataController = try WMFPageViewsDataController()
+                    try await dataController.deletePageView(title: title, namespaceID: 0, project: project)
+                } catch {
+                    DDLogError("Failure deleting WMFData WMFPageViews: \(error)")
+                }
+            }
         }
 
         let saveArticleAction: WMFHistoryDataController.SaveRecordAction = { [weak self] historyItem in
