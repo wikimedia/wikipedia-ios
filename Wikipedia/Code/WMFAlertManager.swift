@@ -90,7 +90,7 @@ open class WMFAlertManager: NSObject, RMessageProtocol, Themeable {
     
     @objc func showBottomAlertWithMessage(_ message: String, subtitle: String?, buttonTitle: String?, image: UIImage?, dismissPreviousAlerts: Bool, tapCallBack: (() -> Void)? = nil) {
         showAlert(dismissPreviousAlerts, alertBlock: { () in
-            RMessage.showNotification(in: nil, title: message, subtitle: subtitle, iconImage: image, type: .custom, customTypeName: "temporary-account", duration: -1, callback: tapCallBack, buttonTitle: buttonTitle, buttonCallback: tapCallBack, at: .bottom, canBeDismissedByUser: true)
+            RMessage.showNotification(in: nil, title: message, subtitle: subtitle, iconImage: image, type: .custom, customTypeName: "temporary-account", duration: 10, callback: tapCallBack, buttonTitle: buttonTitle, buttonCallback: tapCallBack, at: .bottom, canBeDismissedByUser: true)
         })
     }
 

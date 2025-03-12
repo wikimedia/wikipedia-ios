@@ -1,34 +1,65 @@
-import UIKit
+@preconcurrency import WebKit
+import CocoaLumberjackSwift
+import WMF
+import WMFComponents
+import WMFData
 
 @objc class TempAccountExpiryViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = .white
-        
-        let titleLabel = UILabel()
-        titleLabel.text = "Temporary Accounts"
-        titleLabel.font = UIFont.boldSystemFont(ofSize: 24)
-        titleLabel.textAlignment = .center
-        titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(titleLabel)
-        
-        let backButton = UIButton(type: .system)
-        backButton.setTitle("Back", for: .normal)
-        backButton.titleLabel?.font = UIFont.systemFont(ofSize: 18)
-        backButton.addTarget(self, action: #selector(dismissView), for: .touchUpInside)
-        backButton.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(backButton)
-        
-        NSLayoutConstraint.activate([
-            titleLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            titleLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
-            
-            backButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            backButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10)
-        ])
+        setUpView()
     }
     
+    var informationLabelText: NSAttributedString {
+        let openingLinkLogIn = "<a href=\"\">"
+        let openingLinkCreateAccount = "<a href=\"\">"
+        let openingLinkOtherFeatures = "<a href=\"\">"
+        let closingLink = "</a>"
+        let openingBold = "<b>"
+        let closingBold = "</b>"
+        let lineBreaks = "<br/><br/>"
+
+        let format = WMFLocalizedString("temp-account-alert-read-more-information", value: "%1$@You are using a temporary account.%2$@ Account will expire in 1 year. After it expires, a new one will be created the next time you make an edit without logging in. %3$@ %4$@Log in%5$@ or %6$@create an account%5$@ to get credit for future edits, and access %7$@other features%5$@.",
+          comment: "Information on temporary accounts, $1 is the opening bold, $2 is the closing bold, $3 is the line breaks, $4 is the opening log in link, $5 is the closing. $6 is the opening create an account link, $7 is the opening link for other features.")
+
+        let htmlString = String.localizedStringWithFormat(format, openingBold, closingBold, lineBreaks, openingLinkLogIn, closingLink, openingLinkCreateAccount, openingLinkOtherFeatures)
+
+        guard let data = htmlString.data(using: .utf8) else { return NSAttributedString(string: htmlString) }
+        
+        do {
+            return try NSAttributedString(
+                data: data,
+                options: [.documentType: NSAttributedString.DocumentType.html,
+                          .characterEncoding: String.Encoding.utf8.rawValue],
+                documentAttributes: nil
+            )
+        } catch {
+            return NSAttributedString(string: htmlString)
+        }
+    }
+
+    
+    private func setUpView() {
+        view.backgroundColor = .white
+
+        self.title = CommonStrings.tempAccount
+
+        let informationLabel = UILabel()
+        informationLabel.attributedText = informationLabelText
+        informationLabel.font = WMFFont.for(.callout, compatibleWith: traitCollection)
+        informationLabel.textAlignment = .left
+        informationLabel.numberOfLines = 0
+        informationLabel.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(informationLabel)
+
+        NSLayoutConstraint.activate([
+            informationLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+            informationLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
+            informationLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 16)
+        ])
+    }
+
     @objc private func dismissView() {
         dismiss(animated: true, completion: nil)
     }
