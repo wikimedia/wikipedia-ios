@@ -1283,6 +1283,7 @@
 "theme-default-explanation" = "Explains that the default theme matches the iOS system theme setting";
 "theme-light-display-name" = "Light theme name presented to the user";
 "theme-sepia-display-name" = "Sepia theme name presented to the user";
+"today-title" = "Title for today section on article view history";
 "top-read-widget-description" = "Text for description of top read widget displayed when adding to home screen.";
 "top-read-widget-readers-count" = "Text for displaying the number of readers an article has in the top read widget. $1 is replaced with the number of readers.";
 "top-read-widget-title" = "Text for title of Top read widget.";
@@ -1484,3 +1485,4 @@
 "year-in-review-survey-very-unsatisfied" = "Year in review survey option 5 text. Survey is displayed after user has viewed the last slide of their year in review feature.";
 "year-in-review-wikipedia-w-accessibility-label" = "Accessibility label for the Wikipedia w logo";
 "year-in-review-wmf-logo-accessibility-label" = "Accessibility label for the Wikimedia Foundation logo";
+"yesterday-title" = "Title for yesterday section on article view history";

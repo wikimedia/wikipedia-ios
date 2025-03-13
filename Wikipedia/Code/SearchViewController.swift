@@ -687,7 +687,11 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
             self.tappedArticle(historyItem)
         }
 
-        let localizedStrings = WMFHistoryViewModel.LocalizedStrings(title: CommonStrings.historyTabTitle,  emptyViewTitle: CommonStrings.emptyNoHistoryTitle, emptyViewSubtitle: CommonStrings.emptyNoHistorySubtitle, readNowActionTitle: CommonStrings.readNowActionTitle, saveForLaterActionTitle: CommonStrings.saveTitle, unsaveActionTitle: CommonStrings.unsaveTitle, shareActionTitle: CommonStrings.shareMenuTitle, deleteSwipeActionLabel: CommonStrings.deleteActionTitle)
+        let todayTitle = WMFLocalizedString("today-title", value: "Today", comment: "Title for today section on article view history")
+
+        let yesterdayTitle = WMFLocalizedString("yesterday-title", value: "Yesterday", comment: "Title for yesterday section on article view history")
+
+        let localizedStrings = WMFHistoryViewModel.LocalizedStrings(title: CommonStrings.historyTabTitle,  emptyViewTitle: CommonStrings.emptyNoHistoryTitle, emptyViewSubtitle: CommonStrings.emptyNoHistorySubtitle, todayTitle: todayTitle, yesterdayTitle: yesterdayTitle, readNowActionTitle: CommonStrings.readNowActionTitle, saveForLaterActionTitle: CommonStrings.saveTitle, unsaveActionTitle: CommonStrings.unsaveTitle, shareActionTitle: CommonStrings.shareMenuTitle, deleteSwipeActionLabel: CommonStrings.deleteActionTitle)
         let viewModel = WMFHistoryViewModel(emptyViewImage: UIImage(named: "history-blank"), localizedStrings: localizedStrings, historyDataController: historyDataController, onTapRecord: onTapArticleAction, shareRecordAction: shareArticleAction)
         return viewModel
     }()

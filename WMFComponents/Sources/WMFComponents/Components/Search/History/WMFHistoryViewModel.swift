@@ -8,18 +8,20 @@ public final class WMFHistoryViewModel: ObservableObject {
         let title: String
         let emptyViewTitle: String
         let emptyViewSubtitle: String
-        // preview button strings
+        let todayTitle: String
+        let yesterdayTitle: String
         let readNowActionTitle: String
         let saveForLaterActionTitle: String
         let unsaveActionTitle: String
         let shareActionTitle: String
-        // acessibility labels for swipe actions
         let deleteSwipeActionLabel: String
 
-        public init(title: String, emptyViewTitle: String, emptyViewSubtitle: String, readNowActionTitle: String, saveForLaterActionTitle: String, unsaveActionTitle: String, shareActionTitle: String, deleteSwipeActionLabel: String) {
+        public init(title: String, emptyViewTitle: String, emptyViewSubtitle: String, todayTitle: String, yesterdayTitle: String, readNowActionTitle: String, saveForLaterActionTitle: String, unsaveActionTitle: String, shareActionTitle: String, deleteSwipeActionLabel: String) {
             self.title = title
             self.emptyViewTitle = emptyViewTitle
             self.emptyViewSubtitle = emptyViewSubtitle
+            self.todayTitle = todayTitle
+            self.yesterdayTitle = yesterdayTitle
             self.readNowActionTitle = readNowActionTitle
             self.saveForLaterActionTitle = saveForLaterActionTitle
             self.unsaveActionTitle = unsaveActionTitle
@@ -80,6 +82,18 @@ public final class WMFHistoryViewModel: ObservableObject {
             self.sections = viewModelSections
         }
         isEmpty = dataSections.isEmpty || dataSections.allSatisfy { $0.items.isEmpty }
+    }
+
+    func headerTextForSection(_ section: HistorySection) -> String {
+        let date = section.dateWithoutTime
+        let calendar = Calendar.current
+        if calendar.isDateInToday(date) {
+            return localizedStrings.todayTitle
+        } else if calendar.isDateInYesterday(date) {
+            return localizedStrings.yesterdayTitle
+        } else {
+            return DateFormatter.wmfFullDateFormatter.string(from: date)
+        }
     }
 
     public func delete(section: HistorySection, item: HistoryItem) {

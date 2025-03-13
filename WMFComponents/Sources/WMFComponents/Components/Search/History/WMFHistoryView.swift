@@ -17,7 +17,7 @@ public struct WMFHistoryView: View {
     }
 
     private func headerViewForSection(_ section: HistorySection) -> some View {
-        return Text(DateFormatter.wmfFullDateFormatter.string(from: section.dateWithoutTime))
+        return Text(viewModel.headerTextForSection(section))
             .font(Font(WMFFont.for(.boldHeadline)))
             .foregroundStyle(Color(uiColor: theme.text))
     }
