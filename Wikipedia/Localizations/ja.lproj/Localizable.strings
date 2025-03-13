@@ -275,7 +275,7 @@
 "donate-payment-method-prompt-title" = "Apple Payで寄付しますか？";
 "donate-success-title" = "ありがとうございます!";
 "donate-title" = "金額を選択する";
-"donate-transaction-fee-opt-in-text" = "金額の100%が寄付されるよう、手数料として$1を追加して支払います。";
+"donate-transaction-fee-opt-in-text" = "金額の100%%が寄付されるよう、手数料として$1を追加して支払います。";
 "edit-link-display-text-title" = "表示テキスト";
 "edit-link-link-target-title" = "リンク先";
 "edit-link-remove-link-title" = "リンクを除去";
