@@ -9,8 +9,15 @@ struct WMFArticlePreviewView: View {
         return appEnvironment.theme
     }
 
+    var screenWidth: CGFloat {
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            return 380
+        } else {
+            return UIScreen.main.bounds.width
+        }
+    }
+
     var body: some View {
-        let screenWidth = UIScreen.main.bounds.width
         let width = screenWidth - 32
         let hasImage = item.imageURL != nil
         let finalHeight = hasImage ? width : width / 2
@@ -38,7 +45,7 @@ struct WMFArticlePreviewView: View {
                     }
                 }
             }
-            VStack(alignment: .leading) { // adjust on iPad
+            VStack(alignment: .leading) {
                 Text(item.titleHtml)
                     .font(Font(WMFFont.for(.georgiaTitle3)))
                     .foregroundColor(Color(theme.text))
