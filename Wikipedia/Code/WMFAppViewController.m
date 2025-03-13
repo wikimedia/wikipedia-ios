@@ -927,13 +927,14 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
         };
         
         if (true)/*([self.dataStore.authenticationManager authStateIsTemporary])*/ {
-            [[WMFAlertManager sharedInstance] showBottomAlertWithMessage:WMFLocalizedStringWithDefaultValue(@"alert-temporary-account", nil, nil, @"You are using a temporary account. Account will expire in 1 year.",@"Alert message informing user that they are using a temporary account")
+            [[WMFAlertManager sharedInstance] showBottomAlertWithMessage:WMFLocalizedStringWithDefaultValue(@"alert-temporary-account", nil, nil, @"You are using a temporary account. Account will expire in 90 days.",@"Alert message informing user that they are using a temporary account")
                 subtitle:nil
                 buttonTitle:WMFLocalizedStringWithDefaultValue(@"alert-temporary-account-learn-more", nil, nil, @"Learn more.",@"Button on alert for temporary accounts to learn more.")
                 image:[UIImage imageNamed:@"exclamation-point"]
                 dismissPreviousAlerts:true
                 tapCallBack:^{
                     TempAccountExpiryViewController *tempVC = [[TempAccountExpiryViewController alloc] init];
+                    [tempVC start];
 
                     if (self.navigationController) {
                         [self.navigationController pushViewController:tempVC animated:YES];

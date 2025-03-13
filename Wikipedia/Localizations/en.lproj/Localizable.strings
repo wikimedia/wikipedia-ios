@@ -70,7 +70,7 @@
 "action-update" = "Update";
 "add-articles-to-reading-list" = "Add {{PLURAL:$1|$1 article|$1 articles}} to reading list";
 "advanced-settings-title" = "Advanced settings";
-"alert-temporary-account" = "You are using a temporary account. Account will expire in 1 year.";
+"alert-temporary-account" = "You are using a temporary account. Account will expire in 90 days.";
 "alert-temporary-account-learn-more" = "Learn more.";
 "alt-text-feedback-survey-toast-title" = "Feedback submitted";
 "announcements-dismiss" = "Dismiss";

@@ -5,10 +5,10 @@ import WMFComponents
 import WMFData
 
 @objc class TempAccountExpiryViewController: ThemeableViewController {
+    var category: EventCategoryMEP?
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        setUpView()
         
         navigationItem.leftBarButtonItem = UIBarButtonItem(
             title: CommonStrings.accessibilityBackTitle,
@@ -18,14 +18,19 @@ import WMFData
         )
     }
     
+    @objc
+    public func start() {
+        setUpView()
+    }
+    
     private var styles: HtmlUtils.Styles {
         HtmlUtils.Styles(font: WMFFont.for(.headline), boldFont: WMFFont.for(.boldHeadline), italicsFont: WMFFont.for(.italicSubheadline), boldItalicsFont: WMFFont.for(.boldItalicSubheadline), color: theme.colors.primaryText, linkColor: theme.colors.link, lineSpacing: 1)
     }
 
     var informationLabelText: NSAttributedString {
-        let openingLinkLogIn = "<a href=\"\">"
-        let openingLinkCreateAccount = "<a href=\"\">"
-        let openingLinkOtherFeatures = "<a href=\"\">"
+        let openingLinkLogIn = "" // <a href=\"\">"
+        let openingLinkCreateAccount = "" // "<a href=\"\">"
+        let openingLinkOtherFeatures = "" // "<a href=\"\">"
         let closingLink = "</a>"
         let openingBold = "<strong>"
         let closingBold = "</strong>"
@@ -63,12 +68,34 @@ import WMFData
         informationLabel.numberOfLines = 0
         informationLabel.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(informationLabel)
-
+        
+        let logInButton = UIButton(type: .system)
+        logInButton.setTitle(CommonStrings.loginOrCreateAccountTitle, for: .normal)
+        logInButton.setTitleColor(theme.colors.paperBackground, for: .normal)
+        logInButton.backgroundColor = theme.colors.link
+        logInButton.addTarget(self, action: #selector(login), for: .touchUpInside)
+        logInButton.translatesAutoresizingMaskIntoConstraints = false
+        logInButton.layer.cornerRadius = 8
+        logInButton.clipsToBounds = true
+        view.addSubview(logInButton)
+        
         NSLayoutConstraint.activate([
             informationLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             informationLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
-            informationLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 16)
+            informationLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 16),
+            
+            logInButton.topAnchor.constraint(equalTo: informationLabel.bottomAnchor, constant: 20),
+            logInButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 13),
+            logInButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -13),
+            logInButton.heightAnchor.constraint(equalToConstant: 44)
         ])
+    }
+    
+    @objc
+    private func login() {
+        guard let navigationController else { return }
+        let loginCoordinator = LoginCoordinator(navigationController: navigationController, theme: theme)
+        loginCoordinator.start()
     }
 
     @objc private func dismissView() {
