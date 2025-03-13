@@ -4,6 +4,8 @@ import Combine
 
 public final class WMFHistoryViewModel: ObservableObject {
 
+    // MARK: Nested Types
+
     public struct LocalizedStrings {
         let title: String
         let emptyViewTitle: String
@@ -30,6 +32,8 @@ public final class WMFHistoryViewModel: ObservableObject {
         }
     }
 
+    // MARK: Types
+
     public typealias ShareRecordAction = (CGRect?, HistoryItem) -> Void
     public typealias OnRecordTapAction = ((HistoryItem) -> Void)?
 
@@ -38,17 +42,20 @@ public final class WMFHistoryViewModel: ObservableObject {
             isEmpty = sections.isEmpty
         }
     }
-    @Published var geometryFrames: [String: CGRect] = [:]
+
+    // MARK: Properties
+
     @Published public var topPadding: CGFloat = 0
-
-    let emptyViewImage: UIImage?
-    internal let localizedStrings: LocalizedStrings
-    private let historyDataController: WMFHistoryDataController
-
-    public var onTapArticle: OnRecordTapAction
     @Published public var isEmpty: Bool = true
+    @Published var geometryFrames: [String: CGRect] = [:]
 
+    internal let localizedStrings: LocalizedStrings
+    internal let emptyViewImage: UIImage?
+    private let historyDataController: WMFHistoryDataController
+    private var onTapArticle: OnRecordTapAction
     private let shareRecordAction: ShareRecordAction
+
+    // MARK: Lifecycle
 
     public init(emptyViewImage: UIImage?, localizedStrings: WMFHistoryViewModel.LocalizedStrings, historyDataController: WMFHistoryDataController, topPadding: CGFloat = 0, onTapRecord: OnRecordTapAction, shareRecordAction: @escaping ShareRecordAction) {
         self.emptyViewImage = emptyViewImage
@@ -60,6 +67,8 @@ public final class WMFHistoryViewModel: ObservableObject {
 
         loadHistory()
     }
+
+    // MARK: Public functions
 
     public func loadHistory() {
         let dataSections = historyDataController.fetchHistorySections()
@@ -84,19 +93,9 @@ public final class WMFHistoryViewModel: ObservableObject {
         isEmpty = dataSections.isEmpty || dataSections.allSatisfy { $0.items.isEmpty }
     }
 
-    func headerTextForSection(_ section: HistorySection) -> String {
-        let date = section.dateWithoutTime
-        let calendar = Calendar.current
-        if calendar.isDateInToday(date) {
-            return localizedStrings.todayTitle
-        } else if calendar.isDateInYesterday(date) {
-            return localizedStrings.yesterdayTitle
-        } else {
-            return DateFormatter.wmfFullDateFormatter.string(from: date)
-        }
-    }
+    // MARK: Internal functions
 
-    public func delete(section: HistorySection, item: HistoryItem) {
+    func delete(section: HistorySection, item: HistoryItem) {
         guard let itemIndex = section.items.firstIndex(of: item) else {
             return
         }
@@ -113,7 +112,7 @@ public final class WMFHistoryViewModel: ObservableObject {
 
     }
 
-    public func saveOrUnsave(item: HistoryItem) {
+    func saveOrUnsave(item: HistoryItem) {
         if item.isSaved {
             historyDataController.unsaveHistoryItem(item)
         } else {
@@ -121,11 +120,23 @@ public final class WMFHistoryViewModel: ObservableObject {
         }
     }
 
-    public func share(frame: CGRect?, item: HistoryItem) {
+    func share(frame: CGRect?, item: HistoryItem) {
         shareRecordAction(frame, item)
     }
 
-    public func onTap(_ item: HistoryItem) {
+    func onTap(_ item: HistoryItem) {
         onTapArticle?(item)
+    }
+
+    internal func headerTextForSection(_ section: HistorySection) -> String {
+        let date = section.dateWithoutTime
+        let calendar = Calendar.current
+        if calendar.isDateInToday(date) {
+            return localizedStrings.todayTitle
+        } else if calendar.isDateInYesterday(date) {
+            return localizedStrings.yesterdayTitle
+        } else {
+            return DateFormatter.wmfFullDateFormatter.string(from: date)
+        }
     }
 }

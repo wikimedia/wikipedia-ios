@@ -3,6 +3,7 @@ import WMFData
 
 struct WMFArticlePreviewView: View {
     let item: HistoryItem
+
     @ObservedObject var appEnvironment = WMFAppEnvironment.current
 
     var theme: WMFTheme {

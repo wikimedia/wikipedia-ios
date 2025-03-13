@@ -3,18 +3,23 @@ import WMFData
 
 public struct WMFHistoryView: View {
 
+    // MARK: Properties
+
     @ObservedObject var appEnvironment = WMFAppEnvironment.current
+    @ObservedObject var viewModel: WMFHistoryViewModel
     @State private var refreshId = UUID()
 
     var theme: WMFTheme {
         return appEnvironment.theme
     }
 
-    @ObservedObject var viewModel: WMFHistoryViewModel
+    // MARK: Lifecycle
 
     public init(viewModel: WMFHistoryViewModel) {
         self.viewModel = viewModel
     }
+
+    // MARK: Private methods
 
     private func headerViewForSection(_ section: HistorySection) -> some View {
         return Text(viewModel.headerTextForSection(section))
@@ -150,6 +155,8 @@ public struct WMFHistoryView: View {
         }
     }
 
+    // MARK: Public methods
+    
     public var body: some View {
         ZStack {
             Color(theme.paperBackground)

@@ -549,7 +549,7 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
         return resultsViewController
     }()
 
-    // MARK: - Embed search
+    // MARK: - Embeded search history
 
     func tappedArticle(_ item: HistoryItem) -> Void? {
         // TODO: Swap for coordinator when available
