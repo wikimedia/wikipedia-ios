@@ -572,7 +572,7 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 - (WMFSettingsTableViewSection *)section_1 {
     NSMutableArray *items = [NSMutableArray array];
 
-    if (true) /*(_authManager.authStateIsTemporary)*/ {
+    if (_authManager.authStateIsTemporary) {
         [items addObject:[WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_TemporaryAccount]];
     }
     

@@ -324,7 +324,7 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
     switch ([NSUserDefaults standardUserDefaults].defaultTabType) {
         case WMFAppDefaultTabTypeSettings:
             mainViewController = self.settingsViewController;
-            
+
             break;
         default:
             mainViewController = self.exploreViewController;
@@ -925,28 +925,26 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
                 }];
             });
         };
-        
-        if (true)/*([self.dataStore.authenticationManager authStateIsTemporary])*/ {
-            [[WMFAlertManager sharedInstance] showBottomAlertWithMessage:WMFLocalizedStringWithDefaultValue(@"alert-temporary-account", nil, nil, @"You are using a temporary account. Account will expire in 90 days.",@"Alert message informing user that they are using a temporary account")
-                subtitle:nil
-                buttonTitle:WMFLocalizedStringWithDefaultValue(@"alert-temporary-account-learn-more", nil, nil, @"Learn more.",@"Button on alert for temporary accounts to learn more.")
-                image:[UIImage imageNamed:@"exclamation-point"]
-                dismissPreviousAlerts:true
-                tapCallBack:^{
-                    TempAccountExpiryViewController *tempVC = [[TempAccountExpiryViewController alloc] init];
-                    [tempVC start];
 
-                    if (self.navigationController) {
-                        [self.navigationController pushViewController:tempVC animated:YES];
-                    } else {
-                        UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:tempVC];
-                        navController.modalPresentationStyle = UIModalPresentationFullScreen;
-                        [self presentViewController:navController animated:YES completion:nil];
-                    }
-                }
-            ];
+        if ([self.dataStore.authenticationManager authStateIsTemporary]) {
+            [[WMFAlertManager sharedInstance] showBottomAlertWithMessage:WMFLocalizedStringWithDefaultValue(@"alert-temporary-account", nil, nil, @"You are using a temporary account. Account will expire in 90 days.", @"Alert message informing user that they are using a temporary account")
+                                                                subtitle:nil
+                                                             buttonTitle:WMFLocalizedStringWithDefaultValue(@"alert-temporary-account-learn-more", nil, nil, @"Learn more.", @"Button on alert for temporary accounts to learn more.")
+                                                                   image:[UIImage imageNamed:@"exclamation-point"]
+                                                   dismissPreviousAlerts:true
+                                                             tapCallBack:^{
+                                                                 TempAccountExpiryViewController *tempVC = [[TempAccountExpiryViewController alloc] init];
+                                                                 [tempVC start];
+
+                                                                 if (self.navigationController) {
+                                                                     [self.navigationController pushViewController:tempVC animated:YES];
+                                                                 } else {
+                                                                     UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:tempVC];
+                                                                     navController.modalPresentationStyle = UIModalPresentationFullScreen;
+                                                                     [self presentViewController:navController animated:YES completion:nil];
+                                                                 }
+                                                             }];
         }
-
 
         if (self.notificationUserInfoToShow) {
             [self hideSplashView];
@@ -997,9 +995,8 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
     [resumeAndAnnouncementsCompleteGroup enter];
     [self.dataStore.authenticationManager
         attemptLoginWithCompletion:^{
-        
             [self populateYearInReviewReportFor:WMFYearInReviewDataController.targetYear];
-        
+
             [self checkRemoteAppConfigIfNecessary];
             if (!self.reachabilityNotifier) {
                 @weakify(self);
@@ -1061,7 +1058,7 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
     [defaults wmf_setLocationAuthorized:locationAuthorized];
 
     [self.savedArticlesFetcher start];
-    
+
     [self assignAndLogArticleSearchBarExperiment];
 }
 
@@ -1243,7 +1240,7 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
             if (group) {
                 switch (group.detailType) {
                     case WMFFeedDisplayTypePhoto: {
-                        UIViewController *vc = [group detailViewControllerForPreviewItemAtIndex:0 dataStore:self.dataStore theme:self.theme source: ArticleSourceUndefined];
+                        UIViewController *vc = [group detailViewControllerForPreviewItemAtIndex:0 dataStore:self.dataStore theme:self.theme source:ArticleSourceUndefined];
                         [self.currentTabNavigationController presentViewController:vc animated:false completion:nil];
                     }
                     default: {
@@ -1323,7 +1320,7 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
                 done();
                 return YES;
             }
-            
+
             // Fall back to legacy navigaton
             NSURL *linkURL = [activity wmf_linkURL];
             // Ensure incoming link is fetched in user's preferred variant if applicable
@@ -1816,7 +1813,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
         [[WMFAlertManager sharedInstance] applyTheme:theme];
 
         [self applyTheme:theme toNavigationControllers:[self allNavigationControllers]];
-        
+
         [self.tabBar applyTheme:theme];
 
         [[UISwitch appearance] setOnTintColor:theme.colors.accent];
@@ -1996,7 +1993,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
         [searchVC applyTheme:self.theme];
         searchVC.dataStore = self.dataStore;
     }
-    
+
     searchVC.needsCenteredTitle = YES;
 
     [nc pushViewController:searchVC
