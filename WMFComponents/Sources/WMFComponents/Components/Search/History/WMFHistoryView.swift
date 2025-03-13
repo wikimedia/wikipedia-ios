@@ -71,22 +71,6 @@ public struct WMFHistoryView: View {
         )
     }
 
-    private func getTextForAction(_ item: HistoryItem) -> String {
-        if item.isSaved {
-            return viewModel.localizedStrings.unsaveActionTitle
-        } else {
-            return viewModel.localizedStrings.saveForLaterActionTitle
-        }
-    }
-
-    private func getImageForAction(_ item: HistoryItem) -> UIImage {
-        if item.isSaved {
-            return WMFSFSymbolIcon.for(symbol: .bookmarkFill) ?? UIImage()
-        } else {
-            return WMFSFSymbolIcon.for(symbol: .bookmark) ?? UIImage()
-        }
-    }
-
     private func row(for section: HistorySection, _ item: HistoryItem) -> some View {
         Button(action: {
             viewModel.onTap(item)
@@ -105,12 +89,15 @@ public struct WMFHistoryView: View {
             Button {
                 viewModel.saveOrUnsave(item: item)
             } label: {
-                Text(getTextForAction(item))
-                Image(uiImage: getImageForAction(item))
+                Text(item.isSaved ? viewModel.localizedStrings.unsaveActionTitle : viewModel.localizedStrings.saveForLaterActionTitle)
+                Image(uiImage: item.isSaved ?
+                      (WMFSFSymbolIcon.for(symbol: .bookmarkFill) ?? UIImage()) :
+                      (WMFSFSymbolIcon.for(symbol: .bookmark) ?? UIImage()))
             }
             .labelStyle(.titleAndIcon)
             Button {
-                viewModel.share(frame: .zero, item: item) // TODO: - get frame for iPad
+                let frame = viewModel.geometryFrames[item.id] ?? .zero
+                viewModel.share(frame: frame, item: item)
             } label: {
                 Text(viewModel.localizedStrings.shareActionTitle)
                 Image(uiImage: WMFSFSymbolIcon.for(symbol: .share) ?? UIImage())
@@ -119,6 +106,18 @@ public struct WMFHistoryView: View {
         } preview: {
             WMFArticlePreviewView(item: item)
         }
+        .overlay(
+            GeometryReader { geometry in
+                Color.clear
+                    .onAppear {
+                        viewModel.geometryFrames[item.id] = geometry.frame(in: .global)
+                    }
+                    .onChange(of: geometry.frame(in: .global)) { newFrame in
+                        viewModel.geometryFrames[item.id] = newFrame
+                    }
+            }
+            .allowsHitTesting(false)
+        )
     }
 
     private func listView() -> some View {
