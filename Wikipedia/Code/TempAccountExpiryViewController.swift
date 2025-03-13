@@ -28,33 +28,22 @@ import WMFData
     }
 
     var informationLabelText: NSAttributedString {
-        let openingLinkLogIn = "" // <a href=\"\">"
-        let openingLinkCreateAccount = "" // "<a href=\"\">"
-        let openingLinkOtherFeatures = "" // "<a href=\"\">"
-        let closingLink = "</a>"
-        let openingBold = "<strong>"
-        let closingBold = "</strong>"
+        let openingBold = "<b>"
+        let closingBold = "</b>"
         let lineBreaks = "<br/><br/>"
 
-        let format = WMFLocalizedString("temp-account-alert-read-more-information", value: "%1$@You are using a temporary account.%2$@ Account will expire in 90 days. After it expires, a new one will be created the next time you make an edit without logging in. %3$@ %4$@Log in%5$@ or %6$@create an account%5$@ to get credit for future edits, and access %7$@other features%5$@.",
-          comment: "Information on temporary accounts, $1 is the opening bold, $2 is the closing bold, $3 is the line breaks, $4 is the opening log in link, $5 is the closing. $6 is the opening create an account link, $7 is the opening link for other features.")
+        let format = WMFLocalizedString(
+            "temp-account-alert-read-more-information",
+            value: "%1$@You are using a temporary account.%2$@ Account will expire in 90 days. After it expires, a new one will be created the next time you make an edit without logging in. %3$@Log in or create an account to get credit for future edits, and access other features.",
+            comment: "Information on temporary accounts, $1 is the opening bold, $2 is the closing bold, $3 is the line breaks."
+        )
 
-        let htmlString = String.localizedStringWithFormat(format, openingBold, closingBold, lineBreaks, openingLinkLogIn, closingLink, openingLinkCreateAccount, openingLinkOtherFeatures)
+        let htmlString = String.localizedStringWithFormat(format, openingBold, closingBold, lineBreaks)
 
-        guard let data = htmlString.data(using: .utf8) else { return NSAttributedString(string: htmlString) }
+        let attributedText = NSMutableAttributedString.mutableAttributedStringFromHtml(htmlString, styles: styles)
         
-        do {
-            return try NSAttributedString(
-                data: data,
-                options: [.documentType: NSAttributedString.DocumentType.html,
-                          .characterEncoding: String.Encoding.utf8.rawValue],
-                documentAttributes: nil
-            )
-        } catch {
-            return NSAttributedString(string: htmlString)
-        }
+        return attributedText
     }
-
     
     private func setUpView() {
         view.backgroundColor = .white
@@ -63,7 +52,6 @@ import WMFData
 
         let informationLabel = UILabel()
         informationLabel.attributedText = informationLabelText
-        informationLabel.font = nil
         informationLabel.textAlignment = .left
         informationLabel.numberOfLines = 0
         informationLabel.translatesAutoresizingMaskIntoConstraints = false
