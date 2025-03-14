@@ -1,66 +1,142 @@
-import Foundation
+import SwiftUI
+import WMFData
+import Combine
 
 public final class WMFHistoryViewModel: ObservableObject {
-    
-    public final class Section: Identifiable {
-        let dateWithoutTime: Date
-        @Published var items: [Item]
-        
-        public init(dateWithoutTime: Date, items: [WMFHistoryViewModel.Item]) {
-            self.dateWithoutTime = dateWithoutTime
-            self.items = items
-        }
-    }
-    
-    public final class Item: Identifiable, Equatable {
-        public let id: String
-        let titleHtml: String
-        let description: String?
-        let imageURL: URL?
-        
-        public init(id: String, titleHtml: String, description: String? = nil, imageURL: URL? = nil) {
-            self.id = id
-            self.titleHtml = titleHtml
-            self.description = description
-            self.imageURL = imageURL
-        }
-        
-        public static func == (lhs: WMFHistoryViewModel.Item, rhs: WMFHistoryViewModel.Item) -> Bool {
-            return lhs.id == rhs.id
+
+    // MARK: Nested Types
+
+    public struct LocalizedStrings {
+        let title: String
+        let emptyViewTitle: String
+        let emptyViewSubtitle: String
+        let todayTitle: String
+        let yesterdayTitle: String
+        let readNowActionTitle: String
+        let saveForLaterActionTitle: String
+        let unsaveActionTitle: String
+        let shareActionTitle: String
+        let deleteSwipeActionLabel: String
+
+        public init(title: String, emptyViewTitle: String, emptyViewSubtitle: String, todayTitle: String, yesterdayTitle: String, readNowActionTitle: String, saveForLaterActionTitle: String, unsaveActionTitle: String, shareActionTitle: String, deleteSwipeActionLabel: String) {
+            self.title = title
+            self.emptyViewTitle = emptyViewTitle
+            self.emptyViewSubtitle = emptyViewSubtitle
+            self.todayTitle = todayTitle
+            self.yesterdayTitle = yesterdayTitle
+            self.readNowActionTitle = readNowActionTitle
+            self.saveForLaterActionTitle = saveForLaterActionTitle
+            self.unsaveActionTitle = unsaveActionTitle
+            self.shareActionTitle = shareActionTitle
+            self.deleteSwipeActionLabel = deleteSwipeActionLabel
         }
     }
 
-    // Closures that call back to the Core Data methods
-    // Eventually we want to call a WMFData data controller instead.
-    private let deleteAllHistoryAction: () -> Void
-    private let deleteHistoryItemAction: (Item) -> Void
-    
-    @Published var sections: [Section] = []
+    // MARK: Types
+
+    public typealias ShareRecordAction = (CGRect?, HistoryItem) -> Void
+    public typealias OnRecordTapAction = ((HistoryItem) -> Void)?
+
+    @Published public var sections: [HistorySection] = [] {
+        didSet {
+            isEmpty = sections.isEmpty
+        }
+    }
+
+    // MARK: Properties
+
     @Published public var topPadding: CGFloat = 0
-    
-    public init(sections: [WMFHistoryViewModel.Section], deleteAllHistoryAction: @escaping () -> Void, deleteHistoryItemAction: @escaping (WMFHistoryViewModel.Item) -> Void) {
-        self.sections = sections
-        self.deleteAllHistoryAction = deleteAllHistoryAction
-        self.deleteHistoryItemAction = deleteHistoryItemAction
+    @Published public var isEmpty: Bool = true
+    @Published var geometryFrames: [String: CGRect] = [:]
+
+    internal let localizedStrings: LocalizedStrings
+    internal let emptyViewImage: UIImage?
+    private let historyDataController: WMFHistoryDataController
+    private var onTapArticle: OnRecordTapAction
+    private let shareRecordAction: ShareRecordAction
+
+    // MARK: Lifecycle
+
+    public init(emptyViewImage: UIImage?, localizedStrings: WMFHistoryViewModel.LocalizedStrings, historyDataController: WMFHistoryDataController, topPadding: CGFloat = 0, onTapRecord: OnRecordTapAction, shareRecordAction: @escaping ShareRecordAction) {
+        self.emptyViewImage = emptyViewImage
+        self.localizedStrings = localizedStrings
+        self.historyDataController = historyDataController
+        self.topPadding = topPadding
+        self.onTapArticle = onTapRecord
+        self.shareRecordAction = shareRecordAction
+
+        loadHistory()
     }
-    
-    func deleteAll() {
-        
-        // Note: I am assuming this will succeed app-side. Should we pass back a success / fail flag in this action?
-        deleteAllHistoryAction()
-        self.sections = []
+
+    // MARK: Public functions
+
+    public func loadHistory() {
+        let dataSections = historyDataController.fetchHistorySections()
+        let viewModelSections = dataSections.map { dataSection -> HistorySection in
+            let items = dataSection.items.map { dataItem in
+                HistoryItem(id: dataItem.id,
+                            url: dataItem.url,
+                            titleHtml: dataItem.titleHtml,
+                            description: dataItem.description,
+                            shortDescription: dataItem.shortDescription,
+                            imageURL: dataItem.imageURL,
+                            isSaved: dataItem.isSaved,
+                            snippet: dataItem.snippet,
+                            variant: dataItem.variant)
+            }
+            return HistorySection(dateWithoutTime: dataSection.dateWithoutTime, items: items)
+        }
+
+        DispatchQueue.main.async {
+            self.sections = viewModelSections
+        }
+        isEmpty = dataSections.isEmpty || dataSections.allSatisfy { $0.items.isEmpty }
     }
-    
-    func delete(section: Section, item: Item) {
-        
-        // Assuming we won't have multiple items in the same section
+
+    // MARK: Internal functions
+
+    func delete(section: HistorySection, item: HistoryItem) {
         guard let itemIndex = section.items.firstIndex(of: item) else {
             return
         }
-        
-        // Note: I am assuming this will succeed app-side. Should we pass back a success / fail flag in this action?
-        deleteHistoryItemAction(item)
+
         section.items.remove(at: itemIndex)
-        sections.removeAll(where: { $0.items.isEmpty })
+        if section.items.isEmpty {
+            DispatchQueue.main.async {
+                self.sections.removeAll(where: { $0.dateWithoutTime == section.dateWithoutTime })
+            }
+        }
+        historyDataController.deleteHistoryItem(item)
+
+        isEmpty = sections.isEmpty || sections.allSatisfy { $0.items.isEmpty }
+
+    }
+
+    func saveOrUnsave(item: HistoryItem) {
+        if item.isSaved {
+            historyDataController.unsaveHistoryItem(item)
+        } else {
+            historyDataController.saveHistoryItem(item)
+        }
+    }
+
+    func share(frame: CGRect?, item: HistoryItem) {
+        shareRecordAction(frame, item)
+    }
+
+    func onTap(_ item: HistoryItem) {
+        onTapArticle?(item)
+    }
+
+    internal func headerTextForSection(_ section: HistorySection) -> String {
+        let date = section.dateWithoutTime
+        let calendar = Calendar.current
+        if calendar.isDateInToday(date) {
+            return localizedStrings.todayTitle
+        } else if calendar.isDateInYesterday(date) {
+            return localizedStrings.yesterdayTitle
+        } else {
+            return DateFormatter.wmfFullDateFormatter.string(from: date)
+        }
     }
 }
