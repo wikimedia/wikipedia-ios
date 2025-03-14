@@ -214,6 +214,7 @@
 "description-welcome-descriptions-title" = "Madde açıklamaları";
 "description-welcome-promise-title" = "Başlayarak bu özelliği kötüye kullanmamaya söz veriyorum";
 "description-welcome-start-editing-button" = "Düzenlemeye başla";
+"developer-settings" = "Geliştirici Ayarları";
 "diff-article-revision-history" = "Madde sürüm geçmişi";
 "diff-change-added" = "Ekleme, $1, ekleme sonu.";
 "diff-change-paragraph-lines-moved-down" = "Paragraf {{PLURAL:$1|$1 satır}} aşağıya taşındı. Yeni yere gidin.";
@@ -908,8 +909,7 @@
 "problem-with-feature-title" = "Özellikle ilgili sorun";
 "profile-button-accessibility-label" = "Profil";
 "profile-page-join-subtext" = "Katkılarınızı takip etmek, maddeleri çevrimdışı kaydetmek ve aygıtlar arasında senkronize etmek için bir Vikipedi hesabına kaydolun.";
-// Fuzzy
-"profile-page-join-title" = "Vikipedi'ye katılın / Giriş yapın";
+"profile-page-join-title" = "Giriş yapın / Vikipedi'ye katılın";
 "profile-page-title-logged-out" = "Hesap";
 "project-name-mediawiki" = "MediaWiki";
 "project-name-wikibooks" = "Vikikitap";
