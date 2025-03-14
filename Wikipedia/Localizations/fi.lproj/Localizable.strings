@@ -255,6 +255,7 @@
 "donate-help-other-ways-to-give" = "Muut tavat antaa";
 "donate-help-problems-donating" = "Ongelmia lahjoittamisessa?";
 "donate-help-tax-deductibility-information" = "Verovähennystiedot";
+"donate-history-delete" = "Poista paikallinen lahjoitushistoria";
 "donate-later-title" = "Muistutamme sinua jälleen huomenna.";
 "donate-minimum-error-text" = "Valitse summa (vähintään $1 $2).";
 "donate-monthly-recurring-text" = "Tee tästä kuukausittainen toistuva lahjoitus.";
