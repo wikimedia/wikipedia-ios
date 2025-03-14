@@ -280,6 +280,9 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
         case WMFSettingsMenuItemType_DonateHistory:
             [self clearDonationHistory];
             break;
+        case WMFSettingsMenuItemType_TemporaryAccount:
+            [self showTemporaryAccount];
+            break;
         default:
             break;
     }
@@ -368,6 +371,13 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
     UIAlertAction * okAction = [UIAlertAction actionWithTitle:WMFCommonStrings.okTitle style:UIAlertActionStyleDefault handler:nil];
     [alertController addAction:okAction];
     [self.navigationController presentViewController:alertController animated:YES completion:nil];
+}
+
+#pragma mark - Show temporary account
+- (void) showTemporaryAccount {
+    WMFTempAccountsSettingsViewController *tempAccountSettingsViewController = [[WMFTempAccountsSettingsViewController alloc] initWithDataStore:self.dataStore];
+    [tempAccountSettingsViewController applyTheme:self.theme];
+    [self.navigationController pushViewController:tempAccountSettingsViewController animated:YES];
 }
 
 #pragma mark - Clear Cache
@@ -560,7 +570,14 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 #pragma mark - Section structure
 
 - (WMFSettingsTableViewSection *)section_1 {
-    NSArray *items = @[[WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_LoginAccount]];
+    NSMutableArray *items = [NSMutableArray array];
+
+    if (_authManager.authStateIsTemporary) {
+        [items addObject:[WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_TemporaryAccount]];
+    }
+    
+    [items addObject:[WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_LoginAccount]];
+    
     WMFSettingsTableViewSection *section = [[WMFSettingsTableViewSection alloc] initWithItems:items
                                                                                   headerTitle:nil
                                                                                    footerText:nil];

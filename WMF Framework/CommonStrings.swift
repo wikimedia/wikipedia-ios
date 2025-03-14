@@ -660,6 +660,8 @@ public class CommonStrings: NSObject {
           comment: "Temporary accounts toast information. $1 and $2 are opening and closing bold")
         return String.localizedStringWithFormat(format, openingBold, closingBold)
     }
+    
+    public static let tempAccount = WMFLocalizedString("temporary-account", value: "Temporary Account", comment: "Temporary account title text")
 }
 
 // Language variant strings

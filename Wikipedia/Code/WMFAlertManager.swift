@@ -88,6 +88,12 @@ open class WMFAlertManager: NSObject, RMessageProtocol, Themeable {
         })
     }
     
+    @objc func showBottomAlertWithMessage(_ message: String, subtitle: String?, buttonTitle: String?, image: UIImage?, dismissPreviousAlerts: Bool, tapCallBack: (() -> Void)? = nil) {
+        showAlert(dismissPreviousAlerts, alertBlock: { () in
+            RMessage.showNotification(in: nil, title: message, subtitle: subtitle, iconImage: image, type: .custom, customTypeName: "temporary-account", duration: 10, callback: tapCallBack, buttonTitle: buttonTitle, buttonCallback: tapCallBack, at: .bottom, canBeDismissedByUser: true)
+        })
+    }
+
     func showBottomAlertWithMessage(_ message: String, subtitle: String?, image: UIImage?, type: RMessageType, customTypeName: String?, duration: TimeInterval? = nil, dismissPreviousAlerts:Bool, callback: (() -> Void)? = nil, buttonTitle: String? = nil, buttonCallBack: (() -> Void)? = nil) {
         showAlert(dismissPreviousAlerts, alertBlock: { () in
             RMessage.showNotification(withTitle: message, subtitle: subtitle, iconImage: image, type: type, customTypeName: customTypeName, duration: duration ?? 5, callback: callback, buttonTitle: buttonTitle, buttonCallback: buttonCallBack, at: .bottom, canBeDismissedByUser: true)
@@ -156,6 +162,9 @@ open class WMFAlertManager: NSObject, RMessageProtocol, Themeable {
                 messageView.titleTextColor = theme.colors.primaryText
             } else if messageView.customTypeName == "feedback-submitted" {
                 messageView.titleTextColor = theme.colors.primaryText
+            } else if messageView.customTypeName == "temporary-account" {
+                messageView.titleTextColor = theme.colors.primaryText
+                messageView.imageViewTintColor = theme.colors.primaryText
             }
         default:
             messageView.titleTextColor = theme.colors.link
@@ -163,5 +172,14 @@ open class WMFAlertManager: NSObject, RMessageProtocol, Themeable {
         
         messageView.layer.shadowColor = theme.colors.shadow.cgColor
     }
+}
 
+extension UIImage {
+    func resized(to size: CGSize) -> UIImage? {
+        UIGraphicsBeginImageContextWithOptions(size, false, self.scale)
+        self.draw(in: CGRect(origin: .zero, size: size))
+        let resizedImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return resizedImage
+    }
 }
