@@ -27,7 +27,7 @@ public struct HistoryRecord {
     }
 }
 
-public final class WMFHistoryDataController {
+public final class WMFHistoryDataController: WMFHistoryDataControllerProtocol {
 
     // MARK: - Dependency Injection Closures
 
@@ -117,6 +117,36 @@ public final class HistorySection: Identifiable {
         self.dateWithoutTime = dateWithoutTime
         self.items = items
     }
+}
+
+public protocol WMFHistoryDataControllerProtocol {
+    // MARK: - Dependency Injection Typealiases
+
+    /// Closure that returns an array of history records.
+    typealias RecordsProvider = () -> [HistoryRecord]
+
+    /// Closure that deletes a single history record.
+    typealias DeleteRecordAction = (HistoryItem) -> Void
+
+    /// Closure that saves a history record.
+    typealias SaveRecordAction = (HistoryItem) -> Void
+
+    /// Closure that unsaves a history record.
+    typealias UnsaveRecordAction = (HistoryItem) -> Void
+
+    // MARK: - Data Access Methods
+
+    /// Groups history records by day and returns an array of HistorySection.
+    func fetchHistorySections() -> [HistorySection]
+
+    /// Deletes the specified history item.
+    func deleteHistoryItem(_ item: HistoryItem)
+
+    /// Saves the specified history item.
+    func saveHistoryItem(_ item: HistoryItem)
+
+    /// Un-saves the specified history item.
+    func unsaveHistoryItem(_ item: HistoryItem)
 }
 
 public final class HistoryItem: Identifiable, Equatable {

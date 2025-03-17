@@ -51,13 +51,13 @@ public final class WMFHistoryViewModel: ObservableObject {
 
     internal let localizedStrings: LocalizedStrings
     internal let emptyViewImage: UIImage?
-    private let historyDataController: WMFHistoryDataController
+    private let historyDataController: WMFHistoryDataControllerProtocol
     private var onTapArticle: OnRecordTapAction
     private let shareRecordAction: ShareRecordAction
 
     // MARK: Lifecycle
 
-    public init(emptyViewImage: UIImage?, localizedStrings: WMFHistoryViewModel.LocalizedStrings, historyDataController: WMFHistoryDataController, topPadding: CGFloat = 0, onTapRecord: OnRecordTapAction, shareRecordAction: @escaping ShareRecordAction) {
+    public init(emptyViewImage: UIImage?, localizedStrings: WMFHistoryViewModel.LocalizedStrings, historyDataController: WMFHistoryDataControllerProtocol, topPadding: CGFloat = 0, onTapRecord: OnRecordTapAction, shareRecordAction: @escaping ShareRecordAction) {
         self.emptyViewImage = emptyViewImage
         self.localizedStrings = localizedStrings
         self.historyDataController = historyDataController
