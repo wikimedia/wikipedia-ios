@@ -27,6 +27,7 @@
 // Author: Omotecho
 // Author: Otokoume
 // Author: PPenloglou-WMF
+// Author: Pcoombe
 // Author: Phantomize
 // Author: Ridmevo
 // Author: Shirayuki
@@ -262,19 +263,19 @@
 "dim-images" = "暗い画像";
 "donate-already-donated" = "ご寄付をしてくださり、ありがとうございます！あなたの寛大なご寄付が、ウィキペディアとその姉妹サイトの繁栄を支えています。";
 "donate-apple-fine-print" = "この募金活動はアップル社が行っているものではありません。";
-"donate-email-opt-in-text" = "はい、ウィキメディア財団はごく稀に私にメールを送ることができます。";
+"donate-email-opt-in-text" = "はい、ウィキメディア財団から不定期のお知らせメールを受け取ります。";
 "donate-help-frequently-asked-questions" = "よくある質問";
 "donate-help-problems-donating" = "寄付の際に何か問題がありましたか?";
 "donate-help-tax-deductibility-information" = "税金の控除について";
 "donate-later-title" = "明日、再度お知らせいたします。";
 "donate-monthly-recurring-text" = "毎月、この金額を定期的に寄付します。";
 "donate-payment-method-prompt-apple-pay-button-title" = "Apple Payで寄付する";
-"donate-payment-method-prompt-message" = "Apple Payで寄付するか、他の支払い方法を選択してください。";
-"donate-payment-method-prompt-other-button-title" = "その他の支払い方法";
+"donate-payment-method-prompt-message" = "Apple Payで寄付するか、他の決済方法をお選びください。";
+"donate-payment-method-prompt-other-button-title" = "その他の決済方法";
 "donate-payment-method-prompt-title" = "Apple Payで寄付しますか？";
 "donate-success-title" = "ありがとうございます!";
 "donate-title" = "金額を選択する";
-"donate-transaction-fee-opt-in-text" = "寄付の100%%が確実に届くよう、手数料として$1を追加してお支払いします。";
+"donate-transaction-fee-opt-in-text" = "金額の100%%が寄付されるよう、手数料として$1を追加して支払います。";
 "edit-link-display-text-title" = "表示テキスト";
 "edit-link-link-target-title" = "リンク先";
 "edit-link-remove-link-title" = "リンクを除去";
