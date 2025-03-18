@@ -273,7 +273,8 @@ extension ArticleViewController: EditorViewControllerDelegate {
                         completion: {
                             if let needsNewTempAccountToast, needsNewTempAccountToast {
                                 let title = WMFLocalizedString("article-view-controller-editing-temp-account-created-title", value: "Temporary account created", comment: "After a user edits an article, creating an IP account, this pop-up title lets them know.")
-                                let subtitle = WMFLocalizedString("article-view-controller-editing-temp-account-created-subtitle", value: "Temporary account \(tempAccountUsername) was created after your edit was published. It will expire in 90 days.", comment: "More information on the creation of temporary accounts.")
+                                let format = WMFLocalizedString("article-view-controller-editing-temp-account-created-subtitle", value: "Temporary account %1$@ was created after your edit was published. It will expire in 90 days.", comment: "More information on the creation of temporary accounts, $1 replaces their username.")
+                                let subtitle = String.localizedStringWithFormat(format, tempAccountUsername)
                                 let image = UIImage(systemName: "checkmark.circle.fill")
                                 WMFAlertManager.sharedInstance.showBottomAlertWithMessage(
                                     title,
