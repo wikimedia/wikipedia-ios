@@ -16,6 +16,7 @@
 // Author: Paloi Sciurala
 // Author: Rapiteanu
 // Author: Strainu
+// Author: Valentin JJ.
 // Author: WebSourceContentRO
 
 "about-content-license" = "Licență conținut";
@@ -912,6 +913,7 @@
 "talk-pages-empty-view-header-article" = "Conversația începe aici";
 "talk-pages-topic-compose-body-placeholder" = "Descriere";
 "talk-pages-topic-reply-onboarding-title" = "Pagini de discuții";
+"talk-pages-view-title" = "Discuție";
 "theme-black-display-name" = "Negru";
 "theme-dark-display-name" = "Închisă";
 "theme-default-display-name" = "Implicit";
