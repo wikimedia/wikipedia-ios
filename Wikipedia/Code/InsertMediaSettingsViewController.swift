@@ -264,6 +264,37 @@ final class InsertMediaSettingsViewController: ThemeableViewController, WMFNavig
         tableView.separatorStyle = .none
 
         apply(theme: theme)
+        
+        // Observe keyboard notifications to adjust table view insets
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    
+    // Remove keyboard notification observer to prevent memory leaks
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+    
+    // Extract the keyboard's frame from the notification's user info
+    @objc private func keyboardWillShow(_ notification: Notification) {
+        guard let keyboardFrame = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect else {
+            return
+        }
+        
+        // Calculate the keyboard's height
+        let keyboardHeight = keyboardFrame.height
+        // Calculate the bottom inset needed
+        let bottomInset = keyboardHeight - view.safeAreaInsets.bottom
+        
+        // Adjust the table view's content inset and scroll indicator insets
+        tableView.contentInset.bottom = bottomInset
+        tableView.verticalScrollIndicatorInsets.bottom = bottomInset
+    }
+    
+    @objc private func keyboardWillHide(_ notification: Notification) {
+        // Reset the table view's content inset and scroll indicator insets
+        tableView.contentInset.bottom = 0
+        tableView.verticalScrollIndicatorInsets.bottom = 0
     }
 
     @objc private func tappedProgress(_ sender: UIBarButtonItem) {
