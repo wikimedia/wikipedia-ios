@@ -33,7 +33,7 @@
                                                     <constraint firstAttribute="width" constant="50" id="knd-oH-hWN"/>
                                                 </constraints>
                                                 <color key="tintColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                                                <state key="normal" image="close-inverse"/>
+                                                <state key="normal" title="Done"/>
                                                 <connections>
                                                     <action selector="dismiss" destination="rh8-A3-vLx" eventType="touchUpInside" id="Kvk-ey-XCo"/>
                                                 </connections>

@@ -48,6 +48,7 @@ NSString *const WMFReferenceLinkTappedNotification = @"WMFReferenceLinkTappedNot
     [self applyTheme:self.theme];
 
     self.closeButton.accessibilityLabel = [WMFCommonStrings closeButtonAccessibilityLabel];
+    [self.closeButton setTitle:WMFCommonStrings.doneTitle forState:UIControlStateNormal];
 }
 
 - (void)viewDidAppear:(BOOL)animated {

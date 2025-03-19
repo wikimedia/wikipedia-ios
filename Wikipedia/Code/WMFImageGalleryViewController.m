@@ -126,7 +126,7 @@ NS_ASSUME_NONNULL_BEGIN
         share.tintColor = [UIColor whiteColor];
         self.overlayView.rightBarButtonItem = share;
 
-        UIBarButtonItem *close = [[UIBarButtonItem alloc] initWithImage:[WMFImageGalleryViewController closeButtonImage] style:UIBarButtonItemStylePlain target:self action:@selector(didTapCloseButton)];
+        UIBarButtonItem *close = [[UIBarButtonItem alloc] initWithTitle:WMFCommonStrings.doneTitle style:UIBarButtonItemStylePlain target:self action:@selector(didTapCloseButton)];
         close.tintColor = [UIColor whiteColor];
         close.accessibilityLabel = [WMFCommonStrings closeButtonAccessibilityLabel];
         self.overlayView.leftBarButtonItem = close;
