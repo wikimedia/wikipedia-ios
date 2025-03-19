@@ -713,7 +713,6 @@
 "notifications-center-go-to-article" = "Button text in Notifications Center that routes to article.";
 "notifications-center-go-to-article-talk-format" = "Button text in Notifications Center that routes to a particular article talk page. $1 is replaced with page title.";
 "notifications-center-go-to-diff" = "Button text in Notifications Center that routes to a diff screen of the revision that triggered the notification.";
-"notifications-center-go-to-talk-page" = "Button text in Notifications Center that routes to a talk page.";
 "notifications-center-go-to-user-page" = "Button text in Notifications Center that routes to a web view of the user page of the sender that triggered the notification. $1 is replaced with the sender's username.";
 "notifications-center-go-to-wikidata-item" = "Button text in Notifications Center that routes to a Wikidata item page.";
 "notifications-center-go-to-your-talk-page" = "Button text in Notifications Center that routes to user's talk page.";
@@ -896,8 +895,6 @@
 "profile-page-join-subtext" = "Information about signing in or up";
 "profile-page-join-title" = "Link to sign up or sign in";
 "profile-page-logged-out-year-in-review-subtext" = "Footer text that appears underneath the Year in Review item in the Profile menu when the user is in a logged out state.";
-"profile-page-title-logged-out" = "Page title for non-logged in users";
-"profile-page-title-temp-account" = "Page title for temporary account users";
 "profile-year-in-review-login-subtitle" = "Subtitle of alert that asks user to login. Displayed after they completed the feature for the first time.";
 "profile-year-in-review-login-title" = "Title of alert that asks user to login if they are entering Year in Review.";
 "project-name-mediawiki" = "Project name for MediaWiki.";
@@ -1084,7 +1081,6 @@
 "settings-storage-and-syncing-show-default-reading-list-footer-text" = "Footer text of the settings option that enables showing the default reading list";
 "settings-storage-and-syncing-show-default-reading-list-title" = "Title of the settings option that enables showing the default reading list";
 "settings-storage-and-syncing-title" = "Title of the saved articles storage and syncing settings screen";
-"settings-temp-account-title" = "Temporary account title.";
 "settings-title" = "Title of the view where app settings are displayed. {{Identical|Settings}}";
 "settings-year-in-review-header" = "Text informing user of benefits of hiding the year in review feature.";
 "share-a-fact-made-with" = "Indicates that the share-a-fact card was made with the Wikipedia app";

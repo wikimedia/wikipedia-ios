@@ -713,7 +713,6 @@
 "notifications-center-go-to-article" = "Article";
 "notifications-center-go-to-article-talk-format" = "$1 talk page";
 "notifications-center-go-to-diff" = "Diff";
-"notifications-center-go-to-talk-page" = "Talk page";
 "notifications-center-go-to-user-page" = "$1's user page";
 "notifications-center-go-to-wikidata-item" = "Wikidata item";
 "notifications-center-go-to-your-talk-page" = "Your talk page";
@@ -896,8 +895,6 @@
 "profile-page-join-subtext" = "Sign up for a Wikipedia account to track your contributions, save articles offline, and sync across devices.";
 "profile-page-join-title" = "Log in / Join Wikipedia";
 "profile-page-logged-out-year-in-review-subtext" = "Log in or create an account to get an improved year in review next year";
-"profile-page-title-logged-out" = "Account";
-"profile-page-title-temp-account" = "Temporary account";
 "profile-year-in-review-login-subtitle" = "Log in or create an account to see Year in Review again and be eligible for more personalized insights.";
 "profile-year-in-review-login-title" = "Log in for access to Year in Review";
 "project-name-mediawiki" = "MediaWiki";
@@ -1084,7 +1081,6 @@
 "settings-storage-and-syncing-show-default-reading-list-footer-text" = "Show the Saved (eg. default) reading list as a separate list in your reading lists view. This list appears on Android devices.";
 "settings-storage-and-syncing-show-default-reading-list-title" = "Show Saved reading list";
 "settings-storage-and-syncing-title" = "Article storage and syncing";
-"settings-temp-account-title" = "Temporary account";
 "settings-title" = "Settings";
 "settings-year-in-review-header" = "Turning off Year in Review will clear all stored personalized insights and hide the Year in Review.";
 "share-a-fact-made-with" = "Made with the Wikipedia app";

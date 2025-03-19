@@ -926,7 +926,9 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
             });
         };
 
-        if ([self.dataStore.authenticationManager authStateIsTemporary]) {
+        NSString *const kTemporaryAccountAlertShownKey = @"TemporaryAccountAlertShown";
+
+        if ([self.dataStore.authenticationManager authStateIsTemporary] && ![[NSUserDefaults standardUserDefaults] boolForKey:kTemporaryAccountAlertShownKey]) {
             [[WMFAlertManager sharedInstance] showBottomAlertWithMessage:WMFLocalizedStringWithDefaultValue(@"alert-temporary-account", nil, nil, @"You are using a temporary account. Account will expire in 90 days.", @"Alert message informing user that they are using a temporary account")
                                                                 subtitle:nil
                                                              buttonTitle:WMFLocalizedStringWithDefaultValue(@"alert-temporary-account-learn-more", nil, nil, @"Learn more.", @"Button on alert for temporary accounts to learn more.")
@@ -944,6 +946,9 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
                                                                      [self presentViewController:navController animated:YES completion:nil];
                                                                  }
                                                              }];
+
+            [[NSUserDefaults standardUserDefaults] setBool:YES forKey:kTemporaryAccountAlertShownKey];
+            [[NSUserDefaults standardUserDefaults] synchronize];
         }
 
         if (self.notificationUserInfoToShow) {
