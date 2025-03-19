@@ -61,16 +61,13 @@ final class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegat
         let isLoggedIn = dataStore.authenticationManager.authStateIsPermanent
         let isTemporaryAccount = dataStore.authenticationManager.authStateIsTemporary
         
-        let nonLoggedInUsersPageTitle = WMFLocalizedString("profile-page-title-logged-out", value: "Account", comment: "Page title for non-logged in users")
-        let tempAccountPageTitle = WMFLocalizedString("profile-page-title-temp-account", value: "Temporary account", comment: "Page title for temporary account users")
-        
         var finalPageTitle: String {
             if isLoggedIn {
-                return username ?? nonLoggedInUsersPageTitle
+                return username ?? CommonStrings.account
             } else if isTemporaryAccount {
-                return tempAccountPageTitle
+                return CommonStrings.tempAccount
             } else {
-                return nonLoggedInUsersPageTitle
+                return CommonStrings.account
             }
         }
         let localizedStrings =
@@ -79,7 +76,7 @@ final class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegat
             doneButtonTitle: CommonStrings.doneTitle,
             notificationsTitle: CommonStrings.notificationsCenterTitle,
             userPageTitle: (isTemporaryAccount ? tempAccountUsername : CommonStrings.userButtonPage) ?? CommonStrings.userButtonPage,
-            talkPageTitle: WMFLocalizedString("account-talk-page-title", value: "Talk page", comment: "Link to talk page"),
+            talkPageTitle: CommonStrings.talkPage,
             watchlistTitle: CommonStrings.watchlist,
             logOutTitle: CommonStrings.logoutTitle,
             donateTitle: CommonStrings.donateTitle,

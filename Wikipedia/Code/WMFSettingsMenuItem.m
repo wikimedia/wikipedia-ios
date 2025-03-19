@@ -210,9 +210,8 @@
                                                   isSwitchOn:NO];
         }
         case WMFSettingsMenuItemType_TemporaryAccount: {
-            NSString *title = WMFLocalizedStringWithDefaultValue(@"settings-temp-account-title", nil, nil, @"Temporary account", @"Temporary account title.");
             WMFAuthenticationManager *authManager = [MWKDataStore shared].authenticationManager;
-            NSString *temporaryUsername = authManager.authStateTemporaryUsername ?: title;
+            NSString *temporaryUsername = authManager.authStateTemporaryUsername ?: WMFCommonStrings.tempAccount;
 
             return [[WMFSettingsMenuItem alloc] initWithType:type
                                                        title:temporaryUsername

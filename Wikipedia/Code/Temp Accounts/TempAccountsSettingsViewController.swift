@@ -51,7 +51,7 @@ final class TempAccountsSettingsViewController: SubSettingsViewController, WMFNa
     
     private func reloadSectionData() {
         let talkPage = Item(
-            title: WMFLocalizedString("settings-temp-accounts-talk-page", value: "Talk page", comment: "Title in Settings > Temporary Account > to view the user's talk page"),
+            title: CommonStrings.talkPage,
             iconName: "thank",
             isOn: true,
             controlTag: 1)
@@ -150,7 +150,7 @@ extension TempAccountsSettingsViewController {
         
         let item = getItem(at: indexPath)
         switch item.controlTag {
-        case 1: // Talk Page
+        case 1:
             showUserTalkPage()
         default:
             break

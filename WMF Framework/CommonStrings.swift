@@ -310,6 +310,8 @@ public class CommonStrings: NSObject {
     public static let moreButton = WMFLocalizedString("more-menu", value: "More", comment: "Accessibility title for more button in toolbar.")
 
     public static let watchlist = WMFLocalizedString("watchlist", value: "Watchlist", comment: "Title for watchlist feature.")
+    
+    public static let talkPage = WMFLocalizedString("account-talk-page-title", value: "Talk page", comment: "Link to talk page")
 
     public static let watchlistFilter = WMFLocalizedString("watchlist-filter", value: "Filter", comment: "Title for filter button in watchlist.")
     
@@ -661,7 +663,7 @@ public class CommonStrings: NSObject {
         return String.localizedStringWithFormat(format, openingBold, closingBold)
     }
     
-    public static let tempAccount = WMFLocalizedString("temporary-account", value: "Temporary Account", comment: "Temporary account title text")
+    @objc public static let tempAccount = WMFLocalizedString("temporary-account", value: "Temporary Account", comment: "Temporary account title text")
 }
 
 // Language variant strings
