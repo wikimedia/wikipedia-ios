@@ -102,7 +102,7 @@ final class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegat
         
         let viewModel = WMFProfileViewModel(
             isLoggedIn: isLoggedIn,
-            isTemporaryAccount: true,
+            isTemporaryAccount: dataStore.authenticationManager.authStateIsTemporary,
             localizedStrings: localizedStrings,
             inboxCount: Int(truncating: inboxCount ?? 0),
             coordinatorDelegate: self,
