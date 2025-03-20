@@ -13,7 +13,6 @@ class TalkPageViewController: ThemeableViewController, WMFNavigationBarConfiguri
 
     let viewModel: TalkPageViewModel
     fileprivate var headerView: TalkPageHeaderView?
-    fileprivate var shouldGoToNewTopic: Bool = false
     let findInPageState = TalkPageFindInPageState()
 
     internal var preselectedTextRange = UITextRange()
@@ -425,12 +424,21 @@ class TalkPageViewController: ThemeableViewController, WMFNavigationBarConfiguri
 
     @objc fileprivate func userDidTapAddTopicButton() {
         
-        let presentNewTopicAction = { [weak self] in
+        let showAddTopicAction: () -> Void = { [weak self] in
+            self?.showAddTopic()
+            
+            if UIAccessibility.isVoiceOverRunning {
+                if let height = self?.replyComposeController.containerView?.frame.height, height >= 1.0 {
+                    UIAccessibility.post(notification: .screenChanged, argument: self?.replyComposeController.containerView)
+                }
+            }
+        }
+        
+        let presentNewTopicAction: () -> Void = { [weak self] in
             if UserDefaults.standard.wmf_userHasOnboardedToContributingToTalkPages {
-                self?.showAddTopic()
+                showAddTopicAction()
             } else {
-                self?.shouldGoToNewTopic = true
-                self?.presentTopicReplyOnboarding()
+                self?.presentTopicReplyOnboarding(dismissAction: showAddTopicAction)
             }
         }
         
@@ -502,7 +510,15 @@ class TalkPageViewController: ThemeableViewController, WMFNavigationBarConfiguri
             EditAttemptFunnel.shared.logInit(pageURL: url)
         }
         
-        presentIPTempModalIfNeeded(completion: pushToEditorAction)
+        let presentOnboardingAction: () -> Void = { [weak self] in
+            if UserDefaults.standard.wmf_userHasOnboardedToContributingToTalkPages {
+                pushToEditorAction()
+            } else {
+                self?.presentTopicReplyOnboarding(dismissAction: pushToEditorAction)
+            }
+        }
+        
+        presentIPTempModalIfNeeded(completion: presentOnboardingAction)
         
     }
 
@@ -963,10 +979,18 @@ extension TalkPageViewController: TalkPageCellReplyDelegate {
         if let url = viewModel.getTalkPageURL(encoded: false) {
             EditAttemptFunnel.shared.logInit(pageURL: url)
         }
+        
+        let showReplyComposeAction = { [weak self] in
+            guard let self else { return }
+            
+            replyComposeController.setupAndDisplay(in: self, commentViewModel: commentViewModel, authenticationManager: viewModel.authenticationManager, accessibilityFocusView: accessibilityFocusView)
+        }
 
-        let presentOnboardingAction = { [weak self] in
-            if !UserDefaults.standard.wmf_userHasOnboardedToContributingToTalkPages {
-                self?.presentTopicReplyOnboarding()
+        let presentOnboardingAction: () -> Void = { [weak self] in
+            if UserDefaults.standard.wmf_userHasOnboardedToContributingToTalkPages {
+                showReplyComposeAction()
+            } else {
+                self?.presentTopicReplyOnboarding(dismissAction: showReplyComposeAction)
             }
         }
         
@@ -975,8 +999,6 @@ extension TalkPageViewController: TalkPageCellReplyDelegate {
         if let lastViewDidAppearDate = lastViewDidAppearDate {
             TalkPagesFunnel.shared.logTappedInlineReply(routingSource: viewModel.source, project: viewModel.project, talkPageType: viewModel.pageType, lastViewDidAppearDate: lastViewDidAppearDate)
         }
-        
-        replyComposeController.setupAndDisplay(in: self, commentViewModel: commentViewModel, authenticationManager: viewModel.authenticationManager, accessibilityFocusView: accessibilityFocusView)
     }
 }
 
@@ -1244,11 +1266,12 @@ extension TalkPageViewController: WMFPreferredLanguagesViewControllerDelegate {
     }
 }
 
-extension TalkPageViewController: TalkPageTopicReplyOnboardingDelegate {
+// MARK: Onboarding
+
+extension TalkPageViewController {
     
-    func presentTopicReplyOnboarding() {
-        let topicReplyOnboardingHostingViewController = TalkPageTopicReplyOnboardingHostingController(theme: theme)
-        topicReplyOnboardingHostingViewController.delegate = self
+    func presentTopicReplyOnboarding(dismissAction: @escaping () -> Void) {
+        let topicReplyOnboardingHostingViewController = TalkPageTopicReplyOnboardingHostingController(dismissAction: dismissAction, theme: theme)
         topicReplyOnboardingHostingViewController.modalPresentationStyle = .pageSheet
         self.topicReplyOnboardingHostingViewController = topicReplyOnboardingHostingViewController
         
@@ -1257,20 +1280,8 @@ extension TalkPageViewController: TalkPageTopicReplyOnboardingDelegate {
         }
         
         present(topicReplyOnboardingHostingViewController, animated: true)
-    }
-    
-    func userDidDismissTopicReplyOnboardingView() {
-        UserDefaults.standard.wmf_userHasOnboardedToContributingToTalkPages = true
         
-        if shouldGoToNewTopic {
-            showAddTopic()
-            shouldGoToNewTopic = false
-            if UIAccessibility.isVoiceOverRunning {
-                if let height = replyComposeController.containerView?.frame.height, height >= 1.0 {
-                    UIAccessibility.post(notification: .screenChanged, argument: replyComposeController.containerView)
-                }
-            }
-        }
+        UserDefaults.standard.wmf_userHasOnboardedToContributingToTalkPages = true
     }
 }
 
