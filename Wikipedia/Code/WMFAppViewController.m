@@ -44,7 +44,9 @@ typedef NS_ENUM(NSUInteger, WMFAppTabType) {
 static NSTimeInterval const WMFTimeBeforeShowingExploreScreenOnLaunch = 24 * 60 * 60;
 
 static CFTimeInterval const WMFRemoteAppConfigCheckInterval = 3 * 60 * 60;
+static CFTimeInterval const WMFTempAccountConfigCheckInterval = 3 * 60 * 60; // what should be this interval
 static NSString *const WMFLastRemoteAppConfigCheckAbsoluteTimeKey = @"WMFLastRemoteAppConfigCheckAbsoluteTimeKey";
+static NSString *const WMFTempAccountConfigCheckAbsoluteTimeKey = @"WMFTempAccountConfigCheckAbsoluteTimeKey";
 
 static const NSString *kvo_NSUserDefaults_defaultTabType = @"kvo_NSUserDefaults_defaultTabType";
 static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFetcher_progress";
@@ -387,6 +389,7 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
 - (void)performTasksThatShouldOccurAfterBecomeActiveAndResume {
     [[SessionsFunnel shared] appDidBecomeActive];
     [self checkRemoteAppConfigIfNecessary];
+    [self updatePrimaryWikiHasTempAccountsStatusIfNecessary];
     [self.periodicWorkerController start];
     [self.savedArticlesFetcher start];
 }
@@ -1617,6 +1620,17 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
         self.checkingRemoteConfig = NO;
         [self endRemoteConfigCheckBackgroundTask];
     }];
+}
+
+- (void)updatePrimaryWikiHasTempAccountsStatusIfNecessary {
+    CFAbsoluteTime lastCheckTime = (CFAbsoluteTime)[[self.dataStore.viewContext wmf_numberValueForKey:WMFTempAccountConfigCheckAbsoluteTimeKey] doubleValue];
+    CFAbsoluteTime now = CFAbsoluteTimeGetCurrent();
+    BOOL shouldCheckTempAccountWikis = now - lastCheckTime >= WMFTempAccountConfigCheckInterval != 0;
+
+    if (shouldCheckTempAccountWikis) {
+       [[WMFTempAccountDataController shared] primaryWikiIsTempWithLanguage:self.dataStore.languageLinkController.appLanguage.languageCode];
+    }
+
 }
 
 #pragma mark - UITabBarControllerDelegate
