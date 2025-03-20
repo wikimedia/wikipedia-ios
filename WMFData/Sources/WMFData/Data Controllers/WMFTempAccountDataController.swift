@@ -5,12 +5,12 @@ import Foundation
     private var mediaWikiService = WMFDataEnvironment.current.mediaWikiService
     @objc public static let shared = WMFTempAccountDataController()
 
-    private var primaryWikiTempStatus: Bool?
+    private(set) public var primaryWikiHasTempAccountsEnabled: Bool?
     private var lastPrimaryLanguage: String?
 
-    @objc public func primaryWikiIsTemp(language: String) {
+    @objc public func checkWikiTempAccountAvailability(language: String) {
         self.lastPrimaryLanguage = language
-        primaryWikiTempStatus = getTempAccountStatutsForWiki(language: language)
+        primaryWikiHasTempAccountsEnabled = getTempAccountStatutsForWiki(language: language)
     }
 
     public func getTempAccountStatutsForWiki(language: String) -> Bool {

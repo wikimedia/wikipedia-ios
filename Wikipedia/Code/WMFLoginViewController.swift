@@ -80,36 +80,37 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
         wmf_add(childController:captchaViewController, andConstrainToEdgesOfContainerView: captchaContainer)
         
         apply(theme: theme)
-        
-        let authManager = dataStore.authenticationManager
-        
-        if authManager.authStateIsTemporary {
-            let viewModel = WMFTempAccountsToastViewModel(
+
+        if let status = WMFTempAccountDataController.shared.primaryWikiHasTempAccountsEnabled, status {
+            let authManager = dataStore.authenticationManager
+            if authManager.authStateIsTemporary {
+                let viewModel = WMFTempAccountsToastViewModel(
                     didTapReadMore: {
                         guard let navigationController = self.navigationController else { return }
                         let tempAccountSheetCoordinator = TempAccountSheetCoordinator(navigationController: navigationController, theme: self.theme, dataStore: self.dataStore, didTapDone: { [weak self] in
                             self?.dismiss(animated: true)
                         }, isTempAccount: true)
-                        
+
                         _ = tempAccountSheetCoordinator.start()
                     },
                     title: CommonStrings.tempAccountsToastTitle(),
                     readMoreButtonTitle: CommonStrings.tempAccountsReadMoreTitle
                 )
 
-            let toastController = WMFTempAccountsToastHostingController(viewModel: viewModel)
-            self.toastView = toastController.view
+                let toastController = WMFTempAccountsToastHostingController(viewModel: viewModel)
+                self.toastView = toastController.view
 
-            addChild(toastController)
-            view.addSubview(toastController.view)
-            toastController.didMove(toParent: self)
-            toastController.view.translatesAutoresizingMaskIntoConstraints = false
+                addChild(toastController)
+                view.addSubview(toastController.view)
+                toastController.didMove(toParent: self)
+                toastController.view.translatesAutoresizingMaskIntoConstraints = false
 
-            NSLayoutConstraint.activate([
-               toastController.view.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0),
-               toastController.view.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0),
-               toastController.view.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor)
-            ])
+                NSLayoutConstraint.activate([
+                    toastController.view.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0),
+                    toastController.view.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0),
+                    toastController.view.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor)
+                ])
+            }
         }
     }
     
