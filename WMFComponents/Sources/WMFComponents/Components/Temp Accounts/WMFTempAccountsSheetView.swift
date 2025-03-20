@@ -47,12 +47,12 @@ public struct WMFTempAccountsSheetView: View {
                         textInfo
                     }
                     WMFLargeButton(configuration: .primary, title: viewModel.ctaTopString, action: {
-                        // TODO
+                        viewModel.ctaTopButtonAction()
                     })
                     .frame(maxWidth: .infinity)
                     .padding(.top, 7)
                     WMFLargeButton(configuration: .secondary, title: viewModel.ctaBottomString, action: {
-                        // TODO
+                        viewModel.ctaBottomButtonAction()
                     })
                     .frame(maxWidth: .infinity)
                 }

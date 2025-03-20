@@ -18,4 +18,6 @@ public enum ProfileAction {
     case logDonateTap
     case showYearInReview
     case logYearInReviewTap
+    case showUserPageTempAccount
+    case showUserTalkPageTempAccount
 }

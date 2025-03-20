@@ -70,6 +70,8 @@
 "action-update" = "Update";
 "add-articles-to-reading-list" = "Add {{PLURAL:$1|$1 article|$1 articles}} to reading list";
 "advanced-settings-title" = "Advanced settings";
+"alert-temporary-account" = "You are using a temporary account. Account will expire in 90 days.";
+"alert-temporary-account-learn-more" = "Learn more.";
 "alt-text-feedback-survey-toast-title" = "Feedback submitted";
 "announcements-dismiss" = "Dismiss";
 "app-store-keywords" = "Wikipedia, reference, wiki, encyclopedia, info, knowledge, research, information, explore, learn";
@@ -711,7 +713,6 @@
 "notifications-center-go-to-article" = "Article";
 "notifications-center-go-to-article-talk-format" = "$1 talk page";
 "notifications-center-go-to-diff" = "Diff";
-"notifications-center-go-to-talk-page" = "Talk page";
 "notifications-center-go-to-user-page" = "$1's user page";
 "notifications-center-go-to-wikidata-item" = "Wikidata item";
 "notifications-center-go-to-your-talk-page" = "Your talk page";
@@ -894,7 +895,6 @@
 "profile-page-join-subtext" = "Sign up for a Wikipedia account to track your contributions, save articles offline, and sync across devices.";
 "profile-page-join-title" = "Log in / Join Wikipedia";
 "profile-page-logged-out-year-in-review-subtext" = "Log in or create an account to get an improved year in review next year";
-"profile-page-title-logged-out" = "Account";
 "profile-year-in-review-login-subtitle" = "Log in or create an account to see Year in Review again and be eligible for more personalized insights.";
 "profile-year-in-review-login-title" = "Log in for access to Year in Review";
 "project-name-mediawiki" = "MediaWiki";
@@ -1190,12 +1190,14 @@
 "talk-pages-user-groups" = "User groups";
 "talk-pages-user-logs" = "Logs";
 "talk-pages-view-title" = "Talk";
+"temp-account-alert-read-more-information" = "$1You are using a temporary account.$2 Account will expire in 90 days. After it expires, a new one will be created the next time you make an edit without logging in. $3Log in or create an account to get credit for future edits, and access other features.";
 "temp-account-edit-sheet-cta-top" = "Log in or create an account";
 "temp-account-edit-sheet-subtitle" = "Your edit will be attributed to $2$1$3. Your $4IP address$5 will be visible to administrators. $7Learn more.$5$6 If you log in or create an account, your edits will be attributed to a name you choose, among other benefits.";
 "temp-account-edit-sheet-title" = "You are using a temporary account";
 "temp-account-got-it" = "Got it";
 "temp-account-toast-read-more-title" = "Read more";
 "temp-account-toast-title" = "$1You are currently using a temporary account.$2 Edits made with the temporary...";
+"temporary-account" = "Temporary Account";
 "terms-of-use-title" = "Terms of use";
 "theme-black-display-name" = "Black";
 "theme-dark-display-name" = "Dark";

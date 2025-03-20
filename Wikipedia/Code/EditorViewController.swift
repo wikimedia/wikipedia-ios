@@ -349,6 +349,13 @@ final class EditorViewController: UIViewController, WMFNavigationBarConfiguring 
                 didTapDone: { [weak self] in
                     self?.dismiss(animated: true)
                     presentEditorAction()
+                },
+                ctaTopButtonAction: {
+                    
+                },
+                ctaBottomButtonAction: { [weak self] in
+                    self?.dismiss(animated: true)
+                    presentEditorAction()
                 })
             let tempAccountsSheetView = WMFTempAccountsSheetView(viewModel: vm)
             hostingController = UIHostingController(rootView: tempAccountsSheetView)
@@ -423,6 +430,13 @@ final class EditorViewController: UIViewController, WMFNavigationBarConfiguring 
                 presentedViewController.present(newNavigationVC, animated: true)
             },
             didTapDone: { [weak self] in
+                self?.dismiss(animated: true)
+                presentEditorAction()
+            },
+            ctaTopButtonAction: {
+                
+            },
+            ctaBottomButtonAction:  { [weak self] in
                 self?.dismiss(animated: true)
                 presentEditorAction()
             })
@@ -957,7 +971,7 @@ extension EditorViewController: EditorNavigationItemControllerDelegate {
             self?.dismiss(animated: true)
         }, isTempAccount: true)
         
-        tempAccountSheetCoordinator.start()
+        _ = tempAccountSheetCoordinator.start()
     }
     
     func editorNavigationItemController(_ editorNavigationItemController: EditorNavigationItemController, didTapIPAccountNoticesButton ipButton: UIBarButtonItem) {
@@ -966,7 +980,7 @@ extension EditorViewController: EditorNavigationItemControllerDelegate {
             self?.dismiss(animated: true)
         }, isTempAccount: false)
         
-        tempAccountSheetCoordinator.start()
+        _ = tempAccountSheetCoordinator.start()
     }
     
     func editorNavigationItemController(_ editorNavigationItemController: EditorNavigationItemController, didTapReadingThemesControlsButton readingThemesControlsButton: UIBarButtonItem) {
