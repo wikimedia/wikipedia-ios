@@ -59,7 +59,7 @@ import CocoaLumberjackSwift
     
     private var currentUserCache: [SiteURLHost: WMFCurrentUser] = [:]
     
-    public var authStateTemporaryUsername: String? {
+    @objc public var authStateTemporaryUsername: String? {
         if authStateIsTemporary {
             return session.getCentralAuthUserCookie()
         } else {

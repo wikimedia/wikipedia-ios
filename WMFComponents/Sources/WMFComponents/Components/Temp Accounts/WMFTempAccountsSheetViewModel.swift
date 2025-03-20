@@ -11,8 +11,10 @@ public class WMFTempAccountsSheetViewModel: ObservableObject {
     let done: String
     let handleURL: (_ url: URL) -> Void
     let didTapDone: () -> Void
+    let ctaTopButtonAction: () -> Void
+    let ctaBottomButtonAction: () -> Void
     
-    public init(image: String, title: String, subtitle: String, ctaTopString: String, ctaBottomString: String, done: String, handleURL: @escaping (_ url: URL) -> Void, didTapDone: @escaping () -> Void) {
+    public init(image: String, title: String, subtitle: String, ctaTopString: String, ctaBottomString: String, done: String, handleURL: @escaping (_ url: URL) -> Void, didTapDone: @escaping () -> Void, ctaTopButtonAction: @escaping () -> Void, ctaBottomButtonAction: @escaping () -> Void) {
         self.image = image
         self.title = title
         self.subtitle = subtitle
@@ -21,6 +23,8 @@ public class WMFTempAccountsSheetViewModel: ObservableObject {
         self.done = done
         self.handleURL = handleURL
         self.didTapDone = didTapDone
+        self.ctaBottomButtonAction = ctaBottomButtonAction
+        self.ctaTopButtonAction = ctaTopButtonAction
     }
     
     public struct LocalizedStrings {
