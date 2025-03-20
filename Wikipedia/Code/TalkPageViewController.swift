@@ -424,11 +424,35 @@ class TalkPageViewController: ThemeableViewController, WMFNavigationBarConfiguri
     }
 
     @objc fileprivate func userDidTapAddTopicButton() {
-        if UserDefaults.standard.wmf_userHasOnboardedToContributingToTalkPages {
-            showAddTopic()
+        
+        let presentNewTopicAction = { [weak self] in
+            if UserDefaults.standard.wmf_userHasOnboardedToContributingToTalkPages {
+                self?.showAddTopic()
+            } else {
+                self?.shouldGoToNewTopic = true
+                self?.presentTopicReplyOnboarding()
+            }
+        }
+        
+        presentIPTempModalIfNeeded(completion: presentNewTopicAction)
+    }
+    
+    private func presentIPTempModalIfNeeded(completion: @escaping () -> Void) {
+        if let navigationController, !viewModel.authenticationManager.authStateIsPermanent {
+            let tempAccountsCoordinator = TempAccountSheetCoordinator(
+                navigationController: navigationController,
+                theme: theme,
+                dataStore: viewModel.dataStore,
+                didTapDone: { [weak self] in
+                    self?.dismiss(animated: true)
+                    completion()
+                },
+                isTempAccount: viewModel.authenticationManager.authStateIsTemporary
+            )
+            
+            _ = tempAccountsCoordinator.start()
         } else {
-            shouldGoToNewTopic = true
-            presentTopicReplyOnboarding()
+            completion()
         }
     }
     
@@ -455,22 +479,31 @@ class TalkPageViewController: ThemeableViewController, WMFNavigationBarConfiguri
     }
     
     fileprivate func pushToEditor() {
-        guard let pageURL = viewModel.siteURL.wmf_URL(withTitle: viewModel.pageTitle) else {
-            return
-        }
         
-        let dataStore = MWKDataStore.shared()
+        let pushToEditorAction: () -> Void = { [weak self] in
+            
+            guard let self else { return }
+            
+            guard let pageURL = viewModel.siteURL.wmf_URL(withTitle: viewModel.pageTitle) else {
+                return
+            }
+            
+            let dataStore = MWKDataStore.shared()
 
-        let editorViewController = EditorViewController(pageURL: pageURL, sectionID: nil, editFlow: .editorSavePreview, source: .talk, dataStore: dataStore, articleSelectedInfo: nil, editTag: .appTalkSource, delegate: self, theme: theme)
-        
-        let navigationController = WMFComponentNavigationController(rootViewController: editorViewController, modalPresentationStyle: .overFullScreen)
-        present(navigationController, animated: true)
-        
-        guard let url = viewModel.siteURL.wmf_URL(withTitle: viewModel.pageTitle) else {
-            return
+            let editorViewController = EditorViewController(pageURL: pageURL, sectionID: nil, editFlow: .editorSavePreview, source: .talk, dataStore: dataStore, articleSelectedInfo: nil, editTag: .appTalkSource, delegate: self, theme: theme)
+            
+            let navigationController = WMFComponentNavigationController(rootViewController: editorViewController, modalPresentationStyle: .overFullScreen)
+            present(navigationController, animated: true)
+            
+            guard let url = viewModel.siteURL.wmf_URL(withTitle: viewModel.pageTitle) else {
+                return
+            }
+            
+            EditAttemptFunnel.shared.logInit(pageURL: url)
         }
         
-        EditAttemptFunnel.shared.logInit(pageURL: url)
+        presentIPTempModalIfNeeded(completion: pushToEditorAction)
+        
     }
 
     fileprivate func pushToDesktopWeb() {
@@ -931,9 +964,13 @@ extension TalkPageViewController: TalkPageCellReplyDelegate {
             EditAttemptFunnel.shared.logInit(pageURL: url)
         }
 
-        if !UserDefaults.standard.wmf_userHasOnboardedToContributingToTalkPages {
-            presentTopicReplyOnboarding()
+        let presentOnboardingAction = { [weak self] in
+            if !UserDefaults.standard.wmf_userHasOnboardedToContributingToTalkPages {
+                self?.presentTopicReplyOnboarding()
+            }
         }
+        
+        presentIPTempModalIfNeeded(completion: presentOnboardingAction)
         
         if let lastViewDidAppearDate = lastViewDidAppearDate {
             TalkPagesFunnel.shared.logTappedInlineReply(routingSource: viewModel.source, project: viewModel.project, talkPageType: viewModel.pageType, lastViewDidAppearDate: lastViewDidAppearDate)
