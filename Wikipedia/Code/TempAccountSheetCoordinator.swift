@@ -79,7 +79,13 @@ final class TempAccountSheetCoordinator: Coordinator {
                     let newNavigationVC = WMFComponentNavigationController(rootViewController: webVC, modalPresentationStyle: .formSheet)
                     presentedViewController.present(newNavigationVC, animated: true)
                 },
-                didTapDone: didTapDone)
+                didTapDone: didTapDone,
+                ctaTopButtonAction: {
+                    
+                },
+                ctaBottomButtonAction: {
+                    self.didTapDone()
+                })
             let tempAccountsSheetView = WMFTempAccountsSheetView(viewModel: vm)
             hostingController = UIHostingController(rootView: tempAccountsSheetView)
             if let hostingController {
@@ -129,7 +135,28 @@ final class TempAccountSheetCoordinator: Coordinator {
                 let newNavigationVC = WMFComponentNavigationController(rootViewController: webVC, modalPresentationStyle: .formSheet)
                 presentedViewController.present(newNavigationVC, animated: true)
             },
-            didTapDone: didTapDone)
+            didTapDone: didTapDone,
+            ctaTopButtonAction: {
+                let loginCoordinator = LoginCoordinator(navigationController: self.navigationController, theme: self.theme)
+                
+                
+                loginCoordinator.loginSuccessCompletion = {
+                    self.navigationController.dismiss(animated: true) {
+                        self.start()
+                    }
+                }
+                
+                loginCoordinator.createAccountSuccessCustomDismissBlock = {
+                    self.navigationController.dismiss(animated: true) {
+                        self.start()
+                    }
+                }
+                
+                loginCoordinator.start()
+            },
+            ctaBottomButtonAction:  {
+                self.didTapDone()
+            })
         let tempAccountsSheetView = WMFTempAccountsSheetView(viewModel: vm)
         hostingController = UIHostingController(rootView: tempAccountsSheetView)
         if let hostingController {
