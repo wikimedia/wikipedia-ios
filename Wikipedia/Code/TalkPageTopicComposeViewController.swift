@@ -26,6 +26,7 @@ class TalkPageTopicComposeViewController: ThemeableViewController, WMFNavigation
     let viewModel: TalkPageTopicComposeViewModel
 
     internal var preselectedTextRange = UITextRange()
+    private var containerStackViewBottomConstraint: NSLayoutConstraint?
     
     private lazy var safeAreaBackgroundView: UIView = {
         let view = UIView(frame: .zero)
@@ -69,6 +70,7 @@ class TalkPageTopicComposeViewController: ThemeableViewController, WMFNavigation
         let textfield = UITextField(frame: .zero)
         textfield.translatesAutoresizingMaskIntoConstraints = false
         textfield.addTarget(self, action: #selector(titleTextFieldChanged), for: .editingChanged)
+        textfield.addTarget(self, action: #selector(titleTextFieldBeganEditing), for: .editingDidBegin)
         return textfield
     }()
     
@@ -206,11 +208,41 @@ class TalkPageTopicComposeViewController: ThemeableViewController, WMFNavigation
         ])
     }
     
+    private enum AuthState {
+        case ip
+        case temp
+        case perm
+    }
+    
+    private var authState: AuthState {
+        if authenticationManager?.authStateIsPermanent ?? false {
+            return .perm
+        } else {
+            if authenticationManager?.authStateIsTemporary ?? false {
+                return .temp
+            } else {
+                return .ip
+            }
+        }
+    }
+    
     private func setupContainerStackView() {
         
         // Container Stack View
         containerScrollView.addSubview(containerStackView)
         containerScrollView.addSubview(bodyPlaceholderLabel)
+        
+        let bottomSpacing: CGFloat
+        if authState == .ip || authState == .temp {
+            bottomSpacing = -100 // Add a little spacing to make room for toast
+        } else {
+            bottomSpacing = 0
+        }
+        
+        let containerStackViewBottomConstraint = containerStackView.bottomAnchor.constraint(greaterThanOrEqualTo: containerScrollView.frameLayoutGuide.bottomAnchor, constant: bottomSpacing)
+        
+        containerStackViewBottomConstraint.constant = bottomSpacing
+        self.containerStackViewBottomConstraint = containerStackViewBottomConstraint
         
         NSLayoutConstraint.activate([
             containerStackView.topAnchor.constraint(equalTo: containerScrollView.contentLayoutGuide.topAnchor),
@@ -222,7 +254,7 @@ class TalkPageTopicComposeViewController: ThemeableViewController, WMFNavigation
             containerStackView.widthAnchor.constraint(equalTo: containerScrollView.frameLayoutGuide.widthAnchor),
             
             // Ensures content stretches at least to the bottom of the screen
-            containerStackView.bottomAnchor.constraint(greaterThanOrEqualTo: containerScrollView.frameLayoutGuide.bottomAnchor)
+            containerStackViewBottomConstraint
         ])
         
         // Inner elements
@@ -482,6 +514,18 @@ class TalkPageTopicComposeViewController: ThemeableViewController, WMFNavigation
         evaluatePublishButtonEnabledState()
     }
     
+    @objc private func titleTextFieldBeganEditing() {
+        updateSpacingForWarningToast()
+    }
+    
+    private func updateSpacingForWarningToast() {
+        if authState == .ip || authState == .temp {
+            // Dismiss warning toast
+            WMFAlertManager.sharedInstance.dismissAlert()
+            containerStackViewBottomConstraint?.constant = 0
+        }
+    }
+    
 }
 
 extension TalkPageTopicComposeViewController: UITextViewDelegate {
@@ -502,5 +546,8 @@ extension TalkPageTopicComposeViewController: UITextViewDelegate {
         return false
     }
 
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        updateSpacingForWarningToast()
+    }
     
 }
