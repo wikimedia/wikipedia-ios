@@ -297,7 +297,7 @@ extension ArticleViewController: EditorViewControllerDelegate {
                                         let webVC = SinglePageWebViewController(configType: .standard(config), theme: self.theme)
                                         let newNavigationVC =
                                         WMFComponentNavigationController(rootViewController: webVC, modalPresentationStyle: .formSheet)
-                                        self.presentedViewController?.present(newNavigationVC, animated: true)
+                                        self.present(newNavigationVC, animated: true)
                                     }
                                 }
                             )
