@@ -5,6 +5,7 @@ import WMF
 protocol TalkPageReplyComposeDelegate: AnyObject {
     func closeReplyView()
     func tappedPublish(text: String, commentViewModel: TalkPageCellCommentViewModel)
+    func tappedIPTempButton()
 }
 
 /// Class for coordinating talk page reply compose views
@@ -211,7 +212,12 @@ class TalkPageReplyComposeController {
     }
     
     private func addContentView(to containerView: UIView, theme: Theme, commentViewModel: TalkPageCellCommentViewModel, linkDelegate: TalkPageTextViewLinkHandling) {
-        let contentView = TalkPageReplyComposeContentView(commentViewModel: commentViewModel, theme: theme, linkDelegate: linkDelegate, authenticationManager: authenticationManager)
+        
+        let tappedIPTempButtonAction: () -> Void = { [weak self] in
+            self?.viewController?.tappedIPTempButton()
+        }
+        
+        let contentView = TalkPageReplyComposeContentView(commentViewModel: commentViewModel, theme: theme, linkDelegate: linkDelegate, authenticationManager: authenticationManager, tappedIPTempButtonAction: tappedIPTempButtonAction)
         contentView.translatesAutoresizingMaskIntoConstraints = false
         containerView.addSubview(contentView)
         

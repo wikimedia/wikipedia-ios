@@ -1018,6 +1018,12 @@ extension TalkPageViewController: TalkPageCellReplyDelegate {
 }
 
 extension TalkPageViewController: TalkPageReplyComposeDelegate {
+    func tappedIPTempButton() {
+        presentIPTempModalIfNeeded(dismissAction: {
+            // do nothing upon dismiss
+        })
+    }
+    
     func closeReplyView() {
         replyComposeController.closeAndReset { focusView in
             if UIAccessibility.isVoiceOverRunning {
