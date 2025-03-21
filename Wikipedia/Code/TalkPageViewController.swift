@@ -411,7 +411,14 @@ class TalkPageViewController: ThemeableViewController, WMFNavigationBarConfiguri
             TalkPagesFunnel.shared.logTappedNewTopic(routingSource: viewModel.source, project: viewModel.project, talkPageType: viewModel.pageType, lastViewDidAppearDate: lastViewDidAppearDate)
         }
         let topicComposeViewModel = TalkPageTopicComposeViewModel(semanticContentAttribute: viewModel.semanticContentAttribute, siteURL: viewModel.siteURL, pageLink: viewModel.getTalkPageURL(encoded: false))
-        let topicComposeVC = TalkPageTopicComposeViewController(viewModel: topicComposeViewModel, authenticationManager: viewModel.authenticationManager, theme: theme)
+        
+        let tappedIPTempButtonAction: () -> Void = { [weak self] in
+            self?.presentIPTempModalIfNeeded(dismissAction: {
+                // do nothing upon dismiss
+            })
+        }
+        
+        let topicComposeVC = TalkPageTopicComposeViewController(viewModel: topicComposeViewModel, authenticationManager: viewModel.authenticationManager, theme: theme, tappedIPTempButtonAction: tappedIPTempButtonAction)
         topicComposeVC.delegate = self
         inputAccessoryViewType = .format
         if let url = viewModel.getTalkPageURL(encoded: false) {
@@ -454,9 +461,17 @@ class TalkPageViewController: ThemeableViewController, WMFNavigationBarConfiguri
                 theme: theme,
                 dataStore: viewModel.dataStore,
                 didTapDone: { [weak self] in
-                    self?.dismiss(animated: true, completion: {
-                        dismissAction()
-                    })
+                    
+                    if let presentedViewController = self?.presentedViewController {
+                        presentedViewController.dismiss(animated: true, completion: {
+                            dismissAction()
+                        })
+                    } else {
+                        self?.dismiss(animated: true, completion: {
+                            dismissAction()
+                        })
+                    }
+                    
                 },
                 isTempAccount: viewModel.authenticationManager.authStateIsTemporary
             )

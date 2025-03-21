@@ -26,7 +26,6 @@ class TalkPageTopicComposeViewController: ThemeableViewController, WMFNavigation
     let viewModel: TalkPageTopicComposeViewModel
 
     internal var preselectedTextRange = UITextRange()
-    private var containerStackViewBottomConstraint: NSLayoutConstraint?
     
     private lazy var safeAreaBackgroundView: UIView = {
         let view = UIView(frame: .zero)
@@ -111,6 +110,25 @@ class TalkPageTopicComposeViewController: ThemeableViewController, WMFNavigation
         return textView
     }()
     
+    private lazy var ipTempButton: UIButton = {
+        let button = UIButton(type: .custom)
+        
+        var image: UIImage? = nil
+        if authState == .ip {
+            image = WMFSFSymbolIcon.for(symbol: .temporaryAccountIcon)
+        } else if authState == .temp {
+            image = WMFIcon.temp
+        }
+        
+        if let image {
+            button.setImage(image, for: .normal)
+        }
+        
+        button.addTarget(self, action: #selector(tappedIPTemp), for: .touchUpInside)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
+    
     private lazy var activityIndicator: UIActivityIndicatorView = {
         let activityIndicator = UIActivityIndicatorView()
         activityIndicator.color = theme.colors.primaryText
@@ -122,9 +140,13 @@ class TalkPageTopicComposeViewController: ThemeableViewController, WMFNavigation
     }()
     
     private var scrollViewBottomConstraint: NSLayoutConstraint?
+    private var containerStackViewBottomConstraint: NSLayoutConstraint?
+    
     weak var delegate: TalkPageTopicComposeViewControllerDelegate?
     
     private weak var authenticationManager: WMFAuthenticationManager?
+    
+    private let tappedIPTempButtonAction: () -> Void
 
     override var inputAccessoryView: UIView? {
         if bodyTextView.isFirstResponder {
@@ -138,9 +160,10 @@ class TalkPageTopicComposeViewController: ThemeableViewController, WMFNavigation
     
     // MARK: Lifecycle
     
-    init(viewModel: TalkPageTopicComposeViewModel, authenticationManager: WMFAuthenticationManager, theme: Theme) {
+    init(viewModel: TalkPageTopicComposeViewModel, authenticationManager: WMFAuthenticationManager, theme: Theme, tappedIPTempButtonAction: @escaping () -> Void) {
         self.viewModel = viewModel
         self.authenticationManager = authenticationManager
+        self.tappedIPTempButtonAction = tappedIPTempButtonAction
         super.init(nibName: nil, bundle: nil)
         self.theme = theme
     }
@@ -264,10 +287,25 @@ class TalkPageTopicComposeViewController: ThemeableViewController, WMFNavigation
         inputContainerView.addSubview(titleTextField)
         inputContainerView.addSubview(divView)
         inputContainerView.addSubview(bodyTextView)
-        
+
         titleTextField.setContentHuggingPriority(.required, for: .vertical)
         bodyTextView.setContentHuggingPriority(.defaultLow, for: .vertical)
         finePrintTextView.setContentHuggingPriority(.required, for: .vertical)
+        
+        if authState == .ip || authState == .temp {
+            inputContainerView.addSubview(ipTempButton)
+            NSLayoutConstraint.activate([
+                inputContainerView.leadingAnchor.constraint(equalTo: ipTempButton.leadingAnchor, constant: -8),
+                inputContainerView.bottomAnchor.constraint(equalTo: ipTempButton.bottomAnchor, constant: 8)
+            ])
+        }
+        
+        var bodyTextViewBottomSpacing: CGFloat = -16
+        if authState == .ip || authState == .temp {
+            bodyTextViewBottomSpacing = -50
+        }
+        
+        let bodyTextViewBottomConstraint = bodyTextView.bottomAnchor.constraint(equalTo: inputContainerView.bottomAnchor, constant: bodyTextViewBottomSpacing)
         
         NSLayoutConstraint.activate([
             inputContainerView.widthAnchor.constraint(equalTo: containerStackView.readableContentGuide.widthAnchor),
@@ -285,7 +323,7 @@ class TalkPageTopicComposeViewController: ThemeableViewController, WMFNavigation
             
             bodyTextView.leadingAnchor.constraint(equalTo: inputContainerView.leadingAnchor, constant: 16),
             bodyTextView.trailingAnchor.constraint(equalTo: inputContainerView.trailingAnchor, constant: -16),
-            bodyTextView.bottomAnchor.constraint(equalTo: inputContainerView.bottomAnchor, constant: -16),
+            bodyTextViewBottomConstraint,
             
             bodyPlaceholderLabel.leadingAnchor.constraint(equalTo: bodyTextView.leadingAnchor),
             bodyPlaceholderLabel.topAnchor.constraint(equalTo: bodyTextView.topAnchor),
@@ -367,6 +405,12 @@ class TalkPageTopicComposeViewController: ThemeableViewController, WMFNavigation
         
         // Calling here to ensure text alignment is set properly after attributed strings are set
         updateSemanticContentAttribute(semanticContentAttribute: viewModel.semanticContentAttribute)
+        
+        if authState == .ip {
+            ipTempButton.tintColor = theme.colors.destructive
+        } else if authState == .temp {
+            ipTempButton.tintColor = theme.colors.inputAccessoryButtonTint
+        }
     }
     
     // MARK: - Keyboard
@@ -454,6 +498,14 @@ class TalkPageTopicComposeViewController: ThemeableViewController, WMFNavigation
         finePrintTextView.textAlignment = semanticContentAttribute == .forceRightToLeft ? NSTextAlignment.right : NSTextAlignment.left
     }
     
+    private func updateSpacingForWarningToast() {
+        if authState == .ip || authState == .temp {
+            // Dismiss warning toast
+            WMFAlertManager.sharedInstance.dismissAlert()
+            containerStackViewBottomConstraint?.constant = 0
+        }
+    }
+    
     // MARK: Actions
     
     @objc private func tappedClose() {
@@ -518,14 +570,9 @@ class TalkPageTopicComposeViewController: ThemeableViewController, WMFNavigation
         updateSpacingForWarningToast()
     }
     
-    private func updateSpacingForWarningToast() {
-        if authState == .ip || authState == .temp {
-            // Dismiss warning toast
-            WMFAlertManager.sharedInstance.dismissAlert()
-            containerStackViewBottomConstraint?.constant = 0
-        }
+    @objc private func tappedIPTemp() {
+        tappedIPTempButtonAction()
     }
-    
 }
 
 extension TalkPageTopicComposeViewController: UITextViewDelegate {

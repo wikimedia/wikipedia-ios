@@ -95,7 +95,13 @@ final class TempAccountSheetCoordinator: Coordinator {
                     sheet.detents = [.large()]
                 }
                 
-                navigationController.present(hostingController, animated: true, completion: nil)
+                // In some cases (talk page new topic), navigation controller is already presenting. In this case, present on top of naviagation controller's presented VC.
+                
+                if let presentedViewController = self.navigationController.presentedViewController {
+                    presentedViewController.present(hostingController, animated: true, completion: nil)
+                } else {
+                    navigationController.present(hostingController, animated: true, completion: nil)
+                }
             }
         }
     }
@@ -166,7 +172,12 @@ final class TempAccountSheetCoordinator: Coordinator {
                 sheet.detents = [.large()]
             }
             
-            navigationController.present(hostingController, animated: true, completion: nil)
+            // In some cases (talk page new topic), navigation controller is already presenting. In this case, present on top of naviagation controller's presented VC.
+            if let presentedViewController = self.navigationController.presentedViewController {
+                presentedViewController.present(hostingController, animated: true, completion: nil)
+            } else {
+                navigationController.present(hostingController, animated: true, completion: nil)
+            }
         }
     }
     

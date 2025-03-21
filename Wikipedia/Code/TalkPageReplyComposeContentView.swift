@@ -99,19 +99,20 @@ class TalkPageReplyComposeContentView: SetupView {
         return button
     }()
     
-    private lazy var ipButton: UIButton = {
+    private lazy var ipTempButton: UIButton = {
         let button = UIButton(type: .custom)
         
-        button.setImage(WMFSFSymbolIcon.for(symbol: .temporaryAccountIcon), for: .normal)
-        button.addTarget(self, action: #selector(tappedIPTemp), for: .touchUpInside)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        return button
-    }()
-    
-    private lazy var tempButton: UIButton = {
-        let button = UIButton(type: .custom)
+        var image: UIImage? = nil
+        if authState == .ip {
+            image = WMFSFSymbolIcon.for(symbol: .temporaryAccountIcon)
+        } else if authState == .temp {
+            image = WMFIcon.temp
+        }
         
-        button.setImage(WMFIcon.temp, for: .normal)
+        if let image {
+            button.setImage(image, for: .normal)
+        }
+        
         button.addTarget(self, action: #selector(tappedIPTemp), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
@@ -265,14 +266,10 @@ class TalkPageReplyComposeContentView: SetupView {
             footerButtonStackView.heightAnchor.constraint(equalToConstant: 25)
         ])
         
-        if authState == .ip {
-            ipButton.setContentHuggingPriority(.required, for: .vertical)
-            ipButton.setContentCompressionResistancePriority(.required, for: .vertical)
-            footerButtonStackView.addArrangedSubview(ipButton)
-        } else if authState == .temp {
-            tempButton.setContentHuggingPriority(.required, for: .vertical)
-            tempButton.setContentCompressionResistancePriority(.required, for: .vertical)
-            footerButtonStackView.addArrangedSubview(tempButton)
+        if authState == .ip || authState == .temp {
+            ipTempButton.setContentHuggingPriority(.required, for: .vertical)
+            ipTempButton.setContentCompressionResistancePriority(.required, for: .vertical)
+            footerButtonStackView.addArrangedSubview(ipTempButton)
         }
         
         infoButton.setContentHuggingPriority(.required, for: .vertical)
@@ -444,7 +441,10 @@ extension TalkPageReplyComposeContentView: Themeable {
         let currentSemanticContentAttribute = verticalStackView.semanticContentAttribute
         updateSemanticContentAttribute(currentSemanticContentAttribute)
         
-        ipButton.tintColor = theme.colors.destructive
-        tempButton.tintColor = theme.colors.inputAccessoryButtonTint
+        if authState == .ip {
+            ipTempButton.tintColor = theme.colors.destructive
+        } else if authState == .temp {
+            ipTempButton.tintColor = theme.colors.inputAccessoryButtonTint
+        }
     }
 }
