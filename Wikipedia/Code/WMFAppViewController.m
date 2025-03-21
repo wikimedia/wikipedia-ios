@@ -1650,7 +1650,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 - (void)updatePrimaryWikiHasTempAccountsStatusIfNecessary {
     CFAbsoluteTime lastCheckTime = (CFAbsoluteTime)[[self.dataStore.viewContext wmf_numberValueForKey:WMFTempAccountConfigCheckAbsoluteTimeKey] doubleValue];
     CFAbsoluteTime now = CFAbsoluteTimeGetCurrent();
-    BOOL shouldCheckTempAccountWikis = now - lastCheckTime >= WMFTempAccountConfigCheckInterval != 0;
+    BOOL shouldCheckTempAccountWikis = (now - lastCheckTime) >= WMFTempAccountConfigCheckInterval;
 
     if (shouldCheckTempAccountWikis) {
     [[WMFTempAccountDataController shared] checkWikiTempAccountAvailabilityWithLanguage:self.dataStore.languageLinkController.appLanguage.languageCode isCheckingPrimaryWiki:YES];
