@@ -413,6 +413,16 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
     }
     
     private func handleEditSuccess(with result: [AnyHashable: Any]) {
+
+        guard let languageCode else { return }
+        let dataController = WMFTempAccountDataController.shared
+        dataController.checkWikiTempAccountAvailability(language: languageCode, isCheckingPrimaryWiki: false)
+        let languageHasTempAccountsEnabled = dataController.wikisWithTempAccountsEnabled.contains(languageCode)
+
+        if languageHasTempAccountsEnabled {
+            // TODO: Show toast after saving edit
+        }
+
         let notifyDelegate: (Result<EditorChanges, Error>) -> Void = { result in
             self.delegate?.editSaveViewControllerDidSave(self, result: result)
         }

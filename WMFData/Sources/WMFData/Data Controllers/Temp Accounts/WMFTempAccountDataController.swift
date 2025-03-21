@@ -5,28 +5,40 @@ import Foundation
     private var mediaWikiService = WMFDataEnvironment.current.mediaWikiService
     @objc public static let shared = WMFTempAccountDataController()
 
+    // todo - save to user defaults
     private(set) public var primaryWikiHasTempAccountsEnabled: Bool?
-    private var lastPrimaryLanguage: String?
+    private(set) public var wikisWithTempAccountsEnabled: [String] = []
 
-    @objc public func checkWikiTempAccountAvailability(language: String) {
-        self.lastPrimaryLanguage = language
-        primaryWikiHasTempAccountsEnabled = getTempAccountStatutsForWiki(language: language)
+    @objc public func checkWikiTempAccountAvailability(language: String, isCheckingPrimaryWiki: Bool) {
+        if !wikisWithTempAccountsEnabled.contains(language) {
+            Task {
+                do {
+                    let tempStatus = try await getTempAccountStatusForWiki(language: language)
+                    if isCheckingPrimaryWiki {
+                        self.primaryWikiHasTempAccountsEnabled = tempStatus
+                    }
+                    wikisWithTempAccountsEnabled.append(language)
+                } catch {
+                    print("Error fetching temporary account status: \(error)")
+                }
+            }
+        }
     }
 
-    public func getTempAccountStatutsForWiki(language: String) -> Bool {
+    private func getTempAccountStatusForWiki(language: String) async throws -> Bool {
         let wmfLanguage = WMFLanguage(languageCode: language, languageVariantCode: nil)
         let project = WMFProject.wikipedia(wmfLanguage)
 
-        var isTemp = false
-        fetchWikiTempStatus(project: project) { status in
-            switch status {
-            case .success(let isTemporary):
-                isTemp = isTemporary
-            case .failure:
-                break
+        return try await withCheckedThrowingContinuation { continuation in
+            fetchWikiTempStatus(project: project) { status in
+                switch status {
+                case .success(let isTemporary):
+                    continuation.resume(returning: isTemporary)
+                case .failure(let error):
+                    continuation.resume(throwing: error)
+                }
             }
         }
-        return isTemp
     }
 
     private func fetchWikiTempStatus(project: WMFProject, completion: ((Result<Bool, Error>) -> Void)? = nil) {
@@ -60,7 +72,6 @@ import Foundation
             }
         }
     }
-
 }
 
 private struct TempStatusResponse: Codable {

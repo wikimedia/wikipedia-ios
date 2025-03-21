@@ -1653,9 +1653,8 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     BOOL shouldCheckTempAccountWikis = now - lastCheckTime >= WMFTempAccountConfigCheckInterval != 0;
 
     if (shouldCheckTempAccountWikis) {
-       [[WMFTempAccountDataController shared] checkWikiTempAccountAvailabilityWithLanguage:self.dataStore.languageLinkController.appLanguage.languageCode];
+    [[WMFTempAccountDataController shared] checkWikiTempAccountAvailabilityWithLanguage:self.dataStore.languageLinkController.appLanguage.languageCode isCheckingPrimaryWiki:YES];
     }
-
 }
 
 #pragma mark - UITabBarControllerDelegate
