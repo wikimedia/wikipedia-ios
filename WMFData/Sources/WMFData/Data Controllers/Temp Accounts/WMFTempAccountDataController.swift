@@ -10,17 +10,24 @@ import Foundation
     private(set) public var wikisWithTempAccountsEnabled: [String] = []
 
     @objc public func checkWikiTempAccountAvailability(language: String, isCheckingPrimaryWiki: Bool) {
-        if !wikisWithTempAccountsEnabled.contains(language) {
-            Task {
-                do {
-                    let tempStatus = try await getTempAccountStatusForWiki(language: language)
-                    if isCheckingPrimaryWiki {
-                        self.primaryWikiHasTempAccountsEnabled = tempStatus
-                    }
+        if wikisWithTempAccountsEnabled.contains(language) {
+            if isCheckingPrimaryWiki {
+                primaryWikiHasTempAccountsEnabled = true
+            }
+            return
+        }
+
+        Task {
+            do {
+                let hasTempStatus = try await getTempAccountStatusForWiki(language: language)
+                if hasTempStatus {
                     wikisWithTempAccountsEnabled.append(language)
-                } catch {
-                    print("Error fetching temporary account status: \(error)")
+                    if isCheckingPrimaryWiki {
+                        primaryWikiHasTempAccountsEnabled = true
+                    }
                 }
+            } catch {
+                print("Error fetching temporary account status: \(error)")
             }
         }
     }
