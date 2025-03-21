@@ -90,13 +90,16 @@ class TalkPageReplyComposeContentView: SetupView {
     private(set) var commentViewModel: TalkPageCellCommentViewModel
     private var theme: Theme
     private weak var linkDelegate: TalkPageTextViewLinkHandling?
+    private weak var authenticationManager: WMFAuthenticationManager?
+    private var bottomContainerConstraint: NSLayoutConstraint?
     
     // MARK: Lifecycle
     
-    init(commentViewModel: TalkPageCellCommentViewModel, theme: Theme, linkDelegate: TalkPageTextViewLinkHandling) {
+    init(commentViewModel: TalkPageCellCommentViewModel, theme: Theme, linkDelegate: TalkPageTextViewLinkHandling, authenticationManager: WMFAuthenticationManager?) {
         self.commentViewModel = commentViewModel
         self.theme = theme
         self.linkDelegate = linkDelegate
+        self.authenticationManager = authenticationManager
         super.init(frame: .zero)
     }
     
@@ -111,9 +114,9 @@ class TalkPageReplyComposeContentView: SetupView {
         setupContainerScrollView()
         setupStackView()
         setupReplyTextView()
+        setupInfoButton()
         setupFinePrintTextView()
         setupPlaceholderLabel()
-        setupInfoButton()
         updateFonts()
         apply(theme: theme)
         
@@ -199,8 +202,16 @@ class TalkPageReplyComposeContentView: SetupView {
         let bottomConstraint = containerScrollView.bottomAnchor.constraint(equalTo: verticalStackView.bottomAnchor)
         let centerXConstraint = verticalStackView.centerXAnchor.constraint(equalTo: containerScrollView.centerXAnchor)
         
-        let bottomContainerConstraint = safeAreaLayoutGuide.bottomAnchor.constraint(equalTo: verticalStackView.bottomAnchor, constant: 5)
+        let bottomSpacing: CGFloat
+        if authState == .ip || authState == .temp {
+            bottomSpacing = 100 // Add a little spacing to make room for toast
+        } else {
+            bottomSpacing = 5
+        }
+        
+        let bottomContainerConstraint = safeAreaLayoutGuide.bottomAnchor.constraint(equalTo: verticalStackView.bottomAnchor, constant: bottomSpacing)
         bottomContainerConstraint.priority = .defaultHigh
+        self.bottomContainerConstraint = bottomContainerConstraint
         
         NSLayoutConstraint.activate([topConstraint, trailingConstraint, leadingConstraint, bottomConstraint, bottomContainerConstraint, centerXConstraint])
     }
@@ -241,6 +252,8 @@ class TalkPageReplyComposeContentView: SetupView {
     private func setupInfoButton() {
         infoButton.setContentHuggingPriority(.required, for: .vertical)
         infoButton.setContentCompressionResistancePriority(.required, for: .vertical)
+        verticalStackView.addArrangedSubview(infoButton)
+        infoButton.alpha = 0
     }
     
     private func updateSemanticContentAttribute(_ semanticContentAttribute: UISemanticContentAttribute) {
@@ -270,14 +283,32 @@ class TalkPageReplyComposeContentView: SetupView {
     
     // MARK: Helpers
     
+    private enum AuthState {
+        case ip
+        case temp
+        case perm
+    }
+    
+    private var authState: AuthState {
+        if authenticationManager?.authStateIsPermanent ?? false {
+            return .perm
+        } else {
+            if authenticationManager?.authStateIsTemporary ?? false {
+                return .temp
+            } else {
+                return .ip
+            }
+        }
+    }
+    
     private func toggleFinePrint(shouldShow: Bool) {
         if shouldShow {
-            infoButton.removeFromSuperview()
+            infoButton.alpha = 0
             verticalStackView.addArrangedSubview(finePrintTextView)
             finePrintTextView.widthAnchor.constraint(equalTo: replyTextView.widthAnchor).isActive = true
         } else {
+            infoButton.alpha = 1
             finePrintTextView.removeFromSuperview()
-            verticalStackView.addArrangedSubview(infoButton)
         }
     }
     
@@ -327,6 +358,12 @@ extension TalkPageReplyComposeContentView: UITextViewDelegate {
          
          placeholderLabel.alpha = 0
          toggleFinePrint(shouldShow: false)
+         
+         if authState == .ip || authState == .temp {
+             // Dismiss warning toast
+             WMFAlertManager.sharedInstance.dismissAlert()
+             bottomContainerConstraint?.constant = 5
+         }
      }
     
     func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {

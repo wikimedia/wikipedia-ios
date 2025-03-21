@@ -211,7 +211,7 @@ class TalkPageReplyComposeController {
     }
     
     private func addContentView(to containerView: UIView, theme: Theme, commentViewModel: TalkPageCellCommentViewModel, linkDelegate: TalkPageTextViewLinkHandling) {
-        let contentView = TalkPageReplyComposeContentView(commentViewModel: commentViewModel, theme: theme, linkDelegate: linkDelegate)
+        let contentView = TalkPageReplyComposeContentView(commentViewModel: commentViewModel, theme: theme, linkDelegate: linkDelegate, authenticationManager: authenticationManager)
         contentView.translatesAutoresizingMaskIntoConstraints = false
         containerView.addSubview(contentView)
         
