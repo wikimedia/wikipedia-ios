@@ -246,6 +246,14 @@ extension ArticleViewController: EditorViewControllerDelegate {
             self.navigate(to: url)
         }
     }
+
+    var tempAccountsMediaWikiURL: String {
+        var languageCodeSuffix = ""
+        if let primaryAppLanguageCode = dataStore.languageLinkController.appLanguage?.languageCode {
+            languageCodeSuffix = "\(primaryAppLanguageCode)"
+        }
+        return "https://www.mediawiki.org/wiki/Special:MyLanguage/Help:Temporary_accounts?uselang=\(languageCodeSuffix)"
+    }
     
     func editorDidFinishEditing(_ editor: EditorViewController, result: Result<EditorChanges, Error>, needsNewTempAccountToast: Bool?) {
         switch result {
@@ -255,7 +263,7 @@ extension ArticleViewController: EditorViewControllerDelegate {
             dismiss(animated: true) {
                 
                 let title = CommonStrings.editPublishedToastTitle
-                let image = UIImage(named: "temp")
+                let image = UIImage(systemName: "checkmark.circle.fill")
                 let tempAccountUsername = self.dataStore.authenticationManager.authStateTemporaryUsername ?? "*****"
                 
                 if UIAccessibility.isVoiceOverRunning {
@@ -271,20 +279,28 @@ extension ArticleViewController: EditorViewControllerDelegate {
                         customTypeName: "edit-published",
                         dismissPreviousAlerts: true,
                         completion: {
-                            if let needsNewTempAccountToast, needsNewTempAccountToast {
-                                let title = WMFLocalizedString("article-view-controller-editing-temp-account-created-title", value: "Temporary account created", comment: "After a user edits an article, creating an IP account, this pop-up title lets them know.")
-                                let format = WMFLocalizedString("article-view-controller-editing-temp-account-created-subtitle", value: "Temporary account %1$@ was created after your edit was published. It will expire in 90 days.", comment: "More information on the creation of temporary accounts, $1 replaces their username.")
-                                let subtitle = String.localizedStringWithFormat(format, tempAccountUsername)
-                                let image = UIImage(systemName: "checkmark.circle.fill")
-                                WMFAlertManager.sharedInstance.showBottomAlertWithMessage(
-                                    title,
-                                    subtitle: subtitle,
-                                    image: image,
-                                    type: .custom,
-                                    customTypeName: "edit-published",
-                                    dismissPreviousAlerts: true
-                                )
-                            }
+                            let title = WMFLocalizedString("article-view-controller-editing-temp-account-created-title", value: "Temporary account created", comment: "After a user edits an article, creating an IP account, this pop-up title lets them know.")
+                            let format = WMFLocalizedString("article-view-controller-editing-temp-account-created-subtitle", value: "Temporary account %1$@ was created after your edit was published. It will expire in 90 days.", comment: "More information on the creation of temporary accounts, $1 replaces their username.")
+                            let subtitle = String.localizedStringWithFormat(format, tempAccountUsername)
+                            let image = WMFIcon.temp
+                            WMFAlertManager.sharedInstance.showBottomAlertWithMessage(
+                                title,
+                                subtitle: subtitle,
+                                image: image,
+                                type: .custom,
+                                customTypeName: "edit-published",
+                                dismissPreviousAlerts: true,
+                                buttonTitle: CommonStrings.learnMoreTitle(),
+                                buttonCallBack: {
+                                    if let url = URL(string: self.tempAccountsMediaWikiURL) {
+                                        let config = SinglePageWebViewController.StandardConfig(url: url, useSimpleNavigationBar: true)
+                                        let webVC = SinglePageWebViewController(configType: .standard(config), theme: self.theme)
+                                        let newNavigationVC =
+                                        WMFComponentNavigationController(rootViewController: webVC, modalPresentationStyle: .formSheet)
+                                        self.presentedViewController?.present(newNavigationVC, animated: true)
+                                    }
+                                }
+                            )
                         }
                     )
                 }
