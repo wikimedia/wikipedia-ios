@@ -1,5 +1,6 @@
 #import "WMFLanguagesViewController.h"
 @import WMF;
+@import WMFData;
 #import "MWKTitleLanguageController.h"
 #import "WMFLanguageCell.h"
 #import "Wikipedia-Swift.h"
@@ -544,6 +545,7 @@ static CGFloat const WMFLanguageHeaderHeight = 57.f;
 - (void)notifyDelegateThatPreferredLanguagesDidUpdate {
     if ([self.delegate respondsToSelector:@selector(languagesController:didUpdatePreferredLanguages:)]) {
         [self.delegate languagesController:self didUpdatePreferredLanguages:MWKDataStore.shared.languageLinkController.preferredLanguages];
+        [[WMFTempAccountDataController shared] checkWikiTempAccountAvailabilityWithLanguage:MWKDataStore.shared.languageLinkController.appLanguage.languageCode isCheckingPrimaryWiki:YES];
     }
 }
 

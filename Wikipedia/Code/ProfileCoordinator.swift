@@ -96,10 +96,12 @@ final class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegat
            let countryCode = Locale.current.region?.identifier {
             yearInReviewDependencies = WMFProfileViewModel.YearInReviewDependencies(dataController: yearInReviewDataController, countryCode: countryCode, primaryAppLanguageProject: primaryAppLanguageProject)
         }
-        
+
+        let primaryWikiHasTempAccountsOn = WMFTempAccountDataController.shared.primaryWikiHasTempAccountsEnabled ?? false
+
         let viewModel = WMFProfileViewModel(
             isLoggedIn: isLoggedIn,
-            isTemporaryAccount: dataStore.authenticationManager.authStateIsTemporary,
+            isTemporaryAccount: dataStore.authenticationManager.authStateIsTemporary && primaryWikiHasTempAccountsOn,
             localizedStrings: localizedStrings,
             inboxCount: Int(truncating: inboxCount ?? 0),
             coordinatorDelegate: self,
