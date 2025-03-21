@@ -410,7 +410,7 @@ final class EditorViewController: UIViewController, WMFNavigationBarConfiguring 
         var hostingController: UIHostingController<WMFTempAccountsSheetView>?
         let vm = WMFTempAccountsSheetViewModel(
             image: "lockedEdit",
-            title: WMFLocalizedString("ip-account-edit-sheet", value: "You are not logged in", comment: "IP account sheet for editors"),
+            title: CommonStrings.ipWarningTitle,
             subtitle: ipEditorSubtitleString(),
             ctaTopString: WMFLocalizedString("ip-account-cta-top", value: "Log in or create an account", comment: "Log in or create an account button title"),
             ctaBottomString: WMFLocalizedString("ip-account-cta-bottom", value: "Continue without logging in", comment: "Continue without logging in button title"),

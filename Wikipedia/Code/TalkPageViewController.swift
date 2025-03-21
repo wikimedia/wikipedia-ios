@@ -419,7 +419,9 @@ class TalkPageViewController: ThemeableViewController, WMFNavigationBarConfiguri
         }
         let navVC = WMFComponentNavigationController(rootViewController: topicComposeVC, modalPresentationStyle: .pageSheet)
         navVC.presentationController?.delegate = self
-        present(navVC, animated: true)
+        present(navVC, animated: true) { [weak self] in
+            self?.presentIPTempWarningToastIfNeeded()
+        }
     }
 
     @objc fileprivate func userDidTapAddTopicButton() {
@@ -442,25 +444,36 @@ class TalkPageViewController: ThemeableViewController, WMFNavigationBarConfiguri
             }
         }
         
-        presentIPTempModalIfNeeded(completion: presentNewTopicAction)
+        presentIPTempModalIfNeeded(dismissAction: presentNewTopicAction)
     }
     
-    private func presentIPTempModalIfNeeded(completion: @escaping () -> Void) {
+    private func presentIPTempModalIfNeeded(dismissAction: @escaping () -> Void) {
         if let navigationController, !viewModel.authenticationManager.authStateIsPermanent {
             let tempAccountsCoordinator = TempAccountSheetCoordinator(
                 navigationController: navigationController,
                 theme: theme,
                 dataStore: viewModel.dataStore,
                 didTapDone: { [weak self] in
-                    self?.dismiss(animated: true)
-                    completion()
+                    self?.dismiss(animated: true, completion: {
+                        dismissAction()
+                    })
                 },
                 isTempAccount: viewModel.authenticationManager.authStateIsTemporary
             )
             
             _ = tempAccountsCoordinator.start()
         } else {
-            completion()
+            dismissAction()
+        }
+    }
+    
+    private func presentIPTempWarningToastIfNeeded() {
+        if !viewModel.authenticationManager.authStateIsPermanent {
+            if viewModel.authenticationManager.authStateIsTemporary {
+                WMFAlertManager.sharedInstance.showBottomAlertWithMessage(CommonStrings.tempWarningTitle, subtitle: CommonStrings.tempWarningSubtitle(username: viewModel.authenticationManager.authStateTemporaryUsername ?? "*****"), buttonTitle: nil, image: WMFSFSymbolIcon.for(symbol: .exclamationMarkCircleFill), dismissPreviousAlerts: true)
+            } else {
+                WMFAlertManager.sharedInstance.showBottomWarningAlertWithMessage(CommonStrings.ipWarningTitle, subtitle: CommonStrings.ipWarningSubtitle,  buttonTitle: nil, image: WMFSFSymbolIcon.for(symbol: .exclamationMarkTriangleFill), dismissPreviousAlerts: true)
+            }
         }
     }
     
@@ -518,7 +531,7 @@ class TalkPageViewController: ThemeableViewController, WMFNavigationBarConfiguri
             }
         }
         
-        presentIPTempModalIfNeeded(completion: presentOnboardingAction)
+        presentIPTempModalIfNeeded(dismissAction: presentOnboardingAction)
         
     }
 
@@ -984,6 +997,8 @@ extension TalkPageViewController: TalkPageCellReplyDelegate {
             guard let self else { return }
             
             replyComposeController.setupAndDisplay(in: self, commentViewModel: commentViewModel, authenticationManager: viewModel.authenticationManager, accessibilityFocusView: accessibilityFocusView)
+            
+            presentIPTempWarningToastIfNeeded()
         }
 
         let presentOnboardingAction: () -> Void = { [weak self] in
@@ -994,7 +1009,7 @@ extension TalkPageViewController: TalkPageCellReplyDelegate {
             }
         }
         
-        presentIPTempModalIfNeeded(completion: presentOnboardingAction)
+        presentIPTempModalIfNeeded(dismissAction: presentOnboardingAction)
         
         if let lastViewDidAppearDate = lastViewDidAppearDate {
             TalkPagesFunnel.shared.logTappedInlineReply(routingSource: viewModel.source, project: viewModel.project, talkPageType: viewModel.pageType, lastViewDidAppearDate: lastViewDidAppearDate)
