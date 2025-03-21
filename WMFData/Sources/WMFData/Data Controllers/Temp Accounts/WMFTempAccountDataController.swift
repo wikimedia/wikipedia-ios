@@ -1,31 +1,51 @@
 import Foundation
 
 @objc public class WMFTempAccountDataController: NSObject {
-
-    private var mediaWikiService = WMFDataEnvironment.current.mediaWikiService
     @objc public static let shared = WMFTempAccountDataController()
+    
+    private var mediaWikiService = WMFDataEnvironment.current.mediaWikiService
 
-    // todo - save to user defaults
-    private(set) public var primaryWikiHasTempAccountsEnabled: Bool?
-    private(set) public var wikisWithTempAccountsEnabled: [String] = []
+    private let userDefaultsStore = WMFDataEnvironment.current.userDefaultsStore
+
+    private var _primaryWikiHasTempAccountsEnabled: Bool? {
+        get {
+            return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.primaryWikiHasTempAccounts.rawValue)) ?? false
+        } set {
+            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.primaryWikiHasTempAccounts.rawValue, value: newValue)
+        }
+    }
+
+    @objc public var primaryWikiHasTempAccountsEnabled: Bool {
+        return _primaryWikiHasTempAccountsEnabled ?? false
+    }
+
+    private var sharedCacheStore: WMFKeyValueStore? = WMFDataEnvironment.current.sharedCacheStore
+    private let cacheDirectoryName = WMFSharedCacheDirectoryNames.tempAccountsWikis.rawValue
+    private let cacheLocalTempAccountsFileName = "AppTempAccountsWikiList"
+
+    public func wikisWithTempAccountsEnabled() -> [String] {
+        guard let cachedWikis: [String] = try? sharedCacheStore?.load(key: cacheDirectoryName, cacheLocalTempAccountsFileName) else {
+            return []
+        }
+        return cachedWikis
+    }
 
     @objc public func checkWikiTempAccountAvailability(language: String, isCheckingPrimaryWiki: Bool) {
-        if wikisWithTempAccountsEnabled.contains(language) {
-            if isCheckingPrimaryWiki {
-                primaryWikiHasTempAccountsEnabled = true
-            }
-            return
-        }
+
+        var wikis = wikisWithTempAccountsEnabled()
 
         Task {
             do {
                 let hasTempStatus = try await getTempAccountStatusForWiki(language: language)
-                if hasTempStatus {
-                    wikisWithTempAccountsEnabled.append(language)
-                    if isCheckingPrimaryWiki {
-                        primaryWikiHasTempAccountsEnabled = true
-                    }
+                if !wikis.contains(language) && hasTempStatus {
+                    wikis.append(language)
+                    try? self.sharedCacheStore?.save(key: self.cacheDirectoryName, self.cacheLocalTempAccountsFileName, value: wikis)
                 }
+
+                if isCheckingPrimaryWiki {
+                    _primaryWikiHasTempAccountsEnabled = hasTempStatus
+                }
+
             } catch {
                 print("Error fetching temporary account status: \(error)")
             }

@@ -5,4 +5,5 @@ enum WMFSharedCacheDirectoryNames: String {
     case watchlists = "Watchlists"
     case experiments = "Experiments"
     case developerSettings = "Developer Settings"
+    case tempAccountsWikis = "Temp Accounts Wikis"
 }
