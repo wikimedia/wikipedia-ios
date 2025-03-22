@@ -113,7 +113,7 @@ extension ArticleViewController {
                 isTempAccount: authManager.authStateIsTemporary
             )
             
-            tempAccountsCoordinator.start()
+            _ = tempAccountsCoordinator.start()
         } else {
             presentEditorAction()
         }
