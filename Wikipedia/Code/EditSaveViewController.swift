@@ -8,7 +8,7 @@ struct EditorChanges {
 }
 
 protocol EditSaveViewControllerDelegate: NSObjectProtocol {
-    func editSaveViewControllerDidSave(_ editSaveViewController: EditSaveViewController, result: Result<EditorChanges, Error>)
+    func editSaveViewControllerDidSave(_ editSaveViewController: EditSaveViewController, result: Result<EditorChanges, Error>, needsNewTempAccountToast: Bool?)
     func editSaveViewControllerWillCancel(_ saveData: EditSaveViewController.SaveData)
     func editSaveViewControllerDidTapShowWebPreview()
 }
@@ -40,6 +40,12 @@ private enum NavigationMode : Int {
     case captcha
 }
 
+public enum AuthState: Int {
+    case loggedIn
+    case tempAccount
+    case ipAccount
+}
+
 class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDelegate, UIScrollViewDelegate, WMFCaptchaViewControllerDelegate, EditSummaryViewDelegate, WMFNavigationBarConfiguring {
     
     struct SaveData {
@@ -55,6 +61,7 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
     var languageCode: String?
     var dataStore: MWKDataStore?
     var source: EditorViewController.Source?
+    var authState: AuthState? = nil
     
     var wikitext = ""
     var theme: Theme = .standard
@@ -356,6 +363,16 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
     }
 
     private func save() {
+        guard let dataStore else { return }
+        if !dataStore.authenticationManager.authStateIsPermanent {
+            if dataStore.authenticationManager.authStateIsTemporary {
+                authState = .tempAccount
+            } else {
+                authState = .ipAccount
+            }
+        } else {
+            authState = .loggedIn
+        }
         WMFAlertManager.sharedInstance.showAlert(WMFLocalizedString("wikitext-upload-save", value: "Publishing...", comment: "Alert text shown when changes to section wikitext are being published {{Identical|Publishing}}"), sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
         
         guard let editURL = pageURL else {
@@ -413,8 +430,18 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
     }
     
     private func handleEditSuccess(with result: [AnyHashable: Any]) {
+        var needsNewTempAccountToast = false
+        guard let dataStore else { return }
+        if !dataStore.authenticationManager.authStateIsPermanent {
+            if dataStore.authenticationManager.authStateIsTemporary {
+                if authState == .ipAccount {
+                    needsNewTempAccountToast = true
+                }
+            }
+        }
+        
         let notifyDelegate: (Result<EditorChanges, Error>) -> Void = { result in
-            self.delegate?.editSaveViewControllerDidSave(self, result: result)
+            self.delegate?.editSaveViewControllerDidSave(self, result: result, needsNewTempAccountToast: needsNewTempAccountToast)
         }
         guard let fetchedData = result as? [String: Any],
               let newRevID = fetchedData["newrevid"] as? UInt64 else {

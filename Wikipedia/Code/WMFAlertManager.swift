@@ -94,12 +94,29 @@ open class WMFAlertManager: NSObject, RMessageProtocol, Themeable {
         })
     }
 
-    func showBottomAlertWithMessage(_ message: String, subtitle: String?, image: UIImage?, type: RMessageType, customTypeName: String?, duration: TimeInterval? = nil, dismissPreviousAlerts:Bool, callback: (() -> Void)? = nil, buttonTitle: String? = nil, buttonCallBack: (() -> Void)? = nil) {
-        showAlert(dismissPreviousAlerts, alertBlock: { () in
-            RMessage.showNotification(withTitle: message, subtitle: subtitle, iconImage: image, type: type, customTypeName: customTypeName, duration: duration ?? 5, callback: callback, buttonTitle: buttonTitle, buttonCallback: buttonCallBack, at: .bottom, canBeDismissedByUser: true)
-        })
+    func showBottomAlertWithMessage(_ message: String, subtitle: String?, image: UIImage?, type: RMessageType, customTypeName: String?, duration: TimeInterval? = nil, dismissPreviousAlerts: Bool, callback: (() -> Void)? = nil, buttonTitle: String? = nil, buttonCallBack: (() -> Void)? = nil, completion: (() -> Void)? = nil
+    ) {
+        showAlert(dismissPreviousAlerts) {
+            RMessage.showNotification(
+                withTitle: message,
+                subtitle: subtitle,
+                iconImage: image,
+                type: type,
+                customTypeName: customTypeName,
+                duration: duration ?? 5,
+                callback: callback,
+                buttonTitle: buttonTitle,
+                buttonCallback: buttonCallBack,
+                at: .bottom,
+                canBeDismissedByUser: true
+            )
+
+            DispatchQueue.main.asyncAfter(deadline: .now() + (duration ?? 5)) {
+                completion?()
+            }
+        }
     }
-    
+
     private var queuedAlertBlocks: [() -> Void] = []
 
     @objc func showAlert(_ dismissPreviousAlerts:Bool, alertBlock: @escaping () -> Void) {

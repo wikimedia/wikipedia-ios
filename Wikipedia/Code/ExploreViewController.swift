@@ -1486,7 +1486,7 @@ extension ExploreViewController: EditPreviewViewControllerDelegate {
 
 extension ExploreViewController: EditSaveViewControllerDelegate {
     
-    func editSaveViewControllerDidSave(_ editSaveViewController: EditSaveViewController, result: Result<EditorChanges, any Error>) {
+    func editSaveViewControllerDidSave(_ editSaveViewController: EditSaveViewController, result: Result<EditorChanges, any Error>, needsNewTempAccountToast: Bool? = false) {
         
         switch result {
         case .success(let changes):

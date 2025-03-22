@@ -7,7 +7,7 @@ import WMFData
 
 protocol EditorViewControllerDelegate: AnyObject {
     func editorDidCancelEditing(_ editor: EditorViewController, navigateToURL url: URL?)
-    func editorDidFinishEditing(_ editor: EditorViewController, result: Result<EditorChanges, Error>)
+    func editorDidFinishEditing(_ editor: EditorViewController, result: Result<EditorChanges, Error>, needsNewTempAccountToast: Bool?)
 }
 
 final class EditorViewController: UIViewController, WMFNavigationBarConfiguring {
@@ -1137,8 +1137,8 @@ extension EditorViewController: EditPreviewViewControllerDelegate {
 
 extension EditorViewController: EditSaveViewControllerDelegate {
     
-    func editSaveViewControllerDidSave(_ editSaveViewController: EditSaveViewController, result: Result<EditorChanges, Error>) {
-        delegate?.editorDidFinishEditing(self, result: result)
+    func editSaveViewControllerDidSave(_ editSaveViewController: EditSaveViewController, result: Result<EditorChanges, Error>, needsNewTempAccountToast: Bool?) {
+        delegate?.editorDidFinishEditing(self, result: result, needsNewTempAccountToast: needsNewTempAccountToast)
     }
     
     func editSaveViewControllerWillCancel(_ saveData: EditSaveViewController.SaveData) {
