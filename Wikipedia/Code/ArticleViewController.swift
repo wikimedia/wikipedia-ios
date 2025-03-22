@@ -447,11 +447,10 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
     }
     
     @objc func userDidTapSearchButton() {
-        let searchVC = SearchViewController(source: .article)
-        searchVC.shouldBecomeFirstResponder = true
-        searchVC.apply(theme: theme)
+        let searchVC = SearchViewController(source: .article, customArticleCoordinatorNavigationController: navigationController)
         searchVC.dataStore = dataStore
-        searchVC.needsCenteredTitle = true
+        searchVC.theme = theme
+        searchVC.shouldBecomeFirstResponder = true
         
         navigationController?.pushViewController(searchVC, animated: true)
     }
@@ -667,6 +666,7 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
         let searchViewController = SearchViewController(source: .article, customArticleCoordinatorNavigationController: navigationController)
         searchViewController.dataStore = dataStore
         searchViewController.theme = theme
+        searchViewController.shouldBecomeFirstResponder = true
         
         let populateSearchBarWithTextAction: (String) -> Void = { [weak self] searchTerm in
             self?.navigationItem.searchController?.searchBar.text = searchTerm
