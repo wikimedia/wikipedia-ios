@@ -113,7 +113,7 @@ extension ArticleViewController {
                 isTempAccount: authManager.authStateIsTemporary
             )
             
-            tempAccountsCoordinator.start()
+            _ = tempAccountsCoordinator.start()
         } else {
             presentEditorAction()
         }
@@ -283,24 +283,26 @@ extension ArticleViewController: EditorViewControllerDelegate {
                             let format = WMFLocalizedString("article-view-controller-editing-temp-account-created-subtitle", value: "Temporary account %1$@ was created after your edit was published. It will expire in 90 days.", comment: "More information on the creation of temporary accounts, $1 replaces their username.")
                             let subtitle = String.localizedStringWithFormat(format, tempAccountUsername)
                             let image = WMFIcon.temp
-                            WMFAlertManager.sharedInstance.showBottomAlertWithMessage(
-                                title,
-                                subtitle: subtitle,
-                                image: image,
-                                type: .custom,
-                                customTypeName: "edit-published",
-                                dismissPreviousAlerts: true,
-                                buttonTitle: CommonStrings.learnMoreTitle(),
-                                buttonCallBack: {
-                                    if let url = URL(string: self.tempAccountsMediaWikiURL) {
-                                        let config = SinglePageWebViewController.StandardConfig(url: url, useSimpleNavigationBar: true)
-                                        let webVC = SinglePageWebViewController(configType: .standard(config), theme: self.theme)
-                                        let newNavigationVC =
-                                        WMFComponentNavigationController(rootViewController: webVC, modalPresentationStyle: .formSheet)
-                                        self.present(newNavigationVC, animated: true)
+                            if needsNewTempAccountToast ?? false {
+                                WMFAlertManager.sharedInstance.showBottomAlertWithMessage(
+                                    title,
+                                    subtitle: subtitle,
+                                    image: image,
+                                    type: .custom,
+                                    customTypeName: "edit-published",
+                                    dismissPreviousAlerts: true,
+                                    buttonTitle: CommonStrings.learnMoreTitle(),
+                                    buttonCallBack: {
+                                        if let url = URL(string: self.tempAccountsMediaWikiURL) {
+                                            let config = SinglePageWebViewController.StandardConfig(url: url, useSimpleNavigationBar: true)
+                                            let webVC = SinglePageWebViewController(configType: .standard(config), theme: self.theme)
+                                            let newNavigationVC =
+                                            WMFComponentNavigationController(rootViewController: webVC, modalPresentationStyle: .formSheet)
+                                            self.present(newNavigationVC, animated: true)
+                                        }
                                     }
-                                }
-                            )
+                                )
+                            }
                         }
                     )
                 }
