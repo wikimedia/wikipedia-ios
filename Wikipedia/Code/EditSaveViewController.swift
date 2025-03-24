@@ -258,6 +258,8 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
                         guard let navigationController = self.navigationController else { return }
                         let tempAccountSheetCoordinator = TempAccountSheetCoordinator(navigationController: navigationController, theme: self.theme, dataStore: dataStore, didTapDone: { [weak self] in
                             self?.dismiss(animated: true)
+                        }, didTapContinue: { [weak self] in
+                            self?.dismiss(animated: true)
                         }, isTempAccount: true)
                         
                         _ = tempAccountSheetCoordinator.start()
@@ -278,6 +280,8 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
                     buttonCallBack: {
                         guard let navigationController = self.navigationController else { return }
                         let tempAccountSheetCoordinator = TempAccountSheetCoordinator(navigationController: navigationController, theme: self.theme, dataStore: dataStore, didTapDone: { [weak self] in
+                            self?.dismiss(animated: true)
+                        }, didTapContinue: { [weak self] in
                             self?.dismiss(animated: true)
                         }, isTempAccount: false)
                         

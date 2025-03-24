@@ -9,6 +9,7 @@ final class TempAccountSheetCoordinator: Coordinator {
     var theme: Theme
     let dataStore: MWKDataStore
     let didTapDone: () -> Void
+    let didTapContinue: () -> Void
     let isTempAccount: Bool
     
     func start() -> Bool {
@@ -20,12 +21,13 @@ final class TempAccountSheetCoordinator: Coordinator {
         return true
     }
     
-    public init(navigationController: UINavigationController, theme: Theme, dataStore: MWKDataStore, didTapDone: @escaping () -> Void, isTempAccount: Bool) {
+    public init(navigationController: UINavigationController, theme: Theme, dataStore: MWKDataStore, didTapDone: @escaping () -> Void, didTapContinue: @escaping () -> Void, isTempAccount: Bool) {
         self.navigationController = navigationController
         self.theme = theme
         self.dataStore = dataStore
         self.didTapDone = didTapDone
         self.isTempAccount = isTempAccount
+        self.didTapContinue = didTapContinue
     }
     
     internal var authManager: WMFAuthenticationManager {
@@ -86,15 +88,11 @@ final class TempAccountSheetCoordinator: Coordinator {
                     let loginCoordinator = LoginCoordinator(navigationController: self.navigationController, theme: self.theme)
 
                     loginCoordinator.loginSuccessCompletion = {
-                        self.dismissTempAccountsSheet {
-                            self.didTapDone()
-                        }
+                        self.didTapContinue()
                     }
 
                     loginCoordinator.createAccountSuccessCustomDismissBlock = {
-                        self.dismissTempAccountsSheet {
-                            self.didTapDone()
-                        }
+                        self.didTapContinue()
                     }
 
                     loginCoordinator.start()
@@ -156,15 +154,11 @@ final class TempAccountSheetCoordinator: Coordinator {
                 let loginCoordinator = LoginCoordinator(navigationController: self.navigationController, theme: self.theme)
 
                 loginCoordinator.loginSuccessCompletion = {
-                    self.dismissTempAccountsSheet {
-                        self.didTapDone()
-                    }
+                    self.didTapContinue()
                 }
 
                 loginCoordinator.createAccountSuccessCustomDismissBlock = {
-                    self.dismissTempAccountsSheet {
-                        self.didTapDone()
-                    }
+                    self.didTapContinue()
                 }
 
                 loginCoordinator.start()

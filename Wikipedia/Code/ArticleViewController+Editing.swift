@@ -108,6 +108,9 @@ extension ArticleViewController {
                 dataStore: dataStore,
                 didTapDone: { [weak self] in
                     self?.dismiss(animated: true)
+                },
+                didTapContinue: { [weak self] in
+                    self?.dismiss(animated: true)
                     presentEditorAction()
                 },
                 isTempAccount: authManager.authStateIsTemporary

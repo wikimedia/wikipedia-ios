@@ -969,6 +969,8 @@ extension EditorViewController: EditorNavigationItemControllerDelegate {
         guard let navigationController else { return }
         let tempAccountSheetCoordinator = TempAccountSheetCoordinator(navigationController: navigationController, theme: theme, dataStore: dataStore, didTapDone: { [weak self] in
             self?.dismiss(animated: true)
+        }, didTapContinue: { [weak self] in
+            self?.dismiss(animated: true)
         }, isTempAccount: true)
         
         _ = tempAccountSheetCoordinator.start()
@@ -977,6 +979,8 @@ extension EditorViewController: EditorNavigationItemControllerDelegate {
     func editorNavigationItemController(_ editorNavigationItemController: EditorNavigationItemController, didTapIPAccountNoticesButton ipButton: UIBarButtonItem) {
         guard let navigationController else { return }
         let tempAccountSheetCoordinator = TempAccountSheetCoordinator(navigationController: navigationController, theme: theme, dataStore: dataStore, didTapDone: { [weak self] in
+            self?.dismiss(animated: true)
+        }, didTapContinue: { [weak self] in
             self?.dismiss(animated: true)
         }, isTempAccount: false)
         
