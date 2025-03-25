@@ -83,21 +83,7 @@ final class TempAccountSheetCoordinator: Coordinator {
                 },
                 didTapDone: didTapDone,
                 ctaTopButtonAction: {
-                    let loginCoordinator = LoginCoordinator(navigationController: self.navigationController, theme: self.theme)
 
-                    loginCoordinator.loginSuccessCompletion = {
-                        self.dismissTempAccountsSheet {
-                            self.didTapDone()
-                        }
-                    }
-
-                    loginCoordinator.createAccountSuccessCustomDismissBlock = {
-                        self.dismissTempAccountsSheet {
-                            self.didTapDone()
-                        }
-                    }
-
-                    loginCoordinator.start()
                 },
                 ctaBottomButtonAction: {
                     self.didTapDone()
@@ -153,21 +139,7 @@ final class TempAccountSheetCoordinator: Coordinator {
             },
             didTapDone: didTapDone,
             ctaTopButtonAction: {
-                let loginCoordinator = LoginCoordinator(navigationController: self.navigationController, theme: self.theme)
 
-                loginCoordinator.loginSuccessCompletion = {
-                    self.dismissTempAccountsSheet {
-                        self.didTapDone()
-                    }
-                }
-
-                loginCoordinator.createAccountSuccessCustomDismissBlock = {
-                    self.dismissTempAccountsSheet {
-                        self.didTapDone()
-                    }
-                }
-
-                loginCoordinator.start()
             },
             ctaBottomButtonAction:  {
                 self.didTapDone()
