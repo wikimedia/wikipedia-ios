@@ -276,27 +276,38 @@ public enum RemoteNotificationsControllerError: LocalizedError {
     }
     
     /// Fetches a count of unread notifications from the local database. Uses the viewContext and must be called from the main thread
-        var previousUnreadCount: Int = 0
+    var previousUnreadCount: Int = 0
+    let maxNotificationThreshold = 1000
 
-        @objc public func numberOfUnreadNotifications() throws -> NSNumber {
-            guard let modelController = modelController else {
-                throw RemoteNotificationsControllerError.databaseUnavailable
+    @objc public func numberOfUnreadNotifications() throws -> NSNumber {
+        guard let modelController = modelController else {
+            throw RemoteNotificationsControllerError.databaseUnavailable
+        }
+
+        do {
+            let fetchedCount = try modelController.numberOfUnreadNotifications()
+
+            // Ensure fetchedCount is a valid NSNumber
+            guard let number = fetchedCount as? NSNumber else {
+                throw NSError(domain: "NotificationError", code: 500, userInfo: [NSLocalizedDescriptionKey: "Casting issue: fetchedCount is not an NSNumber"])
             }
 
-            let count: Int
-            let maxNotificationLimit = Int.max / 10 // Define a safe upper limit
-            do {
-                /// Fetch the current unread notifications count
-                count = try modelController.numberOfUnreadNotifications()
-            } catch {
-                /// If fetching fails, fall back to the previous count
-                return NSNumber(value: previousUnreadCount)
+            let count = number.intValue
+
+            // Validate the count before updating
+            if count < 0 || count > 1000 {
+                throw NSError(domain: "NotificationError", code: 501, userInfo: [NSLocalizedDescriptionKey: "Invalid notification count detected"])
             }
-            
-            /// Update previous count if successful
+
+            // Update previousUnreadCount only if count is valid
             previousUnreadCount = count
-            return NSNumber(value: min(count, maxNotificationLimit))
+            return NSNumber(value: count)
+
+        } catch {
+            return NSNumber(value: previousUnreadCount) // Using last known good value
+        }
     }
+
     
     /// Fetches a count of all notifications from the local database. Uses the viewContext and must be called from the main thread
     public func numberOfAllNotifications() throws -> Int {
@@ -322,17 +333,23 @@ public enum RemoteNotificationsControllerError: LocalizedError {
     }
 
     @objc public func updateCacheWithCurrentUnreadNotificationsCount() throws {
-            let currentCount: Int
-            do {
-                currentCount = try numberOfUnreadNotifications().intValue
-            } catch {
-                // Fallback to last known good value or reset to 0
-                currentCount = previousUnreadCount
+        do {
+            let currentCount = try numberOfUnreadNotifications().intValue
+
+            // Same validation before updating cache
+            if currentCount < 0 || currentCount > 1000 {
+                NSLog("Skipping cache update due to unrealistic count: \(currentCount)")
+                return // Don't update cache
             }
+
             let sharedCache = SharedContainerCache(fileName: SharedContainerCacheCommonNames.pushNotificationsCache)
             var pushCache = sharedCache.loadCache() ?? PushNotificationsCache(settings: .default, notifications: [])
             pushCache.currentUnreadCount = currentCount
             sharedCache.saveCache(pushCache)
+
+        } catch {
+            NSLog("Failed to update cache: \(error.localizedDescription)")
+        }
     }
     
     public var filterPredicate: NSPredicate? {
