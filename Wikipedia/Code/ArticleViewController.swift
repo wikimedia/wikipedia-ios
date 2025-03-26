@@ -447,11 +447,11 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
     }
     
     @objc func userDidTapSearchButton() {
-        let searchVC = SearchViewController(source: .article, customArticleCoordinatorNavigationController: navigationController)
-        searchVC.dataStore = dataStore
-        searchVC.theme = theme
+        let searchVC = SearchViewController(source: .article)
         searchVC.shouldBecomeFirstResponder = true
-        
+        searchVC.apply(theme: theme)
+        searchVC.dataStore = dataStore
+        searchVC.needsCenteredTitle = true
         navigationController?.pushViewController(searchVC, animated: true)
     }
     
