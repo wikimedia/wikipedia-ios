@@ -5,9 +5,15 @@ public enum RemoteNotificationsControllerError: LocalizedError {
     case databaseUnavailable
     case attemptingToRefreshBeforeDeadline
     case failurePullingAppLanguage
-    
+    case invalidCount
+
     public var errorDescription: String? {
-        return CommonStrings.genericErrorDescription
+        switch self {
+        case .invalidCount:
+            return "Invalid notification count detected"
+        default:
+            return CommonStrings.genericErrorDescription
+        }
     }
 }
 
@@ -277,7 +283,6 @@ public enum RemoteNotificationsControllerError: LocalizedError {
     
     /// Fetches a count of unread notifications from the local database. Uses the viewContext and must be called from the main thread
     var previousUnreadCount: Int = 0
-    let maxNotificationThreshold = 1000
 
     @objc public func numberOfUnreadNotifications() throws -> NSNumber {
         guard let modelController = modelController else {
@@ -285,18 +290,9 @@ public enum RemoteNotificationsControllerError: LocalizedError {
         }
 
         do {
-            let fetchedCount = try modelController.numberOfUnreadNotifications()
-
-            // Ensure fetchedCount is a valid NSNumber
-            guard let number = fetchedCount as? NSNumber else {
-                throw NSError(domain: "NotificationError", code: 500, userInfo: [NSLocalizedDescriptionKey: "Casting issue: fetchedCount is not an NSNumber"])
-            }
-
-            let count = number.intValue
-
-            // Validate the count before updating
+            let count = try modelController.numberOfUnreadNotifications()
             if count < 0 || count > 1000 {
-                throw NSError(domain: "NotificationError", code: 501, userInfo: [NSLocalizedDescriptionKey: "Invalid notification count detected"])
+                throw RemoteNotificationsControllerError.invalidCount
             }
 
             // Update previousUnreadCount only if count is valid
@@ -338,7 +334,7 @@ public enum RemoteNotificationsControllerError: LocalizedError {
 
             // Same validation before updating cache
             if currentCount < 0 || currentCount > 1000 {
-                NSLog("Skipping cache update due to unrealistic count: \(currentCount)")
+                DDLogError("Skipping cache update due to unrealistic count: \(currentCount)")
                 return // Don't update cache
             }
 
@@ -348,7 +344,7 @@ public enum RemoteNotificationsControllerError: LocalizedError {
             sharedCache.saveCache(pushCache)
 
         } catch {
-            NSLog("Failed to update cache: \(error.localizedDescription)")
+            DDLogError("Failed to update cache: \(error.localizedDescription)")
         }
     }
     
