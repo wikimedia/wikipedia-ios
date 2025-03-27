@@ -55,6 +55,8 @@ final class TempAccountSheetCoordinator: Coordinator {
         return "https://www.mediawiki.org/wiki/Special:MyLanguage/Help:Temporary_accounts?uselang=\(languageCodeSuffix)#Who_can_see_IP_address_data_associated_with_temporary_accounts?"
     }
     
+    private var hostingController: UIHostingController<WMFTempAccountsSheetView>?
+    
     private func presentTempEditorSheet() {
         var hostingController: UIHostingController<WMFTempAccountsSheetView>?
         if let tempUser = authManager.authStateTemporaryUsername {
@@ -81,7 +83,7 @@ final class TempAccountSheetCoordinator: Coordinator {
                 },
                 didTapDone: didTapDone,
                 ctaTopButtonAction: {
-                    
+
                 },
                 ctaBottomButtonAction: {
                     self.didTapDone()
@@ -137,22 +139,7 @@ final class TempAccountSheetCoordinator: Coordinator {
             },
             didTapDone: didTapDone,
             ctaTopButtonAction: {
-                let loginCoordinator = LoginCoordinator(navigationController: self.navigationController, theme: self.theme)
-                
-                
-                loginCoordinator.loginSuccessCompletion = {
-                    self.navigationController.dismiss(animated: true) {
-                        self.start()
-                    }
-                }
-                
-                loginCoordinator.createAccountSuccessCustomDismissBlock = {
-                    self.navigationController.dismiss(animated: true) {
-                        self.start()
-                    }
-                }
-                
-                loginCoordinator.start()
+
             },
             ctaBottomButtonAction:  {
                 self.didTapDone()
@@ -180,5 +167,17 @@ final class TempAccountSheetCoordinator: Coordinator {
           "Once you make an edit, a %1$@temporary account%2$@ will be created for you to protect your privacy. %3$@Learn more.%4$@%5$@Log in or create an account to get credit for future edits and to access other features.",
           comment: "Information on temporary accounts, $1 is the opening bold bracket, $2 is the closing, $3 is the opening HTML link, $4 is the closing link, $5 is the line breaks.")
         return String.localizedStringWithFormat(format, openingBold, closingBold, openingLink, closingLink, lineBreaks)
+    }
+    
+    private func dismissTempAccountsSheet(completion: (() -> Void)? = nil) {
+        guard let hostingController = hostingController else {
+            completion?()
+            return
+        }
+
+        hostingController.dismiss(animated: true) {
+            self.hostingController = nil
+            completion?()
+        }
     }
 }

@@ -101,6 +101,8 @@
 "article-share" = "Text of the article list row action shown on swipe which allows the user to choose the sharing option";
 "article-talk-page" = "Title for article talk page button";
 "article-toolbar-reading-themes-controls-toolbar-item" = "Accessibility label for the Reading Themes Controls article toolbar item";
+"article-view-controller-editing-temp-account-created-subtitle" = "More information on the creation of temporary accounts, $1 replaces their username.";
+"article-view-controller-editing-temp-account-created-title" = "After a user edits an article, creating an IP account, this pop-up title lets them know.";
 "back-button-accessibility-label" = "Accessibility label for a button to navigate back. {{Identical|Back}}";
 "back-button-popover-title" = "Title for popover explaining the 'W' icon may be tapped to go back.";
 "button-go-back" = "Button text for Go back button used in various places";

@@ -101,6 +101,8 @@
 "article-share" = "Share";
 "article-talk-page" = "Article talk page";
 "article-toolbar-reading-themes-controls-toolbar-item" = "Reading Themes Controls";
+"article-view-controller-editing-temp-account-created-subtitle" = "Temporary account $1 was created after your edit was published. It will expire in 90 days.";
+"article-view-controller-editing-temp-account-created-title" = "Temporary account created";
 "back-button-accessibility-label" = "Back";
 "back-button-popover-title" = "Tap to go back";
 "button-go-back" = "Go back";
