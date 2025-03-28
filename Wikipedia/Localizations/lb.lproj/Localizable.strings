@@ -161,7 +161,12 @@
 "diff-paragraph-moved-direction-up" = "erop";
 "diff-paragraph-moved-distance-line" = "{{PLURAL:$1|$1 Zeil|$1 Zeilen}}";
 "diff-paragraph-moved-distance-section" = "{{PLURAL:$1|$1 Abschnitt|$1 Abschnitter}}";
+"diff-paragraph-moved-format" = "Abschnitt $2 $1 geréckelt";
 "diff-revision-error-title" = "Versioun konnt net geluede ginn";
+"diff-rollback" = "Zrécksetzen";
+"diff-rollback-alert-message" = "Sidd Dir sécher, datt Dir dës Ännerungen zrécksetze wëllt?";
+"diff-rollback-alert-title" = "Ännerungen zrécksetzen";
+"diff-rollback-success" = "Ännerungen zréckgesat.";
 "diff-single-header-editor-number-edits-format" = "{{PLURAL:$1|$1 Ännerung|$1 Ännerungen}}";
 "diff-single-header-subtitle-bytes-added" = "{{PLURAL:$1|$1 Byte derbäigesat}}";
 "diff-single-header-subtitle-bytes-removed" = "{{PLURAL:$1|$1 Byte ewechgeholl}}";
@@ -176,11 +181,18 @@
 "diff-thanks-sent-already" = "Dir hutt schonn e „Merci“ fir dës Ännerung geschéckt";
 "diff-thanks-sent-cannot-unsend" = "Mercie kënnen net zréckgeholl ginn";
 "diff-undo-success" = "D'Versioun gouf réckgängeg gemaach.";
+"diff-unedited-lines-format" = "{{PLURAL:$1|$1 Zeil net geännert|$1 Zeilen net geännert}}";
+"diff-user-button-accessibility-text" = "Duebel tippe fir de Menü opzemaachen";
 "dim-images" = "Biller dimmen";
+"donate-accessibility-amount-button-hint" = "Duebel tippe fir de Betrag vum Don ze wielen.";
+"donate-accessibility-donate-hint-format" = "Duebel tippe fir $1 un d'Wikimedia Foundation ze spenden.";
+"donate-accessibility-email-opt-in-hint" = "Duebel tippe fir der Wikimedia Foundation z'erlaben Iech E-Mailen ze schécken.";
 "donate-email-opt-in-text" = "Jo, d'Wikimedia Foundation däerf mir heiansdo eng E-Mail schécken.";
 "donate-help-frequently-asked-questions" = "Dacks gestallte Froen";
 "donate-help-other-ways-to-give" = "Aner Méiglechkeete fir en Don ze maachen";
 "donate-help-problems-donating" = "Problemer beim Spenden?";
+"donate-help-tax-deductibility-information" = "Informatiounen iwwer d'steierlech Ofsetzbarkeet";
+"donate-history-delete" = "Lokalen Historique vun den Done läschen";
 "donate-later-title" = "Mir erënneren Iech muer nach eng Kéier.";
 "donate-maximum-error-text" = "Mir kënnen iwwer eis Websäit keng Donen iwwer $2 $1 akzeptéieren. Kontaktéiert wgl. eist Personal fir gréisser Done iwwer benefactors@wikimedia.org.";
 "donate-minimum-error-text" = "Wielt wgl. ee Betrach (mindestens $2 $1).";
@@ -198,6 +210,9 @@
 "edit-menu-item" = "Änneren";
 "edit-minor-learn-more-text" = "Méi iwwer kleng Ännerunge gewuer ginn";
 "edit-minor-text" = "Dëst ass eng kleng Ännerung";
+"edit-notices" = "Ännerungshiweiser";
+"edit-notices-always-display" = "Ännerungshiweiser ëmmer uweisen";
+"edit-notices-please-read" = "Wgl. virum ännere liesen";
 "edit-published" = "Ännerung verëffentlecht";
 "edit-published-subtitle" = "Dir hutt elo Wikipedia fir jidderee besser gemaach";
 "edit-summary-add-summary-text" = "E Resumé vun der Ännerung derbäisetzen";
@@ -222,7 +237,9 @@
 "editor-find-textfield-accessibility" = "Sichen";
 "editor-keyboard-bold-accessibility" = "Fett";
 "editor-keyboard-heading-button" = "Iwwerschrëft";
+"editor-keyboard-link-accessibility" = "Link";
 "editor-keyboard-paragraph-button" = "Abschnitt";
+"editor-keyboard-reference-accessibility" = "Referenz";
 "editor-keyboard-strikethrough-accessibility" = "Duerchsträichen";
 "editor-keyboard-subheading1-button" = "Ënneriwwerschrëft 1";
 "editor-keyboard-subheading2-button" = "Ënneriwwerschrëft 2";
@@ -241,6 +258,7 @@
 "editor-replace-type-single-accessibility" = "Eenzel Instanz ersetzen";
 "editor-title" = "Editeur";
 "editor-toolbar-find-accessibility" = "Op der Säit sichen";
+"editor-wikitext-textview-accessibility" = "Wikitext-Editeur";
 "empty-diff-compare-title" = "Keen Ënnerscheed tëscht de Versiounen";
 "empty-edit-summary" = "Eidele Resumé vun der Ännerung";
 "empty-insert-media-title" = "E Fichier op Wikimedia Commons eraussichen";
@@ -869,6 +887,7 @@
 "watchlist-filter-type-of-change-options-wikidata-edits" = "Wikidata-Ännerungen";
 "watchlist-filters-add-language" = "Sprooch derbäisetzen...";
 "watchlist-onboarding-button-title" = "Méi iwwer Iwwerwaachungslëschte gewuer ginn";
+"watchlist-onboarding-title" = "Mir presentéieren Är Iwwerwaachungslëscht";
 "watchlist-removed" = "Vun Ärer Iwwerwaachungslëscht erofgeholl";
 "watchlist-thanks-success" = "Äre „Merci“ gouf dem $1 geschéckt";
 "watchlist-user-button-thank" = "Merci";
