@@ -85,20 +85,19 @@ final class TempAccountSheetCoordinator: Coordinator {
                 },
                 didTapDone: didTapDone,
                 ctaTopButtonAction: {
+                  let loginCoordinator = LoginCoordinator(navigationController: self.navigationController, theme: self.theme)
+                  loginCoordinator.loginSuccessCompletion = {
+                            self.didTapContinue()
+                        }
 
-              let loginCoordinator = LoginCoordinator(navigationController: self.navigationController, theme: self.theme)      
-              loginCoordinator.loginSuccessCompletion = {
-                        self.didTapContinue()
-                    }
+                        loginCoordinator.createAccountSuccessCustomDismissBlock = {
+                            self.didTapContinue()
+                        }
 
-                    loginCoordinator.createAccountSuccessCustomDismissBlock = {
-                        self.didTapContinue()
-                    }
-
-                    loginCoordinator.start()
-                },
-                ctaBottomButtonAction: {
-                    self.didTapDone()
+                        loginCoordinator.start()
+                    },
+                    ctaBottomButtonAction: {
+                        self.didTapDone()
                 })
             let tempAccountsSheetView = WMFTempAccountsSheetView(viewModel: vm)
             hostingController = UIHostingController(rootView: tempAccountsSheetView)
@@ -165,7 +164,7 @@ final class TempAccountSheetCoordinator: Coordinator {
                 loginCoordinator.start()
             },
             ctaBottomButtonAction:  {
-                self.didTapDone()
+                self.didTapContinue()
             })
         let tempAccountsSheetView = WMFTempAccountsSheetView(viewModel: vm)
         hostingController = UIHostingController(rootView: tempAccountsSheetView)
