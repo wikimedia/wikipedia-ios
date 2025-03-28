@@ -26,6 +26,7 @@ protocol DescriptionEditViewControllerDelegate: AnyObject {
     var delegate: DescriptionEditViewControllerDelegate? = nil
     
     private var articleDescriptionController: ArticleDescriptionControlling!
+    private var toastView: UIView?
     
     // These would be better as let's and a required initializer but it's not an opportune time to ditch the storyboard
     // Convert these to non-force unwrapped if there's some way to ditch the storyboard or provide an initializer with the storyboard
@@ -85,6 +86,60 @@ protocol DescriptionEditViewControllerDelegate: AnyObject {
         descriptionTextView.textContainerInset = .zero
         
         updateFonts()
+        
+        let authManager = dataStore.authenticationManager
+        
+        if !authManager.authStateIsPermanent {
+            if authManager.authStateIsTemporary {
+                // Notice
+                let format = WMFLocalizedString("save-view-temp-account-notic", value: "You are using a temporary account. Edits are being attributed to %1$@...", comment: "$1 is the temporary username for the temporary account notice.")
+                let username = dataStore.authenticationManager.authStateTemporaryUsername ?? "*****"
+                let title = String.localizedStringWithFormat(format, username)
+                let image = UIImage(systemName: "exclamationmark.circle.fill")
+                WMFAlertManager.sharedInstance.showBottomAlertWithMessage(
+                    title,
+                    subtitle: nil,
+                    image: image,
+                    type: .custom,
+                    customTypeName: "edit-published",
+                    dismissPreviousAlerts: true,
+                    buttonTitle: CommonStrings.tempAccountsReadMoreTitle,
+                    buttonCallBack: {
+                        guard let navigationController = self.navigationController else { return }
+                        let tempAccountSheetCoordinator = TempAccountSheetCoordinator(navigationController: navigationController, theme: self.theme, dataStore: self.dataStore, didTapDone: { [weak self] in
+                            self?.dismiss(animated: true)
+                        }, didTapContinue: { [weak self] in
+                            self?.dismiss(animated: true)
+                        }, isTempAccount: true)
+                        
+                        _ = tempAccountSheetCoordinator.start()
+                    }
+                )
+            } else {
+                // Warning
+                let title = WMFLocalizedString("save-view-temp-account-warning", value: "You are not logged in. Once you make an edit a temporary account will be created for...", comment: "Warning that a temporary account will be created")
+                let image = UIImage(systemName: "exclamationmark.triangle.fill")
+                WMFAlertManager.sharedInstance.showBottomAlertWithMessage(
+                    title,
+                    subtitle: nil,
+                    image: image,
+                    type: .custom,
+                    customTypeName: "edit-published",
+                    dismissPreviousAlerts: true,
+                    buttonTitle: CommonStrings.tempAccountsReadMoreTitle,
+                    buttonCallBack: {
+                        guard let navigationController = self.navigationController else { return }
+                        let tempAccountSheetCoordinator = TempAccountSheetCoordinator(navigationController: navigationController, theme: self.theme, dataStore: self.dataStore, didTapDone: { [weak self] in
+                            self?.dismiss(animated: true)
+                        }, didTapContinue: { [weak self] in
+                            self?.dismiss(animated: true)
+                        }, isTempAccount: false)
+                        
+                        _ = tempAccountSheetCoordinator.start()
+                    }
+                )
+            }
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
