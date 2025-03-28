@@ -237,6 +237,59 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         imageRecLoggingDelegate?.logEditSaveViewControllerDidAppear()
+        
+        guard let dataStore else { return }
+        if !dataStore.authenticationManager.authStateIsPermanent {
+            if dataStore.authenticationManager.authStateIsTemporary {
+                // Notice
+                let format = WMFLocalizedString("save-view-temp-account-notic", value: "You are using a temporary account. Edits are being attributed to %1$@...", comment: "$1 is the temporary username for the temporary account notice.")
+                let username = dataStore.authenticationManager.authStateTemporaryUsername ?? "*****"
+                let title = String.localizedStringWithFormat(format, username)
+                let image = UIImage(systemName: "exclamationmark.circle.fill")
+                WMFAlertManager.sharedInstance.showBottomAlertWithMessage(
+                    title,
+                    subtitle: nil,
+                    image: image,
+                    type: .custom,
+                    customTypeName: "edit-published",
+                    dismissPreviousAlerts: true,
+                    buttonTitle: CommonStrings.tempAccountsReadMoreTitle,
+                    buttonCallBack: {
+                        guard let navigationController = self.navigationController else { return }
+                        let tempAccountSheetCoordinator = TempAccountSheetCoordinator(navigationController: navigationController, theme: self.theme, dataStore: dataStore, didTapDone: { [weak self] in
+                            self?.dismiss(animated: true)
+                        }, didTapContinue: { [weak self] in
+                            self?.dismiss(animated: true)
+                        }, isTempAccount: true)
+                        
+                        _ = tempAccountSheetCoordinator.start()
+                    }
+                )
+            } else {
+                // Warning
+                let title = WMFLocalizedString("save-view-temp-account-warning", value: "You are not logged in. Once you make an edit a temporary account will be created for...", comment: "Warning that a temporary account will be created")
+                let image = UIImage(systemName: "exclamationmark.triangle.fill")
+                WMFAlertManager.sharedInstance.showBottomAlertWithMessage(
+                    title,
+                    subtitle: nil,
+                    image: image,
+                    type: .custom,
+                    customTypeName: "edit-published",
+                    dismissPreviousAlerts: true,
+                    buttonTitle: CommonStrings.tempAccountsReadMoreTitle,
+                    buttonCallBack: {
+                        guard let navigationController = self.navigationController else { return }
+                        let tempAccountSheetCoordinator = TempAccountSheetCoordinator(navigationController: navigationController, theme: self.theme, dataStore: dataStore, didTapDone: { [weak self] in
+                            self?.dismiss(animated: true)
+                        }, didTapContinue: { [weak self] in
+                            self?.dismiss(animated: true)
+                        }, isTempAccount: false)
+                        
+                        _ = tempAccountSheetCoordinator.start()
+                    }
+                )
+            }
+        }
     }
     
     private func configureNavigationBar() {
@@ -370,8 +423,6 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
             } else {
                 authState = .ipAccount
             }
-        } else {
-            authState = .loggedIn
         }
         WMFAlertManager.sharedInstance.showAlert(WMFLocalizedString("wikitext-upload-save", value: "Publishing...", comment: "Alert text shown when changes to section wikitext are being published {{Identical|Publishing}}"), sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
         

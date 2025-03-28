@@ -89,8 +89,9 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
                         guard let navigationController = self.navigationController else { return }
                         let tempAccountSheetCoordinator = TempAccountSheetCoordinator(navigationController: navigationController, theme: self.theme, dataStore: self.dataStore, didTapDone: { [weak self] in
                             self?.dismiss(animated: true)
+                        }, didTapContinue: {[weak self] in
+                            self?.dismiss(animated: true)
                         }, isTempAccount: true)
-                        
                         _ = tempAccountSheetCoordinator.start()
                     },
                     title: CommonStrings.tempAccountsToastTitle(),

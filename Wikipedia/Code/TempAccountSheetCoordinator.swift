@@ -9,6 +9,7 @@ final class TempAccountSheetCoordinator: Coordinator {
     var theme: Theme
     let dataStore: MWKDataStore
     let didTapDone: () -> Void
+    let didTapContinue: () -> Void
     let isTempAccount: Bool
     
     func start() -> Bool {
@@ -20,12 +21,13 @@ final class TempAccountSheetCoordinator: Coordinator {
         return true
     }
     
-    public init(navigationController: UINavigationController, theme: Theme, dataStore: MWKDataStore, didTapDone: @escaping () -> Void, isTempAccount: Bool) {
+    public init(navigationController: UINavigationController, theme: Theme, dataStore: MWKDataStore, didTapDone: @escaping () -> Void, didTapContinue: @escaping () -> Void, isTempAccount: Bool) {
         self.navigationController = navigationController
         self.theme = theme
         self.dataStore = dataStore
         self.didTapDone = didTapDone
         self.isTempAccount = isTempAccount
+        self.didTapContinue = didTapContinue
     }
     
     internal var authManager: WMFAuthenticationManager {
@@ -83,10 +85,19 @@ final class TempAccountSheetCoordinator: Coordinator {
                 },
                 didTapDone: didTapDone,
                 ctaTopButtonAction: {
+                  let loginCoordinator = LoginCoordinator(navigationController: self.navigationController, theme: self.theme)
+                  loginCoordinator.loginSuccessCompletion = {
+                            self.didTapContinue()
+                        }
 
-                },
-                ctaBottomButtonAction: {
-                    self.didTapDone()
+                        loginCoordinator.createAccountSuccessCustomDismissBlock = {
+                            self.didTapContinue()
+                        }
+
+                        loginCoordinator.start()
+                    },
+                    ctaBottomButtonAction: {
+                        self.didTapContinue()
                 })
             let tempAccountsSheetView = WMFTempAccountsSheetView(viewModel: vm)
             hostingController = UIHostingController(rootView: tempAccountsSheetView)
@@ -140,9 +151,20 @@ final class TempAccountSheetCoordinator: Coordinator {
             didTapDone: didTapDone,
             ctaTopButtonAction: {
 
+               let loginCoordinator = LoginCoordinator(navigationController: self.navigationController, theme: self.theme) 
+
+                loginCoordinator.loginSuccessCompletion = {
+                    self.didTapContinue()
+                }
+
+                loginCoordinator.createAccountSuccessCustomDismissBlock = {
+                    self.didTapContinue()
+                }
+
+                loginCoordinator.start()
             },
             ctaBottomButtonAction:  {
-                self.didTapDone()
+                self.didTapContinue()
             })
         let tempAccountsSheetView = WMFTempAccountsSheetView(viewModel: vm)
         hostingController = UIHostingController(rootView: tempAccountsSheetView)
