@@ -23,6 +23,7 @@
 // Author: Priviet
 // Author: Revi
 // Author: SeoJeongHo
+// Author: Suleiman the Magnificent Television
 // Author: Tsevener
 // Author: Twotwo2019
 // Author: Underbaaar
@@ -1020,6 +1021,7 @@
 "saved-default-reading-list-tag" = "이 목록은 삭제할 수 없습니다";
 "saved-pages-image-download-error" = "저장된 문서를 위해 이미지를 다운로드하는데 실패했습니다.";
 "saved-pages-progress-syncing" = "문서 다운로드 진행 중...";
+"saved-reading-lists-search-placeholder" = "읽기 목록 검색";
 "saved-reading-lists-title" = "읽기 목록";
 "saved-search-default-text" = "저장된 문서 검색";
 "saved-title" = "저장된 문서";
