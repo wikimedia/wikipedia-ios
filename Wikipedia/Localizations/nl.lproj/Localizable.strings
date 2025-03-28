@@ -377,6 +377,7 @@
 "editor-replace-type-button-accessibility" = "Vervangtype wisselen. Momenteel ingesteld op $1. Selecteer om te wijzigen.";
 "editor-replace-type-single" = "Vervangen";
 "editor-replace-type-single-accessibility" = "Vervang een enkel exemplaar";
+"editor-title" = "Bewerker";
 "editor-toolbar-bold-accessibility" = "Vetgedrukte tekstopmaak";
 "editor-toolbar-cursor-down-accessibility" = "Verplaats de cursor naar de volgende regel.";
 "editor-toolbar-cursor-next-accessibility" = "Verplaats de cursor naar het volgende teken.";
@@ -902,7 +903,9 @@
 "places-filter-top-articles" = "Meest gelezen";
 "places-filter-top-articles-count" = "{{PLURAL:$1|$1 artikel|$1 artikelen}}";
 "places-filter-top-read-articles" = "Meest gelezen artikelen";
+"places-list-title'" = "Lijst";
 "places-location-enabled" = "Locatie ingeschakeld";
+"places-map-title" = "Kaart";
 "places-no-saved-articles-have-location" = "Geen van uw opgeslagen artikelen heeft locatieinformatie";
 "places-search-articles-that-match" = "$1 die overeenkomen met \"$2\"";
 "places-search-default-text" = "Plaatsen zoeken";
@@ -958,6 +961,7 @@
 "reading-list-create-new-list-reading-list-name" = "Naam leeslijst";
 "reading-list-create-new-list-title" = "Nieuwe lijst aanmaken";
 "reading-list-deleted-accessibility-notification" = "Leeslijst verwijdered";
+"reading-list-detail-search-placeholder" = "Leeslijst doorzoeken";
 "reading-list-do-not-keep-button-title" = "Nee, verwijder de artikelen van dit apparaat";
 "reading-list-entry-limit-exceeded-message" = "Verlaag alstublieft uw artikelaantal in deze lijst tot $1 om synchroniseren van alle lijstartikelen te hervatten.";
 "reading-list-entry-limit-exceeded-title" = "U hebt de grens van {{PLURAL:$1|$1 artikel|$1 artikelen}} per account overschreden.";
@@ -1055,6 +1059,7 @@
 "saved-default-reading-list-tag" = "Deze lijst kan niet worden verwijderd";
 "saved-pages-image-download-error" = "Er is een fout opgetreden tijdens het ophalen van de afbeeldingen van deze opgeslagen pagina.";
 "saved-pages-progress-syncing" = "Artikel wordt gedownload…";
+"saved-reading-lists-search-placeholder" = "Leeslijsten doorzoeken";
 "saved-reading-lists-title" = "Leeslijsten";
 "saved-search-default-text" = "Opgeslagen artikelen doorzoeken";
 "saved-title" = "Opgeslagen";
