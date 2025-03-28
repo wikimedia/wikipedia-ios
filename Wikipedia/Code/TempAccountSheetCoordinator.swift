@@ -97,7 +97,7 @@ final class TempAccountSheetCoordinator: Coordinator {
                         loginCoordinator.start()
                     },
                     ctaBottomButtonAction: {
-                        self.didTapDone()
+                        self.didTapContinue()
                 })
             let tempAccountsSheetView = WMFTempAccountsSheetView(viewModel: vm)
             hostingController = UIHostingController(rootView: tempAccountsSheetView)
