@@ -12,13 +12,6 @@ final class TalkPageCellViewModel: Identifiable {
 
     let id: String
     
-    private static let localizedDateFormatter: DateFormatter = {
-        let formatter = DateFormatter()
-        formatter.dateStyle = .short
-        formatter.timeStyle = .short
-        return formatter
-    }()
-    
     // A cell could contain unsigned content with no replies. In this case the leadComment is nil and otherContentHtml is populated. The subscribe button, metadata row and first reply button will hide.
     let leadComment: TalkPageCellCommentViewModel?
     let otherContentHtml: String?
@@ -52,7 +45,7 @@ final class TalkPageCellViewModel: Identifiable {
         self.topicTitleHtml = topicTitleHtml
         self.timestamp = timestamp
         if let timestamp = timestamp {
-            self.timestampDisplay = Self.localizedDateFormatter.string(from: timestamp)
+            self.timestampDisplay = dateFormatter?.string(from: timestamp)
         } else {
             self.timestampDisplay = nil
         }
