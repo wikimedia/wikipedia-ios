@@ -120,7 +120,10 @@ class SearchViewController: ArticleCollectionViewController, WMFNavigationBarCon
         NSUserActivity.wmf_makeActive(NSUserActivity.wmf_searchView())
         
         if shouldBecomeFirstResponder {
-            navigationItem.searchController?.isActive = true
+            DispatchQueue.main.async { [weak self] in
+                self?.navigationItem.searchController?.isActive = true
+                self?.navigationItem.searchController?.searchBar.becomeFirstResponder()
+            }
         }
     }
     
