@@ -1330,7 +1330,7 @@ extension TalkPageViewController: EditorViewControllerDelegate {
         }
     }
     
-    func editorDidFinishEditing(_ editor: EditorViewController, result: Result<EditorChanges, Error>) {
+    func editorDidFinishEditing(_ editor: EditorViewController, result: Result<EditorChanges, Error>, needsNewTempAccountToast: Bool?) {
         switch result {
         case .failure(let error):
             showError(error)

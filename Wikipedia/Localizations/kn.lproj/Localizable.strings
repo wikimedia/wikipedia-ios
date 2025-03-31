@@ -1,6 +1,7 @@
 // Messages for Kannada (ಕನ್ನಡ)
 // Exported from translatewiki.net
 // Author: Ananth subray
+// Author: Anzx
 // Author: Nayvik
 // Author: Nemo bis
 // Author: VASANTH S.N.
@@ -48,7 +49,7 @@
 "back-button-popover-title" = "ಹಿಂದಕ್ಕೆ ಹೋಗಲು ಒತ್ತಿ";
 "button-next" = "ಮುಂದೆ";
 "button-ok" = "ಸರಿ";
-"button-publish" = "ಪ್ರಕಟಿಸು";
+"button-publish" = "ಪ್ರಕಟಿಸಿ";
 "button-read-now" = "ಈಗ ಓದಿ";
 "button-report-a-bug" = "ದೋಷವನ್ನು ವರದಿ ಮಾಡಿ";
 "button-save-for-later" = "ನಂತರಕ್ಕಾಗಿ ಉಳಿಸಿ";
