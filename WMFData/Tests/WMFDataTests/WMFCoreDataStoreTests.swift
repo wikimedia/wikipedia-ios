@@ -32,6 +32,7 @@ final class WMFCoreDataStoreTests: XCTestCase {
             let page = try store.create(entityType: CDPage.self, in: backgroundContext)
             page.title = "Cat"
             page.namespaceID = 0
+            page.projectID = WMFProject.wikipedia(WMFLanguage(languageCode: "en", languageVariantCode: nil)).coreDataIdentifier
             page.timestamp = Date()
             
             try store.saveIfNeeded(moc: backgroundContext)
