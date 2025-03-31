@@ -1202,7 +1202,7 @@
 "temp-account-toast-read-more-title" = "Read more button for the toast for temporary accounts.";
 "temp-account-toast-title" = "Temporary accounts toast information. $1 and $2 are opening and closing bold";
 "temp-account-warning-title" = "Warning title text presented to temporary account editors before entering an edit flow.";
-"temp-warning-subtitle-format" = "Warning subtitle text presented to temporary account editors before entering an edit flow. %1$ is replaced with the temporary account username.";
+"temp-warning-subtitle-format" = "Warning subtitle text presented to temporary account editors before entering an edit flow. $1 is replaced with the temporary account username.";
 "temporary-account" = "Temporary account title text";
 "terms-of-use-title" = "Title for the terms of use";
 "theme-black-display-name" = "Black theme name presented to the user";
