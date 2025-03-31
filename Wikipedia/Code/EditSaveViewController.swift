@@ -485,7 +485,7 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
         guard let languageCode else { return }
         let dataController = WMFTempAccountDataController.shared
         dataController.checkWikiTempAccountAvailability(language: languageCode, isCheckingPrimaryWiki: false)
-        let languageHasTempAccountsEnabled = dataController.wikisWithTempAccountsEnabled().contains(languageCode)
+        let languageHasTempAccountsEnabled = dataController.wikisWithTempAccountsEnabled.contains(languageCode)
 
         if languageHasTempAccountsEnabled {
             // TODO: Show toast after saving edit

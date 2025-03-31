@@ -5,34 +5,22 @@ import Foundation
     
     private var mediaWikiService = WMFDataEnvironment.current.mediaWikiService
 
-    private let userDefaultsStore = WMFDataEnvironment.current.userDefaultsStore
-
     private var _primaryWikiHasTempAccountsEnabled: Bool?
     @objc public var primaryWikiHasTempAccountsEnabled: Bool {
         return _primaryWikiHasTempAccountsEnabled ?? false
     }
 
-    private var sharedCacheStore: WMFKeyValueStore? = WMFDataEnvironment.current.sharedCacheStore
-    private let cacheDirectoryName = WMFSharedCacheDirectoryNames.tempAccountsWikis.rawValue
-    private let cacheLocalTempAccountsFileName = "AppTempAccountsWikiList"
-
-    public func wikisWithTempAccountsEnabled() -> [String] {
-        guard let cachedWikis: [String] = try? sharedCacheStore?.load(key: cacheDirectoryName, cacheLocalTempAccountsFileName) else {
-            return []
-        }
-        return cachedWikis
-    }
+    public var wikisWithTempAccountsEnabled: [String] = []
 
     @objc public func checkWikiTempAccountAvailability(language: String, isCheckingPrimaryWiki: Bool) {
 
-        var wikis = wikisWithTempAccountsEnabled()
+        var wikis = wikisWithTempAccountsEnabled
 
         Task {
             do {
                 let hasTempStatus = try await getTempAccountStatusForWiki(language: language)
                 if !wikis.contains(language) && hasTempStatus {
                     wikis.append(language)
-                    try? self.sharedCacheStore?.save(key: self.cacheDirectoryName, self.cacheLocalTempAccountsFileName, value: wikis)
                 }
 
                 if isCheckingPrimaryWiki {
