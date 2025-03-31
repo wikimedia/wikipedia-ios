@@ -371,10 +371,7 @@ protocol DescriptionEditViewControllerDelegate: AnyObject {
                         }
                     }
                     self.dismiss(animated: true) {
-                        presentingVC?.wmf_showDescriptionPublishedPanelViewController(theme: self.theme)
-                        NotificationCenter.default.post(name: DescriptionEditViewController.didPublishNotification, object: nil)
-
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) { // Adjust delay if needed
+                        presentingVC?.wmf_showDescriptionPublishedPanelViewController(theme: self.theme, completion: {
                             let tempAccountUsername = self.dataStore.authenticationManager.authStateTemporaryUsername ?? "*****"
                             let title = CommonStrings.tempAccountPublishTitle
                             let format = WMFLocalizedString("description-editing-temp-account-created-subtitle", value: "Temporary account %1$@ was created after your edit was published. It will expire in 90 days.", comment: "More information on the creation of temporary accounts, $1 replaces their username.")
@@ -401,7 +398,8 @@ protocol DescriptionEditViewControllerDelegate: AnyObject {
                                     }
                                 )
                             }
-                        }
+                        })
+                        NotificationCenter.default.post(name: DescriptionEditViewController.didPublishNotification, object: nil)
                     }
 
                 case .failure(let error):
