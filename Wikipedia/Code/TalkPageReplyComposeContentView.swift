@@ -99,7 +99,7 @@ class TalkPageReplyComposeContentView: SetupView {
         return button
     }()
     
-    private lazy var ipTempButton: UIButton = {
+    private(set) lazy var ipTempButton: UIButton = {
         let button = UIButton(type: .custom)
         
         var image: UIImage? = nil

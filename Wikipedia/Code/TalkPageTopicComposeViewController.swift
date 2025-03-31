@@ -110,7 +110,7 @@ class TalkPageTopicComposeViewController: ThemeableViewController, WMFNavigation
         return textView
     }()
     
-    private lazy var ipTempButton: UIButton = {
+    private(set) lazy var ipTempButton: UIButton = {
         let button = UIButton(type: .custom)
         
         var image: UIImage? = nil

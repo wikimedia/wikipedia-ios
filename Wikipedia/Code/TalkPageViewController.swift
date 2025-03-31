@@ -215,6 +215,7 @@ class TalkPageViewController: ThemeableViewController, WMFNavigationBarConfiguri
         setupToolbar()
         
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillChangeFrame(_:)), name: UIWindow.keyboardWillChangeFrameNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(didLogIn), name:WMFAuthenticationManager.didLogInNotification, object: nil)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -271,6 +272,14 @@ class TalkPageViewController: ThemeableViewController, WMFNavigationBarConfiguri
         rightBarButtonItem.accessibilityLabel = Self.TalkPageLocalizedStrings.overflowMenuAccessibilityLabel
         navigationItem.rightBarButtonItem = rightBarButtonItem
         rightBarButtonItem.tintColor = theme.colors.link
+    }
+    
+    @objc private func didLogIn() {
+        if let replyComposeContentView = replyComposeController.contentView {
+            replyComposeContentView.ipTempButton.isHidden = true
+        } else if let topicComposeVC = self.topicComposeVC {
+            topicComposeVC.ipTempButton.isHidden = true
+        }
     }
     
     // MARK: - Keyboard
@@ -454,24 +463,35 @@ class TalkPageViewController: ThemeableViewController, WMFNavigationBarConfiguri
         presentIPTempModalIfNeeded(dismissAction: presentNewTopicAction)
     }
     
+    private var topicComposeVC: TalkPageTopicComposeViewController? {
+        guard let presentedNavVC = presentedViewController as? UINavigationController else { return nil }
+        guard let topicComposeVC = presentedNavVC.viewControllers.first as? TalkPageTopicComposeViewController else { return nil }
+        
+        return topicComposeVC
+    }
+    
+    private var topicComposeNavVC: UINavigationController? {
+        guard let presentedNavVC = presentedViewController as? UINavigationController else { return nil }
+        guard let topicComposeVC = presentedNavVC.viewControllers.first as? TalkPageTopicComposeViewController else { return nil }
+        
+        return presentedNavVC
+    }
+    
     private func presentIPTempModalIfNeeded(dismissAction: @escaping () -> Void) {
+        let navigationController = topicComposeNavVC ?? navigationController
         if let navigationController, !viewModel.authenticationManager.authStateIsPermanent {
             let tempAccountsCoordinator = TempAccountSheetCoordinator(
                 navigationController: navigationController,
                 theme: theme,
                 dataStore: viewModel.dataStore,
                 didTapDone: { [weak self] in
-                    
-                    if let presentedViewController = self?.presentedViewController {
-                        presentedViewController.dismiss(animated: true, completion: {
-                            dismissAction()
-                        })
-                    } else {
-                        self?.dismiss(animated: true, completion: {
-                            dismissAction()
-                        })
-                    }
-                    
+                    let vcToDismiss = self?.topicComposeVC ?? self
+                    vcToDismiss?.dismiss(animated: true)
+            }, didTapContinue: { [weak self] in
+                    let vcToDismiss = self?.topicComposeVC ?? self
+                    vcToDismiss?.dismiss(animated: true, completion: {
+                        dismissAction()
+                    })
                 },
                 isTempAccount: viewModel.authenticationManager.authStateIsTemporary
             )
@@ -1190,8 +1210,7 @@ extension TalkPageViewController: TalkPageTopicComposeViewControllerDelegate {
 
 extension TalkPageViewController: UIAdaptivePresentationControllerDelegate {
     func presentationControllerShouldDismiss(_ presentationController: UIPresentationController) -> Bool {
-        guard let navVC = presentationController.presentingViewController as? UINavigationController,
-              let topicComposeVC = navVC.visibleViewController as? TalkPageTopicComposeViewController else {
+        guard let topicComposeVC = self.topicComposeVC else {
             return true
         }
 
