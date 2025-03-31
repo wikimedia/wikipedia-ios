@@ -137,7 +137,7 @@
 "continue-reading-empty-title" = "ਕੋਈ ਹਾਲ ਹੀ ਵਿੱਚ ਪਡ਼੍ਹੇ ਗਏ ਲੇਖ ਨਹੀਂ ਹਨ";
 "data-migration-status" = "ਨਵਿਆਈਆ ਜਾ ਰਿਹਾ ਹੈ...";
 "description-add-title" = "ਵੇਰਵਾ ਜੋੜੋ";
-"description-article-introduction-warning-message" = "ਸੋਧ ਦਿੱਖ ਵਿੱਚ ਤੱਤਾਂ ਦਾ ਕ੍ਰਮ ਲੇਖ ਦਿੱਖ ਨਾਲੋਂ ਵੱਖਰਾ ਹੋਵੇਗਾ।";
+"description-article-introduction-warning-message" = "ਸੋਧ ਦਿੱਖ ਵਿੱਚ ਤੱਤਾਂ ਦੀ ਤਰਤੀਬ ਲੇਖ ਦੀ ਦਿੱਖ ਨਾਲੋਂ ਵੱਖਰੀ ਹੋਵੇਗੀ।";
 "description-edit-for-article" = "$1 ਲਈ ਲੇਖ ਦਾ ਵੇਰਵਾ";
 "description-edit-pencil-introduction" = "ਜਾਣ-ਪਛਾਣ ਨੂੰ ਸੋਧੋ";
 "description-edit-pencil-title" = "ਲੇਖ ਦਾ ਵੇਰਵਾ ਸੋਧੋ";
@@ -225,6 +225,7 @@
 "donate-success-title" = "ਤੁਹਾਡਾ ਧੰਨਵਾਦ!";
 "donate-title" = "ਇੱਕ ਰਕਮ ਚੁਣੋ";
 "edit-link-display-text-title" = "ਲਿਖਤ ਦਿਖਾਉ";
+"edit-link-link-target-title" = "ਟੀਚੇ ਨਾਲ ਜੋੜੋ";
 "edit-link-remove-link-title" = "ਕੜੀ ਹਟਾਓ";
 "edit-link-title" = "ਕੜੀ ਸੋਧੋ";
 "edit-menu-item" = "ਸੋਧੋ";
@@ -270,6 +271,8 @@
 "editor-keyboard-indent-increase-accessibility" = "ਵਿੱਥ ਵਧਾਓ";
 "editor-keyboard-italics-accessibility" = "ਟੇਢੇ ਅੱਖਰ";
 "editor-keyboard-link-accessibility" = "ਕੜੀ";
+"editor-keyboard-list-ordered-accessibility" = "ਤਰਤੀਬ ਕੀਤੀ ਸੂਚੀ";
+"editor-keyboard-list-unordered-accessibility" = "ਬਗੈਰ ਤਰਤੀਬੀ ਸੂਚੀ";
 "editor-keyboard-paragraph-button" = "ਪੈਰਾ";
 "editor-keyboard-reference-accessibility" = "ਹਵਾਲਾ";
 "editor-keyboard-strikethrough-accessibility" = "ਵਿਚਾਲੇ ਲਕੀਰ ਪਾਓ";
@@ -287,6 +290,7 @@
 "editor-replace-textfield-placeholder" = "ਇਸ ਨਾਲ ਬਦਲੋ...";
 "editor-replace-type-all" = "ਸਾਰੇ ਬਦਲੋ";
 "editor-replace-type-single" = "ਬਦਲੋ";
+"editor-title" = "ਸੋਧਕ";
 "editor-toolbar-find-accessibility" = "ਸਫ਼ੇ ਵਿੱਚ ਲੱਭੋ";
 "empty-diff-compare-title" = "ਸੋਧਾਂ ਵਿੱਚ ਕੋਈ ਫ਼ਰਕ ਨਹੀਂ ਹੈ";
 "empty-diff-single-title" = "ਕੋਈ ਦੇਖਣਯੋਗ ਤਬਦੀਲੀਆਂ ਨਹੀਂ ਕੀਤੀਆਂ ਗਈਆਂ";
@@ -335,6 +339,8 @@
 "explore-randomizer" = "ਬੇਤਰਤੀਬੀ";
 "explore-suggested-edits-footer" = "ਜੋੜੋ";
 "explore-suggested-edits-image-recs-title" = "ਇੱਕ ਤਸਵੀਰ ਜੋੜੋ";
+"export-user-data-confirmation-title" = "ਕੀ ਐਪ-ਘਰ (app library) ਸਾਂਝਾ ਕਰਨਾ ਏ?";
+"export-user-data-title" = "ਵਰਤੋਂਕਾਰ ਡਾਟਾ ਬਰਾਮਦ ਕਰੋ";
 "featured-widget-from-language-wikipedia" = "$1 ਵਿਕੀਪੀਡੀਆ ਤੋਂ";
 "featured-widget-from-wikipedia" = "ਵਿਕੀਪੀਡੀਆ ਤੋਂ";
 "featured-widget-title" = "ਵਿਸ਼ੇਸ਼ ਲੇਖ";
@@ -360,6 +366,8 @@
 "find-replace-header" = "ਲੱਭੋ ਅਤੇ ਬਦਲੋ";
 "find-replace-header-close-accessibility" = "ਲੱਭੋ ਅਤੇ ਬਦਲੋ ਨੂੰ ਬੰਦ ਕਰੋ";
 "find-textfield-accessibility" = "ਲੱਭੋ";
+"forgot-password-button-title" = "ਮੁੜ-ਬਣਾਓ";
+"forgot-password-title" = "ਪਛਾਣ ਸ਼ਬਦ ਮੁੜ-ਕਾਇਮ ਕਰੋ";
 "forgot-password-username-or-email-title" = "ਜਾਂ";
 "history-clear-all" = "ਸਾਫ਼ ਕਰੋ";
 "history-clear-cancel" = "ਰੱਦ ਕਰੋ";
@@ -371,6 +379,8 @@
 "home-more-like-footer" = "$1 ਵਾੰਗੂ ਹੋਰ";
 "home-nearby-footer" = "ਤੁਹਾਡੇ ਟਿਕਾਣੇ ਦੇ ਨੇੜੇ ਹੋਰ ਥਾਂਵਾਂ";
 "home-nearby-location-footer" = "$1 ਦੇ ਨੇੜੇ ਹੋਰ";
+"home-news-footer" = "ਹੋਰ ਮੌਜੂਦਾ ਘਟਨਾਵਾਂ";
+"home-themes-action-title" = "ਤਰਜੀਹਾਂ ਦਾ ਪ੍ਰਬੰਧ ਕਰੋ";
 "home-title" = "ਵਿਚਰੋ";
 "icon-shortcut-nearby-title" = "ਨੇੜਲੇ ਲੇਖ";
 "icon-shortcut-random-title" = "ਬੇਤਰਤੀਬ ਲੇਖ";
