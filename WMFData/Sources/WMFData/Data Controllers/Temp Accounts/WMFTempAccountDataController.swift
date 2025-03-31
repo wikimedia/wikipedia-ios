@@ -7,14 +7,7 @@ import Foundation
 
     private let userDefaultsStore = WMFDataEnvironment.current.userDefaultsStore
 
-    private var _primaryWikiHasTempAccountsEnabled: Bool? {
-        get {
-            return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.primaryWikiHasTempAccounts.rawValue)) ?? false
-        } set {
-            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.primaryWikiHasTempAccounts.rawValue, value: newValue)
-        }
-    }
-
+    private var _primaryWikiHasTempAccountsEnabled: Bool?
     @objc public var primaryWikiHasTempAccountsEnabled: Bool {
         return _primaryWikiHasTempAccountsEnabled ?? false
     }

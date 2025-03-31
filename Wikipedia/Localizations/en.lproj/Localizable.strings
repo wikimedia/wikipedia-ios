@@ -101,6 +101,8 @@
 "article-share" = "Share";
 "article-talk-page" = "Article talk page";
 "article-toolbar-reading-themes-controls-toolbar-item" = "Reading Themes Controls";
+"article-view-controller-editing-temp-account-created-subtitle" = "Temporary account $1 was created after your edit was published. It will expire in 90 days.";
+"article-view-controller-editing-temp-account-created-title" = "Temporary account created";
 "back-button-accessibility-label" = "Back";
 "back-button-popover-title" = "Tap to go back";
 "button-go-back" = "Go back";
@@ -1015,6 +1017,8 @@
 "return-button-title" = "Return";
 "return-to-article" = "Return to article";
 "reverted-edit-title" = "Reverted edit";
+"save-view-temp-account-notic" = "You are using a temporary account. Edits are being attributed to $1...";
+"save-view-temp-account-warning" = "You are not logged in. Once you make an edit a temporary account will be created for...";
 "saved-all-articles-title" = "All articles";
 "saved-default-reading-list-tag" = "This list cannot be deleted";
 "saved-pages-image-download-error" = "Failed to download images for this saved page.";

@@ -9,6 +9,7 @@ final class TempAccountSheetCoordinator: Coordinator {
     var theme: Theme
     let dataStore: MWKDataStore
     let didTapDone: () -> Void
+    let didTapContinue: () -> Void
     let isTempAccount: Bool
     
     func start() -> Bool {
@@ -20,12 +21,13 @@ final class TempAccountSheetCoordinator: Coordinator {
         return true
     }
     
-    public init(navigationController: UINavigationController, theme: Theme, dataStore: MWKDataStore, didTapDone: @escaping () -> Void, isTempAccount: Bool) {
+    public init(navigationController: UINavigationController, theme: Theme, dataStore: MWKDataStore, didTapDone: @escaping () -> Void, didTapContinue: @escaping () -> Void, isTempAccount: Bool) {
         self.navigationController = navigationController
         self.theme = theme
         self.dataStore = dataStore
         self.didTapDone = didTapDone
         self.isTempAccount = isTempAccount
+        self.didTapContinue = didTapContinue
     }
     
     internal var authManager: WMFAuthenticationManager {
@@ -55,6 +57,8 @@ final class TempAccountSheetCoordinator: Coordinator {
         return "https://www.mediawiki.org/wiki/Special:MyLanguage/Help:Temporary_accounts?uselang=\(languageCodeSuffix)#Who_can_see_IP_address_data_associated_with_temporary_accounts?"
     }
     
+    private var hostingController: UIHostingController<WMFTempAccountsSheetView>?
+    
     private func presentTempEditorSheet() {
         var hostingController: UIHostingController<WMFTempAccountsSheetView>?
         if let tempUser = authManager.authStateTemporaryUsername {
@@ -81,10 +85,19 @@ final class TempAccountSheetCoordinator: Coordinator {
                 },
                 didTapDone: didTapDone,
                 ctaTopButtonAction: {
-                    
-                },
-                ctaBottomButtonAction: {
-                    self.didTapDone()
+                  let loginCoordinator = LoginCoordinator(navigationController: self.navigationController, theme: self.theme)
+                  loginCoordinator.loginSuccessCompletion = {
+                            self.didTapContinue()
+                        }
+
+                        loginCoordinator.createAccountSuccessCustomDismissBlock = {
+                            self.didTapContinue()
+                        }
+
+                        loginCoordinator.start()
+                    },
+                    ctaBottomButtonAction: {
+                        self.didTapContinue()
                 })
             let tempAccountsSheetView = WMFTempAccountsSheetView(viewModel: vm)
             hostingController = UIHostingController(rootView: tempAccountsSheetView)
@@ -137,25 +150,21 @@ final class TempAccountSheetCoordinator: Coordinator {
             },
             didTapDone: didTapDone,
             ctaTopButtonAction: {
-                let loginCoordinator = LoginCoordinator(navigationController: self.navigationController, theme: self.theme)
-                
-                
+
+               let loginCoordinator = LoginCoordinator(navigationController: self.navigationController, theme: self.theme) 
+
                 loginCoordinator.loginSuccessCompletion = {
-                    self.navigationController.dismiss(animated: true) {
-                        self.start()
-                    }
+                    self.didTapContinue()
                 }
-                
+
                 loginCoordinator.createAccountSuccessCustomDismissBlock = {
-                    self.navigationController.dismiss(animated: true) {
-                        self.start()
-                    }
+                    self.didTapContinue()
                 }
-                
+
                 loginCoordinator.start()
             },
             ctaBottomButtonAction:  {
-                self.didTapDone()
+                self.didTapContinue()
             })
         let tempAccountsSheetView = WMFTempAccountsSheetView(viewModel: vm)
         hostingController = UIHostingController(rootView: tempAccountsSheetView)
@@ -180,5 +189,17 @@ final class TempAccountSheetCoordinator: Coordinator {
           "Once you make an edit, a %1$@temporary account%2$@ will be created for you to protect your privacy. %3$@Learn more.%4$@%5$@Log in or create an account to get credit for future edits and to access other features.",
           comment: "Information on temporary accounts, $1 is the opening bold bracket, $2 is the closing, $3 is the opening HTML link, $4 is the closing link, $5 is the line breaks.")
         return String.localizedStringWithFormat(format, openingBold, closingBold, openingLink, closingLink, lineBreaks)
+    }
+    
+    private func dismissTempAccountsSheet(completion: (() -> Void)? = nil) {
+        guard let hostingController = hostingController else {
+            completion?()
+            return
+        }
+
+        hostingController.dismiss(animated: true) {
+            self.hostingController = nil
+            completion?()
+        }
     }
 }

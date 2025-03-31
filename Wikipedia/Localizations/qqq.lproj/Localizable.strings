@@ -101,6 +101,8 @@
 "article-share" = "Text of the article list row action shown on swipe which allows the user to choose the sharing option";
 "article-talk-page" = "Title for article talk page button";
 "article-toolbar-reading-themes-controls-toolbar-item" = "Accessibility label for the Reading Themes Controls article toolbar item";
+"article-view-controller-editing-temp-account-created-subtitle" = "More information on the creation of temporary accounts, $1 replaces their username.";
+"article-view-controller-editing-temp-account-created-title" = "After a user edits an article, creating an IP account, this pop-up title lets them know.";
 "back-button-accessibility-label" = "Accessibility label for a button to navigate back. {{Identical|Back}}";
 "back-button-popover-title" = "Title for popover explaining the 'W' icon may be tapped to go back.";
 "button-go-back" = "Button text for Go back button used in various places";
@@ -1015,6 +1017,8 @@
 "return-button-title" = "Title for button indicating that is possible return from this point";
 "return-to-article" = "Title for button indicating that is possible to go back to article";
 "reverted-edit-title" = "Title for notification informing user that their edit was reverted.";
+"save-view-temp-account-notic" = "$1 is the temporary username for the temporary account notice.";
+"save-view-temp-account-warning" = "Warning that a temporary account will be created";
 "saved-all-articles-title" = "Title of the all articles button on Saved screen";
 "saved-default-reading-list-tag" = "Tag on the default reading list cell explaining that the list cannot be deleted";
 "saved-pages-image-download-error" = "Error message shown when one or more images fails to save for offline use.";

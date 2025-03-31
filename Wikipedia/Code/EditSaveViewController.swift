@@ -8,7 +8,7 @@ struct EditorChanges {
 }
 
 protocol EditSaveViewControllerDelegate: NSObjectProtocol {
-    func editSaveViewControllerDidSave(_ editSaveViewController: EditSaveViewController, result: Result<EditorChanges, Error>)
+    func editSaveViewControllerDidSave(_ editSaveViewController: EditSaveViewController, result: Result<EditorChanges, Error>, needsNewTempAccountToast: Bool?)
     func editSaveViewControllerWillCancel(_ saveData: EditSaveViewController.SaveData)
     func editSaveViewControllerDidTapShowWebPreview()
 }
@@ -40,6 +40,12 @@ private enum NavigationMode : Int {
     case captcha
 }
 
+public enum AuthState: Int {
+    case loggedIn
+    case tempAccount
+    case ipAccount
+}
+
 class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDelegate, UIScrollViewDelegate, WMFCaptchaViewControllerDelegate, EditSummaryViewDelegate, WMFNavigationBarConfiguring {
     
     struct SaveData {
@@ -55,6 +61,7 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
     var languageCode: String?
     var dataStore: MWKDataStore?
     var source: EditorViewController.Source?
+    var authState: AuthState? = nil
     
     var wikitext = ""
     var theme: Theme = .standard
@@ -230,6 +237,59 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         imageRecLoggingDelegate?.logEditSaveViewControllerDidAppear()
+        
+        guard let dataStore else { return }
+        if !dataStore.authenticationManager.authStateIsPermanent {
+            if dataStore.authenticationManager.authStateIsTemporary {
+                // Notice
+                let format = WMFLocalizedString("save-view-temp-account-notic", value: "You are using a temporary account. Edits are being attributed to %1$@...", comment: "$1 is the temporary username for the temporary account notice.")
+                let username = dataStore.authenticationManager.authStateTemporaryUsername ?? "*****"
+                let title = String.localizedStringWithFormat(format, username)
+                let image = UIImage(systemName: "exclamationmark.circle.fill")
+                WMFAlertManager.sharedInstance.showBottomAlertWithMessage(
+                    title,
+                    subtitle: nil,
+                    image: image,
+                    type: .custom,
+                    customTypeName: "edit-published",
+                    dismissPreviousAlerts: true,
+                    buttonTitle: CommonStrings.tempAccountsReadMoreTitle,
+                    buttonCallBack: {
+                        guard let navigationController = self.navigationController else { return }
+                        let tempAccountSheetCoordinator = TempAccountSheetCoordinator(navigationController: navigationController, theme: self.theme, dataStore: dataStore, didTapDone: { [weak self] in
+                            self?.dismiss(animated: true)
+                        }, didTapContinue: { [weak self] in
+                            self?.dismiss(animated: true)
+                        }, isTempAccount: true)
+                        
+                        _ = tempAccountSheetCoordinator.start()
+                    }
+                )
+            } else {
+                // Warning
+                let title = WMFLocalizedString("save-view-temp-account-warning", value: "You are not logged in. Once you make an edit a temporary account will be created for...", comment: "Warning that a temporary account will be created")
+                let image = UIImage(systemName: "exclamationmark.triangle.fill")
+                WMFAlertManager.sharedInstance.showBottomAlertWithMessage(
+                    title,
+                    subtitle: nil,
+                    image: image,
+                    type: .custom,
+                    customTypeName: "edit-published",
+                    dismissPreviousAlerts: true,
+                    buttonTitle: CommonStrings.tempAccountsReadMoreTitle,
+                    buttonCallBack: {
+                        guard let navigationController = self.navigationController else { return }
+                        let tempAccountSheetCoordinator = TempAccountSheetCoordinator(navigationController: navigationController, theme: self.theme, dataStore: dataStore, didTapDone: { [weak self] in
+                            self?.dismiss(animated: true)
+                        }, didTapContinue: { [weak self] in
+                            self?.dismiss(animated: true)
+                        }, isTempAccount: false)
+                        
+                        _ = tempAccountSheetCoordinator.start()
+                    }
+                )
+            }
+        }
     }
     
     private func configureNavigationBar() {
@@ -356,6 +416,14 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
     }
 
     private func save() {
+        guard let dataStore else { return }
+        if !dataStore.authenticationManager.authStateIsPermanent {
+            if dataStore.authenticationManager.authStateIsTemporary {
+                authState = .tempAccount
+            } else {
+                authState = .ipAccount
+            }
+        }
         WMFAlertManager.sharedInstance.showAlert(WMFLocalizedString("wikitext-upload-save", value: "Publishing...", comment: "Alert text shown when changes to section wikitext are being published {{Identical|Publishing}}"), sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
         
         guard let editURL = pageURL else {
@@ -423,8 +491,18 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
             // TODO: Show toast after saving edit
         }
 
+        var needsNewTempAccountToast = false
+        guard let dataStore else { return }
+        if !dataStore.authenticationManager.authStateIsPermanent {
+            if dataStore.authenticationManager.authStateIsTemporary {
+                if authState == .ipAccount {
+                    needsNewTempAccountToast = true
+                }
+            }
+        }
+
         let notifyDelegate: (Result<EditorChanges, Error>) -> Void = { result in
-            self.delegate?.editSaveViewControllerDidSave(self, result: result)
+            self.delegate?.editSaveViewControllerDidSave(self, result: result, needsNewTempAccountToast: needsNewTempAccountToast)
         }
         guard let fetchedData = result as? [String: Any],
               let newRevID = fetchedData["newrevid"] as? UInt64 else {
