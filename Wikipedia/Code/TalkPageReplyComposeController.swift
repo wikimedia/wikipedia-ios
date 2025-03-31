@@ -420,17 +420,24 @@ class TalkPageReplyComposeController {
             return
         }
         
-        viewController?.wmf_showNotLoggedInUponPublishPanel(buttonTapHandler: { [weak self] buttonIndex in
-            switch buttonIndex {
-            case 0:
-                break
-            case 1:
-                self?.isLoading = true
-                self?.viewController?.tappedPublish(text: text, commentViewModel: commentViewModel)
-            default:
-                assertionFailure("Unrecognized button index in tap handler.")
-            }
-        }, theme: theme)
+        // TODO: Allow if NOT temp accounts pilot wiki
+        if false {
+            viewController?.wmf_showNotLoggedInUponPublishPanel(buttonTapHandler: { [weak self] buttonIndex in
+                switch buttonIndex {
+                case 0:
+                    break
+                case 1:
+                    self?.isLoading = true
+                    self?.viewController?.tappedPublish(text: text, commentViewModel: commentViewModel)
+                default:
+                    assertionFailure("Unrecognized button index in tap handler.")
+                }
+            }, theme: theme)
+        } else {
+            isLoading = true
+            viewController?.tappedPublish(text: text, commentViewModel: commentViewModel)
+        }
+        
     }
 }
 

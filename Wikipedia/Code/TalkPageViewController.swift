@@ -472,7 +472,7 @@ class TalkPageViewController: ThemeableViewController, WMFNavigationBarConfiguri
     
     private var topicComposeNavVC: UINavigationController? {
         guard let presentedNavVC = presentedViewController as? UINavigationController else { return nil }
-        guard let topicComposeVC = presentedNavVC.viewControllers.first as? TalkPageTopicComposeViewController else { return nil }
+        guard presentedNavVC.viewControllers.first is TalkPageTopicComposeViewController else { return nil }
         
         return presentedNavVC
     }
@@ -704,14 +704,54 @@ class TalkPageViewController: ThemeableViewController, WMFNavigationBarConfiguri
         }
     }
     
-    private func handleNewTopicOrCommentAlert(isNewTopic: Bool) {
+    var tempAccountsMediaWikiURL: String {
+        var languageCodeSuffix = ""
+        if let primaryAppLanguageCode = viewModel.languageLinkController.appLanguage?.languageCode {
+            languageCodeSuffix = "\(primaryAppLanguageCode)"
+        }
+        return "https://www.mediawiki.org/wiki/Special:MyLanguage/Help:Temporary_accounts?uselang=\(languageCodeSuffix)"
+    }
+    
+    private func handleNewTopicOrCommentAlert(isNewTopic: Bool, needsFollowupTempAccountToast: Bool) {
         let title = isNewTopic ? TalkPageLocalizedStrings.addedTopicAlertTitle : TalkPageLocalizedStrings.addedCommentAlertTitle
         let image = UIImage(systemName: "checkmark.circle.fill")
         
         if UIAccessibility.isVoiceOverRunning {
             UIAccessibility.post(notification: UIAccessibility.Notification.announcement, argument: title)
         } else {
-            WMFAlertManager.sharedInstance.showBottomAlertWithMessage(title, subtitle: nil, image: image, type: .normal, customTypeName: nil, dismissPreviousAlerts: true)
+            let tempAccountUsername = viewModel.authenticationManager.authStateTemporaryUsername
+            WMFAlertManager.sharedInstance.showBottomAlertWithMessage(
+                title,
+                subtitle: nil,
+                image: image,
+                type: .custom,
+                customTypeName: "edit-published",
+                dismissPreviousAlerts: true,
+                completion: {
+                    let title = CommonStrings.tempAccountCreatedToastTitle
+                    let subtitle = CommonStrings.tempAccountCreatedToastSubtitle(username: tempAccountUsername)
+                    let image = WMFIcon.temp
+                    if needsFollowupTempAccountToast {
+                        WMFAlertManager.sharedInstance.showBottomAlertWithMessage(
+                            title,
+                            subtitle: subtitle,
+                            image: image,
+                            type: .custom,
+                            customTypeName: "edit-published",
+                            dismissPreviousAlerts: true,
+                            buttonTitle: CommonStrings.learnMoreTitle(),
+                            buttonCallBack: {
+                                if let url = URL(string: self.tempAccountsMediaWikiURL) {
+                                    let config = SinglePageWebViewController.StandardConfig(url: url, useSimpleNavigationBar: true)
+                                    let webVC = SinglePageWebViewController(configType: .standard(config), theme: self.theme)
+                                    let newNavigationVC =
+                                    WMFComponentNavigationController(rootViewController: webVC, modalPresentationStyle: .formSheet)
+                                    self.present(newNavigationVC, animated: true)
+                                }
+                            }
+                        )
+                    }
+                })
         }
     }
     
@@ -1071,6 +1111,13 @@ extension TalkPageViewController: TalkPageReplyComposeDelegate {
     }
     
     func tappedPublish(text: String, commentViewModel: TalkPageCellCommentViewModel) {
+        
+        var wasIP = false
+        if !viewModel.authenticationManager.authStateIsPermanent {
+            if !viewModel.authenticationManager.authStateIsTemporary {
+                wasIP = true
+            }
+        }
 
         if let talkPageURL = viewModel.getTalkPageURL(encoded: false) {
             EditAttemptFunnel.shared.logSaveAttempt(pageURL: talkPageURL)
@@ -1096,20 +1143,30 @@ extension TalkPageViewController: TalkPageReplyComposeDelegate {
                 // Try to refresh page
                 self.viewModel.fetchTalkPage { [weak self] result in
                     
+                    guard let self else { return }
+                    
                     switch result {
                     case .success(let revID):
-                        self?.updateEmptyStateVisibility()
-                        self?.talkPageView.collectionView.reloadData()
-                        self?.handleNewTopicOrCommentAlert(isNewTopic: false)
-                        if let talkPageURL = self?.viewModel.getTalkPageURL(encoded: false) {
+                        self.updateEmptyStateVisibility()
+                        self.talkPageView.collectionView.reloadData()
+                        
+                        var isTemp = false
+                        if !viewModel.authenticationManager.authStateIsPermanent {
+                            if viewModel.authenticationManager.authStateIsTemporary {
+                                isTemp = true
+                            }
+                        }
+                        
+                        self.handleNewTopicOrCommentAlert(isNewTopic: false, needsFollowupTempAccountToast: wasIP && isTemp)
+                        if let talkPageURL = self.viewModel.getTalkPageURL(encoded: false) {
                             EditAttemptFunnel.shared.logSaveSuccess(pageURL: talkPageURL, revisionId: revID)
                         }
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                            self?.scrollToNewComment(oldCellViewModel: oldCellViewModel, oldCommentViewModels: oldCommentViewModels)
+                            self.scrollToNewComment(oldCellViewModel: oldCellViewModel, oldCommentViewModels: oldCommentViewModels)
                         }
 
                     case .failure:
-                        if let talkPageURL = self?.viewModel.getTalkPageURL(encoded: false) {
+                        if let talkPageURL = self.viewModel.getTalkPageURL(encoded: false) {
                             EditAttemptFunnel.shared.logSaveFailure(pageURL: talkPageURL)
                         }
                     }
@@ -1151,21 +1208,40 @@ extension TalkPageViewController: TalkPageReplyComposeDelegate {
 extension TalkPageViewController: TalkPageTopicComposeViewControllerDelegate {
     func tappedPublish(topicTitle: String, topicBody: String, composeViewController: TalkPageTopicComposeViewController) {
         
+        var wasIP = false
+        if !viewModel.authenticationManager.authStateIsPermanent {
+            if !viewModel.authenticationManager.authStateIsTemporary {
+                wasIP = true
+            }
+        }
+        
         if let lastViewDidAppearDate = lastViewDidAppearDate {
             TalkPagesFunnel.shared.logTappedPublishNewTopicOrInlineReply(routingSource: viewModel.source, project: viewModel.project, talkPageType: viewModel.pageType, lastViewDidAppearDate: lastViewDidAppearDate)
         }
 
         viewModel.postTopic(topicTitle: topicTitle, topicBody: topicBody) { [weak self] result in
+            
+            guard let self else { return }
 
             switch result {
             case .success:
                 
-                composeViewController.dismiss(animated: true) {
-                    self?.handleNewTopicOrCommentAlert(isNewTopic: true)
+                composeViewController.dismiss(animated: true) { [weak self] in
+                    
+                    guard let self else { return }
+                    
+                    var isTemp = false
+                    if !viewModel.authenticationManager.authStateIsPermanent {
+                        if viewModel.authenticationManager.authStateIsTemporary {
+                            isTemp = true
+                        }
+                    }
+                    
+                    self.handleNewTopicOrCommentAlert(isNewTopic: true, needsFollowupTempAccountToast: wasIP && isTemp)
                 }
                 
                 // Try to refresh page
-                self?.viewModel.fetchTalkPage { [weak self] result in
+                self.viewModel.fetchTalkPage { [weak self] result in
                     
                     
                     switch result {
@@ -1187,7 +1263,7 @@ extension TalkPageViewController: TalkPageTopicComposeViewControllerDelegate {
                 DDLogError("Failure publishing topic: \(error)")
                 composeViewController.setupNavigationBar(isPublishing: false)
 
-                if let viewModel = self?.viewModel, let pageURL = viewModel.getTalkPageURL(encoded: false) {
+                if let pageURL = viewModel.getTalkPageURL(encoded: false) {
                     EditAttemptFunnel.shared.logSaveFailure(pageURL: pageURL)
                 }
                 
@@ -1201,7 +1277,7 @@ extension TalkPageViewController: TalkPageTopicComposeViewControllerDelegate {
                         WMFAlertManager.sharedInstance.showErrorAlertWithMessage(title, subtitle: TalkPageLocalizedStrings.failureAlertSubtitle, buttonTitle: nil, image: UIImage(systemName: "exclamationmark.circle"), dismissPreviousAlerts: true)
                     }
                 } else {
-                    self?.showUnexpectedErrorAlert(on: composeViewController)
+                    self.showUnexpectedErrorAlert(on: composeViewController)
                 }
             }
         }

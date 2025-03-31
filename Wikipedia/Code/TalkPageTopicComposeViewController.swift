@@ -545,21 +545,28 @@ class TalkPageTopicComposeViewController: ThemeableViewController, WMFNavigation
             return
         }
         
-        wmf_showNotLoggedInUponPublishPanel(buttonTapHandler: { [weak self] buttonIndex in
-            switch buttonIndex {
-            case 0:
-                break
-            case 1:
-                guard let self = self else {
-                    return
+        // TODO: Allow if NOT temp accounts pilot wiki
+        if false {
+            wmf_showNotLoggedInUponPublishPanel(buttonTapHandler: { [weak self] buttonIndex in
+                switch buttonIndex {
+                case 0:
+                    break
+                case 1:
+                    guard let self = self else {
+                        return
+                    }
+                    
+                    self.setupNavigationBar(isPublishing: true)
+                    self.delegate?.tappedPublish(topicTitle: title, topicBody: body, composeViewController: self)
+                default:
+                    assertionFailure("Unrecognize button index in tap handler.")
                 }
-                
-                self.setupNavigationBar(isPublishing: true)
-                self.delegate?.tappedPublish(topicTitle: title, topicBody: body, composeViewController: self)
-            default:
-                assertionFailure("Unrecognize button index in tap handler.")
-            }
-        }, theme: theme)
+            }, theme: theme)
+        } else {
+            setupNavigationBar(isPublishing: true)
+            delegate?.tappedPublish(topicTitle: title, topicBody: body, composeViewController: self)
+        }
+
     }
     
     @objc private func titleTextFieldChanged() {

@@ -1202,7 +1202,7 @@
 "temp-account-toast-read-more-title" = "Read more";
 "temp-account-toast-title" = "$1You are currently using a temporary account.$2 Edits made with the temporary...";
 "temp-account-warning-title" = "You are using a temporary account";
-"temp-warning-subtitle-format" = "Your edit will be attributed to %1$";
+"temp-warning-subtitle-format" = "Your edit will be attributed to $1";
 "temporary-account" = "Temporary Account";
 "terms-of-use-title" = "Terms of use";
 "theme-black-display-name" = "Black";
