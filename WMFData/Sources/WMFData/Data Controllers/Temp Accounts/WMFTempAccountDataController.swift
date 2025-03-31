@@ -14,13 +14,11 @@ import Foundation
 
     @objc public func checkWikiTempAccountAvailability(language: String, isCheckingPrimaryWiki: Bool) {
 
-        var wikis = wikisWithTempAccountsEnabled
-
         Task {
             do {
                 let hasTempStatus = try await getTempAccountStatusForWiki(language: language)
-                if !wikis.contains(language) && hasTempStatus {
-                    wikis.append(language)
+                if !wikisWithTempAccountsEnabled.contains(language) && hasTempStatus {
+                    wikisWithTempAccountsEnabled.append(language)
                 }
 
                 if isCheckingPrimaryWiki {

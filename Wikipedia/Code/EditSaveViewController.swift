@@ -482,15 +482,6 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
     
     private func handleEditSuccess(with result: [AnyHashable: Any]) {
 
-        guard let languageCode else { return }
-        let dataController = WMFTempAccountDataController.shared
-        dataController.checkWikiTempAccountAvailability(language: languageCode, isCheckingPrimaryWiki: false)
-        let languageHasTempAccountsEnabled = dataController.wikisWithTempAccountsEnabled.contains(languageCode)
-
-        if languageHasTempAccountsEnabled {
-            // TODO: Show toast after saving edit
-        }
-
         var needsNewTempAccountToast = false
         guard let dataStore else { return }
         if !dataStore.authenticationManager.authStateIsPermanent {
