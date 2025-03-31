@@ -242,7 +242,7 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
         if !dataStore.authenticationManager.authStateIsPermanent {
             if dataStore.authenticationManager.authStateIsTemporary {
                 // Notice
-                let format = WMFLocalizedString("save-view-temp-account-notic", value: "You are using a temporary account. Edits are being attributed to %1$@...", comment: "$1 is the temporary username for the temporary account notice.")
+                let format = CommonStrings.saveViewTempAccountNotice
                 let username = dataStore.authenticationManager.authStateTemporaryUsername ?? "*****"
                 let title = String.localizedStringWithFormat(format, username)
                 let image = UIImage(systemName: "exclamationmark.circle.fill")
@@ -267,7 +267,7 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
                 )
             } else {
                 // Warning
-                let title = WMFLocalizedString("save-view-temp-account-warning", value: "You are not logged in. Once you make an edit a temporary account will be created for...", comment: "Warning that a temporary account will be created")
+                let title = CommonStrings.saveViewTempAccountWarning
                 let image = UIImage(systemName: "exclamationmark.triangle.fill")
                 WMFAlertManager.sharedInstance.showBottomAlertWithMessage(
                     title,

@@ -57,13 +57,15 @@ extension ArticleViewController {
         let navigationController = WMFComponentNavigationController(rootViewController: editVC, modalPresentationStyle: .overFullScreen)
         navigationController.view.isOpaque = false
         navigationController.view.backgroundColor = .clear
-       let needsIntro = !UserDefaults.standard.wmf_didShowTitleDescriptionEditingIntro()
-       if needsIntro {
-           navigationController.view.alpha = 0
-       }
-        let showIntro: (() -> Void)? = {
+        let needsIntro = !UserDefaults.standard.wmf_didShowTitleDescriptionEditingIntro()
+        if needsIntro {
+            navigationController.view.alpha = 0
+        }
+
+        let showIntro: (@escaping () -> Void) -> Void = { completion in
             let welcomeVC = DescriptionWelcomeInitialViewController.wmf_viewControllerFromDescriptionWelcomeStoryboard()
             welcomeVC.completionBlock = {
+                completion()
             }
             welcomeVC.apply(theme: self.theme)
             navigationController.present(welcomeVC, animated: true) {
@@ -71,12 +73,18 @@ extension ArticleViewController {
                 navigationController.view.alpha = 1
             }
         }
+
         present(navigationController, animated: !needsIntro) {
             if needsIntro {
-                showIntro?()
+                showIntro {
+                    editVC.showTempAccountToast()
+                }
+            } else {
+                editVC.showTempAccountToast()
             }
         }
     }
+
     
     private func presentEditor(editorViewController: UIViewController) {
         let presentEditorAction = { [weak self] in
@@ -283,7 +291,7 @@ extension ArticleViewController: EditorViewControllerDelegate {
                         customTypeName: "edit-published",
                         dismissPreviousAlerts: true,
                         completion: {
-                            let title = WMFLocalizedString("article-view-controller-editing-temp-account-created-title", value: "Temporary account created", comment: "After a user edits an article, creating an IP account, this pop-up title lets them know.")
+                            let title = CommonStrings.tempAccountPublishTitle
                             let format = WMFLocalizedString("article-view-controller-editing-temp-account-created-subtitle", value: "Temporary account %1$@ was created after your edit was published. It will expire in 90 days.", comment: "More information on the creation of temporary accounts, $1 replaces their username.")
                             let subtitle = String.localizedStringWithFormat(format, tempAccountUsername)
                             let image = WMFIcon.temp
