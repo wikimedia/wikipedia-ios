@@ -118,7 +118,7 @@ static NSString *const WMF_ISO8601_FORMAT = @"yyyy'-'MM'-'dd'T'HH':'mm':'ss'Z'";
 + (instancetype)wmf_localCustomShortDateFormatterWithTimeForLocale:(NSLocale *)locale {
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     [formatter setTimeZone:[NSTimeZone localTimeZone]];
-    [formatter setLocale:[NSLocale currentLocale]];
+    [formatter setLocale:locale];
     formatter.dateStyle = NSDateFormatterShortStyle;
     formatter.timeStyle = NSDateFormatterShortStyle;
     formatter.doesRelativeDateFormatting = NO;
