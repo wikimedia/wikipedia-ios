@@ -105,9 +105,7 @@ extension ArticleViewController {
 
         Task {
             let dataController = WMFTempAccountDataController.shared
-            dataController.checkWikiTempAccountAvailability(language: articleLanguageCode, isCheckingPrimaryWiki: false)
-
-            let languageHasTempAccountsEnabled = dataController.wikisWithTempAccountsEnabled.contains(articleLanguageCode)
+            let languageHasTempAccountsEnabled = await dataController.asyncCheckWikiTempAccountAvailability(language: articleLanguageCode, isCheckingPrimaryWiki: false)
 
             state = .loaded
 
@@ -126,7 +124,6 @@ extension ArticleViewController {
                     },
                     isTempAccount: authManager.authStateIsTemporary
                 )
-
                 _ = tempAccountsCoordinator.start()
             } else {
                 presentEditorAction()

@@ -13,21 +13,35 @@ import Foundation
     public var wikisWithTempAccountsEnabled: [String] = []
 
     @objc public func checkWikiTempAccountAvailability(language: String, isCheckingPrimaryWiki: Bool) {
-
         Task {
-            do {
-                let hasTempStatus = try await getTempAccountStatusForWiki(language: language)
-                if !wikisWithTempAccountsEnabled.contains(language) && hasTempStatus {
-                    wikisWithTempAccountsEnabled.append(language)
-                }
+            await asyncCheckWikiTempAccountAvailability(language: language, isCheckingPrimaryWiki: isCheckingPrimaryWiki)
+        }
+    }
 
-                if isCheckingPrimaryWiki {
-                    _primaryWikiHasTempAccountsEnabled = hasTempStatus
-                }
-
-            } catch {
-                print("Error fetching temporary account status: \(error)")
+    @discardableResult
+    public func asyncCheckWikiTempAccountAvailability(language: String, isCheckingPrimaryWiki: Bool) async -> Bool {
+        if wikisWithTempAccountsEnabled.contains(language) {
+            if isCheckingPrimaryWiki {
+                _primaryWikiHasTempAccountsEnabled = true
             }
+            return true
+        }
+
+        do {
+            let hasTempStatus = try await getTempAccountStatusForWiki(language: language)
+
+            if hasTempStatus, !wikisWithTempAccountsEnabled.contains(language) {
+                wikisWithTempAccountsEnabled.append(language)
+            }
+
+            if isCheckingPrimaryWiki {
+                _primaryWikiHasTempAccountsEnabled = hasTempStatus
+            }
+
+            return hasTempStatus
+        } catch {
+            print("Error fetching temporary account status: \(error)")
+            return false
         }
     }
 
@@ -74,7 +88,6 @@ import Foundation
                 completion?(.success(response.query.autocreatetempuser.enabled))
             case .failure(let error):
                 completion?(.failure(error))
-
             }
         }
     }
