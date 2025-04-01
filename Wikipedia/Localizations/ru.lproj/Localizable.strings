@@ -233,10 +233,19 @@
 "developer-settings" = "Настройки для разработчиков";
 "developer-settings-send-analytics-to-wmflabs" = "Отправлять аналитику в wmflabs.";
 "diff-article-revision-history" = "История версий статьи";
+"diff-change-added" = "Добавление, $1, конец добавления.";
+"diff-change-paragraph-lines-moved-down" = "Абзац перемещён вниз на {{PLURAL:$1|0=0 строк|$1 строку|$1 строки|$1 строк}}. Перейти к новому месту.";
+"diff-change-paragraph-lines-moved-up" = "Абзац перемещён вверх на {{PLURAL:$1|0=0 строк|$1 строку|$1 строки|$1 строк}}. Перейти к новому месту.";
+"diff-change-paragraph-moved" = "Абзац перемещён. Перейти к предыдущему месту.";
+"diff-change-paragraph-sections-moved-down" = "Абзац перемещён вниз на {{PLURAL:$1|0=0 разделов|$1 раздел|$1 раздела|$1 разделов}}. Перейти к новому месту.";
+"diff-change-paragraph-sections-moved-up" = "Абзац перемещён вверх на {{PLURAL:$1|0=0 разделов|$1 раздел|$1 раздела|$1 разделов}}. Перейти к новому месту.";
+"diff-change-removal" = "Удаление, $1, конец удаления.";
 "diff-compare-header-from-info-heading" = "Предыдущая правка";
 "diff-compare-header-heading" = "Сравнить версии";
 "diff-compare-header-to-info-heading" = "Отображаемая правка";
 "diff-compare-title" = "Сравнить версии";
+"diff-content-added" = "Содержимое добавлено, $1";
+"diff-content-removed" = "Содержимое удалено, $1";
 "diff-context-cell-collapse-section" = "Свернуть $1";
 "diff-context-cell-expand-section" = "Развернуть $1";
 "diff-context-lines-collapsed-button-title" = "Показать";
@@ -301,6 +310,8 @@
 "donate-success-title" = "Спасибо!";
 "donate-title" = "Выберите сумму";
 "donate-transaction-fee-opt-in-text" = "Я по щедроте души добавлю $1 для покрытия комиссии за транзакцию, чтобы вы могли сохранить 100%% моего пожертвования.";
+"donate-wikimedia-fine-print-1" = "Мы не продаём информацию о вас и ни с кем ею не обмениваемся. Делая пожертвование, вы соглашаетесь поделиться своей персональной информацией с Фондом Викимедиа — некоммерческой организацией, которая обеспечивает работоспособность Википедии и других проектов Викимедиа, а также с её поставщиками услуг в соответствии с нашей [политикой конфиденциальности доноров]($1). Фонд Викимедиа и его поставщики услуг расположены в США и других странах, законодательство которых может отличаться от принятого в вашей стране. Подробнее об этом см. в нашей [политике конфиденциальности доноров]($1).";
+"donate-wikimedia-fine-print-2" = "Фиксированные ежемесячные платежи будут списываться «Фондом Викимедиа» у наших постоянных доноров в накануне числа вашего первого пожертвования до тех пор, пока вы не уведомите нас о прекращении поддержки. Пожертвования, инициированные 29-го, 30-го или 31-го числа месяца, будут списываться в последний день более коротких месяцев, как можно ближе к первоначальной дате. Все вопросы вы можете направлять по адресу donate@wikimedia.org.";
 "edit-link-display-text-title" = "Показать текст";
 "edit-link-link-target-title" = "Адрес ссылки";
 "edit-link-remove-link-title" = "Убрать ссылку";
@@ -316,6 +327,7 @@
 "edit-preview-simplified-format-message" = "Всё содержимое отображается в упрощенном формате.";
 "edit-published" = "Правка опубликована";
 "edit-published-subtitle" = "Вы только что сделали Википедию лучше для всех";
+"edit-show-web-preview" = "Показать предпросмотр вебверсии";
 "edit-summary-add-summary-text" = "Добавление описания правки";
 "edit-summary-choice-added-image" = "Добавлено изображение";
 "edit-summary-choice-added-image-and-caption" = "Добавить изображение и подпись";
@@ -895,6 +907,7 @@
 "preference-summary-eventlogging-opt-in" = "Разрешить Фонду Викимедиа собирать информацию о том, как вы используете приложение. Это позволит сделать его лучше.";
 "privacy-policy-title" = "Политика конфиденциальности";
 "problem-with-feature-title" = "Проблема с функцией";
+"profile-button-accessibility-hint" = "Переход к просмотру профиля.";
 "profile-button-accessibility-label" = "Профиль";
 "profile-page-join-title" = "Войдите / Присоединитесь к Википедии";
 "profile-page-title-logged-out" = "Учётная запись";
@@ -1337,4 +1350,5 @@
 "year-in-review-survey-unsatisfied" = "Недоволен";
 "year-in-review-survey-very-satisfied" = "Очень доволен";
 "year-in-review-survey-very-unsatisfied" = "Очень недоволен";
+"year-in-review-wikipedia-w-accessibility-label" = "Логотип Википедии";
 "year-in-review-wmf-logo-accessibility-label" = "Логотип Фонда Викимедиа";

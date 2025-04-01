@@ -57,10 +57,12 @@ final class WMFYearInReviewDataControllerTests: XCTestCase {
 
         try await dataController.createNewYearInReviewReport(year: 2023, slides: [slide1, slide2])
 
-        let reports = try store.fetch(entityType: CDYearInReviewReport.self, predicate: nil, fetchLimit: 1, in: store.viewContext)
-        XCTAssertEqual(reports!.count, 1)
-        XCTAssertEqual(reports![0].year, 2023)
-        XCTAssertEqual(reports![0].slides!.count, 2)
+        try await store.viewContext.perform {
+            let reports = try store.fetch(entityType: CDYearInReviewReport.self, predicate: nil, fetchLimit: 1, in: store.viewContext)
+            XCTAssertEqual(reports!.count, 1)
+            XCTAssertEqual(reports![0].year, 2023)
+            XCTAssertEqual(reports![0].slides!.count, 2)
+        }
     }
 
     func testSaveYearInReviewReport() async throws {
@@ -78,11 +80,13 @@ final class WMFYearInReviewDataControllerTests: XCTestCase {
 
         try await dataController.saveYearInReviewReport(report)
 
-        let reports = try store.fetch(entityType: CDYearInReviewReport.self, predicate: nil, fetchLimit: 1, in: store.viewContext)
+        try await store.viewContext.perform {
+            let reports = try store.fetch(entityType: CDYearInReviewReport.self, predicate: nil, fetchLimit: 1, in: store.viewContext)
 
-        XCTAssertEqual(reports!.count, 1)
-        XCTAssertEqual(reports![0].year, 2024)
-        XCTAssertEqual(reports![0].slides!.count, 1)
+            XCTAssertEqual(reports!.count, 1)
+            XCTAssertEqual(reports![0].year, 2024)
+            XCTAssertEqual(reports![0].slides!.count, 1)
+        }
     }
 
     func testFetchYearInReviewReports() async throws {
@@ -101,10 +105,12 @@ final class WMFYearInReviewDataControllerTests: XCTestCase {
 
         try await dataController.saveYearInReviewReport(report)
 
-        let reports = try store.fetch(entityType: CDYearInReviewReport.self, predicate: nil, fetchLimit: 1, in: store.viewContext)
-        XCTAssertEqual(reports!.count, 1)
-        XCTAssertEqual(reports![0].year, 2024)
-        XCTAssertEqual(reports![0].slides!.count, 2)
+        try await store.viewContext.perform {
+            let reports = try store.fetch(entityType: CDYearInReviewReport.self, predicate: nil, fetchLimit: 1, in: store.viewContext)
+            XCTAssertEqual(reports!.count, 1)
+            XCTAssertEqual(reports![0].year, 2024)
+            XCTAssertEqual(reports![0].slides!.count, 2)
+        }
     }
 
     func testFetchYearInReviewReportForYear() async throws {
@@ -150,13 +156,18 @@ final class WMFYearInReviewDataControllerTests: XCTestCase {
         let slide = WMFYearInReviewSlide(year: 2021, id: .readCount,  evaluated: true, display: true, data: nil)
         try await dataController.createNewYearInReviewReport(year: 2021, slides: [slide])
 
-        var reports = try store.fetch(entityType: CDYearInReviewReport.self, predicate: nil, fetchLimit: 1, in: store.viewContext)
-        XCTAssertEqual(reports!.count, 1)
+        var reports: [CDYearInReviewReport]?
+        try store.viewContext.performAndWait {
+            reports = try store.fetch(entityType: CDYearInReviewReport.self, predicate: nil, fetchLimit: 1, in: store.viewContext)
+            XCTAssertEqual(reports!.count, 1)
+        }
 
         try await dataController.deleteYearInReviewReport(year: 2021)
 
-        reports = try store.fetch(entityType: CDYearInReviewReport.self, predicate: nil, fetchLimit: 1, in: store.viewContext)
-        XCTAssertEqual(reports!.count, 0)
+        try await store.viewContext.perform {
+            reports = try store.fetch(entityType: CDYearInReviewReport.self, predicate: nil, fetchLimit: 1, in: store.viewContext)
+            XCTAssertEqual(reports!.count, 0)
+        }
     }
 
     func testDeleteAllYearInReviewReports() async throws {
@@ -175,13 +186,20 @@ final class WMFYearInReviewDataControllerTests: XCTestCase {
         try await dataController.createNewYearInReviewReport(year: 2024, slides: [slide1])
         try await dataController.createNewYearInReviewReport(year: 2023, slides: [slide2])
 
-        var reports = try store.fetch(entityType: CDYearInReviewReport.self, predicate: nil, fetchLimit: 1, in: store.viewContext)
-        XCTAssertEqual(reports!.count, 1)
+        var reports: [CDYearInReviewReport]?
+        try store.viewContext.performAndWait {
+            reports = try store.fetch(entityType: CDYearInReviewReport.self, predicate: nil, fetchLimit: 1, in: store.viewContext)
+            XCTAssertEqual(reports!.count, 1)
+        }
+
 
         try await dataController.deleteAllYearInReviewReports()
 
-        reports = try store.fetch(entityType: CDYearInReviewReport.self, predicate: nil, fetchLimit: 1, in: store.viewContext)
-        XCTAssertEqual(reports!.count, 0)
+        try await store.viewContext.perform {
+            reports = try store.fetch(entityType: CDYearInReviewReport.self, predicate: nil, fetchLimit: 1, in: store.viewContext)
+            XCTAssertEqual(reports!.count, 0)
+        }
+
     }
     
     func testYearInReviewEntryPointFeatureDisabled() throws {

@@ -34,6 +34,78 @@
 			<string>artikler</string>
 		</dict>
 	</dict>
+	<key>diff-change-paragraph-lines-moved-down</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Afsnit flyttet %#@v1@ ned. Gå til ny placering.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d linje</string>
+			<key>other</key>
+			<string>%1$d linjer</string>
+			<key>zero</key>
+			<string>0 linjer</string>
+		</dict>
+	</dict>
+	<key>diff-change-paragraph-lines-moved-up</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Afsnit flyttet %#@v1@ op. Gå til ny placering.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d linje</string>
+			<key>other</key>
+			<string>%1$d linjer</string>
+			<key>zero</key>
+			<string>0 linjer</string>
+		</dict>
+	</dict>
+	<key>diff-change-paragraph-sections-moved-down</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Afsnit flyttet %#@v1@ ned. Gå til ny placering.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d sektion</string>
+			<key>other</key>
+			<string>%1$d sektioner</string>
+			<key>zero</key>
+			<string>0 sektioner</string>
+		</dict>
+	</dict>
+	<key>diff-change-paragraph-sections-moved-up</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Afsnit flyttet %#@v1@ op. Gå til ny placering.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d sektion</string>
+			<key>other</key>
+			<string>%1$d sektioner</string>
+			<key>zero</key>
+			<string>0 sektioner</string>
+		</dict>
+	</dict>
 	<key>diff-paragraph-moved-distance-line</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -82,6 +154,54 @@
 			<string>%1$d redigeringer</string>
 		</dict>
 	</dict>
+	<key>diff-single-header-subtitle-bytes-added</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d byte tilføjet</string>
+			<key>other</key>
+			<string>%1$d bytes tilføjet</string>
+		</dict>
+	</dict>
+	<key>diff-single-header-subtitle-bytes-removed</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string> %1$d byte fjernet</string>
+			<key>other</key>
+			<string> %1$d bytes fjernet</string>
+		</dict>
+	</dict>
+	<key>diff-unedited-lines-format</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string> %1$d linje uredigeret</string>
+			<key>other</key>
+			<string> %1$d linjer uredigeret</string>
+		</dict>
+	</dict>
 	<key>move-articles-to-reading-list</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -112,6 +232,84 @@
 			<string>%1$d filter</string>
 			<key>other</key>
 			<string>%1$d filtre</string>
+		</dict>
+	</dict>
+	<key>notifications-center-status-in-projects</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>In 1 projekt</string>
+			<key>other</key>
+			<string>In %1$d projekter</string>
+		</dict>
+	</dict>
+	<key>notifications-center-status-in-projects-plain</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>1 Projekt</string>
+			<key>other</key>
+			<string>%1$d projekter</string>
+		</dict>
+	</dict>
+	<key>notifications-center-status-in-types</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>other</key>
+			<string> %1$d typer</string>
+		</dict>
+	</dict>
+	<key>notifications-push-talk-body-format</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v1@ på %2$@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string> %1$d ny besked</string>
+			<key>other</key>
+			<string> %1$d nye beskeder</string>
+		</dict>
+	</dict>
+	<key>notifications-push-talk-title-format</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>Ny besked</string>
+			<key>other</key>
+			<string>Nye beskeder</string>
 		</dict>
 	</dict>
 	<key>on-this-day-detail-header-title</key>
@@ -208,6 +406,22 @@
 			<string>%1$d artikel</string>
 			<key>other</key>
 			<string>%1$d artikler</string>
+		</dict>
+	</dict>
+	<key>reading-list-entry-limit-reached</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v1@ kan ikke tilføjes til denne liste. Du har nået grænsen på %2$d artikler pr. læseliste til %3$@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string> Artikel</string>
+			<key>other</key>
+			<string>Artikler</string>
 		</dict>
 	</dict>
 	<key>reading-lists-count</key>
@@ -416,6 +630,36 @@
 			<string>artikler</string>
 		</dict>
 	</dict>
+	<key>talk-page-active-users-accessibilty-label</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string> %1$d aktiv bruger</string>
+			<key>other</key>
+			<string> %1$d aktive brugere</string>
+		</dict>
+	</dict>
+	<key>talk-page-replies-count-accessibilty-label</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>other</key>
+			<string>%1$d svar</string>
+		</dict>
+	</dict>
 	<key>watchlist-byte-change</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -430,6 +674,70 @@
 			<string>%1$d byte</string>
 			<key>other</key>
 			<string>%1$d bytes</string>
+		</dict>
+	</dict>
+	<key>year-in-review-personalized-reading-subtitle-format</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Du læste %#@v1@. Wikipedia havde %2$@ millioner artikler tilgængelige på over %3$@ aktive sprog. Du har sluttet dig til millioner af andre, i at udvide viden og udforske forskellige emner.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d artikel</string>
+			<key>other</key>
+			<string>%1$d artikler</string>
+		</dict>
+	</dict>
+	<key>year-in-review-personalized-reading-title-format</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Du læste %#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string> %1$d artikel</string>
+			<key>other</key>
+			<string> %1$d artikler</string>
+		</dict>
+	</dict>
+	<key>year-in-review-personalized-saved-subtitle-format</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Du har gemt %#@v1@ i år, inklusive %2$@, %3$@ og %4$@. Hver gemt artikel afspejler dine interesser og hjælper med at opbygge en personlig videnbase på Wikipedia.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d artikel</string>
+			<key>other</key>
+			<string>%1$d artikler</string>
+		</dict>
+	</dict>
+	<key>year-in-review-personalized-saved-title-format</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Du har gemt %#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string> %1$d artikel</string>
+			<key>other</key>
+			<string> %1$d artikler</string>
 		</dict>
 	</dict>
 </dict>
