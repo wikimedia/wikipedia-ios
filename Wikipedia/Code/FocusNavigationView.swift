@@ -16,8 +16,8 @@ final class FocusNavigationView: UIView {
     override func awakeFromNib() {
         super.awakeFromNib()
         
-        closeButton.imageView?.contentMode = .center
-        closeButton.setImage(WMFSFSymbolIcon.for(symbol: .multiplyCircleFill), for: .normal)
+        closeButton.setTitle(CommonStrings.doneTitle, for: .normal)
+        closeButton.setImage(nil, for: .normal)
     }
     
     func configure(titleText: String, closeButtonAccessibilityText: String, traitCollection: UITraitCollection, isTitleAccessible: Bool = false) {
@@ -45,7 +45,7 @@ final class FocusNavigationView: UIView {
 extension FocusNavigationView: Themeable {
     func apply(theme: Theme) {
         titleLabel.textColor = theme.colors.primaryText
-        closeButton.tintColor = theme.colors.secondaryText
+        closeButton.setTitleColor(theme.colors.link, for: .normal)
         backgroundColor = theme.colors.paperBackground
         divView.backgroundColor = theme.colors.midBackground
     }
