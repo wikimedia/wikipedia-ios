@@ -40,7 +40,7 @@ import Foundation
 
             return hasTempStatus
         } catch {
-            print("Error fetching temporary account status: \(error)")
+            debugPrint("Error fetching temporary account status: \(error)")
             return false
         }
     }
