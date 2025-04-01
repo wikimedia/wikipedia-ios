@@ -235,6 +235,7 @@ open class TableOfContentsPresentationController: UIPresentationController, Them
         self.presentedView?.layer.shadowOffset = CGSize(width: 3, height: 5)
         self.presentedView?.clipsToBounds = false
         self.closeButton.setTitle(CommonStrings.doneTitle, for: .normal)
+        self.closeButton.setTitleColor(theme.colors.link, for: .normal)
         self.statusBarBackground.isHidden = false
         
         self.backgroundView.effect = UIBlurEffect(style: theme.blurEffectStyle)

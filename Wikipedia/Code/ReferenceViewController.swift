@@ -100,7 +100,7 @@ class ReferenceViewController: ThemeableViewController {
         guard viewIfLoaded != nil else {
             return
         }
-        closeButton.tintColor = theme.colors.secondaryText
+        closeButton.tintColor = theme.colors.link
         backToReferenceButton.tintColor = theme.colors.link
         
         customNavigationBar.setBackgroundImage(theme.navigationBarBackgroundImage, for: .default)
