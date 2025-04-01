@@ -63,7 +63,7 @@ final class TempAccountSheetCoordinator: Coordinator {
         var hostingController: UIHostingController<WMFTempAccountsSheetView>?
         if let tempUser = authManager.authStateTemporaryUsername {
             let vm = WMFTempAccountsSheetViewModel(
-                image: "pageMessage",
+                image: "page-message",
                 title: WMFLocalizedString("temp-account-edit-sheet-title", value: "You are using a temporary account", comment: "Temporary account sheet for editors"),
                 subtitle: tempEditorSubtitleString(tempUsername: tempUser),
                 ctaTopString: WMFLocalizedString("temp-account-edit-sheet-cta-top", value: "Log in or create an account", comment: "Temporary account sheet for editors, log in/sign up."),
@@ -128,7 +128,7 @@ final class TempAccountSheetCoordinator: Coordinator {
     private func presentIPEditorSheet() {
         var hostingController: UIHostingController<WMFTempAccountsSheetView>?
         let vm = WMFTempAccountsSheetViewModel(
-            image: "lockedEdit",
+            image: "locked-edit",
             title: WMFLocalizedString("ip-account-edit-sheet", value: "You are not logged in", comment: "IP account sheet for editors"),
             subtitle: ipEditorSubtitleString(),
             ctaTopString: WMFLocalizedString("ip-account-cta-top", value: "Log in or create an account", comment: "Log in or create an account button title"),

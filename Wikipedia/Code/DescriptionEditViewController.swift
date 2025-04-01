@@ -90,6 +90,7 @@ protocol DescriptionEditViewControllerDelegate: AnyObject {
                 self.presentBlockedPanel(error: blockedError)
             }
         }
+        
         if !dataStore.authenticationManager.authStateIsPermanent {
             if !dataStore.authenticationManager.authStateIsTemporary {
                 authState = .ipAccount
@@ -105,7 +106,23 @@ protocol DescriptionEditViewControllerDelegate: AnyObject {
         updateFonts()
     }
     
-    public func showTempAccountToast() {
+    public func showTempAccountSheet(completion: @escaping () -> Void) {
+        guard let navigationController else { return }
+        let isTempAccount = authState == .tempAccount
+        let tempAccountSheetCoordinator = TempAccountSheetCoordinator(navigationController: navigationController, theme: theme, dataStore: dataStore, didTapDone: { [weak self] in
+            self?.dismiss(animated: true) {
+                completion()
+            }
+        }, didTapContinue: { [weak self] in
+            self?.dismiss(animated: true) {
+                completion()
+            }
+        }, isTempAccount: isTempAccount)
+        
+        _ = tempAccountSheetCoordinator.start()
+    }
+    
+    private func showTempAccountToast() {
         let authManager = dataStore.authenticationManager
         
         if !authManager.authStateIsPermanent {
@@ -168,8 +185,10 @@ protocol DescriptionEditViewControllerDelegate: AnyObject {
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        descriptionTextView.becomeFirstResponder()
+        showTempAccountSheet {
+            super.viewDidAppear(animated)
+            self.descriptionTextView.becomeFirstResponder()
+        }
     }
     
     override func viewWillDisappear(_ animated: Bool) {

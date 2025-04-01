@@ -62,11 +62,8 @@ extension ArticleViewController {
             navigationController.view.alpha = 0
         }
 
-        let showIntro: (@escaping () -> Void) -> Void = { completion in
+        let showIntro: () -> Void = {
             let welcomeVC = DescriptionWelcomeInitialViewController.wmf_viewControllerFromDescriptionWelcomeStoryboard()
-            welcomeVC.completionBlock = {
-                completion()
-            }
             welcomeVC.apply(theme: self.theme)
             navigationController.present(welcomeVC, animated: true) {
                 UserDefaults.standard.wmf_setDidShowTitleDescriptionEditingIntro(true)
@@ -76,16 +73,11 @@ extension ArticleViewController {
 
         present(navigationController, animated: !needsIntro) {
             if needsIntro {
-                showIntro {
-                    editVC.showTempAccountToast()
-                }
-            } else {
-                editVC.showTempAccountToast()
+                showIntro()
             }
         }
     }
 
-    
     private func presentEditor(editorViewController: UIViewController) {
         let presentEditorAction = { [weak self] in
               guard let self else { return }
