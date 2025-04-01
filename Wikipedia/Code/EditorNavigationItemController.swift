@@ -1,4 +1,5 @@
 import WMF
+import WMFData
 import WMFComponents
 
 protocol EditorNavigationItemControllerDelegate: AnyObject {
@@ -127,9 +128,9 @@ class EditorNavigationItemController: NSObject, Themeable {
         ])
     }
     
-    func addTempAccountsNoticesButtons() {
+    func addTempAccountsNoticesButtons(wikiHasTempAccounts: Bool?) {
         if !authManager.authStateIsPermanent {
-            if authManager.authStateIsTemporary {
+            if let isTemp = wikiHasTempAccounts, authManager.authStateIsTemporary && isTemp {
                 navigationItem?.rightBarButtonItems?.append(temporaryAccountNoticesButton)
             } else {
                 navigationItem?.rightBarButtonItems?.append(ipAccountNoticesButton)

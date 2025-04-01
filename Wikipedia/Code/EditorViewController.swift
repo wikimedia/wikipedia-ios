@@ -54,7 +54,9 @@ final class EditorViewController: UIViewController, WMFNavigationBarConfiguring 
     
     private var editConfirmationSavedData: EditSaveViewController.SaveData? = nil
     private var editCloseProblemSource: EditInteractionFunnel.ProblemSource?
-    
+
+    private var wikiHasTempAccounts: Bool?
+
     private lazy var focusNavigationView: FocusNavigationView = {
         return FocusNavigationView.wmf_viewFromClassNib()
     }()
@@ -222,7 +224,15 @@ final class EditorViewController: UIViewController, WMFNavigationBarConfiguring 
                 wikitextFetchError = error
             }
         }
-        
+
+        group.enter()
+        checkWikiStatus { langHasTempAccounts in
+            defer {
+                group.leave()
+            }
+            self.wikiHasTempAccounts = langHasTempAccounts
+        }
+
         group.notify(queue: .main) { [weak self] in
             
             guard let self else {
@@ -259,8 +269,8 @@ final class EditorViewController: UIViewController, WMFNavigationBarConfiguring 
                isDifferentErrorBannerShown = true
             }
             
-            self.navigationItemController.addTempAccountsNoticesButtons()
-            
+            self.navigationItemController.addTempAccountsNoticesButtons(wikiHasTempAccounts: wikiHasTempAccounts)
+
             let needsReadOnly = (wikitextFetchResponse.blockedError != nil) || (wikitextFetchResponse.protectedPageError != nil && !wikitextFetchResponse.userGroupLevelCanEdit)
             
             if wikitextFetchResponse.blockedError != nil {
@@ -330,7 +340,20 @@ final class EditorViewController: UIViewController, WMFNavigationBarConfiguring 
         present(alert, animated: true)
         editCloseProblemSource = .articleSelectFail
     }
-    
+
+    private func checkWikiStatus(completion: @escaping (Bool) -> Void) {
+        guard let language = pageURL.wmf_languageCode else {
+            completion(false)
+            return
+        }
+
+        let dataController = WMFTempAccountDataController.shared
+        Task {
+            let hasTempStatus = await dataController.asyncCheckWikiTempAccountAvailability(language: language, isCheckingPrimaryWiki: false)
+            completion(hasTempStatus)
+        }
+    }
+
     private func loadWikitext(completion: @escaping (Result<WikitextFetchResponse, Error>) -> Void) {
         wikitextFetcher.fetchSection(with: sectionID, articleURL: pageURL) {  [weak self] (result) in
             DispatchQueue.main.async { [weak self] in
