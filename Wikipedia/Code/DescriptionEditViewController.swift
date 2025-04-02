@@ -170,7 +170,7 @@ protocol DescriptionEditViewControllerDelegate: AnyObject {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        self.descriptionTextView.becomeFirstResponder()
+        showTempAccountToast()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
