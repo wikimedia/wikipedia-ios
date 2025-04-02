@@ -24,8 +24,18 @@ protocol DescriptionEditViewControllerDelegate: AnyObject {
     private var editType: ArticleDescriptionEditType = .add
 
     var delegate: DescriptionEditViewControllerDelegate? = nil
+    var authState: AuthState? = nil
     
     private var articleDescriptionController: ArticleDescriptionControlling!
+    private var toastView: UIView?
+    
+    var tempAccountsMediaWikiURL: String {
+        var languageCodeSuffix = ""
+        if let primaryAppLanguageCode = dataStore.languageLinkController.appLanguage?.languageCode {
+            languageCodeSuffix = "\(primaryAppLanguageCode)"
+        }
+        return "https://www.mediawiki.org/wiki/Special:MyLanguage/Help:Temporary_accounts?uselang=\(languageCodeSuffix)"
+    }
     
     // These would be better as let's and a required initializer but it's not an opportune time to ditch the storyboard
     // Convert these to non-force unwrapped if there's some way to ditch the storyboard or provide an initializer with the storyboard
@@ -81,10 +91,75 @@ protocol DescriptionEditViewControllerDelegate: AnyObject {
             }
         }
         
+        if !dataStore.authenticationManager.authStateIsPermanent {
+            if !dataStore.authenticationManager.authStateIsTemporary {
+                authState = .ipAccount
+            } else {
+                authState = .tempAccount
+            }
+        } else {
+            authState = .loggedIn
+        }
         descriptionTextView.textContainer.lineFragmentPadding = 0
         descriptionTextView.textContainerInset = .zero
         
         updateFonts()
+    }
+    
+    private func showTempAccountToast() {
+        let authManager = dataStore.authenticationManager
+        
+        if !authManager.authStateIsPermanent {
+            if authManager.authStateIsTemporary {
+                // Notice
+                let format = CommonStrings.saveViewTempAccountNotice
+                let username = dataStore.authenticationManager.authStateTemporaryUsername ?? "*****"
+                let title = String.localizedStringWithFormat(format, username)
+                let image = UIImage(systemName: "exclamationmark.circle.fill")
+                WMFAlertManager.sharedInstance.showBottomAlertWithMessage(
+                    title,
+                    subtitle: nil,
+                    image: image,
+                    type: .custom,
+                    customTypeName: "edit-published",
+                    dismissPreviousAlerts: true,
+                    buttonTitle: CommonStrings.tempAccountsReadMoreTitle,
+                    buttonCallBack: {
+                        guard let navigationController = self.navigationController else { return }
+                        let tempAccountSheetCoordinator = TempAccountSheetCoordinator(navigationController: navigationController, theme: self.theme, dataStore: self.dataStore, didTapDone: { [weak self] in
+                            self?.dismiss(animated: true)
+                        }, didTapContinue: { [weak self] in
+                            self?.dismiss(animated: true)
+                        }, isTempAccount: true)
+                        
+                        _ = tempAccountSheetCoordinator.start()
+                    }
+                )
+            } else {
+                // Warning
+                let title = CommonStrings.saveViewTempAccountWarning
+                let image = UIImage(systemName: "exclamationmark.triangle.fill")
+                WMFAlertManager.sharedInstance.showBottomAlertWithMessage(
+                    title,
+                    subtitle: nil,
+                    image: image,
+                    type: .custom,
+                    customTypeName: "edit-published",
+                    dismissPreviousAlerts: true,
+                    buttonTitle: CommonStrings.tempAccountsReadMoreTitle,
+                    buttonCallBack: {
+                        guard let navigationController = self.navigationController else { return }
+                        let tempAccountSheetCoordinator = TempAccountSheetCoordinator(navigationController: navigationController, theme: self.theme, dataStore: self.dataStore, didTapDone: { [weak self] in
+                            self?.dismiss(animated: true)
+                        }, didTapContinue: { [weak self] in
+                            self?.dismiss(animated: true)
+                        }, isTempAccount: false)
+                        
+                        _ = tempAccountSheetCoordinator.start()
+                    }
+                )
+            }
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -95,7 +170,7 @@ protocol DescriptionEditViewControllerDelegate: AnyObject {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        descriptionTextView.becomeFirstResponder()
+        showTempAccountToast()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -287,10 +362,47 @@ protocol DescriptionEditViewControllerDelegate: AnyObject {
                         
                         EditAttemptFunnel.shared.logSaveSuccess(pageURL: articleURL, revisionId: revisionID)
                     }
+                    var needsNewTempAccountToast = false
+                    guard let dataStore = self.dataStore else { return }
+                    if !dataStore.authenticationManager.authStateIsPermanent {
+                        if dataStore.authenticationManager.authStateIsTemporary {
+                            if self.authState == .ipAccount {
+                                needsNewTempAccountToast = true
+                            }
+                        }
+                    }
                     self.dismiss(animated: true) {
-                        presentingVC?.wmf_showDescriptionPublishedPanelViewController(theme: self.theme)
+                        presentingVC?.wmf_showDescriptionPublishedPanelViewController(theme: self.theme, completion: {
+                            let tempAccountUsername = self.dataStore.authenticationManager.authStateTemporaryUsername ?? "*****"
+                            let title = CommonStrings.tempAccountPublishTitle
+                            let format = WMFLocalizedString("description-editing-temp-account-created-subtitle", value: "Temporary account %1$@ was created after your edit was published. It will expire in 90 days.", comment: "More information on the creation of temporary accounts, $1 replaces their username.")
+                            let subtitle = String.localizedStringWithFormat(format, tempAccountUsername)
+                            let image = WMFIcon.temp
+
+                            if needsNewTempAccountToast {
+                                WMFAlertManager.sharedInstance.showBottomAlertWithMessage(
+                                    title,
+                                    subtitle: subtitle,
+                                    image: image,
+                                    type: .custom,
+                                    customTypeName: "edit-published",
+                                    dismissPreviousAlerts: true,
+                                    buttonTitle: CommonStrings.learnMoreTitle(),
+                                    buttonCallBack: {
+                                        if let url = URL(string: self.tempAccountsMediaWikiURL) {
+                                            let config = SinglePageWebViewController.StandardConfig(url: url, useSimpleNavigationBar: true)
+                                            let webVC = SinglePageWebViewController(configType: .standard(config), theme: self.theme)
+                                            let newNavigationVC =
+                                            WMFComponentNavigationController(rootViewController: webVC, modalPresentationStyle: .formSheet)
+                                            presentingVC?.present(newNavigationVC, animated: true)
+                                        }
+                                    }
+                                )
+                            }
+                        })
                         NotificationCenter.default.post(name: DescriptionEditViewController.didPublishNotification, object: nil)
                     }
+
                 case .failure(let error):
                     let nsError = error as NSError
                     if let articleURL = self.articleDescriptionController.article.url {

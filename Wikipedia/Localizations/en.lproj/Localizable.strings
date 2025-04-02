@@ -146,6 +146,7 @@
 "description-edit-title" = "Edit description";
 "description-edit-warning" = "Try to keep descriptions short so users can understand the article's subject at a glance";
 "description-edit-warning-casing" = "Only proper nouns should be capitalized, even at the start of the sentence.";
+"description-editing-temp-account-created-subtitle" = "Temporary account $1 was created after your edit was published. It will expire in 90 days.";
 "description-help-about-description" = "Article descriptions summarize an article to help readers understand the subject at a glance.";
 "description-help-about-title" = "About";
 "description-help-about-wikidata" = "About Wikidata";
@@ -1018,7 +1019,7 @@
 "return-button-title" = "Return";
 "return-to-article" = "Return to article";
 "reverted-edit-title" = "Reverted edit";
-"save-view-temp-account-notic" = "You are using a temporary account. Edits are being attributed to $1...";
+"save-view-temp-account-notice" = "You are using a temporary account. Edits are being attributed to $1...";
 "save-view-temp-account-warning" = "You are not logged in. Once you make an edit a temporary account will be created for...";
 "saved-all-articles-title" = "All articles";
 "saved-default-reading-list-tag" = "This list cannot be deleted";

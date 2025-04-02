@@ -134,7 +134,7 @@ final class TempAccountSheetCoordinator: Coordinator {
     private func presentIPEditorSheet() {
         var hostingController: UIHostingController<WMFTempAccountsSheetView>?
         let vm = WMFTempAccountsSheetViewModel(
-            image: "lockedEdit",
+            image: "locked-edit",
             title: CommonStrings.ipWarningTitle,
             subtitle: ipEditorSubtitleString(),
             ctaTopString: WMFLocalizedString("ip-account-cta-top", value: "Log in or create an account", comment: "Log in or create an account button title"),

@@ -52,32 +52,51 @@ extension ArticleViewController {
             return
         }
         
-        let editVC = DescriptionEditViewController.with(dataStore: dataStore, theme: theme, articleDescriptionController: descriptionController)
-        editVC.delegate = self
-        let navigationController = WMFComponentNavigationController(rootViewController: editVC, modalPresentationStyle: .overFullScreen)
-        navigationController.view.isOpaque = false
-        navigationController.view.backgroundColor = .clear
-       let needsIntro = !UserDefaults.standard.wmf_didShowTitleDescriptionEditingIntro()
-       if needsIntro {
-           navigationController.view.alpha = 0
-       }
-        let showIntro: (() -> Void)? = {
-            let welcomeVC = DescriptionWelcomeInitialViewController.wmf_viewControllerFromDescriptionWelcomeStoryboard()
-            welcomeVC.completionBlock = {
-            }
-            welcomeVC.apply(theme: self.theme)
-            navigationController.present(welcomeVC, animated: true) {
-                UserDefaults.standard.wmf_setDidShowTitleDescriptionEditingIntro(true)
-                navigationController.view.alpha = 1
+        let presentEditorAction = { [weak self] in
+            guard let self else { return }
+            let editVC = DescriptionEditViewController.with(dataStore: self.dataStore, theme: self.theme, articleDescriptionController: descriptionController)
+            editVC.delegate = self
+            let navigationController = WMFComponentNavigationController(rootViewController: editVC, modalPresentationStyle: .overFullScreen)
+            
+            let needsIntro = !UserDefaults.standard.wmf_didShowTitleDescriptionEditingIntro()
+            if needsIntro {
+                let welcomeVC = DescriptionWelcomeInitialViewController.wmf_viewControllerFromDescriptionWelcomeStoryboard()
+                welcomeVC.completionBlock = { [weak self] in
+                    guard let self else { return }
+                    UserDefaults.standard.wmf_setDidShowTitleDescriptionEditingIntro(true)
+                    self.present(navigationController, animated: true)
+                }
+                welcomeVC.apply(theme: self.theme)
+                self.present(welcomeVC, animated: true)
+            } else {
+                self.present(navigationController, animated: true)
             }
         }
-        present(navigationController, animated: !needsIntro) {
-            if needsIntro {
-                showIntro?()
-            }
+
+        guard let navigationController else { return }
+
+        if !authManager.authStateIsPermanent {
+            let tempAccountsCoordinator = TempAccountSheetCoordinator(
+                navigationController: navigationController,
+                theme: theme,
+                dataStore: dataStore,
+                didTapDone: { [weak self] in
+                    self?.dismiss(animated: true)
+                },
+                didTapContinue: { [weak self] in
+                    self?.dismiss(animated: true, completion: {
+                        presentEditorAction()
+                    })
+                },
+                isTempAccount: authManager.authStateIsTemporary
+            )
+            
+            _ = tempAccountsCoordinator.start()
+        } else {
+            presentEditorAction()
         }
     }
-    
+
     private func presentEditor(editorViewController: UIViewController) {
         let presentEditorAction = { [weak self] in
             guard let self else { return }
