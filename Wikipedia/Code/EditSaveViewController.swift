@@ -101,7 +101,8 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
     private var buttonX: UIBarButtonItem?
     private var abuseFilterCode = ""
     private var summaryText = ""
-    
+    private var wikiHasTempAccounts: Bool?
+
     @IBOutlet weak var showWebPreviewContainerView: UIView!
     private var showWebPreviewButtonHostingController: UIHostingController<WMFSmallButton>?
 
@@ -237,9 +238,12 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         imageRecLoggingDelegate?.logEditSaveViewControllerDidAppear()
-        
+
         guard let dataStore else { return }
+		Task {
+            wikiHasTempAccounts = await checkWikiStatus()
         if !dataStore.authenticationManager.authStateIsPermanent {
+			if let wikiHasTempAccounts {
             if dataStore.authenticationManager.authStateIsTemporary {
                 // Notice
                 let format = CommonStrings.saveViewTempAccountNotice
@@ -288,10 +292,12 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
                         _ = tempAccountSheetCoordinator.start()
                     }
                 )
+}
+}
             }
         }
     }
-    
+
     private func configureNavigationBar() {
         let titleConfig = WMFNavigationBarTitleConfig(title: WMFLocalizedString("wikitext-preview-save-changes-title", value: "Save changes", comment: "Title for edit preview screens"), customView: nil, alignment: .centerCompact)
         configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: nil, profileButtonConfig: nil, searchBarConfig: nil, hideNavigationBarOnScroll: false)
@@ -372,7 +378,14 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
             }
         }
     }
-    
+
+    private func checkWikiStatus() async -> Bool? {
+        guard let languageCode else { return false }
+        let dataController = WMFTempAccountDataController.shared
+        return await dataController.asyncCheckWikiTempAccountAvailability(language: languageCode, isCheckingPrimaryWiki: false)
+
+    }
+
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
         updateTextViews()
@@ -481,6 +494,7 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
     }
     
     private func handleEditSuccess(with result: [AnyHashable: Any]) {
+
         var needsNewTempAccountToast = false
         guard let dataStore else { return }
         if !dataStore.authenticationManager.authStateIsPermanent {
@@ -490,7 +504,7 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
                 }
             }
         }
-        
+
         let notifyDelegate: (Result<EditorChanges, Error>) -> Void = { result in
             self.delegate?.editSaveViewControllerDidSave(self, result: result, needsNewTempAccountToast: needsNewTempAccountToast)
         }
