@@ -106,22 +106,6 @@ protocol DescriptionEditViewControllerDelegate: AnyObject {
         updateFonts()
     }
     
-    public func showTempAccountSheet(completion: @escaping () -> Void) {
-        guard let navigationController else { return }
-        let isTempAccount = authState == .tempAccount
-        let tempAccountSheetCoordinator = TempAccountSheetCoordinator(navigationController: navigationController, theme: theme, dataStore: dataStore, didTapDone: { [weak self] in
-            self?.dismiss(animated: true) {
-                completion()
-            }
-        }, didTapContinue: { [weak self] in
-            self?.dismiss(animated: true) {
-                completion()
-            }
-        }, isTempAccount: isTempAccount)
-        
-        _ = tempAccountSheetCoordinator.start()
-    }
-    
     private func showTempAccountToast() {
         let authManager = dataStore.authenticationManager
         
@@ -185,10 +169,8 @@ protocol DescriptionEditViewControllerDelegate: AnyObject {
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        showTempAccountSheet {
-            super.viewDidAppear(animated)
-            self.descriptionTextView.becomeFirstResponder()
-        }
+        super.viewDidAppear(animated)
+        self.descriptionTextView.becomeFirstResponder()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
