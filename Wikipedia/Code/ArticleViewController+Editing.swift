@@ -276,7 +276,7 @@ extension ArticleViewController: EditorViewControllerDelegate {
                 
                 let title = CommonStrings.editPublishedToastTitle
                 let image = UIImage(systemName: "checkmark.circle.fill")
-                let tempAccountUsername = self.dataStore.authenticationManager.authStateTemporaryUsername ?? "*****"
+                let tempAccountUsername = self.dataStore.authenticationManager.authStateTemporaryUsername
                 
                 if UIAccessibility.isVoiceOverRunning {
                     DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
@@ -291,9 +291,8 @@ extension ArticleViewController: EditorViewControllerDelegate {
                         customTypeName: "edit-published",
                         dismissPreviousAlerts: true,
                         completion: {
-                            let title = WMFLocalizedString("article-view-controller-editing-temp-account-created-title", value: "Temporary account created", comment: "After a user edits an article, creating an IP account, this pop-up title lets them know.")
-                            let format = WMFLocalizedString("article-view-controller-editing-temp-account-created-subtitle", value: "Temporary account %1$@ was created after your edit was published. It will expire in 90 days.", comment: "More information on the creation of temporary accounts, $1 replaces their username.")
-                            let subtitle = String.localizedStringWithFormat(format, tempAccountUsername)
+                            let title = CommonStrings.tempAccountCreatedToastTitle
+                            let subtitle = CommonStrings.tempAccountCreatedToastSubtitle(username: tempAccountUsername)
                             let image = WMFIcon.temp
                             if needsNewTempAccountToast ?? false {
                                 WMFAlertManager.sharedInstance.showBottomAlertWithMessage(

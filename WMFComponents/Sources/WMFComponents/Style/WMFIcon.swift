@@ -66,6 +66,7 @@ public enum WMFSFSymbolIcon {
     case italic
     case exclamationMarkCircle
     case exclamationMarkCircleFill
+    case exclamationMarkTriangleFill
     case textFormatSuperscript
     case textFormatSubscript
     case underline
@@ -172,6 +173,8 @@ public enum WMFSFSymbolIcon {
             image = UIImage(systemName: "exclamationmark.circle", withConfiguration: configuration)
         case .exclamationMarkCircleFill:
             image = UIImage(systemName: "exclamationmark.circle.fill", withConfiguration: configuration)
+        case .exclamationMarkTriangleFill:
+            image = UIImage(systemName: "exclamationmark.triangle.fill", withConfiguration: configuration)
         case .textFormatSuperscript:
             image = UIImage(systemName: "textformat.superscript", withConfiguration: configuration)
         case .textFormatSubscript:
