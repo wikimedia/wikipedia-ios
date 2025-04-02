@@ -78,6 +78,18 @@ class TalkPageReplyComposeContentView: SetupView {
         return label
     }()
     
+    private lazy var footerButtonStackView: UIStackView = {
+        let stackView = UIStackView(frame: .zero)
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.axis = .horizontal
+        stackView.alignment = .leading
+        stackView.distribution = .fillEqually
+        stackView.setContentHuggingPriority(.required, for: .vertical)
+        stackView.setContentCompressionResistancePriority(.required, for: .vertical)
+        stackView.spacing = 10
+        return stackView
+    }()
+    
     private lazy var infoButton: UIButton = {
         let button = UIButton(type: .custom)
 
@@ -87,16 +99,40 @@ class TalkPageReplyComposeContentView: SetupView {
         return button
     }()
     
+    private(set) lazy var ipTempButton: UIButton = {
+        let button = UIButton(type: .custom)
+        
+        var image: UIImage? = nil
+        if authState == .ip {
+            image = WMFSFSymbolIcon.for(symbol: .temporaryAccountIcon)
+        } else if authState == .temp {
+            image = WMFIcon.temp
+        }
+        
+        if let image {
+            button.setImage(image, for: .normal)
+        }
+        
+        button.addTarget(self, action: #selector(tappedIPTemp), for: .touchUpInside)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
+    
     private(set) var commentViewModel: TalkPageCellCommentViewModel
     private var theme: Theme
     private weak var linkDelegate: TalkPageTextViewLinkHandling?
+    private weak var authenticationManager: WMFAuthenticationManager?
+    private var bottomContainerConstraint: NSLayoutConstraint?
+    private let tappedIPTempButtonAction: () -> Void
     
     // MARK: Lifecycle
     
-    init(commentViewModel: TalkPageCellCommentViewModel, theme: Theme, linkDelegate: TalkPageTextViewLinkHandling) {
+    init(commentViewModel: TalkPageCellCommentViewModel, theme: Theme, linkDelegate: TalkPageTextViewLinkHandling, authenticationManager: WMFAuthenticationManager?, tappedIPTempButtonAction: @escaping () -> Void) {
         self.commentViewModel = commentViewModel
         self.theme = theme
         self.linkDelegate = linkDelegate
+        self.authenticationManager = authenticationManager
+        self.tappedIPTempButtonAction = tappedIPTempButtonAction
         super.init(frame: .zero)
     }
     
@@ -111,9 +147,9 @@ class TalkPageReplyComposeContentView: SetupView {
         setupContainerScrollView()
         setupStackView()
         setupReplyTextView()
+        setupFooterButtonStackView()
         setupFinePrintTextView()
         setupPlaceholderLabel()
-        setupInfoButton()
         updateFonts()
         apply(theme: theme)
         
@@ -199,8 +235,16 @@ class TalkPageReplyComposeContentView: SetupView {
         let bottomConstraint = containerScrollView.bottomAnchor.constraint(equalTo: verticalStackView.bottomAnchor)
         let centerXConstraint = verticalStackView.centerXAnchor.constraint(equalTo: containerScrollView.centerXAnchor)
         
-        let bottomContainerConstraint = safeAreaLayoutGuide.bottomAnchor.constraint(equalTo: verticalStackView.bottomAnchor, constant: 5)
+        let bottomSpacing: CGFloat
+        if authState == .ip || authState == .temp {
+            bottomSpacing = 100 // Add a little spacing to make room for toast
+        } else {
+            bottomSpacing = 5
+        }
+        
+        let bottomContainerConstraint = safeAreaLayoutGuide.bottomAnchor.constraint(equalTo: verticalStackView.bottomAnchor, constant: bottomSpacing)
         bottomContainerConstraint.priority = .defaultHigh
+        self.bottomContainerConstraint = bottomContainerConstraint
         
         NSLayoutConstraint.activate([topConstraint, trailingConstraint, leadingConstraint, bottomConstraint, bottomContainerConstraint, centerXConstraint])
     }
@@ -212,6 +256,26 @@ class TalkPageReplyComposeContentView: SetupView {
         replyTextView.setContentCompressionResistancePriority(.required, for: .vertical)
         
         readableContentGuide.widthAnchor.constraint(equalTo: replyTextView.widthAnchor).isActive = true
+    }
+    
+    private func setupFooterButtonStackView() {
+        verticalStackView.addArrangedSubview(footerButtonStackView)
+        
+        NSLayoutConstraint.activate([
+            // I don't know why this height constraint is needed. Without it the footerButtonStackView expands vertically to fill remaining space, despite it and content within have hugging priority set to required.
+            footerButtonStackView.heightAnchor.constraint(equalToConstant: 25)
+        ])
+        
+        if authState == .ip || authState == .temp {
+            ipTempButton.setContentHuggingPriority(.required, for: .vertical)
+            ipTempButton.setContentCompressionResistancePriority(.required, for: .vertical)
+            footerButtonStackView.addArrangedSubview(ipTempButton)
+        }
+        
+        infoButton.setContentHuggingPriority(.required, for: .vertical)
+        infoButton.setContentCompressionResistancePriority(.required, for: .vertical)
+        footerButtonStackView.addArrangedSubview(infoButton)
+        infoButton.alpha = 0
     }
     
     private func setupFinePrintTextView() {
@@ -236,11 +300,6 @@ class TalkPageReplyComposeContentView: SetupView {
         let leadingConstraint = replyTextView.leadingAnchor.constraint(equalTo: placeholderLabel.leadingAnchor)
         
         NSLayoutConstraint.activate([topConstraint, trailingConstraint, leadingConstraint])
-    }
-    
-    private func setupInfoButton() {
-        infoButton.setContentHuggingPriority(.required, for: .vertical)
-        infoButton.setContentCompressionResistancePriority(.required, for: .vertical)
     }
     
     private func updateSemanticContentAttribute(_ semanticContentAttribute: UISemanticContentAttribute) {
@@ -268,16 +327,38 @@ class TalkPageReplyComposeContentView: SetupView {
         toggleFinePrint(shouldShow: true)
     }
     
+    @objc private func tappedIPTemp() {
+        tappedIPTempButtonAction()
+    }
+    
     // MARK: Helpers
+    
+    private enum AuthState {
+        case ip
+        case temp
+        case perm
+    }
+    
+    private var authState: AuthState {
+        if authenticationManager?.authStateIsPermanent ?? false {
+            return .perm
+        } else {
+            if authenticationManager?.authStateIsTemporary ?? false {
+                return .temp
+            } else {
+                return .ip
+            }
+        }
+    }
     
     private func toggleFinePrint(shouldShow: Bool) {
         if shouldShow {
-            infoButton.removeFromSuperview()
+            infoButton.alpha = 0
             verticalStackView.addArrangedSubview(finePrintTextView)
             finePrintTextView.widthAnchor.constraint(equalTo: replyTextView.widthAnchor).isActive = true
         } else {
+            infoButton.alpha = 1
             finePrintTextView.removeFromSuperview()
-            verticalStackView.addArrangedSubview(infoButton)
         }
     }
     
@@ -327,6 +408,12 @@ extension TalkPageReplyComposeContentView: UITextViewDelegate {
          
          placeholderLabel.alpha = 0
          toggleFinePrint(shouldShow: false)
+         
+         if authState == .ip || authState == .temp {
+             // Dismiss warning toast
+             WMFAlertManager.sharedInstance.dismissAlert()
+             bottomContainerConstraint?.constant = 5
+         }
      }
     
     func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
@@ -353,5 +440,11 @@ extension TalkPageReplyComposeContentView: Themeable {
         
         let currentSemanticContentAttribute = verticalStackView.semanticContentAttribute
         updateSemanticContentAttribute(currentSemanticContentAttribute)
+        
+        if authState == .ip {
+            ipTempButton.tintColor = theme.colors.destructive
+        } else if authState == .temp {
+            ipTempButton.tintColor = theme.colors.inputAccessoryButtonTint
+        }
     }
 }

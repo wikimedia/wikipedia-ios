@@ -12,6 +12,7 @@ struct TalkPageArchivesViewModel {
     let articleSummaryController: ArticleSummaryController
     let authenticationManager: WMFAuthenticationManager
     let languageLinkController: MWKLanguageLinkController
+    let dataStore: MWKDataStore
     
     init(talkPageViewModel: TalkPageViewModel) {
         self.siteURL = talkPageViewModel.siteURL
@@ -20,6 +21,7 @@ struct TalkPageArchivesViewModel {
         self.articleSummaryController = talkPageViewModel.dataController.articleSummaryController
         self.authenticationManager = talkPageViewModel.authenticationManager
         self.languageLinkController = talkPageViewModel.languageLinkController
+        self.dataStore = talkPageViewModel.dataStore
     }
 }
 
@@ -84,7 +86,7 @@ class TalkPageArchivesViewController: UIViewController, Themeable, WMFNavigation
     }
     
     private func didTapItem(_ item: TalkPageArchivesItem) {
-        guard let viewModel = TalkPageViewModel(pageType: viewModel.pageType, pageTitle: item.title, siteURL: viewModel.siteURL, source: .talkPageArchives, articleSummaryController: viewModel.articleSummaryController, authenticationManager: viewModel.authenticationManager, languageLinkController: viewModel.languageLinkController) else {
+        guard let viewModel = TalkPageViewModel(pageType: viewModel.pageType, pageTitle: item.title, siteURL: viewModel.siteURL, source: .talkPageArchives, articleSummaryController: viewModel.articleSummaryController, authenticationManager: viewModel.authenticationManager, languageLinkController: viewModel.languageLinkController, dataStore: viewModel.dataStore) else {
                 showGenericError()
                 return
             }
