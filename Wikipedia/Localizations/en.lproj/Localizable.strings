@@ -624,8 +624,9 @@
 "inuktitut-variants-alert-title" = "Updates to Inuktitut variant support";
 "ip-account-cta-bottom" = "Continue without logging in";
 "ip-account-cta-top" = "Log in or create an account";
-"ip-account-edit-sheet" = "You are not logged in";
 "ip-account-edit-sheet-subtitle" = "Once you make an edit, a $1temporary account$2 will be created for you to protect your privacy. $3Learn more.$4$5Log in or create an account to get credit for future edits and to access other features.";
+"ip-account-warning-subtitle" = "On publish a temporary account will be created for you.";
+"ip-account-warning-title" = "You are not logged in";
 "kazakh-variants-alert-body" = "The Wikipedia app now supports the following Kazakh variants as primary or secondary languages within the app, making it easier to read, search and edit in your preferred variants:\n\nҚазақша Kazakh (kk)\nҚазақша Кирил Kazakh, Cyrillic (kk-cyrl)\nqazaqşa latin Kazakh, Latin (kk-latn)\nتوتە قازاقشا Kazakh, Arabic (kk-arab)";
 "kazakh-variants-alert-title" = "Updates to Kazakh variant support";
 "kurdish-variants-alert-body" = "The Wikipedia app now supports the following Kurdish variants as primary or secondary languages within the app, making it easier to read, search and edit in your preferred variants:\n\nKurdî Latînî Kurdish, Latin (ku-latn)\nكوردی Kurdish, Arabic (kk-arab)";
@@ -1198,10 +1199,11 @@
 "temp-account-alert-read-more-information" = "$1You are using a temporary account.$2 Account will expire in 90 days. After it expires, a new one will be created the next time you make an edit without logging in. $3Log in or create an account to get credit for future edits, and access other features.";
 "temp-account-edit-sheet-cta-top" = "Log in or create an account";
 "temp-account-edit-sheet-subtitle" = "Your edit will be attributed to $2$1$3. Your $4IP address$5 will be visible to administrators. $7Learn more.$5$6 If you log in or create an account, your edits will be attributed to a name you choose, among other benefits.";
-"temp-account-edit-sheet-title" = "You are using a temporary account";
 "temp-account-got-it" = "Got it";
 "temp-account-toast-read-more-title" = "Read more";
 "temp-account-toast-title" = "$1You are currently using a temporary account.$2 Edits made with the temporary...";
+"temp-account-warning-title" = "You are using a temporary account";
+"temp-warning-subtitle-format" = "Your edit will be attributed to $1";
 "temporary-account" = "Temporary Account";
 "terms-of-use-title" = "Terms of use";
 "theme-black-display-name" = "Black";

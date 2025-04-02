@@ -624,8 +624,9 @@
 "inuktitut-variants-alert-title" = "Title of alert used to inform users about Inuktitut variant support.";
 "ip-account-cta-bottom" = "Continue without logging in button title";
 "ip-account-cta-top" = "Log in or create an account button title";
-"ip-account-edit-sheet" = "IP account sheet for editors";
 "ip-account-edit-sheet-subtitle" = "Information on temporary accounts, $1 is the opening bold bracket, $2 is the closing, $3 is the opening HTML link, $4 is the closing link, $5 is the line breaks.";
+"ip-account-warning-subtitle" = "Warning subtitle text presented to anonymous editors before entering an edit flow.";
+"ip-account-warning-title" = "Warning title text presented to anonymous editors before entering an edit flow.";
 "kazakh-variants-alert-body" = "Body text of alert used to inform users about Kazakh variant support. Please do not translate the newlines (\n) or Kazakh characters (Қазақша, etc.).";
 "kazakh-variants-alert-title" = "Title of alert used to inform users about Kazakh variant support.";
 "kurdish-variants-alert-body" = "Body text of alert used to inform users about Kurdish variant support. Please do not translate the newlines (\n) or Kurdish characters (كوردی, etc.).";
@@ -1198,10 +1199,11 @@
 "temp-account-alert-read-more-information" = "Information on temporary accounts, $1 is the opening bold, $2 is the closing bold, $3 is the line breaks.";
 "temp-account-edit-sheet-cta-top" = "Temporary account sheet for editors, log in/sign up.";
 "temp-account-edit-sheet-subtitle" = "Information on temporary accounts, $1 is the temporary username, $2 and $3 are opening and closing bold, $4 is the URL opening tag, and $5 is the closing. $6 is the linebreaks. $7 is the opening for the learn more link.";
-"temp-account-edit-sheet-title" = "Temporary account sheet for editors";
 "temp-account-got-it" = "Got it button";
 "temp-account-toast-read-more-title" = "Read more button for the toast for temporary accounts.";
 "temp-account-toast-title" = "Temporary accounts toast information. $1 and $2 are opening and closing bold";
+"temp-account-warning-title" = "Warning title text presented to temporary account editors before entering an edit flow.";
+"temp-warning-subtitle-format" = "Warning subtitle text presented to temporary account editors before entering an edit flow. $1 is replaced with the temporary account username.";
 "temporary-account" = "Temporary account title text";
 "terms-of-use-title" = "Title for the terms of use";
 "theme-black-display-name" = "Black theme name presented to the user";
