@@ -36,8 +36,8 @@ class EditorNavigationItemController: NSObject, Themeable {
         undoButton.tintColor = theme.colors.inputAccessoryButtonTint
         redoButton.tintColor = theme.colors.inputAccessoryButtonTint
         editNoticesButton.tintColor = theme.colors.diffCompareAccent
-        temporaryAccountNoticesButton.tintColor = theme.colors.inputAccessoryButtonTint
-        ipAccountNoticesButton.tintColor = theme.colors.destructive
+        activeTemporaryAccountNoticesButton.tintColor = theme.colors.inputAccessoryButtonTint
+        temporaryAccountNoticesButton.tintColor = theme.colors.destructive
         readingThemesControlsButton.tintColor = theme.colors.inputAccessoryButtonTint
         (separatorButton.customView as? UIImageView)?.tintColor = theme.colors.newBorder
     }
@@ -67,13 +67,13 @@ class EditorNavigationItemController: NSObject, Themeable {
         return button
     }()
     
-    private lazy var temporaryAccountNoticesButton: UIBarButtonItem = {
+    private lazy var activeTemporaryAccountNoticesButton: UIBarButtonItem = {
         let button = UIBarButtonItem(image: WMFIcon.temp, style: .plain, target: self, action: #selector(temporaryAccount(_ :)))
         button.accessibilityLabel = WMFLocalizedString("edit-sheet-temp-account-notice", value: "Temporary Account Notice", comment: "Temporary account sheet for editors")
         return button
     }()
     
-    private lazy var ipAccountNoticesButton: UIBarButtonItem = {
+    private lazy var temporaryAccountNoticesButton: UIBarButtonItem = {
         let button = UIBarButtonItem(image: WMFSFSymbolIcon.for(symbol: .temporaryAccountIcon), style: .plain, target: self, action: #selector(ipAccount(_ :)))
         button.accessibilityLabel = WMFLocalizedString("edit-sheet-ip-account-notice", value: "IP Account Notice", comment: "Temporary account sheet for editors")
         return button
@@ -99,11 +99,11 @@ class EditorNavigationItemController: NSObject, Themeable {
     }
     
     @objc private func temporaryAccount(_ sender: UIBarButtonItem) {
-        delegate?.editorNavigationItemController(self, didTapTemporaryAccountNoticesButton: temporaryAccountNoticesButton)
+        delegate?.editorNavigationItemController(self, didTapTemporaryAccountNoticesButton: activeTemporaryAccountNoticesButton)
     }
     
     @objc private func ipAccount(_ sender: UIBarButtonItem) {
-        delegate?.editorNavigationItemController(self, didTapIPAccountNoticesButton: ipAccountNoticesButton)
+        delegate?.editorNavigationItemController(self, didTapIPAccountNoticesButton: temporaryAccountNoticesButton)
     }
 
     @objc private func undo(_ sender: UIBarButtonItem) {
@@ -129,12 +129,11 @@ class EditorNavigationItemController: NSObject, Themeable {
     }
     
     func addTempAccountsNoticesButtons(wikiHasTempAccounts: Bool?) {
-        if !authManager.authStateIsPermanent {
-            if let isTemp = wikiHasTempAccounts, authManager.authStateIsTemporary && isTemp {
-                navigationItem?.rightBarButtonItems?.append(temporaryAccountNoticesButton)
-            } else {
-                navigationItem?.rightBarButtonItems?.append(ipAccountNoticesButton)
-            }
+        guard let wikiHasTempAccounts, wikiHasTempAccounts, !authManager.authStateIsPermanent else { return }
+        if authManager.authStateIsTemporary {
+            navigationItem?.rightBarButtonItems?.append(activeTemporaryAccountNoticesButton)
+        } else {
+            navigationItem?.rightBarButtonItems?.append(temporaryAccountNoticesButton)
         }
     }
 
