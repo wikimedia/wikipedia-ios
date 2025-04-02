@@ -56,21 +56,23 @@ extension ArticleViewController {
             guard let self else { return }
             let editVC = DescriptionEditViewController.with(dataStore: self.dataStore, theme: self.theme, articleDescriptionController: descriptionController)
             editVC.delegate = self
-          let navigationController = WMFComponentNavigationController(rootViewController: editVC, modalPresentationStyle: .overFullScreen)
+            let navigationController = WMFComponentNavigationController(rootViewController: editVC, modalPresentationStyle: .overFullScreen)
             
             let needsIntro = !UserDefaults.standard.wmf_didShowTitleDescriptionEditingIntro()
             if needsIntro {
                 let welcomeVC = DescriptionWelcomeInitialViewController.wmf_viewControllerFromDescriptionWelcomeStoryboard()
-                welcomeVC.apply(theme: self.theme)
-                self.present(welcomeVC, animated: true) {
+                welcomeVC.completionBlock = { [weak self] in
+                    guard let self else { return }
                     UserDefaults.standard.wmf_setDidShowTitleDescriptionEditingIntro(true)
-                    self.view.alpha = 1
+                    self.present(navigationController, animated: true)
                 }
+                welcomeVC.apply(theme: self.theme)
+                self.present(welcomeVC, animated: true)
             } else {
                 self.present(navigationController, animated: true)
             }
         }
-        
+
         guard let navigationController else { return }
 
         if !authManager.authStateIsPermanent {
