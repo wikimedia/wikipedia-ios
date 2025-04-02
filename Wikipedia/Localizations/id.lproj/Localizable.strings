@@ -19,6 +19,7 @@
 // Author: Hanif Al Husaini
 // Author: Hendra ibaraki1
 // Author: Hidayatsrf
+// Author: ID Owly01
 // Author: Iwan Novirion
 // Author: Kenrick95
 // Author: Macofe
@@ -287,8 +288,7 @@
 "edit-summary-choice-fixed-typos" = "Perbaikan kesalahan ketik";
 "edit-summary-choice-linked-words" = "Penambahan pranala";
 "edit-summary-placeholder-text" = "Bagaimana Anda menyempurnakan artikel ini?";
-// Fuzzy
-"edit-watch-list-learn-more-text" = "Pelajari lebih lanjut tentang daftar pantauan";
+"edit-watch-list-learn-more-text" = "Pelajari lebih lanjut tentang Daftar Pantauan Anda";
 "edit-watch-this-page-text" = "Pantau halaman ini";
 "editing-welcome-be-bold-subtitle" = "Bersikaplah agar berani tetapi tidak sembrono dalam memperbarui artikel. Jangan menderita karena membuat kesalahan: setiap versi halaman sebelumnya disimpan, sehingga kesalahan dapat dengan mudah diperbaiki oleh komunitas kami.";
 "editing-welcome-be-bold-title" = "Suara anda sangat penting";
@@ -341,6 +341,7 @@
 "editor-replace-type-button-accessibility" = "Ganti jenis ganti. Saat ini disetel ke $1. Pilih untuk mengubah.";
 "editor-replace-type-single" = "Ganti";
 "editor-replace-type-single-accessibility" = "Ganti satu saja";
+"editor-title" = "Penyunting";
 "editor-toolbar-bold-accessibility" = "Pemformatan teks tebal";
 "editor-toolbar-cursor-down-accessibility" = "Pindahkan kursor ke bawah ke baris berikutnya.";
 "editor-toolbar-cursor-next-accessibility" = "Pindahkan kursor ke karakter berikutnya.";

@@ -36,6 +36,86 @@
 			<string>статьи</string>
 		</dict>
 	</dict>
+	<key>diff-change-paragraph-lines-moved-down</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Абзац перемещён вниз на %#@v1@. Перейти к новому месту.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>few</key>
+			<string>%1$d строки</string>
+			<key>one</key>
+			<string>%1$d строку</string>
+			<key>other</key>
+			<string>%1$d строк</string>
+			<key>zero</key>
+			<string>0 строк</string>
+		</dict>
+	</dict>
+	<key>diff-change-paragraph-lines-moved-up</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Абзац перемещён вверх на %#@v1@. Перейти к новому месту.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>few</key>
+			<string>%1$d строки</string>
+			<key>one</key>
+			<string>%1$d строку</string>
+			<key>other</key>
+			<string>%1$d строк</string>
+			<key>zero</key>
+			<string>0 строк</string>
+		</dict>
+	</dict>
+	<key>diff-change-paragraph-sections-moved-down</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Абзац перемещён вниз на %#@v1@. Перейти к новому месту.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>few</key>
+			<string>%1$d раздела</string>
+			<key>one</key>
+			<string>%1$d раздел</string>
+			<key>other</key>
+			<string>%1$d разделов</string>
+			<key>zero</key>
+			<string>0 разделов</string>
+		</dict>
+	</dict>
+	<key>diff-change-paragraph-sections-moved-up</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Абзац перемещён вверх на %#@v1@. Перейти к новому месту.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>few</key>
+			<string>%1$d раздела</string>
+			<key>one</key>
+			<string>%1$d раздел</string>
+			<key>other</key>
+			<string>%1$d разделов</string>
+			<key>zero</key>
+			<string>0 разделов</string>
+		</dict>
+	</dict>
 	<key>diff-paragraph-moved-distance-line</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
