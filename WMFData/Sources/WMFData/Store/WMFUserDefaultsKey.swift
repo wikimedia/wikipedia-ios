@@ -10,5 +10,4 @@ enum WMFUserDefaultsKey: String {
     case bypassDonation = "bypass-donation"
     case seenYearInReviewIntroSlide = "seen-year-in-review-intro-slide"
     case tappedYIR = "tapped-yir"
-    case primaryWikiHasTempAccounts = "primary-wiki-temp-accounts"
 }
