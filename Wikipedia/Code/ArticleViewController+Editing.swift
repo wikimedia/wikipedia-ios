@@ -80,49 +80,57 @@ extension ArticleViewController {
     
     private func presentEditor(editorViewController: UIViewController) {
         let presentEditorAction = { [weak self] in
-              guard let self else { return }
+            guard let self else { return }
             let navigationController = WMFComponentNavigationController(rootViewController: editorViewController, modalPresentationStyle: .overFullScreen)
-            
+
             let needsIntro = !UserDefaults.standard.didShowEditingOnboarding
             if needsIntro {
                 let editingWelcomeViewController = EditingWelcomeViewController(theme: self.theme) {
-                    
+
                     self.present(navigationController, animated: true)
                 }
                 editingWelcomeViewController.apply(theme: self.theme)
                 self.present(editingWelcomeViewController, animated: true) {
                     UserDefaults.standard.didShowEditingOnboarding = true
                 }
-                
+
             } else {
                 self.present(navigationController, animated: true)
             }
         }
-        
+
         guard let navigationController else { return }
-        
-        if !authManager.authStateIsPermanent {
-            let tempAccountsCoordinator = TempAccountSheetCoordinator(
-                navigationController: navigationController,
-                theme: theme,
-                dataStore: dataStore,
-                didTapDone: { [weak self] in
-                    self?.dismiss(animated: true)
-                },
-                didTapContinue: { [weak self] in
-                    self?.dismiss(animated: true, completion: {
-                        presentEditorAction()
-                    })
-                },
-                isTempAccount: authManager.authStateIsTemporary
-            )
-            
-            _ = tempAccountsCoordinator.start()
-        } else {
-            presentEditorAction()
+
+        state = .loading
+
+        Task {
+            let dataController = WMFTempAccountDataController.shared
+            let languageHasTempAccountsEnabled = await dataController.asyncCheckWikiTempAccountAvailability(language: articleLanguageCode, isCheckingPrimaryWiki: false)
+
+            state = .loaded
+
+            if languageHasTempAccountsEnabled, !authManager.authStateIsPermanent {
+                let tempAccountsCoordinator = TempAccountSheetCoordinator(
+                    navigationController: navigationController,
+                    theme: theme,
+                    dataStore: dataStore,
+                    didTapDone: { [weak self] in
+                        self?.dismiss(animated: true)
+                    },
+                    didTapContinue: { [weak self] in
+                        self?.dismiss(animated: true, completion: {
+                            presentEditorAction()
+                        })
+                    },
+                    isTempAccount: authManager.authStateIsTemporary
+                )
+                _ = tempAccountsCoordinator.start()
+            } else {
+                presentEditorAction()
+            }
         }
     }
-    
+
     func showEditSectionOrTitleDescriptionDialogForSection(with id: Int, descriptionSource: ArticleDescriptionSource, selectedTextEditInfo: SelectedTextEditInfo? = nil) {
 
         let sheet = UIAlertController(title: nil, message: nil, preferredStyle: .alert)
