@@ -1020,7 +1020,7 @@
 "return-to-article" = "Return to article";
 "reverted-edit-title" = "Reverted edit";
 "save-view-temp-account-notice" = "You are using a temporary account. Edits are being attributed to $1...";
-"save-view-temp-account-warning" = "You are not logged in. Once you make an edit a temporary account will be created for...";
+"save-view-temp-account-warning" = "You are not logged in. Once you make an edit, a temporary account will be created for you to protect your privacy.";
 "saved-all-articles-title" = "All articles";
 "saved-default-reading-list-tag" = "This list cannot be deleted";
 "saved-pages-image-download-error" = "Failed to download images for this saved page.";

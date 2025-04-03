@@ -495,13 +495,14 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
     }
     
     private func handleEditSuccess(with result: [AnyHashable: Any]) {
-
         var needsNewTempAccountToast = false
-        guard let dataStore else { return }
-        if !dataStore.authenticationManager.authStateIsPermanent {
-            if dataStore.authenticationManager.authStateIsTemporary {
-                if authState == .ipAccount {
-                    needsNewTempAccountToast = true
+        Task {
+            wikiHasTempAccounts = await checkWikiStatus()
+            if let _ = wikiHasTempAccounts, let dataStore, !dataStore.authenticationManager.authStateIsPermanent {
+                if dataStore.authenticationManager.authStateIsTemporary {
+                    if authState == .ipAccount {
+                        needsNewTempAccountToast = true
+                    }
                 }
             }
         }
