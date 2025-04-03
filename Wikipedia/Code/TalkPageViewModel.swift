@@ -177,7 +177,7 @@ final class TalkPageViewModel {
             return nil
         }
         
-        return DateFormatter.wmf_localCustomShortDateFormatterWithTime(for: NSLocale.wmf_locale(for: languageCode))
+        return DateFormatter.wmf_localCustomShortDateFormatterWithTime(for: Locale.current)
     }
     
     private static func semanticContentAttributeForSiteURL(_ siteURL: URL) -> UISemanticContentAttribute {
