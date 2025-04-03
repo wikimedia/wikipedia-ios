@@ -1,5 +1,6 @@
 import WMFComponents
 import WMF
+import WMFData
 
 protocol DescriptionEditViewControllerDelegate: AnyObject {
     func descriptionEditViewControllerEditSucceeded(_ descriptionEditViewController: DescriptionEditViewController, result: ArticleDescriptionPublishResult)
@@ -25,7 +26,8 @@ protocol DescriptionEditViewControllerDelegate: AnyObject {
 
     var delegate: DescriptionEditViewControllerDelegate? = nil
     var authState: AuthState? = nil
-    
+    var wikiHasTempAccounts: Bool?
+
     private var articleDescriptionController: ArticleDescriptionControlling!
     private var toastView: UIView?
     
@@ -90,26 +92,35 @@ protocol DescriptionEditViewControllerDelegate: AnyObject {
                 self.presentBlockedPanel(error: blockedError)
             }
         }
-        
-        if !dataStore.authenticationManager.authStateIsPermanent {
-            if !dataStore.authenticationManager.authStateIsTemporary {
-                authState = .ipAccount
-            } else {
-                authState = .tempAccount
-            }
-        } else {
-            authState = .loggedIn
-        }
+
         descriptionTextView.textContainer.lineFragmentPadding = 0
         descriptionTextView.textContainerInset = .zero
         
         updateFonts()
+
+        Task {
+            wikiHasTempAccounts = await checkWikiStatus()
+            if let wikiHasTempAccounts, !dataStore.authenticationManager.authStateIsPermanent && wikiHasTempAccounts {
+                if !dataStore.authenticationManager.authStateIsTemporary {
+                    authState = .ipAccount
+                } else {
+                    authState = .tempAccount
+                }
+            } else {
+                authState = .loggedIn
+            }
+        }
     }
-    
+
+    private func checkWikiStatus() async -> Bool {
+        let dataController = WMFTempAccountDataController.shared
+        return await dataController.asyncCheckWikiTempAccountAvailability(language: articleDescriptionController.articleLanguageCode, isCheckingPrimaryWiki: false)
+    }
+
     private func showTempAccountToast() {
         let authManager = dataStore.authenticationManager
         
-        if !authManager.authStateIsPermanent {
+        if let wikiHasTempAccounts, !authManager.authStateIsPermanent && wikiHasTempAccounts {
             if authManager.authStateIsTemporary {
                 // Notice
                 let format = CommonStrings.saveViewTempAccountNotice
@@ -364,7 +375,7 @@ protocol DescriptionEditViewControllerDelegate: AnyObject {
                     }
                     var needsNewTempAccountToast = false
                     guard let dataStore = self.dataStore else { return }
-                    if !dataStore.authenticationManager.authStateIsPermanent {
+                    if let wikiHasTempAccounts = self.wikiHasTempAccounts, !dataStore.authenticationManager.authStateIsPermanent && wikiHasTempAccounts {
                         if dataStore.authenticationManager.authStateIsTemporary {
                             if self.authState == .ipAccount {
                                 needsNewTempAccountToast = true

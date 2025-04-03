@@ -385,7 +385,7 @@ class TalkPageViewController: ThemeableViewController, WMFNavigationBarConfiguri
     // MARK: - Reply Compose Management
     
     let replyComposeController = TalkPageReplyComposeController()
-    
+
     private var isClosing: Bool = false
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
@@ -432,7 +432,7 @@ class TalkPageViewController: ThemeableViewController, WMFNavigationBarConfiguri
             TalkPagesFunnel.shared.logTappedNewTopic(routingSource: viewModel.source, project: viewModel.project, talkPageType: viewModel.pageType, lastViewDidAppearDate: lastViewDidAppearDate)
         }
         let topicComposeViewModel = TalkPageTopicComposeViewModel(semanticContentAttribute: viewModel.semanticContentAttribute, siteURL: viewModel.siteURL, pageLink: viewModel.getTalkPageURL(encoded: false), wikiHasTempAccounts: viewModel.wikiHasTempAccounts)
-        
+
         let tappedIPTempButtonAction: () -> Void = { [weak self] in
             self?.presentIPTempModalIfNeeded(dismissAction: {
                 // do nothing upon dismiss
@@ -529,7 +529,6 @@ class TalkPageViewController: ThemeableViewController, WMFNavigationBarConfiguri
     }
     
     fileprivate func setupToolbar() {
-        
         talkPageView.toolbar.items = [shareButton,  flexibleSpaceToolbarItem, revisionButton, flexibleSpaceToolbarItem, findButton,flexibleSpaceToolbarItem, addTopicButton]
         
         shareButton.accessibilityLabel = TalkPageLocalizedStrings.shareButtonAccesibilityLabel
