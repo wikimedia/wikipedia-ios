@@ -26,6 +26,7 @@
 // Author: Grey Olson
 // Author: HNordeen (WMF)
 // Author: Hasley
+// Author: HylianAngel
 // Author: I DOWNGRADED YT APP (1)
 // Author: Ihojose
 // Author: Indiralena
@@ -159,14 +160,17 @@
 "article-about-title" = "Acerca de este artículo";
 "article-delete" = "Borrar";
 "article-deleted-accessibility-notification" = "{{PLURAL:$1|artículo eliminado|artículos eliminados}}";
+"article-fetcher-error-updated-content-timeout" = "La aplicación no pudo recuperar el contenido actualizado a tiempo. Por favor actualice esta página más adelante para ver cómo se reflejan sus cambios.";
 "article-languages-filter-placeholder" = "Buscar idioma";
 "article-languages-label" = "Elegir un idioma";
 "article-languages-others" = "Otros idiomas";
 "article-languages-yours" = "Tus idiomas";
 "article-read-more-title" = "Más información";
 "article-reference-view-title" = "Referencia $1";
+"article-revision-history" = "Historial de revisión del artículo";
 "article-save-error-not-enough-space" = "No hay espacio suficiente en el dispositivo para guardar este artículo";
 "article-share" = "Compartir";
+"article-talk-page" = "Página de discusión del artículo";
 "article-toolbar-reading-themes-controls-toolbar-item" = "Controles de los temas de lectura";
 "back-button-accessibility-label" = "Volver";
 "back-button-popover-title" = "Toque aquí para regresar";
@@ -191,6 +195,7 @@
 "close-button-accessibility-label" = "Cerrar";
 "compass-direction" = "a las $1 en punto";
 "confirm-donation-history-deletion-subtitle" = "Esto sólo se aplicará a las donaciones realizadas desde este dispositivo.";
+"confirm-donation-history-deletion-title" = "Confirmar la eliminación";
 "confirmed-donation-history-deletion" = "Historial local eliminado.";
 "continue-button-title" = "Continuar";
 "continue-reading-empty-description" = "Explorar más artículos para leer en Wikipedia";
@@ -199,6 +204,7 @@
 "crimean-tatar-variants-alert-title" = "Actualizaciones en la compatibilidad con variantes del tártaro de Crimea";
 "data-migration-status" = "Actualizando...";
 "description-add-title" = "Añadir descripción";
+"description-article-introduction-warning-message" = "El orden de los elementos será diferente en la vista de edición que en la vista de artículo.";
 "description-edit-for-article" = "Descripción de título para $1";
 "description-edit-length-warning" = "$1 / $2";
 "description-edit-license" = "Al cambiar la descripción del artículo, acepto los $1 y la publicación irrevocable de mis contribuciones bajo la licencia $2.";
@@ -208,6 +214,7 @@
 "description-edit-publish" = "Publicar descripción";
 "description-edit-title" = "Editar descripción";
 "description-edit-warning" = "Prueba mantener las descripciones cortas, así los usuarios pueden entender el tema del artículo en una mirada";
+"description-edit-warning-casing" = "Sólo los nombres propios deben escribirse con mayúscula inicial, incluso al comienzo de la oración.";
 "description-help-about-description" = "Las descripciones de título resumen un artículo para ayudar a que los lectores entiendan el tema rápidamente.";
 "description-help-about-title" = "Acerca de";
 "description-help-about-wikidata" = "Sobre Wikidata";
@@ -261,6 +268,7 @@
 "diff-paragraph-moved-format" = "Párrafo movido $1 $2";
 "diff-revision-error-title" = "No se puede cargar la revisión";
 "diff-rollback-alert-message" = "¿Está seguro de que desea revertir las ediciones?";
+"diff-rollback-success" = "Ediciones revertidas.";
 "diff-single-header-editor-number-edits-format" = "{{PLURAL:$1|$1 edición|$1 ediciones}}";
 "diff-single-header-editor-title" = "Información sobre el editor";
 "diff-single-header-subtitle-bytes-added" = "{{PLURAL:$1|$1 byte añadido|$1 bytes añadidos}}";
@@ -648,6 +656,7 @@
 "main-menu-zero-faq" = "Preguntas frecuentes de Wikipedia Zero";
 "more-languages-tooltip-description" = "Buscar en más de 300 lenguas de Wikipedia";
 "more-languages-tooltip-title" = "Añadir idiomas";
+"more-menu" = "Más";
 "move-articles-to-reading-list" = "Trasladar {{PLURAL:$1|$1 artículo|$1 artículos}} a la lista de lectura";
 "navbar-title-mode-edit-wikitext-preview" = "Previsualización";
 "nearby-distance-label-feet" = "$1 pies";
@@ -671,6 +680,8 @@
 "notifications-center-feed-news-notification-button-text" = "Activar las notificaciones push";
 "notifications-center-feed-news-notification-dismiss-button-text" = "Ahora no";
 "notifications-center-filters-accessibility-label" = "Filtro de notificaciones";
+"notifications-center-filters-read-status-item-title-all" = "Todo";
+"notifications-center-filters-read-status-item-title-read" = "Leer";
 "notifications-center-filters-read-status-item-title-unread" = "Sin leer";
 "notifications-center-filters-read-status-section-title" = "Estado de lectura";
 "notifications-center-filters-title" = "Filtros";
