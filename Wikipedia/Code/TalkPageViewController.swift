@@ -36,8 +36,6 @@ class TalkPageViewController: ThemeableViewController, WMFNavigationBarConfiguri
 
     private(set) var inputAccessoryViewType: InputAccessoryViewType?
 
-    private var wikiHasTempAccounts: Bool?
-
     override var inputAccessoryView: UIView? {
         guard let inputAccessoryViewType = inputAccessoryViewType else {
             return nil
@@ -218,7 +216,8 @@ class TalkPageViewController: ThemeableViewController, WMFNavigationBarConfiguri
         setupToolbar()
 
         Task {
-            self.wikiHasTempAccounts = await checkWikiStatus()
+            self.viewModel.wikiHasTempAccounts = await checkWikiStatus()
+            replyComposeController.wikiHasTempAccounts = self.viewModel.wikiHasTempAccounts
         }
 
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillChangeFrame(_:)), name: UIWindow.keyboardWillChangeFrameNotification, object: nil)
@@ -492,7 +491,7 @@ class TalkPageViewController: ThemeableViewController, WMFNavigationBarConfiguri
     
     private func presentIPTempModalIfNeeded(dismissAction: @escaping () -> Void) {
         let navigationController = topicComposeNavVC ?? navigationController
-        if let navigationController, let wikiHasTempAccounts, !viewModel.authenticationManager.authStateIsPermanent && wikiHasTempAccounts {
+        if let navigationController, let wikiHasTempAccounts = viewModel.wikiHasTempAccounts, !viewModel.authenticationManager.authStateIsPermanent && wikiHasTempAccounts {
             let tempAccountsCoordinator = TempAccountSheetCoordinator(
                 navigationController: navigationController,
                 theme: theme,
@@ -516,7 +515,7 @@ class TalkPageViewController: ThemeableViewController, WMFNavigationBarConfiguri
     }
     
     private func presentIPTempWarningToastIfNeeded() {
-        if let wikiHasTempAccounts, !viewModel.authenticationManager.authStateIsPermanent, wikiHasTempAccounts {
+        if let wikiHasTempAccounts = viewModel.wikiHasTempAccounts, !viewModel.authenticationManager.authStateIsPermanent, wikiHasTempAccounts {
             if viewModel.authenticationManager.authStateIsTemporary {
                 WMFAlertManager.sharedInstance.showBottomAlertWithMessage(CommonStrings.tempWarningTitle, subtitle: CommonStrings.tempWarningSubtitle(username: viewModel.authenticationManager.authStateTemporaryUsername ?? "*****"), buttonTitle: nil, image: WMFSFSymbolIcon.for(symbol: .exclamationMarkCircleFill), dismissPreviousAlerts: true)
             } else {
@@ -1126,7 +1125,7 @@ extension TalkPageViewController: TalkPageReplyComposeDelegate {
     func tappedPublish(text: String, commentViewModel: TalkPageCellCommentViewModel) {
         
         var wasIP = false
-        if let wikiHasTempAccounts, !viewModel.authenticationManager.authStateIsPermanent && wikiHasTempAccounts {
+        if let wikiHasTempAccounts = viewModel.wikiHasTempAccounts, !viewModel.authenticationManager.authStateIsPermanent && wikiHasTempAccounts {
             if !viewModel.authenticationManager.authStateIsTemporary {
                 wasIP = true
             }
@@ -1164,7 +1163,7 @@ extension TalkPageViewController: TalkPageReplyComposeDelegate {
                         self.talkPageView.collectionView.reloadData()
                         
                         var isTemp = false
-                        if let wikiHasTempAccounts, !viewModel.authenticationManager.authStateIsPermanent && wikiHasTempAccounts {
+                        if let wikiHasTempAccounts = viewModel.wikiHasTempAccounts, !viewModel.authenticationManager.authStateIsPermanent && wikiHasTempAccounts {
                             if viewModel.authenticationManager.authStateIsTemporary {
                                 isTemp = true
                             }
@@ -1222,7 +1221,7 @@ extension TalkPageViewController: TalkPageTopicComposeViewControllerDelegate {
     func tappedPublish(topicTitle: String, topicBody: String, composeViewController: TalkPageTopicComposeViewController) {
         
         var wasIP = false
-        if let wikiHasTempAccounts, !viewModel.authenticationManager.authStateIsPermanent && wikiHasTempAccounts {
+        if let wikiHasTempAccounts = viewModel.wikiHasTempAccounts, !viewModel.authenticationManager.authStateIsPermanent && wikiHasTempAccounts {
             if !viewModel.authenticationManager.authStateIsTemporary {
                 wasIP = true
             }
@@ -1244,7 +1243,7 @@ extension TalkPageViewController: TalkPageTopicComposeViewControllerDelegate {
                     guard let self else { return }
                     
                     var isTemp = false
-                    if let wikiHasTempAccounts, !viewModel.authenticationManager.authStateIsPermanent && wikiHasTempAccounts {
+                    if let wikiHasTempAccounts = viewModel.wikiHasTempAccounts, !viewModel.authenticationManager.authStateIsPermanent && wikiHasTempAccounts {
                         if viewModel.authenticationManager.authStateIsTemporary {
                             isTemp = true
                         }
