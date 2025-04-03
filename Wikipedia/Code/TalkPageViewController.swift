@@ -431,7 +431,7 @@ class TalkPageViewController: ThemeableViewController, WMFNavigationBarConfiguri
         if let lastViewDidAppearDate = lastViewDidAppearDate {
             TalkPagesFunnel.shared.logTappedNewTopic(routingSource: viewModel.source, project: viewModel.project, talkPageType: viewModel.pageType, lastViewDidAppearDate: lastViewDidAppearDate)
         }
-        let topicComposeViewModel = TalkPageTopicComposeViewModel(semanticContentAttribute: viewModel.semanticContentAttribute, siteURL: viewModel.siteURL, pageLink: viewModel.getTalkPageURL(encoded: false))
+        let topicComposeViewModel = TalkPageTopicComposeViewModel(semanticContentAttribute: viewModel.semanticContentAttribute, siteURL: viewModel.siteURL, pageLink: viewModel.getTalkPageURL(encoded: false), wikiHasTempAccounts: viewModel.wikiHasTempAccounts)
         
         let tappedIPTempButtonAction: () -> Void = { [weak self] in
             self?.presentIPTempModalIfNeeded(dismissAction: {
