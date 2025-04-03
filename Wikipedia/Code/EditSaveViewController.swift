@@ -227,6 +227,10 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
         
         addToWatchlistToggle.addTarget(self, action: #selector(toggledWatchlist), for: .valueChanged)
         fetchWatchlistStatusAndUpdateToggle()
+
+        Task {
+            wikiHasTempAccounts = await checkWikiStatus()
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -240,11 +244,10 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
         imageRecLoggingDelegate?.logEditSaveViewControllerDidAppear()
 
         guard let dataStore else { return }
-		Task {
-            wikiHasTempAccounts = await checkWikiStatus()
+
         if !dataStore.authenticationManager.authStateIsPermanent {
-			if let wikiHasTempAccounts {
-            if dataStore.authenticationManager.authStateIsTemporary {
+
+            if let wikiHasTempAccounts, dataStore.authenticationManager.authStateIsTemporary && wikiHasTempAccounts {
                 // Notice
                 let format = CommonStrings.saveViewTempAccountNotice
                 let username = dataStore.authenticationManager.authStateTemporaryUsername ?? "*****"
@@ -265,7 +268,7 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
                         }, didTapContinue: { [weak self] in
                             self?.dismiss(animated: true)
                         }, isTempAccount: true)
-                        
+
                         _ = tempAccountSheetCoordinator.start()
                     }
                 )
@@ -288,12 +291,10 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
                         }, didTapContinue: { [weak self] in
                             self?.dismiss(animated: true)
                         }, isTempAccount: false)
-                        
+
                         _ = tempAccountSheetCoordinator.start()
                     }
                 )
-}
-}
             }
         }
     }

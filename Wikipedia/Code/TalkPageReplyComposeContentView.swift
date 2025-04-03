@@ -123,15 +123,17 @@ class TalkPageReplyComposeContentView: SetupView {
     private weak var linkDelegate: TalkPageTextViewLinkHandling?
     private weak var authenticationManager: WMFAuthenticationManager?
     private var bottomContainerConstraint: NSLayoutConstraint?
+    private let wikiHasTempAccounts: Bool?
     private let tappedIPTempButtonAction: () -> Void
-    
+
     // MARK: Lifecycle
     
-    init(commentViewModel: TalkPageCellCommentViewModel, theme: Theme, linkDelegate: TalkPageTextViewLinkHandling, authenticationManager: WMFAuthenticationManager?, tappedIPTempButtonAction: @escaping () -> Void) {
+    init(commentViewModel: TalkPageCellCommentViewModel, theme: Theme, linkDelegate: TalkPageTextViewLinkHandling, authenticationManager: WMFAuthenticationManager?, wikiHasTempAccounts: Bool?, tappedIPTempButtonAction: @escaping () -> Void) {
         self.commentViewModel = commentViewModel
         self.theme = theme
         self.linkDelegate = linkDelegate
         self.authenticationManager = authenticationManager
+        self.wikiHasTempAccounts = wikiHasTempAccounts
         self.tappedIPTempButtonAction = tappedIPTempButtonAction
         super.init(frame: .zero)
     }
@@ -265,13 +267,15 @@ class TalkPageReplyComposeContentView: SetupView {
             // I don't know why this height constraint is needed. Without it the footerButtonStackView expands vertically to fill remaining space, despite it and content within have hugging priority set to required.
             footerButtonStackView.heightAnchor.constraint(equalToConstant: 25)
         ])
-        
-        if authState == .ip || authState == .temp {
-            ipTempButton.setContentHuggingPriority(.required, for: .vertical)
-            ipTempButton.setContentCompressionResistancePriority(.required, for: .vertical)
-            footerButtonStackView.addArrangedSubview(ipTempButton)
+
+        if let wikiHasTempAccounts, wikiHasTempAccounts {
+            if authState == .ip || authState == .temp {
+                ipTempButton.setContentHuggingPriority(.required, for: .vertical)
+                ipTempButton.setContentCompressionResistancePriority(.required, for: .vertical)
+                footerButtonStackView.addArrangedSubview(ipTempButton)
+            }
         }
-        
+
         infoButton.setContentHuggingPriority(.required, for: .vertical)
         infoButton.setContentCompressionResistancePriority(.required, for: .vertical)
         footerButtonStackView.addArrangedSubview(infoButton)
@@ -401,21 +405,23 @@ extension TalkPageReplyComposeContentView: UITextViewDelegate {
          evaluatePublishButtonEnabledState()
      }
      
-     func textViewDidBeginEditing(_ textView: UITextView) {
-         guard textView == replyTextView else {
-             return
-         }
-         
-         placeholderLabel.alpha = 0
-         toggleFinePrint(shouldShow: false)
-         
-         if authState == .ip || authState == .temp {
-             // Dismiss warning toast
-             WMFAlertManager.sharedInstance.dismissAlert()
-             bottomContainerConstraint?.constant = 5
-         }
-     }
-    
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        guard textView == replyTextView else {
+            return
+        }
+
+        placeholderLabel.alpha = 0
+        toggleFinePrint(shouldShow: false)
+
+        if let wikiHasTempAccounts, wikiHasTempAccounts {
+            if authState == .ip || authState == .temp {
+                // Dismiss warning toast
+                WMFAlertManager.sharedInstance.dismissAlert()
+                bottomContainerConstraint?.constant = 5
+            }
+        }
+    }
+
     func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
         linkDelegate?.tappedLink(URL, sourceTextView: textView)
         return false
@@ -440,11 +446,13 @@ extension TalkPageReplyComposeContentView: Themeable {
         
         let currentSemanticContentAttribute = verticalStackView.semanticContentAttribute
         updateSemanticContentAttribute(currentSemanticContentAttribute)
-        
-        if authState == .ip {
-            ipTempButton.tintColor = theme.colors.destructive
-        } else if authState == .temp {
-            ipTempButton.tintColor = theme.colors.inputAccessoryButtonTint
+
+        if let wikiHasTempAccounts, wikiHasTempAccounts {
+            if authState == .ip {
+                ipTempButton.tintColor = theme.colors.destructive
+            } else if authState == .temp {
+                ipTempButton.tintColor = theme.colors.inputAccessoryButtonTint
+            }
         }
     }
 }

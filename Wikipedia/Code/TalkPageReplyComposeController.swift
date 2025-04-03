@@ -32,7 +32,9 @@ class TalkPageReplyComposeController {
     // Pan Gesture tracking properties
     private var dragHandleView: UIView?
     private var containerViewYUponDragBegin: CGFloat?
-    
+
+    var wikiHasTempAccounts: Bool?
+
     private(set) var contentView: TalkPageReplyComposeContentView?
     
     private let containerPinnedTopSpacing = CGFloat(10)
@@ -217,7 +219,7 @@ class TalkPageReplyComposeController {
             self?.viewController?.tappedIPTempButton()
         }
         
-        let contentView = TalkPageReplyComposeContentView(commentViewModel: commentViewModel, theme: theme, linkDelegate: linkDelegate, authenticationManager: authenticationManager, tappedIPTempButtonAction: tappedIPTempButtonAction)
+        let contentView = TalkPageReplyComposeContentView(commentViewModel: commentViewModel, theme: theme, linkDelegate: linkDelegate, authenticationManager: authenticationManager, wikiHasTempAccounts: wikiHasTempAccounts, tappedIPTempButtonAction: tappedIPTempButtonAction)
         contentView.translatesAutoresizingMaskIntoConstraints = false
         containerView.addSubview(contentView)
         

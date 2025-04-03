@@ -23,7 +23,8 @@ final class TalkPageViewModel {
     let dataStore: MWKDataStore
     var deepLinkData: DeepLinkData?
     let dataController: TalkPageDataController
-    
+    var wikiHasTempAccounts: Bool?
+
     private var dateFormatter: DateFormatter?
     private(set) var semanticContentAttribute: UISemanticContentAttribute
 

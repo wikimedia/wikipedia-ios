@@ -75,25 +75,34 @@ extension ArticleViewController {
 
         guard let navigationController else { return }
 
-        if !authManager.authStateIsPermanent {
-            let tempAccountsCoordinator = TempAccountSheetCoordinator(
-                navigationController: navigationController,
-                theme: theme,
-                dataStore: dataStore,
-                didTapDone: { [weak self] in
-                    self?.dismiss(animated: true)
-                },
-                didTapContinue: { [weak self] in
-                    self?.dismiss(animated: true, completion: {
-                        presentEditorAction()
-                    })
-                },
-                isTempAccount: authManager.authStateIsTemporary
-            )
-            
-            _ = tempAccountsCoordinator.start()
-        } else {
-            presentEditorAction()
+        state = .loading
+
+        Task {
+            let dataController = WMFTempAccountDataController.shared
+            let languageHasTempAccountsEnabled = await dataController.asyncCheckWikiTempAccountAvailability(language: articleLanguageCode, isCheckingPrimaryWiki: false)
+
+            state = .loaded
+
+            if !authManager.authStateIsPermanent && languageHasTempAccountsEnabled {
+                let tempAccountsCoordinator = TempAccountSheetCoordinator(
+                    navigationController: navigationController,
+                    theme: theme,
+                    dataStore: dataStore,
+                    didTapDone: { [weak self] in
+                        self?.dismiss(animated: true)
+                    },
+                    didTapContinue: { [weak self] in
+                        self?.dismiss(animated: true, completion: {
+                            presentEditorAction()
+                        })
+                    },
+                    isTempAccount: authManager.authStateIsTemporary
+                )
+
+                _ = tempAccountsCoordinator.start()
+            } else {
+                presentEditorAction()
+            }
         }
     }
 

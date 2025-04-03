@@ -9,6 +9,7 @@ struct TalkPageTopicComposeViewModel {
     let semanticContentAttribute: UISemanticContentAttribute
     let siteURL: URL
     let pageLink: URL?
+    let wikiHasTempAccounts: Bool?
 }
 
 class TalkPageTopicComposeViewController: ThemeableViewController, WMFNavigationBarConfiguring {
@@ -114,12 +115,14 @@ class TalkPageTopicComposeViewController: ThemeableViewController, WMFNavigation
         let button = UIButton(type: .custom)
         
         var image: UIImage? = nil
-        if authState == .ip {
-            image = WMFSFSymbolIcon.for(symbol: .temporaryAccountIcon)
-        } else if authState == .temp {
-            image = WMFIcon.temp
+        if let wikiHasTempAccounts = viewModel.wikiHasTempAccounts, wikiHasTempAccounts {
+            if authState == .ip {
+                image = WMFSFSymbolIcon.for(symbol: .temporaryAccountIcon)
+            } else if authState == .temp {
+                image = WMFIcon.temp
+            }
         }
-        
+
         if let image {
             button.setImage(image, for: .normal)
         }
@@ -256,7 +259,7 @@ class TalkPageTopicComposeViewController: ThemeableViewController, WMFNavigation
         containerScrollView.addSubview(bodyPlaceholderLabel)
         
         let bottomSpacing: CGFloat
-        if authState == .ip || authState == .temp {
+        if let wikiHasTempAccounts = viewModel.wikiHasTempAccounts, (authState == .ip || authState == .temp) && wikiHasTempAccounts {
             bottomSpacing = -100 // Add a little spacing to make room for toast
         } else {
             bottomSpacing = 0
@@ -291,17 +294,19 @@ class TalkPageTopicComposeViewController: ThemeableViewController, WMFNavigation
         titleTextField.setContentHuggingPriority(.required, for: .vertical)
         bodyTextView.setContentHuggingPriority(.defaultLow, for: .vertical)
         finePrintTextView.setContentHuggingPriority(.required, for: .vertical)
-        
-        if authState == .ip || authState == .temp {
-            inputContainerView.addSubview(ipTempButton)
-            NSLayoutConstraint.activate([
-                inputContainerView.leadingAnchor.constraint(equalTo: ipTempButton.leadingAnchor, constant: -8),
-                inputContainerView.bottomAnchor.constraint(equalTo: ipTempButton.bottomAnchor, constant: 8)
-            ])
+
+        if let wikiHasTempAccounts = viewModel.wikiHasTempAccounts, wikiHasTempAccounts {
+            if authState == .ip || authState == .temp {
+                inputContainerView.addSubview(ipTempButton)
+                NSLayoutConstraint.activate([
+                    inputContainerView.leadingAnchor.constraint(equalTo: ipTempButton.leadingAnchor, constant: -8),
+                    inputContainerView.bottomAnchor.constraint(equalTo: ipTempButton.bottomAnchor, constant: 8)
+                ])
+            }
         }
-        
+
         var bodyTextViewBottomSpacing: CGFloat = -16
-        if authState == .ip || authState == .temp {
+        if let wikiHasTempAccounts = viewModel.wikiHasTempAccounts, (authState == .ip || authState == .temp) && wikiHasTempAccounts {
             bodyTextViewBottomSpacing = -50
         }
         
@@ -405,11 +410,13 @@ class TalkPageTopicComposeViewController: ThemeableViewController, WMFNavigation
         
         // Calling here to ensure text alignment is set properly after attributed strings are set
         updateSemanticContentAttribute(semanticContentAttribute: viewModel.semanticContentAttribute)
-        
-        if authState == .ip {
-            ipTempButton.tintColor = theme.colors.destructive
-        } else if authState == .temp {
-            ipTempButton.tintColor = theme.colors.inputAccessoryButtonTint
+
+        if let wikiHasTempAccounts = viewModel.wikiHasTempAccounts, wikiHasTempAccounts {
+            if authState == .ip {
+                ipTempButton.tintColor = theme.colors.destructive
+            } else if authState == .temp {
+                ipTempButton.tintColor = theme.colors.inputAccessoryButtonTint
+            }
         }
     }
     
@@ -499,10 +506,12 @@ class TalkPageTopicComposeViewController: ThemeableViewController, WMFNavigation
     }
     
     private func updateSpacingForWarningToast() {
-        if authState == .ip || authState == .temp {
-            // Dismiss warning toast
-            WMFAlertManager.sharedInstance.dismissAlert()
-            containerStackViewBottomConstraint?.constant = 0
+        if let wikiHasTempAccounts = viewModel.wikiHasTempAccounts, wikiHasTempAccounts {
+            if authState == .ip || authState == .temp {
+                // Dismiss warning toast
+                WMFAlertManager.sharedInstance.dismissAlert()
+                containerStackViewBottomConstraint?.constant = 0
+            }
         }
     }
     
