@@ -1,6 +1,7 @@
 import WMF
 import CocoaLumberjackSwift
 import WMFComponents
+import WMFData
 
 public enum InputAccessoryViewType {
     case format
@@ -34,6 +35,8 @@ class TalkPageViewController: ThemeableViewController, WMFNavigationBarConfiguri
     private let textFormattingToolbarView = TalkPageFormattingToolbarView()
 
     private(set) var inputAccessoryViewType: InputAccessoryViewType?
+
+    private var wikiHasTempAccounts: Bool?
 
     override var inputAccessoryView: UIView? {
         guard let inputAccessoryViewType = inputAccessoryViewType else {
@@ -213,7 +216,11 @@ class TalkPageViewController: ThemeableViewController, WMFNavigationBarConfiguri
 
         fetchTalkPage()
         setupToolbar()
-        
+
+        Task {
+            self.wikiHasTempAccounts = await checkWikiStatus()
+        }
+
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillChangeFrame(_:)), name: UIWindow.keyboardWillChangeFrameNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(didLogIn), name:WMFAuthenticationManager.didLogInNotification, object: nil)
     }
@@ -266,7 +273,13 @@ class TalkPageViewController: ThemeableViewController, WMFNavigationBarConfiguri
     @objc func tryAgain() {
         fetchTalkPage()
     }
-    
+
+    private func checkWikiStatus() async -> Bool? {
+        guard let languageCode = viewModel.siteURL.wmf_languageCode else { return false }
+        let dataController = WMFTempAccountDataController.shared
+        return await dataController.asyncCheckWikiTempAccountAvailability(language: languageCode, isCheckingPrimaryWiki: false)
+    }
+
     private func setupOverflowMenu() {
         let rightBarButtonItem = UIBarButtonItem(image: WMFSFSymbolIcon.for(symbol: .ellipsisCircle), primaryAction: nil, menu: overflowMenu)
         rightBarButtonItem.accessibilityLabel = Self.TalkPageLocalizedStrings.overflowMenuAccessibilityLabel
@@ -479,7 +492,7 @@ class TalkPageViewController: ThemeableViewController, WMFNavigationBarConfiguri
     
     private func presentIPTempModalIfNeeded(dismissAction: @escaping () -> Void) {
         let navigationController = topicComposeNavVC ?? navigationController
-        if let navigationController, !viewModel.authenticationManager.authStateIsPermanent {
+        if let navigationController, let wikiHasTempAccounts, !viewModel.authenticationManager.authStateIsPermanent && wikiHasTempAccounts {
             let tempAccountsCoordinator = TempAccountSheetCoordinator(
                 navigationController: navigationController,
                 theme: theme,
@@ -503,7 +516,7 @@ class TalkPageViewController: ThemeableViewController, WMFNavigationBarConfiguri
     }
     
     private func presentIPTempWarningToastIfNeeded() {
-        if !viewModel.authenticationManager.authStateIsPermanent {
+        if let wikiHasTempAccounts, !viewModel.authenticationManager.authStateIsPermanent, wikiHasTempAccounts {
             if viewModel.authenticationManager.authStateIsTemporary {
                 WMFAlertManager.sharedInstance.showBottomAlertWithMessage(CommonStrings.tempWarningTitle, subtitle: CommonStrings.tempWarningSubtitle(username: viewModel.authenticationManager.authStateTemporaryUsername ?? "*****"), buttonTitle: nil, image: WMFSFSymbolIcon.for(symbol: .exclamationMarkCircleFill), dismissPreviousAlerts: true)
             } else {
@@ -1113,7 +1126,7 @@ extension TalkPageViewController: TalkPageReplyComposeDelegate {
     func tappedPublish(text: String, commentViewModel: TalkPageCellCommentViewModel) {
         
         var wasIP = false
-        if !viewModel.authenticationManager.authStateIsPermanent {
+        if let wikiHasTempAccounts, !viewModel.authenticationManager.authStateIsPermanent && wikiHasTempAccounts {
             if !viewModel.authenticationManager.authStateIsTemporary {
                 wasIP = true
             }
@@ -1151,7 +1164,7 @@ extension TalkPageViewController: TalkPageReplyComposeDelegate {
                         self.talkPageView.collectionView.reloadData()
                         
                         var isTemp = false
-                        if !viewModel.authenticationManager.authStateIsPermanent {
+                        if let wikiHasTempAccounts, !viewModel.authenticationManager.authStateIsPermanent && wikiHasTempAccounts {
                             if viewModel.authenticationManager.authStateIsTemporary {
                                 isTemp = true
                             }
@@ -1209,7 +1222,7 @@ extension TalkPageViewController: TalkPageTopicComposeViewControllerDelegate {
     func tappedPublish(topicTitle: String, topicBody: String, composeViewController: TalkPageTopicComposeViewController) {
         
         var wasIP = false
-        if !viewModel.authenticationManager.authStateIsPermanent {
+        if let wikiHasTempAccounts, !viewModel.authenticationManager.authStateIsPermanent && wikiHasTempAccounts {
             if !viewModel.authenticationManager.authStateIsTemporary {
                 wasIP = true
             }
@@ -1231,7 +1244,7 @@ extension TalkPageViewController: TalkPageTopicComposeViewControllerDelegate {
                     guard let self else { return }
                     
                     var isTemp = false
-                    if !viewModel.authenticationManager.authStateIsPermanent {
+                    if let wikiHasTempAccounts, !viewModel.authenticationManager.authStateIsPermanent && wikiHasTempAccounts {
                         if viewModel.authenticationManager.authStateIsTemporary {
                             isTemp = true
                         }
