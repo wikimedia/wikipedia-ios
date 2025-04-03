@@ -744,7 +744,7 @@
 	<key>year-in-review-personalized-reading-subtitle-format</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Siz bu il %#@v1@ oxumusunuz. Vikipediyada %3$@+ aktiv dildə %2$@ məqalə var idi. Siz biliyi genişləndirməkdə və müxtəlif mövzuları araşdırmaqda milyonlarla insana qoşulmusunuz.</string>
+		<string>Siz %#@v1@ oxumusunuz. Vikipediyada %3$@+ aktiv dildə %2$@ məqalə mövcud olub. Siz biliyi genişləndirməkdə və müxtəlif mövzuları araşdırmaqda milyonlarla insana qoşulmusunuz.</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -758,7 +758,7 @@
 	<key>year-in-review-personalized-reading-title-format</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Siz bu il %#@v1@ oxumusunuz</string>
+		<string>Siz %#@v1@ oxumusunuz</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -772,7 +772,7 @@
 	<key>year-in-review-personalized-saved-subtitle-format</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Siz bu il "%2$@", "%3$@" and "%4$@" daxil olmaqla %#@v1@ yadda saxlamısınız. Hər bir saxlanılan məqalə sizin maraqlarınızı əks etdirir və Vikipediyada fərdiləşdirilmiş bilik bazası yaratmağa kömək edir.</string>
+		<string>Siz bu il %2$@, %3$@ and %4$@ daxil olmaqla %#@v1@ yadda saxlamısınız. Hər bir saxlanılan məqalə sizin maraqlarınızı əks etdirir və Vikipediyada fərdiləşdirilmiş bilik bazası yaratmağa kömək edir.</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
