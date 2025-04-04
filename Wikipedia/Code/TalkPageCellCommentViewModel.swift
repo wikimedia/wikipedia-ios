@@ -9,7 +9,7 @@ final class TalkPageCellCommentViewModel: Identifiable {
     let timestamp: Date?
     let replyDepth: Int
     let talkPageURL: URL?
-    
+
     weak var cellViewModel: TalkPageCellViewModel?
     
     init?(commentId: String, html: String?, author: String?, authorTalkPageURL: String, timestamp: Date?, replyDepth: Int?, talkPageURL: URL?) {

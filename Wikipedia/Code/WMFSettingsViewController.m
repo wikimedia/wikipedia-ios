@@ -69,7 +69,7 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
                                              selector:@selector(userWasLoggedOut:)
                                                  name:[WMFAuthenticationManager didLogOutNotification]
                                                object:nil];
-    
+
     [self setupTopSafeAreaOverlayFromObjCWithScrollView:self.tableView];
     [self applyTheme:self.theme];
 }
@@ -92,24 +92,25 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self loadSections];
-    
+
     [self configureNavigationBarFromObjC];
 }
 
 - (void)traitCollectionDidChange:(nullable UITraitCollection *)previousTraitCollection {
     [super traitCollectionDidChange:previousTraitCollection];
-    
+
     [self configureNavigationBarFromObjC];
 }
 
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
     [super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
-    
+
     @weakify(self);
-    [coordinator animateAlongsideTransition:nil completion:^(id<UIViewControllerTransitionCoordinatorContext>  _Nonnull context) {
-        @strongify(self);
-        [self calculateTopSafeAreaOverlayHeightFromObjC];
-    }];
+    [coordinator animateAlongsideTransition:nil
+                                 completion:^(id<UIViewControllerTransitionCoordinatorContext> _Nonnull context) {
+                                     @strongify(self);
+                                     [self calculateTopSafeAreaOverlayHeightFromObjC];
+                                 }];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
@@ -280,6 +281,9 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
         case WMFSettingsMenuItemType_DonateHistory:
             [self clearDonationHistory];
             break;
+        case WMFSettingsMenuItemType_TemporaryAccount:
+            [self showTemporaryAccount];
+            break;
         default:
             break;
     }
@@ -339,14 +343,14 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 
     UIAlertAction *deleteAction = [UIAlertAction actionWithTitle:WMFCommonStrings.deleteActionTitle
                                                            style:UIAlertActionStyleDestructive
-                                                         handler:^(UIAlertAction * _Nonnull action) {
-        [self deleteLocalHistory];
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self loadSections];
-            [self.tableView reloadData];
-            [self showDeletionConfirmation];
-        });
-    }];
+                                                         handler:^(UIAlertAction *_Nonnull action) {
+                                                             [self deleteLocalHistory];
+                                                             dispatch_async(dispatch_get_main_queue(), ^{
+                                                                 [self loadSections];
+                                                                 [self.tableView reloadData];
+                                                                 [self showDeletionConfirmation];
+                                                             });
+                                                         }];
 
     UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:WMFCommonStrings.cancelActionTitle
                                                            style:UIAlertActionStyleCancel
@@ -357,17 +361,24 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
     [self.navigationController presentViewController:alertController animated:YES completion:nil];
 }
 
-- (void) deleteLocalHistory {
+- (void)deleteLocalHistory {
     [[WMFDonateDataControllerWrapper shared] deleteLocalDonationHistory];
 }
 
-- (void) showDeletionConfirmation {
+- (void)showDeletionConfirmation {
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:WMFCommonStrings.confirmedDeletion
                                                                              message:nil
                                                                       preferredStyle:UIAlertControllerStyleAlert];
-    UIAlertAction * okAction = [UIAlertAction actionWithTitle:WMFCommonStrings.okTitle style:UIAlertActionStyleDefault handler:nil];
+    UIAlertAction *okAction = [UIAlertAction actionWithTitle:WMFCommonStrings.okTitle style:UIAlertActionStyleDefault handler:nil];
     [alertController addAction:okAction];
     [self.navigationController presentViewController:alertController animated:YES completion:nil];
+}
+
+#pragma mark - Show temporary account
+- (void)showTemporaryAccount {
+    WMFTempAccountsSettingsViewController *tempAccountSettingsViewController = [[WMFTempAccountsSettingsViewController alloc] initWithDataStore:self.dataStore];
+    [tempAccountSettingsViewController applyTheme:self.theme];
+    [self.navigationController pushViewController:tempAccountSettingsViewController animated:YES];
 }
 
 #pragma mark - Clear Cache
@@ -560,7 +571,14 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 #pragma mark - Section structure
 
 - (WMFSettingsTableViewSection *)section_1 {
-    NSArray *items = @[[WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_LoginAccount]];
+    NSMutableArray *items = [NSMutableArray array];
+    BOOL primaryWikiHasTempAccounts = [[WMFTempAccountDataController shared] primaryWikiHasTempAccountsEnabled];
+    if (_authManager.authStateIsTemporary && primaryWikiHasTempAccounts) {
+        [items addObject:[WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_TemporaryAccount]];
+    }
+
+    [items addObject:[WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_LoginAccount]];
+
     WMFSettingsTableViewSection *section = [[WMFSettingsTableViewSection alloc] initWithItems:items
                                                                                   headerTitle:nil
                                                                                    footerText:nil];
@@ -572,7 +590,7 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
                              [WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_Search]];
     NSMutableArray *items = [NSMutableArray arrayWithArray:commonItems];
     [items addObject:[WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_ExploreFeed]];
-    
+
     if ([[WMFYearInReviewDataController dataControllerForObjectiveC] shouldShowYearInReviewSettingsItemWithCountryCode:NSLocale.currentLocale.countryCode primaryAppLanguageCode:self.dataStore.languageLinkController.appLanguage.languageCode]) {
         [items addObject:[WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_YearInReview]];
         [[NSUserDefaults standardUserDefaults] wmf_setShowYirSettingToggle:YES];
@@ -598,15 +616,15 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
     NSMutableArray<WMFSettingsMenuItem *> *menuItems = [NSMutableArray array];
     WMFSettingsMenuItem *privacy = [WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_PrivacyPolicy];
     WMFSettingsMenuItem *terms = [WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_Terms];
-    [menuItems addObject: privacy];
-    [menuItems addObject: terms];
+    [menuItems addObject:privacy];
+    [menuItems addObject:terms];
 
     BOOL hasDonations = [WMFDonateDataControllerWrapper shared].hasLocallySavedDonations;
     if (hasDonations) {
         [menuItems addObject:[WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_DonateHistory]];
     }
 
-    WMFSettingsTableViewSection *section = [[WMFSettingsTableViewSection alloc] initWithItems: menuItems
+    WMFSettingsTableViewSection *section = [[WMFSettingsTableViewSection alloc] initWithItems:menuItems
                                                                                   headerTitle:WMFLocalizedStringWithDefaultValue(@"main-menu-heading-legal", nil, nil, @"Privacy and Terms", @"Header text for the legal section of the menu. Consider using something informal, but feel free to use a more literal translation of \"Legal info\" if it seems more appropriate.")
                                                                                    footerText:WMFLocalizedStringWithDefaultValue(@"preference-summary-eventlogging-opt-in", nil, nil, @"Allow Wikimedia Foundation to collect information about how you use the app to make the app better", @"Description of preference that when checked enables data collection of user behavior.")];
 
@@ -660,7 +678,7 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
     self.tableView.indicatorStyle = theme.scrollIndicatorStyle;
     self.view.backgroundColor = theme.colors.baseBackground;
     [self loadSections];
-    
+
     [self updateProfileButtonFromObjC];
     [self themeNavigationBarLeadingTitleViewFromObjC];
     [self themeTopSafeAreaOverlayFromObjCWithScrollView:self.tableView];

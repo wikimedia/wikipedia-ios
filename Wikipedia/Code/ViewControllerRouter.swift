@@ -125,7 +125,7 @@ class ViewControllerRouter: NSObject {
             return presentOrPush(vc, with: completion)
         case .talk(let linkURL):
             let source = source(from: userInfo)
-            guard let viewModel = TalkPageViewModel(pageType: .article, pageURL: linkURL, source: source, articleSummaryController: appViewController.dataStore.articleSummaryController, authenticationManager: appViewController.dataStore.authenticationManager, languageLinkController: appViewController.dataStore.languageLinkController) else {
+            guard let viewModel = TalkPageViewModel(pageType: .article, pageURL: linkURL, source: source, articleSummaryController: appViewController.dataStore.articleSummaryController, authenticationManager: appViewController.dataStore.authenticationManager, languageLinkController: appViewController.dataStore.languageLinkController, dataStore: appViewController.dataStore) else {
                 completion()
                 return false
             }
@@ -138,7 +138,7 @@ class ViewControllerRouter: NSObject {
             return presentOrPush(newTalkPage, with: completion)
         case .userTalk(let linkURL):
             let source = source(from: userInfo)
-            guard let viewModel = TalkPageViewModel(pageType: .user, pageURL: linkURL, source: source, articleSummaryController: appViewController.dataStore.articleSummaryController, authenticationManager: appViewController.dataStore.authenticationManager, languageLinkController: appViewController.dataStore.languageLinkController) else {
+            guard let viewModel = TalkPageViewModel(pageType: .user, pageURL: linkURL, source: source, articleSummaryController: appViewController.dataStore.articleSummaryController, authenticationManager: appViewController.dataStore.authenticationManager, languageLinkController: appViewController.dataStore.languageLinkController, dataStore: appViewController.dataStore) else {
                 completion()
                 return false
             }

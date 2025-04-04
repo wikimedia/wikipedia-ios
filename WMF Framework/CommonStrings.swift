@@ -310,6 +310,8 @@ public class CommonStrings: NSObject {
     public static let moreButton = WMFLocalizedString("more-menu", value: "More", comment: "Accessibility title for more button in toolbar.")
 
     public static let watchlist = WMFLocalizedString("watchlist", value: "Watchlist", comment: "Title for watchlist feature.")
+    
+    public static let talkPage = WMFLocalizedString("account-talk-page-title", value: "Talk page", comment: "Link to talk page")
 
     public static let watchlistFilter = WMFLocalizedString("watchlist-filter", value: "Filter", comment: "Title for filter button in watchlist.")
     
@@ -649,7 +651,42 @@ public class CommonStrings: NSObject {
     public static let collectiveExploreAccessibilityLabel = WMFLocalizedString("year-in-review-collective-explore", value: "An animated illustration depicting the iconic Wikipedia globe encircled by scaffolding, symbolizing the collaborative effort of people worldwide in building the project. The scene is surrounded by a cityscape, emphasizing its connection to humanity and global culture.", comment: "Accessibility description for the collective explore slide.")
     
     public static let searchButtonAccessibilityLabel = WMFLocalizedString("search-button-accessibility-label", value: "Search Wikipedia", comment: "Accessibility label for a button that opens a search box to search Wikipedia.")
+    
+    // Temp accs
+    public static let tempAccountsReadMoreTitle = WMFLocalizedString("temp-account-toast-read-more-title", value: "Read more", comment: "Read more button for the toast for temporary accounts.")
+    
+    public static let tempAccountsToastTitle = {
+        let openingBold = "<b>"
+        let closingBold = "</b>"
+        let format = WMFLocalizedString("temp-account-toast-title", value: "%1$@You are currently using a temporary account.%2$@ Edits made with the temporary...",
+          comment: "Temporary accounts toast information. $1 and $2 are opening and closing bold")
+        return String.localizedStringWithFormat(format, openingBold, closingBold)
+    }
+    
+    @objc public static let tempAccount = WMFLocalizedString("temporary-account", value: "Temporary Account", comment: "Temporary account title text")
+    
+    public static let ipWarningTitle = WMFLocalizedString("ip-account-warning-title", value: "You are not logged in", comment: "Warning title text presented to anonymous editors before entering an edit flow.")
+    
+    public static let tempWarningTitle = WMFLocalizedString("temp-account-warning-title", value: "You are using a temporary account", comment: "Warning title text presented to temporary account editors before entering an edit flow.")
+    
+    public static let ipWarningSubtitle = WMFLocalizedString("ip-account-warning-subtitle", value: "On publish a temporary account will be created for you.", comment: "Warning subtitle text presented to anonymous editors before entering an edit flow.")
+    
+    public static func tempWarningSubtitle(username: String) -> String {
+        let format = WMFLocalizedString("temp-warning-subtitle-format", value: "Your edit will be attributed to %1$@", comment: "Warning subtitle text presented to temporary account editors before entering an edit flow. %1$@ is replaced with the temporary account username.")
+        return String.localizedStringWithFormat(format, username)
+    }
+    
+    public static let tempAccountCreatedToastTitle = WMFLocalizedString("article-view-controller-editing-temp-account-created-title", value: "Temporary account created", comment: "After a user edits an article, creating an IP account, this pop-up title lets them know.")
+    
+    public static func tempAccountCreatedToastSubtitle(username: String?) -> String {
+        let format = WMFLocalizedString("article-view-controller-editing-temp-account-created-subtitle", value: "Temporary account %1$@ was created after your edit was published. It will expire in 90 days.", comment: "More information on the creation of temporary accounts, $1 replaces their username.")
+        return String.localizedStringWithFormat(format, username ?? "*****")
+    }
+    public static let saveViewTempAccountNotice = WMFLocalizedString("save-view-temp-account-notice", value: "You are using a temporary account. Edits are being attributed to %1$@...", comment: "$1 is the temporary username for the temporary account notice.")
+    public static let saveViewTempAccountWarning = WMFLocalizedString("save-view-temp-account-warning", value: "You are not logged in. Once you make an edit, a temporary account will be created for you to protect your privacy.", comment: "Warning that a temporary account will be created")
+    public static let tempAccountPublishTitle = WMFLocalizedString("article-view-controller-editing-temp-account-created-title", value: "Temporary account created", comment: "After a user edits an article, creating an IP account, this pop-up title lets them know.")
 }
+
 // Language variant strings
 public extension CommonStrings {
 

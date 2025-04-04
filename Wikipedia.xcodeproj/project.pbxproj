@@ -373,9 +373,18 @@
 		0EF8634E1C19E02700006D2D /* WMFEmptyView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0EF8634D1C19E02700006D2D /* WMFEmptyView.xib */; };
 		0EF863511C19E4F100006D2D /* WMFEmptyView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EF863501C19E4F100006D2D /* WMFEmptyView.m */; };
 		19A175F095F5197BA20EA8BA /* NSUserActivity+WMFExtensionsTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 19A172FA6AE61E76FCEF4259 /* NSUserActivity+WMFExtensionsTest.m */; };
+		370107AA2D5EEBFE00E17486 /* TempAccountSheetCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 370107A92D5EEBF600E17486 /* TempAccountSheetCoordinator.swift */; };
+		370107AB2D5EEBFE00E17486 /* TempAccountSheetCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 370107A92D5EEBF600E17486 /* TempAccountSheetCoordinator.swift */; };
+		370107AC2D5EEBFE00E17486 /* TempAccountSheetCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 370107A92D5EEBF600E17486 /* TempAccountSheetCoordinator.swift */; };
 		3717C38C2CAB2A0D00978DB2 /* YearInReviewCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3717C38B2CAB2A0700978DB2 /* YearInReviewCoordinator.swift */; };
 		3717C38D2CAB2A0D00978DB2 /* YearInReviewCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3717C38B2CAB2A0700978DB2 /* YearInReviewCoordinator.swift */; };
 		3717C38E2CAB2A0D00978DB2 /* YearInReviewCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3717C38B2CAB2A0700978DB2 /* YearInReviewCoordinator.swift */; };
+		372F04842D7B7554002C6D2C /* TempAccountsSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 372F04832D7B754B002C6D2C /* TempAccountsSettingsViewController.swift */; };
+		372F04852D7B7554002C6D2C /* TempAccountsSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 372F04832D7B754B002C6D2C /* TempAccountsSettingsViewController.swift */; };
+		372F04862D7B7554002C6D2C /* TempAccountsSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 372F04832D7B754B002C6D2C /* TempAccountsSettingsViewController.swift */; };
+		372F048D2D80C205002C6D2C /* TempAccountExpiryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 372F048C2D80C1F9002C6D2C /* TempAccountExpiryViewController.swift */; };
+		372F048E2D80C205002C6D2C /* TempAccountExpiryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 372F048C2D80C1F9002C6D2C /* TempAccountExpiryViewController.swift */; };
+		372F048F2D80C205002C6D2C /* TempAccountExpiryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 372F048C2D80C1F9002C6D2C /* TempAccountExpiryViewController.swift */; };
 		41CCB67421CC1F9700206B47 /* SavedArticlesCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41CCB67321CC1F9700206B47 /* SavedArticlesCollectionViewController.swift */; };
 		41CCB67521CC1F9700206B47 /* SavedArticlesCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41CCB67321CC1F9700206B47 /* SavedArticlesCollectionViewController.swift */; };
 		41CCB67621CC1F9700206B47 /* SavedArticlesCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41CCB67321CC1F9700206B47 /* SavedArticlesCollectionViewController.swift */; };
@@ -3172,7 +3181,10 @@
 		0EF8634F1C19E4F100006D2D /* WMFEmptyView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFEmptyView.h; path = Wikipedia/Code/WMFEmptyView.h; sourceTree = SOURCE_ROOT; };
 		0EF863501C19E4F100006D2D /* WMFEmptyView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFEmptyView.m; path = Wikipedia/Code/WMFEmptyView.m; sourceTree = SOURCE_ROOT; };
 		19A172FA6AE61E76FCEF4259 /* NSUserActivity+WMFExtensionsTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSUserActivity+WMFExtensionsTest.m"; sourceTree = "<group>"; };
+		370107A92D5EEBF600E17486 /* TempAccountSheetCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TempAccountSheetCoordinator.swift; sourceTree = "<group>"; };
 		3717C38B2CAB2A0700978DB2 /* YearInReviewCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YearInReviewCoordinator.swift; sourceTree = "<group>"; };
+		372F04832D7B754B002C6D2C /* TempAccountsSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TempAccountsSettingsViewController.swift; sourceTree = "<group>"; };
+		372F048C2D80C1F9002C6D2C /* TempAccountExpiryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TempAccountExpiryViewController.swift; sourceTree = "<group>"; };
 		41CCB67321CC1F9700206B47 /* SavedArticlesCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedArticlesCollectionViewController.swift; sourceTree = "<group>"; };
 		41FCAA3521C844CB001D8411 /* ReadingListEntryCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadingListEntryCollectionViewController.swift; sourceTree = "<group>"; };
 		533AB8AD259792A9003A43D9 /* wikipedia-language-variants.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "wikipedia-language-variants.json"; sourceTree = "<group>"; };
@@ -6062,6 +6074,14 @@
 			name = PageHistory;
 			sourceTree = "<group>";
 		};
+		372F04822D7B7543002C6D2C /* Temp Accounts */ = {
+			isa = PBXGroup;
+			children = (
+				372F04832D7B754B002C6D2C /* TempAccountsSettingsViewController.swift */,
+			);
+			path = "Temp Accounts";
+			sourceTree = "<group>";
+		};
 		67033E122A61B23700896852 /* Watchlist */ = {
 			isa = PBXGroup;
 			children = (
@@ -6747,6 +6767,7 @@
 		83796B012C9C6F6000E55C69 /* Coordinators */ = {
 			isa = PBXGroup;
 			children = (
+				370107A92D5EEBF600E17486 /* TempAccountSheetCoordinator.swift */,
 				675826732D68CEB8002B0EE7 /* ArticleCoordinator.swift */,
 				675826812D69394E002B0EE7 /* RandomArticleCoordinator.swift */,
 				675826772D68D108002B0EE7 /* LinkCoordinator.swift */,
@@ -7357,6 +7378,7 @@
 		BC45D5871C32F849007C72F3 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
+				372F04822D7B7543002C6D2C /* Temp Accounts */,
 				83250BEB2CDA7CEC00DA42DC /* WMFDonateDataControllerWrapper.swift */,
 				7A0DE4F120CEEBE40032AB57 /* Explore Feed */,
 				BAFCE8401F1D7F8A0077D5E9 /* Appearance */,
@@ -7882,6 +7904,7 @@
 		D818D37F1ED725240076110D /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				372F048C2D80C1F9002C6D2C /* TempAccountExpiryViewController.swift */,
 				83023C1720E6581A00EC7592 /* Transitions */,
 				41FCAA3521C844CB001D8411 /* ReadingListEntryCollectionViewController.swift */,
 				41CCB67321CC1F9700206B47 /* SavedArticlesCollectionViewController.swift */,
@@ -10014,6 +10037,7 @@
 				00474A2A28DD1AE2002E3C09 /* TalkPageCoffeeRollViewController.swift in Sources */,
 				B0E803E61C0CDD450065EBC0 /* UIViewController+WMFStoryboardUtilities.m in Sources */,
 				B0524B75214856A400D8FD8D /* UIViewController+DescriptionWelcomeStoryboard.swift in Sources */,
+				372F048F2D80C205002C6D2C /* TempAccountExpiryViewController.swift in Sources */,
 				83155BA62A0D70B7003D141D /* NavigationEventsFunnel.swift in Sources */,
 				0ED2E9FA1CB2B3B300D1C844 /* UIVIewController+WMFCommonRotationSupport.swift in Sources */,
 				3717C38E2CAB2A0D00978DB2 /* YearInReviewCoordinator.swift in Sources */,
@@ -10181,6 +10205,7 @@
 				6782DBC72343FDE4003FA21B /* DiffListContextCell.swift in Sources */,
 				D896C7961D6F2E4E007101DF /* UIImageView+WMFFaceDetectionBasedOnUIApplicationSharedApplication.m in Sources */,
 				83B024AD2C9CA4AE006EAEFA /* TalkPageCoordinator.swift in Sources */,
+				372F04842D7B7554002C6D2C /* TempAccountsSettingsViewController.swift in Sources */,
 				83023C0620E51DDF00EC7592 /* SearchLanguagesBarViewController.swift in Sources */,
 				B0C7A0861F710EB1008415E7 /* WMFWelcomeAnalyticsAnimationBackgroundView.swift in Sources */,
 				B027447F1E665D9F00E7B248 /* UIViewController+WMFChildViewController.swift in Sources */,
@@ -10240,6 +10265,7 @@
 				B0E8065C1C0CE84B0065EBC0 /* WikiTextSectionUploader.m in Sources */,
 				83B1218427FC8750006B8CCC /* RemoteNotificationsFunnel.swift in Sources */,
 				0072991A28AC4C8B00DCD2E6 /* TalkPageCellCommentView.swift in Sources */,
+				370107AC2D5EEBFE00E17486 /* TempAccountSheetCoordinator.swift in Sources */,
 				D8C4D3D81FD5D9260089CEC2 /* TUSafariActivity.m in Sources */,
 				7AF8CEED22653406000B7676 /* InsertMediaSelectedImageView.swift in Sources */,
 				838790B32858009000067B1D /* TalkPageFetcher.swift in Sources */,
@@ -10830,6 +10856,7 @@
 				00AA5AA9276BF29E005295B0 /* StatusTextBarButtonItem.swift in Sources */,
 				0042812F25E6E841004945B3 /* NYTPhotoCaptionView.m in Sources */,
 				B0EFCD6E1EBF12E5008F36E5 /* LibrariesUsed.swift in Sources */,
+				370107AB2D5EEBFE00E17486 /* TempAccountSheetCoordinator.swift in Sources */,
 				D8CE24E81E698E2400DAE2E0 /* WMFCaptchaResetter.swift in Sources */,
 				00E2EA8B26E28A9700B1A741 /* NotificationsCenterCellStyle.swift in Sources */,
 				00D1F59128885BA300127169 /* TalkPageViewModel.swift in Sources */,
@@ -10912,6 +10939,7 @@
 				D87B13A61F276B0F00B27227 /* ShareActivityController.swift in Sources */,
 				D8CE25181E698E2400DAE2E0 /* WMFReferencePopoverMessageViewController.m in Sources */,
 				D8CE25191E698E2400DAE2E0 /* WMFSearchFetcher.m in Sources */,
+				372F048D2D80C205002C6D2C /* TempAccountExpiryViewController.swift in Sources */,
 				6782DBD42343FE03003FA21B /* DiffListGroupViewModel.swift in Sources */,
 				67E0690C22399D1D008550AC /* ReadingThemesControlsViewController.swift in Sources */,
 				7A9A611F21124D0F00403154 /* CreateNewReadingListButtonView.swift in Sources */,
@@ -10967,6 +10995,7 @@
 				8382F8CE20D9206000AE5250 /* ImageCollectionViewCell.swift in Sources */,
 				678ABAE92C9DB94B005CD570 /* DonateCoordinator.swift in Sources */,
 				672428982362113900490629 /* DiffFetcher.swift in Sources */,
+				372F04862D7B7554002C6D2C /* TempAccountsSettingsViewController.swift in Sources */,
 				D8CE253C1E698E2400DAE2E0 /* MWKImageInfoFetcher+PicOfTheDayInfo.m in Sources */,
 				67C6F7A327E8C7C500B9C864 /* NotificationsCenterCommonViewModel+ActionExtensions.swift in Sources */,
 				D8CE25411E698E2400DAE2E0 /* WMFScrollViewController.swift in Sources */,
@@ -11379,6 +11408,7 @@
 				0042812E25E6E841004945B3 /* NYTPhotoCaptionView.m in Sources */,
 				B0D3E70E214AF776007578BA /* DescriptionEditViewController.swift in Sources */,
 				B0F4761D21F921D300C4E254 /* EditSummaryViewController.swift in Sources */,
+				370107AA2D5EEBFE00E17486 /* TempAccountSheetCoordinator.swift in Sources */,
 				B0EFCD6F1EBF12E5008F36E5 /* LibrariesUsed.swift in Sources */,
 				00E2EA8A26E28A9700B1A741 /* NotificationsCenterCellStyle.swift in Sources */,
 				00D1F59028885BA300127169 /* TalkPageViewModel.swift in Sources */,
@@ -11460,6 +11490,7 @@
 				83155BA72A0D70B7003D141D /* NavigationEventsFunnel.swift in Sources */,
 				D8EC3E091E9BDA35006712EB /* WMFEmptyView.m in Sources */,
 				7A35CB891FD82B6300AAF3B7 /* ReadingListDetailViewController.swift in Sources */,
+				372F048E2D80C205002C6D2C /* TempAccountExpiryViewController.swift in Sources */,
 				7A9A612021124D0F00403154 /* CreateNewReadingListButtonView.swift in Sources */,
 				6782DBD52343FE03003FA21B /* DiffListGroupViewModel.swift in Sources */,
 				67E0690B22399D1C008550AC /* ReadingThemesControlsViewController.swift in Sources */,
@@ -11515,6 +11546,7 @@
 				7A16C4E8212D941C00F0D5EC /* SubSettingsViewController.swift in Sources */,
 				678ABAE82C9DB94B005CD570 /* DonateCoordinator.swift in Sources */,
 				7A203F0D1FDEDCDD00A229EC /* ReadingListHintController.swift in Sources */,
+				372F04852D7B7554002C6D2C /* TempAccountsSettingsViewController.swift in Sources */,
 				D8EC3E301E9BDA35006712EB /* WMFChange.m in Sources */,
 				67C6F7A227E8C7C500B9C864 /* NotificationsCenterCommonViewModel+ActionExtensions.swift in Sources */,
 				672428992362113900490629 /* DiffFetcher.swift in Sources */,

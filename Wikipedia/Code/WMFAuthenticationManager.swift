@@ -58,6 +58,14 @@ import CocoaLumberjackSwift
     fileprivate let currentUserFetcher: WMFCurrentUserFetcher
     
     private var currentUserCache: [SiteURLHost: WMFCurrentUser] = [:]
+    
+    @objc public var authStateTemporaryUsername: String? {
+        if authStateIsTemporary {
+            return session.getCentralAuthUserCookie()
+        } else {
+            return nil
+        }
+    }
 
     @objc public required init(session: Session, configuration: Configuration) {
         accountLoginLogoutFetcher = WMFAccountLoginLogoutFetcher(session: session, configuration: configuration)

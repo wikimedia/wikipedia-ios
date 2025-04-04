@@ -9,6 +9,7 @@ public struct WMFWatchlist {
         public let username: String
         public let isAnon: Bool
         public let isBot: Bool
+        public let isTemp: Bool
         public let timestamp: Date
         public let commentWikitext: String
         public let commentHtml: String
