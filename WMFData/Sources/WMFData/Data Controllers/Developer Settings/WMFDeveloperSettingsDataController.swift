@@ -49,6 +49,14 @@ public protocol WMFDeveloperSettingsDataControlling: AnyObject {
         }
     }
 
+    public var forceEmailAuth: Bool {
+        get {
+            return ( try? userDefaultsStore?.load(key: WMFUserDefaultsKey.forceEmailAuth.rawValue)) ?? false
+        } set {
+            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.forceEmailAuth.rawValue, value: newValue)
+        }
+    }
+
     // MARK: - Remote Settings from donatewiki AppsFeatureConfig json
     
     public func loadFeatureConfig() -> WMFFeatureConfigResponse? {

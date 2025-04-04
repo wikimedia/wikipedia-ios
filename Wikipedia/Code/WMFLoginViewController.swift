@@ -242,6 +242,9 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
                     case .needsOathTokenFor2FA:
                         self.showTwoFactorViewController()
                         return
+                    case .needsEmailAuthToken:
+                        self.showTwoFactorViewController()
+                        return
                     case .statusNotPass:
                         self.passwordField.text = nil
                         self.passwordField.becomeFirstResponder()

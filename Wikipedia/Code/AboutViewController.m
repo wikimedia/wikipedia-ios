@@ -202,7 +202,9 @@ static NSString *const kWMFContributorsKey = @"contributors";
 
     NSString *bypassDonation = WMFLocalizedStringWithDefaultValue(@"developer-settings-bypass-donation", nil, nil, @"Bypass Donation", @"Title for option to bypass a donation in developer settings menu.");
 
-    WMFDeveloperSettingsLocalizedStrings *localizedStrings = [[WMFDeveloperSettingsLocalizedStrings alloc] initWithDeveloperSettings:developerSettings doNotPostImageRecommendations:doNotPostImageRecommendations sendAnalyticsToWMFLabs:sendAnalyticsToWMFLabs enableYearinReview:enableYearInReview bypassDonation:bypassDonation close:WMFCommonStrings.doneTitle];
+    NSString *forceEmailAuth = WMFLocalizedStringWithDefaultValue(@"developer-settings-bypass-donation", nil, nil, @"Bypass Donation", @"Title for option to bypass a donation in developer settings menu.");
+
+    WMFDeveloperSettingsLocalizedStrings *localizedStrings = [[WMFDeveloperSettingsLocalizedStrings alloc] initWithDeveloperSettings:developerSettings doNotPostImageRecommendations:doNotPostImageRecommendations sendAnalyticsToWMFLabs:sendAnalyticsToWMFLabs enableYearinReview:enableYearInReview bypassDonation:bypassDonation forceEmailAuth:forceEmailAuth done:WMFCommonStrings.doneTitle];
     WMFDeveloperSettingsViewModel *viewModel = [[WMFDeveloperSettingsViewModel alloc] initWithLocalizedStrings:localizedStrings];
 
     WMFDeveloperSettingsViewController *viewController = [[WMFDeveloperSettingsViewController alloc] initWithViewModel:viewModel];

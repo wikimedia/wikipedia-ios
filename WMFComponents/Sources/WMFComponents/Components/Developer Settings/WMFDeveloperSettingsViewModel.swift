@@ -8,15 +8,17 @@ import WMFData
     let sendAnalyticsToWMFLabs: String
     let enableYearinReview: String
     let bypassDonation: String
+    let forceEmailAuth: String
     let done: String
 
-    @objc public init(developerSettings: String, doNotPostImageRecommendations: String, sendAnalyticsToWMFLabs: String, enableYearinReview: String, bypassDonation: String, close: String) {
+    @objc public init(developerSettings: String, doNotPostImageRecommendations: String, sendAnalyticsToWMFLabs: String, enableYearinReview: String, bypassDonation: String, forceEmailAuth: String, done: String) {
         self.developerSettings = developerSettings
         self.doNotPostImageRecommendations = doNotPostImageRecommendations
         self.sendAnalyticsToWMFLabs = sendAnalyticsToWMFLabs
         self.enableYearinReview = enableYearinReview
         self.bypassDonation = bypassDonation
-        self.done = close
+        self.forceEmailAuth = forceEmailAuth
+        self.done = done
     }
 }
 
@@ -34,7 +36,9 @@ import WMFData
 
         let bypassDonationItem = WMFFormItemSelectViewModel(title: localizedStrings.bypassDonation, isSelected: WMFDeveloperSettingsDataController.shared.bypassDonation)
 
-        formViewModel = WMFFormViewModel(sections: [WMFFormSectionSelectViewModel(items: [doNotPostImageRecommendationsEditItem, sendAnalyticsToWMFLabsItem, bypassDonationItem], selectType: .multi)])
+        let forceEmailAuth = WMFFormItemSelectViewModel(title: localizedStrings.forceEmailAuth, isSelected: WMFDeveloperSettingsDataController.shared.forceEmailAuth)
+
+        formViewModel = WMFFormViewModel(sections: [WMFFormSectionSelectViewModel(items: [doNotPostImageRecommendationsEditItem, sendAnalyticsToWMFLabsItem, bypassDonationItem, forceEmailAuth], selectType: .multi)])
 
         doNotPostImageRecommendationsEditItem.$isSelected.sink { isSelected in
             WMFDeveloperSettingsDataController.shared.doNotPostImageRecommendationsEdit = isSelected
@@ -47,6 +51,9 @@ import WMFData
         bypassDonationItem.$isSelected.sink { isSelected in
             WMFDeveloperSettingsDataController.shared.bypassDonation = isSelected
         }.store(in: &subscribers)
-    }
 
+        forceEmailAuth.$isSelected.sink { isSelected in
+            WMFDeveloperSettingsDataController.shared.forceEmailAuth = isSelected
+        }.store(in: &subscribers)
+    }
 }
