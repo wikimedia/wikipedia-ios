@@ -209,6 +209,18 @@
                                               disclosureText:nil
                                                   isSwitchOn:NO];
         }
+        case WMFSettingsMenuItemType_TemporaryAccount: {
+            WMFAuthenticationManager *authManager = [MWKDataStore shared].authenticationManager;
+            NSString *temporaryUsername = authManager.authStateTemporaryUsername ?: WMFCommonStrings.tempAccount;
+
+            return [[WMFSettingsMenuItem alloc] initWithType:type
+                                                       title:temporaryUsername
+                                                    iconName:@"tempAccountIcon"
+                                                   iconColor:[UIColor wmf_orange]
+                                              disclosureType:WMFSettingsMenuItemDisclosureType_ViewController
+                                              disclosureText:nil
+                                                  isSwitchOn:NO];
+        }
     }
 }
 

@@ -20,6 +20,7 @@ public enum WMFIcon {
     static let userContributions = UIImage(named: "user-contributions", in: .module, with: nil)
     public static let externalLink = UIImage(named: "external-link", in: .module, with: nil)
     static let bot = UIImage(named: "bot", in: .module, with: nil)
+    public static let temp = UIImage(named: "temp", in: .module, with: nil)
     public static let checkPhoto = UIImage(named: "photo-badge-checkmark", in: .module, with: nil) // Use SFSymbol once target is iOS17+
     public static let addPhoto = UIImage(named: "photo-badge-plus", in: .module, with: nil) // Use SFSymbol once target is iOS17+
     public static let error = UIImage(named: "error", in: .module, with: nil)
@@ -65,6 +66,7 @@ public enum WMFSFSymbolIcon {
     case italic
     case exclamationMarkCircle
     case exclamationMarkCircleFill
+    case exclamationMarkTriangleFill
     case textFormatSuperscript
     case textFormatSubscript
     case underline
@@ -107,6 +109,7 @@ public enum WMFSFSymbolIcon {
     case calendar
     case share
     case infoCircleFill
+    case temporaryAccountIcon
 
     public static func `for`(symbol: WMFSFSymbolIcon, font: WMFFont = .subheadline, compatibleWith traitCollection: UITraitCollection = WMFAppEnvironment.current.traitCollection, paletteColors: [UIColor]? = nil) -> UIImage? {
         let font = WMFFont.for(font, compatibleWith: traitCollection)
@@ -170,6 +173,8 @@ public enum WMFSFSymbolIcon {
             image = UIImage(systemName: "exclamationmark.circle", withConfiguration: configuration)
         case .exclamationMarkCircleFill:
             image = UIImage(systemName: "exclamationmark.circle.fill", withConfiguration: configuration)
+        case .exclamationMarkTriangleFill:
+            image = UIImage(systemName: "exclamationmark.triangle.fill", withConfiguration: configuration)
         case .textFormatSuperscript:
             image = UIImage(systemName: "textformat.superscript", withConfiguration: configuration)
         case .textFormatSubscript:
@@ -256,6 +261,8 @@ public enum WMFSFSymbolIcon {
             image = UIImage(systemName: "square.and.arrow.up", withConfiguration: configuration)
         case .infoCircleFill:
             image = UIImage(systemName: "info.circle.fill", withConfiguration: configuration)
+        case .temporaryAccountIcon:
+            image = UIImage(systemName: "person.crop.circle.badge.xmark", withConfiguration: configuration)
         }
         
         image = image?.withRenderingMode(.alwaysTemplate)

@@ -20,9 +20,11 @@ final class TalkPageViewModel {
 
     let authenticationManager: WMFAuthenticationManager
     let languageLinkController: MWKLanguageLinkController
+    let dataStore: MWKDataStore
     var deepLinkData: DeepLinkData?
     let dataController: TalkPageDataController
-    
+    var wikiHasTempAccounts: Bool?
+
     private var dateFormatter: DateFormatter?
     private(set) var semanticContentAttribute: UISemanticContentAttribute
 
@@ -49,7 +51,7 @@ final class TalkPageViewModel {
     ///   - siteURL: Site URL without article path, e.g. "https://en.wikipedia.org"
     ///   - articleSummaryController: article summary controller from the MWKDataStore singleton
     ///   - authenticationManager: authentication manager from the MWKDataStore singleton
-    init?(pageType: TalkPageType, pageTitle: String, siteURL: URL, source: RoutingUserInfoSourceValue, articleSummaryController: ArticleSummaryController, authenticationManager: WMFAuthenticationManager, languageLinkController: MWKLanguageLinkController) {
+    init?(pageType: TalkPageType, pageTitle: String, siteURL: URL, source: RoutingUserInfoSourceValue, articleSummaryController: ArticleSummaryController, authenticationManager: WMFAuthenticationManager, languageLinkController: MWKLanguageLinkController, dataStore: MWKDataStore) {
         
         guard let project = WikimediaProject(siteURL: siteURL, languageLinkController: languageLinkController) else {
             return nil
@@ -63,6 +65,7 @@ final class TalkPageViewModel {
         self.dataController = TalkPageDataController(pageType: pageType, pageTitle: pageTitle, siteURL: siteURL, articleSummaryController: articleSummaryController)
         self.authenticationManager = authenticationManager
         self.languageLinkController = languageLinkController
+        self.dataStore = dataStore
         
         // Setting headerTitle as pageTitle (which contains the namespace prefix) for now, we attempt to strip the namespace later in populateHeaderData
         self.headerTitle = pageTitle
@@ -77,12 +80,12 @@ final class TalkPageViewModel {
     ///   - pageURL: Full wiki page URL, e.g. https://en.wikipedia.org/wiki/Cat
     ///   - articleSummaryController: article summary controller from the MWKDataStore singleton
     ///   - authenticationManager: authentication manager from the MWKDataStore singleton
-    convenience init?(pageType: TalkPageType, pageURL: URL, source: RoutingUserInfoSourceValue, articleSummaryController: ArticleSummaryController, authenticationManager: WMFAuthenticationManager, languageLinkController: MWKLanguageLinkController) {
+    convenience init?(pageType: TalkPageType, pageURL: URL, source: RoutingUserInfoSourceValue, articleSummaryController: ArticleSummaryController, authenticationManager: WMFAuthenticationManager, languageLinkController: MWKLanguageLinkController, dataStore: MWKDataStore) {
         guard let pageTitle = pageURL.wmf_title, let siteURL = pageURL.wmf_site else {
             return nil
         }
 
-        self.init(pageType: pageType, pageTitle: pageTitle, siteURL: siteURL, source: source, articleSummaryController: articleSummaryController, authenticationManager: authenticationManager, languageLinkController: languageLinkController)
+        self.init(pageType: pageType, pageTitle: pageTitle, siteURL: siteURL, source: source, articleSummaryController: articleSummaryController, authenticationManager: authenticationManager, languageLinkController: languageLinkController, dataStore: dataStore)
     }
 
     // MARK: - Public
