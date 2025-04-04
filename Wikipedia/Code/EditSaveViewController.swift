@@ -496,16 +496,14 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
     
     private func handleEditSuccess(with result: [AnyHashable: Any]) {
         var needsNewTempAccountToast = false
-        Task {
-            wikiHasTempAccounts = await checkWikiStatus()
-            if let _ = wikiHasTempAccounts, let dataStore, !dataStore.authenticationManager.authStateIsPermanent {
-                if dataStore.authenticationManager.authStateIsTemporary {
-                    if authState == .ipAccount {
-                        needsNewTempAccountToast = true
-                    }
+        guard let dataStore else { return }
+        if let wikiHasTempAccounts, wikiHasTempAccounts, !dataStore.authenticationManager.authStateIsPermanent {
+            if dataStore.authenticationManager.authStateIsTemporary {
+                if authState == .ipAccount {
+                    needsNewTempAccountToast = true
                 }
-            }
-        }
+           }
+      }
 
         let notifyDelegate: (Result<EditorChanges, Error>) -> Void = { result in
             self.delegate?.editSaveViewControllerDidSave(self, result: result, needsNewTempAccountToast: needsNewTempAccountToast)
