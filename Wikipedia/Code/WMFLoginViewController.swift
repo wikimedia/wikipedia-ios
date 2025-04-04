@@ -214,7 +214,7 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
             return
         }
         
-        dataStore.authenticationManager.login(username: username, password: password, retypePassword: nil, oathToken: nil, captchaID: captchaViewController?.captcha?.captchaID, captchaWord: captchaViewController?.solution) { (loginResult) in
+        dataStore.authenticationManager.login(username: username, password: password, retypePassword: nil, oathToken: nil, emailAuthCode: nil, captchaID: captchaViewController?.captcha?.captchaID, captchaWord: captchaViewController?.solution) { (loginResult) in
             switch loginResult {
             case .success:
                 let loggedInMessage = String.localizedStringWithFormat(WMFLocalizedString("main-menu-account-title-logged-in", value:"Logged in as %1$@", comment:"Header text used when account is logged in. %1$@ will be replaced with current username."), self.usernameField.text ?? "")

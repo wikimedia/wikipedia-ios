@@ -3,6 +3,7 @@ public enum WMFAccountLoginError: LocalizedError {
     case statusNotPass(String?)
     case temporaryPasswordNeedsChange(String?)
     case needsOathTokenFor2FA(String?)
+    case needsEmailAuthToken(String?)
     case wrongPassword(String?)
     case wrongToken
     public var errorDescription: String? {
@@ -14,6 +15,8 @@ public enum WMFAccountLoginError: LocalizedError {
         case .temporaryPasswordNeedsChange(let message?):
             return message
         case .needsOathTokenFor2FA(let message?):
+            return message
+        case .needsEmailAuthToken(let message):
             return message
         case .wrongPassword(let message?):
             return message
@@ -29,8 +32,8 @@ public typealias Username = String
 
 public class WMFAccountLoginLogoutFetcher: Fetcher {
     
-    public func login(username: String, password: String, retypePassword: String?, oathToken: String?, captchaID: String?, captchaWord: String?, siteURL: URL, reattemptOn401Response: Bool = false, success: @escaping (Username) -> Void, failure: @escaping WMFErrorHandler) {
-        
+    public func login(username: String, password: String, retypePassword: String?, oathToken: String?, emailAuthCode: String?, captchaID: String?, captchaWord: String?, siteURL: URL, reattemptOn401Response: Bool = false, success: @escaping (Username) -> Void, failure: @escaping WMFErrorHandler) {
+
         var parameters = [
             "action": "clientlogin",
             "username": username,
@@ -49,7 +52,12 @@ public class WMFAccountLoginLogoutFetcher: Fetcher {
             parameters["OATHToken"] = oathToken
             parameters["logincontinue"] = "1"
         }
-        
+
+        if let emailAuthCode {
+            parameters["token"] = emailAuthCode
+            parameters["logincontinue"] = "1"
+        }
+
         if let captchaID = captchaID {
             parameters["captchaId"] = captchaID
         }
@@ -108,6 +116,17 @@ public class WMFAccountLoginLogoutFetcher: Fetcher {
                         let fields = OATHTokenRequest["fields"] as? [String : AnyObject],
                         fields["OATHToken"] is [String : AnyObject] {
                         failure(WMFAccountLoginError.needsOathTokenFor2FA(message))
+                        return
+                    }
+                    if let emailAuthRequests = requests.first(where: { request in
+                        guard let id = request["id"] as? String else {
+                            return false
+                        }
+                        return id.hasSuffix("EmailAuthAuthenticationRequest")
+                    }),
+                       let fields = emailAuthRequests["fields"] as? [String : AnyObject],
+                       fields["token"] is [String : AnyObject] { // email auth token
+                        failure(WMFAccountLoginError.needsEmailAuthToken(message))
                         return
                     }
                 }

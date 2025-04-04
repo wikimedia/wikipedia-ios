@@ -174,15 +174,15 @@ import CocoaLumberjackSwift
     ///   - captchaWord: CaptchaWord if login requiers captcha information
     ///   - reattemptOn401Response: Attempts login again if response http is 401.
     ///   - completion: Completion handler with current user object upon success
-    public func login(username: String, password: String, retypePassword: String?, oathToken: String?, captchaID: String?, captchaWord: String?, reattemptOn401Response: Bool = false, completion: @escaping (Result<WMFCurrentUser, Error>) -> Void) {
+    public func login(username: String, password: String, retypePassword: String?, oathToken: String?, emailAuthCode: String?, captchaID: String?, captchaWord: String?, reattemptOn401Response: Bool = false, completion: @escaping (Result<WMFCurrentUser, Error>) -> Void) {
         guard let siteURL = loginSiteURL else {
             DispatchQueue.main.async {
                 completion(.failure(LoginError.missingLoginURL))
             }
             return
         }
-        accountLoginLogoutFetcher.login(username: username, password: password, retypePassword: retypePassword, oathToken: oathToken, captchaID: captchaID, captchaWord: captchaWord, siteURL: siteURL, reattemptOn401Response: reattemptOn401Response, success: {username in
-            
+        accountLoginLogoutFetcher.login(username: username, password: password, retypePassword: retypePassword, oathToken: oathToken, emailAuthCode: emailAuthCode, captchaID: captchaID, captchaWord: captchaWord, siteURL: siteURL, reattemptOn401Response: reattemptOn401Response, success: {username in
+
             // Upon successful login, try fetching userinfo to populate user cache
             self.currentUserFetcher.fetch(siteURL: siteURL, success: { user in
                 DispatchQueue.main.async {
@@ -232,7 +232,7 @@ import CocoaLumberjackSwift
         }
         
         let performLogin: () -> Void = {
-            self.login(username: userName, password: password, retypePassword: nil, oathToken: nil, captchaID: nil, captchaWord: nil, reattemptOn401Response: reattemptOn401Response, completion: { (loginResult) in
+            self.login(username: userName, password: password, retypePassword: nil, oathToken: nil, emailAuthCode: nil, captchaID: nil, captchaWord: nil, reattemptOn401Response: reattemptOn401Response, completion: { (loginResult) in
                 DispatchQueue.main.async {
                     switch loginResult {
                     case .success(let user):
