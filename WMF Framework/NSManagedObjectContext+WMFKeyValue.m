@@ -32,7 +32,7 @@
     }
 }
 
-    - (nullable NSNumber *)wmf_numberValueForKey : (NSString *)key {
+- (nullable NSNumber *)wmf_numberValueForKey : (NSString *)key {
     return [self wmf_valueOfClass:[NSNumber class] forKey:key];
 }
 

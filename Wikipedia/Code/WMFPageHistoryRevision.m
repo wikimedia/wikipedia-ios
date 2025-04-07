@@ -21,7 +21,12 @@
         WMF_SAFE_KEYPATH(WMFPageHistoryRevision.new, articleSizeAtRevision): @"size",
         WMF_SAFE_KEYPATH(WMFPageHistoryRevision.new, isAnon): @"anon",
         WMF_SAFE_KEYPATH(WMFPageHistoryRevision.new, isMinor): @"minor",
+        WMF_SAFE_KEYPATH(WMFPageHistoryRevision.new, temp): @"temp",
     };
+}
+
+- (BOOL)isTemp {
+    return [self.temp isEqualToString:@""];
 }
 
 + (NSValueTransformer *)revisionDateJSONTransformer {

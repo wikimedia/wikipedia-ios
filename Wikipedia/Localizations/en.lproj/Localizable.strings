@@ -70,6 +70,8 @@
 "action-update" = "Update";
 "add-articles-to-reading-list" = "Add {{PLURAL:$1|$1 article|$1 articles}} to reading list";
 "advanced-settings-title" = "Advanced settings";
+"alert-temporary-account" = "You are using a temporary account. Account will expire in 90 days.";
+"alert-temporary-account-learn-more" = "Learn more.";
 "alt-text-feedback-survey-toast-title" = "Feedback submitted";
 "announcements-dismiss" = "Dismiss";
 "app-store-keywords" = "Wikipedia, reference, wiki, encyclopedia, info, knowledge, research, information, explore, learn";
@@ -99,6 +101,8 @@
 "article-share" = "Share";
 "article-talk-page" = "Article talk page";
 "article-toolbar-reading-themes-controls-toolbar-item" = "Reading Themes Controls";
+"article-view-controller-editing-temp-account-created-subtitle" = "Temporary account $1 was created after your edit was published. It will expire in 90 days.";
+"article-view-controller-editing-temp-account-created-title" = "Temporary account created";
 "back-button-accessibility-label" = "Back";
 "back-button-popover-title" = "Tap to go back";
 "button-go-back" = "Go back";
@@ -142,6 +146,7 @@
 "description-edit-title" = "Edit description";
 "description-edit-warning" = "Try to keep descriptions short so users can understand the article's subject at a glance";
 "description-edit-warning-casing" = "Only proper nouns should be capitalized, even at the start of the sentence.";
+"description-editing-temp-account-created-subtitle" = "Temporary account $1 was created after your edit was published. It will expire in 90 days.";
 "description-help-about-description" = "Article descriptions summarize an article to help readers understand the subject at a glance.";
 "description-help-about-title" = "About";
 "description-help-about-wikidata" = "About Wikidata";
@@ -268,6 +273,8 @@
 "edit-preview-simplified-format-message" = "All content is shown in simplified format.";
 "edit-published" = "Edit published";
 "edit-published-subtitle" = "You just made Wikipedia better for everyone";
+"edit-sheet-ip-account-notice" = "IP Account Notice";
+"edit-sheet-temp-account-notice" = "Temporary Account Notice";
 "edit-show-web-preview" = "Show web preview";
 "edit-summary-add-summary-text" = "Add an edit summary";
 "edit-summary-choice-added-image" = "Added image";
@@ -615,6 +622,11 @@
 "insert-media-title" = "Insert media";
 "inuktitut-variants-alert-body" = "The Wikipedia app now supports the following Inuktitut variants as primary or secondary languages within the app, making it easier to read, search and edit in your preferred variants:\n\nᐃᓄᒃᑎᑐᑦ ᑎᑎᕋᐅᓯᖅ ᓄᑖᖅ Inuktitut, Syllabics (ike-cans)\nInuktitut ilisautik, Inuktitut, Latin (ike-latn)";
 "inuktitut-variants-alert-title" = "Updates to Inuktitut variant support";
+"ip-account-cta-bottom" = "Continue without logging in";
+"ip-account-cta-top" = "Log in or create an account";
+"ip-account-edit-sheet-subtitle" = "Once you make an edit, a $1temporary account$2 will be created for you to protect your privacy. $3Learn more.$4$5Log in or create an account to get credit for future edits and to access other features.";
+"ip-account-warning-subtitle" = "On publish a temporary account will be created for you.";
+"ip-account-warning-title" = "You are not logged in";
 "kazakh-variants-alert-body" = "The Wikipedia app now supports the following Kazakh variants as primary or secondary languages within the app, making it easier to read, search and edit in your preferred variants:\n\nҚазақша Kazakh (kk)\nҚазақша Кирил Kazakh, Cyrillic (kk-cyrl)\nqazaqşa latin Kazakh, Latin (kk-latn)\nتوتە قازاقشا Kazakh, Arabic (kk-arab)";
 "kazakh-variants-alert-title" = "Updates to Kazakh variant support";
 "kurdish-variants-alert-body" = "The Wikipedia app now supports the following Kurdish variants as primary or secondary languages within the app, making it easier to read, search and edit in your preferred variants:\n\nKurdî Latînî Kurdish, Latin (ku-latn)\nكوردی Kurdish, Arabic (kk-arab)";
@@ -705,7 +717,6 @@
 "notifications-center-go-to-article" = "Article";
 "notifications-center-go-to-article-talk-format" = "$1 talk page";
 "notifications-center-go-to-diff" = "Diff";
-"notifications-center-go-to-talk-page" = "Talk page";
 "notifications-center-go-to-user-page" = "$1's user page";
 "notifications-center-go-to-wikidata-item" = "Wikidata item";
 "notifications-center-go-to-your-talk-page" = "Your talk page";
@@ -812,11 +823,11 @@
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 from $2 Wikipedia";
 "on-this-day-title" = "On this day";
 "original-tab-button-popover-description" = "Tap on the 'W' to return to the tab you started from";
-"page-history-anonymous-edits" = "anon edits";
 "page-history-bot-edits" = "bot edits";
 "page-history-compare-accessibility-hint" = "Tap to select two revisions to compare";
 "page-history-compare-title" = "Compare";
 "page-history-graph-accessibility-label" = "Graph of edits over time";
+"page-history-logged-in-edits" = "logged-in";
 "page-history-minor-edits" = "minor edits";
 "page-history-revision-author-accessibility-label" = "Author: $1";
 "page-history-revision-comment-accessibility-label" = "Comment $1";
@@ -827,7 +838,7 @@
 "page-history-revision-time-accessibility-label" = "Revision made $1";
 "page-history-revisions-comparison-warning" = "Only two revisions can be selected";
 "page-history-stats-text" = "{{PLURAL:$1|$1 edit|$1 edits}} since $2";
-"page-history-user-edits" = "user edits";
+"page-history-unregistered-edits" = "unregistered edits";
 "page-issues" = "Page issues";
 "page-location" = "View on a map";
 "page-protected-can-not-edit" = "You do not have the rights to edit this page";
@@ -888,7 +899,6 @@
 "profile-page-join-subtext" = "Sign up for a Wikipedia account to track your contributions, save articles offline, and sync across devices.";
 "profile-page-join-title" = "Log in / Join Wikipedia";
 "profile-page-logged-out-year-in-review-subtext" = "Log in or create an account to get an improved year in review next year";
-"profile-page-title-logged-out" = "Account";
 "profile-year-in-review-login-subtitle" = "Log in or create an account to see Year in Review again and be eligible for more personalized insights.";
 "profile-year-in-review-login-title" = "Log in for access to Year in Review";
 "project-name-mediawiki" = "MediaWiki";
@@ -1009,6 +1019,8 @@
 "return-button-title" = "Return";
 "return-to-article" = "Return to article";
 "reverted-edit-title" = "Reverted edit";
+"save-view-temp-account-notice" = "You are using a temporary account. Edits are being attributed to $1...";
+"save-view-temp-account-warning" = "You are not logged in. Once you make an edit, a temporary account will be created for you to protect your privacy.";
 "saved-all-articles-title" = "All articles";
 "saved-default-reading-list-tag" = "This list cannot be deleted";
 "saved-pages-image-download-error" = "Failed to download images for this saved page.";
@@ -1184,6 +1196,15 @@
 "talk-pages-user-groups" = "User groups";
 "talk-pages-user-logs" = "Logs";
 "talk-pages-view-title" = "Talk";
+"temp-account-alert-read-more-information" = "$1You are using a temporary account.$2 Account will expire in 90 days. After it expires, a new one will be created the next time you make an edit without logging in. $3Log in or create an account to get credit for future edits, and access other features.";
+"temp-account-edit-sheet-cta-top" = "Log in or create an account";
+"temp-account-edit-sheet-subtitle" = "Your edit will be attributed to $2$1$3. Your $4IP address$5 will be visible to administrators. $7Learn more.$5$6 If you log in or create an account, your edits will be attributed to a name you choose, among other benefits.";
+"temp-account-got-it" = "Got it";
+"temp-account-toast-read-more-title" = "Read more";
+"temp-account-toast-title" = "$1You are currently using a temporary account.$2 Edits made with the temporary...";
+"temp-account-warning-title" = "You are using a temporary account";
+"temp-warning-subtitle-format" = "Your edit will be attributed to $1";
+"temporary-account" = "Temporary Account";
 "terms-of-use-title" = "Terms of use";
 "theme-black-display-name" = "Black";
 "theme-dark-display-name" = "Dark";

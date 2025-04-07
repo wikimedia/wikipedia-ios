@@ -72,7 +72,7 @@ extension NotificationsCenterCommonViewModel {
     }
     
     private var goToTalkPageText: String {
-        WMFLocalizedString("notifications-center-go-to-talk-page", value: "Talk page", comment: "Button text in Notifications Center that routes to a talk page.")
+        CommonStrings.talkPage
     }
     
     private var goToYourTalkPageText: String {
