@@ -3,7 +3,7 @@ import UIKit
 extension OnThisDayCollectionViewCell {
     public func configure(with onThisDayEvent: WMFFeedOnThisDayEvent, dataStore: MWKDataStore, showArticles: Bool = true, theme: Theme, layoutOnly: Bool, shouldAnimateDots: Bool) {
         let previews = onThisDayEvent.articlePreviews ?? []
-        let currentYear = Calendar.current.component(.year, from: Date())
+        let currentYear = Calendar(identifier: .gregorian).component(.year, from: Date())
         
         apply(theme: theme)
     
