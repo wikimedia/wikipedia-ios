@@ -131,7 +131,7 @@ final class OnThisDayData {
                                           contentURL: URL(string: "https://en.wikipedia.org/wiki/Wikipedia:On_this_day/Today"),
                                           eventSnippet: eventSnippet,
                                           eventYear: eventYear,
-                                          eventYearsAgo: String(format: WMFLocalizedDateFormatStrings.yearsAgo(forWikiLanguage: language?.languageCode), locale: locale, (Calendar.current.component(.year, from: Date()) - 2001)),
+                                          eventYearsAgo: String(format: WMFLocalizedDateFormatStrings.yearsAgo(forWikiLanguage: language?.languageCode), locale: locale, (Calendar(identifier: .gregorian).component(.year, from: Date()) - 2001)),
                                           articleTitle: CommonStrings.plainWikipediaName(with: language?.languageCode),
                                           articleSnippet: articleSnippet,
                                           articleImage: UIImage(named: "W"),
@@ -262,7 +262,7 @@ extension OnThisDayEntry {
         articleSnippet = article.descriptionOrSnippet
         articleURL = article.articleURL
         let locale = NSLocale.wmf_locale(for: language)
-        let currentYear = Calendar.current.component(.year, from: Date())
+        let currentYear = Calendar(identifier: .gregorian).component(.year, from: Date())
         let yearsSinceEvent = currentYear - year
         eventYearsAgo = String(format: WMFLocalizedDateFormatStrings.yearsAgo(forWikiLanguage: language), locale: locale, yearsSinceEvent)
         yearRange = CommonStrings.onThisDayHeaderDateRangeMessage(with: language, locale: locale, lastEvent: earliestEventYear, firstEvent: latestEventYear)
