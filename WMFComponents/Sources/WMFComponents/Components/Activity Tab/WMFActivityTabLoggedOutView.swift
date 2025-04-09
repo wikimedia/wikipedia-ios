@@ -24,7 +24,7 @@ struct WMFActivityTabLoggedOutView: View {
 
             Spacer()
         }
-        .padding(28)
+        .padding(20)
 
     }
 }
