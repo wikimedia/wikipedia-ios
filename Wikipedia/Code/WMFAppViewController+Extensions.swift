@@ -717,6 +717,7 @@ extension WMFAppViewController {
         viewModel.savedSlideDataDelegate = dataStore.savedPageList
         viewModel.legacyPageViewsDataDelegate = dataStore
 
-        return WMFActivityTabViewController(viewModel: viewModel, isLoggedIn: dataStore.authenticationManager.authStateIsPermanent)
+//        return WMFActivityTabViewController(viewModel: viewModel, isLoggedIn: dataStore.authenticationManager.authStateIsPermanent)
+        return WMFActivityTabViewController(viewModel: viewModel, isLoggedIn: true)
     }
 }
