@@ -9,35 +9,41 @@ public struct WMFActivityView: View {
 
     @ObservedObject var viewModel: WMFActivityViewModel
 
-    public init(viewModel: WMFActivityViewModel) {
+    let isLoggedIn: Bool
+
+    public init(viewModel: WMFActivityViewModel, isLoggedIn: Bool) {
         self.viewModel = viewModel
+        self.isLoggedIn = isLoggedIn
     }
 
     public var body: some View {
         VStack {
-            if viewModel.hasNoEdits {
-                noEditsView
-                if viewModel.shouldShowStartEditing {
-                    startEditingButton
+            if isLoggedIn {
+                if viewModel.hasNoEdits {
+                    noEditsView
+                    if viewModel.shouldShowStartEditing {
+                        startEditingButton
+                    } else if viewModel.shouldShowAddAnImage {
+                        addAnImageButton
+                    }
                 } else if viewModel.shouldShowAddAnImage {
-                    addAnImageButton
+                    Text(viewModel.suggestedEdits)
+                    addAnImageButton // TODO: add editing activity item above
                 }
-            } else if viewModel.shouldShowAddAnImage {
-                Text(viewModel.suggestedEdits)
-                addAnImageButton // TODO: add editing activity item above
-            }
-            if let activityItems = viewModel.activityItems {
-                ForEach(activityItems, id: \.title) { item in
-                    WMFActivityComponentView(activityItem: item)
-                        .padding(.vertical, 12)
-                        .frame(maxWidth: .infinity, alignment: .leading)
+                if let activityItems = viewModel.activityItems {
+                    ForEach(activityItems, id: \.title) { item in
+                        WMFActivityComponentView(activityItem: item)
+                            .padding(.vertical, 12)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                    }
                 }
+                Spacer()
+            } else {
+                WMFActivityTabLoggedOutView()
             }
-            Spacer()
         }
-        .padding()
     }
-    
+
     private var noEditsView: some View {
         VStack {
             Text(viewModel.noEditsTitle)
