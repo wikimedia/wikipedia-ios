@@ -14,10 +14,13 @@ public struct WMFActivityComponentView: View {
     }
 
     public var body: some View {
-        HStack {
-            Image(activityItem.imageName)
+        HStack(alignment: .top, spacing: 12) {
+            Image(systemName: activityItem.imageName)
+                .resizable()
+                .aspectRatio(contentMode: .fit)
                 .foregroundStyle(Color(theme.link))
-            VStack {
+                .frame(width: 42)
+            VStack(alignment: .leading) {
                 Text(activityItem.title)
                     .font(Font(WMFFont.for(.boldHeadline)))
                 Text(activityItem.subtitle)

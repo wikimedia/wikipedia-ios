@@ -15,7 +15,6 @@ public struct WMFActivityView: View {
 
     public var body: some View {
         VStack {
-            Text("ACTIVITY VIEW ")
             if viewModel.hasNoEdits {
                 noEditsView
                 if viewModel.shouldShowStartEditing {
@@ -30,9 +29,13 @@ public struct WMFActivityView: View {
             if let activityItems = viewModel.activityItems {
                 ForEach(activityItems, id: \.title) { item in
                     WMFActivityComponentView(activityItem: item)
+                        .padding(.vertical, 12)
+                        .frame(maxWidth: .infinity, alignment: .leading)
                 }
             }
+            Spacer()
         }
+        .padding()
     }
     
     private var noEditsView: some View {
