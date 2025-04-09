@@ -1494,7 +1494,9 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
 
 - (WMFActivityTabViewController *)activityTabViewController {
     if (!_activityTabViewController) {
-        _activityTabViewController = [[WMFActivityTabViewController alloc] initWithIsLoggedIn: [self.dataStore.authenticationManager authStateIsPermanent]];
+//        _activityTabViewController = [[WMFActivityTabViewController alloc] initWithIsLoggedIn: [self.dataStore.authenticationManager authStateIsPermanent]];
+
+        _activityTabViewController = [self generateActivityTab];
         _activityTabViewController.tabBarItem.image = [UIImage systemImageNamed:@"bolt.fill"];
         _activityTabViewController.title = @"Activity";
     }
