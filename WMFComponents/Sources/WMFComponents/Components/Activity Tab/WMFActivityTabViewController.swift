@@ -12,18 +12,8 @@ public final class WMFActivityTabViewController: WMFCanvasViewController, WMFNav
 
     private let hostingViewController: WMFActivityTabHostingController
 
-     @objc public override init() {
-         let testItems = [
-            ActivityItem(imageName: "pencil", title: "You edited 1 article this week.", subtitle: "Edit activity increased by 100% compared to the previous week.", onViewTitle: "View editing history", onViewTap: { print("On view tap")}),
-            ActivityItem(imageName: "square.text.square", title: "You read 87 articles this week.", subtitle: "You read 12% less compared to the previous week.", onViewTitle: "View reading history", onViewTap: { print("On view tap")}),
-            ActivityItem(imageName: "bookmark.fill", title: "You saved 8 articles this week", subtitle: "You saved 5 less articles compared to the previous week.", onViewTitle: "View saved articles", onViewTap: { print("On view tap")})
-         ]
-         let viewModel = WMFActivityViewModel(activityItems: testItems, shouldShowAddAnImage: true, shouldShowStartEditing: true, hasNoEdits: false, openHistory: {
-//             let historyVC = PageHistoryViewController(pageTitle: title, pageURL: articleURL, articleSummaryController: dataStore.articleSummaryController, authenticationManager: dataStore.authenticationManager)
-//             historyVC.apply(theme: theme)
-//             push(historyVC)
-         })
-         let view = WMFActivityView(viewModel: viewModel)
+    public init(viewModel: WMFActivityViewModel, isLoggedIn: Bool) {
+        let view = WMFActivityView(viewModel: viewModel, isLoggedIn: isLoggedIn)
          self.hostingViewController = WMFActivityTabHostingController(rootView: view)
          super.init()
     }
