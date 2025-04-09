@@ -11,8 +11,8 @@ public class WMFActivityDataController: NSObject {
     public let coreDataStore: WMFCoreDataStore
     private let service = WMFDataEnvironment.current.mediaWikiService
     
-    private weak var savedSlideDataDelegate: SavedArticleSlideDataDelegate?
-    private weak var legacyPageViewsDataDelegate: LegacyPageViewsDataDelegate?
+    public var savedSlideDataDelegate: SavedArticleSlideDataDelegate?
+    public var legacyPageViewsDataDelegate: LegacyPageViewsDataDelegate?
     
     public init(coreDataStore: WMFCoreDataStore? = WMFDataEnvironment.current.coreDataStore, userDefaultsStore: WMFKeyValueStore? = WMFDataEnvironment.current.userDefaultsStore, developerSettingsDataController: WMFDeveloperSettingsDataControlling = WMFDeveloperSettingsDataController.shared) throws {
         
@@ -23,9 +23,9 @@ public class WMFActivityDataController: NSObject {
     }
     
     public struct Activity {
-        let readCount: Int
-        let savedCount: Int
-        let editedCount: Int?
+        public let readCount: Int
+        public let savedCount: Int
+        public let editedCount: Int?
     }
     
     public func fetchAllStuff(username: String, project: WMFProject?) async throws -> Activity {
@@ -48,7 +48,7 @@ public class WMFActivityDataController: NSObject {
         }
         
         
-        let legacyPageViews = try await legacyPageViewsDataDelegate?.getLegacyPageViews(from: now, to: oneWeekAgo)
+        let legacyPageViews = try await legacyPageViewsDataDelegate?.getLegacyPageViews(from: oneWeekAgo, to: now)
         return legacyPageViews?.count
     }
     
@@ -62,7 +62,7 @@ public class WMFActivityDataController: NSObject {
             throw WMFActivityDataControllerError.dateFailure
         }
         
-        let savedArticlesData = await self.savedSlideDataDelegate?.getSavedArticleSlideData(from: now, to: oneWeekAgo)
+        let savedArticlesData = await self.savedSlideDataDelegate?.getSavedArticleSlideData(from: oneWeekAgo, to: now)
         return savedArticlesData?.savedArticlesCount
     }
     
@@ -78,7 +78,7 @@ public class WMFActivityDataController: NSObject {
         
         let oneWeekAgoString = formatter.string(from: oneWeekAgo)
         
-        let (edits, _) = try await fetchUserContributionsCount(username: username, project: project, startDate: nowString, endDate: oneWeekAgoString)
+        let (edits, _) = try await fetchUserContributionsCount(username: username, project: project, startDate: oneWeekAgoString, endDate: nowString)
         
         return edits
     }

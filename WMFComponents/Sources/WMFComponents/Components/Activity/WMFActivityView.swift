@@ -1,4 +1,5 @@
 import SwiftUI
+import WMFData
 
 public struct WMFActivityView: View {
     @ObservedObject var appEnvironment = WMFAppEnvironment.current
@@ -36,6 +37,16 @@ public struct WMFActivityView: View {
             Spacer()
         }
         .padding()
+        .onAppear {
+                       Task {
+                           let dataController = try WMFActivityDataController()
+                           dataController.savedSlideDataDelegate = viewModel.savedSlideDataDelegate
+                           dataController.legacyPageViewsDataDelegate = viewModel.legacyPageViewsDataDelegate
+                           let project = WMFProject.wikipedia(WMFLanguage(languageCode: "en", languageVariantCode: nil))
+                           let activity = try await dataController.fetchAllStuff(username: "TSevener (WMF)", project: project)
+                           print("readCount: \(activity.readCount), savedCount: \(activity.savedCount), editedCount: \(activity.editedCount ?? -1)")
+                       }
+                   }
     }
     
     private var noEditsView: some View {

@@ -7,6 +7,8 @@ public class WMFActivityViewModel: ObservableObject {
     var shouldShowAddAnImage: Bool
     var shouldShowStartEditing: Bool
     var hasNoEdits: Bool
+    public var savedSlideDataDelegate: SavedArticleSlideDataDelegate?
+    public var legacyPageViewsDataDelegate: LegacyPageViewsDataDelegate?
     
     // TODO: Localize strings
     // No edits strings
@@ -35,4 +37,12 @@ public struct ActivityItem {
     let subtitle: String
     let onViewTitle: String
     let onViewTap: () -> Void
+    
+    public init(imageName: String, title: String, subtitle: String, onViewTitle: String, onViewTap: @escaping () -> Void) {
+        self.imageName = imageName
+        self.title = title
+        self.subtitle = subtitle
+        self.onViewTitle = onViewTitle
+        self.onViewTap = onViewTap
+    }
 }
