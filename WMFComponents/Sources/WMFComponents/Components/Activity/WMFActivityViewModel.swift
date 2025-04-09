@@ -3,7 +3,7 @@ import SwiftUI
 import WMFData
 
 public class WMFActivityViewModel: ObservableObject {
-    var activityItems: [ActivityItem]?
+    @Published var activityItems: [ActivityItem]?
     var shouldShowAddAnImage: Bool
     var shouldShowStartEditing: Bool
     var hasNoEdits: Bool
