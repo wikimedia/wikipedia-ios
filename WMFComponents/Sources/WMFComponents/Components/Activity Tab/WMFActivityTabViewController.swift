@@ -1,6 +1,6 @@
 import UIKit
 
- final class WMFActivityTabHostingController: WMFComponentHostingController<WMFActivityTabView> {
+final class WMFActivityTabHostingController: WMFComponentHostingController<WMFActivityView> {
 
 }
 
@@ -13,9 +13,10 @@ public final class WMFActivityTabViewController: WMFCanvasViewController, WMFNav
     private let hostingViewController: WMFActivityTabHostingController
 
      @objc public override init() {
-        let view = WMFActivityTabView()
-        self.hostingViewController = WMFActivityTabHostingController(rootView: view)
-        super.init()
+         let viewModel = WMFActivityViewModel(activityItems: nil, shouldShowAddAnImage: false, shouldShowStartEditing: false, hasNoEdits: false)
+         let view = WMFActivityView(viewModel: viewModel)
+         self.hostingViewController = WMFActivityTabHostingController(rootView: view)
+         super.init()
     }
 
     public override func viewDidLoad() {

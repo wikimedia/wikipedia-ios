@@ -15,6 +15,7 @@ public struct WMFActivityView: View {
 
     public var body: some View {
         VStack {
+            Text("ACTIVITY VIEW ")
             if viewModel.hasNoEdits {
                 noEditsView
                 if viewModel.shouldShowStartEditing {
