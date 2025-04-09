@@ -42,7 +42,10 @@ public struct WMFActivityView: View {
                     }
                     Spacer()
                 }
-                .padding()
+                Spacer()
+                Button("Open history") {
+                    viewModel.openHistory()
+                }
             }
             .padding()
             .onAppear {

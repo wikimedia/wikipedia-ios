@@ -7,6 +7,7 @@ public class WMFActivityViewModel: ObservableObject {
     var shouldShowAddAnImage: Bool
     var shouldShowStartEditing: Bool
     var hasNoEdits: Bool
+    let openHistory: () -> Void
     public var savedSlideDataDelegate: SavedArticleSlideDataDelegate?
     public var legacyPageViewsDataDelegate: LegacyPageViewsDataDelegate?
     
@@ -23,11 +24,12 @@ public class WMFActivityViewModel: ObservableObject {
     
     let suggestedEdits = "Suggested edits"
     
-    public init(activityItems: [ActivityItem]? = nil, shouldShowAddAnImage: Bool, shouldShowStartEditing: Bool, hasNoEdits: Bool) {
+    public init(activityItems: [ActivityItem]? = nil, shouldShowAddAnImage: Bool, shouldShowStartEditing: Bool, hasNoEdits: Bool, openHistory: @escaping () -> Void) {
         self.activityItems = activityItems
         self.shouldShowAddAnImage = shouldShowAddAnImage
         self.shouldShowStartEditing = shouldShowStartEditing
         self.hasNoEdits = hasNoEdits
+        self.openHistory = openHistory
     }
 }
 
