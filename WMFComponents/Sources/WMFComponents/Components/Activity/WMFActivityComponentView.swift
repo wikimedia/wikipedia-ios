@@ -19,8 +19,8 @@ public struct WMFActivityComponentView: View {
                 .resizable()
                 .aspectRatio(contentMode: .fit)
                 .foregroundStyle(Color(theme.link))
-                .frame(width: 42)
-            VStack(alignment: .leading) {
+                .frame(width: 42, alignment: .center)
+            VStack(alignment: .leading, spacing: 8) {
                 Text(activityItem.title)
                     .font(Font(WMFFont.for(.boldHeadline)))
                 Text(activityItem.subtitle)
