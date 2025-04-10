@@ -140,7 +140,6 @@
 "next-action-title" = "Հաջորդ";
 "notifications-center-go-to-article" = "Հոդված";
 "notifications-center-go-to-article-talk-format" = "$1 քննարկման էջ";
-"notifications-center-go-to-talk-page" = "Քննարկման էջ";
 "notifications-center-go-to-wikidata-item" = "Վիկիտվյալների տառռ";
 "notifications-center-go-to-your-talk-page" = "Ձեր քննարկման էջ";
 "notifications-center-mark" = "Նշել";
@@ -161,7 +160,6 @@
 "places-filter-button-title" = "Զտիչ";
 "places-search-default-text" = "Որոնել վայրեր";
 "places-search-top-articles-that-match-scope" = "Մոտակայքում";
-"profile-page-title-logged-out" = "Հաշիվ";
 "reading-list-create-new-list-description" = "Նկարագրություն";
 "replace-infolabel-method-replace" = "Փոխարինել";
 "replace-infolabel-method-replace-all" = "Փոխարինել բոլորը";
@@ -195,6 +193,7 @@
 "talk-page-title-article-talk" = "Հոդվածի քննարկում";
 "talk-pages-topic-reply-onboarding-title" = "Քննարկման էջեր";
 "talk-pages-view-title" = "Քննարկում";
+"temp-account-got-it" = "Հասկանալի է";
 "theme-black-display-name" = "Սև";
 "theme-default-display-name" = "Լռելյայն";
 "theme-sepia-display-name" = "Սեպիա";

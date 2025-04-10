@@ -206,11 +206,11 @@
 "diff-undo-message" = "ਇਹ ਇੱਥੇ ਦਿਖਾਏ ਗਏ ਲੇਖ ਦੇ ਸੋਧਾਂ ਵੱਲੋਂ ਕੀਤੀਆਂ ਗਈਆਂ ਤਬਦੀਲੀਆਂ ਨੂੰ ਖਤਮ ਕਰ ਦੇਵੇਗਾ । ਜਾਰੀ ਰੱਖਣ ਲਈ, ਕਿਰਪਾ ਕਰਕੇ ਇਸ ਸੋਧ ਨੂੰ ਵਾਪਸ ਲੈਣ ਦਾ ਕਾਰਨ ਦੱਸੋ।";
 "diff-undo-success" = "ਸੋਧ ਨੂੰ ਰੱਦ ਕਰ ਦਿੱਤਾ ਗਿਆ ਸੀ।";
 "diff-unedited-lines-format" = "{{PLURAL:$1| $1 ਲਕੀਰ ਨਹੀਂ ਸੋਧੀ| $1 ਲਕੀਰਾਂ ਨਹੀਂ ਸੋਧੀਆਂ}}";
-"diff-user-button-accessibility-text" = "ਮੀਨੂ ਖੋਲ੍ਹਣ ਲਈ ਡਬਲ ਟੈਪ ਕਰੋ";
+"diff-user-button-accessibility-text" = "ਮੀਨੂ ਨੂੰ ਖੋਲ੍ਹਣ ਲਈ ਦੋ-ਵਾਰ ਥਪੇੜੋ";
 "dim-images" = "ਚਿੱਤਰ ਚਾਨਣ ਘਟਾਓ";
-"donate-accessibility-amount-button-hint" = "ਦਾਨ ਦੀ ਰਕਮ ਚੁਣਨ ਲਈ ਡਬਲ ਟੈਪ ਕਰੋ।";
-"donate-accessibility-donate-hint-format" = "ਵਿਕੀਮੀਡੀਆ ਸੰਸਥਾ ਨੂੰ $1 ਦਾਨ ਕਰਨ ਲਈ ਡਬਲ ਟੈਪ ਕਰੋ।";
-"donate-accessibility-email-opt-in-hint" = "ਵਿਕੀਮੀਡੀਆ ਸੰਸਥਾ ਨੂੰ ਤੁਹਾਨੂੰ ਈਮੇਲ ਕਰਨ ਦੀ ਇਜਾਜ਼ਤ ਦੇਣ ਲਈ ਡਬਲ ਟੈਪ ਕਰੋ।";
+"donate-accessibility-amount-button-hint" = "ਦਾਨ ਦੀ ਰਕਮ ਚੁਣਨ ਲਈ ਦੋ-ਵਾਰ ਨੱਪੋ।";
+"donate-accessibility-donate-hint-format" = "ਵਿਕੀਮੀਡੀਆ ਸੰਸਥਾ ਨੂੰ $1 ਦਾਨ ਕਰਨ ਲਈ ਦੋ-ਵਾਰ ਨੱਪੋ।";
+"donate-accessibility-email-opt-in-hint" = "ਵਿਕੀਮੀਡੀਆ ਸੰਸਥਾ ਨੂੰ ਤੁਹਾਨੂੰ ਈਮੇਲ ਕਰਨ ਦੀ ਇਜਾਜ਼ਤ ਦੇਣ ਲਈ ਦੋ-ਵਾਰ ਥਪੇੜੋ।";
 "donate-accessibility-textfield-hint" = "ਦਾਨ ਕਰਨ ਲਈ ਖ਼ੁਦ ਰਕਮ ਦਾਖ਼ਲ ਕਰੋ।";
 "donate-help-frequently-asked-questions" = "ਅਕਸਰ ਪੁੱਛੇ ਜਾਂਦੇ ਸੁਆਲ";
 "donate-help-other-ways-to-give" = "ਦੇਣ ਦੇ ਹੋਰ ਤਰੀਕੇ";
@@ -473,6 +473,7 @@
 "main-menu-title" = "ਹੋਰ";
 "main-menu-zero-faq" = "ਵਿਕੀਪੀਡੀਆ ਜ਼ੀਰੋ ਬਾਬਤ ਆਮ ਸੁਆਲ";
 "microsite-yir-english-edits-bytes-slide-title" = "4 ਅਰਬ ਬਾਈਟਾਂ ਜੋੜਿਆਂ";
+"microsite-yir-english-top-read-slide-title" = "ਅੰਗਰੇਜ਼ੀ ਵਿਕੀਪੀਡੀਆ ਦੇ ਸਭ ਤੋਂ ਮਸ਼ਹੂਰ ਲੇਖ";
 "more-languages-tooltip-title" = "ਭਾਸ਼ਾ ਜੋੜੋ";
 "more-menu" = "ਹੋਰ";
 "navbar-title-mode-edit-wikitext-preview" = "ਝਾਤ";
@@ -497,7 +498,6 @@
 "notifications-center-go-to-article" = "ਲੇਖ";
 "notifications-center-go-to-article-talk-format" = "$1 ਗੱਲਬਾਤ ਸਫ਼ਾ";
 "notifications-center-go-to-diff" = "ਫ਼ਰਕ";
-"notifications-center-go-to-talk-page" = "ਗੱਲਬਾਤ ਵਰਕਾ";
 "notifications-center-go-to-user-page" = "$1 ਦਾ ਵਰਤੋਂਕਾਰ ਵਰਕਾ";
 "notifications-center-go-to-wikidata-item" = "ਵਿਕੀਡਾਟਾ ਚੀਜ਼";
 "notifications-center-go-to-your-talk-page" = "ਤੁਹਾਡਾ ਗੱਲਬਾਤ ਸਫ਼ਾ";
@@ -562,7 +562,6 @@
 "on-this-day-no-internet-error" = "ਕੋਈ ਡਾਟਾ ਮੌਜ਼ੂਦ ਨਹੀਂ ਏ";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$2 ਵਿਕੀਪੀਡੀਆ ਤੋਂ $1";
 "on-this-day-title" = "ਅੱਜ ਦੇ ਦਿਨ";
-"page-history-anonymous-edits" = "ਗੁਮਨਾਮ ਵੱਲੋਂ ਸੋਧਾਂ";
 "page-history-bot-edits" = "ਬੋਟ ਵੱਲੋਂ ਸੋਧਾਂ";
 "page-history-compare-accessibility-hint" = "ਤੁਲਨਾ ਕਰਨ ਲਈ ਦੋ ਸੋਧਾਂ ਦੀ ਚੋਣ ਕਰਨ ਲਈ ਦੱਬੋ";
 "page-history-compare-title" = "ਤੁਲਨਾ ਕਰੋ";
@@ -576,7 +575,6 @@
 "page-history-revision-time-accessibility-label" = "ਸੋਧ $1 ਕੀਤੀ ਗਈ";
 "page-history-revisions-comparison-warning" = "ਸਿਰਫ਼ ਦੋ ਸੋਧਾਂ ਹੀ ਚੁਣੀਆਂ ਜਾ ਸਕਦੀਆਂ ਹਨ";
 "page-history-stats-text" = "$2 ਤੋਂ ਬਾਅਦ {{PLURAL:$1|$1 ਸੋਧ|$1 ਸੋਧਾਂ}}";
-"page-history-user-edits" = "ਵਰਤੋਂਕਾਰ ਸੋਧਾਂ";
 "page-issues" = "ਸਫ਼ੇ ਸੰਬੰਧੀ ਮੁੱਦੇ";
 "page-location" = "ਨਕਸ਼ੇ ਤੇ ਵੇਖੋ";
 "page-protected-can-not-edit" = "ਤੁਹਾਡੇ ਕੋਲ਼ ਇਸ ਸਫ਼ੇ ਦੀ ਸੁਧਾਈ ਕਰਨ ਦੇ ਹੱਕ ਨਹੀਂ ਹਨ";
@@ -618,7 +616,6 @@
 "privacy-policy-title" = "ਨਿੱਜਤਾ ਨੀਤੀ";
 "problem-with-feature-title" = "ਵਿਸ਼ੇਸ਼ਤਾ ਨਾਲ ਸਮੱਸਿਆ";
 "profile-page-join-title" = "ਵਿਕੀਪੀਡੀਆ ਨਾਲ ਜੁੜੋ / ਦਾਖਲ ਹੋਵੋ";
-"profile-page-title-logged-out" = "ਖਾਤਾ";
 "project-name-mediawiki" = "ਮੀਡੀਆਵਿਕੀ";
 "project-name-wikibooks" = "ਵਿਕੀਕਿਤਾਬਾਂ";
 "project-name-wikidata" = "ਵਿਕੀਡਾਟਾ";

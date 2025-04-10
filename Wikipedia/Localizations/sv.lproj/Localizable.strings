@@ -735,7 +735,6 @@
 "notifications-center-go-to-article" = "Artikel";
 "notifications-center-go-to-article-talk-format" = "$1 diskussionssida";
 "notifications-center-go-to-diff" = "Diff";
-"notifications-center-go-to-talk-page" = "Diskussionssida";
 "notifications-center-go-to-user-page" = "$1s användarsida";
 "notifications-center-go-to-wikidata-item" = "Wikidata-objekt";
 "notifications-center-go-to-your-talk-page" = "Din diskussionssida";
@@ -842,7 +841,6 @@
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 från Wikipedia på $2";
 "on-this-day-title" = "På denna dag";
 "original-tab-button-popover-description" = "Tryck på \"W\" för att återvända till fliken du började ifrån";
-"page-history-anonymous-edits" = "anonyma redigeringar";
 "page-history-bot-edits" = "botredigeringar";
 "page-history-compare-accessibility-hint" = "Tryck för att välja två versioner att jämföra";
 "page-history-compare-title" = "Jämför";
@@ -857,7 +855,6 @@
 "page-history-revision-time-accessibility-label" = "Versionen gjordes $1";
 "page-history-revisions-comparison-warning" = "Endast två versioner kan markeras";
 "page-history-stats-text" = "{{PLURAL:$1|$1 redigering|$1 redigeringar}} sedan $2";
-"page-history-user-edits" = "användarredigeringar";
 "page-issues" = "Sidproblem";
 "page-location" = "Visa på en karta";
 "page-protected-can-not-edit" = "Du saknar rättigheter för att redigera denna sida.";
@@ -918,7 +915,6 @@
 "profile-page-join-subtext" = "Registrera ett Wikipedia-konto för att spåra dina bidrag, spara artiklar offline och synkronisera mellan enheter.";
 "profile-page-join-title" = "Logga in / skapa konto på Wikipedia";
 "profile-page-logged-out-year-in-review-subtext" = "Logga in eller skapa ett konto för att få en förbättrad årsöversikt nästa år";
-"profile-page-title-logged-out" = "Konto";
 "profile-year-in-review-login-subtitle" = "Logga in eller skapa ett konto för att se årsöversikten igen och få mer personliga insikter.";
 "profile-year-in-review-login-title" = "Logga in för att få tillgång till årsöversikten";
 "project-name-mediawiki" = "MediaWiki";

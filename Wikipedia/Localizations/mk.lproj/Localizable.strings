@@ -83,6 +83,8 @@
 "action-update" = "Поднови";
 "add-articles-to-reading-list" = "Додавање на {{PLURAL:$1|$1 статија|$1 статии}} во список за читање";
 "advanced-settings-title" = "Напредни нагодувања";
+"alert-temporary-account" = "Користите привремена сметка. Таа истекува за 90 дена.";
+"alert-temporary-account-learn-more" = "Дознајте повеќе.";
 "alt-text-feedback-survey-toast-title" = "Мислењето е поднесено";
 "announcements-dismiss" = "Тргни";
 "app-store-keywords" = "Википедија, прирачник, вики, енциклопедија, инфо, знаење, истражување, информации, истражи, научи";
@@ -112,6 +114,8 @@
 "article-share" = "Сподели";
 "article-talk-page" = "Разговрна страница на статијата";
 "article-toolbar-reading-themes-controls-toolbar-item" = "Контроли за изгледите за читање";
+"article-view-controller-editing-temp-account-created-subtitle" = "Привремената сметка $1 беше создадена откако го објавивте вашето прво уредување. Истекува за 90 дена.";
+"article-view-controller-editing-temp-account-created-title" = "Создадена привремена сметка";
 "back-button-accessibility-label" = "Назад";
 "back-button-popover-title" = "Допрете за да се вратите";
 "button-go-back" = "Назад";
@@ -155,6 +159,7 @@
 "description-edit-title" = "Уреди опис";
 "description-edit-warning" = "Трудете се описите да бидат кратки, така што читателите би можеле да разберат што обработува статијата со еден поглед";
 "description-edit-warning-casing" = "Со големи букви треба да почнуваат само личните именки, дури и на почетокот од реченицата.";
+"description-editing-temp-account-created-subtitle" = "Привремената сметка $1 беше создадена откако го објавивте вашето прво уредување. Истекува за 90 дена.";
 "description-help-about-description" = "Описите на статиите даваат претстава за темата на прв поглед.";
 "description-help-about-title" = "За ова";
 "description-help-about-wikidata" = "За Википодатоците";
@@ -281,6 +286,8 @@
 "edit-preview-simplified-format-message" = "Целата содржина е прикажана во упростен формат.";
 "edit-published" = "Уредувањето е објавено";
 "edit-published-subtitle" = "Штотуку ја подобривте Википедија за сите читатели";
+"edit-sheet-ip-account-notice" = "Напомена за IP-сметка";
+"edit-sheet-temp-account-notice" = "Напомена за привремена сметка";
 "edit-show-web-preview" = "Прикажи преглед обично";
 "edit-summary-add-summary-text" = "Додај опис на уредувањето";
 "edit-summary-choice-added-image" = "Додадена слика";
@@ -628,6 +635,11 @@
 "insert-media-title" = "Вметнување на слика или снимка";
 "inuktitut-variants-alert-body" = "Прилогот на Википедија сега ги поддржува следниве варијанти на инуктитут како главен или спореден јазик во прилогот, олеснувајќи го читањето, пребарувањето и уредувањето на вашите претпочитани варијанти:\n\nᐃᓄᒃᑎᑐᑦ ᑎᑎᕋᐅᓯᖅ ᓄᑖᖅ — инуктитут со слоговница (ike-cans)\nInuktitut ilisautik — инкуктитут на латиница (ike-latn)";
 "inuktitut-variants-alert-title" = "Новост за поддршка на варијанти на инуктитут";
+"ip-account-cta-bottom" = "Продолжи без најава";
+"ip-account-cta-top" = "Најавете се или создајте сметка";
+"ip-account-edit-sheet-subtitle" = "Штом направите уредување, ќе ви биде создадена $1привремена сметка$2 за да ви се заштити приватноста. $3Дознајте повеќе.$4$5Најавете се или создајте сметка за да ви се припишуваат уредувањата во иднина и за да добиете пристап до други функции.";
+"ip-account-warning-subtitle" = "Кога ќе објавите, ќе ви биде создадена привремена сметка.";
+"ip-account-warning-title" = "Не сте најавени";
 "kazakh-variants-alert-body" = "Прилогот на Википедија сега ги поддржува следниве варијанти на казашкиот како главен или спореден јазик во прилогот, олеснувајќи го читањето, пребарувањето и уредувањето на вашите претпочитани варијанти:\n\nҚазақша — казашки(kk)\nҚазақша Кирил — казашки на кирилица (kk-cyrl)\nqazaqşa latin — казашки на латиница (kk-latn)\nتوتە قازاقشا — казашки на арабица (kk-arab)";
 "kazakh-variants-alert-title" = "Новост за поддршка на казашки варијанти";
 "kurdish-variants-alert-body" = "Прилогот на Википедија сега ги поддржува следниве курдски варијанти како главен или спореден јазик во прилогот, олеснувајќи го читањето, пребарувањето и уредувањето на вашите претпочитани варијанти:\n\nKurdî Latînî — курдски на латиница (ku-latn)\nكوردی — курдски на арабица (kk-arab)";
@@ -659,7 +671,7 @@
 "main-menu-zero-faq" = "ЧПП за Википедија Нулта";
 "microsite-yir-english-edits-bytes-slide-subtitle" = "Во 2024 г. доброволците додадоа 4.104.852.969 бајти на Википедија на англиски. Збирот на нивната заедничка работа е дар за светот кој води до веродостоен и фактографски извор на знаење кој постојано се подобрува. Сите ние имаме знаење за споделување, па затоа [дознајте како да учествувате]($1).";
 "microsite-yir-english-edits-bytes-slide-title" = "Додадени 4 милијарди бајти";
-"microsite-yir-english-edits-slide-subtitle" = "Доброволците направија 98.222.407 промена на преку 300 различни јазични изданија на Википедија. Преку 37 милиони промени беа направени на англиската Википедија. Секој час од секој ден доброволците работат на подобрување на Википедија.";
+"microsite-yir-english-edits-slide-subtitle" = "Доброволците направија 98.222.407 промени на преку 300 различни јазични изданија на Википедија. Преку 37 милиони промени беа направени на англиската Википедија. Секој час од секој ден доброволците работат на подобрување на Википедија.";
 "microsite-yir-english-edits-slide-title" = "Годинава уредниците направија 98 милиони промени";
 "microsite-yir-english-non-donor-slide-subtitle" = "Со ваша помош, Фондацијата Викимедија — непрофитната организација што ја води Википедија — и понатаму ќе обезбеди информациите на кои се потпирате да бидат без реклами и веродостојни, притоа осигурувајќи непречена работа на Википедија со најсовремени алатки и технологии. Би ве замолиле да размислите за ваш паричен прилог денес. [Дознајте повеќе за нашата работа]($1).";
 "microsite-yir-english-non-donor-slide-title" = "0 реклами на Википедија";
@@ -718,7 +730,6 @@
 "notifications-center-go-to-article" = "Статија";
 "notifications-center-go-to-article-talk-format" = "Разговорна страница $1";
 "notifications-center-go-to-diff" = "Разл.";
-"notifications-center-go-to-talk-page" = "Разговорна страница";
 "notifications-center-go-to-user-page" = "Корисничка страница на $1";
 "notifications-center-go-to-wikidata-item" = "Предмет на Википодатоците";
 "notifications-center-go-to-your-talk-page" = "Вашата разговорна страница";
@@ -825,11 +836,11 @@
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 од Википедија на $2";
 "on-this-day-title" = "На денешен ден";
 "original-tab-button-popover-description" = "Допрете на „W“ за да се вратите на почетното јазиче";
-"page-history-anonymous-edits" = "анон. уредувања";
 "page-history-bot-edits" = "ботовски уредувања";
 "page-history-compare-accessibility-hint" = "Допрете за да изберете две преработки за споредба";
 "page-history-compare-title" = "Спореди";
 "page-history-graph-accessibility-label" = "Графикони на уредувања низ времето";
+"page-history-logged-in-edits" = "најавен";
 "page-history-minor-edits" = "ситни уредувања";
 "page-history-revision-author-accessibility-label" = "Автор: $1";
 "page-history-revision-comment-accessibility-label" = "Коментар $1";
@@ -840,7 +851,7 @@
 "page-history-revision-time-accessibility-label" = "Преработката е направена $1";
 "page-history-revisions-comparison-warning" = "Можете да изберете само две преработки";
 "page-history-stats-text" = "{{PLURAL:$1|$1 уредување|$1 уредувања}} од $2 наваму";
-"page-history-user-edits" = "кориснички уредувања";
+"page-history-unregistered-edits" = "уредувања на непријавени";
 "page-issues" = "Проблеми со страницата";
 "page-location" = "Погл. на карта";
 "page-protected-can-not-edit" = "Немате право да ја уредувате страницава";
@@ -901,7 +912,6 @@
 "profile-page-join-subtext" = "Направете сметка на Википедија за да си ги следите придонесите, да зачувувате статии вонмрежно и да усогласите на поеќе уреди.";
 "profile-page-join-title" = "Зачленете се / Најава на Википедија";
 "profile-page-logged-out-year-in-review-subtext" = "Најавете се или направете сметка за да го подобриме Прегледот на годината за следната година";
-"profile-page-title-logged-out" = "Сметка";
 "profile-year-in-review-login-subtitle" = "Најавете се или направете сметка за повторно да го видите Прегледот на годината и да добиете право на повеќе персонализирани сознанија.";
 "profile-year-in-review-login-title" = "Најавете се за пристап до Преглед на годината";
 "project-name-mediawiki" = "МедијаВики";
@@ -1022,6 +1032,8 @@
 "return-button-title" = "Назад";
 "return-to-article" = "Назад на статијата";
 "reverted-edit-title" = "Отповикано уредување";
+"save-view-temp-account-notice" = "Користите привремена сметка. Уредувањата ќе му се припишуваат на $1...";
+"save-view-temp-account-warning" = "Не сте најавени. Откако ќе направите уредување, ќе ви биде создадена привремена сметка за да ви се заштити приватноста.";
 "saved-all-articles-title" = "Сите статии";
 "saved-default-reading-list-tag" = "Овој список не може да се избрише";
 "saved-pages-image-download-error" = "Не успеав да ги преземам сликите за оваа зачувана страница.";
@@ -1197,6 +1209,15 @@
 "talk-pages-user-groups" = "Кориснички групи";
 "talk-pages-user-logs" = "Дневници";
 "talk-pages-view-title" = "Разговор";
+"temp-account-alert-read-more-information" = "$1Користите привремена сметка.$2 Таа ќе истече за 90 дена. Откако ќе истече, ќе ви биде направена нова следниот пат кога ќе уредите без најава. $3Најавете се или направете сметка за да ви се припишуваат уредувањата во иднина, како и да добиете пристап до други функции.";
+"temp-account-edit-sheet-cta-top" = "Најавете се или создајте сметка";
+"temp-account-edit-sheet-subtitle" = "Вашето уредување ќе му биде припишано на $2$1$3. Вашата $4IP-адреса$5 ќе им биде видлива на администраторите. $7Дознајте повеќе.$5$6 Ако се најавите или направите сметка, вашите уредувања ќе му се припишуваат на името што ќе си го изберете, меѓу другите поволности.";
+"temp-account-got-it" = "Јасно";
+"temp-account-toast-read-more-title" = "Прочитајте повеќе";
+"temp-account-toast-title" = "$1Во моменотов користите привремена сметка.$2 Уредувањата направени со привремената...";
+"temp-account-warning-title" = "Користите привремена сметка";
+"temp-warning-subtitle-format" = "Вашите уредувања ќе му се припишуваат на $1";
+"temporary-account" = "Привремена сметка";
 "terms-of-use-title" = "Услови на употреба";
 "theme-black-display-name" = "Црн";
 "theme-dark-display-name" = "Темен";

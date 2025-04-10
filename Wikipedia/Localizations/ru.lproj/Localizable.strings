@@ -731,7 +731,6 @@
 "notifications-center-go-to-article" = "Статья";
 "notifications-center-go-to-article-talk-format" = "Страница обсуждения $1";
 "notifications-center-go-to-diff" = "Разн.";
-"notifications-center-go-to-talk-page" = "Страница обсуждения";
 "notifications-center-go-to-user-page" = "Страница {{GENDER:$1|участника $1|участницы $1}}";
 "notifications-center-go-to-wikidata-item" = "Элемент Викиданных";
 "notifications-center-go-to-your-talk-page" = "Ваша страница обсуждения";
@@ -838,7 +837,6 @@
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 в Википедии: $2 раздел";
 "on-this-day-title" = "В этот день…";
 "original-tab-button-popover-description" = "Нажмите 'W', чтобы вернуться к вкладке, с которой вы начали";
-"page-history-anonymous-edits" = "анонимные правки";
 "page-history-bot-edits" = "правки ботов";
 "page-history-compare-accessibility-hint" = "Нажмите, чтобы выбрать две версии для сравнения";
 "page-history-compare-title" = "Сравнить";
@@ -853,7 +851,6 @@
 "page-history-revision-time-accessibility-label" = "Изменения внесены $1";
 "page-history-revisions-comparison-warning" = "Можно выбрать только две версии";
 "page-history-stats-text" = "{{PLURAL:$1|$1 правка|$1 правки|$1 правок}} с $2";
-"page-history-user-edits" = "правки участников";
 "page-issues" = "Проблемы страницы";
 "page-location" = "Посмотреть на карте";
 "page-protected-can-not-edit" = "У вас нет прав на редактирование этой страницы";
@@ -910,7 +907,6 @@
 "profile-button-accessibility-hint" = "Переход к просмотру профиля.";
 "profile-button-accessibility-label" = "Профиль";
 "profile-page-join-title" = "Войдите / Присоединитесь к Википедии";
-"profile-page-title-logged-out" = "Учётная запись";
 "project-name-mediawiki" = "MediaWiki";
 "project-name-wikibooks" = "Викиучебник";
 "project-name-wikidata" = "Викиданные";

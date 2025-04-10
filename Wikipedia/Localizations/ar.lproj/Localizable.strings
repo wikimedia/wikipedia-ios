@@ -120,6 +120,8 @@
 "action-update" = "تحديث";
 "add-articles-to-reading-list" = "أضف {{PLURAL:$1|$1 مقالة|$1 مقالات}} إلى قائمة القراءة";
 "advanced-settings-title" = "إعدادات متقدمة";
+"alert-temporary-account" = "أنت تستخدم حسابًا مؤقتًا. سينتهي صلاحيته بعد 90 يومًا.";
+"alert-temporary-account-learn-more" = "معرفة المزيد.";
 "alt-text-feedback-survey-toast-title" = "تم تقديم التعليقات";
 "announcements-dismiss" = "تجاهل";
 "app-store-keywords" = "ويكيبيديا، مرجع، ويكي، موسوعة، معلومة، معرفة، بحث، معلومات، استكشاف، تعلم";
@@ -149,6 +151,8 @@
 "article-share" = "مشاركة";
 "article-talk-page" = "صفحة نقاش المقالة";
 "article-toolbar-reading-themes-controls-toolbar-item" = "عناصر تحكم مواضيع القراءة";
+"article-view-controller-editing-temp-account-created-subtitle" = "تم إنشاء حساب مؤقت $1 بعد نشر تعديلك. سينتهي صلاحيته بعد 90 يومًا.";
+"article-view-controller-editing-temp-account-created-title" = "تم إنشاء حساب مؤقت";
 "back-button-accessibility-label" = "ارجع";
 "back-button-popover-title" = "اضغط للعودة";
 "button-go-back" = "رجوع";
@@ -192,6 +196,7 @@
 "description-edit-title" = "عدل الوصف";
 "description-edit-warning" = "حاول إبقاء الوصوفات قصيرة حتى يستطيع المستخدمون فهم موضوع المقالة سريعا";
 "description-edit-warning-casing" = "يجب كتابة أسماء العلم فقط بأحرف كبيرة ، حتى في بداية الجملة.";
+"description-editing-temp-account-created-subtitle" = "تم إنشاء حساب مؤقت $1 بعد نشر تعديلك. سينتهي صلاحيته بعد 90 يومًا.";
 "description-help-about-description" = "يلخص الوصفُ المقالةَ لمساعدة القراء على فهم الموضوع سريعاً.";
 "description-help-about-title" = "حول";
 "description-help-about-wikidata" = "حول ويكي بيانات";
@@ -318,6 +323,8 @@
 "edit-preview-simplified-format-message" = "يتم عرض كافة المحتويات بتنسيق مبسط.";
 "edit-published" = "تم نشر التعديل";
 "edit-published-subtitle" = "أنت فقط جعلت ويكيبيديا أفضل للجميع";
+"edit-sheet-ip-account-notice" = "إشعار حساب IP";
+"edit-sheet-temp-account-notice" = "إشعار الحساب المؤقت";
 "edit-show-web-preview" = "اعرض المعاينة";
 "edit-summary-add-summary-text" = "إضافة ملخص تعديل";
 "edit-summary-choice-added-image" = "تمت إضافة الصورة";
@@ -665,6 +672,11 @@
 "insert-media-title" = "إدراج وسائط";
 "inuktitut-variants-alert-body" = "يدعم تطبيق ويكيبيديا الآن المتغيرات الإينكتيتوتية التالية كلغات أساسية أو ثانوية داخل التطبيق، مما يجعل من الأسهل القراءة والبحث والتحرير بالمتغيرات المفضلة لديك:\n\nᐃᓄᒃᑎᑐᑦ ᑎᑎᕋᐅᓯᖅ ᓄᑖᖅ الإينكتيتوتية، المقاطع الصوتية (ايكي كانز)\nالإينكتيتوتية الإيليساوتيكية، الإينكتيتوتية، اللاتينية (ايكي لاتن)";
 "inuktitut-variants-alert-title" = "تحديثات لدعم متغير Inuktitut";
+"ip-account-cta-bottom" = "متابعة بدون تسجيل الدخول";
+"ip-account-cta-top" = "تسجيل الدخول أو إنشاء حساب";
+"ip-account-edit-sheet-subtitle" = "بمجرد إجراء تعديل، سيتم إنشاء حساب مؤقت بقيمة $1 $2 لحماية خصوصيتك. $3 تعرف على المزيد. $4 $5 قم بتسجيل الدخول أو إنشاء حساب للحصول على رصيد للتعديلات المستقبلية والوصول إلى ميزات أخرى.";
+"ip-account-warning-subtitle" = "سيتم إنشاء حساب مؤقت لك عند النشر.";
+"ip-account-warning-title" = "أنت غير مسجل الدخول";
 "kazakh-variants-alert-body" = "يدعم تطبيق ويكيبيديا الآن المتغيرات الكازاخستانية التالية كلغات أساسية أو ثانوية داخل التطبيق، مما يجعل من الأسهل القراءة والبحث والتحرير بالمتغيرات المفضلة لديك:\n\nҚазақша الكازاخستانية (kk)\nҚазақша Кирил الكازاخستانية، السيريلية (kk-cyrl)\nqazaqşa اللاتينية الكازاخستانية، اللاتينية (kk-latn)\nتوتە قازاقشا الكازاخستانية، العربية (kk-arab)";
 "kazakh-variants-alert-title" = "تحديثات لدعم المتغير الكازاخستاني";
 "kurdish-variants-alert-body" = "يدعم تطبيق ويكيبيديا الآن المتغيرات الكردية التالية كلغات أساسية أو ثانوية داخل التطبيق، مما يجعل من الأسهل القراءة والبحث والتحرير بالمتغيرات المفضلة لديك:\n\nKurdî Latînî الكردية، اللاتينية (ku-latn)\nكوردی الكردية، العربية (kk-arab)";
@@ -755,7 +767,6 @@
 "notifications-center-go-to-article" = "مقالة";
 "notifications-center-go-to-article-talk-format" = "صفحة نقاش $1";
 "notifications-center-go-to-diff" = "الفرق";
-"notifications-center-go-to-talk-page" = "صفحة النقاش";
 "notifications-center-go-to-user-page" = "صفحة المستخدم $1";
 "notifications-center-go-to-wikidata-item" = "عنصر ويكي بيانات";
 "notifications-center-go-to-your-talk-page" = "صفحة نقاشك";
@@ -862,11 +873,11 @@
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 من ويكيبيديا $2";
 "on-this-day-title" = "في هذا اليوم";
 "original-tab-button-popover-description" = "انقر على \"ص\" للعودة إلى علامة التبويب التي بدأت منها";
-"page-history-anonymous-edits" = "تعديلات المجهولين";
 "page-history-bot-edits" = "تعديلات البوتات";
 "page-history-compare-accessibility-hint" = "انقر لتحديد مراجعين للمقارنة";
 "page-history-compare-title" = "مقارنة";
 "page-history-graph-accessibility-label" = "الرسم البياني للتعديلات مع مرور الوقت";
+"page-history-logged-in-edits" = "مسجل الدخول";
 "page-history-minor-edits" = "التعديلات الطفيفة";
 "page-history-revision-author-accessibility-label" = "المؤلف: $1";
 "page-history-revision-comment-accessibility-label" = "تعليق $1";
@@ -877,7 +888,7 @@
 "page-history-revision-time-accessibility-label" = "قِّدم المراجعة في $1";
 "page-history-revisions-comparison-warning" = "يمكن تحديد مراجعتين فقط";
 "page-history-stats-text" = "{{PLURAL:$1|$1 تعديل|$1 تعديلات}} منذ $2";
-"page-history-user-edits" = "تعديلات المستخدم";
+"page-history-unregistered-edits" = "التعديلات غير المسجلة";
 "page-issues" = "مشاكل الصفحة";
 "page-location" = "أظهر على الخريطة";
 "page-protected-can-not-edit" = "أنت لا تمتلك الصلاحيات اللازمة لتحرير هذه الصفحة";
@@ -938,7 +949,6 @@
 "profile-page-join-subtext" = "قم بالتسجيل للحصول على حساب ويكيبيديا لتتبع مساهماتك، وحفظ المقالات دون اتصال بالإنترنت، ومزامنتها عبر الأجهزة.";
 "profile-page-join-title" = "تسجيل الدخول / الانضمام إلى ويكيبيديا";
 "profile-page-logged-out-year-in-review-subtext" = "قم بتسجيل الدخول أو إنشاء حساب للحصول على مراجعة أفضل للعام المقبل";
-"profile-page-title-logged-out" = "حساب";
 "profile-year-in-review-login-subtitle" = "قم بتسجيل الدخول أو إنشاء حساب لمشاهدة مراجعة العام مرة أخرى والتأهل للحصول على رؤى أكثر تخصيصًا.";
 "profile-year-in-review-login-title" = "تسجيل الدخول للوصول إلى مراجعة العام";
 "project-name-mediawiki" = "ميدياويكي";
@@ -1059,6 +1069,8 @@
 "return-button-title" = "يعود";
 "return-to-article" = "العودة إلى المقال";
 "reverted-edit-title" = "تم إرجاع التعديل";
+"save-view-temp-account-notice" = "أنت تستخدم حسابًا مؤقتًا. التعديلات تُنسب إلى $1 ...";
+"save-view-temp-account-warning" = "لم تقم بتسجيل الدخول. بمجرد إجراء تعديل، سيتم إنشاء حساب مؤقت لك لحماية خصوصيتك.";
 "saved-all-articles-title" = "كل المقالات";
 "saved-default-reading-list-tag" = "لا يمكن حذف هذه القائمة";
 "saved-pages-image-download-error" = "فشل تنزيل الصور لهذه الصفحة المحفوظة.";
@@ -1234,6 +1246,15 @@
 "talk-pages-user-groups" = "مجموعات المستخدم";
 "talk-pages-user-logs" = "سجلات";
 "talk-pages-view-title" = "نقاش";
+"temp-account-alert-read-more-information" = "$1 . أنت تستخدم حسابًا مؤقتًا. $2 سينتهي صلاحية الحساب خلال 90 يومًا. بعد انتهاء صلاحيته، سيتم إنشاء حساب جديد في المرة التالية التي تُجري فيها تعديلًا دون تسجيل الدخول. $3 سجّل الدخول أو أنشئ حسابًا للحصول على رصيد للتعديلات المستقبلية، وللوصول إلى ميزات أخرى.";
+"temp-account-edit-sheet-cta-top" = "تسجيل الدخول أو إنشاء حساب";
+"temp-account-edit-sheet-subtitle" = "سيتم نسب تعديلاتك إلى $2 $1 $3 . سيكون عنوان IP الخاص بك $4 $5 مرئيًا للمسؤولين. $7 تعرّف على المزيد. $5 $6 إذا سجّلت الدخول أو أنشأت حسابًا، فسيتم نسب تعديلاتك إلى اسم تختاره، من بين مزايا أخرى.";
+"temp-account-got-it" = "عُلِم";
+"temp-account-toast-read-more-title" = "اقرأ المزيد";
+"temp-account-toast-title" = "$1 أنت تستخدم حاليًا حسابًا مؤقتًا. $2 تم إجراء التعديلات باستخدام الحساب المؤقت...";
+"temp-account-warning-title" = "أنت تستخدم حسابًا مؤقتًا";
+"temp-warning-subtitle-format" = "سيتم نسب تعديلك إلى $1";
+"temporary-account" = "حساب مؤقت";
 "terms-of-use-title" = "شروط الاستخدام";
 "theme-black-display-name" = "أسود";
 "theme-dark-display-name" = "غامق";
@@ -1369,7 +1390,7 @@
 "wikitext-upload-save-anonymously-or-login" = "ستُنسَب التعديلات إلى عنوان أيبي جهازك، إذا كنت $1مسجل الدخول$2 سيكون لديك المزيد من الخصوصية.";
 "wikitext-upload-save-anonymously-warning" = "سوف تحفظ التعديلات تحت اسم عنوان الأيبي الخاص بجهازك. لو $1 سوف يتوفر لك المزيد من الخصوصية.";
 "wikitext-upload-save-sign-in" = "تسجيل الدخول";
-"wikitext-upload-save-terms-and-licenses-ccsa4" = "من خلال نشر التغييرات، فإنك توافق على $1Terms of Use$2، وتوافق بشكل لا رجعة فيه على إصدار مساهمتك بموجب ترخيص $3CC BY-SA 4.0$4 ورخصة $5GFDL$6. أنت توافق على أن وجود رابط تشعبي أو عنوان URL يعد إسنادًا كافيًا بموجب ترخيص Creative Commons.";
+"wikitext-upload-save-terms-and-licenses-ccsa4" = "من خلال نشر التغييرات، فإنك توافق على $1Terms of Use$2، وتوافق بشكل لا رجعة فيه على إصدار مساهمتك بموجب ترخيص $3CC BY-SA 4.0$4 ورخصة $5GFDL$6. أنت توافق على أن وجود رابط تشعبي أو عنوان محدد موقع الموارد المُوحّد يعد إسنادًا كافيًا بموجب ترخيص المشاع الإبداعي.";
 "wikitext-upload-save-terms-name" = "شروط الاستخدام";
 "year-in-review-base-donate-subtitle" = "بفضل مساعدتك، ستواصل مؤسسة ويكيميديا - المؤسسة غير الربحية التي تقف وراء ويكيبيديا - ضمان خلو المعلومات التي تعتمد عليها من الإعلانات وكونها جديرة بالثقة، مع الحفاظ على تشغيل ويكيبيديا بسلاسة باستخدام أدوات وتقنيات متطورة. يرجى التفكير في التبرع اليوم. [تعرف على المزيد حول عملنا]($1).";
 "year-in-review-base-donate-title" = "0 إعلان تم تقديمه على ويكيبيديا";

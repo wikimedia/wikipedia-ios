@@ -392,7 +392,6 @@
 "notifications-center-go-to-article" = "Pennad";
 "notifications-center-go-to-article-talk-format" = "Pajenn gaozeal $1";
 "notifications-center-go-to-diff" = "Diforc'h";
-"notifications-center-go-to-talk-page" = "Pajenn gaozeal";
 "notifications-center-go-to-user-page" = "Pajenn gaozeal an implijer $1";
 "notifications-center-go-to-wikidata-item" = "Elfenn Wikidata";
 "notifications-center-go-to-your-talk-page" = "Ho pajenn gaozeal";
@@ -435,7 +434,6 @@
 "on-this-day-no-internet-error" = "N'eus ket roadennoù da gaout";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 er Wikipedia $2";
 "on-this-day-title" = "D'an deiz-mañ...";
-"page-history-anonymous-edits" = "kemmoù gant tud dizanv";
 "page-history-bot-edits" = "kemmoù gant robotoù";
 "page-history-compare-title" = "Keñveriañ";
 "page-history-minor-edits" = "kemmoù dister";
@@ -444,7 +442,6 @@
 "page-history-revision-history-title" = "Istor ar c'hemmoù";
 "page-history-revision-minor-edit-accessibility-label" = "Kemm dister";
 "page-history-stats-text" = "$1 {{PLURAL:$1|c'hemm|gemm|c'hemm|a gemmoù}} abaoe $2";
-"page-history-user-edits" = "degasadennoù un implijer·ez";
 "page-location" = "Diskwel war ur gartenn";
 "page-protected-can-not-edit" = "N'ho peus ket gwir da aozañ ar bajenn-mañ";
 "page-protected-can-not-edit-title" = "Gwarezet eo ar bajenn-mañ";

@@ -523,7 +523,6 @@
 "notifications-center-go-to-article" = "Articol";
 "notifications-center-go-to-article-talk-format" = "$1 pagina de discuție";
 "notifications-center-go-to-diff" = "Diferență";
-"notifications-center-go-to-talk-page" = "Pagină de discuții";
 "notifications-center-go-to-user-page" = "Pagina de utilizator $1";
 "notifications-center-go-to-wikidata-item" = "Elementul Wikidata";
 "notifications-center-go-to-your-talk-page" = "Pagina de discuție a dvs.";
@@ -630,7 +629,6 @@
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 de la $2 Wikipedia";
 "on-this-day-title" = "Astăzi în istorie";
 "original-tab-button-popover-description" = "Atingeți „W” pentru a reveni la fila de la care ați început";
-"page-history-anonymous-edits" = "modificări anonime";
 "page-history-bot-edits" = "modificări robot";
 "page-history-compare-accessibility-hint" = "Atingeți pentru a selecta două versiuni pentru a compara";
 "page-history-compare-title" = "Compară";
@@ -645,7 +643,6 @@
 "page-history-revision-time-accessibility-label" = "Revizuiri facute $1";
 "page-history-revisions-comparison-warning" = "Trebuie selectate doar două versiuni";
 "page-history-stats-text" = "{{PLURAL:$1|$1 modificare|$1 modificări}} din $2";
-"page-history-user-edits" = "modificări ale utilizatorului";
 "page-issues" = "Probleme de pagină";
 "page-location" = "Vezi pe o hartă";
 "page-protected-can-not-edit" = "Nu aveți drepturi pentru a modifica această pagină";

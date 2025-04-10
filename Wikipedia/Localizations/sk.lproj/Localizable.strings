@@ -540,7 +540,6 @@
 "notifications-center-go-to-article" = "Článok";
 "notifications-center-go-to-article-talk-format" = "diskusná stránka $1";
 "notifications-center-go-to-diff" = "Rozdiely";
-"notifications-center-go-to-talk-page" = "Diskusná stránka";
 "notifications-center-go-to-user-page" = "Stránka používateľa $1";
 "notifications-center-go-to-wikidata-item" = "Položka Wikidáta";
 "notifications-center-go-to-your-talk-page" = "Vaša diskusná stránka";
@@ -647,7 +646,6 @@
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 z Wikipédie v jazyku $2";
 "on-this-day-title" = "Dnes";
 "original-tab-button-popover-description" = "Ťuknutím na W sa vrátite na kartu, z ktorej ste začali";
-"page-history-anonymous-edits" = "úpravy anonymných používateľov";
 "page-history-bot-edits" = "úpravy botov";
 "page-history-compare-accessibility-hint" = "Ťuknite pre vybratie dvoch revízií na porovnanie";
 "page-history-compare-title" = "Porovnať";
@@ -662,7 +660,6 @@
 "page-history-revision-time-accessibility-label" = "úprava vykonaná $1";
 "page-history-revisions-comparison-warning" = "Vybrané môžu byť len dve revízie";
 "page-history-stats-text" = "{{PLURAL:$1|$1 úprava|$1 úpravy|$1 úprav}} od $2";
-"page-history-user-edits" = "úpravy používateľa";
 "page-issues" = "Nedostatky stránky";
 "page-location" = "Zobraziť na mape";
 "page-protected-can-not-edit" = "Nemáte právo upraviť túto stránku";

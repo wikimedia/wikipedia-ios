@@ -553,7 +553,6 @@
 "notifications-center-go-to-article" = "Članak";
 "notifications-center-go-to-article-talk-format" = "Stranica za razgovor: $1";
 "notifications-center-go-to-diff" = "Razl";
-"notifications-center-go-to-talk-page" = "Stranica za razgovor";
 "notifications-center-go-to-user-page" = "Stranica za razgovor korisnika $1";
 "notifications-center-go-to-wikidata-item" = "Stavka na Wikipodacima";
 "notifications-center-go-to-your-talk-page" = "Vaša stranica za razgovor";
@@ -643,7 +642,6 @@
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 s Wikipedije ($2)";
 "on-this-day-title" = "Na današnji dan";
 "original-tab-button-popover-description" = "Dodirnite 'W' za povratak na karticu s koje ste krenuli";
-"page-history-anonymous-edits" = "anonimne izmjene";
 "page-history-bot-edits" = "izmjene botova";
 "page-history-compare-accessibility-hint" = "Dodirnite za odabir dvije verzije za poređenje";
 "page-history-compare-title" = "Uporedi";
@@ -658,7 +656,6 @@
 "page-history-revision-time-accessibility-label" = "Verzija napravljena u $1";
 "page-history-revisions-comparison-warning" = "Mogu se odabrati samo dvije verzije";
 "page-history-stats-text" = "{{PLURAL:$1|$1 izmjena|$1 izmjene|$1 izmjena}} od $2";
-"page-history-user-edits" = "korisničke izmjene";
 "page-issues" = "Problemi stranice";
 "page-location" = "Prikaži na karti";
 "page-protected-can-not-edit" = "Nemate pravo da uređujete ovu stranicu";

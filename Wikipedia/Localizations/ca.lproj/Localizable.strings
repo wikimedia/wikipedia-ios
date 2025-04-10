@@ -613,7 +613,6 @@
 "notifications-center-go-to-article" = "Article";
 "notifications-center-go-to-article-talk-format" = "Pàgina de discussió de $1";
 "notifications-center-go-to-diff" = "Diferència";
-"notifications-center-go-to-talk-page" = "Pàgina de discussió";
 "notifications-center-go-to-user-page" = "Pàgina d'usuari de $1";
 "notifications-center-go-to-wikidata-item" = "Element de Wikidata";
 "notifications-center-go-to-your-talk-page" = "La vostra pàgina de discussió";
@@ -720,7 +719,6 @@
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 de la Viquipèdia en $2";
 "on-this-day-title" = "Tal dia com avui";
 "original-tab-button-popover-description" = "Feu un toc a la 'W' per tornar a la pestanya d'on heu començat";
-"page-history-anonymous-edits" = "edicions anònimes";
 "page-history-bot-edits" = "edicions de bots";
 "page-history-compare-accessibility-hint" = "Toqueu per a seleccionar dues revisions per comparar";
 "page-history-compare-title" = "Compara";
@@ -735,7 +733,6 @@
 "page-history-revision-time-accessibility-label" = "Revisió feta el $1";
 "page-history-revisions-comparison-warning" = "Només poden seleccionar-se dues revisions";
 "page-history-stats-text" = "{{PLURAL:$1|$1 edició|$1 edicions}} des del $2";
-"page-history-user-edits" = "edicions d'usuaris";
 "page-issues" = "Incidències de la pàgina";
 "page-location" = "Mostra al mapa";
 "page-protected-can-not-edit" = "No teniu permisos per modificar la pàgina";

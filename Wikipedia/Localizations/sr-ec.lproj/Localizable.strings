@@ -661,7 +661,6 @@
 "notifications-center-go-to-article" = "Чланак";
 "notifications-center-go-to-article-talk-format" = "Страница за разговор $1";
 "notifications-center-go-to-diff" = "Разл";
-"notifications-center-go-to-talk-page" = "Страница за разговор";
 "notifications-center-go-to-user-page" = "$1 - корисничка страница";
 "notifications-center-go-to-wikidata-item" = "Ставка на Википодацима";
 "notifications-center-go-to-your-talk-page" = "Ваша страница за разговор";
@@ -768,7 +767,6 @@
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 са $2 Википедије";
 "on-this-day-title" = "На данашњи дан";
 "original-tab-button-popover-description" = "Додирните „W” да бисте се вратили на почетну картицу";
-"page-history-anonymous-edits" = "анонимне измене";
 "page-history-bot-edits" = "ботовске измене";
 "page-history-compare-accessibility-hint" = "Додирните како бисте изабрали две измене за упоређивање";
 "page-history-compare-title" = "Поређење";
@@ -783,7 +781,6 @@
 "page-history-revision-time-accessibility-label" = "Измена је направљена у $1";
 "page-history-revisions-comparison-warning" = "Могу се изабрати само две измене";
 "page-history-stats-text" = "{{PLURAL:$1|$1 измена|$1 измене}} од $2";
-"page-history-user-edits" = "измене корисника";
 "page-issues" = "Проблеми са страницом";
 "page-location" = "Прикажи на мапи";
 "page-protected-can-not-edit" = "Немате права да уређујете ову страницу";
@@ -838,7 +835,6 @@
 "problem-with-feature-title" = "Проблем са функцијом";
 "profile-button-accessibility-label" = "Профил";
 "profile-page-join-title" = "Пријава / Придружите се Википедији";
-"profile-page-title-logged-out" = "Налог";
 "project-name-mediawiki" = "Медијавики";
 "project-name-wikibooks" = "Викикњиге";
 "project-name-wikidata" = "Википодаци";

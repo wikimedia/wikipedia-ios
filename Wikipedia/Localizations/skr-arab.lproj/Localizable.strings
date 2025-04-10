@@ -272,7 +272,6 @@
 "notifications-center-go-to-article" = "مضمون";
 "notifications-center-go-to-article-talk-format" = "$1 ڳالھ مہاڑ ورقہ";
 "notifications-center-go-to-diff" = "فرق";
-"notifications-center-go-to-talk-page" = "ڳالھ مہاڑ ورقہ";
 "notifications-center-go-to-user-page" = "$1 دا ورتݨ ورقہ";
 "notifications-center-go-to-wikidata-item" = "وکی ڈیٹا آئٹم";
 "notifications-center-go-to-your-talk-page" = "تہاݙا ڳالھ مہاڑ ورقہ";
@@ -343,7 +342,6 @@
 "profile-button-accessibility-label" = "پروفائل";
 // Fuzzy
 "profile-page-join-title" = "وکی پیڈیا نال رلت کرو/ لاگ ان تھیوو";
-"profile-page-title-logged-out" = "کھاتہ";
 "project-name-mediawiki" = "میڈیا وکی";
 "project-name-wikibooks" = "وکی کتاباں";
 "project-name-wikidata" = "وکی ڈیٹا";

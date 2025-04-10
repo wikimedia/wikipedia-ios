@@ -734,7 +734,6 @@
 "notifications-center-go-to-article" = "Madde";
 "notifications-center-go-to-article-talk-format" = "$1 tartışma sayfası";
 "notifications-center-go-to-diff" = "Fark";
-"notifications-center-go-to-talk-page" = "Tartışma sayfası";
 "notifications-center-go-to-user-page" = "$1'in kullanıcı sayfası";
 "notifications-center-go-to-wikidata-item" = "Vikiveri ögesi";
 "notifications-center-go-to-your-talk-page" = "Mesaj sayfanız";
@@ -841,7 +840,6 @@
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1, $2 Vikipedi'den";
 "on-this-day-title" = "Tarihte bugün";
 "original-tab-button-popover-description" = "Başladığınız sekmeye geri dönmek için 'W' düğmesine dokunun.";
-"page-history-anonymous-edits" = "anonim düzenleme";
 "page-history-bot-edits" = "bot düzenlemesi";
 "page-history-compare-accessibility-hint" = "Karşılaştırılacak iki revizyon seçmek için dokunun";
 "page-history-compare-title" = "Karşılaştır";
@@ -856,7 +854,6 @@
 "page-history-revision-time-accessibility-label" = "$1 revizyon yapıldı";
 "page-history-revisions-comparison-warning" = "Yalnızca iki revizyon seçilebilir";
 "page-history-stats-text" = "$2 sonrasında {{PLURAL:$1|$1 düzenleme}}";
-"page-history-user-edits" = "kullanıcı düzenlemesi";
 "page-issues" = "Sayfa sorunları";
 "page-location" = "Haritada görüntüle";
 "page-protected-can-not-edit" = "Bu sayfayı düzenleme yetkiniz yok";
@@ -911,7 +908,6 @@
 "profile-button-accessibility-label" = "Profil";
 "profile-page-join-subtext" = "Katkılarınızı takip etmek, maddeleri çevrimdışı kaydetmek ve aygıtlar arasında senkronize etmek için bir Vikipedi hesabına kaydolun.";
 "profile-page-join-title" = "Giriş yapın / Vikipedi'ye katılın";
-"profile-page-title-logged-out" = "Hesap";
 "project-name-mediawiki" = "MediaWiki";
 "project-name-wikibooks" = "Vikikitap";
 "project-name-wikidata" = "Vikiveri";
