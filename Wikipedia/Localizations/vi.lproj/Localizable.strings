@@ -562,7 +562,6 @@
 "notifications-center-go-to-article" = "Bài viết";
 "notifications-center-go-to-article-talk-format" = "Trang thảo luận $1";
 "notifications-center-go-to-diff" = "Khác";
-"notifications-center-go-to-talk-page" = "Trang thảo luận";
 "notifications-center-go-to-user-page" = "Trang thành viên của $1";
 "notifications-center-go-to-wikidata-item" = "Khoản mục Wikidata";
 "notifications-center-go-to-your-talk-page" = "Trang thảo luận của bạn";
@@ -643,7 +642,6 @@
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 từ Wikipedia $2";
 "on-this-day-title" = "Ngày này năm xưa";
 "original-tab-button-popover-description" = "Chạm vào chữ “W” để quay lại thẻ ban đầu";
-"page-history-anonymous-edits" = "sửa đổi vô danh";
 "page-history-bot-edits" = "sửa đổi bot";
 "page-history-compare-accessibility-hint" = "Chạm để chọn hai phiên bản để so sánh";
 "page-history-compare-title" = "So sánh";
@@ -658,7 +656,6 @@
 "page-history-revision-time-accessibility-label" = "Thay đổi vào $1";
 "page-history-revisions-comparison-warning" = "Chỉ có thể chọn hai phiên bản";
 "page-history-stats-text" = "$1 sửa đổi từ $2 đến nay";
-"page-history-user-edits" = "người dùng sửa đổi";
 "page-issues" = "Vấn đề trang";
 "page-location" = "Xem trên bản đồ";
 "page-protected-can-not-edit" = "Bạn không có quyền sửa đổi trang này.";

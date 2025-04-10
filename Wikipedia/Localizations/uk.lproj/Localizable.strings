@@ -720,7 +720,6 @@
 "notifications-center-go-to-article" = "Стаття";
 "notifications-center-go-to-article-talk-format" = "$1 сторінка обговорення";
 "notifications-center-go-to-diff" = "Різниця";
-"notifications-center-go-to-talk-page" = "Сторінка обговорення";
 "notifications-center-go-to-user-page" = "Сторінка {{GENDER:$1|користувача $1|користувачки $1}}";
 "notifications-center-go-to-wikidata-item" = "Елемент Вікіданих";
 "notifications-center-go-to-your-talk-page" = "Ваша сторінка обговорення";
@@ -827,7 +826,6 @@
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 у Вікіпедії мовою «$2»";
 "on-this-day-title" = "Цього дня";
 "original-tab-button-popover-description" = "Натисніть «W», аби повернутися до вкладинки, з якої ви почали";
-"page-history-anonymous-edits" = "анонімні редагування";
 "page-history-bot-edits" = "бото-редагування";
 "page-history-compare-accessibility-hint" = "Натисніть, аби порівняти дві версії";
 "page-history-compare-title" = "Порівняти";
@@ -842,7 +840,6 @@
 "page-history-revision-time-accessibility-label" = "Версія створена $1";
 "page-history-revisions-comparison-warning" = "Можуть бути вибрані тільки дві версії";
 "page-history-stats-text" = "{{PLURAL:$1|$1 редагування|$1 редагування|$1 редагувань}} з $2";
-"page-history-user-edits" = "редагування користувачів";
 "page-issues" = "Проблеми сторінки";
 "page-location" = "Переглянути на мапі";
 "page-protected-can-not-edit" = "Ви не маєте повноважень редагувати цю сторінку";
@@ -903,7 +900,6 @@
 "profile-page-join-subtext" = "Зареєструйте обліковий запис у Вікіпедії, щоб відстежувати свій внесок, зберігати статті в автономному режимі та синхронізувати їх на різних пристроях.";
 "profile-page-join-title" = "Увійти / приєднатися до Вікіпедії";
 "profile-page-logged-out-year-in-review-subtext" = "Увійдіть або створіть обліковий запис, щоб наступного року отримати покращений огляд за рік";
-"profile-page-title-logged-out" = "Обліковий запис";
 "profile-year-in-review-login-subtitle" = "Увійдіть або створіть обліковий запис, щоб знову переглянути «Огляд року» та мати право на отримання більш персоналізованої статистики.";
 "profile-year-in-review-login-title" = "Увійдіть, щоб отримати доступ до огляду року";
 "project-name-mediawiki" = "MediaWiki";
