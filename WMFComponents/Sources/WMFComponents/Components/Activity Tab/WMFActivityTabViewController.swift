@@ -5,7 +5,12 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
 }
 
 public final class WMFActivityTabViewController: WMFCanvasViewController, WMFNavigationBarConfiguring {
-    
+    @objc public init(viewModel: WMFActivityViewModel, isLoggedIn: Bool, openHistory: @escaping @convention(block) () -> Void) {
+        let view = WMFActivityView(viewModel: viewModel, isLoggedIn: isLoggedIn)
+         self.hostingViewController = WMFActivityTabHostingController(rootView: view)
+         super.init()
+    }
+
     @MainActor required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
