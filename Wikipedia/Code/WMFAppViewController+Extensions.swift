@@ -717,14 +717,16 @@ extension WMFAppViewController {
         let openHistoryClosure = { [weak self] in
             guard let self = self else { return }
 
-            guard let navigationController = self.navigationController else {
+            guard let navigationController = self.currentTabNavigationController else {
                 print("navigationController is nil")
                 return
             }
 
             let historyVC = HistoryViewController()
+            historyVC.dataStore = self.dataStore
+            historyVC.apply(theme: self.theme)
             historyVC.title = CommonStrings.historyTabTitle
-            self.present(historyVC, animated: true, completion: nil)
+            navigationController.pushViewController(historyVC, animated: true)
         }
 
         let viewModel = WMFActivityViewModel(
