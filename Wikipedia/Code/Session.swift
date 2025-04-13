@@ -199,8 +199,15 @@ public class Session: NSObject {
         if let cachePolicy = cachePolicy {
             request.cachePolicy = cachePolicy
         }
+        
+        // Special handling for math resources
+        let isMathResource = requestURL.absoluteString.contains("/math/") || 
+                            requestURL.absoluteString.contains("mwe-math") || 
+                            requestURL.absoluteString.contains("/api/rest_v1/media/math/") ||
+                            requestURL.absoluteString.contains("wikimedia.org/math")
+        
         let defaultHeaders = [
-            "Accept": "application/json; charset=utf-8",
+            "Accept": isMathResource ? "image/png, image/svg+xml, */*" : "application/json; charset=utf-8",
             "Accept-Encoding": "gzip",
             "User-Agent": WikipediaAppUtils.versionedUserAgent(),
             "Accept-Language": requestURL.wmf_languageVariantCode ?? Locale.acceptLanguageHeaderForPreferredLanguages

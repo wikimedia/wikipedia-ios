@@ -29,6 +29,14 @@ a:hover {
     text-decoration: none !important
 }
 
+/* Ensure math formulas are visible in offline mode */
+img[src*="math"] {
+    display: inline-block !important;
+    max-width: 100% !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+}
+
 /*
     iOS 'Smart invert' exclusions.
     Makes article images not go photo-negative when 'Smart invert' is enabled.
@@ -83,4 +91,35 @@ body {
 .pcs-theme-dark .reference-highlight a,
 .pcs-theme-black .reference-highlight a {
     color: #ffffff !important
+}
+
+/* Ensure math formulas are visible in offline mode */
+img[src*="math"] {
+    display: inline-block !important;
+    max-width: 100% !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+}
+
+@media (inverted-colors) {
+	/* Images, video. */
+    img,
+    video {
+        filter: invert(100%)
+    }
+    /*
+    Image backgrounds.
+        Footer 'Read more' item images.
+        Other places...
+    */
+    div[style*='background-image'] {
+        filter: invert(100%)
+    }
+    /*
+    Math formulas.
+        'en > Quadratic equation'
+    */
+    img.mwe-math-fallback-image-inline {
+        filter: invert(0%)
+    }
 }
