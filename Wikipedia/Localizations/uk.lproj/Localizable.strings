@@ -865,10 +865,7 @@
 "page-history-revision-time-accessibility-label" = "Версія створена $1";
 "page-history-revisions-comparison-warning" = "Можуть бути вибрані тільки дві версії";
 "page-history-stats-text" = "{{PLURAL:$1|$1 редагування|$1 редагування|$1 редагувань}} з $2";
-<<<<<<< HEAD
-=======
 "page-history-unregistered-edits" = "незареєстровані редагування";
->>>>>>> 18d14186911597d7c3bab306df478c34fcb4f290
 "page-issues" = "Проблеми сторінки";
 "page-location" = "Переглянути на мапі";
 "page-protected-can-not-edit" = "Ви не маєте повноважень редагувати цю сторінку";

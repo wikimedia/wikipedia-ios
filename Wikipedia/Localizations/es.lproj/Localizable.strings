@@ -220,10 +220,7 @@
 "description-edit-title" = "Editar descripción";
 "description-edit-warning" = "Prueba mantener las descripciones cortas, así los usuarios pueden entender el tema del artículo en una mirada";
 "description-edit-warning-casing" = "Sólo los nombres propios deben escribirse con mayúscula inicial, incluso al comienzo de la oración.";
-<<<<<<< HEAD
-=======
 "description-editing-temp-account-created-subtitle" = "La cuenta temporal $1 se creó tras publicar tu edición. Expirará en 90 días.";
->>>>>>> 18d14186911597d7c3bab306df478c34fcb4f290
 "description-help-about-description" = "Las descripciones de título resumen un artículo para ayudar a que los lectores entiendan el tema rápidamente.";
 "description-help-about-title" = "Acerca de";
 "description-help-about-wikidata" = "Sobre Wikidata";
@@ -281,10 +278,7 @@
 "diff-revision-error-title" = "No se puede cargar la revisión";
 "diff-rollback" = "Revertir";
 "diff-rollback-alert-message" = "¿Está seguro de que desea revertir las ediciones?";
-<<<<<<< HEAD
-=======
 "diff-rollback-alert-title" = "Revertir ediciones";
->>>>>>> 18d14186911597d7c3bab306df478c34fcb4f290
 "diff-rollback-success" = "Ediciones revertidas.";
 "diff-single-header-editor-number-edits-format" = "{{PLURAL:$1|$1 edición|$1 ediciones}}";
 "diff-single-header-editor-title" = "Información sobre el editor";
