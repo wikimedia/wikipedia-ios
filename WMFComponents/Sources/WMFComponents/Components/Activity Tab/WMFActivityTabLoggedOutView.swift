@@ -8,6 +8,12 @@ struct WMFActivityTabLoggedOutView: View {
     }
 
     var action: () -> Void = { }
+    var openHistory: () -> Void
+    
+    public init(action: @escaping () -> Void = { }, openHistory: @escaping () -> Void) {
+        self.action = action
+        self.openHistory = openHistory
+    }
 
     var body: some View {
         VStack(alignment: .leading) {
@@ -20,7 +26,7 @@ struct WMFActivityTabLoggedOutView: View {
                 .foregroundColor(Color(theme.secondaryText))
 
             WMFLargeButton(configuration: .primary, title: "Log in", action: action)
-            WMFLargeButton(configuration: .secondary, title: "View reading history", action: action)
+            WMFLargeButton(configuration: .secondary, title: "View reading history", action: openHistory)
 
             Spacer()
         }
