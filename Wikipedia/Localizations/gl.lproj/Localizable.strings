@@ -181,8 +181,7 @@
 "edit-summary-choice-fixed-typos" = "Corrección ortográfica";
 "edit-summary-choice-linked-words" = "Ligazóns engadidas";
 "edit-summary-placeholder-text" = "Como mellorou o artigo?";
-// Fuzzy
-"edit-watch-list-learn-more-text" = "Máis información sobre as listas de vixiancia";
+"edit-watch-list-learn-more-text" = "Máis información sobre a túa lista de vixilancia";
 "edit-watch-this-page-text" = "Vixiar esta páxina";
 "editing-welcome-be-bold-subtitle" = "Sexa valente, pero non descoidado, na actualización de artigos. Non se preocupe por cometer errosː todas as versións anteriores das páxinas están gardadas, polo tanto a comunidade pode corrixir os erros de forma doada.";
 "editing-welcome-be-bold-title" = "A súa voz é importante";
@@ -391,7 +390,7 @@
 "main-menu-about" = "Acerca da aplicación";
 "main-menu-account-login" = "Acceder";
 "main-menu-account-logout" = "Saír";
-"main-menu-account-logout-are-you-sure" = "Está seguro de que quere pechar a sesión?";
+"main-menu-account-logout-are-you-sure" = "Quere pechar a sesión?";
 "main-menu-account-title-logged-in" = "Sesión iniciada como $1";
 "main-menu-heading-legal" = "Privacidade e Condicións";
 "main-menu-nearby" = "Preto";

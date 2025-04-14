@@ -86,6 +86,8 @@
 "action-update" = "ਨਵਿਆਓ";
 "add-articles-to-reading-list" = "{{PLURAL:$1| $1 ਲੇਖ}} ਪੜ੍ਹਨ ਦੀ ਸੂਚੀ ਵਿੱਚ ਜੋੜੋ";
 "advanced-settings-title" = "ਵਧੇਰੇ ਤਰਜੀਹਾਂ";
+"alert-temporary-account" = "ਤੁਸੀਂ ਇੱਕ ਆਰਜ਼ੀ ਖਾਤਾ ਵਰਤ ਰਹੇ ਹੋ। ਖਾਤੇ ਦੀ ਮਿਆਦ 90 ਦਿਨਾਂ ਵਿੱਚ ਖ਼ਤਮ ਹੋ ਜਾਵੇਗੀ।";
+"alert-temporary-account-learn-more" = "ਹੋਰ ਸਿੱਖੋ।";
 "alt-text-feedback-survey-toast-title" = "ਸੁਝਾਅ ਦਿੱਤੇ ਗਏ";
 "announcements-dismiss" = "ਖ਼ਾਰਜ ਕਰੋ";
 "app-store-keywords" = "ਵਿਕੀਪੀਡੀਆ, ਹਵਾਲਾ, ਵਿਕੀ, ਵਿਸ਼ਵਕੋਸ਼, ਜਾਣਕਾਰੀ, ਗਿਆਨ, ਖੋਜ, ਜਾਣਕਾਰੀ, ਖੋਜ, ਸਿੱਖੋ";
@@ -93,6 +95,7 @@
 "appearance-settings-adjust-text-sizing" = "ਲੇਖ ਅੱਖਰਾਂ ਦਾ ਆਕਾਰ ਵਿਵਸਥਿਤ ਕਰੋ";
 "appearance-settings-expand-tables" = "ਸਾਰਣੀ ਫੈਲਾਓ";
 "appearance-settings-expand-tables-footer" = "ਤਤਕਾਲ ਤੱਥਾਂ, ਹਵਾਲੇ, ਨੋਟਾਂ ਅਤੇ ਬਾਹਰੀ ਕੜੀਆਂ ਸਮੇਤ, ਸਾਰੇ ਲੇਖਾਂ ਵਿੱਚ ਸਾਰੀਆਂ ਸਾਰਣੀਆਂ ਨੂੰ ਮੂਲ ਤੌਰ 'ਤੇ ਖੁੱਲ੍ਹਣ ਲਈ ਕਾਇਮ ਕਰੋ।";
+"appearance-settings-reading-themes" = "ਵਿਸ਼ਾ-ਵਸਤੂ ਪੜ੍ਹਨਾ";
 "appearance-settings-set-automatic-table-opening" = "ਸਾਰਣੀ ਤਰਜੀਹਾਂ";
 "appearance-settings-theme-options" = "ਥੀਮ ਵਿਕਲਪ";
 "article-about-title" = "ਇਸ ਲੇਖ ਬਾਰੇ";
@@ -108,6 +111,7 @@
 "article-save-error-not-enough-space" = "ਇਸ ਲੇਖ ਨੂੰ ਸਾਭਣ ਲਈ ਤੁਹਾਡੇ ਕੋਲ ਤੁਹਾਡੇ ਜੰਤਰ 'ਤੇ ਲੋੜੀਂਦੀ ਜਗ੍ਹਾ ਨਹੀਂ ਹੈ";
 "article-share" = "ਸਾਂਝਾ ਕਰੋ";
 "article-talk-page" = "ਲੇਖ ਗੱਲਬਾਤ ਸਫ਼ਾ";
+"article-view-controller-editing-temp-account-created-title" = "ਆਰਜ਼ੀ ਖਾਤਾ ਬਣਾਇਆ ਗਿਆ";
 "back-button-accessibility-label" = "ਪਿਛਾਂਹ";
 "back-button-popover-title" = "ਵਾਪਸ ਜਾਣ ਲਈ ਨੱਪੋ";
 "button-go-back" = "ਪਿੱਛੇ ਜਾਓ";
@@ -237,6 +241,7 @@
 "edit-preview-simplified-format-message" = "ਸਾਰੀ ਸਮੱਗਰੀ ਨੂੰ ਸੌਖੀ ਤਰਤੀਬ ਵਿੱਚ ਵਿਖਾਇਆ ਗਿਆ ਹੈ।";
 "edit-published" = "ਸੋਧ ਛਾਪ ਦਿੱਤੀ ਗਈ!";
 "edit-published-subtitle" = "ਤੁਸੀਂ ਹੁਣੇ ਹੀ ਵਿਕੀਪੀਡੀਆ ਨੂੰ ਸਾਰਿਆਂ ਲਈ ਬਿਹਤਰ ਬਣਾਇਆ ਹੈ";
+"edit-sheet-temp-account-notice" = "ਆਰਜ਼ੀ ਖਾਤਾ ਸੁਨੇਹਾ";
 "edit-show-web-preview" = "ਵੈੱਬ ਝਲਕ ਦਿਖਾਓ";
 "edit-summary-add-summary-text" = "ਸੋਧ ਸੰਖੇਪ ਸ਼ਾਮਲ ਕਰੋ";
 "edit-summary-choice-added-image" = "ਤਸਵੀਰ ਜੋੜੀ ਗਈ";
@@ -292,6 +297,7 @@
 "editor-replace-type-single" = "ਬਦਲੋ";
 "editor-title" = "ਸੋਧਕ";
 "editor-toolbar-find-accessibility" = "ਸਫ਼ੇ ਵਿੱਚ ਲੱਭੋ";
+"editor-wikitext-textview-accessibility" = "ਵਿਕੀ ਅੱਖਰ/ਲਿਖਤ ਸੋਧਕ";
 "empty-diff-compare-title" = "ਸੋਧਾਂ ਵਿੱਚ ਕੋਈ ਫ਼ਰਕ ਨਹੀਂ ਹੈ";
 "empty-diff-single-title" = "ਕੋਈ ਦੇਖਣਯੋਗ ਤਬਦੀਲੀਆਂ ਨਹੀਂ ਕੀਤੀਆਂ ਗਈਆਂ";
 "empty-edit-summary" = "ਸੰਖੇਪ ਸੋਧ ਖਾਲੀ ਕਰੋ";
@@ -307,6 +313,7 @@
 "error-unknown" = "ਇੱਕ ਅਣਪਛਾਤੀ ਗ਼ਲਤੀ ਵਾਪਰੀ।";
 "explore-another-random" = "ਇੱਕ ਹੋਰ ਬੇਤਰਤੀਬ ਲੇਖ";
 "explore-because-you-read" = "ਕਿਓੰਕਿ ਤੁਸੀੰ ਇਹ ਪੜ੍ਹਿਆ ਸੀ";
+"explore-because-you-read-footer" = "ਵਾਧੂ ਮੇਲ-ਖਾਂਦੇ ਲੇਖ";
 "explore-continue-reading-heading" = "ਰੀਡਿੰਗ ਜਾਰੀ ਰੱਖੋ";
 "explore-featured-article-heading" = "ਫੀਚਰ ਲੇਖ";
 "explore-featured-article-sub-heading-from-language-wikipedia" = "$1 ਵਿਕੀਪੀਡੀਆ ਤੋਂ";
@@ -615,6 +622,7 @@
 "preference-summary-eventlogging-opt-in" = "ਇਸ ਐਪ ਨੂੰ ਚੰਗੇਰੀ ਬਣਾਉਣ ਵਾਸਤੇ ਵਿਕੀਮੀਡੀਆ ਨੂੰ ਤੁਹਾਡੇ ਇਸ ਐਪ ਨੂੰ ਵਰਤਣ ਦੇ ਤਰੀਕੇ ਬਾਬਤ ਜਾਣਕਾਰੀ ਇਕੱਠੀ ਕਰਨ ਦੀ ਇਜਾਜ਼ਤ ਦਿਉ।";
 "privacy-policy-title" = "ਨਿੱਜਤਾ ਨੀਤੀ";
 "problem-with-feature-title" = "ਵਿਸ਼ੇਸ਼ਤਾ ਨਾਲ ਸਮੱਸਿਆ";
+"profile-button-accessibility-label" = "ਪ੍ਰੋਫਾਈਲ";
 "profile-page-join-title" = "ਵਿਕੀਪੀਡੀਆ ਨਾਲ ਜੁੜੋ / ਦਾਖਲ ਹੋਵੋ";
 "project-name-mediawiki" = "ਮੀਡੀਆਵਿਕੀ";
 "project-name-wikibooks" = "ਵਿਕੀਕਿਤਾਬਾਂ";
@@ -636,6 +644,7 @@
 "reading-list-create-new-list-reading-list-name" = "ਪਡ਼੍ਹਨ ਦੀ ਸੂਚੀ ਦਾ ਨਾਂ";
 "reading-list-create-new-list-title" = "ਇੱਕ ਨਵੀਂ ਸੂਚੀ ਬਣਾਓ";
 "reading-list-deleted-accessibility-notification" = "ਪੜ੍ਹਨ ਦੀ ਸੂਚੀ ਮਿਟਾਈ ਗਈ";
+"reading-list-detail-search-placeholder" = "ਪਡ਼੍ਹਨ ਦੀ ਸੂਚੀ ਵਿੱਚ ਲੱਭੋ";
 "reading-list-do-not-keep-button-title" = "ਨਹੀਂ, ਜੰਤਰ ਤੋਂ ਲੇਖਾਂ ਨੂੰ ਮਿਟਾਓ";
 "reading-list-exists-with-same-name" = "ਪਡ਼੍ਹਨ ਦੀ ਸੂਚੀ ਦਾ ਨਾਂ ਪਹਿਲਾਂ ਤੋਂ ਹੀ ਵਰਤੋਂ ਵਿੱਚ ਹੈ";
 "reading-list-generic-error" = "ਤੁਹਾਡੀ ਪਡ਼੍ਹਨ ਦੀਆਂ ਸੂਚੀਆਂ ਨੂੰ ਨਵਿਆਓਣ ਸਮੇਂ ਅਚਾਨਕ ਇੱਕ ਗਲਤੀ ਆਈ ਹੈ।";
@@ -945,7 +954,7 @@
 "year-in-review-base-editors-title" = "iOS ਐਪ ਦੇ ਸੋਧਕਾਂ ਨੇ $1 ਤੋਂ ਵੱਧ ਸੋਧ ਕੀਤੇ ਹਨ";
 "year-in-review-base-edits-title" = "ਵਿਕੀਪੀਡੀਆ ਨੂੰ $1 ਵਾਰ ਪ੍ਰਤੀ ਮਿੰਟ ਸੋਧਿਆ ਗਿਆ ਸੀ";
 "year-in-review-base-reading-title" = "ਵਿਕੀਪੀਡੀਆ 300 ਤੋਂ ਵੱਧ ਭਾਸ਼ਾਵਾਂ ਵਿੱਚ ਉਪਲਬਧ ਸੀ।";
-"year-in-review-base-saved-title" = "ਸਾਡੇ ਕੋਲ $1 ਕਰੋੜ ਤੋਂ ਵੱਧ ਪਡ਼੍ਹਨ ਦੀਆਂ ਸੂਚੀਆਂ ਸਨ।";
+"year-in-review-base-saved-title" = "ਸਾਡੇ ਕੋਲ $1 ਕਰੋੜ ਤੋਂ ਵੱਧ ਪੜ੍ਹਨ ਦੀਆਂ ਸੂਚੀਆਂ ਸਨ।";
 "year-in-review-base-viewed-title" = "ਅਸੀਂ ਵਿਕੀਪੀਡੀਆ ਲੇਖ $1 ਅਰਬ ਵਾਰ ਦੇਖੇ ਹਨ।";
 "year-in-review-button-title" = "ਸਮੀਖਿਆ ਵਿੱਚ ਸਾਲ";
 "year-in-review-day-friday" = "ਸ਼ੁੱਕਰਵਾਰ";

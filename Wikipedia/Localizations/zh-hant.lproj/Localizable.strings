@@ -116,6 +116,8 @@
 "action-update" = "更新";
 "add-articles-to-reading-list" = "新增 {{PLURAL:$1|$1 個條目|$1 個條目}}至閱讀清單";
 "advanced-settings-title" = "進階設定";
+"alert-temporary-account" = "您正在使用臨時帳號。帳號會在 90 天後到期。";
+"alert-temporary-account-learn-more" = "了解更多。";
 "alt-text-feedback-survey-toast-title" = "意見回饋已提交";
 "announcements-dismiss" = "關閉";
 "app-store-keywords" = "維基百科、參考資料、wiki、百科全書、訊息、知識、研究、資訊、探索、學習";
@@ -145,6 +147,8 @@
 "article-share" = "分享";
 "article-talk-page" = "條目討論頁";
 "article-toolbar-reading-themes-controls-toolbar-item" = "閱讀主題控制";
+"article-view-controller-editing-temp-account-created-subtitle" = "當您的編輯發布後會建立臨時帳號「$1」。該帳號將在 90 天後到期。";
+"article-view-controller-editing-temp-account-created-title" = "已建立臨時帳號";
 "back-button-accessibility-label" = "返回";
 "back-button-popover-title" = "輕觸返回";
 "button-go-back" = "返回";
@@ -188,6 +192,7 @@
 "description-edit-title" = "編輯描述";
 "description-edit-warning" = "請儘量保持描述簡短，使條目的主題一目了然";
 "description-edit-warning-casing" = "僅當句子開頭的名詞為專有名詞時才應將其大寫";
+"description-editing-temp-account-created-subtitle" = "當您的編輯發布後會建立臨時帳號「$1」。該帳號將在 90 天後到期。";
 "description-help-about-description" = "條目描述概括了一篇條目，幫助讀者一目了然地理解主題。";
 "description-help-about-title" = "關於";
 "description-help-about-wikidata" = "關於維基數據";
@@ -314,6 +319,8 @@
 "edit-preview-simplified-format-message" = "所有內容均以簡化格式顯示。";
 "edit-published" = "已發布編輯";
 "edit-published-subtitle" = "您剛剛完善了維基百科，人人都會受益";
+"edit-sheet-ip-account-notice" = "IP 帳號通知";
+"edit-sheet-temp-account-notice" = "臨時帳號通知";
 "edit-show-web-preview" = "顯示網頁預覽";
 "edit-summary-add-summary-text" = "添加編輯摘要";
 "edit-summary-choice-added-image" = "已新增圖片";
@@ -486,7 +493,7 @@
 "explore-feed-preferences-turn-on-explore-tab-title" = "開啟探索分頁？";
 "explore-hide-card-prompt" = "隱藏此卡片";
 "explore-main-page-description" = "維基媒體專案首頁";
-"explore-main-page-heading" = "維基百科今日";
+"explore-main-page-heading" = "維基百科今日焦點";
 "explore-most-read-footer" = "所有被閱讀最多次的條目";
 "explore-most-read-generic-heading" = "最多閱讀";
 "explore-most-read-more-list-title-for-date" = "在 $1 的熱門條目";
@@ -661,6 +668,11 @@
 "insert-media-title" = "插入媒體";
 "inuktitut-variants-alert-body" = "維基百科應用程式現在支援下列伊努克提圖特語異體字作為應用程式裡的主要語言或次要語言，能以您首選的異體字來更易於閱讀、搜尋、編輯：\n\nᐃᓄᒃᑎᑐᑦ ᑎᑎᕋᐅᓯᖅ ᓄᑖᖅ，音節文字伊努克提圖特語（ike-cans）\nInuktitut ilisautik，拉丁字母伊努克提圖特語（ike-latn）";
 "inuktitut-variants-alert-title" = "伊努克提圖特語異體字支援更新";
+"ip-account-cta-bottom" = "以不登入來繼續";
+"ip-account-cta-top" = "登入或建立新帳號";
+"ip-account-edit-sheet-subtitle" = "一旦您做出編輯，會為您建立$1臨時帳號$2以保護您的隱私。$3了解更多。$4$5請登入或建立帳號，以讓往後做出的編輯歸在您的名義之下，並使用其他功能。";
+"ip-account-warning-subtitle" = "發佈時將為您建立臨時帳號。";
+"ip-account-warning-title" = "您尚未登入";
 "kazakh-variants-alert-body" = "維基百科應用程式現在支援下列哈薩克語異體字作為應用程式裡的主要語言或次要語言，能以您首選的異體字來更易於閱讀、搜尋、編輯：\n\nҚазақша，哈薩克語（kk）\nҚазақша Кирил，西里爾字母哈薩克語（kk-cyrl）\nqazaqşa latin，拉丁字母哈薩克語（kk-latin）\nتوتە قازاقشا，阿拉伯字母哈薩克語（kk-arab）";
 "kazakh-variants-alert-title" = "哈薩克語異體字支援更新";
 "kurdish-variants-alert-body" = "維基百科應用程式現在支援下列庫德語異體字作為應用程式裡的主要語言或次要語言，能以您首選的異體字來更易於閱讀、搜尋、編輯：\n\nKurdî Latînî，拉丁字母庫德語（ku-latn）\nكوردی，阿拉伯字母庫德語（kk-arab）";
@@ -861,6 +873,7 @@
 "page-history-compare-accessibility-hint" = "輕觸來選擇兩個修訂做比較";
 "page-history-compare-title" = "比較";
 "page-history-graph-accessibility-label" = "在一段時間內編輯的圖式";
+"page-history-logged-in-edits" = "已登入";
 "page-history-minor-edits" = "小修改";
 "page-history-revision-author-accessibility-label" = "作者：$1";
 "page-history-revision-comment-accessibility-label" = "註釋$1";
@@ -871,6 +884,10 @@
 "page-history-revision-time-accessibility-label" = "修訂於 $1";
 "page-history-revisions-comparison-warning" = "僅能選擇兩個修訂";
 "page-history-stats-text" = "自$2共{{PLURAL:$1|$1次編輯}}";
+<<<<<<< HEAD
+=======
+"page-history-unregistered-edits" = "未註冊編輯";
+>>>>>>> 18d14186911597d7c3bab306df478c34fcb4f290
 "page-issues" = "頁面問題";
 "page-location" = "在地圖上檢視";
 "page-protected-can-not-edit" = "您沒有權限編輯此頁面";
@@ -1051,6 +1068,8 @@
 "return-button-title" = "返回";
 "return-to-article" = "返回到條目";
 "reverted-edit-title" = "已回退的編輯";
+"save-view-temp-account-notice" = "您正在使用臨時帳號。編輯內容會歸在$1…";
+"save-view-temp-account-warning" = "您尚未登入。一旦您做出編輯，會為您建立臨時帳號以保護您的隱私。";
 "saved-all-articles-title" = "所有條目";
 "saved-default-reading-list-tag" = "此清單不能被刪除";
 "saved-pages-image-download-error" = "下載此儲存頁面裡的圖片失敗。";
@@ -1226,6 +1245,15 @@
 "talk-pages-user-groups" = "使用者群組";
 "talk-pages-user-logs" = "日誌";
 "talk-pages-view-title" = "討論";
+"temp-account-alert-read-more-information" = "$1您正在使用臨時帳號。$2帳號會在 90 天後到期。到期後，下一次您在未登入情況下做出編輯時，會再建立另一個新的帳號。$3請登入或建立帳號，以讓往後做出的編輯歸在您的名義之下，並使用其他功能。";
+"temp-account-edit-sheet-cta-top" = "登入或建立帳號";
+"temp-account-edit-sheet-subtitle" = "您的編輯內容將歸在$2$1$3名義之下。管理員可查看您的$4 IP 位址$5。$7了解更多。$5$6如果您選擇登入或建立帳號，您的編輯內容將歸在您使用的名稱，並可獲得其他功能。";
+"temp-account-got-it" = "了解";
+"temp-account-toast-read-more-title" = "延伸閱讀";
+"temp-account-toast-title" = "$1您目前正在使用臨時帳號。$2以臨時帳號做出了編輯…";
+"temp-account-warning-title" = "您正在使用臨時帳號";
+"temp-warning-subtitle-format" = "您的編輯內容會歸在$1";
+"temporary-account" = "臨時帳號";
 "terms-of-use-title" = "使用條款";
 "theme-black-display-name" = "漆黑";
 "theme-dark-display-name" = "陰暗";
