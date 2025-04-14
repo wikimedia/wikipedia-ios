@@ -441,7 +441,6 @@
 "notifications-center-go-to-article" = "Vos";
 "notifications-center-go-to-article-talk-format" = "$1 pagina de ciciarada";
 "notifications-center-go-to-diff" = "Diferenze";
-"notifications-center-go-to-talk-page" = "Pagina de ciciarada";
 "notifications-center-go-to-user-page" = "pagina de l'utenza de $1";
 "notifications-center-go-to-wikidata-item" = "Element Wikidata";
 "notifications-center-go-to-your-talk-page" = "La toa pagina de ciciarada";
@@ -535,7 +534,6 @@
 "on-this-day-no-internet-error" = "Nanca on dato disponibil";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 da Wikipedia in $2";
 "on-this-day-title" = "in quell dì chì";
-"page-history-anonymous-edits" = "Modifeghe di utent anonim";
 "page-history-bot-edits" = "Modifeghe di bot";
 "page-history-compare-accessibility-hint" = "Clica per catà foeura do version de paragonà";
 "page-history-compare-title" = "Paragona";
@@ -549,7 +547,6 @@
 "page-history-revision-size-diff-subtraction" = "{{PLURAL:$1|Levad}} $1 bait";
 "page-history-revisions-comparison-warning" = "A podet vesser catade foeura domà do revision";
 "page-history-stats-text" = "{{PLURAL:$1|1 modifega|$1 modifeghe}} dal $2";
-"page-history-user-edits" = "modifeghe de l'utent";
 "page-issues" = "Problema de la pagina";
 "page-location" = "Varda in su la mapa";
 "page-protected-can-not-edit" = "Te gh'hee minga i dirit de fàgh di cambiament a questa pagina chì";

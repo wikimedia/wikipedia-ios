@@ -625,7 +625,6 @@
 "notifications-center-go-to-article" = "記事";
 "notifications-center-go-to-article-talk-format" = "$1の会話ページ";
 "notifications-center-go-to-diff" = "差分";
-"notifications-center-go-to-talk-page" = "トークページ";
 "notifications-center-go-to-user-page" = "$1の利用者ページ";
 "notifications-center-go-to-wikidata-item" = "ウィキデータ項目";
 "notifications-center-go-to-your-talk-page" = "あなたの会話ページ";
@@ -716,7 +715,6 @@
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$2版ウィキペディアより$1の記事";
 "on-this-day-title" = "今日は何の日";
 "original-tab-button-popover-description" = "最初のタブに戻るにはWをタップ";
-"page-history-anonymous-edits" = "匿名編集";
 "page-history-bot-edits" = "ボット編集";
 "page-history-compare-accessibility-hint" = "比較する2つの版をタップして選択してください";
 "page-history-compare-title" = "比較";
@@ -731,7 +729,6 @@
 "page-history-revision-time-accessibility-label" = "$1に変更";
 "page-history-revisions-comparison-warning" = "2つの版しか選べません";
 "page-history-stats-text" = "$2以降に{{PLURAL:$1|$1回の編集}}";
-"page-history-user-edits" = "利用者の編集";
 "page-issues" = "ページの問題点";
 "page-location" = "地図で見る";
 "page-protected-can-not-edit" = "このページを編集する権限がありません";
@@ -781,7 +778,6 @@
 "potd-widget-title" = "今日の一枚";
 "preference-summary-eventlogging-opt-in" = "このアプリの改善に役立てるため、ウィキメディア財団がアプリの使用情報を収集することを許可する";
 "profile-page-join-title" = "ウィキペディアにログインまたは登録";
-"profile-page-title-logged-out" = "アカウント";
 "profile-year-in-review-login-subtitle" = "ログインまたはアカウントを作成すると、「一年の振り返り」を見て、よりパーソナライズされた洞察を得ることができます。";
 "profile-year-in-review-login-title" = "ログインして「一年の振り返り」にアクセス";
 "project-name-mediawiki" = "MediaWiki";
@@ -1059,7 +1055,7 @@
 "top-read-widget-readers-count" = "$1人の読者";
 "top-read-widget-title" = "よく読まれている記事";
 "two-factor-login-continue" = "ログインを続行";
-"two-factor-login-instructions" = "２段階認証コードを入力してください";
+"two-factor-login-instructions" = "二要素認証コードを入力してください";
 "two-factor-login-title" = "あなたのアカウントにログイン";
 "two-factor-login-with-backup-code" = "バックアップコードの1つを使用する";
 "two-factor-login-with-regular-code" = "確認コードを使用する";

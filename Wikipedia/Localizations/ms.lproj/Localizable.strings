@@ -80,7 +80,7 @@
 "action-unsaved-accessibility-notification" = "Rencana ternyahsimpan";
 "action-update" = "Kemaskini";
 "add-articles-to-reading-list" = "Tambahkan {{PLURAL:$1|$1 rencana|$1 rencana}} ke senarai bacaan";
-"announcements-dismiss" = "Singkir";
+"announcements-dismiss" = "Abaikan";
 "app-store-keywords" = "Wikipedia, rujukan, wiki, ensiklopedia, info, pengetahuan, penyelidikan, maklumat, meneroka, belajar";
 "app-store-release-notes" = "Sepenuhnya disesuaikan dan mudah dibaca meneroka suapan. Penyetempatan, penambahbaikan prestasi dan pembetulan pepijat.";
 "app-store-short-description" = "Muat turun aplikasi Wikipedia untuk meneroka tempat berhampiran anda, menyegerakkan rencana untuk membaca di luar talian dan menyesuaikan pengalaman membaca anda.";
@@ -453,7 +453,6 @@
 "notifications-center-go-to-article" = "Rencana";
 "notifications-center-go-to-article-talk-format" = "Laman perbincangan $1";
 "notifications-center-go-to-diff" = "Beza";
-"notifications-center-go-to-talk-page" = "Laman perbincangan";
 "notifications-center-go-to-user-page" = "Laman pengguna $1";
 "notifications-center-go-to-wikidata-item" = "Butir Wikidata";
 "notifications-center-go-to-your-talk-page" = "Laman perbincangan anda";
@@ -505,14 +504,12 @@
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 dari Wikipedia $2";
 "on-this-day-title" = "Pada hari ini";
 "original-tab-button-popover-description" = "Ketik pada 'W' untuk kembali ke tab yang anda bermula";
-"page-history-anonymous-edits" = "suntingan awanama";
 "page-history-bot-edits" = "suntingan bot";
 "page-history-compare-title" = "Bandingkan";
 "page-history-minor-edits" = "suntingan kecil";
 "page-history-revision-author-accessibility-label" = "Pengarang: $1";
 "page-history-revision-history-title" = "Sejarah semakan";
 "page-history-revision-minor-edit-accessibility-label" = "Suntingan kecil";
-"page-history-user-edits" = "suntingan pengguna";
 "page-protected-can-not-edit" = "Anda tidak mempunyai izin untuk menyunting laman ini";
 "page-protected-can-not-edit-title" = "Halaman ini dilindungi";
 "pictured" = "gambar";
@@ -555,10 +552,9 @@
 "profile-button-badge-accessibility-label" = "Profil dengan lencana yang belum dibaca";
 // Fuzzy
 "profile-page-join-title" = "Sertai Wikipedia / Log masuk";
-"profile-page-title-logged-out" = "Akaun";
 "project-name-wikibooks" = "Wikibuku";
 "project-name-wikinews" = "Wikiberita";
-"project-name-wikiquote" = "Wikipetikan";
+"project-name-wikiquote" = "Wikipetik";
 "project-name-wikisource" = "Wikisumber";
 "project-name-wikiversity" = "Wikiversiti";
 "project-name-wikivoyage" = "Wikilayar";

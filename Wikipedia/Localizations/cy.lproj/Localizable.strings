@@ -472,7 +472,6 @@
 "notifications-center-go-to-article" = "Erthygl";
 "notifications-center-go-to-article-talk-format" = "Tudalen sgwrs $1";
 "notifications-center-go-to-diff" = "Gwahan";
-"notifications-center-go-to-talk-page" = "Tudalen sgwrs";
 "notifications-center-go-to-user-page" = "Tudalen defnyddiwr $1";
 "notifications-center-go-to-wikidata-item" = "Eitem Wicidata";
 "notifications-center-go-to-your-talk-page" = "Eich tudalen sgwrs";
@@ -538,7 +537,6 @@
 "on-this-day-no-internet-error" = "Dim data ar gael";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 o Wicipedia $2";
 "on-this-day-title" = "Ar y dydd hwn";
-"page-history-anonymous-edits" = "golygiadau gan ddefnyddwyr dienw";
 "page-history-bot-edits" = "Golygiadau gan fot";
 "page-history-compare-title" = "Cymharu";
 "page-history-graph-accessibility-label" = "Graff golygiadau dros amser";
@@ -547,7 +545,6 @@
 "page-history-revision-comment-accessibility-label" = "Sylw $1";
 "page-history-revision-history-title" = "Hanes golygu";
 "page-history-revision-minor-edit-accessibility-label" = "Golygiad bychan";
-"page-history-user-edits" = "golygiad gan ddefnyddwyr";
 "page-issues" = "Problemau â'r dudalen";
 "page-location" = "Gweld ar fap";
 "page-protected-can-not-edit-title" = "Mae'r dudalen hon wedi'i gwarchod";
