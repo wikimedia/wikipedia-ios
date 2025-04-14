@@ -763,6 +763,20 @@
 			<string>%1$d次</string>
 		</dict>
 	</dict>
+	<key>year-in-review-personalized-editing-title-format</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>您在維基百科上進行了 %#@v1@ 次編輯</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>other</key>
+			<string>%1$d</string>
+		</dict>
+	</dict>
 	<key>year-in-review-personalized-reading-subtitle-format</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -780,7 +794,35 @@
 	<key>year-in-review-personalized-reading-title-format</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>您今年閱讀了 %#@v1@ 篇條目</string>
+		<string>您閱讀了 %#@v1@ 篇條目</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>other</key>
+			<string>%1$d</string>
+		</dict>
+	</dict>
+	<key>year-in-review-personalized-saved-subtitle-format</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>您儲存了 %#@v1@ 篇條目，包括%2$@、%3$@和%4$@。每篇儲存的條目都反應出您的喜好，並幫助您在維基百科上建立個人化知識庫。</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>other</key>
+			<string>%1$d</string>
+		</dict>
+	</dict>
+	<key>year-in-review-personalized-saved-title-format</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>您儲存了 %#@v1@ 篇條目</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
