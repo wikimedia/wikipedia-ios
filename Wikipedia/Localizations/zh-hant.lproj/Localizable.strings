@@ -884,10 +884,7 @@
 "page-history-revision-time-accessibility-label" = "修訂於 $1";
 "page-history-revisions-comparison-warning" = "僅能選擇兩個修訂";
 "page-history-stats-text" = "自$2共{{PLURAL:$1|$1次編輯}}";
-<<<<<<< HEAD
-=======
 "page-history-unregistered-edits" = "未註冊編輯";
->>>>>>> 18d14186911597d7c3bab306df478c34fcb4f290
 "page-issues" = "頁面問題";
 "page-location" = "在地圖上檢視";
 "page-protected-can-not-edit" = "您沒有權限編輯此頁面";
