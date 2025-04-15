@@ -5,6 +5,7 @@ import WMFData
 @objc public class WMFActivityViewModel: NSObject, ObservableObject {
     @Published var activityItems: [ActivityItem]?
     @Published public var isLoggedIn: Bool
+    @Published public var project: WMFProject?
     var shouldShowAddAnImage: Bool
     var shouldShowStartEditing: Bool
     var hasNoEdits: Bool

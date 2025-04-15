@@ -451,6 +451,7 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
     [self updateExploreFeedPreferencesIfNecessaryForChange:note];
     [self.dataStore.feedContentController updateContentSources];
     [self updateWMFDataEnvironmentFromLanguagesDidChange];
+    [self updateActivityTabProjectWithActivityTabViewController:self.activityTabViewController];
 }
 
 /**

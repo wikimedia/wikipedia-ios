@@ -768,9 +768,23 @@ extension WMFAppViewController {
             loginCoordinator.start()
         }
         
+        if let siteURL = dataStore.languageLinkController.appLanguage?.siteURL,
+           let wikimediaProject = WikimediaProject(siteURL: siteURL),
+           let wmfProject = wikimediaProject.wmfProject {
+            viewModel.project = wmfProject
+        }
+        
         viewModel.loginAction = loginAction
         
         return activityTabViewController
+    }
+    
+    @objc func updateActivityTabProject(activityTabViewController: WMFActivityTabViewController) {
+        if let siteURL = dataStore.languageLinkController.appLanguage?.siteURL,
+           let wikimediaProject = WikimediaProject(siteURL: siteURL),
+           let wmfProject = wikimediaProject.wmfProject {
+            activityTabViewController.viewModel.project = wmfProject
+        }
     }
     
     @objc func updateActivityTabLoginState(activityTabViewController: WMFActivityTabViewController) {

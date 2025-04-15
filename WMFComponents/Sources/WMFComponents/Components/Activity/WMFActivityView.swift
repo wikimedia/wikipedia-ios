@@ -44,10 +44,12 @@ public struct WMFActivityView: View {
             .padding()
             .onAppear {
                 Task {
+                    
+                    guard let project = viewModel.project else { return }
+                    
                     let dataController = try WMFActivityDataController()
                     dataController.savedSlideDataDelegate = viewModel.savedSlideDataDelegate
                     dataController.legacyPageViewsDataDelegate = viewModel.legacyPageViewsDataDelegate
-                    let project = WMFProject.wikipedia(WMFLanguage(languageCode: "en", languageVariantCode: nil))
                     let activity = try await dataController.fetchAllStuff(username: "TSevener (WMF)", project: project)
 
                     let items = [
