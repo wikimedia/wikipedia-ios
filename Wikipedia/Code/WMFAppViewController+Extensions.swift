@@ -713,11 +713,36 @@ extension WMFAppViewController {
            ActivityItem(imageName: "square.text.square", title: "You read 87 articles this week.", subtitle: "You read 12% less compared to the previous week.", onViewTitle: "View reading history", onViewTap: { print("On view tap")}),
            ActivityItem(imageName: "bookmark.fill", title: "You saved 8 articles this week", subtitle: "You saved 5 less articles compared to the previous week.", onViewTitle: "View saved articles", onViewTap: { print("On view tap")})
         ]
-        let viewModel = WMFActivityViewModel(activityItems: testItems, shouldShowAddAnImage: false, shouldShowStartEditing: false, hasNoEdits: false)
+        
+        let openHistoryClosure = { [weak self] in
+            guard let self = self else { return }
+
+            guard let navigationController = self.currentTabNavigationController else {
+                print("navigationController is nil")
+                return
+            }
+
+            let historyVC = HistoryViewController()
+            historyVC.dataStore = self.dataStore
+            historyVC.apply(theme: self.theme)
+            historyVC.title = CommonStrings.historyTabTitle
+            navigationController.pushViewController(historyVC, animated: true)
+        }
+
+        let viewModel = WMFActivityViewModel(
+            activityItems: testItems,
+            shouldShowAddAnImage: false,
+            shouldShowStartEditing: false,
+            hasNoEdits: false,
+            openHistory: openHistoryClosure
+        )
+        
         viewModel.savedSlideDataDelegate = dataStore.savedPageList
         viewModel.legacyPageViewsDataDelegate = dataStore
 
 //        return WMFActivityTabViewController(viewModel: viewModel, isLoggedIn: dataStore.authenticationManager.authStateIsPermanent)
-        return WMFActivityTabViewController(viewModel: viewModel, isLoggedIn: true)
+        return WMFActivityTabViewController(viewModel: viewModel, isLoggedIn: true, openHistory: {
+            
+        })
     }
 }

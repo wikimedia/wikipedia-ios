@@ -43,9 +43,6 @@ public struct WMFActivityView: View {
                     Spacer()
                 }
                 Spacer()
-                Button("Open history") {
-                    viewModel.openHistory()
-                }
             }
             .padding()
             .onAppear {
@@ -66,7 +63,7 @@ public struct WMFActivityView: View {
                 }
             }
         } else {
-            WMFActivityTabLoggedOutView()
+            WMFActivityTabLoggedOutView(openHistory: viewModel.openHistory)
         }
     }
 
