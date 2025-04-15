@@ -493,16 +493,16 @@ public class CommonStrings: NSObject {
     
     public static let editorToolbarButtonOpenTextFormatMenuAccessiblityLabel = WMFLocalizedString("editor-toolbar-open-text-format-menu-accessibility", value: "Open text formatting menu", comment: "Accessibility label for text format toolbar button on the editor. This button opens the keyboard text formatting menu.")
     
-    public static let editorToolbarButtonReferenceAccessiblityLabel = WMFLocalizedString("editor-toolbar-reference-accessibility", value: "Reference [button]", comment: "Accessibility label for reference toolbar button on the editor.")
+    public static let editorToolbarButtonReferenceAccessiblityLabel = WMFLocalizedString("editor-toolbar-reference-accessibility", value: "Reference", comment: "Accessibility label for reference toolbar button on the editor.")
     public static let editorKeyboardButtonReferenceAccessiblityLabel = WMFLocalizedString("editor-keyboard-reference-accessibility", value: "Reference", comment: "Accessibility label for reference keyboard button on the editor.")
     
     public static let editorToolbarButtonLinkAccessiblityLabel = WMFLocalizedString("editor-toolbar-link-accessibility", value: "Formatting: Link", comment: "Accessibility label for link toolbar button on the editor.")
     public static let editorKeyboardButtonLinkAccessiblityLabel = WMFLocalizedString("editor-keyboard-link-accessibility", value: "Link", comment: "Accessibility label for link keyboard button on the editor.")
     
-    public static let editorToolbarButtonTemplateAccessiblityLabel = WMFLocalizedString("editor-toolbar-template-accessibility", value: "Template [button]. Double tap to add a template to the current node.", comment: "Accessibility label for template toolbar button on the editor.")
+    public static let editorToolbarButtonTemplateAccessiblityLabel = WMFLocalizedString("editor-toolbar-template-accessibility", value: "Double tap to add a template to the current node.", comment: "Accessibility label for template toolbar button on the editor.")
     public static let editorKeyboardButtonTemplateAccessiblityLabel = WMFLocalizedString("editor-keyboard-template-accessibility", value: "Template", comment: "Accessibility label for template keyboard button on the editor.")
 
-    public static let editorToolbarButtonImageAccessiblityLabel = WMFLocalizedString("editor-toolbar-image-accessibility", value: "Image [button]. Double tap to add an image to the current node.", comment: "Accessibility label for image toolbar button on the editor.")
+    public static let editorToolbarButtonImageAccessiblityLabel = WMFLocalizedString("editor-toolbar-image-accessibility", value: "Double tap to add an image to the current node.", comment: "Accessibility label for image toolbar button on the editor.")
 
     public static let editorToolbarButtonFindAccessiblityLabel = WMFLocalizedString("editor-toolbar-find-accessibility", value: "Find in page", comment: "Accessibility label for find toolbar button on the editor. This button opens the find in page view.")
     
