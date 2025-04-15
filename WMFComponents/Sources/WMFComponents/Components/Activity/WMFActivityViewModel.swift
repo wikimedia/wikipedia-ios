@@ -9,6 +9,7 @@ import WMFData
     var shouldShowStartEditing: Bool
     var hasNoEdits: Bool
     let openHistory: () -> Void
+    @Published public var loginAction: (() -> Void)?
     public var savedSlideDataDelegate: SavedArticleSlideDataDelegate?
     public var legacyPageViewsDataDelegate: LegacyPageViewsDataDelegate?
     
@@ -25,13 +26,14 @@ import WMFData
     
     let suggestedEdits = "Suggested edits"
     
-    public init(activityItems: [ActivityItem]? = nil, isLoggedIn: Bool, shouldShowAddAnImage: Bool, shouldShowStartEditing: Bool, hasNoEdits: Bool, openHistory: @escaping () -> Void) {
+    public init(activityItems: [ActivityItem]? = nil, isLoggedIn: Bool, shouldShowAddAnImage: Bool, shouldShowStartEditing: Bool, hasNoEdits: Bool, openHistory: @escaping () -> Void, loginAction: (() -> Void)?) {
         self.activityItems = activityItems
         self.isLoggedIn = isLoggedIn
         self.shouldShowAddAnImage = shouldShowAddAnImage
         self.shouldShowStartEditing = shouldShowStartEditing
         self.hasNoEdits = hasNoEdits
         self.openHistory = openHistory
+        self.loginAction = loginAction
     }
 }
 

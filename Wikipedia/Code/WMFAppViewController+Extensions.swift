@@ -736,15 +736,46 @@ extension WMFAppViewController {
             shouldShowAddAnImage: false,
             shouldShowStartEditing: false,
             hasNoEdits: false,
-            openHistory: openHistoryClosure
+            openHistory: openHistoryClosure,
+            loginAction: nil
         )
         
         viewModel.savedSlideDataDelegate = dataStore.savedPageList
         viewModel.legacyPageViewsDataDelegate = dataStore
 
-        return WMFActivityTabViewController(viewModel: viewModel, openHistory: {
+        let activityTabViewController = WMFActivityTabViewController(viewModel: viewModel, openHistory: {
             
         })
+        
+        let loginAction = { [weak self] in
+            guard let self = self else { return }
+
+            guard let navigationController = self.currentTabNavigationController else {
+                print("navigationController is nil")
+                return
+            }
+            
+            let loginCoordinator = LoginCoordinator(navigationController: navigationController, theme: theme)
+            loginCoordinator.createAccountSuccessCustomDismissBlock = { [weak self] in
+                
+                guard let self else { return }
+                
+                self.updateActivityTabLoginState(activityTabViewController: activityTabViewController)
+            }
+            
+            loginCoordinator.loginSuccessCompletion = { [weak self] in
+                
+                guard let self else { return }
+                
+                self.updateActivityTabLoginState(activityTabViewController: activityTabViewController)
+            }
+
+            loginCoordinator.start()
+        }
+        
+        viewModel.loginAction = loginAction
+        
+        return activityTabViewController
     }
     
     @objc func updateActivityTabLoginState(activityTabViewController: WMFActivityTabViewController) {

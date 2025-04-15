@@ -60,7 +60,9 @@ public struct WMFActivityView: View {
                 }
             }
         } else {
-            WMFActivityTabLoggedOutView(openHistory: viewModel.openHistory)
+            if let loginAction = viewModel.loginAction {
+                WMFActivityTabLoggedOutView(loginAction: loginAction, openHistory: viewModel.openHistory)
+            }
         }
     }
 
