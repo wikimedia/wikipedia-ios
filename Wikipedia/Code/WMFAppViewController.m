@@ -395,6 +395,7 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
     [self updatePrimaryWikiHasTempAccountsStatusIfNecessary];
     [self.periodicWorkerController start];
     [self.savedArticlesFetcher start];
+    [self updateActivityTabLoginStateWithActivityTabViewController:self.activityTabViewController];
 }
 
 - (void)performTasksThatShouldOccurAfterAnnouncementsUpdated {
