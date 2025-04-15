@@ -85,7 +85,6 @@
 "nearby-distance-label-km" = "$1 км";
 "nearby-distance-label-meters" = "$1 м";
 "nearby-distance-label-miles" = "$1 мил";
-"page-history-anonymous-edits" = "вироишоти гумномҳо";
 "page-history-bot-edits" = "вироишоти ботҳо";
 "page-history-minor-edits" = "вироишҳои хурд";
 "page-history-revision-author-accessibility-label" = "Муаллиф: $1";
@@ -94,7 +93,6 @@
 "page-history-revision-size-diff-addition" = "{{PLURAL:$1|$1 байт|$1 байт}} илова шуд";
 "page-history-revision-size-diff-subtraction" = "{{PLURAL:$1|$1 байт|$1 байт}} тоза шуд";
 "page-history-stats-text" = "{{PLURAL:$1|$1 вироиш|$1 вироишот}} аз $2";
-"page-history-user-edits" = "вироишоти корбар";
 "places-search-default-text" = "Ҷои ҷустуҷӯ";
 "relative-date-hours-abbreviated" = "$1 соат";
 "relative-date-hours-ago-abbreviated" = "$1 соат пеш";

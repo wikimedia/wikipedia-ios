@@ -576,7 +576,6 @@
 "notifications-center-go-to-article" = "Artikel";
 "notifications-center-go-to-article-talk-format" = "$1 Diskussionsseite";
 "notifications-center-go-to-diff" = "Unterschied";
-"notifications-center-go-to-talk-page" = "Diskussionsseite";
 "notifications-center-go-to-user-page" = "Benutzerseite von $1";
 "notifications-center-go-to-wikidata-item" = "Wikidata-Objekt";
 "notifications-center-go-to-your-talk-page" = "Deine Diskussionsseite";
@@ -661,7 +660,6 @@
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 von der Wikipedia auf $2";
 "on-this-day-title" = "Heute";
 "original-tab-button-popover-description" = "Tippe auf das W, um zu dem Reiter zurückzukehren, von dem du gestartet bist.";
-"page-history-anonymous-edits" = "Anonyme Bearbeitungen";
 "page-history-bot-edits" = "Botbearbeitungen";
 "page-history-compare-accessibility-hint" = "Tippe, um zwei Versionen auszuwählen, um sie zu vergleichen";
 "page-history-compare-title" = "Vergleichen";
@@ -675,7 +673,6 @@
 "page-history-revision-size-diff-subtraction" = "{{PLURAL:$1|$1 Byte|$1 Bytes}} entfernt";
 "page-history-revisions-comparison-warning" = "Nur zwei Versionen können angezeigt werden";
 "page-history-stats-text" = "{{PLURAL:$1|$1 Bearbeitung|$1 Bearbeitungen}} seit $2";
-"page-history-user-edits" = "Benutzerbearbeitungen";
 "page-issues" = "Seitenprobleme";
 "page-location" = "Auf einer Karte ansehen";
 "page-protected-can-not-edit" = "Du hast nicht die Rechte, diese Seite zu bearbeiten.";
@@ -728,7 +725,6 @@
 "profile-page-join-subtext" = "Registriere dich für ein Wikipedia-Konto, um deine Beiträge zu verfolgen, Artikel offline zu speichern und geräteübergreifend zu synchronisieren.";
 "profile-page-join-title" = "Anmelden / Wikipedia beitreten";
 "profile-page-logged-out-year-in-review-subtext" = "Melde dich an oder erstelle ein Konto, um nächstes Jahr einen verbesserten Jahresrückblick zu erhalten";
-"profile-page-title-logged-out" = "Konto";
 "profile-year-in-review-login-subtitle" = "Melde dich an oder erstelle ein Konto, um den Jahresrückblick erneut zu sehen und mehr personalisierte Einblicke zu erhalten.";
 "profile-year-in-review-login-title" = "Melde dich an, um auf den Jahresrückblick zuzugreifen";
 "project-name-mediawiki" = "MediaWiki";

@@ -56,7 +56,12 @@ final class TempAccountsSettingsViewController: SubSettingsViewController, WMFNa
             isOn: true,
             controlTag: 1)
         let footerTitle = WMFLocalizedString("settings-temp-accounts-talk-page-footer", value: "Temporary account will expire in 90 days", comment: "Footer below temporary account user's talk page, letting them know their account will expire")
-        let sections = [Section(items: [talkPage], footerTitle: footerTitle)]
+        let endSession = Item(
+            title: WMFLocalizedString("end-session", value: "End session", comment: "Button to allow temporary account users to end their session."),
+            iconName: "person-circle-x",
+            isOn: true,
+            controlTag: 2)
+        let sections = [Section(items: [talkPage, endSession], footerTitle: footerTitle)]
         self.sections = sections
     }
     
@@ -107,12 +112,21 @@ extension TempAccountsSettingsViewController {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: WMFSettingsTableViewCell.identifier, for: indexPath) as? WMFSettingsTableViewCell else {
             return UITableViewCell()
         }
+        
+        tableView.deselectRow(at: indexPath, animated: true)
         let item = getItem(at: indexPath)
+        switch item.controlTag {
+        case 1:
+            cell.iconBackgroundColor = WMFColor.blue600
+        case 2:
+            cell.iconBackgroundColor = WMFColor.red600
+        default:
+            cell.iconBackgroundColor = WMFColor.yellow600
+        }
         cell.disclosureType = .viewController
         cell.tag = item.controlTag
         cell.iconName = item.iconName
         cell.iconColor = theme.colors.paperBackground
-        cell.iconBackgroundColor = WMFColor.blue600
         cell.title = item.title
         cell.apply(theme)
         cell.delegate = self
@@ -152,10 +166,47 @@ extension TempAccountsSettingsViewController {
         switch item.controlTag {
         case 1:
             showUserTalkPage()
+        case 2:
+            confirmEndTempAccountSession()
         default:
             break
         }
     }
+    
+    private func confirmEndTempAccountSession() {
+        let alertController = UIAlertController(
+            title: WMFLocalizedString("settings-temp-account-end-session-title", value: "Exit session", comment: "Title for confirmation alert when user is ending a temporary account session"),
+            message: WMFLocalizedString("settings-temp-account-end-session-message", value: "Are you sure you want to exit this session and log out? There is no way to log back into this temporary account.", comment: "Message body for confirmation alert"),
+            preferredStyle: .alert
+        )
+        
+        let endAction = UIAlertAction(
+            title: WMFLocalizedString("settings-temp-account-end-session-confirm", value: "Log out", comment: "Confirm action title"),
+            style: .destructive
+        ) { [weak self] _ in
+            self?.endTempAccountSession()
+        }
+        
+        let cancelAction = UIAlertAction(
+            title: CommonStrings.cancelActionTitle,
+            style: .cancel,
+            handler: nil
+        )
+        
+        alertController.addAction(endAction)
+        alertController.addAction(cancelAction)
+
+        present(alertController, animated: true)
+    }
+
+    private func endTempAccountSession() {
+        dataStore.authenticationManager.logout(initiatedBy: .user) { [weak self] in
+            guard let self = self else { return }
+
+            self.dismiss(animated: true, completion: nil)
+        }
+    }
+
 }
 
 extension TempAccountsSettingsViewController: WMFSettingsTableViewCellDelegate {
