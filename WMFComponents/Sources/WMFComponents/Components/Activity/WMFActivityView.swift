@@ -10,16 +10,13 @@ public struct WMFActivityView: View {
 
     @ObservedObject var viewModel: WMFActivityViewModel
 
-    let isLoggedIn: Bool
-
-    public init(viewModel: WMFActivityViewModel, isLoggedIn: Bool) {
+    public init(viewModel: WMFActivityViewModel) {
         self.viewModel = viewModel
-        self.isLoggedIn = isLoggedIn
     }
 
     public var body: some View {
 
-        if isLoggedIn {
+        if viewModel.isLoggedIn {
             ScrollView {
                 VStack(alignment: .leading, spacing: 8) {
                     if viewModel.hasNoEdits {

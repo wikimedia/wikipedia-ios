@@ -1501,6 +1501,10 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
     return _activityTabViewController;
 }
 
+- (void)updateActivityTabLoginStateObjC {
+    [self updateActivityTabLoginStateWithActivityTabViewController:self.activityTabViewController];
+}
+
 - (WMFPlacesViewController *)placesViewController {
     if (!_placesViewController) {
         _placesViewController = [[UIStoryboard storyboardWithName:@"Places" bundle:nil] instantiateInitialViewController];
@@ -2146,6 +2150,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
             [self.dataStore.feedContentController updateContentSource:[WMFAnnouncementsContentSource class]
                                                                 force:YES
                                                            completion:nil];
+            [self updateActivityTabLoginStateObjC];
         }
 
         [self.dataStore.feedContentController updateContentSource:[WMFSuggestedEditsContentSource class]
@@ -2166,6 +2171,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
                                                                 force:YES
                                                            completion:nil];
             [self populateYearInReviewReportFor:WMFYearInReviewDataController.targetYear];
+            [self updateActivityTabLoginStateObjC];
         }
 
         [self.dataStore.feedContentController updateContentSource:[WMFSuggestedEditsContentSource class]

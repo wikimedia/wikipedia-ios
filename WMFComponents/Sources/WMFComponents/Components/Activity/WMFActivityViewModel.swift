@@ -4,6 +4,7 @@ import WMFData
 
 @objc public class WMFActivityViewModel: NSObject, ObservableObject {
     @Published var activityItems: [ActivityItem]?
+    @Published public var isLoggedIn: Bool
     var shouldShowAddAnImage: Bool
     var shouldShowStartEditing: Bool
     var hasNoEdits: Bool
@@ -24,8 +25,9 @@ import WMFData
     
     let suggestedEdits = "Suggested edits"
     
-    public init(activityItems: [ActivityItem]? = nil, shouldShowAddAnImage: Bool, shouldShowStartEditing: Bool, hasNoEdits: Bool, openHistory: @escaping () -> Void) {
+    public init(activityItems: [ActivityItem]? = nil, isLoggedIn: Bool, shouldShowAddAnImage: Bool, shouldShowStartEditing: Bool, hasNoEdits: Bool, openHistory: @escaping () -> Void) {
         self.activityItems = activityItems
+        self.isLoggedIn = isLoggedIn
         self.shouldShowAddAnImage = shouldShowAddAnImage
         self.shouldShowStartEditing = shouldShowStartEditing
         self.hasNoEdits = hasNoEdits

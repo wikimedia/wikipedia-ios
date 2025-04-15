@@ -728,9 +728,11 @@ extension WMFAppViewController {
             historyVC.title = CommonStrings.historyTabTitle
             navigationController.pushViewController(historyVC, animated: true)
         }
+        
+        let isLoggedIn = dataStore.authenticationManager.authStateIsPermanent
 
         let viewModel = WMFActivityViewModel(
-            activityItems: testItems,
+            activityItems: testItems, isLoggedIn: isLoggedIn,
             shouldShowAddAnImage: false,
             shouldShowStartEditing: false,
             hasNoEdits: false,
@@ -740,9 +742,13 @@ extension WMFAppViewController {
         viewModel.savedSlideDataDelegate = dataStore.savedPageList
         viewModel.legacyPageViewsDataDelegate = dataStore
 
-//        return WMFActivityTabViewController(viewModel: viewModel, isLoggedIn: dataStore.authenticationManager.authStateIsPermanent)
-        return WMFActivityTabViewController(viewModel: viewModel, isLoggedIn: true, openHistory: {
+        return WMFActivityTabViewController(viewModel: viewModel, openHistory: {
             
         })
+    }
+    
+    @objc func updateActivityTabLoginState(activityTabViewController: WMFActivityTabViewController) {
+        let isLoggedIn = dataStore.authenticationManager.authStateIsPermanent
+        activityTabViewController.viewModel.isLoggedIn = isLoggedIn
     }
 }

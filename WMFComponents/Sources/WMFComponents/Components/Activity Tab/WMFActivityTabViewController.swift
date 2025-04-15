@@ -5,8 +5,12 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
 }
 
 public final class WMFActivityTabViewController: WMFCanvasViewController, WMFNavigationBarConfiguring {
-    @objc public init(viewModel: WMFActivityViewModel, isLoggedIn: Bool, openHistory: @escaping @convention(block) () -> Void) {
-        let view = WMFActivityView(viewModel: viewModel, isLoggedIn: isLoggedIn)
+    
+    public let viewModel: WMFActivityViewModel
+    
+    public init(viewModel: WMFActivityViewModel, openHistory: @escaping @convention(block) () -> Void) {
+        self.viewModel = viewModel
+        let view = WMFActivityView(viewModel: viewModel)
          self.hostingViewController = WMFActivityTabHostingController(rootView: view)
          super.init()
     }
@@ -16,12 +20,6 @@ public final class WMFActivityTabViewController: WMFCanvasViewController, WMFNav
     }
 
     private let hostingViewController: WMFActivityTabHostingController
-
-    public init(viewModel: WMFActivityViewModel, isLoggedIn: Bool) {
-        let view = WMFActivityView(viewModel: viewModel, isLoggedIn: isLoggedIn)
-         self.hostingViewController = WMFActivityTabHostingController(rootView: view)
-         super.init()
-    }
 
     public override func viewDidLoad() {
         super.viewDidLoad()
