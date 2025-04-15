@@ -69,6 +69,9 @@ public class WMFAccountLoginLogoutFetcher: Fetcher {
                     failure(WMFAccountLoginError.cannotExtractLoginStatus)
                     return
             }
+            // if dev settings
+            self.session.addFakeCookieForEmailAuth()
+            // end
             let message = clientlogin["message"] as? String ?? nil
             guard status == "PASS" else {
                 

@@ -21,6 +21,17 @@
         }).first
     }
     
+    public func addFakeCookieForEmailAuth(domain: String) {
+        var properties: [HTTPCookiePropertyKey : Any] = [:]
+        properties[.domain] = domain
+        properties[.name] = "forceEmailAuth"
+        properties[.value] = 1
+        guard let copiedCookie = HTTPCookie(properties: properties) else {
+            return
+        }
+        setCookie(copiedCookie)
+    }
+    
     public func copyCookiesWithNamePrefix(_ prefix: String, for domain: String, to toDomains: [String]) {
         let cookies = cookiesWithNamePrefix(prefix, for: domain)
         for toDomain in toDomains {

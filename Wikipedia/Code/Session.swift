@@ -113,6 +113,10 @@ public class Session: NSObject {
         return cookie.value
     }
     
+    public func addFakeCookieForEmailAuth() {
+        defaultURLSession.configuration.httpCookieStorage?.addFakeCookieForEmailAuth(domain: Configuration.current.centralAuthCookieSourceDomain)
+    }
+    
     public func cloneCentralAuthCookies() {
         // centralauth_ cookies work for any central auth domain - this call copies the centralauth_* cookies from .wikipedia.org to an explicit list of domains. This is  hardcoded because we only want to copy ".wikipedia.org" cookies regardless of WMFDefaultSiteDomain
         defaultURLSession.configuration.httpCookieStorage?.copyCookiesWithNamePrefix("centralauth_", for: configuration.centralAuthCookieSourceDomain, to: configuration.centralAuthCookieTargetDomains)
