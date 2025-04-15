@@ -80,7 +80,7 @@ class ReferenceViewController: ThemeableViewController {
         return button
     }()
     lazy var closeButton: UIBarButtonItem = {
-        let button = UIBarButtonItem(image: UIImage(named: "close-inverse"), style: .plain, target: self, action: #selector(closeButtonPressed))
+        let button = UIBarButtonItem(title: CommonStrings.doneTitle, style: .plain, target: self, action: #selector(closeButtonPressed))
         button.accessibilityLabel = CommonStrings.closeButtonAccessibilityLabel
         return button
     }()
@@ -100,7 +100,7 @@ class ReferenceViewController: ThemeableViewController {
         guard viewIfLoaded != nil else {
             return
         }
-        closeButton.tintColor = theme.colors.secondaryText
+        closeButton.tintColor = theme.colors.link
         backToReferenceButton.tintColor = theme.colors.link
         
         customNavigationBar.setBackgroundImage(theme.navigationBarBackgroundImage, for: .default)

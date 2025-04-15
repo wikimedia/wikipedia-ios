@@ -708,6 +708,22 @@
 			<string> %1$d artikler</string>
 		</dict>
 	</dict>
+	<key>year-in-review-personalized-saved-subtitle-format</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Du har gemt %#@v1@ i år, inklusive %2$@, %3$@ og %4$@. Hver gemt artikel afspejler dine interesser og hjælper med at opbygge en personlig videnbase på Wikipedia.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d artikel</string>
+			<key>other</key>
+			<string>%1$d artikler</string>
+		</dict>
+	</dict>
 	<key>year-in-review-personalized-saved-title-format</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>

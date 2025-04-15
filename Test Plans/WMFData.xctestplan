@@ -9,6 +9,11 @@
     }
   ],
   "defaultOptions" : {
+    "commandLineArgumentEntries" : [
+      {
+        "argument" : "-com.apple.CoreData.ConcurrencyDebug 1"
+      }
+    ],
     "language" : "en",
     "region" : "US",
     "testTimeoutsEnabled" : true

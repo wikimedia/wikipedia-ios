@@ -452,7 +452,6 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
         searchVC.apply(theme: theme)
         searchVC.dataStore = dataStore
         searchVC.needsCenteredTitle = true
-        
         navigationController?.pushViewController(searchVC, animated: true)
     }
     
@@ -667,6 +666,7 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
         let searchViewController = SearchViewController(source: .article, customArticleCoordinatorNavigationController: navigationController)
         searchViewController.dataStore = dataStore
         searchViewController.theme = theme
+        searchViewController.shouldBecomeFirstResponder = true
         
         let populateSearchBarWithTextAction: (String) -> Void = { [weak self] searchTerm in
             self?.navigationItem.searchController?.searchBar.text = searchTerm
