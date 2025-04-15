@@ -171,6 +171,7 @@
 "description-welcome-descriptions-title" = "Title text explaining article descriptions";
 "description-welcome-promise-title" = "Title text asking user to edit descriptions responsibly";
 "description-welcome-start-editing-button" = "Text for button for dismissing description editing welcome screens";
+"developer-force-email-auth" = "Title for option to force email auth in developer settings menu.";
 "developer-settings" = "Title for developer settings view.";
 "developer-settings-bypass-donation" = "Title for option to bypass a donation in developer settings menu.";
 "developer-settings-enable-year-in-review" = "Title for enabling the Year in Review feature. Displayed on the developer settings view.";

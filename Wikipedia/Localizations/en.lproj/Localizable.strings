@@ -171,6 +171,7 @@
 "description-welcome-descriptions-title" = "Article descriptions";
 "description-welcome-promise-title" = "By starting, I promise not to misuse this feature";
 "description-welcome-start-editing-button" = "Start editing";
+"developer-force-email-auth" = "Force email auth";
 "developer-settings" = "Developer Settings";
 "developer-settings-bypass-donation" = "Bypass Donation";
 "developer-settings-enable-year-in-review" = "Enable Year in Review";

@@ -1,3 +1,5 @@
+import WMFData
+
 public enum WMFAccountLoginError: LocalizedError {
     case cannotExtractLoginStatus
     case statusNotPass(String?)
@@ -65,11 +67,16 @@ public class WMFAccountLoginLogoutFetcher: Fetcher {
             parameters["captchaWord"] = captchaWord
         }
 
+        if WMFDeveloperSettingsDataController.shared.forceEmailAuth {
+            self.session.injectEmailAuthCookie()
+        }
+
         performTokenizedMediaWikiAPIPOST(tokenType: .login, to: siteURL, with: parameters, reattemptLoginOn401Response:  reattemptOn401Response) { (result, response, error) in
             if let error = error {
                 failure(error)
                 return
             }
+
             guard
                 let clientlogin = result?["clientlogin"] as? [String : Any],
                 let status = clientlogin["status"] as? String
@@ -77,6 +84,7 @@ public class WMFAccountLoginLogoutFetcher: Fetcher {
                     failure(WMFAccountLoginError.cannotExtractLoginStatus)
                     return
             }
+         
             let message = clientlogin["message"] as? String ?? nil
             guard status == "PASS" else {
                 
@@ -118,6 +126,7 @@ public class WMFAccountLoginLogoutFetcher: Fetcher {
                         failure(WMFAccountLoginError.needsOathTokenFor2FA(message))
                         return
                     }
+
                     if let emailAuthRequests = requests.first(where: { request in
                         guard let id = request["id"] as? String else {
                             return false

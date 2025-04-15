@@ -34,7 +34,26 @@
             }
         }
     }
-    
+
+    public func injectEmailAuthCookie(domain: String) {
+        var properties: [HTTPCookiePropertyKey : Any] = [:]
+        properties[.domain] = domain
+        properties[.path] = "/"
+        properties[.name] = "forceEmailAuth"
+        properties[.value] = "1"
+        guard let copiedCookie = HTTPCookie(properties: properties) else {
+            return
+        }
+        setCookie(copiedCookie)
+        // Test
+        if let cookies = Session.sharedCookieStorage.cookies {
+            print("⭐️⭐️⭐️⭐️⭐️⭐️⭐️")
+            for cookie in cookies {
+                print("\(cookie.name)=\(cookie.value)")
+            }
+        }
+    }
+
     @objc public static func migrateCookiesToSharedStorage() {
         let legacyStorage = HTTPCookieStorage.shared
         let sharedStorage = Session.sharedCookieStorage

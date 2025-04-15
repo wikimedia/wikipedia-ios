@@ -1,5 +1,6 @@
 import Foundation
 import CocoaLumberjackSwift
+import WMFData
 
 public enum WMFCachePolicy {
     case foundation(URLRequest.CachePolicy)
@@ -117,7 +118,11 @@ public class Session: NSObject {
         // centralauth_ cookies work for any central auth domain - this call copies the centralauth_* cookies from .wikipedia.org to an explicit list of domains. This is  hardcoded because we only want to copy ".wikipedia.org" cookies regardless of WMFDefaultSiteDomain
         defaultURLSession.configuration.httpCookieStorage?.copyCookiesWithNamePrefix("centralauth_", for: configuration.centralAuthCookieSourceDomain, to: configuration.centralAuthCookieTargetDomains)
     }
-    
+
+    public func injectEmailAuthCookie() {
+        defaultURLSession.configuration.httpCookieStorage?.injectEmailAuthCookie(domain: Configuration.current.centralAuthCookieSourceDomain)
+    }
+
     @objc public func removeAllCookies() {
         guard let storage = defaultURLSession.configuration.httpCookieStorage else {
             return
@@ -212,12 +217,17 @@ public class Session: NSObject {
         if let cachePolicy = cachePolicy {
             request.cachePolicy = cachePolicy
         }
-        let defaultHeaders = [
+        var defaultHeaders: [String: String] = [
             "Accept": "application/json; charset=utf-8",
             "Accept-Encoding": "gzip",
-            "User-Agent": WikipediaAppUtils.versionedUserAgent(),
             "Accept-Language": requestURL.wmf_languageVariantCode ?? Locale.acceptLanguageHeaderForPreferredLanguages
         ]
+
+        let isLoginAction = requestURL.absoluteString.contains("action=clientlogin")
+        if !(WMFDeveloperSettingsDataController.shared.forceEmailAuth && isLoginAction) {
+            defaultHeaders["User-Agent"] = WikipediaAppUtils.versionedUserAgent()
+        }
+
         for (key, value) in defaultHeaders {
             guard headers[key] == nil else {
                 continue
