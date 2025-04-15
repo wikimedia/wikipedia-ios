@@ -35,26 +35,32 @@ class WMFEditorToolbarHighlightView: WMFEditorToolbarView {
         boldButton.setImage(WMFSFSymbolIcon.for(symbol: .bold))
         boldButton.addTarget(self, action: #selector(tappedBold), for: .touchUpInside)
         boldButton.accessibilityLabel = WMFSourceEditorLocalizedStrings.current?.toolbarBoldButtonAccessibility
+        boldButton.accessibilityTraits = [.button]
 
         italicsButton.setImage(WMFSFSymbolIcon.for(symbol: .italic))
         italicsButton.addTarget(self, action: #selector(tappedItalics), for: .touchUpInside)
         italicsButton.accessibilityLabel = WMFSourceEditorLocalizedStrings.current?.toolbarItalicsButtonAccessibility
+        italicsButton.accessibilityTraits = [.button]
 
         referenceButton.setImage(WMFSFSymbolIcon.for(symbol: .quoteOpening))
         referenceButton.addTarget(self, action: #selector(tappedReference), for: .touchUpInside)
         referenceButton.accessibilityLabel = WMFSourceEditorLocalizedStrings.current?.toolbarReferenceButtonAccessibility
+        referenceButton.accessibilityTraits = [.button]
 
         linkButton.setImage(WMFSFSymbolIcon.for(symbol: .link))
         linkButton.addTarget(self, action: #selector(tappedLink), for: .touchUpInside)
         linkButton.accessibilityLabel = WMFSourceEditorLocalizedStrings.current?.toolbarLinkButtonAccessibility
+        linkButton.accessibilityTraits = [.button]
 
         templateButton.setImage(WMFSFSymbolIcon.for(symbol: .curlybraces))
         templateButton.addTarget(self, action: #selector(tappedTemplate), for: .touchUpInside)
         templateButton.accessibilityLabel = WMFSourceEditorLocalizedStrings.current?.toolbarTemplateButtonAccessibility
+        templateButton.accessibilityTraits = [.button]
         showMoreButton.setImage(WMFSFSymbolIcon.for(symbol: .plusCircleFill), for: .normal)
         showMoreButton.addTarget(self, action: #selector(tappedShowMore), for: .touchUpInside)
         showMoreButton.accessibilityIdentifier = WMFSourceEditorAccessibilityIdentifiers.current?.showMoreButton
         showMoreButton.accessibilityLabel = WMFSourceEditorLocalizedStrings.current?.toolbarOpenTextFormatMenuButtonAccessibility
+        showMoreButton.accessibilityTraits = [.button]
         
         NotificationCenter.default.addObserver(self, selector: #selector(updateButtonSelectionState(_:)), name: Notification.WMFSourceEditorSelectionState, object: nil)
         

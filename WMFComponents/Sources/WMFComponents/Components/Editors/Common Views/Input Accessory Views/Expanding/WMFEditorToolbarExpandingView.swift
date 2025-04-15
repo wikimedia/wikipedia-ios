@@ -91,44 +91,54 @@ class WMFEditorToolbarExpandingView: WMFEditorToolbarView {
         formatTextButton.addTarget(self, action: #selector(tappedFormatText), for: .touchUpInside)
         formatTextButton.accessibilityIdentifier = WMFSourceEditorAccessibilityIdentifiers.current?.formatTextButton
         formatTextButton.accessibilityLabel = WMFSourceEditorLocalizedStrings.current.toolbarOpenTextFormatMenuButtonAccessibility
+        formatTextButton.accessibilityTraits = [.button]
 
         referenceButton.setImage(WMFSFSymbolIcon.for(symbol: .quoteOpening))
         referenceButton.addTarget(self, action: #selector(tappedReference), for: .touchUpInside)
         referenceButton.accessibilityLabel = WMFSourceEditorLocalizedStrings.current.toolbarReferenceButtonAccessibility
+        referenceButton.accessibilityTraits = [.button]
 
         linkButton.setImage(WMFSFSymbolIcon.for(symbol: .link))
         linkButton.addTarget(self, action: #selector(tappedLink), for: .touchUpInside)
         linkButton.accessibilityLabel = WMFSourceEditorLocalizedStrings.current.toolbarLinkButtonAccessibility
+        linkButton.accessibilityTraits = [.button]
 
         templateButton.setImage(WMFSFSymbolIcon.for(symbol: .curlybraces))
         templateButton.addTarget(self, action: #selector(tappedTemplate), for: .touchUpInside)
         templateButton.accessibilityLabel = WMFSourceEditorLocalizedStrings.current.toolbarTemplateButtonAccessibility
+        templateButton.accessibilityTraits = [.button]
 
         imageButton.setImage(WMFSFSymbolIcon.for(symbol: .photo))
         imageButton.addTarget(self, action: #selector(tappedMedia), for: .touchUpInside)
         imageButton.accessibilityLabel = WMFSourceEditorLocalizedStrings.current.toolbarImageButtonAccessibility
+        imageButton.accessibilityTraits = [.button]
 
         findInPageButton.setImage(WMFSFSymbolIcon.for(symbol: .docTextMagnifyingGlass))
         findInPageButton.addTarget(self, action: #selector(tappedFindInPage), for: .touchUpInside)
         findInPageButton.accessibilityIdentifier = WMFSourceEditorAccessibilityIdentifiers.current?.findButton
         findInPageButton.accessibilityLabel = WMFSourceEditorLocalizedStrings.current.toolbarFindButtonAccessibility
+        findInPageButton.accessibilityTraits = [.button]
 
         unorderedListButton.setImage(WMFSFSymbolIcon.for(symbol: .listBullet))
         unorderedListButton.addTarget(self, action: #selector(tappedUnorderedList), for: .touchUpInside)
         unorderedListButton.accessibilityLabel = WMFSourceEditorLocalizedStrings.current.toolbarListUnorderedButtonAccessibility
+        unorderedListButton.accessibilityTraits = [.button]
 
         orderedListButton.setImage(WMFSFSymbolIcon.for(symbol: .listNumber))
         orderedListButton.addTarget(self, action: #selector(tappedOrderedList), for: .touchUpInside)
         orderedListButton.accessibilityLabel = WMFSourceEditorLocalizedStrings.current.toolbarListOrderedButtonAccessibility
+        orderedListButton.accessibilityTraits = [.button]
 
         decreaseIndentionButton.setImage(WMFSFSymbolIcon.for(symbol: .decreaseIndent))
         decreaseIndentionButton.addTarget(self, action: #selector(tappedDecreaseIndentation), for: .touchUpInside)
         decreaseIndentionButton.accessibilityLabel = WMFSourceEditorLocalizedStrings.current.toolbarIndentDecreaseButtonAccessibility
+        decreaseIndentionButton.accessibilityTraits = [.button]
         decreaseIndentionButton.isEnabled = false
 
         increaseIndentionButton.setImage(WMFSFSymbolIcon.for(symbol: .increaseIndent))
         increaseIndentionButton.addTarget(self, action: #selector(tappedIncreaseIndentation), for: .touchUpInside)
         increaseIndentionButton.accessibilityLabel = WMFSourceEditorLocalizedStrings.current.toolbarIndentIncreaseButtonAccessibility
+        increaseIndentionButton.accessibilityTraits = [.button]
         increaseIndentionButton.isEnabled = false
 
         cursorUpButton.setImage(WMFSFSymbolIcon.for(symbol: .chevronUp))
