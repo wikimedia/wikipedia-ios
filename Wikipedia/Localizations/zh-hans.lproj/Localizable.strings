@@ -778,7 +778,6 @@
 "notifications-center-go-to-article" = "条目";
 "notifications-center-go-to-article-talk-format" = "$1讨论页";
 "notifications-center-go-to-diff" = "差异";
-"notifications-center-go-to-talk-page" = "讨论页";
 "notifications-center-go-to-user-page" = "$1的用户页";
 "notifications-center-go-to-wikidata-item" = "维基数据项";
 "notifications-center-go-to-your-talk-page" = "您的讨论页";
@@ -885,7 +884,6 @@
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1，来自$2维基百科";
 "on-this-day-title" = "历史上的今天";
 "original-tab-button-popover-description" = "点按“W”以返回您起始的标签页";
-"page-history-anonymous-edits" = "匿名编辑";
 "page-history-bot-edits" = "机器人编辑";
 "page-history-compare-accessibility-hint" = "点击选择两个修订版本进行比较";
 "page-history-compare-title" = "比较";
@@ -900,7 +898,6 @@
 "page-history-revision-time-accessibility-label" = "修订于$1";
 "page-history-revisions-comparison-warning" = "您只能选择两个修订版本";
 "page-history-stats-text" = "自$2年起共{{PLURAL:$1|$1笔编辑}}";
-"page-history-user-edits" = "用户编辑";
 "page-issues" = "页面问题";
 "page-location" = "在地图上查看";
 "page-protected-can-not-edit" = "您没有权限编辑此页";
@@ -961,7 +958,6 @@
 "profile-page-join-subtext" = "注册维基百科账号来追踪您的贡献、离线保存条目，以及跨设备同步。";
 "profile-page-join-title" = "登录/加入维基百科";
 "profile-page-logged-out-year-in-review-subtext" = "请登录或创建账号，以在来年获得更好的年度回顾";
-"profile-page-title-logged-out" = "账号";
 "profile-year-in-review-login-subtitle" = "登录或创建账号，以便再次查看年度回顾，并有资格获得更多个性化分析数据。";
 "profile-year-in-review-login-title" = "登录以访问年度回顾";
 "project-name-mediawiki" = "MediaWiki";

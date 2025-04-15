@@ -457,7 +457,6 @@
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 နူ $2 ဝဳကဳပဳဒဳယာ";
 "on-this-day-title" = "ပ္ဍဲ တ္ၚဲဏအ်";
 "original-tab-button-popover-description" = "ဍဵု လတူ W သွက်ဂွံ ပ္ဍဲတေပ် မၞးမစကၠုင်လဝ်";
-"page-history-anonymous-edits" = "ညးဒါန်လိက် သက္ကုယၟု";
 "page-history-bot-edits" = "ပလေဝ်ဒါန်လဝ် နကဵုစက်ဗောတ်";
 "page-history-compare-accessibility-hint" = "ကေတ် မူမရုဲစှ်လဝ်ၜါ သွက်ဂွံ ၜတ်ကၞာတ်";
 "page-history-compare-title" = "ၜတ်ကၞာတ်";
@@ -472,7 +471,6 @@
 "page-history-revision-time-accessibility-label" = "မူတၟိ မကၠောန်လဝ် $1";
 "page-history-revisions-comparison-warning" = "မူတၟိ ဆၜါဟေင် ရုဲစှ်ဂွံ";
 "page-history-stats-text" = "{{PLURAL:$1|$1 ပလေဝ်ဒါန်|$1 ပလေဝ်ဒါန်ဂမၠိင်}} စနူကဵု $2";
-"page-history-user-edits" = "ညးလွပ် ပလေဝ်ဒါန်ဂမၠိုင်";
 "page-issues" = "မုက်လိက် မဆေင်ကဵု ပြသၞာ";
 "page-location" = "ဗဵု ပ္ဍဲ ဗီုတိ";
 "page-protected-can-not-edit" = "မၞး အခေါင် သွက်ဂွံ ပလေဝ်ဒါန် မုက်လိက်ဏအ် ဟွံမဲ";
