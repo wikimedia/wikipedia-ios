@@ -171,6 +171,7 @@ public class Configuration: NSObject {
         public static let wikinews = "wikinews.org"
         public static let wikiversity = "wikiversity.org"
         public static let wikivoyage = "wikivoyage.org"
+        public static let auth = "auth.wikimedia.org"
     }
     
     struct Path {

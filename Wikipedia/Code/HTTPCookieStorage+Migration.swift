@@ -37,7 +37,7 @@
 
     public func injectEmailAuthCookie(domain: String) {
         var properties: [HTTPCookiePropertyKey : Any] = [:]
-        properties[.domain] = domain
+        properties[.domain] = Configuration.Domain.auth
         properties[.path] = "/"
         properties[.name] = "forceEmailAuth"
         properties[.value] = "1"
