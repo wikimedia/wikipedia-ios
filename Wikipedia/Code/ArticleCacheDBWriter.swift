@@ -66,10 +66,35 @@ final class ArticleCacheDBWriter: ArticleCacheResourceDBWriting {
                 mustHaveURLRequests.append(mobileHTMLRequest)
                 mustHaveURLRequests.append(mobileHTMLMediaListRequest)
                 
+                // Create a mutable copy of mediaListURLs
+                var mediaListURLs = urls.mediaListURLs
+                var mathURLs: [URL] = []
+                
                 // append mobile-html-offline-resource URLRequests
                 for var url in urls.offlineResourcesURLs {
                     // We're OK with any Content-Type here because we don't use them directly, they're the related files that mobile-html might request
                     let acceptAnyContentType = ["Accept": "*/*"]
+                    
+                    // Ensure math resources have proper Accept header
+                    let isMathResource = url.absoluteString.contains("/math/") || 
+                       url.absoluteString.contains("mwe-math") || 
+                       url.absoluteString.contains("/api/rest_v1/media/math/") ||
+                       url.absoluteString.contains("wikimedia.org/math")
+                    
+                    if isMathResource {
+                        url.wmf_languageVariantCode = languageVariantCode
+                        
+                        // Create two requests: one for article cache and one for image cache
+                        // First create request for article cache with proper headers
+                        if let articleRequest = self.articleFetcher.urlRequest(from: url, headers: ["Accept": "image/png, */*"]) {
+                            mustHaveURLRequests.append(articleRequest)
+                        }
+                        
+                        // add URL to media list for image controller to handle as image
+                        mediaListURLs.append(url)
+                        mathURLs.append(url)
+                        continue
+                    }
                     
                     // Temporary shim until ArticleCache is completely variant-aware
                     url.wmf_languageVariantCode = languageVariantCode
@@ -91,7 +116,7 @@ final class ArticleCacheDBWriter: ArticleCacheResourceDBWriting {
                 }
                 
                 // send image urls straight to imageController to deal with
-                self.imageController.add(urls: urls.mediaListURLs, groupKey: groupKey, individualCompletion: { (result) in
+                self.imageController.add(urls: mediaListURLs, groupKey: groupKey, individualCompletion: { (result) in
                     
                 }) { (result) in
                     

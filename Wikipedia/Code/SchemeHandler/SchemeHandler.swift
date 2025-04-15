@@ -140,6 +140,16 @@ private extension SchemeHandler {
             additionalHeaders = session.additionalHeadersForType(.article, urlRequest: mutableRequest)
         }
         
+        // Special handling for math formulas to ensure they're properly cached
+        if let url = mutableRequest.url, 
+           url.absoluteString.contains("/math/") || 
+            url.absoluteString.contains("mwe-math") || 
+            url.absoluteString.contains("/api/rest_v1/media/math/") ||
+            url.absoluteString.contains("wikimedia.org/math") {
+            mutableRequest.setValue("image/png, */*", forHTTPHeaderField: "Accept")
+            mutableRequest.cachePolicy = .returnCacheDataElseLoad
+        }
+        
         for (key, value) in additionalHeaders {
             mutableRequest.setValue(value, forHTTPHeaderField: key)
         }
