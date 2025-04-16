@@ -68,7 +68,31 @@
 "action-unsave" = "Unsave";
 "action-unsaved-accessibility-notification" = "Article unsaved";
 "action-update" = "Update";
+<<<<<<< HEAD
 "activity-tab-read-title" = "View reading history";
+=======
+"activity-tab-add-images-subtitle" = "Add suggested images to Wikipedia articles to enhance understanding.";
+"activity-tab-add-images-title" = "Add images";
+"activity-tab-additional-thoughts" = "Any additional thoughts?";
+"activity-tab-logged-out-subtitle" = "Track what you’ve read and view your contributions over time in a new way";
+"activity-tab-logged-out-title" = "Log in to see more reading and editing activity.";
+"activity-tab-neutral" = "Neutral";
+"activity-tab-no-edits-subtitle" = "Start editing to begin tracking your contributions.";
+"activity-tab-no-edits-title" = "You haven’t made any edits yet.";
+"activity-tab-satisfied" = "Satisfied";
+"activity-tab-start-editing" = "Start editing";
+"activity-tab-survey" = "Are you satisfied with your \"Activity\" screen? What else would you like to see here in the future?";
+"activity-tab-survey-title" = "Satisfaction survey";
+"activity-tab-title" = "Activity";
+"activity-tab-unsatisfied" = "Unsatisfied";
+"activity-tab-very-satisfied" = "Very satisfied";
+"activity-tab-very-unsatisfied" = "Very unsatisfied";
+"activity-tab-view-reading-history" = "View reading history";
+"activity-tab-view-saved-articles" = "View saved articles";
+"activity-tab-you-edited" = "You edited {{PLURAL:$1|$1 article|$1 articles}} this week.";
+"activity-tab-you-read" = "You read {{PLURAL:$1|$1 article|$1 articles}} this week.";
+"activity-tab-you-saved" = "You saved {{PLURAL:$1|$1 article|$1 articles}} this week.";
+>>>>>>> prototype/activity-tab
 "add-articles-to-reading-list" = "Add {{PLURAL:$1|$1 article|$1 articles}} to reading list";
 "advanced-settings-title" = "Advanced settings";
 "alert-temporary-account" = "You are using a temporary account. Account will expire in 90 days.";

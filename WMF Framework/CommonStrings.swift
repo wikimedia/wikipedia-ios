@@ -687,6 +687,37 @@ public class CommonStrings: NSObject {
     public static let tempAccountPublishTitle = WMFLocalizedString("article-view-controller-editing-temp-account-created-title", value: "Temporary account created", comment: "After a user edits an article, creating an IP account, this pop-up title lets them know.")
     
     public static let activityTabReadingHistory = WMFLocalizedString("activity-tab-read-title", value: "View reading history", comment: "Title for the reading history activity tab")
+    // MARK: - Activity tab strings
+    public static let activityTitle = WMFLocalizedString("activity-tab-title", value: "Activity", comment: "Activity title")
+    public static let activityTabLoggedOutTitle = WMFLocalizedString("activity-tab-logged-out-title", value: "Log in to see more reading and editing activity.", comment: "Title for activity tab when users are logged out.")
+    public static let actitvityTabLoggedOutSubtitle = WMFLocalizedString("activity-tab-logged-out-subtitle", value: "Track what you’ve read and view your contributions over time in a new way", comment: "Subtitle for activity tab when users are logged out.")
+    public static let activityTabViewReadingHistoryTitle = WMFLocalizedString("activity-tab-view-reading-history", value: "View reading history", comment: "Button title for users to view their reading history.")
+    public static let activityTabViewSavedArticlesTitle = WMFLocalizedString("activity-tab-view-saved-articles", value: "View saved articles", comment: "Button title for users to view their saved articles.")
+    public static let activityTabNoEditsTitle = WMFLocalizedString("activity-tab-no-edits-title", value: "You haven’t made any edits yet.", comment: "Title for users that have not made any edits.")
+    public static let activityTabNoEditsSubtitle = WMFLocalizedString("activity-tab-no-edits-subtitle", value: "Start editing to begin tracking your contributions.", comment: "Subtitle for users that have not made any edits.")
+    public static let activityTabStartEditing = WMFLocalizedString("activity-tab-start-editing", value: "Start editing", comment: "Button title for users to begin editing.")
+    public static func activityTabArticleReadNumber(amount: Int? = 0) -> String {
+        let format = WMFLocalizedString("activity-tab-you-read", value: "You read {{PLURAL:%1$d|%1$d article|%1$d articles}} this week.", comment: "Displays how many articles the user read in the past week, $1 is the amount, returning the pluralized version of article depending.")
+        return String.localizedStringWithFormat(format, amount ?? 0)
+    }
+    public static func activityTabArticleSavedNumber(amount: Int? = 0) -> String {
+        let format = WMFLocalizedString("activity-tab-you-saved", value: "You saved {{PLURAL:%1$d|%1$d article|%1$d articles}} this week.", comment: "Displays how many articles the user saved in the past week, $1 is the amount, returning the pluralized version of article depending.")
+        return String.localizedStringWithFormat(format, amount ?? 0)
+    }
+    public static func activityTabArticleEditedNumber(amount: Int? = 0) -> String {
+        let format = WMFLocalizedString("activity-tab-you-edited", value: "You edited {{PLURAL:%1$d|%1$d article|%1$d articles}} this week.", comment: "Displays how many articles the user edited in the past week, $1 is the amount, returning the pluralized version of article depending.")
+        return String.localizedStringWithFormat(format, amount ?? 0)
+    }
+    public static var activityTabAddImagesTitle = WMFLocalizedString("activity-tab-add-images-title", value: "Add images", comment: "Title for add images feature suggestion.")
+    public static var activityTabAddImagesSubitle = WMFLocalizedString("activity-tab-add-images-subtitle", value: "Add suggested images to Wikipedia articles to enhance understanding.", comment: "Subtitle for add images feature.")
+    public static var activityTabSurveyTitle = WMFLocalizedString("activity-tab-survey-title", value: "Satisfaction survey", comment: "Satisfaction survey view title")
+    public static var activityTabSurvey = WMFLocalizedString("activity-tab-survey", value: "Are you satisfied with your \"Activity\" screen? What else would you like to see here in the future?", comment: "Survey title for the activity tab")
+    public static var activityTabSurveyVerySatisfied = WMFLocalizedString("activity-tab-very-satisfied", value: "Very satisfied", comment: "Satisfaction survey very satisfied")
+    public static var activityTabSurveySatisfied = WMFLocalizedString("activity-tab-satisfied", value: "Satisfied", comment: "Satisfaction survey satisfied")
+    public static var activityTabSurveyVeryUnsatisfied = WMFLocalizedString("activity-tab-very-unsatisfied", value: "Very unsatisfied", comment: "Satisfaction survey very unsatisfied")
+    public static var activityTabSurveyUnsatisfied = WMFLocalizedString("activity-tab-unsatisfied", value: "Unsatisfied", comment: "Satisfaction survey unsatisfied")
+    public static var activityTabSurveyNeutral = WMFLocalizedString("activity-tab-neutral", value: "Neutral", comment: "Satisfaction survey neutral")
+    public static var activityTabSurveyAdditionalThoughts = WMFLocalizedString("activity-tab-additional-thoughts", value: "Any additional thoughts?", comment: "Asking user if they have any comments")
 }
 
 // Language variant strings
