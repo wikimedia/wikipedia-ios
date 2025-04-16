@@ -724,19 +724,39 @@ extension WMFAppViewController {
             navigationController.pushViewController(historyVC, animated: true)
         }
         
+        let openSavedArticlesClosure = { [weak self] in
+            guard let self = self else { return }
+            
+            guard let navigationController = self.currentTabNavigationController else {
+                print("navigationController is nil")
+                return
+            }
+            
+            let savedArticlesVC = SavedArticlesCollectionViewController(with: dataStore)
+            guard let savedArticlesVC else { return }
+            savedArticlesVC.apply(theme: self.theme)
+            navigationController.pushViewController(savedArticlesVC, animated: true)
+        }
+        
         let isLoggedIn = dataStore.authenticationManager.authStateIsPermanent
         let localizedStrings = WMFActivityViewModel.LocalizedStrings(
-            activityTabViewReadingHistory: CommonStrings.activityTabReadingHistory,
-            activityTabViewSavedArticles: CommonStrings.activityTabReadingHistory
+            activityTabViewReadingHistory: CommonStrings.activityTabViewReadingHistoryTitle,
+            activityTabViewSavedArticles: CommonStrings.activityTabViewSavedArticlesTitle
         )
-        let viewModel = WMFActivityViewModel(localizedStrings: localizedStrings, shouldShowAddAnImage: false, shouldShowStartEditing: false, hasNoEdits: false, openHistory: openHistoryClosure, openSavedArticles: openHistoryClosure, loginAction: nil, isLoggedIn: isLoggedIn)
+        let viewModel = WMFActivityViewModel(
+            localizedStrings: localizedStrings,
+            shouldShowAddAnImage: false,
+            shouldShowStartEditing: false,
+            hasNoEdits: false,
+            openHistory: openHistoryClosure,
+            openSavedArticles: openSavedArticlesClosure,
+            loginAction: nil,
+            isLoggedIn: isLoggedIn)
         
         viewModel.savedSlideDataDelegate = dataStore.savedPageList
         viewModel.legacyPageViewsDataDelegate = dataStore
 
-        let activityTabViewController = WMFActivityTabViewController(viewModel: viewModel, openHistory: {
-            
-        })
+        let activityTabViewController = WMFActivityTabViewController(viewModel: viewModel)
         
         let loginAction = { [weak self] in
             guard let self = self else { return }
