@@ -598,7 +598,8 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
         [[NSUserDefaults standardUserDefaults] wmf_setShowYirSettingToggle:NO];
     }
 
-    if (_authManager.authStateIsPermanent) {
+    BOOL primaryWikiHasTempAccounts = [[WMFTempAccountDataController shared] primaryWikiHasTempAccountsEnabled];
+    if (_authManager.authStateIsPermanent || (_authManager.authStateIsTemporary && primaryWikiHasTempAccounts)) {
         [items addObject:[WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_Notifications]];
     }
 

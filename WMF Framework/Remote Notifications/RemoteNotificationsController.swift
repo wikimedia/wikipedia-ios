@@ -1,5 +1,6 @@
 import CocoaLumberjackSwift
 import Foundation
+import WMFData
 
 public enum RemoteNotificationsControllerError: LocalizedError {
     case databaseUnavailable
@@ -128,7 +129,8 @@ public enum RemoteNotificationsControllerError: LocalizedError {
             return
         }
         
-        guard authManager.authStateIsPermanent else {
+        let primaryWikiHasTempAccounts = WMFTempAccountDataController.shared.primaryWikiHasTempAccountsEnabled
+        guard authManager.authStateIsPermanent || (primaryWikiHasTempAccounts && authManager.authStateIsTemporary) else {
             completion?(.failure(RequestError.unauthenticated))
             return
         }
@@ -177,7 +179,8 @@ public enum RemoteNotificationsControllerError: LocalizedError {
             return
         }
         
-        guard authManager.authStateIsPermanent else {
+        let primaryWikiHasTempAccounts = WMFTempAccountDataController.shared.primaryWikiHasTempAccountsEnabled
+        guard authManager.authStateIsPermanent || (primaryWikiHasTempAccounts && authManager.authStateIsTemporary) else {
             completion?(.failure(RequestError.unauthenticated))
             return
         }
@@ -194,7 +197,8 @@ public enum RemoteNotificationsControllerError: LocalizedError {
             return
         }
         
-        guard authManager.authStateIsPermanent else {
+        let primaryWikiHasTempAccounts = WMFTempAccountDataController.shared.primaryWikiHasTempAccountsEnabled
+        guard authManager.authStateIsPermanent || (primaryWikiHasTempAccounts && authManager.authStateIsTemporary) else {
             completion?(.failure(RequestError.unauthenticated))
             return
         }
@@ -205,7 +209,8 @@ public enum RemoteNotificationsControllerError: LocalizedError {
     /// Asks server to mark all notifications as seen for the primary app language
     public func markAllAsSeen(completion: @escaping ((Result<Void, Error>) -> Void)) {
         
-        guard authManager.authStateIsPermanent else {
+        let primaryWikiHasTempAccounts = WMFTempAccountDataController.shared.primaryWikiHasTempAccountsEnabled
+        guard authManager.authStateIsPermanent || (primaryWikiHasTempAccounts && authManager.authStateIsTemporary) else {
             completion(.failure(RequestError.unauthenticated))
             return
         }
