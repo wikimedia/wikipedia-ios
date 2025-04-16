@@ -8,6 +8,7 @@ fileprivate enum WMFTwoFactorNextFirstResponderDirection: Int {
 
 fileprivate enum WMFTwoFactorTokenDisplayMode {
     case shortNumeric
+    case shortAlphanumeric
     case longAlphaNumeric
 }
 
@@ -29,7 +30,13 @@ class WMFTwoFactorPasswordViewController: WMFScrollViewController, UITextFieldDe
     public var password:String?
     public var captchaID:String?
     public var captchaWord:String?
-    
+
+    private var isEmailAuth: Bool = false
+
+    public func setDisplayModeToShortAlphanumeric() {
+        isEmailAuth = true
+    }
+
     @objc func displayModeToggleTapped(_ recognizer: UITapGestureRecognizer) {
         guard recognizer.state == .ended else {
             return
@@ -39,6 +46,8 @@ class WMFTwoFactorPasswordViewController: WMFScrollViewController, UITextFieldDe
             displayMode = .shortNumeric
         case .shortNumeric:
             displayMode = .longAlphaNumeric
+        case .shortAlphanumeric:
+            displayMode = .shortAlphanumeric
         }
     }
 
@@ -55,6 +64,10 @@ class WMFTwoFactorPasswordViewController: WMFScrollViewController, UITextFieldDe
                 oathTokenFieldsStackView.isHidden = false
                 tokenLabel.text = WMFLocalizedString("field-token-title", value:"Verification code", comment:"Title for token field")
                 displayModeToggle.text = WMFLocalizedString("two-factor-login-with-backup-code", value:"Use one of your backup codes", comment:"Button text for showing text field for backup code two factor login")
+            case .shortAlphanumeric:
+                backupOathTokenField.isHidden = false
+                oathTokenFieldsStackView.isHidden = true
+                tokenLabel.text = WMFLocalizedString("field-backup-token-title-email", value:"Email code", comment:"Title for email token field")
             }
             oathTokenFields.forEach {$0.text = nil}
             backupOathTokenField.text = nil
@@ -70,6 +83,8 @@ class WMFTwoFactorPasswordViewController: WMFScrollViewController, UITextFieldDe
             backupOathTokenField?.becomeFirstResponder()
         case .shortNumeric:
             oathTokenFields.first?.becomeFirstResponder()
+        case.shortAlphanumeric:
+            backupOathTokenField?.becomeFirstResponder()
         }
     }
     
@@ -86,6 +101,11 @@ class WMFTwoFactorPasswordViewController: WMFScrollViewController, UITextFieldDe
             return true
         case .shortNumeric:
             return oathTokenFields.first(where: { $0.text.wmf_safeCharacterCount == 0 }) == nil
+        case .shortAlphanumeric:
+            guard backupOathTokenField.text.wmf_safeCharacterCount > 0 else {
+                return false
+            }
+            return true
         }
     }
     
@@ -158,6 +178,8 @@ class WMFTwoFactorPasswordViewController: WMFScrollViewController, UITextFieldDe
             return CharacterSet.init(charactersIn: " ").union(CharacterSet.alphanumerics)
         case .shortNumeric:
             return CharacterSet.decimalDigits
+        case .shortAlphanumeric:
+            return CharacterSet.init(charactersIn: " ").union(CharacterSet.alphanumerics)
         }
     }
 
@@ -169,6 +191,8 @@ class WMFTwoFactorPasswordViewController: WMFScrollViewController, UITextFieldDe
             return 24
         case .shortNumeric:
             return 1
+        case .shortAlphanumeric:
+            return 6
         }
     }
     
@@ -217,28 +241,37 @@ class WMFTwoFactorPasswordViewController: WMFScrollViewController, UITextFieldDe
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        oathTokenFields.sort { $0.tag < $1.tag }
-
-        oathTokenFields.forEach {
-            $0.rightViewMode = .never
-            $0.textAlignment = .center
-        }
-        
-        // Cast fields once here to set 'deleteBackwardDelegate' rather than casting everywhere else UITextField is expected.
-        if let fields = oathTokenFields as? [WMFDeleteBackwardReportingTextField] {
-            fields.forEach {$0.deleteBackwardDelegate = self}
-        } else {
-            assertionFailure("Underlying oathTokenFields from storyboard were expected to be of type 'WMFDeleteBackwardReportingTextField'.")
-        }
-
-        loginButton.setTitle(WMFLocalizedString("two-factor-login-continue", value:"Continue log in", comment:"Button text for finishing two factor login"), for: .normal)
         titleLabel.text = WMFLocalizedString("two-factor-login-title", value:"Log in to your account", comment:"Title for two factor login interface")
-        subTitleLabel.text = WMFLocalizedString("two-factor-login-instructions", value:"Please enter two factor verification code", comment:"Instructions for two factor login interface")
-        
-        displayMode = .shortNumeric
 
-        displayModeToggle.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(displayModeToggleTapped(_:))))
+        if isEmailAuth {
+            displayMode = .shortAlphanumeric
+            displayModeToggle.isHidden = true
+
+            loginButton.setTitle(WMFLocalizedString("two-factor-email-login-continue", value:"Continue log in", comment:"Button text for finishing email two factor login"), for: .normal)
+            subTitleLabel.text = WMFLocalizedString("two-factor-email-login-instructions", value:"Please enter email verification code", comment:"Instructions for email two factor login interface")
+        } else {
+
+            oathTokenFields.sort { $0.tag < $1.tag }
+
+            oathTokenFields.forEach {
+                $0.rightViewMode = .never
+                $0.textAlignment = .center
+            }
+
+            // Cast fields once here to set 'deleteBackwardDelegate' rather than casting everywhere else UITextField is expected.
+            if let fields = oathTokenFields as? [WMFDeleteBackwardReportingTextField] {
+                fields.forEach {$0.deleteBackwardDelegate = self}
+            } else {
+                assertionFailure("Underlying oathTokenFields from storyboard were expected to be of type 'WMFDeleteBackwardReportingTextField'.")
+            }
+
+            loginButton.setTitle(WMFLocalizedString("two-factor-login-continue", value:"Continue log in", comment:"Button text for finishing two factor login"), for: .normal)
+            subTitleLabel.text = WMFLocalizedString("two-factor-login-instructions", value:"Please enter two factor verification code", comment:"Instructions for two factor login interface")
+
+            displayMode = .shortNumeric
+
+            displayModeToggle.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(displayModeToggleTapped(_:))))
+        }
 
         view.wmf_configureSubviewsForDynamicType()
         
@@ -255,6 +288,8 @@ class WMFTwoFactorPasswordViewController: WMFScrollViewController, UITextFieldDe
             return backupOathTokenField.text!
         case .shortNumeric:
             return oathTokenFields.reduce("", { $0 + ($1.text ?? "") })
+        case .shortAlphanumeric:
+            return backupOathTokenField.text!
         }
     }
     

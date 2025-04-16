@@ -240,10 +240,10 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
                         self.showChangeTempPasswordViewController()
                         return
                     case .needsOathTokenFor2FA:
-                        self.showTwoFactorViewController()
+                        self.showTwoFactorViewController(isEmailAuth: false)
                         return
                     case .needsEmailAuthToken:
-                        self.showTwoFactorViewController()
+                        self.showTwoFactorViewController(isEmailAuth: true)
                         return
                     case .statusNotPass:
                         self.passwordField.text = nil
@@ -281,7 +281,7 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
         })
     }
 
-    func showTwoFactorViewController() {
+    func showTwoFactorViewController(isEmailAuth: Bool) {
         guard
             let presenter = presentingViewController,
             let twoFactorViewController = WMFTwoFactorPasswordViewController.wmf_initialViewControllerFromClassStoryboard()
@@ -289,6 +289,10 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
             assertionFailure("Expected view controller(s) not found")
             return
         }
+        if isEmailAuth {
+            twoFactorViewController.setDisplayModeToShortAlphanumeric()
+        }
+
         dismiss(animated: true, completion: {
             twoFactorViewController.userName = self.usernameField!.text
             twoFactorViewController.password = self.passwordField!.text

@@ -508,6 +508,7 @@
 "field-alert-token-invalid" = "Invalid code";
 "field-alert-username-unavailable" = "Username not available";
 "field-backup-token-title" = "Backup code";
+"field-backup-token-title-email" = "Email code";
 "field-captcha-placeholder" = "CAPTCHA text";
 "field-captcha-title" = "Enter the text you see above";
 "field-email-placeholder" = "example@example.org";
@@ -1239,6 +1240,8 @@
 "top-read-widget-title" = "Top read";
 "try-now-title" = "Try now";
 "tutorial-title" = "Tutorial";
+"two-factor-email-login-continue" = "Continue log in";
+"two-factor-email-login-instructions" = "Please enter email verification code";
 "two-factor-login-continue" = "Continue log in";
 "two-factor-login-instructions" = "Please enter two factor verification code";
 "two-factor-login-title" = "Log in to your account";

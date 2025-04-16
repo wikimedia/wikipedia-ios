@@ -508,6 +508,7 @@
 "field-alert-token-invalid" = "Alert shown if token is not correct";
 "field-alert-username-unavailable" = "Alert shown if new username is not available";
 "field-backup-token-title" = "Title for backup token field";
+"field-backup-token-title-email" = "Title for email token field";
 "field-captcha-placeholder" = "Placeholder text shown inside captcha field until user taps on it";
 "field-captcha-title" = "Title for captcha field";
 "field-email-placeholder" = "Placeholder text shown inside email address field until user taps on it";
@@ -1239,6 +1240,8 @@
 "top-read-widget-title" = "Text for title of Top read widget.";
 "try-now-title" = "Title of action button. Tapping takes user to a particular feature.";
 "tutorial-title" = "Button title text that triggers a tutorial flow. This can be a series of tooltips informing the user on how a feature works.";
+"two-factor-email-login-continue" = "Button text for finishing email two factor login";
+"two-factor-email-login-instructions" = "Instructions for email two factor login interface";
 "two-factor-login-continue" = "Button text for finishing two factor login";
 "two-factor-login-instructions" = "Instructions for two factor login interface";
 "two-factor-login-title" = "Title for two factor login interface";
