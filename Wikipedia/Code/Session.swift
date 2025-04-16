@@ -220,12 +220,18 @@ public class Session: NSObject {
         var defaultHeaders: [String: String] = [
             "Accept": "application/json; charset=utf-8",
             "Accept-Encoding": "gzip",
-            "Accept-Language": requestURL.wmf_languageVariantCode ?? Locale.acceptLanguageHeaderForPreferredLanguages
+            "Accept-Language": requestURL.wmf_languageVariantCode ?? Locale.acceptLanguageHeaderForPreferredLanguages,
+            "User-Agent": WikipediaAppUtils.versionedUserAgent()
         ]
 
-        let isLoginAction = requestURL.absoluteString.contains("action=clientlogin")
-        if !(WMFDeveloperSettingsDataController.shared.forceEmailAuth && isLoginAction) {
-            defaultHeaders["User-Agent"] = WikipediaAppUtils.versionedUserAgent()
+        var isLoginAction = requestURL.absoluteString.contains("action=clientlogin")
+        if let bodyParamsDict = bodyParameters as? [String: Any] {
+            if let actionValue = bodyParamsDict["action"] as? String {
+                isLoginAction = actionValue.lowercased() == "clientlogin"
+            }
+        }
+        if WMFDeveloperSettingsDataController.shared.forceEmailAuth && isLoginAction {
+            defaultHeaders.removeValue(forKey: "User-Agent")
         }
 
         for (key, value) in defaultHeaders {
