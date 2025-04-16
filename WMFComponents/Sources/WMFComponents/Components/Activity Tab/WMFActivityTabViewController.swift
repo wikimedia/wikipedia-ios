@@ -4,19 +4,22 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
 
 }
 
-public final class WMFActivityTabViewController: WMFCanvasViewController, WMFNavigationBarConfiguring {
+@objc public final class WMFActivityTabViewController: WMFCanvasViewController, WMFNavigationBarConfiguring {
     
+    public let viewModel: WMFActivityViewModel
+    
+    public init(viewModel: WMFActivityViewModel, openHistory: @escaping @convention(block) () -> Void) {
+        self.viewModel = viewModel
+        let view = WMFActivityView(viewModel: viewModel)
+         self.hostingViewController = WMFActivityTabHostingController(rootView: view)
+         super.init()
+    }
+
     @MainActor required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
     private let hostingViewController: WMFActivityTabHostingController
-
-    public init(viewModel: WMFActivityViewModel, isLoggedIn: Bool) {
-        let view = WMFActivityView(viewModel: viewModel, isLoggedIn: isLoggedIn)
-         self.hostingViewController = WMFActivityTabHostingController(rootView: view)
-         super.init()
-    }
 
     public override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,7 +34,7 @@ public final class WMFActivityTabViewController: WMFCanvasViewController, WMFNav
     }
 
     private func configureNavigationBar() {
-        let titleConfig = WMFNavigationBarTitleConfig(title: "Activity", customView: nil, alignment: .leadingLarge)
+        let titleConfig = WMFNavigationBarTitleConfig(title: "Activity", customView: nil, alignment: .leadingCompact)
         configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: nil, profileButtonConfig: nil, searchBarConfig: nil, hideNavigationBarOnScroll: false)
     }
 }

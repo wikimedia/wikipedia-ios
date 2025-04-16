@@ -10,16 +10,13 @@ public struct WMFActivityView: View {
 
     @ObservedObject var viewModel: WMFActivityViewModel
 
-    let isLoggedIn: Bool
-
-    public init(viewModel: WMFActivityViewModel, isLoggedIn: Bool) {
+    public init(viewModel: WMFActivityViewModel) {
         self.viewModel = viewModel
-        self.isLoggedIn = isLoggedIn
     }
 
     public var body: some View {
 
-        if isLoggedIn {
+        if viewModel.isLoggedIn {
             ScrollView {
                 VStack(alignment: .leading, spacing: 8) {
                     if viewModel.hasNoEdits {
@@ -47,10 +44,12 @@ public struct WMFActivityView: View {
             .padding()
             .onAppear {
                 Task {
+                    
+                    guard let project = viewModel.project else { return }
+                    
                     let dataController = try WMFActivityDataController()
                     dataController.savedSlideDataDelegate = viewModel.savedSlideDataDelegate
                     dataController.legacyPageViewsDataDelegate = viewModel.legacyPageViewsDataDelegate
-                    let project = WMFProject.wikipedia(WMFLanguage(languageCode: "en", languageVariantCode: nil))
                     let activity = try await dataController.fetchAllStuff(username: "TSevener (WMF)", project: project)
 
                     let testItems = [
@@ -63,7 +62,9 @@ public struct WMFActivityView: View {
                 }
             }
         } else {
-            WMFActivityTabLoggedOutView()
+            if let loginAction = viewModel.loginAction {
+                WMFActivityTabLoggedOutView(loginAction: loginAction, openHistory: viewModel.openHistory)
+            }
         }
     }
 

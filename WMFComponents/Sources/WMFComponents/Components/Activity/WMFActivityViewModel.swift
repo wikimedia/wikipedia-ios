@@ -2,12 +2,15 @@ import Foundation
 import SwiftUI
 import WMFData
 
-public class WMFActivityViewModel: ObservableObject {
+@objc public class WMFActivityViewModel: NSObject, ObservableObject {
     @Published var activityItems: [ActivityItem]?
+    @Published public var isLoggedIn: Bool
+    @Published public var project: WMFProject?
     var shouldShowAddAnImage: Bool
     var shouldShowStartEditing: Bool
     var hasNoEdits: Bool
     let openHistory: () -> Void
+    @Published public var loginAction: (() -> Void)?
     let openSavedArticles: () -> Void
     public var savedSlideDataDelegate: SavedArticleSlideDataDelegate?
     public var legacyPageViewsDataDelegate: LegacyPageViewsDataDelegate?
@@ -27,14 +30,25 @@ public class WMFActivityViewModel: ObservableObject {
     
     var localizedStrings: LocalizedStrings
     
-    public init(localizedStrings: LocalizedStrings, activityItems: [ActivityItem]? = nil, shouldShowAddAnImage: Bool, shouldShowStartEditing: Bool, hasNoEdits: Bool, openHistory: @escaping () -> Void, openSavedArticles: @escaping () -> Void) {
+    public init(
+            localizedStrings: LocalizedStrings,
+            activityItems: [ActivityItem]? = nil,
+            shouldShowAddAnImage: Bool,
+            shouldShowStartEditing: Bool,
+            hasNoEdits: Bool,
+            openHistory: @escaping () -> Void,
+            openSavedArticles: @escaping () -> Void,
+            loginAction: (() -> Void)?,
+            isLoggedIn: Bool) {
         self.activityItems = activityItems
         self.shouldShowAddAnImage = shouldShowAddAnImage
         self.shouldShowStartEditing = shouldShowStartEditing
         self.hasNoEdits = hasNoEdits
         self.openHistory = openHistory
+        self.loginAction = loginAction
         self.openSavedArticles = openSavedArticles
         self.localizedStrings = localizedStrings
+        self.isLoggedIn = isLoggedIn
     }
     
     func title(for type: ActivityTabDisplayType) -> String? {

@@ -708,22 +708,83 @@ extension WMFAppViewController {
     }
 
     @objc func generateActivityTab() -> WMFActivityTabViewController {
-        let testItems = [
-            ActivityItem(imageName: "pencil", title: "You edited 1 article this week.", type: .edit)
-        ]
+
+        let openHistoryClosure = { [weak self] in
+            guard let self = self else { return }
+
+            guard let navigationController = self.currentTabNavigationController else {
+                print("navigationController is nil")
+                return
+            }
+
+            let historyVC = HistoryViewController()
+            historyVC.dataStore = self.dataStore
+            historyVC.apply(theme: self.theme)
+            historyVC.title = CommonStrings.historyTabTitle
+            navigationController.pushViewController(historyVC, animated: true)
+        }
+        
+        let isLoggedIn = dataStore.authenticationManager.authStateIsPermanent
         let localizedStrings = WMFActivityViewModel.LocalizedStrings(
             activityTabViewReadingHistory: CommonStrings.activityTabReadingHistory,
-            activityTabViewSavedArticles: CommonStrings.activityTabViewSavedArticles
+            activityTabViewSavedArticles: CommonStrings.activityTabReadingHistory
         )
-        let viewModel = WMFActivityViewModel(localizedStrings: localizedStrings, shouldShowAddAnImage: false, shouldShowStartEditing: false, hasNoEdits: false, openHistory: {
-            
-        }, openSavedArticles: {
-            
-        })
+        let viewModel = WMFActivityViewModel(localizedStrings: localizedStrings, shouldShowAddAnImage: false, shouldShowStartEditing: false, hasNoEdits: false, openHistory: openHistoryClosure, openSavedArticles: openHistoryClosure, loginAction: nil, isLoggedIn: isLoggedIn)
+        
         viewModel.savedSlideDataDelegate = dataStore.savedPageList
         viewModel.legacyPageViewsDataDelegate = dataStore
 
-//        return WMFActivityTabViewController(viewModel: viewModel, isLoggedIn: dataStore.authenticationManager.authStateIsPermanent)
-        return WMFActivityTabViewController(viewModel: viewModel, isLoggedIn: true)
+        let activityTabViewController = WMFActivityTabViewController(viewModel: viewModel, openHistory: {
+            
+        })
+        
+        let loginAction = { [weak self] in
+            guard let self = self else { return }
+
+            guard let navigationController = self.currentTabNavigationController else {
+                print("navigationController is nil")
+                return
+            }
+            
+            let loginCoordinator = LoginCoordinator(navigationController: navigationController, theme: theme)
+            loginCoordinator.createAccountSuccessCustomDismissBlock = { [weak self] in
+                
+                guard let self else { return }
+                
+                self.updateActivityTabLoginState(activityTabViewController: activityTabViewController)
+            }
+            
+            loginCoordinator.loginSuccessCompletion = { [weak self] in
+                
+                guard let self else { return }
+                
+                self.updateActivityTabLoginState(activityTabViewController: activityTabViewController)
+            }
+
+            loginCoordinator.start()
+        }
+        
+        if let siteURL = dataStore.languageLinkController.appLanguage?.siteURL,
+           let wikimediaProject = WikimediaProject(siteURL: siteURL),
+           let wmfProject = wikimediaProject.wmfProject {
+            viewModel.project = wmfProject
+        }
+        
+        viewModel.loginAction = loginAction
+        
+        return activityTabViewController
+    }
+    
+    @objc func updateActivityTabProject(activityTabViewController: WMFActivityTabViewController) {
+        if let siteURL = dataStore.languageLinkController.appLanguage?.siteURL,
+           let wikimediaProject = WikimediaProject(siteURL: siteURL),
+           let wmfProject = wikimediaProject.wmfProject {
+            activityTabViewController.viewModel.project = wmfProject
+        }
+    }
+    
+    @objc func updateActivityTabLoginState(activityTabViewController: WMFActivityTabViewController) {
+        let isLoggedIn = dataStore.authenticationManager.authStateIsPermanent
+        activityTabViewController.viewModel.isLoggedIn = isLoggedIn
     }
 }
