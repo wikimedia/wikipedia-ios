@@ -32,7 +32,7 @@ public struct WMFActivityView: View {
                     }
                     if let activityItems = viewModel.activityItems {
                         ForEach(activityItems, id: \.title) { item in
-                            WMFActivityComponentView(activityItem: item)
+                            WMFActivityComponentView(activityItem: item, title: viewModel.title(for: item.type), onButtonTap: viewModel.action(for: item.type))
                                 .padding(.vertical, 12)
                                 .frame(maxWidth: .infinity, alignment: .leading)
                         }
@@ -52,13 +52,13 @@ public struct WMFActivityView: View {
                     dataController.legacyPageViewsDataDelegate = viewModel.legacyPageViewsDataDelegate
                     let activity = try await dataController.fetchAllStuff(username: "TSevener (WMF)", project: project)
 
-                    let items = [
-                        ActivityItem(imageName: "pencil", title: "You edited \(activity.editedCount ?? 0) article this week.", subtitle: "Edit activity increased by 100% compared to the previous week.", onViewTitle: "View editing history", onViewTap: { print("On view tap")}),
-                        ActivityItem(imageName: "square.text.square", title: "You read \(activity.readCount) articles this week.", subtitle: "You read 12% less compared to the previous week.", onViewTitle: "View reading history", onViewTap: { print("On view tap")}),
-                        ActivityItem(imageName: "bookmark.fill", title: "You saved \(activity.savedCount) articles this week", subtitle: "You saved 5 less articles compared to the previous week.", onViewTitle: "View saved articles", onViewTap: { print("On view tap")})
+                    let testItems = [
+                        ActivityItem(imageName: "pencil", title: "You edited \(activity.editedCount ?? 0) article(s) this week.", type: .edit),
+                        ActivityItem(imageName: "square.text.square", title: "You read \(activity.readCount) articles this week.", type: .read),
+                        ActivityItem(imageName: "bookmark.fill", title: "You saved \(activity.savedCount) articles this week", type: .save)
                     ]
 
-                    viewModel.activityItems = items
+                    viewModel.activityItems = testItems
                 }
             }
         } else {

@@ -686,6 +686,7 @@ public class CommonStrings: NSObject {
     public static let saveViewTempAccountWarning = WMFLocalizedString("save-view-temp-account-warning", value: "You are not logged in. Once you make an edit, a temporary account will be created for you to protect your privacy.", comment: "Warning that a temporary account will be created")
     public static let tempAccountPublishTitle = WMFLocalizedString("article-view-controller-editing-temp-account-created-title", value: "Temporary account created", comment: "After a user edits an article, creating an IP account, this pop-up title lets them know.")
     
+    public static let activityTabReadingHistory = WMFLocalizedString("activity-tab-read-title", value: "View reading history", comment: "Title for the reading history activity tab")
     // MARK: - Activity tab strings
     public static let activityTitle = WMFLocalizedString("activity-tab-title", value: "Activity", comment: "Activity title")
     public static let activityTabLoggedOutTitle = WMFLocalizedString("activity-tab-logged-out-title", value: "Log in to see more reading and editing activity.", comment: "Title for activity tab when users are logged out.")

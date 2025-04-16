@@ -15,6 +15,14 @@ extension Notification.Name {
     static let showErrorBannerNSErrorKey = Notification.Name.showErrorBannerNSErrorKey
 }
 
+@objc public enum AppTab: Int {
+    case main = 0
+    case places = 1
+    case saved = 2
+    case activity = 3
+    case search = 4
+}
+
 extension WMFAppViewController {
     
     @objc internal func processLinkUserActivity(_ userActivity: NSUserActivity) -> Bool {
@@ -724,23 +732,34 @@ extension WMFAppViewController {
             navigationController.pushViewController(historyVC, animated: true)
         }
         
+        let openSavedArticlesClosure = { [weak self] in
+            guard let self = self else { return }
+            
+            self.dismissPresentedViewControllers()
+            withAnimation {
+                self.selectedIndex = AppTab.saved.rawValue
+            }
+        }
+        
         let isLoggedIn = dataStore.authenticationManager.authStateIsPermanent
-
+        let localizedStrings = WMFActivityViewModel.LocalizedStrings(
+            activityTabViewReadingHistory: CommonStrings.activityTabViewReadingHistoryTitle,
+            activityTabViewSavedArticles: CommonStrings.activityTabViewSavedArticlesTitle
+        )
         let viewModel = WMFActivityViewModel(
-            activityItems: [], isLoggedIn: isLoggedIn,
+            localizedStrings: localizedStrings,
             shouldShowAddAnImage: false,
             shouldShowStartEditing: false,
             hasNoEdits: false,
             openHistory: openHistoryClosure,
-            loginAction: nil
-        )
+            openSavedArticles: openSavedArticlesClosure,
+            loginAction: nil,
+            isLoggedIn: isLoggedIn)
         
         viewModel.savedSlideDataDelegate = dataStore.savedPageList
         viewModel.legacyPageViewsDataDelegate = dataStore
 
-        let activityTabViewController = WMFActivityTabViewController(viewModel: viewModel, openHistory: {
-            
-        })
+        let activityTabViewController = WMFActivityTabViewController(viewModel: viewModel)
         
         let loginAction = { [weak self] in
             guard let self = self else { return }

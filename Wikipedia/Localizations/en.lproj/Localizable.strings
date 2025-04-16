@@ -76,6 +76,7 @@
 "activity-tab-neutral" = "Neutral";
 "activity-tab-no-edits-subtitle" = "Start editing to begin tracking your contributions.";
 "activity-tab-no-edits-title" = "You haven’t made any edits yet.";
+"activity-tab-read-title" = "View reading history";
 "activity-tab-satisfied" = "Satisfied";
 "activity-tab-start-editing" = "Start editing";
 "activity-tab-survey" = "Are you satisfied with your \"Activity\" screen? What else would you like to see here in the future?";

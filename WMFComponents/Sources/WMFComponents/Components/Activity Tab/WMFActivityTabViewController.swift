@@ -8,7 +8,7 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
     
     public let viewModel: WMFActivityViewModel
     
-    public init(viewModel: WMFActivityViewModel, openHistory: @escaping @convention(block) () -> Void) {
+    public init(viewModel: WMFActivityViewModel) {
         self.viewModel = viewModel
         let view = WMFActivityView(viewModel: viewModel)
          self.hostingViewController = WMFActivityTabHostingController(rootView: view)
