@@ -112,7 +112,7 @@ enum ProfileState {
 
         var needsYiRNotification = false
         if let yearInReviewDependencies {
-            needsYiRNotification = yearInReviewDependencies.dataController.shouldShowYiRNotification(primaryAppLanguageProject: yearInReviewDependencies.primaryAppLanguageProject, isLoggedOut: !isLoggedIn)
+            needsYiRNotification = yearInReviewDependencies.dataController.shouldShowYiRNotification(primaryAppLanguageProject: yearInReviewDependencies.primaryAppLanguageProject, isLoggedOut: !isLoggedIn, isTemporaryAccount: isTemporaryAccount)
         }
 
         if isLoggedIn {
