@@ -346,7 +346,15 @@ public enum RemoteNotificationsControllerError: LocalizedError {
             return false
         }
         
-        let appLanguageProjects =  languageLinkController.preferredLanguages.map { WikimediaProject.wikipedia($0.languageCode, $0.localizedName, $0.languageVariantCode) }
+        let primaryWikiHasTempAccounts = WMFTempAccountDataController.shared.primaryWikiHasTempAccountsEnabled
+        var languages: [MWKLanguageLink] = languageLinkController.preferredLanguages
+        if primaryWikiHasTempAccounts && authManager.authStateIsTemporary,
+           let appLanguage = languageLinkController.appLanguage {
+            languages = [appLanguage]
+        }
+        
+        let appLanguageProjects =  languages.map { WikimediaProject.wikipedia($0.languageCode, $0.localizedName, $0.languageVariantCode) }
+        
         for project in appLanguageProjects {
             if !modelController.isProjectAlreadyImported(project: project) {
                 return false
