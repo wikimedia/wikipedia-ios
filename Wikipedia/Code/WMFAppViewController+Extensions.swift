@@ -15,6 +15,14 @@ extension Notification.Name {
     static let showErrorBannerNSErrorKey = Notification.Name.showErrorBannerNSErrorKey
 }
 
+@objc public enum AppTab: Int {
+    case main = 0
+    case places = 1
+    case saved = 2
+    case activity = 3
+    case search = 4
+}
+
 extension WMFAppViewController {
     
     @objc internal func processLinkUserActivity(_ userActivity: NSUserActivity) -> Bool {
@@ -727,15 +735,10 @@ extension WMFAppViewController {
         let openSavedArticlesClosure = { [weak self] in
             guard let self = self else { return }
             
-            guard let navigationController = self.currentTabNavigationController else {
-                print("navigationController is nil")
-                return
+            self.dismissPresentedViewControllers()
+            withAnimation {
+                self.selectedIndex = AppTab.saved.rawValue
             }
-            
-            let savedArticlesVC = SavedArticlesCollectionViewController(with: dataStore)
-            guard let savedArticlesVC else { return }
-            savedArticlesVC.apply(theme: self.theme)
-            navigationController.pushViewController(savedArticlesVC, animated: true)
         }
         
         let isLoggedIn = dataStore.authenticationManager.authStateIsPermanent
