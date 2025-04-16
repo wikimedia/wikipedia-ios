@@ -4,13 +4,17 @@ public struct WMFActivityComponentView: View {
     @ObservedObject var appEnvironment = WMFAppEnvironment.current
     
     let activityItem: ActivityItem
+    let title: String?
+    let onButtonTap: (() -> Void)?
 
     var theme: WMFTheme {
         return appEnvironment.theme
     }
 
-    public init(activityItem: ActivityItem) {
+    public init(activityItem: ActivityItem, title: String?, onButtonTap: (() -> Void)?) {
         self.activityItem = activityItem
+        self.title = title
+        self.onButtonTap = onButtonTap
     }
 
     public var body: some View {
@@ -23,12 +27,12 @@ public struct WMFActivityComponentView: View {
             VStack(alignment: .leading, spacing: 8) {
                 Text(activityItem.title)
                     .font(Font(WMFFont.for(.boldHeadline)))
-                Text(activityItem.subtitle)
-                    .font(Font(WMFFont.for(.subheadline)))
-                Button(activityItem.onViewTitle) {
-                    activityItem.onViewTap()
+                if let title, let onButtonTap {
+                    Button(title) {
+                        onButtonTap()
+                    }
+                    .foregroundStyle(Color(theme.link))
                 }
-                .foregroundStyle(Color(theme.link))
             }
         }
     }

@@ -68,6 +68,7 @@
 "action-unsave" = "Unsave";
 "action-unsaved-accessibility-notification" = "Article unsaved";
 "action-update" = "Update";
+"activity-tab-read-title" = "View reading history";
 "add-articles-to-reading-list" = "Add {{PLURAL:$1|$1 article|$1 articles}} to reading list";
 "advanced-settings-title" = "Advanced settings";
 "alert-temporary-account" = "You are using a temporary account. Account will expire in 90 days.";

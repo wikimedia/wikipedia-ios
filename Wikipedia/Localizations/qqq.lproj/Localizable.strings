@@ -68,6 +68,7 @@
 "action-unsave" = "Short title for the 'Unsave' action. Please use the shortest translation possible. {{Identical|Saved}}";
 "action-unsaved-accessibility-notification" = "Notification spoken after user removes an article from Saved articles.";
 "action-update" = "Title of the update action.";
+"activity-tab-read-title" = "Title for the reading history activity tab";
 "add-articles-to-reading-list" = "Title for the view in charge of adding articles to a reading list - $1 is replaced with the number of articles to add";
 "advanced-settings-title" = "Title for advanced settings screen";
 "alert-temporary-account" = "Alert message informing user that they are using a temporary account";

@@ -8,6 +8,7 @@ public class WMFActivityViewModel: ObservableObject {
     var shouldShowStartEditing: Bool
     var hasNoEdits: Bool
     let openHistory: () -> Void
+    let openSavedArticles: () -> Void
     public var savedSlideDataDelegate: SavedArticleSlideDataDelegate?
     public var legacyPageViewsDataDelegate: LegacyPageViewsDataDelegate?
     
@@ -24,27 +25,65 @@ public class WMFActivityViewModel: ObservableObject {
     
     let suggestedEdits = "Suggested edits"
     
-    public init(activityItems: [ActivityItem]? = nil, shouldShowAddAnImage: Bool, shouldShowStartEditing: Bool, hasNoEdits: Bool, openHistory: @escaping () -> Void) {
+    var localizedStrings: LocalizedStrings
+    
+    public init(localizedStrings: LocalizedStrings, activityItems: [ActivityItem]? = nil, shouldShowAddAnImage: Bool, shouldShowStartEditing: Bool, hasNoEdits: Bool, openHistory: @escaping () -> Void, openSavedArticles: @escaping () -> Void) {
         self.activityItems = activityItems
         self.shouldShowAddAnImage = shouldShowAddAnImage
         self.shouldShowStartEditing = shouldShowStartEditing
         self.hasNoEdits = hasNoEdits
         self.openHistory = openHistory
+        self.openSavedArticles = openSavedArticles
+        self.localizedStrings = localizedStrings
+    }
+    
+    func title(for type: ActivityTabDisplayType) -> String? {
+        switch type {
+        case .edit:
+            return nil
+        case .read:
+            return localizedStrings.activityTabViewReadingHistory
+        case .save:
+            return localizedStrings.activityTabViewSavedArticles
+        }
+    }
+    
+    func action(for type: ActivityTabDisplayType) -> (() -> Void)? {
+        switch type {
+        case .edit:
+            return nil
+        case .read:
+            return openHistory
+        case .save:
+            return openSavedArticles
+        }
+    }
+    
+    public struct LocalizedStrings {
+        let activityTabViewReadingHistory: String
+        let activityTabViewSavedArticles: String
+        
+        public init(activityTabViewReadingHistory: String, activityTabViewSavedArticles: String) {
+            self.activityTabViewReadingHistory = activityTabViewReadingHistory
+            self.activityTabViewSavedArticles = activityTabViewSavedArticles
+        }
     }
 }
 
 public struct ActivityItem {
     let imageName: String
     let title: String
-    let subtitle: String
-    let onViewTitle: String
-    let onViewTap: () -> Void
+    let type: ActivityTabDisplayType
     
-    public init(imageName: String, title: String, subtitle: String, onViewTitle: String, onViewTap: @escaping () -> Void) {
+    public init(imageName: String, title: String, type: ActivityTabDisplayType) {
         self.imageName = imageName
         self.title = title
-        self.subtitle = subtitle
-        self.onViewTitle = onViewTitle
-        self.onViewTap = onViewTap
+        self.type = type
     }
+}
+
+public enum ActivityTabDisplayType {
+    case edit
+    case read
+    case save
 }

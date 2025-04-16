@@ -685,6 +685,8 @@ public class CommonStrings: NSObject {
     public static let saveViewTempAccountNotice = WMFLocalizedString("save-view-temp-account-notice", value: "You are using a temporary account. Edits are being attributed to %1$@...", comment: "$1 is the temporary username for the temporary account notice.")
     public static let saveViewTempAccountWarning = WMFLocalizedString("save-view-temp-account-warning", value: "You are not logged in. Once you make an edit, a temporary account will be created for you to protect your privacy.", comment: "Warning that a temporary account will be created")
     public static let tempAccountPublishTitle = WMFLocalizedString("article-view-controller-editing-temp-account-created-title", value: "Temporary account created", comment: "After a user edits an article, creating an IP account, this pop-up title lets them know.")
+    
+    public static let activityTabReadingHistory = WMFLocalizedString("activity-tab-read-title", value: "View reading history", comment: "Title for the reading history activity tab")
 }
 
 // Language variant strings
