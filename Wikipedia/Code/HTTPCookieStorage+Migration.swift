@@ -45,13 +45,6 @@
             return
         }
         setCookie(copiedCookie)
-        // Test
-        if let cookies = Session.sharedCookieStorage.cookies {
-            print("⭐️⭐️⭐️⭐️⭐️⭐️⭐️")
-            for cookie in cookies {
-                print("\(cookie.name)=\(cookie.value)")
-            }
-        }
     }
 
     @objc public static func migrateCookiesToSharedStorage() {
