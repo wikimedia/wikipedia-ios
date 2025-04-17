@@ -116,6 +116,7 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
 
 @end
 
+
 @implementation WMFAppViewController
 @synthesize exploreViewController = _exploreViewController;
 @synthesize searchViewController = _searchViewController;
@@ -153,6 +154,8 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
     [self applyTheme:self.theme];
 
     [self updateAppEnvironmentWithTheme:self.theme traitCollection:self.traitCollection];
+    
+    self.imageRecommendationsViewModelWrapper = nil;
 
     self.backgroundTasks = [NSMutableDictionary dictionaryWithCapacity:5];
 

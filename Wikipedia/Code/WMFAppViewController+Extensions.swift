@@ -747,8 +747,8 @@ extension WMFAppViewController {
             
             guard let vc = WMFImageRecommendationsViewController.imageRecommendationsViewController(
                 dataStore: dataStore,
-                imageRecDelegate: exploreViewController,
-                imageRecLoggingDelegate: exploreViewController) else {
+                imageRecDelegate: self,
+                imageRecLoggingDelegate: self) else {
                 return
             }
             
@@ -833,5 +833,411 @@ extension WMFAppViewController {
     @objc func updateActivityTabLoginState(activityTabViewController: WMFActivityTabViewController) {
         let isLoggedIn = dataStore.authenticationManager.authStateIsPermanent
         activityTabViewController.viewModel.isLoggedIn = isLoggedIn
+    }
+}
+
+// MARK: Activity Tab Image Recommendations flow conformances. Delete after Activity Tab experiment ends.
+
+extension WMFAppViewController: WMFImageRecommendationsDelegate, InsertMediaSettingsViewControllerDelegate, InsertMediaSettingsViewControllerLoggingDelegate {
+    func insertMediaSettingsViewControllerDidTapProgress(imageWikitext: String, caption: String?, altText: String?, localizedFileTitle: String) {
+        
+        guard let viewModel = self.imageRecommendationsViewModelWrapper?.viewModel,
+        let currentRecommendation = viewModel.currentRecommendation,
+                    let siteURL = viewModel.project.siteURL,
+              let articleURL = siteURL.wmf_URL(withTitle: currentRecommendation.title),
+        let articleWikitext = currentRecommendation.imageData.wikitext else {
+            return
+        }
+        
+        currentRecommendation.caption = caption
+        currentRecommendation.altText = altText
+        currentRecommendation.imageWikitext = imageWikitext
+        currentRecommendation.localizedFileTitle = localizedFileTitle
+        
+        do {
+            let wikitextWithImage = try WMFWikitextUtils.insertImageWikitextIntoArticleWikitextAfterTemplates(imageWikitext: imageWikitext, into: articleWikitext)
+            
+            currentRecommendation.fullArticleWikitextWithImage = wikitextWithImage
+            
+            let editPreviewViewController = EditPreviewViewController(pageURL: articleURL)
+            editPreviewViewController.theme = theme
+            editPreviewViewController.sectionID = 0
+            editPreviewViewController.languageCode = articleURL.wmf_languageCode
+            editPreviewViewController.wikitext = wikitextWithImage
+            editPreviewViewController.delegate = self
+            editPreviewViewController.loggingDelegate = self
+
+            currentTabNavigationController?.pushViewController(editPreviewViewController, animated: true)
+        } catch {
+            showGenericError()
+        }
+    }
+    
+    func logInsertMediaSettingsViewControllerDidAppear() {
+        ImageRecommendationsFunnel.shared.logAddImageDetailsDidAppear()
+    }
+    
+    func logInsertMediaSettingsViewControllerDidTapFileName() {
+        ImageRecommendationsFunnel.shared.logAddImageDetailsDidTapFileName()
+    }
+    
+    func logInsertMediaSettingsViewControllerDidTapCaptionLearnMore() {
+        ImageRecommendationsFunnel.shared.logAddImageDetailsDidTapCaptionLearnMore()
+    }
+    
+    func logInsertMediaSettingsViewControllerDidTapAltTextLearnMore() {
+        ImageRecommendationsFunnel.shared.logAddImageDetailsDidTapAltTextLearnMore()
+    }
+    
+    func logInsertMediaSettingsViewControllerDidTapAdvancedSettings() {
+        ImageRecommendationsFunnel.shared.logAddImageDetailsDidTapAdvancedSettings()
+    }
+    
+    public func imageRecommendationsUserDidTapLearnMore(url: URL?) {
+        navigate(to: url, useSafari: false)
+    }
+    
+    public func imageRecommendationsUserDidTapReportIssue() {
+        let emailAddress = "ios-support@wikimedia.org"
+        let emailSubject = WMFLocalizedString("image-recommendations-email-title", value: "Issue Report - Add an Image Feature", comment: "Title text for Image recommendations pre-filled issue report email")
+        let emailBodyLine1 = WMFLocalizedString("image-recommendations-email-first-line", value: "I’ve encountered a problem with the Add an Image Suggested Edits Feature:", comment: "Text for Image recommendations pre-filled issue report email")
+        let emailBodyLine2 = WMFLocalizedString("image-recommendations-email-second-line", value: "- [Describe specific problem]", comment: "Text for Image recommendations pre-filled issue report email. This text is intended to be replaced by the user with a description of the problem they are encountering")
+        let emailBodyLine3 = WMFLocalizedString("image-recommendations-email-third-line", value: "The behavior I would like to see is:", comment: "Text for Image recommendations pre-filled issue report email")
+        let emailBodyLine4 = WMFLocalizedString("image-recommendations-email-fourth-line", value: "- [Describe proposed solution]", comment: "Text for Image recommendations pre-filled issue report email. This text is intended to be replaced by the user with a description of a user suggested solution")
+        let emailBodyLine5 = WMFLocalizedString("image-recommendations-email-fifth-line", value: "[Screenshots or Links]", comment: "Text for Image recommendations pre-filled issue report email. This text is intended to be replaced by the user with a screenshot or link.")
+        let emailBody = "\(emailBodyLine1)\n\n\(emailBodyLine2)\n\n\(emailBodyLine3)\n\n\(emailBodyLine4)\n\n\(emailBodyLine5)"
+        let mailto = "mailto:\(emailAddress)?subject=\(emailSubject)&body=\(emailBody)".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
+
+        guard let encodedMailto = mailto, let mailtoURL = URL(string: encodedMailto), UIApplication.shared.canOpenURL(mailtoURL) else {
+            WMFAlertManager.sharedInstance.showErrorAlertWithMessage(CommonStrings.noEmailClient, sticky: false, dismissPreviousAlerts: false)
+            return
+        }
+        UIApplication.shared.open(mailtoURL)
+    }
+    
+    public func imageRecommendationsUserDidTapImage(project: WMFProject, data: WMFImageRecommendationsViewModel.WMFImageRecommendationData, presentingVC: UIViewController) {
+
+        guard let siteURL = project.siteURL,
+              let articleURL = siteURL.wmf_URL(withTitle: data.pageTitle) else {
+            return
+        }
+
+        let item = MediaListItem(title: "File:\(data.filename)", sectionID: 0, type: .image, showInGallery: true, isLeadImage: false, sources: nil)
+        let mediaList = MediaList(items: [item])
+
+        let gallery = MediaListGalleryViewController(articleURL: articleURL, mediaList: mediaList, dataStore: dataStore, initialItem: item, theme: theme, dismissDelegate: nil)
+        presentingVC.present(gallery, animated: true)
+    }
+
+    public func imageRecommendationsUserDidTapViewArticle(project: WMFData.WMFProject, title: String) {
+        
+        guard let navigationController = currentTabNavigationController,
+              let siteURL = project.siteURL,
+              let articleURL = siteURL.wmf_URL(withTitle: title) else {
+            return
+        }
+        
+        let coordinator = ArticleCoordinator(navigationController: navigationController, articleURL: articleURL, dataStore: dataStore, theme: theme, source: .undefined)
+        coordinator.start()
+    }
+    
+    public func imageRecommendationsUserDidTapImageLink(commonsURL: URL) {
+        navigate(to: commonsURL, useSafari: false)
+        ImageRecommendationsFunnel.shared.logCommonsWebViewDidAppear()
+    }
+
+    public func imageRecommendationsUserDidTapInsertImage(viewModel: WMFImageRecommendationsViewModel, title: String, with imageData: WMFImageRecommendationsViewModel.WMFImageRecommendationData) {
+        guard let currentTabNavigationController else { return }
+
+        guard let image = imageData.uiImage,
+        let siteURL = viewModel.project.siteURL else {
+            return
+        }
+        
+        if let imageURL = URL(string: imageData.descriptionURL),
+           let thumbURL = URL(string: imageData.thumbUrl) {
+
+            let fileName = imageData.filename.normalizedPageTitle ?? imageData.filename
+            let imageDescription = imageData.description?.removingHTML
+            let searchResult = InsertMediaSearchResult(fileTitle: "File:\(imageData.filename)", displayTitle: fileName, thumbnailURL: thumbURL, imageDescription: imageDescription,  filePageURL: imageURL)
+            
+            let insertMediaViewController = InsertMediaSettingsViewController(
+                image: image,
+                searchResult: searchResult,
+                fromImageRecommendations: true,
+                delegate: self,
+                imageRecLoggingDelegate: self,
+                theme: theme,
+                siteURL: siteURL)
+            self.imageRecommendationsViewModelWrapper = WMFImageRecommendationsViewModelObjcWrapper(viewModel: viewModel)
+            currentTabNavigationController.pushViewController(insertMediaViewController, animated: true)
+        }
+    }
+    
+    public func imageRecommendationsDidTriggerError(_ error: any Error) {
+        WMFAlertManager.sharedInstance.showErrorAlert(error, sticky: false, dismissPreviousAlerts: true)
+    }
+
+    public func imageRecommendationsDidTriggerTimeWarning() {
+        let warningmessage = WMFLocalizedString("image-recs-time-warning-message", value: "Please review the article to understand its topic and inspect the image", comment: "Message displayed in a warning when a user taps yes to an image recommendation within 5 seconds or less")
+        WMFAlertManager.sharedInstance.showBottomAlertWithMessage(warningmessage, subtitle: nil, image: nil, type: .normal, customTypeName: nil, dismissPreviousAlerts: true)
+    }
+}
+
+
+extension WMFAppViewController: WMFImageRecommendationsLoggingDelegate {
+
+    public func logOnboardingDidTapPrimaryButton() {
+        ImageRecommendationsFunnel.shared.logOnboardingDidTapContinue()
+    }
+    
+    public func logOnboardingDidTapSecondaryButton() {
+        ImageRecommendationsFunnel.shared.logOnboardingDidTapLearnMore()
+    }
+    
+    public func logTooltipsDidTapFirstNext() {
+        ImageRecommendationsFunnel.shared.logTooltipDidTapFirstNext()
+    }
+    
+    public func logTooltipsDidTapSecondNext() {
+        ImageRecommendationsFunnel.shared.logTooltipDidTapSecondNext()
+    }
+    
+    public func logTooltipsDidTapThirdOK() {
+        ImageRecommendationsFunnel.shared.logTooltipDidTapThirdOk()
+    }
+    
+    public func logBottomSheetDidAppear() {
+        ImageRecommendationsFunnel.shared.logBottomSheetDidAppear()
+    }
+
+    public func logDialogWarningMessageDidDisplay(fileName: String, recommendationSource: String) {
+        ImageRecommendationsFunnel.shared.logDialogWarningMessageDidDisplay(fileName: fileName, recommendationSource: recommendationSource)
+    }
+
+    public func logBottomSheetDidTapYes() {
+        
+        if let viewModel = self.imageRecommendationsViewModelWrapper?.viewModel,
+              let currentRecommendation = viewModel.currentRecommendation,
+           let siteURL = viewModel.project.siteURL,
+           let pageURL = siteURL.wmf_URL(withTitle: currentRecommendation.title) {
+            currentRecommendation.suggestionAcceptDate = Date()
+            EditAttemptFunnel.shared.logInit(pageURL: pageURL)
+        }
+        
+        ImageRecommendationsFunnel.shared.logBottomSheetDidTapYes()
+    }
+    
+    public func logBottomSheetDidTapNo() {
+        ImageRecommendationsFunnel.shared.logBottomSheetDidTapNo()
+    }
+    
+    public func logBottomSheetDidTapNotSure() {
+        ImageRecommendationsFunnel.shared.logBottomSheetDidTapNotSure()
+    }
+    
+    public func logOverflowDidTapLearnMore() {
+        ImageRecommendationsFunnel.shared.logOverflowDidTapLearnMore()
+    }
+    
+    public func logOverflowDidTapTutorial() {
+        ImageRecommendationsFunnel.shared.logOverflowDidTapTutorial()
+    }
+    
+    public func logOverflowDidTapProblem() {
+        ImageRecommendationsFunnel.shared.logOverflowDidTapProblem()
+    }
+    
+    public func logBottomSheetDidTapFileName() {
+        ImageRecommendationsFunnel.shared.logBottomSheetDidTapFileName()
+    }
+    
+    public func logRejectSurveyDidAppear() {
+        ImageRecommendationsFunnel.shared.logRejectSurveyDidAppear()
+    }
+    
+    public func logRejectSurveyDidTapCancel() {
+        ImageRecommendationsFunnel.shared.logRejectSurveyDidTapCancel()
+    }
+    
+    public func logRejectSurveyDidTapSubmit(rejectionReasons: [String], otherReason: String?, fileName: String, recommendationSource: String) {
+        
+        ImageRecommendationsFunnel.shared.logRejectSurveyDidTapSubmit(rejectionReasons: rejectionReasons, otherReason: otherReason, fileName: fileName, recommendationSource: recommendationSource)
+    }
+    
+    public func logEmptyStateDidAppear() {
+        ImageRecommendationsFunnel.shared.logEmptyStateDidAppear()
+    }
+    
+    public func logEmptyStateDidTapBack() {
+        ImageRecommendationsFunnel.shared.logEmptyStateDidTapBack()
+    }
+}
+
+extension WMFAppViewController: EditPreviewViewControllerDelegate {
+    func editPreviewViewControllerDidTapNext(pageURL: URL, sectionID: Int?, editPreviewViewController: EditPreviewViewController) {
+        guard let saveVC = EditSaveViewController.wmf_initialViewControllerFromClassStoryboard() else {
+            return
+        }
+
+        saveVC.dataStore = dataStore
+        saveVC.pageURL = pageURL
+        saveVC.sectionID = sectionID
+        saveVC.languageCode = pageURL.wmf_languageCode
+        saveVC.wikitext = editPreviewViewController.wikitext
+        saveVC.cannedSummaryTypes = [.addedImage, .addedImageAndCaption]
+        saveVC.needsSuppressPosting = WMFDeveloperSettingsDataController.shared.doNotPostImageRecommendationsEdit
+        saveVC.editTags = [.appSuggestedEdit, .appImageAddTop]
+
+        saveVC.delegate = self
+        saveVC.imageRecLoggingDelegate = self
+        saveVC.theme = self.theme
+        
+        currentTabNavigationController?.pushViewController(saveVC, animated: true)
+    }
+}
+
+extension WMFAppViewController: EditSaveViewControllerDelegate {
+    
+    func editSaveViewControllerDidSave(_ editSaveViewController: EditSaveViewController, result: Result<EditorChanges, any Error>, needsNewTempAccountToast: Bool? = false) {
+        
+        switch result {
+        case .success(let changes):
+            sendFeedbackAndPopToImageRecommendations(revID: changes.newRevisionID)
+        case .failure(let error):
+            showError(error)
+        }
+        
+    }
+    
+    private func sendFeedbackAndPopToImageRecommendations(revID: UInt64) {
+
+        guard let viewControllers = currentTabNavigationController?.viewControllers,
+              let imageRecommendationsViewModel = imageRecommendationsViewModelWrapper?.viewModel,
+        let currentRecommendation = imageRecommendationsViewModel.currentRecommendation else {
+            return
+        }
+        
+        for viewController in viewControllers {
+            if viewController is WMFImageRecommendationsViewController {
+                currentTabNavigationController?.popToViewController(viewController, animated: true)
+                
+                // Send Feedback
+                imageRecommendationsViewModel.sendFeedback(editRevId: revID, accepted: true, caption: currentRecommendation.caption) { result in
+                }
+                
+                currentRecommendation.lastRevisionID = revID
+                
+                // Go to next recommendation and display success alert
+                imageRecommendationsViewModel.next {
+                    
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+
+                        let title = CommonStrings.editPublishedToastTitle
+                        let image = UIImage(systemName: "checkmark.circle.fill")
+                        
+                        if UIAccessibility.isVoiceOverRunning {
+                            UIAccessibility.post(notification: UIAccessibility.Notification.announcement, argument: title)
+                        } else {
+                            WMFAlertManager.sharedInstance.showBottomAlertWithMessage(title, subtitle: nil, image: image, type: .custom, customTypeName: "edit-published", dismissPreviousAlerts: true)
+                        }
+                    }
+                    
+                }
+                
+                break
+            }
+        }
+    }
+
+    
+    func editSaveViewControllerWillCancel(_ saveData: EditSaveViewController.SaveData) {
+        // no-op
+    }
+    
+    func editSaveViewControllerDidTapShowWebPreview() {
+        assertionFailure("This should not be called in the Image Recommendations context")
+    }
+}
+
+extension WMFAppViewController: EditSaveViewControllerImageRecLoggingDelegate {
+    
+    func logEditSaveViewControllerDidAppear() {
+        ImageRecommendationsFunnel.shared.logSaveChangesDidAppear()
+    }
+    
+    func logEditSaveViewControllerDidTapBack() {
+        ImageRecommendationsFunnel.shared.logSaveChangesDidTapBack()
+    }
+    
+    func logEditSaveViewControllerDidTapMinorEditsLearnMore() {
+        ImageRecommendationsFunnel.shared.logSaveChangesDidTapMinorEditsLearnMore()
+    }
+    
+    func logEditSaveViewControllerDidTapWatchlistLearnMore() {
+        ImageRecommendationsFunnel.shared.logSaveChangesDidTapWatchlistLearnMore()
+    }
+    
+    func logEditSaveViewControllerDidToggleWatchlist(isOn: Bool) {
+        ImageRecommendationsFunnel.shared.logSaveChangesDidToggleWatchlist(isOn: isOn)
+    }
+    
+    func logEditSaveViewControllerDidTapPublish(minorEditEnabled: Bool, watchlistEnabled: Bool) {
+        ImageRecommendationsFunnel.shared.logSaveChangesDidTapPublish(minorEditEnabled: minorEditEnabled, watchlistEnabled: watchlistEnabled)
+    }
+    
+    func logEditSaveViewControllerPublishSuccess(revisionID: Int, summaryAdded: Bool) {
+        
+        guard let viewModel = imageRecommendationsViewModelWrapper?.viewModel,
+              let currentRecommendation = viewModel.currentRecommendation else {
+            return
+        }
+        
+        var timeSpent: Int? = nil
+        if let suggestionAcceptDate = currentRecommendation.suggestionAcceptDate {
+            timeSpent = Int(Date().timeIntervalSince(suggestionAcceptDate))
+        }
+        
+        ImageRecommendationsFunnel.shared.logSaveChangesPublishSuccess(timeSpent: timeSpent, revisionID: revisionID, captionAdded: currentRecommendation.caption != nil, altTextAdded: currentRecommendation.altText != nil, summaryAdded: summaryAdded)
+    }
+    
+    func logEditSaveViewControllerLogPublishFailed(abortSource: String?) {
+        ImageRecommendationsFunnel.shared.logSaveChangesPublishFail(abortSource: abortSource)
+    }
+    
+ }
+
+extension WMFAppViewController: EditPreviewViewControllerLoggingDelegate {
+    func logEditPreviewDidAppear() {
+        ImageRecommendationsFunnel.shared.logPreviewDidAppear()
+    }
+    
+    func logEditPreviewDidTapBack() {
+        ImageRecommendationsFunnel.shared.logPreviewDidTapBack()
+    }
+    
+    func logEditPreviewDidTapNext() {
+        
+        if let viewModel = imageRecommendationsViewModelWrapper?.viewModel,
+              let currentRecommendation = viewModel.currentRecommendation,
+           let siteURL = viewModel.project.siteURL,
+           let pageURL = siteURL.wmf_URL(withTitle: currentRecommendation.title) {
+            EditAttemptFunnel.shared.logSaveIntent(pageURL: pageURL)
+        }
+        
+        ImageRecommendationsFunnel.shared.logPreviewDidTapNext()
+    }
+}
+
+@objc public final class WMFImageRecommendationsViewModelObjcWrapper: NSObject {
+    public var viewModel: WMFImageRecommendationsViewModel?
+
+    public init(viewModel: WMFImageRecommendationsViewModel?) {
+        self.viewModel = viewModel
+        super.init()
+    }
+    
+    @objc override public init() {
+        // Nothing
     }
 }
