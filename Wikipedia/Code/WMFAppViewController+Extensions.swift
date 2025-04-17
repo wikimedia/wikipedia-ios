@@ -758,7 +758,7 @@ extension WMFAppViewController {
         let isLoggedIn = dataStore.authenticationManager.authStateIsPermanent
         let localizedStrings = WMFActivityViewModel.LocalizedStrings(
             activityTabViewReadingHistory: CommonStrings.activityTabViewReadingHistoryTitle,
-            activityTabViewSavedArticles: CommonStrings.activityTabViewSavedArticlesTitle
+            activityTabViewSavedArticles: CommonStrings.activityTabViewSavedArticlesTitle, localizedTabTitle: CommonStrings.activityTitle
         )
         let viewModel = WMFActivityViewModel(
             localizedStrings: localizedStrings,

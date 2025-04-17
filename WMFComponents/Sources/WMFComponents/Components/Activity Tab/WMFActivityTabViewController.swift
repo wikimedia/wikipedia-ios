@@ -34,7 +34,7 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
     }
 
     private func configureNavigationBar() {
-        let titleConfig = WMFNavigationBarTitleConfig(title: "Activity", customView: nil, alignment: .leadingCompact)
+        let titleConfig = WMFNavigationBarTitleConfig(title: viewModel.localizedStrings.localizedTabTitle, customView: nil, alignment: .leadingCompact)
         configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: nil, profileButtonConfig: nil, searchBarConfig: nil, hideNavigationBarOnScroll: false)
     }
 }
