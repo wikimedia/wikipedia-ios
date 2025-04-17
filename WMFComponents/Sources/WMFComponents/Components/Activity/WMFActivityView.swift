@@ -24,11 +24,11 @@ public struct WMFActivityView: View {
                         if viewModel.shouldShowStartEditing {
                             startEditingButton
                         } else if viewModel.shouldShowAddAnImage {
-                            addAnImageButton
+                            suggestedEditsView
                         }
                     } else if viewModel.shouldShowAddAnImage {
                         Text(viewModel.suggestedEdits)
-                        addAnImageButton // TODO: add editing activity item above
+                        suggestedEditsView // TODO: add editing activity item a bove
                     }
                     if let activityItems = viewModel.activityItems {
                         ForEach(activityItems, id: \.title) { item in
@@ -83,32 +83,37 @@ public struct WMFActivityView: View {
         }
     }
 
-    private var addAnImageButton: some View {
-        HStack {
-            VStack {
+    private var suggestedEditsView: some View {
+        HStack(alignment: .center, spacing: 18) {
+            Image(systemName: "photo.badge.checkmark")
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+                .frame(width: 40)
+                .foregroundStyle(Color(theme.iconBackground))
+            VStack(alignment: .leading, spacing: 4) {
                 Text(viewModel.addAnImageTitle)
+                    .font(Font(WMFFont.for(.boldCallout)))
                 Text(viewModel.addAnImageSubtitle)
+                    .font(Font(WMFFont.for(.callout)))
                 Button(action: {
-                    print("Start editing")
+                    viewModel.openSuggestedEdits?()
                 }) {
-                    HStack {
+                    HStack(alignment: .center) {
                         Image(systemName: "plus")
-                            .foregroundColor(.white)
-                        Text(viewModel.addAnImageTitle)
-                            .foregroundColor(.white)
+                        Text(viewModel.addAnImageButtonTitle)
                     }
-                    .frame(maxWidth: .infinity)
-                    .padding(8)
+                    .foregroundColor(Color(uiColor: theme.paperBackground))
+                    .font(Font(WMFFont.for(.boldCallout)))
+                    .padding(.vertical, 8)
+                    .padding(.horizontal, 16)
                     .background(Color(theme.link))
                 }
+                .clipShape(RoundedRectangle(cornerRadius: 8))
             }
         }
         .frame(maxWidth: .infinity, alignment: .leading)
         .padding()
-        .background(Color(theme.midBackground))
-        .overlay(
-            Rectangle()
-                .stroke(Color(theme.text), lineWidth: 1)
-        )
+        .background(Color(theme.baseBackground))
+        .border(Color(theme.iconBackground), width: 2)
     }
 }

@@ -12,6 +12,7 @@ import WMFData
     let openHistory: () -> Void
     @Published public var loginAction: (() -> Void)?
     let openSavedArticles: () -> Void
+    let openSuggestedEdits: (() -> Void)?
     public var savedSlideDataDelegate: SavedArticleSlideDataDelegate?
     public var legacyPageViewsDataDelegate: LegacyPageViewsDataDelegate?
     
@@ -38,6 +39,7 @@ import WMFData
             hasNoEdits: Bool,
             openHistory: @escaping () -> Void,
             openSavedArticles: @escaping () -> Void,
+            openSuggestedEdits: (() -> Void)?,
             loginAction: (() -> Void)?,
             isLoggedIn: Bool) {
         self.activityItems = activityItems
@@ -49,6 +51,7 @@ import WMFData
         self.openSavedArticles = openSavedArticles
         self.localizedStrings = localizedStrings
         self.isLoggedIn = isLoggedIn
+        self.openSuggestedEdits = openSuggestedEdits
     }
     
     func title(for type: ActivityTabDisplayType) -> String? {

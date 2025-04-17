@@ -715,13 +715,12 @@ extension WMFAppViewController {
         return WMFAppEnvironment.current.traitCollection != traitCollection
     }
 
-    @objc func generateActivityTab() -> WMFActivityTabViewController {
+    @objc func generateActivityTab(exploreViewController: ExploreViewController) -> WMFActivityTabViewController {
 
         let openHistoryClosure = { [weak self] in
             guard let self = self else { return }
 
             guard let navigationController = self.currentTabNavigationController else {
-                print("navigationController is nil")
                 return
             }
 
@@ -741,6 +740,21 @@ extension WMFAppViewController {
             }
         }
         
+        let openSuggestedEditsClosure = { [weak self] in
+            guard let self = self, let navigationController = self.currentTabNavigationController else {
+                return
+            }
+            
+            guard let vc = WMFImageRecommendationsViewController.imageRecommendationsViewController(
+                dataStore: dataStore,
+                imageRecDelegate: exploreViewController,
+                imageRecLoggingDelegate: exploreViewController) else {
+                return
+            }
+            
+            navigationController.pushViewController(vc, animated: true)
+        }
+        
         let isLoggedIn = dataStore.authenticationManager.authStateIsPermanent
         let localizedStrings = WMFActivityViewModel.LocalizedStrings(
             activityTabViewReadingHistory: CommonStrings.activityTabViewReadingHistoryTitle,
@@ -753,6 +767,7 @@ extension WMFAppViewController {
             hasNoEdits: false,
             openHistory: openHistoryClosure,
             openSavedArticles: openSavedArticlesClosure,
+            openSuggestedEdits: openSuggestedEditsClosure,
             loginAction: nil,
             isLoggedIn: isLoggedIn)
         
