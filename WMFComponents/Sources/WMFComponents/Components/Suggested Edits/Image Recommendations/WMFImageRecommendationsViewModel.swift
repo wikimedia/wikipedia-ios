@@ -170,6 +170,7 @@ public final class WMFImageRecommendationsViewModel: ObservableObject {
         self.articleSummaryDataController = WMFArticleSummaryDataController()
         self.imageDataController = WMFImageDataController()
         self.imageRecommendationsDataController = WMFImageRecommendationsDataController()
+        super.init()
         
         $loading
             .removeDuplicates()

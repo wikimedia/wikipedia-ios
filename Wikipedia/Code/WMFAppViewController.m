@@ -116,6 +116,11 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
 
 @end
 
+@interface WMFAppViewController ()
+@property (nonatomic, strong, nullable) WMFImageRecommendationsViewModel *imageRecommendationsViewModel;
+@end
+
+
 @implementation WMFAppViewController
 @synthesize exploreViewController = _exploreViewController;
 @synthesize searchViewController = _searchViewController;

@@ -46,8 +46,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
+@class WMFImageRecommendationsViewModel;
+
 // Methods exposed in header for use in WMFAppViewController+Extensions.swift
 @interface WMFAppViewController (SwiftInterfaces)
+@property (nonatomic, strong, nullable) WMFImageRecommendationsViewModel *imageRecommendationsViewModel;
 - (void)dismissPresentedViewControllers;
 - (void)showSettingsAnimated:(BOOL)animated;
 @end
