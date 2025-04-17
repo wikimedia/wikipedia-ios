@@ -388,17 +388,3 @@ public final class WMFImageRecommendationsViewModel: ObservableObject {
         return imageData
     }
 }
-
-@objc public final class WMFImageRecommendationsViewModelObjcWrapper: NSObject {
-    public var viewModel: WMFImageRecommendationsViewModel?
-
-    public init(viewModel: WMFImageRecommendationsViewModel?) {
-        self.viewModel = viewModel
-        super.init()
-    }
-    
-    @objc override public init() {
-        // Nothing
-    }
-}
-

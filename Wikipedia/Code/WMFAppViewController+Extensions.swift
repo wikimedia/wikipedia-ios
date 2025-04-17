@@ -762,7 +762,7 @@ extension WMFAppViewController {
         )
         let viewModel = WMFActivityViewModel(
             localizedStrings: localizedStrings,
-            shouldShowAddAnImage: false,
+            shouldShowAddAnImage: true,
             shouldShowStartEditing: false,
             hasNoEdits: false,
             openHistory: openHistoryClosure,
@@ -827,10 +827,12 @@ extension WMFAppViewController {
     }
 }
 
+// MARK: Activity Tab Image Recommendations flow conformances. Delete after Activity Tab experiment ends.
+
 extension WMFAppViewController: WMFImageRecommendationsDelegate, InsertMediaSettingsViewControllerDelegate, InsertMediaSettingsViewControllerLoggingDelegate {
     func insertMediaSettingsViewControllerDidTapProgress(imageWikitext: String, caption: String?, altText: String?, localizedFileTitle: String) {
         
-        guard let viewModel = self.imageRecommendationsViewModelWrapper.viewModel,
+        guard let viewModel = self.imageRecommendationsViewModelWrapper?.viewModel,
         let currentRecommendation = viewModel.currentRecommendation,
                     let siteURL = viewModel.project.siteURL,
               let articleURL = siteURL.wmf_URL(withTitle: currentRecommendation.title),
@@ -856,7 +858,7 @@ extension WMFAppViewController: WMFImageRecommendationsDelegate, InsertMediaSett
             editPreviewViewController.delegate = self
             editPreviewViewController.loggingDelegate = self
 
-            navigationController?.pushViewController(editPreviewViewController, animated: true)
+            currentTabNavigationController?.pushViewController(editPreviewViewController, animated: true)
         } catch {
             showGenericError()
         }
@@ -958,7 +960,7 @@ extension WMFAppViewController: WMFImageRecommendationsDelegate, InsertMediaSett
                 imageRecLoggingDelegate: self,
                 theme: theme,
                 siteURL: siteURL)
-            self.imageRecommendationsViewModel = viewModel
+            self.imageRecommendationsViewModelWrapper = WMFImageRecommendationsViewModelObjcWrapper(viewModel: viewModel)
             currentTabNavigationController.pushViewController(insertMediaViewController, animated: true)
         }
     }
@@ -1006,14 +1008,13 @@ extension WMFAppViewController: WMFImageRecommendationsLoggingDelegate {
 
     public func logBottomSheetDidTapYes() {
         
-        // TODO: Grey
-//        if let viewModel = self.imageRecommendationsViewModel,
-//              let currentRecommendation = viewModel.currentRecommendation,
-//           let siteURL = viewModel.project.siteURL,
-//           let pageURL = siteURL.wmf_URL(withTitle: currentRecommendation.title) {
-//            currentRecommendation.suggestionAcceptDate = Date()
-//            EditAttemptFunnel.shared.logInit(pageURL: pageURL)
-//        }
+        if let viewModel = self.imageRecommendationsViewModelWrapper?.viewModel,
+              let currentRecommendation = viewModel.currentRecommendation,
+           let siteURL = viewModel.project.siteURL,
+           let pageURL = siteURL.wmf_URL(withTitle: currentRecommendation.title) {
+            currentRecommendation.suggestionAcceptDate = Date()
+            EditAttemptFunnel.shared.logInit(pageURL: pageURL)
+        }
         
         ImageRecommendationsFunnel.shared.logBottomSheetDidTapYes()
     }
@@ -1061,5 +1062,173 @@ extension WMFAppViewController: WMFImageRecommendationsLoggingDelegate {
     
     public func logEmptyStateDidTapBack() {
         ImageRecommendationsFunnel.shared.logEmptyStateDidTapBack()
+    }
+}
+
+extension WMFAppViewController: EditPreviewViewControllerDelegate {
+    func editPreviewViewControllerDidTapNext(pageURL: URL, sectionID: Int?, editPreviewViewController: EditPreviewViewController) {
+        guard let saveVC = EditSaveViewController.wmf_initialViewControllerFromClassStoryboard() else {
+            return
+        }
+
+        saveVC.dataStore = dataStore
+        saveVC.pageURL = pageURL
+        saveVC.sectionID = sectionID
+        saveVC.languageCode = pageURL.wmf_languageCode
+        saveVC.wikitext = editPreviewViewController.wikitext
+        saveVC.cannedSummaryTypes = [.addedImage, .addedImageAndCaption]
+        saveVC.needsSuppressPosting = WMFDeveloperSettingsDataController.shared.doNotPostImageRecommendationsEdit
+        saveVC.editTags = [.appSuggestedEdit, .appImageAddTop]
+
+        saveVC.delegate = self
+        saveVC.imageRecLoggingDelegate = self
+        saveVC.theme = self.theme
+        
+        currentTabNavigationController?.pushViewController(saveVC, animated: true)
+    }
+}
+
+extension WMFAppViewController: EditSaveViewControllerDelegate {
+    
+    func editSaveViewControllerDidSave(_ editSaveViewController: EditSaveViewController, result: Result<EditorChanges, any Error>, needsNewTempAccountToast: Bool? = false) {
+        
+        switch result {
+        case .success(let changes):
+            sendFeedbackAndPopToImageRecommendations(revID: changes.newRevisionID)
+        case .failure(let error):
+            showError(error)
+        }
+        
+    }
+    
+    private func sendFeedbackAndPopToImageRecommendations(revID: UInt64) {
+
+        guard let viewControllers = currentTabNavigationController?.viewControllers,
+              let imageRecommendationsViewModel = imageRecommendationsViewModelWrapper?.viewModel,
+        let currentRecommendation = imageRecommendationsViewModel.currentRecommendation else {
+            return
+        }
+        
+        for viewController in viewControllers {
+            if viewController is WMFImageRecommendationsViewController {
+                currentTabNavigationController?.popToViewController(viewController, animated: true)
+                
+                // Send Feedback
+                imageRecommendationsViewModel.sendFeedback(editRevId: revID, accepted: true, caption: currentRecommendation.caption) { result in
+                }
+                
+                currentRecommendation.lastRevisionID = revID
+                
+                // Go to next recommendation and display success alert
+                imageRecommendationsViewModel.next {
+                    
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+
+                        let title = CommonStrings.editPublishedToastTitle
+                        let image = UIImage(systemName: "checkmark.circle.fill")
+                        
+                        if UIAccessibility.isVoiceOverRunning {
+                            UIAccessibility.post(notification: UIAccessibility.Notification.announcement, argument: title)
+                        } else {
+                            WMFAlertManager.sharedInstance.showBottomAlertWithMessage(title, subtitle: nil, image: image, type: .custom, customTypeName: "edit-published", dismissPreviousAlerts: true)
+                        }
+                    }
+                    
+                }
+                
+                break
+            }
+        }
+    }
+
+    
+    func editSaveViewControllerWillCancel(_ saveData: EditSaveViewController.SaveData) {
+        // no-op
+    }
+    
+    func editSaveViewControllerDidTapShowWebPreview() {
+        assertionFailure("This should not be called in the Image Recommendations context")
+    }
+}
+
+extension WMFAppViewController: EditSaveViewControllerImageRecLoggingDelegate {
+    
+    func logEditSaveViewControllerDidAppear() {
+        ImageRecommendationsFunnel.shared.logSaveChangesDidAppear()
+    }
+    
+    func logEditSaveViewControllerDidTapBack() {
+        ImageRecommendationsFunnel.shared.logSaveChangesDidTapBack()
+    }
+    
+    func logEditSaveViewControllerDidTapMinorEditsLearnMore() {
+        ImageRecommendationsFunnel.shared.logSaveChangesDidTapMinorEditsLearnMore()
+    }
+    
+    func logEditSaveViewControllerDidTapWatchlistLearnMore() {
+        ImageRecommendationsFunnel.shared.logSaveChangesDidTapWatchlistLearnMore()
+    }
+    
+    func logEditSaveViewControllerDidToggleWatchlist(isOn: Bool) {
+        ImageRecommendationsFunnel.shared.logSaveChangesDidToggleWatchlist(isOn: isOn)
+    }
+    
+    func logEditSaveViewControllerDidTapPublish(minorEditEnabled: Bool, watchlistEnabled: Bool) {
+        ImageRecommendationsFunnel.shared.logSaveChangesDidTapPublish(minorEditEnabled: minorEditEnabled, watchlistEnabled: watchlistEnabled)
+    }
+    
+    func logEditSaveViewControllerPublishSuccess(revisionID: Int, summaryAdded: Bool) {
+        
+        guard let viewModel = imageRecommendationsViewModelWrapper?.viewModel,
+              let currentRecommendation = viewModel.currentRecommendation else {
+            return
+        }
+        
+        var timeSpent: Int? = nil
+        if let suggestionAcceptDate = currentRecommendation.suggestionAcceptDate {
+            timeSpent = Int(Date().timeIntervalSince(suggestionAcceptDate))
+        }
+        
+        ImageRecommendationsFunnel.shared.logSaveChangesPublishSuccess(timeSpent: timeSpent, revisionID: revisionID, captionAdded: currentRecommendation.caption != nil, altTextAdded: currentRecommendation.altText != nil, summaryAdded: summaryAdded)
+    }
+    
+    func logEditSaveViewControllerLogPublishFailed(abortSource: String?) {
+        ImageRecommendationsFunnel.shared.logSaveChangesPublishFail(abortSource: abortSource)
+    }
+    
+ }
+
+extension WMFAppViewController: EditPreviewViewControllerLoggingDelegate {
+    func logEditPreviewDidAppear() {
+        ImageRecommendationsFunnel.shared.logPreviewDidAppear()
+    }
+    
+    func logEditPreviewDidTapBack() {
+        ImageRecommendationsFunnel.shared.logPreviewDidTapBack()
+    }
+    
+    func logEditPreviewDidTapNext() {
+        
+        if let viewModel = imageRecommendationsViewModelWrapper?.viewModel,
+              let currentRecommendation = viewModel.currentRecommendation,
+           let siteURL = viewModel.project.siteURL,
+           let pageURL = siteURL.wmf_URL(withTitle: currentRecommendation.title) {
+            EditAttemptFunnel.shared.logSaveIntent(pageURL: pageURL)
+        }
+        
+        ImageRecommendationsFunnel.shared.logPreviewDidTapNext()
+    }
+}
+
+@objc public final class WMFImageRecommendationsViewModelObjcWrapper: NSObject {
+    public var viewModel: WMFImageRecommendationsViewModel?
+
+    public init(viewModel: WMFImageRecommendationsViewModel?) {
+        self.viewModel = viewModel
+        super.init()
+    }
+    
+    @objc override public init() {
+        // Nothing
     }
 }
