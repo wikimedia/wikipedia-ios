@@ -1,4 +1,5 @@
 import CocoaLumberjackSwift
+import WMFData
 
 enum RemoteNotificationsOperationsError: LocalizedError {
     case failurePullingAppLanguage
@@ -175,7 +176,7 @@ class RemoteNotificationsOperationsController: NSObject {
         }
     }
  
-    private func secondaryProjects(appLanguage: MWKLanguageLink) -> [WikimediaProject] {
+    private func determineSecondaryProjects(appLanguage: MWKLanguageLink) -> [WikimediaProject] {
         
         let otherLanguages = languageLinkController.preferredLanguages.filter { $0.languageCode != appLanguage.languageCode }
 
@@ -198,7 +199,12 @@ class RemoteNotificationsOperationsController: NSObject {
         }
         
         let appLanguageProject = WikimediaProject.wikipedia(appLanguage.languageCode, appLanguage.localizedName, appLanguage.languageVariantCode)
-        let secondaryProjects = secondaryProjects(appLanguage: appLanguage)
+        
+        // do not fetch secondary projects if auth state is temp account
+        var secondaryProjects: [WikimediaProject] = []
+        if authManager.authStateIsPermanent {
+            secondaryProjects = determineSecondaryProjects(appLanguage: appLanguage)
+        }
         
         // basic operations first - primary language then secondary (languages, commons & wikidata)
         let appLanguageOperation = pagingOperationForProject(appLanguageProject, isAppLanguageProject: true)
