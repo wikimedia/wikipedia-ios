@@ -79,10 +79,12 @@ import WMFData
     public struct LocalizedStrings {
         let activityTabViewReadingHistory: String
         let activityTabViewSavedArticles: String
-        
-        public init(activityTabViewReadingHistory: String, activityTabViewSavedArticles: String) {
+        let localizedTabTitle: String
+
+        public init(activityTabViewReadingHistory: String, activityTabViewSavedArticles: String, localizedTabTitle: String) {
             self.activityTabViewReadingHistory = activityTabViewReadingHistory
             self.activityTabViewSavedArticles = activityTabViewSavedArticles
+            self.localizedTabTitle = localizedTabTitle
         }
     }
 }
