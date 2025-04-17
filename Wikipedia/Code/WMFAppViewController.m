@@ -117,7 +117,7 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
 @end
 
 @interface WMFAppViewController ()
-@property (nonatomic, strong, nullable) WMFImageRecommendationsViewModel *imageRecommendationsViewModel;
+@property (nonatomic, strong, nullable) WMFImageRecommendationsViewModelObjcWrapper *imageRecommendationsViewModelWrapper;
 @end
 
 
@@ -158,6 +158,8 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
     [self applyTheme:self.theme];
 
     [self updateAppEnvironmentWithTheme:self.theme traitCollection:self.traitCollection];
+    
+    self.imageRecommendationsViewModelWrapper = [[WMFImageRecommendationsViewModelObjcWrapper alloc] init];
 
     self.backgroundTasks = [NSMutableDictionary dictionaryWithCapacity:5];
 

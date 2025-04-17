@@ -829,7 +829,8 @@ extension WMFAppViewController {
 
 extension WMFAppViewController: WMFImageRecommendationsDelegate, InsertMediaSettingsViewControllerDelegate, InsertMediaSettingsViewControllerLoggingDelegate {
     func insertMediaSettingsViewControllerDidTapProgress(imageWikitext: String, caption: String?, altText: String?, localizedFileTitle: String) {
-        guard let viewModel = self.imageRecommendationsViewModel,
+        
+        guard let viewModel = self.imageRecommendationsViewModelWrapper.viewModel,
         let currentRecommendation = viewModel.currentRecommendation,
                     let siteURL = viewModel.project.siteURL,
               let articleURL = siteURL.wmf_URL(withTitle: currentRecommendation.title),

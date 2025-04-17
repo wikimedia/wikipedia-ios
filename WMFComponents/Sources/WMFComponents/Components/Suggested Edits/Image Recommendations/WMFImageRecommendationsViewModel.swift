@@ -170,7 +170,6 @@ public final class WMFImageRecommendationsViewModel: ObservableObject {
         self.articleSummaryDataController = WMFArticleSummaryDataController()
         self.imageDataController = WMFImageDataController()
         self.imageRecommendationsDataController = WMFImageRecommendationsDataController()
-        super.init()
         
         $loading
             .removeDuplicates()
@@ -389,3 +388,17 @@ public final class WMFImageRecommendationsViewModel: ObservableObject {
         return imageData
     }
 }
+
+@objc public final class WMFImageRecommendationsViewModelObjcWrapper: NSObject {
+    public var viewModel: WMFImageRecommendationsViewModel?
+
+    public init(viewModel: WMFImageRecommendationsViewModel?) {
+        self.viewModel = viewModel
+        super.init()
+    }
+    
+    @objc override public init() {
+        // Nothing
+    }
+}
+
