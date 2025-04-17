@@ -193,6 +193,7 @@
 "description-welcome-descriptions-title" = "Article descriptions";
 "description-welcome-promise-title" = "By starting, I promise not to misuse this feature";
 "description-welcome-start-editing-button" = "Start editing";
+"developer-force-email-auth" = "Force email auth";
 "developer-settings" = "Developer Settings";
 "developer-settings-bypass-donation" = "Bypass Donation";
 "developer-settings-enable-year-in-review" = "Enable Year in Review";
@@ -508,6 +509,7 @@
 "field-alert-token-invalid" = "Invalid code";
 "field-alert-username-unavailable" = "Username not available";
 "field-backup-token-title" = "Backup code";
+"field-backup-token-title-email" = "Email code";
 "field-captcha-placeholder" = "CAPTCHA text";
 "field-captcha-title" = "Enter the text you see above";
 "field-email-placeholder" = "example@example.org";
@@ -1239,6 +1241,8 @@
 "top-read-widget-title" = "Top read";
 "try-now-title" = "Try now";
 "tutorial-title" = "Tutorial";
+"two-factor-email-login-continue" = "Continue log in";
+"two-factor-email-login-instructions" = "Please enter email verification code";
 "two-factor-login-continue" = "Continue log in";
 "two-factor-login-instructions" = "Please enter two factor verification code";
 "two-factor-login-title" = "Log in to your account";
