@@ -6,6 +6,7 @@ import WMFData
     @Published var activityItems: [ActivityItem]?
     @Published public var isLoggedIn: Bool
     @Published public var project: WMFProject?
+    var username: String
     var shouldShowAddAnImage: Bool
     var shouldShowStartEditing: Bool
     var hasNoEdits: Bool
@@ -13,14 +14,11 @@ import WMFData
     @Published public var loginAction: (() -> Void)?
     let openSavedArticles: () -> Void
     let openSuggestedEdits: (() -> Void)?
+    let openStartEditing: (() -> Void)?
     public var savedSlideDataDelegate: SavedArticleSlideDataDelegate?
     public var legacyPageViewsDataDelegate: LegacyPageViewsDataDelegate?
     
     // TODO: Localize strings
-    // No edits strings
-    let noEditsTitle = "You haven't made any edits yet."
-    let noEditsSubtitle = "Start editing to begin tracking your contributions."
-    let noEditsButtonTitle = "Start editing"
     
     // Add an image strings
     let addAnImageButtonTitle = "Add"
@@ -33,6 +31,7 @@ import WMFData
     
     public init(
             localizedStrings: LocalizedStrings,
+            username: String,
             activityItems: [ActivityItem]? = nil,
             shouldShowAddAnImage: Bool,
             shouldShowStartEditing: Bool,
@@ -40,9 +39,11 @@ import WMFData
             openHistory: @escaping () -> Void,
             openSavedArticles: @escaping () -> Void,
             openSuggestedEdits: (() -> Void)?,
+            openStartEditing: (() -> Void)?,
             loginAction: (() -> Void)?,
             isLoggedIn: Bool) {
         self.activityItems = activityItems
+        self.username = username
         self.shouldShowAddAnImage = shouldShowAddAnImage
         self.shouldShowStartEditing = shouldShowStartEditing
         self.hasNoEdits = hasNoEdits
@@ -52,6 +53,7 @@ import WMFData
         self.localizedStrings = localizedStrings
         self.isLoggedIn = isLoggedIn
         self.openSuggestedEdits = openSuggestedEdits
+        self.openStartEditing = openStartEditing
     }
     
     func title(for type: ActivityTabDisplayType) -> String? {
@@ -62,6 +64,8 @@ import WMFData
             return localizedStrings.activityTabViewReadingHistory
         case .save:
             return localizedStrings.activityTabViewSavedArticles
+        case .noEdit:
+            return localizedStrings.activityTabNoEditsButtonTitle
         }
     }
     
@@ -73,36 +77,40 @@ import WMFData
             return openHistory
         case .save:
             return openSavedArticles
+        case .noEdit:
+            return openStartEditing
         }
     }
-    
+
     public struct LocalizedStrings {
         let activityTabViewReadingHistory: String
         let activityTabViewSavedArticles: String
-        let localizedTabTitle: String
+        let activityTabNoEditsTitle: String
+        let activityTabNoEditsSubtitle: String
+        let activityTabNoEditsButtonTitle: String
+        let tabTitle: String
 
-        public init(activityTabViewReadingHistory: String, activityTabViewSavedArticles: String, localizedTabTitle: String) {
+        public init(activityTabViewReadingHistory: String, activityTabViewSavedArticles: String, activityTabNoEditsTitle: String, activityTabNoEditsSubtitle: String, activityTabNoEditsButtonTitle: String, tabTitle: String) {
             self.activityTabViewReadingHistory = activityTabViewReadingHistory
             self.activityTabViewSavedArticles = activityTabViewSavedArticles
-            self.localizedTabTitle = localizedTabTitle
+            self.activityTabNoEditsTitle = activityTabNoEditsTitle
+            self.activityTabNoEditsSubtitle = activityTabNoEditsSubtitle
+            self.activityTabNoEditsButtonTitle = activityTabNoEditsButtonTitle
+            self.tabTitle = tabTitle
         }
     }
 }
 
 public struct ActivityItem {
-    let imageName: String
+    let imageName: String?
     let title: String
+    let subtitle: String?
     let type: ActivityTabDisplayType
-    
-    public init(imageName: String, title: String, type: ActivityTabDisplayType) {
-        self.imageName = imageName
-        self.title = title
-        self.type = type
-    }
 }
 
 public enum ActivityTabDisplayType {
     case edit
     case read
     case save
+    case noEdit
 }

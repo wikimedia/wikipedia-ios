@@ -21,18 +21,13 @@ public struct WMFActivityView: View {
                 VStack(alignment: .leading, spacing: 8) {
                     if viewModel.hasNoEdits {
                         noEditsView
-                        if viewModel.shouldShowStartEditing {
-                            startEditingButton
-                        } else if viewModel.shouldShowAddAnImage {
-                            suggestedEditsView
-                        }
                     } else if viewModel.shouldShowAddAnImage {
                         Text(viewModel.suggestedEdits)
                         suggestedEditsView // TODO: add editing activity item a bove
                     }
                     if let activityItems = viewModel.activityItems {
                         ForEach(activityItems, id: \.title) { item in
-                            WMFActivityComponentView(activityItem: item, title: viewModel.title(for: item.type), onButtonTap: viewModel.action(for: item.type))
+                            WMFActivityComponentView(activityItem: item, title: viewModel.title(for: item.type), onButtonTap: viewModel.action(for: item.type), shouldDisplayButton: true)
                                 .padding(.vertical, 12)
                                 .frame(maxWidth: .infinity, alignment: .leading)
                         }
@@ -41,22 +36,24 @@ public struct WMFActivityView: View {
                 }
                 Spacer()
             }
-            .padding()
+            .padding(16)
             .onAppear {
                 Task {
-                    
                     guard let project = viewModel.project else { return }
                     
                     let dataController = try WMFActivityDataController()
                     dataController.savedSlideDataDelegate = viewModel.savedSlideDataDelegate
                     dataController.legacyPageViewsDataDelegate = viewModel.legacyPageViewsDataDelegate
                     let activity = try await dataController.fetchAllStuff(username: "TSevener (WMF)", project: project)
-
-                    let testItems = [
-                        ActivityItem(imageName: "pencil", title: "You edited \(activity.editedCount ?? 0) article(s) this week.", type: .edit),
-                        ActivityItem(imageName: "square.text.square", title: "You read \(activity.readCount) articles this week.", type: .read),
-                        ActivityItem(imageName: "bookmark.fill", title: "You saved \(activity.savedCount) articles this week", type: .save)
+                    var testItems = [
+                        ActivityItem(imageName: "square.text.square", title: "You read \(activity.readCount) articles this week.", subtitle: nil, type: .read),
+                        ActivityItem(imageName: "bookmark.fill", title: "You saved \(activity.savedCount) articles this week", subtitle: nil, type: .save)
                     ]
+
+                    if !viewModel.hasNoEdits {
+                        let editsItem = ActivityItem(imageName: "pencil", title: "You edited \(activity.editedCount ?? 0) article(s) this week.", subtitle: nil, type: .edit)
+                            testItems.insert(editsItem, at: 0)
+                    }
 
                     viewModel.activityItems = testItems
                 }
@@ -70,17 +67,11 @@ public struct WMFActivityView: View {
 
     private var noEditsView: some View {
         VStack(alignment: .leading, spacing: 4) {
-            Text(viewModel.noEditsTitle)
-                .font(Font(WMFFont.for(.boldSubheadline)))
-            Text(viewModel.noEditsSubtitle)
-                .font(Font(WMFFont.for(.subheadline)))
+            let item = ActivityItem(imageName: nil, title: viewModel.localizedStrings.activityTabNoEditsTitle, subtitle: viewModel.localizedStrings.activityTabNoEditsSubtitle, type: .noEdit)
+            // TODO: - get AB testing for `shouldDisplayButton`
+            WMFActivityComponentView(activityItem: item, title: viewModel.title(for: item.type), onButtonTap: viewModel.action(for: item.type), shouldDisplayButton: true)
         }
-    }
-
-    private var startEditingButton: some View {
-        Button(viewModel.noEditsButtonTitle) {
-            print("Start editing")
-        }
+        .padding([.bottom], 20)
     }
 
     private var suggestedEditsView: some View {

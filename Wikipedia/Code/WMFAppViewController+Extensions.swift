@@ -754,20 +754,29 @@ extension WMFAppViewController {
             
             navigationController.pushViewController(vc, animated: true)
         }
-        
+
+        let openStartEditing = {
+            print("⭐️")
+        }
+
         let isLoggedIn = dataStore.authenticationManager.authStateIsPermanent
-        let localizedStrings = WMFActivityViewModel.LocalizedStrings(
-            activityTabViewReadingHistory: CommonStrings.activityTabViewReadingHistoryTitle,
-            activityTabViewSavedArticles: CommonStrings.activityTabViewSavedArticlesTitle, localizedTabTitle: CommonStrings.activityTitle
-        )
+        let localizedStrings = WMFActivityViewModel.LocalizedStrings(activityTabViewReadingHistory: CommonStrings.activityTabViewReadingHistoryTitle, activityTabViewSavedArticles: CommonStrings.activityTabViewSavedArticlesTitle, activityTabNoEditsTitle: "You haven’t made any edits yet.", activityTabNoEditsSubtitle: "Start editing to begin tracking your contributions.", activityTabNoEditsButtonTitle: "Start editing", tabTitle: CommonStrings.activityTitle)
+        var editCount = 0
+        if let siteURL = self.dataStore.languageLinkController.appLanguage?.siteURL {
+            editCount = Int(self.dataStore.authenticationManager.user(siteURL: siteURL)?.editCount ?? 0)
+        }
+
+        let hasNoEdits = editCount == 0
         let viewModel = WMFActivityViewModel(
             localizedStrings: localizedStrings,
-            shouldShowAddAnImage: false,
-            shouldShowStartEditing: false,
-            hasNoEdits: false,
+            username: dataStore.authenticationManager.authStatePermanentUsername ?? String(), // TODO: Error handling with logged out / error state
+            shouldShowAddAnImage: editCount >= 50,
+            shouldShowStartEditing: editCount <= 50,
+            hasNoEdits: hasNoEdits,
             openHistory: openHistoryClosure,
             openSavedArticles: openSavedArticlesClosure,
             openSuggestedEdits: openSuggestedEditsClosure,
+            openStartEditing: openStartEditing,
             loginAction: nil,
             isLoggedIn: isLoggedIn)
         
