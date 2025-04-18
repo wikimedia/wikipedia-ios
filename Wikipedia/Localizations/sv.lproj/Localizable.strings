@@ -98,6 +98,9 @@
 "action-unsave" = "Ta bort";
 "action-unsaved-accessibility-notification" = "Artikeln togs bort";
 "action-update" = "Uppdatera";
+"activity-tab-add-images-subtitle" = "Lägg till föreslagna bilder till Wikipediaartiklar för att öka förståelsen.";
+"activity-tab-add-images-title" = "Lägg till bilder";
+"activity-tab-additional-thoughts" = "Några ytterligare kommentarer?";
 "add-articles-to-reading-list" = "Lägg till {{PLURAL:$1|$1 artikel|$1 artiklar}} i läslista";
 "advanced-settings-title" = "Avancerade inställningar";
 "alt-text-feedback-survey-toast-title" = "Återkoppling har skickats";
@@ -1210,6 +1213,8 @@
 "talk-pages-user-groups" = "Användargrupper";
 "talk-pages-user-logs" = "Loggar";
 "talk-pages-view-title" = "Diskussion";
+"temp-account-got-it" = "Jag förstår";
+"temp-account-toast-read-more-title" = "Läs mer";
 "terms-of-use-title" = "Användarvillkor";
 "theme-black-display-name" = "Svart";
 "theme-dark-display-name" = "Mörkt";

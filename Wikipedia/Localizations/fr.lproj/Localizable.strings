@@ -7,6 +7,7 @@
 // Author: Daniel236
 // Author: DavidL
 // Author: Derugon
+// Author: EmDashUser002
 // Author: Eneelk
 // Author: Envlh
 // Author: Eric.LEWIN
@@ -122,6 +123,9 @@
 "action-unsave" = "Non enregistré";
 "action-unsaved-accessibility-notification" = "Article non sauvegardé";
 "action-update" = "Mettre à jour";
+"activity-tab-no-edits-title" = "Vous n'avez pas encore effectué de modifications.";
+"activity-tab-title" = "Activité";
+"activity-tab-view-reading-history" = "Afficher l’historique des modifications";
 "add-articles-to-reading-list" = "Ajouter $1 article{{PLURAL:$1||s}} à la liste de lecture";
 "advanced-settings-title" = "Paramètres avancés";
 "alt-text-feedback-survey-toast-title" = "Commentaires soumis";
