@@ -63,7 +63,7 @@ final class TempAccountSheetCoordinator: Coordinator {
         var hostingController: UIHostingController<WMFTempAccountsSheetView>?
         if let tempUser = authManager.authStateTemporaryUsername {
             let vm = WMFTempAccountsSheetViewModel(
-                image: "pageMessage",
+                image: "page-message",
                 title: CommonStrings.tempWarningTitle,
                 subtitle: tempEditorSubtitleString(tempUsername: tempUser),
                 ctaTopString: WMFLocalizedString("temp-account-edit-sheet-cta-top", value: "Log in or create an account", comment: "Temporary account sheet for editors, log in/sign up."),
