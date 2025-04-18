@@ -782,8 +782,15 @@ extension WMFAppViewController {
         
         viewModel.savedSlideDataDelegate = dataStore.savedPageList
         viewModel.legacyPageViewsDataDelegate = dataStore
+        
+        let showSurveyClosure = {
+            let surveyVC = self.surveyViewController()
+            self.currentTabNavigationController?.present(surveyVC, animated: true, completion: {
+                DonateFunnel.shared.logYearInReviewSurveyDidAppear()
+            })
+        }
 
-        let activityTabViewController = WMFActivityTabViewController(viewModel: viewModel)
+        let activityTabViewController = WMFActivityTabViewController(viewModel: viewModel, showSurvey: showSurveyClosure)
         
         let loginAction = { [weak self] in
             guard let self = self else { return }
@@ -833,6 +840,37 @@ extension WMFAppViewController {
     @objc func updateActivityTabLoginState(activityTabViewController: WMFActivityTabViewController) {
         let isLoggedIn = dataStore.authenticationManager.authStateIsPermanent
         activityTabViewController.viewModel.isLoggedIn = isLoggedIn
+    }
+    
+    private func surveyViewController() -> UIViewController {
+        let surveyLocalizedStrings = WMFSurveyViewModel.LocalizedStrings(
+            title: CommonStrings.activityTabSurveyTitle,
+            cancel: CommonStrings.cancelActionTitle,
+            submit: CommonStrings.surveySubmitActionTitle,
+            subtitle: CommonStrings.activityTabSurvey,
+            instructions: nil,
+            otherPlaceholder: CommonStrings.activityTabSurveyAdditionalThoughts
+        )
+
+        let surveyOptions = [
+            WMFSurveyViewModel.OptionViewModel(text: CommonStrings.activityTabSurveyVerySatisfied, apiIdentifer: "v_satisfied"),
+            WMFSurveyViewModel.OptionViewModel(text: CommonStrings.activityTabSurveySatisfied, apiIdentifer: "satisfied"),
+            WMFSurveyViewModel.OptionViewModel(text: CommonStrings.activityTabSurveyNeutral, apiIdentifer: "neutral"),
+            WMFSurveyViewModel.OptionViewModel(text: CommonStrings.activityTabSurveyUnsatisfied, apiIdentifer: "unsatisfied"),
+            WMFSurveyViewModel.OptionViewModel(text: CommonStrings.activityTabSurveyVeryUnsatisfied, apiIdentifer: "v_unsatisfied")
+        ]
+
+        let surveyView = WMFSurveyView(viewModel: WMFSurveyViewModel(localizedStrings: surveyLocalizedStrings, options: surveyOptions, selectionType: .single), cancelAction: { [weak self] in
+            self?.currentTabNavigationController?.dismiss(animated: true)
+        }, submitAction: { [weak self] options, otherText in
+            self?.currentTabNavigationController?.dismiss(animated: true, completion: {
+                let image = UIImage(systemName: "checkmark.circle.fill")
+                WMFAlertManager.sharedInstance.showBottomAlertWithMessage(CommonStrings.feedbackSurveyToastTitle, subtitle: nil, image: image, type: .custom, customTypeName: "feedback-submitted", dismissPreviousAlerts: true)
+            })
+        })
+
+        let hostedView = WMFComponentHostingController(rootView: surveyView)
+        return hostedView
     }
 }
 
