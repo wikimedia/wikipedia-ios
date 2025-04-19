@@ -875,6 +875,12 @@
 		67E5DA5E2761B0AB00CE827D /* NotificationsCenterFilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67E5DA5B2761B0AB00CE827D /* NotificationsCenterFilterView.swift */; };
 		67E5DA6B276416A600CE827D /* RemoteNotificationsRefreshCrossWikiOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67E5DA6A276416A600CE827D /* RemoteNotificationsRefreshCrossWikiOperation.swift */; };
 		67E6532C2BEC1E140024F699 /* InsertMediaSettingsViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67E6532B2BEC1E140024F699 /* InsertMediaSettingsViewControllerTests.swift */; };
+		67E755F02DB3671500C27943 /* ArticleTopics.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 67E755EF2DB3671500C27943 /* ArticleTopics.mlmodel */; };
+		67E755F12DB3671500C27943 /* ArticleTopics.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 67E755EF2DB3671500C27943 /* ArticleTopics.mlmodel */; };
+		67E755F22DB3671500C27943 /* ArticleTopics.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 67E755EF2DB3671500C27943 /* ArticleTopics.mlmodel */; };
+		67E755F42DB367C500C27943 /* HistoryTopicsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67E755F32DB367B700C27943 /* HistoryTopicsViewController.swift */; };
+		67E755F52DB367C500C27943 /* HistoryTopicsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67E755F32DB367B700C27943 /* HistoryTopicsViewController.swift */; };
+		67E755F62DB367C500C27943 /* HistoryTopicsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67E755F32DB367B700C27943 /* HistoryTopicsViewController.swift */; };
 		67E8B07B226A57DE00537BC9 /* AccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67F73E6C2267B79E0079DEEF /* AccountViewController.swift */; };
 		67E8B07C226A57DE00537BC9 /* AccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67F73E6C2267B79E0079DEEF /* AccountViewController.swift */; };
 		67F1375E23C986CD00512B61 /* CacheTaskTracking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67F1375D23C986CD00512B61 /* CacheTaskTracking.swift */; };
@@ -3431,6 +3437,8 @@
 		67E5DA5B2761B0AB00CE827D /* NotificationsCenterFilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsCenterFilterView.swift; sourceTree = "<group>"; };
 		67E5DA6A276416A600CE827D /* RemoteNotificationsRefreshCrossWikiOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteNotificationsRefreshCrossWikiOperation.swift; sourceTree = "<group>"; };
 		67E6532B2BEC1E140024F699 /* InsertMediaSettingsViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsertMediaSettingsViewControllerTests.swift; sourceTree = "<group>"; };
+		67E755EF2DB3671500C27943 /* ArticleTopics.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = ArticleTopics.mlmodel; sourceTree = "<group>"; };
+		67E755F32DB367B700C27943 /* HistoryTopicsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryTopicsViewController.swift; sourceTree = "<group>"; };
 		67E8B0B6226F5E3800537BC9 /* Wikipedia 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Wikipedia 2.xcdatamodel"; sourceTree = "<group>"; };
 		67F1375D23C986CD00512B61 /* CacheTaskTracking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheTaskTracking.swift; sourceTree = "<group>"; };
 		67F35A6523E875B900C3D6C7 /* WMFLanguagesViewControllerDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMFLanguagesViewControllerDelegate.h; sourceTree = "<group>"; };
@@ -7923,6 +7931,8 @@
 				830D71C21F703C980080078B /* ArticleURLListViewController.swift */,
 				830D71CE1F704DD40080078B /* ArticleFetchedResultsViewController.swift */,
 				7A29A5C71F6C405900E8F42B /* HistoryViewController.swift */,
+				67E755EF2DB3671500C27943 /* ArticleTopics.mlmodel */,
+				67E755F32DB367B700C27943 /* HistoryTopicsViewController.swift */,
 				D818D38A1ED765470076110D /* ArticleLocationCollectionViewController.swift */,
 				83927D7A1F70570400051890 /* DisambiguationPagesViewController.swift */,
 				83927D801F705B7B00051890 /* SearchResultsViewController.swift */,
@@ -10372,9 +10382,11 @@
 				67DC5BEF23A1427D00B03A84 /* ActionHandlerScript.swift in Sources */,
 				679E6F9E2C44462400B6E9F1 /* UIViewController+Popover.swift in Sources */,
 				7A6ED51220ADBF950001849F /* ReadingListsFunnel.swift in Sources */,
+				67E755F22DB3671500C27943 /* ArticleTopics.mlmodel in Sources */,
 				83B01F9523DB41D7001185F4 /* ArticleViewController+FindInPage.swift in Sources */,
 				B0E804BF1C0CE0B40065EBC0 /* DDLog+WMFLogger.m in Sources */,
 				83FDE799293564AC006D55FE /* Link.swift in Sources */,
+				67E755F52DB367C500C27943 /* HistoryTopicsViewController.swift in Sources */,
 				0E281A331DC263DE00FA1AB1 /* WMFLegacyReference.swift in Sources */,
 				7ABAD6BF20349B91006A364C /* Collection.swift in Sources */,
 				67BEFFD528AD9DF000606B38 /* TalkPageType.swift in Sources */,
@@ -10975,6 +10987,7 @@
 				83CA612B20D1675800EF0C4A /* ExploreCardViewController.swift in Sources */,
 				8356115F28D4FCEC00E95E6E /* NSMutableAttributedString+RemoveNewLine.swift in Sources */,
 				6798332A22C3F2940073CE6F /* UITextView+Extensions.swift in Sources */,
+				67E755F62DB367C500C27943 /* HistoryTopicsViewController.swift in Sources */,
 				7A5A0544225FBE0500BBEAC1 /* InsertMediaSearchResultCollectionViewCell.swift in Sources */,
 				D8CE252E1E698E2400DAE2E0 /* WMFArticleRevisionFetcher.m in Sources */,
 				00E75B5F27EB874A00A45B78 /* NotificationsCenterDetailViewController.swift in Sources */,
@@ -11011,6 +11024,7 @@
 				7A1469BE220BBE44000A20F1 /* EditHintViewController.swift in Sources */,
 				6780CF252967683800D45927 /* TalkPageArchivesViewController.swift in Sources */,
 				D8CE254E1E698E2400DAE2E0 /* WKWebView+WMFWebViewControllerJavascript.m in Sources */,
+				67E755F02DB3671500C27943 /* ArticleTopics.mlmodel in Sources */,
 				6780CF2A2967690200D45927 /* TalkPageArchivesView.swift in Sources */,
 				830AD2BB24D1D615003EEFE6 /* WebPageUserScript.swift in Sources */,
 				7A71565C226964500066FEC4 /* InsertMediaImagePositionSettingsViewController.swift in Sources */,
@@ -11526,6 +11540,7 @@
 				D8EC3E1B1E9BDA35006712EB /* (null) in Sources */,
 				B0C7A0851F710EB1008415E7 /* WMFWelcomeAnalyticsAnimationBackgroundView.swift in Sources */,
 				67DB49BF2BD1CED9006E64CE /* ImageRecommendationsFunnel.swift in Sources */,
+				67E755F42DB367C500C27943 /* HistoryTopicsViewController.swift in Sources */,
 				8356115E28D4FCEC00E95E6E /* NSMutableAttributedString+RemoveNewLine.swift in Sources */,
 				6798332B22C3F2950073CE6F /* UITextView+Extensions.swift in Sources */,
 				7A5A0545225FBE0500BBEAC1 /* InsertMediaSearchResultCollectionViewCell.swift in Sources */,
@@ -11562,6 +11577,7 @@
 				7AF8B7442102297A009772CC /* SearchSettingsViewController.swift in Sources */,
 				6780CF242967683800D45927 /* TalkPageArchivesViewController.swift in Sources */,
 				7A1469BF220BBE44000A20F1 /* EditHintViewController.swift in Sources */,
+				67E755F12DB3671500C27943 /* ArticleTopics.mlmodel in Sources */,
 				6780CF292967690200D45927 /* TalkPageArchivesView.swift in Sources */,
 				D8EC3E3E1E9BDA35006712EB /* PageHistorySection.swift in Sources */,
 				7A71565D226964500066FEC4 /* InsertMediaImagePositionSettingsViewController.swift in Sources */,

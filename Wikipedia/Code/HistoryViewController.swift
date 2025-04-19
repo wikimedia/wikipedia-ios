@@ -180,16 +180,23 @@ class HistoryViewController: ArticleFetchedResultsViewController, WMFNavigationB
         let hideNavigationBarOnScroll = !isEmpty
         
         let deleteButton = UIBarButtonItem(title: deleteAllButtonText, style: .plain, target: self, action: #selector(deleteButtonPressed(_:)))
+        let topicsButton = UIBarButtonItem(title: "Topics", style: .plain, target: self, action: #selector(topicsButtonPressed(_:)))
         deleteButton.isEnabled = !isEmpty
         
         let profileButtonConfig: WMFNavigationBarProfileButtonConfig?
         if let dataStore {
-            profileButtonConfig = self.profileButtonConfig(target: self, action: #selector(userDidTapProfile), dataStore: dataStore, yirDataController: yirDataController, leadingBarButtonItem: deleteButton, trailingBarButtonItem: nil)
+            profileButtonConfig = self.profileButtonConfig(target: self, action: #selector(userDidTapProfile), dataStore: dataStore, yirDataController: yirDataController, leadingBarButtonItem: deleteButton, trailingBarButtonItem: topicsButton)
         } else {
             profileButtonConfig = nil
         }
 
         configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: nil, profileButtonConfig: profileButtonConfig, searchBarConfig: nil, hideNavigationBarOnScroll: hideNavigationBarOnScroll)
+    }
+    
+    @objc final func topicsButtonPressed(_ sender: UIBarButtonItem) {
+        let vc = HistoryTopicsViewController()
+        vc.dataStore = dataStore
+        present(vc, animated: true)
     }
     
     private func updateProfileButton() {
