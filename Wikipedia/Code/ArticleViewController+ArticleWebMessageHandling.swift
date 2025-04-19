@@ -38,7 +38,7 @@ extension ArticleViewController: ArticleWebMessageHandling {
     }
     
     func handleTableOfContents(items: [TableOfContentsItem]) {
-        let titleItem = TableOfContentsItem(id: 0, titleHTML: article.displayTitleHTML, anchor: "", rootItemId: 0, indentationLevel: 0)
+        let titleItem = TableOfContentsItem(id: 0, titleHTML: article.displayTitle ?? article.displayTitleHTML, anchor: "", rootItemId: 0, indentationLevel: 0)
         var allItems: [TableOfContentsItem] = [titleItem]
         allItems.append(contentsOf: items)
 
