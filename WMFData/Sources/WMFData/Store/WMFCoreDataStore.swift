@@ -167,24 +167,32 @@ public final class WMFCoreDataStore {
         }
         
         let backgroundContext = try newBackgroundContext
-        try await backgroundContext.perform {
+        try await backgroundContext.perform { [weak self] in
             
-            // Delete WMFPageViews that were added > one year ago
-            let predicate = NSPredicate(format: "timestamp < %@", argumentArray: [oneYearAgoDate])
-            let pageViewFetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "CDPageView")
-            pageViewFetchRequest.predicate = predicate
-            
-            let batchPageViewDeleteRequest = NSBatchDeleteRequest(fetchRequest: pageViewFetchRequest)
-            batchPageViewDeleteRequest.resultType = .resultTypeObjectIDs
-            _ = try backgroundContext.execute(batchPageViewDeleteRequest) as? NSBatchDeleteResult
-            
-            // Delete WMFPages that were added > one year ago
-            let pageFetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "CDPage")
-            pageFetchRequest.predicate = predicate
-            
-            let batchPageDeleteRequest = NSBatchDeleteRequest(fetchRequest: pageFetchRequest)
-            batchPageDeleteRequest.resultType = .resultTypeObjectIDs
-            _ = try backgroundContext.execute(batchPageDeleteRequest) as? NSBatchDeleteResult
+            try autoreleasepool {
+                
+                guard let self else { return }
+                
+                // Delete WMFPageViews that were added > one year ago
+                let predicate = NSPredicate(format: "timestamp < %@", argumentArray: [oneYearAgoDate])
+                
+                guard let pageViewsToDelete = try self.fetch(entityType: CDPageView.self, predicate: predicate, fetchLimit: 2000, in: backgroundContext) else {
+                    return
+                }
+                
+                for pageView in pageViewsToDelete {
+                    backgroundContext.delete(pageView)
+                }
+                
+                // Delete WMFPages that were added > one year ago
+                guard let pagesToDelete = try self.fetch(entityType: CDPage.self, predicate: predicate, fetchLimit: 2000, in: backgroundContext) else {
+                    return
+                }
+                
+                for page in pagesToDelete {
+                    backgroundContext.delete(page)
+                }
+            }
         }
     }
 }

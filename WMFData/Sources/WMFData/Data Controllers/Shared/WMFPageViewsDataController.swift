@@ -126,9 +126,16 @@ public final class WMFPageViewsDataController {
         }
     }
     
-    public func deleteAllPageViews() async throws {
+    public func deleteAllPageViewsAndCategories() async throws {
         let backgroundContext = try coreDataStore.newBackgroundContext
         try await backgroundContext.perform {
+            
+            let categoryFetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "CDCategory")
+            
+            let batchCategoryDeleteRequest = NSBatchDeleteRequest(fetchRequest: categoryFetchRequest)
+            batchCategoryDeleteRequest.resultType = .resultTypeObjectIDs
+            _ = try backgroundContext.execute(batchCategoryDeleteRequest) as? NSBatchDeleteResult
+            
             let pageViewFetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "CDPageView")
             
             let batchPageViewDeleteRequest = NSBatchDeleteRequest(fetchRequest: pageViewFetchRequest)
