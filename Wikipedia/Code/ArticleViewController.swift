@@ -417,7 +417,6 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
 
         setup()
 
-        loadWatchStatusAndUpdateToolbar()
         setupForStateRestorationIfNecessary()
     }
     
@@ -546,6 +545,41 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
         }
         
         ArticleLinkInteractionFunnel.shared.logArticleView(pageID: pageID.intValue, project: project, source: articleViewSource)
+    }
+    
+    // Loads various additional data about the article from MediaWiki
+    func loadMediaWikiInfoAndUpdateToolbar() {
+        guard let title = articleURL.wmf_title,
+            let siteURL = articleURL.wmf_site,
+            let project = WikimediaProject(siteURL: siteURL)?.wmfProject else {
+                return
+        }
+        
+        guard let request = try? WMFArticleDataController.ArticleInfoRequest(needsWatchedStatus: dataStore.authenticationManager.authStateIsPermanent, needsRollbackRights: false) else {
+            return
+        }
+                
+        WMFArticleDataController().fetchArticleInfo(title: title, project: project, request: request) { result in
+            
+            DispatchQueue.main.async { [weak self] in
+                
+                guard let self else {
+                    return
+                }
+                
+                switch result {
+                case .success(let status):
+                    
+                    let needsWatchButton = !status.watched
+                    let needsUnwatchHalfButton = status.watched && status.watchlistExpiry != nil
+                    let needsUnwatchFullButton = status.watched && status.watchlistExpiry == nil
+                    
+                    self.toolbarController.updateMoreButton(needsWatchButton: needsWatchButton, needsUnwatchHalfButton: needsUnwatchHalfButton, needsUnwatchFullButton: needsUnwatchFullButton)
+                case .failure:
+                    break
+                }
+            }
+        }
     }
     
     internal func loadSummary(oldState: ViewState) {

@@ -61,6 +61,7 @@ extension ArticleViewController: ArticleWebMessageHandling {
         
         refreshControl.endRefreshing()
         loadSummary(oldState: oldState)
+        loadMediaWikiInfoAndUpdateToolbar()
         initialSetupCompletion?()
         initialSetupCompletion = nil
     }
