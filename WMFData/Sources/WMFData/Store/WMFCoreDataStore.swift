@@ -192,6 +192,8 @@ public final class WMFCoreDataStore {
                 for page in pagesToDelete {
                     backgroundContext.delete(page)
                 }
+                
+                try self.saveIfNeeded(moc: backgroundContext)
             }
         }
     }
