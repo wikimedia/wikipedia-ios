@@ -11,13 +11,16 @@ public final class WMFArticleDataController {
     public struct ArticleInfoRequest {
         let needsWatchedStatus: Bool
         let needsRollbackRights: Bool
+        let needsCategories: Bool
         
-        public init(needsWatchedStatus: Bool, needsRollbackRights: Bool) throws {
+        public init(needsWatchedStatus: Bool, needsRollbackRights: Bool, needsCategories: Bool) throws {
             self.needsWatchedStatus = needsWatchedStatus
             self.needsRollbackRights = needsRollbackRights
+            self.needsCategories = needsCategories
             
             guard needsWatchedStatus == true ||
-                    needsRollbackRights == true else {
+                    needsRollbackRights == true ||
+                    needsCategories == true else {
                 throw WMFServiceError.invalidRequest
             }
         }
@@ -28,9 +31,16 @@ public final class WMFArticleDataController {
         struct Query: Codable {
 
             struct Page: Codable {
+                
+                struct Category: Codable {
+                    let ns: Int
+                    let title: String
+                }
+                
                 let title: String
                 let watched: Bool?
                 let watchlistexpiry: String?
+                let categories: [Category]?
             }
 
             struct UserInfo: Codable {
@@ -49,6 +59,7 @@ public final class WMFArticleDataController {
         public let watched: Bool
         public let watchlistExpiry: Date?
         public let userHasRollbackRights: Bool?
+        public let categories: [String]
     }
 
     
@@ -79,6 +90,17 @@ public final class WMFArticleDataController {
             parameters["prop"] = "info"
             parameters["inprop"] = "watched"
         }
+        
+        if request.needsCategories {
+            if request.needsWatchedStatus {
+                parameters["prop"] = "info|categories"
+            } else {
+                parameters["prop"] = "categories"
+            }
+            
+            parameters["clshow"] = "!hidden"
+            parameters["cllimit"] = "500"
+        }
 
         if request.needsRollbackRights {
             parameters["meta"] = "userinfo"
@@ -107,8 +129,15 @@ public final class WMFArticleDataController {
                 if let watchlistExpiryString = firstPage.watchlistexpiry {
                   watchlistExpiry = DateFormatter.mediaWikiAPIDateFormatter.date(from: watchlistExpiryString)
                 }
+                 
+                 var categoryTitles: [String] = []
+                 if let responseCategories = firstPage.categories {
+                    for category in responseCategories {
+                        categoryTitles.append(category.title)
+                    }
+                 }
 
-                let status = WMFArticleInfoResponse(watched: watched, watchlistExpiry: watchlistExpiry, userHasRollbackRights: userHasRollbackRights)
+                 let status = WMFArticleInfoResponse(watched: watched, watchlistExpiry: watchlistExpiry, userHasRollbackRights: userHasRollbackRights, categories: categoryTitles)
                  completion(.success(status))
              case .failure(let error):
                  completion(.failure(WMFDataControllerError.serviceError(error)))

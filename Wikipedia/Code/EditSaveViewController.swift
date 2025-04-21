@@ -365,7 +365,7 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
            let project = WikimediaProject(siteURL: siteURL)?.wmfProject,
             let title = pageURL?.wmf_title,
             let dataStore = dataStore,
-            let request = try? WMFArticleDataController.ArticleInfoRequest(needsWatchedStatus: dataStore.authenticationManager.authStateIsPermanent, needsRollbackRights: false) else {
+        let request = try? WMFArticleDataController.ArticleInfoRequest(needsWatchedStatus: dataStore.authenticationManager.authStateIsPermanent, needsRollbackRights: false, needsCategories: false) else {
             return
         }
         

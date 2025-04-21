@@ -555,7 +555,7 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
                 return
         }
         
-        guard let request = try? WMFArticleDataController.ArticleInfoRequest(needsWatchedStatus: dataStore.authenticationManager.authStateIsPermanent, needsRollbackRights: false) else {
+        guard let request = try? WMFArticleDataController.ArticleInfoRequest(needsWatchedStatus: dataStore.authenticationManager.authStateIsPermanent, needsRollbackRights: false, needsCategories: true) else {
             return
         }
                 

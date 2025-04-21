@@ -647,7 +647,7 @@ private extension DiffContainerViewController {
         
         let isLoggedIn = diffController.authenticationManager.authStateIsPermanent
         
-        guard let request = try? WMFArticleDataController.ArticleInfoRequest(needsWatchedStatus: diffController.authenticationManager.authStateIsPermanent, needsRollbackRights: diffController.authenticationManager.authStateIsPermanent) else {
+        guard let request = try? WMFArticleDataController.ArticleInfoRequest(needsWatchedStatus: diffController.authenticationManager.authStateIsPermanent, needsRollbackRights: diffController.authenticationManager.authStateIsPermanent, needsCategories: false) else {
             return
         }
         
