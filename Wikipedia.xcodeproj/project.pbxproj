@@ -710,6 +710,9 @@
 		67A770C8251BFE0400F94EF9 /* CocoaLumberjackSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 67A770C7251BFE0400F94EF9 /* CocoaLumberjackSwift */; };
 		67A7CA7528665CEF008D4BF6 /* HTTPStatusCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67A7CA7428665CEF008D4BF6 /* HTTPStatusCode.swift */; };
 		67A82D202D0239550068B363 /* MWKSavedPageList+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67A82D1F2D02394E0068B363 /* MWKSavedPageList+Extensions.swift */; };
+		67AA15572DB6F60400D7C08F /* ArticleViewController+Categories.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67AA15562DB6F5FF00D7C08F /* ArticleViewController+Categories.swift */; };
+		67AA15582DB6F60400D7C08F /* ArticleViewController+Categories.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67AA15562DB6F5FF00D7C08F /* ArticleViewController+Categories.swift */; };
+		67AA15592DB6F60400D7C08F /* ArticleViewController+Categories.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67AA15562DB6F5FF00D7C08F /* ArticleViewController+Categories.swift */; };
 		67AD17FF2C49D3BB0027C630 /* WMFBarButtonItemPopoverMessageViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 67AD17FE2C49D3BB0027C630 /* WMFBarButtonItemPopoverMessageViewController.storyboard */; };
 		67AD18002C49D3BB0027C630 /* WMFBarButtonItemPopoverMessageViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 67AD17FE2C49D3BB0027C630 /* WMFBarButtonItemPopoverMessageViewController.storyboard */; };
 		67AD18012C49D3BB0027C630 /* WMFBarButtonItemPopoverMessageViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 67AD17FE2C49D3BB0027C630 /* WMFBarButtonItemPopoverMessageViewController.storyboard */; };
@@ -3344,6 +3347,7 @@
 		67A986EC2CC96488003A99B5 /* az */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = az; path = az.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		67A986ED2CC96488003A99B5 /* az */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = az; path = az.lproj/Localizable.strings; sourceTree = "<group>"; };
 		67A986EE2CC96488003A99B5 /* az */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = az; path = az.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
+		67AA15562DB6F5FF00D7C08F /* ArticleViewController+Categories.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ArticleViewController+Categories.swift"; sourceTree = "<group>"; };
 		67AD17FE2C49D3BB0027C630 /* WMFBarButtonItemPopoverMessageViewController.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = WMFBarButtonItemPopoverMessageViewController.storyboard; sourceTree = "<group>"; };
 		67ADEE9523A2CFFB0000CAF7 /* ArticleWebMessagingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleWebMessagingController.swift; sourceTree = "<group>"; };
 		67B0B88D2BF51E3300480B46 /* ArticleCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleCollectionViewController.swift; sourceTree = "<group>"; };
@@ -6384,6 +6388,7 @@
 				D8E6FF7624058AC600686272 /* WMFWebView.m */,
 				B0DE92301D6E3A2000EC76A7 /* UIBarButtonItem Popover Message */,
 				67033E182A61DC3700896852 /* ArticleViewController+Watchlist.swift */,
+				67AA15562DB6F5FF00D7C08F /* ArticleViewController+Categories.swift */,
 				0E9DFEAB1BDEB82E0032606E /* Networking */,
 				BC45D5A01C330393007C72F3 /* Sharing */,
 				04CCA0BD19830837000E982A /* References */,
@@ -10014,6 +10019,7 @@
 				00FCCBC5290082C200C9ECD2 /* TalkPageFindInPageState.swift in Sources */,
 				B00DDEDB1DB4B76B00615FA2 /* UIView+WMFSubviews.swift in Sources */,
 				67033E142A61B24800896852 /* WatchlistController.swift in Sources */,
+				67AA15592DB6F60400D7C08F /* ArticleViewController+Categories.swift in Sources */,
 				830ECACF1FBDD8C00080B1EF /* ReadingListsViewController.swift in Sources */,
 				83ACF8E528E504CF000F3B6F /* SharedContainerCacheHousekeeping.swift in Sources */,
 				D82117FC1EE58C080076C040 /* MapAnnotation.swift in Sources */,
@@ -11039,6 +11045,7 @@
 				D8CE25691E698E2400DAE2E0 /* WMFArticleLanguagesSectionFooter.m in Sources */,
 				D8CE256B1E698E2400DAE2E0 /* WMFWelcomeContainerViewController.swift in Sources */,
 				D8CE256C1E698E2400DAE2E0 /* WMFAccountCreator.swift in Sources */,
+				67AA15572DB6F60400D7C08F /* ArticleViewController+Categories.swift in Sources */,
 				67033E1B2A61DC3700896852 /* ArticleViewController+Watchlist.swift in Sources */,
 				0072990828AC44F100DCD2E6 /* TalkPageCellTopicView.swift in Sources */,
 				0072991728AC49FA00DCD2E6 /* TalkPageCellCommentSeparator.swift in Sources */,
@@ -11590,6 +11597,7 @@
 				67CEF26B2351111D00D5CA6C /* DiffNetworkModels.swift in Sources */,
 				D88C701A1EE595E90022A26A /* MapView.swift in Sources */,
 				67033E1A2A61DC3700896852 /* ArticleViewController+Watchlist.swift in Sources */,
+				67AA15582DB6F60400D7C08F /* ArticleViewController+Categories.swift in Sources */,
 				0072990728AC44F100DCD2E6 /* TalkPageCellTopicView.swift in Sources */,
 				0072991628AC49FA00DCD2E6 /* TalkPageCellCommentSeparator.swift in Sources */,
 				D8EC3E5B1E9BDA35006712EB /* NSUserDefaults+WMFApplicationDefaults.swift in Sources */,

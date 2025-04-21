@@ -576,14 +576,7 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
                     
                     self.toolbarController.updateMoreButton(needsWatchButton: needsWatchButton, needsUnwatchHalfButton: needsUnwatchHalfButton, needsUnwatchFullButton: needsUnwatchFullButton)
                     
-                    let categories = info.categories
-                    Task {
-                        do {
-                            try await WMFCategoriesDataController().addCategories(categories: categories, articleTitle: title, project: project)
-                        } catch {
-                            DDLogError("Error saving article categories: \(error)")
-                        }
-                    }
+                    self.saveCategories(categories: info.categories, articleTitle: title, project: project)
                     
                 case .failure(let error):
                     DDLogError("Error fetching article MediaWiki info: \(error)")
