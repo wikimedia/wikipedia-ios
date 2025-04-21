@@ -568,15 +568,25 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
                 }
                 
                 switch result {
-                case .success(let status):
+                case .success(let info):
                     
-                    let needsWatchButton = !status.watched
-                    let needsUnwatchHalfButton = status.watched && status.watchlistExpiry != nil
-                    let needsUnwatchFullButton = status.watched && status.watchlistExpiry == nil
+                    let needsWatchButton = !info.watched
+                    let needsUnwatchHalfButton = info.watched && info.watchlistExpiry != nil
+                    let needsUnwatchFullButton = info.watched && info.watchlistExpiry == nil
                     
                     self.toolbarController.updateMoreButton(needsWatchButton: needsWatchButton, needsUnwatchHalfButton: needsUnwatchHalfButton, needsUnwatchFullButton: needsUnwatchFullButton)
-                case .failure:
-                    break
+                    
+                    let categories = info.categories
+                    Task {
+                        do {
+                            try await WMFCategoriesDataController().addCategories(categories: categories, articleTitle: title, project: project)
+                        } catch {
+                            DDLogError("Error saving article categories: \(error)")
+                        }
+                    }
+                    
+                case .failure(let error):
+                    DDLogError("Error fetching article MediaWiki info: \(error)")
                 }
             }
         }
