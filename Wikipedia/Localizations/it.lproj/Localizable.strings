@@ -124,6 +124,7 @@
 "action-update" = "Aggiorna";
 "add-articles-to-reading-list" = "Aggiungi $1 {{PLURAL:$1|voce|voci}} all'elenco di lettura";
 "advanced-settings-title" = "Impostazioni avanzate";
+"alert-temporary-account-learn-more" = "Ulteriori informazioni.";
 "alt-text-feedback-survey-toast-title" = "Feedback inviato";
 "announcements-dismiss" = "Nascondi";
 "app-store-keywords" = "Wikipedia, riferimento, wiki, enciclopedia, info, conoscenza, ricerca, informazione, esplorazione, apprendimento";
@@ -146,6 +147,7 @@
 "article-save-error-not-enough-space" = "Memoria insufficiente per salvare questo articolo sul dispositivo";
 "article-share" = "Condividi";
 "article-talk-page" = "Pagina di discussione della voce";
+"article-view-controller-editing-temp-account-created-title" = "Utenza temporanea creata";
 "back-button-accessibility-label" = "Indietro";
 "back-button-popover-title" = "Clicca per tornare indietro";
 "button-go-back" = "Torna indietro";
@@ -491,6 +493,8 @@
 "insert-media-image-type-settings-title" = "Tipo immagine";
 "insert-media-media-settings-title" = "Impostazioni file multimediali";
 "insert-media-title" = "Inserisci un file multimediale";
+"ip-account-cta-top" = "Entra o crea un'utenza";
+"ip-account-warning-title" = "Non hai effettuato l'accesso";
 "languages-settings-title" = "Lingue";
 "languages-title" = "Cambia lingua";
 "languages-wikipedia" = "Lingue di Wikipedia";
@@ -548,7 +552,6 @@
 "notifications-center-filters-types-item-title-all" = "Tutti i tipi";
 "notifications-center-filters-types-section-title" = "Tipi di notifiche";
 "notifications-center-go-to-article" = "Voce";
-"notifications-center-go-to-talk-page" = "Pagina di discussione";
 "notifications-center-go-to-user-page" = "pagina utente di $1";
 "notifications-center-go-to-wikidata-item" = "Elemento Wikidata";
 "notifications-center-go-to-your-talk-page" = "La tua pagina di discussione";
@@ -615,7 +618,6 @@
 "on-this-day-no-internet-error" = "Nessun dato disponibile";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 da Wikipedia in $2";
 "on-this-day-title" = "In questo giorno";
-"page-history-anonymous-edits" = "modifiche di utenti anonimi";
 "page-history-bot-edits" = "modifiche dei bot";
 "page-history-compare-accessibility-hint" = "Clicca per selezionare due versioni da confrontare";
 "page-history-compare-title" = "Confronta";
@@ -628,7 +630,6 @@
 "page-history-revision-size-diff-subtraction" = "{{PLURAL:$1|Rimosso|Rimossi}} $1 byte";
 "page-history-revisions-comparison-warning" = "Possono essere selezionate solamente due versioni";
 "page-history-stats-text" = "{{PLURAL:$1|1 modifica|$1 modifiche}} dal $2";
-"page-history-user-edits" = "modifiche dell'utente";
 "page-issues" = "Problemi con la pagina";
 "page-location" = "Visualizza sulla mappa";
 "page-protected-can-not-edit" = "Non hai i diritti per modificare questa pagina";
@@ -860,6 +861,11 @@
 "talk-pages-topic-reply-onboarding-title" = "Pagine di discussione";
 "talk-pages-user-logs" = "Registri";
 "talk-pages-view-title" = "Discussione";
+"temp-account-edit-sheet-cta-top" = "Entra o crea un'utenza";
+"temp-account-got-it" = "Capito";
+"temp-account-toast-read-more-title" = "Per saperne di più";
+"temp-account-warning-title" = "Stai utilizzando un'utenza temporanea";
+"temporary-account" = "Utenza temporanea";
 "terms-of-use-title" = "Condizioni d'uso";
 "theme-black-display-name" = "Nero";
 "theme-dark-display-name" = "Scuro";

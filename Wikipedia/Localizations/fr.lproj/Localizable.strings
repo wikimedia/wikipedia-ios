@@ -759,7 +759,6 @@
 "notifications-center-go-to-article" = "Article";
 "notifications-center-go-to-article-talk-format" = "Page de discussion de $1";
 "notifications-center-go-to-diff" = "Différence";
-"notifications-center-go-to-talk-page" = "Page de discussion";
 "notifications-center-go-to-user-page" = "Page utilisateur de $1";
 "notifications-center-go-to-wikidata-item" = "Élément Wikidata";
 "notifications-center-go-to-your-talk-page" = "Votre page de discussion";
@@ -866,7 +865,6 @@
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 sur Wikipédia en $2";
 "on-this-day-title" = "Ce jour-là";
 "original-tab-button-popover-description" = "Tapez sur l’icône « W » pour revenir à l’onglet avec lequel vous avez commencé";
-"page-history-anonymous-edits" = "modifications anonymes";
 "page-history-bot-edits" = "modifications par un robot";
 "page-history-compare-accessibility-hint" = "Tapper pour sélectionner deux versions à comparer";
 "page-history-compare-title" = "Comparer";
@@ -881,7 +879,6 @@
 "page-history-revision-time-accessibility-label" = "Modification du $1";
 "page-history-revisions-comparison-warning" = "Seulement deux versions doivent être sélectionnées";
 "page-history-stats-text" = "$1 modification{{PLURAL:$1||s}} depuis $2";
-"page-history-user-edits" = "modifications par un utilisateur";
 "page-issues" = "Problèmes de la page";
 "page-location" = "Afficher sur une carte";
 "page-protected-can-not-edit" = "Vous n’avez pas le droit de modifier cette page.";
@@ -942,7 +939,6 @@
 "profile-page-join-subtext" = "Créez un compte Wikipédia pour suivre vos contributions, enregistrer des articles hors ligne et synchroniser sur plusieurs appareils.";
 "profile-page-join-title" = "Se connecter / Rejoindre Wikipédia";
 "profile-page-logged-out-year-in-review-subtext" = "Connectez-vous ou créez un compte pour obtenir un meilleur Bilan de l'Année la prochaine fois";
-"profile-page-title-logged-out" = "Compte";
 "profile-year-in-review-login-subtitle" = "Connectez-vous ou créez un compte pour revoir le Bilan de l'Année et avoir droit à des informations plus personnalisées.";
 "profile-year-in-review-login-title" = "Connectez-vous pour accéder au Bilan de l'Année";
 "project-name-mediawiki" = "MediaWiki";

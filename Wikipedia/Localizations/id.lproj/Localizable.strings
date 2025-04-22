@@ -651,7 +651,6 @@
 "notifications-center-go-to-article" = "Arikel";
 "notifications-center-go-to-article-talk-format" = "Halaman pembicaraan $1";
 "notifications-center-go-to-diff" = "Beda";
-"notifications-center-go-to-talk-page" = "Halaman pembicaraan";
 "notifications-center-go-to-user-page" = "Halaman pengguna $1";
 "notifications-center-go-to-wikidata-item" = "Butir Wikidata";
 "notifications-center-go-to-your-talk-page" = "Halaman pembicaraan Anda";
@@ -758,7 +757,6 @@
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 dari Wikipedia $2";
 "on-this-day-title" = "Pada hari ini";
 "original-tab-button-popover-description" = "Ketuk 'W' untuk kembali ke tab yang Anda mulai dari";
-"page-history-anonymous-edits" = "suntingan anon";
 "page-history-bot-edits" = "suntingan bot";
 "page-history-compare-accessibility-hint" = "Ketuk untuk memilih dua revisi untuk dibandingan";
 "page-history-compare-title" = "Bandingkan";
@@ -773,7 +771,6 @@
 "page-history-revision-time-accessibility-label" = "Revisi dibuat $1";
 "page-history-revisions-comparison-warning" = "Hanya dua revisi bisa dipilih";
 "page-history-stats-text" = "$1 suntingan sejak $2";
-"page-history-user-edits" = "suntingan pengguna";
 "page-issues" = "Masalah halaman";
 "page-location" = "Lihat di peta";
 "page-protected-can-not-edit" = "Anda tidak memiliki hak untuk menyunting halaman ini";

@@ -674,7 +674,6 @@
 "notifications-center-go-to-article" = "Статья";
 "notifications-center-go-to-article-talk-format" = "$1 сюзюу бет";
 "notifications-center-go-to-diff" = "Башхалыкъ";
-"notifications-center-go-to-talk-page" = "Сюзюу бет";
 "notifications-center-go-to-user-page" = "$1-ни хайырланыучу бети";
 "notifications-center-go-to-wikidata-item" = "Викибилгилени элементи";
 "notifications-center-go-to-your-talk-page" = "Сюзюу бетигиз";
@@ -781,7 +780,6 @@
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1, $2 Википедиядан";
 "on-this-day-title" = "Бу кюнде";
 "original-tab-button-popover-description" = "Башлагъан сагъычха кери къайтыр ючюн 'W' тиекге басыгъыз.";
-"page-history-anonymous-edits" = "аноним тюзетиуле";
 "page-history-bot-edits" = "бот тюзетиуле";
 "page-history-compare-accessibility-hint" = "Тенглешдириллик эки версияны сайлар ючюн басыгъыз";
 "page-history-compare-title" = "Тенглешдир";
@@ -796,7 +794,6 @@
 "page-history-revision-time-accessibility-label" = "$1 версия этилди";
 "page-history-revisions-comparison-warning" = "Къуру эки версия сайларгъа боллукъду";
 "page-history-stats-text" = "$2 сора {{PLURAL:$1|$1 тюзтеиу}}";
-"page-history-user-edits" = "къошулуучу тюзетиуле";
 "page-issues" = "Бетни джетмегенликлери";
 "page-location" = "Картада кёргюз";
 "page-protected-can-not-edit" = "Бу бетни тюзетир эркинликлеригиз джокъду";

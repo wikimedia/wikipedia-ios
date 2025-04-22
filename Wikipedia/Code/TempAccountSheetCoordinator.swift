@@ -63,7 +63,7 @@ final class TempAccountSheetCoordinator: Coordinator {
         var hostingController: UIHostingController<WMFTempAccountsSheetView>?
         if let tempUser = authManager.authStateTemporaryUsername {
             let vm = WMFTempAccountsSheetViewModel(
-                image: "pageMessage",
+                image: "page-message",
                 title: CommonStrings.tempWarningTitle,
                 subtitle: tempEditorSubtitleString(tempUsername: tempUser),
                 ctaTopString: WMFLocalizedString("temp-account-edit-sheet-cta-top", value: "Log in or create an account", comment: "Temporary account sheet for editors, log in/sign up."),
@@ -120,15 +120,11 @@ final class TempAccountSheetCoordinator: Coordinator {
     }
     
     func tempEditorSubtitleString(tempUsername: String) -> String {
-        let openingLink = "<a href=\"\(ipURL)\">"
-        let openingLinkLearnMore = "<a href=\"\(ipLearnMoreURL)\">"
-        let closingLink = "</a>"
         let openingBold = "<b>"
         let closingBold = "</b>"
-        let lineBreaks = "<br/><br/>"
-        let format = WMFLocalizedString("temp-account-edit-sheet-subtitle", value: "Your edit will be attributed to %2$@%1$@%3$@. Your %4$@IP address%5$@ will be visible to administrators. %7$@Learn more.%5$@%6$@ If you log in or create an account, your edits will be attributed to a name you choose, among other benefits.",
-          comment: "Information on temporary accounts, $1 is the temporary username, $2 and $3 are opening and closing bold, $4 is the URL opening tag, and $5 is the closing. $6 is the linebreaks. $7 is the opening for the learn more link.")
-        return String.localizedStringWithFormat(format, tempUsername, openingBold, closingBold, openingLink, closingLink, lineBreaks, openingLinkLearnMore)
+        let format = WMFLocalizedString("temp-account-edit-sheet-subtitle", value: "%2$@You are currently using a temporary account.%3$@ Edits made with the temporary account %1$@ will not be carried over to your permanent account when you log in. Log in or create an account to get credit to your username, among other benefits.",
+          comment: "Information on temporary accounts, $1 is the temporary username, $2 and $3 are opening and closing bold")
+        return String.localizedStringWithFormat(format, tempUsername, openingBold, closingBold)
     }
     
     private func presentIPEditorSheet() {

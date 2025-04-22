@@ -646,7 +646,6 @@
 "notifications-center-go-to-article" = "Artikkeli";
 "notifications-center-go-to-article-talk-format" = "Sivun $1 keskustelusivu";
 "notifications-center-go-to-diff" = "Ero";
-"notifications-center-go-to-talk-page" = "Keskustelusivu";
 "notifications-center-go-to-user-page" = "Käyttäjän $1 käyttäjäsivu";
 "notifications-center-go-to-wikidata-item" = "Wikidata-kohde";
 "notifications-center-go-to-your-talk-page" = "Oma keskustelusivu";
@@ -741,7 +740,6 @@
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 kieliversion $2 Wikipediassa";
 "on-this-day-title" = "Tänä päivänä";
 "original-tab-button-popover-description" = "Napauta 'W' -kuvaketta palataksesi välilehdelle josta aloitit";
-"page-history-anonymous-edits" = "tunnistautumattomilta";
 "page-history-bot-edits" = "boteilta";
 "page-history-compare-accessibility-hint" = "Napauta valitaksesi kaksi vertailtavaa versiota";
 "page-history-compare-title" = "Vertaa";
@@ -756,7 +754,6 @@
 "page-history-revision-time-accessibility-label" = "Versio tehtiin $1";
 "page-history-revisions-comparison-warning" = "Vain kaksi versiota voidaan valita";
 "page-history-stats-text" = "{{PLURAL:$1|$1 muokkaus|$1 muokkausta}} vuoden $2 jälkeen";
-"page-history-user-edits" = "käyttäjiltä";
 "page-issues" = "Sivun ongelmat";
 "page-location" = "Näytä kartalla";
 "page-protected-can-not-edit" = "Sinulla ei ole oikeuksia muokata tätä sivua";
@@ -808,7 +805,6 @@
 "problem-with-feature-title" = "Ongelma ominaisuudessa";
 // Fuzzy
 "profile-page-join-title" = "Liity Wikipediaan / Kirjaudu sisään";
-"profile-page-title-logged-out" = "Käyttäjätunnus";
 "project-name-mediawiki" = "MediaWiki";
 "project-name-wikibooks" = "Wikikirjasto";
 "project-name-wikidata" = "Wikidata";
