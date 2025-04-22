@@ -173,7 +173,7 @@ public final class WMFCoreDataStore {
                 
                 guard let self else { return }
                 
-                // Delete WMFPageViews that were added > one year ago
+                // Delete CDPageViews that were added > one year ago
                 let predicate = NSPredicate(format: "timestamp < %@", argumentArray: [oneYearAgoDate])
                 
                 guard let pageViewsToDelete = try self.fetch(entityType: CDPageView.self, predicate: predicate, fetchLimit: 2000, in: backgroundContext) else {
@@ -184,13 +184,23 @@ public final class WMFCoreDataStore {
                     backgroundContext.delete(pageView)
                 }
                 
-                // Delete WMFPages that were added > one year ago
+                // Delete CDPages that were added > one year ago
                 guard let pagesToDelete = try self.fetch(entityType: CDPage.self, predicate: predicate, fetchLimit: 2000, in: backgroundContext) else {
                     return
                 }
                 
                 for page in pagesToDelete {
                     backgroundContext.delete(page)
+                }
+                
+                // Delete CDCategorys that have empty pages
+                let emptyPagesPredicate = NSPredicate(format: "pages.@count == 0")
+                guard let categoriesToDelete = try self.fetch(entityType: CDCategory.self, predicate: emptyPagesPredicate, fetchLimit: nil, in: backgroundContext) else {
+                    return
+                }
+                
+                for category in categoriesToDelete {
+                    backgroundContext.delete(category)
                 }
                 
                 try self.saveIfNeeded(moc: backgroundContext)
