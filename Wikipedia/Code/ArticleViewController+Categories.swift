@@ -16,30 +16,29 @@ extension ArticleViewController {
     }
     
     private func removeNamespaceFromCategoryTitles(titles: [String]) -> [String] {
-        guard let categoryNamespace = PageNamespace.init(rawValue: 14),
-              let languageCode = articleURL.wmf_languageCode else {
+        var finalTitles = titles
+        guard let languageCode = articleURL.wmf_languageCode else {
             return []
         }
         
-        var prefix: String?
         guard let lookup = WikipediaURLTranslations.lookupTable(for: languageCode) else {
             return []
         }
         
+        var namespacePrefixes: [String] = ["Category"]
         for (namespaceTitle, namespaceID) in lookup.namespace {
             if namespaceID == PageNamespace.category {
-                prefix = namespaceTitle
-                break
+                namespacePrefixes.append(namespaceTitle)
             }
         }
         
-        if let prefix {
-            return titles.map {
+        for prefix in namespacePrefixes {
+            finalTitles = finalTitles.map {
                 $0.replacingOccurrences(of: "^\(NSRegularExpression.escapedPattern(for: prefix)):", with: "")
             }
-        } else {
-            return titles
         }
+        
+        return finalTitles
     }
 }
 

@@ -10,7 +10,7 @@
         <attribute name="projectID" attributeType="String"/>
         <attribute name="timestamp" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="title" attributeType="String"/>
-        <relationship name="categories" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="CDCategory" inverseName="pages" inverseEntity="CDCategory"/>
+        <relationship name="categories" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="CDCategory" inverseName="pages" inverseEntity="CDCategory"/>
         <relationship name="pageViews" toMany="YES" deletionRule="Cascade" destinationEntity="CDPageView" inverseName="page" inverseEntity="CDPageView"/>
         <fetchIndex name="byProjectNamespace">
             <fetchIndexElement property="projectID" type="Binary" order="ascending"/>
