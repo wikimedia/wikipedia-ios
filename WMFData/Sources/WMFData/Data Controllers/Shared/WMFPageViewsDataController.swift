@@ -72,15 +72,15 @@ public final class WMFPageViewsDataController {
         self.coreDataStore = coreDataStore
     }
     
-    public func addPageView(title: String, namespaceID: Int16, project: WMFProject) async throws {
+    public func addPageView(title: String, namespaceID: Int16, project: WMFProject) async throws -> NSManagedObjectID? {
         
         let coreDataTitle = title.normalizedForCoreData
         
         let backgroundContext = try coreDataStore.newBackgroundContext
         
-        try await backgroundContext.perform { [weak self] in
+        let managedObjectID: NSManagedObjectID? = try await backgroundContext.perform { [weak self] () -> NSManagedObjectID? in
             
-            guard let self else { return }
+            guard let self else { return nil }
             
             let currentDate = Date()
             let predicate = NSPredicate(format: "projectID == %@ && namespaceID == %@ && title == %@", argumentArray: [project.coreDataIdentifier, namespaceID, coreDataTitle])
@@ -93,6 +93,28 @@ public final class WMFPageViewsDataController {
             let viewedPage = try self.coreDataStore.create(entityType: CDPageView.self, in: backgroundContext)
             viewedPage.page = page
             viewedPage.timestamp = currentDate
+            
+            try self.coreDataStore.saveIfNeeded(moc: backgroundContext)
+            
+            return viewedPage.objectID
+        }
+        
+        return managedObjectID
+    }
+    
+    public func addPageViewSeconds(pageViewManagedObjectID: NSManagedObjectID, numberOfSeconds: Double) async throws {
+        
+        let backgroundContext = try coreDataStore.newBackgroundContext
+        
+        try await backgroundContext.perform { [weak self] in
+            
+            guard let self else { return }
+            
+            guard let pageView = backgroundContext.object(with: pageViewManagedObjectID) as? CDPageView else {
+                return
+            }
+            
+            pageView.numberOfSeconds += Int64(numberOfSeconds)
             
             try self.coreDataStore.saveIfNeeded(moc: backgroundContext)
         }
