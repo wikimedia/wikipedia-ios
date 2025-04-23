@@ -224,6 +224,26 @@ extension WMFProject {
             return identifier
         }
     }
+    
+    init?(coreDataIdentifier: String) {
+        switch coreDataIdentifier {
+        case "commons":
+            self = .commons
+        case "wikidata":
+            self = .wikidata
+        default:
+            // Expected format: wikipedia~languageCode or wikipedia~languageCode~variant
+            let components = coreDataIdentifier.components(separatedBy: "~")
+            guard components.count >= 2, components[0] == "wikipedia" else {
+                return nil
+            }
+            
+            let languageCode = components[1]
+            let variantCode = components.count > 2 ? components[2] : nil
+            let language = WMFLanguage(languageCode: languageCode, languageVariantCode: variantCode)
+            self = .wikipedia(language)
+        }
+    }
 }
 
 extension String {

@@ -124,6 +124,9 @@ public final class WMFPageViewsDataController {
             
             try coreDataStore.saveIfNeeded(moc: backgroundContext)
         }
+        
+        let categoriesDataController = try WMFCategoriesDataController()
+        try await categoriesDataController.deleteEmptyCategories()
     }
     
     public func deleteAllPageViewsAndCategories() async throws {
