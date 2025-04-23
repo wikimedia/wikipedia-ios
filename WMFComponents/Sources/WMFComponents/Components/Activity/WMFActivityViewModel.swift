@@ -29,10 +29,16 @@ import WMFData
     
     var localizedStrings: LocalizedStrings
     
+    @ObservedObject var appEnvironment = WMFAppEnvironment.current
+
+    var theme: WMFTheme {
+        return appEnvironment.theme
+    }
+    
     public init(
             localizedStrings: LocalizedStrings,
-            username: String,
             activityItems: [ActivityItem]? = nil,
+            username: String,
             shouldShowAddAnImage: Bool,
             shouldShowStartEditing: Bool,
             hasNoEdits: Bool,
@@ -42,8 +48,8 @@ import WMFData
             openStartEditing: (() -> Void)?,
             loginAction: (() -> Void)?,
             isLoggedIn: Bool) {
-        self.activityItems = activityItems
         self.username = username
+        self.activityItems = activityItems
         self.shouldShowAddAnImage = shouldShowAddAnImage
         self.shouldShowStartEditing = shouldShowStartEditing
         self.hasNoEdits = hasNoEdits
@@ -56,16 +62,16 @@ import WMFData
         self.openStartEditing = openStartEditing
     }
     
-    func title(for type: ActivityTabDisplayType) -> String? {
+    func title(for type: ActivityTabDisplayType) -> String {
         switch type {
         case .edit:
-            return nil
+            return localizedStrings.activityTabsEditTitle
         case .read:
-            return localizedStrings.activityTabViewReadingHistory
+            return localizedStrings.activityTabReadTitle
         case .save:
-            return localizedStrings.activityTabViewSavedArticles
+            return localizedStrings.activityTabSaveTitle
         case .noEdit:
-            return localizedStrings.activityTabNoEditsButtonTitle
+            return localizedStrings.activityTabNoEditsTitle
         }
     }
     
@@ -81,31 +87,63 @@ import WMFData
             return openStartEditing
         }
     }
+    
+    func backgroundColor(for type: ActivityTabDisplayType) -> UIColor {
+        switch type {
+        case .edit, .noEdit:
+            theme.softEditorBlue
+        case .save:
+            theme.softEditorGreen
+        case .read:
+            theme.softEditorOrange
+        }
+    }
+    
+    func iconColor(for type: ActivityTabDisplayType) -> UIColor {
+        switch type {
+        case .edit, .noEdit:
+            theme.editorBlue
+        case .save:
+            theme.editorGreen
+        case .read:
+            theme.editorOrange
+        }
+    }
 
     public struct LocalizedStrings {
-        let activityTabViewReadingHistory: String
-        let activityTabViewSavedArticles: String
         let activityTabNoEditsTitle: String
-        let activityTabNoEditsSubtitle: String
-        let activityTabNoEditsButtonTitle: String
+        let activityTabSaveTitle: String
+        let activityTabReadTitle: String
+        let activityTabsEditTitle: String
         let tabTitle: String
+        let greeting: String
 
-        public init(activityTabViewReadingHistory: String, activityTabViewSavedArticles: String, activityTabNoEditsTitle: String, activityTabNoEditsSubtitle: String, activityTabNoEditsButtonTitle: String, tabTitle: String) {
-            self.activityTabViewReadingHistory = activityTabViewReadingHistory
-            self.activityTabViewSavedArticles = activityTabViewSavedArticles
+        public init(activityTabNoEditsTitle: String, activityTabSaveTitle: String, activityTabReadTitle: String, activityTabsEditTitle: String, tabTitle: String, greeting: String) {
             self.activityTabNoEditsTitle = activityTabNoEditsTitle
-            self.activityTabNoEditsSubtitle = activityTabNoEditsSubtitle
-            self.activityTabNoEditsButtonTitle = activityTabNoEditsButtonTitle
+            self.activityTabSaveTitle = activityTabSaveTitle
+            self.activityTabReadTitle = activityTabReadTitle
+            self.activityTabsEditTitle = activityTabsEditTitle
             self.tabTitle = tabTitle
+            self.greeting = greeting
         }
     }
 }
 
 public struct ActivityItem {
-    let imageName: String?
     let title: String
     let subtitle: String?
     let type: ActivityTabDisplayType
+    
+    var imageName: String {
+        switch type {
+        case .edit, .noEdit:
+            return "activity-edit"
+        case .read:
+            return "activity-read"
+        case .save:
+            return "activity-save"
+        }
+    }
 }
 
 public enum ActivityTabDisplayType {

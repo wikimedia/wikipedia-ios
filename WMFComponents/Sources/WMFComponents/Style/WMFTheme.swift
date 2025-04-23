@@ -29,9 +29,12 @@ public struct WMFTheme: Equatable {
     public let keyboardBarSearchFieldBackground: UIColor
     public let diffCompareAccent: UIColor
     public let editorOrange: UIColor
+    public let softEditorOrange: UIColor
     public let editorPurple: UIColor
     public let editorGreen: UIColor
+    public let softEditorGreen: UIColor
     public let editorBlue: UIColor
+    public let softEditorBlue: UIColor
     public let editorGray: UIColor
     public let editorMatchForeground: UIColor
     public let editorMatchBackground: UIColor
@@ -76,9 +79,12 @@ public struct WMFTheme: Equatable {
         keyboardBarSearchFieldBackground: WMFColor.gray200,
         diffCompareAccent: WMFColor.orange600,
         editorOrange: WMFColor.orange600,
+        softEditorOrange: WMFColor.orange100alpha,
         editorPurple: WMFColor.purple600,
         editorGreen: WMFColor.green600,
+        softEditorGreen: WMFColor.green100alpha,
         editorBlue: WMFColor.blue600,
+        softEditorBlue: WMFColor.blue100alpha,
         editorGray: WMFColor.gray500,
         editorMatchForeground: .black,
         editorMatchBackground: WMFColor.lightMatchBackground,
@@ -116,9 +122,12 @@ public struct WMFTheme: Equatable {
         keyboardBarSearchFieldBackground: WMFColor.gray200,
         diffCompareAccent: WMFColor.orange600,
         editorOrange: WMFColor.orange600,
+        softEditorOrange: WMFColor.orange100alpha,
         editorPurple: WMFColor.purple600,
         editorGreen: WMFColor.green600,
+        softEditorGreen: WMFColor.green100alpha,
         editorBlue: WMFColor.blue600,
+        softEditorBlue: WMFColor.blue100alpha,
         editorGray: WMFColor.taupe600,
         editorMatchForeground: .black,
         editorMatchBackground: WMFColor.lightMatchBackground,
@@ -156,9 +165,12 @@ public struct WMFTheme: Equatable {
         keyboardBarSearchFieldBackground: WMFColor.gray650,
         diffCompareAccent: WMFColor.orange600,
         editorOrange: WMFColor.yellow600,
+        softEditorOrange: WMFColor.orange100alpha,
         editorPurple: WMFColor.red100,
         editorGreen: WMFColor.green600,
+        softEditorGreen: WMFColor.green100alpha,
         editorBlue: WMFColor.blue300,
+        softEditorBlue: WMFColor.blue100alpha,
         editorGray: WMFColor.gray300,
         editorMatchForeground: .black,
         editorMatchBackground: WMFColor.darkMatchBackground,
@@ -196,9 +208,12 @@ public struct WMFTheme: Equatable {
         keyboardBarSearchFieldBackground: WMFColor.gray650,
         diffCompareAccent: WMFColor.orange600,
         editorOrange: WMFColor.yellow600,
+        softEditorOrange: WMFColor.orange100alpha,
         editorPurple: WMFColor.red100,
         editorGreen: WMFColor.green600,
+        softEditorGreen: WMFColor.green100alpha,
         editorBlue: WMFColor.blue300,
+        softEditorBlue: WMFColor.blue100alpha,
         editorGray: WMFColor.gray300,
         editorMatchForeground: .black,
         editorMatchBackground: WMFColor.darkMatchBackground,
