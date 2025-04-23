@@ -23,6 +23,7 @@
         </fetchIndex>
     </entity>
     <entity name="CDPageView" representedClassName="CDPageView" syncable="YES" codeGenerationType="class">
+        <attribute name="numberOfSeconds" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="timestamp" attributeType="Date" usesScalarValueType="NO"/>
         <relationship name="page" maxCount="1" deletionRule="Cascade" destinationEntity="CDPage" inverseName="pageViews" inverseEntity="CDPage"/>
     </entity>
