@@ -758,9 +758,24 @@ extension WMFAppViewController {
         let openStartEditing = {
             print("⭐️")
         }
+        
+        func greeting(username: String) -> String {
+            let openingBold = "<b>"
+            let closingBold = "</b>"
+            let format = WMFLocalizedString("activity-tab-greeting", value: "%1$@Hi %2$@%3$@ 👋 Here's your weekly Wikipedia summary.",
+              comment: "$1 is opening bold, $2 is the username, $3 is closing bold.")
+            return String.localizedStringWithFormat(format, openingBold, username, closingBold)
+        }
 
         let isLoggedIn = dataStore.authenticationManager.authStateIsPermanent
-        let localizedStrings = WMFActivityViewModel.LocalizedStrings(activityTabViewReadingHistory: CommonStrings.activityTabViewReadingHistoryTitle, activityTabViewSavedArticles: CommonStrings.activityTabViewSavedArticlesTitle, activityTabNoEditsTitle: "You haven’t made any edits yet.", activityTabNoEditsSubtitle: "Start editing to begin tracking your contributions.", activityTabNoEditsButtonTitle: "Start editing", tabTitle: CommonStrings.activityTitle)
+        let localizedStrings = WMFActivityViewModel.LocalizedStrings(
+            activityTabNoEditsTitle: CommonStrings.activityTabNoEditsTitle,
+            activityTabSaveTitle: "You saved 6 articles",
+            activityTabReadTitle: "You read 9 articles",
+            activityTabsEditTitle: "You edited 3 articles",
+            tabTitle: CommonStrings.activityTitle,
+            greeting: greeting(username: dataStore.authenticationManager.authStatePermanentUsername ?? "") // TODO: fix username
+        )
         var editCount = 0
         if let siteURL = self.dataStore.languageLinkController.appLanguage?.siteURL {
             editCount = Int(self.dataStore.authenticationManager.user(siteURL: siteURL)?.editCount ?? 0)
@@ -790,7 +805,7 @@ extension WMFAppViewController {
             })
         }
 
-        let activityTabViewController = WMFActivityTabViewController(viewModel: viewModel, showSurvey: showSurveyClosure)
+        let activityTabViewController = WMFActivityTabViewController(viewModel: viewModel, theme: theme, showSurvey: showSurveyClosure, dataStore: dataStore)
         
         let loginAction = { [weak self] in
             guard let self = self else { return }

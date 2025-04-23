@@ -13,30 +13,42 @@ public struct WMFActivityView: View {
     public init(viewModel: WMFActivityViewModel) {
         self.viewModel = viewModel
     }
-
+    
+    private var titleStyles: HtmlUtils.Styles {
+        HtmlUtils.Styles(font: WMFFont.for(.title3), boldFont: WMFFont.for(.boldTitle3), italicsFont: WMFFont.for(.italicGeorgiaTitle3), boldItalicsFont: WMFFont.for(.boldItalicGeorgiaTitle3), color: theme.text, linkColor: theme.link, lineSpacing: 3)
+    }
+    
     public var body: some View {
 
         if viewModel.isLoggedIn {
-            ScrollView {
-                VStack(alignment: .leading, spacing: 8) {
-                    if viewModel.hasNoEdits {
-                        noEditsView
-                    } else if viewModel.shouldShowAddAnImage {
-                        Text(viewModel.suggestedEdits)
-                        suggestedEditsView // TODO: add editing activity item a bove
-                    }
-                    if let activityItems = viewModel.activityItems {
-                        ForEach(activityItems, id: \.title) { item in
-                            WMFActivityComponentView(activityItem: item, title: viewModel.title(for: item.type), onButtonTap: viewModel.action(for: item.type), shouldDisplayButton: true)
-                                .padding(.vertical, 12)
-                                .frame(maxWidth: .infinity, alignment: .leading)
+            VStack(alignment: .leading) {
+                WMFHtmlText(html: viewModel.localizedStrings.greeting, styles: titleStyles)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                if viewModel.hasNoEdits {
+                    noEditsView
+                        .padding(.vertical, 12)
+                } else if viewModel.shouldShowAddAnImage {
+                    Text(viewModel.suggestedEdits)
+                    suggestedEditsView // TODO: add editing activity item a bove
+                }
+                if let activityItems = viewModel.activityItems {
+                    ForEach(activityItems, id: \.title) { item in
+                        if item.type != .noEdit {
+                            WMFActivityComponentView(
+                                activityItem: item,
+                                title: viewModel.title(for: item.type),
+                                onButtonTap: viewModel.action(for: item.type),
+                                shouldDisplayButton: true,
+                                backgroundColor: viewModel.backgroundColor(for: item.type),
+                                iconColor: viewModel.iconColor(for: item.type),
+                                iconName: item.imageName)
+                            .padding(.vertical, 12)
                         }
                     }
-                    Spacer()
                 }
                 Spacer()
             }
-            .padding(16)
+            .padding(12)
             .onAppear {
                 Task {
                     guard let project = viewModel.project else { return }
@@ -46,12 +58,12 @@ public struct WMFActivityView: View {
                     dataController.legacyPageViewsDataDelegate = viewModel.legacyPageViewsDataDelegate
                     let activity = try await dataController.fetchAllStuff(username: "TSevener (WMF)", project: project)
                     var testItems = [
-                        ActivityItem(imageName: "square.text.square", title: "You read \(activity.readCount) articles this week.", subtitle: nil, type: .read),
-                        ActivityItem(imageName: "bookmark.fill", title: "You saved \(activity.savedCount) articles this week", subtitle: nil, type: .save)
+                        ActivityItem(title: "You read \(activity.readCount) articles this week.", subtitle: nil, type: .read),
+                        ActivityItem(title: "You saved \(activity.savedCount) articles this week", subtitle: nil, type: .save)
                     ]
 
                     if !viewModel.hasNoEdits {
-                        let editsItem = ActivityItem(imageName: "pencil", title: "You edited \(activity.editedCount ?? 0) article(s) this week.", subtitle: nil, type: .edit)
+                        let editsItem = ActivityItem(title: "You edited \(activity.editedCount ?? 0) article(s) this week.", subtitle: nil, type: .edit)
                             testItems.insert(editsItem, at: 0)
                     }
 
@@ -66,12 +78,18 @@ public struct WMFActivityView: View {
     }
 
     private var noEditsView: some View {
-        VStack(alignment: .leading, spacing: 4) {
-            let item = ActivityItem(imageName: nil, title: viewModel.localizedStrings.activityTabNoEditsTitle, subtitle: viewModel.localizedStrings.activityTabNoEditsSubtitle, type: .noEdit)
+        VStack(alignment: .leading) {
+            let item = ActivityItem(title: viewModel.localizedStrings.activityTabNoEditsTitle, subtitle: viewModel.localizedStrings.activityTabNoEditsTitle, type: .noEdit)
             // TODO: - get AB testing for `shouldDisplayButton`
-            WMFActivityComponentView(activityItem: item, title: viewModel.title(for: item.type), onButtonTap: viewModel.action(for: item.type), shouldDisplayButton: true)
+            WMFActivityComponentView(
+                activityItem: item,
+                title: viewModel.title(for: item.type),
+                onButtonTap: viewModel.action(for: item.type),
+                shouldDisplayButton: true,
+                backgroundColor: viewModel.backgroundColor(for: item.type),
+                iconColor: viewModel.iconColor(for: item.type),
+                iconName: item.imageName)
         }
-        .padding([.bottom], 20)
     }
 
     private var suggestedEditsView: some View {
