@@ -11,4 +11,7 @@ enum WMFUserDefaultsKey: String {
     case seenYearInReviewIntroSlide = "seen-year-in-review-intro-slide"
     case tappedYIR = "tapped-yir"
     case forceEmailAuth = "force-email-auth"
+    case activityTabGroupA = "activity-tab-group-a"
+    case activityTabGroupB = "activity-tab-group-b"
+    case activityTabGroupC = "activity-tab-group-c"
 }
