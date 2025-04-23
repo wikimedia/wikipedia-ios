@@ -755,8 +755,19 @@ extension WMFAppViewController {
             navigationController.pushViewController(vc, animated: true)
         }
 
-        let openStartEditing = {
-            print("⭐️")
+        let openStartEditing = { [weak self] in
+            guard let self = self, let navigationController = self.currentTabNavigationController else {
+                return
+            }
+
+            if let url = URL(string: "https://www.mediawiki.org/wiki/Special:MyLanguage/Wikimedia_Apps/iOS_FAQ#Editing") {
+                let config = SinglePageWebViewController.StandardConfig(url: url, useSimpleNavigationBar: true)
+                let webVC = SinglePageWebViewController(configType: .standard(config), theme: theme)
+                let newNavigationVC =
+                WMFComponentNavigationController(rootViewController: webVC, modalPresentationStyle: .formSheet)
+                navigationController.present(newNavigationVC, animated: true)
+            }
+
         }
         
         func greeting(username: String) -> String {
