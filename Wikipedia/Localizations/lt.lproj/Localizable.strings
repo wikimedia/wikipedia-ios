@@ -612,6 +612,7 @@
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 iš $2 Vikipedijos";
 "on-this-day-title" = "Šią dieną";
 "original-tab-button-popover-description" = "Paspauskite 'W', kad grįžtumėte į pradinį skirtuką";
+// Fuzzy
 "page-history-bot-edits" = "robotų keitimai";
 "page-history-compare-accessibility-hint" = "Paspauskite, kad pasirinktumėte dvi versijas palyginimui";
 "page-history-compare-title" = "Palyginti";

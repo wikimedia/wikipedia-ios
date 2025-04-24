@@ -445,6 +445,7 @@
 "on-this-day-no-internet-error" = "ဒေတာမရရှိနိုင်ပါ";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$2 ဝီကီပီးဒီးယားမှ $1";
 "on-this-day-title" = "ယနေ့ဖြစ်ရပ်များ";
+// Fuzzy
 "page-history-bot-edits" = "ဘော တည်းဖြတ်မှုများ";
 "page-history-compare-title" = "နှိုင်းယှဉ်ရန်";
 "page-history-minor-edits" = "အရေးမကြီးသော ပြင်ဆင်မှုများ";

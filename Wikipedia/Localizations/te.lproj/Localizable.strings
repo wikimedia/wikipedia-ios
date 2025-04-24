@@ -538,6 +538,7 @@
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$2 వికీపీడియా నుండి $1";
 "on-this-day-title" = "ఈ రోజున";
 "original-tab-button-popover-description" = "మీరు మొదలుపెట్టిన ట్యాబుకు తిరిగి వెళ్ళేందుకు 'W' ను తట్టండి";
+// Fuzzy
 "page-history-bot-edits" = "బాటు దిద్దుబాట్లు";
 "page-history-compare-accessibility-hint" = "పోల్చేందుకు రెండు కూర్పులను ఎంచుకోడానికి తట్టండి";
 "page-history-compare-title" = "పోల్చిచూడు";

@@ -534,6 +534,7 @@
 "on-this-day-no-internet-error" = "Nanca on dato disponibil";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 da Wikipedia in $2";
 "on-this-day-title" = "in quell dì chì";
+// Fuzzy
 "page-history-bot-edits" = "Modifeghe di bot";
 "page-history-compare-accessibility-hint" = "Clica per catà foeura do version de paragonà";
 "page-history-compare-title" = "Paragona";
