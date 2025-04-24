@@ -1075,6 +1075,7 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
     [self.savedArticlesFetcher start];
 
     [self assignAndLogArticleSearchBarExperiment];
+    [self assignAndLogActivityTabExperiment];
 }
 
 - (NSTimeInterval)timeBeforeRefreshingExploreFeed {

@@ -134,6 +134,22 @@ extension WMFAppViewController {
         }
     }
 
+    @objc func assignAndLogActivityTabExperiment() {
+        guard let dataController = WMFActivityTabExperimentsDataController.shared,
+              let primaryLanguage = dataStore.languageLinkController.appLanguage,
+              let project = WikimediaProject(siteURL: primaryLanguage.siteURL)?.wmfProject else {
+            return
+        }
+        
+        do {
+            let assignment = try dataController.assignActivityTabSearchBarExperiment(project: project)
+            // TODO: Log
+            print("Assignment: \(assignment) ⭐️⭐️⭐️⭐️⭐️⭐️")
+        } catch {
+            DDLogError("Error assigning activity tab experiment: \(error)")
+        }
+    }
+
 }
 
 // MARK: - Notifications
