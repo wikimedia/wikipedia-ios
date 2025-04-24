@@ -55,6 +55,8 @@ public final class WMFNavigationExperimentsDataController {
             assignment = ArticleSearchBarExperimentAssignment.test
         case .articleSearchBarControl:
             assignment = ArticleSearchBarExperimentAssignment.control
+        default:
+            assignment = ArticleSearchBarExperimentAssignment.control
         }
         
         self.assignmentCache = assignment
@@ -81,6 +83,8 @@ public final class WMFNavigationExperimentsDataController {
         case .articleSearchBarTest:
             assignment = ArticleSearchBarExperimentAssignment.test
         case .articleSearchBarControl:
+            assignment = ArticleSearchBarExperimentAssignment.control
+        default:
             assignment = ArticleSearchBarExperimentAssignment.control
         }
         

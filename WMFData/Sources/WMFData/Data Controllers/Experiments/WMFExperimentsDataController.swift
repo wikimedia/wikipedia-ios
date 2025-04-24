@@ -14,38 +14,49 @@ final class WMFExperimentsDataController {
         let bucketFileName: BucketFileName
         let bucketValueControl: BucketValue
         let bucketValueTest: BucketValue
+        let buckeckValueTest2: BucketValue?
     }
     
     public enum Experiment {
         case articleSearchBar
-        
+        case activityTab
+
         var config: ExperimentConfig {
             switch self {
             case .articleSearchBar:
                 return WMFExperimentsDataController.articleSearchBarConfig
+            case .activityTab:
+                return WMFExperimentsDataController.activityTabConfig
             }
         }
     }
     
     public enum PercentageFileName: String {
         case articleSearchBarPercent
+        case activityTabPercent
     }
     
     enum BucketFileName: String {
         case articleSearchBarBucket
+        case activityTabBucket
     }
     
     public enum BucketValue: String {
         case articleSearchBarTest = "ArticleSearchBar_Test"
         case articleSearchBarControl = "ArticleSearchBar_Control"
+        case activityTabGroupAControl = "ActivityTab_GroupA_Control"
+        case activityTabGroupBEdit = "ActivityTab_GroupB_Edit"
+        case activityTabGroupCSuggestedEdit = "ActivityTab_GroupC_SuggestedEdit"
     }
     
     // MARK: Properties
     
     private let cacheDirectoryName = WMFSharedCacheDirectoryNames.experiments.rawValue
     
-    private static let articleSearchBarConfig = ExperimentConfig(experiment: .articleSearchBar, percentageFileName: .articleSearchBarPercent, bucketFileName: .articleSearchBarBucket, bucketValueControl: .articleSearchBarControl, bucketValueTest: .articleSearchBarTest)
-    
+    private static let articleSearchBarConfig = ExperimentConfig(experiment: .articleSearchBar, percentageFileName: .articleSearchBarPercent, bucketFileName: .articleSearchBarBucket, bucketValueControl: .articleSearchBarControl, bucketValueTest: .articleSearchBarTest, buckeckValueTest2: nil)
+
+    private static let activityTabConfig = ExperimentConfig(experiment: .activityTab, percentageFileName: .activityTabPercent, bucketFileName: .activityTabBucket, bucketValueControl: .activityTabGroupAControl, bucketValueTest: .activityTabGroupBEdit, buckeckValueTest2: .activityTabGroupCSuggestedEdit)
+
     private let store: WMFKeyValueStore
     
     // MARK: Lifecycle
@@ -82,6 +93,14 @@ final class WMFExperimentsDataController {
         switch experiment {
         case .articleSearchBar:
             bucket = isInTest ? .articleSearchBarTest : .articleSearchBarControl
+        case .activityTab:
+            if randomInt >= 33 {
+                bucket = .activityTabGroupAControl
+            } else if randomInt >= 66 {
+                bucket = .activityTabGroupBEdit
+            } else {
+                bucket = .activityTabGroupCSuggestedEdit
+            }
         }
         
         try setBucket(bucket, forExperiment: experiment)
