@@ -7,16 +7,16 @@ final class ArticleCoordinator: Coordinator {
     var theme: Theme
     private let source: ArticleSource
     private let isRestoringState: Bool
-    private let rabbitHoleID: UUID
+    private let previousPageViewObjectID: NSManagedObjectID?
     
-    init(navigationController: UINavigationController, articleURL: URL, dataStore: MWKDataStore, theme: Theme, source: ArticleSource, isRestoringState: Bool = false, rabbitHoleID: UUID = UUID()) {
+    init(navigationController: UINavigationController, articleURL: URL, dataStore: MWKDataStore, theme: Theme, source: ArticleSource, isRestoringState: Bool = false, previousPageViewObjectID: NSManagedObjectID? = nil) {
         self.navigationController = navigationController
         self.articleURL = articleURL
         self.dataStore = dataStore
         self.theme = theme
         self.source = source
         self.isRestoringState = isRestoringState
-        self.rabbitHoleID = rabbitHoleID
+        self.previousPageViewObjectID = previousPageViewObjectID
     }
     
     @discardableResult
@@ -27,7 +27,7 @@ final class ArticleCoordinator: Coordinator {
             articleURL.wmf_languageVariantCode = dataStore.languageLinkController .swiftCompatiblePreferredLanguageVariantCodeForLanguageCode(articleURL.wmf_languageCode)
         }
         
-        guard let articleVC = ArticleViewController(articleURL: articleURL, dataStore: dataStore, theme: theme, source: source, rabbitHoleID: rabbitHoleID) else {
+        guard let articleVC = ArticleViewController(articleURL: articleURL, dataStore: dataStore, theme: theme, source: source, previousPageViewObjectID: previousPageViewObjectID) else {
             return false
         }
         articleVC.isRestoringState = isRestoringState

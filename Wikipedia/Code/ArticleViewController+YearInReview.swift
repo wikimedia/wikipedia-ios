@@ -15,7 +15,7 @@ extension ArticleViewController {
             Task {
                 do {
                     let pageViewsDataController = try WMFPageViewsDataController()
-                    let objectID = try await pageViewsDataController.addPageView(title: title, namespaceID: Int16(namespace.rawValue), project: wmfProject, rabbitHoleID: rabbitHoleID)
+                    let objectID = try await pageViewsDataController.addPageView(title: title, namespaceID: Int16(namespace.rawValue), project: wmfProject, previousPageViewObjectID: previousPageViewObjectID)
                     self.pageViewObjectID = objectID
                     self.trackBeganViewingDate()
                 } catch let error {

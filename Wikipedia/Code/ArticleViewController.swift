@@ -145,12 +145,10 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
     
     // Properties related to tracking number of seconds this article is viewed.
     var pageViewObjectID: NSManagedObjectID?
+    let previousPageViewObjectID: NSManagedObjectID?
     var beganViewingDate: Date?
     
-    // Rabbit hole tracking
-    let rabbitHoleID: UUID
-    
-    @objc init?(articleURL: URL, dataStore: MWKDataStore, theme: Theme, source: ArticleSource, schemeHandler: SchemeHandler? = nil, rabbitHoleID: UUID = UUID()) {
+    @objc init?(articleURL: URL, dataStore: MWKDataStore, theme: Theme, source: ArticleSource, schemeHandler: SchemeHandler? = nil, previousPageViewObjectID: NSManagedObjectID? = nil) {
 
         guard let article = dataStore.fetchOrCreateArticle(with: articleURL) else {
                 return nil
@@ -165,7 +163,7 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
         self.schemeHandler = schemeHandler ?? SchemeHandler(scheme: "app", session: dataStore.session)
         self.cacheController = cacheController
         self.articleViewSource = source
-        self.rabbitHoleID = rabbitHoleID
+        self.previousPageViewObjectID = previousPageViewObjectID
 
         super.init(nibName: nil, bundle: nil)
         self.theme = theme
@@ -1068,7 +1066,7 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
             // first try to navigate using LinkCoordinator. If it fails, use the legacy approach.
             if let navigationController {
                 
-                let linkCoordinator = LinkCoordinator(navigationController: navigationController, url: resolvedURL, dataStore: dataStore, theme: theme, articleSource: .undefined, rabbitHoleID: rabbitHoleID)
+                let linkCoordinator = LinkCoordinator(navigationController: navigationController, url: resolvedURL, dataStore: dataStore, theme: theme, articleSource: .undefined, previousPageViewObjectID: pageViewObjectID)
                 let success = linkCoordinator.start()
                 guard success else {
                     legacyNavigateAction()

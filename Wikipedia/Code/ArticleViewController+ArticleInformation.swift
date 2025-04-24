@@ -74,7 +74,7 @@ extension ArticleViewController: WMFLanguagesViewControllerDelegate {
             guard let self else { return }
             
             guard let navVC = self.navigationController else { return }
-            let articleCoordinator = ArticleCoordinator(navigationController: navVC, articleURL: language.articleURL, dataStore: dataStore, theme: theme, source: .undefined, rabbitHoleID: rabbitHoleID)
+            let articleCoordinator = ArticleCoordinator(navigationController: navVC, articleURL: language.articleURL, dataStore: dataStore, theme: theme, source: .undefined, previousPageViewObjectID: pageViewObjectID)
             articleCoordinator.start()
             
             NavigationEventsFunnel.shared.logEvent(action: .articleToolbarLangSuccess)
