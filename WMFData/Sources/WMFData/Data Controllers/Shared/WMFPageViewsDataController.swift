@@ -72,7 +72,7 @@ public final class WMFPageViewsDataController {
         self.coreDataStore = coreDataStore
     }
     
-    public func addPageView(title: String, namespaceID: Int16, project: WMFProject) async throws -> NSManagedObjectID? {
+    public func addPageView(title: String, namespaceID: Int16, project: WMFProject, rabbitHoleID: UUID?) async throws -> NSManagedObjectID? {
         
         let coreDataTitle = title.normalizedForCoreData
         
@@ -93,6 +93,7 @@ public final class WMFPageViewsDataController {
             let viewedPage = try self.coreDataStore.create(entityType: CDPageView.self, in: backgroundContext)
             viewedPage.page = page
             viewedPage.timestamp = currentDate
+            viewedPage.rabbitHoleID = rabbitHoleID?.uuidString
             
             try self.coreDataStore.saveIfNeeded(moc: backgroundContext)
             

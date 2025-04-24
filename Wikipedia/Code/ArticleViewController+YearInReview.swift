@@ -4,7 +4,6 @@ import CocoaLumberjackSwift
 
 extension ArticleViewController {
     
-    
     /// Persists CDPageView values in WMFData database. This will allow us to detect repeat article views, so we can display their most-viewed article in Year in Review
     /// Also begins tracking a viewed date. This is so that we can later save the number of viewed seconds when the user leaves the article view or backgrounds
     func persistPageViewsForWikipediaInReview() {
@@ -16,7 +15,7 @@ extension ArticleViewController {
             Task {
                 do {
                     let pageViewsDataController = try WMFPageViewsDataController()
-                    let objectID = try await pageViewsDataController.addPageView(title: title, namespaceID: Int16(namespace.rawValue), project: wmfProject)
+                    let objectID = try await pageViewsDataController.addPageView(title: title, namespaceID: Int16(namespace.rawValue), project: wmfProject, rabbitHoleID: rabbitHoleID)
                     self.pageViewObjectID = objectID
                     self.trackBeganViewingDate()
                 } catch let error {

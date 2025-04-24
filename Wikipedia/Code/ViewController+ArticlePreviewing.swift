@@ -3,7 +3,7 @@ import Foundation
 extension ArticleViewController: ArticlePreviewingDelegate {
     @objc func readMoreArticlePreviewActionSelected(with peekController: ArticlePeekPreviewViewController) {
         guard let navVC = navigationController else { return }
-        let articleCoordinator = ArticleCoordinator(navigationController: navVC, articleURL: peekController.articleURL, dataStore: dataStore, theme: theme, source: .undefined)
+        let articleCoordinator = ArticleCoordinator(navigationController: navVC, articleURL: peekController.articleURL, dataStore: dataStore, theme: theme, source: .undefined, rabbitHoleID: rabbitHoleID)
         articleCoordinator.start()
     }
     

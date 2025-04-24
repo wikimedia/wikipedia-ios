@@ -12,13 +12,15 @@ final class LinkCoordinator: Coordinator {
     private let dataStore: MWKDataStore
     var theme: Theme
     private let articleSource: ArticleSource
+    private let rabbitHoleID: UUID?
     
-    init(navigationController: UINavigationController, url: URL, dataStore: MWKDataStore?, theme: Theme, articleSource: ArticleSource) {
+    init(navigationController: UINavigationController, url: URL, dataStore: MWKDataStore?, theme: Theme, articleSource: ArticleSource, rabbitHoleID: UUID? = nil) {
         self.navigationController = navigationController
         self.url = url
         self.dataStore = dataStore ?? MWKDataStore.shared()
         self.theme = theme
         self.articleSource = articleSource
+        self.rabbitHoleID = rabbitHoleID
     }
     
     @discardableResult
@@ -28,12 +30,24 @@ final class LinkCoordinator: Coordinator {
         
         switch destination {
         case .article:
-            let articleCoordinator = ArticleCoordinator(
-                navigationController: navigationController,
-                articleURL: url,
-                dataStore: dataStore,
-                theme: theme,
-                source: articleSource)
+            var articleCoordinator: ArticleCoordinator
+            if let rabbitHoleID {
+                articleCoordinator = ArticleCoordinator(
+                    navigationController: navigationController,
+                    articleURL: url,
+                    dataStore: dataStore,
+                    theme: theme,
+                    source: articleSource,
+                    rabbitHoleID: rabbitHoleID)
+            } else {
+                articleCoordinator = ArticleCoordinator(
+                    navigationController: navigationController,
+                    articleURL: url,
+                    dataStore: dataStore,
+                    theme: theme,
+                    source: articleSource)
+            }
+            
             return articleCoordinator.start()
         case .unknown:
             return false
