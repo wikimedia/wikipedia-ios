@@ -131,7 +131,7 @@ class HistoryViewController: ArticleFetchedResultsViewController, WMFNavigationB
             do {
                 let dataController = try WMFPageViewsDataController()
                 try await dataController.deleteAllPageViewsAndCategories()
-
+                UserDefaults.standard.wmf_yearToSessionSecondsMapping = nil
             } catch {
                 DDLogError("Failure deleting WMFData WMFPageViews: \(error)")
             }
