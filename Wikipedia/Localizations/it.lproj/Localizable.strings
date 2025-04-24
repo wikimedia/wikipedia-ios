@@ -122,6 +122,8 @@
 "action-unsave" = "Annulla salvataggio";
 "action-unsaved-accessibility-notification" = "Voce non salvata";
 "action-update" = "Aggiorna";
+"activity-tab-no-edits-title" = "Non hai fatto alcuna modifica ancora.";
+"activity-tab-title" = "Attività";
 "add-articles-to-reading-list" = "Aggiungi $1 {{PLURAL:$1|voce|voci}} all'elenco di lettura";
 "advanced-settings-title" = "Impostazioni avanzate";
 "alert-temporary-account-learn-more" = "Ulteriori informazioni.";
@@ -253,7 +255,7 @@
 "donate-accessibility-monthly-recurring-hint" = "Tocca due volte per rendere le donazioni mensili automatiche con questo importo.";
 "donate-accessibility-textfield-hint" = "Inserisci un importo personalizzato da donare.";
 "donate-accessibility-transaction-fee-hint" = "Tocca due volte per aggiungere la commissione di transazione all'importo della donazione.";
-"donate-already-donated" = "Grazie a te che hai donato! La tua generosità ci aiuta a sostenere Wikipedia e i suoi siti correlati.";
+"donate-already-donated" = "Grazie a te che hai donato! La tua generosità ci aiuta a sostenere Wikipedia ed i suoi siti correlati.";
 "donate-apple-fine-print" = "Apple non è incaricata di raccogliere fondi per questo scopo.";
 "donate-email-opt-in-text" = "Sì, la Wikimedia Foundation può inviarmi e-mail di tanto in tanto.";
 "donate-help-frequently-asked-questions" = "Domande frequenti";
@@ -386,6 +388,7 @@
 "field-alert-password-confirm-mismatch" = "Le password non corrispondono";
 "field-alert-token-invalid" = "Codice non valido";
 "field-alert-username-unavailable" = "Nome utente non disponibile";
+"field-backup-token-title-email" = "Codice email";
 "field-captcha-placeholder" = "Testo CAPTCHA";
 "field-captcha-title" = "Inserisci il testo che vedi sopra";
 "field-email-placeholder" = "example@example.org";
@@ -618,7 +621,7 @@
 "on-this-day-no-internet-error" = "Nessun dato disponibile";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 da Wikipedia in $2";
 "on-this-day-title" = "In questo giorno";
-"page-history-bot-edits" = "modifiche dei bot";
+"page-history-bot-edits" = "bot";
 "page-history-compare-accessibility-hint" = "Clicca per selezionare due versioni da confrontare";
 "page-history-compare-title" = "Confronta";
 "page-history-minor-edits" = "modifiche minori";
@@ -630,6 +633,7 @@
 "page-history-revision-size-diff-subtraction" = "{{PLURAL:$1|Rimosso|Rimossi}} $1 byte";
 "page-history-revisions-comparison-warning" = "Possono essere selezionate solamente due versioni";
 "page-history-stats-text" = "{{PLURAL:$1|1 modifica|$1 modifiche}} dal $2";
+"page-history-unregistered-edits" = "non registrato";
 "page-issues" = "Problemi con la pagina";
 "page-location" = "Visualizza sulla mappa";
 "page-protected-can-not-edit" = "Non hai i diritti per modificare questa pagina";
@@ -877,6 +881,8 @@
 "top-read-widget-title" = "Più letti";
 "try-now-title" = "Prova ora";
 "tutorial-title" = "Tutorial";
+"two-factor-email-login-continue" = "Continua l'accesso";
+"two-factor-email-login-instructions" = "Inserisci il codice di verifica dell'email";
 "two-factor-login-continue" = "Continua l'accesso";
 "two-factor-login-instructions" = "Inserisci il codice di verifica a due fattori";
 "two-factor-login-title" = "Accedi alla tua utenza";

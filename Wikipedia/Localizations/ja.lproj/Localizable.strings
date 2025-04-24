@@ -275,7 +275,7 @@
 "donate-payment-method-prompt-title" = "Apple Payで寄付しますか？";
 "donate-success-title" = "ありがとうございます!";
 "donate-title" = "金額を選択する";
-"donate-transaction-fee-opt-in-text" = "金額の100%%が寄付されるよう、手数料として$1を追加して支払います。";
+"donate-transaction-fee-opt-in-text" = "金額の100%が寄付されるよう、手数料として$1を追加して支払います。";
 "edit-link-display-text-title" = "表示テキスト";
 "edit-link-link-target-title" = "リンク先";
 "edit-link-remove-link-title" = "リンクを除去";
@@ -715,6 +715,7 @@
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$2版ウィキペディアより$1の記事";
 "on-this-day-title" = "今日は何の日";
 "original-tab-button-popover-description" = "最初のタブに戻るにはWをタップ";
+// Fuzzy
 "page-history-bot-edits" = "ボット編集";
 "page-history-compare-accessibility-hint" = "比較する2つの版をタップして選択してください";
 "page-history-compare-title" = "比較";

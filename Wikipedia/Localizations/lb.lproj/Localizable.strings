@@ -72,6 +72,20 @@
 "action-unsave" = "Läschen";
 "action-unsaved-accessibility-notification" = "Artikel net gespäichert";
 "action-update" = "Aktualiséieren";
+"activity-tab-add-images-title" = "Biller derbäisetzen";
+"activity-tab-logged-out-title" = "Loggt Iech ab oder leet e Kont u fir méi Ännerungs- a Liesaktivitéiten ze gesinn.";
+"activity-tab-neutral" = "Neutral";
+"activity-tab-satisfied" = "Zefridden";
+"activity-tab-start-editing" = "Ufänke mat Änneren";
+"activity-tab-survey-title" = "Zefriddenheetsëmfro";
+"activity-tab-title" = "Aktivitéit";
+"activity-tab-unsatisfied" = "Onzefridden";
+"activity-tab-very-satisfied" = "Ganz zefridden";
+"activity-tab-very-unsatisfied" = "Ganz onzefridden";
+"activity-tab-view-saved-articles" = "Gespäichert Artikele weisen";
+"activity-tab-you-edited" = "Dir hutt dës Woch {{PLURAL:$1|$1 Artikel|$1 Artikele}} geännert.";
+"activity-tab-you-read" = "Dir hutt dës Woch {{PLURAL:$1|$1 Artikel|$1 Artikele}} gelies.";
+"activity-tab-you-saved" = "Dir hutt dës Woch {{PLURAL:$1|$1 Artikel|$1 Artikele}} gespäichert.";
 "add-articles-to-reading-list" = "{{PLURAL:$1|Een Artikel|$1 Artikelen}} op d'Lieslëscht derbäisetzen";
 "advanced-settings-title" = "Erweidert Astellungen";
 "alert-temporary-account-learn-more" = "Méi gewuer ginn.";
@@ -332,6 +346,7 @@
 "field-alert-token-invalid" = "Net valabele Code";
 "field-alert-username-unavailable" = "Benotzernumm net disponibel";
 "field-backup-token-title" = "Backup-Code";
+"field-backup-token-title-email" = "E-Mail-Code";
 "field-captcha-placeholder" = "CAPTCHA-Text";
 "field-captcha-title" = "Gitt den Text an deen Dir hei driwwer gesitt";
 "field-email-placeholder" = "beispill@example.org";
@@ -566,7 +581,7 @@
 "on-this-day-no-internet-error" = "Keng Donnéeën disponibel";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 vu Wikipedia op $2";
 "on-this-day-title" = "Op dësem Dag";
-"page-history-bot-edits" = "Bot-Ännerungen";
+"page-history-bot-edits" = "Bot";
 "page-history-compare-title" = "Vergläichen";
 "page-history-logged-in-edits" = "ageloggt";
 "page-history-minor-edits" = "kleng Ännerungen";

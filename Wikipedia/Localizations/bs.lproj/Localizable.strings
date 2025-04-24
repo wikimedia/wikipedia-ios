@@ -642,6 +642,7 @@
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 s Wikipedije ($2)";
 "on-this-day-title" = "Na današnji dan";
 "original-tab-button-popover-description" = "Dodirnite 'W' za povratak na karticu s koje ste krenuli";
+// Fuzzy
 "page-history-bot-edits" = "izmjene botova";
 "page-history-compare-accessibility-hint" = "Dodirnite za odabir dvije verzije za poređenje";
 "page-history-compare-title" = "Uporedi";
