@@ -94,6 +94,7 @@
 "action-unsave" = "न सहेजें";
 "action-unsaved-accessibility-notification" = "असुरक्षित लेख";
 "action-update" = "अद्यतन";
+"activity-tab-title" = "गतिविधि";
 "add-articles-to-reading-list" = "पठन सूची में{{PLURAL:$1|$1 लेख}} जोड़ें";
 "alt-text-feedback-survey-toast-title" = "प्रतिक्रिया प्रस्तुत की गई";
 "announcements-dismiss" = "रद्द करें";

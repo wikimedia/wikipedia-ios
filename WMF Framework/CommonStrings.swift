@@ -705,7 +705,7 @@ public class CommonStrings: NSObject {
         return String.localizedStringWithFormat(format, amount ?? 0)
     }
     public static func activityTabArticleEditedNumber(amount: Int? = 0) -> String {
-        let format = WMFLocalizedString("activity-tab-you-edited", value: "You edited {{PLURAL:%1$d|%1$d article|%1$d articles}} this week.", comment: "Displays how many articles the user edited in the past week, $1 is the amount, returning the pluralized version of article depending.")
+        let format = WMFLocalizedString("activity-tab-you-edited", value: "You edited {{PLURAL:%1$d|%1$d time|%1$d times}} this week.", comment: "Displays how many articles the user edited in the past week, $1 is the amount, returning the pluralized version of article depending.")
         return String.localizedStringWithFormat(format, amount ?? 0)
     }
     public static var activityTabAddImagesTitle = WMFLocalizedString("activity-tab-add-images-title", value: "Add images", comment: "Title for add images feature suggestion.")

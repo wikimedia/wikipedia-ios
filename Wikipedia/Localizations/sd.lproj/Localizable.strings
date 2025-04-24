@@ -705,6 +705,7 @@
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$2 وڪيپيڊيا مان $1";
 "on-this-day-title" = "ھن ڏينھن تي";
 "original-tab-button-popover-description" = "جنھن ٽيب کان توھان شروع ڪيو ان ڏانھن ورڻ لاءِ 'W' تي ڇھو";
+// Fuzzy
 "page-history-bot-edits" = "بوٽ سنوارون";
 "page-history-compare-accessibility-hint" = "ٻن ورجائن کي چونڊي ڀيٽڻ لاءِ ڇھو";
 "page-history-compare-title" = "ڀيٽيو";

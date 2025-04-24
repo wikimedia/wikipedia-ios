@@ -114,6 +114,22 @@
 "action-unsave" = "未儲存";
 "action-unsaved-accessibility-notification" = "條目未儲存";
 "action-update" = "更新";
+"activity-tab-add-images-subtitle" = "將建議的圖片加到維基百科條目來加強理解。";
+"activity-tab-add-images-title" = "新增圖片";
+"activity-tab-additional-thoughts" = "還有其他想法嗎？";
+"activity-tab-neutral" = "中立";
+"activity-tab-satisfied" = "滿意";
+"activity-tab-start-editing" = "開始編輯";
+"activity-tab-survey-title" = "滿意度調查";
+"activity-tab-title" = "活動";
+"activity-tab-unsatisfied" = "不滿意";
+"activity-tab-very-satisfied" = "非常滿意";
+"activity-tab-very-unsatisfied" = "非常不滿意";
+"activity-tab-view-reading-history" = "檢視閱讀紀錄";
+"activity-tab-view-saved-articles" = "檢視已儲存條目";
+"activity-tab-you-edited" = "您這週編輯了{{PLURAL:$1|$1}}篇條目。";
+"activity-tab-you-read" = "您這週閱讀了{{PLURAL:$1|$1}}篇條目。";
+"activity-tab-you-saved" = "您這週儲存了{{PLURAL:$1|$1}}篇條目。";
 "add-articles-to-reading-list" = "新增 {{PLURAL:$1|$1 個條目|$1 個條目}}至閱讀清單";
 "advanced-settings-title" = "進階設定";
 "alert-temporary-account" = "您正在使用臨時帳號。帳號會在 90 天後到期。";
@@ -869,6 +885,7 @@
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "來自於$2維基百科的 $1";
 "on-this-day-title" = "歷史上的今天";
 "original-tab-button-popover-description" = "輕觸「W」來返回至您起始的分頁";
+// Fuzzy
 "page-history-bot-edits" = "機器人編輯";
 "page-history-compare-accessibility-hint" = "輕觸來選擇兩個修訂做比較";
 "page-history-compare-title" = "比較";
@@ -884,6 +901,7 @@
 "page-history-revision-time-accessibility-label" = "修訂於 $1";
 "page-history-revisions-comparison-warning" = "僅能選擇兩個修訂";
 "page-history-stats-text" = "自$2共{{PLURAL:$1|$1次編輯}}";
+// Fuzzy
 "page-history-unregistered-edits" = "未註冊編輯";
 "page-issues" = "頁面問題";
 "page-location" = "在地圖上檢視";
@@ -1244,6 +1262,7 @@
 "talk-pages-view-title" = "討論";
 "temp-account-alert-read-more-information" = "$1您正在使用臨時帳號。$2帳號會在 90 天後到期。到期後，下一次您在未登入情況下做出編輯時，會再建立另一個新的帳號。$3請登入或建立帳號，以讓往後做出的編輯歸在您的名義之下，並使用其他功能。";
 "temp-account-edit-sheet-cta-top" = "登入或建立帳號";
+// Fuzzy
 "temp-account-edit-sheet-subtitle" = "您的編輯內容將歸在$2$1$3名義之下。管理員可查看您的$4 IP 位址$5。$7了解更多。$5$6如果您選擇登入或建立帳號，您的編輯內容將歸在您使用的名稱，並可獲得其他功能。";
 "temp-account-got-it" = "了解";
 "temp-account-toast-read-more-title" = "延伸閱讀";
@@ -1366,7 +1385,7 @@
 "welcome-notifications-tell-me-more-creation" = "通知是由此應用程式在您裝置上建立及發送，而非由我們或（其它第三方）的服務所為。";
 "welcome-notifications-tell-me-more-storage" = "通知的偏好設定是儲存在裝置上，而不是基於個人資訊或活動。";
 "welcome-notifications-tell-me-more-title" = "更多有關通知";
-"welcome-privacy-subtitle" = "我們認為您不必提供個人資訊，即可參與自由的知識運動。此應用程式以匿名方式收集使用資料。";
+"welcome-privacy-subtitle" = "我們堅信，使用者不必提供個人資訊，即可參與自由的知識運動。此應用程式會以匿名方式收集使用資料。";
 "welcome-privacy-terms-button-text" = "詳細了解我們的隱私權政策和使用條款。";
 "widget-onthisday-description" = "探索在歷史上的今天發生的事件。";
 "widget-onthisday-placeholder-article-snippet" = "人人都可編輯的自由線上百科全書";

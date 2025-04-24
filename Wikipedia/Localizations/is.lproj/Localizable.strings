@@ -646,6 +646,7 @@
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 af $2 Wikipedia";
 "on-this-day-title" = "Á þessum degi";
 "original-tab-button-popover-description" = "Ýttu á 'W'-ið til að fara til baka á flipann þar sem þú varst";
+// Fuzzy
 "page-history-bot-edits" = "vélmennabreytingar";
 "page-history-compare-accessibility-hint" = "Ýttu til að velja tvær útgáfur til samanburðar";
 "page-history-compare-title" = "Bera saman";

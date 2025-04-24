@@ -86,6 +86,9 @@
 "action-unsave" = "Gem ikke";
 "action-unsaved-accessibility-notification" = "Artikel ikke længere gemt";
 "action-update" = "Opdater";
+"activity-tab-add-images-subtitle" = "Tilføj foreslåede billeder til Wikipedia-artikler for at forbedre forståelsen.";
+"activity-tab-add-images-title" = "Tilføj billeder";
+"activity-tab-additional-thoughts" = "Yderligere tanker?";
 "add-articles-to-reading-list" = "Tilføj {{PLURAL:$1|$1 artikel|$1 artikler}} til læselisten";
 "advanced-settings-title" = "Avancerede indstillinger";
 "alert-temporary-account" = "Du bruger en midlertidig konto. Kontoen udløber efter 90 dage.";

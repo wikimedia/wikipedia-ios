@@ -88,7 +88,7 @@
 "activity-tab-very-unsatisfied" = "Very unsatisfied";
 "activity-tab-view-reading-history" = "View reading history";
 "activity-tab-view-saved-articles" = "View saved articles";
-"activity-tab-you-edited" = "You edited {{PLURAL:$1|$1 article|$1 articles}} this week.";
+"activity-tab-you-edited" = "You edited {{PLURAL:$1|$1 time|$1 times}} this week.";
 "activity-tab-you-read" = "You read {{PLURAL:$1|$1 article|$1 articles}} this week.";
 "activity-tab-you-saved" = "You saved {{PLURAL:$1|$1 article|$1 articles}} this week.";
 "add-articles-to-reading-list" = "Add {{PLURAL:$1|$1 article|$1 articles}} to reading list";
