@@ -72,12 +72,14 @@ import WMFData
             return localizedStrings.activityTabSaveTitle
         case .noEdit:
             return localizedStrings.activityTabNoEditsTitle
+        case .addImage:
+            return "Add images to enhance article understanding."
         }
     }
     
     func action(for type: ActivityTabDisplayType) -> (() -> Void)? {
         switch type {
-        case .edit:
+        case .edit, .addImage:
             return nil
         case .read:
             return openHistory
@@ -90,7 +92,7 @@ import WMFData
     
     func backgroundColor(for type: ActivityTabDisplayType) -> UIColor {
         switch type {
-        case .edit, .noEdit:
+        case .edit, .noEdit, .addImage:
             theme.softEditorBlue
         case .save:
             theme.softEditorGreen
@@ -101,12 +103,23 @@ import WMFData
     
     func iconColor(for type: ActivityTabDisplayType) -> UIColor {
         switch type {
-        case .edit, .noEdit:
+        case .edit, .noEdit, .addImage:
             theme.editorBlue
         case .save:
             theme.editorGreen
         case .read:
             theme.editorOrange
+        }
+    }
+    
+    func borderColor(for type: ActivityTabDisplayType) -> UIColor {
+        switch type {
+        case .edit, .noEdit, .addImage:
+            WMFColor.blue100
+        case .save:
+            WMFColor.green100
+        case .read:
+            WMFColor.beige100
         }
     }
 
@@ -136,7 +149,7 @@ public struct ActivityItem {
     
     var imageName: String {
         switch type {
-        case .edit, .noEdit:
+        case .edit, .noEdit, .addImage:
             return "activity-edit"
         case .read:
             return "activity-read"
@@ -151,4 +164,5 @@ public enum ActivityTabDisplayType {
     case read
     case save
     case noEdit
+    case addImage
 }
