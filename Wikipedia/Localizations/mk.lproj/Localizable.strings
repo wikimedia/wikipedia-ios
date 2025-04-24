@@ -81,6 +81,28 @@
 "action-unsave" = "Тргни";
 "action-unsaved-accessibility-notification" = "Статијата е незачувана";
 "action-update" = "Поднови";
+"activity-tab-add-images-subtitle" = "Додавајте предложени слики во википедиски статии за да ја подобрите претставата за содржината.";
+"activity-tab-add-images-title" = "Додај слики";
+"activity-tab-additional-thoughts" = "Имате други размисли?";
+"activity-tab-logged-out-subtitle" = "Следете што имате прочитано и гледајте ги вашите придонеси со текот на времето на нов начин";
+// Fuzzy
+"activity-tab-logged-out-title" = "Најавете се за да гледате повеќе читачка и уредувачка активност.";
+"activity-tab-neutral" = "Воздржан";
+"activity-tab-no-edits-subtitle" = "Започнете со уредување за да почнете да ги следите вашите придонеси.";
+"activity-tab-no-edits-title" = "Сè уште не сте направиле ниедно уредување.";
+"activity-tab-satisfied" = "Задоволен";
+"activity-tab-start-editing" = "Почнете со уредување";
+"activity-tab-survey" = "Дали сте задоволни со екранот „Активност“? Што друго би сакале да видите овде во иднина?";
+"activity-tab-survey-title" = "Анкета за задоволност";
+"activity-tab-title" = "Активност";
+"activity-tab-unsatisfied" = "Незадоволен";
+"activity-tab-very-satisfied" = "Многу задоволен";
+"activity-tab-very-unsatisfied" = "Многу незадоволен";
+"activity-tab-view-reading-history" = "Погл. историја на читање";
+"activity-tab-view-saved-articles" = "Погл. зачувани статии";
+"activity-tab-you-edited" = "Неделава уредивте {{PLURAL:$1|$1 статија|$1 статии}}.";
+"activity-tab-you-read" = "Неделава прочитавте {{PLURAL:$1|$1 статија|$1 статии}}.";
+"activity-tab-you-saved" = "Неделава зачувавте {{PLURAL:$1|$1 статија|$1 статии}}.";
 "add-articles-to-reading-list" = "Додавање на {{PLURAL:$1|$1 статија|$1 статии}} во список за читање";
 "advanced-settings-title" = "Напредни нагодувања";
 "alert-temporary-account" = "Користите привремена сметка. Таа истекува за 90 дена.";
@@ -184,6 +206,7 @@
 "description-welcome-descriptions-title" = "Описи на статии";
 "description-welcome-promise-title" = "Почнувајќи ја употребата, ветувам дека нема да ја злоупотребувам оваа можност";
 "description-welcome-start-editing-button" = "Почнете со уредување";
+"developer-force-email-auth" = "Принуди заверка по е-пошта";
 "developer-settings" = "Поставки за разработувачи";
 "developer-settings-bypass-donation" = "Прескокни дарување";
 "developer-settings-enable-year-in-review" = "Овозможи Преглед на годината";
@@ -499,6 +522,7 @@
 "field-alert-token-invalid" = "Неважечки код";
 "field-alert-username-unavailable" = "Корисничкото име е недостапно";
 "field-backup-token-title" = "Резервен код";
+"field-backup-token-title-email" = "Код од е-пошта";
 "field-captcha-placeholder" = "CAPTCHA-текст";
 "field-captcha-title" = "Внесете го гореприкажаниот текст";
 "field-email-placeholder" = "example@example.org";
@@ -836,6 +860,7 @@
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 од Википедија на $2";
 "on-this-day-title" = "На денешен ден";
 "original-tab-button-popover-description" = "Допрете на „W“ за да се вратите на почетното јазиче";
+// Fuzzy
 "page-history-bot-edits" = "ботовски уредувања";
 "page-history-compare-accessibility-hint" = "Допрете за да изберете две преработки за споредба";
 "page-history-compare-title" = "Спореди";
@@ -851,6 +876,7 @@
 "page-history-revision-time-accessibility-label" = "Преработката е направена $1";
 "page-history-revisions-comparison-warning" = "Можете да изберете само две преработки";
 "page-history-stats-text" = "{{PLURAL:$1|$1 уредување|$1 уредувања}} од $2 наваму";
+// Fuzzy
 "page-history-unregistered-edits" = "уредувања на непријавени";
 "page-issues" = "Проблеми со страницата";
 "page-location" = "Погл. на карта";
@@ -1211,6 +1237,7 @@
 "talk-pages-view-title" = "Разговор";
 "temp-account-alert-read-more-information" = "$1Користите привремена сметка.$2 Таа ќе истече за 90 дена. Откако ќе истече, ќе ви биде направена нова следниот пат кога ќе уредите без најава. $3Најавете се или направете сметка за да ви се припишуваат уредувањата во иднина, како и да добиете пристап до други функции.";
 "temp-account-edit-sheet-cta-top" = "Најавете се или создајте сметка";
+// Fuzzy
 "temp-account-edit-sheet-subtitle" = "Вашето уредување ќе му биде припишано на $2$1$3. Вашата $4IP-адреса$5 ќе им биде видлива на администраторите. $7Дознајте повеќе.$5$6 Ако се најавите или направите сметка, вашите уредувања ќе му се припишуваат на името што ќе си го изберете, меѓу другите поволности.";
 "temp-account-got-it" = "Јасно";
 "temp-account-toast-read-more-title" = "Прочитајте повеќе";
@@ -1230,6 +1257,8 @@
 "top-read-widget-title" = "Најчитани";
 "try-now-title" = "Пробајте сега";
 "tutorial-title" = "Упатство";
+"two-factor-email-login-continue" = "Продолжете со најавата";
+"two-factor-email-login-instructions" = "Внесете го потврдниот код добиен од е-пошта";
 "two-factor-login-continue" = "Продолжете со најавата";
 "two-factor-login-instructions" = "Внесете го двочинителскиот код за заверка";
 "two-factor-login-title" = "Најавете се со вашата сметка";

@@ -84,6 +84,14 @@
 "action-unsave" = "ਅਣ-ਸੰਭਾਲੋ";
 "action-unsaved-accessibility-notification" = "ਲੇਖ ਸੰਭਾਲਿਆ ਨਹੀਂ ਗਿਆ";
 "action-update" = "ਨਵਿਆਓ";
+"activity-tab-add-images-title" = "ਤਸਵੀਰ ਜੋੜੋ";
+"activity-tab-additional-thoughts" = "ਕੋਈ ਹੋਰ ਵਿਚਾਰ?";
+"activity-tab-neutral" = "ਨਿਰਪੱਖ";
+"activity-tab-no-edits-title" = "ਤੁਸੀਂ ਹਾਲੇ ਤੱਕ ਕੋਈ ਸੋਧ ਨਹੀਂ ਕੀਤੀ ਹੈ।";
+"activity-tab-start-editing" = "ਸੋਧ ਸ਼ੁਰੂ ਕਰੋ";
+"activity-tab-title" = "ਸਰਗਰਮੀ";
+"activity-tab-view-reading-history" = "ਪੜ੍ਹਨ ਦਾ ਇਤਿਹਾਸ ਵੇਖੋ";
+"activity-tab-you-edited" = "ਤੁਸੀਂ ਇਸ ਹਫ਼ਤੇ {{PLURAL:$1|$1 ਲੇਖ}} ਸੋਧੇ ਹਨ।";
 "add-articles-to-reading-list" = "{{PLURAL:$1| $1 ਲੇਖ}} ਪੜ੍ਹਨ ਦੀ ਸੂਚੀ ਵਿੱਚ ਜੋੜੋ";
 "advanced-settings-title" = "ਵਧੇਰੇ ਤਰਜੀਹਾਂ";
 "alert-temporary-account" = "ਤੁਸੀਂ ਇੱਕ ਆਰਜ਼ੀ ਖਾਤਾ ਵਰਤ ਰਹੇ ਹੋ। ਖਾਤੇ ਦੀ ਮਿਆਦ 90 ਦਿਨਾਂ ਵਿੱਚ ਖ਼ਤਮ ਹੋ ਜਾਵੇਗੀ।";
@@ -353,6 +361,7 @@
 "featured-widget-title" = "ਵਿਸ਼ੇਸ਼ ਲੇਖ";
 "field-alert-password-confirm-mismatch" = "ਪਛਾਣ-ਸ਼ਬਦ ਮੇਲ ਨਹੀਂ ਖਾਂਦੇ";
 "field-alert-token-invalid" = "ਗ਼ਲਤ ਕੋਡ";
+"field-backup-token-title-email" = "ਈਮੇਲ ਕੋਡ";
 "field-email-title" = "ਈਮੇਲ";
 "field-email-title-optional" = "ਈਮੇਲ (ਚੋਣਵੀਂ)";
 "field-new-password-confirm-placeholder" = "ਨਵਾਂ ਪਾਰਸ਼ਬਦ ਮੁੜਕੇ ਪਾਓ";
@@ -569,7 +578,7 @@
 "on-this-day-no-internet-error" = "ਕੋਈ ਡਾਟਾ ਮੌਜ਼ੂਦ ਨਹੀਂ ਏ";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$2 ਵਿਕੀਪੀਡੀਆ ਤੋਂ $1";
 "on-this-day-title" = "ਅੱਜ ਦੇ ਦਿਨ";
-"page-history-bot-edits" = "ਬੋਟ ਵੱਲੋਂ ਸੋਧਾਂ";
+"page-history-bot-edits" = "ਬੋਟ";
 "page-history-compare-accessibility-hint" = "ਤੁਲਨਾ ਕਰਨ ਲਈ ਦੋ ਸੋਧਾਂ ਦੀ ਚੋਣ ਕਰਨ ਲਈ ਦੱਬੋ";
 "page-history-compare-title" = "ਤੁਲਨਾ ਕਰੋ";
 "page-history-minor-edits" = "ਛੋਟੀਆਂ ਸੋਧਾਂ";
@@ -629,7 +638,7 @@
 "project-name-wikidata" = "ਵਿਕੀਡਾਟਾ";
 "project-name-wikimedia-commons" = "ਵਿਕੀਮੀਡੀਆ ਭਾਈਚਾਰਾ";
 "project-name-wikinews" = "ਵਿਕੀਖ਼ਬਰਾਂ";
-"project-name-wikiquote" = "ਵਿਕੀਹਵਾਲਾ";
+"project-name-wikiquote" = "ਵਿਕੀਕਥਨ";
 "project-name-wikisource" = "ਵਿਕੀਸਰੋਤ";
 "project-name-wikispecies" = "ਵਿਕੀਜਾਤੀਆਂ";
 "project-name-wikiversity" = "ਵਿਕੀਵਰਸਿਟੀ";
@@ -849,6 +858,7 @@
 "top-read-widget-title" = "ਸਭ ਤੋਂ ਵੱਧ ਪਡ਼੍ਹਿਆ";
 "try-now-title" = "ਹੁਣੇ ਕੋਸ਼ਿਸ਼ ਕਰੋ";
 "tutorial-title" = "ਸਿਖਲਾਈ";
+"two-factor-email-login-continue" = "ਦਾਖਲ ਹੋਣਾ ਜਾਰੀ ਰੱਖੋ";
 "two-factor-login-continue" = "ਦਾਖਲ ਹੋਣਾ ਜਾਰੀ ਰੱਖੋ";
 "two-factor-login-instructions" = "ਕਿਰਪਾ ਕਰਕੇ ਦੋ-ਪੱਖੀ ਤਸਦੀਕ ਕੋਡ ਦਰਜ ਕਰੋ";
 "two-factor-login-title" = "ਆਪਣੇ ਖਾਤੇ ਵਿੱਚ ਦਾਖ਼ਲ ਹੋਵੋ";

@@ -838,6 +838,7 @@
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$2 위키백과에서 $1";
 "on-this-day-title" = "오늘의 역사";
 "original-tab-button-popover-description" = "시작한 탭으로 돌아가려면 'W'를 탭하세요";
+// Fuzzy
 "page-history-bot-edits" = "봇 편집";
 "page-history-compare-accessibility-hint" = "탭하여 비교할 판 2개를 선택하십시오";
 "page-history-compare-title" = "비교하기";
@@ -852,6 +853,7 @@
 "page-history-revision-time-accessibility-label" = "수정본 \"$1\"";
 "page-history-revisions-comparison-warning" = "판 2개만 선택할 수 있습니다";
 "page-history-stats-text" = "$2 이후 {{PLURAL:$1|편집 $1회}}";
+// Fuzzy
 "page-history-unregistered-edits" = "등록되지 않은 사용자의 편집";
 "page-issues" = "문서 이슈";
 "page-location" = "지도에서 보기";

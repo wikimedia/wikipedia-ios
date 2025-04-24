@@ -543,6 +543,7 @@
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 z Wikipedie v jazyce $2";
 "on-this-day-title" = "Dnešek v minulosti";
 "original-tab-button-popover-description" = "Klepnutím na W se vrátíte na kartu, ze které jste začali";
+// Fuzzy
 "page-history-bot-edits" = "editace robotů";
 "page-history-compare-accessibility-hint" = "Klepněte pro vybrání dvou revizí k porovnání";
 "page-history-compare-title" = "Porovnat";

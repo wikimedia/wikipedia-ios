@@ -311,6 +311,7 @@
 "on-this-day-detail-header-title" = "{{PLURAL:$1|$1 ऐतिहासिक घटनाक्रम|$1 ऐतिहासिक घटनाक्रमहरू}}";
 "on-this-day-footer" = "यस दिनका ऐतिहासिक घटनाक्रमहरू";
 "on-this-day-title" = "आजको दिनमा";
+// Fuzzy
 "page-history-bot-edits" = "यन्त्रका सम्पादनहरू";
 "page-history-compare-title" = "तुलना गर्नुहोस्";
 "page-protected-can-not-edit" = "तपाईंलाई यो पृष्ठ सम्पादन गर्ने अधिकार छैन";
