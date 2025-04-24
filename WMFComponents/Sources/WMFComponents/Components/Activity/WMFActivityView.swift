@@ -24,9 +24,11 @@ public struct WMFActivityView: View {
             VStack(alignment: .leading) {
                 WMFHtmlText(html: viewModel.localizedStrings.greeting, styles: titleStyles)
                     .frame(maxWidth: .infinity, alignment: .leading)
+                    .padding(.top, 24)
+                    .padding(.bottom, 8)
                 if viewModel.hasNoEdits {
                     noEditsView
-                        .padding(.vertical, 12)
+                        .padding(.vertical, 8)
                 } else if viewModel.shouldShowAddAnImage {
                     Text(viewModel.suggestedEdits)
                     suggestedEditsView // TODO: add editing activity item a bove
@@ -41,14 +43,15 @@ public struct WMFActivityView: View {
                                 shouldDisplayButton: true,
                                 backgroundColor: viewModel.backgroundColor(for: item.type),
                                 iconColor: viewModel.iconColor(for: item.type),
+                                borderColor: viewModel.borderColor(for: item.type),
                                 iconName: item.imageName)
-                            .padding(.vertical, 12)
+                            .padding(.vertical, 8)
                         }
                     }
                 }
                 Spacer()
             }
-            .padding(12)
+            .padding(.horizontal, 20)
             .onAppear {
                 Task {
                     guard let project = viewModel.project else { return }
@@ -58,8 +61,8 @@ public struct WMFActivityView: View {
                     dataController.legacyPageViewsDataDelegate = viewModel.legacyPageViewsDataDelegate
                     let activity = try await dataController.fetchAllStuff(username: "TSevener (WMF)", project: project)
                     var testItems = [
-                        ActivityItem(title: "You read \(activity.readCount) articles this week.", subtitle: nil, type: .read),
-                        ActivityItem(title: "You saved \(activity.savedCount) articles this week", subtitle: nil, type: .save)
+                        ActivityItem(title: "You saved \(activity.savedCount) articles this week", subtitle: nil, type: .save),
+                        ActivityItem(title: "You read \(activity.readCount) articles this week.", subtitle: nil, type: .read)
                     ]
 
                     if !viewModel.hasNoEdits {
@@ -88,6 +91,7 @@ public struct WMFActivityView: View {
                 shouldDisplayButton: true,
                 backgroundColor: viewModel.backgroundColor(for: item.type),
                 iconColor: viewModel.iconColor(for: item.type),
+                borderColor: viewModel.borderColor(for: item.type),
                 iconName: item.imageName)
         }
     }
