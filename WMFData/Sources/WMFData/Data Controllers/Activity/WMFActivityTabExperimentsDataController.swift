@@ -1,0 +1,132 @@
+import Foundation
+
+public final class WMFActivityTabExperimentsDataController {
+    public enum CustomError: Error {
+        case invalidProject
+        case invalidDate
+        case alreadyAssignedBucket
+        case missingAssignment
+        case unexpectedAssignment
+    }
+
+    public enum ActivityTabExperimentAssignment {
+        case control
+        case genericCTA
+        case suggestedEdit
+    }
+
+    public static let shared = WMFActivityTabExperimentsDataController()
+    private let experimentsDataController: WMFExperimentsDataController
+    private let activityTabExperimentPercentage: Int = 33
+
+    private var assignmentCache: ActivityTabExperimentAssignment?
+
+    private init?(experimentStore: WMFKeyValueStore? = WMFDataEnvironment.current.sharedCacheStore) {
+        guard let experimentStore else {
+            return nil
+        }
+        self.experimentsDataController = WMFExperimentsDataController(store: experimentStore)
+    }
+
+    public func assignActivityTabSearchBarExperiment(project: WMFProject) throws -> ActivityTabExperimentAssignment {
+        guard project.qualifiesActivityTabExperiment() else {
+            throw CustomError.invalidProject
+        }
+
+        guard isBeforeEndDate else {
+            reset()
+            throw CustomError.invalidDate
+        }
+
+        if experimentsDataController.bucketForExperiment(.activityTab) != nil {
+            throw CustomError.alreadyAssignedBucket
+        }
+
+        let bucketValue = try experimentsDataController.determineBucketForExperiment(.activityTab, withPercentage: activityTabExperimentPercentage)
+
+        let assignment: ActivityTabExperimentAssignment
+
+        switch bucketValue {
+        case .activityTabGroupAControl:
+            assignment = .control
+        case .activityTabGroupBEdit:
+            assignment = .genericCTA
+        case .activityTabGroupCSuggestedEdit:
+            assignment = .suggestedEdit
+        default:
+            assignment = .control
+        }
+
+        self.assignmentCache = assignment
+        return assignment
+    }
+
+    private func reset() {
+        assignmentCache = nil
+        try? experimentsDataController.resetExperiment(.activityTab)
+    }
+
+    private var experimentEndDate: Date? { // TODO: - get real date
+        var dateComponents = DateComponents()
+        dateComponents.year = 2025
+        dateComponents.month = 5
+        dateComponents.day = 31
+        return Calendar.current.date(from: dateComponents)
+    }
+
+    private var isBeforeEndDate: Bool {
+
+        guard let experimentEndDate else {
+            return false
+        }
+
+        return experimentEndDate >= Date()
+    }
+
+    public func getActivityTabExperimentAssignment() throws -> ActivityTabExperimentAssignment {
+
+        guard isBeforeEndDate else {
+            throw CustomError.invalidDate
+        }
+
+        if let assignmentCache {
+            return assignmentCache
+        }
+
+        guard let bucketValue = experimentsDataController.bucketForExperiment(.articleSearchBar) else {
+            throw CustomError.missingAssignment
+        }
+
+        let assignment: ActivityTabExperimentAssignment
+        switch bucketValue {
+        case .activityTabGroupAControl:
+            assignment = .control
+        case .activityTabGroupBEdit:
+            assignment = .genericCTA
+        case .activityTabGroupCSuggestedEdit:
+            assignment = .suggestedEdit
+        default:
+            assignment = .control
+        }
+
+        self.assignmentCache = assignment
+        return assignment
+    }
+
+}
+
+private extension WMFProject {
+    func qualifiesActivityTabExperiment() -> Bool {
+        switch self {
+        case .wikipedia(let language):
+            switch language.languageCode {
+            case "zh", "fr", "tr", "es":
+                return true
+            default:
+                return false
+            }
+        default:
+            return false
+        }
+    }
+}

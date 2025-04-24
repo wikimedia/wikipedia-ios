@@ -94,9 +94,9 @@ final class WMFExperimentsDataController {
         case .articleSearchBar:
             bucket = isInTest ? .articleSearchBarTest : .articleSearchBarControl
         case .activityTab:
-            if randomInt >= 33 {
+            if randomInt >= percentage {
                 bucket = .activityTabGroupAControl
-            } else if randomInt >= 66 {
+            } else if randomInt < percentage && randomInt >= percentage*2 {
                 bucket = .activityTabGroupBEdit
             } else {
                 bucket = .activityTabGroupCSuggestedEdit
