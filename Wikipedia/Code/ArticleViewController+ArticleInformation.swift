@@ -69,8 +69,14 @@ extension ArticleViewController {
 
 extension ArticleViewController: WMFLanguagesViewControllerDelegate {
     func languagesController(_ controller: WMFLanguagesViewController, didSelectLanguage language: MWKLanguageLink) {
-        dismiss(animated: true) {
-            self.navigate(to: language.articleURL)
+        dismiss(animated: true) { [weak self] in
+            
+            guard let self else { return }
+            
+            guard let navVC = self.navigationController else { return }
+            let articleCoordinator = ArticleCoordinator(navigationController: navVC, articleURL: language.articleURL, dataStore: dataStore, theme: theme, source: .undefined, rabbitHoleID: rabbitHoleID)
+            articleCoordinator.start()
+            
             NavigationEventsFunnel.shared.logEvent(action: .articleToolbarLangSuccess)
         }
     }
