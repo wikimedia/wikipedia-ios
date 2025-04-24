@@ -15,6 +15,7 @@ import WMFData
     let openSavedArticles: () -> Void
     let openSuggestedEdits: (() -> Void)?
     let openStartEditing: (() -> Void)?
+    let openAddAnImage: (() -> Void)?
     public var savedSlideDataDelegate: SavedArticleSlideDataDelegate?
     public var legacyPageViewsDataDelegate: LegacyPageViewsDataDelegate?
     
@@ -46,6 +47,7 @@ import WMFData
             openSavedArticles: @escaping () -> Void,
             openSuggestedEdits: (() -> Void)?,
             openStartEditing: (() -> Void)?,
+            openAddAnImage: (() -> Void)?,
             loginAction: (() -> Void)?,
             isLoggedIn: Bool) {
         self.username = username
@@ -56,6 +58,7 @@ import WMFData
         self.openHistory = openHistory
         self.loginAction = loginAction
         self.openSavedArticles = openSavedArticles
+        self.openAddAnImage = openAddAnImage
         self.localizedStrings = localizedStrings
         self.isLoggedIn = isLoggedIn
         self.openSuggestedEdits = openSuggestedEdits

@@ -770,6 +770,12 @@ extension WMFAppViewController {
 
         }
         
+        let openAddAnImage = { [weak self] in
+            guard let self = self, let navigationController = self.currentTabNavigationController else {
+                return
+            }
+        }
+        
         func greeting(username: String) -> String {
             let openingBold = "<b>"
             let closingBold = "</b>"
@@ -803,6 +809,7 @@ extension WMFAppViewController {
             openSavedArticles: openSavedArticlesClosure,
             openSuggestedEdits: openSuggestedEditsClosure,
             openStartEditing: openStartEditing,
+            openAddAnImage: openAddAnImage,
             loginAction: nil,
             isLoggedIn: isLoggedIn)
         

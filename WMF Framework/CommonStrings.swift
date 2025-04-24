@@ -693,7 +693,7 @@ public class CommonStrings: NSObject {
     public static let actitvityTabLoggedOutSubtitle = WMFLocalizedString("activity-tab-logged-out-subtitle", value: "Track what you’ve read and view your contributions over time in a new way", comment: "Subtitle for activity tab when users are logged out.")
     public static let activityTabViewReadingHistoryTitle = WMFLocalizedString("activity-tab-view-reading-history", value: "View reading history", comment: "Button title for users to view their reading history.")
     public static let activityTabViewSavedArticlesTitle = WMFLocalizedString("activity-tab-view-saved-articles", value: "View saved articles", comment: "Button title for users to view their saved articles.")
-    public static let activityTabNoEditsTitle = WMFLocalizedString("activity-tab-no-edits-title", value: "You haven’t edited. Start now to track contributions.", comment: "Title for users that have not made any edits.")
+    public static let activityTabNoEditsTitle = WMFLocalizedString("activity-tab-no-edits-title", value: "You haven’t edited. Add images to enhance article understanding.", comment: "Title for users that have not made any edits.")
     public static let activityTabNoEditsSubtitle = WMFLocalizedString("activity-tab-no-edits-subtitle", value: "Start editing to begin tracking your contributions.", comment: "Subtitle for users that have not made any edits.")
     public static let activityTabStartEditing = WMFLocalizedString("activity-tab-start-editing", value: "Start editing", comment: "Button title for users to begin editing.")
     public static func activityTabArticleReadNumber(amount: Int? = 0) -> String {
