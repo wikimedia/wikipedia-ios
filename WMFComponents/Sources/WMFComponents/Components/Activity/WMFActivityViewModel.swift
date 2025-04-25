@@ -83,14 +83,12 @@ import WMFData
             } else {
                 return localizedStrings.activityTabNoEditsGenericTitle
             }
-        case .addImage:
-            return "Add images to enhance article understanding."
         }
     }
     
     func action(for type: ActivityTabDisplayType) -> (() -> Void)? {
         switch type {
-        case .edit, .addImage:
+        case .edit:
             return nil
         case .read:
             return openHistory
@@ -107,7 +105,7 @@ import WMFData
     
     func backgroundColor(for type: ActivityTabDisplayType) -> UIColor {
         switch type {
-        case .edit, .noEdit, .addImage:
+        case .edit, .noEdit:
             theme.softEditorBlue
         case .save:
             theme.softEditorGreen
@@ -118,7 +116,7 @@ import WMFData
     
     func leadingIconColor(for type: ActivityTabDisplayType) -> UIColor {
         switch type {
-        case .edit, .noEdit, .addImage:
+        case .edit, .noEdit:
             theme.editorBlue
         case .save:
             theme.editorGreen
@@ -132,11 +130,9 @@ import WMFData
         switch type {
         case .noEdit:
             if shouldShowAddAnImage {
-                return "chevron.forward"
+                return "add-images"
             }
             return "activity-link"
-        case .addImage:
-            return "add-images"
         default:
             return "chevron.forward"
         }
@@ -144,7 +140,7 @@ import WMFData
     
     func borderColor(for type: ActivityTabDisplayType) -> UIColor {
         switch type {
-        case .edit, .noEdit, .addImage:
+        case .edit, .noEdit:
             WMFColor.blue100
         case .save:
             WMFColor.green100
@@ -205,7 +201,7 @@ public struct ActivityItem {
     
     var imageName: String {
         switch type {
-        case .edit, .noEdit, .addImage:
+        case .edit, .noEdit:
             return "activity-edit"
         case .read:
             return "activity-read"
@@ -220,5 +216,4 @@ public enum ActivityTabDisplayType {
     case read(Int)
     case save(Int)
     case noEdit
-    case addImage
 }
