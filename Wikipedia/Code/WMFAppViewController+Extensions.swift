@@ -905,6 +905,10 @@ extension WMFAppViewController {
             viewModel.project = wmfProject
         }
         
+        if let username = dataStore.authenticationManager.authStatePermanentUsername {
+            viewModel.username = username
+        }
+        
         viewModel.loginAction = loginAction
         
         return activityTabViewController
@@ -921,6 +925,10 @@ extension WMFAppViewController {
     @objc func updateActivityTabLoginState(activityTabViewController: WMFActivityTabViewController) {
         let isLoggedIn = dataStore.authenticationManager.authStateIsPermanent
         activityTabViewController.viewModel.isLoggedIn = isLoggedIn
+        
+        if let username = dataStore.authenticationManager.authStatePermanentUsername {
+            activityTabViewController.viewModel.username = username
+        }
     }
     
     private func surveyViewController() -> UIViewController {

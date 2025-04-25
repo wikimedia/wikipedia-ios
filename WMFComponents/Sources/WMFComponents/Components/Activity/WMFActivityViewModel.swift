@@ -10,6 +10,8 @@ import WMFData
     
     @Published public var isLoggedIn: Bool
     @Published public var project: WMFProject?
+    @Published public var username: String?
+    
     var shouldShowAddAnImage: Bool
     var shouldShowStartEditing: Bool
     let openHistory: () -> Void

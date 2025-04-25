@@ -82,12 +82,13 @@ public struct WMFActivityView: View {
             .padding(.horizontal, 20)
             .onAppear {
                 Task {
-                    guard let project = viewModel.project else { return }
+                    guard let project = viewModel.project,
+                          let username = viewModel.username else { return }
                     
                     let dataController = try WMFActivityDataController()
                     dataController.savedSlideDataDelegate = viewModel.savedSlideDataDelegate
                     dataController.legacyPageViewsDataDelegate = viewModel.legacyPageViewsDataDelegate
-                    let activity = try await dataController.fetchAllStuff(username: "TSevener (WMF)", project: project)
+                    let activity = try await dataController.fetchAllStuff(username: username, project: project)
                     
                     var editsItem = ActivityItem(type: .noEdit)
                     if let editedCount = activity.editedCount, editedCount > 0 {
