@@ -62,16 +62,16 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
     public override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
 
-        let defaults = UserDefaults.standard
-        let key = "viewedActivityTab"
-        
-        if defaults.object(forKey: key) == nil {
-            defaults.set(1, forKey: key)
-        } else {
-            let currentValue = defaults.integer(forKey: key)
-            if currentValue == 1 {
-                defaults.set(2, forKey: key)
-                if let isLoggedIn = dataStore?.authenticationManager.authStateIsPermanent, isLoggedIn == true {
+        if let isLoggedIn = dataStore?.authenticationManager.authStateIsPermanent, isLoggedIn == true {
+            let defaults = UserDefaults.standard
+            let key = "viewedActivityTab"
+            
+            if defaults.object(forKey: key) == nil {
+                defaults.set(1, forKey: key)
+            } else {
+                let currentValue = defaults.integer(forKey: key)
+                if currentValue == 1 {
+                    defaults.set(2, forKey: key)
                     showSurvey()
                 }
             }
