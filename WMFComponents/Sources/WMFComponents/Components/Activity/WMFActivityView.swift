@@ -109,6 +109,14 @@ public struct WMFActivityView: View {
         }
     }
 
+/*
+    // Add an image strings
+    let addAnImageButtonTitle = "Add"
+    let addAnImageTitle = "Add images"
+    let addAnImageSubtitle = "Add suggested images to Wikipedia articles to enhance understanding."
+    
+    let suggestedEdits = "Suggested edits"
+    
     private var suggestedEditsView: some View {
         HStack(alignment: .center, spacing: 18) {
             Image(systemName: "photo.badge.checkmark")
@@ -117,16 +125,16 @@ public struct WMFActivityView: View {
                 .frame(width: 40)
                 .foregroundStyle(Color(theme.iconBackground))
             VStack(alignment: .leading, spacing: 4) {
-                Text(viewModel.addAnImageTitle)
+                Text(addAnImageTitle)
                     .font(Font(WMFFont.for(.boldCallout)))
-                Text(viewModel.addAnImageSubtitle)
+                Text(addAnImageSubtitle)
                     .font(Font(WMFFont.for(.callout)))
                 Button(action: {
                     viewModel.openSuggestedEdits?()
                 }) {
                     HStack(alignment: .center) {
                         Image(systemName: "plus")
-                        Text(viewModel.addAnImageButtonTitle)
+                        Text(addAnImageButtonTitle)
                     }
                     .foregroundColor(Color(uiColor: theme.paperBackground))
                     .font(Font(WMFFont.for(.boldCallout)))
@@ -142,4 +150,5 @@ public struct WMFActivityView: View {
         .background(Color(theme.baseBackground))
         .border(Color(theme.iconBackground), width: 2)
     }
+ */
 }
