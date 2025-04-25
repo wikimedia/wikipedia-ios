@@ -83,6 +83,7 @@ public struct HtmlUtils {
         let attributedString = NSMutableAttributedString(string: html)
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.lineSpacing = styles.lineSpacing
+        paragraphStyle.lineBreakMode = styles.lineBreakMode
         let attributes: [NSAttributedString.Key : Any] = [
             .font: styles.font,
             .foregroundColor: styles.color,
