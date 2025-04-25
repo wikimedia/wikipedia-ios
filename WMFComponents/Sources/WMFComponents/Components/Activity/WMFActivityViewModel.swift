@@ -21,15 +21,6 @@ import WMFData
     public var savedSlideDataDelegate: SavedArticleSlideDataDelegate?
     public var legacyPageViewsDataDelegate: LegacyPageViewsDataDelegate?
     
-    // TODO: Localize strings
-    
-    // Add an image strings
-    let addAnImageButtonTitle = "Add"
-    let addAnImageTitle = "Add images"
-    let addAnImageSubtitle = "Add suggested images to Wikipedia articles to enhance understanding."
-    
-    let suggestedEdits = "Suggested edits"
-    
     var localizedStrings: LocalizedStrings
     
     @ObservedObject var appEnvironment = WMFAppEnvironment.current
@@ -43,7 +34,7 @@ import WMFData
         
         switch editActivityItem.type {
         case .noEdit:
-            return getGroupAssigment() == .suggestedEdit
+            return (getGroupAssigment() == .suggestedEdit || WMFDeveloperSettingsDataController.shared.setActivityTabGroupC) && !WMFDeveloperSettingsDataController.shared.setActivityTabGroupB
         default:
             return false
         }
