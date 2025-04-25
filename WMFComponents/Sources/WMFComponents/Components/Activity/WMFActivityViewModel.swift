@@ -147,6 +147,23 @@ import WMFData
         }
     }
 
+    func getGroupAssigment() -> WMFActivityTabExperimentsDataController.ActivityTabExperimentAssignment {
+        guard let dataController = WMFActivityTabExperimentsDataController.shared else {
+            return .control
+        }
+        var assignment: WMFActivityTabExperimentsDataController.ActivityTabExperimentAssignment = .control
+
+        do {
+            let currentAssigment = try dataController.getActivityTabExperimentAssignment()
+            assignment = currentAssigment
+        } catch {
+            debugPrint("Error assigning activity tab experiment: \(error)")
+        }
+
+        return assignment
+    }
+
+
     public struct LocalizedStrings {
         let activityTabNoEditsTitle: String
         let getActivityTabSaveTitle: (Int) -> String
