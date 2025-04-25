@@ -43,7 +43,7 @@ import WMFData
         
         switch editActivityItem.type {
         case .noEdit:
-            return getGroupAssigment() == .suggestedEdit
+            return (getGroupAssigment() == .suggestedEdit || WMFDeveloperSettingsDataController.shared.setActivityTabGroupC) && !WMFDeveloperSettingsDataController.shared.setActivityTabGroupB
         default:
             return false
         }
