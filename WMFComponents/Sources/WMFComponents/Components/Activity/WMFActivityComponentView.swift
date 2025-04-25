@@ -8,54 +8,62 @@ public struct WMFActivityComponentView: View {
     let onButtonTap: (() -> Void)?
     let shouldDisplayButton: Bool
     let backgroundColor: UIColor
-    let iconColor: UIColor
-    let iconName: String
+    let leadingIconColor: UIColor
+    let leadingIconName: String
+    let trailingIconName: String
     let borderColor: UIColor
+    let titleFont: UIFont
 
     var theme: WMFTheme {
         return appEnvironment.theme
     }
 
-    public init(activityItem: ActivityItem, title: String, onButtonTap: (() -> Void)?, shouldDisplayButton: Bool, backgroundColor: UIColor, iconColor: UIColor, borderColor: UIColor, iconName: String) {
+    public init(activityItem: ActivityItem, title: String, onButtonTap: (() -> Void)?, shouldDisplayButton: Bool, backgroundColor: UIColor, leadingIconColor: UIColor, borderColor: UIColor, leadingIconName: String, trailingIconName: String, titleFont: UIFont) {
         self.activityItem = activityItem
         self.title = title
         self.onButtonTap = onButtonTap
         self.shouldDisplayButton = shouldDisplayButton
         self.backgroundColor = backgroundColor
-        self.iconColor = iconColor
+        self.leadingIconColor = leadingIconColor
         self.borderColor = borderColor
-        self.iconName = iconName
+        self.leadingIconName = leadingIconName
+        self.trailingIconName = trailingIconName
+        self.titleFont = titleFont
     }
 
     public var body: some View {
         VStack(alignment: .leading) {
             HStack(alignment: .center, spacing: 8) {
-                Image(iconName, bundle: .module)
+                Image(leadingIconName, bundle: .module)
                     .resizable()
                     .aspectRatio(contentMode: .fit)
-                    .foregroundStyle(Color(uiColor: iconColor))
+                    .foregroundStyle(Color(uiColor: leadingIconColor))
                     .frame(height: 52)
                     .alignmentGuide(.firstTextBaseline) { d in d[.bottom] }
 
                 Text(title)
                     .foregroundStyle(Color(uiColor: theme.text))
-                    .font(activityItem.type == .noEdit ? Font(WMFFont.for(.headline)) : Font(WMFFont.for(.boldHeadline)))
+                    .font(Font(titleFont))
                     .alignmentGuide(.firstTextBaseline) { d in d[.firstTextBaseline] }
                     .frame(maxWidth: .infinity, alignment: .leading)
-
-                if (activityItem.type == .noEdit || activityItem.type == .addImage) && onButtonTap != nil {
-                    Image(activityItem.type == .noEdit ? "activity-link" : "add-images", bundle: .module)
-                        .foregroundStyle(Color(uiColor: theme.link))
-                        .frame(height: 22, alignment: .trailing)
-                        .fontWeight(.bold)
-                        .padding(.leading, 16)
+                
+                if onButtonTap != nil {
                     
-                } else if onButtonTap != nil {
-                    Image(systemName: "chevron.forward")
-                        .foregroundStyle(Color(uiColor: theme.link))
-                        .frame(height: 22, alignment: .trailing)
-                        .fontWeight(.bold)
-                        .padding(.leading, 16)
+                    // todo: cleanup for system name
+                    if trailingIconName == "chevron.forward" {
+                        Image(systemName: trailingIconName)
+                            .foregroundStyle(Color(uiColor: theme.link))
+                            .frame(height: 22, alignment: .trailing)
+                            .fontWeight(.bold)
+                            .padding(.leading, 16)
+                    } else {
+                        Image(trailingIconName, bundle: .module)
+                            .foregroundStyle(Color(uiColor: theme.link))
+                            .frame(height: 22, alignment: .trailing)
+                            .fontWeight(.bold)
+                            .padding(.leading, 16)
+                    }
+                    
                 } else {
                     Spacer()
                 }
