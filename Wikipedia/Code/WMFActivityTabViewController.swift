@@ -8,7 +8,17 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
 
 }
 
-@objc public final class WMFActivityTabViewController: WMFCanvasViewController, WMFNavigationBarConfiguring {
+@objc public final class WMFActivityTabViewController: WMFCanvasViewController, Themeable, WMFNavigationBarConfiguring {
+    public func apply(theme: WMF.Theme) {
+        guard viewIfLoaded != nil else {
+            return
+        }
+
+        self.theme = theme
+        profileCoordinator?.theme = theme
+        
+        updateProfileButton()
+    }
     
     public let viewModel: WMFActivityViewModel
     public let showSurvey: () -> Void
@@ -61,7 +71,9 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
             let currentValue = defaults.integer(forKey: key)
             if currentValue == 1 {
                 defaults.set(2, forKey: key)
-                showSurvey()
+                if let isLoggedIn = dataStore?.authenticationManager.authStateIsPermanent, isLoggedIn == true {
+                    showSurvey()
+                }
             }
         }
     }
