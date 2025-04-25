@@ -46,7 +46,7 @@ final class EditInteractionFunnel {
         case saveAttempt = "save_attempt"
         case saveSuccess = "save_success"
         case saveFailure = "save_failure"
-        case launch = "launch"
+        case secondLaunch = "second_launch"
         case impression = "impression"
         case loginClick = "login_click"
         case viewClick = "view_click"
@@ -265,7 +265,7 @@ final class EditInteractionFunnel {
         case .suggestedEdit: groupAssignmentString = "activity_c"
         }
         
-        logEvent(activeInterface: nil, action: .launch, actionData:["group": groupAssignmentString], project: project)
+        logEvent(activeInterface: nil, action: .secondLaunch, actionData:["group": groupAssignmentString], project: project)
     }
     
     func logActivityTabLoggedOutDidAppear(project: WikimediaProject) {

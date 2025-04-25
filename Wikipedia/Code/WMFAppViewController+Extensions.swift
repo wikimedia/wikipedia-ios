@@ -145,7 +145,7 @@ extension WMFAppViewController {
         guard dataController.shouldAssignToBucket() else {
             return
         }
-
+        
         do {
             let assignment = try dataController.assignActivityTabExperiment(project: wmfProject)
             EditInteractionFunnel.shared.logActivityTabGroupAssignment(project: project)
@@ -166,7 +166,7 @@ extension WMFAppViewController {
             let currentAssigment = try dataController.getActivityTabExperimentAssignment()
             assignment = currentAssigment.rawValue
         } catch {
-            DDLogError("Error assigning activity tab experiment: \(error)")
+            DDLogError("Error reading activity tab assignment: \(error)")
         }
 
         return assignment
