@@ -124,7 +124,7 @@ class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
     }
     
     override func updateStyles() {
-        styles = HtmlUtils.Styles(font: WMFFont.for(.boldCallout, compatibleWith: traitCollection), boldFont: WMFFont.for(.boldCallout, compatibleWith: traitCollection), italicsFont: WMFFont.for(.italicCallout, compatibleWith: traitCollection), boldItalicsFont: WMFFont.for(.boldItalicCallout, compatibleWith: traitCollection), color: theme.colors.primaryText, linkColor: theme.colors.link, lineSpacing: 1)
+        styles = HtmlUtils.Styles(font: WMFFont.for(.boldCallout, compatibleWith: traitCollection), boldFont: WMFFont.for(.boldCallout, compatibleWith: traitCollection), italicsFont: WMFFont.for(.italicCallout, compatibleWith: traitCollection), boldItalicsFont: WMFFont.for(.boldItalicCallout, compatibleWith: traitCollection), color: theme.colors.primaryText, linkColor: theme.colors.link, lineSpacing: 1, lineBreakMode: .byTruncatingTail)
     }
     
     private var collectionViewAvailableWidth: CGFloat = 0
