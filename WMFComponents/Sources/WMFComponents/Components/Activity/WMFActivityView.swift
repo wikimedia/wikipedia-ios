@@ -42,10 +42,11 @@ public struct WMFActivityView: View {
                         .padding(.vertical, 8)
                 }
                 
-                if viewModel.shouldShowAddAnImage {
-                    Text(viewModel.suggestedEdits)
-                    suggestedEditsView
-                }
+// Note: this is the old, pre-redesign suggested edits callout view. Keeping it commented here just in case design / product decide to bring it back.
+//                if viewModel.shouldShowAddAnImage {
+//                    Text(viewModel.suggestedEdits)
+//                    suggestedEditsView
+//                }
                 
                 if let readActivityItem = viewModel.readActivityItem {
                     WMFActivityComponentView(

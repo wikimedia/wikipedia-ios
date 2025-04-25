@@ -12,8 +12,6 @@ import WMFData
     @Published public var project: WMFProject?
     @Published public var username: String?
     
-    var shouldShowAddAnImage: Bool
-    var shouldShowStartEditing: Bool
     let openHistory: () -> Void
     @Published public var loginAction: (() -> Void)?
     let openSavedArticles: () -> Void
@@ -40,12 +38,20 @@ import WMFData
         return appEnvironment.theme
     }
     
+    var shouldShowAddAnImage: Bool {
+        guard let editActivityItem else { return false }
+        
+        switch editActivityItem.type {
+        case .noEdit:
+            return getGroupAssigment() == .suggestedEdit
+        default:
+            return false
+        }
+    }
+    
     public init(
             localizedStrings: LocalizedStrings,
             activityItems: [ActivityItem]? = nil,
-            shouldShowAddAnImage: Bool,
-            shouldShowStartEditing: Bool,
-            hasNoEdits: Bool,
             openHistory: @escaping () -> Void,
             openSavedArticles: @escaping () -> Void,
             openSuggestedEdits: (() -> Void)?,
@@ -53,8 +59,6 @@ import WMFData
             openAddAnImage: (() -> Void)?,
             loginAction: (() -> Void)?,
             isLoggedIn: Bool) {
-        self.shouldShowAddAnImage = shouldShowAddAnImage
-        self.shouldShowStartEditing = shouldShowStartEditing
         self.openHistory = openHistory
         self.loginAction = loginAction
         self.openSavedArticles = openSavedArticles
@@ -74,7 +78,11 @@ import WMFData
         case .save(let count):
             return localizedStrings.getActivityTabSaveTitle(count)
         case .noEdit:
-            return localizedStrings.activityTabNoEditsTitle
+            if shouldShowAddAnImage {
+                return localizedStrings.activityTabNoEditsAddImagesTitle
+            } else {
+                return localizedStrings.activityTabNoEditsGenericTitle
+            }
         case .addImage:
             return "Add images to enhance article understanding."
         }
@@ -89,7 +97,11 @@ import WMFData
         case .save:
             return openSavedArticles
         case .noEdit:
-            return openStartEditing
+            if shouldShowAddAnImage {
+                return openSuggestedEdits
+            } else {
+                return openStartEditing
+            }
         }
     }
     
@@ -119,6 +131,9 @@ import WMFData
         
         switch type {
         case .noEdit:
+            if shouldShowAddAnImage {
+                return "chevron.forward"
+            }
             return "activity-link"
         case .addImage:
             return "add-images"
@@ -165,15 +180,17 @@ import WMFData
 
 
     public struct LocalizedStrings {
-        let activityTabNoEditsTitle: String
+        let activityTabNoEditsAddImagesTitle: String
+        let activityTabNoEditsGenericTitle: String
         let getActivityTabSaveTitle: (Int) -> String
         let getActivityTabReadTitle: (Int) -> String
         let getActivityTabsEditTitle: (Int) -> String
         let tabTitle: String
         let getGreeting: () -> String
 
-        public init(activityTabNoEditsTitle: String, getActivityTabSaveTitle: @escaping (Int) -> String, getActivityTabReadTitle: @escaping (Int) -> String, getActivityTabsEditTitle: @escaping (Int) -> String, tabTitle: String, getGreeting: @escaping () -> String) {
-            self.activityTabNoEditsTitle = activityTabNoEditsTitle
+        public init(activityTabNoEditsAddImagesTitle: String, activityTabNoEditsGenericTitle: String, getActivityTabSaveTitle: @escaping (Int) -> String, getActivityTabReadTitle: @escaping (Int) -> String, getActivityTabsEditTitle: @escaping (Int) -> String, tabTitle: String, getGreeting: @escaping () -> String) {
+            self.activityTabNoEditsAddImagesTitle = activityTabNoEditsAddImagesTitle
+            self.activityTabNoEditsGenericTitle = activityTabNoEditsGenericTitle
             self.getActivityTabSaveTitle = getActivityTabSaveTitle
             self.getActivityTabReadTitle = getActivityTabReadTitle
             self.getActivityTabsEditTitle = getActivityTabsEditTitle
