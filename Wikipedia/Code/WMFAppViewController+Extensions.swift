@@ -140,9 +140,13 @@ extension WMFAppViewController {
               let project = WikimediaProject(siteURL: primaryLanguage.siteURL)?.wmfProject else {
             return
         }
-        
+
+        guard dataController.shouldAssignToBucket() else {
+            return
+        }
+
         do {
-            let assignment = try dataController.assignActivityTabSearchBarExperiment(project: project)
+            let assignment = try dataController.assignActivityTabExperiment(project: project)
             // TODO: Log
             print("Assignment: \(assignment) ⭐️⭐️⭐️⭐️⭐️⭐️")
         } catch {

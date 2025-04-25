@@ -114,8 +114,6 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
 @property (nonatomic, strong) WMFConfiguration *configuration;
 @property (nonatomic, strong) WMFViewControllerRouter *router;
 
-@property (nonatomic) NSInteger assignment;
-
 @end
 
 
@@ -310,7 +308,6 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
     }
 
     [self assignAndLogActivityTabExperiment];
-    _assignment = [self getAssignmentForActivityTabExperiment];
 
     [self configureTabController];
 
@@ -353,12 +350,13 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
             mainViewController = self.exploreViewController;
             break;
     }
-    
+
+    NSInteger assignment = [self getAssignmentForActivityTabExperiment];
 
     WMFComponentNavigationController *nav1 = [self rootNavigationControllerWithRootViewController:mainViewController];
     WMFComponentNavigationController *nav2 = [self rootNavigationControllerWithRootViewController:[self placesViewController]];
     WMFComponentNavigationController *nav3 = [self rootNavigationControllerWithRootViewController:[self savedViewController]];
-    WMFComponentNavigationController *nav4 = [self setupFourthTab: _assignment];
+    WMFComponentNavigationController *nav4 = [self setupFourthTab: assignment];
     WMFComponentNavigationController *nav5 = [self rootNavigationControllerWithRootViewController:[self searchViewController]];
 
     [self setViewControllers:@[nav1, nav2, nav3, nav4, nav5] animated:NO];
