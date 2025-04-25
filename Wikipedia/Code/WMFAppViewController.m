@@ -67,7 +67,7 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
 @property (nonatomic, strong, readonly) SearchViewController *searchViewController;
 @property (nonatomic, strong, readonly) WMFSavedViewController *savedViewController;
 @property (nonatomic, strong, readonly) WMFPlacesViewController *placesViewController;
-//@property (nonatomic, strong, readonly) WMFHistoryViewController *recentArticlesViewController;
+@property (nonatomic, strong, readonly) WMFHistoryViewController *recentArticlesViewController;
 @property (nonatomic, strong, readonly) WMFActivityTabViewController *activityTabViewController;
 
 @property (nonatomic, strong) WMFSplashScreenViewController *splashScreenViewController;
@@ -114,6 +114,8 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
 @property (nonatomic, strong) WMFConfiguration *configuration;
 @property (nonatomic, strong) WMFViewControllerRouter *router;
 
+@property (nonatomic) NSInteger assignment;
+
 @end
 
 
@@ -121,7 +123,7 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
 @synthesize exploreViewController = _exploreViewController;
 @synthesize searchViewController = _searchViewController;
 @synthesize savedViewController = _savedViewController;
-//@synthesize recentArticlesViewController = _recentArticlesViewController;
+@synthesize recentArticlesViewController = _recentArticlesViewController;
 @synthesize activityTabViewController = _activityTabViewController;
 @synthesize placesViewController = _placesViewController;
 
@@ -307,6 +309,9 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
         return;
     }
 
+    [self assignAndLogActivityTabExperiment];
+    _assignment = [self getAssignmentForActivityTabExperiment];
+
     [self configureTabController];
 
     self.tabBar.tintAdjustmentMode = UIViewTintAdjustmentModeNormal;
@@ -315,12 +320,23 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
 
     self.transitionsController = [WMFViewControllerTransitionsController new];
 
-//    self.recentArticlesViewController.dataStore = self.dataStore;
+    self.recentArticlesViewController.dataStore = self.dataStore;
     [self.searchViewController applyTheme:self.theme];
     [self.settingsViewController applyTheme:self.theme];
 
     UITabBarItem *savedTabBarItem = [self.savedViewController tabBarItem];
     self.savedTabBarItemProgressBadgeManager = [[SavedTabBarItemProgressBadgeManager alloc] initWithTabBarItem:savedTabBarItem];
+}
+
+- (WMFComponentNavigationController *)setupFourthTab:(NSInteger)assignment {
+
+    WMFComponentNavigationController *nav4;
+    if (assignment == 0) {
+        nav4 = [self rootNavigationControllerWithRootViewController:[self recentArticlesViewController]];
+    } else {
+        nav4 = [self rootNavigationControllerWithRootViewController:[self activityTabViewController]];
+    }
+    return nav4;
 }
 
 - (void)configureTabController {
@@ -337,11 +353,12 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
             mainViewController = self.exploreViewController;
             break;
     }
+    
 
     WMFComponentNavigationController *nav1 = [self rootNavigationControllerWithRootViewController:mainViewController];
     WMFComponentNavigationController *nav2 = [self rootNavigationControllerWithRootViewController:[self placesViewController]];
     WMFComponentNavigationController *nav3 = [self rootNavigationControllerWithRootViewController:[self savedViewController]];
-    WMFComponentNavigationController *nav4 = [self rootNavigationControllerWithRootViewController:[self activityTabViewController]];
+    WMFComponentNavigationController *nav4 = [self setupFourthTab: _assignment];
     WMFComponentNavigationController *nav5 = [self rootNavigationControllerWithRootViewController:[self searchViewController]];
 
     [self setViewControllers:@[nav1, nav2, nav3, nav4, nav5] animated:NO];
@@ -1075,7 +1092,8 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
     [self.savedArticlesFetcher start];
 
     [self assignAndLogArticleSearchBarExperiment];
-    [self assignAndLogActivityTabExperiment];
+
+
 }
 
 - (NSTimeInterval)timeBeforeRefreshingExploreFeed {
@@ -1487,16 +1505,16 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
     return _savedViewController;
 }
 
-//- (WMFHistoryViewController *)recentArticlesViewController {
-//    if (!_recentArticlesViewController) {
-//        _recentArticlesViewController = [[WMFHistoryViewController alloc] init];
-//        [_recentArticlesViewController applyTheme:self.theme];
-//        _recentArticlesViewController.dataStore = self.dataStore;
-//        _recentArticlesViewController.tabBarItem.image = [UIImage imageNamed:@"tabbar-recent"];
-//        _recentArticlesViewController.title = [WMFCommonStrings historyTabTitle];
-//    }
-//    return _recentArticlesViewController;
-//}
+- (WMFHistoryViewController *)recentArticlesViewController {
+    if (!_recentArticlesViewController) {
+        _recentArticlesViewController = [[WMFHistoryViewController alloc] init];
+        [_recentArticlesViewController applyTheme:self.theme];
+        _recentArticlesViewController.dataStore = self.dataStore;
+        _recentArticlesViewController.tabBarItem.image = [UIImage imageNamed:@"tabbar-recent"];
+        _recentArticlesViewController.title = [WMFCommonStrings historyTabTitle];
+    }
+    return _recentArticlesViewController;
+}
 
 - (WMFActivityTabViewController *)activityTabViewController {
     if (!_activityTabViewController) {
@@ -1844,7 +1862,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
         [self.exploreViewController applyTheme:theme];
         [self.placesViewController applyTheme:theme];
         [self.savedViewController applyTheme:theme];
-//        [self.recentArticlesViewController applyTheme:theme];
+        [self.recentArticlesViewController applyTheme:theme];
         [self.searchViewController applyTheme:theme];
 
         [self applyTheme:theme toPresentedViewController:self.presentedViewController];

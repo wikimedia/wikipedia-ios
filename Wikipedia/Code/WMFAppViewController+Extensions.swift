@@ -150,6 +150,22 @@ extension WMFAppViewController {
         }
     }
 
+    @objc func getAssignmentForActivityTabExperiment() -> Int {
+        guard let dataController = WMFActivityTabExperimentsDataController.shared else {
+            return 0
+        }
+        var assignment = 0 // start as control
+        
+        do {
+            let currentAssigment = try dataController.getActivityTabExperimentAssignment()
+            assignment = currentAssigment.rawValue
+        } catch {
+            DDLogError("Error assigning activity tab experiment: \(error)")
+        }
+
+        return assignment
+    }
+
 }
 
 // MARK: - Notifications
