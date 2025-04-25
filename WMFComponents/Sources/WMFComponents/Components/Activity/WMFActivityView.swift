@@ -42,10 +42,11 @@ public struct WMFActivityView: View {
                         .padding(.vertical, 8)
                 }
                 
-                if viewModel.shouldShowAddAnImage {
-                    Text(viewModel.suggestedEdits)
-                    suggestedEditsView
-                }
+// Note: this is the old, pre-redesign suggested edits callout view. Keeping it commented here just in case design / product decide to bring it back.
+//                if viewModel.shouldShowAddAnImage {
+//                    Text(viewModel.suggestedEdits)
+//                    suggestedEditsView
+//                }
                 
                 if let readActivityItem = viewModel.readActivityItem {
                     WMFActivityComponentView(
@@ -82,12 +83,13 @@ public struct WMFActivityView: View {
             .padding(.horizontal, 20)
             .onAppear {
                 Task {
-                    guard let project = viewModel.project else { return }
+                    guard let project = viewModel.project,
+                          let username = viewModel.username else { return }
                     
                     let dataController = try WMFActivityDataController()
                     dataController.savedSlideDataDelegate = viewModel.savedSlideDataDelegate
                     dataController.legacyPageViewsDataDelegate = viewModel.legacyPageViewsDataDelegate
-                    let activity = try await dataController.fetchAllStuff(username: "TSevener (WMF)", project: project)
+                    let activity = try await dataController.fetchAllStuff(username: username, project: project)
                     
                     var editsItem = ActivityItem(type: .noEdit)
                     if let editedCount = activity.editedCount, editedCount > 0 {
@@ -99,6 +101,7 @@ public struct WMFActivityView: View {
                     viewModel.savedActivityItem = ActivityItem(type: .save(activity.savedCount))
                 }
             }
+            .background(Color(theme.paperBackground))
         } else {
             if let loginAction = viewModel.loginAction {
                 WMFActivityTabLoggedOutView(loginAction: loginAction, openHistory: viewModel.openHistory)

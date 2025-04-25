@@ -839,24 +839,16 @@ extension WMFAppViewController {
 
         let isLoggedIn = dataStore.authenticationManager.authStateIsPermanent
         let localizedStrings = WMFActivityViewModel.LocalizedStrings(
-            activityTabNoEditsTitle: CommonStrings.activityTabNoEditsTitle,
+            activityTabNoEditsAddImagesTitle: CommonStrings.activityTabNoEditsAddImagesTitle,
+            activityTabNoEditsGenericTitle: CommonStrings.activityTabNoEditsGenericTitle,
             getActivityTabSaveTitle: activityTabSaveTitle,
             getActivityTabReadTitle: activityTabReadTitle,
             getActivityTabsEditTitle: activityTabEditedTitle,
             tabTitle: CommonStrings.activityTitle,
             getGreeting: greeting)
         
-        var editCount = 0
-        if let siteURL = self.dataStore.languageLinkController.appLanguage?.siteURL {
-            editCount = Int(self.dataStore.authenticationManager.user(siteURL: siteURL)?.editCount ?? 0)
-        }
-
-        let hasNoEdits = editCount == 0
         let viewModel = WMFActivityViewModel(
             localizedStrings: localizedStrings,
-            shouldShowAddAnImage: editCount >= 50,
-            shouldShowStartEditing: editCount <= 50,
-            hasNoEdits: hasNoEdits,
             openHistory: openHistoryClosure,
             openSavedArticles: openSavedArticlesClosure,
             openSuggestedEdits: openSuggestedEditsClosure,
@@ -909,6 +901,10 @@ extension WMFAppViewController {
             viewModel.project = wmfProject
         }
         
+        if let username = dataStore.authenticationManager.authStatePermanentUsername {
+            viewModel.username = username
+        }
+        
         viewModel.loginAction = loginAction
         
         return activityTabViewController
@@ -925,6 +921,10 @@ extension WMFAppViewController {
     @objc func updateActivityTabLoginState(activityTabViewController: WMFActivityTabViewController) {
         let isLoggedIn = dataStore.authenticationManager.authStateIsPermanent
         activityTabViewController.viewModel.isLoggedIn = isLoggedIn
+        
+        if let username = dataStore.authenticationManager.authStatePermanentUsername {
+            activityTabViewController.viewModel.username = username
+        }
     }
     
     private func surveyViewController() -> UIViewController {
