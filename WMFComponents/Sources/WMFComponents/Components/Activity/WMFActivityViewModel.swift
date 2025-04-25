@@ -3,13 +3,15 @@ import SwiftUI
 import WMFData
 
 @objc public class WMFActivityViewModel: NSObject, ObservableObject {
-    @Published var activityItems: [ActivityItem]?
+
+    @Published var editActivityItem: ActivityItem?
+    @Published var readActivityItem: ActivityItem?
+    @Published var savedActivityItem: ActivityItem?
+    
     @Published public var isLoggedIn: Bool
     @Published public var project: WMFProject?
-    var username: String
     var shouldShowAddAnImage: Bool
     var shouldShowStartEditing: Bool
-    var hasNoEdits: Bool
     let openHistory: () -> Void
     @Published public var loginAction: (() -> Void)?
     let openSavedArticles: () -> Void
@@ -39,7 +41,6 @@ import WMFData
     public init(
             localizedStrings: LocalizedStrings,
             activityItems: [ActivityItem]? = nil,
-            username: String,
             shouldShowAddAnImage: Bool,
             shouldShowStartEditing: Bool,
             hasNoEdits: Bool,
@@ -50,11 +51,8 @@ import WMFData
             openAddAnImage: (() -> Void)?,
             loginAction: (() -> Void)?,
             isLoggedIn: Bool) {
-        self.username = username
-        self.activityItems = activityItems
         self.shouldShowAddAnImage = shouldShowAddAnImage
         self.shouldShowStartEditing = shouldShowStartEditing
-        self.hasNoEdits = hasNoEdits
         self.openHistory = openHistory
         self.loginAction = loginAction
         self.openSavedArticles = openSavedArticles
@@ -67,12 +65,12 @@ import WMFData
     
     func title(for type: ActivityTabDisplayType) -> String {
         switch type {
-        case .edit:
-            return localizedStrings.activityTabsEditTitle
-        case .read:
-            return localizedStrings.activityTabReadTitle
-        case .save:
-            return localizedStrings.activityTabSaveTitle
+        case .edit(let count):
+            return localizedStrings.getActivityTabsEditTitle(count)
+        case .read(let count):
+            return localizedStrings.getActivityTabReadTitle(count)
+        case .save(let count):
+            return localizedStrings.getActivityTabSaveTitle(count)
         case .noEdit:
             return localizedStrings.activityTabNoEditsTitle
         case .addImage:
@@ -104,7 +102,7 @@ import WMFData
         }
     }
     
-    func iconColor(for type: ActivityTabDisplayType) -> UIColor {
+    func leadingIconColor(for type: ActivityTabDisplayType) -> UIColor {
         switch type {
         case .edit, .noEdit, .addImage:
             theme.editorBlue
@@ -112,6 +110,18 @@ import WMFData
             theme.editorGreen
         case .read:
             theme.editorOrange
+        }
+    }
+    
+    func trailingIconName(for type: ActivityTabDisplayType) -> String {
+        
+        switch type {
+        case .noEdit:
+            return "activity-link"
+        case .addImage:
+            return "add-images"
+        default:
+            return "chevron.forward"
         }
     }
     
@@ -123,6 +133,15 @@ import WMFData
             WMFColor.green100
         case .read:
             WMFColor.beige100
+        }
+    }
+    
+    func titleFont(for type: ActivityTabDisplayType) -> UIFont {
+        switch type {
+        case .noEdit:
+            return WMFFont.for(.headline)
+        default:
+            return WMFFont.for(.boldHeadline)
         }
     }
 
@@ -145,26 +164,24 @@ import WMFData
 
     public struct LocalizedStrings {
         let activityTabNoEditsTitle: String
-        let activityTabSaveTitle: String
-        let activityTabReadTitle: String
-        let activityTabsEditTitle: String
+        let getActivityTabSaveTitle: (Int) -> String
+        let getActivityTabReadTitle: (Int) -> String
+        let getActivityTabsEditTitle: (Int) -> String
         let tabTitle: String
-        let greeting: String
+        let getGreeting: () -> String
 
-        public init(activityTabNoEditsTitle: String, activityTabSaveTitle: String, activityTabReadTitle: String, activityTabsEditTitle: String, tabTitle: String, greeting: String) {
+        public init(activityTabNoEditsTitle: String, getActivityTabSaveTitle: @escaping (Int) -> String, getActivityTabReadTitle: @escaping (Int) -> String, getActivityTabsEditTitle: @escaping (Int) -> String, tabTitle: String, getGreeting: @escaping () -> String) {
             self.activityTabNoEditsTitle = activityTabNoEditsTitle
-            self.activityTabSaveTitle = activityTabSaveTitle
-            self.activityTabReadTitle = activityTabReadTitle
-            self.activityTabsEditTitle = activityTabsEditTitle
+            self.getActivityTabSaveTitle = getActivityTabSaveTitle
+            self.getActivityTabReadTitle = getActivityTabReadTitle
+            self.getActivityTabsEditTitle = getActivityTabsEditTitle
             self.tabTitle = tabTitle
-            self.greeting = greeting
+            self.getGreeting = getGreeting
         }
     }
 }
 
 public struct ActivityItem {
-    let title: String
-    let subtitle: String?
     let type: ActivityTabDisplayType
     
     var imageName: String {
@@ -180,9 +197,9 @@ public struct ActivityItem {
 }
 
 public enum ActivityTabDisplayType {
-    case edit
-    case read
-    case save
+    case edit(Int)
+    case read(Int)
+    case save(Int)
     case noEdit
     case addImage
 }

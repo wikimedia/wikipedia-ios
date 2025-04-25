@@ -819,16 +819,33 @@ extension WMFAppViewController {
               comment: "$1 is opening bold, $2 is the username, $3 is closing bold.")
             return String.localizedStringWithFormat(format, openingBold, username, closingBold)
         }
+        
+        let activityTabSaveTitle: (Int) -> String = { count in
+            CommonStrings.activityTabArticleSavedNumber(amount: count)
+        }
+        
+        let activityTabReadTitle: (Int) -> String = { count in
+            CommonStrings.activityTabArticleReadNumber(amount: count)
+        }
+        
+        let activityTabEditedTitle: (Int) -> String = { count in
+            CommonStrings.activityTabArticleEditedNumber(amount: count)
+        }
+        
+        let greeting: () -> String = { [weak self] in
+            guard let self else { return "" }
+            return greeting(username: self.dataStore.authenticationManager.authStatePermanentUsername ?? "")
+        }
 
         let isLoggedIn = dataStore.authenticationManager.authStateIsPermanent
         let localizedStrings = WMFActivityViewModel.LocalizedStrings(
             activityTabNoEditsTitle: CommonStrings.activityTabNoEditsTitle,
-            activityTabSaveTitle: "You saved 6 articles",
-            activityTabReadTitle: "You read 9 articles",
-            activityTabsEditTitle: "You edited 3 articles",
+            getActivityTabSaveTitle: activityTabSaveTitle,
+            getActivityTabReadTitle: activityTabReadTitle,
+            getActivityTabsEditTitle: activityTabEditedTitle,
             tabTitle: CommonStrings.activityTitle,
-            greeting: greeting(username: dataStore.authenticationManager.authStatePermanentUsername ?? "") // TODO: fix username
-        )
+            getGreeting: greeting)
+        
         var editCount = 0
         if let siteURL = self.dataStore.languageLinkController.appLanguage?.siteURL {
             editCount = Int(self.dataStore.authenticationManager.user(siteURL: siteURL)?.editCount ?? 0)
@@ -837,7 +854,6 @@ extension WMFAppViewController {
         let hasNoEdits = editCount == 0
         let viewModel = WMFActivityViewModel(
             localizedStrings: localizedStrings,
-            username: dataStore.authenticationManager.authStatePermanentUsername ?? String(), // TODO: Error handling with logged out / error state
             shouldShowAddAnImage: editCount >= 50,
             shouldShowStartEditing: editCount <= 50,
             hasNoEdits: hasNoEdits,
