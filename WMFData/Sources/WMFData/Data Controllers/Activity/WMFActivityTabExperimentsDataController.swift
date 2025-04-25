@@ -124,7 +124,7 @@ private extension WMFProject {
         switch self {
         case .wikipedia(let language):
             switch language.languageCode {
-            case "zh", "fr", "tr", "es":
+            case "zh", "fr", "tr", "es", "test":
                 return true
             default:
                 return false

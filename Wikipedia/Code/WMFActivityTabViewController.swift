@@ -79,7 +79,11 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
         }
         
         if let wmfProject = viewModel.project {
-            EditInteractionFunnel.shared.logActivityTabDidAppear(project: WikimediaProject(wmfProject: wmfProject))
+            if viewModel.isLoggedIn {
+                EditInteractionFunnel.shared.logActivityTabDidAppear(project: WikimediaProject(wmfProject: wmfProject))
+            } else {
+                EditInteractionFunnel.shared.logActivityTabLoggedOutDidAppear(project: WikimediaProject(wmfProject: wmfProject))
+            }
         }
     }
 

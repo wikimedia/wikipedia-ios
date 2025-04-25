@@ -902,7 +902,11 @@ extension WMFAppViewController {
         let showSurveyClosure = {
             let surveyVC = self.surveyViewController()
             self.currentTabNavigationController?.present(surveyVC, animated: true, completion: {
-                DonateFunnel.shared.logYearInReviewSurveyDidAppear()
+                
+                if let wikimediaProject {
+                    EditInteractionFunnel.shared.logActivityTabSurveyDidAppear(project: wikimediaProject)
+                }
+                
             })
         }
 
@@ -920,6 +924,8 @@ extension WMFAppViewController {
                 print("navigationController is nil")
                 return
             }
+            
+            LoginFunnel.shared.logLoginStartFromActivityTab()
             
             let loginCoordinator = LoginCoordinator(navigationController: navigationController, theme: theme)
             loginCoordinator.createAccountSuccessCustomDismissBlock = { [weak self] in
@@ -1289,7 +1295,6 @@ extension WMFAppViewController: EditSaveViewControllerDelegate {
         case .failure(let error):
             showError(error)
         }
-        
     }
     
     private func sendFeedbackAndPopToImageRecommendations(revID: UInt64) {

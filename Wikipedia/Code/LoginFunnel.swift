@@ -79,4 +79,9 @@
         logEvent(category: .loginToSyncPopover, label: nil, action: .loginStart)
     }
     
+    // MARK: - Activity tab
+    
+    public func logLoginStartFromActivityTab() {
+        logEvent(category: .activityTab, label: nil, action: .loginStart)
+    }
 }
