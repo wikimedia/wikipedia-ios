@@ -328,11 +328,12 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
 - (WMFComponentNavigationController *)setupFourthTab:(NSInteger)assignment {
 
     WMFComponentNavigationController *nav4;
-    if (assignment == 0) {
+    if (assignment == 1 || [[WMFDeveloperSettingsDataController shared] setActivityTabGroupA]) {
         nav4 = [self rootNavigationControllerWithRootViewController:[self recentArticlesViewController]];
     } else {
         nav4 = [self rootNavigationControllerWithRootViewController:[self activityTabViewController]];
     }
+
     return nav4;
 }
 

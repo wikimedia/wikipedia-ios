@@ -101,6 +101,7 @@ public struct WMFActivityView: View {
                     viewModel.savedActivityItem = ActivityItem(type: .save(activity.savedCount))
                 }
             }
+            .background(Color(theme.paperBackground))
         } else {
             if let loginAction = viewModel.loginAction {
                 WMFActivityTabLoggedOutView(loginAction: loginAction, openHistory: viewModel.openHistory)

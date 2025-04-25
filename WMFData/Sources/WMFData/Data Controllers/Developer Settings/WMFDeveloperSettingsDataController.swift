@@ -43,7 +43,7 @@ public protocol WMFDeveloperSettingsDataControlling: AnyObject {
 
     public var bypassDonation: Bool {
         get {
-            return ( try? userDefaultsStore?.load(key: WMFUserDefaultsKey.bypassDonation.rawValue)) ?? false
+            return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.bypassDonation.rawValue)) ?? false
         } set {
             try? userDefaultsStore?.save(key: WMFUserDefaultsKey.bypassDonation.rawValue, value: newValue)
         }
@@ -51,13 +51,13 @@ public protocol WMFDeveloperSettingsDataControlling: AnyObject {
 
     public var forceEmailAuth: Bool {
         get {
-            return ( try? userDefaultsStore?.load(key: WMFUserDefaultsKey.forceEmailAuth.rawValue)) ?? false
+            return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.forceEmailAuth.rawValue)) ?? false
         } set {
             try? userDefaultsStore?.save(key: WMFUserDefaultsKey.forceEmailAuth.rawValue, value: newValue)
         }
     }
 
-    public var setActivityTabGroupA: Bool {
+    @objc public var setActivityTabGroupA: Bool {
         get {
             return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.activityTabGroupA.rawValue)) ?? false
         }
