@@ -3,6 +3,7 @@ import SwiftUI
 import WMFData
 import CocoaLumberjackSwift
 import WMFComponents
+import WMF
 
 final class WMFActivityTabHostingController: WMFComponentHostingController<WMFActivityView> {
 
@@ -75,6 +76,10 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
                     showSurvey()
                 }
             }
+        }
+        
+        if let wmfProject = viewModel.project {
+            EditInteractionFunnel.shared.logActivityTabDidAppear(project: WikimediaProject(wmfProject: wmfProject))
         }
     }
 

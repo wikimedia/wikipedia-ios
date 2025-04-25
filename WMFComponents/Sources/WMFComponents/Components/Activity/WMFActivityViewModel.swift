@@ -13,6 +13,7 @@ import WMFData
     @Published public var username: String?
     
     let openHistory: () -> Void
+    let openHistoryLoggedOut: () -> Void
     @Published public var loginAction: (() -> Void)?
     let openSavedArticles: () -> Void
     let openSuggestedEdits: (() -> Void)?
@@ -44,6 +45,7 @@ import WMFData
             localizedStrings: LocalizedStrings,
             activityItems: [ActivityItem]? = nil,
             openHistory: @escaping () -> Void,
+            openHistoryLoggedOut: @escaping () -> Void,
             openSavedArticles: @escaping () -> Void,
             openSuggestedEdits: (() -> Void)?,
             openStartEditing: (() -> Void)?,
@@ -51,6 +53,7 @@ import WMFData
             loginAction: (() -> Void)?,
             isLoggedIn: Bool) {
         self.openHistory = openHistory
+        self.openHistoryLoggedOut = openHistoryLoggedOut
         self.loginAction = loginAction
         self.openSavedArticles = openSavedArticles
         self.openAddAnImage = openAddAnImage

@@ -137,7 +137,8 @@ extension WMFAppViewController {
     @objc func assignAndLogActivityTabExperiment() {
         guard let dataController = WMFActivityTabExperimentsDataController.shared,
               let primaryLanguage = dataStore.languageLinkController.appLanguage,
-              let project = WikimediaProject(siteURL: primaryLanguage.siteURL)?.wmfProject else {
+              let project = WikimediaProject(siteURL: primaryLanguage.siteURL),
+                let wmfProject = project.wmfProject else {
             return
         }
 
@@ -146,8 +147,9 @@ extension WMFAppViewController {
         }
 
         do {
-            let assignment = try dataController.assignActivityTabExperiment(project: project)
-            // TODO: Log
+            let assignment = try dataController.assignActivityTabExperiment(project: wmfProject)
+            EditInteractionFunnel.shared.logActivityTabGroupAssignment(project: project)
+
             print("Assignment: \(assignment) ⭐️⭐️⭐️⭐️⭐️⭐️")
         } catch {
             DDLogError("Error assigning activity tab experiment: \(error)")
@@ -752,9 +754,40 @@ extension WMFAppViewController {
     }
 
     @objc func generateActivityTab(exploreViewController: ExploreViewController) -> WMFActivityTabViewController {
+        
+        var wikimediaProject: WikimediaProject? = nil
+        var wmfProject: WMFProject? = nil
+        if let siteURL = dataStore.languageLinkController.appLanguage?.siteURL,
+        let project = WikimediaProject(siteURL: siteURL) {
+            wikimediaProject = project
+            wmfProject = project.wmfProject
+        }
 
+        // CLEANUP: near-duplicate closures just for logging
         let openHistoryClosure = { [weak self] in
             guard let self = self else { return }
+            
+            if let wikimediaProject {
+                EditInteractionFunnel.shared.logActivityTabDidTapViewReadingHistory(project: wikimediaProject)
+            }
+
+            guard let navigationController = self.currentTabNavigationController else {
+                return
+            }
+
+            let historyVC = HistoryViewController()
+            historyVC.dataStore = self.dataStore
+            historyVC.apply(theme: self.theme)
+            historyVC.title = CommonStrings.historyTabTitle
+            navigationController.pushViewController(historyVC, animated: true)
+        }
+        
+        let openHistoryLoggedOutClosure = { [weak self] in
+            guard let self = self else { return }
+            
+            if let wikimediaProject {
+                EditInteractionFunnel.shared.logActivityTabLoggedOutDidTapViewReadingHistory(project: wikimediaProject)
+            }
 
             guard let navigationController = self.currentTabNavigationController else {
                 return
@@ -770,6 +803,10 @@ extension WMFAppViewController {
         let openSavedArticlesClosure = { [weak self] in
             guard let self = self else { return }
             
+            if let wikimediaProject {
+                EditInteractionFunnel.shared.logActivityTabDidTapSavedCapsule(project: wikimediaProject)
+            }
+            
             self.dismissPresentedViewControllers()
             withAnimation {
                 self.selectedIndex = AppTab.saved.rawValue
@@ -779,6 +816,10 @@ extension WMFAppViewController {
         let openSuggestedEditsClosure = { [weak self] in
             guard let self = self, let navigationController = self.currentTabNavigationController else {
                 return
+            }
+            
+            if let wikimediaProject {
+                EditInteractionFunnel.shared.logActivityTabDidTapEditCapsule(project: wikimediaProject)
             }
             
             guard let vc = WMFImageRecommendationsViewController.imageRecommendationsViewController(
@@ -794,6 +835,10 @@ extension WMFAppViewController {
         let openStartEditing = { [weak self] in
             guard let self = self, let navigationController = self.currentTabNavigationController else {
                 return
+            }
+            
+            if let wikimediaProject {
+                EditInteractionFunnel.shared.logActivityTabDidTapEditCapsule(project: wikimediaProject)
             }
 
             if let url = URL(string: "https://www.mediawiki.org/wiki/Special:MyLanguage/Wikimedia_Apps/iOS_FAQ#Editing") {
@@ -850,6 +895,7 @@ extension WMFAppViewController {
         let viewModel = WMFActivityViewModel(
             localizedStrings: localizedStrings,
             openHistory: openHistoryClosure,
+            openHistoryLoggedOut: openHistoryLoggedOutClosure,
             openSavedArticles: openSavedArticlesClosure,
             openSuggestedEdits: openSuggestedEditsClosure,
             openStartEditing: openStartEditing,
@@ -870,6 +916,11 @@ extension WMFAppViewController {
         let activityTabViewController = WMFActivityTabViewController(viewModel: viewModel, theme: theme, showSurvey: showSurveyClosure, dataStore: dataStore)
         
         let loginAction = { [weak self] in
+            
+            if let wikimediaProject {
+                EditInteractionFunnel.shared.logActivityTabLoggedOutDidTapLogin(project: wikimediaProject)
+            }
+            
             guard let self = self else { return }
 
             guard let navigationController = self.currentTabNavigationController else {
@@ -895,9 +946,7 @@ extension WMFAppViewController {
             loginCoordinator.start()
         }
         
-        if let siteURL = dataStore.languageLinkController.appLanguage?.siteURL,
-           let wikimediaProject = WikimediaProject(siteURL: siteURL),
-           let wmfProject = wikimediaProject.wmfProject {
+        if let wmfProject {
             viewModel.project = wmfProject
         }
         
@@ -928,6 +977,13 @@ extension WMFAppViewController {
     }
     
     private func surveyViewController() -> UIViewController {
+        
+        var wikimediaProject: WikimediaProject? = nil
+        if let siteURL = dataStore.languageLinkController.appLanguage?.siteURL,
+        let project = WikimediaProject(siteURL: siteURL) {
+            wikimediaProject = project
+        }
+        
         let surveyLocalizedStrings = WMFSurveyViewModel.LocalizedStrings(
             title: CommonStrings.activityTabSurveyTitle,
             cancel: CommonStrings.cancelActionTitle,
@@ -938,16 +994,26 @@ extension WMFAppViewController {
         )
 
         let surveyOptions = [
-            WMFSurveyViewModel.OptionViewModel(text: CommonStrings.activityTabSurveyVerySatisfied, apiIdentifer: "v_satisfied"),
-            WMFSurveyViewModel.OptionViewModel(text: CommonStrings.activityTabSurveySatisfied, apiIdentifer: "satisfied"),
-            WMFSurveyViewModel.OptionViewModel(text: CommonStrings.activityTabSurveyNeutral, apiIdentifer: "neutral"),
-            WMFSurveyViewModel.OptionViewModel(text: CommonStrings.activityTabSurveyUnsatisfied, apiIdentifer: "unsatisfied"),
-            WMFSurveyViewModel.OptionViewModel(text: CommonStrings.activityTabSurveyVeryUnsatisfied, apiIdentifer: "v_unsatisfied")
+            WMFSurveyViewModel.OptionViewModel(text: CommonStrings.activityTabSurveyVerySatisfied, apiIdentifer: "1"),
+            WMFSurveyViewModel.OptionViewModel(text: CommonStrings.activityTabSurveySatisfied, apiIdentifer: "2"),
+            WMFSurveyViewModel.OptionViewModel(text: CommonStrings.activityTabSurveyNeutral, apiIdentifer: "3"),
+            WMFSurveyViewModel.OptionViewModel(text: CommonStrings.activityTabSurveyUnsatisfied, apiIdentifer: "4"),
+            WMFSurveyViewModel.OptionViewModel(text: CommonStrings.activityTabSurveyVeryUnsatisfied, apiIdentifer: "5")
         ]
 
         let surveyView = WMFSurveyView(viewModel: WMFSurveyViewModel(localizedStrings: surveyLocalizedStrings, options: surveyOptions, selectionType: .single), cancelAction: { [weak self] in
+            
+            if let wikimediaProject {
+                EditInteractionFunnel.shared.logActivityTabSurveyDidTapCancel(project: wikimediaProject)
+            }
+            
             self?.currentTabNavigationController?.dismiss(animated: true)
         }, submitAction: { [weak self] options, otherText in
+            
+            if let wikimediaProject {
+                EditInteractionFunnel.shared.logActivityTabSurveyDidTapSubmit(options: options, otherText: otherText, project: wikimediaProject)
+            }
+            
             self?.currentTabNavigationController?.dismiss(animated: true, completion: {
                 let image = UIImage(systemName: "checkmark.circle.fill")
                 WMFAlertManager.sharedInstance.showBottomAlertWithMessage(CommonStrings.feedbackSurveyToastTitle, subtitle: nil, image: image, type: .custom, customTypeName: "feedback-submitted", dismissPreviousAlerts: true)
