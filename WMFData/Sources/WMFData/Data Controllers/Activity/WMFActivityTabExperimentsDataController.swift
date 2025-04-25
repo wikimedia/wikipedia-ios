@@ -9,10 +9,10 @@ public final class WMFActivityTabExperimentsDataController {
         case unexpectedAssignment
     }
 
-    public enum ActivityTabExperimentAssignment {
-        case control
-        case genericCTA
-        case suggestedEdit
+    public enum ActivityTabExperimentAssignment: Int {
+        case control = 0
+        case genericCTA = 1
+        case suggestedEdit = 2
     }
 
     public static let shared = WMFActivityTabExperimentsDataController()
