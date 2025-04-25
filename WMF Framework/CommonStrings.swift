@@ -693,8 +693,12 @@ public class CommonStrings: NSObject {
     public static let actitvityTabLoggedOutSubtitle = WMFLocalizedString("activity-tab-logged-out-subtitle", value: "Track what you’ve read and view your contributions over time in a new way", comment: "Subtitle for activity tab when users are logged out.")
     public static let activityTabViewReadingHistoryTitle = WMFLocalizedString("activity-tab-view-reading-history", value: "View reading history", comment: "Button title for users to view their reading history.")
     public static let activityTabViewSavedArticlesTitle = WMFLocalizedString("activity-tab-view-saved-articles", value: "View saved articles", comment: "Button title for users to view their saved articles.")
-    public static let activityTabNoEditsTitle = WMFLocalizedString("activity-tab-no-edits-title", value: "You haven’t edited. Add images to enhance article understanding.", comment: "Title for users that have not made any edits.")
-    public static let activityTabNoEditsSubtitle = WMFLocalizedString("activity-tab-no-edits-subtitle", value: "Start editing to begin tracking your contributions.", comment: "Subtitle for users that have not made any edits.")
+    
+    public static let activityTabNoEditsAddImagesTitle = WMFLocalizedString("activity-tab-no-edits-title", value: "You haven’t edited. Add images to enhance article understanding.", comment: "Title for users that have not made any edits.")
+    
+    // todo: localize
+    public static let activityTabNoEditsGenericTitle = "You haven’t edited. Start now to track your contributions."
+    
     public static let activityTabStartEditing = WMFLocalizedString("activity-tab-start-editing", value: "Start editing", comment: "Button title for users to begin editing.")
     public static func activityTabArticleReadNumber(amount: Int? = 0) -> String {
         let format = WMFLocalizedString("activity-tab-you-read", value: "You read {{PLURAL:%1$d|%1$d article|%1$d articles}} this week.", comment: "Displays how many articles the user read in the past week, $1 is the amount, returning the pluralized version of article depending.")

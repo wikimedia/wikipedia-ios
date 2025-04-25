@@ -9,10 +9,10 @@ public final class WMFActivityTabExperimentsDataController {
         case unexpectedAssignment
     }
 
-    public enum ActivityTabExperimentAssignment {
-        case control
-        case genericCTA
-        case suggestedEdit
+    public enum ActivityTabExperimentAssignment: Int {
+        case control = 1
+        case genericCTA = 2
+        case suggestedEdit = 3
     }
 
     public static let shared = WMFActivityTabExperimentsDataController()
@@ -28,7 +28,11 @@ public final class WMFActivityTabExperimentsDataController {
         self.experimentsDataController = WMFExperimentsDataController(store: experimentStore)
     }
 
-    public func assignActivityTabSearchBarExperiment(project: WMFProject) throws -> ActivityTabExperimentAssignment {
+    public func shouldAssignToBucket() -> Bool {
+        return experimentsDataController.bucketForExperiment(.activityTab) == nil
+    }
+
+    public func assignActivityTabExperiment(project: WMFProject) throws -> ActivityTabExperimentAssignment {
         guard project.qualifiesActivityTabExperiment() else {
             throw CustomError.invalidProject
         }
@@ -93,7 +97,7 @@ public final class WMFActivityTabExperimentsDataController {
             return assignmentCache
         }
 
-        guard let bucketValue = experimentsDataController.bucketForExperiment(.articleSearchBar) else {
+        guard let bucketValue = experimentsDataController.bucketForExperiment(.activityTab) else {
             throw CustomError.missingAssignment
         }
 

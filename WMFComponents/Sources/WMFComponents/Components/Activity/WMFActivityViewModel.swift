@@ -3,13 +3,15 @@ import SwiftUI
 import WMFData
 
 @objc public class WMFActivityViewModel: NSObject, ObservableObject {
-    @Published var activityItems: [ActivityItem]?
+
+    @Published var editActivityItem: ActivityItem?
+    @Published var readActivityItem: ActivityItem?
+    @Published var savedActivityItem: ActivityItem?
+    
     @Published public var isLoggedIn: Bool
     @Published public var project: WMFProject?
-    var username: String
-    var shouldShowAddAnImage: Bool
-    var shouldShowStartEditing: Bool
-    var hasNoEdits: Bool
+    @Published public var username: String?
+    
     let openHistory: () -> Void
     @Published public var loginAction: (() -> Void)?
     let openSavedArticles: () -> Void
@@ -36,13 +38,20 @@ import WMFData
         return appEnvironment.theme
     }
     
+    var shouldShowAddAnImage: Bool {
+        guard let editActivityItem else { return false }
+        
+        switch editActivityItem.type {
+        case .noEdit:
+            return getGroupAssigment() == .suggestedEdit
+        default:
+            return false
+        }
+    }
+    
     public init(
             localizedStrings: LocalizedStrings,
             activityItems: [ActivityItem]? = nil,
-            username: String,
-            shouldShowAddAnImage: Bool,
-            shouldShowStartEditing: Bool,
-            hasNoEdits: Bool,
             openHistory: @escaping () -> Void,
             openSavedArticles: @escaping () -> Void,
             openSuggestedEdits: (() -> Void)?,
@@ -50,11 +59,6 @@ import WMFData
             openAddAnImage: (() -> Void)?,
             loginAction: (() -> Void)?,
             isLoggedIn: Bool) {
-        self.username = username
-        self.activityItems = activityItems
-        self.shouldShowAddAnImage = shouldShowAddAnImage
-        self.shouldShowStartEditing = shouldShowStartEditing
-        self.hasNoEdits = hasNoEdits
         self.openHistory = openHistory
         self.loginAction = loginAction
         self.openSavedArticles = openSavedArticles
@@ -67,35 +71,41 @@ import WMFData
     
     func title(for type: ActivityTabDisplayType) -> String {
         switch type {
-        case .edit:
-            return localizedStrings.activityTabsEditTitle
-        case .read:
-            return localizedStrings.activityTabReadTitle
-        case .save:
-            return localizedStrings.activityTabSaveTitle
+        case .edit(let count):
+            return localizedStrings.getActivityTabsEditTitle(count)
+        case .read(let count):
+            return localizedStrings.getActivityTabReadTitle(count)
+        case .save(let count):
+            return localizedStrings.getActivityTabSaveTitle(count)
         case .noEdit:
-            return localizedStrings.activityTabNoEditsTitle
-        case .addImage:
-            return "Add images to enhance article understanding."
+            if shouldShowAddAnImage {
+                return localizedStrings.activityTabNoEditsAddImagesTitle
+            } else {
+                return localizedStrings.activityTabNoEditsGenericTitle
+            }
         }
     }
     
     func action(for type: ActivityTabDisplayType) -> (() -> Void)? {
         switch type {
-        case .edit, .addImage:
+        case .edit:
             return nil
         case .read:
             return openHistory
         case .save:
             return openSavedArticles
         case .noEdit:
-            return openStartEditing
+            if shouldShowAddAnImage {
+                return openSuggestedEdits
+            } else {
+                return openStartEditing
+            }
         }
     }
     
     func backgroundColor(for type: ActivityTabDisplayType) -> UIColor {
         switch type {
-        case .edit, .noEdit, .addImage:
+        case .edit, .noEdit:
             theme.softEditorBlue
         case .save:
             theme.softEditorGreen
@@ -104,9 +114,9 @@ import WMFData
         }
     }
     
-    func iconColor(for type: ActivityTabDisplayType) -> UIColor {
+    func leadingIconColor(for type: ActivityTabDisplayType) -> UIColor {
         switch type {
-        case .edit, .noEdit, .addImage:
+        case .edit, .noEdit:
             theme.editorBlue
         case .save:
             theme.editorGreen
@@ -115,9 +125,22 @@ import WMFData
         }
     }
     
+    func trailingIconName(for type: ActivityTabDisplayType) -> String {
+        
+        switch type {
+        case .noEdit:
+            if shouldShowAddAnImage {
+                return "add-images"
+            }
+            return "activity-link"
+        default:
+            return "chevron.forward"
+        }
+    }
+    
     func borderColor(for type: ActivityTabDisplayType) -> UIColor {
         switch type {
-        case .edit, .noEdit, .addImage:
+        case .edit, .noEdit:
             WMFColor.blue100
         case .save:
             WMFColor.green100
@@ -125,34 +148,60 @@ import WMFData
             WMFColor.beige100
         }
     }
+    
+    func titleFont(for type: ActivityTabDisplayType) -> UIFont {
+        switch type {
+        case .noEdit:
+            return WMFFont.for(.headline)
+        default:
+            return WMFFont.for(.boldHeadline)
+        }
+    }
+
+    func getGroupAssigment() -> WMFActivityTabExperimentsDataController.ActivityTabExperimentAssignment {
+        guard let dataController = WMFActivityTabExperimentsDataController.shared else {
+            return .control
+        }
+        var assignment: WMFActivityTabExperimentsDataController.ActivityTabExperimentAssignment = .control
+
+        do {
+            let currentAssigment = try dataController.getActivityTabExperimentAssignment()
+            assignment = currentAssigment
+        } catch {
+            debugPrint("Error assigning activity tab experiment: \(error)")
+        }
+
+        return assignment
+    }
+
 
     public struct LocalizedStrings {
-        let activityTabNoEditsTitle: String
-        let activityTabSaveTitle: String
-        let activityTabReadTitle: String
-        let activityTabsEditTitle: String
+        let activityTabNoEditsAddImagesTitle: String
+        let activityTabNoEditsGenericTitle: String
+        let getActivityTabSaveTitle: (Int) -> String
+        let getActivityTabReadTitle: (Int) -> String
+        let getActivityTabsEditTitle: (Int) -> String
         let tabTitle: String
-        let greeting: String
+        let getGreeting: () -> String
 
-        public init(activityTabNoEditsTitle: String, activityTabSaveTitle: String, activityTabReadTitle: String, activityTabsEditTitle: String, tabTitle: String, greeting: String) {
-            self.activityTabNoEditsTitle = activityTabNoEditsTitle
-            self.activityTabSaveTitle = activityTabSaveTitle
-            self.activityTabReadTitle = activityTabReadTitle
-            self.activityTabsEditTitle = activityTabsEditTitle
+        public init(activityTabNoEditsAddImagesTitle: String, activityTabNoEditsGenericTitle: String, getActivityTabSaveTitle: @escaping (Int) -> String, getActivityTabReadTitle: @escaping (Int) -> String, getActivityTabsEditTitle: @escaping (Int) -> String, tabTitle: String, getGreeting: @escaping () -> String) {
+            self.activityTabNoEditsAddImagesTitle = activityTabNoEditsAddImagesTitle
+            self.activityTabNoEditsGenericTitle = activityTabNoEditsGenericTitle
+            self.getActivityTabSaveTitle = getActivityTabSaveTitle
+            self.getActivityTabReadTitle = getActivityTabReadTitle
+            self.getActivityTabsEditTitle = getActivityTabsEditTitle
             self.tabTitle = tabTitle
-            self.greeting = greeting
+            self.getGreeting = getGreeting
         }
     }
 }
 
 public struct ActivityItem {
-    let title: String
-    let subtitle: String?
     let type: ActivityTabDisplayType
     
     var imageName: String {
         switch type {
-        case .edit, .noEdit, .addImage:
+        case .edit, .noEdit:
             return "activity-edit"
         case .read:
             return "activity-read"
@@ -163,9 +212,8 @@ public struct ActivityItem {
 }
 
 public enum ActivityTabDisplayType {
-    case edit
-    case read
-    case save
+    case edit(Int)
+    case read(Int)
+    case save(Int)
     case noEdit
-    case addImage
 }

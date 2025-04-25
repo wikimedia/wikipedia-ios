@@ -22,55 +22,83 @@ public struct WMFActivityView: View {
 
         if viewModel.isLoggedIn {
             VStack(alignment: .leading) {
-                WMFHtmlText(html: viewModel.localizedStrings.greeting, styles: titleStyles)
+                WMFHtmlText(html: viewModel.localizedStrings.getGreeting(), styles: titleStyles)
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .padding(.top, 24)
                     .padding(.bottom, 8)
-                if viewModel.hasNoEdits {
-                    noEditsView
+                
+                if let editActivityItem = viewModel.editActivityItem {
+                    WMFActivityComponentView(
+                        activityItem: editActivityItem,
+                        title: viewModel.title(for: editActivityItem.type),
+                        onButtonTap: viewModel.action(for: editActivityItem.type),
+                        shouldDisplayButton: true,
+                        backgroundColor: viewModel.backgroundColor(for: editActivityItem.type),
+                        leadingIconColor: viewModel.leadingIconColor(for: editActivityItem.type),
+                        borderColor: viewModel.borderColor(for: editActivityItem.type),
+                        leadingIconName: editActivityItem.imageName,
+                        trailingIconName: viewModel.trailingIconName(for: editActivityItem.type),
+                        titleFont: viewModel.titleFont(for: editActivityItem.type))
                         .padding(.vertical, 8)
-                } else if viewModel.shouldShowAddAnImage {
-                    Text(viewModel.suggestedEdits)
-                    suggestedEditsView // TODO: add editing activity item a bove
                 }
-                if let activityItems = viewModel.activityItems {
-                    ForEach(activityItems, id: \.title) { item in
-                        if item.type != .noEdit {
-                            WMFActivityComponentView(
-                                activityItem: item,
-                                title: viewModel.title(for: item.type),
-                                onButtonTap: viewModel.action(for: item.type),
-                                shouldDisplayButton: true,
-                                backgroundColor: viewModel.backgroundColor(for: item.type),
-                                iconColor: viewModel.iconColor(for: item.type),
-                                borderColor: viewModel.borderColor(for: item.type),
-                                iconName: item.imageName)
-                            .padding(.vertical, 8)
-                        }
-                    }
+                
+// Note: this is the old, pre-redesign suggested edits callout view. Keeping it commented here just in case design / product decide to bring it back.
+//                if viewModel.shouldShowAddAnImage {
+//                    Text(viewModel.suggestedEdits)
+//                    suggestedEditsView
+//                }
+                
+                if let readActivityItem = viewModel.readActivityItem {
+                    WMFActivityComponentView(
+                        activityItem: readActivityItem,
+                        title: viewModel.title(for: readActivityItem.type),
+                        onButtonTap: viewModel.action(for: readActivityItem.type),
+                        shouldDisplayButton: true,
+                        backgroundColor: viewModel.backgroundColor(for: readActivityItem.type),
+                        leadingIconColor: viewModel.leadingIconColor(for: readActivityItem.type),
+                        borderColor: viewModel.borderColor(for: readActivityItem.type),
+                        leadingIconName: readActivityItem.imageName,
+                        trailingIconName: viewModel.trailingIconName(for: readActivityItem.type),
+                        titleFont: viewModel.titleFont(for: readActivityItem.type))
+                        .padding(.vertical, 8)
                 }
+                
+                if let savedActivityItem = viewModel.savedActivityItem {
+                    WMFActivityComponentView(
+                        activityItem: savedActivityItem,
+                        title: viewModel.title(for: savedActivityItem.type),
+                        onButtonTap: viewModel.action(for: savedActivityItem.type),
+                        shouldDisplayButton: true,
+                        backgroundColor: viewModel.backgroundColor(for: savedActivityItem.type),
+                        leadingIconColor: viewModel.leadingIconColor(for: savedActivityItem.type),
+                        borderColor: viewModel.borderColor(for: savedActivityItem.type),
+                        leadingIconName: savedActivityItem.imageName,
+                        trailingIconName: viewModel.trailingIconName(for: savedActivityItem.type),
+                        titleFont: viewModel.titleFont(for: savedActivityItem.type))
+                        .padding(.vertical, 8)
+                }
+                
                 Spacer()
             }
             .padding(.horizontal, 20)
             .onAppear {
                 Task {
-                    guard let project = viewModel.project else { return }
+                    guard let project = viewModel.project,
+                          let username = viewModel.username else { return }
                     
                     let dataController = try WMFActivityDataController()
                     dataController.savedSlideDataDelegate = viewModel.savedSlideDataDelegate
                     dataController.legacyPageViewsDataDelegate = viewModel.legacyPageViewsDataDelegate
-                    let activity = try await dataController.fetchAllStuff(username: "TSevener (WMF)", project: project)
-                    var testItems = [
-                        ActivityItem(title: "You saved \(activity.savedCount) articles this week", subtitle: nil, type: .save),
-                        ActivityItem(title: "You read \(activity.readCount) articles this week.", subtitle: nil, type: .read)
-                    ]
-
-                    if !viewModel.hasNoEdits {
-                        let editsItem = ActivityItem(title: "You edited \(activity.editedCount ?? 0) article(s) this week.", subtitle: nil, type: .edit)
-                            testItems.insert(editsItem, at: 0)
+                    let activity = try await dataController.fetchAllStuff(username: username, project: project)
+                    
+                    var editsItem = ActivityItem(type: .noEdit)
+                    if let editedCount = activity.editedCount, editedCount > 0 {
+                        editsItem = ActivityItem(type: .edit(editedCount))
                     }
-
-                    viewModel.activityItems = testItems
+                    
+                    viewModel.editActivityItem = editsItem
+                    viewModel.readActivityItem = ActivityItem(type: .read(activity.readCount))
+                    viewModel.savedActivityItem = ActivityItem(type: .save(activity.savedCount))
                 }
             }
             .background(Color(theme.paperBackground))
@@ -78,22 +106,6 @@ public struct WMFActivityView: View {
             if let loginAction = viewModel.loginAction {
                 WMFActivityTabLoggedOutView(loginAction: loginAction, openHistory: viewModel.openHistory)
             }
-        }
-    }
-
-    private var noEditsView: some View {
-        VStack(alignment: .leading) {
-            let item = ActivityItem(title: viewModel.localizedStrings.activityTabNoEditsTitle, subtitle: viewModel.localizedStrings.activityTabNoEditsTitle, type: .noEdit)
-            // TODO: - get AB testing for `shouldDisplayButton`
-            WMFActivityComponentView(
-                activityItem: item,
-                title: viewModel.title(for: item.type),
-                onButtonTap: viewModel.action(for: item.type),
-                shouldDisplayButton: true,
-                backgroundColor: viewModel.backgroundColor(for: item.type),
-                iconColor: viewModel.iconColor(for: item.type),
-                borderColor: viewModel.borderColor(for: item.type),
-                iconName: item.imageName)
         }
     }
 

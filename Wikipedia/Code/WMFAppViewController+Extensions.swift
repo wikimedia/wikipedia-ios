@@ -140,14 +140,34 @@ extension WMFAppViewController {
               let project = WikimediaProject(siteURL: primaryLanguage.siteURL)?.wmfProject else {
             return
         }
-        
+
+        guard dataController.shouldAssignToBucket() else {
+            return
+        }
+
         do {
-            let assignment = try dataController.assignActivityTabSearchBarExperiment(project: project)
+            let assignment = try dataController.assignActivityTabExperiment(project: project)
             // TODO: Log
             print("Assignment: \(assignment) ⭐️⭐️⭐️⭐️⭐️⭐️")
         } catch {
             DDLogError("Error assigning activity tab experiment: \(error)")
         }
+    }
+
+    @objc func getAssignmentForActivityTabExperiment() -> Int {
+        guard let dataController = WMFActivityTabExperimentsDataController.shared else {
+            return 0
+        }
+        var assignment = 0 // start as control
+        
+        do {
+            let currentAssigment = try dataController.getActivityTabExperimentAssignment()
+            assignment = currentAssigment.rawValue
+        } catch {
+            DDLogError("Error assigning activity tab experiment: \(error)")
+        }
+
+        return assignment
     }
 
 }
@@ -799,28 +819,36 @@ extension WMFAppViewController {
               comment: "$1 is opening bold, $2 is the username, $3 is closing bold.")
             return String.localizedStringWithFormat(format, openingBold, username, closingBold)
         }
+        
+        let activityTabSaveTitle: (Int) -> String = { count in
+            CommonStrings.activityTabArticleSavedNumber(amount: count)
+        }
+        
+        let activityTabReadTitle: (Int) -> String = { count in
+            CommonStrings.activityTabArticleReadNumber(amount: count)
+        }
+        
+        let activityTabEditedTitle: (Int) -> String = { count in
+            CommonStrings.activityTabArticleEditedNumber(amount: count)
+        }
+        
+        let greeting: () -> String = { [weak self] in
+            guard let self else { return "" }
+            return greeting(username: self.dataStore.authenticationManager.authStatePermanentUsername ?? "")
+        }
 
         let isLoggedIn = dataStore.authenticationManager.authStateIsPermanent
         let localizedStrings = WMFActivityViewModel.LocalizedStrings(
-            activityTabNoEditsTitle: CommonStrings.activityTabNoEditsTitle,
-            activityTabSaveTitle: "You saved 6 articles",
-            activityTabReadTitle: "You read 9 articles",
-            activityTabsEditTitle: "You edited 3 articles",
+            activityTabNoEditsAddImagesTitle: CommonStrings.activityTabNoEditsAddImagesTitle,
+            activityTabNoEditsGenericTitle: CommonStrings.activityTabNoEditsGenericTitle,
+            getActivityTabSaveTitle: activityTabSaveTitle,
+            getActivityTabReadTitle: activityTabReadTitle,
+            getActivityTabsEditTitle: activityTabEditedTitle,
             tabTitle: CommonStrings.activityTitle,
-            greeting: greeting(username: dataStore.authenticationManager.authStatePermanentUsername ?? "") // TODO: fix username
-        )
-        var editCount = 0
-        if let siteURL = self.dataStore.languageLinkController.appLanguage?.siteURL {
-            editCount = Int(self.dataStore.authenticationManager.user(siteURL: siteURL)?.editCount ?? 0)
-        }
-
-        let hasNoEdits = editCount == 0
+            getGreeting: greeting)
+        
         let viewModel = WMFActivityViewModel(
             localizedStrings: localizedStrings,
-            username: dataStore.authenticationManager.authStatePermanentUsername ?? String(), // TODO: Error handling with logged out / error state
-            shouldShowAddAnImage: editCount >= 50,
-            shouldShowStartEditing: editCount <= 50,
-            hasNoEdits: hasNoEdits,
             openHistory: openHistoryClosure,
             openSavedArticles: openSavedArticlesClosure,
             openSuggestedEdits: openSuggestedEditsClosure,
@@ -873,6 +901,10 @@ extension WMFAppViewController {
             viewModel.project = wmfProject
         }
         
+        if let username = dataStore.authenticationManager.authStatePermanentUsername {
+            viewModel.username = username
+        }
+        
         viewModel.loginAction = loginAction
         
         return activityTabViewController
@@ -889,6 +921,10 @@ extension WMFAppViewController {
     @objc func updateActivityTabLoginState(activityTabViewController: WMFActivityTabViewController) {
         let isLoggedIn = dataStore.authenticationManager.authStateIsPermanent
         activityTabViewController.viewModel.isLoggedIn = isLoggedIn
+        
+        if let username = dataStore.authenticationManager.authStatePermanentUsername {
+            activityTabViewController.viewModel.username = username
+        }
     }
     
     private func surveyViewController() -> UIViewController {

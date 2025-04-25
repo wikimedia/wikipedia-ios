@@ -75,7 +75,6 @@
 "activity-tab-logged-out-subtitle" = "Subtitle for activity tab when users are logged out.";
 "activity-tab-logged-out-title" = "Title for activity tab when users are logged out.";
 "activity-tab-neutral" = "Satisfaction survey neutral";
-"activity-tab-no-edits-subtitle" = "Subtitle for users that have not made any edits.";
 "activity-tab-no-edits-title" = "Title for users that have not made any edits.";
 "activity-tab-read-title" = "Title for the reading history activity tab";
 "activity-tab-satisfied" = "Satisfaction survey satisfied";
