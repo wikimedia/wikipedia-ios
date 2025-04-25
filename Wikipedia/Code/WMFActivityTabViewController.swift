@@ -103,7 +103,7 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
         }
         
         guard let existingProfileCoordinator = _profileCoordinator else {
-            _profileCoordinator = ProfileCoordinator(navigationController: navigationController, theme: theme, dataStore: dataStore, donateSouce: .savedProfile, logoutDelegate: nil, sourcePage: ProfileCoordinatorSource.saved, yirCoordinator: yirCoordinator)
+            _profileCoordinator = ProfileCoordinator(navigationController: navigationController, theme: theme, dataStore: dataStore, donateSouce: .savedProfile, logoutDelegate: self, sourcePage: ProfileCoordinatorSource.saved, yirCoordinator: yirCoordinator)
             _profileCoordinator?.badgeDelegate = self
             return _profileCoordinator
         }
@@ -143,5 +143,18 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
 extension WMFActivityTabViewController: YearInReviewBadgeDelegate {
     public func updateYIRBadgeVisibility() {
         updateProfileButton()
+    }
+}
+
+extension WMFActivityTabViewController: LogoutCoordinatorDelegate {
+    func didTapLogout() {
+        
+        guard let dataStore else {
+            return
+        }
+        
+        wmf_showKeepSavedArticlesOnDevicePanelIfNeeded(triggeredBy: .logout, theme: theme) {
+            dataStore.authenticationManager.logout(initiatedBy: .user)
+        }
     }
 }
