@@ -129,17 +129,6 @@ import WMFData
         }
     }
     
-    func borderColor(for type: ActivityTabDisplayType) -> UIColor {
-        switch type {
-        case .edit, .noEdit:
-            WMFColor.blue100
-        case .save:
-            WMFColor.green100
-        case .read:
-            WMFColor.beige100
-        }
-    }
-    
     func titleFont(for type: ActivityTabDisplayType) -> UIFont {
         switch type {
         case .noEdit:

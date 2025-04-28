@@ -11,21 +11,19 @@ public struct WMFActivityComponentView: View {
     let leadingIconColor: UIColor
     let leadingIconName: String
     let trailingIconName: String
-    let borderColor: UIColor
     let titleFont: UIFont
 
     var theme: WMFTheme {
         return appEnvironment.theme
     }
 
-    public init(activityItem: ActivityItem, title: String, onButtonTap: (() -> Void)?, shouldDisplayButton: Bool, backgroundColor: UIColor, leadingIconColor: UIColor, borderColor: UIColor, leadingIconName: String, trailingIconName: String, titleFont: UIFont) {
+    public init(activityItem: ActivityItem, title: String, onButtonTap: (() -> Void)?, shouldDisplayButton: Bool, backgroundColor: UIColor, leadingIconColor: UIColor, leadingIconName: String, trailingIconName: String, titleFont: UIFont) {
         self.activityItem = activityItem
         self.title = title
         self.onButtonTap = onButtonTap
         self.shouldDisplayButton = shouldDisplayButton
         self.backgroundColor = backgroundColor
         self.leadingIconColor = leadingIconColor
-        self.borderColor = borderColor
         self.leadingIconName = leadingIconName
         self.trailingIconName = trailingIconName
         self.titleFont = titleFont
@@ -74,7 +72,7 @@ public struct WMFActivityComponentView: View {
             .clipShape(RoundedRectangle(cornerRadius: 20))
             .overlay(
                 RoundedRectangle(cornerRadius: 20)
-                    .stroke(Color(uiColor: borderColor), lineWidth: 0.5)
+                    .stroke(Color(uiColor: theme.darkBorder), lineWidth: 0.5)
                     .frame(minHeight: 96)
             )
         }

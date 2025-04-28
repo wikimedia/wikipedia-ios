@@ -35,7 +35,6 @@ public struct WMFActivityView: View {
                         shouldDisplayButton: true,
                         backgroundColor: viewModel.backgroundColor(for: editActivityItem.type),
                         leadingIconColor: viewModel.leadingIconColor(for: editActivityItem.type),
-                        borderColor: viewModel.borderColor(for: editActivityItem.type),
                         leadingIconName: editActivityItem.imageName,
                         trailingIconName: viewModel.trailingIconName(for: editActivityItem.type),
                         titleFont: viewModel.titleFont(for: editActivityItem.type))
@@ -56,7 +55,6 @@ public struct WMFActivityView: View {
                         shouldDisplayButton: true,
                         backgroundColor: viewModel.backgroundColor(for: readActivityItem.type),
                         leadingIconColor: viewModel.leadingIconColor(for: readActivityItem.type),
-                        borderColor: viewModel.borderColor(for: readActivityItem.type),
                         leadingIconName: readActivityItem.imageName,
                         trailingIconName: viewModel.trailingIconName(for: readActivityItem.type),
                         titleFont: viewModel.titleFont(for: readActivityItem.type))
@@ -71,7 +69,6 @@ public struct WMFActivityView: View {
                         shouldDisplayButton: true,
                         backgroundColor: viewModel.backgroundColor(for: savedActivityItem.type),
                         leadingIconColor: viewModel.leadingIconColor(for: savedActivityItem.type),
-                        borderColor: viewModel.borderColor(for: savedActivityItem.type),
                         leadingIconName: savedActivityItem.imageName,
                         trailingIconName: viewModel.trailingIconName(for: savedActivityItem.type),
                         titleFont: viewModel.titleFont(for: savedActivityItem.type))
