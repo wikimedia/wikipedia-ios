@@ -697,8 +697,7 @@ public class CommonStrings: NSObject {
     
     public static let activityTabNoEditsAddImagesTitle = WMFLocalizedString("activity-tab-no-edits-title", value: "You haven’t edited. Add images to enhance article understanding.", comment: "Title for users that have not made any edits.")
     
-    // todo: localize
-    public static let activityTabNoEditsGenericTitle = "You haven’t edited. Start now to track your contributions."
+    public static let activityTabNoEditsGenericTitle = WMFLocalizedString("activity-tab-generic-no-edits", value: "You haven’t edited. Start now to track your contributions.", comment: "Title for users that have not made any edits.")
     
     public static let activityTabStartEditing = WMFLocalizedString("activity-tab-start-editing", value: "Start editing", comment: "Button title for users to begin editing.")
     public static func activityTabArticleReadNumber(amount: Int? = 0) -> String {

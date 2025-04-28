@@ -71,6 +71,7 @@
 "activity-tab-add-images-subtitle" = "Subtitle for add images feature.";
 "activity-tab-add-images-title" = "Title for add images feature suggestion.";
 "activity-tab-additional-thoughts" = "Asking user if they have any comments";
+"activity-tab-generic-no-edits" = "Title for users that have not made any edits.";
 "activity-tab-greeting" = "$1 is opening bold, $2 is the username, $3 is closing bold.";
 "activity-tab-logged-out-subtitle" = "Subtitle for activity tab when users are logged out.";
 "activity-tab-logged-out-title" = "Title for activity tab when users are logged out.";
