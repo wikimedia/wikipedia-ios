@@ -6,7 +6,6 @@ public struct WMFActivityComponentView: View {
     let activityItem: ActivityItem
     let title: String
     let onButtonTap: (() -> Void)?
-    let shouldDisplayButton: Bool
     let backgroundColor: UIColor
     let leadingIconColor: UIColor
     let leadingIconName: String
@@ -18,11 +17,10 @@ public struct WMFActivityComponentView: View {
         return appEnvironment.theme
     }
 
-    public init(activityItem: ActivityItem, title: String, onButtonTap: (() -> Void)?, buttonTitle: String? = nil, shouldDisplayButton: Bool, backgroundColor: UIColor, leadingIconColor: UIColor, leadingIconName: String, trailingIconName: String, titleFont: UIFont) {
+    public init(activityItem: ActivityItem, title: String, onButtonTap: (() -> Void)?, buttonTitle: String? = nil, backgroundColor: UIColor, leadingIconColor: UIColor, leadingIconName: String, trailingIconName: String, titleFont: UIFont) {
         self.activityItem = activityItem
         self.title = title
         self.onButtonTap = onButtonTap
-        self.shouldDisplayButton = shouldDisplayButton
         self.backgroundColor = backgroundColor
         self.leadingIconColor = leadingIconColor
         self.leadingIconName = leadingIconName
