@@ -740,6 +740,7 @@
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 kieliversion $2 Wikipediassa";
 "on-this-day-title" = "Tänä päivänä";
 "original-tab-button-popover-description" = "Napauta 'W' -kuvaketta palataksesi välilehdelle josta aloitit";
+// Fuzzy
 "page-history-bot-edits" = "boteilta";
 "page-history-compare-accessibility-hint" = "Napauta valitaksesi kaksi vertailtavaa versiota";
 "page-history-compare-title" = "Vertaa";

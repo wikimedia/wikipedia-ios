@@ -35,6 +35,7 @@
 "action-sort" = "Տեսակավորել";
 "action-undo" = "Հետ շրջել";
 "action-update" = "Թարմացնել";
+"activity-tab-title" = "Ակտիվություն";
 "announcements-dismiss" = "Փակել";
 "article-delete" = "Ջնջել";
 "article-deleted-accessibility-notification" = "{{PLURAL:$1|Հոդվածը}} ջնջվել է";
@@ -150,6 +151,7 @@
 "notifications-center-swipe-more" = "Ավելին";
 "notifications-push-talk-body-format" = "{{PLURAL:$1|Նոր հաղորդագրություն|Նոր հաղորդագրություններ}} $2-ում";
 "notifications-push-talk-title-format" = "{{PLURAL:$1|Նոր հաղորդագրություն|Նոր հաղորդագրություններ}}";
+"page-history-bot-edits" = "բոտ";
 "page-history-compare-title" = "Համեմատել";
 "page-history-minor-edits" = "չնչին խմբագրումներ";
 "page-history-revision-author-accessibility-label" = "Հեղինակ. 1";
