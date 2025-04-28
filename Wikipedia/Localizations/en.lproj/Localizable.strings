@@ -71,6 +71,7 @@
 "activity-tab-add-images-subtitle" = "Add suggested images to Wikipedia articles to enhance understanding.";
 "activity-tab-add-images-title" = "Add images";
 "activity-tab-additional-thoughts" = "Any additional thoughts?";
+"activity-tab-generic-no-edits" = "You haven’t edited. Start now to track your contributions.";
 "activity-tab-greeting" = "$1Hi $2$3 👋 Here's your weekly Wikipedia summary.";
 "activity-tab-logged-out-subtitle" = "Track what you’ve read and view your contributions over time in a new way";
 "activity-tab-logged-out-title" = "Log in or create an account to see more editing and reading activity.";
@@ -85,6 +86,7 @@
 "activity-tab-unsatisfied" = "Unsatisfied";
 "activity-tab-very-satisfied" = "Very satisfied";
 "activity-tab-very-unsatisfied" = "Very unsatisfied";
+"activity-tab-view-editing-history" = "View edited articles";
 "activity-tab-view-reading-history" = "View reading history";
 "activity-tab-view-saved-articles" = "View saved articles";
 "activity-tab-you-edited" = "You edited {{PLURAL:$1|$1 time|$1 times}} this week.";
@@ -195,6 +197,9 @@
 "description-welcome-start-editing-button" = "Start editing";
 "developer-force-email-auth" = "Force email auth";
 "developer-settings" = "Developer Settings";
+"developer-settings-activity-tab-group-A" = "Set activity tab to group A";
+"developer-settings-activity-tab-group-B" = "Set activity tab to group B";
+"developer-settings-activity-tab-group-C" = "Set activity tab to group C";
 "developer-settings-bypass-donation" = "Bypass Donation";
 "developer-settings-enable-year-in-review" = "Enable Year in Review";
 "developer-settings-send-analytics-to-wmflabs" = "Send analytics to wmflabs.";

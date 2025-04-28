@@ -147,12 +147,10 @@ extension WMFAppViewController {
         }
         
         do {
-            let assignment = try dataController.assignActivityTabExperiment(project: wmfProject)
+            _ = try dataController.assignActivityTabExperiment(project: wmfProject)
             EditInteractionFunnel.shared.logActivityTabGroupAssignment(project: project)
-
-            print("Assignment: \(assignment) ⭐️⭐️⭐️⭐️⭐️⭐️")
         } catch {
-            DDLogError("Error assigning activity tab experiment: \(error)")
+            DDLogError("Error fetching activity tab experiment: \(error)")
         }
     }
 
@@ -884,7 +882,11 @@ extension WMFAppViewController {
             getActivityTabReadTitle: activityTabReadTitle,
             getActivityTabsEditTitle: activityTabEditedTitle,
             tabTitle: CommonStrings.activityTitle,
-            getGreeting: greeting)
+            getGreeting: greeting,
+            viewHistory: CommonStrings.activityTabReadingHistory,
+            viewSaved: CommonStrings.activityTabViewSavedArticlesTitle,
+            viewEdited: ""
+        )
         
         let viewModel = WMFActivityViewModel(
             localizedStrings: localizedStrings,
@@ -899,7 +901,8 @@ extension WMFAppViewController {
         viewModel.savedSlideDataDelegate = dataStore.savedPageList
         viewModel.legacyPageViewsDataDelegate = dataStore
         
-        let showSurveyClosure = {
+        let showSurveyClosure = { [weak self] in
+            guard let self = self else { return }
             let surveyVC = self.surveyViewController()
             self.currentTabNavigationController?.present(surveyVC, animated: true, completion: {
                 

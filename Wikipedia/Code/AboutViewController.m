@@ -204,11 +204,11 @@ static NSString *const kWMFContributorsKey = @"contributors";
 
     NSString *forceEmailAuth = WMFLocalizedStringWithDefaultValue(@"developer-force-email-auth", nil, nil, @"Force email auth", @"Title for option to force email auth in developer settings menu.");
 
-    NSString *setActivityTabGroupA = @"Set activity tab to group A";
+    NSString *setActivityTabGroupA =  WMFLocalizedStringWithDefaultValue(@"developer-settings-activity-tab-group-A", nil, nil, @"Set activity tab to group A", @"Title for option to set activity tab experiment to group A");
 
-    NSString *setActivityTabGroupB = @"Set activity tab to group B";
+    NSString *setActivityTabGroupB = WMFLocalizedStringWithDefaultValue(@"developer-settings-activity-tab-group-B", nil, nil, @"Set activity tab to group B", @"Title for option to set activity tab experiment to group B");
 
-    NSString *setActivityTabGroupC = @"Set activity tab to group C"; // Todo - localize it
+    NSString *setActivityTabGroupC = WMFLocalizedStringWithDefaultValue(@"developer-settings-activity-tab-group-C", nil, nil, @"Set activity tab to group C", @"Title for option to set activity tab experiment to group C");
 
     WMFDeveloperSettingsLocalizedStrings *localizedStrings = [[WMFDeveloperSettingsLocalizedStrings alloc] initWithDeveloperSettings:developerSettings doNotPostImageRecommendations:doNotPostImageRecommendations sendAnalyticsToWMFLabs:sendAnalyticsToWMFLabs enableYearinReview:enableYearInReview bypassDonation:bypassDonation forceEmailAuth:forceEmailAuth setActivityTabGroupA:setActivityTabGroupA setActivityTabGroupB:setActivityTabGroupB setActivityTabGroupC:setActivityTabGroupC done:WMFCommonStrings.doneTitle];
     WMFDeveloperSettingsViewModel *viewModel = [[WMFDeveloperSettingsViewModel alloc] initWithLocalizedStrings:localizedStrings];

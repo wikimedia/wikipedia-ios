@@ -1,7 +1,6 @@
 import UIKit
 import CocoaLumberjackSwift
 import WMF
-import SwiftUI
 
 protocol ExploreCardViewControllerDelegate: NestedCollectionViewContextMenuDelegate {
     var saveButtonsController: SaveButtonsController { get }

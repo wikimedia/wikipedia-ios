@@ -14,7 +14,7 @@ final class WMFExperimentsDataController {
         let bucketFileName: BucketFileName
         let bucketValueControl: BucketValue
         let bucketValueTest: BucketValue
-        let buckeckValueTest2: BucketValue?
+        let bucketValueTest2: BucketValue?
     }
     
     public enum Experiment {
@@ -53,9 +53,9 @@ final class WMFExperimentsDataController {
     
     private let cacheDirectoryName = WMFSharedCacheDirectoryNames.experiments.rawValue
     
-    private static let articleSearchBarConfig = ExperimentConfig(experiment: .articleSearchBar, percentageFileName: .articleSearchBarPercent, bucketFileName: .articleSearchBarBucket, bucketValueControl: .articleSearchBarControl, bucketValueTest: .articleSearchBarTest, buckeckValueTest2: nil)
+    private static let articleSearchBarConfig = ExperimentConfig(experiment: .articleSearchBar, percentageFileName: .articleSearchBarPercent, bucketFileName: .articleSearchBarBucket, bucketValueControl: .articleSearchBarControl, bucketValueTest: .articleSearchBarTest, bucketValueTest2: nil)
 
-    private static let activityTabConfig = ExperimentConfig(experiment: .activityTab, percentageFileName: .activityTabPercent, bucketFileName: .activityTabBucket, bucketValueControl: .activityTabGroupAControl, bucketValueTest: .activityTabGroupBEdit, buckeckValueTest2: .activityTabGroupCSuggestedEdit)
+    private static let activityTabConfig = ExperimentConfig(experiment: .activityTab, percentageFileName: .activityTabPercent, bucketFileName: .activityTabBucket, bucketValueControl: .activityTabGroupAControl, bucketValueTest: .activityTabGroupBEdit, bucketValueTest2: .activityTabGroupCSuggestedEdit)
 
     private let store: WMFKeyValueStore
     

@@ -99,11 +99,11 @@ public final class WMFActivityTabExperimentsDataController {
         hadFirstLaunch = false
     }
 
-    private var experimentEndDate: Date? { // TODO: - get real date
+    private var experimentEndDate: Date? {
         var dateComponents = DateComponents()
         dateComponents.year = 2025
-        dateComponents.month = 5
-        dateComponents.day = 31
+        dateComponents.month = 6
+        dateComponents.day = 15
         return Calendar.current.date(from: dateComponents)
     }
 
