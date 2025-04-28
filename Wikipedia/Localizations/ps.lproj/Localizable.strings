@@ -26,6 +26,10 @@
 "account-creation-saving" = "خوندي کېږي...";
 // Fuzzy
 "action-find-in-page" = "په مخ کې موندل";
+"activity-tab-add-images-subtitle" = "د پوهاوي لوړولو لپاره د ويکيپېډيا ليکنو ته وړانديز شوي انځورونه ورگډ کړئ.";
+"activity-tab-add-images-title" = "انځورونه ورگډول";
+"activity-tab-unsatisfied" = "ناخوښ";
+"activity-tab-view-saved-articles" = "خوندي شوې ليکنې کتل";
 "article-languages-filter-placeholder" = "ژبه موندل";
 "article-languages-label" = "ژبه ټاکل";
 "article-languages-others" = "نورې ژبې";
@@ -53,6 +57,7 @@
 "explore-nearby-sub-heading-your-location" = "ستاسې ځای";
 "explore-potd-heading" = "د نن ورځې انځور";
 "explore-random-article-heading" = "ناټاکلې ليکنه";
+"field-backup-token-title-email" = "برېښليک کوډ";
 "field-password-title" = "پټنوم";
 "field-username-title" = "کارن‌نوم";
 "history-clear-all" = "سپينول";
@@ -81,6 +86,7 @@
 "nearby-distance-label-km" = "$1 کیلومتر";
 "nearby-distance-label-meters" = "$1 متر";
 "nearby-distance-label-miles" = "$1 مايل";
+"page-history-bot-edits" = "روباټ";
 "page-protected-can-not-edit-title" = "دا مخ ژغورل شوی";
 "places-filter-top-articles-count" = "{{PLURAL:$1|$1 ليکنې|$1 ليکنې}}";
 "potd-description-prefix" = "د $1 د ورځې انځور";

@@ -858,6 +858,7 @@
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 از ویکی‌پدیای $2";
 "on-this-day-title" = "در این روز";
 "original-tab-button-popover-description" = "برای بازگشت به زبانه‌ای که از آن شروع کردید، نماد W را لمس کنید";
+// Fuzzy
 "page-history-bot-edits" = "ویرایش‌های ربات";
 "page-history-compare-accessibility-hint" = "برای انتخاب دو نسخه جهت مقایسه، اینجا را لمس کنید";
 "page-history-compare-title" = "مقایسه";

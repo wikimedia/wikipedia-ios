@@ -537,6 +537,7 @@
 "on-this-day-no-internet-error" = "Dim data ar gael";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 o Wicipedia $2";
 "on-this-day-title" = "Ar y dydd hwn";
+// Fuzzy
 "page-history-bot-edits" = "Golygiadau gan fot";
 "page-history-compare-title" = "Cymharu";
 "page-history-graph-accessibility-label" = "Graff golygiadau dros amser";
