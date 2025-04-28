@@ -645,7 +645,13 @@ private extension DiffContainerViewController {
             return
         }
         
-        WMFWatchlistDataController().fetchWatchStatus(title: articleTitle, project: wmfProject, needsRollbackRights: true) { result in
+        let isLoggedIn = diffController.authenticationManager.authStateIsPermanent
+        
+        guard let request = try? WMFArticleDataController.ArticleInfoRequest(needsWatchedStatus: isLoggedIn, needsRollbackRights: isLoggedIn, needsCategories: false) else {
+            return
+        }
+        
+        WMFArticleDataController().fetchArticleInfo(title: articleTitle, project: wmfProject, request: request) { result in
             DispatchQueue.main.async { [weak self] in
                 
                 guard let self else {
@@ -665,7 +671,6 @@ private extension DiffContainerViewController {
                     break
                 }
             }
-            
         }
     }
     

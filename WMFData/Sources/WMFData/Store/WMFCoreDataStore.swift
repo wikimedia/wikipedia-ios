@@ -167,24 +167,47 @@ public final class WMFCoreDataStore {
         }
         
         let backgroundContext = try newBackgroundContext
-        try await backgroundContext.perform {
+        try await backgroundContext.perform { [weak self] in
             
-            // Delete WMFPageViews that were added > one year ago
-            let predicate = NSPredicate(format: "timestamp < %@", argumentArray: [oneYearAgoDate])
-            let pageViewFetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "CDPageView")
-            pageViewFetchRequest.predicate = predicate
-            
-            let batchPageViewDeleteRequest = NSBatchDeleteRequest(fetchRequest: pageViewFetchRequest)
-            batchPageViewDeleteRequest.resultType = .resultTypeObjectIDs
-            _ = try backgroundContext.execute(batchPageViewDeleteRequest) as? NSBatchDeleteResult
-            
-            // Delete WMFPages that were added > one year ago
-            let pageFetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "CDPage")
-            pageFetchRequest.predicate = predicate
-            
-            let batchPageDeleteRequest = NSBatchDeleteRequest(fetchRequest: pageFetchRequest)
-            batchPageDeleteRequest.resultType = .resultTypeObjectIDs
-            _ = try backgroundContext.execute(batchPageDeleteRequest) as? NSBatchDeleteResult
+            try autoreleasepool {
+                
+                guard let self else { return }
+                
+                // Delete CDPageViews that were added > one year ago
+                let timestamp = NSPredicate(format: "timestamp < %@", argumentArray: [oneYearAgoDate])
+                
+                guard let pageViewsToDelete = try self.fetch(entityType: CDPageView.self, predicate: timestamp, fetchLimit: 2000, in: backgroundContext) else {
+                    return
+                }
+                
+                for pageView in pageViewsToDelete {
+                    backgroundContext.delete(pageView)
+                }
+                
+                let emptyPageViewsPredicate = NSPredicate(format: "pageViews.@count == 0")
+                let compoundPredicate = NSCompoundPredicate(andPredicateWithSubpredicates: [timestamp, emptyPageViewsPredicate])
+                
+                // Delete CDPages that have no page views and were added > one year ago
+                guard let pagesToDelete = try self.fetch(entityType: CDPage.self, predicate: compoundPredicate, fetchLimit: 2000, in: backgroundContext) else {
+                    return
+                }
+                
+                for page in pagesToDelete {
+                    backgroundContext.delete(page)
+                }
+                
+                // Delete CDCategorys that have empty pages
+                let emptyPagesPredicate = NSPredicate(format: "pages.@count == 0")
+                guard let categoriesToDelete = try self.fetch(entityType: CDCategory.self, predicate: emptyPagesPredicate, fetchLimit: nil, in: backgroundContext) else {
+                    return
+                }
+                
+                for category in categoriesToDelete {
+                    backgroundContext.delete(category)
+                }
+                
+                try self.saveIfNeeded(moc: backgroundContext)
+            }
         }
     }
 }
@@ -202,6 +225,26 @@ extension WMFProject {
                 identifier.append("~\(variantCode)")
             }
             return identifier
+        }
+    }
+    
+    init?(coreDataIdentifier: String) {
+        switch coreDataIdentifier {
+        case "commons":
+            self = .commons
+        case "wikidata":
+            self = .wikidata
+        default:
+            // Expected format: wikipedia~languageCode or wikipedia~languageCode~variant
+            let components = coreDataIdentifier.components(separatedBy: "~")
+            guard components.count >= 2, components[0] == "wikipedia" else {
+                return nil
+            }
+            
+            let languageCode = components[1]
+            let variantCode = components.count > 2 ? components[2] : nil
+            let language = WMFLanguage(languageCode: languageCode, languageVariantCode: variantCode)
+            self = .wikipedia(language)
         }
     }
 }

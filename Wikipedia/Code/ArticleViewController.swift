@@ -417,7 +417,6 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
 
         setup()
 
-        loadWatchStatusAndUpdateToolbar()
         setupForStateRestorationIfNecessary()
     }
     
@@ -546,6 +545,44 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
         }
         
         ArticleLinkInteractionFunnel.shared.logArticleView(pageID: pageID.intValue, project: project, source: articleViewSource)
+    }
+    
+    // Loads various additional data about the article from MediaWiki
+    func loadMediaWikiInfoAndUpdateToolbar() {
+        guard let title = articleURL.wmf_title,
+            let siteURL = articleURL.wmf_site,
+            let project = WikimediaProject(siteURL: siteURL)?.wmfProject else {
+                return
+        }
+        
+        guard let request = try? WMFArticleDataController.ArticleInfoRequest(needsWatchedStatus: dataStore.authenticationManager.authStateIsPermanent, needsRollbackRights: false, needsCategories: true) else {
+            return
+        }
+                
+        WMFArticleDataController().fetchArticleInfo(title: title, project: project, request: request) { result in
+            
+            DispatchQueue.main.async { [weak self] in
+                
+                guard let self else {
+                    return
+                }
+                
+                switch result {
+                case .success(let info):
+                    
+                    let needsWatchButton = !info.watched
+                    let needsUnwatchHalfButton = info.watched && info.watchlistExpiry != nil
+                    let needsUnwatchFullButton = info.watched && info.watchlistExpiry == nil
+                    
+                    self.toolbarController.updateMoreButton(needsWatchButton: needsWatchButton, needsUnwatchHalfButton: needsUnwatchHalfButton, needsUnwatchFullButton: needsUnwatchFullButton)
+                    
+                    self.saveCategories(categories: info.categories, articleTitle: title, project: project)
+                    
+                case .failure(let error):
+                    DDLogError("Error fetching article MediaWiki info: \(error)")
+                }
+            }
+        }
     }
     
     internal func loadSummary(oldState: ViewState) {
