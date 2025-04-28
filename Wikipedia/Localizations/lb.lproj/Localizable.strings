@@ -83,7 +83,7 @@
 "activity-tab-very-satisfied" = "Ganz zefridden";
 "activity-tab-very-unsatisfied" = "Ganz onzefridden";
 "activity-tab-view-saved-articles" = "Gespäichert Artikele weisen";
-"activity-tab-you-edited" = "Dir hutt dës Woch {{PLURAL:$1|$1 Artikel|$1 Artikele}} geännert.";
+"activity-tab-you-edited" = "Dir hutt dës Woch {{PLURAL:$1|$1 Ännerung|$1 Ännerunge}} gemaach.";
 "activity-tab-you-read" = "Dir hutt dës Woch {{PLURAL:$1|$1 Artikel|$1 Artikele}} gelies.";
 "activity-tab-you-saved" = "Dir hutt dës Woch {{PLURAL:$1|$1 Artikel|$1 Artikele}} gespäichert.";
 "add-articles-to-reading-list" = "{{PLURAL:$1|Een Artikel|$1 Artikelen}} op d'Lieslëscht derbäisetzen";
