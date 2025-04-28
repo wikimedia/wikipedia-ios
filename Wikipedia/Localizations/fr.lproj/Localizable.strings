@@ -142,6 +142,7 @@
 "activity-tab-very-unsatisfied" = "Très insatisfait";
 "activity-tab-view-reading-history" = "Afficher l’historique des modifications";
 "activity-tab-view-saved-articles" = "Voir tous vos articles enregistrés";
+// Fuzzy
 "activity-tab-you-edited" = "Vous avez édité {{PLURAL:$1|$1 article|$1 articles}} cette semaine.";
 "activity-tab-you-read" = "Vous avez lu {{PLURAL:$1|$1 article|$1 articles}} cette semaine.";
 "activity-tab-you-saved" = "Vous avez enregistré $1 article{{PLURAL:$1||s}}";

@@ -127,6 +127,7 @@
 "activity-tab-very-unsatisfied" = "非常不滿意";
 "activity-tab-view-reading-history" = "檢視閱讀紀錄";
 "activity-tab-view-saved-articles" = "檢視已儲存條目";
+// Fuzzy
 "activity-tab-you-edited" = "您這週編輯了{{PLURAL:$1|$1}}篇條目。";
 "activity-tab-you-read" = "您這週閱讀了{{PLURAL:$1|$1}}篇條目。";
 "activity-tab-you-saved" = "您這週儲存了{{PLURAL:$1|$1}}篇條目。";
