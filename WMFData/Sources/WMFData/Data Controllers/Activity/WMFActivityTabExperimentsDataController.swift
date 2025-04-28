@@ -32,15 +32,6 @@ public final class WMFActivityTabExperimentsDataController {
         self.experimentsDataController = WMFExperimentsDataController(store: experimentStore)
         self.userDefaultsStore = userDefaultsStore
     }
-    
-    // We are assigning the experiment on the second launch. This gives us a chance to force a developer settings toggle during the first launch, then upon the 2nd launch the developer setting toggle can take effect during experiment assignment.
-    private var hadFirstLaunch: Bool {
-        get {
-            return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.activityTabHadFirstLaunch.rawValue)) ?? false
-        } set {
-            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.activityTabHadFirstLaunch.rawValue, value: newValue)
-        }
-    }
 
     public func shouldAssignToBucket() -> Bool {
         return experimentsDataController.bucketForExperiment(.activityTab) == nil
@@ -55,26 +46,12 @@ public final class WMFActivityTabExperimentsDataController {
             reset()
             throw CustomError.invalidDate
         }
-        
-        guard hadFirstLaunch else {
-            hadFirstLaunch = true
-            throw CustomError.onFirstLaunch
-        }
 
         if experimentsDataController.bucketForExperiment(.activityTab) != nil {
             throw CustomError.alreadyAssignedBucket
         }
-        
-        var developerSettingsForceValue: WMFExperimentsDataController.BucketValue?
-        if WMFDeveloperSettingsDataController.shared.setActivityTabGroupA {
-            developerSettingsForceValue = .activityTabGroupAControl
-        } else if WMFDeveloperSettingsDataController.shared.setActivityTabGroupB {
-            developerSettingsForceValue = .activityTabGroupBEdit
-        } else if WMFDeveloperSettingsDataController.shared.setActivityTabGroupC {
-            developerSettingsForceValue = .activityTabGroupCSuggestedEdit
-        }
 
-        let bucketValue = try experimentsDataController.determineBucketForExperiment(.activityTab, withPercentage: activityTabExperimentPercentage, forceValue: developerSettingsForceValue)
+        let bucketValue = try experimentsDataController.determineBucketForExperiment(.activityTab, withPercentage: activityTabExperimentPercentage)
 
         let assignment: ActivityTabExperimentAssignment
 
@@ -96,7 +73,6 @@ public final class WMFActivityTabExperimentsDataController {
     private func reset() {
         assignmentCache = nil
         try? experimentsDataController.resetExperiment(.activityTab)
-        hadFirstLaunch = false
     }
 
     private var experimentEndDate: Date? {
