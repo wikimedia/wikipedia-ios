@@ -98,7 +98,7 @@
 "activity-tab-very-unsatisfied" = "Çox narazıyam";
 "activity-tab-view-reading-history" = "Oxuna tarixçəsinə bax";
 "activity-tab-view-saved-articles" = "Saxlanmış məqalələrə bax";
-"activity-tab-you-edited" = "Siz bu həftə {{PLURAL:$1|$1 məqalə}} redaktə etmisiniz.";
+"activity-tab-you-edited" = "Siz bu həftə {{PLURAL:$1|$1 dəfə}} redaktə etmisiniz.";
 "activity-tab-you-read" = "Siz bu həftə {{PLURAL:$1|$1 məqalə}} oxumusunuz.";
 "activity-tab-you-saved" = "Siz bu həftə {{PLURAL:$1|$1 məqalə}} yadda saxlamısınız.";
 "add-articles-to-reading-list" = "{{PLURAL:$1|$1 Məqalə|$1 Məqalələri}} oxuma siyahısına əlavə et";

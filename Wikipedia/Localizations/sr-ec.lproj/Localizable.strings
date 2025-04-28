@@ -106,6 +106,7 @@
 "activity-tab-very-unsatisfied" = "Веома незадовољан";
 "activity-tab-view-reading-history" = "Погледај историју читања";
 "activity-tab-view-saved-articles" = "Погледај сачуване чланке";
+// Fuzzy
 "activity-tab-you-edited" = "Уредили сте {{PLURAL:$1|$1 чланак|$1 чланака}} ове недеље.";
 "activity-tab-you-read" = "Прочитали сте {{PLURAL:$1|$1 чланак|$1 чланака}} ове недеље.";
 "activity-tab-you-saved" = "Сачували сте {{PLURAL:$1|$1 чланак|$1 чланака}} ове недеље.";

@@ -13,7 +13,7 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>other</key>
-			<string>%1$d məqalə</string>
+			<string>%1$d dəfə</string>
 		</dict>
 	</dict>
 	<key>activity-tab-you-read</key>

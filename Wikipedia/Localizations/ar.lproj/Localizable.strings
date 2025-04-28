@@ -136,7 +136,7 @@
 "activity-tab-very-unsatisfied" = "غير راضٍ للغاية";
 "activity-tab-view-reading-history" = "عرض تاريخ القراءة";
 "activity-tab-view-saved-articles" = "عرض المقالات المحفوظة";
-"activity-tab-you-edited" = "لقد قمت بتحرير {{PLURAL:$1|$1 مقال|$1 مقالات}} هذا الأسبوع.";
+"activity-tab-you-edited" = "لقد قمت بالتعديل {{PLURAL:$1|$1 مرة| $1 مرات}} هذا الأسبوع.";
 "activity-tab-you-read" = "لقد قرأت {{PLURAL:$1|$1 مقال|$1 مقالات}} هذا الأسبوع.";
 "activity-tab-you-saved" = "لقد وفرت {{PLURAL:$1|$1 مقال|$1 مقالات}} هذا الأسبوع.";
 "add-articles-to-reading-list" = "أضف {{PLURAL:$1|$1 مقالة|$1 مقالات}} إلى قائمة القراءة";

@@ -116,6 +116,7 @@
 "activity-tab-very-unsatisfied" = "Mycket missnöjd";
 "activity-tab-view-reading-history" = "Visa redigeringshistorik";
 "activity-tab-view-saved-articles" = "Visa sparade artiklar";
+// Fuzzy
 "activity-tab-you-edited" = "Du redigerade {{PLURAL:$1|$1 artikel|$1 artiklar}} denna vecka.";
 "activity-tab-you-read" = "Du läste {{PLURAL:$1|$1 artikel|$1 artiklar}} denna vecka.";
 "activity-tab-you-saved" = "Du sparade {{PLURAL:$1|$1 artikel|$1 artiklar}} denna vecka.";
