@@ -12,12 +12,13 @@ public struct WMFActivityComponentView: View {
     let leadingIconName: String
     let trailingIconName: String
     let titleFont: UIFont
+    let buttonTitle: String?
 
     var theme: WMFTheme {
         return appEnvironment.theme
     }
 
-    public init(activityItem: ActivityItem, title: String, onButtonTap: (() -> Void)?, shouldDisplayButton: Bool, backgroundColor: UIColor, leadingIconColor: UIColor, leadingIconName: String, trailingIconName: String, titleFont: UIFont) {
+    public init(activityItem: ActivityItem, title: String, onButtonTap: (() -> Void)?, buttonTitle: String? = nil, shouldDisplayButton: Bool, backgroundColor: UIColor, leadingIconColor: UIColor, leadingIconName: String, trailingIconName: String, titleFont: UIFont) {
         self.activityItem = activityItem
         self.title = title
         self.onButtonTap = onButtonTap
@@ -27,6 +28,7 @@ public struct WMFActivityComponentView: View {
         self.leadingIconName = leadingIconName
         self.trailingIconName = trailingIconName
         self.titleFont = titleFont
+        self.buttonTitle = buttonTitle
     }
 
     public var body: some View {
@@ -39,14 +41,21 @@ public struct WMFActivityComponentView: View {
                     .frame(height: 52)
                     .alignmentGuide(.firstTextBaseline) { d in d[.bottom] }
 
-                Text(title)
-                    .foregroundStyle(Color(uiColor: theme.text))
-                    .font(Font(titleFont))
-                    .alignmentGuide(.firstTextBaseline) { d in d[.firstTextBaseline] }
-                    .frame(maxWidth: .infinity, alignment: .leading)
+                VStack {
+                    Text(title)
+                        .foregroundStyle(Color(uiColor: theme.text))
+                        .font(Font(titleFont))
+                        .alignmentGuide(.firstTextBaseline) { d in d[.firstTextBaseline] }
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                    if let buttonTitle = buttonTitle, activityItem.type != ActivityTabDisplayType.noEdit {
+                        Text(buttonTitle)
+                            .foregroundStyle(Color(uiColor: theme.link))
+                            .font(Font(titleFont))
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                    }
+                }
                 
                 if onButtonTap != nil {
-                    
                     // todo: cleanup for system name
                     if trailingIconName == "chevron.forward" {
                         Image(systemName: trailingIconName)

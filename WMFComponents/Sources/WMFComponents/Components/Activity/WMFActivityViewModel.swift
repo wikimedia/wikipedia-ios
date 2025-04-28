@@ -163,8 +163,11 @@ import WMFData
         let getActivityTabsEditTitle: (Int) -> String
         let tabTitle: String
         let getGreeting: () -> String
+        let viewHistory: String
+        let viewSaved: String
+        let viewEdited: String
 
-        public init(activityTabNoEditsAddImagesTitle: String, activityTabNoEditsGenericTitle: String, getActivityTabSaveTitle: @escaping (Int) -> String, getActivityTabReadTitle: @escaping (Int) -> String, getActivityTabsEditTitle: @escaping (Int) -> String, tabTitle: String, getGreeting: @escaping () -> String) {
+        public init(activityTabNoEditsAddImagesTitle: String, activityTabNoEditsGenericTitle: String, getActivityTabSaveTitle: @escaping (Int) -> String, getActivityTabReadTitle: @escaping (Int) -> String, getActivityTabsEditTitle: @escaping (Int) -> String, tabTitle: String, getGreeting: @escaping () -> String, viewHistory: String, viewSaved: String, viewEdited: String) {
             self.activityTabNoEditsAddImagesTitle = activityTabNoEditsAddImagesTitle
             self.activityTabNoEditsGenericTitle = activityTabNoEditsGenericTitle
             self.getActivityTabSaveTitle = getActivityTabSaveTitle
@@ -172,6 +175,9 @@ import WMFData
             self.getActivityTabsEditTitle = getActivityTabsEditTitle
             self.tabTitle = tabTitle
             self.getGreeting = getGreeting
+            self.viewHistory = viewHistory
+            self.viewSaved = viewSaved
+            self.viewEdited = viewEdited
         }
     }
 }
@@ -191,7 +197,7 @@ public struct ActivityItem {
     }
 }
 
-public enum ActivityTabDisplayType {
+public enum ActivityTabDisplayType: Equatable {
     case edit(Int)
     case read(Int)
     case save(Int)

@@ -85,6 +85,7 @@
 "activity-tab-unsatisfied" = "Unsatisfied";
 "activity-tab-very-satisfied" = "Very satisfied";
 "activity-tab-very-unsatisfied" = "Very unsatisfied";
+"activity-tab-view-editing-history" = "View edited articles";
 "activity-tab-view-reading-history" = "View reading history";
 "activity-tab-view-saved-articles" = "View saved articles";
 "activity-tab-you-edited" = "You edited {{PLURAL:$1|$1 time|$1 times}} this week.";

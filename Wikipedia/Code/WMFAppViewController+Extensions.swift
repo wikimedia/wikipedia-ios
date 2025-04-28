@@ -882,7 +882,11 @@ extension WMFAppViewController {
             getActivityTabReadTitle: activityTabReadTitle,
             getActivityTabsEditTitle: activityTabEditedTitle,
             tabTitle: CommonStrings.activityTitle,
-            getGreeting: greeting)
+            getGreeting: greeting,
+            viewHistory: CommonStrings.activityTabReadingHistory,
+            viewSaved: CommonStrings.activityTabViewSavedArticlesTitle,
+            viewEdited: ""
+        )
         
         let viewModel = WMFActivityViewModel(
             localizedStrings: localizedStrings,
