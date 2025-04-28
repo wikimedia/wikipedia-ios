@@ -44,6 +44,9 @@ public enum WMFColor {
     public static let orange600alpha = UIColor(0xFF9500, alpha: 0.2)
     public static let borderDark5 = UIColor(0x000000, alpha: 0.05)
     public static let borderDark0 = UIColor(0x00000, alpha: 0.00)
+    public static let softblue15 = UIColor(0x6699FF, alpha: 0.15)
+    public static let softgreen15 = UIColor(0x00AF89, alpha: 0.15)
+    public static let softorange15 = UIColor(0xFF9500, alpha: 0.15)
 
     public static let darkSearchFieldBackground = UIColor(0x8E8E93, alpha: 0.12)
     public static let lightSearchFieldBackground = UIColor(0xFFFFFF, alpha: 0.15)
