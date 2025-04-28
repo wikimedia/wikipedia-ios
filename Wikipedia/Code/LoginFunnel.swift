@@ -82,6 +82,6 @@
     // MARK: - Activity tab
     
     public func logLoginStartFromActivityTab() {
-        logEvent(category: .activityTab, label: nil, action: .loginStart)
+        logEvent(category: .login, label: nil, action: .loginStart)
     }
 }

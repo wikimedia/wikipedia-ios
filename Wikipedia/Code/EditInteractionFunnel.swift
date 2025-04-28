@@ -46,7 +46,7 @@ final class EditInteractionFunnel {
         case saveAttempt = "save_attempt"
         case saveSuccess = "save_success"
         case saveFailure = "save_failure"
-        case secondLaunch = "second_launch"
+        case launch = "launch"
         case impression = "impression"
         case loginClick = "login_click"
         case viewClick = "view_click"
@@ -265,7 +265,7 @@ final class EditInteractionFunnel {
         case .suggestedEdit: groupAssignmentString = "activity_c"
         }
         
-        logEvent(activeInterface: nil, action: .secondLaunch, actionData:["group": groupAssignmentString], project: project)
+        logEvent(activeInterface: nil, action: .launch, actionData:["group": groupAssignmentString], project: project)
     }
     
     func logActivityTabLoggedOutDidAppear(project: WikimediaProject) {
@@ -309,6 +309,7 @@ final class EditInteractionFunnel {
         
         let trimmedOptions = options.filter { $0 != "other" }
         
+        // todo: confirm commas don't get cut off
         let feedbackSelect = trimmedOptions.joined(separator: ",")
         actionData["feedback_select"] = feedbackSelect
         if let otherText,
@@ -316,6 +317,12 @@ final class EditInteractionFunnel {
             actionData["feedback_text"] = otherText
         }
         logEvent(activeInterface: .activityFeedback, action: .feedbackSubmitClick, actionData: actionData, project: project)
+    }
+    
+    func logActivityTabImageRecsPublishSuccess(revisionID: Int, project: WikimediaProject) {
+        let actionData = ["revision_id": String(revisionID),
+                          "image_add": String("true")]
+        logEvent(activeInterface: .activityTab, action: .saveSuccess, actionData: actionData, project: project)
     }
 }
 

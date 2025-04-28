@@ -1389,6 +1389,8 @@ extension WMFAppViewController: EditSaveViewControllerImageRecLoggingDelegate {
         }
         
         ImageRecommendationsFunnel.shared.logSaveChangesPublishSuccess(timeSpent: timeSpent, revisionID: revisionID, captionAdded: currentRecommendation.caption != nil, altTextAdded: currentRecommendation.altText != nil, summaryAdded: summaryAdded)
+        
+        EditInteractionFunnel.shared.logActivityTabImageRecsPublishSuccess(revisionID: revisionID, project: WikimediaProject(wmfProject: viewModel.project))
     }
     
     func logEditSaveViewControllerLogPublishFailed(abortSource: String?) {
