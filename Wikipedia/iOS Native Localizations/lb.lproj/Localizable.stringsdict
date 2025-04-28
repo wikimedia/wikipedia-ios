@@ -5,7 +5,7 @@
 	<key>activity-tab-you-edited</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Dir hutt dës Woch %#@v1@ geännert.</string>
+		<string>Dir hutt dës Woch %#@v1@ gemaach.</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -13,9 +13,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>%1$d Artikel</string>
+			<string>%1$d Ännerung</string>
 			<key>other</key>
-			<string>%1$d Artikele</string>
+			<string>%1$d Ännerunge</string>
 		</dict>
 	</dict>
 	<key>activity-tab-you-read</key>
