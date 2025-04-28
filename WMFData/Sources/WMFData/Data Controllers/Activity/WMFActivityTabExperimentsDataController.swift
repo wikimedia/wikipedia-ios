@@ -117,6 +117,15 @@ public final class WMFActivityTabExperimentsDataController {
     }
 
     public func getActivityTabExperimentAssignment() throws -> ActivityTabExperimentAssignment {
+        let devSettingsController = WMFDeveloperSettingsDataController.shared
+
+        if devSettingsController.setActivityTabGroupA {
+            return .control
+        } else if devSettingsController.setActivityTabGroupB {
+            return .genericCTA
+        } else if devSettingsController.setActivityTabGroupC {
+            return .suggestedEdit
+        }
 
         guard isBeforeEndDate else {
             throw CustomError.invalidDate
