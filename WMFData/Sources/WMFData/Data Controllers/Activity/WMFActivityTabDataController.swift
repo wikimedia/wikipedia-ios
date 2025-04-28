@@ -29,7 +29,6 @@ public class WMFActivityDataController: NSObject {
     }
     
     public func fetchAllStuff(username: String, project: WMFProject?) async throws -> Activity {
-        // todo: parallel calls, error handling
         let project = project ?? WMFProject.wikipedia(WMFLanguage(languageCode: "en", languageVariantCode: nil))
         let readCount: Int = try await fetchReadCount() ?? 0
         let savedCount: Int = try await fetchSavedCount() ?? 0
@@ -41,8 +40,7 @@ public class WMFActivityDataController: NSObject {
     private func fetchReadCount() async throws -> Int? {
         
         let now = Date()
-        let formatter = DateFormatter.mediaWikiAPIDateFormatter
-        
+
         guard let oneWeekAgo = Calendar.current.date(byAdding: .weekOfYear, value: -1, to: now) else {
             throw WMFActivityDataControllerError.dateFailure
         }
@@ -56,8 +54,7 @@ public class WMFActivityDataController: NSObject {
     private func fetchSavedCount() async throws -> Int? {
         
         let now = Date()
-        let formatter = DateFormatter.mediaWikiAPIDateFormatter
-        
+
         guard let oneWeekAgo = Calendar.current.date(byAdding: .weekOfYear, value: -1, to: now) else {
             throw WMFActivityDataControllerError.dateFailure
         }
