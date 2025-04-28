@@ -148,7 +148,7 @@ import WMFData
             let currentAssigment = try dataController.getActivityTabExperimentAssignment()
             assignment = currentAssigment
         } catch {
-            debugPrint("Error assigning activity tab experiment: \(error)")
+            debugPrint("Error fetching activity tab experiment: \(error)")
         }
 
         return assignment

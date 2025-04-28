@@ -147,10 +147,10 @@ extension WMFAppViewController {
         }
         
         do {
-            let assignment = try dataController.assignActivityTabExperiment(project: wmfProject)
+            _ = try dataController.assignActivityTabExperiment(project: wmfProject)
             EditInteractionFunnel.shared.logActivityTabGroupAssignment(project: project)
         } catch {
-            DDLogError("Error assigning activity tab experiment: \(error)")
+            DDLogError("Error fetching activity tab experiment: \(error)")
         }
     }
 
