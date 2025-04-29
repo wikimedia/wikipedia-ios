@@ -29,6 +29,9 @@ final class EditInteractionFunnel {
         case articleEditPreview = "article_edit_preview"
         case articleEditSummary = "article_edit_summary"
         case talkEditSummary = "talk_edit_summary"
+        case activityEntry = "activity_entry"
+        case activityTab = "activity_tab"
+        case activityFeedback = "activity_feedback"
     }
     
     private enum Action: String {
@@ -43,6 +46,15 @@ final class EditInteractionFunnel {
         case saveAttempt = "save_attempt"
         case saveSuccess = "save_success"
         case saveFailure = "save_failure"
+        case launch = "launch"
+        case impression = "impression"
+        case loginClick = "login_click"
+        case viewClick = "view_click"
+        case viewHistoryClick = "view_history_click"
+        case viewSavedClick = "view_saved_click"
+        case feedbackImpression = "feedback_impression"
+        case feedbackCloseClick = "feedback_close_click"
+        case feedbackSubmitClick = "feedback_submit_click"
     }
 
     private struct Event: EventInterface {
@@ -62,7 +74,7 @@ final class EditInteractionFunnel {
         }
     }
    
-    private func logEvent(activeInterface: ActiveInterface, action: Action, actionData: [String: String]? = nil, project: WikimediaProject) {
+    private func logEvent(activeInterface: ActiveInterface?, action: Action, actionData: [String: String]? = nil, project: WikimediaProject) {
         
         var actionDataString: String? = nil
         if let actionData {
@@ -78,7 +90,7 @@ final class EditInteractionFunnel {
             }
         }
         
-        let event: EditInteractionFunnel.Event = EditInteractionFunnel.Event(activeInterface: activeInterface.rawValue, action: action.rawValue, actionData: actionDataString, platform: "ios", wikiID: project.notificationsApiWikiIdentifier)
+        let event: EditInteractionFunnel.Event = EditInteractionFunnel.Event(activeInterface: activeInterface?.rawValue, action: action.rawValue, actionData: actionDataString, platform: "ios", wikiID: project.notificationsApiWikiIdentifier)
         EventPlatformClient.shared.submit(stream: .editInteraction, event: event)
     }
     
@@ -236,6 +248,81 @@ final class EditInteractionFunnel {
     func logTalkEditSummaryDidTapBlockedMessageLink(project: WikimediaProject) {
         let actionData = ["abort_source": ProblemSource.blockedMessageLink.rawValue]
         logEvent(activeInterface: .talkEditSummary, action: .editCancel, actionData: actionData, project: project)
+    }
+    
+    // MARK: - Activity Tab Events
+    
+    func logActivityTabGroupAssignment(project: WikimediaProject) {
+        
+        guard let groupAssignment = try? WMFActivityTabExperimentsDataController.shared?.getActivityTabExperimentAssignment() else {
+            return
+        }
+        
+        let groupAssignmentString: String
+        switch groupAssignment {
+        case .control: groupAssignmentString = "activity_a"
+        case .genericCTA: groupAssignmentString = "activity_b"
+        case .suggestedEdit: groupAssignmentString = "activity_c"
+        }
+        
+        logEvent(activeInterface: nil, action: .launch, actionData:["group": groupAssignmentString], project: project)
+    }
+    
+    func logActivityTabLoggedOutDidAppear(project: WikimediaProject) {
+        logEvent(activeInterface: .activityEntry, action: .impression, actionData: nil, project: project)
+    }
+    
+    func logActivityTabDidAppear(project: WikimediaProject) {
+        logEvent(activeInterface: .activityTab, action: .impression, actionData: nil, project: project)
+    }
+    
+    func logActivityTabLoggedOutDidTapLogin(project: WikimediaProject) {
+        logEvent(activeInterface: .activityEntry, action: .loginClick, actionData: nil, project: project)
+    }
+    
+    func logActivityTabLoggedOutDidTapViewReadingHistory(project: WikimediaProject) {
+        logEvent(activeInterface: .activityEntry, action: .viewClick, actionData: nil, project: project)
+    }
+    
+    func logActivityTabDidTapViewReadingHistory(project: WikimediaProject) {
+        logEvent(activeInterface: .activityTab, action: .viewHistoryClick, actionData: nil, project: project)
+    }
+    
+    func logActivityTabDidTapEditCapsule(project: WikimediaProject) {
+        logEvent(activeInterface: .activityTab, action: .editEntryClick, actionData: nil, project: project)
+    }
+    
+    func logActivityTabDidTapSavedCapsule(project: WikimediaProject) {
+        logEvent(activeInterface: .activityTab, action: .viewSavedClick, actionData: nil, project: project)
+    }
+    
+    func logActivityTabSurveyDidAppear(project: WikimediaProject) {
+        logEvent(activeInterface: .activityFeedback, action: .feedbackImpression, actionData: nil, project: project)
+    }
+    
+    func logActivityTabSurveyDidTapCancel(project: WikimediaProject) {
+        logEvent(activeInterface: .activityFeedback, action: .feedbackCloseClick, actionData: nil, project: project)
+    }
+    
+    func logActivityTabSurveyDidTapSubmit(options: [String], otherText: String?, project: WikimediaProject) {
+        var actionData: [String: String] = [:]
+        
+        let trimmedOptions = options.filter { $0 != "other" }
+        
+        // todo: confirm commas don't get cut off
+        let feedbackSelect = trimmedOptions.joined(separator: ",")
+        actionData["feedback_select"] = feedbackSelect
+        if let otherText,
+           !otherText.isEmpty {
+            actionData["feedback_text"] = otherText
+        }
+        logEvent(activeInterface: .activityFeedback, action: .feedbackSubmitClick, actionData: actionData, project: project)
+    }
+    
+    func logActivityTabImageRecsPublishSuccess(revisionID: Int, project: WikimediaProject) {
+        let actionData = ["revision_id": String(revisionID),
+                          "image_add": String("true")]
+        logEvent(activeInterface: .activityTab, action: .saveSuccess, actionData: actionData, project: project)
     }
 }
 

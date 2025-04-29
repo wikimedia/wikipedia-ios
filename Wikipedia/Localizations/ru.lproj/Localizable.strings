@@ -837,6 +837,7 @@
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 в Википедии: $2 раздел";
 "on-this-day-title" = "В этот день…";
 "original-tab-button-popover-description" = "Нажмите 'W', чтобы вернуться к вкладке, с которой вы начали";
+// Fuzzy
 "page-history-bot-edits" = "правки ботов";
 "page-history-compare-accessibility-hint" = "Нажмите, чтобы выбрать две версии для сравнения";
 "page-history-compare-title" = "Сравнить";

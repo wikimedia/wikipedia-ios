@@ -1,12 +1,14 @@
 // Messages for French (français)
 // Exported from translatewiki.net
 // Author: Assorted-Interests
+// Author: Bananax47
 // Author: BlueCamille
 // Author: Brion Vibber
 // Author: Caliburn
 // Author: Daniel236
 // Author: DavidL
 // Author: Derugon
+// Author: EmDashUser002
 // Author: Eneelk
 // Author: Envlh
 // Author: Eric.LEWIN
@@ -122,8 +124,32 @@
 "action-unsave" = "Non enregistré";
 "action-unsaved-accessibility-notification" = "Article non sauvegardé";
 "action-update" = "Mettre à jour";
+"activity-tab-add-images-subtitle" = "Ajouter des suggestions d'images aux articles de Wikipédia pour en améliorer la compréhension.";
+"activity-tab-add-images-title" = "Ajouter des images";
+"activity-tab-additional-thoughts" = "Des suggestions ?";
+"activity-tab-logged-out-subtitle" = "Suivez ce que vous avez lu et visualisez vos contributions au fil du temps d'une nouvelle manière";
+"activity-tab-logged-out-title" = "Connectez-vous ou créez un compte pour voir plus d'activités de lecture et d'édition.";
+"activity-tab-neutral" = "Neutre";
+"activity-tab-no-edits-subtitle" = "Commencez à éditer pour pouvoir commencer à suivre vos contributions.";
+"activity-tab-no-edits-title" = "Vous n'avez pas encore effectué de modifications.";
+"activity-tab-satisfied" = "Satisfait";
+"activity-tab-start-editing" = "Commencer à modifier";
+"activity-tab-survey" = "Êtes-vous satisfait de votre écran « Activité » ? Quels autres éléments souhaiteriez-vous y voir à l'avenir ?";
+"activity-tab-survey-title" = "Enquête de satisfaction";
+"activity-tab-title" = "Activité";
+"activity-tab-unsatisfied" = "Insatisfait";
+"activity-tab-very-satisfied" = "Très satisfait";
+"activity-tab-very-unsatisfied" = "Très insatisfait";
+"activity-tab-view-reading-history" = "Afficher l’historique des modifications";
+"activity-tab-view-saved-articles" = "Voir tous vos articles enregistrés";
+// Fuzzy
+"activity-tab-you-edited" = "Vous avez édité {{PLURAL:$1|$1 article|$1 articles}} cette semaine.";
+"activity-tab-you-read" = "Vous avez lu {{PLURAL:$1|$1 article|$1 articles}} cette semaine.";
+"activity-tab-you-saved" = "Vous avez enregistré $1 article{{PLURAL:$1||s}}";
 "add-articles-to-reading-list" = "Ajouter $1 article{{PLURAL:$1||s}} à la liste de lecture";
 "advanced-settings-title" = "Paramètres avancés";
+"alert-temporary-account" = "Vous utilisez un compte temporaire. Il expirera dans 90 jours.";
+"alert-temporary-account-learn-more" = "En savoir plus.";
 "alt-text-feedback-survey-toast-title" = "Commentaires soumis";
 "announcements-dismiss" = "Fermer";
 "app-store-keywords" = "Wikipédia, référence, wiki, encyclopédie, infos, connaissance, recherche, informations, actualités, découverte, apprendre, étudier, éducation";
@@ -153,6 +179,8 @@
 "article-share" = "Partager";
 "article-talk-page" = "Page de discussion de l’article";
 "article-toolbar-reading-themes-controls-toolbar-item" = "Contrôles des thèmes de lecture";
+"article-view-controller-editing-temp-account-created-subtitle" = "Un compte temporaire $1 a été créé après la publication de votre modification. Il expirera dans 90 jours.";
+"article-view-controller-editing-temp-account-created-title" = "Compte temporaire créé";
 "back-button-accessibility-label" = "Retour";
 "back-button-popover-title" = "Toucher pour revenir en arrière";
 "button-go-back" = "Retour";
@@ -196,6 +224,7 @@
 "description-edit-title" = "Modifier la description";
 "description-edit-warning" = "Essayez de garder les descriptions courtes afin que les utilisateurs puissent comprendre les articles au premier coup d’œil";
 "description-edit-warning-casing" = "Seuls les noms propres devraient être capitalisés, même au début de la phrase.";
+"description-editing-temp-account-created-subtitle" = "Un compte temporaire $1 a été créé après la publication de votre modification. Il expirera dans 90 jours.";
 "description-help-about-description" = "Les descriptions d’article résument un article pour aider les lecteurs à comprendre le sujet du premier coup d’œil.";
 "description-help-about-title" = "À propos";
 "description-help-about-wikidata" = "À propos de Wikidata";
@@ -220,6 +249,7 @@
 "description-welcome-descriptions-title" = "Descriptions d’articles";
 "description-welcome-promise-title" = "En commençant, je promets de ne pas faire mauvais emploi de cette fonctionnalité";
 "description-welcome-start-editing-button" = "Commencer à modifier";
+"developer-force-email-auth" = "Forcer l'authentification par e-mail";
 "developer-settings" = "Paramètres développeur";
 "developer-settings-bypass-donation" = "Contourner un don";
 "developer-settings-enable-year-in-review" = "Activer le Bilan de l'Année";
@@ -669,6 +699,7 @@
 "insert-media-title" = "Insérer le média";
 "inuktitut-variants-alert-body" = "L’application Wikipédia prend maintenant en charge les variantes suivantes de l’inuktitut comme langues primaire ou secondaires dans l’application, le rendant plus facile à lire, rechercher ou modifier dans vos variantes préférées :\n\nᐃᓄᒃᑎᑐᑦ ᑎᑎᕋᐅᓯᖅ ᓄᑖᖅ – inuktitut syllabique (ike-cans)\nInuktitut ilisautik – inuktitut latin (ike-latn)";
 "inuktitut-variants-alert-title" = "Mises à jour de la prise en charge des variantes de l’inuktitut";
+"ip-account-cta-bottom" = "Continuer sans se connecter";
 "kazakh-variants-alert-body" = "L’application Wikipédia prend maintenant en charge les variantes suivantes du kazakhe comme langues primaire ou secondaires dans l’application, le rendant plus facile à lire, rechercher ou modifier dans vos variantes préférées :\n\nҚазақша – kazakhe (kk)\nҚазақша Кирил – kazakhe cyrillique (kk-cyrl)\nqazaqşa latin – kazakhe latin (kk-latn)\nتوتە قازاقشا – kazakhe arabe (kk-arab)";
 "kazakh-variants-alert-title" = "Mises à jour de la prise en charge des variantes du kazakhe";
 "kurdish-variants-alert-body" = "L’application Wikipédia prend maintenant en charge les variantes suivantes du kurde comme langues primaire ou secondaires dans l’application, le rendant plus facile à lire, rechercher ou modifier dans vos variantes préférées :\n\nKurdî Latînî – kurde latin (ku-latn)\nكوردی – kurde arabe (kk-arab)";
@@ -865,6 +896,7 @@
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 sur Wikipédia en $2";
 "on-this-day-title" = "Ce jour-là";
 "original-tab-button-popover-description" = "Tapez sur l’icône « W » pour revenir à l’onglet avec lequel vous avez commencé";
+// Fuzzy
 "page-history-bot-edits" = "modifications par un robot";
 "page-history-compare-accessibility-hint" = "Tapper pour sélectionner deux versions à comparer";
 "page-history-compare-title" = "Comparer";

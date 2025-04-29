@@ -319,6 +319,7 @@
 "number-millions" = "$1 မီလီယံ";
 "number-thousands" = "$1ရေင်";
 "on-this-day-title" = "ဟန်ႏနီꩻတာႏ";
+// Fuzzy
 "page-history-bot-edits" = "ဗော့ မွဉ်းဖျင်မုꩻဖိုင်ႏ";
 "page-history-compare-title" = "တဲက်ထွား";
 "page-history-minor-edits" = "အရေꩻတန်တဝ်း မွဉ်းဖျင်မုꩻဖိုင်ႏ";
