@@ -168,11 +168,14 @@ class HistoryViewController: ArticleFetchedResultsViewController, WMFNavigationB
 
     private func configureNavigationBar() {
         
-        var titleConfig: WMFNavigationBarTitleConfig = WMFNavigationBarTitleConfig(title: CommonStrings.historyTabTitle, customView: nil, alignment: .leadingCompact)
+        let experimentAssignment = (try? WMFActivityTabExperimentsDataController.shared?.getActivityTabExperimentAssignment()) ?? .control
+        let alignment: WMFNavigationBarTitleConfig.Alignment = experimentAssignment == .control ? .leadingCompact : .centerCompact
+        
+        var titleConfig: WMFNavigationBarTitleConfig = WMFNavigationBarTitleConfig(title: CommonStrings.historyTabTitle, customView: nil, alignment: alignment)
         extendedLayoutIncludesOpaqueBars = false
         if #available(iOS 18, *) {
             if UIDevice.current.userInterfaceIdiom == .pad && traitCollection.horizontalSizeClass == .regular {
-                titleConfig = WMFNavigationBarTitleConfig(title: CommonStrings.historyTabTitle, customView: nil, alignment: .leadingLarge)
+                titleConfig = WMFNavigationBarTitleConfig(title: CommonStrings.historyTabTitle, customView: nil, alignment: alignment)
                 extendedLayoutIncludesOpaqueBars = true
             }
         }

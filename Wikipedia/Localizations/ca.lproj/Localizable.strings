@@ -719,6 +719,7 @@
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 de la Viquipèdia en $2";
 "on-this-day-title" = "Tal dia com avui";
 "original-tab-button-popover-description" = "Feu un toc a la 'W' per tornar a la pestanya d'on heu començat";
+// Fuzzy
 "page-history-bot-edits" = "edicions de bots";
 "page-history-compare-accessibility-hint" = "Toqueu per a seleccionar dues revisions per comparar";
 "page-history-compare-title" = "Compara";
