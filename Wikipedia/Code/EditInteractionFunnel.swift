@@ -52,6 +52,7 @@ final class EditInteractionFunnel {
         case viewClick = "view_click"
         case viewHistoryClick = "view_history_click"
         case viewSavedClick = "view_saved_click"
+        case viewEditedClick = "view_edited_click"
         case feedbackImpression = "feedback_impression"
         case feedbackCloseClick = "feedback_close_click"
         case feedbackSubmitClick = "feedback_submit_click"
@@ -288,8 +289,12 @@ final class EditInteractionFunnel {
         logEvent(activeInterface: .activityTab, action: .viewHistoryClick, actionData: nil, project: project)
     }
     
-    func logActivityTabDidTapEditCapsule(project: WikimediaProject) {
+    func logActivityTabDidTapEditEmptyCapsule(project: WikimediaProject) {
         logEvent(activeInterface: .activityTab, action: .editEntryClick, actionData: nil, project: project)
+    }
+    
+    func logActivityTabDidTapEditPopulatedCapsule(project: WikimediaProject) {
+        logEvent(activeInterface: .activityTab, action: .viewEditedClick, actionData: nil, project: project)
     }
     
     func logActivityTabDidTapSavedCapsule(project: WikimediaProject) {

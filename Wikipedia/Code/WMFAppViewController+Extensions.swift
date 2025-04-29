@@ -817,7 +817,7 @@ extension WMFAppViewController {
             }
             
             if let wikimediaProject {
-                EditInteractionFunnel.shared.logActivityTabDidTapEditCapsule(project: wikimediaProject)
+                EditInteractionFunnel.shared.logActivityTabDidTapEditEmptyCapsule(project: wikimediaProject)
             }
             
             guard let vc = WMFImageRecommendationsViewController.imageRecommendationsViewController(
@@ -836,7 +836,7 @@ extension WMFAppViewController {
             }
             
             if let wikimediaProject {
-                EditInteractionFunnel.shared.logActivityTabDidTapEditCapsule(project: wikimediaProject)
+                EditInteractionFunnel.shared.logActivityTabDidTapEditEmptyCapsule(project: wikimediaProject)
             }
 
             if let url = URL(string: "https://www.mediawiki.org/wiki/Special:MyLanguage/Wikimedia_Apps/iOS_FAQ#Editing") {
@@ -846,6 +846,27 @@ extension WMFAppViewController {
                 WMFComponentNavigationController(rootViewController: webVC, modalPresentationStyle: .formSheet)
                 navigationController.present(newNavigationVC, animated: true)
             }
+
+        }
+        
+        let openEditingHistory = { [weak self] in
+            
+            guard let self else { return }
+            
+            guard let username = self.dataStore.authenticationManager.authStatePermanentUsername else {
+                return
+            }
+            
+            if let wikimediaProject {
+                EditInteractionFunnel.shared.logActivityTabDidTapEditPopulatedCapsule(project: wikimediaProject)
+            }
+
+            guard let url = self.dataStore.languageLinkController.appLanguage?.siteURL.wmf_URL(withPath: "/wiki/Special:Contributions/\(username)", isMobile: true) else {
+                showGenericError()
+                return
+            }
+
+            navigate(to: url)
 
         }
         
@@ -885,7 +906,7 @@ extension WMFAppViewController {
             getGreeting: greeting,
             viewHistory: CommonStrings.activityTabReadingHistory,
             viewSaved: CommonStrings.activityTabViewSavedArticlesTitle,
-            viewEdited: "",
+            viewEdited: CommonStrings.activityTabViewEditingTitle,
             logIn: CommonStrings.editSignIn,
             loggedOutTitle: CommonStrings.activityTabLoggedOutTitle,
             loggedOutSubtitle: CommonStrings.actitvityTabLoggedOutSubtitle
@@ -898,6 +919,7 @@ extension WMFAppViewController {
             openSavedArticles: openSavedArticlesClosure,
             openSuggestedEdits: openSuggestedEditsClosure,
             openStartEditing: openStartEditing,
+            openEditingHistory: openEditingHistory,
             loginAction: nil,
             isLoggedIn: isLoggedIn)
         
