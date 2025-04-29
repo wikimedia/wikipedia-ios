@@ -18,6 +18,7 @@ import WMFData
     let openSavedArticles: () -> Void
     let openSuggestedEdits: (() -> Void)?
     let openStartEditing: (() -> Void)?
+    let openEditingHistory: (() -> Void)?
     public var savedSlideDataDelegate: SavedArticleSlideDataDelegate?
     public var legacyPageViewsDataDelegate: LegacyPageViewsDataDelegate?
     
@@ -48,6 +49,7 @@ import WMFData
             openSavedArticles: @escaping () -> Void,
             openSuggestedEdits: (() -> Void)?,
             openStartEditing: (() -> Void)?,
+            openEditingHistory: (() -> Void)?,
             loginAction: (() -> Void)?,
             isLoggedIn: Bool) {
         self.openHistory = openHistory
@@ -58,6 +60,7 @@ import WMFData
         self.isLoggedIn = isLoggedIn
         self.openSuggestedEdits = openSuggestedEdits
         self.openStartEditing = openStartEditing
+        self.openEditingHistory = openEditingHistory
     }
     
     func title(for type: ActivityTabDisplayType) -> String {
@@ -80,7 +83,7 @@ import WMFData
     func action(for type: ActivityTabDisplayType) -> (() -> Void)? {
         switch type {
         case .edit:
-            return nil
+            return openEditingHistory
         case .read:
             return openHistory
         case .save:
