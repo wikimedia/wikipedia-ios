@@ -12,13 +12,15 @@ final class LinkCoordinator: Coordinator {
     private let dataStore: MWKDataStore
     var theme: Theme
     private let articleSource: ArticleSource
+    private let previousPageViewObjectID: NSManagedObjectID?
     
-    init(navigationController: UINavigationController, url: URL, dataStore: MWKDataStore?, theme: Theme, articleSource: ArticleSource) {
+    init(navigationController: UINavigationController, url: URL, dataStore: MWKDataStore?, theme: Theme, articleSource: ArticleSource, previousPageViewObjectID: NSManagedObjectID? = nil) {
         self.navigationController = navigationController
         self.url = url
         self.dataStore = dataStore ?? MWKDataStore.shared()
         self.theme = theme
         self.articleSource = articleSource
+        self.previousPageViewObjectID = previousPageViewObjectID
     }
     
     @discardableResult
@@ -28,12 +30,14 @@ final class LinkCoordinator: Coordinator {
         
         switch destination {
         case .article:
-            let articleCoordinator = ArticleCoordinator(
+            let articleCoordinator: ArticleCoordinator = ArticleCoordinator(
                 navigationController: navigationController,
                 articleURL: url,
                 dataStore: dataStore,
                 theme: theme,
-                source: articleSource)
+                source: articleSource,
+                previousPageViewObjectID: previousPageViewObjectID)
+            
             return articleCoordinator.start()
         case .unknown:
             return false

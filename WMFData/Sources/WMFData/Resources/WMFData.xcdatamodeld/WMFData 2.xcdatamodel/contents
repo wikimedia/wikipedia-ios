@@ -23,8 +23,11 @@
         </fetchIndex>
     </entity>
     <entity name="CDPageView" representedClassName="CDPageView" syncable="YES" codeGenerationType="class">
+        <attribute name="numberOfSeconds" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="timestamp" attributeType="Date" usesScalarValueType="NO"/>
+        <relationship name="nextPageViews" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="CDPageView" inverseName="previousPageView" inverseEntity="CDPageView"/>
         <relationship name="page" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDPage" inverseName="pageViews" inverseEntity="CDPage"/>
+        <relationship name="previousPageView" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDPageView" inverseName="nextPageViews" inverseEntity="CDPageView"/>
     </entity>
     <entity name="CDYearInReviewReport" representedClassName="CDYearInReviewReport" syncable="YES" codeGenerationType="class">
         <attribute name="year" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>

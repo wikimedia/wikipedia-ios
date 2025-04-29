@@ -77,10 +77,24 @@
         let sessionSeconds = fabs(sessionStartDate.timeIntervalSince(compareDate))
         let sessionMilliseconds = sessionSeconds * 1000
         
+        saveSessionSecondsForYearInReview(sessionSeconds: sessionSeconds)
+        
         logEvent(sessionMilliseconds: sessionMilliseconds) {
             UserHistoryFunnel.shared.logSnapshot()
             completion()
         }
+    }
+    
+    private func saveSessionSecondsForYearInReview(sessionSeconds: TimeInterval) {
+        let currentYear = String(Calendar.current.component(.year, from: Date()))
+        
+        // Load the existing dictionary or start fresh
+        var yearToSessionSecondsMapping = UserDefaults.standard.wmf_yearToSessionSecondsMapping ?? [:]
+        let existingSeconds = yearToSessionSecondsMapping[currentYear] ?? 0
+        yearToSessionSecondsMapping[currentYear] = existingSeconds + Int(sessionSeconds)
+        
+        // Save back to UserDefaults
+        UserDefaults.standard.wmf_yearToSessionSecondsMapping = yearToSessionSecondsMapping
     }
     
     // MARK: ArticleViewController Load Time Measurement Helpers

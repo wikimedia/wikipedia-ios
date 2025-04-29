@@ -143,7 +143,12 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
 
     internal var articleViewSource: ArticleSource
     
-    @objc init?(articleURL: URL, dataStore: MWKDataStore, theme: Theme, source: ArticleSource, schemeHandler: SchemeHandler? = nil) {
+    // Properties related to tracking number of seconds this article is viewed.
+    var pageViewObjectID: NSManagedObjectID?
+    let previousPageViewObjectID: NSManagedObjectID?
+    var beganViewingDate: Date?
+    
+    @objc init?(articleURL: URL, dataStore: MWKDataStore, theme: Theme, source: ArticleSource, schemeHandler: SchemeHandler? = nil, previousPageViewObjectID: NSManagedObjectID? = nil) {
 
         guard let article = dataStore.fetchOrCreateArticle(with: articleURL) else {
                 return nil
@@ -158,6 +163,7 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
         self.schemeHandler = schemeHandler ?? SchemeHandler(scheme: "app", session: dataStore.session)
         self.cacheController = cacheController
         self.articleViewSource = source
+        self.previousPageViewObjectID = previousPageViewObjectID
 
         super.init(nibName: nil, bundle: nil)
         self.theme = theme
@@ -434,6 +440,7 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         presentModalsIfNeeded()
+        trackBeganViewingDate()
     }
     
     @objc func userDidTapProfile() {
@@ -491,6 +498,7 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
         cancelWIconPopoverDisplay()
         saveArticleScrollPosition()
         stopSignificantlyViewedTimer()
+        persistPageViewedSecondsForWikipediaInReview()
     }
 
     // MARK: Article load
@@ -728,23 +736,6 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
 
     func addToHistory() {
         try? article.addToReadHistory()
-    }
-    
-    func persistPageViewsForWikipediaInReview() {
-        if let title = self.articleURL.wmf_title,
-           let namespace = self.articleURL.namespace,
-           let siteURL = self.articleURL.wmf_site,
-           let project = WikimediaProject(siteURL: siteURL),
-           let wmfProject = project.wmfProject {
-            Task {
-                do {
-                    let pageViewsDataController = try WMFPageViewsDataController()
-                    try await pageViewsDataController.addPageView(title: title, namespaceID: Int16(namespace.rawValue), project: wmfProject)
-                } catch let error {
-                    DDLogError("Error saving viewed page: \(error)")
-                }
-            }
-        }
     }
     
     var significantlyViewedTimer: Timer?
@@ -1075,7 +1066,7 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
             // first try to navigate using LinkCoordinator. If it fails, use the legacy approach.
             if let navigationController {
                 
-                let linkCoordinator = LinkCoordinator(navigationController: navigationController, url: resolvedURL, dataStore: dataStore, theme: theme, articleSource: .undefined)
+                let linkCoordinator = LinkCoordinator(navigationController: navigationController, url: resolvedURL, dataStore: dataStore, theme: theme, articleSource: .undefined, previousPageViewObjectID: pageViewObjectID)
                 let success = linkCoordinator.start()
                 guard success else {
                     legacyNavigateAction()
@@ -1229,10 +1220,12 @@ private extension ArticleViewController {
     @objc func applicationWillResignActive(_ notification: Notification) {
         saveArticleScrollPosition()
         stopSignificantlyViewedTimer()
+        persistPageViewedSecondsForWikipediaInReview()
     }
     
     @objc func applicationDidBecomeActive(_ notification: Notification) {
         startSignificantlyViewedTimer()
+        trackBeganViewingDate()
     }
     
     func setupMessagingController() {
