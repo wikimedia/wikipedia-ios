@@ -72,7 +72,7 @@ public final class WMFPageViewsDataController {
         self.coreDataStore = coreDataStore
     }
     
-    public func addPageView(title: String, namespaceID: Int16, project: WMFProject) async throws -> NSManagedObjectID? {
+    public func addPageView(title: String, namespaceID: Int16, project: WMFProject, previousPageViewObjectID: NSManagedObjectID?) async throws -> NSManagedObjectID? {
         
         let coreDataTitle = title.normalizedForCoreData
         
@@ -93,6 +93,11 @@ public final class WMFPageViewsDataController {
             let viewedPage = try self.coreDataStore.create(entityType: CDPageView.self, in: backgroundContext)
             viewedPage.page = page
             viewedPage.timestamp = currentDate
+            
+            if let previousPageViewObjectID,
+               let previousPageView = backgroundContext.object(with: previousPageViewObjectID) as? CDPageView {
+                viewedPage.previousPageView = previousPageView
+            }
             
             try self.coreDataStore.saveIfNeeded(moc: backgroundContext)
             
@@ -262,5 +267,43 @@ public final class WMFPageViewsDataController {
         }
         
         return results
+    }
+    
+    public func fetchLinkedPageViews() async throws -> [[CDPageView]] {
+        let context = try coreDataStore.viewContext
+        
+        let result: [[CDPageView]] = try await context.perform {
+            let fetchRequest: NSFetchRequest<CDPageView> = CDPageView.fetchRequest()
+            let allPageViews = try context.fetch(fetchRequest)
+
+            // Find roots: page views with no previousPageView
+            let roots = allPageViews.filter { $0.previousPageView == nil }
+
+            var result: [[CDPageView]] = []
+
+            // Walk all possible branches
+            func walk(current: CDPageView, path: [CDPageView]) {
+                let newPath = path + [current]
+                
+                let nextViews = (current.nextPageViews as? Set<CDPageView>) ?? []
+                if nextViews.isEmpty {
+                    // Leaf node — end of a navigation path
+                    let sortedPath = newPath.sorted(by: { $0.timestamp ?? .distantPast < $1.timestamp ?? .distantPast })
+                    result.append(sortedPath)
+                } else {
+                    for next in nextViews {
+                        walk(current: next, path: newPath)
+                    }
+                }
+            }
+
+            for root in roots {
+                walk(current: root, path: [])
+            }
+
+            return result
+        }
+        
+        return result
     }
 }

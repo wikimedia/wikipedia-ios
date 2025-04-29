@@ -53,7 +53,7 @@ final class WMFPageViewsDataControllerTests: XCTestCase {
             throw TestsError.missingDataController
         }
         
-        try await dataController.addPageView(title: "Cat", namespaceID: 0, project: enProject)
+        _ = try await dataController.addPageView(title: "Cat", namespaceID: 0, project: enProject, previousPageViewObjectID: nil)
         
         // Fetch, confirm page view was added
         try await store.viewContext.perform {
@@ -81,7 +81,7 @@ final class WMFPageViewsDataControllerTests: XCTestCase {
         }
         
         // First add page view
-        try await dataController.addPageView(title: "Cat", namespaceID: 0, project: enProject)
+        _ = try await dataController.addPageView(title: "Cat", namespaceID: 0, project: enProject, previousPageViewObjectID: nil)
         
         // Fetch, confirm page view was added
         try store.viewContext.performAndWait {
@@ -112,7 +112,7 @@ final class WMFPageViewsDataControllerTests: XCTestCase {
         }
         
         // First add page view
-        try await dataController.addPageView(title: "Cat", namespaceID: 0, project: enProject)
+        _ = try await dataController.addPageView(title: "Cat", namespaceID: 0, project: enProject, previousPageViewObjectID: nil)
         
         // Fetch, confirm page view was added
         try store.viewContext.performAndWait {
@@ -170,9 +170,9 @@ final class WMFPageViewsDataControllerTests: XCTestCase {
         }
         
         // First add page views
-        try await dataController.addPageView(title: "Cat", namespaceID: 0, project: enProject)
-        try await dataController.addPageView(title: "Cat", namespaceID: 0, project: enProject)
-        try await dataController.addPageView(title: "Felis silvestris catus", namespaceID: 0, project: esProject)
+        _ = try await dataController.addPageView(title: "Cat", namespaceID: 0, project: enProject, previousPageViewObjectID: nil)
+        _ = try await dataController.addPageView(title: "Cat", namespaceID: 0, project: enProject, previousPageViewObjectID: nil)
+        _ = try await dataController.addPageView(title: "Felis silvestris catus", namespaceID: 0, project: esProject, previousPageViewObjectID: nil)
         
         let results = try dataController.fetchPageViewCounts(startDate: yesterdayDate, endDate: Date.now)
         
