@@ -143,6 +143,10 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
 
     internal var articleViewSource: ArticleSource
     
+    // Properties related to tracking number of seconds this article is viewed.
+    var pageViewObjectID: NSManagedObjectID?
+    var beganViewingDate: Date?
+    
     @objc init?(articleURL: URL, dataStore: MWKDataStore, theme: Theme, source: ArticleSource, schemeHandler: SchemeHandler? = nil) {
 
         guard let article = dataStore.fetchOrCreateArticle(with: articleURL) else {
@@ -434,6 +438,7 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         presentModalsIfNeeded()
+        trackBeganViewingDate()
     }
     
     @objc func userDidTapProfile() {
@@ -491,6 +496,7 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
         cancelWIconPopoverDisplay()
         saveArticleScrollPosition()
         stopSignificantlyViewedTimer()
+        persistPageViewedSecondsForWikipediaInReview()
     }
 
     // MARK: Article load
@@ -728,23 +734,6 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
 
     func addToHistory() {
         try? article.addToReadHistory()
-    }
-    
-    func persistPageViewsForWikipediaInReview() {
-        if let title = self.articleURL.wmf_title,
-           let namespace = self.articleURL.namespace,
-           let siteURL = self.articleURL.wmf_site,
-           let project = WikimediaProject(siteURL: siteURL),
-           let wmfProject = project.wmfProject {
-            Task {
-                do {
-                    let pageViewsDataController = try WMFPageViewsDataController()
-                    try await pageViewsDataController.addPageView(title: title, namespaceID: Int16(namespace.rawValue), project: wmfProject)
-                } catch let error {
-                    DDLogError("Error saving viewed page: \(error)")
-                }
-            }
-        }
     }
     
     var significantlyViewedTimer: Timer?
@@ -1229,10 +1218,12 @@ private extension ArticleViewController {
     @objc func applicationWillResignActive(_ notification: Notification) {
         saveArticleScrollPosition()
         stopSignificantlyViewedTimer()
+        persistPageViewedSecondsForWikipediaInReview()
     }
     
     @objc func applicationDidBecomeActive(_ notification: Notification) {
         startSignificantlyViewedTimer()
+        trackBeganViewingDate()
     }
     
     func setupMessagingController() {
