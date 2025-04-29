@@ -86,7 +86,7 @@
 "activity-tab-unsatisfied" = "Satisfaction survey unsatisfied";
 "activity-tab-very-satisfied" = "Satisfaction survey very satisfied";
 "activity-tab-very-unsatisfied" = "Satisfaction survey very unsatisfied";
-"activity-tab-view-editing-history" = "Button title for users to view their reading history.";
+"activity-tab-view-editing-history" = "Button title for users to view their editing history.";
 "activity-tab-view-reading-history" = "Button title for users to view their reading history.";
 "activity-tab-view-saved-articles" = "Button title for users to view their saved articles.";
 "activity-tab-you-edited" = "Displays how many articles the user edited in the past week, $1 is the amount, returning the pluralized version of article depending.";

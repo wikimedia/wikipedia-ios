@@ -10,7 +10,10 @@ struct WMFActivityTabLoggedOutView: View {
     var openHistory: () -> Void
     var loginAction: () -> Void
     
-    public init(loginAction: @escaping () -> Void, openHistory: @escaping () -> Void) {
+    let viewModel: WMFActivityViewModel
+    
+    public init(viewModel: WMFActivityViewModel, loginAction: @escaping () -> Void, openHistory: @escaping () -> Void) {
+        self.viewModel = viewModel
         self.loginAction = loginAction
         self.openHistory = openHistory
         self.loginAction = loginAction
@@ -18,16 +21,16 @@ struct WMFActivityTabLoggedOutView: View {
 
     var body: some View {
         VStack(alignment: .leading) {
-            Text("Log in to see more reading and editing activity.")
+            Text(viewModel.localizedStrings.loggedOutTitle)
                 .font(Font(WMFFont.for(.headline)))
                 .foregroundColor(Color(theme.text))
                 .padding(.bottom, 8)
-            Text("Track what you’ve read and view your contributions over time in a new way.")
+            Text(viewModel.localizedStrings.loggedOutSubtitle)
                 .font(Font(WMFFont.for(.callout)))
                 .foregroundColor(Color(theme.secondaryText))
 
-            WMFLargeButton(configuration: .primary, title: "Log in", action: loginAction)
-            WMFLargeButton(configuration: .secondary, title: "View reading history", action: openHistory)
+            WMFLargeButton(configuration: .primary, title: viewModel.localizedStrings.logIn, action: loginAction)
+            WMFLargeButton(configuration: .secondary, title: viewModel.localizedStrings.viewHistory, action: openHistory)
 
             Spacer()
         }

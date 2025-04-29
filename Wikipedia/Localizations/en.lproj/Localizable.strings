@@ -71,12 +71,12 @@
 "activity-tab-add-images-subtitle" = "Add suggested images to Wikipedia articles to enhance understanding.";
 "activity-tab-add-images-title" = "Add images";
 "activity-tab-additional-thoughts" = "Any additional thoughts?";
-"activity-tab-generic-no-edits" = "You haven’t edited. Start now to track your contributions.";
+"activity-tab-generic-no-edits" = "You haven't edited this week. Start now to track your contributions.";
 "activity-tab-greeting" = "$1Hi $2$3 👋 Here's your weekly Wikipedia summary.";
 "activity-tab-logged-out-subtitle" = "Track what you’ve read and view your contributions over time in a new way";
 "activity-tab-logged-out-title" = "Log in or create an account to see more editing and reading activity.";
 "activity-tab-neutral" = "Neutral";
-"activity-tab-no-edits-title" = "You haven’t edited. Add images to enhance article understanding.";
+"activity-tab-no-edits-title" = "You haven't edited this week. Add images to enhance article understanding.";
 "activity-tab-read-title" = "View reading history";
 "activity-tab-satisfied" = "Satisfied";
 "activity-tab-start-editing" = "Start editing";
@@ -86,7 +86,7 @@
 "activity-tab-unsatisfied" = "Unsatisfied";
 "activity-tab-very-satisfied" = "Very satisfied";
 "activity-tab-very-unsatisfied" = "Very unsatisfied";
-"activity-tab-view-editing-history" = "View edited articles";
+"activity-tab-view-editing-history" = "View editing history";
 "activity-tab-view-reading-history" = "View reading history";
 "activity-tab-view-saved-articles" = "View saved articles";
 "activity-tab-you-edited" = "You edited {{PLURAL:$1|$1 time|$1 times}} this week.";
