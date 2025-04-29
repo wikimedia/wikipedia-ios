@@ -885,7 +885,10 @@ extension WMFAppViewController {
             getGreeting: greeting,
             viewHistory: CommonStrings.activityTabReadingHistory,
             viewSaved: CommonStrings.activityTabViewSavedArticlesTitle,
-            viewEdited: ""
+            viewEdited: "",
+            logIn: CommonStrings.editSignIn,
+            loggedOutTitle: CommonStrings.activityTabLoggedOutTitle,
+            loggedOutSubtitle: CommonStrings.actitvityTabLoggedOutSubtitle
         )
         
         let viewModel = WMFActivityViewModel(

@@ -21,7 +21,7 @@ import WMFData
     public var savedSlideDataDelegate: SavedArticleSlideDataDelegate?
     public var legacyPageViewsDataDelegate: LegacyPageViewsDataDelegate?
     
-    var localizedStrings: LocalizedStrings
+    let localizedStrings: LocalizedStrings
     
     @ObservedObject var appEnvironment = WMFAppEnvironment.current
 
@@ -166,8 +166,11 @@ import WMFData
         let viewHistory: String
         let viewSaved: String
         let viewEdited: String
+        let logIn: String
+        let loggedOutTitle: String
+        let loggedOutSubtitle: String
 
-        public init(activityTabNoEditsAddImagesTitle: String, activityTabNoEditsGenericTitle: String, getActivityTabSaveTitle: @escaping (Int) -> String, getActivityTabReadTitle: @escaping (Int) -> String, getActivityTabsEditTitle: @escaping (Int) -> String, tabTitle: String, getGreeting: @escaping () -> String, viewHistory: String, viewSaved: String, viewEdited: String) {
+        public init(activityTabNoEditsAddImagesTitle: String, activityTabNoEditsGenericTitle: String, getActivityTabSaveTitle: @escaping (Int) -> String, getActivityTabReadTitle: @escaping (Int) -> String, getActivityTabsEditTitle: @escaping (Int) -> String, tabTitle: String, getGreeting: @escaping () -> String, viewHistory: String, viewSaved: String, viewEdited: String, logIn: String, loggedOutTitle: String, loggedOutSubtitle: String) {
             self.activityTabNoEditsAddImagesTitle = activityTabNoEditsAddImagesTitle
             self.activityTabNoEditsGenericTitle = activityTabNoEditsGenericTitle
             self.getActivityTabSaveTitle = getActivityTabSaveTitle
@@ -178,6 +181,9 @@ import WMFData
             self.viewHistory = viewHistory
             self.viewSaved = viewSaved
             self.viewEdited = viewEdited
+            self.logIn = logIn
+            self.loggedOutTitle = loggedOutTitle
+            self.loggedOutSubtitle = loggedOutSubtitle
         }
     }
 }

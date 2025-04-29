@@ -95,7 +95,7 @@ public struct WMFActivityView: View {
             .background(Color(theme.paperBackground))
         } else {
             if let loginAction = viewModel.loginAction {
-                WMFActivityTabLoggedOutView(loginAction: loginAction, openHistory: viewModel.openHistoryLoggedOut)
+                WMFActivityTabLoggedOutView(viewModel: viewModel, loginAction: loginAction, openHistory: viewModel.openHistoryLoggedOut)
             }
         }
     }
