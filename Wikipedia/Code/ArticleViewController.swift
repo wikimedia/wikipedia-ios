@@ -46,6 +46,13 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
     private let cacheController: ArticleCacheController
 
     internal var willDisplayFundraisingBanner: Bool = false
+    
+    private var _tabsCoordinator: TabsCoordinator?
+    private var tabsCoordinator: TabsCoordinator? {
+        guard let navigationController else { return nil }
+        _tabsCoordinator = TabsCoordinator(navigationController: navigationController, theme: theme, dataStore: dataStore)
+        return _tabsCoordinator
+    }
 
     // Coordinator
     private var _profileCoordinator: ProfileCoordinator?
@@ -452,6 +459,10 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
         profileCoordinator?.start()
     }
     
+    @objc func userDidTapTabs() {
+        _ = tabsCoordinator?.start()
+    }
+    
     @objc func userDidTapSearchButton() {
         let searchVC = SearchViewController(source: .article)
         searchVC.shouldBecomeFirstResponder = true
@@ -707,6 +718,7 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
         
         let trailingBarButtonItem: UIBarButtonItem? = needsSearchBar ? nil : self.searchBarButtonItem
         let profileButtonConfig = profileButtonConfig(target: self, action: #selector(userDidTapProfile), dataStore: dataStore, yirDataController: yirDataController, leadingBarButtonItem: nil, trailingBarButtonItem: trailingBarButtonItem)
+        let tabsButtonConfig = tabsButtonConfig(target: self, action: #selector(userDidTapTabs), dataStore: dataStore)
         
         let searchViewController = SearchViewController(source: .article, customArticleCoordinatorNavigationController: navigationController)
         searchViewController.dataStore = dataStore
@@ -722,7 +734,7 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
         
         let searchBarConfig: WMFNavigationBarSearchConfig? = needsSearchBar ? WMFNavigationBarSearchConfig(searchResultsController: searchViewController, searchControllerDelegate: self, searchResultsUpdater: self, searchBarDelegate: nil, searchBarPlaceholder: WMFLocalizedString("search-field-placeholder-text", value: "Search Wikipedia", comment: "Search field placeholder text"), showsScopeBar: false, scopeButtonTitles: nil) : nil
 
-        configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: nil, profileButtonConfig: profileButtonConfig, tabsButtonConfig: nil, searchBarConfig: searchBarConfig, hideNavigationBarOnScroll: true)
+        configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: nil, profileButtonConfig: profileButtonConfig, tabsButtonConfig: tabsButtonConfig, searchBarConfig: searchBarConfig, hideNavigationBarOnScroll: true)
     }
     
     private func updateProfileButton() {

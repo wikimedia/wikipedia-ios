@@ -182,44 +182,42 @@ public extension WMFNavigationBarConfiguring where Self: UIViewController {
             navigationItem.titleView = nil
         }
         
-        // Setup profile button if needed
+        var rightBarButtonItems: [UIBarButtonItem] = []
+
         if let profileButtonConfig {
             let image = profileButtonImage(theme: WMFAppEnvironment.current.theme, needsBadge: profileButtonConfig.needsBadge)
-            
             let profileButton = UIBarButtonItem(image: image, style: .plain, target: profileButtonConfig.target, action: profileButtonConfig.action)
             
             profileButton.accessibilityLabel = profileButtonAccessibilityStrings(config: profileButtonConfig)
             profileButton.accessibilityIdentifier = profileButtonAccessibilityID
             
-            var rightBarButtonItems: [UIBarButtonItem] = [profileButton]
-            if let leadingBarButtonItem = profileButtonConfig.leadingBarButtonItem {
-                rightBarButtonItems.append(leadingBarButtonItem)
+            if let trailing = profileButtonConfig.trailingBarButtonItem {
+                rightBarButtonItems.append(trailing)
             }
+
+            rightBarButtonItems.append(profileButton)
             
-            if let trailingBarButtonItem = profileButtonConfig.trailingBarButtonItem {
-                rightBarButtonItems.insert(trailingBarButtonItem, at: 0)
+            if let leading = profileButtonConfig.leadingBarButtonItem {
+                rightBarButtonItems.append(leading)
             }
-            
-            navigationItem.rightBarButtonItems = rightBarButtonItems
         }
         
-        // MARK: Tabs config
         if let tabsButtonConfig {
             let image = WMFSFSymbolIcon.for(symbol: .tabsIcon, paletteColors: [WMFAppEnvironment.current.theme.navigationBarTintColor])
             let tabsButton = UIBarButtonItem(image: image, style: .plain, target: tabsButtonConfig.target, action: tabsButtonConfig.action)
             
-            var rightBarButtonItems: [UIBarButtonItem] = [tabsButton]
-            
-            if let leadingBarButtonItem = tabsButtonConfig.leadingBarButtonItem {
-                rightBarButtonItems.append(leadingBarButtonItem)
+            if let trailing = tabsButtonConfig.trailingBarButtonItem {
+                rightBarButtonItems.append(trailing)
             }
             
-            if let trailingBarButtonItem = tabsButtonConfig.trailingBarButtonItem {
-                rightBarButtonItems.insert(trailingBarButtonItem, at: 0)
-            }
+            rightBarButtonItems.append(tabsButton)
             
-            navigationItem.rightBarButtonItems = rightBarButtonItems
+            if let leading = tabsButtonConfig.leadingBarButtonItem {
+                rightBarButtonItems.append(leading)
+            }
         }
+        
+        navigationItem.rightBarButtonItems = rightBarButtonItems
         
         // Setup close button if needed
         if let closeButtonConfig {

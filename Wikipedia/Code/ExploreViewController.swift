@@ -17,6 +17,13 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         return try? WMFYearInReviewDataController()
     }
 
+    private var _tabsCoordinator: TabsCoordinator?
+    private var tabsCoordinator: TabsCoordinator? {
+        guard let navigationController else { return nil }
+        _tabsCoordinator = TabsCoordinator(navigationController: navigationController, theme: theme, dataStore: dataStore)
+        return _tabsCoordinator
+    }
+    
     // Coordinator
     private var _profileCoordinator: ProfileCoordinator?
     private var profileCoordinator: ProfileCoordinator? {
@@ -189,7 +196,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         
         let profileButtonConfig = profileButtonConfig(target: self, action: #selector(userDidTapProfile), dataStore: dataStore, yirDataController: yirDataController, leadingBarButtonItem: nil, trailingBarButtonItem: nil)
         
-        let tabsButtonConfig = tabsButtonConfig(target: self, action: #selector(userDidTapProfile), dataStore: dataStore)
+        let tabsButtonConfig = tabsButtonConfig(target: self, action: #selector(userDidTapTabs), dataStore: dataStore)
         
         let searchViewController = SearchViewController(source: .topOfFeed, customArticleCoordinatorNavigationController: navigationController)
         searchViewController.dataStore = dataStore
@@ -221,6 +228,10 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     @objc func updateProfileButton() {
         let config = self.profileButtonConfig(target: self, action: #selector(userDidTapProfile), dataStore: dataStore, yirDataController: yirDataController, leadingBarButtonItem: nil, trailingBarButtonItem: nil)
         updateNavigationBarProfileButton(needsBadge: config.needsBadge, needsBadgeLabel: CommonStrings.profileButtonBadgeTitle, noBadgeLabel: CommonStrings.profileButtonTitle)
+    }
+    
+    @objc func userDidTapTabs() {
+        _ = tabsCoordinator?.start()
     }
     
     @objc func scrollToTop() {

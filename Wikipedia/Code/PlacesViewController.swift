@@ -255,6 +255,14 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
     private var profileButtonConfig: WMFNavigationBarProfileButtonConfig {
         return self.profileButtonConfig(target: self, action: #selector(didTapProfileButton), dataStore: dataStore, yirDataController: yirDataController, leadingBarButtonItem: filterButtonItem, trailingBarButtonItem: nil)
     }
+    
+    private var tabsButtonConfig: WMFNavigationBarTabsButtonConfig {
+        return self.tabsButtonConfig(target: self, action: #selector(userDidTapTabs), dataStore: dataStore)
+    }
+    
+    @objc func userDidTapTabs() {
+        _ = tabsCoordinator?.start()
+    }
 
     private func configureNavigationBar() {
 
@@ -273,7 +281,7 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
 
         let searchConfig = WMFNavigationBarSearchConfig(searchResultsController: nil, searchControllerDelegate: nil, searchResultsUpdater: self, searchBarDelegate: self, searchBarPlaceholder: WMFLocalizedString("places-search-default-text", value:"Search Places", comment:"Placeholder text that displays where is there no current place search {{Identical|Search}}"), showsScopeBar: showsScopeBar, scopeButtonTitles: scopeButtonTitles)
 
-        configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: nil, profileButtonConfig: profileButtonConfig, tabsButtonConfig: nil, searchBarConfig: searchConfig, hideNavigationBarOnScroll: false)
+        configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: nil, profileButtonConfig: profileButtonConfig, tabsButtonConfig: tabsButtonConfig, searchBarConfig: searchConfig, hideNavigationBarOnScroll: false)
     }
 
     private func updateScopeBarVisibility() {
@@ -403,6 +411,13 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
         }
 
         return existingYirCoordinator
+    }
+    
+    private var _tabsCoordinator: TabsCoordinator?
+    private var tabsCoordinator: TabsCoordinator? {
+        guard let navigationController else { return nil }
+        _tabsCoordinator = TabsCoordinator(navigationController: navigationController, theme: theme, dataStore: dataStore)
+        return _tabsCoordinator
     }
 
     private var _profileCoordinator: ProfileCoordinator?

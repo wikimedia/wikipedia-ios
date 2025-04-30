@@ -78,6 +78,13 @@ class SearchViewController: ArticleCollectionViewController, WMFNavigationBarCon
         return existingProfileCoordinator
     }
     
+    private var _tabsCoordinator: TabsCoordinator?
+    private var tabsCoordinator: TabsCoordinator? {
+        guard let navigationController else { return nil }
+        _tabsCoordinator = TabsCoordinator(navigationController: navigationController, theme: theme, dataStore: dataStore)
+        return _tabsCoordinator
+    }
+    
     private var yirDataController: WMFYearInReviewDataController? {
         return try? WMFYearInReviewDataController()
     }
@@ -197,15 +204,18 @@ class SearchViewController: ArticleCollectionViewController, WMFNavigationBarCon
         }
         
         let profileButtonConfig: WMFNavigationBarProfileButtonConfig?
+        let tabsButtonConfig: WMFNavigationBarTabsButtonConfig?
         if let dataStore {
             profileButtonConfig = self.profileButtonConfig(target: self, action: #selector(userDidTapProfile), dataStore: dataStore, yirDataController: yirDataController, leadingBarButtonItem: nil, trailingBarButtonItem: nil)
+            tabsButtonConfig = self.tabsButtonConfig(target: self, action: #selector(userDidTapTabs), dataStore: dataStore)
         } else {
             profileButtonConfig = nil
+            tabsButtonConfig = nil
         }
         
         let searchBarConfig = WMFNavigationBarSearchConfig(searchResultsController: nil, searchControllerDelegate: self, searchResultsUpdater: self, searchBarDelegate: self, searchBarPlaceholder: WMFLocalizedString("search-field-placeholder-text", value: "Search Wikipedia", comment: "Search field placeholder text"), showsScopeBar: false, scopeButtonTitles: nil)
         
-        configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: nil, profileButtonConfig: profileButtonConfig, tabsButtonConfig: nil, searchBarConfig: searchBarConfig, hideNavigationBarOnScroll: !presentingSearchResults)
+        configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: nil, profileButtonConfig: profileButtonConfig, tabsButtonConfig: tabsButtonConfig, searchBarConfig: searchBarConfig, hideNavigationBarOnScroll: !presentingSearchResults)
     }
     
     private func updateProfileButton() {
@@ -232,6 +242,10 @@ class SearchViewController: ArticleCollectionViewController, WMFNavigationBarCon
         DonateFunnel.shared.logSearchProfile(metricsID: metricsID)
               
         profileCoordinator?.start()
+    }
+    
+    @objc func userDidTapTabs() {
+        _ = tabsCoordinator?.start()
     }
     
     private func embedResultsViewController() {

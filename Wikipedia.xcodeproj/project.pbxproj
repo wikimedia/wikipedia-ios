@@ -388,6 +388,9 @@
 		37C4A98D2DB95FE000AD7141 /* WMFActivityTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37C4A98C2DB95FE000AD7141 /* WMFActivityTabViewController.swift */; };
 		37C4A98E2DB95FE000AD7141 /* WMFActivityTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37C4A98C2DB95FE000AD7141 /* WMFActivityTabViewController.swift */; };
 		37C4A98F2DB95FE000AD7141 /* WMFActivityTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37C4A98C2DB95FE000AD7141 /* WMFActivityTabViewController.swift */; };
+		37C5C1FB2DC28D390082852E /* TabsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37C5C1FA2DC28D350082852E /* TabsCoordinator.swift */; };
+		37C5C1FC2DC28D390082852E /* TabsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37C5C1FA2DC28D350082852E /* TabsCoordinator.swift */; };
+		37C5C1FD2DC28D390082852E /* TabsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37C5C1FA2DC28D350082852E /* TabsCoordinator.swift */; };
 		41CCB67421CC1F9700206B47 /* SavedArticlesCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41CCB67321CC1F9700206B47 /* SavedArticlesCollectionViewController.swift */; };
 		41CCB67521CC1F9700206B47 /* SavedArticlesCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41CCB67321CC1F9700206B47 /* SavedArticlesCollectionViewController.swift */; };
 		41CCB67621CC1F9700206B47 /* SavedArticlesCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41CCB67321CC1F9700206B47 /* SavedArticlesCollectionViewController.swift */; };
@@ -3195,6 +3198,7 @@
 		372F04832D7B754B002C6D2C /* TempAccountsSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TempAccountsSettingsViewController.swift; sourceTree = "<group>"; };
 		372F048C2D80C1F9002C6D2C /* TempAccountExpiryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TempAccountExpiryViewController.swift; sourceTree = "<group>"; };
 		37C4A98C2DB95FE000AD7141 /* WMFActivityTabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WMFActivityTabViewController.swift; sourceTree = "<group>"; };
+		37C5C1FA2DC28D350082852E /* TabsCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabsCoordinator.swift; sourceTree = "<group>"; };
 		41CCB67321CC1F9700206B47 /* SavedArticlesCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedArticlesCollectionViewController.swift; sourceTree = "<group>"; };
 		41FCAA3521C844CB001D8411 /* ReadingListEntryCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadingListEntryCollectionViewController.swift; sourceTree = "<group>"; };
 		533AB8AD259792A9003A43D9 /* wikipedia-language-variants.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "wikipedia-language-variants.json"; sourceTree = "<group>"; };
@@ -6781,6 +6785,7 @@
 		83796B012C9C6F6000E55C69 /* Coordinators */ = {
 			isa = PBXGroup;
 			children = (
+				37C5C1FA2DC28D350082852E /* TabsCoordinator.swift */,
 				370107A92D5EEBF600E17486 /* TempAccountSheetCoordinator.swift */,
 				675826732D68CEB8002B0EE7 /* ArticleCoordinator.swift */,
 				675826812D69394E002B0EE7 /* RandomArticleCoordinator.swift */,
@@ -9960,6 +9965,7 @@
 				D84DAA161EEEF527008E4B18 /* SWStepSlider.swift in Sources */,
 				B0ACB13321265B930078C136 /* WMFImageGalleryDescriptionTextView.swift in Sources */,
 				53A575FA2602C845009835E6 /* WMFAppViewController+Extensions.swift in Sources */,
+				37C5C1FC2DC28D390082852E /* TabsCoordinator.swift in Sources */,
 				B0C7A0801F710E94008415E7 /* WMFWelcomeLanguagesAnimationBackgroundView.swift in Sources */,
 				00E75B6C27EB92DE00A45B78 /* NotificationsCenterDetailHeaderCell.swift in Sources */,
 				8382F8D320D928BF00AE5250 /* ColumnarCollectionViewControllerLayoutCache.swift in Sources */,
@@ -11212,6 +11218,7 @@
 				D8CE25B11E698E2400DAE2E0 /* WMFBarButtonItemPopoverMessageViewController.m in Sources */,
 				67CA5F012AF2F469002CFC61 /* ScrollViewGradientView.swift in Sources */,
 				B01E54B0206479CC00374FEE /* ProgressContainer.swift in Sources */,
+				37C5C1FB2DC28D390082852E /* TabsCoordinator.swift in Sources */,
 				D8CE25B31E698E2400DAE2E0 /* WMFReferencePageViewController.swift in Sources */,
 				6782DBC82343FDE4003FA21B /* DiffListContextCell.swift in Sources */,
 				B3F21D101EB0EBB4000ED0BB /* PlaceSearchService.swift in Sources */,
@@ -11766,6 +11773,7 @@
 				67CA5F002AF2F469002CFC61 /* ScrollViewGradientView.swift in Sources */,
 				83023C1320E6561900EC7592 /* ViewControllerTransitionsController.swift in Sources */,
 				D8EC3EB01E9BDA35006712EB /* WMFReferencePageViewController.swift in Sources */,
+				37C5C1FD2DC28D390082852E /* TabsCoordinator.swift in Sources */,
 				6782DBC92343FDE4003FA21B /* DiffListContextCell.swift in Sources */,
 				B3F21D111EB0EBB4000ED0BB /* PlaceSearchService.swift in Sources */,
 				D8EC3EB91E9BDA35006712EB /* WikiTextSectionUploader.m in Sources */,
