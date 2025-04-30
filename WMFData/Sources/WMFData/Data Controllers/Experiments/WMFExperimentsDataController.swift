@@ -18,13 +18,10 @@ final class WMFExperimentsDataController {
     }
     
     public enum Experiment {
-        case articleSearchBar
         case activityTab
 
         var config: ExperimentConfig {
             switch self {
-            case .articleSearchBar:
-                return WMFExperimentsDataController.articleSearchBarConfig
             case .activityTab:
                 return WMFExperimentsDataController.activityTabConfig
             }
@@ -32,18 +29,14 @@ final class WMFExperimentsDataController {
     }
     
     public enum PercentageFileName: String {
-        case articleSearchBarPercent
         case activityTabPercent
     }
     
     enum BucketFileName: String {
-        case articleSearchBarBucket
         case activityTabBucket
     }
     
     public enum BucketValue: String {
-        case articleSearchBarTest = "ArticleSearchBar_Test"
-        case articleSearchBarControl = "ArticleSearchBar_Control"
         case activityTabGroupAControl = "ActivityTab_GroupA_Control"
         case activityTabGroupBEdit = "ActivityTab_GroupB_Edit"
         case activityTabGroupCSuggestedEdit = "ActivityTab_GroupC_SuggestedEdit"
@@ -52,8 +45,6 @@ final class WMFExperimentsDataController {
     // MARK: Properties
     
     private let cacheDirectoryName = WMFSharedCacheDirectoryNames.experiments.rawValue
-    
-    private static let articleSearchBarConfig = ExperimentConfig(experiment: .articleSearchBar, percentageFileName: .articleSearchBarPercent, bucketFileName: .articleSearchBarBucket, bucketValueControl: .articleSearchBarControl, bucketValueTest: .articleSearchBarTest, bucketValueTest2: nil)
 
     private static let activityTabConfig = ExperimentConfig(experiment: .activityTab, percentageFileName: .activityTabPercent, bucketFileName: .activityTabBucket, bucketValueControl: .activityTabGroupAControl, bucketValueTest: .activityTabGroupBEdit, bucketValueTest2: .activityTabGroupCSuggestedEdit)
 
@@ -88,15 +79,12 @@ final class WMFExperimentsDataController {
         
         // otherwise generate new bucket
         let randomInt = Int.random(in: 1...100)
-        let isInTest = randomInt <= percentage
         let bucket: BucketValue
         
         if let forceValue = forceValue {
             bucket = forceValue
         } else {
             switch experiment {
-            case .articleSearchBar:
-                bucket = isInTest ? .articleSearchBarTest : .articleSearchBarControl
             case .activityTab:
                 if randomInt <= percentage {
                     bucket = .activityTabGroupAControl
