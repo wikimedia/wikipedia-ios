@@ -6,6 +6,7 @@ import WMFData
     let developerSettings: String
     let doNotPostImageRecommendations: String
     let sendAnalyticsToWMFLabs: String
+    let enableArticleTab: String
     let enableYearinReview: String
     let bypassDonation: String
     let forceEmailAuth: String
@@ -14,11 +15,12 @@ import WMFData
     let setActivityTabGroupC: String
     let done: String
 
-    @objc public init(developerSettings: String, doNotPostImageRecommendations: String, sendAnalyticsToWMFLabs: String, enableYearinReview: String, bypassDonation: String, forceEmailAuth: String, setActivityTabGroupA: String, setActivityTabGroupB: String, setActivityTabGroupC: String, done: String) {
+    @objc public init(developerSettings: String, doNotPostImageRecommendations: String, sendAnalyticsToWMFLabs: String, enableArticleTab: String, enableYearinReview: String, bypassDonation: String, forceEmailAuth: String, setActivityTabGroupA: String, setActivityTabGroupB: String, setActivityTabGroupC: String, done: String) {
         self.developerSettings = developerSettings
         self.doNotPostImageRecommendations = doNotPostImageRecommendations
         self.sendAnalyticsToWMFLabs = sendAnalyticsToWMFLabs
         self.enableYearinReview = enableYearinReview
+        self.enableArticleTab = enableArticleTab
         self.bypassDonation = bypassDonation
         self.forceEmailAuth = forceEmailAuth
         self.setActivityTabGroupA = setActivityTabGroupA
@@ -43,6 +45,8 @@ import WMFData
         let sendAnalyticsToWMFLabsItem = WMFFormItemSelectViewModel(title: localizedStrings.sendAnalyticsToWMFLabs, isSelected: WMFDeveloperSettingsDataController.shared.sendAnalyticsToWMFLabs)
         let bypassDonationItem = WMFFormItemSelectViewModel(title: localizedStrings.bypassDonation, isSelected: WMFDeveloperSettingsDataController.shared.bypassDonation)
         let forceEmailAuth = WMFFormItemSelectViewModel(title: localizedStrings.forceEmailAuth, isSelected: WMFDeveloperSettingsDataController.shared.forceEmailAuth)
+        
+        let enableArticleTabs = WMFFormItemSelectViewModel(title: "Enable article tabs", isSelected: WMFDeveloperSettingsDataController.shared.enableArticleTabs)
 
         let setActivityTabGroupA = WMFFormItemSelectViewModel(title: localizedStrings.setActivityTabGroupA, isSelected: WMFDeveloperSettingsDataController.shared.setActivityTabGroupA)
         let setActivityTabGroupB = WMFFormItemSelectViewModel(title: localizedStrings.setActivityTabGroupB, isSelected: WMFDeveloperSettingsDataController.shared.setActivityTabGroupB)
@@ -57,7 +61,8 @@ import WMFData
                 forceEmailAuth,
                 setActivityTabGroupA,
                 setActivityTabGroupB,
-                setActivityTabGroupC
+                setActivityTabGroupC,
+                enableArticleTabs
             ], selectType: .multi)
         ])
 
@@ -76,6 +81,10 @@ import WMFData
 
         forceEmailAuth.$isSelected
             .sink { isSelected in WMFDeveloperSettingsDataController.shared.forceEmailAuth = isSelected }
+            .store(in: &subscribers)
+        
+        enableArticleTabs.$isSelected
+            .sink { isSelected in WMFDeveloperSettingsDataController.shared.enableArticleTabs = isSelected }
             .store(in: &subscribers)
 
         activityTabGroupCoordinator = ActivityTabGroupBindingCoordinator(

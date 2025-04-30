@@ -47,10 +47,10 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
 
     internal var willDisplayFundraisingBanner: Bool = false
     
-    private var _tabsCoordinator: TabsCoordinator?
-    private var tabsCoordinator: TabsCoordinator? {
+    private var _tabsCoordinator: TabsOverviewCoordinator?
+    private var tabsCoordinator: TabsOverviewCoordinator? {
         guard let navigationController else { return nil }
-        _tabsCoordinator = TabsCoordinator(navigationController: navigationController, theme: theme, dataStore: dataStore)
+        _tabsCoordinator = TabsOverviewCoordinator(navigationController: navigationController, theme: theme, dataStore: dataStore)
         return _tabsCoordinator
     }
 

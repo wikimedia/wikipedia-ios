@@ -4,14 +4,25 @@ import WMFComponents
 import WMFData
 import CocoaLumberjackSwift
 
-final class TabsCoordinator: Coordinator {
+final class TabsOverviewCoordinator: Coordinator {
     var navigationController: UINavigationController
     var theme: Theme
     let dataStore: MWKDataStore
     
     func start() -> Bool {
-        presentTabs()
-        return true
+        if shouldShowEntryPoint() {
+            presentTabs()
+            return true
+        } else {
+            return false
+        }
+    }
+    
+    func shouldShowEntryPoint() -> Bool {
+        guard let dataController = try? ArticleTabsDataController() else {
+            return false
+        }
+        return dataController.shouldShowArticleTabs
     }
     
     public init(navigationController: UINavigationController, theme: Theme, dataStore: MWKDataStore) {

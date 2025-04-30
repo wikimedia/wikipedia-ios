@@ -209,8 +209,10 @@ static NSString *const kWMFContributorsKey = @"contributors";
     NSString *setActivityTabGroupB = WMFLocalizedStringWithDefaultValue(@"developer-settings-activity-tab-group-B", nil, nil, @"Set activity tab to group B", @"Title for option to set activity tab experiment to group B");
 
     NSString *setActivityTabGroupC = WMFLocalizedStringWithDefaultValue(@"developer-settings-activity-tab-group-C", nil, nil, @"Set activity tab to group C", @"Title for option to set activity tab experiment to group C");
+    
+    NSString *enableArticleTab = WMFLocalizedStringWithDefaultValue(@"developer-settings-activity-tabs", nil, nil, @"Enable activity tabs", @"Title for option to enable activity tabs");
 
-    WMFDeveloperSettingsLocalizedStrings *localizedStrings = [[WMFDeveloperSettingsLocalizedStrings alloc] initWithDeveloperSettings:developerSettings doNotPostImageRecommendations:doNotPostImageRecommendations sendAnalyticsToWMFLabs:sendAnalyticsToWMFLabs enableYearinReview:enableYearInReview bypassDonation:bypassDonation forceEmailAuth:forceEmailAuth setActivityTabGroupA:setActivityTabGroupA setActivityTabGroupB:setActivityTabGroupB setActivityTabGroupC:setActivityTabGroupC done:WMFCommonStrings.doneTitle];
+    WMFDeveloperSettingsLocalizedStrings *localizedStrings = [[WMFDeveloperSettingsLocalizedStrings alloc] initWithDeveloperSettings:developerSettings doNotPostImageRecommendations:doNotPostImageRecommendations sendAnalyticsToWMFLabs:sendAnalyticsToWMFLabs enableArticleTab:enableArticleTab enableYearinReview:enableYearInReview bypassDonation:bypassDonation forceEmailAuth:forceEmailAuth setActivityTabGroupA:setActivityTabGroupA setActivityTabGroupB:setActivityTabGroupB setActivityTabGroupC:setActivityTabGroupC done:WMFCommonStrings.doneTitle];
     WMFDeveloperSettingsViewModel *viewModel = [[WMFDeveloperSettingsViewModel alloc] initWithLocalizedStrings:localizedStrings];
 
     WMFDeveloperSettingsViewController *viewController = [[WMFDeveloperSettingsViewController alloc] initWithViewModel:viewModel];

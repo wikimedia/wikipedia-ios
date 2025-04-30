@@ -1,4 +1,5 @@
 import UIKit
+import WMFData
 
 public protocol WMFNavigationBarConfiguring {
     
@@ -202,18 +203,20 @@ public extension WMFNavigationBarConfiguring where Self: UIViewController {
             }
         }
         
-        if let tabsButtonConfig {
-            let image = WMFSFSymbolIcon.for(symbol: .tabsIcon, paletteColors: [WMFAppEnvironment.current.theme.navigationBarTintColor])
-            let tabsButton = UIBarButtonItem(image: image, style: .plain, target: tabsButtonConfig.target, action: tabsButtonConfig.action)
-            
-            if let trailing = tabsButtonConfig.trailingBarButtonItem {
-                rightBarButtonItems.append(trailing)
-            }
-            
-            rightBarButtonItems.append(tabsButton)
-            
-            if let leading = tabsButtonConfig.leadingBarButtonItem {
-                rightBarButtonItems.append(leading)
+        if let dataController = try? ArticleTabsDataController() {
+            if let tabsButtonConfig, dataController.shouldShowArticleTabs {
+                let image = WMFSFSymbolIcon.for(symbol: .tabsIcon, paletteColors: [WMFAppEnvironment.current.theme.navigationBarTintColor])
+                let tabsButton = UIBarButtonItem(image: image, style: .plain, target: tabsButtonConfig.target, action: tabsButtonConfig.action)
+                
+                if let trailing = tabsButtonConfig.trailingBarButtonItem {
+                    rightBarButtonItems.append(trailing)
+                }
+                
+                rightBarButtonItems.append(tabsButton)
+                
+                if let leading = tabsButtonConfig.leadingBarButtonItem {
+                    rightBarButtonItems.append(leading)
+                }
             }
         }
         
