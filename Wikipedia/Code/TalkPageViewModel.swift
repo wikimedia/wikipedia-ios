@@ -174,10 +174,7 @@ final class TalkPageViewModel {
     // MARK: - Private
     
     private static func dateFormatterForSiteURL(_ siteURL: URL) -> DateFormatter? {
-        guard let languageCode = siteURL.wmf_languageCode else {
-            return nil
-        }
-        
+        guard siteURL.wmf_languageCode != nil else { return nil }
         return DateFormatter.wmf_localCustomShortDateFormatterWithTime(for: Locale.current)
     }
     
