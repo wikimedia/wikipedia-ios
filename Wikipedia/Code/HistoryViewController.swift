@@ -192,7 +192,7 @@ class HistoryViewController: ArticleFetchedResultsViewController, WMFNavigationB
             profileButtonConfig = nil
         }
 
-        configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: nil, profileButtonConfig: profileButtonConfig, searchBarConfig: nil, hideNavigationBarOnScroll: hideNavigationBarOnScroll)
+        configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: nil, profileButtonConfig: profileButtonConfig, tabsButtonConfig: nil, searchBarConfig: nil, hideNavigationBarOnScroll: hideNavigationBarOnScroll)
     }
     
     private func updateProfileButton() {

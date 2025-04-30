@@ -189,6 +189,8 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         
         let profileButtonConfig = profileButtonConfig(target: self, action: #selector(userDidTapProfile), dataStore: dataStore, yirDataController: yirDataController, leadingBarButtonItem: nil, trailingBarButtonItem: nil)
         
+        let tabsButtonConfig = tabsButtonConfig(target: self, action: #selector(userDidTapProfile), dataStore: dataStore)
+        
         let searchViewController = SearchViewController(source: .topOfFeed, customArticleCoordinatorNavigationController: navigationController)
         searchViewController.dataStore = dataStore
         
@@ -210,7 +212,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
             showsScopeBar: false, scopeButtonTitles: nil)
         
 
-        configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: nil, profileButtonConfig: profileButtonConfig, searchBarConfig: searchConfig, hideNavigationBarOnScroll: !presentingSearchResults)
+        configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: nil, profileButtonConfig: profileButtonConfig, tabsButtonConfig: tabsButtonConfig, searchBarConfig: searchConfig, hideNavigationBarOnScroll: !presentingSearchResults)
         
         // Need to override this so that "" does not appear as back button title.
         navigationItem.backButtonTitle = CommonStrings.exploreTabTitle

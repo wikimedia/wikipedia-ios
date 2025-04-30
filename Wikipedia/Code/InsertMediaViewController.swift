@@ -123,7 +123,7 @@ final class InsertMediaViewController: ThemeableViewController, WMFNavigationBar
         let titleConfig = WMFNavigationBarTitleConfig(title: CommonStrings.insertMediaTitle, customView: nil, alignment: .centerCompact)
         let closeConfig = WMFNavigationBarCloseButtonConfig(text: CommonStrings.cancelActionTitle, target: self, action: #selector(delegateCloseButtonTap(_:)), alignment: .leading)
 
-        configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: closeConfig, profileButtonConfig: nil, searchBarConfig: nil, hideNavigationBarOnScroll: false)
+        configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: closeConfig, profileButtonConfig: nil, tabsButtonConfig: nil,searchBarConfig: nil, hideNavigationBarOnScroll: false)
         
         navigationItem.rightBarButtonItem = nextButton
     }

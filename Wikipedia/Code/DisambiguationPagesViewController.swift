@@ -37,7 +37,7 @@ class DisambiguationPagesViewController: ArticleFetchedResultsViewController, WM
     
     private func configureNavigationBar() {
         let titleConfig = WMFNavigationBarTitleConfig(title: WMFLocalizedString("page-similar-titles", value: "Similar pages", comment: "Label for button that shows a list of similar titles (disambiguation) for the current page"), customView: nil, alignment: .centerCompact)
-        configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: nil, profileButtonConfig: nil, searchBarConfig: nil, hideNavigationBarOnScroll: false)
+        configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: nil, profileButtonConfig: nil, tabsButtonConfig: nil, searchBarConfig: nil, hideNavigationBarOnScroll: false)
     }
     
     func fetch() {

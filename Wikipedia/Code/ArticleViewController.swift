@@ -722,7 +722,7 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
         
         let searchBarConfig: WMFNavigationBarSearchConfig? = needsSearchBar ? WMFNavigationBarSearchConfig(searchResultsController: searchViewController, searchControllerDelegate: self, searchResultsUpdater: self, searchBarDelegate: nil, searchBarPlaceholder: WMFLocalizedString("search-field-placeholder-text", value: "Search Wikipedia", comment: "Search field placeholder text"), showsScopeBar: false, scopeButtonTitles: nil) : nil
 
-        configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: nil, profileButtonConfig: profileButtonConfig, searchBarConfig: searchBarConfig, hideNavigationBarOnScroll: true)
+        configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: nil, profileButtonConfig: profileButtonConfig, tabsButtonConfig: nil, searchBarConfig: searchBarConfig, hideNavigationBarOnScroll: true)
     }
     
     private func updateProfileButton() {

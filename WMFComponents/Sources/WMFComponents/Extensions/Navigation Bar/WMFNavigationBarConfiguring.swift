@@ -71,6 +71,24 @@ public struct WMFNavigationBarProfileButtonConfig {
     }
 }
 
+public struct WMFNavigationBarTabsButtonConfig {
+    public let accessibilityLabel: String
+    public let accessibilityHint: String
+    public let target: Any
+    public let action: Selector
+    public let leadingBarButtonItem: UIBarButtonItem?
+    public let trailingBarButtonItem: UIBarButtonItem?
+    
+    public init(accessibilityLabel: String, accessibilityHint: String, target: Any, action: Selector, leadingBarButtonItem: UIBarButtonItem?, trailingBarButtonItem: UIBarButtonItem?) {
+        self.accessibilityLabel = accessibilityLabel
+        self.accessibilityHint = accessibilityHint
+        self.target = target
+        self.action = action
+        self.leadingBarButtonItem = leadingBarButtonItem
+        self.trailingBarButtonItem = trailingBarButtonItem
+    }
+}
+
 /// Search config for navigation bar
 public struct WMFNavigationBarSearchConfig {
     let searchResultsController: UIViewController?
@@ -105,7 +123,7 @@ public extension WMFNavigationBarConfiguring where Self: UIViewController {
     ///   - profileButtonConfig: Config for profile button
     ///   - searchBarConfig: Config for search bar
     ///   - hideNavigationBarOnScroll: If true, will hide the navigation bar when the user scrolls
-    func configureNavigationBar(titleConfig: WMFNavigationBarTitleConfig, closeButtonConfig: WMFNavigationBarCloseButtonConfig?, profileButtonConfig: WMFNavigationBarProfileButtonConfig?, searchBarConfig: WMFNavigationBarSearchConfig?, hideNavigationBarOnScroll: Bool) {
+    func configureNavigationBar(titleConfig: WMFNavigationBarTitleConfig, closeButtonConfig: WMFNavigationBarCloseButtonConfig?, profileButtonConfig: WMFNavigationBarProfileButtonConfig?, tabsButtonConfig: WMFNavigationBarTabsButtonConfig?, searchBarConfig: WMFNavigationBarSearchConfig?, hideNavigationBarOnScroll: Bool) {
         
         navigationController?.setNavigationBarHidden(false, animated: true)
         navigationController?.hidesBarsOnSwipe = hideNavigationBarOnScroll
@@ -179,6 +197,24 @@ public extension WMFNavigationBarConfiguring where Self: UIViewController {
             }
             
             if let trailingBarButtonItem = profileButtonConfig.trailingBarButtonItem {
+                rightBarButtonItems.insert(trailingBarButtonItem, at: 0)
+            }
+            
+            navigationItem.rightBarButtonItems = rightBarButtonItems
+        }
+        
+        // MARK: Tabs config
+        if let tabsButtonConfig {
+            let image = WMFSFSymbolIcon.for(symbol: .tabsIcon, paletteColors: [WMFAppEnvironment.current.theme.navigationBarTintColor])
+            let tabsButton = UIBarButtonItem(image: image, style: .plain, target: tabsButtonConfig.target, action: tabsButtonConfig.action)
+            
+            var rightBarButtonItems: [UIBarButtonItem] = [tabsButton]
+            
+            if let leadingBarButtonItem = tabsButtonConfig.leadingBarButtonItem {
+                rightBarButtonItems.append(leadingBarButtonItem)
+            }
+            
+            if let trailingBarButtonItem = tabsButtonConfig.trailingBarButtonItem {
                 rightBarButtonItems.insert(trailingBarButtonItem, at: 0)
             }
             
