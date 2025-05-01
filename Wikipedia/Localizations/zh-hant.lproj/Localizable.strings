@@ -11,6 +11,7 @@
 // Author: DinoWP
 // Author: Diskdance
 // Author: Eric850130
+// Author: HNordeen (WMF)
 // Author: Hello903hello
 // Author: Impartial just
 // Author: Kanashimi
@@ -117,9 +118,18 @@
 "activity-tab-add-images-subtitle" = "將建議的圖片加到維基百科條目來加強理解。";
 "activity-tab-add-images-title" = "新增圖片";
 "activity-tab-additional-thoughts" = "還有其他想法嗎？";
+// Fuzzy
+"activity-tab-generic-no-edits" = "您本週尚未動手編輯，立即開始編輯來追蹤貢獻。";
+"activity-tab-greeting" = "$1$2您好$3👋 這邊是您本週的維基百科摘要。";
+"activity-tab-logged-out-subtitle" = "用全新方式追蹤您閱讀過的內容並檢視歷來所做的貢獻";
+"activity-tab-logged-out-title" = "登入或建立帳號來查看更多編輯與閱讀活動。";
 "activity-tab-neutral" = "中立";
+// Fuzzy
+"activity-tab-no-edits-title" = "您本週尚未動手編輯，新增圖片來讓讀者更容易理解文章";
+"activity-tab-read-title" = "檢視閱讀記錄";
 "activity-tab-satisfied" = "滿意";
 "activity-tab-start-editing" = "開始編輯";
+"activity-tab-survey" = "您對於「活動」畫面是否滿意？您未來希望在這裡看到哪些內容呢？";
 "activity-tab-survey-title" = "滿意度調查";
 "activity-tab-title" = "活動";
 "activity-tab-unsatisfied" = "不滿意";
@@ -127,7 +137,6 @@
 "activity-tab-very-unsatisfied" = "非常不滿意";
 "activity-tab-view-reading-history" = "檢視閱讀紀錄";
 "activity-tab-view-saved-articles" = "檢視已儲存條目";
-// Fuzzy
 "activity-tab-you-edited" = "您這週編輯了{{PLURAL:$1|$1}}篇條目。";
 "activity-tab-you-read" = "您這週閱讀了{{PLURAL:$1|$1}}篇條目。";
 "activity-tab-you-saved" = "您這週儲存了{{PLURAL:$1|$1}}篇條目。";

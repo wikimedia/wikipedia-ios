@@ -124,7 +124,7 @@
 "activity-tab-logged-out-subtitle" = "تتبع ما قرأته وعرض مساهماتك بمرور الوقت بطريقة جديدة";
 "activity-tab-logged-out-title" = "قم بتسجيل الدخول أو إنشاء حساب لمشاهدة المزيد من أنشطة التحرير والقراءة.";
 "activity-tab-neutral" = "محايد";
-"activity-tab-no-edits-subtitle" = "ابدأ التحرير للبدء في تتبع مساهماتك.";
+// Fuzzy
 "activity-tab-no-edits-title" = "لم تقم بإجراء أي تعديلات بعد.";
 "activity-tab-satisfied" = "راضي";
 "activity-tab-start-editing" = "ابدأ التحرير";

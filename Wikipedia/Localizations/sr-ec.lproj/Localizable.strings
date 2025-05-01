@@ -96,7 +96,7 @@
 "activity-tab-add-images-title" = "Додај слике";
 "activity-tab-logged-out-title" = "Пријавите се или отворите налог да видите више уређивачких и читалачких активности.";
 "activity-tab-neutral" = "Неутралан";
-"activity-tab-no-edits-subtitle" = "Крените да уређујете да би сте почели да пратите доприносе.";
+// Fuzzy
 "activity-tab-no-edits-title" = "Још нисте направили измене.";
 "activity-tab-satisfied" = "Задовољан";
 "activity-tab-start-editing" = "Започни уређивање";

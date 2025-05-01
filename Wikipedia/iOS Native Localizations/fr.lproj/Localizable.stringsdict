@@ -12,10 +12,8 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
-			<key>one</key>
-			<string>%1$d article</string>
 			<key>other</key>
-			<string>%1$d articles</string>
+			<string>fois</string>
 		</dict>
 	</dict>
 	<key>activity-tab-you-read</key>

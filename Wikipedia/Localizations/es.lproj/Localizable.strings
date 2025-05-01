@@ -142,6 +142,18 @@
 "action-unsave" = "No guardar";
 "action-unsaved-accessibility-notification" = "Artículo sin guardar";
 "action-update" = "Actualizar";
+"activity-tab-add-images-subtitle" = "Agrega imágenes sugeridas a los artículos de Wikipedia para mejorar la comprensión.";
+"activity-tab-add-images-title" = "Agregar imágenes";
+"activity-tab-additional-thoughts" = "¿Algún otro comentario?";
+// Fuzzy
+"activity-tab-generic-no-edits" = "No has editado esta semana. Comienza ahora a hacer un seguimiento de tus contribuciones.";
+"activity-tab-greeting" = "$1Hola, $2$3: 👋 Aquí está tu resumen semanal de Wikipedia.";
+"activity-tab-logged-out-subtitle" = "Haz un seguimiento de lo que has leído y ve tus contribuciones a lo largo del tiempo de una nueva manera";
+"activity-tab-logged-out-title" = "Inicia sesión o crea una cuenta para ver más actividades de edición y lectura.";
+"activity-tab-neutral" = "Neutral";
+// Fuzzy
+"activity-tab-no-edits-title" = "No has editado esta semana. Agrega imágenes para mejorar la comprensión del artículo.";
+"activity-tab-read-title" = "Ver historial de lectura";
 "activity-tab-satisfied" = "Satisfecho";
 "activity-tab-start-editing" = "Empezar a editar";
 "activity-tab-survey" = "¿Estás satisfecho con tu pantalla de «Actividad»? ¿Qué más te gustaría ver aquí en el futuro?";
@@ -150,11 +162,10 @@
 "activity-tab-unsatisfied" = "Insatisfecho";
 "activity-tab-very-satisfied" = "Muy satisfecho";
 "activity-tab-very-unsatisfied" = "Muy insatisfecho";
-"activity-tab-view-reading-history" = "Ver historial de ediciones";
+"activity-tab-view-reading-history" = "Ver historial de lectura";
 "activity-tab-view-saved-articles" = "Ver artículos guardados";
-// Fuzzy
-"activity-tab-you-edited" = "Editaste {{PLURAL:$1|$1 artículo|$1 artículos}} esta semana.";
-"activity-tab-you-read" = "Leíste {{PLURAL:$1|$1 artículo|$1 artículos}}";
+"activity-tab-you-edited" = "Editaste {{PLURAL:$1|$1 una vez|$1 veces}} esta semana.";
+"activity-tab-you-read" = "Leíste {{PLURAL:$1|$1 artículo|$1 artículos}} esta semana.";
 "activity-tab-you-saved" = "Guardaste {{PLURAL:$1|$1 artículo|$1 artículos}} esta semana.";
 "add-articles-to-reading-list" = "Añadir {{PLURAL:$1|$1 artículo|$1 artículos}} a la lista de lectura";
 "advanced-settings-title" = "Ajustes avanzados";
