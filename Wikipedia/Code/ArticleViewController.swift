@@ -717,7 +717,7 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
         }
         
         let trailingBarButtonItem: UIBarButtonItem? = needsSearchBar ? nil : self.searchBarButtonItem
-        let profileButtonConfig = profileButtonConfig(target: self, action: #selector(userDidTapProfile), dataStore: dataStore, yirDataController: yirDataController, leadingBarButtonItem: nil, trailingBarButtonItem: trailingBarButtonItem)
+        let profileButtonConfig = profileButtonConfig(target: self, action: #selector(userDidTapProfile), dataStore: dataStore, yirDataController: yirDataController, trailingBarButtonItem: trailingBarButtonItem)
         let tabsButtonConfig = tabsButtonConfig(target: self, action: #selector(userDidTapTabs), dataStore: dataStore)
         
         let searchViewController = SearchViewController(source: .article, customArticleCoordinatorNavigationController: navigationController)
@@ -740,7 +740,7 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
     private func updateProfileButton() {
         // Checking A/B Test here as we don't want to instantiate the searchBarButtonItem lazy property unnecessarily
         let resolvedSearchBarButtonItem: UIBarButtonItem? = needsSearchBar ? nil : self.searchBarButtonItem
-        let config = self.profileButtonConfig(target: self, action: #selector(userDidTapProfile), dataStore: dataStore, yirDataController: yirDataController, leadingBarButtonItem: nil, trailingBarButtonItem: resolvedSearchBarButtonItem)
+        let config = self.profileButtonConfig(target: self, action: #selector(userDidTapProfile), dataStore: dataStore, yirDataController: yirDataController, trailingBarButtonItem: resolvedSearchBarButtonItem)
         updateNavigationBarProfileButton(needsBadge: config.needsBadge, needsBadgeLabel: CommonStrings.profileButtonBadgeTitle, noBadgeLabel: CommonStrings.profileButtonTitle)
     }
     
@@ -926,6 +926,7 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
             return
         }
         
+        themeTabsButton()
         view.backgroundColor = theme.colors.paperBackground
         webView.scrollView.indicatorStyle = theme.scrollIndicatorStyle
         toolbarController.apply(theme: theme)

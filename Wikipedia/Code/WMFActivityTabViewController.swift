@@ -19,6 +19,7 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
         profileCoordinator?.theme = theme
         
         updateProfileButton()
+        themeTabsButton()
     }
     
     public let viewModel: WMFActivityViewModel
@@ -91,7 +92,7 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
         let titleConfig = WMFNavigationBarTitleConfig(title: CommonStrings.activityTitle, customView: nil, alignment: .leadingCompact)
         let profileButtonConfig: WMFNavigationBarProfileButtonConfig?
         if let dataStore {
-            profileButtonConfig = self.profileButtonConfig(target: self, action: #selector(userDidTapProfile), dataStore: dataStore, yirDataController: yirDataController, leadingBarButtonItem: nil, trailingBarButtonItem: nil)
+            profileButtonConfig = self.profileButtonConfig(target: self, action: #selector(userDidTapProfile), dataStore: dataStore, yirDataController: yirDataController,  trailingBarButtonItem: nil)
         } else {
             profileButtonConfig = nil
         }
@@ -156,7 +157,7 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
             return
         }
         
-        let config = self.profileButtonConfig(target: self, action: #selector(userDidTapProfile), dataStore: dataStore, yirDataController: yirDataController, leadingBarButtonItem: nil, trailingBarButtonItem: nil)
+        let config = self.profileButtonConfig(target: self, action: #selector(userDidTapProfile), dataStore: dataStore, yirDataController: yirDataController, trailingBarButtonItem: nil)
         updateNavigationBarProfileButton(needsBadge: config.needsBadge, needsBadgeLabel: CommonStrings.profileButtonBadgeTitle, noBadgeLabel: CommonStrings.profileButtonTitle)
     }
 }

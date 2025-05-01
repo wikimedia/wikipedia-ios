@@ -253,11 +253,11 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
     }
 
     private var profileButtonConfig: WMFNavigationBarProfileButtonConfig {
-        return self.profileButtonConfig(target: self, action: #selector(didTapProfileButton), dataStore: dataStore, yirDataController: yirDataController, leadingBarButtonItem: filterButtonItem, trailingBarButtonItem: nil)
+        return self.profileButtonConfig(target: self, action: #selector(didTapProfileButton), dataStore: dataStore, yirDataController: yirDataController, trailingBarButtonItem: nil)
     }
     
     private var tabsButtonConfig: WMFNavigationBarTabsButtonConfig {
-        return self.tabsButtonConfig(target: self, action: #selector(userDidTapTabs), dataStore: dataStore)
+        return self.tabsButtonConfig(target: self, action: #selector(userDidTapTabs), dataStore: dataStore, leadingBarButtonItem: filterButtonItem)
     }
     
     @objc func userDidTapTabs() {
@@ -454,7 +454,7 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
     }
 
     private func updateProfileButton() {
-        let profileButtonConfig = self.profileButtonConfig(target: self, action: #selector(didTapProfileButton), dataStore: dataStore, yirDataController: yirDataController, leadingBarButtonItem: filterButtonItem, trailingBarButtonItem: nil)
+        let profileButtonConfig = self.profileButtonConfig(target: self, action: #selector(didTapProfileButton), dataStore: dataStore, yirDataController: yirDataController,  trailingBarButtonItem: nil)
         updateNavigationBarProfileButton(needsBadge: profileButtonConfig.needsBadge, needsBadgeLabel: CommonStrings.profileButtonBadgeTitle, noBadgeLabel: CommonStrings.profileButtonTitle)
     }
 
@@ -2339,6 +2339,7 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
             return
         }
         view.backgroundColor = theme.colors.baseBackground
+        themeTabsButton()
 
         if let searchBar = navigationItem.searchController?.searchBar {
             searchBar.apply(theme: theme)
