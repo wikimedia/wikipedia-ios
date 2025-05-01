@@ -926,7 +926,6 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
             return
         }
         
-        themeTabsButton()
         view.backgroundColor = theme.colors.paperBackground
         webView.scrollView.indicatorStyle = theme.scrollIndicatorStyle
         toolbarController.apply(theme: theme)

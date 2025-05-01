@@ -19,7 +19,6 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
         profileCoordinator?.theme = theme
         
         updateProfileButton()
-        themeTabsButton()
     }
     
     public let viewModel: WMFActivityViewModel

@@ -693,7 +693,6 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
 
         self.theme = theme
         tabBarSnapshotImage = nil
-        themeTabsButton()
 
         collectionView.backgroundColor = .clear
         view.backgroundColor = theme.colors.paperBackground

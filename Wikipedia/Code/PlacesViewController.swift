@@ -2339,7 +2339,6 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
             return
         }
         view.backgroundColor = theme.colors.baseBackground
-        themeTabsButton()
 
         if let searchBar = navigationItem.searchController?.searchBar {
             searchBar.apply(theme: theme)

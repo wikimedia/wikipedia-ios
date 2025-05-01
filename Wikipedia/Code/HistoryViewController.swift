@@ -291,8 +291,7 @@ class HistoryViewController: ArticleFetchedResultsViewController, WMFNavigationB
         
         updateProfileButton()
         profileCoordinator?.theme = theme
-        themeTabsButton()
-        
+
         themeTopSafeAreaOverlay()
     }
 }

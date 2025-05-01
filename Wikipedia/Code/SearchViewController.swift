@@ -501,7 +501,7 @@ class SearchViewController: ArticleCollectionViewController, WMFNavigationBarCon
         guard viewIfLoaded != nil else {
             return
         }
-        themeTabsButton()
+
         searchLanguageBarViewController?.apply(theme: theme)
         resultsViewController.apply(theme: theme)
         view.backgroundColor = theme.colors.paperBackground

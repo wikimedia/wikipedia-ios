@@ -115,10 +115,6 @@ public extension WMFNavigationBarConfiguring where Self: UIViewController {
         "profile-button"
     }
     
-    private var tabsButtonAccessibilityID: String {
-        "tabs-button"
-    }
-    
     /// Shared method to apply navigation bar styling on an individual view controller basis. Call within viewWillAppear. For common UINavigationBar styling that should be shared across the app, update WMFComponentNavigationController.
     /// - Parameters:
     ///   - titleConfig: Config for title setup
@@ -205,11 +201,10 @@ public extension WMFNavigationBarConfiguring where Self: UIViewController {
         if let dataController = try? WMFArticleTabsDataController(),
            let tabsButtonConfig, dataController.shouldShowArticleTabs {
 
-            let image = WMFSFSymbolIcon.for(symbol: .tabsIcon, paletteColors: [WMFAppEnvironment.current.theme.navigationBarTintColor])
+            let image = WMFSFSymbolIcon.for(symbol: .tabsIcon)
             let tabsButton = UIBarButtonItem(image: image, style: .plain, target: tabsButtonConfig.target, action: tabsButtonConfig.action)
             
             rightBarButtonItems.append(tabsButton)
-            tabsButton.accessibilityIdentifier = tabsButtonAccessibilityID
 
             if let leadingBarButtonItem = tabsButtonConfig.leadingBarButtonItem {
                 rightBarButtonItems.append(leadingBarButtonItem)
@@ -274,11 +269,6 @@ public extension WMFNavigationBarConfiguring where Self: UIViewController {
         }
         
         componentNavVC.setBarAppearance(customLargeTitleFont: customLargeTitleFont)
-    }
-    
-    func themeTabsButton() {
-        guard let button = navigationItem.rightBarButtonItems?.filter({ $0.accessibilityIdentifier == tabsButtonAccessibilityID }).first else { return }
-            button.tintColor = WMFAppEnvironment.current.theme.navigationBarTintColor
     }
     
     /// Call on viewWillDisappear(), IF navigation bar large title was set with a custom font.

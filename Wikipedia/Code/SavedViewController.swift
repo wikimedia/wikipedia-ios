@@ -368,8 +368,7 @@ class SavedViewController: ThemeableViewController, WMFNavigationBarConfiguring,
         
         themeNavigationBarLeadingTitleView()
         themeTopSafeAreaOverlay()
-        themeTabsButton()
-        
+
         if let rightBarButtonItems = navigationItem.rightBarButtonItems {
             for barButtonItem in rightBarButtonItems {
                 barButtonItem.tintColor = theme.colors.link
