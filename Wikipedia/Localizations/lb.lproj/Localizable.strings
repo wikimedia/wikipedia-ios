@@ -82,6 +82,8 @@
 "activity-tab-unsatisfied" = "Onzefridden";
 "activity-tab-very-satisfied" = "Ganz zefridden";
 "activity-tab-very-unsatisfied" = "Ganz onzefridden";
+// Fuzzy
+"activity-tab-view-editing-history" = "Geännert Artikele weisen";
 "activity-tab-view-saved-articles" = "Gespäichert Artikele weisen";
 "activity-tab-you-edited" = "Dir hutt dës Woch {{PLURAL:$1|$1 Ännerung|$1 Ännerunge}} gemaach.";
 "activity-tab-you-read" = "Dir hutt dës Woch {{PLURAL:$1|$1 Artikel|$1 Artikele}} gelies.";

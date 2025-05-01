@@ -102,7 +102,7 @@
 "activity-tab-logged-out-subtitle" = "Відстежуйте те, що ви читали, і переглядайте свій тривалий внесок по-новому";
 "activity-tab-logged-out-title" = "Увійдіть або створіть обліковий запис, щоб бачити більше редагування та читання.";
 "activity-tab-neutral" = "Нейтрально";
-"activity-tab-no-edits-subtitle" = "Почніть редагувати, щоб почати відстежувати свій внесок.";
+// Fuzzy
 "activity-tab-no-edits-title" = "Ви ще не зробили жодних редагувань.";
 "activity-tab-satisfied" = "Задоволений/а";
 "activity-tab-start-editing" = "Почати редагування";
