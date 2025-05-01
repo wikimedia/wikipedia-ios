@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="23605" systemVersion="24D81" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="CDArticleTab" representedClassName="CDArticleTab" syncable="YES" codeGenerationType="class">
+        <attribute name="isCurrent" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
+        <attribute name="timestamp" attributeType="Date" usesScalarValueType="NO"/>
+        <relationship name="pages" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="CDPage" inverseName="tabs" inverseEntity="CDPage"/>
+    </entity>
     <entity name="CDCategory" representedClassName="CDCategory" syncable="YES" codeGenerationType="class">
         <attribute name="projectID" attributeType="String"/>
         <attribute name="title" attributeType="String"/>
@@ -12,6 +17,7 @@
         <attribute name="title" attributeType="String"/>
         <relationship name="categories" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="CDCategory" inverseName="pages" inverseEntity="CDCategory"/>
         <relationship name="pageViews" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="CDPageView" inverseName="page" inverseEntity="CDPageView"/>
+        <relationship name="tabs" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="CDArticleTab" inverseName="pages" inverseEntity="CDArticleTab"/>
         <fetchIndex name="byProjectNamespace">
             <fetchIndexElement property="projectID" type="Binary" order="ascending"/>
             <fetchIndexElement property="namespaceID" type="Binary" order="ascending"/>
