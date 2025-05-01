@@ -104,7 +104,7 @@
 "activity-tab-logged-out-subtitle" = "Spåra vad du läst och visa dina bidrag över tid på ett nytt sätt";
 "activity-tab-logged-out-title" = "Logga in eller skapa ett konto för att se mer redigerings- och läsaktivitet.";
 "activity-tab-neutral" = "Neutral";
-"activity-tab-no-edits-subtitle" = "Börja redigera för att börja spåra dina bidrag.";
+// Fuzzy
 "activity-tab-no-edits-title" = "Du har inte gjort några ändringar än.";
 "activity-tab-satisfied" = "Nöjd";
 "activity-tab-start-editing" = "Börja redigera";

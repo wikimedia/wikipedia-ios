@@ -122,7 +122,9 @@
 "action-unsave" = "Annulla salvataggio";
 "action-unsaved-accessibility-notification" = "Voce non salvata";
 "action-update" = "Aggiorna";
-"activity-tab-no-edits-title" = "Non hai fatto alcuna modifica ancora.";
+"activity-tab-generic-no-edits" = "Non hai fatto alcuna modifica questa settimana. Inizia subito a monitorare i tuoi contributi.";
+"activity-tab-no-edits-title" = "Non hai fatto alcuna modifica questa settimana. Aggiungi immagini per migliorare la comprensione della voce.";
+"activity-tab-read-title" = "Vedi cronologia delle letture";
 "activity-tab-title" = "Attività";
 "add-articles-to-reading-list" = "Aggiungi $1 {{PLURAL:$1|voce|voci}} all'elenco di lettura";
 "advanced-settings-title" = "Impostazioni avanzate";
