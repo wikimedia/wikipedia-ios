@@ -203,7 +203,7 @@ public extension WMFNavigationBarConfiguring where Self: UIViewController {
             }
         }
         
-        if let dataController = try? ArticleTabsDataController() {
+        if let dataController = try? WMFArticleTabsDataController() {
             if let tabsButtonConfig, dataController.shouldShowArticleTabs {
                 let image = WMFSFSymbolIcon.for(symbol: .tabsIcon, paletteColors: [WMFAppEnvironment.current.theme.navigationBarTintColor])
                 let tabsButton = UIBarButtonItem(image: image, style: .plain, target: tabsButtonConfig.target, action: tabsButtonConfig.action)

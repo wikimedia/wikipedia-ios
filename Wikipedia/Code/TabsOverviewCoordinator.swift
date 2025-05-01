@@ -19,7 +19,7 @@ final class TabsOverviewCoordinator: Coordinator {
     }
     
     func shouldShowEntryPoint() -> Bool {
-        guard let dataController = try? ArticleTabsDataController() else {
+        guard let dataController = try? WMFArticleTabsDataController() else {
             return false
         }
         return dataController.shouldShowArticleTabs

@@ -1,15 +1,8 @@
-//
-//  ArticleTabsDataController.swift
-//  WMFData
-//
-//  Created by Grey Olson on 4/30/25.
-//
-
 import Foundation
 import UIKit
 import CoreData
 
-@objc public class ArticleTabsDataController: NSObject {
+public class WMFArticleTabsDataController {
     
     public let coreDataStore: WMFCoreDataStore
     private let userDefaultsStore: WMFKeyValueStore?
@@ -27,9 +20,9 @@ import CoreData
     
     // MARK: Entry point
 
-    @objc public var shouldShowArticleTabs: Bool {
+   public var shouldShowArticleTabs: Bool {
         get {
-            return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsArticleTab.rawValue)) ?? true
+            return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsArticleTab.rawValue)) ?? false
         } set {
             try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsArticleTab.rawValue, value: newValue)
         }
