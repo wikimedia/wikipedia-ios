@@ -18,6 +18,11 @@ public class WMFArticleTabsDataController {
     public struct WMFArticle {
         let title: String
         let project: WMFProject
+        
+        public init(title: String, project: WMFProject) {
+            self.title = title
+            self.project = project
+        }
     }
     
     public struct WMFArticleTab {
@@ -135,30 +140,29 @@ public class WMFArticleTabsDataController {
         }
     }
     
-    public func appendArticle(_ article: WMFArticle, toTabIdentifier identifier: UUID) async throws {
-        
+    public func appendArticle(_ article: WMFArticle, toTabIdentifier identifier: UUID? = nil) async throws {
         let backgroundContext = try coreDataStore.newBackgroundContext
-        
         try await backgroundContext.perform { [weak self] in
-            
             guard let self else { throw CustomError.missingSelf }
-            
-            let tabPredicate = NSPredicate(format: "identifier == %@", argumentArray: [identifier])
-            
-            guard let tab = try self.coreDataStore.fetch(entityType: CDArticleTab.self, predicate: tabPredicate, fetchLimit: 1, in: backgroundContext)?.first else {
+            let tab: CDArticleTab?
+            if let identifier = identifier {
+                let tabPredicate = NSPredicate(format: "identifier == %@", argumentArray: [identifier])
+                tab = try self.coreDataStore.fetch(entityType: CDArticleTab.self, predicate: tabPredicate, fetchLimit: 1, in: backgroundContext)?.first
+            } else {
+                let currentPredicate = NSPredicate(format: "isCurrent == YES")
+                tab = try self.coreDataStore.fetch(entityType: CDArticleTab.self, predicate: currentPredicate, fetchLimit: 1, in: backgroundContext)?.first
+            }
+            guard let tab else {
                 throw CustomError.missingTab
             }
-            
             let page = try pageForArticle(article, moc: backgroundContext)
-            
             let articleTabItem = try newArticleTabItem(page: page, moc: backgroundContext)
-            
+            articleTabItem.tab = tab
             if let currentItems = tab.items as? NSMutableOrderedSet {
                 currentItems.add(articleTabItem)
             } else {
                 tab.items = NSOrderedSet(array: [articleTabItem])
             }
-            
             try coreDataStore.saveIfNeeded(moc: backgroundContext)
         }
     }
