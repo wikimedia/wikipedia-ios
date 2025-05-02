@@ -273,4 +273,12 @@ public class WMFArticleTabsDataController {
         newArticleTabItem.page = page
         return newArticleTabItem
     }
+    
+    public func currentTabIdentifier() async throws -> UUID? {
+        let backgroundContext = try coreDataStore.newBackgroundContext
+        return try await backgroundContext.perform {
+            let predicate = NSPredicate(format: "isCurrent == YES")
+            return try self.coreDataStore.fetch(entityType: CDArticleTab.self, predicate: predicate, fetchLimit: 1, in: backgroundContext)?.first?.identifier
+        }
+    }
 }
