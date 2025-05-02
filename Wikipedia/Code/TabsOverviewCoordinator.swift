@@ -9,6 +9,7 @@ final class TabsOverviewCoordinator: Coordinator {
     var theme: Theme
     let dataStore: MWKDataStore
     
+    @discardableResult
     func start() -> Bool {
         if shouldShowEntryPoint() {
             presentTabs()
@@ -32,34 +33,31 @@ final class TabsOverviewCoordinator: Coordinator {
     }
     
     private func presentTabs() {
-        let blankViewController = UIViewController()
-        blankViewController.view.backgroundColor = .white
-        blankViewController.modalPresentationStyle = .overFullScreen
-
-        let titleLabel = UILabel()
-        titleLabel.text = "Tabs"
-        titleLabel.font = UIFont.systemFont(ofSize: 24, weight: .bold)
-        titleLabel.textAlignment = .center
-        titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        blankViewController.view.addSubview(titleLabel)
-
-        let closeButton = UIButton(type: .system)
-        closeButton.setTitle("Close", for: .normal)
-        closeButton.addTarget(blankViewController, action: #selector(UIViewController.dismissSelf), for: .touchUpInside)
-        closeButton.translatesAutoresizingMaskIntoConstraints = false
-        blankViewController.view.addSubview(closeButton)
-
-        NSLayoutConstraint.activate([
-            titleLabel.topAnchor.constraint(equalTo: blankViewController.view.safeAreaLayoutGuide.topAnchor, constant: 16),
-            titleLabel.centerXAnchor.constraint(equalTo: blankViewController.view.centerXAnchor),
-
-            closeButton.topAnchor.constraint(equalTo: blankViewController.view.safeAreaLayoutGuide.topAnchor, constant: 16),
-            closeButton.trailingAnchor.constraint(equalTo: blankViewController.view.trailingAnchor, constant: -16)
-        ])
-
-        navigationController.present(blankViewController, animated: true, completion: nil)
+        // Dummy tabs
+        let tabs: [ArticleTab] = [
+            ArticleTab(
+                image: URL(string: "https://upload.wikimedia.org/wikipedia/commons/e/e6/Policja_konna_Pozna%C5%84.jpg"),
+                title: "Horse",
+                subtitle: "Neigh neigh",
+                description: nil),
+            ArticleTab(
+                image: URL(string: "https://upload.wikimedia.org/wikipedia/commons/b/b6/Felis_catus-cat_on_snow.jpg"),
+                title: "Cat",
+                subtitle: "This article is all about cats and how cool they are. They often have several legs, and a nose. It's very impressive. They can jump, and some of them got long tails.",
+                description: "Longer description, we will talk about cats. Here is information about cats. Lorem ipsum could be a cat name. I should start writing articles professionally, I am truly outstanding at this. I know everything about cats."),
+            ArticleTab(
+                image: URL(string: "https://upload.wikimedia.org/wikipedia/commons/9/9c/Meriones_unguiculatus_%28wild%29.jpg"),
+                title: "Mongolian Gerbil",
+                subtitle: nil,
+                description: nil)
+        ]
+        let articleTabsViewModel = WMFArticleTabsViewModel(articleTabs: tabs)
+        let articleTabsView = WMFArticleTabsView(viewModel: articleTabsViewModel)
+        
+        let hostingController = WMFArticleTabsHostingController(rootView: articleTabsView, viewModel: articleTabsViewModel)
+        let navVC = WMFComponentNavigationController(rootViewController: hostingController, modalPresentationStyle: .fullScreen)
+        navigationController.present(navVC, animated: true, completion: nil)
     }
-
 }
 
 extension UIViewController {
