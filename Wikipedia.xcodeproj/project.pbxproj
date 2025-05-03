@@ -1334,6 +1334,9 @@
 		8341A349299D7D5900016535 /* UserHistorySnapshotCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8341A346299D7D5900016535 /* UserHistorySnapshotCache.swift */; };
 		834400B020B3368A005F087D /* NSCharacterSet+WMFExtras.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8048C1C0CE0B40065EBC0 /* NSCharacterSet+WMFExtras.m */; };
 		834400B120B3368E005F087D /* NSCharacterSet+WMFExtras.h in Headers */ = {isa = PBXBuildFile; fileRef = B0E8048B1C0CE0B40065EBC0 /* NSCharacterSet+WMFExtras.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		83446DAD2DC63F4200953ACE /* CommonsUploadCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83446DAC2DC63F3900953ACE /* CommonsUploadCoordinator.swift */; };
+		83446DAE2DC63F4200953ACE /* CommonsUploadCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83446DAC2DC63F3900953ACE /* CommonsUploadCoordinator.swift */; };
+		83446DAF2DC63F4200953ACE /* CommonsUploadCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83446DAC2DC63F3900953ACE /* CommonsUploadCoordinator.swift */; };
 		834C269E240D49F400245BE7 /* ReferenceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834C269D240D49F400245BE7 /* ReferenceViewController.swift */; };
 		834C269F240D49F400245BE7 /* ReferenceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834C269D240D49F400245BE7 /* ReferenceViewController.swift */; };
 		834C26A0240D49F400245BE7 /* ReferenceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834C269D240D49F400245BE7 /* ReferenceViewController.swift */; };
@@ -3632,6 +3635,7 @@
 		8338AF8C21F7B33E000C4055 /* WMFLegacyFetcher.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WMFLegacyFetcher.m; sourceTree = "<group>"; };
 		8341A344299ACD8C00016535 /* MEPEventProviding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MEPEventProviding.swift; sourceTree = "<group>"; };
 		8341A346299D7D5900016535 /* UserHistorySnapshotCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserHistorySnapshotCache.swift; sourceTree = "<group>"; };
+		83446DAC2DC63F3900953ACE /* CommonsUploadCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonsUploadCoordinator.swift; sourceTree = "<group>"; };
 		834C269B24042DBF00245BE7 /* hr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = hr; path = hr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		834C269C24042DCF00245BE7 /* hr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = hr; path = hr.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 		834C269D240D49F400245BE7 /* ReferenceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReferenceViewController.swift; sourceTree = "<group>"; };
@@ -6781,6 +6785,7 @@
 		83796B012C9C6F6000E55C69 /* Coordinators */ = {
 			isa = PBXGroup;
 			children = (
+				83446DAC2DC63F3900953ACE /* CommonsUploadCoordinator.swift */,
 				370107A92D5EEBF600E17486 /* TempAccountSheetCoordinator.swift */,
 				675826732D68CEB8002B0EE7 /* ArticleCoordinator.swift */,
 				675826812D69394E002B0EE7 /* RandomArticleCoordinator.swift */,
@@ -10029,6 +10034,7 @@
 				00FCCBC5290082C200C9ECD2 /* TalkPageFindInPageState.swift in Sources */,
 				B00DDEDB1DB4B76B00615FA2 /* UIView+WMFSubviews.swift in Sources */,
 				67033E142A61B24800896852 /* WatchlistController.swift in Sources */,
+				83446DAE2DC63F4200953ACE /* CommonsUploadCoordinator.swift in Sources */,
 				67AA15592DB6F60400D7C08F /* ArticleViewController+Categories.swift in Sources */,
 				830ECACF1FBDD8C00080B1EF /* ReadingListsViewController.swift in Sources */,
 				83ACF8E528E504CF000F3B6F /* SharedContainerCacheHousekeeping.swift in Sources */,
@@ -11116,6 +11122,7 @@
 				B0524B2A214854E900D8FD8D /* DescriptionWelcomePanelViewController.swift in Sources */,
 				7ABE17362239DCF6006BA309 /* WelcomeAnimationViewController.swift in Sources */,
 				D8A47C9023D7338C002AA823 /* ArticleViewController+TableOfContents.swift in Sources */,
+				83446DAF2DC63F4200953ACE /* CommonsUploadCoordinator.swift in Sources */,
 				00D46DAC2889B9250015DE9B /* TalkPageCell.swift in Sources */,
 				83B01F8223DB1235001185F4 /* WikitextFetcher.swift in Sources */,
 				67DC5BE423A017CA00B03A84 /* ArticleViewController.swift in Sources */,
@@ -11670,6 +11677,7 @@
 				D8EC3E701E9BDA35006712EB /* MWKLanguageLinkFetcher.m in Sources */,
 				D8EC3E741E9BDA35006712EB /* WMFImageTextActivitySource.swift in Sources */,
 				7ABE17372239DCF6006BA309 /* WelcomeAnimationViewController.swift in Sources */,
+				83446DAD2DC63F4200953ACE /* CommonsUploadCoordinator.swift in Sources */,
 				D8A47C9123D7338C002AA823 /* ArticleViewController+TableOfContents.swift in Sources */,
 				00D46DAB2889B9250015DE9B /* TalkPageCell.swift in Sources */,
 				83B01F8323DB1235001185F4 /* WikitextFetcher.swift in Sources */,
