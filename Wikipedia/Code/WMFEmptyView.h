@@ -23,7 +23,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (instancetype)noReadingListsEmptyViewWithTarget:(nullable id)target action:(nullable SEL)action;
 + (instancetype)noHistoryEmptyView;
 + (instancetype)noInternetConnectionEmptyView;
-+ (instancetype)noSelectedImageToInsertEmptyView;
++ (instancetype)noSelectedImageToInsertEmptyViewWithTarget:(nullable id)target action:(nullable SEL)action;
 + (instancetype)unableToLoadTalkPageEmptyView;
 + (instancetype)emptyTalkPageEmptyView;
 + (instancetype)emptyDiffCompareEmptyView;

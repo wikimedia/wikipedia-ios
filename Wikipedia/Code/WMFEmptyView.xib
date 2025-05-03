@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
-    <device id="retina4_0" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="23504" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_0" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23506"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -38,7 +36,7 @@
                                 </label>
                             </subviews>
                         </stackView>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2fN-ym-x7F" customClass="WMFAlignedImageButton">
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2fN-ym-x7F" customClass="WMFAlignedImageButton">
                             <rect key="frame" x="97" y="201.5" width="46" height="30"/>
                             <state key="normal" title="Button"/>
                         </button>
@@ -57,13 +55,20 @@
                         <constraint firstAttribute="height" priority="750" constant="32" id="uN8-E7-U4n"/>
                     </constraints>
                 </view>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="56g-GI-zql" userLabel="Commons Button" customClass="WMFAlignedImageButton">
+                    <rect key="frame" x="82" y="267.5" width="156" height="34.5"/>
+                    <state key="normal" title="Button"/>
+                    <buttonConfiguration key="configuration" style="plain" title="Commons button"/>
+                </button>
             </subviews>
             <color key="backgroundColor" red="0.95552396774291992" green="0.9557076096534729" blue="0.95549333095550537" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="jDP-Yy-8ig" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="40" id="DcK-0X-vHF"/>
+                <constraint firstItem="56g-GI-zql" firstAttribute="top" secondItem="Vjd-6b-y2g" secondAttribute="bottom" constant="34" id="I60-YA-7hQ"/>
                 <constraint firstAttribute="trailing" secondItem="jDP-Yy-8ig" secondAttribute="trailing" constant="40" id="Wf3-5u-s8Y"/>
                 <constraint firstItem="dxl-iz-vGe" firstAttribute="top" relation="greaterThanOrEqual" secondItem="jDP-Yy-8ig" secondAttribute="bottom" constant="8" id="ccf-Hq-J9y"/>
                 <constraint firstItem="MLg-bD-50n" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="fX8-T8-LOw"/>
+                <constraint firstItem="56g-GI-zql" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="g2S-i6-pKU"/>
                 <constraint firstItem="jDP-Yy-8ig" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="gCe-wk-k9G"/>
                 <constraint firstItem="MLg-bD-50n" firstAttribute="top" secondItem="dxl-iz-vGe" secondAttribute="bottom" constant="12" id="m8k-nW-vr4"/>
                 <constraint firstItem="dxl-iz-vGe" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="40" id="okl-UE-KmW"/>
@@ -75,12 +80,14 @@
                 <outlet property="actionLabel" destination="dxl-iz-vGe" id="V1V-Hc-WtK"/>
                 <outlet property="actionLine" destination="MLg-bD-50n" id="FFR-Ik-na4"/>
                 <outlet property="button" destination="2fN-ym-x7F" id="eR0-kT-Bvh"/>
+                <outlet property="commonsButton" destination="56g-GI-zql" id="l0e-GW-oRE"/>
                 <outlet property="imageView" destination="Vjd-6b-y2g" id="al8-us-BnB"/>
                 <outlet property="labelStackView" destination="e0A-Uz-XiC" id="PUk-u8-2WA"/>
                 <outlet property="messageLabel" destination="yEx-fr-wkW" id="IPQ-i5-hJc"/>
                 <outlet property="stackView" destination="jDP-Yy-8ig" id="vXV-N0-78J"/>
                 <outlet property="titleLabel" destination="bja-IW-pcW" id="Coj-AI-nQ0"/>
             </connections>
+            <point key="canvasLocation" x="19" y="-18"/>
         </view>
     </objects>
     <resources>

@@ -42,7 +42,7 @@ static const char *const WMFEmptyViewKey = "WMFEmptyView";
             view = [WMFEmptyView noInternetConnectionEmptyView];
             break;
         case WMFEmptyViewTypeNoSelectedImageToInsert:
-            view = [WMFEmptyView noSelectedImageToInsertEmptyView];
+            view = [WMFEmptyView noSelectedImageToInsertEmptyViewWithTarget:target action:action];
             break;
         case WMFEmptyViewTypeUnableToLoadTalkPage:
             view = [WMFEmptyView unableToLoadTalkPageEmptyView];

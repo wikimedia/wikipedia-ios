@@ -132,5 +132,7 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<true/>
+	<key>NSCameraUsageDescription</key>
+	<string>We need camera access so you can take a photo to upload to Commons</string>
 </dict>
 </plist>

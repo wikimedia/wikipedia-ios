@@ -12,6 +12,8 @@
 @property (strong, nonatomic) IBOutlet UILabel *actionLabel;
 @property (strong, nonatomic) IBOutlet UIView *actionLine;
 @property (strong, nonatomic) IBOutlet WMFAlignedImageButton *button;
+@property (strong, nonatomic) IBOutlet WMFAlignedImageButton *commonsButton;
+
 @property (strong, nonatomic) CAShapeLayer *actionLineLayer;
 @property (nonatomic, strong) WMFTheme *theme;
 @property (nonatomic, strong) NSString *backgroundColorKeyPath;
@@ -60,6 +62,7 @@
     [view.actionLabel removeFromSuperview];
     [view.actionLine removeFromSuperview];
     [view.button removeFromSuperview];
+    [view.commonsButton removeFromSuperview];
     return view;
 }
 
@@ -70,6 +73,7 @@
     view.messageLabel.text = WMFLocalizedStringWithDefaultValue(@"empty-no-feed-message", nil, nil, @"You can see your recommended articles when you have internet", @"Body of messsage shown in place of content when no feed could be loaded. Tells users they can see the articles when the interent is restored");
     view.actionLabel.text = WMFLocalizedStringWithDefaultValue(@"empty-no-feed-action-message", nil, nil, @"You can still read saved pages", @"Footer messsage shown in place of content when no feed could be loaded. Tells users they can read saved pages offline");
     [view.button removeFromSuperview];
+    [view.commonsButton removeFromSuperview];
     return view;
 }
 
@@ -78,6 +82,7 @@
     view.imageView.image = [UIImage imageNamed:@"no-article"];
     view.messageLabel.text = WMFLocalizedStringWithDefaultValue(@"empty-no-article-message", nil, nil, @"Sorry, could not load the article", @"Shown when an article cant be loaded in place of an article");
 
+    [view.commonsButton removeFromSuperview];
     [view.titleLabel removeFromSuperview];
     [view.actionLabel removeFromSuperview];
     [view.actionLine removeFromSuperview];
@@ -89,6 +94,7 @@
     WMFEmptyView *view = [[self class] emptyView];
     view.messageLabel.text = WMFLocalizedStringWithDefaultValue(@"empty-no-search-results-message", nil, nil, @"No results found", @"Shown when there are no search results");
 
+    [view.commonsButton removeFromSuperview];
     [view.imageView removeFromSuperview];
     [view.titleLabel removeFromSuperview];
     [view.actionLabel removeFromSuperview];
@@ -103,6 +109,7 @@
     view.titleLabel.text = WMFLocalizedStringWithDefaultValue(@"empty-no-saved-pages-title", nil, nil, @"No saved pages yet", @"Title of a blank screen shown when a user has no saved pages");
     view.messageLabel.text = WMFLocalizedStringWithDefaultValue(@"empty-no-saved-pages-message", nil, nil, @"Save pages to view them later, even offline", @"Message of a blank screen shown when a user has no saved pages");
 
+    [view.commonsButton removeFromSuperview];
     [view.actionLabel removeFromSuperview];
     [view.actionLine removeFromSuperview];
     [view.button removeFromSuperview];
@@ -114,6 +121,7 @@
     view.imageView.image = [UIImage imageNamed:@"no-internet-blank"];
     view.titleLabel.text = [WMFCommonStrings noInternetConnection];
 
+    [view.commonsButton removeFromSuperview];
     [view.messageLabel removeFromSuperview];
     [view.actionLabel removeFromSuperview];
     [view.actionLine removeFromSuperview];
@@ -127,6 +135,7 @@
     view.titleLabel.text = WMFLocalizedStringWithDefaultValue(@"empty-no-saved-pages-in-reading-list-title", nil, nil, @"No pages saved to this list", @"Title of a blank screen shown when a user has no saved pages in a reading list");
     view.messageLabel.text = WMFLocalizedStringWithDefaultValue(@"empty-no-saved-pages-in-reading-list-message", nil, nil, @"Save pages to this list to see them appear here", @"Message of a blank screen shown when a user has no saved pages in a reading list");
 
+    [view.commonsButton removeFromSuperview];
     [view.actionLabel removeFromSuperview];
     [view.actionLine removeFromSuperview];
     [view.button removeFromSuperview];
@@ -139,6 +148,7 @@
     view.titleLabel.text = WMFLocalizedStringWithDefaultValue(@"empty-no-reading-lists-title", nil, nil, @"Organize saved articles with reading lists", @"Title of a blank screen shown when a user has no reading lists");
     view.messageLabel.text = WMFLocalizedStringWithDefaultValue(@"empty-no-reading-lists-message", nil, nil, @"Create lists for places to travel to, favorite topics and much more", @"Message of a blank screen shown when a user has no reading lists");
 
+    [view.commonsButton removeFromSuperview];
     [view.actionLabel removeFromSuperview];
     [view.actionLine removeFromSuperview];
     [view configureButtonWithTitle:[WMFCommonStrings createNewListTitle] image:[UIImage imageNamed:@"plus"] target:target action:action];
@@ -151,19 +161,23 @@
     view.titleLabel.text = WMFLocalizedStringWithDefaultValue(@"empty-no-history-title", nil, nil, @"No history to show", @"Title of a blank screen shown when a user has no history");
     view.messageLabel.text = WMFLocalizedStringWithDefaultValue(@"empty-no-history-message", nil, nil, @"Keep track of what you've been reading here", @"Message of a blank screen shown when a user has no history");
 
+    [view.commonsButton removeFromSuperview];
     [view.actionLabel removeFromSuperview];
     [view.actionLine removeFromSuperview];
     [view.button removeFromSuperview];
     return view;
 }
 
-+ (instancetype)noSelectedImageToInsertEmptyView {
++ (instancetype)noSelectedImageToInsertEmptyViewWithTarget:(nullable id)target action:(nullable SEL)action {
     WMFEmptyView *view = [[self class] emptyView];
     view.imageView.image = [UIImage imageNamed:@"insert-media/blank"];
     view.titleLabel.text = WMFLocalizedStringWithDefaultValue(@"empty-insert-media-title", nil, nil, @"Select a file from Wikimedia Commons", @"Text for placeholder label visible when no file was selected or uploaded");
     view.titleLabelTextColorKeyPath = @"colors.secondaryText";
     view.backgroundColorKeyPath = @"colors.baseBackground";
 
+    [view configureCommonsButtonWithTitle:@"Take or upload photo" image:[UIImage systemImageNamed:@"camera.fill"] target:target action:action];
+
+    [view.titleLabel removeFromSuperview];
     [view.messageLabel removeFromSuperview];
     [view.actionLabel removeFromSuperview];
     [view.actionLine removeFromSuperview];
@@ -177,6 +191,7 @@
     view.titleLabel.text = WMFLocalizedStringWithDefaultValue(@"unable-to-load-talk-page-title", nil, nil, @"Unable to load talk page", @"Text for placeholder label visible when talk page can't be loaded");
     view.backgroundColorKeyPath = @"colors.midBackground";
 
+    [view.commonsButton removeFromSuperview];
     [view.messageLabel removeFromSuperview];
     [view.actionLabel removeFromSuperview];
     [view.actionLine removeFromSuperview];
@@ -190,6 +205,7 @@
     view.titleLabel.text = WMFLocalizedStringWithDefaultValue(@"empty-talk-page-title", nil, nil, @"No messages have been posted for this user yet", @"Text for placeholder label visible when talk page is empty");
     view.backgroundColorKeyPath = @"colors.midBackground";
 
+    [view.commonsButton removeFromSuperview];
     [view.messageLabel removeFromSuperview];
     [view.actionLabel removeFromSuperview];
     [view.actionLine removeFromSuperview];
@@ -203,6 +219,7 @@
     view.titleLabel.text = WMFLocalizedStringWithDefaultValue(@"empty-diff-compare-title", nil, nil, @"No differences between revisions", @"Text for placeholder label visible when diff comparision between revisions is empty.");
     view.backgroundColorKeyPath = @"colors.midBackground";
 
+    [view.commonsButton removeFromSuperview];
     [view.messageLabel removeFromSuperview];
     [view.actionLabel removeFromSuperview];
     [view.actionLine removeFromSuperview];
@@ -216,6 +233,7 @@
     view.titleLabel.text = WMFLocalizedStringWithDefaultValue(@"empty-diff-single-title", nil, nil, @"No viewable changes made", @"Text for placeholder label visible when diff returned for single revision is empty.");
     view.backgroundColorKeyPath = @"colors.midBackground";
 
+    [view.commonsButton removeFromSuperview];
     [view.messageLabel removeFromSuperview];
     [view.actionLabel removeFromSuperview];
     [view.actionLine removeFromSuperview];
@@ -229,6 +247,7 @@
     view.titleLabel.text = [WMFCommonStrings diffErrorTitle];
     view.backgroundColorKeyPath = @"colors.midBackground";
 
+    [view.commonsButton removeFromSuperview];
     [view.messageLabel removeFromSuperview];
     [view.actionLabel removeFromSuperview];
     [view.actionLine removeFromSuperview];
@@ -242,6 +261,7 @@
     view.titleLabel.text = [WMFCommonStrings diffErrorTitle];
     view.backgroundColorKeyPath = @"colors.midBackground";
 
+    [view.commonsButton removeFromSuperview];
     [view.messageLabel removeFromSuperview];
     [view.actionLabel removeFromSuperview];
     [view.actionLine removeFromSuperview];
@@ -256,7 +276,8 @@
     view.titleLabel.text = WMFLocalizedStringWithDefaultValue(@"empty-no-other-article-languages-title", nil, nil, @"No other languages available", @"Title text shown in place of languages list when when no alternative article languages exist.");
     view.messageLabel.text = WMFLocalizedStringWithDefaultValue(@"empty-no-other-article-languages-message", nil, nil, @"This article has not yet been written in any other languages", @"Message text shown in place of languages list when when no alternative article languages exist.");
     view.backgroundColorKeyPath = @"colors.baseBackground";
-    
+
+    [view.commonsButton removeFromSuperview];
     [view.actionLabel removeFromSuperview];
     [view.actionLine removeFromSuperview];
     [view.button removeFromSuperview];
@@ -274,6 +295,19 @@
     self.button.layer.cornerRadius = 5;
     self.button.clipsToBounds = YES;
     [self.button addTarget:target action:action forControlEvents:UIControlEventTouchUpInside];
+}
+
+- (void)configureCommonsButtonWithTitle:(NSString *)title image:(UIImage *)image target:(nullable id)target action:(nullable SEL)action {
+    [self.commonsButton setTitle:title forState:UIControlStateNormal];
+    [self.commonsButton setImage:image forState:UIControlStateNormal];
+    [self.commonsButton setHorizontalSpacing:7];
+    CGFloat padding = 13;
+    [self.commonsButton setVerticalPadding:padding];
+    self.commonsButton.leftPadding = padding;
+    self.commonsButton.rightPadding = padding;
+    self.commonsButton.layer.cornerRadius = 5;
+    self.commonsButton.clipsToBounds = YES;
+    [self.commonsButton addTarget:target action:action forControlEvents:UIControlEventTouchUpInside];
 }
 
 - (void)traitCollectionDidChange:(nullable UITraitCollection *)previousTraitCollection {
@@ -332,6 +366,8 @@
     self.actionLabel.textColor = theme.colors.secondaryText;
     self.button.tintColor = theme.colors.link;
     self.button.backgroundColor = theme.colors.cardButtonBackground;
+    self.commonsButton.tintColor = theme.colors.link;
+    self.commonsButton.backgroundColor = theme.colors.cardButtonBackground;
     self.backgroundColor = [theme valueForKeyPath:self.backgroundColorKeyPath];
     [self setNeedsLayout];
 }
