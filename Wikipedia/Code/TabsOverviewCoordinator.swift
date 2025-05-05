@@ -32,34 +32,13 @@ final class TabsOverviewCoordinator: Coordinator {
     }
     
     private func presentTabs() {
-        let blankViewController = UIViewController()
-        blankViewController.view.backgroundColor = .white
-        blankViewController.modalPresentationStyle = .overFullScreen
+        
+        let hostingController = WMFTabsOverviewViewController()
+        let navController = WMFComponentNavigationController(rootViewController: hostingController)
+        navController.modalPresentationStyle = .overFullScreen
 
-        let titleLabel = UILabel()
-        titleLabel.text = "Tabs"
-        titleLabel.font = UIFont.systemFont(ofSize: 24, weight: .bold)
-        titleLabel.textAlignment = .center
-        titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        blankViewController.view.addSubview(titleLabel)
-
-        let closeButton = UIButton(type: .system)
-        closeButton.setTitle("Close", for: .normal)
-        closeButton.addTarget(blankViewController, action: #selector(UIViewController.dismissSelf), for: .touchUpInside)
-        closeButton.translatesAutoresizingMaskIntoConstraints = false
-        blankViewController.view.addSubview(closeButton)
-
-        NSLayoutConstraint.activate([
-            titleLabel.topAnchor.constraint(equalTo: blankViewController.view.safeAreaLayoutGuide.topAnchor, constant: 16),
-            titleLabel.centerXAnchor.constraint(equalTo: blankViewController.view.centerXAnchor),
-
-            closeButton.topAnchor.constraint(equalTo: blankViewController.view.safeAreaLayoutGuide.topAnchor, constant: 16),
-            closeButton.trailingAnchor.constraint(equalTo: blankViewController.view.trailingAnchor, constant: -16)
-        ])
-
-        navigationController.present(blankViewController, animated: true, completion: nil)
+        navigationController.present(navController, animated: true, completion: nil)
     }
-
 }
 
 extension UIViewController {

@@ -943,7 +943,7 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
                 [self presentLanguageVariantAlertsWithCompletion:^{
                     dispatch_async(dispatch_get_main_queue(), ^{
                         [self finishResumingApp];
-
+                        
                         if (completion) {
                             completion();
                         }
@@ -1092,7 +1092,8 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
 
     [self assignAndLogArticleSearchBarExperiment];
 
-
+    // Check if we need to create a new article tab
+    [self checkAndCreateInitialArticleTab];
 }
 
 - (NSTimeInterval)timeBeforeRefreshingExploreFeed {

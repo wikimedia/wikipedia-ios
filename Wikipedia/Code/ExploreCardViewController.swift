@@ -645,6 +645,12 @@ extension ExploreCardViewController: AnnouncementCollectionViewCellDelegate {
 }
 
 extension ExploreCardViewController: ArticlePreviewingDelegate {
+    func openInNewTabArticlePreviewActionSelected(with peekController: ArticlePeekPreviewViewController) {
+        guard let navVC = navigationController else { return }
+        let coordinator = ArticleCoordinator(navigationController: navVC, articleURL: peekController.articleURL, dataStore: dataStore, theme: theme, source: .undefined, tabConfig: .appendArticleToNewTab)
+        coordinator.start()
+    }
+    
     func readMoreArticlePreviewActionSelected(with peekController: ArticlePeekPreviewViewController) {
         guard let navVC = navigationController else { return }
         let coordinator = ArticleCoordinator(navigationController: navVC, articleURL: peekController.articleURL, dataStore: dataStore, theme: theme, source: .undefined)

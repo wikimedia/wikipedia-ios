@@ -467,6 +467,15 @@ extension ColumnarCollectionViewController {
 }
 
 extension ColumnarCollectionViewController: ArticlePreviewingDelegate {
+    func openInNewTabArticlePreviewActionSelected(with peekController: ArticlePeekPreviewViewController) {
+        guard let navVC = self.navigationController else {
+            return
+        }
+        
+        let coordinator = ArticleCoordinator(navigationController: navVC, articleURL: peekController.articleURL, dataStore: MWKDataStore.shared(), theme: theme, source: .undefined, tabConfig: .appendArticleToNewTab)
+        coordinator.start()
+    }
+    
     @objc func readMoreArticlePreviewActionSelected(with peekController: ArticlePeekPreviewViewController) {
         
         guard let navVC = self.navigationController else {

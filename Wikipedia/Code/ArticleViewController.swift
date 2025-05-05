@@ -155,6 +155,9 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
     let previousPageViewObjectID: NSManagedObjectID?
     var beganViewingDate: Date?
     
+    // Coordinator
+    var coordinator: ArticleCoordinator?
+    
     @objc init?(articleURL: URL, dataStore: MWKDataStore, theme: Theme, source: ArticleSource, schemeHandler: SchemeHandler? = nil, previousPageViewObjectID: NSManagedObjectID? = nil) {
 
         guard let article = dataStore.fetchOrCreateArticle(with: articleURL) else {
@@ -446,6 +449,7 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
     var isFirstAppearance = true
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+
         presentModalsIfNeeded()
         trackBeganViewingDate()
     }
@@ -1077,8 +1081,14 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
             
             // first try to navigate using LinkCoordinator. If it fails, use the legacy approach.
             if let navigationController {
-                
-                let linkCoordinator = LinkCoordinator(navigationController: navigationController, url: resolvedURL, dataStore: dataStore, theme: theme, articleSource: .undefined, previousPageViewObjectID: pageViewObjectID)
+               let linkCoordinator = LinkCoordinator(
+                    navigationController: navigationController,
+                    url: resolvedURL,
+                    dataStore: dataStore,
+                    theme: theme,
+                    articleSource: .undefined,
+                    previousPageViewObjectID: pageViewObjectID
+                )
                 let success = linkCoordinator.start()
                 guard success else {
                     legacyNavigateAction()

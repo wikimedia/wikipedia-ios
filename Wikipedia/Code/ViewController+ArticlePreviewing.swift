@@ -24,4 +24,18 @@ extension ArticleViewController: ArticlePreviewingDelegate {
         let placesURL = NSUserActivity.wmf_URLForActivity(of: .places, withArticleURL: peekController.articleURL)
         UIApplication.shared.open(placesURL, options: [:], completionHandler: nil)
     }
+    
+    @objc func openInNewTabArticlePreviewActionSelected(with peekController: ArticlePeekPreviewViewController) {
+        guard let navVC = navigationController else { return }
+        let articleCoordinator = ArticleCoordinator(
+            navigationController: navVC,
+            articleURL: peekController.articleURL,
+            dataStore: dataStore,
+            theme: theme,
+            source: .undefined,
+            previousPageViewObjectID: nil,
+            tabConfig: .appendArticleToNewTab
+        )
+        articleCoordinator.start()
+    }
 }

@@ -1,6 +1,7 @@
 import UIKit
 import WMF
 import WMFComponents
+import WMFData
 
 @objc(WMFArticlePeekPreviewViewController)
 class ArticlePeekPreviewViewController: UIViewController {
@@ -165,6 +166,31 @@ class ArticlePeekPreviewViewController: UIViewController {
         })
 
         actions.append(shareAction)
+
+        // Open in new tab
+        let openInNewTabAction = UIAction(title: "Open in new tab", image: WMFSFSymbolIcon.for(symbol: .addPhoto), handler: { [weak self] _ in
+            guard let self = self else { return }
+            self.articlePreviewingDelegate?.openInNewTabArticlePreviewActionSelected(with: self)
+        })
+        actions.append(openInNewTabAction)
+
+        // Open in new background tab
+        let openInNewBackgroundTabAction = UIAction(title: "Open in new background tab", image: WMFSFSymbolIcon.for(symbol: .bellFill), handler: { [weak self] _ in
+            guard let self = self else { return }
+            guard let article = self.article,
+                  let articleTitle = article.url?.wmf_title,
+                  let siteURL = article.url?.wmf_site,
+                  let project = WikimediaProject(siteURL: siteURL)?.wmfProject else { return }
+            Task {
+                do {
+                    let dataController = try WMFArticleTabsDataController()
+                    _ = try await dataController.createArticleTab(initialArticle: WMFArticleTabsDataController.WMFArticle(title: articleTitle, project: project), setAsCurrent: false)
+                } catch {
+                    print("Failed to create background tab: \(error)")
+                }
+            }
+        })
+        actions.append(openInNewBackgroundTabAction)
 
         return actions
     }

@@ -36,7 +36,9 @@ final class LinkCoordinator: Coordinator {
                 dataStore: dataStore,
                 theme: theme,
                 source: articleSource,
-                previousPageViewObjectID: previousPageViewObjectID)
+                previousPageViewObjectID: previousPageViewObjectID,
+                tabConfig: .appendArticleToCurrentTab
+            )
             
             return articleCoordinator.start()
         case .unknown:
