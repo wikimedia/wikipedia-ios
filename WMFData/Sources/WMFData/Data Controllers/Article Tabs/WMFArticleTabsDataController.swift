@@ -13,6 +13,7 @@ public class WMFArticleTabsDataController {
         case missingPage
         case unexpectedType
         case missingTabIdentifier
+        case missingTimestamp
     }
     
     public struct WMFArticle {
@@ -33,10 +34,12 @@ public class WMFArticleTabsDataController {
     
     public struct WMFArticleTab {
         public let identifier: UUID
+        public let timestamp: Date
         public let articles: [WMFArticle]
         
-        public init(identifier: UUID, articles: [WMFArticle]) {
+        public init(identifier: UUID, timestamp: Date, articles: [WMFArticle]) {
             self.identifier = identifier
+            self.timestamp = timestamp
             self.articles = articles
         }
     }
@@ -314,6 +317,10 @@ public class WMFArticleTabsDataController {
                     throw CustomError.missingTabIdentifier
                 }
                 
+                guard let timestamp = cdTab.timestamp else {
+                    throw CustomError.missingTimestamp
+                }
+                
                 var articles: [WMFArticle] = []
                 
                 guard let items = cdTab.items else {
@@ -333,7 +340,7 @@ public class WMFArticleTabsDataController {
                     articles.append(article)
                 }
                 
-                let articleTab = WMFArticleTab(identifier: identifier, articles: articles)
+                let articleTab = WMFArticleTab(identifier: identifier, timestamp: timestamp, articles: articles)
                 articleTabs.append(articleTab)
             }
             
@@ -367,7 +374,7 @@ public class WMFArticleTabsDataController {
                             )
                         updatedArticles[updatedArticles.count - 1] = updatedArticle
                         
-                        return WMFArticleTab(identifier: tab.identifier, articles: updatedArticles)
+                        return WMFArticleTab(identifier: tab.identifier, timestamp: tab.timestamp, articles: updatedArticles)
                     } catch {
                         print("Error fetching summary for article \(lastArticle.title): \(error)")
                         return tab
