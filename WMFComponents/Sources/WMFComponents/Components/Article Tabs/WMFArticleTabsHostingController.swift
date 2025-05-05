@@ -19,9 +19,9 @@ public class WMFArticleTabsHostingController<HostedView: View>: WMFComponentHost
     }
     
     private func configureNavigationBar() {
-        let titleConfig = WMFNavigationBarTitleConfig(title:"Tabs title", customView: nil, alignment: .hidden)
+        let titleConfig = WMFNavigationBarTitleConfig(title: "x tabs", customView: nil, alignment: .centerCompact)
         
-        let closeConfig = WMFNavigationBarCloseButtonConfig(text: "Close", target: self, action: #selector(tappedDone), alignment: .leading)
+        let closeConfig = WMFNavigationBarCloseButtonConfig(text: "Done", target: self, action: #selector(tappedDone), alignment: .leading)
 
         configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: closeConfig, profileButtonConfig: nil, tabsButtonConfig: nil, searchBarConfig: nil, hideNavigationBarOnScroll: false)
     }

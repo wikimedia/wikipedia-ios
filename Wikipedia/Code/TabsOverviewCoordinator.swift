@@ -39,17 +39,44 @@ final class TabsOverviewCoordinator: Coordinator {
                 image: URL(string: "https://upload.wikimedia.org/wikipedia/commons/e/e6/Policja_konna_Pozna%C5%84.jpg"),
                 title: "Horse",
                 subtitle: "Neigh neigh",
-                description: nil),
+                description: nil,
+                dateCreated: (Date.now - 10)),
             ArticleTab(
                 image: URL(string: "https://upload.wikimedia.org/wikipedia/commons/b/b6/Felis_catus-cat_on_snow.jpg"),
                 title: "Cat",
                 subtitle: "This article is all about cats and how cool they are. They often have several legs, and a nose. It's very impressive. They can jump, and some of them got long tails.",
-                description: "Longer description, we will talk about cats. Here is information about cats. Lorem ipsum could be a cat name. I should start writing articles professionally, I am truly outstanding at this. I know everything about cats."),
+                description: "Longer description, we will talk about cats. Here is information about cats. Lorem ipsum could be a cat name. I should start writing articles professionally, I am truly outstanding at this. I know everything about cats.",
+                dateCreated: (Date.now - 5)),
             ArticleTab(
                 image: URL(string: "https://upload.wikimedia.org/wikipedia/commons/9/9c/Meriones_unguiculatus_%28wild%29.jpg"),
                 title: "Mongolian Gerbil",
                 subtitle: nil,
-                description: nil)
+                description: nil,
+                dateCreated: Date.now - 20),
+            ArticleTab(
+                image: URL(string: "https://upload.wikimedia.org/wikipedia/commons/9/9c/Meriones_unguiculatus_%28wild%29.jpg"),
+                title: "Gerbil",
+                subtitle: nil,
+                description: nil,
+                dateCreated: Date.now - 500),
+            ArticleTab(
+                image: URL(string: "https://upload.wikimedia.org/wikipedia/commons/9/9c/Meriones_unguiculatus_%28wild%29.jpg"),
+                title: "Oldest article",
+                subtitle: nil,
+                description: nil,
+                dateCreated: Date.now - 8295),
+            ArticleTab(
+                image: URL(string: "https://upload.wikimedia.org/wikipedia/commons/9/9c/Meriones_unguiculatus_%28wild%29.jpg"),
+                title: "Another article",
+                subtitle: nil,
+                description: nil,
+                dateCreated: Date.now - 1),
+            ArticleTab(
+                image: URL(string: "https://upload.wikimedia.org/wikipedia/commons/9/9c/Meriones_unguiculatus_%28wild%29.jpg"),
+                title: "Newest article",
+                subtitle: nil,
+                description: nil,
+                dateCreated: Date.now)
         ]
         let articleTabsViewModel = WMFArticleTabsViewModel(articleTabs: tabs)
         let articleTabsView = WMFArticleTabsView(viewModel: articleTabsViewModel)

@@ -22,43 +22,69 @@ public struct WMFArticleTabsView: View {
                 let gridItem = GridItem(.flexible())
                 
                 ScrollView {
-                    LazyVGrid(columns: Array(repeating: gridItem, count: columns), spacing: 0) {
-                        ForEach(viewModel.articleTabs) { tab in
-                            tabCardView(tab: tab)
-                                .aspectRatio(3/4, contentMode: .fill)
-                                .padding()
+                    LazyVGrid(columns: Array(repeating: gridItem, count: columns), spacing: 12) {
+                        ForEach(viewModel.articleTabs.sorted(by: { $0.dateCreated < $1.dateCreated })) { tab in
+                            tabCardView(tab: tab, size: size)
+                                .aspectRatio(3/4, contentMode: .fit)
+                                .clipped()
+                                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
                         }
                     }
+                    .padding()
                 }
             }
         }
-        .padding(.horizontal, 9)
         .background(Color(theme.baseBackground))
+        .navigationBarTitleDisplayMode(.inline)
     }
     
-    private func tabCardView(tab: ArticleTab) -> some View {
+    private func tabCardView(tab: ArticleTab, size: CGSize) -> some View {
         VStack(alignment: .leading) {
-            ZStack {
-                Color.white
-                AsyncImage(url: tab.image) { image in
-                    image
-                        .resizable()
-                        .scaledToFit()
-                } placeholder: {
-                    Color.white
+            ZStack(alignment: .topTrailing) {
+                if let imageURL = tab.image {
+                    AsyncImage(url: imageURL) { image in
+                        image
+                            .resizable()
+                            .scaledToFill()
+                            .frame(height: 95)
+                            .frame(maxWidth: .infinity)
+                            .clipped()
+                    } placeholder: {
+                        Color(uiColor: theme.paperBackground)
+                            .frame(minHeight: 95)
+                            .frame(maxWidth: .infinity)
+                    }
+                } else {
+                    Color(uiColor: theme.paperBackground)
+                        .frame(minHeight: CGFloat(viewModel.calculateImageHeight(for: size)))
+                        .frame(maxWidth: .infinity)
+                }
+                
+                
+                if viewModel.shouldShowCloseButton {
+                    Button(action: {
+                        print("close")
+                    }) {
+                        if let image = WMFSFSymbolIcon.for(symbol: .closeCircleFill, paletteColors: [theme.destructive, theme.editorGreen]) {
+                            Image(uiImage: image)
+                                .scaledToFit()
+                        }
+                    }
+                    .padding(.vertical, 10)
+                    .padding(.horizontal, 12)
                 }
             }
-            .frame(height: 95)
-            .frame(maxWidth: .infinity)
-            .clipped()
+            
             VStack(alignment: .leading) {
                 Text(tab.title)
                     .font(Font(WMFFont.for(.georgiaTitle3)))
                     .foregroundStyle(Color(theme.text))
+                    .lineLimit(1)
                 if let subtitle = tab.subtitle {
                     Text(subtitle)
                         .font(Font(WMFFont.for(.caption1)))
                         .foregroundStyle(Color(theme.secondaryText))
+                        .lineLimit(1)
                 } else {
                     Spacer()
                 }
@@ -68,13 +94,15 @@ public struct WMFArticleTabsView: View {
                     Text(description)
                         .font(Font(WMFFont.for(.caption1)))
                         .foregroundStyle(Color(theme.text))
-                        .lineLimit(UIDevice.current.userInterfaceIdiom == .pad ? 3 : 4)
                 } else {
+                    Spacer()
                     Spacer()
                 }
             }
+            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
             .padding(10)
         }
+        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
         .background(Color(theme.paperBackground))
         .cornerRadius(12)
         .shadow(color: Color.black.opacity(0.05), radius: 16, x: 0, y: 0)

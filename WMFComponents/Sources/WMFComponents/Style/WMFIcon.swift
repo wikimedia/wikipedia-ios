@@ -112,6 +112,7 @@ public enum WMFSFSymbolIcon {
     case infoCircleFill
     case temporaryAccountIcon
     case tabsIcon
+    case closeButtonFill
 
     public static func `for`(symbol: WMFSFSymbolIcon, font: WMFFont = .subheadline, compatibleWith traitCollection: UITraitCollection = WMFAppEnvironment.current.traitCollection, paletteColors: [UIColor]? = nil) -> UIImage? {
         let font = WMFFont.for(font, compatibleWith: traitCollection)
@@ -267,6 +268,8 @@ public enum WMFSFSymbolIcon {
             image = UIImage(systemName: "person.crop.circle.badge.xmark", withConfiguration: configuration)
         case .tabsIcon:
             image = UIImage(systemName: "square.on.square", withConfiguration: configuration)
+        case .closeButtonFill:
+            image = UIImage(systemName: "x.circle.fill", withConfiguration: configuration)
         }
         
         image = image?.withRenderingMode(.alwaysTemplate)
