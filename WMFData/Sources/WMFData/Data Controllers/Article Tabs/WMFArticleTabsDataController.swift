@@ -35,11 +35,13 @@ public class WMFArticleTabsDataController {
     public struct WMFArticleTab {
         public let identifier: UUID
         public let timestamp: Date
+        public let isCurrent: Bool
         public let articles: [WMFArticle]
         
-        public init(identifier: UUID, timestamp: Date, articles: [WMFArticle]) {
+        public init(identifier: UUID, timestamp: Date, isCurrent: Bool, articles: [WMFArticle]) {
             self.identifier = identifier
             self.timestamp = timestamp
+            self.isCurrent = isCurrent
             self.articles = articles
         }
     }
@@ -340,7 +342,7 @@ public class WMFArticleTabsDataController {
                     articles.append(article)
                 }
                 
-                let articleTab = WMFArticleTab(identifier: identifier, timestamp: timestamp, articles: articles)
+                let articleTab = WMFArticleTab(identifier: identifier, timestamp: timestamp, isCurrent: cdTab.isCurrent, articles: articles)
                 articleTabs.append(articleTab)
             }
             
@@ -374,7 +376,7 @@ public class WMFArticleTabsDataController {
                             )
                         updatedArticles[updatedArticles.count - 1] = updatedArticle
                         
-                        return WMFArticleTab(identifier: tab.identifier, timestamp: tab.timestamp, articles: updatedArticles)
+                        return WMFArticleTab(identifier: tab.identifier, timestamp: tab.timestamp, isCurrent: tab.isCurrent, articles: updatedArticles)
                     } catch {
                         print("Error fetching summary for article \(lastArticle.title): \(error)")
                         return tab
