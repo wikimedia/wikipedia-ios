@@ -127,13 +127,11 @@
 "activity-tab-add-images-subtitle" = "Ajouter des suggestions d'images aux articles de Wikipédia pour en améliorer la compréhension.";
 "activity-tab-add-images-title" = "Ajouter des images";
 "activity-tab-additional-thoughts" = "Des suggestions ?";
-// Fuzzy
 "activity-tab-generic-no-edits" = "Vous n’avez pas encore édité cette semaine. Commencez maintenant à suivre vos contributions.";
 "activity-tab-greeting" = "$1Bonjour $2$3👋 Voici votre résumé hebdomadaire de Wikipédia.";
 "activity-tab-logged-out-subtitle" = "Suivez ce que vous avez lu et visualisez vos contributions au fil du temps d'une nouvelle manière";
 "activity-tab-logged-out-title" = "Connectez-vous ou créez un compte pour voir plus d'activités de lecture et d'édition.";
 "activity-tab-neutral" = "Neutre";
-// Fuzzy
 "activity-tab-no-edits-title" = "Vous n'avez pas encore effectué de modifications. Ajouter des images pour améliorer la compréhension de l'article.";
 "activity-tab-read-title" = "Voir l'historique des lectures";
 "activity-tab-satisfied" = "Satisfait";
@@ -144,7 +142,6 @@
 "activity-tab-unsatisfied" = "Insatisfait";
 "activity-tab-very-satisfied" = "Très satisfait";
 "activity-tab-very-unsatisfied" = "Très insatisfait";
-// Fuzzy
 "activity-tab-view-editing-history" = "Afficher l’historique des modifications";
 "activity-tab-view-reading-history" = "Voir l'historique des lectures";
 "activity-tab-view-saved-articles" = "Voir tous vos articles enregistrés";

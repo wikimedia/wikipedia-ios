@@ -122,13 +122,11 @@
 "activity-tab-add-images-subtitle" = "Wikipedia makalelerine önerilen resimleri ekleyerek daha iyi anlaşılmalarını sağlayın.";
 "activity-tab-add-images-title" = "Resimler ekle";
 "activity-tab-additional-thoughts" = "Eklemek istediğiniz başka düşünceleriniz var mı?";
-// Fuzzy
 "activity-tab-generic-no-edits" = "Bu hafta düzenleme yapmadınız. Katkıları takip etmek için şimdi başlayın.";
 "activity-tab-greeting" = "$1Merhaba $2$3👋 İşte haftalık Wikipedia özetiniz.";
 "activity-tab-logged-out-subtitle" = "Okuduklarınızı takip edin ve zaman içindeki katkılarınızı yeni bir şekilde görüntüleyin";
 "activity-tab-logged-out-title" = "Daha fazla düzenleme ve okuma etkinliği görmek için oturum açın veya bir hesap oluşturun.";
 "activity-tab-neutral" = "Kararsızım";
-// Fuzzy
 "activity-tab-no-edits-title" = "Bu hafta düzenleme yapmadınız. Makalenin daha iyi anlaşılmasını sağlamak için resimler ekleyin";
 "activity-tab-read-title" = "Okuma geçmişini görüntüle";
 "activity-tab-satisfied" = "Memnunum";
@@ -139,6 +137,7 @@
 "activity-tab-unsatisfied" = "Memnun değilim";
 "activity-tab-very-satisfied" = "Çok memnunum";
 "activity-tab-very-unsatisfied" = "Hiç memnun değilim";
+"activity-tab-view-editing-history" = "Düzenleme geçmişini görüntüle";
 "activity-tab-view-reading-history" = "Okuma geçmişini görüntüle";
 "activity-tab-view-saved-articles" = "Kaydedilmiş makaleleri görüntüle";
 "activity-tab-you-edited" = "Bu hafta {{PLURAL:$1|kez}} düzenleme yaptınız.";
