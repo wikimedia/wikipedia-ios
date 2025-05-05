@@ -866,8 +866,7 @@
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 van Wikipedia in het $2";
 "on-this-day-title" = "Op deze dag";
 "original-tab-button-popover-description" = "Tik op de 'W' om terug te gaan naar het tabblad waar u vandaan kwam";
-// Fuzzy
-"page-history-bot-edits" = "botbewerkingen";
+"page-history-bot-edits" = "robot";
 "page-history-compare-accessibility-hint" = "Klik om twee revisies te vergelijken";
 "page-history-compare-title" = "Vergelijken";
 "page-history-graph-accessibility-label" = "Grafiek van wijzigingen in de loop van de tijd";

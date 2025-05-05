@@ -96,8 +96,7 @@
 "activity-tab-add-images-title" = "Додај слике";
 "activity-tab-logged-out-title" = "Пријавите се или отворите налог да видите више уређивачких и читалачких активности.";
 "activity-tab-neutral" = "Неутралан";
-// Fuzzy
-"activity-tab-no-edits-title" = "Још нисте направили измене.";
+"activity-tab-no-edits-title" = "Још нисте направили измене ове недеље. Додајте слике да би сте побољшали разумевање чланка.";
 "activity-tab-satisfied" = "Задовољан";
 "activity-tab-start-editing" = "Започни уређивање";
 "activity-tab-title" = "Активност";
@@ -106,8 +105,7 @@
 "activity-tab-very-unsatisfied" = "Веома незадовољан";
 "activity-tab-view-reading-history" = "Погледај историју читања";
 "activity-tab-view-saved-articles" = "Погледај сачуване чланке";
-// Fuzzy
-"activity-tab-you-edited" = "Уредили сте {{PLURAL:$1|$1 чланак|$1 чланака}} ове недеље.";
+"activity-tab-you-edited" = "Уредили сте {{PLURAL:$1|$1 пут|$1 пута}} ове недеље.";
 "activity-tab-you-read" = "Прочитали сте {{PLURAL:$1|$1 чланак|$1 чланака}} ове недеље.";
 "activity-tab-you-saved" = "Сачували сте {{PLURAL:$1|$1 чланак|$1 чланака}} ове недеље.";
 "add-articles-to-reading-list" = "Додај {{PLURAL:$1|$1 чланак|$1 чланка|$1 чланака}} на листу за читање";

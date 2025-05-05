@@ -146,13 +146,11 @@
 "activity-tab-add-images-subtitle" = "向维基百科的文章中添加建议图片，以增强理解。";
 "activity-tab-add-images-title" = "添加图片";
 "activity-tab-additional-thoughts" = "还有什么想法吗？";
-// Fuzzy
 "activity-tab-generic-no-edits" = "您本周尚未进行编辑。马上开始编辑，以追踪贡献。";
 "activity-tab-greeting" = "$1$2，您好！$3👋以下是您的维基百科每周概览。";
 "activity-tab-logged-out-subtitle" = "以新方式追踪阅读记录，并查看您一直以来的贡献";
 "activity-tab-logged-out-title" = "登录或创建账户，以查看更多编辑和阅读记录。";
 "activity-tab-neutral" = "中立态度";
-// Fuzzy
 "activity-tab-no-edits-title" = "您本周尚未进行编辑。添加图片，以增强对文章的理解。";
 "activity-tab-read-title" = "查看阅读记录";
 "activity-tab-satisfied" = "满意";
@@ -163,8 +161,7 @@
 "activity-tab-unsatisfied" = "不满意";
 "activity-tab-very-satisfied" = "非常满意";
 "activity-tab-very-unsatisfied" = "很不满意";
-// Fuzzy
-"activity-tab-view-editing-history" = "查看编辑的文章";
+"activity-tab-view-editing-history" = "查看编辑历史记录";
 "activity-tab-view-reading-history" = "查看阅读记录";
 "activity-tab-view-saved-articles" = "查看已保存的文章";
 "activity-tab-you-edited" = "您本周已编辑{{PLURAL:$1|$1}}次。";
