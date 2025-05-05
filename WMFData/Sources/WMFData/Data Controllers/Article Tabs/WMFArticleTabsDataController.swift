@@ -16,18 +16,29 @@ public class WMFArticleTabsDataController {
     }
     
     public struct WMFArticle {
-        let title: String
+        public let title: String
+        public let description: String?
+        public let summary: String?
+        public let imageURL: URL?
         let project: WMFProject
         
-        public init(title: String, project: WMFProject) {
+        public init(title: String, description: String? = nil, summary: String? = nil, imageURL: URL? = nil, project: WMFProject) {
             self.title = title
+            self.description = description
+            self.summary = summary
+            self.imageURL = imageURL
             self.project = project
         }
     }
     
     public struct WMFArticleTab {
-        let identifier: UUID
-        let articles: [WMFArticle]
+        public let identifier: UUID
+        public let articles: [WMFArticle]
+        
+        public init(identifier: UUID, articles: [WMFArticle]) {
+            self.identifier = identifier
+            self.articles = articles
+        }
     }
     
     // MARK: - Properties
@@ -35,11 +46,11 @@ public class WMFArticleTabsDataController {
     public let coreDataStore: WMFCoreDataStore
     private let userDefaultsStore: WMFKeyValueStore?
     private let developerSettingsDataController: WMFDeveloperSettingsDataControlling
+    private let articleSummaryDataController: WMFArticleSummaryDataController = WMFArticleSummaryDataController()
     
     // MARK: - Lifecycle
     
     public init(coreDataStore: WMFCoreDataStore? = WMFDataEnvironment.current.coreDataStore, userDefaultsStore: WMFKeyValueStore? = WMFDataEnvironment.current.userDefaultsStore, developerSettingsDataController: WMFDeveloperSettingsDataControlling = WMFDeveloperSettingsDataController.shared) throws {
-
         guard let coreDataStore else {
             throw WMFDataControllerError.coreDataStoreUnavailable
         }
@@ -50,7 +61,7 @@ public class WMFArticleTabsDataController {
     
     // MARK: Entry point
 
-   public var shouldShowArticleTabs: Bool {
+    public var shouldShowArticleTabs: Bool {
         get {
             return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsArticleTab.rawValue)) ?? false
         } set {
@@ -61,123 +72,101 @@ public class WMFArticleTabsDataController {
     // MARK: - Tabs Manipulation Methods
     
     public func tabsCount() async throws -> Int {
-        
-        let backgroundContext = try coreDataStore.newBackgroundContext
-        
-        let result: Int = try await backgroundContext.perform {
+        let moc = try coreDataStore.newBackgroundContext
+        return try await moc.perform {
             let fetchRequest = NSFetchRequest<CDArticleTab>(entityName: "CDArticleTab")
-            return try backgroundContext.count(for: fetchRequest)
+            return try moc.count(for: fetchRequest)
         }
-        
-        return result
     }
 
-    public func createArticleTab(initialArticle: WMFArticle?, setAsCurrent: Bool = false) async throws {
-        
-        let backgroundContext = try coreDataStore.newBackgroundContext
-        
-        try await backgroundContext.perform { [weak self] in
-            
+    public func createArticleTab(initialArticle: WMFArticle?, setAsCurrent: Bool = false) async throws -> UUID {
+        let moc = try coreDataStore.newBackgroundContext
+        return try await moc.perform { [weak self] in
             guard let self else { throw CustomError.missingSelf }
             
             // If we need to insert an initial article, create or fetch existing CDPage of article.
             var page: CDPage?
             if let initialArticle {
-                page = try pageForArticle(initialArticle, moc: backgroundContext)
+                page = try self.pageForArticle(initialArticle, moc: moc)
+            }
+            
+            // If setting as current, first set all other tabs to not current
+            if setAsCurrent {
+                let predicate = NSPredicate(format: "isCurrent == YES")
+                let currentTab = try self.coreDataStore.fetch(entityType: CDArticleTab.self, predicate: predicate, fetchLimit: 1, in: moc)?.first
+                currentTab?.isCurrent = false
             }
             
             // Create CDArticleTab
-            let newArticleTab = try self.coreDataStore.create(entityType: CDArticleTab.self, in: backgroundContext)
+            let newArticleTab = try self.coreDataStore.create(entityType: CDArticleTab.self, in: moc)
             newArticleTab.timestamp = Date()
             newArticleTab.isCurrent = setAsCurrent
-            newArticleTab.identifier = UUID()
+            let identifier = UUID()
+            newArticleTab.identifier = identifier
             
             // Create CDArticleTabItem and add to newArticleTab
             if let page {
-                let articleTabItem = try newArticleTabItem(page: page, moc: backgroundContext)
+                let articleTabItem = try self.newArticleTabItem(page: page, moc: moc)
                 newArticleTab.items = NSOrderedSet(array: [articleTabItem])
             }
             
-            // Save DB
-            try coreDataStore.saveIfNeeded(moc: backgroundContext)
+            try self.coreDataStore.saveIfNeeded(moc: moc)
+            
+            return identifier
         }
     }
     
     public func deleteArticleTab(identifier: UUID) async throws {
-        
-        let tabsCount = try await tabsCount()
-        
-        if tabsCount <= 1 {
-            throw CustomError.cannotDeleteLastTab
-        }
-        
-        let backgroundContext = try coreDataStore.newBackgroundContext
-        
-        try await backgroundContext.perform { [weak self] in
-            
+        let moc = try coreDataStore.newBackgroundContext
+        try await moc.perform { [weak self] in
             guard let self else { throw CustomError.missingSelf }
+
+            try self.deleteArticleTab(identifier: identifier, moc: moc)
             
-            let predicate = NSPredicate(format: "identifier == %@", argumentArray: [identifier])
-            
-            guard let articleTab = try self.coreDataStore.fetch(entityType: CDArticleTab.self, predicate: predicate, fetchLimit: 1, in: backgroundContext)?.first else {
-                throw CustomError.missingTab
-            }
-            
-            if let items = articleTab.items {
-                for item in items {
-                    guard let articleTabItem = item as? CDArticleTabItem else {
-                        throw CustomError.unexpectedType
-                    }
-                    
-                    articleTabItem.tab = nil
-                    backgroundContext.delete(articleTabItem)
-                }
-            }
-            
-            backgroundContext.delete(articleTab)
-            
-            try coreDataStore.saveIfNeeded(moc: backgroundContext)
+            try self.coreDataStore.saveIfNeeded(moc: moc)
         }
     }
     
     public func appendArticle(_ article: WMFArticle, toTabIdentifier identifier: UUID? = nil) async throws {
-        let backgroundContext = try coreDataStore.newBackgroundContext
-        try await backgroundContext.perform { [weak self] in
+        let moc = try coreDataStore.newBackgroundContext
+        try await moc.perform { [weak self] in
             guard let self else { throw CustomError.missingSelf }
+            
             let tab: CDArticleTab?
             if let identifier = identifier {
                 let tabPredicate = NSPredicate(format: "identifier == %@", argumentArray: [identifier])
-                tab = try self.coreDataStore.fetch(entityType: CDArticleTab.self, predicate: tabPredicate, fetchLimit: 1, in: backgroundContext)?.first
+                tab = try self.coreDataStore.fetch(entityType: CDArticleTab.self, predicate: tabPredicate, fetchLimit: 1, in: moc)?.first
             } else {
                 let currentPredicate = NSPredicate(format: "isCurrent == YES")
-                tab = try self.coreDataStore.fetch(entityType: CDArticleTab.self, predicate: currentPredicate, fetchLimit: 1, in: backgroundContext)?.first
+                tab = try self.coreDataStore.fetch(entityType: CDArticleTab.self, predicate: currentPredicate, fetchLimit: 1, in: moc)?.first
             }
+            
             guard let tab else {
                 throw CustomError.missingTab
             }
-            let page = try pageForArticle(article, moc: backgroundContext)
-            let articleTabItem = try newArticleTabItem(page: page, moc: backgroundContext)
+            
+            let page = try self.pageForArticle(article, moc: moc)
+            let articleTabItem = try self.newArticleTabItem(page: page, moc: moc)
             articleTabItem.tab = tab
+            
             if let currentItems = tab.items as? NSMutableOrderedSet {
                 currentItems.add(articleTabItem)
             } else {
                 tab.items = NSOrderedSet(array: [articleTabItem])
             }
-            try coreDataStore.saveIfNeeded(moc: backgroundContext)
+            
+            try self.coreDataStore.saveIfNeeded(moc: moc)
         }
     }
     
     public func removeLastArticleFromTab(tabIdentifier: UUID) async throws {
-        
-        let backgroundContext = try coreDataStore.newBackgroundContext
-        
-        try await backgroundContext.perform { [weak self] in
-            
+        let moc = try coreDataStore.newBackgroundContext
+        try await moc.perform { [weak self] in
             guard let self else { throw CustomError.missingSelf }
             
             let predicate = NSPredicate(format: "identifier == %@", argumentArray: [tabIdentifier])
             
-            guard let tab = try self.coreDataStore.fetch(entityType: CDArticleTab.self, predicate: predicate, fetchLimit: 1, in: backgroundContext)?.first else {
+            guard let tab = try self.coreDataStore.fetch(entityType: CDArticleTab.self, predicate: predicate, fetchLimit: 1, in: moc)?.first else {
                 throw CustomError.missingTab
             }
             
@@ -192,21 +181,132 @@ public class WMFArticleTabsDataController {
             
             items.removeObject(at: items.count - 1)
             lastItem.tab = nil
-            backgroundContext.delete(lastItem)
+            moc.delete(lastItem)
             
-            try coreDataStore.saveIfNeeded(moc: backgroundContext)
+            if items.count == 0,
+               let tabIdentifer = tab.identifier {
+                do {
+                    let wasCurrent = tab.isCurrent
+                    try self.deleteArticleTab(identifier: tabIdentifer, moc: moc)
+                    
+                    // If we deleted the current tab, find the next most recent tab to set as current
+                    if wasCurrent {
+                        let fetchRequest = NSFetchRequest<CDArticleTab>(entityName: "CDArticleTab")
+                        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "timestamp", ascending: false)]
+                        if let nextTab = try moc.fetch(fetchRequest).first {
+                            nextTab.isCurrent = true
+                        }
+                    }
+                } catch {
+                    guard let customError = error as? CustomError else {
+                        throw error
+                    }
+                    
+                    switch customError {
+                    case .cannotDeleteLastTab:
+                        break // this is fine
+                    default:
+                        throw customError
+                    }
+                }
+            }
+            
+            try self.coreDataStore.saveIfNeeded(moc: moc)
         }
     }
     
+    private func pageForArticle(_ article: WMFArticle, moc: NSManagedObjectContext) throws -> CDPage {
+        let coreDataTitle = article.title.normalizedForCoreData
+        let pagePredicate = NSPredicate(format: "projectID == %@ && namespaceID == %@ && title == %@", argumentArray: [article.project.coreDataIdentifier, 0, coreDataTitle])
+        
+        let page = try self.coreDataStore.fetchOrCreate(entityType: CDPage.self, predicate: pagePredicate, in: moc)
+        
+        guard let page else {
+            throw CustomError.missingPage
+        }
+        
+        page.title = coreDataTitle
+        page.namespaceID = 0
+        page.projectID = article.project.coreDataIdentifier
+        if page.timestamp == nil {
+            page.timestamp = Date()
+        }
+        
+        return page
+    }
+    
+    private func newArticleTabItem(page: CDPage, moc: NSManagedObjectContext) throws -> CDArticleTabItem {
+        let newArticleTabItem = try self.coreDataStore.create(entityType: CDArticleTabItem.self, in: moc)
+        newArticleTabItem.page = page
+        return newArticleTabItem
+    }
+    
+    private func tabsCount(moc: NSManagedObjectContext) throws -> Int {
+        let fetchRequest = NSFetchRequest<CDArticleTab>(entityName: "CDArticleTab")
+        return try moc.count(for: fetchRequest)
+    }
+    
+    private func deleteArticleTab(identifier: UUID, moc: NSManagedObjectContext) throws {
+        let tabsCount = try tabsCount(moc: moc)
+        
+        if tabsCount <= 1 {
+            throw CustomError.cannotDeleteLastTab
+        }
+        
+        let predicate = NSPredicate(format: "identifier == %@", argumentArray: [identifier])
+        
+        guard let articleTab = try self.coreDataStore.fetch(entityType: CDArticleTab.self, predicate: predicate, fetchLimit: 1, in: moc)?.first else {
+            throw CustomError.missingTab
+        }
+        
+        if let items = articleTab.items {
+            for item in items {
+                guard let articleTabItem = item as? CDArticleTabItem else {
+                    throw CustomError.unexpectedType
+                }
+                
+                articleTabItem.tab = nil
+                moc.delete(articleTabItem)
+            }
+        }
+        
+        moc.delete(articleTab)
+    }
+    
+    public func currentTabIdentifier() async throws -> UUID {
+        let moc = try coreDataStore.newBackgroundContext
+        return try await moc.perform {
+            let predicate = NSPredicate(format: "isCurrent == YES")
+            guard let currentTab = try self.coreDataStore.fetch(entityType: CDArticleTab.self, predicate: predicate, fetchLimit: 1, in: moc)?.first,
+                  let identifier = currentTab.identifier else {
+                throw CustomError.missingTab
+            }
+            return identifier
+        }
+    }
+    
+    private func setTabAsCurrent(tabIdentifier: UUID, moc: NSManagedObjectContext) throws {
+        // First set all other tabs to not current
+        let currentPredicate = NSPredicate(format: "isCurrent == YES")
+        if let currentTab = try self.coreDataStore.fetch(entityType: CDArticleTab.self, predicate: currentPredicate, fetchLimit: 1, in: moc)?.first {
+            currentTab.isCurrent = false
+        }
+        
+        // Then set the specified tab as current
+        let tabPredicate = NSPredicate(format: "identifier == %@", argumentArray: [tabIdentifier])
+        guard let tab = try self.coreDataStore.fetch(entityType: CDArticleTab.self, predicate: tabPredicate, fetchLimit: 1, in: moc)?.first else {
+            throw CustomError.missingTab
+        }
+        
+        tab.isCurrent = true
+    }
+    
     public func fetchAllArticleTabs() async throws -> [WMFArticleTab] {
-        
-        let backgroundContext = try coreDataStore.newBackgroundContext
-        
-        let result: [WMFArticleTab] = try await backgroundContext.perform { [weak self] in
-            
+        let moc = try coreDataStore.newBackgroundContext
+        let databaseTabs = try await moc.perform { [weak self] in
             guard let self else { throw CustomError.missingSelf }
             
-            guard let cdArticleTabs = try coreDataStore.fetch(entityType: CDArticleTab.self, predicate: nil, fetchLimit: nil, in: backgroundContext) else {
+            guard let cdArticleTabs = try coreDataStore.fetch(entityType: CDArticleTab.self, predicate: nil, fetchLimit: nil, in: moc) else {
                 throw CustomError.missingTab
             }
             
@@ -243,42 +343,47 @@ public class WMFArticleTabsDataController {
             return articleTabs
         }
         
-        return result
+        return try await databaseTabsWithArticleSummaries(databaseTabs: databaseTabs)
     }
     
-    private func pageForArticle(_ article: WMFArticle, moc: NSManagedObjectContext) throws -> CDPage {
-
-        let coreDataTitle = article.title.normalizedForCoreData
-        let pagePredicate = NSPredicate(format: "projectID == %@ && namespaceID == %@ && title == %@", argumentArray: [article.project.coreDataIdentifier, 0, coreDataTitle])
-        
-        let page = try self.coreDataStore.fetchOrCreate(entityType: CDPage.self, predicate: pagePredicate, in: moc)
-        
-        guard let page else {
-            throw CustomError.missingPage
-        }
-        
-        page.title = coreDataTitle
-        page.namespaceID = 0
-        page.projectID = article.project.coreDataIdentifier
-        if page.timestamp == nil {
-            page.timestamp = Date()
-        }
-        
-        return page
-    }
-    
-    private func newArticleTabItem(page: CDPage, moc: NSManagedObjectContext) throws -> CDArticleTabItem {
-
-        let newArticleTabItem = try self.coreDataStore.create(entityType: CDArticleTabItem.self, in: moc)
-        newArticleTabItem.page = page
-        return newArticleTabItem
-    }
-    
-    public func currentTabIdentifier() async throws -> UUID? {
-        let backgroundContext = try coreDataStore.newBackgroundContext
-        return try await backgroundContext.perform {
-            let predicate = NSPredicate(format: "isCurrent == YES")
-            return try self.coreDataStore.fetch(entityType: CDArticleTab.self, predicate: predicate, fetchLimit: 1, in: backgroundContext)?.first?.identifier
+    private func databaseTabsWithArticleSummaries(databaseTabs: [WMFArticleTab]) async throws -> [WMFArticleTab] {
+        return try await withThrowingTaskGroup(of: WMFArticleTab.self) { group in
+            for tab in databaseTabs {
+                guard let lastArticle = tab.articles.last else {
+                    group.addTask {
+                        return tab
+                    }
+                    continue
+                }
+                
+                group.addTask {
+                    do {
+                        let articleSummary = try await self.articleSummaryDataController.fetchArticleSummary(project: lastArticle.project, title: lastArticle.title)
+                        var updatedArticles = tab.articles
+                        
+                        let updatedArticle = WMFArticle(
+                                title: lastArticle.title,
+                                description: articleSummary.description,
+                                summary: articleSummary.extract,
+                                imageURL: articleSummary.thumbnailURL,
+                                project: lastArticle.project
+                            )
+                        updatedArticles[updatedArticles.count - 1] = updatedArticle
+                        
+                        return WMFArticleTab(identifier: tab.identifier, articles: updatedArticles)
+                    } catch {
+                        print("Error fetching summary for article \(lastArticle.title): \(error)")
+                        return tab
+                    }
+                }
+            }
+            
+            var updatedTabs: [WMFArticleTab] = []
+            for try await updatedTab in group {
+                updatedTabs.append(updatedTab)
+            }
+            
+            return updatedTabs
         }
     }
 }

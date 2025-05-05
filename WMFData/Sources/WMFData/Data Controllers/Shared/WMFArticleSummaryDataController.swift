@@ -25,4 +25,17 @@ public final class WMFArticleSummaryDataController {
             completion(result)
         }
     }
+    
+    public func fetchArticleSummary(project: WMFProject, title: String) async throws -> WMFArticleSummary {
+        return try await withCheckedThrowingContinuation { continuation in
+            fetchArticleSummary(project: project, title: title) { result in
+                switch result {
+                case .success(let successResult):
+                    continuation.resume(returning: successResult)
+                case .failure(let error):
+                    continuation.resume(throwing: error)
+                }
+            }
+        }
+    }
 }
