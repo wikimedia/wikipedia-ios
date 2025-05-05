@@ -145,7 +145,7 @@
 "activity-tab-view-editing-history" = "Afficher l’historique des modifications";
 "activity-tab-view-reading-history" = "Voir l'historique des lectures";
 "activity-tab-view-saved-articles" = "Voir tous vos articles enregistrés";
-"activity-tab-you-edited" = "Vous avez édité {{PLURAL:$1|fois}} cette semaine.";
+"activity-tab-you-edited" = "Vous avez édité {{PLURAL:$1|$1 fois}} cette semaine.";
 "activity-tab-you-read" = "Vous avez lu {{PLURAL:$1|$1 article|$1 articles}} cette semaine.";
 "activity-tab-you-saved" = "Vous avez enregistré $1 article{{PLURAL:$1||s}}";
 "add-articles-to-reading-list" = "Ajouter $1 article{{PLURAL:$1||s}} à la liste de lecture";

@@ -140,9 +140,9 @@
 "activity-tab-view-editing-history" = "Düzenleme geçmişini görüntüle";
 "activity-tab-view-reading-history" = "Okuma geçmişini görüntüle";
 "activity-tab-view-saved-articles" = "Kaydedilmiş makaleleri görüntüle";
-"activity-tab-you-edited" = "Bu hafta {{PLURAL:$1|kez}} düzenleme yaptınız.";
-"activity-tab-you-read" = "Bu hafta {{PLURAL:$1|makale}} okudunuz.";
-"activity-tab-you-saved" = "Bu hafta {{PLURAL:$1|makale}} kaydettiniz.";
+"activity-tab-you-edited" = "Bu hafta {{PLURAL:$1|$1 kez}} düzenleme yaptınız.";
+"activity-tab-you-read" = "Bu hafta {{PLURAL:$1|$1 makale}} okudunuz.";
+"activity-tab-you-saved" = "Bu hafta {{PLURAL:$1|$1 makale}} kaydettiniz.";
 "add-articles-to-reading-list" = "{{PLURAL:$1|$1 maddeyi|$1 maddeyi}} okuma listesine ekleyin";
 "advanced-settings-title" = "Gelişmiş ayarlar";
 "alt-text-feedback-survey-toast-title" = "Geri bildirim gönderildi";
