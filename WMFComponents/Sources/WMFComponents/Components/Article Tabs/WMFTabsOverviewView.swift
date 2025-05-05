@@ -69,8 +69,9 @@ public struct WMFTabsOverviewView: View {
                 guard let dataController else { return }
                 do {
                     let tabs = try await dataController.fetchAllArticleTabs()
+                    let sortedTabs = tabs.sorted { $0.timestamp < $1.timestamp }
                     await MainActor.run {
-                        articleTabs = tabs
+                        articleTabs = sortedTabs
                     }
                 } catch {
                     print("Error fetching article tabs: \(error)")
