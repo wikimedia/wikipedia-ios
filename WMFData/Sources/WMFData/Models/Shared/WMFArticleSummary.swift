@@ -34,4 +34,12 @@ public struct WMFArticleSummary: Decodable {
     private enum ThumbnailCodingKeys: String, CodingKey {
         case source
     }
+    
+    public init(displayTitle: String, description: String?, extractHtml: String, thumbnailURL: URL?, extract: String?) {
+        self.displayTitle = displayTitle
+        self.description = description
+        self.extractHtml = extractHtml
+        self.thumbnailURL = thumbnailURL
+        self.extract = extract
+    }
 }

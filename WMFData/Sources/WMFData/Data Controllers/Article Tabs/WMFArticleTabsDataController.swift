@@ -44,29 +44,26 @@ public class WMFArticleTabsDataController {
     // MARK: - Properties
     
     public let coreDataStore: WMFCoreDataStore
-    private let userDefaultsStore: WMFKeyValueStore?
     private let developerSettingsDataController: WMFDeveloperSettingsDataControlling
-    private let articleSummaryDataController: WMFArticleSummaryDataController = WMFArticleSummaryDataController()
+    private let articleSummaryDataController: WMFArticleSummaryDataControlling
     
     // MARK: - Lifecycle
     
-    public init(coreDataStore: WMFCoreDataStore? = WMFDataEnvironment.current.coreDataStore, userDefaultsStore: WMFKeyValueStore? = WMFDataEnvironment.current.userDefaultsStore, developerSettingsDataController: WMFDeveloperSettingsDataControlling = WMFDeveloperSettingsDataController.shared) throws {
+    public init(coreDataStore: WMFCoreDataStore? = WMFDataEnvironment.current.coreDataStore, 
+                developerSettingsDataController: WMFDeveloperSettingsDataControlling = WMFDeveloperSettingsDataController.shared,
+                articleSummaryDataController: WMFArticleSummaryDataControlling = WMFArticleSummaryDataController()) throws {
         guard let coreDataStore else {
             throw WMFDataControllerError.coreDataStoreUnavailable
         }
         self.coreDataStore = coreDataStore
-        self.userDefaultsStore = userDefaultsStore
         self.developerSettingsDataController = developerSettingsDataController
+        self.articleSummaryDataController = articleSummaryDataController
     }
     
     // MARK: Entry point
 
     public var shouldShowArticleTabs: Bool {
-        get {
-            return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsArticleTab.rawValue)) ?? false
-        } set {
-            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsArticleTab.rawValue, value: newValue)
-        }
+        return developerSettingsDataController.enableArticleTabs
     }
     
     // MARK: - Tabs Manipulation Methods

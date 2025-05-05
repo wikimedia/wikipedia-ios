@@ -1,6 +1,11 @@
 import Foundation
 
-public final class WMFArticleSummaryDataController {
+// Protocol for article summary data controlling
+public protocol WMFArticleSummaryDataControlling {
+    func fetchArticleSummary(project: WMFProject, title: String) async throws -> WMFArticleSummary
+}
+
+public final class WMFArticleSummaryDataController: WMFArticleSummaryDataControlling {
     private var service: WMFService?
     
     public init() {
