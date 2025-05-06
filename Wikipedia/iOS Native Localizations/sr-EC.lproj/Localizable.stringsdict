@@ -13,9 +13,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>%1$d чланак</string>
+			<string>%1$d пут</string>
 			<key>other</key>
-			<string>%1$d чланака</string>
+			<string>%1$d пута</string>
 		</dict>
 	</dict>
 	<key>activity-tab-you-read</key>
