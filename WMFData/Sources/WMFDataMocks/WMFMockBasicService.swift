@@ -1,8 +1,6 @@
 import Foundation
 import WMFData
 
-#if DEBUG
-
 internal enum WMFMockError: Error {
     case unableToPullData
     case unableToDeserialize
@@ -234,5 +232,3 @@ public class WMFMockBasicService: WMFService {
         return nil
     }
 }
-
-#endif

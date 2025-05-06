@@ -2,7 +2,17 @@ import Foundation
 import UIKit
 import CoreData
 
-public class WMFArticleTabsDataController {
+public protocol WMFArticleTabsDataControlling {
+    var shouldShowArticleTabs: Bool { get }
+    func tabsCount() async throws -> Int
+    func createArticleTab(initialArticle: WMFArticleTabsDataController.WMFArticle?, setAsCurrent: Bool) async throws -> UUID
+    func deleteArticleTab(identifier: UUID) async throws
+    func appendArticle(_ article: WMFArticleTabsDataController.WMFArticle, toTabIdentifier identifier: UUID?) async throws
+    func removeLastArticleFromTab(tabIdentifier: UUID) async throws
+    func fetchAllArticleTabs() async throws -> [WMFArticleTabsDataController.WMFArticleTab]
+}
+
+public class WMFArticleTabsDataController: WMFArticleTabsDataControlling {
     
     // MARK: - Nested Public Types
     

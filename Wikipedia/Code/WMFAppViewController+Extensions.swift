@@ -3,6 +3,7 @@ import WMF
 import SwiftUI
 import WMFComponents
 import WMFData
+import WMFDataMocks
 import CocoaLumberjackSwift
 
 extension Notification.Name {
@@ -37,6 +38,9 @@ extension WMFAppViewController {
         
         let linkCoordinator = LinkCoordinator(navigationController: navigationController, url: linkURL, dataStore: dataStore, theme: theme, articleSource: .undefined)
         return linkCoordinator.start()
+        
+        let why = WMFMockArticleTabsDataController()
+        let why2 = WMFMockBasicService()
     }
 
     // MARK: - Language Variant Migration Alerts
