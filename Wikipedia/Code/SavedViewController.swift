@@ -225,6 +225,8 @@ class SavedViewController: ThemeableViewController, WMFNavigationBarConfiguring,
             // reassign so activeEditableCollection gets reset
             currentView = .savedArticles
         }
+        
+        configureNavigationBar()
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
