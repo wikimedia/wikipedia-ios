@@ -34,7 +34,7 @@ final class TabsOverviewCoordinator: Coordinator {
     
     private func presentTabs() {
         // Dummy tabs
-        let tabs: [ArticleTab] = [
+        var tabs: [ArticleTab] = [
             ArticleTab(
                 image: URL(string: "https://upload.wikimedia.org/wikipedia/commons/e/e6/Policja_konna_Pozna%C5%84.jpg"),
                 title: "Horse",
@@ -60,10 +60,10 @@ final class TabsOverviewCoordinator: Coordinator {
                 description: nil,
                 dateCreated: Date.now - 500),
             ArticleTab(
-                image: URL(string: "https://upload.wikimedia.org/wikipedia/commons/9/9c/Meriones_unguiculatus_%28wild%29.jpg"),
+                image: nil,
                 title: "Oldest article",
-                subtitle: nil,
-                description: nil,
+                subtitle: "Here is a subtitle, this is the oldest article. My first added, I added it now minus 8295 because that's a great number I randomly picked.",
+                description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
                 dateCreated: Date.now - 8295),
             ArticleTab(
                 image: URL(string: "https://upload.wikimedia.org/wikipedia/commons/9/9c/Meriones_unguiculatus_%28wild%29.jpg"),
@@ -78,6 +78,19 @@ final class TabsOverviewCoordinator: Coordinator {
                 description: nil,
                 dateCreated: Date.now)
         ]
+        
+        // Check if empty and insert main page prior to displaying
+        if tabs.isEmpty {
+            tabs = [
+                ArticleTab(
+                    image: URL(string: "https://upload.wikimedia.org/wikipedia/commons/9/9c/Meriones_unguiculatus_%28wild%29.jpg"),
+                    title: "Main page",
+                    subtitle: "Welcome to Wikipedia",
+                    description: "This is just dummy data",
+                    dateCreated: Date.now)
+            ]
+        }
+
         let articleTabsViewModel = WMFArticleTabsViewModel(articleTabs: tabs)
         let articleTabsView = WMFArticleTabsView(viewModel: articleTabsViewModel)
         

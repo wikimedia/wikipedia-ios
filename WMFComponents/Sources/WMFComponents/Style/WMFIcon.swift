@@ -113,6 +113,15 @@ public enum WMFSFSymbolIcon {
     case temporaryAccountIcon
     case tabsIcon
     case closeButtonFill
+    
+    public var name: String? {
+        switch self {
+            case .closeCircleFill: 
+                "xmark.circle.fill"
+        default:
+            nil
+        }
+    }
 
     public static func `for`(symbol: WMFSFSymbolIcon, font: WMFFont = .subheadline, compatibleWith traitCollection: UITraitCollection = WMFAppEnvironment.current.traitCollection, paletteColors: [UIColor]? = nil) -> UIImage? {
         let font = WMFFont.for(font, compatibleWith: traitCollection)

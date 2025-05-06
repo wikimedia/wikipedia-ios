@@ -14,6 +14,10 @@ public struct WMFArticleTabsView: View {
         self.viewModel = viewModel
     }
     
+    private var colorPalette: [UIColor] {
+        [theme.destructive, theme.editorGreen]
+    }
+    
     public var body: some View {
         VStack {
             GeometryReader { geometry in
@@ -36,6 +40,19 @@ public struct WMFArticleTabsView: View {
         }
         .background(Color(theme.baseBackground))
         .navigationBarTitleDisplayMode(.inline)
+        .navigationTitle("\(viewModel.count) tabs") // todo get localized + pluralized version and update
+        .toolbar {
+            ToolbarItem(placement: .navigationBarTrailing) {
+                Button(action: {
+                    viewModel.addTab()
+                }) {
+                    if let image = WMFIcon.plus {
+                        Image(uiImage: image)
+                            .foregroundStyle(Color(uiColor: theme.link))
+                    }
+                }
+            }
+        }
     }
     
     private func tabCardView(tab: ArticleTab, size: CGSize) -> some View {
@@ -46,35 +63,31 @@ public struct WMFArticleTabsView: View {
                         image
                             .resizable()
                             .scaledToFill()
-                            .frame(height: 95)
+                            .frame(height: CGFloat(viewModel.calculateImageHeight(for: size)))
                             .frame(maxWidth: .infinity)
                             .clipped()
                     } placeholder: {
                         Color(uiColor: theme.paperBackground)
-                            .frame(minHeight: 95)
-                            .frame(maxWidth: .infinity)
+                            .frame(height: 1)
                     }
-                } else {
-                    Color(uiColor: theme.paperBackground)
-                        .frame(minHeight: CGFloat(viewModel.calculateImageHeight(for: size)))
-                        .frame(maxWidth: .infinity)
                 }
-                
                 
                 if viewModel.shouldShowCloseButton {
-                    Button(action: {
-                        print("close")
-                    }) {
-                        if let image = WMFSFSymbolIcon.for(symbol: .closeCircleFill, paletteColors: [theme.destructive, theme.editorGreen]) {
-                            Image(uiImage: image)
-                                .scaledToFit()
-                        }
-                    }
-                    .padding(.vertical, 10)
-                    .padding(.horizontal, 12)
+                    WMFCloseButton(action:{ viewModel.closeTab(tab: tab) })
+                    .frame(maxWidth: .infinity, alignment: .topTrailing)
+                    .padding([.horizontal, .top], 12)
                 }
             }
-            
+            tabText(tab: tab)
+        }
+        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+        .background(Color(theme.paperBackground))
+        .cornerRadius(12)
+        .shadow(color: Color.black.opacity(0.05), radius: 16, x: 0, y: 0)
+    }
+    
+    private func tabText(tab: ArticleTab) -> some View {
+        Group {
             VStack(alignment: .leading) {
                 Text(tab.title)
                     .font(Font(WMFFont.for(.georgiaTitle3)))
@@ -85,8 +98,6 @@ public struct WMFArticleTabsView: View {
                         .font(Font(WMFFont.for(.caption1)))
                         .foregroundStyle(Color(theme.secondaryText))
                         .lineLimit(1)
-                } else {
-                    Spacer()
                 }
                 Divider()
                     .frame(width: 24)
@@ -100,11 +111,12 @@ public struct WMFArticleTabsView: View {
                 }
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
-            .padding(10)
+            .padding([.horizontal, .bottom], 10)
+            
+            if tab.image == nil {
+                Spacer()
+                Spacer()
+            }
         }
-        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
-        .background(Color(theme.paperBackground))
-        .cornerRadius(12)
-        .shadow(color: Color.black.opacity(0.05), radius: 16, x: 0, y: 0)
     }
 }
