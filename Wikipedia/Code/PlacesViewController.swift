@@ -927,17 +927,8 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
             DDLogWarn("Did You Mean search is unset")
             return
         }
-        SearchFunnel.shared.logSearchDidYouMean(source: "places", assignment: articleSearchBarExperimentAssignment)
+
         performSearch(search)
-    }
-    
-    private var articleSearchBarExperimentAssignment: WMFNavigationExperimentsDataController.ArticleSearchBarExperimentAssignment? {
-            
-        guard let assignment = try? WMFNavigationExperimentsDataController.shared?.articleSearchBarExperimentAssignment() else {
-            return nil
-        }
-        
-        return assignment
     }
 
     // MARK: - Display Actions
