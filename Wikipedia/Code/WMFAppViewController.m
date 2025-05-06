@@ -415,6 +415,7 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
     [self.periodicWorkerController start];
     [self.savedArticlesFetcher start];
     [self updateActivityTabLoginStateWithActivityTabViewController:self.activityTabViewController];
+    [self checkAndCreateInitialArticleTab];
 }
 
 - (void)performTasksThatShouldOccurAfterAnnouncementsUpdated {
