@@ -23,7 +23,7 @@ public class WMFProfileHostingController<HostedView: View>: WMFComponentHostingC
         
         let closeConfig = WMFNavigationBarCloseButtonConfig(text: viewModel.localizedStrings.doneButtonTitle, target: self, action: #selector(tappedDone), alignment: .leading)
 
-        configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: closeConfig, profileButtonConfig: nil, searchBarConfig: nil, hideNavigationBarOnScroll: false)
+        configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: closeConfig, profileButtonConfig: nil, tabsButtonConfig: nil, searchBarConfig: nil, hideNavigationBarOnScroll: false)
     }
     
     @objc func tappedDone() {

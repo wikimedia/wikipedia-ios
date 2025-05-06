@@ -3,6 +3,7 @@ enum WMFUserDefaultsKey: String {
 	case imageRecommendationsOnboarding = "image-recommendations-onboarding"
     case developerSettingsDoNotPostImageRecommendationsEdit = "dev-settings-do-not-post-image-rec-edit"
     case developerSettingsSendAnalyticsToWMFLabs = "dev-settings-send-analytics-to-wmflabs"
+    case developerSettingsArticleTab = "dev-settings-article-tab"
     case hasLocallySavedDonations = "donate-history-has-locally-saved-donations"
     case yearInReviewSettingsIsEnabled = "year-in-review-settings-is-enabled"
     case seenYearInReviewFeatureAnnouncement = "year-in-review-feature-announcement"

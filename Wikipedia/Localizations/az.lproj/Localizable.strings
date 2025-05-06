@@ -83,11 +83,13 @@
 "activity-tab-add-images-subtitle" = "Anlayışı artırmaq üçün təklif olunan şəkilləri Vikipediya məqalələrinə əlavə edin.";
 "activity-tab-add-images-title" = "Şəkil əlavə et";
 "activity-tab-additional-thoughts" = "Əlavə fikriniz var?";
+"activity-tab-generic-no-edits" = "Siz bu həftə redaktə etməmisiniz. Töhfələrinizi izləmək üçün indi başlayın.";
+"activity-tab-greeting" = "$1 Salam $2$3 👋 Sizin həftəlik Vikipediya xülasəniz buradadır";
 "activity-tab-logged-out-subtitle" = "Oxuduqlarınızı izləyin və zamanla töhfələrinizə yeni şəkildə baxın";
 "activity-tab-logged-out-title" = "Daha çox oxuma və redaktə fəaliyyətinə baxmaq üçün daxil olun və ya hesab yaradın.";
 "activity-tab-neutral" = "Neytral";
-"activity-tab-no-edits-subtitle" = "Töhfələrinizi izləməyə başlamaq üçün redaktə etməyə başlayın.";
-"activity-tab-no-edits-title" = "Siz hələ heç bir redaktə etməmisiniz.";
+"activity-tab-no-edits-title" = "Siz bu həftə redaktə etməmisiniz. Məqaləni başa düşülməsini asanlaşdırmaq üçün şəkillər əlavə edin.";
+"activity-tab-read-title" = "Oxunma tarixçəsinə bax";
 "activity-tab-satisfied" = "Məmnunam";
 "activity-tab-start-editing" = "Redaktəyə başla";
 "activity-tab-survey" = "\"Fəaliyyət\" ekranınız sizi qane edirmi? Gələcəkdə burada başqa nə görmək istərdiniz?";
@@ -96,6 +98,7 @@
 "activity-tab-unsatisfied" = "Məmnun deyiləm";
 "activity-tab-very-satisfied" = "Çox məmnunam";
 "activity-tab-very-unsatisfied" = "Çox narazıyam";
+"activity-tab-view-editing-history" = "Redaktə tarixçəsinə bax";
 "activity-tab-view-reading-history" = "Oxuna tarixçəsinə bax";
 "activity-tab-view-saved-articles" = "Saxlanmış məqalələrə bax";
 "activity-tab-you-edited" = "Siz bu həftə {{PLURAL:$1|$1 dəfə}} redaktə etmisiniz.";
@@ -204,6 +207,9 @@
 "description-welcome-start-editing-button" = "Redaktəyə başla";
 "developer-force-email-auth" = "E-poçtun doğrulamasını məcbur et";
 "developer-settings" = "Tərtibatçı Parametrləri";
+"developer-settings-activity-tab-group-A" = "Fəaliyyət vərəqəsini A qrupuna təyin et";
+"developer-settings-activity-tab-group-B" = "Fəaliyyət vərəqəsini B qrupuna təyin et";
+"developer-settings-activity-tab-group-C" = "Fəaliyyət vərəqəsini C qrupuna təyin et";
 "developer-settings-bypass-donation" = "İanəni atla";
 "developer-settings-enable-year-in-review" = "İlə Baxışı aktivləşdir";
 "developer-settings-send-analytics-to-wmflabs" = "Analitik datanı wmflabs-a göndər.";

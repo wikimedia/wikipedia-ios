@@ -11,6 +11,7 @@
 // Author: DinoWP
 // Author: Diskdance
 // Author: Eric850130
+// Author: HNordeen (WMF)
 // Author: Hello903hello
 // Author: Impartial just
 // Author: Kanashimi
@@ -117,17 +118,24 @@
 "activity-tab-add-images-subtitle" = "將建議的圖片加到維基百科條目來加強理解。";
 "activity-tab-add-images-title" = "新增圖片";
 "activity-tab-additional-thoughts" = "還有其他想法嗎？";
+"activity-tab-generic-no-edits" = "您本週尚未動手編輯，立即開始編輯來追蹤貢獻。";
+"activity-tab-greeting" = "$1$2您好$3👋 這邊是您本週的維基百科摘要。";
+"activity-tab-logged-out-subtitle" = "用全新方式追蹤您閱讀過的內容並檢視歷來所做的貢獻";
+"activity-tab-logged-out-title" = "登入或建立帳號來查看更多編輯與閱讀活動。";
 "activity-tab-neutral" = "中立";
+"activity-tab-no-edits-title" = "您本週尚未動手編輯，新增圖片來讓讀者更容易理解文章";
+"activity-tab-read-title" = "檢視閱讀記錄";
 "activity-tab-satisfied" = "滿意";
 "activity-tab-start-editing" = "開始編輯";
+"activity-tab-survey" = "您對於「活動」畫面是否滿意？您未來希望在這裡看到哪些內容呢？";
 "activity-tab-survey-title" = "滿意度調查";
 "activity-tab-title" = "活動";
 "activity-tab-unsatisfied" = "不滿意";
 "activity-tab-very-satisfied" = "非常滿意";
 "activity-tab-very-unsatisfied" = "非常不滿意";
+"activity-tab-view-editing-history" = "檢視編輯歷史記錄";
 "activity-tab-view-reading-history" = "檢視閱讀紀錄";
 "activity-tab-view-saved-articles" = "檢視已儲存條目";
-// Fuzzy
 "activity-tab-you-edited" = "您這週編輯了{{PLURAL:$1|$1}}篇條目。";
 "activity-tab-you-read" = "您這週閱讀了{{PLURAL:$1|$1}}篇條目。";
 "activity-tab-you-saved" = "您這週儲存了{{PLURAL:$1|$1}}篇條目。";
@@ -234,7 +242,11 @@
 "description-welcome-descriptions-title" = "條目描述";
 "description-welcome-promise-title" = "點擊開始按鈕即表明我不會濫用此功能";
 "description-welcome-start-editing-button" = "開始編輯";
+"developer-force-email-auth" = "強制電子郵件驗證";
 "developer-settings" = "開發人員設定";
+"developer-settings-activity-tab-group-A" = "將活動分頁設定成群組 A";
+"developer-settings-activity-tab-group-B" = "將活動分頁設定成群組 B";
+"developer-settings-activity-tab-group-C" = "將活動分頁設定成群組 C";
 "developer-settings-bypass-donation" = "跳過捐贈";
 "developer-settings-enable-year-in-review" = "啟用年度回顧";
 "developer-settings-send-analytics-to-wmflabs" = "傳送分析給維基媒體基金會實驗室。";
@@ -549,6 +561,7 @@
 "field-alert-token-invalid" = "無效代碼";
 "field-alert-username-unavailable" = "使用者名稱不可用";
 "field-backup-token-title" = "備份代碼";
+"field-backup-token-title-email" = "電子郵件代碼";
 "field-captcha-placeholder" = "驗證碼文字";
 "field-captcha-title" = "輸入您在上方看到的文字";
 "field-email-placeholder" = "example@example.org";
@@ -886,8 +899,7 @@
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "來自於$2維基百科的 $1";
 "on-this-day-title" = "歷史上的今天";
 "original-tab-button-popover-description" = "輕觸「W」來返回至您起始的分頁";
-// Fuzzy
-"page-history-bot-edits" = "機器人編輯";
+"page-history-bot-edits" = "機器人";
 "page-history-compare-accessibility-hint" = "輕觸來選擇兩個修訂做比較";
 "page-history-compare-title" = "比較";
 "page-history-graph-accessibility-label" = "在一段時間內編輯的圖式";
@@ -902,8 +914,7 @@
 "page-history-revision-time-accessibility-label" = "修訂於 $1";
 "page-history-revisions-comparison-warning" = "僅能選擇兩個修訂";
 "page-history-stats-text" = "自$2共{{PLURAL:$1|$1次編輯}}";
-// Fuzzy
-"page-history-unregistered-edits" = "未註冊編輯";
+"page-history-unregistered-edits" = "未註冊";
 "page-issues" = "頁面問題";
 "page-location" = "在地圖上檢視";
 "page-protected-can-not-edit" = "您沒有權限編輯此頁面";
@@ -1263,8 +1274,7 @@
 "talk-pages-view-title" = "討論";
 "temp-account-alert-read-more-information" = "$1您正在使用臨時帳號。$2帳號會在 90 天後到期。到期後，下一次您在未登入情況下做出編輯時，會再建立另一個新的帳號。$3請登入或建立帳號，以讓往後做出的編輯歸在您的名義之下，並使用其他功能。";
 "temp-account-edit-sheet-cta-top" = "登入或建立帳號";
-// Fuzzy
-"temp-account-edit-sheet-subtitle" = "您的編輯內容將歸在$2$1$3名義之下。管理員可查看您的$4 IP 位址$5。$7了解更多。$5$6如果您選擇登入或建立帳號，您的編輯內容將歸在您使用的名稱，並可獲得其他功能。";
+"temp-account-edit-sheet-subtitle" = "$2您目前正在使用臨時帳號。$3使用臨時帳號「$1」所做過的編輯，不會在您登入時轉移到您的永久帳號。請先登入或建立帳號，讓編輯內容歸在您的名義之下，並使用其他功能。";
 "temp-account-got-it" = "了解";
 "temp-account-toast-read-more-title" = "延伸閱讀";
 "temp-account-toast-title" = "$1您目前正在使用臨時帳號。$2以臨時帳號做出了編輯…";
@@ -1283,6 +1293,8 @@
 "top-read-widget-title" = "最多閱讀";
 "try-now-title" = "現在試試";
 "tutorial-title" = "教學";
+"two-factor-email-login-continue" = "繼續登入";
+"two-factor-email-login-instructions" = "請輸入電子郵件驗證代碼";
 "two-factor-login-continue" = "繼續登入";
 "two-factor-login-instructions" = "請輸入雙重驗證代碼";
 "two-factor-login-title" = "登入至您的帳號";
