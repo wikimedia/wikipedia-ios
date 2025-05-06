@@ -29,6 +29,13 @@ class HistoryViewController: ArticleFetchedResultsViewController, WMFNavigationB
 
        return existingYirCoordinator
    }
+    
+    private var _tabsCoordinator: TabsOverviewCoordinator?
+    private var tabsCoordinator: TabsOverviewCoordinator? {
+        guard let navigationController else { return nil }
+        _tabsCoordinator = TabsOverviewCoordinator(navigationController: navigationController, theme: theme, dataStore: dataStore)
+        return _tabsCoordinator
+    }
 
    private var _profileCoordinator: ProfileCoordinator?
    private var profileCoordinator: ProfileCoordinator? {
@@ -186,13 +193,16 @@ class HistoryViewController: ArticleFetchedResultsViewController, WMFNavigationB
         deleteButton.isEnabled = !isEmpty
         
         let profileButtonConfig: WMFNavigationBarProfileButtonConfig?
+        let tabsButtonConfig: WMFNavigationBarTabsButtonConfig?
         if let dataStore {
-            profileButtonConfig = self.profileButtonConfig(target: self, action: #selector(userDidTapProfile), dataStore: dataStore, yirDataController: yirDataController, leadingBarButtonItem: deleteButton, trailingBarButtonItem: nil)
+            profileButtonConfig = self.profileButtonConfig(target: self, action: #selector(userDidTapProfile), dataStore: dataStore, yirDataController: yirDataController, trailingBarButtonItem: nil)
+            tabsButtonConfig = self.tabsButtonConfig(target: self, action: #selector(userDidTapTabs), dataStore: dataStore, leadingBarButtonItem: deleteButton)
         } else {
             profileButtonConfig = nil
+            tabsButtonConfig = nil
         }
 
-        configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: nil, profileButtonConfig: profileButtonConfig, searchBarConfig: nil, hideNavigationBarOnScroll: hideNavigationBarOnScroll)
+        configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: nil, profileButtonConfig: profileButtonConfig, tabsButtonConfig: tabsButtonConfig, searchBarConfig: nil, hideNavigationBarOnScroll: hideNavigationBarOnScroll)
     }
     
     private func updateProfileButton() {
@@ -201,7 +211,7 @@ class HistoryViewController: ArticleFetchedResultsViewController, WMFNavigationB
             return
         }
 
-        let config = self.profileButtonConfig(target: self, action: #selector(userDidTapProfile), dataStore: dataStore, yirDataController: yirDataController, leadingBarButtonItem: nil, trailingBarButtonItem: nil)
+        let config = self.profileButtonConfig(target: self, action: #selector(userDidTapProfile), dataStore: dataStore, yirDataController: yirDataController, trailingBarButtonItem: nil)
         updateNavigationBarProfileButton(needsBadge: config.needsBadge, needsBadgeLabel: CommonStrings.profileButtonBadgeTitle, noBadgeLabel: CommonStrings.profileButtonTitle)
     }
 
@@ -219,6 +229,10 @@ class HistoryViewController: ArticleFetchedResultsViewController, WMFNavigationB
         DonateFunnel.shared.logHistoryProfile(metricsID: metricsID)
         
         profileCoordinator?.start()
+    }
+    
+    @objc func userDidTapTabs() {
+        _ = tabsCoordinator?.start()
     }
 
     func titleForHeaderInSection(_ section: Int) -> String? {
@@ -277,7 +291,7 @@ class HistoryViewController: ArticleFetchedResultsViewController, WMFNavigationB
         
         updateProfileButton()
         profileCoordinator?.theme = theme
-        
+
         themeTopSafeAreaOverlay()
     }
 }

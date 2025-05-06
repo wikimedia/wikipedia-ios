@@ -200,6 +200,7 @@
 "developer-settings-activity-tab-group-A" = "Title for option to set activity tab experiment to group A";
 "developer-settings-activity-tab-group-B" = "Title for option to set activity tab experiment to group B";
 "developer-settings-activity-tab-group-C" = "Title for option to set activity tab experiment to group C";
+"developer-settings-activity-tabs" = "Title for option to enable activity tabs";
 "developer-settings-bypass-donation" = "Title for option to bypass a donation in developer settings menu.";
 "developer-settings-enable-year-in-review" = "Title for enabling the Year in Review feature. Displayed on the developer settings view.";
 "developer-settings-send-analytics-to-wmflabs" = "Title for setting to send analytics to a different backend. Displayed on the developer settings view.";

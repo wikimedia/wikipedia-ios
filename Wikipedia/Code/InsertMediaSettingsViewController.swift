@@ -352,7 +352,7 @@ final class InsertMediaSettingsViewController: ThemeableViewController, WMFNavig
         if fromImageRecommendations {
             let titleConfig = WMFNavigationBarTitleConfig(title: WMFLocalizedString("insert-media-add-image-details-title", value: "Add image details", comment: "Title for add image details view"), customView: nil, alignment: .centerCompact)
             
-            configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: nil, profileButtonConfig: nil, searchBarConfig: nil, hideNavigationBarOnScroll: false)
+            configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: nil, profileButtonConfig: nil, tabsButtonConfig: nil, searchBarConfig: nil, hideNavigationBarOnScroll: false)
             
             nextButton = UIBarButtonItem(title: WMFLocalizedString("next-action-title", value: "Next", comment: "Title for insert action indicating the user can go to the next step"), style: .done, target: self, action: #selector(tappedProgress(_:)))
             nextButton?.tintColor = theme.colors.secondaryText
@@ -360,7 +360,7 @@ final class InsertMediaSettingsViewController: ThemeableViewController, WMFNavig
         } else {
             let titleConfig = WMFNavigationBarTitleConfig(title: WMFLocalizedString("insert-media-media-settings-title", value: "Media settings", comment: "Title for media settings view"), customView: nil, alignment: .centerCompact)
             
-            configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: nil, profileButtonConfig: nil, searchBarConfig: nil, hideNavigationBarOnScroll: false)
+            configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: nil, profileButtonConfig: nil, tabsButtonConfig: nil, searchBarConfig: nil, hideNavigationBarOnScroll: false)
             
             insertButton = UIBarButtonItem(title: WMFLocalizedString("insert-action-title", value: "Insert", comment: "Title for insert action"), style: .done, target: self, action:  #selector(tappedProgress(_:)))
             insertButton?.tintColor = theme.colors.link
