@@ -70,6 +70,10 @@ public struct WMFArticleTabsView: View {
                         Color(uiColor: theme.paperBackground)
                             .frame(height: 1)
                     }
+                } else {
+                    tabTitle(title: tab.title)
+                        .padding(.trailing, 40)
+                        .padding([.leading, .top], 12)
                 }
                 
                 if viewModel.shouldShowCloseButton {
@@ -77,6 +81,10 @@ public struct WMFArticleTabsView: View {
                     .frame(maxWidth: .infinity, alignment: .topTrailing)
                     .padding([.horizontal, .top], 12)
                 }
+            }
+            if tab.image != nil {
+                tabTitle(title: tab.title)
+                    .padding([.horizontal], 12)
             }
             tabText(tab: tab)
             if tab.image == nil {
@@ -90,12 +98,17 @@ public struct WMFArticleTabsView: View {
         .shadow(color: Color.black.opacity(0.05), radius: 16, x: 0, y: 0)
     }
     
+    private func tabTitle(title: String) -> some View {
+        Text(title)
+            .font(Font(WMFFont.for(.georgiaTitle3)))
+            .foregroundStyle(Color(theme.text))
+            .lineLimit(1)
+            .frame(maxWidth: .infinity, alignment: .leading)
+    
+    }
+    
     private func tabText(tab: ArticleTab) -> some View {
         VStack(alignment: .leading) {
-            Text(tab.title)
-                .font(Font(WMFFont.for(.georgiaTitle3)))
-                .foregroundStyle(Color(theme.text))
-                .lineLimit(1)
             if let subtitle = tab.subtitle {
                 Text(subtitle)
                     .font(Font(WMFFont.for(.caption1)))
@@ -113,7 +126,7 @@ public struct WMFArticleTabsView: View {
                 Spacer()
             }
         }
-        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+       // .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
         .padding([.horizontal, .bottom], 10)
     }
 }
