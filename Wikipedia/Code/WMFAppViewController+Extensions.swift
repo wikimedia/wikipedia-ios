@@ -1443,3 +1443,26 @@ extension WMFAppViewController: EditPreviewViewControllerLoggingDelegate {
         // Nothing
     }
 }
+
+// MARK: - Tabs
+
+ extension WMFAppViewController {
+     @objc func checkAndCreateInitialArticleTab() {
+         
+         guard let dataController = try? WMFArticleTabsDataController(),
+         dataController.shouldShowArticleTabs else {
+             return
+         }
+         
+         Task {
+             do {
+                 let count = try await dataController.tabsCount()
+                 if count == 0 {
+                     _ = try await dataController.createArticleTab(initialArticle: nil, setAsCurrent: true)
+                 }
+             } catch {
+                 DDLogError("Failed to check or create initial article tab: \(error)")
+             }
+         }
+     }
+ }

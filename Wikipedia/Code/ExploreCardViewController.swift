@@ -663,6 +663,12 @@ extension ExploreCardViewController: ArticlePreviewingDelegate {
         let placesURL = NSUserActivity.wmf_URLForActivity(of: .places, withArticleURL: peekController.articleURL)
         UIApplication.shared.open(placesURL)
     }
+    
+    func openInNewTabArticlePreviewActionSelected(with peekController: ArticlePeekPreviewViewController) {
+        guard let navVC = navigationController else { return }
+        let articleCoordinator = ArticleCoordinator(navigationController: navVC, articleURL: peekController.articleURL, dataStore: dataStore, theme: theme, source: .undefined, tabConfig: .appendArticleToNewTab)
+        articleCoordinator.start()
+    }
 }
 
 extension ExploreCardViewController: ArticleLocationAuthorizationCollectionViewCellDelegate {

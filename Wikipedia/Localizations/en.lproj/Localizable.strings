@@ -123,6 +123,8 @@
 "article-revision-history" = "Article revision history";
 "article-save-error-not-enough-space" = "You do not have enough space on your device to save this article";
 "article-share" = "Share";
+"article-tabs-open-background-tab" = "Open in background tab";
+"article-tabs-open-new-tab" = "Open in new tab";
 "article-talk-page" = "Article talk page";
 "article-toolbar-reading-themes-controls-toolbar-item" = "Reading Themes Controls";
 "article-view-controller-editing-temp-account-created-subtitle" = "Temporary account $1 was created after your edit was published. It will expire in 90 days.";

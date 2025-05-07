@@ -8,6 +8,10 @@ public final class WMFMockArticleTabsDataController: WMFArticleTabsDataControlli
     
     private var tabs: [WMFArticleTabsDataController.WMFArticleTab] = []
     
+    public var shouldShowArticleTabs: Bool {
+        return true // Mock always shows tabs
+    }
+    
     public init() {
         
     }
@@ -24,14 +28,7 @@ public final class WMFMockArticleTabsDataController: WMFArticleTabsDataControlli
         
         // If setting as current, update all other tabs
         if setAsCurrent {
-            for i in 0..<tabs.count {
-                tabs[i] = WMFArticleTabsDataController.WMFArticleTab(
-                    identifier: tabs[i].identifier,
-                    timestamp: tabs[i].timestamp,
-                    isCurrent: false,
-                    articles: tabs[i].articles
-                )
-            }
+            try await setTabAsCurrent(tabIdentifier: identifier)
         }
         
         let articles = initialArticle.map { [$0] } ?? []
@@ -62,17 +59,12 @@ public final class WMFMockArticleTabsDataController: WMFArticleTabsDataControlli
         if wasCurrent {
             tabs.sort { $0.timestamp > $1.timestamp }
             if let firstTab = tabs.first {
-                tabs[0] = WMFArticleTabsDataController.WMFArticleTab(
-                    identifier: firstTab.identifier,
-                    timestamp: firstTab.timestamp,
-                    isCurrent: true,
-                    articles: firstTab.articles
-                )
+                try await setTabAsCurrent(tabIdentifier: firstTab.identifier)
             }
         }
     }
     
-    public func appendArticle(_ article: WMFArticleTabsDataController.WMFArticle, toTabIdentifier identifier: UUID? = nil) async throws {
+    public func appendArticle(_ article: WMFArticleTabsDataController.WMFArticle, toTabIdentifier identifier: UUID? = nil, setAsCurrent: Bool? = nil) async throws {
         let targetIdentifier: UUID
         if let identifier = identifier {
             targetIdentifier = identifier
@@ -88,6 +80,11 @@ public final class WMFMockArticleTabsDataController: WMFArticleTabsDataControlli
         
         var updatedArticles = tabs[index].articles
         updatedArticles.append(article)
+        
+        // If setting as current, update all other tabs
+        if let setAsCurrent = setAsCurrent, setAsCurrent {
+            try await setTabAsCurrent(tabIdentifier: targetIdentifier)
+        }
         
         tabs[index] = WMFArticleTabsDataController.WMFArticleTab(
             identifier: tabs[index].identifier,
@@ -179,6 +176,18 @@ public final class WMFMockArticleTabsDataController: WMFArticleTabsDataControlli
         }
         
         throw WMFArticleTabsDataController.CustomError.missingTab
+    }
+    
+    private func setTabAsCurrent(tabIdentifier: UUID) async throws {
+        // First set all other tabs to not current
+        for i in 0..<tabs.count {
+            tabs[i] = WMFArticleTabsDataController.WMFArticleTab(
+                identifier: tabs[i].identifier,
+                timestamp: tabs[i].timestamp,
+                isCurrent: tabs[i].identifier == tabIdentifier,
+                articles: tabs[i].articles
+            )
+        }
     }
 }
 

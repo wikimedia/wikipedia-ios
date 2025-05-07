@@ -6,14 +6,14 @@ public protocol WMFArticleTabsDataControlling {
     func tabsCount() async throws -> Int
     func createArticleTab(initialArticle: WMFArticleTabsDataController.WMFArticle?, setAsCurrent: Bool) async throws -> UUID
     func deleteArticleTab(identifier: UUID) async throws
-    func appendArticle(_ article: WMFArticleTabsDataController.WMFArticle, toTabIdentifier identifier: UUID?) async throws
+    func appendArticle(_ article: WMFArticleTabsDataController.WMFArticle, toTabIdentifier identifier: UUID?, setAsCurrent: Bool?) async throws
     func removeLastArticleFromTab(tabIdentifier: UUID) async throws
     func currentTabIdentifier() async throws -> UUID
     func fetchAllArticleTabs() async throws -> [WMFArticleTabsDataController.WMFArticleTab]
 }
 
 public class WMFArticleTabsDataController: WMFArticleTabsDataControlling {
-    
+
     // MARK: - Nested Public Types
     
     public enum CustomError: Error {
@@ -31,7 +31,7 @@ public class WMFArticleTabsDataController: WMFArticleTabsDataControlling {
         public let description: String?
         public let summary: String?
         public let imageURL: URL?
-        let project: WMFProject
+        public let project: WMFProject
         
         public init(title: String, description: String? = nil, summary: String? = nil, imageURL: URL? = nil, project: WMFProject) {
             self.title = title
@@ -139,7 +139,7 @@ public class WMFArticleTabsDataController: WMFArticleTabsDataControlling {
         }
     }
     
-    public func appendArticle(_ article: WMFArticle, toTabIdentifier identifier: UUID? = nil) async throws {
+    public func appendArticle(_ article: WMFArticle, toTabIdentifier identifier: UUID? = nil, setAsCurrent: Bool? = nil) async throws {
         let moc = try coreDataStore.newBackgroundContext
         try await moc.perform { [weak self] in
             guard let self else { throw CustomError.missingSelf }
@@ -157,12 +157,22 @@ public class WMFArticleTabsDataController: WMFArticleTabsDataControlling {
                 throw CustomError.missingTab
             }
             
+            // If setting as current, first set all other tabs to not current
+            if let setAsCurrent,
+               setAsCurrent == true {
+                let predicate = NSPredicate(format: "isCurrent == YES")
+                let currentTab = try self.coreDataStore.fetch(entityType: CDArticleTab.self, predicate: predicate, fetchLimit: 1, in: moc)?.first
+                currentTab?.isCurrent = false
+                tab.isCurrent = setAsCurrent
+            }
+            
             let page = try self.pageForArticle(article, moc: moc)
             let articleTabItem = try self.newArticleTabItem(page: page, moc: moc)
             articleTabItem.tab = tab
             
             if let currentItems = tab.items as? NSMutableOrderedSet {
                 currentItems.add(articleTabItem)
+                tab.items = currentItems
             } else {
                 tab.items = NSOrderedSet(array: [articleTabItem])
             }
