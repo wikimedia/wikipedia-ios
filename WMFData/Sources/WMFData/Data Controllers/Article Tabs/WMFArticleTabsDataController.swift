@@ -14,6 +14,7 @@ public class WMFArticleTabsDataController {
         case unexpectedType
         case missingTabIdentifier
         case missingTimestamp
+        case missingContext
     }
     
     public struct WMFArticle {
@@ -52,6 +53,10 @@ public class WMFArticleTabsDataController {
     private let developerSettingsDataController: WMFDeveloperSettingsDataControlling
     private let articleSummaryDataController: WMFArticleSummaryDataControlling
     
+    lazy var backgroundContext: NSManagedObjectContext? = {
+        return try? coreDataStore.newBackgroundContext
+    }()
+    
     // MARK: - Lifecycle
     
     public init(coreDataStore: WMFCoreDataStore? = WMFDataEnvironment.current.coreDataStore, 
@@ -74,7 +79,11 @@ public class WMFArticleTabsDataController {
     // MARK: - Tabs Manipulation Methods
     
     public func tabsCount() async throws -> Int {
-        let moc = try coreDataStore.newBackgroundContext
+        
+        guard let moc = backgroundContext else {
+            throw CustomError.missingContext
+        }
+        
         return try await moc.perform {
             let fetchRequest = NSFetchRequest<CDArticleTab>(entityName: "CDArticleTab")
             return try moc.count(for: fetchRequest)
@@ -82,7 +91,11 @@ public class WMFArticleTabsDataController {
     }
 
     public func createArticleTab(initialArticle: WMFArticle?, setAsCurrent: Bool = false) async throws -> UUID {
-        let moc = try coreDataStore.newBackgroundContext
+        
+        guard let moc = backgroundContext else {
+            throw CustomError.missingContext
+        }
+        
         return try await moc.perform { [weak self] in
             guard let self else { throw CustomError.missingSelf }
             
@@ -119,7 +132,11 @@ public class WMFArticleTabsDataController {
     }
     
     public func deleteArticleTab(identifier: UUID) async throws {
-        let moc = try coreDataStore.newBackgroundContext
+        
+        guard let moc = backgroundContext else {
+            throw CustomError.missingContext
+        }
+        
         try await moc.perform { [weak self] in
             guard let self else { throw CustomError.missingSelf }
 
@@ -130,7 +147,11 @@ public class WMFArticleTabsDataController {
     }
     
     public func appendArticle(_ article: WMFArticle, toTabIdentifier identifier: UUID? = nil, setAsCurrent: Bool? = nil) async throws {
-        let moc = try coreDataStore.newBackgroundContext
+        
+        guard let moc = backgroundContext else {
+            throw CustomError.missingContext
+        }
+        
         try await moc.perform { [weak self] in
             guard let self else { throw CustomError.missingSelf }
             
@@ -172,7 +193,11 @@ public class WMFArticleTabsDataController {
     }
     
     public func removeLastArticleFromTab(tabIdentifier: UUID) async throws {
-        let moc = try coreDataStore.newBackgroundContext
+        
+        guard let moc = backgroundContext else {
+            throw CustomError.missingContext
+        }
+        
         try await moc.perform { [weak self] in
             guard let self else { throw CustomError.missingSelf }
             
@@ -286,7 +311,11 @@ public class WMFArticleTabsDataController {
     }
     
     public func currentTabIdentifier() async throws -> UUID {
-        let moc = try coreDataStore.newBackgroundContext
+        
+        guard let moc = backgroundContext else {
+            throw CustomError.missingContext
+        }
+        
         return try await moc.perform {
             let predicate = NSPredicate(format: "isCurrent == YES")
             guard let currentTab = try self.coreDataStore.fetch(entityType: CDArticleTab.self, predicate: predicate, fetchLimit: 1, in: moc)?.first,
@@ -298,7 +327,11 @@ public class WMFArticleTabsDataController {
     }
     
     public func setTabAsCurrent(tabIdentifier: UUID) async throws {
-        let moc = try coreDataStore.newBackgroundContext
+        
+        guard let moc = backgroundContext else {
+            throw CustomError.missingContext
+        }
+        
         try await moc.perform { [weak self] in
             guard let self else { throw CustomError.missingSelf }
             try self.setTabAsCurrent(tabIdentifier: tabIdentifier, moc: moc)
@@ -324,7 +357,11 @@ public class WMFArticleTabsDataController {
     }
     
     public func fetchTab(tabIdentfiier: UUID) async throws -> WMFArticleTab {
-        let moc = try coreDataStore.newBackgroundContext
+        
+        guard let moc = backgroundContext else {
+            throw CustomError.missingContext
+        }
+        
         let result = try await moc.perform { [weak self] in
             guard let self else { throw CustomError.missingSelf }
             
@@ -367,7 +404,11 @@ public class WMFArticleTabsDataController {
     }
     
     public func fetchAllArticleTabs() async throws -> [WMFArticleTab] {
-        let moc = try coreDataStore.newBackgroundContext
+        
+        guard let moc = backgroundContext else {
+            throw CustomError.missingContext
+        }
+        
         let databaseTabs = try await moc.perform { [weak self] in
             guard let self else { throw CustomError.missingSelf }
             
