@@ -690,7 +690,7 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
             }
         }
         
-        let profileButtonConfig = profileButtonConfig(target: self, action: #selector(userDidTapProfile), dataStore: dataStore, yirDataController: yirDataController, trailingBarButtonItem: nil)
+        let profileButtonConfig = profileButtonConfig(target: self, action: #selector(userDidTapProfile), dataStore: dataStore, yirDataController: yirDataController, leadingBarButtonItem: nil)
         let tabsButtonConfig = tabsButtonConfig(target: self, action: #selector(userDidTapTabs), dataStore: dataStore)
         
         let searchViewController = SearchViewController(source: .article, customArticleCoordinatorNavigationController: navigationController)
@@ -712,7 +712,7 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
     
     private func updateProfileButton() {
 
-        let config = self.profileButtonConfig(target: self, action: #selector(userDidTapProfile), dataStore: dataStore, yirDataController: yirDataController, trailingBarButtonItem: nil)
+        let config = self.profileButtonConfig(target: self, action: #selector(userDidTapProfile), dataStore: dataStore, yirDataController: yirDataController, leadingBarButtonItem: nil)
 
         updateNavigationBarProfileButton(needsBadge: config.needsBadge, needsBadgeLabel: CommonStrings.profileButtonBadgeTitle, noBadgeLabel: CommonStrings.profileButtonTitle)
     }
