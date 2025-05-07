@@ -185,9 +185,10 @@ public final class WMFCoreDataStore {
                 }
                 
                 let emptyPageViewsPredicate = NSPredicate(format: "pageViews.@count == 0")
-                let compoundPredicate = NSCompoundPredicate(andPredicateWithSubpredicates: [timestamp, emptyPageViewsPredicate])
+                let emptyArticleTabItemsPredicate = NSPredicate(format: "articleTabItems.@count == 0")
+                let compoundPredicate = NSCompoundPredicate(andPredicateWithSubpredicates: [timestamp, emptyPageViewsPredicate, emptyArticleTabItemsPredicate])
                 
-                // Delete CDPages that have no page views and were added > one year ago
+                // Delete CDPages that have no page views, no article tab items, and were added > one year ago
                 guard let pagesToDelete = try self.fetch(entityType: CDPage.self, predicate: compoundPredicate, fetchLimit: 2000, in: backgroundContext) else {
                     return
                 }

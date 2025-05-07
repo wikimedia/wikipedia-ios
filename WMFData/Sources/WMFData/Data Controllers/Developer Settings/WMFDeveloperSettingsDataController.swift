@@ -2,10 +2,11 @@ import Foundation
 
 public protocol WMFDeveloperSettingsDataControlling: AnyObject {
     func loadFeatureConfig() -> WMFFeatureConfigResponse?
+    var enableArticleTabs: Bool { get }
 }
 
 @objc public final class WMFDeveloperSettingsDataController: NSObject, WMFDeveloperSettingsDataControlling {
-    
+
     @objc public static let shared = WMFDeveloperSettingsDataController()
     
     private let service: WMFService?

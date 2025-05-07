@@ -48,7 +48,7 @@ extension ArticleViewController {
     
     /// Begins tracking a viewed date. This is so that we can later save the number of viewed seconds when the user leaves the article view or backgrounds
     func trackBeganViewingDate() {
-        guard let pageViewObjectID,
+        guard pageViewObjectID != nil,
               beganViewingDate == nil else {
             return
         }

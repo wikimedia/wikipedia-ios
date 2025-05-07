@@ -12,6 +12,10 @@ final class WMFMockDeveloperSettingsDataController: WMFDeveloperSettingsDataCont
         return true
     }
     
+    var enableArticleTabs: Bool {
+        return true
+    }
+    
     private let featureConfig: WMFData.WMFFeatureConfigResponse
     
     public init(featureConfig: WMFData.WMFFeatureConfigResponse) {

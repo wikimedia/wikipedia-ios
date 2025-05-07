@@ -57,16 +57,16 @@ public struct WMFNavigationBarProfileButtonConfig {
     public let needsBadge: Bool
     public let target: Any
     public let action: Selector
-    public let trailingBarButtonItem: UIBarButtonItem?
+    public let leadingBarButtonItem: UIBarButtonItem?
     
-    public init(accessibilityLabelNoNotifications: String, accessibilityLabelHasNotifications: String, accessibilityHint: String, needsBadge: Bool, target: Any, action: Selector, trailingBarButtonItem: UIBarButtonItem?) {
+    public init(accessibilityLabelNoNotifications: String, accessibilityLabelHasNotifications: String, accessibilityHint: String, needsBadge: Bool, target: Any, action: Selector, leadingBarButtonItem: UIBarButtonItem?) {
         self.accessibilityLabelNoNotifications = accessibilityLabelNoNotifications
         self.accessibilityLabelHasNotifications = accessibilityLabelHasNotifications
         self.accessibilityHint = accessibilityHint
         self.needsBadge = needsBadge
         self.target = target
         self.action = action
-        self.trailingBarButtonItem = trailingBarButtonItem
+        self.leadingBarButtonItem = leadingBarButtonItem
     }
 }
 
@@ -181,10 +181,18 @@ public extension WMFNavigationBarConfiguring where Self: UIViewController {
             navigationItem.titleView = nil
         }
         
-        
-        var rightBarButtonItems: [UIBarButtonItem] = []
-        
         if let profileButtonConfig {
+            
+            var rightBarButtonItems: [UIBarButtonItem] = []
+            
+            var profileLeadingButton: UIBarButtonItem? = profileButtonConfig.leadingBarButtonItem
+            
+            if let dataController = try? WMFArticleTabsDataController(),
+               let tabsButtonConfig,
+               !dataController.shouldShowArticleTabs {
+                profileLeadingButton = tabsButtonConfig.leadingBarButtonItem
+            }
+            
             let image = profileButtonImage(theme: WMFAppEnvironment.current.theme, needsBadge: profileButtonConfig.needsBadge)
             let profileButton = UIBarButtonItem(image: image, style: .plain, target: profileButtonConfig.target, action: profileButtonConfig.action)
             
@@ -193,26 +201,28 @@ public extension WMFNavigationBarConfiguring where Self: UIViewController {
             
             rightBarButtonItems.append(profileButton)
 
-            if let trailing = profileButtonConfig.trailingBarButtonItem {
-                rightBarButtonItems.append(trailing)
+            if let profileLeadingButton {
+                rightBarButtonItems.append(profileLeadingButton)
             }
-        }
-
-        if let dataController = try? WMFArticleTabsDataController(),
-           let tabsButtonConfig, dataController.shouldShowArticleTabs {
-
-            let image = WMFSFSymbolIcon.for(symbol: .tabsIcon)
-            let tabsButton = UIBarButtonItem(image: image, style: .plain, target: tabsButtonConfig.target, action: tabsButtonConfig.action)
             
-            rightBarButtonItems.append(tabsButton)
+            if let dataController = try? WMFArticleTabsDataController(),
+               let tabsButtonConfig,
+               dataController.shouldShowArticleTabs {
+                
+                let image = WMFSFSymbolIcon.for(symbol: .tabsIcon)
+                let tabsButton = UIBarButtonItem(image: image, style: .plain, target: tabsButtonConfig.target, action: tabsButtonConfig.action)
+                
+                rightBarButtonItems.append(tabsButton)
 
-            if let leadingBarButtonItem = tabsButtonConfig.leadingBarButtonItem {
-                rightBarButtonItems.append(leadingBarButtonItem)
+                if let leadingBarButtonItem = tabsButtonConfig.leadingBarButtonItem {
+                    rightBarButtonItems.append(leadingBarButtonItem)
+                }
+                
             }
+            
+            navigationItem.rightBarButtonItems = rightBarButtonItems
+            
         }
-        
-        navigationItem.rightBarButtonItems = rightBarButtonItems
-
         
         // Setup close button if needed
         if let closeButtonConfig {

@@ -326,12 +326,6 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
         return view
     }()
 
-    lazy var searchBarButtonItem: UIBarButtonItem = {
-        let button = UIBarButtonItem(image: UIImage(named: "search"), style: .plain, target: self, action: #selector(userDidTapSearchButton))
-        button.accessibilityLabel = CommonStrings.searchButtonAccessibilityLabel
-        return button
-    }()
-
     override func updateViewConstraints() {
         super.updateViewConstraints()
         updateLeadImageMargins()
@@ -461,15 +455,6 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
     
     @objc func userDidTapTabs() {
         _ = tabsCoordinator?.start()
-    }
-    
-    @objc func userDidTapSearchButton() {
-        let searchVC = SearchViewController(source: .article)
-        searchVC.shouldBecomeFirstResponder = true
-        searchVC.apply(theme: theme)
-        searchVC.dataStore = dataStore
-        searchVC.needsCenteredTitle = true
-        navigationController?.pushViewController(searchVC, animated: true)
     }
     
     /// Catch-all method for deciding what is the best modal to present on top of Article at this point. This method needs careful if-else logic so that we do not present two modals at the same time, which may unexpectedly suppress one.
@@ -689,19 +674,6 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
     
     // MARK: Navigation Bar
     
-    var needsSearchBar: Bool {
-        guard let assignment = try? WMFNavigationExperimentsDataController.shared?.articleSearchBarExperimentAssignment() else {
-            return false
-        }
-        
-        switch assignment {
-        case .control:
-            return false
-        case .test:
-            return true
-        }
-    }
-    
     private func configureNavigationBar() {
 
         let wButton = UIButton(type: .custom)
@@ -716,8 +688,7 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
             }
         }
         
-        let trailingBarButtonItem: UIBarButtonItem? = needsSearchBar ? nil : self.searchBarButtonItem
-        let profileButtonConfig = profileButtonConfig(target: self, action: #selector(userDidTapProfile), dataStore: dataStore, yirDataController: yirDataController, trailingBarButtonItem: trailingBarButtonItem)
+        let profileButtonConfig = profileButtonConfig(target: self, action: #selector(userDidTapProfile), dataStore: dataStore, yirDataController: yirDataController, leadingBarButtonItem: nil)
         let tabsButtonConfig = tabsButtonConfig(target: self, action: #selector(userDidTapTabs), dataStore: dataStore)
         
         let searchViewController = SearchViewController(source: .article, customArticleCoordinatorNavigationController: navigationController)
@@ -732,15 +703,15 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
         
         searchViewController.populateSearchBarWithTextAction = populateSearchBarWithTextAction
         
-        let searchBarConfig: WMFNavigationBarSearchConfig? = needsSearchBar ? WMFNavigationBarSearchConfig(searchResultsController: searchViewController, searchControllerDelegate: self, searchResultsUpdater: self, searchBarDelegate: nil, searchBarPlaceholder: WMFLocalizedString("search-field-placeholder-text", value: "Search Wikipedia", comment: "Search field placeholder text"), showsScopeBar: false, scopeButtonTitles: nil) : nil
+        let searchBarConfig = WMFNavigationBarSearchConfig(searchResultsController: searchViewController, searchControllerDelegate: self, searchResultsUpdater: self, searchBarDelegate: nil, searchBarPlaceholder: WMFLocalizedString("search-field-placeholder-text", value: "Search Wikipedia", comment: "Search field placeholder text"), showsScopeBar: false, scopeButtonTitles: nil)
 
         configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: nil, profileButtonConfig: profileButtonConfig, tabsButtonConfig: tabsButtonConfig, searchBarConfig: searchBarConfig, hideNavigationBarOnScroll: true)
     }
     
     private func updateProfileButton() {
-        // Checking A/B Test here as we don't want to instantiate the searchBarButtonItem lazy property unnecessarily
-        let resolvedSearchBarButtonItem: UIBarButtonItem? = needsSearchBar ? nil : self.searchBarButtonItem
-        let config = self.profileButtonConfig(target: self, action: #selector(userDidTapProfile), dataStore: dataStore, yirDataController: yirDataController, trailingBarButtonItem: resolvedSearchBarButtonItem)
+
+        let config = self.profileButtonConfig(target: self, action: #selector(userDidTapProfile), dataStore: dataStore, yirDataController: yirDataController, leadingBarButtonItem: nil)
+
         updateNavigationBarProfileButton(needsBadge: config.needsBadge, needsBadgeLabel: CommonStrings.profileButtonBadgeTitle, noBadgeLabel: CommonStrings.profileButtonTitle)
     }
     
