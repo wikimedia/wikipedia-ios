@@ -196,7 +196,7 @@ class SearchViewController: ArticleCollectionViewController, WMFNavigationBarCon
         let profileButtonConfig: WMFNavigationBarProfileButtonConfig?
         let tabsButtonConfig: WMFNavigationBarTabsButtonConfig?
         if let dataStore {
-            profileButtonConfig = self.profileButtonConfig(target: self, action: #selector(userDidTapProfile), dataStore: dataStore, yirDataController: yirDataController, trailingBarButtonItem: nil)
+            profileButtonConfig = self.profileButtonConfig(target: self, action: #selector(userDidTapProfile), dataStore: dataStore, yirDataController: yirDataController, leadingBarButtonItem: nil)
             tabsButtonConfig = self.tabsButtonConfig(target: self, action: #selector(userDidTapTabs), dataStore: dataStore)
         } else {
             profileButtonConfig = nil
@@ -214,7 +214,7 @@ class SearchViewController: ArticleCollectionViewController, WMFNavigationBarCon
             return
         }
 
-        let config = self.profileButtonConfig(target: self, action: #selector(userDidTapProfile), dataStore: dataStore, yirDataController: yirDataController, trailingBarButtonItem: nil)
+        let config = self.profileButtonConfig(target: self, action: #selector(userDidTapProfile), dataStore: dataStore, yirDataController: yirDataController, leadingBarButtonItem: nil)
         updateNavigationBarProfileButton(needsBadge: config.needsBadge, needsBadgeLabel: CommonStrings.profileButtonBadgeTitle, noBadgeLabel: CommonStrings.profileButtonTitle)
     }
     
