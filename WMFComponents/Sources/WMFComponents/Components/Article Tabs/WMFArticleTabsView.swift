@@ -79,6 +79,10 @@ public struct WMFArticleTabsView: View {
                 }
             }
             tabText(tab: tab)
+            if tab.image == nil {
+                Spacer()
+                Spacer()
+            }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
         .background(Color(theme.paperBackground))
@@ -87,36 +91,29 @@ public struct WMFArticleTabsView: View {
     }
     
     private func tabText(tab: ArticleTab) -> some View {
-        Group {
-            VStack(alignment: .leading) {
-                Text(tab.title)
-                    .font(Font(WMFFont.for(.georgiaTitle3)))
-                    .foregroundStyle(Color(theme.text))
+        VStack(alignment: .leading) {
+            Text(tab.title)
+                .font(Font(WMFFont.for(.georgiaTitle3)))
+                .foregroundStyle(Color(theme.text))
+                .lineLimit(1)
+            if let subtitle = tab.subtitle {
+                Text(subtitle)
+                    .font(Font(WMFFont.for(.caption1)))
+                    .foregroundStyle(Color(theme.secondaryText))
                     .lineLimit(1)
-                if let subtitle = tab.subtitle {
-                    Text(subtitle)
-                        .font(Font(WMFFont.for(.caption1)))
-                        .foregroundStyle(Color(theme.secondaryText))
-                        .lineLimit(1)
-                }
-                Divider()
-                    .frame(width: 24)
-                if let description = tab.description {
-                    Text(description)
-                        .font(Font(WMFFont.for(.caption1)))
-                        .foregroundStyle(Color(theme.text))
-                } else {
-                    Spacer()
-                    Spacer()
-                }
             }
-            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
-            .padding([.horizontal, .bottom], 10)
-            
-            if tab.image == nil {
+            Divider()
+                .frame(width: 24)
+            if let description = tab.description {
+                Text(description)
+                    .font(Font(WMFFont.for(.caption1)))
+                    .foregroundStyle(Color(theme.text))
+            } else {
                 Spacer()
                 Spacer()
             }
         }
+        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+        .padding([.horizontal, .bottom], 10)
     }
 }
