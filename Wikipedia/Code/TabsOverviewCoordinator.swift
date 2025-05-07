@@ -58,6 +58,20 @@ final class TabsOverviewCoordinator: Coordinator {
         ])
 
         navigationController.present(blankViewController, animated: true, completion: nil)
+        
+//        Task {
+//            let dataController = try? WMFArticleTabsDataController()
+//            if let tabs = try? await dataController?.fetchAllArticleTabs() {
+//                for tab in tabs {
+//                    print("--------\n")
+//                    for article in tab.articles {
+//                        print(article)
+//                        print("--------\n")
+//                    }
+//                    print("--------\n")
+//                }
+//            }
+//        }
     }
 
 }

@@ -153,6 +153,7 @@ public class WMFArticleTabsDataController {
             
             if let currentItems = tab.items as? NSMutableOrderedSet {
                 currentItems.add(articleTabItem)
+                tab.items = currentItems
             } else {
                 tab.items = NSOrderedSet(array: [articleTabItem])
             }
