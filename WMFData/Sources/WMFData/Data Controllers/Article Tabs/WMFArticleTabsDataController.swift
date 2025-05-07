@@ -6,14 +6,14 @@ public protocol WMFArticleTabsDataControlling {
     func tabsCount() async throws -> Int
     func createArticleTab(initialArticle: WMFArticleTabsDataController.WMFArticle?, setAsCurrent: Bool) async throws -> UUID
     func deleteArticleTab(identifier: UUID) async throws
-    func appendArticle(_ article: WMFArticleTabsDataController.WMFArticle, toTabIdentifier identifier: UUID?) async throws
+    func appendArticle(_ article: WMFArticleTabsDataController.WMFArticle, toTabIdentifier identifier: UUID?, setAsCurrent: Bool?) async throws
     func removeLastArticleFromTab(tabIdentifier: UUID) async throws
     func currentTabIdentifier() async throws -> UUID
     func fetchAllArticleTabs() async throws -> [WMFArticleTabsDataController.WMFArticleTab]
 }
 
 public class WMFArticleTabsDataController: WMFArticleTabsDataControlling {
-    
+
     // MARK: - Nested Public Types
     
     public enum CustomError: Error {
