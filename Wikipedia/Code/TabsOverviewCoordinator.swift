@@ -8,6 +8,7 @@ final class TabsOverviewCoordinator: Coordinator {
     var navigationController: UINavigationController
     var theme: Theme
     let dataStore: MWKDataStore
+    var lastTabIdentifier: UUID?
     
     func start() -> Bool {
         if shouldShowEntryPoint() {
@@ -32,39 +33,35 @@ final class TabsOverviewCoordinator: Coordinator {
     }
     
     private func presentTabs() {
-        let blankViewController = UIViewController()
-        blankViewController.view.backgroundColor = .white
-        blankViewController.modalPresentationStyle = .overFullScreen
+        
+        let didTapTab: (WMFArticleTabsDataController.WMFArticleTab) -> Void = { [weak self] tab in
+            self?.tappedTab(tab)
+        }
+        
+        let didTapAddTab: () -> Void = { [weak self] in
+            self?.tappedAddTab()
+        }
+        
+        let didTapMainTab: () -> Void = { [weak self] in
+            self?.tappedMainTab()
+        }
+        
+        let viewModel = WMFTabsOverviewViewModel(didTapTab: didTapTab, didTapMain: didTapMainTab, didTapAddTab: didTapAddTab)
+        
+        let vc = WMFTabsOverviewViewController(viewModel: viewModel)
+        let navVC = WMFComponentNavigationController(rootViewController: vc, modalPresentationStyle: .overFullScreen)
 
-        let titleLabel = UILabel()
-        titleLabel.text = "Tabs"
-        titleLabel.font = UIFont.systemFont(ofSize: 24, weight: .bold)
-        titleLabel.textAlignment = .center
-        titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        blankViewController.view.addSubview(titleLabel)
-
-        let closeButton = UIButton(type: .system)
-        closeButton.setTitle("Close", for: .normal)
-        closeButton.addTarget(blankViewController, action: #selector(UIViewController.dismissSelf), for: .touchUpInside)
-        closeButton.translatesAutoresizingMaskIntoConstraints = false
-        blankViewController.view.addSubview(closeButton)
-
-        NSLayoutConstraint.activate([
-            titleLabel.topAnchor.constraint(equalTo: blankViewController.view.safeAreaLayoutGuide.topAnchor, constant: 16),
-            titleLabel.centerXAnchor.constraint(equalTo: blankViewController.view.centerXAnchor),
-
-            closeButton.topAnchor.constraint(equalTo: blankViewController.view.safeAreaLayoutGuide.topAnchor, constant: 16),
-            closeButton.trailingAnchor.constraint(equalTo: blankViewController.view.trailingAnchor, constant: -16)
-        ])
-
-        navigationController.present(blankViewController, animated: true, completion: nil)
+        navigationController.present(navVC, animated: true, completion: nil)
     }
     
     private func tappedTab(_ tab: WMFArticleTabsDataController.WMFArticleTab) {
         
-        guard !tab.isCurrent else {
-            navigationController.dismiss(animated: true)
-            return
+        // If we just came from this tab (i.e. from the article view), just dismiss without pushing on any more articles.
+        if let lastTabIdentifier {
+            if lastTabIdentifier == tab.identifier {
+                navigationController.dismiss(animated: true)
+                return
+            }
         }
         
         for article in tab.articles {
@@ -73,20 +70,32 @@ final class TabsOverviewCoordinator: Coordinator {
                 continue
             }
 
-            let articleCoordinator = ArticleCoordinator(navigationController: navigationController, articleURL: articleURL, dataStore: MWKDataStore.shared(), theme: theme, needsAnimation: false, source: .undefined, tabConfig: .appendArticleToTab(tab.identifier))
+            let articleCoordinator = ArticleCoordinator(navigationController: navigationController, articleURL: articleURL, dataStore: MWKDataStore.shared(), theme: theme, needsAnimation: false, source: .undefined, tabConfig: .assignParticularTabAndSetToCurrent(tab.identifier))
             articleCoordinator.start()
         }
 
         navigationController.dismiss(animated: true)
     }
     
-    private func tappedNewTab() {
+    private func tappedAddTab() {
         guard let siteURL = dataStore.languageLinkController.appLanguage?.siteURL,
               let articleURL = siteURL.wmf_URL(withTitle: "Main_Page") else {
             return
         }
         
-        let articleCoordinator = ArticleCoordinator(navigationController: navigationController, articleURL: articleURL, dataStore: MWKDataStore.shared(), theme: theme, needsAnimation: false, source: .undefined, tabConfig: .appendArticleToNewTab)
+        let articleCoordinator = ArticleCoordinator(navigationController: navigationController, articleURL: articleURL, dataStore: MWKDataStore.shared(), theme: theme, needsAnimation: false, source: .undefined, tabConfig: .assignNewTabAndSetToCurrent)
+        articleCoordinator.start()
+        
+        navigationController.dismiss(animated: true)
+    }
+    
+    private func tappedMainTab() {
+        guard let siteURL = dataStore.languageLinkController.appLanguage?.siteURL,
+              let articleURL = siteURL.wmf_URL(withTitle: "Main_Page") else {
+            return
+        }
+        
+        let articleCoordinator = ArticleCoordinator(navigationController: navigationController, articleURL: articleURL, dataStore: MWKDataStore.shared(), theme: theme, needsAnimation: false, source: .undefined, tabConfig: .assignCurrentTab)
         articleCoordinator.start()
         
         navigationController.dismiss(animated: true)

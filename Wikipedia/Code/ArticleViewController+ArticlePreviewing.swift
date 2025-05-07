@@ -27,7 +27,7 @@ extension ArticleViewController: ArticlePreviewingDelegate {
     
     func openInNewTabArticlePreviewActionSelected(with peekController: ArticlePeekPreviewViewController) {
         guard let navVC = navigationController else { return }
-        let articleCoordinator = ArticleCoordinator(navigationController: navVC, articleURL: peekController.articleURL, dataStore: dataStore, theme: theme, source: .undefined, previousPageViewObjectID: pageViewObjectID, tabConfig: .appendArticleToNewTab)
+        let articleCoordinator = ArticleCoordinator(navigationController: navVC, articleURL: peekController.articleURL, dataStore: dataStore, theme: theme, source: .undefined, previousPageViewObjectID: pageViewObjectID, tabConfig: .appendArticleAndAssignNewTabAndSetToCurrent)
         articleCoordinator.start()
     }
 }

@@ -113,6 +113,7 @@ public enum WMFSFSymbolIcon {
     case temporaryAccountIcon
     case tabsIcon
     case tabsIconBackground
+    case add
 
     public static func `for`(symbol: WMFSFSymbolIcon, font: WMFFont = .subheadline, compatibleWith traitCollection: UITraitCollection = WMFAppEnvironment.current.traitCollection, paletteColors: [UIColor]? = nil) -> UIImage? {
         let font = WMFFont.for(font, compatibleWith: traitCollection)
@@ -270,6 +271,8 @@ public enum WMFSFSymbolIcon {
             image = UIImage(systemName: "square.on.square", withConfiguration: configuration)
         case .tabsIconBackground:
             image = UIImage(systemName: "plus.square.on.square", withConfiguration: configuration)
+        case .add:
+            image = UIImage(systemName: "plus", withConfiguration: configuration)
         }
         
         image = image?.withRenderingMode(.alwaysTemplate)

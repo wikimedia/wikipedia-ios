@@ -3,9 +3,12 @@ import WMFData
 import CocoaLumberjackSwift
 
 enum TabConfig {
-    case appendArticleToCurrentTab
-    case appendArticleToNewTab
-    case appendArticleToTab(UUID)
+    case appendArticleAndAssignCurrentTab
+    case appendArticleAndAssignNewTabAndSetToCurrent
+    case appendArticleAndAssignParticularTabAndSetToCurrent(UUID) // may not need this
+    case assignParticularTabAndSetToCurrent(UUID)
+    case assignNewTabAndSetToCurrent
+    case assignCurrentTab
  }
 
 final class ArticleCoordinator: NSObject, Coordinator {
@@ -24,7 +27,7 @@ final class ArticleCoordinator: NSObject, Coordinator {
     private let tabConfig: TabConfig
     private(set) var tabIdentifier: UUID?
     
-    init(navigationController: UINavigationController, articleURL: URL, dataStore: MWKDataStore, theme: Theme, needsAnimation: Bool = true, source: ArticleSource, isRestoringState: Bool = false, previousPageViewObjectID: NSManagedObjectID? = nil, tabConfig: TabConfig = .appendArticleToCurrentTab) {
+    init(navigationController: UINavigationController, articleURL: URL, dataStore: MWKDataStore, theme: Theme, needsAnimation: Bool = true, source: ArticleSource, isRestoringState: Bool = false, previousPageViewObjectID: NSManagedObjectID? = nil, tabConfig: TabConfig = .appendArticleAndAssignCurrentTab) {
         self.navigationController = navigationController
         self.articleURL = articleURL
         self.dataStore = dataStore
@@ -83,16 +86,47 @@ final class ArticleCoordinator: NSObject, Coordinator {
             do {
                 let tabsDataController = try WMFArticleTabsDataController()
                 switch tabConfig {
-                case .appendArticleToCurrentTab:
+                case .appendArticleAndAssignCurrentTab:
                     let tabIdentifier = try await tabsDataController.currentTabIdentifier()
                     try await tabsDataController.appendArticle(article, toTabIdentifier: tabIdentifier)
                     self.tabIdentifier = tabIdentifier
-                case .appendArticleToNewTab:
+                case .appendArticleAndAssignNewTabAndSetToCurrent:
                     let tabIdentifier = try await tabsDataController.createArticleTab(initialArticle: article, setAsCurrent: true)
                     self.tabIdentifier = tabIdentifier
-                case .appendArticleToTab(let tabIdentifier):
+                case .appendArticleAndAssignParticularTabAndSetToCurrent(let tabIdentifier):
                     try await tabsDataController.appendArticle(article, toTabIdentifier: tabIdentifier, setAsCurrent: true)
                     self.tabIdentifier = tabIdentifier
+                case .assignParticularTabAndSetToCurrent(let tabIdentifier):
+                    try await tabsDataController.setTabAsCurrent(tabIdentifier: tabIdentifier)
+                    self.tabIdentifier = tabIdentifier
+                case .assignCurrentTab:
+                    let tabIdentifier = try await tabsDataController.currentTabIdentifier()
+                    self.tabIdentifier = tabIdentifier
+                case .assignNewTabAndSetToCurrent:
+                    
+                    let createNewTabBlock = { [weak self] in
+                        guard let self else { return }
+                        let newTabIdentifier = try await tabsDataController.createArticleTab(initialArticle: nil, setAsCurrent: true)
+                        self.tabIdentifier = newTabIdentifier
+                    }
+                    
+                    let tabsCount = try await tabsDataController.tabsCount()
+                    
+                    if tabsCount == 1 {
+                        let currentTabIdentifier = try await tabsDataController.currentTabIdentifier()
+                        let currentTab = try await tabsDataController.fetchTab(tabIdentfiier: currentTabIdentifier)
+                        
+                        // They tapped new tab on an empty state. Instead just assign the current tab, so we don't have this awkward additional empty tab.
+                        // To repro this weirdness: start from a totally fresh state, like Explore. You will see the single Main Page grid item. Then tap the + button.
+                        if currentTab.articles.count == 0 {
+                            self.tabIdentifier = currentTabIdentifier
+                        } else {
+                            try await createNewTabBlock()
+                        }
+                        
+                    } else {
+                        try await createNewTabBlock()
+                    }
                 }
             } catch {
                 DDLogError("Failed to handle tab configuration: \(error)")
@@ -108,11 +142,10 @@ extension ArticleCoordinator: UINavigationControllerDelegate {
          // Detect if ArticleViewController was popped (back button pressed)
          guard let fromVC = navigationController.transitionCoordinator?.viewController(forKey: .from),
                !(navigationController.viewControllers.contains(fromVC)),
-               fromVC is ArticleViewController else {
+               let fromArticleVC = fromVC as? ArticleViewController else {
              return
          }
          
-         // Remove last article from tab
          Task {
              do {
                  guard let tabIdentifier = self.tabIdentifier else { return }

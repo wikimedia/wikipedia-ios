@@ -297,6 +297,13 @@ public class WMFArticleTabsDataController {
         }
     }
     
+    public func setTabAsCurrent(tabIdentifier: UUID) async throws {
+        let moc = try coreDataStore.newBackgroundContext
+        try await moc.perform {
+            try self.setTabAsCurrent(tabIdentifier: tabIdentifier, moc: moc)
+        }
+    }
+    
     private func setTabAsCurrent(tabIdentifier: UUID, moc: NSManagedObjectContext) throws {
         // First set all other tabs to not current
         let currentPredicate = NSPredicate(format: "isCurrent == YES")
@@ -311,6 +318,49 @@ public class WMFArticleTabsDataController {
         }
         
         tab.isCurrent = true
+    }
+    
+    public func fetchTab(tabIdentfiier: UUID) async throws -> WMFArticleTab {
+        let moc = try coreDataStore.newBackgroundContext
+        let result = try await moc.perform { [weak self] in
+            guard let self else { throw CustomError.missingSelf }
+            
+            let tabPredicate = NSPredicate(format: "identifier == %@", argumentArray: [tabIdentfiier])
+            guard let cdTab = try self.coreDataStore.fetch(entityType: CDArticleTab.self, predicate: tabPredicate, fetchLimit: 1, in: moc)?.first else {
+                throw CustomError.missingTab
+            }
+            
+            guard let identifier = cdTab.identifier else {
+                throw CustomError.missingTabIdentifier
+            }
+            
+            guard let timestamp = cdTab.timestamp else {
+                throw CustomError.missingTimestamp
+            }
+            
+            var articles: [WMFArticle] = []
+            
+            guard let items = cdTab.items else {
+                return WMFArticleTab(identifier: identifier, timestamp: timestamp, isCurrent: cdTab.isCurrent, articles: articles)
+            }
+            
+            for item in items {
+                guard let articleTabItem = item as? CDArticleTabItem,
+                      let page = articleTabItem.page,
+                      let title = page.title,
+                      let projectID = page.projectID,
+                      let project = WMFProject(coreDataIdentifier: projectID) else {
+                    throw CustomError.unexpectedType
+                }
+                
+                let article = WMFArticle(title: title, project: project)
+                articles.append(article)
+            }
+            
+            return WMFArticleTab(identifier: identifier, timestamp: timestamp, isCurrent: cdTab.isCurrent, articles: articles)
+        }
+        
+        return result
     }
     
     public func fetchAllArticleTabs() async throws -> [WMFArticleTab] {
