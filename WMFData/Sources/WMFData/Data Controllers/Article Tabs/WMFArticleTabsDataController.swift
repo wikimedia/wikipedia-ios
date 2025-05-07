@@ -21,7 +21,7 @@ public class WMFArticleTabsDataController {
         public let description: String?
         public let summary: String?
         public let imageURL: URL?
-        let project: WMFProject
+        public let project: WMFProject
         
         public init(title: String, description: String? = nil, summary: String? = nil, imageURL: URL? = nil, project: WMFProject) {
             self.title = title
@@ -129,7 +129,7 @@ public class WMFArticleTabsDataController {
         }
     }
     
-    public func appendArticle(_ article: WMFArticle, toTabIdentifier identifier: UUID? = nil) async throws {
+    public func appendArticle(_ article: WMFArticle, toTabIdentifier identifier: UUID? = nil, setAsCurrent: Bool? = nil) async throws {
         let moc = try coreDataStore.newBackgroundContext
         try await moc.perform { [weak self] in
             guard let self else { throw CustomError.missingSelf }
@@ -145,6 +145,15 @@ public class WMFArticleTabsDataController {
             
             guard let tab else {
                 throw CustomError.missingTab
+            }
+            
+            // If setting as current, first set all other tabs to not current
+            if let setAsCurrent,
+               setAsCurrent == true {
+                let predicate = NSPredicate(format: "isCurrent == YES")
+                let currentTab = try self.coreDataStore.fetch(entityType: CDArticleTab.self, predicate: predicate, fetchLimit: 1, in: moc)?.first
+                currentTab?.isCurrent = false
+                tab.isCurrent = setAsCurrent
             }
             
             let page = try self.pageForArticle(article, moc: moc)

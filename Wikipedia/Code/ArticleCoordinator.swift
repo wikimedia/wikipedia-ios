@@ -5,6 +5,7 @@ import CocoaLumberjackSwift
 enum TabConfig {
     case appendArticleToCurrentTab
     case appendArticleToNewTab
+    case appendArticleToTab(UUID)
  }
 
 final class ArticleCoordinator: NSObject, Coordinator {
@@ -12,6 +13,8 @@ final class ArticleCoordinator: NSObject, Coordinator {
     private(set) var articleURL: URL
     private let dataStore: MWKDataStore
     var theme: Theme
+    private let needsAnimation: Bool
+    
     private let source: ArticleSource
     private let isRestoringState: Bool
     private let previousPageViewObjectID: NSManagedObjectID?
@@ -21,11 +24,12 @@ final class ArticleCoordinator: NSObject, Coordinator {
     private let tabConfig: TabConfig
     private(set) var tabIdentifier: UUID?
     
-    init(navigationController: UINavigationController, articleURL: URL, dataStore: MWKDataStore, theme: Theme, source: ArticleSource, isRestoringState: Bool = false, previousPageViewObjectID: NSManagedObjectID? = nil, tabConfig: TabConfig = .appendArticleToCurrentTab) {
+    init(navigationController: UINavigationController, articleURL: URL, dataStore: MWKDataStore, theme: Theme, needsAnimation: Bool = true, source: ArticleSource, isRestoringState: Bool = false, previousPageViewObjectID: NSManagedObjectID? = nil, tabConfig: TabConfig = .appendArticleToCurrentTab) {
         self.navigationController = navigationController
         self.articleURL = articleURL
         self.dataStore = dataStore
         self.theme = theme
+        self.needsAnimation = needsAnimation
         self.source = source
         self.isRestoringState = isRestoringState
         self.previousPageViewObjectID = previousPageViewObjectID
@@ -48,7 +52,7 @@ final class ArticleCoordinator: NSObject, Coordinator {
         
         trackArticleTab(articleViewController: articleVC)
         
-        navigationController.pushViewController(articleVC, animated: true)
+        navigationController.pushViewController(articleVC, animated: needsAnimation)
         
         return true
     }
@@ -85,6 +89,9 @@ final class ArticleCoordinator: NSObject, Coordinator {
                     self.tabIdentifier = tabIdentifier
                 case .appendArticleToNewTab:
                     let tabIdentifier = try await tabsDataController.createArticleTab(initialArticle: article, setAsCurrent: true)
+                    self.tabIdentifier = tabIdentifier
+                case .appendArticleToTab(let tabIdentifier):
+                    try await tabsDataController.appendArticle(article, toTabIdentifier: tabIdentifier, setAsCurrent: true)
                     self.tabIdentifier = tabIdentifier
                 }
             } catch {
