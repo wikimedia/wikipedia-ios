@@ -178,8 +178,7 @@ public final class WMFMockArticleTabsDataController: WMFArticleTabsDataControlli
             }
         }
         
-        assertionFailure("Shouldn't get here.")
-        return UUID()
+        throw WMFArticleTabsDataController.CustomError.missingTab
     }
 }
 
