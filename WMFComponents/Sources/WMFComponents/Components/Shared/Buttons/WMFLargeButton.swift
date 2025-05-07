@@ -1,6 +1,5 @@
 import Foundation
 import SwiftUI
-import WMFDataMocks
 
 struct WMFLargeButton: View {
     
@@ -45,10 +44,5 @@ struct WMFLargeButton: View {
                 .background(Color(backgroundColor))
                 .cornerRadius(8)
         })
-        .onAppear {
-            Task {
-                let dataController = WMFMockArticleTabsDataController()
-            }
-        }
     }
 }

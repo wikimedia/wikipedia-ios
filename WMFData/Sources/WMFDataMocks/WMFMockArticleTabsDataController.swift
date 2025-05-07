@@ -1,21 +1,18 @@
 import Foundation
 import WMFData
 
+#if DEBUG
+
 public final class WMFMockArticleTabsDataController: WMFArticleTabsDataControlling {
     // MARK: - Properties
     
     private var tabs: [WMFArticleTabsDataController.WMFArticleTab] = []
-    private var shouldShowTabs: Bool = true
     
     public init() {
         
     }
     
     // MARK: - WMFArticleTabsDataControlling
-    
-    public var shouldShowArticleTabs: Bool {
-        return shouldShowTabs
-    }
     
     public func tabsCount() async throws -> Int {
         return tabs.count
@@ -123,34 +120,24 @@ public final class WMFMockArticleTabsDataController: WMFArticleTabsDataControlli
     public func fetchAllArticleTabs() async throws -> [WMFArticleTabsDataController.WMFArticleTab] {
         return tabs
     }
-    
-    // MARK: - Mock Helpers
-    
-    public func setShouldShowTabs(_ value: Bool) {
-        shouldShowTabs = value
-    }
-    
-    public func clearTabs() {
-        tabs.removeAll()
-    }
-    
+
     public func populateWithInitialTabs() async throws {
-        clearTabs()
         
         let enProject = WMFProject.wikipedia(WMFLanguage(languageCode: "en", languageVariantCode: nil))
         
         // Article data with kitten image URLs
+        let kittenURL = "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Six_weeks_old_cat_%28aka%29.jpg/330px-Six_weeks_old_cat_%28aka%29.jpg"
         let articleData: [(title: String, imageURL: String)] = [
-            ("Cat", "https://placekitten.com/800/600"),
-            ("Dog", "https://placekitten.com/800/600"),
-            ("Elephant", "https://placekitten.com/800/600"),
-            ("Giraffe", "https://placekitten.com/800/600"),
-            ("Lion", "https://placekitten.com/800/600"),
-            ("Tiger", "https://placekitten.com/800/600"),
-            ("Penguin", "https://placekitten.com/800/600"),
-            ("Dolphin", "https://placekitten.com/800/600"),
-            ("Eagle", "https://placekitten.com/800/600"),
-            ("Shark", "https://placekitten.com/800/600")
+            ("Cat", kittenURL),
+            ("Dog", kittenURL),
+            ("Elephant", kittenURL),
+            ("Giraffe", kittenURL),
+            ("Lion", kittenURL),
+            ("Tiger", kittenURL),
+            ("Penguin", kittenURL),
+            ("Dolphin", kittenURL),
+            ("Eagle", kittenURL),
+            ("Shark", kittenURL)
         ]
         
         // Create 5 tabs
@@ -183,4 +170,17 @@ public final class WMFMockArticleTabsDataController: WMFArticleTabsDataControlli
             tabs.append(tab)
         }
     }
-} 
+    
+    public func currentTabIdentifier() async throws -> UUID {
+        for tab in tabs {
+            if tab.isCurrent {
+                return tab.identifier
+            }
+        }
+        
+        assertionFailure("Shouldn't get here.")
+        return UUID()
+    }
+}
+
+#endif
