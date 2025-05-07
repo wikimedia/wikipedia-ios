@@ -253,7 +253,7 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
     }
 
     private var profileButtonConfig: WMFNavigationBarProfileButtonConfig {
-        return self.profileButtonConfig(target: self, action: #selector(didTapProfileButton), dataStore: dataStore, yirDataController: yirDataController, trailingBarButtonItem: nil)
+        return self.profileButtonConfig(target: self, action: #selector(didTapProfileButton), dataStore: dataStore, yirDataController: yirDataController, leadingBarButtonItem: nil)
     }
     
     private var tabsButtonConfig: WMFNavigationBarTabsButtonConfig {
@@ -454,7 +454,7 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
     }
 
     private func updateProfileButton() {
-        let profileButtonConfig = self.profileButtonConfig(target: self, action: #selector(didTapProfileButton), dataStore: dataStore, yirDataController: yirDataController,  trailingBarButtonItem: nil)
+        let profileButtonConfig = self.profileButtonConfig(target: self, action: #selector(didTapProfileButton), dataStore: dataStore, yirDataController: yirDataController,  leadingBarButtonItem: nil)
         updateNavigationBarProfileButton(needsBadge: profileButtonConfig.needsBadge, needsBadgeLabel: CommonStrings.profileButtonBadgeTitle, noBadgeLabel: CommonStrings.profileButtonTitle)
     }
 
@@ -927,17 +927,8 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
             DDLogWarn("Did You Mean search is unset")
             return
         }
-        SearchFunnel.shared.logSearchDidYouMean(source: "places", assignment: articleSearchBarExperimentAssignment)
+
         performSearch(search)
-    }
-    
-    private var articleSearchBarExperimentAssignment: WMFNavigationExperimentsDataController.ArticleSearchBarExperimentAssignment? {
-            
-        guard let assignment = try? WMFNavigationExperimentsDataController.shared?.articleSearchBarExperimentAssignment() else {
-            return nil
-        }
-        
-        return assignment
     }
 
     // MARK: - Display Actions

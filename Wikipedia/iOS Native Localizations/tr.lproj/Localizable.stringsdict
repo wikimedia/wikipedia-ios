@@ -13,7 +13,7 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>other</key>
-			<string>kez</string>
+			<string>%1$d kez</string>
 		</dict>
 	</dict>
 	<key>activity-tab-you-read</key>
@@ -27,7 +27,7 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>other</key>
-			<string>makale</string>
+			<string>%1$d makale</string>
 		</dict>
 	</dict>
 	<key>activity-tab-you-saved</key>
@@ -41,7 +41,7 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>other</key>
-			<string>makale</string>
+			<string>%1$d makale</string>
 		</dict>
 	</dict>
 	<key>add-articles-to-reading-list</key>

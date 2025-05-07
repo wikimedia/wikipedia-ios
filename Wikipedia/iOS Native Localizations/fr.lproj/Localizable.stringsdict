@@ -13,7 +13,7 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>other</key>
-			<string>fois</string>
+			<string>%1$d fois</string>
 		</dict>
 	</dict>
 	<key>activity-tab-you-read</key>

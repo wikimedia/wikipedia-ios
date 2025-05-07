@@ -1089,10 +1089,6 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
     [defaults wmf_setLocationAuthorized:locationAuthorized];
 
     [self.savedArticlesFetcher start];
-
-    [self assignAndLogArticleSearchBarExperiment];
-
-
 }
 
 - (NSTimeInterval)timeBeforeRefreshingExploreFeed {
