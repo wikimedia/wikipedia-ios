@@ -299,8 +299,11 @@ public class WMFArticleTabsDataController {
     
     public func setTabAsCurrent(tabIdentifier: UUID) async throws {
         let moc = try coreDataStore.newBackgroundContext
-        try await moc.perform {
+        try await moc.perform { [weak self] in
+            guard let self else { throw CustomError.missingSelf }
             try self.setTabAsCurrent(tabIdentifier: tabIdentifier, moc: moc)
+            
+            try self.coreDataStore.saveIfNeeded(moc: moc)
         }
     }
     
