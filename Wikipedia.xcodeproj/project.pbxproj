@@ -1588,9 +1588,9 @@
 		83F1096423D0D4F6003F3E9E /* ArticlePreviewingDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83F1096323D0D4F6003F3E9E /* ArticlePreviewingDelegate.swift */; };
 		83F1096523D0D4F6003F3E9E /* ArticlePreviewingDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83F1096323D0D4F6003F3E9E /* ArticlePreviewingDelegate.swift */; };
 		83F1096623D0D4F6003F3E9E /* ArticlePreviewingDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83F1096323D0D4F6003F3E9E /* ArticlePreviewingDelegate.swift */; };
-		83F1096923D0DB0F003F3E9E /* ViewController+ArticlePreviewing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83F1096823D0DB0F003F3E9E /* ViewController+ArticlePreviewing.swift */; };
-		83F1096A23D0DB0F003F3E9E /* ViewController+ArticlePreviewing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83F1096823D0DB0F003F3E9E /* ViewController+ArticlePreviewing.swift */; };
-		83F1096B23D0DB0F003F3E9E /* ViewController+ArticlePreviewing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83F1096823D0DB0F003F3E9E /* ViewController+ArticlePreviewing.swift */; };
+		83F1096923D0DB0F003F3E9E /* ArticleViewController+ArticlePreviewing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83F1096823D0DB0F003F3E9E /* ArticleViewController+ArticlePreviewing.swift */; };
+		83F1096A23D0DB0F003F3E9E /* ArticleViewController+ArticlePreviewing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83F1096823D0DB0F003F3E9E /* ArticleViewController+ArticlePreviewing.swift */; };
+		83F1096B23D0DB0F003F3E9E /* ArticleViewController+ArticlePreviewing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83F1096823D0DB0F003F3E9E /* ArticleViewController+ArticlePreviewing.swift */; };
 		83F1096E23D0E787003F3E9E /* RandomArticleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83F1096D23D0E787003F3E9E /* RandomArticleViewController.swift */; };
 		83F1096F23D0E787003F3E9E /* RandomArticleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83F1096D23D0E787003F3E9E /* RandomArticleViewController.swift */; };
 		83F1097023D0E787003F3E9E /* RandomArticleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83F1096D23D0E787003F3E9E /* RandomArticleViewController.swift */; };
@@ -3763,7 +3763,7 @@
 		83F1095623D07E3B003F3E9E /* APIURLComponentsBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIURLComponentsBuilder.swift; sourceTree = "<group>"; };
 		83F1095E23D09F80003F3E9E /* ArticleViewController+WIconPopover.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ArticleViewController+WIconPopover.swift"; sourceTree = "<group>"; };
 		83F1096323D0D4F6003F3E9E /* ArticlePreviewingDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticlePreviewingDelegate.swift; sourceTree = "<group>"; };
-		83F1096823D0DB0F003F3E9E /* ViewController+ArticlePreviewing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewController+ArticlePreviewing.swift"; sourceTree = "<group>"; };
+		83F1096823D0DB0F003F3E9E /* ArticleViewController+ArticlePreviewing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ArticleViewController+ArticlePreviewing.swift"; sourceTree = "<group>"; };
 		83F1096D23D0E787003F3E9E /* RandomArticleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomArticleViewController.swift; sourceTree = "<group>"; };
 		83F1097223D0F115003F3E9E /* HelpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpViewController.swift; sourceTree = "<group>"; usesTabs = 0; };
 		83FBE96E1F6172ED0026C7EB /* ShareAFactActivityTextItemProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareAFactActivityTextItemProvider.swift; sourceTree = "<group>"; };
@@ -7929,7 +7929,7 @@
 				41CCB67321CC1F9700206B47 /* SavedArticlesCollectionViewController.swift */,
 				D837CC36231FE9CC00BA6130 /* ThemeableViewController.swift */,
 				8386BDEE2386CAAB007EE89D /* ViewController+URLHandling.swift */,
-				83F1096823D0DB0F003F3E9E /* ViewController+ArticlePreviewing.swift */,
+				83F1096823D0DB0F003F3E9E /* ArticleViewController+ArticlePreviewing.swift */,
 				8368BB8324129F3D00BC88BA /* ViewController+ArticleErrorHandling.swift */,
 				83F1096D23D0E787003F3E9E /* RandomArticleViewController.swift */,
 				8386BDFA2386D754007EE89D /* SinglePageWebViewController.swift */,
@@ -10263,7 +10263,7 @@
 				B09CE59A222F623900067D2A /* WKWebView+EditSelectionJavascript.swift in Sources */,
 				B0EF42D01C43FDD200D125A8 /* UIApplicationShortcutItem+WMFShortcutItem.m in Sources */,
 				B0F92C821E3FFEB900B72802 /* WMFAuthAccountCreationInfoFetcher.swift in Sources */,
-				83F1096923D0DB0F003F3E9E /* ViewController+ArticlePreviewing.swift in Sources */,
+				83F1096923D0DB0F003F3E9E /* ArticleViewController+ArticlePreviewing.swift in Sources */,
 				837A15F328DA591E00AAC3FC /* TalkPageCache.swift in Sources */,
 				0072990B28AC455500DCD2E6 /* TalkPageCellViewModel.swift in Sources */,
 				7A0FF2CC230343BA00E755D4 /* PageHistoryCollectionViewCell.swift in Sources */,
@@ -10948,7 +10948,7 @@
 				00BCB71F26DEE1C7002C3F72 /* VerticalSpacerView.swift in Sources */,
 				D8CE25091E698E2400DAE2E0 /* PlaceSearchSuggestionController.swift in Sources */,
 				7AF8CEEE22653406000B7676 /* InsertMediaSelectedImageView.swift in Sources */,
-				83F1096A23D0DB0F003F3E9E /* ViewController+ArticlePreviewing.swift in Sources */,
+				83F1096A23D0DB0F003F3E9E /* ArticleViewController+ArticlePreviewing.swift in Sources */,
 				D8CE250B1E698E2400DAE2E0 /* WMFPageHistoryRevision.m in Sources */,
 				83A171D82819B6A70029FB89 /* UNAuthorizationStatus+String.swift in Sources */,
 				67DC5BEA23A03FE700B03A84 /* ArticleToolbarController.swift in Sources */,
@@ -11504,7 +11504,7 @@
 				FF555566277287F400925099 /* CollectionViewContextMenuShowing.swift in Sources */,
 				00BCB71E26DEE1C7002C3F72 /* VerticalSpacerView.swift in Sources */,
 				7AF8CEEF22653406000B7676 /* InsertMediaSelectedImageView.swift in Sources */,
-				83F1096B23D0DB0F003F3E9E /* ViewController+ArticlePreviewing.swift in Sources */,
+				83F1096B23D0DB0F003F3E9E /* ArticleViewController+ArticlePreviewing.swift in Sources */,
 				D8EC3DFC1E9BDA35006712EB /* WMFDatabaseHousekeeper.swift in Sources */,
 				83A171D72819B6A60029FB89 /* UNAuthorizationStatus+String.swift in Sources */,
 				67DC5BEB23A03FE700B03A84 /* ArticleToolbarController.swift in Sources */,

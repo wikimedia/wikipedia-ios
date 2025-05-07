@@ -3,7 +3,8 @@ import WMFData
 import CocoaLumberjackSwift
 
 enum TabConfig {
-     case appendArticleToCurrentTab
+    case appendArticleToCurrentTab
+    case appendArticleToNewTab
  }
 
 final class ArticleCoordinator: NSObject, Coordinator {
@@ -81,6 +82,9 @@ final class ArticleCoordinator: NSObject, Coordinator {
                 case .appendArticleToCurrentTab:
                     let tabIdentifier = try await tabsDataController.currentTabIdentifier()
                     try await tabsDataController.appendArticle(article, toTabIdentifier: tabIdentifier)
+                    self.tabIdentifier = tabIdentifier
+                case .appendArticleToNewTab:
+                    let tabIdentifier = try await tabsDataController.createArticleTab(initialArticle: article, setAsCurrent: true)
                     self.tabIdentifier = tabIdentifier
                 }
             } catch {
