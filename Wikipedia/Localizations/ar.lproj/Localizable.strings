@@ -173,6 +173,8 @@
 "article-revision-history" = "تاريخ تعديل المقالة";
 "article-save-error-not-enough-space" = "ليس لديك مساحة كافية على جهازك لحفظ هذه المقالة";
 "article-share" = "مشاركة";
+"article-tabs-open-background-tab" = "فتح في علامة التبويب الخلفية";
+"article-tabs-open-new-tab" = "فتح في علامة تبويب جديدة";
 "article-talk-page" = "صفحة نقاش المقالة";
 "article-toolbar-reading-themes-controls-toolbar-item" = "عناصر تحكم مواضيع القراءة";
 "article-view-controller-editing-temp-account-created-subtitle" = "تم إنشاء حساب مؤقت $1 بعد نشر تعديلك. سينتهي صلاحيته بعد 90 يومًا.";
@@ -250,6 +252,7 @@
 "developer-settings-activity-tab-group-A" = "تعيين علامة تبويب النشاط للمجموعة أ";
 "developer-settings-activity-tab-group-B" = "تعيين علامة تبويب النشاط إلى المجموعة ب";
 "developer-settings-activity-tab-group-C" = "تعيين علامة تبويب النشاط إلى المجموعة C";
+"developer-settings-activity-tabs" = "تمكين علامات تبويب النشاط";
 "developer-settings-bypass-donation" = "التبرع بالدم";
 "developer-settings-enable-year-in-review" = "تمكين مراجعة العام";
 "developer-settings-send-analytics-to-wmflabs" = "إرسال التحليلات إلى wmflabs.";
