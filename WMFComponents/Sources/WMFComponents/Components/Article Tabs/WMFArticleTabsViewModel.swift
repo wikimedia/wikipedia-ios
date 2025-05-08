@@ -28,17 +28,6 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
         }
     }
     
-    public func calculateImageHeight(for size: CGSize) -> Int {
-        let isPortrait = size.height > size.width
-        let isPad = UIDevice.current.userInterfaceIdiom == .pad
-
-        if isPortrait {
-            return isPad ? 150 : 95
-        } else {
-            return 150
-        }
-    }
-    
     public func closeTab(tab: ArticleTab) {
         if let index = articleTabs.firstIndex(where: { $0.id == tab.id }) {
             articleTabs.remove(at: index)

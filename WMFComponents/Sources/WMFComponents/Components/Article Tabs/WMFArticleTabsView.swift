@@ -19,23 +19,20 @@ public struct WMFArticleTabsView: View {
     }
     
     public var body: some View {
-        VStack {
-            GeometryReader { geometry in
-                let size = geometry.size
-                let columns = viewModel.calculateColumns(for: size)
-                let gridItem = GridItem(.flexible())
-                
-                ScrollView {
-                    LazyVGrid(columns: Array(repeating: gridItem, count: columns), spacing: 12) {
-                        ForEach(viewModel.articleTabs.sorted(by: { $0.dateCreated < $1.dateCreated })) { tab in
-                            tabCardView(tab: tab, size: size)
-                                .aspectRatio(3/4, contentMode: .fit)
-                                .clipped()
-                                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
-                        }
+        GeometryReader { geometry in
+            let size = geometry.size
+            let columns = viewModel.calculateColumns(for: size)
+            let gridItem = GridItem(.flexible())
+            
+            ScrollView {
+                LazyVGrid(columns: Array(repeating: gridItem, count: columns), spacing: 12) {
+                    ForEach(viewModel.articleTabs.sorted(by: { $0.dateCreated < $1.dateCreated })) { tab in
+                        tabCardView(tab: tab, size: size)
+                            .aspectRatio(3/4, contentMode: .fit)
+                            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
                     }
-                    .padding()
                 }
+                .padding()
             }
         }
         .background(Color(theme.baseBackground))
@@ -63,7 +60,7 @@ public struct WMFArticleTabsView: View {
                         image
                             .resizable()
                             .scaledToFill()
-                            .frame(height: CGFloat(viewModel.calculateImageHeight(for: size)))
+                            .frame(height: 95)
                             .frame(maxWidth: .infinity)
                             .clipped()
                     } placeholder: {
@@ -104,7 +101,6 @@ public struct WMFArticleTabsView: View {
             .foregroundStyle(Color(theme.text))
             .lineLimit(1)
             .frame(maxWidth: .infinity, alignment: .leading)
-    
     }
     
     private func tabText(tab: ArticleTab) -> some View {
@@ -126,7 +122,6 @@ public struct WMFArticleTabsView: View {
                 Spacer()
             }
         }
-       // .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
         .padding([.horizontal, .bottom], 10)
     }
 }
