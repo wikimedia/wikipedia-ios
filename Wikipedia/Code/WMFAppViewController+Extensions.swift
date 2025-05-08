@@ -1531,6 +1531,8 @@ extension WMFAppViewController: EditPreviewViewControllerLoggingDelegate {
                   guard let tabIdentifier = fromArticleVC.coordinator?.tabIdentifier else { return }
                   let tabsDataController = try WMFArticleTabsDataController()
                   
+                  guard tabsDataController.shouldShowArticleTabs else { return }
+                  
                   try await tabsDataController.removeLastArticleFromTab(tabIdentifier: tabIdentifier)
               } catch {
                   DDLogError("Failed to remove last article from tab: \(error)")
