@@ -29,9 +29,9 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
                 ArticleTab(
                     id: tab.identifier,
                     image: tab.articles.last?.imageURL,
-                    title: tab.articles.last?.title ?? "",
-                    subtitle: tab.articles.last?.summary,
-                    description: tab.articles.last?.description,
+                    title: tab.articles.last?.title.underscoresToSpaces ?? "",
+                    subtitle: tab.articles.last?.description,
+                    description: tab.articles.last?.summary,
                     dateCreated: tab.timestamp,
                     onTapOpen: nil,
                     project: tab.articles.last?.project
