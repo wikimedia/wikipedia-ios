@@ -23,7 +23,6 @@ final class ArticleCoordinator: NSObject, Coordinator {
     private let previousPageViewObjectID: NSManagedObjectID?
     
     // Article Tabs Properties
-    private var previousNavigationControllerDelegate: UINavigationControllerDelegate?
     private let tabConfig: TabConfig
     private(set) var tabIdentifier: UUID?
     
@@ -71,9 +70,7 @@ final class ArticleCoordinator: NSObject, Coordinator {
         }
         
         articleViewController.coordinator = self
-        previousNavigationControllerDelegate = navigationController.delegate
-        navigationController.delegate = self
-        
+
         // Handle Article Tabs
         Task {
             guard let title = articleURL.wmf_title,
@@ -133,32 +130,4 @@ final class ArticleCoordinator: NSObject, Coordinator {
             }
         }
     }
-}
-
-// MARK: - UINavigationControllerDelegate
-
-extension ArticleCoordinator: UINavigationControllerDelegate {
-    func navigationController(_ navigationController: UINavigationController, didShow viewController: UIViewController, animated: Bool) {
-         // Detect if ArticleViewController was popped (back button pressed)
-         guard let fromVC = navigationController.transitionCoordinator?.viewController(forKey: .from),
-               !(navigationController.viewControllers.contains(fromVC)),
-               let fromArticleVC = fromVC as? ArticleViewController else {
-             return
-         }
-         
-         Task {
-             do {
-                 guard let tabIdentifier = self.tabIdentifier else { return }
-                 let tabsDataController = try WMFArticleTabsDataController()
-                 
-                 try await tabsDataController.removeLastArticleFromTab(tabIdentifier: tabIdentifier)
-             } catch {
-                 DDLogError("Failed to remove last article from tab: \(error)")
-             }
-         }
-         
-         // Restore previous delegate
-         navigationController.delegate = previousNavigationControllerDelegate
-         previousNavigationControllerDelegate = nil
-     }
 }

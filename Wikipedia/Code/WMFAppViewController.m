@@ -1745,6 +1745,10 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     [self updateActiveTitleAccessibilityButton:viewController];
 }
 
+- (void)navigationController:(UINavigationController *)navigationController didShowViewController:(UIViewController *)viewController animated:(BOOL)animated {
+    [self swiftNavigationController:navigationController didShow:viewController animated:animated];
+}
+
 - (id<UIViewControllerInteractiveTransitioning>)navigationController:(UINavigationController *)navigationController interactionControllerForAnimationController:(id<UIViewControllerAnimatedTransitioning>)animationController {
     return [self.transitionsController navigationController:navigationController interactionControllerForAnimationController:animationController];
 }

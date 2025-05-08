@@ -1516,4 +1516,25 @@ extension WMFAppViewController: EditPreviewViewControllerLoggingDelegate {
               }
           }
       }
+     
+     @objc func swiftNavigationController(_ navigationController: UINavigationController, didShow viewController: UIViewController, animated: Bool) {
+          
+         // Detect if ArticleViewController was popped (back button pressed)
+          guard let fromVC = navigationController.transitionCoordinator?.viewController(forKey: .from),
+                !(navigationController.viewControllers.contains(fromVC)),
+                let fromArticleVC = fromVC as? ArticleViewController else {
+              return
+          }
+          
+          Task {
+              do {
+                  guard let tabIdentifier = fromArticleVC.coordinator?.tabIdentifier else { return }
+                  let tabsDataController = try WMFArticleTabsDataController()
+                  
+                  try await tabsDataController.removeLastArticleFromTab(tabIdentifier: tabIdentifier)
+              } catch {
+                  DDLogError("Failed to remove last article from tab: \(error)")
+              }
+          }
+      }
  }
