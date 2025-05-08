@@ -141,8 +141,14 @@ public class WMFArticleTabsDataController {
             guard let self else { throw CustomError.missingSelf }
 
             try self.deleteArticleTab(identifier: identifier, moc: moc)
-            
             try self.coreDataStore.saveIfNeeded(moc: moc)
+            
+            // Post notification
+            NotificationCenter.default.post(
+                name: WMFNSNotification.articleTabDeleted,
+                object: nil,
+                userInfo: [WMFNSNotification.UserInfoKey.articleTabIdentifier: identifier]
+            )
         }
     }
     
