@@ -8,7 +8,6 @@ final class TabsOverviewCoordinator: Coordinator {
     var navigationController: UINavigationController
     var theme: Theme
     let dataStore: MWKDataStore
-    var lastTabIdentifier: UUID?
     
     func start() -> Bool {
         if shouldShowEntryPoint() {
@@ -56,9 +55,10 @@ final class TabsOverviewCoordinator: Coordinator {
     
     private func tappedTab(_ tab: WMFArticleTabsDataController.WMFArticleTab) {
         
-        // If we just came from this tab (i.e. from the article view), just dismiss without pushing on any more articles.
-        if let lastTabIdentifier {
-            if lastTabIdentifier == tab.identifier {
+        // If navigation controller is already displaying tab, just dismiss without pushing on any more tabs.
+        if let displayedArticleViewController = navigationController.viewControllers.last as? ArticleViewController,
+           let displayedTabIdentifier = displayedArticleViewController.coordinator?.tabIdentifier {
+            if displayedTabIdentifier == tab.identifier {
                 navigationController.dismiss(animated: true)
                 return
             }

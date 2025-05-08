@@ -51,7 +51,6 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
     private var tabsCoordinator: TabsOverviewCoordinator? {
         guard let navigationController else { return nil }
         _tabsCoordinator = TabsOverviewCoordinator(navigationController: navigationController, theme: theme, dataStore: dataStore)
-        _tabsCoordinator?.lastTabIdentifier = coordinator?.tabIdentifier
         return _tabsCoordinator
     }
 
