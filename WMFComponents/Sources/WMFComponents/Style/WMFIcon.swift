@@ -112,6 +112,7 @@ public enum WMFSFSymbolIcon {
     case infoCircleFill
     case temporaryAccountIcon
     case tabsIcon
+    case tabsIconBackground
     case closeButtonFill
     
     public var name: String? {
@@ -277,6 +278,8 @@ public enum WMFSFSymbolIcon {
             image = UIImage(systemName: "person.crop.circle.badge.xmark", withConfiguration: configuration)
         case .tabsIcon:
             image = UIImage(systemName: "square.on.square", withConfiguration: configuration)
+        case .tabsIconBackground:
+            image = UIImage(systemName: "plus.square.on.square", withConfiguration: configuration)
         case .closeButtonFill:
             image = UIImage(systemName: "x.circle.fill", withConfiguration: configuration)
         }

@@ -1,6 +1,8 @@
 import UIKit
 import WMF
 import WMFComponents
+import WMFData
+import CocoaLumberjackSwift
 
 @objc(WMFArticlePeekPreviewViewController)
 class ArticlePeekPreviewViewController: UIViewController {
@@ -165,6 +167,39 @@ class ArticlePeekPreviewViewController: UIViewController {
         })
 
         actions.append(shareAction)
+        
+        if let articleTabsDataController = try? WMFArticleTabsDataController(),
+           articleTabsDataController.shouldShowArticleTabs {
+            
+            // Open in new tab
+            let openInNewTabAction = UIAction(title: CommonStrings.articleTabsOpenInNewTab, image: WMFSFSymbolIcon.for(symbol: .tabsIcon), handler: { [weak self] _ in
+                guard let self = self else { return }
+                self.articlePreviewingDelegate?.openInNewTabArticlePreviewActionSelected(with: self)
+            })
+            
+            actions.append(openInNewTabAction)
+
+            // Open in background tab
+            let openInNewBackgroundTabAction = UIAction(title: CommonStrings.articleTabsOpenInBackgroundTab, image: WMFSFSymbolIcon.for(symbol: .tabsIconBackground), handler: { [weak self] _ in
+                guard let self = self else { return }
+                guard let article = self.article,
+                      let articleTitle = article.url?.wmf_title,
+                      let siteURL = article.url?.wmf_site,
+                      let project = WikimediaProject(siteURL: siteURL)?.wmfProject else { return }
+                Task {
+                    do {
+                        let dataController = try WMFArticleTabsDataController()
+                        _ = try await dataController.createArticleTab(initialArticle: WMFArticleTabsDataController.WMFArticle(title: articleTitle, project: project), setAsCurrent: false)
+                    } catch {
+                        DDLogError("Failed to create background tab: \(error)")
+                    }
+                }
+            })
+            
+            actions.append(openInNewBackgroundTabAction)
+            
+        }
+        
 
         return actions
     }

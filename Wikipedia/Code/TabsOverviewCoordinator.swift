@@ -98,6 +98,39 @@ final class TabsOverviewCoordinator: Coordinator {
         let navVC = WMFComponentNavigationController(rootViewController: hostingController, modalPresentationStyle: .fullScreen)
         navigationController.present(navVC, animated: true, completion: nil)
     }
+    
+    private func tappedTab(_ tab: WMFArticleTabsDataController.WMFArticleTab) {
+        
+        guard !tab.isCurrent else {
+            navigationController.dismiss(animated: true)
+            return
+        }
+        
+        for article in tab.articles {
+            guard let siteURL = article.project.siteURL,
+                  let articleURL = siteURL.wmf_URL(withTitle: article.title) else {
+                continue
+            }
+
+            let articleCoordinator = ArticleCoordinator(navigationController: navigationController, articleURL: articleURL, dataStore: MWKDataStore.shared(), theme: theme, needsAnimation: false, source: .undefined, tabConfig: .appendArticleToTab(tab.identifier))
+            articleCoordinator.start()
+        }
+
+        navigationController.dismiss(animated: true)
+    }
+    
+    private func tappedNewTab() {
+        guard let siteURL = dataStore.languageLinkController.appLanguage?.siteURL,
+              let articleURL = siteURL.wmf_URL(withTitle: "Main_Page") else {
+            return
+        }
+        
+        let articleCoordinator = ArticleCoordinator(navigationController: navigationController, articleURL: articleURL, dataStore: MWKDataStore.shared(), theme: theme, needsAnimation: false, source: .undefined, tabConfig: .appendArticleToNewTab)
+        articleCoordinator.start()
+        
+        navigationController.dismiss(animated: true)
+    }
+
 }
 
 extension UIViewController {
