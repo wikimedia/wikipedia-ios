@@ -8,43 +8,107 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
     @Published var shouldShowCloseButton: Bool
     @Published var count: Int
     
-    public init(articleTabs: [ArticleTab]) {
-        self.articleTabs = articleTabs
-        self.shouldShowCloseButton = articleTabs.count > 1
-        self.count = articleTabs.count
+    private let dataController: WMFArticleTabsDataController
+    
+    public init(dataController: WMFArticleTabsDataController) {
+        self.dataController = dataController
+        self.articleTabs = []
+        self.shouldShowCloseButton = false
+        self.count = 0
+        super.init()
+        Task {
+            await loadTabs()
+        }
     }
     
+    @MainActor
+    private func loadTabs() async {
+        do {
+            let tabs = try await dataController.fetchAllArticleTabs()
+            self.articleTabs = tabs.map { tab in
+                ArticleTab(
+                    id: tab.identifier,
+                    image: tab.articles.last?.imageURL,
+                    title: tab.articles.last?.title ?? "",
+                    subtitle: tab.articles.last?.summary,
+                    description: tab.articles.last?.description,
+                    dateCreated: tab.timestamp,
+                    onTapOpen: nil,
+                    project: tab.articles.last?.project
+                )
+            }
+            self.shouldShowCloseButton = articleTabs.count > 1
+            self.count = articleTabs.count
+        } catch {
+            // Handle error appropriately
+            print("Error loading tabs: \(error)")
+        }
+    }
     
     // MARK: - Public funcs
 
     public func calculateColumns(for size: CGSize) -> Int {
+        // If text is scaled up for accessibility, use single column
+        if UIApplication.shared.preferredContentSizeCategory.isAccessibilityCategory {
+            return 1
+        }
+        
         let isPortrait = size.height > size.width
         let isPad = UIDevice.current.userInterfaceIdiom == .pad
 
         if isPortrait {
             return isPad ? 4 : 2
         } else {
-            return 4
+            // Landscape mode: dynamically calculate columns based on available width
+            let minCardWidth: CGFloat = size.width / 6 // Dynamically calculate minimum card width
+            let availableWidth = size.width
+            let columns = Int(availableWidth / minCardWidth)
+            return max(4, min(columns, 6)) // Ensure between 4 and 6 columns
         }
     }
+    // go down to one for large text
     
     public func closeTab(tab: ArticleTab) {
-        if let index = articleTabs.firstIndex(where: { $0.id == tab.id }) {
-            articleTabs.remove(at: index)
+        Task {
+            do {
+                try await dataController.deleteArticleTab(identifier: tab.id)
+                await loadTabs()
+            } catch {
+                print("Error closing tab: \(error)")
+            }
         }
-        updateArticleTabs()
     }
     
     public func addTab() {
-        // TODO
-        updateArticleTabs()
+        Task {
+            do {
+                _ = try await dataController.createArticleTab(initialArticle: nil, setAsCurrent: true)
+                await loadTabs()
+            } catch {
+                print("Error adding tab: \(error)")
+            }
+        }
+    }
+    
+    public func tabsCount() async throws -> Int {
+        return try await dataController.tabsCount()
+    }
+    
+    public func currentTabIdentifier() async throws -> UUID {
+        return try await dataController.currentTabIdentifier()
     }
     
     // MARK: - Helper funcs
     
-    private func updateArticleTabs() {
-        shouldShowCloseButton = articleTabs.count > 1
-        count = articleTabs.count
+    public func calculateImageHeight(for size: CGSize) -> Int {
+        let isPortrait = size.height > size.width
+        let isPad = UIDevice.current.userInterfaceIdiom == .pad
+
+        if isPortrait {
+            return isPad ? 150 : 95
+        } else {
+            return 150
+        }
     }
 }
 
