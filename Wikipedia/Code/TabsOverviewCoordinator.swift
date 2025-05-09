@@ -64,10 +64,12 @@ final class TabsOverviewCoordinator: Coordinator {
             }
         }
         
-        for article in tab.articles {
+        // for article in tab.articles {
+        if let article = tab.articles.last {
             guard let siteURL = article.project.siteURL,
                   let articleURL = siteURL.wmf_URL(withTitle: article.title) else {
-                continue
+                // continue
+                return
             }
             
             let tabConfig = TabConfig.assignParticularTabAndSetToCurrent(WMFArticleTabsDataController.Identifiers(articleTabIdentifier: tab.identifier, articleTabItemIdentifier: article.identifier))

@@ -32,7 +32,8 @@ public struct WMFTabsOverviewView: View {
                         viewModel.didTapMain()
                     }
             } else {
-                ForEach(articleTabs, id: \.identifier) { tab in
+                let populatedArticleTabs = articleTabs.filter { $0.articles.count > 0 }
+                ForEach(populatedArticleTabs, id: \.identifier) { tab in
                     VStack(alignment: .leading, spacing: 8) {
                         HStack(spacing: 12) {
                             VStack(alignment: .leading, spacing: 4) {

@@ -136,4 +136,24 @@ final class ArticleCoordinator: NSObject, Coordinator {
             }
         }
     }
+    
+    func updateCurrentItemInArticleTab() {
+        guard let tabsDataController = try? WMFArticleTabsDataController() else {
+            return
+        }
+        
+        guard tabsDataController.shouldShowArticleTabs else {
+            return
+        }
+        
+        guard let tabIdentifier,
+              let tabItemIdentifier else {
+            return
+        }
+        
+        Task {
+            try await tabsDataController.setTabItemAsCurrent(tabIdentifier: tabIdentifier, tabItemIdentifier: tabItemIdentifier)
+        }
+        
+    }
 }

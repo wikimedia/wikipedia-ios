@@ -143,6 +143,7 @@ public class WMFArticleTabsDataController {
             if let page {
                 let articleTabItem = try self.newArticleTabItem(page: page, moc: moc)
                 articleTabItemIdentifier = articleTabItem.identifier
+                articleTabItem.isCurrent = true
                 newArticleTab.items = NSOrderedSet(array: [articleTabItem])
             }
             
@@ -163,13 +164,6 @@ public class WMFArticleTabsDataController {
 
             try self.deleteArticleTab(identifier: identifier, moc: moc)
             try self.coreDataStore.saveIfNeeded(moc: moc)
-            
-            // Post notification
-            NotificationCenter.default.post(
-                name: WMFNSNotification.articleTabDeleted,
-                object: nil,
-                userInfo: [WMFNSNotification.UserInfoKey.articleTabIdentifier: identifier]
-            )
         }
     }
     
@@ -206,21 +200,50 @@ public class WMFArticleTabsDataController {
             
             let page = try self.pageForArticle(article, moc: moc)
             let articleTabItem = try self.newArticleTabItem(page: page, moc: moc)
-            articleTabItem.tab = tab
             
+            // Build up a new array of article items. We are throwing out any articles after the isCurrent item, and appending the new article item.
+            var newItems: [CDArticleTabItem] = []
+            // var foundCurrent: Bool = false
             if let currentItems = tab.items as? NSMutableOrderedSet {
-                currentItems.add(articleTabItem)
-                tab.items = currentItems
-            } else {
-                tab.items = NSOrderedSet(array: [articleTabItem])
+                for item in currentItems {
+                    
+                    guard let tabItem = item as? CDArticleTabItem else {
+                        continue
+                    }
+                    
+                    // if foundCurrent {
+                       // moc.delete(tabItem)
+                        // todo: we may want to fire off a notification here for cleaning out old articles with this identifier in all the navigation controllers.
+                    // } else {
+                        if tabItem.isCurrent {
+                            tabItem.isCurrent = false
+                            newItems.append(tabItem)
+                            // foundCurrent = true
+                        } else {
+                            newItems.append(tabItem)
+                        }
+                    // }
+                }
             }
             
-            try self.coreDataStore.saveIfNeeded(moc: moc)
+            // Don't create a duplicate tab item back-to-back? Prevents multiple article tab items from Explore featured article from being created.
+            if let lastTabItem = newItems.last,
+               lastTabItem.page == articleTabItem.page {
+                lastTabItem.isCurrent = true
+                moc.delete(articleTabItem)
+            } else {
+                articleTabItem.isCurrent = true
+                newItems.append(articleTabItem)
+            }
+            
+            tab.items = NSOrderedSet(array: newItems)
             
             guard let tabIdentifier = tab.identifier,
                   let tabItemIdentifier = articleTabItem.identifier else {
                 throw CustomError.missingIdentifier
             }
+            
+            try self.coreDataStore.saveIfNeeded(moc: moc)
             
             return Identifiers(articleTabIdentifier: tabIdentifier, articleTabItemIdentifier: tabItemIdentifier)
         }
@@ -228,7 +251,7 @@ public class WMFArticleTabsDataController {
         return result
     }
     
-    public func removeLastArticleFromTab(tabIdentifier: UUID) async throws {
+    public func setTabItemAsCurrent(tabIdentifier: UUID, tabItemIdentifier: UUID) async throws {
         
         guard let moc = backgroundContext else {
             throw CustomError.missingContext
@@ -247,30 +270,13 @@ public class WMFArticleTabsDataController {
                 throw CustomError.missingPage
             }
             
-            // Get last item and delete it
-            guard let lastItem = items.lastObject as? CDArticleTabItem else {
-                throw CustomError.unexpectedType
-            }
-            
-            items.removeObject(at: items.count - 1)
-            lastItem.tab = nil
-            moc.delete(lastItem)
-            
-            if items.count == 0,
-               let tabIdentifer = tab.identifier {
-                do {
-                    try self.deleteArticleTab(identifier: tabIdentifer, moc: moc)
-                } catch {
-                    guard let customError = error as? CustomError else {
-                        throw error
-                    }
-                    
-                    switch customError {
-                    case .cannotDeleteLastTab:
-                        break // this is fine
-                    default:
-                        throw customError
-                    }
+            for item in items {
+                guard let articleItem = item as? CDArticleTabItem else { continue }
+                
+                if articleItem.identifier == tabItemIdentifier {
+                    articleItem.isCurrent = true
+                } else {
+                    articleItem.isCurrent = false
                 }
             }
             
@@ -346,6 +352,12 @@ public class WMFArticleTabsDataController {
             }
         }
         
+        // Post notification
+        NotificationCenter.default.post(
+            name: WMFNSNotification.articleTabDeleted,
+            object: nil,
+            userInfo: [WMFNSNotification.UserInfoKey.articleTabIdentifier: identifier]
+        )
     }
     
     public func currentTabIdentifier() async throws -> UUID {
@@ -484,6 +496,11 @@ public class WMFArticleTabsDataController {
                     
                     let article = WMFArticle(identifier: identifier, title: title, project: project)
                     articles.append(article)
+                    
+                    // don't append any more after current article.
+                    if articleTabItem.isCurrent {
+                        break
+                    }
                 }
                 
                 let articleTab = WMFArticleTab(identifier: tabIdentifier, timestamp: timestamp, isCurrent: cdTab.isCurrent, articles: articles)
