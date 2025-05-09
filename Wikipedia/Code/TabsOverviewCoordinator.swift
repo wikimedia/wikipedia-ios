@@ -48,12 +48,12 @@ final class TabsOverviewCoordinator: Coordinator {
             self?.tappedMainTab()
         }
         
-        let articleTabsViewModel = WMFArticleTabsViewModel(dataController: dataController)
+        let articleTabsViewModel = WMFArticleTabsViewModel(dataController: dataController, didTapTab: didTapTab, didTapAddTab: didTapAddTab, didTapMainTab: didTapMainTab)
         let articleTabsView = WMFArticleTabsView(viewModel: articleTabsViewModel)
         
         let hostingController = WMFArticleTabsHostingController(rootView: articleTabsView, viewModel: articleTabsViewModel)
         let navVC = WMFComponentNavigationController(rootViewController: hostingController, modalPresentationStyle: .overFullScreen)
-
+        navigationController.present(navVC, animated: true, completion: nil)
     }
     
     private func tappedTab(_ tab: WMFArticleTabsDataController.WMFArticleTab) {

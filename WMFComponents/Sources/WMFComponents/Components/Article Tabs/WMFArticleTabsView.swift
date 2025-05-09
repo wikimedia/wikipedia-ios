@@ -39,18 +39,6 @@ public struct WMFArticleTabsView: View {
         .navigationBarTitleDisplayMode(.inline)
         .navigationTitle("\(viewModel.count) tabs") // todo get localized + pluralized version and update
         .toolbarBackground(Color(uiColor: (theme.paperBackground)), for: .automatic)
-        .toolbar {
-            ToolbarItem(placement: .navigationBarTrailing) {
-                Button(action: {
-                    viewModel.addTab()
-                }) {
-                    if let image = WMFIcon.plus {
-                        Image(uiImage: image)
-                            .foregroundStyle(Color(uiColor: theme.link))
-                    }
-                }
-            }
-        }
     }
     
     private func tabCardView(tab: ArticleTab, size: CGSize) -> some View {
@@ -77,7 +65,7 @@ public struct WMFArticleTabsView: View {
                 }
                 
                 if viewModel.shouldShowCloseButton {
-                    WMFCloseButton(action:{ viewModel.closeTab(tab: tab) })
+                    WMFCloseButton(action:{ viewModel.didTapTab(tab.dataTab) })
                     .frame(maxWidth: .infinity, alignment: .topTrailing)
                     .padding([.horizontal, .top], 12)
                 }

@@ -11,11 +11,21 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
     private let dataController: WMFArticleTabsDataController
     public var onTabCountChanged: ((Int) -> Void)?
     
-    public init(dataController: WMFArticleTabsDataController) {
+    public let didTapTab: (WMFArticleTabsDataController.WMFArticleTab) -> Void
+    public let didTapAddTab: () -> Void
+    public let didTapMainTab: () -> Void
+    
+    public init(dataController: WMFArticleTabsDataController,
+                didTapTab: @escaping (WMFArticleTabsDataController.WMFArticleTab) -> Void,
+                didTapAddTab: @escaping () -> Void,
+                didTapMainTab: @escaping () -> Void) {
         self.dataController = dataController
         self.articleTabs = []
         self.shouldShowCloseButton = false
         self.count = 0
+        self.didTapTab = didTapTab
+        self.didTapAddTab = didTapAddTab
+        self.didTapMainTab = didTapMainTab
         super.init()
         Task {
             await loadTabs()
@@ -35,7 +45,8 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
                     description: tab.articles.last?.summary,
                     dateCreated: tab.timestamp,
                     onTapOpen: nil,
-                    project: tab.articles.last?.project
+                    project: tab.articles.last?.project,
+                    dataTab: tab
                 )
             }
             self.shouldShowCloseButton = articleTabs.count > 1
@@ -76,17 +87,6 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
         }
     }
     
-    public func addTab() {
-        Task {
-            do {
-                _ = try await dataController.createArticleTab(initialArticle: nil, setAsCurrent: true)
-                await loadTabs()
-            } catch {
-                print("Error adding tab: \(error)")
-            }
-        }
-    }
-    
     public func tabsCount() async throws -> Int {
         return try await dataController.tabsCount()
     }
@@ -105,8 +105,9 @@ public struct ArticleTab: Identifiable {
     let dateCreated: Date
     let onTapOpen: (() -> Void)?
     let project: WMFProject?
+    let dataTab: WMFArticleTabsDataController.WMFArticleTab // todo: gross, clean up
 
-    public init(id: UUID = UUID(), image: URL?, title: String, subtitle: String?, description: String?, dateCreated: Date, onTapOpen: (() -> Void)? = nil, project: WMFProject? = nil) {
+    public init(id: UUID = UUID(), image: URL?, title: String, subtitle: String?, description: String?, dateCreated: Date, onTapOpen: (() -> Void)? = nil, project: WMFProject? = nil, dataTab: WMFArticleTabsDataController.WMFArticleTab) {
         self.id = id
         self.image = image
         self.title = title
@@ -115,5 +116,6 @@ public struct ArticleTab: Identifiable {
         self.dateCreated = dateCreated
         self.onTapOpen = onTapOpen
         self.project = project
+        self.dataTab = dataTab
     }
 }
