@@ -69,8 +69,10 @@ final class TabsOverviewCoordinator: Coordinator {
                   let articleURL = siteURL.wmf_URL(withTitle: article.title) else {
                 continue
             }
+            
+            let tabConfig = TabConfig.assignParticularTabAndSetToCurrent(WMFArticleTabsDataController.Identifiers(articleTabIdentifier: tab.identifier, articleTabItemIdentifier: article.identifier))
 
-            let articleCoordinator = ArticleCoordinator(navigationController: navigationController, articleURL: articleURL, dataStore: MWKDataStore.shared(), theme: theme, needsAnimation: false, source: .undefined, tabConfig: .assignParticularTabAndSetToCurrent(tab.identifier))
+            let articleCoordinator = ArticleCoordinator(navigationController: navigationController, articleURL: articleURL, dataStore: MWKDataStore.shared(), theme: theme, needsAnimation: false, source: .undefined, tabConfig: tabConfig)
             articleCoordinator.start()
         }
 

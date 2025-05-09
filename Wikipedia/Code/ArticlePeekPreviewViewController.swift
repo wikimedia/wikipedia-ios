@@ -189,7 +189,7 @@ class ArticlePeekPreviewViewController: UIViewController {
                 Task {
                     do {
                         let dataController = try WMFArticleTabsDataController()
-                        _ = try await dataController.createArticleTab(initialArticle: WMFArticleTabsDataController.WMFArticle(title: articleTitle, project: project), setAsCurrent: false)
+                        _ = try await dataController.createArticleTab(initialArticle: WMFArticleTabsDataController.WMFArticle(identifier: nil, title: articleTitle, project: project), setAsCurrent: false)
                     } catch {
                         DDLogError("Failed to create background tab: \(error)")
                     }

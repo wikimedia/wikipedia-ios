@@ -6,7 +6,7 @@ enum TabConfig {
     case appendArticleAndAssignCurrentTab
     case appendArticleAndAssignNewTabAndSetToCurrent
     case appendArticleAndAssignParticularTabAndSetToCurrent(UUID) // may not need this
-    case assignParticularTabAndSetToCurrent(UUID)
+    case assignParticularTabAndSetToCurrent(WMFArticleTabsDataController.Identifiers)
     case assignNewTabAndSetToCurrent
     case assignCurrentTab
  }
@@ -25,6 +25,7 @@ final class ArticleCoordinator: NSObject, Coordinator {
     // Article Tabs Properties
     private let tabConfig: TabConfig
     private(set) var tabIdentifier: UUID?
+    private(set) var tabItemIdentifier: UUID?
     
     init(navigationController: UINavigationController, articleURL: URL, dataStore: MWKDataStore, theme: Theme, needsAnimation: Bool = true, source: ArticleSource, isRestoringState: Bool = false, previousPageViewObjectID: NSManagedObjectID? = nil, tabConfig: TabConfig = .appendArticleAndAssignCurrentTab) {
         self.navigationController = navigationController
@@ -79,23 +80,27 @@ final class ArticleCoordinator: NSObject, Coordinator {
                 return
             }
 
-            let article = WMFArticleTabsDataController.WMFArticle(title: title, project: wmfProject)
+            let article = WMFArticleTabsDataController.WMFArticle(identifier: nil, title: title, project: wmfProject)
             do {
                 let tabsDataController = try WMFArticleTabsDataController()
                 switch tabConfig {
                 case .appendArticleAndAssignCurrentTab:
                     let tabIdentifier = try await tabsDataController.currentTabIdentifier()
-                    try await tabsDataController.appendArticle(article, toTabIdentifier: tabIdentifier)
-                    self.tabIdentifier = tabIdentifier
+                    let identifiers = try await tabsDataController.appendArticle(article, toTabIdentifier: tabIdentifier)
+                    self.tabIdentifier = identifiers.articleTabIdentifier
+                    self.tabItemIdentifier = identifiers.articleTabItemIdentifier
                 case .appendArticleAndAssignNewTabAndSetToCurrent:
-                    let tabIdentifier = try await tabsDataController.createArticleTab(initialArticle: article, setAsCurrent: true)
-                    self.tabIdentifier = tabIdentifier
+                    let identifiers = try await tabsDataController.createArticleTab(initialArticle: article, setAsCurrent: true)
+                    self.tabIdentifier = identifiers.articleTabIdentifier
+                    self.tabItemIdentifier = identifiers.articleTabItemIdentifier
                 case .appendArticleAndAssignParticularTabAndSetToCurrent(let tabIdentifier):
-                    try await tabsDataController.appendArticle(article, toTabIdentifier: tabIdentifier, setAsCurrent: true)
-                    self.tabIdentifier = tabIdentifier
-                case .assignParticularTabAndSetToCurrent(let tabIdentifier):
-                    try await tabsDataController.setTabAsCurrent(tabIdentifier: tabIdentifier)
-                    self.tabIdentifier = tabIdentifier
+                    let identifiers = try await tabsDataController.appendArticle(article, toTabIdentifier: tabIdentifier, setAsCurrent: true)
+                    self.tabIdentifier = identifiers.articleTabIdentifier
+                    self.tabItemIdentifier = identifiers.articleTabItemIdentifier
+                case .assignParticularTabAndSetToCurrent(let identifiers):
+                    try await tabsDataController.setTabAsCurrent(tabIdentifier: identifiers.articleTabIdentifier)
+                    self.tabIdentifier = identifiers.articleTabIdentifier
+                    self.tabItemIdentifier = identifiers.articleTabItemIdentifier
                 case .assignCurrentTab:
                     let tabIdentifier = try await tabsDataController.currentTabIdentifier()
                     self.tabIdentifier = tabIdentifier
@@ -103,8 +108,9 @@ final class ArticleCoordinator: NSObject, Coordinator {
                     
                     let createNewTabBlock = { [weak self] in
                         guard let self else { return }
-                        let newTabIdentifier = try await tabsDataController.createArticleTab(initialArticle: nil, setAsCurrent: true)
-                        self.tabIdentifier = newTabIdentifier
+                        let identifiers = try await tabsDataController.createArticleTab(initialArticle: nil, setAsCurrent: true)
+                        self.tabIdentifier = identifiers.articleTabIdentifier
+                        self.tabItemIdentifier = identifiers.articleTabItemIdentifier
                     }
                     
                     let tabsCount = try await tabsDataController.tabsCount()

@@ -12,19 +12,21 @@ public class WMFArticleTabsDataController {
         case cannotDeleteLastTab
         case missingPage
         case unexpectedType
-        case missingTabIdentifier
+        case missingIdentifier
         case missingTimestamp
         case missingContext
     }
     
     public struct WMFArticle {
+        public let identifier: UUID?
         public let title: String
         public let description: String?
         public let summary: String?
         public let imageURL: URL?
         public let project: WMFProject
         
-        public init(title: String, description: String? = nil, summary: String? = nil, imageURL: URL? = nil, project: WMFProject) {
+        public init(identifier: UUID?, title: String, description: String? = nil, summary: String? = nil, imageURL: URL? = nil, project: WMFProject) {
+            self.identifier = identifier
             self.title = title
             self.description = description
             self.summary = summary
@@ -44,6 +46,16 @@ public class WMFArticleTabsDataController {
             self.timestamp = timestamp
             self.isCurrent = isCurrent
             self.articles = articles
+        }
+    }
+    
+    public struct Identifiers {
+        public let articleTabIdentifier: UUID
+        public let articleTabItemIdentifier: UUID?
+        
+        public init(articleTabIdentifier: UUID, articleTabItemIdentifier: UUID?) {
+            self.articleTabIdentifier = articleTabIdentifier
+            self.articleTabItemIdentifier = articleTabItemIdentifier
         }
     }
     
@@ -97,7 +109,7 @@ public class WMFArticleTabsDataController {
         }
     }
 
-    public func createArticleTab(initialArticle: WMFArticle?, setAsCurrent: Bool = false) async throws -> UUID {
+    public func createArticleTab(initialArticle: WMFArticle?, setAsCurrent: Bool = false) async throws -> Identifiers {
         
         guard let moc = backgroundContext else {
             throw CustomError.missingContext
@@ -123,18 +135,20 @@ public class WMFArticleTabsDataController {
             let newArticleTab = try self.coreDataStore.create(entityType: CDArticleTab.self, in: moc)
             newArticleTab.timestamp = Date()
             newArticleTab.isCurrent = setAsCurrent
-            let identifier = UUID()
-            newArticleTab.identifier = identifier
+            let tabIdentifier = UUID()
+            newArticleTab.identifier = tabIdentifier
             
             // Create CDArticleTabItem and add to newArticleTab
+            var articleTabItemIdentifier: UUID? = nil
             if let page {
                 let articleTabItem = try self.newArticleTabItem(page: page, moc: moc)
+                articleTabItemIdentifier = articleTabItem.identifier
                 newArticleTab.items = NSOrderedSet(array: [articleTabItem])
             }
             
             try self.coreDataStore.saveIfNeeded(moc: moc)
             
-            return identifier
+            return Identifiers(articleTabIdentifier: tabIdentifier, articleTabItemIdentifier: articleTabItemIdentifier)
         }
     }
     
@@ -159,18 +173,18 @@ public class WMFArticleTabsDataController {
         }
     }
     
-    public func appendArticle(_ article: WMFArticle, toTabIdentifier identifier: UUID? = nil, setAsCurrent: Bool? = nil) async throws {
+    public func appendArticle(_ article: WMFArticle, toTabIdentifier tabIdentifier: UUID? = nil, setAsCurrent: Bool? = nil) async throws -> Identifiers {
         
         guard let moc = backgroundContext else {
             throw CustomError.missingContext
         }
         
-        try await moc.perform { [weak self] in
+        let result = try await moc.perform { [weak self] in
             guard let self else { throw CustomError.missingSelf }
             
             let tab: CDArticleTab?
-            if let identifier = identifier {
-                let tabPredicate = NSPredicate(format: "identifier == %@", argumentArray: [identifier])
+            if let tabIdentifier = tabIdentifier {
+                let tabPredicate = NSPredicate(format: "identifier == %@", argumentArray: [tabIdentifier])
                 tab = try self.coreDataStore.fetch(entityType: CDArticleTab.self, predicate: tabPredicate, fetchLimit: 1, in: moc)?.first
             } else {
                 let currentPredicate = NSPredicate(format: "isCurrent == YES")
@@ -202,7 +216,16 @@ public class WMFArticleTabsDataController {
             }
             
             try self.coreDataStore.saveIfNeeded(moc: moc)
+            
+            guard let tabIdentifier = tab.identifier,
+                  let tabItemIdentifier = articleTabItem.identifier else {
+                throw CustomError.missingIdentifier
+            }
+            
+            return Identifiers(articleTabIdentifier: tabIdentifier, articleTabItemIdentifier: tabItemIdentifier)
         }
+        
+        return result
     }
     
     public func removeLastArticleFromTab(tabIdentifier: UUID) async throws {
@@ -278,6 +301,7 @@ public class WMFArticleTabsDataController {
     private func newArticleTabItem(page: CDPage, moc: NSManagedObjectContext) throws -> CDArticleTabItem {
         let newArticleTabItem = try self.coreDataStore.create(entityType: CDArticleTabItem.self, in: moc)
         newArticleTabItem.page = page
+        newArticleTabItem.identifier = UUID()
         return newArticleTabItem
     }
     
@@ -384,8 +408,8 @@ public class WMFArticleTabsDataController {
                 throw CustomError.missingTab
             }
             
-            guard let identifier = cdTab.identifier else {
-                throw CustomError.missingTabIdentifier
+            guard let tabIdentifier = cdTab.identifier else {
+                throw CustomError.missingIdentifier
             }
             
             guard let timestamp = cdTab.timestamp else {
@@ -395,23 +419,24 @@ public class WMFArticleTabsDataController {
             var articles: [WMFArticle] = []
             
             guard let items = cdTab.items else {
-                return WMFArticleTab(identifier: identifier, timestamp: timestamp, isCurrent: cdTab.isCurrent, articles: articles)
+                return WMFArticleTab(identifier: tabIdentifier, timestamp: timestamp, isCurrent: cdTab.isCurrent, articles: [])
             }
             
             for item in items {
                 guard let articleTabItem = item as? CDArticleTabItem,
                       let page = articleTabItem.page,
+                      let identifier = articleTabItem.identifier,
                       let title = page.title,
                       let projectID = page.projectID,
                       let project = WMFProject(coreDataIdentifier: projectID) else {
                     throw CustomError.unexpectedType
                 }
                 
-                let article = WMFArticle(title: title, project: project)
+                let article = WMFArticle(identifier: identifier, title: title, project: project)
                 articles.append(article)
             }
             
-            return WMFArticleTab(identifier: identifier, timestamp: timestamp, isCurrent: cdTab.isCurrent, articles: articles)
+            return WMFArticleTab(identifier: tabIdentifier, timestamp: timestamp, isCurrent: cdTab.isCurrent, articles: articles)
         }
         
         return result
@@ -433,8 +458,8 @@ public class WMFArticleTabsDataController {
             var articleTabs: [WMFArticleTab] = []
             
             for cdTab in cdArticleTabs {
-                guard let identifier = cdTab.identifier else {
-                    throw CustomError.missingTabIdentifier
+                guard let tabIdentifier = cdTab.identifier else {
+                    throw CustomError.missingIdentifier
                 }
                 
                 guard let timestamp = cdTab.timestamp else {
@@ -450,17 +475,18 @@ public class WMFArticleTabsDataController {
                 for item in items {
                     guard let articleTabItem = item as? CDArticleTabItem,
                           let page = articleTabItem.page,
+                          let identifier = articleTabItem.identifier,
                           let title = page.title,
                           let projectID = page.projectID,
                           let project = WMFProject(coreDataIdentifier: projectID) else {
                         throw CustomError.unexpectedType
                     }
                     
-                    let article = WMFArticle(title: title, project: project)
+                    let article = WMFArticle(identifier: identifier, title: title, project: project)
                     articles.append(article)
                 }
                 
-                let articleTab = WMFArticleTab(identifier: identifier, timestamp: timestamp, isCurrent: cdTab.isCurrent, articles: articles)
+                let articleTab = WMFArticleTab(identifier: tabIdentifier, timestamp: timestamp, isCurrent: cdTab.isCurrent, articles: articles)
                 articleTabs.append(articleTab)
             }
             
@@ -486,6 +512,7 @@ public class WMFArticleTabsDataController {
                         var updatedArticles = tab.articles
                         
                         let updatedArticle = WMFArticle(
+                            identifier: lastArticle.identifier,
                                 title: lastArticle.title,
                                 description: articleSummary.description,
                                 summary: articleSummary.extract,
