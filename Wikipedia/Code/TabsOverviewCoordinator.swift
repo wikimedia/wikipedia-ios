@@ -8,7 +8,9 @@ final class TabsOverviewCoordinator: Coordinator {
     var navigationController: UINavigationController
     var theme: Theme
     let dataStore: MWKDataStore
+    private let dataController: WMFArticleTabsDataController
     
+    @discardableResult
     func start() -> Bool {
         if shouldShowEntryPoint() {
             presentTabs()
@@ -19,9 +21,6 @@ final class TabsOverviewCoordinator: Coordinator {
     }
     
     func shouldShowEntryPoint() -> Bool {
-        guard let dataController = try? WMFArticleTabsDataController() else {
-            return false
-        }
         return dataController.shouldShowArticleTabs
     }
     
@@ -29,39 +28,22 @@ final class TabsOverviewCoordinator: Coordinator {
         self.navigationController = navigationController
         self.theme = theme
         self.dataStore = dataStore
+        guard let dataController = try? WMFArticleTabsDataController() else {
+            fatalError("Failed to create WMFArticleTabsDataController")
+        }
+        self.dataController = dataController
     }
     
     private func presentTabs() {
-        let blankViewController = UIViewController()
-        blankViewController.view.backgroundColor = .white
-        blankViewController.modalPresentationStyle = .overFullScreen
-
-        let titleLabel = UILabel()
-        titleLabel.text = "Tabs"
-        titleLabel.font = UIFont.systemFont(ofSize: 24, weight: .bold)
-        titleLabel.textAlignment = .center
-        titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        blankViewController.view.addSubview(titleLabel)
-
-        let closeButton = UIButton(type: .system)
-        closeButton.setTitle("Close", for: .normal)
-        closeButton.addTarget(blankViewController, action: #selector(UIViewController.dismissSelf), for: .touchUpInside)
-        closeButton.translatesAutoresizingMaskIntoConstraints = false
-        blankViewController.view.addSubview(closeButton)
-
-        NSLayoutConstraint.activate([
-            titleLabel.topAnchor.constraint(equalTo: blankViewController.view.safeAreaLayoutGuide.topAnchor, constant: 16),
-            titleLabel.centerXAnchor.constraint(equalTo: blankViewController.view.centerXAnchor),
-
-            closeButton.topAnchor.constraint(equalTo: blankViewController.view.safeAreaLayoutGuide.topAnchor, constant: 16),
-            closeButton.trailingAnchor.constraint(equalTo: blankViewController.view.trailingAnchor, constant: -16)
-        ])
-
-        navigationController.present(blankViewController, animated: true, completion: nil)
+        let articleTabsViewModel = WMFArticleTabsViewModel(dataController: dataController)
+        let articleTabsView = WMFArticleTabsView(viewModel: articleTabsViewModel)
+        
+        let hostingController = WMFArticleTabsHostingController(rootView: articleTabsView, viewModel: articleTabsViewModel)
+        let navVC = WMFComponentNavigationController(rootViewController: hostingController, modalPresentationStyle: .fullScreen)
+        navigationController.present(navVC, animated: true, completion: nil)
     }
     
     private func tappedTab(_ tab: WMFArticleTabsDataController.WMFArticleTab) {
-        
         guard !tab.isCurrent else {
             navigationController.dismiss(animated: true)
             return
@@ -91,7 +73,6 @@ final class TabsOverviewCoordinator: Coordinator {
         
         navigationController.dismiss(animated: true)
     }
-
 }
 
 extension UIViewController {
