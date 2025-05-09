@@ -8,7 +8,9 @@ final class TabsOverviewCoordinator: Coordinator {
     var navigationController: UINavigationController
     var theme: Theme
     let dataStore: MWKDataStore
+    private let dataController: WMFArticleTabsDataController
     
+    @discardableResult
     func start() -> Bool {
         if shouldShowEntryPoint() {
             presentTabs()
@@ -19,9 +21,6 @@ final class TabsOverviewCoordinator: Coordinator {
     }
     
     func shouldShowEntryPoint() -> Bool {
-        guard let dataController = try? WMFArticleTabsDataController() else {
-            return false
-        }
         return dataController.shouldShowArticleTabs
     }
     
@@ -29,6 +28,10 @@ final class TabsOverviewCoordinator: Coordinator {
         self.navigationController = navigationController
         self.theme = theme
         self.dataStore = dataStore
+        guard let dataController = try? WMFArticleTabsDataController() else {
+            fatalError("Failed to create WMFArticleTabsDataController")
+        }
+        self.dataController = dataController
     }
     
     private func presentTabs() {
@@ -45,16 +48,15 @@ final class TabsOverviewCoordinator: Coordinator {
             self?.tappedMainTab()
         }
         
-        let viewModel = WMFTabsOverviewViewModel(didTapTab: didTapTab, didTapMain: didTapMainTab, didTapAddTab: didTapAddTab)
+        let articleTabsViewModel = WMFArticleTabsViewModel(dataController: dataController)
+        let articleTabsView = WMFArticleTabsView(viewModel: articleTabsViewModel)
         
-        let vc = WMFTabsOverviewViewController(viewModel: viewModel)
-        let navVC = WMFComponentNavigationController(rootViewController: vc, modalPresentationStyle: .overFullScreen)
+        let hostingController = WMFArticleTabsHostingController(rootView: articleTabsView, viewModel: articleTabsViewModel)
+        let navVC = WMFComponentNavigationController(rootViewController: hostingController, modalPresentationStyle: .overFullScreen)
 
-        navigationController.present(navVC, animated: true, completion: nil)
     }
     
     private func tappedTab(_ tab: WMFArticleTabsDataController.WMFArticleTab) {
-        
         // If navigation controller is already displaying tab, just dismiss without pushing on any more tabs.
         if let displayedArticleViewController = navigationController.viewControllers.last as? ArticleViewController,
            let displayedTabIdentifier = displayedArticleViewController.coordinator?.tabIdentifier {
@@ -104,7 +106,6 @@ final class TabsOverviewCoordinator: Coordinator {
         
         navigationController.dismiss(animated: true)
     }
-
 }
 
 extension UIViewController {
