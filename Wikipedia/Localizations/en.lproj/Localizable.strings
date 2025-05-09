@@ -1146,6 +1146,7 @@
 "table-of-contents-heading" = "Contents";
 "table-of-contents-hide-button-label" = "Hide table of contents";
 "table-of-contents-subheading-label" = "Subheading $1";
+"tabs-navbar-title-format" = "{{PLURAL:$1|$1 tab|$1 tabs}}";
 "tachelhit-variants-alert-body" = "The Wikipedia app now supports the following Tachelhit variants as primary or secondary languages within the app, making it easier to read, search and edit in your preferred variants:\n\nⵜⴰⵛⵍⵃⵉⵜ Tachelhit, Tifinagh (shi-tfng)\nTaclḥit Tachelhit, Latin (shi-latn)";
 "tachelhit-variants-alert-title" = "Updates to Tachelhit variant support";
 "tajik-variants-alert-body" = "The Wikipedia app now supports the following Tajik variants as primary or secondary languages within the app, making it easier to read, search and edit in your preferred variants:\n\nтоҷикӣ кирилликӣ Tajik, Cyrillic (tg-cyrl)\ntojikī lotinī Tajik, Latin (tg-latn)";

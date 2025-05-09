@@ -13,11 +13,7 @@ public struct WMFArticleTabsView: View {
     public init(viewModel: WMFArticleTabsViewModel) {
         self.viewModel = viewModel
     }
-    
-    private var colorPalette: [UIColor] {
-        [theme.destructive, theme.editorGreen]
-    }
-    
+
     public var body: some View {
         GeometryReader { geometry in
             let size = geometry.size
@@ -36,8 +32,6 @@ public struct WMFArticleTabsView: View {
             }
         }
         .background(Color(theme.midBackground))
-        .navigationBarTitleDisplayMode(.inline)
-        .navigationTitle("\(viewModel.count) tabs") // todo get localized + pluralized version and update
         .toolbarBackground(Color(uiColor: (theme.paperBackground)), for: .automatic)
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
