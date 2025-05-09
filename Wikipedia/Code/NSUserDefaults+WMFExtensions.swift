@@ -74,6 +74,7 @@ let WMFYiRSettingsToggleShouldShow = "WMFYiRSettingsToggleShouldShow"
 
     @objc var shouldRestoreNavigationStackOnResume: Bool {
         get {
+            return false
             return bool(forKey: WMFShouldRestoreNavigationStackOnResume)
         }
         set {
