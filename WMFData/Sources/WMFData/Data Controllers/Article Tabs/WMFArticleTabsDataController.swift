@@ -229,17 +229,7 @@ public class WMFArticleTabsDataController {
             if items.count == 0,
                let tabIdentifer = tab.identifier {
                 do {
-                    let wasCurrent = tab.isCurrent
                     try self.deleteArticleTab(identifier: tabIdentifer, moc: moc)
-                    
-                    // If we deleted the current tab, find the next most recent tab to set as current
-                    if wasCurrent {
-                        let fetchRequest = NSFetchRequest<CDArticleTab>(entityName: "CDArticleTab")
-                        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "timestamp", ascending: false)]
-                        if let nextTab = try moc.fetch(fetchRequest).first {
-                            nextTab.isCurrent = true
-                        }
-                    }
                 } catch {
                     guard let customError = error as? CustomError else {
                         throw error
@@ -302,6 +292,7 @@ public class WMFArticleTabsDataController {
             throw CustomError.missingTab
         }
         
+        let wasCurrent = articleTab.isCurrent
         if let items = articleTab.items {
             for item in items {
                 guard let articleTabItem = item as? CDArticleTabItem else {
@@ -314,6 +305,16 @@ public class WMFArticleTabsDataController {
         }
         
         moc.delete(articleTab)
+        
+        // If we deleted the current tab, find the next most recent tab to set as current
+        if wasCurrent {
+            let fetchRequest = NSFetchRequest<CDArticleTab>(entityName: "CDArticleTab")
+            fetchRequest.sortDescriptors = [NSSortDescriptor(key: "timestamp", ascending: false)]
+            if let nextTab = try moc.fetch(fetchRequest).first {
+                nextTab.isCurrent = true
+            }
+        }
+        
     }
     
     public func currentTabIdentifier() async throws -> UUID {
