@@ -9,6 +9,7 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
     @Published var count: Int
     
     private let dataController: WMFArticleTabsDataController
+    public var onTabCountChanged: ((Int) -> Void)?
     
     public init(dataController: WMFArticleTabsDataController) {
         self.dataController = dataController
@@ -39,6 +40,7 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
             }
             self.shouldShowCloseButton = articleTabs.count > 1
             self.count = articleTabs.count
+            onTabCountChanged?(count)
         } catch {
             // Handle error appropriately
             print("Error loading tabs: \(error)")

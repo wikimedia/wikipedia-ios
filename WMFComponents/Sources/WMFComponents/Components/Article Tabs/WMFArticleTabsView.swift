@@ -35,9 +35,10 @@ public struct WMFArticleTabsView: View {
                 .padding()
             }
         }
-        .background(Color(theme.baseBackground))
+        .background(Color(theme.midBackground))
         .navigationBarTitleDisplayMode(.inline)
         .navigationTitle("\(viewModel.count) tabs") // todo get localized + pluralized version and update
+        .toolbarBackground(Color(uiColor: (theme.paperBackground)), for: .automatic)
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
                 Button(action: {
@@ -115,8 +116,7 @@ public struct WMFArticleTabsView: View {
             }
             Divider()
                 .frame(width: 24)
-                .padding(.bottom, 6)
-                .padding(.top, 3)
+                .padding(.vertical, 6)
             if let description = tab.description {
                 Text(description)
                     .font(Font(WMFFont.for(.caption1)))
