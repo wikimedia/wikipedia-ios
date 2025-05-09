@@ -44,7 +44,8 @@ public struct WMFArticleTabsView: View {
                             .aspectRatio(3/4, contentMode: .fit)
                             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
                     } else {
-                        ForEach(viewModel.articleTabs.sorted(by: { $0.dateCreated < $1.dateCreated })) { tab in
+                        let populatedTabs = viewModel.articleTabs.filter { ($0.dataTab?.articles.count ?? 0) > 0 }
+                        ForEach(populatedTabs.sorted(by: { $0.dateCreated < $1.dateCreated })) { tab in
                             tabCardView(tab: tab, size: size)
                                 .aspectRatio(3/4, contentMode: .fit)
                                 .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
@@ -69,6 +70,10 @@ public struct WMFArticleTabsView: View {
         .background(Color(theme.paperBackground))
         .cornerRadius(12)
         .shadow(color: Color.black.opacity(0.05), radius: 16, x: 0, y: 0)
+        .overlay( /// apply a rounded border
+            RoundedRectangle(cornerRadius: 12)
+                .stroke(.red, lineWidth: 2)
+        )
         .onTapGesture {
             viewModel.didTapMainTab()
         }
@@ -127,6 +132,10 @@ public struct WMFArticleTabsView: View {
         .cornerRadius(12)
         .shadow(color: Color.black.opacity(0.05), radius: 16, x: 0, y: 0)
         .contentShape(Rectangle()) // Ensures full card area is tappable
+        .overlay( /// apply a rounded border
+            RoundedRectangle(cornerRadius: 12)
+                .stroke((tab.dataTab?.isCurrent ?? false) ? .red : .clear, lineWidth: 2)
+        )
         .onTapGesture {
             if let dataTab = tab.dataTab {
                 viewModel.didTapTab(dataTab)

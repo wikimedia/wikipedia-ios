@@ -293,6 +293,31 @@ public class WMFArticleTabsDataController: WMFArticleTabsDataControlling {
                 }
             }
             
+            try setTabAsCurrent(tabIdentifier: tabIdentifier, moc: moc)
+            
+            try self.coreDataStore.saveIfNeeded(moc: moc)
+        }
+    }
+    
+    public func deleteEmptyTabs() async throws {
+        guard let moc = backgroundContext else {
+            throw CustomError.missingContext
+        }
+        
+        try await moc.perform { [weak self] in
+            guard let self else { throw CustomError.missingSelf }
+            
+            let predicate = NSPredicate(format: "items.@count == 0")
+            
+            guard let tabs = try self.coreDataStore.fetch(entityType: CDArticleTab.self, predicate: predicate, fetchLimit: nil, in: moc) else {
+                throw CustomError.missingTab
+            }
+            
+            for tab in tabs {
+                guard let tabIdentifier = tab.identifier else { continue }
+                try self.deleteArticleTab(identifier: tabIdentifier, moc: moc)
+            }
+            
             try self.coreDataStore.saveIfNeeded(moc: moc)
         }
     }

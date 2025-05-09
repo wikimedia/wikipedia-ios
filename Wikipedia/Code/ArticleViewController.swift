@@ -444,7 +444,7 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
         super.viewDidAppear(animated)
         presentModalsIfNeeded()
         trackBeganViewingDate()
-        coordinator?.updateCurrentItemInArticleTab()
+        coordinator?.syncTabsOnArticleAppearance()
     }
     
     @objc func userDidTapProfile() {

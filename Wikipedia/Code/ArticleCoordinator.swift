@@ -137,7 +137,8 @@ final class ArticleCoordinator: NSObject, Coordinator {
         }
     }
     
-    func updateCurrentItemInArticleTab() {
+    // Cleanup needed when tapping Back button
+    func syncTabsOnArticleAppearance() {
         guard let tabsDataController = try? WMFArticleTabsDataController() else {
             return
         }
@@ -153,7 +154,7 @@ final class ArticleCoordinator: NSObject, Coordinator {
         
         Task {
             try await tabsDataController.setTabItemAsCurrent(tabIdentifier: tabIdentifier, tabItemIdentifier: tabItemIdentifier)
+            try await tabsDataController.deleteEmptyTabs()
         }
-        
     }
 }
