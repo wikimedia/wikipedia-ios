@@ -21,6 +21,8 @@ public class WMFArticleTabsHostingController<HostedView: View>: WMFComponentHost
         super.viewWillAppear(animated)
         
         configureNavigationBar()
+        
+        navigationItem.rightBarButtonItem = addTabButton
     }
     
     private func configureNavigationBar() {

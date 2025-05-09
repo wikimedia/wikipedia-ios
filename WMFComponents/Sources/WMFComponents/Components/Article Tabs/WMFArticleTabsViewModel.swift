@@ -105,9 +105,9 @@ public struct ArticleTab: Identifiable {
     let dateCreated: Date
     let onTapOpen: (() -> Void)?
     let project: WMFProject?
-    let dataTab: WMFArticleTabsDataController.WMFArticleTab // todo: gross, clean up
+    let dataTab: WMFArticleTabsDataController.WMFArticleTab? // todo: gross, clean up
 
-    public init(id: UUID = UUID(), image: URL?, title: String, subtitle: String?, description: String?, dateCreated: Date, onTapOpen: (() -> Void)? = nil, project: WMFProject? = nil, dataTab: WMFArticleTabsDataController.WMFArticleTab) {
+    public init(id: UUID = UUID(), image: URL?, title: String, subtitle: String?, description: String?, dateCreated: Date, onTapOpen: (() -> Void)? = nil, project: WMFProject? = nil, dataTab: WMFArticleTabsDataController.WMFArticleTab?) {
         self.id = id
         self.image = image
         self.title = title

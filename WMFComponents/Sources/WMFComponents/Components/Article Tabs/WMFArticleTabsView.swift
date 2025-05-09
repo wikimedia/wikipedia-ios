@@ -18,6 +18,19 @@ public struct WMFArticleTabsView: View {
         [theme.destructive, theme.editorGreen]
     }
     
+    private var needsMainGridItem: Bool {
+        if viewModel.articleTabs.count == 1 {
+            if let tab = viewModel.articleTabs.first {
+                if let dataTab = tab.dataTab,
+                   dataTab.articles.count == 0 {
+                    return true
+                }
+            }
+        }
+        
+        return false
+    }
+    
     public var body: some View {
         GeometryReader { geometry in
             let size = geometry.size
@@ -26,11 +39,18 @@ public struct WMFArticleTabsView: View {
             
             ScrollView {
                 LazyVGrid(columns: Array(repeating: gridItem, count: columns), spacing: 12) {
-                    ForEach(viewModel.articleTabs.sorted(by: { $0.dateCreated < $1.dateCreated })) { tab in
-                        tabCardView(tab: tab, size: size)
+                    if needsMainGridItem {
+                        mainTabCardView(size: size)
                             .aspectRatio(3/4, contentMode: .fit)
                             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+                    } else {
+                        ForEach(viewModel.articleTabs.sorted(by: { $0.dateCreated < $1.dateCreated })) { tab in
+                            tabCardView(tab: tab, size: size)
+                                .aspectRatio(3/4, contentMode: .fit)
+                                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+                        }
                     }
+                    
                 }
                 .padding()
             }
@@ -41,41 +61,62 @@ public struct WMFArticleTabsView: View {
         .toolbarBackground(Color(uiColor: (theme.paperBackground)), for: .automatic)
     }
     
+    private func mainTabCardView(size: CGSize) -> some View {
+        VStack(alignment: .leading) {
+            Text("Main Page")
+        }
+        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+        .background(Color(theme.paperBackground))
+        .cornerRadius(12)
+        .shadow(color: Color.black.opacity(0.05), radius: 16, x: 0, y: 0)
+        .onTapGesture {
+            viewModel.didTapMainTab()
+        }
+    }
+    
     private func tabCardView(tab: ArticleTab, size: CGSize) -> some View {
         VStack(alignment: .leading) {
             ZStack(alignment: .topTrailing) {
-                if let imageURL = tab.image {
-                    AsyncImage(url: imageURL) { image in
-                        image
-                            .resizable()
-                            .scaledToFill()
-                            .frame(height: 95)
-                            .frame(maxWidth: .infinity)
-                            .clipped()
-                    } placeholder: {
-                        Color(uiColor: theme.paperBackground)
-                            .frame(height: 1)
+                Group {
+                    if let imageURL = tab.image {
+                        AsyncImage(url: imageURL) { image in
+                            image
+                                .resizable()
+                                .scaledToFill()
+                                .frame(height: 95)
+                                .frame(maxWidth: .infinity)
+                                .clipped()
+                        } placeholder: {
+                            Color(uiColor: theme.paperBackground)
+                                .frame(height: 95)
+                                .frame(maxWidth: .infinity)
+                        }
+                    } else {
+                        tabTitle(title: tab.title)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .padding(.trailing, 40)
+                            .padding(.top, 12)
+                            .padding(.leading, 10)
                     }
-                } else {
-                    tabTitle(title: tab.title)
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                        .padding(.trailing, 40)
-                        .padding(.top, 12)
-                        .padding(.leading, 10)
                 }
-                
+
                 if viewModel.shouldShowCloseButton {
-                    WMFCloseButton(action:{ viewModel.didTapTab(tab.dataTab) })
-                    .frame(maxWidth: .infinity, alignment: .topTrailing)
+                    WMFCloseButton(action:{
+                        viewModel.closeTab(tab: tab)
+                    })
                     .padding([.horizontal, .top], 12)
+                    .contentShape(Rectangle())
                 }
             }
+
             if tab.image != nil {
                 tabTitle(title: tab.title)
                     .padding(.horizontal, 10)
                     .padding(.top, 8)
             }
+
             tabText(tab: tab)
+
             if tab.image == nil {
                 Spacer()
                 Spacer()
@@ -85,6 +126,12 @@ public struct WMFArticleTabsView: View {
         .background(Color(theme.paperBackground))
         .cornerRadius(12)
         .shadow(color: Color.black.opacity(0.05), radius: 16, x: 0, y: 0)
+        .contentShape(Rectangle()) // Ensures full card area is tappable
+        .onTapGesture {
+            if let dataTab = tab.dataTab {
+                viewModel.didTapTab(dataTab)
+            }
+        }
     }
     
     private func tabTitle(title: String) -> some View {
