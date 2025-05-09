@@ -4,10 +4,13 @@ import CoreData
 
 public protocol WMFArticleTabsDataControlling {
     func tabsCount() async throws -> Int
-    func createArticleTab(initialArticle: WMFArticleTabsDataController.WMFArticle?, setAsCurrent: Bool) async throws -> UUID
+    func checkAndCreateInitialArticleTabIfNeeded() async throws
+    func createArticleTab(initialArticle: WMFArticleTabsDataController.WMFArticle?, setAsCurrent: Bool) async throws -> WMFArticleTabsDataController.Identifiers
     func deleteArticleTab(identifier: UUID) async throws
-    func appendArticle(_ article: WMFArticleTabsDataController.WMFArticle, toTabIdentifier identifier: UUID?, setAsCurrent: Bool?) async throws
-    func removeLastArticleFromTab(tabIdentifier: UUID) async throws
+    func appendArticle(_ article: WMFArticleTabsDataController.WMFArticle, toTabIdentifier identifier: UUID?, setAsCurrent: Bool?) async throws -> WMFArticleTabsDataController.Identifiers
+    func setTabItemAsCurrent(tabIdentifier: UUID, tabItemIdentifier: UUID) async throws
+    func setTabAsCurrent(tabIdentifier: UUID) async throws
+    func fetchTab(tabIdentfiier: UUID) async throws -> WMFArticleTabsDataController.WMFArticleTab
     func currentTabIdentifier() async throws -> UUID
     func fetchAllArticleTabs() async throws -> [WMFArticleTabsDataController.WMFArticleTab]
 }
