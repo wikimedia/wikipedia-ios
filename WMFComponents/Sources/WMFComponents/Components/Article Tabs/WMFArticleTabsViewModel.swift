@@ -10,15 +10,27 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
     
     private let dataController: WMFArticleTabsDataController
     public var onTabCountChanged: ((Int) -> Void)?
+    public var updateNavigationBarTitleAction: ((Int) -> Void)?
     
-    public init(dataController: WMFArticleTabsDataController) {
+    public let localizedStrings: LocalizedStrings
+    
+    public init(dataController: WMFArticleTabsDataController, localizedStrings: LocalizedStrings) {
         self.dataController = dataController
+        self.localizedStrings = localizedStrings
         self.articleTabs = []
         self.shouldShowCloseButton = false
         self.count = 0
         super.init()
         Task {
             await loadTabs()
+        }
+    }
+    
+    public struct LocalizedStrings {
+        public let navBarTitleFormat: String
+        
+        public init(navBarTitleFormat: String) {
+            self.navBarTitleFormat = navBarTitleFormat
         }
     }
     
@@ -41,6 +53,7 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
             self.shouldShowCloseButton = articleTabs.count > 1
             self.count = articleTabs.count
             onTabCountChanged?(count)
+            updateNavigationBarTitleAction?(count)
         } catch {
             // Handle error appropriately
             print("Error loading tabs: \(error)")
@@ -89,10 +102,6 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
     
     public func tabsCount() async throws -> Int {
         return try await dataController.tabsCount()
-    }
-    
-    public func currentTabIdentifier() async throws -> UUID {
-        return try await dataController.currentTabIdentifier()
     }
 }
 
