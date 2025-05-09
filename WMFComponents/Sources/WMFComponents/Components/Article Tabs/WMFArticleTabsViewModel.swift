@@ -52,21 +52,16 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
         if UIApplication.shared.preferredContentSizeCategory.isAccessibilityCategory {
             return 1
         }
-        
+
         let isPortrait = size.height > size.width
         let isPad = UIDevice.current.userInterfaceIdiom == .pad
 
         if isPortrait {
             return isPad ? 4 : 2
         } else {
-            // Landscape mode: dynamically calculate columns based on available width
-            let minCardWidth: CGFloat = size.width / 6 // Dynamically calculate minimum card width
-            let availableWidth = size.width
-            let columns = Int(availableWidth / minCardWidth)
-            return max(4, min(columns, 6)) // Ensure between 4 and 6 columns
+            return 4
         }
     }
-    // go down to one for large text
     
     public func closeTab(tab: ArticleTab) {
         Task {
@@ -96,19 +91,6 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
     
     public func currentTabIdentifier() async throws -> UUID {
         return try await dataController.currentTabIdentifier()
-    }
-    
-    // MARK: - Helper funcs
-    
-    public func calculateImageHeight(for size: CGSize) -> Int {
-        let isPortrait = size.height > size.width
-        let isPad = UIDevice.current.userInterfaceIdiom == .pad
-
-        if isPortrait {
-            return isPad ? 150 : 95
-        } else {
-            return 150
-        }
     }
 }
 
