@@ -102,6 +102,16 @@ public protocol WMFDeveloperSettingsDataControlling: AnyObject {
             return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsArticleTab.rawValue)) ?? false
         } set {
             try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsArticleTab.rawValue, value: newValue)
+            
+            if newValue {
+                Task {
+                    do {
+                        try await WMFArticleTabsDataController().checkAndCreateInitialArticleTabIfNeeded()
+                    } catch {
+                        debugPrint("Failed to check or create initial article tab: \(error)")
+                    }
+                }
+            }
         }
     }
 

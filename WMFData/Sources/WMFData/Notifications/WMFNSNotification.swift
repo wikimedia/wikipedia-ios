@@ -4,6 +4,7 @@ import Foundation
 public enum WMFNSNotification {
     
     public static let articleTabDeleted = Notification.Name(WMFNotificationName.articleTabDeleted.rawValue)
+    public static let coreDataStoreSetup = Notification.Name(WMFNotificationName.coreDataStoreSetup.rawValue)
     
     /// User info keys for notifications
     public enum UserInfoKey {
@@ -14,4 +15,5 @@ public enum WMFNSNotification {
 /// Private enum to ensure unique notification names
 private enum WMFNotificationName: String {
     case articleTabDeleted = "WMFDataArticleTabDeleted"
-} 
+    case coreDataStoreSetup = "WMFDataCoreDataStoreSetup"
+}

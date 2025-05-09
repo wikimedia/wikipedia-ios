@@ -1456,10 +1456,7 @@ extension WMFAppViewController: EditPreviewViewControllerLoggingDelegate {
          
          Task {
              do {
-                 let count = try await dataController.tabsCount()
-                 if count == 0 {
-                     _ = try await dataController.createArticleTab(initialArticle: nil, setAsCurrent: true)
-                 }
+                 try await dataController.checkAndCreateInitialArticleTabIfNeeded()
              } catch {
                  DDLogError("Failed to check or create initial article tab: \(error)")
              }

@@ -89,6 +89,13 @@ public class WMFArticleTabsDataController {
             return try moc.count(for: fetchRequest)
         }
     }
+    
+    public func checkAndCreateInitialArticleTabIfNeeded() async throws {
+        let count = try await tabsCount()
+        if count == 0 {
+            _ = try await createArticleTab(initialArticle: nil, setAsCurrent: true)
+        }
+    }
 
     public func createArticleTab(initialArticle: WMFArticle?, setAsCurrent: Bool = false) async throws -> UUID {
         
