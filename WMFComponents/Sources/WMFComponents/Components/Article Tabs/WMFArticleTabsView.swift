@@ -69,8 +69,10 @@ public struct WMFArticleTabsView: View {
                     }
                 } else {
                     tabTitle(title: tab.title)
+                        .frame(maxWidth: .infinity, alignment: .leading)
                         .padding(.trailing, 40)
-                        .padding([.leading, .top], 12)
+                        .padding(.top, 12)
+                        .padding(.leading, 10)
                 }
                 
                 if viewModel.shouldShowCloseButton {
@@ -81,7 +83,8 @@ public struct WMFArticleTabsView: View {
             }
             if tab.image != nil {
                 tabTitle(title: tab.title)
-                    .padding([.horizontal], 12)
+                    .padding(.horizontal, 10)
+                    .padding(.top, 8)
             }
             tabText(tab: tab)
             if tab.image == nil {
@@ -100,7 +103,6 @@ public struct WMFArticleTabsView: View {
             .font(Font(WMFFont.for(.georgiaTitle3)))
             .foregroundStyle(Color(theme.text))
             .lineLimit(1)
-            .frame(maxWidth: .infinity, alignment: .leading)
     }
     
     private func tabText(tab: ArticleTab) -> some View {
@@ -113,10 +115,13 @@ public struct WMFArticleTabsView: View {
             }
             Divider()
                 .frame(width: 24)
+                .padding(.bottom, 6)
+                .padding(.top, 3)
             if let description = tab.description {
                 Text(description)
                     .font(Font(WMFFont.for(.caption1)))
                     .foregroundStyle(Color(theme.text))
+                    .lineSpacing(5)
             } else {
                 Spacer()
                 Spacer()
