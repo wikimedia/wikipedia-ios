@@ -49,7 +49,7 @@ public class WMFArticleTabsDataController: WMFArticleTabsDataControlling {
         }
         
         public var isMain: Bool {
-            return title == "Main_Page"
+            return title == "Main_Page" || title == "Main Page"
         }
     }
     
@@ -97,7 +97,9 @@ public class WMFArticleTabsDataController: WMFArticleTabsDataControlling {
     private let articleSummaryDataController: WMFArticleSummaryDataControlling
     
     lazy var backgroundContext: NSManagedObjectContext? = {
-        return try? coreDataStore.newBackgroundContext
+        let backgroundContext = try? coreDataStore.newBackgroundContext
+        backgroundContext?.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
+        return backgroundContext
     }()
     
     // MARK: - Lifecycle

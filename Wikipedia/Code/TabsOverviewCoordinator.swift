@@ -86,7 +86,7 @@ final class TabsOverviewCoordinator: Coordinator {
     
     private func tappedAddTab() {
         guard let siteURL = dataStore.languageLinkController.appLanguage?.siteURL,
-              let articleURL = siteURL.wmf_URL(withTitle: "Main_Page") else {
+              let articleURL = siteURL.wmf_URL(withTitle: "Main Page") else {
             return
         }
         

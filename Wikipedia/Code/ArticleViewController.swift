@@ -562,7 +562,8 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
                 return
         }
         
-        guard let request = try? WMFArticleDataController.ArticleInfoRequest(needsWatchedStatus: dataStore.authenticationManager.authStateIsPermanent, needsRollbackRights: false, needsCategories: true) else {
+        let needsCategories = articleURL.wmf_title != "Main Page"
+        guard let request = try? WMFArticleDataController.ArticleInfoRequest(needsWatchedStatus: dataStore.authenticationManager.authStateIsPermanent, needsRollbackRights: false, needsCategories: needsCategories) else {
             return
         }
                 
@@ -583,7 +584,9 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
                     
                     self.toolbarController.updateMoreButton(needsWatchButton: needsWatchButton, needsUnwatchHalfButton: needsUnwatchHalfButton, needsUnwatchFullButton: needsUnwatchFullButton)
                     
-                    self.saveCategories(categories: info.categories, articleTitle: title, project: project)
+                    if needsCategories {
+                        self.saveCategories(categories: info.categories, articleTitle: title, project: project)
+                    }
                     
                 case .failure(let error):
                     DDLogError("Error fetching article MediaWiki info: \(error)")
