@@ -13,9 +13,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>%1$d artikel</string>
+			<string>%1$d gång</string>
 			<key>other</key>
-			<string>%1$d artiklar</string>
+			<string>%1$d gånger</string>
 		</dict>
 	</dict>
 	<key>activity-tab-you-read</key>
