@@ -4,10 +4,9 @@ import CocoaLumberjackSwift
 
 enum TabConfig {
     case appendArticleAndAssignCurrentTab // Default navigation
-    case appendArticleAndAssignNewTabAndSetToCurrent // Open in new tab long press,
+    case appendArticleAndAssignNewTabAndSetToCurrent // Open in new tab long press
     case assignParticularTabAndSetToCurrent(WMFArticleTabsDataController.Identifiers) // Tapping tab from tabs overview
     case assignNewTabAndSetToCurrent // Tapping add tab from tabs overview
-    case assignCurrentTab // Tapping main tab grid item
  }
 
 final class ArticleCoordinator: NSObject, Coordinator {
@@ -99,9 +98,6 @@ final class ArticleCoordinator: NSObject, Coordinator {
                     try await tabsDataController.setTabAsCurrent(tabIdentifier: identifiers.tabIdentifier)
                     self.tabIdentifier = identifiers.tabIdentifier
                     self.tabItemIdentifier = identifiers.tabItemIdentifier
-                case .assignCurrentTab:
-                    let tabIdentifier = try await tabsDataController.currentTabIdentifier()
-                    self.tabIdentifier = tabIdentifier
                 case .assignNewTabAndSetToCurrent:
                     let identifiers = try await tabsDataController.createArticleTab(initialArticle: nil, setAsCurrent: true)
                     self.tabIdentifier = identifiers.tabIdentifier
