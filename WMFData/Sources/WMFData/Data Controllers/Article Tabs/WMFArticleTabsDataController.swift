@@ -28,6 +28,7 @@ public class WMFArticleTabsDataController: WMFArticleTabsDataControlling {
         case missingIdentifier
         case missingTimestamp
         case missingContext
+        case missingAppLanguage
     }
     
     public struct WMFArticle {
@@ -45,6 +46,10 @@ public class WMFArticleTabsDataController: WMFArticleTabsDataControlling {
             self.summary = summary
             self.imageURL = imageURL
             self.project = project
+        }
+        
+        public var isMain: Bool {
+            return title == "Main_Page"
         }
     }
     
@@ -74,7 +79,18 @@ public class WMFArticleTabsDataController: WMFArticleTabsDataControlling {
     
     // MARK: - Properties
     
-    public static let shared = try? WMFArticleTabsDataController()
+    // This singleton setup allows us to try instantiation multiple times in case the first attempt fails (like for example, if coreDataStoreUnavailable error is thrown).
+    private static var _shared: WMFArticleTabsDataController?
+    public static var shared: WMFArticleTabsDataController? {
+        get {
+            if _shared == nil {
+                _shared = try? WMFArticleTabsDataController()
+            }
+            return _shared
+        } set {
+            _shared = newValue
+        }
+    }
     
     public let coreDataStore: WMFCoreDataStore
     private let developerSettingsDataController: WMFDeveloperSettingsDataControlling
@@ -87,8 +103,8 @@ public class WMFArticleTabsDataController: WMFArticleTabsDataControlling {
     // MARK: - Lifecycle
     
     private init(coreDataStore: WMFCoreDataStore? = WMFDataEnvironment.current.coreDataStore,
-                developerSettingsDataController: WMFDeveloperSettingsDataControlling = WMFDeveloperSettingsDataController.shared,
-                articleSummaryDataController: WMFArticleSummaryDataControlling = WMFArticleSummaryDataController()) throws {
+                 developerSettingsDataController: WMFDeveloperSettingsDataControlling = WMFDeveloperSettingsDataController.shared,
+                 articleSummaryDataController: WMFArticleSummaryDataControlling = WMFArticleSummaryDataController()) throws {
         guard let coreDataStore else {
             throw WMFDataControllerError.coreDataStoreUnavailable
         }
@@ -130,14 +146,25 @@ public class WMFArticleTabsDataController: WMFArticleTabsDataControlling {
             throw CustomError.missingContext
         }
         
+        let article: WMFArticle
+        
+        if let initialArticle {
+            article = initialArticle
+        } else {
+            if let primaryAppLanguage = WMFDataEnvironment.current.appData.appLanguages.first {
+                let project = WMFProject.wikipedia(primaryAppLanguage)
+                article = WMFArticle(identifier: nil, title: "Main_Page", project: project)
+            } else {
+                throw CustomError.missingAppLanguage
+            }
+        }
+        
         return try await moc.perform { [weak self] in
             guard let self else { throw CustomError.missingSelf }
             
             // If we need to insert an initial article, create or fetch existing CDPage of article.
             var page: CDPage?
-            if let initialArticle {
-                page = try self.pageForArticle(initialArticle, moc: moc)
-            }
+            page = try self.pageForArticle(article, moc: moc)
             
             // If setting as current, first set all other tabs to not current
             if setAsCurrent {

@@ -34,18 +34,15 @@ public struct WMFArticleTabsView: View {
             
             ScrollView {
                 LazyVGrid(columns: Array(repeating: gridItem, count: columns), spacing: 12) {
-                    if needsMainGridItem {
-                        tabCardView(content: mainPageTabContent(), tapAction: ({
-                            viewModel.didTapMainTab()
-                        }))
-                    } else {
-                        let populatedTabs = viewModel.articleTabs.filter { $0.data.articles.count > 0 }
-                        ForEach(populatedTabs.sorted(by: { $0.dateCreated < $1.dateCreated })) { tab in
-                            
-                            tabCardView(content: standardTabContent(tab: tab), tapAction: ({
-                                viewModel.didTapTab(tab.data)
-                            }))
+
+                    ForEach(viewModel.articleTabs.sorted(by: { $0.dateCreated < $1.dateCreated })) { tab in
+                        
+                        if tab.isMain {
+                            tabCardView(content: mainPageTabContent(), tabData: tab.data)
+                        } else {
+                            tabCardView(content: standardTabContent(tab: tab), tabData: tab.data)
                         }
+                        
                     }
                     
                 }
@@ -113,7 +110,7 @@ public struct WMFArticleTabsView: View {
         }
     }
     
-    private func tabCardView(content: some View, tapAction: @escaping () -> Void) -> some View {
+    private func tabCardView(content: some View, tabData: WMFArticleTabsDataController.WMFArticleTab) -> some View {
         content
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
         .background(Color(theme.paperBackground))
@@ -121,7 +118,7 @@ public struct WMFArticleTabsView: View {
         .shadow(color: Color.black.opacity(0.05), radius: 16, x: 0, y: 0)
         .contentShape(Rectangle()) // Ensures full card area is tappable
         .onTapGesture {
-            tapAction()
+            viewModel.didTapTab(tabData)
         }
         .aspectRatio(3/4, contentMode: .fit)
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)

@@ -103,31 +103,9 @@ final class ArticleCoordinator: NSObject, Coordinator {
                     let tabIdentifier = try await tabsDataController.currentTabIdentifier()
                     self.tabIdentifier = tabIdentifier
                 case .assignNewTabAndSetToCurrent:
-                    
-                    let createNewTabBlock = { [weak self] in
-                        guard let self else { return }
-                        let identifiers = try await tabsDataController.createArticleTab(initialArticle: nil, setAsCurrent: true)
-                        self.tabIdentifier = identifiers.tabIdentifier
-                        self.tabItemIdentifier = identifiers.tabItemIdentifier
-                    }
-                    
-                    let tabsCount = try await tabsDataController.tabsCount()
-                    
-                    if tabsCount == 1 {
-                        let currentTabIdentifier = try await tabsDataController.currentTabIdentifier()
-                        let currentTab = try await tabsDataController.fetchTab(tabIdentfiier: currentTabIdentifier)
-                        
-                        // They tapped new tab button on an empty state. Instead just assign the current tab, so we don't have this awkward additional empty tab.
-                        // To repro this weirdness: start from a totally fresh state, like Explore. You will see the single Main Page grid item. Then tap the + button.
-                        if currentTab.articles.count == 0 {
-                            self.tabIdentifier = currentTabIdentifier
-                        } else {
-                            try await createNewTabBlock()
-                        }
-                        
-                    } else {
-                        try await createNewTabBlock()
-                    }
+                    let identifiers = try await tabsDataController.createArticleTab(initialArticle: nil, setAsCurrent: true)
+                    self.tabIdentifier = identifiers.tabIdentifier
+                    self.tabItemIdentifier = identifiers.tabItemIdentifier
                 }
             } catch {
                 DDLogError("Failed to handle tab configuration: \(error)")

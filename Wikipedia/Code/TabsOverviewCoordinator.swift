@@ -44,15 +44,11 @@ final class TabsOverviewCoordinator: Coordinator {
             self?.tappedAddTab()
         }
         
-        let didTapMainTab: () -> Void = { [weak self] in
-            self?.tappedMainTab()
-        }
-        
         let localizedStrings = WMFArticleTabsViewModel.LocalizedStrings(
             navBarTitleFormat: WMFLocalizedString("tabs-navbar-title-format", value: "{{PLURAL:%1$d|%1$d tab|%1$d tabs}}", comment: "$1 is the amount of tabs. Navigation title for tabs, displaying how many open tabs.")
         )
         
-        let articleTabsViewModel = WMFArticleTabsViewModel(dataController: dataController, localizedStrings: localizedStrings, didTapTab: didTapTab, didTapAddTab: didTapAddTab, didTapMainTab: didTapMainTab)
+        let articleTabsViewModel = WMFArticleTabsViewModel(dataController: dataController, localizedStrings: localizedStrings, didTapTab: didTapTab, didTapAddTab: didTapAddTab)
         let articleTabsView = WMFArticleTabsView(viewModel: articleTabsViewModel)
         
         let hostingController = WMFArticleTabsHostingController(rootView: articleTabsView, viewModel: articleTabsViewModel,
@@ -95,18 +91,6 @@ final class TabsOverviewCoordinator: Coordinator {
         }
         
         let articleCoordinator = ArticleCoordinator(navigationController: navigationController, articleURL: articleURL, dataStore: MWKDataStore.shared(), theme: theme, needsAnimation: false, source: .undefined, tabConfig: .assignNewTabAndSetToCurrent)
-        articleCoordinator.start()
-        
-        navigationController.dismiss(animated: true)
-    }
-    
-    private func tappedMainTab() {
-        guard let siteURL = dataStore.languageLinkController.appLanguage?.siteURL,
-              let articleURL = siteURL.wmf_URL(withTitle: "Main_Page") else {
-            return
-        }
-        
-        let articleCoordinator = ArticleCoordinator(navigationController: navigationController, articleURL: articleURL, dataStore: MWKDataStore.shared(), theme: theme, needsAnimation: false, source: .undefined, tabConfig: .assignCurrentTab)
         articleCoordinator.start()
         
         navigationController.dismiss(animated: true)

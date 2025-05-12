@@ -14,15 +14,13 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
 
     public let didTapTab: (WMFArticleTabsDataController.WMFArticleTab) -> Void
     public let didTapAddTab: () -> Void
-    public let didTapMainTab: () -> Void
     
     public let localizedStrings: LocalizedStrings
     
     public init(dataController: WMFArticleTabsDataController,
                 localizedStrings: LocalizedStrings,
                 didTapTab: @escaping (WMFArticleTabsDataController.WMFArticleTab) -> Void,
-                didTapAddTab: @escaping () -> Void,
-                didTapMainTab: @escaping () -> Void) {
+                didTapAddTab: @escaping () -> Void) {
         self.dataController = dataController
         self.localizedStrings = localizedStrings
         self.articleTabs = []
@@ -30,7 +28,6 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
         self.count = 0
         self.didTapTab = didTapTab
         self.didTapAddTab = didTapAddTab
-        self.didTapMainTab = didTapMainTab
         super.init()
         Task {
             await loadTabs()
@@ -51,7 +48,6 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
             let tabs = try await dataController.fetchAllArticleTabs()
             self.articleTabs = tabs.map { tab in
                 ArticleTab(
-                    id: tab.identifier,
                     image: tab.articles.last?.imageURL,
                     title: tab.articles.last?.title.underscoresToSpaces ?? "",
                     subtitle: tab.articles.last?.description,
@@ -91,7 +87,7 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
     public func closeTab(tab: ArticleTab) {
         Task {
             do {
-                try await dataController.deleteArticleTab(identifier: tab.id)
+                try await dataController.deleteArticleTab(identifier: tab.data.identifier)
                 await loadTabs()
             } catch {
                 print("Error closing tab: \(error)")
@@ -105,7 +101,6 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
 }
 
 public struct ArticleTab: Identifiable {
-    public var id = UUID()
     let image: URL?
     let title: String
     let subtitle: String?
@@ -113,13 +108,20 @@ public struct ArticleTab: Identifiable {
     let dateCreated: Date
     let data: WMFArticleTabsDataController.WMFArticleTab
 
-    public init(id: UUID = UUID(), image: URL?, title: String, subtitle: String?, description: String?, dateCreated: Date, data: WMFArticleTabsDataController.WMFArticleTab) {
-        self.id = id
+    public init(image: URL?, title: String, subtitle: String?, description: String?, dateCreated: Date, data: WMFArticleTabsDataController.WMFArticleTab) {
         self.image = image
         self.title = title
         self.subtitle = subtitle
         self.description = description
         self.dateCreated = dateCreated
         self.data = data
+    }
+    
+    public var id: String {
+        return data.identifier.uuidString
+    }
+    
+    var isMain: Bool {
+        return data.articles.last?.isMain ?? false
     }
 }
