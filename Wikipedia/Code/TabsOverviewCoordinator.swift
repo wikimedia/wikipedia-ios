@@ -35,10 +35,17 @@ final class TabsOverviewCoordinator: Coordinator {
     }
     
     private func presentTabs() {
-        let articleTabsViewModel = WMFArticleTabsViewModel(dataController: dataController)
+        let localizedStrings = WMFArticleTabsViewModel.LocalizedStrings(
+            navBarTitleFormat: WMFLocalizedString("tabs-navbar-title-format", value: "{{PLURAL:%1$d|%1$d tab|%1$d tabs}}", comment: "$1 is the amount of tabs. Navigation title for tabs, displaying how many open tabs.")
+        )
+        let articleTabsViewModel = WMFArticleTabsViewModel(dataController: dataController, localizedStrings: localizedStrings)
         let articleTabsView = WMFArticleTabsView(viewModel: articleTabsViewModel)
         
-        let hostingController = WMFArticleTabsHostingController(rootView: articleTabsView, viewModel: articleTabsViewModel)
+        let hostingController = WMFArticleTabsHostingController(
+            rootView: articleTabsView,
+            viewModel: articleTabsViewModel,
+            doneButtonText: CommonStrings.doneTitle
+        )
         let navVC = WMFComponentNavigationController(rootViewController: hostingController, modalPresentationStyle: .fullScreen)
         navigationController.present(navVC, animated: true, completion: nil)
     }
