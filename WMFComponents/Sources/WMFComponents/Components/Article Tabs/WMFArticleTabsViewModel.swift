@@ -78,6 +78,26 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
         }
     }
     
+    public func calculateImageHeight() -> Int {
+        // If text is scaled up for accessibility, use taller image for single column
+        if UIApplication.shared.preferredContentSizeCategory.isAccessibilityCategory {
+            return 225
+        }
+        return 95
+    }
+    
+    public func getAccessibilityLabel(for tab: ArticleTab) -> String {
+        var label = ""
+        label += tab.title
+        if let subtitle = tab.subtitle {
+            label += " " + subtitle
+        } else if let description = tab.description {
+            let truncatedDescription = description.count > 50 ? String(description.prefix(50)) + "…" : description
+            label += " " + truncatedDescription
+        }
+        return label
+    }
+    
     public func closeTab(tab: ArticleTab) {
         Task {
             do {

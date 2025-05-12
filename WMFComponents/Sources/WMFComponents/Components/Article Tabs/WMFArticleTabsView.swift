@@ -26,6 +26,8 @@ public struct WMFArticleTabsView: View {
                         tabCardView(tab: tab)
                             .aspectRatio(3/4, contentMode: .fit)
                             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+                            .accessibilityElement(children: .combine)
+                            .accessibilityLabel(Text(viewModel.getAccessibilityLabel(for: tab)))
                     }
                 }
                 .padding()
@@ -56,11 +58,11 @@ public struct WMFArticleTabsView: View {
                             image
                                 .resizable()
                                 .scaledToFill()
-                                .frame(width: geo.size.width, height: 95)
+                                .frame(width: geo.size.width, height: CGFloat(viewModel.calculateImageHeight()))
                                 .clipped()
                         } placeholder: {
                             Color(uiColor: theme.paperBackground)
-                                .frame(width: geo.size.width, height: 95)
+                                .frame(width: geo.size.width, height: CGFloat(viewModel.calculateImageHeight()))
                         }
                     }
                 } else {
