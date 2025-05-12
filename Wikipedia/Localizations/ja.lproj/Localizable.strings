@@ -715,8 +715,7 @@
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$2版ウィキペディアより$1の記事";
 "on-this-day-title" = "今日は何の日";
 "original-tab-button-popover-description" = "最初のタブに戻るにはWをタップ";
-// Fuzzy
-"page-history-bot-edits" = "ボット編集";
+"page-history-bot-edits" = "ボット";
 "page-history-compare-accessibility-hint" = "比較する2つの版をタップして選択してください";
 "page-history-compare-title" = "比較";
 "page-history-graph-accessibility-label" = "時系列の編集状況グラフ";

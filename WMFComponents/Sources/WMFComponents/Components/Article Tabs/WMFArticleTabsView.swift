@@ -24,13 +24,11 @@ public struct WMFArticleTabsView: View {
                 LazyVGrid(columns: Array(repeating: gridItem, count: columns), spacing: 12) {
 
                     ForEach(viewModel.articleTabs.sorted(by: { $0.dateCreated < $1.dateCreated })) { tab in
-                        
                         if tab.isMain {
                             tabCardView(content: mainPageTabContent(), tabData: tab.data)
                         } else {
                             tabCardView(content: standardTabContent(tab: tab), tabData: tab.data)
                         }
-                        
                     }
                     
                 }
@@ -53,17 +51,17 @@ public struct WMFArticleTabsView: View {
             ZStack(alignment: .topTrailing) {
                 Group {
                     if let imageURL = tab.image {
-                        AsyncImage(url: imageURL) { image in
-                            image
-                                .resizable()
-                                .scaledToFill()
-                                .frame(height: 95)
-                                .frame(maxWidth: .infinity)
-                                .clipped()
-                        } placeholder: {
-                            Color(uiColor: theme.paperBackground)
-                                .frame(height: 95)
-                                .frame(maxWidth: .infinity)
+                        GeometryReader { geo in
+                            AsyncImage(url: imageURL) { image in
+                                image
+                                    .resizable()
+                                    .scaledToFill()
+                                    .frame(width: geo.size.width, height: 95)
+                                    .clipped()
+                            } placeholder: {
+                                Color(uiColor: theme.paperBackground)
+                                    .frame(width: geo.size.width, height: 95)
+                            }
                         }
                     } else {
                         tabTitle(title: tab.title)
