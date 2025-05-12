@@ -205,7 +205,7 @@ public extension WMFNavigationBarConfiguring where Self: UIViewController {
             
             var profileLeadingButton: UIBarButtonItem? = profileButtonConfig.leadingBarButtonItem
             
-            if let dataController = try? WMFArticleTabsDataController(),
+            if let dataController = WMFArticleTabsDataController.shared,
                let tabsButtonConfig,
                !dataController.shouldShowArticleTabs {
                 profileLeadingButton = tabsButtonConfig.leadingBarButtonItem
@@ -223,7 +223,7 @@ public extension WMFNavigationBarConfiguring where Self: UIViewController {
                 rightBarButtonItems.append(profileLeadingButton)
             }
             
-            if let dataController = try? WMFArticleTabsDataController(),
+            if let dataController = WMFArticleTabsDataController.shared,
                let tabsButtonConfig,
                dataController.shouldShowArticleTabs {
                 

@@ -74,6 +74,8 @@ public class WMFArticleTabsDataController: WMFArticleTabsDataControlling {
     
     // MARK: - Properties
     
+    public static let shared = try? WMFArticleTabsDataController()
+    
     public let coreDataStore: WMFCoreDataStore
     private let developerSettingsDataController: WMFDeveloperSettingsDataControlling
     private let articleSummaryDataController: WMFArticleSummaryDataControlling
@@ -84,7 +86,7 @@ public class WMFArticleTabsDataController: WMFArticleTabsDataControlling {
     
     // MARK: - Lifecycle
     
-    public init(coreDataStore: WMFCoreDataStore? = WMFDataEnvironment.current.coreDataStore, 
+    private init(coreDataStore: WMFCoreDataStore? = WMFDataEnvironment.current.coreDataStore,
                 developerSettingsDataController: WMFDeveloperSettingsDataControlling = WMFDeveloperSettingsDataController.shared,
                 articleSummaryDataController: WMFArticleSummaryDataControlling = WMFArticleSummaryDataController()) throws {
         guard let coreDataStore else {

@@ -61,7 +61,7 @@ final class ArticleCoordinator: NSObject, Coordinator {
     
     private func trackArticleTab(articleViewController: ArticleViewController) {
         
-        guard let tabsDataController = try? WMFArticleTabsDataController() else {
+        guard let tabsDataController = WMFArticleTabsDataController.shared else {
             return
         }
         
@@ -81,7 +81,10 @@ final class ArticleCoordinator: NSObject, Coordinator {
 
             let article = WMFArticleTabsDataController.WMFArticle(identifier: nil, title: title, project: wmfProject)
             do {
-                let tabsDataController = try WMFArticleTabsDataController()
+                guard let tabsDataController = WMFArticleTabsDataController.shared else {
+                    DDLogError("Failed to handle tab configuration: Missing data controller")
+                    return
+                }
                 switch tabConfig {
                 case .appendArticleAndAssignCurrentTab:
                     let tabIdentifier = try await tabsDataController.currentTabIdentifier()
@@ -134,7 +137,7 @@ final class ArticleCoordinator: NSObject, Coordinator {
     
     // Cleanup needed when tapping Back button
     func syncTabsOnArticleAppearance() {
-        guard let tabsDataController = try? WMFArticleTabsDataController() else {
+        guard let tabsDataController = WMFArticleTabsDataController.shared else {
             return
         }
         

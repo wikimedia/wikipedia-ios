@@ -106,7 +106,7 @@ public protocol WMFDeveloperSettingsDataControlling: AnyObject {
             if newValue {
                 Task {
                     do {
-                        try await WMFArticleTabsDataController().checkAndCreateInitialArticleTabIfNeeded()
+                        try await WMFArticleTabsDataController.shared?.checkAndCreateInitialArticleTabIfNeeded()
                     } catch {
                         debugPrint("Failed to check or create initial article tab: \(error)")
                     }

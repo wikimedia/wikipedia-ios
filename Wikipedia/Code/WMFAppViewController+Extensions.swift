@@ -1449,7 +1449,7 @@ extension WMFAppViewController: EditPreviewViewControllerLoggingDelegate {
  extension WMFAppViewController {
      @objc func checkAndCreateInitialArticleTab() {
          
-         guard let dataController = try? WMFArticleTabsDataController(),
+         guard let dataController = WMFArticleTabsDataController.shared,
          dataController.shouldShowArticleTabs else {
              return
          }
