@@ -15,6 +15,7 @@
 // Author: EditGio
 // Author: Eduardo Addad de Oliveira
 // Author: Eduardoaddad
+// Author: Emabarto01
 // Author: F. Cosoleto
 // Author: Giacomo Checchin
 // Author: Gianfranco
@@ -122,16 +123,27 @@
 "action-unsave" = "Annulla salvataggio";
 "action-unsaved-accessibility-notification" = "Voce non salvata";
 "action-update" = "Aggiorna";
+"activity-tab-add-images-title" = "Aggiungi immagini";
 "activity-tab-generic-no-edits" = "Non hai fatto alcuna modifica questa settimana. Inizia subito a monitorare i tuoi contributi.";
+"activity-tab-logged-out-title" = "Accedi o crea un account per vedere ulteriori attività di modifica e lettura.";
 "activity-tab-no-edits-title" = "Non hai fatto alcuna modifica questa settimana. Aggiungi immagini per migliorare la comprensione della voce.";
 "activity-tab-read-title" = "Vedi cronologia delle letture";
+"activity-tab-satisfied" = "Soddisfatto";
+"activity-tab-start-editing" = "Inizia a modificare";
+"activity-tab-survey-title" = "Sondaggio di soddisfazione";
 "activity-tab-title" = "Attività";
+"activity-tab-unsatisfied" = "Insoddisfatto";
+"activity-tab-very-satisfied" = "Molto soddisfatto";
+"activity-tab-very-unsatisfied" = "Molto insoddisfatto";
+"activity-tab-view-editing-history" = "Vedi cronologia delle modifiche";
 "add-articles-to-reading-list" = "Aggiungi $1 {{PLURAL:$1|voce|voci}} all'elenco di lettura";
 "advanced-settings-title" = "Impostazioni avanzate";
+"alert-temporary-account" = "Stai utilizzando un account temporaneo. L'account scadrà tra 90 giorni.";
 "alert-temporary-account-learn-more" = "Ulteriori informazioni.";
 "alt-text-feedback-survey-toast-title" = "Feedback inviato";
 "announcements-dismiss" = "Nascondi";
 "app-store-keywords" = "Wikipedia, riferimento, wiki, enciclopedia, info, conoscenza, ricerca, informazione, esplorazione, apprendimento";
+"app-store-short-description" = "Scarica l'app Wikipedia per esplorare i luoghi attorno a te, sincronizzare gli articoli per leggerli offline e personalizzare la tua esperienza di lettura.";
 "app-store-subtitle" = "L'enciclopedia libera";
 "appearance-settings-adjust-text-sizing" = "Regola la dimensione del testo dell'articolo";
 "appearance-settings-expand-tables" = "Espandi le tabelle";
@@ -148,8 +160,10 @@
 "article-languages-yours" = "Le tue lingue";
 "article-read-more-title" = "Per saperne di più";
 "article-reference-view-title" = "Riferimento $1";
+"article-revision-history" = "Cronologia versioni voce";
 "article-save-error-not-enough-space" = "Memoria insufficiente per salvare questo articolo sul dispositivo";
 "article-share" = "Condividi";
+"article-tabs-open-new-tab" = "Apri in una nuova scheda";
 "article-talk-page" = "Pagina di discussione della voce";
 "article-view-controller-editing-temp-account-created-title" = "Utenza temporanea creata";
 "back-button-accessibility-label" = "Indietro";
@@ -286,6 +300,7 @@
 "edit-minor-text" = "Questa è una modifica minore";
 "edit-published" = "Modifica pubblicata";
 "edit-published-subtitle" = "Hai appena reso Wikipedia migliore per tutti";
+"edit-sheet-ip-account-notice" = "Avviso sull'account IP";
 "edit-summary-choice-added-image" = "Immagine aggiunta";
 "edit-summary-choice-added-image-and-caption" = "Immagine e didascalia aggiunti";
 "edit-summary-choice-fixed-grammar" = "Corretta grammatica";
