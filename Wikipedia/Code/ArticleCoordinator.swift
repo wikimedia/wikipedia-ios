@@ -3,12 +3,11 @@ import WMFData
 import CocoaLumberjackSwift
 
 enum TabConfig {
-    case appendArticleAndAssignCurrentTab
-    case appendArticleAndAssignNewTabAndSetToCurrent
-    case appendArticleAndAssignParticularTabAndSetToCurrent(UUID) // may not need this
-    case assignParticularTabAndSetToCurrent(WMFArticleTabsDataController.Identifiers)
-    case assignNewTabAndSetToCurrent
-    case assignCurrentTab
+    case appendArticleAndAssignCurrentTab // Default navigation
+    case appendArticleAndAssignNewTabAndSetToCurrent // Open in new tab long press,
+    case assignParticularTabAndSetToCurrent(WMFArticleTabsDataController.Identifiers) // Tapping tab from tabs overview
+    case assignNewTabAndSetToCurrent // Tapping add tab from tabs overview
+    case assignCurrentTab // Tapping main tab grid item
  }
 
 final class ArticleCoordinator: NSObject, Coordinator {
@@ -93,10 +92,6 @@ final class ArticleCoordinator: NSObject, Coordinator {
                     let identifiers = try await tabsDataController.createArticleTab(initialArticle: article, setAsCurrent: true)
                     self.tabIdentifier = identifiers.tabIdentifier
                     self.tabItemIdentifier = identifiers.tabItemIdentifier
-                case .appendArticleAndAssignParticularTabAndSetToCurrent(let tabIdentifier):
-                    let identifiers = try await tabsDataController.appendArticle(article, toTabIdentifier: tabIdentifier, setAsCurrent: true)
-                    self.tabIdentifier = identifiers.tabIdentifier
-                    self.tabItemIdentifier = identifiers.tabItemIdentifier
                 case .assignParticularTabAndSetToCurrent(let identifiers):
                     try await tabsDataController.setTabAsCurrent(tabIdentifier: identifiers.tabIdentifier)
                     self.tabIdentifier = identifiers.tabIdentifier
@@ -119,7 +114,7 @@ final class ArticleCoordinator: NSObject, Coordinator {
                         let currentTabIdentifier = try await tabsDataController.currentTabIdentifier()
                         let currentTab = try await tabsDataController.fetchTab(tabIdentfiier: currentTabIdentifier)
                         
-                        // They tapped new tab on an empty state. Instead just assign the current tab, so we don't have this awkward additional empty tab.
+                        // They tapped new tab button on an empty state. Instead just assign the current tab, so we don't have this awkward additional empty tab.
                         // To repro this weirdness: start from a totally fresh state, like Explore. You will see the single Main Page grid item. Then tap the + button.
                         if currentTab.articles.count == 0 {
                             self.tabIdentifier = currentTabIdentifier
