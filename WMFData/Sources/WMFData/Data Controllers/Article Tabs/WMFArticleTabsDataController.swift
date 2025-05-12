@@ -63,12 +63,12 @@ public class WMFArticleTabsDataController: WMFArticleTabsDataControlling {
     }
     
     public struct Identifiers {
-        public let articleTabIdentifier: UUID
-        public let articleTabItemIdentifier: UUID?
+        public let tabIdentifier: UUID
+        public let tabItemIdentifier: UUID?
         
-        public init(articleTabIdentifier: UUID, articleTabItemIdentifier: UUID?) {
-            self.articleTabIdentifier = articleTabIdentifier
-            self.articleTabItemIdentifier = articleTabItemIdentifier
+        public init(tabIdentifier: UUID, tabItemIdentifier: UUID?) {
+            self.tabIdentifier = tabIdentifier
+            self.tabItemIdentifier = tabItemIdentifier
         }
     }
     
@@ -152,17 +152,17 @@ public class WMFArticleTabsDataController: WMFArticleTabsDataControlling {
             newArticleTab.identifier = tabIdentifier
             
             // Create CDArticleTabItem and add to newArticleTab
-            var articleTabItemIdentifier: UUID? = nil
+            var tabItemIdentifier: UUID? = nil
             if let page {
                 let articleTabItem = try self.newArticleTabItem(page: page, moc: moc)
-                articleTabItemIdentifier = articleTabItem.identifier
+                tabItemIdentifier = articleTabItem.identifier
                 articleTabItem.isCurrent = true
                 newArticleTab.items = NSOrderedSet(array: [articleTabItem])
             }
             
             try self.coreDataStore.saveIfNeeded(moc: moc)
             
-            return Identifiers(articleTabIdentifier: tabIdentifier, articleTabItemIdentifier: articleTabItemIdentifier)
+            return Identifiers(tabIdentifier: tabIdentifier, tabItemIdentifier: tabItemIdentifier)
         }
     }
     
@@ -211,12 +211,12 @@ public class WMFArticleTabsDataController: WMFArticleTabsDataControlling {
                 tab.isCurrent = setAsCurrent
             }
             
+            // Create a new tab item object for article
             let page = try self.pageForArticle(article, moc: moc)
-            let articleTabItem = try self.newArticleTabItem(page: page, moc: moc)
+            let newArticleTabItem = try self.newArticleTabItem(page: page, moc: moc)
             
-            // Build up a new array of article items. We are throwing out any articles after the isCurrent item, and appending the new article item.
+            // Set tab's existing items' isCurrent values = false
             var newItems: [CDArticleTabItem] = []
-            // var foundCurrent: Bool = false
             if let currentItems = tab.items as? NSMutableOrderedSet {
                 for item in currentItems {
                     
@@ -224,41 +224,36 @@ public class WMFArticleTabsDataController: WMFArticleTabsDataControlling {
                         continue
                     }
                     
-                    // if foundCurrent {
-                       // moc.delete(tabItem)
-                        // todo: we may want to fire off a notification here for cleaning out old articles with this identifier in all the navigation controllers.
-                    // } else {
-                        if tabItem.isCurrent {
-                            tabItem.isCurrent = false
-                            newItems.append(tabItem)
-                            // foundCurrent = true
-                        } else {
-                            newItems.append(tabItem)
-                        }
-                    // }
+                    if tabItem.isCurrent {
+                        tabItem.isCurrent = false
+                        newItems.append(tabItem)
+                    } else {
+                        newItems.append(tabItem)
+                    }
                 }
             }
             
-            // Don't create a duplicate tab item back-to-back? Prevents multiple article tab items from Explore featured article from being created.
             if let lastTabItem = newItems.last,
-               lastTabItem.page == articleTabItem.page {
+               lastTabItem.page == newArticleTabItem.page {
+                // If tab's last item is the same article, set as isCurrent and don't append a duplicate tab item.
                 lastTabItem.isCurrent = true
-                moc.delete(articleTabItem)
+                moc.delete(newArticleTabItem)
             } else {
-                articleTabItem.isCurrent = true
-                newItems.append(articleTabItem)
+                // Set new tab item as current, append to tab's items
+                newArticleTabItem.isCurrent = true
+                newItems.append(newArticleTabItem)
             }
             
             tab.items = NSOrderedSet(array: newItems)
             
             guard let tabIdentifier = tab.identifier,
-                  let tabItemIdentifier = articleTabItem.identifier else {
+                  let tabItemIdentifier = newArticleTabItem.identifier else {
                 throw CustomError.missingIdentifier
             }
             
             try self.coreDataStore.saveIfNeeded(moc: moc)
             
-            return Identifiers(articleTabIdentifier: tabIdentifier, articleTabItemIdentifier: tabItemIdentifier)
+            return Identifiers(tabIdentifier: tabIdentifier, tabItemIdentifier: tabItemIdentifier)
         }
         
         return result
