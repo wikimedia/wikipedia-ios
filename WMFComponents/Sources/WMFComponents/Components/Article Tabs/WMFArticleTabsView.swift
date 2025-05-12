@@ -51,17 +51,19 @@ public struct WMFArticleTabsView: View {
         VStack(alignment: .leading) {
             ZStack(alignment: .topTrailing) {
                 if let imageURL = tab.image {
-                    AsyncImage(url: imageURL) { image in
-                        image
-                            .resizable()
-                            .scaledToFill()
-                            .frame(height: 95)
-                            .frame(maxWidth: .infinity)
-                            .clipped()
-                    } placeholder: {
-                        Color(uiColor: theme.paperBackground)
-                            .frame(height: 1)
+                    GeometryReader { geo in
+                        AsyncImage(url: imageURL) { image in
+                            image
+                                .resizable()
+                                .scaledToFill()
+                                .frame(width: geo.size.width, height: 95)
+                                .clipped()
+                        } placeholder: {
+                            Color(uiColor: theme.paperBackground)
+                                .frame(width: geo.size.width, height: 95)
+                        }
                     }
+                    .frame(height: 95)
                 } else {
                     tabTitle(title: tab.title)
                         .frame(maxWidth: .infinity, alignment: .leading)
