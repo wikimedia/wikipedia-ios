@@ -154,6 +154,18 @@ public final class WMFCoreDataStore {
         }
     }
     
+    func saveWithMergeConflictHandling(moc: NSManagedObjectContext) throws {
+        do {
+            try saveIfNeeded(moc: moc)
+        } catch let error as NSError {
+            if error.domain == NSCocoaErrorDomain && error.code == NSManagedObjectMergeError {
+                moc.rollback()
+                throw WMFCoreDataStoreError.mergeConflict
+            }
+            throw error
+        }
+    }
+    
     public func performDatabaseHousekeeping() async throws {
         
         let currentYear = Calendar.current.component(.year, from: Date())
@@ -167,6 +179,8 @@ public final class WMFCoreDataStore {
         }
         
         let backgroundContext = try newBackgroundContext
+        backgroundContext.mergePolicy = NSMergeByPropertyStoreTrumpMergePolicy
+        
         try await backgroundContext.perform { [weak self] in
             
             try autoreleasepool {
@@ -207,7 +221,7 @@ public final class WMFCoreDataStore {
                     backgroundContext.delete(category)
                 }
                 
-                try self.saveIfNeeded(moc: backgroundContext)
+                try self.saveWithMergeConflictHandling(moc: backgroundContext)
             }
         }
     }
