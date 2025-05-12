@@ -58,6 +58,7 @@ public struct WMFArticleTabsView: View {
     
     private func mainPageTabContent() -> some View {
         VStack(alignment: .leading) {
+            // TODO: Proper Main Page Grid Item UI
             Text("Main Page")
         }
     }
