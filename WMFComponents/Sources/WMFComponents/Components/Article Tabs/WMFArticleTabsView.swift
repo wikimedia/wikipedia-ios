@@ -17,8 +17,7 @@ public struct WMFArticleTabsView: View {
     private var needsMainGridItem: Bool {
         if viewModel.articleTabs.count == 1 {
             if let tab = viewModel.articleTabs.first {
-                if let dataTab = tab.dataTab,
-                   dataTab.articles.count == 0 {
+                if tab.data.articles.count == 0 {
                     return true
                 }
             }
@@ -40,13 +39,11 @@ public struct WMFArticleTabsView: View {
                             viewModel.didTapMainTab()
                         }))
                     } else {
-                        let populatedTabs = viewModel.articleTabs.filter { ($0.dataTab?.articles.count ?? 0) > 0 }
+                        let populatedTabs = viewModel.articleTabs.filter { $0.data.articles.count > 0 }
                         ForEach(populatedTabs.sorted(by: { $0.dateCreated < $1.dateCreated })) { tab in
                             
                             tabCardView(content: standardTabContent(tab: tab), tapAction: ({
-                                if let dataTab = tab.dataTab {
-                                    viewModel.didTapTab(dataTab)
-                                }
+                                viewModel.didTapTab(tab.data)
                             }))
                         }
                     }

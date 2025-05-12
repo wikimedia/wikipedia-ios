@@ -72,11 +72,10 @@ final class TabsOverviewCoordinator: Coordinator {
             }
         }
         
-        // for article in tab.articles {
+        // Only push on last article
         if let article = tab.articles.last {
             guard let siteURL = article.project.siteURL,
                   let articleURL = siteURL.wmf_URL(withTitle: article.title) else {
-                // continue
                 return
             }
             

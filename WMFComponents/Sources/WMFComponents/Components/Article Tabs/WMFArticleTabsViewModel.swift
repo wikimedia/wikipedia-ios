@@ -57,9 +57,7 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
                     subtitle: tab.articles.last?.description,
                     description: tab.articles.last?.summary,
                     dateCreated: tab.timestamp,
-                    onTapOpen: nil,
-                    project: tab.articles.last?.project,
-                    dataTab: tab
+                    data: tab
                 )
             }
             self.shouldShowCloseButton = articleTabs.count > 1
@@ -113,19 +111,15 @@ public struct ArticleTab: Identifiable {
     let subtitle: String?
     let description: String?
     let dateCreated: Date
-    let onTapOpen: (() -> Void)?
-    let project: WMFProject?
-    let dataTab: WMFArticleTabsDataController.WMFArticleTab? // todo: gross, clean up
+    let data: WMFArticleTabsDataController.WMFArticleTab
 
-    public init(id: UUID = UUID(), image: URL?, title: String, subtitle: String?, description: String?, dateCreated: Date, onTapOpen: (() -> Void)? = nil, project: WMFProject? = nil, dataTab: WMFArticleTabsDataController.WMFArticleTab?) {
+    public init(id: UUID = UUID(), image: URL?, title: String, subtitle: String?, description: String?, dateCreated: Date, data: WMFArticleTabsDataController.WMFArticleTab) {
         self.id = id
         self.image = image
         self.title = title
         self.subtitle = subtitle
         self.description = description
         self.dateCreated = dateCreated
-        self.onTapOpen = onTapOpen
-        self.project = project
-        self.dataTab = dataTab
+        self.data = data
     }
 }
