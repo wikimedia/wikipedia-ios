@@ -151,6 +151,8 @@
 "article-revision-history" = "Історія редагування статті";
 "article-save-error-not-enough-space" = "Не вистачає місця на вашому приладі, щоб зберегти цю статтю.";
 "article-share" = "Поділитися";
+"article-tabs-open-background-tab" = "Відкрити у фоновій вкладці";
+"article-tabs-open-new-tab" = "Відкрити у новій вкладці";
 "article-talk-page" = "Сторінка обговорення статті";
 "article-toolbar-reading-themes-controls-toolbar-item" = "Налаштування тем для читання";
 "article-view-controller-editing-temp-account-created-subtitle" = "Тимчасовий обліковий запис $1 було створено після публікації вашого редагування. Термін його дії закінчиться через 90 днів.";
@@ -228,6 +230,7 @@
 "developer-settings-activity-tab-group-A" = "Встановити вкладку «Діяльність» групі A";
 "developer-settings-activity-tab-group-B" = "Встановити вкладку «Діяльність» групі B";
 "developer-settings-activity-tab-group-C" = "Встановити вкладку «Діяльність» групі C";
+"developer-settings-activity-tabs" = "Увімкнути вкладки активності";
 "developer-settings-bypass-donation" = "Обійти пожертвування";
 "developer-settings-enable-year-in-review" = "Увімкнути Огляд року";
 "developer-settings-send-analytics-to-wmflabs" = "Надсилати аналітику на wmflabs.";
