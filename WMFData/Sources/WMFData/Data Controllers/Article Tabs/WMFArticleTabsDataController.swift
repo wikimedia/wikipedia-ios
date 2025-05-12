@@ -97,9 +97,7 @@ public class WMFArticleTabsDataController: WMFArticleTabsDataControlling {
     private let articleSummaryDataController: WMFArticleSummaryDataControlling
     
     lazy var backgroundContext: NSManagedObjectContext? = {
-        let context = try? coreDataStore.newBackgroundContext
-        context?.mergePolicy = NSMergeByPropertyStoreTrumpMergePolicy
-        return context
+        return try? coreDataStore.newBackgroundContext
     }()
     
     // MARK: - Lifecycle
@@ -191,7 +189,7 @@ public class WMFArticleTabsDataController: WMFArticleTabsDataControlling {
                 newArticleTab.items = NSOrderedSet(array: [articleTabItem])
             }
             
-            try self.coreDataStore.saveWithMergeConflictHandling(moc: moc)
+            try self.coreDataStore.saveIfNeeded(moc: moc)
             
             return Identifiers(tabIdentifier: tabIdentifier, tabItemIdentifier: tabItemIdentifier)
         }
@@ -207,7 +205,7 @@ public class WMFArticleTabsDataController: WMFArticleTabsDataControlling {
             guard let self else { throw CustomError.missingSelf }
 
             try self.deleteArticleTab(identifier: identifier, moc: moc)
-            try self.coreDataStore.saveWithMergeConflictHandling(moc: moc)
+            try self.coreDataStore.saveIfNeeded(moc: moc)
         }
     }
     
@@ -282,7 +280,7 @@ public class WMFArticleTabsDataController: WMFArticleTabsDataControlling {
                 throw CustomError.missingIdentifier
             }
             
-            try self.coreDataStore.saveWithMergeConflictHandling(moc: moc)
+            try self.coreDataStore.saveIfNeeded(moc: moc)
             
             return Identifiers(tabIdentifier: tabIdentifier, tabItemIdentifier: tabItemIdentifier)
         }
@@ -321,7 +319,7 @@ public class WMFArticleTabsDataController: WMFArticleTabsDataControlling {
             
             try setTabAsCurrent(tabIdentifier: tabIdentifier, moc: moc)
             
-            try self.coreDataStore.saveWithMergeConflictHandling(moc: moc)
+            try self.coreDataStore.saveIfNeeded(moc: moc)
         }
     }
     
@@ -344,7 +342,7 @@ public class WMFArticleTabsDataController: WMFArticleTabsDataControlling {
                 try self.deleteArticleTab(identifier: tabIdentifier, moc: moc)
             }
             
-            try self.coreDataStore.saveWithMergeConflictHandling(moc: moc)
+            try self.coreDataStore.saveIfNeeded(moc: moc)
         }
     }
     
@@ -450,7 +448,7 @@ public class WMFArticleTabsDataController: WMFArticleTabsDataControlling {
             guard let self else { throw CustomError.missingSelf }
             try self.setTabAsCurrent(tabIdentifier: tabIdentifier, moc: moc)
             
-            try self.coreDataStore.saveWithMergeConflictHandling(moc: moc)
+            try self.coreDataStore.saveIfNeeded(moc: moc)
         }
     }
     

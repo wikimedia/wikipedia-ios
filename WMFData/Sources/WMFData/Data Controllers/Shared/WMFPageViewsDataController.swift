@@ -77,7 +77,6 @@ public final class WMFPageViewsDataController {
         let coreDataTitle = title.normalizedForCoreData
         
         let backgroundContext = try coreDataStore.newBackgroundContext
-        backgroundContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
         
         let managedObjectID: NSManagedObjectID? = try await backgroundContext.perform { [weak self] () -> NSManagedObjectID? in
             
@@ -100,7 +99,7 @@ public final class WMFPageViewsDataController {
                 viewedPage.previousPageView = previousPageView
             }
             
-            try self.coreDataStore.saveWithMergeConflictHandling(moc: backgroundContext)
+            try self.coreDataStore.saveIfNeeded(moc: backgroundContext)
             
             return viewedPage.objectID
         }
@@ -111,7 +110,6 @@ public final class WMFPageViewsDataController {
     public func addPageViewSeconds(pageViewManagedObjectID: NSManagedObjectID, numberOfSeconds: Double) async throws {
         
         let backgroundContext = try coreDataStore.newBackgroundContext
-        backgroundContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
         
         try await backgroundContext.perform { [weak self] in
             
@@ -123,7 +121,7 @@ public final class WMFPageViewsDataController {
             
             pageView.numberOfSeconds += Int64(numberOfSeconds)
             
-            try self.coreDataStore.saveWithMergeConflictHandling(moc: backgroundContext)
+            try self.coreDataStore.saveIfNeeded(moc: backgroundContext)
         }
     }
     
@@ -132,8 +130,6 @@ public final class WMFPageViewsDataController {
         let coreDataTitle = title.normalizedForCoreData
         
         let backgroundContext = try coreDataStore.newBackgroundContext
-        backgroundContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
-        
         try await backgroundContext.perform { [weak self] in
             
             guard let self else { return }
@@ -153,7 +149,7 @@ public final class WMFPageViewsDataController {
                 backgroundContext.delete(pageView)
             }
             
-            try coreDataStore.saveWithMergeConflictHandling(moc: backgroundContext)
+            try coreDataStore.saveIfNeeded(moc: backgroundContext)
         }
         
         let categoriesDataController = try WMFCategoriesDataController(coreDataStore: self.coreDataStore)
@@ -162,8 +158,6 @@ public final class WMFPageViewsDataController {
     
     public func deleteAllPageViewsAndCategories() async throws {
         let backgroundContext = try coreDataStore.newBackgroundContext
-        backgroundContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
-        
         try await backgroundContext.perform {
             
             let categoryFetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "CDCategory")
@@ -185,8 +179,6 @@ public final class WMFPageViewsDataController {
     public func importPageViews(requests: [WMFLegacyPageView]) async throws {
         
         let backgroundContext = try coreDataStore.newBackgroundContext
-        backgroundContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
-        
         try await backgroundContext.perform {
             for request in requests {
                 
@@ -204,7 +196,7 @@ public final class WMFPageViewsDataController {
                 viewedPage.timestamp = request.viewedDate
             }
             
-            try self.coreDataStore.saveWithMergeConflictHandling(moc: backgroundContext)
+            try self.coreDataStore.saveIfNeeded(moc: backgroundContext)
         }
     }
     

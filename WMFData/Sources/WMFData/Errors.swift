@@ -34,7 +34,6 @@ enum WMFCoreDataStoreError: Error {
     case setupMissingPersistentContainer
     case missingEntity
     case unexpectedFetchGroupResult
-    case mergeConflict
 }
 
 public enum WMFDonateDataControllerError: LocalizedError {

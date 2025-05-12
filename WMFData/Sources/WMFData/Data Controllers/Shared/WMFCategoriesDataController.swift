@@ -1,5 +1,4 @@
 import Foundation
-import CoreData
 
 public final class WMFCategoriesDataController {
     
@@ -25,7 +24,6 @@ public final class WMFCategoriesDataController {
         let coreDataTitle = articleTitle.normalizedForCoreData
         
         let backgroundContext = try coreDataStore.newBackgroundContext
-        backgroundContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
         
         try await backgroundContext.perform { [weak self] in
             
@@ -56,14 +54,13 @@ public final class WMFCategoriesDataController {
                 category.pages = pages as NSSet
             }
             
-            try self.coreDataStore.saveWithMergeConflictHandling(moc: backgroundContext)
+            try self.coreDataStore.saveIfNeeded(moc: backgroundContext)
         }
     }
     
     func deleteEmptyCategories() async throws {
         
         let backgroundContext = try coreDataStore.newBackgroundContext
-        backgroundContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
         
         try await backgroundContext.perform { [weak self] in
             
@@ -79,7 +76,7 @@ public final class WMFCategoriesDataController {
                 backgroundContext.delete(category)
             }
             
-            try self.coreDataStore.saveWithMergeConflictHandling(moc: backgroundContext)
+            try self.coreDataStore.saveIfNeeded(moc: backgroundContext)
         }
     }
     
