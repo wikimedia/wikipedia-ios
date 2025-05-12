@@ -443,7 +443,7 @@
 	<key>reading-lists-delete-reading-list-alert-message</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Denne handling kan ikke fortrydes. Enhver artikle gemt kun i %#@v1@ vil ikke blive gemt.</string>
+		<string>Denne handling kan ikke fortrydes. Enhver artikel gemt kun i %#@v1@ vil ikke blive gemt.</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
