@@ -23,7 +23,7 @@ public struct WMFArticleTabsView: View {
             ScrollView {
                 LazyVGrid(columns: Array(repeating: gridItem, count: columns), spacing: 12) {
                     ForEach(viewModel.articleTabs.sorted(by: { $0.dateCreated < $1.dateCreated })) { tab in
-                        tabCardView(tab: tab, size: size)
+                        tabCardView(tab: tab)
                             .aspectRatio(3/4, contentMode: .fit)
                             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
                     }
@@ -47,20 +47,21 @@ public struct WMFArticleTabsView: View {
         }
     }
     
-    private func tabCardView(tab: ArticleTab, size: CGSize) -> some View {
+    private func tabCardView(tab: ArticleTab) -> some View {
         VStack(alignment: .leading) {
             ZStack(alignment: .topTrailing) {
                 if let imageURL = tab.image {
-                    AsyncImage(url: imageURL) { image in
-                        image
-                            .resizable()
-                            .scaledToFill()
-                            .frame(height: 95)
-                            .frame(maxWidth: .infinity)
-                            .clipped()
-                    } placeholder: {
-                        Color(uiColor: theme.paperBackground)
-                            .frame(height: 1)
+                    GeometryReader { geo in
+                        AsyncImage(url: imageURL) { image in
+                            image
+                                .resizable()
+                                .scaledToFill()
+                                .frame(width: geo.size.width, height: 95)
+                                .clipped()
+                        } placeholder: {
+                            Color(uiColor: theme.paperBackground)
+                                .frame(width: geo.size.width, height: 95)
+                        }
                     }
                 } else {
                     tabTitle(title: tab.title)
