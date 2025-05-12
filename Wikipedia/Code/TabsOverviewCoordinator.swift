@@ -48,11 +48,17 @@ final class TabsOverviewCoordinator: Coordinator {
             self?.tappedMainTab()
         }
         
-        let articleTabsViewModel = WMFArticleTabsViewModel(dataController: dataController, didTapTab: didTapTab, didTapAddTab: didTapAddTab, didTapMainTab: didTapMainTab)
+        let localizedStrings = WMFArticleTabsViewModel.LocalizedStrings(
+            navBarTitleFormat: WMFLocalizedString("tabs-navbar-title-format", value: "{{PLURAL:%1$d|%1$d tab|%1$d tabs}}", comment: "$1 is the amount of tabs. Navigation title for tabs, displaying how many open tabs.")
+        )
+        
+        let articleTabsViewModel = WMFArticleTabsViewModel(dataController: dataController, localizedStrings: localizedStrings, didTapTab: didTapTab, didTapAddTab: didTapAddTab, didTapMainTab: didTapMainTab)
         let articleTabsView = WMFArticleTabsView(viewModel: articleTabsViewModel)
         
-        let hostingController = WMFArticleTabsHostingController(rootView: articleTabsView, viewModel: articleTabsViewModel)
+        let hostingController = WMFArticleTabsHostingController(rootView: articleTabsView, viewModel: articleTabsViewModel,
+                                                                doneButtonText: CommonStrings.doneTitle)
         let navVC = WMFComponentNavigationController(rootViewController: hostingController, modalPresentationStyle: .overFullScreen)
+
         navigationController.present(navVC, animated: true, completion: nil)
     }
     

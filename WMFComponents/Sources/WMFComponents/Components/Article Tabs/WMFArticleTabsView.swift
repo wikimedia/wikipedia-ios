@@ -14,10 +14,6 @@ public struct WMFArticleTabsView: View {
         self.viewModel = viewModel
     }
     
-    private var colorPalette: [UIColor] {
-        [theme.destructive, theme.editorGreen]
-    }
-    
     private var needsMainGridItem: Bool {
         if viewModel.articleTabs.count == 1 {
             if let tab = viewModel.articleTabs.first {
@@ -57,8 +53,6 @@ public struct WMFArticleTabsView: View {
             }
         }
         .background(Color(theme.midBackground))
-        .navigationBarTitleDisplayMode(.inline)
-        .navigationTitle("\(viewModel.count) tabs") // todo get localized + pluralized version and update
         .toolbarBackground(Color(uiColor: (theme.paperBackground)), for: .automatic)
     }
     
