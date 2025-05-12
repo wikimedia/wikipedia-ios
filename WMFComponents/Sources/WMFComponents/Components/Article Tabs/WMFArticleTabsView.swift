@@ -14,18 +14,6 @@ public struct WMFArticleTabsView: View {
         self.viewModel = viewModel
     }
     
-    private var needsMainGridItem: Bool {
-        if viewModel.articleTabs.count == 1 {
-            if let tab = viewModel.articleTabs.first {
-                if tab.data.articles.count == 0 {
-                    return true
-                }
-            }
-        }
-        
-        return false
-    }
-    
     public var body: some View {
         GeometryReader { geometry in
             let size = geometry.size
