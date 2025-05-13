@@ -1465,6 +1465,7 @@ extension WMFAppViewController: EditPreviewViewControllerLoggingDelegate {
      
      @objc func observeArticleTabsNSNotifications() {
               NotificationCenter.default.addObserver(self, selector: #selector(articleTabDeleted(_:)), name: WMFNSNotification.articleTabDeleted, object: nil)
+         NotificationCenter.default.addObserver(self, selector: #selector(articleTabItemDeleted(_:)), name: WMFNSNotification.articleTabItemDeleted, object: nil)
           }
           
       @objc func articleTabDeleted(_ note: Notification) {
@@ -1478,6 +1479,51 @@ extension WMFAppViewController: EditPreviewViewControllerLoggingDelegate {
               self.removeArticlesForDeletedTab(tabIdentifier)
           }
       }
+     
+     @objc func articleTabItemDeleted(_ note: Notification) {
+         guard
+            let tabItemIdentifier = note.userInfo?[WMFNSNotification.UserInfoKey.articleTabItemIdentifier] as? UUID
+         else {
+             return
+         }
+         
+         DispatchQueue.main.async {
+             self.removeArticlesFromNavigationStacks(tabItemIdentifier)
+         }
+     }
+     
+     func removeArticlesFromNavigationStacks(_ tabItemIdentifier: UUID) {
+         
+         guard let viewControllers else {
+             return
+         }
+         
+         // Loop through all view controllers
+         for viewController in viewControllers {
+             // Check if it's a navigation controller
+             guard let navigationController = viewController as? UINavigationController else {
+                 continue
+             }
+             
+             // Get all view controllers in the navigation stack
+             let viewControllers = navigationController.viewControllers
+             
+             // Filter out any ArticleViewControllers that belong to the deleted tab
+             let remainingViewControllers = viewControllers.filter { viewController in
+                 guard let articleViewController = viewController as? ArticleViewController,
+                       let coordinator = articleViewController.coordinator,
+                       coordinator.tabItemIdentifier == tabItemIdentifier else {
+                     return true // Keep this view controller
+                 }
+                 return false // Remove this view controller
+             }
+             
+             // Update the navigation stack if we removed any view controllers
+             if remainingViewControllers.count < viewControllers.count {
+                 navigationController.setViewControllers(remainingViewControllers, animated: false)
+             }
+         }
+     }
       
       /// Removes any articles from the navigation stack that belong to the deleted tab
       /// - Parameter tabIdentifier: The identifier of the deleted tab
