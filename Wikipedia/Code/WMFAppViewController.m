@@ -257,6 +257,7 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
                                                  name:NSNotification.showErrorBanner
                                                object:nil];
 
+    [self observeArticleTabsNSNotifications];
     [self setupReadingListsHelpers];
     self.editHintController = [[WMFEditHintController alloc] init];
 

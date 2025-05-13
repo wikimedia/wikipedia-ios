@@ -28,54 +28,69 @@ final class TabsOverviewCoordinator: Coordinator {
         self.navigationController = navigationController
         self.theme = theme
         self.dataStore = dataStore
-        guard let dataController = try? WMFArticleTabsDataController() else {
+        guard let dataController = WMFArticleTabsDataController.shared else {
             fatalError("Failed to create WMFArticleTabsDataController")
         }
         self.dataController = dataController
     }
     
     private func presentTabs() {
+        
+        let didTapTab: (WMFArticleTabsDataController.WMFArticleTab) -> Void = { [weak self] tab in
+            self?.tappedTab(tab)
+        }
+        
+        let didTapAddTab: () -> Void = { [weak self] in
+            self?.tappedAddTab()
+        }
+        
         let localizedStrings = WMFArticleTabsViewModel.LocalizedStrings(
             navBarTitleFormat: WMFLocalizedString("tabs-navbar-title-format", value: "{{PLURAL:%1$d|%1$d tab|%1$d tabs}}", comment: "$1 is the amount of tabs. Navigation title for tabs, displaying how many open tabs.")
         )
-        let articleTabsViewModel = WMFArticleTabsViewModel(dataController: dataController, localizedStrings: localizedStrings)
+        
+        let articleTabsViewModel = WMFArticleTabsViewModel(dataController: dataController, localizedStrings: localizedStrings, didTapTab: didTapTab, didTapAddTab: didTapAddTab)
         let articleTabsView = WMFArticleTabsView(viewModel: articleTabsViewModel)
         
-        let hostingController = WMFArticleTabsHostingController(
-            rootView: articleTabsView,
-            viewModel: articleTabsViewModel,
-            doneButtonText: CommonStrings.doneTitle
-        )
-        let navVC = WMFComponentNavigationController(rootViewController: hostingController, modalPresentationStyle: .fullScreen)
+        let hostingController = WMFArticleTabsHostingController(rootView: articleTabsView, viewModel: articleTabsViewModel,
+                                                                doneButtonText: CommonStrings.doneTitle)
+        let navVC = WMFComponentNavigationController(rootViewController: hostingController, modalPresentationStyle: .overFullScreen)
+
         navigationController.present(navVC, animated: true, completion: nil)
     }
     
     private func tappedTab(_ tab: WMFArticleTabsDataController.WMFArticleTab) {
-        guard !tab.isCurrent else {
-            navigationController.dismiss(animated: true)
-            return
+        // If navigation controller is already displaying tab, just dismiss without pushing on any more tabs.
+        if let displayedArticleViewController = navigationController.viewControllers.last as? ArticleViewController,
+           let displayedTabIdentifier = displayedArticleViewController.coordinator?.tabIdentifier {
+            if displayedTabIdentifier == tab.identifier {
+                navigationController.dismiss(animated: true)
+                return
+            }
         }
         
-        for article in tab.articles {
+        // Only push on last article
+        if let article = tab.articles.last {
             guard let siteURL = article.project.siteURL,
                   let articleURL = siteURL.wmf_URL(withTitle: article.title) else {
-                continue
+                return
             }
+            
+            let tabConfig = TabConfig.assignParticularTabAndSetToCurrent(WMFArticleTabsDataController.Identifiers(tabIdentifier: tab.identifier, tabItemIdentifier: article.identifier))
 
-            let articleCoordinator = ArticleCoordinator(navigationController: navigationController, articleURL: articleURL, dataStore: MWKDataStore.shared(), theme: theme, needsAnimation: false, source: .undefined, tabConfig: .appendArticleToTab(tab.identifier))
+            let articleCoordinator = ArticleCoordinator(navigationController: navigationController, articleURL: articleURL, dataStore: MWKDataStore.shared(), theme: theme, needsAnimation: false, source: .undefined, tabConfig: tabConfig)
             articleCoordinator.start()
         }
 
         navigationController.dismiss(animated: true)
     }
     
-    private func tappedNewTab() {
+    private func tappedAddTab() {
         guard let siteURL = dataStore.languageLinkController.appLanguage?.siteURL,
-              let articleURL = siteURL.wmf_URL(withTitle: "Main_Page") else {
+              let articleURL = siteURL.wmf_URL(withTitle: "Main Page") else {
             return
         }
         
-        let articleCoordinator = ArticleCoordinator(navigationController: navigationController, articleURL: articleURL, dataStore: MWKDataStore.shared(), theme: theme, needsAnimation: false, source: .undefined, tabConfig: .appendArticleToNewTab)
+        let articleCoordinator = ArticleCoordinator(navigationController: navigationController, articleURL: articleURL, dataStore: MWKDataStore.shared(), theme: theme, needsAnimation: false, source: .undefined, tabConfig: .assignNewTabAndSetToCurrent)
         articleCoordinator.start()
         
         navigationController.dismiss(animated: true)

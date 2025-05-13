@@ -28,6 +28,14 @@ public struct WMFNavigationBarTitleConfig {
     }
 }
 
+public struct WMFNavigationBarBackButtonConfig {
+    let needsCustomTruncateBackButtonTitle: Bool
+    
+    public init(needsCustomTruncateBackButtonTitle: Bool) {
+        self.needsCustomTruncateBackButtonTitle = needsCustomTruncateBackButtonTitle
+    }
+}
+
 /// Close button config for navigation bar
 public struct WMFNavigationBarCloseButtonConfig {
     
@@ -122,7 +130,8 @@ public extension WMFNavigationBarConfiguring where Self: UIViewController {
     ///   - profileButtonConfig: Config for profile button
     ///   - searchBarConfig: Config for search bar
     ///   - hideNavigationBarOnScroll: If true, will hide the navigation bar when the user scrolls
-    func configureNavigationBar(titleConfig: WMFNavigationBarTitleConfig, closeButtonConfig: WMFNavigationBarCloseButtonConfig?, profileButtonConfig: WMFNavigationBarProfileButtonConfig?, tabsButtonConfig: WMFNavigationBarTabsButtonConfig?, searchBarConfig: WMFNavigationBarSearchConfig?, hideNavigationBarOnScroll: Bool) {
+    func configureNavigationBar(titleConfig: WMFNavigationBarTitleConfig,
+                                backButtonConfig: WMFNavigationBarBackButtonConfig? = nil, closeButtonConfig: WMFNavigationBarCloseButtonConfig?, profileButtonConfig: WMFNavigationBarProfileButtonConfig?, tabsButtonConfig: WMFNavigationBarTabsButtonConfig?, searchBarConfig: WMFNavigationBarSearchConfig?, hideNavigationBarOnScroll: Bool) {
         
         navigationController?.setNavigationBarHidden(false, animated: true)
         navigationController?.hidesBarsOnSwipe = hideNavigationBarOnScroll
@@ -181,13 +190,22 @@ public extension WMFNavigationBarConfiguring where Self: UIViewController {
             navigationItem.titleView = nil
         }
         
+        // Better back button naming for article tabs
+        // TODO: Consider smarter prefix amounts, depending on screen size.
+        if let backButtonConfig,
+           backButtonConfig.needsCustomTruncateBackButtonTitle {
+            if titleConfig.title.count > 10 {
+                navigationItem.backButtonTitle = titleConfig.title.prefix(10) + "..."
+            }
+        }
+
         if let profileButtonConfig {
             
             var rightBarButtonItems: [UIBarButtonItem] = []
             
             var profileLeadingButton: UIBarButtonItem? = profileButtonConfig.leadingBarButtonItem
             
-            if let dataController = try? WMFArticleTabsDataController(),
+            if let dataController = WMFArticleTabsDataController.shared,
                let tabsButtonConfig,
                !dataController.shouldShowArticleTabs {
                 profileLeadingButton = tabsButtonConfig.leadingBarButtonItem
@@ -205,7 +223,7 @@ public extension WMFNavigationBarConfiguring where Self: UIViewController {
                 rightBarButtonItems.append(profileLeadingButton)
             }
             
-            if let dataController = try? WMFArticleTabsDataController(),
+            if let dataController = WMFArticleTabsDataController.shared,
                let tabsButtonConfig,
                dataController.shouldShowArticleTabs {
                 

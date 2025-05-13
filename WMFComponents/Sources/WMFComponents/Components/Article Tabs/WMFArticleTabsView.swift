@@ -13,7 +13,7 @@ public struct WMFArticleTabsView: View {
     public init(viewModel: WMFArticleTabsViewModel) {
         self.viewModel = viewModel
     }
-
+    
     public var body: some View {
         GeometryReader { geometry in
             let size = geometry.size
@@ -22,76 +22,92 @@ public struct WMFArticleTabsView: View {
             
             ScrollView {
                 LazyVGrid(columns: Array(repeating: gridItem, count: columns), spacing: 12) {
+
                     ForEach(viewModel.articleTabs.sorted(by: { $0.dateCreated < $1.dateCreated })) { tab in
-                        tabCardView(tab: tab)
-                            .aspectRatio(3/4, contentMode: .fit)
-                            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+                        if tab.isMain {
+                            tabCardView(content: mainPageTabContent(), tabData: tab.data)
+                        } else {
+                            tabCardView(content: standardTabContent(tab: tab), tabData: tab.data)
+                        }
                     }
+                    
                 }
                 .padding()
             }
         }
         .background(Color(theme.midBackground))
         .toolbarBackground(Color(uiColor: (theme.paperBackground)), for: .automatic)
-        .toolbar {
-            ToolbarItem(placement: .navigationBarTrailing) {
-                Button(action: {
-                    viewModel.addTab()
-                }) {
-                    if let image = WMFIcon.plus {
-                        Image(uiImage: image)
-                            .foregroundStyle(Color(uiColor: theme.link))
-                    }
-                }
-            }
+    }
+    
+    private func mainPageTabContent() -> some View {
+        VStack(alignment: .leading) {
+            // TODO: Proper Main Page Grid Item UI
+            Text("Main Page")
         }
     }
     
-    private func tabCardView(tab: ArticleTab) -> some View {
+    private func standardTabContent(tab: ArticleTab) -> some View {
         VStack(alignment: .leading) {
             ZStack(alignment: .topTrailing) {
-                if let imageURL = tab.image {
-                    GeometryReader { geo in
-                        AsyncImage(url: imageURL) { image in
-                            image
-                                .resizable()
-                                .scaledToFill()
-                                .frame(width: geo.size.width, height: 95)
-                                .clipped()
-                        } placeholder: {
-                            Color(uiColor: theme.paperBackground)
-                                .frame(width: geo.size.width, height: 95)
+                Group {
+                    if let imageURL = tab.image {
+                        GeometryReader { geo in
+                            AsyncImage(url: imageURL) { image in
+                                image
+                                    .resizable()
+                                    .scaledToFill()
+                                    .frame(width: geo.size.width, height: 95)
+                                    .clipped()
+                            } placeholder: {
+                                Color(uiColor: theme.paperBackground)
+                                    .frame(width: geo.size.width, height: 95)
+                            }
                         }
+                    } else {
+                        tabTitle(title: tab.title)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .padding(.trailing, 40)
+                            .padding(.top, 12)
+                            .padding(.leading, 10)
                     }
-                } else {
-                    tabTitle(title: tab.title)
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                        .padding(.trailing, 40)
-                        .padding(.top, 12)
-                        .padding(.leading, 10)
                 }
-                
+
                 if viewModel.shouldShowCloseButton {
-                    WMFCloseButton(action:{ viewModel.closeTab(tab: tab) })
-                    .frame(maxWidth: .infinity, alignment: .topTrailing)
+                    WMFCloseButton(action:{
+                        viewModel.closeTab(tab: tab)
+                    })
                     .padding([.horizontal, .top], 12)
+                    .contentShape(Rectangle())
                 }
             }
+
             if tab.image != nil {
                 tabTitle(title: tab.title)
                     .padding(.horizontal, 10)
                     .padding(.top, 8)
             }
+
             tabText(tab: tab)
+
             if tab.image == nil {
                 Spacer()
                 Spacer()
             }
         }
+    }
+    
+    private func tabCardView(content: some View, tabData: WMFArticleTabsDataController.WMFArticleTab) -> some View {
+        content
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
         .background(Color(theme.paperBackground))
         .cornerRadius(12)
         .shadow(color: Color.black.opacity(0.05), radius: 16, x: 0, y: 0)
+        .contentShape(Rectangle()) // Ensures full card area is tappable
+        .onTapGesture {
+            viewModel.didTapTab(tabData)
+        }
+        .aspectRatio(3/4, contentMode: .fit)
+        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
     }
     
     private func tabTitle(title: String) -> some View {

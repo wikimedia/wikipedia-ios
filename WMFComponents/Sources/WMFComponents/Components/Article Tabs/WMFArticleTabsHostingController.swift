@@ -2,6 +2,11 @@ import SwiftUI
 
 public class WMFArticleTabsHostingController<HostedView: View>: WMFComponentHostingController<HostedView>, WMFNavigationBarConfiguring {
     
+    lazy var addTabButton: UIBarButtonItem = {
+        let button = UIBarButtonItem(image: WMFSFSymbolIcon.for(symbol: .add), style: .plain, target: self, action: #selector(tappedAdd))
+        return button
+    }()
+    
     private let viewModel: WMFArticleTabsViewModel
     private let doneButtonText: String
     
@@ -24,6 +29,8 @@ public class WMFArticleTabsHostingController<HostedView: View>: WMFComponentHost
         super.viewWillAppear(animated)
         
         configureNavigationBar()
+        
+        navigationItem.rightBarButtonItem = addTabButton
     }
     
     private func configureNavigationBar(_ title: String? = nil) {
@@ -37,5 +44,9 @@ public class WMFArticleTabsHostingController<HostedView: View>: WMFComponentHost
     
     @objc func tappedDone() {
         dismiss(animated: true, completion: nil)
+    }
+    
+    @objc private func tappedAdd() {
+        viewModel.didTapAddTab()
     }
 }

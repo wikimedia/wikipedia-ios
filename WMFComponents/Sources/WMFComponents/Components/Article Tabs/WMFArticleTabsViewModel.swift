@@ -11,15 +11,23 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
     private let dataController: WMFArticleTabsDataController
     public var onTabCountChanged: ((Int) -> Void)?
     public var updateNavigationBarTitleAction: ((Int) -> Void)?
+
+    public let didTapTab: (WMFArticleTabsDataController.WMFArticleTab) -> Void
+    public let didTapAddTab: () -> Void
     
     public let localizedStrings: LocalizedStrings
     
-    public init(dataController: WMFArticleTabsDataController, localizedStrings: LocalizedStrings) {
+    public init(dataController: WMFArticleTabsDataController,
+                localizedStrings: LocalizedStrings,
+                didTapTab: @escaping (WMFArticleTabsDataController.WMFArticleTab) -> Void,
+                didTapAddTab: @escaping () -> Void) {
         self.dataController = dataController
         self.localizedStrings = localizedStrings
         self.articleTabs = []
         self.shouldShowCloseButton = false
         self.count = 0
+        self.didTapTab = didTapTab
+        self.didTapAddTab = didTapAddTab
         super.init()
         Task {
             await loadTabs()
@@ -40,14 +48,12 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
             let tabs = try await dataController.fetchAllArticleTabs()
             self.articleTabs = tabs.map { tab in
                 ArticleTab(
-                    id: tab.identifier,
                     image: tab.articles.last?.imageURL,
                     title: tab.articles.last?.title.underscoresToSpaces ?? "",
                     subtitle: tab.articles.last?.description,
                     description: tab.articles.last?.summary,
                     dateCreated: tab.timestamp,
-                    onTapOpen: nil,
-                    project: tab.articles.last?.project
+                    data: tab
                 )
             }
             self.shouldShowCloseButton = articleTabs.count > 1
@@ -81,21 +87,10 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
     public func closeTab(tab: ArticleTab) {
         Task {
             do {
-                try await dataController.deleteArticleTab(identifier: tab.id)
+                try await dataController.deleteArticleTab(identifier: tab.data.identifier)
                 await loadTabs()
             } catch {
                 print("Error closing tab: \(error)")
-            }
-        }
-    }
-    
-    public func addTab() {
-        Task {
-            do {
-                _ = try await dataController.createArticleTab(initialArticle: nil, setAsCurrent: true)
-                await loadTabs()
-            } catch {
-                print("Error adding tab: \(error)")
             }
         }
     }
@@ -106,23 +101,27 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
 }
 
 public struct ArticleTab: Identifiable {
-    public var id = UUID()
     let image: URL?
     let title: String
     let subtitle: String?
     let description: String?
     let dateCreated: Date
-    let onTapOpen: (() -> Void)?
-    let project: WMFProject?
+    let data: WMFArticleTabsDataController.WMFArticleTab
 
-    public init(id: UUID = UUID(), image: URL?, title: String, subtitle: String?, description: String?, dateCreated: Date, onTapOpen: (() -> Void)? = nil, project: WMFProject? = nil) {
-        self.id = id
+    public init(image: URL?, title: String, subtitle: String?, description: String?, dateCreated: Date, data: WMFArticleTabsDataController.WMFArticleTab) {
         self.image = image
         self.title = title
         self.subtitle = subtitle
         self.description = description
         self.dateCreated = dateCreated
-        self.onTapOpen = onTapOpen
-        self.project = project
+        self.data = data
+    }
+    
+    public var id: String {
+        return data.identifier.uuidString
+    }
+    
+    var isMain: Bool {
+        return data.articles.last?.isMain ?? false
     }
 }
