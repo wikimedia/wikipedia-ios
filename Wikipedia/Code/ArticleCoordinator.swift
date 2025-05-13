@@ -53,7 +53,15 @@ final class ArticleCoordinator: NSObject, Coordinator {
         
         trackArticleTab(articleViewController: articleVC)
         
-        navigationController.pushViewController(articleVC, animated: needsAnimation)
+        switch tabConfig {
+        case .appendArticleAndAssignNewTabAndSetToCurrent, .assignNewTabAndSetToCurrent:
+            if let root = navigationController.viewControllers.first {
+                navigationController.setViewControllers([root, articleVC], animated: needsAnimation)
+            }
+        default:
+            navigationController.pushViewController(articleVC, animated: needsAnimation)
+        }
+        
         
         return true
     }
