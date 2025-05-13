@@ -25,7 +25,7 @@ public struct WMFArticleTabsView: View {
 
                     ForEach(viewModel.articleTabs.sorted(by: { $0.dateCreated < $1.dateCreated })) { tab in
                         if tab.isMain {
-                            tabCardView(content: mainPageTabContent(), tabData: tab.data)
+                            tabCardView(content: mainPageTabContent(tab: tab), tabData: tab.data)
                         } else {
                             tabCardView(content: standardTabContent(tab: tab), tabData: tab.data)
                         }
@@ -39,10 +39,54 @@ public struct WMFArticleTabsView: View {
         .toolbarBackground(Color(uiColor: (theme.paperBackground)), for: .automatic)
     }
     
-    private func mainPageTabContent() -> some View {
+    private func mainPageTabContent(tab: ArticleTab) -> some View {
         VStack(alignment: .leading) {
-            // TODO: Proper Main Page Grid Item UI
-            Text("Main Page")
+            ZStack(alignment: .topTrailing) {
+                GeometryReader { geo in
+                    ZStack {
+                        Image("main-page-bg", bundle: .module)
+                            .resizable()
+                            .scaledToFill()
+                            .frame(width: geo.size.width, height: 95)
+                            .clipped()
+
+                        Image("globe_yir", bundle: .module)
+                            .resizable()
+                            .scaledToFit()
+                            .frame(height: 48)
+                            .frame(width: geo.size.width, height: 95, alignment: .center)
+                    }
+                }
+
+                if viewModel.shouldShowCloseButton {
+                    WMFCloseButton(action: {
+                        viewModel.closeTab(tab: tab)
+                    })
+                    .padding([.horizontal, .top], 12)
+                    .contentShape(Rectangle())
+                }
+            }
+
+            tabTitle(title: tab.title)
+                .padding(.horizontal, 10)
+                .padding(.top, 8)
+
+            VStack(alignment: .leading) {
+                Text(viewModel.localizedStrings.mainPageSubtitle)
+                    .font(Font(WMFFont.for(.caption1)))
+                    .foregroundStyle(Color(theme.secondaryText))
+                    .lineLimit(1)
+
+                Divider()
+                    .frame(width: 24)
+                    .padding(.vertical, 6)
+
+                Text(viewModel.localizedStrings.mainPageDescription)
+                    .font(Font(WMFFont.for(.caption1)))
+                    .foregroundStyle(Color(theme.text))
+                    .lineSpacing(5)
+            }
+            .padding([.horizontal, .bottom], 10)
         }
     }
     
