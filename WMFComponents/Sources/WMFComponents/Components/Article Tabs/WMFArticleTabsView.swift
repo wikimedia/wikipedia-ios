@@ -3,6 +3,7 @@ import WMFData
 
 public struct WMFArticleTabsView: View {
     @ObservedObject var appEnvironment = WMFAppEnvironment.current
+    @Environment(\.colorScheme) var colorScheme
     
     var theme: WMFTheme {
         return appEnvironment.theme
@@ -49,6 +50,10 @@ public struct WMFArticleTabsView: View {
                             .scaledToFill()
                             .frame(width: geo.size.width, height: 95)
                             .clipped()
+                            .overlay(
+                                Color.black.opacity(0.6)
+                                    .opacity(colorScheme == .dark ? 1 : 0)
+                            )
 
                         Image("globe_yir", bundle: .module)
                             .resizable()
