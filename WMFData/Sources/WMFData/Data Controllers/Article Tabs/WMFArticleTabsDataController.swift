@@ -309,23 +309,11 @@ public class WMFArticleTabsDataController: WMFArticleTabsDataControlling {
                 throw CustomError.missingPage
             }
             
-            var newCurrentIsSet = false
-            var tabItemIdentifiersToDelete: [UUID] = []
             for item in items {
                 guard let articleItem = item as? CDArticleTabItem else { continue }
                 
-                if newCurrentIsSet {
-                    moc.delete(articleItem)
-                    if let identifier = articleItem.identifier {
-                        tabItemIdentifiersToDelete.append(identifier)
-                    }
-                    
-                    continue
-                }
-                
                 if articleItem.identifier == tabItemIdentifier {
                     articleItem.isCurrent = true
-                    newCurrentIsSet = true
                 } else {
                     articleItem.isCurrent = false
                 }
@@ -334,14 +322,6 @@ public class WMFArticleTabsDataController: WMFArticleTabsDataControlling {
             try setTabAsCurrent(tabIdentifier: tabIdentifier, moc: moc)
             
             try self.coreDataStore.saveIfNeeded(moc: moc)
-            
-            for tabItemIdentifier in tabItemIdentifiersToDelete {
-                NotificationCenter.default.post(
-                    name: WMFNSNotification.articleTabItemDeleted,
-                    object: nil,
-                    userInfo: [WMFNSNotification.UserInfoKey.articleTabItemIdentifier: tabItemIdentifier]
-                )
-            }
         }
     }
     
