@@ -103,9 +103,6 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
         label += tab.title
         if let subtitle = tab.subtitle {
             label += " " + subtitle
-        } else if let description = tab.description {
-            let truncatedDescription = description.count > 50 ? String(description.prefix(50)) + "…" : description
-            label += " " + truncatedDescription
         }
         return label
     }
