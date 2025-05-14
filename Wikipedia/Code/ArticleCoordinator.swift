@@ -17,14 +17,9 @@ protocol ArticleTabCoordinating: AnyObject {
     var tabConfig: ArticleTabConfig { get }
     var tabIdentifier: UUID? { get set }
     var tabItemIdentifier: UUID? { get set }
-    var tabMax: Int { get }
 }
 
 extension ArticleTabCoordinating {
-    
-    var tabMax: Int {
-        return WMFDeveloperSettingsDataController.shared.forceMaxArticleTabsTo5 ? 5 : 500
-    }
     
     func trackArticleTab(articleViewController: ArticleViewController) {
         
@@ -54,15 +49,12 @@ extension ArticleTabCoordinating {
                 switch tabConfig {
                 case .assignNewTabAndSetToCurrent, .appendArticleAndAssignNewTabAndSetToCurrent:
                     let tabsCount = try await tabsDataController.tabsCount()
-                    if tabsCount >= tabMax {
+                    let tabsMax = tabsDataController.tabsMax
+                    if tabsCount >= tabsMax {
                         tabConfig = .appendArticleAndAssignCurrentTab
                         
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) { [weak self] in
-                            
-                            guard let self else { return }
-                            
-                            let format = WMFLocalizedString("article-tabs-max-reached", value: "Tab limit reached (%1$d). Please close one or more tabs.", comment: "Warning toast presented to users when they attempt to open a new tab after maximum tab number is reached. %1$d is replaced with the maximum number of tabs allowed.")
-                            WMFAlertManager.sharedInstance.showBottomWarningAlertWithMessage(String.localizedStringWithFormat(format, self.tabMax), subtitle: nil,  buttonTitle: nil, image: WMFSFSymbolIcon.for(symbol: .exclamationMarkTriangleFill), dismissPreviousAlerts: true)
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                            WMFAlertManager.sharedInstance.showBottomWarningAlertWithMessage(String.localizedStringWithFormat(CommonStrings.articleTabsLimitToastFormat, tabsMax), subtitle: nil,  buttonTitle: nil, image: WMFSFSymbolIcon.for(symbol: .exclamationMarkTriangleFill), dismissPreviousAlerts: true)
                         }
                     }
                 default:

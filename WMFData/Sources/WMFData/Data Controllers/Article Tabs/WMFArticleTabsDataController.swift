@@ -141,6 +141,10 @@ public class WMFArticleTabsDataController: WMFArticleTabsDataControlling {
             _ = try await createArticleTab(initialArticle: nil, setAsCurrent: true)
         }
     }
+    
+    public var tabsMax: Int {
+        return developerSettingsDataController.forceMaxArticleTabsTo5 ? 5 : 500
+    }
 
     public func createArticleTab(initialArticle: WMFArticle?, setAsCurrent: Bool = false) async throws -> Identifiers {
         

@@ -4,6 +4,7 @@ import WMFData
 #if DEBUG
 
 final class WMFMockDeveloperSettingsDataController: WMFDeveloperSettingsDataControlling {
+
     var enableYearInReview: Bool {
         return true
     }
@@ -14,6 +15,10 @@ final class WMFMockDeveloperSettingsDataController: WMFDeveloperSettingsDataCont
     
     var enableArticleTabs: Bool {
         return true
+    }
+    
+    var forceMaxArticleTabsTo5: Bool {
+        return false
     }
     
     private let featureConfig: WMFData.WMFFeatureConfigResponse
