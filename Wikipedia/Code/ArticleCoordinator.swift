@@ -22,6 +22,8 @@ extension ArticleTabCoordinating {
     
     func trackArticleTab(articleViewController: ArticleViewController) {
         
+        articleViewController.coordinator = self
+        
         guard let tabsDataController = WMFArticleTabsDataController.shared else {
             return
         }
@@ -29,8 +31,6 @@ extension ArticleTabCoordinating {
         guard tabsDataController.shouldShowArticleTabs else {
             return
         }
-        
-        articleViewController.coordinator = self
 
         // Handle Article Tabs
         Task {

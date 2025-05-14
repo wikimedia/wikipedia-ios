@@ -1183,6 +1183,7 @@ private extension ArticleViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(self.textSizeChanged(notification:)), name: NSNotification.Name(rawValue: FontSizeSliderViewController.WMFArticleFontSizeUpdatedNotification), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(applicationWillResignActive), name: UIApplication.willResignActiveNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(applicationDidBecomeActive), name: UIApplication.didBecomeActiveNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(coreDataStoreSetup), name: WMFNSNotification.coreDataStoreSetup, object: nil)
         contentSizeObservation = webView.scrollView.observe(\.contentSize) { [weak self] (scrollView, change) in
             self?.contentSizeDidChange()
         }
@@ -1218,6 +1219,15 @@ private extension ArticleViewController {
     @objc func applicationDidBecomeActive(_ notification: Notification) {
         startSignificantlyViewedTimer()
         trackBeganViewingDate()
+    }
+    
+    @objc func coreDataStoreSetup(_ notification: Notification) {
+        configureNavigationBar()
+
+        // Sometimes there is a race condition where the Core Data store isn't yet ready to persist tabs information (for example, deep linking to an article when in a terminated state). We are trying again here.
+        if coordinator?.tabIdentifier == nil || coordinator?.tabItemIdentifier == nil {
+            coordinator?.trackArticleTab(articleViewController: self)
+        }
     }
     
     func setupMessagingController() {
