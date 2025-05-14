@@ -71,45 +71,48 @@ final class TabsOverviewCoordinator: Coordinator {
         }
         
         // Workaround that matches Android: remove previous navigation stack, and push on entire history of articles
-        if let rootVC = navigationController.viewControllers.first {
-            navigationController.setViewControllers([rootVC], animated: false)
-        }
         
-        for article in tab.articles {
-            guard let siteURL = article.project.siteURL,
-                  let articleURL = siteURL.wmf_URL(withTitle: article.title) else {
-                return
+        if dataController.needsAltBehavior {
+            if let rootVC = navigationController.viewControllers.first {
+                navigationController.setViewControllers([rootVC], animated: false)
             }
             
-            let tabConfig = ArticleTabConfig.assignParticularTabAndSetToCurrent(WMFArticleTabsDataController.Identifiers(tabIdentifier: tab.identifier, tabItemIdentifier: article.identifier))
+            for article in tab.articles {
+                guard let siteURL = article.project.siteURL,
+                      let articleURL = siteURL.wmf_URL(withTitle: article.title) else {
+                    return
+                }
+                
+                let tabConfig = ArticleTabConfig.assignParticularTabAndSetToCurrent(WMFArticleTabsDataController.Identifiers(tabIdentifier: tab.identifier, tabItemIdentifier: article.identifier))
 
-            let articleCoordinator = ArticleCoordinator(navigationController: navigationController, articleURL: articleURL, dataStore: MWKDataStore.shared(), theme: theme, needsAnimation: false, source: .undefined, tabConfig: tabConfig)
-            let success = articleCoordinator.start()
-            
-            if success,
-               let lastVC = navigationController.viewControllers.last {
-                if article.title.count > 10 {
-                    lastVC.navigationItem.backButtonTitle = article.title.prefix(10) + "..."
-                } else {
-                    lastVC.navigationItem.backButtonTitle = article.title
+                let articleCoordinator = ArticleCoordinator(navigationController: navigationController, articleURL: articleURL, dataStore: MWKDataStore.shared(), theme: theme, needsAnimation: false, source: .undefined, tabConfig: tabConfig)
+                let success = articleCoordinator.start()
+                
+                if success,
+                   let lastVC = navigationController.viewControllers.last {
+                    if article.title.count > 10 {
+                        lastVC.navigationItem.backButtonTitle = article.title.prefix(10) + "..."
+                    } else {
+                        lastVC.navigationItem.backButtonTitle = article.title
+                    }
                 }
             }
+        } else {
+            // Old logic
+            // Only push on last article
+            if let article = tab.articles.last {
+                guard let siteURL = article.project.siteURL,
+                      let articleURL = siteURL.wmf_URL(withTitle: article.title) else {
+                    return
+                }
+    
+                let tabConfig = ArticleTabConfig.assignParticularTabAndSetToCurrent(WMFArticleTabsDataController.Identifiers(tabIdentifier: tab.identifier, tabItemIdentifier: article.identifier))
+    
+                let articleCoordinator = ArticleCoordinator(navigationController: navigationController, articleURL: articleURL, dataStore: MWKDataStore.shared(), theme: theme, needsAnimation: false, source: .undefined, tabConfig: tabConfig)
+                articleCoordinator.start()
+            }
         }
         
-        // Old logic
-        // Only push on last article
-//        if let article = tab.articles.last {
-//            guard let siteURL = article.project.siteURL,
-//                  let articleURL = siteURL.wmf_URL(withTitle: article.title) else {
-//                return
-//            }
-//            
-//            let tabConfig = TabConfig.assignParticularTabAndSetToCurrent(WMFArticleTabsDataController.Identifiers(tabIdentifier: tab.identifier, tabItemIdentifier: article.identifier))
-//
-//            let articleCoordinator = ArticleCoordinator(navigationController: navigationController, articleURL: articleURL, dataStore: MWKDataStore.shared(), theme: theme, needsAnimation: false, source: .undefined, tabConfig: tabConfig)
-//            articleCoordinator.start()
-//        }
-
         navigationController.dismiss(animated: true)
     }
     

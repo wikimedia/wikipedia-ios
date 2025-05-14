@@ -156,16 +156,18 @@ final class ArticleCoordinator: NSObject, Coordinator, ArticleTabCoordinating {
         
         trackArticleTab(articleViewController: articleVC)
         
-        switch tabConfig {
-                case .appendArticleAndAssignNewTabAndSetToCurrent, .assignNewTabAndSetToCurrent:
-                    if let root = navigationController.viewControllers.first {
-                        navigationController.setViewControllers([root, articleVC], animated: needsAnimation)
+        if WMFArticleTabsDataController.shared?.needsAltBehavior ?? false {
+            switch tabConfig {
+                    case .appendArticleAndAssignNewTabAndSetToCurrent, .assignNewTabAndSetToCurrent:
+                        if let root = navigationController.viewControllers.first {
+                            navigationController.setViewControllers([root, articleVC], animated: needsAnimation)
+                        }
+                    default:
+                        navigationController.pushViewController(articleVC, animated: needsAnimation)
                     }
-                default:
-                    navigationController.pushViewController(articleVC, animated: needsAnimation)
-                }
-        
-        //navigationController.pushViewController(articleVC, animated: needsAnimation)
+        } else {
+            navigationController.pushViewController(articleVC, animated: needsAnimation)
+        }
         
         return true
     }

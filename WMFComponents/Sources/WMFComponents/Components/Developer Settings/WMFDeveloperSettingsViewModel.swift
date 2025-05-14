@@ -49,6 +49,8 @@ import WMFData
         let enableArticleTabs = WMFFormItemSelectViewModel(title: "Enable article tabs", isSelected: WMFDeveloperSettingsDataController.shared.enableArticleTabs)
         
         let forceMaxArticleTabsTo5 = WMFFormItemSelectViewModel(title: "Force Max Article Tabs to 5", isSelected: WMFDeveloperSettingsDataController.shared.forceMaxArticleTabsTo5)
+        
+        let enableArticleTabsAltBehavior = WMFFormItemSelectViewModel(title: "Enable article tabs alternative behavior", isSelected: WMFDeveloperSettingsDataController.shared.alternativeTabsBehavior)
 
         let setActivityTabGroupA = WMFFormItemSelectViewModel(title: localizedStrings.setActivityTabGroupA, isSelected: WMFDeveloperSettingsDataController.shared.setActivityTabGroupA)
         let setActivityTabGroupB = WMFFormItemSelectViewModel(title: localizedStrings.setActivityTabGroupB, isSelected: WMFDeveloperSettingsDataController.shared.setActivityTabGroupB)
@@ -65,7 +67,8 @@ import WMFData
                 setActivityTabGroupB,
                 setActivityTabGroupC,
                 enableArticleTabs,
-                forceMaxArticleTabsTo5
+                forceMaxArticleTabsTo5,
+                enableArticleTabsAltBehavior
             ], selectType: .multi)
         ])
 
@@ -92,6 +95,10 @@ import WMFData
         
         forceMaxArticleTabsTo5.$isSelected
             .sink { isSelected in WMFDeveloperSettingsDataController.shared.forceMaxArticleTabsTo5 = isSelected }
+            .store(in: &subscribers)
+        
+        enableArticleTabsAltBehavior.$isSelected
+            .sink { isSelected in WMFDeveloperSettingsDataController.shared.alternativeTabsBehavior = isSelected }
             .store(in: &subscribers)
 
         activityTabGroupCoordinator = ActivityTabGroupBindingCoordinator(

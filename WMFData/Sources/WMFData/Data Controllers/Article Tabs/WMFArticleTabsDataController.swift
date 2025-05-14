@@ -121,6 +121,10 @@ public class WMFArticleTabsDataController: WMFArticleTabsDataControlling {
         return developerSettingsDataController.enableArticleTabs
     }
     
+    public var needsAltBehavior: Bool {
+        return developerSettingsDataController.alternativeTabsBehavior
+    }
+    
     // MARK: - Tabs Manipulation Methods
     
     public func tabsCount() async throws -> Int {

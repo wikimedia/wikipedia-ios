@@ -4,6 +4,7 @@ public protocol WMFDeveloperSettingsDataControlling: AnyObject {
     func loadFeatureConfig() -> WMFFeatureConfigResponse?
     var enableArticleTabs: Bool { get }
     var forceMaxArticleTabsTo5: Bool { get }
+    var alternativeTabsBehavior: Bool { get }
 }
 
 @objc public final class WMFDeveloperSettingsDataController: NSObject, WMFDeveloperSettingsDataControlling {
@@ -121,6 +122,14 @@ public protocol WMFDeveloperSettingsDataControlling: AnyObject {
             return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsForceMaxArticleTabsTo5.rawValue)) ?? false
         } set {
             try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsForceMaxArticleTabsTo5.rawValue, value: newValue)
+        }
+    }
+    
+    public var alternativeTabsBehavior: Bool {
+        get {
+            return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsArticleTabsAltBehavior.rawValue)) ?? false
+        } set {
+            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsArticleTabsAltBehavior.rawValue, value: newValue)
         }
     }
 

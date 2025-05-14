@@ -4,6 +4,9 @@ import WMFData
 #if DEBUG
 
 final class WMFMockDeveloperSettingsDataController: WMFDeveloperSettingsDataControlling {
+    var alternativeTabsBehavior: Bool {
+        return true
+    }
 
     var enableYearInReview: Bool {
         return true
