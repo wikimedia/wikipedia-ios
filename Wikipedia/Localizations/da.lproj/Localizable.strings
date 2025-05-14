@@ -899,7 +899,7 @@
 "reading-lists-count" = "{{PLURAL:$1|$1 læseliste|$1 læselister}}";
 "reading-lists-default-list-description" = "Standardliste for dine gemte artikler";
 "reading-lists-default-list-title" = "Gemt";
-"reading-lists-delete-reading-list-alert-message" = "Denne handling kan ikke fortrydes. Enhver artikle gemt kun i {{PLURAL:$1|denne liste|disse lister}} vil ikke blive gemt.";
+"reading-lists-delete-reading-list-alert-message" = "Denne handling kan ikke fortrydes. Enhver artikel gemt kun i {{PLURAL:$1|denne liste|disse lister}} vil ikke blive gemt.";
 "reading-lists-delete-reading-list-alert-title" = "Slet {{PLURAL:$1|liste|lister}}?";
 "reading-lists-large-sync-completed" = "{{PLURAL:$1|$1 artikel|$1 artikler}} og {{PLURAL:$2| $2 læseliste| $2 læselister}} synkroniseret fra din konto";
 "reading-lists-list-not-synced-limit-exceeded" = "Listen er ikke synkroniseret, grænsen er overskredet";

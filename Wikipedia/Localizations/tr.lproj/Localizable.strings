@@ -18,8 +18,10 @@
 // Author: Jelican9
 // Author: JoeWalshWMF
 // Author: Joseph
+// Author: Karacehennem
 // Author: Khalvar
 // Author: Kumkumuk
+// Author: Leo
 // Author: Macofe
 // Author: Mavrikant
 // Author: Mavrikant2
@@ -145,6 +147,8 @@
 "activity-tab-you-saved" = "Bu hafta {{PLURAL:$1|$1 makale}} kaydettiniz.";
 "add-articles-to-reading-list" = "{{PLURAL:$1|$1 maddeyi|$1 maddeyi}} okuma listesine ekleyin";
 "advanced-settings-title" = "Gelişmiş ayarlar";
+"alert-temporary-account" = "Geçici bir hesap kullanıyorsunuz. Hesabınızın süresi 90 gün sonra sona erecek.";
+"alert-temporary-account-learn-more" = "Daha fazla bilgi edin.";
 "alt-text-feedback-survey-toast-title" = "Geri bildirim gönderildi";
 "announcements-dismiss" = "Kapat";
 "app-store-keywords" = "Vikipedi, referans, viki, ansiklopedi, bilgi, bilgilenme, araştırma, bilme, keşfet, öğren";
@@ -172,8 +176,12 @@
 "article-revision-history" = "Madde sürüm geçmişi";
 "article-save-error-not-enough-space" = "Bu maddeyi kaydetmek için cihazınızda yeterli alan yok";
 "article-share" = "Paylaş";
+"article-tabs-open-background-tab" = "Arkaplan sekmesinde aç";
+"article-tabs-open-new-tab" = "Yeni sekmede aç";
 "article-talk-page" = "Madde tartışma sayfası";
 "article-toolbar-reading-themes-controls-toolbar-item" = "Okuma Tema Ayarları";
+"article-view-controller-editing-temp-account-created-subtitle" = "Düzenlemeniz yayınlandıktan sonra $1 geçici hesabınız oluşturuldu. Hesabın süresi 90 gün sonra sona erecek.";
+"article-view-controller-editing-temp-account-created-title" = "Geçici hesap oluşturuldu";
 "back-button-accessibility-label" = "Geri";
 "back-button-popover-title" = "Geri dönmek için dokunun";
 "button-go-back" = "Geri dön";
@@ -206,6 +214,7 @@
 "crimean-tatar-variants-alert-title" = "Kırım Tatarcası biçim desteği güncellemeleri";
 "data-migration-status" = "Güncelleniyor...";
 "description-add-title" = "Açıklama ekle";
+"description-article-introduction-warning-message" = "Düzenleme görünümünde öğelerin sıralaması madde görünümünden farklı olacaktır.";
 "description-edit-for-article" = "$1 için madde açıklaması";
 "description-edit-length-warning" = "$1 / $2";
 "description-edit-license" = "Madde açıklamasını değiştirerek $1nı kabul ediyorum ve $2 lisansı kapsamındaki katkılarımı geri alınamaz bir şekilde yayımlıyorum.";
@@ -216,6 +225,7 @@
 "description-edit-title" = "Açıklamayı düzenle";
 "description-edit-warning" = "Açıklamaları kısa tutmaya çalışın, böylece kullanıcılar maddenin konusunu bir bakışta anlayabilirler.";
 "description-edit-warning-casing" = "Sadece özel isimler büyük harfle başlamalıdır, cümlenin başında bile.";
+"description-editing-temp-account-created-subtitle" = "Düzenlemeniz yayınlandıktan sonra $1 geçici hesabınız oluşturuldu. Hesabın süresi 90 gün sonra sona erecek.";
 "description-help-about-description" = "Madde açıklamaları, okuyucuların bir bakışta konuyu anlamalarına yardımcı olmak için bir maddeyi özetler.";
 "description-help-about-title" = "Hakkında";
 "description-help-about-wikidata" = "Vikiveri Hakkında";
@@ -240,7 +250,16 @@
 "description-welcome-descriptions-title" = "Madde açıklamaları";
 "description-welcome-promise-title" = "Başlayarak bu özelliği kötüye kullanmamaya söz veriyorum";
 "description-welcome-start-editing-button" = "Düzenlemeye başla";
+"developer-force-email-auth" = "E-posta kimlik doğrulamasını zorunlu kıl";
 "developer-settings" = "Geliştirici Ayarları";
+"developer-settings-activity-tab-group-A" = "Etkinlik sekmesini Grup A'ya ayarla";
+"developer-settings-activity-tab-group-B" = "Etkinlik sekmesini Grup B'ye ayarla";
+"developer-settings-activity-tab-group-C" = "Etkinlik sekmesini Grup C'ye ayarla";
+"developer-settings-activity-tabs" = "Etkinlik sekmelerini etkinleştir";
+"developer-settings-bypass-donation" = "Baypas Bağışı";
+"developer-settings-enable-year-in-review" = "Yıl İncelemesini Etkinleştir";
+"developer-settings-send-analytics-to-wmflabs" = "Analizleri wmflabs'a gönder.";
+"developer-settings-suppress-image-rec-post" = "Görsel önerileri düzenlemleri yayınlamayın.";
 "diff-article-revision-history" = "Madde sürüm geçmişi";
 "diff-change-added" = "Ekleme, $1, ekleme sonu.";
 "diff-change-paragraph-lines-moved-down" = "Paragraf {{PLURAL:$1|$1 satır}} aşağıya taşındı. Yeni yere gidin.";
@@ -308,6 +327,7 @@
 "donate-help-other-ways-to-give" = "Vermenin diğer yolları";
 "donate-help-problems-donating" = "Bağış yaparken sorun mu yaşıyorsunuz?";
 "donate-help-tax-deductibility-information" = "Vergiden düşülebilirlik bilgileri";
+"donate-history-delete" = "Yerel bağış geçişmişini sil";
 "donate-later-title" = "Yarın tekrar hatırlatacağız.";
 "donate-maximum-error-text" = "Web sitemiz aracılığıyla $2 $1 üzerindeki bağışları kabul edemiyoruz. Lütfen benefactors@wikimedia.org adresindeki büyük hediyeler ekibimizle iletişime geçin.";
 "donate-minimum-error-text" = "Lütfen bir miktar seçin (en az $1 $2).";
@@ -320,6 +340,8 @@
 "donate-success-title" = "Teşekkürler!";
 "donate-title" = "Bir tutar seçin";
 "donate-transaction-fee-opt-in-text" = "Bağışımın %%100'ünü alabilmeniz için işlem ücretlerini karşılamak üzere cömertçe $1 ekleyeceğim.";
+"donate-wikimedia-fine-print-1" = "Kişisel bilgilerinizi kimseye satmıyor veya vermiyoruz. Bağış yaparak, [bağım politikamız]($1) kapsamında, kişisel bilgilerinizi Vikipedi ve diğer Wikimedia projelerini barındıran kâr amacı gütmeyen bir kuruluş olan Wikimedia Vakfı ile ve servis sağlayıcıları ile paylaşmayı kabul etmiş sayılırsınız. Wikimedia Vakfı ve servis sağlayıcıları bulunduğunuz ülkenizdeki gizlilik yasalarına eşdeğer olmayabilecek şekilde Amerika Birleşik Devletleri'nde ve diğer devletlerde yer almaktadır. Daha fazla bilgi için lütfen [bağış politikamızı]($1) okuyun.";
+"donate-wikimedia-fine-print-2" = "Sürekli bağışlar için sabit aylık ödemeler Wikimedia Vakfı tarafından, siz ödemeleri durdurmamız yönünde bir bildirimde bulunana dek, ilk bağışın aydönümünde alınacaktır. Ayın 29, 30 ya da 31. gününde yapılan bağışlar, daha kısa aylarda ayın son gününde, mümkün oldukça asıl güne yakın olarak alınacaktır. Sorular için lütfen donate@wikimedia.org adresiyle iletişime geçin.";
 "edit-link-display-text-title" = "Metni görüntüle";
 "edit-link-link-target-title" = "Bağlantı hedefi";
 "edit-link-remove-link-title" = "Bağlantıyı kaldır";
@@ -335,6 +357,8 @@
 "edit-preview-simplified-format-message" = "Tüm içerik basitleştirilmiş biçimde gösterilmiştir.";
 "edit-published" = "Düzenleme yayımlandı";
 "edit-published-subtitle" = "Vikipedi'yi herkes için daha iyi yaptın";
+"edit-sheet-ip-account-notice" = "IP Hesap Bildirimi";
+"edit-sheet-temp-account-notice" = "Geçici Hesap Bildirimi";
 "edit-show-web-preview" = "Web ön izlemesini göster";
 "edit-summary-add-summary-text" = "Bir değişiklik özeti gir";
 "edit-summary-choice-added-image" = "Görsel eklendi";
@@ -398,6 +422,7 @@
 "editor-replace-type-button-accessibility" = "Değiştirme türünü değiştir. Şu anda $1 olarak ayarlandı. Değiştirmek için seçin.";
 "editor-replace-type-single" = "Değiştir";
 "editor-replace-type-single-accessibility" = "Tek örneği değiştir";
+"editor-title" = "Editör";
 "editor-toolbar-bold-accessibility" = "Kalın metin biçimlendirmesi";
 "editor-toolbar-cursor-down-accessibility" = "İmleci sonraki satıra aşağıya taşıyın.";
 "editor-toolbar-cursor-next-accessibility" = "İmleci sonraki karaktere taşıyın.";
@@ -545,6 +570,7 @@
 "field-alert-token-invalid" = "Geçersiz kod";
 "field-alert-username-unavailable" = "Kullanıcı adı kullanılamaz";
 "field-backup-token-title" = "Yedek kod";
+"field-backup-token-title-email" = "E-posta kodu";
 "field-captcha-placeholder" = "CAPTCHA metni";
 "field-captcha-title" = "Yukarıda gördüğünüz metni girin";
 "field-email-placeholder" = "ornek@example.org";
@@ -681,6 +707,11 @@
 "insert-media-title" = "Dosyayı ekle";
 "inuktitut-variants-alert-body" = "Vikipedi uygulaması artık aşağıdaki Inuktitut biçimlerini birincil veya ikincil dil olarak uygulama içinde destekliyor, bu şekilde tercih ettiğiniz biçimle daha kolay okuyabilir, aratabilir ve değişiklik yapabilirsiniz:\n\nᐃᓄᒃᑎᑐᑦ ᑎᑎᕋᐅᓯᖅ ᓄᑖᖅ Inuktitut, Heceli (ike-cans)\nInuktitut ilisautik, Inuktitut, Latin (ike-latn)";
 "inuktitut-variants-alert-title" = "Inuktitut biçim desteği güncellemeleri";
+"ip-account-cta-bottom" = "Giriş yapmadan devam et";
+"ip-account-cta-top" = "Giriş yapın ya da bir hesap oluşturun";
+"ip-account-edit-sheet-subtitle" = "Düzenleme yaptığınızda gizliliğinizi korumak için bir $1geçici hesap$2 oluşturulacaktır. $3Daha fazla bilgi edinin$4.$5Diğer düzenlemelerde atıf almak ve diğer özelliklere erişebilmek için giriş yapın ya da bir hesap oluşturun.";
+"ip-account-warning-subtitle" = "Yayımladığınızda sizin için geçici bir hesap oluşturulacak.";
+"ip-account-warning-title" = "Oturum açmadınız";
 "kazakh-variants-alert-body" = "Vikipedi uygulaması artık aşağıdaki Kazakça biçimlerini birincil veya ikincil dil olarak uygulama içinde destekliyor, bu şekilde tercih ettiğiniz biçimle daha kolay okuyabilir, aratabilir ve değişiklik yapabilirsiniz:\n\nҚазақша Kazakça (kk)\nҚазақша Кирил Kazakça, Kiril (kk-cyrl)\nqazaqşa latin Kazakça, Latin (kk-latn)\nتوتە قازاقشا Kazakça, Arap (kk-arab)";
 "kazakh-variants-alert-title" = "Kazakça biçim desteği güncellemeleri";
 "kurdish-variants-alert-body" = "Vikipedi uygulaması artık aşağıdaki Kürtçe biçimlerini birincil veya ikincil dil olarak uygulama içinde destekliyor, bu şekilde tercih ettiğiniz biçimle daha kolay okuyabilir, aratabilir ve değişiklik yapabilirsiniz:\n\nKurdî Latînî Kürtçe, Latin (ku-latn)\nكوردی Kürtçe, Arap (kk-arab)";
@@ -710,7 +741,18 @@
 "main-menu-terms-of-use" = "Kullanım Şartları";
 "main-menu-title" = "Daha fazla";
 "main-menu-zero-faq" = "Wikipedia Zero SSS";
+"microsite-yir-english-edits-bytes-slide-subtitle" = "2024'te gönüllüler İngilizce Vikipedi'ye 4.104.852.969 bayt ekledi. Birlikte yaptıkları tüm çalışmaların toplamı, dünyaya sundukları, sürekli gelişen, gerçeğe dayalı ve güvenilir bir bilgi kaynağına yol açmaktadır. Hepimizin paylaşacak bilgisi var, [nasıl katılacağınızı öğrenin]($1).";
+"microsite-yir-english-edits-bytes-slide-title" = "4 milyar bayt eklendi";
+"microsite-yir-english-edits-slide-subtitle" = "Gönüllüler, Vikipedi'nin 300'den fazla farklı dil sürümünde 98.222.407 değişiklik yaptı. İngilizce Vikipedi'de 37 milyondan fazla değişiklik yapıldı. Gönüllüler, her günün her saati Vikipedi'yi iyileştirmek için çalışmaktadır.";
+"microsite-yir-english-edits-slide-title" = "Editörler bu yıl 98 milyon değişiklik yaptı";
+"microsite-yir-english-non-donor-slide-subtitle" = "Yardımınızla, Vikipedi'nin arkasındaki kâr amacı gütmeyen kuruluş olan Wikimedia Vakfı, güvendiğiniz bilgilerin reklamsız ve güvenilir olmasını sağlamaya devam ederken, Vikipedi'nin en yeni araçlar ve teknolojilerle sorunsuz çalışmasını sağlayacaktır. Lütfen bugün bağış yapmayı düşünün. [Çalışmalarımız hakkında daha fazla bilgi edinin]($1).";
 "microsite-yir-english-non-donor-slide-title" = "Vikipedi'de 0 reklam yayımlandı";
+"microsite-yir-english-reading-slide-subtitle" = "İnsanlar 2024 yılında tahmini 2,9 milyar saati, yani 331.000 yıldan uzun bir zamanı İngilizce Vikipedi'yi okuyarak geçirdiler. Değişen dünyamız hakkında bilgi edinmek, arkadaşlarınız arasında bir iddiayı kazanmak veya meraklı bir çocuğun sorusuna cevap vermek istediğinizde Vikipedi yanınızda.";
+"microsite-yir-english-reading-slide-title" = "Okumaya 2,9 milyar saat harcadık";
+"microsite-yir-english-saved-reading-slide-subtitle" = "Akfit iOS uygulaması kullanıcıları 62,2 milyondan fazla okuma listesine sahip. Maddeleri okuma listesine eklemek, o maddelere çevrimdışı olarak ulaşabilmeyi sağlar. Ayrıca oturum açarak okuma listelerinizi cihazlarınız arasında senkronize edebilirsiniz.";
+"microsite-yir-english-saved-reading-slide-title" = "62,2 milyondan fazla okuma listemiz oldu";
+"microsite-yir-english-top-read-slide-subtitle" = "İngilizce Vikipedi'de en çok ziyaret edilen 5 madde:\n\n1. $1 \n2. $2 \n3. $3 \n4. $4 \n5. $5 \nDaha fazlasını $6özel günlük yazımızda$7 okuyabilirsiniz.";
+"microsite-yir-english-top-read-slide-title" = "İngilizce Vikipedi'nin en popüler maddeleri";
 "more-languages-tooltip-description" = "Vikipedi'yi 300'den fazla dilde arayın";
 "more-languages-tooltip-title" = "Dil ekle";
 "more-menu" = "Daha fazla";
@@ -870,6 +912,7 @@
 "page-history-compare-accessibility-hint" = "Karşılaştırılacak iki revizyon seçmek için dokunun";
 "page-history-compare-title" = "Karşılaştır";
 "page-history-graph-accessibility-label" = "Zaman içindeki düzenlemelerin grafiği";
+"page-history-logged-in-edits" = "oturum açmış";
 "page-history-minor-edits" = "küçük değişiklikler";
 "page-history-revision-author-accessibility-label" = "Yazar: $1";
 "page-history-revision-comment-accessibility-label" = "$1 yorum";
@@ -880,6 +923,7 @@
 "page-history-revision-time-accessibility-label" = "$1 revizyon yapıldı";
 "page-history-revisions-comparison-warning" = "Yalnızca iki revizyon seçilebilir";
 "page-history-stats-text" = "$2 sonrasında {{PLURAL:$1|$1 düzenleme}}";
+"page-history-unregistered-edits" = "kayıtlı olmayan";
 "page-issues" = "Sayfa sorunları";
 "page-location" = "Haritada görüntüle";
 "page-protected-can-not-edit" = "Bu sayfayı düzenleme yetkiniz yok";
@@ -909,7 +953,9 @@
 "places-filter-top-articles" = "En çok okunanlar";
 "places-filter-top-articles-count" = "{{PLURAL:$1|$1 madde|$1 madde}}";
 "places-filter-top-read-articles" = "En çok okunan maddeler";
+"places-list-title'" = "Liste";
 "places-location-enabled" = "Konum aktif";
+"places-map-title" = "Harita";
 "places-no-saved-articles-have-location" = "Hiçbir kayıtlı maddenizin konum bilgisi yok";
 "places-search-articles-that-match" = "“$2” hakkındaki $1";
 "places-search-default-text" = "Yerleri ara";
@@ -931,7 +977,10 @@
 "preference-summary-eventlogging-opt-in" = "Wikimedia Vakfı'nın uygulamayı geliştirmek için uygulamayı nasıl kullandığınız hakkında bilgi toplamasına izin verin";
 "privacy-policy-title" = "Gizlilik ilkesi";
 "problem-with-feature-title" = "Özellikle ilgili sorun";
+"profile-button-accessibility-hint" = "Profil görünümüne gider.";
 "profile-button-accessibility-label" = "Profil";
+"profile-button-badge-accessibility-label" = "Okunmamış rozetli profil";
+"profile-page-donate-subtext" = "Veya Vikipedi'yi bağış yaparak destekleyebilir, böylece onun dünya çapındaki herkes için özgür ve ulaşılabilir kalmasını sağlayabilirsiniz.";
 "profile-page-join-subtext" = "Katkılarınızı takip etmek, maddeleri çevrimdışı kaydetmek ve aygıtlar arasında senkronize etmek için bir Vikipedi hesabına kaydolun.";
 "profile-page-join-title" = "Giriş yapın / Vikipedi'ye katılın";
 "project-name-mediawiki" = "MediaWiki";
@@ -1097,6 +1146,8 @@
 "settings-notifications-push-notifications" = "Anlık bildirimler";
 "settings-notifications-system-turn-on" = "Bildirimleri aç";
 "settings-notifications-trending" = "Gündemdeki güncel olaylar";
+"settings-off" = "Kapalı";
+"settings-on" = "Açık";
 "settings-primary-language" = "Birincil";
 "settings-primary-language-details" = "Bu listedeki ilk dil, uygulamanın birincil dili olarak kullanılır. Bu dil değiştirildiğinde, Keşfet'te gösterilen günlük içerik (Seçkin Madde gibi) de değişecektir. Bu dili değiştirmek, Keşfet'te gösterilen günlük içeriği (Öne Çıkan İçerik gibi) değiştirecektir.";
 "settings-search-footer-text" = "Uygulamayı, Keşfet sekmesi yerine Arama sekmesine açılacak şekilde ayarlayın";
@@ -1221,6 +1272,8 @@
 "talk-pages-user-groups" = "Kullanıcı grupları";
 "talk-pages-user-logs" = "Günlükler";
 "talk-pages-view-title" = "Tartışma";
+"temp-account-toast-read-more-title" = "Devamını oku";
+"temporary-account" = "Geçici Hesap";
 "terms-of-use-title" = "Kullanım şartları";
 "theme-black-display-name" = "Siyah";
 "theme-dark-display-name" = "Koyu";
@@ -1233,6 +1286,8 @@
 "top-read-widget-title" = "En çok okunanlar";
 "try-now-title" = "Şimdi dene";
 "tutorial-title" = "Öğretici";
+"two-factor-email-login-continue" = "Oturum açmaya devam et";
+"two-factor-email-login-instructions" = "Lütfen e-posta doğrulama kodunu giriniz";
 "two-factor-login-continue" = "Oturum açmaya devam et";
 "two-factor-login-instructions" = "Lütfen iki faktörlü doğrulama kodunu girin";
 "two-factor-login-title" = "Hesabınızda oturum açın";
@@ -1358,6 +1413,7 @@
 "wikitext-upload-save-sign-in" = "Oturum aç";
 "wikitext-upload-save-terms-and-licenses-ccsa4" = "Değişiklikleri yayımlayarak $1Kullanım Koşullarını$2 kabul eder ve katkınızı $3CC BY-SA 4.0$4 Lisansı ve $5GFDL$6 kapsamında yayımlamayı geri alınamaz şekilde kabul edersiniz. Creative Commons lisansı altında, bir bağlantı ya da URL'nin yeterli bir atıf olduğunu kabul edersiniz.";
 "wikitext-upload-save-terms-name" = "Kullanım Şartları";
+"year-in-review-base-edits-title" = "Vikipedi dakikada $1 kez düzenlendi";
 "year-in-review-day-friday" = "Cuma günleri";
 "year-in-review-day-monday" = "Pazartesi günleri";
 "year-in-review-day-saturday" = "Cumartesi günleri";
@@ -1368,6 +1424,8 @@
 "year-in-review-donate" = "Bağış yap";
 "year-in-review-donate-now" = "Şimdi bağış yapın";
 "year-in-review-finish" = "Bitir";
+"year-in-review-personalized-donation-thank-you" = "Wikimedia logosu";
+"year-in-review-personalized-editing-title-format-500plus" = "Vikipedi'yi 500'den fazla kez düzenlediniz";
 "year-in-review-survey-additional-thoughts" = "Başka düşünceleriniz var mı?";
 "year-in-review-survey-neutral" = "Tarafsız";
 "year-in-review-survey-satisfied" = "Memnun";

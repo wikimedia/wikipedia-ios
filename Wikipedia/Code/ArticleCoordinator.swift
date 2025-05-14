@@ -3,9 +3,10 @@ import WMFData
 import CocoaLumberjackSwift
 
 enum TabConfig {
-    case appendArticleToCurrentTab
-    case appendArticleToNewTab
-    case appendArticleToTab(UUID)
+    case appendArticleAndAssignCurrentTab // Default navigation
+    case appendArticleAndAssignNewTabAndSetToCurrent // Open in new tab long press
+    case assignParticularTabAndSetToCurrent(WMFArticleTabsDataController.Identifiers) // Tapping tab from tabs overview
+    case assignNewTabAndSetToCurrent // Tapping add tab from tabs overview
  }
 
 final class ArticleCoordinator: NSObject, Coordinator {
@@ -20,11 +21,11 @@ final class ArticleCoordinator: NSObject, Coordinator {
     private let previousPageViewObjectID: NSManagedObjectID?
     
     // Article Tabs Properties
-    private var previousNavigationControllerDelegate: UINavigationControllerDelegate?
     private let tabConfig: TabConfig
     private(set) var tabIdentifier: UUID?
+    private(set) var tabItemIdentifier: UUID?
     
-    init(navigationController: UINavigationController, articleURL: URL, dataStore: MWKDataStore, theme: Theme, needsAnimation: Bool = true, source: ArticleSource, isRestoringState: Bool = false, previousPageViewObjectID: NSManagedObjectID? = nil, tabConfig: TabConfig = .appendArticleToCurrentTab) {
+    init(navigationController: UINavigationController, articleURL: URL, dataStore: MWKDataStore, theme: Theme, needsAnimation: Bool = true, source: ArticleSource, isRestoringState: Bool = false, previousPageViewObjectID: NSManagedObjectID? = nil, tabConfig: TabConfig = .appendArticleAndAssignCurrentTab) {
         self.navigationController = navigationController
         self.articleURL = articleURL
         self.dataStore = dataStore
@@ -59,7 +60,7 @@ final class ArticleCoordinator: NSObject, Coordinator {
     
     private func trackArticleTab(articleViewController: ArticleViewController) {
         
-        guard let tabsDataController = try? WMFArticleTabsDataController() else {
+        guard let tabsDataController = WMFArticleTabsDataController.shared else {
             return
         }
         
@@ -68,9 +69,7 @@ final class ArticleCoordinator: NSObject, Coordinator {
         }
         
         articleViewController.coordinator = self
-        previousNavigationControllerDelegate = navigationController.delegate
-        navigationController.delegate = self
-        
+
         // Handle Article Tabs
         Task {
             guard let title = articleURL.wmf_title,
@@ -79,53 +78,55 @@ final class ArticleCoordinator: NSObject, Coordinator {
                 return
             }
 
-            let article = WMFArticleTabsDataController.WMFArticle(title: title, project: wmfProject)
+            let article = WMFArticleTabsDataController.WMFArticle(identifier: nil, title: title, project: wmfProject)
             do {
-                let tabsDataController = try WMFArticleTabsDataController()
+                guard let tabsDataController = WMFArticleTabsDataController.shared else {
+                    DDLogError("Failed to handle tab configuration: Missing data controller")
+                    return
+                }
                 switch tabConfig {
-                case .appendArticleToCurrentTab:
+                case .appendArticleAndAssignCurrentTab:
                     let tabIdentifier = try await tabsDataController.currentTabIdentifier()
-                    try await tabsDataController.appendArticle(article, toTabIdentifier: tabIdentifier)
-                    self.tabIdentifier = tabIdentifier
-                case .appendArticleToNewTab:
-                    let tabIdentifier = try await tabsDataController.createArticleTab(initialArticle: article, setAsCurrent: true)
-                    self.tabIdentifier = tabIdentifier
-                case .appendArticleToTab(let tabIdentifier):
-                    try await tabsDataController.appendArticle(article, toTabIdentifier: tabIdentifier, setAsCurrent: true)
-                    self.tabIdentifier = tabIdentifier
+                    let identifiers = try await tabsDataController.appendArticle(article, toTabIdentifier: tabIdentifier)
+                    self.tabIdentifier = identifiers.tabIdentifier
+                    self.tabItemIdentifier = identifiers.tabItemIdentifier
+                case .appendArticleAndAssignNewTabAndSetToCurrent:
+                    let identifiers = try await tabsDataController.createArticleTab(initialArticle: article, setAsCurrent: true)
+                    self.tabIdentifier = identifiers.tabIdentifier
+                    self.tabItemIdentifier = identifiers.tabItemIdentifier
+                case .assignParticularTabAndSetToCurrent(let identifiers):
+                    try await tabsDataController.setTabAsCurrent(tabIdentifier: identifiers.tabIdentifier)
+                    self.tabIdentifier = identifiers.tabIdentifier
+                    self.tabItemIdentifier = identifiers.tabItemIdentifier
+                case .assignNewTabAndSetToCurrent:
+                    let identifiers = try await tabsDataController.createArticleTab(initialArticle: nil, setAsCurrent: true)
+                    self.tabIdentifier = identifiers.tabIdentifier
+                    self.tabItemIdentifier = identifiers.tabItemIdentifier
                 }
             } catch {
                 DDLogError("Failed to handle tab configuration: \(error)")
             }
         }
     }
-}
-
-// MARK: - UINavigationControllerDelegate
-
-extension ArticleCoordinator: UINavigationControllerDelegate {
-    func navigationController(_ navigationController: UINavigationController, didShow viewController: UIViewController, animated: Bool) {
-         // Detect if ArticleViewController was popped (back button pressed)
-         guard let fromVC = navigationController.transitionCoordinator?.viewController(forKey: .from),
-               !(navigationController.viewControllers.contains(fromVC)),
-               fromVC is ArticleViewController else {
-             return
-         }
-         
-         // Remove last article from tab
-         Task {
-             do {
-                 guard let tabIdentifier = self.tabIdentifier else { return }
-                 let tabsDataController = try WMFArticleTabsDataController()
-                 
-                 try await tabsDataController.removeLastArticleFromTab(tabIdentifier: tabIdentifier)
-             } catch {
-                 DDLogError("Failed to remove last article from tab: \(error)")
-             }
-         }
-         
-         // Restore previous delegate
-         navigationController.delegate = previousNavigationControllerDelegate
-         previousNavigationControllerDelegate = nil
-     }
+    
+    // Cleanup needed when tapping Back button
+    func syncTabsOnArticleAppearance() {
+        guard let tabsDataController = WMFArticleTabsDataController.shared else {
+            return
+        }
+        
+        guard tabsDataController.shouldShowArticleTabs else {
+            return
+        }
+        
+        guard let tabIdentifier,
+              let tabItemIdentifier else {
+            return
+        }
+        
+        Task {
+            try await tabsDataController.setTabItemAsCurrent(tabIdentifier: tabIdentifier, tabItemIdentifier: tabItemIdentifier)
+            try await tabsDataController.deleteEmptyTabs()
+        }
+    }
 }

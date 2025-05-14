@@ -4,6 +4,7 @@ import WMFData
 #if DEBUG
 
 public final class WMFMockArticleTabsDataController: WMFArticleTabsDataControlling {
+    
     // MARK: - Properties
     
     private var tabs: [WMFArticleTabsDataController.WMFArticleTab] = []
@@ -18,29 +19,34 @@ public final class WMFMockArticleTabsDataController: WMFArticleTabsDataControlli
     
     // MARK: - WMFArticleTabsDataControlling
     
+    public func checkAndCreateInitialArticleTabIfNeeded() async throws {
+        // todo
+    }
+    
     public func tabsCount() async throws -> Int {
         return tabs.count
     }
     
-    public func createArticleTab(initialArticle: WMFArticleTabsDataController.WMFArticle?, setAsCurrent: Bool = false) async throws -> UUID {
-        let identifier = UUID()
+    public func createArticleTab(initialArticle: WMFData.WMFArticleTabsDataController.WMFArticle?, setAsCurrent: Bool) async throws -> WMFData.WMFArticleTabsDataController.Identifiers {
+        let tabIdentifier = UUID()
+        let tabItemIdentifier = UUID()
         let timestamp = Date()
         
         // If setting as current, update all other tabs
         if setAsCurrent {
-            try await setTabAsCurrent(tabIdentifier: identifier)
+            try await setTabAsCurrent(tabIdentifier: tabIdentifier)
         }
         
         let articles = initialArticle.map { [$0] } ?? []
         let newTab = WMFArticleTabsDataController.WMFArticleTab(
-            identifier: identifier,
+            identifier: tabItemIdentifier,
             timestamp: timestamp,
             isCurrent: setAsCurrent,
             articles: articles
         )
         
         tabs.append(newTab)
-        return identifier
+        return WMFArticleTabsDataController.Identifiers(tabIdentifier: tabIdentifier, tabItemIdentifier: tabItemIdentifier)
     }
     
     public func deleteArticleTab(identifier: UUID) async throws {
@@ -64,7 +70,17 @@ public final class WMFMockArticleTabsDataController: WMFArticleTabsDataControlli
         }
     }
     
-    public func appendArticle(_ article: WMFArticleTabsDataController.WMFArticle, toTabIdentifier identifier: UUID? = nil, setAsCurrent: Bool? = nil) async throws {
+    public func fetchTab(tabIdentfiier: UUID) async throws -> WMFData.WMFArticleTabsDataController.WMFArticleTab {
+        guard let tab = tabs.first(where: { tab in
+            tab.identifier == tabIdentfiier
+        }) else {
+            throw WMFArticleTabsDataController.CustomError.missingTab
+        }
+        
+        return tab
+    }
+    
+    public func appendArticle(_ article: WMFData.WMFArticleTabsDataController.WMFArticle, toTabIdentifier identifier: UUID?, setAsCurrent: Bool?) async throws -> WMFData.WMFArticleTabsDataController.Identifiers {
         let targetIdentifier: UUID
         if let identifier = identifier {
             targetIdentifier = identifier
@@ -92,6 +108,8 @@ public final class WMFMockArticleTabsDataController: WMFArticleTabsDataControlli
             isCurrent: tabs[index].isCurrent,
             articles: updatedArticles
         )
+        
+        return WMFArticleTabsDataController.Identifiers(tabIdentifier: targetIdentifier, tabItemIdentifier: article.identifier!)
     }
     
     public func removeLastArticleFromTab(tabIdentifier: UUID) async throws {
@@ -143,7 +161,7 @@ public final class WMFMockArticleTabsDataController: WMFArticleTabsDataControlli
             var articles: [WMFArticleTabsDataController.WMFArticle] = []
             for (title, imageURL) in articleData {
                 let article = WMFArticleTabsDataController.WMFArticle(
-                    title: title,
+                    identifier: UUID(), title: title,
                     description: "Description for \(title)",
                     summary: "Summary for \(title)",
                     imageURL: URL(string: imageURL),
@@ -178,7 +196,7 @@ public final class WMFMockArticleTabsDataController: WMFArticleTabsDataControlli
         throw WMFArticleTabsDataController.CustomError.missingTab
     }
     
-    private func setTabAsCurrent(tabIdentifier: UUID) async throws {
+    public func setTabAsCurrent(tabIdentifier: UUID) async throws {
         // First set all other tabs to not current
         for i in 0..<tabs.count {
             tabs[i] = WMFArticleTabsDataController.WMFArticleTab(
@@ -189,6 +207,10 @@ public final class WMFMockArticleTabsDataController: WMFArticleTabsDataControlli
             )
         }
     }
-}
+    
+    public func setTabItemAsCurrent(tabIdentifier: UUID, tabItemIdentifier: UUID) async throws {
+        // todo:
+    }
+ }
 
 #endif
