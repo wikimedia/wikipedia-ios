@@ -72,6 +72,9 @@ public struct WMFArticleTabsView: View {
                     })
                     .padding([.horizontal, .top], 12)
                     .contentShape(Rectangle())
+                    .frame(minWidth: 44, minHeight: 44)
+                    .accessibilityLabel(Text(viewModel.localizedStrings.closeTabAccessibility))
+                    .accessibilityAddTraits(.isButton)
                 }
             }
 
@@ -129,11 +132,12 @@ public struct WMFArticleTabsView: View {
                 }
 
                 if viewModel.shouldShowCloseButton {
-                    WMFCloseButton(action:{
+                    WMFCloseButton(action: {
                         viewModel.closeTab(tab: tab)
                     })
                     .padding([.horizontal, .top], 12)
                     .contentShape(Rectangle())
+                    .frame(minWidth: 44, minHeight: 44)
                     .accessibilityLabel(Text(viewModel.localizedStrings.closeTabAccessibility))
                     .accessibilityAddTraits(.isButton)
                 }
