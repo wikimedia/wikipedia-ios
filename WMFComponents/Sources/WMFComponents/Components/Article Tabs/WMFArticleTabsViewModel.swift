@@ -38,11 +38,13 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
         public let navBarTitleFormat: String
         public let mainPageSubtitle: String
         public let mainPageDescription: String
+        public let closeTabAccessibility: String
         
-        public init(navBarTitleFormat: String, mainPageSubtitle: String, mainPageDescription: String) {
+        public init(navBarTitleFormat: String, mainPageSubtitle: String, mainPageDescription: String, closeTabAccessibility: String) {
             self.navBarTitleFormat = navBarTitleFormat
             self.mainPageSubtitle = mainPageSubtitle
             self.mainPageDescription = mainPageDescription
+            self.closeTabAccessibility = closeTabAccessibility
         }
     }
     

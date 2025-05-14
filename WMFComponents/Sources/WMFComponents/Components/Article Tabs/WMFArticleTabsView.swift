@@ -27,8 +27,10 @@ public struct WMFArticleTabsView: View {
                     ForEach(viewModel.articleTabs.sorted(by: { $0.dateCreated < $1.dateCreated })) { tab in
                         if tab.isMain {
                             tabCardView(content: mainPageTabContent(tab: tab), tabData: tab.data)
+                                .accessibilityElement(children: .combine)
                         } else {
                             tabCardView(content: standardTabContent(tab: tab), tabData: tab.data)
+                                .accessibilityElement(children: .combine)
                         }
                     }
                     
@@ -132,7 +134,8 @@ public struct WMFArticleTabsView: View {
                     })
                     .padding([.horizontal, .top], 12)
                     .contentShape(Rectangle())
-                    .accessibilityLabel(Text("Close tab"))
+                    .accessibilityLabel(Text(viewModel.localizedStrings.closeTabAccessibility))
+                    .accessibilityAddTraits(.isButton)
                 }
             }
 
