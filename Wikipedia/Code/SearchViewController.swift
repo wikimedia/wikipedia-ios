@@ -436,11 +436,22 @@ class SearchViewController: ArticleCollectionViewController, WMFNavigationBarCon
             if let navigateToSearchResultAction {
                 navigateToSearchResultAction(articleURL)
             } else if let customArticleCoordinatorNavigationController {
-                let coordinator = ArticleCoordinator(navigationController: customArticleCoordinatorNavigationController, articleURL: articleURL, dataStore: dataStore, theme: theme, source: .search)
-                coordinator.start()
+                
+                let linkCoordinator = LinkCoordinator(navigationController: customArticleCoordinatorNavigationController, url: articleURL, dataStore: dataStore, theme: theme, articleSource: .search)
+                let success = linkCoordinator.start()
+                
+                if !success {
+                    navigate(to: articleURL)
+                }
+    
             } else if let navigationController {
-                let coordinator = ArticleCoordinator(navigationController: navigationController, articleURL: articleURL, dataStore: dataStore, theme: theme, source: .search)
-                coordinator.start()
+                
+                let linkCoordinator = LinkCoordinator(navigationController: navigationController, url: articleURL, dataStore: dataStore, theme: theme, articleSource: .search)
+                let success = linkCoordinator.start()
+                
+                if !success {
+                    navigate(to: articleURL)
+                }
             }
         }
         

@@ -28,7 +28,7 @@ final class LinkCoordinator: Coordinator {
     @discardableResult
     func start() -> Bool {
         
-        let destination = self.destination(for: url)
+        let destination = Self.destination(for: url)
         
         switch destination {
         case .article:
@@ -47,7 +47,7 @@ final class LinkCoordinator: Coordinator {
         }
     }
     
-    private func destination(for url: URL) -> Destination {
+    static func destination(for url: URL) -> Destination {
         
         guard let siteURL = url.wmf_site,
               let project = WikimediaProject(siteURL: siteURL) else {

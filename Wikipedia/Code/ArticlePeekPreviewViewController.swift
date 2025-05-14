@@ -168,8 +168,11 @@ class ArticlePeekPreviewViewController: UIViewController {
 
         actions.append(shareAction)
         
+        let destination = LinkCoordinator.destination(for: articleURL)
+        
         if let articleTabsDataController = WMFArticleTabsDataController.shared,
-           articleTabsDataController.shouldShowArticleTabs {
+           articleTabsDataController.shouldShowArticleTabs,
+           case .article = destination {
             
             // Open in new tab
             let openInNewTabAction = UIAction(title: CommonStrings.articleTabsOpenInNewTab, image: WMFSFSymbolIcon.for(symbol: .tabsIcon), handler: { [weak self] _ in
