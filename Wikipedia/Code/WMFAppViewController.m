@@ -12,7 +12,6 @@
 
 // View Controllers
 #import "WMFSettingsViewController.h"
-#import "WMFFirstRandomViewController.h"
 
 #import "Wikipedia-Swift.h"
 #import "EXTScope.h"

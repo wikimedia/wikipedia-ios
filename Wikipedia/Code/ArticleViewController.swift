@@ -155,7 +155,7 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
     let previousPageViewObjectID: NSManagedObjectID?
     var beganViewingDate: Date?
     
-    var coordinator: ArticleCoordinator?
+    var coordinator: ArticleTabCoordinating?
     
     @objc init?(articleURL: URL, dataStore: MWKDataStore, theme: Theme, source: ArticleSource, schemeHandler: SchemeHandler? = nil, previousPageViewObjectID: NSManagedObjectID? = nil) {
 

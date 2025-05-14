@@ -9,56 +9,18 @@ enum ArticleTabConfig {
     case assignNewTabAndSetToCurrent // Tapping add tab from tabs overview
  }
 
-final class ArticleCoordinator: NSObject, Coordinator {
-    let navigationController: UINavigationController
-    private(set) var articleURL: URL
-    private let dataStore: MWKDataStore
-    var theme: Theme
-    private let needsAnimation: Bool
+protocol ArticleTabCoordinating: AnyObject {
+    func trackArticleTab(articleViewController: ArticleViewController)
+    func syncTabsOnArticleAppearance()
+    var articleURL: URL? { get }
+    var tabConfig: ArticleTabConfig { get }
+    var tabIdentifier: UUID? { get set }
+    var tabItemIdentifier: UUID? { get set }
+}
+
+extension ArticleTabCoordinating {
     
-    private let source: ArticleSource
-    private let isRestoringState: Bool
-    private let previousPageViewObjectID: NSManagedObjectID?
-    
-    // Article Tabs Properties
-    private let tabConfig: ArticleTabConfig
-    private(set) var tabIdentifier: UUID?
-    private(set) var tabItemIdentifier: UUID?
-    
-    init(navigationController: UINavigationController, articleURL: URL, dataStore: MWKDataStore, theme: Theme, needsAnimation: Bool = true, source: ArticleSource, isRestoringState: Bool = false, previousPageViewObjectID: NSManagedObjectID? = nil, tabConfig: ArticleTabConfig = .appendArticleAndAssignCurrentTab) {
-        self.navigationController = navigationController
-        self.articleURL = articleURL
-        self.dataStore = dataStore
-        self.theme = theme
-        self.needsAnimation = needsAnimation
-        self.source = source
-        self.isRestoringState = isRestoringState
-        self.previousPageViewObjectID = previousPageViewObjectID
-        self.tabConfig = tabConfig
-        super.init()
-    }
-    
-    @discardableResult
-    func start() -> Bool {
-        
-        // assign language variant code if needed (taken from AppVC's processUserActivity method)
-        if articleURL.wmf_languageVariantCode == nil {
-            articleURL.wmf_languageVariantCode = dataStore.languageLinkController .swiftCompatiblePreferredLanguageVariantCodeForLanguageCode(articleURL.wmf_languageCode)
-        }
-        
-        guard let articleVC = ArticleViewController(articleURL: articleURL, dataStore: dataStore, theme: theme, source: source, previousPageViewObjectID: previousPageViewObjectID) else {
-            return false
-        }
-        articleVC.isRestoringState = isRestoringState
-        
-        trackArticleTab(articleViewController: articleVC)
-        
-        navigationController.pushViewController(articleVC, animated: needsAnimation)
-        
-        return true
-    }
-    
-    private func trackArticleTab(articleViewController: ArticleViewController) {
+    func trackArticleTab(articleViewController: ArticleViewController) {
         
         guard let tabsDataController = WMFArticleTabsDataController.shared else {
             return
@@ -72,8 +34,8 @@ final class ArticleCoordinator: NSObject, Coordinator {
 
         // Handle Article Tabs
         Task {
-            guard let title = articleURL.wmf_title,
-                  let siteURL = articleURL.wmf_site,
+            guard let title = articleURL?.wmf_title,
+                  let siteURL = articleURL?.wmf_site,
                   let wmfProject = WikimediaProject(siteURL: siteURL)?.wmfProject else {
                 return
             }
@@ -128,5 +90,59 @@ final class ArticleCoordinator: NSObject, Coordinator {
             try await tabsDataController.setTabItemAsCurrent(tabIdentifier: tabIdentifier, tabItemIdentifier: tabItemIdentifier)
             try await tabsDataController.deleteEmptyTabs()
         }
+    }
+}
+
+final class ArticleCoordinator: NSObject, Coordinator, ArticleTabCoordinating {
+    let navigationController: UINavigationController
+    private(set) var articleURL: URL?
+    private let dataStore: MWKDataStore
+    var theme: Theme
+    private let needsAnimation: Bool
+    
+    private let source: ArticleSource
+    private let isRestoringState: Bool
+    private let previousPageViewObjectID: NSManagedObjectID?
+    
+    // Article Tabs Properties
+    let tabConfig: ArticleTabConfig
+    var tabIdentifier: UUID?
+    var tabItemIdentifier: UUID?
+    
+    init(navigationController: UINavigationController, articleURL: URL, dataStore: MWKDataStore, theme: Theme, needsAnimation: Bool = true, source: ArticleSource, isRestoringState: Bool = false, previousPageViewObjectID: NSManagedObjectID? = nil, tabConfig: ArticleTabConfig = .appendArticleAndAssignCurrentTab) {
+        self.navigationController = navigationController
+        self.articleURL = articleURL
+        self.dataStore = dataStore
+        self.theme = theme
+        self.needsAnimation = needsAnimation
+        self.source = source
+        self.isRestoringState = isRestoringState
+        self.previousPageViewObjectID = previousPageViewObjectID
+        self.tabConfig = tabConfig
+        super.init()
+    }
+    
+    @discardableResult
+    func start() -> Bool {
+        
+        guard let articleURL else {
+            return false
+        }
+        
+        // assign language variant code if needed (taken from AppVC's processUserActivity method)
+        if articleURL.wmf_languageVariantCode == nil {
+            self.articleURL?.wmf_languageVariantCode = dataStore.languageLinkController .swiftCompatiblePreferredLanguageVariantCodeForLanguageCode(articleURL.wmf_languageCode)
+        }
+        
+        guard let articleVC = ArticleViewController(articleURL: articleURL, dataStore: dataStore, theme: theme, source: source, previousPageViewObjectID: previousPageViewObjectID) else {
+            return false
+        }
+        articleVC.isRestoringState = isRestoringState
+        
+        trackArticleTab(articleViewController: articleVC)
+        
+        navigationController.pushViewController(articleVC, animated: needsAnimation)
+        
+        return true
     }
 }

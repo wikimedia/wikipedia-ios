@@ -105,8 +105,8 @@ public class WMFArticleTabsDataController: WMFArticleTabsDataControlling {
     // MARK: - Lifecycle
     
     init(coreDataStore: WMFCoreDataStore? = WMFDataEnvironment.current.coreDataStore,
-                 developerSettingsDataController: WMFDeveloperSettingsDataControlling = WMFDeveloperSettingsDataController.shared,
-                 articleSummaryDataController: WMFArticleSummaryDataControlling = WMFArticleSummaryDataController()) throws {
+         developerSettingsDataController: WMFDeveloperSettingsDataControlling = WMFDeveloperSettingsDataController.shared,
+         articleSummaryDataController: WMFArticleSummaryDataControlling = WMFArticleSummaryDataController()) throws {
         guard let coreDataStore else {
             throw WMFDataControllerError.coreDataStoreUnavailable
         }
