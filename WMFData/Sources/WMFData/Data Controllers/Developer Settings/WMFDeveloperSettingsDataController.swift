@@ -114,6 +114,14 @@ public protocol WMFDeveloperSettingsDataControlling: AnyObject {
             }
         }
     }
+    
+    public var forceMaxArticleTabsTo5: Bool {
+        get {
+            return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsForceMaxArticleTabsTo5.rawValue)) ?? false
+        } set {
+            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsForceMaxArticleTabsTo5.rawValue, value: newValue)
+        }
+    }
 
     // MARK: - Remote Settings from donatewiki AppsFeatureConfig json
     
