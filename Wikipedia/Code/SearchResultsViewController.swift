@@ -11,6 +11,7 @@ class SearchResultsViewController: ArticleCollectionViewController {
     }
     var tappedSearchResultAction: ((URL, IndexPath) -> Void)?
     var longPressSearchResultAndCommitAction: ((URL) -> Void)?
+    var longPressOpenInNewTabAction: ((URL) -> Void)?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -160,5 +161,10 @@ class SearchResultsViewController: ArticleCollectionViewController {
     override func readMoreArticlePreviewActionSelected(with peekController: ArticlePeekPreviewViewController) {
         
         longPressSearchResultAndCommitAction?(peekController.articleURL)
+    }
+    
+    override func openInNewTabArticlePreviewActionSelected(with peekController: ArticlePeekPreviewViewController) {
+        
+        longPressOpenInNewTabAction?(peekController.articleURL)
     }
 }

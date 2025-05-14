@@ -451,8 +451,19 @@ class SearchViewController: ArticleCollectionViewController, WMFNavigationBarCon
             coordinator.start()
         }
         
+        let longPressOpenInNewTabAction: (URL) -> Void = { [weak self] articleURL in
+            
+            guard let self else { return }
+            
+            guard let navVC = customArticleCoordinatorNavigationController ?? navigationController else { return }
+            let articleCoordinator = ArticleCoordinator(navigationController: navVC, articleURL: articleURL, dataStore: MWKDataStore.shared(), theme: self.theme, source: .undefined, tabConfig: .appendArticleAndAssignNewTabAndSetToCurrent)
+            articleCoordinator.start()
+            
+        }
+        
         resultsViewController.tappedSearchResultAction = tappedSearchResultAction
         resultsViewController.longPressSearchResultAndCommitAction = longPressSearchResultAndCommitAction
+        resultsViewController.longPressOpenInNewTabAction = longPressOpenInNewTabAction
         
         return resultsViewController
     }()
