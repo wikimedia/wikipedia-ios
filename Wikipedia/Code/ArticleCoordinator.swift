@@ -2,7 +2,7 @@ import WMF
 import WMFData
 import CocoaLumberjackSwift
 
-enum TabConfig {
+enum ArticleTabConfig {
     case appendArticleAndAssignCurrentTab // Default navigation
     case appendArticleAndAssignNewTabAndSetToCurrent // Open in new tab long press
     case assignParticularTabAndSetToCurrent(WMFArticleTabsDataController.Identifiers) // Tapping tab from tabs overview
@@ -21,11 +21,11 @@ final class ArticleCoordinator: NSObject, Coordinator {
     private let previousPageViewObjectID: NSManagedObjectID?
     
     // Article Tabs Properties
-    private let tabConfig: TabConfig
+    private let tabConfig: ArticleTabConfig
     private(set) var tabIdentifier: UUID?
     private(set) var tabItemIdentifier: UUID?
     
-    init(navigationController: UINavigationController, articleURL: URL, dataStore: MWKDataStore, theme: Theme, needsAnimation: Bool = true, source: ArticleSource, isRestoringState: Bool = false, previousPageViewObjectID: NSManagedObjectID? = nil, tabConfig: TabConfig = .appendArticleAndAssignCurrentTab) {
+    init(navigationController: UINavigationController, articleURL: URL, dataStore: MWKDataStore, theme: Theme, needsAnimation: Bool = true, source: ArticleSource, isRestoringState: Bool = false, previousPageViewObjectID: NSManagedObjectID? = nil, tabConfig: ArticleTabConfig = .appendArticleAndAssignCurrentTab) {
         self.navigationController = navigationController
         self.articleURL = articleURL
         self.dataStore = dataStore
