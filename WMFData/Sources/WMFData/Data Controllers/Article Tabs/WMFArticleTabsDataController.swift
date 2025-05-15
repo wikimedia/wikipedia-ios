@@ -53,7 +53,11 @@ public class WMFArticleTabsDataController: WMFArticleTabsDataControlling {
         }
     }
     
-    public struct WMFArticleTab {
+    public struct WMFArticleTab: Equatable {
+        public static func == (lhs: WMFArticleTabsDataController.WMFArticleTab, rhs: WMFArticleTabsDataController.WMFArticleTab) -> Bool {
+            return lhs.identifier == rhs.identifier
+        }
+        
         public let identifier: UUID
         public let timestamp: Date
         public let isCurrent: Bool

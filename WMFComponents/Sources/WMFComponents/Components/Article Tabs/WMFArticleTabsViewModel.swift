@@ -38,11 +38,15 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
         public let navBarTitleFormat: String
         public let mainPageSubtitle: String
         public let mainPageDescription: String
+        public let closeTabAccessibility: String
+        public let openTabAccessibility: String
         
-        public init(navBarTitleFormat: String, mainPageSubtitle: String, mainPageDescription: String) {
+        public init(navBarTitleFormat: String, mainPageSubtitle: String, mainPageDescription: String, closeTabAccessibility: String, openTabAccessibility: String) {
             self.navBarTitleFormat = navBarTitleFormat
             self.mainPageSubtitle = mainPageSubtitle
             self.mainPageDescription = mainPageDescription
+            self.closeTabAccessibility = closeTabAccessibility
+            self.openTabAccessibility = openTabAccessibility
         }
     }
     
@@ -85,6 +89,31 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
             return isPad ? 4 : 2
         } else {
             return 4
+        }
+    }
+    
+    public func calculateImageHeight() -> Int {
+        // If text is scaled up for accessibility, use taller image for single column
+        if UIApplication.shared.preferredContentSizeCategory.isAccessibilityCategory {
+            return 225
+        }
+        return 95
+    }
+    
+    public func getAccessibilityLabel(for tab: ArticleTab) -> String {
+        if tab.isMain {
+            var label = ""
+            label += tab.title
+            label += " " + localizedStrings.mainPageSubtitle
+            
+            return label
+        } else {
+            var label = ""
+            label += tab.title
+            if let subtitle = tab.subtitle {
+                label += " " + subtitle
+            }
+            return label
         }
     }
     

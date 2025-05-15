@@ -26,9 +26,10 @@ public struct WMFArticleTabsView: View {
 
                     ForEach(viewModel.articleTabs.sorted(by: { $0.dateCreated < $1.dateCreated })) { tab in
                         if tab.isMain {
-                            tabCardView(content: mainPageTabContent(tab: tab), tabData: tab.data)
+                            tabCardView(content: mainPageTabContent(tab: tab), tabData: tab.data, tab: tab)
+                            
                         } else {
-                            tabCardView(content: standardTabContent(tab: tab), tabData: tab.data)
+                            tabCardView(content: standardTabContent(tab: tab), tabData: tab.data, tab: tab)
                         }
                     }
                     
@@ -48,7 +49,7 @@ public struct WMFArticleTabsView: View {
                         Image("main-page-bg", bundle: .module)
                             .resizable()
                             .scaledToFill()
-                            .frame(width: geo.size.width, height: 95)
+                            .frame(width: geo.size.width, height: CGFloat(viewModel.calculateImageHeight()))
                             .clipped()
                             .overlay(
                                 Color.black.opacity(0.6)
@@ -69,29 +70,32 @@ public struct WMFArticleTabsView: View {
                     })
                     .padding([.horizontal, .top], 12)
                     .contentShape(Rectangle())
+                    .frame(minWidth: 44, minHeight: 44)
                 }
             }
 
-            tabTitle(title: tab.title)
-                .padding(.horizontal, 10)
-                .padding(.top, 8)
-
-            VStack(alignment: .leading) {
-                Text(viewModel.localizedStrings.mainPageSubtitle)
-                    .font(Font(WMFFont.for(.caption1)))
-                    .foregroundStyle(Color(theme.secondaryText))
-                    .lineLimit(1)
-
-                Divider()
-                    .frame(width: 24)
-                    .padding(.vertical, 6)
-
-                Text(viewModel.localizedStrings.mainPageDescription)
-                    .font(Font(WMFFont.for(.caption1)))
-                    .foregroundStyle(Color(theme.text))
-                    .lineSpacing(5)
+            Group {
+                tabTitle(title: tab.title)
+                    .padding(.horizontal, 10)
+                
+                VStack(alignment: .leading) {
+                    Text(viewModel.localizedStrings.mainPageSubtitle)
+                        .font(Font(WMFFont.for(.caption1)))
+                        .foregroundStyle(Color(theme.secondaryText))
+                        .lineLimit(1)
+                    
+                    Divider()
+                        .frame(width: 24)
+                        .padding(.top, 4)
+                        .padding(.bottom, 6)
+                        .foregroundStyle(Color(uiColor: theme.border))
+                    Text(viewModel.localizedStrings.mainPageDescription)
+                        .font(Font(WMFFont.for(.caption1)))
+                        .foregroundStyle(Color(theme.text))
+                        .lineSpacing(5)
+                }
+                .padding([.horizontal, .bottom], 10)
             }
-            .padding([.horizontal, .bottom], 10)
         }
     }
     
@@ -105,35 +109,34 @@ public struct WMFArticleTabsView: View {
                                 image
                                     .resizable()
                                     .scaledToFill()
-                                    .frame(width: geo.size.width, height: 95)
+                                    .frame(width: geo.size.width, height: CGFloat(viewModel.calculateImageHeight()))
                                     .clipped()
                             } placeholder: {
                                 Color(uiColor: theme.paperBackground)
-                                    .frame(width: geo.size.width, height: 95)
+                                    .frame(width: geo.size.width, height: CGFloat(viewModel.calculateImageHeight()))
                             }
                         }
                     } else {
                         tabTitle(title: tab.title)
                             .frame(maxWidth: .infinity, alignment: .leading)
                             .padding(.trailing, 40)
-                            .padding(.top, 12)
                             .padding(.leading, 10)
                     }
                 }
 
                 if viewModel.shouldShowCloseButton {
-                    WMFCloseButton(action:{
+                    WMFCloseButton(action: {
                         viewModel.closeTab(tab: tab)
                     })
                     .padding([.horizontal, .top], 12)
                     .contentShape(Rectangle())
+                    .frame(minWidth: 44, minHeight: 44)
                 }
             }
 
             if tab.image != nil {
                 tabTitle(title: tab.title)
                     .padding(.horizontal, 10)
-                    .padding(.top, 8)
             }
 
             tabText(tab: tab)
@@ -145,23 +148,38 @@ public struct WMFArticleTabsView: View {
         }
     }
     
-    private func tabCardView(content: some View, tabData: WMFArticleTabsDataController.WMFArticleTab) -> some View {
+    private func tabCardView(content: some View, tabData: WMFArticleTabsDataController.WMFArticleTab, tab: ArticleTab) -> some View {
         content
-        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
-        .background(Color(theme.paperBackground))
-        .cornerRadius(12)
-        .shadow(color: Color.black.opacity(0.05), radius: 16, x: 0, y: 0)
-        .contentShape(Rectangle()) // Ensures full card area is tappable
-        .onTapGesture {
-            viewModel.didTapTab(tabData)
-        }
-        .aspectRatio(3/4, contentMode: .fit)
-        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+            .background(Color(theme.paperBackground))
+            .cornerRadius(12)
+            .shadow(color: Color.black.opacity(0.05), radius: 16, x: 0, y: 0)
+            .contentShape(Rectangle())
+            .onTapGesture {
+                viewModel.didTapTab(tabData)
+            }
+            .aspectRatio(3/4, contentMode: .fit)
+            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+            .accessibilityElement()
+            .accessibilityLabel(viewModel.getAccessibilityLabel(for: tab))
+            .accessibilityAddTraits(.isButton)
+            .accessibilityActions {
+                accessibilityAction(named: viewModel.localizedStrings.openTabAccessibility) {
+                    viewModel.didTapTab(tabData)
+                }
+
+                if viewModel.shouldShowCloseButton {
+                    accessibilityAction(named: viewModel.localizedStrings.closeTabAccessibility) {
+                        viewModel.closeTab(tab: tab)
+                    }
+                }
+            }
     }
+
     
     private func tabTitle(title: String) -> some View {
         Text(title)
-            .font(Font(WMFFont.for(.georgiaTitle3)))
+            .font(Font(WMFFont.for(.georgiaCallout)))
             .foregroundStyle(Color(theme.text))
             .lineLimit(1)
     }
@@ -176,7 +194,9 @@ public struct WMFArticleTabsView: View {
             }
             Divider()
                 .frame(width: 24)
-                .padding(.vertical, 6)
+                .padding(.top, 4)
+                .padding(.bottom, 6)
+                .foregroundStyle(Color(uiColor: theme.border))
             if let description = tab.description {
                 Text(description)
                     .font(Font(WMFFont.for(.caption1)))
