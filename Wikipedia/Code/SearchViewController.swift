@@ -436,11 +436,22 @@ class SearchViewController: ArticleCollectionViewController, WMFNavigationBarCon
             if let navigateToSearchResultAction {
                 navigateToSearchResultAction(articleURL)
             } else if let customArticleCoordinatorNavigationController {
-                let coordinator = ArticleCoordinator(navigationController: customArticleCoordinatorNavigationController, articleURL: articleURL, dataStore: dataStore, theme: theme, source: .search)
-                coordinator.start()
+                
+                let linkCoordinator = LinkCoordinator(navigationController: customArticleCoordinatorNavigationController, url: articleURL, dataStore: dataStore, theme: theme, articleSource: .search)
+                let success = linkCoordinator.start()
+                
+                if !success {
+                    navigate(to: articleURL)
+                }
+    
             } else if let navigationController {
-                let coordinator = ArticleCoordinator(navigationController: navigationController, articleURL: articleURL, dataStore: dataStore, theme: theme, source: .search)
-                coordinator.start()
+                
+                let linkCoordinator = LinkCoordinator(navigationController: navigationController, url: articleURL, dataStore: dataStore, theme: theme, articleSource: .search)
+                let success = linkCoordinator.start()
+                
+                if !success {
+                    navigate(to: articleURL)
+                }
             }
         }
         
@@ -451,8 +462,19 @@ class SearchViewController: ArticleCollectionViewController, WMFNavigationBarCon
             coordinator.start()
         }
         
+        let longPressOpenInNewTabAction: (URL) -> Void = { [weak self] articleURL in
+            
+            guard let self else { return }
+            
+            guard let navVC = customArticleCoordinatorNavigationController ?? navigationController else { return }
+            let articleCoordinator = ArticleCoordinator(navigationController: navVC, articleURL: articleURL, dataStore: MWKDataStore.shared(), theme: self.theme, source: .undefined, tabConfig: .appendArticleAndAssignNewTabAndSetToCurrent)
+            articleCoordinator.start()
+            
+        }
+        
         resultsViewController.tappedSearchResultAction = tappedSearchResultAction
         resultsViewController.longPressSearchResultAndCommitAction = longPressSearchResultAndCommitAction
+        resultsViewController.longPressOpenInNewTabAction = longPressOpenInNewTabAction
         
         return resultsViewController
     }()

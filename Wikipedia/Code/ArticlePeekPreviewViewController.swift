@@ -168,8 +168,11 @@ class ArticlePeekPreviewViewController: UIViewController {
 
         actions.append(shareAction)
         
+        let destination = LinkCoordinator.destination(for: articleURL)
+        
         if let articleTabsDataController = WMFArticleTabsDataController.shared,
-           articleTabsDataController.shouldShowArticleTabs {
+           articleTabsDataController.shouldShowArticleTabs,
+           case .article = destination {
             
             // Open in new tab
             let openInNewTabAction = UIAction(title: CommonStrings.articleTabsOpenInNewTab, image: WMFSFSymbolIcon.for(symbol: .tabsIcon), handler: { [weak self] _ in
@@ -192,7 +195,22 @@ class ArticlePeekPreviewViewController: UIViewController {
                             DDLogError("Failed to create background tab: Missing data controller")
                             return
                         }
-                        _ = try await dataController.createArticleTab(initialArticle: WMFArticleTabsDataController.WMFArticle(identifier: nil, title: articleTitle, project: project), setAsCurrent: false)
+                        
+                        let tabsCount = try await dataController.tabsCount()
+                        let tabsMax = dataController.tabsMax
+                        let article = WMFArticleTabsDataController.WMFArticle(identifier: nil, title: articleTitle, project: project)
+                        if tabsCount >= tabsMax {
+                            
+                            let currentTabIdentifier = try await dataController.currentTabIdentifier()
+                            _ = try await dataController.appendArticle(article, toTabIdentifier: currentTabIdentifier)
+                            
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                                WMFAlertManager.sharedInstance.showBottomWarningAlertWithMessage(String.localizedStringWithFormat(CommonStrings.articleTabsLimitToastFormat, tabsMax), subtitle: nil,  buttonTitle: nil, image: WMFSFSymbolIcon.for(symbol: .exclamationMarkTriangleFill), dismissPreviousAlerts: true)
+                            }
+                        } else {
+                            _ = try await dataController.createArticleTab(initialArticle: article, setAsCurrent: false)
+                        }
+                        
                     } catch {
                         DDLogError("Failed to create background tab: \(error)")
                     }

@@ -47,6 +47,8 @@ import WMFData
         let forceEmailAuth = WMFFormItemSelectViewModel(title: localizedStrings.forceEmailAuth, isSelected: WMFDeveloperSettingsDataController.shared.forceEmailAuth)
         
         let enableArticleTabs = WMFFormItemSelectViewModel(title: "Enable article tabs", isSelected: WMFDeveloperSettingsDataController.shared.enableArticleTabs)
+        
+        let forceMaxArticleTabsTo5 = WMFFormItemSelectViewModel(title: "Force Max Article Tabs to 5", isSelected: WMFDeveloperSettingsDataController.shared.forceMaxArticleTabsTo5)
 
         let setActivityTabGroupA = WMFFormItemSelectViewModel(title: localizedStrings.setActivityTabGroupA, isSelected: WMFDeveloperSettingsDataController.shared.setActivityTabGroupA)
         let setActivityTabGroupB = WMFFormItemSelectViewModel(title: localizedStrings.setActivityTabGroupB, isSelected: WMFDeveloperSettingsDataController.shared.setActivityTabGroupB)
@@ -62,7 +64,8 @@ import WMFData
                 setActivityTabGroupA,
                 setActivityTabGroupB,
                 setActivityTabGroupC,
-                enableArticleTabs
+                enableArticleTabs,
+                forceMaxArticleTabsTo5
             ], selectType: .multi)
         ])
 
@@ -85,6 +88,10 @@ import WMFData
         
         enableArticleTabs.$isSelected
             .sink { isSelected in WMFDeveloperSettingsDataController.shared.enableArticleTabs = isSelected }
+            .store(in: &subscribers)
+        
+        forceMaxArticleTabsTo5.$isSelected
+            .sink { isSelected in WMFDeveloperSettingsDataController.shared.forceMaxArticleTabsTo5 = isSelected }
             .store(in: &subscribers)
 
         activityTabGroupCoordinator = ActivityTabGroupBindingCoordinator(
