@@ -101,20 +101,18 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
     }
     
     public func getAccessibilityLabel(for tab: ArticleTab) -> String {
+        var label = ""
         if tab.isMain {
-            var label = ""
             label += tab.title
             label += " " + localizedStrings.mainPageSubtitle
-            
-            return label
         } else {
-            var label = ""
             label += tab.title
             if let subtitle = tab.subtitle {
                 label += " " + subtitle
             }
-            return label
         }
+        
+        return label
     }
     
     public func closeTab(tab: ArticleTab) {

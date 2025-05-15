@@ -160,7 +160,7 @@ public struct WMFArticleTabsView: View {
             }
             .aspectRatio(3/4, contentMode: .fit)
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
-            .accessibilityElement()
+            .accessibilityElement(children: .combine)
             .accessibilityLabel(viewModel.getAccessibilityLabel(for: tab))
             .accessibilityAddTraits(.isButton)
             .accessibilityActions {
@@ -176,7 +176,6 @@ public struct WMFArticleTabsView: View {
             }
     }
 
-    
     private func tabTitle(title: String) -> some View {
         Text(title)
             .font(Font(WMFFont.for(.georgiaCallout)))
