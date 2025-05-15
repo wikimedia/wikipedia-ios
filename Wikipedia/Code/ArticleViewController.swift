@@ -569,27 +569,34 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
                 
         WMFArticleDataController().fetchArticleInfo(title: title, project: project, request: request) { result in
             
-            DispatchQueue.main.async { [weak self] in
-                
-                guard let self else {
-                    return
+            Task { [weak self] in
+                guard let self else { return }
+                var previousArticleTab: WMFArticleTabsDataController.WMFArticle?
+                var nextArticleTab: WMFArticleTabsDataController.WMFArticle?
+                if let tabDataController = WMFArticleTabsDataController.shared,
+                   let tabIdentifier = self.coordinator?.tabIdentifier {
+                    previousArticleTab = try? await tabDataController.getAdjacentArticleInTab(tabIdentifier: tabIdentifier, isPrev: true)
+                    nextArticleTab = try? await tabDataController.getAdjacentArticleInTab(tabIdentifier: tabIdentifier, isPrev: false)
                 }
                 
-                switch result {
-                case .success(let info):
+                Task { @MainActor in
                     
-                    let needsWatchButton = !info.watched
-                    let needsUnwatchHalfButton = info.watched && info.watchlistExpiry != nil
-                    let needsUnwatchFullButton = info.watched && info.watchlistExpiry == nil
-                    
-                    self.toolbarController.updateMoreButton(needsWatchButton: needsWatchButton, needsUnwatchHalfButton: needsUnwatchHalfButton, needsUnwatchFullButton: needsUnwatchFullButton)
-                    
-                    if needsCategories {
-                        self.saveCategories(categories: info.categories, articleTitle: title, project: project)
+                    switch result {
+                    case .success(let info):
+                        
+                        let needsWatchButton = !info.watched
+                        let needsUnwatchHalfButton = info.watched && info.watchlistExpiry != nil
+                        let needsUnwatchFullButton = info.watched && info.watchlistExpiry == nil
+                        
+                        self.toolbarController.updateMoreButton(needsWatchButton: needsWatchButton, needsUnwatchHalfButton: needsUnwatchHalfButton, needsUnwatchFullButton: needsUnwatchFullButton, previousArticleTab: previousArticleTab, nextArticleTab: nextArticleTab)
+                        
+                        if needsCategories {
+                            self.saveCategories(categories: info.categories, articleTitle: title, project: project)
+                        }
+                        
+                    case .failure(let error):
+                        DDLogError("Error fetching article MediaWiki info: \(error)")
                     }
-                    
-                case .failure(let error):
-                    DDLogError("Error fetching article MediaWiki info: \(error)")
                 }
             }
         }

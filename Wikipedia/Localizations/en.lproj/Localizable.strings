@@ -42,10 +42,12 @@
 "action-add-to" = "Add to…";
 "action-add-to-reading-list" = "Add to reading list";
 "action-add-to-reading-list-short" = "Add to list";
+"action-back-in-tab" = "Back in tab";
 "action-cancel" = "Cancel";
 "action-discard-edit" = "Discard Edit";
 "action-discard-edits" = "Discard edits";
 "action-find-in-page" = "Find in page";
+"action-forward-in-tab" = "Forward in tab";
 "action-keep-editing" = "Keep Editing";
 "action-language-accessibility" = "Change language";
 "action-move-to" = "Move to…";

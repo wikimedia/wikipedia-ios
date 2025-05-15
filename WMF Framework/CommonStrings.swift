@@ -116,6 +116,9 @@ public class CommonStrings: NSObject {
         return WMFLocalizedString("button-save-for-later", languageCode: languageCode, value: "Save for later", comment: "Longer button text for save button used in various places.")
     }
 
+    public static let backInTab = WMFLocalizedString("action-back-in-tab", value: "Back in tab", comment: "Title for the 'Back in tab' toolbar action on article. Tapping it takes user to previous article in the tab.")
+    public static let forwardInTab = WMFLocalizedString("action-forward-in-tab", value: "Forward in tab", comment: "Title for the 'Forward in tab' toolbar action on article. Tapping it takes user to next article in the tab.")
+    
     @objc public static let shortShareTitle = WMFLocalizedString("action-share", value: "Share", comment: "Short title for the 'Share' action. Please use the shortest translation possible. {{Identical|Share}}")
     @objc public static let accessibilityShareTitle = WMFLocalizedString("action-share-accessibility", value: "Share", comment: "Accessibility title for the 'Share' action")
 

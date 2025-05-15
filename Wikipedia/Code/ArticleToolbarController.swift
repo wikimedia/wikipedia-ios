@@ -87,7 +87,8 @@ class ArticleToolbarController: Themeable {
         return item
     }()
     
-    private func createMoreButton(needsWatchButton: Bool = false, needsUnwatchHalfButton: Bool = false, needsUnwatchFullButton: Bool = false) -> IconBarButtonItem {
+    private func createMoreButton(needsWatchButton: Bool = false, needsUnwatchHalfButton: Bool = false, needsUnwatchFullButton: Bool = false, previousArticleTab: WMFArticleTabsDataController.WMFArticle? = nil, nextArticleTab: WMFArticleTabsDataController.WMFArticle? = nil) -> IconBarButtonItem {
+        
         var actions: [UIAction] = []
         
         let image = WMFIcon.pencil
@@ -104,8 +105,14 @@ class ArticleToolbarController: Themeable {
         } else if needsUnwatchFullButton {
             actions.append(UIAction(title: CommonStrings.unwatch, image: UIImage(systemName: "star.fill"), handler: { [weak self] _ in self?.tappedUnwatch()}))
         }
-
-        actions.append(UIAction(title: CommonStrings.shortShareTitle, image: UIImage(systemName: "square.and.arrow.up"), handler: { [weak self] _ in self?.share()}))
+        
+        actions.append(UIAction(title: CommonStrings.shortShareTitle, image: WMFSFSymbolIcon.for(symbol: .ellipsisCircle), handler: { [weak self] _ in self?.share()}))
+        
+        let backAttributes: UIMenuElement.Attributes = previousArticleTab != nil ? [] : .disabled
+        actions.append(UIAction(title: CommonStrings.backInTab, image: WMFSFSymbolIcon.for(symbol: .chevronBackward), attributes: backAttributes, handler: { [weak self] _ in print("back")}))
+        
+        let forwardAttributes: UIMenuElement.Attributes = nextArticleTab != nil ? [] : .disabled
+        actions.append(UIAction(title: CommonStrings.forwardInTab, image: WMFSFSymbolIcon.for(symbol: .chevronForward), attributes: forwardAttributes,  handler: { [weak self] _ in print("forward")}))
         
         let menu = UIMenu(title: "", options: .displayInline, children: actions)
 
@@ -117,8 +124,8 @@ class ArticleToolbarController: Themeable {
         return item
     }
     
-    func updateMoreButton(needsWatchButton: Bool = false, needsUnwatchHalfButton: Bool = false, needsUnwatchFullButton: Bool = false) {
-        self.moreButton = createMoreButton(needsWatchButton: needsWatchButton, needsUnwatchHalfButton: needsUnwatchHalfButton, needsUnwatchFullButton: needsUnwatchFullButton)
+    func updateMoreButton(needsWatchButton: Bool = false, needsUnwatchHalfButton: Bool = false, needsUnwatchFullButton: Bool = false, previousArticleTab: WMFArticleTabsDataController.WMFArticle?, nextArticleTab: WMFArticleTabsDataController.WMFArticle?) {
+        self.moreButton = createMoreButton(needsWatchButton: needsWatchButton, needsUnwatchHalfButton: needsUnwatchHalfButton, needsUnwatchFullButton: needsUnwatchFullButton, previousArticleTab: previousArticleTab, nextArticleTab: nextArticleTab)
         update()
     }
     

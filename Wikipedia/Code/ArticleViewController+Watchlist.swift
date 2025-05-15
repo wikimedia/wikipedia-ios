@@ -28,14 +28,61 @@ extension ArticleViewController {
 
 extension ArticleViewController: WatchlistControllerDelegate {
     func didSuccessfullyWatchTemporarily(_ controller: WatchlistController) {
-        toolbarController.updateMoreButton(needsWatchButton: false, needsUnwatchHalfButton: true, needsUnwatchFullButton: false)
+        
+        Task { [weak self] in
+            guard let self else { return }
+            var previousArticleTab: WMFArticleTabsDataController.WMFArticle?
+            var nextArticleTab: WMFArticleTabsDataController.WMFArticle?
+            if let tabDataController = WMFArticleTabsDataController.shared,
+               let tabIdentifier = self.coordinator?.tabIdentifier {
+                previousArticleTab = try? await tabDataController.getAdjacentArticleInTab(tabIdentifier: tabIdentifier, isPrev: true)
+                nextArticleTab = try? await tabDataController.getAdjacentArticleInTab(tabIdentifier: tabIdentifier, isPrev: false)
+            }
+            
+            Task { @MainActor in
+                self.toolbarController.updateMoreButton(needsWatchButton: false, needsUnwatchHalfButton: true, needsUnwatchFullButton: false, previousArticleTab: previousArticleTab, nextArticleTab: nextArticleTab)
+            }
+        }
+        
+        
     }
     
     func didSuccessfullyWatchPermanently(_ controller: WatchlistController) {
-        toolbarController.updateMoreButton(needsWatchButton: false, needsUnwatchHalfButton: false, needsUnwatchFullButton: true)
+        
+        Task { [weak self] in
+            guard let self else { return }
+            var previousArticleTab: WMFArticleTabsDataController.WMFArticle?
+            var nextArticleTab: WMFArticleTabsDataController.WMFArticle?
+            if let tabDataController = WMFArticleTabsDataController.shared,
+               let tabIdentifier = self.coordinator?.tabIdentifier {
+                previousArticleTab = try? await tabDataController.getAdjacentArticleInTab(tabIdentifier: tabIdentifier, isPrev: true)
+                nextArticleTab = try? await tabDataController.getAdjacentArticleInTab(tabIdentifier: tabIdentifier, isPrev: false)
+            }
+            
+            Task { @MainActor in
+                self.toolbarController.updateMoreButton(needsWatchButton: false, needsUnwatchHalfButton: false, needsUnwatchFullButton: true, previousArticleTab: previousArticleTab, nextArticleTab: nextArticleTab)
+            }
+        }
+        
+        
     }
     
     func didSuccessfullyUnwatch(_ controller: WatchlistController) {
-        toolbarController.updateMoreButton(needsWatchButton: true, needsUnwatchHalfButton: false, needsUnwatchFullButton: false)
+        
+        Task { [weak self] in
+            guard let self else { return }
+            var previousArticleTab: WMFArticleTabsDataController.WMFArticle?
+            var nextArticleTab: WMFArticleTabsDataController.WMFArticle?
+            if let tabDataController = WMFArticleTabsDataController.shared,
+               let tabIdentifier = self.coordinator?.tabIdentifier {
+                previousArticleTab = try? await tabDataController.getAdjacentArticleInTab(tabIdentifier: tabIdentifier, isPrev: true)
+                nextArticleTab = try? await tabDataController.getAdjacentArticleInTab(tabIdentifier: tabIdentifier, isPrev: false)
+            }
+            
+            Task { @MainActor in
+                self.toolbarController.updateMoreButton(needsWatchButton: true, needsUnwatchHalfButton: false, needsUnwatchFullButton: false, previousArticleTab: previousArticleTab, nextArticleTab: nextArticleTab)
+            }
+        }
+        
     }
 }
