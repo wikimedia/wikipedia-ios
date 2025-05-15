@@ -121,6 +121,8 @@
 "activity-tab-you-edited" = "Muokkasit {{PLURAL:$1|$1 kerran|$1 kertaa}} tällä viikolla.";
 "add-articles-to-reading-list" = "Lisää {{PLURAL:$1|$1 artikkeli|$1 artikkelia}} lukulistaan";
 "advanced-settings-title" = "Lisäasetukset";
+"alert-temporary-account" = "Käytät tilapäistä tunnusta. Tunnus vanhenee 90 päivän päästä.";
+"alert-temporary-account-learn-more" = "Lisätietoja";
 "alt-text-feedback-survey-toast-title" = "Palaute lähetetty";
 "announcements-dismiss" = "Sulje";
 "app-store-keywords" = "Wikipedia, viittaus, wiki, tietosanakirja, tieto, info, tutkimus, tutki, opi";
@@ -152,6 +154,8 @@
 "article-tabs-open-new-tab" = "Avaa uudessa välilehdessä";
 "article-talk-page" = "Artikkelin keskustelusivu";
 "article-toolbar-reading-themes-controls-toolbar-item" = "Lukuteemojen ohjaimet";
+"article-view-controller-editing-temp-account-created-subtitle" = "Tilapäinen tunnus $1 luotiin muokkauksesi julkaisun yhteydessä. Se vanhenee 90 päivän päästä.";
+"article-view-controller-editing-temp-account-created-title" = "Tilapäinen tunnus luotu";
 "back-button-accessibility-label" = "Takaisin";
 "back-button-popover-title" = "Napauta palataksesi";
 "button-go-back" = "Takaisin";
@@ -189,6 +193,7 @@
 "description-edit-title" = "Muokkaa kuvausta";
 "description-edit-warning" = "Yritä pitää kuvaus lyhyenä, jotta käyttäjät ymmärtäisivät artikkelin aiheen yhdellä silmäyksellä";
 "description-edit-warning-casing" = "Älä kirjoita muita sanoja kuin erisnimiä isolla alkukirjaimella, vaikka ne ovatkin lauseen alussa.";
+"description-editing-temp-account-created-subtitle" = "Tilapäinen tunnus $1 luotiin muokkauksesi julkaisun yhteydessä. Se vanhenee 90 päivän päästä.";
 "description-help-about-description" = "Lyhyt kuvaus tiivistää artikkelin aiheen ja auttaa hahmottamaan sen sisällön nopeasti.";
 "description-help-about-title" = "Tietoja";
 "description-help-about-wikidata" = "Tietoja Wikidatasta";
@@ -258,8 +263,8 @@
 "diff-thanks-login-title" = "Kirjaudu sisään lähettääksesi kiitokset";
 "diff-thanks-send-button-title" = "Lähetä kiitokset";
 "diff-thanks-send-subtitle" = "Kiitoksen lähettäminen on helppo tapa arvostaa toisen käyttäjän panosta Wikipedian kehittämiseen. Toimintoa ei voi perua, ja kiitokset ovat julkisesti nähtävillä.";
-"diff-thanks-send-title" = "Julkinen kiitos lähetetty";
-"diff-thanks-sent" = "Kiitoksesi lähetettiin käyttäjälle $1";
+"diff-thanks-send-title" = "Lähetä julkinen kiitos";
+"diff-thanks-sent" = "Kiitoksesi käyttäjälle $1 lähetetty";
 "diff-thanks-sent-already" = "Olet jo lähettänyt kiitokset tälle muokkaukselle";
 "diff-thanks-sent-cannot-unsend" = "Kiitoksen lähettämistä ei voi kumota";
 "diff-unchanged-contextual-line" = "Asiayhteysrivi, muuttumaton: $1";
@@ -301,6 +306,7 @@
 "edit-preview-simplified-format-message" = "Kaikki sisältö näytetään yksinkertaistetussa muodossa.";
 "edit-published" = "Muokkaus julkaistu";
 "edit-published-subtitle" = "Teit juuri Wikipediasta paremman kaikille";
+"edit-sheet-temp-account-notice" = "Ilmoitus tilapäisestä tunnuksesta";
 "edit-show-web-preview" = "Näytä verkkoesikatselu";
 "edit-summary-add-summary-text" = "Lisää muokkausyhteenveto";
 "edit-summary-choice-added-image" = "Lisätty kuva";
@@ -606,6 +612,7 @@
 "insert-media-title" = "Lisää media";
 "inuktitut-variants-alert-body" = "Wikipedia-sovellus tukee nyt seuraavia inuktitut-muunnelmia ensi- tai toissijaisina kielinä sovelluksessa, mikä helpottaa lukemista, etsimistä ja muokkaamista näillä versioilla:\n\nᐃᓄᒃᑎᑐᑦ ᑎᑎᕋᐅᓯᖅ ᓄᑖᖅ Inuktitut, tavumerkistö (ike-cans)\nInuktitut ilisautik, Inuktitut, latinalaiset aakkoset (ike-latn)";
 "inuktitut-variants-alert-title" = "Päivitykset Inuktitut-varianttien tukeen";
+"ip-account-warning-subtitle" = "Kun julkaiset muokkauksen, sinulle luodaan tilapäinen tunnus.";
 "kazakh-variants-alert-body" = "Wikipedia-sovellus tukee nyt seuraavia kazakin muunnelmia ensi- tai toissijaisina kielinä sovelluksessa, mikä helpottaa lukemista, etsimistä ja muokkaamista näillä versioilla:\n\nҚазақша Kazakh (kk)\nҚазақша Кирил Kazakh, kyrillinen kirjaimisto (kk-cyrl)\nqazaqşa latina kazakstani, latinalainen kirjaimisto (kk-latn)\nتوتە قازاقشا Kazakh, arabialainen kirjaimisto (kk-arab)";
 "kazakh-variants-alert-title" = "Päivitykset kazakin varianttien tukeen";
 "kurdish-variants-alert-body" = "Wikipedia-sovellus tukee nyt seuraavia kurdin muunnelmia ensi- tai toissijaisina kielinä sovelluksessa, mikä helpottaa lukemista, hakua ja muokkaamista näillä versioilla:\n\nKurdî Latînî Kurdish, latinalainen kirjaimisto (ku-latn)\nكوردی Kurdish, arabialainen kirjaimisto (kk-arab)";
@@ -964,6 +971,8 @@
 "return-button-title" = "Palaa";
 "return-to-article" = "Palaa artikkeliin";
 "reverted-edit-title" = "Kumottu muokkaus";
+"save-view-temp-account-notice" = "Käytät tilapäistä tunnusta. Muokkaukset merkitään nimelle $1...";
+"save-view-temp-account-warning" = "Et ole kirjautunut sisään. Kun teet muokkauksen, sinulle luodaan tilapäinen tunnus yksityisyytesi suojelemiseksi.";
 "saved-all-articles-title" = "Kaikki artikkelit";
 "saved-default-reading-list-tag" = "Tätä listaa ei voi poistaa";
 "saved-pages-image-download-error" = "Tämän tallennetun sivun kuvien lataaminen epäonnistui.";
@@ -1123,6 +1132,15 @@
 "talk-pages-user-groups" = "Käyttäjäryhmät";
 "talk-pages-user-logs" = "Lokit";
 "talk-pages-view-title" = "Keskustelu";
+"temp-account-alert-read-more-information" = "$1Käytät tilapäistä tunnusta.$2Tunnus vanhenee 90 päivän päästä. Vanhenemisen jälkeen uusi tunnus luodaan seuraavalla kerralla, kun teet muokkauksen kirjautumatta sisään. $3Kirjaudu sisään tai luo tunnus saadaksesi tulevat muokkauksesi oman tunnuksesi nimiin sekä päästäksesi käyttämään muita ominaisuuksia.";
+"temp-account-edit-sheet-cta-top" = "Kirjaudu sisään tai luo tunnus";
+"temp-account-edit-sheet-subtitle" = "$2Käytät tällä hetkellä tilapäistä tunnusta.$3 Tilapäisellä tunnuksella $1 tehtyjä muokkauksia ei siirretä pysyvälle tunnukselle, kun kirjaudut sisään. Kirjaudu sisään tai luo tunnus saadaksesi tulevat muokkauksesi oman tunnuksesi nimiin sekä päästäksesi käyttämään muita ominaisuuksia.";
+"temp-account-got-it" = "Selvä";
+"temp-account-toast-read-more-title" = "Lisätietoja";
+"temp-account-toast-title" = "$1Käytät tällä hetkellä tilapäistä tunnusta.$2 Tilapäisellä tunnuksella tehtyjä muokkauksia...";
+"temp-account-warning-title" = "Käytät tilapäistä tunnusta";
+"temp-warning-subtitle-format" = "Muokkauksesi merkitään nimellä $1";
+"temporary-account" = "Tilapäinen tunnus";
 "terms-of-use-title" = "Käyttöehdot";
 "theme-black-display-name" = "Musta";
 "theme-dark-display-name" = "Tumma";
@@ -1193,7 +1211,7 @@
 "watchlist-onboarding-button-title" = "Lue lisää tarkkailulistoista";
 "watchlist-onboarding-title" = "Esittelyssä tarkkailulistasi";
 "watchlist-removed" = "Poistettu tarkkailulistaltasi";
-"watchlist-thanks-success" = "Kiitoksesi lähetettiin käyttäjälle $1";
+"watchlist-thanks-success" = "Kiitoksesi käyttäjälle $1 lähetetty";
 "watchlist-updates-title" = "Näytä päivitykset";
 "watchlist-user-button-thank" = "Kiitä";
 "watchlist-user-button-user-contributions" = "Käyttäjän muokkaukset";
