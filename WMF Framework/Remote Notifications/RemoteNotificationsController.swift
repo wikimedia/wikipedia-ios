@@ -6,9 +6,15 @@ public enum RemoteNotificationsControllerError: LocalizedError {
     case databaseUnavailable
     case attemptingToRefreshBeforeDeadline
     case failurePullingAppLanguage
-    
+    case invalidCount
+
     public var errorDescription: String? {
-        return CommonStrings.genericErrorDescription
+        switch self {
+        case .invalidCount:
+            return "Invalid notification count detected"
+        default:
+            return CommonStrings.genericErrorDescription
+        }
     }
 }
 
@@ -281,15 +287,28 @@ public enum RemoteNotificationsControllerError: LocalizedError {
     }
     
     /// Fetches a count of unread notifications from the local database. Uses the viewContext and must be called from the main thread
+    var previousUnreadCount: Int = 0
+
     @objc public func numberOfUnreadNotifications() throws -> NSNumber {
-        
         guard let modelController = modelController else {
             throw RemoteNotificationsControllerError.databaseUnavailable
         }
-        
-        let count = try modelController.numberOfUnreadNotifications()
-        return NSNumber(value: count)
+
+        do {
+            let count = try modelController.numberOfUnreadNotifications()
+            if count < 0 || count > 1000 {
+                throw RemoteNotificationsControllerError.invalidCount
+            }
+
+            // Update previousUnreadCount only if count is valid
+            previousUnreadCount = count
+            return NSNumber(value: count)
+
+        } catch {
+            return NSNumber(value: previousUnreadCount) // Using last known good value
+        }
     }
+
     
     /// Fetches a count of all notifications from the local database. Uses the viewContext and must be called from the main thread
     public func numberOfAllNotifications() throws -> Int {
@@ -315,11 +334,23 @@ public enum RemoteNotificationsControllerError: LocalizedError {
     }
 
     @objc public func updateCacheWithCurrentUnreadNotificationsCount() throws {
-        let currentCount = try numberOfUnreadNotifications().intValue
-        let sharedCache = SharedContainerCache(fileName: SharedContainerCacheCommonNames.pushNotificationsCache)
-        var pushCache = sharedCache.loadCache() ?? PushNotificationsCache(settings: .default, notifications: [])
-        pushCache.currentUnreadCount = currentCount
-        sharedCache.saveCache(pushCache)
+        do {
+            let currentCount = try numberOfUnreadNotifications().intValue
+
+            // Same validation before updating cache
+            if currentCount < 0 || currentCount > 1000 {
+                DDLogError("Skipping cache update due to unrealistic count: \(currentCount)")
+                return // Don't update cache
+            }
+
+            let sharedCache = SharedContainerCache(fileName: SharedContainerCacheCommonNames.pushNotificationsCache)
+            var pushCache = sharedCache.loadCache() ?? PushNotificationsCache(settings: .default, notifications: [])
+            pushCache.currentUnreadCount = currentCount
+            sharedCache.saveCache(pushCache)
+
+        } catch {
+            DDLogError("Failed to update cache: \(error.localizedDescription)")
+        }
     }
     
     public var filterPredicate: NSPredicate? {
