@@ -35,7 +35,7 @@ extension WMFAppViewController {
             return false
         }
         
-        let linkCoordinator = LinkCoordinator(navigationController: navigationController, url: linkURL, dataStore: dataStore, theme: theme, articleSource: .undefined)
+        let linkCoordinator = LinkCoordinator(navigationController: navigationController, url: linkURL, dataStore: dataStore, theme: theme, articleSource: .undefined, tabConfig: .appendArticleAndAssignNewTabAndSetToCurrent)
         return linkCoordinator.start()
     }
 

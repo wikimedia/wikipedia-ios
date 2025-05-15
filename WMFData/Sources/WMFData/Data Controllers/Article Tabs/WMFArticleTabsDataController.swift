@@ -109,8 +109,8 @@ public class WMFArticleTabsDataController: WMFArticleTabsDataControlling {
     // MARK: - Lifecycle
     
     init(coreDataStore: WMFCoreDataStore? = WMFDataEnvironment.current.coreDataStore,
-                 developerSettingsDataController: WMFDeveloperSettingsDataControlling = WMFDeveloperSettingsDataController.shared,
-                 articleSummaryDataController: WMFArticleSummaryDataControlling = WMFArticleSummaryDataController()) throws {
+         developerSettingsDataController: WMFDeveloperSettingsDataControlling = WMFDeveloperSettingsDataController.shared,
+         articleSummaryDataController: WMFArticleSummaryDataControlling = WMFArticleSummaryDataController()) throws {
         guard let coreDataStore else {
             throw WMFDataControllerError.coreDataStoreUnavailable
         }
@@ -144,6 +144,10 @@ public class WMFArticleTabsDataController: WMFArticleTabsDataControlling {
         if count == 0 {
             _ = try await createArticleTab(initialArticle: nil, setAsCurrent: true)
         }
+    }
+    
+    public var tabsMax: Int {
+        return developerSettingsDataController.forceMaxArticleTabsTo5 ? 5 : 500
     }
 
     public func createArticleTab(initialArticle: WMFArticle?, setAsCurrent: Bool = false) async throws -> Identifiers {
