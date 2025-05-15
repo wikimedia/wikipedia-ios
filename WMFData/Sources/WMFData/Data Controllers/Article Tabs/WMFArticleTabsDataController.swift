@@ -321,11 +321,15 @@ public class WMFArticleTabsDataController: WMFArticleTabsDataControlling {
                 guard let articleItem = item as? CDArticleTabItem else { continue }
 
                 if articleItem.isCurrent {
-                    if isPrev &&
-                        items.count >= index - 1 {
+                    if isPrev,
+                        (index - 1) >= 0,
+                        items.count > index - 1 {
                         adjacentArticle = items[index - 1]
                         break
-                    } else if items.count > index + 1 {
+                    } else if
+                        !isPrev,
+                        (index + 1) >= 0,
+                        items.count > index + 1 {
                         adjacentArticle = items[index + 1]
                         break
                     }

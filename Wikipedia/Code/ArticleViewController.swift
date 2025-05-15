@@ -561,13 +561,6 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
             let project = WikimediaProject(siteURL: siteURL)?.wmfProject else {
                 return
         }
-        
-        let needsCategories = articleURL.wmf_title != "Main Page"
-        guard let request = try? WMFArticleDataController.ArticleInfoRequest(needsWatchedStatus: dataStore.authenticationManager.authStateIsPermanent, needsRollbackRights: false, needsCategories: needsCategories) else {
-            return
-        }
-                
-        WMFArticleDataController().fetchArticleInfo(title: title, project: project, request: request) { result in
             
             Task { [weak self] in
                 guard let self else { return }
@@ -582,22 +575,32 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
                 
                 Task { @MainActor in
                     
-                    switch result {
-                    case .success(let info):
-                        
-                        let needsWatchButton = !info.watched
-                        let needsUnwatchHalfButton = info.watched && info.watchlistExpiry != nil
-                        let needsUnwatchFullButton = info.watched && info.watchlistExpiry == nil
-                        
-                        self.toolbarController.updateMoreButton(needsWatchButton: needsWatchButton, needsUnwatchHalfButton: needsUnwatchHalfButton, needsUnwatchFullButton: needsUnwatchFullButton, previousArticleTab: previousArticleTab, nextArticleTab: nextArticleTab)
-                        
-                        if needsCategories {
-                            self.saveCategories(categories: info.categories, articleTitle: title, project: project)
-                        }
-                        
-                    case .failure(let error):
-                        DDLogError("Error fetching article MediaWiki info: \(error)")
+                    let needsCategories = self.articleURL.wmf_title != "Main Page"
+                    guard let request = try? WMFArticleDataController.ArticleInfoRequest(needsWatchedStatus: self.dataStore.authenticationManager.authStateIsPermanent, needsRollbackRights: false, needsCategories: needsCategories) else {
+                        self.toolbarController.updateMoreButton(needsWatchButton: false, needsUnwatchHalfButton: false, needsUnwatchFullButton: false, previousArticleTab: previousArticleTab, nextArticleTab: nextArticleTab)
+                        return
                     }
+                            
+                    WMFArticleDataController().fetchArticleInfo(title: title, project: project, request: request) { result in
+                    
+                        switch result {
+                        case .success(let info):
+                            
+                            DispatchQueue.main.async {
+                                let needsWatchButton = !info.watched
+                                let needsUnwatchHalfButton = info.watched && info.watchlistExpiry != nil
+                                let needsUnwatchFullButton = info.watched && info.watchlistExpiry == nil
+                                
+                                self.toolbarController.updateMoreButton(needsWatchButton: needsWatchButton, needsUnwatchHalfButton: needsUnwatchHalfButton, needsUnwatchFullButton: needsUnwatchFullButton, previousArticleTab: previousArticleTab, nextArticleTab: nextArticleTab)
+                                
+                                if needsCategories {
+                                    self.saveCategories(categories: info.categories, articleTitle: title, project: project)
+                                }
+                            }
+                            
+                        case .failure(let error):
+                            DDLogError("Error fetching article MediaWiki info: \(error)")
+                        }
                 }
             }
         }
