@@ -17,6 +17,8 @@ protocol ArticleToolbarHandling: AnyObject {
     func watch(from controller: ArticleToolbarController)
     func unwatch(from controller: ArticleToolbarController)
     func editArticle(from controller: ArticleToolbarController)
+    func backInTab(article: WMFArticleTabsDataController.WMFArticle, controller: ArticleToolbarController)
+    func forwardInTab(article: WMFArticleTabsDataController.WMFArticle, controller: ArticleToolbarController)
     var isTableOfContentsVisible: Bool { get }
 }
 
@@ -110,10 +112,24 @@ class ArticleToolbarController: Themeable {
         
         if (WMFArticleTabsDataController.shared?.shouldShowArticleTabs) ?? false {
             let backAttributes: UIMenuElement.Attributes = previousArticleTab != nil ? [] : .disabled
-            actions.append(UIAction(title: CommonStrings.backInTab, image: WMFSFSymbolIcon.for(symbol: .chevronBackward), attributes: backAttributes, handler: { [weak self] _ in print("back")}))
+            actions.append(UIAction(title: CommonStrings.backInTab, image: WMFSFSymbolIcon.for(symbol: .chevronBackward), attributes: backAttributes, handler: { [weak self] _ in
+                
+                guard let self else { return }
+                
+                if let previousArticleTab {
+                    self.delegate?.backInTab(article: previousArticleTab, controller: self)
+                }
+            }))
             
             let forwardAttributes: UIMenuElement.Attributes = nextArticleTab != nil ? [] : .disabled
-            actions.append(UIAction(title: CommonStrings.forwardInTab, image: WMFSFSymbolIcon.for(symbol: .chevronForward), attributes: forwardAttributes,  handler: { [weak self] _ in print("forward")}))
+            actions.append(UIAction(title: CommonStrings.forwardInTab, image: WMFSFSymbolIcon.for(symbol: .chevronForward), attributes: forwardAttributes,  handler: { [weak self] _ in
+                
+                guard let self else { return }
+                
+                if let nextArticleTab {
+                    self.delegate?.forwardInTab(article: nextArticleTab, controller: self)
+                }
+            }))
         }
         
         let menu = UIMenu(title: "", options: .displayInline, children: actions)
