@@ -574,6 +574,7 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
                 var previousArticleTab: WMFArticleTabsDataController.WMFArticle?
                 var nextArticleTab: WMFArticleTabsDataController.WMFArticle?
                 if let tabDataController = WMFArticleTabsDataController.shared,
+                   tabDataController.shouldShowArticleTabs,
                    let tabIdentifier = self.coordinator?.tabIdentifier {
                     previousArticleTab = try? await tabDataController.getAdjacentArticleInTab(tabIdentifier: tabIdentifier, isPrev: true)
                     nextArticleTab = try? await tabDataController.getAdjacentArticleInTab(tabIdentifier: tabIdentifier, isPrev: false)
