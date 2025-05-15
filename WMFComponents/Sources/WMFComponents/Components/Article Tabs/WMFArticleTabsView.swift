@@ -26,11 +26,10 @@ public struct WMFArticleTabsView: View {
 
                     ForEach(viewModel.articleTabs.sorted(by: { $0.dateCreated < $1.dateCreated })) { tab in
                         if tab.isMain {
-                            tabCardView(content: mainPageTabContent(tab: tab), tabData: tab.data)
-                                .accessibilityElement(children: .combine)
+                            tabCardView(content: mainPageTabContent(tab: tab), tabData: tab.data, tab: tab)
+                            
                         } else {
-                            tabCardView(content: standardTabContent(tab: tab), tabData: tab.data)
-                                .accessibilityElement(children: .combine)
+                            tabCardView(content: standardTabContent(tab: tab), tabData: tab.data, tab: tab)
                         }
                     }
                     
@@ -64,7 +63,6 @@ public struct WMFArticleTabsView: View {
                             .frame(width: geo.size.width, height: 95, alignment: .center)
                     }
                 }
-                .accessibilityHidden(true)
 
                 if viewModel.shouldShowCloseButton {
                     WMFCloseButton(action: {
@@ -73,8 +71,6 @@ public struct WMFArticleTabsView: View {
                     .padding([.horizontal, .top], 12)
                     .contentShape(Rectangle())
                     .frame(minWidth: 44, minHeight: 44)
-                    .accessibilityLabel(Text(viewModel.localizedStrings.closeTabAccessibility))
-                    .accessibilityAddTraits(.isButton)
                 }
             }
 
@@ -100,9 +96,6 @@ public struct WMFArticleTabsView: View {
                 }
                 .padding([.horizontal, .bottom], 10)
             }
-            .accessibilityElement(children: .combine)
-            .accessibilityLabel(Text(viewModel.getMainPageAccessibilityLabel(for: tab)))
-            .accessibilityAddTraits(.isButton)
         }
     }
     
@@ -138,8 +131,6 @@ public struct WMFArticleTabsView: View {
                     .padding([.horizontal, .top], 12)
                     .contentShape(Rectangle())
                     .frame(minWidth: 44, minHeight: 44)
-                    .accessibilityLabel(Text(viewModel.localizedStrings.closeTabAccessibility))
-                    .accessibilityAddTraits(.isButton)
                 }
             }
 
@@ -157,19 +148,34 @@ public struct WMFArticleTabsView: View {
         }
     }
     
-    private func tabCardView(content: some View, tabData: WMFArticleTabsDataController.WMFArticleTab) -> some View {
+    private func tabCardView(content: some View, tabData: WMFArticleTabsDataController.WMFArticleTab, tab: ArticleTab) -> some View {
         content
-        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
-        .background(Color(theme.paperBackground))
-        .cornerRadius(12)
-        .shadow(color: Color.black.opacity(0.05), radius: 16, x: 0, y: 0)
-        .contentShape(Rectangle()) // Ensures full card area is tappable
-        .onTapGesture {
-            viewModel.didTapTab(tabData)
-        }
-        .aspectRatio(3/4, contentMode: .fit)
-        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+            .background(Color(theme.paperBackground))
+            .cornerRadius(12)
+            .shadow(color: Color.black.opacity(0.05), radius: 16, x: 0, y: 0)
+            .contentShape(Rectangle())
+            .onTapGesture {
+                viewModel.didTapTab(tabData)
+            }
+            .aspectRatio(3/4, contentMode: .fit)
+            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+            .accessibilityElement()
+            .accessibilityLabel(viewModel.getAccessibilityLabel(for: tab))
+            .accessibilityAddTraits(.isButton)
+            .accessibilityActions {
+                accessibilityAction(named: viewModel.localizedStrings.openTabAccessibility) {
+                    viewModel.didTapTab(tabData)
+                }
+
+                if viewModel.shouldShowCloseButton {
+                    accessibilityAction(named: viewModel.localizedStrings.closeTabAccessibility) {
+                        viewModel.closeTab(tab: tab)
+                    }
+                }
+            }
     }
+
     
     private func tabTitle(title: String) -> some View {
         Text(title)
