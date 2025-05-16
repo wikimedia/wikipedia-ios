@@ -685,15 +685,20 @@ public class CommonStrings: NSObject {
     public static let saveViewTempAccountNotice = WMFLocalizedString("save-view-temp-account-notice", value: "You are using a temporary account. Edits are being attributed to %1$@...", comment: "$1 is the temporary username for the temporary account notice.")
     public static let saveViewTempAccountWarning = WMFLocalizedString("save-view-temp-account-warning", value: "You are not logged in. Once you make an edit, a temporary account will be created for you to protect your privacy.", comment: "Warning that a temporary account will be created")
     public static let tempAccountPublishTitle = WMFLocalizedString("article-view-controller-editing-temp-account-created-title", value: "Temporary account created", comment: "After a user edits an article, creating an IP account, this pop-up title lets them know.")
-    
     // MARK: - Activity tab strings
-    public static let activityTitle = WMFLocalizedString("activity-tab-title", value: "Activity", comment: "Activity title")
+    public static let activityTabReadingHistory = WMFLocalizedString("activity-tab-read-title", value: "View reading history", comment: "Title for the reading history activity tab")
+
+    @objc public static let activityTitle = WMFLocalizedString("activity-tab-title", value: "Activity", comment: "Activity title")
     public static let activityTabLoggedOutTitle = WMFLocalizedString("activity-tab-logged-out-title", value: "Log in or create an account to see more editing and reading activity.", comment: "Title for activity tab when users are logged out.")
     public static let actitvityTabLoggedOutSubtitle = WMFLocalizedString("activity-tab-logged-out-subtitle", value: "Track what you’ve read and view your contributions over time in a new way", comment: "Subtitle for activity tab when users are logged out.")
     public static let activityTabViewReadingHistoryTitle = WMFLocalizedString("activity-tab-view-reading-history", value: "View reading history", comment: "Button title for users to view their reading history.")
     public static let activityTabViewSavedArticlesTitle = WMFLocalizedString("activity-tab-view-saved-articles", value: "View saved articles", comment: "Button title for users to view their saved articles.")
-    public static let activityTabNoEditsTitle = WMFLocalizedString("activity-tab-no-edits-title", value: "You haven’t made any edits yet.", comment: "Title for users that have not made any edits.")
-    public static let activityTabNoEditsSubtitle = WMFLocalizedString("activity-tab-no-edits-subtitle", value: "Start editing to begin tracking your contributions.", comment: "Subtitle for users that have not made any edits.")
+    public static let activityTabViewEditingTitle = WMFLocalizedString("activity-tab-view-editing-history", value: "View editing history", comment: "Button title for users to view their editing history.")
+    
+    public static let activityTabNoEditsAddImagesTitle = WMFLocalizedString("activity-tab-no-edits-title", value: "You haven't edited this week. Add images to enhance article understanding.", comment: "Title for users that have not made any edits.")
+    
+    public static let activityTabNoEditsGenericTitle = WMFLocalizedString("activity-tab-generic-no-edits", value: "You haven't edited this week. Start now to track your contributions.", comment: "Title for users that have not made any edits.")
+    
     public static let activityTabStartEditing = WMFLocalizedString("activity-tab-start-editing", value: "Start editing", comment: "Button title for users to begin editing.")
     public static func activityTabArticleReadNumber(amount: Int? = 0) -> String {
         let format = WMFLocalizedString("activity-tab-you-read", value: "You read {{PLURAL:%1$d|%1$d article|%1$d articles}} this week.", comment: "Displays how many articles the user read in the past week, $1 is the amount, returning the pluralized version of article depending.")
@@ -704,7 +709,7 @@ public class CommonStrings: NSObject {
         return String.localizedStringWithFormat(format, amount ?? 0)
     }
     public static func activityTabArticleEditedNumber(amount: Int? = 0) -> String {
-        let format = WMFLocalizedString("activity-tab-you-edited", value: "You edited {{PLURAL:%1$d|%1$d article|%1$d articles}} this week.", comment: "Displays how many articles the user edited in the past week, $1 is the amount, returning the pluralized version of article depending.")
+        let format = WMFLocalizedString("activity-tab-you-edited", value: "You edited {{PLURAL:%1$d|%1$d time|%1$d times}} this week.", comment: "Displays how many articles the user edited in the past week, $1 is the amount, returning the pluralized version of article depending.")
         return String.localizedStringWithFormat(format, amount ?? 0)
     }
     public static var activityTabAddImagesTitle = WMFLocalizedString("activity-tab-add-images-title", value: "Add images", comment: "Title for add images feature suggestion.")
@@ -717,6 +722,13 @@ public class CommonStrings: NSObject {
     public static var activityTabSurveyUnsatisfied = WMFLocalizedString("activity-tab-unsatisfied", value: "Unsatisfied", comment: "Satisfaction survey unsatisfied")
     public static var activityTabSurveyNeutral = WMFLocalizedString("activity-tab-neutral", value: "Neutral", comment: "Satisfaction survey neutral")
     public static var activityTabSurveyAdditionalThoughts = WMFLocalizedString("activity-tab-additional-thoughts", value: "Any additional thoughts?", comment: "Asking user if they have any comments")
+    
+    // MARK: - Article Tabs
+    public static let articleTabsOpenInNewTab = WMFLocalizedString("article-tabs-open-new-tab", value: "Open in new tab", comment: "Menu option button for opening an article in a new tab. Displayed upon long press of an article link.")
+    
+    public static let articleTabsOpenInBackgroundTab = WMFLocalizedString("article-tabs-open-background-tab", value: "Open in background tab", comment: "Menu option button for opening an article in a background tab. Displayed upon long press of an article link.")
+    
+    public static let articleTabsLimitToastFormat = WMFLocalizedString("article-tabs-max-reached", value: "Tab limit reached (%1$d). Please close one or more tabs.", comment: "Warning toast presented to users when they attempt to open a new tab after maximum tab number is reached. %1$d is replaced with the maximum number of tabs allowed.")
 }
 
 // Language variant strings

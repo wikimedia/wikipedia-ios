@@ -2,6 +2,52 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>activity-tab-you-edited</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Vous avez édité %#@v1@ cette semaine.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>other</key>
+			<string>%1$d fois</string>
+		</dict>
+	</dict>
+	<key>activity-tab-you-read</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Vous avez lu %#@v1@ cette semaine.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d article</string>
+			<key>other</key>
+			<string>%1$d articles</string>
+		</dict>
+	</dict>
+	<key>activity-tab-you-saved</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Vous avez enregistré %1$d article%#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string></string>
+			<key>other</key>
+			<string>s</string>
+		</dict>
+	</dict>
 	<key>add-articles-to-reading-list</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>

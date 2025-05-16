@@ -629,6 +629,7 @@
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 de la $2 Wikipedia";
 "on-this-day-title" = "Astăzi în istorie";
 "original-tab-button-popover-description" = "Atingeți „W” pentru a reveni la fila de la care ați început";
+// Fuzzy
 "page-history-bot-edits" = "modificări robot";
 "page-history-compare-accessibility-hint" = "Atingeți pentru a selecta două versiuni pentru a compara";
 "page-history-compare-title" = "Compară";

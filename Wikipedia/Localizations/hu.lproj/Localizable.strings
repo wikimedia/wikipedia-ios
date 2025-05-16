@@ -589,6 +589,7 @@
 "on-this-day-no-internet-error" = "Nincs elérhető adat";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 a(z) $2 Wikipédiáról";
 "on-this-day-title" = "Ezen a napon";
+// Fuzzy
 "page-history-bot-edits" = "bot szerkesztés";
 "page-history-compare-title" = "Összehasonlít";
 "page-history-graph-accessibility-label" = "Szerkesztések grafikus ábrázolása";

@@ -839,6 +839,7 @@
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 מתוך ויקיפדיה ב$2";
 "on-this-day-title" = "ביום הזה";
 "original-tab-button-popover-description" = "ניתן ללחוץ על 'W' כדי לחזור ללשונית שהתחלת ממנה";
+// Fuzzy
 "page-history-bot-edits" = "עריכות של בוטים";
 "page-history-compare-accessibility-hint" = "נא ללחוץ כדי לבחור שתי גרסאות להשוואה";
 "page-history-compare-title" = "השוואה";

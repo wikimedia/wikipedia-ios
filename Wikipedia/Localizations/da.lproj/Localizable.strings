@@ -14,6 +14,7 @@
 // Author: Rho
 // Author: Saederup92
 // Author: Sarrus
+// Author: Silas Nicolaisen
 // Author: Weblars
 
 "about-content-license" = "Indholdslicens";
@@ -86,6 +87,9 @@
 "action-unsave" = "Gem ikke";
 "action-unsaved-accessibility-notification" = "Artikel ikke længere gemt";
 "action-update" = "Opdater";
+"activity-tab-add-images-subtitle" = "Tilføj foreslåede billeder til Wikipedia-artikler for at forbedre forståelsen.";
+"activity-tab-add-images-title" = "Tilføj billeder";
+"activity-tab-additional-thoughts" = "Yderligere tanker?";
 "add-articles-to-reading-list" = "Tilføj {{PLURAL:$1|$1 artikel|$1 artikler}} til læselisten";
 "advanced-settings-title" = "Avancerede indstillinger";
 "alert-temporary-account" = "Du bruger en midlertidig konto. Kontoen udløber efter 90 dage.";
@@ -871,7 +875,7 @@
 "reading-list-login-or-create-account-title" = "Log ind for at synkronisere gemte artikler";
 "reading-list-login-subtitle" = "Log ind eller opret en konto så dine gemte artikler og læselister synkroniseres på tværs af enheder og gemmes i dine brugerpræferencer.";
 "reading-list-login-title" = "Synkroniser dine gemte artikler?";
-"reading-list-name-user-created-annotation" = "_[user created]";
+"reading-list-name-user-created-annotation" = "_[bruger oprettet]";
 "reading-list-new-list-description-placeholder" = "valgfri kort beskrivelse";
 "reading-list-new-list-name-placeholder" = "titel på læseliste";
 "reading-list-sync-disabled-panel-message" = "Synkronisering af læselister er blevet deaktiveret for din Wikipedia-konto på en anden enhed. Du kan slå synkronisering til igen ved at opdatere dine indstillinger.";
@@ -895,7 +899,7 @@
 "reading-lists-count" = "{{PLURAL:$1|$1 læseliste|$1 læselister}}";
 "reading-lists-default-list-description" = "Standardliste for dine gemte artikler";
 "reading-lists-default-list-title" = "Gemt";
-"reading-lists-delete-reading-list-alert-message" = "Denne handling kan ikke fortrydes. Enhver artikle gemt kun i {{PLURAL:$1|denne liste|disse lister}} vil ikke blive gemt.";
+"reading-lists-delete-reading-list-alert-message" = "Denne handling kan ikke fortrydes. Enhver artikel gemt kun i {{PLURAL:$1|denne liste|disse lister}} vil ikke blive gemt.";
 "reading-lists-delete-reading-list-alert-title" = "Slet {{PLURAL:$1|liste|lister}}?";
 "reading-lists-large-sync-completed" = "{{PLURAL:$1|$1 artikel|$1 artikler}} og {{PLURAL:$2| $2 læseliste| $2 læselister}} synkroniseret fra din konto";
 "reading-lists-list-not-synced-limit-exceeded" = "Listen er ikke synkroniseret, grænsen er overskredet";

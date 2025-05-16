@@ -111,7 +111,7 @@ class AccountViewController: SubSettingsViewController, WMFNavigationBarConfigur
     private func configureNavigationBar() {
         let titleConfig = WMFNavigationBarTitleConfig(title: CommonStrings.account, customView: nil, alignment: .centerCompact)
         
-        configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: nil, profileButtonConfig: nil, searchBarConfig: nil, hideNavigationBarOnScroll: false)
+        configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: nil, profileButtonConfig: nil, tabsButtonConfig: nil, searchBarConfig: nil, hideNavigationBarOnScroll: false)
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {

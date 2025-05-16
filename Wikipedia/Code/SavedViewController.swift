@@ -70,6 +70,13 @@ class SavedViewController: ThemeableViewController, WMFNavigationBarConfiguring,
         return existingYirCoordinator
     }
     
+    private var _tabsCoordinator: TabsOverviewCoordinator?
+    private var tabsCoordinator: TabsOverviewCoordinator? {
+        guard let navigationController, let dataStore else { return nil }
+        _tabsCoordinator = TabsOverviewCoordinator(navigationController: navigationController, theme: theme, dataStore: dataStore)
+        return _tabsCoordinator
+    }
+    
     private var _profileCoordinator: ProfileCoordinator?
     private var profileCoordinator: ProfileCoordinator? {
         
@@ -218,6 +225,8 @@ class SavedViewController: ThemeableViewController, WMFNavigationBarConfiguring,
             // reassign so activeEditableCollection gets reset
             currentView = .savedArticles
         }
+        
+        configureNavigationBar()
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
@@ -252,10 +261,13 @@ class SavedViewController: ThemeableViewController, WMFNavigationBarConfiguring,
         }
         
         let profileButtonConfig: WMFNavigationBarProfileButtonConfig?
+        let tabsButtonConfig: WMFNavigationBarTabsButtonConfig?
         if let dataStore {
-            profileButtonConfig = self.profileButtonConfig(target: self, action: #selector(userDidTapProfile), dataStore: dataStore, yirDataController: yirDataController, leadingBarButtonItem: moreBarButtonItem, trailingBarButtonItem: nil)
+            profileButtonConfig = self.profileButtonConfig(target: self, action: #selector(userDidTapProfile), dataStore: dataStore, yirDataController: yirDataController, leadingBarButtonItem: nil)
+            tabsButtonConfig = self.tabsButtonConfig(target: self, action: #selector(userDidTapTabs), dataStore: dataStore, leadingBarButtonItem: moreBarButtonItem)
         } else {
             profileButtonConfig = nil
+            tabsButtonConfig = nil
         }
         
         let allArticlesButtonTitle = WMFLocalizedString("saved-all-articles-title", value: "All articles", comment: "Title of the all articles button on Saved screen")
@@ -275,7 +287,11 @@ class SavedViewController: ThemeableViewController, WMFNavigationBarConfiguring,
             }
         }
 
-        configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: nil, profileButtonConfig: profileButtonConfig, searchBarConfig: searchConfig, hideNavigationBarOnScroll: hidesNavigationBarOnScroll)
+        configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: nil, profileButtonConfig: profileButtonConfig, tabsButtonConfig: tabsButtonConfig, searchBarConfig: searchConfig, hideNavigationBarOnScroll: hidesNavigationBarOnScroll)
+    }
+    
+    @objc func userDidTapTabs() {
+        _ = tabsCoordinator?.start()
     }
     
     @objc func userDidTapProfile() {
@@ -316,7 +332,7 @@ class SavedViewController: ThemeableViewController, WMFNavigationBarConfiguring,
             return
         }
         
-        let config = self.profileButtonConfig(target: self, action: #selector(userDidTapProfile), dataStore: dataStore, yirDataController: yirDataController, leadingBarButtonItem: nil, trailingBarButtonItem: moreBarButtonItem)
+        let config = self.profileButtonConfig(target: self, action: #selector(userDidTapProfile), dataStore: dataStore, yirDataController: yirDataController, leadingBarButtonItem: nil)
         updateNavigationBarProfileButton(needsBadge: config.needsBadge, needsBadgeLabel: CommonStrings.profileButtonBadgeTitle, noBadgeLabel: CommonStrings.profileButtonTitle)
     }
     
@@ -354,7 +370,7 @@ class SavedViewController: ThemeableViewController, WMFNavigationBarConfiguring,
         
         themeNavigationBarLeadingTitleView()
         themeTopSafeAreaOverlay()
-        
+
         if let rightBarButtonItems = navigationItem.rightBarButtonItems {
             for barButtonItem in rightBarButtonItems {
                 barButtonItem.tintColor = theme.colors.link

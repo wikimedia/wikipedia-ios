@@ -49,6 +49,14 @@
 "action-undo" = "واپس";
 "action-unsave" = "غیر محفوظ";
 "action-update" = "اپ ݙیٹ";
+"activity-tab-add-images-title" = "تصویراں شامل کرو";
+"activity-tab-neutral" = "غیر جانبدار";
+"activity-tab-satisfied" = "مطمئن";
+"activity-tab-title" = "سرگرمی";
+"activity-tab-unsatisfied" = "غیر مطمئن";
+"activity-tab-very-satisfied" = "ݙاڈھا تسلی بخش";
+"activity-tab-very-unsatisfied" = "ݙاڈھا تسلی بخش";
+"activity-tab-view-editing-history" = " تبدیلی دا تاریخچہ ݙیکھو";
 // Fuzzy
 "add-articles-to-reading-list" = "مطالعہ دی فہرست وچ $1 شامل کرو";
 "alt-text-feedback-survey-toast-title" = "فیڈبیک جمع تھی ڳئی";
@@ -167,6 +175,7 @@
 "field-alert-token-invalid" = "غلط کوڈ";
 "field-alert-username-unavailable" = "ورتݨ آلا ناں موجود کائنی";
 "field-backup-token-title" = "بیک اپ کوڈ";
+"field-backup-token-title-email" = "ای میل کوڈ";
 "field-captcha-placeholder" = "کیپچا عبارت";
 "field-email-placeholder" = "example@example.org";
 "field-email-title" = "ای میل";
@@ -319,13 +328,14 @@
 "on-this-day-detail-header-date-range" = " $1 توں - $2";
 "on-this-day-no-internet-error" = "کوئی ڈیٹا دستیاب کائنی";
 "on-this-day-title" = "ایں ݙینہ کوں";
-"page-history-bot-edits" = "ٻوٹ تبدیلیاں";
+"page-history-bot-edits" = "بوٹ";
 "page-history-minor-edits" = "معمولی تبدیلیاں";
 "page-history-revision-author-accessibility-label" = "مصنف: $1";
 "page-history-revision-comment-accessibility-label" = "تبصرہ $1";
 "page-history-revision-history-title" = "دہرائی دا ریکارڈ";
 "page-history-revision-minor-edit-accessibility-label" = "معمولی تبدیلی";
 "page-history-revision-size-diff-addition" = "({{PLURAL:$1|1 بائٹ|$1 بائٹاں}}) شامل تھئے";
+"page-history-unregistered-edits" = "اݨ رجسٹرڈ";
 "page-issues" = "ورقے دے مسئلے";
 "page-location" = "نقشے تے ݙیکھو";
 "page-similar-titles" = "ہکوجہے ورقے";

@@ -376,6 +376,7 @@
 "on-this-day-footer" = "ڕووداوی مێژوویی زیاتر لەمڕۆدا";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 لە ویکیپیدیای $2";
 "on-this-day-title" = "لەم ڕۆژەدا";
+// Fuzzy
 "page-history-bot-edits" = "دەستکارییەکانی بۆت";
 "page-history-revision-history-title" = "مێژووی پێداچوونەوە";
 "page-protected-can-not-edit" = "تۆ مەفەکانی دەستکاریکردنی ئەم پەڕەیەت نییە.";

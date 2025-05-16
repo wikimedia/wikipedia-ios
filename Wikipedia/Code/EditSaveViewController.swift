@@ -301,7 +301,7 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
 
     private func configureNavigationBar() {
         let titleConfig = WMFNavigationBarTitleConfig(title: WMFLocalizedString("wikitext-preview-save-changes-title", value: "Save changes", comment: "Title for edit preview screens"), customView: nil, alignment: .centerCompact)
-        configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: nil, profileButtonConfig: nil, searchBarConfig: nil, hideNavigationBarOnScroll: false)
+        configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: nil, profileButtonConfig: nil, tabsButtonConfig: nil, searchBarConfig: nil, hideNavigationBarOnScroll: false)
     }
 
     func setupSemanticContentAttibute() {
@@ -363,12 +363,15 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
     private func fetchWatchlistStatusAndUpdateToggle() {
         guard let siteURL = pageURL?.wmf_site,
            let project = WikimediaProject(siteURL: siteURL)?.wmfProject,
-            let title = pageURL?.wmf_title else {
+            let title = pageURL?.wmf_title,
+            let dataStore = dataStore,
+        let request = try? WMFArticleDataController.ArticleInfoRequest(needsWatchedStatus: dataStore.authenticationManager.authStateIsPermanent, needsRollbackRights: false, needsCategories: false) else {
             return
         }
         
-        let dataController = WMFWatchlistDataController()
-        dataController.fetchWatchStatus(title: title, project: project) { [weak self] result in
+        let dataController = WMFArticleDataController()
+
+        dataController.fetchArticleInfo(title: title, project: project, request: request) { [weak self] result in
             DispatchQueue.main.async {
                 switch result {
                 case .success(let status):

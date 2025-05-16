@@ -71,8 +71,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func scheduleDatabaseHousekeeperTask() {
-        let databaseHousekeeperTask = BGAppRefreshTaskRequest(identifier: Self.backgroundDatabaseHousekeeperTaskIdentifier)
+        let databaseHousekeeperTask = BGProcessingTaskRequest(identifier: Self.backgroundDatabaseHousekeeperTaskIdentifier)
         databaseHousekeeperTask.earliestBeginDate = nil // Docs indicate nil = no start delay.
+        databaseHousekeeperTask.requiresNetworkConnectivity = false
         do {
             try BGTaskScheduler.shared.submit(databaseHousekeeperTask)
         } catch {

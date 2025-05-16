@@ -10,6 +10,7 @@
 // Author: Cristofer Alves
 // Author: Dianakc
 // Author: Duke of Wikipädia
+// Author: EGobi
 // Author: Eduardo Addad de Oliveira
 // Author: Eduardoaddad
 // Author: Fasouzafreitas
@@ -770,6 +771,7 @@
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 a partir de $2 Wikipedia";
 "on-this-day-title" = "Neste dia";
 "original-tab-button-popover-description" = "Toque no 'W' para voltar a a guia onde começou";
+// Fuzzy
 "page-history-bot-edits" = "edições de robô";
 "page-history-compare-accessibility-hint" = "Toque para selecionar duas revisões para comparar";
 "page-history-compare-title" = "Comparar";

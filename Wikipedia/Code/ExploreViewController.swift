@@ -17,6 +17,13 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         return try? WMFYearInReviewDataController()
     }
 
+    private var _tabsCoordinator: TabsOverviewCoordinator?
+    private var tabsCoordinator: TabsOverviewCoordinator? {
+        guard let navigationController else { return nil }
+        _tabsCoordinator = TabsOverviewCoordinator(navigationController: navigationController, theme: theme, dataStore: dataStore)
+        return _tabsCoordinator
+    }
+    
     // Coordinator
     private var _profileCoordinator: ProfileCoordinator?
     private var profileCoordinator: ProfileCoordinator? {
@@ -71,6 +78,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         NotificationCenter.default.addObserver(self, selector: #selector(viewContextDidReset(_:)), name: NSNotification.Name.WMFViewContextDidReset, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(databaseHousekeeperDidComplete), name: .databaseHousekeeperDidComplete, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(applicationDidBecomeActive), name: UIApplication.didBecomeActiveNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(coreDataStoreSetup), name: WMFNSNotification.coreDataStoreSetup, object: nil)
         
         setupTopSafeAreaOverlay(scrollView: collectionView)
     }
@@ -187,7 +195,9 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
             }
         }
         
-        let profileButtonConfig = profileButtonConfig(target: self, action: #selector(userDidTapProfile), dataStore: dataStore, yirDataController: yirDataController, leadingBarButtonItem: nil, trailingBarButtonItem: nil)
+        let profileButtonConfig = profileButtonConfig(target: self, action: #selector(userDidTapProfile), dataStore: dataStore, yirDataController: yirDataController,  leadingBarButtonItem: nil)
+        
+        let tabsButtonConfig = tabsButtonConfig(target: self, action: #selector(userDidTapTabs), dataStore: dataStore)
         
         let searchViewController = SearchViewController(source: .topOfFeed, customArticleCoordinatorNavigationController: navigationController)
         searchViewController.dataStore = dataStore
@@ -210,15 +220,19 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
             showsScopeBar: false, scopeButtonTitles: nil)
         
 
-        configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: nil, profileButtonConfig: profileButtonConfig, searchBarConfig: searchConfig, hideNavigationBarOnScroll: !presentingSearchResults)
+        configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: nil, profileButtonConfig: profileButtonConfig, tabsButtonConfig: tabsButtonConfig, searchBarConfig: searchConfig, hideNavigationBarOnScroll: !presentingSearchResults)
         
         // Need to override this so that "" does not appear as back button title.
         navigationItem.backButtonTitle = CommonStrings.exploreTabTitle
     }
     
     @objc func updateProfileButton() {
-        let config = self.profileButtonConfig(target: self, action: #selector(userDidTapProfile), dataStore: dataStore, yirDataController: yirDataController, leadingBarButtonItem: nil, trailingBarButtonItem: nil)
+        let config = self.profileButtonConfig(target: self, action: #selector(userDidTapProfile), dataStore: dataStore, yirDataController: yirDataController, leadingBarButtonItem: nil)
         updateNavigationBarProfileButton(needsBadge: config.needsBadge, needsBadgeLabel: CommonStrings.profileButtonBadgeTitle, noBadgeLabel: CommonStrings.profileButtonTitle)
+    }
+    
+    @objc func userDidTapTabs() {
+        _ = tabsCoordinator?.start()
     }
     
     @objc func scrollToTop() {
@@ -1336,6 +1350,10 @@ extension ExploreViewController {
     
     @objc func applicationDidBecomeActive() {
         presentModalsIfNeeded()
+    }
+    
+    @objc func coreDataStoreSetup() {
+        configureNavigationBar()
     }
 }
 

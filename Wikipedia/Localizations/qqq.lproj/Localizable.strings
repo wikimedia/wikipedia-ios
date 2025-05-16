@@ -71,11 +71,13 @@
 "activity-tab-add-images-subtitle" = "Subtitle for add images feature.";
 "activity-tab-add-images-title" = "Title for add images feature suggestion.";
 "activity-tab-additional-thoughts" = "Asking user if they have any comments";
+"activity-tab-generic-no-edits" = "Title for users that have not made any edits.";
+"activity-tab-greeting" = "$1 is opening bold, $2 is the username, $3 is closing bold.";
 "activity-tab-logged-out-subtitle" = "Subtitle for activity tab when users are logged out.";
 "activity-tab-logged-out-title" = "Title for activity tab when users are logged out.";
 "activity-tab-neutral" = "Satisfaction survey neutral";
-"activity-tab-no-edits-subtitle" = "Subtitle for users that have not made any edits.";
 "activity-tab-no-edits-title" = "Title for users that have not made any edits.";
+"activity-tab-read-title" = "Title for the reading history activity tab";
 "activity-tab-satisfied" = "Satisfaction survey satisfied";
 "activity-tab-start-editing" = "Button title for users to begin editing.";
 "activity-tab-survey" = "Survey title for the activity tab";
@@ -84,6 +86,7 @@
 "activity-tab-unsatisfied" = "Satisfaction survey unsatisfied";
 "activity-tab-very-satisfied" = "Satisfaction survey very satisfied";
 "activity-tab-very-unsatisfied" = "Satisfaction survey very unsatisfied";
+"activity-tab-view-editing-history" = "Button title for users to view their editing history.";
 "activity-tab-view-reading-history" = "Button title for users to view their reading history.";
 "activity-tab-view-saved-articles" = "Button title for users to view their saved articles.";
 "activity-tab-you-edited" = "Displays how many articles the user edited in the past week, $1 is the amount, returning the pluralized version of article depending.";
@@ -120,6 +123,9 @@
 "article-revision-history" = "Title for menu option that leads to article revision history.";
 "article-save-error-not-enough-space" = "Alert message informing user that article cannot be save due to insufficient storage available";
 "article-share" = "Text of the article list row action shown on swipe which allows the user to choose the sharing option";
+"article-tabs-max-reached" = "Warning toast presented to users when they attempt to open a new tab after maximum tab number is reached. $1 is replaced with the maximum number of tabs allowed.";
+"article-tabs-open-background-tab" = "Menu option button for opening an article in a background tab. Displayed upon long press of an article link.";
+"article-tabs-open-new-tab" = "Menu option button for opening an article in a new tab. Displayed upon long press of an article link.";
 "article-talk-page" = "Title for article talk page button";
 "article-toolbar-reading-themes-controls-toolbar-item" = "Accessibility label for the Reading Themes Controls article toolbar item";
 "article-view-controller-editing-temp-account-created-subtitle" = "More information on the creation of temporary accounts, $1 replaces their username.";
@@ -194,6 +200,10 @@
 "description-welcome-start-editing-button" = "Text for button for dismissing description editing welcome screens";
 "developer-force-email-auth" = "Title for option to force email auth in developer settings menu.";
 "developer-settings" = "Title for developer settings view.";
+"developer-settings-activity-tab-group-A" = "Title for option to set activity tab experiment to group A";
+"developer-settings-activity-tab-group-B" = "Title for option to set activity tab experiment to group B";
+"developer-settings-activity-tab-group-C" = "Title for option to set activity tab experiment to group C";
+"developer-settings-activity-tabs" = "Title for option to enable activity tabs";
 "developer-settings-bypass-donation" = "Title for option to bypass a donation in developer settings menu.";
 "developer-settings-enable-year-in-review" = "Title for enabling the Year in Review feature. Displayed on the developer settings view.";
 "developer-settings-send-analytics-to-wmflabs" = "Title for setting to send analytics to a different backend. Displayed on the developer settings view.";
@@ -1137,6 +1147,11 @@
 "table-of-contents-heading" = "Header text appearing above the first section in the table of contents {{Identical|Content}}";
 "table-of-contents-hide-button-label" = "Accessibility label for the hide Table of Contents button";
 "table-of-contents-subheading-label" = "VoiceOver label to indicate level of subheading in table of contents. $1 is replaced by the level of subheading.";
+"tabs-close-tab" = "Accessibility label for close tab button";
+"tabs-main-page-description" = "Main page description";
+"tabs-main-page-subtitle" = "Main page subtitle";
+"tabs-navbar-title-format" = "$1 is the amount of tabs. Navigation title for tabs, displaying how many open tabs.";
+"tabs-open-tab" = "Accessibility label for opening a tab";
 "tachelhit-variants-alert-body" = "Body text of alert used to inform users about Tachelhit variant support. Please do not translate the newlines (\n) or Tachelhit characters (ⵜⴰⵛⵍⵃⵉⵜ, etc.).";
 "tachelhit-variants-alert-title" = "Title of alert used to inform users about Tachelhit variant support.";
 "tajik-variants-alert-body" = "Body text of alert used to inform users about Tajik variant support. Please do not translate the newlines (\n) or Tajik characters (тоҷикӣ кирилликӣ, etc.).";

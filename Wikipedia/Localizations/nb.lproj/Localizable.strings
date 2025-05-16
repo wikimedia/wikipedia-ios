@@ -186,6 +186,7 @@
 "description-welcome-descriptions-title" = "Artikkelbeskrivelser";
 "description-welcome-promise-title" = "Gjennom å starte lover jeg å ikke misbruke denne funksjonen";
 "description-welcome-start-editing-button" = "Begynn å redigere";
+"developer-settings-activity-tabs" = "Aktiver aktivitetsfaner";
 "diff-article-revision-history" = "Artikkelsideversjonshistorikk";
 "diff-change-added" = "Tillegg, $1, slutt på tillegg.";
 "diff-change-paragraph-lines-moved-down" = "Avsnitt flyttet $1 {{PLURAL:$1|linje|linjer}} ned. Gå til den nye plasseringen.";
@@ -806,6 +807,7 @@
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 fra Wikipedia på $2";
 "on-this-day-title" = "På denne dag";
 "original-tab-button-popover-description" = "Trykk på «W» for å gå tilbake til fanen du startet fra";
+// Fuzzy
 "page-history-bot-edits" = "botredigeringer";
 "page-history-compare-accessibility-hint" = "Trykk for å velge to revisjoner å sammenligne";
 "page-history-compare-title" = "Sammenlign";

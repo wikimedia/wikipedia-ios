@@ -1,5 +1,6 @@
 // Messages for Serbian (Latin script) (srpski (latinica))
 // Exported from translatewiki.net
+// Author: Aca
 // Author: BadDog
 // Author: Kizule
 // Author: McDutchie
@@ -646,6 +647,7 @@
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 sa $2 Vikipedije";
 "on-this-day-title" = "Na današnji dan";
 "original-tab-button-popover-description" = "Dodirnite „W” da biste se vratili na početnu karticu";
+// Fuzzy
 "page-history-bot-edits" = "botovske izmene";
 "page-history-compare-accessibility-hint" = "Dodirnite kako biste izabrali dve izmene za upoređivanje";
 "page-history-compare-title" = "Poređenje";

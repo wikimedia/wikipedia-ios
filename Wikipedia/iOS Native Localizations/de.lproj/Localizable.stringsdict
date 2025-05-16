@@ -618,5 +618,93 @@
 			<string>%1$d Antworten</string>
 		</dict>
 	</dict>
+	<key>year-in-review-personalized-editing-subtitle-format</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Du hast Wikipedia %#@v1@ bearbeitet. Vielen Dank, dass du einer der freiwilligen Editoren bist, die bei Wikimedia-Projekten auf der ganzen Welt etwas bewirken.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>einmal</string>
+			<key>other</key>
+			<string>%1$d mal</string>
+		</dict>
+	</dict>
+	<key>year-in-review-personalized-editing-title-format</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Du hast Wikipedia %#@v1@ bearbeitet</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>einmal</string>
+			<key>other</key>
+			<string>%1$d mal</string>
+		</dict>
+	</dict>
+	<key>year-in-review-personalized-reading-subtitle-format</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Dieses Jahr hast du %#@v1@ gelesen. Bei Wikipedia sind %2$@ Millionen Artikel in über %3$@ aktiven Sprachen verfügbar. Du hast dich Millionen von Menschen angeschlossen, die ihr Wissen erweitern und verschiedene Themen erforschen wollen.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>other</key>
+			<string>%1$d Artikel</string>
+		</dict>
+	</dict>
+	<key>year-in-review-personalized-reading-title-format</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Du hast dieses Jahr %#@v1@ gelesen</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>other</key>
+			<string>%1$d Artikel</string>
+		</dict>
+	</dict>
+	<key>year-in-review-personalized-saved-subtitle-format</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Du hast dieses Jahr %#@v1@ gespeichert, darunter %2$@, %3$@, und %4$@. Jeder gespeicherte Artikel spiegelt deine Interessen wider und hilft dabei, eine personalisierte Wissensbasis auf Wikipedia aufzubauen.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>other</key>
+			<string>%1$d Artikel</string>
+		</dict>
+	</dict>
+	<key>year-in-review-personalized-saved-title-format</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Du hast %#@v1@ gespeichert</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>other</key>
+			<string>%1$d Artikel</string>
+		</dict>
+	</dict>
 </dict>
 </plist>

@@ -185,7 +185,7 @@ final class NotificationsCenterViewController: ThemeableViewController, WMFNavig
         
         let titleConfig = WMFNavigationBarTitleConfig(title: CommonStrings.notificationsCenterTitle, customView: nil, alignment: .centerCompact)
         
-        configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: nil, profileButtonConfig: nil, searchBarConfig: nil, hideNavigationBarOnScroll: false)
+        configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: nil, profileButtonConfig: nil, tabsButtonConfig: nil, searchBarConfig: nil, hideNavigationBarOnScroll: false)
         
         navigationItem.rightBarButtonItem = editButtonItem
         isEditing = false

@@ -3,7 +3,7 @@ import Foundation
 public struct WikipediaURLTranslations {
     private static var sharedLookupTable: [String: WikipediaSiteInfoLookup.NamespaceInfo] = [:]
 
-    private static func lookupTable(for languageCode: String) -> WikipediaSiteInfoLookup.NamespaceInfo? {
+    public static func lookupTable(for languageCode: String) -> WikipediaSiteInfoLookup.NamespaceInfo? {
         var lookup = sharedLookupTable[languageCode]
         if lookup == nil {
             lookup = fromFile(with: languageCode)

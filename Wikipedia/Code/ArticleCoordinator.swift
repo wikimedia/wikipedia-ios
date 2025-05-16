@@ -1,35 +1,163 @@
 import WMF
+import WMFData
+import WMFComponents
+import CocoaLumberjackSwift
 
-final class ArticleCoordinator: Coordinator {
+enum ArticleTabConfig {
+    case appendArticleAndAssignCurrentTab // Default navigation
+    case appendArticleAndAssignNewTabAndSetToCurrent // Open in new tab long press
+    case assignParticularTabAndSetToCurrent(WMFArticleTabsDataController.Identifiers) // Tapping tab from tabs overview
+    case assignNewTabAndSetToCurrent // Tapping add tab from tabs overview
+ }
+
+protocol ArticleTabCoordinating: AnyObject {
+    func trackArticleTab(articleViewController: ArticleViewController)
+    func syncTabsOnArticleAppearance()
+    var articleURL: URL? { get }
+    var tabConfig: ArticleTabConfig { get }
+    var tabIdentifier: UUID? { get set }
+    var tabItemIdentifier: UUID? { get set }
+}
+
+extension ArticleTabCoordinating {
+    
+    func trackArticleTab(articleViewController: ArticleViewController) {
+        
+        articleViewController.coordinator = self
+        
+        guard let tabsDataController = WMFArticleTabsDataController.shared else {
+            return
+        }
+        
+        guard tabsDataController.shouldShowArticleTabs else {
+            return
+        }
+        
+        // Handle Article Tabs
+        Task {
+            guard let title = articleURL?.wmf_title,
+                  let siteURL = articleURL?.wmf_site,
+                  let wmfProject = WikimediaProject(siteURL: siteURL)?.wmfProject else {
+                return
+            }
+
+            let article = WMFArticleTabsDataController.WMFArticle(identifier: nil, title: title, project: wmfProject)
+            do {
+                
+                // If current tabs count is at 500, do not create any new tabs. Instead append article to current tab.
+                var tabConfig = self.tabConfig
+                switch tabConfig {
+                case .assignNewTabAndSetToCurrent, .appendArticleAndAssignNewTabAndSetToCurrent:
+                    let tabsCount = try await tabsDataController.tabsCount()
+                    let tabsMax = tabsDataController.tabsMax
+                    if tabsCount >= tabsMax {
+                        tabConfig = .appendArticleAndAssignCurrentTab
+                        
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                            WMFAlertManager.sharedInstance.showBottomWarningAlertWithMessage(String.localizedStringWithFormat(CommonStrings.articleTabsLimitToastFormat, tabsMax), subtitle: nil,  buttonTitle: nil, image: WMFSFSymbolIcon.for(symbol: .exclamationMarkTriangleFill), dismissPreviousAlerts: true)
+                        }
+                    }
+                default:
+                    break
+                }
+                
+                switch tabConfig {
+                case .appendArticleAndAssignCurrentTab:
+                    let tabIdentifier = try await tabsDataController.currentTabIdentifier()
+                    let identifiers = try await tabsDataController.appendArticle(article, toTabIdentifier: tabIdentifier)
+                    self.tabIdentifier = identifiers.tabIdentifier
+                    self.tabItemIdentifier = identifiers.tabItemIdentifier
+                case .appendArticleAndAssignNewTabAndSetToCurrent:
+                    let identifiers = try await tabsDataController.createArticleTab(initialArticle: article, setAsCurrent: true)
+                    self.tabIdentifier = identifiers.tabIdentifier
+                    self.tabItemIdentifier = identifiers.tabItemIdentifier
+                case .assignParticularTabAndSetToCurrent(let identifiers):
+                    try await tabsDataController.setTabAsCurrent(tabIdentifier: identifiers.tabIdentifier)
+                    self.tabIdentifier = identifiers.tabIdentifier
+                    self.tabItemIdentifier = identifiers.tabItemIdentifier
+                case .assignNewTabAndSetToCurrent:
+                    let identifiers = try await tabsDataController.createArticleTab(initialArticle: nil, setAsCurrent: true)
+                    self.tabIdentifier = identifiers.tabIdentifier
+                    self.tabItemIdentifier = identifiers.tabItemIdentifier
+                }
+            } catch {
+                DDLogError("Failed to handle tab configuration: \(error)")
+            }
+        }
+    }
+    
+    // Cleanup needed when tapping Back button
+    func syncTabsOnArticleAppearance() {
+        guard let tabsDataController = WMFArticleTabsDataController.shared else {
+            return
+        }
+        
+        guard tabsDataController.shouldShowArticleTabs else {
+            return
+        }
+        
+        guard let tabIdentifier,
+              let tabItemIdentifier else {
+            return
+        }
+        
+        Task {
+            try await tabsDataController.setTabItemAsCurrent(tabIdentifier: tabIdentifier, tabItemIdentifier: tabItemIdentifier)
+            try await tabsDataController.deleteEmptyTabs()
+        }
+    }
+}
+
+final class ArticleCoordinator: NSObject, Coordinator, ArticleTabCoordinating {
     let navigationController: UINavigationController
-    private(set) var articleURL: URL
+    private(set) var articleURL: URL?
     private let dataStore: MWKDataStore
     var theme: Theme
+    private let needsAnimation: Bool
+    
     private let source: ArticleSource
     private let isRestoringState: Bool
+    private let previousPageViewObjectID: NSManagedObjectID?
     
-    init(navigationController: UINavigationController, articleURL: URL, dataStore: MWKDataStore, theme: Theme, source: ArticleSource, isRestoringState: Bool = false) {
+    // Article Tabs Properties
+    let tabConfig: ArticleTabConfig
+    var tabIdentifier: UUID?
+    var tabItemIdentifier: UUID?
+    
+    init(navigationController: UINavigationController, articleURL: URL, dataStore: MWKDataStore, theme: Theme, needsAnimation: Bool = true, source: ArticleSource, isRestoringState: Bool = false, previousPageViewObjectID: NSManagedObjectID? = nil, tabConfig: ArticleTabConfig = .appendArticleAndAssignCurrentTab) {
         self.navigationController = navigationController
         self.articleURL = articleURL
         self.dataStore = dataStore
         self.theme = theme
+        self.needsAnimation = needsAnimation
         self.source = source
         self.isRestoringState = isRestoringState
+        self.previousPageViewObjectID = previousPageViewObjectID
+        self.tabConfig = tabConfig
+        super.init()
     }
     
     @discardableResult
     func start() -> Bool {
         
-        // assign language variant code if needed (taken from AppVC's processUserActivity method)
-        if articleURL.wmf_languageVariantCode == nil {
-            articleURL.wmf_languageVariantCode = dataStore.languageLinkController .swiftCompatiblePreferredLanguageVariantCodeForLanguageCode(articleURL.wmf_languageCode)
+        guard let articleURL else {
+            return false
         }
         
-        guard let articleVC = ArticleViewController(articleURL: articleURL, dataStore: dataStore, theme: theme, source: source) else {
+        // assign language variant code if needed (taken from AppVC's processUserActivity method)
+        if articleURL.wmf_languageVariantCode == nil {
+            self.articleURL?.wmf_languageVariantCode = dataStore.languageLinkController .swiftCompatiblePreferredLanguageVariantCodeForLanguageCode(articleURL.wmf_languageCode)
+        }
+        
+        guard let articleVC = ArticleViewController(articleURL: articleURL, dataStore: dataStore, theme: theme, source: source, previousPageViewObjectID: previousPageViewObjectID) else {
             return false
         }
         articleVC.isRestoringState = isRestoringState
-        navigationController.pushViewController(articleVC, animated: true)
+        
+        trackArticleTab(articleViewController: articleVC)
+        
+        navigationController.pushViewController(articleVC, animated: needsAnimation)
+        
         return true
     }
 }

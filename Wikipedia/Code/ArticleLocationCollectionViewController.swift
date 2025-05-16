@@ -64,7 +64,7 @@ class ArticleLocationCollectionViewController: ColumnarCollectionViewController,
     private func configureNavigationBar() {
         let titleConfig = WMFNavigationBarTitleConfig(title: "", customView: nil, alignment: .hidden)
         
-        configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: nil, profileButtonConfig: nil, searchBarConfig: nil, hideNavigationBarOnScroll: false)
+        configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: nil, profileButtonConfig: nil, tabsButtonConfig: nil, searchBarConfig: nil, hideNavigationBarOnScroll: false)
     }
     
     override func viewDidDisappear(_ animated: Bool) {

@@ -434,6 +434,7 @@
 "on-this-day-no-internet-error" = "N'eus ket roadennoù da gaout";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 er Wikipedia $2";
 "on-this-day-title" = "D'an deiz-mañ...";
+// Fuzzy
 "page-history-bot-edits" = "kemmoù gant robotoù";
 "page-history-compare-title" = "Keñveriañ";
 "page-history-minor-edits" = "kemmoù dister";

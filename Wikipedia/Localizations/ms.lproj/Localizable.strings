@@ -504,6 +504,7 @@
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 dari Wikipedia $2";
 "on-this-day-title" = "Pada hari ini";
 "original-tab-button-popover-description" = "Ketik pada 'W' untuk kembali ke tab yang anda bermula";
+// Fuzzy
 "page-history-bot-edits" = "suntingan bot";
 "page-history-compare-title" = "Bandingkan";
 "page-history-minor-edits" = "suntingan kecil";
