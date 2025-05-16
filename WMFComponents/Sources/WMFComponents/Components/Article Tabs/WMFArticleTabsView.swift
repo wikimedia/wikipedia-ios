@@ -22,14 +22,16 @@ public struct WMFArticleTabsView: View {
             let gridItem = GridItem(.flexible())
             
             ScrollView {
-                LazyVGrid(columns: Array(repeating: gridItem, count: columns), spacing: 12) {
+                LazyVGrid(columns: Array(repeating: gridItem, count: columns), spacing: 18) {
 
                     ForEach(viewModel.articleTabs.sorted(by: { $0.dateCreated < $1.dateCreated })) { tab in
                         if tab.isMain {
                             tabCardView(content: mainPageTabContent(tab: tab), tabData: tab.data, tab: tab)
+                                .padding(.horizontal, 9)
                             
                         } else {
                             tabCardView(content: standardTabContent(tab: tab), tabData: tab.data, tab: tab)
+                                .padding(.horizontal, 9)
                         }
                     }
                     
@@ -63,11 +65,13 @@ public struct WMFArticleTabsView: View {
                             .frame(width: geo.size.width, height: 95, alignment: .center)
                     }
                 }
+                .padding(.bottom, 0)
 
                 if viewModel.shouldShowCloseButton {
                     WMFCloseButton(action: {
                         viewModel.closeTab(tab: tab)
                     })
+                    .accessibilityHidden(true)
                     .padding([.horizontal, .top], 12)
                     .contentShape(Rectangle())
                     .frame(minWidth: 44, minHeight: 44)
@@ -128,6 +132,7 @@ public struct WMFArticleTabsView: View {
                     WMFCloseButton(action: {
                         viewModel.closeTab(tab: tab)
                     })
+                    .accessibilityHidden(true)
                     .padding([.horizontal, .top], 12)
                     .contentShape(Rectangle())
                     .frame(minWidth: 44, minHeight: 44)
@@ -162,7 +167,6 @@ public struct WMFArticleTabsView: View {
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
             .accessibilityElement(children: .combine)
             .accessibilityLabel(viewModel.getAccessibilityLabel(for: tab))
-            .accessibilityAddTraits(.isButton)
             .accessibilityActions {
                 accessibilityAction(named: viewModel.localizedStrings.openTabAccessibility) {
                     viewModel.didTapTab(tabData)
