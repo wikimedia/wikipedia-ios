@@ -1465,6 +1465,7 @@ extension WMFAppViewController: EditPreviewViewControllerLoggingDelegate {
      
      @objc func observeArticleTabsNSNotifications() {
               NotificationCenter.default.addObserver(self, selector: #selector(articleTabDeleted(_:)), name: WMFNSNotification.articleTabDeleted, object: nil)
+         NotificationCenter.default.addObserver(self, selector: #selector(articleTabItemDeleted(_:)), name: WMFNSNotification.articleTabItemDeleted, object: nil)
           }
           
       @objc func articleTabDeleted(_ note: Notification) {
@@ -1475,13 +1476,37 @@ extension WMFAppViewController: EditPreviewViewControllerLoggingDelegate {
           }
           
           DispatchQueue.main.async {
-              self.removeArticlesForDeletedTab(tabIdentifier)
+              self.removeArticlesForDeletedTabParts(tabIdentifier: tabIdentifier)
           }
       }
+     
+     @objc func articleTabItemDeleted(_ note: Notification) {
+         guard
+            let tabItemIdentifier = note.userInfo?[WMFNSNotification.UserInfoKey.articleTabItemIdentifier] as? UUID
+         else {
+             return
+         }
+         
+         DispatchQueue.main.async {
+             self.removeArticlesForDeletedTabParts(tabItemIdentifier: tabItemIdentifier)
+         }
+     }
+     
+     func removeArticlesForDeletedTabParts(tabIdentifier: UUID? = nil, tabItemIdentifier: UUID? = nil) {
+         if let tabIdentifier {
+             tabIdentifiersToDelete.add(tabIdentifier)
+         }
+         
+         if let tabItemIdentifier {
+             tabItemIdentifiersToDelete.add(tabItemIdentifier)
+         }
+         
+         NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(debounceRemoveArticlesForDeletedTabParts), object: nil)
+         perform(#selector(debounceRemoveArticlesForDeletedTabParts), with: nil, afterDelay: 0.5)
+     }
       
-      /// Removes any articles from the navigation stack that belong to the deleted tab
-      /// - Parameter tabIdentifier: The identifier of the deleted tab
-      func removeArticlesForDeletedTab(_ tabIdentifier: UUID) {
+      /// Removes any articles from the navigation stack that belong to the deleted tab or a deleted article
+     @objc func debounceRemoveArticlesForDeletedTabParts() {
           
           guard let viewControllers else {
               return
@@ -1499,12 +1524,15 @@ extension WMFAppViewController: EditPreviewViewControllerLoggingDelegate {
               
               // Filter out any ArticleViewControllers that belong to the deleted tab
               let remainingViewControllers = viewControllers.filter { viewController in
-                  guard let articleViewController = viewController as? ArticleViewController,
+                  if let articleViewController = viewController as? ArticleViewController,
                         let coordinator = articleViewController.coordinator,
-                        coordinator.tabIdentifier == tabIdentifier else {
-                      return true // Keep this view controller
+                        let tabIdentifier = coordinator.tabIdentifier,
+                        let tabItemIdentifier = coordinator.tabItemIdentifier,
+                        tabIdentifiersToDelete.contains(tabIdentifier) || tabItemIdentifiersToDelete.contains(tabItemIdentifier) {
+                      return false // Remove this view controller
                   }
-                  return false // Remove this view controller
+                  
+                  return true // Keep this view controller
               }
               
               // Update the navigation stack if we removed any view controllers
@@ -1512,5 +1540,8 @@ extension WMFAppViewController: EditPreviewViewControllerLoggingDelegate {
                   navigationController.setViewControllers(remainingViewControllers, animated: false)
               }
           }
+         
+         tabIdentifiersToDelete.removeAllObjects()
+         tabItemIdentifiersToDelete.removeAllObjects()
       }
  }

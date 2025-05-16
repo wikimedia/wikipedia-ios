@@ -5,6 +5,7 @@ import CocoaLumberjackSwift
 
 enum ArticleTabConfig {
     case appendArticleAndAssignCurrentTab // Default navigation
+    case appendArticleAndAssignCurrentTabAndCleanoutFutureArticles // Navigating from article blue link or article search
     case appendArticleAndAssignNewTabAndSetToCurrent // Open in new tab long press
     case assignParticularTabAndSetToCurrent(WMFArticleTabsDataController.Identifiers) // Tapping tab from tabs overview
     case assignNewTabAndSetToCurrent // Tapping add tab from tabs overview
@@ -63,6 +64,11 @@ extension ArticleTabCoordinating {
                 }
                 
                 switch tabConfig {
+                case .appendArticleAndAssignCurrentTabAndCleanoutFutureArticles:
+                    let tabIdentifier = try await tabsDataController.currentTabIdentifier()
+                    let identifiers = try await tabsDataController.appendArticle(article, toTabIdentifier: tabIdentifier, needsCleanoutOfFutureArticles: true)
+                    self.tabIdentifier = identifiers.tabIdentifier
+                    self.tabItemIdentifier = identifiers.tabItemIdentifier
                 case .appendArticleAndAssignCurrentTab:
                     let tabIdentifier = try await tabsDataController.currentTabIdentifier()
                     let identifiers = try await tabsDataController.appendArticle(article, toTabIdentifier: tabIdentifier)

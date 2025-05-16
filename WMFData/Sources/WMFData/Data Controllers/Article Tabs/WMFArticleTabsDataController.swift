@@ -7,7 +7,7 @@ public protocol WMFArticleTabsDataControlling {
     func checkAndCreateInitialArticleTabIfNeeded() async throws
     func createArticleTab(initialArticle: WMFArticleTabsDataController.WMFArticle?, setAsCurrent: Bool) async throws -> WMFArticleTabsDataController.Identifiers
     func deleteArticleTab(identifier: UUID) async throws
-    func appendArticle(_ article: WMFArticleTabsDataController.WMFArticle, toTabIdentifier identifier: UUID?, setAsCurrent: Bool?) async throws -> WMFArticleTabsDataController.Identifiers
+    func appendArticle(_ article: WMFArticleTabsDataController.WMFArticle, toTabIdentifier identifier: UUID?, setAsCurrent: Bool?, needsCleanoutOfFutureArticles: Bool) async throws -> WMFArticleTabsDataController.Identifiers
     func setTabItemAsCurrent(tabIdentifier: UUID, tabItemIdentifier: UUID) async throws
     func setTabAsCurrent(tabIdentifier: UUID) async throws
     func fetchTab(tabIdentfiier: UUID) async throws -> WMFArticleTabsDataController.WMFArticleTab
@@ -219,7 +219,7 @@ public class WMFArticleTabsDataController: WMFArticleTabsDataControlling {
         }
     }
     
-    public func appendArticle(_ article: WMFArticle, toTabIdentifier tabIdentifier: UUID? = nil, setAsCurrent: Bool? = nil) async throws -> Identifiers {
+    public func appendArticle(_ article: WMFArticle, toTabIdentifier tabIdentifier: UUID? = nil, setAsCurrent: Bool? = nil, needsCleanoutOfFutureArticles: Bool = false) async throws -> Identifiers {
         
         guard let moc = backgroundContext else {
             throw CustomError.missingContext
@@ -254,8 +254,9 @@ public class WMFArticleTabsDataController: WMFArticleTabsDataControlling {
             let page = try self.pageForArticle(article, moc: moc)
             let newArticleTabItem = try self.newArticleTabItem(page: page, moc: moc)
             
-            // Set tab's existing items' isCurrent values = false
+            // Set tab's existing items' isCurrent values = false. Delete any additional articles after the current article.
             var newItems: [CDArticleTabItem] = []
+            var foundCurrent: Bool = false
             if let currentItems = tab.items as? NSMutableOrderedSet {
                 for item in currentItems {
                     
@@ -266,8 +267,24 @@ public class WMFArticleTabsDataController: WMFArticleTabsDataControlling {
                     if tabItem.isCurrent {
                         tabItem.isCurrent = false
                         newItems.append(tabItem)
+                        foundCurrent = true
                     } else {
-                        newItems.append(tabItem)
+                        if foundCurrent && needsCleanoutOfFutureArticles {
+                            moc.delete(tabItem)
+                            
+                            // Post notification
+                            if let identifier = tabItem.identifier {
+                                NotificationCenter.default.post(
+                                    name: WMFNSNotification.articleTabItemDeleted,
+                                    object: nil,
+                                    userInfo: [WMFNSNotification.UserInfoKey.articleTabItemIdentifier: identifier]
+                                )
+                            }
+                            
+                            
+                        } else {
+                            newItems.append(tabItem)
+                        }
                     }
                 }
             }
