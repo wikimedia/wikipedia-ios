@@ -96,7 +96,7 @@ public struct WMFArticleTabsView: View {
                     .font(Font(WMFFont.for(.caption1)))
                     .foregroundStyle(Color(theme.text))
                     .lineSpacing(5)
-                    .lineLimit(3)
+                    .padding(.bottom, 5)
             }
             .padding([.horizontal], 10)
         }
@@ -208,7 +208,7 @@ public struct WMFArticleTabsView: View {
                     .font(Font(WMFFont.for(.caption1)))
                     .foregroundStyle(Color(theme.text))
                     .lineSpacing(5)
-                    .lineLimit(3)
+                    .padding(.bottom, 5)
             } else {
                 Spacer()
             }
