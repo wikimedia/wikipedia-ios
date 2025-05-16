@@ -26,11 +26,11 @@ public struct WMFArticleTabsView: View {
                     ForEach(viewModel.articleTabs.sorted(by: { $0.dateCreated < $1.dateCreated })) { tab in
                         if tab.isMain {
                             tabCardView(content: mainPageTabContent(tab: tab), tabData: tab.data, tab: tab)
-                                .padding(6)
+                                .padding(4)
                             
                         } else {
                             tabCardView(content: standardTabContent(tab: tab), tabData: tab.data, tab: tab)
-                                .padding(6)
+                                .padding(4)
                         }
                     }
                 }
@@ -71,7 +71,8 @@ public struct WMFArticleTabsView: View {
                         viewModel.closeTab(tab: tab)
                     })
                     .accessibilityHidden(true)
-                    .padding([.horizontal, .top], 12)
+                    .padding(.horizontal, 8)
+                    .padding(.top, -8)
                     .contentShape(Rectangle())
                     .frame(minWidth: 44, minHeight: 44)
                 }
@@ -95,6 +96,7 @@ public struct WMFArticleTabsView: View {
                     .font(Font(WMFFont.for(.caption1)))
                     .foregroundStyle(Color(theme.text))
                     .lineSpacing(5)
+                    .lineLimit(3)
             }
             .padding([.horizontal], 10)
         }
@@ -132,7 +134,8 @@ public struct WMFArticleTabsView: View {
                         viewModel.closeTab(tab: tab)
                     })
                     .accessibilityHidden(true)
-                    .padding([.horizontal, .top], 12)
+                    .padding(.horizontal, 8)
+                    .padding(.top, -8)
                     .contentShape(Rectangle())
                     .frame(minWidth: 44, minHeight: 44)
                 }
@@ -205,6 +208,7 @@ public struct WMFArticleTabsView: View {
                     .font(Font(WMFFont.for(.caption1)))
                     .foregroundStyle(Color(theme.text))
                     .lineSpacing(5)
+                    .lineLimit(3)
             } else {
                 Spacer()
             }
