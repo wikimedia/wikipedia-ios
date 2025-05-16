@@ -26,11 +26,11 @@ public struct WMFArticleTabsView: View {
                     ForEach(viewModel.articleTabs.sorted(by: { $0.dateCreated < $1.dateCreated })) { tab in
                         if tab.isMain {
                             tabCardView(content: mainPageTabContent(tab: tab), tabData: tab.data, tab: tab)
-                                .padding(9)
+                                .padding(6)
                             
                         } else {
                             tabCardView(content: standardTabContent(tab: tab), tabData: tab.data, tab: tab)
-                                .padding(9)
+                                .padding(6)
                         }
                     }
                 }
