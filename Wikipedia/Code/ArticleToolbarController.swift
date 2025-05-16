@@ -112,7 +112,7 @@ class ArticleToolbarController: Themeable {
         
         if (WMFArticleTabsDataController.shared?.shouldShowArticleTabs) ?? false {
             
-            if let title = nextArticleTab?.title.underscoresToSpaces {
+            if let title = nextArticleTab?.title.underscoresToSpaces.truncated() {
                 let forwardAttributes: UIMenuElement.Attributes = nextArticleTab != nil ? [] : .disabled
                 actions.append(UIAction(title: title, image: WMFSFSymbolIcon.for(symbol: .chevronForward), attributes: forwardAttributes,  handler: { [weak self] _ in
                     
@@ -124,7 +124,7 @@ class ArticleToolbarController: Themeable {
                 }))
             }
             
-            if let title = previousArticleTab?.title.underscoresToSpaces {
+            if let title = previousArticleTab?.title.underscoresToSpaces.truncated() {
                 let backAttributes: UIMenuElement.Attributes = previousArticleTab != nil ? [] : .disabled
                 actions.append(UIAction(title: title, image: WMFSFSymbolIcon.for(symbol: .chevronBackward), attributes: backAttributes, handler: { [weak self] _ in
                     
@@ -288,4 +288,16 @@ class ArticleToolbarController: Themeable {
         toolbar.items?.forEach { $0.isEnabled = enabled }
     }
 
+}
+
+private extension String {
+    func truncated() -> String {
+        if !UIAccessibility.isVoiceOverRunning {
+            if self.count > 20 {
+                return self.prefix(20) + "..."
+            }
+        }
+        
+        return self
+    }
 }
