@@ -22,29 +22,27 @@ public struct WMFArticleTabsView: View {
             let gridItem = GridItem(.flexible())
             
             ScrollView {
-                LazyVGrid(columns: Array(repeating: gridItem, count: columns), spacing: 18) {
-
+                LazyVGrid(columns: Array(repeating: gridItem, count: columns)) {
                     ForEach(viewModel.articleTabs.sorted(by: { $0.dateCreated < $1.dateCreated })) { tab in
                         if tab.isMain {
                             tabCardView(content: mainPageTabContent(tab: tab), tabData: tab.data, tab: tab)
-                                .padding(.horizontal, 9)
+                                .padding(9)
                             
                         } else {
                             tabCardView(content: standardTabContent(tab: tab), tabData: tab.data, tab: tab)
-                                .padding(.horizontal, 9)
+                                .padding(9)
                         }
                     }
-                    
                 }
-                .padding()
             }
+            .padding(.horizontal, 8)
         }
         .background(Color(theme.midBackground))
         .toolbarBackground(Color(uiColor: (theme.paperBackground)), for: .automatic)
     }
     
     private func mainPageTabContent(tab: ArticleTab) -> some View {
-        VStack(alignment: .leading) {
+        VStack(alignment: .leading, spacing: 0) {
             ZStack(alignment: .topTrailing) {
                 GeometryReader { geo in
                     ZStack {
@@ -65,6 +63,7 @@ public struct WMFArticleTabsView: View {
                             .frame(width: geo.size.width, height: 95, alignment: .center)
                     }
                 }
+                .frame(height: CGFloat(viewModel.calculateImageHeight()))
                 .padding(.bottom, 0)
 
                 if viewModel.shouldShowCloseButton {
@@ -78,33 +77,32 @@ public struct WMFArticleTabsView: View {
                 }
             }
 
-            Group {
-                tabTitle(title: tab.title)
-                    .padding(.horizontal, 10)
-                
-                VStack(alignment: .leading) {
-                    Text(viewModel.localizedStrings.mainPageSubtitle)
-                        .font(Font(WMFFont.for(.caption1)))
-                        .foregroundStyle(Color(theme.secondaryText))
-                        .lineLimit(1)
-                    
-                    Divider()
-                        .frame(width: 24)
-                        .padding(.top, 4)
-                        .padding(.bottom, 6)
-                        .foregroundStyle(Color(uiColor: theme.border))
-                    Text(viewModel.localizedStrings.mainPageDescription)
-                        .font(Font(WMFFont.for(.caption1)))
-                        .foregroundStyle(Color(theme.text))
-                        .lineSpacing(5)
-                }
-                .padding([.horizontal, .bottom], 10)
+            tabTitle(title: tab.title)
+                .padding(.horizontal, 10)
+                .padding(.top, 10)
+
+            VStack(alignment: .leading) {
+                Text(viewModel.localizedStrings.mainPageSubtitle)
+                    .font(Font(WMFFont.for(.caption1)))
+                    .foregroundStyle(Color(theme.secondaryText))
+                    .lineLimit(1)
+                Divider()
+                    .frame(width: 24)
+                    .padding(.top, 4)
+                    .padding(.bottom, 6)
+                    .foregroundStyle(Color(uiColor: theme.border))
+                Text(viewModel.localizedStrings.mainPageDescription)
+                    .font(Font(WMFFont.for(.caption1)))
+                    .foregroundStyle(Color(theme.text))
+                    .lineSpacing(5)
             }
+            .padding([.horizontal], 10)
         }
     }
+
     
     private func standardTabContent(tab: ArticleTab) -> some View {
-        VStack(alignment: .leading) {
+        VStack(alignment: .leading, spacing: 0) {
             ZStack(alignment: .topTrailing) {
                 Group {
                     if let imageURL = tab.image {
@@ -120,11 +118,12 @@ public struct WMFArticleTabsView: View {
                                     .frame(width: geo.size.width, height: CGFloat(viewModel.calculateImageHeight()))
                             }
                         }
+                        .frame(height: CGFloat(viewModel.calculateImageHeight()))
                     } else {
                         tabTitle(title: tab.title)
                             .frame(maxWidth: .infinity, alignment: .leading)
                             .padding(.trailing, 40)
-                            .padding(.leading, 10)
+                            .padding([.leading, .top], 10)
                     }
                 }
 
@@ -142,14 +141,15 @@ public struct WMFArticleTabsView: View {
             if tab.image != nil {
                 tabTitle(title: tab.title)
                     .padding(.horizontal, 10)
+                    .padding(.top, 10)
             }
 
             tabText(tab: tab)
 
             if tab.image == nil {
                 Spacer()
-                Spacer()
             }
+            Spacer()
         }
     }
     
@@ -207,9 +207,8 @@ public struct WMFArticleTabsView: View {
                     .lineSpacing(5)
             } else {
                 Spacer()
-                Spacer()
             }
         }
-        .padding([.horizontal, .bottom], 10)
+        .padding([.horizontal], 10)
     }
 }
