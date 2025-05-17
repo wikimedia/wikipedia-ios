@@ -7,7 +7,7 @@ public protocol WMFArticleTabsDataControlling {
     func checkAndCreateInitialArticleTabIfNeeded() async throws
     func createArticleTab(initialArticle: WMFArticleTabsDataController.WMFArticle?, setAsCurrent: Bool) async throws -> WMFArticleTabsDataController.Identifiers
     func deleteArticleTab(identifier: UUID) async throws
-    func appendArticle(_ article: WMFArticleTabsDataController.WMFArticle, toTabIdentifier identifier: UUID?, setAsCurrent: Bool?) async throws -> WMFArticleTabsDataController.Identifiers
+    func appendArticle(_ article: WMFArticleTabsDataController.WMFArticle, toTabIdentifier identifier: UUID?, setAsCurrent: Bool?, needsCleanoutOfFutureArticles: Bool) async throws -> WMFArticleTabsDataController.Identifiers
     func setTabItemAsCurrent(tabIdentifier: UUID, tabItemIdentifier: UUID) async throws
     func setTabAsCurrent(tabIdentifier: UUID) async throws
     func fetchTab(tabIdentfiier: UUID) async throws -> WMFArticleTabsDataController.WMFArticleTab
@@ -122,6 +122,7 @@ public class WMFArticleTabsDataController: WMFArticleTabsDataControlling {
     // MARK: Entry point
 
     public var shouldShowArticleTabs: Bool {
+        return true
         return developerSettingsDataController.enableArticleTabs
     }
     
@@ -219,7 +220,7 @@ public class WMFArticleTabsDataController: WMFArticleTabsDataControlling {
         }
     }
     
-    public func appendArticle(_ article: WMFArticle, toTabIdentifier tabIdentifier: UUID? = nil, setAsCurrent: Bool? = nil) async throws -> Identifiers {
+    public func appendArticle(_ article: WMFArticle, toTabIdentifier tabIdentifier: UUID? = nil, setAsCurrent: Bool? = nil, needsCleanoutOfFutureArticles: Bool = false) async throws -> Identifiers {
         
         guard let moc = backgroundContext else {
             throw CustomError.missingContext
@@ -254,8 +255,9 @@ public class WMFArticleTabsDataController: WMFArticleTabsDataControlling {
             let page = try self.pageForArticle(article, moc: moc)
             let newArticleTabItem = try self.newArticleTabItem(page: page, moc: moc)
             
-            // Set tab's existing items' isCurrent values = false
+            // Set tab's existing items' isCurrent values = false. Delete any additional articles after the current article.
             var newItems: [CDArticleTabItem] = []
+            var foundCurrent: Bool = false
             if let currentItems = tab.items as? NSMutableOrderedSet {
                 for item in currentItems {
                     
@@ -266,8 +268,24 @@ public class WMFArticleTabsDataController: WMFArticleTabsDataControlling {
                     if tabItem.isCurrent {
                         tabItem.isCurrent = false
                         newItems.append(tabItem)
+                        foundCurrent = true
                     } else {
-                        newItems.append(tabItem)
+                        if foundCurrent && needsCleanoutOfFutureArticles {
+                            moc.delete(tabItem)
+                            
+                            // Post notification
+                            if let identifier = tabItem.identifier {
+                                NotificationCenter.default.post(
+                                    name: WMFNSNotification.articleTabItemDeleted,
+                                    object: nil,
+                                    userInfo: [WMFNSNotification.UserInfoKey.articleTabItemIdentifier: identifier]
+                                )
+                            }
+                            
+                            
+                        } else {
+                            newItems.append(tabItem)
+                        }
                     }
                 }
             }
@@ -296,6 +314,61 @@ public class WMFArticleTabsDataController: WMFArticleTabsDataControlling {
         }
         
         return result
+    }
+    
+    public func getAdjacentArticleInTab(tabIdentifier: UUID, isPrev: Bool) async throws -> WMFArticle? {
+        guard let moc = backgroundContext else {
+            throw CustomError.missingContext
+        }
+        
+        let block: () throws -> WMFArticle? = { [weak self] in
+            guard let self else { throw CustomError.missingSelf }
+            
+            let predicate = NSPredicate(format: "identifier == %@", argumentArray: [tabIdentifier])
+            
+            guard let tab = try self.coreDataStore.fetch(entityType: CDArticleTab.self, predicate: predicate, fetchLimit: 1, in: moc)?.first else {
+                throw CustomError.missingTab
+            }
+            
+            guard let items = tab.items as? NSMutableOrderedSet, items.count > 0 else {
+                throw CustomError.missingPage
+            }
+            
+            var adjacentArticle: Any?
+            for (index, item) in items.enumerated() {
+                guard let articleItem = item as? CDArticleTabItem else { continue }
+
+                if articleItem.isCurrent {
+                    if isPrev,
+                        (index - 1) >= 0,
+                        items.count > index - 1 {
+                        adjacentArticle = items[index - 1]
+                        break
+                    } else if
+                        !isPrev,
+                        (index + 1) >= 0,
+                        items.count > index + 1 {
+                        adjacentArticle = items[index + 1]
+                        break
+                    }
+                }
+            }
+            
+            if let cdArticleItem = adjacentArticle as? CDArticleTabItem,
+               let title = cdArticleItem.page?.title,
+               let identifier = cdArticleItem.identifier,
+               let coreDataIdentifier = cdArticleItem.page?.projectID,
+               let wmfProject = WMFProject(coreDataIdentifier: coreDataIdentifier) {
+                let wmfArticle = WMFArticle(identifier: identifier, title: title, project: wmfProject)
+                return wmfArticle
+            }
+            
+            return nil
+        }
+        
+        let result: WMFArticle? = try await moc.perform(block)
+        return result
+            
     }
     
     public func setTabItemAsCurrent(tabIdentifier: UUID, tabItemIdentifier: UUID) async throws {

@@ -16,6 +16,8 @@ extern NSString *const WMFLanguageVariantAlertsLibraryVersion; // NSNumber
 @property (nonatomic, readonly, nullable) UINavigationController *currentNavigationController;
 @property (nonatomic, readonly) WMFTheme *theme;
 @property (nonatomic, readonly) MWKDataStore *dataStore;
+@property (nonatomic, strong) NSMutableArray<NSUUID *> *tabIdentifiersToDelete;
+@property (nonatomic, strong) NSMutableArray<NSUUID *> *tabItemIdentifiersToDelete;
 @property (nonatomic, strong, nullable) WMFImageRecommendationsViewModelObjcWrapper *imageRecommendationsViewModelWrapper;
 
 - (void)launchAppInWindow:(UIWindow *)window waitToResumeApp:(BOOL)waitToResumeApp;

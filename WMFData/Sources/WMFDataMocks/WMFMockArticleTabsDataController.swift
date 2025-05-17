@@ -80,7 +80,7 @@ public final class WMFMockArticleTabsDataController: WMFArticleTabsDataControlli
         return tab
     }
     
-    public func appendArticle(_ article: WMFData.WMFArticleTabsDataController.WMFArticle, toTabIdentifier identifier: UUID?, setAsCurrent: Bool?) async throws -> WMFData.WMFArticleTabsDataController.Identifiers {
+    public func appendArticle(_ article: WMFData.WMFArticleTabsDataController.WMFArticle, toTabIdentifier identifier: UUID?, setAsCurrent: Bool?, needsCleanoutOfFutureArticles: Bool) async throws -> WMFData.WMFArticleTabsDataController.Identifiers {
         let targetIdentifier: UUID
         if let identifier = identifier {
             targetIdentifier = identifier

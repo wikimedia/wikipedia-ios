@@ -193,7 +193,8 @@ public extension WMFNavigationBarConfiguring where Self: UIViewController {
         // Better back button naming for article tabs
         // TODO: Consider smarter prefix amounts, depending on screen size.
         if let backButtonConfig,
-           backButtonConfig.needsCustomTruncateBackButtonTitle {
+           backButtonConfig.needsCustomTruncateBackButtonTitle,
+           !UIAccessibility.isVoiceOverRunning {
             if titleConfig.title.count > 10 {
                 navigationItem.backButtonTitle = titleConfig.title.prefix(10) + "..."
             }
