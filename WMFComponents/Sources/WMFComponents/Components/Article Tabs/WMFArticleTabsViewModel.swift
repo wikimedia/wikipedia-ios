@@ -140,22 +140,29 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
     // MARK: - Private funcs
     
     private func checkAndMarkIfSeen() {
-//        let defaults = UserDefaults.standard
-//        let tabsKey = "tabsOverviewOpened"
-//        let tapKey = "didTapOpenInNewTab"
-//
-//        let hasSeenTabs = defaults.bool(forKey: tabsKey)
-//        let hasTappedOpen = defaults.bool(forKey: tapKey)
+        // Make sure it's before July 31, 2025
+        let now = Date()
+        let calendar = Calendar.current
+        let deadlineComponents = DateComponents(year: 2025, month: 7, day: 31)
         
-        let hasSeenTabs = true
-        let hasTappedOpen = true
+        guard let deadline = calendar.date(from: deadlineComponents),
+              now <= deadline else {
+            return
+        }
+        
+        let defaults = UserDefaults.standard
+        let tabsKey = "tabsOverviewOpened"
+        let tapKey = "didTapOpenInNewTab"
+
+        let hasSeenTabs = defaults.bool(forKey: tabsKey)
+        let hasTappedOpen = defaults.bool(forKey: tapKey)
 
         if hasSeenTabs {
             if hasTappedOpen {
                 showSurvey()
             }
         } else {
-            // defaults.set(true, forKey: tabsKey)
+             defaults.set(true, forKey: tabsKey)
         }
     }
 }

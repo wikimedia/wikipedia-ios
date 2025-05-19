@@ -61,7 +61,7 @@ final class TabsOverviewCoordinator: Coordinator {
             WMFSurveyViewModel.OptionViewModel(text: CommonStrings.activityTabSurveyVeryUnsatisfied, apiIdentifer: "5")
         ]
 
-        let surveyView = WMFSurveyView(viewModel: WMFSurveyViewModel(localizedStrings: surveyLocalizedStrings, options: surveyOptions, selectionType: .single), cancelAction: { [weak self] in
+        let surveyView = WMFSurveyView(viewModel: WMFSurveyViewModel(localizedStrings: surveyLocalizedStrings, options: surveyOptions, selectionType: .single, shouldShowMultilineText: true), cancelAction: { [weak self] in
             
             if let wikimediaProject {
                 EditInteractionFunnel.shared.logActivityTabSurveyDidTapCancel(project: wikimediaProject)

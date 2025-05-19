@@ -139,12 +139,12 @@ public struct WMFSurveyView: View {
         VStack {
             ZStack(alignment: .topLeading) {
                 TextEditor(text: $otherOptionText)
-                    .frame(minHeight: 100)
+                    .frame(height: 50)
                     .focused($otherOptionTextFieldSelected)
                     .foregroundColor(Color(theme.text))
                     .background(Color(theme.paperBackground))
                     .cornerRadius(8)
-                    .padding(4)
+                    .padding([.top, .horizontal], 4)
 
                 if otherOptionText.isEmpty && !otherOptionTextFieldSelected {
                     Text(viewModel.localizedStrings.otherPlaceholder)
@@ -152,15 +152,18 @@ public struct WMFSurveyView: View {
                         .padding(.top, 10)
                         .padding(.leading, 8)
                 }
+                HStack {
+                    Spacer()
+                    WMFCheckmarkView(
+                        isSelected: !otherOptionText.isEmpty,
+                        configuration: WMFCheckmarkView.Configuration(style: .default)
+                    )
+                }
             }
-
-            HStack {
-                Spacer()
-                WMFCheckmarkView(
-                    isSelected: !otherOptionText.isEmpty,
-                    configuration: WMFCheckmarkView.Configuration(style: .default)
-                )
-            }
+        }
+        .contentShape(Rectangle())
+        .onTapGesture {
+            otherOptionTextFieldSelected = true
         }
     }
 }
