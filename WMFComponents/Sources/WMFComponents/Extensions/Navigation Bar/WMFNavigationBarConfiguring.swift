@@ -1,4 +1,5 @@
 import UIKit
+import WMFData
 
 public protocol WMFNavigationBarConfiguring {
     
@@ -24,6 +25,14 @@ public struct WMFNavigationBarTitleConfig {
         self.customView = customView
         self.alignment = alignment
         self.customLargeTitleFont = customLargeTitleFont
+    }
+}
+
+public struct WMFNavigationBarBackButtonConfig {
+    let needsCustomTruncateBackButtonTitle: Bool
+    
+    public init(needsCustomTruncateBackButtonTitle: Bool) {
+        self.needsCustomTruncateBackButtonTitle = needsCustomTruncateBackButtonTitle
     }
 }
 
@@ -57,13 +66,29 @@ public struct WMFNavigationBarProfileButtonConfig {
     public let target: Any
     public let action: Selector
     public let leadingBarButtonItem: UIBarButtonItem?
-    public let trailingBarButtonItem: UIBarButtonItem?
     
-    public init(accessibilityLabelNoNotifications: String, accessibilityLabelHasNotifications: String, accessibilityHint: String, needsBadge: Bool, target: Any, action: Selector, leadingBarButtonItem: UIBarButtonItem?, trailingBarButtonItem: UIBarButtonItem?) {
+    public init(accessibilityLabelNoNotifications: String, accessibilityLabelHasNotifications: String, accessibilityHint: String, needsBadge: Bool, target: Any, action: Selector, leadingBarButtonItem: UIBarButtonItem?) {
         self.accessibilityLabelNoNotifications = accessibilityLabelNoNotifications
         self.accessibilityLabelHasNotifications = accessibilityLabelHasNotifications
         self.accessibilityHint = accessibilityHint
         self.needsBadge = needsBadge
+        self.target = target
+        self.action = action
+        self.leadingBarButtonItem = leadingBarButtonItem
+    }
+}
+
+public struct WMFNavigationBarTabsButtonConfig {
+    public let accessibilityLabel: String
+    public let accessibilityHint: String
+    public let target: Any
+    public let action: Selector
+    public let leadingBarButtonItem: UIBarButtonItem?
+    public let trailingBarButtonItem: UIBarButtonItem?
+    
+    public init(accessibilityLabel: String, accessibilityHint: String, target: Any, action: Selector, leadingBarButtonItem: UIBarButtonItem?, trailingBarButtonItem: UIBarButtonItem?) {
+        self.accessibilityLabel = accessibilityLabel
+        self.accessibilityHint = accessibilityHint
         self.target = target
         self.action = action
         self.leadingBarButtonItem = leadingBarButtonItem
@@ -105,7 +130,8 @@ public extension WMFNavigationBarConfiguring where Self: UIViewController {
     ///   - profileButtonConfig: Config for profile button
     ///   - searchBarConfig: Config for search bar
     ///   - hideNavigationBarOnScroll: If true, will hide the navigation bar when the user scrolls
-    func configureNavigationBar(titleConfig: WMFNavigationBarTitleConfig, closeButtonConfig: WMFNavigationBarCloseButtonConfig?, profileButtonConfig: WMFNavigationBarProfileButtonConfig?, searchBarConfig: WMFNavigationBarSearchConfig?, hideNavigationBarOnScroll: Bool) {
+    func configureNavigationBar(titleConfig: WMFNavigationBarTitleConfig,
+                                backButtonConfig: WMFNavigationBarBackButtonConfig? = nil, closeButtonConfig: WMFNavigationBarCloseButtonConfig?, profileButtonConfig: WMFNavigationBarProfileButtonConfig?, tabsButtonConfig: WMFNavigationBarTabsButtonConfig?, searchBarConfig: WMFNavigationBarSearchConfig?, hideNavigationBarOnScroll: Bool) {
         
         navigationController?.setNavigationBarHidden(false, animated: true)
         navigationController?.hidesBarsOnSwipe = hideNavigationBarOnScroll
@@ -164,25 +190,56 @@ public extension WMFNavigationBarConfiguring where Self: UIViewController {
             navigationItem.titleView = nil
         }
         
-        // Setup profile button if needed
+        // Better back button naming for article tabs
+        // TODO: Consider smarter prefix amounts, depending on screen size.
+        if let backButtonConfig,
+           backButtonConfig.needsCustomTruncateBackButtonTitle {
+            if titleConfig.title.count > 10 {
+                navigationItem.backButtonTitle = titleConfig.title.prefix(10) + "..."
+            }
+        }
+
         if let profileButtonConfig {
-            let image = profileButtonImage(theme: WMFAppEnvironment.current.theme, needsBadge: profileButtonConfig.needsBadge)
             
+            var rightBarButtonItems: [UIBarButtonItem] = []
+            
+            var profileLeadingButton: UIBarButtonItem? = profileButtonConfig.leadingBarButtonItem
+            
+            if let dataController = WMFArticleTabsDataController.shared,
+               let tabsButtonConfig,
+               !dataController.shouldShowArticleTabs {
+                profileLeadingButton = tabsButtonConfig.leadingBarButtonItem
+            }
+            
+            let image = profileButtonImage(theme: WMFAppEnvironment.current.theme, needsBadge: profileButtonConfig.needsBadge)
             let profileButton = UIBarButtonItem(image: image, style: .plain, target: profileButtonConfig.target, action: profileButtonConfig.action)
             
             profileButton.accessibilityLabel = profileButtonAccessibilityStrings(config: profileButtonConfig)
             profileButton.accessibilityIdentifier = profileButtonAccessibilityID
             
-            var rightBarButtonItems: [UIBarButtonItem] = [profileButton]
-            if let leadingBarButtonItem = profileButtonConfig.leadingBarButtonItem {
-                rightBarButtonItems.append(leadingBarButtonItem)
+            rightBarButtonItems.append(profileButton)
+
+            if let profileLeadingButton {
+                rightBarButtonItems.append(profileLeadingButton)
             }
             
-            if let trailingBarButtonItem = profileButtonConfig.trailingBarButtonItem {
-                rightBarButtonItems.insert(trailingBarButtonItem, at: 0)
+            if let dataController = WMFArticleTabsDataController.shared,
+               let tabsButtonConfig,
+               dataController.shouldShowArticleTabs {
+                
+                let image = WMFSFSymbolIcon.for(symbol: .tabsIcon)
+                let tabsButton = UIBarButtonItem(image: image, style: .plain, target: tabsButtonConfig.target, action: tabsButtonConfig.action)
+                
+                rightBarButtonItems.append(tabsButton)
+
+                if let leadingBarButtonItem = tabsButtonConfig.leadingBarButtonItem {
+                    rightBarButtonItems.append(leadingBarButtonItem)
+                }
+                
             }
             
             navigationItem.rightBarButtonItems = rightBarButtonItems
+            
         }
         
         // Setup close button if needed
@@ -241,7 +298,6 @@ public extension WMFNavigationBarConfiguring where Self: UIViewController {
         
         componentNavVC.setBarAppearance(customLargeTitleFont: customLargeTitleFont)
     }
-    
     
     /// Call on viewWillDisappear(), IF navigation bar large title was set with a custom font.
     func resetNavBarAppearance() {

@@ -87,10 +87,12 @@
 "activity-tab-add-images-title" = "ਤਸਵੀਰ ਜੋੜੋ";
 "activity-tab-additional-thoughts" = "ਕੋਈ ਹੋਰ ਵਿਚਾਰ?";
 "activity-tab-neutral" = "ਨਿਰਪੱਖ";
+// Fuzzy
 "activity-tab-no-edits-title" = "ਤੁਸੀਂ ਹਾਲੇ ਤੱਕ ਕੋਈ ਸੋਧ ਨਹੀਂ ਕੀਤੀ ਹੈ।";
 "activity-tab-start-editing" = "ਸੋਧ ਸ਼ੁਰੂ ਕਰੋ";
 "activity-tab-title" = "ਸਰਗਰਮੀ";
 "activity-tab-view-reading-history" = "ਪੜ੍ਹਨ ਦਾ ਇਤਿਹਾਸ ਵੇਖੋ";
+// Fuzzy
 "activity-tab-you-edited" = "ਤੁਸੀਂ ਇਸ ਹਫ਼ਤੇ {{PLURAL:$1|$1 ਲੇਖ}} ਸੋਧੇ ਹਨ।";
 "add-articles-to-reading-list" = "{{PLURAL:$1| $1 ਲੇਖ}} ਪੜ੍ਹਨ ਦੀ ਸੂਚੀ ਵਿੱਚ ਜੋੜੋ";
 "advanced-settings-title" = "ਵਧੇਰੇ ਤਰਜੀਹਾਂ";

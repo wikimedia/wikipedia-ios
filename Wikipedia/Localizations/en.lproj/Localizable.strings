@@ -71,11 +71,13 @@
 "activity-tab-add-images-subtitle" = "Add suggested images to Wikipedia articles to enhance understanding.";
 "activity-tab-add-images-title" = "Add images";
 "activity-tab-additional-thoughts" = "Any additional thoughts?";
+"activity-tab-generic-no-edits" = "You haven't edited this week. Start now to track your contributions.";
+"activity-tab-greeting" = "$1Hi $2$3 👋 Here's your weekly Wikipedia summary.";
 "activity-tab-logged-out-subtitle" = "Track what you’ve read and view your contributions over time in a new way";
 "activity-tab-logged-out-title" = "Log in or create an account to see more editing and reading activity.";
 "activity-tab-neutral" = "Neutral";
-"activity-tab-no-edits-subtitle" = "Start editing to begin tracking your contributions.";
-"activity-tab-no-edits-title" = "You haven’t made any edits yet.";
+"activity-tab-no-edits-title" = "You haven't edited this week. Add images to enhance article understanding.";
+"activity-tab-read-title" = "View reading history";
 "activity-tab-satisfied" = "Satisfied";
 "activity-tab-start-editing" = "Start editing";
 "activity-tab-survey" = "Are you satisfied with your \"Activity\" screen? What else would you like to see here in the future?";
@@ -84,6 +86,7 @@
 "activity-tab-unsatisfied" = "Unsatisfied";
 "activity-tab-very-satisfied" = "Very satisfied";
 "activity-tab-very-unsatisfied" = "Very unsatisfied";
+"activity-tab-view-editing-history" = "View editing history";
 "activity-tab-view-reading-history" = "View reading history";
 "activity-tab-view-saved-articles" = "View saved articles";
 "activity-tab-you-edited" = "You edited {{PLURAL:$1|$1 time|$1 times}} this week.";
@@ -120,6 +123,9 @@
 "article-revision-history" = "Article revision history";
 "article-save-error-not-enough-space" = "You do not have enough space on your device to save this article";
 "article-share" = "Share";
+"article-tabs-max-reached" = "Tab limit reached ($1). Please close one or more tabs.";
+"article-tabs-open-background-tab" = "Open in background tab";
+"article-tabs-open-new-tab" = "Open in new tab";
 "article-talk-page" = "Article talk page";
 "article-toolbar-reading-themes-controls-toolbar-item" = "Reading Themes Controls";
 "article-view-controller-editing-temp-account-created-subtitle" = "Temporary account $1 was created after your edit was published. It will expire in 90 days.";
@@ -194,6 +200,10 @@
 "description-welcome-start-editing-button" = "Start editing";
 "developer-force-email-auth" = "Force email auth";
 "developer-settings" = "Developer Settings";
+"developer-settings-activity-tab-group-A" = "Set activity tab to group A";
+"developer-settings-activity-tab-group-B" = "Set activity tab to group B";
+"developer-settings-activity-tab-group-C" = "Set activity tab to group C";
+"developer-settings-activity-tabs" = "Enable activity tabs";
 "developer-settings-bypass-donation" = "Bypass Donation";
 "developer-settings-enable-year-in-review" = "Enable Year in Review";
 "developer-settings-send-analytics-to-wmflabs" = "Send analytics to wmflabs.";
@@ -1137,6 +1147,11 @@
 "table-of-contents-heading" = "Contents";
 "table-of-contents-hide-button-label" = "Hide table of contents";
 "table-of-contents-subheading-label" = "Subheading $1";
+"tabs-close-tab" = "Close tab";
+"tabs-main-page-description" = "Discover featured articles, the latest news, interesting facts, and key stats on Wikipedia’s main page.";
+"tabs-main-page-subtitle" = "Wikipedia’s daily highlights";
+"tabs-navbar-title-format" = "{{PLURAL:$1|$1 tab|$1 tabs}}";
+"tabs-open-tab" = "Open tab";
 "tachelhit-variants-alert-body" = "The Wikipedia app now supports the following Tachelhit variants as primary or secondary languages within the app, making it easier to read, search and edit in your preferred variants:\n\nⵜⴰⵛⵍⵃⵉⵜ Tachelhit, Tifinagh (shi-tfng)\nTaclḥit Tachelhit, Latin (shi-latn)";
 "tachelhit-variants-alert-title" = "Updates to Tachelhit variant support";
 "tajik-variants-alert-body" = "The Wikipedia app now supports the following Tajik variants as primary or secondary languages within the app, making it easier to read, search and edit in your preferred variants:\n\nтоҷикӣ кирилликӣ Tajik, Cyrillic (tg-cyrl)\ntojikī lotinī Tajik, Latin (tg-latn)";

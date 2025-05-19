@@ -1,6 +1,11 @@
 import Foundation
 
-public final class WMFArticleSummaryDataController {
+// Protocol for article summary data controlling
+public protocol WMFArticleSummaryDataControlling {
+    func fetchArticleSummary(project: WMFProject, title: String) async throws -> WMFArticleSummary
+}
+
+public final class WMFArticleSummaryDataController: WMFArticleSummaryDataControlling {
     private var service: WMFService?
     
     public init() {
@@ -23,6 +28,19 @@ public final class WMFArticleSummaryDataController {
         let request = WMFBasicServiceRequest(url: url, method: .GET, languageVariantCode: project.languageVariantCode, acceptType: .json)
         service.performDecodableGET(request: request) { (result: Result<WMFArticleSummary, Error>) in
             completion(result)
+        }
+    }
+    
+    public func fetchArticleSummary(project: WMFProject, title: String) async throws -> WMFArticleSummary {
+        return try await withCheckedThrowingContinuation { continuation in
+            fetchArticleSummary(project: project, title: title) { result in
+                switch result {
+                case .success(let successResult):
+                    continuation.resume(returning: successResult)
+                case .failure(let error):
+                    continuation.resume(throwing: error)
+                }
+            }
         }
     }
 }

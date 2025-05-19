@@ -75,7 +75,7 @@ class InsertLinkViewController: UIViewController, WMFNavigationBarConfiguring {
             showsScopeBar: false,
             scopeButtonTitles: nil)
         
-        configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: closeButtonConfig, profileButtonConfig: nil, searchBarConfig: searchConfig, hideNavigationBarOnScroll: false)
+        configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: closeButtonConfig, profileButtonConfig: nil, tabsButtonConfig: nil, searchBarConfig: searchConfig, hideNavigationBarOnScroll: false)
     }
     
     override func viewDidAppear(_ animated: Bool) {

@@ -83,11 +83,13 @@
 "activity-tab-add-images-subtitle" = "Anlayışı artırmaq üçün təklif olunan şəkilləri Vikipediya məqalələrinə əlavə edin.";
 "activity-tab-add-images-title" = "Şəkil əlavə et";
 "activity-tab-additional-thoughts" = "Əlavə fikriniz var?";
+"activity-tab-generic-no-edits" = "Siz bu həftə redaktə etməmisiniz. Töhfələrinizi izləmək üçün indi başlayın.";
+"activity-tab-greeting" = "$1 Salam $2$3 👋 Sizin həftəlik Vikipediya xülasəniz buradadır";
 "activity-tab-logged-out-subtitle" = "Oxuduqlarınızı izləyin və zamanla töhfələrinizə yeni şəkildə baxın";
 "activity-tab-logged-out-title" = "Daha çox oxuma və redaktə fəaliyyətinə baxmaq üçün daxil olun və ya hesab yaradın.";
 "activity-tab-neutral" = "Neytral";
-"activity-tab-no-edits-subtitle" = "Töhfələrinizi izləməyə başlamaq üçün redaktə etməyə başlayın.";
-"activity-tab-no-edits-title" = "Siz hələ heç bir redaktə etməmisiniz.";
+"activity-tab-no-edits-title" = "Siz bu həftə redaktə etməmisiniz. Məqaləni başa düşülməsini asanlaşdırmaq üçün şəkillər əlavə edin.";
+"activity-tab-read-title" = "Oxunma tarixçəsinə bax";
 "activity-tab-satisfied" = "Məmnunam";
 "activity-tab-start-editing" = "Redaktəyə başla";
 "activity-tab-survey" = "\"Fəaliyyət\" ekranınız sizi qane edirmi? Gələcəkdə burada başqa nə görmək istərdiniz?";
@@ -96,9 +98,10 @@
 "activity-tab-unsatisfied" = "Məmnun deyiləm";
 "activity-tab-very-satisfied" = "Çox məmnunam";
 "activity-tab-very-unsatisfied" = "Çox narazıyam";
+"activity-tab-view-editing-history" = "Redaktə tarixçəsinə bax";
 "activity-tab-view-reading-history" = "Oxuna tarixçəsinə bax";
 "activity-tab-view-saved-articles" = "Saxlanmış məqalələrə bax";
-"activity-tab-you-edited" = "Siz bu həftə {{PLURAL:$1|$1 məqalə}} redaktə etmisiniz.";
+"activity-tab-you-edited" = "Siz bu həftə {{PLURAL:$1|$1 dəfə}} redaktə etmisiniz.";
 "activity-tab-you-read" = "Siz bu həftə {{PLURAL:$1|$1 məqalə}} oxumusunuz.";
 "activity-tab-you-saved" = "Siz bu həftə {{PLURAL:$1|$1 məqalə}} yadda saxlamısınız.";
 "add-articles-to-reading-list" = "{{PLURAL:$1|$1 Məqalə|$1 Məqalələri}} oxuma siyahısına əlavə et";
@@ -132,6 +135,8 @@
 "article-revision-history" = "Məqalənin redaktə tarixçəsi";
 "article-save-error-not-enough-space" = "Bu məqaləni saxlamaq üçün cihazınızda kifayət qədər yer yoxdur";
 "article-share" = "Paylaş";
+"article-tabs-open-background-tab" = "Arxa vərəqədə aç";
+"article-tabs-open-new-tab" = "Yeni vərəqədə aç";
 "article-talk-page" = "Məqalənin müzakirə səhifəsi";
 "article-toolbar-reading-themes-controls-toolbar-item" = "Oxuma temaları parametrləri";
 "article-view-controller-editing-temp-account-created-subtitle" = "Redaktəniz yayımlandıqdan sonra $1 müvəqqəti hesabı yaradıldı. Onun müddəti 90 gün sonra başa çatacaq.";
@@ -204,6 +209,10 @@
 "description-welcome-start-editing-button" = "Redaktəyə başla";
 "developer-force-email-auth" = "E-poçtun doğrulamasını məcbur et";
 "developer-settings" = "Tərtibatçı Parametrləri";
+"developer-settings-activity-tab-group-A" = "Fəaliyyət vərəqəsini A qrupuna təyin et";
+"developer-settings-activity-tab-group-B" = "Fəaliyyət vərəqəsini B qrupuna təyin et";
+"developer-settings-activity-tab-group-C" = "Fəaliyyət vərəqəsini C qrupuna təyin et";
+"developer-settings-activity-tabs" = "Fəaliyyət vərəqələrini aktivləşdir";
 "developer-settings-bypass-donation" = "İanəni atla";
 "developer-settings-enable-year-in-review" = "İlə Baxışı aktivləşdir";
 "developer-settings-send-analytics-to-wmflabs" = "Analitik datanı wmflabs-a göndər.";
@@ -1143,6 +1152,9 @@
 "table-of-contents-heading" = "Mündəricat";
 "table-of-contents-hide-button-label" = "Mündəricatı gizlət";
 "table-of-contents-subheading-label" = "Alt başlıq $1";
+"tabs-main-page-description" = "Seçilmiş məqalələri, ən son xəbərləri, maraqlı faktları və əsas statistik məlumatları Vikipediyanın əsas səhifəsində kəşf edin.";
+"tabs-main-page-subtitle" = "Vikipediyanın gündəlik əsas məqamları";
+"tabs-navbar-title-format" = "{{PLURAL:$1|$1 vərəqə}}";
 "tachelhit-variants-alert-body" = "Vikipediya tətbiqi artıq tətbiq daxilində əsas və ya köməkçi dillər kimi aşağıdakı Taçelit variantlarını dəstəkləyir və bu, seçdiyiniz variantlarda oxumağı, axtarışı və redaktə etməyi asanlaşdırır:\n\nⵜⴰⵛⵍⵃⵉⵜ Tachelhit, Tifinagh (shi-tfng)\nTaclḥit Tachelhit, Latin (shi-latn)";
 "tachelhit-variants-alert-title" = "Taçelit variant dəstəyi üçün yeniləmələr";
 "tajik-variants-alert-body" = "Vikipediya tətbiqi artıq tətbiq daxilində əsas və ya köməkçi dillər kimi aşağıdakı tacik variantlarını dəstəkləyir və bu, seçdiyiniz variantlarda oxumağı, axtarmağı və redaktə etməyi asanlaşdırır:\n\nтоҷикӣ кирилликӣ Tajik, Cyrillic (tg-cyrl)\ntojikī lotinī Tajik, Latin (tg-latn)";

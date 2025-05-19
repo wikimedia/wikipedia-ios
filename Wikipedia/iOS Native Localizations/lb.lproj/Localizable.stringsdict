@@ -5,7 +5,7 @@
 	<key>activity-tab-you-edited</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Dir hutt dës Woch %#@v1@ geännert.</string>
+		<string>Dir hutt dës Woch %#@v1@ gemaach.</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -13,9 +13,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>%1$d Artikel</string>
+			<string>%1$d Ännerung</string>
 			<key>other</key>
-			<string>%1$d Artikele</string>
+			<string>%1$d Ännerunge</string>
 		</dict>
 	</dict>
 	<key>activity-tab-you-read</key>
@@ -204,6 +204,22 @@
 			<string>%1$d Filter</string>
 			<key>other</key>
 			<string>%1$d Filteren</string>
+		</dict>
+	</dict>
+	<key>notifications-center-mark-all-as-read-confirmation-format</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Sidd Dir sécher, datt Dir %#@v1@ vun Ären Notifikatiounen als gelies markéiere wëllt? Är Notifikatioune ginn op all Ären Apparater als gelies markéiert.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>deen ee Message</string>
+			<key>other</key>
+			<string>all %1$d Messagë</string>
 		</dict>
 	</dict>
 	<key>notifications-center-num-selected-messages-format</key>

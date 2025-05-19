@@ -3,6 +3,8 @@ enum WMFUserDefaultsKey: String {
 	case imageRecommendationsOnboarding = "image-recommendations-onboarding"
     case developerSettingsDoNotPostImageRecommendationsEdit = "dev-settings-do-not-post-image-rec-edit"
     case developerSettingsSendAnalyticsToWMFLabs = "dev-settings-send-analytics-to-wmflabs"
+    case developerSettingsArticleTab = "dev-settings-article-tab"
+    case developerSettingsForceMaxArticleTabsTo5 = "dev-settings-article-tab-max-5"
     case hasLocallySavedDonations = "donate-history-has-locally-saved-donations"
     case yearInReviewSettingsIsEnabled = "year-in-review-settings-is-enabled"
     case seenYearInReviewFeatureAnnouncement = "year-in-review-feature-announcement"
@@ -11,4 +13,8 @@ enum WMFUserDefaultsKey: String {
     case seenYearInReviewIntroSlide = "seen-year-in-review-intro-slide"
     case tappedYIR = "tapped-yir"
     case forceEmailAuth = "force-email-auth"
+    case activityTabGroupA = "activity-tab-group-a"
+    case activityTabGroupB = "activity-tab-group-b"
+    case activityTabGroupC = "activity-tab-group-c"
+    case activityTabHadFirstLaunch = "activity-tab-had-first-launch"
 }

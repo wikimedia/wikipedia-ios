@@ -77,7 +77,7 @@ class TalkPageArchivesViewController: UIViewController, Themeable, WMFNavigation
         
         let titleConfig = WMFNavigationBarTitleConfig(title: WMFLocalizedString("talk-pages-archives-view-title", value: "Archives", comment: "Title of talk page archive list view."), customView: nil, alignment: .centerCompact)
         
-        configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: nil, profileButtonConfig: nil, searchBarConfig: nil, hideNavigationBarOnScroll: false)
+        configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: nil, profileButtonConfig: nil, tabsButtonConfig: nil, searchBarConfig: nil, hideNavigationBarOnScroll: false)
     }
 
     func apply(theme: Theme) {

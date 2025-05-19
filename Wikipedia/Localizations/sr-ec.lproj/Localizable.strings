@@ -1,5 +1,6 @@
 // Messages for Serbian (Cyrillic script) (српски (ћирилица))
 // Exported from translatewiki.net
+// Author: Aca
 // Author: Acamicamacaraca
 // Author: Aktron
 // Author: BadDog
@@ -96,8 +97,7 @@
 "activity-tab-add-images-title" = "Додај слике";
 "activity-tab-logged-out-title" = "Пријавите се или отворите налог да видите више уређивачких и читалачких активности.";
 "activity-tab-neutral" = "Неутралан";
-"activity-tab-no-edits-subtitle" = "Крените да уређујете да би сте почели да пратите доприносе.";
-"activity-tab-no-edits-title" = "Још нисте направили измене.";
+"activity-tab-no-edits-title" = "Још нисте направили измене ове недеље. Додајте слике да би сте побољшали разумевање чланка.";
 "activity-tab-satisfied" = "Задовољан";
 "activity-tab-start-editing" = "Започни уређивање";
 "activity-tab-title" = "Активност";
@@ -106,7 +106,7 @@
 "activity-tab-very-unsatisfied" = "Веома незадовољан";
 "activity-tab-view-reading-history" = "Погледај историју читања";
 "activity-tab-view-saved-articles" = "Погледај сачуване чланке";
-"activity-tab-you-edited" = "Уредили сте {{PLURAL:$1|$1 чланак|$1 чланака}} ове недеље.";
+"activity-tab-you-edited" = "Уредили сте {{PLURAL:$1|$1 пут|$1 пута}} ове недеље.";
 "activity-tab-you-read" = "Прочитали сте {{PLURAL:$1|$1 чланак|$1 чланака}} ове недеље.";
 "activity-tab-you-saved" = "Сачували сте {{PLURAL:$1|$1 чланак|$1 чланака}} ове недеље.";
 "add-articles-to-reading-list" = "Додај {{PLURAL:$1|$1 чланак|$1 чланка|$1 чланака}} на листу за читање";
@@ -140,6 +140,7 @@
 "article-revision-history" = "Историја чланка";
 "article-save-error-not-enough-space" = "Немате довољно простора на уређају да бисте сачували овај чланак";
 "article-share" = "Дели";
+"article-tabs-open-new-tab" = "Отвори у новој картици";
 "article-talk-page" = "Страница за разговор чланка";
 "article-toolbar-reading-themes-controls-toolbar-item" = "Подешавања тема за читање";
 "article-view-controller-editing-temp-account-created-subtitle" = "Привремени налог $1 је направљен после објављивања Ваше измене. Привремени налог ће истећи за 90 дана.";

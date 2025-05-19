@@ -13,15 +13,15 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>%1$d artículo</string>
+			<string>%1$d una vez</string>
 			<key>other</key>
-			<string>%1$d artículos</string>
+			<string>%1$d veces</string>
 		</dict>
 	</dict>
 	<key>activity-tab-you-read</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Leíste %#@v1@</string>
+		<string>Leíste %#@v1@ esta semana.</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>

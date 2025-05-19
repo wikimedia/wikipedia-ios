@@ -78,6 +78,13 @@ class SearchViewController: ArticleCollectionViewController, WMFNavigationBarCon
         return existingProfileCoordinator
     }
     
+    private var _tabsCoordinator: TabsOverviewCoordinator?
+    private var tabsCoordinator: TabsOverviewCoordinator? {
+        guard let navigationController else { return nil }
+        _tabsCoordinator = TabsOverviewCoordinator(navigationController: navigationController, theme: theme, dataStore: dataStore)
+        return _tabsCoordinator
+    }
+    
     private var yirDataController: WMFYearInReviewDataController? {
         return try? WMFYearInReviewDataController()
     }
@@ -116,7 +123,6 @@ class SearchViewController: ArticleCollectionViewController, WMFNavigationBarCon
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        SearchFunnel.shared.logSearchStart(source: source.stringValue, assignment: articleSearchBarExperimentAssignment)
         NSUserActivity.wmf_makeActive(NSUserActivity.wmf_searchView())
         
         if shouldBecomeFirstResponder {
@@ -167,15 +173,6 @@ class SearchViewController: ArticleCollectionViewController, WMFNavigationBarCon
         }
     }
     
-    private var articleSearchBarExperimentAssignment: WMFNavigationExperimentsDataController.ArticleSearchBarExperimentAssignment? {
-        
-        guard let assignment = try? WMFNavigationExperimentsDataController.shared?.articleSearchBarExperimentAssignment() else {
-            return nil
-        }
-        
-        return assignment
-    }
-    
     private func configureNavigationBar() {
         
         let title = customTitle ?? CommonStrings.searchTitle
@@ -197,15 +194,18 @@ class SearchViewController: ArticleCollectionViewController, WMFNavigationBarCon
         }
         
         let profileButtonConfig: WMFNavigationBarProfileButtonConfig?
+        let tabsButtonConfig: WMFNavigationBarTabsButtonConfig?
         if let dataStore {
-            profileButtonConfig = self.profileButtonConfig(target: self, action: #selector(userDidTapProfile), dataStore: dataStore, yirDataController: yirDataController, leadingBarButtonItem: nil, trailingBarButtonItem: nil)
+            profileButtonConfig = self.profileButtonConfig(target: self, action: #selector(userDidTapProfile), dataStore: dataStore, yirDataController: yirDataController, leadingBarButtonItem: nil)
+            tabsButtonConfig = self.tabsButtonConfig(target: self, action: #selector(userDidTapTabs), dataStore: dataStore)
         } else {
             profileButtonConfig = nil
+            tabsButtonConfig = nil
         }
         
         let searchBarConfig = WMFNavigationBarSearchConfig(searchResultsController: nil, searchControllerDelegate: self, searchResultsUpdater: self, searchBarDelegate: self, searchBarPlaceholder: WMFLocalizedString("search-field-placeholder-text", value: "Search Wikipedia", comment: "Search field placeholder text"), showsScopeBar: false, scopeButtonTitles: nil)
         
-        configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: nil, profileButtonConfig: profileButtonConfig, searchBarConfig: searchBarConfig, hideNavigationBarOnScroll: !presentingSearchResults)
+        configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: nil, profileButtonConfig: profileButtonConfig, tabsButtonConfig: tabsButtonConfig, searchBarConfig: searchBarConfig, hideNavigationBarOnScroll: !presentingSearchResults)
     }
     
     private func updateProfileButton() {
@@ -214,7 +214,7 @@ class SearchViewController: ArticleCollectionViewController, WMFNavigationBarCon
             return
         }
 
-        let config = self.profileButtonConfig(target: self, action: #selector(userDidTapProfile), dataStore: dataStore, yirDataController: yirDataController, leadingBarButtonItem: nil, trailingBarButtonItem: nil)
+        let config = self.profileButtonConfig(target: self, action: #selector(userDidTapProfile), dataStore: dataStore, yirDataController: yirDataController, leadingBarButtonItem: nil)
         updateNavigationBarProfileButton(needsBadge: config.needsBadge, needsBadgeLabel: CommonStrings.profileButtonBadgeTitle, noBadgeLabel: CommonStrings.profileButtonTitle)
     }
     
@@ -232,6 +232,10 @@ class SearchViewController: ArticleCollectionViewController, WMFNavigationBarCon
         DonateFunnel.shared.logSearchProfile(metricsID: metricsID)
               
         profileCoordinator?.start()
+    }
+    
+    @objc func userDidTapTabs() {
+        _ = tabsCoordinator?.start()
     }
     
     private func embedResultsViewController() {
@@ -351,9 +355,7 @@ class SearchViewController: ArticleCollectionViewController, WMFNavigationBarCon
         }
         
         resetSearchResults()
-        
-        let start = Date()
-        
+
         let failure = { (error: Error, type: WMFSearchType) in
             DispatchQueue.main.async { [weak self] in
                 guard let self,
@@ -362,7 +364,6 @@ class SearchViewController: ArticleCollectionViewController, WMFNavigationBarCon
                 }
                 self.resultsViewController.emptyViewType = (error as NSError).wmf_isNetworkConnectionError() ? .noInternetConnection : .noSearchResults
                 self.resultsViewController.results = []
-                SearchFunnel.shared.logShowSearchError(with: type, elapsedTime: Date().timeIntervalSince(start), source: self.source.stringValue, assignment: articleSearchBarExperimentAssignment)
             }
         }
         
@@ -379,7 +380,6 @@ class SearchViewController: ArticleCollectionViewController, WMFNavigationBarCon
                 guard !suggested else {
                     return
                 }
-                SearchFunnel.shared.logSearchResults(with: type, resultCount: Int(resultsArray.count), elapsedTime: Date().timeIntervalSince(start), source: self.source.stringValue, assignment: articleSearchBarExperimentAssignment)
             }
         }
         
@@ -413,7 +413,6 @@ class SearchViewController: ArticleCollectionViewController, WMFNavigationBarCon
         resultsViewController.emptyViewType = .none
         resultsViewController.results = []
         navigationItem.searchController?.searchBar.text = nil
-        SearchFunnel.shared.logSearchCancel(source: source.stringValue, assignment: articleSearchBarExperimentAssignment)
     }
     
     @objc func clear() {
@@ -432,17 +431,27 @@ class SearchViewController: ArticleCollectionViewController, WMFNavigationBarCon
                 return
             }
             
-            SearchFunnel.shared.logSearchResultTap(position: indexPath.item, source: source.stringValue, assignment: articleSearchBarExperimentAssignment)
             saveLastSearch()
             
             if let navigateToSearchResultAction {
                 navigateToSearchResultAction(articleURL)
             } else if let customArticleCoordinatorNavigationController {
-                let coordinator = ArticleCoordinator(navigationController: customArticleCoordinatorNavigationController, articleURL: articleURL, dataStore: dataStore, theme: theme, source: .search)
-                coordinator.start()
+                
+                let linkCoordinator = LinkCoordinator(navigationController: customArticleCoordinatorNavigationController, url: articleURL, dataStore: dataStore, theme: theme, articleSource: .search)
+                let success = linkCoordinator.start()
+                
+                if !success {
+                    navigate(to: articleURL)
+                }
+    
             } else if let navigationController {
-                let coordinator = ArticleCoordinator(navigationController: navigationController, articleURL: articleURL, dataStore: dataStore, theme: theme, source: .search)
-                coordinator.start()
+                
+                let linkCoordinator = LinkCoordinator(navigationController: navigationController, url: articleURL, dataStore: dataStore, theme: theme, articleSource: .search)
+                let success = linkCoordinator.start()
+                
+                if !success {
+                    navigate(to: articleURL)
+                }
             }
         }
         
@@ -453,8 +462,19 @@ class SearchViewController: ArticleCollectionViewController, WMFNavigationBarCon
             coordinator.start()
         }
         
+        let longPressOpenInNewTabAction: (URL) -> Void = { [weak self] articleURL in
+            
+            guard let self else { return }
+            
+            guard let navVC = customArticleCoordinatorNavigationController ?? navigationController else { return }
+            let articleCoordinator = ArticleCoordinator(navigationController: navVC, articleURL: articleURL, dataStore: MWKDataStore.shared(), theme: self.theme, source: .undefined, tabConfig: .appendArticleAndAssignNewTabAndSetToCurrent)
+            articleCoordinator.start()
+            
+        }
+        
         resultsViewController.tappedSearchResultAction = tappedSearchResultAction
         resultsViewController.longPressSearchResultAndCommitAction = longPressSearchResultAndCommitAction
+        resultsViewController.longPressOpenInNewTabAction = longPressOpenInNewTabAction
         
         return resultsViewController
     }()
@@ -487,6 +507,7 @@ class SearchViewController: ArticleCollectionViewController, WMFNavigationBarCon
         guard viewIfLoaded != nil else {
             return
         }
+
         searchLanguageBarViewController?.apply(theme: theme)
         resultsViewController.apply(theme: theme)
         view.backgroundColor = theme.colors.paperBackground
@@ -643,7 +664,6 @@ extension SearchViewController: CollectionViewHeaderDelegate {
 
 extension SearchViewController: SearchLanguagesBarViewControllerDelegate {
     func searchLanguagesBarViewController(_ controller: SearchLanguagesBarViewController, didChangeSelectedSearchContentLanguageCode contentLanguageCode: String) {
-        SearchFunnel.shared.logSearchLangSwitch(source: source.stringValue, assignment: articleSearchBarExperimentAssignment)
         search()
     }
 }

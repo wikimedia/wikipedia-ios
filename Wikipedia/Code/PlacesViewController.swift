@@ -253,7 +253,15 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
     }
 
     private var profileButtonConfig: WMFNavigationBarProfileButtonConfig {
-        return self.profileButtonConfig(target: self, action: #selector(didTapProfileButton), dataStore: dataStore, yirDataController: yirDataController, leadingBarButtonItem: filterButtonItem, trailingBarButtonItem: nil)
+        return self.profileButtonConfig(target: self, action: #selector(didTapProfileButton), dataStore: dataStore, yirDataController: yirDataController, leadingBarButtonItem: nil)
+    }
+    
+    private var tabsButtonConfig: WMFNavigationBarTabsButtonConfig {
+        return self.tabsButtonConfig(target: self, action: #selector(userDidTapTabs), dataStore: dataStore, leadingBarButtonItem: filterButtonItem)
+    }
+    
+    @objc func userDidTapTabs() {
+        _ = tabsCoordinator?.start()
     }
 
     private func configureNavigationBar() {
@@ -273,7 +281,7 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
 
         let searchConfig = WMFNavigationBarSearchConfig(searchResultsController: nil, searchControllerDelegate: nil, searchResultsUpdater: self, searchBarDelegate: self, searchBarPlaceholder: WMFLocalizedString("places-search-default-text", value:"Search Places", comment:"Placeholder text that displays where is there no current place search {{Identical|Search}}"), showsScopeBar: showsScopeBar, scopeButtonTitles: scopeButtonTitles)
 
-        configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: nil, profileButtonConfig: profileButtonConfig, searchBarConfig: searchConfig, hideNavigationBarOnScroll: false)
+        configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: nil, profileButtonConfig: profileButtonConfig, tabsButtonConfig: tabsButtonConfig, searchBarConfig: searchConfig, hideNavigationBarOnScroll: false)
     }
 
     private func updateScopeBarVisibility() {
@@ -404,6 +412,13 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
 
         return existingYirCoordinator
     }
+    
+    private var _tabsCoordinator: TabsOverviewCoordinator?
+    private var tabsCoordinator: TabsOverviewCoordinator? {
+        guard let navigationController else { return nil }
+        _tabsCoordinator = TabsOverviewCoordinator(navigationController: navigationController, theme: theme, dataStore: dataStore)
+        return _tabsCoordinator
+    }
 
     private var _profileCoordinator: ProfileCoordinator?
     private var profileCoordinator: ProfileCoordinator? {
@@ -439,7 +454,7 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
     }
 
     private func updateProfileButton() {
-        let profileButtonConfig = self.profileButtonConfig(target: self, action: #selector(didTapProfileButton), dataStore: dataStore, yirDataController: yirDataController, leadingBarButtonItem: filterButtonItem, trailingBarButtonItem: nil)
+        let profileButtonConfig = self.profileButtonConfig(target: self, action: #selector(didTapProfileButton), dataStore: dataStore, yirDataController: yirDataController,  leadingBarButtonItem: nil)
         updateNavigationBarProfileButton(needsBadge: profileButtonConfig.needsBadge, needsBadgeLabel: CommonStrings.profileButtonBadgeTitle, noBadgeLabel: CommonStrings.profileButtonTitle)
     }
 
@@ -912,17 +927,8 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
             DDLogWarn("Did You Mean search is unset")
             return
         }
-        SearchFunnel.shared.logSearchDidYouMean(source: "places", assignment: articleSearchBarExperimentAssignment)
+
         performSearch(search)
-    }
-    
-    private var articleSearchBarExperimentAssignment: WMFNavigationExperimentsDataController.ArticleSearchBarExperimentAssignment? {
-            
-        guard let assignment = try? WMFNavigationExperimentsDataController.shared?.articleSearchBarExperimentAssignment() else {
-            return nil
-        }
-        
-        return assignment
     }
 
     // MARK: - Display Actions

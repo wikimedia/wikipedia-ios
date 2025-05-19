@@ -5,7 +5,7 @@
 	<key>activity-tab-you-edited</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>لقد قمت بتحرير %#@v1@ هذا الأسبوع.</string>
+		<string>لقد قمت بالتعديل %#@v1@ هذا الأسبوع.</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -13,9 +13,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>%1$d مقال</string>
+			<string>%1$d مرة</string>
 			<key>other</key>
-			<string>%1$d مقالات</string>
+			<string> %1$d مرات</string>
 		</dict>
 	</dict>
 	<key>activity-tab-you-read</key>

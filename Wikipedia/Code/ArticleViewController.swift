@@ -46,6 +46,13 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
     private let cacheController: ArticleCacheController
 
     internal var willDisplayFundraisingBanner: Bool = false
+    
+    private var _tabsCoordinator: TabsOverviewCoordinator?
+    private var tabsCoordinator: TabsOverviewCoordinator? {
+        guard let navigationController else { return nil }
+        _tabsCoordinator = TabsOverviewCoordinator(navigationController: navigationController, theme: theme, dataStore: dataStore)
+        return _tabsCoordinator
+    }
 
     // Coordinator
     private var _profileCoordinator: ProfileCoordinator?
@@ -143,7 +150,14 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
 
     internal var articleViewSource: ArticleSource
     
-    @objc init?(articleURL: URL, dataStore: MWKDataStore, theme: Theme, source: ArticleSource, schemeHandler: SchemeHandler? = nil) {
+    // Properties related to tracking number of seconds this article is viewed.
+    var pageViewObjectID: NSManagedObjectID?
+    let previousPageViewObjectID: NSManagedObjectID?
+    var beganViewingDate: Date?
+    
+    var coordinator: ArticleTabCoordinating?
+    
+    @objc init?(articleURL: URL, dataStore: MWKDataStore, theme: Theme, source: ArticleSource, schemeHandler: SchemeHandler? = nil, previousPageViewObjectID: NSManagedObjectID? = nil) {
 
         guard let article = dataStore.fetchOrCreateArticle(with: articleURL) else {
                 return nil
@@ -158,6 +172,7 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
         self.schemeHandler = schemeHandler ?? SchemeHandler(scheme: "app", session: dataStore.session)
         self.cacheController = cacheController
         self.articleViewSource = source
+        self.previousPageViewObjectID = previousPageViewObjectID
 
         super.init(nibName: nil, bundle: nil)
         self.theme = theme
@@ -313,12 +328,6 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
         return view
     }()
 
-    lazy var searchBarButtonItem: UIBarButtonItem = {
-        let button = UIBarButtonItem(image: UIImage(named: "search"), style: .plain, target: self, action: #selector(userDidTapSearchButton))
-        button.accessibilityLabel = CommonStrings.searchButtonAccessibilityLabel
-        return button
-    }()
-
     override func updateViewConstraints() {
         super.updateViewConstraints()
         updateLeadImageMargins()
@@ -417,7 +426,6 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
 
         setup()
 
-        loadWatchStatusAndUpdateToolbar()
         setupForStateRestorationIfNecessary()
     }
     
@@ -435,6 +443,8 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         presentModalsIfNeeded()
+        trackBeganViewingDate()
+        coordinator?.syncTabsOnArticleAppearance()
     }
     
     @objc func userDidTapProfile() {
@@ -446,13 +456,8 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
         profileCoordinator?.start()
     }
     
-    @objc func userDidTapSearchButton() {
-        let searchVC = SearchViewController(source: .article)
-        searchVC.shouldBecomeFirstResponder = true
-        searchVC.apply(theme: theme)
-        searchVC.dataStore = dataStore
-        searchVC.needsCenteredTitle = true
-        navigationController?.pushViewController(searchVC, animated: true)
+    @objc func userDidTapTabs() {
+        _ = tabsCoordinator?.start()
     }
     
     /// Catch-all method for deciding what is the best modal to present on top of Article at this point. This method needs careful if-else logic so that we do not present two modals at the same time, which may unexpectedly suppress one.
@@ -492,6 +497,7 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
         cancelWIconPopoverDisplay()
         saveArticleScrollPosition()
         stopSignificantlyViewedTimer()
+        persistPageViewedSecondsForWikipediaInReview()
     }
 
     // MARK: Article load
@@ -546,6 +552,47 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
         }
         
         ArticleLinkInteractionFunnel.shared.logArticleView(pageID: pageID.intValue, project: project, source: articleViewSource)
+    }
+    
+    // Loads various additional data about the article from MediaWiki
+    func loadMediaWikiInfoAndUpdateToolbar() {
+        guard let title = articleURL.wmf_title,
+            let siteURL = articleURL.wmf_site,
+            let project = WikimediaProject(siteURL: siteURL)?.wmfProject else {
+                return
+        }
+        
+        let needsCategories = articleURL.wmf_title != "Main Page"
+        guard let request = try? WMFArticleDataController.ArticleInfoRequest(needsWatchedStatus: dataStore.authenticationManager.authStateIsPermanent, needsRollbackRights: false, needsCategories: needsCategories) else {
+            return
+        }
+                
+        WMFArticleDataController().fetchArticleInfo(title: title, project: project, request: request) { result in
+            
+            DispatchQueue.main.async { [weak self] in
+                
+                guard let self else {
+                    return
+                }
+                
+                switch result {
+                case .success(let info):
+                    
+                    let needsWatchButton = !info.watched
+                    let needsUnwatchHalfButton = info.watched && info.watchlistExpiry != nil
+                    let needsUnwatchFullButton = info.watched && info.watchlistExpiry == nil
+                    
+                    self.toolbarController.updateMoreButton(needsWatchButton: needsWatchButton, needsUnwatchHalfButton: needsUnwatchHalfButton, needsUnwatchFullButton: needsUnwatchFullButton)
+                    
+                    if needsCategories {
+                        self.saveCategories(categories: info.categories, articleTitle: title, project: project)
+                    }
+                    
+                case .failure(let error):
+                    DDLogError("Error fetching article MediaWiki info: \(error)")
+                }
+            }
+        }
     }
     
     internal func loadSummary(oldState: ViewState) {
@@ -633,19 +680,6 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
     
     // MARK: Navigation Bar
     
-    var needsSearchBar: Bool {
-        guard let assignment = try? WMFNavigationExperimentsDataController.shared?.articleSearchBarExperimentAssignment() else {
-            return false
-        }
-        
-        switch assignment {
-        case .control:
-            return false
-        case .test:
-            return true
-        }
-    }
-    
     private func configureNavigationBar() {
 
         let wButton = UIButton(type: .custom)
@@ -660,8 +694,11 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
             }
         }
         
-        let trailingBarButtonItem: UIBarButtonItem? = needsSearchBar ? nil : self.searchBarButtonItem
-        let profileButtonConfig = profileButtonConfig(target: self, action: #selector(userDidTapProfile), dataStore: dataStore, yirDataController: yirDataController, leadingBarButtonItem: nil, trailingBarButtonItem: trailingBarButtonItem)
+        let backButtonConfig = WMFNavigationBarBackButtonConfig(needsCustomTruncateBackButtonTitle: true)
+        
+        let profileButtonConfig = profileButtonConfig(target: self, action: #selector(userDidTapProfile), dataStore: dataStore, yirDataController: yirDataController, leadingBarButtonItem: nil)
+
+        let tabsButtonConfig = tabsButtonConfig(target: self, action: #selector(userDidTapTabs), dataStore: dataStore)
         
         let searchViewController = SearchViewController(source: .article, customArticleCoordinatorNavigationController: navigationController)
         searchViewController.dataStore = dataStore
@@ -675,15 +712,15 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
         
         searchViewController.populateSearchBarWithTextAction = populateSearchBarWithTextAction
         
-        let searchBarConfig: WMFNavigationBarSearchConfig? = needsSearchBar ? WMFNavigationBarSearchConfig(searchResultsController: searchViewController, searchControllerDelegate: self, searchResultsUpdater: self, searchBarDelegate: nil, searchBarPlaceholder: WMFLocalizedString("search-field-placeholder-text", value: "Search Wikipedia", comment: "Search field placeholder text"), showsScopeBar: false, scopeButtonTitles: nil) : nil
+        let searchBarConfig = WMFNavigationBarSearchConfig(searchResultsController: searchViewController, searchControllerDelegate: self, searchResultsUpdater: self, searchBarDelegate: nil, searchBarPlaceholder: WMFLocalizedString("search-field-placeholder-text", value: "Search Wikipedia", comment: "Search field placeholder text"), showsScopeBar: false, scopeButtonTitles: nil)
 
-        configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: nil, profileButtonConfig: profileButtonConfig, searchBarConfig: searchBarConfig, hideNavigationBarOnScroll: true)
+        configureNavigationBar(titleConfig: titleConfig, backButtonConfig: backButtonConfig, closeButtonConfig: nil, profileButtonConfig: profileButtonConfig, tabsButtonConfig: tabsButtonConfig, searchBarConfig: searchBarConfig, hideNavigationBarOnScroll: true)
     }
     
     private func updateProfileButton() {
-        // Checking A/B Test here as we don't want to instantiate the searchBarButtonItem lazy property unnecessarily
-        let resolvedSearchBarButtonItem: UIBarButtonItem? = needsSearchBar ? nil : self.searchBarButtonItem
-        let config = self.profileButtonConfig(target: self, action: #selector(userDidTapProfile), dataStore: dataStore, yirDataController: yirDataController, leadingBarButtonItem: nil, trailingBarButtonItem: resolvedSearchBarButtonItem)
+
+        let config = self.profileButtonConfig(target: self, action: #selector(userDidTapProfile), dataStore: dataStore, yirDataController: yirDataController, leadingBarButtonItem: nil)
+
         updateNavigationBarProfileButton(needsBadge: config.needsBadge, needsBadgeLabel: CommonStrings.profileButtonBadgeTitle, noBadgeLabel: CommonStrings.profileButtonTitle)
     }
     
@@ -691,23 +728,6 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
 
     func addToHistory() {
         try? article.addToReadHistory()
-    }
-    
-    func persistPageViewsForWikipediaInReview() {
-        if let title = self.articleURL.wmf_title,
-           let namespace = self.articleURL.namespace,
-           let siteURL = self.articleURL.wmf_site,
-           let project = WikimediaProject(siteURL: siteURL),
-           let wmfProject = project.wmfProject {
-            Task {
-                do {
-                    let pageViewsDataController = try WMFPageViewsDataController()
-                    try await pageViewsDataController.addPageView(title: title, namespaceID: Int16(namespace.rawValue), project: wmfProject)
-                } catch let error {
-                    DDLogError("Error saving viewed page: \(error)")
-                }
-            }
-        }
     }
     
     var significantlyViewedTimer: Timer?
@@ -1038,7 +1058,7 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
             // first try to navigate using LinkCoordinator. If it fails, use the legacy approach.
             if let navigationController {
                 
-                let linkCoordinator = LinkCoordinator(navigationController: navigationController, url: resolvedURL, dataStore: dataStore, theme: theme, articleSource: .undefined)
+                let linkCoordinator = LinkCoordinator(navigationController: navigationController, url: resolvedURL, dataStore: dataStore, theme: theme, articleSource: .undefined, previousPageViewObjectID: pageViewObjectID)
                 let success = linkCoordinator.start()
                 guard success else {
                     legacyNavigateAction()
@@ -1163,6 +1183,7 @@ private extension ArticleViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(self.textSizeChanged(notification:)), name: NSNotification.Name(rawValue: FontSizeSliderViewController.WMFArticleFontSizeUpdatedNotification), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(applicationWillResignActive), name: UIApplication.willResignActiveNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(applicationDidBecomeActive), name: UIApplication.didBecomeActiveNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(coreDataStoreSetup), name: WMFNSNotification.coreDataStoreSetup, object: nil)
         contentSizeObservation = webView.scrollView.observe(\.contentSize) { [weak self] (scrollView, change) in
             self?.contentSizeDidChange()
         }
@@ -1192,10 +1213,21 @@ private extension ArticleViewController {
     @objc func applicationWillResignActive(_ notification: Notification) {
         saveArticleScrollPosition()
         stopSignificantlyViewedTimer()
+        persistPageViewedSecondsForWikipediaInReview()
     }
     
     @objc func applicationDidBecomeActive(_ notification: Notification) {
         startSignificantlyViewedTimer()
+        trackBeganViewingDate()
+    }
+    
+    @objc func coreDataStoreSetup(_ notification: Notification) {
+        configureNavigationBar()
+
+        // Sometimes there is a race condition where the Core Data store isn't yet ready to persist tabs information (for example, deep linking to an article when in a terminated state). We are trying again here.
+        if coordinator?.tabIdentifier == nil || coordinator?.tabItemIdentifier == nil {
+            coordinator?.trackArticleTab(articleViewController: self)
+        }
     }
     
     func setupMessagingController() {

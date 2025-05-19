@@ -138,7 +138,7 @@ class ReadingListDetailViewController: ThemeableViewController, WMFNavigationBar
         let searchBarPlaceholder = WMFLocalizedString("reading-list-detail-search-placeholder", value: "Search reading list", comment: "Placeholder on search bar for reading list detail view.")
         let searchConfig = WMFNavigationBarSearchConfig(searchResultsController: nil, searchControllerDelegate: nil, searchResultsUpdater: self, searchBarDelegate: nil, searchBarPlaceholder: searchBarPlaceholder, showsScopeBar: false, scopeButtonTitles: nil)
         
-        configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: closeButtonConfig, profileButtonConfig: nil, searchBarConfig: searchConfig, hideNavigationBarOnScroll: false)
+        configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: closeButtonConfig, profileButtonConfig: nil,tabsButtonConfig: nil,  searchBarConfig: searchConfig, hideNavigationBarOnScroll: false)
     }
     
     // MARK: - Theme

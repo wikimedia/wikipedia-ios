@@ -70,6 +70,7 @@ extension ArticleViewController: ArticleWebMessageHandling {
         articleLoadWaitGroup?.leave()
         addToHistory()
         persistPageViewsForWikipediaInReview()
+        loadMediaWikiInfoAndUpdateToolbar()
         syncCachedResourcesIfNeeded()
     }
     

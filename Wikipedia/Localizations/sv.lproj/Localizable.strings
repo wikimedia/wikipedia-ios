@@ -101,11 +101,13 @@
 "activity-tab-add-images-subtitle" = "Lägg till föreslagna bilder till Wikipediaartiklar för att öka förståelsen.";
 "activity-tab-add-images-title" = "Lägg till bilder";
 "activity-tab-additional-thoughts" = "Några ytterligare kommentarer?";
+"activity-tab-generic-no-edits" = "Du har inte redigerat den här veckan. Börja nu för att spåra dina bidrag.";
+"activity-tab-greeting" = "$1Hej $2$3 👋 Här kommer din veckosammanfattning från Wikipedia.";
 "activity-tab-logged-out-subtitle" = "Spåra vad du läst och visa dina bidrag över tid på ett nytt sätt";
 "activity-tab-logged-out-title" = "Logga in eller skapa ett konto för att se mer redigerings- och läsaktivitet.";
 "activity-tab-neutral" = "Neutral";
-"activity-tab-no-edits-subtitle" = "Börja redigera för att börja spåra dina bidrag.";
-"activity-tab-no-edits-title" = "Du har inte gjort några ändringar än.";
+"activity-tab-no-edits-title" = "Du har inte redigerat den här veckan. Lägg till bilder för att göra artiklar lättare att förstå.";
+"activity-tab-read-title" = "Visa redigeringshistorik";
 "activity-tab-satisfied" = "Nöjd";
 "activity-tab-start-editing" = "Börja redigera";
 "activity-tab-survey" = "Är du nöjd med din \"Aktivitet\"-skärm? Vad mer skulle du vilja se här i framtiden?";
@@ -114,9 +116,10 @@
 "activity-tab-unsatisfied" = "Inte nöjd";
 "activity-tab-very-satisfied" = "Mycket nöjd";
 "activity-tab-very-unsatisfied" = "Mycket missnöjd";
+"activity-tab-view-editing-history" = "Visa redigeringshistorik";
 "activity-tab-view-reading-history" = "Visa redigeringshistorik";
 "activity-tab-view-saved-articles" = "Visa sparade artiklar";
-"activity-tab-you-edited" = "Du redigerade {{PLURAL:$1|$1 artikel|$1 artiklar}} denna vecka.";
+"activity-tab-you-edited" = "Du redigerade {{PLURAL:$1|$1 gång|$1 gånger}} denna vecka.";
 "activity-tab-you-read" = "Du läste {{PLURAL:$1|$1 artikel|$1 artiklar}} denna vecka.";
 "activity-tab-you-saved" = "Du sparade {{PLURAL:$1|$1 artikel|$1 artiklar}} denna vecka.";
 "add-articles-to-reading-list" = "Lägg till {{PLURAL:$1|$1 artikel|$1 artiklar}} i läslista";
@@ -150,6 +153,8 @@
 "article-revision-history" = "Artikelns versionshistorik";
 "article-save-error-not-enough-space" = "Du har inte tillräckligt mycket utrymme på din enhet för att spara denna artikel";
 "article-share" = "Dela";
+"article-tabs-open-background-tab" = "Öppna flik i bakgrunden";
+"article-tabs-open-new-tab" = "Öppna i ny flik";
 "article-talk-page" = "Artikelns diskussionssida";
 "article-toolbar-reading-themes-controls-toolbar-item" = "Kontroller för lästeman";
 "article-view-controller-editing-temp-account-created-subtitle" = "Det tillfälliga kontot $1 skapades efter att din redigering publicerades. Det kommer upphöra om 90 dagar.";
@@ -224,6 +229,10 @@
 "description-welcome-start-editing-button" = "Börja redigera";
 "developer-force-email-auth" = "Tvinga e-postautentisering";
 "developer-settings" = "Utvecklarinställningar";
+"developer-settings-activity-tab-group-A" = "Ändra aktivitetsfliken till grupp A";
+"developer-settings-activity-tab-group-B" = "Ändra aktivitetsfliken till grupp B";
+"developer-settings-activity-tab-group-C" = "Ändra aktivitetsfliken till grupp C";
+"developer-settings-activity-tabs" = "Aktivera aktivitetsflikar";
 "developer-settings-bypass-donation" = "Hoppa över donation";
 "developer-settings-enable-year-in-review" = "Aktivera årsöversikt";
 "developer-settings-send-analytics-to-wmflabs" = "Skicka analys till wmflabs.";
