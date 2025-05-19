@@ -139,7 +139,7 @@ public struct WMFSurveyView: View {
         VStack {
             ZStack(alignment: .topLeading) {
                 TextEditor(text: $otherOptionText)
-                    .frame(height: 50)
+                    .frame(height: 80)
                     .focused($otherOptionTextFieldSelected)
                     .foregroundColor(Color(theme.text))
                     .background(Color(theme.paperBackground))

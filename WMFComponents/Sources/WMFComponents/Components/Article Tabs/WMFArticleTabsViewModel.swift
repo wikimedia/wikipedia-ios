@@ -151,18 +151,17 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
         }
         
         let defaults = UserDefaults.standard
-        let tabsKey = "tabsOverviewOpened"
+        let tabsKey = "tabsOverviewOpenedCount"
         let tapKey = "didTapOpenInNewTab"
 
-        let hasSeenTabs = defaults.bool(forKey: tabsKey)
+        let seenCount = defaults.integer(forKey: tabsKey)
         let hasTappedOpen = defaults.bool(forKey: tapKey)
 
-        if hasSeenTabs {
-            if hasTappedOpen {
-                showSurvey()
-            }
-        } else {
-             defaults.set(true, forKey: tabsKey)
+        let updatedCount = seenCount + 1
+        defaults.set(updatedCount, forKey: tabsKey)
+
+        if updatedCount == 2 && hasTappedOpen {
+            showSurvey()
         }
     }
 }
