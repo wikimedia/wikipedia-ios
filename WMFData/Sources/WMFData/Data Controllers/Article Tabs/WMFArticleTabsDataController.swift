@@ -582,7 +582,9 @@ public class WMFArticleTabsDataController: WMFArticleTabsDataControlling {
             return articleTabs
         }
         
-        return try await databaseTabsWithArticleSummaries(databaseTabs: databaseTabs)
+        return databaseTabs
+        
+        // return try await databaseTabsWithArticleSummaries(databaseTabs: databaseTabs)
     }
     
     private func databaseTabsWithArticleSummaries(databaseTabs: [WMFArticleTab]) async throws -> [WMFArticleTab] {
