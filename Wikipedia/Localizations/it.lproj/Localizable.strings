@@ -137,7 +137,11 @@
 "activity-tab-very-satisfied" = "Molto soddisfatto";
 "activity-tab-very-unsatisfied" = "Molto insoddisfatto";
 "activity-tab-view-editing-history" = "Vedi cronologia delle modifiche";
+"activity-tab-view-reading-history" = "Vedi cronologia delle letture";
 "activity-tab-view-saved-articles" = "Tutte le voci salvate";
+"activity-tab-you-edited" = "Hai modificato {{PLURAL:$1|$1 volta|$1 volte}} questa settimana.";
+"activity-tab-you-read" = "Hai letto {{PLURAL:$1|$1 voce|$1 voci}} questa settimana.";
+"activity-tab-you-saved" = "Hai salvato {{PLURAL:$1|$1 voce|$1 voci}} questa settimana.";
 "add-articles-to-reading-list" = "Aggiungi $1 {{PLURAL:$1|voce|voci}} all'elenco di lettura";
 "advanced-settings-title" = "Impostazioni avanzate";
 "alert-temporary-account" = "Stai utilizzando un account temporaneo. L'account scadrà tra 90 giorni.";
@@ -844,6 +848,8 @@
 "table-of-contents-close-accessibility-hint" = "Chiudi";
 "table-of-contents-close-accessibility-label" = "Chiudi l'indice";
 "table-of-contents-heading" = "Contenuti";
+"tabs-close-tab" = "Chiudi scheda";
+"tabs-open-tab" = "Apri scheda";
 "talk-page-active-users-accessibilty-label" = "{{PLURAL:$1|$1 utente attivo|$1 utenti attivi}}";
 "talk-page-add-topic-button" = "Aggiungi argomento";
 "talk-page-change-language" = "Cambia lingua";
