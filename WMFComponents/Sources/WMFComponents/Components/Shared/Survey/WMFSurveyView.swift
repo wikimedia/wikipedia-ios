@@ -22,6 +22,7 @@ public struct WMFSurveyView: View {
     @State var otherOptionText = ""
     @State var selectedOptions: Set<OptionAPIIdentifier> = []
 
+
     let viewModel: WMFSurveyViewModel
 
     var cancelAction: (() -> Void)?
@@ -88,14 +89,20 @@ public struct WMFSurveyView: View {
                 .listSectionSeparator(.hidden)
 
                 Section {
-                    HStack {
-                        TextField(viewModel.localizedStrings.otherPlaceholder, text: $otherOptionText)
-                            .focused($otherOptionTextFieldSelected)
-                            .foregroundStyle(Color(theme.text))
-                        Spacer()
-                        WMFCheckmarkView(isSelected: !otherOptionText.isEmpty, configuration: WMFCheckmarkView.Configuration(style: .default))
+                    if viewModel.shouldShowMultilineText {
+                        multilineTextInput()
+                        .listRowBackground(Color(theme.paperBackground))
+                    } else {
+                        HStack {
+                            TextField(viewModel.localizedStrings.otherPlaceholder, text: $otherOptionText)
+                                .focused($otherOptionTextFieldSelected)
+                                .foregroundStyle(Color(theme.text))
+                            Spacer()
+                            WMFCheckmarkView(isSelected: !otherOptionText.isEmpty, configuration: WMFCheckmarkView.Configuration(style: .default))
+                        }
+                        .listRowBackground(Color(theme.paperBackground))
                     }
-                    .listRowBackground(Color(theme.paperBackground))
+
                 }
                 .listCustomSectionSpacing(16)
                 .listRowSeparator(.hidden)
@@ -127,7 +134,35 @@ public struct WMFSurveyView: View {
             .navigationViewStyle(.stack)
             .environment(\.colorScheme, theme.preferredColorScheme)
     }
+    
+    private func multilineTextInput() -> some View {
+        VStack {
+            ZStack(alignment: .topLeading) {
+                TextEditor(text: $otherOptionText)
+                    .frame(minHeight: 100)
+                    .focused($otherOptionTextFieldSelected)
+                    .foregroundColor(Color(theme.text))
+                    .background(Color(theme.paperBackground))
+                    .cornerRadius(8)
+                    .padding(4)
 
+                if otherOptionText.isEmpty && !otherOptionTextFieldSelected {
+                    Text(viewModel.localizedStrings.otherPlaceholder)
+                        .foregroundStyle(Color(uiColor: theme.secondaryText))
+                        .padding(.top, 10)
+                        .padding(.leading, 8)
+                }
+            }
+
+            HStack {
+                Spacer()
+                WMFCheckmarkView(
+                    isSelected: !otherOptionText.isEmpty,
+                    configuration: WMFCheckmarkView.Configuration(style: .default)
+                )
+            }
+        }
+    }
 }
 
 #Preview {

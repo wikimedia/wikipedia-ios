@@ -39,6 +39,9 @@ public struct WMFArticleTabsView: View {
         }
         .background(Color(theme.midBackground))
         .toolbarBackground(Color(uiColor: (theme.paperBackground)), for: .automatic)
+        .onAppear {
+            viewModel.didShowTabs()
+        }
     }
     
     private func mainPageTabContent(tab: ArticleTab) -> some View {

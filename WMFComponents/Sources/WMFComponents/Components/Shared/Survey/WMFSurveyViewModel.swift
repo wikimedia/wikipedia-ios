@@ -48,11 +48,13 @@ public final class WMFSurveyViewModel {
 	let localizedStrings: LocalizedStrings
     let options: [OptionViewModel]
     let selectionType: SelectionType
+    let shouldShowMultilineText: Bool
 
-    public init(localizedStrings: LocalizedStrings, options: [OptionViewModel], selectionType: SelectionType) {
+    public init(localizedStrings: LocalizedStrings, options: [OptionViewModel], selectionType: SelectionType, shouldShowMultilineText: Bool = true) {
 		self.localizedStrings = localizedStrings
         self.options = options
         self.selectionType = selectionType
+        self.shouldShowMultilineText = shouldShowMultilineText
 	}
 
 }

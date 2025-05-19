@@ -14,13 +14,15 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
 
     public let didTapTab: (WMFArticleTabsDataController.WMFArticleTab) -> Void
     public let didTapAddTab: () -> Void
+    public let showSurvey: () -> Void
     
     public let localizedStrings: LocalizedStrings
     
     public init(dataController: WMFArticleTabsDataController,
                 localizedStrings: LocalizedStrings,
                 didTapTab: @escaping (WMFArticleTabsDataController.WMFArticleTab) -> Void,
-                didTapAddTab: @escaping () -> Void) {
+                didTapAddTab: @escaping () -> Void,
+                showSurvey: @escaping () -> Void) {
         self.dataController = dataController
         self.localizedStrings = localizedStrings
         self.articleTabs = []
@@ -28,6 +30,7 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
         self.count = 0
         self.didTapTab = didTapTab
         self.didTapAddTab = didTapAddTab
+        self.showSurvey = showSurvey
         super.init()
         Task {
             await loadTabs()
@@ -75,6 +78,10 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
     }
     
     // MARK: - Public funcs
+    
+    public func didShowTabs() {
+        checkAndMarkIfSeen()
+    }
 
     public func calculateColumns(for size: CGSize) -> Int {
         // If text is scaled up for accessibility, use single column
@@ -128,6 +135,28 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
     
     public func tabsCount() async throws -> Int {
         return try await dataController.tabsCount()
+    }
+    
+    // MARK: - Private funcs
+    
+    private func checkAndMarkIfSeen() {
+//        let defaults = UserDefaults.standard
+//        let tabsKey = "tabsOverviewOpened"
+//        let tapKey = "didTapOpenInNewTab"
+//
+//        let hasSeenTabs = defaults.bool(forKey: tabsKey)
+//        let hasTappedOpen = defaults.bool(forKey: tapKey)
+        
+        let hasSeenTabs = true
+        let hasTappedOpen = true
+
+        if hasSeenTabs {
+            if hasTappedOpen {
+                showSurvey()
+            }
+        } else {
+            // defaults.set(true, forKey: tabsKey)
+        }
     }
 }
 

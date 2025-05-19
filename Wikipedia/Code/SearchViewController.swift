@@ -463,6 +463,12 @@ class SearchViewController: ArticleCollectionViewController, WMFNavigationBarCon
         }
         
         let longPressOpenInNewTabAction: (URL) -> Void = { [weak self] articleURL in
+            let defaults = UserDefaults.standard
+            let key = "didTapOpenInNewTab"
+            
+            if !defaults.bool(forKey: key) {
+                defaults.set(true, forKey: key)
+            }
             
             guard let self else { return }
             

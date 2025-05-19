@@ -164,6 +164,12 @@ class SearchResultsViewController: ArticleCollectionViewController {
     }
     
     override func openInNewTabArticlePreviewActionSelected(with peekController: ArticlePeekPreviewViewController) {
+        let defaults = UserDefaults.standard
+        let key = "didTapOpenInNewTab"
+        
+        if !defaults.bool(forKey: key) {
+            defaults.set(true, forKey: key)
+        }
         
         longPressOpenInNewTabAction?(peekController.articleURL)
     }

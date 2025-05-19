@@ -499,6 +499,13 @@ extension ColumnarCollectionViewController: ArticlePreviewingDelegate {
     }
     
     func openInNewTabArticlePreviewActionSelected(with peekController: ArticlePeekPreviewViewController) {
+        let defaults = UserDefaults.standard
+        let key = "didTapOpenInNewTab"
+        
+        if !defaults.bool(forKey: key) {
+            defaults.set(true, forKey: key)
+        }
+        
         guard let navVC = navigationController else { return }
         let articleCoordinator = ArticleCoordinator(navigationController: navVC, articleURL: peekController.articleURL, dataStore: MWKDataStore.shared(), theme: theme, source: .undefined, tabConfig: .appendArticleAndAssignNewTabAndSetToCurrent)
         articleCoordinator.start()
