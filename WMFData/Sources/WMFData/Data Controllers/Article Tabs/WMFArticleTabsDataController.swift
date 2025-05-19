@@ -120,7 +120,13 @@ public class WMFArticleTabsDataController: WMFArticleTabsDataControlling {
     public var shouldShowArticleTabs: Bool {
         return developerSettingsDataController.enableArticleTabs
     }
-    
+
+    // MARK: Tooltips
+
+    public var shouldShowTooltips: Bool {
+        return true
+    }
+
     // MARK: - Tabs Manipulation Methods
     
     public func tabsCount() async throws -> Int {

@@ -58,7 +58,8 @@ extension ArticleViewController: ArticleWebMessageHandling {
         state = .loaded
         
         showWIconPopoverIfNecessary()
-        
+        showTooltips()
+
         refreshControl.endRefreshing()
         loadSummary(oldState: oldState)
         initialSetupCompletion?()

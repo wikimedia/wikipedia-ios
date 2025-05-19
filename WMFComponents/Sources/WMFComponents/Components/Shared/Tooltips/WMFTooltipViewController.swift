@@ -2,8 +2,8 @@ import Foundation
 import SwiftUI
 import UIKit
 
-final class WMFTooltipViewController: WMFComponentViewController {
-    
+final public class WMFTooltipViewController: WMFComponentViewController {
+
     let viewModel: WMFTooltipViewModel
     private let horizontalPadding = CGFloat(12)
     private let verticalPadding = CGFloat(8)
@@ -73,7 +73,7 @@ final class WMFTooltipViewController: WMFComponentViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func viewDidLoad() {
+    override public func viewDidLoad() {
         super.viewDidLoad()
         view.addSubview(scrollView)
         scrollView.addSubview(stackView)
@@ -101,7 +101,7 @@ final class WMFTooltipViewController: WMFComponentViewController {
         ])
     }
     
-    override var preferredContentSize: CGSize {
+    override public var preferredContentSize: CGSize {
         get {
             let additionalVerticalSize = CGFloat(10) // Needed to prevent unnecessary scrolling
             let size = CGSize(width: 280, height: UIView.noIntrinsicMetric)
@@ -114,7 +114,7 @@ final class WMFTooltipViewController: WMFComponentViewController {
         set { super.preferredContentSize = newValue }
     }
     
-    override func appEnvironmentDidChange() {
+    override public func appEnvironmentDidChange() {
         super.appEnvironmentDidChange()
         let theme = WMFAppEnvironment.current.theme
         view.backgroundColor = theme.popoverBackground
