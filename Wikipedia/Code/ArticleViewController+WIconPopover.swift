@@ -15,7 +15,13 @@ extension ArticleViewController {
                 return false
             }
         }
-        
+
+        if let articleTabsDataController = WMFArticleTabsDataController.shared {
+            if !articleTabsDataController.hasPresentedTooltips {
+                return true
+            }
+        }
+
         guard
             !UserDefaults.standard.wmf_didShowWIconPopover(),
             presentedViewController == nil,
@@ -60,11 +66,12 @@ extension ArticleViewController {
     func showTooltips() {
         perform(#selector(showTooltipsIfNecessary), with: nil, afterDelay: 1.0)
     }
+
     @objc private func showTooltipsIfNecessary() {
-        guard WMFArticleTabsDataController.shared?.shouldShowTooltips ?? false else { return }
+        guard WMFArticleTabsDataController.shared?.hasPresentedTooltips ?? false else { return }
 
 
-        webView.firstParagraphFrame(in: view) { [weak self] rect in
+        webView.firstParagraphFrame(in: webView) { [weak self] rect in
             guard let self = self else { return }
 
             self.firstParagraphRect = rect
@@ -74,11 +81,14 @@ extension ArticleViewController {
     }
 
     private func presentAllTooltips() {
-        let dataController = WMFArticleTabsDataController.shared
-
-        guard dataController?.shouldShowTooltips ?? false else {
+        guard let dataController = WMFArticleTabsDataController.shared else {
             return
         }
+
+        guard !dataController.hasPresentedTooltips else {
+            return
+        }
+
         guard let navigationBar = self.navigationController?.navigationBar else {
             return
         }
@@ -102,6 +112,7 @@ extension ArticleViewController {
 
         }
         self.displayTooltips(tooltipViewModels: [viewModel1, viewModel2, viewModel3])
+        dataController.hasPresentedTooltips = true
 
     }
 

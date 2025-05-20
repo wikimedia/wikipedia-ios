@@ -76,7 +76,17 @@ public class WMFArticleTabsDataController: WMFArticleTabsDataControlling {
             self.tabItemIdentifier = tabItemIdentifier
         }
     }
-    
+
+    // MARK: Nested internal types
+
+    struct OnboardingStatus: Codable {
+        var hasPresenetedOnboardingTooltips: Bool
+
+        static var `default`: OnboardingStatus {
+            return OnboardingStatus(hasPresenetedOnboardingTooltips: false)
+        }
+    }
+
     // MARK: - Properties
     
     // This singleton setup allows us to try instantiation multiple times in case the first attempt fails (like for example, if coreDataStoreUnavailable error is thrown).
@@ -93,6 +103,7 @@ public class WMFArticleTabsDataController: WMFArticleTabsDataControlling {
     }
     
     public let coreDataStore: WMFCoreDataStore
+    private let userDefaultsStore = WMFDataEnvironment.current.userDefaultsStore
     private let developerSettingsDataController: WMFDeveloperSettingsDataControlling
     private let articleSummaryDataController: WMFArticleSummaryDataControlling
     
@@ -121,10 +132,20 @@ public class WMFArticleTabsDataController: WMFArticleTabsDataControlling {
         return developerSettingsDataController.enableArticleTabs
     }
 
-    // MARK: Tooltips
+    // MARK: Onboarding
 
-    public var shouldShowTooltips: Bool {
-        return true
+    internal var onboardingStatus: OnboardingStatus {
+        return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.articleTabsOnboarding.rawValue)) ?? OnboardingStatus.default
+    }
+
+    public var hasPresentedTooltips: Bool {
+        get {
+            return onboardingStatus.hasPresenetedOnboardingTooltips
+        } set {
+            var currentStatus = onboardingStatus
+            currentStatus.hasPresenetedOnboardingTooltips = newValue
+            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.articleTabsOnboarding.rawValue, value: currentStatus)
+        }
     }
 
     // MARK: - Tabs Manipulation Methods
