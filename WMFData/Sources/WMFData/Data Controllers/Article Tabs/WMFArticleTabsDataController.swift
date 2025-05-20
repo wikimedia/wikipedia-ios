@@ -139,13 +139,14 @@ public class WMFArticleTabsDataController: WMFArticleTabsDataControlling {
     }
 
     public var hasPresentedTooltips: Bool {
-        get {
-            return onboardingStatus.hasPresenetedOnboardingTooltips
-        } set {
-            var currentStatus = onboardingStatus
-            currentStatus.hasPresenetedOnboardingTooltips = newValue
-            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.articleTabsOnboarding.rawValue, value: currentStatus)
-        }
+//        get {
+//            return onboardingStatus.hasPresenetedOnboardingTooltips
+//        } set {
+//            var currentStatus = onboardingStatus
+//            currentStatus.hasPresenetedOnboardingTooltips = newValue
+//            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.articleTabsOnboarding.rawValue, value: currentStatus)
+//        }
+        return false
     }
 
     // MARK: - Tabs Manipulation Methods

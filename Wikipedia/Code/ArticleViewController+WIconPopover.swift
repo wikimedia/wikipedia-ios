@@ -6,23 +6,23 @@ import WebKit
 extension ArticleViewController {
     var shouldShowWIconPopover: Bool {
 
-        guard let navigationController else {
-            return false
-        }
-
-        if #available(iOS 18, *) {
-            if UIDevice.current.userInterfaceIdiom == .pad && traitCollection.horizontalSizeClass == .regular {
-                return false
-            }
-        }
-
-        guard
-            !UserDefaults.standard.wmf_didShowWIconPopover(),
-            presentedViewController == nil,
-            !navigationController.isNavigationBarHidden
-        else {
-            return false
-        }
+        //        guard let navigationController else {
+        //            return false
+        //        }
+        //
+        //        if #available(iOS 18, *) {
+        //            if UIDevice.current.userInterfaceIdiom == .pad && traitCollection.horizontalSizeClass == .regular {
+        //                return false
+        //            }
+        //        }
+        //
+        //        guard
+        //            !UserDefaults.standard.wmf_didShowWIconPopover(),
+        //            presentedViewController == nil,
+        //            !navigationController.isNavigationBarHidden
+        //        else {
+        //            return false
+        //        }
         return true
     }
 
@@ -50,7 +50,7 @@ extension ArticleViewController {
             return
         }
 
-        guard let navigationBar = self.navigationController?.navigationBar, let titleView = navigationItem.titleView else {
+        guard let navigationBar = self.navigationController?.navigationBar else {
             return
         }
 
@@ -72,19 +72,46 @@ extension ArticleViewController {
             buttonTitle: CommonStrings.gotItButtonTitle
         )
 
-        let sourceRect = CGRect(x: navigationBar.bounds.width / 2, y: navigationBar.frame.maxY, width: 0, height: 0)
+        let searchBarMinY: CGFloat
+        if let searchBar = navigationItem.searchController?.searchBar,
+           let sbSuper = searchBar.superview {
+            let sbFrameInNavBar = navigationBar.convert(searchBar.frame, from: sbSuper)
+            searchBarMinY = sbFrameInNavBar.minY
+        } else {
+            searchBarMinY = navigationBar.bounds.height
+        }
 
-        guard sourceRect.origin.y > 0 else {
+        let wIconSourceRect = CGRect(x: navigationBar.bounds.midX, y: searchBarMinY, width: 0, height: 0)
+
+        guard wIconSourceRect.origin.y > 0 else {
             return
         }
 
-        let wIconViewModel = WMFTooltipViewModel(localizedStrings: wTooltipStrings, buttonNeedsDisclosure: false, sourceView: navigationBar, sourceRect: sourceRect, permittedArrowDirections: .up, buttonAction: nil)
-        let viewModel1 = WMFTooltipViewModel(localizedStrings: firstTooltipString, buttonNeedsDisclosure: false, sourceView: navigationBar, sourceRect: titleView.frame, permittedArrowDirections: .up) {
+        let wIconViewModel = WMFTooltipViewModel(localizedStrings: wTooltipStrings, buttonNeedsDisclosure: false, sourceView: navigationBar, sourceRect: wIconSourceRect, permittedArrowDirections: .up, buttonAction: nil)
+
+
+        let paragraphTarget = self.firstParagraphRect ?? webView.convert(webView.bounds, to: self.view)
+        let viewModel1 = WMFTooltipViewModel(localizedStrings: firstTooltipString, buttonNeedsDisclosure: false, sourceView: navigationBar, sourceRect: wIconSourceRect, permittedArrowDirections: .up) {
 
         }
 
-        let paragraphTarget = self.firstParagraphRect ?? webView.convert(webView.bounds, to: view)
-        let viewModel2 = WMFTooltipViewModel(localizedStrings: secondTooltipString, buttonNeedsDisclosure: false, sourceView: navigationBar, sourceRect: titleView.frame, permittedArrowDirections: .up) {
+        let rightItemsCount = navigationItem.rightBarButtonItems?.count ?? 0
+        let indexFromTrailing = 1
+
+
+        let margin = navigationBar.layoutMargins.right
+        let itemHitWidth: CGFloat = 44
+        let interItemSpacing: CGFloat = 8
+
+        let xOffsetFromTrailing =
+        itemHitWidth * (CGFloat(indexFromTrailing) + 0.5)
+        + interItemSpacing * CGFloat(indexFromTrailing)
+        + margin
+
+        let xPos = navigationBar.bounds.width - xOffsetFromTrailing
+
+        let sourceRect1 = CGRect(x: xPos, y: searchBarMinY, width: 0, height: 0)
+        let viewModel2 = WMFTooltipViewModel(localizedStrings: secondTooltipString, buttonNeedsDisclosure: false, sourceView: navigationBar, sourceRect: sourceRect1, permittedArrowDirections: .up) {
 
         }
 
