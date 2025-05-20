@@ -855,6 +855,8 @@
 "on-this-day-no-internet-error" = "No data available";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 from $2 Wikipedia";
 "on-this-day-title" = "On this day";
+"open-in-tab-tooltip-body" = "Long-press an article title or blue link to open it in a new tab.";
+"open-in-tab-tooltip-title" = "Open in new tab";
 "original-tab-button-popover-description" = "Tap on the 'W' to return to the tab you started from";
 "page-history-bot-edits" = "bot";
 "page-history-compare-accessibility-hint" = "Tap to select two revisions to compare";
@@ -1150,6 +1152,8 @@
 "tabs-main-page-description" = "Discover featured articles, the latest news, interesting facts, and key stats on Wikipedia’s main page.";
 "tabs-main-page-subtitle" = "Wikipedia’s daily highlights";
 "tabs-navbar-title-format" = "{{PLURAL:$1|$1 tab|$1 tabs}}";
+"tabs-overview-tooltip-body" = "Switch between open articles in the tabs overview.";
+"tabs-overview-tooltip-title" = "Tabs overview";
 "tachelhit-variants-alert-body" = "The Wikipedia app now supports the following Tachelhit variants as primary or secondary languages within the app, making it easier to read, search and edit in your preferred variants:\n\nⵜⴰⵛⵍⵃⵉⵜ Tachelhit, Tifinagh (shi-tfng)\nTaclḥit Tachelhit, Latin (shi-latn)";
 "tachelhit-variants-alert-title" = "Updates to Tachelhit variant support";
 "tajik-variants-alert-body" = "The Wikipedia app now supports the following Tajik variants as primary or secondary languages within the app, making it easier to read, search and edit in your preferred variants:\n\nтоҷикӣ кирилликӣ Tajik, Cyrillic (tg-cyrl)\ntojikī lotinī Tajik, Latin (tg-latn)";
@@ -1235,7 +1239,6 @@
 "temp-account-alert-read-more-information" = "$1You are using a temporary account.$2 Account will expire in 90 days. After it expires, a new one will be created the next time you make an edit without logging in. $3Log in or create an account to get credit for future edits, and access other features.";
 "temp-account-edit-sheet-cta-top" = "Log in or create an account";
 "temp-account-edit-sheet-subtitle" = "$2You are currently using a temporary account.$3 Edits made with the temporary account $1 will not be carried over to your permanent account when you log in. Log in or create an account to get credit to your username, among other benefits.";
-"temp-account-got-it" = "Got it";
 "temp-account-toast-read-more-title" = "Read more";
 "temp-account-toast-title" = "$1You are currently using a temporary account.$2 Edits made with the temporary...";
 "temp-account-warning-title" = "You are using a temporary account";

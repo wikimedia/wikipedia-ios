@@ -2,23 +2,17 @@ import WMFData
 import WMFComponents
 import WebKit
 
-/// W icon popover tooltip
+/// Article Tooltips
 extension ArticleViewController {
     var shouldShowWIconPopover: Bool {
-        
+
         guard let navigationController else {
             return false
         }
-        
+
         if #available(iOS 18, *) {
             if UIDevice.current.userInterfaceIdiom == .pad && traitCollection.horizontalSizeClass == .regular {
                 return false
-            }
-        }
-
-        if let articleTabsDataController = WMFArticleTabsDataController.shared {
-            if !articleTabsDataController.hasPresentedTooltips {
-                return true
             }
         }
 
@@ -32,44 +26,15 @@ extension ArticleViewController {
         return true
     }
 
-    func showWIconPopoverIfNecessary() {
-        guard shouldShowWIconPopover else {
-            return
-        }
-        perform(#selector(showWIconPopover), with: nil, afterDelay: 1.0)
-    }
-    
     func cancelWIconPopoverDisplay() {
-        NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(showWIconPopover), object: nil)
+        NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(showTooltipsIfNecessary), object: nil)
     }
-    
-    @objc func showWIconPopover() {
-        guard let navigationBar = self.navigationController?.navigationBar else {
-            return
-        }
-        
-        let sourceRect = CGRect(x: navigationBar.bounds.width / 2, y: navigationBar.frame.maxY, width: 0, height: 0)
-        
-        guard sourceRect.origin.y > 0 else {
-            return
-        }
-        
-        let title = WMFLocalizedString("back-button-popover-title", value: "Tap to go back", comment: "Title for popover explaining the 'W' icon may be tapped to go back.")
-        let message = WMFLocalizedString("original-tab-button-popover-description", value: "Tap on the 'W' to return to the tab you started from", comment: "Description for popover explaining the 'W' icon may be tapped to return to the original tab.")
-        wmf_presentDynamicHeightPopoverViewController(sourceRect: sourceRect, title: title, message: message, width: 230, duration: 3)
-        UserDefaults.standard.wmf_setDidShowWIconPopover(true)
-    }
-}
 
-extension ArticleViewController {
-    /// Tabs Tooltips
     func showTooltips() {
         perform(#selector(showTooltipsIfNecessary), with: nil, afterDelay: 1.0)
     }
 
     @objc private func showTooltipsIfNecessary() {
-        guard WMFArticleTabsDataController.shared?.hasPresentedTooltips ?? false else { return }
-
 
         webView.firstParagraphFrame(in: webView) { [weak self] rect in
             guard let self = self else { return }
@@ -85,41 +50,63 @@ extension ArticleViewController {
             return
         }
 
-        guard !dataController.hasPresentedTooltips else {
+        guard let navigationBar = self.navigationController?.navigationBar, let titleView = navigationItem.titleView else {
             return
         }
 
-        guard let navigationBar = self.navigationController?.navigationBar else {
+        let wIconTootipTitle = WMFLocalizedString("back-button-popover-title", value: "Tap to go back", comment: "Title for popover explaining the 'W' icon may be tapped to go back.")
+        let wIconTootipBody = WMFLocalizedString("original-tab-button-popover-description", value: "Tap on the 'W' to return to the tab you started from", comment: "Description for popover explaining the 'W' icon may be tapped to return to the original tab.")
+        let wTooltipStrings = WMFTooltipViewModel.LocalizedStrings(
+            title: wIconTootipTitle, body: wIconTootipBody,
+            buttonTitle: CommonStrings.gotItButtonTitle
+        )
+
+        let firstTooltipString = WMFTooltipViewModel.LocalizedStrings(
+            title: WMFLocalizedString("open-in-tab-tooltip-title", value: "Open in new tab", comment: "Title for tooltip explaining the open in new tab functionality"),
+            body:  WMFLocalizedString("open-in-tab-tooltip-body", value: "Long-press an article title or blue link to open it in a new tab.", comment: "Description for tooltip explaining the open in new tab functionality"),
+            buttonTitle: CommonStrings.gotItButtonTitle
+        )
+        let secondTooltipString = WMFTooltipViewModel.LocalizedStrings(
+            title: WMFLocalizedString("tabs-overview-tooltip-title", value: "Tabs overview", comment: "Title for tootltip explaining the tabs overview functionality"),
+            body: WMFLocalizedString("tabs-overview-tooltip-body", value: "Switch between open articles in the tabs overview.", comment: "DEscription for tootltip explaining the tabs overview functionality"),
+            buttonTitle: CommonStrings.gotItButtonTitle
+        )
+
+        let sourceRect = CGRect(x: navigationBar.bounds.width / 2, y: navigationBar.frame.maxY, width: 0, height: 0)
+
+        guard sourceRect.origin.y > 0 else {
             return
         }
 
-        let firstTooltipString = WMFTooltipViewModel.LocalizedStrings(title: "First tooltip title ", body: "Body", buttonTitle: "Got it")
-        let secondTooltipString = WMFTooltipViewModel.LocalizedStrings(title: "Second tooltip title ", body: "Body", buttonTitle: "Got it")
-        let thirdTooltipString = WMFTooltipViewModel.LocalizedStrings(title: "Third tooltip title ", body: "Body", buttonTitle: "Got it")
-
-        let WIconRect = CGRect(x: navigationBar.bounds.width / 2, y: navigationBar.frame.maxY, width: 0, height: 0)
-        let viewModel1 = WMFTooltipViewModel(localizedStrings: firstTooltipString, buttonNeedsDisclosure: false, sourceView: navigationBar, sourceRect: WIconRect, permittedArrowDirections: .up) {
+        let viewModel = WMFTooltipViewModel(localizedStrings: wTooltipStrings, buttonNeedsDisclosure: false, sourceView: navigationBar, sourceRect: sourceRect, permittedArrowDirections: .up, buttonAction: nil)
+        let viewModel1 = WMFTooltipViewModel(localizedStrings: firstTooltipString, buttonNeedsDisclosure: false, sourceView: navigationBar, sourceRect: titleView.frame, permittedArrowDirections: .up) {
 
         }
 
         let paragraphTarget = self.firstParagraphRect ?? webView.convert(webView.bounds, to: view)
-        let viewModel2 = WMFTooltipViewModel(localizedStrings: secondTooltipString, buttonNeedsDisclosure: false, sourceView: webView, sourceRect: paragraphTarget, permittedArrowDirections: .down) {
+        let viewModel2 = WMFTooltipViewModel(localizedStrings: secondTooltipString, buttonNeedsDisclosure: false, sourceView: navigationBar, sourceRect: titleView.frame, permittedArrowDirections: .up) {
 
         }
 
-        let tabButtonRect = CGRect(x: navigationBar.bounds.width / 1.6, y: navigationBar.frame.maxY, width: 0, height: 0)
-        let viewModel3 = WMFTooltipViewModel(localizedStrings: thirdTooltipString, buttonNeedsDisclosure: true, sourceView: navigationBar, sourceRect: tabButtonRect, permittedArrowDirections: .up) {
-
+        if dataController.shouldShowArticleTabs && !dataController.hasPresentedTooltips {
+            if shouldShowWIconPopover {
+                self.displayTooltips(tooltipViewModels: [viewModel, viewModel1, viewModel2])
+                dataController.hasPresentedTooltips = true
+            } else {
+                self.displayTooltips(tooltipViewModels: [viewModel1, viewModel2])
+                UserDefaults.standard.wmf_setDidShowWIconPopover(true)
+                dataController.hasPresentedTooltips = true
+            }
+        } else if shouldShowWIconPopover {
+            self.displayTooltips(tooltipViewModels: [viewModel])
+            UserDefaults.standard.wmf_setDidShowWIconPopover(true)
         }
-        self.displayTooltips(tooltipViewModels: [viewModel1, viewModel2, viewModel3])
-        dataController.hasPresentedTooltips = true
-
     }
 
 }
 
 extension ArticleViewController: WMFTooltipPresenting {
-   
+
     public func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
         return .none
     }
@@ -139,7 +126,6 @@ extension ArticleViewController: WMFTooltipPresenting {
     }
 
 }
-
 
 private extension WKWebView {
     /// Asynchronously finds the first paragraph in the page and returns its frame

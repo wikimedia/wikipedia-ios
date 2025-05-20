@@ -57,7 +57,7 @@ extension ArticleViewController: ArticleWebMessageHandling {
         let oldState = state
         state = .loaded
         
-        showWIconPopoverIfNecessary()
+//        showWIconPopoverIfNecessary()
         showTooltips()
 
         refreshControl.endRefreshing()
