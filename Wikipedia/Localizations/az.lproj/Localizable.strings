@@ -135,6 +135,7 @@
 "article-revision-history" = "Məqalənin redaktə tarixçəsi";
 "article-save-error-not-enough-space" = "Bu məqaləni saxlamaq üçün cihazınızda kifayət qədər yer yoxdur";
 "article-share" = "Paylaş";
+"article-tabs-max-reached" = "Vərəqə limitinə çatıldı ($1). Zəhmət olmasa, bir və ya daha çox vərəqəni bağlayın.";
 "article-tabs-open-background-tab" = "Arxa vərəqədə aç";
 "article-tabs-open-new-tab" = "Yeni vərəqədə aç";
 "article-talk-page" = "Məqalənin müzakirə səhifəsi";
@@ -1152,9 +1153,11 @@
 "table-of-contents-heading" = "Mündəricat";
 "table-of-contents-hide-button-label" = "Mündəricatı gizlət";
 "table-of-contents-subheading-label" = "Alt başlıq $1";
+"tabs-close-tab" = "Vərəqəni bağla";
 "tabs-main-page-description" = "Seçilmiş məqalələri, ən son xəbərləri, maraqlı faktları və əsas statistik məlumatları Vikipediyanın əsas səhifəsində kəşf edin.";
 "tabs-main-page-subtitle" = "Vikipediyanın gündəlik əsas məqamları";
 "tabs-navbar-title-format" = "{{PLURAL:$1|$1 vərəqə}}";
+"tabs-open-tab" = "Vərəqəni aç";
 "tachelhit-variants-alert-body" = "Vikipediya tətbiqi artıq tətbiq daxilində əsas və ya köməkçi dillər kimi aşağıdakı Taçelit variantlarını dəstəkləyir və bu, seçdiyiniz variantlarda oxumağı, axtarışı və redaktə etməyi asanlaşdırır:\n\nⵜⴰⵛⵍⵃⵉⵜ Tachelhit, Tifinagh (shi-tfng)\nTaclḥit Tachelhit, Latin (shi-latn)";
 "tachelhit-variants-alert-title" = "Taçelit variant dəstəyi üçün yeniləmələr";
 "tajik-variants-alert-body" = "Vikipediya tətbiqi artıq tətbiq daxilində əsas və ya köməkçi dillər kimi aşağıdakı tacik variantlarını dəstəkləyir və bu, seçdiyiniz variantlarda oxumağı, axtarmağı və redaktə etməyi asanlaşdırır:\n\nтоҷикӣ кирилликӣ Tajik, Cyrillic (tg-cyrl)\ntojikī lotinī Tajik, Latin (tg-latn)";
