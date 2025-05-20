@@ -25,8 +25,6 @@ public struct WMFArticleTabsView: View {
                 LazyVGrid(columns: Array(repeating: gridItem, count: columns)) {
                     ForEach(viewModel.articleTabs.sorted(by: { $0.dateCreated < $1.dateCreated })) { tab in
                         WMFArticleTabsViewContent(viewModel: viewModel, tab: tab)
-                            .accessibilityElement(children: .combine)
-                            .accessibilityLabel(viewModel.getAccessibilityLabel(for: tab))
                             .accessibilityActions {
                                 accessibilityAction(named: viewModel.localizedStrings.openTabAccessibility) {
                                     viewModel.didTapTab(tab.data)
@@ -68,11 +66,17 @@ fileprivate struct WMFArticleTabsViewContent: View {
         Group {
             if tab.isMain {
                 mainPageTabContent()
+                    .accessibilityElement(children: .combine)
+                    .accessibilityLabel(viewModel.getAccessibilityLabel(for: tab))
             } else {
                 if tab.info == nil {
                     loadingTabContent()
+                        .accessibilityElement(children: .combine)
+                        .accessibilityLabel(viewModel.getAccessibilityLabel(for: tab))
                 } else {
                     standardTabContent()
+                        .accessibilityElement(children: .combine)
+                        .accessibilityLabel(viewModel.getAccessibilityLabel(for: tab))
                 }
             }
         }

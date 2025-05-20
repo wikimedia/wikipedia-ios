@@ -9,7 +9,6 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
     @Published var count: Int
     
     private let dataController: WMFArticleTabsDataController
-    public var onTabCountChanged: ((Int) -> Void)?
     public var updateNavigationBarTitleAction: ((Int) -> Void)?
 
     public let didTapTab: (WMFArticleTabsDataController.WMFArticleTab) -> Void
@@ -67,7 +66,6 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
             }
             self.shouldShowCloseButton = articleTabs.count > 1
             self.count = articleTabs.count
-            onTabCountChanged?(count)
             updateNavigationBarTitleAction?(count)
         } catch {
             // Handle error appropriately
