@@ -57,16 +57,12 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
     private func loadTabs() async {
         do {
             let tabs = try await dataController.fetchAllArticleTabs()
-            // let populatedTabs = await populateSummaries(tabs)
             self.articleTabs = tabs.map { tab in
                 ArticleTab(
-                    image: tab.articles.last?.imageURL,
                     title: tab.articles.last?.title.underscoresToSpaces ?? "",
-                    subtitle: tab.articles.last?.description,
-                    description: tab.articles.last?.summary,
                     dateCreated: tab.timestamp,
-                    data: tab,
-                    isLoading: true
+                    info: nil,
+                    data: tab
                 )
             }
             self.shouldShowCloseButton = articleTabs.count > 1
@@ -112,7 +108,7 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
             label += " " + localizedStrings.mainPageSubtitle
         } else {
             label += tab.title
-            if let subtitle = tab.subtitle {
+            if let subtitle = tab.info?.subtitle {
                 label += " " + subtitle
             }
         }
@@ -137,22 +133,24 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
 }
 
 public class ArticleTab: Identifiable, ObservableObject {
-    @Published var image: URL?
-    @Published var title: String
-    @Published var subtitle: String?
-    @Published var description: String?
+    
+    struct Info {
+        let subtitle: String?
+        let image: URL?
+        let description: String?
+    }
+    
+    let title: String
+    @Published var info: Info?
+    
     let dateCreated: Date
     let data: WMFArticleTabsDataController.WMFArticleTab
-    @Published var isLoading: Bool
 
-    public init(image: URL?, title: String, subtitle: String?, description: String?, dateCreated: Date, data: WMFArticleTabsDataController.WMFArticleTab, isLoading: Bool) {
-        self.image = image
+    init(title: String, dateCreated: Date, info: Info?, data: WMFArticleTabsDataController.WMFArticleTab) {
         self.title = title
-        self.subtitle = subtitle
-        self.description = description
+        self.info = info
         self.dateCreated = dateCreated
         self.data = data
-        self.isLoading = isLoading
     }
     
     public var id: String {
@@ -161,12 +159,5 @@ public class ArticleTab: Identifiable, ObservableObject {
     
     var isMain: Bool {
         return data.articles.last?.isMain ?? false
-    }
-    
-    func update(image: URL?, title: String, subtitle: String?, description: String?) {
-        self.image = image
-        self.title = title
-        self.subtitle = subtitle
-        self.description = description
     }
 }

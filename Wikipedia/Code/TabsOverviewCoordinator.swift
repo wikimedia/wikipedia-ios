@@ -102,7 +102,7 @@ final class TabsOverviewCoordinator: Coordinator {
             }
             
             var newArticles = Array(tab.articles.prefix(tab.articles.count - 1))
-            let newArticle = WMFArticleTabsDataController.WMFArticle(identifier: topArticle.identifier, title: topArticle.title, description: article.wikidataDescription, summary: article.snippet, imageURL: nil, project: topArticle.project)
+            let newArticle = WMFArticleTabsDataController.WMFArticle(identifier: topArticle.identifier, title: topArticle.title, description: article.wikidataDescription, summary: article.snippet, imageURL: article.thumbnailURL, project: topArticle.project)
             newArticles.append(newArticle)
             let newTab = WMFArticleTabsDataController.WMFArticleTab(identifier: tab.identifier, timestamp: tab.timestamp, isCurrent: tab.isCurrent, articles: newArticles)
             completion(newTab)
