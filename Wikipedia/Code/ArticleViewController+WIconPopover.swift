@@ -78,7 +78,7 @@ extension ArticleViewController {
             return
         }
 
-        let viewModel = WMFTooltipViewModel(localizedStrings: wTooltipStrings, buttonNeedsDisclosure: false, sourceView: navigationBar, sourceRect: sourceRect, permittedArrowDirections: .up, buttonAction: nil)
+        let wIconViewModel = WMFTooltipViewModel(localizedStrings: wTooltipStrings, buttonNeedsDisclosure: false, sourceView: navigationBar, sourceRect: sourceRect, permittedArrowDirections: .up, buttonAction: nil)
         let viewModel1 = WMFTooltipViewModel(localizedStrings: firstTooltipString, buttonNeedsDisclosure: false, sourceView: navigationBar, sourceRect: titleView.frame, permittedArrowDirections: .up) {
 
         }
@@ -88,18 +88,31 @@ extension ArticleViewController {
 
         }
 
+        guard dataController.shouldShowArticleTabs || shouldShowWIconPopover else {
+            return
+        }
+
+        var viewModels: [WMFTooltipViewModel] = []
+
         if dataController.shouldShowArticleTabs && !dataController.hasPresentedTooltips {
             if shouldShowWIconPopover {
-                self.displayTooltips(tooltipViewModels: [viewModel, viewModel1, viewModel2])
-                dataController.hasPresentedTooltips = true
+                viewModels = [wIconViewModel, viewModel1, viewModel2]
+
             } else {
-                self.displayTooltips(tooltipViewModels: [viewModel1, viewModel2])
-                UserDefaults.standard.wmf_setDidShowWIconPopover(true)
-                dataController.hasPresentedTooltips = true
+                viewModels = [viewModel1, viewModel2]
+
             }
+            dataController.hasPresentedTooltips = true
         } else if shouldShowWIconPopover {
-            self.displayTooltips(tooltipViewModels: [viewModel])
+            viewModels = [wIconViewModel]
+        }
+
+        if shouldShowWIconPopover {
             UserDefaults.standard.wmf_setDidShowWIconPopover(true)
+        }
+
+        if !viewModels.isEmpty {
+            self.displayTooltips(tooltipViewModels: viewModels)
         }
     }
 
