@@ -92,9 +92,11 @@ fileprivate struct WMFArticleTabsViewContent: View {
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
         .onAppear {
             Task {
-                let populatedTab = await viewModel.populateSummary(tab.data)
-                let info = ArticleTab.Info(subtitle: populatedTab.articles.last?.description, image: populatedTab.articles.last?.imageURL, description: populatedTab.articles.last?.extract)
-                tab.info = info
+                if tab.info == nil {
+                    let populatedTab = await viewModel.populateSummary(tab.data)
+                    let info = ArticleTab.Info(subtitle: populatedTab.articles.last?.description, image: populatedTab.articles.last?.imageURL, description: populatedTab.articles.last?.extract)
+                    tab.info = info
+                }
             }
         }
     }
@@ -161,7 +163,7 @@ fileprivate struct WMFArticleTabsViewContent: View {
     }
     
     private func loadingTabContent() -> some View {
-        Text("Loading")
+        Text("")
     }
     
     private func standardTabContent() -> some View {

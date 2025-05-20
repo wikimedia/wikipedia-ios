@@ -6,7 +6,6 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
     // articleTab should NEVER be empty - take care of logic of inserting main page in datacontroller/viewcontroller
     @Published var articleTabs: [ArticleTab]
     @Published var shouldShowCloseButton: Bool
-    @Published var count: Int
     
     private let dataController: WMFArticleTabsDataController
     public var updateNavigationBarTitleAction: ((Int) -> Void)?
@@ -26,7 +25,6 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
         self.localizedStrings = localizedStrings
         self.articleTabs = []
         self.shouldShowCloseButton = false
-        self.count = 0
         self.didTapTab = didTapTab
         self.didTapAddTab = didTapAddTab
         self.populateSummary = populateSummary
@@ -65,17 +63,16 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
                 )
             }
             self.shouldShowCloseButton = articleTabs.count > 1
-            self.count = articleTabs.count
-            updateNavigationBarTitleAction?(count)
+            updateNavigationBarTitleAction?(articleTabs.count)
         } catch {
             // Handle error appropriately
-            print("Error loading tabs: \(error)")
+            debugPrint("Error loading tabs: \(error)")
         }
     }
     
     // MARK: - Public funcs
 
-    public func calculateColumns(for size: CGSize) -> Int {
+    func calculateColumns(for size: CGSize) -> Int {
         // If text is scaled up for accessibility, use single column
         if UIApplication.shared.preferredContentSizeCategory.isAccessibilityCategory {
             return 1
@@ -91,7 +88,7 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
         }
     }
     
-    public func calculateImageHeight() -> Int {
+    func calculateImageHeight() -> Int {
         // If text is scaled up for accessibility, use taller image for single column
         if UIApplication.shared.preferredContentSizeCategory.isAccessibilityCategory {
             return 225
@@ -99,7 +96,7 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
         return 95
     }
     
-    public func getAccessibilityLabel(for tab: ArticleTab) -> String {
+    func getAccessibilityLabel(for tab: ArticleTab) -> String {
         var label = ""
         if tab.isMain {
             label += tab.title
@@ -114,23 +111,29 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
         return label
     }
     
-    public func closeTab(tab: ArticleTab) {
+    func closeTab(tab: ArticleTab) {
         Task {
             do {
                 try await dataController.deleteArticleTab(identifier: tab.data.identifier)
-                await loadTabs()
+                
+                Task { @MainActor in
+                    articleTabs.removeAll { $0 == tab }
+                    self.shouldShowCloseButton = articleTabs.count > 1
+                    updateNavigationBarTitleAction?(articleTabs.count)
+                }
+                
             } catch {
-                print("Error closing tab: \(error)")
+                debugPrint("Error closing tab: \(error)")
             }
         }
     }
     
-    public func tabsCount() async throws -> Int {
+    func tabsCount() async throws -> Int {
         return try await dataController.tabsCount()
     }
 }
 
-public class ArticleTab: Identifiable, ObservableObject {
+class ArticleTab: Identifiable, Hashable, Equatable, ObservableObject {
     
     struct Info {
         let subtitle: String?
@@ -151,8 +154,16 @@ public class ArticleTab: Identifiable, ObservableObject {
         self.data = data
     }
     
-    public var id: String {
+    var id: String {
         return data.identifier.uuidString
+    }
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
+    }
+    
+    static func ==(lhs: ArticleTab, rhs: ArticleTab) -> Bool {
+        return lhs.id == rhs.id
     }
     
     var isMain: Bool {
