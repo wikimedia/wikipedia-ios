@@ -12,22 +12,19 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
 
     public let didTapTab: (WMFArticleTabsDataController.WMFArticleTab) -> Void
     public let didTapAddTab: () -> Void
-    public let populateSummary: @Sendable (WMFArticleTabsDataController.WMFArticleTab) async -> WMFArticleTabsDataController.WMFArticleTab
     
     public let localizedStrings: LocalizedStrings
     
     public init(dataController: WMFArticleTabsDataController,
                 localizedStrings: LocalizedStrings,
                 didTapTab: @escaping (WMFArticleTabsDataController.WMFArticleTab) -> Void,
-                didTapAddTab: @escaping () -> Void,
-                populateSummary: @escaping @Sendable (WMFArticleTabsDataController.WMFArticleTab) async -> WMFArticleTabsDataController.WMFArticleTab) {
+                didTapAddTab: @escaping () -> Void) {
         self.dataController = dataController
         self.localizedStrings = localizedStrings
         self.articleTabs = []
         self.shouldShowCloseButton = false
         self.didTapTab = didTapTab
         self.didTapAddTab = didTapAddTab
-        self.populateSummary = populateSummary
         super.init()
         Task {
             await loadTabs()
@@ -127,6 +124,31 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
                 debugPrint("Error closing tab: \(error)")
             }
         }
+    }
+    
+    func populateArticleSummary(_ tab: WMFArticleTabsDataController.WMFArticleTab) async -> WMFArticleTabsDataController.WMFArticleTab {
+        guard let lastArticle = tab.articles.last else {
+            return tab
+        }
+        
+        guard !lastArticle.isMain else {
+            return tab
+        }
+        
+        let dataController = WMFArticleSummaryDataController()
+        do {
+            let summary = try await dataController.fetchArticleSummary(project: lastArticle.project, title: lastArticle.title)
+            
+            var newArticles = Array(tab.articles.prefix(tab.articles.count - 1))
+            let newArticle = WMFArticleTabsDataController.WMFArticle(identifier: lastArticle.identifier, title: lastArticle.title, description: summary.description, extract: summary.extract, imageURL: summary.thumbnailURL, project: lastArticle.project)
+            newArticles.append(newArticle)
+            let newTab = WMFArticleTabsDataController.WMFArticleTab(identifier: tab.identifier, timestamp: tab.timestamp, isCurrent: tab.isCurrent, articles: newArticles)
+            return newTab
+            
+        } catch {
+            return tab
+        }
+        
     }
 }
 

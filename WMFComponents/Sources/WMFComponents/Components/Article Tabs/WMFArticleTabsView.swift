@@ -93,7 +93,7 @@ fileprivate struct WMFArticleTabsViewContent: View {
         .onAppear {
             Task {
                 if tab.info == nil {
-                    let populatedTab = await viewModel.populateSummary(tab.data)
+                    let populatedTab = await viewModel.populateArticleSummary(tab.data)
                     let info = ArticleTab.Info(subtitle: populatedTab.articles.last?.description, image: populatedTab.articles.last?.imageURL, description: populatedTab.articles.last?.extract)
                     tab.info = info
                 }

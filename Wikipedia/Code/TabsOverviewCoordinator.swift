@@ -46,13 +46,6 @@ final class TabsOverviewCoordinator: Coordinator {
             self?.tappedAddTab()
         }
         
-        let populateSummary: @Sendable (WMFArticleTabsDataController.WMFArticleTab) async -> WMFArticleTabsDataController.WMFArticleTab = { [weak self] tab in
-            guard let self = self else {
-                return tab
-            }
-            return await self.populateArticleSummary(tab)
-        }
-        
         let localizedStrings = WMFArticleTabsViewModel.LocalizedStrings(
             navBarTitleFormat: WMFLocalizedString("tabs-navbar-title-format", value: "{{PLURAL:%1$d|%1$d tab|%1$d tabs}}", comment: "$1 is the amount of tabs. Navigation title for tabs, displaying how many open tabs."),
             mainPageSubtitle: WMFLocalizedString("tabs-main-page-subtitle", value: "Wikipedia’s daily highlights", comment: "Main page subtitle"),
@@ -61,7 +54,7 @@ final class TabsOverviewCoordinator: Coordinator {
             openTabAccessibility: WMFLocalizedString("tabs-open-tab", value: "Open tab", comment: "Accessibility label for opening a tab")
         )
         
-        let articleTabsViewModel = WMFArticleTabsViewModel(dataController: dataController, localizedStrings: localizedStrings, didTapTab: didTapTab, didTapAddTab: didTapAddTab, populateSummary: populateSummary)
+        let articleTabsViewModel = WMFArticleTabsViewModel(dataController: dataController, localizedStrings: localizedStrings, didTapTab: didTapTab, didTapAddTab: didTapAddTab)
         let articleTabsView = WMFArticleTabsView(viewModel: articleTabsViewModel)
         
         let hostingController = WMFArticleTabsHostingController(rootView: articleTabsView, viewModel: articleTabsViewModel,
@@ -69,31 +62,6 @@ final class TabsOverviewCoordinator: Coordinator {
         let navVC = WMFComponentNavigationController(rootViewController: hostingController, modalPresentationStyle: .overFullScreen)
 
         navigationController.present(navVC, animated: true, completion: nil)
-    }
-    
-    private func populateArticleSummary(_ tab: WMFArticleTabsDataController.WMFArticleTab) async -> WMFArticleTabsDataController.WMFArticleTab {
-        guard let lastArticle = tab.articles.last else {
-            return tab
-        }
-        
-        guard !lastArticle.isMain else {
-            return tab
-        }
-        
-        let dataController = WMFArticleSummaryDataController()
-        do {
-            let summary = try await dataController.fetchArticleSummary(project: lastArticle.project, title: lastArticle.title)
-            
-            var newArticles = Array(tab.articles.prefix(tab.articles.count - 1))
-            let newArticle = WMFArticleTabsDataController.WMFArticle(identifier: lastArticle.identifier, title: lastArticle.title, description: summary.description, extract: summary.extract, imageURL: summary.thumbnailURL, project: lastArticle.project)
-            newArticles.append(newArticle)
-            let newTab = WMFArticleTabsDataController.WMFArticleTab(identifier: tab.identifier, timestamp: tab.timestamp, isCurrent: tab.isCurrent, articles: newArticles)
-            return newTab
-            
-        } catch {
-            return tab
-        }
-        
     }
     
     private func tappedTab(_ tab: WMFArticleTabsDataController.WMFArticleTab) {
