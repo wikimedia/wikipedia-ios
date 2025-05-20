@@ -50,7 +50,7 @@ final class TabsOverviewCoordinator: Coordinator {
             guard let self = self else {
                 return tab
             }
-            return await self.populateArticleSummaryAsync(tab)
+            return await self.populateArticleSummary(tab)
         }
         
         let localizedStrings = WMFArticleTabsViewModel.LocalizedStrings(
@@ -71,42 +71,29 @@ final class TabsOverviewCoordinator: Coordinator {
         navigationController.present(navVC, animated: true, completion: nil)
     }
     
-    private func populateArticleSummaryAsync(_ tab: WMFArticleTabsDataController.WMFArticleTab) async -> WMFArticleTabsDataController.WMFArticleTab {
-        await withCheckedContinuation { continuation in
-            self.populateArticleSummary(tab) { populatedTab in
-                continuation.resume(returning: populatedTab)
-            }
-        }
-    }
-    
-    private func populateArticleSummary(_ tab: WMFArticleTabsDataController.WMFArticleTab, completion: @escaping (WMFArticleTabsDataController.WMFArticleTab) -> Void) {
-        
-        guard let topArticle = tab.articles.last,
-            let siteURL = topArticle.project.siteURL,
-            let articleURL = siteURL.wmf_URL(withTitle: topArticle.title),
-            let key = articleURL.wmf_inMemoryKey else {
-            completion(tab)
-            return
+    private func populateArticleSummary(_ tab: WMFArticleTabsDataController.WMFArticleTab) async -> WMFArticleTabsDataController.WMFArticleTab {
+        guard let lastArticle = tab.articles.last else {
+            return tab
         }
         
-        summaryController.updateOrCreateArticleSummaryForArticle(withKey: key, cachePolicy: .reloadRevalidatingCacheData) { article, error in
-            if let error {
-                DDLogError("Error fetching summaries: \(error)")
-                completion(tab)
-                return
-            }
-            
-            guard let article else {
-                completion(tab)
-                return
-            }
+        guard !lastArticle.isMain else {
+            return tab
+        }
+        
+        let dataController = WMFArticleSummaryDataController()
+        do {
+            let summary = try await dataController.fetchArticleSummary(project: lastArticle.project, title: lastArticle.title)
             
             var newArticles = Array(tab.articles.prefix(tab.articles.count - 1))
-            let newArticle = WMFArticleTabsDataController.WMFArticle(identifier: topArticle.identifier, title: topArticle.title, description: article.wikidataDescription, extract: article.snippet, imageURL: article.thumbnailURL, project: topArticle.project)
+            let newArticle = WMFArticleTabsDataController.WMFArticle(identifier: lastArticle.identifier, title: lastArticle.title, description: summary.description, extract: summary.extract, imageURL: summary.thumbnailURL, project: lastArticle.project)
             newArticles.append(newArticle)
             let newTab = WMFArticleTabsDataController.WMFArticleTab(identifier: tab.identifier, timestamp: tab.timestamp, isCurrent: tab.isCurrent, articles: newArticles)
-            completion(newTab)
+            return newTab
+            
+        } catch {
+            return tab
         }
+        
     }
     
     private func tappedTab(_ tab: WMFArticleTabsDataController.WMFArticleTab) {
