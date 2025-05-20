@@ -98,7 +98,6 @@ public class WMFArticleTabsDataController: WMFArticleTabsDataControlling {
     
     public let coreDataStore: WMFCoreDataStore
     private let developerSettingsDataController: WMFDeveloperSettingsDataControlling
-    private let articleSummaryDataController: WMFArticleSummaryDataControlling
     
     lazy var backgroundContext: NSManagedObjectContext? = {
         let backgroundContext = try? coreDataStore.newBackgroundContext
@@ -109,14 +108,12 @@ public class WMFArticleTabsDataController: WMFArticleTabsDataControlling {
     // MARK: - Lifecycle
     
     init(coreDataStore: WMFCoreDataStore? = WMFDataEnvironment.current.coreDataStore,
-         developerSettingsDataController: WMFDeveloperSettingsDataControlling = WMFDeveloperSettingsDataController.shared,
-         articleSummaryDataController: WMFArticleSummaryDataControlling = WMFArticleSummaryDataController()) throws {
+         developerSettingsDataController: WMFDeveloperSettingsDataControlling = WMFDeveloperSettingsDataController.shared) throws {
         guard let coreDataStore else {
             throw WMFDataControllerError.coreDataStoreUnavailable
         }
         self.coreDataStore = coreDataStore
         self.developerSettingsDataController = developerSettingsDataController
-        self.articleSummaryDataController = articleSummaryDataController
     }
     
     // MARK: Entry point
