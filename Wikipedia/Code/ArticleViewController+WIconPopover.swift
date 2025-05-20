@@ -6,23 +6,23 @@ import WebKit
 extension ArticleViewController {
     var shouldShowWIconPopover: Bool {
 
-        //        guard let navigationController else {
-        //            return false
-        //        }
-        //
-        //        if #available(iOS 18, *) {
-        //            if UIDevice.current.userInterfaceIdiom == .pad && traitCollection.horizontalSizeClass == .regular {
-        //                return false
-        //            }
-        //        }
-        //
-        //        guard
-        //            !UserDefaults.standard.wmf_didShowWIconPopover(),
-        //            presentedViewController == nil,
-        //            !navigationController.isNavigationBarHidden
-        //        else {
-        //            return false
-        //        }
+        guard let navigationController else {
+            return false
+        }
+
+        if #available(iOS 18, *) {
+            if UIDevice.current.userInterfaceIdiom == .pad && traitCollection.horizontalSizeClass == .regular {
+                return false
+            }
+        }
+
+        guard
+            !UserDefaults.standard.wmf_didShowWIconPopover(),
+            presentedViewController == nil,
+            !navigationController.isNavigationBarHidden
+        else {
+            return false
+        }
         return true
     }
 
@@ -46,92 +46,41 @@ extension ArticleViewController {
     }
 
     private func presentAllTooltips() {
-        guard let dataController = WMFArticleTabsDataController.shared else {
+        guard
+            let dataController = WMFArticleTabsDataController.shared,
+            let navigationBar = navigationController?.navigationBar
+        else {
             return
         }
 
-        guard let navigationBar = self.navigationController?.navigationBar else {
+        guard let wIconRect = computeWIconSourceRect(in: navigationBar) else {
             return
         }
 
-        let wIconTootipTitle = WMFLocalizedString("back-button-popover-title", value: "Tap to go back", comment: "Title for popover explaining the 'W' icon may be tapped to go back.")
-        let wIconTootipBody = WMFLocalizedString("original-tab-button-popover-description", value: "Tap on the 'W' to return to the tab you started from", comment: "Description for popover explaining the 'W' icon may be tapped to return to the original tab.")
-        let wTooltipStrings = WMFTooltipViewModel.LocalizedStrings(
-            title: wIconTootipTitle, body: wIconTootipBody,
-            buttonTitle: CommonStrings.gotItButtonTitle
-        )
+        let paragraphRect = firstParagraphRect ?? webView.convert(webView.bounds, to: view)
+        let squareRect = computeTabsIconSourceRect(in: navigationBar)
 
-        let firstTooltipString = WMFTooltipViewModel.LocalizedStrings(
-            title: WMFLocalizedString("open-in-tab-tooltip-title", value: "Open in new tab", comment: "Title for tooltip explaining the open in new tab functionality"),
-            body:  WMFLocalizedString("open-in-tab-tooltip-body", value: "Long-press an article title or blue link to open it in a new tab.", comment: "Description for tooltip explaining the open in new tab functionality"),
-            buttonTitle: CommonStrings.gotItButtonTitle
-        )
-        let secondTooltipString = WMFTooltipViewModel.LocalizedStrings(
-            title: WMFLocalizedString("tabs-overview-tooltip-title", value: "Tabs overview", comment: "Title for tootltip explaining the tabs overview functionality"),
-            body: WMFLocalizedString("tabs-overview-tooltip-body", value: "Switch between open articles in the tabs overview.", comment: "DEscription for tootltip explaining the tabs overview functionality"),
-            buttonTitle: CommonStrings.gotItButtonTitle
-        )
-
-        let searchBarMinY: CGFloat
-        if let searchBar = navigationItem.searchController?.searchBar,
-           let sbSuper = searchBar.superview {
-            let sbFrameInNavBar = navigationBar.convert(searchBar.frame, from: sbSuper)
-            searchBarMinY = sbFrameInNavBar.minY
-        } else {
-            searchBarMinY = navigationBar.bounds.height
-        }
-
-        let wIconSourceRect = CGRect(x: navigationBar.bounds.midX, y: searchBarMinY, width: 0, height: 0)
-
-        guard wIconSourceRect.origin.y > 0 else {
-            return
-        }
-
-        let wIconViewModel = WMFTooltipViewModel(localizedStrings: wTooltipStrings, buttonNeedsDisclosure: false, sourceView: navigationBar, sourceRect: wIconSourceRect, permittedArrowDirections: .up, buttonAction: nil)
-
-
-        let paragraphTarget = self.firstParagraphRect ?? webView.convert(webView.bounds, to: self.view)
-        let viewModel1 = WMFTooltipViewModel(localizedStrings: firstTooltipString, buttonNeedsDisclosure: false, sourceView: navigationBar, sourceRect: wIconSourceRect, permittedArrowDirections: .up) {
+        let wIconVM = WMFTooltipViewModel(localizedStrings: makeWIconStrings(), buttonNeedsDisclosure: false, sourceView: navigationBar, sourceRect: wIconRect, permittedArrowDirections: .up) {
 
         }
 
-        let rightItemsCount = navigationItem.rightBarButtonItems?.count ?? 0
-        let indexFromTrailing = 1
+        let openInTabVM = WMFTooltipViewModel(localizedStrings: makeOpenInTabStrings(), buttonNeedsDisclosure: false, sourceView: webView, sourceRect: paragraphRect, permittedArrowDirections: .down) {
 
+        }
 
-        let margin = navigationBar.layoutMargins.right
-        let itemHitWidth: CGFloat = 44
-        let interItemSpacing: CGFloat = 8
-
-        let xOffsetFromTrailing =
-        itemHitWidth * (CGFloat(indexFromTrailing) + 0.5)
-        + interItemSpacing * CGFloat(indexFromTrailing)
-        + margin
-
-        let xPos = navigationBar.bounds.width - xOffsetFromTrailing
-
-        let sourceRect1 = CGRect(x: xPos, y: searchBarMinY, width: 0, height: 0)
-        let viewModel2 = WMFTooltipViewModel(localizedStrings: secondTooltipString, buttonNeedsDisclosure: false, sourceView: navigationBar, sourceRect: sourceRect1, permittedArrowDirections: .up) {
+        let tabsOverviewVM = WMFTooltipViewModel(localizedStrings: makeTabsOverviewStrings(), buttonNeedsDisclosure: false, sourceView: navigationBar, sourceRect: squareRect, permittedArrowDirections: .up) {
 
         }
 
         guard dataController.shouldShowArticleTabs || shouldShowWIconPopover else {
             return
         }
-
         var viewModels: [WMFTooltipViewModel] = []
 
         if dataController.shouldShowArticleTabs && !dataController.hasPresentedTooltips {
-            if shouldShowWIconPopover {
-                viewModels = [wIconViewModel, viewModel1, viewModel2]
-
-            } else {
-                viewModels = [viewModel1, viewModel2]
-
-            }
-            dataController.hasPresentedTooltips = true
+            viewModels = shouldShowWIconPopover ? [wIconVM, openInTabVM, tabsOverviewVM] : [openInTabVM, tabsOverviewVM]
         } else if shouldShowWIconPopover {
-            viewModels = [wIconViewModel]
+            viewModels = [wIconVM]
         }
 
         if shouldShowWIconPopover {
@@ -139,10 +88,102 @@ extension ArticleViewController {
         }
 
         if !viewModels.isEmpty {
-            self.displayTooltips(tooltipViewModels: viewModels)
+            displayTooltips(tooltipViewModels: viewModels)
         }
     }
 
+    // MARK: – Private helper functions
+
+    private func makeWIconStrings() -> WMFTooltipViewModel.LocalizedStrings {
+        let title = WMFLocalizedString(
+            "back-button-popover-title",
+            value: "Tap to go back",
+            comment: "Title for popover explaining the 'W' icon may be tapped to go back."
+        )
+        let body = WMFLocalizedString(
+            "original-tab-button-popover-description",
+            value: "Tap on the 'W' to return to the tab you started from",
+            comment: "Description for popover explaining the 'W' icon may be tapped to return to the original tab."
+        )
+        return WMFTooltipViewModel.LocalizedStrings(
+            title: title, body: body,
+            buttonTitle: CommonStrings.gotItButtonTitle
+        )
+    }
+
+    private func makeOpenInTabStrings() -> WMFTooltipViewModel.LocalizedStrings {
+        let title = WMFLocalizedString(
+            "open-in-tab-tooltip-title",
+            value: "Open in new tab",
+            comment: "Title for tooltip explaining the open in new tab functionality"
+        )
+        let body = WMFLocalizedString(
+            "open-in-tab-tooltip-body",
+            value: "Long-press an article title or blue link to open it in a new tab.",
+            comment: "Description for tooltip explaining the open in new tab functionality"
+        )
+        return WMFTooltipViewModel.LocalizedStrings(
+            title: title,
+            body: body,
+            buttonTitle: CommonStrings.gotItButtonTitle
+        )
+    }
+
+    private func makeTabsOverviewStrings() -> WMFTooltipViewModel.LocalizedStrings {
+        let title = WMFLocalizedString(
+            "tabs-overview-tooltip-title",
+            value: "Tabs overview",
+            comment: "Title for tooltip explaining the tabs overview functionality"
+        )
+        let body = WMFLocalizedString(
+            "tabs-overview-tooltip-body",
+            value: "Switch between open articles in the tabs overview.",
+            comment: "Description for tooltip explaining the tabs overview functionality"
+        )
+        return WMFTooltipViewModel.LocalizedStrings(
+            title: title,
+            body: body,
+            buttonTitle: CommonStrings.gotItButtonTitle
+        )
+    }
+
+    private func computeWIconSourceRect(in navBar: UINavigationBar) -> CGRect? {
+        let minY: CGFloat
+        if
+            let sb = navigationItem.searchController?.searchBar,
+            let sbSuper = sb.superview {
+            let frameInBar = navBar.convert(sb.frame, from: sbSuper)
+            minY = frameInBar.minY
+        } else {
+
+            minY = navBar.bounds.height
+        }
+        guard minY > 0 else { return nil }
+        return CGRect(x: navBar.bounds.midX, y: minY, width: 0, height: 0)
+    }
+
+    private func computeTabsIconSourceRect(in navBar: UINavigationBar) -> CGRect {
+        let count = navigationItem.rightBarButtonItems?.count ?? 0
+        let indexFromTrailing: CGFloat = 1 // second from right
+        let margin = navBar.layoutMargins.right
+        let hitWidth: CGFloat = 44
+        let spacing: CGFloat  = 8
+
+        let offsetFromTrailing =
+        hitWidth * (indexFromTrailing + 0.5)
+        + spacing * indexFromTrailing
+        + margin
+        let x = navBar.bounds.width - offsetFromTrailing
+        let minY: CGFloat
+        if let sb = navigationItem.searchController?.searchBar,
+           let sbSuper = sb.superview {
+            let frameInBar = navBar.convert(sb.frame, from: sbSuper)
+            minY = frameInBar.minY
+        } else {
+            minY = navBar.bounds.height
+        }
+        return CGRect(x: x, y: minY, width: 0, height: 0)
+    }
 }
 
 extension ArticleViewController: WMFTooltipPresenting {
