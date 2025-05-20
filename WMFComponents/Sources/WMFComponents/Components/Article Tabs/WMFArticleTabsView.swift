@@ -24,13 +24,18 @@ public struct WMFArticleTabsView: View {
             ScrollView {
                 LazyVGrid(columns: Array(repeating: gridItem, count: columns)) {
                     ForEach(viewModel.articleTabs.sorted(by: { $0.dateCreated < $1.dateCreated })) { tab in
-                        if tab.isMain {
-                            tabCardView(content: mainPageTabContent(tab: tab), tabData: tab.data, tab: tab)
+                        if tab.isLoading {
+                            tabCardView(content: loadingTabContent(tab: tab), tabData: tab.data, tab: tab)
                                 .padding(4)
-                            
                         } else {
-                            tabCardView(content: standardTabContent(tab: tab), tabData: tab.data, tab: tab)
-                                .padding(4)
+                            if tab.isMain {
+                                tabCardView(content: mainPageTabContent(tab: tab), tabData: tab.data, tab: tab)
+                                    .padding(4)
+                                
+                            } else {
+                                tabCardView(content: standardTabContent(tab: tab), tabData: tab.data, tab: tab)
+                                    .padding(4)
+                            }
                         }
                     }
                 }
@@ -100,6 +105,10 @@ public struct WMFArticleTabsView: View {
             }
             .padding([.horizontal], 10)
         }
+    }
+    
+    private func loadingTabContent(tab: ArticleTab) -> some View {
+        Text("Loading")
     }
 
     
@@ -180,6 +189,16 @@ public struct WMFArticleTabsView: View {
                         viewModel.closeTab(tab: tab)
                     }
                 }
+            }
+            .onAppear {
+                Task {
+                    let populatedTab = await viewModel.populateSummary(tabData)
+                    tab.image = populatedTab.articles.last?.imageURL
+                    tab.subtitle = populatedTab.articles.last?.description
+                    tab.description = populatedTab.articles.last?.summary
+                    tab.isLoading = false
+                }
+                
             }
     }
 

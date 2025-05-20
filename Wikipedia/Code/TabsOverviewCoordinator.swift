@@ -46,11 +46,11 @@ final class TabsOverviewCoordinator: Coordinator {
             self?.tappedAddTab()
         }
         
-        let populateSummaries: @Sendable ([WMFArticleTabsDataController.WMFArticleTab]) async -> [WMFArticleTabsDataController.WMFArticleTab] = { [weak self] tabs in
+        let populateSummary: @Sendable (WMFArticleTabsDataController.WMFArticleTab) async -> WMFArticleTabsDataController.WMFArticleTab = { [weak self] tab in
             guard let self = self else {
-                return tabs
+                return tab
             }
-            return await self.populateArticleSummariesAsync(tabs)
+            return await self.populateArticleSummaryAsync(tab)
         }
         
         let localizedStrings = WMFArticleTabsViewModel.LocalizedStrings(
@@ -61,7 +61,7 @@ final class TabsOverviewCoordinator: Coordinator {
             openTabAccessibility: WMFLocalizedString("tabs-open-tab", value: "Open tab", comment: "Accessibility label for opening a tab")
         )
         
-        let articleTabsViewModel = WMFArticleTabsViewModel(dataController: dataController, localizedStrings: localizedStrings, didTapTab: didTapTab, didTapAddTab: didTapAddTab, populateSummaries: populateSummaries)
+        let articleTabsViewModel = WMFArticleTabsViewModel(dataController: dataController, localizedStrings: localizedStrings, didTapTab: didTapTab, didTapAddTab: didTapAddTab, populateSummary: populateSummary)
         let articleTabsView = WMFArticleTabsView(viewModel: articleTabsViewModel)
         
         let hostingController = WMFArticleTabsHostingController(rootView: articleTabsView, viewModel: articleTabsViewModel,
@@ -71,59 +71,41 @@ final class TabsOverviewCoordinator: Coordinator {
         navigationController.present(navVC, animated: true, completion: nil)
     }
     
-    private func populateArticleSummariesAsync(_ tabs: [WMFArticleTabsDataController.WMFArticleTab]) async -> [WMFArticleTabsDataController.WMFArticleTab] {
+    private func populateArticleSummaryAsync(_ tab: WMFArticleTabsDataController.WMFArticleTab) async -> WMFArticleTabsDataController.WMFArticleTab {
         await withCheckedContinuation { continuation in
-            self.populateArticleSummaries(tabs) { populatedTabs in
-                continuation.resume(returning: populatedTabs)
+            self.populateArticleSummary(tab) { populatedTab in
+                continuation.resume(returning: populatedTab)
             }
         }
     }
     
-    private func populateArticleSummaries(_ tabs: [WMFArticleTabsDataController.WMFArticleTab], completion: @escaping ([WMFArticleTabsDataController.WMFArticleTab]) -> Void) {
+    private func populateArticleSummary(_ tab: WMFArticleTabsDataController.WMFArticleTab, completion: @escaping (WMFArticleTabsDataController.WMFArticleTab) -> Void) {
         
-        var articleURLs: [URL] = []
-        for tab in tabs {
-            guard let topArticle = tab.articles.last,
-                  let siteURL = topArticle.project.siteURL,
-                  let articleURL = siteURL.wmf_URL(withTitle: topArticle.title) else { continue }
-            
-            articleURLs.append(articleURL)
-        }
-        
-        let keys = articleURLs.compactMap { $0.wmf_inMemoryKey }
-        
-        guard !keys.isEmpty else {
-            completion(tabs)
+        guard let topArticle = tab.articles.last,
+            let siteURL = topArticle.project.siteURL,
+            let articleURL = siteURL.wmf_URL(withTitle: topArticle.title),
+            let key = articleURL.wmf_inMemoryKey else {
+            completion(tab)
             return
         }
         
-        var populatedTabs: [WMFArticleTabsDataController.WMFArticleTab] = []
-        summaryController.updateOrCreateArticleSummariesForArticles(withKeys: keys) { mapping, error in
+        summaryController.updateOrCreateArticleSummaryForArticle(withKey: key, cachePolicy: .reloadRevalidatingCacheData) { article, error in
             if let error {
                 DDLogError("Error fetching summaries: \(error)")
-                completion(tabs)
+                completion(tab)
                 return
             }
             
-            for tab in populatedTabs {
-                guard let topArticle = tab.articles.last,
-                      let siteURL = topArticle.project.siteURL,
-                      let articleURL = siteURL.wmf_URL(withTitle: topArticle.title),
-                      let key = articleURL.wmf_inMemoryKey else { continue }
-                
-                if let summary = mapping[key],
-                   tab.articles.count > 0 {
-                    
-                    var newArticles = Array(tab.articles.prefix(tab.articles.count - 1))
-                    let newArticle = WMFArticleTabsDataController.WMFArticle(identifier: topArticle.identifier, title: topArticle.title, description: nil, summary: nil, imageURL: nil, project: topArticle.project)
-                    
-                    newArticles.append(newArticle)
-                    let newTab = WMFArticleTabsDataController.WMFArticleTab(identifier: tab.identifier, timestamp: tab.timestamp, isCurrent: tab.isCurrent, articles: newArticles)
-                    populatedTabs.append(newTab)
-                }
+            guard let article else {
+                completion(tab)
+                return
             }
             
-            completion(populatedTabs)
+            var newArticles = Array(tab.articles.prefix(tab.articles.count - 1))
+            let newArticle = WMFArticleTabsDataController.WMFArticle(identifier: topArticle.identifier, title: topArticle.title, description: article.wikidataDescription, summary: article.snippet, imageURL: nil, project: topArticle.project)
+            newArticles.append(newArticle)
+            let newTab = WMFArticleTabsDataController.WMFArticleTab(identifier: tab.identifier, timestamp: tab.timestamp, isCurrent: tab.isCurrent, articles: newArticles)
+            completion(newTab)
         }
     }
     
