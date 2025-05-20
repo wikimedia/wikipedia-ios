@@ -35,15 +35,15 @@ public class WMFArticleTabsDataController: WMFArticleTabsDataControlling {
         public let identifier: UUID?
         public let title: String
         public let description: String?
-        public let summary: String?
+        public let extract: String?
         public let imageURL: URL?
         public let project: WMFProject
         
-        public init(identifier: UUID?, title: String, description: String? = nil, summary: String? = nil, imageURL: URL? = nil, project: WMFProject) {
+        public init(identifier: UUID?, title: String, description: String? = nil, extract: String? = nil, imageURL: URL? = nil, project: WMFProject) {
             self.identifier = identifier
             self.title = title
             self.description = description
-            self.summary = summary
+            self.extract = extract
             self.imageURL = imageURL
             self.project = project
         }
@@ -582,48 +582,6 @@ public class WMFArticleTabsDataController: WMFArticleTabsDataControlling {
             return articleTabs
         }
         
-        return try await databaseTabsWithArticleSummaries(databaseTabs: databaseTabs)
-    }
-    
-    private func databaseTabsWithArticleSummaries(databaseTabs: [WMFArticleTab]) async throws -> [WMFArticleTab] {
-        return try await withThrowingTaskGroup(of: WMFArticleTab.self) { group in
-            for tab in databaseTabs {
-                guard let lastArticle = tab.articles.last else {
-                    group.addTask {
-                        return tab
-                    }
-                    continue
-                }
-                
-                group.addTask {
-                    do {
-                        let articleSummary = try await self.articleSummaryDataController.fetchArticleSummary(project: lastArticle.project, title: lastArticle.title)
-                        var updatedArticles = tab.articles
-                        
-                        let updatedArticle = WMFArticle(
-                            identifier: lastArticle.identifier,
-                                title: lastArticle.title,
-                                description: articleSummary.description,
-                                summary: articleSummary.extract,
-                                imageURL: articleSummary.thumbnailURL,
-                                project: lastArticle.project
-                            )
-                        updatedArticles[updatedArticles.count - 1] = updatedArticle
-                        
-                        return WMFArticleTab(identifier: tab.identifier, timestamp: tab.timestamp, isCurrent: tab.isCurrent, articles: updatedArticles)
-                    } catch {
-                        print("Error fetching summary for article \(lastArticle.title): \(error)")
-                        return tab
-                    }
-                }
-            }
-            
-            var updatedTabs: [WMFArticleTab] = []
-            for try await updatedTab in group {
-                updatedTabs.append(updatedTab)
-            }
-            
-            return updatedTabs
-        }
+        return databaseTabs
     }
 }

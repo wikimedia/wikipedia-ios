@@ -163,7 +163,7 @@ public final class WMFMockArticleTabsDataController: WMFArticleTabsDataControlli
                 let article = WMFArticleTabsDataController.WMFArticle(
                     identifier: UUID(), title: title,
                     description: "Description for \(title)",
-                    summary: "Summary for \(title)",
+                    extract: "Summary for \(title)",
                     imageURL: URL(string: imageURL),
                     project: enProject
                 )

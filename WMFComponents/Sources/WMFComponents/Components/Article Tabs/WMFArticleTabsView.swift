@@ -1,7 +1,54 @@
 import SwiftUI
 import WMFData
 
-public struct WMFArticleTabsViewContent: View {
+public struct WMFArticleTabsView: View {
+    @ObservedObject var appEnvironment = WMFAppEnvironment.current
+    @Environment(\.colorScheme) var colorScheme
+    
+    var theme: WMFTheme {
+        return appEnvironment.theme
+    }
+    
+    @ObservedObject var viewModel: WMFArticleTabsViewModel
+    
+    public init(viewModel: WMFArticleTabsViewModel) {
+        self.viewModel = viewModel
+    }
+    
+    public var body: some View {
+        GeometryReader { geometry in
+            let size = geometry.size
+            let columns = viewModel.calculateColumns(for: size)
+            let gridItem = GridItem(.flexible())
+            
+            ScrollView {
+                LazyVGrid(columns: Array(repeating: gridItem, count: columns)) {
+                    ForEach(viewModel.articleTabs.sorted(by: { $0.dateCreated < $1.dateCreated })) { tab in
+                        WMFArticleTabsViewContent(viewModel: viewModel, tab: tab)
+                            .accessibilityElement(children: .combine)
+                            .accessibilityLabel(viewModel.getAccessibilityLabel(for: tab))
+                            .accessibilityActions {
+                                accessibilityAction(named: viewModel.localizedStrings.openTabAccessibility) {
+                                    viewModel.didTapTab(tab.data)
+                                }
+
+                                if viewModel.shouldShowCloseButton {
+                                    accessibilityAction(named: viewModel.localizedStrings.closeTabAccessibility) {
+                                        viewModel.closeTab(tab: tab)
+                                    }
+                                }
+                            }
+                    }
+                }
+            }
+            .padding(.horizontal, 8)
+        }
+        .background(Color(theme.midBackground))
+        .toolbarBackground(Color(uiColor: (theme.paperBackground)), for: .automatic)
+    }
+}
+
+fileprivate struct WMFArticleTabsViewContent: View {
     @ObservedObject var appEnvironment = WMFAppEnvironment.current
     @Environment(\.colorScheme) var colorScheme
     
@@ -42,7 +89,7 @@ public struct WMFArticleTabsViewContent: View {
         .onAppear {
             Task {
                 let populatedTab = await viewModel.populateSummary(tab.data)
-                let info = ArticleTab.Info(subtitle: populatedTab.articles.last?.description, image: populatedTab.articles.last?.imageURL, description: populatedTab.articles.last?.summary)
+                let info = ArticleTab.Info(subtitle: populatedTab.articles.last?.description, image: populatedTab.articles.last?.imageURL, description: populatedTab.articles.last?.extract)
                 tab.info = info
             }
         }
@@ -197,52 +244,5 @@ public struct WMFArticleTabsViewContent: View {
             }
         }
         .padding([.horizontal], 10)
-    }
-}
-
-public struct WMFArticleTabsView: View {
-    @ObservedObject var appEnvironment = WMFAppEnvironment.current
-    @Environment(\.colorScheme) var colorScheme
-    
-    var theme: WMFTheme {
-        return appEnvironment.theme
-    }
-    
-    @ObservedObject var viewModel: WMFArticleTabsViewModel
-    
-    public init(viewModel: WMFArticleTabsViewModel) {
-        self.viewModel = viewModel
-    }
-    
-    public var body: some View {
-        GeometryReader { geometry in
-            let size = geometry.size
-            let columns = viewModel.calculateColumns(for: size)
-            let gridItem = GridItem(.flexible())
-            
-            ScrollView {
-                LazyVGrid(columns: Array(repeating: gridItem, count: columns)) {
-                    ForEach(viewModel.articleTabs.sorted(by: { $0.dateCreated < $1.dateCreated })) { tab in
-                        WMFArticleTabsViewContent(viewModel: viewModel, tab: tab)
-                            .accessibilityElement(children: .combine)
-                            .accessibilityLabel(viewModel.getAccessibilityLabel(for: tab))
-                            .accessibilityActions {
-                                accessibilityAction(named: viewModel.localizedStrings.openTabAccessibility) {
-                                    viewModel.didTapTab(tab.data)
-                                }
-
-                                if viewModel.shouldShowCloseButton {
-                                    accessibilityAction(named: viewModel.localizedStrings.closeTabAccessibility) {
-                                        viewModel.closeTab(tab: tab)
-                                    }
-                                }
-                            }
-                    }
-                }
-            }
-            .padding(.horizontal, 8)
-        }
-        .background(Color(theme.midBackground))
-        .toolbarBackground(Color(uiColor: (theme.paperBackground)), for: .automatic)
     }
 }
