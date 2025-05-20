@@ -54,7 +54,7 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
     private func loadTabs() async {
         do {
             let tabs = try await dataController.fetchAllArticleTabs()
-            self.articleTabs = tabs.map { tab in
+            articleTabs = tabs.map { tab in
                 ArticleTab(
                     title: tab.articles.last?.title.underscoresToSpaces ?? "",
                     dateCreated: tab.timestamp,
@@ -62,7 +62,7 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
                     data: tab
                 )
             }
-            self.shouldShowCloseButton = articleTabs.count > 1
+            shouldShowCloseButton = articleTabs.count > 1
             updateNavigationBarTitleAction?(articleTabs.count)
         } catch {
             // Handle error appropriately
@@ -116,9 +116,10 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
             do {
                 try await dataController.deleteArticleTab(identifier: tab.data.identifier)
                 
-                Task { @MainActor in
+                Task { @MainActor [weak self]  in
+                    guard let self else { return }
                     articleTabs.removeAll { $0 == tab }
-                    self.shouldShowCloseButton = articleTabs.count > 1
+                    shouldShowCloseButton = articleTabs.count > 1
                     updateNavigationBarTitleAction?(articleTabs.count)
                 }
                 
@@ -126,10 +127,6 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
                 debugPrint("Error closing tab: \(error)")
             }
         }
-    }
-    
-    func tabsCount() async throws -> Int {
-        return try await dataController.tabsCount()
     }
 }
 
