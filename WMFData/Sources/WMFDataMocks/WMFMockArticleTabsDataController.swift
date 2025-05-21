@@ -70,37 +70,14 @@ public final class WMFMockArticleTabsDataController: WMFArticleTabsDataControlli
         }
     }
     
-    public func fetchTab(tabIdentfiier: UUID) async throws -> WMFData.WMFArticleTabsDataController.WMFArticleTab {
-        guard let tab = tabs.first(where: { tab in
-            tab.identifier == tabIdentfiier
-        }) else {
-            throw WMFArticleTabsDataController.CustomError.missingTab
-        }
+    public func appendArticle(_ article: WMFData.WMFArticleTabsDataController.WMFArticle, toTabIdentifier identifier: UUID) async throws -> WMFData.WMFArticleTabsDataController.Identifiers {
         
-        return tab
-    }
-    
-    public func appendArticle(_ article: WMFData.WMFArticleTabsDataController.WMFArticle, toTabIdentifier identifier: UUID?, setAsCurrent: Bool?) async throws -> WMFData.WMFArticleTabsDataController.Identifiers {
-        let targetIdentifier: UUID
-        if let identifier = identifier {
-            targetIdentifier = identifier
-        } else if let currentTab = tabs.first(where: { $0.isCurrent }) {
-            targetIdentifier = currentTab.identifier
-        } else {
-            throw WMFArticleTabsDataController.CustomError.missingTab
-        }
-        
-        guard let index = tabs.firstIndex(where: { $0.identifier == targetIdentifier }) else {
+        guard let index = tabs.firstIndex(where: { $0.identifier == identifier }) else {
             throw WMFArticleTabsDataController.CustomError.missingTab
         }
         
         var updatedArticles = tabs[index].articles
         updatedArticles.append(article)
-        
-        // If setting as current, update all other tabs
-        if let setAsCurrent = setAsCurrent, setAsCurrent {
-            try await setTabAsCurrent(tabIdentifier: targetIdentifier)
-        }
         
         tabs[index] = WMFArticleTabsDataController.WMFArticleTab(
             identifier: tabs[index].identifier,
@@ -109,7 +86,7 @@ public final class WMFMockArticleTabsDataController: WMFArticleTabsDataControlli
             articles: updatedArticles
         )
         
-        return WMFArticleTabsDataController.Identifiers(tabIdentifier: targetIdentifier, tabItemIdentifier: article.identifier!)
+        return WMFArticleTabsDataController.Identifiers(tabIdentifier: identifier, tabItemIdentifier: article.identifier!)
     }
     
     public func removeLastArticleFromTab(tabIdentifier: UUID) async throws {
