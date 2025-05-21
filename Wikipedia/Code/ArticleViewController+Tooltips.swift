@@ -80,20 +80,19 @@ extension ArticleViewController {
         guard dataController.shouldShowArticleTabs || shouldShowWIconPopover else {
             return
         }
-        var viewModels: [WMFTooltipViewModel] = []
 
         if dataController.shouldShowArticleTabs && !dataController.hasPresentedTooltips {
-            viewModels = shouldShowWIconPopover ? [wIconVM, openInTabVM, tabsOverviewVM] : [openInTabVM, tabsOverviewVM]
+            tooltipViewModels = shouldShowWIconPopover ? [wIconVM, openInTabVM, tabsOverviewVM] : [openInTabVM, tabsOverviewVM]
         } else if shouldShowWIconPopover {
-            viewModels = [wIconVM]
+            tooltipViewModels = [wIconVM]
         }
 
         if shouldShowWIconPopover {
             UserDefaults.standard.wmf_setDidShowWIconPopover(true)
         }
 
-        if !viewModels.isEmpty {
-            displayTooltips(tooltipViewModels: viewModels)
+        if !tooltipViewModels.isEmpty {
+            displayTooltips(tooltipViewModels: tooltipViewModels)
         }
     }
 
