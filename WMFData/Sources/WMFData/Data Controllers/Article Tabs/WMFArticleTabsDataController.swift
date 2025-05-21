@@ -257,17 +257,13 @@ public class WMFArticleTabsDataController: WMFArticleTabsDataControlling {
             // Set tab's existing items' isCurrent values = false
             var newItems: [CDArticleTabItem] = []
             if let currentItems = tab.items as? NSMutableOrderedSet {
-                for item in currentItems {
-                    
-                    guard let tabItem = item as? CDArticleTabItem else {
-                        continue
-                    }
-                    
-                    if tabItem.isCurrent {
-                        tabItem.isCurrent = false
-                        newItems.append(tabItem)
+                let safeCurrentItems = currentItems.compactMap { $0 as? CDArticleTabItem }
+                for item in safeCurrentItems {
+                    if item.isCurrent {
+                        item.isCurrent = false
+                        newItems.append(item)
                     } else {
-                        newItems.append(tabItem)
+                        newItems.append(item)
                     }
                 }
             }
@@ -317,9 +313,8 @@ public class WMFArticleTabsDataController: WMFArticleTabsDataControlling {
                 throw CustomError.missingPage
             }
             
-            for item in items {
-                guard let articleItem = item as? CDArticleTabItem else { continue }
-                
+            let articleItems = items.compactMap { $0 as? CDArticleTabItem }
+            for articleItem in articleItems {
                 if articleItem.identifier == tabItemIdentifier {
                     articleItem.isCurrent = true
                 } else {
@@ -403,13 +398,13 @@ public class WMFArticleTabsDataController: WMFArticleTabsDataControlling {
         
         let wasCurrent = articleTab.isCurrent
         if let items = articleTab.items {
-            for item in items {
-                guard let articleTabItem = item as? CDArticleTabItem else {
-                    throw CustomError.unexpectedType
-                }
-                
-                articleTabItem.tab = nil
-                moc.delete(articleTabItem)
+            
+            // Make a copy so we're not mutating while iterating
+            let safeItems = items.compactMap { $0 as? CDArticleTabItem }
+            
+            for item in safeItems {
+                item.tab = nil
+                moc.delete(item)
             }
         }
         
@@ -543,11 +538,11 @@ public class WMFArticleTabsDataController: WMFArticleTabsDataControlling {
             
             for cdTab in cdArticleTabs {
                 guard let tabIdentifier = cdTab.identifier else {
-                    throw CustomError.missingIdentifier
+                    continue
                 }
                 
                 guard let timestamp = cdTab.timestamp else {
-                    throw CustomError.missingTimestamp
+                    continue
                 }
                 
                 var articles: [WMFArticle] = []
