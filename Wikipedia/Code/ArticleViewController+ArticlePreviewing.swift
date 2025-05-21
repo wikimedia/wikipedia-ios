@@ -25,14 +25,7 @@ extension ArticleViewController: ArticlePreviewingDelegate {
         UIApplication.shared.open(placesURL, options: [:], completionHandler: nil)
     }
     
-    func openInNewTabArticlePreviewActionSelected(with peekController: ArticlePeekPreviewViewController) {
-        let defaults = UserDefaults.standard
-        let key = "didTapOpenInNewTab"
-        
-        if !defaults.bool(forKey: key) {
-            defaults.set(true, forKey: key)
-        }
-        
+    func openInNewTabArticlePreviewActionSelected(with peekController: ArticlePeekPreviewViewController) {        
         guard let navVC = navigationController else { return }
         let articleCoordinator = ArticleCoordinator(navigationController: navVC, articleURL: peekController.articleURL, dataStore: dataStore, theme: theme, source: .undefined, previousPageViewObjectID: pageViewObjectID, tabConfig: .appendArticleAndAssignNewTabAndSetToCurrent)
         articleCoordinator.start()

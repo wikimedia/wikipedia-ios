@@ -79,8 +79,12 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
     
     // MARK: - Public funcs
     
-    public func didShowTabs() {
-        checkAndMarkIfSeen()
+    func didShowTabs() {
+        guard let dc = WMFArticleTabsDataController.shared else { return }
+        dc.updateSurveyDataTabsOverviewSeenCount()
+        if dc.shouldShowSurvey() {
+              showSurvey()
+        }
     }
 
     public func calculateColumns(for size: CGSize) -> Int {
@@ -135,34 +139,6 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
     
     public func tabsCount() async throws -> Int {
         return try await dataController.tabsCount()
-    }
-    
-    // MARK: - Private funcs
-    
-    private func checkAndMarkIfSeen() {
-        // Make sure it's before July 31, 2025
-        let now = Date()
-        let calendar = Calendar.current
-        let deadlineComponents = DateComponents(year: 2025, month: 7, day: 31)
-        
-        guard let deadline = calendar.date(from: deadlineComponents),
-              now <= deadline else {
-            return
-        }
-        
-        let defaults = UserDefaults.standard
-        let tabsKey = "tabsOverviewOpenedCount"
-        let tapKey = "didTapOpenInNewTab"
-
-        let seenCount = defaults.integer(forKey: tabsKey)
-        let hasTappedOpen = defaults.bool(forKey: tapKey)
-
-        let updatedCount = seenCount + 1
-        defaults.set(updatedCount, forKey: tabsKey)
-
-        if updatedCount == 2 && hasTappedOpen {
-            showSurvey()
-        }
     }
 }
 

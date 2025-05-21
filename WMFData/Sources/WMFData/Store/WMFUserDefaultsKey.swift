@@ -17,4 +17,7 @@ enum WMFUserDefaultsKey: String {
     case activityTabGroupB = "activity-tab-group-b"
     case activityTabGroupC = "activity-tab-group-c"
     case activityTabHadFirstLaunch = "activity-tab-had-first-launch"
+    case articleTabsOverviewOpenedCount = "article-tabs-overview-opened-count"
+    case articleTabsDidTapOpenInNewTab = "article-tabs-did-tap-open-in-new-tab"
+    case articleTabsDidShowSurvey = "article-tabs-did-show-survey"
 }

@@ -35,44 +35,29 @@ final class TabsOverviewCoordinator: Coordinator {
     }
     
     private func surveyViewController() -> UIViewController {
-        
-        var wikimediaProject: WikimediaProject? = nil
-        if let siteURL = dataStore.languageLinkController.appLanguage?.siteURL,
-        let project = WikimediaProject(siteURL: siteURL) {
-            wikimediaProject = project
-        }
-        
         let subtitle = WMFLocalizedString("tabs-survey-title", value: "Help improve the tabs feature. Are you satisfied with this feature?", comment: "Title for article tabs survey")
         
         let surveyLocalizedStrings = WMFSurveyViewModel.LocalizedStrings(
-            title: CommonStrings.activityTabSurveyTitle,
+            title: CommonStrings.satisfactionSurveyTitle,
             cancel: CommonStrings.cancelActionTitle,
             submit: CommonStrings.surveySubmitActionTitle,
             subtitle: subtitle,
             instructions: nil,
-            otherPlaceholder: CommonStrings.activityTabSurveyAdditionalThoughts
+            otherPlaceholder: CommonStrings.surveyAdditionalThoughts
         )
 
         let surveyOptions = [
-            WMFSurveyViewModel.OptionViewModel(text: CommonStrings.activityTabSurveyVerySatisfied, apiIdentifer: "1"),
-            WMFSurveyViewModel.OptionViewModel(text: CommonStrings.activityTabSurveySatisfied, apiIdentifer: "2"),
-            WMFSurveyViewModel.OptionViewModel(text: CommonStrings.activityTabSurveyNeutral, apiIdentifer: "3"),
-            WMFSurveyViewModel.OptionViewModel(text: CommonStrings.activityTabSurveyUnsatisfied, apiIdentifer: "4"),
-            WMFSurveyViewModel.OptionViewModel(text: CommonStrings.activityTabSurveyVeryUnsatisfied, apiIdentifer: "5")
+            WMFSurveyViewModel.OptionViewModel(text: CommonStrings.surveyVerySatisfied, apiIdentifer: "1"),
+            WMFSurveyViewModel.OptionViewModel(text: CommonStrings.surveySatisfied, apiIdentifer: "2"),
+            WMFSurveyViewModel.OptionViewModel(text: CommonStrings.surveyNeutral, apiIdentifer: "3"),
+            WMFSurveyViewModel.OptionViewModel(text: CommonStrings.surveyUnsatisfied, apiIdentifer: "4"),
+            WMFSurveyViewModel.OptionViewModel(text: CommonStrings.surveyVeryUnsatisfied, apiIdentifer: "5")
         ]
 
         let surveyView = WMFSurveyView(viewModel: WMFSurveyViewModel(localizedStrings: surveyLocalizedStrings, options: surveyOptions, selectionType: .single, shouldShowMultilineText: true), cancelAction: { [weak self] in
             
-            if let wikimediaProject {
-                EditInteractionFunnel.shared.logActivityTabSurveyDidTapCancel(project: wikimediaProject)
-            }
-            
             self?.navigationController.dismiss(animated: true)
         }, submitAction: { [weak self] options, otherText in
-            
-            if let wikimediaProject {
-                EditInteractionFunnel.shared.logActivityTabSurveyDidTapSubmit(options: options, otherText: otherText, project: wikimediaProject)
-            }
             
             self?.navigationController.dismiss(animated: true, completion: {
                 let image = UIImage(systemName: "checkmark.circle.fill")
