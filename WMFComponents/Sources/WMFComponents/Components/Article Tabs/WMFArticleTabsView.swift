@@ -24,14 +24,18 @@ public struct WMFArticleTabsView: View {
             ScrollView {
                 LazyVGrid(columns: Array(repeating: gridItem, count: columns)) {
                     ForEach(viewModel.articleTabs.sorted(by: { $0.dateCreated < $1.dateCreated })) { tab in
-                        if tab.isMain {
-                            tabCardView(content: mainPageTabContent(tab: tab), tabData: tab.data, tab: tab)
-                                .padding(4)
-                            
-                        } else {
-                            tabCardView(content: standardTabContent(tab: tab), tabData: tab.data, tab: tab)
-                                .padding(4)
-                        }
+                        WMFArticleTabsViewContent(viewModel: viewModel, tab: tab)
+                            .accessibilityActions {
+                                accessibilityAction(named: viewModel.localizedStrings.openTabAccessibility) {
+                                    viewModel.didTapTab(tab.data)
+                                }
+
+                                if viewModel.shouldShowCloseButton {
+                                    accessibilityAction(named: viewModel.localizedStrings.closeTabAccessibility) {
+                                        viewModel.closeTab(tab: tab)
+                                    }
+                                }
+                            }
                     }
                 }
             }
@@ -40,8 +44,64 @@ public struct WMFArticleTabsView: View {
         .background(Color(theme.midBackground))
         .toolbarBackground(Color(theme.midBackground), for: .automatic)
     }
+}
+
+fileprivate struct WMFArticleTabsViewContent: View {
+    @ObservedObject var appEnvironment = WMFAppEnvironment.current
+    @Environment(\.colorScheme) var colorScheme
     
-    private func mainPageTabContent(tab: ArticleTab) -> some View {
+    var theme: WMFTheme {
+        return appEnvironment.theme
+    }
+    
+    @ObservedObject var viewModel: WMFArticleTabsViewModel
+    @ObservedObject var tab: ArticleTab
+    
+    public init(viewModel: WMFArticleTabsViewModel, tab: ArticleTab) {
+        self.viewModel = viewModel
+        self.tab = tab
+    }
+    
+    public var body: some View {
+        Group {
+            if tab.isMain {
+                mainPageTabContent()
+                    .accessibilityElement(children: .combine)
+                    .accessibilityLabel(viewModel.getAccessibilityLabel(for: tab))
+            } else {
+                if tab.info == nil {
+                    loadingTabContent()
+                        .accessibilityElement(children: .combine)
+                        .accessibilityLabel(viewModel.getAccessibilityLabel(for: tab))
+                } else {
+                    standardTabContent()
+                        .accessibilityElement(children: .combine)
+                        .accessibilityLabel(viewModel.getAccessibilityLabel(for: tab))
+                }
+            }
+        }
+        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+        .background(Color(theme.chromeBackground))
+        .cornerRadius(12)
+        .shadow(color: Color.black.opacity(0.05), radius: 16, x: 0, y: 0)
+        .contentShape(Rectangle())
+        .onTapGesture {
+            viewModel.didTapTab(tab.data)
+        }
+        .aspectRatio(3/4, contentMode: .fit)
+        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+        .onAppear {
+            Task {
+                if tab.info == nil {
+                    let populatedTab = await viewModel.populateArticleSummary(tab.data)
+                    let info = ArticleTab.Info(subtitle: populatedTab.articles.last?.description, image: populatedTab.articles.last?.imageURL, description: populatedTab.articles.last?.extract)
+                    tab.info = info
+                }
+            }
+        }
+    }
+    
+    private func mainPageTabContent() -> some View {
         VStack(alignment: .leading, spacing: 0) {
             ZStack(alignment: .topTrailing) {
                 GeometryReader { geo in
@@ -101,13 +161,16 @@ public struct WMFArticleTabsView: View {
             .padding([.horizontal], 10)
         }
     }
-
     
-    private func standardTabContent(tab: ArticleTab) -> some View {
+    private func loadingTabContent() -> some View {
+        Text("")
+    }
+    
+    private func standardTabContent() -> some View {
         VStack(alignment: .leading, spacing: 0) {
             ZStack(alignment: .topTrailing) {
                 Group {
-                    if let imageURL = tab.image {
+                    if let imageURL = tab.info?.image {
                         GeometryReader { geo in
                             AsyncImage(url: imageURL) { image in
                                 image
@@ -144,7 +207,7 @@ public struct WMFArticleTabsView: View {
                 }
             }
 
-            if tab.image != nil {
+            if tab.info?.image != nil {
                 VStack(alignment: .leading, spacing: 2) {
                     tabTitle(title: tab.title)
                         .padding(.horizontal, 10)
@@ -153,40 +216,13 @@ public struct WMFArticleTabsView: View {
                 }
             }
 
-            if tab.image == nil {
+            if tab.info?.image == nil {
                 Spacer()
             }
             Spacer()
         }
     }
     
-    private func tabCardView(content: some View, tabData: WMFArticleTabsDataController.WMFArticleTab, tab: ArticleTab) -> some View {
-        content
-            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
-            .background(Color(theme.chromeBackground))
-            .cornerRadius(12)
-            .shadow(color: Color.black.opacity(0.05), radius: 16, x: 0, y: 0)
-            .contentShape(Rectangle())
-            .onTapGesture {
-                viewModel.didTapTab(tabData)
-            }
-            .aspectRatio(3/4, contentMode: .fit)
-            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
-            .accessibilityElement(children: .combine)
-            .accessibilityLabel(viewModel.getAccessibilityLabel(for: tab))
-            .accessibilityActions {
-                accessibilityAction(named: viewModel.localizedStrings.openTabAccessibility) {
-                    viewModel.didTapTab(tabData)
-                }
-
-                if viewModel.shouldShowCloseButton {
-                    accessibilityAction(named: viewModel.localizedStrings.closeTabAccessibility) {
-                        viewModel.closeTab(tab: tab)
-                    }
-                }
-            }
-    }
-
     private func tabTitle(title: String) -> some View {
         Text(title)
             .font(Font(WMFFont.for(.georgiaCallout)))
@@ -198,7 +234,7 @@ public struct WMFArticleTabsView: View {
     private func tabText(tab: ArticleTab) -> some View {
         VStack(alignment: .leading, spacing: 0) {
             Group {
-                if let subtitle = tab.subtitle {
+                if let subtitle = tab.info?.subtitle {
                     Text(subtitle)
                 } else {
                     Text(" ")
@@ -213,7 +249,7 @@ public struct WMFArticleTabsView: View {
                 .frame(width: 24)
                 .padding(.vertical, 8)
                 .foregroundStyle(Color(uiColor: theme.border))
-            if let description = tab.description {
+            if let description = tab.info?.description {
                 Text(description)
                     .font(Font(WMFFont.for(.caption1)))
                     .foregroundStyle(Color(theme.text))

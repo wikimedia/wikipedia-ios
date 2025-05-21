@@ -15,8 +15,10 @@ public class WMFArticleTabsHostingController<HostedView: View>: WMFComponentHost
         self.doneButtonText = doneButtonText
         super.init(rootView: rootView)
         
+        // Defining format outside the block fixes a retain cycle on WMFArticleTabsViewModel
+        let format = viewModel.localizedStrings.navBarTitleFormat
         viewModel.updateNavigationBarTitleAction = { [weak self] numTabs in
-            let newNavigationBarTitle = String.localizedStringWithFormat(viewModel.localizedStrings.navBarTitleFormat, numTabs)
+            let newNavigationBarTitle = String.localizedStringWithFormat(format, numTabs)
             self?.configureNavigationBar(newNavigationBarTitle)
         }
     }
@@ -34,8 +36,7 @@ public class WMFArticleTabsHostingController<HostedView: View>: WMFComponentHost
     }
     
     private func configureNavigationBar(_ title: String? = nil) {
-        guard let title else { return }
-        let titleConfig = WMFNavigationBarTitleConfig(title: title, customView: nil, alignment: .centerCompact)
+        let titleConfig = WMFNavigationBarTitleConfig(title: title ?? "", customView: nil, alignment: .centerCompact)
         
         let closeConfig = WMFNavigationBarCloseButtonConfig(text: doneButtonText, target: self, action: #selector(tappedDone), alignment: .leading)
 

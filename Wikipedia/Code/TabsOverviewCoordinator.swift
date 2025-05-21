@@ -9,6 +9,7 @@ final class TabsOverviewCoordinator: Coordinator {
     var theme: Theme
     let dataStore: MWKDataStore
     private let dataController: WMFArticleTabsDataController
+    private let summaryController: ArticleSummaryController
     
     @discardableResult
     func start() -> Bool {
@@ -32,6 +33,7 @@ final class TabsOverviewCoordinator: Coordinator {
             fatalError("Failed to create WMFArticleTabsDataController")
         }
         self.dataController = dataController
+        self.summaryController = dataStore.articleSummaryController
     }
     
     private func presentTabs() {
