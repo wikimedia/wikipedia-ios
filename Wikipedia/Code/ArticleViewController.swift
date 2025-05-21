@@ -48,7 +48,6 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
     internal var willDisplayFundraisingBanner: Bool = false
 
     // Tootltips
-    internal var firstParagraphRect: CGRect?
     public var tooltipViewModels: [WMFTooltipViewModel] = []
 
     private var _tabsCoordinator: TabsOverviewCoordinator?

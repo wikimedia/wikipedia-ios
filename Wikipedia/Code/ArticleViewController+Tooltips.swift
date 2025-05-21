@@ -35,20 +35,6 @@ extension ArticleViewController {
     }
 
     @objc private func showTooltipsIfNecessary() {
-
-        webView.firstParagraphFrame(in: self.view) { [weak self] maybeRect in
-            guard let self = self else { return }
-
-            guard let paragraphRect = maybeRect else {
-                return
-            }
-
-            self.firstParagraphRect = paragraphRect
-            self.presentAllTooltips()
-        }
-    }
-
-    private func presentAllTooltips() {
         guard
             let dataController = WMFArticleTabsDataController.shared,
             let navigationBar = navigationController?.navigationBar
@@ -59,9 +45,6 @@ extension ArticleViewController {
         guard let wIconRect = computeWIconSourceRect(in: navigationBar) else {
             return
         }
-        guard let paragraphRect = firstParagraphRect else {
-                return // maybe fallback?
-        }
 
         let squareRect = computeTabsIconSourceRect(in: navigationBar)
 
@@ -69,7 +52,9 @@ extension ArticleViewController {
 
         }
 
-        let openInTabVM = WMFTooltipViewModel(localizedStrings: makeOpenInTabStrings(), buttonNeedsDisclosure: false, sourceView: view, sourceRect: paragraphRect, permittedArrowDirections: .down) {
+        guard let articleSourceRect = computeApproximateTextSourceRect() else { return }
+
+        let openInTabVM = WMFTooltipViewModel(localizedStrings: makeOpenInTabStrings(), buttonNeedsDisclosure: false, sourceView: view, sourceRect: articleSourceRect, permittedArrowDirections: .down) {
 
         }
 
@@ -83,6 +68,7 @@ extension ArticleViewController {
 
         if dataController.shouldShowArticleTabs && !dataController.hasPresentedTooltips {
             tooltipViewModels = shouldShowWIconPopover ? [wIconVM, openInTabVM, tabsOverviewVM] : [openInTabVM, tabsOverviewVM]
+            dataController.hasPresentedTooltips = true
         } else if shouldShowWIconPopover {
             tooltipViewModels = [wIconVM]
         }
@@ -151,6 +137,27 @@ extension ArticleViewController {
         )
     }
 
+    private func computeApproximateTextSourceRect() -> CGRect? {
+        guard
+            let navBar = navigationController?.navigationBar
+
+        else {
+            return nil
+        }
+        let leadImageHeight = leadImageHeightConstraint.constant
+        let navBarBottomY   = navBar.frame.maxY
+        let titleHeight: CGFloat =  44
+        let padding: CGFloat = 12
+
+        let yPos = navBarBottomY
+        + leadImageHeight
+        + titleHeight
+        + padding
+        let xPos = view.bounds.midX
+
+        return CGRect(x: xPos, y: yPos, width: 0, height: 0)
+    }
+
     private func computeWIconSourceRect(in navBar: UINavigationBar) -> CGRect? {
         let minY: CGFloat
         if
@@ -209,52 +216,4 @@ extension ArticleViewController: WMFTooltipPresenting {
         return true
     }
 
-}
-
-private extension WKWebView {
-    /// Asynchronously finds the first non-empty <p> and returns its frame
-    /// in the coordinate space of `containerView`.  If none is found,
-    /// calls completion(nil) and does *not* fall back to webView.bounds.
-    func firstParagraphFrame(in containerView: UIView,
-                             completion: @escaping (CGRect?) -> Void) {
-
-        let js = """
-        (function(){
-          var ps = document.querySelectorAll('p');
-          for (var i = 0; i < ps.length; i++) {
-            var p = ps[i];
-            if (p.innerText && p.innerText.trim().length > 0) {
-              var r = p.getBoundingClientRect();
-              var scrollY = window.scrollY || window.pageYOffset;
-              var scale = window.devicePixelRatio || 1;
-              return {
-                x:      r.left   / scale,
-                y: (r.top + scrollY) / scale,
-                width:  r.width  / scale,
-                height: r.height / scale
-              };
-            }
-          }
-          return null;
-        })();
-        """
-
-        evaluateJavaScript(js) { result, error in
-            guard
-                error == nil,
-                let dict = result as? [String: Any],
-                let x    = dict["x"]     as? CGFloat,
-                let y    = dict["y"]     as? CGFloat,
-                let w    = dict["width"] as? CGFloat,
-                let h    = dict["height"]as? CGFloat
-            else {
-                completion(nil)
-                return
-            }
-
-            let domRect = CGRect(x: x, y: y, width: w, height: h)
-            let rectInContainer = self.convert(domRect, to: containerView)
-            completion(rectInContainer)
-        }
-    }
 }
