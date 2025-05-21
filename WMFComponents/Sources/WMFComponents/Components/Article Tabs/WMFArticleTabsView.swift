@@ -38,7 +38,7 @@ public struct WMFArticleTabsView: View {
             .padding(.horizontal, 8)
         }
         .background(Color(theme.midBackground))
-        .toolbarBackground(Color(uiColor: (theme.paperBackground)), for: .automatic)
+        .toolbarBackground(Color(theme.midBackground), for: .automatic)
         .onAppear {
             viewModel.didShowTabs()
         }
@@ -84,6 +84,7 @@ public struct WMFArticleTabsView: View {
             tabTitle(title: tab.title)
                 .padding(.horizontal, 10)
                 .padding(.top, 10)
+                .padding(.bottom, 2)
 
             VStack(alignment: .leading) {
                 Text(viewModel.localizedStrings.mainPageSubtitle)
@@ -98,8 +99,7 @@ public struct WMFArticleTabsView: View {
                 Text(viewModel.localizedStrings.mainPageDescription)
                     .font(Font(WMFFont.for(.caption1)))
                     .foregroundStyle(Color(theme.text))
-                    .lineSpacing(5)
-                    .padding(.bottom, 5)
+                    .lineSpacing(1.4)
             }
             .padding([.horizontal], 10)
         }
@@ -125,10 +125,13 @@ public struct WMFArticleTabsView: View {
                         }
                         .frame(height: CGFloat(viewModel.calculateImageHeight()))
                     } else {
-                        tabTitle(title: tab.title)
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                            .padding(.trailing, 40)
-                            .padding([.leading, .top], 10)
+                        VStack(alignment: .leading, spacing: 2) {
+                            tabTitle(title: tab.title)
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                                .padding(.trailing, 40)
+                                .padding([.leading, .top], 10)
+                            tabText(tab: tab)
+                        }
                     }
                 }
 
@@ -145,12 +148,13 @@ public struct WMFArticleTabsView: View {
             }
 
             if tab.image != nil {
-                tabTitle(title: tab.title)
-                    .padding(.horizontal, 10)
-                    .padding(.top, 10)
+                VStack(alignment: .leading, spacing: 2) {
+                    tabTitle(title: tab.title)
+                        .padding(.horizontal, 10)
+                        .padding(.top, 10)
+                    tabText(tab: tab)
+                }
             }
-
-            tabText(tab: tab)
 
             if tab.image == nil {
                 Spacer()
@@ -162,7 +166,7 @@ public struct WMFArticleTabsView: View {
     private func tabCardView(content: some View, tabData: WMFArticleTabsDataController.WMFArticleTab, tab: ArticleTab) -> some View {
         content
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
-            .background(Color(theme.paperBackground))
+            .background(Color(theme.chromeBackground))
             .cornerRadius(12)
             .shadow(color: Color.black.opacity(0.05), radius: 16, x: 0, y: 0)
             .contentShape(Rectangle())
@@ -191,27 +195,32 @@ public struct WMFArticleTabsView: View {
             .font(Font(WMFFont.for(.georgiaCallout)))
             .foregroundStyle(Color(theme.text))
             .lineLimit(1)
+            .padding(.bottom, 2)
     }
     
     private func tabText(tab: ArticleTab) -> some View {
-        VStack(alignment: .leading) {
-            if let subtitle = tab.subtitle {
-                Text(subtitle)
-                    .font(Font(WMFFont.for(.caption1)))
-                    .foregroundStyle(Color(theme.secondaryText))
-                    .lineLimit(1)
+        VStack(alignment: .leading, spacing: 0) {
+            Group {
+                if let subtitle = tab.subtitle {
+                    Text(subtitle)
+                } else {
+                    Text(" ")
+                        .hidden()
+                }
             }
+            .font(Font(WMFFont.for(.caption1)))
+            .foregroundStyle(Color(theme.secondaryText))
+            .lineLimit(1)
+            
             Divider()
                 .frame(width: 24)
-                .padding(.top, 4)
-                .padding(.bottom, 6)
+                .padding(.vertical, 8)
                 .foregroundStyle(Color(uiColor: theme.border))
             if let description = tab.description {
                 Text(description)
                     .font(Font(WMFFont.for(.caption1)))
                     .foregroundStyle(Color(theme.text))
-                    .lineSpacing(5)
-                    .padding(.bottom, 5)
+                    .lineSpacing(1.4)
             } else {
                 Spacer()
             }
