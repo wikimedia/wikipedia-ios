@@ -306,29 +306,14 @@ final class WMFArticleTabsDataControllerTests: XCTestCase {
         }
     }
     
-    // Mock implementation
-    class MockArticleSummaryDataController: WMFArticleSummaryDataControlling {
-        func fetchArticleSummary(project: WMFProject, title: String) async throws -> WMFArticleSummary {
-            return WMFArticleSummary(
-                displayTitle: title,
-                description: "Description for \(title)",
-                extractHtml: "<p>Extract for \(title)</p>",
-                thumbnailURL: URL(string: "https://example.com/\(title).jpg"),
-                extract: "Extract for \(title)"
-            )
-        }
-    }
-    
     func testFetchAllArticleTabs() async throws {
         guard let store else {
             throw TestsError.missingStore
         }
         
         // Create and inject the mock controller
-        let mockController = MockArticleSummaryDataController()
         let dataController = try WMFArticleTabsDataController(
-            coreDataStore: store,
-            articleSummaryDataController: mockController
+            coreDataStore: store
         )
         
         // Create two tabs with articles
@@ -359,11 +344,10 @@ final class WMFArticleTabsDataControllerTests: XCTestCase {
             XCTFail("First tab not found")
             return
         }
+        
+        
         XCTAssertEqual(firstTab.articles.count, 1, "First tab should have one article")
         XCTAssertEqual(firstTab.articles[0].title, "Cat")
-        XCTAssertEqual(firstTab.articles[0].description, "Description for Cat")
-        XCTAssertEqual(firstTab.articles[0].summary, "Extract for Cat")
-        XCTAssertEqual(firstTab.articles[0].imageURL?.absoluteString, "https://example.com/Cat.jpg")
         
         // Verify second tab
         guard let secondTab = tabs.first(where: { $0.identifier == identifier2.tabIdentifier }) else {
@@ -372,8 +356,5 @@ final class WMFArticleTabsDataControllerTests: XCTestCase {
         }
         XCTAssertEqual(secondTab.articles.count, 1, "Second tab should have one article")
         XCTAssertEqual(secondTab.articles[0].title, "Dog")
-        XCTAssertEqual(secondTab.articles[0].description, "Description for Dog")
-        XCTAssertEqual(secondTab.articles[0].summary, "Extract for Dog")
-        XCTAssertEqual(secondTab.articles[0].imageURL?.absoluteString, "https://example.com/Dog.jpg")
     }
 }
