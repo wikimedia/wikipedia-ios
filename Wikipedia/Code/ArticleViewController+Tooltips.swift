@@ -30,7 +30,7 @@ extension ArticleViewController {
         NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(showTooltipsIfNecessary), object: nil)
     }
 
-    func showTooltips() {
+    func presentTooltipsIfNeeded() {
         perform(#selector(showTooltipsIfNecessary), with: nil, afterDelay: 1.0)
     }
 
@@ -163,7 +163,6 @@ extension ArticleViewController {
     }
 
     private func computeTabsIconSourceRect(in navBar: UINavigationBar) -> CGRect {
-        let count = navigationItem.rightBarButtonItems?.count ?? 0
         let indexFromTrailing: CGFloat = 1 // second from right
         let margin = navBar.layoutMargins.right
         let hitWidth: CGFloat = 44

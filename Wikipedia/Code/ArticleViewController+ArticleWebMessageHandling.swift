@@ -57,8 +57,9 @@ extension ArticleViewController: ArticleWebMessageHandling {
         let oldState = state
         state = .loaded
         
-//        showWIconPopoverIfNecessary()
-        showTooltips()
+        if UIDevice.current.userInterfaceIdiom == .phone {
+            presentTooltipsIfNeeded()
+        }
 
         refreshControl.endRefreshing()
         loadSummary(oldState: oldState)
