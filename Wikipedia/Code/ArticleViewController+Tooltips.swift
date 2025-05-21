@@ -36,11 +36,14 @@ extension ArticleViewController {
 
     @objc private func showTooltipsIfNecessary() {
 
-        webView.firstParagraphFrame(in: webView) { [weak self] rect in
+        webView.firstParagraphFrame(in: self.view) { [weak self] maybeRect in
             guard let self = self else { return }
 
-            self.firstParagraphRect = rect
+            guard let paragraphRect = maybeRect else {
+                return
+            }
 
+            self.firstParagraphRect = paragraphRect
             self.presentAllTooltips()
         }
     }
@@ -56,15 +59,17 @@ extension ArticleViewController {
         guard let wIconRect = computeWIconSourceRect(in: navigationBar) else {
             return
         }
+        guard let paragraphRect = firstParagraphRect else {
+                return // maybe fallback?
+        }
 
-        let paragraphRect = firstParagraphRect ?? webView.convert(webView.bounds, to: view)
         let squareRect = computeTabsIconSourceRect(in: navigationBar)
 
         let wIconVM = WMFTooltipViewModel(localizedStrings: makeWIconStrings(), buttonNeedsDisclosure: false, sourceView: navigationBar, sourceRect: wIconRect, permittedArrowDirections: .up) {
 
         }
 
-        let openInTabVM = WMFTooltipViewModel(localizedStrings: makeOpenInTabStrings(), buttonNeedsDisclosure: false, sourceView: webView, sourceRect: paragraphRect, permittedArrowDirections: .down) {
+        let openInTabVM = WMFTooltipViewModel(localizedStrings: makeOpenInTabStrings(), buttonNeedsDisclosure: false, sourceView: view, sourceRect: paragraphRect, permittedArrowDirections: .down) {
 
         }
 
@@ -208,23 +213,30 @@ extension ArticleViewController: WMFTooltipPresenting {
 }
 
 private extension WKWebView {
-    /// Asynchronously finds the first paragraph in the page and returns its frame
-    /// in the coordinate space of `containerView`.
+    /// Asynchronously finds the first non-empty <p> and returns its frame
+    /// in the coordinate space of `containerView`.  If none is found,
+    /// calls completion(nil) and does *not* fall back to webView.bounds.
     func firstParagraphFrame(in containerView: UIView,
                              completion: @escaping (CGRect?) -> Void) {
+
         let js = """
         (function(){
-          var p = document.querySelector('.mw-parser-output > p:not(.mw-empty-elt)');
-          if (!p) { return null; }
-          var r = p.getBoundingClientRect();
-          var scrollY = window.scrollY || window.pageYOffset;
-          var scale   = window.devicePixelRatio || 1;
-          return {
-            x:      r.left/scale,
-            y:     (r.top + scrollY)/scale,
-            width:  r.width/scale,
-            height: r.height/scale
-          };
+          var ps = document.querySelectorAll('p');
+          for (var i = 0; i < ps.length; i++) {
+            var p = ps[i];
+            if (p.innerText && p.innerText.trim().length > 0) {
+              var r = p.getBoundingClientRect();
+              var scrollY = window.scrollY || window.pageYOffset;
+              var scale = window.devicePixelRatio || 1;
+              return {
+                x:      r.left   / scale,
+                y: (r.top + scrollY) / scale,
+                width:  r.width  / scale,
+                height: r.height / scale
+              };
+            }
+          }
+          return null;
         })();
         """
 
@@ -232,20 +244,18 @@ private extension WKWebView {
             guard
                 error == nil,
                 let dict = result as? [String: Any],
-                let x     = dict["x"]     as? CGFloat,
-                let y     = dict["y"]     as? CGFloat,
-                let w     = dict["width"] as? CGFloat,
-                let h     = dict["height"]as? CGFloat
+                let x    = dict["x"]     as? CGFloat,
+                let y    = dict["y"]     as? CGFloat,
+                let w    = dict["width"] as? CGFloat,
+                let h    = dict["height"]as? CGFloat
             else {
                 completion(nil)
                 return
             }
 
-            let paragraphRect = CGRect(x: x, y: y, width: w, height: h)
-
-            let rectInContainer = self.convert(paragraphRect, to: containerView)
+            let domRect = CGRect(x: x, y: y, width: w, height: h)
+            let rectInContainer = self.convert(domRect, to: containerView)
             completion(rectInContainer)
         }
     }
 }
-
