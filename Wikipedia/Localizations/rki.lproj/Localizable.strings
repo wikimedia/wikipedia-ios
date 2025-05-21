@@ -1147,6 +1147,9 @@
 "table-of-contents-heading" = "အကြောင်းအရာတိ";
 "table-of-contents-hide-button-label" = "မာတိကာ ဝှက်ဖို့";
 "table-of-contents-subheading-label" = "ခေါင်းစိုင်ခွဲ $1";
+"tabs-main-page-description" = "ဝီကီးပီးဒီးယား ပင်မစာမျက်နှာက အထူးအသားပီး ဆောင်းပါးတ၊ နောက်ဆုံးသတင်းတိ၊ စိတ်ဝင်စားစရာ အချက်အလက်တိနန့် အဓိက အချက်အလက်တိကို ယှာဖွီပါ။";
+"tabs-main-page-subtitle" = "Wikipedia ဧ့နိန့်စိုင်အလီးပီးချက်တိ";
+"tabs-navbar-title-format" = "{{PLURAL:$1|$1 တက်ဘ်|$1 တက်ဘ်တိ}}";
 "tachelhit-variants-alert-body" = "Wikipedia အက်ပ်စွာ ဂုချိန်ခါမာ အောက်ပါ Tachelhit မျိုးကွဲတိကို အက်ပ်အတွင်းက အဓိက ယင်းသို့မဟုတ် အလယ်တန်းဘာသာစကားတိအဖြိုက်နန့် ပံ့ပိုးပီးထားပြီး သင်ခြီရေမျိုးကွဲတိမာ ဖတ်ဖို့၊ ယှာဖွီဖို့နန့် တီးဖြတ်ဖို့ ပိုပြီးကေလွယ်ကူစီရေ-\n\n ⵜⴰⵛⵍⵃⵉⵜ Tachelhit, Tifinagh (shi-tfng)\n Taclḥit Tachelhit၊ လက်တင် (ရှီ-လတ်)";
 "tachelhit-variants-alert-title" = "Tachelhit ဗားရှင်းပံ့ပိုးမှုဆိုင်ရာ အပ်ဒိတ်တိ";
 "tajik-variants-alert-body" = "Wikipedia အက်ပ်စွာ အဂု အက်ပ်အတွင်းက အဓိက ယင်းသို့မဟုတ် အလယ်တန်းဘာသာစကားတိအဖြိုက်နန့် အောက်ပါ Tajik မျိုးကွဲတိကို ပံ့ပိုးပီးထားပြီး သင်ခြီရေ အမျိုးအစားတိမာ ဖတ်ဖို့၊ ယှာဖွီဖို့နန့် တီးဖြတ်ဖို့ ပိုပြီးကေလွယ်ကူစီရေ-\n\n тоҷикӣ кирилликӣ တာဂျစ်၊ Cyrillic (tg-cyrl)\n tojikī lotinī တာဂျစ်၊ လက်တင် (tg-latn)";

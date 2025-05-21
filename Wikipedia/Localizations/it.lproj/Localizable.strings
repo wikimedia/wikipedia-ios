@@ -123,6 +123,7 @@
 "action-unsave" = "Annulla salvataggio";
 "action-unsaved-accessibility-notification" = "Voce non salvata";
 "action-update" = "Aggiorna";
+"activity-tab-add-images-subtitle" = "Aggiungi immagini suggerite alle voci di Wikipedia per migliorarne la comprensione.";
 "activity-tab-add-images-title" = "Aggiungi immagini";
 "activity-tab-generic-no-edits" = "Non hai fatto alcuna modifica questa settimana. Inizia subito a monitorare i tuoi contributi.";
 "activity-tab-logged-out-title" = "Accedi o crea un account per vedere ulteriori attività di modifica e lettura.";
@@ -136,6 +137,11 @@
 "activity-tab-very-satisfied" = "Molto soddisfatto";
 "activity-tab-very-unsatisfied" = "Molto insoddisfatto";
 "activity-tab-view-editing-history" = "Vedi cronologia delle modifiche";
+"activity-tab-view-reading-history" = "Vedi cronologia delle letture";
+"activity-tab-view-saved-articles" = "Tutte le voci salvate";
+"activity-tab-you-edited" = "Hai modificato {{PLURAL:$1|$1 volta|$1 volte}} questa settimana.";
+"activity-tab-you-read" = "Hai letto {{PLURAL:$1|$1 voce|$1 voci}} questa settimana.";
+"activity-tab-you-saved" = "Hai salvato {{PLURAL:$1|$1 voce|$1 voci}} questa settimana.";
 "add-articles-to-reading-list" = "Aggiungi $1 {{PLURAL:$1|voce|voci}} all'elenco di lettura";
 "advanced-settings-title" = "Impostazioni avanzate";
 "alert-temporary-account" = "Stai utilizzando un account temporaneo. L'account scadrà tra 90 giorni.";
@@ -165,6 +171,7 @@
 "article-share" = "Condividi";
 "article-tabs-open-new-tab" = "Apri in una nuova scheda";
 "article-talk-page" = "Pagina di discussione della voce";
+"article-view-controller-editing-temp-account-created-subtitle" = "L'account temporaneo $1 è stato creato dopo la pubblicazione della tua modifica. Scadrà tra 90 giorni.";
 "article-view-controller-editing-temp-account-created-title" = "Utenza temporanea creata";
 "back-button-accessibility-label" = "Indietro";
 "back-button-popover-title" = "Clicca per tornare indietro";
@@ -181,7 +188,10 @@
 "button-skip" = "Salta";
 "cancel" = "Annulla";
 "cc-zero" = "Creative Commons CC0";
+"chinese-variants-alert-body" = "L'app di Wikipedia ora supporta le seguenti varianti cinesi come lingua primaria o secondario all'interno dell'applicazione, semplificando la lettura, la ricerca e la modifica nelle diverse varianti:\n\n简体 Cinese semplificato (zh-hans)\n香港繁體 Tradizionale di Hong Kong (zh-hk)\n澳門繁體 Tradizionale di Macao (zh-mo)\n大马简体 Malesia semplificato (zh-my)\n新加坡简体 Singapore semplificato (zh-sg)\n臺灣正體 Taiwanese tradizionale (zh-tw)";
 "clear-title-accessibility-label" = "Pulisci";
+"clearing-cache-complete" = "Cancellazione della cache completata.";
+"clearing-cache-in-progress" = "Cancellazione della cache in corso.";
 "close-button-accessibility-label" = "Chiudi";
 "compass-direction" = "alle ore $1";
 "confirm-donation-history-deletion-subtitle" = "Questo si applicherà solo alle donazioni effettuate tramite questo dispositivo.";
@@ -190,6 +200,7 @@
 "continue-button-title" = "Continua";
 "continue-reading-empty-description" = "Esplorare Wikipedia per altre voci da leggere";
 "continue-reading-empty-title" = "Nessuna voce letta recentemente";
+"crimean-tatar-variants-alert-body" = "L'app di Wikipedia ora supporta le seguenti varianti del tataro di Crimea come lingua principale o secondaria all'interno dell'applicazione, rendendo più semplice la lettura, la ricerca e la modifica nelle varianti preferite:\n\nQırımtatarca, latino tataro di Crimea latino (chr-latn)\nкъырымтатарджа, Кирил tataro di Crimea cirillico (crh-cyrl)";
 "data-migration-status" = "Aggiornamento...";
 "description-add-title" = "Aggiungi descrizione";
 "description-edit-for-article" = "Descrizione della voce per $1";
@@ -326,15 +337,19 @@
 "editor-keyboard-strikethrough-accessibility" = "Barrato";
 "editor-keyboard-subheading1-button" = "Sottotitolo 1";
 "editor-keyboard-subheading2-button" = "Sottotitolo 2";
+"editor-keyboard-subheading3-button" = "Sottotitolo 3";
+"editor-keyboard-subheading4-button" = "Sottotitolo 4";
 "editor-keyboard-subscript-accessibility" = "Pedice";
 "editor-keyboard-superscript-accessibility" = "Apice";
 "editor-keyboard-text-formatting-title" = "Formattazione del testo";
+"editor-keyboard-underline-accessibility" = "Sottolinea";
 "editor-replace-textfield-accessibility" = "Sostituisci";
 "editor-replace-textfield-placeholder" = "Sostituisci con…";
 "editor-replace-type-all" = "Sostituisci tutto";
 "editor-replace-type-all-accessibility" = "Sostituisci tutte le istanze";
 "editor-replace-type-single" = "Sostituisci";
 "editor-replace-type-single-accessibility" = "Sostituisci la singola istanza";
+"editor-title" = "Editor";
 "editor-toolbar-cursor-down-accessibility" = "Sposta il cursore verso il basso alla riga successiva.";
 "editor-toolbar-cursor-previous-accessibility" = "Sposta il cursore sul carattere precedente.";
 "editor-toolbar-find-accessibility" = "Trova nella pagina";
@@ -833,6 +848,8 @@
 "table-of-contents-close-accessibility-hint" = "Chiudi";
 "table-of-contents-close-accessibility-label" = "Chiudi l'indice";
 "table-of-contents-heading" = "Contenuti";
+"tabs-close-tab" = "Chiudi scheda";
+"tabs-open-tab" = "Apri scheda";
 "talk-page-active-users-accessibilty-label" = "{{PLURAL:$1|$1 utente attivo|$1 utenti attivi}}";
 "talk-page-add-topic-button" = "Aggiungi argomento";
 "talk-page-change-language" = "Cambia lingua";

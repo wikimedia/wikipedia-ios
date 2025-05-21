@@ -7,10 +7,9 @@ public protocol WMFArticleTabsDataControlling {
     func checkAndCreateInitialArticleTabIfNeeded() async throws
     func createArticleTab(initialArticle: WMFArticleTabsDataController.WMFArticle?, setAsCurrent: Bool) async throws -> WMFArticleTabsDataController.Identifiers
     func deleteArticleTab(identifier: UUID) async throws
-    func appendArticle(_ article: WMFArticleTabsDataController.WMFArticle, toTabIdentifier identifier: UUID?, setAsCurrent: Bool?) async throws -> WMFArticleTabsDataController.Identifiers
+    func appendArticle(_ article: WMFArticleTabsDataController.WMFArticle, toTabIdentifier identifier: UUID) async throws -> WMFArticleTabsDataController.Identifiers
     func setTabItemAsCurrent(tabIdentifier: UUID, tabItemIdentifier: UUID) async throws
     func setTabAsCurrent(tabIdentifier: UUID) async throws
-    func fetchTab(tabIdentfiier: UUID) async throws -> WMFArticleTabsDataController.WMFArticleTab
     func currentTabIdentifier() async throws -> UUID
     func fetchAllArticleTabs() async throws -> [WMFArticleTabsDataController.WMFArticleTab]
 }
@@ -35,15 +34,15 @@ public class WMFArticleTabsDataController: WMFArticleTabsDataControlling {
         public let identifier: UUID?
         public let title: String
         public let description: String?
-        public let summary: String?
+        public let extract: String?
         public let imageURL: URL?
         public let project: WMFProject
         
-        public init(identifier: UUID?, title: String, description: String? = nil, summary: String? = nil, imageURL: URL? = nil, project: WMFProject) {
+        public init(identifier: UUID?, title: String, description: String? = nil, extract: String? = nil, imageURL: URL? = nil, project: WMFProject) {
             self.identifier = identifier
             self.title = title
             self.description = description
-            self.summary = summary
+            self.extract = extract
             self.imageURL = imageURL
             self.project = project
         }
@@ -53,7 +52,11 @@ public class WMFArticleTabsDataController: WMFArticleTabsDataControlling {
         }
     }
     
-    public struct WMFArticleTab {
+    public struct WMFArticleTab: Equatable {
+        public static func == (lhs: WMFArticleTabsDataController.WMFArticleTab, rhs: WMFArticleTabsDataController.WMFArticleTab) -> Bool {
+            return lhs.identifier == rhs.identifier
+        }
+        
         public let identifier: UUID
         public let timestamp: Date
         public let isCurrent: Bool
@@ -105,7 +108,6 @@ public class WMFArticleTabsDataController: WMFArticleTabsDataControlling {
     public let coreDataStore: WMFCoreDataStore
     private let userDefaultsStore = WMFDataEnvironment.current.userDefaultsStore
     private let developerSettingsDataController: WMFDeveloperSettingsDataControlling
-    private let articleSummaryDataController: WMFArticleSummaryDataControlling
     
     lazy var backgroundContext: NSManagedObjectContext? = {
         let backgroundContext = try? coreDataStore.newBackgroundContext
@@ -116,14 +118,12 @@ public class WMFArticleTabsDataController: WMFArticleTabsDataControlling {
     // MARK: - Lifecycle
     
     init(coreDataStore: WMFCoreDataStore? = WMFDataEnvironment.current.coreDataStore,
-         developerSettingsDataController: WMFDeveloperSettingsDataControlling = WMFDeveloperSettingsDataController.shared,
-         articleSummaryDataController: WMFArticleSummaryDataControlling = WMFArticleSummaryDataController()) throws {
+         developerSettingsDataController: WMFDeveloperSettingsDataControlling = WMFDeveloperSettingsDataController.shared) throws {
         guard let coreDataStore else {
             throw WMFDataControllerError.coreDataStoreUnavailable
         }
         self.coreDataStore = coreDataStore
         self.developerSettingsDataController = developerSettingsDataController
-        self.articleSummaryDataController = articleSummaryDataController
     }
     
     // MARK: Entry point
@@ -242,7 +242,7 @@ public class WMFArticleTabsDataController: WMFArticleTabsDataControlling {
         }
     }
     
-    public func appendArticle(_ article: WMFArticle, toTabIdentifier tabIdentifier: UUID? = nil, setAsCurrent: Bool? = nil) async throws -> Identifiers {
+    public func appendArticle(_ article: WMFArticle, toTabIdentifier tabIdentifier: UUID) async throws -> Identifiers {
         
         guard let moc = backgroundContext else {
             throw CustomError.missingContext
@@ -251,26 +251,11 @@ public class WMFArticleTabsDataController: WMFArticleTabsDataControlling {
         let result = try await moc.perform { [weak self] in
             guard let self else { throw CustomError.missingSelf }
             
-            let tab: CDArticleTab?
-            if let tabIdentifier = tabIdentifier {
-                let tabPredicate = NSPredicate(format: "identifier == %@", argumentArray: [tabIdentifier])
-                tab = try self.coreDataStore.fetch(entityType: CDArticleTab.self, predicate: tabPredicate, fetchLimit: 1, in: moc)?.first
-            } else {
-                let currentPredicate = NSPredicate(format: "isCurrent == YES")
-                tab = try self.coreDataStore.fetch(entityType: CDArticleTab.self, predicate: currentPredicate, fetchLimit: 1, in: moc)?.first
-            }
+            let tabPredicate = NSPredicate(format: "identifier == %@", argumentArray: [tabIdentifier])
+            let tab = try self.coreDataStore.fetch(entityType: CDArticleTab.self, predicate: tabPredicate, fetchLimit: 1, in: moc)?.first
             
             guard let tab else {
                 throw CustomError.missingTab
-            }
-            
-            // If setting as current, first set all other tabs to not current
-            if let setAsCurrent,
-               setAsCurrent == true {
-                let predicate = NSPredicate(format: "isCurrent == YES")
-                let currentTab = try self.coreDataStore.fetch(entityType: CDArticleTab.self, predicate: predicate, fetchLimit: 1, in: moc)?.first
-                currentTab?.isCurrent = false
-                tab.isCurrent = setAsCurrent
             }
             
             // Create a new tab item object for article
@@ -280,17 +265,13 @@ public class WMFArticleTabsDataController: WMFArticleTabsDataControlling {
             // Set tab's existing items' isCurrent values = false
             var newItems: [CDArticleTabItem] = []
             if let currentItems = tab.items as? NSMutableOrderedSet {
-                for item in currentItems {
-                    
-                    guard let tabItem = item as? CDArticleTabItem else {
-                        continue
-                    }
-                    
-                    if tabItem.isCurrent {
-                        tabItem.isCurrent = false
-                        newItems.append(tabItem)
+                let safeCurrentItems = currentItems.compactMap { $0 as? CDArticleTabItem }
+                for item in safeCurrentItems {
+                    if item.isCurrent {
+                        item.isCurrent = false
+                        newItems.append(item)
                     } else {
-                        newItems.append(tabItem)
+                        newItems.append(item)
                     }
                 }
             }
@@ -340,9 +321,8 @@ public class WMFArticleTabsDataController: WMFArticleTabsDataControlling {
                 throw CustomError.missingPage
             }
             
-            for item in items {
-                guard let articleItem = item as? CDArticleTabItem else { continue }
-                
+            let articleItems = items.compactMap { $0 as? CDArticleTabItem }
+            for articleItem in articleItems {
                 if articleItem.identifier == tabItemIdentifier {
                     articleItem.isCurrent = true
                 } else {
@@ -426,13 +406,13 @@ public class WMFArticleTabsDataController: WMFArticleTabsDataControlling {
         
         let wasCurrent = articleTab.isCurrent
         if let items = articleTab.items {
-            for item in items {
-                guard let articleTabItem = item as? CDArticleTabItem else {
-                    throw CustomError.unexpectedType
-                }
-                
-                articleTabItem.tab = nil
-                moc.delete(articleTabItem)
+            
+            // Make a copy so we're not mutating while iterating
+            let safeItems = items.compactMap { $0 as? CDArticleTabItem }
+            
+            for item in safeItems {
+                item.tab = nil
+                moc.delete(item)
             }
         }
         
@@ -501,54 +481,6 @@ public class WMFArticleTabsDataController: WMFArticleTabsDataControlling {
         tab.isCurrent = true
     }
     
-    public func fetchTab(tabIdentfiier: UUID) async throws -> WMFArticleTab {
-        
-        guard let moc = backgroundContext else {
-            throw CustomError.missingContext
-        }
-        
-        let result = try await moc.perform { [weak self] in
-            guard let self else { throw CustomError.missingSelf }
-            
-            let tabPredicate = NSPredicate(format: "identifier == %@", argumentArray: [tabIdentfiier])
-            guard let cdTab = try self.coreDataStore.fetch(entityType: CDArticleTab.self, predicate: tabPredicate, fetchLimit: 1, in: moc)?.first else {
-                throw CustomError.missingTab
-            }
-            
-            guard let tabIdentifier = cdTab.identifier else {
-                throw CustomError.missingIdentifier
-            }
-            
-            guard let timestamp = cdTab.timestamp else {
-                throw CustomError.missingTimestamp
-            }
-            
-            var articles: [WMFArticle] = []
-            
-            guard let items = cdTab.items else {
-                return WMFArticleTab(identifier: tabIdentifier, timestamp: timestamp, isCurrent: cdTab.isCurrent, articles: [])
-            }
-            
-            for item in items {
-                guard let articleTabItem = item as? CDArticleTabItem,
-                      let page = articleTabItem.page,
-                      let identifier = articleTabItem.identifier,
-                      let title = page.title,
-                      let projectID = page.projectID,
-                      let project = WMFProject(coreDataIdentifier: projectID) else {
-                    throw CustomError.unexpectedType
-                }
-                
-                let article = WMFArticle(identifier: identifier, title: title, project: project)
-                articles.append(article)
-            }
-            
-            return WMFArticleTab(identifier: tabIdentifier, timestamp: timestamp, isCurrent: cdTab.isCurrent, articles: articles)
-        }
-        
-        return result
-    }
-    
     public func fetchAllArticleTabs() async throws -> [WMFArticleTab] {
         
         guard let moc = backgroundContext else {
@@ -566,11 +498,11 @@ public class WMFArticleTabsDataController: WMFArticleTabsDataControlling {
             
             for cdTab in cdArticleTabs {
                 guard let tabIdentifier = cdTab.identifier else {
-                    throw CustomError.missingIdentifier
+                    continue
                 }
                 
                 guard let timestamp = cdTab.timestamp else {
-                    throw CustomError.missingTimestamp
+                    continue
                 }
                 
                 var articles: [WMFArticle] = []
@@ -605,48 +537,6 @@ public class WMFArticleTabsDataController: WMFArticleTabsDataControlling {
             return articleTabs
         }
         
-        return try await databaseTabsWithArticleSummaries(databaseTabs: databaseTabs)
-    }
-    
-    private func databaseTabsWithArticleSummaries(databaseTabs: [WMFArticleTab]) async throws -> [WMFArticleTab] {
-        return try await withThrowingTaskGroup(of: WMFArticleTab.self) { group in
-            for tab in databaseTabs {
-                guard let lastArticle = tab.articles.last else {
-                    group.addTask {
-                        return tab
-                    }
-                    continue
-                }
-                
-                group.addTask {
-                    do {
-                        let articleSummary = try await self.articleSummaryDataController.fetchArticleSummary(project: lastArticle.project, title: lastArticle.title)
-                        var updatedArticles = tab.articles
-                        
-                        let updatedArticle = WMFArticle(
-                            identifier: lastArticle.identifier,
-                                title: lastArticle.title,
-                                description: articleSummary.description,
-                                summary: articleSummary.extract,
-                                imageURL: articleSummary.thumbnailURL,
-                                project: lastArticle.project
-                            )
-                        updatedArticles[updatedArticles.count - 1] = updatedArticle
-                        
-                        return WMFArticleTab(identifier: tab.identifier, timestamp: tab.timestamp, isCurrent: tab.isCurrent, articles: updatedArticles)
-                    } catch {
-                        print("Error fetching summary for article \(lastArticle.title): \(error)")
-                        return tab
-                    }
-                }
-            }
-            
-            var updatedTabs: [WMFArticleTab] = []
-            for try await updatedTab in group {
-                updatedTabs.append(updatedTab)
-            }
-            
-            return updatedTabs
-        }
+        return databaseTabs
     }
 }

@@ -18,6 +18,7 @@ public enum WMFFont {
     case boldSubheadline
     case boldTitle1
     case boldTitle3
+    case georgiaCallout
     case callout
     case caption1
     case editorHeading
@@ -137,6 +138,9 @@ public enum WMFFont {
                 fatalError()
             }
             return UIFont(descriptor: descriptor, size: 0)
+            
+        case .georgiaCallout:
+            return UIFontMetrics(forTextStyle: .callout).scaledFont(for: UIFont(descriptor: UIFontDescriptor(name: "Georgia", size: 16), size: 0), compatibleWith: traitCollection)
 
         case .callout:
             return UIFont.preferredFont(forTextStyle: .callout, compatibleWith: traitCollection)
