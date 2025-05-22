@@ -122,7 +122,6 @@ public class WMFArticleTabsDataController: WMFArticleTabsDataControlling {
     // MARK: Entry point
 
     public var shouldShowArticleTabs: Bool {
-        return true
         return developerSettingsDataController.enableArticleTabs
     }
     

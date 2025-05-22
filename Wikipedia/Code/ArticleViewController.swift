@@ -607,12 +607,6 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
     }
     
     func loadNextAndPreviousArticleTabs() {
-        guard let title = articleURL.wmf_title,
-            let siteURL = articleURL.wmf_site,
-            let project = WikimediaProject(siteURL: siteURL)?.wmfProject else {
-                return
-        }
-            
         Task { [weak self] in
             guard let self else { return }
             if let tabDataController = WMFArticleTabsDataController.shared,
