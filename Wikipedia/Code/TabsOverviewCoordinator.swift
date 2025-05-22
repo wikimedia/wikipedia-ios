@@ -58,10 +58,10 @@ final class TabsOverviewCoordinator: Coordinator {
 
         let surveyView = WMFSurveyView(viewModel: WMFSurveyViewModel(localizedStrings: surveyLocalizedStrings, options: surveyOptions, selectionType: .single, shouldShowMultilineText: true), cancelAction: { [weak self] in
             
-            self?.navigationController.dismiss(animated: true)
+            self?.navigationController.presentedViewController?.dismiss(animated: true)
         }, submitAction: { [weak self] options, otherText in
             
-            self?.navigationController.dismiss(animated: true, completion: {
+            self?.navigationController.presentedViewController?.dismiss(animated: true, completion: {
                 let image = UIImage(systemName: "checkmark.circle.fill")
                 WMFAlertManager.sharedInstance.showBottomAlertWithMessage(CommonStrings.feedbackSurveyToastTitle, subtitle: nil, image: image, type: .custom, customTypeName: "feedback-submitted", dismissPreviousAlerts: true)
             })
@@ -82,15 +82,17 @@ final class TabsOverviewCoordinator: Coordinator {
         }
         
         let showSurveyClosure = { [weak self] in
-            guard let presentedVC = self?.navigationController.presentedViewController else { return }
-            let surveyVC = self?.surveyViewController()
-            guard let surveyVC else { return }
-            presentedVC.present(surveyVC, animated: true)
-            
-            surveyVC.modalPresentationStyle = .pageSheet
-            if let sheet = surveyVC.sheetPresentationController {
-                sheet.detents = [.medium()]
-                sheet.prefersGrabberVisible = false
+            if let shouldShowSurvey = self?.dataController.shouldShowSurvey(), shouldShowSurvey {
+                guard let presentedVC = self?.navigationController.presentedViewController else { return }
+                let surveyVC = self?.surveyViewController()
+                guard let surveyVC else { return }
+                presentedVC.present(surveyVC, animated: true)
+                
+                surveyVC.modalPresentationStyle = .pageSheet
+                if let sheet = surveyVC.sheetPresentationController {
+                    sheet.detents = [.medium()]
+                    sheet.prefersGrabberVisible = false
+                }
             }
         }
         
@@ -109,7 +111,14 @@ final class TabsOverviewCoordinator: Coordinator {
                                                                 doneButtonText: CommonStrings.doneTitle)
         let navVC = WMFComponentNavigationController(rootViewController: hostingController, modalPresentationStyle: .overFullScreen)
 
-        navigationController.present(navVC, animated: true, completion: nil)
+        navigationController.present(navVC, animated: true) { [weak self] in
+            self?.dataController.updateSurveyDataTabsOverviewSeenCount()
+             guard let self else { return }
+             
+             if self.dataController.shouldShowArticleTabs {
+                 showSurveyClosure()
+             }
+         }
     }
     
     private func tappedTab(_ tab: WMFArticleTabsDataController.WMFArticleTab) {

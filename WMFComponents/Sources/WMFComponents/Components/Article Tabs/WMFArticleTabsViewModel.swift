@@ -72,14 +72,6 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
     
     // MARK: - Public funcs
     
-    func didShowTabs() {
-        guard let dc = WMFArticleTabsDataController.shared else { return }
-        dc.updateSurveyDataTabsOverviewSeenCount()
-        if dc.shouldShowSurvey() {
-              showSurvey()
-        }
-    }
-
     func calculateColumns(for size: CGSize) -> Int {
         // If text is scaled up for accessibility, use single column
         if UIApplication.shared.preferredContentSizeCategory.isAccessibilityCategory {
@@ -94,6 +86,11 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
         } else {
             return 4
         }
+    }
+    
+    func description(for tab: ArticleTab) -> String? {
+        guard let description = tab.info?.description else { return nil }
+        return description.trimmingCharacters(in: .whitespacesAndNewlines)
     }
     
     func calculateImageHeight() -> Int {
@@ -159,7 +156,6 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
         } catch {
             return tab
         }
-        
     }
 }
 

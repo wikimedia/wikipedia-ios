@@ -97,7 +97,6 @@ public class WMFArticleTabsDataController: WMFArticleTabsDataControlling {
     
     public let coreDataStore: WMFCoreDataStore
     private let developerSettingsDataController: WMFDeveloperSettingsDataControlling
-    private let articleSummaryDataController: WMFArticleSummaryDataControlling?
     private let userDefaultsStore = WMFDataEnvironment.current.userDefaultsStore
     
     lazy var backgroundContext: NSManagedObjectContext? = {
@@ -115,7 +114,6 @@ public class WMFArticleTabsDataController: WMFArticleTabsDataControlling {
         }
         self.coreDataStore = coreDataStore
         self.developerSettingsDataController = developerSettingsDataController
-        self.articleSummaryDataController = nil
     }
     
     // MARK: Entry point
@@ -360,9 +358,7 @@ public class WMFArticleTabsDataController: WMFArticleTabsDataControlling {
         let seenCount: Int = (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.articleTabsOverviewOpenedCount.rawValue)) ?? 0
         let didTapLongPress = (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.articleTabsDidTapOpenInNewTab.rawValue)) ?? false
         let seenSurvey = (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.articleTabsDidShowSurvey.rawValue)) ?? false
-        
-        print("\n\n Seen: \(seenCount) \n\n didTap: \(didTapLongPress)")
-        
+
         if seenSurvey {
             return false
         }

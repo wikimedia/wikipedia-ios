@@ -192,6 +192,7 @@ class ArticlePeekPreviewViewController: UIViewController {
                       let project = WikimediaProject(siteURL: siteURL)?.wmfProject else { return }
                 Task {
                     do {
+                        articleTabsDataController.didTapOpenNewTab()
                         guard let dataController = WMFArticleTabsDataController.shared else {
                             DDLogError("Failed to create background tab: Missing data controller")
                             return
