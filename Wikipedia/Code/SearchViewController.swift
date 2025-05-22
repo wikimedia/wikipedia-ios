@@ -463,7 +463,6 @@ class SearchViewController: ArticleCollectionViewController, WMFNavigationBarCon
         }
         
         let longPressOpenInNewTabAction: (URL) -> Void = { [weak self] articleURL in
-            
             guard let self else { return }
             
             guard let navVC = customArticleCoordinatorNavigationController ?? navigationController else { return }

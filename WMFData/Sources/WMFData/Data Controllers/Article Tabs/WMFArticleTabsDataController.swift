@@ -97,6 +97,7 @@ public class WMFArticleTabsDataController: WMFArticleTabsDataControlling {
     
     public let coreDataStore: WMFCoreDataStore
     private let developerSettingsDataController: WMFDeveloperSettingsDataControlling
+    private let userDefaultsStore = WMFDataEnvironment.current.userDefaultsStore
     
     lazy var backgroundContext: NSManagedObjectContext? = {
         let backgroundContext = try? coreDataStore.newBackgroundContext
@@ -331,6 +332,50 @@ public class WMFArticleTabsDataController: WMFArticleTabsDataControlling {
             try self.coreDataStore.saveIfNeeded(moc: moc)
         }
     }
+    
+    public func updateSurveyDataTabsOverviewSeenCount() {
+        var seenCount: Int = (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.articleTabsOverviewOpenedCount.rawValue)) ?? 0
+        
+        seenCount += 1
+        try? userDefaultsStore?.save(key: WMFUserDefaultsKey.articleTabsOverviewOpenedCount.rawValue, value: seenCount)
+    }
+    
+    public func updateSurveyDataTappedLongPressFlag() {
+        try? userDefaultsStore?.save(key: WMFUserDefaultsKey.articleTabsDidTapOpenInNewTab.rawValue, value: true)
+    }
+    
+    public func shouldShowSurvey() -> Bool {
+        // Make sure it's before July 31, 2025
+        let now = Date()
+        let calendar = Calendar.current
+        let deadlineComponents = DateComponents(year: 2025, month: 7, day: 31)
+
+        guard let deadline = calendar.date(from: deadlineComponents),
+              now <= deadline else {
+            return false
+        }
+        
+        let seenCount: Int = (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.articleTabsOverviewOpenedCount.rawValue)) ?? 0
+        let didTapLongPress = (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.articleTabsDidTapOpenInNewTab.rawValue)) ?? false
+        let seenSurvey = (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.articleTabsDidShowSurvey.rawValue)) ?? false
+
+        if seenSurvey {
+            return false
+        }
+        
+        if seenCount >= 2 && didTapLongPress {
+            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.articleTabsDidShowSurvey.rawValue, value: true)
+            return true
+        }
+        
+        return false
+    }
+    
+    public func didTapOpenNewTab() {
+        try? userDefaultsStore?.save(key: WMFUserDefaultsKey.articleTabsDidTapOpenInNewTab.rawValue, value: true)
+    }
+    
+    // MARK: - Private funcs
     
     private func pageForArticle(_ article: WMFArticle, moc: NSManagedObjectContext) throws -> CDPage {
         let coreDataTitle = article.title.normalizedForCoreData

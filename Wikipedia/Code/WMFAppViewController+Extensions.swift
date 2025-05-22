@@ -997,20 +997,20 @@ extension WMFAppViewController {
         }
         
         let surveyLocalizedStrings = WMFSurveyViewModel.LocalizedStrings(
-            title: CommonStrings.activityTabSurveyTitle,
+            title: CommonStrings.satisfactionSurveyTitle,
             cancel: CommonStrings.cancelActionTitle,
             submit: CommonStrings.surveySubmitActionTitle,
             subtitle: CommonStrings.activityTabSurvey,
             instructions: nil,
-            otherPlaceholder: CommonStrings.activityTabSurveyAdditionalThoughts
+            otherPlaceholder: CommonStrings.surveyAdditionalThoughts
         )
 
         let surveyOptions = [
-            WMFSurveyViewModel.OptionViewModel(text: CommonStrings.activityTabSurveyVerySatisfied, apiIdentifer: "1"),
-            WMFSurveyViewModel.OptionViewModel(text: CommonStrings.activityTabSurveySatisfied, apiIdentifer: "2"),
-            WMFSurveyViewModel.OptionViewModel(text: CommonStrings.activityTabSurveyNeutral, apiIdentifer: "3"),
-            WMFSurveyViewModel.OptionViewModel(text: CommonStrings.activityTabSurveyUnsatisfied, apiIdentifer: "4"),
-            WMFSurveyViewModel.OptionViewModel(text: CommonStrings.activityTabSurveyVeryUnsatisfied, apiIdentifer: "5")
+            WMFSurveyViewModel.OptionViewModel(text: CommonStrings.surveyVerySatisfied, apiIdentifer: "1"),
+            WMFSurveyViewModel.OptionViewModel(text: CommonStrings.surveySatisfied, apiIdentifer: "2"),
+            WMFSurveyViewModel.OptionViewModel(text: CommonStrings.surveyNeutral, apiIdentifer: "3"),
+            WMFSurveyViewModel.OptionViewModel(text: CommonStrings.surveyUnsatisfied, apiIdentifer: "4"),
+            WMFSurveyViewModel.OptionViewModel(text: CommonStrings.surveyVeryUnsatisfied, apiIdentifer: "5")
         ]
 
         let surveyView = WMFSurveyView(viewModel: WMFSurveyViewModel(localizedStrings: surveyLocalizedStrings, options: surveyOptions, selectionType: .single), cancelAction: { [weak self] in
