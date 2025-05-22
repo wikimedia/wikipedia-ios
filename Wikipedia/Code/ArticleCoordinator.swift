@@ -25,9 +25,7 @@ extension ArticleTabCoordinating {
         
         articleViewController.coordinator = self
         
-        guard let tabsDataController = WMFArticleTabsDataController.shared else {
-            return
-        }
+        let tabsDataController = WMFArticleTabsDataController.shared
         
         guard tabsDataController.shouldShowArticleTabs else {
             return
@@ -88,9 +86,7 @@ extension ArticleTabCoordinating {
     
     // Cleanup needed when tapping Back button
     func syncTabsOnArticleAppearance() {
-        guard let tabsDataController = WMFArticleTabsDataController.shared else {
-            return
-        }
+        let tabsDataController = WMFArticleTabsDataController.shared
         
         guard tabsDataController.shouldShowArticleTabs else {
             return

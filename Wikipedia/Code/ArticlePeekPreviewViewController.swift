@@ -170,8 +170,8 @@ class ArticlePeekPreviewViewController: UIViewController {
         
         let destination = LinkCoordinator.destination(for: articleURL)
         
-        if let articleTabsDataController = WMFArticleTabsDataController.shared,
-           articleTabsDataController.shouldShowArticleTabs,
+        let articleTabsDataController = WMFArticleTabsDataController.shared
+        if articleTabsDataController.shouldShowArticleTabs,
            case .article = destination {
             
             // Open in new tab
@@ -191,24 +191,20 @@ class ArticlePeekPreviewViewController: UIViewController {
                       let project = WikimediaProject(siteURL: siteURL)?.wmfProject else { return }
                 Task {
                     do {
-                        guard let dataController = WMFArticleTabsDataController.shared else {
-                            DDLogError("Failed to create background tab: Missing data controller")
-                            return
-                        }
                         
-                        let tabsCount = try await dataController.tabsCount()
-                        let tabsMax = dataController.tabsMax
+                        let tabsCount = try await articleTabsDataController.tabsCount()
+                        let tabsMax = articleTabsDataController.tabsMax
                         let article = WMFArticleTabsDataController.WMFArticle(identifier: nil, title: articleTitle, project: project)
                         if tabsCount >= tabsMax {
                             
-                            let currentTabIdentifier = try await dataController.currentTabIdentifier()
-                            _ = try await dataController.appendArticle(article, toTabIdentifier: currentTabIdentifier)
+                            let currentTabIdentifier = try await articleTabsDataController.currentTabIdentifier()
+                            _ = try await articleTabsDataController.appendArticle(article, toTabIdentifier: currentTabIdentifier)
                             
                             DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
                                 WMFAlertManager.sharedInstance.showBottomWarningAlertWithMessage(String.localizedStringWithFormat(CommonStrings.articleTabsLimitToastFormat, tabsMax), subtitle: nil,  buttonTitle: nil, image: WMFSFSymbolIcon.for(symbol: .exclamationMarkTriangleFill), dismissPreviousAlerts: true)
                             }
                         } else {
-                            _ = try await dataController.createArticleTab(initialArticle: article, setAsCurrent: false)
+                            _ = try await articleTabsDataController.createArticleTab(initialArticle: article, setAsCurrent: false)
                         }
                         
                     } catch {

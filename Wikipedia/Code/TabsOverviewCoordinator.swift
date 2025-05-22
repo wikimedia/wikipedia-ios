@@ -29,9 +29,7 @@ final class TabsOverviewCoordinator: Coordinator {
         self.navigationController = navigationController
         self.theme = theme
         self.dataStore = dataStore
-        guard let dataController = WMFArticleTabsDataController.shared else {
-            fatalError("Failed to create WMFArticleTabsDataController")
-        }
+        let dataController = WMFArticleTabsDataController.shared
         self.dataController = dataController
         self.summaryController = dataStore.articleSummaryController
     }
