@@ -612,7 +612,10 @@
 "insert-media-title" = "Lisää media";
 "inuktitut-variants-alert-body" = "Wikipedia-sovellus tukee nyt seuraavia inuktitut-muunnelmia ensi- tai toissijaisina kielinä sovelluksessa, mikä helpottaa lukemista, etsimistä ja muokkaamista näillä versioilla:\n\nᐃᓄᒃᑎᑐᑦ ᑎᑎᕋᐅᓯᖅ ᓄᑖᖅ Inuktitut, tavumerkistö (ike-cans)\nInuktitut ilisautik, Inuktitut, latinalaiset aakkoset (ike-latn)";
 "inuktitut-variants-alert-title" = "Päivitykset Inuktitut-varianttien tukeen";
+"ip-account-cta-bottom" = "Jatka kirjautumatta";
+"ip-account-cta-top" = "Kirjaudu sisään tai luo tunnus";
 "ip-account-warning-subtitle" = "Kun julkaiset muokkauksen, sinulle luodaan tilapäinen tunnus.";
+"ip-account-warning-title" = "Et ole kirjautunut sisään";
 "kazakh-variants-alert-body" = "Wikipedia-sovellus tukee nyt seuraavia kazakin muunnelmia ensi- tai toissijaisina kielinä sovelluksessa, mikä helpottaa lukemista, etsimistä ja muokkaamista näillä versioilla:\n\nҚазақша Kazakh (kk)\nҚазақша Кирил Kazakh, kyrillinen kirjaimisto (kk-cyrl)\nqazaqşa latina kazakstani, latinalainen kirjaimisto (kk-latn)\nتوتە قازاقشا Kazakh, arabialainen kirjaimisto (kk-arab)";
 "kazakh-variants-alert-title" = "Päivitykset kazakin varianttien tukeen";
 "kurdish-variants-alert-body" = "Wikipedia-sovellus tukee nyt seuraavia kurdin muunnelmia ensi- tai toissijaisina kielinä sovelluksessa, mikä helpottaa lukemista, hakua ja muokkaamista näillä versioilla:\n\nKurdî Latînî Kurdish, latinalainen kirjaimisto (ku-latn)\nكوردی Kurdish, arabialainen kirjaimisto (kk-arab)";
@@ -786,8 +789,7 @@
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 kieliversion $2 Wikipediassa";
 "on-this-day-title" = "Tänä päivänä";
 "original-tab-button-popover-description" = "Napauta 'W' -kuvaketta palataksesi välilehdelle josta aloitit";
-// Fuzzy
-"page-history-bot-edits" = "boteilta";
+"page-history-bot-edits" = "botti";
 "page-history-compare-accessibility-hint" = "Napauta valitaksesi kaksi vertailtavaa versiota";
 "page-history-compare-title" = "Vertaa";
 "page-history-graph-accessibility-label" = "Muokkausten aikakaavio";
@@ -830,6 +832,7 @@
 "places-filter-top-articles-count" = "{{PLURAL:$1|$1 artikkeli|$1 artikkelia}}";
 "places-filter-top-read-articles" = "Luetuimmat artikkelit";
 "places-location-enabled" = "Sijanti käytössä";
+"places-map-title" = "Kartta";
 "places-no-saved-articles-have-location" = "Yksikään tallentamistasi artikkeleista ei sisällä sijaintitietoja";
 "places-search-articles-that-match" = "$1 vastaa “$2”";
 "places-search-default-text" = "Hae paikkoja";
