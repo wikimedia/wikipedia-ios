@@ -9,6 +9,7 @@ final class TabsOverviewCoordinator: Coordinator {
     var theme: Theme
     let dataStore: MWKDataStore
     private let dataController: WMFArticleTabsDataController
+    private let summaryController: ArticleSummaryController
     
     @discardableResult
     func start() -> Bool {
@@ -28,10 +29,44 @@ final class TabsOverviewCoordinator: Coordinator {
         self.navigationController = navigationController
         self.theme = theme
         self.dataStore = dataStore
-        guard let dataController = WMFArticleTabsDataController.shared else {
-            fatalError("Failed to create WMFArticleTabsDataController")
-        }
+        let dataController = WMFArticleTabsDataController.shared
         self.dataController = dataController
+        self.summaryController = dataStore.articleSummaryController
+    }
+    
+    private func surveyViewController() -> UIViewController {
+        let subtitle = WMFLocalizedString("tabs-survey-title", value: "Help improve the tabs feature. Are you satisfied with this feature?", comment: "Title for article tabs survey")
+        
+        let surveyLocalizedStrings = WMFSurveyViewModel.LocalizedStrings(
+            title: CommonStrings.satisfactionSurveyTitle,
+            cancel: CommonStrings.cancelActionTitle,
+            submit: CommonStrings.surveySubmitActionTitle,
+            subtitle: subtitle,
+            instructions: nil,
+            otherPlaceholder: CommonStrings.surveyAdditionalThoughts
+        )
+
+        let surveyOptions = [
+            WMFSurveyViewModel.OptionViewModel(text: CommonStrings.surveyVerySatisfied, apiIdentifer: "1"),
+            WMFSurveyViewModel.OptionViewModel(text: CommonStrings.surveySatisfied, apiIdentifer: "2"),
+            WMFSurveyViewModel.OptionViewModel(text: CommonStrings.surveyNeutral, apiIdentifer: "3"),
+            WMFSurveyViewModel.OptionViewModel(text: CommonStrings.surveyUnsatisfied, apiIdentifer: "4"),
+            WMFSurveyViewModel.OptionViewModel(text: CommonStrings.surveyVeryUnsatisfied, apiIdentifer: "5")
+        ]
+
+        let surveyView = WMFSurveyView(viewModel: WMFSurveyViewModel(localizedStrings: surveyLocalizedStrings, options: surveyOptions, selectionType: .single, shouldShowMultilineText: true), cancelAction: { [weak self] in
+            
+            self?.navigationController.presentedViewController?.dismiss(animated: true)
+        }, submitAction: { [weak self] options, otherText in
+            
+            self?.navigationController.presentedViewController?.dismiss(animated: true, completion: {
+                let image = UIImage(systemName: "checkmark.circle.fill")
+                WMFAlertManager.sharedInstance.showBottomAlertWithMessage(CommonStrings.feedbackSurveyToastTitle, subtitle: nil, image: image, type: .custom, customTypeName: "feedback-submitted", dismissPreviousAlerts: true)
+            })
+        })
+
+        let hostedView = WMFComponentHostingController(rootView: surveyView)
+        return hostedView
     }
     
     private func presentTabs() {
@@ -42,6 +77,21 @@ final class TabsOverviewCoordinator: Coordinator {
         
         let didTapAddTab: () -> Void = { [weak self] in
             self?.tappedAddTab()
+        }
+        
+        let showSurveyClosure = { [weak self] in
+            if let shouldShowSurvey = self?.dataController.shouldShowSurvey(), shouldShowSurvey {
+                guard let presentedVC = self?.navigationController.presentedViewController else { return }
+                let surveyVC = self?.surveyViewController()
+                guard let surveyVC else { return }
+                presentedVC.present(surveyVC, animated: true)
+                
+                surveyVC.modalPresentationStyle = .pageSheet
+                if let sheet = surveyVC.sheetPresentationController {
+                    sheet.detents = [.medium()]
+                    sheet.prefersGrabberVisible = false
+                }
+            }
         }
         
         let localizedStrings = WMFArticleTabsViewModel.LocalizedStrings(
@@ -59,7 +109,14 @@ final class TabsOverviewCoordinator: Coordinator {
                                                                 doneButtonText: CommonStrings.doneTitle)
         let navVC = WMFComponentNavigationController(rootViewController: hostingController, modalPresentationStyle: .overFullScreen)
 
-        navigationController.present(navVC, animated: true, completion: nil)
+        navigationController.present(navVC, animated: true) { [weak self] in
+            self?.dataController.updateSurveyDataTabsOverviewSeenCount()
+             guard let self else { return }
+             
+             if self.dataController.shouldShowArticleTabs {
+                 showSurveyClosure()
+             }
+         }
     }
     
     private func tappedTab(_ tab: WMFArticleTabsDataController.WMFArticleTab) {

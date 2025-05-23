@@ -24,24 +24,84 @@ public struct WMFArticleTabsView: View {
             ScrollView {
                 LazyVGrid(columns: Array(repeating: gridItem, count: columns)) {
                     ForEach(viewModel.articleTabs.sorted(by: { $0.dateCreated < $1.dateCreated })) { tab in
-                        if tab.isMain {
-                            tabCardView(content: mainPageTabContent(tab: tab), tabData: tab.data, tab: tab)
-                                .padding(4)
-                            
-                        } else {
-                            tabCardView(content: standardTabContent(tab: tab), tabData: tab.data, tab: tab)
-                                .padding(4)
-                        }
+                        WMFArticleTabsViewContent(viewModel: viewModel, tab: tab)
+                            .accessibilityActions {
+                                accessibilityAction(named: viewModel.localizedStrings.openTabAccessibility) {
+                                    viewModel.didTapTab(tab.data)
+                                }
+
+                                if viewModel.shouldShowCloseButton {
+                                    accessibilityAction(named: viewModel.localizedStrings.closeTabAccessibility) {
+                                        viewModel.closeTab(tab: tab)
+                                    }
+                                }
+                            }
                     }
                 }
             }
             .padding(.horizontal, 8)
         }
         .background(Color(theme.midBackground))
-        .toolbarBackground(Color(uiColor: (theme.paperBackground)), for: .automatic)
+        .toolbarBackground(Color(theme.midBackground), for: .automatic)
+    }
+}
+
+fileprivate struct WMFArticleTabsViewContent: View {
+    @ObservedObject var appEnvironment = WMFAppEnvironment.current
+    @Environment(\.colorScheme) var colorScheme
+    
+    var theme: WMFTheme {
+        return appEnvironment.theme
     }
     
-    private func mainPageTabContent(tab: ArticleTab) -> some View {
+    @ObservedObject var viewModel: WMFArticleTabsViewModel
+    @ObservedObject var tab: ArticleTab
+    
+    public init(viewModel: WMFArticleTabsViewModel, tab: ArticleTab) {
+        self.viewModel = viewModel
+        self.tab = tab
+    }
+    
+    public var body: some View {
+        Group {
+            if tab.isMain {
+                mainPageTabContent()
+                    .accessibilityElement(children: .combine)
+                    .accessibilityLabel(viewModel.getAccessibilityLabel(for: tab))
+            } else {
+                if tab.info == nil {
+                    loadingTabContent()
+                        .accessibilityElement(children: .combine)
+                        .accessibilityLabel(viewModel.getAccessibilityLabel(for: tab))
+                } else {
+                    standardTabContent()
+                        .accessibilityElement(children: .combine)
+                        .accessibilityLabel(viewModel.getAccessibilityLabel(for: tab))
+                }
+            }
+        }
+        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+        .background(Color(theme.chromeBackground))
+        .cornerRadius(12)
+        .shadow(color: Color.black.opacity(0.05), radius: 16, x: 0, y: 0)
+        .contentShape(Rectangle())
+        .onTapGesture {
+            viewModel.didTapTab(tab.data)
+        }
+        .aspectRatio(3/4, contentMode: .fit)
+        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+        .onAppear {
+            Task {
+                if tab.info == nil {
+                    let populatedTab = await viewModel.populateArticleSummary(tab.data)
+                    let info = ArticleTab.Info(subtitle: populatedTab.articles.last?.description, image: populatedTab.articles.last?.imageURL, description: populatedTab.articles.last?.extract)
+                    tab.info = info
+                }
+            }
+        }
+    }
+    
+    private func mainPageTabContent() -> some View {
         VStack(alignment: .leading, spacing: 0) {
             ZStack(alignment: .topTrailing) {
                 GeometryReader { geo in
@@ -81,6 +141,7 @@ public struct WMFArticleTabsView: View {
             tabTitle(title: tab.title)
                 .padding(.horizontal, 10)
                 .padding(.top, 10)
+                .padding(.bottom, 2)
 
             VStack(alignment: .leading) {
                 Text(viewModel.localizedStrings.mainPageSubtitle)
@@ -91,23 +152,25 @@ public struct WMFArticleTabsView: View {
                     .frame(width: 24)
                     .padding(.top, 4)
                     .padding(.bottom, 6)
-                    .foregroundStyle(Color(uiColor: theme.border))
+                    .foregroundStyle(Color(uiColor: theme.secondaryText))
                 Text(viewModel.localizedStrings.mainPageDescription)
                     .font(Font(WMFFont.for(.caption1)))
                     .foregroundStyle(Color(theme.text))
-                    .lineSpacing(5)
-                    .padding(.bottom, 5)
+                    .lineSpacing(1.4)
             }
             .padding([.horizontal], 10)
         }
     }
-
     
-    private func standardTabContent(tab: ArticleTab) -> some View {
+    private func loadingTabContent() -> some View {
+        Text("")
+    }
+    
+    private func standardTabContent() -> some View {
         VStack(alignment: .leading, spacing: 0) {
             ZStack(alignment: .topTrailing) {
                 Group {
-                    if let imageURL = tab.image {
+                    if let imageURL = tab.info?.image {
                         GeometryReader { geo in
                             AsyncImage(url: imageURL) { image in
                                 image
@@ -122,10 +185,13 @@ public struct WMFArticleTabsView: View {
                         }
                         .frame(height: CGFloat(viewModel.calculateImageHeight()))
                     } else {
-                        tabTitle(title: tab.title)
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                            .padding(.trailing, 40)
-                            .padding([.leading, .top], 10)
+                        VStack(alignment: .leading, spacing: 2) {
+                            tabTitle(title: tab.title)
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                                .padding(.trailing, 40)
+                                .padding([.leading, .top], 10)
+                            tabText(tab: tab)
+                        }
                     }
                 }
 
@@ -141,74 +207,53 @@ public struct WMFArticleTabsView: View {
                 }
             }
 
-            if tab.image != nil {
-                tabTitle(title: tab.title)
-                    .padding(.horizontal, 10)
-                    .padding(.top, 10)
+            if tab.info?.image != nil {
+                VStack(alignment: .leading, spacing: 2) {
+                    tabTitle(title: tab.title)
+                        .padding(.horizontal, 10)
+                        .padding(.top, 10)
+                    tabText(tab: tab)
+                }
             }
 
-            tabText(tab: tab)
-
-            if tab.image == nil {
+            if tab.info?.image == nil {
                 Spacer()
             }
             Spacer()
         }
     }
     
-    private func tabCardView(content: some View, tabData: WMFArticleTabsDataController.WMFArticleTab, tab: ArticleTab) -> some View {
-        content
-            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
-            .background(Color(theme.paperBackground))
-            .cornerRadius(12)
-            .shadow(color: Color.black.opacity(0.05), radius: 16, x: 0, y: 0)
-            .contentShape(Rectangle())
-            .onTapGesture {
-                viewModel.didTapTab(tabData)
-            }
-            .aspectRatio(3/4, contentMode: .fit)
-            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
-            .accessibilityElement(children: .combine)
-            .accessibilityLabel(viewModel.getAccessibilityLabel(for: tab))
-            .accessibilityActions {
-                accessibilityAction(named: viewModel.localizedStrings.openTabAccessibility) {
-                    viewModel.didTapTab(tabData)
-                }
-
-                if viewModel.shouldShowCloseButton {
-                    accessibilityAction(named: viewModel.localizedStrings.closeTabAccessibility) {
-                        viewModel.closeTab(tab: tab)
-                    }
-                }
-            }
-    }
-
     private func tabTitle(title: String) -> some View {
         Text(title)
             .font(Font(WMFFont.for(.georgiaCallout)))
             .foregroundStyle(Color(theme.text))
             .lineLimit(1)
+            .padding(.bottom, 2)
     }
     
     private func tabText(tab: ArticleTab) -> some View {
-        VStack(alignment: .leading) {
-            if let subtitle = tab.subtitle {
-                Text(subtitle)
-                    .font(Font(WMFFont.for(.caption1)))
-                    .foregroundStyle(Color(theme.secondaryText))
-                    .lineLimit(1)
+        VStack(alignment: .leading, spacing: 0) {
+            Group {
+                if let subtitle = tab.info?.subtitle {
+                    Text(subtitle)
+                } else {
+                    Text(" ")
+                        .hidden()
+                }
             }
+            .font(Font(WMFFont.for(.caption1)))
+            .foregroundStyle(Color(theme.secondaryText))
+            .lineLimit(1)
+            
             Divider()
                 .frame(width: 24)
-                .padding(.top, 4)
-                .padding(.bottom, 6)
-                .foregroundStyle(Color(uiColor: theme.border))
-            if let description = tab.description {
+                .padding(.vertical, 8)
+                .foregroundStyle(Color(uiColor: theme.secondaryText))
+            if let description = viewModel.description(for: tab) {
                 Text(description)
                     .font(Font(WMFFont.for(.caption1)))
                     .foregroundStyle(Color(theme.text))
-                    .lineSpacing(5)
-                    .padding(.bottom, 5)
+                    .lineSpacing(1.4)
             } else {
                 Spacer()
             }

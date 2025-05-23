@@ -164,7 +164,6 @@ class SearchResultsViewController: ArticleCollectionViewController {
     }
     
     override func openInNewTabArticlePreviewActionSelected(with peekController: ArticlePeekPreviewViewController) {
-        
         longPressOpenInNewTabAction?(peekController.articleURL)
     }
 }
