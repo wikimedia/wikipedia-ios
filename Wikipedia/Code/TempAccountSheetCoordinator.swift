@@ -67,7 +67,7 @@ final class TempAccountSheetCoordinator: Coordinator {
                 title: CommonStrings.tempWarningTitle,
                 subtitle: tempEditorSubtitleString(tempUsername: tempUser),
                 ctaTopString: WMFLocalizedString("temp-account-edit-sheet-cta-top", value: "Log in or create an account", comment: "Temporary account sheet for editors, log in/sign up."),
-                ctaBottomString: WMFLocalizedString("temp-account-got-it", value: "Got it", comment: "Got it button"),
+                ctaBottomString: CommonStrings.gotItButtonTitle,
                 done: CommonStrings.doneTitle,
                 handleURL: { url in
                     guard let presentedViewController = self.navigationController.presentedViewController else {
