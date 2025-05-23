@@ -2,6 +2,7 @@
 // Exported from translatewiki.net
 // Author: Belkacem77
 // Author: Bilalbill
+// Author: ButterflyOfFire
 // Author: Macofe
 // Author: McDutchie
 // Author: Mhenni
@@ -52,6 +53,7 @@
 "action-previous-revision-accessibility" = "Aceggeṛ yezrin";
 "action-read" = "Ɣeṛ";
 "action-redo" = "Ales";
+"action-remove" = "Kkes";
 "action-save" = "Sekles";
 "action-saved" = "Yettwasekles";
 "action-saved-accessibility" = "Yettwasekles. Rmed akken ad tekkseḍ asekles.";
@@ -59,7 +61,10 @@
 "action-share" = "Bḍu";
 "action-unsave" = "UR yettwasekles ara";
 "action-unsaved-accessibility-notification" = "Amagrad ur yettwasekles ara";
+"activity-tab-add-images-title" = "Rnu tugniwin";
+"alert-temporary-account-learn-more" = "Issin ugar.";
 "announcements-dismiss" = "Zgel";
+"app-store-subtitle" = "Tasanayt tilellit";
 "appearance-settings-adjust-text-sizing" = "Seggem teɣzi n uḍris n umagrad";
 // Fuzzy
 "appearance-settings-image-dimming-footer" = "Senɣes tebrek n tugniwin n usentel ubrik";
@@ -91,6 +96,9 @@
 "compass-direction" = "af $1 n isragen";
 "continue-reading-empty-description" = "Snirem Wikipedia i wugar n imagraden ara teɣreḍ";
 "continue-reading-empty-title" = "Ula d yiwen n umagrad ur yerrwaɣra melmi kan";
+"description-help-about-title" = "Ɣef";
+"diff-context-lines-collapsed-button-title" = "Sken-d";
+"diff-context-lines-expanded-button-title" = "Ffer";
 "dim-images" = "Sibrek tugniwin";
 "edit-summary-choice-fixed-grammar" = "Aseɣti n tira";
 "edit-summary-choice-fixed-typos" = "Aseɣti n tuccḍiwin";
@@ -113,9 +121,9 @@
 "explore-main-page-heading" = "Ass-a di Wikipedia";
 "explore-most-read-generic-heading" = "Ttwaɣran aṭas";
 "explore-most-read-more-list-title-for-date" = "Ttwaɣran aṭas arama d $1";
+"explore-most-read-sub-heading-on-language-wikipedia" = "Deg Wikipidya $1";
 "explore-nearby-heading" = "Imeḍqan iqerben";
 "explore-nearby-placeholder-heading" = "Idigen";
-// Fuzzy
 "explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "Di Wikipedia di $1";
 // Fuzzy
 "explore-nearby-placeholder-sub-heading-on-wikipedia" = "Di Wikipedia";
@@ -123,6 +131,8 @@
 "explore-potd-heading" = "Tugna n wass";
 "explore-random-article-heading" = "Amagrad agacuran";
 "explore-randomizer" = "Agacuran";
+"explore-suggested-edits-footer" = "Rnu";
+"explore-suggested-edits-image-recs-title" = "Rnu tugna";
 "field-alert-captcha-invalid" = "Yir CAPTCHA";
 "field-alert-password-confirm-mismatch" = "Awalen uffiren ur menṭaḍen ara";
 "field-alert-token-invalid" = "Yir tangalt";
@@ -144,6 +154,7 @@
 "field-token-title" = "Tangalt n usenqed";
 "field-username-placeholder" = "Sekcem isem n useqdac";
 "field-username-title" = "Isem n useqdac";
+"filter-options-all" = "Akk";
 "find-infolabel-number-matches" = "$1 / $2";
 "forgot-password-button-title" = "Ales awennez";
 "forgot-password-email-sent" = "Imayl s tinadin n uwennez n wawal uffir yettwazen";
@@ -172,7 +183,10 @@
 "icon-shortcut-random-title" = "Amagrad agacuran";
 "icon-shortcut-search-title" = "Nadi di Wikipedia";
 "image-gallery-unknown-owner" = "Ameskar arussin.";
+"image-recs-no-title" = "Uhu";
+"image-recs-yes-title" = "Ih";
 "in-the-news-title" = "Deg isallen";
+"languages-settings-title" = "Tutlayin";
 "languages-title" = "Fren tutlayt";
 "languages-wikipedia" = "Tutlayin n wikipedia";
 "login-forgot-password" = "Tettuḍ awal uffir?";
@@ -191,6 +205,7 @@
 "main-menu-terms-of-use" = "Tiwtilin n useqdec";
 "main-menu-title" = "Ugar";
 "main-menu-zero-faq" = "Isteqsiyen FAQ Wikipedia Zero";
+"more-languages-tooltip-title" = "Rnu tutlayin";
 "navbar-title-mode-edit-wikitext-preview" = "Taskany";
 "nearby-distance-label-feet" = "$1 n uḍaṛ";
 "nearby-distance-label-km" = "$1 km";
@@ -201,6 +216,12 @@
 "no-email-account-alert" = "Swel amiḍan n yiznan deg usagu-ik sakin ɛreḍ tikelt-nniḍen.";
 // Fuzzy
 "notifications-center-feed-news-notification-button-text" = "Rmed ilɣa";
+"notifications-center-filters-read-status-item-title-all" = "Akk";
+"notifications-center-go-to-article" = "Amagrad";
+"notifications-center-more-action-accessibility-label" = "Ugar";
+"notifications-center-status-all" = "Akk";
+"notifications-center-type-title-thanks" = "Tanemmirt";
+"notifications-center-type-title-welcome" = "Ansuf";
 "number-billions" = "$1AṬ";
 "number-millions" = "$1M";
 "number-thousands" = "$1K";
@@ -225,7 +246,7 @@
 "places-filter-no-saved-places" = "Ur ɣur-k ara idigen yettwaskelsen";
 "places-filter-saved-articles" = "Imagraden yettwaskelsen";
 "places-filter-top-articles" = "Ttwaɣran aṭas";
-"places-filter-top-articles-count" = "$1 {{PLURAL:$1|amagrad|imagraden}}";
+"places-filter-top-articles-count" = "{{PLURAL:$1|$1 n umagrad|$1 n imagraden}}";
 "places-no-saved-articles-have-location" = "Ula d yiwen seg imagraden-ik yettwaskelsen ur yesɛi talɣut n usideg";
 "places-search-articles-that-match" = "$1 imenṭeḍ akked \"$2\"";
 "places-search-default-text" = "Nadi imeḍqan";
@@ -242,6 +263,20 @@
 "potd-description-prefix" = "Tugna n wass i $1";
 "potd-empty-error-description" = "Ur izmir ara ad d-yawi tugna n wass i $1";
 "preference-summary-eventlogging-opt-in" = "Eǧǧ Tasbeddit Wikimedia ad telqeḍ talɣut ɣef wamek tseqdaceḍ asnas akken ad yuɣal igarrez ugar.";
+"profile-button-accessibility-label" = "Amaɣnu";
+"profile-page-join-title" = "Qqen / Jerred di Wikipidya";
+"project-name-mediawiki" = "MediaWiki";
+"project-name-wikibooks" = "Wikibooks";
+"project-name-wikidata" = "Wikidata";
+"project-name-wikimedia-commons" = "Wikimedia Commons";
+"project-name-wikinews" = "Wikinews";
+"project-name-wikiquote" = "Wikiquote";
+"project-name-wikisource" = "Wikisource";
+"project-name-wikispecies" = "Wikispecies";
+"project-name-wikiversity" = "Wikiversity";
+"project-name-wikivoyage" = "Wikivoyage";
+"project-name-wiktionary" = "Wiktionary";
+"reading-list-create-new-list-description" = "Aglam";
 "reading-themes-controls-accessibility-brightness-slider" = "Taḥnaččaḍt n tafat";
 "reading-themes-controls-accessibility-dark-theme-button" = "Asentel aberkan";
 "reading-themes-controls-accessibility-light-theme-button" = "Asentel aceɛlal";
@@ -252,6 +287,7 @@
 "relative-date-days-ago" = "{{PLURAL:$1|0=ass-a|Iḍelli|$1 n wussan aya}}";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=Melmi kan|$1 usrag aya|$1 n isragen aya}}";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=tura kan|$1 n tesdat|$1 n tisdatin aya}}";
+"relative-date-seconds-abbreviated" = "$1s";
 // Fuzzy
 "relative-date-years-ago" = "{{PLURAL:$1|0=Aseggas-a|Aseggas yezrin|$1 n useggas aya}}";
 "saved-pages-image-download-error" = "Ur izmir ara ad d-isali tugniwin n usebter-agi yettwaskelsen.";
@@ -273,11 +309,13 @@
 "settings-clear-cache-are-you-sure-title" = "Sfeḍ isefka yeffren?";
 "settings-clear-cache-cancel" = "Sefsex";
 "settings-clear-cache-ok" = "Sfeḍ tuffirt";
+"settings-donate" = "Mudd tawsa";
 "settings-help-and-feedback" = "Tallelt d iwenniten";
 "settings-language-bar" = "Sken tutlayt deg unadi";
 "settings-my-languages" = "Tutlayin-iw";
 // Fuzzy
 "settings-notifications" = "Ilɣa";
+"settings-notifications-echo-failure-try-again" = "Ɛreḍ tikkelt nniḍen.";
 "settings-notifications-info" = "Awi talɣut ɣef imagraden yettwaɣrayen aṭas di Wikipedia s ilɣa-nneɣ yettwaznen. Ayagi meṛṛa ak-d-ittunefk s uqadeṛ n tbaḍnit akked umaynut n isefka.";
 "settings-notifications-learn-more" = "Issin ugar ɣef yilɣa";
 "settings-notifications-push-notifications" = "Ilɣa yettwaznen";
@@ -306,14 +344,22 @@
 "table-of-contents-close-accessibility-hint" = "Mdel";
 "table-of-contents-close-accessibility-label" = "Mdel agbur";
 "table-of-contents-heading" = "Igburen";
+"talk-page-change-language" = "Snifel tutlayt";
+"temp-account-toast-read-more-title" = "Ɣeṛ ugar";
+"terms-of-use-title" = "Tiwtilin n useqdec";
+"theme-black-display-name" = "Aberkan";
 "theme-dark-display-name" = "Aberkan";
 "theme-default-display-name" = "Amezwer";
+"theme-light-display-name" = "Aceɛlal";
 "theme-sepia-display-name" = "Sepia";
+"try-now-title" = "Ɛreḍ tura";
 "two-factor-login-continue" = "Kemmel tuqqna";
 "two-factor-login-instructions" = "Sekcem tangalt n usentem n snat n tarrayin";
 "two-factor-login-title" = "Qqen ar umiḍan-ik";
 "two-factor-login-with-backup-code" = "Seqdec yiwet si tengalin n uḥraz";
 "two-factor-login-with-regular-code" = "Seqdec tangalt n usenqed";
+"user-title" = "Aseqdac";
+"watchlist-filters-add-language" = "Rnu tutlayt...";
 "welcome-exploration-explore-feed-description" = "Taɣuri d imagraden n yal ass yelhan si tmezdagnut";
 "welcome-exploration-explore-feed-title" = "Snirem asuddem";
 "welcome-exploration-on-this-day-description" = "Uɣal ar deffir akken ad tissineḍ ayen yeḍran am ass-a deg umezruy.";
@@ -332,14 +378,14 @@
 "welcome-languages-add-button" = "Rnu tutlayt-nniḍen";
 "welcome-languages-add-or-edit-button" = "Rnu neɣ ẓreg tutlayin tebɣiḍ";
 "welcome-languages-description" = "Nufa-d tutlayin-agi deg ibenk-ik:";
-// Fuzzy
-"welcome-languages-search-title" = "Nadi di 300 n tutlayin";
+"welcome-languages-search-title" = "Nadi seg ugar n 300 tutlayin";
 "welcome-notifications-tell-me-more-creation" = "Ilɣa ttwarnan sakin ttwaznen ar yibenk-ik s usnas, mačči s iqeddacen-nneɣ (neɣ wiyaḍ).";
 "welcome-notifications-tell-me-more-storage" = "Ismenyifen n ilɣa ttwaskelsen ɣef yibenk, ur yebnin ara ɣef telɣut neɣ armud udmawan.";
 "welcome-notifications-tell-me-more-title" = "Ugar ɣef ilɣa";
 "wikitext-preview-changes" = "Awway n teskant n usnifel-ik...";
 "wikitext-preview-link-preview-description" = "Aseɣwen-agi ad yawi ar '$1'";
 "wikitext-preview-link-preview-title" = "Taskant n useɣwen";
+"wikitext-preview-save-changes-title" = "Sekles isenfal";
 "wikitext-upload-captcha-error" = "Tuccḍa n usenqed n CAPTCHA";
 "wikitext-upload-captcha-needed" = "Asenqed n CAPTCHA  ilaq";
 "wikitext-upload-result-unknown" = "Urizmir ara ad d-yaf agmuḍ n usali n uḍris n uwiki.";

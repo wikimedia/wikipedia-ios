@@ -152,7 +152,7 @@ fileprivate struct WMFArticleTabsViewContent: View {
                     .frame(width: 24)
                     .padding(.top, 4)
                     .padding(.bottom, 6)
-                    .foregroundStyle(Color(uiColor: theme.border))
+                    .foregroundStyle(Color(uiColor: theme.secondaryText))
                 Text(viewModel.localizedStrings.mainPageDescription)
                     .font(Font(WMFFont.for(.caption1)))
                     .foregroundStyle(Color(theme.text))
@@ -248,8 +248,8 @@ fileprivate struct WMFArticleTabsViewContent: View {
             Divider()
                 .frame(width: 24)
                 .padding(.vertical, 8)
-                .foregroundStyle(Color(uiColor: theme.border))
-            if let description = tab.info?.description {
+                .foregroundStyle(Color(uiColor: theme.secondaryText))
+            if let description = viewModel.description(for: tab) {
                 Text(description)
                     .font(Font(WMFFont.for(.caption1)))
                     .foregroundStyle(Color(theme.text))

@@ -35,13 +35,12 @@ extension ArticleViewController {
     }
 
     @objc private func showTooltipsIfNecessary() {
-        guard
-            let dataController = WMFArticleTabsDataController.shared,
-            let navigationBar = navigationController?.navigationBar
+        guard let navigationBar = navigationController?.navigationBar
         else {
             return
         }
 
+        let dataController = WMFArticleTabsDataController.shared
         guard dataController.shouldShowArticleTabs || shouldShowWIconPopover else {
             return
         }

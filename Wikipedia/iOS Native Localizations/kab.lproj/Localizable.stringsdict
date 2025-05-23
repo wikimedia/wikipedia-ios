@@ -21,7 +21,7 @@
 	<key>places-filter-top-articles-count</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%1$d %#@v1@</string>
+		<string>%#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -29,9 +29,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>amagrad</string>
+			<string>%1$d n umagrad</string>
 			<key>other</key>
-			<string>imagraden</string>
+			<string>%1$d n imagraden</string>
 		</dict>
 	</dict>
 	<key>relative-date-days-ago</key>
