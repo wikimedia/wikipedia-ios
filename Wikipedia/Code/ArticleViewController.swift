@@ -46,7 +46,10 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
     private let cacheController: ArticleCacheController
 
     internal var willDisplayFundraisingBanner: Bool = false
-    
+
+    // Tootltips
+    public var tooltipViewModels: [WMFTooltipViewModel] = []
+
     private var _tabsCoordinator: TabsOverviewCoordinator?
     private var tabsCoordinator: TabsOverviewCoordinator? {
         guard let navigationController else { return nil }
