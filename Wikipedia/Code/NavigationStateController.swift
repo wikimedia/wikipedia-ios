@@ -1,6 +1,7 @@
 import WMF
 import UIKit
 import CocoaLumberjackSwift
+import WMFData
 
 @objc(WMFNavigationStateController)
 final class NavigationStateController: NSObject {
@@ -19,7 +20,6 @@ final class NavigationStateController: NSObject {
     
     @objc func saveNavigationState(for tabBarController: UITabBarController, in moc: NSManagedObjectContext) {
         
-        // Simple minimum state to save and restore: visible article view controller
         guard let selectedNavigationController = tabBarController.selectedViewController as? UINavigationController else {
             return
         }
@@ -29,14 +29,28 @@ final class NavigationStateController: NSObject {
             return
         }
         
-        let info = Info(articleKey: articleViewController.articleURL.wmf_databaseKey)
-        
-        guard let stateToPersist = NavigationState.ViewController(kind: .article, presentation: .push, info: info) else {
-            moc.navigationState = nil
-            return
+        let tabsDataController = WMFArticleTabsDataController.shared
+        if tabsDataController.shouldShowArticleTabs {
+            
+            Task {
+                do {
+                    try await tabsDataController.saveCurrentStateForLaterRestoration()
+                } catch {
+                    DDLogError("Error saving article tabs for later restoration: \(error)")
+                }
+            }
+        } else {
+            // Simple minimum state to save and restore: visible article view controller
+
+            let info = Info(articleKey: articleViewController.articleURL.wmf_databaseKey)
+            
+            guard let stateToPersist = NavigationState.ViewController(kind: .article, presentation: .push, info: info) else {
+                moc.navigationState = nil
+                return
+            }
+            
+            moc.navigationState = NavigationState(viewControllers: [stateToPersist], shouldAttemptLogin: false)
         }
-        
-        moc.navigationState = NavigationState(viewControllers: [stateToPersist], shouldAttemptLogin: false)
     }
     
     /// Finds the topmost article from persisted NavigationState and pushes it onto navigationController
@@ -47,30 +61,48 @@ final class NavigationStateController: NSObject {
             return
         }
         
-        guard let navigationState = moc.navigationState else {
-            completion()
-            return
-        }
-        
-        self.theme = theme
-        
-        guard navigationState.viewControllers.count == 1,
-        let articleViewControllerState = navigationState.viewControllers.last,
-            let articleInfo = articleViewControllerState.info else {
-                moc.navigationState = nil
+        let tabsDataController = WMFArticleTabsDataController.shared
+        if tabsDataController.shouldShowArticleTabs {
+            guard let tab = try? tabsDataController.loadCurrentStateForRestoration() ,
+                  let article = tab.articles.last,
+                  let siteURL = article.project.siteURL,
+                  let articleURL = siteURL.wmf_URL(withTitle: article.title) else {
                 completion()
                 return
             }
-        
-        
-        guard let articleURL = articleURL(from: articleInfo) else {
+            
+            let articleCoordinator = ArticleCoordinator(navigationController: selectedNavigationController, articleURL: articleURL, dataStore: dataStore, theme: theme, source: .undefined, isRestoringState: true, tabConfig: .assignParticularTabAndSetToCurrent(WMFArticleTabsDataController.Identifiers(tabIdentifier: tab.identifier, tabItemIdentifier: article.identifier)))
+            let success = articleCoordinator.start()
+            if success {
+                try? tabsDataController.clearCurrentStateForRestoration()
+            }
             completion()
-            return
+        } else {
+            guard let navigationState = moc.navigationState else {
+                completion()
+                return
+            }
+            
+            self.theme = theme
+            
+            guard navigationState.viewControllers.count == 1,
+            let articleViewControllerState = navigationState.viewControllers.last,
+                let articleInfo = articleViewControllerState.info else {
+                    moc.navigationState = nil
+                    completion()
+                    return
+                }
+            
+            
+            guard let articleURL = articleURL(from: articleInfo) else {
+                completion()
+                return
+            }
+            
+            let articleCoordinator = ArticleCoordinator(navigationController: selectedNavigationController, articleURL: articleURL, dataStore: dataStore, theme: theme, source: .undefined, isRestoringState: true)
+            articleCoordinator.start()
+            completion()
         }
-        
-        let articleCoordinator = ArticleCoordinator(navigationController: selectedNavigationController, articleURL: articleURL, dataStore: dataStore, theme: theme, source: .undefined, isRestoringState: true)
-        articleCoordinator.start()
-        completion()
     }
     
     func allPreservedArticleKeys(in moc: NSManagedObjectContext) -> [String]? {
