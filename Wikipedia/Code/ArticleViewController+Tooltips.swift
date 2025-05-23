@@ -42,6 +42,10 @@ extension ArticleViewController {
             return
         }
 
+        guard dataController.shouldShowArticleTabs || shouldShowWIconPopover else {
+            return
+        }
+
         guard let wIconRect = computeWIconSourceRect(in: navigationBar) else {
             return
         }
@@ -62,9 +66,6 @@ extension ArticleViewController {
 
         }
 
-        guard dataController.shouldShowArticleTabs || shouldShowWIconPopover else {
-            return
-        }
 
         if dataController.shouldShowArticleTabs && !dataController.hasPresentedTooltips {
             tooltipViewModels = shouldShowWIconPopover ? [wIconVM, openInTabVM, tabsOverviewVM] : [openInTabVM, tabsOverviewVM]
