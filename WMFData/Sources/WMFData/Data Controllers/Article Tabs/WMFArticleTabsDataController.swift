@@ -83,10 +83,10 @@ public class WMFArticleTabsDataController: WMFArticleTabsDataControlling {
     // MARK: Nested internal types
 
     struct OnboardingStatus: Codable {
-        var hasPresenetedOnboardingTooltips: Bool
+        var hasPresentedOnboardingTooltips: Bool
 
         static var `default`: OnboardingStatus {
-            return OnboardingStatus(hasPresenetedOnboardingTooltips: false)
+            return OnboardingStatus(hasPresentedOnboardingTooltips: false)
         }
     }
 
@@ -140,10 +140,10 @@ public class WMFArticleTabsDataController: WMFArticleTabsDataControlling {
 
     public var hasPresentedTooltips: Bool {
         get {
-            return onboardingStatus.hasPresenetedOnboardingTooltips
+            return onboardingStatus.hasPresentedOnboardingTooltips
         } set {
             var currentStatus = onboardingStatus
-            currentStatus.hasPresenetedOnboardingTooltips = newValue
+            currentStatus.hasPresentedOnboardingTooltips = newValue
             try? userDefaultsStore?.save(key: WMFUserDefaultsKey.articleTabsOnboarding.rawValue, value: currentStatus)
         }
     }
