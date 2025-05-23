@@ -855,6 +855,8 @@
 "on-this-day-no-internet-error" = "error message shown when device is not connected to internet";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "Subtext beneath the 'On this day' header when describing the date and which specific Wikipedia. $1 will be substituted with the date. $2 will be replaced with the language - for example, 'June 8th from English Wikipedia'";
 "on-this-day-title" = "Title for the 'On this day' feed section";
+"open-in-tab-tooltip-body" = "Description for tooltip explaining the open in new tab functionality";
+"open-in-tab-tooltip-title" = "Title for tooltip explaining the open in new tab functionality";
 "original-tab-button-popover-description" = "Description for popover explaining the 'W' icon may be tapped to return to the original tab.";
 "page-history-bot-edits" = "Text for view that shows many edits were made by bots";
 "page-history-compare-accessibility-hint" = "Accessibility hint describing the role of the Compare button";
@@ -1152,6 +1154,9 @@
 "tabs-main-page-subtitle" = "Main page subtitle";
 "tabs-navbar-title-format" = "$1 is the amount of tabs. Navigation title for tabs, displaying how many open tabs.";
 "tabs-open-tab" = "Accessibility label for opening a tab";
+"tabs-overview-tooltip-body" = "Description for tooltip explaining the tabs overview functionality";
+"tabs-overview-tooltip-title" = "Title for tooltip explaining the tabs overview functionality";
+"tabs-survey-title" = "Title for article tabs survey";
 "tachelhit-variants-alert-body" = "Body text of alert used to inform users about Tachelhit variant support. Please do not translate the newlines (\n) or Tachelhit characters (ⵜⴰⵛⵍⵃⵉⵜ, etc.).";
 "tachelhit-variants-alert-title" = "Title of alert used to inform users about Tachelhit variant support.";
 "tajik-variants-alert-body" = "Body text of alert used to inform users about Tajik variant support. Please do not translate the newlines (\n) or Tajik characters (тоҷикӣ кирилликӣ, etc.).";
@@ -1237,7 +1242,6 @@
 "temp-account-alert-read-more-information" = "Information on temporary accounts, $1 is the opening bold, $2 is the closing bold, $3 is the line breaks.";
 "temp-account-edit-sheet-cta-top" = "Temporary account sheet for editors, log in/sign up.";
 "temp-account-edit-sheet-subtitle" = "Information on temporary accounts, $1 is the temporary username, $2 and $3 are opening and closing bold";
-"temp-account-got-it" = "Got it button";
 "temp-account-toast-read-more-title" = "Read more button for the toast for temporary accounts.";
 "temp-account-toast-title" = "Temporary accounts toast information. $1 and $2 are opening and closing bold";
 "temp-account-warning-title" = "Warning title text presented to temporary account editors before entering an edit flow.";
