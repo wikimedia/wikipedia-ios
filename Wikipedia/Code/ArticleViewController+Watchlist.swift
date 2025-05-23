@@ -28,14 +28,30 @@ extension ArticleViewController {
 
 extension ArticleViewController: WatchlistControllerDelegate {
     func didSuccessfullyWatchTemporarily(_ controller: WatchlistController) {
-        toolbarController.updateMoreButton(needsWatchButton: false, needsUnwatchHalfButton: true, needsUnwatchFullButton: false)
+        self.needsWatchButton = false
+        self.needsUnwatchHalfButton = true
+        self.needsUnwatchFullButton = false
+        self.toolbarController.updateMoreButton(needsWatchButton: self.needsWatchButton, needsUnwatchHalfButton: self.needsUnwatchHalfButton, needsUnwatchFullButton: self.needsUnwatchFullButton, previousArticleTab: previousArticleTab, nextArticleTab: nextArticleTab)
+        
     }
     
     func didSuccessfullyWatchPermanently(_ controller: WatchlistController) {
-        toolbarController.updateMoreButton(needsWatchButton: false, needsUnwatchHalfButton: false, needsUnwatchFullButton: true)
+        
+        self.needsWatchButton = false
+        self.needsUnwatchHalfButton = false
+        self.needsUnwatchFullButton = true
+        
+        self.toolbarController.updateMoreButton(needsWatchButton: self.needsWatchButton, needsUnwatchHalfButton: self.needsUnwatchHalfButton, needsUnwatchFullButton: self.needsUnwatchFullButton, previousArticleTab: previousArticleTab, nextArticleTab: nextArticleTab)
+        
+        
     }
     
     func didSuccessfullyUnwatch(_ controller: WatchlistController) {
-        toolbarController.updateMoreButton(needsWatchButton: true, needsUnwatchHalfButton: false, needsUnwatchFullButton: false)
+        
+        self.needsWatchButton = true
+        self.needsUnwatchHalfButton = false
+        self.needsUnwatchFullButton = false
+        
+        self.toolbarController.updateMoreButton(needsWatchButton: self.needsWatchButton, needsUnwatchHalfButton: self.needsUnwatchHalfButton, needsUnwatchFullButton: self.needsUnwatchFullButton, previousArticleTab: previousArticleTab, nextArticleTab: nextArticleTab)
     }
 }
