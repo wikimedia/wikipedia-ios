@@ -445,9 +445,6 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
     var isFirstAppearance = true
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        if UIDevice.current.userInterfaceIdiom == .pad && traitCollection.horizontalSizeClass == .regular {
-            presentTooltipsIfNeeded()
-        }
         presentModalsIfNeeded()
         trackBeganViewingDate()
         coordinator?.syncTabsOnArticleAppearance()
