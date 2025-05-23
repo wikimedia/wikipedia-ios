@@ -931,20 +931,22 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
         toolbar.setBackgroundImage(theme.navigationBarBackgroundImage, forToolbarPosition: .any, barMetrics: .default)
         toolbar.isTranslucent = false
         
-        guard let title = articleURL.wmf_title, title == "Main Page" else {
+        guard let title = articleURL.wmf_title else {
             return
         }
         
-        let js: String
-        if theme.isDark {
-            js = "document.documentElement.classList.add('skin-theme-clientpref-night');"
-        } else {
-            js = "document.documentElement.classList.remove('skin-theme-clientpref-night');"
-        }
-        
-        webView.evaluateJavaScript(js) { result, error in
-            if let error = error {
-                DDLogError("Error toggling class for night mode on main page: \(error)")
+        if WikipediaURLTranslations.isMainpageTitle(title, in: articleLanguageCode) {
+            let js: String
+            if theme.isDark {
+                js = "document.documentElement.classList.add('skin-theme-clientpref-night');"
+            } else {
+                js = "document.documentElement.classList.remove('skin-theme-clientpref-night');"
+            }
+            
+            webView.evaluateJavaScript(js) { result, error in
+                if let error = error {
+                    DDLogError("Error toggling class for night mode on main page: \(error)")
+                }
             }
         }
     }
@@ -1467,7 +1469,8 @@ extension ArticleViewController: WKNavigationDelegate {
     }
     
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
-        if articleURL.wmf_title == "Main Page" && theme.isDark {
+        guard let title = article.url?.wmf_title else { return }
+        if WikipediaURLTranslations.isMainpageTitle(title, in: articleLanguageCode) && theme.isDark {
             let js = "document.documentElement.classList.add('skin-theme-clientpref-night');"
             webView.evaluateJavaScript(js) { result, error in
                 if let error = error {
