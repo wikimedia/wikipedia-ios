@@ -607,6 +607,7 @@
 "insert-media-image-type-settings-title" = "Тип слике";
 "insert-media-media-settings-title" = "Подешавање медија";
 "insert-media-title" = "Убаци медиј";
+"ip-account-cta-bottom" = "Настави без пријаве";
 "ip-account-cta-top" = "Пријави ме / отвори налог";
 "ip-account-warning-title" = "Нисте пријављени";
 "languages-settings-title" = "Језици";
@@ -1068,6 +1069,8 @@
 "table-of-contents-heading" = "Садржај";
 "table-of-contents-hide-button-label" = "Сакриј садржај";
 "table-of-contents-subheading-label" = "Поднаслов $1";
+"tabs-close-tab" = "Затвори картицу";
+"tabs-open-tab" = "Отвори картицу";
 "talk-page-active-users-accessibilty-label" = "{{PLURAL:$1|$1 активни корисник|$1 активних корисника}}";
 "talk-page-add-topic-button" = "Додај тему";
 "talk-page-archives" = "Архиве";

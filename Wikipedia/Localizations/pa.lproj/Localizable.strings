@@ -91,6 +91,7 @@
 "activity-tab-no-edits-title" = "ਤੁਸੀਂ ਹਾਲੇ ਤੱਕ ਕੋਈ ਸੋਧ ਨਹੀਂ ਕੀਤੀ ਹੈ।";
 "activity-tab-start-editing" = "ਸੋਧ ਸ਼ੁਰੂ ਕਰੋ";
 "activity-tab-title" = "ਸਰਗਰਮੀ";
+"activity-tab-view-editing-history" = "ਸੋਧ ਇਤਿਹਾਸ ਦਿਖਾਓ";
 "activity-tab-view-reading-history" = "ਪੜ੍ਹਨ ਦਾ ਇਤਿਹਾਸ ਵੇਖੋ";
 // Fuzzy
 "activity-tab-you-edited" = "ਤੁਸੀਂ ਇਸ ਹਫ਼ਤੇ {{PLURAL:$1|$1 ਲੇਖ}} ਸੋਧੇ ਹਨ।";
@@ -783,6 +784,8 @@
 "table-of-contents-close-accessibility-label" = "ਸਮੱਗਰੀ ਸਾਰਣੀ ਬੰਦ ਕਰੋ";
 "table-of-contents-heading" = "ਸਮੱਗਰੀ";
 "table-of-contents-hide-button-label" = "ਸਮੱਗਰੀ ਦੀ ਸਾਰਣੀ ਨੂੰ ਲੁਕਾਓ";
+"tabs-close-tab" = "ਟੈਬ ਬੰਦ ਕਰੋ";
+"tabs-open-tab" = "ਟੈਬ ਖੋਲ੍ਹੋ";
 "talk-page-active-users-accessibilty-label" = "{{PLURAL:$1| $1 ਸਰਗਰਮ ਵਰਤੋਂਕਾਰ}}";
 "talk-page-add-topic-button" = "ਵਿਸ਼ਾ ਜੋੜੋ";
 "talk-page-archives" = "ਪੁਰਾਲੇਖ";
