@@ -84,7 +84,7 @@
 "account-creation-captcha-request-account" = "アカウントをリクエストする。";
 "account-creation-captcha-title" = "CAPTCHAセキュリティチェック";
 "account-creation-create-account" = "アカウントを作成";
-"account-creation-have-account" = "すでにアカウントをお持ちですか? $1";
+"account-creation-have-account" = "既にアカウントをお持ちですか? $1";
 "account-creation-log-in" = "ログインしてください。";
 "account-creation-logging-in" = "ログイン中...";
 "account-creation-missing-fields" = "アカウントの作成には利用者名とパスワード、さらに確認のためもう一度パスワードを入力する必要があります。";
@@ -254,7 +254,7 @@
 "diff-thanks-send-subtitle" = "'感謝' はウィキペディアを編集する編集者へ感謝を示す簡単な方法です。'感謝' は元に戻すことはできず、誰でも見ることができます。";
 "diff-thanks-send-title" = "感謝を公に示す";
 "diff-thanks-sent" = "あなたの感謝は $1 に送られました。";
-"diff-thanks-sent-already" = "すでにこの編集に対して '感謝' を送信しています";
+"diff-thanks-sent-already" = "既にこの編集に対して「感謝」を送信しています";
 "diff-thanks-sent-cannot-unsend" = "感謝は取り消すことはできません";
 "diff-undo-message" = "これにより、ここに示されている記事のリビジョンによって加えられた変更が元に戻されます。続行するには、この編集を元に戻す理由を入力してください。";
 "diff-undo-success" = "版が取り消されました。";
