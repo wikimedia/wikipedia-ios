@@ -934,24 +934,7 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
         toolbar.setBackgroundImage(theme.navigationBarBackgroundImage, forToolbarPosition: .any, barMetrics: .default)
         toolbar.isTranslucent = false
         
-        guard let title = articleURL.wmf_title else {
-            return
-        }
-        
-        if WikipediaURLTranslations.isMainpageTitle(title, in: articleLanguageCode) {
-            let js: String
-            if theme.isDark {
-                js = "document.documentElement.classList.add('skin-theme-clientpref-night');"
-            } else {
-                js = "document.documentElement.classList.remove('skin-theme-clientpref-night');"
-            }
-            
-            webView.evaluateJavaScript(js) { result, error in
-                if let error = error {
-                    DDLogError("Error toggling class for night mode on main page: \(error)")
-                }
-            }
-        }
+        messagingController.updateDarkModeMainPageIfNeeded(articleURL: articleURL, theme: theme)
     }
     
     private func rethemeWebViewIfNecessary() {
@@ -1468,18 +1451,6 @@ extension ArticleViewController: WKNavigationDelegate {
             updateRefreshOverlay(visible: false)
             webView.scrollView.showsVerticalScrollIndicator = true
             shouldPerformWebRefreshAfterScrollViewDeceleration = false
-        }
-    }
-    
-    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
-        guard let title = article.url?.wmf_title else { return }
-        if WikipediaURLTranslations.isMainpageTitle(title, in: articleLanguageCode) && theme.isDark {
-            let js = "document.documentElement.classList.add('skin-theme-clientpref-night');"
-            webView.evaluateJavaScript(js) { result, error in
-                if let error = error {
-                    DDLogError("Error injecting class for dark mode on main page: \(error)")
-                }
-            }
         }
     }
 }
