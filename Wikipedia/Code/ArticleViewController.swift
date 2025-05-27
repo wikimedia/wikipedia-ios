@@ -933,6 +933,8 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
         toolbarContainerView.backgroundColor = theme.colors.paperBackground
         toolbar.setBackgroundImage(theme.navigationBarBackgroundImage, forToolbarPosition: .any, barMetrics: .default)
         toolbar.isTranslucent = false
+        
+        messagingController.updateDarkModeMainPageIfNeeded(articleURL: articleURL, theme: theme)
     }
     
     private func rethemeWebViewIfNecessary() {
