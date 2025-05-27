@@ -612,8 +612,9 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
     func loadNextAndPreviousArticleTabs() {
         Task { [weak self] in
             guard let self else { return }
-            if let tabDataController = WMFArticleTabsDataController.shared,
-               tabDataController.shouldShowArticleTabs,
+            let tabDataController = WMFArticleTabsDataController.shared
+            
+            if tabDataController.shouldShowArticleTabs,
                let tabIdentifier = self.coordinator?.tabIdentifier {
                 self.previousArticleTab = try? await tabDataController.getAdjacentArticleInTab(tabIdentifier: tabIdentifier, isPrev: true)
                 self.nextArticleTab = try? await tabDataController.getAdjacentArticleInTab(tabIdentifier: tabIdentifier, isPrev: false)

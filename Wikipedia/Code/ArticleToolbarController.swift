@@ -110,7 +110,7 @@ class ArticleToolbarController: Themeable {
         
         actions.append(UIAction(title: CommonStrings.shortShareTitle, image: WMFSFSymbolIcon.for(symbol: .ellipsisCircle), handler: { [weak self] _ in self?.share()}))
         
-        if (WMFArticleTabsDataController.shared?.shouldShowArticleTabs) ?? false {
+        if WMFArticleTabsDataController.shared.shouldShowArticleTabs {
             
             if let title = nextArticleTab?.title.underscoresToSpaces.truncated() {
                 let forwardAttributes: UIMenuElement.Attributes = nextArticleTab != nil ? [] : .disabled

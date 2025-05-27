@@ -335,12 +335,14 @@ public class WMFArticleTabsDataController: WMFArticleTabsDataControlling {
             throw CustomError.missingContext
         }
         
-        let block: () throws -> WMFArticle? = { [weak self] in
-            guard let self else { throw CustomError.missingSelf }
-            
+        guard let coreDataStore else {
+            throw WMFDataControllerError.coreDataStoreUnavailable
+        }
+        
+        let block: () throws -> WMFArticle? = {
             let predicate = NSPredicate(format: "identifier == %@", argumentArray: [tabIdentifier])
             
-            guard let tab = try self.coreDataStore.fetch(entityType: CDArticleTab.self, predicate: predicate, fetchLimit: 1, in: moc)?.first else {
+            guard let tab = try coreDataStore.fetch(entityType: CDArticleTab.self, predicate: predicate, fetchLimit: 1, in: moc)?.first else {
                 throw CustomError.missingTab
             }
             
