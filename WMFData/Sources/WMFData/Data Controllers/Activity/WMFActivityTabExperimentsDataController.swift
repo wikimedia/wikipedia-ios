@@ -62,6 +62,9 @@ public final class WMFActivityTabExperimentsDataController {
             assignment = .genericCTA
         case .activityTabGroupCSuggestedEdit:
             assignment = .suggestedEdit
+        default:
+            throw CustomError.unexpectedAssignment
+            
         }
 
         self.assignmentCache = assignment
@@ -121,6 +124,8 @@ public final class WMFActivityTabExperimentsDataController {
             assignment = .genericCTA
         case .activityTabGroupCSuggestedEdit:
             assignment = .suggestedEdit
+        default:
+            throw CustomError.unexpectedAssignment
         }
 
         self.assignmentCache = assignment

@@ -93,6 +93,27 @@ class ArticleWebMessagingController: NSObject {
         parameters?.theme = webTheme
         updateSetupParameters()
     }
+    
+    func updateDarkModeMainPageIfNeeded(articleURL: URL, theme: Theme) {
+        guard let title = articleURL.wmf_title, let language = articleURL.wmf_languageCode else {
+            return
+        }
+        
+        if WikipediaURLTranslations.isMainpageTitle(title, in: language) {
+            let js: String
+            if theme.isDark {
+                js = "document.documentElement.classList.add('skin-theme-clientpref-night');"
+            } else {
+                js = "document.documentElement.classList.remove('skin-theme-clientpref-night');"
+            }
+            
+            webView?.evaluateJavaScript(js) { result, error in
+                if let error = error {
+                    DDLogError("Error toggling class for night mode on main page: \(error)")
+                }
+            }
+        }
+    }
 
     func getPageContentServiceMargins(from insets: UIEdgeInsets, leadImageHeight: CGFloat = 0) -> PageContentService.Setup.Parameters.Margins {
         return PageContentService.Setup.Parameters.Margins(top: "\(insets.top + leadImageHeight)px", right: "\(insets.right)px", bottom: "\(insets.bottom)px", left: "\(insets.left)px")
