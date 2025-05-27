@@ -19,27 +19,34 @@ final class WMFExperimentsDataController {
     
     public enum Experiment {
         case activityTab
+        case articleTabs
 
         var config: ExperimentConfig {
             switch self {
             case .activityTab:
                 return WMFExperimentsDataController.activityTabConfig
+            case .articleTabs:
+                return WMFExperimentsDataController.articleTabsConfig
             }
         }
     }
     
     public enum PercentageFileName: String {
         case activityTabPercent
+        case articleTabsPercent
     }
     
     enum BucketFileName: String {
         case activityTabBucket
+        case articleTabsBucket
     }
     
     public enum BucketValue: String {
         case activityTabGroupAControl = "ActivityTab_GroupA_Control"
         case activityTabGroupBEdit = "ActivityTab_GroupB_Edit"
         case activityTabGroupCSuggestedEdit = "ActivityTab_GroupC_SuggestedEdit"
+        case articleTabsControl = "ArticleTabs_Control"
+        case articleTabsTest = "ArticleTabs_Test"
     }
     
     // MARK: Properties
@@ -47,6 +54,8 @@ final class WMFExperimentsDataController {
     private let cacheDirectoryName = WMFSharedCacheDirectoryNames.experiments.rawValue
 
     private static let activityTabConfig = ExperimentConfig(experiment: .activityTab, percentageFileName: .activityTabPercent, bucketFileName: .activityTabBucket, bucketValueControl: .activityTabGroupAControl, bucketValueTest: .activityTabGroupBEdit, bucketValueTest2: .activityTabGroupCSuggestedEdit)
+    
+    private static let articleTabsConfig = ExperimentConfig(experiment: .articleTabs, percentageFileName: .articleTabsPercent, bucketFileName: .articleTabsBucket, bucketValueControl: .articleTabsControl, bucketValueTest: .articleTabsTest, bucketValueTest2: nil)
 
     private let store: WMFKeyValueStore
     
@@ -85,6 +94,12 @@ final class WMFExperimentsDataController {
             bucket = forceValue
         } else {
             switch experiment {
+            case .articleTabs:
+                if randomInt <= percentage {
+                    bucket = .articleTabsTest
+                } else {
+                    bucket = .articleTabsControl
+                }
             case .activityTab:
                 if randomInt <= percentage {
                     bucket = .activityTabGroupAControl
