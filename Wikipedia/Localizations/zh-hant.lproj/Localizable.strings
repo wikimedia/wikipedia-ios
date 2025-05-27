@@ -1275,7 +1275,6 @@
 "temp-account-alert-read-more-information" = "$1您正在使用臨時帳號。$2帳號會在 90 天後到期。到期後，下一次您在未登入情況下做出編輯時，會再建立另一個新的帳號。$3請登入或建立帳號，以讓往後做出的編輯歸在您的名義之下，並使用其他功能。";
 "temp-account-edit-sheet-cta-top" = "登入或建立帳號";
 "temp-account-edit-sheet-subtitle" = "$2您目前正在使用臨時帳號。$3使用臨時帳號「$1」所做過的編輯，不會在您登入時轉移到您的永久帳號。請先登入或建立帳號，讓編輯內容歸在您的名義之下，並使用其他功能。";
-"temp-account-got-it" = "了解";
 "temp-account-toast-read-more-title" = "延伸閱讀";
 "temp-account-toast-title" = "$1您目前正在使用臨時帳號。$2以臨時帳號做出了編輯…";
 "temp-account-warning-title" = "您正在使用臨時帳號";

@@ -1290,7 +1290,6 @@
 "temp-account-alert-read-more-information" = "$1Geçici bir hesap kullanıyorsunuz.$2 Hesabın süresi 90 gün içinde dolacak. Süresi dolduktan sonra, oturum açmadan bir düzenleme yaptığınızda yeni bir hesap oluşturulacak. $3Gelecekteki düzenlemeler için atıf almak ve diğer özelliklere erişmek için oturum açın ya da bir hesap oluşturun.";
 "temp-account-edit-sheet-cta-top" = "Giriş yapın ya da bir hesap oluşturun";
 "temp-account-edit-sheet-subtitle" = "$2Şu anda geçici bir hesap kullanıyorsunuz.$3 Geçici hesabınız $1 ile yapılan düzenlemeler oturum açtığınızda kalıcı hesabınıza aktarılmayacaktır. Diğer faydaların yanı sıra, kullanıcı adınıza atıf almak için oturum açın ya da bir hesap oluşturun.";
-"temp-account-got-it" = "Anladım";
 "temp-account-toast-read-more-title" = "Devamını oku";
 "temp-account-toast-title" = "$1Şu anda geçici bir hesap kullanıyorsunuz.$2 Geçici hesapla yapılan düzenlemeler...";
 "temp-account-warning-title" = "Geçici bir hesap kullanıyorsunuz";
