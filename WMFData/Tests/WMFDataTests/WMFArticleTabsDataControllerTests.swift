@@ -24,7 +24,7 @@ final class WMFArticleTabsDataControllerTests: XCTestCase {
         
         WMFDataEnvironment.current.appData = WMFAppData(appLanguages: [WMFLanguage(languageCode: "en", languageVariantCode: nil)])
         
-        self.dataController = try? WMFArticleTabsDataController(coreDataStore: store)
+        self.dataController = WMFArticleTabsDataController(coreDataStore: store)
         
         try await super.setUp()
     }
@@ -312,7 +312,7 @@ final class WMFArticleTabsDataControllerTests: XCTestCase {
         }
         
         // Create and inject the mock controller
-        let dataController = try WMFArticleTabsDataController(
+        let dataController = WMFArticleTabsDataController(
             coreDataStore: store
         )
         

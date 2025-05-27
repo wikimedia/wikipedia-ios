@@ -135,6 +135,8 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
     if (self) {
         self.configuration = [WMFConfiguration current];
         self.router = [[WMFViewControllerRouter alloc] initWithAppViewController:self router:self.configuration.router];
+        _tabItemIdentifiersToDelete = [NSMutableArray array];
+        _tabIdentifiersToDelete = [NSMutableArray array];
     }
     return self;
 }
