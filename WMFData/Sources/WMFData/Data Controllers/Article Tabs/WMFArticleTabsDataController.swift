@@ -104,6 +104,7 @@ public class WMFArticleTabsDataController: WMFArticleTabsDataControlling {
         get {
             if _backgroundContext == nil {
                 _backgroundContext = try? coreDataStore?.newBackgroundContext
+                _backgroundContext?.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
             }
             return _backgroundContext
         } set {
