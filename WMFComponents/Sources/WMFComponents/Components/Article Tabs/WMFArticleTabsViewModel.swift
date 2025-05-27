@@ -66,9 +66,9 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
             debugPrint("Error loading tabs: \(error)")
         }
     }
-    
-    // MARK: - Public funcs
 
+    // MARK: - Public funcs
+    
     func calculateColumns(for size: CGSize) -> Int {
         // If text is scaled up for accessibility, use single column
         if UIApplication.shared.preferredContentSizeCategory.isAccessibilityCategory {
@@ -83,6 +83,11 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
         } else {
             return 4
         }
+    }
+    
+    func description(for tab: ArticleTab) -> String? {
+        guard let description = tab.info?.description else { return nil }
+        return description.trimmingCharacters(in: .whitespacesAndNewlines)
     }
     
     func calculateImageHeight() -> Int {
@@ -148,7 +153,21 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
         } catch {
             return tab
         }
-        
+    }
+
+    func getCurrentTab() async -> ArticleTab? {
+        do {
+            let tabUUID = try await dataController.currentTabIdentifier()
+
+            if let tab = articleTabs.first(where: {$0.id == tabUUID.uuidString}) {
+                return tab
+
+            }
+        } catch {
+            print("Not able to get tab UUID")
+        }
+
+        return articleTabs.first
     }
 }
 
