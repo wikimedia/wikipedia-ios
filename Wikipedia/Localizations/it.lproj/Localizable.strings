@@ -653,6 +653,7 @@
 "on-this-day-no-internet-error" = "Nessun dato disponibile";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 da Wikipedia in $2";
 "on-this-day-title" = "In questo giorno";
+"open-in-tab-tooltip-title" = "Apri in una nuova scheda";
 "page-history-bot-edits" = "bot";
 "page-history-compare-accessibility-hint" = "Clicca per selezionare due versioni da confrontare";
 "page-history-compare-title" = "Confronta";
@@ -900,7 +901,6 @@
 "talk-pages-user-logs" = "Registri";
 "talk-pages-view-title" = "Discussione";
 "temp-account-edit-sheet-cta-top" = "Entra o crea un'utenza";
-"temp-account-got-it" = "Capito";
 "temp-account-toast-read-more-title" = "Per saperne di più";
 "temp-account-warning-title" = "Stai utilizzando un'utenza temporanea";
 "temporary-account" = "Utenza temporanea";

@@ -861,6 +861,8 @@
 "on-this-day-no-internet-error" = "Məlumat yoxdur";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 Vikipediyadan $2";
 "on-this-day-title" = "Tarixdə bu gün";
+"open-in-tab-tooltip-body" = "Məqalənin başlığını və ya mavi keçidi yeni vərəqədə açmaq üçün basılı saxlayın.";
+"open-in-tab-tooltip-title" = "Yeni vərəqədə aç";
 "original-tab-button-popover-description" = "Başladığınız vərəqəyə qayıtmaq üçün \"W\" düyməsinə klikləyin";
 "page-history-bot-edits" = "bot";
 "page-history-compare-accessibility-hint" = "Müqayisə ediləcək iki versiyanı seçmək üçün toxunun";
@@ -1158,6 +1160,9 @@
 "tabs-main-page-subtitle" = "Vikipediyanın gündəlik əsas məqamları";
 "tabs-navbar-title-format" = "{{PLURAL:$1|$1 vərəqə}}";
 "tabs-open-tab" = "Vərəqəni aç";
+"tabs-overview-tooltip-body" = "Vərəqələrin icmalında açıq məqalələr arasında keçid edin.";
+"tabs-overview-tooltip-title" = "Vərəqələrin icmalı";
+"tabs-survey-title" = "Vərəqələr funksiyasını təkmilləşdirməyə kömək edin. Bu funksiyadan məmnunsunuz?";
 "tachelhit-variants-alert-body" = "Vikipediya tətbiqi artıq tətbiq daxilində əsas və ya köməkçi dillər kimi aşağıdakı Taçelit variantlarını dəstəkləyir və bu, seçdiyiniz variantlarda oxumağı, axtarışı və redaktə etməyi asanlaşdırır:\n\nⵜⴰⵛⵍⵃⵉⵜ Tachelhit, Tifinagh (shi-tfng)\nTaclḥit Tachelhit, Latin (shi-latn)";
 "tachelhit-variants-alert-title" = "Taçelit variant dəstəyi üçün yeniləmələr";
 "tajik-variants-alert-body" = "Vikipediya tətbiqi artıq tətbiq daxilində əsas və ya köməkçi dillər kimi aşağıdakı tacik variantlarını dəstəkləyir və bu, seçdiyiniz variantlarda oxumağı, axtarmağı və redaktə etməyi asanlaşdırır:\n\nтоҷикӣ кирилликӣ Tajik, Cyrillic (tg-cyrl)\ntojikī lotinī Tajik, Latin (tg-latn)";
@@ -1243,7 +1248,6 @@
 "temp-account-alert-read-more-information" = "$1Siz müvəqqəti hesabdan istifadə edirsiniz.$2 Hesabın müddəti 90 gün ərzində bitəcək. Müddəti bitdikdən sonra, siz daxil olmadan növbəti dəfə redaktə etdiyiniz zaman yenisi yaradılacaq. $3Gələcək redaktələr üçün istinad almaq və digər funksiyalara daxil olmaq üçün daxil olun və ya hesab yaradın.";
 "temp-account-edit-sheet-cta-top" = "Daxil ol və ya hesab yarat";
 "temp-account-edit-sheet-subtitle" = "$2Hal-hazırda müvəqqəti hesabdan istifadə edirsiniz.$3 Siz daxil olduğunuz zaman $1 müvəqqəti hesabı ilə edilən redaktələr daimi hesabınıza köçürülməyəcək. Digər üstünlüklər ilə birlikdə istifadəçi adınıza istinad edilməsi üçün daxil olun və ya hesab yaradın.";
-"temp-account-got-it" = "Başa düşdüm";
 "temp-account-toast-read-more-title" = "Daha ətraflı oxu";
 "temp-account-toast-title" = "$1Siz hal-hazırda müvəqqəti hesabdan istifadə edirsiniz.$2 Müvəqqəti ilə edilən redaktələr...";
 "temp-account-warning-title" = "Siz müvəqqəti hesabdan istifadə edirsiniz";
