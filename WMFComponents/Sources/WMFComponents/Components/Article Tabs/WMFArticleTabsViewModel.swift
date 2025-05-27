@@ -66,7 +66,7 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
             debugPrint("Error loading tabs: \(error)")
         }
     }
-    
+
     // MARK: - Public funcs
     
     func calculateColumns(for size: CGSize) -> Int {
@@ -153,6 +153,21 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
         } catch {
             return tab
         }
+    }
+
+    func getCurrentTab() async -> ArticleTab? {
+        do {
+            let tabUUID = try await dataController.currentTabIdentifier()
+
+            if let tab = articleTabs.first(where: {$0.id == tabUUID.uuidString}) {
+                return tab
+
+            }
+        } catch {
+            print("Not able to get tab UUID")
+        }
+
+        return articleTabs.first
     }
 }
 
