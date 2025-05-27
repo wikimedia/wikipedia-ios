@@ -80,7 +80,17 @@ public class WMFArticleTabsDataController: WMFArticleTabsDataControlling {
             self.tabItemIdentifier = tabItemIdentifier
         }
     }
-    
+
+    // MARK: Nested internal types
+
+    struct OnboardingStatus: Codable {
+        var hasPresentedOnboardingTooltips: Bool
+
+        static var `default`: OnboardingStatus {
+            return OnboardingStatus(hasPresentedOnboardingTooltips: false)
+        }
+    }
+
     // MARK: - Properties
     
     public static let shared = WMFArticleTabsDataController()
@@ -119,7 +129,23 @@ public class WMFArticleTabsDataController: WMFArticleTabsDataControlling {
     public var shouldShowArticleTabs: Bool {
         return developerSettingsDataController.enableArticleTabs
     }
-    
+
+    // MARK: Onboarding
+
+    internal var onboardingStatus: OnboardingStatus {
+        return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.articleTabsOnboarding.rawValue)) ?? OnboardingStatus.default
+    }
+
+    public var hasPresentedTooltips: Bool {
+        get {
+            return onboardingStatus.hasPresentedOnboardingTooltips
+        } set {
+            var currentStatus = onboardingStatus
+            currentStatus.hasPresentedOnboardingTooltips = newValue
+            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.articleTabsOnboarding.rawValue, value: currentStatus)
+        }
+    }
+
     // MARK: - Tabs Manipulation Methods
     
     public func tabsCount() async throws -> Int {
