@@ -1455,11 +1455,9 @@ extension WMFAppViewController: EditPreviewViewControllerLoggingDelegate {
                 
              switch assignment {
              case .control:
-                 // TODO: Log assignment
-                 DDLogDebug("Assigned Article Tabs Experiment: Control")
+                 ArticleTabsFunnel.shared.logGroupAssignment(group: "tab_a")
              case .test:
-                 // TODO: Log assignment
-                 DDLogDebug("Assigned Article Tabs Experiment: Test")
+                 ArticleTabsFunnel.shared.logGroupAssignment(group: "tab_b")
                  Task {
                      do {
                          try await dataController.checkAndCreateInitialArticleTabIfNeeded()

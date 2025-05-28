@@ -1,6 +1,5 @@
 import WMF
 
-
 final class ArticleTabsFunnel {
 
     static let shared = ArticleTabsFunnel()
@@ -100,5 +99,9 @@ final class ArticleTabsFunnel {
 
     func logIconClick(interface: ArticleTabsFunnel.ActiveInterface, project: WikimediaProject?) {
         logEvent(activeInterface: interface, action: .articleClick, project: project)
+    }
+
+    func logGroupAssignment(group: String) {
+        logEvent(activeInterface: nil, action: .impression, actionData: ["group": group], project: nil)
     }
 }
