@@ -1261,7 +1261,6 @@
 "temp-account-alert-read-more-information" = "$1Du använder ett tillfälligt konto.$2 Kontot går ut om 90 dagar. Efter att det gått ut kommer ett nytt skapas nästa gång du utför en redigering utan att logga in. $3Logga in eller skapa ett konto för att tillskrivas för framtida redigeringar, och få tillgång till andra funktioner.";
 "temp-account-edit-sheet-cta-top" = "Logga in eller skapa ett konto";
 "temp-account-edit-sheet-subtitle" = "$2Du använder för närvarande ett temporärt konto.$3 Redigeringar som görs med det tillfälliga kontot $1 kommer inte att överföras till ditt permanenta konto när du loggar in. Logga in eller skapa ett konto för att få erkännande med ditt användarnamn, bland andra förmåner.";
-"temp-account-got-it" = "Jag förstår";
 "temp-account-toast-read-more-title" = "Läs mer";
 "temp-account-toast-title" = "$1Du använder för närvarande ett tillfälligt konto.$2 Redigeringar gjorda med det tillfälliga...";
 "temp-account-warning-title" = "Du använder ett tillfälligt konto";

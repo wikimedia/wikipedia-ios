@@ -72,6 +72,7 @@ extension ArticleViewController: ArticleWebMessageHandling {
         persistPageViewsForWikipediaInReview()
         loadMediaWikiInfoAndUpdateToolbar()
         syncCachedResourcesIfNeeded()
+        messagingController.updateDarkModeMainPageIfNeeded(articleURL: articleURL, theme: theme)
     }
     
     func handleFooterItem(type: PageContentService.Footer.Menu.Item, payload: Any?) {

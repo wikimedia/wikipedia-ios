@@ -1,6 +1,35 @@
 import WMFComponents
+import WMFData
 
 extension ArticleViewController: ArticleToolbarHandling {
+    func backInTab(article: WMFData.WMFArticleTabsDataController.WMFArticle, controller: ArticleToolbarController) {
+        guard let navigationController,
+              let siteURL = article.project.siteURL,
+              let articleURL = siteURL.wmf_URL(withTitle: article.title),
+              let tabIdentifier = coordinator?.tabIdentifier,
+              let tabItemIdentifier = article.identifier else {
+            return
+        }
+        
+        let identifiers = WMFArticleTabsDataController.Identifiers(tabIdentifier: tabIdentifier, tabItemIdentifier: tabItemIdentifier)
+        let articleCoordinator = ArticleCoordinator(navigationController: navigationController, articleURL: articleURL, dataStore: dataStore, theme: theme, needsAnimation: false, source: .undefined, tabConfig: .adjacentArticleInTab(identifiers))
+        articleCoordinator.start()
+    }
+    
+    func forwardInTab(article: WMFData.WMFArticleTabsDataController.WMFArticle, controller: ArticleToolbarController) {
+        guard let navigationController,
+              let siteURL = article.project.siteURL,
+              let articleURL = siteURL.wmf_URL(withTitle: article.title),
+              let tabIdentifier = coordinator?.tabIdentifier,
+              let tabItemIdentifier = article.identifier else {
+            return
+        }
+        
+        let identifiers = WMFArticleTabsDataController.Identifiers(tabIdentifier: tabIdentifier, tabItemIdentifier: tabItemIdentifier)
+        let articleCoordinator = ArticleCoordinator(navigationController: navigationController, articleURL: articleURL, dataStore: dataStore, theme: theme, needsAnimation: false, source: .undefined, tabConfig: .adjacentArticleInTab(identifiers))
+        articleCoordinator.start()
+    }
+    
     
     func showTableOfContents(from controller: ArticleToolbarController) {
         showTableOfContents()
@@ -72,4 +101,5 @@ extension ArticleViewController: ArticleToolbarHandling {
     func editArticle(from controller: ArticleToolbarController) {
         showEditorForFullSource()
     }
+    
 }
