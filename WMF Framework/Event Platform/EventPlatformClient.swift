@@ -134,6 +134,7 @@ import WMFData
         case editInteraction = "ios.edit_interaction"
         case imageRecommendation = "android.image_recommendation_event"
         case articleLinkInteraction = "ios.article_link_interaction"
+        case appTabsInteraction = "app_tabs_interaction"
     }
     
     /**
