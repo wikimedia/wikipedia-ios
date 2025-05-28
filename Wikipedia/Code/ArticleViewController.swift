@@ -1095,7 +1095,7 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
             // first try to navigate using LinkCoordinator. If it fails, use the legacy approach.
             if let navigationController {
                 
-                let linkCoordinator = LinkCoordinator(navigationController: navigationController, url: resolvedURL, dataStore: dataStore, theme: theme, articleSource: .undefined, previousPageViewObjectID: pageViewObjectID, tabConfig: .appendArticleAndAssignCurrentTabAndCleanoutFutureArticles)
+                let linkCoordinator = LinkCoordinator(navigationController: navigationController, url: resolvedURL, dataStore: dataStore, theme: theme, articleSource: .internal_link, previousPageViewObjectID: pageViewObjectID, tabConfig: .appendArticleAndAssignCurrentTabAndCleanoutFutureArticles)
                 let success = linkCoordinator.start()
                 guard success else {
                     legacyNavigateAction()
