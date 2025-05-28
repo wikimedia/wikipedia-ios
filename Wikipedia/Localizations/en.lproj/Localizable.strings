@@ -124,8 +124,6 @@
 "article-save-error-not-enough-space" = "You do not have enough space on your device to save this article";
 "article-share" = "Share";
 "article-tabs-max-reached" = "Tab limit reached ($1). Please close one or more tabs.";
-"article-tabs-navigation" = "Tabs navigation";
-"article-tabs-onboarding-tooltip" = "Onboarding tooltips for tabs";
 "article-tabs-open-background-tab" = "Open in background tab";
 "article-tabs-open-new-tab" = "Open in new tab";
 "article-talk-page" = "Article talk page";
@@ -152,14 +150,7 @@
 "clear-title-accessibility-label" = "Clear";
 "clearing-cache-complete" = "Clearing cache complete.";
 "clearing-cache-in-progress" = "Clearing cache in progress.";
-"close-all-tabs" = "Close all tabs";
-"close-all-tabs-confirmation" = "Do you want to close all $1 tabs? This action can’t be undone.";
-"close-all-tabs-confirmation-number" = "Close all $1 tabs?";
 "close-button-accessibility-label" = "Close";
-"close-other-tabs" = "Close other tabs";
-"close-tab-confirmation" = "Close tab?";
-"close-tabs" = "Close tabs";
-"closed-all-tabs-confirmation" = "Closed all $1 tabs.";
 "compass-direction" = "at $1 o'clock";
 "confirm-donation-history-deletion-subtitle" = "This will only apply to donations made from this device.";
 "confirm-donation-history-deletion-title" = "Confirm deletion";
@@ -299,7 +290,6 @@
 "donate-transaction-fee-opt-in-text" = "I’ll generously add $1 to cover the transaction fees so you can keep 100%% of my donation.";
 "donate-wikimedia-fine-print-1" = "We do not sell or trade your information to anyone. By donating, you agree to share your personal information with the Wikimedia Foundation, the nonprofit organization that hosts Wikipedia and other Wikimedia projects, and its service providers pursuant to our [donor policy]($1). Wikimedia Foundation and its service providers are located in the United States and in other countries whose privacy laws may not be equivalent to your own. For more information please read our [donor policy]($1).";
 "donate-wikimedia-fine-print-2" = "For recurring donors, fixed monthly payments will be debited by the Wikimedia Foundation on the monthly anniversary of the first donation, until such time as you notify us to discontinue them. Donations initiated on the 29, 30, or 31 of the month will recur on the last day of the month for shorter months, as close to the original date as possible. For questions, please contact donate@wikimedia.org.";
-"duplicate-tab" = "Duplicate tab";
 "edit-link-display-text-title" = "Display text";
 "edit-link-link-target-title" = "Link target";
 "edit-link-remove-link-title" = "Remove link";
@@ -699,7 +689,6 @@
 "main-menu-terms-of-use" = "Terms of Use";
 "main-menu-title" = "More";
 "main-menu-zero-faq" = "Wikipedia Zero FAQ";
-"main-page" = "Main page";
 "microsite-yir-english-edits-bytes-slide-subtitle" = "In 2024, volunteers added 4,104,852,969 bytes to English Wikipedia. The sum of all their work together leads to a steadily improving, fact-based, and reliable knowledge resource that they give to the world. All of us have knowledge to share, [learn how to participate]($1).";
 "microsite-yir-english-edits-bytes-slide-title" = "4 billion bytes added";
 "microsite-yir-english-edits-slide-subtitle" = "Volunteers made 98,222,407 changes across over 300 different language editions of Wikipedia. Over 37 million changes were made on English Wikipedia. Every hour of every day, volunteers are working to improve Wikipedia.";
@@ -723,7 +712,6 @@
 "nearby-distance-label-miles" = "$1 miles";
 "new-password-instructions" = "You logged in with a temporary password. To finish logging in set a new password here.";
 "new-password-title" = "Set your password";
-"new-tab" = "New tab";
 "next-action-title" = "Next";
 "no-email-account-alert" = "Please setup an email account on your device and try again.";
 "no-internet-connection" = "No internet connection";
@@ -867,7 +855,6 @@
 "on-this-day-no-internet-error" = "No data available";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 from $2 Wikipedia";
 "on-this-day-title" = "On this day";
-"open-action" = "Open";
 "open-in-tab-tooltip-body" = "Long-press an article title or blue link to open it in a new tab.";
 "open-in-tab-tooltip-title" = "Open in new tab";
 "original-tab-button-popover-description" = "Tap on the 'W' to return to the tab you started from";
@@ -1067,12 +1054,9 @@
 "return-button-title" = "Return";
 "return-to-article" = "Return to article";
 "reverted-edit-title" = "Reverted edit";
-"save-all-tabs" = "Save all tabs";
 "save-view-temp-account-notice" = "You are using a temporary account. Edits are being attributed to $1...";
 "save-view-temp-account-warning" = "You are not logged in. Once you make an edit, a temporary account will be created for you to protect your privacy.";
 "saved-all-articles-title" = "All articles";
-"saved-all-tabs" = "Saved all tabs.";
-"saved-all-tabs-view-reading-list" = "Saved all tabs. View reading list.";
 "saved-default-reading-list-tag" = "This list cannot be deleted";
 "saved-pages-image-download-error" = "Failed to download images for this saved page.";
 "saved-pages-progress-syncing" = "Article download in progress...";
