@@ -17,9 +17,14 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
     internal lazy var toolbarController: ArticleToolbarController = {
         return ArticleToolbarController(toolbar: toolbar, delegate: self)
     }()
+    
+    // Watchlist properies
     internal lazy var watchlistController: WatchlistController = {
         return WatchlistController(delegate: self, context: .article)
     }()
+    var needsWatchButton: Bool = false
+    var needsUnwatchHalfButton: Bool = false
+    var needsUnwatchFullButton: Bool = false
     
     /// Article holds article metadata (displayTitle, description, etc) and user state (isSaved, viewedDate, viewedFragment, etc)
     internal var article: WMFArticle
@@ -158,7 +163,10 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
     let previousPageViewObjectID: NSManagedObjectID?
     var beganViewingDate: Date?
     
+    // Article Tabs-related properties
     var coordinator: ArticleTabCoordinating?
+    var previousArticleTab: WMFArticleTabsDataController.WMFArticle? = nil
+    var nextArticleTab: WMFArticleTabsDataController.WMFArticle? = nil
     
     @objc init?(articleURL: URL, dataStore: MWKDataStore, theme: Theme, source: ArticleSource, schemeHandler: SchemeHandler? = nil, previousPageViewObjectID: NSManagedObjectID? = nil) {
 
@@ -448,6 +456,7 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
         presentModalsIfNeeded()
         trackBeganViewingDate()
         coordinator?.syncTabsOnArticleAppearance()
+        loadNextAndPreviousArticleTabs()
     }
     
     @objc func userDidTapProfile() {
@@ -559,41 +568,60 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
     
     // Loads various additional data about the article from MediaWiki
     func loadMediaWikiInfoAndUpdateToolbar() {
+        
         guard let title = articleURL.wmf_title,
             let siteURL = articleURL.wmf_site,
             let project = WikimediaProject(siteURL: siteURL)?.wmfProject else {
                 return
         }
         
-        let needsCategories = articleURL.wmf_title != "Main Page"
-        guard let request = try? WMFArticleDataController.ArticleInfoRequest(needsWatchedStatus: dataStore.authenticationManager.authStateIsPermanent, needsRollbackRights: false, needsCategories: needsCategories) else {
+        let needsCategories = self.articleURL.wmf_title != "Main Page"
+        guard let request = try? WMFArticleDataController.ArticleInfoRequest(needsWatchedStatus: self.dataStore.authenticationManager.authStateIsPermanent, needsRollbackRights: false, needsCategories: needsCategories) else {
+            self.needsWatchButton = false
+            self.needsUnwatchFullButton = false
+            self.needsUnwatchHalfButton = false
+            self.toolbarController.updateMoreButton(needsWatchButton: self.needsWatchButton, needsUnwatchHalfButton: self.needsUnwatchHalfButton, needsUnwatchFullButton: self.needsUnwatchFullButton, previousArticleTab: self.previousArticleTab, nextArticleTab: self.nextArticleTab)
             return
         }
-                
-        WMFArticleDataController().fetchArticleInfo(title: title, project: project, request: request) { result in
+        
+        WMFArticleDataController().fetchArticleInfo(title: title, project: project, request: request) { [weak self] result in
             
-            DispatchQueue.main.async { [weak self] in
+            guard let self else { return }
+            
+            switch result {
+            case .success(let info):
                 
-                guard let self else {
-                    return
-                }
-                
-                switch result {
-                case .success(let info):
+                DispatchQueue.main.async {
+                    self.needsWatchButton = !info.watched
+                    self.needsUnwatchHalfButton = info.watched && info.watchlistExpiry != nil
+                    self.needsUnwatchFullButton = info.watched && info.watchlistExpiry == nil
                     
-                    let needsWatchButton = !info.watched
-                    let needsUnwatchHalfButton = info.watched && info.watchlistExpiry != nil
-                    let needsUnwatchFullButton = info.watched && info.watchlistExpiry == nil
-                    
-                    self.toolbarController.updateMoreButton(needsWatchButton: needsWatchButton, needsUnwatchHalfButton: needsUnwatchHalfButton, needsUnwatchFullButton: needsUnwatchFullButton)
+                    self.toolbarController.updateMoreButton(needsWatchButton: self.needsWatchButton, needsUnwatchHalfButton: self.needsUnwatchHalfButton, needsUnwatchFullButton: self.needsUnwatchFullButton, previousArticleTab: self.previousArticleTab, nextArticleTab: self.nextArticleTab)
                     
                     if needsCategories {
                         self.saveCategories(categories: info.categories, articleTitle: title, project: project)
                     }
-                    
-                case .failure(let error):
-                    DDLogError("Error fetching article MediaWiki info: \(error)")
                 }
+                
+            case .failure(let error):
+                DDLogError("Error fetching article MediaWiki info: \(error)")
+            }
+        }
+    }
+    
+    func loadNextAndPreviousArticleTabs() {
+        Task { [weak self] in
+            guard let self else { return }
+            let tabDataController = WMFArticleTabsDataController.shared
+            
+            if tabDataController.shouldShowArticleTabs,
+               let tabIdentifier = self.coordinator?.tabIdentifier {
+                self.previousArticleTab = try? await tabDataController.getAdjacentArticleInTab(tabIdentifier: tabIdentifier, isPrev: true)
+                self.nextArticleTab = try? await tabDataController.getAdjacentArticleInTab(tabIdentifier: tabIdentifier, isPrev: false)
+            }
+            
+            Task { @MainActor in
+                self.toolbarController.updateMoreButton(needsWatchButton: self.needsWatchButton, needsUnwatchHalfButton: self.needsUnwatchHalfButton, needsUnwatchFullButton: self.needsUnwatchFullButton, previousArticleTab: self.previousArticleTab, nextArticleTab: self.nextArticleTab)
             }
         }
     }
@@ -707,6 +735,7 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
         searchViewController.dataStore = dataStore
         searchViewController.theme = theme
         searchViewController.shouldBecomeFirstResponder = true
+        searchViewController.customTabConfigUponArticleNavigation = .appendArticleAndAssignCurrentTabAndCleanoutFutureArticles
         
         let populateSearchBarWithTextAction: (String) -> Void = { [weak self] searchTerm in
             self?.navigationItem.searchController?.searchBar.text = searchTerm
@@ -933,6 +962,8 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
         toolbarContainerView.backgroundColor = theme.colors.paperBackground
         toolbar.setBackgroundImage(theme.navigationBarBackgroundImage, forToolbarPosition: .any, barMetrics: .default)
         toolbar.isTranslucent = false
+        
+        messagingController.updateDarkModeMainPageIfNeeded(articleURL: articleURL, theme: theme)
     }
     
     private func rethemeWebViewIfNecessary() {
@@ -1061,7 +1092,7 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
             // first try to navigate using LinkCoordinator. If it fails, use the legacy approach.
             if let navigationController {
                 
-                let linkCoordinator = LinkCoordinator(navigationController: navigationController, url: resolvedURL, dataStore: dataStore, theme: theme, articleSource: .undefined, previousPageViewObjectID: pageViewObjectID)
+                let linkCoordinator = LinkCoordinator(navigationController: navigationController, url: resolvedURL, dataStore: dataStore, theme: theme, articleSource: .undefined, previousPageViewObjectID: pageViewObjectID, tabConfig: .appendArticleAndAssignCurrentTabAndCleanoutFutureArticles)
                 let success = linkCoordinator.start()
                 guard success else {
                     legacyNavigateAction()

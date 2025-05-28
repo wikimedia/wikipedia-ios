@@ -70,7 +70,7 @@ public final class WMFMockArticleTabsDataController: WMFArticleTabsDataControlli
         }
     }
     
-    public func appendArticle(_ article: WMFData.WMFArticleTabsDataController.WMFArticle, toTabIdentifier identifier: UUID) async throws -> WMFData.WMFArticleTabsDataController.Identifiers {
+    public func appendArticle(_ article: WMFData.WMFArticleTabsDataController.WMFArticle, toTabIdentifier identifier: UUID, needsCleanoutOfFutureArticles: Bool) async throws -> WMFData.WMFArticleTabsDataController.Identifiers {
         
         guard let index = tabs.firstIndex(where: { $0.identifier == identifier }) else {
             throw WMFArticleTabsDataController.CustomError.missingTab
