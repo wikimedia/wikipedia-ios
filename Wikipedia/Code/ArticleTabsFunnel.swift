@@ -7,16 +7,23 @@ final class ArticleTabsFunnel {
 
     private enum Action: String {
         case impression = "impression"
-        case click = "article_click"
+        case articleClick = "article_click"
         case closeFeedback = "feedback_close_click"
         case submitFeedback = "feedback_submit_click"
+        case iconClick = "icon_click"
     }
 
-    private enum ActiveInterface: String {
+    public enum ActiveInterface: String {
         case icon = "tab_icon"
         case tooltip = "tab_tooltip"
         case overview = "tabs_overview"
         case feedback = "tabs_feedback"
+        case feed = "feed"
+        case article = "article"
+        case places = "places"
+        case saved = "saved"
+        case history = "history"
+        case search = "search"
     }
 
     private struct Event: EventInterface {
@@ -55,35 +62,43 @@ final class ArticleTabsFunnel {
         EventPlatformClient.shared.submit(stream: .appTabsInteraction, event: event)
     }
 
-    func logTabIconImpression(project: WikimediaProject) {
-        logEvent(activeInterface: .icon, action: .impression, project: project) // add to 1st tooltip because it only shows once
+    func logTabIconFirstImpression(project: WikimediaProject) {
+        logEvent(activeInterface: .icon, action: .impression, project: project)
     }
 
     func logTabTooltipImpression(project: WikimediaProject) {
         logEvent(activeInterface: .tooltip, action: .impression, project: project)
     }
 
-    func logTabsOverviewImpression(project: WikimediaProject) {
-        logEvent(activeInterface: .overview, action: .impression, project: project)
+    func logTabsOverviewImpression() {
+        logEvent(activeInterface: .overview, action: .impression, project: nil)
     }
 
     func logArticleClick(project: WikimediaProject) {
-        logEvent(activeInterface: .overview, action: .click, project: project)
+        logEvent(activeInterface: .overview, action: .articleClick, project: project)
     }
 
-    func logFeedbackClose(project: WikimediaProject) {
-        logEvent(activeInterface: .feedback, action: .closeFeedback, project: project)
+    func logFeedbackClose() {
+        logEvent(activeInterface: .feedback, action: .closeFeedback, project: nil)
     }
 
-    func logFeedbackSubmit(project: WikimediaProject, selectedItem: Int, comment: String?) {
-
+    func logFeedbackSubmit(selectedItems: [String], comment: String?) {
+        let selectedJoined = selectedItems.filter { $0 != "other" }.joined(separator: ",")
         var actionData = [
-            "feedback_select": String(selectedItem)
+            "feedback_select": selectedJoined
         ]
 
         if let comment {
             actionData["feedback_comment"] = comment
         }
-        logEvent(activeInterface: .feedback, action: .submitFeedback, actionData: actionData, project: project)
+        logEvent(activeInterface: .feedback, action: .submitFeedback, actionData: actionData, project: nil)
+    }
+
+    func logIconImpression(interface: ArticleTabsFunnel.ActiveInterface, project: WikimediaProject?) {
+        logEvent(activeInterface: interface, action: .impression, project: project)
+    }
+
+    func logIconClick(interface: ArticleTabsFunnel.ActiveInterface, project: WikimediaProject?) {
+        logEvent(activeInterface: interface, action: .articleClick, project: project)
     }
 }

@@ -470,6 +470,9 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
     
     @objc func userDidTapTabs() {
         _ = tabsCoordinator?.start()
+        if let wikimediaProject = WikimediaProject(siteURL: articleURL) {
+            ArticleTabsFunnel.shared.logIconClick(interface: .article, project: wikimediaProject)
+        }
     }
     
     /// Catch-all method for deciding what is the best modal to present on top of Article at this point. This method needs careful if-else logic so that we do not present two modals at the same time, which may unexpectedly suppress one.

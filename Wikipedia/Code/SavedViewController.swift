@@ -228,7 +228,14 @@ class SavedViewController: ThemeableViewController, WMFNavigationBarConfiguring,
         
         configureNavigationBar()
     }
-    
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        if WMFArticleTabsDataController.shared.shouldShowArticleTabs {
+            ArticleTabsFunnel.shared.logIconImpression(interface: .saved, project: nil)
+        }
+    }
+
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
         
@@ -292,6 +299,7 @@ class SavedViewController: ThemeableViewController, WMFNavigationBarConfiguring,
     
     @objc func userDidTapTabs() {
         _ = tabsCoordinator?.start()
+        ArticleTabsFunnel.shared.logIconClick(interface: .saved, project: nil)
     }
     
     @objc func userDidTapProfile() {

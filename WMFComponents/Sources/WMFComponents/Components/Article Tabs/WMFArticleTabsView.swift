@@ -104,6 +104,7 @@ fileprivate struct WMFArticleTabsViewContent: View {
         .contentShape(Rectangle())
         .onTapGesture {
             viewModel.didTapTab(tab.data)
+            viewModel.loggingDelegate?.logArticleTabsArticleClick(wmfProject: tab.data.articles.first?.project)
         }
         .aspectRatio(3/4, contentMode: .fit)
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
