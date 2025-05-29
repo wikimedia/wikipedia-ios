@@ -149,7 +149,7 @@ extension ArticleViewController {
         let leadImageHeight = leadImageHeightConstraint.constant
         let navBarBottomY   = navBar.frame.maxY
         let titleHeight: CGFloat =  44
-        let padding: CGFloat = 12
+        let padding: CGFloat = 44
 
         let yPos = navBarBottomY
         + leadImageHeight
