@@ -116,60 +116,16 @@ class ArticlePeekPreviewViewController: UIViewController {
             return []
         }
         
-        // Read action
-        let readActionTitle = WMFLocalizedString("button-read-now", value: "Read now", comment: "Read now button text used in various places.")
-        let readAction = UIAction(title: readActionTitle, image: WMFSFSymbolIcon.for(symbol: .book), handler: { (action) in
+        // Open action
+        let readAction = UIAction(title: CommonStrings.articleTabsOpen, image: WMFSFSymbolIcon.for(symbol: .chevronForward), handler: { (action) in
             self.articlePreviewingDelegate?.readMoreArticlePreviewActionSelected(with: self)
         })
 
         var actions = [readAction]
-
-        // Save action
-        let logReadingListsSaveIfNeeded = { [weak self] in
-            guard let delegate = self?.articlePreviewingDelegate as? MEPEventsProviding else {
-                return
-            }
-            ReadingListsFunnel.shared.logSave(category: delegate.eventLoggingCategory, label: delegate.eventLoggingLabel, articleURL: self?.articleURL)
-        }
-        if articleURL.namespace == .main,
-        let article {
-            let saveActionTitle = article.isAnyVariantSaved ? WMFLocalizedString("button-saved-remove", value: "Remove from saved", comment: "Remove from saved button text used in various places.") : CommonStrings.saveTitle
-            let saveAction = UIAction(title: saveActionTitle, image: WMFSFSymbolIcon.for(symbol: article.isAnyVariantSaved ? .bookmarkFill : .bookmark), handler: { (action) in
-                let isSaved = self.dataStore.savedPageList.toggleSavedPage(for: self.articleURL)
-                let notification = isSaved ? CommonStrings.accessibilitySavedNotification : CommonStrings.accessibilityUnsavedNotification
-                UIAccessibility.post(notification: .announcement, argument: notification)
-                self.articlePreviewingDelegate?.saveArticlePreviewActionSelected(with: self, didSave: isSaved, articleURL: self.articleURL)
-            })
-            actions.append(saveAction)
-        }
-
-        // Location action
-        if let article,
-           article.location != nil {
-            let placeActionTitle = WMFLocalizedString("page-location", value: "View on a map", comment: "Label for button used to show an article on the map")
-            let placeAction = UIAction(title: placeActionTitle, image: WMFSFSymbolIcon.for(symbol: .map), handler: { (action) in
-                self.articlePreviewingDelegate?.viewOnMapArticlePreviewActionSelected(with: self)
-            })
-            actions.append(placeAction)
-        }
-
-        // Share action
-        let shareActionTitle = CommonStrings.shareMenuTitle
-        let shareAction = UIAction(title: shareActionTitle, image: WMFSFSymbolIcon.for(symbol: .squareAndArrowUp), handler: { (action) in
-            guard let presenter = self.articlePreviewingDelegate as? UIViewController else {
-                return
-            }
-            let customActivity = self.addToReadingListActivity(with: presenter, eventLogAction: logReadingListsSaveIfNeeded)
-            guard let shareActivityViewController = self.sharingActivityViewController(with: nil, button: nil, customActivities: [customActivity]) else {
-                return
-            }
-            self.articlePreviewingDelegate?.shareArticlePreviewActionSelected(with: self, shareActivityController: shareActivityViewController)
-        })
-
-        actions.append(shareAction)
         
+        // Tabs actions
         let destination = LinkCoordinator.destination(for: articleURL)
-        
+
         let articleTabsDataController = WMFArticleTabsDataController.shared
         if articleTabsDataController.shouldShowArticleTabs,
            case .article = destination {
@@ -218,7 +174,50 @@ class ArticlePeekPreviewViewController: UIViewController {
             actions.append(openInNewBackgroundTabAction)
             
         }
-        
+
+        // Save action
+        let logReadingListsSaveIfNeeded = { [weak self] in
+            guard let delegate = self?.articlePreviewingDelegate as? MEPEventsProviding else {
+                return
+            }
+            ReadingListsFunnel.shared.logSave(category: delegate.eventLoggingCategory, label: delegate.eventLoggingLabel, articleURL: self?.articleURL)
+        }
+        if articleURL.namespace == .main,
+        let article {
+            let saveActionTitle = article.isAnyVariantSaved ? WMFLocalizedString("button-saved-remove", value: "Remove from saved", comment: "Remove from saved button text used in various places.") : CommonStrings.saveTitle
+            let saveAction = UIAction(title: saveActionTitle, image: WMFSFSymbolIcon.for(symbol: article.isAnyVariantSaved ? .bookmarkFill : .bookmark), handler: { (action) in
+                let isSaved = self.dataStore.savedPageList.toggleSavedPage(for: self.articleURL)
+                let notification = isSaved ? CommonStrings.accessibilitySavedNotification : CommonStrings.accessibilityUnsavedNotification
+                UIAccessibility.post(notification: .announcement, argument: notification)
+                self.articlePreviewingDelegate?.saveArticlePreviewActionSelected(with: self, didSave: isSaved, articleURL: self.articleURL)
+            })
+            actions.append(saveAction)
+        }
+
+        // Location action
+        if let article,
+           article.location != nil {
+            let placeActionTitle = WMFLocalizedString("page-location", value: "View on a map", comment: "Label for button used to show an article on the map")
+            let placeAction = UIAction(title: placeActionTitle, image: WMFSFSymbolIcon.for(symbol: .map), handler: { (action) in
+                self.articlePreviewingDelegate?.viewOnMapArticlePreviewActionSelected(with: self)
+            })
+            actions.append(placeAction)
+        }
+
+        // Share action
+        let shareActionTitle = CommonStrings.shareMenuTitle
+        let shareAction = UIAction(title: shareActionTitle, image: WMFSFSymbolIcon.for(symbol: .squareAndArrowUp), handler: { (action) in
+            guard let presenter = self.articlePreviewingDelegate as? UIViewController else {
+                return
+            }
+            let customActivity = self.addToReadingListActivity(with: presenter, eventLogAction: logReadingListsSaveIfNeeded)
+            guard let shareActivityViewController = self.sharingActivityViewController(with: nil, button: nil, customActivities: [customActivity]) else {
+                return
+            }
+            self.articlePreviewingDelegate?.shareArticlePreviewActionSelected(with: self, shareActivityController: shareActivityViewController)
+        })
+
+        actions.append(shareAction)
 
         return actions
     }
