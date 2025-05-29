@@ -173,7 +173,7 @@
 "article-revision-history" = "تاريخ تعديل المقالة";
 "article-save-error-not-enough-space" = "ليس لديك مساحة كافية على جهازك لحفظ هذه المقالة";
 "article-share" = "مشاركة";
-"article-tabs-max-reached" = "تم الوصول إلى الحد الأقصى لعلامات التبويب (1$). يُرجى إغلاق علامة تبويب واحدة أو أكثر.";
+"article-tabs-max-reached" = "تم الوصول إلى الحد الأقصى لعلامات التبويب ($1). يُرجى إغلاق علامة تبويب واحدة أو أكثر.";
 "article-tabs-open-background-tab" = "فتح في علامة تبويب خلفية جديدة";
 "article-tabs-open-new-tab" = "فتح في علامة تبويب جديدة";
 "article-talk-page" = "صفحة نقاش المقالة";
@@ -1517,9 +1517,9 @@
 "saved-all-tabs" = "تم حفظ جميع علامات التبويب.";
 "new-tab" = "علامة تبويب جديدة";
 "close-tab-confirmation" = "هل تريد إغلاق علامة التبويب؟";
-"close-all-tabs-confirmation-number" = "هل تريد إغلاق جميع علامات التبويب البالغ عددها 1$؟";
-"close-all-tabs-confirmation" = "هل تريد إغلاق جميع علامات التبويب البالغ عددها 1$؟ لا يمكن التراجع عن هذا الإجراء.";
+"close-all-tabs-confirmation-number" = "هل تريد إغلاق جميع علامات التبويب البالغ عددها $1؟";
+"close-all-tabs-confirmation" = "هل تريد إغلاق جميع علامات التبويب البالغ عددها $1؟ لا يمكن التراجع عن هذا الإجراء.";
 "close-tabs" = "إغلاق علامات التبويب";
-"closed-all-tabs-confirmation" = "تم إغلاق جميع علامات التبويب البالغ عددها 1$.";
+"closed-all-tabs-confirmation" = "تم إغلاق جميع علامات التبويب البالغ عددها $1.";
 "main-page" = "الصفحة الرئيسية";
 "tabs-survey-title" = "ساعد في تحسين ميزة علامات التبويب. هل أنت راضٍ عن هذه الميزة؟";
