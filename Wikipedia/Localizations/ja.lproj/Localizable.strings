@@ -1254,3 +1254,10 @@
 "main-page" = "メインページ";
 "tabs-main-page-subtitle" = "Wikipediaのデイリーハイライト";
 "tabs-main-page-description" = "Wikipediaのメインページで、注目記事、最新ニュース、興味深い事実、主要な統計情報などをご覧ください。";
+"activity-tab-very-satisfied" = "非常に満足";
+"activity-tab-satisfied" = "満足";
+"activity-tab-neutral" = "どちらともいえない";
+"activity-tab-unsatisfied" = "不満";
+"activity-tab-very-unsatisfied" = "非常に不満";
+"activity-tab-additional-thoughts" = "他に何かご意見はありますか?";
+"activity-tab-survey-title" = "満足度調査";

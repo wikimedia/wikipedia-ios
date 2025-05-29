@@ -733,7 +733,6 @@ public class CommonStrings: NSObject {
     
     public static let articleTabsLimitToastFormat = WMFLocalizedString("article-tabs-max-reached", value: "Tab limit reached (%1$d). Please close one or more tabs.", comment: "Warning toast presented to users when they attempt to open a new tab after maximum tab number is reached. %1$d is replaced with the maximum number of tabs allowed.")
     
-    public static let open = WMFLocalizedString("open-action", value: "Open", comment: "Open title for action")
     public static let onboardingTooltipsForTabs = WMFLocalizedString("article-tabs-onboarding-tooltip", value: "Onboarding tooltips for tabs", comment: "Tooltip title for tabs onboarding.")
     public static let tabsNavigation = WMFLocalizedString("article-tabs-navigation", value: "Tabs navigation", comment: "Title for navigation in article tabs")
     
@@ -745,11 +744,6 @@ public class CommonStrings: NSObject {
     public static func addArticlesToReadingList(count: Int? = 0) -> String {
         let format = WMFLocalizedString("add-articles-to-reading-list", value: "Add {{PLURAL:%1$d|%1$d article|%1$d articles}} to reading list", comment: "Button label to add multiple articles to the reading list, pluralized based on article count. $1 is the amount of articles.")
         return String.localizedStringWithFormat(format, count ?? 0)
-    }
-
-    public static func articleTabsMaxReached(limit: Int? = 500) -> String {
-        let format = WMFLocalizedString("article-tabs-max-reached", value: "Tab limit reached (%1$@). Please close one or more tabs.", comment: "Alert message shown when the user has reached the tab limit. %1$d is the max allowed number of tabs. $1 is the tab limit.")
-        return String.localizedStringWithFormat(format, limit ?? 500)
     }
 
     public static func closeAllTabsConfirmation(count: Int? = 0) -> String {
