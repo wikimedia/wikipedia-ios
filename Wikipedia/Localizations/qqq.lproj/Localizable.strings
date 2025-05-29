@@ -123,14 +123,10 @@
 "article-revision-history" = "Title for menu option that leads to article revision history.";
 "article-save-error-not-enough-space" = "Alert message informing user that article cannot be save due to insufficient storage available";
 "article-share" = "Text of the article list row action shown on swipe which allows the user to choose the sharing option";
-<<<<<<< HEAD
-"article-tabs-max-reached" = "Alert message shown when the user has reached the tab limit. $1 is the max allowed number of tabs. $1 is the tab limit.";
+"article-tabs-max-reached" = "Warning toast presented to users when they attempt to open a new tab after maximum tab number is reached. $1 is replaced with the maximum number of tabs allowed.";
 "article-tabs-navigation" = "Title for navigation in article tabs";
 "article-tabs-onboarding-tooltip" = "Tooltip title for tabs onboarding.";
-=======
-"article-tabs-max-reached" = "Warning toast presented to users when they attempt to open a new tab after maximum tab number is reached. $1 is replaced with the maximum number of tabs allowed.";
 "article-tabs-open" = "Menu option button for opening an article in the current tab. Displayed upon long press of an article link.";
->>>>>>> main
 "article-tabs-open-background-tab" = "Menu option button for opening an article in a background tab. Displayed upon long press of an article link.";
 "article-tabs-open-new-tab" = "Menu option button for opening an article in a new tab. Displayed upon long press of an article link.";
 "article-talk-page" = "Title for article talk page button";
@@ -871,7 +867,6 @@
 "on-this-day-no-internet-error" = "error message shown when device is not connected to internet";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "Subtext beneath the 'On this day' header when describing the date and which specific Wikipedia. $1 will be substituted with the date. $2 will be replaced with the language - for example, 'June 8th from English Wikipedia'";
 "on-this-day-title" = "Title for the 'On this day' feed section";
-"open-action" = "Open title for action";
 "open-in-tab-tooltip-body" = "Description for tooltip explaining the open in new tab functionality";
 "open-in-tab-tooltip-title" = "Title for tooltip explaining the open in new tab functionality";
 "original-tab-button-popover-description" = "Description for popover explaining the 'W' icon may be tapped to return to the original tab.";

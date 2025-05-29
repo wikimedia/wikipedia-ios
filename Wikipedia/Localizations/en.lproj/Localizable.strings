@@ -123,14 +123,10 @@
 "article-revision-history" = "Article revision history";
 "article-save-error-not-enough-space" = "You do not have enough space on your device to save this article";
 "article-share" = "Share";
-<<<<<<< HEAD
 "article-tabs-max-reached" = "Tab limit reached ($1). Please close one or more tabs.";
 "article-tabs-navigation" = "Tabs navigation";
 "article-tabs-onboarding-tooltip" = "Onboarding tooltips for tabs";
-=======
-"article-tabs-max-reached" = "Tab limit reached ($1). The article was opened in the current tab. Please close one or more tabs.";
 "article-tabs-open" = "Open";
->>>>>>> main
 "article-tabs-open-background-tab" = "Open in background tab";
 "article-tabs-open-new-tab" = "Open in new tab";
 "article-talk-page" = "Article talk page";
@@ -871,7 +867,6 @@
 "on-this-day-no-internet-error" = "No data available";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 from $2 Wikipedia";
 "on-this-day-title" = "On this day";
-"open-action" = "Open";
 "open-in-tab-tooltip-body" = "Long-press an article title or blue link to open it in a new tab.";
 "open-in-tab-tooltip-title" = "Open in new tab";
 "original-tab-button-popover-description" = "Tap on the 'W' to return to the tab you started from";
