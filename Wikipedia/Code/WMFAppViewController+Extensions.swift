@@ -35,7 +35,7 @@ extension WMFAppViewController {
             return false
         }
         
-        let linkCoordinator = LinkCoordinator(navigationController: navigationController, url: linkURL, dataStore: dataStore, theme: theme, articleSource: .undefined, tabConfig: .appendArticleAndAssignNewTabAndSetToCurrent)
+        let linkCoordinator = LinkCoordinator(navigationController: navigationController, url: linkURL, dataStore: dataStore, theme: theme, articleSource: .external_link, tabConfig: .appendArticleAndAssignNewTabAndSetToCurrent)
         return linkCoordinator.start()
     }
 
@@ -1455,11 +1455,9 @@ extension WMFAppViewController: EditPreviewViewControllerLoggingDelegate {
                 
              switch assignment {
              case .control:
-                 // TODO: Log assignment
-                 DDLogDebug("Assigned Article Tabs Experiment: Control")
+                 ArticleTabsFunnel.shared.logGroupAssignment(group: "tab_a")
              case .test:
-                 // TODO: Log assignment
-                 DDLogDebug("Assigned Article Tabs Experiment: Test")
+                 ArticleTabsFunnel.shared.logGroupAssignment(group: "tab_b")
                  Task {
                      do {
                          try await dataController.checkAndCreateInitialArticleTabIfNeeded()

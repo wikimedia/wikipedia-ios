@@ -1551,6 +1551,9 @@
 		83CCB28A209CA4E600D31565 /* NSRegularExpression+HTML.m in Sources */ = {isa = PBXBuildFile; fileRef = 83CCB288209CA4E600D31565 /* NSRegularExpression+HTML.m */; };
 		83CDC7D425122A1700A2F8A1 /* PermanentCacheController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83CDC7D325122A1700A2F8A1 /* PermanentCacheController.swift */; };
 		83D5EC871F755E1F003DE6F2 /* SwipeableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83D5EC861F755E1F003DE6F2 /* SwipeableCell.swift */; };
+		83D861432DE7581F003313CD /* ArticleTabsFunnel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83D861422DE7580C003313CD /* ArticleTabsFunnel.swift */; };
+		83D861442DE7581F003313CD /* ArticleTabsFunnel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83D861422DE7580C003313CD /* ArticleTabsFunnel.swift */; };
+		83D861452DE7581F003313CD /* ArticleTabsFunnel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83D861422DE7580C003313CD /* ArticleTabsFunnel.swift */; };
 		83DAA9B023FEB611002D5716 /* ReferenceBackLinksViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83DAA9AF23FEB611002D5716 /* ReferenceBackLinksViewController.swift */; };
 		83DAA9B123FEB611002D5716 /* ReferenceBackLinksViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83DAA9AF23FEB611002D5716 /* ReferenceBackLinksViewController.swift */; };
 		83DAA9B223FEB611002D5716 /* ReferenceBackLinksViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83DAA9AF23FEB611002D5716 /* ReferenceBackLinksViewController.swift */; };
@@ -3746,6 +3749,7 @@
 		83CF71442326D48A009DEC00 /* sl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = sl; path = sl.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 		83D3FC12223A8BCD0048384B /* ArticleSummary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleSummary.swift; sourceTree = "<group>"; };
 		83D5EC861F755E1F003DE6F2 /* SwipeableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeableCell.swift; sourceTree = "<group>"; };
+		83D861422DE7580C003313CD /* ArticleTabsFunnel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleTabsFunnel.swift; sourceTree = "<group>"; };
 		83DAA9AF23FEB611002D5716 /* ReferenceBackLinksViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReferenceBackLinksViewController.swift; sourceTree = "<group>"; };
 		83DB0A5D23EEDE4400DA5F58 /* LegacyArticle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LegacyArticle.swift; sourceTree = "<group>"; };
 		83DE45B72449C09B00671878 /* SplashScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreenViewController.swift; sourceTree = "<group>"; };
@@ -5858,6 +5862,7 @@
 		0E7AAEEA1C21F4160046B5B6 /* Wikimedia Event Logging */ = {
 			isa = PBXGroup;
 			children = (
+				83D861422DE7580C003313CD /* ArticleTabsFunnel.swift */,
 				67B278EE2D47CEEC00E2DF8A /* ArticleLinkInteractionFunnel.swift */,
 				7AF1B19520A1E14F000C8DFE /* ReadingListsFunnel.swift */,
 				67E466F9241BED770014149B /* EditHistoryCompareFunnel.swift */,
@@ -10159,6 +10164,7 @@
 				B08E7E9B1C1FA57A00EC3C99 /* UIViewController+WMFEmptyView.m in Sources */,
 				FFD7B85624B3B384005C2471 /* ReferenceBackLinksViewControllerDelegate.swift in Sources */,
 				009B8358298091BC00AABEA3 /* EditNoticesViewController.swift in Sources */,
+				83D861432DE7581F003313CD /* ArticleTabsFunnel.swift in Sources */,
 				003CD3E928EF7C77000158E4 /* TalkPageFindInPageSearchController.swift in Sources */,
 				B0524B1F214854E900D8FD8D /* DescriptionWelcomeInitialViewController.swift in Sources */,
 				8330532E23EF107D00123141 /* MediaListGalleryViewController.swift in Sources */,
@@ -11024,6 +11030,7 @@
 				7AFEB3F61FE8511700D7BC57 /* SavedArticlesCollectionViewCell.swift in Sources */,
 				7ADEAB041FD75B9100BB4727 /* AddArticlesToReadingListViewController.swift in Sources */,
 				6747118A25072D1500287951 /* IconTitleBadge.swift in Sources */,
+				83D861452DE7581F003313CD /* ArticleTabsFunnel.swift in Sources */,
 				676F7D452B72D8B0006C211F /* EditInteractionFunnel.swift in Sources */,
 				D8CE25471E698E2400DAE2E0 /* PageHistorySection.swift in Sources */,
 				83E52BC01F682E3E0045E776 /* LicenseView.swift in Sources */,
@@ -11579,6 +11586,7 @@
 				D8EC3E321E9BDA35006712EB /* MWKSearchRedirectMapping.m in Sources */,
 				D8EC3E331E9BDA35006712EB /* MWKImageInfoFetcher+PicOfTheDayInfo.m in Sources */,
 				8382F8CF20D9206000AE5250 /* ImageCollectionViewCell.swift in Sources */,
+				83D861442DE7581F003313CD /* ArticleTabsFunnel.swift in Sources */,
 				676F7D442B72D8B0006C211F /* EditInteractionFunnel.swift in Sources */,
 				D8EC3E381E9BDA35006712EB /* WMFScrollViewController.swift in Sources */,
 				83E52BC11F682E3E0045E776 /* LicenseView.swift in Sources */,
