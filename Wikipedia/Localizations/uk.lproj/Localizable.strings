@@ -151,6 +151,7 @@
 "article-revision-history" = "Історія редагування статті";
 "article-save-error-not-enough-space" = "Не вистачає місця на вашому приладі, щоб зберегти цю статтю.";
 "article-share" = "Поділитися";
+"article-tabs-max-reached" = "Досягнуто ліміту вкладок ($1). Будь ласка, закрийте одну або кілька вкладок.";
 "article-tabs-open-background-tab" = "Відкрити у фоновій вкладці";
 "article-tabs-open-new-tab" = "Відкрити у новій вкладці";
 "article-talk-page" = "Сторінка обговорення статті";
@@ -881,6 +882,8 @@
 "on-this-day-no-internet-error" = "Немає доступних даних";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 у Вікіпедії мовою «$2»";
 "on-this-day-title" = "Цього дня";
+"open-in-tab-tooltip-body" = "Довго натисніть на назву статті або синє посилання, щоб відкрити її в новій вкладці.";
+"open-in-tab-tooltip-title" = "Відкрити у новій вкладці";
 "original-tab-button-popover-description" = "Натисніть «W», аби повернутися до вкладинки, з якої ви почали";
 "page-history-bot-edits" = "бот";
 "page-history-compare-accessibility-hint" = "Натисніть, аби порівняти дві версії";
@@ -1173,9 +1176,14 @@
 "table-of-contents-heading" = "Вміст";
 "table-of-contents-hide-button-label" = "Приховати вміст";
 "table-of-contents-subheading-label" = "Підзаголовок $1";
+"tabs-close-tab" = "Закрити вкладку";
 "tabs-main-page-description" = "Відкрийте для себе вибрані статті, свіжі новини, цікаві факти та ключову статистику на головній сторінці Вікіпедії.";
 "tabs-main-page-subtitle" = "Найцікавіше від Вікіпедії за сьогодні";
 "tabs-navbar-title-format" = "{{PLURAL:$1|$1 вкладка|$1 вкладки|$1 вкладок}}";
+"tabs-open-tab" = "Відкрити вкладку";
+"tabs-overview-tooltip-body" = "Перемикатися між відкритими статтями в огляді вкладок.";
+"tabs-overview-tooltip-title" = "Огляд вкладок";
+"tabs-survey-title" = "Допоможіть покращити функцію вкладок. Ви задоволені цією функцією?";
 "tachelhit-variants-alert-body" = "Тепер додаток Вікіпедії підтримує різні варіанти мови ташельхіт як основну чи другорядну мову додатка, полегшуючи читання, пошук і редагування відповідно до ваших вподобань:\n\nⵜⴰⵛⵍⵃⵉⵜ ташельхіт, тифінаг (shi-tfng)\nTaclḥit ташельхіт, латинка (shi-latn)";
 "tachelhit-variants-alert-title" = "Оновлення щодо підтримки варіантів ташельхіту";
 "tajik-variants-alert-body" = "Тепер додаток Вікіпедії підтримує різні варіанти таджицької мови як основну чи другорядну мову додатка, полегшуючи читання, пошук і редагування відповідно до ваших вподобань:\n\nтоҷикӣ кирилликӣ таджицька, кирилиця (tg-cyrl)\ntojikī lotinī таджицька, латинка (tg-latn)";

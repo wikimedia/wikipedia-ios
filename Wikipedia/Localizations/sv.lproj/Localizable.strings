@@ -5,6 +5,7 @@
 // Author: Ainali
 // Author: Bengtsson96
 // Author: Freked
+// Author: Gkyziridis
 // Author: Haxpett
 // Author: Jenniesarina
 // Author: Johan
@@ -884,6 +885,8 @@
 "on-this-day-no-internet-error" = "Ingen tillgänglig data";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 från Wikipedia på $2";
 "on-this-day-title" = "På denna dag";
+"open-in-tab-tooltip-body" = "Tryck länge på en artikeltitel eller blå länk för att öppna den i en ny flik.";
+"open-in-tab-tooltip-title" = "Öppna i ny flik";
 "original-tab-button-popover-description" = "Tryck på \"W\" för att återvända till fliken du började ifrån";
 "page-history-bot-edits" = "robot";
 "page-history-compare-accessibility-hint" = "Tryck för att välja två versioner att jämföra";
@@ -1176,6 +1179,7 @@
 "table-of-contents-heading" = "Innehåll";
 "table-of-contents-hide-button-label" = "Dölj innehållsförteckning";
 "table-of-contents-subheading-label" = "Underrubrik $1";
+"tabs-overview-tooltip-body" = "Skicka mellan öppna artiklar i flikorna överblick.";
 "tachelhit-variants-alert-body" = "Wikipediaappen stödjer följande tachelhit varianter som primära eller sekundära språk i appen, vilket gör det enklare att läsa, söka och redigera på dina föredragna varianter:\n\nⵜⴰⵛⵍⵃⵉⵜ tachelhit, tifinagh (shi-tfng)\nTaclḥit tachelhit, latinska (shi-latn)";
 "tachelhit-variants-alert-title" = "Uppdaterades till stöd för tachelhit varianter";
 "tajik-variants-alert-body" = "Wikipediaappen stödjer följande tadzjikiska varianter som primära eller sekundära språk i appen, vilket gör det enklare att läsa, söka och redigera på dina föredragna varianter:\n\nтоҷикӣ кирилликӣ tadzjikiska, kyrilliska (tg-cyrl)\ntojikī lotinī tadzjikiska, latinska (tg-latn)";
