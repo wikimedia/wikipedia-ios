@@ -132,6 +132,10 @@ class SearchViewController: ArticleCollectionViewController, WMFNavigationBarCon
                 self?.navigationItem.searchController?.searchBar.becomeFirstResponder()
             }
         }
+
+        if WMFArticleTabsDataController.shared.shouldShowArticleTabs {
+            ArticleTabsFunnel.shared.logIconImpression(interface: .search, project: nil)
+        }
     }
     
     override func viewDidLayoutSubviews() {
@@ -237,6 +241,7 @@ class SearchViewController: ArticleCollectionViewController, WMFNavigationBarCon
     
     @objc func userDidTapTabs() {
         _ = tabsCoordinator?.start()
+        ArticleTabsFunnel.shared.logIconClick(interface: .search, project: nil)
     }
     
     private func embedResultsViewController() {

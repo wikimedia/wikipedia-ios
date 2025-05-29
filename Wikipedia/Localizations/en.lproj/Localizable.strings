@@ -123,9 +123,14 @@
 "article-revision-history" = "Article revision history";
 "article-save-error-not-enough-space" = "You do not have enough space on your device to save this article";
 "article-share" = "Share";
+<<<<<<< HEAD
 "article-tabs-max-reached" = "Tab limit reached ($1). Please close one or more tabs.";
 "article-tabs-navigation" = "Tabs navigation";
 "article-tabs-onboarding-tooltip" = "Onboarding tooltips for tabs";
+=======
+"article-tabs-max-reached" = "Tab limit reached ($1). The article was opened in the current tab. Please close one or more tabs.";
+"article-tabs-open" = "Open";
+>>>>>>> main
 "article-tabs-open-background-tab" = "Open in background tab";
 "article-tabs-open-new-tab" = "Open in new tab";
 "article-talk-page" = "Article talk page";
@@ -139,7 +144,6 @@
 "button-ok" = "OK";
 "button-publish" = "Publish";
 "button-publish-anyway" = "Publish anyway";
-"button-read-now" = "Read now";
 "button-report-a-bug" = "Report a bug";
 "button-save-for-later" = "Save for later";
 "button-saved-for-later" = "Saved for later";
