@@ -162,8 +162,7 @@ extension ArticleViewController {
 
     private func computeWIconSourceRect(in navBar: UINavigationBar) -> CGRect? {
         let minY: CGFloat
-        if
-            let sb = navigationItem.searchController?.searchBar,
+        if let sb = navigationItem.searchController?.searchBar,
             let sbSuper = sb.superview {
             let frameInBar = navBar.convert(sb.frame, from: sbSuper)
             minY = frameInBar.minY
