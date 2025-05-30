@@ -228,6 +228,13 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
         mapView.showsUserLocation = true
     }
 
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        if WMFArticleTabsDataController.shared.shouldShowArticleTabs {
+            ArticleTabsFunnel.shared.logIconImpression(interface: .places, project: nil)
+        }
+    }
+
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         NotificationCenter.default.removeObserver(self, name: UIWindow.keyboardWillShowNotification, object: nil)
@@ -262,6 +269,7 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
     
     @objc func userDidTapTabs() {
         _ = tabsCoordinator?.start()
+        ArticleTabsFunnel.shared.logIconClick(interface: .places, project: nil)
     }
 
     private func configureNavigationBar() {
