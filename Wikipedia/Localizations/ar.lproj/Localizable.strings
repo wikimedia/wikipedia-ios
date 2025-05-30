@@ -110,7 +110,7 @@
 "action-saved" = "محفوظة";
 "action-saved-accessibility" = "تم الحفظ، تفعيل لعدم الحفظ.";
 "action-saved-accessibility-notification" = "المقالة المحفوظة لوقت لاحق";
-"action-share" = "شارك";
+"action-share" = "مشاركة";
 "action-share-accessibility" = "مشاركة";
 "action-sort" = "ترتيب";
 "action-thank-user-accessibility" = "شكر المستخدم";
@@ -146,7 +146,7 @@
 "advanced-settings-title" = "إعدادات متقدمة";
 "alert-temporary-account" = "أنت تستخدم حسابًا مؤقتًا. سينتهي صلاحيته بعد 90 يومًا.";
 "alert-temporary-account-learn-more" = "معرفة المزيد.";
-"alt-text-feedback-survey-toast-title" = "تم تقديم التعليقات";
+"alt-text-feedback-survey-toast-title" = "تم إرسال الملحوظات.";
 "announcements-dismiss" = "تجاهل";
 "app-store-keywords" = "ويكيبيديا، مرجع، ويكي، موسوعة، معلومة، معرفة، بحث، معلومات، استكشاف، تعلم";
 "app-store-release-notes" = "قابلة للتخصيص بالكامل وسهلة لقراءة موجز الاستكشاف، الترجمة وتحسينات الأداء وإصلاحات الأخطاء.";
@@ -173,8 +173,8 @@
 "article-revision-history" = "تاريخ تعديل المقالة";
 "article-save-error-not-enough-space" = "ليس لديك مساحة كافية على جهازك لحفظ هذه المقالة";
 "article-share" = "مشاركة";
-"article-tabs-max-reached" = "تم الوصول إلى الحد الأقصى لعدد علامات التبويب ($1). يُرجى إغلاق علامة تبويب واحدة أو أكثر.";
-"article-tabs-open-background-tab" = "فتح في علامة التبويب الخلفية";
+"article-tabs-max-reached" = "تم الوصول إلى الحد الأقصى لعلامات التبويب ($1). يُرجى إغلاق علامة تبويب واحدة أو أكثر.";
+"article-tabs-open-background-tab" = "فتح في علامة تبويب خلفية جديدة";
 "article-tabs-open-new-tab" = "فتح في علامة تبويب جديدة";
 "article-talk-page" = "صفحة نقاش المقالة";
 "article-toolbar-reading-themes-controls-toolbar-item" = "عناصر تحكم مواضيع القراءة";
@@ -189,7 +189,7 @@
 "button-publish-anyway" = "انشر على أية حال";
 "button-read-now" = "اقرأ الآن";
 "button-report-a-bug" = "بلغ عن علة";
-"button-save-for-later" = "احفظها لوقت لاحق";
+"button-save-for-later" = "الحفظ لوقت لاحق";
 "button-saved-for-later" = "احفظها لوقت لاحق";
 "button-saved-remove" = "حذف من المحفوظات";
 "button-skip" = "تخطٍ";
@@ -905,6 +905,8 @@
 "on-this-day-no-internet-error" = "لا بيانات متوافرة";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 من ويكيبيديا $2";
 "on-this-day-title" = "في هذا اليوم";
+"open-in-tab-tooltip-body" = "اضغط مطولاً على عنوان المقالة أو الرابط الأزرق لفتحها في علامة تبويب جديدة.";
+"open-in-tab-tooltip-title" = "فتح في علامة تبويب جديدة";
 "original-tab-button-popover-description" = "انقر على \"ص\" للعودة إلى علامة التبويب التي بدأت منها";
 "page-history-bot-edits" = "بوت";
 "page-history-compare-accessibility-hint" = "انقر لتحديد مراجعين للمقارنة";
@@ -1202,6 +1204,9 @@
 "tabs-main-page-subtitle" = "أبرز أحداث ويكيبيديا اليومية";
 "tabs-navbar-title-format" = "{{PLURAL:$1|$1 لسان|$1 ألسنة}}";
 "tabs-open-tab" = "فتح علامة التبويب";
+"tabs-overview-tooltip-body" = "التبديل بين المقالات المفتوحة في النظرة العامة على علامات التبويب.";
+"tabs-overview-tooltip-title" = "نظرة عامة على علامات التبويب";
+"tabs-survey-title" = "ساعد في تحسين ميزة علامات التبويب. هل أنت راضٍ عنها؟";
 "tachelhit-variants-alert-body" = "يدعم تطبيق ويكيبيديا الآن المتغيرات التالية من تشلحيت كلغات أساسية أو ثانوية داخل التطبيق، مما يجعل من الأسهل القراءة والبحث والتحرير بالمتغيرات المفضلة لديك:\n\nⵜⴰⵛⵍⵃⵉⵜ تشلحيت، تيفيناغ (shi-tfng)\nTaclḥit تشلحيت، اللاتينية (shi-latn)";
 "tachelhit-variants-alert-title" = "تحديثات لدعم متغير تشلحيت";
 "tajik-variants-alert-body" = "يدعم تطبيق ويكيبيديا الآن المتغيرات الطاجيكية التالية كلغات أساسية أو ثانوية داخل التطبيق، مما يجعل من الأسهل القراءة والبحث والتحرير بالمتغيرات المفضلة لديك:\n\nтоҷикӣ кирилликӣ الطاجيكية، السيريلية (tg-cyrl)\ntojikī lotinī الطاجيكية، اللاتينية (tg-latn)";
@@ -1287,7 +1292,6 @@
 "temp-account-alert-read-more-information" = "$1 . أنت تستخدم حسابًا مؤقتًا. $2 سينتهي صلاحية الحساب خلال 90 يومًا. بعد انتهاء صلاحيته، سيتم إنشاء حساب جديد في المرة التالية التي تُجري فيها تعديلًا دون تسجيل الدخول. $3 سجّل الدخول أو أنشئ حسابًا للحصول على رصيد للتعديلات المستقبلية، وللوصول إلى ميزات أخرى.";
 "temp-account-edit-sheet-cta-top" = "تسجيل الدخول أو إنشاء حساب";
 "temp-account-edit-sheet-subtitle" = "أنت تستخدم حاليًا حسابًا مؤقتًا. لن يتم نقل التعديلات التي أجريتها باستخدام الحساب المؤقت $1 $2 $3 الدائم عند تسجيل الدخول. سجّل الدخول أو أنشئ حسابًا للحصول على رصيد باسم المستخدم الخاص بك، من بين مزايا أخرى.";
-"temp-account-got-it" = "عُلِم";
 "temp-account-toast-read-more-title" = "اقرأ المزيد";
 "temp-account-toast-title" = "$1 أنت تستخدم حاليًا حسابًا مؤقتًا. $2 تم إجراء التعديلات باستخدام الحساب المؤقت...";
 "temp-account-warning-title" = "أنت تستخدم حسابًا مؤقتًا";
@@ -1503,3 +1507,19 @@
 "year-in-review-survey-very-unsatisfied" = "غير راض جدا";
 "year-in-review-wikipedia-w-accessibility-label" = "ويكيبيديا مع الشعار";
 "year-in-review-wmf-logo-accessibility-label" = "شعار مؤسسة ويكيميديا";
+"open-action" = "فتح";
+"article-tabs-onboarding-tooltip" = "نصائح أدوات الإلحاق لعلامات التبويب";
+"article-tabs-navigation" = "التنقل في علامات التبويب";
+"save-all-tabs" = "حفظ جميع علامات التبويب";
+"close-all-tabs" = "إغلاق جميع علامات التبويب";
+"duplicate-tab" = "علامة تبويب مكررة";
+"close-other-tabs" = "إغلاق علامات التبويب الأخرى";
+"saved-all-tabs" = "تم حفظ جميع علامات التبويب.";
+"new-tab" = "علامة تبويب جديدة";
+"close-tab-confirmation" = "هل تريد إغلاق علامة التبويب؟";
+"close-all-tabs-confirmation-number" = "هل تريد إغلاق جميع علامات التبويب البالغ عددها $1؟";
+"close-all-tabs-confirmation" = "هل تريد إغلاق جميع علامات التبويب البالغ عددها $1؟ لا يمكن التراجع عن هذا الإجراء.";
+"close-tabs" = "إغلاق علامات التبويب";
+"closed-all-tabs-confirmation" = "تم إغلاق جميع علامات التبويب البالغ عددها $1.";
+"main-page" = "الصفحة الرئيسية";
+"tabs-survey-title" = "ساعد في تحسين ميزة علامات التبويب. هل أنت راضٍ عن هذه الميزة؟";

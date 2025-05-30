@@ -34,7 +34,12 @@ public class WMFArticleTabsHostingController<HostedView: View>: WMFComponentHost
         
         navigationItem.rightBarButtonItem = addTabButton
     }
-    
+
+    public override func viewDidLoad() {
+        super.viewDidLoad()
+        viewModel.loggingDelegate?.logArticleTabsOverviewImpression()
+    }
+
     private func configureNavigationBar(_ title: String? = nil) {
         let titleConfig = WMFNavigationBarTitleConfig(title: title ?? "", customView: nil, alignment: .centerCompact)
         

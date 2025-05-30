@@ -1138,7 +1138,6 @@
 "temp-account-alert-read-more-information" = "$1Käytät tilapäistä tunnusta.$2Tunnus vanhenee 90 päivän päästä. Vanhenemisen jälkeen uusi tunnus luodaan seuraavalla kerralla, kun teet muokkauksen kirjautumatta sisään. $3Kirjaudu sisään tai luo tunnus saadaksesi tulevat muokkauksesi oman tunnuksesi nimiin sekä päästäksesi käyttämään muita ominaisuuksia.";
 "temp-account-edit-sheet-cta-top" = "Kirjaudu sisään tai luo tunnus";
 "temp-account-edit-sheet-subtitle" = "$2Käytät tällä hetkellä tilapäistä tunnusta.$3 Tilapäisellä tunnuksella $1 tehtyjä muokkauksia ei siirretä pysyvälle tunnukselle, kun kirjaudut sisään. Kirjaudu sisään tai luo tunnus saadaksesi tulevat muokkauksesi oman tunnuksesi nimiin sekä päästäksesi käyttämään muita ominaisuuksia.";
-"temp-account-got-it" = "Selvä";
 "temp-account-toast-read-more-title" = "Lisätietoja";
 "temp-account-toast-title" = "$1Käytät tällä hetkellä tilapäistä tunnusta.$2 Tilapäisellä tunnuksella tehtyjä muokkauksia...";
 "temp-account-warning-title" = "Käytät tilapäistä tunnusta";

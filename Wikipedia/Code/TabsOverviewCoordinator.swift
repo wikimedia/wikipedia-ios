@@ -55,10 +55,10 @@ final class TabsOverviewCoordinator: Coordinator {
         ]
 
         let surveyView = WMFSurveyView(viewModel: WMFSurveyViewModel(localizedStrings: surveyLocalizedStrings, options: surveyOptions, selectionType: .single, shouldShowMultilineText: true), cancelAction: { [weak self] in
-            
+            self?.logArticleTabsFeedbackClose()
             self?.navigationController.presentedViewController?.dismiss(animated: true)
         }, submitAction: { [weak self] options, otherText in
-            
+            self?.logArticleTabsFeedback(selectedItems: options, comment: otherText)
             self?.navigationController.presentedViewController?.dismiss(animated: true, completion: {
                 let image = UIImage(systemName: "checkmark.circle.fill")
                 WMFAlertManager.sharedInstance.showBottomAlertWithMessage(CommonStrings.feedbackSurveyToastTitle, subtitle: nil, image: image, type: .custom, customTypeName: "feedback-submitted", dismissPreviousAlerts: true)
@@ -102,7 +102,7 @@ final class TabsOverviewCoordinator: Coordinator {
             openTabAccessibility: WMFLocalizedString("tabs-open-tab", value: "Open tab", comment: "Accessibility label for opening a tab")
         )
         
-        let articleTabsViewModel = WMFArticleTabsViewModel(dataController: dataController, localizedStrings: localizedStrings, didTapTab: didTapTab, didTapAddTab: didTapAddTab)
+        let articleTabsViewModel = WMFArticleTabsViewModel(dataController: dataController, localizedStrings: localizedStrings, loggingDelegate: self, didTapTab: didTapTab, didTapAddTab: didTapAddTab)
         let articleTabsView = WMFArticleTabsView(viewModel: articleTabsViewModel)
         
         let hostingController = WMFArticleTabsHostingController(rootView: articleTabsView, viewModel: articleTabsViewModel,
@@ -163,4 +163,26 @@ extension UIViewController {
     @objc func dismissSelf() {
         self.dismiss(animated: true, completion: nil)
     }
+}
+
+extension TabsOverviewCoordinator: WMFArticleTabsLoggingDelegate {
+
+    func logArticleTabsOverviewImpression() {
+        ArticleTabsFunnel.shared.logTabsOverviewImpression()
+    }
+    
+    func logArticleTabsArticleClick(wmfProject: WMFProject?) {
+        if let url = wmfProject?.siteURL, let project =  WikimediaProject(siteURL:url) {
+            ArticleTabsFunnel.shared.logArticleClick(project: project)
+        }
+    }
+
+    func logArticleTabsFeedback(selectedItems: [String], comment: String?) {
+        ArticleTabsFunnel.shared.logFeedbackSubmit(selectedItems: selectedItems, comment: comment)
+    }
+
+    func logArticleTabsFeedbackClose() {
+        ArticleTabsFunnel.shared.logFeedbackClose()
+    }
+
 }
