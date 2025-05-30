@@ -95,6 +95,10 @@ class HistoryViewController: ArticleFetchedResultsViewController, WMFNavigationB
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         NSUserActivity.wmf_makeActive(NSUserActivity.wmf_recentView())
+
+        if WMFArticleTabsDataController.shared.shouldShowArticleTabs {
+            ArticleTabsFunnel.shared.logIconImpression(interface: .history, project: nil)
+        }
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -233,6 +237,7 @@ class HistoryViewController: ArticleFetchedResultsViewController, WMFNavigationB
     
     @objc func userDidTapTabs() {
         _ = tabsCoordinator?.start()
+        ArticleTabsFunnel.shared.logIconClick(interface: .history, project: nil)
     }
 
     func titleForHeaderInSection(_ section: Int) -> String? {

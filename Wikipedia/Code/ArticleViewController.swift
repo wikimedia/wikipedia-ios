@@ -470,6 +470,9 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
     
     @objc func userDidTapTabs() {
         _ = tabsCoordinator?.start()
+        if let wikimediaProject = WikimediaProject(siteURL: articleURL) {
+            ArticleTabsFunnel.shared.logIconClick(interface: .article, project: wikimediaProject)
+        }
     }
     
     /// Catch-all method for deciding what is the best modal to present on top of Article at this point. This method needs careful if-else logic so that we do not present two modals at the same time, which may unexpectedly suppress one.
@@ -1092,7 +1095,7 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
             // first try to navigate using LinkCoordinator. If it fails, use the legacy approach.
             if let navigationController {
                 
-                let linkCoordinator = LinkCoordinator(navigationController: navigationController, url: resolvedURL, dataStore: dataStore, theme: theme, articleSource: .undefined, previousPageViewObjectID: pageViewObjectID, tabConfig: .appendArticleAndAssignCurrentTabAndCleanoutFutureArticles)
+                let linkCoordinator = LinkCoordinator(navigationController: navigationController, url: resolvedURL, dataStore: dataStore, theme: theme, articleSource: .internal_link, previousPageViewObjectID: pageViewObjectID, tabConfig: .appendArticleAndAssignCurrentTabAndCleanoutFutureArticles)
                 let success = linkCoordinator.start()
                 guard success else {
                     legacyNavigateAction()

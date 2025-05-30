@@ -51,20 +51,22 @@ extension ArticleViewController {
 
         let squareRect = computeTabsIconSourceRect(in: navigationBar)
 
-        let wIconVM = WMFTooltipViewModel(localizedStrings: makeWIconStrings(), buttonNeedsDisclosure: false, sourceView: navigationBar, sourceRect: wIconRect, permittedArrowDirections: .up) {
-
-        }
+        let wIconVM = WMFTooltipViewModel(localizedStrings: makeWIconStrings(), buttonNeedsDisclosure: false, sourceView: navigationBar, sourceRect: wIconRect, permittedArrowDirections: .up)
 
         guard let articleSourceRect = computeApproximateTextSourceRect() else { return }
 
         let openInTabVM = WMFTooltipViewModel(localizedStrings: makeOpenInTabStrings(), buttonNeedsDisclosure: false, sourceView: view, sourceRect: articleSourceRect, permittedArrowDirections: .down) {
-
+            if let siteURL = self.articleURL.wmf_site, let project = WikimediaProject(siteURL: siteURL) {
+                // logging icon impression here so it's only sent once
+                ArticleTabsFunnel.shared.logTabTooltipImpression(project: project)
+            }
         }
 
         let tabsOverviewVM = WMFTooltipViewModel(localizedStrings: makeTabsOverviewStrings(), buttonNeedsDisclosure: false, sourceView: navigationBar, sourceRect: squareRect, permittedArrowDirections: .up) {
-
+            if let siteURL = self.articleURL.wmf_site, let project = WikimediaProject(siteURL: siteURL) {
+                ArticleTabsFunnel.shared.logTabIconFirstImpression(project: project)
+            }
         }
-
 
         if dataController.shouldShowArticleTabs && !dataController.hasPresentedTooltips {
             tooltipViewModels = shouldShowWIconPopover ? [wIconVM, openInTabVM, tabsOverviewVM] : [openInTabVM, tabsOverviewVM]
