@@ -211,7 +211,8 @@ private extension ReferenceShowing where Self: ArticleViewController {
         }
         rect = rect.offsetBy(dx: 0, dy: 1)
         rect = rect.insetBy(dx: -1, dy: -3)
-        return rect
+        let safeAreaHeight = webView.safeAreaInsets.top
+        return CGRect(x: rect.minX, y: rect.minY + safeAreaHeight, width: rect.width, height: rect.height)
     }
 
     func adjustScrollForReferencePageViewController(_ referencesBoundingClientRect: CGRect, referenceRectInScrollCoordinates: CGRect, viewController: WMFReferencePageViewController, animated: Bool) {
