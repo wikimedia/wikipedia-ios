@@ -101,12 +101,15 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
     }
     
     func calculateImageHeight() -> Int {
-        // If text is scaled up for accessibility, use taller image for single column
         if UIApplication.shared.preferredContentSizeCategory.isAccessibilityCategory {
             return 225
-        } else if UIDevice.current.userInterfaceIdiom == .pad {
-            return 110
         }
+
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            let isLandscape = UIDevice.current.orientation.isLandscape
+            return isLandscape ? 160 : 110
+        }
+
         return 95
     }
     
