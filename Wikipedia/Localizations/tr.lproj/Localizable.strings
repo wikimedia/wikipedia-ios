@@ -176,7 +176,10 @@
 "article-revision-history" = "Madde sürüm geçmişi";
 "article-save-error-not-enough-space" = "Bu maddeyi kaydetmek için cihazınızda yeterli alan yok";
 "article-share" = "Paylaş";
-"article-tabs-max-reached" = "Sekme sınırına ulaşıldı ($1). Lütfen bir ya da daha fazla sekmeyi kapatın.";
+"article-tabs-max-reached" = "Sekme sınırına ulaşıldı ($1). Madde geçerli sekmede açıldı. Lütfen bir ya da daha fazla sekmeyi kapatın.";
+"article-tabs-navigation" = "Sekme dolaşımı";
+"article-tabs-onboarding-tooltip" = "Sekmeler için katılım ipuçları";
+"article-tabs-open" = "Açık";
 "article-tabs-open-background-tab" = "Arkaplan sekmesinde aç";
 "article-tabs-open-new-tab" = "Yeni sekmede aç";
 "article-talk-page" = "Madde tartışma sayfası";
@@ -190,7 +193,6 @@
 "button-ok" = "Tamam";
 "button-publish" = "Yayımla";
 "button-publish-anyway" = "Yine de yayımla";
-"button-read-now" = "Şimdi oku";
 "button-report-a-bug" = "Hata bildir";
 "button-save-for-later" = "Sonrası için kaydet";
 "button-saved-for-later" = "Sonrası için kaydedildi";
@@ -203,7 +205,14 @@
 "clear-title-accessibility-label" = "Temizle";
 "clearing-cache-complete" = "Önbellek temizliği tamamlandı.";
 "clearing-cache-in-progress" = "Önbellek temizleniyor.";
+"close-all-tabs" = "Tüm sekmeleri kapat";
+"close-all-tabs-confirmation" = "Tüm $1 sekmeyi kapatmak ister misiniz? Bu işlem geri alınamaz.";
+"close-all-tabs-confirmation-number" = "Tüm $1 sekme kapatılsın mı?";
 "close-button-accessibility-label" = "Kapat";
+"close-other-tabs" = "Diğer sekmeleri kapat";
+"close-tab-confirmation" = "Sekme kapatılsın mı?";
+"close-tabs" = "Sekmeleri kapat";
+"closed-all-tabs-confirmation" = "Tüm $1 sekme kapatıldı.";
 "compass-direction" = "saat $1 yönünde";
 "confirm-donation-history-deletion-subtitle" = "Bu yalnızca bu aygıttan yapılan bağışlar için geçerli olacaktır.";
 "confirm-donation-history-deletion-title" = "Silmeyi onayla";
@@ -343,6 +352,7 @@
 "donate-transaction-fee-opt-in-text" = "Bağışımın %%100'ünü alabilmeniz için işlem ücretlerini karşılamak üzere cömertçe $1 ekleyeceğim.";
 "donate-wikimedia-fine-print-1" = "Kişisel bilgilerinizi kimseye satmıyor veya vermiyoruz. Bağış yaparak, [bağım politikamız]($1) kapsamında, kişisel bilgilerinizi Vikipedi ve diğer Wikimedia projelerini barındıran kâr amacı gütmeyen bir kuruluş olan Wikimedia Vakfı ile ve servis sağlayıcıları ile paylaşmayı kabul etmiş sayılırsınız. Wikimedia Vakfı ve servis sağlayıcıları bulunduğunuz ülkenizdeki gizlilik yasalarına eşdeğer olmayabilecek şekilde Amerika Birleşik Devletleri'nde ve diğer devletlerde yer almaktadır. Daha fazla bilgi için lütfen [bağış politikamızı]($1) okuyun.";
 "donate-wikimedia-fine-print-2" = "Sürekli bağışlar için sabit aylık ödemeler Wikimedia Vakfı tarafından, siz ödemeleri durdurmamız yönünde bir bildirimde bulunana dek, ilk bağışın aydönümünde alınacaktır. Ayın 29, 30 ya da 31. gününde yapılan bağışlar, daha kısa aylarda ayın son gününde, mümkün oldukça asıl güne yakın olarak alınacaktır. Sorular için lütfen donate@wikimedia.org adresiyle iletişime geçin.";
+"duplicate-tab" = "Sekmeyi yinele";
 "edit-link-display-text-title" = "Metni görüntüle";
 "edit-link-link-target-title" = "Bağlantı hedefi";
 "edit-link-remove-link-title" = "Bağlantıyı kaldır";
@@ -742,6 +752,7 @@
 "main-menu-terms-of-use" = "Kullanım Şartları";
 "main-menu-title" = "Daha fazla";
 "main-menu-zero-faq" = "Wikipedia Zero SSS";
+"main-page" = "Anasayfa";
 "microsite-yir-english-edits-bytes-slide-subtitle" = "2024'te gönüllüler İngilizce Vikipedi'ye 4.104.852.969 bayt ekledi. Birlikte yaptıkları tüm çalışmaların toplamı, dünyaya sundukları, sürekli gelişen, gerçeğe dayalı ve güvenilir bir bilgi kaynağına yol açmaktadır. Hepimizin paylaşacak bilgisi var, [nasıl katılacağınızı öğrenin]($1).";
 "microsite-yir-english-edits-bytes-slide-title" = "4 milyar bayt eklendi";
 "microsite-yir-english-edits-slide-subtitle" = "Gönüllüler, Vikipedi'nin 300'den fazla farklı dil sürümünde 98.222.407 değişiklik yaptı. İngilizce Vikipedi'de 37 milyondan fazla değişiklik yapıldı. Gönüllüler, her günün her saati Vikipedi'yi iyileştirmek için çalışmaktadır.";
@@ -765,6 +776,7 @@
 "nearby-distance-label-miles" = "$1 mil";
 "new-password-instructions" = "Geçici bir parolayla giriş yaptınız. Oturum açmayı tamamlamak için bu sayfada yeni bir parola belirleyin.";
 "new-password-title" = "Parolanızı belirleyin";
+"new-tab" = "Yeni sekme";
 "next-action-title" = "Sonraki";
 "no-email-account-alert" = "Lütfen cihazınızda bir e-posta hesabı kurulumu yapıp yeniden deneyin.";
 "no-internet-connection" = "İnternet bağlantısı yok";
@@ -908,6 +920,8 @@
 "on-this-day-no-internet-error" = "Veri yok";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1, $2 Vikipedi'den";
 "on-this-day-title" = "Tarihte bugün";
+"open-in-tab-tooltip-body" = "Yeni sekmede açmak için bir madde başlığına ya da mavi bağlantıya uzun basın.";
+"open-in-tab-tooltip-title" = "Yeni sekmede aç";
 "original-tab-button-popover-description" = "Başladığınız sekmeye geri dönmek için 'W' düğmesine dokunun.";
 "page-history-bot-edits" = "bot";
 "page-history-compare-accessibility-hint" = "Karşılaştırılacak iki revizyon seçmek için dokunun";
@@ -1105,9 +1119,12 @@
 "return-button-title" = "Geri dön";
 "return-to-article" = "Maddeye geri dön";
 "reverted-edit-title" = "Geri alınan düzenleme";
+"save-all-tabs" = "Tüm sekmeleri kaydet";
 "save-view-temp-account-notice" = "Geçici bir hesap kullanıyorsunuz. Düzenlemeler $1 olarak atfediliyor...";
 "save-view-temp-account-warning" = "Giriş yapmadınız. Düzenleme yaptığınızda gizliliğinizi korumak için geçici bir hesap oluşturulacaktır.";
 "saved-all-articles-title" = "Tüm maddeler";
+"saved-all-tabs" = "Tüm sekmeler kaydedildi.";
+"saved-all-tabs-view-reading-list" = "Tüm sekmeler saklandı. Okuma listesini görüntüle.";
 "saved-default-reading-list-tag" = "Bu liste silinemedi";
 "saved-pages-image-download-error" = "Bu kaydedilen sayfa için görseller indirilemedi.";
 "saved-pages-progress-syncing" = "Madde indirme işlemi devam ediyor...";
@@ -1205,6 +1222,9 @@
 "tabs-main-page-subtitle" = "Vikipedi'de günlük öne çıkanlar";
 "tabs-navbar-title-format" = "{{PLURAL:$1|$1 sekme}}";
 "tabs-open-tab" = "Sekmeyi aç";
+"tabs-overview-tooltip-body" = "Sekme genel görünümünde açık maddeler arasında geçiş yapın.";
+"tabs-overview-tooltip-title" = "Sekme genel görünümü";
+"tabs-survey-title" = "Sekmeler özelliğini iyileştirmeye yardımcı olun. Bu özellikten memnun musunuz?";
 "tachelhit-variants-alert-body" = "Vikipedi uygulaması artık aşağıdaki Tachelhit biçimlerini birincil veya ikincil dil olarak uygulama içinde destekliyor, bu şekilde tercih ettiğiniz biçimle daha kolay okuyabilir, aratabilir ve değişiklik yapabilirsiniz:\n\nⵜⴰⵛⵍⵃⵉⵜ Tachelhit, Tifinagh (shi-tfng)\nTaclḥit Tachelhit, Latin (shi-latn)";
 "tachelhit-variants-alert-title" = "Tachelhit biçim desteği güncellemeleri";
 "tajik-variants-alert-body" = "Vikipedi uygulaması artık aşağıdaki Tacikçe biçimlerini birincil veya ikincil dil olarak uygulama içinde destekliyor, bu şekilde tercih ettiğiniz biçimle daha kolay okuyabilir, aratabilir ve değişiklik yapabilirsiniz:\n\nтоҷикӣ кирилликӣ Tacikçe, Kiril (tg-cyrl)\ntojikī lotinī Tacikçe, Latin (tg-latn)";
