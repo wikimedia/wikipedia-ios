@@ -152,7 +152,6 @@
 "button-ok" = "У реду";
 "button-publish" = "Објави";
 "button-publish-anyway" = "Свеједно објави";
-"button-read-now" = "Прочитај одмах";
 "button-report-a-bug" = "Пријави грешку";
 "button-save-for-later" = "Сачувај за касније";
 "button-saved-for-later" = "Сачувано за касније";
@@ -164,6 +163,7 @@
 "clearing-cache-complete" = "Чишћење кеша завршено.";
 "clearing-cache-in-progress" = "Чишћење кеша у току.";
 "close-button-accessibility-label" = "Затвори";
+"close-tabs" = "Затвори картице";
 "compass-direction" = "у $1 ч.";
 "confirm-donation-history-deletion-title" = "Потврди брисање";
 "confirmed-donation-history-deletion" = "Локална историја је обрисана";
@@ -635,6 +635,7 @@
 "main-menu-terms-of-use" = "Услови коришћења";
 "main-menu-title" = "Више";
 "main-menu-zero-faq" = "Честа питања о Wikipedia Zero";
+"main-page" = "Почетна";
 "microsite-yir-english-edits-bytes-slide-title" = "4 милијарде бајтова додато";
 "microsite-yir-english-edits-slide-title" = "Уредници су ове године начинили 98 милиона измена";
 "microsite-yir-english-non-donor-slide-title" = "На Википедији нема реклама";
@@ -649,6 +650,7 @@
 "nearby-distance-label-miles" = "$1 миља";
 "new-password-instructions" = "Пријавили сте се са привременом лозинком. Да бисте завршили пријаву, овде поставите нову.";
 "new-password-title" = "Поставите лозинку";
+"new-tab" = "Нова картица";
 "next-action-title" = "Следеће";
 "no-email-account-alert" = "Подесите налог за имејл на вашем уређају па покушајте поново.";
 "no-internet-connection" = "Нема интернет везе";
@@ -1149,7 +1151,6 @@
 "talk-pages-user-logs" = "Дневници";
 "talk-pages-view-title" = "Разговор";
 "temp-account-edit-sheet-subtitle" = "$2Тренутно користите привремени налог.$3 Измене начињене привременим налогом $1 неће бити пренете Вашем сталном налогу када се пријавите. Пријавите се или отворите налог. Тиме ће доприноси бити приписивани Вашем корисничком налогу.";
-"temp-account-got-it" = "Разумео";
 "temp-account-toast-read-more-title" = "Детаљније";
 "temp-account-warning-title" = "Користите привремени налог";
 "temp-warning-subtitle-format" = "Ваше измене ће бити приписане $1";

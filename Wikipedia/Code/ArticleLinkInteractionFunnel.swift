@@ -43,6 +43,8 @@ final class ArticleLinkInteractionFunnel {
 public enum ArticleSource: Int {
     case undefined = 0 // temporary
     case search = 1
+    case internal_link = 2
+    case external_link = 3
     case history = 4
     case places = 9
 }

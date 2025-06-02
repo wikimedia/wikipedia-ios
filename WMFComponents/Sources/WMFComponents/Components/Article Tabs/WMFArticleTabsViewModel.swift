@@ -2,11 +2,19 @@ import Foundation
 import SwiftUI
 import WMFData
 
+public protocol WMFArticleTabsLoggingDelegate: AnyObject {
+    func logArticleTabsOverviewImpression()
+    func logArticleTabsArticleClick(wmfProject: WMFProject?)
+    func logArticleTabsFeedback(selectedItems: [String], comment: String?)
+    func logArticleTabsFeedbackClose()
+}
+
 public class WMFArticleTabsViewModel: NSObject, ObservableObject {
     // articleTab should NEVER be empty - take care of logic of inserting main page in datacontroller/viewcontroller
     @Published var articleTabs: [ArticleTab]
     @Published var shouldShowCloseButton: Bool
-    
+
+    private(set) weak var loggingDelegate: WMFArticleTabsLoggingDelegate?
     private let dataController: WMFArticleTabsDataController
     public var updateNavigationBarTitleAction: ((Int) -> Void)?
 
@@ -17,10 +25,12 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
     
     public init(dataController: WMFArticleTabsDataController,
                 localizedStrings: LocalizedStrings,
+                loggingDelegate: WMFArticleTabsLoggingDelegate?,
                 didTapTab: @escaping (WMFArticleTabsDataController.WMFArticleTab) -> Void,
                 didTapAddTab: @escaping () -> Void) {
         self.dataController = dataController
         self.localizedStrings = localizedStrings
+        self.loggingDelegate = loggingDelegate
         self.articleTabs = []
         self.shouldShowCloseButton = false
         self.didTapTab = didTapTab
@@ -66,7 +76,7 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
             debugPrint("Error loading tabs: \(error)")
         }
     }
-    
+
     // MARK: - Public funcs
     
     func calculateColumns(for size: CGSize) -> Int {
@@ -153,6 +163,21 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
         } catch {
             return tab
         }
+    }
+
+    func getCurrentTab() async -> ArticleTab? {
+        do {
+            let tabUUID = try await dataController.currentTabIdentifier()
+
+            if let tab = articleTabs.first(where: {$0.id == tabUUID.uuidString}) {
+                return tab
+
+            }
+        } catch {
+            print("Not able to get tab UUID")
+        }
+
+        return articleTabs.first
     }
 }
 

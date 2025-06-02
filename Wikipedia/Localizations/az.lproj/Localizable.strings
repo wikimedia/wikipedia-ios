@@ -135,7 +135,10 @@
 "article-revision-history" = "Məqalənin redaktə tarixçəsi";
 "article-save-error-not-enough-space" = "Bu məqaləni saxlamaq üçün cihazınızda kifayət qədər yer yoxdur";
 "article-share" = "Paylaş";
-"article-tabs-max-reached" = "Vərəqə limitinə çatıldı ($1). Zəhmət olmasa, bir və ya daha çox vərəqəni bağlayın.";
+"article-tabs-max-reached" = "Vərəqə limitinə çatıldı ($1). Məqalə bu vərəqədə açıldı. Zəhmət olmasa, bir və ya daha çox vərəqəni bağlayın.";
+"article-tabs-navigation" = "Vərəqə naviqasiyası";
+"article-tabs-onboarding-tooltip" = "Vərəqələr üçün əlavə ipucları";
+"article-tabs-open" = "Aç";
 "article-tabs-open-background-tab" = "Arxa vərəqədə aç";
 "article-tabs-open-new-tab" = "Yeni vərəqədə aç";
 "article-talk-page" = "Məqalənin müzakirə səhifəsi";
@@ -149,7 +152,6 @@
 "button-ok" = "Oldu";
 "button-publish" = "Yayımla";
 "button-publish-anyway" = "Yenə də yayımla";
-"button-read-now" = "İndi oxu";
 "button-report-a-bug" = "Xəta bildir";
 "button-save-for-later" = "Sonra üçün saxla";
 "button-saved-for-later" = "Sonra üçün saxlanıldı";
@@ -161,7 +163,14 @@
 "clear-title-accessibility-label" = "Təmizlə";
 "clearing-cache-complete" = "Keşin təmizlənməsi tamamlandı.";
 "clearing-cache-in-progress" = "Keş təmizlənir.";
+"close-all-tabs" = "Bütün vərəqələri bağla";
+"close-all-tabs-confirmation" = "$1 vərəqənin hamısını bağlamaq istəyirsiniz? Bu əməliyyat geri qaytarıla bilməz.";
+"close-all-tabs-confirmation-number" = "Bütün $1 vərəqə bağlansın?";
 "close-button-accessibility-label" = "Bağla";
+"close-other-tabs" = "Digər vərəqələri bağla";
+"close-tab-confirmation" = "Vərəqə bağlansın?";
+"close-tabs" = "Vərəqələri bağla";
+"closed-all-tabs-confirmation" = "$1 vərəqənin hamısı bağlandı.";
 "compass-direction" = "saat $1 istiqamətində";
 "confirm-donation-history-deletion-subtitle" = "Bu, yalnız bu cihazdan edilən ianələrə şamil ediləcək.";
 "confirm-donation-history-deletion-title" = "Silinməni təsdiqlə";
@@ -300,6 +309,7 @@
 "donate-transaction-fee-opt-in-text" = "İanəmin 100%%-ni ala bilməyiniz üçün əməliyyat xərclərini də ödəmək üçün $1 əlavə edəcəm";
 "donate-wikimedia-fine-print-1" = "Biz məlumatlarınızı heç kimə satmırıq. İanə verməklə siz şəxsi məlumatlarınızı Vikipediya və digər Vikimedia layihələrini özündə birləşdirən qeyri-kommersiya təşkilatı olan Vikimedia Fondu və onun xidmət təminatçıları ilə [ianə siyasətinə]($1) uyğun olaraq paylaşmağa razılaşırsınız. Vikimedia Fondu və onun xidmət təminatçıları ABŞ-də və məxfilik qanunları sizinki ilə uyğun olmaya bilən digər dövlətlərdə yerləşirlər. Əlavə məlumat üçün [ianə siyasətini]($1) oxuyun.";
 "donate-wikimedia-fine-print-2" = "Təkrarlanan ianələr üçün sabit aylıq ödənişlər Vikimedia Fondu tərəfindən ilk ianədən etibarən hər ay eyni gündə, siz onları dayandırmaq barədə bizə bildirdiyiniz vaxta kimi debet ediləcək. Ayın 29, 30 və ya 31-də başlanan ianələr mümkün qədər orijinal tarixə yaxın ayın son günündə daha qısa aylarda təkrarlanacaq. Suallar üçün donate@wikimedia.org ünvanı ilə əlaqə saxlayın.";
+"duplicate-tab" = "Vərəqənin dublikatını yarat";
 "edit-link-display-text-title" = "Mətni göstər";
 "edit-link-link-target-title" = "Link hədəfi";
 "edit-link-remove-link-title" = "Keçidi sil";
@@ -698,6 +708,7 @@
 "main-menu-terms-of-use" = "İstifadə Şərtləri";
 "main-menu-title" = "Daha çox";
 "main-menu-zero-faq" = "Wikipedia Zero TSS";
+"main-page" = "Ana səhifə";
 "microsite-yir-english-edits-bytes-slide-subtitle" = "2024-cü ildə könüllülər İngiliscə Vikipediyaya 4.104.852.969 bayt əlavə etdilər. Birgə işin cəmi onların dünyaya verdiyi davamlı təkmilləşən, fakta əsaslanan və etibarlı bilik resursuna gətirib çıxarır. Hamımızın paylaşacaq biliyimiz var, [iştirak etməyi öyrənin]($1).";
 "microsite-yir-english-edits-bytes-slide-title" = "4 milyard bayt əlavə edildi";
 "microsite-yir-english-edits-slide-subtitle" = "Könüllülər Vikipediyanın 300-dən çox müxtəlif dildə nəşrlərində 98.222.407 dəyişiklik etdilər. İngiliscə Vikipediyada 37 milyondan çox dəyişiklik edilib. Hər günün hər saatında könüllülər Vikipediyanı təkmilləşdirmək üçün çalışırlar.";
@@ -719,6 +730,7 @@
 "nearby-distance-label-miles" = "$1 metr";
 "new-password-instructions" = "Siz müvəqqəti parol ilə daxil olmusunuz. Daxil olmağı başa çatdırmaq üçün burada yeni parol təyin edin.";
 "new-password-title" = "Parol təyin et";
+"new-tab" = "Yeni vərəqə";
 "next-action-title" = "Növbəti";
 "no-email-account-alert" = "Zəhmət olmasa, cihazınızda e-poçt hesabı quraşdırın və yenidən cəhd edin.";
 "no-internet-connection" = "İnternet bağlantısı yoxdur";
@@ -861,6 +873,8 @@
 "on-this-day-no-internet-error" = "Məlumat yoxdur";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 Vikipediyadan $2";
 "on-this-day-title" = "Tarixdə bu gün";
+"open-in-tab-tooltip-body" = "Məqalənin başlığını və ya mavi keçidi yeni vərəqədə açmaq üçün basılı saxlayın.";
+"open-in-tab-tooltip-title" = "Yeni vərəqədə aç";
 "original-tab-button-popover-description" = "Başladığınız vərəqəyə qayıtmaq üçün \"W\" düyməsinə klikləyin";
 "page-history-bot-edits" = "bot";
 "page-history-compare-accessibility-hint" = "Müqayisə ediləcək iki versiyanı seçmək üçün toxunun";
@@ -1058,9 +1072,12 @@
 "return-button-title" = "Geri qayıt";
 "return-to-article" = "Məqaləyə qayıt";
 "reverted-edit-title" = "Geri qaytarılmış redaktə";
+"save-all-tabs" = "Bütün vərəqələri yadda saxla";
 "save-view-temp-account-notice" = "Siz müvəqqəti hesabdan istifadə edirsiniz. Düzəlişlər $1-ə aid edilir...";
 "save-view-temp-account-warning" = "Siz daxil olmamısınız. Redaktə etdikdən sonra məxfiliyinizi qorumaq üçün sizin üçün müvəqqəti hesab yaradılacaq.";
 "saved-all-articles-title" = "Bütün məqalələr";
+"saved-all-tabs" = "Bütün vərəqələr yadda saxlandı.";
+"saved-all-tabs-view-reading-list" = "Bütün vərəqələr yadda saxlandı. Oxuma siyahısına bax.";
 "saved-default-reading-list-tag" = "Bu siyahı silinə bilmir";
 "saved-pages-image-download-error" = "Bu yadda saxlanılan səhifə üçün şəkilləri endirmək alınmadı.";
 "saved-pages-progress-syncing" = "Məqalə yükləmə davam edir...";
@@ -1158,6 +1175,9 @@
 "tabs-main-page-subtitle" = "Vikipediyanın gündəlik əsas məqamları";
 "tabs-navbar-title-format" = "{{PLURAL:$1|$1 vərəqə}}";
 "tabs-open-tab" = "Vərəqəni aç";
+"tabs-overview-tooltip-body" = "Vərəqələrin icmalında açıq məqalələr arasında keçid edin.";
+"tabs-overview-tooltip-title" = "Vərəqələrin icmalı";
+"tabs-survey-title" = "Vərəqələr funksiyasını təkmilləşdirməyə kömək edin. Bu funksiyadan məmnunsunuz?";
 "tachelhit-variants-alert-body" = "Vikipediya tətbiqi artıq tətbiq daxilində əsas və ya köməkçi dillər kimi aşağıdakı Taçelit variantlarını dəstəkləyir və bu, seçdiyiniz variantlarda oxumağı, axtarışı və redaktə etməyi asanlaşdırır:\n\nⵜⴰⵛⵍⵃⵉⵜ Tachelhit, Tifinagh (shi-tfng)\nTaclḥit Tachelhit, Latin (shi-latn)";
 "tachelhit-variants-alert-title" = "Taçelit variant dəstəyi üçün yeniləmələr";
 "tajik-variants-alert-body" = "Vikipediya tətbiqi artıq tətbiq daxilində əsas və ya köməkçi dillər kimi aşağıdakı tacik variantlarını dəstəkləyir və bu, seçdiyiniz variantlarda oxumağı, axtarmağı və redaktə etməyi asanlaşdırır:\n\nтоҷикӣ кирилликӣ Tajik, Cyrillic (tg-cyrl)\ntojikī lotinī Tajik, Latin (tg-latn)";
@@ -1243,7 +1263,6 @@
 "temp-account-alert-read-more-information" = "$1Siz müvəqqəti hesabdan istifadə edirsiniz.$2 Hesabın müddəti 90 gün ərzində bitəcək. Müddəti bitdikdən sonra, siz daxil olmadan növbəti dəfə redaktə etdiyiniz zaman yenisi yaradılacaq. $3Gələcək redaktələr üçün istinad almaq və digər funksiyalara daxil olmaq üçün daxil olun və ya hesab yaradın.";
 "temp-account-edit-sheet-cta-top" = "Daxil ol və ya hesab yarat";
 "temp-account-edit-sheet-subtitle" = "$2Hal-hazırda müvəqqəti hesabdan istifadə edirsiniz.$3 Siz daxil olduğunuz zaman $1 müvəqqəti hesabı ilə edilən redaktələr daimi hesabınıza köçürülməyəcək. Digər üstünlüklər ilə birlikdə istifadəçi adınıza istinad edilməsi üçün daxil olun və ya hesab yaradın.";
-"temp-account-got-it" = "Başa düşdüm";
 "temp-account-toast-read-more-title" = "Daha ətraflı oxu";
 "temp-account-toast-title" = "$1Siz hal-hazırda müvəqqəti hesabdan istifadə edirsiniz.$2 Müvəqqəti ilə edilən redaktələr...";
 "temp-account-warning-title" = "Siz müvəqqəti hesabdan istifadə edirsiniz";

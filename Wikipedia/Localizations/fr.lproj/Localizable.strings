@@ -190,7 +190,6 @@
 "button-ok" = "OK";
 "button-publish" = "Publier";
 "button-publish-anyway" = "Publier tout de même";
-"button-read-now" = "Lire maintenant";
 "button-report-a-bug" = "Signaler une anomalie";
 "button-save-for-later" = "Enregistrer pour plus tard";
 "button-saved-for-later" = "Enregistré pour plus tard";
@@ -897,6 +896,7 @@
 "on-this-day-no-internet-error" = "Aucune donnée disponible";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 sur Wikipédia en $2";
 "on-this-day-title" = "Ce jour-là";
+"open-in-tab-tooltip-body" = "Appuyez longuement sur le titre d’un article ou sur un lien bleu pour l’ouvrir dans un nouvel onglet.";
 "original-tab-button-popover-description" = "Tapez sur l’icône « W » pour revenir à l’onglet avec lequel vous avez commencé";
 // Fuzzy
 "page-history-bot-edits" = "modifications par un robot";

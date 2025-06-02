@@ -70,6 +70,7 @@
 // Author: Whovian Biologist
 // Author: Wifidel
 // Author: Yllelder
+// Author: Yucavalla
 // Author: Zpizza
 
 "about-content-license" = "Licencia del contenido";
@@ -197,7 +198,7 @@
 "article-revision-history" = "Historial de revisión del artículo";
 "article-save-error-not-enough-space" = "No hay espacio suficiente en el dispositivo para guardar este artículo";
 "article-share" = "Compartir";
-"article-tabs-max-reached" = "Se alcanzó el límite de pestañas ($1). Cierra una o más pestañas.";
+"article-tabs-max-reached" = "Se alcanzó el límite de pestañas ( $1 ). El artículo se abrió en la pestaña actual. Cierre una o más pestañas.";
 "article-tabs-open-background-tab" = "Abrir en pestaña de fondo";
 "article-tabs-open-new-tab" = "Abrir en una pestaña nueva";
 "article-talk-page" = "Página de discusión del artículo";
@@ -211,7 +212,6 @@
 "button-ok" = "Aceptar";
 "button-publish" = "Publicar";
 "button-publish-anyway" = "Publicar de todos modos";
-"button-read-now" = "Leer ahora";
 "button-report-a-bug" = "Informar de un error";
 "button-save-for-later" = "Guardar para después";
 "button-saved-for-later" = "Guardado para después";
@@ -574,6 +574,9 @@
 "explore-suggested-edits-footer" = "Añadir";
 "explore-suggested-edits-image-recs-body" = "Añade imágenes sugeridas a los artículos para mejorarlos";
 "explore-suggested-edits-image-recs-title" = "Añadir una imagen";
+"export-user-data-title" = "Exportar datos de usuario";
+"featured-widget-content-failure-for-date" = "No hay artículos destacados para esta fecha.";
+"featured-widget-description" = "Descubre los mejores artículos en Wikipedia, escogidos diariamente por nuestra comunidad.";
 "featured-widget-from-language-wikipedia" = "De Wikipedia en $1";
 "featured-widget-from-wikipedia" = "De Wikipedia";
 "featured-widget-language-failure" = "Su idioma principal de Wikipedia no soporta Artículo destacado. Puede actualizar su Wikipedia principal en el menú de Configuración de la aplicación.";
@@ -585,6 +588,7 @@
 "field-alert-token-invalid" = "Código no válido";
 "field-alert-username-unavailable" = "El nombre de usuario no está disponible";
 "field-backup-token-title" = "Código de respaldo";
+"field-backup-token-title-email" = "Código por correo electrónico";
 "field-captcha-placeholder" = "Texto CAPTCHA";
 "field-captcha-title" = "Escribe el texto que ves arriba";
 "field-email-placeholder" = "ejemplo@example.org";
@@ -676,6 +680,7 @@
 "image-recommendations-email-title" = "Informe de problemas - Función Añadir una imagen";
 "image-recs-no-title" = "No";
 "image-recs-not-sure-title" = "No estoy seguro";
+"image-recs-time-warning-message" = "Revisa el artículo para entender el tema e inspecciona la imagen";
 "image-recs-yes-title" = "Sí";
 "import-shared-reading-list-default-title" = "Mi lista de lectura";
 "import-shared-reading-list-survey-prompt-button-cancel" = "Ahora no";
@@ -683,6 +688,7 @@
 "import-shared-reading-list-survey-prompt-footer" = "Consulta nuestra $1declaración de privacidad$2. Encuesta creada con tecnología de terceros. Consulta su $3política de privacidad$4.";
 "import-shared-reading-list-survey-prompt-subtitle" = "\"Compartir listas de lectura\" es una función de prueba y necesitamos tus comentarios para mejorarla o eliminarla.";
 "import-shared-reading-list-survey-prompt-title" = "¿Podrías ayudarnos a mejorar \"Compartir listas de lectura\"?";
+"import-shared-reading-list-title" = "Importar lista de lectura compartida";
 "in-the-news-sub-title-from-language-wikipedia" = "De Wikipedia en $1";
 "in-the-news-sub-title-from-wikipedia" = "De Wikipedia";
 "in-the-news-title" = "Actualidad";
@@ -719,6 +725,8 @@
 "insert-media-title" = "Insertar multimedia";
 "inuktitut-variants-alert-body" = "La aplicación de Wikipedia ahora soporta las variantes del inuit siguientes como lenguas primarias o secundarias dentro de la aplicación, haciéndolo más fácil de leer, buscar y editar en tus variantes preferidas:\n\nᐃᓄᒃᑎᑐᑦ ᑎᑎᕋᐅᓯᖅ ᓄᑖᖅ inuit, silabarios (ike-cans)\nInuktitut ilisautik, inuit, latino (ike-latn)";
 "inuktitut-variants-alert-title" = "Actualizaciones a soporte de variantes del inuit";
+"ip-account-cta-bottom" = "Continuar sin acceder";
+"ip-account-cta-top" = "Inicia sesión o crea una cuenta";
 "kazakh-variants-alert-body" = "La aplicación de Wikipedia ahora soporta las variantes del kazajo siguientes como lenguas primarias o secundarias dentro de la aplicación, haciéndolo más fácil de leer, buscar y editar en tus variantes preferidas:\n\nҚазақша kazajo (kk)\nҚазақша Кирил kazajo, cirílico (kk-cyrl)\nqazaqşa latin kazajo, latino (kk-latn)\nتوتە قازاقشا kazajo, árabe (kk-arab)";
 "kazakh-variants-alert-title" = "Actualizaciones a soporte de variantes del kazajo";
 "kurdish-variants-alert-body" = "La aplicación de Wikipedia ahora soporta las variantes del kurdo siguientes como lenguas primarias o secundarias dentro de la aplicación, haciéndolo más fácil de leer, buscar y editar en tus variantes preferidas:\n\nKurdî Latînî kurdo, latino (ku-latn)\nكوردی kurdo, árabe (kk-arab)";
@@ -769,8 +777,12 @@
 "notifications-center-applied-filters-accessibility-label" = "Filtro de notificaciones - tiene filtros aplicados";
 "notifications-center-applied-project-filters-accessibility-label" = "Filtro de proyectos - tiene filtros aplicados";
 "notifications-center-change-password" = "Cambiar contraseña";
+"notifications-center-checking-for-notifications" = "Buscando notificaciones...";
 "notifications-center-destination-app" = "En la aplicación";
 "notifications-center-destination-web" = "En la web";
+"notifications-center-detail-title" = "Detalle de notificaciones";
+"notifications-center-empty-checking-for-notifications" = "Buscando notificaciones...";
+"notifications-center-empty-no-messages" = "No tienes mensajes";
 "notifications-center-feed-news-notification-button-text" = "Activar las notificaciones push";
 "notifications-center-feed-news-notification-dismiss-button-text" = "Ahora no";
 "notifications-center-filters-accessibility-label" = "Filtro de notificaciones";
@@ -788,6 +800,7 @@
 "notifications-center-go-to-wikidata-item" = "Elemento de Wikidata";
 "notifications-center-inbox-title" = "Proyectos";
 "notifications-center-inbox-wikimedia-projects-section-title" = "Proyectos Wikimedia";
+"notifications-center-inbox-wikipedias-section-title" = "Wikipedias";
 "notifications-center-language-project-name-format" = "$2 en $1";
 "notifications-center-login-notifications" = "Notificaciones de inicio de sesión";
 "notifications-center-mark" = "Marcar";
@@ -817,12 +830,15 @@
 "notifications-center-subheader-page-link" = "Página enlazada";
 "notifications-center-subheader-thanks" = "Agradecimientos";
 "notifications-center-subheader-user-rights-change" = "Cambios de derechos de usuario";
+"notifications-center-subheader-welcome" = "¡Bienvenido!";
 "notifications-center-subheader-wikidata-connection" = "Conexión a Wikidata realizada";
 "notifications-center-swipe-mark-as-read" = "Marcar como leí­do";
 "notifications-center-swipe-mark-as-unread" = "Marcar como no leído";
+"notifications-center-swipe-more" = "Más";
 "notifications-center-title" = "Notificaciones";
 "notifications-center-toolbar-mark-accessibility-label" = "Marcar notificaciones seleccionadas";
 "notifications-center-type-item-description-mentions" = "Menciones";
+"notifications-center-type-item-description-notice" = "Aviso";
 "notifications-center-type-item-description-welcome-verbose" = "Mensaje de bienvenida";
 "notifications-center-type-title-connection-with-wikidata" = "Conexión con Wikidata";
 "notifications-center-type-title-edit-reverted" = "Ediciones revertidas";

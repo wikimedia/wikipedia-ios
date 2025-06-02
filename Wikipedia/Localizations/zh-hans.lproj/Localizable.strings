@@ -27,6 +27,7 @@
 // Author: ITsu
 // Author: Josephine W.
 // Author: JuneAugsut
+// Author: Kcx36
 // Author: Kuailong
 // Author: LNDDYL
 // Author: Lakejason0
@@ -205,7 +206,6 @@
 "button-ok" = "确定";
 "button-publish" = "发布";
 "button-publish-anyway" = "仍要发布";
-"button-read-now" = "立即阅读";
 "button-report-a-bug" = "报告错误";
 "button-save-for-later" = "保存以便稍后阅读";
 "button-saved-for-later" = "已保存以供日后使用";
@@ -912,6 +912,7 @@
 "on-this-day-no-internet-error" = "没有可用数据";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1，来自$2维基百科";
 "on-this-day-title" = "历史上的今天";
+"open-in-tab-tooltip-title" = "在新标签页中打开";
 "original-tab-button-popover-description" = "点按“W”以返回您起始的标签页";
 // Fuzzy
 "page-history-bot-edits" = "机器人编辑";
@@ -984,7 +985,7 @@
 "profile-button-accessibility-hint" = "导航到个人资料视图。";
 "profile-button-accessibility-label" = "个人资料";
 "profile-button-badge-accessibility-label" = "个人资料（带有未读消息标记）";
-"profile-page-donate-subtext" = "或通过捐款来支持维基百科，使之维持免费且人人可访问。";
+"profile-page-donate-subtext" = "或通过捐款来支持维基百科，使之维持自由且人人可访问。";
 "profile-page-join-subtext" = "注册维基百科账号来追踪您的贡献、离线保存条目，以及跨设备同步。";
 "profile-page-join-title" = "登录/加入维基百科";
 "profile-page-logged-out-year-in-review-subtext" = "请登录或创建账号，以在来年获得更好的年度回顾";

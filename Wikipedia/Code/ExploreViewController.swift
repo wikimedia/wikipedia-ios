@@ -114,6 +114,9 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
                 updateTabBarSnapshotImage()
             }
         }
+        if WMFArticleTabsDataController.shared.shouldShowArticleTabs {
+            ArticleTabsFunnel.shared.logIconImpression(interface: .feed, project: nil)
+        }
     }
 
     override func viewWillHaveFirstAppearance(_ animated: Bool) {
@@ -233,6 +236,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     
     @objc func userDidTapTabs() {
         _ = tabsCoordinator?.start()
+        ArticleTabsFunnel.shared.logIconClick(interface: .feed, project: nil)
     }
     
     @objc func scrollToTop() {

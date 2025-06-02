@@ -49,7 +49,6 @@
 "button-next" = "Հաջորդ";
 "button-ok" = "Լավ";
 "button-publish" = "Հրապարակել";
-"button-read-now" = "Կարդալ այժմ";
 "button-report-a-bug" = "Հայտնել խնդիր";
 "button-skip" = "Բաց թողնել";
 "cancel" = "Չեղարկել";
@@ -195,7 +194,6 @@
 "talk-page-title-article-talk" = "Հոդվածի քննարկում";
 "talk-pages-topic-reply-onboarding-title" = "Քննարկման էջեր";
 "talk-pages-view-title" = "Քննարկում";
-"temp-account-got-it" = "Հասկանալի է";
 "theme-black-display-name" = "Սև";
 "theme-default-display-name" = "Լռելյայն";
 "theme-sepia-display-name" = "Սեպիա";

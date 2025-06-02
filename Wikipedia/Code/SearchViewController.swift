@@ -84,6 +84,7 @@ class SearchViewController: ArticleCollectionViewController, WMFNavigationBarCon
         _tabsCoordinator = TabsOverviewCoordinator(navigationController: navigationController, theme: theme, dataStore: dataStore)
         return _tabsCoordinator
     }
+    var customTabConfigUponArticleNavigation: ArticleTabConfig?
     
     private var yirDataController: WMFYearInReviewDataController? {
         return try? WMFYearInReviewDataController()
@@ -130,6 +131,10 @@ class SearchViewController: ArticleCollectionViewController, WMFNavigationBarCon
                 self?.navigationItem.searchController?.isActive = true
                 self?.navigationItem.searchController?.searchBar.becomeFirstResponder()
             }
+        }
+
+        if WMFArticleTabsDataController.shared.shouldShowArticleTabs {
+            ArticleTabsFunnel.shared.logIconImpression(interface: .search, project: nil)
         }
     }
     
@@ -236,6 +241,7 @@ class SearchViewController: ArticleCollectionViewController, WMFNavigationBarCon
     
     @objc func userDidTapTabs() {
         _ = tabsCoordinator?.start()
+        ArticleTabsFunnel.shared.logIconClick(interface: .search, project: nil)
     }
     
     private func embedResultsViewController() {
@@ -437,7 +443,7 @@ class SearchViewController: ArticleCollectionViewController, WMFNavigationBarCon
                 navigateToSearchResultAction(articleURL)
             } else if let customArticleCoordinatorNavigationController {
                 
-                let linkCoordinator = LinkCoordinator(navigationController: customArticleCoordinatorNavigationController, url: articleURL, dataStore: dataStore, theme: theme, articleSource: .search)
+                let linkCoordinator = LinkCoordinator(navigationController: customArticleCoordinatorNavigationController, url: articleURL, dataStore: dataStore, theme: theme, articleSource: .search, tabConfig: customTabConfigUponArticleNavigation ?? .appendArticleAndAssignCurrentTab)
                 let success = linkCoordinator.start()
                 
                 if !success {

@@ -4,7 +4,7 @@ import WMFData
 public struct WMFArticleTabsView: View {
     @ObservedObject var appEnvironment = WMFAppEnvironment.current
     @Environment(\.colorScheme) var colorScheme
-    
+
     var theme: WMFTheme {
         return appEnvironment.theme
     }
@@ -14,37 +14,54 @@ public struct WMFArticleTabsView: View {
     public init(viewModel: WMFArticleTabsViewModel) {
         self.viewModel = viewModel
     }
-    
-    public var body: some View {
-        GeometryReader { geometry in
-            let size = geometry.size
-            let columns = viewModel.calculateColumns(for: size)
-            let gridItem = GridItem(.flexible())
-            
-            ScrollView {
-                LazyVGrid(columns: Array(repeating: gridItem, count: columns)) {
-                    ForEach(viewModel.articleTabs.sorted(by: { $0.dateCreated < $1.dateCreated })) { tab in
-                        WMFArticleTabsViewContent(viewModel: viewModel, tab: tab)
-                            .accessibilityActions {
-                                accessibilityAction(named: viewModel.localizedStrings.openTabAccessibility) {
-                                    viewModel.didTapTab(tab.data)
-                                }
 
-                                if viewModel.shouldShowCloseButton {
-                                    accessibilityAction(named: viewModel.localizedStrings.closeTabAccessibility) {
-                                        viewModel.closeTab(tab: tab)
+    public var body: some View {
+        ScrollViewReader { proxy in
+            GeometryReader { geometry in
+                let size = geometry.size
+                let columns = viewModel.calculateColumns(for: size)
+                let gridItem = GridItem(.flexible())
+
+                ScrollView {
+                    LazyVGrid(columns: Array(repeating: gridItem, count: columns)) {
+                        ForEach(viewModel.articleTabs.sorted(by: { $0.dateCreated < $1.dateCreated }), id:\.self) { tab in
+                            WMFArticleTabsViewContent(viewModel: viewModel, tab: tab)
+                                .id(tab.id)
+                                .accessibilityActions {
+                                    accessibilityAction(named: viewModel.localizedStrings.openTabAccessibility) {
+                                        viewModel.didTapTab(tab.data)
+                                    }
+
+                                    if viewModel.shouldShowCloseButton {
+                                        accessibilityAction(named: viewModel.localizedStrings.closeTabAccessibility) {
+                                            viewModel.closeTab(tab: tab)
+                                        }
                                     }
                                 }
-                            }
+                        }
                     }
                 }
+                .padding(.horizontal, 8)
             }
-            .padding(.horizontal, 8)
+            .background(Color(theme.midBackground))
+            .toolbarBackground(Color(theme.midBackground), for: .automatic)
+            .task {
+                await scrollToCurrent(using: proxy)
+            }
+            .onChange(of: viewModel.articleTabs) { _ in
+                Task { await scrollToCurrent(using: proxy) }
+            }
         }
-        .background(Color(theme.midBackground))
-        .toolbarBackground(Color(theme.midBackground), for: .automatic)
+    }
+
+    private func scrollToCurrent(using proxy: ScrollViewProxy) async {
+        guard let tab = await viewModel.getCurrentTab() else { return }
+        withAnimation {
+            proxy.scrollTo(tab.id, anchor: .center)
+        }
     }
 }
+
 
 fileprivate struct WMFArticleTabsViewContent: View {
     @ObservedObject var appEnvironment = WMFAppEnvironment.current
@@ -87,6 +104,7 @@ fileprivate struct WMFArticleTabsViewContent: View {
         .contentShape(Rectangle())
         .onTapGesture {
             viewModel.didTapTab(tab.data)
+            viewModel.loggingDelegate?.logArticleTabsArticleClick(wmfProject: tab.data.articles.first?.project)
         }
         .aspectRatio(3/4, contentMode: .fit)
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)

@@ -115,7 +115,7 @@ public class CommonStrings: NSObject {
     @objc static public func saveTitle(languageCode: String?) -> String {
         return WMFLocalizedString("button-save-for-later", languageCode: languageCode, value: "Save for later", comment: "Longer button text for save button used in various places.")
     }
-
+    
     @objc public static let shortShareTitle = WMFLocalizedString("action-share", value: "Share", comment: "Short title for the 'Share' action. Please use the shortest translation possible. {{Identical|Share}}")
     @objc public static let accessibilityShareTitle = WMFLocalizedString("action-share-accessibility", value: "Share", comment: "Accessibility title for the 'Share' action")
 
@@ -724,11 +724,54 @@ public class CommonStrings: NSObject {
     public static var surveyAdditionalThoughts = WMFLocalizedString("activity-tab-additional-thoughts", value: "Any additional thoughts?", comment: "Asking user if they have any comments")
     
     // MARK: - Article Tabs
+    
+    public static let articleTabsOpen = WMFLocalizedString("article-tabs-open", value: "Open", comment: "Menu option button for opening an article in the current tab. Displayed upon long press of an article link.")
+    
     public static let articleTabsOpenInNewTab = WMFLocalizedString("article-tabs-open-new-tab", value: "Open in new tab", comment: "Menu option button for opening an article in a new tab. Displayed upon long press of an article link.")
     
     public static let articleTabsOpenInBackgroundTab = WMFLocalizedString("article-tabs-open-background-tab", value: "Open in background tab", comment: "Menu option button for opening an article in a background tab. Displayed upon long press of an article link.")
     
-    public static let articleTabsLimitToastFormat = WMFLocalizedString("article-tabs-max-reached", value: "Tab limit reached (%1$d). Please close one or more tabs.", comment: "Warning toast presented to users when they attempt to open a new tab after maximum tab number is reached. %1$d is replaced with the maximum number of tabs allowed.")
+    public static let articleTabsLimitToastFormat = WMFLocalizedString("article-tabs-max-reached", value: "Tab limit reached (%1$d). The article was opened in the current tab. Please close one or more tabs.", comment: "Warning toast presented to users when they attempt to open a new tab after maximum tab number is reached. %1$d is replaced with the maximum number of tabs allowed.")
+    
+    public static let onboardingTooltipsForTabs = WMFLocalizedString("article-tabs-onboarding-tooltip", value: "Onboarding tooltips for tabs", comment: "Tooltip title for tabs onboarding.")
+    public static let tabsNavigation = WMFLocalizedString("article-tabs-navigation", value: "Tabs navigation", comment: "Title for navigation in article tabs")
+    
+    public static func tabsNavbarTitleFormat(count: Int? = 0) -> String {
+        let format = WMFLocalizedString("tabs-navbar-title-format", value: "{{PLURAL:%1$d|%1$d tab|%1$d tabs}}", comment: "Format string for number of tabs open, pluralized depending on count. $1 is the amount of tabs.")
+        return String.localizedStringWithFormat(format, count ?? 0)
+    }
+
+    public static func addArticlesToReadingList(count: Int? = 0) -> String {
+        let format = WMFLocalizedString("add-articles-to-reading-list", value: "Add {{PLURAL:%1$d|%1$d article|%1$d articles}} to reading list", comment: "Button label to add multiple articles to the reading list, pluralized based on article count. $1 is the amount of articles.")
+        return String.localizedStringWithFormat(format, count ?? 0)
+    }
+
+    public static func closeAllTabsConfirmation(count: Int? = 0) -> String {
+        let format = WMFLocalizedString("close-all-tabs-confirmation", value: "Do you want to close all %1$@ tabs? This action can’t be undone.", comment: "Confirmation message for closing a variable number of tabs. $1 is the amount of tabs currently open.")
+        return String.localizedStringWithFormat(format, count ?? 0)
+    }
+    
+    public static func closedAllTabsConfirmation(count: Int? = 0) -> String {
+        let format = WMFLocalizedString("closed-all-tabs-confirmation", value: "Closed all %1$@ tabs.", comment: "Confirmation message closing a number of tabs. $1 is the amount of tabs currently open.")
+        return String.localizedStringWithFormat(format, count ?? 0)
+    }
+    
+    public static func closeAllTabsConfirmationNumber(count: Int? = 0) -> String {
+        let format = WMFLocalizedString("close-all-tabs-confirmation-number", value: "Close all %1$@ tabs?", comment: "Confirmation message closing a number of tabs. $1 is the amount of tabs to be closed")
+        return String.localizedStringWithFormat(format, count ?? 0)
+    }
+    
+    public static let saveAllTabs = WMFLocalizedString("save-all-tabs", value: "Save all tabs", comment: "Action to save all open tabs.")
+    public static let closeAllTabs = WMFLocalizedString("close-all-tabs", value: "Close all tabs", comment: "Action to close all open tabs.")
+    public static let duplicateTab = WMFLocalizedString("duplicate-tab", value: "Duplicate tab", comment: "Action to duplicate the current tab.")
+    public static let closeOtherTabs = WMFLocalizedString("close-other-tabs", value: "Close other tabs", comment: "Action to close all tabs except the current one.")
+    public static let newTab = WMFLocalizedString("new-tab", value: "New tab", comment: "Title for creating a new tab.")
+    public static let closeTabConfirmation = WMFLocalizedString("close-tab-confirmation", value: "Close tab?", comment: "Confirmation prompt to close a single tab.")
+    public static let closeTabs = WMFLocalizedString("close-tabs", value: "Close tabs", comment: "Action to confirm closing multiple tabs.")
+    public static let savedAllTabs = WMFLocalizedString("saved-all-tabs", value: "Saved all tabs.", comment: "Message indicating all open tabs were saved.")
+    public static let savedAllTabsViewReadingList = WMFLocalizedString("saved-all-tabs-view-reading-list", value: "Saved all tabs. View reading list.", comment: "Message indicating all tabs were saved with option to view reading list.")
+    public static let mainPage = WMFLocalizedString("main-page", value: "Main page", comment: "Title for the Wikipedia main page.")
+
 }
 
 // Language variant strings
