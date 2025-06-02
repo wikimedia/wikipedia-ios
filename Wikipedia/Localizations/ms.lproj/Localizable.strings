@@ -111,7 +111,6 @@
 "button-ok" = "OK";
 "button-publish" = "Terbitkan";
 "button-publish-anyway" = "Tetap terbitkan";
-"button-read-now" = "Baca sekarang";
 "button-report-a-bug" = "Laporkan pepijat";
 "button-save-for-later" = "Simpan untuk nanti";
 "button-saved-for-later" = "Disimpan untuk nanti";
@@ -744,6 +743,7 @@
 "talk-page-subscribe-to-topic" = "Langgan";
 "talk-page-title-user-talk" = "Perbincangan Pengguna";
 "talk-pages-archives-view-title" = "Arkib";
+"temporary-account" = "Akaun sementara";
 "theme-black-display-name" = "Hitam";
 "theme-dark-display-name" = "Gelap";
 "theme-default-display-name" = "Asali";
