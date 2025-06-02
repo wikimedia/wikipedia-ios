@@ -251,31 +251,34 @@ fileprivate struct WMFArticleTabsViewContent: View {
     
     private func tabText(tab: ArticleTab) -> some View {
         VStack(alignment: .leading, spacing: 0) {
-            Group {
-                if let subtitle = tab.info?.subtitle {
-                    Text(subtitle)
-                } else {
-                    Text(" ")
-                        .hidden()
-                }
+            if let subtitle = tab.info?.subtitle, !subtitle.isEmpty {
+                Text(subtitle)
+                    .font(Font(WMFFont.for(.caption1)))
+                    .foregroundStyle(Color(theme.secondaryText))
+                    .lineLimit(1)
+                
+                Divider()
+                    .frame(width: 24)
+                    .padding(.vertical, 8)
+                    .foregroundStyle(Color(uiColor: theme.secondaryText))
+            } else {
+                Divider()
+                    .frame(width: 24)
+                    .padding(.bottom, 8)
+                    .padding(.top, 6)
+                    .foregroundStyle(Color(uiColor: theme.secondaryText))
             }
-            .font(Font(WMFFont.for(.caption1)))
-            .foregroundStyle(Color(theme.secondaryText))
-            .lineLimit(1)
-            
-            Divider()
-                .frame(width: 24)
-                .padding(.vertical, 8)
-                .foregroundStyle(Color(uiColor: theme.secondaryText))
+
             if let description = viewModel.description(for: tab) {
                 Text(description)
                     .font(Font(WMFFont.for(.caption1)))
                     .foregroundStyle(Color(theme.text))
                     .lineSpacing(1.4)
+                    .padding(.bottom, 4)
             } else {
                 Spacer()
             }
         }
-        .padding([.horizontal], 10)
+        .padding(.horizontal, 10)
     }
 }

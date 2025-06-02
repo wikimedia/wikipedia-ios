@@ -610,7 +610,7 @@ public class WMFArticleTabsDataController: WMFArticleTabsDataControlling {
             return false
         }
         
-        if seenCount >= 2 && didTapLongPress {
+        if seenCount >= 3 && didTapLongPress {
             try? userDefaultsStore?.save(key: WMFUserDefaultsKey.articleTabsDidShowSurvey.rawValue, value: true)
             return true
         }

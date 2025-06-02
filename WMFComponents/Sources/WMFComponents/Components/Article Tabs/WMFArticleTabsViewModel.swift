@@ -104,6 +104,8 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
         // If text is scaled up for accessibility, use taller image for single column
         if UIApplication.shared.preferredContentSizeCategory.isAccessibilityCategory {
             return 225
+        } else if UIDevice.current.userInterfaceIdiom == .pad {
+            return 110
         }
         return 95
     }
