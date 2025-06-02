@@ -174,6 +174,8 @@
 "article-save-error-not-enough-space" = "ليس لديك مساحة كافية على جهازك لحفظ هذه المقالة";
 "article-share" = "مشاركة";
 "article-tabs-max-reached" = "تم الوصول إلى الحد الأقصى لعلامات التبويب ($1). يُرجى إغلاق علامة تبويب واحدة أو أكثر.";
+"article-tabs-navigation" = "التنقل في علامات التبويب";
+"article-tabs-onboarding-tooltip" = "نصائح أدوات الإلحاق لعلامات التبويب";
 "article-tabs-open-background-tab" = "فتح في علامة تبويب خلفية جديدة";
 "article-tabs-open-new-tab" = "فتح في علامة تبويب جديدة";
 "article-talk-page" = "صفحة نقاش المقالة";
@@ -187,7 +189,6 @@
 "button-ok" = "حسنا";
 "button-publish" = "انشر";
 "button-publish-anyway" = "انشر على أية حال";
-"button-read-now" = "اقرأ الآن";
 "button-report-a-bug" = "بلغ عن علة";
 "button-save-for-later" = "الحفظ لوقت لاحق";
 "button-saved-for-later" = "احفظها لوقت لاحق";
@@ -200,7 +201,14 @@
 "clear-title-accessibility-label" = "امسح";
 "clearing-cache-complete" = "تم مسح ذاكرة التخزين المؤقت بالكامل.";
 "clearing-cache-in-progress" = "جاري مسح ذاكرة التخزين المؤقت.";
+"close-all-tabs" = "إغلاق جميع علامات التبويب";
+"close-all-tabs-confirmation" = "هل تريد إغلاق جميع علامات التبويب البالغ عددها $1؟ لا يمكن التراجع عن هذا الإجراء.";
+"close-all-tabs-confirmation-number" = "هل تريد إغلاق جميع علامات التبويب البالغ عددها $1؟";
 "close-button-accessibility-label" = "أغلق";
+"close-other-tabs" = "إغلاق علامات التبويب الأخرى";
+"close-tab-confirmation" = "هل تريد إغلاق علامة التبويب؟";
+"close-tabs" = "إغلاق علامات التبويب";
+"closed-all-tabs-confirmation" = "تم إغلاق جميع علامات التبويب البالغ عددها $1.";
 "compass-direction" = "عند الساعة $1";
 "confirm-donation-history-deletion-subtitle" = "سيتم تطبيق هذا فقط على التبرعات المقدمة من هذا الجهاز.";
 "confirm-donation-history-deletion-title" = "تأكيد الحذف";
@@ -340,6 +348,7 @@
 "donate-transaction-fee-opt-in-text" = "سأضيف بسخاء $1 لتغطية رسوم المعاملة حتى تتمكن من الاحتفاظ بنسبة 100٪ من تبرعي.";
 "donate-wikimedia-fine-print-1" = "نحن لا نبيع أو نتبادل معلوماتك لأي شخص، بالتبرع، فإنك توافق على مشاركة معلوماتك الشخصية مع مؤسسة ويكيميديا، وهي منظمة غير ربحية تستضيف ويكيبيديا ومشاريع ويكيميديا الأخرى، ومقدمي خدماتها وفقا [لسياسة المانحين]($1) الخاصة بنا، توجد مؤسسة ويكيميديا ومقدمو خدماتها في الولايات المتحدة وفي بلدان أخرى قد لا تكون قوانين الخصوصية فيها مساوية لقوانينك الخاصة، لمزيد من المعلومات؛ تُرجَى قراءة [سياسة المانحين]($1) الخاصة بنا.";
 "donate-wikimedia-fine-print-2" = "بالنسبة للمتبرعين المتكررين، سيتم خصم المدفوعات الشهرية الثابتة من قبل مؤسسة ويكيميديا في الذكرى السنوية الشهرية للتبرع الأول، حتى يتم إخطارنا بوقفها. سيتم تكرار التبرعات التي بدأت في 29 أو 30 أو 31 من الشهر في اليوم الأخير من الشهر للأشهر الأقصر، أقرب ما يمكن إلى التاريخ الأصلي. للاستفسارات، يرجى الاتصال donate@wikimedia.org.";
+"duplicate-tab" = "علامة تبويب مكررة";
 "edit-link-display-text-title" = "نص العرض";
 "edit-link-link-target-title" = "رابط الهدف";
 "edit-link-remove-link-title" = "إزالة الرابط";
@@ -739,6 +748,7 @@
 "main-menu-terms-of-use" = "شروط الاستخدام";
 "main-menu-title" = "المزيد";
 "main-menu-zero-faq" = "الأسئلة المتكررة عن ويكيبيديا زيرو";
+"main-page" = "الصفحة الرئيسية";
 "microsite-yir-english-edits-bytes-slide-subtitle" = "في عام 2024، أضاف المتطوعون 4,104,852,969 بايت إلى ويكيبيديا الإنجليزية. ويؤدي مجموع عملهم معًا إلى توفير مصدر معرفي موثوق به يعتمد على الحقائق ويتحسن باستمرار، ويقدمونه للعالم. لدينا جميعًا المعرفة التي نشاركها، [تعرف على كيفية المشاركة]($1).";
 "microsite-yir-english-edits-bytes-slide-title" = "تمت إضافة 4 مليار بايت";
 "microsite-yir-english-edits-slide-subtitle" = "أجرى المتطوعون 98,222,407 تعديلاً على أكثر من 300 إصدار لغوي مختلف من ويكيبيديا. وتم إجراء أكثر من 37 مليون تعديل على ويكيبيديا الإنجليزية. وفي كل ساعة من كل يوم، يعمل المتطوعون على تحسين ويكيبيديا.";
@@ -762,6 +772,7 @@
 "nearby-distance-label-miles" = "$1 ميل";
 "new-password-instructions" = "أنت الآن مسجل الدخول بكلمة سر مؤقتة. لإكمال تسجيل الدخول أعد تعيين كلمة سر جديدة هنا.";
 "new-password-title" = "قم بتعيين كلمة المرور الخاصة بك";
+"new-tab" = "علامة تبويب جديدة";
 "next-action-title" = "التالي";
 "no-email-account-alert" = "يرجى إعداد حساب بريد إلكتروني على جهازك وحاول مرة أخرى.";
 "no-internet-connection" = "لا يوجد اتصال بالإنترنت";
@@ -1104,9 +1115,11 @@
 "return-button-title" = "يعود";
 "return-to-article" = "العودة إلى المقال";
 "reverted-edit-title" = "تم إرجاع التعديل";
+"save-all-tabs" = "حفظ جميع علامات التبويب";
 "save-view-temp-account-notice" = "أنت تستخدم حسابًا مؤقتًا. التعديلات تُنسب إلى $1 ...";
 "save-view-temp-account-warning" = "لم تقم بتسجيل الدخول. بمجرد إجراء تعديل، سيتم إنشاء حساب مؤقت لك لحماية خصوصيتك.";
 "saved-all-articles-title" = "كل المقالات";
+"saved-all-tabs" = "تم حفظ جميع علامات التبويب.";
 "saved-default-reading-list-tag" = "لا يمكن حذف هذه القائمة";
 "saved-pages-image-download-error" = "فشل تنزيل الصور لهذه الصفحة المحفوظة.";
 "saved-pages-progress-syncing" = "تنزيل المقالة قيد التقدم...";
@@ -1206,7 +1219,7 @@
 "tabs-open-tab" = "فتح علامة التبويب";
 "tabs-overview-tooltip-body" = "التبديل بين المقالات المفتوحة في النظرة العامة على علامات التبويب.";
 "tabs-overview-tooltip-title" = "نظرة عامة على علامات التبويب";
-"tabs-survey-title" = "ساعد في تحسين ميزة علامات التبويب. هل أنت راضٍ عنها؟";
+"tabs-survey-title" = "ساعد في تحسين ميزة علامات التبويب. هل أنت راضٍ عن هذه الميزة؟";
 "tachelhit-variants-alert-body" = "يدعم تطبيق ويكيبيديا الآن المتغيرات التالية من تشلحيت كلغات أساسية أو ثانوية داخل التطبيق، مما يجعل من الأسهل القراءة والبحث والتحرير بالمتغيرات المفضلة لديك:\n\nⵜⴰⵛⵍⵃⵉⵜ تشلحيت، تيفيناغ (shi-tfng)\nTaclḥit تشلحيت، اللاتينية (shi-latn)";
 "tachelhit-variants-alert-title" = "تحديثات لدعم متغير تشلحيت";
 "tajik-variants-alert-body" = "يدعم تطبيق ويكيبيديا الآن المتغيرات الطاجيكية التالية كلغات أساسية أو ثانوية داخل التطبيق، مما يجعل من الأسهل القراءة والبحث والتحرير بالمتغيرات المفضلة لديك:\n\nтоҷикӣ кирилликӣ الطاجيكية، السيريلية (tg-cyrl)\ntojikī lotinī الطاجيكية، اللاتينية (tg-latn)";
@@ -1507,19 +1520,3 @@
 "year-in-review-survey-very-unsatisfied" = "غير راض جدا";
 "year-in-review-wikipedia-w-accessibility-label" = "ويكيبيديا مع الشعار";
 "year-in-review-wmf-logo-accessibility-label" = "شعار مؤسسة ويكيميديا";
-"open-action" = "فتح";
-"article-tabs-onboarding-tooltip" = "نصائح أدوات الإلحاق لعلامات التبويب";
-"article-tabs-navigation" = "التنقل في علامات التبويب";
-"save-all-tabs" = "حفظ جميع علامات التبويب";
-"close-all-tabs" = "إغلاق جميع علامات التبويب";
-"duplicate-tab" = "علامة تبويب مكررة";
-"close-other-tabs" = "إغلاق علامات التبويب الأخرى";
-"saved-all-tabs" = "تم حفظ جميع علامات التبويب.";
-"new-tab" = "علامة تبويب جديدة";
-"close-tab-confirmation" = "هل تريد إغلاق علامة التبويب؟";
-"close-all-tabs-confirmation-number" = "هل تريد إغلاق جميع علامات التبويب البالغ عددها $1؟";
-"close-all-tabs-confirmation" = "هل تريد إغلاق جميع علامات التبويب البالغ عددها $1؟ لا يمكن التراجع عن هذا الإجراء.";
-"close-tabs" = "إغلاق علامات التبويب";
-"closed-all-tabs-confirmation" = "تم إغلاق جميع علامات التبويب البالغ عددها $1.";
-"main-page" = "الصفحة الرئيسية";
-"tabs-survey-title" = "ساعد في تحسين ميزة علامات التبويب. هل أنت راضٍ عن هذه الميزة؟";
