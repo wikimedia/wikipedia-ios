@@ -5,26 +5,52 @@ public struct WMFArticleTabsView: View {
     @ObservedObject var appEnvironment = WMFAppEnvironment.current
     @Environment(\.colorScheme) var colorScheme
 
-    var theme: WMFTheme {
+    private var theme: WMFTheme {
         return appEnvironment.theme
     }
-    
+
     @ObservedObject var viewModel: WMFArticleTabsViewModel
-    
+    /// Flag to allow us to know if we can scroll to the current tab position
+    @State private var isReady: Bool = false
+    @State private var currentTabID: String?
+
     public init(viewModel: WMFArticleTabsViewModel) {
         self.viewModel = viewModel
     }
 
     public var body: some View {
+        Group {
+            if isReady {
+                readyGrid
+            } else {
+                ProgressView()
+                    .progressViewStyle(CircularProgressViewStyle())
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    .background(Color(theme.midBackground))
+            }
+        }
+        .onReceive(viewModel.$articleTabs) { tabs in
+            guard !tabs.isEmpty, !isReady else { return }
+            Task {
+                if let tab = await viewModel.getCurrentTab() {
+                    currentTabID = tab.id
+                    isReady = true
+                }
+            }
+        }
+        .background(Color(theme.midBackground))
+        .toolbarBackground(Color(theme.midBackground), for: .automatic)
+    }
+
+    private var readyGrid: some View {
         ScrollViewReader { proxy in
             GeometryReader { geometry in
-                let size = geometry.size
-                let columns = viewModel.calculateColumns(for: size)
+                let columns = viewModel.calculateColumns(for: geometry.size)
                 let gridItem = GridItem(.flexible())
 
                 ScrollView {
                     LazyVGrid(columns: Array(repeating: gridItem, count: columns)) {
-                        ForEach(viewModel.articleTabs.sorted(by: { $0.dateCreated < $1.dateCreated }), id:\.self) { tab in
+                        ForEach(viewModel.articleTabs.sorted(by: { $0.dateCreated < $1.dateCreated }), id: \.id) { tab in
                             WMFArticleTabsViewContent(viewModel: viewModel, tab: tab)
                                 .id(tab.id)
                                 .accessibilityActions {
@@ -40,45 +66,34 @@ public struct WMFArticleTabsView: View {
                                 }
                         }
                     }
+                    .padding(.horizontal, 8)
+                    .onAppear {
+                        if let id = currentTabID {
+                            proxy.scrollTo(id, anchor: .center)
+                        }
+                    }
                 }
-                .padding(.horizontal, 8)
             }
-            .background(Color(theme.midBackground))
-            .toolbarBackground(Color(theme.midBackground), for: .automatic)
-            .task {
-                await scrollToCurrent(using: proxy)
-            }
-            .onChange(of: viewModel.articleTabs) { _ in
-                Task { await scrollToCurrent(using: proxy) }
-            }
-        }
-    }
-
-    private func scrollToCurrent(using proxy: ScrollViewProxy) async {
-        guard let tab = await viewModel.getCurrentTab() else { return }
-        withAnimation {
-            proxy.scrollTo(tab.id, anchor: .center)
         }
     }
 }
 
-
 fileprivate struct WMFArticleTabsViewContent: View {
     @ObservedObject var appEnvironment = WMFAppEnvironment.current
     @Environment(\.colorScheme) var colorScheme
-    
-    var theme: WMFTheme {
+
+    private var theme: WMFTheme {
         return appEnvironment.theme
     }
-    
+
     @ObservedObject var viewModel: WMFArticleTabsViewModel
     @ObservedObject var tab: ArticleTab
-    
+
     public init(viewModel: WMFArticleTabsViewModel, tab: ArticleTab) {
         self.viewModel = viewModel
         self.tab = tab
     }
-    
+
     public var body: some View {
         Group {
             if tab.isMain {
@@ -118,7 +133,7 @@ fileprivate struct WMFArticleTabsViewContent: View {
             }
         }
     }
-    
+
     private func mainPageTabContent() -> some View {
         VStack(alignment: .leading, spacing: 0) {
             ZStack(alignment: .topTrailing) {
@@ -176,14 +191,14 @@ fileprivate struct WMFArticleTabsViewContent: View {
                     .foregroundStyle(Color(theme.text))
                     .lineSpacing(1.4)
             }
-            .padding([.horizontal], 10)
+            .padding(.horizontal, 10)
         }
     }
-    
+
     private func loadingTabContent() -> some View {
         Text("")
     }
-    
+
     private func standardTabContent() -> some View {
         VStack(alignment: .leading, spacing: 0) {
             ZStack(alignment: .topTrailing) {
@@ -240,7 +255,7 @@ fileprivate struct WMFArticleTabsViewContent: View {
             Spacer()
         }
     }
-    
+
     private func tabTitle(title: String) -> some View {
         Text(title)
             .font(Font(WMFFont.for(.georgiaCallout)))
@@ -248,7 +263,7 @@ fileprivate struct WMFArticleTabsViewContent: View {
             .lineLimit(1)
             .padding(.bottom, 2)
     }
-    
+
     private func tabText(tab: ArticleTab) -> some View {
         VStack(alignment: .leading, spacing: 0) {
             Group {
@@ -262,7 +277,7 @@ fileprivate struct WMFArticleTabsViewContent: View {
             .font(Font(WMFFont.for(.caption1)))
             .foregroundStyle(Color(theme.secondaryText))
             .lineLimit(1)
-            
+
             Divider()
                 .frame(width: 24)
                 .padding(.vertical, 8)
@@ -276,6 +291,6 @@ fileprivate struct WMFArticleTabsViewContent: View {
                 Spacer()
             }
         }
-        .padding([.horizontal], 10)
+        .padding(.horizontal, 10)
     }
 }
