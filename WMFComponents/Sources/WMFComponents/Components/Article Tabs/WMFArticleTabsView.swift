@@ -21,7 +21,7 @@ public struct WMFArticleTabsView: View {
     public var body: some View {
         Group {
             if isReady {
-                readyGrid
+                tabsGrid
             } else {
                 ProgressView()
                     .progressViewStyle(CircularProgressViewStyle())
@@ -42,7 +42,7 @@ public struct WMFArticleTabsView: View {
         .toolbarBackground(Color(theme.midBackground), for: .automatic)
     }
 
-    private var readyGrid: some View {
+    private var tabsGrid: some View {
         ScrollViewReader { proxy in
             GeometryReader { geometry in
                 let columns = viewModel.calculateColumns(for: geometry.size)
