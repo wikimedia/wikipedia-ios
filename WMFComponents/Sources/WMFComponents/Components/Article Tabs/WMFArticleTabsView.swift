@@ -68,8 +68,11 @@ public struct WMFArticleTabsView: View {
                     }
                     .padding(.horizontal, 8)
                     .onAppear {
-                        if let id = currentTabID {
-                            proxy.scrollTo(id, anchor: .center)
+                        Task {
+                            await Task.yield()
+                            if let id = currentTabID {
+                                proxy.scrollTo(id, anchor: .bottom)
+                            }
                         }
                     }
                 }
