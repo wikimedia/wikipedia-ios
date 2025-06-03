@@ -151,6 +151,7 @@
 "article-revision-history" = "Історія редагування статті";
 "article-save-error-not-enough-space" = "Не вистачає місця на вашому приладі, щоб зберегти цю статтю.";
 "article-share" = "Поділитися";
+// Fuzzy
 "article-tabs-max-reached" = "Досягнуто ліміту вкладок ($1). Будь ласка, закрийте одну або кілька вкладок.";
 "article-tabs-open-background-tab" = "Відкрити у фоновій вкладці";
 "article-tabs-open-new-tab" = "Відкрити у новій вкладці";
@@ -165,7 +166,6 @@
 "button-ok" = "Гаразд";
 "button-publish" = "Зберегти";
 "button-publish-anyway" = "Опублікувати в будь-якому випадку";
-"button-read-now" = "Читати зараз";
 "button-report-a-bug" = "Повідомити про помилку";
 "button-save-for-later" = "Зберегти наперед";
 "button-saved-for-later" = "Збережено наперед";

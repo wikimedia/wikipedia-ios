@@ -70,6 +70,7 @@
 // Author: Whovian Biologist
 // Author: Wifidel
 // Author: Yllelder
+// Author: Yucavalla
 // Author: Zpizza
 
 "about-content-license" = "Licencia del contenido";
@@ -197,7 +198,7 @@
 "article-revision-history" = "Historial de revisión del artículo";
 "article-save-error-not-enough-space" = "No hay espacio suficiente en el dispositivo para guardar este artículo";
 "article-share" = "Compartir";
-"article-tabs-max-reached" = "Se alcanzó el límite de pestañas ($1). Cierra una o más pestañas.";
+"article-tabs-max-reached" = "Se alcanzó el límite de pestañas ( $1 ). El artículo se abrió en la pestaña actual. Cierre una o más pestañas.";
 "article-tabs-open-background-tab" = "Abrir en pestaña de fondo";
 "article-tabs-open-new-tab" = "Abrir en una pestaña nueva";
 "article-talk-page" = "Página de discusión del artículo";
@@ -211,7 +212,6 @@
 "button-ok" = "Aceptar";
 "button-publish" = "Publicar";
 "button-publish-anyway" = "Publicar de todos modos";
-"button-read-now" = "Leer ahora";
 "button-report-a-bug" = "Informar de un error";
 "button-save-for-later" = "Guardar para después";
 "button-saved-for-later" = "Guardado para después";
