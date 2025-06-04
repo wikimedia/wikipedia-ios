@@ -93,6 +93,10 @@ final class ArticleTabsFunnel {
         logEvent(activeInterface: .feedback, action: .submitFeedback, actionData: actionData, project: nil)
     }
 
+    func logFeedbackImpression() {
+        logEvent(activeInterface: .feedback, action: .impression, project: nil)
+    }
+
     func logIconImpression(interface: ArticleTabsFunnel.ActiveInterface, project: WikimediaProject?) {
         logEvent(activeInterface: interface, action: .impression, project: project)
     }
