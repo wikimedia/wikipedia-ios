@@ -79,6 +79,14 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
 
     // MARK: - Public funcs
     
+    func shouldLockAspectRatio() -> Bool {
+        if UIApplication.shared.preferredContentSizeCategory.isAccessibilityCategory {
+            return false
+        }
+        return true
+    }
+    
+    
     func calculateColumns(for size: CGSize) -> Int {
         // If text is scaled up for accessibility, use single column
         if UIApplication.shared.preferredContentSizeCategory.isAccessibilityCategory {
@@ -102,6 +110,9 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
     
     func calculateImageHeight() -> Int {
         if UIApplication.shared.preferredContentSizeCategory.isAccessibilityCategory {
+            if UIDevice.current.userInterfaceIdiom == .pad {
+                return 425
+            }
             return 225
         }
 

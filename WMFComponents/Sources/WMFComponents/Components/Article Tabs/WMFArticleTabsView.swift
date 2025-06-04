@@ -102,11 +102,11 @@ fileprivate struct WMFArticleTabsViewContent: View {
         .cornerRadius(12)
         .shadow(color: Color.black.opacity(0.05), radius: 16, x: 0, y: 0)
         .contentShape(Rectangle())
+        .modifier(AspectRatioModifier(condition: viewModel.shouldLockAspectRatio()))
         .onTapGesture {
             viewModel.didTapTab(tab.data)
             viewModel.loggingDelegate?.logArticleTabsArticleClick(wmfProject: tab.data.articles.first?.project)
         }
-        .aspectRatio(3/4, contentMode: .fit)
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
         .onAppear {
             Task {
@@ -175,6 +175,7 @@ fileprivate struct WMFArticleTabsViewContent: View {
                     .font(Font(WMFFont.for(.caption1)))
                     .foregroundStyle(Color(theme.text))
                     .lineSpacing(1.4)
+                    .lineLimit(viewModel.shouldLockAspectRatio() ? nil : 3)
             }
             .padding([.horizontal], 10)
         }
@@ -275,10 +276,23 @@ fileprivate struct WMFArticleTabsViewContent: View {
                     .foregroundStyle(Color(theme.text))
                     .lineSpacing(1.4)
                     .padding(.bottom, 4)
+                    .lineLimit(viewModel.shouldLockAspectRatio() ? nil : 3)
             } else {
                 Spacer()
             }
         }
         .padding(.horizontal, 10)
+    }
+}
+
+struct AspectRatioModifier: ViewModifier {
+    let condition: Bool
+
+    func body(content: Content) -> some View {
+        if condition {
+            content.aspectRatio(3/4, contentMode: .fit)
+        } else {
+            content
+        }
     }
 }
