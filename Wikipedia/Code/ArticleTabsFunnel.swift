@@ -11,6 +11,7 @@ final class ArticleTabsFunnel {
         case submitFeedback = "feedback_submit_click"
         case iconClick = "icon_click"
         case newTabClick = "new_tab_click"
+        case newTabClickBackground = "new_tab_click_background"
     }
 
     public enum ActiveInterface: String {
@@ -18,6 +19,7 @@ final class ArticleTabsFunnel {
         case tooltip = "tab_tooltip"
         case overview = "tabs_overview"
         case feedback = "tabs_feedback"
+        case articleMenu = "article_background_menu"
         case feed = "feed"
         case article = "article"
         case places = "places"
@@ -115,10 +117,10 @@ final class ArticleTabsFunnel {
     }
 
     func logOpenArticleInNewTab() {
-
+        logEvent(activeInterface: .articleMenu, action: .newTabClick, project: nil)
     }
 
     func logOpenArticleInBackgroundTab() {
-
+        logEvent(activeInterface: .articleMenu, action: .newTabClickBackground, project: nil)
     }
 }
