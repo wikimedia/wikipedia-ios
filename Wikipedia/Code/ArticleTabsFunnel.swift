@@ -10,6 +10,7 @@ final class ArticleTabsFunnel {
         case closeFeedback = "feedback_close_click"
         case submitFeedback = "feedback_submit_click"
         case iconClick = "icon_click"
+        case newTabClick = "new_tab_click"
     }
 
     public enum ActiveInterface: String {
@@ -107,5 +108,17 @@ final class ArticleTabsFunnel {
 
     func logGroupAssignment(group: String) {
         logEvent(activeInterface: nil, action: .impression, actionData: ["group": group], project: nil)
+    }
+
+    func logAddNewBlankTab() {
+        logEvent(activeInterface: .overview, action: .newTabClick, project: nil)
+    }
+
+    func logOpenArticleInNewTab() {
+
+    }
+
+    func logOpenArticleInBackgroundTab() {
+
     }
 }

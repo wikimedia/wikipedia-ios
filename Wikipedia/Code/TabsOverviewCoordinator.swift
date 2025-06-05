@@ -154,6 +154,7 @@ final class TabsOverviewCoordinator: Coordinator {
         }
         
         let articleCoordinator = ArticleCoordinator(navigationController: navigationController, articleURL: articleURL, dataStore: MWKDataStore.shared(), theme: theme, needsAnimation: false, source: .undefined, tabConfig: .assignNewTabAndSetToCurrent)
+        ArticleTabsFunnel.shared.logAddNewBlankTab()
         articleCoordinator.start()
         
         navigationController.dismiss(animated: true)
