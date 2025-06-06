@@ -4,6 +4,7 @@
 // Author: Alexmar983
 // Author: Annibale covini gerolamo
 // Author: Anto
+// Author: Antonino Faro
 // Author: Bertaz
 // Author: Beta16
 // Author: Brion
@@ -1058,8 +1059,7 @@
 "year-in-review-personalized-editing-title-format-500plus" = "Hai modificato Wikipedia oltre 500 volte.";
 "year-in-review-personalized-reading-subtitle-format" = "Hai letto $1 {{PLURAL:$1|voce|voci}}. Wikipedia ha avuto più di $2 milioni di voci disponibili in oltre $3 lingue. Ti sei unito a milioni di persone nell'espandere la conoscenza e nell'esplorare argomenti diversi.";
 "year-in-review-personalized-reading-title-format" = "Hai letto {{PLURAL:$1|$1 voce|$1 voci}}";
-// Fuzzy
-"year-in-review-personalized-saved-subtitle-format" = "Hai $1 articoli salvati, incluso $2, $3 e $4. Ogni articolo salvato rispecchia i tuoi interessi e aiuta a costruire una base di conoscenza personalizzata su Wikipedia.";
+"year-in-review-personalized-saved-subtitle-format" = "Hai salvato {{PLURAL:$1| $1 articolo| $1 articoli}} quest'anno, inclusi $2 , $3 e $4 . Ogni articolo salvato riflette i tuoi interessi e contribuisce a creare una base di conoscenza personalizzata su Wikipedia.";
 "year-in-review-personalized-saved-title-format" = "Hai salvato {{PLURAL:$1|$1 voce|$1 voci}}";
 "year-in-review-share-text" = "Ecco il mio Anno in Rassegna su Wikipedia. Creato con l'app iOS di Wikipedia (https://apps.apple.com/app/wikipedia/id324715238) #WikipediaYearInReview";
 "year-in-review-survey-additional-thoughts" = "Qualche pensiero aggiuntivo?";
