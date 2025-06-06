@@ -108,16 +108,17 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
         return description.trimmingCharacters(in: .whitespacesAndNewlines)
     }
     
-    func calculateImageHeight() -> Int {
+    func calculateImageHeight(horizontalSizeClass: UserInterfaceSizeClass?) -> Int {
         if UIApplication.shared.preferredContentSizeCategory.isAccessibilityCategory {
             if UIDevice.current.userInterfaceIdiom == .pad {
                 return 425
             }
             return 225
         }
-
+        
         if UIDevice.current.userInterfaceIdiom == .pad {
-            let isLandscape = UIDevice.current.orientation.isLandscape
+            guard let horizontalSizeClass else { return 110 }
+            let isLandscape = horizontalSizeClass == .regular
             return isLandscape ? 160 : 110
         }
 

@@ -84,6 +84,7 @@ public struct WMFArticleTabsView: View {
 fileprivate struct WMFArticleTabsViewContent: View {
     @ObservedObject var appEnvironment = WMFAppEnvironment.current
     @Environment(\.colorScheme) var colorScheme
+    @Environment(\.horizontalSizeClass) var horizontalSizeClass
 
     private var theme: WMFTheme {
         return appEnvironment.theme
@@ -120,7 +121,7 @@ fileprivate struct WMFArticleTabsViewContent: View {
         .cornerRadius(12)
         .shadow(color: Color.black.opacity(0.05), radius: 16, x: 0, y: 0)
         .contentShape(Rectangle())
-        .modifier(AspectRatioModifier(condition: viewModel.shouldLockAspectRatio()))
+        .modifier(AspectRatioModifier(shouldLockAspectRatio: viewModel.shouldLockAspectRatio()))
         .onTapGesture {
             viewModel.didTapTab(tab.data)
             viewModel.loggingDelegate?.logArticleTabsArticleClick(wmfProject: tab.data.articles.first?.project)
@@ -145,7 +146,7 @@ fileprivate struct WMFArticleTabsViewContent: View {
                         Image("main-page-bg", bundle: .module)
                             .resizable()
                             .scaledToFill()
-                            .frame(width: geo.size.width, height: CGFloat(viewModel.calculateImageHeight()))
+                            .frame(width: geo.size.width, height: CGFloat(viewModel.calculateImageHeight(horizontalSizeClass: horizontalSizeClass)))
                             .clipped()
                             .overlay(
                                 Color.black.opacity(0.6)
@@ -159,7 +160,7 @@ fileprivate struct WMFArticleTabsViewContent: View {
                             .frame(width: geo.size.width, height: 95, alignment: .center)
                     }
                 }
-                .frame(height: CGFloat(viewModel.calculateImageHeight()))
+                .frame(height: CGFloat(viewModel.calculateImageHeight(horizontalSizeClass: horizontalSizeClass)))
                 .padding(.bottom, 0)
 
                 if viewModel.shouldShowCloseButton {
@@ -213,14 +214,14 @@ fileprivate struct WMFArticleTabsViewContent: View {
                                 image
                                     .resizable()
                                     .scaledToFill()
-                                    .frame(width: geo.size.width, height: CGFloat(viewModel.calculateImageHeight()))
+                                    .frame(width: geo.size.width, height: CGFloat(viewModel.calculateImageHeight(horizontalSizeClass: horizontalSizeClass)))
                                     .clipped()
                             } placeholder: {
                                 Color(uiColor: theme.paperBackground)
-                                    .frame(width: geo.size.width, height: CGFloat(viewModel.calculateImageHeight()))
+                                    .frame(width: geo.size.width, height: CGFloat(viewModel.calculateImageHeight(horizontalSizeClass: horizontalSizeClass)))
                             }
                         }
-                        .frame(height: CGFloat(viewModel.calculateImageHeight()))
+                        .frame(height: CGFloat(viewModel.calculateImageHeight(horizontalSizeClass: horizontalSizeClass)))
                     } else {
                         VStack(alignment: .leading, spacing: 2) {
                             tabTitle(title: tab.title)
@@ -304,10 +305,10 @@ fileprivate struct WMFArticleTabsViewContent: View {
 }
 
 struct AspectRatioModifier: ViewModifier {
-    let condition: Bool
+    let shouldLockAspectRatio: Bool
 
     func body(content: Content) -> some View {
-        if condition {
+        if shouldLockAspectRatio {
             content.aspectRatio(3/4, contentMode: .fit)
         } else {
             content
