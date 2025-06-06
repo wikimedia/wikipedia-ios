@@ -178,8 +178,10 @@ class HistoryViewController: ArticleFetchedResultsViewController, WMFNavigationB
     }
 
     private func configureNavigationBar() {
-        
-        let experimentAssignment = (try? WMFActivityTabExperimentsDataController.shared?.getActivityTabExperimentAssignment()) ?? .control
+        guard let language  = dataStore.languageLinkController.appLanguage?.languageCode else { return }
+        let wmfLanguage = WMFLanguage(languageCode: language, languageVariantCode: nil)
+        let project = WMFProject.wikipedia(wmfLanguage)
+        let experimentAssignment = (try? WMFActivityTabExperimentsDataController.shared?.getActivityTabExperimentAssignment(project: project)) ?? .control
         let alignment: WMFNavigationBarTitleConfig.Alignment = experimentAssignment == .control ? .leadingCompact : .centerCompact
         
         var titleConfig: WMFNavigationBarTitleConfig = WMFNavigationBarTitleConfig(title: CommonStrings.historyTabTitle, customView: nil, alignment: alignment)
