@@ -253,17 +253,14 @@ final class EditInteractionFunnel {
     
     // MARK: - Activity Tab Events
     
-    func logActivityTabGroupAssignment(project: WikimediaProject) {
-        
-        guard let groupAssignment = try? WMFActivityTabExperimentsDataController.shared?.getActivityTabExperimentAssignment() else {
-            return
-        }
-        
+    func logActivityTabGroupAssignment(groupAssignment: Int, project: WikimediaProject) {
+
         let groupAssignmentString: String
         switch groupAssignment {
-        case .control: groupAssignmentString = "activity_a"
-        case .genericCTA: groupAssignmentString = "activity_b"
-        case .suggestedEdit: groupAssignmentString = "activity_c"
+        case 0: groupAssignmentString = "activity_a"
+        case 1: groupAssignmentString = "activity_b"
+        case 2: groupAssignmentString = "activity_c"
+        default: groupAssignmentString = "activity_a"
         }
         
         logEvent(activeInterface: nil, action: .launch, actionData:["group": groupAssignmentString], project: project)
