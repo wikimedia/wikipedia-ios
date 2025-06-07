@@ -57,13 +57,13 @@ extension ArticleViewController {
 
         let openInTabVM = WMFTooltipViewModel(localizedStrings: makeOpenInTabStrings(), buttonNeedsDisclosure: false, sourceView: view, sourceRect: articleSourceRect, permittedArrowDirections: .down) {
             if let siteURL = self.articleURL.wmf_site, let project = WikimediaProject(siteURL: siteURL) {
-                // logging icon impression here so it's only sent once
                 ArticleTabsFunnel.shared.logTabTooltipImpression(project: project)
             }
         }
 
         let tabsOverviewVM = WMFTooltipViewModel(localizedStrings: makeTabsOverviewStrings(), buttonNeedsDisclosure: false, sourceView: navigationBar, sourceRect: squareRect, permittedArrowDirections: .up) {
             if let siteURL = self.articleURL.wmf_site, let project = WikimediaProject(siteURL: siteURL) {
+                // logging icon impression here so it's only sent once
                 ArticleTabsFunnel.shared.logTabIconFirstImpression(project: project)
             }
         }

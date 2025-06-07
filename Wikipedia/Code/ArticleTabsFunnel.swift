@@ -10,6 +10,8 @@ final class ArticleTabsFunnel {
         case closeFeedback = "feedback_close_click"
         case submitFeedback = "feedback_submit_click"
         case iconClick = "icon_click"
+        case newTabClick = "new_tab_click"
+        case newTabClickBackground = "new_tab_click_background"
     }
 
     public enum ActiveInterface: String {
@@ -17,6 +19,7 @@ final class ArticleTabsFunnel {
         case tooltip = "tab_tooltip"
         case overview = "tabs_overview"
         case feedback = "tabs_feedback"
+        case articleMenu = "article_background_menu"
         case feed = "feed"
         case article = "article"
         case places = "places"
@@ -93,6 +96,10 @@ final class ArticleTabsFunnel {
         logEvent(activeInterface: .feedback, action: .submitFeedback, actionData: actionData, project: nil)
     }
 
+    func logFeedbackImpression() {
+        logEvent(activeInterface: .feedback, action: .impression, project: nil)
+    }
+
     func logIconImpression(interface: ArticleTabsFunnel.ActiveInterface, project: WikimediaProject?) {
         logEvent(activeInterface: interface, action: .impression, project: project)
     }
@@ -103,5 +110,17 @@ final class ArticleTabsFunnel {
 
     func logGroupAssignment(group: String) {
         logEvent(activeInterface: nil, action: .impression, actionData: ["group": group], project: nil)
+    }
+
+    func logAddNewBlankTab() {
+        logEvent(activeInterface: .overview, action: .newTabClick, project: nil)
+    }
+
+    func logOpenArticleInNewTab() {
+        logEvent(activeInterface: .articleMenu, action: .newTabClick, project: nil)
+    }
+
+    func logOpenArticleInBackgroundTab() {
+        logEvent(activeInterface: .articleMenu, action: .newTabClickBackground, project: nil)
     }
 }
