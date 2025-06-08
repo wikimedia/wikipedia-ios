@@ -134,6 +134,7 @@ class ArticlePeekPreviewViewController: UIViewController {
             let openInNewTabAction = UIAction(title: CommonStrings.articleTabsOpenInNewTab, image: WMFSFSymbolIcon.for(symbol: .tabsIcon), handler: { [weak self] _ in
                 guard let self = self else { return }
                 articleTabsDataController.didTapOpenNewTab()
+                ArticleTabsFunnel.shared.logOpenArticleInNewTab()
                 self.articlePreviewingDelegate?.openInNewTabArticlePreviewActionSelected(with: self)
             })
             
@@ -163,6 +164,7 @@ class ArticlePeekPreviewViewController: UIViewController {
                             }
                         } else {
                             _ = try await articleTabsDataController.createArticleTab(initialArticle: article, setAsCurrent: false)
+                            ArticleTabsFunnel.shared.logOpenArticleInBackgroundTab()
                         }
                         
                     } catch {
