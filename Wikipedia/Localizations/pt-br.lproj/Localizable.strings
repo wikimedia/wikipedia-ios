@@ -118,6 +118,7 @@
 "action-update" = "Atualizar";
 "add-articles-to-reading-list" = "Adicionar $1 {{PLURAL:$1|artigo|artigos}} à lista de leitura";
 "advanced-settings-title" = "Configurações avançadas";
+"alert-temporary-account-learn-more" = "Saiba mais";
 "alt-text-feedback-survey-toast-title" = "Feedback enviado";
 "announcements-dismiss" = "Ignorar";
 "app-store-keywords" = "Wikipédia, referência, wiki, enciclopédia, informação, conhecimento, pesquisa, informação, explorar, aprender";
