@@ -142,13 +142,14 @@ import WMFData
     }
 
     func getGroupAssigment() -> WMFActivityTabExperimentsDataController.ActivityTabExperimentAssignment {
-        guard let dataController = WMFActivityTabExperimentsDataController.shared else {
+        guard let dataController = WMFActivityTabExperimentsDataController.shared,
+            let project else {
             return .control
         }
         var assignment: WMFActivityTabExperimentsDataController.ActivityTabExperimentAssignment = .control
 
         do {
-            let currentAssigment = try dataController.getActivityTabExperimentAssignment()
+            let currentAssigment = try dataController.getActivityTabExperimentAssignment(project: project)
             assignment = currentAssigment
         } catch {
             debugPrint("Error fetching activity tab experiment: \(error)")

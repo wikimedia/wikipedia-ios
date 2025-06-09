@@ -19,7 +19,7 @@
 	<key>activity-tab-you-read</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>您本周已阅读%#@v1@篇文章。</string>
+		<string>您本周已阅读%#@v1@篇条目。</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -33,7 +33,7 @@
 	<key>activity-tab-you-saved</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>您本周已保存%#@v1@篇文章。</string>
+		<string>您本周已保存%#@v1@篇条目。</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>

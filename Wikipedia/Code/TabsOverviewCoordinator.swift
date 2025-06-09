@@ -55,10 +55,10 @@ final class TabsOverviewCoordinator: Coordinator {
         ]
 
         let surveyView = WMFSurveyView(viewModel: WMFSurveyViewModel(localizedStrings: surveyLocalizedStrings, options: surveyOptions, selectionType: .single, shouldShowMultilineText: true), cancelAction: { [weak self] in
-            self?.logArticleTabsFeedbackClose()
+            ArticleTabsFunnel.shared.logFeedbackClose()
             self?.navigationController.presentedViewController?.dismiss(animated: true)
         }, submitAction: { [weak self] options, otherText in
-            self?.logArticleTabsFeedback(selectedItems: options, comment: otherText)
+            ArticleTabsFunnel.shared.logFeedbackSubmit(selectedItems: options, comment: otherText)
             self?.navigationController.presentedViewController?.dismiss(animated: true, completion: {
                 let image = UIImage(systemName: "checkmark.circle.fill")
                 WMFAlertManager.sharedInstance.showBottomAlertWithMessage(CommonStrings.feedbackSurveyToastTitle, subtitle: nil, image: image, type: .custom, customTypeName: "feedback-submitted", dismissPreviousAlerts: true)
@@ -84,6 +84,7 @@ final class TabsOverviewCoordinator: Coordinator {
                 guard let presentedVC = self?.navigationController.presentedViewController else { return }
                 let surveyVC = self?.surveyViewController()
                 guard let surveyVC else { return }
+                ArticleTabsFunnel.shared.logFeedbackImpression()
                 presentedVC.present(surveyVC, animated: true)
                 
                 surveyVC.modalPresentationStyle = .pageSheet
@@ -153,6 +154,7 @@ final class TabsOverviewCoordinator: Coordinator {
         }
         
         let articleCoordinator = ArticleCoordinator(navigationController: navigationController, articleURL: articleURL, dataStore: MWKDataStore.shared(), theme: theme, needsAnimation: false, source: .undefined, tabConfig: .assignNewTabAndSetToCurrent)
+        ArticleTabsFunnel.shared.logAddNewBlankTab()
         articleCoordinator.start()
         
         navigationController.dismiss(animated: true)
@@ -175,14 +177,6 @@ extension TabsOverviewCoordinator: WMFArticleTabsLoggingDelegate {
         if let url = wmfProject?.siteURL, let project =  WikimediaProject(siteURL:url) {
             ArticleTabsFunnel.shared.logArticleClick(project: project)
         }
-    }
-
-    func logArticleTabsFeedback(selectedItems: [String], comment: String?) {
-        ArticleTabsFunnel.shared.logFeedbackSubmit(selectedItems: selectedItems, comment: comment)
-    }
-
-    func logArticleTabsFeedbackClose() {
-        ArticleTabsFunnel.shared.logFeedbackClose()
     }
 
 }

@@ -1,5 +1,6 @@
 // Messages for Arabic (العربية)
 // Exported from translatewiki.net
+// Author: 123Rkhader
 // Author: ASHmed
 // Author: Aboulouei1
 // Author: Ahmed Alyamoor
@@ -173,10 +174,11 @@
 "article-revision-history" = "تاريخ تعديل المقالة";
 "article-save-error-not-enough-space" = "ليس لديك مساحة كافية على جهازك لحفظ هذه المقالة";
 "article-share" = "مشاركة";
-"article-tabs-max-reached" = "تم الوصول إلى الحد الأقصى لعلامات التبويب ($1). يُرجى إغلاق علامة تبويب واحدة أو أكثر.";
-"article-tabs-navigation" = "التنقل في علامات التبويب";
-"article-tabs-onboarding-tooltip" = "نصائح أدوات الإلحاق لعلامات التبويب";
-"article-tabs-open-background-tab" = "فتح في علامة تبويب خلفية جديدة";
+"article-tabs-max-reached" = "تم الوصول إلى الحد الأقصى لعلامات التبويب ($1). تم فتح المقال في علامة التبويب الحالية. يُرجى إغلاق علامة تبويب واحدة أو أكثر.";
+"article-tabs-navigation" = "التنقل بين علامات التبويب";
+"article-tabs-onboarding-tooltip" = "خطوات الإعداد لعلامات التبويب";
+"article-tabs-open" = "مفتوح";
+"article-tabs-open-background-tab" = "فتح في علامة تبويب جديدة";
 "article-tabs-open-new-tab" = "فتح في علامة تبويب جديدة";
 "article-talk-page" = "صفحة نقاش المقالة";
 "article-toolbar-reading-themes-controls-toolbar-item" = "عناصر تحكم مواضيع القراءة";
@@ -190,7 +192,7 @@
 "button-publish" = "انشر";
 "button-publish-anyway" = "انشر على أية حال";
 "button-report-a-bug" = "بلغ عن علة";
-"button-save-for-later" = "الحفظ لوقت لاحق";
+"button-save-for-later" = "الحفظ لوقت آخر";
 "button-saved-for-later" = "احفظها لوقت لاحق";
 "button-saved-remove" = "حذف من المحفوظات";
 "button-skip" = "تخطٍ";
@@ -1120,6 +1122,7 @@
 "save-view-temp-account-warning" = "لم تقم بتسجيل الدخول. بمجرد إجراء تعديل، سيتم إنشاء حساب مؤقت لك لحماية خصوصيتك.";
 "saved-all-articles-title" = "كل المقالات";
 "saved-all-tabs" = "تم حفظ جميع علامات التبويب.";
+"saved-all-tabs-view-reading-list" = "تم حفظ جميع علامات التبويب. عرض قائمة القراءة.";
 "saved-default-reading-list-tag" = "لا يمكن حذف هذه القائمة";
 "saved-pages-image-download-error" = "فشل تنزيل الصور لهذه الصفحة المحفوظة.";
 "saved-pages-progress-syncing" = "تنزيل المقالة قيد التقدم...";

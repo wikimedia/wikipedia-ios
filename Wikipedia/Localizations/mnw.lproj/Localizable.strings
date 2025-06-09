@@ -354,7 +354,7 @@
 "forgot-password-instructions" = "ကျောဝ် ပ္ဍဲဝှာင် ဗွဲသၟဝ်ဏအ် သွက်ဂွံ ဒုင်တဲ မလိက်ပၞုက် မကလေင်ကၠောန်လဝ်တၟိ နကဵု အဳမေလ်";
 "forgot-password-title" = "ကလေင်စုတ် မလိက်ပၞုက်";
 "forgot-password-username-or-email-title" = "ဟွံသေင်မ္ဂး";
-"history-clear-all" = "ဖအး";
+"history-clear-all" = "ဖ္အး";
 "history-clear-cancel" = "တးပဲါ";
 "history-clear-confirmation-heading" = "မၞး မိက်ဂွံ ပလီုထောအ် item မၞး သီုဖအိုတ် ကွေဟ်ဟ်ရဟာ？";
 "history-clear-delete-all" = "ယွံ၊ ပလီုထောအ် ဖအိုတ်";
@@ -608,7 +608,7 @@
 "replace-button-accessibility" = " $1 ရေင်တၠုင်ညိ။";
 "replace-buttons-replace-accessibility" = "စုတ်စၞး မွဲဓဝ်ညိ";
 "replace-buttons-replace-all-accessibility" = "စုတ်စၞး သီုဖအိုတ်ညိ";
-"replace-clear-button-accessibility" = "ဖအး မစုတ်စၞး";
+"replace-clear-button-accessibility" = "ဖ္အး မစုတ်စၞး";
 "replace-infolabel-method-replace" = "စုတ်စၞး";
 "replace-infolabel-method-replace-all" = "စုတ်စၞး သီုဖအိုတ်";
 "replace-method-button-accessibility" = "နဲကဲ စုတ်စၞး။ စုတ် ပ္ဍဲ $1။ ရုဲစှ် သွက်ဂွံ ပြံင်လှာဲ။";
@@ -625,7 +625,7 @@
 "saved-unsave-article-and-remove-from-reading-lists-message" = "မဂိုင်သိပ်ဟွံဂွံ {{PLURAL:$1|လိက်ပရေင်ဏအ် သ္ဒးပတိတ်ထောအ်|လိက်ရေင်တအ်ဏအ် သ္ဒးဒုင်ပတိတ်}} နူ စရင်လိက်ဗွဟ် မဆေင်စပ်တအ်ရောင်";
 "saved-unsave-article-and-remove-from-reading-lists-title" = "ဂိုင်သိပ်ဟွံဂွံ {{PLURAL:$1|လိက်ပရေင်|လိက်ပရေင်ဂမၠိုင်}}?";
 "search-button-accessibility-label" = "ဂၠာဲ ပ္ဍဲ ဝဳကဳပဳဒဳယာ";
-"search-clear-title" = "ဖအး";
+"search-clear-title" = "ဖ္အး";
 "search-did-you-mean" = "မၞး မိက်ဂွံ ဟီု $1 ဟာ？";
 "search-field-placeholder-text" = "ဂၠာဲ ပ္ဍဲ ဝဳကဳပဳဒဳယာ";
 "search-reading-list-placeholder-text" = "ဂၠာဲ ပ္ဍဲ စရင် လိက်ဗွဟ်";
@@ -643,7 +643,7 @@
 "settings-clear-cache-are-you-sure-message" = "ပွမဖအးထောအ် တင်ဂၞင် မပၞုက်ဒၟံင်ဂှ် ပကဵုဒၞာဲ $1 ဂွံသၠးအာ၊၊ မုက်လိက် မၞးမဂိုင်သိပ်လဝ်ဂှ် ဍေဟ်ဟွံဇိုတ်ပထောအ်ပုဟ်၊၊";
 "settings-clear-cache-are-you-sure-title" = "ဖအး တင်ဂၞင် မပၞုက်ဒၟံင်တအ်ဟာ？";
 "settings-clear-cache-cancel" = "တးပဲါ";
-"settings-clear-cache-ok" = "ဖအး တင်ဂၞင်ပၞုက်";
+"settings-clear-cache-ok" = "ဖ္အး တင်ဂၞင်ပၞုက်";
 "settings-help-and-feedback" = "ရီုဗင် ကေုာံ ကဵုfeedback";
 "settings-language-bar" = "ထ္ၜး အရေဝ်ဘာသာဂမၠိုင် ပ္ဍဲ ဒၞာဲမဂၠာဲ";
 "settings-languages-feed-customization" = "နကဵု မဖျေဟ်ဒၞာဲ အတိုင်ပၟိက်စိုတ် ပ္ဍဲဒၞာဲမုက် မထ္ၜးဂှ် မၞးရုဲကေတ် နကဵု အရေဝ်ဘာသာ လဵု မၞးမိက်ဂွံစကာ ပ္ဍဲ ဒၞာဲမုက် မထ္ၜး မၞး ဂွံရ၊၊";

@@ -132,21 +132,24 @@ extension WMFAppViewController {
         }
         
         do {
-            _ = try dataController.assignActivityTabExperiment(project: wmfProject)
-            EditInteractionFunnel.shared.logActivityTabGroupAssignment(project: project)
+            let assignment = try dataController.assignActivityTabExperiment(project: wmfProject)
+            EditInteractionFunnel.shared.logActivityTabGroupAssignment(groupAssignment: assignment.rawValue, project: project)
         } catch {
             DDLogError("Error fetching activity tab experiment: \(error)")
         }
     }
 
     @objc func getAssignmentForActivityTabExperiment() -> Int {
-        guard let dataController = WMFActivityTabExperimentsDataController.shared else {
+        guard let dataController = WMFActivityTabExperimentsDataController.shared,
+              let primaryLanguage = dataStore.languageLinkController.appLanguage,
+              let project = WikimediaProject(siteURL: primaryLanguage.siteURL),
+              let wmfProject = project.wmfProject else {
             return 0
         }
         var assignment = 0 // start as control
-        
+
         do {
-            let currentAssigment = try dataController.getActivityTabExperimentAssignment()
+            let currentAssigment = try dataController.getActivityTabExperimentAssignment(project: wmfProject)
             assignment = currentAssigment.rawValue
         } catch {
             DDLogError("Error reading activity tab assignment: \(error)")

@@ -801,8 +801,7 @@
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "Le $1 sur Wikipedia in $2";
 "on-this-day-title" = "In iste die";
 "original-tab-button-popover-description" = "Tocca le 'W' pro retornar al scheda de ubi tu comenciava";
-// Fuzzy
-"page-history-bot-edits" = "modificationes per robot";
+"page-history-bot-edits" = "robot";
 "page-history-compare-accessibility-hint" = "Tocca pro seliger duo versiones a comparar";
 "page-history-compare-title" = "Comparar";
 "page-history-graph-accessibility-label" = "Graphico de modificationes in le tempore";
