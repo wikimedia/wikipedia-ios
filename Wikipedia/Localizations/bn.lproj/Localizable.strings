@@ -87,6 +87,7 @@
 "article-languages-others" = "অন্যান্য ভাষাসমূহ";
 "article-languages-yours" = "আপনার ভাষাসমূহ";
 "article-share" = "শেয়ার করুন";
+"article-tabs-open" = "খুলুন";
 "back-button-accessibility-label" = "পিছনে";
 "back-button-popover-title" = "পেছনে যেতে আলতো চাপুন";
 "button-next" = "পরবর্তী";
@@ -100,6 +101,7 @@
 "cancel" = "বাতিল";
 "cc-zero" = "ক্রিয়েটিভ কমন্স সিসি জিরো";
 "close-button-accessibility-label" = "বন্ধ";
+"close-tabs" = "ট্যাব বন্ধ করুন";
 "compass-direction" = "$1 টার সময়";
 "confirm-donation-history-deletion-subtitle" = "এটি শুধুমাত্র এই ডিভাইস থেকে করা অনুদানের ক্ষেত্রে প্রযোজ্য হবে।";
 "confirm-donation-history-deletion-title" = "মুছে ফেলা নিশ্চিত করুন";
@@ -248,6 +250,7 @@
 "main-menu-terms-of-use" = "ব্যবহারের শর্তাবলী";
 "main-menu-title" = "আরও";
 "main-menu-zero-faq" = "উইকিপিডিয়া জিরো প্রাজিপ্র";
+"main-page" = "প্রধান পাতা";
 "more-languages-tooltip-description" = "৩০০টি অধিক ভাষায় উইকিপিডিয়া অন্বেষণ করুন";
 "more-languages-tooltip-title" = "ভাষা যোগ করুন";
 "more-menu" = "আরও";
@@ -258,6 +261,7 @@
 "nearby-distance-label-miles" = "$1 মাইল";
 "new-password-instructions" = "আপনি সাময়িক পাসওয়ার্ড দিয়ে প্রবেশ করেছেন। প্রবেশ সম্পূর্ণ করতে এখানে একটি নতুন পাসওয়ার্ড নির্ধারণ করুন।";
 "new-password-title" = "আপনার পাসওয়ার্ড স্থাপন করুন";
+"new-tab" = "নতুন ট্যাব";
 "no-email-account-alert" = "দয়া করে আপনার ডিভাসে একটি ইমেইল অ্যাকাউন্ট নির্ধারণ করুন এবং আবার চেষ্টা করুন।";
 "notifications-center-change-password" = "পাসওয়ার্ড পরিবর্তন";
 "notifications-center-empty-checking-for-notifications" = "বিজ্ঞপ্তির জন্য অনুসন্ধান করা হচ্ছে...";
