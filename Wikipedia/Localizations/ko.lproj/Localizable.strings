@@ -159,6 +159,8 @@
 "article-share" = "공유";
 // Fuzzy
 "article-tabs-max-reached" = "탭 제한에 도달했습니다. ($1개) 하나 이상의 탭을 닫아 주십시오.";
+"article-tabs-navigation" = "탭 둘러보기";
+"article-tabs-open" = "열기";
 "article-tabs-open-background-tab" = "백그라운드 탭에서 열기";
 "article-tabs-open-new-tab" = "새 탭에서 열기";
 "article-talk-page" = "문서 토론 페이지";
@@ -184,7 +186,12 @@
 "clear-title-accessibility-label" = "지우기";
 "clearing-cache-complete" = "캐시 지우기가 완료되었습니다.";
 "clearing-cache-in-progress" = "캐시를 지우는 중입니다.";
+"close-all-tabs" = "모든 탭 닫기";
+"close-all-tabs-confirmation-number" = "$1개 탭을 모두 닫으시겠습니까?";
 "close-button-accessibility-label" = "닫기";
+"close-other-tabs" = "다른 탭 닫기";
+"close-tab-confirmation" = "탭을 닫으시겠습니까?";
+"close-tabs" = "탭 닫기";
 "compass-direction" = "$1시에";
 "confirm-donation-history-deletion-subtitle" = "이 장치를 통해 이루어진 기부에만 적용됩니다.";
 "confirm-donation-history-deletion-title" = "삭제 확인";
@@ -314,6 +321,7 @@
 "donate-success-subtitle" = "당신의 너그러움은 우리에게 너무나 소중합니다.";
 "donate-success-title" = "고맙습니다!";
 "donate-title" = "금액 선택";
+"duplicate-tab" = "탭 복제";
 "edit-link-display-text-title" = "텍스트 표시";
 "edit-link-link-target-title" = "링크 대상";
 "edit-link-remove-link-title" = "링크 제거";
@@ -723,6 +731,7 @@
 "nearby-distance-label-miles" = "$1 마일";
 "new-password-instructions" = "임시 비밀번호로 로그인하였습니다. 로그인을 마치려면 여기에 새로운 비밀번호를 설정하십시오.";
 "new-password-title" = "비밀번호 설정";
+"new-tab" = "새 탭";
 "next-action-title" = "다음";
 "no-email-account-alert" = "장치에 이메일 계정을 설정한 뒤 다시 시도하세요.";
 "no-internet-connection" = "인터넷 연결 없음";
@@ -1055,9 +1064,12 @@
 "return-button-title" = "돌아가기";
 "return-to-article" = "문서로 돌아가기";
 "reverted-edit-title" = "되돌려진 편집";
+"save-all-tabs" = "모든 탭 저장";
 "save-view-temp-account-notice" = "임시 계정을 사용하고 있습니다. 편집은 $1에 귀속됩니다...";
 "save-view-temp-account-warning" = "로그인 상태가 아닙니다. 편집을 하면 개인정보 보호를 위해 임시 계정이 생성됩니다.";
 "saved-all-articles-title" = "모든 문서";
+"saved-all-tabs" = "모든 탭을 저장했습니다.";
+"saved-all-tabs-view-reading-list" = "모든 탭을 저장했습니다. 읽기 목록을 확인하세요.";
 "saved-default-reading-list-tag" = "이 목록은 삭제할 수 없습니다";
 "saved-pages-image-download-error" = "저장된 문서를 위해 이미지를 다운로드하는데 실패했습니다.";
 "saved-pages-progress-syncing" = "문서 다운로드 진행 중...";

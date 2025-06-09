@@ -60,7 +60,7 @@
 "account-creation-captcha-cannot-see-image" = "Etkö näe kuvaa? $1";
 "account-creation-captcha-obtaining" = "Ladataan uutta kuvavarmennusta...";
 "account-creation-captcha-request-account" = "Pyydä käyttäjätunnusta.";
-"account-creation-captcha-title" = "CAPTCHA-turvallisuutarkistus";
+"account-creation-captcha-title" = "Kuvavarmennus";
 "account-creation-create-account" = "Luo käyttäjätunnus";
 "account-creation-have-account" = "Onko sinulla jo tunnus? $1";
 "account-creation-log-in" = "Kirjaudu sisään.";
@@ -490,6 +490,7 @@
 "field-alert-token-invalid" = "Koodi ei kelpaa";
 "field-alert-username-unavailable" = "Käyttäjänimi ei ole saatavilla";
 "field-backup-token-title" = "Varmuuskopiointikoodi";
+"field-backup-token-title-email" = "Sähköpostitettu koodi";
 "field-captcha-placeholder" = "Kuvavarmennuksen teksti";
 "field-captcha-title" = "Kirjoita yllä oleva teksti";
 "field-email-placeholder" = "esimerkki@example.org";
@@ -852,6 +853,8 @@
 "preference-summary-eventlogging-opt-in" = "Salli Wikimedia-säätiön kerätä tietoja sovelluksen käyttämisestä käyttökokemuksen parantamiseksi.";
 "privacy-policy-title" = "Tietosuojakäytäntö";
 "problem-with-feature-title" = "Ongelma ominaisuudessa";
+"profile-page-donate-subtext" = "Tue Wikipediaa lahjoituksella, jolla Wikipedia voidaan säilyttää maksutta kaikkien saatavilla.";
+"profile-page-join-subtext" = "Kirjautuneena voit seurata muokkauksia, tallentaa artikkeleita laitteeseen ja synkronoida tietoja eri laitteiden välillä.";
 "profile-page-join-title" = "Kirjaudu sisään / Liity Wikipediaan";
 "profile-page-logged-out-year-in-review-subtext" = "Kirjautumalla sisään tai luomalla käyttäjätunnuksen saat paremman vuosikatsauksen vuoden päästä";
 "profile-year-in-review-login-subtitle" = "Kirjautumalla sisään tai luomalla käyttäjätunnuksen pääset tutustumaan vuosikatsaukseen ja muuhun yksilöityyn sisältöön.";
@@ -1154,6 +1157,8 @@
 "top-read-widget-title" = "Luetuimmat";
 "try-now-title" = "Kokeile nyt";
 "tutorial-title" = "Opas";
+"two-factor-email-login-continue" = "Jatka kirjautumista";
+"two-factor-email-login-instructions" = "Anna sähköpostitse lähetetty vahvistuskoodi";
 "two-factor-login-continue" = "Jatka sisäänkirjautumista";
 "two-factor-login-instructions" = "Syötä kaksivaiheisen vahvistuksen koodi";
 "two-factor-login-title" = "Kirjaudu sisään käyttäjätunnuksellesi";
