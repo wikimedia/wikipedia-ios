@@ -1310,7 +1310,8 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
             [self.currentTabNavigationController popToRootViewControllerAnimated:animated];
             break;
         case WMFUserActivityTypeSearch:
-            [self showSearchInCurrentNavigationController];
+            [self switchToSearchAnimated:animated];
+            [self.searchViewController makeSearchBarBecomeFirstResponder];
             break;
         case WMFUserActivityTypeSearchResults:
             [self dismissPresentedViewControllers];
