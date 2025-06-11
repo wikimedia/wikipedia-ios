@@ -159,7 +159,16 @@ final class ArticleCoordinator: NSObject, Coordinator, ArticleTabCoordinating {
             return false
         }
         articleVC.isRestoringState = isRestoringState
-        
+        articleVC.showTabsOverview = { [weak navigationController, weak self] in
+            guard let navController = navigationController, let self = self else { return }
+
+            TabsCoordinatorManager.shared.presentTabsOverview(
+                from: navController,
+                theme: self.theme,
+                dataStore: self.dataStore
+            )
+        }
+
         trackArticleTab(articleViewController: articleVC)
         
         switch tabConfig {
