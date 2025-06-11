@@ -55,7 +55,7 @@ class WMFForgotPasswordViewController: WMFScrollViewController, Themeable, WMFNa
         
         let closeConfig = WMFNavigationBarCloseButtonConfig(text: CommonStrings.cancelActionTitle, target: self, action: #selector(closeButtonPushed(_:)), alignment: .leading)
 
-        configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: closeConfig, profileButtonConfig: nil, searchBarConfig: nil, hideNavigationBarOnScroll: false)
+        configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: closeConfig, profileButtonConfig: nil, tabsButtonConfig: nil, searchBarConfig: nil, hideNavigationBarOnScroll: false)
     }
     
     public func textFieldShouldReturn(_ textField: UITextField) -> Bool {

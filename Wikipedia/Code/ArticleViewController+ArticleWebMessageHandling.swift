@@ -57,8 +57,8 @@ extension ArticleViewController: ArticleWebMessageHandling {
         let oldState = state
         state = .loaded
         
-        showWIconPopoverIfNecessary()
-        
+        presentTooltipsIfNeeded()
+
         refreshControl.endRefreshing()
         loadSummary(oldState: oldState)
         initialSetupCompletion?()
@@ -70,7 +70,9 @@ extension ArticleViewController: ArticleWebMessageHandling {
         articleLoadWaitGroup?.leave()
         addToHistory()
         persistPageViewsForWikipediaInReview()
+        loadMediaWikiInfoAndUpdateToolbar()
         syncCachedResourcesIfNeeded()
+        messagingController.updateDarkModeMainPageIfNeeded(articleURL: articleURL, theme: theme)
     }
     
     func handleFooterItem(type: PageContentService.Footer.Menu.Item, payload: Any?) {

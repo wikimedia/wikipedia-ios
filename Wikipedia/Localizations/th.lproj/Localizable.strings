@@ -123,7 +123,6 @@
 "button-ok" = "ตกลง";
 "button-publish" = "เผยแพร่";
 "button-publish-anyway" = "เผยแพร่ทันที";
-"button-read-now" = "อ่านเลย";
 "button-report-a-bug" = "รายงานข้อผิดพลาด";
 "button-save-for-later" = "บันทึกไว้อ่านในภายหลัง";
 "button-saved-for-later" = "บันทึกไว้อ่านในภายหลังแล้ว";
@@ -575,7 +574,6 @@
 "notifications-center-go-to-article" = "บทความ";
 "notifications-center-go-to-article-talk-format" = "หน้าพูดคุย $1";
 "notifications-center-go-to-diff" = "ต่าง";
-"notifications-center-go-to-talk-page" = "หน้าพูดคุย";
 "notifications-center-go-to-user-page" = "หน้าผู้ใช้ของ $1";
 "notifications-center-go-to-wikidata-item" = "รายการวิกิสนเทศ";
 "notifications-center-go-to-your-talk-page" = "หน้าพูดคุยของคุณ";
@@ -669,7 +667,7 @@
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 จากวิกิพีเดียภาษา$2";
 "on-this-day-title" = "วันนี้ในอดีต";
 "original-tab-button-popover-description" = "แตะบน 'W' เพื่อกลับไปยังแท็บที่คุณเปิดก่อนหน้านี้";
-"page-history-anonymous-edits" = "การแก้ไขผู้ใช้นิรนาม";
+// Fuzzy
 "page-history-bot-edits" = "การแก้ไขบอต";
 "page-history-compare-title" = "เปรียบเทียบ";
 "page-history-minor-edits" = "การแก้ไขเล็กน้อย";
@@ -680,7 +678,6 @@
 "page-history-revision-size-diff-addition" = "เพิ่ม {{PLURAL:$1|$1 ไบต์}} แล้ว";
 "page-history-revision-size-diff-subtraction" = "เอา {{PLURAL:$1|$1 ไบต์}} ออกแล้ว";
 "page-history-stats-text" = "{{PLURAL:$1|$1 แก้ไข}} ตั้งแต่ $2";
-"page-history-user-edits" = "การแก้ไขผู้ใช้";
 "page-issues" = "ปัญหาในหน้า";
 "page-location" = "ดูบนแผนที่";
 "page-protected-can-not-edit" = "คุณไม่มีสิทธิ์แก้ไขหน้านี้";

@@ -110,7 +110,6 @@
 "button-ok" = "Йӧра";
 "button-publish" = "Савыкташ";
 "button-publish-anyway" = "Садыгак савыкташ";
-"button-read-now" = "Кызыт лудаш";
 "button-report-a-bug" = "Йоҥылыш нерген увертараш";
 "button-save-for-later" = "Варалан аралаш";
 "button-saved-for-later" = "Варалан аралыме";
@@ -573,7 +572,6 @@
 "notifications-center-go-to-article" = "Статья";
 "notifications-center-go-to-article-talk-format" = "$1 каҥашымаш велыж";
 "notifications-center-go-to-diff" = "Ойырт.";
-"notifications-center-go-to-talk-page" = "Каҥашымаш велыж";
 "notifications-center-go-to-user-page" = "$1 ушнышын велыжше";
 "notifications-center-go-to-wikidata-item" = "Викидата иктык";
 "notifications-center-go-to-your-talk-page" = "Тыйын каҥашымаш велыжет";

@@ -87,12 +87,12 @@
 "article-languages-others" = "অন্যান্য ভাষাসমূহ";
 "article-languages-yours" = "আপনার ভাষাসমূহ";
 "article-share" = "শেয়ার করুন";
+"article-tabs-open" = "খুলুন";
 "back-button-accessibility-label" = "পিছনে";
 "back-button-popover-title" = "পেছনে যেতে আলতো চাপুন";
 "button-next" = "পরবর্তী";
 "button-ok" = "ঠিক আছে";
 "button-publish" = "প্রকাশ করুন";
-"button-read-now" = "এখন পড়ুন";
 "button-report-a-bug" = "বাগ রিপোর্ট করুন";
 "button-save-for-later" = "পরবর্তীর জন্য সংরক্ষণ করুন";
 "button-saved-for-later" = "পরবর্তীর জন্য সংরক্ষণ করুন";
@@ -101,6 +101,7 @@
 "cancel" = "বাতিল";
 "cc-zero" = "ক্রিয়েটিভ কমন্স সিসি জিরো";
 "close-button-accessibility-label" = "বন্ধ";
+"close-tabs" = "ট্যাব বন্ধ করুন";
 "compass-direction" = "$1 টার সময়";
 "confirm-donation-history-deletion-subtitle" = "এটি শুধুমাত্র এই ডিভাইস থেকে করা অনুদানের ক্ষেত্রে প্রযোজ্য হবে।";
 "confirm-donation-history-deletion-title" = "মুছে ফেলা নিশ্চিত করুন";
@@ -249,6 +250,7 @@
 "main-menu-terms-of-use" = "ব্যবহারের শর্তাবলী";
 "main-menu-title" = "আরও";
 "main-menu-zero-faq" = "উইকিপিডিয়া জিরো প্রাজিপ্র";
+"main-page" = "প্রধান পাতা";
 "more-languages-tooltip-description" = "৩০০টি অধিক ভাষায় উইকিপিডিয়া অন্বেষণ করুন";
 "more-languages-tooltip-title" = "ভাষা যোগ করুন";
 "more-menu" = "আরও";
@@ -259,13 +261,13 @@
 "nearby-distance-label-miles" = "$1 মাইল";
 "new-password-instructions" = "আপনি সাময়িক পাসওয়ার্ড দিয়ে প্রবেশ করেছেন। প্রবেশ সম্পূর্ণ করতে এখানে একটি নতুন পাসওয়ার্ড নির্ধারণ করুন।";
 "new-password-title" = "আপনার পাসওয়ার্ড স্থাপন করুন";
+"new-tab" = "নতুন ট্যাব";
 "no-email-account-alert" = "দয়া করে আপনার ডিভাসে একটি ইমেইল অ্যাকাউন্ট নির্ধারণ করুন এবং আবার চেষ্টা করুন।";
 "notifications-center-change-password" = "পাসওয়ার্ড পরিবর্তন";
 "notifications-center-empty-checking-for-notifications" = "বিজ্ঞপ্তির জন্য অনুসন্ধান করা হচ্ছে...";
 "notifications-center-empty-not-subscribed" = "আপনি বর্তমানে কোনো উইকিপিডিয়া বিজ্ঞপ্তির সদস্যতা গ্রহণ করেননি";
 "notifications-center-feed-news-notification-button-text" = "বিজ্ঞপ্তি পাঠানো চালু করুন";
 "notifications-center-go-to-diff" = "পার্থক্য দেখুন";
-"notifications-center-go-to-talk-page" = "আলাপ পাতায় যান";
 "notifications-center-go-to-user-page" = "$1-এর আলাপ পাতায় যান";
 "notifications-center-go-to-wikidata-item" = "উইকিউপাত্ত আইটেমে যান";
 "notifications-center-go-to-your-talk-page" = "আপনার আলাপ পাতায় যান";
@@ -350,7 +352,6 @@
 "profile-page-donate-subtext" = "অথবা উইকিপিডিয়াকে মুক্ত এবং বিশ্বজুড়ে প্রত্যেকের জন্য অবাধে প্রবেশযোগ্য রাখতে অনুদান দিয়ে সাহায্য করুন।";
 "profile-page-join-subtext" = "আপনার অবদান ট্র্যাক করতে, অফলাইনে নিবন্ধ সংরক্ষণ করতে এবং ডিভাইসগুলিতে সিঙ্ক করতে একটি উইকিপিডিয়া অ্যাকাউন্ট তৈরি করুন।";
 "profile-page-join-title" = "উইকিপিডিয়ায় যোগ দিন / প্রবেশ করুন";
-"profile-page-title-logged-out" = "অ্যাকাউন্ট";
 "project-name-wikimedia-commons" = "উইকিমিডিয়া কমন্স";
 "project-name-wikiquote" = "উইকিউক্তি";
 "reading-list-create-new-list-description" = "বিবরণ";

@@ -1,5 +1,6 @@
 // Messages for Simplified Chinese (中文（简体）)
 // Exported from translatewiki.net
+// Author: 22593
 // Author: 500000000006城
 // Author: A Chinese Wikipedian
 // Author: A Retired User
@@ -20,11 +21,13 @@
 // Author: GoForceX
 // Author: Googology
 // Author: GuoPC
+// Author: HNordeen (WMF)
 // Author: Huajing
 // Author: Hudafu
 // Author: ITsu
 // Author: Josephine W.
 // Author: JuneAugsut
+// Author: Kcx36
 // Author: Kuailong
 // Author: LNDDYL
 // Author: Lakejason0
@@ -141,6 +144,30 @@
 "action-unsave" = "未保存";
 "action-unsaved-accessibility-notification" = "条目未保存";
 "action-update" = "更新";
+"activity-tab-add-images-subtitle" = "向维基百科的条目中添加建议的图片，使内容更易懂。";
+"activity-tab-add-images-title" = "添加图片";
+"activity-tab-additional-thoughts" = "还有什么想法吗？";
+"activity-tab-generic-no-edits" = "您本周尚未进行编辑。马上开始编辑，以追踪贡献。";
+"activity-tab-greeting" = "$1$2，您好！$3👋以下是您的维基百科每周概览。";
+"activity-tab-logged-out-subtitle" = "以全新的方式追踪阅读记录，并查看您的贡献积累";
+"activity-tab-logged-out-title" = "登录或创建账号，以查看更多编辑和阅读记录。";
+"activity-tab-neutral" = "中立";
+"activity-tab-no-edits-title" = "您本周尚未进行编辑。添加图片，以增强对文章的理解。";
+"activity-tab-read-title" = "查看阅读记录";
+"activity-tab-satisfied" = "满意";
+"activity-tab-start-editing" = "开始编辑";
+"activity-tab-survey" = "您对“活动”页面是否满意？您今后还希望在这一页面看到哪些内容？";
+"activity-tab-survey-title" = "满意度调查";
+"activity-tab-title" = "活动";
+"activity-tab-unsatisfied" = "不满意";
+"activity-tab-very-satisfied" = "非常满意";
+"activity-tab-very-unsatisfied" = "非常不满意";
+"activity-tab-view-editing-history" = "查看编辑历史记录";
+"activity-tab-view-reading-history" = "查看阅读记录";
+"activity-tab-view-saved-articles" = "查看已保存的条目";
+"activity-tab-you-edited" = "您本周已编辑{{PLURAL:$1|$1}}次。";
+"activity-tab-you-read" = "您本周已阅读{{PLURAL:$1|$1}}篇条目。";
+"activity-tab-you-saved" = "您本周已保存{{PLURAL:$1|$1}}篇条目。";
 "add-articles-to-reading-list" = "添加{{PLURAL:$1|$1个条目}}到阅读列表";
 "advanced-settings-title" = "高级设置";
 "alt-text-feedback-survey-toast-title" = "反馈已提交";
@@ -179,7 +206,6 @@
 "button-ok" = "确定";
 "button-publish" = "发布";
 "button-publish-anyway" = "仍要发布";
-"button-read-now" = "立即阅读";
 "button-report-a-bug" = "报告错误";
 "button-save-for-later" = "保存以便稍后阅读";
 "button-saved-for-later" = "已保存以供日后使用";
@@ -240,6 +266,9 @@
 "description-welcome-promise-title" = "点击开始按钮即表明我不会滥用此功能";
 "description-welcome-start-editing-button" = "开始编辑";
 "developer-settings" = "开发者设置";
+"developer-settings-activity-tab-group-A" = "将活动标签设置为A组";
+"developer-settings-activity-tab-group-B" = "将活动标签设置为B组";
+"developer-settings-activity-tab-group-C" = "将活动标签设置到为C组";
 "developer-settings-bypass-donation" = "绕过捐赠";
 "developer-settings-enable-year-in-review" = "启用年度回顾";
 "developer-settings-send-analytics-to-wmflabs" = "发送分析信息至wmflabs。";
@@ -778,7 +807,6 @@
 "notifications-center-go-to-article" = "条目";
 "notifications-center-go-to-article-talk-format" = "$1讨论页";
 "notifications-center-go-to-diff" = "差异";
-"notifications-center-go-to-talk-page" = "讨论页";
 "notifications-center-go-to-user-page" = "$1的用户页";
 "notifications-center-go-to-wikidata-item" = "维基数据项";
 "notifications-center-go-to-your-talk-page" = "您的讨论页";
@@ -884,8 +912,9 @@
 "on-this-day-no-internet-error" = "没有可用数据";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1，来自$2维基百科";
 "on-this-day-title" = "历史上的今天";
+"open-in-tab-tooltip-title" = "在新标签页中打开";
 "original-tab-button-popover-description" = "点按“W”以返回您起始的标签页";
-"page-history-anonymous-edits" = "匿名编辑";
+// Fuzzy
 "page-history-bot-edits" = "机器人编辑";
 "page-history-compare-accessibility-hint" = "点击选择两个修订版本进行比较";
 "page-history-compare-title" = "比较";
@@ -900,7 +929,6 @@
 "page-history-revision-time-accessibility-label" = "修订于$1";
 "page-history-revisions-comparison-warning" = "您只能选择两个修订版本";
 "page-history-stats-text" = "自$2年起共{{PLURAL:$1|$1笔编辑}}";
-"page-history-user-edits" = "用户编辑";
 "page-issues" = "页面问题";
 "page-location" = "在地图上查看";
 "page-protected-can-not-edit" = "您没有权限编辑此页";
@@ -957,11 +985,10 @@
 "profile-button-accessibility-hint" = "导航到个人资料视图。";
 "profile-button-accessibility-label" = "个人资料";
 "profile-button-badge-accessibility-label" = "个人资料（带有未读消息标记）";
-"profile-page-donate-subtext" = "或通过捐款来支持维基百科，使之维持免费且人人可访问。";
+"profile-page-donate-subtext" = "或通过捐款来支持维基百科，使之维持自由且人人可访问。";
 "profile-page-join-subtext" = "注册维基百科账号来追踪您的贡献、离线保存条目，以及跨设备同步。";
 "profile-page-join-title" = "登录/加入维基百科";
 "profile-page-logged-out-year-in-review-subtext" = "请登录或创建账号，以在来年获得更好的年度回顾";
-"profile-page-title-logged-out" = "账号";
 "profile-year-in-review-login-subtitle" = "登录或创建账号，以便再次查看年度回顾，并有资格获得更多个性化分析数据。";
 "profile-year-in-review-login-title" = "登录以访问年度回顾";
 "project-name-mediawiki" = "MediaWiki";

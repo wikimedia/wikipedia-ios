@@ -108,7 +108,6 @@
 "button-ok" = "సరే";
 "button-publish" = "ప్రచురించు";
 "button-publish-anyway" = "ఏదేమైనప్పటికీ ప్రచురించు";
-"button-read-now" = "ఇప్పుడే చదవండి";
 "button-report-a-bug" = "ఒక దోషాన్ని నివేదించండి";
 "button-save-for-later" = "తరువాత చదివేందుకు భద్రపరచండి";
 "button-saved-for-later" = "తరువాత చదివేందుకు భద్రపరచాం";
@@ -455,7 +454,6 @@
 "notifications-center-go-to-article" = "వ్యాసం";
 "notifications-center-go-to-article-talk-format" = "$1 చర్చ పేజీ";
 "notifications-center-go-to-diff" = "తేడా";
-"notifications-center-go-to-talk-page" = "చర్చ పేజీ";
 "notifications-center-go-to-user-page" = "$1 వాడుకరి పేజీ";
 "notifications-center-go-to-wikidata-item" = "వికీడేటా అంశం";
 "notifications-center-go-to-your-talk-page" = "మీ చర్చ పేజీ";
@@ -539,7 +537,7 @@
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$2 వికీపీడియా నుండి $1";
 "on-this-day-title" = "ఈ రోజున";
 "original-tab-button-popover-description" = "మీరు మొదలుపెట్టిన ట్యాబుకు తిరిగి వెళ్ళేందుకు 'W' ను తట్టండి";
-"page-history-anonymous-edits" = "అజ్ఞాత దిద్దుబాట్లు";
+// Fuzzy
 "page-history-bot-edits" = "బాటు దిద్దుబాట్లు";
 "page-history-compare-accessibility-hint" = "పోల్చేందుకు రెండు కూర్పులను ఎంచుకోడానికి తట్టండి";
 "page-history-compare-title" = "పోల్చిచూడు";
@@ -554,7 +552,6 @@
 "page-history-revision-time-accessibility-label" = "కూర్పును చేసినది $1 న";
 "page-history-revisions-comparison-warning" = "రెండే కూర్పులను ఎంచుకోవచ్చు";
 "page-history-stats-text" = "$2 తరువాత {{PLURAL:$1|$1 దిద్దుబాటు|$1 దిద్దుబాట్లు}}";
-"page-history-user-edits" = "వాడుకరి దిద్దుబాట్లు";
 "page-issues" = "పేజీ సమస్యలు";
 "page-location" = "మ్యాపులో చూడండి";
 "page-protected-can-not-edit" = "ఈ పేజీలో దిద్దుబాటు చేసే అనుమతులు మీకు లేవు";

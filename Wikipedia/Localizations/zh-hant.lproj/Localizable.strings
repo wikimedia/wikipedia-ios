@@ -11,6 +11,7 @@
 // Author: DinoWP
 // Author: Diskdance
 // Author: Eric850130
+// Author: HNordeen (WMF)
 // Author: Hello903hello
 // Author: Impartial just
 // Author: Kanashimi
@@ -114,8 +115,34 @@
 "action-unsave" = "未儲存";
 "action-unsaved-accessibility-notification" = "條目未儲存";
 "action-update" = "更新";
+"activity-tab-add-images-subtitle" = "將建議的圖片加到維基百科條目來加強理解。";
+"activity-tab-add-images-title" = "新增圖片";
+"activity-tab-additional-thoughts" = "還有其他想法嗎？";
+"activity-tab-generic-no-edits" = "您本週尚未動手編輯，立即開始編輯來追蹤貢獻。";
+"activity-tab-greeting" = "$1$2您好$3👋 這邊是您本週的維基百科摘要。";
+"activity-tab-logged-out-subtitle" = "用全新方式追蹤您閱讀過的內容並檢視歷來所做的貢獻";
+"activity-tab-logged-out-title" = "登入或建立帳號來查看更多編輯與閱讀活動。";
+"activity-tab-neutral" = "中立";
+"activity-tab-no-edits-title" = "您本週尚未動手編輯，新增圖片來讓讀者更容易理解文章";
+"activity-tab-read-title" = "檢視閱讀記錄";
+"activity-tab-satisfied" = "滿意";
+"activity-tab-start-editing" = "開始編輯";
+"activity-tab-survey" = "您對於「活動」畫面是否滿意？您未來希望在這裡看到哪些內容呢？";
+"activity-tab-survey-title" = "滿意度調查";
+"activity-tab-title" = "活動";
+"activity-tab-unsatisfied" = "不滿意";
+"activity-tab-very-satisfied" = "非常滿意";
+"activity-tab-very-unsatisfied" = "非常不滿意";
+"activity-tab-view-editing-history" = "檢視編輯歷史記錄";
+"activity-tab-view-reading-history" = "檢視閱讀紀錄";
+"activity-tab-view-saved-articles" = "檢視已儲存條目";
+"activity-tab-you-edited" = "您這週編輯了{{PLURAL:$1|$1}}篇條目。";
+"activity-tab-you-read" = "您這週閱讀了{{PLURAL:$1|$1}}篇條目。";
+"activity-tab-you-saved" = "您這週儲存了{{PLURAL:$1|$1}}篇條目。";
 "add-articles-to-reading-list" = "新增 {{PLURAL:$1|$1 個條目|$1 個條目}}至閱讀清單";
 "advanced-settings-title" = "進階設定";
+"alert-temporary-account" = "您正在使用臨時帳號。帳號會在 90 天後到期。";
+"alert-temporary-account-learn-more" = "了解更多。";
 "alt-text-feedback-survey-toast-title" = "意見回饋已提交";
 "announcements-dismiss" = "關閉";
 "app-store-keywords" = "維基百科、參考資料、wiki、百科全書、訊息、知識、研究、資訊、探索、學習";
@@ -145,6 +172,8 @@
 "article-share" = "分享";
 "article-talk-page" = "條目討論頁";
 "article-toolbar-reading-themes-controls-toolbar-item" = "閱讀主題控制";
+"article-view-controller-editing-temp-account-created-subtitle" = "當您的編輯發布後會建立臨時帳號「$1」。該帳號將在 90 天後到期。";
+"article-view-controller-editing-temp-account-created-title" = "已建立臨時帳號";
 "back-button-accessibility-label" = "返回";
 "back-button-popover-title" = "輕觸返回";
 "button-go-back" = "返回";
@@ -152,7 +181,6 @@
 "button-ok" = "確定";
 "button-publish" = "發布";
 "button-publish-anyway" = "仍要發布";
-"button-read-now" = "立刻讀取";
 "button-report-a-bug" = "回報程式錯誤";
 "button-save-for-later" = "儲存以供日後使用";
 "button-saved-for-later" = "儲存以供日後使用";
@@ -177,6 +205,7 @@
 "crimean-tatar-variants-alert-title" = "克里米亞韃靼語異體字支援更新";
 "data-migration-status" = "更新中…";
 "description-add-title" = "添加描述";
+"description-article-introduction-warning-message" = "編輯視圖中的元素順序與條目視圖中的元素順序不同。";
 "description-edit-for-article" = "$1的條目描述";
 "description-edit-length-warning" = "$1 / $2";
 "description-edit-license" = "透過更改條目描述，我同意$1且依據$2許可協議不撤銷所發表出我的個人貢獻。";
@@ -187,6 +216,7 @@
 "description-edit-title" = "編輯描述";
 "description-edit-warning" = "請儘量保持描述簡短，使條目的主題一目了然";
 "description-edit-warning-casing" = "僅當句子開頭的名詞為專有名詞時才應將其大寫";
+"description-editing-temp-account-created-subtitle" = "當您的編輯發布後會建立臨時帳號「$1」。該帳號將在 90 天後到期。";
 "description-help-about-description" = "條目描述概括了一篇條目，幫助讀者一目了然地理解主題。";
 "description-help-about-title" = "關於";
 "description-help-about-wikidata" = "關於維基數據";
@@ -211,7 +241,12 @@
 "description-welcome-descriptions-title" = "條目描述";
 "description-welcome-promise-title" = "點擊開始按鈕即表明我不會濫用此功能";
 "description-welcome-start-editing-button" = "開始編輯";
+"developer-force-email-auth" = "強制電子郵件驗證";
 "developer-settings" = "開發人員設定";
+"developer-settings-activity-tab-group-A" = "將活動分頁設定成群組 A";
+"developer-settings-activity-tab-group-B" = "將活動分頁設定成群組 B";
+"developer-settings-activity-tab-group-C" = "將活動分頁設定成群組 C";
+"developer-settings-bypass-donation" = "跳過捐贈";
 "developer-settings-enable-year-in-review" = "啟用年度回顧";
 "developer-settings-send-analytics-to-wmflabs" = "傳送分析給維基媒體基金會實驗室。";
 "developer-settings-suppress-image-rec-post" = "請不要發送圖片推薦編輯。";
@@ -312,6 +347,8 @@
 "edit-preview-simplified-format-message" = "所有內容均以簡化格式顯示。";
 "edit-published" = "已發布編輯";
 "edit-published-subtitle" = "您剛剛完善了維基百科，人人都會受益";
+"edit-sheet-ip-account-notice" = "IP 帳號通知";
+"edit-sheet-temp-account-notice" = "臨時帳號通知";
 "edit-show-web-preview" = "顯示網頁預覽";
 "edit-summary-add-summary-text" = "添加編輯摘要";
 "edit-summary-choice-added-image" = "已新增圖片";
@@ -375,6 +412,7 @@
 "editor-replace-type-button-accessibility" = "切換取代類型。目前設定成$1。請選擇來進行更改。";
 "editor-replace-type-single" = "取代";
 "editor-replace-type-single-accessibility" = "取代單一實體";
+"editor-title" = "編輯者";
 "editor-toolbar-bold-accessibility" = "粗體文字格式";
 "editor-toolbar-cursor-down-accessibility" = "將遊標移至下一行。";
 "editor-toolbar-cursor-next-accessibility" = "將遊標移至下一個字元。";
@@ -483,7 +521,7 @@
 "explore-feed-preferences-turn-on-explore-tab-title" = "開啟探索分頁？";
 "explore-hide-card-prompt" = "隱藏此卡片";
 "explore-main-page-description" = "維基媒體專案首頁";
-"explore-main-page-heading" = "維基百科今日";
+"explore-main-page-heading" = "維基百科今日焦點";
 "explore-most-read-footer" = "所有被閱讀最多次的條目";
 "explore-most-read-generic-heading" = "最多閱讀";
 "explore-most-read-more-list-title-for-date" = "在 $1 的熱門條目";
@@ -522,6 +560,7 @@
 "field-alert-token-invalid" = "無效代碼";
 "field-alert-username-unavailable" = "使用者名稱不可用";
 "field-backup-token-title" = "備份代碼";
+"field-backup-token-title-email" = "電子郵件代碼";
 "field-captcha-placeholder" = "驗證碼文字";
 "field-captcha-title" = "輸入您在上方看到的文字";
 "field-email-placeholder" = "example@example.org";
@@ -658,6 +697,11 @@
 "insert-media-title" = "插入媒體";
 "inuktitut-variants-alert-body" = "維基百科應用程式現在支援下列伊努克提圖特語異體字作為應用程式裡的主要語言或次要語言，能以您首選的異體字來更易於閱讀、搜尋、編輯：\n\nᐃᓄᒃᑎᑐᑦ ᑎᑎᕋᐅᓯᖅ ᓄᑖᖅ，音節文字伊努克提圖特語（ike-cans）\nInuktitut ilisautik，拉丁字母伊努克提圖特語（ike-latn）";
 "inuktitut-variants-alert-title" = "伊努克提圖特語異體字支援更新";
+"ip-account-cta-bottom" = "以不登入來繼續";
+"ip-account-cta-top" = "登入或建立新帳號";
+"ip-account-edit-sheet-subtitle" = "一旦您做出編輯，會為您建立$1臨時帳號$2以保護您的隱私。$3了解更多。$4$5請登入或建立帳號，以讓往後做出的編輯歸在您的名義之下，並使用其他功能。";
+"ip-account-warning-subtitle" = "發佈時將為您建立臨時帳號。";
+"ip-account-warning-title" = "您尚未登入";
 "kazakh-variants-alert-body" = "維基百科應用程式現在支援下列哈薩克語異體字作為應用程式裡的主要語言或次要語言，能以您首選的異體字來更易於閱讀、搜尋、編輯：\n\nҚазақша，哈薩克語（kk）\nҚазақша Кирил，西里爾字母哈薩克語（kk-cyrl）\nqazaqşa latin，拉丁字母哈薩克語（kk-latin）\nتوتە قازاقشا，阿拉伯字母哈薩克語（kk-arab）";
 "kazakh-variants-alert-title" = "哈薩克語異體字支援更新";
 "kurdish-variants-alert-body" = "維基百科應用程式現在支援下列庫德語異體字作為應用程式裡的主要語言或次要語言，能以您首選的異體字來更易於閱讀、搜尋、編輯：\n\nKurdî Latînî，拉丁字母庫德語（ku-latn）\nكوردی，阿拉伯字母庫德語（kk-arab）";
@@ -687,6 +731,18 @@
 "main-menu-terms-of-use" = "使用條款";
 "main-menu-title" = "更多";
 "main-menu-zero-faq" = "維基百科零計劃常見問題";
+"microsite-yir-english-edits-bytes-slide-subtitle" = "在 2024 年，志工們為英文維基百科添加了多達 4,104,852,969 位元組內容。他們共同的努力，為世界帶來了不斷改進、基於事實、可靠的知識資源。我們每一個人，都有可分享的知識，[了解如何參與]（ $1 ）。";
+"microsite-yir-english-edits-bytes-slide-title" = "增加了 40 億位元組";
+"microsite-yir-english-edits-slide-subtitle" = "志工們對維基百科的 300 多種不同語言版本做出了 98,222,407次修改。英文維基百科則進行了超過 3700 萬次修改。每一天、每一刻、每一秒，志工們都在努力改進維基百科。";
+"microsite-yir-english-edits-slide-title" = "編輯者今年做出了 9800 萬次修改";
+"microsite-yir-english-non-donor-slide-subtitle" = "在您的支持下，維基媒體基金會—維基百科背後的非營利組織—將繼續確保您所依賴的資訊無營利、值得信賴，同時利用尖端工具和技術，讓維基百科平穩運作。請考慮今天就捐款支持，[並了解更多關於我們的工作內容]($1)。";
+"microsite-yir-english-non-donor-slide-title" = "維基百科沒有任何廣告";
+"microsite-yir-english-reading-slide-subtitle" = "在 2024 年，人們花了 29 億小時（超過 331,000 年！）閱讀英文維基百科。當您想了解我們不斷變化的世界、在朋友之間贏得對事物了解的賭注、或是回答孩子好奇的問題時，維基百科就會在您身邊。";
+"microsite-yir-english-reading-slide-title" = "大家花了 29 億小時閱讀維基百科";
+"microsite-yir-english-saved-reading-slide-subtitle" = "iOS 應用程式的活躍使用者做出了超過 6220 萬個閱讀清單。將條目增加到閱讀清單可讓您即使在離線時也能查看條目。此外，您還可以透過登入將閱讀清單同步到不同裝置裡。";
+"microsite-yir-english-saved-reading-slide-title" = "我們有超過 6220 萬個閱讀清單";
+"microsite-yir-english-top-read-slide-subtitle" = "英文維基百科瀏覽量排名前 5 的條目是：\n\n1. $1 \n2. $2 \n3. $3\n4. $4\n5. $5\n\n要閱讀更多內容，請參訪$6我們的專題部落格文章$7。";
+"microsite-yir-english-top-read-slide-title" = "英文維基百科最受歡迎的條目";
 "more-languages-tooltip-description" = "在超過 300 種語言的維基百科裡搜尋";
 "more-languages-tooltip-title" = "新增語言";
 "more-menu" = "更多";
@@ -736,7 +792,6 @@
 "notifications-center-go-to-article" = "條目";
 "notifications-center-go-to-article-talk-format" = "$1討論頁";
 "notifications-center-go-to-diff" = "差異";
-"notifications-center-go-to-talk-page" = "討論頁";
 "notifications-center-go-to-user-page" = "$1的使用者頁面";
 "notifications-center-go-to-wikidata-item" = "維基數據項目";
 "notifications-center-go-to-your-talk-page" = "您的討論頁";
@@ -843,11 +898,11 @@
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "來自於$2維基百科的 $1";
 "on-this-day-title" = "歷史上的今天";
 "original-tab-button-popover-description" = "輕觸「W」來返回至您起始的分頁";
-"page-history-anonymous-edits" = "匿名編輯";
-"page-history-bot-edits" = "機器人編輯";
+"page-history-bot-edits" = "機器人";
 "page-history-compare-accessibility-hint" = "輕觸來選擇兩個修訂做比較";
 "page-history-compare-title" = "比較";
 "page-history-graph-accessibility-label" = "在一段時間內編輯的圖式";
+"page-history-logged-in-edits" = "已登入";
 "page-history-minor-edits" = "小修改";
 "page-history-revision-author-accessibility-label" = "作者：$1";
 "page-history-revision-comment-accessibility-label" = "註釋$1";
@@ -858,7 +913,7 @@
 "page-history-revision-time-accessibility-label" = "修訂於 $1";
 "page-history-revisions-comparison-warning" = "僅能選擇兩個修訂";
 "page-history-stats-text" = "自$2共{{PLURAL:$1|$1次編輯}}";
-"page-history-user-edits" = "使用者編輯數";
+"page-history-unregistered-edits" = "未註冊";
 "page-issues" = "頁面問題";
 "page-location" = "在地圖上檢視";
 "page-protected-can-not-edit" = "您沒有權限編輯此頁面";
@@ -888,7 +943,9 @@
 "places-filter-top-articles" = "最多人閱讀";
 "places-filter-top-articles-count" = "{{PLURAL:$1|$1 個條目|$1 個條目}}";
 "places-filter-top-read-articles" = "被閱讀最多次的條目";
+"places-list-title'" = "清單";
 "places-location-enabled" = "位置已啟用";
+"places-map-title" = "地圖";
 "places-no-saved-articles-have-location" = "您所儲存的條目皆未有位置訊息";
 "places-search-articles-that-match" = "$1符合「$2」";
 "places-search-default-text" = "搜尋地點";
@@ -917,7 +974,6 @@
 "profile-page-join-subtext" = "在維基百科註冊帳號可讓您追蹤自己的貢獻、儲存離線條目、以及跨裝置同步。";
 "profile-page-join-title" = "登入 / 加入 Wikipedia";
 "profile-page-logged-out-year-in-review-subtext" = "登入或建立帳號來取得明年的改善年度回顧";
-"profile-page-title-logged-out" = "帳號";
 "profile-year-in-review-login-subtitle" = "登入或建立帳戶即可再次查看年度回顧，並獲得更多個人化的洞察資訊。";
 "profile-year-in-review-login-title" = "登入以查看年度回顧";
 "project-name-mediawiki" = "MediaWiki";
@@ -944,6 +1000,7 @@
 "reading-list-create-new-list-reading-list-name" = "閱讀清單名稱";
 "reading-list-create-new-list-title" = "新增清單";
 "reading-list-deleted-accessibility-notification" = "閱讀清單已刪除";
+"reading-list-detail-search-placeholder" = "搜尋閱讀清單";
 "reading-list-do-not-keep-button-title" = "不，從裝置上刪除條目";
 "reading-list-entry-limit-exceeded-message" = "請刪減您在此清單的條目數量至 $1 個，以恢復此清單的所有條目同步。";
 "reading-list-entry-limit-exceeded-title" = "您已超出各帳號 {{PLURAL:$1|$1 個條目}}上限。";
@@ -1037,10 +1094,13 @@
 "return-button-title" = "返回";
 "return-to-article" = "返回到條目";
 "reverted-edit-title" = "已回退的編輯";
+"save-view-temp-account-notice" = "您正在使用臨時帳號。編輯內容會歸在$1…";
+"save-view-temp-account-warning" = "您尚未登入。一旦您做出編輯，會為您建立臨時帳號以保護您的隱私。";
 "saved-all-articles-title" = "所有條目";
 "saved-default-reading-list-tag" = "此清單不能被刪除";
 "saved-pages-image-download-error" = "下載此儲存頁面裡的圖片失敗。";
 "saved-pages-progress-syncing" = "條目下載中…";
+"saved-reading-lists-search-placeholder" = "搜尋閱讀清單";
 "saved-reading-lists-title" = "閱讀清單";
 "saved-search-default-text" = "搜尋已儲存條目";
 "saved-title" = "已儲存";
@@ -1083,6 +1143,8 @@
 "settings-notifications-push-notifications" = "推送通知";
 "settings-notifications-system-turn-on" = "開啟通知";
 "settings-notifications-trending" = "目前最新事件趨勢";
+"settings-off" = "關閉";
+"settings-on" = "開啟";
 "settings-primary-language" = "主要";
 "settings-primary-language-details" = "此列表中最先顯示出的語言被設為此應用程式的首選語言。";
 "settings-search-footer-text" = "設定應用程式成開啟搜尋分頁來取代探索分頁";
@@ -1209,6 +1271,14 @@
 "talk-pages-user-groups" = "使用者群組";
 "talk-pages-user-logs" = "日誌";
 "talk-pages-view-title" = "討論";
+"temp-account-alert-read-more-information" = "$1您正在使用臨時帳號。$2帳號會在 90 天後到期。到期後，下一次您在未登入情況下做出編輯時，會再建立另一個新的帳號。$3請登入或建立帳號，以讓往後做出的編輯歸在您的名義之下，並使用其他功能。";
+"temp-account-edit-sheet-cta-top" = "登入或建立帳號";
+"temp-account-edit-sheet-subtitle" = "$2您目前正在使用臨時帳號。$3使用臨時帳號「$1」所做過的編輯，不會在您登入時轉移到您的永久帳號。請先登入或建立帳號，讓編輯內容歸在您的名義之下，並使用其他功能。";
+"temp-account-toast-read-more-title" = "延伸閱讀";
+"temp-account-toast-title" = "$1您目前正在使用臨時帳號。$2以臨時帳號做出了編輯…";
+"temp-account-warning-title" = "您正在使用臨時帳號";
+"temp-warning-subtitle-format" = "您的編輯內容會歸在$1";
+"temporary-account" = "臨時帳號";
 "terms-of-use-title" = "使用條款";
 "theme-black-display-name" = "漆黑";
 "theme-dark-display-name" = "陰暗";
@@ -1221,6 +1291,8 @@
 "top-read-widget-title" = "最多閱讀";
 "try-now-title" = "現在試試";
 "tutorial-title" = "教學";
+"two-factor-email-login-continue" = "繼續登入";
+"two-factor-email-login-instructions" = "請輸入電子郵件驗證代碼";
 "two-factor-login-continue" = "繼續登入";
 "two-factor-login-instructions" = "請輸入雙重驗證代碼";
 "two-factor-login-title" = "登入至您的帳號";
@@ -1324,7 +1396,7 @@
 "welcome-notifications-tell-me-more-creation" = "通知是由此應用程式在您裝置上建立及發送，而非由我們或（其它第三方）的服務所為。";
 "welcome-notifications-tell-me-more-storage" = "通知的偏好設定是儲存在裝置上，而不是基於個人資訊或活動。";
 "welcome-notifications-tell-me-more-title" = "更多有關通知";
-"welcome-privacy-subtitle" = "我們認為您不必提供個人資訊，即可參與自由的知識運動。此應用程式以匿名方式收集使用資料。";
+"welcome-privacy-subtitle" = "我們堅信，使用者不必提供個人資訊，即可參與自由的知識運動。此應用程式會以匿名方式收集使用資料。";
 "welcome-privacy-terms-button-text" = "詳細了解我們的隱私權政策和使用條款。";
 "widget-onthisday-description" = "探索在歷史上的今天發生的事件。";
 "widget-onthisday-placeholder-article-snippet" = "人人都可編輯的自由線上百科全書";
@@ -1356,9 +1428,16 @@
 "year-in-review-base-reading-title" = "Wikipedia 提供超過 300 種語言版本";
 "year-in-review-base-saved-subtitle" = "iOS應用程式的活躍用戶創建了超過6220萬個閱讀清單。將文章增加到閱讀清單可以讓您即使在離線時也能存取文章。此外，您還可以登入帳戶，將閱讀清單同步到不同裝置。";
 "year-in-review-base-saved-title" = "我們擁有超過 $1 萬個閱讀清單";
-"year-in-review-base-viewed-subtitle" = "iOS 應用程式用戶已瀏覽 Wikipedia 文章達 $1 億次。對於全球各地的人們來說，Wikipedia 是解答問題、查詢學校或工作相關資訊，或學習新知的第一站。";
-"year-in-review-base-viewed-title" = "我們已瀏覽了 $1 億次 Wikipedia 文章";
+"year-in-review-base-viewed-subtitle" = "iOS 應用程式使用者已瀏覽維基百科達 $1 十億次。對於全球各地的人們來說，維基百科是解答問題、查詢學校或工作相關資訊、或學習新知的第一站。";
+"year-in-review-base-viewed-title" = "我們已瀏覽了 $1 十億次維基百科條目";
 "year-in-review-button-title" = "年度回顧";
+"year-in-review-collective-article-views" = "一張電腦螢幕打開了網頁瀏覽器，並主動瀏覽維基百科條目的動畫插圖。";
+"year-in-review-collective-edits" = "兩塊維基百科拼圖碎片的插圖，每一塊拼圖碎片都扛著訊息內容。";
+"year-in-review-collective-edits-per-minute" = "滴答作響的時鐘，象徵人們閱讀維基百科的時間。";
+"year-in-review-collective-explore" = "動畫插圖描繪了維基百科的地球儀模樣標誌被鷹架包圍，象徵出世界各地的人們為建造維基百科專案而共同努力。場景被城市景觀環繞，強調維基百科與人類和全球文化的聯繫。";
+"year-in-review-collective-languages" = "一塊刻有代表各種語言銘文的石頭的動畫插圖，象徵維基百科如何協作建構來自不同文化與地區的知識。";
+"year-in-review-collective-saved-articles" = "一個帶有維基百科標誌的拼圖地球儀，代表著全球協作。";
+"year-in-review-collective-zero-ads" = "維基媒體標誌";
 "year-in-review-day-friday" = "星期五";
 "year-in-review-day-monday" = "星期一";
 "year-in-review-day-saturday" = "星期六";
@@ -1368,33 +1447,37 @@
 "year-in-review-day-wednesday" = "星期三";
 "year-in-review-donate" = "捐款";
 "year-in-review-donate-now" = "立即捐款";
+"year-in-review-english-edits" = "這張圖表顯示了 2024 年維基百科編輯次數最多的 10 個語言版本：英語版編輯次數超過 3100 萬次，德語版 5,508,570 次，法語版 5,276,385 次，西班牙語版 4,786,205 次，俄語版 3,303,066 次，義大利語版 3,200,398 次，日語版 2,973,657 次，中文版 2,505,032 次，波蘭語版 1,383,808 次，烏克蘭語版 1,376,980 次。2024 年所有維基百科版本的總編輯次數為 81,987,181 次。";
 "year-in-review-feature-announcement-body" = "查看我們今年在 Wikipedia 上閱讀和編輯的文章的洞察，並分享我們一年的亮點時刻。";
 "year-in-review-feature-announcement-body-personalized" = "查看您在 Wikipedia 應用程式上閱讀文章的洞察，分享您的旅程，並發掘您今年的亮點時刻。";
 "year-in-review-feature-announcement-title" = "探索 Wikipedia 年度回顧";
 "year-in-review-feature-announcement-title-personalized" = "探索您的 Wikipedia 年度回顧";
 "year-in-review-feature-explore-body" = "Wikipedia 是世界歷史上規模最大的知識資源，且免費提供給世界各地的每一個人。透過 Wikipedia 的視角，回顧 2024 年的點點滴滴。";
-// Fuzzy
-"year-in-review-feature-explore-body-personalized" = "查看您在 Wikipedia 應用程式上閱讀的文章以及所進行的編輯。您的閱讀歷史將受到保護，閱讀洞察是使用儲存在您裝置上的本地資料計算得出的。";
+"year-in-review-feature-explore-body-personalized" = "查看您在維基百科應用程式上閱讀的條目、以及您在 2024 年做出編輯的分析。您的閱讀歷史會受到保護，分析內容是使用儲存在您裝置上本機資料所計算出的。";
+"year-in-review-finish" = "結束";
 "year-in-review-login-subtitle" = "登入或建立你的帳戶，以獲得更多個人化的洞察資訊。";
 "year-in-review-login-title" = "改進您的年度回顧";
 "year-in-review-personalized-day-subtitle-format" = "您在 $1 閱讀了最多文章。顯然，$1 是您探索新內容的最佳時機。感謝您充分利用閱讀時間！";
+"year-in-review-personalized-day-title-format" = "您閱讀最多次的是$1。";
 "year-in-review-personalized-donate-subtitle" = "感謝您為自由知識的未來投入支持。今年，維基媒體基金會改進了技術，以更好地服務每一位讀者和志願者，開發了促進合作的工具，並支持更多語言版本的維基百科。[了解更多關於我們的工作內容]。($1)";
 "year-in-review-personalized-donate-title" = "您的慷慨幫助 Wikipedia 持續蓬勃發展";
-// Fuzzy
-"year-in-review-personalized-edit-views-subtitle-format" = "全球的讀者感謝您的貢獻。在過去兩個月中，您編輯過的文章共獲得了 $1 次瀏覽。正因為有像您這樣的編輯者，Wikipedia 才能持續改進，成為一個以事實為基礎且值得信賴的全球知識資源。";
+"year-in-review-personalized-donation-thank-you" = "維基媒體標誌";
+"year-in-review-personalized-edit-views-subtitle-format" = "全球的讀者感謝您的貢獻。在過去兩個月中，您編輯過的條目共獲得了 $1 次瀏覽。正因為有像您這樣的編輯者，維基百科才能持續改進，成為一個以事實為基礎且值得信賴的全球知識資源。";
 "year-in-review-personalized-edit-views-title-format" = "您的編輯最近已被瀏覽超過 $1 次。";
 "year-in-review-personalized-editing-subtitle-format" = "您在維基百科上進行了{{PLURAL:$1|$1次}}編輯。感謝您作為志願編輯者之一，為全球維基媒體的專案帶來改變。";
 "year-in-review-personalized-editing-subtitle-format-500plus" = "您編輯了維基百科超過 500 次。感謝您成為替世界各維基媒體計畫做出貢獻的志工編輯者之一。";
-// Fuzzy
-"year-in-review-personalized-editing-title-format" = "您在 Wikipedia 上進行了 $1 次編輯";
+"year-in-review-personalized-editing-title-format" = "您在維基百科上進行了 {{PLURAL:$1|$1}} 次編輯";
 "year-in-review-personalized-editing-title-format-500plus" = "您編輯了維基百科 500 多次。";
+"year-in-review-personalized-explore" = "一隻手捏著逐漸變化成一小塊拼圖的維基百科地球儀之動畫插圖，象徵個人對維基百科平台的貢獻。";
 "year-in-review-personalized-reading-subtitle-format" = "您閱讀了{{PLURAL:$1|$1篇}}文章。維基百科提供超過$2百萬篇文章，涵蓋超過$3種活躍的語言版本。您與數百萬人一起拓展知識，探索多樣化的主題。";
-// Fuzzy
-"year-in-review-personalized-reading-title-format" = "您今年閱讀了 {{PLURAL:$1|$1}} 篇條目";
-// Fuzzy
-"year-in-review-personalized-saved-subtitle-format" = "您已儲存 $1 篇文章，包括$2、$3和$4。每篇儲存的文章都反映了您的興趣，並幫助您在 Wikipedia 上建立個人化的知識庫。";
-// Fuzzy
-"year-in-review-personalized-saved-title-format" = "您已儲存 $1 篇文章";
+"year-in-review-personalized-reading-title-format" = "您閱讀了 {{PLURAL:$1|$1}} 篇條目";
+"year-in-review-personalized-saved-articles" = "一張戴有安全帽、背後是電腦螢幕的拼圖碎片插圖。";
+"year-in-review-personalized-saved-subtitle-format" = "您儲存了 {{PLURAL:$1|$1}} 篇條目，包括$2、$3和$4。每篇儲存的條目都反應出您的喜好，並幫助您在維基百科上建立個人化知識庫。";
+"year-in-review-personalized-saved-title-format" = "您儲存了 {{PLURAL:$1|$1}} 篇條目";
+"year-in-review-personalized-user-edits" = "顯示出許多位元組堆疊在一起，象徵著自由知識不斷累積的動畫插圖。";
+"year-in-review-personalized-weekday" = "滴答作響的時鐘，象徵人們閱讀維基百科的時間。";
+"year-in-review-personalized-you-read" = "一塊帶有維基百科標誌的拼圖從左側顯示。";
+"year-in-review-personalized-your-edits-views" = "插圖中展示了一塊維基百科的拼圖碎片與一支筆。";
 "year-in-review-share-text" = "這是我的 Wikipedia 年度回顧，由 Wikipedia iOS 應用程式製作。 (https://apps.apple.com/app/wikipedia/id324715238) #WikipediaYearInReview";
 "year-in-review-survey-additional-thoughts" = "還有其他想法嗎？";
 "year-in-review-survey-neutral" = "中立";
@@ -1404,3 +1487,5 @@
 "year-in-review-survey-unsatisfied" = "不滿意";
 "year-in-review-survey-very-satisfied" = "非常滿意";
 "year-in-review-survey-very-unsatisfied" = "非常不滿意";
+"year-in-review-wikipedia-w-accessibility-label" = "維基百科 w 標誌";
+"year-in-review-wmf-logo-accessibility-label" = "維基媒體基金會標誌";

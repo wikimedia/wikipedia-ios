@@ -85,7 +85,6 @@
 "button-ok" = "Добре";
 "button-publish" = "Публикуване";
 "button-publish-anyway" = "Публикуване въпреки предупреждението";
-"button-read-now" = "Прочетете сега";
 "button-report-a-bug" = "Съобщаване за грешка";
 "button-save-for-later" = "Съхраняване за по-късно";
 "button-saved-for-later" = "Съхраняване за по-късно";
@@ -355,7 +354,6 @@
 "notifications-center-go-to-article" = "Статия";
 "notifications-center-go-to-article-talk-format" = "Беседа $1";
 "notifications-center-go-to-diff" = "Разлика";
-"notifications-center-go-to-talk-page" = "Беседа";
 "notifications-center-go-to-user-page" = "Потребителска страница на $1";
 "notifications-center-go-to-wikidata-item" = "Обект в Уикиданни";
 "notifications-center-go-to-your-talk-page" = "Вашата беседа";

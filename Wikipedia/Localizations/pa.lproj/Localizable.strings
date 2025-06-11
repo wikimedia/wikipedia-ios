@@ -84,8 +84,21 @@
 "action-unsave" = "ਅਣ-ਸੰਭਾਲੋ";
 "action-unsaved-accessibility-notification" = "ਲੇਖ ਸੰਭਾਲਿਆ ਨਹੀਂ ਗਿਆ";
 "action-update" = "ਨਵਿਆਓ";
+"activity-tab-add-images-title" = "ਤਸਵੀਰ ਜੋੜੋ";
+"activity-tab-additional-thoughts" = "ਕੋਈ ਹੋਰ ਵਿਚਾਰ?";
+"activity-tab-neutral" = "ਨਿਰਪੱਖ";
+// Fuzzy
+"activity-tab-no-edits-title" = "ਤੁਸੀਂ ਹਾਲੇ ਤੱਕ ਕੋਈ ਸੋਧ ਨਹੀਂ ਕੀਤੀ ਹੈ।";
+"activity-tab-start-editing" = "ਸੋਧ ਸ਼ੁਰੂ ਕਰੋ";
+"activity-tab-title" = "ਸਰਗਰਮੀ";
+"activity-tab-view-editing-history" = "ਸੋਧ ਇਤਿਹਾਸ ਦਿਖਾਓ";
+"activity-tab-view-reading-history" = "ਪੜ੍ਹਨ ਦਾ ਇਤਿਹਾਸ ਵੇਖੋ";
+// Fuzzy
+"activity-tab-you-edited" = "ਤੁਸੀਂ ਇਸ ਹਫ਼ਤੇ {{PLURAL:$1|$1 ਲੇਖ}} ਸੋਧੇ ਹਨ।";
 "add-articles-to-reading-list" = "{{PLURAL:$1| $1 ਲੇਖ}} ਪੜ੍ਹਨ ਦੀ ਸੂਚੀ ਵਿੱਚ ਜੋੜੋ";
 "advanced-settings-title" = "ਵਧੇਰੇ ਤਰਜੀਹਾਂ";
+"alert-temporary-account" = "ਤੁਸੀਂ ਇੱਕ ਆਰਜ਼ੀ ਖਾਤਾ ਵਰਤ ਰਹੇ ਹੋ। ਖਾਤੇ ਦੀ ਮਿਆਦ 90 ਦਿਨਾਂ ਵਿੱਚ ਖ਼ਤਮ ਹੋ ਜਾਵੇਗੀ।";
+"alert-temporary-account-learn-more" = "ਹੋਰ ਸਿੱਖੋ।";
 "alt-text-feedback-survey-toast-title" = "ਸੁਝਾਅ ਦਿੱਤੇ ਗਏ";
 "announcements-dismiss" = "ਖ਼ਾਰਜ ਕਰੋ";
 "app-store-keywords" = "ਵਿਕੀਪੀਡੀਆ, ਹਵਾਲਾ, ਵਿਕੀ, ਵਿਸ਼ਵਕੋਸ਼, ਜਾਣਕਾਰੀ, ਗਿਆਨ, ਖੋਜ, ਜਾਣਕਾਰੀ, ਖੋਜ, ਸਿੱਖੋ";
@@ -93,6 +106,7 @@
 "appearance-settings-adjust-text-sizing" = "ਲੇਖ ਅੱਖਰਾਂ ਦਾ ਆਕਾਰ ਵਿਵਸਥਿਤ ਕਰੋ";
 "appearance-settings-expand-tables" = "ਸਾਰਣੀ ਫੈਲਾਓ";
 "appearance-settings-expand-tables-footer" = "ਤਤਕਾਲ ਤੱਥਾਂ, ਹਵਾਲੇ, ਨੋਟਾਂ ਅਤੇ ਬਾਹਰੀ ਕੜੀਆਂ ਸਮੇਤ, ਸਾਰੇ ਲੇਖਾਂ ਵਿੱਚ ਸਾਰੀਆਂ ਸਾਰਣੀਆਂ ਨੂੰ ਮੂਲ ਤੌਰ 'ਤੇ ਖੁੱਲ੍ਹਣ ਲਈ ਕਾਇਮ ਕਰੋ।";
+"appearance-settings-reading-themes" = "ਵਿਸ਼ਾ-ਵਸਤੂ ਪੜ੍ਹਨਾ";
 "appearance-settings-set-automatic-table-opening" = "ਸਾਰਣੀ ਤਰਜੀਹਾਂ";
 "appearance-settings-theme-options" = "ਥੀਮ ਵਿਕਲਪ";
 "article-about-title" = "ਇਸ ਲੇਖ ਬਾਰੇ";
@@ -108,6 +122,7 @@
 "article-save-error-not-enough-space" = "ਇਸ ਲੇਖ ਨੂੰ ਸਾਭਣ ਲਈ ਤੁਹਾਡੇ ਕੋਲ ਤੁਹਾਡੇ ਜੰਤਰ 'ਤੇ ਲੋੜੀਂਦੀ ਜਗ੍ਹਾ ਨਹੀਂ ਹੈ";
 "article-share" = "ਸਾਂਝਾ ਕਰੋ";
 "article-talk-page" = "ਲੇਖ ਗੱਲਬਾਤ ਸਫ਼ਾ";
+"article-view-controller-editing-temp-account-created-title" = "ਆਰਜ਼ੀ ਖਾਤਾ ਬਣਾਇਆ ਗਿਆ";
 "back-button-accessibility-label" = "ਪਿਛਾਂਹ";
 "back-button-popover-title" = "ਵਾਪਸ ਜਾਣ ਲਈ ਨੱਪੋ";
 "button-go-back" = "ਪਿੱਛੇ ਜਾਓ";
@@ -115,7 +130,6 @@
 "button-ok" = "ਠੀਕ";
 "button-publish" = "ਛਾਪੋ";
 "button-publish-anyway" = "ਕਿਸੇ ਵੀ ਤਰ੍ਹਾਂ ਛਾਪੋ";
-"button-read-now" = "ਪਡ਼੍ਹੋ";
 "button-report-a-bug" = "ਮਾਂਙਣੂ ਦੀ ਇਤਲਾਹ ਦਿਓ";
 "button-save-for-later" = "ਬਾਅਦ ਲਈ ਸੰਭਾਲੋ";
 "button-saved-for-later" = "ਬਾਅਦ ਲਈ ਸੰਭਾਲਿਆ";
@@ -137,7 +151,7 @@
 "continue-reading-empty-title" = "ਕੋਈ ਹਾਲ ਹੀ ਵਿੱਚ ਪਡ਼੍ਹੇ ਗਏ ਲੇਖ ਨਹੀਂ ਹਨ";
 "data-migration-status" = "ਨਵਿਆਈਆ ਜਾ ਰਿਹਾ ਹੈ...";
 "description-add-title" = "ਵੇਰਵਾ ਜੋੜੋ";
-"description-article-introduction-warning-message" = "ਸੋਧ ਦਿੱਖ ਵਿੱਚ ਤੱਤਾਂ ਦਾ ਕ੍ਰਮ ਲੇਖ ਦਿੱਖ ਨਾਲੋਂ ਵੱਖਰਾ ਹੋਵੇਗਾ।";
+"description-article-introduction-warning-message" = "ਸੋਧ ਦਿੱਖ ਵਿੱਚ ਤੱਤਾਂ ਦੀ ਤਰਤੀਬ ਲੇਖ ਦੀ ਦਿੱਖ ਨਾਲੋਂ ਵੱਖਰੀ ਹੋਵੇਗੀ।";
 "description-edit-for-article" = "$1 ਲਈ ਲੇਖ ਦਾ ਵੇਰਵਾ";
 "description-edit-pencil-introduction" = "ਜਾਣ-ਪਛਾਣ ਨੂੰ ਸੋਧੋ";
 "description-edit-pencil-title" = "ਲੇਖ ਦਾ ਵੇਰਵਾ ਸੋਧੋ";
@@ -206,11 +220,11 @@
 "diff-undo-message" = "ਇਹ ਇੱਥੇ ਦਿਖਾਏ ਗਏ ਲੇਖ ਦੇ ਸੋਧਾਂ ਵੱਲੋਂ ਕੀਤੀਆਂ ਗਈਆਂ ਤਬਦੀਲੀਆਂ ਨੂੰ ਖਤਮ ਕਰ ਦੇਵੇਗਾ । ਜਾਰੀ ਰੱਖਣ ਲਈ, ਕਿਰਪਾ ਕਰਕੇ ਇਸ ਸੋਧ ਨੂੰ ਵਾਪਸ ਲੈਣ ਦਾ ਕਾਰਨ ਦੱਸੋ।";
 "diff-undo-success" = "ਸੋਧ ਨੂੰ ਰੱਦ ਕਰ ਦਿੱਤਾ ਗਿਆ ਸੀ।";
 "diff-unedited-lines-format" = "{{PLURAL:$1| $1 ਲਕੀਰ ਨਹੀਂ ਸੋਧੀ| $1 ਲਕੀਰਾਂ ਨਹੀਂ ਸੋਧੀਆਂ}}";
-"diff-user-button-accessibility-text" = "ਮੀਨੂ ਖੋਲ੍ਹਣ ਲਈ ਡਬਲ ਟੈਪ ਕਰੋ";
+"diff-user-button-accessibility-text" = "ਮੀਨੂ ਨੂੰ ਖੋਲ੍ਹਣ ਲਈ ਦੋ-ਵਾਰ ਥਪੇੜੋ";
 "dim-images" = "ਚਿੱਤਰ ਚਾਨਣ ਘਟਾਓ";
-"donate-accessibility-amount-button-hint" = "ਦਾਨ ਦੀ ਰਕਮ ਚੁਣਨ ਲਈ ਡਬਲ ਟੈਪ ਕਰੋ।";
-"donate-accessibility-donate-hint-format" = "ਵਿਕੀਮੀਡੀਆ ਸੰਸਥਾ ਨੂੰ $1 ਦਾਨ ਕਰਨ ਲਈ ਡਬਲ ਟੈਪ ਕਰੋ।";
-"donate-accessibility-email-opt-in-hint" = "ਵਿਕੀਮੀਡੀਆ ਸੰਸਥਾ ਨੂੰ ਤੁਹਾਨੂੰ ਈਮੇਲ ਕਰਨ ਦੀ ਇਜਾਜ਼ਤ ਦੇਣ ਲਈ ਡਬਲ ਟੈਪ ਕਰੋ।";
+"donate-accessibility-amount-button-hint" = "ਦਾਨ ਦੀ ਰਕਮ ਚੁਣਨ ਲਈ ਦੋ-ਵਾਰ ਨੱਪੋ।";
+"donate-accessibility-donate-hint-format" = "ਵਿਕੀਮੀਡੀਆ ਸੰਸਥਾ ਨੂੰ $1 ਦਾਨ ਕਰਨ ਲਈ ਦੋ-ਵਾਰ ਨੱਪੋ।";
+"donate-accessibility-email-opt-in-hint" = "ਵਿਕੀਮੀਡੀਆ ਸੰਸਥਾ ਨੂੰ ਤੁਹਾਨੂੰ ਈਮੇਲ ਕਰਨ ਦੀ ਇਜਾਜ਼ਤ ਦੇਣ ਲਈ ਦੋ-ਵਾਰ ਥਪੇੜੋ।";
 "donate-accessibility-textfield-hint" = "ਦਾਨ ਕਰਨ ਲਈ ਖ਼ੁਦ ਰਕਮ ਦਾਖ਼ਲ ਕਰੋ।";
 "donate-help-frequently-asked-questions" = "ਅਕਸਰ ਪੁੱਛੇ ਜਾਂਦੇ ਸੁਆਲ";
 "donate-help-other-ways-to-give" = "ਦੇਣ ਦੇ ਹੋਰ ਤਰੀਕੇ";
@@ -225,6 +239,7 @@
 "donate-success-title" = "ਤੁਹਾਡਾ ਧੰਨਵਾਦ!";
 "donate-title" = "ਇੱਕ ਰਕਮ ਚੁਣੋ";
 "edit-link-display-text-title" = "ਲਿਖਤ ਦਿਖਾਉ";
+"edit-link-link-target-title" = "ਟੀਚੇ ਨਾਲ ਜੋੜੋ";
 "edit-link-remove-link-title" = "ਕੜੀ ਹਟਾਓ";
 "edit-link-title" = "ਕੜੀ ਸੋਧੋ";
 "edit-menu-item" = "ਸੋਧੋ";
@@ -236,6 +251,7 @@
 "edit-preview-simplified-format-message" = "ਸਾਰੀ ਸਮੱਗਰੀ ਨੂੰ ਸੌਖੀ ਤਰਤੀਬ ਵਿੱਚ ਵਿਖਾਇਆ ਗਿਆ ਹੈ।";
 "edit-published" = "ਸੋਧ ਛਾਪ ਦਿੱਤੀ ਗਈ!";
 "edit-published-subtitle" = "ਤੁਸੀਂ ਹੁਣੇ ਹੀ ਵਿਕੀਪੀਡੀਆ ਨੂੰ ਸਾਰਿਆਂ ਲਈ ਬਿਹਤਰ ਬਣਾਇਆ ਹੈ";
+"edit-sheet-temp-account-notice" = "ਆਰਜ਼ੀ ਖਾਤਾ ਸੁਨੇਹਾ";
 "edit-show-web-preview" = "ਵੈੱਬ ਝਲਕ ਦਿਖਾਓ";
 "edit-summary-add-summary-text" = "ਸੋਧ ਸੰਖੇਪ ਸ਼ਾਮਲ ਕਰੋ";
 "edit-summary-choice-added-image" = "ਤਸਵੀਰ ਜੋੜੀ ਗਈ";
@@ -270,6 +286,8 @@
 "editor-keyboard-indent-increase-accessibility" = "ਵਿੱਥ ਵਧਾਓ";
 "editor-keyboard-italics-accessibility" = "ਟੇਢੇ ਅੱਖਰ";
 "editor-keyboard-link-accessibility" = "ਕੜੀ";
+"editor-keyboard-list-ordered-accessibility" = "ਤਰਤੀਬ ਕੀਤੀ ਸੂਚੀ";
+"editor-keyboard-list-unordered-accessibility" = "ਬਗੈਰ ਤਰਤੀਬੀ ਸੂਚੀ";
 "editor-keyboard-paragraph-button" = "ਪੈਰਾ";
 "editor-keyboard-reference-accessibility" = "ਹਵਾਲਾ";
 "editor-keyboard-strikethrough-accessibility" = "ਵਿਚਾਲੇ ਲਕੀਰ ਪਾਓ";
@@ -287,7 +305,9 @@
 "editor-replace-textfield-placeholder" = "ਇਸ ਨਾਲ ਬਦਲੋ...";
 "editor-replace-type-all" = "ਸਾਰੇ ਬਦਲੋ";
 "editor-replace-type-single" = "ਬਦਲੋ";
+"editor-title" = "ਸੋਧਕ";
 "editor-toolbar-find-accessibility" = "ਸਫ਼ੇ ਵਿੱਚ ਲੱਭੋ";
+"editor-wikitext-textview-accessibility" = "ਵਿਕੀ ਅੱਖਰ/ਲਿਖਤ ਸੋਧਕ";
 "empty-diff-compare-title" = "ਸੋਧਾਂ ਵਿੱਚ ਕੋਈ ਫ਼ਰਕ ਨਹੀਂ ਹੈ";
 "empty-diff-single-title" = "ਕੋਈ ਦੇਖਣਯੋਗ ਤਬਦੀਲੀਆਂ ਨਹੀਂ ਕੀਤੀਆਂ ਗਈਆਂ";
 "empty-edit-summary" = "ਸੰਖੇਪ ਸੋਧ ਖਾਲੀ ਕਰੋ";
@@ -303,6 +323,7 @@
 "error-unknown" = "ਇੱਕ ਅਣਪਛਾਤੀ ਗ਼ਲਤੀ ਵਾਪਰੀ।";
 "explore-another-random" = "ਇੱਕ ਹੋਰ ਬੇਤਰਤੀਬ ਲੇਖ";
 "explore-because-you-read" = "ਕਿਓੰਕਿ ਤੁਸੀੰ ਇਹ ਪੜ੍ਹਿਆ ਸੀ";
+"explore-because-you-read-footer" = "ਵਾਧੂ ਮੇਲ-ਖਾਂਦੇ ਲੇਖ";
 "explore-continue-reading-heading" = "ਰੀਡਿੰਗ ਜਾਰੀ ਰੱਖੋ";
 "explore-featured-article-heading" = "ਫੀਚਰ ਲੇਖ";
 "explore-featured-article-sub-heading-from-language-wikipedia" = "$1 ਵਿਕੀਪੀਡੀਆ ਤੋਂ";
@@ -335,11 +356,14 @@
 "explore-randomizer" = "ਬੇਤਰਤੀਬੀ";
 "explore-suggested-edits-footer" = "ਜੋੜੋ";
 "explore-suggested-edits-image-recs-title" = "ਇੱਕ ਤਸਵੀਰ ਜੋੜੋ";
+"export-user-data-confirmation-title" = "ਕੀ ਐਪ-ਘਰ (app library) ਸਾਂਝਾ ਕਰਨਾ ਏ?";
+"export-user-data-title" = "ਵਰਤੋਂਕਾਰ ਡਾਟਾ ਬਰਾਮਦ ਕਰੋ";
 "featured-widget-from-language-wikipedia" = "$1 ਵਿਕੀਪੀਡੀਆ ਤੋਂ";
 "featured-widget-from-wikipedia" = "ਵਿਕੀਪੀਡੀਆ ਤੋਂ";
 "featured-widget-title" = "ਵਿਸ਼ੇਸ਼ ਲੇਖ";
 "field-alert-password-confirm-mismatch" = "ਪਛਾਣ-ਸ਼ਬਦ ਮੇਲ ਨਹੀਂ ਖਾਂਦੇ";
 "field-alert-token-invalid" = "ਗ਼ਲਤ ਕੋਡ";
+"field-backup-token-title-email" = "ਈਮੇਲ ਕੋਡ";
 "field-email-title" = "ਈਮੇਲ";
 "field-email-title-optional" = "ਈਮੇਲ (ਚੋਣਵੀਂ)";
 "field-new-password-confirm-placeholder" = "ਨਵਾਂ ਪਾਰਸ਼ਬਦ ਮੁੜਕੇ ਪਾਓ";
@@ -360,6 +384,8 @@
 "find-replace-header" = "ਲੱਭੋ ਅਤੇ ਬਦਲੋ";
 "find-replace-header-close-accessibility" = "ਲੱਭੋ ਅਤੇ ਬਦਲੋ ਨੂੰ ਬੰਦ ਕਰੋ";
 "find-textfield-accessibility" = "ਲੱਭੋ";
+"forgot-password-button-title" = "ਮੁੜ-ਬਣਾਓ";
+"forgot-password-title" = "ਪਛਾਣ ਸ਼ਬਦ ਮੁੜ-ਕਾਇਮ ਕਰੋ";
 "forgot-password-username-or-email-title" = "ਜਾਂ";
 "history-clear-all" = "ਸਾਫ਼ ਕਰੋ";
 "history-clear-cancel" = "ਰੱਦ ਕਰੋ";
@@ -371,6 +397,8 @@
 "home-more-like-footer" = "$1 ਵਾੰਗੂ ਹੋਰ";
 "home-nearby-footer" = "ਤੁਹਾਡੇ ਟਿਕਾਣੇ ਦੇ ਨੇੜੇ ਹੋਰ ਥਾਂਵਾਂ";
 "home-nearby-location-footer" = "$1 ਦੇ ਨੇੜੇ ਹੋਰ";
+"home-news-footer" = "ਹੋਰ ਮੌਜੂਦਾ ਘਟਨਾਵਾਂ";
+"home-themes-action-title" = "ਤਰਜੀਹਾਂ ਦਾ ਪ੍ਰਬੰਧ ਕਰੋ";
 "home-title" = "ਵਿਚਰੋ";
 "icon-shortcut-nearby-title" = "ਨੇੜਲੇ ਲੇਖ";
 "icon-shortcut-random-title" = "ਬੇਤਰਤੀਬ ਲੇਖ";
@@ -463,6 +491,7 @@
 "main-menu-title" = "ਹੋਰ";
 "main-menu-zero-faq" = "ਵਿਕੀਪੀਡੀਆ ਜ਼ੀਰੋ ਬਾਬਤ ਆਮ ਸੁਆਲ";
 "microsite-yir-english-edits-bytes-slide-title" = "4 ਅਰਬ ਬਾਈਟਾਂ ਜੋੜਿਆਂ";
+"microsite-yir-english-top-read-slide-title" = "ਅੰਗਰੇਜ਼ੀ ਵਿਕੀਪੀਡੀਆ ਦੇ ਸਭ ਤੋਂ ਮਸ਼ਹੂਰ ਲੇਖ";
 "more-languages-tooltip-title" = "ਭਾਸ਼ਾ ਜੋੜੋ";
 "more-menu" = "ਹੋਰ";
 "navbar-title-mode-edit-wikitext-preview" = "ਝਾਤ";
@@ -487,7 +516,6 @@
 "notifications-center-go-to-article" = "ਲੇਖ";
 "notifications-center-go-to-article-talk-format" = "$1 ਗੱਲਬਾਤ ਸਫ਼ਾ";
 "notifications-center-go-to-diff" = "ਫ਼ਰਕ";
-"notifications-center-go-to-talk-page" = "ਗੱਲਬਾਤ ਵਰਕਾ";
 "notifications-center-go-to-user-page" = "$1 ਦਾ ਵਰਤੋਂਕਾਰ ਵਰਕਾ";
 "notifications-center-go-to-wikidata-item" = "ਵਿਕੀਡਾਟਾ ਚੀਜ਼";
 "notifications-center-go-to-your-talk-page" = "ਤੁਹਾਡਾ ਗੱਲਬਾਤ ਸਫ਼ਾ";
@@ -552,8 +580,7 @@
 "on-this-day-no-internet-error" = "ਕੋਈ ਡਾਟਾ ਮੌਜ਼ੂਦ ਨਹੀਂ ਏ";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$2 ਵਿਕੀਪੀਡੀਆ ਤੋਂ $1";
 "on-this-day-title" = "ਅੱਜ ਦੇ ਦਿਨ";
-"page-history-anonymous-edits" = "ਗੁਮਨਾਮ ਵੱਲੋਂ ਸੋਧਾਂ";
-"page-history-bot-edits" = "ਬੋਟ ਵੱਲੋਂ ਸੋਧਾਂ";
+"page-history-bot-edits" = "ਬੋਟ";
 "page-history-compare-accessibility-hint" = "ਤੁਲਨਾ ਕਰਨ ਲਈ ਦੋ ਸੋਧਾਂ ਦੀ ਚੋਣ ਕਰਨ ਲਈ ਦੱਬੋ";
 "page-history-compare-title" = "ਤੁਲਨਾ ਕਰੋ";
 "page-history-minor-edits" = "ਛੋਟੀਆਂ ਸੋਧਾਂ";
@@ -566,7 +593,6 @@
 "page-history-revision-time-accessibility-label" = "ਸੋਧ $1 ਕੀਤੀ ਗਈ";
 "page-history-revisions-comparison-warning" = "ਸਿਰਫ਼ ਦੋ ਸੋਧਾਂ ਹੀ ਚੁਣੀਆਂ ਜਾ ਸਕਦੀਆਂ ਹਨ";
 "page-history-stats-text" = "$2 ਤੋਂ ਬਾਅਦ {{PLURAL:$1|$1 ਸੋਧ|$1 ਸੋਧਾਂ}}";
-"page-history-user-edits" = "ਵਰਤੋਂਕਾਰ ਸੋਧਾਂ";
 "page-issues" = "ਸਫ਼ੇ ਸੰਬੰਧੀ ਮੁੱਦੇ";
 "page-location" = "ਨਕਸ਼ੇ ਤੇ ਵੇਖੋ";
 "page-protected-can-not-edit" = "ਤੁਹਾਡੇ ਕੋਲ਼ ਇਸ ਸਫ਼ੇ ਦੀ ਸੁਧਾਈ ਕਰਨ ਦੇ ਹੱਕ ਨਹੀਂ ਹਨ";
@@ -607,14 +633,14 @@
 "preference-summary-eventlogging-opt-in" = "ਇਸ ਐਪ ਨੂੰ ਚੰਗੇਰੀ ਬਣਾਉਣ ਵਾਸਤੇ ਵਿਕੀਮੀਡੀਆ ਨੂੰ ਤੁਹਾਡੇ ਇਸ ਐਪ ਨੂੰ ਵਰਤਣ ਦੇ ਤਰੀਕੇ ਬਾਬਤ ਜਾਣਕਾਰੀ ਇਕੱਠੀ ਕਰਨ ਦੀ ਇਜਾਜ਼ਤ ਦਿਉ।";
 "privacy-policy-title" = "ਨਿੱਜਤਾ ਨੀਤੀ";
 "problem-with-feature-title" = "ਵਿਸ਼ੇਸ਼ਤਾ ਨਾਲ ਸਮੱਸਿਆ";
+"profile-button-accessibility-label" = "ਪ੍ਰੋਫਾਈਲ";
 "profile-page-join-title" = "ਵਿਕੀਪੀਡੀਆ ਨਾਲ ਜੁੜੋ / ਦਾਖਲ ਹੋਵੋ";
-"profile-page-title-logged-out" = "ਖਾਤਾ";
 "project-name-mediawiki" = "ਮੀਡੀਆਵਿਕੀ";
 "project-name-wikibooks" = "ਵਿਕੀਕਿਤਾਬਾਂ";
 "project-name-wikidata" = "ਵਿਕੀਡਾਟਾ";
 "project-name-wikimedia-commons" = "ਵਿਕੀਮੀਡੀਆ ਭਾਈਚਾਰਾ";
 "project-name-wikinews" = "ਵਿਕੀਖ਼ਬਰਾਂ";
-"project-name-wikiquote" = "ਵਿਕੀਹਵਾਲਾ";
+"project-name-wikiquote" = "ਵਿਕੀਕਥਨ";
 "project-name-wikisource" = "ਵਿਕੀਸਰੋਤ";
 "project-name-wikispecies" = "ਵਿਕੀਜਾਤੀਆਂ";
 "project-name-wikiversity" = "ਵਿਕੀਵਰਸਿਟੀ";
@@ -629,6 +655,7 @@
 "reading-list-create-new-list-reading-list-name" = "ਪਡ਼੍ਹਨ ਦੀ ਸੂਚੀ ਦਾ ਨਾਂ";
 "reading-list-create-new-list-title" = "ਇੱਕ ਨਵੀਂ ਸੂਚੀ ਬਣਾਓ";
 "reading-list-deleted-accessibility-notification" = "ਪੜ੍ਹਨ ਦੀ ਸੂਚੀ ਮਿਟਾਈ ਗਈ";
+"reading-list-detail-search-placeholder" = "ਪਡ਼੍ਹਨ ਦੀ ਸੂਚੀ ਵਿੱਚ ਲੱਭੋ";
 "reading-list-do-not-keep-button-title" = "ਨਹੀਂ, ਜੰਤਰ ਤੋਂ ਲੇਖਾਂ ਨੂੰ ਮਿਟਾਓ";
 "reading-list-exists-with-same-name" = "ਪਡ਼੍ਹਨ ਦੀ ਸੂਚੀ ਦਾ ਨਾਂ ਪਹਿਲਾਂ ਤੋਂ ਹੀ ਵਰਤੋਂ ਵਿੱਚ ਹੈ";
 "reading-list-generic-error" = "ਤੁਹਾਡੀ ਪਡ਼੍ਹਨ ਦੀਆਂ ਸੂਚੀਆਂ ਨੂੰ ਨਵਿਆਓਣ ਸਮੇਂ ਅਚਾਨਕ ਇੱਕ ਗਲਤੀ ਆਈ ਹੈ।";
@@ -756,6 +783,8 @@
 "table-of-contents-close-accessibility-label" = "ਸਮੱਗਰੀ ਸਾਰਣੀ ਬੰਦ ਕਰੋ";
 "table-of-contents-heading" = "ਸਮੱਗਰੀ";
 "table-of-contents-hide-button-label" = "ਸਮੱਗਰੀ ਦੀ ਸਾਰਣੀ ਨੂੰ ਲੁਕਾਓ";
+"tabs-close-tab" = "ਟੈਬ ਬੰਦ ਕਰੋ";
+"tabs-open-tab" = "ਟੈਬ ਖੋਲ੍ਹੋ";
 "talk-page-active-users-accessibilty-label" = "{{PLURAL:$1| $1 ਸਰਗਰਮ ਵਰਤੋਂਕਾਰ}}";
 "talk-page-add-topic-button" = "ਵਿਸ਼ਾ ਜੋੜੋ";
 "talk-page-archives" = "ਪੁਰਾਲੇਖ";
@@ -833,6 +862,7 @@
 "top-read-widget-title" = "ਸਭ ਤੋਂ ਵੱਧ ਪਡ਼੍ਹਿਆ";
 "try-now-title" = "ਹੁਣੇ ਕੋਸ਼ਿਸ਼ ਕਰੋ";
 "tutorial-title" = "ਸਿਖਲਾਈ";
+"two-factor-email-login-continue" = "ਦਾਖਲ ਹੋਣਾ ਜਾਰੀ ਰੱਖੋ";
 "two-factor-login-continue" = "ਦਾਖਲ ਹੋਣਾ ਜਾਰੀ ਰੱਖੋ";
 "two-factor-login-instructions" = "ਕਿਰਪਾ ਕਰਕੇ ਦੋ-ਪੱਖੀ ਤਸਦੀਕ ਕੋਡ ਦਰਜ ਕਰੋ";
 "two-factor-login-title" = "ਆਪਣੇ ਖਾਤੇ ਵਿੱਚ ਦਾਖ਼ਲ ਹੋਵੋ";
@@ -938,7 +968,7 @@
 "year-in-review-base-editors-title" = "iOS ਐਪ ਦੇ ਸੋਧਕਾਂ ਨੇ $1 ਤੋਂ ਵੱਧ ਸੋਧ ਕੀਤੇ ਹਨ";
 "year-in-review-base-edits-title" = "ਵਿਕੀਪੀਡੀਆ ਨੂੰ $1 ਵਾਰ ਪ੍ਰਤੀ ਮਿੰਟ ਸੋਧਿਆ ਗਿਆ ਸੀ";
 "year-in-review-base-reading-title" = "ਵਿਕੀਪੀਡੀਆ 300 ਤੋਂ ਵੱਧ ਭਾਸ਼ਾਵਾਂ ਵਿੱਚ ਉਪਲਬਧ ਸੀ।";
-"year-in-review-base-saved-title" = "ਸਾਡੇ ਕੋਲ $1 ਕਰੋੜ ਤੋਂ ਵੱਧ ਪਡ਼੍ਹਨ ਦੀਆਂ ਸੂਚੀਆਂ ਸਨ।";
+"year-in-review-base-saved-title" = "ਸਾਡੇ ਕੋਲ $1 ਕਰੋੜ ਤੋਂ ਵੱਧ ਪੜ੍ਹਨ ਦੀਆਂ ਸੂਚੀਆਂ ਸਨ।";
 "year-in-review-base-viewed-title" = "ਅਸੀਂ ਵਿਕੀਪੀਡੀਆ ਲੇਖ $1 ਅਰਬ ਵਾਰ ਦੇਖੇ ਹਨ।";
 "year-in-review-button-title" = "ਸਮੀਖਿਆ ਵਿੱਚ ਸਾਲ";
 "year-in-review-day-friday" = "ਸ਼ੁੱਕਰਵਾਰ";

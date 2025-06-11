@@ -114,7 +114,6 @@
 "button-ok" = "OK";
 "button-publish" = "Almmut";
 "button-publish-anyway" = "Almmut dat liikká";
-"button-read-now" = "Loga dál";
 "button-report-a-bug" = "Muital meattáhusa birra";
 "button-save-for-later" = "Vurke maŋŋelažžii";
 "button-saved-for-later" = "Vurkejuvvon maŋŋelažžii";
@@ -675,7 +674,6 @@
 "notifications-center-go-to-article" = "Artihkal";
 "notifications-center-go-to-article-talk-format" = "Siiddu $1 ságastallansiidu";
 "notifications-center-go-to-diff" = "Erohus";
-"notifications-center-go-to-talk-page" = "Ságastallansiidu";
 "notifications-center-go-to-user-page" = "{{GRAMMAR:genitive|$1}} geavaheaddjisiidu";
 "notifications-center-go-to-wikidata-item" = "Wikidata-elemeantta";
 "notifications-center-go-to-your-talk-page" = "Du ságastallansiidu";
@@ -776,7 +774,7 @@
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 Wikipedias $2:s";
 "on-this-day-title" = "Otná beaivvi";
 "original-tab-button-popover-description" = "Coahkkal «W» mannat ruovttoluotta dan levgii gos álggahit";
-"page-history-anonymous-edits" = "anonyma rievdadeamit";
+// Fuzzy
 "page-history-bot-edits" = "bottarievdadeamit";
 "page-history-compare-accessibility-hint" = "Coahkkal válljet guokte revišuvnna maid buohtastahttet";
 "page-history-compare-title" = "Buohtastahte";
@@ -791,7 +789,6 @@
 "page-history-revision-time-accessibility-label" = "Revišuvdna dahkkon $1";
 "page-history-revisions-comparison-warning" = "Dušše guokte revišuvnna sáhttet válljejuvvot";
 "page-history-stats-text" = "$1 {{PLURAL:$1|rievdadeapmi|rievdadeami}} $2 rájes";
-"page-history-user-edits" = "geavaheaddjirievdadeamit";
 "page-issues" = "Siidováttisvuođat";
 "page-location" = "Čájet kárttas";
 "page-protected-can-not-edit" = "Dus eai leat vuoigatvuođat dán siiddu rievdadit";
@@ -843,7 +840,6 @@
 "preference-summary-eventlogging-opt-in" = "Suova Wikimedia Foundationa čohkket dieđuid du áppageavaheami birra vai buorida dan appa";
 "privacy-policy-title" = "Persovdnasuodjaluspolitihkka";
 "problem-with-feature-title" = "Váttisvuohta doaimmain";
-"profile-page-title-logged-out" = "Geavaheaddjidovddaldat";
 "project-name-mediawiki" = "MediaWiki";
 "project-name-wikibooks" = "Wikigirjjit";
 "project-name-wikidata" = "Wikidata";

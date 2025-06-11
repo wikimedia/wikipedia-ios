@@ -2,36 +2,6 @@ import Foundation
 import WMFData
 
 extension ArticleViewController {
-    func loadWatchStatusAndUpdateToolbar() {
-        
-        guard let title = articleURL.wmf_title,
-        let siteURL = articleURL.wmf_site,
-        let project = WikimediaProject(siteURL: siteURL)?.wmfProject else {
-            return
-        }
-        
-        WMFWatchlistDataController().fetchWatchStatus(title: title, project: project) { result in
-            
-            DispatchQueue.main.async { [weak self] in
-                
-                guard let self else {
-                    return
-                }
-                
-                switch result {
-                case .success(let status):
-                    
-                    let needsWatchButton = !status.watched
-                    let needsUnwatchHalfButton = status.watched && status.watchlistExpiry != nil
-                    let needsUnwatchFullButton = status.watched && status.watchlistExpiry == nil
-                    
-                    self.toolbarController.updateMoreButton(needsWatchButton: needsWatchButton, needsUnwatchHalfButton: needsUnwatchHalfButton, needsUnwatchFullButton: needsUnwatchFullButton)
-                case .failure:
-                    break
-                }
-            }
-        }
-    }
     
     func watch() {
         
@@ -58,14 +28,30 @@ extension ArticleViewController {
 
 extension ArticleViewController: WatchlistControllerDelegate {
     func didSuccessfullyWatchTemporarily(_ controller: WatchlistController) {
-        toolbarController.updateMoreButton(needsWatchButton: false, needsUnwatchHalfButton: true, needsUnwatchFullButton: false)
+        self.needsWatchButton = false
+        self.needsUnwatchHalfButton = true
+        self.needsUnwatchFullButton = false
+        self.toolbarController.updateMoreButton(needsWatchButton: self.needsWatchButton, needsUnwatchHalfButton: self.needsUnwatchHalfButton, needsUnwatchFullButton: self.needsUnwatchFullButton, previousArticleTab: previousArticleTab, nextArticleTab: nextArticleTab)
+        
     }
     
     func didSuccessfullyWatchPermanently(_ controller: WatchlistController) {
-        toolbarController.updateMoreButton(needsWatchButton: false, needsUnwatchHalfButton: false, needsUnwatchFullButton: true)
+        
+        self.needsWatchButton = false
+        self.needsUnwatchHalfButton = false
+        self.needsUnwatchFullButton = true
+        
+        self.toolbarController.updateMoreButton(needsWatchButton: self.needsWatchButton, needsUnwatchHalfButton: self.needsUnwatchHalfButton, needsUnwatchFullButton: self.needsUnwatchFullButton, previousArticleTab: previousArticleTab, nextArticleTab: nextArticleTab)
+        
+        
     }
     
     func didSuccessfullyUnwatch(_ controller: WatchlistController) {
-        toolbarController.updateMoreButton(needsWatchButton: true, needsUnwatchHalfButton: false, needsUnwatchFullButton: false)
+        
+        self.needsWatchButton = true
+        self.needsUnwatchHalfButton = false
+        self.needsUnwatchFullButton = false
+        
+        self.toolbarController.updateMoreButton(needsWatchButton: self.needsWatchButton, needsUnwatchHalfButton: self.needsUnwatchHalfButton, needsUnwatchFullButton: self.needsUnwatchFullButton, previousArticleTab: previousArticleTab, nextArticleTab: nextArticleTab)
     }
 }

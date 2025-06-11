@@ -115,7 +115,6 @@
 "button-ok" = "Í lagi";
 "button-publish" = "Gefa út";
 "button-publish-anyway" = "Gefa samt út";
-"button-read-now" = "Lesa núna";
 "button-report-a-bug" = "Tilkynna um villu";
 "button-save-for-later" = "Vista til síðari tíma";
 "button-saved-for-later" = "Vistað til síðari tíma brúks";
@@ -548,7 +547,6 @@
 "notifications-center-go-to-article" = "Grein";
 "notifications-center-go-to-article-talk-format" = "$1 spjallsíða";
 "notifications-center-go-to-diff" = "Mismunur";
-"notifications-center-go-to-talk-page" = "Spjallsíða";
 "notifications-center-go-to-user-page" = "Notandasíða fyrir $1";
 "notifications-center-go-to-wikidata-item" = "Wikidata-atriði";
 "notifications-center-go-to-your-talk-page" = "Spjallsíðan þín";
@@ -647,7 +645,7 @@
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 af $2 Wikipedia";
 "on-this-day-title" = "Á þessum degi";
 "original-tab-button-popover-description" = "Ýttu á 'W'-ið til að fara til baka á flipann þar sem þú varst";
-"page-history-anonymous-edits" = "nafnlausar breytingar";
+// Fuzzy
 "page-history-bot-edits" = "vélmennabreytingar";
 "page-history-compare-accessibility-hint" = "Ýttu til að velja tvær útgáfur til samanburðar";
 "page-history-compare-title" = "Bera saman";
@@ -662,7 +660,6 @@
 "page-history-revision-time-accessibility-label" = "Útgáfa gerð $1";
 "page-history-revisions-comparison-warning" = "Aðeins er hægt að velja tvær útgáfur";
 "page-history-stats-text" = "{{PLURAL:$1|$1 breyting|$1 breytingar}} síðan $2";
-"page-history-user-edits" = "breytingar notanda";
 "page-issues" = "Vandamál varðandi síðu";
 "page-location" = "Skoða á korti";
 "page-protected-can-not-edit" = "Þú hefur ekki réttindi á að breyta þessari síðu";

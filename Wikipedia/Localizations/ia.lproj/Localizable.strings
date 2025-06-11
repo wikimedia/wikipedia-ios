@@ -112,7 +112,6 @@
 "button-ok" = "OK";
 "button-publish" = "Publicar";
 "button-publish-anyway" = "Publicar totevia";
-"button-read-now" = "Leger ora";
 "button-report-a-bug" = "Reportar un defecto";
 "button-save-for-later" = "Salveguardar pro plus tarde";
 "button-saved-for-later" = "Salveguardate pro plus tarde";
@@ -696,7 +695,6 @@
 "notifications-center-go-to-article" = "Articulo";
 "notifications-center-go-to-article-talk-format" = "Pagina de discussion de $1";
 "notifications-center-go-to-diff" = "Diff";
-"notifications-center-go-to-talk-page" = "Pagina de discussion";
 "notifications-center-go-to-user-page" = "Pagina de usator de $1";
 "notifications-center-go-to-wikidata-item" = "Elemento Wikidata";
 "notifications-center-go-to-your-talk-page" = "Tu pagina de discussion";
@@ -803,8 +801,7 @@
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "Le $1 sur Wikipedia in $2";
 "on-this-day-title" = "In iste die";
 "original-tab-button-popover-description" = "Tocca le 'W' pro retornar al scheda de ubi tu comenciava";
-"page-history-anonymous-edits" = "modificationes anonyme";
-"page-history-bot-edits" = "modificationes per robot";
+"page-history-bot-edits" = "robot";
 "page-history-compare-accessibility-hint" = "Tocca pro seliger duo versiones a comparar";
 "page-history-compare-title" = "Comparar";
 "page-history-graph-accessibility-label" = "Graphico de modificationes in le tempore";
@@ -818,7 +815,6 @@
 "page-history-revision-time-accessibility-label" = "Version facite le $1";
 "page-history-revisions-comparison-warning" = "Solmente duo versiones pote esser seligite";
 "page-history-stats-text" = "$1 {{PLURAL:$1|modification|modificationes}} desde $2";
-"page-history-user-edits" = "modificationes de usatores";
 "page-issues" = "Problemas con le pagina";
 "page-location" = "Vider sur un carta";
 "page-protected-can-not-edit" = "Tu non ha le derectos pro modificar iste pagina";
@@ -877,7 +873,6 @@
 "profile-page-join-subtext" = "Crea un conto de Wikipedia pro traciar tu contributiones, salveguardar articulos foras de linea, e synchronisar inter apparatos.";
 "profile-page-join-title" = "Aperir session / Adherer a Wikipedia";
 "profile-page-logged-out-year-in-review-subtext" = "Aperi session o crea un conto pro obtener un summario del anno meliorate le proxime anno";
-"profile-page-title-logged-out" = "Conto";
 "project-name-mediawiki" = "MediaWiki";
 "project-name-wikibooks" = "Wikilibros";
 "project-name-wikidata" = "Wikidata";

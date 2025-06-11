@@ -44,7 +44,7 @@ class NewsViewController: ColumnarCollectionViewController, WMFNavigationBarConf
     
     private func configureNavigationBar() {
         let titleConfig = WMFNavigationBarTitleConfig(title: CommonStrings.inTheNewsTitle, customView: nil, alignment: .hidden)
-        configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: nil, profileButtonConfig: nil, searchBarConfig: nil, hideNavigationBarOnScroll: false)
+        configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: nil, profileButtonConfig: nil, tabsButtonConfig: nil, searchBarConfig: nil, hideNavigationBarOnScroll: false)
     }
     
     override func metrics(with size: CGSize, readableWidth: CGFloat, layoutMargins: UIEdgeInsets) -> ColumnarCollectionViewLayoutMetrics {

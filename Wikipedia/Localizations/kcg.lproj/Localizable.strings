@@ -88,7 +88,6 @@
 "button-next" = "Si̱ a̱zanson";
 "button-ok" = "Ndei";
 "button-publish" = "Shei";
-"button-read-now" = "Fang ma̱ninika";
 "button-save-for-later" = "Sak mat jenjini̱shi";
 "button-saved-for-later" = "Á̱ sak mat jenjini̱shi";
 "button-saved-remove" = "Turung neet di̱ sak";
@@ -397,7 +396,6 @@
 "page-history-revision-time-accessibility-label" = "Khwifeang di̱ á̱ nyia $1";
 "page-history-revisions-comparison-warning" = "Á̱ maai khai nkhwifeang feang nia ma̱nyin";
 "page-history-stats-text" = "{{PLURAL:$1|Jhyuk $1|Njhyuk $1}} neet $2";
-"page-history-user-edits" = "njhyuk a̱tyuta̱m";
 "page-issues" = "Zok peji";
 "page-location" = "Di tazwa ta̱si̱la";
 "page-protected-can-not-edit" = "A sang a̱ka̱wat jhyuk peji huni";

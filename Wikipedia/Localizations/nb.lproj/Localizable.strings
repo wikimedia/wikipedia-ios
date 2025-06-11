@@ -130,7 +130,6 @@
 "button-ok" = "OK";
 "button-publish" = "Publiser";
 "button-publish-anyway" = "Publiser likevel";
-"button-read-now" = "Les nå";
 "button-report-a-bug" = "Meld fra om en feil";
 "button-save-for-later" = "Lagre til senere";
 "button-saved-for-later" = "Lagret til senere";
@@ -186,6 +185,7 @@
 "description-welcome-descriptions-title" = "Artikkelbeskrivelser";
 "description-welcome-promise-title" = "Gjennom å starte lover jeg å ikke misbruke denne funksjonen";
 "description-welcome-start-editing-button" = "Begynn å redigere";
+"developer-settings-activity-tabs" = "Aktiver aktivitetsfaner";
 "diff-article-revision-history" = "Artikkelsideversjonshistorikk";
 "diff-change-added" = "Tillegg, $1, slutt på tillegg.";
 "diff-change-paragraph-lines-moved-down" = "Avsnitt flyttet $1 {{PLURAL:$1|linje|linjer}} ned. Gå til den nye plasseringen.";
@@ -700,7 +700,6 @@
 "notifications-center-go-to-article" = "Artikkel";
 "notifications-center-go-to-article-talk-format" = "Diskusjon om $1";
 "notifications-center-go-to-diff" = "Diff";
-"notifications-center-go-to-talk-page" = "Diskusjonsside";
 "notifications-center-go-to-user-page" = "{{GRAMMAR:genitive|$1}} brukerside";
 "notifications-center-go-to-wikidata-item" = "Wikidata-element";
 "notifications-center-go-to-your-talk-page" = "Din diskusjonsside";
@@ -807,7 +806,7 @@
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 fra Wikipedia på $2";
 "on-this-day-title" = "På denne dag";
 "original-tab-button-popover-description" = "Trykk på «W» for å gå tilbake til fanen du startet fra";
-"page-history-anonymous-edits" = "anonyme redigeringer";
+// Fuzzy
 "page-history-bot-edits" = "botredigeringer";
 "page-history-compare-accessibility-hint" = "Trykk for å velge to revisjoner å sammenligne";
 "page-history-compare-title" = "Sammenlign";
@@ -822,7 +821,6 @@
 "page-history-revision-time-accessibility-label" = "Revisjon gjort $1";
 "page-history-revisions-comparison-warning" = "Kun to revisjoner kan velges";
 "page-history-stats-text" = "$1 {{PLURAL:$1|redigering|redigeringer}} siden $2";
-"page-history-user-edits" = "brukerredigeringer";
 "page-issues" = "Merknader for siden";
 "page-location" = "Vis på kart";
 "page-protected-can-not-edit" = "Du har ikke rettigheter til å redigere denne siden";

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="23094" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES" initialViewController="LsX-JK-bT6">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="23091" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES" initialViewController="LsX-JK-bT6">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23084"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23079"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -249,6 +249,7 @@
                         <outlet property="passwordRepeatTitleLabel" destination="t9g-Yg-iPJ" id="Szc-Kv-Hpc"/>
                         <outlet property="passwordTitleLabel" destination="2aD-ss-nxg" id="acx-D1-JcQ"/>
                         <outlet property="scrollContainer" destination="8Qz-4P-2EZ" id="lPP-0j-BIc"/>
+                        <outlet property="scrollContainerTopConstraint" destination="NOm-wi-xac" id="8ym-6K-h5A"/>
                         <outlet property="scrollView" destination="dKm-Zn-TSm" id="gEZ-Pp-aUZ"/>
                         <outlet property="titleLabel" destination="c3c-PU-Exz" id="ave-jg-bBY"/>
                         <outlet property="usernameAlertLabel" destination="yEV-bO-oF2" id="Fpl-4z-yMC"/>

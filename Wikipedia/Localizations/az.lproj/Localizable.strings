@@ -80,8 +80,34 @@
 "action-unsave" = "Yadda saxlama";
 "action-unsaved-accessibility-notification" = "Məqalə saxlanılmadı";
 "action-update" = "Yenilə";
+"activity-tab-add-images-subtitle" = "Anlayışı artırmaq üçün təklif olunan şəkilləri Vikipediya məqalələrinə əlavə edin.";
+"activity-tab-add-images-title" = "Şəkil əlavə et";
+"activity-tab-additional-thoughts" = "Əlavə fikriniz var?";
+"activity-tab-generic-no-edits" = "Siz bu həftə redaktə etməmisiniz. Töhfələrinizi izləmək üçün indi başlayın.";
+"activity-tab-greeting" = "$1 Salam $2$3 👋 Sizin həftəlik Vikipediya xülasəniz buradadır";
+"activity-tab-logged-out-subtitle" = "Oxuduqlarınızı izləyin və zamanla töhfələrinizə yeni şəkildə baxın";
+"activity-tab-logged-out-title" = "Daha çox oxuma və redaktə fəaliyyətinə baxmaq üçün daxil olun və ya hesab yaradın.";
+"activity-tab-neutral" = "Neytral";
+"activity-tab-no-edits-title" = "Siz bu həftə redaktə etməmisiniz. Məqaləni başa düşülməsini asanlaşdırmaq üçün şəkillər əlavə edin.";
+"activity-tab-read-title" = "Oxunma tarixçəsinə bax";
+"activity-tab-satisfied" = "Məmnunam";
+"activity-tab-start-editing" = "Redaktəyə başla";
+"activity-tab-survey" = "\"Fəaliyyət\" ekranınız sizi qane edirmi? Gələcəkdə burada başqa nə görmək istərdiniz?";
+"activity-tab-survey-title" = "Məmnuniyyət sorğusu";
+"activity-tab-title" = "Fəaliyyət";
+"activity-tab-unsatisfied" = "Məmnun deyiləm";
+"activity-tab-very-satisfied" = "Çox məmnunam";
+"activity-tab-very-unsatisfied" = "Çox narazıyam";
+"activity-tab-view-editing-history" = "Redaktə tarixçəsinə bax";
+"activity-tab-view-reading-history" = "Oxuna tarixçəsinə bax";
+"activity-tab-view-saved-articles" = "Saxlanmış məqalələrə bax";
+"activity-tab-you-edited" = "Siz bu həftə {{PLURAL:$1|$1 dəfə}} redaktə etmisiniz.";
+"activity-tab-you-read" = "Siz bu həftə {{PLURAL:$1|$1 məqalə}} oxumusunuz.";
+"activity-tab-you-saved" = "Siz bu həftə {{PLURAL:$1|$1 məqalə}} yadda saxlamısınız.";
 "add-articles-to-reading-list" = "{{PLURAL:$1|$1 Məqalə|$1 Məqalələri}} oxuma siyahısına əlavə et";
 "advanced-settings-title" = "Qabaqcıl parametrlər";
+"alert-temporary-account" = "Siz müvəqqəti hesabdan istifadə edirsiniz. Hesabın müddəti 90 gün ərzində bitəcək.";
+"alert-temporary-account-learn-more" = "Daha ətraflı öyrən.";
 "alt-text-feedback-survey-toast-title" = "Rəy göndərildi";
 "announcements-dismiss" = "Bağla";
 "app-store-keywords" = "Vikipediya, istinad, viki, ensiklopediya, info, bilik, araşdırma, məlumat, araşdırmaq, öyrənmək";
@@ -109,8 +135,16 @@
 "article-revision-history" = "Məqalənin redaktə tarixçəsi";
 "article-save-error-not-enough-space" = "Bu məqaləni saxlamaq üçün cihazınızda kifayət qədər yer yoxdur";
 "article-share" = "Paylaş";
+"article-tabs-max-reached" = "Vərəqə limitinə çatıldı ($1). Məqalə bu vərəqədə açıldı. Zəhmət olmasa, bir və ya daha çox vərəqəni bağlayın.";
+"article-tabs-navigation" = "Vərəqə naviqasiyası";
+"article-tabs-onboarding-tooltip" = "Vərəqələr üçün əlavə ipucları";
+"article-tabs-open" = "Aç";
+"article-tabs-open-background-tab" = "Arxa vərəqədə aç";
+"article-tabs-open-new-tab" = "Yeni vərəqədə aç";
 "article-talk-page" = "Məqalənin müzakirə səhifəsi";
 "article-toolbar-reading-themes-controls-toolbar-item" = "Oxuma temaları parametrləri";
+"article-view-controller-editing-temp-account-created-subtitle" = "Redaktəniz yayımlandıqdan sonra $1 müvəqqəti hesabı yaradıldı. Onun müddəti 90 gün sonra başa çatacaq.";
+"article-view-controller-editing-temp-account-created-title" = "Müvəqqəti hesab yaradıldı";
 "back-button-accessibility-label" = "Geri";
 "back-button-popover-title" = "Geri qayıtmaq üçün toxun";
 "button-go-back" = "Geri qayıt";
@@ -118,7 +152,6 @@
 "button-ok" = "Oldu";
 "button-publish" = "Yayımla";
 "button-publish-anyway" = "Yenə də yayımla";
-"button-read-now" = "İndi oxu";
 "button-report-a-bug" = "Xəta bildir";
 "button-save-for-later" = "Sonra üçün saxla";
 "button-saved-for-later" = "Sonra üçün saxlanıldı";
@@ -130,7 +163,14 @@
 "clear-title-accessibility-label" = "Təmizlə";
 "clearing-cache-complete" = "Keşin təmizlənməsi tamamlandı.";
 "clearing-cache-in-progress" = "Keş təmizlənir.";
+"close-all-tabs" = "Bütün vərəqələri bağla";
+"close-all-tabs-confirmation" = "$1 vərəqənin hamısını bağlamaq istəyirsiniz? Bu əməliyyat geri qaytarıla bilməz.";
+"close-all-tabs-confirmation-number" = "Bütün $1 vərəqə bağlansın?";
 "close-button-accessibility-label" = "Bağla";
+"close-other-tabs" = "Digər vərəqələri bağla";
+"close-tab-confirmation" = "Vərəqə bağlansın?";
+"close-tabs" = "Vərəqələri bağla";
+"closed-all-tabs-confirmation" = "$1 vərəqənin hamısı bağlandı.";
 "compass-direction" = "saat $1 istiqamətində";
 "confirm-donation-history-deletion-subtitle" = "Bu, yalnız bu cihazdan edilən ianələrə şamil ediləcək.";
 "confirm-donation-history-deletion-title" = "Silinməni təsdiqlə";
@@ -152,6 +192,7 @@
 "description-edit-title" = "Təsviri redaktə et";
 "description-edit-warning" = "İstifadəçilərin məqalənin mövzusunu bir baxışda anlaya bilməsi üçün təsvirləri qısa tutmağa çalışın";
 "description-edit-warning-casing" = "Yalnız xüsusi isimlər, hətta cümlənin əvvəlində, belə böyük hərflə yazılmalıdır.";
+"description-editing-temp-account-created-subtitle" = "Redaktəniz yayımlandıqdan sonra $1 müvəqqəti hesabı yaradıldı. Onun müddəti 90 gün sonra başa çatacaq.";
 "description-help-about-description" = "Məqalənin təsviri oxuculara bir baxışda mövzunu başa düşməyə kömək etmək üçün məqaləni ümumiləşdirir.";
 "description-help-about-title" = "Haqqında";
 "description-help-about-wikidata" = "Vikidata haqqında";
@@ -176,7 +217,12 @@
 "description-welcome-descriptions-title" = "Məqalə təsvirləri";
 "description-welcome-promise-title" = "Başlamaqla bu funksiyadan sui-istifadə etməyəcəyimə söz verirəm.";
 "description-welcome-start-editing-button" = "Redaktəyə başla";
+"developer-force-email-auth" = "E-poçtun doğrulamasını məcbur et";
 "developer-settings" = "Tərtibatçı Parametrləri";
+"developer-settings-activity-tab-group-A" = "Fəaliyyət vərəqəsini A qrupuna təyin et";
+"developer-settings-activity-tab-group-B" = "Fəaliyyət vərəqəsini B qrupuna təyin et";
+"developer-settings-activity-tab-group-C" = "Fəaliyyət vərəqəsini C qrupuna təyin et";
+"developer-settings-activity-tabs" = "Fəaliyyət vərəqələrini aktivləşdir";
 "developer-settings-bypass-donation" = "İanəni atla";
 "developer-settings-enable-year-in-review" = "İlə Baxışı aktivləşdir";
 "developer-settings-send-analytics-to-wmflabs" = "Analitik datanı wmflabs-a göndər.";
@@ -263,6 +309,7 @@
 "donate-transaction-fee-opt-in-text" = "İanəmin 100%%-ni ala bilməyiniz üçün əməliyyat xərclərini də ödəmək üçün $1 əlavə edəcəm";
 "donate-wikimedia-fine-print-1" = "Biz məlumatlarınızı heç kimə satmırıq. İanə verməklə siz şəxsi məlumatlarınızı Vikipediya və digər Vikimedia layihələrini özündə birləşdirən qeyri-kommersiya təşkilatı olan Vikimedia Fondu və onun xidmət təminatçıları ilə [ianə siyasətinə]($1) uyğun olaraq paylaşmağa razılaşırsınız. Vikimedia Fondu və onun xidmət təminatçıları ABŞ-də və məxfilik qanunları sizinki ilə uyğun olmaya bilən digər dövlətlərdə yerləşirlər. Əlavə məlumat üçün [ianə siyasətini]($1) oxuyun.";
 "donate-wikimedia-fine-print-2" = "Təkrarlanan ianələr üçün sabit aylıq ödənişlər Vikimedia Fondu tərəfindən ilk ianədən etibarən hər ay eyni gündə, siz onları dayandırmaq barədə bizə bildirdiyiniz vaxta kimi debet ediləcək. Ayın 29, 30 və ya 31-də başlanan ianələr mümkün qədər orijinal tarixə yaxın ayın son günündə daha qısa aylarda təkrarlanacaq. Suallar üçün donate@wikimedia.org ünvanı ilə əlaqə saxlayın.";
+"duplicate-tab" = "Vərəqənin dublikatını yarat";
 "edit-link-display-text-title" = "Mətni göstər";
 "edit-link-link-target-title" = "Link hədəfi";
 "edit-link-remove-link-title" = "Keçidi sil";
@@ -278,6 +325,8 @@
 "edit-preview-simplified-format-message" = "Bütün məzmun sadələşdirilmiş formatda göstərilir.";
 "edit-published" = "Dəyişiklik yayımlandı";
 "edit-published-subtitle" = "Siz Vikipediyanı hamı üçün daha yaxşı hala gətirdiniz";
+"edit-sheet-ip-account-notice" = "IP Hesabı Bildirişi";
+"edit-sheet-temp-account-notice" = "Müvəqqəti Hesab Bildirişi";
 "edit-show-web-preview" = "Veb önizləməni göstər";
 "edit-summary-add-summary-text" = "Redaktə izahı yaz";
 "edit-summary-choice-added-image" = "Şəkil əlavə edildi";
@@ -341,6 +390,7 @@
 "editor-replace-type-button-accessibility" = "Dəyişdirmə növü. Hazırda $1 olaraq təyin olunub. Dəyişmək üçün seçin.";
 "editor-replace-type-single" = "Dəyiş";
 "editor-replace-type-single-accessibility" = "Tək nümunəni dəyiş";
+"editor-title" = "Redaktor";
 "editor-toolbar-bold-accessibility" = "Qalın mətn formatı";
 "editor-toolbar-cursor-down-accessibility" = "Kursoru növbəti sətirə köçür.";
 "editor-toolbar-cursor-next-accessibility" = "Kursoru növbəti simvola köçür.";
@@ -488,6 +538,7 @@
 "field-alert-token-invalid" = "Yanlış kod";
 "field-alert-username-unavailable" = "İstifadəçi adı mövcud deyil";
 "field-backup-token-title" = "Yedək kodu";
+"field-backup-token-title-email" = "E-poçt kodu";
 "field-captcha-placeholder" = "CAPTCHA mətni";
 "field-captcha-title" = "Yuxarıda gördüyünüz mətni daxil edin";
 "field-email-placeholder" = "nümunə@nümunə.org";
@@ -623,6 +674,11 @@
 "insert-media-title" = "Media əlavə et";
 "inuktitut-variants-alert-body" = "Vikipediya proqramı indi tətbiq daxilində əsas və ya köməkçi dillər kimi aşağıdakı inuktitut variantlarını dəstəkləyir və bu, seçdiyiniz variantlarda oxumağı, axtarmağı və redaktə etməyi asanlaşdırır:\n\nᐃᓄᒃᑎᑐᑦ ᑎᑎᕋᐅᓯᖅ ᓄᑖᖅᓯᖅ ᓄᑖᖅᓯᖅ ᓄᑖᖅᓯᖅ Inuktitut, Syllabics (ike-cans)\nInuktitut ilisautik, Inuktitut, Latin (ike-latn)";
 "inuktitut-variants-alert-title" = "İnuktitut variant dəstəyi üçün yeniləmələr";
+"ip-account-cta-bottom" = "Daxil olmadan davam et";
+"ip-account-cta-top" = "Daxil ol və ya hesab yarat";
+"ip-account-edit-sheet-subtitle" = "Redaktə etdikdən sonra məxfiliyinizi qorumaq üçün $1müvəqqəti hesab$2 yaradılacaq. $3Ətraflı məlumat.$4$5Gələcək redaktələr üçün istinad almaq və digər funksiyaları əldə etmək üçün daxil olun və ya hesab yaradın.";
+"ip-account-warning-subtitle" = "Yayımlananda sizin üçün müvəqqəti hesab yaradılacaq.";
+"ip-account-warning-title" = "Siz daxil olmamısınız";
 "kazakh-variants-alert-body" = "Vikipediya proqramı indi proqram daxilində əsas və ya köməkçi dillər kimi aşağıdakı qazaxca variantlarını dəstəkləyir və bu, seçdiyiniz variantlarda oxumağı, axtarmağı və redaktə etməyi asanlaşdırır:\n\nҚазақша Kazakh (kk)\nҚазақша Кирил Kazakh, Cyrillic (kk-cyrl)\nqazaqşa latin Kazakh, Latin (kk-latn)\nتوتە قازاقشا Kazakh, Arabic (kk-arab)";
 "kazakh-variants-alert-title" = "Qazaxca variant dəstəyi üçün yeniləmələr";
 "kurdish-variants-alert-body" = "Vikipediya proqramı indi tətbiq daxilində əsas və ya köməkçi dillər kimi aşağıdakı kürdcə variantlarını dəstəkləyir və bu, seçdiyiniz variantlarda oxumağı, axtarışı və redaktə etməyi asanlaşdırır:\n\nKurdî Latînî Kurdish, Latin (ku-latn)\nكوردی Kurdish, Arabic (kk-arab)";
@@ -652,18 +708,16 @@
 "main-menu-terms-of-use" = "İstifadə Şərtləri";
 "main-menu-title" = "Daha çox";
 "main-menu-zero-faq" = "Wikipedia Zero TSS";
+"main-page" = "Ana səhifə";
 "microsite-yir-english-edits-bytes-slide-subtitle" = "2024-cü ildə könüllülər İngiliscə Vikipediyaya 4.104.852.969 bayt əlavə etdilər. Birgə işin cəmi onların dünyaya verdiyi davamlı təkmilləşən, fakta əsaslanan və etibarlı bilik resursuna gətirib çıxarır. Hamımızın paylaşacaq biliyimiz var, [iştirak etməyi öyrənin]($1).";
 "microsite-yir-english-edits-bytes-slide-title" = "4 milyard bayt əlavə edildi";
-// Fuzzy
 "microsite-yir-english-edits-slide-subtitle" = "Könüllülər Vikipediyanın 300-dən çox müxtəlif dildə nəşrlərində 98.222.407 dəyişiklik etdilər. İngiliscə Vikipediyada 37 milyondan çox dəyişiklik edilib. Hər günün hər saatında könüllülər Vikipediyanı təkmilləşdirmək üçün çalışırlar.";
-// Fuzzy
 "microsite-yir-english-edits-slide-title" = "Bu il redaktorlar 98 milyona yaxın dəyişiklik edib";
 "microsite-yir-english-non-donor-slide-subtitle" = "Sizin köməyinizlə, Vikipediyanın sahibi qeyri-kommersiya təşkilatı olan Vikimedia Fondu etibar etdiyiniz məlumatların reklamsız və etibarlı olmasını təmin etməkdə davam edəcək, eyni zamanda ən müasir alətlər və texnologiyalarla Vikipediyanın problemsiz işləməsini təmin edəcək. Zəhmət olmasa, bu gün ianə etməyi düşünün. [İşimiz haqqında ətraflı öyrənin]($1).";
 "microsite-yir-english-non-donor-slide-title" = "Vikipediyada heç bir reklam göstərilmir";
 "microsite-yir-english-reading-slide-subtitle" = "İnsanlar 2024-cü ildə İngiliscə Vikipediyanı oxumaq üçün təqribən 2,9 milyard saat - təxminən 331 000 il sərf ediblər! Siz dəyişən dünyamız haqqında öyrənmək, dostlar arasında mərci qazanmaq və ya maraqlı suallar verən uşağa cavab vermək istədiyiniz zaman Vikipediya oradadır.";
 "microsite-yir-english-reading-slide-title" = "Kitab oxumağa 2,9 milyard saat sərf etmişik";
-// Fuzzy
-"microsite-yir-english-saved-reading-slide-subtitle" = "Aktiv iOS tətbiqi istifadəçiləri bu il 62,2 milyon oxuma siyahısına sahib olub. Oxuma siyahıları onlara məqalələr əlavə etmək hətta oflayn olarkən məqalələrə daxil olmaq imkanı verir. Siz həmçinin cihazlar arasında oxuma siyahılarını sinxronlaşdırmaq üçün hesabınıza daxil ola bilərsiniz.";
+"microsite-yir-english-saved-reading-slide-subtitle" = "Aktiv iOS tətbiqi istifadəçiləri 62,2 milyon oxuma siyahısına sahib olub. Oxuma siyahıları onlara məqalələr əlavə etmək hətta oflayn olarkən məqalələrə daxil olmaq imkanı verir. Siz həmçinin cihazlar arasında oxuma siyahılarını sinxronlaşdırmaq üçün hesabınıza daxil ola bilərsiniz.";
 "microsite-yir-english-saved-reading-slide-title" = "62,2 milyondan çox oxuma siyahılarımız olub.";
 "microsite-yir-english-top-read-slide-subtitle" = "İngiliscə Vikipediyada ən çox ziyarət edilən 5 məqalə bunlardır: \n1. $1\n2. $2\n3. $3\n4. $4\n5. $5\n$6Bizim xüsusi bloq yazımızı$7 oxuyun";
 "microsite-yir-english-top-read-slide-title" = "İngiliscə Vikipediyanın ən çox oxunan məqalələri";
@@ -676,6 +730,7 @@
 "nearby-distance-label-miles" = "$1 metr";
 "new-password-instructions" = "Siz müvəqqəti parol ilə daxil olmusunuz. Daxil olmağı başa çatdırmaq üçün burada yeni parol təyin edin.";
 "new-password-title" = "Parol təyin et";
+"new-tab" = "Yeni vərəqə";
 "next-action-title" = "Növbəti";
 "no-email-account-alert" = "Zəhmət olmasa, cihazınızda e-poçt hesabı quraşdırın və yenidən cəhd edin.";
 "no-internet-connection" = "İnternet bağlantısı yoxdur";
@@ -714,7 +769,6 @@
 "notifications-center-go-to-article" = "Məqalə";
 "notifications-center-go-to-article-talk-format" = "$1 müzakirə səhifəsi";
 "notifications-center-go-to-diff" = "Fərq";
-"notifications-center-go-to-talk-page" = "Müzakirə səhifəsi";
 "notifications-center-go-to-user-page" = "$1 istifadəçi səhifəsi";
 "notifications-center-go-to-wikidata-item" = "Vikidata elementi";
 "notifications-center-go-to-your-talk-page" = "Müzakirə səhifəniz";
@@ -819,12 +873,14 @@
 "on-this-day-no-internet-error" = "Məlumat yoxdur";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 Vikipediyadan $2";
 "on-this-day-title" = "Tarixdə bu gün";
+"open-in-tab-tooltip-body" = "Məqalənin başlığını və ya mavi keçidi yeni vərəqədə açmaq üçün basılı saxlayın.";
+"open-in-tab-tooltip-title" = "Yeni vərəqədə aç";
 "original-tab-button-popover-description" = "Başladığınız vərəqəyə qayıtmaq üçün \"W\" düyməsinə klikləyin";
-"page-history-anonymous-edits" = "anonim redaktələr";
-"page-history-bot-edits" = "bot redaktələri";
+"page-history-bot-edits" = "bot";
 "page-history-compare-accessibility-hint" = "Müqayisə ediləcək iki versiyanı seçmək üçün toxunun";
 "page-history-compare-title" = "Müqayisə et";
 "page-history-graph-accessibility-label" = "Zamanla düzəlişlərin qrafiki";
+"page-history-logged-in-edits" = "daxil olunmuş";
 "page-history-minor-edits" = "kiçik redaktələr";
 "page-history-revision-author-accessibility-label" = "Müəllif: $1";
 "page-history-revision-comment-accessibility-label" = "Şərh $1";
@@ -835,7 +891,7 @@
 "page-history-revision-time-accessibility-label" = "$1 tarixli versiya";
 "page-history-revisions-comparison-warning" = "Yalnız iki versiya seçilə bilər";
 "page-history-stats-text" = "$2 tarixindən etibarən {{PLURAL:$1|$1 redaktə}}";
-"page-history-user-edits" = "istifadəçi redaktələri";
+"page-history-unregistered-edits" = "qeydiyyatsız";
 "page-issues" = "Səhifə problemləri";
 "page-location" = "Xəritədə göstər";
 "page-protected-can-not-edit" = "Bu səhifəni redaktə etmək hüququnuz yoxdur";
@@ -865,7 +921,9 @@
 "places-filter-top-articles" = "Ən çox oxunanlar";
 "places-filter-top-articles-count" = "{{PLURAL:$1|$1 məqalə}}";
 "places-filter-top-read-articles" = "Ən çox oxunan məqalələr";
+"places-list-title'" = "Siyahı";
 "places-location-enabled" = "Məkan aktivdir";
+"places-map-title" = "Xəritə";
 "places-no-saved-articles-have-location" = "Yadda saxladığınız məqalələrin heç birində məkan məlumatı yoxdur";
 "places-search-articles-that-match" = "$1 \"$2\" ilə uyğunlaşır";
 "places-search-default-text" = "Yerləri axtar";
@@ -894,7 +952,6 @@
 "profile-page-join-subtext" = "Töhfələrinizi izləmək, məqalələri oflayn yadda saxlamaq və cihazlar arasında sinxronizasiya etmək üçün Vikipediyada qeydiyyatdan keçin.";
 "profile-page-join-title" = "Vikipediyaya qoşul / Daxil ol";
 "profile-page-logged-out-year-in-review-subtext" = "Gələn il illik statistika əldə etmək üçün daxil olun və ya hesab yaradın";
-"profile-page-title-logged-out" = "Hesab";
 "profile-year-in-review-login-subtitle" = "İlin İcmalına baxmaq və daha çox fərdiləşdirilmiş məlumatlar əldə etmək üçün daxil olun və ya hesab yaradın.";
 "profile-year-in-review-login-title" = "İlin İcmalına baxa bilmək üçün daxil olun";
 "project-name-mediawiki" = "MediaViki";
@@ -921,6 +978,7 @@
 "reading-list-create-new-list-reading-list-name" = "Oxuma siyahısının adı";
 "reading-list-create-new-list-title" = "Yeni siyahı yarat";
 "reading-list-deleted-accessibility-notification" = "Oxuma siyahısı silindi";
+"reading-list-detail-search-placeholder" = "Oxuma siyahısında axtar";
 "reading-list-do-not-keep-button-title" = "Xeyr, məqalələri cihazdan sil";
 "reading-list-entry-limit-exceeded-message" = "Bu siyahıdakı bütün məqalələrin sinxronizasiyasını davam etdirmək üçün bu siyahıdakı məqalələrin sayını $1-ə qədər azaldın.";
 "reading-list-entry-limit-exceeded-title" = "Siz hər hesab üçün olan {{PLURAL:$1|$1 məqalə}} limitini keçmisiniz.";
@@ -1014,10 +1072,16 @@
 "return-button-title" = "Geri qayıt";
 "return-to-article" = "Məqaləyə qayıt";
 "reverted-edit-title" = "Geri qaytarılmış redaktə";
+"save-all-tabs" = "Bütün vərəqələri yadda saxla";
+"save-view-temp-account-notice" = "Siz müvəqqəti hesabdan istifadə edirsiniz. Düzəlişlər $1-ə aid edilir...";
+"save-view-temp-account-warning" = "Siz daxil olmamısınız. Redaktə etdikdən sonra məxfiliyinizi qorumaq üçün sizin üçün müvəqqəti hesab yaradılacaq.";
 "saved-all-articles-title" = "Bütün məqalələr";
+"saved-all-tabs" = "Bütün vərəqələr yadda saxlandı.";
+"saved-all-tabs-view-reading-list" = "Bütün vərəqələr yadda saxlandı. Oxuma siyahısına bax.";
 "saved-default-reading-list-tag" = "Bu siyahı silinə bilmir";
 "saved-pages-image-download-error" = "Bu yadda saxlanılan səhifə üçün şəkilləri endirmək alınmadı.";
 "saved-pages-progress-syncing" = "Məqalə yükləmə davam edir...";
+"saved-reading-lists-search-placeholder" = "Oxuma siyahılarında axtar";
 "saved-reading-lists-title" = "Oxuma siyahıları";
 "saved-search-default-text" = "Saxlanmış məqalələrdə axtar";
 "saved-title" = "Saxlanıldı";
@@ -1106,6 +1170,14 @@
 "table-of-contents-heading" = "Mündəricat";
 "table-of-contents-hide-button-label" = "Mündəricatı gizlət";
 "table-of-contents-subheading-label" = "Alt başlıq $1";
+"tabs-close-tab" = "Vərəqəni bağla";
+"tabs-main-page-description" = "Seçilmiş məqalələri, ən son xəbərləri, maraqlı faktları və əsas statistik məlumatları Vikipediyanın əsas səhifəsində kəşf edin.";
+"tabs-main-page-subtitle" = "Vikipediyanın gündəlik əsas məqamları";
+"tabs-navbar-title-format" = "{{PLURAL:$1|$1 vərəqə}}";
+"tabs-open-tab" = "Vərəqəni aç";
+"tabs-overview-tooltip-body" = "Vərəqələrin icmalında açıq məqalələr arasında keçid edin.";
+"tabs-overview-tooltip-title" = "Vərəqələrin icmalı";
+"tabs-survey-title" = "Vərəqələr funksiyasını təkmilləşdirməyə kömək edin. Bu funksiyadan məmnunsunuz?";
 "tachelhit-variants-alert-body" = "Vikipediya tətbiqi artıq tətbiq daxilində əsas və ya köməkçi dillər kimi aşağıdakı Taçelit variantlarını dəstəkləyir və bu, seçdiyiniz variantlarda oxumağı, axtarışı və redaktə etməyi asanlaşdırır:\n\nⵜⴰⵛⵍⵃⵉⵜ Tachelhit, Tifinagh (shi-tfng)\nTaclḥit Tachelhit, Latin (shi-latn)";
 "tachelhit-variants-alert-title" = "Taçelit variant dəstəyi üçün yeniləmələr";
 "tajik-variants-alert-body" = "Vikipediya tətbiqi artıq tətbiq daxilində əsas və ya köməkçi dillər kimi aşağıdakı tacik variantlarını dəstəkləyir və bu, seçdiyiniz variantlarda oxumağı, axtarmağı və redaktə etməyi asanlaşdırır:\n\nтоҷикӣ кирилликӣ Tajik, Cyrillic (tg-cyrl)\ntojikī lotinī Tajik, Latin (tg-latn)";
@@ -1188,6 +1260,14 @@
 "talk-pages-user-groups" = "İstifadəçi qrupları";
 "talk-pages-user-logs" = "Jurnallar";
 "talk-pages-view-title" = "Müzakirə";
+"temp-account-alert-read-more-information" = "$1Siz müvəqqəti hesabdan istifadə edirsiniz.$2 Hesabın müddəti 90 gün ərzində bitəcək. Müddəti bitdikdən sonra, siz daxil olmadan növbəti dəfə redaktə etdiyiniz zaman yenisi yaradılacaq. $3Gələcək redaktələr üçün istinad almaq və digər funksiyalara daxil olmaq üçün daxil olun və ya hesab yaradın.";
+"temp-account-edit-sheet-cta-top" = "Daxil ol və ya hesab yarat";
+"temp-account-edit-sheet-subtitle" = "$2Hal-hazırda müvəqqəti hesabdan istifadə edirsiniz.$3 Siz daxil olduğunuz zaman $1 müvəqqəti hesabı ilə edilən redaktələr daimi hesabınıza köçürülməyəcək. Digər üstünlüklər ilə birlikdə istifadəçi adınıza istinad edilməsi üçün daxil olun və ya hesab yaradın.";
+"temp-account-toast-read-more-title" = "Daha ətraflı oxu";
+"temp-account-toast-title" = "$1Siz hal-hazırda müvəqqəti hesabdan istifadə edirsiniz.$2 Müvəqqəti ilə edilən redaktələr...";
+"temp-account-warning-title" = "Siz müvəqqəti hesabdan istifadə edirsiniz";
+"temp-warning-subtitle-format" = "Redaktələriniz $1-ə aid ediləcək";
+"temporary-account" = "Müvəqqəti hesab";
 "terms-of-use-title" = "İstifadə şərtləri";
 "theme-black-display-name" = "Qaranlıq";
 "theme-dark-display-name" = "İşıqlı";
@@ -1200,6 +1280,8 @@
 "top-read-widget-title" = "Ən çox oxunanlar";
 "try-now-title" = "İndi cəhd et";
 "tutorial-title" = "Təlimat";
+"two-factor-email-login-continue" = "Daxil olmağa davam et";
+"two-factor-email-login-instructions" = "Zəhmət olmasa, e-poçt doğrulama kodunu daxil edin";
 "two-factor-login-continue" = "Daxil olmağa davam et";
 "two-factor-login-instructions" = "Zəhmət olmasa, iki faktorlu doğrulama kodunu daxil edin";
 "two-factor-login-title" = "Hesabınıza daxil olun";
@@ -1327,17 +1409,13 @@
 "wikitext-upload-save-terms-name" = "İstifadə şərtləri";
 "year-in-review-base-donate-subtitle" = "Sizin köməyinizlə, Vikipediyanın sahibi qeyri-kommersiya təşkilatı olan Vikimedia Fondu etibar etdiyiniz məlumatların reklamsız və etibarlı olmasını təmin etməkdə davam edəcək, eyni zamanda ən müasir alətlər və texnologiyalarla Vikipediyanın problemsiz işləməsini təmin edəcək. Zəhmət olmasa, bu gün ianə etməyi düşünün. [İşimiz haqqında ətraflı öyrənin]($1).";
 "year-in-review-base-donate-title" = "Vikipediyada 0 reklam göstərilir";
-// Fuzzy
-"year-in-review-base-editors-subtitle" = "Vikipediyanın könüllü redaktorlar icması bu il iOS proqramında 555 647-dən çox redaktə edib. Vikipediyanın ürəyi və ruhu bizim könüllü redaktorlar, ianəçilər və sizin kimi milyardlarla oxucudan ibarət qlobal birliyimizdir. Hamısı etibarlı məlumatı məhdudiyyətsiz əldə etmək üçün birləşib.";
+"year-in-review-base-editors-subtitle" = "Vikipediyanın könüllü redaktorlar icması iOS proqramında 555.647-dən çox redaktə edib. Vikipediyanın ürəyi və ruhu bizim könüllü redaktorlar, ianəçilər və sizin kimi milyardlarla oxucudan ibarət qlobal birliyimizdir. Hamısı etibarlı məlumatı məhdudiyyətsiz əldə etmək üçün birləşib.";
 "year-in-review-base-editors-title" = "Redaktorlar iOS tətbiqində $1+ redaktə ediblər";
-// Fuzzy
-"year-in-review-base-edits-subtitle" = "Bu il Vikipediya dəqiqədə orta hesabla $1 dəfə redaktə edilib. Məqalələr etibarlı mənbələrdən istifadə etməklə birgə yaradılır və təkmilləşdirilir. Hamımızın paylaşacaq biliyimiz var, [iştirak etməyi öyrənin]($2).";
+"year-in-review-base-edits-subtitle" = "Vikipediya dəqiqədə orta hesabla $1 redaktə edilib. Məqalələr etibarlı mənbələrdən istifadə etməklə birgə yaradılır və təkmilləşdirilir. Hamımızın paylaşacaq biliyimiz var, [iştirak etməyi öyrənin]($2).";
 "year-in-review-base-edits-title" = "Vikipediya dəqiqədə $1 dəfə redaktə edilib";
-// Fuzzy
-"year-in-review-base-reading-subtitle" = "Vikipediyada bu il $2+ aktiv dildə $1+ məqalə var. Siz biliyi genişləndirməkdə və müxtəlif mövzuları araşdırmaqda milyonlarla insana qoşulmusunuz.";
+"year-in-review-base-reading-subtitle" = "Vikipediyada $2+ aktiv dildə $1+ məqalə var. Siz biliyi genişləndirməkdə və müxtəlif mövzuları araşdırmaqda milyonlarla insana qoşulmusunuz.";
 "year-in-review-base-reading-title" = "Vikipediya 300-dən çox dildə mövcud idi";
-// Fuzzy
-"year-in-review-base-saved-subtitle" = "Aktiv iOS tətbiqi istifadəçiləri bu il 62,2 milyon oxuma siyahısına sahib olub. Oxuma siyahıları onlara məqalələr əlavə etmək hətta oflayn olarkən məqalələrə daxil olmaq imkanı verir. Siz həmçinin cihazlar arasında oxuma siyahılarını sinxronlaşdırmaq üçün hesabınıza daxil ola bilərsiniz.";
+"year-in-review-base-saved-subtitle" = "Aktiv iOS tətbiqi istifadəçiləri 62,2 milyon oxuma siyahısına sahib olub. Oxuma siyahıları onlara məqalələr əlavə etmək hətta oflayn olarkən məqalələrə daxil olmaq imkanı verir. Siz həmçinin cihazlar arasında oxuma siyahılarını sinxronlaşdırmaq üçün hesabınıza daxil ola bilərsiniz.";
 "year-in-review-base-saved-title" = "$1+ oxuma siyahıları olub";
 "year-in-review-base-viewed-subtitle" = "iOS tətbiqi istifadəçiləri Vikipediya məqalələrini $1 dəfə oxuyublar. Dünyanın hər yerindən insanlar üçün suala cavab verərkən, məktəb və ya iş üçün məlumat axtararkən və ya yeni fakt öyrənərkən Vikipediya ilk dayanacaqdır.";
 "year-in-review-base-viewed-title" = "Biz Vikipediya məqalələrini $1 milyard dəfə oxumuşuq";
@@ -1346,6 +1424,9 @@
 "year-in-review-collective-edits" = "Hər biri bir məlumat daşıyan iki Vikipediya tapmacasının təsviri.";
 "year-in-review-collective-edits-per-minute" = "Vikipediyanı oxuyan insanların keçirdikləri vaxtı simvolizə edən saat əqrəbi.";
 "year-in-review-collective-explore" = "Layihənin qurulmasında dünya miqyasında insanların birgə səylərini simvolizə edən ikonik Vikipediya qlobusunu təsvir edən cizgi illüstrasiya. Səhnə şəhər mənzərəsi ilə əhatə olunub, onun bəşəriyyət və qlobal mədəniyyətlə əlaqəsini vurğulayır.";
+"year-in-review-collective-languages" = "Müxtəlif dilləri təmsil edən yazıların həkk olunduğu daşın animasiyalı təsviri, Vikipediyanın necə müxtəlif mədəniyyətlərdən və bölgələrdən olan bilikləri birgə şəkildə topladığını simvollaşdırır.";
+"year-in-review-collective-saved-articles" = "Vikipediyanın loqosunu əks etdirən, qlobal əməkdaşlığı təmsil edən tapmaca qlobusu.";
+"year-in-review-collective-zero-ads" = "Vikimedia loqosu";
 "year-in-review-day-friday" = "cümə günlərində";
 "year-in-review-day-monday" = "bazar ertəsi günlərində";
 "year-in-review-day-saturday" = "şənbə günlərində";
@@ -1355,36 +1436,37 @@
 "year-in-review-day-wednesday" = "çərşənbə günlərində";
 "year-in-review-donate" = "İanə et";
 "year-in-review-donate-now" = "İndi ianə edin";
-// Fuzzy
-"year-in-review-feature-announcement-body" = "Vikipediya tətbiqində oxuduğunuz məqalələr haqqında məlumatlara baxın, səyahətinizi paylaşın və ilinizdə diqqət çəkən məqamları kəşf edin.";
+"year-in-review-english-edits" = "2024-cü ildə ən çox redaktə edilən Vikipediya dil versiyalarını göstərən qrafik: İngilis dili 31 milyon redaktədən çox, Alman dili 5,508,570 redaktə, Fransız dili 5,276,385 redaktə, İspan dili 4,786,205 redaktə, Rus dili 3,303,066 redaktə, İtalyan dili 3,200,398 redaktə, Yapon dili 2,973,657 redaktə, Çin dili 2,505,032 redaktə, Polyak dili 1,383,808 redaktə, və Ukrayna dili 1,376,980 redaktə edib. 2024-cü ildə bütün Vikipediya versiyalarında edilən ümumi redaktə sayı 81,987,181-dir.";
+"year-in-review-feature-announcement-body" = "Vikipediyada oxuduğumuz və redaktə etdiyimiz məqalələr haqqında məlumatlara bax və il ərzindəki əsas məqamları paylaş.";
+"year-in-review-feature-announcement-body-personalized" = "Vikipediya tətbiqində oxuduğun məqalələr haqqında məlumatları gör, səyahətini paylaş və il ərzindəki əsas məqamları kəşf et.";
 "year-in-review-feature-announcement-title" = "Vikipediyadakı İlinizin İcmalına baxın";
-// Fuzzy
-"year-in-review-feature-explore-body-personalized" = "Vikipediya proqramında oxuduğunuz məqalələr və etdiyiniz redaktələr haqqında statistikaya baxın. Oxuma tarixçəniz qorunur. Oxuma statistikası cihazınızda lokal olaraq saxlanılan datadan istifadə etməklə hesablanır.";
+"year-in-review-feature-announcement-title-personalized" = "Vikipediyadakı iliniz icmalını nəzərdən keçirin";
+"year-in-review-feature-explore-body" = "Vikipediya dünya tarixində indiyə qədər yığılmış ən böyük bilik resursudur və o, hər yerdə hər kəs üçün açıqdır. Vikipediya obyektivindən 2024-cü ilin icmalı.";
+"year-in-review-feature-explore-body-personalized" = "2024-cü ildə Vikipediya proqramında oxuduğunuz məqalələr və etdiyiniz redaktələr haqqında statistikaya baxın. Oxuma tarixçəniz qorunur. Oxuma statistikası cihazınızda lokal olaraq saxlanılan datadan istifadə etməklə hesablanır.";
 "year-in-review-finish" = "Bitir";
-// Fuzzy
-"year-in-review-login-subtitle" = "Daha çox fərdi məlumatlar əldə etmək üçün daxil olun və ya hesab yaradın";
+"year-in-review-login-subtitle" = "Daha çox fərdiləşdirilmiş məlumatlar əldə etmək üçün daxil olun və ya hesab yaradın";
 "year-in-review-login-title" = "İliniz İcmalını təkmilləşdirin";
 "year-in-review-personalized-day-subtitle-format" = "Ən çox məqaləni $1 oxumusunuz. Aydındır ki, $1 yeni məzmunu araşdırmaq həvəsiniz daha çoxdur. Oxuma vaxtınızdan maksimum istifadə etdiyiniz üçün təşəkkür edirik!";
 "year-in-review-personalized-day-title-format" = "Ən çox $1 oxuyursunuz.";
-// Fuzzy
-"year-in-review-personalized-donate-subtitle" = "Pulsuz biliyin gələcəyinə sərmayə qoyduğunuz üçün təşəkkür edirik. 2024-cü ildə Vikimedia Fondu hər bir oxucuya və könüllülərə daha yaxşı xidmət göstərmək üçün texnologiyanı təkmilləşdirdi, əməkdaşlığı gücləndirən alətlər hazırladı və Vikipediyanı daha çox dildə dəstəklədi. [İşimiz haqqında ətraflı öyrənin]($1).";
+"year-in-review-personalized-donate-subtitle" = "Pulsuz biliyin gələcəyinə sərmayə qoyduğunuz üçün təşəkkür edirik. Bu il Vikimedia Fondu hər bir oxucuya və könüllülərə daha yaxşı xidmət göstərmək üçün texnologiyanı təkmilləşdirdi, əməkdaşlığı gücləndirən alətlər hazırladı və Vikipediyanı daha çox dildə dəstəklədi. [İşimiz haqqında ətraflı öyrənin]($1).";
 "year-in-review-personalized-donate-title" = "Səxavətiniz Vikipediyanın böyüməsinə kömək etdi";
 "year-in-review-personalized-donation-thank-you" = "Vikimedia loqosu";
-// Fuzzy
 "year-in-review-personalized-edit-views-subtitle-format" = "Dünyanın hər yerindən olan oxucular töhfələrinizi yüksək qiymətləndirirlər. Son 2 ayda redaktə etdiyiniz məqalələr $1 ümumi baxış əldə edib. Sizin kimi redaktorların sayəsində Vikipediya dünya üçün davamlı olaraq təkmilləşən, faktlara əsaslanan və etibarlı məlumat mənbəyidir.";
-// Fuzzy
 "year-in-review-personalized-edit-views-title-format" = "Bu yaxınlarda redaktələrinizə $1 dəfədən çox baxılıb";
 "year-in-review-personalized-editing-subtitle-format" = "Siz Vikipediyada {{PLURAL:$1|$1 dəfə}} düzəliş etmisiniz. Bütün dünyada Vikimedia layihələrində fərq yaradan könüllü redaktorlardan biri olduğunuz üçün təşəkkür edirik.";
 "year-in-review-personalized-editing-subtitle-format-500plus" = "Siz Vikipediyada 500+ dəfə redaktə etmisiniz. Vikimedia layihələrində fərq yaradan könüllü redaktorlardan biri olduğunuz üçün təşəkkür edirik.";
 "year-in-review-personalized-editing-title-format" = "Vikipediyanı {{PLURAL:$1|$1 dəfə}} redaktə etmisiniz";
 "year-in-review-personalized-editing-title-format-500plus" = "Vikipediyanı 500+ dəfə redaktə etmisiniz";
-// Fuzzy
-"year-in-review-personalized-reading-subtitle-format" = "Siz bu il {{PLURAL:$1|$1 məqalə}} oxumusunuz. Vikipediyada $3+ aktiv dildə $2 məqalə var idi. Siz biliyi genişləndirməkdə və müxtəlif mövzuları araşdırmaqda milyonlarla insana qoşulmusunuz.";
-// Fuzzy
-"year-in-review-personalized-reading-title-format" = "Siz bu il {{PLURAL:$1|$1 məqalə}} oxumusunuz";
-// Fuzzy
-"year-in-review-personalized-saved-subtitle-format" = "Siz bu il \"$2\", \"$3\" and \"$4\" daxil olmaqla {{PLURAL:$1|$1 məqalə}} yadda saxlamısınız. Hər bir saxlanılan məqalə sizin maraqlarınızı əks etdirir və Vikipediyada fərdiləşdirilmiş bilik bazası yaratmağa kömək edir.";
+"year-in-review-personalized-explore" = "Vikipediya kürəsini tutan bir əlin animasiyalı illüstrasiyası; kürə tədricən kiçik bir pazl parçasına çevrilir və bu da platformaya edilən fərdi töhfələri simvolizə edir.";
+"year-in-review-personalized-reading-subtitle-format" = "Siz {{PLURAL:$1|$1 məqalə}} oxumusunuz. Vikipediyada $3+ aktiv dildə $2 məqalə mövcud olub. Siz biliyi genişləndirməkdə və müxtəlif mövzuları araşdırmaqda milyonlarla insana qoşulmusunuz.";
+"year-in-review-personalized-reading-title-format" = "Siz {{PLURAL:$1|$1 məqalə}} oxumusunuz";
+"year-in-review-personalized-saved-articles" = "Arxasında kompüter ekranları olan şlyapa geymiş tapmaca parçasının təsviri.";
+"year-in-review-personalized-saved-subtitle-format" = "Siz bu il $2, $3 and $4 daxil olmaqla {{PLURAL:$1|$1 məqalə}} yadda saxlamısınız. Hər bir saxlanılan məqalə sizin maraqlarınızı əks etdirir və Vikipediyada fərdiləşdirilmiş bilik bazası yaratmağa kömək edir.";
 "year-in-review-personalized-saved-title-format" = "{{PLURAL:$1|$1 məqalə}} yadda saxlamısınız";
+"year-in-review-personalized-user-edits" = "Azad biliklərin davamlı şəkildə yaradılmasını simvolizə edən, baytların bir-birinin üzərinə yığılmasını göstərən animasiyalı illüstrasiya.";
+"year-in-review-personalized-weekday" = "Vikipediyanı oxuyan insanların keçirdikləri vaxtı simvolizə edən saat əqrəbi.";
+"year-in-review-personalized-you-read" = "Soldan daxil olan Vikimedia loqosu olan tapmaca parçası.";
+"year-in-review-personalized-your-edits-views" = "Qələmlə yanaşı Vikipediya pazl parçasını əks etdirən illüstrasiya.";
 "year-in-review-share-text" = "Mənim Vikipediyada İlimin İcmalı. Vikipediya iOS tətbiqi ilə yaradıldı.";
 "year-in-review-survey-additional-thoughts" = "Əlavə fikirlər var?";
 "year-in-review-survey-neutral" = "Neytral";

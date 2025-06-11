@@ -35,6 +35,7 @@ let WMFTappedToImportSharedReadingListSurvey = "WMFTappedToImportSharedReadingLi
 public let WMFAlwaysDisplayEditNotices = "WMFAlwaysDisplayEditNotices"
 let WMFSessionBackgroundDate =  "WMFSessionBackgroundDate"
 let WMFSessionStartDate =  "WMFSessionStartDate"
+let WMFYearToSessionSecondsMapping =  "WMFYearToSessionSecondsMapping"
 let WMFYiRSettingsToggleIsEnabled = "WMFYiRSettingsToggleIsEnabled"
 let WMFYiRSettingsToggleShouldShow = "WMFYiRSettingsToggleShouldShow"
 
@@ -554,6 +555,15 @@ let WMFYiRSettingsToggleShouldShow = "WMFYiRSettingsToggleShouldShow"
         }
         set {
             set(newValue, forKey: "WMFSessionID")
+        }
+    }
+    
+    var wmf_yearToSessionSecondsMapping: [String: Int]? {
+        get {
+            return object(forKey: WMFYearToSessionSecondsMapping) as? [String: Int]
+        }
+        set {
+            set(newValue, forKey: WMFYearToSessionSecondsMapping)
         }
     }
 

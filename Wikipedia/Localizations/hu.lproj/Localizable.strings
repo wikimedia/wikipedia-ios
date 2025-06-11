@@ -122,7 +122,6 @@
 "button-ok" = "OK";
 "button-publish" = "Közzététel";
 "button-publish-anyway" = "Közzététel mindenképpen";
-"button-read-now" = "Olvasás most";
 "button-report-a-bug" = "Hibajelentés";
 "button-save-for-later" = "Elmentés későbbre";
 "button-saved-for-later" = "Elmentve későbbre";
@@ -525,7 +524,6 @@
 "notifications-center-go-to-article" = "Szócikk";
 "notifications-center-go-to-article-talk-format" = "$1 vitalap";
 "notifications-center-go-to-diff" = "Diff";
-"notifications-center-go-to-talk-page" = "Vitalap";
 "notifications-center-go-to-user-page" = "$1 felhasználói oldala";
 "notifications-center-go-to-wikidata-item" = "Wikidata-elem";
 "notifications-center-go-to-your-talk-page" = "Vitalapod";
@@ -590,7 +588,7 @@
 "on-this-day-no-internet-error" = "Nincs elérhető adat";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 a(z) $2 Wikipédiáról";
 "on-this-day-title" = "Ezen a napon";
-"page-history-anonymous-edits" = "névtelen szerkesztés";
+// Fuzzy
 "page-history-bot-edits" = "bot szerkesztés";
 "page-history-compare-title" = "Összehasonlít";
 "page-history-graph-accessibility-label" = "Szerkesztések grafikus ábrázolása";

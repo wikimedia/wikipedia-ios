@@ -41,7 +41,6 @@
 #import "WMFEmptyView.h"
 #import "UIViewController+WMFEmptyView.h"
 #import "WMFBarButtonItemPopoverMessageViewController.h"
-#import "WMFFirstRandomViewController.h"
 #import "WMFImageGalleryViewController.h"
 
 // Views

@@ -97,7 +97,6 @@
 "button-ok" = "ߏ߬ߞߍ߫";
 "button-publish" = "ߟߊ߬ߥߊ߲߬ߞߊ߬ߟߌ";
 "button-publish-anyway" = "ߊ߬ ߟߊߥߊ߲߬ߞߊ߫ ߝߛߊߦߌ߫";
-"button-read-now" = "ߊ߬ ߘߐߞߊ߬ߙߊ߲߬ ߛߌߣߍ߲߬";
 "button-report-a-bug" = "ߝߍ߭ ߘߏ߫ ߟߊߞߏߝߐ߫";
 "button-save-for-later" = "ߊ߬ ߟߊߞߎ߲߬ߘߎ߫ ߞߐߝߍߟߊ ߦߋ߫";
 "button-saved-for-later" = "ߊ߬ ߓߘߊ߫ ߟߊߞߎ߲߬ߘߎ߫ ߞߐߝߍߟߊ ߦߋ߫";
@@ -404,7 +403,6 @@
 "notifications-center-go-to-article" = "ߞߎߡߘߊ";
 "notifications-center-go-to-article-talk-format" = "ߞߎߡߊ߫ ߞߐߜߍ $1";
 "notifications-center-go-to-diff" = "ߘߊ߲߬ߝߘߊ߬ߓߐ";
-"notifications-center-go-to-talk-page" = "ߞߎߡߊ߫ ߞߐߜߍ";
 "notifications-center-go-to-user-page" = "$1 ߟߊ߫ ߞߎߡߊ߫ ߞߐߜߍ";
 "notifications-center-go-to-wikidata-item" = "ߥߞߌߘߕߊ ߝߌ߬ߛߌ";
 "notifications-center-go-to-your-talk-page" = "ߌ ߟߊ߫ ߞߎߡߊ߫ ߞߐߜߍ";
@@ -502,7 +500,7 @@
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 ߞߊ߬ ߝߘߊ߫ $2 ߥߞߌߔߋߘߌߦߊ ߟߊ߫";
 "on-this-day-title" = "ߟߏ߲ ߣߌ߲߬ ߡߊ߬";
 "original-tab-button-popover-description" = "'ߥ' ߕߐߘߐ߲߫ ߞߵߌ ߞߐߛߊ߬ߦߌ߫ ߞߣߍ߫ ߘߐ߫߸ ߌ ߞߵߊ߬ ߘߊߡߌ߬ߣߊ߬ ߡߍ߲ ߡߊ߬";
-"page-history-anonymous-edits" = "ߕߐ߯ߒߕߊ߲ ߡߊ߬ߦߟߍ߬ߡߊ߲߬ߠߌ߲߬ ߣߐ";
+// Fuzzy
 "page-history-bot-edits" = "ߡߐ߰ߡߐ߮ ߡߊ߬ߦߟߍ߬ߡߊ߲߬ߠߌ߲߬ ߣߐ";
 "page-history-compare-accessibility-hint" = "ߟߢߊ߬ߟߌ߫ ߝߌ߬ߟߊ߬ ߛߎߥߊ߲ߘߟߌ ߕߐߘߐ߲߫ ߞߵߊ߬ߟߎ߫ ߟߊߢߐ߲߯ߡߊ߬";
 "page-history-compare-title" = "ߟߊߢߐ߲߯ߡߊߟߌ";
@@ -516,7 +514,6 @@
 "page-history-revision-time-accessibility-label" = "ߟߢߊ߬ߟߌ ߛߌ߲ߘߌ߫ $1";
 "page-history-revisions-comparison-warning" = "ߟߢߊ߬ߟߌ߫ ߝߌ߬ߟߊ߬ ߘߐߙߐ߲߫ ߠߎ߫ ߟߋ߬ ߘߌ߫ ߛߋ߫ ߓߊߕߐ߬ߡߐ߲߬ ߠߊ߫";
 "page-history-stats-text" = "{{PLURAL:$1|ߡߊ߬ߦߟߍ߬ߡߊ߲߬ߠߌ߲ $1|ߡߊ߬ߦߟߍ߬ߡߊ߲߬ߠߌ߲ $1 ߟߎ߫}} ߞߊ߬ߦߌ߯ $2 ߟߊ߫";
-"page-history-user-edits" = "ߟߊ߬ߓߊ߰ߙߊ߬ߟߊ ߟߊ߫ ߡߊ߬ߦߟߍ߬ߡߊ߲߬ߠߌ߲ ߠߎ߬";
 "page-issues" = "ߞߐߜߍ ߓߐ߲ߘߊ ߟߎ߬";
 "page-location" = "ߊ߬ ߦߋ߫ ߔߊ߬ߔߘߊ ߞߊ߲߬";
 "page-protected-can-not-edit" = "ߤߊߞߍ߫ ߕߴߌ ߓߟߏ߫ ߞߊ߬ ߞߐߜߍ ߣߌ߲߬ ߡߊߦߟߍ߬ߡߊ߲߫";
