@@ -189,8 +189,6 @@ final class TabsCoordinatorManager {
 
     private var tabsOverviewCoordinator: TabsOverviewCoordinator?
 
-    private init() {}
-
     func presentTabsOverview(from navigationController: UINavigationController, theme: Theme, dataStore: MWKDataStore) {
         let coordinator = TabsOverviewCoordinator(navigationController: navigationController, theme: theme, dataStore: dataStore)
         self.tabsOverviewCoordinator = coordinator
