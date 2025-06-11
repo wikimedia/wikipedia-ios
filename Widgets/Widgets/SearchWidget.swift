@@ -25,10 +25,12 @@ struct SearchWidget: Widget {
 struct SearchEntry: TimelineEntry {
     let date: Date
     let configuration: SearchWidgetConfiguration
+    let url: URL?
     
     init(date: Date = Date(), configuration: SearchWidgetConfiguration = SearchWidgetConfiguration()) {
         self.date = date
         self.configuration = configuration
+        self.url = URL(string: "wikipedia://search")
     }
 }
 
@@ -79,17 +81,9 @@ struct SearchWidgetView: View {
         return colorScheme == .dark ? Theme.widgetDark : Theme.widgetLight
     }
     
-    private var searchURL: URL? {
-        var components = URLComponents()
-        components.scheme = "wikipedia"
-        components.host = "search"
-        components.path = "/"
-        return components.url
-    }
-    
     var body: some View {
         VStack(spacing: 12) {
-            Image("wikipedia")
+            Image("wikipedia-globe")
                 .resizable()
                 .aspectRatio(contentMode: .fit)
                 .frame(width: 70, height: 70)
@@ -110,8 +104,9 @@ struct SearchWidgetView: View {
         }
         .padding(16)
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(Color(theme.colors.paperBackground))
-        .widgetURL(searchURL)
+        .widgetURL(entry.url)
+        .containerBackground(Color(theme.colors.paperBackground), for: .widget)
+        
     }
 }
 
