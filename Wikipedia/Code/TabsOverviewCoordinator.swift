@@ -180,3 +180,19 @@ extension TabsOverviewCoordinator: WMFArticleTabsLoggingDelegate {
     }
 
 }
+
+/// Manages the lifecycle of TabsOverviewCoordinator independently of article tabs.
+/// Ensures the tabs UI works even if the current article tab is closed.
+final class TabsCoordinatorManager {
+
+    static let shared = TabsCoordinatorManager()
+
+    private var tabsOverviewCoordinator: TabsOverviewCoordinator?
+
+    func presentTabsOverview(from navigationController: UINavigationController, theme: Theme, dataStore: MWKDataStore) {
+        let coordinator = TabsOverviewCoordinator(navigationController: navigationController, theme: theme, dataStore: dataStore)
+        self.tabsOverviewCoordinator = coordinator
+
+        coordinator.start()
+    }
+}
