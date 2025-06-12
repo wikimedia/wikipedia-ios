@@ -140,6 +140,7 @@
 "article-revision-history" = "Историја чланка";
 "article-save-error-not-enough-space" = "Немате довољно простора на уређају да бисте сачували овај чланак";
 "article-share" = "Дели";
+"article-tabs-open" = "Отвори";
 "article-tabs-open-new-tab" = "Отвори у новој картици";
 "article-talk-page" = "Страница за разговор чланка";
 "article-toolbar-reading-themes-controls-toolbar-item" = "Подешавања тема за читање";
@@ -162,8 +163,11 @@
 "clear-title-accessibility-label" = "Чисто";
 "clearing-cache-complete" = "Чишћење кеша завршено.";
 "clearing-cache-in-progress" = "Чишћење кеша у току.";
+"close-all-tabs" = "Затвори све картице";
 "close-button-accessibility-label" = "Затвори";
+"close-tab-confirmation" = "Затвори картицу?";
 "close-tabs" = "Затвори картице";
+"closed-all-tabs-confirmation" = "Затвори свих $1 картица.";
 "compass-direction" = "у $1 ч.";
 "confirm-donation-history-deletion-title" = "Потврди брисање";
 "confirmed-donation-history-deletion" = "Локална историја је обрисана";
@@ -1150,6 +1154,7 @@
 "talk-pages-user-groups" = "Корисничке групе";
 "talk-pages-user-logs" = "Дневници";
 "talk-pages-view-title" = "Разговор";
+"temp-account-edit-sheet-cta-top" = "Пријави ме / отвори налог";
 "temp-account-edit-sheet-subtitle" = "$2Тренутно користите привремени налог.$3 Измене начињене привременим налогом $1 неће бити пренете Вашем сталном налогу када се пријавите. Пријавите се или отворите налог. Тиме ће доприноси бити приписивани Вашем корисничком налогу.";
 "temp-account-toast-read-more-title" = "Детаљније";
 "temp-account-warning-title" = "Користите привремени налог";
