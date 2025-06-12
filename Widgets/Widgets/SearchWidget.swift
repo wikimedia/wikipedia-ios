@@ -82,30 +82,61 @@ struct SearchWidgetView: View {
     }
     
     var body: some View {
-        VStack(spacing: 12) {
-            Image("wikipedia-globe")
-                .resizable()
-                .aspectRatio(contentMode: .fit)
-                .frame(width: 70, height: 70)
-                .padding(.bottom, 8)
+        
+        if #available(iOS 17, *) {
             
-            HStack(spacing: 8) {
-                Image(systemName: "magnifyingglass")
-                    .font(.system(size: 14))
-                    .foregroundColor(Color(theme.colors.secondaryText))
+            VStack(spacing: 12) {
+                Image("wikipedia-globe")
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(width: 70, height: 70)
+                    .padding(.bottom, 8)
                 
-                Spacer()
+                HStack(spacing: 8) {
+                    Image(systemName: "magnifyingglass")
+                        .font(.system(size: 14))
+                        .foregroundColor(Color(theme.colors.secondaryText))
+                    
+                    Spacer()
+                }
+                .padding(.horizontal, 12)
+                .padding(.vertical, 8)
+                .background(Color(theme.colors.searchFieldBackground))
+                .cornerRadius(8)
+                
             }
-            .padding(.horizontal, 12)
-            .padding(.vertical, 8)
-            .background(Color(theme.colors.searchFieldBackground))
-            .cornerRadius(8)
+            .padding(16)
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .widgetURL(entry.url)
+            .containerBackground(Color(theme.colors.paperBackground), for: .widget)
             
+        } else {
+            
+            VStack(spacing: 12) {
+                Image("wikipedia-globe")
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(width: 70, height: 70)
+                    .padding(.bottom, 8)
+                
+                HStack(spacing: 8) {
+                    Image(systemName: "magnifyingglass")
+                        .font(.system(size: 14))
+                        .foregroundColor(Color(theme.colors.secondaryText))
+                    
+                    Spacer()
+                }
+                .padding(.horizontal, 12)
+                .padding(.vertical, 8)
+                .background(Color(theme.colors.searchFieldBackground))
+                .cornerRadius(8)
+                
+            }
+            .padding(16)
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .widgetURL(entry.url)
+            .background(Color(theme.colors.paperBackground))
         }
-        .padding(16)
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .widgetURL(entry.url)
-        .containerBackground(Color(theme.colors.paperBackground), for: .widget)
         
     }
 }
