@@ -123,9 +123,7 @@ extension URL {
     }
     
     fileprivate func wmf_URLForSharing(with wprov: String) -> URL {
-        let queryItems = [URLQueryItem(name: "wprov", value: wprov)]
         var components = URLComponents(url: self, resolvingAgainstBaseURL: false)
-        components?.queryItems = queryItems
         return components?.wmf_URLWithLanguageVariantCode(wmf_languageVariantCode) ?? self
     }
     
