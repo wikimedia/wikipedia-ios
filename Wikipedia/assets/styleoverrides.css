@@ -18,6 +18,11 @@
     background-color: #fc3 !important
 }
 
+.pcs-theme-dark .findInPageMatch_Focus,
+.pcs-theme-black .findInPageMatch_Focus {
+    background-color: #fc3 !important
+}
+
 /* MISC STYLES */
 
 /*

@@ -1009,8 +1009,7 @@
 "tabs-close-tab" = "タブを閉じる";
 "tabs-main-page-description" = "Wikipediaのメインページで、注目記事、最新ニュース、興味深い事実、主要な統計情報などをご覧ください。";
 "tabs-main-page-subtitle" = "Wikipediaのデイリーハイライト";
-// Fuzzy
-"tabs-navbar-title-format" = "$1個のタブ";
+"tabs-navbar-title-format" = "{{PLURAL:$1|$1 タブ}}";
 "tabs-overview-tooltip-body" = "タブの概要で、開いている記事を切り替えます。";
 "tabs-overview-tooltip-title" = "タブの概要";
 "tabs-survey-title" = "タブ機能の改善にご協力ください。この機能に満足していますか？";

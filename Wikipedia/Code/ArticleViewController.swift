@@ -188,6 +188,7 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
         super.init(nibName: nil, bundle: nil)
         self.theme = theme
         hidesBottomBarWhenPushed = true
+        
     }
     
     deinit {
@@ -467,9 +468,11 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
         DonateFunnel.shared.logArticleProfile(project: project, metricsID: metricsID)
         profileCoordinator?.start()
     }
-    
+
+    var showTabsOverview: (() -> Void)?
+
     @objc func userDidTapTabs() {
-        _ = tabsCoordinator?.start()
+        showTabsOverview?()
         if let wikimediaProject = WikimediaProject(siteURL: articleURL) {
             ArticleTabsFunnel.shared.logIconClick(interface: .article, project: wikimediaProject)
         }

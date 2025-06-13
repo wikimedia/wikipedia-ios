@@ -57,13 +57,13 @@ extension ArticleViewController {
 
         let openInTabVM = WMFTooltipViewModel(localizedStrings: makeOpenInTabStrings(), buttonNeedsDisclosure: false, sourceView: view, sourceRect: articleSourceRect, permittedArrowDirections: .down) {
             if let siteURL = self.articleURL.wmf_site, let project = WikimediaProject(siteURL: siteURL) {
-                // logging icon impression here so it's only sent once
                 ArticleTabsFunnel.shared.logTabTooltipImpression(project: project)
             }
         }
 
         let tabsOverviewVM = WMFTooltipViewModel(localizedStrings: makeTabsOverviewStrings(), buttonNeedsDisclosure: false, sourceView: navigationBar, sourceRect: squareRect, permittedArrowDirections: .up) {
             if let siteURL = self.articleURL.wmf_site, let project = WikimediaProject(siteURL: siteURL) {
+                // logging icon impression here so it's only sent once
                 ArticleTabsFunnel.shared.logTabIconFirstImpression(project: project)
             }
         }
@@ -176,16 +176,27 @@ extension ArticleViewController {
     }
 
     private func computeTabsIconSourceRect(in navBar: UINavigationBar) -> CGRect {
-        let indexFromTrailing: CGFloat = 1 // second from right
-        let margin = navBar.layoutMargins.right
+        let indexFromTrailing: CGFloat = 1
+        let margin: CGFloat
+        let layoutDirection = navBar.effectiveUserInterfaceLayoutDirection
+
         let hitWidth: CGFloat = 44
         let spacing: CGFloat  = 8
+        let offsetFromEdge = hitWidth * (indexFromTrailing + 0.5) + spacing * indexFromTrailing
 
-        let offsetFromTrailing =
-        hitWidth * (indexFromTrailing + 0.5)
-        + spacing * indexFromTrailing
-        + margin
-        let x = navBar.bounds.width - offsetFromTrailing
+        let x: CGFloat
+        switch layoutDirection {
+        case .leftToRight:
+            margin = navBar.layoutMargins.right
+            x = navBar.bounds.width - (offsetFromEdge + margin)
+        case .rightToLeft:
+            margin = navBar.layoutMargins.left
+            x = offsetFromEdge + margin
+        @unknown default:
+            margin = navBar.layoutMargins.right
+            x = navBar.bounds.width - (offsetFromEdge + margin)
+        }
+
         let minY: CGFloat
         if let sb = navigationItem.searchController?.searchBar,
            let sbSuper = sb.superview {

@@ -429,7 +429,7 @@
 "home-button-history-accessibility-label" = "Wikipedia, zréck op d'Versiounen";
 "home-button-saved-accessibility-label" = "Wikipedia, zréck op Gespäichert";
 "home-more-like-footer" = "Méi wéi $1";
-"home-nearby-footer" = "Méi aus der Géigend wou Dir elo sidd";
+"home-nearby-footer" = "Méi aus der Géigend, wou Dir elo sidd";
 "home-nearby-location-footer" = "Méi nobäi vun $1";
 "home-news-footer" = "Méi aktuell Evenementer";
 "home-themes-action-title" = "Astellunge geréieren";
@@ -932,7 +932,7 @@
 "top-read-widget-readers-count" = "$1 Lieser";
 "top-read-widget-title" = "Am dackste gelies";
 "two-factor-login-continue" = "Virufuere mam Aloggen";
-"two-factor-login-instructions" = "Gitt wgl. den Zwee-Facteur Iwwerpréiwungscode an";
+"two-factor-login-instructions" = "Gitt wgl. den Zwee-Faktor-Verifizéierungscode an";
 "two-factor-login-title" = "An Äre Benotzerkont aloggen";
 "two-factor-login-with-backup-code" = "Benotzt ee vun Äre Backup-Coden";
 "two-factor-login-with-regular-code" = "Verificatiouns-Code benotzen";
