@@ -387,14 +387,51 @@ class ColumnarCollectionViewController: ThemeableViewController, ColumnarCollect
         return min(max(_maxViewed, percentViewed), 100)
     }
 
+    // MARK: – Scroll View methods
+
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         _maxViewed = max(_maxViewed, percentViewed)
-        if UIDevice.current.userInterfaceIdiom == .pad, #available(iOS 18.0, *) {
-            let velocity = scrollView.panGestureRecognizer.velocity(in: scrollView).y
-            if velocity < 0 { // Scrolling down
-                tabBarController?.setTabBarHidden(true, animated: true)
-            } else if velocity > 0 { // Scrolling up
-                tabBarController?.setTabBarHidden(false, animated: true)
+
+        guard UIDevice.current.userInterfaceIdiom == .pad, #available(iOS 18.0, *) else { return }
+
+        let velocity = scrollView.panGestureRecognizer.velocity(in: scrollView).y
+        if velocity < -30 {
+            tabBarController?.setTabBarHidden(true, animated: true)
+        } else if velocity > 30 {
+            tabBarController?.setTabBarHidden(false, animated: true)
+        }
+
+        calculateNavigationBarHiddenState(scrollView: scrollView)
+    }
+
+    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        handleShortContentBounce(scrollView, immediately: !decelerate)
+    }
+
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        handleShortContentBounce(scrollView, immediately: true)
+    }
+
+    private func handleShortContentBounce(_ scrollView: UIScrollView, immediately: Bool) {
+        guard UIDevice.current.userInterfaceIdiom == .pad,
+              #available(iOS 18.0, *) else { return }
+
+        let visibleHeight = scrollView.bounds.height
+                           - scrollView.adjustedContentInset.top
+                           - scrollView.adjustedContentInset.bottom
+        let contentHeight = scrollView.contentSize.height
+
+        if contentHeight <= visibleHeight {
+            let showAction = {
+                self.tabBarController?.setTabBarHidden(false, animated: true)
+            }
+
+            if immediately {
+                showAction()
+            } else {
+                DispatchQueue.main.async {
+                    showAction()
+                }
             }
         }
     }
