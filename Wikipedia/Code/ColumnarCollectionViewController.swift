@@ -1,8 +1,12 @@
-import Foundation
 import WMF
+import WMFComponents
 
-class ColumnarCollectionViewController: ThemeableViewController, ColumnarCollectionViewLayoutDelegate, UICollectionViewDataSourcePrefetching, CollectionViewFooterDelegate, HintPresenting {
+class ColumnarCollectionViewController: ThemeableViewController, ColumnarCollectionViewLayoutDelegate, UICollectionViewDataSourcePrefetching, CollectionViewFooterDelegate, HintPresenting, WMFNavigationBarHiding {
+    var topSafeAreaOverlayView: UIView?
     
+    var topSafeAreaOverlayHeightConstraint: NSLayoutConstraint?
+    
+
     enum HeaderStyle {
         case sections
         case exploreFeedDetail
