@@ -3,7 +3,7 @@ import WMFComponents
 import WMFData
 import CocoaLumberjackSwift
 
-class SearchViewController: ArticleCollectionViewController, WMFNavigationBarConfiguring, WMFNavigationBarHiding {
+class SearchViewController: ArticleCollectionViewController, WMFNavigationBarConfiguring {
     
     @objc enum EventLoggingSource: Int {
         case searchTab
@@ -36,9 +36,6 @@ class SearchViewController: ArticleCollectionViewController, WMFNavigationBarCon
     
     private var searchLanguageBarViewController: SearchLanguagesBarViewController?
     private var needsAnimateLanguageBarMovement = false
-    
-    var topSafeAreaOverlayView: UIView?
-    var topSafeAreaOverlayHeightConstraint: NSLayoutConstraint?
     
     // Properties needed for Profile Button
     
