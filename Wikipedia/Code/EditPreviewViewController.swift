@@ -128,7 +128,7 @@ class EditPreviewViewController: ThemeableViewController, WMFPreviewDelegate, In
     private func configureNavigationBar() {
         let titleConfig = WMFNavigationBarTitleConfig(title: WMFLocalizedString("navbar-title-mode-edit-wikitext-preview", value: "Preview", comment: "Header text shown when wikitext changes are being previewed. {{Identical|Preview}}"), customView: nil, alignment: .centerCompact)
         
-        configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: nil, profileButtonConfig: nil, searchBarConfig: nil, hideNavigationBarOnScroll: false)
+        configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: nil, profileButtonConfig: nil, tabsButtonConfig: nil, searchBarConfig: nil, hideNavigationBarOnScroll: false)
         
         if needsNextButton {
             navigationItem.rightBarButtonItem = UIBarButtonItem(title: CommonStrings.nextTitle, style: .done, target: self, action: #selector(self.goForward))
@@ -306,7 +306,7 @@ extension EditPreviewViewController: ArticleContextMenuPresenting, WKUIDelegate 
         let dataStore = MWKDataStore.shared()
         switch destination {
         case .article(let articleURL):
-            return ArticlePeekPreviewViewController(articleURL: articleURL, dataStore: dataStore, theme: theme)
+            return ArticlePeekPreviewViewController(articleURL: articleURL, article: nil, dataStore: dataStore, theme: theme, articlePreviewingDelegate: nil, needsEmptyContextMenuItems: true)
         default:
             return nil
         }
@@ -314,10 +314,6 @@ extension EditPreviewViewController: ArticleContextMenuPresenting, WKUIDelegate 
 
     // This function needed is for ArticleContextMenuPresenting, but not applicable to EditPreviewVC
     func hideFindInPage(_ completion: (() -> Void)? = nil) {
-    }
-
-    var previewMenuItems: [UIMenuElement]? {
-        return nil
     }
 }
 

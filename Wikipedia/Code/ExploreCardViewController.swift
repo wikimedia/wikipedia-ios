@@ -645,24 +645,29 @@ extension ExploreCardViewController: AnnouncementCollectionViewCellDelegate {
 }
 
 extension ExploreCardViewController: ArticlePreviewingDelegate {
-    func readMoreArticlePreviewActionSelected(with articleController: ArticleViewController) {
-        articleController.wmf_removePeekableChildViewControllers()
-        push(articleController, animated: true)
+    func readMoreArticlePreviewActionSelected(with peekController: ArticlePeekPreviewViewController) {
+        guard let navVC = navigationController else { return }
+        let coordinator = ArticleCoordinator(navigationController: navVC, articleURL: peekController.articleURL, dataStore: dataStore, theme: theme, source: .undefined)
+        coordinator.start()
     }
     
-    func saveArticlePreviewActionSelected(with articleController: ArticleViewController, didSave: Bool, articleURL: URL) {
+    func saveArticlePreviewActionSelected(with peekController: ArticlePeekPreviewViewController, didSave: Bool, articleURL: URL) {
         
     }
     
-    func shareArticlePreviewActionSelected(with articleController: ArticleViewController, shareActivityController: UIActivityViewController) {
-        articleController.wmf_removePeekableChildViewControllers()
+    func shareArticlePreviewActionSelected(with peekController: ArticlePeekPreviewViewController, shareActivityController: UIActivityViewController) {
         present(shareActivityController, animated: true, completion: nil)
     }
     
-    func viewOnMapArticlePreviewActionSelected(with articleController: ArticleViewController) {
-        articleController.wmf_removePeekableChildViewControllers()
-        let placesURL = NSUserActivity.wmf_URLForActivity(of: .places, withArticleURL: articleController.articleURL)
+    func viewOnMapArticlePreviewActionSelected(with peekController: ArticlePeekPreviewViewController) {
+        let placesURL = NSUserActivity.wmf_URLForActivity(of: .places, withArticleURL: peekController.articleURL)
         UIApplication.shared.open(placesURL)
+    }
+    
+    func openInNewTabArticlePreviewActionSelected(with peekController: ArticlePeekPreviewViewController) {
+        guard let navVC = navigationController else { return }
+        let articleCoordinator = ArticleCoordinator(navigationController: navVC, articleURL: peekController.articleURL, dataStore: dataStore, theme: theme, source: .undefined, tabConfig: .appendArticleAndAssignNewTabAndSetToCurrent)
+        articleCoordinator.start()
     }
 }
 
@@ -727,8 +732,11 @@ extension ExploreCardViewController {
         guard indexPath.item < numberOfItems else {
             return nil
         }
-
-        return delegate?.contextMenu(with: contentGroup, for: nil, at: indexPath.item)
+        
+        let articleURL = articleURL(at: indexPath)
+        let article = article(at: indexPath)
+        
+        return delegate?.contextMenu(contentGroup: contentGroup, articleURL: articleURL, article: article, itemIndex: indexPath.item)
     }
 
     public func collectionView(_ collectionView: UICollectionView, willPerformPreviewActionForMenuWith configuration: UIContextMenuConfiguration, animator: UIContextMenuInteractionCommitAnimating) {

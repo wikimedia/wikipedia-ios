@@ -2,10 +2,12 @@ import Foundation
 
 public protocol WMFDeveloperSettingsDataControlling: AnyObject {
     func loadFeatureConfig() -> WMFFeatureConfigResponse?
+    var enableArticleTabs: Bool { get }
+    var forceMaxArticleTabsTo5: Bool { get }
 }
 
 @objc public final class WMFDeveloperSettingsDataController: NSObject, WMFDeveloperSettingsDataControlling {
-    
+
     @objc public static let shared = WMFDeveloperSettingsDataController()
     
     private let service: WMFService?
@@ -33,22 +35,6 @@ public protocol WMFDeveloperSettingsDataControlling: AnyObject {
         }
     }
     
-    @objc public var enableAltTextExperimentForEN: Bool {
-        get {
-            return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsEnableAltTextExperimentForEN.rawValue)) ?? false
-        } set {
-            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsEnableAltTextExperimentForEN.rawValue, value: newValue)
-        }
-    }
-    
-    @objc public var alwaysShowAltTextEntryPoint: Bool {
-        get {
-            return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.alwaysShowAltTextEntryPoint.rawValue)) ?? false
-        } set {
-            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.alwaysShowAltTextEntryPoint.rawValue, value: newValue)
-        }
-    }
-    
     @objc public var sendAnalyticsToWMFLabs: Bool {
         get {
             return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsSendAnalyticsToWMFLabs.rawValue)) ?? false
@@ -59,9 +45,82 @@ public protocol WMFDeveloperSettingsDataControlling: AnyObject {
 
     public var bypassDonation: Bool {
         get {
-            return ( try? userDefaultsStore?.load(key: WMFUserDefaultsKey.bypassDonation.rawValue)) ?? false
+            return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.bypassDonation.rawValue)) ?? false
         } set {
             try? userDefaultsStore?.save(key: WMFUserDefaultsKey.bypassDonation.rawValue, value: newValue)
+        }
+    }
+
+    public var forceEmailAuth: Bool {
+        get {
+            return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.forceEmailAuth.rawValue)) ?? false
+        } set {
+            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.forceEmailAuth.rawValue, value: newValue)
+        }
+    }
+
+    @objc public var setActivityTabGroupA: Bool {
+        get {
+            return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.activityTabGroupA.rawValue)) ?? false
+        }
+        set {
+            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.activityTabGroupA.rawValue, value: newValue)
+            if newValue {
+                try? userDefaultsStore?.save(key: WMFUserDefaultsKey.activityTabGroupB.rawValue, value: false)
+                try? userDefaultsStore?.save(key: WMFUserDefaultsKey.activityTabGroupC.rawValue, value: false)
+            }
+        }
+    }
+
+    public var setActivityTabGroupB: Bool {
+        get {
+            return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.activityTabGroupB.rawValue)) ?? false
+        }
+        set {
+            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.activityTabGroupB.rawValue, value: newValue)
+            if newValue {
+                try? userDefaultsStore?.save(key: WMFUserDefaultsKey.activityTabGroupA.rawValue, value: false)
+                try? userDefaultsStore?.save(key: WMFUserDefaultsKey.activityTabGroupC.rawValue, value: false)
+            }
+        }
+    }
+
+    public var setActivityTabGroupC: Bool {
+        get {
+            return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.activityTabGroupC.rawValue)) ?? false
+        }
+        set {
+            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.activityTabGroupC.rawValue, value: newValue)
+            if newValue {
+                try? userDefaultsStore?.save(key: WMFUserDefaultsKey.activityTabGroupA.rawValue, value: false)
+                try? userDefaultsStore?.save(key: WMFUserDefaultsKey.activityTabGroupB.rawValue, value: false)
+            }
+        }
+    }
+    
+    public var enableArticleTabs: Bool {
+        get {
+            return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsArticleTab.rawValue)) ?? false
+        } set {
+            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsArticleTab.rawValue, value: newValue)
+            
+            if newValue {
+                Task {
+                    do {
+                        try await WMFArticleTabsDataController.shared.checkAndCreateInitialArticleTabIfNeeded()
+                    } catch {
+                        debugPrint("Failed to check or create initial article tab: \(error)")
+                    }
+                }
+            }
+        }
+    }
+    
+    public var forceMaxArticleTabsTo5: Bool {
+        get {
+            return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsForceMaxArticleTabsTo5.rawValue)) ?? false
+        } set {
+            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsForceMaxArticleTabsTo5.rawValue, value: newValue)
         }
     }
 

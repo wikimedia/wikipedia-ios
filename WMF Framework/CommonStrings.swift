@@ -115,7 +115,7 @@ public class CommonStrings: NSObject {
     @objc static public func saveTitle(languageCode: String?) -> String {
         return WMFLocalizedString("button-save-for-later", languageCode: languageCode, value: "Save for later", comment: "Longer button text for save button used in various places.")
     }
-
+    
     @objc public static let shortShareTitle = WMFLocalizedString("action-share", value: "Share", comment: "Short title for the 'Share' action. Please use the shortest translation possible. {{Identical|Share}}")
     @objc public static let accessibilityShareTitle = WMFLocalizedString("action-share-accessibility", value: "Share", comment: "Accessibility title for the 'Share' action")
 
@@ -310,6 +310,8 @@ public class CommonStrings: NSObject {
     public static let moreButton = WMFLocalizedString("more-menu", value: "More", comment: "Accessibility title for more button in toolbar.")
 
     public static let watchlist = WMFLocalizedString("watchlist", value: "Watchlist", comment: "Title for watchlist feature.")
+    
+    public static let talkPage = WMFLocalizedString("account-talk-page-title", value: "Talk page", comment: "Link to talk page")
 
     public static let watchlistFilter = WMFLocalizedString("watchlist-filter", value: "Filter", comment: "Title for filter button in watchlist.")
     
@@ -451,86 +453,6 @@ public class CommonStrings: NSObject {
 
      @objc public static let donateTitle = WMFLocalizedString("settings-donate", value: "Donate", comment: "Link to donate")
 
-    // Article As A Living Doucment Strings - for some reason build script doesn't auto generate these when used directly in SignificantEventsViewModels.swift
-
-    public static let viewFullHistoryText = WMFLocalizedString("aaald-view-full-history-button", value: "View full article history", comment: "Text displayed in a button for pushing to the full article history view on the article as a living document screen.")
-
-    static let smallChangeDescription = WMFLocalizedString("aaald-small-change-description",
-        value:"{{PLURAL:%1$d|0=No small changes made|%1$d small change made|%1$d small changes made}}",
-        comment:"Describes how many small changes are batched together in the article as a living document timeline view. %1$d is replaced with the number of small changes.")
-
-    static let newTalkTopicDescriptionFormat = WMFLocalizedString("aaald-new-talk-topic-description-format", value: "%1$@ about this article", comment: "Title displayed in an article as a living document timeline cell and content insert explaining that a new article talk page topic has been posted. %1$@ is replaced by `New discussion` text.")
-    static let newTalkTopicDiscussion = WMFLocalizedString("aaald-new-discussion", value: "New discussion", comment: "Portion of title displayed in article as a living document timeline cell and content insert explaining that a new article talk page topic has been posted.")
-
-    static let vandalismRevertDescription = WMFLocalizedString("aaald-vandalism-revert-description", value: "Suspected Vandalism reverted", comment: "Title displayed in an article as a living document timeline cell explaining that a vandalism revision was reverted.")
-
-    static let multipleChangesMadeDescription = WMFLocalizedString("aaald-multiple-changes-description", value: "Multiple changes made", comment: "Title displayed in article as a living document content insert explaining that multiple changes were made in a revision.")
-
-    static let addedTextDescription = WMFLocalizedString("aaald-added-text-description-2", value:"%1$@ added", comment:"Title displayed in an article as a living document cell explaining that a revision has a certain number of characters added. %1$@ is replaced by a formatted string representing characters added.")
-
-    static let deletedTextDescription = WMFLocalizedString("aaald-deleted-text-description-2", value:"%1$@ deleted", comment:"Title displayed in an article as a living document cell explaining that a revision has a certain number of characters deleted. %1$@ is replaced by a formatted string representing characters deleted.")
-
-    static let charactersTextDescription = WMFLocalizedString("aaald-characters-text-description", value:"{{PLURAL:%1$d|0=characters|character|characters}}",
-                                                              comment:"Displayed in an article as a living document cell explaining that a revision has a certain number of characters added or deleted. %1$d is the number of characters added or deleted.")
-
-    static let articleDescriptionUpdatedDescription = WMFLocalizedString("aaald-article-description-updated-description", value:"Article description updated",
-    comment:"Title displayed in an article as a living document cell explaining that an article's description was updated in a revision.")
-
-    static let singleReferenceAddedDescription = WMFLocalizedString("aaald-single-reference-added-description", value:"Reference added",
-    comment:"Title displayed in an article as a living document timeline cell when a reference was added (and no other changes) to a revision.")
-
-    static let multipleReferencesAddedDescription = WMFLocalizedString("aaald-multiple-references-added-description", value:"Multiple references added",
-                                                                       comment:"Title displayed in an article as a living document cell when multiple references were added (and no other changes) to a revision.")
-
-    static let numericalMultipleReferencesAddedDescription = WMFLocalizedString("aaald-numerical-multiple-references-added-description", value:"{{PLURAL:%1$d|0=0 references|%1$d reference|%1$d references}} added",
-    comment:"Title displayed in an article as a living document cell explaining that multiple references were added to a revision. This string is used alongside other changes types like added characters. %1$d is replaced with the number of references.")
-
-    static let oneSectionDescription = WMFLocalizedString("aaald-one-section-description", value: "in the %1$@ section", comment: "Text explaining what section an article as a living document event change occurred in, if occurred in only one section. %1$@ is replaced with the section name.")
-
-    static let twoSectionsDescription = WMFLocalizedString("aaald-two-sections-description", value: "in the %1$@ and %2$@ sections", comment: "Text explaining what sections an article as a living document event change occurred in, if occurred in two sections. %1$@ is replaced with the first section name, %2$@ with the second.")
-
-    static let manySectionsDescription = WMFLocalizedString("aaald-many-sections-description", value: "in %1$d sections", comment: "Text explaining what sections an article as a living document change occurred in, if occurred in 3+ sections. %1$d is replaced with the number of sections.")
-
-    static let newBookReferenceTitle = WMFLocalizedString("aaald-new-book-reference-title",
-    value:"Book", comment: "Header text for a new book reference type that was added in an article as a living document cell.")
-
-    static let newJournalReferenceTitle = WMFLocalizedString("aaald-new-journal-reference-title",
-                                                             value:"Journal", comment: "Header text for a new journal reference type that was added in an article as a living document cell.")
-
-    static let newNewsReferenceTitle = WMFLocalizedString("aaald-new-news-reference-title",
-                                                          value:"News", comment: "Header text for a new news reference type that was added in an article as a living document cell.")
-
-    static let newWebsiteReferenceTitle = WMFLocalizedString("aaald-new-website-reference-title",
-                                                             value:"Website", comment: "Header text for a new website reference type that was added in an article as an living document cell.")
-
-    static let newJournalReferenceVolume = WMFLocalizedString("aaald-new-journal-reference-volume",
-    value:"Volume %1$@:", comment: "Volume text for a new journal reference type that was added in an article as a living document cell. %1$@ is replaced by the journal volume number of the reference.")
-
-    static let newJournalReferenceDatabase = WMFLocalizedString("aaald-new-journal-reference-database",
-    value:"via %1$@", comment: "Database text for a new journal reference type that was added in an article as a living document cell. %1$@ is replaced by the database volume number of the reference.")
-
-    static let newWebsiteReferenceArchiveUrlText =  WMFLocalizedString("aaald-new-website-reference-archive-url-text",
-    value:"Archive.org URL", comment: "Archive.org URL text for a new website reference type that was added in an article as a living document cell. This will be turned into a link that goes to the reference's Archive.org URL.")
-
-    static let newWebsiteReferenceArchiveDateText = WMFLocalizedString("aaald-new-website-reference-archive-date-text",
-    value:"from the original on %1$@", comment: "Text in a new website reference in an article as a living document cell that describes when the reference was retrieved for Archive.org. %1$@ is replaced with the reference's archive date.")
-
-    static let newNewsReferenceRetrievedDate = WMFLocalizedString("aaald-new-news-reference-retrieved-date",
-    value:"Retrieved %1$@", comment: "Retrieved date text for a new news reference type that was added in an article as a living document cell. %1$@ is replaced by the reference's retrieved date.")
-
-    // tonitodo: this fails with EXC_BADACCESS when I try to use plural edits
-    static let revisionUserInfo = WMFLocalizedString(
-    "aaald-revision-userInfo",
-    value:"Edit by %1$@ (%2$@ edits)", comment: "Text describing details about the user that made a significant revision in the article as a living document view. %1$@ is replaced by the editor name and %2$d is replaced by the number of edits they have made.")
-
-    static let revisionUserInfoAnonymous = WMFLocalizedString("aaald-revision-by-anonymous",
-    value:"Edit by anonymous user", comment: "Text describing the anonymous user that made a significant revision in the article as a living document view.")
-
-    static let articleAsLivingDocSummaryTitle = WMFLocalizedString(
-        "aaald-summary-title",
-        value:"{{PLURAL:%1$d|0=0 changes|%1$d change|%1$d changes}} by {{PLURAL:%2$d|0=0 editors|%2$d editor|%2$d editors}} in {{PLURAL:%3$d|0=0 days|%3$d day|%3$d days}}",
-        comment:"Describes how many small changes are batched together in the article as a living document timeline view. %1$d is replaced by the number of accumulated changes editors made, %2$d is replaced by the number of editors that made that change and %3$d is replaced with relative timeframe date that the edit counting started (e.g. 10 days).")
-
     @objc public static func onThisDayAdditionalEventsMessage(with languageCode: String?, locale: Locale, eventsCount: Int) -> String {
         return String(format: WMFLocalizedString("on-this-day-detail-header-title", languageCode: languageCode, value:"{{PLURAL:%1$d|%1$d historical event|%1$d historical events}}", comment:"Title for 'On this day' detail view - %1$d is replaced with the number of historical events which occurred on the given day"), locale: locale, eventsCount)
     }
@@ -540,9 +462,6 @@ public class CommonStrings: NSObject {
     public static func onThisDayFooterWith(with eventCount: Int, languageCode: String? = nil, locale: Locale = Locale.autoupdatingCurrent) -> String {
         return String(format: WMFLocalizedString("on-this-day-footer-showing-event-count", languageCode: languageCode, value: "{{PLURAL:%1$d|%1$d more historical event|%1$d more historical events}} on this day", comment: "Footer for presenting user option to see longer list of 'On this day' articles. %1$@ will be substituted with the number of events"), locale: locale, eventCount)
     }
-    public static let articleAsLivingDocErrorTitle = WMFLocalizedString("aaald-error-title", value: "Unable to load inline article history", comment: "Title of error banner that appears at the bottom of an article when significant events fail to load.")
-
-    public static let articleAsLivingDocErrorSubtitle = WMFLocalizedString("aaald-error-subitle", value: "Refresh to try again", comment: "Subtitle of error banner that appears at the bottom of an article when significant events fail to load.")
     
     // TODO: Delete this when we remove web editor code
     public static let editorExitConfirmationTitle = WMFLocalizedString("editor-exit-confirmation-title", value: "Dismiss the editing mode?", comment: "Title text of editing mode confirmation alert. Presented to the user when they they are about to be navigated away from the editor flow.")
@@ -689,81 +608,13 @@ public class CommonStrings: NSObject {
     
     public static let problemWithFeatureTitle = WMFLocalizedString("problem-with-feature-title", value: "Problem with feature", comment: "Button title text that allows user to send feedback to the iOS support email about a particular feature.")
 
-    // Alt text
-
-    public static let altTextTitle  = WMFLocalizedString("alt-text-title", value: "Alt text", comment: "Title for alt text")
-
     public static let returnToArticle = WMFLocalizedString("return-to-article", value: "Return to article", comment: "Title for button indicating that is possible to go back to article")
 
     public static let returnButtonTitle = WMFLocalizedString("return-button-title", value: "Return", comment: "Title for button indicating that is possible return from this point")
-    
-    public static let altTextArticleNavBarTitle = WMFLocalizedString("alt-text-experiment-view-title", value: "Add alt text", comment: "Title text for alt text experiment view")
-    
-    public static func altTextEditSummary(with languageCode: String?) -> String {
-        WMFLocalizedString("alt-text-experiment-edit-summary", languageCode: languageCode, value: "Added alt text", comment: "Automatic edit summary added to edit after user publishes an edit through the alt-text experiment.")
-    }
-    
-    public static let altTextViewPlaceholder = WMFLocalizedString("alt-text-experiment-text-field-placholder", value: "Describe the image", comment: "Text used for the text field placholder on the alt text view")
-    
-    public static let altTextViewBottomDescription = WMFLocalizedString("alt-text-experiment-text-field-description", value: "Text description for readers who cannot see the image", comment: "Informational description for what should be input into the alt text text view. Displayed underneath the alt text text view.")
-    
-    public static let altTextViewCharacterCounterWarning = WMFLocalizedString("alt-text-experiment-character-counter-warning", value: "Try to keep alt text short so users can easily understand the image content", comment: "Warning label that appears underneath the alt text view when the user has typed beyond 125 characters.")
-    
-    public static let altTextViewCharacterCounterFormat = WMFLocalizedString("alt-text-experiment-character-counter-format", value: "%1$d/%2$d", comment: "Character counter that appears as the user is typing in the alt text view. %1$d is replaced with the number of characters the user has typed. %2$d will be replaced with the maximum character number recommended for alt text.")
-    
-    public static let altGuidanceButtonTitle = WMFLocalizedString("alt-text-experiment-guidance-button", value: "Guidance for writing alt text", comment: "Button title on the alt text input screen. Tapping it displays an informative onboarding screen about how to write alt text for images.")
-    
-    public static let altTextOnboardingTitle = WMFLocalizedString("alt-text-experiment-onboarding-title", value: "How to write alt text for images", comment: "Title of alt text experiment onboarding view. Displayed before they enter the alt text input flow.")
-    
-    public static let altTextOnboardingItem1Title = WMFLocalizedString("alt-text-experiment-onboarding-item-1-title", value: "Keep it short and clear", comment: "Item 1 title of alt text experiment onboarding view. Displayed before they enter the alt text input flow.")
-    
-    public static let altTextOnboardingItem1Subtitle = WMFLocalizedString("alt-text-experiment-onboarding-item-1-subtitle", value: "1-2 lines of plain text with no acronyms, abbreviations, or jargon.", comment: "Item 1 subtitle of alt text experiment onboarding view. Displayed before they enter the alt text input flow.")
-    
-    public static let altTextOnboardingItem2Title = WMFLocalizedString("alt-text-experiment-onboarding-item-2-title", value: "Describe what can be seen", comment: "Item 2 title of alt text experiment onboarding view. Displayed before they enter the alt text input flow.")
-    
-    public static let altTextOnboardingItem2Subtitle = WMFLocalizedString("alt-text-experiment-onboarding-item-2-subtitle", value: "Don’t add your own research, interpretation, or point of view.", comment: "Item 2 subtitle of alt text experiment onboarding view. Displayed before they enter the alt text input flow.")
-    
-    public static let altTextOnboardingItem3Title = WMFLocalizedString("alt-text-experiment-onboarding-item-3-title", value: "Focus on what is relevant to the article", comment: "Item 3 title of alt text experiment onboarding view. Displayed before they enter the alt text input flow.")
-    
-    public static let altTextOnboardingItem3Subtitle = WMFLocalizedString("alt-text-experiment-onboarding-item-3-subtitle", value: "But don’t repeat text that is already in the caption.", comment: "Item 3 subtitle of alt text experiment onboarding view. Displayed before they enter the alt text input flow.")
-    
-    public static let altTextOnboardingItem4Title = WMFLocalizedString("alt-text-experiment-onboarding-item-4-title", value: "Type of image", comment: "Item 4 title of alt text experiment onboarding view. Displayed before they enter the alt text input flow.")
-    
-    public static let altTextOnboardingItem4Subtitle = WMFLocalizedString("alt-text-experiment-onboarding-item-4-subtitle", value: "Do not start with ‘This is an image of...’ but describe the medium or style, if relevant", comment: "Item 4 subtitle of alt text experiment onboarding view. Displayed before they enter the alt text input flow.")
-    
-    public static let altTextOnboardingSecondaryButtonTitle = WMFLocalizedString("alt-text-experiment-onboarding-secondary-button-title", value: "View examples", comment: "Title of secondary button on alt text experiment onboarding screen. Tapping it takes the user to an external web view of alt text examples.")
-    
-    public static let altTextOnboardingTooltip1Title = WMFLocalizedString("alt-text-experiment-onboarding-tooltip-1-title", value: "Review", comment: "Title of the first onboarding tooltip displayed on the alt text experiment. Points at an image lacking alt text in an article.")
-    
-    public static let altTextOnboardingTooltip1Body = WMFLocalizedString("alt-text-experiment-onboarding-tooltip-1-body", value: "Understand the image in the article context.", comment: "Body of the first onboarding tooltip displayed on the alt text experiment.")
-    
-    public static let altTextOnboardingTooltip2Title = WMFLocalizedString("alt-text-experiment-onboarding-tooltip-2-title", value: "Inspect", comment: "Title of the second onboarding tooltip displayed on the alt text experiment. Points at an image file name that navigates to the commons web view.")
-    
-    public static let altTextOnboardingTooltip2Body = WMFLocalizedString("alt-text-experiment-onboarding-tooltip-2-body", value: "View additional image information on Wikimedia Commons.", comment: "Body of the second onboarding tooltip displayed on the alt text experiment.")
-    
-    public static let altTextOnboardingTooltip3Title = WMFLocalizedString("alt-text-experiment-onboarding-tooltip-3-title", value: "Add description", comment: "Title of the third onboarding tooltip displayed on the alt text experiment. Points at the alt text input textview.")
-    
-    public static let altTextOnboardingTooltip3Body = WMFLocalizedString("alt-text-experiment-onboarding-tooltip-3-body", value: "Add description for visually impaired readers", comment: "Body of the third onboarding tooltip displayed on the alt text experiment.")
-
-    public static let altTextFeedbackAlertTitle = WMFLocalizedString("alt-text-feedback-alert-title", value: "We want your feedback", comment: "Title text for the feedback alert in alt text")
-
-    public static let altTextFeedbackAlertMessage = WMFLocalizedString("alt-text-feedback-alert-subtitle", value: "Would you use a feature that provided a feed of images in need of alt text?", comment: "Subtitle text for the feedback alert in alt text")
-
-    public static let altTextFeedbackAlertMessageFlowC = WMFLocalizedString("alt-text-feedback-alert-subtitle-flow-C", value: "Would you be interested in receiving similar notifications about suggested edits on articles after you edit them?", comment: "Subtitle text for the feedback alert in alt text experiment for flow C")
-
-    public static let altTextFeedbackSurveyTitle = WMFLocalizedString("alt-text-feedback-survey-title", value: "Help improve the feature", comment: "Title for the alt text feedback survey")
-
-    public static let altTextFeedbackSurveySubtitle = WMFLocalizedString("alt-text-feedback-survey-subtitle", value: "Are you satisfied with this feature?", comment: "Subtitle for the alt text feedback survey")
-
-    public static let altTextFeedbackSurveySatisfied = WMFLocalizedString("alt-text-feedback-survey-satisfied", value: "Satisfied", comment: "Text for the alt text feedback survey satisfied option")
-
-    public static let altTextFeedbackSurveyNeutral = WMFLocalizedString("alt-text-feedback-survey-neutral", value: "Neutral", comment: "Text for the alt text feedback survey neutral option")
-
-    public static let altTextFeedbackSurveyUnsatisfied = WMFLocalizedString("alt-text-feedback-survey-unsatisfied", value: "Unsatisfied", comment: "Text for the alt text feedback survey unsatisfied option")
 
     public static let feedbackSurveyToastTitle = WMFLocalizedString("alt-text-feedback-survey-toast-title", value: "Feedback submitted", comment: "Text for the toast displayed after a user answers a survey")
 
-    // Account
+    // Accountˆ¨
 
     public static let logoutAlertTitle =  WMFLocalizedString("main-menu-account-logout-are-you-sure", value: "Are you sure you want to log out?", comment: "Header asking if user is sure they wish to log out.")
 
@@ -800,7 +651,129 @@ public class CommonStrings: NSObject {
     public static let collectiveExploreAccessibilityLabel = WMFLocalizedString("year-in-review-collective-explore", value: "An animated illustration depicting the iconic Wikipedia globe encircled by scaffolding, symbolizing the collaborative effort of people worldwide in building the project. The scene is surrounded by a cityscape, emphasizing its connection to humanity and global culture.", comment: "Accessibility description for the collective explore slide.")
     
     public static let searchButtonAccessibilityLabel = WMFLocalizedString("search-button-accessibility-label", value: "Search Wikipedia", comment: "Accessibility label for a button that opens a search box to search Wikipedia.")
+    
+    // Temp accs
+    public static let tempAccountsReadMoreTitle = WMFLocalizedString("temp-account-toast-read-more-title", value: "Read more", comment: "Read more button for the toast for temporary accounts.")
+    
+    public static let tempAccountsToastTitle = {
+        let openingBold = "<b>"
+        let closingBold = "</b>"
+        let format = WMFLocalizedString("temp-account-toast-title", value: "%1$@You are currently using a temporary account.%2$@ Edits made with the temporary...",
+          comment: "Temporary accounts toast information. $1 and $2 are opening and closing bold")
+        return String.localizedStringWithFormat(format, openingBold, closingBold)
+    }
+    
+    @objc public static let tempAccount = WMFLocalizedString("temporary-account", value: "Temporary Account", comment: "Temporary account title text")
+    
+    public static let ipWarningTitle = WMFLocalizedString("ip-account-warning-title", value: "You are not logged in", comment: "Warning title text presented to anonymous editors before entering an edit flow.")
+    
+    public static let tempWarningTitle = WMFLocalizedString("temp-account-warning-title", value: "You are using a temporary account", comment: "Warning title text presented to temporary account editors before entering an edit flow.")
+    
+    public static let ipWarningSubtitle = WMFLocalizedString("ip-account-warning-subtitle", value: "On publish a temporary account will be created for you.", comment: "Warning subtitle text presented to anonymous editors before entering an edit flow.")
+    
+    public static func tempWarningSubtitle(username: String) -> String {
+        let format = WMFLocalizedString("temp-warning-subtitle-format", value: "Your edit will be attributed to %1$@", comment: "Warning subtitle text presented to temporary account editors before entering an edit flow. %1$@ is replaced with the temporary account username.")
+        return String.localizedStringWithFormat(format, username)
+    }
+    
+    public static let tempAccountCreatedToastTitle = WMFLocalizedString("article-view-controller-editing-temp-account-created-title", value: "Temporary account created", comment: "After a user edits an article, creating an IP account, this pop-up title lets them know.")
+    
+    public static func tempAccountCreatedToastSubtitle(username: String?) -> String {
+        let format = WMFLocalizedString("article-view-controller-editing-temp-account-created-subtitle", value: "Temporary account %1$@ was created after your edit was published. It will expire in 90 days.", comment: "More information on the creation of temporary accounts, $1 replaces their username.")
+        return String.localizedStringWithFormat(format, username ?? "*****")
+    }
+    public static let saveViewTempAccountNotice = WMFLocalizedString("save-view-temp-account-notice", value: "You are using a temporary account. Edits are being attributed to %1$@...", comment: "$1 is the temporary username for the temporary account notice.")
+    public static let saveViewTempAccountWarning = WMFLocalizedString("save-view-temp-account-warning", value: "You are not logged in. Once you make an edit, a temporary account will be created for you to protect your privacy.", comment: "Warning that a temporary account will be created")
+    public static let tempAccountPublishTitle = WMFLocalizedString("article-view-controller-editing-temp-account-created-title", value: "Temporary account created", comment: "After a user edits an article, creating an IP account, this pop-up title lets them know.")
+    // MARK: - Activity tab strings
+    public static let activityTabReadingHistory = WMFLocalizedString("activity-tab-read-title", value: "View reading history", comment: "Title for the reading history activity tab")
+
+    @objc public static let activityTitle = WMFLocalizedString("activity-tab-title", value: "Activity", comment: "Activity title")
+    public static let activityTabLoggedOutTitle = WMFLocalizedString("activity-tab-logged-out-title", value: "Log in or create an account to see more editing and reading activity.", comment: "Title for activity tab when users are logged out.")
+    public static let actitvityTabLoggedOutSubtitle = WMFLocalizedString("activity-tab-logged-out-subtitle", value: "Track what you’ve read and view your contributions over time in a new way", comment: "Subtitle for activity tab when users are logged out.")
+    public static let activityTabViewReadingHistoryTitle = WMFLocalizedString("activity-tab-view-reading-history", value: "View reading history", comment: "Button title for users to view their reading history.")
+    public static let activityTabViewSavedArticlesTitle = WMFLocalizedString("activity-tab-view-saved-articles", value: "View saved articles", comment: "Button title for users to view their saved articles.")
+    public static let activityTabViewEditingTitle = WMFLocalizedString("activity-tab-view-editing-history", value: "View editing history", comment: "Button title for users to view their editing history.")
+    
+    public static let activityTabNoEditsAddImagesTitle = WMFLocalizedString("activity-tab-no-edits-title", value: "You haven't edited this week. Add images to enhance article understanding.", comment: "Title for users that have not made any edits.")
+    
+    public static let activityTabNoEditsGenericTitle = WMFLocalizedString("activity-tab-generic-no-edits", value: "You haven't edited this week. Start now to track your contributions.", comment: "Title for users that have not made any edits.")
+    
+    public static let activityTabStartEditing = WMFLocalizedString("activity-tab-start-editing", value: "Start editing", comment: "Button title for users to begin editing.")
+    public static func activityTabArticleReadNumber(amount: Int? = 0) -> String {
+        let format = WMFLocalizedString("activity-tab-you-read", value: "You read {{PLURAL:%1$d|%1$d article|%1$d articles}} this week.", comment: "Displays how many articles the user read in the past week, $1 is the amount, returning the pluralized version of article depending.")
+        return String.localizedStringWithFormat(format, amount ?? 0)
+    }
+    public static func activityTabArticleSavedNumber(amount: Int? = 0) -> String {
+        let format = WMFLocalizedString("activity-tab-you-saved", value: "You saved {{PLURAL:%1$d|%1$d article|%1$d articles}} this week.", comment: "Displays how many articles the user saved in the past week, $1 is the amount, returning the pluralized version of article depending.")
+        return String.localizedStringWithFormat(format, amount ?? 0)
+    }
+    public static func activityTabArticleEditedNumber(amount: Int? = 0) -> String {
+        let format = WMFLocalizedString("activity-tab-you-edited", value: "You edited {{PLURAL:%1$d|%1$d time|%1$d times}} this week.", comment: "Displays how many articles the user edited in the past week, $1 is the amount, returning the pluralized version of article depending.")
+        return String.localizedStringWithFormat(format, amount ?? 0)
+    }
+    public static var activityTabAddImagesTitle = WMFLocalizedString("activity-tab-add-images-title", value: "Add images", comment: "Title for add images feature suggestion.")
+    public static var activityTabAddImagesSubitle = WMFLocalizedString("activity-tab-add-images-subtitle", value: "Add suggested images to Wikipedia articles to enhance understanding.", comment: "Subtitle for add images feature.")
+    public static var satisfactionSurveyTitle = WMFLocalizedString("activity-tab-survey-title", value: "Satisfaction survey", comment: "Satisfaction survey view title")
+    public static var activityTabSurvey = WMFLocalizedString("activity-tab-survey", value: "Are you satisfied with your \"Activity\" screen? What else would you like to see here in the future?", comment: "Survey title for the activity tab")
+    public static var surveyVerySatisfied = WMFLocalizedString("activity-tab-very-satisfied", value: "Very satisfied", comment: "Satisfaction survey very satisfied")
+    public static var surveySatisfied = WMFLocalizedString("activity-tab-satisfied", value: "Satisfied", comment: "Satisfaction survey satisfied")
+    public static var surveyVeryUnsatisfied = WMFLocalizedString("activity-tab-very-unsatisfied", value: "Very unsatisfied", comment: "Satisfaction survey very unsatisfied")
+    public static var surveyUnsatisfied = WMFLocalizedString("activity-tab-unsatisfied", value: "Unsatisfied", comment: "Satisfaction survey unsatisfied")
+    public static var surveyNeutral = WMFLocalizedString("activity-tab-neutral", value: "Neutral", comment: "Satisfaction survey neutral")
+    public static var surveyAdditionalThoughts = WMFLocalizedString("activity-tab-additional-thoughts", value: "Any additional thoughts?", comment: "Asking user if they have any comments")
+    
+    // MARK: - Article Tabs
+    
+    public static let articleTabsOpen = WMFLocalizedString("article-tabs-open", value: "Open", comment: "Menu option button for opening an article in the current tab. Displayed upon long press of an article link.")
+    
+    public static let articleTabsOpenInNewTab = WMFLocalizedString("article-tabs-open-new-tab", value: "Open in new tab", comment: "Menu option button for opening an article in a new tab. Displayed upon long press of an article link.")
+    
+    public static let articleTabsOpenInBackgroundTab = WMFLocalizedString("article-tabs-open-background-tab", value: "Open in background tab", comment: "Menu option button for opening an article in a background tab. Displayed upon long press of an article link.")
+    
+    public static let articleTabsLimitToastFormat = WMFLocalizedString("article-tabs-max-reached", value: "Tab limit reached (%1$d). The article was opened in the current tab. Please close one or more tabs.", comment: "Warning toast presented to users when they attempt to open a new tab after maximum tab number is reached. %1$d is replaced with the maximum number of tabs allowed.")
+    
+    public static let onboardingTooltipsForTabs = WMFLocalizedString("article-tabs-onboarding-tooltip", value: "Onboarding tooltips for tabs", comment: "Tooltip title for tabs onboarding.")
+    public static let tabsNavigation = WMFLocalizedString("article-tabs-navigation", value: "Tabs navigation", comment: "Title for navigation in article tabs")
+    
+    public static func tabsNavbarTitleFormat(count: Int? = 0) -> String {
+        let format = WMFLocalizedString("tabs-navbar-title-format", value: "{{PLURAL:%1$d|%1$d tab|%1$d tabs}}", comment: "Format string for number of tabs open, pluralized depending on count. $1 is the amount of tabs.")
+        return String.localizedStringWithFormat(format, count ?? 0)
+    }
+
+    public static func addArticlesToReadingList(count: Int? = 0) -> String {
+        let format = WMFLocalizedString("add-articles-to-reading-list", value: "Add {{PLURAL:%1$d|%1$d article|%1$d articles}} to reading list", comment: "Button label to add multiple articles to the reading list, pluralized based on article count. $1 is the amount of articles.")
+        return String.localizedStringWithFormat(format, count ?? 0)
+    }
+
+    public static func closeAllTabsConfirmation(count: Int? = 0) -> String {
+        let format = WMFLocalizedString("close-all-tabs-confirmation", value: "Do you want to close all %1$@ tabs? This action can’t be undone.", comment: "Confirmation message for closing a variable number of tabs. $1 is the amount of tabs currently open.")
+        return String.localizedStringWithFormat(format, count ?? 0)
+    }
+    
+    public static func closedAllTabsConfirmation(count: Int? = 0) -> String {
+        let format = WMFLocalizedString("closed-all-tabs-confirmation", value: "Closed all %1$@ tabs.", comment: "Confirmation message closing a number of tabs. $1 is the amount of tabs currently open.")
+        return String.localizedStringWithFormat(format, count ?? 0)
+    }
+    
+    public static func closeAllTabsConfirmationNumber(count: Int? = 0) -> String {
+        let format = WMFLocalizedString("close-all-tabs-confirmation-number", value: "Close all %1$@ tabs?", comment: "Confirmation message closing a number of tabs. $1 is the amount of tabs to be closed")
+        return String.localizedStringWithFormat(format, count ?? 0)
+    }
+    
+    public static let saveAllTabs = WMFLocalizedString("save-all-tabs", value: "Save all tabs", comment: "Action to save all open tabs.")
+    public static let closeAllTabs = WMFLocalizedString("close-all-tabs", value: "Close all tabs", comment: "Action to close all open tabs.")
+    public static let duplicateTab = WMFLocalizedString("duplicate-tab", value: "Duplicate tab", comment: "Action to duplicate the current tab.")
+    public static let closeOtherTabs = WMFLocalizedString("close-other-tabs", value: "Close other tabs", comment: "Action to close all tabs except the current one.")
+    public static let newTab = WMFLocalizedString("new-tab", value: "New tab", comment: "Title for creating a new tab.")
+    public static let closeTabConfirmation = WMFLocalizedString("close-tab-confirmation", value: "Close tab?", comment: "Confirmation prompt to close a single tab.")
+    public static let closeTabs = WMFLocalizedString("close-tabs", value: "Close tabs", comment: "Action to confirm closing multiple tabs.")
+    public static let savedAllTabs = WMFLocalizedString("saved-all-tabs", value: "Saved all tabs.", comment: "Message indicating all open tabs were saved.")
+    public static let savedAllTabsViewReadingList = WMFLocalizedString("saved-all-tabs-view-reading-list", value: "Saved all tabs. View reading list.", comment: "Message indicating all tabs were saved with option to view reading list.")
+    public static let mainPage = WMFLocalizedString("main-page", value: "Main page", comment: "Title for the Wikipedia main page.")
+
 }
+
 // Language variant strings
 public extension CommonStrings {
 

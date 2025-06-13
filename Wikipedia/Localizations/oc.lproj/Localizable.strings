@@ -54,7 +54,6 @@
 "button-next" = "Seguent";
 "button-ok" = "D’acòrdi";
 "button-publish" = "Publicar";
-"button-read-now" = "Legir ara";
 "button-report-a-bug" = "Senhalar una error";
 "button-save-for-later" = "Enregistrar per mai tard";
 "button-saved-for-later" = "Enregistrat per mai tard";
@@ -184,6 +183,7 @@
 "table-of-contents-close-accessibility-label" = "Tampar l'ensenhador";
 "table-of-contents-heading" = "Contenguts";
 "talk-page-unsubscribe-to-topic" = "Annular l'inscripcion";
+"talk-pages-topic-reply-onboarding-title" = "Paginas de discussion";
 "two-factor-login-title" = "Se connectar a vòstre compte";
 "watchlist-change-expiry-option-one-month" = "1 mes";
 "watchlist-filter" = "Filtrar";

@@ -21,11 +21,15 @@ final class UserPageCoordinator: Coordinator {
         self.siteURL = siteURL
     }
 
-    func start() {
-        if let url = siteURL.wmf_URL(withPath: "/wiki/User:\(username)", isMobile: true) {
-            let config = SinglePageWebViewController.StandardConfig(url: url, useSimpleNavigationBar: false)
-            let singlePageWebViewController = SinglePageWebViewController(configType: .standard(config), theme: theme)
-            navigationController.pushViewController(singlePageWebViewController, animated: true)
+    @discardableResult
+    func start() -> Bool {
+        guard let url = siteURL.wmf_URL(withPath: "/wiki/User:\(username)", isMobile: true) else {
+            return false
         }
+        
+        let config = SinglePageWebViewController.StandardConfig(url: url, useSimpleNavigationBar: false)
+        let singlePageWebViewController = SinglePageWebViewController(configType: .standard(config), theme: theme)
+        navigationController.pushViewController(singlePageWebViewController, animated: true)
+        return true
     }
 }

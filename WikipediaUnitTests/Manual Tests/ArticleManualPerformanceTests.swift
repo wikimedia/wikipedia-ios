@@ -118,7 +118,7 @@ class ArticleManualPerformanceTests: XCTestCase {
         
         self.measure {
         
-            let peekVC = MeasurableArticlePeekPreviewViewController(articleURL: articleURL, dataStore: dataStore, theme: .standard)
+            let peekVC = MeasurableArticlePeekPreviewViewController(articleURL: articleURL, article: nil, dataStore: dataStore, theme: .standard, articlePreviewingDelegate: nil)
             
             let displayExpectation = expectation(description: "Waiting for MeasurableArticlePeekPreviewViewController displayCompletion call")
             

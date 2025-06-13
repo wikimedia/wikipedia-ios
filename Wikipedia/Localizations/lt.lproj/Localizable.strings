@@ -17,34 +17,6 @@
 // Author: Tomasdd
 // Author: Zygimantus
 
-"aaald-added-text-description-2" = "$1 pridėta";
-"aaald-article-description-updated-description" = "Straipsnio aprašymas atnaujintas";
-"aaald-article-insert-header" = "Žymūs atnaujinimai";
-"aaald-article-insert-last-updated" = "Paskutinį kartą atnaujinta";
-"aaald-article-insert-new-changes" = "Nauji pakeitimai";
-"aaald-article-insert-read-more" = "Skaityti daugiau atnaujinimų";
-"aaald-deleted-text-description-2" = "$1 ištrinta";
-"aaald-error-subitle" = "Atnaujinkite, kad pabandytumėte dar kartą";
-"aaald-many-sections-description" = "$1 skyriuose";
-"aaald-multiple-changes-description" = "Atlikti keli pakeitimai";
-"aaald-multiple-references-added-description" = "Pridėtos kelios nuorodos";
-"aaald-new-book-reference-title" = "Knyga";
-"aaald-new-discussion" = "Nauja diskusija";
-"aaald-new-journal-reference-database" = "per $1";
-"aaald-new-journal-reference-title" = "Žurnalas";
-"aaald-new-journal-reference-volume" = "Numeris $1:";
-"aaald-new-news-reference-retrieved-date" = "Gauta $1";
-"aaald-new-news-reference-title" = "Naujienos";
-"aaald-new-talk-topic-description-format" = "$1 apie šį straipsnį";
-"aaald-new-website-reference-archive-date-text" = "iš originalo $1";
-"aaald-new-website-reference-archive-url-text" = "Archive.org URL";
-"aaald-new-website-reference-title" = "Tinklapis";
-"aaald-one-section-description" = "$1 skyriuje";
-"aaald-revision-by-anonymous" = "Anoniminio naudotojo keitimas";
-"aaald-revision-userInfo" = "$1 keitimas ($2 keitimai)";
-"aaald-single-reference-added-description" = "Nuoroda pridėta";
-"aaald-two-sections-description" = "$1 ir $2 skyriuose";
-"aaald-view-full-history-button" = "Žiūrėti visą straipsnio istoriją";
 "about-content-license" = "Turinio licencija";
 "about-content-license-details" = "Nebent nurodyta kitaip, turinys prieinamas pagal $1.";
 "about-content-license-details-share-alike-license" = "Creative Commons Attribution-ShareAlike licencija";
@@ -142,7 +114,6 @@
 "button-ok" = "Gerai";
 "button-publish" = "Publikuoti";
 "button-publish-anyway" = "Vis tiek skelbti";
-"button-read-now" = "Skaityti dabar";
 "button-report-a-bug" = "Pranešti apie klaidą";
 "button-save-for-later" = "Išsaugoti ateičiai";
 "button-saved-for-later" = "Išsaugoti ateičiai";
@@ -539,7 +510,6 @@
 "notifications-center-go-to-article" = "Straipsnis";
 "notifications-center-go-to-article-talk-format" = "$1 aptarimo puslapis";
 "notifications-center-go-to-diff" = "Skirt";
-"notifications-center-go-to-talk-page" = "Aptarimo puslapis";
 "notifications-center-go-to-user-page" = "$1 naudotojo puslapis";
 "notifications-center-go-to-wikidata-item" = "Vikiduomenų elementas";
 "notifications-center-go-to-your-talk-page" = "Jūsų aptarimo puslapis";
@@ -641,7 +611,7 @@
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 iš $2 Vikipedijos";
 "on-this-day-title" = "Šią dieną";
 "original-tab-button-popover-description" = "Paspauskite 'W', kad grįžtumėte į pradinį skirtuką";
-"page-history-anonymous-edits" = "anoniminiai keitimai";
+// Fuzzy
 "page-history-bot-edits" = "robotų keitimai";
 "page-history-compare-accessibility-hint" = "Paspauskite, kad pasirinktumėte dvi versijas palyginimui";
 "page-history-compare-title" = "Palyginti";
@@ -655,7 +625,6 @@
 "page-history-revision-size-diff-subtraction" = "Pašalinta {{PLURAL:$1|$1 baitas|$1 baitai}}";
 "page-history-revisions-comparison-warning" = "Galima pasirinkti tik dvi versijas";
 "page-history-stats-text" = "{{PLURAL:$1|$1 keitimas|$1 keitimai}} nuo $2";
-"page-history-user-edits" = "naudotojų keitimai";
 "page-issues" = "Puslapio problemos";
 "page-location" = "Žiūrėti žemėlapyje";
 "page-protected-can-not-edit" = "Neturite teisių redaguoti šį puslapį";

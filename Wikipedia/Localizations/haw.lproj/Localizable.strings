@@ -2,35 +2,6 @@
 // Exported from translatewiki.net
 // Author: Kolonahe
 
-"aaald-added-text-description-2" = "Ua hoʻohui i $1";
-"aaald-article-description-updated-description" = "Ua hōʻano hou i ka hulikoʻa ʻatikala";
-"aaald-article-insert-header" = "Nā Hoʻopuka hou loa ʻIʻo";
-"aaald-article-insert-last-updated" = "Ua hōʻano hou ʻia";
-"aaald-article-insert-new-changes" = "Nā loli hou";
-"aaald-article-insert-read-more" = "Heluhelu i nā hōʻano hou ʻē aʻe";
-"aaald-characters-text-description" = "{{PLURAL:$1|0=ʻole hua paʻi|hua paʻi|mau hua paʻi}}";
-"aaald-deleted-text-description-2" = "Ua holoi i $1";
-"aaald-error-subitle" = "E hōʻano hou a hoʻāʻo hou";
-"aaald-error-title" = "ʻAʻole hiki ke hoʻouka i ka mōʻaukala ʻatikala kūloko";
-"aaald-many-sections-description" = "ma $1 mokuna";
-"aaald-multiple-changes-description" = "Nui nā loli";
-"aaald-multiple-references-added-description" = "Nui nā kūmole i hoʻohui ʻia";
-"aaald-new-book-reference-title" = "Puke";
-"aaald-new-discussion" = "Kūkākūkā hou";
-"aaald-new-journal-reference-database" = "mai $1";
-"aaald-new-journal-reference-title" = "Puke moʻomanaʻo";
-"aaald-new-journal-reference-volume" = "Helu $1:";
-"aaald-new-news-reference-retrieved-date" = "Ua lawe ʻia ma $1";
-"aaald-new-news-reference-title" = "Nūhou";
-"aaald-new-talk-topic-description-format" = "$1 e pili ana kēia ʻatikala";
-"aaald-new-website-reference-archive-date-text" = "mai ke kumu ma $1";
-"aaald-new-website-reference-archive-url-text" = "HKH Archive.org";
-"aaald-new-website-reference-title" = "Kaha pūnaewele";
-"aaald-numerical-multiple-references-added-description" = "Ua hoʻohui i {{PLURAL:$1|0=ʻole kūmole|$1 kūmole|$1 mau kūmole}}";
-"aaald-one-section-description" = "ma ka mokuna ʻo $1";
-"aaald-revision-by-anonymous" = "Hoʻololi ʻia e haʻi ʻike ʻole";
-"aaald-revision-userInfo" = "Hoʻololi ʻia e $1 ($2 (mau) loli)";
-"aaald-single-reference-added-description" = "Ua hoʻohui i ke kūmole";
 // Fuzzy
 "account-creation-captcha-obtaining" = "Lawe nei i kekahi Kapakā hou.";
 "account-creation-logging-in" = "ʻEʻe nei...";

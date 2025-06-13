@@ -14,65 +14,49 @@ final class WMFExperimentsDataController {
         let bucketFileName: BucketFileName
         let bucketValueControl: BucketValue
         let bucketValueTest: BucketValue
+        let bucketValueTest2: BucketValue?
     }
     
     public enum Experiment {
-        case articleAsLivingDoc
-        case altTextImageRecommendations
-        case altTextArticleEditor
-        case articleSearchBar
-        
+        case activityTab
+        case articleTabs
+
         var config: ExperimentConfig {
             switch self {
-            case .articleAsLivingDoc:
-                return WMFExperimentsDataController.articleAsLivingDocConfig
-            case .altTextImageRecommendations:
-                return WMFExperimentsDataController.altTextImageRecommendationsConfig
-            case .altTextArticleEditor:
-                return WMFExperimentsDataController.altTextArticleEditorConfig
-            case .articleSearchBar:
-                return WMFExperimentsDataController.articleSearchBarConfig
+            case .activityTab:
+                return WMFExperimentsDataController.activityTabConfig
+            case .articleTabs:
+                return WMFExperimentsDataController.articleTabsConfig
             }
         }
     }
     
     public enum PercentageFileName: String {
-        case articleAsLivingDocPercent
-        case altTextImageRecommendationsPercent
-        case altTextArticleEditorPercent
-        case articleSearchBarPercent
+        case activityTabPercent
+        case articleTabsPercent
     }
     
     enum BucketFileName: String {
-        case articleAsLivingDocBucket
-        case altTextImageRecommendationsBucket
-        case altTextArticleEditorBucket
-        case articleSearchBarBucket
+        case activityTabBucket
+        case articleTabsBucket
     }
     
     public enum BucketValue: String {
-        case articleAsLivingDocTest = "LivingDoc_Test"
-        case articleAsLivingDocControl = "LivingDoc_Control"
-        case altTextImageRecommendationsTest = "AltTextImageRecommendations_Test"
-        case altTextImageRecommendationsControl = "AltTextImageRecommendations_Control"
-        case altTextArticleEditorTest = "AltTextArticleEditor_Test"
-        case altTextArticleEditorControl = "AltTextArticleEditor_Control"
-        case articleSearchBarTest = "ArticleSearchBar_Test"
-        case articleSearchBarControl = "ArticleSearchBar_Control"
+        case activityTabGroupAControl = "ActivityTab_GroupA_Control"
+        case activityTabGroupBEdit = "ActivityTab_GroupB_Edit"
+        case activityTabGroupCSuggestedEdit = "ActivityTab_GroupC_SuggestedEdit"
+        case articleTabsControl = "ArticleTabs_Control"
+        case articleTabsTest = "ArticleTabs_Test"
     }
     
     // MARK: Properties
     
     private let cacheDirectoryName = WMFSharedCacheDirectoryNames.experiments.rawValue
+
+    private static let activityTabConfig = ExperimentConfig(experiment: .activityTab, percentageFileName: .activityTabPercent, bucketFileName: .activityTabBucket, bucketValueControl: .activityTabGroupAControl, bucketValueTest: .activityTabGroupBEdit, bucketValueTest2: .activityTabGroupCSuggestedEdit)
     
-    private static let articleAsLivingDocConfig = ExperimentConfig(experiment: .articleAsLivingDoc, percentageFileName: .articleAsLivingDocPercent, bucketFileName: .articleAsLivingDocBucket, bucketValueControl: .articleAsLivingDocControl, bucketValueTest: .articleAsLivingDocTest)
-    
-    private static let altTextImageRecommendationsConfig = ExperimentConfig(experiment: .altTextImageRecommendations, percentageFileName: .altTextImageRecommendationsPercent, bucketFileName: .altTextImageRecommendationsBucket, bucketValueControl: .altTextImageRecommendationsControl, bucketValueTest: .altTextImageRecommendationsTest)
-    
-    private static let altTextArticleEditorConfig = ExperimentConfig(experiment: .altTextArticleEditor, percentageFileName: .altTextArticleEditorPercent, bucketFileName: .altTextArticleEditorBucket, bucketValueControl: .altTextArticleEditorControl, bucketValueTest: .altTextArticleEditorTest)
-    
-    private static let articleSearchBarConfig = ExperimentConfig(experiment: .articleSearchBar, percentageFileName: .articleSearchBarPercent, bucketFileName: .articleSearchBarBucket, bucketValueControl: .articleSearchBarControl, bucketValueTest: .articleSearchBarTest)
-    
+    private static let articleTabsConfig = ExperimentConfig(experiment: .articleTabs, percentageFileName: .articleTabsPercent, bucketFileName: .articleTabsBucket, bucketValueControl: .articleTabsControl, bucketValueTest: .articleTabsTest, bucketValueTest2: nil)
+
     private let store: WMFKeyValueStore
     
     // MARK: Lifecycle
@@ -84,8 +68,9 @@ final class WMFExperimentsDataController {
     // MARK: Public
     
     // this will only generate a new bucket as needed (i.e. if the percentage is different than the last time bucket was generated)
+    // forceValue: optional forcing of bucket assignment (i.e. developer settings menu assignments)
     @discardableResult
-    func determineBucketForExperiment(_ experiment: Experiment, withPercentage percentage: Int) throws -> BucketValue {
+    func determineBucketForExperiment(_ experiment: Experiment, withPercentage percentage: Int, forceValue: BucketValue? = nil) throws -> BucketValue {
         
         guard percentage >= 0 && percentage <= 100 else {
             throw ExperimentError.invalidPercentage
@@ -103,18 +88,27 @@ final class WMFExperimentsDataController {
         
         // otherwise generate new bucket
         let randomInt = Int.random(in: 1...100)
-        let isInTest = randomInt <= percentage
         let bucket: BucketValue
         
-        switch experiment {
-        case .articleAsLivingDoc:
-            bucket = isInTest ? .articleAsLivingDocTest : .articleAsLivingDocControl
-        case .altTextImageRecommendations:
-            bucket = isInTest ? .altTextImageRecommendationsTest : .altTextImageRecommendationsControl
-        case .altTextArticleEditor:
-            bucket = isInTest ? .altTextArticleEditorTest : .altTextArticleEditorControl
-        case .articleSearchBar:
-            bucket = isInTest ? .articleSearchBarTest : .articleSearchBarControl
+        if let forceValue = forceValue {
+            bucket = forceValue
+        } else {
+            switch experiment {
+            case .articleTabs:
+                if randomInt <= percentage {
+                    bucket = .articleTabsTest
+                } else {
+                    bucket = .articleTabsControl
+                }
+            case .activityTab:
+                if randomInt <= percentage {
+                    bucket = .activityTabGroupAControl
+                } else if randomInt > percentage && randomInt <= percentage*2 {
+                    bucket = .activityTabGroupBEdit
+                } else {
+                    bucket = .activityTabGroupCSuggestedEdit
+                }
+            }
         }
         
         try setBucket(bucket, forExperiment: experiment)

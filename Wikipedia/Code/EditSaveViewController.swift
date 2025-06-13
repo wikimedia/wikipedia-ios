@@ -5,11 +5,10 @@ import WMFData
 
 struct EditorChanges {
     let newRevisionID: UInt64
-    let fullArticleWikitextForAltTextExperiment: String?
 }
 
 protocol EditSaveViewControllerDelegate: NSObjectProtocol {
-    func editSaveViewControllerDidSave(_ editSaveViewController: EditSaveViewController, result: Result<EditorChanges, Error>)
+    func editSaveViewControllerDidSave(_ editSaveViewController: EditSaveViewController, result: Result<EditorChanges, Error>, needsNewTempAccountToast: Bool?)
     func editSaveViewControllerWillCancel(_ saveData: EditSaveViewController.SaveData)
     func editSaveViewControllerDidTapShowWebPreview()
 }
@@ -41,6 +40,12 @@ private enum NavigationMode : Int {
     case captcha
 }
 
+public enum AuthState: Int {
+    case loggedIn
+    case tempAccount
+    case ipAccount
+}
+
 class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDelegate, UIScrollViewDelegate, WMFCaptchaViewControllerDelegate, EditSummaryViewDelegate, WMFNavigationBarConfiguring {
     
     struct SaveData {
@@ -56,6 +61,7 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
     var languageCode: String?
     var dataStore: MWKDataStore?
     var source: EditorViewController.Source?
+    var authState: AuthState? = nil
     
     var wikitext = ""
     var theme: Theme = .standard
@@ -95,7 +101,8 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
     private var buttonX: UIBarButtonItem?
     private var abuseFilterCode = ""
     private var summaryText = ""
-    
+    private var wikiHasTempAccounts: Bool?
+
     @IBOutlet weak var showWebPreviewContainerView: UIView!
     private var showWebPreviewButtonHostingController: UIHostingController<WMFSmallButton>?
 
@@ -220,6 +227,10 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
         
         addToWatchlistToggle.addTarget(self, action: #selector(toggledWatchlist), for: .valueChanged)
         fetchWatchlistStatusAndUpdateToggle()
+
+        Task {
+            wikiHasTempAccounts = await checkWikiStatus()
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -231,11 +242,66 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         imageRecLoggingDelegate?.logEditSaveViewControllerDidAppear()
+
+        guard let dataStore else { return }
+
+        if !dataStore.authenticationManager.authStateIsPermanent {
+
+            if let wikiHasTempAccounts, dataStore.authenticationManager.authStateIsTemporary && wikiHasTempAccounts {
+                // Notice
+                let format = CommonStrings.saveViewTempAccountNotice
+                let username = dataStore.authenticationManager.authStateTemporaryUsername ?? "*****"
+                let title = String.localizedStringWithFormat(format, username)
+                let image = UIImage(systemName: "exclamationmark.circle.fill")
+                WMFAlertManager.sharedInstance.showBottomAlertWithMessage(
+                    title,
+                    subtitle: nil,
+                    image: image,
+                    type: .custom,
+                    customTypeName: "edit-published",
+                    dismissPreviousAlerts: true,
+                    buttonTitle: CommonStrings.tempAccountsReadMoreTitle,
+                    buttonCallBack: {
+                        guard let navigationController = self.navigationController else { return }
+                        let tempAccountSheetCoordinator = TempAccountSheetCoordinator(navigationController: navigationController, theme: self.theme, dataStore: dataStore, didTapDone: { [weak self] in
+                            self?.dismiss(animated: true)
+                        }, didTapContinue: { [weak self] in
+                            self?.dismiss(animated: true)
+                        }, isTempAccount: true)
+
+                        _ = tempAccountSheetCoordinator.start()
+                    }
+                )
+            } else {
+                // Warning
+                let title = CommonStrings.saveViewTempAccountWarning
+                let image = UIImage(systemName: "exclamationmark.triangle.fill")
+                WMFAlertManager.sharedInstance.showBottomAlertWithMessage(
+                    title,
+                    subtitle: nil,
+                    image: image,
+                    type: .custom,
+                    customTypeName: "edit-published",
+                    dismissPreviousAlerts: true,
+                    buttonTitle: CommonStrings.tempAccountsReadMoreTitle,
+                    buttonCallBack: {
+                        guard let navigationController = self.navigationController else { return }
+                        let tempAccountSheetCoordinator = TempAccountSheetCoordinator(navigationController: navigationController, theme: self.theme, dataStore: dataStore, didTapDone: { [weak self] in
+                            self?.dismiss(animated: true)
+                        }, didTapContinue: { [weak self] in
+                            self?.dismiss(animated: true)
+                        }, isTempAccount: false)
+
+                        _ = tempAccountSheetCoordinator.start()
+                    }
+                )
+            }
+        }
     }
-    
+
     private func configureNavigationBar() {
         let titleConfig = WMFNavigationBarTitleConfig(title: WMFLocalizedString("wikitext-preview-save-changes-title", value: "Save changes", comment: "Title for edit preview screens"), customView: nil, alignment: .centerCompact)
-        configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: nil, profileButtonConfig: nil, searchBarConfig: nil, hideNavigationBarOnScroll: false)
+        configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: nil, profileButtonConfig: nil, tabsButtonConfig: nil, searchBarConfig: nil, hideNavigationBarOnScroll: false)
     }
 
     func setupSemanticContentAttibute() {
@@ -297,12 +363,15 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
     private func fetchWatchlistStatusAndUpdateToggle() {
         guard let siteURL = pageURL?.wmf_site,
            let project = WikimediaProject(siteURL: siteURL)?.wmfProject,
-            let title = pageURL?.wmf_title else {
+            let title = pageURL?.wmf_title,
+            let dataStore = dataStore,
+        let request = try? WMFArticleDataController.ArticleInfoRequest(needsWatchedStatus: dataStore.authenticationManager.authStateIsPermanent, needsRollbackRights: false, needsCategories: false) else {
             return
         }
         
-        let dataController = WMFWatchlistDataController()
-        dataController.fetchWatchStatus(title: title, project: project) { [weak self] result in
+        let dataController = WMFArticleDataController()
+
+        dataController.fetchArticleInfo(title: title, project: project, request: request) { [weak self] result in
             DispatchQueue.main.async {
                 switch result {
                 case .success(let status):
@@ -313,7 +382,14 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
             }
         }
     }
-    
+
+    private func checkWikiStatus() async -> Bool? {
+        guard let languageCode else { return false }
+        let dataController = WMFTempAccountDataController.shared
+        return await dataController.asyncCheckWikiTempAccountAvailability(language: languageCode, isCheckingPrimaryWiki: false)
+
+    }
+
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
         updateTextViews()
@@ -357,6 +433,14 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
     }
 
     private func save() {
+        guard let dataStore else { return }
+        if !dataStore.authenticationManager.authStateIsPermanent {
+            if dataStore.authenticationManager.authStateIsTemporary {
+                authState = .tempAccount
+            } else {
+                authState = .ipAccount
+            }
+        }
         WMFAlertManager.sharedInstance.showAlert(WMFLocalizedString("wikitext-upload-save", value: "Publishing...", comment: "Alert text shown when changes to section wikitext are being published {{Identical|Publishing}}"), sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
         
         guard let editURL = pageURL else {
@@ -414,8 +498,18 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
     }
     
     private func handleEditSuccess(with result: [AnyHashable: Any]) {
+        var needsNewTempAccountToast = false
+        guard let dataStore else { return }
+        if let wikiHasTempAccounts, wikiHasTempAccounts, !dataStore.authenticationManager.authStateIsPermanent {
+            if dataStore.authenticationManager.authStateIsTemporary {
+                if authState == .ipAccount {
+                    needsNewTempAccountToast = true
+                }
+           }
+      }
+
         let notifyDelegate: (Result<EditorChanges, Error>) -> Void = { result in
-            self.delegate?.editSaveViewControllerDidSave(self, result: result)
+            self.delegate?.editSaveViewControllerDidSave(self, result: result, needsNewTempAccountToast: needsNewTempAccountToast)
         }
         guard let fetchedData = result as? [String: Any],
               let newRevID = fetchedData["newrevid"] as? UInt64 else {
@@ -426,7 +520,7 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
             return
         }
         
-        let completion: (UInt64, String?) -> Void = { [weak self] newRevID, fullArticleWikitextForAltTextExperiment in
+        let completion: (UInt64) -> Void = { [weak self] newRevID in
             
             guard let self else {
                 return
@@ -447,33 +541,11 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
                 
                 self.imageRecLoggingDelegate?.logEditSaveViewControllerPublishSuccess(revisionID: Int(newRevID), summaryAdded: !self.summaryText.isEmpty)
                 
-                notifyDelegate(.success(EditorChanges(newRevisionID: newRevID, fullArticleWikitextForAltTextExperiment: fullArticleWikitextForAltTextExperiment)))
+                notifyDelegate(.success(EditorChanges(newRevisionID: newRevID)))
             }
         }
         
-        // If needed, load full article wikitext for alt text experiment.
-        // We are doing lots of checks here so the fewest number of people take the additional load.
-        let isPermanent = dataStore?.authenticationManager.authStateIsPermanent ?? false
-        if sectionID != nil, // if sectionID is nil, then wikitext property already represents the latest full article posted wikitext. If sectionID is populated, then we need to fetch the full article wikitext
-           let altTextDataController = WMFAltTextDataController(),
-           let pageURL,
-           let project = WikimediaProject(siteURL: pageURL)?.wmfProject,
-           altTextDataController.shouldFetchFullArticleWikitextFromArticleEditor(isPermanent: isPermanent, project: project) {
-            wikitextFetcher.fetchSection(with: nil, articleURL: pageURL, revisionID: newRevID) { result in
-                switch result {
-                case .success(let response):
-                    let fullArticleWikitext = response.wikitext
-                    completion(newRevID, fullArticleWikitext)
-                default:
-                    completion(newRevID, nil)
-                }
-            }
-        } else if sectionID == nil {
-            // self.wikitext property already represents the full article wikitext
-            completion(newRevID, wikitext)
-        } else {
-            completion(newRevID, nil)
-        }
+        completion(newRevID)
     }
     
     private func handleEditFailure(with error: Error) {

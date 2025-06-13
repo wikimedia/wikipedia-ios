@@ -26,40 +26,6 @@
 // Author: Vriullop
 // Author: Xavier Dengra
 
-"aaald-added-text-description-2" = "$1 afegit";
-"aaald-article-description-updated-description" = "S'ha actualitzat la descripció de l'article";
-"aaald-article-insert-header" = "Actualitzacions significatives";
-"aaald-article-insert-last-updated" = "Darrera actualització";
-"aaald-article-insert-new-changes" = "Canvis recents";
-"aaald-article-insert-read-more" = "Mostra les darreres actualitzacions";
-"aaald-characters-text-description" = "{{PLURAL:$1|0=caràcters|caràcter|caràcters}}";
-"aaald-deleted-text-description-2" = "$1 eliminat";
-"aaald-error-subitle" = "Refresqueu per a tornar-ho a provar";
-"aaald-error-title" = "No s'ha pogut carregar en línia l'historial de l'article";
-"aaald-many-sections-description" = "a $1 seccions";
-"aaald-multiple-changes-description" = "Múltiples modificacions realitzades";
-"aaald-multiple-references-added-description" = "Múltiples referències afegides";
-"aaald-new-book-reference-title" = "Llibre";
-"aaald-new-discussion" = "Nova discussió";
-"aaald-new-journal-reference-database" = "via $1";
-"aaald-new-journal-reference-title" = "Publicació";
-"aaald-new-journal-reference-volume" = "Volum $1:";
-"aaald-new-news-reference-retrieved-date" = "Consultat a $1";
-"aaald-new-news-reference-title" = "Notícia";
-"aaald-new-talk-topic-description-format" = "$1 sobre aquest article";
-"aaald-new-website-reference-archive-date-text" = "a partir de l'original de $1";
-"aaald-new-website-reference-archive-url-text" = "URL d'archive.org";
-"aaald-new-website-reference-title" = "Lloc web";
-"aaald-numerical-multiple-references-added-description" = "{{PLURAL:$1|0=0 referències|$1 referència|$1 referències}} afegides";
-"aaald-one-section-description" = "a la secció $1";
-"aaald-revision-by-anonymous" = "Edició per usuari anònim";
-"aaald-revision-userInfo" = "Modificat per $1 ($2 modificacions)";
-"aaald-single-reference-added-description" = "Referència afegida";
-"aaald-small-change-description" = "{{PLURAL:$1|0=No s'ha fet cap canvi menor|S'ha fet $1 canvi menor|S'han fet $1 canvis menors}}";
-"aaald-summary-title" = "{{PLURAL:$1|0=0 canvis|$1 canvi|$1 canvis}} per {{PLURAL:$2|0=0 editors|$2 editor|$2 editors}} en {{PLURAL:$3|0=0 dies|$3 dia|$3 dies}}";
-"aaald-two-sections-description" = "a les seccions $1 i $2";
-"aaald-vandalism-revert-description" = "Sospita de vandalisme revertit";
-"aaald-view-full-history-button" = "Vegeu l'historial complet de l'article";
 "about-content-license" = "Contingut de la llicència";
 "about-content-license-details" = "Llevat que s'especifiqui el contrari, el contingut és disponible sota $1.";
 "about-content-license-details-share-alike-license" = "Creative Commons Reconeixement-Compartir Igual";
@@ -167,7 +133,6 @@
 "button-ok" = "D’acord";
 "button-publish" = "Desa";
 "button-publish-anyway" = "Publica-ho igualment";
-"button-read-now" = "Llegeix-ho ara";
 "button-report-a-bug" = "Informa d'un error";
 "button-save-for-later" = "Desa-ho per a més tard";
 "button-saved-for-later" = "Desat per a més tard";
@@ -511,7 +476,6 @@
 "icon-shortcut-search-title" = "Cerca a la Viquipèdia";
 "image-gallery-unknown-owner" = "Autor desconegut.";
 "image-rec-add-image-title" = "Voleu afegir aquesta imatge?";
-"image-rec-feature-announce-body" = "Decidiu si afegir una imatge a un article de la Viquipèdia. Podeu trobar la targeta «Afegiu una imatge» al canal d'«Exploreu».";
 "image-rec-survey-option-1" = "La imatge no és rellevant";
 "image-rec-survey-option-2" = "No hi ha prou informació per a decidir";
 "image-rec-survey-option-3" = "La imatge és ofensiva";
@@ -648,7 +612,6 @@
 "notifications-center-go-to-article" = "Article";
 "notifications-center-go-to-article-talk-format" = "Pàgina de discussió de $1";
 "notifications-center-go-to-diff" = "Diferència";
-"notifications-center-go-to-talk-page" = "Pàgina de discussió";
 "notifications-center-go-to-user-page" = "Pàgina d'usuari de $1";
 "notifications-center-go-to-wikidata-item" = "Element de Wikidata";
 "notifications-center-go-to-your-talk-page" = "La vostra pàgina de discussió";
@@ -755,7 +718,7 @@
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 de la Viquipèdia en $2";
 "on-this-day-title" = "Tal dia com avui";
 "original-tab-button-popover-description" = "Feu un toc a la 'W' per tornar a la pestanya d'on heu començat";
-"page-history-anonymous-edits" = "edicions anònimes";
+// Fuzzy
 "page-history-bot-edits" = "edicions de bots";
 "page-history-compare-accessibility-hint" = "Toqueu per a seleccionar dues revisions per comparar";
 "page-history-compare-title" = "Compara";
@@ -770,7 +733,6 @@
 "page-history-revision-time-accessibility-label" = "Revisió feta el $1";
 "page-history-revisions-comparison-warning" = "Només poden seleccionar-se dues revisions";
 "page-history-stats-text" = "{{PLURAL:$1|$1 edició|$1 edicions}} des del $2";
-"page-history-user-edits" = "edicions d'usuaris";
 "page-issues" = "Incidències de la pàgina";
 "page-location" = "Mostra al mapa";
 "page-protected-can-not-edit" = "No teniu permisos per modificar la pàgina";

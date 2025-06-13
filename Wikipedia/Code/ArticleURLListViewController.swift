@@ -66,7 +66,7 @@ class ArticleURLListViewController: ArticleCollectionViewController, WMFNavigati
     private func configureNavigationBar() {
         let titleConfig = WMFNavigationBarTitleConfig(title: title ?? "", customView: nil, alignment: .hidden)
         
-        configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: nil, profileButtonConfig: nil, searchBarConfig: nil, hideNavigationBarOnScroll: false)
+        configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: nil, profileButtonConfig: nil, tabsButtonConfig: nil, searchBarConfig: nil, hideNavigationBarOnScroll: false)
     }
 
     override var eventLoggingCategory: EventCategoryMEP {
@@ -84,17 +84,12 @@ class ArticleURLListViewController: ArticleCollectionViewController, WMFNavigati
         navigationController?.popViewController(animated: true)
     }
 
-    override func readMoreArticlePreviewActionSelected(with articleController: ArticleViewController) {
-        articleController.wmf_removePeekableChildViewControllers()
-        push(articleController, animated: true)
+    override func readMoreArticlePreviewActionSelected(with peekController: ArticlePeekPreviewViewController) {
+        
+        guard let navVC = navigationController else { return }
+        let coordinator = ArticleCoordinator(navigationController: navVC, articleURL: peekController.articleURL, dataStore: dataStore, theme: theme, source: .undefined)
+        coordinator.start()
     }
-
-    // MARK: - CollectionViewContextMenuShowing
-    override func previewingViewController(for indexPath: IndexPath, at location: CGPoint) -> UIViewController? {
-        let vc = super.previewingViewController(for: indexPath, at: location)
-        return vc
-    }
-
 }
 
 // MARK: - UICollectionViewDataSource

@@ -10,6 +10,7 @@
 // Author: DeRudySoulStorm
 // Author: Debeet
 // Author: Devwebtel
+// Author: Gucio10
 // Author: InternerowyGołąb
 // Author: Jacenty359
 // Author: JoeWalshWMF
@@ -38,35 +39,6 @@
 // Author: Wiochman
 // Author: Woytecr
 
-"aaald-added-text-description-2" = "Dodano $1";
-"aaald-article-description-updated-description" = "Zaktualizowano opis artykułu";
-"aaald-article-insert-header" = "Istotne aktualizacje";
-"aaald-article-insert-last-updated" = "Ostatnia aktualizacja";
-"aaald-article-insert-new-changes" = "Nowe zmiany";
-"aaald-article-insert-read-more" = "Przeczytaj więcej zaktualizowanych";
-"aaald-characters-text-description" = "{{PLURAL:$1|symbol|symbole|symboli}}";
-"aaald-deleted-text-description-2" = "Usunięto $1";
-"aaald-error-subitle" = "Odśwież, aby spróbować ponownie";
-"aaald-error-title" = "Nie można wczytać wbudowanej historii artykułów";
-"aaald-many-sections-description" = "w $1 sekcjach";
-"aaald-multiple-changes-description" = "Wykonano wiele zmian";
-"aaald-multiple-references-added-description" = "Podano wiele przypisów";
-"aaald-new-book-reference-title" = "Książka";
-"aaald-new-discussion" = "Nowa dyskusja";
-"aaald-new-journal-reference-database" = "przez $1";
-"aaald-new-journal-reference-title" = "Czasopismo";
-"aaald-new-journal-reference-volume" = "Wolumen $1:";
-"aaald-new-news-reference-retrieved-date" = "Pobrano $1";
-"aaald-new-news-reference-title" = "Aktualności";
-"aaald-new-talk-topic-description-format" = "O tym artykule $1";
-"aaald-new-website-reference-archive-url-text" = "Adres URL Archive.org";
-"aaald-new-website-reference-title" = "Strona internetowa";
-"aaald-one-section-description" = "w sekcji „$1”";
-"aaald-revision-by-anonymous" = "Edycja przez anonimowego użytkownika";
-"aaald-revision-userInfo" = "Edycja przez $1 (edycji: $2)";
-"aaald-single-reference-added-description" = "Dodano odniesienie";
-"aaald-vandalism-revert-description" = "Wycofano domniemany wandalizm";
-"aaald-view-full-history-button" = "Zobacz pełną historię artykułu";
 "about-content-license" = "Licencja";
 "about-content-license-details" = "O ile nie zaznaczono inaczej, treść jest dostępna na licencji $1.";
 "about-content-license-details-share-alike-license" = "Licencja Creative Commons Uznanie autorstwa-Na tych samych warunkach";
@@ -135,9 +107,6 @@
 "action-unsaved-accessibility-notification" = "Artykuł niezapisany";
 "action-update" = "Aktualizuj";
 "add-articles-to-reading-list" = "Dodaj {{PLURAL:$1|$1 artykuł|$1 artykuły}} do listy do przeczytania";
-"alt-text-add-button-title" = "Dodaj";
-"alt-text-do-not-add-button-title" = "Nie dodawaj";
-"alt-text-feedback-alert-subtitle-flow-C" = "Czy chciałbyś otrzymywać podobne powiadomienia o sugerowanych zmianach w artykułach po ich edycji?";
 "announcements-dismiss" = "Odrzuć";
 "app-store-keywords" = "Wikipedia, referencje, wiki, encyklopedia, informacje, wiedza, badania, informacje, eksploracja, nauka";
 "app-store-release-notes" = "W pełni konfigurowalny i łatwiejszy do odczytania kanał Eksploruj. Lokalizacja, ulepszenia wydajności i poprawki błędów.";
@@ -169,7 +138,6 @@
 "button-next" = "Następny";
 "button-ok" = "OK";
 "button-publish" = "Opublikuj";
-"button-read-now" = "Czytaj teraz";
 "button-report-a-bug" = "Zgłoś błąd";
 "button-save-for-later" = "Zapisz na później";
 "button-saved-for-later" = "Zapisane na później";
@@ -193,8 +161,8 @@
 "description-edit-for-article" = "Opis artykułu dla $1";
 "description-edit-length-warning" = "$1 / $2";
 "description-edit-license" = "Zmieniając opis artykułu, wyrażam zgodę na $1 i nieodwołalnie wydawać będę swoje wkłady na podstawie licencji $2.";
-"description-edit-pencil-introduction" = "Edytuj wprowadzenie";
-"description-edit-pencil-title" = "Edytuj opis artykułu";
+"description-edit-pencil-introduction" = "Edytuj wprowadzenie artykułu";
+"description-edit-pencil-title" = "Edytuj krótki opis artykułu";
 "description-edit-placeholder-title" = "Najlepsze są krótkie opisy";
 "description-edit-publish" = "Opublikuj opis";
 "description-edit-title" = "Edytuj opis";
@@ -571,7 +539,6 @@
 "notifications-center-go-to-article" = "Artykuł";
 "notifications-center-go-to-article-talk-format" = "Strona dyskusji $1";
 "notifications-center-go-to-diff" = "Różnica";
-"notifications-center-go-to-talk-page" = "Strona dyskusji";
 "notifications-center-go-to-user-page" = "Strona użytkownika $1";
 "notifications-center-go-to-wikidata-item" = "Element Wikidanych";
 "notifications-center-go-to-your-talk-page" = "Twoja strona dyskusji";
@@ -636,7 +603,7 @@
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 z $2 Wikipedii";
 "on-this-day-title" = "W tym dniu...";
 "original-tab-button-popover-description" = "Stuknij w 'W' żeby powrócić to początkowej karty";
-"page-history-anonymous-edits" = "anonimowe edycje";
+// Fuzzy
 "page-history-bot-edits" = "edycje bota";
 "page-history-compare-accessibility-hint" = "Stuknij, aby wybrać dwie wersje do porównania";
 "page-history-compare-title" = "Porównaj";
@@ -648,7 +615,6 @@
 "page-history-revision-size-diff-subtraction" = "Usunięto {{PLURAL:$1|1 bajt|$1 bajty|$1 bajtów}}";
 "page-history-revisions-comparison-warning" = "Wybrane moga być tylko dwie wersje";
 "page-history-stats-text" = "{{PLURAL:$1|$1 edycja|$1 edycji}} od $2";
-"page-history-user-edits" = "edycje użytkownika";
 "page-location" = "Zobacz na mapie";
 "page-protected-can-not-edit" = "Nie masz uprawnień do edytowania tej strony";
 "page-protected-can-not-edit-title" = "Ta strona jest zabezpieczona";
@@ -692,7 +658,6 @@
 "potd-widget-description" = "Ciesz się pięknym codziennym zdjęciem wybranym przez naszą społeczność.";
 "potd-widget-title" = "Grafika dnia";
 "preference-summary-eventlogging-opt-in" = "Pozwól Fundacji Wikimedia zbierać informacje o tym, jak korzystasz z aplikacji, aby ją ulepszać";
-"profile-page-title-logged-out" = "Konto";
 "profile-year-in-review-login-subtitle" = "Zaloguj się lub utwórz konto, aby ponownie zobaczyć Podsumowanie roku i uzyskać dostęp do bardziej spersonalizowanych informacji.";
 "profile-year-in-review-login-title" = "Zaloguj się, aby uzyskać dostęp do Podsumowania roku";
 "project-name-mediawiki" = "MediaWiki";

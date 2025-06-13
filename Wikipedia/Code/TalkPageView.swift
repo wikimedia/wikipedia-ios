@@ -55,7 +55,7 @@ final class TalkPageView: SetupView {
     }()
     
     lazy var toolbar: UIToolbar = {
-        let tb = UIToolbar()
+        let tb = UIToolbar(frame: CGRect(origin: .zero, size: CGSize(width: bounds.width, height: 44)))
         tb.translatesAutoresizingMaskIntoConstraints = false
         return tb
     }()

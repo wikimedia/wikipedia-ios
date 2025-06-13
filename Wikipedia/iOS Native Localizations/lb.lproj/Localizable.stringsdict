@@ -2,10 +2,10 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>aaald-characters-text-description</key>
+	<key>activity-tab-you-edited</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>Dir hutt dës Woch %#@v1@ gemaach.</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -13,17 +13,15 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Zeechen</string>
+			<string>%1$d Ännerung</string>
 			<key>other</key>
-			<string>Zeechen</string>
-			<key>zero</key>
-			<string>Zeechen</string>
+			<string>%1$d Ännerunge</string>
 		</dict>
 	</dict>
-	<key>aaald-numerical-multiple-references-added-description</key>
+	<key>activity-tab-you-read</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@ derbäigesat</string>
+		<string>Dir hutt dës Woch %#@v1@ gelies.</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -31,17 +29,15 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>%1$d Referenz</string>
+			<string>%1$d Artikel</string>
 			<key>other</key>
-			<string>%1$d Referenzen</string>
-			<key>zero</key>
-			<string>0 Referenzen</string>
+			<string>%1$d Artikele</string>
 		</dict>
 	</dict>
-	<key>aaald-small-change-description</key>
+	<key>activity-tab-you-saved</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>Dir hutt dës Woch %#@v1@ gespäichert.</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -49,11 +45,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>%1$d kleng Ännerung gemaach</string>
+			<string>%1$d Artikel</string>
 			<key>other</key>
-			<string>%1$d kleng Ännerunge gemaach</string>
-			<key>zero</key>
-			<string>Keng kleng Ännerung gemaach</string>
+			<string>%1$d Artikele</string>
 		</dict>
 	</dict>
 	<key>add-articles-to-reading-list</key>
@@ -164,6 +158,22 @@
 			<string>%1$d Byte ewechgeholl</string>
 		</dict>
 	</dict>
+	<key>diff-unedited-lines-format</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d Zeil net geännert</string>
+			<key>other</key>
+			<string>%1$d Zeilen net geännert</string>
+		</dict>
+	</dict>
 	<key>move-articles-to-reading-list</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -194,6 +204,22 @@
 			<string>%1$d Filter</string>
 			<key>other</key>
 			<string>%1$d Filteren</string>
+		</dict>
+	</dict>
+	<key>notifications-center-mark-all-as-read-confirmation-format</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Sidd Dir sécher, datt Dir %#@v1@ vun Ären Notifikatiounen als gelies markéiere wëllt? Är Notifikatioune ginn op all Ären Apparater als gelies markéiert.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>deen ee Message</string>
+			<key>other</key>
+			<string>all %1$d Messagë</string>
 		</dict>
 	</dict>
 	<key>notifications-center-num-selected-messages-format</key>

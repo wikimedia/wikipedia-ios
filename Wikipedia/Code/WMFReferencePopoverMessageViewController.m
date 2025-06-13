@@ -48,6 +48,7 @@ NSString *const WMFReferenceLinkTappedNotification = @"WMFReferenceLinkTappedNot
     [self applyTheme:self.theme];
 
     self.closeButton.accessibilityLabel = [WMFCommonStrings closeButtonAccessibilityLabel];
+    [self.closeButton setTitle:WMFCommonStrings.doneTitle forState:UIControlStateNormal];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -142,7 +143,7 @@ NSString *const WMFReferenceLinkTappedNotification = @"WMFReferenceLinkTappedNot
 
     self.horizontalSeparatorHeightConstraint.constant = 1.f / [UIScreen mainScreen].scale;
 
-    self.closeButton.tintColor = theme.colors.border;
+    self.closeButton.tintColor = theme.colors.link;
 
     self.titleLabel.textColor = theme.colors.secondaryText;
 

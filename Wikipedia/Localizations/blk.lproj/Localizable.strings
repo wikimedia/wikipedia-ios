@@ -4,17 +4,6 @@
 // Author: လွိုင်ႏအာထင်ႏထိုထဲင်း
 // Author: 咽頭べさ
 
-"aaald-added-text-description-2" = "$1 ထဲမ်သော့ꩻခါꩻလဲဉ်း";
-"aaald-article-description-updated-description" = "ဒင်ႏထိုထွူလဲဉ်း ရောမ်ဖြုဲင်ꩻအွောန်ႏနယ်ချက်ခရာႏ";
-"aaald-article-insert-last-updated" = "အဆုဲင်ꩻသွတ်ꩻ ဒင်ႏထိုခါꩻလဲဉ်း";
-"aaald-article-insert-new-changes" = "ပြောင်ꩻလုဲင်ႏမုꩻတသာ";
-"aaald-article-insert-read-more" = "ဟော်ꩻထွားထဲင်းဒင်ႏထိုမုꩻဖိုင်ႏ";
-"aaald-deleted-text-description-2" = "$1 ယားကုဲင်ထွူလဲဉ်း";
-"aaald-new-book-reference-title" = "လိတ်ဖွူꩻ";
-"aaald-new-discussion" = "အိုင်ကိုမ်မုꩻတသာ";
-"aaald-new-journal-reference-title" = "စျာနယ်";
-"aaald-new-news-reference-title" = "သꩻတင်ꩻ";
-"aaald-new-website-reference-title" = "ဝဲက်သုဲက်";
 "about-content-license" = "အကျောင်ꩻခရာႏလုဲင်သိဉ်";
 "about-contributors" = "ခွုမ်မာꩻသားဖုံႏ";
 "about-libraries" = "ကထွားခါꩻဖို ထွားလိတ်ခင်ႏလမ်းဖုံႏ";
@@ -85,7 +74,6 @@
 "button-next" = "လွေꩻငါ";
 "button-ok" = "မွေးသွူ";
 "button-publish" = "ဒင်ႏထင်ႏ";
-"button-read-now" = "ဟော်ꩻထွားယိုခါ";
 "button-skip" = "ကာႏထိုꩻ";
 "cancel" = "မာꩻတဝ်းဒွုမ်";
 "clear-title-accessibility-label" = "သျင်ꩻထိုꩻ";
@@ -306,8 +294,6 @@
 "notifications-center-feed-news-notification-button-text" = "ဗွောင် ဖေႏသေချက်ဖိုင်ႏ";
 "notifications-center-filters-read-status-item-title-all" = "ကားကအဝ်ႏ";
 // Fuzzy
-"notifications-center-go-to-talk-page" = "လွေꩻအိုင်ကိုမ်ဒေါ့ꩻရီလိတ်မဲ့ငါထျꩻ";
-// Fuzzy
 "notifications-center-go-to-user-page" = "လွေꩻ $1 ကေားသုင်ꩻသားလိတ်မဲ့ငါထျꩻ";
 // Fuzzy
 "notifications-center-go-to-your-talk-page" = "လွေꩻ နာꩻအိုင်ကိုမ်ဒေါ့ꩻရီလိတ်မဲ့ငါထျꩻ";
@@ -332,7 +318,7 @@
 "number-millions" = "$1 မီလီယံ";
 "number-thousands" = "$1ရေင်";
 "on-this-day-title" = "ဟန်ႏနီꩻတာႏ";
-"page-history-anonymous-edits" = "သေတဝ်းအမိဉ်ꩻ မွဉ်းဖျင်မုꩻဖိုင်ႏ";
+// Fuzzy
 "page-history-bot-edits" = "ဗော့ မွဉ်းဖျင်မုꩻဖိုင်ႏ";
 "page-history-compare-title" = "တဲက်ထွား";
 "page-history-minor-edits" = "အရေꩻတန်တဝ်း မွဉ်းဖျင်မုꩻဖိုင်ႏ";
@@ -342,7 +328,6 @@
 "page-history-revision-minor-edit-accessibility-label" = "အရေꩻတန်တဝ်း မွဉ်းဖျင်မုꩻ";
 "page-history-revision-size-diff-addition" = "ထဲမ်သော့ꩻလဲဉ်း {{PLURAL:$1|$1 ဗုဲက်|$1 ဗုဲက်}}";
 "page-history-revision-size-diff-subtraction" = "ဖုဲင်းထိုꩻလဲဉ်း {{PLURAL:$1|$1 ဗုဲက်|$1 ဗုဲက်}}";
-"page-history-user-edits" = "ကေားသုင်ꩻသား မွဉ်းဖျင်မုꩻဖိုင်ႏ";
 "page-issues" = "လိတ်မဲ့ငါ ခရာႏဖုံႏ";
 "page-location" = "ထွားဟံႏပုင်ႏကို";
 "page-protected-can-not-edit-title" = "လိတ်မဲ့ငါယိုဗာႏနဝ်ꩻ အဝ်ႏရဲးကမ်းသေꩻခါꩻဩ";

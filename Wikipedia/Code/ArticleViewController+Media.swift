@@ -66,28 +66,8 @@ extension ArticleViewController {
     }
     
     func showImage(in mediaList: MediaList, item: MediaListItem?) {
-        
-        if altTextExperimentViewModel != nil {
-            dismiss(animated: true) { [weak self] in
-                guard let self else {
-                    return
-                }
-                
-                let gallery = getGalleryViewController(for: item, in: mediaList)
-                self.wasPresentingGalleryWhileInAltTextMode = true
-                self.present(gallery, animated: true)
-                
-                guard let siteURL = self.articleURL.wmf_site,
-                      let project = WikimediaProject(siteURL: siteURL) else {
-                    return
-                }
-                
-                EditInteractionFunnel.shared.logAltTextInputDidTapImage(project: project)
-            }
-        } else {
-            let gallery = getGalleryViewController(for: item, in: mediaList)
-            present(gallery, animated: true)
-        }
+        let gallery = getGalleryViewController(for: item, in: mediaList)
+        present(gallery, animated: true)
     }
 
     func fetchAndDisplayGalleryViewController() {
@@ -127,16 +107,10 @@ extension ArticleViewController {
 
 extension ArticleViewController: WMFImageGalleryViewControllerDismissDelegate {
     func galleryDidDismiss(_ gallery: WMFImageGalleryViewController) {
-        if altTextExperimentViewModel != nil && wasPresentingGalleryWhileInAltTextMode {
-            // Need to present half sheet modal again
-            presentAltTextModalSheet()
-            wasPresentingGalleryWhileInAltTextMode = false
-        }
+
     }
     
     func galleryDidTapInfoButton(_ gallery: WMFImageGalleryViewController) {
-        if altTextExperimentViewModel != nil {
-            didTapAltTextGalleryInfoButton = true
-        }
+
     }
 }

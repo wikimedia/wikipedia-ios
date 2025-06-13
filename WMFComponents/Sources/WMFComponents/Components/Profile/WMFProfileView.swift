@@ -59,19 +59,17 @@ public struct WMFProfileView: View {
         }) {
             HStack {
                 if let image = item.image {
-                    if let uiImage = WMFSFSymbolIcon.for(symbol: image, compatibleWith: UITraitCollection(preferredContentSizeCategory: .large)) {
-                        Image(uiImage: uiImage)
-                            .frame(width: 16, height: 16)
-                            .foregroundStyle(Color(uiColor: theme.chromeBackground))
-                            .background(
-                                RoundedRectangle(cornerRadius: 6)
-                                    .fill(Color(uiColor: item.imageColor ?? theme.border))
-                                    .frame(width: 32, height: 32)
-                                    .padding(0)
-                            )
-                            .padding(.trailing, 16)
-                            .padding(.leading, 8)
-                    }
+                    Image(uiImage: image)
+                        .frame(width: 16, height: 16)
+                        .foregroundStyle(Color(uiColor: theme.chromeBackground))
+                        .background(
+                            RoundedRectangle(cornerRadius: 6)
+                                .fill(Color(uiColor: item.imageColor ?? theme.border))
+                                .frame(width: 32, height: 32)
+                                .padding(0)
+                        )
+                        .padding(.trailing, 16)
+                        .padding(.leading, 8)
                 }
                 
                 Text(item.text)

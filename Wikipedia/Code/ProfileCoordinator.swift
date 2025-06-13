@@ -54,18 +54,29 @@ final class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegat
     
     // MARK: Coordinator Protocol Methods
     
-    @objc func start() {
+    @discardableResult
+    @objc func start() -> Bool {
         let username = dataStore.authenticationManager.authStatePermanentUsername
+        let tempAccountUsername = dataStore.authenticationManager.authStateTemporaryUsername
         let isLoggedIn = dataStore.authenticationManager.authStateIsPermanent
+        let isTemporaryAccount = dataStore.authenticationManager.authStateIsTemporary
         
-        let pageTitle = WMFLocalizedString("profile-page-title-logged-out", value: "Account", comment: "Page title for non-logged in users")
+        var finalPageTitle: String {
+            if isLoggedIn {
+                return username ?? CommonStrings.account
+            } else if isTemporaryAccount {
+                return CommonStrings.tempAccount
+            } else {
+                return CommonStrings.account
+            }
+        }
         let localizedStrings =
         WMFProfileViewModel.LocalizedStrings(
-            pageTitle: (isLoggedIn ? username : pageTitle) ?? pageTitle,
+            pageTitle: finalPageTitle,
             doneButtonTitle: CommonStrings.doneTitle,
             notificationsTitle: CommonStrings.notificationsCenterTitle,
-            userPageTitle: CommonStrings.userButtonPage,
-            talkPageTitle: WMFLocalizedString("account-talk-page-title", value: "Talk page", comment: "Link to talk page"),
+            userPageTitle: (isTemporaryAccount ? tempAccountUsername : CommonStrings.userButtonPage) ?? CommonStrings.userButtonPage,
+            talkPageTitle: CommonStrings.talkPage,
             watchlistTitle: CommonStrings.watchlist,
             logOutTitle: CommonStrings.logoutTitle,
             donateTitle: CommonStrings.donateTitle,
@@ -85,9 +96,12 @@ final class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegat
            let countryCode = Locale.current.region?.identifier {
             yearInReviewDependencies = WMFProfileViewModel.YearInReviewDependencies(dataController: yearInReviewDataController, countryCode: countryCode, primaryAppLanguageProject: primaryAppLanguageProject)
         }
-        
+
+        let primaryWikiHasTempAccountsOn = WMFTempAccountDataController.shared.primaryWikiHasTempAccountsEnabled
+
         let viewModel = WMFProfileViewModel(
             isLoggedIn: isLoggedIn,
+            isTemporaryAccount: dataStore.authenticationManager.authStateIsTemporary && primaryWikiHasTempAccountsOn,
             localizedStrings: localizedStrings,
             inboxCount: Int(truncating: inboxCount ?? 0),
             coordinatorDelegate: self,
@@ -103,6 +117,8 @@ final class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegat
         let profileNavVC = WMFComponentNavigationController(rootViewController: hostingController, modalPresentationStyle: .pageSheet)
         
         navigationController.present(profileNavVC, animated: true, completion: nil)
+        
+        return true
     }
     
     // MARK: - ProfileCoordinatorDelegate Methods
@@ -152,6 +168,14 @@ final class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegat
             }
         case .logYearInReviewTap:
             self.logYearInReviewTap()
+        case .showUserPageTempAccount:
+            dismissProfile {
+                self.showUserPageTempAccount()
+            }
+        case .showUserTalkPageTempAccount:
+            dismissProfile {
+                self.showUserTalkPageTempAccount()
+            }
         }
     }
     
@@ -241,8 +265,24 @@ final class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegat
         }
     }
     
+    private func showUserPageTempAccount() {
+        let username = dataStore.authenticationManager.authStateTemporaryUsername
+        if let siteURL = dataStore.primarySiteURL, let username {
+            let userPageCoordinator = UserPageCoordinator(navigationController: navigationController, theme: theme, username: username, siteURL: siteURL)
+            userPageCoordinator.start()
+        }
+    }
+    
     private func showUserTalkPage() {
         let username = dataStore.authenticationManager.authStatePermanentUsername
+        if let siteURL = dataStore.primarySiteURL, let username {
+            let userTalkCoordinator = UserTalkCoordinator(navigationController: navigationController, theme: theme, username: username, siteURL: siteURL, dataStore: dataStore)
+            userTalkCoordinator.start()
+        }
+    }
+    
+    private func showUserTalkPageTempAccount() {
+        let username = dataStore.authenticationManager.authStateTemporaryUsername
         if let siteURL = dataStore.primarySiteURL, let username {
             let userTalkCoordinator = UserTalkCoordinator(navigationController: navigationController, theme: theme, username: username, siteURL: siteURL, dataStore: dataStore)
             userTalkCoordinator.start()

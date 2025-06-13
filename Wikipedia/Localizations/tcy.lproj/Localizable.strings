@@ -34,8 +34,6 @@
 "action-share" = "ಪಟ್ಟ್‍ಲೆ";
 "action-undo" = "ದುಂಬುದಲೆಕೊ";
 "action-unsave" = "ಒರಿಪಾತುಜ್ಜಿ";
-"alt-text-experiment-character-counter-warning" = "ಆಲ್ಟ್ ವಾಕ್ಯೊ ಆಯಿನಾತ್ ಕಿನ್ಯ ಇಪ್ಪಡ್, ಅಪಗ ಬಳಕೆದಾರೆರ್ ಪಟತ್ತ ಮಾಹಿತಿ ತೆರಿಯರ ಸುಲಬ ಆಪುಂಡು.";
-"alt-text-experiment-guidance-button" = "ಆಲ್ಟ್ ವಾಕ್ಯೊ ಬರೆವರ ನಿಯಮೊಲು";
 "announcements-dismiss" = "ದೆತ್ತ್ ಪಾಡ್ಲೆ";
 "article-delete" = "ಮಾಜಾಲೆ";
 "article-languages-filter-placeholder" = "ಬಾಸೆನ್ ನಾಡ್ಲೇ";
@@ -48,7 +46,6 @@
 "button-next" = "ನನತಾ";
 "button-ok" = "ಸರಿ";
 "button-publish" = "ಪ್ರಕಟ ಮಾನ್ಪುಲೆ";
-"button-read-now" = "ಇತ್ತೇ ಓದುಲೆ";
 "button-report-a-bug" = "ತೊಂದರೆನ್ ತೆರಿಪಾಲೆ";
 "button-save-for-later" = "ಬುಕ್ಕ ಒರಿಪಾಲೆ";
 "button-saved-for-later" = "ಬುಕ್ಕ ಒರಿಪಾಪುಂಡು";
@@ -158,7 +155,6 @@
 "profile-page-join-subtext" = "ನಿಕ್ಲೆನ ಕೊಡುಗೆಲೆನ್ ಟ್ರ್ಯಾಕ್ ಮಲ್ಪರೆ, ಲೇಖನೊಲೆನ್ ಆಫ್ಲೈನ್ ಡ್ ಉಳಾಯೆರೆ ಬೊಕ್ಕ ಸಾಧನೊಲೆಡ್ ಸಿಂಕ್ ಮಲ್ಪರೆ ಒಂಜಿ ವಿಕಿಪೀಡಿಯ ಖಾತೆಗ್ ಸೈನ್ ಅಪ್ ಮಲ್ಪುಲೆ.";
 // Fuzzy
 "profile-page-join-title" = "ವಿಕಿಪೀಡಿಯೊಗು ಸೇರ್ಲೆ / ಲಾಗ್ ಇನ್ ಮಲ್ಪುಲೆ";
-"profile-page-title-logged-out" = "ಕಾತೆ";
 "saved-title" = "ಒರಿಪಾಂಡ್";
 "search-did-you-mean" = "ಉಂದು ಪಂಡ $1?";
 "search-field-placeholder-text" = "ವಿಕಿಪೀಡಿಯಟ್ ನಾಡ್ಲೇ";

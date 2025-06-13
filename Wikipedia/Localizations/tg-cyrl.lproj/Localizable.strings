@@ -4,6 +4,7 @@
 // Author: Nemo bis
 // Author: ToJack
 // Author: Vashgird
+// Author: ZulfiqorF
 
 // Fuzzy
 "about-contributors" = "саҳмгузорон";
@@ -26,6 +27,7 @@
 "action-next-revision-accessibility" = "Нусхаи баъдӣ";
 "action-previous-revision-accessibility" = "Нусхаи қаблӣ";
 "action-thank-user-accessibility" = "Ташаккур кардани корбар";
+"activity-tab-logged-out-title" = "Барои дидани виришҳо ва хониши бештар ворид шавед ё ҳисоб эҷод кунед.";
 "article-delete" = "Ҳазф кардан";
 // Fuzzy
 "article-languages-filter-placeholder" = "Филтри Забон";
@@ -85,8 +87,7 @@
 "nearby-distance-label-km" = "$1 км";
 "nearby-distance-label-meters" = "$1 м";
 "nearby-distance-label-miles" = "$1 мил";
-"page-history-anonymous-edits" = "вироишоти гумномҳо";
-"page-history-bot-edits" = "вироишоти ботҳо";
+"page-history-bot-edits" = "вироишоти роботҳо";
 "page-history-minor-edits" = "вироишҳои хурд";
 "page-history-revision-author-accessibility-label" = "Муаллиф: $1";
 "page-history-revision-history-title" = "Таърихи вироишҳо";
@@ -94,7 +95,7 @@
 "page-history-revision-size-diff-addition" = "{{PLURAL:$1|$1 байт|$1 байт}} илова шуд";
 "page-history-revision-size-diff-subtraction" = "{{PLURAL:$1|$1 байт|$1 байт}} тоза шуд";
 "page-history-stats-text" = "{{PLURAL:$1|$1 вироиш|$1 вироишот}} аз $2";
-"page-history-user-edits" = "вироишоти корбар";
+"page-history-unregistered-edits" = "Сабтиномнашуда";
 "places-search-default-text" = "Ҷои ҷустуҷӯ";
 "relative-date-hours-abbreviated" = "$1 соат";
 "relative-date-hours-ago-abbreviated" = "$1 соат пеш";
@@ -109,6 +110,7 @@
 "settings-title" = "Танзимот";
 "table-of-contents-heading" = "Мундариҷа";
 "talk-page-discussion-read-accessibility-label" = "Хондан";
+"temp-account-edit-sheet-subtitle" = "$2Шумо дар айни замон ҳисоби муваққатиро истифода мебаред.$3 Вироишоте, ки бо ҳисоби муваққатии $1 анҷом дода мешаванд, ҳангоми ворид шудан ба ҳисоби доимии шумо интиқол дода намешаванд. Ворид шавед ё бо номи корбарии худ барои бартариҳои бештар ҳисоб эҷод кунед.";
 "unknown-generic-text" = "Номаълум";
 "wikitext-preview-changes" = "Фарохонии пешнамоиши тағийроти шумо...";
 // Fuzzy

@@ -23,16 +23,18 @@ final class SettingsCoordinator: Coordinator {
 
     // MARK: Coordinator Protocol Methods
 
-    func start() {
+    @discardableResult
+    func start() -> Bool {
         
         // If navigation controller already has WMFSettingsViewController as it's root view controller, no need to navigate anywhere
         if navigationController.viewControllers.count == 1,
            (navigationController.viewControllers.first as? WMFSettingsViewController) != nil {
-            return
+            return true
         }
         
         let settingsViewController = WMFSettingsViewController(dataStore: dataStore, theme: theme)
         let navVC = WMFComponentNavigationController(rootViewController: settingsViewController, modalPresentationStyle: .overFullScreen)
         navigationController.present(navVC, animated: true)
+        return true
     }
 }

@@ -2,10 +2,40 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>aaald-characters-text-description</key>
+	<key>activity-tab-you-edited</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>caractère%#@v1@</string>
+		<string>Vous avez édité %#@v1@ cette semaine.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>other</key>
+			<string>%1$d fois</string>
+		</dict>
+	</dict>
+	<key>activity-tab-you-read</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Vous avez lu %#@v1@ cette semaine.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d article</string>
+			<key>other</key>
+			<string>%1$d articles</string>
+		</dict>
+	</dict>
+	<key>activity-tab-you-saved</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Vous avez enregistré %1$d article%#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -16,88 +46,6 @@
 			<string></string>
 			<key>other</key>
 			<string>s</string>
-			<key>zero</key>
-			<string></string>
-		</dict>
-	</dict>
-	<key>aaald-numerical-multiple-references-added-description</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
-		<key>v1</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
-			<key>one</key>
-			<string>%1$d référence ajoutée</string>
-			<key>other</key>
-			<string>%1$d références ajoutées</string>
-			<key>zero</key>
-			<string>Aucune référence ajoutée</string>
-		</dict>
-	</dict>
-	<key>aaald-small-change-description</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
-		<key>v1</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
-			<key>one</key>
-			<string>%1$d changement mineur réalisé</string>
-			<key>other</key>
-			<string>%1$d changements mineurs réalisés</string>
-			<key>zero</key>
-			<string>Aucun changement mineur réalisé</string>
-		</dict>
-	</dict>
-	<key>aaald-summary-title</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@ par %#@v2@ depuis %#@v3@</string>
-		<key>v1</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
-			<key>one</key>
-			<string>%1$d changement</string>
-			<key>other</key>
-			<string>%1$d changements</string>
-			<key>zero</key>
-			<string>aucun changement</string>
-		</dict>
-		<key>v2</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
-			<key>one</key>
-			<string>%2$d rédacteur</string>
-			<key>other</key>
-			<string>%2$d rédacteurs</string>
-			<key>zero</key>
-			<string>aucun rédacteur</string>
-		</dict>
-		<key>v3</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
-			<key>one</key>
-			<string>%3$d jour</string>
-			<key>other</key>
-			<string>%3$d jours</string>
-			<key>zero</key>
-			<string>aujourd’hui</string>
 		</dict>
 	</dict>
 	<key>add-articles-to-reading-list</key>
@@ -821,6 +769,22 @@
 			<string>s</string>
 		</dict>
 	</dict>
+	<key>tabs-navbar-title-format</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d onglet</string>
+			<key>other</key>
+			<string>%1$d onglets</string>
+		</dict>
+	</dict>
 	<key>talk-page-active-users-accessibilty-label</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -936,7 +900,7 @@
 	<key>year-in-review-personalized-reading-title-format</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Vous avez lu cette année %1$d article%#@v1@</string>
+		<string>Vous avez lu %#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -944,9 +908,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string></string>
+			<string> %1$d article</string>
 			<key>other</key>
-			<string>s</string>
+			<string> %1$d articles</string>
 		</dict>
 	</dict>
 	<key>year-in-review-personalized-saved-subtitle-format</key>

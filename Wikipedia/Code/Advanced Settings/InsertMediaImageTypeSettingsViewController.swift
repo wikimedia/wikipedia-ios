@@ -54,7 +54,7 @@ final class InsertMediaImageTypeSettingsViewController: ThemeableViewController,
     private func configureNavigationBar() {
         let titleConfig = WMFNavigationBarTitleConfig(title:  ImageType.displayTitle, customView: nil, alignment: .centerCompact)
         
-        configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: nil, profileButtonConfig: nil, searchBarConfig: nil, hideNavigationBarOnScroll: false)
+        configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: nil, profileButtonConfig: nil, tabsButtonConfig: nil, searchBarConfig: nil, hideNavigationBarOnScroll: false)
     }
 
     private var autolayoutTableViewFooter: UIView? {
