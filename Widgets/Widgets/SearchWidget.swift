@@ -14,7 +14,7 @@ struct SearchWidget: Widget {
         })
         .configurationDisplayName(SearchWidget.LocalizedStrings.widgetTitle)
         .description(SearchWidget.LocalizedStrings.widgetDescription)
-        .supportedFamilies([.systemSmall])
+        .supportedFamilies([.systemSmall, .accessoryCircular, .accessoryRectangular, .accessoryInline])
         .contentMarginsDisabled()
         .containerBackgroundRemovable(false)
     }
@@ -82,7 +82,24 @@ struct SearchWidgetView: View {
     }
     
     var body: some View {
-        
+        switch widgetFamily {
+        case .accessoryCircular:
+            accessoryCircularView
+        case .accessoryRectangular:
+            accessoryRectangularView
+        case .accessoryInline:
+            accessoryInlineView
+        case .systemSmall:
+            systemSmallView
+        default:
+            systemSmallView
+        }
+    }
+    
+    // MARK: - Widget Family Views
+    
+    @ViewBuilder
+    private var systemSmallView: some View {
         if #available(iOS 17, *) {
             
             VStack(spacing: 12) {
@@ -137,7 +154,47 @@ struct SearchWidgetView: View {
             .widgetURL(entry.url)
             .background(Color(theme.colors.paperBackground))
         }
-        
+    }
+    
+    @ViewBuilder
+    private var accessoryCircularView: some View {
+        ZStack {
+            
+            Image("W")
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+                .frame(width: 28, height: 28)
+                
+        }
+        .widgetURL(entry.url)
+    }
+    
+    @ViewBuilder
+    private var accessoryRectangularView: some View {
+        HStack(spacing: 8) {
+            Image("W")
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+                .frame(width: 25, height: 25)
+            
+            Text(SearchWidget.LocalizedStrings.searchWikipedia)
+                .font(.system(size: 13, weight: .medium))
+                .lineLimit(1)
+
+        }
+        .widgetURL(entry.url)
+    }
+    
+    @ViewBuilder
+    private var accessoryInlineView: some View {
+        HStack(spacing: 6) {
+            Image(systemName: "magnifyingglass")
+                .font(.system(size: 11, weight: .medium))
+            
+            Text(SearchWidget.LocalizedStrings.searchWikipedia)
+                .font(.system(size: 13, weight: .medium))
+        }
+        .widgetURL(entry.url)
     }
 }
 
@@ -146,15 +203,29 @@ struct SearchWidgetView: View {
 struct SearchWidget_Previews: PreviewProvider {
     static var previews: some View {
         Group {
+            // Home Screen Widget
             SearchWidgetView(entry: SearchEntry())
                 .previewContext(WidgetPreviewContext(family: .systemSmall))
                 .environment(\.colorScheme, .light)
-                .previewDisplayName("Light Mode")
+                .previewDisplayName("Home Screen - Light")
             
             SearchWidgetView(entry: SearchEntry())
                 .previewContext(WidgetPreviewContext(family: .systemSmall))
                 .environment(\.colorScheme, .dark)
-                .previewDisplayName("Dark Mode")
+                .previewDisplayName("Home Screen - Dark")
+            
+            // Lock Screen Widgets
+            SearchWidgetView(entry: SearchEntry())
+                .previewContext(WidgetPreviewContext(family: .accessoryCircular))
+                .previewDisplayName("Lock Screen - Circular")
+            
+            SearchWidgetView(entry: SearchEntry())
+                .previewContext(WidgetPreviewContext(family: .accessoryRectangular))
+                .previewDisplayName("Lock Screen - Rectangular")
+            
+            SearchWidgetView(entry: SearchEntry())
+                .previewContext(WidgetPreviewContext(family: .accessoryInline))
+                .previewDisplayName("Lock Screen - Inline")
         }
     }
 } 
