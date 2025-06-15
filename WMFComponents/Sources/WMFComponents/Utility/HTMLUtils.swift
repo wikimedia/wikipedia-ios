@@ -649,15 +649,9 @@ public struct HtmlUtils {
     }
     
     private static func tagRemoveData(html: String) throws -> [TagRemoveData] {
-        let htmlRegex = try htmlTagRegex()
-        
-        var data: [TagRemoveData] = []
-        let matches = htmlRegex.matches(in: html, range: html.fullNSRange)
-        for match in matches {
-            data.append(TagRemoveData(range: match.range(at: 0)))
-        }
-        
-        return data
+         try htmlTagRegex().matches(in: html, range: html.fullNSRange).map {
+            TagRemoveData(range: $0.range(at: 0))
+         }
     }
     
     private static func lineBreakReplaceData(html: String) throws -> [ElementReplaceData] {
