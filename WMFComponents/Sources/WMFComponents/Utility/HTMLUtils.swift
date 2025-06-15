@@ -49,7 +49,7 @@ public struct HtmlUtils {
         let link: StyleData
         let `subscript`: StyleData
         let superscript: StyleData
-        let strikethorugh: StyleData
+        let strikethrough: StyleData
         let underline: StyleData
         let strong: StyleData
     }
@@ -178,7 +178,7 @@ public struct HtmlUtils {
         }
         
         // Style Strikethrough
-        for strikethroughRange in allStyleData.strikethorugh.completeNSRanges {
+        for strikethroughRange in allStyleData.strikethrough.completeNSRanges {
             nsAttributedString.addAttribute(.strikethroughStyle, value: NSUnderlineStyle.single.rawValue, range: strikethroughRange)
         }
         
@@ -367,7 +367,7 @@ public struct HtmlUtils {
         }
         
         // Style Strikethrough
-        for strikethroughNSRange in allStyleData.strikethorugh.completeNSRanges {
+        for strikethroughNSRange in allStyleData.strikethrough.completeNSRanges {
             if let strikethroughRange = Range(strikethroughNSRange, in: attributedString) {
                 attributedString[strikethroughRange].strikethroughStyle = .single
             }
@@ -452,7 +452,7 @@ public struct HtmlUtils {
     // MARK: - Shared - Private
     
     private static func htmlTagRegex() throws -> NSRegularExpression {
-        return try NSRegularExpression(pattern: "(?:<)([\\/a-z0-9]*)(?:\\s?)([^>]*)(?:>)")
+        try NSRegularExpression(pattern: "(?:<)([\\/a-z0-9]*)(?:\\s?)(?:([^>\"]|\"[^\"]*\")*)(?:>)")
     }
     
     private static func lineBreakRegex() throws -> NSRegularExpression {
@@ -586,7 +586,7 @@ public struct HtmlUtils {
             updateStyleData(styleData: &strongStyleData, html: html, tagNSRange: tagNSRange, tagNameNSRange: tagNameNSRange, targetTagName: "strong", targetAttributeName: nil)
         }
         
-        return AllStyleData(bold: boldStyleData, italics: italicsStyleData, link: linkStyleData, subscript: subscriptStyleData, superscript: superscriptStyleData, strikethorugh: strikethroughStyleData, underline: underlineStyleData, strong: strongStyleData)
+        return AllStyleData(bold: boldStyleData, italics: italicsStyleData, link: linkStyleData, subscript: subscriptStyleData, superscript: superscriptStyleData, strikethrough: strikethroughStyleData, underline: underlineStyleData, strong: strongStyleData)
     }
     
     private static func updateStyleData(styleData: inout StyleData, html: String, tagNSRange: NSRange, tagNameNSRange: NSRange, targetTagName: String, targetAttributeName: String?) {
@@ -649,15 +649,9 @@ public struct HtmlUtils {
     }
     
     private static func tagRemoveData(html: String) throws -> [TagRemoveData] {
-        let htmlRegex = try htmlTagRegex()
-        
-        var data: [TagRemoveData] = []
-        let matches = htmlRegex.matches(in: html, range: html.fullNSRange)
-        for match in matches {
-            data.append(TagRemoveData(range: match.range(at: 0)))
-        }
-        
-        return data
+         try htmlTagRegex().matches(in: html, range: html.fullNSRange).map {
+            TagRemoveData(range: $0.range(at: 0))
+         }
     }
     
     private static func lineBreakReplaceData(html: String) throws -> [ElementReplaceData] {
