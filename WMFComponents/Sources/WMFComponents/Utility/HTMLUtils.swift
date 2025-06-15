@@ -452,7 +452,7 @@ public struct HtmlUtils {
     // MARK: - Shared - Private
     
     private static func htmlTagRegex() throws -> NSRegularExpression {
-        return try NSRegularExpression(pattern: "(?:<)([\\/a-z0-9]*)(?:\\s?)([^>]*)(?:>)")
+        try NSRegularExpression(pattern: "(?:<)([\\/a-z0-9]*)(?:\\s?)(?:([^>\"]|\"[^\"]*\")*)(?:>)")
     }
     
     private static func lineBreakRegex() throws -> NSRegularExpression {
