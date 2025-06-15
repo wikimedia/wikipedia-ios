@@ -50,10 +50,20 @@ final class HtmlUtilsTests: XCTestCase {
             XCTAssertEqual(linkCount, 1, "Failed to detect link in: \(html)")
         }
     }
+
+    func testHtmlLinkWithComplexAttributes() throws {
+        let html = "<a typeof=\"mw:ExpandedAttrs\" about=\"#mwt3\" rel=\"mw:WikiLink\" href=\"./Mock:Contribution/Qwe57\" title=\"Mock:Contribution/Qwe57\" data-mw='{\"attribs\":[[[{\"txt\":\"href\"},{\"html\":\"Mock:Contribution/&lt;span about=\"#mwt2\" typeof=\"mw:Transclusion\" data-parsoid=&apos;{\"pi\":[[]],\"dsr\":[216,228,null,null]}&apos; data-mw=&apos;{\"parts\":[{\"template\":{\"target\":{\"wt\":\"PAGENAME\",\"function\":\"pagename\"},\"params\":{},\"i\":0}}]}&apos;>Qwe57&lt;/span>\"}]]}' id=\"mwCg\">Link</a>"
+
+        let attributed = try HtmlUtils.nsAttributedStringFromHtml(html, styles: .testStyle)
+        XCTAssertEqual(attributed.string, "Link")
+
+        let linkAttribute = attributed.attribute(.link, at: 0, effectiveRange: nil)
+        XCTAssertNotNil(linkAttribute, "The link attribute should be present.")
+    }
 }
 
 fileprivate extension HtmlUtils.Styles {
-    var testStyle: HtmlUtils.Styles {
+    static var testStyle: HtmlUtils.Styles {
         let largeTraitCollection = UITraitCollection(preferredContentSizeCategory: .large)
         return HtmlUtils.Styles(
             font: WMFFont.for(.callout, compatibleWith: largeTraitCollection),
