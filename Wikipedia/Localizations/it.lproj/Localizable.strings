@@ -801,6 +801,9 @@
 "search-recent-title" = "Cercato recentemente";
 "search-result-redirected-from" = "Reindirizzamento da: $1";
 "search-title" = "Ricerca";
+"search-widget-description" = "Accesso rapido alla ricerca su Wikipedia.";
+"search-widget-title" = "Ricerca";
+"search-widget-wikipedia-title" = "Wikipedia";
 "settings-account" = "Utenza";
 "settings-appearance" = "Preferenze di lettura";
 "settings-clear-cache" = "Cancella i dati nella cache";

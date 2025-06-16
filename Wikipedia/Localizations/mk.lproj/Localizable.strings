@@ -1107,6 +1107,9 @@
 "search-recent-title" = "Неодамна пребарано";
 "search-result-redirected-from" = "Пренасочено од: $1";
 "search-title" = "Пребарување";
+"search-widget-description" = "Брз пристап до пребарување на Википедија.";
+"search-widget-title" = "Пребарај";
+"search-widget-wikipedia-title" = "Википедија";
 "serbian-variants-alert-body" = "Прилогот на Википедија сега ги поддржува следниве српски варијанти како главен или спореден јазик во прилогот, олеснувајќи го читањето, пребарувањето и уредувањето на вашите претпочитани варијанти:\n\nсрпски ћирилица — српски на кирилица (sr-ec)\nsrpski latinica — српски на латиница (sr-el)";
 "serbian-variants-alert-title" = "Новост за поддршка на српски варијанти";
 "settings-account" = "Сметка";

@@ -16,6 +16,7 @@
 // Author: Hhaboh162002
 // Author: Hocinend1
 // Author: Ideophagous
+// Author: JorgeElias2302
 // Author: Kassem7899
 // Author: LaMagiaaa
 // Author: Macofe
@@ -1145,6 +1146,9 @@
 "search-recent-title" = "عمليات البحث الأخيرة";
 "search-result-redirected-from" = "بالتحويل من: $1";
 "search-title" = "بحث";
+"search-widget-description" = "الوصول السريع للبحث في ويكيبيديا.";
+"search-widget-title" = "يبحث";
+"search-widget-wikipedia-title" = "ويكيبيديا";
 "serbian-variants-alert-body" = "يدعم تطبيق Wikipedia الآن المتغيرات الصربية التالية كلغات أساسية أو ثانوية داخل التطبيق ، مما يسهل القراءة والبحث والتحرير في المتغيرات المفضلة لديك:! N !! N! српски ћирилица الصربية ، السيريلية (sr-ec)! ! srpski latinica الصربية، اللاتينية (sr-el)";
 "serbian-variants-alert-title" = "تحديثات لدعم النسخة الصربية";
 "settings-account" = "حساب";

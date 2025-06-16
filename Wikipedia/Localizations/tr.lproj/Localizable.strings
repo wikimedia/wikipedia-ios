@@ -1147,6 +1147,9 @@
 "search-recent-title" = "Son arananlar";
 "search-result-redirected-from" = "Şuradan yönlendirildi: $1";
 "search-title" = "Ara";
+"search-widget-description" = "Vikipedi'de arama yapmak için hızlı erişim.";
+"search-widget-title" = "Ara";
+"search-widget-wikipedia-title" = "Vikipedi";
 "serbian-variants-alert-body" = "Vikipedi uygulaması artık aşağıdaki Sırpça biçimlerini birincil veya ikincil dil olarak uygulama içinde destekliyor, bu şekilde tercih ettiğiniz biçimle daha kolay okuyabilir, aratabilir ve değişiklik yapabilirsiniz:\n\nсрпски ћирилица Sırpça, Kiril (sr-ec)\nsrpski latinica Sırpça, Latin (sr-el)";
 "serbian-variants-alert-title" = "Sırpça biçim desteği güncellemeleri";
 "settings-account" = "Hesap";
@@ -1462,6 +1465,11 @@
 "year-in-review-base-saved-title" = "$1 milyondan fazla okuma listemiz vardı";
 "year-in-review-base-viewed-title" = "Wikipedia maddelerini $1 Milyar kez görüntüledik";
 "year-in-review-button-title" = "Yılın Değerlendirmesi";
+"year-in-review-collective-edits" = "Her biri bir bilgi parçası taşıyan iki Vikipedi bulmaca parçasının çizimi.";
+"year-in-review-collective-edits-per-minute" = "İnsanların Vikipedi'yi okumaya harcadıkları zamanı simgeleyen bir saat işareti.";
+"year-in-review-collective-explore" = "Projenin yapımında dünyadaki insanların işbirlikçi çabasını simgeleyen, iskelelerle çevrili ikonik Vikipedi küresini betimleyen hareketli bir çizim. Sahne, insanlık ve küresel kültürle bağlantısını vurgulayan bir şehir manzarasıyla çevrilidir.";
+"year-in-review-collective-languages" = "Vikipedi'nin farklı kültürlerden ve bölgelerden gelen bilgileri nasıl iş birliği içinde oluşturduğunu simgeleyen, üzerinde çeşitli dilleri temsil eden yazıtların kazındığı bir taşın hareketli çizimi.";
+"year-in-review-collective-zero-ads" = "Wikimedia logosu";
 "year-in-review-day-friday" = "Cuma günleri";
 "year-in-review-day-monday" = "Pazartesi günleri";
 "year-in-review-day-saturday" = "Cumartesi günleri";
