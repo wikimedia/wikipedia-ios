@@ -303,98 +303,91 @@ import CoreData
         guard shouldPopulateYearInReviewReportData(countryCode: countryCode, primaryAppLanguageProject: primaryAppLanguageProject) else {
             return nil
         }
-        
+
         await beginDataPopulationBackgroundTask()
-        
+
         self.savedSlideDataDelegate = savedSlideDataDelegate
         self.legacyPageViewsDataDelegate = legacyPageViewsDataDelegate
-        
+
         let backgroundContext = try coreDataStore.newBackgroundContext
 
-        let result: (report: CDYearInReviewReport, needsReadingPopulation: Bool, needsEditingPopulation: Bool, needsDonatingPopulation: Bool, needsSaveCountPopulation: Bool, needsDayPopulation: Bool, needsEditViewsPopulation: Bool)? = try await backgroundContext.perform { [weak self] in
+        let yirConfig = developerSettingsDataController.loadFeatureConfig()?.ios.first?.yir(yearID: targetConfigYearID)
 
-            return try self?.getYearInReviewReportAndDataPopulationFlags(year: year, backgroundContext: backgroundContext, project: primaryAppLanguageProject, username: username, userId: userID)
-        }
-
-        guard let result else {
+        guard let yirConfig else {
             endDataPopulationBackgroundTask()
             return nil
         }
 
-        let report = result.report
-        
-        if result.needsReadingPopulation == true || result.needsDayPopulation {
-            
-            var legacyPageViews: [WMFLegacyPageView] = []
-            if let iosFeatureConfig = developerSettingsDataController.loadFeatureConfig()?.ios.first,
-               let yirConfig = iosFeatureConfig.yir(yearID: targetConfigYearID),
-               let startDate = yirConfig.dataPopulationStartDate,
-               let endDate = yirConfig.dataPopulationEndDate,
-               let legacyPageViewsDataDelegate = self.legacyPageViewsDataDelegate {
-                legacyPageViews = try await legacyPageViewsDataDelegate.getLegacyPageViews(from: startDate, to: endDate)
-            }
-            
-            try await backgroundContext.perform { [weak self] in
-                if result.needsReadingPopulation {
-                    try self?.populateReadingSlide(report: report, backgroundContext: backgroundContext, legacyPageViews: legacyPageViews)
-                }
-                
-                if result.needsDayPopulation {
-                    try self?.populateDaySlide(report: report, backgroundContext: backgroundContext, legacyPageViews: legacyPageViews)
-                }
-            }
+        var legacyPageViews: [WMFLegacyPageView] = []
+        var savedArticlesData: SavedArticleSlideData? = nil
+
+        if let start = yirConfig.dataPopulationStartDate, let end = yirConfig.dataPopulationEndDate {
+            legacyPageViews = try await legacyPageViewsDataDelegate.getLegacyPageViews(from: start, to: end)
+            savedArticlesData = await savedSlideDataDelegate.getSavedArticleSlideData(from: start, to: end)
         }
 
-        if result.needsEditingPopulation == true {
-            if let username {
-                let edits = try await fetchEditCount(username: username, project: primaryAppLanguageProject)
-                try await backgroundContext.perform { [weak self] in
-                    try self?.populateEditingSlide(edits: edits, report: report, backgroundContext: backgroundContext)
-                }
+        let userInfo = YearInReviewUserInfo(
+            username: username,
+            userID: userID,
+            project: primaryAppLanguageProject,
+            legacyPageViews: legacyPageViews,
+            savedArticlesData: savedArticlesData
+        )
+
+        let slideConfig = SlideConfig(
+            readCountIsEnabled: .init(yirConfig.personalizedSlides.readCount.isEnabled),
+            editCountIsEnabled: .init(yirConfig.personalizedSlides.editCount.isEnabled),
+            donateCountIsEnabled: .init(yirConfig.personalizedSlides.donateCount.isEnabled),
+            saveCountIsEnabled: .init(yirConfig.personalizedSlides.saveCount.isEnabled),
+            mostReadDayIsEnabled: .init(yirConfig.personalizedSlides.mostReadDay.isEnabled),
+            viewCountIsEnabled: .init(yirConfig.personalizedSlides.viewCount.isEnabled)
+        )
+
+        let featureConfig = YearInReviewFeatureConfig(
+            isEnabled: yirConfig.isEnabled,
+            slideConfig: slideConfig,
+            dataPopulationStartDate: yirConfig.dataPopulationStartDate,
+            dataPopulationEndDate: yirConfig.dataPopulationEndDate
+        )
+
+        let slideFactory = YearInReviewSlideFactory(
+            year: year,
+            config: featureConfig,
+            userInfo: userInfo,
+            fetchEditCount: { username, project in
+                try await self.fetchEditCount(username: username, project: project)
+            },
+            fetchEditViews: { project, userID, language in
+                try await self.fetchEditViews(project: project, userId: userID, language: language)
+            },
+            donationFetcher: { start, end in
+                WMFDonateDataController.shared.loadLocalDonationHistory(startDate: start, endDate: end)?.count
             }
+        )
+
+        let slideModels = slideFactory.makeSlides()
+
+        let report = try await backgroundContext.perform { () -> CDYearInReviewReport in
+            let predicate = NSPredicate(format: "year == %d", year)
+            let cdReport = try self.coreDataStore.fetchOrCreate(entityType: CDYearInReviewReport.self, predicate: predicate, in: backgroundContext)!
+            cdReport.year = Int32(year)
+
+            let cdSlides = try slideModels.map { try $0.makeCDSlide(in: backgroundContext) }
+            cdReport.slides = Set(cdSlides) as NSSet
+
+            try self.coreDataStore.saveIfNeeded(moc: backgroundContext)
+            return cdReport
         }
 
-        if result.needsDonatingPopulation == true {
-            try await backgroundContext.perform { [weak self] in
-                try self?.populateDonatingSlide(report: report, backgroundContext: backgroundContext)
-            }
-        }
-
-        if result.needsSaveCountPopulation == true {
-            if let iosFeatureConfig = developerSettingsDataController.loadFeatureConfig()?.ios.first,
-               let yirConfig = iosFeatureConfig.yir(yearID: targetConfigYearID),
-               let startDate = yirConfig.dataPopulationStartDate,
-               let endDate = yirConfig.dataPopulationEndDate {
-                let savedArticlesData = await self.savedSlideDataDelegate?.getSavedArticleSlideData(from: startDate, to: endDate)
-
-                try await backgroundContext.perform { [weak self] in
-                    guard let self = self, let savedArticlesData = savedArticlesData else { return }
-                    try self.populateSaveCountSlide(report: report, backgroundContext: backgroundContext, savedArticlesData: savedArticlesData)
-                }
-            }
-        }
-        
-        if result.needsEditViewsPopulation == true {
-            if let userID, let languageCode = primaryAppLanguageProject?.languageCode {
-                let editViews = try await fetchEditViews(
-                    project: primaryAppLanguageProject,
-                    userId: userID,
-                    language: languageCode
-                )
-                try await backgroundContext.perform { [weak self] in
-                    try self?.populateViewCountSlide(
-                        editViews: editViews,
-                        report: report,
-                        backgroundContext: backgroundContext
-                    )
-                }
-            }
-        }
-        
         endDataPopulationBackgroundTask()
 
         return await backgroundContext.perform {
-            return WMFYearInReviewReport(cdReport: report)
+            let slides: [WMFYearInReviewSlide] = (report.slides as? Set<CDYearInReviewSlide>)?.compactMap { cdSlide in
+                guard let id = self.getSlideId(cdSlide.id) else { return nil }
+                return WMFYearInReviewSlide(year: Int(cdSlide.year), id: id, evaluated: cdSlide.evaluated, data: cdSlide.data)
+            } ?? []
+
+            return WMFYearInReviewReport(year: year, slides: slides)
         }
     }
 
@@ -408,54 +401,16 @@ import CoreData
         }
 
         cdReport.year = Int32(year)
+
         if (cdReport.slides?.count ?? 0) == 0 {
             cdReport.slides = try self.initialSlides(year: year, moc: backgroundContext) as NSSet
         }
-        
-        // If needed: Populate initial saveCount slide
-        if var slides = cdReport.slides as? Set<CDYearInReviewSlide> {
-            let containsSaveCount = slides.contains(where: { slide in
-                slide.id == WMFYearInReviewPersonalizedSlideID.saveCount.rawValue
-            })
-            if !containsSaveCount,
-                let initialSaveCountSlide = try? initialSaveCountSlide(year: year, moc: backgroundContext) {
-                slides.insert(initialSaveCountSlide)
-                cdReport.slides = slides as NSSet
-            }
-        }
 
-        // If needed: Populate initial mostReadDay slide
-        if var slides = cdReport.slides as? Set<CDYearInReviewSlide> {
-            let containsMostRead = slides.contains(where: { slide in
-                slide.id == WMFYearInReviewPersonalizedSlideID.mostReadDay.rawValue
-            })
-            if !containsMostRead,
-                let initialMostReadDaySlide = try? initialMostReadDaySlide(year: year, moc: backgroundContext) {
-                slides.insert(initialMostReadDaySlide)
-                cdReport.slides = slides as NSSet
-            }
-        }
-        
-        // If needed: Populate initial viewCount slide
-        if var slides = cdReport.slides as? Set<CDYearInReviewSlide> {
-            let containsViewCount = slides.contains(where: { slide in
-                slide.id == WMFYearInReviewPersonalizedSlideID.viewCount.rawValue
-            })
-            if !containsViewCount,
-                let initialViewCountSlide = try? initialViewCountSlide(year: year, moc: backgroundContext) {
-                slides.insert(initialViewCountSlide)
-                cdReport.slides = slides as NSSet
-            }
-        }
-        
         try self.coreDataStore.saveIfNeeded(moc: backgroundContext)
 
         guard let iosFeatureConfig = developerSettingsDataController.loadFeatureConfig()?.ios.first,
-              let yirConfig = iosFeatureConfig.yir(yearID: targetConfigYearID) else {
-            return nil
-        }
-
-        guard let cdSlides = cdReport.slides as? Set<CDYearInReviewSlide> else {
+              let yirConfig = iosFeatureConfig.yir(yearID: targetConfigYearID),
+              let cdSlides = cdReport.slides as? Set<CDYearInReviewSlide> else {
             return nil
         }
 
@@ -465,136 +420,55 @@ import CoreData
         var needsSaveCountPopulation = false
         var needsDayPopulation = false
         var needsEditViewPopulation = false
-        
+
         for slide in cdSlides {
-            switch slide.id {
-
-            case WMFYearInReviewPersonalizedSlideID.readCount.rawValue:
-                if slide.evaluated == false && yirConfig.personalizedSlides.readCount.isEnabled {
-                    needsReadingPopulation = true
-                }
-            case WMFYearInReviewPersonalizedSlideID.editCount.rawValue:
-                if slide.evaluated == false && yirConfig.personalizedSlides.editCount.isEnabled && username != nil {
-                    needsEditingPopulation = true
-                }
-            case WMFYearInReviewPersonalizedSlideID.donateCount.rawValue:
-                if slide.evaluated == false && yirConfig.personalizedSlides.donateCount.isEnabled {
-                    needsDonatingPopulation = true
-                }
-            case WMFYearInReviewPersonalizedSlideID.saveCount.rawValue:
-                if slide.evaluated == false && yirConfig.personalizedSlides.saveCount.isEnabled {
-                    needsSaveCountPopulation = true
-                }
-            case WMFYearInReviewPersonalizedSlideID.mostReadDay.rawValue:
-                if slide.evaluated == false && yirConfig.personalizedSlides.mostReadDay.isEnabled {
-                    needsDayPopulation = true
-                }
-            case WMFYearInReviewPersonalizedSlideID.viewCount.rawValue:
-                if slide.evaluated == false && yirConfig.personalizedSlides.viewCount.isEnabled && userId != nil {
-                    needsEditViewPopulation = true
-                }
-            default:
-                debugPrint("Unrecognized Slide ID")
-            }
-        }
-
-        return (report: cdReport, needsReadingPopulation: needsReadingPopulation, needsEditingPopulation: needsEditingPopulation, needsDonatingPopulation: needsDonatingPopulation, needsSaveCountPopulation: needsSaveCountPopulation, needsDayPopulation: needsDayPopulation, needsEditViewsPopulation: needsEditViewPopulation)
-    }
-
-    func initialSlides(year: Int, moc: NSManagedObjectContext) throws -> Set<CDYearInReviewSlide> {
-        var results = Set<CDYearInReviewSlide>()
-        if year == 2024 {
-
-            let readCountSlide = try coreDataStore.create(entityType: CDYearInReviewSlide.self, in: moc)
-            readCountSlide.year = 2024
-            readCountSlide.id = WMFYearInReviewPersonalizedSlideID.readCount.rawValue
-            readCountSlide.evaluated = false
-            readCountSlide.data = nil
-            results.insert(readCountSlide)
-
-            let editCountSlide = try coreDataStore.create(entityType: CDYearInReviewSlide.self, in: moc)
-            editCountSlide.year = 2024
-            editCountSlide.id = WMFYearInReviewPersonalizedSlideID.editCount.rawValue
-            editCountSlide.evaluated = false
-            editCountSlide.data = nil
-            results.insert(editCountSlide)
-
-            let donateCountSlide = try coreDataStore.create(entityType: CDYearInReviewSlide.self, in: moc)
-            donateCountSlide.year = 2024
-            donateCountSlide.id = WMFYearInReviewPersonalizedSlideID.donateCount.rawValue
-            donateCountSlide.evaluated = false
-            donateCountSlide.data = nil
-            results.insert(donateCountSlide)
-
-            if let savedArticlesSlide = try? initialSaveCountSlide(year: 2024, moc: moc) {
-                results.insert(savedArticlesSlide)
-            }
-
-            if let initialMostReadDaySlide = try? initialMostReadDaySlide(year: 2024, moc: moc) {
-                results.insert(initialMostReadDaySlide)
-            }
-
-            if let initialViewCountSlide = try? initialViewCountSlide(year: 2024, moc: moc) {
-                results.insert(initialViewCountSlide)
-            }
-        }
-
-        return results
-    }
-    
-    private func initialSaveCountSlide(year: Int, moc: NSManagedObjectContext) throws -> CDYearInReviewSlide {
-        let savedArticlesSlide = try coreDataStore.create(entityType: CDYearInReviewSlide.self, in: moc)
-        savedArticlesSlide.year = Int32(year)
-        savedArticlesSlide.id = WMFYearInReviewPersonalizedSlideID.saveCount.rawValue
-        savedArticlesSlide.evaluated = false
-        savedArticlesSlide.data = nil
-        return savedArticlesSlide
-    }
-
-    private func initialMostReadDaySlide(year: Int, moc: NSManagedObjectContext) throws -> CDYearInReviewSlide {
-        let mostReadDaySlide = try coreDataStore.create(entityType: CDYearInReviewSlide.self, in: moc)
-        mostReadDaySlide.year = Int32(year)
-        mostReadDaySlide.id = WMFYearInReviewPersonalizedSlideID.mostReadDay.rawValue
-        mostReadDaySlide.evaluated = false
-        mostReadDaySlide.data = nil
-        return mostReadDaySlide
-    }
-    
-    private func initialViewCountSlide(year: Int, moc: NSManagedObjectContext) throws -> CDYearInReviewSlide {
-        let viewCountSlide = try coreDataStore.create(entityType: CDYearInReviewSlide.self, in: moc)
-        viewCountSlide.year = Int32(year)
-        viewCountSlide.id = WMFYearInReviewPersonalizedSlideID.viewCount.rawValue
-        viewCountSlide.evaluated = false
-        viewCountSlide.data = nil
-        return viewCountSlide
-    }
-    
-    private func populateReadingSlide(report: CDYearInReviewReport, backgroundContext: NSManagedObjectContext, legacyPageViews: [WMFLegacyPageView]) throws {
-
-        guard let slides = report.slides as? Set<CDYearInReviewSlide> else {
-            return
-        }
-
-        for slide in slides {
-
-            guard let slideID = slide.id else {
-                continue
-            }
+            guard let slideID = slide.id else { continue }
 
             switch slideID {
             case WMFYearInReviewPersonalizedSlideID.readCount.rawValue:
-                let encoder = JSONEncoder()
-                slide.data = try encoder.encode(legacyPageViews.count)
-
-                slide.evaluated = true
+                needsReadingPopulation = !slide.evaluated && yirConfig.personalizedSlides.readCount.isEnabled
+            case WMFYearInReviewPersonalizedSlideID.editCount.rawValue:
+                needsEditingPopulation = !slide.evaluated && yirConfig.personalizedSlides.editCount.isEnabled && username != nil
+            case WMFYearInReviewPersonalizedSlideID.donateCount.rawValue:
+                needsDonatingPopulation = !slide.evaluated && yirConfig.personalizedSlides.donateCount.isEnabled
+            case WMFYearInReviewPersonalizedSlideID.saveCount.rawValue:
+                needsSaveCountPopulation = !slide.evaluated && yirConfig.personalizedSlides.saveCount.isEnabled
+            case WMFYearInReviewPersonalizedSlideID.mostReadDay.rawValue:
+                needsDayPopulation = !slide.evaluated && yirConfig.personalizedSlides.mostReadDay.isEnabled
+            case WMFYearInReviewPersonalizedSlideID.viewCount.rawValue:
+                needsEditViewPopulation = !slide.evaluated && yirConfig.personalizedSlides.viewCount.isEnabled && userId != nil
             default:
-                break
+                debugPrint("Unrecognized Slide ID: \(slideID)")
             }
         }
 
-        try coreDataStore.saveIfNeeded(moc: backgroundContext)
+        return (
+            report: cdReport,
+            needsReadingPopulation: needsReadingPopulation,
+            needsEditingPopulation: needsEditingPopulation,
+            needsDonatingPopulation: needsDonatingPopulation,
+            needsSaveCountPopulation: needsSaveCountPopulation,
+            needsDayPopulation: needsDayPopulation,
+            needsEditViewsPopulation: needsEditViewPopulation
+        )
     }
 
+    func initialSlides(year: Int, moc: NSManagedObjectContext) throws -> Set<CDYearInReviewSlide> {
+        guard year == WMFYearInReviewDataController.targetYear else { return [] }
+
+        let slideTypes: [YearInReviewSlideProtocol.Type] = [
+            YearInReviewReadCountSlide.self,
+            YearInReviewEditCountSlide.self,
+            YearInReviewDonateCountSlide.self,
+            YearInReviewSaveCountSlide.self,
+            YearInReviewMostReadDaySlide.self,
+            YearInReviewViewCountSlide.self
+        ]
+
+        let slides = try slideTypes.map { try $0.makeInitialCDSlide(for: year, in: moc) }
+        return Set(slides)
+    }
+  
     private func fetchEditCount(username: String, project: WMFProject?) async throws -> Int {
 
         guard let iosFeatureConfig = developerSettingsDataController.loadFeatureConfig()?.ios.first,
@@ -608,120 +482,6 @@ import CoreData
         let (edits, _) = try await fetchUserContributionsCount(username: username, project: project, startDate: dataPopulationStartDateString, endDate: dataPopulationEndDateString)
 
         return edits
-    }
-
-    private func populateEditingSlide(edits: Int, report: CDYearInReviewReport, backgroundContext: NSManagedObjectContext) throws {
-
-        guard let slides = report.slides as? Set<CDYearInReviewSlide> else {
-            return
-        }
-
-        for slide in slides {
-
-            guard let slideID = slide.id else {
-                continue
-            }
-
-            switch slideID {
-            case WMFYearInReviewPersonalizedSlideID.editCount.rawValue:
-                let encoder = JSONEncoder()
-                slide.data = try encoder.encode(edits)
-                slide.evaluated = true
-            default:
-                break
-            }
-        }
-
-        try coreDataStore.saveIfNeeded(moc: backgroundContext)
-    }
-
-    private func populateSaveCountSlide(report: CDYearInReviewReport, backgroundContext: NSManagedObjectContext, savedArticlesData: SavedArticleSlideData) throws {
-
-        guard let slides = report.slides as? Set<CDYearInReviewSlide> else {
-            return
-        }
-
-        for slide in slides {
-            guard let slideID = slide.id else { continue }
-
-            switch slideID {
-            case WMFYearInReviewPersonalizedSlideID.saveCount.rawValue:
-                let encoder = JSONEncoder()
-                slide.data = try encoder.encode(savedArticlesData)
-                slide.evaluated = true
-            default:
-                break
-            }
-        }
-
-        try coreDataStore.saveIfNeeded(moc: backgroundContext)
-    }
-
-    private func populateDaySlide(report: CDYearInReviewReport, backgroundContext: NSManagedObjectContext, legacyPageViews: [WMFLegacyPageView]) throws {
-        
-        var countsDictionary: [Int: Int] = [:]
-        
-        for legacyPageView in legacyPageViews {
-            let timestamp = legacyPageView.viewedDate
-            let calendar = Calendar.current
-            let dayOfWeek = calendar.component(.weekday, from: timestamp) // Sunday = 1, Monday = 2, ..., Saturday = 7
-                
-            countsDictionary[dayOfWeek, default: 0] += 1
-        }
-        
-        let pageViews = countsDictionary.sorted(by: { $0.key < $1.key }).map { dayOfWeek, count in
-            WMFPageViewDay(day: dayOfWeek, viewCount: count)
-        }
-
-        guard let mostPopularDay = pageViews.max(by: { $0.viewCount < $1.viewCount }) else {
-            return
-        }
-
-        guard let slides = report.slides as? Set<CDYearInReviewSlide> else {
-            return
-        }
-
-        for slide in slides {
-            guard let slideID = slide.id else {
-                continue
-            }
-
-            switch slideID {
-            case WMFYearInReviewPersonalizedSlideID.mostReadDay.rawValue:
-                let encoder = JSONEncoder()
-                slide.data = try encoder.encode(mostPopularDay)
-                slide.evaluated = true
-            default:
-                break
-            }
-        }
-
-        try coreDataStore.saveIfNeeded(moc: backgroundContext)
-    }
-    
-    private func populateViewCountSlide(
-        editViews: Int,
-        report: CDYearInReviewReport,
-        backgroundContext: NSManagedObjectContext
-    ) throws {
-
-        guard let slides = report.slides as? Set<CDYearInReviewSlide> else { return }
-
-        for slide in slides {
-            guard let slideID = slide.id else { continue }
-
-            switch slideID {
-            case WMFYearInReviewPersonalizedSlideID.viewCount.rawValue:
-                let encoder = JSONEncoder()
-                slide.data = try encoder.encode(editViews)
-
-                slide.evaluated = true
-            default:
-                break
-            }
-        }
-
-        try coreDataStore.saveIfNeeded(moc: backgroundContext)
     }
     
     public func fetchEditViews(project: WMFProject?, userId: String, language: String) async throws -> (Int) {
@@ -789,83 +549,6 @@ import CoreData
         service.perform(request: request, completion: completionHandler)
     }
 
-    private func populateDonatingSlide(report: CDYearInReviewReport, backgroundContext: NSManagedObjectContext) throws {
-
-        guard let iosFeatureConfig = developerSettingsDataController.loadFeatureConfig()?.ios.first,
-              let yirConfig = iosFeatureConfig.yir(yearID: targetConfigYearID) else {
-            return
-        }
-
-        guard let dataPopulationStartDate = yirConfig.dataPopulationStartDate,
-              let dataPopulationEndDate = yirConfig.dataPopulationEndDate else {
-            return
-        }
-
-        let donateHistory = WMFDonateDataController.shared.loadLocalDonationHistory(startDate: dataPopulationStartDate, endDate: dataPopulationEndDate)
-        let donateCount = donateHistory?.count ?? 0
-
-        guard let slides = report.slides as? Set<CDYearInReviewSlide> else {
-            return
-        }
-
-        for slide in slides {
-
-            guard let slideID = slide.id else {
-                continue
-            }
-
-            switch slideID {
-            case WMFYearInReviewPersonalizedSlideID.donateCount.rawValue:
-                let encoder = JSONEncoder()
-                slide.data = try encoder.encode(donateCount)
-                slide.evaluated = true
-            default:
-                break
-            }
-        }
-
-        try coreDataStore.saveIfNeeded(moc: backgroundContext)
-    }
-
-    public func saveYearInReviewReport(_ report: WMFYearInReviewReport) async throws {
-        let backgroundContext = try coreDataStore.newBackgroundContext
-
-        try await backgroundContext.perform { [weak self] in
-            guard let self else { return }
-
-            let reportPredicate = NSPredicate(format: "year == %d", report.year)
-            let cdReport = try self.coreDataStore.fetchOrCreate(
-                entityType: CDYearInReviewReport.self,
-                predicate: reportPredicate,
-                in: backgroundContext
-            )
-
-            cdReport?.year = Int32(report.year)
-
-            var cdSlidesSet = Set<CDYearInReviewSlide>()
-            for slide in report.slides {
-                let slidePredicate = NSPredicate(format: "id == %@", slide.id.rawValue)
-                let cdSlide = try self.coreDataStore.fetchOrCreate(
-                    entityType: CDYearInReviewSlide.self,
-                    predicate: slidePredicate,
-                    in: backgroundContext
-                )
-
-                cdSlide?.year = Int32(slide.year)
-                cdSlide?.id = slide.id.rawValue
-                cdSlide?.evaluated = slide.evaluated
-                cdSlide?.data = slide.data
-
-                if let cdSlide {
-                    cdSlidesSet.insert(cdSlide)
-                }
-            }
-            cdReport?.slides = cdSlidesSet as NSSet
-
-            try self.coreDataStore.saveIfNeeded(moc: backgroundContext)
-        }
-    }
-
     public func createNewYearInReviewReport(year: Int, slides: [WMFYearInReviewSlide]) async throws {
         let newReport = WMFYearInReviewReport(year: year, slides: slides)
 
@@ -878,37 +561,13 @@ import CoreData
         let viewContext = try coreDataStore.viewContext
 
         let fetchRequest = NSFetchRequest<CDYearInReviewReport>(entityName: "CDYearInReviewReport")
-
         fetchRequest.predicate = NSPredicate(format: "year == %d", year)
 
         let cdReports = try viewContext.fetch(fetchRequest)
+        guard let cdReport = cdReports.first else { return nil }
 
-        guard let cdReport = cdReports.first else {
-            return nil
-        }
-
-        guard let cdSlides = cdReport.slides as? Set<CDYearInReviewSlide> else {
-            return nil
-        }
-
-        var slides: [WMFYearInReviewSlide] = []
-        for cdSlide in cdSlides {
-            if let id = self.getSlideId(cdSlide.id) {
-                let slide = WMFYearInReviewSlide(
-                    year: Int(cdSlide.year),
-                    id: id,
-                    evaluated: cdSlide.evaluated,
-                    data: cdSlide.data
-                )
-                slides.append(slide)
-            }
-        }
-
-        let report = WMFYearInReviewReport(
-            year: Int(cdReport.year),
-            slides: slides
-        )
-        return report
+        let slides = (cdReport.slides as? Set<CDYearInReviewSlide>)?.compactMap(makeSlide(from:)) ?? []
+        return WMFYearInReviewReport(year: Int(cdReport.year), slides: slides)
     }
 
     public func fetchYearInReviewReports() async throws -> [WMFYearInReviewReport] {
@@ -917,48 +576,69 @@ import CoreData
             let fetchRequest = NSFetchRequest<CDYearInReviewReport>(entityName: "CDYearInReviewReport")
             let cdReports = try viewContext.fetch(fetchRequest)
 
-            var results: [WMFYearInReviewReport] = []
-            for cdReport in cdReports {
-                guard let cdSlides = cdReport.slides as? Set<CDYearInReviewSlide> else {
-                    continue
-                }
-
-                var slides: [WMFYearInReviewSlide] = []
-                for cdSlide in cdSlides {
-                    if let id = self.getSlideId(cdSlide.id) {
-                        let slide = WMFYearInReviewSlide(year: Int(cdSlide.year), id: id, evaluated: cdSlide.evaluated)
-                        slides.append(slide)
-                    }
-                }
-
-                let report = WMFYearInReviewReport(
-                    year: Int(cdReport.year),
-                    slides: slides
-                )
-                results.append(report)
+            return cdReports.compactMap { cdReport in
+                guard let cdSlides = cdReport.slides as? Set<CDYearInReviewSlide> else { return nil }
+                let slides = cdSlides.compactMap(self.makeSlide(from:))
+                return WMFYearInReviewReport(year: Int(cdReport.year), slides: slides)
             }
-            return results
         }
         return reports
     }
 
-    private func getSlideId(_ idString: String?) -> WMFYearInReviewPersonalizedSlideID? {
-        switch idString {
-        case "readCount":
-            return .readCount
-        case "editCount":
-            return .editCount
-        case "donateCount":
-            return .donateCount
-        case "mostReadDay":
-            return .mostReadDay
-        case "saveCount":
-            return .saveCount
-        case "viewCount":
-            return .viewCount
-        default:
+    public func saveYearInReviewReport(_ report: WMFYearInReviewReport) async throws {
+        guard let backgroundContext = try? coreDataStore.newBackgroundContext else { return }
+
+        try? await backgroundContext.perform { [weak self] in
+            guard let self else { return }
+
+            let reportPredicate = NSPredicate(format: "year == %d", report.year)
+            let cdReport = try self.coreDataStore.fetchOrCreate(
+                entityType: CDYearInReviewReport.self,
+                predicate: reportPredicate,
+                in: backgroundContext
+            )
+
+            cdReport?.year = Int32(report.year)
+            cdReport?.slides = Set(report.slides.compactMap { self.makeCDSlide(from: $0, in: backgroundContext) }) as NSSet
+
+            try self.coreDataStore.saveIfNeeded(moc: backgroundContext)
+        }
+    }
+
+    private func makeSlide(from cdSlide: CDYearInReviewSlide) -> WMFYearInReviewSlide? {
+        guard let id = self.getSlideId(cdSlide.id) else { return nil }
+        return WMFYearInReviewSlide(
+            year: Int(cdSlide.year),
+            id: id,
+            evaluated: cdSlide.evaluated,
+            data: cdSlide.data
+        )
+    }
+
+    private func makeCDSlide(from slide: WMFYearInReviewSlide, in context: NSManagedObjectContext) -> CDYearInReviewSlide? {
+        do {
+            let predicate = NSPredicate(format: "id == %@", slide.id.rawValue)
+            let cdSlide = try self.coreDataStore.fetchOrCreate(
+                entityType: CDYearInReviewSlide.self,
+                predicate: predicate,
+                in: context
+            )
+
+            cdSlide?.year = Int32(slide.year)
+            cdSlide?.id = slide.id.rawValue
+            cdSlide?.evaluated = slide.evaluated
+            cdSlide?.data = slide.data
+
+            return cdSlide
+        } catch {
             return nil
         }
+    }
+
+
+    private func getSlideId(_ idString: String?) -> WMFYearInReviewPersonalizedSlideID? {
+        guard let raw = idString else { return nil }
+        return WMFYearInReviewPersonalizedSlideID(rawValue: raw)
     }
 
     public func deleteYearInReviewReport(year: Int) async throws {
@@ -993,6 +673,7 @@ import CoreData
                 let changes = [NSDeletedObjectsKey: objectIDArray]
                 NSManagedObjectContext.mergeChanges(fromRemoteContextSave: changes, into: [backgroundContext])
             }
+
             try self.coreDataStore.saveIfNeeded(moc: backgroundContext)
         }
     }
@@ -1015,20 +696,15 @@ import CoreData
             }
 
             for report in cdReports {
-
                 guard let slides = report.slides as? Set<CDYearInReviewSlide> else {
                     continue
                 }
 
                 for slide in slides {
-
                     guard slide.id == WMFYearInReviewPersonalizedSlideID.editCount.rawValue ||
                             slide.id == WMFYearInReviewPersonalizedSlideID.viewCount.rawValue ||
                             slide.id == WMFYearInReviewPersonalizedSlideID.saveCount.rawValue
-                    else {
-                        continue
-                    }
-
+                            else { continue }
                     slide.data = nil
                     slide.evaluated = false
                 }
