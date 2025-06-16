@@ -805,6 +805,9 @@
 "search-recent-title" = "Rezent gesicht";
 "search-result-redirected-from" = "Virugeleet vun: $1";
 "search-title" = "Sichen";
+"search-widget-description" = "Schnellzougrëff fir op Wikipedia ze sichen.";
+"search-widget-title" = "Sichen";
+"search-widget-wikipedia-title" = "Wikipedia";
 "settings-account" = "Benotzerkont";
 "settings-appearance" = "Lies-Astellungen";
 "settings-clear-cache" = "Tëschegespäichert Date läschen";
