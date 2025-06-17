@@ -7,7 +7,7 @@ import WMFComponents
 
 struct SearchWidget: Widget {
     private let kind: String = WidgetController.SupportedWidget.search.identifier
-    
+
     public var body: some WidgetConfiguration {
         StaticConfiguration(kind: kind, provider: SearchProvider(), content: { entry in
             SearchWidgetView(entry: entry)
@@ -26,7 +26,7 @@ struct SearchEntry: TimelineEntry {
     let date: Date
     let configuration: SearchWidgetConfiguration
     let url: URL?
-    
+
     init(date: Date = Date(), configuration: SearchWidgetConfiguration = SearchWidgetConfiguration()) {
         self.date = date
         self.configuration = configuration
@@ -39,7 +39,7 @@ struct SearchEntry: TimelineEntry {
 struct SearchWidgetConfiguration {
     let languageCode: String
     let siteURL: URL
-    
+
     init() {
         let sharedCache = SharedContainerCache(fileName: SharedContainerCacheCommonNames.widgetCache)
         let cache = sharedCache.loadCache() ?? WidgetCache(settings: .default, featuredContent: nil)
@@ -52,16 +52,16 @@ struct SearchWidgetConfiguration {
 
 struct SearchProvider: TimelineProvider {
     typealias Entry = SearchEntry
-    
+
     func placeholder(in context: Context) -> SearchEntry {
         return SearchEntry()
     }
-    
+
     func getSnapshot(in context: Context, completion: @escaping (SearchEntry) -> Void) {
         let entry = SearchEntry()
         completion(entry)
     }
-    
+
     func getTimeline(in context: Context, completion: @escaping (Timeline<SearchEntry>) -> Void) {
         let entry = SearchEntry()
         let timeline = Timeline(entries: [entry], policy: .never)
@@ -138,23 +138,5 @@ struct SearchWidgetView: View {
             .background(Color(theme.colors.paperBackground))
         }
 
-    }
-}
-
-// MARK: - Preview
-
-struct SearchWidget_Previews: PreviewProvider {
-    static var previews: some View {
-        Group {
-            SearchWidgetView(entry: SearchEntry())
-                .previewContext(WidgetPreviewContext(family: .systemSmall))
-                .environment(\.colorScheme, .light)
-                .previewDisplayName("Light Mode")
-
-            SearchWidgetView(entry: SearchEntry())
-                .previewContext(WidgetPreviewContext(family: .systemSmall))
-                .environment(\.colorScheme, .dark)
-                .previewDisplayName("Dark Mode")
-        }
     }
 }

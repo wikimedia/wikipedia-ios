@@ -1098,7 +1098,6 @@
 "search-result-redirected-from" = "Text for search result letting user know if a result is a redirect from another article. Parameters: * $1 - article title the current search result redirected from";
 "search-title" = "Title for search interface. {{Identical|Search}}";
 "search-widget-description" = "Text for description of Search widget displayed when adding to home screen.";
-"search-widget-search-wikipedia" = "Text displayed in lock screen search widget.";
 "search-widget-title" = "Text for title of Search widget.";
 "search-widget-wikipedia-title" = "Wikipedia title text displayed in the search widget.";
 "serbian-variants-alert-body" = "Body text of alert used to inform users about Serbian variant support. Please do not translate the newlines (\n) or Serbian characters (nсрпски ћирилица, etc.).";
