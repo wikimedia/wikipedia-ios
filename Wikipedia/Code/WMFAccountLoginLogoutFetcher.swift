@@ -8,19 +8,22 @@ public enum WMFAccountLoginError: LocalizedError {
     case needsEmailAuthToken(String?)
     case wrongPassword(String?)
     case wrongToken
+    case captchaRequired(String?)
+    case authManagerInfoRequired(String?, [String: Any])
+    case failedToParseAuthManagerInfo
+    case invalidSiteURL
+
     public var errorDescription: String? {
         switch self {
         case .cannotExtractLoginStatus:
             return "Could not extract login status"
-        case .statusNotPass(let message?):
-            return message
-        case .temporaryPasswordNeedsChange(let message?):
-            return message
-        case .needsOathTokenFor2FA(let message?):
-            return message
-        case .needsEmailAuthToken(let message):
-            return message
-        case .wrongPassword(let message?):
+        case .statusNotPass(let message?),
+             .temporaryPasswordNeedsChange(let message?),
+             .needsOathTokenFor2FA(let message?),
+             .needsEmailAuthToken(let message?),
+             .wrongPassword(let message?),
+             .captchaRequired(let message?),
+             .authManagerInfoRequired(let message?, _):
             return message
         case .wrongToken:
             return WMFLocalizedString("field-alert-token-invalid", value:"Invalid code", comment:"Alert shown if token is not correct")
@@ -87,6 +90,30 @@ public class WMFAccountLoginLogoutFetcher: Fetcher {
          
             let message = clientlogin["message"] as? String ?? nil
             guard status == "PASS" else {
+                if status == "FAIL" {
+                    self.fetchAuthManagerInfo(from: siteURL) { result in
+                        switch result {
+                        case .failure(let error):
+                            failure(error)
+                        case .success(let authInfo):
+                            guard let requests = authInfo["requests"] as? [[String: Any]] else {
+                                failure(WMFAccountLoginError.failedToParseAuthManagerInfo)
+                                return
+                            }
+
+                            if let captchaRequest = requests.first(where: { ($0["id"] as? String)?.hasSuffix("CaptchaAuthenticationRequest") == true }),
+                               let fields = captchaRequest["fields"] as? [String: Any],
+                               let captchaField = fields["captchaId"] as? [String: Any],
+                               let captchaId = captchaField["value"] as? String {
+                                failure(WMFAccountLoginError.captchaRequired(captchaId))
+                                return
+                            }
+
+                            failure(WMFAccountLoginError.statusNotPass(message))
+                        }
+                    }
+                    return
+                }
                 
                 if let messageCode = clientlogin["messagecode"] as? String {
                     switch messageCode {
@@ -151,6 +178,35 @@ public class WMFAccountLoginLogoutFetcher: Fetcher {
     func logout(loginSiteURL: URL, reattemptOn401Response: Bool = false, completion: @escaping (Error?) -> Void) {
         performTokenizedMediaWikiAPIPOST(to: loginSiteURL, with: ["action": "logout", "format": "json"], reattemptLoginOn401Response: reattemptOn401Response) { (result, response, error) in
             completion(error)
+        }
+    }
+
+    private func fetchAuthManagerInfo(from siteURL: URL, completion: @escaping (Result<[String: Any], Error>) -> Void) {
+        let parameters = [
+            "action": "query",
+            "meta": "authmanagerinfo",
+            "format": "json",
+            "formatversion": "2",
+            "amirequestsfor": "login",
+            "amimergerequestfields": "1"
+        ]
+
+        _ = performMediaWikiAPIPOST(for: siteURL, with: parameters) { result, response, error in
+            if let error = error {
+                completion(.failure(error))
+                return
+            }
+
+            guard
+                let result = result,
+                let query = result["query"] as? [String: Any],
+                let authManagerInfo = query["authmanagerinfo"] as? [String: Any]
+            else {
+                completion(.failure(WMFAccountLoginError.failedToParseAuthManagerInfo))
+                return
+            }
+
+            completion(.success(authManagerInfo))
         }
     }
 }
