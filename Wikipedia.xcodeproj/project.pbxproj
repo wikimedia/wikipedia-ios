@@ -1619,6 +1619,8 @@
 		A452F9FD24081B0200D8ED09 /* MockUIDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = A452F9FC24081B0200D8ED09 /* MockUIDevice.swift */; };
 		A4C558BD2403D74100AFBFDC /* LocationManagerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4C558BC2403D74100AFBFDC /* LocationManagerProtocol.swift */; };
 		A4C558BF2403D7E300AFBFDC /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4C558BE2403D7E200AFBFDC /* LocationManager.swift */; };
+		A714355D2E01CB56001514EB /* LockscreenSearchWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = A714355C2E01CB56001514EB /* LockscreenSearchWidget.swift */; };
+		A714355F2E01CB8A001514EB /* LockscreenSearchWidget+LocalizedStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = A714355E2E01CB8A001514EB /* LockscreenSearchWidget+LocalizedStrings.swift */; };
 		A77070232DF6ECB500D9F09B /* SearchWidget+LocalizedStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = A77070222DF6ECA400D9F09B /* SearchWidget+LocalizedStrings.swift */; };
 		A7B292132DF1CF9D001C213F /* SearchWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7B292122DF1CF9D001C213F /* SearchWidget.swift */; };
 		B00050141C52D73800515F70 /* UIApplication+RTL.swift in Sources */ = {isa = PBXBuildFile; fileRef = B00050131C52D73800515F70 /* UIApplication+RTL.swift */; };
@@ -3784,6 +3786,8 @@
 		A452F9FC24081B0200D8ED09 /* MockUIDevice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockUIDevice.swift; sourceTree = "<group>"; };
 		A4C558BC2403D74100AFBFDC /* LocationManagerProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationManagerProtocol.swift; sourceTree = "<group>"; };
 		A4C558BE2403D7E200AFBFDC /* LocationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
+		A714355C2E01CB56001514EB /* LockscreenSearchWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LockscreenSearchWidget.swift; sourceTree = "<group>"; };
+		A714355E2E01CB8A001514EB /* LockscreenSearchWidget+LocalizedStrings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LockscreenSearchWidget+LocalizedStrings.swift"; sourceTree = "<group>"; };
 		A77070222DF6ECA400D9F09B /* SearchWidget+LocalizedStrings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SearchWidget+LocalizedStrings.swift"; sourceTree = "<group>"; };
 		A7B292122DF1CF9D001C213F /* SearchWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchWidget.swift; sourceTree = "<group>"; };
 		B00050131C52D73800515F70 /* UIApplication+RTL.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIApplication+RTL.swift"; sourceTree = "<group>"; };
@@ -4841,6 +4845,8 @@
 			children = (
 				00669504265DA3D300E23AE4 /* FeaturedArticleWidget.swift */,
 				00669506265DAB7800E23AE4 /* FeaturedArticleWidget+LocalizedStrings.swift */,
+				A714355C2E01CB56001514EB /* LockscreenSearchWidget.swift */,
+				A714355E2E01CB8A001514EB /* LockscreenSearchWidget+LocalizedStrings.swift */,
 				FF9416D724E203030070FEE7 /* OnThisDayWidget.swift */,
 				FF9416DD24E2098C0070FEE7 /* OnThisDayView.swift */,
 				00021E0324D4A42A00476F97 /* PictureOfTheDayWidget.swift */,
@@ -9753,6 +9759,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A714355D2E01CB56001514EB /* LockscreenSearchWidget.swift in Sources */,
 				A77070232DF6ECB500D9F09B /* SearchWidget+LocalizedStrings.swift in Sources */,
 				00021DE824D48EFD00476F97 /* Widgets.swift in Sources */,
 				0033D79A24F818EC00CAB5B3 /* TopReadWidget.swift in Sources */,
@@ -9764,6 +9771,7 @@
 				A7B292132DF1CF9D001C213F /* SearchWidget.swift in Sources */,
 				FF9416DE24E2098C0070FEE7 /* OnThisDayView.swift in Sources */,
 				0033D79D24F8193900CAB5B3 /* UIColor+Extensions.swift in Sources */,
+				A714355F2E01CB8A001514EB /* LockscreenSearchWidget+LocalizedStrings.swift in Sources */,
 				006D273524D8BAFB00947551 /* View+Extensions.swift in Sources */,
 				0033D7A124F8199300CAB5B3 /* Sparkline.swift in Sources */,
 				00669505265DA3D300E23AE4 /* FeaturedArticleWidget.swift in Sources */,

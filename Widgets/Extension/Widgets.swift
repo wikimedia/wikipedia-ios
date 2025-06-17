@@ -11,6 +11,7 @@ struct WikipediaWidgets: WidgetBundle {
         TopReadWidget()
         FeaturedArticleWidget()
         SearchWidget()
+        LockscreenSearchWidget()
 	}
 
 }

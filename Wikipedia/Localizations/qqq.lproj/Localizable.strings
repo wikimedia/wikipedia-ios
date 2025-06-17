@@ -678,6 +678,9 @@
 "languages-title" = "Title for language picker {{Identical|Language}}";
 "languages-wikipedia" = "Title for list of Wikipedia languages";
 "learn-more-title" = "Button title text to learn more, used in various contexts. It typically sends users to another view with additional context about the feature.";
+"lockscreen-search-widget-description" = "Text for description of lockscreen search widget displayed when adding to lock screen.";
+"lockscreen-search-widget-search-wikipedia" = "Text displayed on lockscreen search widget.";
+"lockscreen-search-widget-title" = "Text for title of lockscreen search widget.";
 "logged-out-continue-without-logging-in-button-title" = "Title for button allowing user to continue without logging back in to their account";
 "logged-out-log-back-in-button-title" = "Title for button allowing user to log back in to their account";
 "logged-out-subtitle" = "Subtitle for letting user know there was a problem authenticating their account.";
