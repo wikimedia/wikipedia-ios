@@ -84,19 +84,6 @@ extension ArticleCacheDBWriter {
                         return nil
                     }
                     
-                    // Special handling for math resources
-                    if url.absoluteString.contains("/math/") || 
-                       url.absoluteString.contains("mwe-math") || 
-                       url.absoluteString.contains("/api/rest_v1/media/math/") ||
-                       url.absoluteString.contains("wikimedia.org/math") {
-                        // Create a mutable copy and set correct Accept header
-                        var mutableRequest = urlRequest
-                        mutableRequest.setValue("image/png, image/svg+xml, */*", forHTTPHeaderField: "Accept")
-                        mutableRequest.cachePolicy = .returnCacheDataElseLoad
-                        
-                        return NetworkItem(itemKeyAndVariant: itemKeyAndVariant, url: url, urlRequest: mutableRequest, cacheItem: nil)
-                    }
-                    
                     return NetworkItem(itemKeyAndVariant: itemKeyAndVariant, url: url, urlRequest: urlRequest, cacheItem: nil)
                 }
                 
