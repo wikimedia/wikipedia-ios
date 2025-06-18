@@ -199,7 +199,6 @@ public class Session: NSObject {
         if let cachePolicy = cachePolicy {
             request.cachePolicy = cachePolicy
         }
-        
         let defaultHeaders = [
             "Accept": "application/json; charset=utf-8",
             "Accept-Encoding": "gzip",
