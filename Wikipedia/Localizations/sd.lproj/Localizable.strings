@@ -114,7 +114,6 @@
 "button-ok" = "ٺيڪ";
 "button-publish" = "ڇاپيو";
 "button-publish-anyway" = "پوءِ بہ ڇاپيو";
-"button-read-now" = "ھاڻي پڙھو";
 "button-report-a-bug" = "ڪنھن جيت جي رپورٽ ڪريو";
 "button-save-for-later" = "بعد لاءِ سانڍيو";
 "button-saved-for-later" = "بعد لاءِ سانڍل";
@@ -607,7 +606,6 @@
 "notifications-center-go-to-article" = "مضمون";
 "notifications-center-go-to-article-talk-format" = "$1 بحث صفحو";
 "notifications-center-go-to-diff" = "تفاوت";
-"notifications-center-go-to-talk-page" = "بحث صفحو";
 "notifications-center-go-to-user-page" = "$1 جو واپرائيندڙ صفحو";
 "notifications-center-go-to-wikidata-item" = "وڪيڊيٽا آئٽم";
 "notifications-center-go-to-your-talk-page" = "توھان جو بحث صفحو";
@@ -706,7 +704,7 @@
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$2 وڪيپيڊيا مان $1";
 "on-this-day-title" = "ھن ڏينھن تي";
 "original-tab-button-popover-description" = "جنھن ٽيب کان توھان شروع ڪيو ان ڏانھن ورڻ لاءِ 'W' تي ڇھو";
-"page-history-anonymous-edits" = "گمنام سنوارون";
+// Fuzzy
 "page-history-bot-edits" = "بوٽ سنوارون";
 "page-history-compare-accessibility-hint" = "ٻن ورجائن کي چونڊي ڀيٽڻ لاءِ ڇھو";
 "page-history-compare-title" = "ڀيٽيو";
@@ -721,7 +719,6 @@
 "page-history-revision-time-accessibility-label" = "$1ع مطابق ڪيل ورجاءُ";
 "page-history-revisions-comparison-warning" = "صرف ٻہ ورجاءَ چونڊي سگهجن ٿا";
 "page-history-stats-text" = "$2 کان {{PLURAL:$1|$1 سنوار|$1 سنوارون}}";
-"page-history-user-edits" = "واپرائيندڙ سنوارون";
 "page-issues" = "صفحي جا مسئلا";
 "page-location" = "نقشي تي ڏسو";
 "page-protected-can-not-edit" = "توهان کي هيءُ صفحو سنوارڻ جا حق حاصل نہ آهن";

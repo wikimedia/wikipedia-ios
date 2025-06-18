@@ -5,6 +5,7 @@ import WMF
 protocol TalkPageReplyComposeDelegate: AnyObject {
     func closeReplyView()
     func tappedPublish(text: String, commentViewModel: TalkPageCellCommentViewModel)
+    func tappedIPTempButton()
 }
 
 /// Class for coordinating talk page reply compose views
@@ -31,7 +32,9 @@ class TalkPageReplyComposeController {
     // Pan Gesture tracking properties
     private var dragHandleView: UIView?
     private var containerViewYUponDragBegin: CGFloat?
-    
+
+    var wikiHasTempAccounts: Bool?
+
     private(set) var contentView: TalkPageReplyComposeContentView?
     
     private let containerPinnedTopSpacing = CGFloat(10)
@@ -211,7 +214,12 @@ class TalkPageReplyComposeController {
     }
     
     private func addContentView(to containerView: UIView, theme: Theme, commentViewModel: TalkPageCellCommentViewModel, linkDelegate: TalkPageTextViewLinkHandling) {
-        let contentView = TalkPageReplyComposeContentView(commentViewModel: commentViewModel, theme: theme, linkDelegate: linkDelegate)
+        
+        let tappedIPTempButtonAction: () -> Void = { [weak self] in
+            self?.viewController?.tappedIPTempButton()
+        }
+        
+        let contentView = TalkPageReplyComposeContentView(commentViewModel: commentViewModel, theme: theme, linkDelegate: linkDelegate, authenticationManager: authenticationManager, wikiHasTempAccounts: wikiHasTempAccounts, tappedIPTempButtonAction: tappedIPTempButtonAction)
         contentView.translatesAutoresizingMaskIntoConstraints = false
         containerView.addSubview(contentView)
         
@@ -414,17 +422,24 @@ class TalkPageReplyComposeController {
             return
         }
         
-        viewController?.wmf_showNotLoggedInUponPublishPanel(buttonTapHandler: { [weak self] buttonIndex in
-            switch buttonIndex {
-            case 0:
-                break
-            case 1:
-                self?.isLoading = true
-                self?.viewController?.tappedPublish(text: text, commentViewModel: commentViewModel)
-            default:
-                assertionFailure("Unrecognized button index in tap handler.")
-            }
-        }, theme: theme)
+        // TODO: Allow if NOT temp accounts pilot wiki
+        if false {
+            viewController?.wmf_showNotLoggedInUponPublishPanel(buttonTapHandler: { [weak self] buttonIndex in
+                switch buttonIndex {
+                case 0:
+                    break
+                case 1:
+                    self?.isLoading = true
+                    self?.viewController?.tappedPublish(text: text, commentViewModel: commentViewModel)
+                default:
+                    assertionFailure("Unrecognized button index in tap handler.")
+                }
+            }, theme: theme)
+        } else {
+            isLoading = true
+            viewController?.tappedPublish(text: text, commentViewModel: commentViewModel)
+        }
+        
     }
 }
 

@@ -95,7 +95,6 @@
 "button-ok" = "အိုကေ";
 "button-publish" = "လွှင့်တင်ရန်";
 "button-publish-anyway" = "မည်သို့ပင်ဖြစ်စေ လွှင့်တင်ရန်";
-"button-read-now" = "ယခု ဖတ်ရန်";
 "button-report-a-bug" = "အခက်အခဲများ သတင်းပို့ရန်";
 "button-save-for-later" = "နောင်မှ သိမ်းဆည်းရန်";
 "button-saved-for-later" = "နောင်အတွက် သိမ်းဆည်းပြီး";
@@ -383,8 +382,6 @@
 "notifications-center-filters-read-status-item-title-unread" = "မဖတ်ရသေး";
 "notifications-center-go-to-article" = "ဆောင်းပါး";
 // Fuzzy
-"notifications-center-go-to-talk-page" = "ဆွေးနွေးစာမျက်နှာသို့ သွားရန်";
-// Fuzzy
 "notifications-center-go-to-user-page" = "$1 ၏ စာမျက်နှာသို့ သွားရန်";
 // Fuzzy
 "notifications-center-go-to-your-talk-page" = "သင်၏ဆွေးနွေးစာမျက်နှာသို့ သွားရန်";
@@ -447,7 +444,7 @@
 "on-this-day-no-internet-error" = "ဒေတာမရရှိနိုင်ပါ";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$2 ဝီကီပီးဒီးယားမှ $1";
 "on-this-day-title" = "ယနေ့ဖြစ်ရပ်များ";
-"page-history-anonymous-edits" = "အမည်မသိ တည်းဖြတ်မှုများ";
+// Fuzzy
 "page-history-bot-edits" = "ဘော တည်းဖြတ်မှုများ";
 "page-history-compare-title" = "နှိုင်းယှဉ်ရန်";
 "page-history-minor-edits" = "အရေးမကြီးသော ပြင်ဆင်မှုများ";
@@ -455,7 +452,6 @@
 "page-history-revision-history-title" = "မူရာဇဝင်မှတ်တမ်း";
 "page-history-revision-minor-edit-accessibility-label" = "အရေးမကြီးသည့် တည်းဖြတ်မှု";
 "page-history-stats-text" = "$2 ကတည်းက {{PLURAL:$1|$1 တည်းဖြတ်မှု|$1 တည်းဖြတ်မှုများ}}";
-"page-history-user-edits" = "အသုံးပြုသူ တည်းဖြတ်မှု";
 "page-issues" = "စာမျက်နှာ ကိစ္စရပ်များ";
 "page-location" = "မြေပုံပေါ်တွင် ကြည့်ရန်";
 "page-protected-can-not-edit" = "ဤစာမျက်နှာကို တည်းဖြတ်ခွင့်မရှိပါ";

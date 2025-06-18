@@ -1,6 +1,8 @@
 import UIKit
 import WMF
 import WMFComponents
+import WMFData
+import CocoaLumberjackSwift
 
 @objc(WMFArticlePeekPreviewViewController)
 class ArticlePeekPreviewViewController: UIViewController {
@@ -114,13 +116,66 @@ class ArticlePeekPreviewViewController: UIViewController {
             return []
         }
         
-        // Read action
-        let readActionTitle = WMFLocalizedString("button-read-now", value: "Read now", comment: "Read now button text used in various places.")
-        let readAction = UIAction(title: readActionTitle, image: WMFSFSymbolIcon.for(symbol: .book), handler: { (action) in
+        // Open action
+        let readAction = UIAction(title: CommonStrings.articleTabsOpen, image: WMFSFSymbolIcon.for(symbol: .chevronForward), handler: { (action) in
             self.articlePreviewingDelegate?.readMoreArticlePreviewActionSelected(with: self)
         })
 
         var actions = [readAction]
+        
+        // Tabs actions
+        let destination = LinkCoordinator.destination(for: articleURL)
+
+        let articleTabsDataController = WMFArticleTabsDataController.shared
+        if articleTabsDataController.shouldShowArticleTabs,
+           case .article = destination {
+            
+            // Open in new tab
+            let openInNewTabAction = UIAction(title: CommonStrings.articleTabsOpenInNewTab, image: WMFSFSymbolIcon.for(symbol: .tabsIcon), handler: { [weak self] _ in
+                guard let self = self else { return }
+                articleTabsDataController.didTapOpenNewTab()
+                ArticleTabsFunnel.shared.logOpenArticleInNewTab()
+                self.articlePreviewingDelegate?.openInNewTabArticlePreviewActionSelected(with: self)
+            })
+            
+            actions.append(openInNewTabAction)
+
+            // Open in background tab
+            let openInNewBackgroundTabAction = UIAction(title: CommonStrings.articleTabsOpenInBackgroundTab, image: WMFSFSymbolIcon.for(symbol: .tabsIconBackground), handler: { [weak self] _ in
+                guard let self = self else { return }
+                guard let article = self.article,
+                      let articleTitle = article.url?.wmf_title,
+                      let siteURL = article.url?.wmf_site,
+                      let project = WikimediaProject(siteURL: siteURL)?.wmfProject else { return }
+                Task {
+                    do {
+                        articleTabsDataController.didTapOpenNewTab()
+                        
+                        let tabsCount = try await articleTabsDataController.tabsCount()
+                        let tabsMax = articleTabsDataController.tabsMax
+                        let article = WMFArticleTabsDataController.WMFArticle(identifier: nil, title: articleTitle, project: project)
+                        if tabsCount >= tabsMax {
+                            
+                            let currentTabIdentifier = try await articleTabsDataController.currentTabIdentifier()
+                            _ = try await articleTabsDataController.appendArticle(article, toTabIdentifier: currentTabIdentifier)
+                            
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                                WMFAlertManager.sharedInstance.showBottomWarningAlertWithMessage(String.localizedStringWithFormat(CommonStrings.articleTabsLimitToastFormat, tabsMax), subtitle: nil,  buttonTitle: nil, image: WMFSFSymbolIcon.for(symbol: .exclamationMarkTriangleFill), dismissPreviousAlerts: true)
+                            }
+                        } else {
+                            _ = try await articleTabsDataController.createArticleTab(initialArticle: article, setAsCurrent: false)
+                            ArticleTabsFunnel.shared.logOpenArticleInBackgroundTab()
+                        }
+                        
+                    } catch {
+                        DDLogError("Failed to create background tab: \(error)")
+                    }
+                }
+            })
+            
+            actions.append(openInNewBackgroundTabAction)
+            
+        }
 
         // Save action
         let logReadingListsSaveIfNeeded = { [weak self] in

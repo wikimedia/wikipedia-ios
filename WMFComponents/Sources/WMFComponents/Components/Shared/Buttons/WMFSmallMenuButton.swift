@@ -28,7 +28,7 @@ public class WMFSmallMenuButton: WMFComponentView {
         // MARK: - Properties
 
         public var title: String?
-        let image: UIImage?
+        var image: UIImage?
         let primaryColor: KeyPath<WMFTheme, UIColor>
         public let menuItems: [MenuItem]
 		public var metadata: [String: Any] = [:]
@@ -77,6 +77,12 @@ public class WMFSmallMenuButton: WMFComponentView {
 
     public func updateTitle(_ title: String?) {
         configuration.title = title
+        let buttonConfig = createButtonConfig()
+        button.configuration = buttonConfig
+    }
+    
+    public func updateImage(_ image: UIImage?) {
+        configuration.image = image
         let buttonConfig = createButtonConfig()
         button.configuration = buttonConfig
     }

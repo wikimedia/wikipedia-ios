@@ -74,7 +74,6 @@
 "button-next" = "လွေꩻငါ";
 "button-ok" = "မွေးသွူ";
 "button-publish" = "ဒင်ႏထင်ႏ";
-"button-read-now" = "ဟော်ꩻထွားယိုခါ";
 "button-skip" = "ကာႏထိုꩻ";
 "cancel" = "မာꩻတဝ်းဒွုမ်";
 "clear-title-accessibility-label" = "သျင်ꩻထိုꩻ";
@@ -295,8 +294,6 @@
 "notifications-center-feed-news-notification-button-text" = "ဗွောင် ဖေႏသေချက်ဖိုင်ႏ";
 "notifications-center-filters-read-status-item-title-all" = "ကားကအဝ်ႏ";
 // Fuzzy
-"notifications-center-go-to-talk-page" = "လွေꩻအိုင်ကိုမ်ဒေါ့ꩻရီလိတ်မဲ့ငါထျꩻ";
-// Fuzzy
 "notifications-center-go-to-user-page" = "လွေꩻ $1 ကေားသုင်ꩻသားလိတ်မဲ့ငါထျꩻ";
 // Fuzzy
 "notifications-center-go-to-your-talk-page" = "လွေꩻ နာꩻအိုင်ကိုမ်ဒေါ့ꩻရီလိတ်မဲ့ငါထျꩻ";
@@ -321,7 +318,7 @@
 "number-millions" = "$1 မီလီယံ";
 "number-thousands" = "$1ရေင်";
 "on-this-day-title" = "ဟန်ႏနီꩻတာႏ";
-"page-history-anonymous-edits" = "သေတဝ်းအမိဉ်ꩻ မွဉ်းဖျင်မုꩻဖိုင်ႏ";
+// Fuzzy
 "page-history-bot-edits" = "ဗော့ မွဉ်းဖျင်မုꩻဖိုင်ႏ";
 "page-history-compare-title" = "တဲက်ထွား";
 "page-history-minor-edits" = "အရေꩻတန်တဝ်း မွဉ်းဖျင်မုꩻဖိုင်ႏ";
@@ -331,7 +328,6 @@
 "page-history-revision-minor-edit-accessibility-label" = "အရေꩻတန်တဝ်း မွဉ်းဖျင်မုꩻ";
 "page-history-revision-size-diff-addition" = "ထဲမ်သော့ꩻလဲဉ်း {{PLURAL:$1|$1 ဗုဲက်|$1 ဗုဲက်}}";
 "page-history-revision-size-diff-subtraction" = "ဖုဲင်းထိုꩻလဲဉ်း {{PLURAL:$1|$1 ဗုဲက်|$1 ဗုဲက်}}";
-"page-history-user-edits" = "ကေားသုင်ꩻသား မွဉ်းဖျင်မုꩻဖိုင်ႏ";
 "page-issues" = "လိတ်မဲ့ငါ ခရာႏဖုံႏ";
 "page-location" = "ထွားဟံႏပုင်ႏကို";
 "page-protected-can-not-edit-title" = "လိတ်မဲ့ငါယိုဗာႏနဝ်ꩻ အဝ်ႏရဲးကမ်းသေꩻခါꩻဩ";

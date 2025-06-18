@@ -225,6 +225,7 @@ public class WMFWatchlistDataController {
                 username: item.username,
                 isAnon: item.isAnon,
                 isBot: item.isBot,
+                isTemp: item.isTemp,
                 timestamp: timestamp,
                 commentWikitext: item.commentWikitext ?? "",
                 commentHtml: item.commentHtml ?? "",
@@ -390,61 +391,6 @@ public class WMFWatchlistDataController {
          }
      }
     
-    // MARK: GET Watch Status and Rollback Rights
-     
-     public func fetchWatchStatus(title: String, project: WMFProject, needsRollbackRights: Bool = false, completion: @escaping (Result<WMFPageWatchStatus, Error>) -> Void) {
-         guard let service else {
-             completion(.failure(WMFDataControllerError.mediaWikiServiceUnavailable))
-             return
-         }
-
-         var parameters = [
-                     "action": "query",
-                     "prop": "info",
-                     "inprop": "watched",
-                     "titles": title,
-                     "errorsuselocal": "1",
-                     "errorformat": "html",
-                     "format": "json",
-                     "formatversion": "2"
-                 ]
-
-         if needsRollbackRights {
-             parameters["meta"] = "userinfo"
-             parameters["uiprop"] = "rights"
-         }
-
-         guard let url = URL.mediaWikiAPIURL(project: project) else {
-             return
-         }
-
-         let request = WMFMediaWikiServiceRequest(url: url, method: .GET, backend: .mediaWiki, parameters: parameters)
-
-         service.performDecodableGET(request: request) { (result: Result<PageWatchStatusAndRollbackResponse, Error>) in
-             switch result {
-             case .success(let response):
-
-                guard let firstPage = response.query.pages.first else {
-                 completion(.failure(WMFDataControllerError.unexpectedResponse))
-                 return
-                }
-
-                let watched = firstPage.watched
-                let userHasRollbackRights = response.query.userinfo?.rights.contains("rollback")
-                 
-                var watchlistExpiry: Date? = nil
-                if let watchlistExpiryString = firstPage.watchlistexpiry {
-                  watchlistExpiry = DateFormatter.mediaWikiAPIDateFormatter.date(from: watchlistExpiryString)
-                }
-
-                let status = WMFPageWatchStatus(watched: watched, watchlistExpiry: watchlistExpiry, userHasRollbackRights: userHasRollbackRights)
-                 completion(.success(status))
-             case .failure(let error):
-                 completion(.failure(WMFDataControllerError.serviceError(error)))
-             }
-         }
-     }
-    
     // MARK: POST Rollback Page
     
     public func rollback(title: String, project: WMFProject, username: String, completion: @escaping (Result<WMFUndoOrRollbackResult, Error>) -> Void) {
@@ -603,6 +549,7 @@ private extension WMFWatchlistDataController {
                 let username: String
                 let isAnon: Bool
                 let isBot: Bool
+                let isTemp: Bool
                 let timestampString: String
                 let commentWikitext: String?
                 let commentHtml: String?
@@ -616,6 +563,7 @@ private extension WMFWatchlistDataController {
                     case username = "user"
                     case isAnon = "anon"
                     case isBot = "bot"
+                    case isTemp = "temp"
                     case timestampString = "timestamp"
                     case commentWikitext = "comment"
                     case commentHtml = "parsedcomment"
@@ -629,28 +577,6 @@ private extension WMFWatchlistDataController {
         
         let query: Query?
         let errors: [WMFMediaWikiError]?
-    }
-
-    struct PageWatchStatusAndRollbackResponse: Codable {
-
-        struct Query: Codable {
-
-            struct Page: Codable {
-                let title: String
-                let watched: Bool
-                let watchlistexpiry: String?
-            }
-
-            struct UserInfo: Codable {
-                let name: String
-                let rights: [String]
-            }
-
-            let pages: [Page]
-            let userinfo: UserInfo?
-        }
-
-        let query: Query
     }
 
     struct UndoRevisionSummaryTextResponse: Codable {

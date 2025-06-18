@@ -199,7 +199,7 @@ class SinglePageWebViewController: ThemeableViewController, WMFNavigationBarConf
                 }
 
             }
-            configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: closeConfig, profileButtonConfig: nil, searchBarConfig: nil, hideNavigationBarOnScroll: false)
+            configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: closeConfig, profileButtonConfig: nil, tabsButtonConfig: nil, searchBarConfig: nil, hideNavigationBarOnScroll: false)
 
         } else {
             let wButton = UIButton(type: .custom)
@@ -208,7 +208,7 @@ class SinglePageWebViewController: ThemeableViewController, WMFNavigationBarConf
             
             let titleConfig = WMFNavigationBarTitleConfig(title: "", customView: wButton, alignment: .hidden)
             
-            configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: closeConfig, profileButtonConfig: nil, searchBarConfig: nil, hideNavigationBarOnScroll: true)
+            configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: closeConfig, profileButtonConfig: nil, tabsButtonConfig: nil, searchBarConfig: nil, hideNavigationBarOnScroll: true)
             
             let safariItem = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(tappedAction(_:)))
             navigationItem.setRightBarButtonItems([searchBarButtonItem, safariItem], animated: false)

@@ -940,12 +940,13 @@ extension UIViewController {
         present(panelVC, animated: true, completion: completion)
     }
 
-    @objc func wmf_showDescriptionPublishedPanelViewController(theme: Theme) {
+    @objc func wmf_showDescriptionPublishedPanelViewController(theme: Theme, completion: (() -> Swift.Void)? = nil) {
         guard !UserDefaults.standard.didShowDescriptionPublishedPanel else {
+            completion?()
             return
         }
         let doneTapHandler: ScrollableEducationPanelButtonTapHandler = { _, _ in
-            self.dismiss(animated: true, completion: nil)
+            self.dismiss(animated: true, completion: completion)
         }
         let panelVC = DescriptionPublishedPanelViewController(showCloseButton: true, primaryButtonTapHandler: doneTapHandler, secondaryButtonTapHandler: nil, dismissHandler: nil, theme: theme)
         present(panelVC, animated: true) {

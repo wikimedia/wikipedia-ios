@@ -137,7 +137,6 @@
 "button-next" = "Další";
 "button-ok" = "OK";
 "button-publish" = "Zveřejnit";
-"button-read-now" = "Číst nyní";
 "button-report-a-bug" = "Nahlásit chybu";
 "button-save-for-later" = "Uložit na později";
 "button-saved-for-later" = "Uloženo na později";
@@ -543,7 +542,7 @@
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 z Wikipedie v jazyce $2";
 "on-this-day-title" = "Dnešek v minulosti";
 "original-tab-button-popover-description" = "Klepnutím na W se vrátíte na kartu, ze které jste začali";
-"page-history-anonymous-edits" = "editace neregistrovaných uživatelů";
+// Fuzzy
 "page-history-bot-edits" = "editace robotů";
 "page-history-compare-accessibility-hint" = "Klepněte pro vybrání dvou revizí k porovnání";
 "page-history-compare-title" = "Porovnat";
@@ -558,7 +557,6 @@
 "page-history-revision-time-accessibility-label" = "Editoval/a $1";
 "page-history-revisions-comparison-warning" = "Můžete vybrat pouze dvě revize";
 "page-history-stats-text" = "{{PLURAL:$1|$1 editace|$1 editace|$1 editací}} od $2";
-"page-history-user-edits" = "editace uživatelů";
 "page-issues" = "Nedostatky stránky";
 "page-location" = "Zobrazit na mapě";
 "page-protected-can-not-edit" = "Nemáte oprávnění editovat tuto stránku";

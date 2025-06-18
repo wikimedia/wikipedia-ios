@@ -75,7 +75,7 @@ final class AppearanceSettingsViewController: SubSettingsViewController, WMFNavi
     private func configureNavigationBar() {
         let titleConfig = WMFNavigationBarTitleConfig(title: CommonStrings.readingPreferences, customView: nil, alignment: .centerCompact)
         
-        configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: nil, profileButtonConfig: nil, searchBarConfig: nil, hideNavigationBarOnScroll: false)
+        configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: nil, profileButtonConfig: nil, tabsButtonConfig: nil, searchBarConfig: nil, hideNavigationBarOnScroll: false)
     }
     
     func sectionsForAppearanceSettings() -> [AppearanceSettingsSection] {

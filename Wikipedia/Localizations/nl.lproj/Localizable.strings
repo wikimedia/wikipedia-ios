@@ -116,6 +116,8 @@
 "action-update" = "Bijwerken";
 "add-articles-to-reading-list" = "{{PLURAL:$1|$1 artikel|$1 artikelen}} aan leeslijst toevoegen";
 "advanced-settings-title" = "Geavanceerde instellingen";
+"alert-temporary-account" = "U gebruikt een tijdelijk account. Het account verloopt over 90 dagen.";
+"alert-temporary-account-learn-more" = "Meer informatie";
 "alt-text-feedback-survey-toast-title" = "Feedback verzonden";
 "announcements-dismiss" = "Sluiten";
 "app-store-keywords" = "Wikipedia, referentie, wiki, encyclopedie, info, kennis, onderzoek, informatie, ontdekken, leren";
@@ -145,6 +147,8 @@
 "article-share" = "Deel";
 "article-talk-page" = "Overlegpagina";
 "article-toolbar-reading-themes-controls-toolbar-item" = "Instellingen leesthema's";
+"article-view-controller-editing-temp-account-created-subtitle" = "Het tijdelijke account $1 is aangemaakt nadat uw bewerking is gepubliceerd. Het verloopt over 90 dagen.";
+"article-view-controller-editing-temp-account-created-title" = "Tijdelijk account aangemaakt";
 "back-button-accessibility-label" = "Terug";
 "back-button-popover-title" = "Tik om terug te keren";
 "button-go-back" = "Teruggaan";
@@ -152,7 +156,6 @@
 "button-ok" = "OK";
 "button-publish" = "Publiceren";
 "button-publish-anyway" = "Toch publiceren";
-"button-read-now" = "Nu lezen";
 "button-report-a-bug" = "Probleem melden";
 "button-save-for-later" = "Opslaan voor later";
 "button-saved-for-later" = "Opgeslagen voor later";
@@ -188,6 +191,7 @@
 "description-edit-title" = "Beschrijving bewerken";
 "description-edit-warning" = "Probeer beschrijvingen kort te houden, zodat gebruikers het onderwerp van het artikel in één oogopslag kunnen begrijpen";
 "description-edit-warning-casing" = "Alleen eigennamen dienen met een hoofdletter te beginnen, ook aan het begin van een zin.";
+"description-editing-temp-account-created-subtitle" = "Het tijdelijke account $1 is aangemaakt nadat uw bewerking is gepubliceerd. Het verloopt over 90 dagen.";
 "description-help-about-description" = "Artikelbeschrijvingen vatten een artikel samen om lezers in een oogopslag het onderwerp te laten begrijpen.";
 "description-help-about-title" = "Over";
 "description-help-about-wikidata" = "Over Wikidata";
@@ -314,6 +318,8 @@
 "edit-preview-simplified-format-message" = "Alle inhoud wordt in vereenvoudigd formaat weergegeven.";
 "edit-published" = "Bewerking gepubliceerd";
 "edit-published-subtitle" = "U heeft Wikipedia zojuist voor iedereen beter gemaakt";
+"edit-sheet-ip-account-notice" = "Kennisgeving IP-account";
+"edit-sheet-temp-account-notice" = "Kennisgeving tijdelijk account";
 "edit-show-web-preview" = "Webvoorbeeld weergeven";
 "edit-summary-add-summary-text" = "Voeg een bewerkingssamenvatting toe";
 "edit-summary-choice-added-image" = "Afbeelding toegevoegd";
@@ -377,6 +383,7 @@
 "editor-replace-type-button-accessibility" = "Vervangtype wisselen. Momenteel ingesteld op $1. Selecteer om te wijzigen.";
 "editor-replace-type-single" = "Vervangen";
 "editor-replace-type-single-accessibility" = "Vervang een enkel exemplaar";
+"editor-title" = "Bewerker";
 "editor-toolbar-bold-accessibility" = "Vetgedrukte tekstopmaak";
 "editor-toolbar-cursor-down-accessibility" = "Verplaats de cursor naar de volgende regel.";
 "editor-toolbar-cursor-next-accessibility" = "Verplaats de cursor naar het volgende teken.";
@@ -660,6 +667,8 @@
 "insert-media-title" = "Media invoegen";
 "inuktitut-variants-alert-body" = "De Wikipedia app ondersteund nu de volgende varianten van Inuktitut als primaire of secundaire talen in de app, wat het makkelijker maakt artikelen te lezen, zoeken en bewerken in deze varianten:";
 "inuktitut-variants-alert-title" = "Updates voor ondersteuning van Inuktitutse variant";
+"ip-account-cta-bottom" = "Doorgaan zonder aan te melden";
+"ip-account-cta-top" = "Aanmelden of een account aanmaken";
 "kazakh-variants-alert-body" = "De Wikipedia-app ondersteunt nu de volgende Kazachse varianten als primaire of secundaire talen binnen de app, waardoor het makkelijker wordt om te lezen, zoeken en bewerken in uw voorkeursvarianten:\n\nҚазақша Kazachs (kk)\nҚазақша Кирил Kazachs, Cyrillisch (kk-cyrl)\nqazaqşa latin Kazachs, Latijn (kk-latn)\nتوتە قازاقشا Kazachs, Arabisch (kk-arabisch)";
 "kazakh-variants-alert-title" = "Updates voor ondersteuning van Kazachstaanse variant";
 "kurdish-variants-alert-body" = "De Wikipedia app ondersteund nu de volgende varianten van Koerdisch als primaire of secundaire talen in de app, wat het makkelijker maakt artikelen te lezen, zoeken en bewerken in deze varianten:";
@@ -750,7 +759,6 @@
 "notifications-center-go-to-article" = "Artikel";
 "notifications-center-go-to-article-talk-format" = "$1-overlegpagina";
 "notifications-center-go-to-diff" = "Wijz";
-"notifications-center-go-to-talk-page" = "Overlegpagina";
 "notifications-center-go-to-user-page" = "Gebruikerspagina van $1";
 "notifications-center-go-to-wikidata-item" = "Wikidata-item";
 "notifications-center-go-to-your-talk-page" = "Uw overlegpagina";
@@ -857,8 +865,7 @@
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 van Wikipedia in het $2";
 "on-this-day-title" = "Op deze dag";
 "original-tab-button-popover-description" = "Tik op de 'W' om terug te gaan naar het tabblad waar u vandaan kwam";
-"page-history-anonymous-edits" = "anonieme bewerkingen";
-"page-history-bot-edits" = "botbewerkingen";
+"page-history-bot-edits" = "robot";
 "page-history-compare-accessibility-hint" = "Klik om twee revisies te vergelijken";
 "page-history-compare-title" = "Vergelijken";
 "page-history-graph-accessibility-label" = "Grafiek van wijzigingen in de loop van de tijd";
@@ -872,7 +879,6 @@
 "page-history-revision-time-accessibility-label" = "Wijziging gemaakt $1";
 "page-history-revisions-comparison-warning" = "Slechts twee versies kunnen worden geselecteerd";
 "page-history-stats-text" = "{{PLURAL:$1|1 bewerking|$1 bewerkingen}} sinds $1";
-"page-history-user-edits" = "gebruikersbewerkingen";
 "page-issues" = "Paginaproblemen";
 "page-location" = "Op een kaart bekijken";
 "page-protected-can-not-edit" = "U hebt geen rechten om deze pagina te bewerken";
@@ -902,7 +908,9 @@
 "places-filter-top-articles" = "Meest gelezen";
 "places-filter-top-articles-count" = "{{PLURAL:$1|$1 artikel|$1 artikelen}}";
 "places-filter-top-read-articles" = "Meest gelezen artikelen";
+"places-list-title'" = "Lijst";
 "places-location-enabled" = "Locatie ingeschakeld";
+"places-map-title" = "Kaart";
 "places-no-saved-articles-have-location" = "Geen van uw opgeslagen artikelen heeft locatieinformatie";
 "places-search-articles-that-match" = "$1 die overeenkomen met \"$2\"";
 "places-search-default-text" = "Plaatsen zoeken";
@@ -931,7 +939,6 @@
 "profile-page-join-subtext" = "Maak een Wikipedia-account aan om uw bijdragen bij te houden, artikelen offline op te slaan en te synchroniseren op verschillende apparaten.";
 "profile-page-join-title" = "Inloggen/Lid worden van Wikipedia";
 "profile-page-logged-out-year-in-review-subtext" = "Meld u aan of maak een account aan om volgend jaar een verbeterd jaaroverzicht te krijgen";
-"profile-page-title-logged-out" = "Account";
 "profile-year-in-review-login-subtitle" = "Log in of maak een account aan om het jaaroverzicht opnieuw te bekijken en in aanmerking te komen voor meer gepersonaliseerde inzichten.";
 "profile-year-in-review-login-title" = "Log in voor toegang tot het jaaroverzicht";
 "project-name-mediawiki" = "MediaWiki";
@@ -958,6 +965,7 @@
 "reading-list-create-new-list-reading-list-name" = "Naam leeslijst";
 "reading-list-create-new-list-title" = "Nieuwe lijst aanmaken";
 "reading-list-deleted-accessibility-notification" = "Leeslijst verwijdered";
+"reading-list-detail-search-placeholder" = "Leeslijst doorzoeken";
 "reading-list-do-not-keep-button-title" = "Nee, verwijder de artikelen van dit apparaat";
 "reading-list-entry-limit-exceeded-message" = "Verlaag alstublieft uw artikelaantal in deze lijst tot $1 om synchroniseren van alle lijstartikelen te hervatten.";
 "reading-list-entry-limit-exceeded-title" = "U hebt de grens van {{PLURAL:$1|$1 artikel|$1 artikelen}} per account overschreden.";
@@ -1055,6 +1063,7 @@
 "saved-default-reading-list-tag" = "Deze lijst kan niet worden verwijderd";
 "saved-pages-image-download-error" = "Er is een fout opgetreden tijdens het ophalen van de afbeeldingen van deze opgeslagen pagina.";
 "saved-pages-progress-syncing" = "Artikel wordt gedownload…";
+"saved-reading-lists-search-placeholder" = "Leeslijsten doorzoeken";
 "saved-reading-lists-title" = "Leeslijsten";
 "saved-search-default-text" = "Opgeslagen artikelen doorzoeken";
 "saved-title" = "Opgeslagen";

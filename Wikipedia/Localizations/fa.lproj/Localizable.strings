@@ -153,7 +153,6 @@
 "button-ok" = "تأیید";
 "button-publish" = "انتشار";
 "button-publish-anyway" = "انتشار به هر روی";
-"button-read-now" = "الان بخوان";
 "button-report-a-bug" = "گزارش مشکل";
 "button-save-for-later" = "ذخیره برای بعد";
 "button-saved-for-later" = "برای بعد ذخیره شد";
@@ -752,7 +751,6 @@
 "notifications-center-go-to-article" = "مقاله";
 "notifications-center-go-to-article-talk-format" = "صفحهٔ بحث $1";
 "notifications-center-go-to-diff" = "تفاوت";
-"notifications-center-go-to-talk-page" = "صفحهٔ بحث";
 "notifications-center-go-to-user-page" = "صفحهٔ بحث کاربر $1";
 "notifications-center-go-to-wikidata-item" = "آیتم ویکی‌داده";
 "notifications-center-go-to-your-talk-page" = "صفحهٔ بحث خودتان";
@@ -859,7 +857,7 @@
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 از ویکی‌پدیای $2";
 "on-this-day-title" = "در این روز";
 "original-tab-button-popover-description" = "برای بازگشت به زبانه‌ای که از آن شروع کردید، نماد W را لمس کنید";
-"page-history-anonymous-edits" = "ویرایش‌های ناشناس";
+// Fuzzy
 "page-history-bot-edits" = "ویرایش‌های ربات";
 "page-history-compare-accessibility-hint" = "برای انتخاب دو نسخه جهت مقایسه، اینجا را لمس کنید";
 "page-history-compare-title" = "مقایسه";
@@ -874,7 +872,6 @@
 "page-history-revision-time-accessibility-label" = "ویرایش در $1 انجام شده";
 "page-history-revisions-comparison-warning" = "فقط دو نسخه را می‌توان انتخاب کرد";
 "page-history-stats-text" = "{{PLURAL:$1|$1 ویرایش|$1 ویرایش}} از $2";
-"page-history-user-edits" = "ویرایش‌های کاربر";
 "page-issues" = "مشکلات صفحه";
 "page-location" = "مشاهده بر روی نقشه";
 "page-protected-can-not-edit" = "شما دسترسی لازم را برای ویرایش این صفحه ندارید";
@@ -935,7 +932,6 @@
 "profile-page-join-subtext" = "یک حساب کاربری ویکی‌پدیایی بسازید تا بتوانید مشارکت‌های خود را رهگیری کنید، مقاله‌ها را به‌صورت غیر برخط ذخیره کنید و تمام دستگاه‌های خود را همگام‌سازی کنید.";
 "profile-page-join-title" = "ورود / پیوستن به ویکی‌پدیا";
 "profile-page-logged-out-year-in-review-subtext" = "برای دریافت یک «سال در یک نگاه» در سال بعد، به سامانه وارد شوید یا حساب کاربری بسازید";
-"profile-page-title-logged-out" = "حساب کاربری";
 "profile-year-in-review-login-subtitle" = "برای مشاهدهٔ مجدد سال در یک نگاه و واجد شرایط بودن برای مشاهدهٔ اطلاعات آماری بیشتر، به سامانه وارد شوید یا یک حساب کاربری ایجاد کنید.";
 "profile-year-in-review-login-title" = "برای دسترسی به سال در یک نگاه به سامانه وارد شوید";
 "project-name-mediawiki" = "مدیاویکی";

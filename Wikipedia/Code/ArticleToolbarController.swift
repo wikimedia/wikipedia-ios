@@ -17,6 +17,8 @@ protocol ArticleToolbarHandling: AnyObject {
     func watch(from controller: ArticleToolbarController)
     func unwatch(from controller: ArticleToolbarController)
     func editArticle(from controller: ArticleToolbarController)
+    func backInTab(article: WMFArticleTabsDataController.WMFArticle, controller: ArticleToolbarController)
+    func forwardInTab(article: WMFArticleTabsDataController.WMFArticle, controller: ArticleToolbarController)
     var isTableOfContentsVisible: Bool { get }
 }
 
@@ -87,7 +89,8 @@ class ArticleToolbarController: Themeable {
         return item
     }()
     
-    private func createMoreButton(needsWatchButton: Bool = false, needsUnwatchHalfButton: Bool = false, needsUnwatchFullButton: Bool = false) -> IconBarButtonItem {
+    private func createMoreButton(needsWatchButton: Bool = false, needsUnwatchHalfButton: Bool = false, needsUnwatchFullButton: Bool = false, previousArticleTab: WMFArticleTabsDataController.WMFArticle? = nil, nextArticleTab: WMFArticleTabsDataController.WMFArticle? = nil) -> IconBarButtonItem {
+        
         var actions: [UIAction] = []
         
         let image = WMFIcon.pencil
@@ -104,8 +107,36 @@ class ArticleToolbarController: Themeable {
         } else if needsUnwatchFullButton {
             actions.append(UIAction(title: CommonStrings.unwatch, image: UIImage(systemName: "star.fill"), handler: { [weak self] _ in self?.tappedUnwatch()}))
         }
-
-        actions.append(UIAction(title: CommonStrings.shortShareTitle, image: UIImage(systemName: "square.and.arrow.up"), handler: { [weak self] _ in self?.share()}))
+        
+        actions.append(UIAction(title: CommonStrings.shortShareTitle, image: WMFSFSymbolIcon.for(symbol: .ellipsisCircle), handler: { [weak self] _ in self?.share()}))
+        
+        if WMFArticleTabsDataController.shared.shouldShowArticleTabs {
+            
+            if let title = nextArticleTab?.title.underscoresToSpaces.truncated() {
+                let forwardAttributes: UIMenuElement.Attributes = nextArticleTab != nil ? [] : .disabled
+                actions.append(UIAction(title: title, image: WMFSFSymbolIcon.for(symbol: .chevronForward), attributes: forwardAttributes,  handler: { [weak self] _ in
+                    
+                    guard let self else { return }
+                    
+                    if let nextArticleTab {
+                        self.delegate?.forwardInTab(article: nextArticleTab, controller: self)
+                    }
+                }))
+            }
+            
+            if let title = previousArticleTab?.title.underscoresToSpaces.truncated() {
+                let backAttributes: UIMenuElement.Attributes = previousArticleTab != nil ? [] : .disabled
+                actions.append(UIAction(title: title, image: WMFSFSymbolIcon.for(symbol: .chevronBackward), attributes: backAttributes, handler: { [weak self] _ in
+                    
+                    guard let self else { return }
+                    
+                    if let previousArticleTab {
+                        self.delegate?.backInTab(article: previousArticleTab, controller: self)
+                    }
+                }))
+            }
+            
+        }
         
         let menu = UIMenu(title: "", options: .displayInline, children: actions)
 
@@ -117,8 +148,8 @@ class ArticleToolbarController: Themeable {
         return item
     }
     
-    func updateMoreButton(needsWatchButton: Bool = false, needsUnwatchHalfButton: Bool = false, needsUnwatchFullButton: Bool = false) {
-        self.moreButton = createMoreButton(needsWatchButton: needsWatchButton, needsUnwatchHalfButton: needsUnwatchHalfButton, needsUnwatchFullButton: needsUnwatchFullButton)
+    func updateMoreButton(needsWatchButton: Bool = false, needsUnwatchHalfButton: Bool = false, needsUnwatchFullButton: Bool = false, previousArticleTab: WMFArticleTabsDataController.WMFArticle?, nextArticleTab: WMFArticleTabsDataController.WMFArticle?) {
+        self.moreButton = createMoreButton(needsWatchButton: needsWatchButton, needsUnwatchHalfButton: needsUnwatchHalfButton, needsUnwatchFullButton: needsUnwatchFullButton, previousArticleTab: previousArticleTab, nextArticleTab: nextArticleTab)
         update()
     }
     
@@ -257,4 +288,16 @@ class ArticleToolbarController: Themeable {
         toolbar.items?.forEach { $0.isEnabled = enabled }
     }
 
+}
+
+private extension String {
+    func truncated() -> String {
+        if !UIAccessibility.isVoiceOverRunning {
+            if self.count > 20 {
+                return self.prefix(20) + "..."
+            }
+        }
+        
+        return self
+    }
 }

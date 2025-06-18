@@ -102,7 +102,6 @@
 "button-next" = "បន្ទាប់";
 "button-ok" = "យល់ព្រម";
 "button-publish" = "បោះផ្សាយ";
-"button-read-now" = "អានឥឡូវ";
 "button-report-a-bug" = "រាយ​ការណ៍​អំពី​បញ្ហា";
 "button-save-for-later" = "រក្សាទុកសម្រាប់អានពេលក្រោយ";
 "button-saved-for-later" = "បានរក្សាទុកសម្រាប់អានពេលក្រោយ";
@@ -450,7 +449,6 @@
 "notifications-center-go-to-article" = "អត្ថបទ";
 "notifications-center-go-to-article-talk-format" = "ទំព័រពិភាក្សាអំពី $1";
 "notifications-center-go-to-diff" = "ប្រៀបធៀប";
-"notifications-center-go-to-talk-page" = "ទំព័រពិភាក្សា";
 "notifications-center-go-to-user-page" = "ទំព័រអ្នកប្រើប្រាស់របស់$1";
 "notifications-center-go-to-your-talk-page" = "ទំព័រពិភាក្សារបស់អ្នក";
 "notifications-center-header-alert-from-agent" = "សារជូនដំណឹងពី$1";
@@ -517,7 +515,7 @@
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 ពីវិគីភីឌា$2";
 "on-this-day-title" = "នៅថ្ងៃនេះ";
 "original-tab-button-popover-description" = "ចុចលើ 'W' ដើម្បីត្រឡប់ទៅផ្ទាំងដែលអ្នកបានចាប់ផ្តើម";
-"page-history-anonymous-edits" = "កំណែប្រែអនាមិក";
+// Fuzzy
 "page-history-bot-edits" = "កំណែប្រែដោយរូបយន្ត";
 "page-history-compare-accessibility-hint" = "ចុចដើម្បីជ្រើសយកកំណែ២ច្បាប់សម្រាប់ប្រៀបធៀប";
 "page-history-compare-title" = "ប្រៀបធៀប";
@@ -532,7 +530,6 @@
 "page-history-revision-time-accessibility-label" = "កំណែនៅ$1";
 "page-history-revisions-comparison-warning" = "អាចជ្រើសរើសតែ២កំណែទេ";
 "page-history-stats-text" = "{{PLURAL:$1|កំណែចំនួន$1|កំណែចំនួន$1}} តាំងពីឆ្នាំ $2";
-"page-history-user-edits" = "កំណែប្រែដោយអ្នកប្រើប្រាស់";
 "page-issues" = "បញ្ហាក្នុងទំព័រ";
 "page-location" = "មើលនៅលើផែនទី";
 "page-protected-can-not-edit" = "អ្នកគ្មានសិទ្ធិក្នុងការកែប្រែទំព័រនេះទេ";

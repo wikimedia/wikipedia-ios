@@ -14,6 +14,7 @@ private struct Item {
 
 @objc(WMFSearchSettingsViewController)
 final class SearchSettingsViewController: SubSettingsViewController, WMFNavigationBarConfiguring {
+    private lazy var sections: [Section] = []
 
     public override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,10 +34,8 @@ final class SearchSettingsViewController: SubSettingsViewController, WMFNavigati
     private func configureNavigationBar() {
         let titleConfig = WMFNavigationBarTitleConfig(title: CommonStrings.searchTitle, customView: nil, alignment: .centerCompact)
         
-        configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: nil, profileButtonConfig: nil, searchBarConfig: nil, hideNavigationBarOnScroll: false)
+        configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: nil, profileButtonConfig: nil, tabsButtonConfig: nil, searchBarConfig: nil, hideNavigationBarOnScroll: false)
     }
-
-    private lazy var sections: [Section] = []
 
     private func reloadSectionData() {
         let showLanguagesOnSearch = Item(title: WMFLocalizedString("settings-language-bar", value: "Show languages on search", comment: "Title in Settings for toggling the display the language bar in the search view"), isOn: UserDefaults.standard.wmf_showSearchLanguageBar(), controlTag: 1)

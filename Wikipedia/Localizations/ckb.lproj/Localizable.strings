@@ -108,7 +108,6 @@
 "button-ok" = "باشە";
 "button-publish" = "بڵاوکردنەوە";
 "button-publish-anyway" = "ھەر بڵاوی بکەرەوە";
-"button-read-now" = "ئێستا بیخوێنەوە";
 "button-report-a-bug" = "سکاڵای کێشەیەک بدە";
 "button-save-for-later" = "پاشەکەوتکردن بۆ دواتر";
 "button-saved-for-later" = "پاشەکەوت کرا بۆ دواتر";
@@ -329,7 +328,6 @@
 "notifications-center-go-to-article" = "وتار";
 "notifications-center-go-to-article-talk-format" = "پەڕەی وتووێژی $1";
 "notifications-center-go-to-diff" = "جیاوازی";
-"notifications-center-go-to-talk-page" = "پەڕەی وتووێژ";
 "notifications-center-go-to-user-page" = "پەڕەی بەکارھێنەری $1";
 "notifications-center-go-to-wikidata-item" = "بەندی ویکیدراوە";
 "notifications-center-go-to-your-talk-page" = "پەڕەی لێدوانەکەت";
@@ -377,6 +375,7 @@
 "on-this-day-footer" = "ڕووداوی مێژوویی زیاتر لەمڕۆدا";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 لە ویکیپیدیای $2";
 "on-this-day-title" = "لەم ڕۆژەدا";
+// Fuzzy
 "page-history-bot-edits" = "دەستکارییەکانی بۆت";
 "page-history-revision-history-title" = "مێژووی پێداچوونەوە";
 "page-protected-can-not-edit" = "تۆ مەفەکانی دەستکاریکردنی ئەم پەڕەیەت نییە.";

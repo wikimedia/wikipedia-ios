@@ -12,35 +12,42 @@ final class LinkCoordinator: Coordinator {
     private let dataStore: MWKDataStore
     var theme: Theme
     private let articleSource: ArticleSource
+    private let previousPageViewObjectID: NSManagedObjectID?
+    let tabConfig: ArticleTabConfig
     
-    init(navigationController: UINavigationController, url: URL, dataStore: MWKDataStore?, theme: Theme, articleSource: ArticleSource) {
+    init(navigationController: UINavigationController, url: URL, dataStore: MWKDataStore?, theme: Theme, articleSource: ArticleSource, previousPageViewObjectID: NSManagedObjectID? = nil, tabConfig: ArticleTabConfig = .appendArticleAndAssignCurrentTab) {
         self.navigationController = navigationController
         self.url = url
         self.dataStore = dataStore ?? MWKDataStore.shared()
         self.theme = theme
         self.articleSource = articleSource
+        self.previousPageViewObjectID = previousPageViewObjectID
+        self.tabConfig = tabConfig
     }
     
     @discardableResult
     func start() -> Bool {
         
-        let destination = self.destination(for: url)
+        let destination = Self.destination(for: url)
         
         switch destination {
         case .article:
-            let articleCoordinator = ArticleCoordinator(
+            let articleCoordinator: ArticleCoordinator = ArticleCoordinator(
                 navigationController: navigationController,
                 articleURL: url,
                 dataStore: dataStore,
                 theme: theme,
-                source: articleSource)
+                source: articleSource,
+                previousPageViewObjectID: previousPageViewObjectID,
+                tabConfig: self.tabConfig)
+            
             return articleCoordinator.start()
         case .unknown:
             return false
         }
     }
     
-    private func destination(for url: URL) -> Destination {
+    static func destination(for url: URL) -> Destination {
         
         guard let siteURL = url.wmf_site,
               let project = WikimediaProject(siteURL: siteURL) else {

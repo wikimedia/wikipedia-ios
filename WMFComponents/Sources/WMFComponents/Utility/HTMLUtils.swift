@@ -16,8 +16,9 @@ public struct HtmlUtils {
         let strongColor: UIColor?
         let lineSpacing: CGFloat
         let listIndent: String
-        
-        public init(font: UIFont, boldFont: UIFont, italicsFont: UIFont, boldItalicsFont: UIFont, color: UIColor, linkColor: UIColor?, strongColor: UIColor? = nil, lineSpacing: CGFloat, listIndent: String = HtmlUtils.defaultListIndent) {
+        let lineBreakMode: NSLineBreakMode
+
+        public init(font: UIFont, boldFont: UIFont, italicsFont: UIFont, boldItalicsFont: UIFont, color: UIColor, linkColor: UIColor?, strongColor: UIColor? = nil, lineSpacing: CGFloat, listIndent: String = HtmlUtils.defaultListIndent, lineBreakMode: NSLineBreakMode = .byWordWrapping) {
             self.font = font
             self.boldFont = boldFont
             self.italicsFont = italicsFont
@@ -27,6 +28,7 @@ public struct HtmlUtils {
             self.strongColor = strongColor
             self.lineSpacing = lineSpacing
             self.listIndent = listIndent
+            self.lineBreakMode = lineBreakMode
         }
     }
     
@@ -78,17 +80,19 @@ public struct HtmlUtils {
     // MARK: - NSAttributedString - Public
     
     public static func nsAttributedStringFromHtml(_ html: String, styles: Styles) throws -> NSAttributedString {
-        let attributedString = NSMutableAttributedString(string: html)
+        let cleanHTML = sanitizedHTML(html)
+        let attributedString = NSMutableAttributedString(string: cleanHTML)
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.lineSpacing = styles.lineSpacing
+        paragraphStyle.lineBreakMode = styles.lineBreakMode
         let attributes: [NSAttributedString.Key : Any] = [
             .font: styles.font,
             .foregroundColor: styles.color,
             .paragraphStyle: paragraphStyle
         ]
         attributedString.setAttributes(attributes, range: html.fullNSRange)
-        
-        let listInsertData = try listInsertData(html: html, styles: styles)
+
+        let listInsertData = try listInsertData(html: cleanHTML, styles: styles)
         insertListData(into: attributedString, listInsertData: listInsertData, styles: styles)
         
         let allStyleData = try allStyleData(html: attributedString.string)
@@ -214,16 +218,48 @@ public struct HtmlUtils {
             nsAttributedString.replaceCharacters(in: data.range, with: data.replaceText)
         }
     }
-    
+
+    public static func sanitizedHTML(_ html: String) -> String {
+        let pattern = #"href=\"([^\"]+)\""#
+            guard let regex = try? NSRegularExpression(pattern: pattern) else {
+                return html
+            }
+
+            var cleanHTML = html
+            let matches = regex.matches(in: html, range: html.fullNSRange)
+
+            for match in matches.reversed() {
+                guard let range = Range(match.range(at: 1), in: html) else { continue }
+                let rawHref = String(html[range])
+
+                if let url = URL(string: rawHref),
+                   var components = URLComponents(url: url, resolvingAgainstBaseURL: false) {
+                    // Custom character set - don't escape parentheses, colons, or slashes
+                    let allowed = CharacterSet(charactersIn: "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-._~:/?#[]@!$&'()*+,;=")
+                    if let comp = components.path.addingPercentEncoding(withAllowedCharacters: allowed) {
+                        components.percentEncodedPath = comp
+                    }
+                    let encodedHref = components.url?.absoluteString ?? rawHref
+
+                    let fullRange = match.range(at: 0)
+                    if let swiftRange = Range(fullRange, in: html) {
+                        cleanHTML.replaceSubrange(swiftRange, with: #"href="\#(encodedHref)""#)
+                    }
+                }
+            }
+
+            return cleanHTML
+       }
+
     // MARK: - AttributedString - Public
     
     public static func attributedStringFromHtml(_ html: String, styles: Styles) throws -> AttributedString {
-        
-        var attributedString = AttributedString(html)
+        let cleanHTML = sanitizedHTML(html)
+        var attributedString = AttributedString(cleanHTML)
         attributedString.font = styles.font
         attributedString.foregroundColor = styles.color
         
-        let listInsertData = try listInsertData(html: html, styles: styles)
+        let listInsertData = try listInsertData(html: cleanHTML, styles: styles)
         insertListData(into: &attributedString, listInsertData: listInsertData, styles: styles)
         
         let allStyleData = try allStyleData(html: String(attributedString.characters))

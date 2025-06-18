@@ -49,6 +49,14 @@
 "action-undo" = "واپس";
 "action-unsave" = "غیر محفوظ";
 "action-update" = "اپ ݙیٹ";
+"activity-tab-add-images-title" = "تصویراں شامل کرو";
+"activity-tab-neutral" = "غیر جانبدار";
+"activity-tab-satisfied" = "مطمئن";
+"activity-tab-title" = "سرگرمی";
+"activity-tab-unsatisfied" = "غیر مطمئن";
+"activity-tab-very-satisfied" = "ݙاڈھا تسلی بخش";
+"activity-tab-very-unsatisfied" = "ݙاڈھا تسلی بخش";
+"activity-tab-view-editing-history" = " تبدیلی دا تاریخچہ ݙیکھو";
 // Fuzzy
 "add-articles-to-reading-list" = "مطالعہ دی فہرست وچ $1 شامل کرو";
 "alt-text-feedback-survey-toast-title" = "فیڈبیک جمع تھی ڳئی";
@@ -67,20 +75,23 @@
 "article-read-more-title" = "ٻیا پڑھو";
 "article-reference-view-title" = "حوالہ$1";
 "article-share" = "شیئر";
+"article-tabs-open" = "کھولو";
 "back-button-accessibility-label" = "پچھوں";
 "button-go-back" = "واپس ڄُلو";
 "button-next" = "اڳوں تے ونڄو";
 "button-ok" = "ٹھیک ہے";
 "button-publish" = "چھاپو";
 "button-publish-anyway" = "ول وی شائع کرو";
-"button-read-now" = "ہݨ پڑھو";
 "button-report-a-bug" = "بڳ دی رپورٹ کرو";
 "button-saved-remove" = "محفوظ تھئے وچوں ہٹاؤ";
 "button-skip" = "چھوڑو";
 "cancel" = "منسوخ";
 "cc-zero" = "کریٹیو کامنز سی سی صفر";
 "clear-title-accessibility-label" = "صاف";
+"close-all-tabs" = "سارے ٹیب بند کرو";
 "close-button-accessibility-label" = "بند کرو";
+"close-tab-confirmation" = "ٹیب بند کروں؟";
+"close-tabs" = "ٹیباں بند کرو";
 "compass-direction" = "$1 وڄے تے";
 "data-migration-status" = "اپ ڈیٹ تھیندا پئے۔۔۔";
 "description-add-title" = "وضاحت شامل کرو";
@@ -167,6 +178,7 @@
 "field-alert-token-invalid" = "غلط کوڈ";
 "field-alert-username-unavailable" = "ورتݨ آلا ناں موجود کائنی";
 "field-backup-token-title" = "بیک اپ کوڈ";
+"field-backup-token-title-email" = "ای میل کوڈ";
 "field-captcha-placeholder" = "کیپچا عبارت";
 "field-email-placeholder" = "example@example.org";
 "field-email-title" = "ای میل";
@@ -247,6 +259,7 @@
 "main-menu-privacy-policy" = "رازداری پالیسی";
 "main-menu-terms-of-use" = "ورتݨ شرطاں";
 "main-menu-title" = "ٻئے";
+"main-page" = "پہلا پرت";
 "more-languages-tooltip-title" = "زباناں شامل کرو";
 "more-menu" = "ٻئے";
 "navbar-title-mode-edit-wikitext-preview" = "پیشگی ݙکھالا";
@@ -255,6 +268,7 @@
 "nearby-distance-label-meters" = "$1 میٹر";
 "nearby-distance-label-miles" = "$1 میل";
 "new-password-title" = "پاس ورڈ درج کرو";
+"new-tab" = "نویں ٹیب";
 "next-action-title" = "اڳلا";
 "notifications-center-agent-description-from-format" = "$1 کنوں";
 "notifications-center-alert" = "الرٹ";
@@ -272,7 +286,6 @@
 "notifications-center-go-to-article" = "مضمون";
 "notifications-center-go-to-article-talk-format" = "$1 ڳالھ مہاڑ ورقہ";
 "notifications-center-go-to-diff" = "فرق";
-"notifications-center-go-to-talk-page" = "ڳالھ مہاڑ ورقہ";
 "notifications-center-go-to-user-page" = "$1 دا ورتݨ ورقہ";
 "notifications-center-go-to-wikidata-item" = "وکی ڈیٹا آئٹم";
 "notifications-center-go-to-your-talk-page" = "تہاݙا ڳالھ مہاڑ ورقہ";
@@ -320,13 +333,14 @@
 "on-this-day-detail-header-date-range" = " $1 توں - $2";
 "on-this-day-no-internet-error" = "کوئی ڈیٹا دستیاب کائنی";
 "on-this-day-title" = "ایں ݙینہ کوں";
-"page-history-bot-edits" = "ٻوٹ تبدیلیاں";
+"page-history-bot-edits" = "بوٹ";
 "page-history-minor-edits" = "معمولی تبدیلیاں";
 "page-history-revision-author-accessibility-label" = "مصنف: $1";
 "page-history-revision-comment-accessibility-label" = "تبصرہ $1";
 "page-history-revision-history-title" = "دہرائی دا ریکارڈ";
 "page-history-revision-minor-edit-accessibility-label" = "معمولی تبدیلی";
 "page-history-revision-size-diff-addition" = "({{PLURAL:$1|1 بائٹ|$1 بائٹاں}}) شامل تھئے";
+"page-history-unregistered-edits" = "اݨ رجسٹرڈ";
 "page-issues" = "ورقے دے مسئلے";
 "page-location" = "نقشے تے ݙیکھو";
 "page-similar-titles" = "ہکوجہے ورقے";
@@ -343,7 +357,6 @@
 "profile-button-accessibility-label" = "پروفائل";
 // Fuzzy
 "profile-page-join-title" = "وکی پیڈیا نال رلت کرو/ لاگ ان تھیوو";
-"profile-page-title-logged-out" = "کھاتہ";
 "project-name-mediawiki" = "میڈیا وکی";
 "project-name-wikibooks" = "وکی کتاباں";
 "project-name-wikidata" = "وکی ڈیٹا";
@@ -413,6 +426,7 @@
 "survey-title" = "سبب";
 "table-of-contents-close-accessibility-hint" = "بند کرو";
 "table-of-contents-heading" = "شامل حصے";
+"tabs-close-tab" = "ٹیب بند کرو";
 "talk-page-add-topic-button" = "موضوع شامل کرو";
 "talk-page-archives" = "آرکائیواں";
 "talk-page-article-about" = "ڳالھ مہاڑ ورقیاں بارے";

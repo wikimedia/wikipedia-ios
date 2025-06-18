@@ -107,7 +107,6 @@
 "button-ok" = "Tɔɔ";
 "button-publish" = "De-eŋ";
 "button-publish-anyway" = "Tɔɔ de-eŋ";
-"button-read-now" = "Kanne pampana";
 "button-report-a-bug" = "Yeli ko a bug";
 "button-save-for-later" = "Biŋ o a puori";
 "button-saved-for-later" = "Biŋ a puori";
@@ -537,7 +536,6 @@
 "notifications-center-go-to-article" = "Ganlee";
 "notifications-center-go-to-article-talk-format" = "$1 gampɛle yel-yaga";
 "notifications-center-go-to-diff" = "Tɛɛ";
-"notifications-center-go-to-talk-page" = "Yel-yaga gampɛle";
 "notifications-center-go-to-user-page" = "$1's tontona gampɛle";
 "notifications-center-go-to-wikidata-item" = "Wikidata boma";
 "notifications-center-go-to-your-talk-page" = "Fo yel-yaga gampɛle";
@@ -628,7 +626,7 @@
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 a yi $2 Wikipiideɛ";
 "on-this-day-title" = "Zinɛ bebiri";
 "original-tab-button-popover-description" = "Neɛ a 'W' a leɛ neɛ a piila zie";
-"page-history-anonymous-edits" = "anon maaloo";
+// Fuzzy
 "page-history-bot-edits" = "bot maaloo";
 "page-history-compare-accessibility-hint" = "Neɛ a bie ayi soba a kaa a zaa yi nyɛ";
 "page-history-compare-title" = "Tag-lantaa kaa nyɛ";
@@ -643,7 +641,6 @@
 "page-history-revision-time-accessibility-label" = "Leɛ-e $1";
 "page-history-revisions-comparison-warning" = "Boma ayi toŋ la baŋ baŋ iri";
 "page-history-stats-text" = "{{PLURAL:$1|$1 edit|$1 edits}} a yi $2";
-"page-history-user-edits" = "Toŋtoŋ maaloo";
 "page-issues" = "Gampɛle yɛlɛ";
 "page-location" = "Kaa a map zu nyɛ";
 "page-protected-can-not-edit" = "Fo ba taa a sori ka fo maale a gampɛle ŋa";

@@ -130,7 +130,6 @@
 "button-ok" = "OK";
 "button-publish" = "Publicar";
 "button-publish-anyway" = "Publicar na mesma";
-"button-read-now" = "Ler agora";
 "button-report-a-bug" = "Reportar um erro";
 "button-save-for-later" = "Guardar para mais tarde";
 "button-saved-for-later" = "Guardado para mais tarde";
@@ -645,7 +644,6 @@
 "notifications-center-go-to-article" = "Artigo";
 "notifications-center-go-to-article-talk-format" = "Página de discussão de $1";
 "notifications-center-go-to-diff" = "Dif";
-"notifications-center-go-to-talk-page" = "Página de discussão";
 "notifications-center-go-to-user-page" = "Página de utilizador de $1";
 "notifications-center-go-to-wikidata-item" = "Elemento Wikidata";
 "notifications-center-go-to-your-talk-page" = "A sua página de discussão";
@@ -752,7 +750,7 @@
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 da Wikipédia em $2";
 "on-this-day-title" = "Neste dia";
 "original-tab-button-popover-description" = "Toque no 'W' para regressar ao separador de onde começou";
-"page-history-anonymous-edits" = "edições de anónimos";
+// Fuzzy
 "page-history-bot-edits" = "edições de robô";
 "page-history-compare-accessibility-hint" = "Toque para selecionar duas revisões a comparar";
 "page-history-compare-title" = "Comparar";
@@ -767,7 +765,6 @@
 "page-history-revision-time-accessibility-label" = "Revisão efetuada às $1";
 "page-history-revisions-comparison-warning" = "Só podem ser selecionadas duas revisões";
 "page-history-stats-text" = "{{PLURAL:$1|$1 edição|$1 edições}} desde $2";
-"page-history-user-edits" = "edições dos utilizadores";
 "page-issues" = "Problemas da página";
 "page-location" = "Ver num mapa";
 "page-protected-can-not-edit" = "Não tem permissão para editar esta página";
