@@ -1,6 +1,7 @@
 // Messages for German (Deutsch)
 // Exported from translatewiki.net
 // Author: 1233qwer1234qwer4
+// Author: AnnaTheProgrammer777
 // Author: BodminPill
 // Author: Brettchenweber
 // Author: DraconicDark
@@ -21,52 +22,20 @@
 // Author: McDutchie
 // Author: Metalhead64
 // Author: Mhurd
+// Author: Mike is Michi
 // Author: Mirzali
 // Author: Mukeber
 // Author: Nemo bis
 // Author: Purodha
+// Author: TheRabbit22
 // Author: ThisCarthing
 // Author: TomatoCake
 // Author: Tsevener
+// Author: Tte
 // Author: Ubahnverleih
 // Author: Umlaut
 // Author: ZiqiLiang
 
-"aaald-added-text-description-2" = "$1 hinzugefügt";
-"aaald-article-description-updated-description" = "Die Artikelbeschreibung wurde aktualisiert";
-"aaald-article-insert-header" = "Wichtige Aktualisierungen";
-"aaald-article-insert-last-updated" = "Zuletzt aktualisiert";
-"aaald-article-insert-new-changes" = "Neue Änderungen";
-"aaald-article-insert-read-more" = "Weitere Aktualisierungen lesen";
-"aaald-characters-text-description" = "{{PLURAL:$1|0=Zeichen|Zeichen|Zeichen}}";
-"aaald-deleted-text-description-2" = "$1 gelöscht";
-"aaald-error-subitle" = "Aktualisieren, um es erneut zu versuchen";
-"aaald-error-title" = "Inline-Artikelverlauf kann nicht geladen werden";
-"aaald-many-sections-description" = "in $1 Abschnitten";
-"aaald-multiple-changes-description" = "Mehrere Änderungen vorgenommen";
-"aaald-multiple-references-added-description" = "Mehrere Referenzen hinzugefügt";
-"aaald-new-book-reference-title" = "Buch";
-"aaald-new-discussion" = "Neue Diskussion";
-"aaald-new-journal-reference-database" = "über $1";
-"aaald-new-journal-reference-title" = "Zeitschrift";
-"aaald-new-journal-reference-volume" = "Band $1:";
-"aaald-new-news-reference-retrieved-date" = "Abgerufen $1";
-"aaald-new-news-reference-title" = "Nachrichten";
-"aaald-new-talk-topic-description-format" = "$1 über diesen Artikel";
-"aaald-new-website-reference-archive-date-text" = "vom Original auf $1";
-"aaald-new-website-reference-archive-url-text" = "Archive.org URL";
-"aaald-new-website-reference-title" = "Webseite";
-"aaald-numerical-multiple-references-added-description" = "{{PLURAL:$1|0=0 Referenzen|$1 Referenz|$1 Referenzen}} hinzugefügt";
-"aaald-one-section-description" = "im Abschnitt $1";
-"aaald-revision-by-anonymous" = "Bearbeitung durch einen nicht angemeldeten Benutzer";
-"aaald-revision-userInfo" = "Bearbeitung von $1 ($2 Bearbeitungen)";
-"aaald-single-reference-added-description" = "Einzelnachweis hinzugefügt";
-"aaald-small-change-description" = "{{PLURAL:$1|0=Keine kleinen Änderungen vorgenommen|$1 kleine Änderung vorgenommen|$1 kleine Änderungen vorgenommen}}";
-// Fuzzy
-"aaald-summary-title" = "{{PLURAL:$1|0=0 Änderungen|$1 Änderung|$1 Änderungen}} von {{PLURAL:$2| 0=0 Benutzern|$2 Benutzer|$2 Benutzern}} in {{PLURAL:$3|0=0 Tagen| $3 Tag| $3 Tagen}}";
-"aaald-two-sections-description" = "in den Abschnitten $1 und $2";
-"aaald-vandalism-revert-description" = "Mutmaßlicher Vandalismus zurückgesetzt";
-"aaald-view-full-history-button" = "Vollständige Versionsgeschichte anzeigen";
 "about-content-license" = "Inhaltslizenz";
 "about-content-license-details" = "Sofern nicht anders angegeben, ist der Inhalt verfügbar unter einer $1.";
 "about-content-license-details-share-alike-license" = "Creative-Commons-Lizenz „Namensnennung – Weitergabe unter gleichen Bedingungen“";
@@ -115,6 +84,7 @@
 "action-discard-edit" = "Bearbeitung verwerfen";
 "action-discard-edits" = "Bearbeitungen verwerfen";
 "action-find-in-page" = "In Seite finden";
+"action-keep-editing" = "Weiter bearbeiten";
 "action-language-accessibility" = "Sprache ändern";
 "action-move-to" = "Verschieben nach …";
 "action-move-to-reading-list" = "In Leseliste verschieben";
@@ -136,7 +106,20 @@
 "action-unsave" = "Löschen";
 "action-unsaved-accessibility-notification" = "Artikel gelöscht";
 "action-update" = "Aktualisieren";
+"activity-tab-add-images-subtitle" = "Füge Wikipedia-Artikeln vorgeschlagene Bilder hinzu, um das Verständnis zu verbessern.";
+"activity-tab-add-images-title" = "Bilder hinzufügen";
+"activity-tab-additional-thoughts" = "Möchtest du noch etwas sagen?";
+"activity-tab-greeting" = "$1Hallo $2$3 👋 Hier ist deine wöchentliche Wikipedia-Zusammenfassung.";
+"activity-tab-neutral" = "Neutral";
+"activity-tab-satisfied" = "Zufrieden";
+"activity-tab-start-editing" = "Jetzt bearbeiten";
+"activity-tab-title" = "Aktivität";
+"activity-tab-unsatisfied" = "Unzufrieden";
+"activity-tab-very-satisfied" = "Sehr zufrieden";
+"activity-tab-very-unsatisfied" = "Sehr unzufrieden";
 "add-articles-to-reading-list" = "{{PLURAL:$1|Ein|$1}} Artikel zu einer Leseliste hinzufügen";
+"advanced-settings-title" = "Erweiterte Einstellungen";
+"alert-temporary-account-learn-more" = "Weitere Informationen.";
 "alt-text-feedback-survey-toast-title" = "Feedback eingereicht";
 "announcements-dismiss" = "Ausblenden";
 "app-store-keywords" = "Wikipedia, Referenz, Wiki, Enzyklopädie, Information, Info, Wissen, Forschung, Entdecken, Lernen";
@@ -164,6 +147,8 @@
 "article-revision-history" = "Versionsgeschichte";
 "article-save-error-not-enough-space" = "Du hast nicht genügend Speicherplatz auf deinem Gerät, um diesen Artikel zu speichern.";
 "article-share" = "Teilen";
+"article-tabs-open-background-tab" = "Im Hintergrund-Tab öffnen";
+"article-tabs-open-new-tab" = "In neuem Tab öffnen";
 "article-talk-page" = "Diskussion";
 "article-toolbar-reading-themes-controls-toolbar-item" = "Lese-Farbschema-Steuerung";
 "back-button-accessibility-label" = "Zurück";
@@ -173,7 +158,6 @@
 "button-ok" = "Okay";
 "button-publish" = "Veröffentlichen";
 "button-publish-anyway" = "Trotzdem veröffentlichen";
-"button-read-now" = "Jetzt lesen";
 "button-report-a-bug" = "Einen Fehler melden";
 "button-save-for-later" = "Für später speichern";
 "button-saved-for-later" = "Für später gespeichert";
@@ -188,6 +172,7 @@
 "clearing-cache-in-progress" = "Cache wird geleert.";
 "close-button-accessibility-label" = "Schließen";
 "compass-direction" = "nach $1 Uhr";
+"confirm-donation-history-deletion-title" = "Löschung bestätigen";
 "continue-button-title" = "Fortfahren";
 "continue-reading-empty-description" = "Wikipedia für weitere Artikel entdecken";
 "continue-reading-empty-title" = "Keine kürzlich gelesenen Artikel";
@@ -274,8 +259,20 @@
 "dim-images" = "Bilder dimmen";
 "donate-accessibility-amount-button-hint" = "Doppeltippen, um den Spendenbetrag auszuwählen.";
 "donate-accessibility-donate-hint-format" = "Doppeltippen, um $1 an die Wikimedia Foundation zu spenden.";
+"donate-accessibility-email-opt-in-hint" = "Doppelt tippen, um der Wikimedia Foundation die Erlaubnis zu geben, Ihnen eine E-Mail zu senden.";
+"donate-accessibility-keyboard-done-hint" = "Doppeltippen, um die Tastaturansicht für die Betragseingabe zu schließen.";
 "donate-accessibility-monthly-recurring-hint" = "Doppeltippen, um automatische monatliche Spenden dieses Betrags zu aktivieren.";
 "donate-accessibility-textfield-hint" = "Geben Sie den gewünschten Spendenbetrag ein.";
+"donate-accessibility-transaction-fee-hint" = "Doppeltippen, um die Transaktionsgebühr zum Spendenbetrag hinzuzufügen.";
+"donate-already-donated" = "Vielen Dank, lieber Spender! Deine Großzügigkeit trägt dazu bei, dass Wikipedia und seine Schwesterprojekte weiter bestehen können.";
+"donate-email-opt-in-text" = "Ja, die Wikimedia Foundation kann mir gelegentlich eine E-Mail schicken.";
+"donate-help-frequently-asked-questions" = "Häufig gestellte Fragen";
+"donate-help-other-ways-to-give" = "Andere Möglichkeiten zu spenden";
+"donate-help-problems-donating" = "Probleme beim Spenden?";
+"donate-help-tax-deductibility-information" = "Information über die steuerliche Absetzbarkeit";
+"donate-history-delete" = "Lokalen Spendenverlauf löschen";
+"donate-maximum-error-text" = "Wir können über unsere Website keine Spenden über $1 $2 Dollar annehmen. Bitte kontaktiere unser Team für Großspenden unter benefactors@wikimedia.org.";
+"donate-minimum-error-text" = "Bitte einen Betrag auswählen (mindestens $1 $2)";
 "donate-payment-method-prompt-apple-pay-button-title" = "Mit Apple Pay spenden";
 "donate-payment-method-prompt-message" = "Spenden Sie mit Apple Pay oder wählen Sie eine andere Zahlungsmethode.";
 "donate-payment-method-prompt-other-button-title" = "Andere Zahlungsmethode";
@@ -319,9 +316,29 @@
 "editor-find-next-button-accessibility" = "Nächstes Suchergebnis";
 "editor-find-previous-button-accessibility" = "Vorheriges Suchergebnis";
 "editor-find-textfield-accessibility" = "Suchen";
+"editor-keyboard-bold-accessibility" = "Fett";
+"editor-keyboard-comment-accessibility" = "Kommentar";
+"editor-keyboard-heading-button" = "Überschrift";
+"editor-keyboard-italics-accessibility" = "Kursiv";
+"editor-keyboard-link-accessibility" = "Link";
+"editor-keyboard-list-ordered-accessibility" = "Sortiere Liste";
+"editor-keyboard-list-unordered-accessibility" = "Unsortierte Liste";
+"editor-keyboard-paragraph-button" = "Absatz";
+"editor-keyboard-reference-accessibility" = "Einzelnachweis";
+"editor-keyboard-strikethrough-accessibility" = "Durchstreichen";
+"editor-keyboard-subheading1-button" = "Unterüberschrift 1";
+"editor-keyboard-subheading2-button" = "Unterüberschrift 2";
+"editor-keyboard-subheading3-button" = "Unterüberschrift 3";
+"editor-keyboard-subheading4-button" = "Unterüberschrift 4";
+"editor-keyboard-subscript-accessibility" = "Tiefgestellt";
+"editor-keyboard-superscript-accessibility" = "Hochgestellt";
+"editor-keyboard-template-accessibility" = "Vorlage";
+"editor-keyboard-text-formatting-title" = "Textformatierung";
+"editor-keyboard-underline-accessibility" = "Unterstreichen";
 "editor-replace-textfield-accessibility" = "Ersetzen";
 "editor-replace-textfield-placeholder" = "Ersetzen durch …";
 "editor-replace-type-all" = "Alle ersetzen";
+"editor-replace-type-single" = "Ersetzen";
 "empty-diff-compare-title" = "Keine Unterschiede zwischen Versionen";
 "empty-diff-single-title" = "Keine sichtbaren Änderungen gemacht";
 "empty-insert-media-title" = "Eine Datei von Wikimedia Commons auswählen";
@@ -491,9 +508,20 @@
 "icon-shortcut-search-title" = "Wikipedia durchsuchen";
 "image-gallery-unknown-owner" = "Autor unbekannt.";
 "image-rec-error-title" = "Seite kann nicht geladen werden";
+"image-rec-survey-option-3" = "Bild ist anstößig";
+"image-rec-survey-option-4" = "Bild ist von schlechter Qualität";
+"image-rec-survey-option-6" = "Andere";
+"image-rec-survey-submit-button" = "Speichern";
+"image-rec-survey-title" = "Grund";
 "image-rec-title" = "Bild hinzufügen";
+"image-rec-tooltip-1-body" = "Lies diesen Artikel, um sein Thema zu verstehen.";
 "image-rec-tooltip-1-title" = "Überprüfen";
+"image-rec-tooltip-2-body" = "Überprüfe das Bild und die zugehörigen Informationen.";
 "image-rec-tooltip-3-title" = "Entscheiden";
+"image-recs-no-title" = "Nein";
+"image-recs-not-sure-title" = "Nicht sicher";
+"image-recs-yes-title" = "Ja";
+"import-shared-reading-list-default-title" = "Meine Leseliste";
 "import-shared-reading-list-survey-prompt-button-cancel" = "Jetzt nicht";
 "import-shared-reading-list-survey-prompt-button-take-survey" = "Umfrage durchführen";
 "import-shared-reading-list-survey-prompt-footer" = "Sieh dir unsere $1Datenschutzerklärung$2 an. Die Umfrage wird durch Dritte durchgeführt. Sieh dir deren $3Datenschutzerklärungen$4 an.";
@@ -505,6 +533,7 @@
 "in-the-news-title" = "In den Nachrichten";
 "insert-action-title" = "Einfügen";
 "insert-link-title" = "Link einfügen";
+"insert-media-add-image-details-title" = "Bilddetails hinzufügen";
 "insert-media-alternative-text-description" = "Textbeschreibung für Leser, die das Bild nicht sehen können.";
 "insert-media-alternative-text-placeholder" = "Beschreibe dieses Bild";
 "insert-media-alternative-text-title" = "Alternativer Text";
@@ -520,8 +549,11 @@
 "insert-media-image-preview-select-image-action-title" = "Bild auswählen";
 "insert-media-image-size-setting-custom" = "Benutzerdefiniert";
 "insert-media-image-size-setting-default" = "Standard";
+"insert-media-image-size-settings-measure-height" = "Höhe";
+"insert-media-image-size-settings-measure-width" = "Breite";
 "insert-media-image-size-settings-px-unit-name" = "Px";
 "insert-media-image-size-settings-title" = "Bildgröße";
+"insert-media-image-text-wrapping-setting" = "Text um das Bild fließen lassen";
 "insert-media-image-type-setting-basic" = "Basis";
 "insert-media-image-type-setting-frame" = "Rahmen";
 "insert-media-image-type-setting-frameless" = "Rahmenlos";
@@ -596,7 +628,6 @@
 "notifications-center-go-to-article" = "Artikel";
 "notifications-center-go-to-article-talk-format" = "$1 Diskussionsseite";
 "notifications-center-go-to-diff" = "Unterschied";
-"notifications-center-go-to-talk-page" = "Diskussionsseite";
 "notifications-center-go-to-user-page" = "Benutzerseite von $1";
 "notifications-center-go-to-wikidata-item" = "Wikidata-Objekt";
 "notifications-center-go-to-your-talk-page" = "Deine Diskussionsseite";
@@ -681,8 +712,7 @@
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 von der Wikipedia auf $2";
 "on-this-day-title" = "Heute";
 "original-tab-button-popover-description" = "Tippe auf das W, um zu dem Reiter zurückzukehren, von dem du gestartet bist.";
-"page-history-anonymous-edits" = "Anonyme Bearbeitungen";
-"page-history-bot-edits" = "Botbearbeitungen";
+"page-history-bot-edits" = "Bot";
 "page-history-compare-accessibility-hint" = "Tippe, um zwei Versionen auszuwählen, um sie zu vergleichen";
 "page-history-compare-title" = "Vergleichen";
 "page-history-graph-accessibility-label" = "Diagramm mit der Anzahl der Bearbeitung über die Zeit";
@@ -695,7 +725,6 @@
 "page-history-revision-size-diff-subtraction" = "{{PLURAL:$1|$1 Byte|$1 Bytes}} entfernt";
 "page-history-revisions-comparison-warning" = "Nur zwei Versionen können angezeigt werden";
 "page-history-stats-text" = "{{PLURAL:$1|$1 Bearbeitung|$1 Bearbeitungen}} seit $2";
-"page-history-user-edits" = "Benutzerbearbeitungen";
 "page-issues" = "Seitenprobleme";
 "page-location" = "Auf einer Karte ansehen";
 "page-protected-can-not-edit" = "Du hast nicht die Rechte, diese Seite zu bearbeiten.";
@@ -723,7 +752,9 @@
 "places-filter-top-articles" = "Meistgelesen";
 "places-filter-top-articles-count" = "{{PLURAL:$1|Ein|$1}} Artikel";
 "places-filter-top-read-articles" = "Am meisten gelesene Artikel";
+"places-list-title'" = "Liste";
 "places-location-enabled" = "Standort aktiviert";
+"places-map-title" = "Karte";
 "places-no-saved-articles-have-location" = "Keiner deiner gespeicherten Artikel besitzt Standortinformationen";
 "places-search-articles-that-match" = "$1, die mit „$2“ übereinstimmen";
 "places-search-default-text" = "Orte suchen";
@@ -742,7 +773,10 @@
 "potd-widget-description" = "Genieße täglich ein schönes Foto, das von unserer Gemeinschaft ausgewählt wurde.";
 "potd-widget-title" = "Bild des Tages";
 "preference-summary-eventlogging-opt-in" = "Der Wikimedia Foundation erlauben, Informationen über deine Verwendung der App zu sammeln, um die App zu verbessern.";
+"profile-page-donate-subtext" = "Oder unterstütze Wikipedia mit einer Spende, damit die Seite weiterhin kostenlos und für alle Menschen auf der Welt zugänglich bleibt.";
+"profile-page-join-subtext" = "Registriere dich für ein Wikipedia-Konto, um deine Beiträge zu verfolgen, Artikel offline zu speichern und geräteübergreifend zu synchronisieren.";
 "profile-page-join-title" = "Anmelden / Wikipedia beitreten";
+"profile-page-logged-out-year-in-review-subtext" = "Melde dich an oder erstelle ein Konto, um nächstes Jahr einen verbesserten Jahresrückblick zu erhalten";
 "profile-year-in-review-login-subtitle" = "Melde dich an oder erstelle ein Konto, um den Jahresrückblick erneut zu sehen und mehr personalisierte Einblicke zu erhalten.";
 "profile-year-in-review-login-title" = "Melde dich an, um auf den Jahresrückblick zuzugreifen";
 "project-name-mediawiki" = "MediaWiki";
@@ -865,6 +899,7 @@
 "saved-default-reading-list-tag" = "Diese Liste kann nicht gelöscht werden";
 "saved-pages-image-download-error" = "Die Bilder für diese gespeicherte Seite konnten nicht heruntergeladen werden.";
 "saved-pages-progress-syncing" = "Herunterladen der Artikel läuft …";
+"saved-reading-lists-search-placeholder" = "Leselisten durchsuchen";
 "saved-reading-lists-title" = "Leselisten";
 "saved-search-default-text" = "Gespeicherte Artikel durchsuchen";
 "saved-title" = "Gespeichert";
@@ -890,6 +925,7 @@
 "settings-clear-cache-are-you-sure-title" = "Gecachte Daten löschen?";
 "settings-clear-cache-cancel" = "Abbrechen";
 "settings-clear-cache-ok" = "Cache löschen";
+"settings-donate" = "Spenden";
 "settings-help-and-feedback" = "Hilfe und Rückmeldung";
 "settings-language-bar" = "Sprachen in der Suche anzeigen";
 "settings-languages-feed-customization" = "Du kannst bestimmen, welche Sprachen auf deinem Entdecken-Feed angezeigt werden, indem du die Einstellungen für deinen Entdecken-Feed anpasst.";
@@ -1071,17 +1107,13 @@
 "wikitext-upload-save-terms-name" = "Nutzungsbedingungen";
 "year-in-review-base-donate-subtitle" = "Mit deiner Hilfe kann die Wikimedia Foundation – die gemeinnützige Stiftung hinter Wikipedia – weiterhin sicherstellen, dass die Informationen, auf die du dich verlässt, werbefrei und vertrauenswürdig sind, und gleichzeitig den reibungslosen Betrieb von Wikipedia mit modernsten Tools und Technologien gewährleisten. Bitte ziehe noch heute eine Spende in Betracht. [Erfahre mehr über unsere Arbeit]($1).";
 "year-in-review-base-donate-title" = "Keine Werbung auf Wikipedia";
-// Fuzzy
-"year-in-review-base-editors-subtitle" = "Die Wikipedia-Gemeinschaft freiwilliger Editoren hat in diesem Jahr bereits mehr als 555.647 Änderungen auf der iOS-App vorgenommen. Das Herz und die Seele von Wikipedia ist unsere globale Gemeinschaft von freiwilligen Mitarbeitern, Spendern und Milliarden von Lesern wie dir – alle vereint, um unbegrenzten Zugang zu zuverlässigen Informationen zu teilen.";
+"year-in-review-base-editors-subtitle" = "Die Wikipedia-Gemeinschaft freiwilliger Bearbeiter hat mehr als 555.647 Bearbeitungen in der iOS-App vorgenommen. Das Herz und die Seele von Wikipedia ist unsere globale Gemeinschaft von freiwilligen Mitarbeitern, Spendern und Milliarden von Lesern wie Ihnen – alle vereint, um unbegrenzten Zugang zu zuverlässigen Informationen zu haben.";
 "year-in-review-base-editors-title" = "Editoren auf der iOS-App haben mehr als $1 Bearbeitungen vorgenommen";
-// Fuzzy
-"year-in-review-base-edits-subtitle" = "In diesem Jahr wurde Wikipedia durchschnittlich $1 Mal pro Minute bearbeitet. Artikel werden gemeinschaftlich erstellt und mit Hilfe zuverlässiger Quellen verbessert. Wir alle haben Wissen, das wir weitergeben können – [erfahre, wie du dich beteiligen kannst]($2).";
+"year-in-review-base-edits-subtitle" = "Wikipedia wurde durchschnittlich $1 Mal pro Minute bearbeitet. Artikel werden gemeinschaftlich erstellt und mit Hilfe zuverlässiger Quellen verbessert. Wir alle haben Wissen, das wir weitergeben können – [erfahre, wie du dich beteiligen kannst]($2).";
 "year-in-review-base-edits-title" = "Wikipedia wurde $1 Mal pro Minute bearbeitet";
-// Fuzzy
-"year-in-review-base-reading-subtitle" = "Wikipedia hatte dieses Jahr mehr als $1 Millionen Artikel in über $2 aktiven Sprachen. Gemeinsam mit Millionen anderen hast du dein Wissen erweitert und verschiedene Themen erkundet.";
+"year-in-review-base-reading-subtitle" = "Wikipedia hat mehr als $1 Millionen Artikel in über $2 aktiven Sprachen. Gemeinsam mit Millionen anderen hast du dein Wissen erweitert und verschiedene Themen erkundet.";
 "year-in-review-base-reading-title" = "Wikipedia war in über 300 Sprachen verfügbar";
-// Fuzzy
-"year-in-review-base-saved-subtitle" = "Aktive Nutzer der iOS-App hatten dieses Jahr über 62,2 Millionen Leselisten. Durch das Hinzufügen von Artikeln zu Leselisten kannst du auf Artikel zugreifen, auch wenn du offline bist. Außerdem kannst du dich anmelden, um Leselisten geräteübergreifend zu synchronisieren.";
+"year-in-review-base-saved-subtitle" = "Aktive Nutzer der iOS-App hatten über 62,2 Millionen Leselisten. Durch das Hinzufügen von Artikeln zu Leselisten kannst du auf Artikel zugreifen, auch wenn du offline bist. Außerdem kannst du dich anmelden, um Leselisten geräteübergreifend zu synchronisieren.";
 "year-in-review-base-saved-title" = "Wir hatten über $1 Millionen Leselisten";
 "year-in-review-base-viewed-subtitle" = "iOS-App-Nutzer haben Wikipedia-Artikel $1 Milliarden Mal aufgerufen. Für Menschen auf der ganzen Welt ist Wikipedia die erste Anlaufstelle, wenn es darum geht, eine Frage zu beantworten, Informationen für Schule oder Arbeit nachzuschlagen oder sich neues Wissen anzueignen.";
 "year-in-review-base-viewed-title" = "Wir haben Wikipedia-Artikel $1 Milliarden Mal aufgerufen";
@@ -1100,29 +1132,21 @@
 "year-in-review-feature-announcement-title" = "Erkunde Wikipedia im Rückblick";
 "year-in-review-feature-announcement-title-personalized" = "Entdecke dein Wikipedia-Jahr im Rückblick";
 "year-in-review-feature-explore-body" = "Wikipedia ist die größte Wissensressource aller Zeiten – und sie ist für jeden frei zugänglich. Blicke durch die Linse von Wikipedia auf das Jahr 2024 zurück.";
-// Fuzzy
-"year-in-review-feature-explore-body-personalized" = "Erfahre, welche Artikel du in der Wikipedia-App gelesen und welche Änderungen du vorgenommen hast. Dein Leseverlauf wird geschützt aufbewahrt. Die Leseeinblicke werden anhand der lokal gespeicherten Daten auf deinem Gerät erstellt.";
+"year-in-review-feature-explore-body-personalized" = "Erfahre, welche Artikel du in der Wikipedia-App gelesen und welche Änderungen du in 2024 vorgenommen hast. Dein Leseverlauf wird geschützt aufbewahrt. Die Leseeinblicke werden anhand der lokal gespeicherten Daten auf deinem Gerät erstellt.";
 "year-in-review-login-subtitle" = "Melde dich an oder erstelle ein Konto, um mehr personalisierte Einblicke zu erhalten";
 "year-in-review-login-title" = "Verbessere deinen Jahresrückblick";
 "year-in-review-personalized-day-subtitle-format" = "Du liest die meisten Artikel am $1. Es ist klar, dass der $1 dein Haupttag ist, um neue Inhalte zu entdecken. Danke, dass du das Beste aus deiner Lesezeit machst!";
 "year-in-review-personalized-day-title-format" = "Du hast am meisten am $1 gelesen.";
 "year-in-review-personalized-donate-subtitle" = "Danke, dass du in die Zukunft des freien Wissens investierst. In diesem Jahr hat die Wikimedia Foundation die Technologie verbessert, um alle Leser und freiwilligen Helfer besser zu unterstützen, Tools entwickelt, die die Zusammenarbeit fördern, und Wikipedia in mehr Sprachen zur Verfügung gestellt. [Erfahre mehr über unsere Arbeit]($1).";
 "year-in-review-personalized-donate-title" = "Deine Großzügigkeit hat Wikipedia in Schwung gehalten";
-// Fuzzy
 "year-in-review-personalized-edit-views-subtitle-format" = "Leser in aller Welt schätzen deine Beiträge. In den letzten 2 Monaten wurden die von dir bearbeiteten Artikel insgesamt $1 Mal aufgerufen. Dank Editoren wie dir ist Wikipedia eine sich ständig verbessernde, faktenbasierte und zuverlässige Wissensquelle für die Welt.";
 "year-in-review-personalized-edit-views-title-format" = "Deine Bearbeitungen wurden in letzter Zeit mehr als $1 Mal angesehen";
-// Fuzzy
-"year-in-review-personalized-editing-subtitle-format" = "Du hast Wikipedia $1 Mal bearbeitet. Vielen Dank, dass du einer der freiwilligen Editoren bist, die bei Wikimedia-Projekten auf der ganzen Welt etwas bewirken.";
-// Fuzzy
-"year-in-review-personalized-editing-title-format" = "Du hast Wikipedia $1 Mal bearbeitet";
-// Fuzzy
-"year-in-review-personalized-reading-subtitle-format" = "Dieses Jahr hast du $1 Artikel gelesen, darunter $2, $3, und $4. Auf Wikipedia waren mehr als 63 Millionen Artikel in über 300 Sprachen verfügbar. Du hast dich Millionen von Menschen angeschlossen, die ihr Wissen erweitert und verschiedene Themen ergründet haben.";
-// Fuzzy
-"year-in-review-personalized-reading-title-format" = "Du hast dieses Jahr $1 Artikel gelesen";
-// Fuzzy
-"year-in-review-personalized-saved-subtitle-format" = "Du hast $1 Artikel gespeichert, darunter $2, $3, und $4. Jeder gespeicherte Artikel spiegelt deine Interessen wider und hilft dabei, eine personalisierte Wissensbasis auf Wikipedia aufzubauen.";
-// Fuzzy
-"year-in-review-personalized-saved-title-format" = "Du hast $1 Artikel gespeichert";
+"year-in-review-personalized-editing-subtitle-format" = "Du hast Wikipedia {{PLURAL:$1|einmal|$1 mal}} bearbeitet. Vielen Dank, dass du einer der freiwilligen Editoren bist, die bei Wikimedia-Projekten auf der ganzen Welt etwas bewirken.";
+"year-in-review-personalized-editing-title-format" = "Du hast Wikipedia {{PLURAL:$1|einmal|$1 mal}} bearbeitet";
+"year-in-review-personalized-reading-subtitle-format" = "Dieses Jahr hast du {{PLURAL:$1|$1 Artikel}} gelesen. Bei Wikipedia sind $2 Millionen Artikel in über $3 aktiven Sprachen verfügbar. Du hast dich Millionen von Menschen angeschlossen, die ihr Wissen erweitern und verschiedene Themen erforschen wollen.";
+"year-in-review-personalized-reading-title-format" = "Du hast dieses Jahr {{PLURAL:$1|$1 Artikel}} gelesen";
+"year-in-review-personalized-saved-subtitle-format" = "Du hast dieses Jahr {{PLURAL:$1|$1 Artikel}} gespeichert, darunter $2, $3, und $4. Jeder gespeicherte Artikel spiegelt deine Interessen wider und hilft dabei, eine personalisierte Wissensbasis auf Wikipedia aufzubauen.";
+"year-in-review-personalized-saved-title-format" = "Du hast {{PLURAL:$1|$1 Artikel}} gespeichert";
 "year-in-review-share-text" = "Hier ist mein Wikipedia-Jahresrückblick. Erstellt mit der Wikipedia-App für iOS (https://apps.apple.com/app/wikipedia/id324715238) #WikipediaYearInReview";
 "year-in-review-survey-additional-thoughts" = "Möchtest du noch etwas sagen?";
 "year-in-review-survey-neutral" = "Neutral";

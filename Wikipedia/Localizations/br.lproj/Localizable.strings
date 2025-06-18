@@ -12,24 +12,6 @@
 // Author: Nemo bis
 // Author: Y-M D
 
-"aaald-added-text-description-2" = "$1 ouzhpennet";
-"aaald-article-description-updated-description" = "Deskrivadur ar pennad ouzhpennet";
-"aaald-article-insert-header" = "Hizivadurioù a-bouez";
-"aaald-article-insert-last-updated" = "Hizivaet da ziwezhañ";
-"aaald-article-insert-new-changes" = "Kemmoù nevez";
-"aaald-characters-text-description" = "{{PLURAL:$1|0=arouezenn|arouezenn}}";
-"aaald-deleted-text-description-2" = "$1 dilamet";
-"aaald-error-subitle" = "Freskaat ha klask adarre";
-"aaald-new-book-reference-title" = "Levr";
-"aaald-new-discussion" = "Kaozeadenn nevez";
-"aaald-new-journal-reference-title" = "Kazetenn";
-"aaald-new-news-reference-title" = "Keleier";
-"aaald-new-talk-topic-description-format" = "$1 diwar-benn ar pennad-mañ";
-"aaald-new-website-reference-archive-url-text" = "URL archive.com";
-"aaald-new-website-reference-title" = "Lec'hienn";
-"aaald-revision-by-anonymous" = "Kemmet gant un implijer/ez dianav";
-"aaald-revision-userInfo" = "Kemmet gant $1 ($2 a gemmoù)";
-"aaald-single-reference-added-description" = "Dave ouzhpennet";
 "about-content-license" = "Aotre-implij an endalc'had";
 "about-content-license-details" = "Ma n'eo ket resisaet mod all emañ an holl zanvez dindan un $1.";
 "about-content-license-details-share-alike-license" = "Aotre-implijout Creative Commons Attribution-ShareAlike";
@@ -117,7 +99,6 @@
 "button-ok" = "Mat eo";
 "button-publish" = "Embann";
 "button-publish-anyway" = "Embann memestra";
-"button-read-now" = "Lenn bremañ";
 "button-report-a-bug" = "Kas keloù diwar-benn un draen";
 "button-save-for-later" = "Enrollañ evit diwezhatoc'h";
 "button-saved-for-later" = "Enrollet evit diwezhatoc'h";
@@ -410,7 +391,6 @@
 "notifications-center-go-to-article" = "Pennad";
 "notifications-center-go-to-article-talk-format" = "Pajenn gaozeal $1";
 "notifications-center-go-to-diff" = "Diforc'h";
-"notifications-center-go-to-talk-page" = "Pajenn gaozeal";
 "notifications-center-go-to-user-page" = "Pajenn gaozeal an implijer $1";
 "notifications-center-go-to-wikidata-item" = "Elfenn Wikidata";
 "notifications-center-go-to-your-talk-page" = "Ho pajenn gaozeal";
@@ -453,7 +433,7 @@
 "on-this-day-no-internet-error" = "N'eus ket roadennoù da gaout";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 er Wikipedia $2";
 "on-this-day-title" = "D'an deiz-mañ...";
-"page-history-anonymous-edits" = "kemmoù gant tud dizanv";
+// Fuzzy
 "page-history-bot-edits" = "kemmoù gant robotoù";
 "page-history-compare-title" = "Keñveriañ";
 "page-history-minor-edits" = "kemmoù dister";
@@ -462,7 +442,6 @@
 "page-history-revision-history-title" = "Istor ar c'hemmoù";
 "page-history-revision-minor-edit-accessibility-label" = "Kemm dister";
 "page-history-stats-text" = "$1 {{PLURAL:$1|c'hemm|gemm|c'hemm|a gemmoù}} abaoe $2";
-"page-history-user-edits" = "degasadennoù un implijer·ez";
 "page-location" = "Diskwel war ur gartenn";
 "page-protected-can-not-edit" = "N'ho peus ket gwir da aozañ ar bajenn-mañ";
 "page-protected-can-not-edit-title" = "Gwarezet eo ar bajenn-mañ";

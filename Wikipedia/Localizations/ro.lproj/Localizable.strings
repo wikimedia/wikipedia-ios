@@ -16,42 +16,9 @@
 // Author: Paloi Sciurala
 // Author: Rapiteanu
 // Author: Strainu
+// Author: Valentin JJ.
 // Author: WebSourceContentRO
 
-"aaald-added-text-description-2" = "$1 adăugat";
-"aaald-article-description-updated-description" = "Descrierea articolului a fost actualizată";
-"aaald-article-insert-header" = "Actualizări semnificative";
-"aaald-article-insert-last-updated" = "Ultima actualizare";
-"aaald-article-insert-new-changes" = "Schimbări recente";
-"aaald-article-insert-read-more" = "Citește mai multe actualizări";
-"aaald-characters-text-description" = "{{PLURAL:$1|0=caractere|caracter|caractere}}";
-"aaald-deleted-text-description-2" = "$1 șters";
-"aaald-error-subitle" = "Reîncărcă pentru a încerca din nou";
-"aaald-error-title" = "Imposibil de încărcat istoricul articolelor în linie";
-"aaald-many-sections-description" = "în $1 secțiuni";
-"aaald-multiple-changes-description" = "Modificări multiple efectuate";
-"aaald-multiple-references-added-description" = "S-au adăugat mai multe referințe";
-"aaald-new-book-reference-title" = "Carte";
-"aaald-new-discussion" = "Discuție nouă";
-"aaald-new-journal-reference-database" = "via $1";
-"aaald-new-journal-reference-title" = "Jurnal";
-"aaald-new-journal-reference-volume" = "Volum $1:";
-"aaald-new-news-reference-retrieved-date" = "Recuperat $1";
-"aaald-new-news-reference-title" = "Știri";
-"aaald-new-talk-topic-description-format" = "$1 despre acest articol";
-"aaald-new-website-reference-archive-date-text" = "de la original pe $1";
-"aaald-new-website-reference-archive-url-text" = "Archive.org URL";
-"aaald-new-website-reference-title" = "Site web";
-"aaald-numerical-multiple-references-added-description" = "{{PLURAL:$1|0=0 referințe|$1 referință|$1 referințe}} adăugate";
-"aaald-one-section-description" = "în secțiunea $1";
-"aaald-revision-by-anonymous" = "Modificări de utilizator anonim";
-"aaald-revision-userInfo" = "Modificări de $1 ($2 editări)";
-"aaald-single-reference-added-description" = "Referințe adăugate";
-"aaald-small-change-description" = "{{PLURAL:$1|0=Nu au fost efectuate modificări minore|$1 modificare minoră efectuată|$1 modificări minore efectuate}}";
-"aaald-summary-title" = "{{PLURAL:$1|0=0 modificări|$1 modificare|$1 modificări}} de {{PLURAL:$2|0=0 editori|$2 editor|$2 editori}} în {{PLURAL:$3|0=0 zile|$3 zi|$3 zile}}";
-"aaald-two-sections-description" = "în secțiunile $1 și $2";
-"aaald-vandalism-revert-description" = "Suspiciunea de vandalism a fost revenită";
-"aaald-view-full-history-button" = "Vedeți istoricul articolului complet";
 "about-content-license" = "Licență conținut";
 "about-content-license-details" = "Dacă nu se specifică altfel, conținutul este disponibil sub $1.";
 "about-content-license-details-share-alike-license" = "Licența Creative Commons Atribuire și distribuire în condiții identice";
@@ -152,7 +119,6 @@
 "button-next" = "Înainte";
 "button-ok" = "OK";
 "button-publish" = "Publică";
-"button-read-now" = "Citește acum";
 "button-report-a-bug" = "Raportare eroare";
 "button-save-for-later" = "Salvează pentru mai târziu";
 "button-saved-for-later" = "Salvat pentru mai târziu";
@@ -556,7 +522,6 @@
 "notifications-center-go-to-article" = "Articol";
 "notifications-center-go-to-article-talk-format" = "$1 pagina de discuție";
 "notifications-center-go-to-diff" = "Diferență";
-"notifications-center-go-to-talk-page" = "Pagină de discuții";
 "notifications-center-go-to-user-page" = "Pagina de utilizator $1";
 "notifications-center-go-to-wikidata-item" = "Elementul Wikidata";
 "notifications-center-go-to-your-talk-page" = "Pagina de discuție a dvs.";
@@ -663,7 +628,7 @@
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 de la $2 Wikipedia";
 "on-this-day-title" = "Astăzi în istorie";
 "original-tab-button-popover-description" = "Atingeți „W” pentru a reveni la fila de la care ați început";
-"page-history-anonymous-edits" = "modificări anonime";
+// Fuzzy
 "page-history-bot-edits" = "modificări robot";
 "page-history-compare-accessibility-hint" = "Atingeți pentru a selecta două versiuni pentru a compara";
 "page-history-compare-title" = "Compară";
@@ -678,7 +643,6 @@
 "page-history-revision-time-accessibility-label" = "Revizuiri facute $1";
 "page-history-revisions-comparison-warning" = "Trebuie selectate doar două versiuni";
 "page-history-stats-text" = "{{PLURAL:$1|$1 modificare|$1 modificări}} din $2";
-"page-history-user-edits" = "modificări ale utilizatorului";
 "page-issues" = "Probleme de pagină";
 "page-location" = "Vezi pe o hartă";
 "page-protected-can-not-edit" = "Nu aveți drepturi pentru a modifica această pagină";
@@ -946,6 +910,7 @@
 "talk-pages-empty-view-header-article" = "Conversația începe aici";
 "talk-pages-topic-compose-body-placeholder" = "Descriere";
 "talk-pages-topic-reply-onboarding-title" = "Pagini de discuții";
+"talk-pages-view-title" = "Discuție";
 "theme-black-display-name" = "Negru";
 "theme-dark-display-name" = "Închisă";
 "theme-default-display-name" = "Implicit";

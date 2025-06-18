@@ -1,21 +1,29 @@
+import WMFData
+
 public enum WMFAccountLoginError: LocalizedError {
     case cannotExtractLoginStatus
     case statusNotPass(String?)
     case temporaryPasswordNeedsChange(String?)
     case needsOathTokenFor2FA(String?)
+    case needsEmailAuthToken(String?)
     case wrongPassword(String?)
     case wrongToken
+    case captchaRequired(String?)
+    case authManagerInfoRequired(String?, [String: Any])
+    case failedToParseAuthManagerInfo
+    case invalidSiteURL
+
     public var errorDescription: String? {
         switch self {
         case .cannotExtractLoginStatus:
             return "Could not extract login status"
-        case .statusNotPass(let message?):
-            return message
-        case .temporaryPasswordNeedsChange(let message?):
-            return message
-        case .needsOathTokenFor2FA(let message?):
-            return message
-        case .wrongPassword(let message?):
+        case .statusNotPass(let message?),
+             .temporaryPasswordNeedsChange(let message?),
+             .needsOathTokenFor2FA(let message?),
+             .needsEmailAuthToken(let message?),
+             .wrongPassword(let message?),
+             .captchaRequired(let message?),
+             .authManagerInfoRequired(let message?, _):
             return message
         case .wrongToken:
             return WMFLocalizedString("field-alert-token-invalid", value:"Invalid code", comment:"Alert shown if token is not correct")
@@ -29,8 +37,8 @@ public typealias Username = String
 
 public class WMFAccountLoginLogoutFetcher: Fetcher {
     
-    public func login(username: String, password: String, retypePassword: String?, oathToken: String?, captchaID: String?, captchaWord: String?, siteURL: URL, reattemptOn401Response: Bool = false, success: @escaping (Username) -> Void, failure: @escaping WMFErrorHandler) {
-        
+    public func login(username: String, password: String, retypePassword: String?, oathToken: String?, emailAuthCode: String?, captchaID: String?, captchaWord: String?, siteURL: URL, reattemptOn401Response: Bool = false, success: @escaping (Username) -> Void, failure: @escaping WMFErrorHandler) {
+
         var parameters = [
             "action": "clientlogin",
             "username": username,
@@ -49,7 +57,12 @@ public class WMFAccountLoginLogoutFetcher: Fetcher {
             parameters["OATHToken"] = oathToken
             parameters["logincontinue"] = "1"
         }
-        
+
+        if let emailAuthCode {
+            parameters["token"] = emailAuthCode
+            parameters["logincontinue"] = "1"
+        }
+
         if let captchaID = captchaID {
             parameters["captchaId"] = captchaID
         }
@@ -57,11 +70,16 @@ public class WMFAccountLoginLogoutFetcher: Fetcher {
             parameters["captchaWord"] = captchaWord
         }
 
+        if WMFDeveloperSettingsDataController.shared.forceEmailAuth {
+            self.session.injectEmailAuthCookie()
+        }
+
         performTokenizedMediaWikiAPIPOST(tokenType: .login, to: siteURL, with: parameters, reattemptLoginOn401Response:  reattemptOn401Response) { (result, response, error) in
             if let error = error {
                 failure(error)
                 return
             }
+
             guard
                 let clientlogin = result?["clientlogin"] as? [String : Any],
                 let status = clientlogin["status"] as? String
@@ -69,8 +87,33 @@ public class WMFAccountLoginLogoutFetcher: Fetcher {
                     failure(WMFAccountLoginError.cannotExtractLoginStatus)
                     return
             }
+         
             let message = clientlogin["message"] as? String ?? nil
             guard status == "PASS" else {
+                if status == "FAIL" {
+                    self.fetchAuthManagerInfo(from: siteURL) { result in
+                        switch result {
+                        case .failure(let error):
+                            failure(error)
+                        case .success(let authInfo):
+                            guard let requests = authInfo["requests"] as? [[String: Any]] else {
+                                failure(WMFAccountLoginError.failedToParseAuthManagerInfo)
+                                return
+                            }
+
+                            if let captchaRequest = requests.first(where: { ($0["id"] as? String)?.hasSuffix("CaptchaAuthenticationRequest") == true }),
+                               let fields = captchaRequest["fields"] as? [String: Any],
+                               let captchaField = fields["captchaId"] as? [String: Any],
+                               let captchaId = captchaField["value"] as? String {
+                                failure(WMFAccountLoginError.captchaRequired(captchaId))
+                                return
+                            }
+
+                            failure(WMFAccountLoginError.statusNotPass(message))
+                        }
+                    }
+                    return
+                }
                 
                 if let messageCode = clientlogin["messagecode"] as? String {
                     switch messageCode {
@@ -110,6 +153,18 @@ public class WMFAccountLoginLogoutFetcher: Fetcher {
                         failure(WMFAccountLoginError.needsOathTokenFor2FA(message))
                         return
                     }
+
+                    if let emailAuthRequests = requests.first(where: { request in
+                        guard let id = request["id"] as? String else {
+                            return false
+                        }
+                        return id.hasSuffix("EmailAuthAuthenticationRequest")
+                    }),
+                       let fields = emailAuthRequests["fields"] as? [String : AnyObject],
+                       fields["token"] is [String : AnyObject] { // email auth token
+                        failure(WMFAccountLoginError.needsEmailAuthToken(message))
+                        return
+                    }
                 }
                 
                 failure(WMFAccountLoginError.statusNotPass(message))
@@ -123,6 +178,35 @@ public class WMFAccountLoginLogoutFetcher: Fetcher {
     func logout(loginSiteURL: URL, reattemptOn401Response: Bool = false, completion: @escaping (Error?) -> Void) {
         performTokenizedMediaWikiAPIPOST(to: loginSiteURL, with: ["action": "logout", "format": "json"], reattemptLoginOn401Response: reattemptOn401Response) { (result, response, error) in
             completion(error)
+        }
+    }
+
+    private func fetchAuthManagerInfo(from siteURL: URL, completion: @escaping (Result<[String: Any], Error>) -> Void) {
+        let parameters = [
+            "action": "query",
+            "meta": "authmanagerinfo",
+            "format": "json",
+            "formatversion": "2",
+            "amirequestsfor": "login",
+            "amimergerequestfields": "1"
+        ]
+
+        _ = performMediaWikiAPIPOST(for: siteURL, with: parameters) { result, response, error in
+            if let error = error {
+                completion(.failure(error))
+                return
+            }
+
+            guard
+                let result = result,
+                let query = result["query"] as? [String: Any],
+                let authManagerInfo = query["authmanagerinfo"] as? [String: Any]
+            else {
+                completion(.failure(WMFAccountLoginError.failedToParseAuthManagerInfo))
+                return
+            }
+
+            completion(.success(authManagerInfo))
         }
     }
 }

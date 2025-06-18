@@ -1,20 +1,16 @@
 import SwiftUI
 
-protocol TalkPageTopicReplyOnboardingDelegate: AnyObject {
-    func userDidDismissTopicReplyOnboardingView()
-}
-
 final class TalkPageTopicReplyOnboardingHostingController: UIHostingController<TalkPageTopicReplyOnboardingView>, UIAdaptivePresentationControllerDelegate, Themeable, RMessageSuppressing {
 
     // MARK: - Properties
-
-    weak var delegate: TalkPageTopicReplyOnboardingDelegate?
+    let dismissAction: () -> Void
     var theme: Theme
 
     // MARK: - Lifecycle
 
-    init(theme: Theme) {
+    init(dismissAction: @escaping () -> Void, theme: Theme) {
         self.theme = theme
+        self.dismissAction = dismissAction
         super.init(rootView: TalkPageTopicReplyOnboardingView(theme: theme))
         rootView.dismissAction = { [weak self] in
             self?.dismiss()
@@ -34,16 +30,15 @@ final class TalkPageTopicReplyOnboardingHostingController: UIHostingController<T
     // MARK: - Actions
 
     fileprivate func dismiss() {
-        dismiss(animated: true, completion: {
-            self.delegate?.userDidDismissTopicReplyOnboardingView()
+        dismiss(animated: true, completion: { [weak self] in
+            self?.dismissAction()
         })
     }
 
     // MARK: - UIAdaptivePresentationControllerDelegate
 
     func presentationControllerDidDismiss(_ presentationController: UIPresentationController) {
-        delegate?.userDidDismissTopicReplyOnboardingView()
-        
+        dismissAction()
     }
 
     // MARK: - Themeable

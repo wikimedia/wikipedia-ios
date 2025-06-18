@@ -16,15 +16,6 @@
 // Author: सरोज कुमार ढकाल
 // Author: हिमाल सुबेदी
 
-"aaald-added-text-description-2" = "$1 थप्नुभयो";
-"aaald-article-description-updated-description" = "लेख विवरण अद्यावधिक गरियो";
-"aaald-article-insert-last-updated" = "अन्तिम सम्पादन";
-"aaald-article-insert-new-changes" = "नयाँ परिवर्तनहरू";
-"aaald-new-book-reference-title" = "पुस्तक";
-"aaald-new-journal-reference-database" = "$1 मार्फत";
-"aaald-new-news-reference-title" = "समाचार";
-"aaald-new-talk-topic-description-format" = "यस लेखको बारेमा $1";
-"aaald-new-website-reference-title" = "वेबसाइट";
 "about-content-license" = "सामग्री इजाजतपत्र";
 "about-content-license-details" = "खुलाइएको समयमा बाहेक, सामग्री $1 मातहत उपलब्ध छ";
 "about-content-license-details-share-alike-license" = "क्रियटिभ कमन्स एट्रिव्युसन- सेयर अलाइक";
@@ -99,7 +90,6 @@
 "button-next" = "अर्को";
 "button-ok" = "ठीक छ";
 "button-publish" = "प्रकाशन गर्नुहोस्";
-"button-read-now" = "अहिले पढ्नुहोस्";
 "button-report-a-bug" = "बग उजुरी गर्ने";
 "button-save-for-later" = "पछिको लागि सङ्ग्रह गर्नुहोस्";
 "button-saved-for-later" = "पछिको लागि सङ्ग्रह गरिएको";
@@ -292,7 +282,6 @@
 "notifications-center-feed-news-notification-dismiss-button-text" = "अहिले हैन";
 "notifications-center-filters-read-status-item-title-all" = "सबै";
 "notifications-center-go-to-diff" = "अन्तर";
-"notifications-center-go-to-talk-page" = "वार्तालाप";
 "notifications-center-go-to-user-page" = "$1को प्रयोगकर्ता पृष्ठ";
 "notifications-center-go-to-wikidata-item" = "विकिडाटा सामग्री";
 "notifications-center-go-to-your-talk-page" = "तपाईकाे वार्तालाप पृष्ठ";
@@ -321,6 +310,7 @@
 "on-this-day-detail-header-title" = "{{PLURAL:$1|$1 ऐतिहासिक घटनाक्रम|$1 ऐतिहासिक घटनाक्रमहरू}}";
 "on-this-day-footer" = "यस दिनका ऐतिहासिक घटनाक्रमहरू";
 "on-this-day-title" = "आजको दिनमा";
+// Fuzzy
 "page-history-bot-edits" = "यन्त्रका सम्पादनहरू";
 "page-history-compare-title" = "तुलना गर्नुहोस्";
 "page-protected-can-not-edit" = "तपाईंलाई यो पृष्ठ सम्पादन गर्ने अधिकार छैन";
@@ -438,6 +428,7 @@
 "unknown-generic-text" = "अज्ञात";
 "vanish-account-continue-button-title" = "जारी राख्नुहोस्";
 "vanish-account-warning-title" = "चेतावनी";
+"watchlist-change-expiry-option-permanent" = "स्थायी";
 "welcome-exploration-on-this-day-title" = "आजको दिनमा";
 "welcome-explore-continue-button" = "सुरु गर्नुहोस्";
 "welcome-explore-new-ways-title" = "अन्वेषण गर्ने नयाँ तरिका";

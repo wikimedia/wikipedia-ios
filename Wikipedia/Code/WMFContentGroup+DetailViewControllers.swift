@@ -3,23 +3,13 @@ import WMFComponents
 
 extension WMFContentGroup {
     
-    @objc(detailViewControllerForPreviewItemAtIndex:dataStore:theme:)
-    public func detailViewControllerForPreviewItemAtIndex(_ index: Int, dataStore: MWKDataStore, theme: Theme) -> UIViewController? {
-        detailViewControllerForPreviewItemAtIndex(index, dataStore: dataStore, theme: theme, imageRecDelegate: nil, imageRecLoggingDelegate: nil)
+    @objc(detailViewControllerForPreviewItemAtIndex:dataStore:theme:source:)
+    public func detailViewControllerForPreviewItemAtIndex(_ index: Int, dataStore: MWKDataStore, theme: Theme, source: ArticleSource) -> UIViewController? {
+        detailViewControllerForPreviewItemAtIndex(index, dataStore: dataStore, theme: theme, source: source, imageRecDelegate: nil, imageRecLoggingDelegate: nil)
     }
 	
-    public func detailViewControllerForPreviewItemAtIndex(_ index: Int, dataStore: MWKDataStore, theme: Theme, imageRecDelegate: WMFImageRecommendationsDelegate?, imageRecLoggingDelegate: WMFImageRecommendationsLoggingDelegate?) -> UIViewController? {
+    public func detailViewControllerForPreviewItemAtIndex(_ index: Int, dataStore: MWKDataStore, theme: Theme, source: ArticleSource, imageRecDelegate: WMFImageRecommendationsDelegate?, imageRecLoggingDelegate: WMFImageRecommendationsLoggingDelegate?) -> UIViewController? {
         switch detailType {
-        case .page:
-            guard let articleURL = previewArticleURLForItemAtIndex(index) else {
-                return nil
-            }
-            return ArticleViewController(articleURL: articleURL, dataStore: dataStore, theme: theme)
-        case .pageWithRandomButton:
-            guard let articleURL = previewArticleURLForItemAtIndex(index) else {
-                return nil
-            }
-            return RandomArticleViewController(articleURL: articleURL, dataStore: dataStore, theme: theme)
         case .gallery:
             guard let date = self.date else {
                 return nil
@@ -47,12 +37,27 @@ extension WMFContentGroup {
                 break
             }
             vc = ArticleURLListViewController(articleURLs: articleURLs, dataStore: dataStore, contentGroup: self, theme: theme)
+            
+            switch self.contentGroupKind {
+            case .relatedPages:
+                // todo
+                // vc.articleSource = Explore > Related Pages List here.
+                break
+            case .topRead:
+                // todo
+                // vc.articleSource = Explore > Top Read List here.
+                break
+            default:
+                break
+            }
+            
             vc?.title = moreTitle
         case .pageListWithLocation:
             guard let articleURLs = contentURLs else {
                 break
             }
-            vc = ArticleLocationCollectionViewController(articleURLs: articleURLs, dataStore: dataStore, contentGroup: self, theme: theme, needsCloseButton: true)
+            // todo: pass in article source Explore > Nearby List
+            vc = ArticleLocationCollectionViewController(articleURLs: articleURLs, dataStore: dataStore, contentGroup: self, theme: theme, needsCloseButton: true, articleSource: .undefined)
         case .news:
             guard let stories = fullContent?.object as? [WMFFeedNewsStory] else {
                 break
@@ -63,13 +68,6 @@ extension WMFContentGroup {
                 break
             }
             vc = OnThisDayViewController(events: events, dataStore: dataStore, midnightUTCDate: date, contentGroup: self, theme: theme)
-        case .pageWithRandomButton:
-            guard let siteURL = siteURL else {
-                break
-            }
-            let firstRandom = WMFFirstRandomViewController(siteURL: siteURL, dataStore: dataStore, theme: theme)
-            (firstRandom as Themeable).apply(theme: theme)
-            vc = firstRandom
         case .imageRecommendations:
             vc = WMFImageRecommendationsViewController.imageRecommendationsViewController(dataStore: dataStore, imageRecDelegate: imageRecDelegate, imageRecLoggingDelegate: imageRecLoggingDelegate)
         default:

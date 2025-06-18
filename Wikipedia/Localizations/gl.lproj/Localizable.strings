@@ -107,7 +107,6 @@
 "button-next" = "Seguinte";
 "button-ok" = "Aceptar";
 "button-publish" = "Publicar";
-"button-read-now" = "Ler agora";
 "button-report-a-bug" = "Informar dun erro";
 "button-save-for-later" = "Gardar para máis tarde";
 "button-saved-for-later" = "Gardado para máis tarde";
@@ -181,8 +180,7 @@
 "edit-summary-choice-fixed-typos" = "Corrección ortográfica";
 "edit-summary-choice-linked-words" = "Ligazóns engadidas";
 "edit-summary-placeholder-text" = "Como mellorou o artigo?";
-// Fuzzy
-"edit-watch-list-learn-more-text" = "Máis información sobre as listas de vixiancia";
+"edit-watch-list-learn-more-text" = "Máis información sobre a túa lista de vixilancia";
 "edit-watch-this-page-text" = "Vixiar esta páxina";
 "editing-welcome-be-bold-subtitle" = "Sexa valente, pero non descoidado, na actualización de artigos. Non se preocupe por cometer errosː todas as versións anteriores das páxinas están gardadas, polo tanto a comunidade pode corrixir os erros de forma doada.";
 "editing-welcome-be-bold-title" = "A súa voz é importante";
@@ -391,7 +389,7 @@
 "main-menu-about" = "Acerca da aplicación";
 "main-menu-account-login" = "Acceder";
 "main-menu-account-logout" = "Saír";
-"main-menu-account-logout-are-you-sure" = "Está seguro de que quere pechar a sesión?";
+"main-menu-account-logout-are-you-sure" = "Quere pechar a sesión?";
 "main-menu-account-title-logged-in" = "Sesión iniciada como $1";
 "main-menu-heading-legal" = "Privacidade e Condicións";
 "main-menu-nearby" = "Preto";
@@ -669,7 +667,7 @@
 "welcome-explore-new-ways-title" = "Novas formas de explorar";
 "welcome-explore-tell-me-more-done-button" = "Entendido";
 "welcome-intro-free-encyclopedia-description" = "Wikipedia está escrita de forma colaborativa por voluntarios e consta de máis de 40 millóns de artigos en máis de 300 linguas.";
-"welcome-intro-free-encyclopedia-more" = "Saber máis sobre Wikipedia";
+"welcome-intro-free-encyclopedia-more" = "Máis información sobre a Wikipedia";
 "welcome-intro-free-encyclopedia-more-about" = "Sobre Wikipedia";
 "welcome-intro-free-encyclopedia-more-description" = "Wikipedia é un proxecto mundial para crear enciclopedias libres en tódalas linguas do planeta. Virtualmente calquera persoa que conte con acceso a Internet está invitada a achegar información neutral e respaldada con referencias.";
 "welcome-intro-free-encyclopedia-title" = "A enciclopedia libre";

@@ -94,9 +94,9 @@ class ViewControllerRouter: NSObject {
         
         let destination = router.destination(for: url, permanentUsername: permanentUsername)
         switch destination {
-        case .article(let articleURL):
-            appViewController.swiftCompatibleShowArticle(with: articleURL, animated: true, completion: completion)
-            return true
+        case .article:
+            assertionFailure("Use Article Coordinator instead")
+            return false
         case .externalLink(let linkURL):
             appViewController.navigate(to: linkURL, useSafari: true)
             completion()
@@ -125,7 +125,7 @@ class ViewControllerRouter: NSObject {
             return presentOrPush(vc, with: completion)
         case .talk(let linkURL):
             let source = source(from: userInfo)
-            guard let viewModel = TalkPageViewModel(pageType: .article, pageURL: linkURL, source: source, articleSummaryController: appViewController.dataStore.articleSummaryController, authenticationManager: appViewController.dataStore.authenticationManager, languageLinkController: appViewController.dataStore.languageLinkController) else {
+            guard let viewModel = TalkPageViewModel(pageType: .article, pageURL: linkURL, source: source, articleSummaryController: appViewController.dataStore.articleSummaryController, authenticationManager: appViewController.dataStore.authenticationManager, languageLinkController: appViewController.dataStore.languageLinkController, dataStore: appViewController.dataStore) else {
                 completion()
                 return false
             }
@@ -138,7 +138,7 @@ class ViewControllerRouter: NSObject {
             return presentOrPush(newTalkPage, with: completion)
         case .userTalk(let linkURL):
             let source = source(from: userInfo)
-            guard let viewModel = TalkPageViewModel(pageType: .user, pageURL: linkURL, source: source, articleSummaryController: appViewController.dataStore.articleSummaryController, authenticationManager: appViewController.dataStore.authenticationManager, languageLinkController: appViewController.dataStore.languageLinkController) else {
+            guard let viewModel = TalkPageViewModel(pageType: .user, pageURL: linkURL, source: source, articleSummaryController: appViewController.dataStore.articleSummaryController, authenticationManager: appViewController.dataStore.authenticationManager, languageLinkController: appViewController.dataStore.languageLinkController, dataStore: appViewController.dataStore) else {
                 completion()
                 return false
             }
@@ -210,7 +210,15 @@ class ViewControllerRouter: NSObject {
 
         return source
     }
-    
+
+    private func articleSource(from userInfo:[AnyHashable: Any]?) -> ArticleSource {
+        guard let sourceString = userInfo?[ArticleSourceUserInfoKeys.articleSource] as? Int,
+              let source = ArticleSource(rawValue: sourceString) else {
+            return .undefined
+        }
+        return source
+    }
+
     private func watchlistTargetNavigationController() -> UINavigationController? {
         var targetNavigationController: UINavigationController? = appViewController.currentTabNavigationController
         if let presentedNavigationController = appViewController.presentedViewController as? UINavigationController,

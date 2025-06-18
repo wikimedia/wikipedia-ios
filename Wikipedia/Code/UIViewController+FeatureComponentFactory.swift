@@ -47,9 +47,7 @@ extension WMFImageRecommendationsViewController {
         
         let thirdTooltipStrings = WMFTooltipViewModel.LocalizedStrings(title: WMFLocalizedString("image-rec-tooltip-3-title", value: "Decide", comment: "Title of second tooltip displayed when landing on image recommendations feature for the first time."), body: WMFLocalizedString("image-rec-tooltip-3-body", value: "Decide if the image helps readers understand this topic better.", comment: "Body of second tooltip displayed when landing on image recommendations feature for the first time."), buttonTitle: CommonStrings.okTitle)
 
-        let altTextFeedbackStrings = WMFImageRecommendationsViewModel.LocalizedStrings.AltTextFeedbackStrings(feedbackTitle: CommonStrings.altTextFeedbackAlertTitle, feedbackSubtitle: CommonStrings.altTextFeedbackAlertMessage, yesButton: CommonStrings.yesButtonTitle, noButton: CommonStrings.noButtonTitle)
-
-        let localizedStrings = WMFImageRecommendationsViewModel.LocalizedStrings(title: CommonStrings.addImageTitle, viewArticle: CommonStrings.viewArticle, onboardingStrings: onboardingStrings, surveyLocalizedStrings: surveyLocalizedStrings, emptyLocalizedStrings: emptyStrings, errorLocalizedStrings: errorStrings, firstTooltipStrings: firstTooltipStrings, secondTooltipStrings: secondTooltipStrings, thirdTooltipStrings: thirdTooltipStrings, altTextFeedbackStrings: altTextFeedbackStrings, bottomSheetTitle: CommonStrings.bottomSheetTitle, yesButtonTitle: CommonStrings.yesButtonTitle, noButtonTitle: CommonStrings.noButtonTitle, notSureButtonTitle: CommonStrings.notSureButtonTitle, learnMoreButtonTitle: CommonStrings.learnMoreTitle(), tutorialButtonTitle: CommonStrings.tutorialTitle, problemWithFeatureButtonTitle: CommonStrings.problemWithFeatureTitle)
+        let localizedStrings = WMFImageRecommendationsViewModel.LocalizedStrings(title: CommonStrings.addImageTitle, viewArticle: CommonStrings.viewArticle, onboardingStrings: onboardingStrings, surveyLocalizedStrings: surveyLocalizedStrings, emptyLocalizedStrings: emptyStrings, errorLocalizedStrings: errorStrings, firstTooltipStrings: firstTooltipStrings, secondTooltipStrings: secondTooltipStrings, thirdTooltipStrings: thirdTooltipStrings, bottomSheetTitle: CommonStrings.bottomSheetTitle, yesButtonTitle: CommonStrings.yesButtonTitle, noButtonTitle: CommonStrings.noButtonTitle, notSureButtonTitle: CommonStrings.notSureButtonTitle, learnMoreButtonTitle: CommonStrings.learnMoreTitle(), tutorialButtonTitle: CommonStrings.tutorialTitle, problemWithFeatureButtonTitle: CommonStrings.problemWithFeatureTitle)
         
         let surveyOptions = [
             WMFSurveyViewModel.OptionViewModel(text: WMFLocalizedString("image-rec-survey-option-1", value: "Image is not relevant", comment: "Title of available option displayed on the image recommendations survey view."), apiIdentifer: "notrelevant"),
@@ -63,54 +61,5 @@ extension WMFImageRecommendationsViewController {
 
         let imageRecommendationsViewController = WMFImageRecommendationsViewController(viewModel: viewModel, delegate: imageRecDelegate, loggingDelegate: imageRecLoggingDelegate)
         return imageRecommendationsViewController
-    }
-}
-
-extension WMFOnboardingViewController {
-    static func altTextOnboardingViewController(primaryButtonTitle: String, delegate: WMFOnboardingViewDelegate) -> WMFOnboardingViewController {
-        let firstItem = WMFOnboardingViewModel.WMFOnboardingCellViewModel(icon: WMFSFSymbolIcon.for(symbol: .ellipsisBubble), title: CommonStrings.altTextOnboardingItem1Title, subtitle: CommonStrings.altTextOnboardingItem1Subtitle, fillIconBackground: true)
-
-        let secondItem = WMFOnboardingViewModel.WMFOnboardingCellViewModel(icon: WMFSFSymbolIcon.for(symbol: .eye), title: CommonStrings.altTextOnboardingItem2Title, subtitle: CommonStrings.altTextOnboardingItem2Subtitle, fillIconBackground: true)
-
-        let thirdItem = WMFOnboardingViewModel.WMFOnboardingCellViewModel(icon: WMFSFSymbolIcon.for(symbol: .squareTextSquare), title: CommonStrings.altTextOnboardingItem3Title, subtitle: CommonStrings.altTextOnboardingItem3Subtitle, fillIconBackground: true)
-        
-        let fourthItem = WMFOnboardingViewModel.WMFOnboardingCellViewModel(icon: WMFSFSymbolIcon.for(symbol: .photo), title: CommonStrings.altTextOnboardingItem4Title, subtitle: CommonStrings.altTextOnboardingItem4Subtitle, fillIconBackground: true)
-
-        let secondaryButtonTrailingIcon = WMFIcon.externalLink
-        let onboardingViewModel = WMFOnboardingViewModel(title: CommonStrings.altTextOnboardingTitle, cells: [firstItem, secondItem, thirdItem, fourthItem], primaryButtonTitle: primaryButtonTitle, secondaryButtonTitle: CommonStrings.altTextOnboardingSecondaryButtonTitle, secondaryButtonTrailingIcon: secondaryButtonTrailingIcon)
-
-        let onboardingController = WMFOnboardingViewController(viewModel: onboardingViewModel)
-        onboardingController.delegate = delegate
-        return onboardingController
-    }
-}
-
-extension WMFSurveyView {
-    static func altTextSurveyView(cancelAction: (() -> Void)?, submitAction: (([WMFSurveyView.OptionAPIIdentifier], WMFSurveyView.OtherText) -> Void)?) -> WMFComponentHostingController<WMFSurveyView> {
-        let surveyLocalizedStrings = WMFSurveyViewModel.LocalizedStrings(
-            title: CommonStrings.surveyTitle,
-            cancel: CommonStrings.cancelActionTitle,
-            submit: CommonStrings.surveySubmitActionTitle,
-            subtitle: WMFLocalizedString("alt-text-survey-subtitle", value: "Please share the reason(s) why you won’t be adding alt text.", comment: "Subtitle displayed on the alt text survey view."),
-            instructions: CommonStrings.surveyInstructions,
-            otherPlaceholder: CommonStrings.surveyOtherPlaceholder
-        )
-        
-        let surveyOptions = [
-            WMFSurveyViewModel.OptionViewModel(text: WMFLocalizedString("alt-text-survey-option-1", value: "I am unsure how to describe an image", comment: "Title of available option displayed on the alt text survey view."), apiIdentifer: "unsure"),
-            WMFSurveyViewModel.OptionViewModel(text: WMFLocalizedString("alt-text-survey-option-2", value: "I don’t have the expertise to add alt text", comment: "Title of available option displayed on the alt text survey view."), apiIdentifer: "expertise"),
-            WMFSurveyViewModel.OptionViewModel(text: WMFLocalizedString("alt-text-survey-option-3", value: "I don't understand how it is different from a caption", comment: "Title of available option displayed on the alt text survey view."), apiIdentifer: "captiondifference"),
-            WMFSurveyViewModel.OptionViewModel(text: WMFLocalizedString("alt-text-survey-option-4", value: "I have technical issues", comment: "Title of available option displayed on the alt text survey view."), apiIdentifer: "tech_issues"),
-            WMFSurveyViewModel.OptionViewModel(text: WMFLocalizedString("alt-text-survey-option-5", value: "I have a visual impairment", comment: "Title of available option displayed on the alt text survey view."), apiIdentifer: "visual"),
-            WMFSurveyViewModel.OptionViewModel(text: WMFLocalizedString("alt-text-survey-option-6", value: "I’m not interested in writing alt text for images", comment: "Title of available option displayed on the alt text survey view."), apiIdentifer: "not_interested"),
-            WMFSurveyViewModel.OptionViewModel(text: WMFLocalizedString("alt-text-survey-option-7", value: "I don’t have the time", comment: "Title of available option displayed on the alt text survey view."), apiIdentifer: "notime")
-        ]
-        
-        let surveyView = WMFSurveyView(viewModel: WMFSurveyViewModel(localizedStrings: surveyLocalizedStrings, options: surveyOptions, selectionType: .multi),
-            cancelAction: cancelAction,
-            submitAction: submitAction)
-
-        let hostedView = WMFComponentHostingController(rootView: surveyView)
-        return hostedView
     }
 }

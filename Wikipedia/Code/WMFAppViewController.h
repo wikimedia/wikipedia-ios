@@ -5,6 +5,7 @@
 @class WMFTheme;
 @class ReadingList;
 @class WMFComponentNavigationController;
+@class WMFImageRecommendationsViewModelObjcWrapper;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -15,6 +16,9 @@ extern NSString *const WMFLanguageVariantAlertsLibraryVersion; // NSNumber
 @property (nonatomic, readonly, nullable) UINavigationController *currentNavigationController;
 @property (nonatomic, readonly) WMFTheme *theme;
 @property (nonatomic, readonly) MWKDataStore *dataStore;
+@property (nonatomic, strong) NSMutableArray<NSUUID *> *tabIdentifiersToDelete;
+@property (nonatomic, strong) NSMutableArray<NSUUID *> *tabItemIdentifiersToDelete;
+@property (nonatomic, strong, nullable) WMFImageRecommendationsViewModelObjcWrapper *imageRecommendationsViewModelWrapper;
 
 - (void)launchAppInWindow:(UIWindow *)window waitToResumeApp:(BOOL)waitToResumeApp;
 
@@ -36,8 +40,7 @@ extern NSString *const WMFLanguageVariantAlertsLibraryVersion; // NSNumber
 
 - (void)showImportedReadingList:(ReadingList *)readingList;
 
-/// Returning WMFArticleViewController (which is ArticleViewController in Swift) makes this not work from Swift
-- (void)swiftCompatibleShowArticleWithURL:(NSURL *)articleURL animated:(BOOL)animated completion:(nonnull dispatch_block_t)completion;
+- (void)dismissPresentedViewControllers;
 
 NS_ASSUME_NONNULL_END
 
@@ -45,14 +48,4 @@ NS_ASSUME_NONNULL_END
 
 - (void)setRemoteNotificationRegistrationStatusWithDeviceToken:(NSData *_Nullable)deviceToken error:(NSError *_Nullable)error;
 
-NS_ASSUME_NONNULL_BEGIN
-
 @end
-
-// Methods exposed in header for use in WMFAppViewController+Extensions.swift
-@interface WMFAppViewController (SwiftInterfaces)
-- (void)dismissPresentedViewControllers;
-- (void)showSettingsAnimated:(BOOL)animated;
-@end
-
-NS_ASSUME_NONNULL_END

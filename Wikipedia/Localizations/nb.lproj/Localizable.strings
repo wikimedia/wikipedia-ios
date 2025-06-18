@@ -23,40 +23,6 @@
 // Author: Tsaetre
 // Author: Tsevener
 
-"aaald-added-text-description-2" = "$1 lagt til";
-"aaald-article-description-updated-description" = "Artikkelbeskrivelse oppdatert";
-"aaald-article-insert-header" = "Viktige oppdateringer";
-"aaald-article-insert-last-updated" = "Sist oppdatert";
-"aaald-article-insert-new-changes" = "Nye endringer";
-"aaald-article-insert-read-more" = "Les flere oppdateringer";
-"aaald-characters-text-description" = "{{PLURAL:$1|tegn}}";
-"aaald-deleted-text-description-2" = "$1 slettet";
-"aaald-error-subitle" = "Oppdater for å prøve på nytt";
-"aaald-error-title" = "Kunne ikke laste artikkelhistorikk";
-"aaald-many-sections-description" = "i $1 seksjoner";
-"aaald-multiple-changes-description" = "Flere endringer gjort";
-"aaald-multiple-references-added-description" = "Flere referanser lagt til";
-"aaald-new-book-reference-title" = "Bok";
-"aaald-new-discussion" = "Ny diskusjon";
-"aaald-new-journal-reference-database" = "via $1";
-"aaald-new-journal-reference-title" = "Tidsskrift";
-"aaald-new-journal-reference-volume" = "Volum $1:";
-"aaald-new-news-reference-retrieved-date" = "Hentet $1";
-"aaald-new-news-reference-title" = "Nyheter";
-"aaald-new-talk-topic-description-format" = "$1 om denne artikkelen";
-"aaald-new-website-reference-archive-date-text" = "fra originalen på $1";
-"aaald-new-website-reference-archive-url-text" = "Archive.org-URL";
-"aaald-new-website-reference-title" = "Nettsted";
-"aaald-numerical-multiple-references-added-description" = "$1 {{PLURAL:$1|referanse|referanser}} lagt til";
-"aaald-one-section-description" = "i seksjonen $1";
-"aaald-revision-by-anonymous" = "Redigering av anonym bruker";
-"aaald-revision-userInfo" = "Redigering av $1 ($2 redigeringer)";
-"aaald-single-reference-added-description" = "Referanse lagt til";
-"aaald-small-change-description" = "{{PLURAL:$1|0=Ingen små endringer|$1 liten endring|$1 små endringer}} gjort";
-"aaald-summary-title" = "$1 {{PLURAL:$1|endring|endringer}} av $2 {{PLURAL:$2|bidragsyter|bidragsytere}} på $3 {{PLURAL:$3|dag|dager}}";
-"aaald-two-sections-description" = "i seksjonene $1 og $2";
-"aaald-vandalism-revert-description" = "Mistenkt vandalisme tilbakestilt";
-"aaald-view-full-history-button" = "Vis hele artikkelhistorikken";
 "about-content-license" = "Innholdslisens";
 "about-content-license-details" = "Om ikke annet er angitt, er innhold tilgjengelig under $1.";
 "about-content-license-details-share-alike-license" = "lisensen Creative Commons Navngivelse-DelPåSammeVilkår";
@@ -129,23 +95,6 @@
 "action-update" = "Oppdater";
 "add-articles-to-reading-list" = "Legg til {{PLURAL:$1|$1 artikkel|$1 artikler}} i leselisten";
 "advanced-settings-title" = "Avanserte innstillinger";
-"alt-text-add-button-title" = "Legg til";
-"alt-text-do-not-add-button-title" = "Ikke legg til";
-"alt-text-email-fifth-line" = "[Skjermbilder eller lenker]";
-"alt-text-email-first-line" = "Jeg har støtt på et problem med alternativ tekst-funksjonen:";
-"alt-text-email-fourth-line" = "- [Beskriv den foreslåtte løsningen]";
-"alt-text-email-second-line" = "- [Beskriv det spesifikke problemet]";
-"alt-text-email-third-line" = "Oppførselen jeg ønsker å se er:";
-"alt-text-email-title" = "Feilrapport – funksjonen for alternativ tekst";
-"alt-text-experiment-edit-summary" = "La til alternativ tekst";
-"alt-text-experiment-onboarding-item-4-title" = "Type bilde";
-"alt-text-experiment-onboarding-secondary-button-title" = "Vis eksempler";
-"alt-text-experiment-onboarding-title" = "Hvordan man skrive alternativ tekst for bilder";
-"alt-text-experiment-onboarding-tooltip-1-body" = "Forstå bildet i artikkelens kontekst.";
-"alt-text-experiment-onboarding-tooltip-2-body" = "Vis ytterligere bildeinformasjon på Wikimedia Commons.";
-"alt-text-experiment-onboarding-tooltip-3-body" = "Legg til beskrivelse for synshemmede lesere";
-"alt-text-experiment-onboarding-tooltip-3-title" = "Legg til beskrivelse";
-"alt-text-experiment-text-field-placholder" = "Beskriv bildet";
 "announcements-dismiss" = "Lukk";
 "app-store-keywords" = "Wikipedia, referanse, wiki, encyklopedi, info, kunnskap, informasjon, oppdaging, læring";
 "app-store-release-notes" = "Fullstendig tilpassbar og mer lettlest utforskingsside. Lokalisering, ytelsesforbedringer og feilrettinger.";
@@ -181,7 +130,6 @@
 "button-ok" = "OK";
 "button-publish" = "Publiser";
 "button-publish-anyway" = "Publiser likevel";
-"button-read-now" = "Les nå";
 "button-report-a-bug" = "Meld fra om en feil";
 "button-save-for-later" = "Lagre til senere";
 "button-saved-for-later" = "Lagret til senere";
@@ -237,6 +185,7 @@
 "description-welcome-descriptions-title" = "Artikkelbeskrivelser";
 "description-welcome-promise-title" = "Gjennom å starte lover jeg å ikke misbruke denne funksjonen";
 "description-welcome-start-editing-button" = "Begynn å redigere";
+"developer-settings-activity-tabs" = "Aktiver aktivitetsfaner";
 "diff-article-revision-history" = "Artikkelsideversjonshistorikk";
 "diff-change-added" = "Tillegg, $1, slutt på tillegg.";
 "diff-change-paragraph-lines-moved-down" = "Avsnitt flyttet $1 {{PLURAL:$1|linje|linjer}} ned. Gå til den nye plasseringen.";
@@ -598,8 +547,6 @@
 "image-rec-empty-title" = "Du har ingen flere foreslåtte bilder for øyeblikket.";
 "image-rec-error-subtitle" = "Noe gikk galt.";
 "image-rec-error-title" = "Kunne ikke laste siden";
-"image-rec-feature-announce-body" = "Bestem hvorvidt et bilde skal legges til i en Wikipedia-artikkel. Du kan finne kortet «Legg til et bilde» i Utforsk-feeden din.";
-"image-rec-feature-announce-title" = "Prøv «Legg til et bilde»";
 "image-rec-onboarding-item-1-body" = "Bestem hvorvidt et foreslått bilde skal legges til i en Wikipedia-artikkel.";
 "image-rec-onboarding-item-1-title" = "Vis et forslag";
 "image-rec-onboarding-item-2-body" = "Forslagene er maskingenererte, og du vil avgjøre om de skal godkjennes eller avvises.";
@@ -753,7 +700,6 @@
 "notifications-center-go-to-article" = "Artikkel";
 "notifications-center-go-to-article-talk-format" = "Diskusjon om $1";
 "notifications-center-go-to-diff" = "Diff";
-"notifications-center-go-to-talk-page" = "Diskusjonsside";
 "notifications-center-go-to-user-page" = "{{GRAMMAR:genitive|$1}} brukerside";
 "notifications-center-go-to-wikidata-item" = "Wikidata-element";
 "notifications-center-go-to-your-talk-page" = "Din diskusjonsside";
@@ -860,7 +806,7 @@
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 fra Wikipedia på $2";
 "on-this-day-title" = "På denne dag";
 "original-tab-button-popover-description" = "Trykk på «W» for å gå tilbake til fanen du startet fra";
-"page-history-anonymous-edits" = "anonyme redigeringer";
+// Fuzzy
 "page-history-bot-edits" = "botredigeringer";
 "page-history-compare-accessibility-hint" = "Trykk for å velge to revisjoner å sammenligne";
 "page-history-compare-title" = "Sammenlign";
@@ -875,7 +821,6 @@
 "page-history-revision-time-accessibility-label" = "Revisjon gjort $1";
 "page-history-revisions-comparison-warning" = "Kun to revisjoner kan velges";
 "page-history-stats-text" = "$1 {{PLURAL:$1|redigering|redigeringer}} siden $2";
-"page-history-user-edits" = "brukerredigeringer";
 "page-issues" = "Merknader for siden";
 "page-location" = "Vis på kart";
 "page-protected-can-not-edit" = "Du har ikke rettigheter til å redigere denne siden";

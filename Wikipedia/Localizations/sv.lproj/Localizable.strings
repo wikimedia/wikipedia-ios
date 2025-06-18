@@ -5,6 +5,7 @@
 // Author: Ainali
 // Author: Bengtsson96
 // Author: Freked
+// Author: Gkyziridis
 // Author: Haxpett
 // Author: Jenniesarina
 // Author: Johan
@@ -28,40 +29,6 @@
 // Author: Tsevener
 // Author: WikiPhoenix
 
-"aaald-added-text-description-2" = "$1 lades till";
-"aaald-article-description-updated-description" = "Artikelbeskrivningen uppdaterades";
-"aaald-article-insert-header" = "Betydande uppdateringar";
-"aaald-article-insert-last-updated" = "Senast uppdaterad";
-"aaald-article-insert-new-changes" = "Nya ändringar";
-"aaald-article-insert-read-more" = "Läs fler uppdateringar";
-"aaald-characters-text-description" = "{{PLURAL:$1|0=tecken|tecken|tecken}}{{PLURAL:$1|}}";
-"aaald-deleted-text-description-2" = "$1 raderades";
-"aaald-error-subitle" = "Uppdatera för att försöka igen";
-"aaald-error-title" = "Kunde inte läsa in artikelhistoriken";
-"aaald-many-sections-description" = "i $1 avsnitt";
-"aaald-multiple-changes-description" = "Flera ändringar gjordes";
-"aaald-multiple-references-added-description" = "Flera referenser lades till";
-"aaald-new-book-reference-title" = "Bok";
-"aaald-new-discussion" = "Ny diskussion";
-"aaald-new-journal-reference-database" = "via $1";
-"aaald-new-journal-reference-title" = "Tidskrift";
-"aaald-new-journal-reference-volume" = "Volym $1:";
-"aaald-new-news-reference-retrieved-date" = "Hämtade $1";
-"aaald-new-news-reference-title" = "Nyheter";
-"aaald-new-talk-topic-description-format" = "$1 om denna artikel";
-"aaald-new-website-reference-archive-date-text" = "från originalet den $1";
-"aaald-new-website-reference-archive-url-text" = "Webbadress för Archive.org";
-"aaald-new-website-reference-title" = "Webbplats";
-"aaald-numerical-multiple-references-added-description" = "{{PLURAL:$1|0=0 referenser|$1 referens|$1 referenser}} lades till";
-"aaald-one-section-description" = "i avsnittet $1";
-"aaald-revision-by-anonymous" = "Redigering av anonym användare";
-"aaald-revision-userInfo" = "Redigering av $1 ($2 redigeringar)";
-"aaald-single-reference-added-description" = "Referens lades till";
-"aaald-small-change-description" = "{{PLURAL:$1|0=Inga mindre ändringar gjordes|$1 mindre ändring gjordes|$1 mindre ändringar gjordes}}";
-"aaald-summary-title" = "{{PLURAL:$1|0=0 ändringar|$1 ändring|$1 ändringar}} av {{PLURAL:$2|0=0 redigerare|$2 redigerare|$2 redigerare}} under {{PLURAL:$3|0=0 dagar|$3 dag|$3 dagar}}";
-"aaald-two-sections-description" = "i avsnitten $1 och $2";
-"aaald-vandalism-revert-description" = "Misstänkt vandalism återställdes";
-"aaald-view-full-history-button" = "Visa artikelns fullständiga historik";
 "about-content-license" = "Innehållslicens";
 "about-content-license-details" = "Om inget annat anges är innehållet tillgängligt under $1.";
 "about-content-license-details-share-alike-license" = "Creative Commons Attribution-DelaLika";
@@ -132,62 +99,35 @@
 "action-unsave" = "Ta bort";
 "action-unsaved-accessibility-notification" = "Artikeln togs bort";
 "action-update" = "Uppdatera";
+"activity-tab-add-images-subtitle" = "Lägg till föreslagna bilder till Wikipediaartiklar för att öka förståelsen.";
+"activity-tab-add-images-title" = "Lägg till bilder";
+"activity-tab-additional-thoughts" = "Några ytterligare kommentarer?";
+"activity-tab-generic-no-edits" = "Du har inte redigerat den här veckan. Börja nu för att spåra dina bidrag.";
+"activity-tab-greeting" = "$1Hej $2$3 👋 Här kommer din veckosammanfattning från Wikipedia.";
+"activity-tab-logged-out-subtitle" = "Spåra vad du läst och visa dina bidrag över tid på ett nytt sätt";
+"activity-tab-logged-out-title" = "Logga in eller skapa ett konto för att se mer redigerings- och läsaktivitet.";
+"activity-tab-neutral" = "Neutral";
+"activity-tab-no-edits-title" = "Du har inte redigerat den här veckan. Lägg till bilder för att göra artiklar lättare att förstå.";
+"activity-tab-read-title" = "Visa redigeringshistorik";
+"activity-tab-satisfied" = "Nöjd";
+"activity-tab-start-editing" = "Börja redigera";
+"activity-tab-survey" = "Är du nöjd med din \"Aktivitet\"-skärm? Vad mer skulle du vilja se här i framtiden?";
+"activity-tab-survey-title" = "Nöjdhetsundersökning";
+"activity-tab-title" = "Aktivitet";
+"activity-tab-unsatisfied" = "Inte nöjd";
+"activity-tab-very-satisfied" = "Mycket nöjd";
+"activity-tab-very-unsatisfied" = "Mycket missnöjd";
+"activity-tab-view-editing-history" = "Visa redigeringshistorik";
+"activity-tab-view-reading-history" = "Visa redigeringshistorik";
+"activity-tab-view-saved-articles" = "Visa sparade artiklar";
+"activity-tab-you-edited" = "Du redigerade {{PLURAL:$1|$1 gång|$1 gånger}} denna vecka.";
+"activity-tab-you-read" = "Du läste {{PLURAL:$1|$1 artikel|$1 artiklar}} denna vecka.";
+"activity-tab-you-saved" = "Du sparade {{PLURAL:$1|$1 artikel|$1 artiklar}} denna vecka.";
 "add-articles-to-reading-list" = "Lägg till {{PLURAL:$1|$1 artikel|$1 artiklar}} i läslista";
 "advanced-settings-title" = "Avancerade inställningar";
-"alt-text-add-button-title" = "Lägg till";
-"alt-text-do-not-add-button-title" = "Lägg inte till";
-"alt-text-email-fifth-line" = "[Skärmdumpar eller länkar]";
-"alt-text-email-first-line" = "Jag har stött på ett problem med funktionen för alternativtext:";
-"alt-text-email-fourth-line" = "- [Beskriv ett förslag på en lösning]";
-"alt-text-email-second-line" = "- [Beskriv det specifika problemet]";
-"alt-text-email-third-line" = "Beteendet jag skulle vilja se:";
-"alt-text-email-title" = "Problemrapport - Funktion för alternativtext";
-"alt-text-experiment-caption-title" = "Bildtext";
-"alt-text-experiment-character-counter-warning" = "Försök hålla alternativtexten kort så användare enkelt kan förstå bildinnehållet";
-"alt-text-experiment-edit-summary" = "Lade till alternativtext";
-"alt-text-experiment-guidance-button" = "Riktlinjer för att skriva alternativtext";
-"alt-text-experiment-onboarding-item-1-subtitle" = "1-2 rader oformaterad text utan akronymer, förkortningar eller slang.";
-"alt-text-experiment-onboarding-item-1-title" = "Låt det vara kort och tydligt";
-"alt-text-experiment-onboarding-item-2-subtitle" = "Lägg inte till din egen forskning, tolkning eller synvinkel.";
-"alt-text-experiment-onboarding-item-2-title" = "Beskriv vad som syns";
-"alt-text-experiment-onboarding-item-3-subtitle" = "Men upprepa inte text som redan finns i bildtexten.";
-"alt-text-experiment-onboarding-item-3-title" = "Fokusera på det som är relevant för artikeln";
-"alt-text-experiment-onboarding-item-4-subtitle" = "Inled inte med \"Detta är en bild av...\", utan beskriv mediet eller stilen om det är relevant";
-"alt-text-experiment-onboarding-item-4-title" = "Typ av bild";
-"alt-text-experiment-onboarding-secondary-button-title" = "Visa exempel";
-"alt-text-experiment-onboarding-title" = "Hur man skriver alternativtext för bilder";
-"alt-text-experiment-onboarding-tooltip-1-body" = "Förstå bilden i artikelns sammanhang.";
-"alt-text-experiment-onboarding-tooltip-1-title" = "Granska";
-"alt-text-experiment-onboarding-tooltip-2-body" = "Visa ytterligare bildinformation på Wikimedia Commons.";
-"alt-text-experiment-onboarding-tooltip-2-title" = "Inspektera";
-"alt-text-experiment-onboarding-tooltip-3-body" = "Lägg till en beskrivning för synskadade läsare";
-"alt-text-experiment-onboarding-tooltip-3-title" = "Lägg till beskrivning";
-"alt-text-experiment-review-title" = "Granska";
-"alt-text-experiment-text-field-description" = "Textbeskrivning för läsare som inte kan se bilden";
-"alt-text-experiment-text-field-placholder" = "Beskriv bilden";
-"alt-text-experiment-view-title" = "Lägg till alternativtext";
-"alt-text-feedback-alert-subtitle" = "Skulle du använda en funktion som ger ett flöde med bilder i behov av alternativtext?";
-"alt-text-feedback-alert-subtitle-flow-C" = "Skulle du vara intresserad av att få liknande aviseringar om föreslagna ändringar på artiklar efter att du redigerat dem?";
-"alt-text-feedback-alert-title" = "Vi vill ha din återkoppling";
-"alt-text-feedback-survey-neutral" = "Neutral";
-"alt-text-feedback-survey-satisfied" = "Nöjd";
-"alt-text-feedback-survey-subtitle" = "Är du nöjd med denna funktion?";
-"alt-text-feedback-survey-title" = "Hjälp till att förbättra funktionen";
+"alert-temporary-account" = "Du använder ett tillfälligt konto. Kontot upphör om 90 dagar.";
+"alert-temporary-account-learn-more" = "Ta reda på mer.";
 "alt-text-feedback-survey-toast-title" = "Återkoppling har skickats";
-"alt-text-feedback-survey-unsatisfied" = "Inte nöjd";
-"alt-text-license" = "Genom att publicera ändringar samtycker du till [användaravtalet]($1) och du oåterkalleligen går med på att släppa ditt bidrag under licensen [CC BY-SA 3.0]($2) och [GFDL]($3). Du samtycker till att en hyperlänk eller webbadress är tillräckligt tillskrivande under licensen Creative Commons.";
-"alt-text-modal-subtitle-image-recommendation" = "Den förra bilden saknade alt-text. Lägga till en beskrivning till bilden för synskadade läsare?";
-"alt-text-modal-subtitle-regular-edit" = "Det finns en bild i den här artikeln som saknar alt-text. Lägga till en beskrivning för synskadade läsare?";
-"alt-text-modal-title" = "Lägga till alt-text till bilden?";
-"alt-text-survey-option-1" = "Jag är osäker på hur man beskriver en bild";
-"alt-text-survey-option-2" = "Jag saknar expertis för att lägga till alternativtext";
-"alt-text-survey-option-3" = "Jag förstår inte hur det skiljer sig från en bildtext";
-"alt-text-survey-option-4" = "Jag har tekniska problem";
-"alt-text-survey-option-5" = "Jag har en synnedsättning";
-"alt-text-survey-option-6" = "Jag är inte intresserad av att skriva alternativtext för bilder";
-"alt-text-survey-option-7" = "Jag har inte tid";
-"alt-text-survey-subtitle" = "Berätta gärna varför du inte kommer att lägga till alternativtext.";
-"alt-text-title" = "Alternativtext";
 "announcements-dismiss" = "Stäng";
 "app-store-keywords" = "Wikipedia, referens, wiki, encyklopedi, info, kunskap, efterforskning, information, utforska, lär";
 "app-store-release-notes" = "Helt anpassningsbart och mer lättläst utforskarflöde. Lokalisering, prestandaförbättringar och buggfixar.";
@@ -214,8 +154,12 @@
 "article-revision-history" = "Artikelns versionshistorik";
 "article-save-error-not-enough-space" = "Du har inte tillräckligt mycket utrymme på din enhet för att spara denna artikel";
 "article-share" = "Dela";
+"article-tabs-open-background-tab" = "Öppna flik i bakgrunden";
+"article-tabs-open-new-tab" = "Öppna i ny flik";
 "article-talk-page" = "Artikelns diskussionssida";
 "article-toolbar-reading-themes-controls-toolbar-item" = "Kontroller för lästeman";
+"article-view-controller-editing-temp-account-created-subtitle" = "Det tillfälliga kontot $1 skapades efter att din redigering publicerades. Det kommer upphöra om 90 dagar.";
+"article-view-controller-editing-temp-account-created-title" = "Tillfälligt konto skapat";
 "back-button-accessibility-label" = "Tillbaka";
 "back-button-popover-title" = "Tryck för att gå tillbaka";
 "button-go-back" = "Gå tillbaka";
@@ -223,7 +167,6 @@
 "button-ok" = "OK";
 "button-publish" = "Publicera";
 "button-publish-anyway" = "Publicera ändå";
-"button-read-now" = "Läs nu";
 "button-report-a-bug" = "Rapportera ett fel";
 "button-save-for-later" = "Spara till senare";
 "button-saved-for-later" = "Sparades till senare";
@@ -259,6 +202,7 @@
 "description-edit-title" = "Redigera beskrivning";
 "description-edit-warning" = "Försök att hålla beskrivningar korta så användare kan förstå artikeln ämne på ett ögonblick";
 "description-edit-warning-casing" = "Bara egennamn bör inledas med en versal, även i början av meningen.";
+"description-editing-temp-account-created-subtitle" = "Det tillfälliga kontot $1 skapades efter att din redigering publicerades. Det kommer upphöra om 90 dagar.";
 "description-help-about-description" = "Artikelbeskrivningar sammanfattar en artikel för att hjälpa läsare förstå ämnet med ett ögonkast.";
 "description-help-about-title" = "Om";
 "description-help-about-wikidata" = "Om Wikidata";
@@ -283,10 +227,13 @@
 "description-welcome-descriptions-title" = "Artikelbeskrivningar";
 "description-welcome-promise-title" = "Genom att börja lovar jag att inte missbruka denna funktion";
 "description-welcome-start-editing-button" = "Börja redigera";
+"developer-force-email-auth" = "Tvinga e-postautentisering";
 "developer-settings" = "Utvecklarinställningar";
-"developer-settings-always-show-alt-text-entry-point" = "Visa alltid ingångspunkt för alternativtext.";
+"developer-settings-activity-tab-group-A" = "Ändra aktivitetsfliken till grupp A";
+"developer-settings-activity-tab-group-B" = "Ändra aktivitetsfliken till grupp B";
+"developer-settings-activity-tab-group-C" = "Ändra aktivitetsfliken till grupp C";
+"developer-settings-activity-tabs" = "Aktivera aktivitetsflikar";
 "developer-settings-bypass-donation" = "Hoppa över donation";
-"developer-settings-enable-alt-text-experiment-en" = "Aktivera alternativtextexperimentet för engelskspråkiga Wikipedia.";
 "developer-settings-enable-year-in-review" = "Aktivera årsöversikt";
 "developer-settings-send-analytics-to-wmflabs" = "Skicka analys till wmflabs.";
 "developer-settings-suppress-image-rec-post" = "Publicera inte redigering med bildrekommendationer.";
@@ -387,6 +334,8 @@
 "edit-preview-simplified-format-message" = "Allt innehåll visas i ett förenklat format.";
 "edit-published" = "Redigeringen publicerades";
 "edit-published-subtitle" = "Du gjorde precis Wikipedia bättre för alla";
+"edit-sheet-ip-account-notice" = "Meddelande om IP-konto";
+"edit-sheet-temp-account-notice" = "Tillfälligt kontomeddelande";
 "edit-show-web-preview" = "Visa webbförhandsgranskning";
 "edit-summary-add-summary-text" = "Lägg till en redigeringssammanfattning";
 "edit-summary-choice-added-image" = "Lade till bild";
@@ -598,6 +547,7 @@
 "field-alert-token-invalid" = "Ogiltig kod";
 "field-alert-username-unavailable" = "Användarnamn inte tillgängligt";
 "field-backup-token-title" = "Reservkod";
+"field-backup-token-title-email" = "E-postkod";
 "field-captcha-placeholder" = "CAPTCHA-text";
 "field-captcha-title" = "Skriv texten du ser ovan";
 "field-email-placeholder" = "exempel@example.org";
@@ -655,8 +605,6 @@
 "image-rec-empty-title" = "Du har inga fler tillgängliga föreslagna bilder just nu.";
 "image-rec-error-subtitle" = "Någonting gick fel.";
 "image-rec-error-title" = "Kunde inte att ladda sidan";
-"image-rec-feature-announce-body" = "Bestäm om en bild ska läggas till på en Wikipedia-artikel. Du hittar kortet \"Lägg till en bild\" i ditt utforskarflöde.";
-"image-rec-feature-announce-title" = "Prova \"Lägg till en bild\"";
 "image-rec-onboarding-item-1-body" = "Bestäm om en föreslagen bild ska placeras i en Wikipedia-artikel.";
 "image-rec-onboarding-item-1-title" = "Visa ett förslag";
 "image-rec-onboarding-item-2-body" = "Förslagen är maskingenererade och du avgör själv om du ska acceptera eller neka dem.";
@@ -736,6 +684,11 @@
 "insert-media-title" = "Infoga media";
 "inuktitut-variants-alert-body" = "Wikipediaappen stödjer följande inuktitut varianter som primära eller sekundära språk i appen, vilket gör det enklare att läsa, söka och redigera på dina föredragna varianter:\n\nᐃᓄᒃᑎᑐᑦ ᑎᑎᕋᐅᓯᖅ ᓄᑖᖅ inuktitut, stavelseskrift (ike-cans)\nInuktitut ilisautik, inuktitut, latinska (ike-latn)";
 "inuktitut-variants-alert-title" = "Uppdaterades till stöd för inuktitut varianter";
+"ip-account-cta-bottom" = "Fortsätt utan att logga in";
+"ip-account-cta-top" = "Logga in eller skapa ett konto";
+"ip-account-edit-sheet-subtitle" = "När du utfört en redigering, kommer ett $1tillfälligt konto$2 skapas för att skydda din integritet. $3Ta reda på mer.$4$5Logga in eller skapa ett konto för att tillskrivas för kommande redigeringar och komma åt andra funktioner.";
+"ip-account-warning-subtitle" = "Vid publicering kommer ett tillfälligt konto skapas åt dig.";
+"ip-account-warning-title" = "Du är inte inloggad";
 "kazakh-variants-alert-body" = "Wikipediaappen stödjer följande kazakiska varianter som primära eller sekundära språk i appen, vilket gör det enklare att läsa, söka och redigera på dina föredragna varianter:\n\nҚазақша kazakiska (kk)\nҚазақша Кирил kazakiska, kyrilliska (kk-cyrl)\nqazaqşa latin kazakiska, latinska (kk-latn)\nتوتە قازاقشا kazakiska, arabiska (kk-arab)";
 "kazakh-variants-alert-title" = "Uppdaterades till stöd för kazakiska varianter";
 "kurdish-variants-alert-body" = "Wikipediaappen stödjer följande kurdiska varianter som primära eller sekundära språk i appen, vilket gör det enklare att läsa, söka och redigera på dina föredragna varianter:\n\nKurdî Latînî kurdiska, latinska (ku-latn)\nكوردی kurdiska, arabiska (kk-arab)";
@@ -766,7 +719,7 @@
 "main-menu-title" = "Mer";
 "main-menu-zero-faq" = "Vanliga frågor om Wikipedia Zero";
 "microsite-yir-english-edits-bytes-slide-subtitle" = "Under 2024 lade volontärer till 4 104 852 969 byte på engelskspråkiga Wikipedia. Summan av deras arbete leder tillsammans till en faktabaserad och pålitlig kunskapsresurs för omvärlden som ständigt förbättras. Alla har kunskap att dela med sig, så [läs om hur man deltar]($1).";
-"microsite-yir-english-edits-bytes-slide-title" = "4 miljoner byte lades till";
+"microsite-yir-english-edits-bytes-slide-title" = "4 miljarder byte lades till";
 "microsite-yir-english-edits-slide-subtitle" = "Volontärer gjorde 98 222 407 ändringar på över 300 olika språkversioner av Wikipedia. Över 37 miljoner ändringar gjordes på engelskspråkiga Wikipedia. Varje timme och varje dag arbetar volontärer för att förbättra Wikipedia.";
 "microsite-yir-english-edits-slide-title" = "Redigerare gjorde 98 miljoner ändringar i år";
 "microsite-yir-english-non-donor-slide-subtitle" = "Med din hjälp kommer Wikimedia Foundation (den ideella organisationen bakom Wikipedia) att fortsätta säkerställa att informationen du litar på är annonsfri och pålitlig, samtidigt som Wikipedia fortsätter att fungera smidigt med avancerade verktyg och teknologier. Överväg att donera idag. [Läs mer om vårt arbete]($1).";
@@ -826,7 +779,6 @@
 "notifications-center-go-to-article" = "Artikel";
 "notifications-center-go-to-article-talk-format" = "$1 diskussionssida";
 "notifications-center-go-to-diff" = "Diff";
-"notifications-center-go-to-talk-page" = "Diskussionssida";
 "notifications-center-go-to-user-page" = "$1s användarsida";
 "notifications-center-go-to-wikidata-item" = "Wikidata-objekt";
 "notifications-center-go-to-your-talk-page" = "Din diskussionssida";
@@ -932,12 +884,14 @@
 "on-this-day-no-internet-error" = "Ingen tillgänglig data";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 från Wikipedia på $2";
 "on-this-day-title" = "På denna dag";
+"open-in-tab-tooltip-body" = "Tryck länge på en artikeltitel eller blå länk för att öppna den i en ny flik.";
+"open-in-tab-tooltip-title" = "Öppna i ny flik";
 "original-tab-button-popover-description" = "Tryck på \"W\" för att återvända till fliken du började ifrån";
-"page-history-anonymous-edits" = "anonyma redigeringar";
-"page-history-bot-edits" = "botredigeringar";
+"page-history-bot-edits" = "robot";
 "page-history-compare-accessibility-hint" = "Tryck för att välja två versioner att jämföra";
 "page-history-compare-title" = "Jämför";
 "page-history-graph-accessibility-label" = "Diagram över redigeringar över tid";
+"page-history-logged-in-edits" = "inloggad";
 "page-history-minor-edits" = "mindre redigeringar";
 "page-history-revision-author-accessibility-label" = "Författare: $1";
 "page-history-revision-comment-accessibility-label" = "Kommentar $1";
@@ -948,7 +902,7 @@
 "page-history-revision-time-accessibility-label" = "Versionen gjordes $1";
 "page-history-revisions-comparison-warning" = "Endast två versioner kan markeras";
 "page-history-stats-text" = "{{PLURAL:$1|$1 redigering|$1 redigeringar}} sedan $2";
-"page-history-user-edits" = "användarredigeringar";
+"page-history-unregistered-edits" = "oregistrerad";
 "page-issues" = "Sidproblem";
 "page-location" = "Visa på en karta";
 "page-protected-can-not-edit" = "Du saknar rättigheter för att redigera denna sida.";
@@ -1009,7 +963,6 @@
 "profile-page-join-subtext" = "Registrera ett Wikipedia-konto för att spåra dina bidrag, spara artiklar offline och synkronisera mellan enheter.";
 "profile-page-join-title" = "Logga in / skapa konto på Wikipedia";
 "profile-page-logged-out-year-in-review-subtext" = "Logga in eller skapa ett konto för att få en förbättrad årsöversikt nästa år";
-"profile-page-title-logged-out" = "Konto";
 "profile-year-in-review-login-subtitle" = "Logga in eller skapa ett konto för att se årsöversikten igen och få mer personliga insikter.";
 "profile-year-in-review-login-title" = "Logga in för att få tillgång till årsöversikten";
 "project-name-mediawiki" = "MediaWiki";
@@ -1130,6 +1083,8 @@
 "return-button-title" = "Återgå";
 "return-to-article" = "Återgå till artikeln";
 "reverted-edit-title" = "Återställd redigering";
+"save-view-temp-account-notice" = "Du använder ett tillfälligt konto. Redigeringar tillskrivs $1...";
+"save-view-temp-account-warning" = "Du är inte inloggad. När du utfört en redigering kommer ett tillfälligt konto skapas åt dig för att skapa din integritet.";
 "saved-all-articles-title" = "Alla artiklar";
 "saved-default-reading-list-tag" = "Denna lista kan inte raderas";
 "saved-pages-image-download-error" = "Gick inte att ladda ner bilder för den här sparade sidan.";
@@ -1223,6 +1178,7 @@
 "table-of-contents-heading" = "Innehåll";
 "table-of-contents-hide-button-label" = "Dölj innehållsförteckning";
 "table-of-contents-subheading-label" = "Underrubrik $1";
+"tabs-overview-tooltip-body" = "Skicka mellan öppna artiklar i flikorna överblick.";
 "tachelhit-variants-alert-body" = "Wikipediaappen stödjer följande tachelhit varianter som primära eller sekundära språk i appen, vilket gör det enklare att läsa, söka och redigera på dina föredragna varianter:\n\nⵜⴰⵛⵍⵃⵉⵜ tachelhit, tifinagh (shi-tfng)\nTaclḥit tachelhit, latinska (shi-latn)";
 "tachelhit-variants-alert-title" = "Uppdaterades till stöd för tachelhit varianter";
 "tajik-variants-alert-body" = "Wikipediaappen stödjer följande tadzjikiska varianter som primära eller sekundära språk i appen, vilket gör det enklare att läsa, söka och redigera på dina föredragna varianter:\n\nтоҷикӣ кирилликӣ tadzjikiska, kyrilliska (tg-cyrl)\ntojikī lotinī tadzjikiska, latinska (tg-latn)";
@@ -1305,6 +1261,14 @@
 "talk-pages-user-groups" = "Användargrupper";
 "talk-pages-user-logs" = "Loggar";
 "talk-pages-view-title" = "Diskussion";
+"temp-account-alert-read-more-information" = "$1Du använder ett tillfälligt konto.$2 Kontot går ut om 90 dagar. Efter att det gått ut kommer ett nytt skapas nästa gång du utför en redigering utan att logga in. $3Logga in eller skapa ett konto för att tillskrivas för framtida redigeringar, och få tillgång till andra funktioner.";
+"temp-account-edit-sheet-cta-top" = "Logga in eller skapa ett konto";
+"temp-account-edit-sheet-subtitle" = "$2Du använder för närvarande ett temporärt konto.$3 Redigeringar som görs med det tillfälliga kontot $1 kommer inte att överföras till ditt permanenta konto när du loggar in. Logga in eller skapa ett konto för att få erkännande med ditt användarnamn, bland andra förmåner.";
+"temp-account-toast-read-more-title" = "Läs mer";
+"temp-account-toast-title" = "$1Du använder för närvarande ett tillfälligt konto.$2 Redigeringar gjorda med det tillfälliga...";
+"temp-account-warning-title" = "Du använder ett tillfälligt konto";
+"temp-warning-subtitle-format" = "Din redigering kommer att tillskrivas $1";
+"temporary-account" = "Tillfälligt konto";
 "terms-of-use-title" = "Användarvillkor";
 "theme-black-display-name" = "Svart";
 "theme-dark-display-name" = "Mörkt";
@@ -1317,6 +1281,8 @@
 "top-read-widget-title" = "Mest lästa";
 "try-now-title" = "Försök nu";
 "tutorial-title" = "Guide";
+"two-factor-email-login-continue" = "Fortsätt att logga in";
+"two-factor-email-login-instructions" = "Ange e-postverifieringskod";
 "two-factor-login-continue" = "Fortsätt att logga in";
 "two-factor-login-instructions" = "Ange tvåstegsverifieringskod";
 "two-factor-login-title" = "Logga in på ditt konto";
@@ -1486,7 +1452,6 @@
 "year-in-review-personalized-donate-subtitle" = "Tack för att du investerar i framtiden för gratis kunskap. I år förbättrade Wikimedia Foundation tekniken som alla läsare och volontärer använder, utvecklade samarbetsverktyg och lade till stöd för Wikipedia på fler språk. [Läs mer om vårt arbete]($1).";
 "year-in-review-personalized-donate-title" = "Din generositet bidrog till att låta Wikipedia blomstra";
 "year-in-review-personalized-donation-thank-you" = "Wikimedia-logotyp";
-// Fuzzy
 "year-in-review-personalized-edit-views-subtitle-format" = "Läsare runt om i världen uppskattar dina bidrag. Under de senaste två månaderna har artiklarna som du redigerade fått totalt $1 visningar. Tack vare redigerare som dig är Wikipedia en faktabaserad och pålitlig kunskapsresurs för hela världen som ständigt förbättras";
 "year-in-review-personalized-edit-views-title-format" = "Dina redigeringar har nyligen visats mer än $1 gånger";
 "year-in-review-personalized-editing-subtitle-format" = "Du har redigerat Wikipedia {{PLURAL:$1|$1 gång|$1 gånger}}. Tack för att du är en av de frivilliga redigerarna som gör skillnad i Wikimedia-projekten runt om i världen.";

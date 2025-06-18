@@ -196,17 +196,23 @@ static NSString *const kWMFContributorsKey = @"contributors";
     NSString *developerSettings = WMFLocalizedStringWithDefaultValue(@"developer-settings", nil, nil, @"Developer Settings", @"Title for developer settings view.");
     NSString *doNotPostImageRecommendations = WMFLocalizedStringWithDefaultValue(@"developer-settings-suppress-image-rec-post", nil, nil, @"Do not post image recommendations edit.", @"Title for setting to suppress image recommendations edit postsing. Displayed on the developer settings view.");
 
-    NSString *enableAltTextExperimentForEN = WMFLocalizedStringWithDefaultValue(@"developer-settings-enable-alt-text-experiment-en", nil, nil, @"Enable Alt Text experiment for English Wikipedia.", @"Title for setting to enable alt text experiment for English Wikipedia. Displayed on the developer settings view.");
-
-    NSString *alwaysShowAltTextEntryPoint = WMFLocalizedStringWithDefaultValue(@"developer-settings-always-show-alt-text-entry-point", nil, nil, @"Always show alt text entry point.", @"Title for always showing the alt text experiment entry point. Displayed on the developer settings view.");
-
     NSString *sendAnalyticsToWMFLabs = WMFLocalizedStringWithDefaultValue(@"developer-settings-send-analytics-to-wmflabs", nil, nil, @"Send analytics to wmflabs.", @"Title for setting to send analytics to a different backend. Displayed on the developer settings view.");
 
     NSString *enableYearInReview = WMFLocalizedStringWithDefaultValue(@"developer-settings-enable-year-in-review", nil, nil, @"Enable Year in Review", @"Title for enabling the Year in Review feature. Displayed on the developer settings view.");
 
     NSString *bypassDonation = WMFLocalizedStringWithDefaultValue(@"developer-settings-bypass-donation", nil, nil, @"Bypass Donation", @"Title for option to bypass a donation in developer settings menu.");
 
-    WMFDeveloperSettingsLocalizedStrings *localizedStrings = [[WMFDeveloperSettingsLocalizedStrings alloc] initWithDeveloperSettings:developerSettings doNotPostImageRecommendations:doNotPostImageRecommendations enableAltTextExperimentForEN:enableAltTextExperimentForEN alwaysShowAltTextEntryPoint:alwaysShowAltTextEntryPoint sendAnalyticsToWMFLabs:sendAnalyticsToWMFLabs enableYearinReview:enableYearInReview bypassDonation:bypassDonation close:WMFCommonStrings.doneTitle];
+    NSString *forceEmailAuth = WMFLocalizedStringWithDefaultValue(@"developer-force-email-auth", nil, nil, @"Force email auth", @"Title for option to force email auth in developer settings menu.");
+
+    NSString *setActivityTabGroupA =  WMFLocalizedStringWithDefaultValue(@"developer-settings-activity-tab-group-A", nil, nil, @"Set activity tab to group A", @"Title for option to set activity tab experiment to group A");
+
+    NSString *setActivityTabGroupB = WMFLocalizedStringWithDefaultValue(@"developer-settings-activity-tab-group-B", nil, nil, @"Set activity tab to group B", @"Title for option to set activity tab experiment to group B");
+
+    NSString *setActivityTabGroupC = WMFLocalizedStringWithDefaultValue(@"developer-settings-activity-tab-group-C", nil, nil, @"Set activity tab to group C", @"Title for option to set activity tab experiment to group C");
+    
+    NSString *enableArticleTab = WMFLocalizedStringWithDefaultValue(@"developer-settings-activity-tabs", nil, nil, @"Enable activity tabs", @"Title for option to enable activity tabs");
+
+    WMFDeveloperSettingsLocalizedStrings *localizedStrings = [[WMFDeveloperSettingsLocalizedStrings alloc] initWithDeveloperSettings:developerSettings doNotPostImageRecommendations:doNotPostImageRecommendations sendAnalyticsToWMFLabs:sendAnalyticsToWMFLabs enableArticleTab:enableArticleTab enableYearinReview:enableYearInReview bypassDonation:bypassDonation forceEmailAuth:forceEmailAuth setActivityTabGroupA:setActivityTabGroupA setActivityTabGroupB:setActivityTabGroupB setActivityTabGroupC:setActivityTabGroupC done:WMFCommonStrings.doneTitle];
     WMFDeveloperSettingsViewModel *viewModel = [[WMFDeveloperSettingsViewModel alloc] initWithLocalizedStrings:localizedStrings];
 
     WMFDeveloperSettingsViewController *viewController = [[WMFDeveloperSettingsViewController alloc] initWithViewModel:viewModel];

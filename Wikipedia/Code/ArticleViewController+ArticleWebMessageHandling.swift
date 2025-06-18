@@ -34,13 +34,11 @@ extension ArticleViewController: ArticleWebMessageHandling {
             scrollToAnchorCompletions.removeAll()
         case .viewInBrowser:
             navigate(to: self.articleURL, useSafari: true)
-        case .aaaldInsertOnScreen:
-            handleAaaLDInsertOnScreenEvent()
         }
     }
     
     func handleTableOfContents(items: [TableOfContentsItem]) {
-        let titleItem = TableOfContentsItem(id: 0, titleHTML: article.displayTitleHTML, anchor: "", rootItemId: 0, indentationLevel: 0)
+        let titleItem = TableOfContentsItem(id: 0, titleHTML: article.displayTitle ?? article.displayTitleHTML, anchor: "", rootItemId: 0, indentationLevel: 0)
         var allItems: [TableOfContentsItem] = [titleItem]
         allItems.append(contentsOf: items)
 
@@ -59,12 +57,9 @@ extension ArticleViewController: ArticleWebMessageHandling {
         let oldState = state
         state = .loaded
         
-        if altTextExperimentViewModel == nil {
-            showWIconPopoverIfNecessary()
-        }
-        
+        presentTooltipsIfNeeded()
+
         refreshControl.endRefreshing()
-        surveyTimerController?.articleContentDidLoad()
         loadSummary(oldState: oldState)
         initialSetupCompletion?()
         initialSetupCompletion = nil
@@ -75,7 +70,9 @@ extension ArticleViewController: ArticleWebMessageHandling {
         articleLoadWaitGroup?.leave()
         addToHistory()
         persistPageViewsForWikipediaInReview()
+        loadMediaWikiInfoAndUpdateToolbar()
         syncCachedResourcesIfNeeded()
+        messagingController.updateDarkModeMainPageIfNeeded(articleURL: articleURL, theme: theme)
     }
     
     func handleFooterItem(type: PageContentService.Footer.Menu.Item, payload: Any?) {
@@ -115,9 +112,5 @@ extension ArticleViewController: ArticleWebMessageHandling {
             menuItems.append(.coordinate)
         }
         messagingController.addFooter(articleURL: articleURL, restAPIBaseURL: baseURL, menuItems: menuItems, lastModified: article.lastModifiedDate)
-    }
-    
-    func handleAaaLDInsertOnScreenEvent() {
-        surveyTimerController?.userDidScrollPastLivingDocArticleContentInsert(withState: state)
     }
 }

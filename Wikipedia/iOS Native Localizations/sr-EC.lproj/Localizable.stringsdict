@@ -2,26 +2,26 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>aaald-characters-text-description</key>
+	<key>activity-tab-you-edited</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>Уредили сте %#@v1@ ове недеље.</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
+			<key>one</key>
+			<string>%1$d пут</string>
 			<key>other</key>
-			<string>знакова</string>
-			<key>zero</key>
-			<string>знак</string>
+			<string>%1$d пута</string>
 		</dict>
 	</dict>
-	<key>aaald-numerical-multiple-references-added-description</key>
+	<key>activity-tab-you-read</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>додато %#@v1@</string>
+		<string>Прочитали сте %#@v1@ ове недеље.</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -29,17 +29,15 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>%1$d референци</string>
+			<string>%1$d чланак</string>
 			<key>other</key>
-			<string>%1$d референце</string>
-			<key>zero</key>
-			<string>0 референци</string>
+			<string>%1$d чланака</string>
 		</dict>
 	</dict>
-	<key>aaald-small-change-description</key>
+	<key>activity-tab-you-saved</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>Сачували сте %#@v1@ ове недеље.</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -47,53 +45,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>%1$d мала измена је направљена</string>
+			<string>%1$d чланак</string>
 			<key>other</key>
-			<string>%1$d малих измена је направљено</string>
-			<key>zero</key>
-			<string>Нису направљене мале измене</string>
-		</dict>
-	</dict>
-	<key>aaald-summary-title</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@ од %#@v2@ у %#@v3@</string>
-		<key>v1</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
-			<key>other</key>
-			<string>%1$d измена</string>
-			<key>zero</key>
-			<string>0 измена</string>
-		</dict>
-		<key>v2</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
-			<key>one</key>
-			<string>%2$d уредник</string>
-			<key>other</key>
-			<string>%2$d уредника</string>
-			<key>zero</key>
-			<string>0 уредника</string>
-		</dict>
-		<key>v3</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
-			<key>one</key>
-			<string>%3$d дану</string>
-			<key>other</key>
-			<string>%3$d дана</string>
-			<key>zero</key>
-			<string>0 дана</string>
+			<string>%1$d чланака</string>
 		</dict>
 	</dict>
 	<key>add-articles-to-reading-list</key>

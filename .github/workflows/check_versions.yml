@@ -1,0 +1,46 @@
+# Checks the PR label against the app version, fails if they do not match.
+# This is to prevent unwanted PRs from being merged into main.
+name: Check PR and App Versions
+
+on:
+  pull_request:
+    types:
+      - opened
+      - reopened
+      - labeled
+      - unlabeled
+    branches:
+      - 'main'
+
+jobs:
+  check-version:
+    runs-on: macOS-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: Check PR label and App Versions
+      continue-on-error: false
+      run: |
+        APPVERSION=$(plutil -extract CFBundleShortVersionString raw -o - Wikipedia/Wikipedia-Info.plist)
+        PRLABELS='${{ toJson(github.event.pull_request.labels.*.name) }}'
+
+        MATCH_FOUND=false
+
+        echo "App Version: $APPVERSION"
+        echo "PR Labels: $PRLABELS"
+
+        # Loop through all labels correctly
+        for LABEL in $(echo "$PRLABELS" | jq -r '.[]'); do
+          if [ "$LABEL" == "$APPVERSION" ]; then
+            MATCH_FOUND=true
+            echo "Match found: APPVERSION='$APPVERSION' matches PR label '$LABEL'"
+            break  # No need to check further, exit loop early
+          fi
+        done
+
+        # Check if any match was found
+        if [ "$MATCH_FOUND" != "true" ]; then
+          echo "Error: No PR label matches the app version! APPVERSION='$APPVERSION'"
+          exit 1
+        fi
+
+        echo "Success: At least one PR label matches the app version."

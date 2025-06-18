@@ -2,10 +2,10 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>aaald-characters-text-description</key>
+	<key>activity-tab-you-edited</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>Hai modificato %#@v1@ questa settimana.</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -13,17 +13,15 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>carattere</string>
+			<string>%1$d volta</string>
 			<key>other</key>
-			<string>caratteri</string>
-			<key>zero</key>
-			<string>caratteri</string>
+			<string>%1$d volte</string>
 		</dict>
 	</dict>
-	<key>aaald-numerical-multiple-references-added-description</key>
+	<key>activity-tab-you-read</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>Hai letto %#@v1@ questa settimana.</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -31,17 +29,15 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>%1$d fonte aggiunta</string>
+			<string>%1$d voce</string>
 			<key>other</key>
-			<string>%1$d fonti aggiunte</string>
-			<key>zero</key>
-			<string>0 fonti aggiunte</string>
+			<string>%1$d voci</string>
 		</dict>
 	</dict>
-	<key>aaald-small-change-description</key>
+	<key>activity-tab-you-saved</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>Hai salvato %#@v1@ questa settimana.</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -49,11 +45,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>%1$d modifica minore effettuata</string>
+			<string>%1$d voce</string>
 			<key>other</key>
-			<string>%1$d modifiche minori effettuate</string>
-			<key>zero</key>
-			<string>Nessuna modifica minore effettuata</string>
+			<string>%1$d voci</string>
 		</dict>
 	</dict>
 	<key>add-articles-to-reading-list</key>
@@ -757,6 +751,22 @@
 			<string>%1$d voce</string>
 			<key>other</key>
 			<string>%1$d voci</string>
+		</dict>
+	</dict>
+	<key>year-in-review-personalized-saved-subtitle-format</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Hai salvato %#@v1@ quest'anno, inclusi %2$@ , %3$@ e %4$@ . Ogni articolo salvato riflette i tuoi interessi e contribuisce a creare una base di conoscenza personalizzata su Wikipedia.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string> %1$d articolo</string>
+			<key>other</key>
+			<string> %1$d articoli</string>
 		</dict>
 	</dict>
 	<key>year-in-review-personalized-saved-title-format</key>

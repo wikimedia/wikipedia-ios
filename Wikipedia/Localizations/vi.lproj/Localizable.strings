@@ -26,40 +26,6 @@
 // Author: Thanhtai2009
 // Author: Vinhtantran
 
-"aaald-added-text-description-2" = "$1 được thêm";
-"aaald-article-description-updated-description" = "Đã cập nhật lời tóm lược bài viết";
-"aaald-article-insert-header" = "Cập nhật Quan trọng";
-"aaald-article-insert-last-updated" = "Cập nhật lần cuối cùng";
-"aaald-article-insert-new-changes" = "Thay đổi mới";
-"aaald-article-insert-read-more" = "Đọc thêm cập nhật";
-"aaald-characters-text-description" = "{{PLURAL:$1}}ký tự";
-"aaald-deleted-text-description-2" = "$1 được xóa";
-"aaald-error-subitle" = "Tải lại để thử lại";
-"aaald-error-title" = "Không thể tải lịch sử bài viết nội dòng";
-"aaald-many-sections-description" = "trong $1 phần";
-"aaald-multiple-changes-description" = "Nhiều thay đổi được thực hiện";
-"aaald-multiple-references-added-description" = "Nhiều tham chiếu được thêm";
-"aaald-new-book-reference-title" = "Sách";
-"aaald-new-discussion" = "Đề tài mới";
-"aaald-new-journal-reference-database" = "qua $1";
-"aaald-new-journal-reference-title" = "Tạp chí";
-"aaald-new-journal-reference-volume" = "Quyển $1:";
-"aaald-new-news-reference-retrieved-date" = "Truy cập vào $1";
-"aaald-new-news-reference-title" = "Tin tức";
-"aaald-new-talk-topic-description-format" = "$1 về bài viết này";
-"aaald-new-website-reference-archive-date-text" = "từ bản gốc trên $1";
-"aaald-new-website-reference-archive-url-text" = "URL Archive.org";
-"aaald-new-website-reference-title" = "Trang Web";
-"aaald-numerical-multiple-references-added-description" = "Đã thêm $1 tham chiếu";
-"aaald-one-section-description" = "trong phần $1";
-"aaald-revision-by-anonymous" = "Đóng góp bởi người dùng vô danh";
-"aaald-revision-userInfo" = "Thay đổi bởi $1 ($2 lần sửa đổi)";
-"aaald-single-reference-added-description" = "Đã thêm tham chiếu";
-"aaald-small-change-description" = "{{PLURAL:$1|0=Không thực hiện thay đổi nhỏ nào|Thực hiện $1 thay đổi nhỏ}}";
-"aaald-summary-title" = "$1 thay đổi của $2 người dùng vào thời gian $3 ngày";
-"aaald-two-sections-description" = "trong các phần $1 và $2";
-"aaald-vandalism-revert-description" = "Sửa đổi phá hoại đã được lùi sửa";
-"aaald-view-full-history-button" = "Xem lịch sử trang đầy đủ";
 "about-content-license" = "Giấy phép nội dung";
 "about-content-license-details" = "Trừ khi được chỉ rõ, toàn bộ nội dung được phát hành theo $1.";
 "about-content-license-details-share-alike-license" = "Giấy phép Creative Commons Ghi công–Chia sẻ tương tự";
@@ -164,7 +130,6 @@
 "button-ok" = "OK";
 "button-publish" = "Đăng";
 "button-publish-anyway" = "Cứ đăng";
-"button-read-now" = "Đọc ngay";
 "button-report-a-bug" = "Báo lỗi";
 "button-save-for-later" = "Lưu để đọc sau";
 "button-saved-for-later" = "Đã lưu";
@@ -596,7 +561,6 @@
 "notifications-center-go-to-article" = "Bài viết";
 "notifications-center-go-to-article-talk-format" = "Trang thảo luận $1";
 "notifications-center-go-to-diff" = "Khác";
-"notifications-center-go-to-talk-page" = "Trang thảo luận";
 "notifications-center-go-to-user-page" = "Trang thành viên của $1";
 "notifications-center-go-to-wikidata-item" = "Khoản mục Wikidata";
 "notifications-center-go-to-your-talk-page" = "Trang thảo luận của bạn";
@@ -677,7 +641,7 @@
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 từ Wikipedia $2";
 "on-this-day-title" = "Ngày này năm xưa";
 "original-tab-button-popover-description" = "Chạm vào chữ “W” để quay lại thẻ ban đầu";
-"page-history-anonymous-edits" = "sửa đổi vô danh";
+// Fuzzy
 "page-history-bot-edits" = "sửa đổi bot";
 "page-history-compare-accessibility-hint" = "Chạm để chọn hai phiên bản để so sánh";
 "page-history-compare-title" = "So sánh";
@@ -692,7 +656,6 @@
 "page-history-revision-time-accessibility-label" = "Thay đổi vào $1";
 "page-history-revisions-comparison-warning" = "Chỉ có thể chọn hai phiên bản";
 "page-history-stats-text" = "$1 sửa đổi từ $2 đến nay";
-"page-history-user-edits" = "người dùng sửa đổi";
 "page-issues" = "Vấn đề trang";
 "page-location" = "Xem trên bản đồ";
 "page-protected-can-not-edit" = "Bạn không có quyền sửa đổi trang này.";
@@ -1004,7 +967,7 @@
 "uzbek-variants-alert-body" = "Ứng dụng Wikipedia mới hỗ trợ các hệ chữ viết tiếng Uzbek là ngôn ngữ giao diện chính hoặc phụ để cho bạn dễ tra cứu, tìm kiếm, và sửa đổi trong hệ chữ viết của bạn:\n\noʻzbekcha lotin Uzbek chữ Latinh (uz-latin)\nўзбекча кирилл Uzbek chữ Kirin (uz-cyrl)";
 "uzbek-variants-alert-title" = "Cập nhật hỗ trợ biến thể trong tiếng Uzbek";
 "vanish-account-continue-button-title" = "Tiếp tục";
-"vanish-account-warning-body" = "Biến mất là **biện pháp cuối cùng** và nên **chỉ dùng khi bạn muốn chấm dứt sửa đổi vĩnh viễn** và muốn che giấu tối đa những mối liên hệ với bạn trong quá khứ.\n\nViệc xoá tài khoản trên Wikipedia được thực hiện bằng cách đổi tên tài khoản của bạn để người khác không nhận ra được những đóng góp của bạn trong một quy trình gọi là làm biến mất tài khoản. Bạn có thể dùng mẫu bên dưới để yêu cầu biến mất tài khoản. Việc biến mất không đảm bảo ẩn danh hoàn toàn hoặc xoá bỏ những đóng góp trên các dự án.";
+"vanish-account-warning-body" = "Biến mất là **biện pháp cuối cùng** và nên **chỉ dùng khi bạn muốn chấm dứt sửa đổi vĩnh viễn** và muốn che giấu tối đa những mối liên hệ với bạn trong quá khứ.\n\nViệc xóa tài khoản trên Wikipedia được thực hiện bằng cách đổi tên tài khoản của bạn để người khác không nhận ra được những đóng góp của bạn trong một quy trình gọi là làm biến mất tài khoản. Bạn có thể dùng mẫu bên dưới để yêu cầu biến mất tài khoản. Việc biến mất không đảm bảo ẩn danh hoàn toàn hoặc xóa bỏ những đóng góp trên các dự án.";
 "vanish-account-warning-title" = "Cảnh báo";
 "variants-alert-dismiss-button" = "Thôi";
 "variants-alert-preferences-button" = "Xem tùy chọn cá nhân của bạn";

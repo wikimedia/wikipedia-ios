@@ -10,6 +10,7 @@
 // Author: Cristofer Alves
 // Author: Dianakc
 // Author: Duke of Wikipädia
+// Author: EGobi
 // Author: Eduardo Addad de Oliveira
 // Author: Eduardoaddad
 // Author: Fasouzafreitas
@@ -29,6 +30,7 @@
 // Author: Mordecool
 // Author: Nemo bis
 // Author: Nharateh
+// Author: PPenloglou-WMF
 // Author: Pedrofariasm
 // Author: Peter Fernando
 // Author: Raphaelras
@@ -44,40 +46,6 @@
 // Author: Webysther
 // Author: YuriNikolai
 
-"aaald-added-text-description-2" = "$1 adicionado";
-"aaald-article-description-updated-description" = "Descrição do artigo atualizada";
-"aaald-article-insert-header" = "Atualizações significativas";
-"aaald-article-insert-last-updated" = "Última atualização";
-"aaald-article-insert-new-changes" = "Novas alterações";
-"aaald-article-insert-read-more" = "Leia mais atualizações";
-"aaald-characters-text-description" = "{{PLURAL:$1|0=caracteres|character|caracteres}}";
-"aaald-deleted-text-description-2" = "$1 excluído";
-"aaald-error-subitle" = "Atualize para tentar novamente";
-"aaald-error-title" = "Não é possível carregar o histórico do artigo embutido";
-"aaald-many-sections-description" = "em $1 seções";
-"aaald-multiple-changes-description" = "Várias alterações feitas";
-"aaald-multiple-references-added-description" = "Múltiplas referências adicionadas";
-"aaald-new-book-reference-title" = "Livro";
-"aaald-new-discussion" = "Nova discussão";
-"aaald-new-journal-reference-database" = "via $1";
-"aaald-new-journal-reference-title" = "Diário";
-"aaald-new-journal-reference-volume" = "Volume $1:";
-"aaald-new-news-reference-retrieved-date" = "Recuperado $1";
-"aaald-new-news-reference-title" = "Notícias";
-"aaald-new-talk-topic-description-format" = "$1 sobre este artigo";
-"aaald-new-website-reference-archive-date-text" = "do original em $1";
-"aaald-new-website-reference-archive-url-text" = "URL do Archive.org";
-"aaald-new-website-reference-title" = "Site";
-"aaald-numerical-multiple-references-added-description" = "{{PLURAL:$1|0=0 referências adicionadas|$1 referência adicionada|$1 referências adicionadas}}";
-"aaald-one-section-description" = "na seção $1";
-"aaald-revision-by-anonymous" = "Editar por usuário anônimo";
-"aaald-revision-userInfo" = "Editar por $1 ($2 edições)";
-"aaald-single-reference-added-description" = "Referência adicionada";
-"aaald-small-change-description" = "{{PLURAL:$1|0=Nenhuma edição menor realizada|$1 edição menor realizada|$1 edições menores realizadas}}";
-"aaald-summary-title" = "{{PLURAL:$1|0=0 mudanças|$1 mudança|$1 mudanças}} por {{PLURAL:$2|0=0 editores|$2 editor|$2 editores}} em {{PLURAL:$3|0=0 dias|$3 dia|$3 dias}}";
-"aaald-two-sections-description" = "nas seções $1 e $2";
-"aaald-vandalism-revert-description" = "Suspeita de vandalismo revertida";
-"aaald-view-full-history-button" = "Ver o histórico completo do artigo";
 "about-content-license" = "Licença de conteúdo";
 "about-content-license-details" = "A menos que especificado o contrário, o conteúdo está disponível sob a $1.";
 "about-content-license-details-share-alike-license" = "Licença Creative Commons Atribuição-PartilhaIgual";
@@ -150,62 +118,8 @@
 "action-update" = "Atualizar";
 "add-articles-to-reading-list" = "Adicionar $1 {{PLURAL:$1|artigo|artigos}} à lista de leitura";
 "advanced-settings-title" = "Configurações avançadas";
-"alt-text-add-button-title" = "Adicionar";
-"alt-text-do-not-add-button-title" = "Não adicionar";
-"alt-text-email-fifth-line" = "Capturas de tela ou links";
-"alt-text-email-first-line" = "Encontrei um problema com o recurso texto alternativo:";
-"alt-text-email-fourth-line" = "Descreva a solução proposta";
-"alt-text-email-second-line" = "Descreva o problema específico";
-"alt-text-email-third-line" = "O comportamento que eu gostaria de ver é:";
-"alt-text-email-title" = "Relatório de problema — recurso de texto alternativo";
-"alt-text-experiment-caption-title" = "Legenda da imagem";
-"alt-text-experiment-character-counter-format" = "$1/$2";
-"alt-text-experiment-character-counter-warning" = "Tente manter o texto alternativo curto para que os usuários possam entender facilmente o conteúdo da imagem";
-"alt-text-experiment-edit-summary" = "Texto alternativo adicionado";
-"alt-text-experiment-guidance-button" = "Orientação para escrever texto alternativo";
-"alt-text-experiment-onboarding-item-1-subtitle" = "1-2 linhas de texto simples, sem siglas, abreviações ou jargões.";
-"alt-text-experiment-onboarding-item-1-title" = "Seja breve e claro";
-"alt-text-experiment-onboarding-item-2-subtitle" = "Não adicione sua própria pesquisa, interpretação ou ponto de vista.";
-"alt-text-experiment-onboarding-item-2-title" = "Descreva o que pode ser visto";
-"alt-text-experiment-onboarding-item-3-subtitle" = "Mas não repita o texto que já está na legenda.";
-"alt-text-experiment-onboarding-item-3-title" = "Foque no que é relevante para o artigo";
-"alt-text-experiment-onboarding-item-4-subtitle" = "Não comece com \"Esta é uma imagem de...\", mas descreva o material ou estilo, se relevante";
-"alt-text-experiment-onboarding-item-4-title" = "Tipo de imagem";
-"alt-text-experiment-onboarding-secondary-button-title" = "Ver exemplos";
-"alt-text-experiment-onboarding-title" = "Como escrever texto alternativo para imagens";
-"alt-text-experiment-onboarding-tooltip-1-body" = "Entenda a imagem no contexto do artigo.";
-"alt-text-experiment-onboarding-tooltip-1-title" = "Revise";
-"alt-text-experiment-onboarding-tooltip-2-body" = "Veja informações adicionais da imagem no Wikimedia Commons.";
-"alt-text-experiment-onboarding-tooltip-2-title" = "Inspecione";
-"alt-text-experiment-onboarding-tooltip-3-body" = "Adicione descrição para leitores com deficiência visual.";
-"alt-text-experiment-onboarding-tooltip-3-title" = "Adicione descrição";
-"alt-text-experiment-review-title" = "Revise";
-"alt-text-experiment-text-field-description" = "Descrição do texto para leitores que não conseguem ver a imagem";
-"alt-text-experiment-text-field-placholder" = "Descreva a imagem";
-"alt-text-experiment-view-title" = "Adicionar texto alternativo";
-"alt-text-feedback-alert-subtitle" = "Você usaria um recurso que fornecesse um feed de imagens que precisa de texto alternativo?";
-"alt-text-feedback-alert-subtitle-flow-C" = "Você estaria interessado em receber notificações semelhantes sobre edições sugeridas em artigos depois de editá-los?";
-"alt-text-feedback-alert-title" = "Precisamos do seu feedback";
-"alt-text-feedback-survey-neutral" = "Neutro";
-"alt-text-feedback-survey-satisfied" = "Satisfeito";
-"alt-text-feedback-survey-subtitle" = "Você está satisfeito com este recurso?";
-"alt-text-feedback-survey-title" = "Ajude a melhorar o recurso";
+"alert-temporary-account-learn-more" = "Saiba mais";
 "alt-text-feedback-survey-toast-title" = "Feedback enviado";
-"alt-text-feedback-survey-unsatisfied" = "Insatisfeito";
-// Fuzzy
-"alt-text-license" = "Ao publicar alterações, você concorda com os [Termos de Uso]($1) e concorda irrevogavelmente em liberar sua contribuição sob a Licença [CC BY-SA 3.0]($2) e a [GFDL]($3). Você concorda que um hiperlink ou URL é atribuição suficiente sob a licença Creative Commons.";
-"alt-text-modal-subtitle-image-recommendation" = "A imagem anterior está sem texto alternativo. Adicionar uma descrição à imagem para leitores com deficiência visual?";
-"alt-text-modal-subtitle-regular-edit" = "Há uma imagem neste artigo que não tem texto alternativo. Adicionar uma descrição para leitores com deficiência visual?";
-"alt-text-modal-title" = "Adicionar o texto alternativo que está faltando da imagem?";
-"alt-text-survey-option-1" = "Não tenho certeza de como descrever uma imagem";
-"alt-text-survey-option-2" = "Não tenho experiência para adicionar texto alternativo";
-"alt-text-survey-option-3" = "Não entendo como isto é diferente de uma legenda";
-"alt-text-survey-option-4" = "Tenho problemas técnicos";
-"alt-text-survey-option-5" = "Tenho deficiência visual";
-"alt-text-survey-option-6" = "Não estou interessado em escrever texto alternativo para imagens";
-"alt-text-survey-option-7" = "Não tenho tempo";
-"alt-text-survey-subtitle" = "Compartilhe o(s) motivo(s) pelo(s) qual(is) você não adicionará texto alternativo.";
-"alt-text-title" = "Texto alternativo";
 "announcements-dismiss" = "Ignorar";
 "app-store-keywords" = "Wikipédia, referência, wiki, enciclopédia, informação, conhecimento, pesquisa, informação, explorar, aprender";
 "app-store-release-notes" = "Totalmente personalizável e mais fácil de ler Explorar o feed. Localização, melhorias de desempenho e correções de bugs.";
@@ -241,7 +155,6 @@
 "button-ok" = "OK";
 "button-publish" = "Publicar";
 "button-publish-anyway" = "Publicar mesmo assim";
-"button-read-now" = "Ler agora";
 "button-report-a-bug" = "Reportar um erro";
 "button-save-for-later" = "Salvar para mais tarde";
 "button-saved-for-later" = "Salvo para mais tarde";
@@ -335,8 +248,17 @@
 "diff-undo-success" = "A revisão foi desfeita.";
 "diff-unedited-lines-format" = "{{PLURAL:$1|$1 linha não editada|$1 linhas não editadas}}";
 "dim-images" = "Imagens fracas";
+"donate-already-donated" = "Obrigado, prezado(a) apoiador(a)! Sua generosidade ajuda a manter a Wikipédia e seus projetos irmãos prosperando.";
+"donate-apple-fine-print" = "A Apple não está encarregada de arrecadar dinheiro para essa finalidade.";
+"donate-email-opt-in-text" = "Sim, a Wikimedia Foundation pode me mandar um e-mail ocasionalmente.";
+"donate-monthly-recurring-text" = "Fazer uma doação mensal recorrente.";
+"donate-payment-method-prompt-apple-pay-button-title" = "Doar com o Apple Pay";
+"donate-payment-method-prompt-message" = "Doe com o Apple Pay ou escolha outro método de pagamento.";
+"donate-payment-method-prompt-other-button-title" = "Outro método de pagamento";
+"donate-payment-method-prompt-title" = "Doar com o Apple Pay?";
 "donate-success-title" = "Obrigado!";
-"donate-title" = "Selecionar um montante";
+"donate-title" = "Escolha um valor";
+"donate-transaction-fee-opt-in-text" = "Gostaria de acrescentar $1 para cobrir as taxas operacionais para que vocês possam receber 100%% da minha doação.";
 "edit-link-display-text-title" = "Mostrar texto";
 "edit-link-link-target-title" = "Destino do link";
 "edit-link-remove-link-title" = "Remover link";
@@ -448,7 +370,7 @@
 "explore-feed-preferences-feed-card-visibility-all-languages-off" = "Desligado";
 "explore-feed-preferences-feed-card-visibility-all-languages-on" = "Em todas";
 "explore-feed-preferences-feed-card-visibility-global-cards-on" = "Ligado";
-"explore-feed-preferences-feed-card-visibility-languages-count" = "No $1";
+"explore-feed-preferences-feed-card-visibility-languages-count" = "Em $1";
 "explore-feed-preferences-feed-cards-hidden-title" = "Todos os cartões $1 ocultados";
 "explore-feed-preferences-global-card-footer-text" = "Este cartão não depende do idioma, desligá-lo remove-o do seu feed Explorar.";
 "explore-feed-preferences-global-cards-description" = "Cartões independentes do idioma";
@@ -587,8 +509,6 @@
 "image-rec-empty-subtitle" = "Tente voltar mais tarde.";
 "image-rec-empty-title" = "Você não possui imagens sugeridas no momento.";
 "image-rec-error-subtitle" = "Algo deu errado.";
-"image-rec-feature-announce-body" = "Decida se uma imagem será adicionada a um artigo da Wikipédia. Você pode encontrar o cartão ‘Adicionar uma imagem’ no seu feed ‘Explorar’.";
-"image-rec-feature-announce-title" = "Experimente ‘Adicionar uma imagem’";
 "image-rec-onboarding-item-1-body" = "Decida se uma imagem sugerida deve ser colocada em um artigo da Wikipédia.";
 "image-rec-onboarding-item-1-title" = "Ver uma sugestão";
 "image-rec-onboarding-item-2-body" = "As sugestões são geradas automaticamente e você deverá julgar se deve aceitá-las ou rejeitá-las.";
@@ -745,7 +665,6 @@
 "notifications-center-go-to-article" = "Artigo";
 "notifications-center-go-to-article-talk-format" = "Página de discussão de $1";
 "notifications-center-go-to-diff" = "Diferenças";
-"notifications-center-go-to-talk-page" = "Página de discussão";
 "notifications-center-go-to-user-page" = "Página de discussão de $1";
 "notifications-center-go-to-wikidata-item" = "Item do Wikidata";
 "notifications-center-go-to-your-talk-page" = "Sua página de discussão";
@@ -852,7 +771,7 @@
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 a partir de $2 Wikipedia";
 "on-this-day-title" = "Neste dia";
 "original-tab-button-popover-description" = "Toque no 'W' para voltar a a guia onde começou";
-"page-history-anonymous-edits" = "Edições anônimas";
+// Fuzzy
 "page-history-bot-edits" = "edições de robô";
 "page-history-compare-accessibility-hint" = "Toque para selecionar duas revisões para comparar";
 "page-history-compare-title" = "Comparar";
@@ -867,7 +786,6 @@
 "page-history-revision-time-accessibility-label" = "Revisão feita $1";
 "page-history-revisions-comparison-warning" = "Apenas duas revisões podem ser selecionadas";
 "page-history-stats-text" = "{{PLURAL:$1|$1 edição|$1 edições}} desde $2";
-"page-history-user-edits" = "edições de usuário";
 "page-issues" = "Problemas da página";
 "page-location" = "Ver no mapa";
 "page-protected-can-not-edit" = "Você não tem permissão para editar esta página";
@@ -1034,7 +952,7 @@
 "replace-textfield-accessibility" = "Substituir";
 "replace-textfield-placeholder" = "Substituir com…";
 "return-button-title" = "Voltar";
-"return-to-article" = "Voltar ao artigo";
+"return-to-article" = "Voltar para o artigo";
 "reverted-edit-title" = "Edição revertida";
 "saved-all-articles-title" = "Todos os artigos";
 "saved-default-reading-list-tag" = "Esta lista não pode ser eliminada";
@@ -1109,7 +1027,7 @@
 "share-menu-item" = "Compartilhar...";
 "share-message-format" = "“$1” $2";
 "share-on-twitter-sign-off" = "via Wikipédia";
-"share-open-in-maps" = "Abrir no Maps";
+"share-open-in-maps" = "Abrir no Mapas";
 "share-social-format" = "“$1” via Wikipedia: $2";
 "share-social-mention-format" = "“$1” via Wikipédia: $2";
 "sort-by-recently-added-action" = "Adicionado recentemente";
@@ -1321,3 +1239,15 @@
 "wikitext-upload-save-anonymously-warning" = "Suas edições serão atribuídas ao endereço de IP de seu dispositivo. Se você $1 você terá mais privacidade.";
 "wikitext-upload-save-sign-in" = "Entrar";
 "wikitext-upload-save-terms-name" = "Termo de uso";
+"year-in-review-day-friday" = "Sextas-feira";
+"year-in-review-day-monday" = "Segundas-feira";
+"year-in-review-day-saturday" = "Sábados";
+"year-in-review-day-sunday" = "Domingos";
+"year-in-review-day-thursday" = "Quintas-feiras";
+"year-in-review-day-tuesday" = "Terças-feira";
+"year-in-review-day-wednesday" = "Quartas-feira";
+"year-in-review-donate" = "Doar";
+"year-in-review-donate-now" = "Doar agora";
+"year-in-review-finish" = "Finalizar";
+"year-in-review-survey-neutral" = "Neutro";
+"year-in-review-survey-satisfied" = "Satisfeito(a)";

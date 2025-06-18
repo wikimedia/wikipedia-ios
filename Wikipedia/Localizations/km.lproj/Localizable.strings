@@ -6,38 +6,6 @@
 // Author: Y.snsqr
 // Author: គីមស៊្រុន
 
-"aaald-added-text-description-2" = "បានបន្ថែម $1";
-"aaald-article-description-updated-description" = "បានបន្ទាន់សម័យការពិពណ៌នាអត្ថបទ";
-"aaald-article-insert-header" = "ការបន្ទាន់សម័យសំខាន់ៗ";
-"aaald-article-insert-last-updated" = "បានបន្ទាន់សម័យថ្មីជាងគេ";
-"aaald-article-insert-new-changes" = "បន្លាស់ប្ដូរថ្មីៗ";
-"aaald-article-insert-read-more" = "អានការបន្ទាន់សម័យលម្អិត";
-"aaald-characters-text-description" = "{{PLURAL:$1| 0=តួអក្សរ|តួអក្សរ|តួអក្សរ}}";
-"aaald-deleted-text-description-2" = "បានលុបចោល $1";
-"aaald-error-subitle" = "ផ្ទុកឡើងវិញដើម្បីសាកល្បងម្តងទៀត";
-"aaald-many-sections-description" = "ក្នុងផ្នែកចំនួន $1";
-"aaald-multiple-changes-description" = "បានផ្លាស់ប្ដូរច្រើនកន្លែង";
-"aaald-multiple-references-added-description" = "បានបន្ថែមឯកសារយោងច្រើនកន្លែង";
-"aaald-new-book-reference-title" = "សៀវភៅ";
-"aaald-new-discussion" = "ការពិភាក្សាថ្មីៗ";
-"aaald-new-journal-reference-database" = "តាមរយៈ $1";
-"aaald-new-journal-reference-title" = "ព្រឹត្តិប័ត្រ";
-"aaald-new-journal-reference-volume" = "លេខ $1 ៖";
-"aaald-new-news-reference-retrieved-date" = "បានទៅយក $1";
-"aaald-new-news-reference-title" = "ព័ត៌មាន";
-"aaald-new-talk-topic-description-format" = "$1អំពីអត្ថបទនេះ";
-"aaald-new-website-reference-archive-date-text" = "ពីច្បាប់ដើមនៅ$1";
-"aaald-new-website-reference-title" = "វិបសាយ";
-"aaald-numerical-multiple-references-added-description" = "បានបន្ថែម{{PLURAL:$1| 0=ឯកសារយោងចំនួន០| ឯកសារយោងចំនួន$1| ឯកសារយោងចំនួន$1}}";
-"aaald-one-section-description" = "នៅក្នុងផ្នែក $1";
-"aaald-revision-by-anonymous" = "កែប្រែដោយអ្នកប្រើប្រាស់អនាមិក";
-"aaald-revision-userInfo" = "កែប្រែដោយ $1 (ចំនួន $2 )";
-"aaald-single-reference-added-description" = "បានបន្ថែមឯកសារយោង";
-"aaald-small-change-description" = "{{PLURAL:$1|0=គ្មានបន្លាស់ប្ដូរ|បានផ្លាស់ប្ដូរ$1កន្លែង|បានផ្លាស់ប្ដូរ$1កន្លែង}}";
-"aaald-summary-title" = "{{PLURAL:$1|0=0 បន្លាស់ប្ដូរ|$1 បន្លាស់ប្ដូរ|$1 បន្លាស់ប្ដូរ}} ដោយ {{PLURAL:$2|0=អ្នកកែប្រែ 0នាក់|អ្នកកែប្រែ $2នាក់|អ្នកកែប្រែ $2នាក់}} ក្នុងរយៈពេល {{PLURAL:$3|0=0 ថ្ងៃ|$3 ថ្ងៃ|$3 ថ្ងៃ}}";
-"aaald-two-sections-description" = "នៅក្នុងផ្នែក $1 និង $2";
-"aaald-vandalism-revert-description" = "បានកែត្រឡប់ការកែប្រែដែលសង្ស័យថាជាការបំផ្លិចបំផ្លាញ";
-"aaald-view-full-history-button" = "មើលប្រវត្តិអត្ថបទទាំងមូល";
 "about-content-license" = "អាជ្ញាប័ណ្ណអត្ថបទ";
 "about-content-license-details" = "អត្ថបទនេះត្រូវបានផ្ដល់ជូនក្រោម $1 លើកលែងមានការសម្គាល់ផ្សេងពីនេះ។";
 "about-content-license-details-share-alike-license" = "Creative Commons Attribution-ShareAlike License";
@@ -134,7 +102,6 @@
 "button-next" = "បន្ទាប់";
 "button-ok" = "យល់ព្រម";
 "button-publish" = "បោះផ្សាយ";
-"button-read-now" = "អានឥឡូវ";
 "button-report-a-bug" = "រាយ​ការណ៍​អំពី​បញ្ហា";
 "button-save-for-later" = "រក្សាទុកសម្រាប់អានពេលក្រោយ";
 "button-saved-for-later" = "បានរក្សាទុកសម្រាប់អានពេលក្រោយ";
@@ -482,7 +449,6 @@
 "notifications-center-go-to-article" = "អត្ថបទ";
 "notifications-center-go-to-article-talk-format" = "ទំព័រពិភាក្សាអំពី $1";
 "notifications-center-go-to-diff" = "ប្រៀបធៀប";
-"notifications-center-go-to-talk-page" = "ទំព័រពិភាក្សា";
 "notifications-center-go-to-user-page" = "ទំព័រអ្នកប្រើប្រាស់របស់$1";
 "notifications-center-go-to-your-talk-page" = "ទំព័រពិភាក្សារបស់អ្នក";
 "notifications-center-header-alert-from-agent" = "សារជូនដំណឹងពី$1";
@@ -549,7 +515,7 @@
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 ពីវិគីភីឌា$2";
 "on-this-day-title" = "នៅថ្ងៃនេះ";
 "original-tab-button-popover-description" = "ចុចលើ 'W' ដើម្បីត្រឡប់ទៅផ្ទាំងដែលអ្នកបានចាប់ផ្តើម";
-"page-history-anonymous-edits" = "កំណែប្រែអនាមិក";
+// Fuzzy
 "page-history-bot-edits" = "កំណែប្រែដោយរូបយន្ត";
 "page-history-compare-accessibility-hint" = "ចុចដើម្បីជ្រើសយកកំណែ២ច្បាប់សម្រាប់ប្រៀបធៀប";
 "page-history-compare-title" = "ប្រៀបធៀប";
@@ -564,7 +530,6 @@
 "page-history-revision-time-accessibility-label" = "កំណែនៅ$1";
 "page-history-revisions-comparison-warning" = "អាចជ្រើសរើសតែ២កំណែទេ";
 "page-history-stats-text" = "{{PLURAL:$1|កំណែចំនួន$1|កំណែចំនួន$1}} តាំងពីឆ្នាំ $2";
-"page-history-user-edits" = "កំណែប្រែដោយអ្នកប្រើប្រាស់";
 "page-issues" = "បញ្ហាក្នុងទំព័រ";
 "page-location" = "មើលនៅលើផែនទី";
 "page-protected-can-not-edit" = "អ្នកគ្មានសិទ្ធិក្នុងការកែប្រែទំព័រនេះទេ";

@@ -75,16 +75,21 @@ class InsertLinkViewController: UIViewController, WMFNavigationBarConfiguring {
             showsScopeBar: false,
             scopeButtonTitles: nil)
         
-        configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: closeButtonConfig, profileButtonConfig: nil, searchBarConfig: searchConfig, hideNavigationBarOnScroll: false)
+        configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: closeButtonConfig, profileButtonConfig: nil, tabsButtonConfig: nil, searchBarConfig: searchConfig, hideNavigationBarOnScroll: false)
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
-        DispatchQueue.main.async {[weak self] in
+
+        DispatchQueue.main.async { [weak self] in
+          if let page = self?.link.page, !page.isEmpty {
+            self?.navigationItem.searchController?.searchBar.text = page
             self?.navigationItem.searchController?.searchBar.becomeFirstResponder()
+          } else {
+            self?.navigationItem.searchController?.searchBar.becomeFirstResponder()
+          }
         }
-    }
+      }
 
     @objc private func delegateCloseButtonTap(_ sender: UIBarButtonItem) {
         navigationItem.searchController?.isActive = false

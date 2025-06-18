@@ -3,7 +3,6 @@
 NS_ASSUME_NONNULL_BEGIN
 
 extern NSString *const WMFIconShortcutTypeSearch;
-extern NSString *const WMFIconShortcutTypeContinueReading;
 extern NSString *const WMFIconShortcutTypeRandom;
 extern NSString *const WMFIconShortcutTypeNearby;
 

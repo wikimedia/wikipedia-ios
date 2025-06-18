@@ -53,19 +53,21 @@ final class WMFPageViewsDataControllerTests: XCTestCase {
             throw TestsError.missingDataController
         }
         
-        try await dataController.addPageView(title: "Cat", namespaceID: 0, project: enProject)
+        _ = try await dataController.addPageView(title: "Cat", namespaceID: 0, project: enProject, previousPageViewObjectID: nil)
         
         // Fetch, confirm page view was added
-        let results = try store.fetch(entityType: CDPageView.self, predicate: nil, fetchLimit: nil, in: store.viewContext)
-        XCTAssertNotNil(results)
-        XCTAssertEqual(results!.count, 1)
-        XCTAssertNotNil(results![0].page)
-        XCTAssertNotNil(results![0].timestamp)
-        XCTAssertNotNil(results![0].page)
-        XCTAssertEqual(results![0].page!.title, "Cat")
-        XCTAssertEqual(results![0].page!.namespaceID, 0)
-        XCTAssertEqual(results![0].page!.projectID, "wikipedia~en")
-        XCTAssertNotNil(results![0].page?.timestamp)
+        try await store.viewContext.perform {
+            let results = try store.fetch(entityType: CDPageView.self, predicate: nil, fetchLimit: nil, in: store.viewContext)
+            XCTAssertNotNil(results)
+            XCTAssertEqual(results!.count, 1)
+            XCTAssertNotNil(results![0].page)
+            XCTAssertNotNil(results![0].timestamp)
+            XCTAssertNotNil(results![0].page)
+            XCTAssertEqual(results![0].page!.title, "Cat")
+            XCTAssertEqual(results![0].page!.namespaceID, 0)
+            XCTAssertEqual(results![0].page!.projectID, "wikipedia~en")
+            XCTAssertNotNil(results![0].page?.timestamp)
+        }
     }
     
     func testDeletePageView() async throws {
@@ -79,20 +81,24 @@ final class WMFPageViewsDataControllerTests: XCTestCase {
         }
         
         // First add page view
-        try await dataController.addPageView(title: "Cat", namespaceID: 0, project: enProject)
+        _ = try await dataController.addPageView(title: "Cat", namespaceID: 0, project: enProject, previousPageViewObjectID: nil)
         
         // Fetch, confirm page view was added
-        let addedResults = try store.fetch(entityType: CDPageView.self, predicate: nil, fetchLimit: nil, in: store.viewContext)
-        XCTAssertNotNil(addedResults)
-        XCTAssertEqual(addedResults!.count, 1)
+        try store.viewContext.performAndWait {
+            let addedResults = try store.fetch(entityType: CDPageView.self, predicate: nil, fetchLimit: nil, in: store.viewContext)
+            XCTAssertNotNil(addedResults)
+            XCTAssertEqual(addedResults!.count, 1)
+        }
         
         // Then delete page view
         try await dataController.deletePageView(title: "Cat", namespaceID: 0, project: enProject)
         
         // Fetch, confirm page view was deleted
-        let deletedResults = try store.fetch(entityType: CDPageView.self, predicate: nil, fetchLimit: nil, in: store.viewContext)
-        XCTAssertNotNil(deletedResults)
-        XCTAssertEqual(deletedResults!.count, 0)
+        try await store.viewContext.perform {
+            let deletedResults = try store.fetch(entityType: CDPageView.self, predicate: nil, fetchLimit: nil, in: store.viewContext)
+            XCTAssertNotNil(deletedResults)
+            XCTAssertEqual(deletedResults!.count, 0)
+        }
     }
     
     func testDeleteAllPageViews() async throws {
@@ -106,20 +112,24 @@ final class WMFPageViewsDataControllerTests: XCTestCase {
         }
         
         // First add page view
-        try await dataController.addPageView(title: "Cat", namespaceID: 0, project: enProject)
+        _ = try await dataController.addPageView(title: "Cat", namespaceID: 0, project: enProject, previousPageViewObjectID: nil)
         
         // Fetch, confirm page view was added
-        let addedResults = try store.fetch(entityType: CDPageView.self, predicate: nil, fetchLimit: nil, in: store.viewContext)
-        XCTAssertNotNil(addedResults)
-        XCTAssertEqual(addedResults!.count, 1)
+        try store.viewContext.performAndWait {
+            let addedResults = try store.fetch(entityType: CDPageView.self, predicate: nil, fetchLimit: nil, in: store.viewContext)
+            XCTAssertNotNil(addedResults)
+            XCTAssertEqual(addedResults!.count, 1)
+        }
         
         // Then delete page view
-        try await dataController.deleteAllPageViews()
+        try await dataController.deleteAllPageViewsAndCategories()
         
         // Fetch, confirm page view was deleted
-        let deletedResults = try store.fetch(entityType: CDPageView.self, predicate: nil, fetchLimit: nil, in: store.viewContext)
-        XCTAssertNotNil(deletedResults)
-        XCTAssertEqual(deletedResults!.count, 0)
+        try await store.viewContext.perform {
+            let deletedResults = try store.fetch(entityType: CDPageView.self, predicate: nil, fetchLimit: nil, in: store.viewContext)
+            XCTAssertNotNil(deletedResults)
+            XCTAssertEqual(deletedResults!.count, 0)
+        }
     }
     
     func testImportPageViews() async throws {
@@ -140,14 +150,17 @@ final class WMFPageViewsDataControllerTests: XCTestCase {
         try await dataController.importPageViews(requests: importRequests)
         
         // Fetch, confirm page views were added
-        let pageViews = try store.fetch(entityType: CDPageView.self, predicate: nil, fetchLimit: nil, in: store.viewContext)
-        XCTAssertNotNil(pageViews)
-        XCTAssertEqual(pageViews!.count, 2)
         
-        // Fetch, confirm pages were added
-        let pages = try store.fetch(entityType: CDPage.self, predicate: nil, fetchLimit: nil, in: store.viewContext)
-        XCTAssertNotNil(pages)
-        XCTAssertEqual(pages!.count, 2)
+        try await store.viewContext.perform {
+            let pageViews = try store.fetch(entityType: CDPageView.self, predicate: nil, fetchLimit: nil, in: store.viewContext)
+            XCTAssertNotNil(pageViews)
+            XCTAssertEqual(pageViews!.count, 2)
+            
+            // Fetch, confirm pages were added
+            let pages = try store.fetch(entityType: CDPage.self, predicate: nil, fetchLimit: nil, in: store.viewContext)
+            XCTAssertNotNil(pages)
+            XCTAssertEqual(pages!.count, 2)
+        }
     }
     
     func testFetchPageViewCounts() async throws {
@@ -157,9 +170,9 @@ final class WMFPageViewsDataControllerTests: XCTestCase {
         }
         
         // First add page views
-        try await dataController.addPageView(title: "Cat", namespaceID: 0, project: enProject)
-        try await dataController.addPageView(title: "Cat", namespaceID: 0, project: enProject)
-        try await dataController.addPageView(title: "Felis silvestris catus", namespaceID: 0, project: esProject)
+        _ = try await dataController.addPageView(title: "Cat", namespaceID: 0, project: enProject, previousPageViewObjectID: nil)
+        _ = try await dataController.addPageView(title: "Cat", namespaceID: 0, project: enProject, previousPageViewObjectID: nil)
+        _ = try await dataController.addPageView(title: "Felis silvestris catus", namespaceID: 0, project: esProject, previousPageViewObjectID: nil)
         
         let results = try dataController.fetchPageViewCounts(startDate: yesterdayDate, endDate: Date.now)
         

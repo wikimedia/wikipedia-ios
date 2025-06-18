@@ -57,8 +57,6 @@ NSString *const WMFCacheContextCrossProcessNotificiationChannelNamePrefix = @"or
 
 @property (readwrite, nonatomic) RemoteConfigOption remoteConfigsThatFailedUpdate;
 
-@property (readwrite, strong, nonatomic) WMFABTestsController *abTestsController;
-
 @end
 
 @implementation MWKDataStore
@@ -1031,12 +1029,6 @@ NSString *const WMFCacheContextCrossProcessNotificiationChannelNamePrefix = @"or
     [self.authenticationManager logoutInitiatedBy:LogoutInitiatorServer
                                        completion:^{
                                        }];
-}
-
-#pragma mark - ABTestsManaging
-
-- (void)setupAbTestsControllerWithPersistenceService:(id<ABTestsPersisting>)persistenceService {
-    self.abTestsController = [[WMFABTestsController alloc] initWithPersistanceService:persistenceService];
 }
 
 @end

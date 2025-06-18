@@ -138,7 +138,7 @@ class ReadingListDetailViewController: ThemeableViewController, WMFNavigationBar
         let searchBarPlaceholder = WMFLocalizedString("reading-list-detail-search-placeholder", value: "Search reading list", comment: "Placeholder on search bar for reading list detail view.")
         let searchConfig = WMFNavigationBarSearchConfig(searchResultsController: nil, searchControllerDelegate: nil, searchResultsUpdater: self, searchBarDelegate: nil, searchBarPlaceholder: searchBarPlaceholder, showsScopeBar: false, scopeButtonTitles: nil)
         
-        configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: closeButtonConfig, profileButtonConfig: nil, searchBarConfig: searchConfig, hideNavigationBarOnScroll: false)
+        configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: closeButtonConfig, profileButtonConfig: nil,tabsButtonConfig: nil,  searchBarConfig: searchConfig, hideNavigationBarOnScroll: false)
     }
     
     // MARK: - Theme
@@ -342,12 +342,23 @@ extension ReadingListDetailViewController: ReadingListEntryCollectionViewControl
     }
     
     func readingListEntryCollectionViewControllerDidSelectArticleURL(_ articleURL: URL, viewController: ReadingListEntryCollectionViewController) {
-        if displayType == .modal {
+        
+        if displayType == .modal,
+           let navVC = (presentingViewController as? WMFAppViewController)?.currentTabNavigationController {
             dismiss(animated: true) { [weak self] in
-                self?.navigate(to: articleURL)
+                
+                guard let self else { return }
+                
+                let coordinator = ArticleCoordinator(navigationController: navVC, articleURL: articleURL, dataStore: dataStore, theme: theme, source: .undefined)
+                coordinator.start()
             }
         } else {
-            navigate(to: articleURL)
+            guard let navigationController else {
+                return
+            }
+            
+            let coordinator = ArticleCoordinator(navigationController: navigationController, articleURL: articleURL, dataStore: dataStore, theme: theme, source: .undefined)
+            coordinator.start()
         }
     }
     

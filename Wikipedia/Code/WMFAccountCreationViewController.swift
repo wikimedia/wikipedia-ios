@@ -19,10 +19,12 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
     @IBOutlet fileprivate var titleLabel: UILabel!
     @IBOutlet fileprivate var stackView: UIStackView!
     @IBOutlet fileprivate var createAccountButton: WMFAuthButton!
-
+    @IBOutlet weak var scrollContainerTopConstraint: NSLayoutConstraint!
+    
     @IBOutlet fileprivate weak var scrollContainer: UIView!
     
     public var createAccountSuccessCustomDismissBlock: (() -> Void)?
+    private var toastView: UIView?
     
     // SINGLETONTODO
     let dataStore = MWKDataStore.shared()
@@ -100,7 +102,44 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
         wmf_add(childController:captchaViewController, andConstrainToEdgesOfContainerView: captchaContainer)
         
         apply(theme: theme)
+        
+        let authManager = dataStore.authenticationManager
+        
+        if authManager.authStateIsTemporary {
+            let viewModel = WMFTempAccountsToastViewModel(
+                    didTapReadMore: {
+                        guard let navigationController = self.navigationController else { return }
+                        let tempAccountSheetCoordinator = TempAccountSheetCoordinator(navigationController: navigationController, theme: self.theme, dataStore: self.dataStore, didTapDone: { [weak self] in
+                            self?.dismiss(animated: true)
+                        }, didTapContinue: { [weak self] in
+                            self?.dismiss(animated: true)
+                        }, isTempAccount: true)
+                        _ = tempAccountSheetCoordinator.start()
+                    },
+                    title: CommonStrings.tempAccountsToastTitle(),
+                    readMoreButtonTitle: CommonStrings.tempAccountsReadMoreTitle
+                )
+
+            let toastController = WMFTempAccountsToastHostingController(viewModel: viewModel)
+            self.toastView = toastController.view
+
+            addChild(toastController)
+            view.addSubview(toastController.view)
+            toastController.didMove(toParent: self)
+            toastController.view.translatesAutoresizingMaskIntoConstraints = false
+
+            NSLayoutConstraint.activate([
+               toastController.view.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0),
+               toastController.view.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0),
+               toastController.view.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor)
+            ])
+        }
     }
+    
+    override func viewDidLayoutSubviews() {
+         super.viewDidLayoutSubviews()
+        scrollContainerTopConstraint.constant = toastView?.frame.height ?? 0
+     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -116,7 +155,7 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
     private func configureNavigationBar() {
         let titleConfig = WMFNavigationBarTitleConfig(title: "", customView: nil, alignment: .hidden)
         let closeConfig = WMFNavigationBarCloseButtonConfig(text: CommonStrings.cancelActionTitle, target: self, action: #selector(closeButtonPushed(_:)), alignment: .leading)
-        configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: closeConfig, profileButtonConfig: nil, searchBarConfig: nil, hideNavigationBarOnScroll: false)
+        configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: closeConfig, profileButtonConfig: nil, tabsButtonConfig: nil, searchBarConfig: nil, hideNavigationBarOnScroll: false)
     }
     
     fileprivate func getCaptcha() {
@@ -224,7 +263,7 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
         WMFAlertManager.sharedInstance.showAlert(WMFLocalizedString("account-creation-logging-in", value:"Logging in...", comment:"Alert shown after account successfully created and the user is being logged in automatically. {{Identical|Logging in}}"), sticky: true, canBeDismissedByUser: false, dismissPreviousAlerts: true, tapCallBack: nil)
         let username = usernameField.text ?? ""
         let password = passwordField.text ?? ""
-        dataStore.authenticationManager.login(username: username, password: password, retypePassword: nil, oathToken: nil, captchaID: nil, captchaWord: nil) { (loginResult) in
+        dataStore.authenticationManager.login(username: username, password: password, retypePassword: nil, oathToken: nil, emailAuthCode: nil, captchaID: nil, captchaWord: nil) { (loginResult) in
             switch loginResult {
             case .success:
                 let loggedInMessage = String.localizedStringWithFormat(WMFLocalizedString("main-menu-account-title-logged-in", value:"Logged in as %1$@", comment:"Header text used when account is logged in. %1$@ will be replaced with current username."), self.usernameField.text ?? "")

@@ -99,7 +99,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         userActivity.userInfo = userInfo
         
         _ = appViewController.processUserActivity(userActivity, animated: false) { [weak self] in
-            
+
             guard let self else {
                 return
             }

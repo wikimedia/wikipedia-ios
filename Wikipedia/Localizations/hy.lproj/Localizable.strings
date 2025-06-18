@@ -11,8 +11,6 @@
 // Author: Դավիթ Սարոյան
 // Author: Սերգեյ Սաֆարյան
 
-"aaald-new-book-reference-title" = "Գիրք";
-"aaald-new-website-reference-title" = "Կայք";
 "about-contributors" = "Հեղինակներ";
 "about-libraries-license" = "Թույլատրագիր";
 "about-testers" = "Փորձարկողներ";
@@ -37,8 +35,7 @@
 "action-sort" = "Տեսակավորել";
 "action-undo" = "Հետ շրջել";
 "action-update" = "Թարմացնել";
-"alt-text-experiment-onboarding-secondary-button-title" = "Դիտել օրինակներ";
-"alt-text-survey-option-7" = "Ես ժամանակ չունեմ";
+"activity-tab-title" = "Ակտիվություն";
 "announcements-dismiss" = "Փակել";
 "article-delete" = "Ջնջել";
 "article-deleted-accessibility-notification" = "{{PLURAL:$1|Հոդվածը}} ջնջվել է";
@@ -52,7 +49,6 @@
 "button-next" = "Հաջորդ";
 "button-ok" = "Լավ";
 "button-publish" = "Հրապարակել";
-"button-read-now" = "Կարդալ այժմ";
 "button-report-a-bug" = "Հայտնել խնդիր";
 "button-skip" = "Բաց թողնել";
 "cancel" = "Չեղարկել";
@@ -144,7 +140,6 @@
 "next-action-title" = "Հաջորդ";
 "notifications-center-go-to-article" = "Հոդված";
 "notifications-center-go-to-article-talk-format" = "$1 քննարկման էջ";
-"notifications-center-go-to-talk-page" = "Քննարկման էջ";
 "notifications-center-go-to-wikidata-item" = "Վիկիտվյալների տառռ";
 "notifications-center-go-to-your-talk-page" = "Ձեր քննարկման էջ";
 "notifications-center-mark" = "Նշել";
@@ -155,6 +150,7 @@
 "notifications-center-swipe-more" = "Ավելին";
 "notifications-push-talk-body-format" = "{{PLURAL:$1|Նոր հաղորդագրություն|Նոր հաղորդագրություններ}} $2-ում";
 "notifications-push-talk-title-format" = "{{PLURAL:$1|Նոր հաղորդագրություն|Նոր հաղորդագրություններ}}";
+"page-history-bot-edits" = "բոտ";
 "page-history-compare-title" = "Համեմատել";
 "page-history-minor-edits" = "չնչին խմբագրումներ";
 "page-history-revision-author-accessibility-label" = "Հեղինակ. 1";
@@ -165,7 +161,6 @@
 "places-filter-button-title" = "Զտիչ";
 "places-search-default-text" = "Որոնել վայրեր";
 "places-search-top-articles-that-match-scope" = "Մոտակայքում";
-"profile-page-title-logged-out" = "Հաշիվ";
 "reading-list-create-new-list-description" = "Նկարագրություն";
 "replace-infolabel-method-replace" = "Փոխարինել";
 "replace-infolabel-method-replace-all" = "Փոխարինել բոլորը";

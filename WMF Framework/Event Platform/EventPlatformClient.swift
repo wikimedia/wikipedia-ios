@@ -134,6 +134,7 @@ import WMFData
         case editInteraction = "ios.edit_interaction"
         case imageRecommendation = "android.image_recommendation_event"
         case articleLinkInteraction = "ios.article_link_interaction"
+        case appTabsInteraction = "app_tabs_interaction"
     }
     
     /**
@@ -160,7 +161,7 @@ import WMFData
         case watchlist = "/analytics/mobile_apps/ios_watchlists/4.1.0"
         case appInteraction = "/analytics/mobile_apps/app_interaction/1.1.0"
         case imageRecommendation = "/analytics/mobile_apps/android_image_recommendation_event/1.1.0"
-        case articleLinkInteraction = "/analytics/mobile_apps/ios_article_link_interaction/1.0.0"
+        case articleLinkInteraction = "/analytics/mobile_apps/ios_article_link_interaction/2.0.0"
     }
 
     /**
