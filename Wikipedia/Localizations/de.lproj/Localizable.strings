@@ -26,6 +26,7 @@
 // Author: Mirzali
 // Author: Mukeber
 // Author: Nemo bis
+// Author: Nortix
 // Author: Purodha
 // Author: TheRabbit22
 // Author: ThisCarthing
@@ -918,6 +919,9 @@
 "search-recent-title" = "Zuletzt gesucht";
 "search-result-redirected-from" = "Weitergeleitet von: $1";
 "search-title" = "Suchen";
+"search-widget-description" = "Schneller Zugriff auf die Suche in Wikipedia.";
+"search-widget-title" = "Suchen";
+"search-widget-wikipedia-title" = "Wikipedia";
 "settings-account" = "Benutzerkonto";
 "settings-appearance" = "Leseeinstellungen";
 "settings-clear-cache" = "Gecachte Daten löschen";
