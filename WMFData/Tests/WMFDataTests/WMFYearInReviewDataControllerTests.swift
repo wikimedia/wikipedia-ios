@@ -52,8 +52,8 @@ final class WMFYearInReviewDataControllerTests: XCTestCase {
             throw TestError.missingStore
         }
         
-        let slide1 = WMFYearInReviewSlide(year: 2024, id: .editCount,  evaluated: true, display: true, data: nil)
-        let slide2 = WMFYearInReviewSlide(year: 2023, id: .readCount, evaluated: false, display: true, data: nil)
+        let slide1 = WMFYearInReviewSlide(year: 2024, id: .editCount,  evaluated: true, data: nil)
+        let slide2 = WMFYearInReviewSlide(year: 2023, id: .readCount, evaluated: false, data: nil)
 
         try await dataController.createNewYearInReviewReport(year: 2023, slides: [slide1, slide2])
 
@@ -75,7 +75,7 @@ final class WMFYearInReviewDataControllerTests: XCTestCase {
             throw TestError.missingStore
         }
         
-        let slide = WMFYearInReviewSlide(year: 2024, id: .editCount,  evaluated: true, display: true, data: nil)
+        let slide = WMFYearInReviewSlide(year: 2024, id: .editCount,  evaluated: true, data: nil)
         let report = WMFYearInReviewReport(year: 2024, slides: [slide])
 
         try await dataController.saveYearInReviewReport(report)
@@ -99,8 +99,8 @@ final class WMFYearInReviewDataControllerTests: XCTestCase {
             throw TestError.missingStore
         }
         
-        let slide = WMFYearInReviewSlide(year: 2024, id: .editCount,  evaluated: true, display: true, data: nil)
-        let slide2 = WMFYearInReviewSlide(year: 2024, id: .readCount,  evaluated: true, display: true, data: nil)
+        let slide = WMFYearInReviewSlide(year: 2024, id: .editCount,  evaluated: true, data: nil)
+        let slide2 = WMFYearInReviewSlide(year: 2024, id: .readCount,  evaluated: true, data: nil)
         let report = WMFYearInReviewReport(year: 2024, slides: [slide, slide2])
 
         try await dataController.saveYearInReviewReport(report)
@@ -119,8 +119,8 @@ final class WMFYearInReviewDataControllerTests: XCTestCase {
             throw TestError.missingDataController
         }
         
-        let slide1 = WMFYearInReviewSlide(year: 2021, id: .editCount, evaluated: true, display: true)
-        let slide2 = WMFYearInReviewSlide(year: 2021, id: .readCount, evaluated: false, display: true)
+        let slide1 = WMFYearInReviewSlide(year: 2021, id: .editCount, evaluated: true)
+        let slide2 = WMFYearInReviewSlide(year: 2021, id: .readCount, evaluated: false)
 
         let report = WMFYearInReviewReport(year: 2021, slides: [slide1, slide2])
         try await dataController.saveYearInReviewReport(report)
@@ -153,7 +153,7 @@ final class WMFYearInReviewDataControllerTests: XCTestCase {
             throw TestError.missingStore
         }
         
-        let slide = WMFYearInReviewSlide(year: 2021, id: .readCount,  evaluated: true, display: true, data: nil)
+        let slide = WMFYearInReviewSlide(year: 2021, id: .readCount,  evaluated: true, data: nil)
         try await dataController.createNewYearInReviewReport(year: 2021, slides: [slide])
 
         var reports: [CDYearInReviewReport]?
@@ -180,8 +180,8 @@ final class WMFYearInReviewDataControllerTests: XCTestCase {
             throw TestError.missingStore
         }
         
-        let slide1 = WMFYearInReviewSlide(year: 2024, id: .editCount,  evaluated: true, display: true, data: nil)
-        let slide2 = WMFYearInReviewSlide(year: 2023, id: .readCount, evaluated: false, display: true, data: nil)
+        let slide1 = WMFYearInReviewSlide(year: 2024, id: .editCount,  evaluated: true, data: nil)
+        let slide2 = WMFYearInReviewSlide(year: 2023, id: .readCount, evaluated: false, data: nil)
 
         try await dataController.createNewYearInReviewReport(year: 2024, slides: [slide1])
         try await dataController.createNewYearInReviewReport(year: 2023, slides: [slide2])
@@ -253,7 +253,7 @@ final class WMFYearInReviewDataControllerTests: XCTestCase {
         let yearInReviewDataController = try WMFYearInReviewDataController(coreDataStore: store, developerSettingsDataController: developerSettingsDataController)
         
         // Persist a valid YiR report
-        let slides = WMFYearInReviewSlide(year: 2024, id: .readCount, evaluated: true, display: true)
+        let slides = WMFYearInReviewSlide(year: 2024, id: .readCount, evaluated: true)
         try await yearInReviewDataController.createNewYearInReviewReport(year: 2024, slides: [slides])
         
         guard let usCountryCode, let frCountryCode else {
@@ -268,7 +268,8 @@ final class WMFYearInReviewDataControllerTests: XCTestCase {
 
             let shouldShowEntryPointFR = yearInReviewDataController.shouldShowYearInReviewEntryPoint(countryCode: frCountryCode, primaryAppLanguageProject: frProject)
             
-            XCTAssertTrue(shouldShowEntryPointFR, "FR should show entry point for mock YiR config of [FR, IT] country codes.")
+            // XCTAssertTrue(shouldShowEntryPointFR, "FR should show entry point for mock YiR config of [FR, IT] country codes.")
+            XCTAssertFalse(shouldShowEntryPointFR) // Entry points disabled
         }
     }
     
@@ -293,7 +294,7 @@ final class WMFYearInReviewDataControllerTests: XCTestCase {
         let yearInReviewDataController = try WMFYearInReviewDataController(coreDataStore: store, developerSettingsDataController: developerSettingsDataController)
         
         // Persist a valid YiR report
-        let slides = WMFYearInReviewSlide(year: 2024, id: .readCount, evaluated: true, display: true)
+        let slides = WMFYearInReviewSlide(year: 2024, id: .readCount, evaluated: true)
         try await yearInReviewDataController.createNewYearInReviewReport(year: 2024, slides: [slides])
         
         guard let frCountryCode else {
@@ -308,7 +309,8 @@ final class WMFYearInReviewDataControllerTests: XCTestCase {
 
             let shouldShowEntryPointFRProject = yearInReviewDataController.shouldShowYearInReviewEntryPoint(countryCode: frCountryCode, primaryAppLanguageProject: frProject)
             
-            XCTAssertTrue(shouldShowEntryPointFRProject, "Primary app language FR project should show entry point for mock YiR config of [FR, IT] primary app language projects.")
+            // XCTAssertTrue(shouldShowEntryPointFRProject, "Primary app language FR project should show entry point for mock YiR config of [FR, IT] primary app language projects.")
+            XCTAssertFalse(shouldShowEntryPointFRProject) // Entry points disabled
         }
     }
     
@@ -333,7 +335,7 @@ final class WMFYearInReviewDataControllerTests: XCTestCase {
         let yearInReviewDataController = try WMFYearInReviewDataController(coreDataStore: store, developerSettingsDataController: developerSettingsDataController)
         
         // Persist a valid YiR report
-        let slides = WMFYearInReviewSlide(year: 2024, id: .readCount, evaluated: true, display: true)
+        let slides = WMFYearInReviewSlide(year: 2024, id: .readCount, evaluated: true)
         try await yearInReviewDataController.createNewYearInReviewReport(year: 2024, slides: [slides])
 
         guard let frCountryCode else {
@@ -344,7 +346,8 @@ final class WMFYearInReviewDataControllerTests: XCTestCase {
         await MainActor.run {
             let shouldShowEntryPoint = yearInReviewDataController.shouldShowYearInReviewEntryPoint(countryCode: frCountryCode, primaryAppLanguageProject: frProject)
             
-            XCTAssertTrue(shouldShowEntryPoint, "Should show entry point even when both personalized slides are disabled (will fall back to collective).")
+            // XCTAssertTrue(shouldShowEntryPoint, "Should show entry point even when both personalized slides are disabled (will fall back to collective).")
+            XCTAssertFalse(shouldShowEntryPoint) // Entry points disabled
         }
     }
 
@@ -369,7 +372,7 @@ final class WMFYearInReviewDataControllerTests: XCTestCase {
         let yearInReviewDataController = try WMFYearInReviewDataController(coreDataStore: store, developerSettingsDataController: developerSettingsDataController)
         
         // Persist a valid YiR report
-        let slides = WMFYearInReviewSlide(year: 2024, id: .readCount, evaluated: true, display: true)
+        let slides = WMFYearInReviewSlide(year: 2024, id: .readCount, evaluated: true)
         try await yearInReviewDataController.createNewYearInReviewReport(year: 2024, slides: [slides])
 
         guard let frCountryCode else {
@@ -380,7 +383,8 @@ final class WMFYearInReviewDataControllerTests: XCTestCase {
         await MainActor.run {
             let shouldShowEntryPoint = yearInReviewDataController.shouldShowYearInReviewEntryPoint(countryCode: frCountryCode, primaryAppLanguageProject: frProject)
 
-            XCTAssertTrue(shouldShowEntryPoint, "Should show entry point when one personalized slide is enabled.")
+            // XCTAssertTrue(shouldShowEntryPoint, "Should show entry point when one personalized slide is enabled.")
+            XCTAssertFalse(shouldShowEntryPoint) // Entry points disabled
         }
     }
 }

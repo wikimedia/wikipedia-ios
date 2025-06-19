@@ -58,15 +58,15 @@ import CoreData
     }
     
     public func shouldShowYiRNotification(primaryAppLanguageProject: WMFProject?, isLoggedOut: Bool, isTemporaryAccount: Bool) -> Bool {
-        
-        if isTemporaryAccount {
-            return false
-        }
-        
-        if isLoggedOut {
-            return !hasTappedProfileItem && !hasSeenYiRIntroSlide && shouldShowYearInReviewEntryPoint(countryCode: Locale.current.region?.identifier, primaryAppLanguageProject: primaryAppLanguageProject)
-        }
-        return !hasSeenYiRIntroSlide && shouldShowYearInReviewEntryPoint(countryCode: Locale.current.region?.identifier, primaryAppLanguageProject: primaryAppLanguageProject)
+        return false
+//        if isTemporaryAccount {
+//            return false
+//        }
+//        
+//        if isLoggedOut {
+//            return !hasTappedProfileItem && !hasSeenYiRIntroSlide && shouldShowYearInReviewEntryPoint(countryCode: Locale.current.region?.identifier, primaryAppLanguageProject: primaryAppLanguageProject)
+//        }
+//        return !hasSeenYiRIntroSlide && shouldShowYearInReviewEntryPoint(countryCode: Locale.current.region?.identifier, primaryAppLanguageProject: primaryAppLanguageProject)
     }
     
     public var hasTappedProfileItem: Bool {
@@ -114,74 +114,75 @@ import CoreData
     }
 
     public func shouldShowYearInReviewFeatureAnnouncement(primaryAppLanguageProject: WMFProject?) -> Bool {
-
-        guard isAnnouncementActive() else {
-            return false
-        }
-
-        guard yearInReviewSettingsIsEnabled else {
-            return false
-        }
-
-        guard shouldShowYearInReviewEntryPoint(countryCode: Locale.current.region?.identifier, primaryAppLanguageProject: primaryAppLanguageProject) else {
-            return false
-        }
-
-        guard !hasPresentedYiRFeatureAnnouncementModel else {
-            return false
-        }
-
-        guard !hasSeenYiRIntroSlide else {
-            return false
-        }
-
-        return true
+        return false
+//        guard isAnnouncementActive() else {
+//            return false
+//        }
+//
+//        guard yearInReviewSettingsIsEnabled else {
+//            return false
+//        }
+//
+//        guard shouldShowYearInReviewEntryPoint(countryCode: Locale.current.region?.identifier, primaryAppLanguageProject: primaryAppLanguageProject) else {
+//            return false
+//        }
+//
+//        guard !hasPresentedYiRFeatureAnnouncementModel else {
+//            return false
+//        }
+//
+//        guard !hasSeenYiRIntroSlide else {
+//            return false
+//        }
+//
+//        return true
     }
 
     // MARK: Entry Point
 
     public func shouldShowYearInReviewEntryPoint(countryCode: String?, primaryAppLanguageProject: WMFProject?) -> Bool {
         assert(Thread.isMainThread, "This method must be called from the main thread in order to keep it synchronous")
+        return false
 
-        guard yearInReviewSettingsIsEnabled else {
-            return false
-        }
-
-        guard let countryCode,
-              let primaryAppLanguageProject else {
-            return false
-        }
-
-        guard let iosFeatureConfig = developerSettingsDataController.loadFeatureConfig()?.ios.first,
-              let yirConfig = iosFeatureConfig.yir(yearID: targetConfigYearID) else {
-            return false
-        }
-
-        // Check remote feature disable switch
-        guard yirConfig.isEnabled else {
-            return false
-        }
-
-        // Check remote valid country codes
-        let uppercaseConfigCountryCodes = yirConfig.countryCodes.map { $0.uppercased() }
-        guard uppercaseConfigCountryCodes.contains(countryCode.uppercased()) else {
-            return false
-        }
-
-        // Check remote valid primary app language wikis
-        let uppercaseConfigPrimaryAppLanguageCodes = yirConfig.primaryAppLanguageCodes.map { $0.uppercased() }
-        guard let languageCode = primaryAppLanguageProject.languageCode,
-              uppercaseConfigPrimaryAppLanguageCodes.contains(languageCode.uppercased()) else {
-            return false
-        }
-        
-        // Check persisted year in review report exists.
-        let yirReport = try? fetchYearInReviewReport(forYear: Self.targetYear)
-        guard yirReport != nil else {
-            return false
-        }
-        
-        return true
+//        guard yearInReviewSettingsIsEnabled else {
+//            return false
+//        }
+//
+//        guard let countryCode,
+//              let primaryAppLanguageProject else {
+//            return false
+//        }
+//
+//        guard let iosFeatureConfig = developerSettingsDataController.loadFeatureConfig()?.ios.first,
+//              let yirConfig = iosFeatureConfig.yir(yearID: targetConfigYearID) else {
+//            return false
+//        }
+//
+//        // Check remote feature disable switch
+//        guard yirConfig.isEnabled else {
+//            return false
+//        }
+//
+//        // Check remote valid country codes
+//        let uppercaseConfigCountryCodes = yirConfig.countryCodes.map { $0.uppercased() }
+//        guard uppercaseConfigCountryCodes.contains(countryCode.uppercased()) else {
+//            return false
+//        }
+//
+//        // Check remote valid primary app language wikis
+//        let uppercaseConfigPrimaryAppLanguageCodes = yirConfig.primaryAppLanguageCodes.map { $0.uppercased() }
+//        guard let languageCode = primaryAppLanguageProject.languageCode,
+//              uppercaseConfigPrimaryAppLanguageCodes.contains(languageCode.uppercased()) else {
+//            return false
+//        }
+//        
+//        // Check persisted year in review report exists.
+//        let yirReport = try? fetchYearInReviewReport(forYear: Self.targetYear)
+//        guard yirReport != nil else {
+//            return false
+//        }
+//        
+//        return true
     }
 
     // MARK: - Survey
@@ -197,33 +198,34 @@ import CoreData
     // MARK: - Hide Year in Review
 
     @objc public func shouldShowYearInReviewSettingsItem(countryCode: String?, primaryAppLanguageCode: String?) -> Bool {
-
-        guard let countryCode,
-              let primaryAppLanguageCode else {
-            return false
-        }
-
-        guard let iosFeatureConfig = developerSettingsDataController.loadFeatureConfig()?.ios.first,
-              let yirConfig = iosFeatureConfig.yir(yearID: targetConfigYearID) else {
-            return false
-        }
-
-        // Note: Purposefully not checking config's yir.isEnabled here. We want to continue showing the Settings item after we have disabled the feature remotely.
-
-
-        // Check remote valid country codes
-        let uppercaseConfigCountryCodes = yirConfig.countryCodes.map { $0.uppercased() }
-        guard uppercaseConfigCountryCodes.contains(countryCode.uppercased()) else {
-            return false
-        }
-
-        // Check remote valid primary app language wikis
-        let uppercaseConfigPrimaryAppLanguageCodes = yirConfig.primaryAppLanguageCodes.map { $0.uppercased() }
-        guard uppercaseConfigPrimaryAppLanguageCodes.contains(primaryAppLanguageCode.uppercased()) else {
-            return false
-        }
-
-        return true
+        return false
+//
+//        guard let countryCode,
+//              let primaryAppLanguageCode else {
+//            return false
+//        }
+//
+//        guard let iosFeatureConfig = developerSettingsDataController.loadFeatureConfig()?.ios.first,
+//              let yirConfig = iosFeatureConfig.yir(yearID: targetConfigYearID) else {
+//            return false
+//        }
+//
+//        // Note: Purposefully not checking config's yir.isEnabled here. We want to continue showing the Settings item after we have disabled the feature remotely.
+//
+//
+//        // Check remote valid country codes
+//        let uppercaseConfigCountryCodes = yirConfig.countryCodes.map { $0.uppercased() }
+//        guard uppercaseConfigCountryCodes.contains(countryCode.uppercased()) else {
+//            return false
+//        }
+//
+//        // Check remote valid primary app language wikis
+//        let uppercaseConfigPrimaryAppLanguageCodes = yirConfig.primaryAppLanguageCodes.map { $0.uppercased() }
+//        guard uppercaseConfigPrimaryAppLanguageCodes.contains(primaryAppLanguageCode.uppercased()) else {
+//            return false
+//        }
+//
+//        return true
     }
 
     @objc public var yearInReviewSettingsIsEnabled: Bool {
@@ -508,7 +510,6 @@ import CoreData
             readCountSlide.year = 2024
             readCountSlide.id = WMFYearInReviewPersonalizedSlideID.readCount.rawValue
             readCountSlide.evaluated = false
-            readCountSlide.display = false
             readCountSlide.data = nil
             results.insert(readCountSlide)
 
@@ -516,7 +517,6 @@ import CoreData
             editCountSlide.year = 2024
             editCountSlide.id = WMFYearInReviewPersonalizedSlideID.editCount.rawValue
             editCountSlide.evaluated = false
-            editCountSlide.display = false
             editCountSlide.data = nil
             results.insert(editCountSlide)
 
@@ -524,7 +524,6 @@ import CoreData
             donateCountSlide.year = 2024
             donateCountSlide.id = WMFYearInReviewPersonalizedSlideID.donateCount.rawValue
             donateCountSlide.evaluated = false
-            donateCountSlide.display = false
             donateCountSlide.data = nil
             results.insert(donateCountSlide)
 
@@ -549,7 +548,6 @@ import CoreData
         savedArticlesSlide.year = Int32(year)
         savedArticlesSlide.id = WMFYearInReviewPersonalizedSlideID.saveCount.rawValue
         savedArticlesSlide.evaluated = false
-        savedArticlesSlide.display = false
         savedArticlesSlide.data = nil
         return savedArticlesSlide
     }
@@ -559,7 +557,6 @@ import CoreData
         mostReadDaySlide.year = Int32(year)
         mostReadDaySlide.id = WMFYearInReviewPersonalizedSlideID.mostReadDay.rawValue
         mostReadDaySlide.evaluated = false
-        mostReadDaySlide.display = false
         mostReadDaySlide.data = nil
         return mostReadDaySlide
     }
@@ -569,7 +566,6 @@ import CoreData
         viewCountSlide.year = Int32(year)
         viewCountSlide.id = WMFYearInReviewPersonalizedSlideID.viewCount.rawValue
         viewCountSlide.evaluated = false
-        viewCountSlide.display = false
         viewCountSlide.data = nil
         return viewCountSlide
     }
@@ -592,7 +588,7 @@ import CoreData
                 slide.data = try encoder.encode(legacyPageViews.count)
 
                 if legacyPageViews.count > 5 {
-                    slide.display = true
+                    // slide.display = true
                 }
 
                 slide.evaluated = true
@@ -637,7 +633,7 @@ import CoreData
                 slide.data = try encoder.encode(edits)
 
                 if edits > 0 {
-                    slide.display = true
+                    // slide.display = true
                 }
 
                 slide.evaluated = true
@@ -663,7 +659,7 @@ import CoreData
                 let encoder = JSONEncoder()
                 slide.data = try encoder.encode(savedArticlesData)
                 if savedArticlesData.savedArticlesCount > 2 {
-                    slide.display = true
+                   // slide.display = true
                 }
                 slide.evaluated = true
             default:
@@ -709,7 +705,7 @@ import CoreData
                 slide.data = try encoder.encode(mostPopularDay)
 
                 if mostPopularDay.viewCount > 0 {
-                    slide.display = true
+                    // slide.display = true
                 }
 
                 slide.evaluated = true
@@ -738,7 +734,7 @@ import CoreData
                 slide.data = try encoder.encode(editViews)
 
                 if editViews > 0 {
-                    slide.display = true
+                    // slide.display = true
                 }
 
                 slide.evaluated = true
@@ -846,7 +842,7 @@ import CoreData
                 slide.data = try encoder.encode(donateCount)
 
                 if donateCount > 0 {
-                    slide.display = true
+                    // slide.display = true
                 }
 
                 slide.evaluated = true
@@ -885,7 +881,6 @@ import CoreData
                 cdSlide?.year = Int32(slide.year)
                 cdSlide?.id = slide.id.rawValue
                 cdSlide?.evaluated = slide.evaluated
-                cdSlide?.display = slide.display
                 cdSlide?.data = slide.data
 
                 if let cdSlide {
@@ -930,7 +925,6 @@ import CoreData
                     year: Int(cdSlide.year),
                     id: id,
                     evaluated: cdSlide.evaluated,
-                    display: cdSlide.display,
                     data: cdSlide.data
                 )
                 slides.append(slide)
@@ -959,7 +953,7 @@ import CoreData
                 var slides: [WMFYearInReviewSlide] = []
                 for cdSlide in cdSlides {
                     if let id = self.getSlideId(cdSlide.id) {
-                        let slide = WMFYearInReviewSlide(year: Int(cdSlide.year), id: id, evaluated: cdSlide.evaluated, display: cdSlide.display)
+                        let slide = WMFYearInReviewSlide(year: Int(cdSlide.year), id: id, evaluated: cdSlide.evaluated)
                         slides.append(slide)
                     }
                 }
@@ -1063,7 +1057,6 @@ import CoreData
                     }
 
                     slide.data = nil
-                    slide.display = false
                     slide.evaluated = false
                 }
             }
