@@ -148,7 +148,7 @@ final class WMFYearInReviewDataControllerCreateOrRetrieveTests: XCTestCase {
 
         XCTAssertNotNil(report, "Expected a report to be retrieved")
         XCTAssertEqual(report?.year, year)
-        XCTAssertEqual(report?.slides.count, 6)
+        // XCTAssertEqual(report?.slides.count, 6) - Temporarily removed while YIR is not active
     }
 
     func testShouldCreateOrRetrieveYearInReviewWithNewReport() async throws {
@@ -165,7 +165,7 @@ final class WMFYearInReviewDataControllerCreateOrRetrieveTests: XCTestCase {
 
         XCTAssertNotNil(report, "Expected a new report to be created")
         XCTAssertEqual(report?.year, year)
-        XCTAssertEqual(report?.slides.count, 6)
+        // XCTAssertEqual(report?.slides.count, 6) - Temporarily removed while YIR is not active
     }
 }
 
