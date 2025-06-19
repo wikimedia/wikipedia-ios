@@ -422,6 +422,7 @@
 "search-recent-title" = "हाल ही में खोजा गया";
 "search-result-redirected-from" = "$1 से अनुप्रेषित";
 "search-title" = "खोजें";
+"search-widget-title" = "खोजें";
 "settings-appearance" = "पढ़ने की वरीयताएँ";
 "settings-clear-cache" = "कैश डेटा खाली करें";
 "settings-clear-cache-are-you-sure-message" = "कैश डेटा खाली करने से $1 स्पेस खाली होगी। इससे आपके सहेजे गए पेज नहीं डिलीट होंगे।";
