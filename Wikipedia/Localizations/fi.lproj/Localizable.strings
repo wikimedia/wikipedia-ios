@@ -805,7 +805,7 @@
 "page-history-stats-text" = "{{PLURAL:$1|$1 muokkaus|$1 muokkausta}} vuoden $2 jälkeen";
 "page-issues" = "Sivun ongelmat";
 "page-location" = "Näytä kartalla";
-"page-protected-can-not-edit" = "Sinulla ei ole oikeuksia muokata tätä sivua";
+"page-protected-can-not-edit" = "Sinulla ei ole oikeutta muokata tätä sivua";
 "page-protected-can-not-edit-title" = "Tämä sivu on suojattu";
 "page-similar-titles" = "Samankaltaiset sivut";
 "panel-compare-revisions-text" = "Muutosten vertailulla on helppo saada kuva artikkeliin tehdyistä muutoksista. Toiminto korostaa artikkelista kohdat, joihin on tehty muutoksia.";

@@ -59,24 +59,37 @@ final public class ArticleFetcher: Fetcher, CacheFetching {
                 let title: String?
             }
             
+            struct OriginalAndTitle {
+                let original: MediaListItemOriginal
+                let title: String?
+            }
+            
             switch result {
             case .failure(let error):
                 completion(.failure(error))
             case .success(let mediaList):
                 
                 var sourceAndTitles: [SourceAndTitle] = []
+                var originalAndTitles: [OriginalAndTitle] = []
+                
                 for item in mediaList.items {
-                    
-                    guard let sources = item.sources else {
-                        continue
+                    // Handle items with srcset (regular images)
+                    if let sources = item.sources {
+                        for source in sources {
+                            sourceAndTitles.append(SourceAndTitle(source: source, title: item.title))
+                        }
                     }
                     
-                    for source in sources {
-                        sourceAndTitles.append(SourceAndTitle(source: source, title: item.title))
+                    // Handle items with original (math formulas)
+                    if let original = item.original {
+                        originalAndTitles.append(OriginalAndTitle(original: original, title: item.title))
                     }
                 }
                 
-                let result = sourceAndTitles.map { (sourceAndTitle) -> MediaListItem? in
+                var result: [MediaListItem] = []
+                
+                // Process srcset items
+                let srcsetItems = sourceAndTitles.compactMap { (sourceAndTitle) -> MediaListItem? in
                     let scheme = request.url?.scheme ?? "https"
                     let finalString = "\(scheme):\(sourceAndTitle.source.urlString)"
                     
@@ -86,8 +99,23 @@ final public class ArticleFetcher: Fetcher, CacheFetching {
                     }
                     
                     return MediaListItem(imageURL: url, imageTitle: title)
+                }
+                
+                // Process original items (math formulas)
+                let originalItems = originalAndTitles.compactMap { (originalAndTitle) -> MediaListItem? in
+                    let scheme = request.url?.scheme ?? "https"
+                    let finalString = "\(scheme):\(originalAndTitle.original.source)"
                     
-                }.compactMap { $0 }
+                    guard let title = originalAndTitle.title,
+                        let url = URL(string: finalString) else {
+                            return nil
+                    }
+                    
+                    return MediaListItem(imageURL: url, imageTitle: title)
+                }
+                
+                result.append(contentsOf: srcsetItems)
+                result.append(contentsOf: originalItems)
                 
                 completion(.success(result))
             }
