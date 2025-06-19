@@ -35,7 +35,6 @@ fileprivate class WMFMockYearInReviewDataController: WMFYearInReviewDataControll
         readCountSlide.year = 2024
         readCountSlide.id = WMFYearInReviewPersonalizedSlideID.readCount.rawValue
         readCountSlide.evaluated = false
-        readCountSlide.display = false
         readCountSlide.data = nil
         results.insert(readCountSlide)
 
@@ -43,7 +42,6 @@ fileprivate class WMFMockYearInReviewDataController: WMFYearInReviewDataControll
         editCountSlide.year = 2024
         editCountSlide.id = WMFYearInReviewPersonalizedSlideID.editCount.rawValue
         editCountSlide.evaluated = false
-        editCountSlide.display = false
         editCountSlide.data = nil
         results.insert(editCountSlide)
         
@@ -51,7 +49,6 @@ fileprivate class WMFMockYearInReviewDataController: WMFYearInReviewDataControll
         donateCountSlide.year = 2024
         donateCountSlide.id = WMFYearInReviewPersonalizedSlideID.donateCount.rawValue
         donateCountSlide.evaluated = false
-        donateCountSlide.display = false
         donateCountSlide.data = nil
         results.insert(donateCountSlide)
         
@@ -59,7 +56,6 @@ fileprivate class WMFMockYearInReviewDataController: WMFYearInReviewDataControll
         savedCountSlide.year = 2024
         savedCountSlide.id = WMFYearInReviewPersonalizedSlideID.saveCount.rawValue
         savedCountSlide.evaluated = false
-        savedCountSlide.display = false
         savedCountSlide.data = nil
         results.insert(savedCountSlide)
         
@@ -67,7 +63,6 @@ fileprivate class WMFMockYearInReviewDataController: WMFYearInReviewDataControll
         mostReadDaySlide.year = 2024
         mostReadDaySlide.id = WMFYearInReviewPersonalizedSlideID.mostReadDay.rawValue
         mostReadDaySlide.evaluated = false
-        mostReadDaySlide.display = false
         mostReadDaySlide.data = nil
         results.insert(mostReadDaySlide)
         
@@ -75,7 +70,6 @@ fileprivate class WMFMockYearInReviewDataController: WMFYearInReviewDataControll
         viewCountSlide.year = 2024
         viewCountSlide.id = WMFYearInReviewPersonalizedSlideID.viewCount.rawValue
         viewCountSlide.evaluated = false
-        viewCountSlide.display = false
         viewCountSlide.data = nil
         results.insert(viewCountSlide)
         
@@ -139,12 +133,12 @@ final class WMFYearInReviewDataControllerCreateOrRetrieveTests: XCTestCase {
         
         dataController.shouldCreateOrRetrieve = true
 
-        let existingSlide1 = WMFYearInReviewSlide(year: year, id: .readCount, evaluated: true, display: true)
-        let existingSlide2 = WMFYearInReviewSlide(year: year, id: .saveCount, evaluated: true, display: true)
-        let existingSlide3 = WMFYearInReviewSlide(year: year, id: .mostReadDay, evaluated: true, display: true)
-        let existingSlide4 = WMFYearInReviewSlide(year: year, id: .editCount, evaluated: true, display: true)
-        let existingSlide5 = WMFYearInReviewSlide(year: year, id: .viewCount, evaluated: true, display: true)
-        let existingSlide6 = WMFYearInReviewSlide(year: year, id: .donateCount, evaluated: true, display: true)
+        let existingSlide1 = WMFYearInReviewSlide(year: year, id: .readCount, evaluated: true)
+        let existingSlide2 = WMFYearInReviewSlide(year: year, id: .saveCount, evaluated: true)
+        let existingSlide3 = WMFYearInReviewSlide(year: year, id: .mostReadDay, evaluated: true)
+        let existingSlide4 = WMFYearInReviewSlide(year: year, id: .editCount, evaluated: true)
+        let existingSlide5 = WMFYearInReviewSlide(year: year, id: .viewCount, evaluated: true)
+        let existingSlide6 = WMFYearInReviewSlide(year: year, id: .donateCount, evaluated: true)
         
         let existingReport = WMFYearInReviewReport(year: year, slides: [existingSlide1, existingSlide2, existingSlide3, existingSlide4, existingSlide5, existingSlide6])
 
