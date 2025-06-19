@@ -127,12 +127,6 @@ public struct WMFHistoryView: View {
 
     private func listView() -> some View {
         List {
-            Text(viewModel.localizedStrings.title)
-                .font(Font(WMFFont.for(.boldTitle3)))
-                .foregroundStyle(Color(uiColor: theme.text))
-                .listRowInsets(EdgeInsets(top: 0, leading: 20, bottom: 0, trailing: 0))
-                .listRowSeparator(.hidden)
-                .listRowBackground(Color.clear)
             ForEach(viewModel.sections) { section in
                 Section(header: headerViewForSection(section)) {
                     ForEach(section.items) { item in

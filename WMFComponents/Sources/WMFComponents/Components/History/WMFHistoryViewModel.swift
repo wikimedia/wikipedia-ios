@@ -7,7 +7,6 @@ public final class WMFHistoryViewModel: ObservableObject {
     // MARK: Nested Types
 
     public struct LocalizedStrings {
-        let title: String
         let emptyViewTitle: String
         let emptyViewSubtitle: String
         let todayTitle: String
@@ -18,8 +17,7 @@ public final class WMFHistoryViewModel: ObservableObject {
         let shareActionTitle: String
         let deleteSwipeActionLabel: String
 
-        public init(title: String, emptyViewTitle: String, emptyViewSubtitle: String, todayTitle: String, yesterdayTitle: String, readNowActionTitle: String, saveForLaterActionTitle: String, unsaveActionTitle: String, shareActionTitle: String, deleteSwipeActionLabel: String) {
-            self.title = title
+        public init(emptyViewTitle: String, emptyViewSubtitle: String, todayTitle: String, yesterdayTitle: String, readNowActionTitle: String, saveForLaterActionTitle: String, unsaveActionTitle: String, shareActionTitle: String, deleteSwipeActionLabel: String) {
             self.emptyViewTitle = emptyViewTitle
             self.emptyViewSubtitle = emptyViewSubtitle
             self.todayTitle = todayTitle
@@ -35,7 +33,7 @@ public final class WMFHistoryViewModel: ObservableObject {
     // MARK: Types
 
     public typealias ShareRecordAction = (CGRect?, HistoryItem) -> Void
-    public typealias OnRecordTapAction = ((HistoryItem) -> Void)?
+    public typealias OnRecordTapAction = ((HistoryItem) -> Void)
 
     @Published public var sections: [HistorySection] = [] {
         didSet {
@@ -52,18 +50,16 @@ public final class WMFHistoryViewModel: ObservableObject {
     internal let localizedStrings: LocalizedStrings
     internal let emptyViewImage: UIImage?
     private let historyDataController: WMFHistoryDataControllerProtocol
-    private var onTapArticle: OnRecordTapAction
-    private let shareRecordAction: ShareRecordAction
+    public var onTapArticle: OnRecordTapAction?
+    public var shareRecordAction: ShareRecordAction?
 
     // MARK: Lifecycle
 
-    public init(emptyViewImage: UIImage?, localizedStrings: WMFHistoryViewModel.LocalizedStrings, historyDataController: WMFHistoryDataControllerProtocol, topPadding: CGFloat = 0, onTapRecord: OnRecordTapAction, shareRecordAction: @escaping ShareRecordAction) {
+    public init(emptyViewImage: UIImage?, localizedStrings: WMFHistoryViewModel.LocalizedStrings, historyDataController: WMFHistoryDataControllerProtocol, topPadding: CGFloat = 0) {
         self.emptyViewImage = emptyViewImage
         self.localizedStrings = localizedStrings
         self.historyDataController = historyDataController
         self.topPadding = topPadding
-        self.onTapArticle = onTapRecord
-        self.shareRecordAction = shareRecordAction
 
         loadHistory()
     }
@@ -121,7 +117,7 @@ public final class WMFHistoryViewModel: ObservableObject {
     }
 
     func share(frame: CGRect?, item: HistoryItem) {
-        shareRecordAction(frame, item)
+        shareRecordAction?(frame, item)
     }
 
     func onTap(_ item: HistoryItem) {

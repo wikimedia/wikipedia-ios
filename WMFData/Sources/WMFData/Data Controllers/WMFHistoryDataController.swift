@@ -44,20 +44,15 @@ public final class WMFHistoryDataController: WMFHistoryDataControllerProtocol {
     public typealias UnsaveRecordAction = (HistoryItem) -> Void
 
     private let recordsProvider: RecordsProvider
-    private let deleteRecordAction: DeleteRecordAction
-    private let saveRecordAction: SaveRecordAction
-    private let unsaveRecordAction: UnsaveRecordAction
+    public var deleteRecordAction: DeleteRecordAction?
+    public var saveRecordAction: SaveRecordAction?
+    public var unsaveRecordAction: UnsaveRecordAction?
 
     /// Initializes the history data controller.
     /// - Parameters:
     ///   - recordsProvider: A closure returning an array of `HistoryRecord`.
-    ///   - deleteRecordAction: A closure that deletes a record (by id).
-    ///   - deleteAllRecordsAction: A closure that deletes all history records.
-    public init(recordsProvider: @escaping RecordsProvider, deleteRecordAction: @escaping DeleteRecordAction, saveArticleAction: @escaping SaveRecordAction, unsaveArticleAction: @escaping UnsaveRecordAction) {
+    public init(recordsProvider: @escaping RecordsProvider) {
         self.recordsProvider = recordsProvider
-        self.deleteRecordAction = deleteRecordAction
-        self.saveRecordAction = saveArticleAction
-        self.unsaveRecordAction = unsaveArticleAction
     }
 
     private func getURL(_ string: String?) -> URL? {
@@ -96,15 +91,15 @@ public final class WMFHistoryDataController: WMFHistoryDataControllerProtocol {
     }
 
     public func deleteHistoryItem(_ item: HistoryItem) {
-        deleteRecordAction(item)
+        deleteRecordAction?(item)
     }
 
     public func saveHistoryItem(_ item: HistoryItem) {
-        saveRecordAction(item)
+        saveRecordAction?(item)
     }
 
     public func unsaveHistoryItem(_ item: HistoryItem) {
-        unsaveRecordAction(item)
+        unsaveRecordAction?(item)
     }
 
 }
