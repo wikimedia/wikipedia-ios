@@ -12,11 +12,9 @@ struct LockscreenSearchWidget: Widget {
         StaticConfiguration(kind: kind, provider: LockscreenSearchProvider(), content: { entry in
             LockscreenSearchWidgetView(entry: entry)
         })
-        .configurationDisplayName(LockscreenSearchWidget.LocalizedStrings.widgetTitle)
-        .description(LockscreenSearchWidget.LocalizedStrings.widgetDescription)
+        .configurationDisplayName(CommonStrings.lockscreenSearchWidgetTitle)
+        .description(CommonStrings.lockscreenSearchWidgetDescription)
         .supportedFamilies([.accessoryCircular, .accessoryRectangular, .accessoryInline])
-        .contentMarginsDisabled()
-        .containerBackgroundRemovable(false)
     }
 }
 
@@ -97,6 +95,7 @@ struct LockscreenSearchWidgetView: View {
             .aspectRatio(contentMode: .fit)
             .frame(width: 28, height: 28)
             .widgetURL(entry.url)
+            .modifier(ContainerBackgroundModifier())
     }
     
    var accessoryRectangularView: some View {
@@ -106,11 +105,12 @@ struct LockscreenSearchWidgetView: View {
                 .aspectRatio(contentMode: .fit)
                 .frame(width: 25, height: 25)
             
-            Text(LockscreenSearchWidget.LocalizedStrings.searchWikipedia)
+            Text(CommonStrings.searchButtonAccessibilityLabel)
                 .font(.system(size: 13, weight: .medium))
                 .lineLimit(1)
         }
         .widgetURL(entry.url)
+        .modifier(ContainerBackgroundModifier())
     }
     
 
@@ -119,9 +119,22 @@ struct LockscreenSearchWidgetView: View {
             Image(systemName: "magnifyingglass")
                 .font(.system(size: 11, weight: .medium))
             
-            Text(LockscreenSearchWidget.LocalizedStrings.searchWikipedia)
+            Text(CommonStrings.searchButtonAccessibilityLabel)
                 .font(.system(size: 13, weight: .medium))
         }
         .widgetURL(entry.url)
+        .modifier(ContainerBackgroundModifier())
     }
-} 
+}
+
+// MARK: - Container Background Modifier
+
+struct ContainerBackgroundModifier: ViewModifier {
+    func body(content: Content) -> some View {
+        if #available(iOS 17.0, *) {
+            content.containerBackground(Color.clear, for: .widget)
+        } else {
+            content
+        }
+    }
+}
