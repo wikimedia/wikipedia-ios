@@ -679,7 +679,6 @@
 "languages-wikipedia" = "Wikipedia languages";
 "learn-more-title" = "Learn more";
 "lockscreen-search-widget-description" = "Quick access to search Wikipedia from your lock screen.";
-"lockscreen-search-widget-title" = "Search";
 "logged-out-continue-without-logging-in-button-title" = "Continue without logging in";
 "logged-out-log-back-in-button-title" = "Log back in to your account";
 "logged-out-subtitle" = "There was a problem authenticating your account. In order to sync your reading lists and edit under your user name please log back in.";
@@ -1097,7 +1096,6 @@
 "search-result-redirected-from" = "Redirected from: $1";
 "search-title" = "Search";
 "search-widget-description" = "Quick access to search Wikipedia.";
-"search-widget-title" = "Search";
 "search-widget-wikipedia-title" = "Wikipedia";
 "serbian-variants-alert-body" = "The Wikipedia app now supports the following Serbian variants as primary or secondary languages within the app, making it easier to read, search and edit in your preferred variants:\n\nсрпски ћирилица Serbian, Cyrillic (sr-ec)\nsrpski latinica Serbian, Latin (sr-el)";
 "serbian-variants-alert-title" = "Updates to Serbian variant support";

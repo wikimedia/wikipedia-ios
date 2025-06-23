@@ -12,7 +12,7 @@ struct LockscreenSearchWidget: Widget {
         StaticConfiguration(kind: kind, provider: LockscreenSearchProvider(), content: { entry in
             LockscreenSearchWidgetView(entry: entry)
         })
-        .configurationDisplayName(CommonStrings.lockscreenSearchWidgetTitle)
+        .configurationDisplayName(CommonStrings.searchTitle)
         .description(CommonStrings.lockscreenSearchWidgetDescription)
         .supportedFamilies([.accessoryCircular, .accessoryRectangular, .accessoryInline])
     }
@@ -80,8 +80,6 @@ struct LockscreenSearchWidgetView: View {
             accessoryCircularView
         case .accessoryRectangular:
             accessoryRectangularView
-        case .accessoryInline:
-            accessoryInlineView
         default:
             accessoryCircularView
         }
@@ -113,18 +111,6 @@ struct LockscreenSearchWidgetView: View {
         .modifier(ContainerBackgroundModifier())
     }
     
-
-   var accessoryInlineView: some View {
-        HStack(spacing: 6) {
-            Image(systemName: "magnifyingglass")
-                .font(.system(size: 11, weight: .medium))
-            
-            Text(CommonStrings.searchButtonAccessibilityLabel)
-                .font(.system(size: 13, weight: .medium))
-        }
-        .widgetURL(entry.url)
-        .modifier(ContainerBackgroundModifier())
-    }
 }
 
 // MARK: - Container Background Modifier

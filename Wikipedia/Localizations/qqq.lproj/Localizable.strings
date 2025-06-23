@@ -679,7 +679,6 @@
 "languages-wikipedia" = "Title for list of Wikipedia languages";
 "learn-more-title" = "Button title text to learn more, used in various contexts. It typically sends users to another view with additional context about the feature.";
 "lockscreen-search-widget-description" = "Text for description of lockscreen search widget displayed when adding to lock screen.";
-"lockscreen-search-widget-title" = "Text for title of lockscreen search widget.";
 "logged-out-continue-without-logging-in-button-title" = "Title for button allowing user to continue without logging back in to their account";
 "logged-out-log-back-in-button-title" = "Title for button allowing user to log back in to their account";
 "logged-out-subtitle" = "Subtitle for letting user know there was a problem authenticating their account.";
@@ -1097,7 +1096,6 @@
 "search-result-redirected-from" = "Text for search result letting user know if a result is a redirect from another article. Parameters: * $1 - article title the current search result redirected from";
 "search-title" = "Title for search interface. {{Identical|Search}}";
 "search-widget-description" = "Text for description of Search widget displayed when adding to home screen.";
-"search-widget-title" = "Text for title of Search widget.";
 "search-widget-wikipedia-title" = "Wikipedia title text displayed in the search widget.";
 "serbian-variants-alert-body" = "Body text of alert used to inform users about Serbian variant support. Please do not translate the newlines (\n) or Serbian characters (nсрпски ћирилица, etc.).";
 "serbian-variants-alert-title" = "Title of alert used to inform users about Serbian variant support.";
