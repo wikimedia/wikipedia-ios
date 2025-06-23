@@ -55,14 +55,15 @@ import CoreData
     }
     
     public func shouldShowYiRNotification(primaryAppLanguageProject: WMFProject?, isLoggedOut: Bool, isTemporaryAccount: Bool) -> Bool {
-        if isTemporaryAccount {
-            return false
-        }
-
-        if isLoggedOut {
-            return !hasTappedProfileItem && !hasSeenYiRIntroSlide && shouldShowYearInReviewEntryPoint(countryCode: Locale.current.region?.identifier, primaryAppLanguageProject: primaryAppLanguageProject)
-        }
-        return !hasSeenYiRIntroSlide && shouldShowYearInReviewEntryPoint(countryCode: Locale.current.region?.identifier, primaryAppLanguageProject: primaryAppLanguageProject)
+        return false
+//        if isTemporaryAccount {
+//            return false
+//        }
+//
+//        if isLoggedOut {
+//            return !hasTappedProfileItem && !hasSeenYiRIntroSlide && shouldShowYearInReviewEntryPoint(countryCode: Locale.current.region?.identifier, primaryAppLanguageProject: primaryAppLanguageProject)
+//        }
+//        return !hasSeenYiRIntroSlide && shouldShowYearInReviewEntryPoint(countryCode: Locale.current.region?.identifier, primaryAppLanguageProject: primaryAppLanguageProject)
     }
     
     public var hasTappedProfileItem: Bool {
@@ -110,73 +111,75 @@ import CoreData
     }
 
     public func shouldShowYearInReviewFeatureAnnouncement(primaryAppLanguageProject: WMFProject?) -> Bool {
-        guard isAnnouncementActive() else {
-            return false
-        }
-
-        guard yearInReviewSettingsIsEnabled else {
-            return false
-        }
-
-        guard shouldShowYearInReviewEntryPoint(countryCode: Locale.current.region?.identifier, primaryAppLanguageProject: primaryAppLanguageProject) else {
-            return false
-        }
-
-        guard !hasPresentedYiRFeatureAnnouncementModel else {
-            return false
-        }
-
-        guard !hasSeenYiRIntroSlide else {
-            return false
-        }
-
-        return true
+        return false
+//        guard isAnnouncementActive() else {
+//            return false
+//        }
+//
+//        guard yearInReviewSettingsIsEnabled else {
+//            return false
+//        }
+//
+//        guard shouldShowYearInReviewEntryPoint(countryCode: Locale.current.region?.identifier, primaryAppLanguageProject: primaryAppLanguageProject) else {
+//            return false
+//        }
+//
+//        guard !hasPresentedYiRFeatureAnnouncementModel else {
+//            return false
+//        }
+//
+//        guard !hasSeenYiRIntroSlide else {
+//            return false
+//        }
+//
+//        return true
     }
 
     // MARK: Entry Point
 
     public func shouldShowYearInReviewEntryPoint(countryCode: String?, primaryAppLanguageProject: WMFProject?) -> Bool {
-        assert(Thread.isMainThread, "This method must be called from the main thread in order to keep it synchronous")
-
-        guard yearInReviewSettingsIsEnabled else {
-            return false
-        }
-
-        guard let countryCode,
-              let primaryAppLanguageProject else {
-            return false
-        }
-
-        guard let iosFeatureConfig = developerSettingsDataController.loadFeatureConfig()?.ios.first,
-              let yirConfig = iosFeatureConfig.yir(yearID: targetConfigYearID) else {
-            return false
-        }
-
-        // Check remote feature disable switch
-        guard yirConfig.isEnabled else {
-            return false
-        }
-
-        // Check remote valid country codes
-        let uppercaseConfigCountryCodes = yirConfig.countryCodes.map { $0.uppercased() }
-        guard uppercaseConfigCountryCodes.contains(countryCode.uppercased()) else {
-            return false
-        }
-
-        // Check remote valid primary app language wikis
-        let uppercaseConfigPrimaryAppLanguageCodes = yirConfig.primaryAppLanguageCodes.map { $0.uppercased() }
-        guard let languageCode = primaryAppLanguageProject.languageCode,
-              uppercaseConfigPrimaryAppLanguageCodes.contains(languageCode.uppercased()) else {
-            return false
-        }
-
-        // Check persisted year in review report exists.
-        let yirReport = try? fetchYearInReviewReport(forYear: Self.targetYear)
-        guard yirReport != nil else {
-            return false
-        }
-
-        return true
+        return false
+//        assert(Thread.isMainThread, "This method must be called from the main thread in order to keep it synchronous")
+//
+//        guard yearInReviewSettingsIsEnabled else {
+//            return false
+//        }
+//
+//        guard let countryCode,
+//              let primaryAppLanguageProject else {
+//            return false
+//        }
+//
+//        guard let iosFeatureConfig = developerSettingsDataController.loadFeatureConfig()?.ios.first,
+//              let yirConfig = iosFeatureConfig.yir(yearID: targetConfigYearID) else {
+//            return false
+//        }
+//
+//        // Check remote feature disable switch
+//        guard yirConfig.isEnabled else {
+//            return false
+//        }
+//
+//        // Check remote valid country codes
+//        let uppercaseConfigCountryCodes = yirConfig.countryCodes.map { $0.uppercased() }
+//        guard uppercaseConfigCountryCodes.contains(countryCode.uppercased()) else {
+//            return false
+//        }
+//
+//        // Check remote valid primary app language wikis
+//        let uppercaseConfigPrimaryAppLanguageCodes = yirConfig.primaryAppLanguageCodes.map { $0.uppercased() }
+//        guard let languageCode = primaryAppLanguageProject.languageCode,
+//              uppercaseConfigPrimaryAppLanguageCodes.contains(languageCode.uppercased()) else {
+//            return false
+//        }
+//
+//        // Check persisted year in review report exists.
+//        let yirReport = try? fetchYearInReviewReport(forYear: Self.targetYear)
+//        guard yirReport != nil else {
+//            return false
+//        }
+//
+//        return true
     }
 
     // MARK: - Survey
@@ -232,40 +235,41 @@ import CoreData
     // MARK: Report Data Population
 
     func shouldPopulateYearInReviewReportData(countryCode: String?, primaryAppLanguageProject: WMFProject?) -> Bool {
-        guard yearInReviewSettingsIsEnabled else {
-            return false
-        }
-
-        guard let iosFeatureConfig = developerSettingsDataController.loadFeatureConfig()?.ios.first,
-              let yirConfig = iosFeatureConfig.yir(yearID: targetConfigYearID) else {
-            return false
-        }
-
-        guard let countryCode,
-              let primaryAppLanguageProject else {
-            return false
-        }
-
-        // Check remote feature disable switch
-        guard yirConfig.isEnabled else {
-            return false
-        }
-
-        // Check remote valid country codes
-        let uppercaseConfigCountryCodes = yirConfig.countryCodes.map { $0.uppercased() }
-        guard uppercaseConfigCountryCodes.contains(countryCode.uppercased()) else {
-            return false
-        }
-
-        // Check remote valid primary app language wikis
-        let uppercaseConfigPrimaryAppLanguageCodes = yirConfig.primaryAppLanguageCodes.map { $0.uppercased() }
-
-        guard let languageCode = primaryAppLanguageProject.languageCode,
-              uppercaseConfigPrimaryAppLanguageCodes.contains(languageCode.uppercased()) else {
-            return false
-        }
-
-        return true
+//        guard yearInReviewSettingsIsEnabled else {
+//            return false
+//        }
+//
+//        guard let iosFeatureConfig = developerSettingsDataController.loadFeatureConfig()?.ios.first,
+//              let yirConfig = iosFeatureConfig.yir(yearID: targetConfigYearID) else {
+//            return false
+//        }
+//
+//        guard let countryCode,
+//              let primaryAppLanguageProject else {
+//            return false
+//        }
+//
+//        // Check remote feature disable switch
+//        guard yirConfig.isEnabled else {
+//            return false
+//        }
+//
+//        // Check remote valid country codes
+//        let uppercaseConfigCountryCodes = yirConfig.countryCodes.map { $0.uppercased() }
+//        guard uppercaseConfigCountryCodes.contains(countryCode.uppercased()) else {
+//            return false
+//        }
+//
+//        // Check remote valid primary app language wikis
+//        let uppercaseConfigPrimaryAppLanguageCodes = yirConfig.primaryAppLanguageCodes.map { $0.uppercased() }
+//
+//        guard let languageCode = primaryAppLanguageProject.languageCode,
+//              uppercaseConfigPrimaryAppLanguageCodes.contains(languageCode.uppercased()) else {
+//            return false
+//        }
+//
+//        return true
+        return false
     }
 
     private func beginDataPopulationBackgroundTask() async {
