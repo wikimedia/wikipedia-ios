@@ -24,6 +24,7 @@
 // Author: Mhurd
 // Author: Mike is Michi
 // Author: Mirzali
+// Author: MoritzMT20
 // Author: Mukeber
 // Author: Nemo bis
 // Author: Nortix
@@ -148,6 +149,7 @@
 "article-revision-history" = "Versionsgeschichte";
 "article-save-error-not-enough-space" = "Du hast nicht genügend Speicherplatz auf deinem Gerät, um diesen Artikel zu speichern.";
 "article-share" = "Teilen";
+"article-tabs-navigation" = "Tabnavigation";
 "article-tabs-open-background-tab" = "Im Hintergrund-Tab öffnen";
 "article-tabs-open-new-tab" = "In neuem Tab öffnen";
 "article-talk-page" = "Diskussion";
@@ -171,7 +173,14 @@
 "clear-title-accessibility-label" = "Löschen";
 "clearing-cache-complete" = "Cache geleert.";
 "clearing-cache-in-progress" = "Cache wird geleert.";
+"close-all-tabs" = "Alle Tabs schließen";
+"close-all-tabs-confirmation" = "Möchtest du alle $1 Tabs schließen? Dies kann nicht rückgängig gemacht werden.";
+"close-all-tabs-confirmation-number" = "Alle $1 Tabs schließen?";
 "close-button-accessibility-label" = "Schließen";
+"close-other-tabs" = "Andere Tabs schließen";
+"close-tab-confirmation" = "Tab schließen?";
+"close-tabs" = "Tabs schließen";
+"closed-all-tabs-confirmation" = "Alle $1 Tabs geschlossen.";
 "compass-direction" = "nach $1 Uhr";
 "confirm-donation-history-deletion-title" = "Löschung bestätigen";
 "continue-button-title" = "Fortfahren";
@@ -279,6 +288,7 @@
 "donate-payment-method-prompt-other-button-title" = "Andere Zahlungsmethode";
 "donate-payment-method-prompt-title" = "Mit Apple Pay spenden?";
 "donate-success-title" = "Vielen Dank!";
+"duplicate-tab" = "Tab klonen";
 "edit-link-display-text-title" = "Angezeigter Text";
 "edit-link-link-target-title" = "Linkziel";
 "edit-link-remove-link-title" = "Link entfernen";
@@ -586,6 +596,7 @@
 "main-menu-terms-of-use" = "Nutzungsbedingungen";
 "main-menu-title" = "Weitere";
 "main-menu-zero-faq" = "FAQ zu Wikipedia Zero";
+"main-page" = "Hauptseite";
 "more-languages-tooltip-description" = "Wikipedia in über 300 Sprachen durchsuchen";
 "more-languages-tooltip-title" = "Sprachen hinzufügen";
 "more-menu" = "Mehr";
@@ -597,6 +608,7 @@
 "nearby-distance-label-miles" = "$1 Meilen";
 "new-password-instructions" = "Du hast dich mit einem temporären Passwort angemeldet. Um die Anmeldung abzuschließen, lege hier ein neues Passwort fest.";
 "new-password-title" = "Passwort festlegen";
+"new-tab" = "Neuer Tab";
 "no-email-account-alert" = "Bitte richte auf deinem Gerät ein E-Mail-Konto ein und versuche es erneut.";
 "no-internet-connection" = "Keine Internetverbindung";
 "no-internet-connection-article-reload" = "Eine neuere Version dieses Artikels könnte verfügbar sein, sie kann jedoch ohne Internetverbindung nicht geladen werden.";
@@ -896,7 +908,10 @@
 "replace-textfield-placeholder" = "Ersetzen durch …";
 "return-button-title" = "Zurück";
 "reverted-edit-title" = "Zurückgesetzte Bearbeitung";
+"save-all-tabs" = "Alle Tabs speichern";
 "saved-all-articles-title" = "Alle Artikel";
+"saved-all-tabs" = "Alle Tabs gespeichert.";
+"saved-all-tabs-view-reading-list" = "Alle Tabs gespeichert. Leseliste anzeigen.";
 "saved-default-reading-list-tag" = "Diese Liste kann nicht gelöscht werden";
 "saved-pages-image-download-error" = "Die Bilder für diese gespeicherte Seite konnten nicht heruntergeladen werden.";
 "saved-pages-progress-syncing" = "Herunterladen der Artikel läuft …";

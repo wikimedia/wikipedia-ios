@@ -1092,6 +1092,8 @@
 "search-recent-title" = "최근 검색한 항목";
 "search-result-redirected-from" = "($1에서 넘어옴)";
 "search-title" = "검색";
+"search-widget-title" = "검색";
+"search-widget-wikipedia-title" = "위키백과";
 "serbian-variants-alert-body" = "이제 위키백과 앱에서 아래의 세르비아어 변이형을 주 언어나 보조 언어로 설정할 수 있으며, 이를 통해 선호하는 변이형으로 문서의 열람, 검색, 편집 작업을 쉽게 할 수 있습니다.\n\nсрпски ћирилица 세르비아어 키릴 (sr-ec)\nsrpski latinica 세르비아어 라틴 (sr-el)";
 "serbian-variants-alert-title" = "세르비아어 변이형 지원 업데이트";
 "settings-account" = "계정";
