@@ -268,8 +268,8 @@ final class WMFYearInReviewDataControllerTests: XCTestCase {
 
             let shouldShowEntryPointFR = yearInReviewDataController.shouldShowYearInReviewEntryPoint(countryCode: frCountryCode, primaryAppLanguageProject: frProject)
             
-            // XCTAssertTrue(shouldShowEntryPointFR, "FR should show entry point for mock YiR config of [FR, IT] country codes.")
-            XCTAssertFalse(shouldShowEntryPointFR) // Entry points disabled
+            XCTAssertTrue(shouldShowEntryPointFR, "FR should show entry point for mock YiR config of [FR, IT] country codes.")
+            // XCTAssertFalse(shouldShowEntryPointFR) // Entry points disabled
         }
     }
     
@@ -309,8 +309,8 @@ final class WMFYearInReviewDataControllerTests: XCTestCase {
 
             let shouldShowEntryPointFRProject = yearInReviewDataController.shouldShowYearInReviewEntryPoint(countryCode: frCountryCode, primaryAppLanguageProject: frProject)
             
-            // XCTAssertTrue(shouldShowEntryPointFRProject, "Primary app language FR project should show entry point for mock YiR config of [FR, IT] primary app language projects.")
-            XCTAssertFalse(shouldShowEntryPointFRProject) // Entry points disabled
+            XCTAssertTrue(shouldShowEntryPointFRProject, "Primary app language FR project should show entry point for mock YiR config of [FR, IT] primary app language projects.")
+            // XCTAssertFalse(shouldShowEntryPointFRProject) // Entry points disabled
         }
     }
     
@@ -346,8 +346,8 @@ final class WMFYearInReviewDataControllerTests: XCTestCase {
         await MainActor.run {
             let shouldShowEntryPoint = yearInReviewDataController.shouldShowYearInReviewEntryPoint(countryCode: frCountryCode, primaryAppLanguageProject: frProject)
             
-            // XCTAssertTrue(shouldShowEntryPoint, "Should show entry point even when both personalized slides are disabled (will fall back to collective).")
-            XCTAssertFalse(shouldShowEntryPoint) // Entry points disabled
+            XCTAssertTrue(shouldShowEntryPoint, "Should show entry point even when both personalized slides are disabled (will fall back to collective).")
+            // XCTAssertFalse(shouldShowEntryPoint) // Entry points disabled
         }
     }
 
@@ -383,8 +383,8 @@ final class WMFYearInReviewDataControllerTests: XCTestCase {
         await MainActor.run {
             let shouldShowEntryPoint = yearInReviewDataController.shouldShowYearInReviewEntryPoint(countryCode: frCountryCode, primaryAppLanguageProject: frProject)
 
-            // XCTAssertTrue(shouldShowEntryPoint, "Should show entry point when one personalized slide is enabled.")
-            XCTAssertFalse(shouldShowEntryPoint) // Entry points disabled
+            XCTAssertTrue(shouldShowEntryPoint, "Should show entry point when one personalized slide is enabled.")
+            // XCTAssertFalse(shouldShowEntryPoint) // Entry points disabled
         }
     }
 }
