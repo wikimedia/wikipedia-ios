@@ -652,6 +652,9 @@ public class CommonStrings: NSObject {
     
     public static let searchButtonAccessibilityLabel = WMFLocalizedString("search-button-accessibility-label", value: "Search Wikipedia", comment: "Accessibility label for a button that opens a search box to search Wikipedia.")
     
+    // Lockscreen Search Widget strings
+    public static let lockscreenSearchWidgetDescription = WMFLocalizedString("lockscreen-search-widget-description", value: "Quick access to search Wikipedia from your lock screen.", comment: "Text for description of lockscreen search widget displayed when adding to lock screen.")
+    
     // Temp accs
     public static let tempAccountsReadMoreTitle = WMFLocalizedString("temp-account-toast-read-more-title", value: "Read more", comment: "Read more button for the toast for temporary accounts.")
     
