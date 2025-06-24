@@ -14,7 +14,7 @@ struct LockscreenSearchWidget: Widget {
         })
         .configurationDisplayName(CommonStrings.searchTitle)
         .description(CommonStrings.lockscreenSearchWidgetDescription)
-        .supportedFamilies([.accessoryCircular, .accessoryRectangular, .accessoryInline])
+        .supportedFamilies([.accessoryCircular, .accessoryRectangular])
     }
 }
 
