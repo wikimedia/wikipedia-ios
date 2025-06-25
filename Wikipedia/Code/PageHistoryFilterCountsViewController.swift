@@ -29,7 +29,7 @@ class PageHistoryFilterCountsView: UIView {
                 counts.append(Count(title: WMFLocalizedString("page-history-logged-in-edits", value: "logged-in", comment: "Text for view that shows many edits were made by logged-in users"), image: UIImage(named: "user-edit"), count: loggedInEdits))
             }
             if let unregisteredEdits = editCounts[.customUnregistered]?.count {
-                counts.append(Count(title: WMFLocalizedString("page-history-unregistered-edits", value: "unregistered", comment: "Text for view that shows many edits were made by unregistered users"), image: WMFIcon.anonymous, count: unregisteredEdits))
+                counts.append(Count(title: WMFLocalizedString("page-history-unregistered-edits", value: "unregistered", comment: "Text for view that shows many edits were made by unregistered users"), image: UIImage(named: "user-anonymous")?.withTintColor(theme.colors.icon ?? .wmf_blue_300, renderingMode: .alwaysTemplate), count: unregisteredEdits))
             }
             if let botEdits = editCounts[.bot]?.count {
                 counts.append(Count(title: WMFLocalizedString("page-history-bot-edits", value: "bot", comment: "Text for view that shows many edits were made by bots"), image: UIImage(named: "bot"), count: botEdits))
