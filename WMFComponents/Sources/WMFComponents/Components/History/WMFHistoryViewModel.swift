@@ -1,6 +1,5 @@
 import SwiftUI
 import WMFData
-import Combine
 
 public final class WMFHistoryViewModel: ObservableObject {
 

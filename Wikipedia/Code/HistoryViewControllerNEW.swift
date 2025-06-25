@@ -271,7 +271,7 @@ final class WMFHistoryHostingController: WMFComponentHostingController<WMFHistor
         guard let dataStore else { return }
         do {
             try dataStore.viewContext.clearReadHistory()
-            viewModel.sections = []
+            viewModel.sections.removeAll()
 
         } catch let error {
             showError(error)
