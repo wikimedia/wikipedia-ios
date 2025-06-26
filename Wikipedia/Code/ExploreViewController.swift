@@ -1796,5 +1796,6 @@ extension ExploreViewController: UISearchControllerDelegate {
     func didDismissSearchController(_ searchController: UISearchController) {
         presentingSearchResults = false
         navigationController?.hidesBarsOnSwipe = true
+        SearchFunnel.shared.logSearchCancel(source: "top_of_feed")
     }
 }
