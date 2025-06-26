@@ -4,7 +4,7 @@ import CocoaLumberjackSwift
 import WMFComponents
 import WMFData
 
-class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewControllerDelegate, CollectionViewUpdaterDelegate, ImageScaleTransitionProviding, DetailTransitionSourceProviding, MEPEventsProviding, WMFNavigationBarConfiguring, WMFNavigationBarHiding {
+class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewControllerDelegate, CollectionViewUpdaterDelegate, ImageScaleTransitionProviding, DetailTransitionSourceProviding, MEPEventsProviding, WMFNavigationBarConfiguring {
 
     public var presentedContentGroupKey: String?
     public var shouldRestoreScrollPosition = false
@@ -56,9 +56,6 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
             
             return existingYirCoordinator
     }
-    
-    var topSafeAreaOverlayHeightConstraint: NSLayoutConstraint?
-    var topSafeAreaOverlayView: UIView?
     
     private var presentingSearchResults: Bool = false
 
@@ -348,7 +345,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         }
     }
 
-    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+    override func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
         logFeedImpressionAfterDelay()
     }
     
