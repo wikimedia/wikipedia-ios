@@ -5,10 +5,7 @@ import WMFData
 import CocoaLumberjackSwift
 
 @objc(WMFHistoryViewController)
-class HistoryViewController: ArticleFetchedResultsViewController, WMFNavigationBarConfiguring, WMFNavigationBarHiding {
-    
-    var topSafeAreaOverlayHeightConstraint: NSLayoutConstraint?
-    var topSafeAreaOverlayView: UIView?
+class HistoryViewController: ArticleFetchedResultsViewController, WMFNavigationBarConfiguring {
     
     // Properties needed for Profile Button
 

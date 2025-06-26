@@ -1,8 +1,12 @@
-import Foundation
 import WMF
+import WMFComponents
 
-class ColumnarCollectionViewController: ThemeableViewController, ColumnarCollectionViewLayoutDelegate, UICollectionViewDataSourcePrefetching, CollectionViewFooterDelegate, HintPresenting {
+class ColumnarCollectionViewController: ThemeableViewController, ColumnarCollectionViewLayoutDelegate, UICollectionViewDataSourcePrefetching, CollectionViewFooterDelegate, HintPresenting, WMFNavigationBarHiding {
+    var topSafeAreaOverlayView: UIView?
     
+    var topSafeAreaOverlayHeightConstraint: NSLayoutConstraint?
+    
+
     enum HeaderStyle {
         case sections
         case exploreFeedDetail
@@ -383,8 +387,53 @@ class ColumnarCollectionViewController: ThemeableViewController, ColumnarCollect
         return min(max(_maxViewed, percentViewed), 100)
     }
 
+    // MARK: – Scroll View methods
+
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         _maxViewed = max(_maxViewed, percentViewed)
+
+        guard UIDevice.current.userInterfaceIdiom == .pad, #available(iOS 18.0, *) else { return }
+
+        let velocity = scrollView.panGestureRecognizer.velocity(in: scrollView).y
+        if velocity < -30 {
+            tabBarController?.setTabBarHidden(true, animated: true)
+        } else if velocity > 30 {
+            tabBarController?.setTabBarHidden(false, animated: true)
+        }
+
+        calculateNavigationBarHiddenState(scrollView: scrollView)
+    }
+
+    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        handleShortContentBounce(scrollView, immediately: !decelerate)
+    }
+
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        handleShortContentBounce(scrollView, immediately: true)
+    }
+
+    private func handleShortContentBounce(_ scrollView: UIScrollView, immediately: Bool) {
+        guard UIDevice.current.userInterfaceIdiom == .pad,
+              #available(iOS 18.0, *) else { return }
+
+        let visibleHeight = scrollView.bounds.height
+                           - scrollView.adjustedContentInset.top
+                           - scrollView.adjustedContentInset.bottom
+        let contentHeight = scrollView.contentSize.height
+
+        if contentHeight <= visibleHeight {
+            let showAction = {
+                self.tabBarController?.setTabBarHidden(false, animated: true)
+            }
+
+            if immediately {
+                showAction()
+            } else {
+                DispatchQueue.main.async {
+                    showAction()
+                }
+            }
+        }
     }
 
     // MARK: - CollectionViewFooterDelegate
