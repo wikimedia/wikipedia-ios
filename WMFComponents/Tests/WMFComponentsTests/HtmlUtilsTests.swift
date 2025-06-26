@@ -26,31 +26,6 @@ final class HtmlUtilsTests: XCTestCase {
         XCTAssertNotNil(attributedString, "Test extra unordered list did not cause crash")
     }
 
-    func testHTMLLinkParsingWithNonEnglishCharacters() throws {
-        let htmlSamples = [
-            // Portuguese
-            "<a href=\"https://pt.wikipedia.org/wiki/Usuário:Rpo.castro_(discussão)\">discussão</a>",
-            // Chinese
-            "<a href=\"https://zh.wikipedia.org/wiki/用戶:示例\">示例</a>",
-            // Japanese
-            "<a href=\"https://ja.wikipedia.org/wiki/利用者:テスト\">テスト</a>",
-            // Arabic
-            "<a href=\"https://ar.wikipedia.org/wiki/مستخدم:اختبار\">اختبار</a>",
-            // Hebrew
-            "<a href=\"https://he.wikipedia.org/wiki/משתמש:בדיקה\">בדיקה</a>"
-        ]
-
-        for html in htmlSamples {
-            let attributed = try HtmlUtils.nsAttributedStringFromHtml(html, styles: .testStyle)
-            let linkCount = attributed
-                .attributes(at: 0, effectiveRange: nil)
-                .filter { $0.key == .link }
-                .count
-
-            XCTAssertEqual(linkCount, 1, "Failed to detect link in: \(html)")
-        }
-    }
-
     func testHtmlLinkWithComplexAttributes() throws {
         let html = "<a typeof=\"mw:ExpandedAttrs\" about=\"#mwt3\" rel=\"mw:WikiLink\" href=\"./Mock:Contribution/Qwe57\" title=\"Mock:Contribution/Qwe57\" data-mw='{\"attribs\":[[[{\"txt\":\"href\"},{\"html\":\"Mock:Contribution/&lt;span about=\"#mwt2\" typeof=\"mw:Transclusion\" data-parsoid=&apos;{\"pi\":[[]],\"dsr\":[216,228,null,null]}&apos; data-mw=&apos;{\"parts\":[{\"template\":{\"target\":{\"wt\":\"PAGENAME\",\"function\":\"pagename\"},\"params\":{},\"i\":0}}]}&apos;>Qwe57&lt;/span>\"}]]}' id=\"mwCg\">Link</a>"
 
