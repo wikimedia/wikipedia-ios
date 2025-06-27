@@ -15,40 +15,57 @@ public struct WMFRecentlySearchedView: View {
     }
     
     public var body: some View {
-        if viewModel.recentSearchTerms.isEmpty {
-            Text(viewModel.localizedStrings.noSearches)
-                .font(Font(WMFFont.for(.callout)))
-                .foregroundStyle(Color(uiColor: theme.secondaryText))
-                .padding([.top], viewModel.topPadding)
-        } else {
-            HStack {
-                Text(viewModel.localizedStrings.title)
-                    .font(Font(WMFFont.for(.boldHeadline)))
-                    .foregroundStyle(Color(uiColor: theme.text))
-                Spacer()
-                if !viewModel.recentSearchTerms.isEmpty {
-                    Button(viewModel.localizedStrings.clearAll) {
-                        viewModel.clearAll() // update view etc etc, maybe a task
-                    }
-                    .font(Font(WMFFont.for(.subheadline)))
-                    .foregroundStyle(Color(uiColor: theme.link))
+        VStack(spacing: 0) {
+            
+            if viewModel.recentSearchTerms.isEmpty {
+                VStack(alignment: .leading) {
+                    Text(viewModel.localizedStrings.noSearches)
+                        .font(Font(WMFFont.for(.callout)))
+                        .foregroundStyle(Color(uiColor: theme.secondaryText))
+                        .multilineTextAlignment(.leading)
+                        .padding(16)
+                    Spacer()
                 }
-            }
-            .padding()
-
-            List {
-                ForEach(viewModel.recentSearchTerms) { item in
-                    Text(item.text)
-                        .swipeActions {
-                            Button("Delete") {
-                                print("Delete recent search term")
-                            }
+                .frame(maxWidth: .infinity, alignment: .leading)
+            } else {
+                HStack {
+                    Text(viewModel.localizedStrings.title)
+                        .font(Font(WMFFont.for(.boldHeadline)))
+                        .foregroundStyle(Color(uiColor: theme.text))
+                    Spacer()
+                    if !viewModel.recentSearchTerms.isEmpty {
+                        Button(viewModel.localizedStrings.clearAll) {
+                            viewModel.deleteAllAction()
                         }
+                        .font(Font(WMFFont.for(.subheadline)))
+                        .foregroundStyle(Color(uiColor: theme.link))
+                    }
                 }
+                .padding()
+
+                List {
+                    ForEach(Array(viewModel.recentSearchTerms.enumerated()), id: \.element.id) { index, item in
+                        Text(item.text)
+                            .background(Color(theme.paperBackground))
+                            .font(Font(WMFFont.for(.callout)))
+                            .foregroundStyle(Color(uiColor: theme.text))
+                            .swipeActions {
+                                Button {
+                                    viewModel.deleteItemAction(index)
+                                } label: {
+                                    Image(uiImage: WMFSFSymbolIcon.for(symbol: .trash) ?? UIImage())
+                                        .accessibilityLabel(viewModel.localizedStrings.deleteActionAccessibilityLabel)
+                                }
+                                .tint(Color(theme.destructive))
+                                .labelStyle(.iconOnly)
+                            }
+                    }
+                }
+                .listStyle(.plain)
             }
-            .listStyle(.grouped)
-            .padding([.top], viewModel.topPadding)
         }
-        
+        .background(Color(theme.paperBackground))
+        .padding(.top, viewModel.topPadding)
+
     }
 }
