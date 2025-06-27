@@ -47,8 +47,8 @@ public struct WMFRecentlySearchedView: View {
                     ForEach(Array(viewModel.recentSearchTerms.enumerated()), id: \.element.id) { index, item in
                         Text(item.text)
                             .background(Color(theme.paperBackground))
-                            .font(Font(WMFFont.for(.callout)))
-                            .foregroundStyle(Color(uiColor: theme.text))
+                            .font(Font(WMFFont.for(.body)))
+                            .foregroundStyle(Color(uiColor: theme.secondaryText))
                             .swipeActions {
                                 Button {
                                     viewModel.deleteItemAction(index)
