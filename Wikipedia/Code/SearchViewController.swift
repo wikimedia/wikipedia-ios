@@ -612,7 +612,7 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
         )
     }
 
-    private func updateRecentlySearchedVisibility(searchText: String?) {
+    public func updateRecentlySearchedVisibility(searchText: String?) {
         guard let searchText = searchText else {
             resultsViewController.view.isHidden = true
             return

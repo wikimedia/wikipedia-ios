@@ -8,7 +8,7 @@ final class WMFHistoryHostingController: WMFComponentHostingController<WMFHistor
 
 }
 
-@objc public final class WMFHistoryViewControllerNEW: WMFCanvasViewController, Themeable, WMFNavigationBarConfiguring, HintPresenting, MEPEventsProviding {
+@objc public final class WMFHistoryViewController: WMFCanvasViewController, Themeable, WMFNavigationBarConfiguring, HintPresenting, MEPEventsProviding {
 
     // MARK: - Properties
 
@@ -357,13 +357,13 @@ final class WMFHistoryHostingController: WMFComponentHostingController<WMFHistor
 
 // MARK: - Extensions
 
-extension WMFHistoryViewControllerNEW: YearInReviewBadgeDelegate {
+extension WMFHistoryViewController: YearInReviewBadgeDelegate {
     public func updateYIRBadgeVisibility() {
         updateProfileButton()
     }
 }
 
-extension WMFHistoryViewControllerNEW: LogoutCoordinatorDelegate {
+extension WMFHistoryViewController: LogoutCoordinatorDelegate {
     func didTapLogout() {
 
         guard let dataStore else {
@@ -376,5 +376,5 @@ extension WMFHistoryViewControllerNEW: LogoutCoordinatorDelegate {
     }
 }
 
-extension WMFHistoryViewControllerNEW: ShareableArticlesProvider {}
+extension WMFHistoryViewController: ShareableArticlesProvider {}
 

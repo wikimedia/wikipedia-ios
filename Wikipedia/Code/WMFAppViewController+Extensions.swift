@@ -739,7 +739,7 @@ extension WMFAppViewController {
         return WMFAppEnvironment.current.traitCollection != traitCollection
     }
 
-    @objc func generateHistoryTab() -> WMFHistoryViewControllerNEW {
+    @objc func generateHistoryTab() -> WMFHistoryViewController {
 
         // data controller properties
         let recordsProvider: WMFHistoryDataController.RecordsProvider = { [weak self] in
@@ -799,7 +799,7 @@ extension WMFAppViewController {
         let localizedStrings = WMFHistoryViewModel.LocalizedStrings(emptyViewTitle: CommonStrings.emptyNoHistoryTitle, emptyViewSubtitle: CommonStrings.emptyNoHistorySubtitle, todayTitle: todayTitle, yesterdayTitle: yesterdayTitle, readNowActionTitle: CommonStrings.readNowActionTitle, saveForLaterActionTitle: CommonStrings.saveTitle, unsaveActionTitle: CommonStrings.unsaveTitle, shareActionTitle: CommonStrings.shareMenuTitle, deleteSwipeActionLabel: CommonStrings.deleteActionTitle)
         let viewModel = WMFHistoryViewModel(emptyViewImage: UIImage(named: "history-blank"), localizedStrings: localizedStrings, historyDataController: historyDataController)
 
-        let viewController = WMFHistoryViewControllerNEW(viewModel: viewModel, dataController: historyDataController, theme: theme, dataStore: dataStore)
+        let viewController = WMFHistoryViewController(viewModel: viewModel, dataController: historyDataController, theme: theme, dataStore: dataStore)
         return viewController
     }
 

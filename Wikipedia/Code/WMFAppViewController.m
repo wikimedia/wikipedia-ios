@@ -66,7 +66,7 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
 @property (nonatomic, strong, readonly) SearchViewController *searchViewController;
 @property (nonatomic, strong, readonly) WMFSavedViewController *savedViewController;
 @property (nonatomic, strong, readonly) WMFPlacesViewController *placesViewController;
-@property (nonatomic, strong, readonly) WMFHistoryViewControllerNEW *recentArticlesViewController;
+@property (nonatomic, strong, readonly) WMFHistoryViewController *recentArticlesViewController;
 @property (nonatomic, strong, readonly) WMFActivityTabViewController *activityTabViewController;
 
 @property (nonatomic, strong) WMFSplashScreenViewController *splashScreenViewController;
@@ -1503,7 +1503,7 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
     return _savedViewController;
 }
 
-- (WMFHistoryViewControllerNEW *)recentArticlesViewController {
+- (WMFHistoryViewController *)recentArticlesViewController {
     if (!_recentArticlesViewController) {
         _recentArticlesViewController = [self generateHistoryTab];
         _recentArticlesViewController.tabBarItem.image = [UIImage imageNamed:@"tabbar-recent"];
@@ -2149,7 +2149,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
             [[WMFNavigationEventsFunnel shared] logTappedPlaces];
         } else if ([selectedViewController isKindOfClass:[WMFSavedViewController class]]) {
             [[WMFNavigationEventsFunnel shared] logTappedSaved];
-        } else if ([selectedViewController isKindOfClass:[WMFHistoryViewControllerNEW class]]) {
+        } else if ([selectedViewController isKindOfClass:[WMFHistoryViewController class]]) {
             [[WMFNavigationEventsFunnel shared] logTappedHistory];
         } else if ([selectedViewController isKindOfClass:[SearchViewController class]]) {
             [[WMFNavigationEventsFunnel shared] logTappedSearch];
