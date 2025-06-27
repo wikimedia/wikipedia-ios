@@ -173,71 +173,6 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
         }
     }
 
-    private func embedRecentSearches() {
-        addChild(recentSearchesViewController)
-        view.addSubview(recentSearchesViewController.view)
-        recentSearchesViewController.view.translatesAutoresizingMaskIntoConstraints = false
-
-        NSLayoutConstraint.activate([
-            recentSearchesViewController.view.topAnchor.constraint(equalTo: view.topAnchor),
-            recentSearchesViewController.view.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            recentSearchesViewController.view.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            recentSearchesViewController.view.bottomAnchor.constraint(equalTo: view.bottomAnchor)
-        ])
-
-        recentSearchesViewController.didMove(toParent: self)
-    }
-
-
-    private lazy var recentSearchesViewController: UIViewController = {
-        let root = WMFRecentlySearchedView(viewModel: recentSearchesViewModel)
-        let host = UIHostingController(rootView: root)
-        return host
-    }()
-
-    private lazy var deleteAllAction: () -> Void = { [weak self] in
-        guard let self = self else { return }
-
-        Task {
-            self.dataStore?.recentSearchList.removeAllEntries()
-            self.dataStore?.recentSearchList.save()
-            self.reloadRecentSearches()
-        }
-
-    }
-
-    private lazy var deleteItemAction: (Int) -> Void = { [weak self] index in
-        guard
-            let self = self,
-            let entry = self.recentSearches?.entries[index]
-        else {
-            return
-        }
-
-        Task {
-            self.dataStore?.recentSearchList.removeEntry(entry)
-            self.dataStore?.recentSearchList.save()
-            self.reloadRecentSearches()
-        }
-    }
-
-    private lazy var recentSearchesViewModel: WMFRecentlySearchedViewModel = {
-        let localizedStrings = WMFRecentlySearchedViewModel.LocalizedStrings(
-            title: WMFLocalizedString("search-recent-title", value: "Recently searched", comment: "Title for list of recent search terms"),
-            noSearches: WMFLocalizedString("search-recent-empty", value: "No recent searches yet", comment: "String for no recent searches available"),
-            clearAll: CommonStrings.clearTitle,
-            deleteActionAccessibilityLabel: CommonStrings.deleteActionTitle
-        )
-        return WMFRecentlySearchedViewModel(recentSearchTerms: recentSearchTerms, localizedStrings: localizedStrings, deleteAllAction: didPressClearRecentSearches, deleteItemAction: deleteItemAction)
-    }()
-
-    private lazy var recentSearchTerms: [WMFRecentlySearchedViewModel.RecentSearchTerm] = {
-        guard let recent = recentSearches else { return [] }
-        return recent.entries.map {
-            WMFRecentlySearchedViewModel.RecentSearchTerm(text: $0.searchTerm)
-        }
-    }()
-
     private func configureNavigationBar() {
 
         let title = customTitle ?? CommonStrings.searchTitle
@@ -582,29 +517,10 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
         profileCoordinator?.theme = theme
     }
 
-    func updateRecentlySearchedVisibility(searchText: String?) {
-        guard let searchText = searchText else {
-            resultsViewController.view.isHidden = true
-            return
-        }
-
-         resultsViewController.view.isHidden = searchText.isEmpty
-    }
+    // MARK: - Recently Searched
 
     var recentSearches: MWKRecentSearchList? {
         return self.dataStore?.recentSearchList
-    }
-
-    func reloadRecentSearches() {
-        let entries = recentSearches?.entries ?? []
-        let terms = entries.map { entry in
-            WMFRecentlySearchedViewModel.RecentSearchTerm(text: entry.searchTerm)
-        }
-
-        recentSearchesViewModel.recentSearchTerms = terms
-        updateRecentlySearchedVisibility(
-            searchText: navigationItem.searchController?.searchBar.text
-        )
     }
 
     var countOfRecentSearches: Int {
@@ -619,6 +535,92 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
         }))
         self?.present(dialog, animated: true)
     }
+
+    private lazy var recentSearchesViewController: UIViewController = {
+        let root = WMFRecentlySearchedView(viewModel: recentSearchesViewModel)
+        let host = UIHostingController(rootView: root)
+        return host
+    }()
+
+    private lazy var deleteAllAction: () -> Void = { [weak self] in
+        guard let self = self else { return }
+
+        Task {
+            self.dataStore?.recentSearchList.removeAllEntries()
+            self.dataStore?.recentSearchList.save()
+            self.reloadRecentSearches()
+        }
+
+    }
+
+    private lazy var deleteItemAction: (Int) -> Void = { [weak self] index in
+        guard
+            let self = self,
+            let entry = self.recentSearches?.entries[index]
+        else {
+            return
+        }
+
+        Task {
+            self.dataStore?.recentSearchList.removeEntry(entry)
+            self.dataStore?.recentSearchList.save()
+            self.reloadRecentSearches()
+        }
+    }
+
+    private lazy var recentSearchesViewModel: WMFRecentlySearchedViewModel = {
+        let localizedStrings = WMFRecentlySearchedViewModel.LocalizedStrings(
+            title: WMFLocalizedString("search-recent-title", value: "Recently searched", comment: "Title for list of recent search terms"),
+            noSearches: WMFLocalizedString("search-recent-empty", value: "No recent searches yet", comment: "String for no recent searches available"),
+            clearAll: CommonStrings.clearTitle,
+            deleteActionAccessibilityLabel: CommonStrings.deleteActionTitle
+        )
+        return WMFRecentlySearchedViewModel(recentSearchTerms: recentSearchTerms, localizedStrings: localizedStrings, deleteAllAction: didPressClearRecentSearches, deleteItemAction: deleteItemAction)
+    }()
+
+    private lazy var recentSearchTerms: [WMFRecentlySearchedViewModel.RecentSearchTerm] = {
+        guard let recent = recentSearches else { return [] }
+        return recent.entries.map {
+            WMFRecentlySearchedViewModel.RecentSearchTerm(text: $0.searchTerm)
+        }
+    }()
+
+    private func embedRecentSearches() {
+        addChild(recentSearchesViewController)
+        view.addSubview(recentSearchesViewController.view)
+        recentSearchesViewController.view.translatesAutoresizingMaskIntoConstraints = false
+
+        NSLayoutConstraint.activate([
+            recentSearchesViewController.view.topAnchor.constraint(equalTo: view.topAnchor),
+            recentSearchesViewController.view.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            recentSearchesViewController.view.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            recentSearchesViewController.view.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        ])
+
+        recentSearchesViewController.didMove(toParent: self)
+    }
+
+    private func reloadRecentSearches() {
+        let entries = recentSearches?.entries ?? []
+        let terms = entries.map { entry in
+            WMFRecentlySearchedViewModel.RecentSearchTerm(text: entry.searchTerm)
+        }
+
+        recentSearchesViewModel.recentSearchTerms = terms
+        updateRecentlySearchedVisibility(
+            searchText: navigationItem.searchController?.searchBar.text
+        )
+    }
+
+    private func updateRecentlySearchedVisibility(searchText: String?) {
+        guard let searchText = searchText else {
+            resultsViewController.view.isHidden = true
+            return
+        }
+
+         resultsViewController.view.isHidden = searchText.isEmpty
+    }
+
 }
 
 extension SearchViewController: SearchLanguagesBarViewControllerDelegate {
