@@ -426,7 +426,7 @@
 "insert-media-alternative-text-title" = "Text alternativ";
 "insert-media-caption-caption-placeholder" = "Cum se raportează această imagine la articol?";
 "insert-media-caption-description" = "Etichetă care se afișează lângă articol pentru toți cititorii";
-"insert-media-caption-title" = "Descriere";
+"insert-media-caption-title" = "Legendă";
 "insert-media-image-position-setting-center" = "Centru";
 "insert-media-image-position-setting-left" = "Stânga";
 "insert-media-image-position-setting-none" = "Fără";
