@@ -4,6 +4,7 @@ import WMFComponents
 import WMF
 import Combine
 
+
 final class WMFHistoryHostingController: WMFComponentHostingController<WMFHistoryView> {
 
 }
