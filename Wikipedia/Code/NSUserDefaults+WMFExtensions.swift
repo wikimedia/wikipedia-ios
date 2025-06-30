@@ -30,6 +30,7 @@ let WMFUserHasOnboardedToNotificationsCenter = "WMFUserHasOnboardedToNotificatio
 let WMFUserHasOnboardedToContributingToTalkPages = "WMFUserHasOnboardedToContributingToTalkPages"
 let WMFUserHasOnboardedToWatchlists = "WMFUserHasOnboardedToWatchlists"
 let WMFDidShowNotificationsCenterPushOptInPanel = "WMFDidShowNotificationsCenterPushOptInPanel"
+let WMFDidShowSearchWidgetFeatureAnnouncementKey = "WMFDidShowSearchWidgetFeatureAnnouncementKey"
 let WMFSubscribedToEchoNotifications = "WMFSubscribedToEchoNotifications"
 let WMFTappedToImportSharedReadingListSurvey = "WMFTappedToImportSharedReadingListSurvey"
 public let WMFAlwaysDisplayEditNotices = "WMFAlwaysDisplayEditNotices"
@@ -444,6 +445,15 @@ let WMFYiRSettingsToggleShouldShow = "WMFYiRSettingsToggleShouldShow"
         }
         set {
             set(newValue, forKey: WMFDidShowNotificationsCenterPushOptInPanel)
+        }
+    }
+
+    @objc var wmf_didShowSearchWidgetFeatureAnnouncement: Bool {
+        get {
+            return bool(forKey: WMFDidShowSearchWidgetFeatureAnnouncementKey)
+        }
+        set {
+            set(newValue, forKey: WMFDidShowSearchWidgetFeatureAnnouncementKey)
         }
     }
 

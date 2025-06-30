@@ -6380,6 +6380,7 @@
 		67DC5BDB23A00DF500B03A84 /* Article */ = {
 			isa = PBXGroup;
 			children = (
+				04F27B6D18FE0F2E00EDD838 /* PageHistory */,
 				BAA0D91B1F4F165A00091284 /* PageIssuesTableViewController.swift */,
 				830AD2B824D1D615003EEFE6 /* WebPageUserScript.swift */,
 				67DC5BEE23A1427C00B03A84 /* ActionHandlerScript.swift */,
@@ -7463,7 +7464,6 @@
 				6730D8DD2A05BFA40035255B /* Editing */,
 				67033E122A61B23700896852 /* Watchlist */,
 				67DC5BDB23A00DF500B03A84 /* Article */,
-				04F27B6D18FE0F2E00EDD838 /* PageHistory */,
 				6782DB8F2343B691003FA21B /* Diff */,
 				7A1469BB220BBD5D000A20F1 /* Hint */,
 				007CCF0526D5A10700D5EA7C /* Notifications Center */,
