@@ -233,9 +233,7 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
         case WMFSettingsMenuItemType_Notifications:
             [self showNotifications];
             break;
-        case WMFSettingsMenuItemType_YearInReview:
-            [self showYearInReview];
-            break;
+
         case WMFSettingsMenuItemType_Appearance: {
             [self showAppearance];
             break;
@@ -487,13 +485,6 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
     [self.navigationController pushViewController:pushSettingsVC animated:YES];
 }
 
-#pragma mark - Year in Review
-
-- (void)showYearInReview {
-    WMFYearInReviewSettingsViewController *yearInReviewSettingsVC = [[WMFYearInReviewSettingsViewController alloc] initWithDataStore:self.dataStore theme:self.theme];
-    [self.navigationController pushViewController:yearInReviewSettingsVC animated:YES];
-}
-
 #pragma mark - Appearance
 
 - (void)showAppearance {
@@ -590,13 +581,6 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
                              [WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_Search]];
     NSMutableArray *items = [NSMutableArray arrayWithArray:commonItems];
     [items addObject:[WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_ExploreFeed]];
-
-    if ([[WMFYearInReviewDataController dataControllerForObjectiveC] shouldShowYearInReviewSettingsItemWithCountryCode:NSLocale.currentLocale.countryCode primaryAppLanguageCode:self.dataStore.languageLinkController.appLanguage.languageCode]) {
-        [items addObject:[WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_YearInReview]];
-        [[NSUserDefaults standardUserDefaults] wmf_setShowYirSettingToggle:YES];
-    } else {
-        [[NSUserDefaults standardUserDefaults] wmf_setShowYirSettingToggle:NO];
-    }
 
     BOOL primaryWikiHasTempAccounts = [[WMFTempAccountDataController shared] primaryWikiHasTempAccountsEnabled];
     if (_authManager.authStateIsPermanent || (_authManager.authStateIsTemporary && primaryWikiHasTempAccounts)) {
