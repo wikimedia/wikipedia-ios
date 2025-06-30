@@ -42,23 +42,31 @@ public struct WMFRecentlySearchedView: View {
                     }
                 }
                 .padding()
-
                 List {
-                    ForEach(Array(viewModel.recentSearchTerms.enumerated()), id: \.element.id) { index, item in
-                        Text(item.text)
-                            .background(Color(theme.paperBackground))
-                            .font(Font(WMFFont.for(.body)))
-                            .foregroundStyle(Color(uiColor: theme.secondaryText))
-                            .swipeActions {
-                                Button {
-                                    viewModel.deleteItemAction(index)
-                                } label: {
-                                    Image(uiImage: WMFSFSymbolIcon.for(symbol: .trash) ?? UIImage())
-                                        .accessibilityLabel(viewModel.localizedStrings.deleteActionAccessibilityLabel)
-                                }
-                                .tint(Color(theme.destructive))
-                                .labelStyle(.iconOnly)
+                    ForEach(Array(viewModel.recentSearchTerms.enumerated()),
+                            id: \.element.id) { index, item in
+                        HStack {
+                            Text(item.text)
+                                .font(Font(WMFFont.for(.body)))
+                                .foregroundStyle(Color(uiColor: theme.secondaryText))
+                            Spacer()
+                        }
+                        .padding(.vertical, 8)
+                        .background(Color(theme.paperBackground))
+                        .contentShape(Rectangle())
+                        .onTapGesture {
+                            viewModel.selectAction(item)
+                        }
+                        .swipeActions {
+                            Button {
+                                viewModel.deleteItemAction(index)
+                            } label: {
+                                Image(uiImage: WMFSFSymbolIcon.for(symbol: .trash) ?? UIImage())
+                                    .accessibilityLabel(viewModel.localizedStrings.deleteActionAccessibilityLabel)
                             }
+                            .tint(Color(theme.destructive))
+                            .labelStyle(.iconOnly)
+                        }
                     }
                 }
                 .listStyle(.plain)

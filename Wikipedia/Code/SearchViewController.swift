@@ -100,7 +100,7 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
 
     private var presentingSearchResults: Bool = false
 
-    // MARK: - Funcs
+    // MARK: - Lifecycle
 
     @objc required init(source: EventLoggingSource, customArticleCoordinatorNavigationController: UINavigationController? = nil) {
         self.source = source
@@ -172,6 +172,8 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
             self?.calculateTopSafeAreaOverlayHeight()
         }
     }
+
+    // MARK: - Methods
 
     private func configureNavigationBar() {
 
@@ -568,6 +570,19 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
         }
     }
 
+    lazy var selectAction: (WMFRecentlySearchedViewModel.RecentSearchTerm) -> Void = { [weak self] term in
+        guard let self = self else { return }
+
+        if let pop = self.populateSearchBarWithTextAction {
+            pop(term.text)
+        } else {
+            self.navigationItem.searchController?.searchBar.text = term.text
+            self.navigationItem.searchController?.searchBar.becomeFirstResponder()
+        }
+        self.search()
+
+    }
+
     private lazy var recentSearchesViewModel: WMFRecentlySearchedViewModel = {
         let localizedStrings = WMFRecentlySearchedViewModel.LocalizedStrings(
             title: WMFLocalizedString("search-recent-title", value: "Recently searched", comment: "Title for list of recent search terms"),
@@ -575,7 +590,7 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
             clearAll: CommonStrings.clearTitle,
             deleteActionAccessibilityLabel: CommonStrings.deleteActionTitle
         )
-        return WMFRecentlySearchedViewModel(recentSearchTerms: recentSearchTerms, localizedStrings: localizedStrings, deleteAllAction: didPressClearRecentSearches, deleteItemAction: deleteItemAction)
+        return WMFRecentlySearchedViewModel(recentSearchTerms: recentSearchTerms, localizedStrings: localizedStrings, deleteAllAction: didPressClearRecentSearches, deleteItemAction: deleteItemAction, selectAction: selectAction)
     }()
 
     private lazy var recentSearchTerms: [WMFRecentlySearchedViewModel.RecentSearchTerm] = {

@@ -17,8 +17,7 @@ public final class WMFRecentlySearchedViewModel: ObservableObject {
     }
 
     public struct RecentSearchTerm: Identifiable {
-        let text: String
-
+        public let text: String
 
         public init(text: String) {
             self.text = text
@@ -34,12 +33,14 @@ public final class WMFRecentlySearchedViewModel: ObservableObject {
     @Published public var topPadding: CGFloat = 0
     let deleteAllAction: () -> Void
     let deleteItemAction: (Int) -> Void
+    let selectAction: (RecentSearchTerm) -> Void
 
-    public init(recentSearchTerms: [RecentSearchTerm], localizedStrings: LocalizedStrings, deleteAllAction: @escaping () -> Void, deleteItemAction: @escaping (Int) -> Void) {
+    public init(recentSearchTerms: [RecentSearchTerm], localizedStrings: LocalizedStrings, deleteAllAction: @escaping () -> Void, deleteItemAction: @escaping (Int) -> Void, selectAction: @escaping (RecentSearchTerm) -> Void) {
         self.recentSearchTerms = recentSearchTerms
         self.localizedStrings = localizedStrings
         self.deleteAllAction = deleteAllAction
         self.deleteItemAction = deleteItemAction
+        self.selectAction = selectAction
     }
 
 }
