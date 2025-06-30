@@ -18,29 +18,29 @@ class SearchResultsViewController: ArticleCollectionViewController {
         reload()
         NotificationCenter.default.addObserver(self, selector: #selector(updateArticleCell(_:)), name: NSNotification.Name.WMFArticleUpdated, object: nil)
     }
-    
+
     func reload() {
         collectionView.reloadData()
         updateEmptyState()
     }
-    
+
     var searchSiteURL: URL? = nil
-    
+
     func isDisplaying(resultsFor searchTerm: String, from siteURL: URL) -> Bool {
         guard let searchResults = resultsInfo, let searchSiteURL = searchSiteURL else {
             return false
         }
         return !results.isEmpty && (searchSiteURL as NSURL).wmf_isEqual(toIgnoringScheme: siteURL) && searchResults.searchTerm == searchTerm
     }
-    
+
     override var eventLoggingCategory: EventCategoryMEP {
         return .search
     }
-    
+
     override func articleURL(at indexPath: IndexPath) -> URL? {
         return results[indexPath.item].articleURL(forSiteURL: searchSiteURL)
     }
-    
+
     override func article(at indexPath: IndexPath) -> WMFArticle? {
         guard let articleURL = articleURL(at: indexPath) else {
             return nil
@@ -50,7 +50,7 @@ class SearchResultsViewController: ArticleCollectionViewController {
         article?.update(with: result)
         return article
     }
-    
+
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return results.count
     }
@@ -60,7 +60,7 @@ class SearchResultsViewController: ArticleCollectionViewController {
             collectionView.deselectItem(at: indexPath, animated: true)
             return
         }
-        
+
         tappedSearchResultAction?(articleURL, indexPath)
     }
 
@@ -69,24 +69,24 @@ class SearchResultsViewController: ArticleCollectionViewController {
             return result.displayTitle == mapping.redirectToTitle
         }).first
     }
-    
+
     func descriptionForSearchResult(_ result: MWKSearchResult) -> String? {
         let capitalizedWikidataDescription = (result.wikidataDescription as NSString?)?.wmf_stringByCapitalizingFirstCharacter(usingWikipediaLanguageCode: searchSiteURL?.wmf_languageCode)
         let mapping = redirectMappingForSearchResult(result)
         guard let redirectFromTitle = mapping?.redirectFromTitle else {
             return capitalizedWikidataDescription
         }
-        
+
         let redirectFormat = WMFLocalizedString("search-result-redirected-from", value: "Redirected from: %1$@", comment: "Text for search result letting user know if a result is a redirect from another article. Parameters: * %1$@ - article title the current search result redirected from")
         let redirectMessage = String.localizedStringWithFormat(redirectFormat, redirectFromTitle)
-        
+
         guard let description = capitalizedWikidataDescription else {
             return redirectMessage
         }
-        
+
         return String.localizedStringWithFormat("%@\n%@", redirectMessage, description)
     }
-    
+
     override func configure(cell: ArticleRightAlignedImageCollectionViewCell, forItemAt indexPath: IndexPath, layoutOnly: Bool) {
         configure(cell: cell, forItemAt: indexPath, layoutOnly: layoutOnly, configureForCompact: true)
     }
@@ -100,11 +100,11 @@ class SearchResultsViewController: ArticleCollectionViewController {
               let contentLanguageCode = searchSiteURL?.wmf_contentLanguageCode else {
             return
         }
-        
+
         if configureForCompact {
             cell.configureForCompactList(at: indexPath.item)
         }
-        
+
         cell.setTitleHTML(result.displayTitleHTML, boldedString: resultsInfo?.searchTerm)
         cell.articleSemanticContentAttribute = MWKLanguageLinkController.semanticContentAttribute(forContentLanguageCode: contentLanguageCode)
         cell.titleLabel.accessibilityLanguage = languageCode
@@ -118,7 +118,7 @@ class SearchResultsViewController: ArticleCollectionViewController {
         }
         cell.apply(theme: theme)
     }
-    
+
     override func apply(theme: Theme) {
         super.apply(theme: theme)
         guard viewIfLoaded != nil else {
@@ -143,7 +143,7 @@ class SearchResultsViewController: ArticleCollectionViewController {
             configure(cell: cell, forItemAt: indexPath, layoutOnly: false, configureForCompact: false)
         }
     }
-    
+
     override func collectionView(_ collectionView: UICollectionView, willPerformPreviewActionForMenuWith configuration: UIContextMenuConfiguration, animator: UIContextMenuInteractionCommitAnimating) {
 
         guard let peekVC = animator.previewViewController as? ArticlePeekPreviewViewController else {
@@ -151,18 +151,18 @@ class SearchResultsViewController: ArticleCollectionViewController {
             return
         }
         animator.addCompletion { [weak self] in
-            
+
             guard let self else { return }
-            
+
             self.longPressSearchResultAndCommitAction?(peekVC.articleURL)
         }
     }
-    
+
     override func readMoreArticlePreviewActionSelected(with peekController: ArticlePeekPreviewViewController) {
-        
+
         longPressSearchResultAndCommitAction?(peekController.articleURL)
     }
-    
+
     override func openInNewTabArticlePreviewActionSelected(with peekController: ArticlePeekPreviewViewController) {
         longPressOpenInNewTabAction?(peekController.articleURL)
     }
