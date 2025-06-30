@@ -19,12 +19,17 @@ final class WMFHistoryDataControllerTests: XCTestCase {
         savedItemID = nil
         unsavedItemID = nil
 
-        dataController = WMFHistoryDataController(
-            recordsProvider: { [weak self] in self?.records ?? [] },
-            deleteRecordAction: { [weak self] item in self?.deletedItemID = item.id },
-            saveArticleAction: { [weak self] item in self?.savedItemID = item.id },
-            unsaveArticleAction: { [weak self] item in self?.unsavedItemID = item.id }
-        )
+        dataController = WMFHistoryDataController(recordsProvider: { [weak self] in self?.records ?? [] })
+
+        dataController.deleteRecordAction = { [weak self] item in
+            self?.deletedItemID = item.id
+        }
+        dataController.saveRecordAction = { [weak self] item in
+            self?.savedItemID = item.id
+        }
+        dataController.unsaveRecordAction = { [weak self] item in
+            self?.unsavedItemID = item.id
+        }
     }
 
     override func tearDown() {
@@ -106,6 +111,7 @@ final class WMFHistoryDataControllerTests: XCTestCase {
             snippet: nil,
             variant: nil
         )
+        
 
         dataController.deleteHistoryItem(dummyHistoryItem)
         XCTAssertEqual(deletedItemID, dummyHistoryItem.id, "The deleteRecordAction closure should be called with the correct item ID.")
