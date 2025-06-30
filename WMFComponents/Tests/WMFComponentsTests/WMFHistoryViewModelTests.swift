@@ -40,7 +40,6 @@ final class WMFHistoryViewModelTests: XCTestCase {
     var cancellables = Set<AnyCancellable>()
 
     lazy var localizedStrings = WMFHistoryViewModel.LocalizedStrings(
-        title: "History",
         emptyViewTitle: "No History to show",
         emptyViewSubtitle: "No articles viewed.",
         todayTitle: "Today",
@@ -57,9 +56,7 @@ final class WMFHistoryViewModelTests: XCTestCase {
             emptyViewImage: nil,
             localizedStrings: localizedStrings,
             historyDataController: controller,
-            topPadding: 0,
-            onTapRecord: { _ in },
-            shareRecordAction: { _, _ in }
+            topPadding: 0
         )
     }
 
@@ -249,12 +246,12 @@ final class WMFHistoryViewModelTests: XCTestCase {
             emptyViewImage: nil,
             localizedStrings: localizedStrings,
             historyDataController: fakeController,
-            topPadding: 0,
-            onTapRecord: { item in
-                tappedItem = item
-            },
-            shareRecordAction: { _, _ in }
+            topPadding: 0
         )
+
+        viewModel.onTapArticle = { item in
+            tappedItem = item
+        }
 
         let loadExpectation = XCTestExpectation(description: "Wait for history to load")
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
