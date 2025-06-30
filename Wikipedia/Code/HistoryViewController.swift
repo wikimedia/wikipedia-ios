@@ -173,7 +173,7 @@ final class WMFHistoryHostingController: WMFComponentHostingController<WMFHistor
     public override func viewDidLoad() {
         super.viewDidLoad()
 
-        addComponent(hostingController, pinToEdges: true)
+        addComponent(hostingController, pinToEdges: true, respectSafeArea: true)
 
         viewModel.$isEmpty
             .receive(on: RunLoop.main)
@@ -247,8 +247,15 @@ final class WMFHistoryHostingController: WMFComponentHostingController<WMFHistor
     func share(item: HistoryItem, frame: CGRect?) {
         if let dataStore, let url = item.url {
             let article = dataStore.fetchArticle(with: url)
-            let dummyView = UIView(frame: frame ?? CGRect.zero)
-            _ = share(article: article, articleURL: url, dataStore: dataStore, theme: theme, eventLoggingCategory: eventLoggingCategory, eventLoggingLabel: eventLoggingLabel, sourceView: dummyView)
+            if let frame {
+                let convertedRect = hostingController.view.convert(frame, to: view)
+                let dummyView = UIView(frame: convertedRect)
+                dummyView.translatesAutoresizingMaskIntoConstraints = true
+                view.addSubview(dummyView)
+                _ = share(article: article, articleURL: url, dataStore: dataStore, theme: theme, eventLoggingCategory: eventLoggingCategory, eventLoggingLabel: eventLoggingLabel, sourceView: dummyView)
+            } else {
+                _ = share(article: article, articleURL: url, dataStore: dataStore, theme: theme, eventLoggingCategory: eventLoggingCategory, eventLoggingLabel: eventLoggingLabel, sourceView: UIView(frame: .zero))
+            }
         }
     }
 

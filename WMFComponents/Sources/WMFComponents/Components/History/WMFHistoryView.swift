@@ -142,6 +142,7 @@ public struct WMFHistoryView: View {
         .padding(.top, viewModel.topPadding)
         .scrollContentBackground(.hidden)
         .background(Color(theme.paperBackground))
+        .ignoresSafeArea(edges: .top)
         .id(refreshId)
         .onAppear {
             refreshId = UUID()
