@@ -5,6 +5,7 @@
 // Author: Gorbi
 // Author: Jhertel
 // Author: Joedalton
+// Author: JorgeElias2302
 // Author: Macofe
 // Author: Mads Haupt
 // Author: McDutchie
@@ -90,7 +91,27 @@
 "activity-tab-add-images-subtitle" = "Tilføj foreslåede billeder til Wikipedia-artikler for at forbedre forståelsen.";
 "activity-tab-add-images-title" = "Tilføj billeder";
 "activity-tab-additional-thoughts" = "Yderligere tanker?";
+"activity-tab-generic-no-edits" = "Du har ikke redigeret i denne uge. Start nu med at spore dine bidrag.";
+"activity-tab-greeting" = "$1Hej $2$3 👋 Her er din ugentlige Wikipedia-oversigt.";
+"activity-tab-logged-out-subtitle" = "Spor, hvad du har læst, og se dine bidrag over tid på en ny måde";
+"activity-tab-logged-out-title" = "Log ind eller opret en konto for at se mere redigerings- og læseaktivitet.";
+"activity-tab-neutral" = "Neutral";
+"activity-tab-no-edits-title" = "Du har ikke redigeret i denne uge. Tilføj billeder for at forbedre forståelsen af ​​artiklen.";
+"activity-tab-read-title" = "Se læsehistorik";
+"activity-tab-satisfied" = "Tilfreds";
+"activity-tab-start-editing" = "Begynd at redigere";
+"activity-tab-survey" = "Er du tilfreds med din \"Aktivitets\"-skærm? Hvad vil du ellers gerne se her i fremtiden?";
+"activity-tab-survey-title" = "Tilfredshedsundersøgelse";
 "activity-tab-title" = "Aktivitet";
+"activity-tab-unsatisfied" = "Utilfreds";
+"activity-tab-very-satisfied" = "Meget tilfreds";
+"activity-tab-very-unsatisfied" = "Meget utilfreds";
+"activity-tab-view-editing-history" = "Se redigeringshistorik";
+"activity-tab-view-reading-history" = "Se læsehistorik";
+"activity-tab-view-saved-articles" = "Se gemte artikler";
+"activity-tab-you-edited" = "Du redigerede {{PLURAL:$1|$1 gang|$1 gange}} i denne uge.";
+"activity-tab-you-read" = "Du læste {{PLURAL:$1|$1 artikel|$1 artikler}} i denne uge.";
+"activity-tab-you-saved" = "Du gemte {{PLURAL:$1|$1 artikel|$1 artikler}} i denne uge.";
 "add-articles-to-reading-list" = "Tilføj {{PLURAL:$1|$1 artikel|$1 artikler}} til læselisten";
 "advanced-settings-title" = "Avancerede indstillinger";
 "alert-temporary-account" = "Du bruger en midlertidig konto. Kontoen udløber efter 90 dage.";
@@ -122,6 +143,12 @@
 "article-revision-history" = "Artiklens redigeringshistorik";
 "article-save-error-not-enough-space" = "Du har ikke nok plads ledig på din enhed for at lagre denne artikel";
 "article-share" = "Del";
+"article-tabs-max-reached" = "Fanegrænsen er nået ($1). Artiklen blev åbnet i den aktuelle fane. Luk venligst en eller flere faner.";
+"article-tabs-navigation" = "Fanebladsnavigation";
+"article-tabs-onboarding-tooltip" = "Værktøjstips til onboarding af faner";
+"article-tabs-open" = "Åben";
+"article-tabs-open-background-tab" = "Åbn i baggrundsfanen";
+"article-tabs-open-new-tab" = "Åbn i ny fane";
 "article-talk-page" = "Artiklens diskussionsside";
 "article-toolbar-reading-themes-controls-toolbar-item" = "Styring af læsetemaer";
 "article-view-controller-editing-temp-account-created-subtitle" = "Midlertidig konto $1 blev oprettet, efter din redigering blev offentliggjort. Den udløber om 90 dage.";
@@ -145,7 +172,14 @@
 "clear-title-accessibility-label" = "Ryd";
 "clearing-cache-complete" = "Rydning af cache fuldført.";
 "clearing-cache-in-progress" = "Rydning af cache i gang.";
+"close-all-tabs" = "Luk alle faner";
+"close-all-tabs-confirmation" = "Vil du lukke alle $1 faner? Denne handling kan ikke fortrydes.";
+"close-all-tabs-confirmation-number" = "Luk alle $1 faner?";
 "close-button-accessibility-label" = "Luk";
+"close-other-tabs" = "Luk andre faner";
+"close-tab-confirmation" = "Luk fane?";
+"close-tabs" = "Luk faner";
+"closed-all-tabs-confirmation" = "Lukkede alle $1-faner.";
 "compass-direction" = "mod klokken $1";
 "confirm-donation-history-deletion-subtitle" = "Dette gælder kun for donationer fra denne enhed.";
 "confirm-donation-history-deletion-title" = "Bekræft sletning";
@@ -193,7 +227,12 @@
 "description-welcome-descriptions-title" = "Artikelbeskrivelser";
 "description-welcome-promise-title" = "Begynder du at redigere, så lover du samtidig ikke at misbruge denne funktion";
 "description-welcome-start-editing-button" = "Start med at redigere";
+"developer-force-email-auth" = "Tving e-mailgodkendelse";
 "developer-settings" = "Indstillinger for Udvikler";
+"developer-settings-activity-tab-group-A" = "Indstil aktivitetsfanen til gruppe A";
+"developer-settings-activity-tab-group-B" = "Indstil aktivitetsfanen til gruppe B";
+"developer-settings-activity-tab-group-C" = "Indstil aktivitetsfanen til gruppe C";
+"developer-settings-activity-tabs" = "Aktivér aktivitetsfaner";
 "developer-settings-bypass-donation" = "Bypass Donation";
 "developer-settings-enable-year-in-review" = "Aktiver År i gennemgang";
 "developer-settings-send-analytics-to-wmflabs" = "Send analyser til wmflabs.";
@@ -280,6 +319,7 @@
 "donate-transaction-fee-opt-in-text" = "Jeg vil gerne tilføje $1 for at dække transaktionsgebyrerne, så I kan beholde 100 %% af min donation.";
 "donate-wikimedia-fine-print-1" = "Vi sælger eller bytter ikke dine oplysninger til nogen. Ved at donere accepterer du at dele dine personlige oplysninger med Wikimedia Foundation, den nonprofitorganisation, der er vært for Wikipedia og andre Wikimedia-projekter, og dens tjenesteudbydere i henhold til vores [donorpolitik]($1). Wikimedia Foundation og dets tjenesteudbydere er placeret i USA og i andre lande, hvis privatlivslovgivning muligvis ikke svarer til din egen. For mere information, læs venligst vores [donorpolitik]($1).";
 "donate-wikimedia-fine-print-2" = "For tilbagevendende donorer vil faste månedlige betalinger blive debiteret af Wikimedia Foundation på månedsdagen for den første donation, indtil du giver os besked om at afbryde dem. Donationer påbegyndt den 29., 30. eller 31. i måneden vil gentage sig på den sidste dag i måneden i kortere måneder, så tæt på den oprindelige dato som muligt. For spørgsmål, kontakt venligst donate@wikimedia.org.";
+"duplicate-tab" = "Dupliker fane";
 "edit-link-display-text-title" = "Vis tekst";
 "edit-link-link-target-title" = "Linkmål";
 "edit-link-remove-link-title" = "Fjern link";
@@ -414,8 +454,10 @@
 "explore-feed-language-settings" = "Udforsk indstillinger for feedsprog";
 "explore-feed-preferences-additional-languages-footer-text" = "Yderligere sprog kan tilføjes på indstillingssiden 'Mine sprog'.";
 "explore-feed-preferences-card-hidden-title" = "Kort skjult";
+"explore-feed-preferences-continue-reading-description" = "Hurtigt link tilbage til læsning af en åben artikel";
 "explore-feed-preferences-customize-explore-feed" = "Tilpas Udforsk-feed";
 "explore-feed-preferences-customize-explore-feed-action-title" = "Tilpas Udforsk-feed";
+"explore-feed-preferences-customize-explore-feed-footer-text" = "Hvis du skjuler en korttype, vises den ikke længere i Udforsk-feedet.";
 "explore-feed-preferences-explore-tab" = "Fanen Udforsk";
 "explore-feed-preferences-featured-article-description" = "Daglig fremhævet artikel på Wikipedia";
 "explore-feed-preferences-feed-card-visibility-all-languages-off" = "Fra";
@@ -439,11 +481,17 @@
 "explore-feed-preferences-show-continue-reading-title" = "Vis Fortsæt læsning-kort";
 "explore-feed-preferences-show-featured-article-footer-text" = "Hvis du deaktiverer kortet Udvalgte artikler, deaktiveres kortet på alle tilgængelige sprog.";
 "explore-feed-preferences-show-featured-article-title" = "Vis kort med Udvalgt artikel";
+"explore-feed-preferences-show-news-footer-text" = "Hvis du slår \"I nyhederne\"-kortet fra, slås kortet fra på alle tilgængelige sprog.";
+"explore-feed-preferences-show-news-title" = "Vis kortet 'I nyhederne'";
+"explore-feed-preferences-show-on-this-day-footer-text" = "Hvis du slår \"På denne dag\"-kortet fra, slås kortet fra på alle tilgængelige sprog.";
 "explore-feed-preferences-show-on-this-day-title" = "Vis På denne dag kort";
 "explore-feed-preferences-show-picture-of-the-day-title" = "Vis Dagens Billede kort";
+"explore-feed-preferences-show-places-footer-text" = "Hvis du slår Steder-kortet fra, slås kortet fra på alle tilgængelige sprog.";
 "explore-feed-preferences-show-places-title" = "Vis Steder kort";
+"explore-feed-preferences-show-randomizer-footer-text" = "Hvis du slår Randomizer-kortet fra, slås kortet fra på alle tilgængelige sprog.";
 "explore-feed-preferences-show-randomizer-title" = "Vis Tilfældigt kort";
 "explore-feed-preferences-show-related-pages-title" = "Vis Fordi du læste kortet";
+"explore-feed-preferences-show-top-read-footer-text" = "Hvis du slår Top Read-kortet fra, slås kortet fra på alle tilgængelige sprog.";
 "explore-feed-preferences-show-top-read-title" = "Vis Mest læst kort";
 "explore-feed-preferences-suggested-edits-description" = "Forslag om at tilføje indhold til Wikipedia";
 "explore-feed-preferences-top-read-description" = "Dagligt mest læste artikler";
