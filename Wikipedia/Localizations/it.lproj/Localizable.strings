@@ -126,6 +126,7 @@
 "action-update" = "Aggiorna";
 "activity-tab-add-images-subtitle" = "Aggiungi immagini suggerite alle voci di Wikipedia per migliorarne la comprensione.";
 "activity-tab-add-images-title" = "Aggiungi immagini";
+"activity-tab-additional-thoughts" = "Qualcosa da aggiungere?";
 "activity-tab-generic-no-edits" = "Non hai fatto alcuna modifica questa settimana. Inizia subito a monitorare i tuoi contributi.";
 "activity-tab-logged-out-title" = "Accedi o crea un account per vedere ulteriori attività di modifica e lettura.";
 "activity-tab-no-edits-title" = "Non hai fatto alcuna modifica questa settimana. Aggiungi immagini per migliorare la comprensione della voce.";
@@ -170,6 +171,8 @@
 "article-revision-history" = "Cronologia versioni voce";
 "article-save-error-not-enough-space" = "Memoria insufficiente per salvare questo articolo sul dispositivo";
 "article-share" = "Condividi";
+"article-tabs-open" = "Apri";
+"article-tabs-open-background-tab" = "Apri nella scheda in background";
 "article-tabs-open-new-tab" = "Apri in una nuova scheda";
 "article-talk-page" = "Pagina di discussione della voce";
 "article-view-controller-editing-temp-account-created-subtitle" = "L'account temporaneo $1 è stato creato dopo la pubblicazione della tua modifica. Scadrà tra 90 giorni.";
@@ -189,10 +192,18 @@
 "cancel" = "Annulla";
 "cc-zero" = "Creative Commons CC0";
 "chinese-variants-alert-body" = "L'app di Wikipedia ora supporta le seguenti varianti cinesi come lingua primaria o secondario all'interno dell'applicazione, semplificando la lettura, la ricerca e la modifica nelle diverse varianti:\n\n简体 Cinese semplificato (zh-hans)\n香港繁體 Tradizionale di Hong Kong (zh-hk)\n澳門繁體 Tradizionale di Macao (zh-mo)\n大马简体 Malesia semplificato (zh-my)\n新加坡简体 Singapore semplificato (zh-sg)\n臺灣正體 Taiwanese tradizionale (zh-tw)";
+"chinese-variants-alert-title" = "Aggiorna al supporto della variante cinese";
 "clear-title-accessibility-label" = "Pulisci";
 "clearing-cache-complete" = "Cancellazione della cache completata.";
 "clearing-cache-in-progress" = "Cancellazione della cache in corso.";
+"close-all-tabs" = "Chiudi tutte le schede";
+"close-all-tabs-confirmation" = "Vuoi chiudere tutte le schede $1? Questa azione non può essere annullata.";
+"close-all-tabs-confirmation-number" = "Chiudere tutte le $1 schede?";
 "close-button-accessibility-label" = "Chiudi";
+"close-other-tabs" = "Chiudi altre schede";
+"close-tab-confirmation" = "Chiudi scheda";
+"close-tabs" = "Chiudi scheda";
+"closed-all-tabs-confirmation" = "Chiuse tutte le $1 schede.";
 "compass-direction" = "alle ore $1";
 "confirm-donation-history-deletion-subtitle" = "Questo si applicherà solo alle donazioni effettuate tramite questo dispositivo.";
 "confirm-donation-history-deletion-title" = "Conferma cancellazione";
@@ -201,6 +212,7 @@
 "continue-reading-empty-description" = "Esplorare Wikipedia per altre voci da leggere";
 "continue-reading-empty-title" = "Nessuna voce letta recentemente";
 "crimean-tatar-variants-alert-body" = "L'app di Wikipedia ora supporta le seguenti varianti del tataro di Crimea come lingua principale o secondaria all'interno dell'applicazione, rendendo più semplice la lettura, la ricerca e la modifica nelle varianti preferite:\n\nQırımtatarca, latino tataro di Crimea latino (chr-latn)\nкъырымтатарджа, Кирил tataro di Crimea cirillico (crh-cyrl)";
+"crimean-tatar-variants-alert-title" = "Aggiorna al supporto della variante Tatara della Crimea";
 "data-migration-status" = "Aggiornamento...";
 "description-add-title" = "Aggiungi descrizione";
 "description-edit-for-article" = "Descrizione della voce per $1";
@@ -361,8 +373,11 @@
 "empty-no-feed-message" = "Puoi vedere le tue voci consigliate quando si dispone di internet";
 "empty-no-history-message" = "Tieni traccia di quello che hai letto qui";
 "empty-no-history-title" = "Nessuna cronologia da mostrare";
+"empty-no-other-article-languages-message" = "Questa voce non è stata ancora scritta in altre lingue";
 "empty-no-other-article-languages-title" = "Nessun'altra lingua disponibile";
+"empty-no-reading-lists-message" = "Crea elenchi per luoghi in cui viaggiare, argomenti preferiti e molto altro ancora";
 "empty-no-reading-lists-title" = "Organizza le voci salvate in elenchi di lettura";
+"empty-no-saved-pages-in-reading-list-message" = "Salva le pagine in questo elenco per vederle apparire qui";
 "empty-no-saved-pages-in-reading-list-title" = "Nessuna pagina salvata in questo elenco";
 "empty-no-saved-pages-message" = "Salva le pagine per vederle in seguito, anche non connesso";
 "empty-no-saved-pages-title" = "Nessuna pagina salvata ancora";
@@ -372,6 +387,7 @@
 "error-unknown" = "Si è verificato un errore sconosciuto";
 "explore-another-random" = "Un'altra voce a caso";
 "explore-because-you-read" = "Perché hai letto";
+"explore-because-you-read-footer" = "Altre voci correlate";
 "explore-continue-reading-heading" = "Continua a leggere";
 "explore-featured-article-heading" = "Voce in vetrina";
 "explore-featured-article-sub-heading-from-language-wikipedia" = "Da Wikipedia in $1";
