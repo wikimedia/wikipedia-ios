@@ -1142,10 +1142,11 @@ extension ExploreViewController {
         let body = CommonStrings.searchWidgetAnnouncementBody
         let primaryButtonTitle = CommonStrings.gotItButtonTitle
         
-        let backgroundImage = UIImage(named: "widgetgroup")
+        let foregroundImage = UIImage(named: "widget")
+        let backgroundImage = UIImage(named: "gradient")
         
         let viewModel = WMFFeatureAnnouncementViewModel(title: title,body: body,
- primaryButtonTitle: primaryButtonTitle, image: nil, backgroundImage: backgroundImage,
+        primaryButtonTitle: primaryButtonTitle, image: foregroundImage, backgroundImage: backgroundImage, backgroundImageHeight: 250,
             gifName: nil, altText: CommonStrings.searchWidgetAnnouncementBody,
             primaryButtonAction: { [weak self] in
                 self?.dismiss(animated: true)
@@ -1155,11 +1156,7 @@ extension ExploreViewController {
             }
         )
         
-         if let searchBarButtonItem = navigationItem.leftBarButtonItem {
-            announceFeature(viewModel: viewModel, sourceView: nil, sourceRect: nil, barButtonItem: searchBarButtonItem)
-            // Mark as seen after successful presentation
-            markSearchWidgetAnnouncementAsSeen()
-        } else if let profileBarButtonItem = navigationItem.rightBarButtonItem {
+        if let profileBarButtonItem = navigationItem.rightBarButtonItem {
             announceFeature(viewModel: viewModel, sourceView: nil, sourceRect: nil, barButtonItem: profileBarButtonItem)
             // Mark as seen after successful presentation
             markSearchWidgetAnnouncementAsSeen()

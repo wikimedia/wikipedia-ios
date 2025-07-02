@@ -70,8 +70,8 @@ struct WMFFeatureAnnouncementView: View {
                                     Image(uiImage: backgroundImage)
                                         .resizable()
                                         .aspectRatio(contentMode: .fill)
-                                        .frame(height: 140)
-                                        .frame(maxWidth: geometry.size.width - 64)
+                                        .frame(height: viewModel.backgroundImageHeight)
+                                        .frame(maxWidth: max(geometry.size.width - 64, 100))
                                         .cornerRadius(8)
                                         .clipped()
                                 }
@@ -81,16 +81,7 @@ struct WMFFeatureAnnouncementView: View {
                                     .frame(width: 132, height: 118)
                                     .foregroundColor(imageColor)
                             }
-                            .frame(maxWidth: geometry.size.width - 64)
-                        } else if let backgroundImage = viewModel.backgroundImage {
-                            // Show background image even when there's no foreground image
-                            Image(uiImage: backgroundImage)
-                                .resizable()
-                                .aspectRatio(contentMode: .fill)
-                                .frame(height: 250)
-                                .frame(maxWidth: geometry.size.width - 64)
-                                .cornerRadius(8)
-                                .clipped()
+                            .frame(maxWidth: max(geometry.size.width - 64, 100))
                         }
 
                         WMFLargeButton(configuration: .primary, title: viewModel.primaryButtonTitle, action: viewModel.primaryButtonAction)
