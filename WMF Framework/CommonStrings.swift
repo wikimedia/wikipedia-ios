@@ -735,16 +735,6 @@ public class CommonStrings: NSObject {
     
     public static let onboardingTooltipsForTabs = WMFLocalizedString("article-tabs-onboarding-tooltip", value: "Onboarding tooltips for tabs", comment: "Tooltip title for tabs onboarding.")
     public static let tabsNavigation = WMFLocalizedString("article-tabs-navigation", value: "Tabs navigation", comment: "Title for navigation in article tabs")
-    
-    public static func tabsNavbarTitleFormat(count: Int? = 0) -> String {
-        let format = WMFLocalizedString("tabs-navbar-title-format", value: "{{PLURAL:%1$d|%1$d tab|%1$d tabs}}", comment: "Format string for number of tabs open, pluralized depending on count. $1 is the amount of tabs.")
-        return String.localizedStringWithFormat(format, count ?? 0)
-    }
-
-    public static func addArticlesToReadingList(count: Int? = 0) -> String {
-        let format = WMFLocalizedString("add-articles-to-reading-list", value: "Add {{PLURAL:%1$d|%1$d article|%1$d articles}} to reading list", comment: "Button label to add multiple articles to the reading list, pluralized based on article count. $1 is the amount of articles.")
-        return String.localizedStringWithFormat(format, count ?? 0)
-    }
 
     public static func closeAllTabsConfirmation(count: Int? = 0) -> String {
         let format = WMFLocalizedString("close-all-tabs-confirmation", value: "Do you want to close all %1$@ tabs? This action can’t be undone.", comment: "Confirmation message for closing a variable number of tabs. $1 is the amount of tabs currently open.")
