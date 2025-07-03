@@ -281,7 +281,7 @@
 "diff-compare-header-heading" = "مقارنة المراجعات";
 "diff-compare-header-to-info-heading" = "عرض تحرير";
 "diff-compare-title" = "مقارنة المراجعات";
-"diff-content-added" = "تمت إضافة المحتوى، $1";
+"diff-content-added" = "محتوًى مضاف، $1";
 "diff-content-removed" = "تمت إزالة المحتوى، $1";
 "diff-context-cell-collapse-section" = "انهيار $1";
 "diff-context-cell-expand-section" = "توسيع $1";
