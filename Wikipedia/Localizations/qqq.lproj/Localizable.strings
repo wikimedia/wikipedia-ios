@@ -92,7 +92,7 @@
 "activity-tab-you-edited" = "Displays how many articles the user edited in the past week, $1 is the amount, returning the pluralized version of article depending.";
 "activity-tab-you-read" = "Displays how many articles the user read in the past week, $1 is the amount, returning the pluralized version of article depending.";
 "activity-tab-you-saved" = "Displays how many articles the user saved in the past week, $1 is the amount, returning the pluralized version of article depending.";
-"add-articles-to-reading-list" = "Button label to add multiple articles to the reading list, pluralized based on article count. $1 is the amount of articles.";
+"add-articles-to-reading-list" = "Title for the view in charge of adding articles to a reading list - $1 is replaced with the number of articles to add";
 "advanced-settings-title" = "Title for advanced settings screen";
 "alert-temporary-account" = "Alert message informing user that they are using a temporary account";
 "alert-temporary-account-learn-more" = "Button on alert for temporary accounts to learn more.";
