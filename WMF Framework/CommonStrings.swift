@@ -762,6 +762,12 @@ public class CommonStrings: NSObject {
     public static let savedAllTabsViewReadingList = WMFLocalizedString("saved-all-tabs-view-reading-list", value: "Saved all tabs. View reading list.", comment: "Message indicating all tabs were saved with option to view reading list.")
     public static let mainPage = WMFLocalizedString("main-page", value: "Main page", comment: "Title for the Wikipedia main page.")
 
+    // Search Widget Feature Announcement
+
+    @objc public static let searchWidgetAnnouncementTitle = WMFLocalizedString("search-widget-announcement-title", value: "New Search widget available", comment: "Title for the search widget feature announcement")
+    
+    @objc public static let searchWidgetAnnouncementBody = WMFLocalizedString("search-widget-announcement-body", value: "Add the Wikipedia Search widget to your Home or Lock Screen for faster answers, right at your fingertips.", comment: "Body text for the search widget feature announcement")
+
 }
 
 // Language variant strings

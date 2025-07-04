@@ -1094,6 +1094,8 @@
 "search-recent-title" = "Title for list of recent search terms";
 "search-result-redirected-from" = "Text for search result letting user know if a result is a redirect from another article. Parameters: * $1 - article title the current search result redirected from";
 "search-title" = "Title for search interface. {{Identical|Search}}";
+"search-widget-announcement-body" = "Body text for the search widget feature announcement";
+"search-widget-announcement-title" = "Title for the search widget feature announcement";
 "search-widget-description" = "Text for description of Search widget displayed when adding to home screen.";
 "search-widget-title" = "Text for title of Search widget.";
 "search-widget-wikipedia-title" = "Wikipedia title text displayed in the search widget.";
