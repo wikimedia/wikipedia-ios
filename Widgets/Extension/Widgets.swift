@@ -12,6 +12,7 @@ struct WikipediaWidgets: WidgetBundle {
         FeaturedArticleWidget()
         #if DEBUG
         SearchWidget()
+        LockscreenSearchWidget()
         #endif
 	}
 
