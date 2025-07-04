@@ -14,7 +14,8 @@ class PageHistoryCountsView: UICollectionReusableView {
     private lazy var hiddenSparklineViewWidthConstraint = sparklineView.widthAnchor.constraint(equalToConstant: 0)
 
     @IBOutlet private weak var separator: UIView!
-
+    @IBOutlet weak var bottomSeparator: UIView!
+    
     @IBOutlet private weak var filterCountsContainerView: UIView!
     private lazy var filterCountsView = PageHistoryFilterCountsView()
 
@@ -136,6 +137,7 @@ extension PageHistoryCountsView: Themeable {
         pageTitleLabel.textColor = theme.colors.primaryText
         countsLabel.textColor = theme.colors.accent
         separator.backgroundColor = theme.colors.border
+        bottomSeparator.backgroundColor = theme.colors.border
         filterCountsView.apply(theme: theme)
         sparklineView.apply(theme: theme)
     }
