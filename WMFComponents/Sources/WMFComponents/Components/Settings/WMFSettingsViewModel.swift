@@ -5,13 +5,13 @@ enum AccessoryType {
     case none
     case toggle(Binding<Bool>)
     case icon(name: String)
-    case chevron(label: String?)
-    case checkmark
+    case label(String?)
 }
 
 struct SettingsItem: Identifiable {
     let id = UUID()
-    let iconName: String
+    let image: UIImage?
+    let color: UIColor
     let title: String
     let subtitle: String?
     let accessory: AccessoryType
@@ -29,6 +29,9 @@ struct SettingsSection: Identifiable {
 }
 
 final class WMFSettingsViewModel: ObservableObject {
+    @Published var notificationsOn = true
+    @Published var exploreFeedOn = false
+    @Published var isWhateverSelected = false
 
     var sections: [SettingsSection]
 
