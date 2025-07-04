@@ -37,4 +37,12 @@ final class SettingsCoordinator: Coordinator {
         navigationController.present(navVC, animated: true)
         return true
     }
+
+    func tempNewSettings() { // TEST CODE
+        let settingsViewController =  WMFSettingsViewControllerNEW()
+        let navVC = WMFComponentNavigationController(rootViewController: settingsViewController, modalPresentationStyle: .overFullScreen)
+        navigationController.present(navVC, animated: true)
+    }
+
+  
 }

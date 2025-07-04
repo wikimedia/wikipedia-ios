@@ -7,6 +7,7 @@ private struct SettingsRowContent: View {
     var theme: WMFTheme {
         return appEnvironment.theme
     }
+
     let item: SettingsItem
 
     var body: some View {
@@ -26,11 +27,11 @@ private struct SettingsRowContent: View {
             }
             VStack(alignment: .leading, spacing: 2) {
                 Text(item.title)
-                    .font(.body)
+                    .font(Font(WMFFont.for(.body)))
                 if let subtitle = item.subtitle {
                     Text(subtitle)
-                        .font(.subheadline)
-                        .foregroundColor(.secondary)
+                        .font(Font(WMFFont.for(.subheadline)))
+                        .foregroundColor(Color(uiColor: theme.secondaryText))
                 }
             }
 
@@ -48,12 +49,21 @@ private struct SettingsRowContent: View {
         case .toggle(let binding):
             Toggle("", isOn: binding)
                 .labelsHidden()
+
         case .icon(let name):
             Image(systemName: name)
-        case .label(let label):
+                .foregroundColor(Color(uiColor: theme.secondaryText))
+        case .chevron(label: let label):
             HStack(spacing: 4) {
-                if let label = label {
-                    Text(label)
+                HStack(spacing: 4) {
+                    if let label = label {
+                        Text(label)
+                            .font(Font(WMFFont.for(.title1)))
+                    }
+                    if let image = WMFSFSymbolIcon.for(symbol: .chevronForward){
+                        Image(uiImage: image)
+                            .foregroundColor(Color(uiColor: theme.secondaryText))
+                    }
                 }
             }
         }
@@ -61,6 +71,12 @@ private struct SettingsRowContent: View {
 }
 
 struct WMFSettingsView: View {
+
+    @ObservedObject var appEnvironment = WMFAppEnvironment.current
+    var theme: WMFTheme {
+        return appEnvironment.theme
+    }
+
     @ObservedObject var viewModel: WMFSettingsViewModel
 
     var body: some View {
@@ -71,8 +87,8 @@ struct WMFSettingsView: View {
                         header: section.header.map(Text.init),
                         footer: section.footer.map {
                             Text($0)
-                                .font(.footnote)
-                                .foregroundColor(.secondary)
+                                .font(Font(WMFFont.for(.footnote)))
+                                .foregroundColor(Color(uiColor: theme.secondaryText))
                         }
                     ) {
                         ForEach(section.items) { item in

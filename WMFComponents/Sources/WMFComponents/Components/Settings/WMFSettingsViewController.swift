@@ -6,84 +6,13 @@ fileprivate final class WMFSettingsHostingController: WMFComponentHostingControl
 
 final public class WMFSettingsViewControllerNEW: WMFCanvasViewController, WMFNavigationBarConfiguring {
 
+    private let viewModel: WMFSettingsViewModel
     private let hostingViewController: WMFSettingsHostingController
 
     public override init() {
-        // MOCK SECTIONS
-        let viewModel = WMFSettingsViewModel(sections: [])
-
-        let notificationsBinding = Binding<Bool>(
-            get: { viewModel.notificationsOn },
-            set: { viewModel.notificationsOn = $0 }
-        )
-        let exploreFeedBinding = Binding<Bool>(
-            get: { viewModel.exploreFeedOn },
-            set: { viewModel.exploreFeedOn = $0 }
-        )
-
-        let isSelected = Binding<Bool>(
-            get: { viewModel.isWhateverSelected },
-            set: { viewModel.isWhateverSelected = $0 }
-            )
-
-        let sections: [SettingsSection] = [
-            SettingsSection(
-                header: "General",
-                footer: "Your core preferences",
-                items: [
-                    SettingsItem(
-                        image: UIImage(systemName: "bell"),
-                        color: WMFColor.red700,
-                        title: "Notifications",
-                        subtitle: "Receive updates",
-                        accessory: .toggle(notificationsBinding),
-                        action: nil,
-                        subSections: nil
-                    ),
-                    SettingsItem(
-                        image: UIImage(systemName: "globe"),
-                        color: WMFColor.blue300,
-                        title: "Explore feed",
-                        subtitle: "Show recommended articles",
-                        accessory: .toggle(exploreFeedBinding),
-                        action: nil,
-                        subSections: nil
-                    ),
-                    SettingsItem(
-                        image: UIImage(systemName: "gear"),
-                        color: WMFColor.gray100,
-                        title: "Advanced…",
-                        subtitle: nil,
-                        accessory: .label("PT"),
-                        action: nil,
-                        subSections: [
-                            SettingsSection(
-                                header: "Advanced Settings",
-                                footer: nil,
-                                items: [
-                                    SettingsItem(
-                                        image: UIImage(systemName: "lock"),
-                                        color: WMFColor.yellow600,
-                                        title: "Privacy",
-                                        subtitle: nil,
-                                        accessory: .toggle(isSelected),
-                                        action: nil,
-                                        subSections: nil
-                                    )
-                                ]
-                            )
-                        ]
-                    )
-                ]
-            )
-        ]
-
-        viewModel.sections = sections
-
-        self.hostingViewController = WMFSettingsHostingController(
-            rootView: WMFSettingsView(viewModel: viewModel)
-            
-        )
+        self.viewModel = WMFSettingsViewModel()
+        let rootView = WMFSettingsView(viewModel: viewModel)
+        self.hostingViewController = WMFSettingsHostingController(rootView: rootView)
         super.init()
     }
 
@@ -124,4 +53,5 @@ final public class WMFSettingsViewControllerNEW: WMFCanvasViewController, WMFNav
     @objc func tappedDone() {
         dismiss(animated: true)
     }
+
 }

@@ -176,6 +176,10 @@ final class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegat
             dismissProfile {
                 self.showUserTalkPageTempAccount()
             }
+        case .tempNewSettings: // DO NOT COMMIT
+            dismissProfile {
+                self.tempNewSettings()
+            }
         }
     }
     
@@ -288,7 +292,12 @@ final class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegat
             userTalkCoordinator.start()
         }
     }
-    
+
+    func  tempNewSettings() { // DO NOT COMMIT
+        let settingsCoordinator = SettingsCoordinator(navigationController: navigationController, theme: theme, dataStore: dataStore)
+        settingsCoordinator.tempNewSettings()
+    }
+
     private func showWatchlist() {
         let watchlistCoordinator = WatchlistCoordinator(navigationController: navigationController, dataStore: dataStore)
         watchlistCoordinator.start()

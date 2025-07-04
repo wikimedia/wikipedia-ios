@@ -9,6 +9,7 @@ public protocol ProfileCoordinatorDelegate: AnyObject {
 public enum ProfileAction {
     case showNotifications
     case showSettings
+    case tempNewSettings // TEST CODE
     case showDonate
     case showUserPage
     case showUserTalkPage
