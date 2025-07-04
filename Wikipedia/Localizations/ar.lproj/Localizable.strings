@@ -281,7 +281,7 @@
 "diff-compare-header-heading" = "مقارنة المراجعات";
 "diff-compare-header-to-info-heading" = "عرض تحرير";
 "diff-compare-title" = "مقارنة المراجعات";
-"diff-content-added" = "تمت إضافة المحتوى، $1";
+"diff-content-added" = "محتوًى مضاف، $1";
 "diff-content-removed" = "تمت إزالة المحتوى، $1";
 "diff-context-cell-collapse-section" = "انهيار $1";
 "diff-context-cell-expand-section" = "توسيع $1";
@@ -719,8 +719,8 @@
 "inuktitut-variants-alert-title" = "تحديثات لدعم متغير Inuktitut";
 "ip-account-cta-bottom" = "متابعة بدون تسجيل الدخول";
 "ip-account-cta-top" = "تسجيل الدخول أو إنشاء حساب";
-"ip-account-edit-sheet-subtitle" = "بمجرد إجراء تعديل، سيتم إنشاء حساب مؤقت بقيمة $1 $2 لحماية خصوصيتك. $3 تعرف على المزيد. $4 $5 قم بتسجيل الدخول أو إنشاء حساب للحصول على رصيد للتعديلات المستقبلية والوصول إلى ميزات أخرى.";
-"ip-account-warning-subtitle" = "سيتم إنشاء حساب مؤقت لك عند النشر.";
+"ip-account-edit-sheet-subtitle" = "بمجرد إجراء تعديل، سينشأ حساب مؤقت بقيمة $1 $2 لحماية خصوصيتك. $3 تعرف على المزيد. $4 $5 سجل الدخول أو أنشئ حسابًا للحصول على رصيد للتعديلات المستقبلية والوصول إلى ميزات أخرى.";
+"ip-account-warning-subtitle" = "سينشأ حساب مؤقت لك عند النشر.";
 "ip-account-warning-title" = "أنت غير مسجل الدخول";
 "kazakh-variants-alert-body" = "يدعم تطبيق ويكيبيديا الآن المتغيرات الكازاخستانية التالية كلغات أساسية أو ثانوية داخل التطبيق، مما يجعل من الأسهل القراءة والبحث والتحرير بالمتغيرات المفضلة لديك:\n\nҚазақша الكازاخستانية (kk)\nҚазақша Кирил الكازاخستانية، السيريلية (kk-cyrl)\nqazaqşa اللاتينية الكازاخستانية، اللاتينية (kk-latn)\nتوتە قازاقشا الكازاخستانية، العربية (kk-arab)";
 "kazakh-variants-alert-title" = "تحديثات لدعم المتغير الكازاخستاني";
@@ -1120,7 +1120,7 @@
 "reverted-edit-title" = "تم إرجاع التعديل";
 "save-all-tabs" = "حفظ جميع علامات التبويب";
 "save-view-temp-account-notice" = "أنت تستخدم حسابًا مؤقتًا. التعديلات تُنسب إلى $1 ...";
-"save-view-temp-account-warning" = "لم تقم بتسجيل الدخول. بمجرد إجراء تعديل، سيتم إنشاء حساب مؤقت لك لحماية خصوصيتك.";
+"save-view-temp-account-warning" = "لم تسجل الدخول. بمجرد إجراء تعديل، سينشأ إنشاء حساب مؤقت لك لحماية خصوصيتك.";
 "saved-all-articles-title" = "كل المقالات";
 "saved-all-tabs" = "تم حفظ جميع علامات التبويب.";
 "saved-all-tabs-view-reading-list" = "تم حفظ جميع علامات التبويب. عرض قائمة القراءة.";

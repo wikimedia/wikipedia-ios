@@ -1095,6 +1095,8 @@
 "search-recent-title" = "Recently searched";
 "search-result-redirected-from" = "Redirected from: $1";
 "search-title" = "Search";
+"search-widget-announcement-body" = "Add the Wikipedia Search widget to your Home or Lock Screen for faster answers, right at your fingertips.";
+"search-widget-announcement-title" = "New Search widget available";
 "search-widget-description" = "Quick access to search Wikipedia.";
 "search-widget-wikipedia-title" = "Wikipedia";
 "serbian-variants-alert-body" = "The Wikipedia app now supports the following Serbian variants as primary or secondary languages within the app, making it easier to read, search and edit in your preferred variants:\n\nсрпски ћирилица Serbian, Cyrillic (sr-ec)\nsrpski latinica Serbian, Latin (sr-el)";

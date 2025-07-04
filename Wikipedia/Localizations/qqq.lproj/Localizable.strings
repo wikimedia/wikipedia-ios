@@ -92,7 +92,7 @@
 "activity-tab-you-edited" = "Displays how many articles the user edited in the past week, $1 is the amount, returning the pluralized version of article depending.";
 "activity-tab-you-read" = "Displays how many articles the user read in the past week, $1 is the amount, returning the pluralized version of article depending.";
 "activity-tab-you-saved" = "Displays how many articles the user saved in the past week, $1 is the amount, returning the pluralized version of article depending.";
-"add-articles-to-reading-list" = "Button label to add multiple articles to the reading list, pluralized based on article count. $1 is the amount of articles.";
+"add-articles-to-reading-list" = "Title for the view in charge of adding articles to a reading list - $1 is replaced with the number of articles to add";
 "advanced-settings-title" = "Title for advanced settings screen";
 "alert-temporary-account" = "Alert message informing user that they are using a temporary account";
 "alert-temporary-account-learn-more" = "Button on alert for temporary accounts to learn more.";
@@ -1095,6 +1095,8 @@
 "search-recent-title" = "Title for list of recent search terms";
 "search-result-redirected-from" = "Text for search result letting user know if a result is a redirect from another article. Parameters: * $1 - article title the current search result redirected from";
 "search-title" = "Title for search interface. {{Identical|Search}}";
+"search-widget-announcement-body" = "Body text for the search widget feature announcement";
+"search-widget-announcement-title" = "Title for the search widget feature announcement";
 "search-widget-description" = "Text for description of Search widget displayed when adding to home screen.";
 "search-widget-wikipedia-title" = "Wikipedia title text displayed in the search widget.";
 "serbian-variants-alert-body" = "Body text of alert used to inform users about Serbian variant support. Please do not translate the newlines (\n) or Serbian characters (nсрпски ћирилица, etc.).";
