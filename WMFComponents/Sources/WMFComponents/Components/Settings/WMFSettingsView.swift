@@ -43,9 +43,11 @@ private struct SettingsRow: View {
         case .toggle(let binding):
             Toggle("", isOn: binding)
                 .labelsHidden()
-        case .icon(let name):
-            Image(systemName: name)
-                .foregroundStyle(Color(uiColor: theme.secondaryText))
+        case .icon(let image):
+            if let image {
+                Image(uiImage: image)
+                    .foregroundStyle(Color(uiColor: theme.secondaryText))
+            }
         case .chevron(label: let label):
             HStack(spacing: 4) {
                 if let label = label {
@@ -91,11 +93,11 @@ struct WMFSettingsView: View {
                             }
                             .buttonStyle(.plain)
                             .listRowBackground(Color(uiColor: theme.chromeBackground))
+                            .listRowSeparator(.hidden)
                         }
                     }
                 }
             }
-            .listStyle(.insetGrouped)
             .scrollContentBackground(.hidden)
         }
         .environment(\.colorScheme, theme.preferredColorScheme)
