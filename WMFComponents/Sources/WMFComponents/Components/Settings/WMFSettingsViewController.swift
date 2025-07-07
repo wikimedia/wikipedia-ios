@@ -8,12 +8,15 @@ final public class WMFSettingsViewControllerNEW: WMFCanvasViewController, WMFNav
 
     private let viewModel: WMFSettingsViewModel
     private let hostingViewController: WMFSettingsHostingController
+    let coordinatorDelegate: SettingsCoordinatorDelegate?
 
-    public override init() {
-        self.viewModel = WMFSettingsViewModel()
+    public init(viewModel: WMFSettingsViewModel, coordinatorDelegate: SettingsCoordinatorDelegate?) {
+        self.viewModel = viewModel
+        self.coordinatorDelegate = coordinatorDelegate
         let rootView = WMFSettingsView(viewModel: viewModel)
         self.hostingViewController = WMFSettingsHostingController(rootView: rootView)
         super.init()
+        viewModel.coordinatorDelegate = coordinatorDelegate
     }
 
     @MainActor required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
@@ -30,12 +33,12 @@ final public class WMFSettingsViewControllerNEW: WMFCanvasViewController, WMFNav
 
     private func configureNavigationBar() {
         let titleConfig = WMFNavigationBarTitleConfig(
-            title: "Settings",
+            title: viewModel.localizedStrings.settingTitle,
             customView: nil,
             alignment: .leadingCompact
         )
         let closeConfig = WMFNavigationBarCloseButtonConfig(
-            text: "done",
+            text: viewModel.localizedStrings.doneButtonTitle,
             target: self,
             action: #selector(tappedDone),
             alignment: .trailing
