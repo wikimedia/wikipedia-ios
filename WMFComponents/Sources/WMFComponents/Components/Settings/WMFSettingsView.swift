@@ -1,12 +1,8 @@
 import SwiftUI
 
-private struct SettingsRowContent: View {
-
+private struct SettingsRow: View {
     @ObservedObject var appEnvironment = WMFAppEnvironment.current
-
-    var theme: WMFTheme {
-        return appEnvironment.theme
-    }
+    var theme: WMFTheme { appEnvironment.theme }
 
     let item: SettingsItem
 
@@ -18,12 +14,11 @@ private struct SettingsRowContent: View {
                     .foregroundStyle(Color(uiColor: theme.chromeBackground))
                     .background(
                         RoundedRectangle(cornerRadius: 6)
-                            .fill(Color(uiColor: item.color))
+                            .fill(Color(uiColor:  theme.isLightTheme ? item.color : theme.newBorder))
                             .frame(width: 32, height: 32)
-                            .padding(0)
                     )
-                    .padding(.trailing, 16)
                     .padding(.leading, 8)
+                    .padding(.trailing, 16)
             }
             VStack(alignment: .leading, spacing: 2) {
                 Text(item.title)
@@ -34,11 +29,10 @@ private struct SettingsRowContent: View {
                         .foregroundColor(Color(uiColor: theme.secondaryText))
                 }
             }
-
             Spacer()
-
             accessoryView()
         }
+
     }
 
     @ViewBuilder
@@ -49,21 +43,19 @@ private struct SettingsRowContent: View {
         case .toggle(let binding):
             Toggle("", isOn: binding)
                 .labelsHidden()
-
         case .icon(let name):
             Image(systemName: name)
-                .foregroundColor(Color(uiColor: theme.secondaryText))
+                .foregroundStyle(Color(uiColor: theme.secondaryText))
         case .chevron(label: let label):
             HStack(spacing: 4) {
-                HStack(spacing: 4) {
-                    if let label = label {
-                        Text(label)
-                            .font(Font(WMFFont.for(.title1)))
-                    }
-                    if let image = WMFSFSymbolIcon.for(symbol: .chevronForward){
-                        Image(uiImage: image)
-                            .foregroundColor(Color(uiColor: theme.secondaryText))
-                    }
+                if let label = label {
+                    Text(label)
+                        .font(Font(WMFFont.for(.body)))
+                        .foregroundColor(Color(uiColor: theme.secondaryText))
+                }
+                if let image = WMFSFSymbolIcon.for(symbol: .chevronForward) {
+                    Image(uiImage: image)
+                        .foregroundStyle(Color(uiColor: theme.secondaryText))
                 }
             }
         }
@@ -71,43 +63,42 @@ private struct SettingsRowContent: View {
 }
 
 struct WMFSettingsView: View {
-
     @ObservedObject var appEnvironment = WMFAppEnvironment.current
-    var theme: WMFTheme {
-        return appEnvironment.theme
-    }
+    var theme: WMFTheme { appEnvironment.theme }
 
     @ObservedObject var viewModel: WMFSettingsViewModel
 
     var body: some View {
-        NavigationView {
+        ZStack {
+            Color(uiColor: theme.midBackground)
+                .ignoresSafeArea()
             List {
                 ForEach(viewModel.sections) { section in
                     Section(
                         header: section.header.map(Text.init),
-                        footer: section.footer.map {
-                            Text($0)
+                        footer: section.footer.map { footerText in
+                            Text(footerText)
                                 .font(Font(WMFFont.for(.footnote)))
                                 .foregroundColor(Color(uiColor: theme.secondaryText))
                         }
                     ) {
                         ForEach(section.items) { item in
-                            if let children = item.subSections {
-                                NavigationLink(destination: WMFSettingsView(
-                                    viewModel: WMFSettingsViewModel(sections: children)
-                                )) {
-                                    SettingsRowContent(item: item)
-                                }
-                            } else {
-                                SettingsRowContent(item: item)
+                            Button {
+                                item.action?()
+                            } label: {
+                                SettingsRow(item: item)
                                     .contentShape(Rectangle())
-                                    .onTapGesture { item.action?() }
                             }
+                            .buttonStyle(.plain)
+                            .listRowBackground(Color(uiColor: theme.chromeBackground))
                         }
                     }
                 }
             }
             .listStyle(.insetGrouped)
+            .scrollContentBackground(.hidden)
         }
+        .environment(\.colorScheme, theme.preferredColorScheme)
     }
+
 }
