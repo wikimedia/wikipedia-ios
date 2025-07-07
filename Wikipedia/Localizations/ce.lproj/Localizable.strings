@@ -173,6 +173,18 @@
 "editor-replace-type-all" = "Дерриге хийца";
 "editor-replace-type-single" = "Хийца";
 "editor-title" = "Редактор";
+"explore-feed-preferences-feed-card-visibility-all-languages-off" = "дӀайа.";
+"explore-feed-preferences-feed-card-visibility-all-languages-on" = "лат. йерриге";
+"explore-feed-preferences-feed-card-visibility-global-cards-on" = "лат.";
+"explore-feed-preferences-feed-card-visibility-languages-count" = "лат. $1";
+"explore-feed-preferences-feed-cards-hidden-title" = "Йерриге а $1 карточкаш къайлайаьхна";
+"explore-feed-preferences-global-cards-description" = "Карточкаш меттанашца йоьзна йац.";
+"explore-feed-preferences-global-cards-subtitle" = "Маттаца йоьзна йац";
+"explore-feed-preferences-global-cards-title" = "Глобалан карточкаш";
+"explore-feed-preferences-hide-card-action-title" = "ХӀара карточка къайлайаккха";
+"explore-feed-preferences-hide-feed-cards-action-title" = "Йерриге а «$1» карточкаш къайлайаха";
+"explore-feed-preferences-in-the-news-description" = "Таханлерчу хиламех лаьцна йаззамаш";
+"explore-feed-preferences-languages-footer-text" = "Массо а карточкийн тайпанаш къайладаьхча, йерриг лента къайлайоккхур йу.";
 "insert-media-image-position-setting-right" = "Аьтту";
 "languages-settings-title" = "Меттанаш";
 // Fuzzy
