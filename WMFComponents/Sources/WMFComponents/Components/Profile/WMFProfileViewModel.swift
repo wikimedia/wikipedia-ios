@@ -197,6 +197,7 @@ enum ProfileState {
                     refreshAction()
                     coordinatorDelegate?.handleProfileAction(.showYearInReview)
                     coordinatorDelegate?.handleProfileAction(.logYearInReviewTap)
+                    
                 }
             )
             
