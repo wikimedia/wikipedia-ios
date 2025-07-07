@@ -347,7 +347,6 @@ final class WMFYearInReviewDataControllerTests: XCTestCase {
             let shouldShowEntryPoint = yearInReviewDataController.shouldShowYearInReviewEntryPoint(countryCode: frCountryCode, primaryAppLanguageProject: frProject)
             
             XCTAssertTrue(shouldShowEntryPoint, "Should show entry point even when both personalized slides are disabled (will fall back to collective).")
-            // XCTAssertFalse(shouldShowEntryPoint) // Entry points disabled
         }
     }
 
@@ -384,7 +383,6 @@ final class WMFYearInReviewDataControllerTests: XCTestCase {
             let shouldShowEntryPoint = yearInReviewDataController.shouldShowYearInReviewEntryPoint(countryCode: frCountryCode, primaryAppLanguageProject: frProject)
 
             XCTAssertTrue(shouldShowEntryPoint, "Should show entry point when one personalized slide is enabled.")
-            // XCTAssertFalse(shouldShowEntryPoint) // Entry points disabled
         }
     }
 }

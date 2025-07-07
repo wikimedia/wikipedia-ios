@@ -363,9 +363,17 @@ import CoreData
 
         let slideModels = slideFactory.makeSlides()
 
-        let report = try await backgroundContext.perform { () -> CDYearInReviewReport in
+        for slide in slideModels {
+            try await slide.populateSlideData(in: backgroundContext)
+        }
+
+        let report = try await backgroundContext.perform {
             let predicate = NSPredicate(format: "year == %d", year)
-            let cdReport = try self.coreDataStore.fetchOrCreate(entityType: CDYearInReviewReport.self, predicate: predicate, in: backgroundContext)!
+            let cdReport = try self.coreDataStore.fetchOrCreate(
+                entityType: CDYearInReviewReport.self,
+                predicate: predicate,
+                in: backgroundContext
+            )!
             cdReport.year = Int32(year)
 
             let cdSlides = try slideModels.map { try $0.makeCDSlide(in: backgroundContext) }
