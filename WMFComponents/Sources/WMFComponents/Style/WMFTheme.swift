@@ -54,6 +54,9 @@ public struct WMFTheme: Equatable {
     return (self == WMFTheme.light || self == WMFTheme.sepia) ? .black : .white
     }
 
+    public var isLightTheme: Bool {
+        return self == WMFTheme.light
+    }
     public static let light = WMFTheme(
         name: "Light",
         userInterfaceStyle: .light,
