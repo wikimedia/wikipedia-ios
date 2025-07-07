@@ -25,13 +25,21 @@ public enum WMFIcon {
     public static let addPhoto = UIImage(named: "photo-badge-plus", in: .module, with: nil) // Use SFSymbol once target is iOS17+
     public static let error = UIImage(named: "error", in: .module, with: nil)
     public static let personCircleX = UIImage(named: "person-circle-x", in: .module, with: nil) // Use SFSymbol once target is iOS17+
+    // Settings icons
+    public static let settingsLanguage = UIImage(named: "settings-language", in: .module, with: nil)
+    public static let settingsExplore = UIImage(named: "settings-explore", in: .module, with: nil)
+    public static let settingsPreferences = UIImage(named: "settings-preferences", in: .module, with: nil)
+    public static let settingsClearCache = UIImage(named: "settings-clear-cache", in: .module, with: nil)
+    public static let settingsPrivacy = UIImage(named: "settings-privacy.pdf", in: .module, with: nil)
+
 
     // Project icons
     public static let commons = UIImage(named: "project-icons/commons", in: .module, with: nil)
     static let wikidata = UIImage(named: "project-icons/wikidata", in: .module, with: nil)
+    static let wikipediaW = UIImage(named: "W", in: .module, with: nil)
+
 
     // License
-
     static let ccLicense = UIImage(named: "project-icons/license-cc", in: .module, with: nil)
 
 }
@@ -42,6 +50,7 @@ public enum WMFSFSymbolIcon {
     case checkmarkSquareFill
     case square
     case star
+    case starFill
     case person
 	case personFilled
     case starLeadingHalfFilled
@@ -115,7 +124,11 @@ public enum WMFSFSymbolIcon {
     case tabsIconBackground
     case add
     case closeButtonFill
-    
+    case appBadge
+    case handRaisedFill
+    case textJustify
+    case lifePreserver
+
     public var name: String? {
         switch self {
         case .closeCircleFill:
@@ -139,6 +152,8 @@ public enum WMFSFSymbolIcon {
             image = UIImage(systemName: "square", withConfiguration: configuration)
         case .star:
             image = UIImage(systemName: "star", withConfiguration: configuration)
+        case .starFill:
+            image = UIImage(systemName: "star.fill", withConfiguration: configuration)
         case .person:
             image = UIImage(systemName: "person", withConfiguration: configuration)
         case .personFilled:
@@ -285,6 +300,14 @@ public enum WMFSFSymbolIcon {
             image = UIImage(systemName: "plus", withConfiguration: configuration)
         case .closeButtonFill:
             image = UIImage(systemName: "x.circle.fill", withConfiguration: configuration)
+        case .appBadge:
+            image = UIImage(systemName: "app.badge", withConfiguration: configuration)
+        case .handRaisedFill:
+            image = UIImage(systemName: "hand.raised.fill", withConfiguration: configuration)
+        case .textJustify:
+            image = UIImage(systemName: "text.justify", withConfiguration: configuration)
+        case .lifePreserver:
+            image = UIImage(systemName: "lifepreserver", withConfiguration: configuration)
         }
         
         image = image?.withRenderingMode(.alwaysTemplate)
