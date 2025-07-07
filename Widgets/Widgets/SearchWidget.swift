@@ -12,7 +12,7 @@ struct SearchWidget: Widget {
         StaticConfiguration(kind: kind, provider: SearchProvider(), content: { entry in
             SearchWidgetView(entry: entry)
         })
-        .configurationDisplayName(SearchWidget.LocalizedStrings.widgetTitle)
+        .configurationDisplayName(CommonStrings.searchTitle)
         .description(SearchWidget.LocalizedStrings.widgetDescription)
         .supportedFamilies([.systemSmall])
         .contentMarginsDisabled()

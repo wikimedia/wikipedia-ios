@@ -8,23 +8,31 @@
 // Author: Nemo bis
 // Author: شاه زمان پټان
 
-"about-content-license" = "د مېنځپانگې منښتليک";
+"about-content-license" = "د منځپانگې منښتليک";
+"about-content-license-details" = "منځپانگه د $1 منښتليک لاندې د لاسرسي وړ ده، خو دا چې بل ډول ويل شوي وي.";
+"about-content-license-details-share-alike-license" = "د ټولگړې پنځونې ځانگړي‌کونگ-ورته شريکېدنې منښتليک";
 "about-contributors" = "ونډه وال";
 "about-libraries" = "کارېدلي کتابتونونه";
 "about-libraries-complete-list" = "بشپړ لړليک";
 "about-libraries-license" = "منښتليک";
 "about-libraries-licenses-title" = "موږ د پرانېستې سرچينې په پوستغالي مين يو $1";
 "about-places-maps-license" = "د ځايونو د نخچو منښت";
+"about-places-maps-license-details" = "ځايونه د ايپل نخچو له خوا چمتو شويو نخچو نه کار اخلي.  $1.";
+"about-places-maps-license-details-link-text" = "مهرباڼي وکړئ د منښتليک نور سپيناوي لپاره دلته وگورئ";
+"about-product-of" = "د $1 له خوا ستاسې په څېر خپل‌خوښو په مرسته جوړ شوی";
 "about-repositories" = "زېرمې";
-"about-repositories-app-source-license-mit" = "MIT منښتليک";
+"about-repositories-app-source-license" = "سرچينې کوډ د $1 سره سم د لاسرسي وړ دی.";
+"about-repositories-app-source-license-mit" = "اېم‌آی‌ټي منښتليک";
 "about-send-feedback" = "کاريال غبرگون لېږل";
 "about-testers" = "ازمېښتگران";
+"about-testers-details" = "د $1 له خوا ازمېښت‌شوې کيو‌ای";
 "about-title" = "په اړه";
 "about-translators" = "ژباړنان";
 "about-translators-details" = "په $1 کې د خپل‌خوښو لهٔ خوا ژباړل‌شوی";
 "about-wikimedia-foundation" = "ويکيمېډيا بنسټ";
 "about-wikipedia" = "ويکيپېډيا";
 "account-creation-captcha-cannot-see-image" = "انځور نشې ليدلای؟ $1";
+"account-creation-captcha-obtaining" = "نوې کپچا ترلاسه کول...";
 "account-creation-captcha-request-account" = "گڼون غوښتنه.";
 "account-creation-captcha-title" = "د کپچا خونديتوب کتنه";
 "account-creation-create-account" = "گڼون مو جوړ کړئ";
@@ -72,7 +80,14 @@
 "action-update" = "اوسمهالول";
 "activity-tab-add-images-subtitle" = "د پوهاوي لوړولو لپاره د ويکيپېډيا ليکنو ته وړانديز شوي انځورونه ورگډ کړئ.";
 "activity-tab-add-images-title" = "انځورونه ورگډول";
+"activity-tab-additional-thoughts" = "کوم زياتي اندونه لرئ؟";
+"activity-tab-generic-no-edits" = "تاسو دا اوونۍ هېڅ ترميم نه دی کړی. د خپلو ونډو څارولو لپاره همدا اوس پيل کړئ.";
+"activity-tab-greeting" = "$1سلام $2$3 👋 دلته ستاسو د ويکيپېډيا اوونيز لنډيز دی.";
+"activity-tab-logged-out-subtitle" = "هغه څه چې تاسو لوستي دي وڅارئ او خپلې ونډې د وخت په تېرېدو سره په نوي ډول وگورئ";
+"activity-tab-logged-out-title" = "د نور سمون او لوست چارو کتلو لپاره غونډال ته ننوځئ يا نوی گڼون جوړ کړئ.";
 "activity-tab-neutral" = "بې‌پلو";
+"activity-tab-no-edits-title" = "تاسو دا اوونۍ هېڅ سمون نه دی کړی. د ليکنې د پوهېدو د ښه والي لپاره انځورونه ورگډ کړئ.";
+"activity-tab-read-title" = "د لوست پېښليک کتل";
 "activity-tab-satisfied" = "ډاډمن";
 "activity-tab-start-editing" = "سمون پيلول";
 "activity-tab-survey-title" = "د ډاډ ټولپوښتنه";
@@ -97,7 +112,7 @@
 "description-welcome-start-editing-button" = "سمون پيلول";
 "duplicate-tab" = "دوه‌گونې ريښکه";
 "edit-summary-choice-linked-words" = "ورگډې شوې تړنې";
-"empty-no-article-message" = "اوبخښئ، ليکنه رابرسېره نه شوه";
+"empty-no-article-message" = "وبښئ، ليکنه رابرسېره نه شوه";
 "empty-no-feed-action-message" = "لا تر اوسه پورې تاسو خوندي مخونه لوستلی شئ";
 "empty-no-history-title" = "د ښکاره کولو لپاره کوم پېښليک نشته";
 "empty-no-saved-pages-title" = "لا تر اوسه پورې خوندي مخونه نشته";
@@ -133,14 +148,14 @@
 "main-menu-nearby" = "نژدې";
 "main-menu-privacy-policy" = "د پټنتيا تگلاره";
 "main-menu-rate-app" = "کاريال ارزول";
-"main-menu-terms-of-use" = "د کارولو شرطونه";
+"main-menu-terms-of-use" = "د کارولو منښتونه";
 "main-menu-title" = "نور";
 "main-page" = "لومړی مخ";
 "navbar-title-mode-edit-wikitext-preview" = "مخليدنه";
 "nearby-distance-label-feet" = "$1 گام";
 "nearby-distance-label-km" = "$1 کیلومتر";
 "nearby-distance-label-meters" = "$1 متر";
-"nearby-distance-label-miles" = "$1 مايل";
+"nearby-distance-label-miles" = "$1 ميله";
 "open-in-tab-tooltip-title" = "په نوې ريښکه کې پرانيستل";
 "page-history-bot-edits" = "روباټ";
 "page-protected-can-not-edit-title" = "دا مخ ژغورل شوی";
@@ -169,4 +184,4 @@
 "welcome-languages-add-button" = "بله ژبه ورگډول";
 "wikitext-upload-save" = "خپرېږي...";
 "wikitext-upload-save-sign-in" = "ننوتل";
-"wikitext-upload-save-terms-name" = "د کارولو شرطونه";
+"wikitext-upload-save-terms-name" = "د کارولو منښتونه";

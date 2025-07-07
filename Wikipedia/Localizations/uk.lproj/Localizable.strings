@@ -705,6 +705,7 @@
 "languages-title" = "Змінити мову";
 "languages-wikipedia" = "Мови Вікіпедії";
 "learn-more-title" = "Дізнатися більше";
+"lockscreen-search-widget-description" = "Швидкий доступ до пошуку у Вікіпедії з екрана блокування.";
 "logged-out-continue-without-logging-in-button-title" = "Продовжити без входу";
 "logged-out-log-back-in-button-title" = "Назад до входу з обліковим записом";
 "logged-out-subtitle" = "Під час автентифікації вашого облікового запису виникла проблема. Вам потрібно ще раз увійти, аби можна було узгодити читальні списки та редагувати під вашим ім'ям користувача.";
@@ -1121,8 +1122,9 @@
 "search-recent-title" = "Недавні пошуки";
 "search-result-redirected-from" = "Перенаправлено з: $1";
 "search-title" = "Пошук";
+"search-widget-announcement-body" = "Додайте віджет пошуку по Вікіпедії на головний екран або екран блокування для швидших відповідей, прямо на кінчиках пальців.";
+"search-widget-announcement-title" = "Доступний новий віджет пошуку";
 "search-widget-description" = "Швидкий доступ до пошуку у Вікіпедії.";
-"search-widget-title" = "Пошук";
 "search-widget-wikipedia-title" = "Вікіпедія";
 "serbian-variants-alert-body" = "Тепер додаток Вікіпедії підтримує різні варіанти сербської мови як основну чи другорядну мову додатка, полегшуючи читання, пошук і редагування відповідно до ваших вподобань:\n\nсрпски ћирилица сербська, кирилиця (sr-ec)\nsrpski latinica сербська, латинка (sr-el)";
 "serbian-variants-alert-title" = "Оновлення щодо підтримки варіантів сербської";

@@ -521,7 +521,7 @@
 "export-user-data-generic-error" = "Un error ha occurrite durante le exportation de tu datos. Per favor tenta lo de novo plus tarde.";
 "export-user-data-space-error" = "Tu non ha sufficiente spatio sur tu apparato pro exportar tu datos de usator. Per favor tenta lo de novo plus tarde.";
 "export-user-data-title" = "Exportar datos de usator";
-"featured-widget-content-failure-for-date" = "Necun articulo eminente es disponibile pro iste dato.";
+"featured-widget-content-failure-for-date" = "Necun articulo eminente es disponibile pro iste data.";
 "featured-widget-description" = "Discoperi le melior articulos sur Wikipedia, seligite cata die per nostre communitate.";
 "featured-widget-from-language-wikipedia" = "De Wikipedia in $1";
 "featured-widget-from-wikipedia" = "De Wikipedia";
@@ -684,6 +684,7 @@
 "languages-title" = "Cambiar de lingua";
 "languages-wikipedia" = "Linguas de Wikipedia";
 "learn-more-title" = "Leger plus";
+"lockscreen-search-widget-description" = "Accesso rapide pro cercar in Wikipedia a partir de tu schermo de serratura.";
 "logged-out-continue-without-logging-in-button-title" = "Continuar sin aperir session";
 "logged-out-log-back-in-button-title" = "Reaperir session in tu conto";
 "logged-out-subtitle" = "Ha occurrite un problema de authentication de tu conto. A fin de synchronisar tu listas de lectura e modificar sub tu nomine de usator, per favor reaperi session.";
@@ -1100,8 +1101,9 @@
 "search-recent-title" = "Cercate recentemente";
 "search-result-redirected-from" = "Redirigite ab: $1";
 "search-title" = "Cercar";
+"search-widget-announcement-body" = "Adde le modulo de recerca de Wikipedia a tu schermo principal o de serratura pro haber responsas plus rapide a portata de mano.";
+"search-widget-announcement-title" = "Nove modulo de recerca disponibile";
 "search-widget-description" = "Accesso rapide al recerca sur Wikipedia.";
-"search-widget-title" = "Cercar";
 "search-widget-wikipedia-title" = "Wikipedia";
 "serbian-variants-alert-body" = "Le application de Wikipedia ora supporta le variantes sequente del serbo como linguas primari o secundari in le application, rendente lo plus facile leger, cercar e modificar in tu variantes preferite:\n\nсрпски ћирилица: serbo cyrillic (sr-ec)\nsrpski latinica: serbo latin (sr-el)";
 "serbian-variants-alert-title" = "Actualisationes del supporto de variantes del serbo";

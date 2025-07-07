@@ -5,6 +5,7 @@
 // Author: BlueCamille
 // Author: Brion Vibber
 // Author: Caliburn
+// Author: Crochet.david
 // Author: Daniel236
 // Author: DavidL
 // Author: Derugon
@@ -735,6 +736,7 @@
 "languages-title" = "Changer de langue";
 "languages-wikipedia" = "Langues de Wikipédia";
 "learn-more-title" = "En savoir plus";
+"lockscreen-search-widget-description" = "Accès rapide à la recherche sur Wikipédia depuis votre écran de verrouillage.";
 "logged-out-continue-without-logging-in-button-title" = "Continuer sans se connecter";
 "logged-out-log-back-in-button-title" = "Se reconnecter à votre compte";
 "logged-out-subtitle" = "Il y a eu un problème d’authentification de votre compte. Pour pouvoir synchroniser vos listes de lecture et modifier sous votre nom d’utilisateur, veuillez vous reconnecter.";
@@ -1151,8 +1153,9 @@
 "search-recent-title" = "Récemment recherché";
 "search-result-redirected-from" = "(Redirigé depuis $1)";
 "search-title" = "Rechercher";
+"search-widget-announcement-body" = "Ajoutez le widget de recherche Wikipédia à votre écran d'accueil ou de verrouillage pour des réponses plus rapides, à portée de main.";
+"search-widget-announcement-title" = "Nouveau widget de recherche disponible";
 "search-widget-description" = "Accès rapide à la recherche sur Wikipédia.";
-"search-widget-title" = "Recherche";
 "search-widget-wikipedia-title" = "Wikipédia";
 "serbian-variants-alert-body" = "L’application Wikipédia prend maintenant en charge les variantes suivantes du serbe comme langues primaire ou secondaires dans l’application, le rendant plus facile à lire, rechercher ou modifier dans vos variantes préférées :\n\nсрпски ћирилица – serbe cyrillique (sr-ec)\nsrpski latinica – serbe latin (sr-el)";
 "serbian-variants-alert-title" = "Mises à jour de la prise en charge des variantes du serbe";

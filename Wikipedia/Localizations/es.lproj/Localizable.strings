@@ -754,6 +754,7 @@
 "languages-title" = "Cambiar idioma";
 "languages-wikipedia" = "Idiomas de Wikipedia";
 "learn-more-title" = "Más información";
+"lockscreen-search-widget-description" = "Acceso rápido para buscar en Wikipedia desde la pantalla de bloqueo.";
 "logged-out-continue-without-logging-in-button-title" = "Continuar sin acceder";
 "logged-out-log-back-in-button-title" = "Volver a acceder a tu cuenta";
 "logged-out-subtitle" = "Hubo un problema al autenticar tu cuenta. Para poder sincronizar tus listas de lectura y editar bajo tu nombre de usuario, por favor, vuelve a acceder.";
@@ -1170,8 +1171,9 @@
 "search-recent-title" = "Búsquedas recientes";
 "search-result-redirected-from" = "Redirigido desde: $1";
 "search-title" = "Buscar";
+"search-widget-announcement-body" = "Añade el widget de búsqueda de Wikipedia a tu pantalla de inicio o de bloqueo para obtener respuestas más rápidas, al alcance de tu mano.";
+"search-widget-announcement-title" = "Nuevo widget de búsqueda disponible";
 "search-widget-description" = "Acceso rápido para buscar en Wikipedia.";
-"search-widget-title" = "Buscar";
 "search-widget-wikipedia-title" = "Wikipedia";
 "serbian-variants-alert-body" = "La aplicación de Wikipedia ahora soporta las variantes del serbio siguientes como lenguas primarias o secundarias dentro de la aplicación, haciéndolo más fácil de leer, buscar y editar en tus variantes preferidas:\n\nсрпски ћирилица Serbio, cirílico (sr-ec)\nsrpski latinica Serbio, latino (sr-el)";
 "serbian-variants-alert-title" = "Actualizaciones a soporte de variantes del serbio";

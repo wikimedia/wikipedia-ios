@@ -1567,5 +1567,6 @@ extension ArticleViewController: UISearchControllerDelegate {
     func didDismissSearchController(_ searchController: UISearchController) {
         navigationController?.hidesBarsOnSwipe = true
         searchBarIsAnimating = false
+        SearchFunnel.shared.logSearchCancel(source: "article")
     }
 }
