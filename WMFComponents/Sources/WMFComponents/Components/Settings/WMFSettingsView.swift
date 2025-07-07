@@ -11,10 +11,10 @@ private struct SettingsRow: View {
             if let image = item.image {
                 Image(uiImage: image)
                     .frame(width: 16, height: 16)
-                    .foregroundStyle(Color(uiColor: theme.chromeBackground))
+                    .foregroundStyle(Color(uiColor: theme == .light ? theme.chromeBackground : theme.icon))
                     .background(
                         RoundedRectangle(cornerRadius: 6)
-                            .fill(Color(uiColor:  theme.isLightTheme ? item.color : theme.newBorder))
+                            .fill(Color(uiColor: theme == .light ? item.color : theme.iconBackground))
                             .frame(width: 32, height: 32)
                     )
                     .padding(.leading, 8)
