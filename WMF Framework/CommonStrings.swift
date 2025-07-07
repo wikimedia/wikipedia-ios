@@ -191,6 +191,8 @@ public class CommonStrings: NSObject {
 
     @objc public static let account = WMFLocalizedString("settings-account", value: "Account", comment: "Title for button and page letting user view their account page.")
 
+    @objc public static let logIn = WMFLocalizedString("main-menu-account-login", value: "Log in", comment: "Button text for logging in. {{Identical|Log in}}")
+
     @objc public static let myLanguages = WMFLocalizedString("settings-my-languages", value: "My languages", comment: "Title for list of user's preferred languages")
     @objc public static let readingPreferences = WMFLocalizedString("settings-appearance", value: "Reading preferences", comment: "Title of the reading preferences screen.")
     @objc public static let pushNotifications = WMFLocalizedString("settings-notifications", value: "Push notifications", comment: "Title for view and button letting users change their push notifications settings.")
@@ -198,6 +200,16 @@ public class CommonStrings: NSObject {
     public static let tryAgain = WMFLocalizedString("settings-notifications-echo-failure-try-again", value: "Try again", comment: "Text alerting the user to try action again after error")
 
     @objc public static let settingsStorageAndSyncing = WMFLocalizedString("settings-storage-and-syncing-title", value: "Article storage and syncing", comment: "Title of the saved articles storage and syncing settings screen")
+
+    @objc public static let clearCachedDataSettings = WMFLocalizedString("settings-clear-cache", value: "Clear cached data", comment: "Title for the 'Clear cached data' settings row")
+
+    @objc public static let privacyTermsHeader = WMFLocalizedString("main-menu-heading-legal", value: "Privacy and Terms", comment: "Header text for the legal section of the menu. Consider using something informal, but feel free to use a more literal translation of \"Legal info\" if it seems more appropriate.")
+
+    @objc public static let rateTheAppTitle = WMFLocalizedString("main-menu-rate-app", value: "Rate the app", comment: "Button text for showing the app in the app store so user can rate the app")
+
+    @objc public static let helpAndfeedbackTitle = WMFLocalizedString("settings-help-and-feedback", value: "Help and feedback", comment: "Title for showing showing a screen that displays the FAQ and allows users to submit bug reports")
+
+    @objc public static let aboutTitle = WMFLocalizedString("about-title", value: "About", comment: "Title for credits page {{Identical|About}}")
 
     @objc public static let inTheNewsTitle = WMFLocalizedString("in-the-news-title", value:"In the news", comment:"Title for the 'In the news' notification & feed section")
 

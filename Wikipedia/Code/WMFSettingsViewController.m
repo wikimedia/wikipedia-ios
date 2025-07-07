@@ -626,7 +626,7 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
     }
 
     WMFSettingsTableViewSection *section = [[WMFSettingsTableViewSection alloc] initWithItems:menuItems
-                                                                                  headerTitle:WMFLocalizedStringWithDefaultValue(@"main-menu-heading-legal", nil, nil, @"Privacy and Terms", @"Header text for the legal section of the menu. Consider using something informal, but feel free to use a more literal translation of \"Legal info\" if it seems more appropriate.")
+                                                                                  headerTitle: [WMFCommonStrings privacyTermsHeader]
                                                                                    footerText:WMFLocalizedStringWithDefaultValue(@"preference-summary-eventlogging-opt-in", nil, nil, @"Allow Wikimedia Foundation to collect information about how you use the app to make the app better", @"Description of preference that when checked enables data collection of user behavior.")];
 
     return section;

@@ -187,7 +187,7 @@ static NSString *const kWMFContributorsKey = @"contributors";
     if ([self isDisplayingLicense]) {
         return WMFLocalizedStringWithDefaultValue(@"about-libraries-license", nil, nil, @"License", @"About page link title that will display a license for a library used in the app {{Identical|License}}");
     }
-    return WMFLocalizedStringWithDefaultValue(@"about-title", nil, nil, @"About", @"Title for credits page {{Identical|About}}");
+    return [WMFCommonStrings aboutTitle];
 }
 
 #pragma mark - Developer Settings
