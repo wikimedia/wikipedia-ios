@@ -1,6 +1,7 @@
 import UIKit
 import WMF
 import WMFComponents
+import WMFData
 
 final class SettingsCoordinator: Coordinator, SettingsCoordinatorDelegate {
 
@@ -12,6 +13,8 @@ final class SettingsCoordinator: Coordinator, SettingsCoordinatorDelegate {
 
     private let theme: Theme
     private let dataStore: MWKDataStore
+
+    private let dataController = try? WMFYearInReviewDataController()
 
     // MARK: Lifecycle
 
@@ -65,25 +68,31 @@ final class SettingsCoordinator: Coordinator, SettingsCoordinatorDelegate {
     }
 
     func tempNewSettings() { // TEST CODE
-        var isExploreFeedOn: Bool = true // TODO -  get this status dinamically
-        let yirIsOn = true // TODO get status
-        let themeName = theme.displayName // TODO get preference, not theme name
-        if navigationController.viewControllers.count == 1,
-           (navigationController.viewControllers.first as? WMFSettingsViewController) != nil {
-            isExploreFeedOn = false
-        }
-        let viewModel = WMFSettingsViewModel(localizedStrings: locStrings(), username: "test", mainLanguage: "PT", exploreFeedStatus: isExploreFeedOn, yirStatus: yirIsOn, readingPreferenceTheme: themeName)
+        let yirEnabledStatus = self.dataController?.yearInReviewSettingsIsEnabled
+
+        let isExploreFeedOn = UserDefaults.standard.defaultTabType == .explore
+        let themeName = UserDefaults.standard.themeDisplayName
+
+        let username = dataStore.authenticationManager.authStatePermanentUsername
+
+        let tempUsername = dataStore.authenticationManager.authStateTemporaryUsername
+        let isTempAccount = WMFTempAccountDataController.shared.primaryWikiHasTempAccountsEnabled && dataStore.authenticationManager.authStateIsTemporary
+
+        let language = dataStore.languageLinkController.appLanguage?.languageCode.uppercased() ?? String()
+
+        let viewModel = WMFSettingsViewModel(localizedStrings: locStrings(), username: username, tempUsername: tempUsername, isTempAccount: isTempAccount, primaryLanguage: language, exploreFeedStatus: isExploreFeedOn, yirStatus: yirEnabledStatus ?? false, readingPreferenceTheme: themeName)
         let settingsViewController =  WMFSettingsViewControllerNEW(viewModel: viewModel, coordinatorDelegate: self)
         let navVC = WMFComponentNavigationController(rootViewController: settingsViewController, modalPresentationStyle: .overFullScreen)
         navigationController.present(navVC, animated: true)
     }
-
 
     func handleSettingsAction(_ action: SettingsAction) {
         switch action {
 
         case .account:
             print("account ⭐️")
+        case .tempAccount:
+            print("temp account ⭐️")
         case .logIn:
             print("login ⭐️")
         case .myLanguages:

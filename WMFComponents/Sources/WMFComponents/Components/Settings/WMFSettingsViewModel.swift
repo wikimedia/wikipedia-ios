@@ -102,6 +102,8 @@ final public class WMFSettingsViewModel: ObservableObject {
 
     let localizedStrings: LocalizedStrings
     private let username: String?
+    private let tempUsername: String?
+    private let isTempAccount: Bool
     private let mainLanguage: String
     private let exploreFeedStatus: Bool
     private let yirStatus: Bool
@@ -110,10 +112,12 @@ final public class WMFSettingsViewModel: ObservableObject {
 
     // MARK: - Lifecycle
 
-    public init(localizedStrings: LocalizedStrings, username: String?, mainLanguage: String, exploreFeedStatus: Bool, yirStatus: Bool, readingPreferenceTheme: String, coordinatorDelegate: SettingsCoordinatorDelegate? = nil) {
+    public init(localizedStrings: LocalizedStrings, username: String?, tempUsername: String?, isTempAccount: Bool, primaryLanguage: String, exploreFeedStatus: Bool, yirStatus: Bool, readingPreferenceTheme: String, coordinatorDelegate: SettingsCoordinatorDelegate? = nil) {
         self.localizedStrings = localizedStrings
         self.username = username
-        self.mainLanguage = mainLanguage
+        self.tempUsername = tempUsername
+        self.isTempAccount = isTempAccount
+        self.mainLanguage = primaryLanguage
         self.exploreFeedStatus = exploreFeedStatus
         self.yirStatus = yirStatus
         self.readingPreferenceTheme = readingPreferenceTheme
@@ -202,7 +206,6 @@ final public class WMFSettingsViewModel: ObservableObject {
     private func getAccountSection() -> SettingsSection {
         let item: SettingsItem
         if let username {
-
             item = SettingsItem(
                 image: WMFSFSymbolIcon.for(symbol: .personFilled),
                 color: WMFColor.orange600,
@@ -211,6 +214,18 @@ final public class WMFSettingsViewModel: ObservableObject {
                 accessory: .chevron(label: username),
                 action: {
                     self.coordinatorDelegate?.handleSettingsAction(.account)
+                }
+            )
+
+        } else if isTempAccount, let tempUsername {
+            item = SettingsItem(
+                image: WMFIcon.temp,
+                color: WMFColor.orange600,
+                title: localizedStrings.accountTitle,
+                subtitle: nil,
+                accessory: .chevron(label: tempUsername),
+                action: {
+                    self.coordinatorDelegate?.handleSettingsAction(.tempAccount)
                 }
             )
 

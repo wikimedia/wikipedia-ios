@@ -8,6 +8,7 @@ public protocol SettingsCoordinatorDelegate: AnyObject {
 /// Represents the various actions that can be performed from the Settings view
 public enum SettingsAction {
     case account
+    case tempAccount
     case logIn
     case myLanguages
     case search
