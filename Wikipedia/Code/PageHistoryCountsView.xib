@@ -90,11 +90,6 @@
                     <constraints>
                         <constraint firstAttribute="height" constant="0.5" id="d2h-ka-oga"/>
                     </constraints>
-                    <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                            <color key="value" systemColor="systemPinkColor"/>
-                        </userDefinedRuntimeAttribute>
-                    </userDefinedRuntimeAttributes>
                 </view>
             </subviews>
             <viewLayoutGuide key="safeArea" id="bpj-xF-zJ9"/>
@@ -125,9 +120,4 @@
             <point key="canvasLocation" x="59.852216748768477" y="268.80000000000001"/>
         </collectionReusableView>
     </objects>
-    <resources>
-        <systemColor name="systemPinkColor">
-            <color red="1" green="0.17647058823529413" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </systemColor>
-    </resources>
 </document>
