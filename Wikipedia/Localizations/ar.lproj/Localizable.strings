@@ -281,7 +281,7 @@
 "diff-compare-header-heading" = "مقارنة المراجعات";
 "diff-compare-header-to-info-heading" = "عرض تحرير";
 "diff-compare-title" = "مقارنة المراجعات";
-"diff-content-added" = "تمت إضافة المحتوى، $1";
+"diff-content-added" = "محتوًى مضاف، $1";
 "diff-content-removed" = "تمت إزالة المحتوى، $1";
 "diff-context-cell-collapse-section" = "انهيار $1";
 "diff-context-cell-expand-section" = "توسيع $1";
@@ -719,8 +719,8 @@
 "inuktitut-variants-alert-title" = "تحديثات لدعم متغير Inuktitut";
 "ip-account-cta-bottom" = "متابعة بدون تسجيل الدخول";
 "ip-account-cta-top" = "تسجيل الدخول أو إنشاء حساب";
-"ip-account-edit-sheet-subtitle" = "بمجرد إجراء تعديل، سيتم إنشاء حساب مؤقت بقيمة $1 $2 لحماية خصوصيتك. $3 تعرف على المزيد. $4 $5 قم بتسجيل الدخول أو إنشاء حساب للحصول على رصيد للتعديلات المستقبلية والوصول إلى ميزات أخرى.";
-"ip-account-warning-subtitle" = "سيتم إنشاء حساب مؤقت لك عند النشر.";
+"ip-account-edit-sheet-subtitle" = "بمجرد إجراء تعديل، سينشأ حساب مؤقت بقيمة $1 $2 لحماية خصوصيتك. $3 تعرف على المزيد. $4 $5 سجل الدخول أو أنشئ حسابًا للحصول على رصيد للتعديلات المستقبلية والوصول إلى ميزات أخرى.";
+"ip-account-warning-subtitle" = "سينشأ حساب مؤقت لك عند النشر.";
 "ip-account-warning-title" = "أنت غير مسجل الدخول";
 "kazakh-variants-alert-body" = "يدعم تطبيق ويكيبيديا الآن المتغيرات الكازاخستانية التالية كلغات أساسية أو ثانوية داخل التطبيق، مما يجعل من الأسهل القراءة والبحث والتحرير بالمتغيرات المفضلة لديك:\n\nҚазақша الكازاخستانية (kk)\nҚазақша Кирил الكازاخستانية، السيريلية (kk-cyrl)\nqazaqşa اللاتينية الكازاخستانية، اللاتينية (kk-latn)\nتوتە قازاقشا الكازاخستانية، العربية (kk-arab)";
 "kazakh-variants-alert-title" = "تحديثات لدعم المتغير الكازاخستاني";
@@ -730,6 +730,7 @@
 "languages-title" = "تغيير اللغة";
 "languages-wikipedia" = "لغات ويكيبيديا";
 "learn-more-title" = "معرفة المزيد";
+"lockscreen-search-widget-description" = "الوصول السريع للبحث في ويكيبيديا من شاشة القفل الخاصة بك.";
 "logged-out-continue-without-logging-in-button-title" = "المتابعة بدون تسجيل الدخول";
 "logged-out-log-back-in-button-title" = "العودة لتسجيل الدخول إلى حسابك";
 "logged-out-subtitle" = "حدثت مشكلة في مصادقة حسابك، لمزامنة قوائم القراءة الخاصة بك وتعديلها تحت اسم المستخدم الخاص بك الرجاء تسجيل الدخول مرة أخرى.";
@@ -1120,7 +1121,7 @@
 "reverted-edit-title" = "تم إرجاع التعديل";
 "save-all-tabs" = "حفظ جميع علامات التبويب";
 "save-view-temp-account-notice" = "أنت تستخدم حسابًا مؤقتًا. التعديلات تُنسب إلى $1 ...";
-"save-view-temp-account-warning" = "لم تقم بتسجيل الدخول. بمجرد إجراء تعديل، سيتم إنشاء حساب مؤقت لك لحماية خصوصيتك.";
+"save-view-temp-account-warning" = "لم تسجل الدخول. بمجرد إجراء تعديل، سينشأ إنشاء حساب مؤقت لك لحماية خصوصيتك.";
 "saved-all-articles-title" = "كل المقالات";
 "saved-all-tabs" = "تم حفظ جميع علامات التبويب.";
 "saved-all-tabs-view-reading-list" = "تم حفظ جميع علامات التبويب. عرض قائمة القراءة.";
@@ -1146,8 +1147,9 @@
 "search-recent-title" = "عمليات البحث الأخيرة";
 "search-result-redirected-from" = "بالتحويل من: $1";
 "search-title" = "بحث";
+"search-widget-announcement-body" = "قم بإضافة أداة البحث في ويكيبيديا إلى الشاشة الرئيسية أو شاشة القفل للحصول على إجابات أسرع، مباشرة في متناول يدك.";
+"search-widget-announcement-title" = "أداة بحث جديدة متاحة";
 "search-widget-description" = "الوصول السريع للبحث في ويكيبيديا.";
-"search-widget-title" = "يبحث";
 "search-widget-wikipedia-title" = "ويكيبيديا";
 "serbian-variants-alert-body" = "يدعم تطبيق Wikipedia الآن المتغيرات الصربية التالية كلغات أساسية أو ثانوية داخل التطبيق ، مما يسهل القراءة والبحث والتحرير في المتغيرات المفضلة لديك:! N !! N! српски ћирилица الصربية ، السيريلية (sr-ec)! ! srpski latinica الصربية، اللاتينية (sr-el)";
 "serbian-variants-alert-title" = "تحديثات لدعم النسخة الصربية";

@@ -691,6 +691,7 @@
 "languages-title" = "Смени јазик";
 "languages-wikipedia" = "Јазици на Википедија";
 "learn-more-title" = "Дознајте повеќе";
+"lockscreen-search-widget-description" = "Брз пристап за пребарување на Википедија од заклучен екран.";
 "logged-out-continue-without-logging-in-button-title" = "Продолжи без најава";
 "logged-out-log-back-in-button-title" = "Назад на најава со сметката";
 "logged-out-subtitle" = "Се јави проблем при заверката на вашата сметка. Ќе треба повторно да се најавите за може да се усогласат списоците за читање и да уредувате под вашето корисничко име.";
@@ -1107,8 +1108,9 @@
 "search-recent-title" = "Неодамна пребарано";
 "search-result-redirected-from" = "Пренасочено од: $1";
 "search-title" = "Пребарување";
+"search-widget-announcement-body" = "Додајте го помагалото за пребарување на Википедија од вашиот почетен или заклучен екран за побрзи одговори на брз дофат.";
+"search-widget-announcement-title" = "Достапно ново помагало за пребарување";
 "search-widget-description" = "Брз пристап до пребарување на Википедија.";
-"search-widget-title" = "Пребарај";
 "search-widget-wikipedia-title" = "Википедија";
 "serbian-variants-alert-body" = "Прилогот на Википедија сега ги поддржува следниве српски варијанти како главен или спореден јазик во прилогот, олеснувајќи го читањето, пребарувањето и уредувањето на вашите претпочитани варијанти:\n\nсрпски ћирилица — српски на кирилица (sr-ec)\nsrpski latinica — српски на латиница (sr-el)";
 "serbian-variants-alert-title" = "Новост за поддршка на српски варијанти";
