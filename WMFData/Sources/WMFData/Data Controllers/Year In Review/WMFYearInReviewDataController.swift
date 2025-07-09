@@ -12,8 +12,8 @@ import CoreData
     private weak var savedSlideDataDelegate: SavedArticleSlideDataDelegate?
     private weak var legacyPageViewsDataDelegate: LegacyPageViewsDataDelegate?
 
-    public let targetConfigYearID = "2024.2"
-    @objc public static let targetYear = 2024
+    public let targetConfigYearID = "2025.1"
+    @objc public static let targetYear = 2025
     public static let appShareLink = "https://apps.apple.com/app/apple-store/id324715238?pt=208305&ct=yir_2024_share&mt=8"
 
     private let service = WMFDataEnvironment.current.mediaWikiService
@@ -314,22 +314,6 @@ import CoreData
             return nil
         }
 
-        var legacyPageViews: [WMFLegacyPageView] = []
-        var savedArticlesData: SavedArticleSlideData? = nil
-
-        if let start = yirConfig.dataPopulationStartDate, let end = yirConfig.dataPopulationEndDate {
-            legacyPageViews = try await legacyPageViewsDataDelegate.getLegacyPageViews(from: start, to: end)
-            savedArticlesData = await savedSlideDataDelegate.getSavedArticleSlideData(from: start, to: end)
-        }
-
-        let userInfo = YearInReviewUserInfo(
-            username: username,
-            userID: userID,
-            project: primaryAppLanguageProject,
-            legacyPageViews: legacyPageViews,
-            savedArticlesData: savedArticlesData
-        )
-
         let slideConfig = SlideConfig(
             readCountIsEnabled: .init(yirConfig.personalizedSlides.readCount.isEnabled),
             editCountIsEnabled: .init(yirConfig.personalizedSlides.editCount.isEnabled),
@@ -353,11 +337,11 @@ import CoreData
             userID: userID,
             project: primaryAppLanguageProject,
             fetchLegacyPageViews: {
-                guard let startDate = yirConfig.dataPopulationStartDate, let endDate = yirConfig.dataPopulationEndDate else { throw NSError(domain: "", code: 0, userInfo: nil)}
+                guard let startDate = yirConfig.dataPopulationStartDate, let endDate = yirConfig.dataPopulationEndDate else { throw NSError(domain: "", code: 0, userInfo: nil) }
                 return try await legacyPageViewsDataDelegate.getLegacyPageViews(from: startDate, to: endDate)
             },
             fetchSavedArticlesData: {
-                guard let startDate = yirConfig.dataPopulationStartDate, let endDate = yirConfig.dataPopulationEndDate else { return nil}
+                guard let startDate = yirConfig.dataPopulationStartDate, let endDate = yirConfig.dataPopulationEndDate else { return nil }
                 return await savedSlideDataDelegate.getSavedArticleSlideData(from: startDate, to: endDate)
             },
             fetchEditCount: { username, project in
@@ -371,10 +355,24 @@ import CoreData
             }
         )
 
-        let slideDataControllers = try await slideFactory.makeSlides()
+        let existingIDs = try await backgroundContext.perform {
+        let predicate = NSPredicate(format: "year == %d", year)
+        let cdReport = try self.coreDataStore.fetchOrCreate(
+            entityType: CDYearInReviewReport.self,
+            predicate: predicate,
+            in: backgroundContext
+        )
+        return Set((cdReport?.slides as? Set<CDYearInReviewSlide>)?.compactMap { $0.id } ?? [])
+    }
 
-        for slide in slideDataControllers {
-            try await slide.populateSlideData(in: backgroundContext)
+    var slideDataControllers = try await slideFactory.makeSlides(missingFrom: existingIDs)
+        for index in slideDataControllers.indices {
+            do {
+                try await slideDataControllers[index].populateSlideData(in: backgroundContext)
+                slideDataControllers[index].isEvaluated = true
+            } catch {
+                slideDataControllers[index].isEvaluated = false
+            }
         }
 
         let report = try await backgroundContext.perform {
@@ -384,17 +382,21 @@ import CoreData
                 predicate: predicate,
                 in: backgroundContext
             )!
+
             cdReport.year = Int32(year)
 
-            if cdReport.slides?.count ?? 0 > 0 {
-                return cdReport
-            } else {
-                let cdSlides = try slideDataControllers.map { try $0.makeCDSlide(in: backgroundContext) }
-                cdReport.slides = Set(cdSlides) as NSSet
+            var finalSlides = cdReport.slides as? Set<CDYearInReviewSlide> ?? []
 
-                try self.coreDataStore.saveIfNeeded(moc: backgroundContext)
-                return cdReport
+            for slide in slideDataControllers where slide.isEvaluated {
+                if let cdSlide = try? slide.makeCDSlide(in: backgroundContext) {
+                    finalSlides.insert(cdSlide)
+                }
             }
+
+            cdReport.slides = Set(finalSlides) as NSSet
+            try self.coreDataStore.saveIfNeeded(moc: backgroundContext)
+
+            return cdReport
         }
 
         endDataPopulationBackgroundTask()
