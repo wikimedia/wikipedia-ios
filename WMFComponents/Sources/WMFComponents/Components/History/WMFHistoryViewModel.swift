@@ -131,7 +131,7 @@ public final class WMFHistoryViewModel: ObservableObject {
         } else if calendar.isDateInYesterday(date) {
             return localizedStrings.yesterdayTitle
         } else {
-            return DateFormatter.wmfFullDateFormatter.string(from: date)
+            return DateFormatter.wmfWeekdayMonthDayDateFormatter.string(from: date)
         }
     }
 }
