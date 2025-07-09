@@ -44,7 +44,7 @@ final class WMFHistoryViewModelTests: XCTestCase {
         emptyViewSubtitle: "No articles viewed.",
         todayTitle: "Today",
         yesterdayTitle: "Yesterday",
-        readNowActionTitle: "Read Now",
+        openArticleActionTitle: "Read Now",
         saveForLaterActionTitle: "Save for Later",
         unsaveActionTitle: "Unsave",
         shareActionTitle: "Share",
@@ -290,7 +290,7 @@ final class WMFHistoryViewModelTests: XCTestCase {
         XCTAssertEqual(headerToday, localizedStrings.todayTitle, "Header for today should match localized today title.")
         XCTAssertEqual(headerYesterday, localizedStrings.yesterdayTitle, "Header for yesterday should match localized yesterday title.")
 
-        let expectedOther = DateFormatter.wmfFullDateFormatter.string(from: anotherDay)
+        let expectedOther = DateFormatter.wmfWeekdayMonthDayDateFormatter.string(from: anotherDay)
         XCTAssertEqual(headerOther, expectedOther, "Header for other days should be a formatted date string.")
     }
 }

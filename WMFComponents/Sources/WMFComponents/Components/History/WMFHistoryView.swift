@@ -85,7 +85,7 @@ public struct WMFHistoryView: View {
             Button {
                 viewModel.onTap(item)
             } label: {
-                Text(viewModel.localizedStrings.readNowActionTitle)
+                Text(viewModel.localizedStrings.openArticleActionTitle)
                 Image(uiImage: WMFSFSymbolIcon.for(symbol: .book) ?? UIImage())
             }
             .labelStyle(.titleAndIcon)
