@@ -12,8 +12,8 @@ import CoreData
     private weak var savedSlideDataDelegate: SavedArticleSlideDataDelegate?
     private weak var legacyPageViewsDataDelegate: LegacyPageViewsDataDelegate?
 
-    public let targetConfigYearID = "2025.1"
-    @objc public static let targetYear = 2025
+    public let targetConfigYearID = "2024.2"
+    @objc public static let targetYear = 2024
     public static let appShareLink = "https://apps.apple.com/app/apple-store/id324715238?pt=208305&ct=yir_2024_share&mt=8"
 
     private let service = WMFDataEnvironment.current.mediaWikiService
