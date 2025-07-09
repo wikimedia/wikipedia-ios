@@ -1045,7 +1045,10 @@ extension ExploreViewController {
             updateProfileButton()
             presentYearInReviewAnnouncement()
         }
+        
+        #if DEBUG
         presentSearchWidgetAnnouncement()
+        #endif
     }
     
     private func needsYearInReviewAnnouncement() -> Bool {
