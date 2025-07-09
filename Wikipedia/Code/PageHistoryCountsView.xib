@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="23727" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina5_9" orientation="landscape" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22685"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23721"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -83,23 +83,33 @@
                     </constraints>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ijp-FN-hau" userLabel="Filter Counts Container View">
-                    <rect key="frame" x="50" y="180.33333333333334" width="702" height="279.66666666666663"/>
+                    <rect key="frame" x="50" y="180.33333333333334" width="702" height="279.33333333333326"/>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JxZ-iv-nug" userLabel="Separator View Bottom">
+                    <rect key="frame" x="0.0" y="459.66666666666669" width="802" height="0.33333333333331439"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="0.5" id="d2h-ka-oga"/>
+                    </constraints>
                 </view>
             </subviews>
             <viewLayoutGuide key="safeArea" id="bpj-xF-zJ9"/>
             <constraints>
+                <constraint firstAttribute="bottom" secondItem="JxZ-iv-nug" secondAttribute="bottom" id="0MP-Og-Ulr"/>
                 <constraint firstItem="AuN-1p-8hf" firstAttribute="top" secondItem="ysz-nP-L3I" secondAttribute="bottom" id="7Qz-E2-07z"/>
+                <constraint firstItem="JxZ-iv-nug" firstAttribute="top" secondItem="ijp-FN-hau" secondAttribute="bottom" id="CoB-tG-t9L"/>
                 <constraint firstItem="ysz-nP-L3I" firstAttribute="leading" secondItem="bpj-xF-zJ9" secondAttribute="leading" id="EQC-VO-mC9"/>
+                <constraint firstItem="JxZ-iv-nug" firstAttribute="leading" secondItem="XAI-VX-rCv" secondAttribute="leading" id="MYs-Gk-ppN"/>
+                <constraint firstItem="JxZ-iv-nug" firstAttribute="trailing" secondItem="XAI-VX-rCv" secondAttribute="trailing" id="U1S-Qi-QtA"/>
                 <constraint firstItem="AuN-1p-8hf" firstAttribute="leading" secondItem="XAI-VX-rCv" secondAttribute="leading" id="aeC-FH-Z24"/>
                 <constraint firstItem="ijp-FN-hau" firstAttribute="top" secondItem="AuN-1p-8hf" secondAttribute="bottom" id="bfG-oN-Nk1"/>
                 <constraint firstItem="bpj-xF-zJ9" firstAttribute="trailing" secondItem="ysz-nP-L3I" secondAttribute="trailing" id="dqN-t0-KAy"/>
-                <constraint firstAttribute="bottom" secondItem="ijp-FN-hau" secondAttribute="bottom" id="eY1-8X-Nqb"/>
                 <constraint firstItem="bpj-xF-zJ9" firstAttribute="trailing" secondItem="ijp-FN-hau" secondAttribute="trailing" id="h5S-qT-ebV"/>
                 <constraint firstAttribute="trailing" secondItem="AuN-1p-8hf" secondAttribute="trailing" id="nhn-Dg-bkO"/>
                 <constraint firstItem="ysz-nP-L3I" firstAttribute="top" secondItem="XAI-VX-rCv" secondAttribute="top" constant="20" id="pQZ-84-Q15"/>
                 <constraint firstItem="ijp-FN-hau" firstAttribute="leading" secondItem="bpj-xF-zJ9" secondAttribute="leading" id="rBP-s0-Apl"/>
             </constraints>
             <connections>
+                <outlet property="bottomSeparator" destination="JxZ-iv-nug" id="mcD-li-nyS"/>
                 <outlet property="countsLabel" destination="Bve-t2-zGu" id="Zad-lY-GJh"/>
                 <outlet property="filterCountsContainerView" destination="ijp-FN-hau" id="rPP-8z-xtK"/>
                 <outlet property="pageTitleLabel" destination="QQA-9X-PaZ" id="A3f-82-fyg"/>
