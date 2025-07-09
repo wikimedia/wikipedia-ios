@@ -404,7 +404,7 @@ extension ReadingListEntryCollectionViewController {
             delete(at: indexPath)
             return true
         case .share:
-            return share(article: article(at: indexPath), articleURL: articleURL(at: indexPath), at: indexPath, dataStore: dataStore, theme: theme, sourceView: sourceView)
+            return share(article: article(at: indexPath), articleURL: articleURL(at: indexPath), dataStore: dataStore, theme: theme, sourceView: sourceView)
         default:
             assertionFailure("Unsupported action type")
             return false

@@ -81,7 +81,7 @@ extension ArticleViewController: ArticleContextMenuPresenting, WKUIDelegate {
                 present(vc, animated: true)
                 return
             }
-            
+
             presentEmbedded(viewControllerToCommit)
         }
     }
