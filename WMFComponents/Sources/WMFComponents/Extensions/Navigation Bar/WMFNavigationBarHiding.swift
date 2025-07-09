@@ -9,18 +9,14 @@ public protocol WMFNavigationBarHiding: AnyObject {
 public extension WMFNavigationBarHiding where Self:UIViewController {
     
     /// Call from UIViewController's viewDidLoad
-    func setupTopSafeAreaOverlay(scrollView: UIScrollView?) {
+    func setupTopSafeAreaOverlay(scrollView: UIScrollView) {
         
         // Insert UIView covering below navigation bar, but above scroll view of content. This hides content beneath top transparent background as it scrolls
 
         let overlayView = UIView()
         overlayView.translatesAutoresizingMaskIntoConstraints = false
-        if let scrollView {
-            view.insertSubview(overlayView, aboveSubview: scrollView)
-        } else {
-            view.addSubview(overlayView)
-        }
-        
+        view.insertSubview(overlayView, aboveSubview: scrollView)
+
         let overlayHeightConstraint = overlayView.heightAnchor.constraint(equalToConstant: 0)
         topSafeAreaOverlayHeightConstraint = overlayHeightConstraint
         calculateTopSafeAreaOverlayHeight()
