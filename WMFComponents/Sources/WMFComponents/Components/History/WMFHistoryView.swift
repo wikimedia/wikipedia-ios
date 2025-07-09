@@ -40,7 +40,7 @@ public struct WMFHistoryView: View {
                     let emptyViewModel = WMFEmptyViewModel(
                         localizedStrings: locStrings,
                         image: viewModel.emptyViewImage,
-                        imageColor: .blue,
+                        imageColor: nil,
                         numberOfFilters: 0
                     )
                     WMFEmptyView(viewModel: emptyViewModel, type: .noItems)
