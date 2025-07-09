@@ -107,7 +107,7 @@ public struct WMFHistoryView: View {
             }
             .labelStyle(.titleAndIcon)
         } preview: {
-            WMFArticlePreviewView(item: item)
+            WMFArticlePreviewView(viewModel: getPreviewViewModel(from:item))
         }
         .overlay(
             GeometryReader { geometry in
@@ -144,6 +144,10 @@ public struct WMFHistoryView: View {
         .onAppear {
             viewModel.loadHistory()
         }
+    }
+
+    private func getPreviewViewModel(from item: HistoryItem) -> WMFArticlePreviewViewModel {
+        return WMFArticlePreviewViewModel(url: item.url, titleHtml: item.titleHtml, description: item.description, imageURL: item.imageURL, isSaved: item.isSaved, snippet: item.snippet)
     }
 
     // MARK: Public methods

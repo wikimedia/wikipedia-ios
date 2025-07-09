@@ -1,8 +1,10 @@
 import SwiftUI
 import WMFData
 
+/// View to be used within SwiftUI `preview` modifier when previewing articles (e.g. when long-pressing)
+///
 struct WMFArticlePreviewView: View {
-    let item: HistoryItem
+    let viewModel: WMFArticlePreviewViewModel
 
     @ObservedObject var appEnvironment = WMFAppEnvironment.current
 
@@ -20,11 +22,11 @@ struct WMFArticlePreviewView: View {
 
     var body: some View {
         let width = screenWidth - 32
-        let hasImage = item.imageURL != nil
+        let hasImage = viewModel.imageURL != nil
         let finalHeight = hasImage ? width : width / 2
 
         VStack(alignment: .leading, spacing: 0) {
-            if let url = item.imageURL {
+            if let url = viewModel.imageURL {
                 AsyncImage(url: url) { phase in
                     switch phase {
                     case .empty:
@@ -47,13 +49,13 @@ struct WMFArticlePreviewView: View {
                 }
             }
             VStack(alignment: .leading) {
-                Text(item.titleHtml)
+                Text(viewModel.titleHtml)
                     .font(Font(WMFFont.for(.georgiaTitle3)))
                     .foregroundColor(Color(theme.text))
                     .padding([.leading, .trailing], 8)
                     .padding(.top, 16)
 
-                if let description = item.description, !description.isEmpty {
+                if let description = viewModel.description, !description.isEmpty {
                     Text(description)
                         .font(Font(WMFFont.for(.subheadline)))
                         .foregroundColor(Color(theme.secondaryText))
@@ -65,7 +67,7 @@ struct WMFArticlePreviewView: View {
             .background(Color(theme.midBackground))
             .padding(0)
 
-            if let summary = item.snippet, !summary.isEmpty {
+            if let summary = viewModel.snippet, !summary.isEmpty {
                 Text(summary)
                     .font(Font(WMFFont.for(.subheadline)))
                     .foregroundColor(Color(theme.text))
