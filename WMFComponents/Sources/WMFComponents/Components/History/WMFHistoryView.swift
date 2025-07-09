@@ -158,9 +158,6 @@ public struct WMFHistoryView: View {
                 emptyView()
             }
         }
-        .onAppear {
-            viewModel.loadHistory()
-        }
     }
 
 }
