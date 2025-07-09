@@ -7,7 +7,6 @@ public struct WMFHistoryView: View {
 
     @ObservedObject var appEnvironment = WMFAppEnvironment.current
     @ObservedObject var viewModel: WMFHistoryViewModel
-    @State private var refreshId = UUID()
 
     var theme: WMFTheme {
         return appEnvironment.theme
@@ -65,7 +64,6 @@ public struct WMFHistoryView: View {
             unsaveAccessibilityLabel: viewModel.localizedStrings.unsaveActionTitle,
             deleteItemAction: {
                 viewModel.delete(section: section, item: item)
-                refreshId = UUID()
             },
             shareItemAction: { frame in
                 viewModel.share(frame: frame, item: item)
@@ -143,9 +141,7 @@ public struct WMFHistoryView: View {
         .scrollContentBackground(.hidden)
         .background(Color(theme.paperBackground))
         .ignoresSafeArea(edges: .top)
-        .id(refreshId)
         .onAppear {
-            refreshId = UUID()
             viewModel.loadHistory()
         }
     }
