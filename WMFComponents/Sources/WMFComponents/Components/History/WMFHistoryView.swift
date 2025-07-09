@@ -141,9 +141,6 @@ public struct WMFHistoryView: View {
         .scrollContentBackground(.hidden)
         .background(Color(theme.paperBackground))
         .ignoresSafeArea(edges: .top)
-        .onAppear {
-            viewModel.loadHistory()
-        }
     }
 
     private func getPreviewViewModel(from item: HistoryItem) -> WMFArticlePreviewViewModel {
@@ -161,6 +158,9 @@ public struct WMFHistoryView: View {
             } else {
                 emptyView()
             }
+        }
+        .onAppear {
+            viewModel.loadHistory()
         }
     }
 
