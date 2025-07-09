@@ -55,7 +55,9 @@ struct WMFPageRow: View {
         .padding(.vertical, 8)
         .swipeActions {
             Button {
-                deleteItemAction()
+                withAnimation(.default) {
+                    deleteItemAction()
+                }
             } label: {
                 Image(uiImage: WMFSFSymbolIcon.for(symbol: .trash) ?? UIImage())
                     .accessibilityLabel(deleteAccessibilityLabel)
