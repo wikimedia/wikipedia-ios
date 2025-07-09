@@ -731,6 +731,7 @@
 "languages-title" = "Dili değiştir";
 "languages-wikipedia" = "Vikipedi dilleri";
 "learn-more-title" = "Daha fazla bilgi edin";
+"lockscreen-search-widget-description" = "Kilit ekranınızdan Vikipedi'de aramaya hızlı erişim.";
 "logged-out-continue-without-logging-in-button-title" = "Giriş yapmadan devam et";
 "logged-out-log-back-in-button-title" = "Hesabınıza tekrar giriş yapın";
 "logged-out-subtitle" = "Hesabınızı doğrulamada bir sorun oluştu. Okuma listelerinizi senkronize etmek ve kullanıcı adınızla düzenleme yapmak için lütfen tekrar giriş yapın.";
@@ -1147,8 +1148,9 @@
 "search-recent-title" = "Son arananlar";
 "search-result-redirected-from" = "Şuradan yönlendirildi: $1";
 "search-title" = "Ara";
+"search-widget-announcement-body" = "Daha hızlı yanıtlar için Vikipedi Arama küçük aracını Ana ya da Kilit Ekranınıza ekleyin, parmaklarınızın ucunda.";
+"search-widget-announcement-title" = "Yeni Arama küçük aracı var";
 "search-widget-description" = "Vikipedi'de arama yapmak için hızlı erişim.";
-"search-widget-title" = "Ara";
 "search-widget-wikipedia-title" = "Vikipedi";
 "serbian-variants-alert-body" = "Vikipedi uygulaması artık aşağıdaki Sırpça biçimlerini birincil veya ikincil dil olarak uygulama içinde destekliyor, bu şekilde tercih ettiğiniz biçimle daha kolay okuyabilir, aratabilir ve değişiklik yapabilirsiniz:\n\nсрпски ћирилица Sırpça, Kiril (sr-ec)\nsrpski latinica Sırpça, Latin (sr-el)";
 "serbian-variants-alert-title" = "Sırpça biçim desteği güncellemeleri";

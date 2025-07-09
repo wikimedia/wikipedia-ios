@@ -1045,6 +1045,7 @@ extension ExploreViewController {
             updateProfileButton()
             presentYearInReviewAnnouncement()
         }
+        presentSearchWidgetAnnouncement()
     }
     
     private func needsYearInReviewAnnouncement() -> Bool {
@@ -1100,6 +1101,62 @@ extension ExploreViewController {
             announceFeature(viewModel: viewModel, sourceView: nil, sourceRect: nil, barButtonItem: profileBarButtonItem)
             DonateFunnel.shared.logYearInReviewFeatureAnnouncementDidAppear(isEntryA: !dataStore.authenticationManager.authStateIsPermanent)
             yirDataController.hasPresentedYiRFeatureAnnouncementModel = true
+        }
+    }
+    
+    private func shouldShowSearchWidgetAnnouncement() -> Bool {
+        // Check if user has already seen the announcement
+        if UserDefaults.standard.wmf_didShowSearchWidgetFeatureAnnouncement {
+            return false
+        }
+        
+        // Check if current date is before the temporary date (September 30, 2025)
+        let calendar = Calendar.current
+        var expiryDateComponents = DateComponents()
+        expiryDateComponents.year = 2025
+        expiryDateComponents.month = 9
+        expiryDateComponents.day = 30
+        
+        guard let expiryDate = calendar.date(from: expiryDateComponents) else {
+            return false
+        }
+        
+        let currentDate = Date()
+        return currentDate <= expiryDate
+    }
+    
+    private func markSearchWidgetAnnouncementAsSeen() {
+        UserDefaults.standard.wmf_didShowSearchWidgetFeatureAnnouncement = true
+    }
+    
+    private func presentSearchWidgetAnnouncement() {
+        // Check if the announcement should show
+        guard shouldShowSearchWidgetAnnouncement() else {
+            return
+        }
+        
+        let title = CommonStrings.searchWidgetAnnouncementTitle
+        let body = CommonStrings.searchWidgetAnnouncementBody
+        let primaryButtonTitle = CommonStrings.gotItButtonTitle
+        
+        let foregroundImage = UIImage(named: "widget")
+        let backgroundImage = UIImage(named: "gradient")
+        
+        let viewModel = WMFFeatureAnnouncementViewModel(title: title,body: body,
+        primaryButtonTitle: primaryButtonTitle, image: foregroundImage, backgroundImage: backgroundImage, backgroundImageHeight: 250,
+            gifName: nil, altText: CommonStrings.searchWidgetAnnouncementBody,
+            primaryButtonAction: { [weak self] in
+                self?.dismiss(animated: true)
+            },
+            closeButtonAction: { [weak self] in
+                self?.dismiss(animated: true)
+            }
+        )
+        
+        if let profileBarButtonItem = navigationItem.rightBarButtonItem {
+            announceFeature(viewModel: viewModel, sourceView: nil, sourceRect: nil, barButtonItem: profileBarButtonItem)
+            // Mark as seen after successful presentation
+            markSearchWidgetAnnouncementAsSeen()
         }
     }
 }
@@ -1796,5 +1853,6 @@ extension ExploreViewController: UISearchControllerDelegate {
     func didDismissSearchController(_ searchController: UISearchController) {
         presentingSearchResults = false
         navigationController?.hidesBarsOnSwipe = true
+        SearchFunnel.shared.logSearchCancel(source: "top_of_feed")
     }
 }

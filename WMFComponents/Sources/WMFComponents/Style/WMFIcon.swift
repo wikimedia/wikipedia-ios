@@ -25,6 +25,7 @@ public enum WMFIcon {
     public static let addPhoto = UIImage(named: "photo-badge-plus", in: .module, with: nil) // Use SFSymbol once target is iOS17+
     public static let error = UIImage(named: "error", in: .module, with: nil)
     public static let personCircleX = UIImage(named: "person-circle-x", in: .module, with: nil) // Use SFSymbol once target is iOS17+
+    public static let anonymous = UIImage(named: "user-anonymous", in: .module, with: nil)
 
     // Project icons
     public static let commons = UIImage(named: "project-icons/commons", in: .module, with: nil)

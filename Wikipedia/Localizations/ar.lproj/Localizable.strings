@@ -281,7 +281,7 @@
 "diff-compare-header-heading" = "مقارنة المراجعات";
 "diff-compare-header-to-info-heading" = "عرض تحرير";
 "diff-compare-title" = "مقارنة المراجعات";
-"diff-content-added" = "تمت إضافة المحتوى، $1";
+"diff-content-added" = "محتوًى مضاف، $1";
 "diff-content-removed" = "تمت إزالة المحتوى، $1";
 "diff-context-cell-collapse-section" = "انهيار $1";
 "diff-context-cell-expand-section" = "توسيع $1";
@@ -730,6 +730,7 @@
 "languages-title" = "تغيير اللغة";
 "languages-wikipedia" = "لغات ويكيبيديا";
 "learn-more-title" = "معرفة المزيد";
+"lockscreen-search-widget-description" = "الوصول السريع للبحث في ويكيبيديا من شاشة القفل الخاصة بك.";
 "logged-out-continue-without-logging-in-button-title" = "المتابعة بدون تسجيل الدخول";
 "logged-out-log-back-in-button-title" = "العودة لتسجيل الدخول إلى حسابك";
 "logged-out-subtitle" = "حدثت مشكلة في مصادقة حسابك، لمزامنة قوائم القراءة الخاصة بك وتعديلها تحت اسم المستخدم الخاص بك الرجاء تسجيل الدخول مرة أخرى.";
@@ -1146,8 +1147,9 @@
 "search-recent-title" = "عمليات البحث الأخيرة";
 "search-result-redirected-from" = "بالتحويل من: $1";
 "search-title" = "بحث";
+"search-widget-announcement-body" = "قم بإضافة أداة البحث في ويكيبيديا إلى الشاشة الرئيسية أو شاشة القفل للحصول على إجابات أسرع، مباشرة في متناول يدك.";
+"search-widget-announcement-title" = "أداة بحث جديدة متاحة";
 "search-widget-description" = "الوصول السريع للبحث في ويكيبيديا.";
-"search-widget-title" = "يبحث";
 "search-widget-wikipedia-title" = "ويكيبيديا";
 "serbian-variants-alert-body" = "يدعم تطبيق Wikipedia الآن المتغيرات الصربية التالية كلغات أساسية أو ثانوية داخل التطبيق ، مما يسهل القراءة والبحث والتحرير في المتغيرات المفضلة لديك:! N !! N! српски ћирилица الصربية ، السيريلية (sr-ec)! ! srpski latinica الصربية، اللاتينية (sr-el)";
 "serbian-variants-alert-title" = "تحديثات لدعم النسخة الصربية";

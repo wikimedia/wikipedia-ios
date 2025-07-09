@@ -128,6 +128,7 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         NSUserActivity.wmf_makeActive(NSUserActivity.wmf_searchView())
+        SearchFunnel.shared.logSearchStart(source: source.stringValue)
 
         if shouldBecomeFirstResponder {
             DispatchQueue.main.async { [weak self] in
@@ -358,6 +359,7 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
         }
 
         resetSearchResults()
+        let start = Date()
 
         let failure = { (error: Error, type: WMFSearchType) in
             DispatchQueue.main.async { [weak self] in
@@ -367,6 +369,7 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
                 }
                 self.resultsViewController.emptyViewType = (error as NSError).wmf_isNetworkConnectionError() ? .noInternetConnection : .noSearchResults
                 self.resultsViewController.results = []
+                SearchFunnel.shared.logShowSearchError(with: type, elapsedTime: Date().timeIntervalSince(start), source: self.source.stringValue)
             }
         }
 
@@ -383,6 +386,7 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
                 guard !suggested else {
                     return
                 }
+                SearchFunnel.shared.logSearchResults(with: type, resultCount: resultsArray.count, elapsedTime: Date().timeIntervalSince(start), source: self.source.stringValue)
             }
         }
 
@@ -433,6 +437,8 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
             guard let self else {
                 return
             }
+
+            SearchFunnel.shared.logSearchResultTap(position: indexPath.item, source: source.stringValue)
 
             saveLastSearch()
 
@@ -640,6 +646,7 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
 
 extension SearchViewController: SearchLanguagesBarViewControllerDelegate {
     func searchLanguagesBarViewController(_ controller: SearchLanguagesBarViewController, didChangeSelectedSearchContentLanguageCode contentLanguageCode: String) {
+        SearchFunnel.shared.logSearchLangSwitch(source: source.stringValue)
         search()
     }
 }
@@ -690,6 +697,7 @@ extension SearchViewController: UISearchControllerDelegate {
         needsAnimateLanguageBarMovement = false
         navigationController?.hidesBarsOnSwipe = true
         presentingSearchResults = false
+        SearchFunnel.shared.logSearchCancel(source: source.stringValue)
     }
 }
 
