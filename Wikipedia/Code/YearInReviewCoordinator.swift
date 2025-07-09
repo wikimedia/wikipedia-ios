@@ -593,7 +593,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
                 if slide.evaluated == true,
                    let data = slide.data {
                     let decoder = JSONDecoder()
-                    if let editCount = try? decoder.decode(Int.self, from: data) {
+                    if let editCount = try? decoder.decode(Int.self, from: data), editCount > 0 {
                         editCountSlide = YearInReviewSlideContent(
                             gifName: "personal-slide-04",
                             altText: localizedStrings.personalizedUserEditsAccessibilityLabel,

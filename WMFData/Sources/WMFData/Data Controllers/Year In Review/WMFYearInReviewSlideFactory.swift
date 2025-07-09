@@ -5,86 +5,106 @@ public final class YearInReviewSlideFactory {
 
     private let year: Int
     private let config: YearInReviewFeatureConfig
-    private let userInfo: YearInReviewUserInfo
+
+    private let fetchLegacyPageViews: () async throws -> [WMFLegacyPageView]
+    private let fetchSavedArticlesData: () async -> SavedArticleSlideData?
 
     private let fetchEditCount: (String, WMFProject?) async throws -> Int
     private let fetchEditViews: (WMFProject?, String, String) async throws -> Int
     private let donationFetcher: (Date, Date) -> Int?
 
+    private let username: String?
+    private let userID: String?
+    private let project: WMFProject?
+
     public init(
         year: Int,
         config: YearInReviewFeatureConfig,
-        userInfo: YearInReviewUserInfo,
+        username: String?,
+        userID: String?,
+        project: WMFProject?,
+        fetchLegacyPageViews: @escaping () async throws -> [WMFLegacyPageView],
+        fetchSavedArticlesData: @escaping () async -> SavedArticleSlideData?,
         fetchEditCount: @escaping (String, WMFProject?) async throws -> Int,
         fetchEditViews: @escaping (WMFProject?, String, String) async throws -> Int,
         donationFetcher: @escaping (Date, Date) -> Int?
     ) {
         self.year = year
         self.config = config
-        self.userInfo = userInfo
+        self.username = username
+        self.userID = userID
+        self.project = project
+        self.fetchLegacyPageViews = fetchLegacyPageViews
+        self.fetchSavedArticlesData = fetchSavedArticlesData
         self.fetchEditCount = fetchEditCount
         self.fetchEditViews = fetchEditViews
         self.donationFetcher = donationFetcher
     }
+    
+    public func makeSlides() async throws -> [YearInReviewSlideProtocol] {
+       var slides: [YearInReviewSlideProtocol] = []
 
-    public func makeSlides() -> [YearInReviewSlideProtocol] {
-        var slides: [YearInReviewSlideProtocol] = []
+       let legacyPageViews = try await fetchLegacyPageViews()
+       let savedArticlesData = await fetchSavedArticlesData()
 
-        if YearInReviewReadCountSlide.shouldPopulate(from: config, userInfo: userInfo) {
-            let slide = YearInReviewReadCountSlide(year: year, legacyPageViews: userInfo.legacyPageViews)
-            slides.append(slide)
-        }
+       let userInfo = YearInReviewUserInfo(
+           username: username,
+           userID: userID,
+           project: project,
+           legacyPageViews: legacyPageViews,
+           savedArticlesData: savedArticlesData
+       )
 
-        if YearInReviewEditCountSlide.shouldPopulate(from: config, userInfo: userInfo) {
-            let slide = YearInReviewEditCountSlide(
-                year: year,
-                username: userInfo.username,
-                project: userInfo.project,
-                fetchEditCount: fetchEditCount
-            )
-            slides.append(slide)
-        }
+       if YearInReviewReadCountSlide.shouldPopulate(from: config, userInfo: userInfo) {
+           slides.append(YearInReviewReadCountSlide(year: year, legacyPageViews: legacyPageViews))
+       }
 
-        if YearInReviewDonateCountSlide.shouldPopulate(from: config, userInfo: userInfo),
-           let start = config.dataPopulationStartDate,
-           let end = config.dataPopulationEndDate {
-            let slide = YearInReviewDonateCountSlide(
-                year: year,
-                dateRange: (start, end),
-                donationFetcher: donationFetcher
-            )
-            slides.append(slide)
-        }
+       if YearInReviewEditCountSlide.shouldPopulate(from: config, userInfo: userInfo) {
+           slides.append(YearInReviewEditCountSlide(
+               year: year,
+               username: username,
+               project: project,
+               fetchEditCount: fetchEditCount
+           ))
+       }
 
-        if YearInReviewSaveCountSlide.shouldPopulate(from: config, userInfo: userInfo) {
-            let slide = YearInReviewSaveCountSlide(
-                year: year,
-                savedData: userInfo.savedArticlesData
-            )
-            slides.append(slide)
-        }
+       if YearInReviewDonateCountSlide.shouldPopulate(from: config, userInfo: userInfo),
+          let start = config.dataPopulationStartDate,
+          let end = config.dataPopulationEndDate {
+           slides.append(YearInReviewDonateCountSlide(
+               year: year,
+               dateRange: (start, end),
+               donationFetcher: donationFetcher
+           ))
+       }
 
-        if YearInReviewMostReadDaySlide.shouldPopulate(from: config, userInfo: userInfo) {
-            let slide = YearInReviewMostReadDaySlide(
-                year: year,
-                legacyPageViews: userInfo.legacyPageViews
-            )
-            slides.append(slide)
-        }
+       if YearInReviewSaveCountSlide.shouldPopulate(from: config, userInfo: userInfo) {
+           slides.append(YearInReviewSaveCountSlide(
+               year: year,
+               savedData: savedArticlesData
+           ))
+       }
 
-        if YearInReviewViewCountSlide.shouldPopulate(from: config, userInfo: userInfo),
-           let userID = userInfo.userID,
-           let lang = userInfo.project?.languageCode {
-            let slide = YearInReviewViewCountSlide(
-                year: year,
-                userID: userID,
-                languageCode: lang,
-                project: userInfo.project,
-                fetchViews: fetchEditViews
-            )
-            slides.append(slide)
-        }
+       if YearInReviewMostReadDaySlide.shouldPopulate(from: config, userInfo: userInfo) {
+           slides.append(YearInReviewMostReadDaySlide(
+               year: year,
+               legacyPageViews: legacyPageViews
+           ))
+       }
 
-        return slides
-    }
+       if YearInReviewViewCountSlide.shouldPopulate(from: config, userInfo: userInfo),
+          let userID = userID,
+          let lang = project?.languageCode {
+           slides.append(YearInReviewViewCountSlide(
+               year: year,
+               userID: userID,
+               languageCode: lang,
+               project: project,
+               fetchViews: fetchEditViews
+           ))
+       }
+
+       return slides
+   }
 }
+
