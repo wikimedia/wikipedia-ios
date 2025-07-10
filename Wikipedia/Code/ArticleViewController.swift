@@ -51,6 +51,9 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
     private let cacheController: ArticleCacheController
 
     internal var willDisplayFundraisingBanner: Bool = false
+    
+    // Article tabs
+    public var articleTabsAssignment: WMFArticleTabsDataController.ArticleTabsExperimentAssignment?
 
     // Tootltips
     public var tooltipViewModels: [WMFTooltipViewModel] = []
@@ -442,12 +445,12 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        articleTabsAssignment = try? WMFArticleTabsDataController.shared.getArticleTabsExperimentAssignment()
         super.viewWillAppear(animated)
         tableOfContentsController.setup(with: traitCollection)
         toolbarController.update()
         loadIfNecessary()
         startSignificantlyViewedTimer()
-
         configureNavigationBar()
     }
     
@@ -619,8 +622,7 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
         Task { [weak self] in
             guard let self else { return }
             let tabDataController = WMFArticleTabsDataController.shared
-            
-            if tabDataController.shouldShowArticleTabs,
+            if tabDataController.shouldShowArticleTabs || articleTabsAssignment == .test,
                let tabIdentifier = self.coordinator?.tabIdentifier {
                 self.previousArticleTab = try? await tabDataController.getAdjacentArticleInTab(tabIdentifier: tabIdentifier, isPrev: true)
                 self.nextArticleTab = try? await tabDataController.getAdjacentArticleInTab(tabIdentifier: tabIdentifier, isPrev: false)
