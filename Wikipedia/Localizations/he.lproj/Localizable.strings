@@ -1034,7 +1034,7 @@
 "return-button-title" = "חזרה";
 "return-to-article" = "חזרה לערך";
 "reverted-edit-title" = "עריכה ששוחזרה";
-"save-view-temp-account-notice" = "החשבון שלך חולף. העריכות מיוחסות לשם המשתמש $1...";
+"save-view-temp-account-notice" = "<b>החשבון שלך חולף.</b> העריכות מיוחסות לשם המשתמש $1...";
 "saved-all-articles-title" = "כל הערכים";
 "saved-default-reading-list-tag" = "אין אפשרות למחוק רשימה זו";
 "saved-pages-image-download-error" = "הורדת התמונות עבור הדך השמור הזה לא עבדה.";
