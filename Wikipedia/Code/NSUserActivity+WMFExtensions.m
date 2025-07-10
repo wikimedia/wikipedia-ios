@@ -130,6 +130,16 @@ __attribute__((annotate("returns_localized_nsstring"))) static inline NSString *
     } else if ([url.host isEqualToString:@"history"]) {
         return [self wmf_recentViewActivity];
     } else if ([url.host isEqualToString:@"search"]) {
+        // Check if there's a search term in the query parameter 'q'
+        NSString *searchTerm = [url wmf_valueForQueryKey:@"q"];
+        if (searchTerm && searchTerm.length > 0) {
+            NSUserActivity *activity = [self wmf_searchViewActivity];
+            // Store the search term in userInfo for later retrieval
+            NSMutableDictionary *userInfo = [activity.userInfo mutableCopy] ?: [NSMutableDictionary new];
+            userInfo[@"WMFSearchTerm"] = searchTerm;
+            activity.userInfo = userInfo;
+            return activity;
+        }
         return [self wmf_searchViewActivity];
     } else if ([url wmf_valueForQueryKey:@"search"] != nil) {
         NSURLComponents *components = [NSURLComponents componentsWithURL:url resolvingAgainstBaseURL:NO];
@@ -238,6 +248,12 @@ __attribute__((annotate("returns_localized_nsstring"))) static inline NSString *
 }
 
 - (nullable NSString *)wmf_searchTerm {
+    // First check if there's a search term stored in userInfo (for App Intent searches)
+    NSString *searchTermFromUserInfo = self.userInfo[@"WMFSearchTerm"];
+    if (searchTermFromUserInfo && searchTermFromUserInfo.length > 0) {
+        return searchTermFromUserInfo;
+    }
+    
     if (self.wmf_type != WMFUserActivityTypeSearchResults) {
         return nil;
     }

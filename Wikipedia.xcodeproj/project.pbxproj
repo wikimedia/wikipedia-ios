@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 54;
+	objectVersion = 70;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -4708,6 +4708,10 @@
 		FFE891452445150B0058B642 /* AppTabBarDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppTabBarDelegate.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		A76E10E02E1C581400A0F600 /* App Intent */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = "App Intent"; sourceTree = "<group>"; };
+/* End PBXFileSystemSynchronizedRootGroup section */
+
 /* Begin PBXFrameworksBuildPhase section */
 		00021DDE24D48EFD00476F97 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
@@ -7463,6 +7467,7 @@
 		BC45D58D1C32FD58007C72F3 /* Features */ = {
 			isa = PBXGroup;
 			children = (
+				A76E10E02E1C581400A0F600 /* App Intent */,
 				6730D8DD2A05BFA40035255B /* Editing */,
 				67033E122A61B23700896852 /* Watchlist */,
 				67DC5BDB23A00DF500B03A84 /* Article */,
@@ -8846,6 +8851,9 @@
 				00021DED24D48EFE00476F97 /* PBXTargetDependency */,
 				676C864A26D40AEB00A704C1 /* PBXTargetDependency */,
 			);
+			fileSystemSynchronizedGroups = (
+				A76E10E02E1C581400A0F600 /* App Intent */,
+			);
 			name = Wikipedia;
 			packageProductDependencies = (
 			);
@@ -8946,6 +8954,9 @@
 				D8CE24DA1E698E2400DAE2E0 /* PBXTargetDependency */,
 				676C867526D4170100A704C1 /* PBXTargetDependency */,
 			);
+			fileSystemSynchronizedGroups = (
+				A76E10E02E1C581400A0F600 /* App Intent */,
+			);
 			name = Experimental;
 			packageProductDependencies = (
 			);
@@ -8970,6 +8981,9 @@
 				D8EC3DCF1E9BDA35006712EB /* PBXTargetDependency */,
 				D8EC3DD11E9BDA35006712EB /* PBXTargetDependency */,
 				676C867226D416FB00A704C1 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				A76E10E02E1C581400A0F600 /* App Intent */,
 			);
 			name = Staging;
 			packageProductDependencies = (

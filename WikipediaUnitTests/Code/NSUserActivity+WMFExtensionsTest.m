@@ -52,5 +52,26 @@
                           @"https://en.wikipedia.org/w/index.php?search=dog&title=Special:Search&fulltext=1");
 }
 
+- (void)testBasicSearchSchemeURL {
+    NSURL *url = [NSURL URLWithString:@"wikipedia://search"];
+    NSUserActivity *activity = [NSUserActivity wmf_activityForWikipediaScheme:url];
+    XCTAssertEqual(activity.wmf_type, WMFUserActivityTypeSearch);
+    XCTAssertNil([activity wmf_searchTerm]);
+}
+
+- (void)testSearchSchemeURLWithQuery {
+    NSURL *url = [NSURL URLWithString:@"wikipedia://search?q=Einstein"];
+    NSUserActivity *activity = [NSUserActivity wmf_activityForWikipediaScheme:url];
+    XCTAssertEqual(activity.wmf_type, WMFUserActivityTypeSearch);
+    XCTAssertEqualObjects([activity wmf_searchTerm], @"Einstein");
+}
+
+- (void)testSearchSchemeURLWithEncodedQuery {
+    NSURL *url = [NSURL URLWithString:@"wikipedia://search?q=Albert%20Einstein"];
+    NSUserActivity *activity = [NSUserActivity wmf_activityForWikipediaScheme:url];
+    XCTAssertEqual(activity.wmf_type, WMFUserActivityTypeSearch);
+    XCTAssertEqualObjects([activity wmf_searchTerm], @"Albert Einstein");
+}
+
 @end
 

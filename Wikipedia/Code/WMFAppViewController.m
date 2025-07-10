@@ -1309,10 +1309,19 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
             [self setSelectedIndex:WMFAppTabTypeRecent];
             [self.currentTabNavigationController popToRootViewControllerAnimated:animated];
             break;
-        case WMFUserActivityTypeSearch:
-            [self switchToSearchAnimated:animated];
-            [self.searchViewController makeSearchBarBecomeFirstResponder];
-            break;
+        case WMFUserActivityTypeSearch: {
+            NSString *searchTerm = [activity wmf_searchTerm];
+            if (searchTerm && searchTerm.length > 0) {
+                // If we have a search term, perform the search
+                [self dismissPresentedViewControllers];
+                [self switchToSearchAnimated:animated];
+                [self.searchViewController searchAndMakeResultsVisibleForSearchTerm:searchTerm animated:animated];
+            } else {
+                // If no search term, just open the search tab and focus the search bar
+                [self switchToSearchAnimated:animated];
+                [self.searchViewController makeSearchBarBecomeFirstResponder];
+            }
+        } break;
         case WMFUserActivityTypeSearchResults:
             [self dismissPresentedViewControllers];
             [self.searchViewController searchAndMakeResultsVisibleForSearchTerm:[activity wmf_searchTerm] animated:animated];
