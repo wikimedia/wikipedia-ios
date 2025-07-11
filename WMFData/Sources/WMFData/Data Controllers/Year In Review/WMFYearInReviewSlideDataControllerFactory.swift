@@ -9,7 +9,6 @@ public final class YearInReviewSlideDataControllerFactory {
     private weak var savedSlideDataDelegate: SavedArticleSlideDataDelegate?
     private weak var legacyPageViewsDataDelegate: LegacyPageViewsDataDelegate?
     
-    private let fetchEditCount: (String, WMFProject?) async throws -> Int
     private let fetchEditViews: (WMFProject?, String, String) async throws -> Int
     private let donationFetcher: (Date, Date) -> Int?
     
@@ -25,7 +24,6 @@ public final class YearInReviewSlideDataControllerFactory {
         project: WMFProject?,
         savedSlideDataDelegate: SavedArticleSlideDataDelegate,
         legacyPageViewsDataDelegate: LegacyPageViewsDataDelegate,
-        fetchEditCount: @escaping (String, WMFProject?) async throws -> Int,
         fetchEditViews: @escaping (WMFProject?, String, String) async throws -> Int,
         donationFetcher: @escaping (Date, Date) -> Int?
     ) {
@@ -34,7 +32,6 @@ public final class YearInReviewSlideDataControllerFactory {
         self.username = username
         self.userID = userID
         self.project = project
-        self.fetchEditCount = fetchEditCount
         self.fetchEditViews = fetchEditViews
         self.donationFetcher = donationFetcher
         
@@ -64,7 +61,7 @@ public final class YearInReviewSlideDataControllerFactory {
                 year: year,
                 username: username,
                 project: project,
-                fetchEditCount: fetchEditCount
+                yirConfig: config
             ))
         }
         
