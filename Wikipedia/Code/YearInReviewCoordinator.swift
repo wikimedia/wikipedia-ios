@@ -574,7 +574,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         for slide in report.slides {
             switch slide.id {
             case .readCount:
-                if slide.display == true,
+                if slide.evaluated == true,
                    let data = slide.data {
                     let decoder = JSONDecoder()
                     if let readCount = try? decoder.decode(Int.self, from: data) {
@@ -590,7 +590,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
                     }
                 }
             case .editCount:
-                if slide.display == true,
+                if slide.evaluated == true,
                    let data = slide.data {
                     let decoder = JSONDecoder()
                     if let editCount = try? decoder.decode(Int.self, from: data) {
@@ -606,7 +606,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
                     }
                 }
             case .donateCount:
-                if slide.display == true,
+                if slide.evaluated == true,
                    let data = slide.data {
                     let decoder = JSONDecoder()
                     if let donateCount = try? decoder.decode(Int.self, from: data),
@@ -623,7 +623,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
                     }
                 }
             case .saveCount:
-                if slide.display == true,
+                if slide.evaluated == true,
                    let data = slide.data {
                     let decoder = JSONDecoder()
                     if let savedSlideData = try? decoder.decode(SavedArticleSlideData.self, from: data),
@@ -642,7 +642,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
                     }
                 }
             case .mostReadDay:
-                if slide.display == true,
+                if slide.evaluated == true,
                    let data = slide.data {
                     let decoder = JSONDecoder()
                     if let mostReadDay = try? decoder.decode(WMFPageViewDay.self, from: data),
@@ -659,7 +659,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
                     }
                 }
             case .viewCount:
-                if slide.display == true,
+                if slide.evaluated == true,
                    let data = slide.data {
                     let decoder = JSONDecoder()
                     if let viewCount = try? decoder.decode(Int.self, from: data),
