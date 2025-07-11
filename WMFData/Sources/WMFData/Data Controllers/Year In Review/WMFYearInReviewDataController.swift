@@ -492,7 +492,7 @@ import CoreData
         return true
     }
     
-    #if TEST
+    // MARK: So far these are only called from unit tests
     public func deleteYearInReviewReport(year: Int) async throws {
         let backgroundContext = try coreDataStore.newBackgroundContext
 
@@ -571,7 +571,6 @@ import CoreData
             return nil
         }
     }
-    #endif
 }
 
 public class SavedArticleSlideData: NSObject, Codable {
