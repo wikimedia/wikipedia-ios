@@ -59,9 +59,7 @@ public final class YearInReviewSlideDataControllerFactory {
         }
         
         if shouldAddSlideDataController(existingSlideIDs: existingSlideIDs, id: .donateCount),
-           YearInReviewDonateCountSlideDataController.shouldPopulate(from: config, userInfo: userInfo),
-           let start = config.dataPopulationStartDate,
-           let end = config.dataPopulationEndDate {
+           YearInReviewDonateCountSlideDataController.shouldPopulate(from: config, userInfo: userInfo) {
             slides.append(YearInReviewDonateCountSlideDataController(
                 year: year,
                 yirConfig: config

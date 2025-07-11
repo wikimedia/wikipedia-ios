@@ -298,13 +298,16 @@ import CoreData
         }
 
         await beginDataPopulationBackgroundTask()
+        
+        defer {
+            endDataPopulationBackgroundTask()
+        }
 
         let backgroundContext = try coreDataStore.newBackgroundContext
 
         let yirConfig = developerSettingsDataController.loadFeatureConfig()?.ios.first?.yir(yearID: targetConfigYearID)
 
         guard let yirConfig else {
-            endDataPopulationBackgroundTask()
             return nil
         }
 
@@ -336,6 +339,7 @@ import CoreData
             legacyPageViewsDataDelegate: legacyPageViewsDataDelegate
         )
 
+        // First pull existing report slide IDs from Core Data
         let existingIDs = try await backgroundContext.perform {
             let predicate = NSPredicate(format: "year == %d", year)
             let cdReport = try self.coreDataStore.fetchOrCreate(
@@ -346,6 +350,7 @@ import CoreData
             return Set((cdReport?.slides as? Set<CDYearInReviewSlide>)?.compactMap { $0.id } ?? [])
         }
 
+        // For any slide IDs missing, create associated slide data controllers and populate their data
         var slideDataControllers = try await slideFactory.makeSlideDataControllers(missingFrom: existingIDs)
         for index in slideDataControllers.indices {
             do {
@@ -356,6 +361,7 @@ import CoreData
             }
         }
 
+        // Create new core data slides from data controllers, save to core data report and return generic report struct
         let report = try await backgroundContext.perform {
             let predicate = NSPredicate(format: "year == %d", year)
             let cdReport = try self.coreDataStore.fetchOrCreate(
@@ -375,21 +381,19 @@ import CoreData
             }
 
             cdReport.slides = Set(finalCDSlides) as NSSet
+            
             try self.coreDataStore.saveIfNeeded(moc: backgroundContext)
-
-            return cdReport
-        }
-
-        endDataPopulationBackgroundTask()
-
-        return await backgroundContext.perform {
-            let slides: [WMFYearInReviewSlide] = (report.slides as? Set<CDYearInReviewSlide>)?.compactMap { cdSlide in
+            
+            // Convert report to plain struct before returning
+            let slides: [WMFYearInReviewSlide] = finalCDSlides.compactMap { cdSlide in
                 guard let id = self.getSlideId(cdSlide.id) else { return nil }
                 return WMFYearInReviewSlide(year: Int(cdSlide.year), id: id, data: cdSlide.data)
-            } ?? []
+            }
 
             return WMFYearInReviewReport(year: year, slides: slides)
         }
+
+        return report
     }
 
     public func createNewYearInReviewReport(year: Int, slides: [WMFYearInReviewSlide]) async throws {
