@@ -385,11 +385,8 @@ import CoreData
             try self.coreDataStore.saveIfNeeded(moc: backgroundContext)
             
             // Convert report to plain struct before returning
-            let slides: [WMFYearInReviewSlide] = finalCDSlides.compactMap { cdSlide in
-                guard let id = self.getSlideId(cdSlide.id) else { return nil }
-                return WMFYearInReviewSlide(year: Int(cdSlide.year), id: id, data: cdSlide.data)
-            }
-
+            
+            let slides = finalCDSlides.compactMap(self.makeSlide(from:))
             return WMFYearInReviewReport(year: year, slides: slides)
         }
 
@@ -573,48 +570,6 @@ import CoreData
         }
 
         return true
-    }
-    
-    struct UserStats: Decodable {
-        let version: Int
-        let userId: Int
-        let userName: String
-        let receivedThanksCount: Int
-        let editCountByNamespace: [String: Int]
-        let editCountByDay: [String: Int]
-        let editCountByTaskType: [String: Int]
-        let totalUserEditCount: Int
-        let revertedEditCount: Int
-        let newcomerTaskEditCount: Int
-        let lastEditTimestamp: Int
-        let generatedAt: Int
-        let longestEditingStreak: LongestEditingStreak
-        let totalEditsCount: Int
-        let dailyTotalViews: [String: Int]
-        let recentEditsWithoutPageviews: [String]
-        let topViewedArticles: [String: TopViewedArticle]
-        let topViewedArticlesCount: Int
-        let totalPageviewsCount: Int
-    }
-
-    struct LongestEditingStreak: Decodable {
-        let datePeriod: DatePeriod
-        let totalEditCountForPeriod: Int
-    }
-
-    struct DatePeriod: Decodable {
-        let start: String
-        let end: String
-        let days: Int
-    }
-
-    struct TopViewedArticle: Decodable {
-        let imageUrl: String
-        let firstEditDate: String
-        let newestEdit: String
-        let views: [String: Int]
-        let viewsCount: Int
-        let pageviewsUrl: String
     }
 }
 
