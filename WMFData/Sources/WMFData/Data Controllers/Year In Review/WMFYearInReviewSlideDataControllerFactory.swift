@@ -9,8 +9,6 @@ public final class YearInReviewSlideDataControllerFactory {
     private weak var savedSlideDataDelegate: SavedArticleSlideDataDelegate?
     private weak var legacyPageViewsDataDelegate: LegacyPageViewsDataDelegate?
     
-    private let donationFetcher: (Date, Date) -> Int?
-    
     private let username: String?
     private let userID: String?
     private let project: WMFProject?
@@ -22,15 +20,13 @@ public final class YearInReviewSlideDataControllerFactory {
         userID: String?,
         project: WMFProject?,
         savedSlideDataDelegate: SavedArticleSlideDataDelegate,
-        legacyPageViewsDataDelegate: LegacyPageViewsDataDelegate,
-        donationFetcher: @escaping (Date, Date) -> Int?
+        legacyPageViewsDataDelegate: LegacyPageViewsDataDelegate
     ) {
         self.year = year
         self.config = config
         self.username = username
         self.userID = userID
         self.project = project
-        self.donationFetcher = donationFetcher
         
         self.savedSlideDataDelegate = savedSlideDataDelegate
         self.legacyPageViewsDataDelegate = legacyPageViewsDataDelegate
@@ -68,8 +64,7 @@ public final class YearInReviewSlideDataControllerFactory {
            let end = config.dataPopulationEndDate {
             slides.append(YearInReviewDonateCountSlideDataController(
                 year: year,
-                dateRange: (start, end),
-                donationFetcher: donationFetcher
+                yirConfig: config
             ))
         }
         

@@ -292,21 +292,24 @@ public final class YearInReviewDonateCountSlideDataController: YearInReviewSlide
     public let year: Int
     public var isEvaluated: Bool
     private var donateCount: Int?
+    
+    private let yirConfig: YearInReviewFeatureConfig
 
-    private let donationFetcher: (Date, Date) -> Int?
-    private let dateRange: (Date, Date)?
-
-    public init(year: Int, dateRange: (Date, Date)?, isEvaluated: Bool = false,
-                donationFetcher: @escaping (Date, Date) -> Int?) {
+    public init(year: Int, isEvaluated: Bool = false, yirConfig: YearInReviewFeatureConfig) {
         self.year = year
-        self.dateRange = dateRange
-        self.donationFetcher = donationFetcher
         self.isEvaluated = isEvaluated
+        
+        self.yirConfig = yirConfig
     }
 
     public func populateSlideData(in context: NSManagedObjectContext) async throws {
-        guard let (start, end) = dateRange else { return }
-        donateCount = donationFetcher(start, end)
+        
+        guard let startDate = yirConfig.dataPopulationStartDate,
+              let endDate = yirConfig.dataPopulationEndDate else {
+            return
+        }
+    
+        donateCount = WMFDonateDataController.shared.loadLocalDonationHistory(startDate: startDate, endDate: endDate)?.count
         isEvaluated = true
     }
 

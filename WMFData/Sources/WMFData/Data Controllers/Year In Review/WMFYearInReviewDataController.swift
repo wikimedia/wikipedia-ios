@@ -333,10 +333,7 @@ import CoreData
             userID: userID,
             project: primaryAppLanguageProject,
             savedSlideDataDelegate: savedSlideDataDelegate,
-            legacyPageViewsDataDelegate: legacyPageViewsDataDelegate,
-            donationFetcher: { start, end in
-                WMFDonateDataController.shared.loadLocalDonationHistory(startDate: start, endDate: end)?.count
-            }
+            legacyPageViewsDataDelegate: legacyPageViewsDataDelegate
         )
 
         let existingIDs = try await backgroundContext.perform {
