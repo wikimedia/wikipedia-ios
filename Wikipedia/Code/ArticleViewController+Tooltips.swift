@@ -55,13 +55,15 @@ extension ArticleViewController {
 
         guard let articleSourceRect = computeApproximateTextSourceRect() else { return }
 
-        let openInTabVM = WMFTooltipViewModel(localizedStrings: makeOpenInTabStrings(), buttonNeedsDisclosure: false, sourceView: view, sourceRect: articleSourceRect, permittedArrowDirections: .down) {
+        let openInTabVM = WMFTooltipViewModel(localizedStrings: makeOpenInTabStrings(), buttonNeedsDisclosure: false, sourceView: view, sourceRect: articleSourceRect, permittedArrowDirections: .down) { [weak self] in
+            guard let self else { return }
             if let siteURL = self.articleURL.wmf_site, let project = WikimediaProject(siteURL: siteURL) {
                 ArticleTabsFunnel.shared.logTabTooltipImpression(project: project)
             }
         }
 
-        let tabsOverviewVM = WMFTooltipViewModel(localizedStrings: makeTabsOverviewStrings(), buttonNeedsDisclosure: false, sourceView: navigationBar, sourceRect: squareRect, permittedArrowDirections: .up) {
+        let tabsOverviewVM = WMFTooltipViewModel(localizedStrings: makeTabsOverviewStrings(), buttonNeedsDisclosure: false, sourceView: navigationBar, sourceRect: squareRect, permittedArrowDirections: .up) { [weak self] in
+            guard let self else { return }
             if let siteURL = self.articleURL.wmf_site, let project = WikimediaProject(siteURL: siteURL) {
                 // logging icon impression here so it's only sent once
                 ArticleTabsFunnel.shared.logTabIconFirstImpression(project: project)
