@@ -350,7 +350,7 @@ import CoreData
             return Set((cdReport?.slides as? Set<CDYearInReviewSlide>)?.compactMap { $0.id } ?? [])
         }
 
-        // For any slide IDs missing, create associated slide data controllers and populate their data
+        // For any slide IDs missing, create associated slide data controllers and populate their data. Set evaluated flag if population succeeds
         var slideDataControllers = try await slideFactory.makeSlideDataControllers(missingFrom: existingIDs)
         for index in slideDataControllers.indices {
             do {
@@ -361,7 +361,7 @@ import CoreData
             }
         }
 
-        // Create new core data slides from data controllers, save to core data report and return generic report struct
+        // Create new core data slides from evaluated data controllers, save to core data report and return generic report struct
         let report = try await backgroundContext.perform {
             let predicate = NSPredicate(format: "year == %d", year)
             let cdReport = try self.coreDataStore.fetchOrCreate(
@@ -384,19 +384,13 @@ import CoreData
             
             try self.coreDataStore.saveIfNeeded(moc: backgroundContext)
             
-            // Convert report to plain struct before returning
+            // Convert core data report to plain struct before returning
             
             let slides = finalCDSlides.compactMap(self.makeSlide(from:))
             return WMFYearInReviewReport(year: year, slides: slides)
         }
 
         return report
-    }
-
-    public func createNewYearInReviewReport(year: Int, slides: [WMFYearInReviewSlide]) async throws {
-        let newReport = WMFYearInReviewReport(year: year, slides: slides)
-
-        try await saveYearInReviewReport(newReport)
     }
 
     public func fetchYearInReviewReport(forYear year: Int) throws -> WMFYearInReviewReport? {
@@ -414,41 +408,6 @@ import CoreData
         return WMFYearInReviewReport(year: Int(cdReport.year), slides: slides)
     }
 
-    public func fetchYearInReviewReports() async throws -> [WMFYearInReviewReport] {
-        let viewContext = try coreDataStore.viewContext
-        let reports: [WMFYearInReviewReport] = try await viewContext.perform {
-            let fetchRequest = NSFetchRequest<CDYearInReviewReport>(entityName: "CDYearInReviewReport")
-            let cdReports = try viewContext.fetch(fetchRequest)
-
-            return cdReports.compactMap { cdReport in
-                guard let cdSlides = cdReport.slides as? Set<CDYearInReviewSlide> else { return nil }
-                let slides = cdSlides.compactMap(self.makeSlide(from:))
-                return WMFYearInReviewReport(year: Int(cdReport.year), slides: slides)
-            }
-        }
-        return reports
-    }
-
-    public func saveYearInReviewReport(_ report: WMFYearInReviewReport) async throws {
-        guard let backgroundContext = try? coreDataStore.newBackgroundContext else { return }
-
-        try? await backgroundContext.perform { [weak self] in
-            guard let self else { return }
-
-            let reportPredicate = NSPredicate(format: "year == %d", report.year)
-            let cdReport = try self.coreDataStore.fetchOrCreate(
-                entityType: CDYearInReviewReport.self,
-                predicate: reportPredicate,
-                in: backgroundContext
-            )
-
-            cdReport?.year = Int32(report.year)
-            cdReport?.slides = Set(report.slides.compactMap { self.makeCDSlide(from: $0, in: backgroundContext) }) as NSSet
-
-            try self.coreDataStore.saveIfNeeded(moc: backgroundContext)
-        }
-    }
-
     private func makeSlide(from cdSlide: CDYearInReviewSlide) -> WMFYearInReviewSlide? {
         guard let id = self.getSlideId(cdSlide.id) else { return nil }
         return WMFYearInReviewSlide(
@@ -458,48 +417,9 @@ import CoreData
         )
     }
 
-    private func makeCDSlide(from slide: WMFYearInReviewSlide, in context: NSManagedObjectContext) -> CDYearInReviewSlide? {
-        do {
-            let predicate = NSPredicate(format: "id == %@", slide.id.rawValue)
-            let cdSlide = try self.coreDataStore.fetchOrCreate(
-                entityType: CDYearInReviewSlide.self,
-                predicate: predicate,
-                in: context
-            )
-
-            cdSlide?.year = Int32(slide.year)
-            cdSlide?.id = slide.id.rawValue
-            cdSlide?.data = slide.data
-
-            return cdSlide
-        } catch {
-            return nil
-        }
-    }
-
-
     private func getSlideId(_ idString: String?) -> WMFYearInReviewPersonalizedSlideID? {
         guard let raw = idString else { return nil }
         return WMFYearInReviewPersonalizedSlideID(rawValue: raw)
-    }
-
-    public func deleteYearInReviewReport(year: Int) async throws {
-        let backgroundContext = try coreDataStore.newBackgroundContext
-
-        try await backgroundContext.perform { [weak self] in
-            guard let self else { return }
-
-            let reportPredicate = NSPredicate(format: "year == %d", year)
-            if let cdReport = try self.coreDataStore.fetch(
-                entityType: CDYearInReviewReport.self,
-                predicate: reportPredicate,
-                fetchLimit: 1,
-                in: backgroundContext
-            )?.first {
-                backgroundContext.delete(cdReport)
-                try self.coreDataStore.saveIfNeeded(moc: backgroundContext)
-            }
-        }
     }
 
     public func deleteAllYearInReviewReports() async throws {
@@ -571,6 +491,87 @@ import CoreData
 
         return true
     }
+    
+    #if TEST
+    public func deleteYearInReviewReport(year: Int) async throws {
+        let backgroundContext = try coreDataStore.newBackgroundContext
+
+        try await backgroundContext.perform { [weak self] in
+            guard let self else { return }
+
+            let reportPredicate = NSPredicate(format: "year == %d", year)
+            if let cdReport = try self.coreDataStore.fetch(
+                entityType: CDYearInReviewReport.self,
+                predicate: reportPredicate,
+                fetchLimit: 1,
+                in: backgroundContext
+            )?.first {
+                backgroundContext.delete(cdReport)
+                try self.coreDataStore.saveIfNeeded(moc: backgroundContext)
+            }
+        }
+    }
+    
+    public func fetchYearInReviewReports() async throws -> [WMFYearInReviewReport] {
+        let viewContext = try coreDataStore.viewContext
+        let reports: [WMFYearInReviewReport] = try await viewContext.perform {
+            let fetchRequest = NSFetchRequest<CDYearInReviewReport>(entityName: "CDYearInReviewReport")
+            let cdReports = try viewContext.fetch(fetchRequest)
+
+            return cdReports.compactMap { cdReport in
+                guard let cdSlides = cdReport.slides as? Set<CDYearInReviewSlide> else { return nil }
+                let slides = cdSlides.compactMap(self.makeSlide(from:))
+                return WMFYearInReviewReport(year: Int(cdReport.year), slides: slides)
+            }
+        }
+        return reports
+    }
+    
+    public func createNewYearInReviewReport(year: Int, slides: [WMFYearInReviewSlide]) async throws {
+        let newReport = WMFYearInReviewReport(year: year, slides: slides)
+
+        try await saveYearInReviewReport(newReport)
+    }
+    
+    public func saveYearInReviewReport(_ report: WMFYearInReviewReport) async throws {
+        guard let backgroundContext = try? coreDataStore.newBackgroundContext else { return }
+
+        try? await backgroundContext.perform { [weak self] in
+            guard let self else { return }
+
+            let reportPredicate = NSPredicate(format: "year == %d", report.year)
+            let cdReport = try self.coreDataStore.fetchOrCreate(
+                entityType: CDYearInReviewReport.self,
+                predicate: reportPredicate,
+                in: backgroundContext
+            )
+
+            cdReport?.year = Int32(report.year)
+            cdReport?.slides = Set(report.slides.compactMap { self.makeCDSlide(from: $0, in: backgroundContext) }) as NSSet
+
+            try self.coreDataStore.saveIfNeeded(moc: backgroundContext)
+        }
+    }
+    
+    private func makeCDSlide(from slide: WMFYearInReviewSlide, in context: NSManagedObjectContext) -> CDYearInReviewSlide? {
+        do {
+            let predicate = NSPredicate(format: "id == %@", slide.id.rawValue)
+            let cdSlide = try self.coreDataStore.fetchOrCreate(
+                entityType: CDYearInReviewSlide.self,
+                predicate: predicate,
+                in: context
+            )
+
+            cdSlide?.year = Int32(slide.year)
+            cdSlide?.id = slide.id.rawValue
+            cdSlide?.data = slide.data
+
+            return cdSlide
+        } catch {
+            return nil
+        }
+    }
+    #endif
 }
 
 public class SavedArticleSlideData: NSObject, Codable {
