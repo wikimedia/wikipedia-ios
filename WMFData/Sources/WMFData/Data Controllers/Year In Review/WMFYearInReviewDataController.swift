@@ -356,16 +356,16 @@ import CoreData
         )
 
         let existingIDs = try await backgroundContext.perform {
-        let predicate = NSPredicate(format: "year == %d", year)
-        let cdReport = try self.coreDataStore.fetchOrCreate(
-            entityType: CDYearInReviewReport.self,
-            predicate: predicate,
-            in: backgroundContext
-        )
-        return Set((cdReport?.slides as? Set<CDYearInReviewSlide>)?.compactMap { $0.id } ?? [])
-    }
+            let predicate = NSPredicate(format: "year == %d", year)
+            let cdReport = try self.coreDataStore.fetchOrCreate(
+                entityType: CDYearInReviewReport.self,
+                predicate: predicate,
+                in: backgroundContext
+            )
+            return Set((cdReport?.slides as? Set<CDYearInReviewSlide>)?.compactMap { $0.id } ?? [])
+        }
 
-    var slideDataControllers = try await slideFactory.makeSlideDataControllers(missingFrom: existingIDs)
+        var slideDataControllers = try await slideFactory.makeSlideDataControllers(missingFrom: existingIDs)
         for index in slideDataControllers.indices {
             do {
                 try await slideDataControllers[index].populateSlideData(in: backgroundContext)
