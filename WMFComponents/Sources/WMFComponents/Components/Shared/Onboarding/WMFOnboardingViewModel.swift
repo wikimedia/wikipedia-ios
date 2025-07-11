@@ -25,12 +25,14 @@ public struct WMFOnboardingViewModel {
         var title: String
         var subtitle: String?
 		var fillIconBackground: Bool
+        var tintBlue: Bool
 
-		public init(icon: UIImage?, title: String, subtitle: String?, fillIconBackground: Bool = false) {
+        public init(icon: UIImage?, title: String, subtitle: String?, fillIconBackground: Bool = false, tintBlue: Bool = false) {
             self.icon = icon
             self.title = title
             self.subtitle = subtitle
 			self.fillIconBackground = fillIconBackground
+            self.tintBlue = tintBlue
         }
     }
 }

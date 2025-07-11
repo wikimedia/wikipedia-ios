@@ -123,6 +123,16 @@
 "article-revision-history" = "Title for menu option that leads to article revision history.";
 "article-save-error-not-enough-space" = "Alert message informing user that article cannot be save due to insufficient storage available";
 "article-share" = "Text of the article list row action shown on swipe which allows the user to choose the sharing option";
+"article-tabs-feature-announcement-item-1-subtitle" = "Subtitle for the article tabs feature announcement item 2";
+"article-tabs-feature-announcement-item-1-title" = "Title for the article tabs feature announcement item";
+"article-tabs-feature-announcement-item-2-subtitle" = "Subtitle for the article tabs feature announcement item 2";
+"article-tabs-feature-announcement-item-2-title" = "Title for the article tabs feature announcement item 2";
+"article-tabs-feature-announcement-item-3-subtitle" = "Subtitle for the article tabs feature announcement item 3";
+"article-tabs-feature-announcement-item-3-title" = "Title for the article tabs feature announcement item 3";
+"article-tabs-feature-announcement-item-4-subtitle" = "Subtitle for the article tabs feature announcement item 4";
+"article-tabs-feature-announcement-item-4-title" = "Title for the article tabs feature announcement item 4";
+"article-tabs-feature-announcement-sub-cta" = "Call to action text in the article tabs feature announcement, inviting the user to learn more about tabs.";
+"article-tabs-feature-announcement-title" = "Title for the article tabs feature announcement";
 "article-tabs-max-reached" = "Warning toast presented to users when they attempt to open a new tab after maximum tab number is reached. $1 is replaced with the maximum number of tabs allowed.";
 "article-tabs-navigation" = "Title for navigation in article tabs";
 "article-tabs-onboarding-tooltip" = "Tooltip title for tabs onboarding.";

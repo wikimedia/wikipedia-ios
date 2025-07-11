@@ -123,6 +123,16 @@
 "article-revision-history" = "Article revision history";
 "article-save-error-not-enough-space" = "You do not have enough space on your device to save this article";
 "article-share" = "Share";
+"article-tabs-feature-announcement-item-1-subtitle" = "Open multiple articles and switch between them with ease.";
+"article-tabs-feature-announcement-item-1-title" = "Browse with tabs";
+"article-tabs-feature-announcement-item-2-subtitle" = "Tabs remember your scroll position automatically.";
+"article-tabs-feature-announcement-item-2-title" = "Pick up where you left off";
+"article-tabs-feature-announcement-item-3-subtitle" = "Open links in background tabs without losing your place.";
+"article-tabs-feature-announcement-item-3-title" = "Save links for later";
+"article-tabs-feature-announcement-item-4-subtitle" = "Choose fun facts or reading suggestions when opening a new tab.";
+"article-tabs-feature-announcement-item-4-title" = "Personalize your new tab";
+"article-tabs-feature-announcement-sub-cta" = "Learn more about Tabs";
+"article-tabs-feature-announcement-title" = "Introducing Tabs";
 "article-tabs-max-reached" = "Tab limit reached ($1). The article was opened in the current tab. Please close one or more tabs.";
 "article-tabs-navigation" = "Tabs navigation";
 "article-tabs-onboarding-tooltip" = "Onboarding tooltips for tabs";
