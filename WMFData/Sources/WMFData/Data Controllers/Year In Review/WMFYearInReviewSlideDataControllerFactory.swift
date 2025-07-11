@@ -1,7 +1,7 @@
 import Foundation
 import CoreData
 
-public final class YearInReviewSlideFactory {
+public final class YearInReviewSlideDataControllerFactory {
     
     private let year: Int
     private let config: YearInReviewFeatureConfig
@@ -41,8 +41,8 @@ public final class YearInReviewSlideFactory {
         self.donationFetcher = donationFetcher
     }
     
-    public func makeSlides(missingFrom existingSlideIDs: Set<String>) async throws -> [YearInReviewSlideProtocol] {
-        var slides: [YearInReviewSlideProtocol] = []
+    public func makeSlideDataControllers(missingFrom existingSlideIDs: Set<String>) async throws -> [YearInReviewSlideDataControllerProtocol] {
+        var slides: [YearInReviewSlideDataControllerProtocol] = []
         
         let legacyPageViews = try await fetchLegacyPageViews()
         let savedArticlesData = await fetchSavedArticlesData()
@@ -55,14 +55,14 @@ public final class YearInReviewSlideFactory {
             savedArticlesData: savedArticlesData
         )
         
-        if shouldAddSlide(existingSlideIDs: existingSlideIDs, id: .readCount),
-           YearInReviewReadCountSlide.shouldPopulate(from: config, userInfo: userInfo) {
-            slides.append(YearInReviewReadCountSlide(year: year, legacyPageViews: legacyPageViews))
+        if shouldAddSlideDataController(existingSlideIDs: existingSlideIDs, id: .readCount),
+           YearInReviewReadCountSlideDataController.shouldPopulate(from: config, userInfo: userInfo) {
+            slides.append(YearInReviewReadCountSlideDataController(year: year, legacyPageViews: legacyPageViews))
         }
         
-        if shouldAddSlide(existingSlideIDs: existingSlideIDs, id: .editCount),
-           YearInReviewEditCountSlide.shouldPopulate(from: config, userInfo: userInfo) {
-            slides.append(YearInReviewEditCountSlide(
+        if shouldAddSlideDataController(existingSlideIDs: existingSlideIDs, id: .editCount),
+           YearInReviewEditCountSlideDataController.shouldPopulate(from: config, userInfo: userInfo) {
+            slides.append(YearInReviewEditCountSlideDataController(
                 year: year,
                 username: username,
                 project: project,
@@ -70,37 +70,37 @@ public final class YearInReviewSlideFactory {
             ))
         }
         
-        if shouldAddSlide(existingSlideIDs: existingSlideIDs, id: .donateCount),
-           YearInReviewDonateCountSlide.shouldPopulate(from: config, userInfo: userInfo),
+        if shouldAddSlideDataController(existingSlideIDs: existingSlideIDs, id: .donateCount),
+           YearInReviewDonateCountSlideDataController.shouldPopulate(from: config, userInfo: userInfo),
            let start = config.dataPopulationStartDate,
            let end = config.dataPopulationEndDate {
-            slides.append(YearInReviewDonateCountSlide(
+            slides.append(YearInReviewDonateCountSlideDataController(
                 year: year,
                 dateRange: (start, end),
                 donationFetcher: donationFetcher
             ))
         }
         
-        if shouldAddSlide(existingSlideIDs: existingSlideIDs, id: .saveCount),
-           YearInReviewSaveCountSlide.shouldPopulate(from: config, userInfo: userInfo) {
-            slides.append(YearInReviewSaveCountSlide(
+        if shouldAddSlideDataController(existingSlideIDs: existingSlideIDs, id: .saveCount),
+           YearInReviewSaveCountSlideDataController.shouldPopulate(from: config, userInfo: userInfo) {
+            slides.append(YearInReviewSaveCountSlideDataController(
                 year: year,
                 savedData: savedArticlesData
             ))
         }
         
-        if shouldAddSlide(existingSlideIDs: existingSlideIDs, id: .mostReadDay),
-           YearInReviewMostReadDaySlide.shouldPopulate(from: config, userInfo: userInfo) {
-            slides.append(YearInReviewMostReadDaySlide(
+        if shouldAddSlideDataController(existingSlideIDs: existingSlideIDs, id: .mostReadDay),
+           YearInReviewMostReadDaySlideDataController.shouldPopulate(from: config, userInfo: userInfo) {
+            slides.append(YearInReviewMostReadDaySlideDataController(
                 year: year,
                 legacyPageViews: legacyPageViews
             ))
         }
         
-        if shouldAddSlide(existingSlideIDs: existingSlideIDs, id: .viewCount),
-           YearInReviewViewCountSlide.shouldPopulate(from: config, userInfo: userInfo),
+        if shouldAddSlideDataController(existingSlideIDs: existingSlideIDs, id: .viewCount),
+           YearInReviewViewCountSlideDataController.shouldPopulate(from: config, userInfo: userInfo),
            let userID, let lang = project?.languageCode {
-            slides.append(YearInReviewViewCountSlide(
+            slides.append(YearInReviewViewCountSlideDataController(
                 year: year,
                 userID: userID,
                 languageCode: lang,
@@ -112,7 +112,7 @@ public final class YearInReviewSlideFactory {
         return slides
     }
     
-    private func shouldAddSlide(existingSlideIDs: Set<String>, id: WMFYearInReviewPersonalizedSlideID) -> Bool {
+    private func shouldAddSlideDataController(existingSlideIDs: Set<String>, id: WMFYearInReviewPersonalizedSlideID) -> Bool {
         !existingSlideIDs.contains(id.rawValue)
     }
 }

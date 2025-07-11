@@ -2,7 +2,7 @@ import Foundation
 import CoreData
 
 // MARK: - Read Count Slide
-public final class YearInReviewReadCountSlide: YearInReviewSlideProtocol {
+public final class YearInReviewReadCountSlideDataController: YearInReviewSlideDataControllerProtocol {
 
     public let id = WMFYearInReviewPersonalizedSlideID.readCount.rawValue
     public let year: Int
@@ -50,7 +50,7 @@ public final class YearInReviewReadCountSlide: YearInReviewSlideProtocol {
 
 // MARK: - Save Count Slide
 
-public final class YearInReviewSaveCountSlide: YearInReviewSlideProtocol {
+public final class YearInReviewSaveCountSlideDataController: YearInReviewSlideDataControllerProtocol {
 
     public let id = WMFYearInReviewPersonalizedSlideID.saveCount.rawValue
     public let year: Int
@@ -95,7 +95,7 @@ public final class YearInReviewSaveCountSlide: YearInReviewSlideProtocol {
 
 // MARK: - Edit count slide
 
-public final class YearInReviewEditCountSlide: YearInReviewSlideProtocol {
+public final class YearInReviewEditCountSlideDataController: YearInReviewSlideDataControllerProtocol {
 
     public let id = WMFYearInReviewPersonalizedSlideID.editCount.rawValue
     public let year: Int
@@ -148,7 +148,7 @@ public final class YearInReviewEditCountSlide: YearInReviewSlideProtocol {
 
 // MARK: - Donate Slide
 
-public final class YearInReviewDonateCountSlide: YearInReviewSlideProtocol {
+public final class YearInReviewDonateCountSlideDataController: YearInReviewSlideDataControllerProtocol {
     public let id = WMFYearInReviewPersonalizedSlideID.donateCount.rawValue
     public let year: Int
     public var isEvaluated: Bool
@@ -194,7 +194,7 @@ public final class YearInReviewDonateCountSlide: YearInReviewSlideProtocol {
 
 // MARK: - Most read day slide
 
-public final class YearInReviewMostReadDaySlide: YearInReviewSlideProtocol {
+public final class YearInReviewMostReadDaySlideDataController: YearInReviewSlideDataControllerProtocol {
     public let id = WMFYearInReviewPersonalizedSlideID.mostReadDay.rawValue
     public let year: Int
     public var isEvaluated: Bool
@@ -243,7 +243,7 @@ public final class YearInReviewMostReadDaySlide: YearInReviewSlideProtocol {
 
 // MARK: - View count
 
-public final class YearInReviewViewCountSlide: YearInReviewSlideProtocol {
+public final class YearInReviewViewCountSlideDataController: YearInReviewSlideDataControllerProtocol {
     public let id = WMFYearInReviewPersonalizedSlideID.viewCount.rawValue
     public let year: Int
     public var isEvaluated: Bool

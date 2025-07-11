@@ -1,7 +1,7 @@
 import Foundation
 import CoreData
 
-public protocol YearInReviewSlideProtocol {
+public protocol YearInReviewSlideDataControllerProtocol {
     /// A unique identifier for the slide (e.g., readCount, editCount).
     var id: String { get }
 

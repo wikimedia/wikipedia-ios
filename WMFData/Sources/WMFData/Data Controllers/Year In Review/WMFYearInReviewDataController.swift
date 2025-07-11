@@ -330,7 +330,7 @@ import CoreData
             dataPopulationEndDate: yirConfig.dataPopulationEndDate
         )
 
-        let slideFactory = YearInReviewSlideFactory(
+        let slideFactory = YearInReviewSlideDataControllerFactory(
             year: year,
             config: featureConfig,
             username: username,
@@ -365,7 +365,7 @@ import CoreData
         return Set((cdReport?.slides as? Set<CDYearInReviewSlide>)?.compactMap { $0.id } ?? [])
     }
 
-    var slideDataControllers = try await slideFactory.makeSlides(missingFrom: existingIDs)
+    var slideDataControllers = try await slideFactory.makeSlideDataControllers(missingFrom: existingIDs)
         for index in slideDataControllers.indices {
             do {
                 try await slideDataControllers[index].populateSlideData(in: backgroundContext)
@@ -385,15 +385,15 @@ import CoreData
 
             cdReport.year = Int32(year)
 
-            var finalSlides = cdReport.slides as? Set<CDYearInReviewSlide> ?? []
+            var finalCDSlides = cdReport.slides as? Set<CDYearInReviewSlide> ?? []
 
-            for slide in slideDataControllers where slide.isEvaluated {
-                if let cdSlide = try? slide.makeCDSlide(in: backgroundContext) {
-                    finalSlides.insert(cdSlide)
+            for slideDataController in slideDataControllers where slideDataController.isEvaluated {
+                if let cdSlide = try? slideDataController.makeCDSlide(in: backgroundContext) {
+                    finalCDSlides.insert(cdSlide)
                 }
             }
 
-            cdReport.slides = Set(finalSlides) as NSSet
+            cdReport.slides = Set(finalCDSlides) as NSSet
             try self.coreDataStore.saveIfNeeded(moc: backgroundContext)
 
             return cdReport
@@ -414,13 +414,13 @@ import CoreData
     func initialSlides(year: Int, moc: NSManagedObjectContext) throws -> Set<CDYearInReviewSlide> {
         guard year == WMFYearInReviewDataController.targetYear else { return [] }
 
-        let slideTypes: [YearInReviewSlideProtocol.Type] = [
-            YearInReviewReadCountSlide.self,
-            YearInReviewEditCountSlide.self,
-            YearInReviewDonateCountSlide.self,
-            YearInReviewSaveCountSlide.self,
-            YearInReviewMostReadDaySlide.self,
-            YearInReviewViewCountSlide.self
+        let slideTypes: [YearInReviewSlideDataControllerProtocol.Type] = [
+            YearInReviewReadCountSlideDataController.self,
+            YearInReviewEditCountSlideDataController.self,
+            YearInReviewDonateCountSlideDataController.self,
+            YearInReviewSaveCountSlideDataController.self,
+            YearInReviewMostReadDaySlideDataController.self,
+            YearInReviewViewCountSlideDataController.self
         ]
 
         let slides = try slideTypes.map { try $0.makeInitialCDSlide(for: year, in: moc) }
