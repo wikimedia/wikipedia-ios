@@ -9,9 +9,6 @@ import CoreData
     private let userDefaultsStore: WMFKeyValueStore?
     private let developerSettingsDataController: WMFDeveloperSettingsDataControlling
 
-    private weak var savedSlideDataDelegate: SavedArticleSlideDataDelegate?
-    private weak var legacyPageViewsDataDelegate: LegacyPageViewsDataDelegate?
-
     public let targetConfigYearID = "2024.2"
     @objc public static let targetYear = 2024
     public static let appShareLink = "https://apps.apple.com/app/apple-store/id324715238?pt=208305&ct=yir_2024_share&mt=8"
@@ -302,9 +299,6 @@ import CoreData
 
         await beginDataPopulationBackgroundTask()
 
-        self.savedSlideDataDelegate = savedSlideDataDelegate
-        self.legacyPageViewsDataDelegate = legacyPageViewsDataDelegate
-
         let backgroundContext = try coreDataStore.newBackgroundContext
 
         let yirConfig = developerSettingsDataController.loadFeatureConfig()?.ios.first?.yir(yearID: targetConfigYearID)
@@ -336,14 +330,8 @@ import CoreData
             username: username,
             userID: userID,
             project: primaryAppLanguageProject,
-            fetchLegacyPageViews: {
-                guard let startDate = yirConfig.dataPopulationStartDate, let endDate = yirConfig.dataPopulationEndDate else { throw NSError(domain: "", code: 0, userInfo: nil) }
-                return try await legacyPageViewsDataDelegate.getLegacyPageViews(from: startDate, to: endDate)
-            },
-            fetchSavedArticlesData: {
-                guard let startDate = yirConfig.dataPopulationStartDate, let endDate = yirConfig.dataPopulationEndDate else { return nil }
-                return await savedSlideDataDelegate.getSavedArticleSlideData(from: startDate, to: endDate)
-            },
+            savedSlideDataDelegate: savedSlideDataDelegate,
+            legacyPageViewsDataDelegate: legacyPageViewsDataDelegate,
             fetchEditCount: { username, project in
                 try await self.fetchEditCount(username: username, project: project)
             },

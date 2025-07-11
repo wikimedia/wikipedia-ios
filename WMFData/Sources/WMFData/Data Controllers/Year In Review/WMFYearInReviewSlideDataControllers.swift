@@ -9,16 +9,26 @@ public final class YearInReviewReadCountSlideDataController: YearInReviewSlideDa
     public var isEvaluated: Bool
     private var readCount: Int?
 
-    private let legacyPageViews: [WMFLegacyPageView]
+    private weak var legacyPageViewsDataDelegate: LegacyPageViewsDataDelegate?
+    private let yirConfig: YearInReviewFeatureConfig
 
-    public init(year: Int, legacyPageViews: [WMFLegacyPageView], isEvaluated: Bool = false) {
+    public init(year: Int, isEvaluated: Bool = false, legacyPageViewsDataDelegate: LegacyPageViewsDataDelegate?, yirConfig: YearInReviewFeatureConfig) {
         self.year = year
-        self.legacyPageViews = legacyPageViews
         self.isEvaluated = isEvaluated
+        
+        self.legacyPageViewsDataDelegate = legacyPageViewsDataDelegate
+        self.yirConfig = yirConfig
     }
 
     public func populateSlideData(in context: NSManagedObjectContext) async throws {
-        readCount = legacyPageViews.count
+        
+        guard let startDate = yirConfig.dataPopulationStartDate,
+              let endDate = yirConfig.dataPopulationEndDate,
+            let pageViews = try await legacyPageViewsDataDelegate?.getLegacyPageViews(from: startDate, to: endDate) else {
+            throw NSError(domain: "", code: 0, userInfo: nil)
+        }
+        
+        readCount = pageViews.count
         isEvaluated = true
     }
 
@@ -56,15 +66,28 @@ public final class YearInReviewSaveCountSlideDataController: YearInReviewSlideDa
     public let year: Int
     public var isEvaluated: Bool
     private var savedData: SavedArticleSlideData?
+    
+    private weak var savedSlideDataDelegate: SavedArticleSlideDataDelegate?
+    private let yirConfig: YearInReviewFeatureConfig
 
-    public init(year: Int, savedData: SavedArticleSlideData?, isEvaluated: Bool = false) {
+    public init(year: Int, isEvaluated: Bool = false, savedSlideDataDelegate: SavedArticleSlideDataDelegate?, yirConfig: YearInReviewFeatureConfig) {
         self.year = year
-        self.savedData = savedData
         self.isEvaluated = isEvaluated
+        
+        self.savedSlideDataDelegate = savedSlideDataDelegate
+        self.yirConfig = yirConfig
     }
 
     public func populateSlideData(in context: NSManagedObjectContext) async throws {
+        
+        guard let startDate = yirConfig.dataPopulationStartDate, let endDate = yirConfig.dataPopulationEndDate else {
+            return
+        }
+        
+        self.savedData = await savedSlideDataDelegate?.getSavedArticleSlideData(from: startDate, to: endDate)
+        
         guard savedData != nil else { return }
+        
         isEvaluated = true
     }
 
@@ -81,7 +104,7 @@ public final class YearInReviewSaveCountSlideDataController: YearInReviewSlideDa
     }
 
     public static func shouldPopulate(from config: YearInReviewFeatureConfig, userInfo: YearInReviewUserInfo) -> Bool {
-        return config.isEnabled && config.slideConfig.saveCountIsEnabled && userInfo.savedArticlesData != nil
+        return config.isEnabled && config.slideConfig.saveCountIsEnabled
     }
     
     public static func makeInitialCDSlide(for year: Int, in context: NSManagedObjectContext) throws -> CDYearInReviewSlide {
@@ -200,16 +223,26 @@ public final class YearInReviewMostReadDaySlideDataController: YearInReviewSlide
     public var isEvaluated: Bool
     private var mostReadDay: WMFPageViewDay?
 
-    private let legacyPageViews: [WMFLegacyPageView]
+    private weak var legacyPageViewsDataDelegate: LegacyPageViewsDataDelegate?
+    private let yirConfig: YearInReviewFeatureConfig
 
-    public init(year: Int, legacyPageViews: [WMFLegacyPageView], isEvaluated: Bool = false) {
+    public init(year: Int, isEvaluated: Bool = false, legacyPageViewsDataDelegate: LegacyPageViewsDataDelegate?, yirConfig: YearInReviewFeatureConfig) {
         self.year = year
-        self.legacyPageViews = legacyPageViews
         self.isEvaluated = isEvaluated
+        
+        self.legacyPageViewsDataDelegate = legacyPageViewsDataDelegate
+        self.yirConfig = yirConfig
     }
 
     public func populateSlideData(in context: NSManagedObjectContext) async throws {
-        let dayCounts = legacyPageViews.reduce(into: [Int: Int]()) { dict, view in
+        
+        guard let startDate = yirConfig.dataPopulationStartDate,
+              let endDate = yirConfig.dataPopulationEndDate,
+            let pageViews = try await legacyPageViewsDataDelegate?.getLegacyPageViews(from: startDate, to: endDate) else {
+            throw NSError(domain: "", code: 0, userInfo: nil)
+        }
+        
+        let dayCounts = pageViews.reduce(into: [Int: Int]()) { dict, view in
             let day = Calendar.current.component(.weekday, from: view.viewedDate)
             dict[day, default: 0] += 1
         }

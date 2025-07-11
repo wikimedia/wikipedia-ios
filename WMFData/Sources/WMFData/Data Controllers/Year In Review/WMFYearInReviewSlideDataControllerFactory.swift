@@ -6,8 +6,8 @@ public final class YearInReviewSlideDataControllerFactory {
     private let year: Int
     private let config: YearInReviewFeatureConfig
     
-    private let fetchLegacyPageViews: () async throws -> [WMFLegacyPageView]
-    private let fetchSavedArticlesData: () async -> SavedArticleSlideData?
+    private weak var savedSlideDataDelegate: SavedArticleSlideDataDelegate?
+    private weak var legacyPageViewsDataDelegate: LegacyPageViewsDataDelegate?
     
     private let fetchEditCount: (String, WMFProject?) async throws -> Int
     private let fetchEditViews: (WMFProject?, String, String) async throws -> Int
@@ -23,8 +23,8 @@ public final class YearInReviewSlideDataControllerFactory {
         username: String?,
         userID: String?,
         project: WMFProject?,
-        fetchLegacyPageViews: @escaping () async throws -> [WMFLegacyPageView],
-        fetchSavedArticlesData: @escaping () async -> SavedArticleSlideData?,
+        savedSlideDataDelegate: SavedArticleSlideDataDelegate,
+        legacyPageViewsDataDelegate: LegacyPageViewsDataDelegate,
         fetchEditCount: @escaping (String, WMFProject?) async throws -> Int,
         fetchEditViews: @escaping (WMFProject?, String, String) async throws -> Int,
         donationFetcher: @escaping (Date, Date) -> Int?
@@ -34,30 +34,28 @@ public final class YearInReviewSlideDataControllerFactory {
         self.username = username
         self.userID = userID
         self.project = project
-        self.fetchLegacyPageViews = fetchLegacyPageViews
-        self.fetchSavedArticlesData = fetchSavedArticlesData
         self.fetchEditCount = fetchEditCount
         self.fetchEditViews = fetchEditViews
         self.donationFetcher = donationFetcher
+        
+        self.savedSlideDataDelegate = savedSlideDataDelegate
+        self.legacyPageViewsDataDelegate = legacyPageViewsDataDelegate
     }
     
     public func makeSlideDataControllers(missingFrom existingSlideIDs: Set<String>) async throws -> [YearInReviewSlideDataControllerProtocol] {
         var slides: [YearInReviewSlideDataControllerProtocol] = []
         
-        let legacyPageViews = try await fetchLegacyPageViews()
-        let savedArticlesData = await fetchSavedArticlesData()
-        
         let userInfo = YearInReviewUserInfo(
             username: username,
             userID: userID,
-            project: project,
-            legacyPageViews: legacyPageViews,
-            savedArticlesData: savedArticlesData
+            project: project
         )
         
         if shouldAddSlideDataController(existingSlideIDs: existingSlideIDs, id: .readCount),
            YearInReviewReadCountSlideDataController.shouldPopulate(from: config, userInfo: userInfo) {
-            slides.append(YearInReviewReadCountSlideDataController(year: year, legacyPageViews: legacyPageViews))
+            slides.append(YearInReviewReadCountSlideDataController(year: year,
+                                                                  legacyPageViewsDataDelegate: legacyPageViewsDataDelegate,
+                                                                  yirConfig: config))
         }
         
         if shouldAddSlideDataController(existingSlideIDs: existingSlideIDs, id: .editCount),
@@ -85,7 +83,8 @@ public final class YearInReviewSlideDataControllerFactory {
            YearInReviewSaveCountSlideDataController.shouldPopulate(from: config, userInfo: userInfo) {
             slides.append(YearInReviewSaveCountSlideDataController(
                 year: year,
-                savedData: savedArticlesData
+                savedSlideDataDelegate: savedSlideDataDelegate,
+                yirConfig: config
             ))
         }
         
@@ -93,7 +92,8 @@ public final class YearInReviewSlideDataControllerFactory {
            YearInReviewMostReadDaySlideDataController.shouldPopulate(from: config, userInfo: userInfo) {
             slides.append(YearInReviewMostReadDaySlideDataController(
                 year: year,
-                legacyPageViews: legacyPageViews
+                legacyPageViewsDataDelegate: legacyPageViewsDataDelegate,
+                yirConfig: config
             ))
         }
         
