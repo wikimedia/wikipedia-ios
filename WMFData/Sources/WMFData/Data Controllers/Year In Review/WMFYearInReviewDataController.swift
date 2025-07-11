@@ -410,22 +410,6 @@ import CoreData
             return WMFYearInReviewReport(year: year, slides: slides)
         }
     }
-
-    func initialSlides(year: Int, moc: NSManagedObjectContext) throws -> Set<CDYearInReviewSlide> {
-        guard year == WMFYearInReviewDataController.targetYear else { return [] }
-
-        let slideTypes: [YearInReviewSlideDataControllerProtocol.Type] = [
-            YearInReviewReadCountSlideDataController.self,
-            YearInReviewEditCountSlideDataController.self,
-            YearInReviewDonateCountSlideDataController.self,
-            YearInReviewSaveCountSlideDataController.self,
-            YearInReviewMostReadDaySlideDataController.self,
-            YearInReviewViewCountSlideDataController.self
-        ]
-
-        let slides = try slideTypes.map { try $0.makeInitialCDSlide(for: year, in: moc) }
-        return Set(slides)
-    }
   
     private func fetchEditCount(username: String, project: WMFProject?) async throws -> Int {
 
