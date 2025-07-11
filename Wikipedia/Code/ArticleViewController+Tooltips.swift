@@ -51,7 +51,9 @@ extension ArticleViewController {
 
         let squareRect = computeTabsIconSourceRect(in: navigationBar)
 
-        let wIconVM = WMFTooltipViewModel(localizedStrings: makeWIconStrings(), buttonNeedsDisclosure: false, sourceView: navigationBar, sourceRect: wIconRect, permittedArrowDirections: .up)
+        let wIconVM = WMFTooltipViewModel(localizedStrings: makeWIconStrings(), buttonNeedsDisclosure: false, sourceView: navigationBar, sourceRect: wIconRect, permittedArrowDirections: .up) {
+            UserDefaults.standard.wmf_setDidShowWIconPopover(true)
+        }
 
         guard let articleSourceRect = computeApproximateTextSourceRect() else { return }
 
@@ -60,6 +62,7 @@ extension ArticleViewController {
             if let siteURL = self.articleURL.wmf_site, let project = WikimediaProject(siteURL: siteURL) {
                 ArticleTabsFunnel.shared.logTabTooltipImpression(project: project)
             }
+            dataController.hasPresentedTooltips = true
         }
 
         let tabsOverviewVM = WMFTooltipViewModel(localizedStrings: makeTabsOverviewStrings(), buttonNeedsDisclosure: false, sourceView: navigationBar, sourceRect: squareRect, permittedArrowDirections: .up) { [weak self] in
@@ -68,17 +71,13 @@ extension ArticleViewController {
                 // logging icon impression here so it's only sent once
                 ArticleTabsFunnel.shared.logTabIconFirstImpression(project: project)
             }
+            dataController.hasPresentedTooltips = true
         }
 
         if dataController.shouldShowArticleTabs && !dataController.hasPresentedTooltips {
             tooltipViewModels = shouldShowWIconPopover ? [wIconVM, openInTabVM, tabsOverviewVM] : [openInTabVM, tabsOverviewVM]
-            dataController.hasPresentedTooltips = true
         } else if shouldShowWIconPopover {
             tooltipViewModels = [wIconVM]
-        }
-
-        if shouldShowWIconPopover {
-            UserDefaults.standard.wmf_setDidShowWIconPopover(true)
         }
 
         if !tooltipViewModels.isEmpty {
