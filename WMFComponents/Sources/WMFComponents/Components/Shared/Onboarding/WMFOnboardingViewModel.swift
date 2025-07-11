@@ -9,15 +9,19 @@ public struct WMFOnboardingViewModel {
     var primaryButtonTitle: String
     var secondaryButtonTitle: String?
     var secondaryButtonTrailingIcon: UIImage?
+    var primaryButtonAction: (() -> Void)?
+    var secondaryButtonAction: (() -> Void)?
 
     // MARK: - Lifecycle
 
-    public init(title: String, cells: [WMFOnboardingCellViewModel], primaryButtonTitle: String, secondaryButtonTitle: String?, secondaryButtonTrailingIcon: UIImage? = nil) {
+    public init(title: String, cells: [WMFOnboardingCellViewModel], primaryButtonTitle: String, secondaryButtonTitle: String?, secondaryButtonTrailingIcon: UIImage? = nil, primaryButtonAction: (() -> Void)? = nil, secondaryButtonAction: (() -> Void)? = nil) {
         self.title = title
         self.cells = cells
         self.primaryButtonTitle = primaryButtonTitle
         self.secondaryButtonTitle = secondaryButtonTitle
         self.secondaryButtonTrailingIcon = secondaryButtonTrailingIcon
+        self.primaryButtonAction = primaryButtonAction
+        self.secondaryButtonAction = secondaryButtonAction
     }
 
     public struct WMFOnboardingCellViewModel {

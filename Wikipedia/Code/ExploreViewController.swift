@@ -1101,7 +1101,18 @@ extension ExploreViewController {
             WMFOnboardingViewModel.WMFOnboardingCellViewModel(icon: UIImage(systemName: "lightbulb")?.withRenderingMode(.alwaysTemplate), title: item4Title, subtitle: item4Subtitle)
         ]
         
-        let onboardingViewModel = WMFOnboardingViewModel(title: title, cells: cells, primaryButtonTitle: primaryButtonTitle, secondaryButtonTitle: secondaryButtonTitle)
+        let onboardingViewModel = WMFOnboardingViewModel(
+            title: title,
+            cells: cells,
+            primaryButtonTitle: primaryButtonTitle,
+            secondaryButtonTitle: secondaryButtonTitle,
+            primaryButtonAction: { [weak self] in
+                self?.navigationController?.presentedViewController?.dismiss(animated: true, completion: nil)
+            },
+            secondaryButtonAction: {
+                print("second")
+            }
+        )
         let onboardingController = WMFOnboardingViewController(viewModel: onboardingViewModel)
         
         present(onboardingController, animated: true, completion: {
