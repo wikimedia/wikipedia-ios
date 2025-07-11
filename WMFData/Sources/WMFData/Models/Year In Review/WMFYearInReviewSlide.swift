@@ -3,13 +3,11 @@ import Foundation
 public class WMFYearInReviewSlide: Identifiable {
     public let year: Int
     public let id: WMFYearInReviewPersonalizedSlideID
-    public var evaluated: Bool
     public var data: Data?
 
-    init(year: Int, id: WMFYearInReviewPersonalizedSlideID, evaluated: Bool, data: Data? = nil) {
+    init(year: Int, id: WMFYearInReviewPersonalizedSlideID, data: Data? = nil) {
         self.year = year
         self.id = id
-        self.evaluated = evaluated
         self.data = data
     }
 }

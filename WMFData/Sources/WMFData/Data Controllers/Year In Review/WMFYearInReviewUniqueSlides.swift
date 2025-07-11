@@ -26,7 +26,6 @@ public final class YearInReviewReadCountSlide: YearInReviewSlideProtocol {
         let slide = CDYearInReviewSlide(context: context)
         slide.id = id
         slide.year = Int32(year)
-        slide.evaluated = isEvaluated
 
         if let readCount {
             let encoder = JSONEncoder()
@@ -44,7 +43,6 @@ public final class YearInReviewReadCountSlide: YearInReviewSlideProtocol {
         let slide = CDYearInReviewSlide(context: context)
         slide.id = WMFYearInReviewPersonalizedSlideID.readCount.rawValue
         slide.year = Int32(year)
-        slide.evaluated = false
         slide.data = nil
         return slide
     }
@@ -74,7 +72,6 @@ public final class YearInReviewSaveCountSlide: YearInReviewSlideProtocol {
         let slide = CDYearInReviewSlide(context: context)
         slide.id = id
         slide.year = Int32(year)
-        slide.evaluated = isEvaluated
 
         if let savedData {
             slide.data = try JSONEncoder().encode(savedData)
@@ -91,7 +88,6 @@ public final class YearInReviewSaveCountSlide: YearInReviewSlideProtocol {
         let slide = CDYearInReviewSlide(context: context)
         slide.id = WMFYearInReviewPersonalizedSlideID.saveCount.rawValue
         slide.year = Int32(year)
-        slide.evaluated = false
         slide.data = nil
         return slide
     }
@@ -129,7 +125,6 @@ public final class YearInReviewEditCountSlide: YearInReviewSlideProtocol {
         let slide = CDYearInReviewSlide(context: context)
         slide.id = id
         slide.year = Int32(year)
-        slide.evaluated = isEvaluated
 
         if let editCount {
             slide.data = try JSONEncoder().encode(editCount)
@@ -146,7 +141,6 @@ public final class YearInReviewEditCountSlide: YearInReviewSlideProtocol {
         let slide = CDYearInReviewSlide(context: context)
         slide.id = WMFYearInReviewPersonalizedSlideID.editCount.rawValue
         slide.year = Int32(year)
-        slide.evaluated = false
         slide.data = nil
         return slide
     }
@@ -181,7 +175,6 @@ public final class YearInReviewDonateCountSlide: YearInReviewSlideProtocol {
         let slide = CDYearInReviewSlide(context: context)
         slide.id = id
         slide.year = Int32(year)
-        slide.evaluated = isEvaluated
         slide.data = try donateCount.map { try JSONEncoder().encode($0) }
         return slide
     }
@@ -194,7 +187,6 @@ public final class YearInReviewDonateCountSlide: YearInReviewSlideProtocol {
         let slide = CDYearInReviewSlide(context: context)
         slide.id = WMFYearInReviewPersonalizedSlideID.donateCount.rawValue
         slide.year = Int32(year)
-        slide.evaluated = false
         slide.data = nil
         return slide
     }
@@ -232,7 +224,6 @@ public final class YearInReviewMostReadDaySlide: YearInReviewSlideProtocol {
         let slide = CDYearInReviewSlide(context: context)
         slide.id = id
         slide.year = Int32(year)
-        slide.evaluated = isEvaluated
         slide.data = try mostReadDay.map { try JSONEncoder().encode($0) }
         return slide
     }
@@ -245,7 +236,6 @@ public final class YearInReviewMostReadDaySlide: YearInReviewSlideProtocol {
         let slide = CDYearInReviewSlide(context: context)
         slide.id = WMFYearInReviewPersonalizedSlideID.mostReadDay.rawValue
         slide.year = Int32(year)
-        slide.evaluated = false
         slide.data = nil
         return slide
     }
@@ -284,7 +274,6 @@ public final class YearInReviewViewCountSlide: YearInReviewSlideProtocol {
         let slide = CDYearInReviewSlide(context: context)
         slide.id = id
         slide.year = Int32(year)
-        slide.evaluated = isEvaluated
         slide.data = try viewCount.map { try JSONEncoder().encode($0) }
         return slide
     }
@@ -297,7 +286,6 @@ public final class YearInReviewViewCountSlide: YearInReviewSlideProtocol {
         let slide = CDYearInReviewSlide(context: context)
         slide.id = WMFYearInReviewPersonalizedSlideID.viewCount.rawValue
         slide.year = Int32(year)
-        slide.evaluated = false
         slide.data = nil
         return slide
     }

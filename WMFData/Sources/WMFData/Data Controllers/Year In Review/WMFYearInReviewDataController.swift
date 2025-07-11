@@ -404,7 +404,7 @@ import CoreData
         return await backgroundContext.perform {
             let slides: [WMFYearInReviewSlide] = (report.slides as? Set<CDYearInReviewSlide>)?.compactMap { cdSlide in
                 guard let id = self.getSlideId(cdSlide.id) else { return nil }
-                return WMFYearInReviewSlide(year: Int(cdSlide.year), id: id, evaluated: cdSlide.evaluated, data: cdSlide.data)
+                return WMFYearInReviewSlide(year: Int(cdSlide.year), id: id, data: cdSlide.data)
             } ?? []
 
             return WMFYearInReviewReport(year: year, slides: slides)
@@ -568,7 +568,6 @@ import CoreData
         return WMFYearInReviewSlide(
             year: Int(cdSlide.year),
             id: id,
-            evaluated: cdSlide.evaluated,
             data: cdSlide.data
         )
     }
@@ -584,7 +583,6 @@ import CoreData
 
             cdSlide?.year = Int32(slide.year)
             cdSlide?.id = slide.id.rawValue
-            cdSlide?.evaluated = slide.evaluated
             cdSlide?.data = slide.data
 
             return cdSlide
@@ -664,7 +662,6 @@ import CoreData
                             slide.id == WMFYearInReviewPersonalizedSlideID.saveCount.rawValue
                             else { continue }
                     slide.data = nil
-                    slide.evaluated = false
                 }
             }
 
