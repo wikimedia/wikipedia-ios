@@ -1547,9 +1547,9 @@
 		83C09C152E25381900C213B7 /* WMFNewArticleTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83C09C142E25381900C213B7 /* WMFNewArticleTabViewController.swift */; };
 		83C09C162E25381900C213B7 /* WMFNewArticleTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83C09C142E25381900C213B7 /* WMFNewArticleTabViewController.swift */; };
 		83C09C172E25381900C213B7 /* WMFNewArticleTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83C09C142E25381900C213B7 /* WMFNewArticleTabViewController.swift */; };
-		83C09C192E254BC700C213B7 /* NewTabCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83C09C182E254BC100C213B7 /* NewTabCoordinator.swift */; };
-		83C09C1A2E254BC700C213B7 /* NewTabCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83C09C182E254BC100C213B7 /* NewTabCoordinator.swift */; };
-		83C09C1B2E254BC700C213B7 /* NewTabCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83C09C182E254BC100C213B7 /* NewTabCoordinator.swift */; };
+		83C09C192E254BC700C213B7 /* NewArticleTabCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83C09C182E254BC100C213B7 /* NewArticleTabCoordinator.swift */; };
+		83C09C1A2E254BC700C213B7 /* NewArticleTabCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83C09C182E254BC100C213B7 /* NewArticleTabCoordinator.swift */; };
+		83C09C1B2E254BC700C213B7 /* NewArticleTabCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83C09C182E254BC100C213B7 /* NewArticleTabCoordinator.swift */; };
 		83C643582239508600FC16BF /* RandomArticleFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83C6435222394F0300FC16BF /* RandomArticleFetcher.swift */; };
 		83CA612A20D1675800EF0C4A /* ExploreCardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83CA612920D1675800EF0C4A /* ExploreCardViewController.swift */; };
 		83CA612B20D1675800EF0C4A /* ExploreCardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83CA612920D1675800EF0C4A /* ExploreCardViewController.swift */; };
@@ -3747,7 +3747,7 @@
 		83C0688D292EEDAF00DF1403 /* TalkPageViewController+TalkPageFormattingToolbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TalkPageViewController+TalkPageFormattingToolbar.swift"; sourceTree = "<group>"; };
 		83C06892292EEF4A00DF1403 /* TalkPageTopicComposeViewController+TalkPageFormattingToolbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TalkPageTopicComposeViewController+TalkPageFormattingToolbar.swift"; sourceTree = "<group>"; };
 		83C09C142E25381900C213B7 /* WMFNewArticleTabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WMFNewArticleTabViewController.swift; sourceTree = "<group>"; };
-		83C09C182E254BC100C213B7 /* NewTabCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewTabCoordinator.swift; sourceTree = "<group>"; };
+		83C09C182E254BC100C213B7 /* NewArticleTabCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewArticleTabCoordinator.swift; sourceTree = "<group>"; };
 		83C0A1DB2C7915C800213DC3 /* se */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = se; path = se.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		83C0A1DC2C7915C800213DC3 /* se */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = se; path = se.lproj/Localizable.strings; sourceTree = "<group>"; };
 		83C0A1DD2C7915C800213DC3 /* se */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = se; path = se.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
@@ -6806,7 +6806,7 @@
 		83796B012C9C6F6000E55C69 /* Coordinators */ = {
 			isa = PBXGroup;
 			children = (
-				83C09C182E254BC100C213B7 /* NewTabCoordinator.swift */,
+				83C09C182E254BC100C213B7 /* NewArticleTabCoordinator.swift */,
 				37C5C1FA2DC28D350082852E /* TabsOverviewCoordinator.swift */,
 				370107A92D5EEBF600E17486 /* TempAccountSheetCoordinator.swift */,
 				675826732D68CEB8002B0EE7 /* ArticleCoordinator.swift */,
@@ -10063,7 +10063,7 @@
 				67033E142A61B24800896852 /* WatchlistController.swift in Sources */,
 				672FC4262DD4E66C006D5DE2 /* FirstRandomViewController.swift in Sources */,
 				67AA15592DB6F60400D7C08F /* ArticleViewController+Categories.swift in Sources */,
-				83C09C1B2E254BC700C213B7 /* NewTabCoordinator.swift in Sources */,
+				83C09C1B2E254BC700C213B7 /* NewArticleTabCoordinator.swift in Sources */,
 				830ECACF1FBDD8C00080B1EF /* ReadingListsViewController.swift in Sources */,
 				83ACF8E528E504CF000F3B6F /* SharedContainerCacheHousekeeping.swift in Sources */,
 				D82117FC1EE58C080076C040 /* MapAnnotation.swift in Sources */,
@@ -10979,7 +10979,7 @@
 				7AF8CEEE22653406000B7676 /* InsertMediaSelectedImageView.swift in Sources */,
 				83F1096A23D0DB0F003F3E9E /* ArticleViewController+ArticlePreviewing.swift in Sources */,
 				D8CE250B1E698E2400DAE2E0 /* WMFPageHistoryRevision.m in Sources */,
-				83C09C1A2E254BC700C213B7 /* NewTabCoordinator.swift in Sources */,
+				83C09C1A2E254BC700C213B7 /* NewArticleTabCoordinator.swift in Sources */,
 				83A171D82819B6A70029FB89 /* UNAuthorizationStatus+String.swift in Sources */,
 				67DC5BEA23A03FE700B03A84 /* ArticleToolbarController.swift in Sources */,
 				D8CE25121E698E2400DAE2E0 /* WMFEmptyView.m in Sources */,
@@ -11537,7 +11537,7 @@
 				00BCB71E26DEE1C7002C3F72 /* VerticalSpacerView.swift in Sources */,
 				7AF8CEEF22653406000B7676 /* InsertMediaSelectedImageView.swift in Sources */,
 				83F1096B23D0DB0F003F3E9E /* ArticleViewController+ArticlePreviewing.swift in Sources */,
-				83C09C192E254BC700C213B7 /* NewTabCoordinator.swift in Sources */,
+				83C09C192E254BC700C213B7 /* NewArticleTabCoordinator.swift in Sources */,
 				D8EC3DFC1E9BDA35006712EB /* WMFDatabaseHousekeeper.swift in Sources */,
 				83A171D72819B6A60029FB89 /* UNAuthorizationStatus+String.swift in Sources */,
 				67DC5BEB23A03FE700B03A84 /* ArticleToolbarController.swift in Sources */,

@@ -2,7 +2,7 @@ import UIKit
 import WMF
 import WMFComponents
 
-final class NewTabCoordinator: Coordinator {
+final class NewArticleTabCoordinator: Coordinator {
     var navigationController: UINavigationController
     var dataStore: MWKDataStore
     var theme: Theme
