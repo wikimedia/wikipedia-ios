@@ -2,6 +2,7 @@
 // Exported from translatewiki.net
 // Author: HNordeen (WMF)
 // Author: Hüseynzadə
+// Author: JorgeElias2302
 // Author: Nemoralis
 // Author: Toghrul Rahimli
 // Author: Tsevener
@@ -687,6 +688,7 @@
 "languages-title" = "Dili dəyiş";
 "languages-wikipedia" = "Vikipediya dilləri";
 "learn-more-title" = "Daha ətraflı";
+"lockscreen-search-widget-description" = "Kilid ekranınızdan Vikipediyada axtarışa cəld giriş.";
 "logged-out-continue-without-logging-in-button-title" = "Daxil olmadan davam et";
 "logged-out-log-back-in-button-title" = "Hesabınıza yenidən daxil olun";
 "logged-out-subtitle" = "Hesabınızın autentifikasiyası zamanı problem baş verdi. Oxuma siyahılarınızı sinxronlaşdırmaq və istifadəçi adınız altında redaktə etmək üçün yenidən daxil olun.";
@@ -1100,6 +1102,8 @@
 "search-recent-title" = "Son axtarılanlar";
 "search-result-redirected-from" = "$1 səhifəsindən yönləndirilmişdir";
 "search-title" = "Axtar";
+"search-widget-announcement-body" = "Daha sürətli cavablar üçün Vikipediya Axtarış vidcetini Əsas və ya Kilid ekranınıza əlavə edin.";
+"search-widget-announcement-title" = "Yeni Axtarış vidceti mövcuddur";
 "search-widget-description" = "Vikipediyada axtarış etmək üçün sürətli giriş.";
 "search-widget-wikipedia-title" = "Vikipediya";
 "serbian-variants-alert-body" = "Vikipediya tətbiqi artıq tətbiq daxilində əsas və ya köməkçi dillər kimi aşağıdakı serb variantlarını dəstəkləyir və bu, seçdiyiniz variantlarda oxumağı, axtarmağı və redaktə etməyi asanlaşdırır:\n\nсрпски ћирилица Serbian, Cyrillic (sr-ec)\nsrpski latinica Serbian, Latin (sr-el)";

@@ -11,6 +11,7 @@
 // Author: Gzhegozh
 // Author: Ice bulldog
 // Author: JoeWalshWMF
+// Author: JorgeElias2302
 // Author: Macofe
 // Author: Movses
 // Author: Nemo bis
@@ -244,6 +245,7 @@
 "developer-settings-bypass-donation" = "Обійти пожертвування";
 "developer-settings-enable-year-in-review" = "Увімкнути Огляд року";
 "developer-settings-send-analytics-to-wmflabs" = "Надсилати аналітику на wmflabs.";
+"developer-settings-suppress-image-rec-post" = "Не публікуйте рекомендації щодо редагування зображень.";
 "diff-article-revision-history" = "Історія редагування статті";
 "diff-change-added" = "Додавання, $1, кінець додавання.";
 "diff-change-paragraph-lines-moved-down" = "Абзац переміщено вниз на {{PLURAL:$1|0=0 рядків|$1 рядок|$1 рядки|$1 рядків}}. Перейти на нове місце.";

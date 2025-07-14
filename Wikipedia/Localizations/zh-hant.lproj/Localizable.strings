@@ -170,6 +170,12 @@
 "article-revision-history" = "條目修訂紀錄";
 "article-save-error-not-enough-space" = "您的裝置沒有足夠的空間來儲存此條目";
 "article-share" = "分享";
+"article-tabs-max-reached" = "已達到分頁限制（最多 $1 個）。條目已在目前分頁中開啟。請關閉一個或多個分頁。";
+"article-tabs-navigation" = "分頁導覽";
+"article-tabs-onboarding-tooltip" = "分頁的入門提示";
+"article-tabs-open" = "開啟";
+"article-tabs-open-background-tab" = "在背景分頁開啟";
+"article-tabs-open-new-tab" = "在新分頁開啟";
 "article-talk-page" = "條目討論頁";
 "article-toolbar-reading-themes-controls-toolbar-item" = "閱讀主題控制";
 "article-view-controller-editing-temp-account-created-subtitle" = "當您的編輯發布後會建立臨時帳號「$1」。該帳號將在 90 天後到期。";
@@ -193,7 +199,14 @@
 "clear-title-accessibility-label" = "清除";
 "clearing-cache-complete" = "清除快取完成。";
 "clearing-cache-in-progress" = "正在清除快取。";
+"close-all-tabs" = "關閉所有分頁";
+"close-all-tabs-confirmation" = "您是否要關閉所有 $1 個分頁？此操作無法取消。";
+"close-all-tabs-confirmation-number" = "關閉所有 $1 個分頁？";
 "close-button-accessibility-label" = "關閉";
+"close-other-tabs" = "關閉其他分頁";
+"close-tab-confirmation" = "關閉分頁？";
+"close-tabs" = "關閉分頁";
+"closed-all-tabs-confirmation" = "已關閉 $1 個分頁";
 "compass-direction" = "在 $1 時";
 "confirm-donation-history-deletion-subtitle" = "這僅套用到透過此裝置所做過的捐款。";
 "confirm-donation-history-deletion-title" = "確認刪除";
@@ -246,6 +259,7 @@
 "developer-settings-activity-tab-group-A" = "將活動分頁設定成群組 A";
 "developer-settings-activity-tab-group-B" = "將活動分頁設定成群組 B";
 "developer-settings-activity-tab-group-C" = "將活動分頁設定成群組 C";
+"developer-settings-activity-tabs" = "啟用有效的分頁";
 "developer-settings-bypass-donation" = "跳過捐贈";
 "developer-settings-enable-year-in-review" = "啟用年度回顧";
 "developer-settings-send-analytics-to-wmflabs" = "傳送分析給維基媒體基金會實驗室。";
@@ -332,6 +346,7 @@
 "donate-transaction-fee-opt-in-text" = "我願意慷慨地添加$1來支付手續費，這樣對方就可以100%%保有我的捐款。";
 "donate-wikimedia-fine-print-1" = "我們不會向任何人販賣或洩漏您的資訊。透過捐款行為，代表您同意與維基媒體基金會、託管維基百科與其他姊妹計劃的非盈利組織、依據我們[捐款方針]（$1）的服務提供者分享您的個人資訊。維基媒體基金會與其服務提供者位於美國與其他國家，其隱私權法可能與您的國家不同。更多相關資訊請閱讀我們的[捐款方針]（$1）。";
 "donate-wikimedia-fine-print-2" = "對於定期捐款者，維基媒體基金會在首次捐款起每隔一個月扣除固定的捐款金額，直至您通知我們停止扣款為止。如果您是在月份上 29 號、30 號，或是 31 號首次發起捐款，會在每月份的最後一天扣款，對於較短的月份，則會盡可能在貼近原始日期的時間進行。若有其他問題，請聯絡 donate@wikimedia.org。";
+"duplicate-tab" = "重複分頁";
 "edit-link-display-text-title" = "顯示文字";
 "edit-link-link-target-title" = "連結目標";
 "edit-link-remove-link-title" = "移除連結";
@@ -710,6 +725,7 @@
 "languages-title" = "變更語言";
 "languages-wikipedia" = "維基百科語言";
 "learn-more-title" = "了解更多";
+"lockscreen-search-widget-description" = "從您的鎖定畫面快速存取搜尋維基百科。";
 "logged-out-continue-without-logging-in-button-title" = "以不登入來繼續";
 "logged-out-log-back-in-button-title" = "重新登入您的帳號";
 "logged-out-subtitle" = "驗證您的帳號時出現了問題。請重新登入以同步及編輯您的閱讀列表。";
@@ -755,6 +771,7 @@
 "nearby-distance-label-miles" = "$1 英里";
 "new-password-instructions" = "您以臨時密碼登入。要完成登入，請在此設定新密碼。";
 "new-password-title" = "設定您的密碼";
+"new-tab" = "新分頁";
 "next-action-title" = "下一步";
 "no-email-account-alert" = "請在您的裝置上設定一個電子郵件地址後，再試一次。";
 "no-internet-connection" = "無網路連線";
@@ -898,6 +915,8 @@
 "on-this-day-no-internet-error" = "沒有資料可用";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "來自於$2維基百科的 $1";
 "on-this-day-title" = "歷史上的今天";
+"open-in-tab-tooltip-body" = "長按條目標題或藍色連結即可在新分頁中開啟。";
+"open-in-tab-tooltip-title" = "在新分頁開啟";
 "original-tab-button-popover-description" = "輕觸「W」來返回至您起始的分頁";
 "page-history-bot-edits" = "機器人";
 "page-history-compare-accessibility-hint" = "輕觸來選擇兩個修訂做比較";
@@ -1095,9 +1114,12 @@
 "return-button-title" = "返回";
 "return-to-article" = "返回到條目";
 "reverted-edit-title" = "已回退的編輯";
+"save-all-tabs" = "儲存所有分頁";
 "save-view-temp-account-notice" = "您正在使用臨時帳號。編輯內容會歸在$1…";
 "save-view-temp-account-warning" = "您尚未登入。一旦您做出編輯，會為您建立臨時帳號以保護您的隱私。";
 "saved-all-articles-title" = "所有條目";
+"saved-all-tabs" = "已儲存所有分頁";
+"saved-all-tabs-view-reading-list" = "已儲存所有分頁。請查看閱讀清單。";
 "saved-default-reading-list-tag" = "此清單不能被刪除";
 "saved-pages-image-download-error" = "下載此儲存頁面裡的圖片失敗。";
 "saved-pages-progress-syncing" = "條目下載中…";
@@ -1120,6 +1142,9 @@
 "search-recent-title" = "近期搜尋";
 "search-result-redirected-from" = "重新導向自：$1";
 "search-title" = "搜尋";
+"search-widget-announcement-body" = "將維基百科搜尋小工具新增至主頁面或鎖定畫面，讓您觸手可及更快獲得答案。";
+"search-widget-announcement-title" = "有新的搜尋小工具可用";
+"search-widget-description" = "快速存取搜尋維基百科。";
 "search-widget-wikipedia-title" = "維基百科";
 "serbian-variants-alert-body" = "維基百科應用程式現在支援下列塞爾維亞語異體字作為應用程式裡的主要語言或次要語言，能以您首選的異體字來更易於閱讀、搜尋、編輯：\n\nсрпски ћирилица，西里爾字母塞爾維亞語（sr-ec）\nsrpski latinica，拉丁字母塞爾維亞語（sr-el）";
 "serbian-variants-alert-title" = "塞爾維亞語異體字支援更新";
@@ -1191,6 +1216,14 @@
 "table-of-contents-heading" = "目次";
 "table-of-contents-hide-button-label" = "隱藏目錄";
 "table-of-contents-subheading-label" = "副標題$1";
+"tabs-close-tab" = "關閉分頁";
+"tabs-main-page-description" = "在維基百科主頁上發現典範條目、最新新聞、有趣的事實與關鍵統計數據。";
+"tabs-main-page-subtitle" = "維基百科每日精彩內容";
+"tabs-navbar-title-format" = "{{PLURAL:$1|$1 個分頁}}";
+"tabs-open-tab" = "開啟分頁";
+"tabs-overview-tooltip-body" = "在分頁總覽中切換開啟的條目。";
+"tabs-overview-tooltip-title" = "分頁總覽";
+"tabs-survey-title" = "請協助改善分頁功能。您對此功能滿意嗎？";
 "tachelhit-variants-alert-body" = "維基百科應用程式現在支援下列施盧赫語異體字作為應用程式裡的主要語言或次要語言，能以您首選的異體字來更易於閱讀、搜尋、編輯：\n\nⵜⴰⵛⵍⵃⵉⵜ，提非納字母施盧赫語（shi-tfng）\nTaclḥit，拉丁字母施盧赫語（shi-latn）";
 "tachelhit-variants-alert-title" = "施盧赫語異體字支援更新";
 "tajik-variants-alert-body" = "維基百科應用程式現在支援下列塔吉克語異體字作為應用程式裡的主要語言或次要語言，能以您首選的異體字來更易於閱讀、搜尋、編輯：\n\nтоҷикӣ кирилликӣ，西里爾字母塔吉克語（tg-cyrl）\ntojikī lotinī，拉丁字母塔吉克語（tg-latn）";

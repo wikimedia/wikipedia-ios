@@ -25,7 +25,7 @@ public class WMFYearInReviewReport: Identifiable {
                 return nil
             }
             
-            return WMFYearInReviewSlide(year: year, id: slideID, evaluated: cdSlide.evaluated)
+            return WMFYearInReviewSlide(year: year, id: slideID)
             
         })
     }
