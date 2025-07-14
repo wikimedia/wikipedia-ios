@@ -15,7 +15,7 @@ import CoreData
 
     private let service = WMFDataEnvironment.current.mediaWikiService
     private var dataPopulationBackgroundTaskID: UIBackgroundTaskIdentifier = .invalid
-
+    
     struct FeatureAnnouncementStatus: Codable {
         var hasPresentedYiRFeatureAnnouncementModal: Bool
         static var `default`: FeatureAnnouncementStatus {
@@ -147,10 +147,13 @@ import CoreData
             return false
         }
 
+        let yirConfig = false
+        #if DEBUG
         guard let iosFeatureConfig = developerSettingsDataController.loadFeatureConfig()?.ios.first,
               let yirConfig = iosFeatureConfig.yir(yearID: targetConfigYearID) else {
             return false
         }
+        #endif
 
         // Check remote feature disable switch
         guard yirConfig.isEnabled else {
@@ -236,10 +239,13 @@ import CoreData
             return false
         }
 
+        let yirConfig: Bool = false
+        #if DEBUG
         guard let iosFeatureConfig = developerSettingsDataController.loadFeatureConfig()?.ios.first,
               let yirConfig = iosFeatureConfig.yir(yearID: targetConfigYearID) else {
             return false
         }
+        #endif
 
         guard let countryCode,
               let primaryAppLanguageProject else {
@@ -305,7 +311,9 @@ import CoreData
 
         let backgroundContext = try coreDataStore.newBackgroundContext
 
+        #if DEBUG
         let yirConfig = developerSettingsDataController.loadFeatureConfig()?.ios.first?.yir(yearID: targetConfigYearID)
+        #endif
 
         guard let yirConfig else {
             return nil
@@ -481,10 +489,13 @@ import CoreData
     }
 
     public func shouldHideDonateButton() -> Bool {
+        let yirConfig: Bool = false
+        #if DEBUG
         guard let iosFeatureConfig = developerSettingsDataController.loadFeatureConfig()?.ios.first,
               let yirConfig = iosFeatureConfig.yir(yearID: targetConfigYearID) else {
             return false
         }
+        #endif
 
         guard let locale = Locale.current.region?.identifier else {
             return false
