@@ -148,6 +148,13 @@ final class TabsOverviewCoordinator: Coordinator {
     }
     
     private func tappedAddTab() {
+        if dataController.needsTabsV2 {
+            navigationController.dismiss(animated: true) {
+                let newTabCoordinator = NewTabCoordinator(navigationController: self.navigationController, dataStore: self.dataStore, theme: self.theme)
+                newTabCoordinator.start()
+            }
+            return
+        }
         guard let siteURL = dataStore.languageLinkController.appLanguage?.siteURL,
               let articleURL = siteURL.wmf_URL(withTitle: "Main Page") else {
             return

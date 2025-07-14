@@ -147,6 +147,10 @@ public class WMFArticleTabsDataController: WMFArticleTabsDataControlling {
     
     // MARK: Entry point
 
+    public var needsTabsV2: Bool {
+        return true
+    }
+
     public var shouldShowArticleTabs: Bool {
         guard !developerSettingsDataController.enableArticleTabs else {
             return true

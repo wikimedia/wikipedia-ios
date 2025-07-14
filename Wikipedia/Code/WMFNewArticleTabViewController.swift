@@ -1,108 +1,207 @@
 import UIKit
 import SwiftUI
 import WMFData
+import WMFComponents
+import WMF
 
-final public class WMFNewArticleTabController: WMFCanvasViewController, WMFNavigationBarConfiguring {
+final class WMFNewArticleTabController: WMFCanvasViewController, WMFNavigationBarConfiguring, Themeable {
 
-    // move all this to view model, add loc strings
+    // MARK: - Properties
 
-    private let hostingController: WMFNewArticleTabHostingController
-    let viewModel: WMFNewArticleTabViewModel
+    private let hostingController: WMFNewArticleTabHostingController<WMFNewArticleTabView>
+    private let dataStore: MWKDataStore
+    private var theme: Theme
+    private var presentingSearchResults: Bool = false
 
-    public init(viewModel: WMFNewArticleTabViewModel) {
-        self.viewModel = viewModel
-        self.hostingController = WMFNewArticleTabHostingController(rootView: WMFNewArticleTabView())
-        super.init()
+    // MARK: - Navigation bar button properties
+
+    private var yirDataController: WMFYearInReviewDataController? {
+        return try? WMFYearInReviewDataController()
     }
-    
+
+    private var _yirCoordinator: YearInReviewCoordinator?
+    var yirCoordinator: YearInReviewCoordinator? {
+
+        guard let navigationController,
+              let yirDataController else {
+            return nil
+        }
+
+        guard let existingYirCoordinator = _yirCoordinator else {
+            _yirCoordinator = YearInReviewCoordinator(navigationController: navigationController, theme: theme, dataStore: dataStore, dataController: yirDataController)
+            _yirCoordinator?.badgeDelegate = self
+            return _yirCoordinator
+        }
+
+        return existingYirCoordinator
+    }
+
+    private var _tabsCoordinator: TabsOverviewCoordinator?
+    private var tabsCoordinator: TabsOverviewCoordinator? {
+        guard let navigationController else { return nil }
+        _tabsCoordinator = TabsOverviewCoordinator(navigationController: navigationController, theme: theme, dataStore: dataStore)
+        return _tabsCoordinator
+    }
+
+    private var _profileCoordinator: ProfileCoordinator?
+    private var profileCoordinator: ProfileCoordinator? {
+
+        guard let navigationController,
+              let yirCoordinator = self.yirCoordinator else {
+            return nil
+        }
+
+        guard let existingProfileCoordinator = _profileCoordinator else {
+            _profileCoordinator = ProfileCoordinator(navigationController: navigationController, theme: theme, dataStore: dataStore, donateSouce: .savedProfile, logoutDelegate: self, sourcePage: ProfileCoordinatorSource.saved, yirCoordinator: yirCoordinator)
+            _profileCoordinator?.badgeDelegate = self
+            return _profileCoordinator
+        }
+
+        return existingProfileCoordinator
+    }
+
+
+    // MARK: - Lifecycle
+
+    init(dataStore: MWKDataStore, theme: Theme, viewModel: WMFNewArticleTabViewModel) {
+        self.dataStore = dataStore
+        self.theme = theme
+        self.hostingController = WMFNewArticleTabHostingController(rootView: WMFNewArticleTabView(viewModel: viewModel))
+        super.init()
+        self.hidesBottomBarWhenPushed = true
+        self.configureNavigationBar()
+    }
+
     @MainActor required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
     public override func viewDidLoad() {
         super.viewDidLoad()
-
         addComponent(hostingController, pinToEdges: true)
     }
+
+    // MARK: - Navigation bar configuring
 
     private func configureNavigationBar() {
 
         let wButton = UIButton(type: .custom)
         wButton.setImage(UIImage(named: "W"), for: .normal)
 
-        var titleConfig: WMFNavigationBarTitleConfig = WMFNavigationBarTitleConfig(title: "test??", customView: wButton, alignment: .centerCompact)
-
-        if #available(iOS 18, *) {
-            if UIDevice.current.userInterfaceIdiom == .pad && traitCollection.horizontalSizeClass == .regular { // ipad
-                titleConfig = WMFNavigationBarTitleConfig(title: "test??", customView: nil, alignment: .hidden)
-            }
-        }
+        let titleConfig: WMFNavigationBarTitleConfig = WMFNavigationBarTitleConfig(title: "", customView: wButton, alignment: .centerCompact)
 
         let yirDataController = try? WMFYearInReviewDataController()
-        let tabsButtonConfig = tabsButtonConfig(target: self, action: #selector(userDidTapTabs), accessibilityLabel: viewModel.localizedStrings.tabsButtonAccessibilityLabel, accessibilityHint: viewModel.localizedStrings.tabsButtonAccessibilityHint)
+        let profileButtonConfig = profileButtonConfig(target: self, action: #selector(userDidTapProfile), dataStore: dataStore, yirDataController: yirDataController, leadingBarButtonItem: nil)
 
-        let config = profileButtonConfig(target: self, action: #selector(userDidTapProfile), authStateTemp: viewModel.authStateTemp, authStatePermanent: viewModel.authStatePermanent, languageCode: viewModel.languageCode, languageVariantCode: viewModel.languageVariantCode, numberOfNotifications: viewModel.numberOfNotifications, accessibilityHint: viewModel.localizedStrings.profileButtionAccessibilityHint, accessibilityLabelNoNotifications: viewModel.localizedStrings.profileAccessibilityLabelNoNotifications, accessibilityLabelHasNotifications: viewModel.localizedStrings.profileAccessibilityLabelHasNotifications, yirDataController: yirDataController, leadingBarButtonItem: nil)
+        let tabsButtonConfig = tabsButtonConfig(target: self, action: #selector(userDidTapTabs), dataStore: dataStore)
 
-//
-//
-//        let searchViewController = SearchViewController(source: .article, customArticleCoordinatorNavigationController: navigationController)
-//        searchViewController.dataStore = dataStore
-//        searchViewController.theme = theme
-//        searchViewController.shouldBecomeFirstResponder = true
-//        searchViewController.customTabConfigUponArticleNavigation = .appendArticleAndAssignCurrentTabAndCleanoutFutureArticles
-//
-//        let populateSearchBarWithTextAction: (String) -> Void = { [weak self] searchTerm in
-//            self?.navigationItem.searchController?.searchBar.text = searchTerm
-//            self?.navigationItem.searchController?.searchBar.becomeFirstResponder()
-//        }
-//
-//        searchViewController.populateSearchBarWithTextAction = populateSearchBarWithTextAction
-//
-//        let searchBarConfig = WMFNavigationBarSearchConfig(searchResultsController: searchViewController, searchControllerDelegate: self, searchResultsUpdater: self, searchBarDelegate: nil, searchBarPlaceholder: WMFLocalizedString("search-field-placeholder-text", value: "Search Wikipedia", comment: "Search field placeholder text"), showsScopeBar: false, scopeButtonTitles: nil)
-//
-//        configureNavigationBar(titleConfig: titleConfig, backButtonConfig: backButtonConfig, closeButtonConfig: nil, profileButtonConfig: profileButtonConfig, tabsButtonConfig: tabsButtonConfig, searchBarConfig: searchBarConfig, hideNavigationBarOnScroll: true)
+        let searchViewController = SearchViewController(source: .article, customArticleCoordinatorNavigationController: navigationController)
+        searchViewController.dataStore = dataStore
+        searchViewController.theme = theme
+        searchViewController.shouldBecomeFirstResponder = true
+        searchViewController.customTabConfigUponArticleNavigation = .appendArticleAndAssignCurrentTabAndCleanoutFutureArticles
+
+        let populateSearchBarWithTextAction: (String) -> Void = { [weak self] searchTerm in
+            self?.navigationItem.searchController?.searchBar.text = searchTerm
+            self?.navigationItem.searchController?.searchBar.becomeFirstResponder()
+        }
+
+        searchViewController.populateSearchBarWithTextAction = populateSearchBarWithTextAction
+
+
+        let searchBarConfig = WMFNavigationBarSearchConfig(searchResultsController: searchViewController, searchControllerDelegate: self, searchResultsUpdater: self, searchBarDelegate: nil, searchBarPlaceholder: CommonStrings.searchBarPlaceholder, showsScopeBar: false, scopeButtonTitles: nil)
+
+        let backButtonConfig = WMFNavigationBarBackButtonConfig(needsCustomTruncateBackButtonTitle: true)
+
+        configureNavigationBar(titleConfig: titleConfig, backButtonConfig: backButtonConfig, closeButtonConfig: nil, profileButtonConfig: profileButtonConfig, tabsButtonConfig: tabsButtonConfig, searchBarConfig: searchBarConfig, hideNavigationBarOnScroll: true)
     }
 
     @objc func userDidTapProfile() {
-
+        profileCoordinator?.start()
     }
 
     @objc func userDidTapTabs() {
-
+        tabsCoordinator?.start()
     }
 
-    // move to an extension in this package
-
-    func tabsButtonConfig(target: Any, action: Selector, leadingBarButtonItem: UIBarButtonItem? = nil, trailingBarButtonItem: UIBarButtonItem? = nil, accessibilityLabel: String, accessibilityHint: String) -> WMFNavigationBarTabsButtonConfig {
-        return WMFNavigationBarTabsButtonConfig(accessibilityLabel: accessibilityLabel, accessibilityHint: accessibilityHint, target: target, action: action, leadingBarButtonItem: leadingBarButtonItem, trailingBarButtonItem: trailingBarButtonItem)
+    func updateProfileButton() {
+        let config = self.profileButtonConfig(target: self, action: #selector(userDidTapProfile), dataStore: dataStore, yirDataController: yirDataController, leadingBarButtonItem: nil)
+        updateNavigationBarProfileButton(needsBadge: config.needsBadge, needsBadgeLabel: CommonStrings.profileButtonBadgeTitle, noBadgeLabel: CommonStrings.profileButtonTitle)
     }
 
-    func profileButtonConfig(target: Any, action: Selector, authStateTemp: Bool, authStatePermanent: Bool, languageCode: String, languageVariantCode: String?, numberOfNotifications: NSNumber?, accessibilityHint: String, accessibilityLabelNoNotifications: String, accessibilityLabelHasNotifications: String, yirDataController: WMFYearInReviewDataController?, leadingBarButtonItem: UIBarButtonItem?) -> WMFNavigationBarProfileButtonConfig {
-        var hasUnreadNotifications: Bool = false
+    // MARK: - Theme
 
-        let isTemporaryAccount = WMFTempAccountDataController.shared.primaryWikiHasTempAccountsEnabled && authStateTemp
-
-        if authStateTemp || isTemporaryAccount {
-            hasUnreadNotifications = (numberOfNotifications?.intValue ?? 0) != 0
-        } else {
-            hasUnreadNotifications = false
+    public func apply(theme: WMF.Theme) {
+        guard viewIfLoaded != nil else {
+            return
         }
-
-        var needsYiRNotification = false
-        if let yirDataController {
-            let project = WMFProject.wikipedia(WMFLanguage(languageCode: languageCode, languageVariantCode: languageVariantCode))
-            needsYiRNotification = yirDataController.shouldShowYiRNotification(primaryAppLanguageProject: project, isLoggedOut: !authStatePermanent, isTemporaryAccount: isTemporaryAccount)
-        }
-        // do not override `hasUnreadNotifications` completely
-        if needsYiRNotification {
-            hasUnreadNotifications = true
-        }
-
-        return WMFNavigationBarProfileButtonConfig(accessibilityLabelNoNotifications: accessibilityLabelNoNotifications, accessibilityLabelHasNotifications: accessibilityLabelHasNotifications, accessibilityHint: accessibilityHint, needsBadge: hasUnreadNotifications, target: target, action: action, leadingBarButtonItem: leadingBarButtonItem)
+        self.theme = theme
+        profileCoordinator?.theme = theme
+        updateProfileButton()
     }
 
 }
 
-fileprivate final class WMFNewArticleTabHostingController: WMFComponentHostingController<WMFNewArticleTabView> {
+// MARK: - Fileprivate classes
+
+fileprivate final class WMFNewArticleTabHostingController<WMFNewArticleTabView: View>: WMFComponentHostingController<WMFNewArticleTabView> {
+
+}
+
+// MARK: - Extensions
+
+extension WMFNewArticleTabController: UISearchResultsUpdating {
+    func updateSearchResults(for searchController: UISearchController) {
+        guard let text = searchController.searchBar.text else {
+            return
+        }
+
+        guard let searchViewController = navigationItem.searchController?.searchResultsController as? SearchViewController else {
+            return
+        }
+
+        if text.isEmpty {
+            searchViewController.searchTerm = nil
+            searchViewController.updateRecentlySearchedVisibility(searchText: nil)
+        } else {
+            searchViewController.searchTerm = text
+            searchViewController.updateRecentlySearchedVisibility(searchText: text)
+            searchViewController.search()
+        }
+
+    }
+}
+
+extension WMFNewArticleTabController: UISearchControllerDelegate {
+
+    func willPresentSearchController(_ searchController: UISearchController) {
+        presentingSearchResults = true
+        navigationController?.hidesBarsOnSwipe = false
+    }
+
+    func didDismissSearchController(_ searchController: UISearchController) {
+        presentingSearchResults = false
+        navigationController?.hidesBarsOnSwipe = true
+    }
+}
+
+extension WMFNewArticleTabController: UISearchBarDelegate {
+    public func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        navigationController?.popViewController(animated: true)
+    }
+}
+
+extension WMFNewArticleTabController: YearInReviewBadgeDelegate {
+    func updateYIRBadgeVisibility() {
+        updateProfileButton()
+    }
+}
+
+extension WMFNewArticleTabController: LogoutCoordinatorDelegate {
+    func didTapLogout() {
+        wmf_showKeepSavedArticlesOnDevicePanelIfNeeded(triggeredBy: .logout, theme: theme) {
+            self.dataStore.authenticationManager.logout(initiatedBy: .user)
+        }
+    }
 
 }
