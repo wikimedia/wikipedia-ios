@@ -148,7 +148,7 @@ final class TabsOverviewCoordinator: Coordinator {
     }
     
     private func tappedAddTab() {
-        if dataController.needsTabsV2 {
+        if dataController.needsMoreDynamicTabs && dataController.shouldShowArticleTabs {
             let isOnStack = self.navigationController.viewControllers.contains { $0 is WMFNewArticleTabController }
             // do not push a new tab if the user just came from a new tab
             if isOnStack {
