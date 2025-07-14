@@ -1169,6 +1169,8 @@
 "table-of-contents-heading" = "Contents";
 "table-of-contents-hide-button-label" = "Hide table of contents";
 "table-of-contents-subheading-label" = "Subheading $1";
+"tabs-button-accessibility-hint" = "Navigates to tabs overview";
+"tabs-button-accessibility-label" = "Tabs";
 "tabs-close-tab" = "Close tab";
 "tabs-main-page-description" = "Discover featured articles, the latest news, interesting facts, and key stats on Wikipedia’s main page.";
 "tabs-main-page-subtitle" = "Wikipedia’s daily highlights";
