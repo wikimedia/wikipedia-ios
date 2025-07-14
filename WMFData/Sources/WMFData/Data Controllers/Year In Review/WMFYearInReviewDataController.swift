@@ -147,12 +147,13 @@ import CoreData
             return false
         }
 
-        let yirConfig = false
         #if DEBUG
         guard let iosFeatureConfig = developerSettingsDataController.loadFeatureConfig()?.ios.first,
               let yirConfig = iosFeatureConfig.yir(yearID: targetConfigYearID) else {
             return false
         }
+        #else
+        return false
         #endif
 
         // Check remote feature disable switch
@@ -239,12 +240,13 @@ import CoreData
             return false
         }
 
-        let yirConfig: Bool = false
         #if DEBUG
         guard let iosFeatureConfig = developerSettingsDataController.loadFeatureConfig()?.ios.first,
               let yirConfig = iosFeatureConfig.yir(yearID: targetConfigYearID) else {
             return false
         }
+        #else
+            return false
         #endif
 
         guard let countryCode,
@@ -310,9 +312,12 @@ import CoreData
         }
 
         let backgroundContext = try coreDataStore.newBackgroundContext
-
+        
+        var yirConfig: WMFFeatureConfigResponse.IOS.YearInReview? = nil
         #if DEBUG
-        let yirConfig = developerSettingsDataController.loadFeatureConfig()?.ios.first?.yir(yearID: targetConfigYearID)
+        yirConfig = developerSettingsDataController.loadFeatureConfig()?.ios.first?.yir(yearID: targetConfigYearID)
+        #else
+        return nil
         #endif
 
         guard let yirConfig else {
@@ -489,12 +494,13 @@ import CoreData
     }
 
     public func shouldHideDonateButton() -> Bool {
-        let yirConfig: Bool = false
         #if DEBUG
         guard let iosFeatureConfig = developerSettingsDataController.loadFeatureConfig()?.ios.first,
               let yirConfig = iosFeatureConfig.yir(yearID: targetConfigYearID) else {
             return false
         }
+        #else
+            return false
         #endif
 
         guard let locale = Locale.current.region?.identifier else {
