@@ -2,25 +2,25 @@ import Foundation
 import CoreData
 
 // MARK: - Read Count Slide
-public final class YearInReviewReadCountSlideDataController: YearInReviewSlideDataControllerProtocol {
+final class YearInReviewReadCountSlideDataController: YearInReviewSlideDataControllerProtocol {
 
-    public let id = WMFYearInReviewPersonalizedSlideID.readCount.rawValue
-    public let year: Int
-    public var isEvaluated: Bool
+    let id = WMFYearInReviewPersonalizedSlideID.readCount.rawValue
+    let year: Int
+    var isEvaluated: Bool = false
+    static var containsPersonalizedNetworkData = false
+    
     private var readCount: Int?
 
     private weak var legacyPageViewsDataDelegate: LegacyPageViewsDataDelegate?
     private let yirConfig: YearInReviewFeatureConfig
-
-    public init(year: Int, isEvaluated: Bool = false, legacyPageViewsDataDelegate: LegacyPageViewsDataDelegate?, yirConfig: YearInReviewFeatureConfig) {
+    
+    init(year: Int, yirConfig: YearInReviewFeatureConfig, dependencies: YearInReviewSlideDataControllerDependencies) {
         self.year = year
-        self.isEvaluated = isEvaluated
-        
-        self.legacyPageViewsDataDelegate = legacyPageViewsDataDelegate
         self.yirConfig = yirConfig
+        self.legacyPageViewsDataDelegate = dependencies.legacyPageViewsDataDelegate
     }
 
-    public func populateSlideData(in context: NSManagedObjectContext) async throws {
+    func populateSlideData(in context: NSManagedObjectContext) async throws {
         
         guard let startDate = yirConfig.dataPopulationStartDate,
               let endDate = yirConfig.dataPopulationEndDate,
@@ -32,7 +32,7 @@ public final class YearInReviewReadCountSlideDataController: YearInReviewSlideDa
         isEvaluated = true
     }
 
-    public func makeCDSlide(in context: NSManagedObjectContext) throws -> CDYearInReviewSlide {
+    func makeCDSlide(in context: NSManagedObjectContext) throws -> CDYearInReviewSlide {
         let slide = CDYearInReviewSlide(context: context)
         slide.id = id
         slide.year = Int32(year)
@@ -45,40 +45,32 @@ public final class YearInReviewReadCountSlideDataController: YearInReviewSlideDa
         return slide
     }
 
-    public static func shouldPopulate(from config: YearInReviewFeatureConfig, userInfo: YearInReviewUserInfo) -> Bool {
+    static func shouldPopulate(from config: YearInReviewFeatureConfig, userInfo: YearInReviewUserInfo) -> Bool {
         return config.isEnabled && config.slideConfig.readCountIsEnabled
-    }
-    
-    public static func makeInitialCDSlide(for year: Int, in context: NSManagedObjectContext) throws -> CDYearInReviewSlide {
-        let slide = CDYearInReviewSlide(context: context)
-        slide.id = WMFYearInReviewPersonalizedSlideID.readCount.rawValue
-        slide.year = Int32(year)
-        slide.data = nil
-        return slide
     }
 }
 
 // MARK: - Save Count Slide
 
-public final class YearInReviewSaveCountSlideDataController: YearInReviewSlideDataControllerProtocol {
+final class YearInReviewSaveCountSlideDataController: YearInReviewSlideDataControllerProtocol {
 
-    public let id = WMFYearInReviewPersonalizedSlideID.saveCount.rawValue
-    public let year: Int
-    public var isEvaluated: Bool
+    let id = WMFYearInReviewPersonalizedSlideID.saveCount.rawValue
+    let year: Int
+    var isEvaluated: Bool = false
+    static var containsPersonalizedNetworkData = true
+    
     private var savedData: SavedArticleSlideData?
     
     private weak var savedSlideDataDelegate: SavedArticleSlideDataDelegate?
     private let yirConfig: YearInReviewFeatureConfig
-
-    public init(year: Int, isEvaluated: Bool = false, savedSlideDataDelegate: SavedArticleSlideDataDelegate?, yirConfig: YearInReviewFeatureConfig) {
+    
+    init(year: Int, yirConfig: YearInReviewFeatureConfig, dependencies: YearInReviewSlideDataControllerDependencies) {
         self.year = year
-        self.isEvaluated = isEvaluated
-        
-        self.savedSlideDataDelegate = savedSlideDataDelegate
         self.yirConfig = yirConfig
+        self.savedSlideDataDelegate = dependencies.savedSlideDataDelegate
     }
 
-    public func populateSlideData(in context: NSManagedObjectContext) async throws {
+    func populateSlideData(in context: NSManagedObjectContext) async throws {
         
         guard let startDate = yirConfig.dataPopulationStartDate, let endDate = yirConfig.dataPopulationEndDate else {
             return
@@ -91,7 +83,7 @@ public final class YearInReviewSaveCountSlideDataController: YearInReviewSlideDa
         isEvaluated = true
     }
 
-    public func makeCDSlide(in context: NSManagedObjectContext) throws -> CDYearInReviewSlide {
+    func makeCDSlide(in context: NSManagedObjectContext) throws -> CDYearInReviewSlide {
         let slide = CDYearInReviewSlide(context: context)
         slide.id = id
         slide.year = Int32(year)
@@ -103,26 +95,20 @@ public final class YearInReviewSaveCountSlideDataController: YearInReviewSlideDa
         return slide
     }
 
-    public static func shouldPopulate(from config: YearInReviewFeatureConfig, userInfo: YearInReviewUserInfo) -> Bool {
+    static func shouldPopulate(from config: YearInReviewFeatureConfig, userInfo: YearInReviewUserInfo) -> Bool {
         return config.isEnabled && config.slideConfig.saveCountIsEnabled
-    }
-    
-    public static func makeInitialCDSlide(for year: Int, in context: NSManagedObjectContext) throws -> CDYearInReviewSlide {
-        let slide = CDYearInReviewSlide(context: context)
-        slide.id = WMFYearInReviewPersonalizedSlideID.saveCount.rawValue
-        slide.year = Int32(year)
-        slide.data = nil
-        return slide
     }
 }
 
 // MARK: - Edit count slide
 
-public final class YearInReviewEditCountSlideDataController: YearInReviewSlideDataControllerProtocol {
+final class YearInReviewEditCountSlideDataController: YearInReviewSlideDataControllerProtocol {
 
-    public let id = WMFYearInReviewPersonalizedSlideID.editCount.rawValue
-    public let year: Int
-    public var isEvaluated: Bool
+    let id = WMFYearInReviewPersonalizedSlideID.editCount.rawValue
+    let year: Int
+    var isEvaluated: Bool = false
+    static var containsPersonalizedNetworkData = true
+    
     private var editCount: Int?
 
     private let username: String?
@@ -130,16 +116,15 @@ public final class YearInReviewEditCountSlideDataController: YearInReviewSlideDa
     
     private let yirConfig: YearInReviewFeatureConfig
     private let service = WMFDataEnvironment.current.mediaWikiService
-
-    public init(year: Int, username: String?, project: WMFProject?, isEvaluated: Bool = false, yirConfig: YearInReviewFeatureConfig) {
+    
+    init(year: Int, yirConfig: YearInReviewFeatureConfig, dependencies: YearInReviewSlideDataControllerDependencies) {
         self.year = year
-        self.username = username
-        self.project = project
-        self.isEvaluated = isEvaluated
         self.yirConfig = yirConfig
+        self.username = dependencies.username
+        self.project = dependencies.project
     }
 
-    public func populateSlideData(in context: NSManagedObjectContext) async throws {
+    func populateSlideData(in context: NSManagedObjectContext) async throws {
         guard let username, let project else { return }
         
         guard let startDate = yirConfig.dataPopulationStartDateString,
@@ -153,7 +138,7 @@ public final class YearInReviewEditCountSlideDataController: YearInReviewSlideDa
         isEvaluated = true
     }
 
-    public func makeCDSlide(in context: NSManagedObjectContext) throws -> CDYearInReviewSlide {
+    func makeCDSlide(in context: NSManagedObjectContext) throws -> CDYearInReviewSlide {
         let slide = CDYearInReviewSlide(context: context)
         slide.id = id
         slide.year = Int32(year)
@@ -165,19 +150,11 @@ public final class YearInReviewEditCountSlideDataController: YearInReviewSlideDa
         return slide
     }
 
-    public static func shouldPopulate(from config: YearInReviewFeatureConfig, userInfo: YearInReviewUserInfo) -> Bool {
+    static func shouldPopulate(from config: YearInReviewFeatureConfig, userInfo: YearInReviewUserInfo) -> Bool {
         return config.isEnabled && config.slideConfig.editCountIsEnabled && userInfo.username != nil
     }
     
-    public static func makeInitialCDSlide(for year: Int, in context: NSManagedObjectContext) throws -> CDYearInReviewSlide {
-        let slide = CDYearInReviewSlide(context: context)
-        slide.id = WMFYearInReviewPersonalizedSlideID.editCount.rawValue
-        slide.year = Int32(year)
-        slide.data = nil
-        return slide
-    }
-    
-    private func fetchUserContributionsCount(username: String, project: WMFProject?, startDate: String, endDate: String) async throws -> (Int, Bool) {
+    func fetchUserContributionsCount(username: String, project: WMFProject?, startDate: String, endDate: String) async throws -> (Int, Bool) {
         return try await withCheckedThrowingContinuation { continuation in
             fetchUserContributionsCount(username: username, project: project, startDate: startDate, endDate: endDate) { result in
                 switch result {
@@ -190,7 +167,7 @@ public final class YearInReviewEditCountSlideDataController: YearInReviewSlideDa
         }
     }
 
-    private func fetchUserContributionsCount(username: String, project: WMFProject?, startDate: String, endDate: String, completion: @escaping (Result<(Int, Bool), Error>) -> Void) {
+    func fetchUserContributionsCount(username: String, project: WMFProject?, startDate: String, endDate: String, completion: @escaping (Result<(Int, Bool), Error>) -> Void) {
         guard let service = service else {
             completion(.failure(WMFDataControllerError.mediaWikiServiceUnavailable))
             return
@@ -287,22 +264,22 @@ public final class YearInReviewEditCountSlideDataController: YearInReviewSlideDa
 
 // MARK: - Donate Slide
 
-public final class YearInReviewDonateCountSlideDataController: YearInReviewSlideDataControllerProtocol {
-    public let id = WMFYearInReviewPersonalizedSlideID.donateCount.rawValue
-    public let year: Int
-    public var isEvaluated: Bool
+final class YearInReviewDonateCountSlideDataController: YearInReviewSlideDataControllerProtocol {
+    let id = WMFYearInReviewPersonalizedSlideID.donateCount.rawValue
+    let year: Int
+    var isEvaluated: Bool = false
+    static var containsPersonalizedNetworkData = false
+    
     private var donateCount: Int?
     
     private let yirConfig: YearInReviewFeatureConfig
-
-    public init(year: Int, isEvaluated: Bool = false, yirConfig: YearInReviewFeatureConfig) {
+    
+    init(year: Int, yirConfig: YearInReviewFeatureConfig, dependencies: YearInReviewSlideDataControllerDependencies) {
         self.year = year
-        self.isEvaluated = isEvaluated
-        
         self.yirConfig = yirConfig
     }
 
-    public func populateSlideData(in context: NSManagedObjectContext) async throws {
+    func populateSlideData(in context: NSManagedObjectContext) async throws {
         
         guard let startDate = yirConfig.dataPopulationStartDate,
               let endDate = yirConfig.dataPopulationEndDate else {
@@ -313,7 +290,7 @@ public final class YearInReviewDonateCountSlideDataController: YearInReviewSlide
         isEvaluated = true
     }
 
-    public func makeCDSlide(in context: NSManagedObjectContext) throws -> CDYearInReviewSlide {
+    func makeCDSlide(in context: NSManagedObjectContext) throws -> CDYearInReviewSlide {
         let slide = CDYearInReviewSlide(context: context)
         slide.id = id
         slide.year = Int32(year)
@@ -321,39 +298,31 @@ public final class YearInReviewDonateCountSlideDataController: YearInReviewSlide
         return slide
     }
 
-    public static func shouldPopulate(from config: YearInReviewFeatureConfig, userInfo: YearInReviewUserInfo) -> Bool {
+    static func shouldPopulate(from config: YearInReviewFeatureConfig, userInfo: YearInReviewUserInfo) -> Bool {
         config.isEnabled && config.slideConfig.donateCountIsEnabled
-    }
-    
-    public static func makeInitialCDSlide(for year: Int, in context: NSManagedObjectContext) throws -> CDYearInReviewSlide {
-        let slide = CDYearInReviewSlide(context: context)
-        slide.id = WMFYearInReviewPersonalizedSlideID.donateCount.rawValue
-        slide.year = Int32(year)
-        slide.data = nil
-        return slide
     }
 }
 
 // MARK: - Most read day slide
 
-public final class YearInReviewMostReadDaySlideDataController: YearInReviewSlideDataControllerProtocol {
-    public let id = WMFYearInReviewPersonalizedSlideID.mostReadDay.rawValue
-    public let year: Int
-    public var isEvaluated: Bool
-    private var mostReadDay: WMFPageViewDay?
+final class YearInReviewMostReadDaySlideDataController: YearInReviewSlideDataControllerProtocol {
+    let id = WMFYearInReviewPersonalizedSlideID.mostReadDay.rawValue
+    let year: Int
+    var isEvaluated: Bool = false
+    static var containsPersonalizedNetworkData = false
+    
+    var mostReadDay: WMFPageViewDay?
 
     private weak var legacyPageViewsDataDelegate: LegacyPageViewsDataDelegate?
     private let yirConfig: YearInReviewFeatureConfig
-
-    public init(year: Int, isEvaluated: Bool = false, legacyPageViewsDataDelegate: LegacyPageViewsDataDelegate?, yirConfig: YearInReviewFeatureConfig) {
+    
+    init(year: Int, yirConfig: YearInReviewFeatureConfig, dependencies: YearInReviewSlideDataControllerDependencies) {
         self.year = year
-        self.isEvaluated = isEvaluated
-        
-        self.legacyPageViewsDataDelegate = legacyPageViewsDataDelegate
         self.yirConfig = yirConfig
+        self.legacyPageViewsDataDelegate = dependencies.legacyPageViewsDataDelegate
     }
 
-    public func populateSlideData(in context: NSManagedObjectContext) async throws {
+    func populateSlideData(in context: NSManagedObjectContext) async throws {
         
         guard let startDate = yirConfig.dataPopulationStartDate,
               let endDate = yirConfig.dataPopulationEndDate,
@@ -372,7 +341,7 @@ public final class YearInReviewMostReadDaySlideDataController: YearInReviewSlide
         }
     }
 
-    public func makeCDSlide(in context: NSManagedObjectContext) throws -> CDYearInReviewSlide {
+    func makeCDSlide(in context: NSManagedObjectContext) throws -> CDYearInReviewSlide {
         let slide = CDYearInReviewSlide(context: context)
         slide.id = id
         slide.year = Int32(year)
@@ -380,48 +349,41 @@ public final class YearInReviewMostReadDaySlideDataController: YearInReviewSlide
         return slide
     }
 
-    public static func shouldPopulate(from config: YearInReviewFeatureConfig, userInfo: YearInReviewUserInfo) -> Bool {
+    static func shouldPopulate(from config: YearInReviewFeatureConfig, userInfo: YearInReviewUserInfo) -> Bool {
         config.isEnabled && config.slideConfig.mostReadDayIsEnabled
-    }
-    
-    public static func makeInitialCDSlide(for year: Int, in context: NSManagedObjectContext) throws -> CDYearInReviewSlide {
-        let slide = CDYearInReviewSlide(context: context)
-        slide.id = WMFYearInReviewPersonalizedSlideID.mostReadDay.rawValue
-        slide.year = Int32(year)
-        slide.data = nil
-        return slide
     }
 }
 
 // MARK: - View count
 
-public final class YearInReviewViewCountSlideDataController: YearInReviewSlideDataControllerProtocol {
-    public let id = WMFYearInReviewPersonalizedSlideID.viewCount.rawValue
-    public let year: Int
-    public var isEvaluated: Bool
+final class YearInReviewViewCountSlideDataController: YearInReviewSlideDataControllerProtocol {
+    let id = WMFYearInReviewPersonalizedSlideID.viewCount.rawValue
+    let year: Int
+    var isEvaluated: Bool = false
+    static var containsPersonalizedNetworkData = true
+    
     private var viewCount: Int?
-
+    
     private let userID: String?
     private let languageCode: String?
     private let project: WMFProject?
     
     private let service = WMFDataEnvironment.current.mediaWikiService
-
-    public init(year: Int, userID: String?, languageCode: String?, project: WMFProject?, isEvaluated: Bool = false) {
+    
+    init(year: Int, yirConfig: YearInReviewFeatureConfig, dependencies: YearInReviewSlideDataControllerDependencies) {
         self.year = year
-        self.userID = userID
-        self.languageCode = languageCode
-        self.project = project
-        self.isEvaluated = isEvaluated
+        self.userID = dependencies.userID
+        self.languageCode = dependencies.languageCode
+        self.project = dependencies.project
     }
 
-    public func populateSlideData(in context: NSManagedObjectContext) async throws {
+    func populateSlideData(in context: NSManagedObjectContext) async throws {
         guard let userID, let languageCode else { return }
         viewCount = try await self.fetchEditViews(project: project, userId: userID, language: languageCode)
         isEvaluated = true
     }
 
-    public func makeCDSlide(in context: NSManagedObjectContext) throws -> CDYearInReviewSlide {
+    func makeCDSlide(in context: NSManagedObjectContext) throws -> CDYearInReviewSlide {
         let slide = CDYearInReviewSlide(context: context)
         slide.id = id
         slide.year = Int32(year)
@@ -429,16 +391,8 @@ public final class YearInReviewViewCountSlideDataController: YearInReviewSlideDa
         return slide
     }
 
-    public static func shouldPopulate(from config: YearInReviewFeatureConfig, userInfo: YearInReviewUserInfo) -> Bool {
+    static func shouldPopulate(from config: YearInReviewFeatureConfig, userInfo: YearInReviewUserInfo) -> Bool {
         config.isEnabled && config.slideConfig.viewCountIsEnabled && userInfo.userID != nil
-    }
-    
-    public static func makeInitialCDSlide(for year: Int, in context: NSManagedObjectContext) throws -> CDYearInReviewSlide {
-        let slide = CDYearInReviewSlide(context: context)
-        slide.id = WMFYearInReviewPersonalizedSlideID.viewCount.rawValue
-        slide.year = Int32(year)
-        slide.data = nil
-        return slide
     }
     
     private func fetchEditViews(project: WMFProject?, userId: String, language: String) async throws -> (Int) {

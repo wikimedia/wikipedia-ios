@@ -1,7 +1,7 @@
 import Foundation
 import CoreData
 
-public protocol YearInReviewSlideDataControllerProtocol {
+protocol YearInReviewSlideDataControllerProtocol {
     /// A unique identifier for the slide (e.g., readCount, editCount).
     var id: String { get }
 
@@ -10,6 +10,9 @@ public protocol YearInReviewSlideDataControllerProtocol {
 
     /// Whether this slide has been evaluated.
     var isEvaluated: Bool { get set }
+    
+    /// Whether this data controller contains personalized network data (e.g. edit count, synced saved article count). If so, this data is cleared out upon logout in WMFYearInReviewDataController and will be fetched again the next time they log in.
+    static var containsPersonalizedNetworkData: Bool { get }
 
     /// Populate the slide’s data in the background context, using dependencies like saved data, page views, or edit stats.
     func populateSlideData(in context: NSManagedObjectContext) async throws
@@ -20,6 +23,14 @@ public protocol YearInReviewSlideDataControllerProtocol {
     /// Used to determine if the slide should be populated based on feature flags, user info, etc.
     static func shouldPopulate(from config: YearInReviewFeatureConfig, userInfo: YearInReviewUserInfo) -> Bool
     
-    /// Used to create initial core data slide
-    static func makeInitialCDSlide(for year: Int, in context: NSManagedObjectContext) throws -> CDYearInReviewSlide
+    init(year: Int, yirConfig: YearInReviewFeatureConfig, dependencies: YearInReviewSlideDataControllerDependencies)
+}
+
+struct YearInReviewSlideDataControllerDependencies {
+    let legacyPageViewsDataDelegate: LegacyPageViewsDataDelegate?
+    let savedSlideDataDelegate: SavedArticleSlideDataDelegate?
+    let username: String?
+    let project: WMFProject?
+    let userID: String?
+    let languageCode: String?
 }

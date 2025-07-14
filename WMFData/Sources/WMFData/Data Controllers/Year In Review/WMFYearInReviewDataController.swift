@@ -440,7 +440,8 @@ import CoreData
         }
     }
 
-    public func deleteAllPersonalizedEditingData() async throws {
+    public func deleteAllPersonalizedNetworkData() async throws {
+        
         let backgroundContext = try coreDataStore.newBackgroundContext
 
         try await backgroundContext.perform { [weak self] in
@@ -463,10 +464,13 @@ import CoreData
                 }
 
                 for slide in slides {
-                    guard slide.id == WMFYearInReviewPersonalizedSlideID.editCount.rawValue ||
-                            slide.id == WMFYearInReviewPersonalizedSlideID.viewCount.rawValue ||
-                            slide.id == WMFYearInReviewPersonalizedSlideID.saveCount.rawValue
-                            else { continue }
+                    guard let slideID = slide.id,
+                          let dataController = WMFYearInReviewPersonalizedSlideID(rawValue: slideID)?.dataController() else {
+                        continue
+                    }
+                    
+                    guard dataController.containsPersonalizedNetworkData else { continue }
+
                     slide.data = nil
                 }
             }
