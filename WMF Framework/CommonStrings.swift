@@ -651,7 +651,9 @@ public class CommonStrings: NSObject {
     public static let collectiveExploreAccessibilityLabel = WMFLocalizedString("year-in-review-collective-explore", value: "An animated illustration depicting the iconic Wikipedia globe encircled by scaffolding, symbolizing the collaborative effort of people worldwide in building the project. The scene is surrounded by a cityscape, emphasizing its connection to humanity and global culture.", comment: "Accessibility description for the collective explore slide.")
     
     public static let searchButtonAccessibilityLabel = WMFLocalizedString("search-button-accessibility-label", value: "Search Wikipedia", comment: "Accessibility label for a button that opens a search box to search Wikipedia.")
-    
+
+    public static let searchBarPlaceholder = WMFLocalizedString("search-field-placeholder-text", value: "Search Wikipedia", comment: "Search field placeholder text")
+
     // Lockscreen Search Widget strings
     public static let lockscreenSearchWidgetDescription = WMFLocalizedString("lockscreen-search-widget-description", value: "Quick access to search Wikipedia from your lock screen.", comment: "Text for description of lockscreen search widget displayed when adding to lock screen.")
     
