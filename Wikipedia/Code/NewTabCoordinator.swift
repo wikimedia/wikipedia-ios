@@ -1,0 +1,25 @@
+import UIKit
+import WMF
+import WMFComponents
+
+final class NewTabCoordinator: Coordinator {
+    var navigationController: UINavigationController
+    var dataStore: MWKDataStore
+    var theme: Theme
+    
+
+    init(navigationController: UINavigationController, dataStore: MWKDataStore, theme: Theme) {
+        self.navigationController = navigationController
+        self.dataStore = dataStore
+        self.theme = theme
+    }
+
+    @discardableResult
+    func start() -> Bool {
+        let viewModel = WMFNewArticleTabViewModel(text: "Placeholder")
+        let viewController = WMFNewArticleTabController(dataStore: dataStore, theme: theme, viewModel: viewModel)
+        navigationController.pushViewController(viewController, animated: true)
+        return true
+    }
+
+}
