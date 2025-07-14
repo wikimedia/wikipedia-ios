@@ -148,20 +148,24 @@ import CoreData
               let primaryAppLanguageProject else {
             return false
         }
+        
+        let yirConfig: WMFFeatureConfigResponse.IOS.YearInReview?
 
         #if DEBUG
-        guard let iosFeatureConfig = developerSettingsDataController.loadFeatureConfig()?.ios.first,
-              let yirConfig = iosFeatureConfig.yir(yearID: targetConfigYearID) else {
+        if let iosFeatureConfig = developerSettingsDataController.loadFeatureConfig()?.ios.first,
+           let config = iosFeatureConfig.yir(yearID: targetConfigYearID) {
+            yirConfig = config
+        } else {
             return false
         }
         #else
         return false
         #endif
 
-        // Check remote feature disable switch
-        guard yirConfig.isEnabled else {
+        guard let yirConfig = yirConfig, yirConfig.isEnabled else {
             return false
         }
+
 
         // Check remote valid country codes
         let uppercaseConfigCountryCodes = yirConfig.countryCodes.map { $0.uppercased() }
@@ -242,14 +246,17 @@ import CoreData
             return false
         }
 
+        let yirConfig: WMFFeatureConfigResponse.IOS.YearInReview?
 
         #if DEBUG
-        guard let iosFeatureConfig = developerSettingsDataController.loadFeatureConfig()?.ios.first,
-              let yirConfig = iosFeatureConfig.yir(yearID: targetConfigYearID) else {
+        if let iosFeatureConfig = developerSettingsDataController.loadFeatureConfig()?.ios.first,
+           let config = iosFeatureConfig.yir(yearID: targetConfigYearID) {
+            yirConfig = config
+        } else {
             return false
         }
         #else
-            return false
+        return false
         #endif
 
         guard let countryCode,
@@ -257,8 +264,7 @@ import CoreData
             return false
         }
 
-        // Check remote feature disable switch
-        guard yirConfig.isEnabled else {
+        guard let yirConfig = yirConfig, yirConfig.isEnabled else {
             return false
         }
 
@@ -497,21 +503,23 @@ import CoreData
     }
 
     public func shouldHideDonateButton() -> Bool {
+        let yirConfig: WMFFeatureConfigResponse.IOS.YearInReview?
 
         #if DEBUG
         guard let iosFeatureConfig = developerSettingsDataController.loadFeatureConfig()?.ios.first,
-              let yirConfig = iosFeatureConfig.yir(yearID: targetConfigYearID) else {
+              let config = iosFeatureConfig.yir(yearID: targetConfigYearID) else {
             return false
         }
+        yirConfig = config
         #else
-            return false
+        return false
         #endif
 
         guard let locale = Locale.current.region?.identifier else {
             return false
         }
 
-        guard yirConfig.hideDonateCountryCodes.contains(locale) else {
+        guard let yirConfig = yirConfig, yirConfig.hideDonateCountryCodes.contains(locale) else {
             return false
         }
 
