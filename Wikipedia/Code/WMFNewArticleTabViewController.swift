@@ -106,14 +106,48 @@ final class WMFNewArticleTabController: WMFCanvasViewController, WMFNavigationBa
             self?.navigationItem.searchController?.searchBar.becomeFirstResponder()
         }
 
-        searchViewController.populateSearchBarWithTextAction = populateSearchBarWithTextAction
+        let navigateToSearchResultAction: ((URL) -> Void)? = { [weak self] url in
 
+            guard let self else { return }
+            if let navigationController {
+                guard let title = url.wmf_title,
+                      let siteURL = url.wmf_site,
+                      let wmfProject = WikimediaProject(siteURL: siteURL)?.wmfProject else {
+                    return
+                }
+
+                let articleCoord = ArticleCoordinator(navigationController: navigationController, articleURL: url, dataStore: self.dataStore, theme: self.theme, source: .undefined, tabConfig: .assignNewTabAndSetToCurrentFromNewTabSearch(title: title, project: wmfProject))
+                articleCoord.start()
+
+                // remove the new tab view controller from stack 
+                var vcs = navigationController.viewControllers
+                guard vcs.count >= 2 else { return }
+                vcs.remove(at: vcs.count - 2)
+
+                navigationController.setViewControllers(vcs, animated: false)
+            }
+
+        }
+
+        searchViewController.populateSearchBarWithTextAction = populateSearchBarWithTextAction
+        searchViewController.navigateToSearchResultAction = navigateToSearchResultAction
+        searchViewController.theme = theme
 
         let searchBarConfig = WMFNavigationBarSearchConfig(searchResultsController: searchViewController, searchControllerDelegate: self, searchResultsUpdater: self, searchBarDelegate: nil, searchBarPlaceholder: CommonStrings.searchBarPlaceholder, showsScopeBar: false, scopeButtonTitles: nil)
 
         let backButtonConfig = WMFNavigationBarBackButtonConfig(needsCustomTruncateBackButtonTitle: true)
 
         configureNavigationBar(titleConfig: titleConfig, backButtonConfig: backButtonConfig, closeButtonConfig: nil, profileButtonConfig: profileButtonConfig, tabsButtonConfig: tabsButtonConfig, searchBarConfig: searchBarConfig, hideNavigationBarOnScroll: true)
+    }
+
+    let extractTitleFromURLBlock: (URL) -> String? = { url in
+        let components = URLComponents(url: url, resolvingAgainstBaseURL: false)
+        guard let fragment = components?.fragment else {
+            return nil
+        }
+        let title = fragment.removingPercentEncoding?.replacingOccurrences(of: "_", with: " ")
+
+        return title
     }
 
     @objc func userDidTapProfile() {
