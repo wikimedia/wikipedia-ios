@@ -576,7 +576,8 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
             case .readCount:
                 if let data = slide.data {
                     let decoder = JSONDecoder()
-                    if let readCount = try? decoder.decode(Int.self, from: data) {
+                    if let readCount = try? decoder.decode(Int.self, from: data),
+                       readCount > 5 {
                         readCountSlide = YearInReviewSlideContent(
                             gifName: "personal-slide-01",
                             altText: localizedStrings.personalizedYouReadAccessibilityLabel,
@@ -591,7 +592,8 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
             case .editCount:
                 if let data = slide.data {
                     let decoder = JSONDecoder()
-                    if let editCount = try? decoder.decode(Int.self, from: data), editCount > 0 {
+                    if let editCount = try? decoder.decode(Int.self, from: data),
+                       editCount > 0 {
                         editCountSlide = YearInReviewSlideContent(
                             gifName: "personal-slide-04",
                             altText: localizedStrings.personalizedUserEditsAccessibilityLabel,

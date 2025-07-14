@@ -342,11 +342,12 @@ import CoreData
         // First pull existing report slide IDs from Core Data
         let existingIDs = try await backgroundContext.perform {
             let predicate = NSPredicate(format: "year == %d", year)
-            let cdReport = try self.coreDataStore.fetchOrCreate(
+            let cdReport = try self.coreDataStore.fetch(
                 entityType: CDYearInReviewReport.self,
                 predicate: predicate,
+                fetchLimit: 1,
                 in: backgroundContext
-            )
+            )?.first
             return Set((cdReport?.slides as? Set<CDYearInReviewSlide>)?.compactMap { $0.id } ?? [])
         }
 
