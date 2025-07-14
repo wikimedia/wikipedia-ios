@@ -1079,7 +1079,9 @@ extension ExploreViewController {
     }
     
     func presentArticleTabsAnnouncement() {
-        guard !WMFArticleTabsDataController.shared.shouldShowArticleTabs else { return }
+        guard !WMFArticleTabsDataController.shared.shouldShowArticleTabs,
+              !WMFArticleTabsDataController.shared.hasPresentedTooltips
+        else { return }
         
         let title = CommonStrings.articleTabsFeatureAnnouncementTitle
         let secondaryButtonTitle = CommonStrings.articleTabsFeatureAnnouncementSubCTA
@@ -1101,6 +1103,14 @@ extension ExploreViewController {
             WMFOnboardingViewModel.WMFOnboardingCellViewModel(icon: UIImage(systemName: "lightbulb")?.withRenderingMode(.alwaysTemplate), title: item4Title, subtitle: item4Subtitle)
         ]
         
+        var aboutTabsURL: URL? {
+            var languageCodeSuffix = ""
+            if let primaryAppLanguageCode = dataStore.languageLinkController.appLanguage?.languageCode {
+                languageCodeSuffix = "\(primaryAppLanguageCode)"
+            }
+            return URL(string: "https://www.mediawiki.org/wiki/Special:MyLanguage/Wikimedia_Apps/Team/iOS/Tabbed_Browsing_(Tabs)?uselang=\(languageCodeSuffix)")
+        }
+        
         let onboardingViewModel = WMFOnboardingViewModel(
             title: title,
             cells: cells,
@@ -1109,8 +1119,9 @@ extension ExploreViewController {
             primaryButtonAction: { [weak self] in
                 self?.navigationController?.presentedViewController?.dismiss(animated: true, completion: nil)
             },
-            secondaryButtonAction: {
-                print("second")
+            secondaryButtonAction: { [weak self] in
+                guard let aboutTabsURL else { return }
+                self?.displayURLWebView(url: aboutTabsURL)
             }
         )
         let onboardingController = WMFOnboardingViewController(viewModel: onboardingViewModel)
@@ -1120,6 +1131,22 @@ extension ExploreViewController {
         })
 
         WMFArticleTabsDataController.hasSeenFeatureAnnouncement = true
+    }
+    
+    private func displayURLWebView(url: URL) {
+        guard let presentedViewController = navigationController?.presentedViewController else {
+            DDLogError("Unexpected navigation controller state. Skipping Learn About Tabs presentation.")
+            return
+        }
+
+        let webVC: SinglePageWebViewController
+
+        let config = SinglePageWebViewController.StandardConfig(url: url, useSimpleNavigationBar: true)
+        webVC = SinglePageWebViewController(configType: .standard(config), theme: theme)
+
+        let newNavigationVC =
+        WMFComponentNavigationController(rootViewController: webVC, modalPresentationStyle: .formSheet)
+        presentedViewController.present(newNavigationVC, animated: true, completion: { })
     }
 
     // TODO: Remove after expiry date (1 March 2025)
