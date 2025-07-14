@@ -16,7 +16,7 @@ final class NewArticleTabCoordinator: Coordinator {
 
     @discardableResult
     func start() -> Bool {
-        let viewModel = WMFNewArticleTabViewModel(text: "Placeholder")
+        let viewModel = WMFNewArticleTabViewModel(text: "Placeholder", title: CommonStrings.newTab)
         let viewController = WMFNewArticleTabController(dataStore: dataStore, theme: theme, viewModel: viewModel)
         navigationController.pushViewController(viewController, animated: true)
         return true

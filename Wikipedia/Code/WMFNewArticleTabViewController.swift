@@ -12,6 +12,7 @@ final class WMFNewArticleTabController: WMFCanvasViewController, WMFNavigationBa
     private let dataStore: MWKDataStore
     private var theme: Theme
     private var presentingSearchResults: Bool = false
+    private let viewModel: WMFNewArticleTabViewModel
 
     // MARK: - Navigation bar button properties
 
@@ -66,6 +67,7 @@ final class WMFNewArticleTabController: WMFCanvasViewController, WMFNavigationBa
     init(dataStore: MWKDataStore, theme: Theme, viewModel: WMFNewArticleTabViewModel) {
         self.dataStore = dataStore
         self.theme = theme
+        self.viewModel = viewModel
         self.hostingController = WMFNewArticleTabHostingController(rootView: WMFNewArticleTabView(viewModel: viewModel))
         super.init()
         self.hidesBottomBarWhenPushed = true
@@ -88,14 +90,14 @@ final class WMFNewArticleTabController: WMFCanvasViewController, WMFNavigationBa
         let wButton = UIButton(type: .custom)
         wButton.setImage(UIImage(named: "W"), for: .normal)
 
-        let titleConfig: WMFNavigationBarTitleConfig = WMFNavigationBarTitleConfig(title: "", customView: wButton, alignment: .centerCompact)
+        let titleConfig: WMFNavigationBarTitleConfig = WMFNavigationBarTitleConfig(title: viewModel.title, customView: wButton, alignment: .centerCompact)
 
         let yirDataController = try? WMFYearInReviewDataController()
         let profileButtonConfig = profileButtonConfig(target: self, action: #selector(userDidTapProfile), dataStore: dataStore, yirDataController: yirDataController, leadingBarButtonItem: nil)
 
         let tabsButtonConfig = tabsButtonConfig(target: self, action: #selector(userDidTapTabs), dataStore: dataStore)
 
-        let searchViewController = SearchViewController(source: .article, customArticleCoordinatorNavigationController: navigationController)
+        let searchViewController = SearchViewController(source: .article, customArticleCoordinatorNavigationController: self.navigationController)
         searchViewController.dataStore = dataStore
         searchViewController.theme = theme
         searchViewController.shouldBecomeFirstResponder = true
@@ -119,7 +121,7 @@ final class WMFNewArticleTabController: WMFCanvasViewController, WMFNavigationBa
                 let articleCoord = ArticleCoordinator(navigationController: navigationController, articleURL: url, dataStore: self.dataStore, theme: self.theme, source: .undefined, tabConfig: .assignNewTabAndSetToCurrentFromNewTabSearch(title: title, project: wmfProject))
                 articleCoord.start()
 
-                // remove the new tab view controller from stack 
+                // remove the new tab view controller from stack
                 var vcs = navigationController.viewControllers
                 guard vcs.count >= 2 else { return }
                 vcs.remove(at: vcs.count - 2)
