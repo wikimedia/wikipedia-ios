@@ -1079,7 +1079,7 @@ extension ExploreViewController {
     }
     
     func presentArticleTabsAnnouncement() {
-        guard !WMFArticleTabsDataController.shared.shouldShowArticleTabs,
+        guard WMFArticleTabsDataController.shared.shouldShowArticleTabsV2,
               !WMFArticleTabsDataController.shared.hasPresentedTooltips
         else { return }
         

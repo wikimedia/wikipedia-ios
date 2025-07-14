@@ -3,6 +3,7 @@ import Foundation
 public protocol WMFDeveloperSettingsDataControlling: AnyObject {
     func loadFeatureConfig() -> WMFFeatureConfigResponse?
     var enableArticleTabs: Bool { get }
+    var enableArticleTabsV2: Bool { get }
     var forceMaxArticleTabsTo5: Bool { get }
 }
 
@@ -113,6 +114,14 @@ public protocol WMFDeveloperSettingsDataControlling: AnyObject {
                     }
                 }
             }
+        }
+    }
+    
+    public var enableArticleTabsV2: Bool {
+        get {
+            return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsArticleTabV2.rawValue)) ?? false
+        } set {
+            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsArticleTabV2.rawValue, value: newValue)
         }
     }
     

@@ -181,6 +181,23 @@ public class WMFArticleTabsDataController: WMFArticleTabsDataControlling {
         }
     }
     
+    public var shouldShowArticleTabsV2: Bool {
+        guard !developerSettingsDataController.enableArticleTabs else {
+            return true
+        }
+        
+        guard let assignment = try? getArticleTabsExperimentAssignment() else {
+            return false
+        }
+        
+        switch assignment {
+        case .test:
+            return true
+        case .control:
+            return false
+        }
+    }
+    
     // MARK: Experiment
     
     private var primaryAppLanguageProject: WMFProject? {
