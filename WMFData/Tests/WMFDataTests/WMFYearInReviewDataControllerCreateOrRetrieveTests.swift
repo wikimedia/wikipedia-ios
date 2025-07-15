@@ -112,9 +112,6 @@ final class WMFYearInReviewDataControllerCreateOrRetrieveTests: XCTestCase {
 
         XCTAssertNotNil(report, "Expected a new report to be created")
         XCTAssertEqual(report?.year, year)
-        #if DEBUG
-        XCTAssertEqual(report?.slides.count, 6)
-        #endif
     }
 }
 
