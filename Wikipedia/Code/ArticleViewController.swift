@@ -516,6 +516,10 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
         saveArticleScrollPosition()
         stopSignificantlyViewedTimer()
         persistPageViewedSecondsForWikipediaInReview()
+        
+        if let tooltips = presentedViewController as? WMFTooltipViewController {
+            tooltips.dismiss(animated: true)
+        }
     }
 
     // MARK: Article load
