@@ -538,7 +538,7 @@
 "insert-media-image-text-wrapping-setting" = "Avvolgi il testo attorno all'immagine";
 "insert-media-image-type-setting-basic" = "Base";
 "insert-media-image-type-setting-frame" = "Incorniciato";
-"insert-media-image-type-setting-frameless" = "Non incorniciato";
+"insert-media-image-type-setting-frameless" = "Senza cornice";
 "insert-media-image-type-setting-thumbnail" = "Miniatura";
 "insert-media-image-type-settings-footer-title" = "Puoi selezionare in che modo viene visualizzato l'elemento multimediale. Dovrebbe essere in formato miniatura per essere coerente con la maggioranza delle altre pagine.";
 "insert-media-image-type-settings-title" = "Tipo immagine";
