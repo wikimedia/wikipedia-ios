@@ -175,54 +175,66 @@ final class WMFHistoryViewModelTests: XCTestCase {
     // MARK: - Test save/unsave functionality
 
     func testSaveOrUnsave() {
+
         let today = Calendar.current.startOfDay(for: Date())
-        let savedItem = HistoryItem(id: "1",
-                                    url: URL(string: "https://example.com/1")!,
-                                    titleHtml: "Article 1",
-                                    description: nil,
-                                    shortDescription: nil,
-                                    imageURL: nil,
-                                    isSaved: true,
-                                    snippet: nil,
-                                    variant: nil)
-
-        let unsavedItem = HistoryItem(id: "2",
-                                      url: URL(string: "https://example.com/2")!,
-                                      titleHtml: "Article 2",
-                                      description: nil,
-                                      shortDescription: nil,
-                                      imageURL: nil,
-                                      isSaved: false,
-                                      snippet: nil,
-                                      variant: nil)
-
+        let savedItem = HistoryItem(
+            id: "1",
+            url: URL(string: "https://example.com/1")!,
+            titleHtml: "Article 1",
+            description: nil,
+            shortDescription: nil,
+            imageURL: nil,
+            isSaved: true,
+            snippet: nil,
+            variant: nil
+        )
+        let unsavedItem = HistoryItem(
+            id: "2",
+            url: URL(string: "https://example.com/2")!,
+            titleHtml: "Article 2",
+            description: nil,
+            shortDescription: nil,
+            imageURL: nil,
+            isSaved: false,
+            snippet: nil,
+            variant: nil
+        )
         let section = HistorySection(dateWithoutTime: today, items: [savedItem, unsavedItem])
+
         let fakeController = FakeHistoryDataController()
         fakeController.sections = [section]
 
         let viewModel = createViewModel(with: fakeController)
-        let loadExpectation = XCTestExpectation(description: "Wait for history to load")
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-            loadExpectation.fulfill()
-        }
-        wait(for: [loadExpectation], timeout: 1.0)
 
-        guard let sectionLoaded = viewModel.sections.first, sectionLoaded.items.count == 2 else {
-            XCTFail("Section and items should be loaded")
+        viewModel.loadHistory()
+        RunLoop.main.run(until: Date().addingTimeInterval(0.1)) // wait for section to load
+
+        guard let loadedSection = viewModel.sections.first,
+              loadedSection.items.count == 2
+        else {
+            XCTFail("HistorySection didn’t load correctly")
             return
         }
-        let firstItem = sectionLoaded.items[0]
-        let secondItem = sectionLoaded.items[1]
+        let firstItem  = section.items[0]  // true
+        let secondItem = section.items[1]  // false
 
-        viewModel.saveOrUnsave(item: firstItem)
-        viewModel.saveOrUnsave(item: secondItem)
+        viewModel.saveOrUnsave(item: firstItem,  in: loadedSection)
+        viewModel.saveOrUnsave(item: secondItem, in: loadedSection)
 
-        XCTAssertEqual(fakeController.unsavedItems.count, 1, "unsaveHistoryItem should be called once for saved item.")
-        XCTAssertEqual(fakeController.unsavedItems.first?.id, firstItem.id, "Unsaved item's id should match.")
+        RunLoop.main.run(until: Date().addingTimeInterval(0.1)) // wait for async save/unsave
 
-        XCTAssertEqual(fakeController.savedItems.count, 1, "saveHistoryItem should be called once for unsaved item.")
-        XCTAssertEqual(fakeController.savedItems.first?.id, secondItem.id, "Saved item's id should match.")
+        XCTAssertEqual(
+            fakeController.unsavedItems.map(\.id),
+            [ firstItem.id ],
+            "unsaveHistoryItem should have been called for the originally‑saved item"
+        )
+        XCTAssertEqual(
+            fakeController.savedItems.map(\.id),
+            [ secondItem.id ],
+            "saveHistoryItem should have been called for the originally‑unsaved item"
+        )
     }
+
 
     // MARK: - Test onTap action
 
