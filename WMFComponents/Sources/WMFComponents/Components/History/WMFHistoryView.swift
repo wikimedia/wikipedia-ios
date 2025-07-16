@@ -1,6 +1,7 @@
 import SwiftUI
 import WMFData
 
+@available(iOS 16.4, *) // Note: the app is currently 16.6+, but the package config doesn't allow minor version configs
 public struct WMFHistoryView: View {
 
     // MARK: Properties
@@ -16,6 +17,7 @@ public struct WMFHistoryView: View {
 
     public init(viewModel: WMFHistoryViewModel) {
         self.viewModel = viewModel
+        UITableView.appearance().alwaysBounceVertical = true
     }
 
     // MARK: Private methods
@@ -48,6 +50,7 @@ public struct WMFHistoryView: View {
                 .frame(width: geometry.size.width, height: geometry.size.height, alignment: .center)
             }
             .background(Color(theme.paperBackground))
+            .scrollBounceBehavior(.always)
         }
     }
 
@@ -132,15 +135,14 @@ public struct WMFHistoryView: View {
                             .listRowBackground(Color(theme.paperBackground))
                     }
                 }
-
             }
-
         }
         .listStyle(.plain)
         .padding(.top, viewModel.topPadding)
         .scrollContentBackground(.hidden)
         .background(Color(theme.paperBackground))
         .ignoresSafeArea(edges: .top)
+//        .scrollBounceBehavior(.always)
     }
 
     private func getPreviewViewModel(from item: HistoryItem) -> WMFArticlePreviewViewModel {

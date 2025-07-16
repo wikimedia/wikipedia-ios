@@ -170,7 +170,6 @@ final class WMFHistoryHostingController: WMFComponentHostingController<WMFHistor
         viewModel.shareRecordAction = shareArticleAction
     }
 
-
     public override func viewDidLoad() {
         super.viewDidLoad()
 
