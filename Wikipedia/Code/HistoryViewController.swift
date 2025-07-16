@@ -182,6 +182,7 @@ final class WMFHistoryHostingController: WMFComponentHostingController<WMFHistor
                 self?.deleteButton?.isEnabled = !isEmpty
             }
             .store(in: &viewModelCancellables)
+        setupReadingListsHelpers()
     }
 
     public override func viewWillAppear(_ animated: Bool) {
@@ -335,6 +336,7 @@ final class WMFHistoryHostingController: WMFComponentHostingController<WMFHistor
         }
 
         let context: [String: Any] = [ReadingListHintController.ContextArticleKey: article]
+        hintController?.setCustomHintVisibilityTime(7)
         toggleHint(hintController, context: context, presentingIn: presentingVC)
     }
 
