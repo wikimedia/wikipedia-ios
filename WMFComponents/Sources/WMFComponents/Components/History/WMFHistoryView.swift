@@ -142,7 +142,6 @@ public struct WMFHistoryView: View {
         .scrollContentBackground(.hidden)
         .background(Color(theme.paperBackground))
         .ignoresSafeArea(edges: .top)
-//        .scrollBounceBehavior(.always)
     }
 
     private func getPreviewViewModel(from item: HistoryItem) -> WMFArticlePreviewViewModel {
