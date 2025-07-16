@@ -1,6 +1,6 @@
 import Foundation
 
-/// A WMFArticle representation
+///A plain‐Swift struct representing a single record or WMFArticle from  the user’s read history, exactly as it’s stored in WMKDataStore
 public struct HistoryRecord {
     public let id: Int
     public let title: String
@@ -37,10 +37,10 @@ public final class WMFHistoryDataController: WMFHistoryDataControllerProtocol {
     /// Closure that deletes a single history record
     public typealias DeleteRecordAction = (HistoryItem) -> Void
 
-    ///
+    /// Closure to pass an item to be saved on the data store
     public typealias SaveRecordAction = (HistoryItem) -> Void
 
-    ///
+    /// Closure to pass an item to be unsaved from the data store
     public typealias UnsaveRecordAction = (HistoryItem) -> Void
 
     private let recordsProvider: RecordsProvider
@@ -104,15 +104,6 @@ public final class WMFHistoryDataController: WMFHistoryDataControllerProtocol {
 
 }
 
-public final class HistorySection: Identifiable {
-    public let dateWithoutTime: Date
-    @Published public var items: [HistoryItem]
-
-    public init(dateWithoutTime: Date, items: [HistoryItem]) {
-        self.dateWithoutTime = dateWithoutTime
-        self.items = items
-    }
-}
 
 public protocol WMFHistoryDataControllerProtocol {
     // MARK: - Dependency Injection Typealiases
@@ -144,6 +135,19 @@ public protocol WMFHistoryDataControllerProtocol {
     func unsaveHistoryItem(_ item: HistoryItem)
 }
 
+/// Representation of a section of a list of history items
+public final class HistorySection: Identifiable {
+    public let dateWithoutTime: Date
+    @Published public var items: [HistoryItem]
+
+    public init(dateWithoutTime: Date, items: [HistoryItem]) {
+        self.dateWithoutTime = dateWithoutTime
+        self.items = items
+    }
+}
+
+/// A view‐layer representation of a history record, for use in SwiftUI lists.
+/// Converts raw data from `HistoryRecord` into types and bindings that UI code can work and update
 public final class HistoryItem: Identifiable, Equatable {
     public let id: String
     public let url: URL?
