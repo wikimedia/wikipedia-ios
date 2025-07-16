@@ -107,11 +107,28 @@ public final class WMFHistoryViewModel: ObservableObject {
 
     }
 
-    func saveOrUnsave(item: HistoryItem) {
-        if item.isSaved {
-            historyDataController.unsaveHistoryItem(item)
-        } else {
-            historyDataController.saveHistoryItem(item)
+    public func saveOrUnsave(item: HistoryItem, in section: HistorySection) {
+
+        guard let sectionIndex = sections.firstIndex(of: section),
+            let itemIndex    = sections[sectionIndex].items.firstIndex(of: item)
+        else {
+            return
+        }
+        let newIsSaved = !sections[sectionIndex].items[itemIndex].isSaved
+
+        // reassign the array to update the view model immediately
+        let newSections = sections
+        newSections[sectionIndex].items[itemIndex].isSaved = newIsSaved
+        sections = newSections
+
+        Task {
+            await MainActor.run {
+                if newIsSaved {
+                    historyDataController.saveHistoryItem(sections[sectionIndex].items[itemIndex])
+                } else {
+                    historyDataController.unsaveHistoryItem(sections[sectionIndex].items[itemIndex])
+                }
+            }
         }
     }
 

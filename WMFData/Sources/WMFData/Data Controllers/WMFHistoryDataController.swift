@@ -1,6 +1,6 @@
 import Foundation
 
-///A plain‐Swift struct representing a single record or WMFArticle from  the user’s read history, exactly as it’s stored in WMKDataStore
+/// A plain‐Swift struct representing a single record or WMFArticle from  the user’s read history, exactly as it’s stored in WMKDataStore
 public struct HistoryRecord {
     public let id: Int
     public let title: String
@@ -136,13 +136,19 @@ public protocol WMFHistoryDataControllerProtocol {
 }
 
 /// Representation of a section of a list of history items
-public final class HistorySection: Identifiable {
+public final class HistorySection: Identifiable, Equatable {
+    public static func == (lhs: HistorySection, rhs: HistorySection) -> Bool {
+        return lhs.id == rhs.id
+    }
+    
     public let dateWithoutTime: Date
     @Published public var items: [HistoryItem]
+    public let id: String
 
     public init(dateWithoutTime: Date, items: [HistoryItem]) {
         self.dateWithoutTime = dateWithoutTime
         self.items = items
+        self.id = UUID().uuidString
     }
 }
 

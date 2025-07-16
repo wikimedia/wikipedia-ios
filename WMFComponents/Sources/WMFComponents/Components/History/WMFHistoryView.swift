@@ -72,7 +72,7 @@ public struct WMFHistoryView: View {
                 viewModel.share(frame: frame, item: item)
             },
             saveOrUnsaveItemAction: {
-                viewModel.saveOrUnsave(item: item)
+                viewModel.saveOrUnsave(item: item, in: section)
             }
         )
     }
@@ -93,7 +93,7 @@ public struct WMFHistoryView: View {
             }
             .labelStyle(.titleAndIcon)
             Button {
-                viewModel.saveOrUnsave(item: item)
+                viewModel.saveOrUnsave(item: item, in: section)
             } label: {
                 Text(item.isSaved ? viewModel.localizedStrings.unsaveActionTitle : viewModel.localizedStrings.saveForLaterActionTitle)
                 Image(uiImage: item.isSaved ?
