@@ -248,8 +248,8 @@ final class WMFHistoryHostingController: WMFComponentHostingController<WMFHistor
     func share(item: HistoryItem, frame: CGRect?) {
         if let dataStore, let url = item.url {
             let article = dataStore.fetchArticle(with: url)
-            if let frame {
-                let convertedRect = hostingController.view.convert(frame, to: view)
+            if let frame , let window = view.window {
+                let convertedRect = view.convert(frame, from: window)
                 let dummyView = UIView(frame: convertedRect)
                 dummyView.translatesAutoresizingMaskIntoConstraints = true
                 view.addSubview(dummyView)
