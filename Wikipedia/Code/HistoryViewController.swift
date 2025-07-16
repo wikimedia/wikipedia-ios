@@ -200,11 +200,12 @@ final class WMFHistoryHostingController: WMFComponentHostingController<WMFHistor
         deleteButton?.isEnabled = !viewModel.isEmpty
         let hideNavigationBarOnScroll = !viewModel.isEmpty
 
-        let titleConfig: WMFNavigationBarTitleConfig = WMFNavigationBarTitleConfig(title: CommonStrings.historyTabTitle, customView: nil, alignment: .leadingCompact)
+        var titleConfig: WMFNavigationBarTitleConfig = WMFNavigationBarTitleConfig(title: CommonStrings.historyTabTitle, customView: nil, alignment: .leadingCompact)
         extendedLayoutIncludesOpaqueBars = false
 
         if #available(iOS 18, *) {
             if UIDevice.current.userInterfaceIdiom == .pad && traitCollection.horizontalSizeClass == .regular {
+                titleConfig = WMFNavigationBarTitleConfig(title: CommonStrings.historyTabTitle, customView: nil, alignment: .leadingLarge)
                 extendedLayoutIncludesOpaqueBars = true
             }
         }
