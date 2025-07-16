@@ -93,9 +93,7 @@ class HistoryViewController: ArticleFetchedResultsViewController, WMFNavigationB
         super.viewDidAppear(animated)
         NSUserActivity.wmf_makeActive(NSUserActivity.wmf_recentView())
 
-        if WMFArticleTabsDataController.shared.shouldShowArticleTabs {
-            ArticleTabsFunnel.shared.logIconImpression(interface: .history, project: nil)
-        }
+        ArticleTabsFunnel.shared.logIconImpression(interface: .history, project: nil)
     }
     
     override func viewDidDisappear(_ animated: Bool) {

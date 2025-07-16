@@ -206,9 +206,7 @@ public extension WMFNavigationBarConfiguring where Self: UIViewController {
             
             var profileLeadingButton: UIBarButtonItem? = profileButtonConfig.leadingBarButtonItem
             
-            let tabsDataController = WMFArticleTabsDataController.shared
-            if let tabsButtonConfig,
-               !tabsDataController.shouldShowArticleTabs {
+            if let tabsButtonConfig {
                 profileLeadingButton = tabsButtonConfig.leadingBarButtonItem
             }
             
@@ -224,8 +222,7 @@ public extension WMFNavigationBarConfiguring where Self: UIViewController {
                 rightBarButtonItems.append(profileLeadingButton)
             }
             
-            if let tabsButtonConfig,
-               tabsDataController.shouldShowArticleTabs {
+            if let tabsButtonConfig {
                 
                 let image = WMFSFSymbolIcon.for(symbol: .tabsIcon)
                 let tabsButton = UIBarButtonItem(image: image, style: .plain, target: tabsButtonConfig.target, action: tabsButtonConfig.action)
