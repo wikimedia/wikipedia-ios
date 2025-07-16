@@ -767,8 +767,8 @@ public class CommonStrings: NSObject {
     public static let savedAllTabsViewReadingList = WMFLocalizedString("saved-all-tabs-view-reading-list", value: "Saved all tabs. View reading list.", comment: "Message indicating all tabs were saved with option to view reading list.")
     public static let mainPage = WMFLocalizedString("main-page", value: "Main page", comment: "Title for the Wikipedia main page.")
 
-    public static let tabsButtonAccessibilityHint = WMFLocalizedString("tabs-button-accessibility-hint", value: "Navigates to tabs overview", comment: "Accessibility hint for the tabs navigation bar button")
-    public static let tabsButtonAccessibilityLabel = WMFLocalizedString("tabs-button-accessibility-label", value: "Tabs", comment: "Accessibility label for the tabs navigation bar button")
+    public static let tabsButtonAccessibilityHint = WMFLocalizedString("article-tabs-button-accessibility-hint", value: "Navigates to tabs overview", comment: "Accessibility hint for the tabs navigation bar button")
+    public static let tabsButtonAccessibilityLabel = WMFLocalizedString("article-tabs-button-accessibility-label", value: "Article tabs", comment: "Accessibility label for the tabs navigation bar button")
 
     // Search Widget Feature Announcement
 

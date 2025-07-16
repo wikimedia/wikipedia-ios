@@ -123,6 +123,8 @@
 "article-revision-history" = "Article revision history";
 "article-save-error-not-enough-space" = "You do not have enough space on your device to save this article";
 "article-share" = "Share";
+"article-tabs-button-accessibility-hint" = "Navigates to tabs overview";
+"article-tabs-button-accessibility-label" = "Article tabs";
 "article-tabs-max-reached" = "Tab limit reached ($1). The article was opened in the current tab. Please close one or more tabs.";
 "article-tabs-navigation" = "Tabs navigation";
 "article-tabs-onboarding-tooltip" = "Onboarding tooltips for tabs";
@@ -1169,8 +1171,6 @@
 "table-of-contents-heading" = "Contents";
 "table-of-contents-hide-button-label" = "Hide table of contents";
 "table-of-contents-subheading-label" = "Subheading $1";
-"tabs-button-accessibility-hint" = "Navigates to tabs overview";
-"tabs-button-accessibility-label" = "Tabs";
 "tabs-close-tab" = "Close tab";
 "tabs-main-page-description" = "Discover featured articles, the latest news, interesting facts, and key stats on Wikipedia’s main page.";
 "tabs-main-page-subtitle" = "Wikipedia’s daily highlights";

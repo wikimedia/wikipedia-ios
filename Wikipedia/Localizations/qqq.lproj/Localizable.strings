@@ -123,6 +123,8 @@
 "article-revision-history" = "Title for menu option that leads to article revision history.";
 "article-save-error-not-enough-space" = "Alert message informing user that article cannot be save due to insufficient storage available";
 "article-share" = "Text of the article list row action shown on swipe which allows the user to choose the sharing option";
+"article-tabs-button-accessibility-hint" = "Accessibility hint for the tabs navigation bar button";
+"article-tabs-button-accessibility-label" = "Accessibility label for the tabs navigation bar button";
 "article-tabs-max-reached" = "Warning toast presented to users when they attempt to open a new tab after maximum tab number is reached. $1 is replaced with the maximum number of tabs allowed.";
 "article-tabs-navigation" = "Title for navigation in article tabs";
 "article-tabs-onboarding-tooltip" = "Tooltip title for tabs onboarding.";
@@ -1169,8 +1171,6 @@
 "table-of-contents-heading" = "Header text appearing above the first section in the table of contents {{Identical|Content}}";
 "table-of-contents-hide-button-label" = "Accessibility label for the hide Table of Contents button";
 "table-of-contents-subheading-label" = "VoiceOver label to indicate level of subheading in table of contents. $1 is replaced by the level of subheading.";
-"tabs-button-accessibility-hint" = "Accessibility hint for the tabs navigation bar button";
-"tabs-button-accessibility-label" = "Accessibility label for the tabs navigation bar button";
 "tabs-close-tab" = "Accessibility label for close tab button";
 "tabs-main-page-description" = "Main page description";
 "tabs-main-page-subtitle" = "Main page subtitle";
