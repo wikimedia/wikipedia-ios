@@ -4,7 +4,7 @@ import WMFData
 @available(iOS 16.4, *) // Note: the app is currently 16.6+, but the package config doesn't allow minor version configs
 public struct WMFHistoryView: View {
 
-    // MARK: Properties
+    // MARK: - Properties
 
     @ObservedObject var appEnvironment = WMFAppEnvironment.current
     @ObservedObject var viewModel: WMFHistoryViewModel
@@ -13,14 +13,14 @@ public struct WMFHistoryView: View {
         return appEnvironment.theme
     }
 
-    // MARK: Lifecycle
+    // MARK: - Lifecycle
 
     public init(viewModel: WMFHistoryViewModel) {
         self.viewModel = viewModel
         UITableView.appearance().alwaysBounceVertical = true
     }
 
-    // MARK: Private methods
+    // MARK: - Private methods
 
     private func headerViewForSection(_ section: HistorySection) -> some View {
         return Text(viewModel.headerTextForSection(section))
@@ -148,8 +148,8 @@ public struct WMFHistoryView: View {
         return WMFArticlePreviewViewModel(url: item.url, titleHtml: item.titleHtml, description: item.description, imageURL: item.imageURL, isSaved: item.isSaved, snippet: item.snippet)
     }
 
-    // MARK: Public methods
-    
+    // MARK: - Public methods
+
     public var body: some View {
         ZStack {
             Color(theme.paperBackground)

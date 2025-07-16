@@ -3,7 +3,7 @@ import WMFData
 
 public final class WMFHistoryViewModel: ObservableObject {
 
-    // MARK: Nested Types
+    // MARK: - Nested Types
 
     public struct LocalizedStrings {
         let emptyViewTitle: String
@@ -29,7 +29,7 @@ public final class WMFHistoryViewModel: ObservableObject {
         }
     }
 
-    // MARK: Types
+    // MARK: - Types
 
     public typealias ShareRecordAction = (CGRect?, HistoryItem) -> Void
     public typealias OnRecordTapAction = ((HistoryItem) -> Void)
@@ -40,7 +40,7 @@ public final class WMFHistoryViewModel: ObservableObject {
         }
     }
 
-    // MARK: Properties
+    // MARK: - Properties
 
     @Published public var topPadding: CGFloat = 0
     @Published public var isEmpty: Bool = true
@@ -52,7 +52,7 @@ public final class WMFHistoryViewModel: ObservableObject {
     public var onTapArticle: OnRecordTapAction?
     public var shareRecordAction: ShareRecordAction?
 
-    // MARK: Lifecycle
+    // MARK: -  Lifecycle
 
     public init(emptyViewImage: UIImage?, localizedStrings: WMFHistoryViewModel.LocalizedStrings, historyDataController: WMFHistoryDataControllerProtocol, topPadding: CGFloat = 0) {
         self.emptyViewImage = emptyViewImage
@@ -63,7 +63,7 @@ public final class WMFHistoryViewModel: ObservableObject {
         loadHistory()
     }
 
-    // MARK: Public functions
+    // MARK: - Public functions
 
     public func loadHistory() {
         let dataSections = historyDataController.fetchHistorySections()
@@ -88,7 +88,7 @@ public final class WMFHistoryViewModel: ObservableObject {
         isEmpty = dataSections.isEmpty || dataSections.allSatisfy { $0.items.isEmpty }
     }
 
-    // MARK: Internal functions
+    // MARK: - Internal functions
 
     func delete(section: HistorySection, item: HistoryItem) {
         guard let itemIndex = section.items.firstIndex(of: item) else {
