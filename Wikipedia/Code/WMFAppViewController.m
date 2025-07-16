@@ -1714,8 +1714,13 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
                 [searchViewController makeSearchBarBecomeFirstResponder];
             } break;
         }
-        // Must return NO if already visible to prevent unintended effect when tapping the Search tab bar button multiple times.
-        return NO;
+
+        if (self.currentTabNavigationController.viewControllers.count > 1) {
+            return YES;
+        } else {
+            // Must return NO if already visible to prevent unintended effect when tapping the Search tab bar button multiple times.
+            return NO;
+        }
     }
     return YES;
 }
