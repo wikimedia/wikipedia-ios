@@ -110,7 +110,6 @@ public class WMFArticleTabsDataController: WMFArticleTabsDataControlling {
     
     private let experimentsDataController: WMFExperimentsDataController?
     private var assignmentCache: ArticleTabsExperimentAssignment?
-    private let articleTabsExperimentPercentage: Int = 50
     
     // This setup allows us to try instantiation multiple times in case the first attempt fails (like for example, if coreDataStore is not available yet).
     private var _backgroundContext: NSManagedObjectContext?
@@ -145,25 +144,6 @@ public class WMFArticleTabsDataController: WMFArticleTabsDataControlling {
         }
     }
     
-    // MARK: Entry point
-
-    public var shouldShowArticleTabs: Bool {
-        guard !developerSettingsDataController.enableArticleTabs else {
-            return true
-        }
-        
-        guard let assignment = try? getArticleTabsExperimentAssignment() else {
-            return false
-        }
-        
-        switch assignment {
-        case .test:
-            return true
-        case .control:
-            return false
-        }
-    }
-    
     // MARK: Experiment
     
     private var primaryAppLanguageProject: WMFProject? {
@@ -173,15 +153,7 @@ public class WMFArticleTabsDataController: WMFArticleTabsDataControlling {
         
         return nil
     }
-    
-    public func qualifiesForExperiment() -> Bool {
-        guard let primaryAppLanguageProject else {
-            return false
-        }
-        
-        return Locale.current.qualifiesForExperiment && primaryAppLanguageProject.qualifiesForExperiment
-    }
-    
+
     private var isBeforeAssignmentEndDate: Bool {
         var dateComponents = DateComponents()
         dateComponents.year = 2025
@@ -194,67 +166,8 @@ public class WMFArticleTabsDataController: WMFArticleTabsDataControlling {
         return endDate >= Date()
     }
     
-    public func assignExperiment() throws -> ArticleTabsExperimentAssignment {
-        
-        guard qualifiesForExperiment() else {
-            throw CustomError.doesNotQualifyForExperiment
-        }
-        
-        guard isBeforeAssignmentEndDate else {
-            throw CustomError.pastAssignmentEndDate
-        }
-        
-        guard let experimentsDataController else {
-            throw CustomError.missingExperimentsDataController
-        }
-
-        let bucketValue = try experimentsDataController.determineBucketForExperiment(.articleTabs, withPercentage: articleTabsExperimentPercentage)
-
-        let assignment: ArticleTabsExperimentAssignment
-
-        switch bucketValue {
-        case .articleTabsControl:
-            assignment = .control
-        case .articleTabsTest:
-            assignment = .test
-        default:
-            throw CustomError.unexpectedAssignment
-        }
-
-        self.assignmentCache = assignment
-        return assignment
-    }
-    
     public func getArticleTabsExperimentAssignment() throws -> ArticleTabsExperimentAssignment {
-        
-        guard qualifiesForExperiment() else {
-            throw CustomError.doesNotQualifyForExperiment
-        }
-        
-        guard let experimentsDataController else {
-            throw CustomError.missingExperimentsDataController
-        }
-
-        if let assignmentCache {
-            return assignmentCache
-        }
-
-        guard let bucketValue = experimentsDataController.bucketForExperiment(.articleTabs) else {
-            throw CustomError.missingAssignment
-        }
-
-        let assignment: ArticleTabsExperimentAssignment
-        switch bucketValue {
-        case .articleTabsControl:
-            assignment = .control
-        case .articleTabsTest:
-            assignment = .test
-        default:
-            throw CustomError.unexpectedAssignment
-        }
-
-        self.assignmentCache = assignment
-        return assignment
+        return .test
     }
 
     // MARK: Onboarding
@@ -884,8 +797,8 @@ public class WMFArticleTabsDataController: WMFArticleTabsDataControlling {
 private extension WMFProject {
     var qualifiesForExperiment: Bool {
         switch self {
-        case .wikipedia(let language):
-            return language.languageCode.lowercased() == "en" || language.languageCode.lowercased() == "ar" || language.languageCode.lowercased() == "ja"
+        case .wikipedia:
+            return true
         case .wikidata:
             return false
         case .commons:
@@ -896,17 +809,6 @@ private extension WMFProject {
 
 private extension Locale {
     var qualifiesForExperiment: Bool {
-        guard let identifier = region?.identifier.lowercased() else {
-            return false
-        }
-        
-        switch identifier {
-        case "au", "hk", "id", "jp", "my", "mm", "nz", "ph", "sg", "kr", "tw", "th", "vn":
-            return true
-        case "dz", "bh", "eg", "jo", "kw", "lb", "ly", "ma", "om", "qa", "sa", "tn", "ae", "ye":
-            return true
-        default:
-            return false
-        }
+        return true
     }
 }
