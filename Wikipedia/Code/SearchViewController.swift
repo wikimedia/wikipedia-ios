@@ -591,8 +591,8 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
 
     private lazy var recentSearchesViewModel: WMFRecentlySearchedViewModel = {
         let localizedStrings = WMFRecentlySearchedViewModel.LocalizedStrings(
-            title: WMFLocalizedString("search-recent-title", value: "Recently searched", comment: "Title for list of recent search terms"),
-            noSearches: WMFLocalizedString("search-recent-empty", value: "No recent searches yet", comment: "String for no recent searches available"),
+            title: CommonStrings.recentlySearchedTitle,
+            noSearches: CommonStrings.recentlySearchedEmpty,
             clearAll: CommonStrings.clearTitle,
             deleteActionAccessibilityLabel: CommonStrings.deleteActionTitle
         )
