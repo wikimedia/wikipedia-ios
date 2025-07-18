@@ -2183,7 +2183,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
                                                        completion:nil];
     });
 
-    [self deleteYearInReviewPersonalizedEditingData];
+    [self deleteYearInReviewPersonalizedNetworkData];
 }
 
 - (void)userWasLoggedIn:(NSNotification *)note {
