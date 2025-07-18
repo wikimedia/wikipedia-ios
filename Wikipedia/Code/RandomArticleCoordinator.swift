@@ -41,6 +41,7 @@ final class RandomArticleCoordinator: Coordinator, ArticleTabCoordinating {
                 return false
             }
             
+            prepareToShowTabsOverview(articleViewController: vc, dataStore)
             trackArticleTab(articleViewController: vc)
             
             if replaceLastViewControllerInNavStack {

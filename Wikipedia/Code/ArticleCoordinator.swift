@@ -20,6 +20,8 @@ protocol ArticleTabCoordinating: AnyObject {
     var tabConfig: ArticleTabConfig { get }
     var tabIdentifier: UUID? { get set }
     var tabItemIdentifier: UUID? { get set }
+    var navigationController: UINavigationController { get }
+    var theme: Theme { get }
 }
 
 extension ArticleTabCoordinating {
@@ -118,6 +120,18 @@ extension ArticleTabCoordinating {
             try await tabsDataController.deleteEmptyTabs()
         }
     }
+    
+    func prepareToShowTabsOverview(articleViewController: ArticleViewController, _ dataStore: MWKDataStore) {
+        articleViewController.showTabsOverview = { [weak navigationController, weak self] in
+            guard let navController = navigationController, let self = self else { return }
+
+            TabsCoordinatorManager.shared.presentTabsOverview(
+                from: navController,
+                theme: theme,
+                dataStore: dataStore
+            )
+        }
+    }
 }
 
 final class ArticleCoordinator: NSObject, Coordinator, ArticleTabCoordinating {
@@ -165,16 +179,7 @@ final class ArticleCoordinator: NSObject, Coordinator, ArticleTabCoordinating {
             return false
         }
         articleVC.isRestoringState = isRestoringState
-        articleVC.showTabsOverview = { [weak navigationController, weak self] in
-            guard let navController = navigationController, let self = self else { return }
-
-            TabsCoordinatorManager.shared.presentTabsOverview(
-                from: navController,
-                theme: self.theme,
-                dataStore: self.dataStore
-            )
-        }
-
+        prepareToShowTabsOverview(articleViewController: articleVC, dataStore)
         trackArticleTab(articleViewController: articleVC)
         
         switch tabConfig {
