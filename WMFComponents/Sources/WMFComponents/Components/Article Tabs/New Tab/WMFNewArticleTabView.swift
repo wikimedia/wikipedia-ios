@@ -8,6 +8,6 @@ public struct WMFNewArticleTabView: View {
         self.viewModel = viewModel
     }
     public var body: some View {
-        Text(viewModel.text)
+        Text("Placeholder")
     }
 }

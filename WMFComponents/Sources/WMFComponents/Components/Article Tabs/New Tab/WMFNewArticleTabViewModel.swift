@@ -2,11 +2,11 @@ import Foundation
 
 public final class WMFNewArticleTabViewModel {
 
-    let text: String
     public let title: String
+    let recentlySearchedViewModel: WMFRecentlySearchedViewModel
 
-    public init (text: String, title: String) {
-        self.text = text
+    public init(title: String, recentlySearchedViewModel: WMFRecentlySearchedViewModel) {
         self.title = title
+        self.recentlySearchedViewModel = recentlySearchedViewModel
     }
 }
