@@ -52,7 +52,7 @@ public final class WMFHistoryViewModel: ObservableObject {
     public var onTapArticle: OnRecordTapAction?
     public var shareRecordAction: ShareRecordAction?
 
-    // MARK: -  Lifecycle
+    // MARK: - Lifecycle
 
     public init(emptyViewImage: UIImage?, localizedStrings: WMFHistoryViewModel.LocalizedStrings, historyDataController: WMFHistoryDataControllerProtocol, topPadding: CGFloat = 0) {
         self.emptyViewImage = emptyViewImage

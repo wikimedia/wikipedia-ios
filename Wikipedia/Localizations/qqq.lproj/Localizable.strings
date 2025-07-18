@@ -123,6 +123,8 @@
 "article-revision-history" = "Title for menu option that leads to article revision history.";
 "article-save-error-not-enough-space" = "Alert message informing user that article cannot be save due to insufficient storage available";
 "article-share" = "Text of the article list row action shown on swipe which allows the user to choose the sharing option";
+"article-tabs-button-accessibility-hint" = "Accessibility hint for the tabs navigation bar button";
+"article-tabs-button-accessibility-label" = "Accessibility label for the tabs navigation bar button";
 "article-tabs-max-reached" = "Warning toast presented to users when they attempt to open a new tab after maximum tab number is reached. $1 is replaced with the maximum number of tabs allowed.";
 "article-tabs-navigation" = "Title for navigation in article tabs";
 "article-tabs-onboarding-tooltip" = "Tooltip title for tabs onboarding.";
