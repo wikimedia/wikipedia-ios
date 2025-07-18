@@ -1,10 +1,11 @@
 import WMFComponents
 import WMFData
+import WMF
 
 extension UIViewController {
     
     func tabsButtonConfig(target: Any, action: Selector, dataStore: MWKDataStore, leadingBarButtonItem: UIBarButtonItem? = nil, trailingBarButtonItem: UIBarButtonItem? = nil) -> WMFNavigationBarTabsButtonConfig {
-        return WMFNavigationBarTabsButtonConfig(accessibilityLabel: "", accessibilityHint: "", target: target, action: action, leadingBarButtonItem: leadingBarButtonItem, trailingBarButtonItem: trailingBarButtonItem)
+        return WMFNavigationBarTabsButtonConfig(accessibilityLabel: CommonStrings.tabsButtonAccessibilityLabel, accessibilityHint: CommonStrings.tabsButtonAccessibilityHint, target: target, action: action, leadingBarButtonItem: leadingBarButtonItem, trailingBarButtonItem: trailingBarButtonItem)
     }
     
     func profileButtonConfig(target: Any, action: Selector, dataStore: MWKDataStore, yirDataController: WMFYearInReviewDataController?, leadingBarButtonItem: UIBarButtonItem?) -> WMFNavigationBarProfileButtonConfig {

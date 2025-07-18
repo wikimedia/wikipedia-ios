@@ -18,4 +18,12 @@ public extension DateFormatter {
 		return dateFormatter
 	}()
 
+    /// Weekday and Month date only: e.g. `Tuesday, August 22`
+    static var wmfWeekdayMonthDayDateFormatter = {
+        let dateFormatter = DateFormatter()
+        dateFormatter.timeStyle = .none
+        dateFormatter.dateFormat = "EEEE, MMMM dd"
+        return dateFormatter
+    }()
+
 }

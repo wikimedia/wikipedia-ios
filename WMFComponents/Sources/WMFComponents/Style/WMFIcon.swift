@@ -111,6 +111,7 @@ public enum WMFSFSymbolIcon {
     case calendar
     case share
     case infoCircleFill
+    case trash
     case temporaryAccountIcon
     case tabsIcon
     case tabsIconBackground
@@ -276,6 +277,9 @@ public enum WMFSFSymbolIcon {
             image = UIImage(systemName: "square.and.arrow.up", withConfiguration: configuration)
         case .infoCircleFill:
             image = UIImage(systemName: "info.circle.fill", withConfiguration: configuration)
+        case .trash:
+            image = UIImage(systemName: "trash", withConfiguration: configuration)
+
         case .temporaryAccountIcon:
             image = UIImage(systemName: "person.crop.circle.badge.xmark", withConfiguration: configuration)
         case .tabsIcon:
