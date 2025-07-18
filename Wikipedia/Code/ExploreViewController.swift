@@ -216,7 +216,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
             searchControllerDelegate: self,
             searchResultsUpdater: self,
             searchBarDelegate: nil,
-            searchBarPlaceholder: WMFLocalizedString("search-field-placeholder-text", value: "Search Wikipedia", comment: "Search field placeholder text"),
+            searchBarPlaceholder: CommonStrings.searchBarPlaceholder,
             showsScopeBar: false, scopeButtonTitles: nil)
         
 

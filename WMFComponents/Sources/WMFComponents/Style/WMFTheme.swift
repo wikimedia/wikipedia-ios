@@ -44,6 +44,7 @@ public struct WMFTheme: Equatable {
     public let editorKeyboardShadow: UIColor
     public let chromeBackground: UIColor
     public let navigationBarTintColor: UIColor
+    public let secondaryAction: UIColor
     public let darkBorder: UIColor
 
     public var preferredColorScheme: ColorScheme {
@@ -95,6 +96,7 @@ public struct WMFTheme: Equatable {
         editorKeyboardShadow: WMFColor.gray200,
         chromeBackground: WMFColor.white,
         navigationBarTintColor: WMFColor.blue600,
+        secondaryAction: WMFColor.blue700,
         darkBorder: WMFColor.borderDark5
     )
 
@@ -139,6 +141,7 @@ public struct WMFTheme: Equatable {
         editorKeyboardShadow: WMFColor.taupe200,
         chromeBackground: WMFColor.beige100,
         navigationBarTintColor: WMFColor.blue600,
+        secondaryAction: WMFColor.blue700,
         darkBorder: WMFColor.borderDark5
     )
 
@@ -183,6 +186,7 @@ public struct WMFTheme: Equatable {
         editorKeyboardShadow: WMFColor.gray800,
         chromeBackground: WMFColor.gray650,
         navigationBarTintColor: WMFColor.blue300,
+        secondaryAction: WMFColor.blue700,
         darkBorder: WMFColor.borderDark0
     )
 
@@ -227,6 +231,7 @@ public struct WMFTheme: Equatable {
         editorKeyboardShadow: WMFColor.gray700,
         chromeBackground: WMFColor.gray650,
         navigationBarTintColor: WMFColor.blue300,
+        secondaryAction: WMFColor.blue700,
         darkBorder: WMFColor.borderDark0
     )
 
