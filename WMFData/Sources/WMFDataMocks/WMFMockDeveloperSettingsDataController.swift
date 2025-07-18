@@ -17,10 +17,6 @@ final class WMFMockDeveloperSettingsDataController: WMFDeveloperSettingsDataCont
         return true
     }
     
-    var enableArticleTabsV2: Bool {
-        return true
-    }
-    
     var forceMaxArticleTabsTo5: Bool {
         return false
     }

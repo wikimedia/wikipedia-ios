@@ -48,8 +48,6 @@ import WMFData
         
         let enableArticleTabs = WMFFormItemSelectViewModel(title: "Enable article tabs", isSelected: WMFDeveloperSettingsDataController.shared.enableArticleTabs)
         
-        let enableArticleTabsV2 = WMFFormItemSelectViewModel(title: "Enable article tabs v2", isSelected: WMFDeveloperSettingsDataController.shared.enableArticleTabsV2)
-        
         let forceMaxArticleTabsTo5 = WMFFormItemSelectViewModel(title: "Force Max Article Tabs to 5", isSelected: WMFDeveloperSettingsDataController.shared.forceMaxArticleTabsTo5)
 
         let enableMoreDynamicTabs = WMFFormItemSelectViewModel(title: "Enable more dynamic tabs", isSelected: WMFDeveloperSettingsDataController.shared.enableMoreDynamicTabs)
@@ -93,10 +91,6 @@ import WMFData
         
         enableArticleTabs.$isSelected
             .sink { isSelected in WMFDeveloperSettingsDataController.shared.enableArticleTabs = isSelected }
-            .store(in: &subscribers)
-        
-        enableArticleTabsV2.$isSelected
-            .sink { isSelected in WMFDeveloperSettingsDataController.shared.enableArticleTabsV2 = isSelected }
             .store(in: &subscribers)
         
         forceMaxArticleTabsTo5.$isSelected

@@ -117,14 +117,6 @@ public protocol WMFDeveloperSettingsDataControlling: AnyObject {
         }
     }
     
-    public var enableArticleTabsV2: Bool {
-        get {
-            return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsArticleTabV2.rawValue)) ?? false
-        } set {
-            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsArticleTabV2.rawValue, value: newValue)
-        }
-    }
-    
     public var forceMaxArticleTabsTo5: Bool {
         get {
             return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsForceMaxArticleTabsTo5.rawValue)) ?? false
