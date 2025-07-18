@@ -974,9 +974,6 @@
 		7A28126320D3F84A009B42B5 /* FeedCardSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A28126120D3F84A009B42B5 /* FeedCardSettingsViewController.swift */; };
 		7A28126420D3F84A009B42B5 /* FeedCardSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A28126120D3F84A009B42B5 /* FeedCardSettingsViewController.swift */; };
 		7A28126520D3F84A009B42B5 /* FeedCardSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A28126120D3F84A009B42B5 /* FeedCardSettingsViewController.swift */; };
-		7A29A5C81F6C405900E8F42B /* HistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A29A5C71F6C405900E8F42B /* HistoryViewController.swift */; };
-		7A29A5C91F6C405900E8F42B /* HistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A29A5C71F6C405900E8F42B /* HistoryViewController.swift */; };
-		7A29A5CA1F6C405900E8F42B /* HistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A29A5C71F6C405900E8F42B /* HistoryViewController.swift */; };
 		7A29A5CE1F6C49C600E8F42B /* CollectionViewUpdater.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A29A5CD1F6C49C600E8F42B /* CollectionViewUpdater.swift */; };
 		7A29A5CF1F6C49C600E8F42B /* CollectionViewUpdater.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A29A5CD1F6C49C600E8F42B /* CollectionViewUpdater.swift */; };
 		7A29A5D01F6C49C600E8F42B /* CollectionViewUpdater.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A29A5CD1F6C49C600E8F42B /* CollectionViewUpdater.swift */; };
@@ -1343,6 +1340,9 @@
 		834C269E240D49F400245BE7 /* ReferenceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834C269D240D49F400245BE7 /* ReferenceViewController.swift */; };
 		834C269F240D49F400245BE7 /* ReferenceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834C269D240D49F400245BE7 /* ReferenceViewController.swift */; };
 		834C26A0240D49F400245BE7 /* ReferenceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834C269D240D49F400245BE7 /* ReferenceViewController.swift */; };
+		834C811E2E0347A500FC7599 /* HistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834C811D2E03479B00FC7599 /* HistoryViewController.swift */; };
+		834C811F2E0347A500FC7599 /* HistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834C811D2E03479B00FC7599 /* HistoryViewController.swift */; };
+		834C81202E0347A500FC7599 /* HistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834C811D2E03479B00FC7599 /* HistoryViewController.swift */; };
 		834CC34B21075B7600F62818 /* UITabBar+Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834CC34A21075B7600F62818 /* UITabBar+Theme.swift */; };
 		834CC34C21075B7600F62818 /* UITabBar+Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834CC34A21075B7600F62818 /* UITabBar+Theme.swift */; };
 		834CC34D21075B7600F62818 /* UITabBar+Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834CC34A21075B7600F62818 /* UITabBar+Theme.swift */; };
@@ -3507,7 +3507,6 @@
 		7A25B1CB20A483F1008C6F29 /* LoginFunnel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginFunnel.swift; sourceTree = "<group>"; };
 		7A27EDA12279F5270010CB24 /* InsertLinkViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsertLinkViewController.swift; sourceTree = "<group>"; };
 		7A28126120D3F84A009B42B5 /* FeedCardSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedCardSettingsViewController.swift; sourceTree = "<group>"; };
-		7A29A5C71F6C405900E8F42B /* HistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewController.swift; sourceTree = "<group>"; };
 		7A29A5CD1F6C49C600E8F42B /* CollectionViewUpdater.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewUpdater.swift; sourceTree = "<group>"; };
 		7A2BB1D321F27AC5004C0FDF /* WKWebView+OffsetHack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WKWebView+OffsetHack.swift"; sourceTree = "<group>"; };
 		7A2FE5552051757E00F92F8F /* EraseSavedArticlesView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EraseSavedArticlesView.xib; sourceTree = "<group>"; };
@@ -3652,6 +3651,7 @@
 		834C269B24042DBF00245BE7 /* hr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = hr; path = hr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		834C269C24042DCF00245BE7 /* hr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = hr; path = hr.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 		834C269D240D49F400245BE7 /* ReferenceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReferenceViewController.swift; sourceTree = "<group>"; };
+		834C811D2E03479B00FC7599 /* HistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewController.swift; sourceTree = "<group>"; };
 		834CC34A21075B7600F62818 /* UITabBar+Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITabBar+Theme.swift"; sourceTree = "<group>"; };
 		834F47F32833D91F00F86C80 /* RemoteNotificationFilterType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteNotificationFilterType.swift; sourceTree = "<group>"; };
 		835021B92CD1495900D0CB5E /* SinglePageWebViewParseDonationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SinglePageWebViewParseDonationTests.swift; sourceTree = "<group>"; };
@@ -7945,6 +7945,7 @@
 		D818D37F1ED725240076110D /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				834C811D2E03479B00FC7599 /* HistoryViewController.swift */,
 				83C09C142E25381900C213B7 /* WMFNewArticleTabViewController.swift */,
 				372F048C2D80C1F9002C6D2C /* TempAccountExpiryViewController.swift */,
 				83023C1720E6581A00EC7592 /* Transitions */,
@@ -7964,7 +7965,6 @@
 				67B0B88D2BF51E3300480B46 /* ArticleCollectionViewController.swift */,
 				830D71C21F703C980080078B /* ArticleURLListViewController.swift */,
 				830D71CE1F704DD40080078B /* ArticleFetchedResultsViewController.swift */,
-				7A29A5C71F6C405900E8F42B /* HistoryViewController.swift */,
 				D818D38A1ED765470076110D /* ArticleLocationCollectionViewController.swift */,
 				83927D7A1F70570400051890 /* DisambiguationPagesViewController.swift */,
 				83927D801F705B7B00051890 /* SearchResultsViewController.swift */,
@@ -9974,6 +9974,7 @@
 				678D79FC235E59B2006161FF /* DiffListUneditedViewModel.swift in Sources */,
 				6771C0CB2D0A39B1000B556F /* WMFSettingsViewController+Extensions.swift in Sources */,
 				00474A2F28DD1B13002E3C09 /* TalkPageCoffeeRollView.swift in Sources */,
+				834C811E2E0347A500FC7599 /* HistoryViewController.swift in Sources */,
 				00E75B7627EB946D00A45B78 /* ReusableCell.swift in Sources */,
 				8341A347299D7D5900016535 /* UserHistorySnapshotCache.swift in Sources */,
 				00E2EA8E26E2A45C00B1A741 /* NotificationsCenterCellDisplayState.swift in Sources */,
@@ -10437,7 +10438,6 @@
 				67CEF26F2351113000D5CA6C /* DiffController.swift in Sources */,
 				B083371E1DADB251002860D2 /* WMFWelcomePageViewController.swift in Sources */,
 				6782DBBB2343B861003FA21B /* DiffListViewController.swift in Sources */,
-				7A29A5C81F6C405900E8F42B /* HistoryViewController.swift in Sources */,
 				D808DCEF1E438C5100A3E89C /* MKCoordinateRegion+Dimensions.swift in Sources */,
 				7ADEAB031FD75B9100BB4727 /* AddArticlesToReadingListViewController.swift in Sources */,
 				0EBCA7481C176389004F1FD9 /* WMFAlertManager.swift in Sources */,
@@ -11035,7 +11035,6 @@
 				675826792D68D10B002B0EE7 /* LinkCoordinator.swift in Sources */,
 				D8CE252F1E698E2400DAE2E0 /* WMFArticleLanguagesSectionHeader.m in Sources */,
 				83C0656C23D23220001821BC /* TableOfContentsItem.swift in Sources */,
-				7A29A5C91F6C405900E8F42B /* HistoryViewController.swift in Sources */,
 				D8CE25351E698E2400DAE2E0 /* WMFTwoFactorPasswordViewController.swift in Sources */,
 				677D8A622B75948200DD9B7D /* EditorButton.swift in Sources */,
 				B0B423621EF9D6A300D3DC4C /* OnThisDayViewController.swift in Sources */,
@@ -11204,6 +11203,7 @@
 				837A15F528DA591E00AAC3FC /* TalkPageCache.swift in Sources */,
 				BA7683C91F30D87F00A487AA /* ProminentSwitch.swift in Sources */,
 				7A4B333D2136EDED00C6C820 /* UnderlineButton.swift in Sources */,
+				834C81202E0347A500FC7599 /* HistoryViewController.swift in Sources */,
 				B0D4917021F999A3002BBDD3 /* EditSaveViewController.swift in Sources */,
 				D8C4D3D91FD5D9260089CEC2 /* TUSafariActivity.m in Sources */,
 				D8CE259C1E698E2400DAE2E0 /* TableOfContentsHeader.swift in Sources */,
@@ -11600,7 +11600,6 @@
 				D8EC3E251E9BDA35006712EB /* WMFArticleRevisionFetcher.m in Sources */,
 				D8EC3E261E9BDA35006712EB /* WMFArticleLanguagesSectionHeader.m in Sources */,
 				00CB6899288B0CD3002EBB0A /* TalkPageHeaderView.swift in Sources */,
-				7A29A5CA1F6C405900E8F42B /* HistoryViewController.swift in Sources */,
 				67C6F79327E8C03A00B9C864 /* NotificationsCenterAction.swift in Sources */,
 				D8EC3E2C1E9BDA35006712EB /* WMFTwoFactorPasswordViewController.swift in Sources */,
 				6798331C22C174F00073CE6F /* LinkOnlyTextView.swift in Sources */,
@@ -11762,6 +11761,7 @@
 				83C06894292EEF4A00DF1403 /* TalkPageTopicComposeViewController+TalkPageFormattingToolbar.swift in Sources */,
 				D8C4D3DA1FD5D9260089CEC2 /* TUSafariActivity.m in Sources */,
 				837A15F428DA591E00AAC3FC /* TalkPageCache.swift in Sources */,
+				834C811F2E0347A500FC7599 /* HistoryViewController.swift in Sources */,
 				B0D4917121F999A3002BBDD3 /* EditSaveViewController.swift in Sources */,
 				83023C0820E51DDF00EC7592 /* SearchLanguagesBarViewController.swift in Sources */,
 				D8EC3E9A1E9BDA35006712EB /* UIViewController+WMFScrollToTop.swift in Sources */,
