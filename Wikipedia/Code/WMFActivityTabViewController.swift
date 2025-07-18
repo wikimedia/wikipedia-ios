@@ -97,7 +97,7 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
         }
         configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: nil, profileButtonConfig: profileButtonConfig, tabsButtonConfig: nil, searchBarConfig: nil, hideNavigationBarOnScroll: false)
     }
-    
+
     @objc func userDidTapProfile() {
         
         guard let dataStore else {

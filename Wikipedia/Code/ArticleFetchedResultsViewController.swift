@@ -87,8 +87,7 @@ class ArticleFetchedResultsViewController: ArticleCollectionViewController, Coll
         collectionViewUpdater.performFetch()
         super.viewWillHaveFirstAppearance(animated)
     }
-    
-    
+
     func collectionView(_ collectionView: UICollectionView, shouldHighlightItemAt indexPath: IndexPath) -> Bool {
         guard let translation = editController.swipeTranslationForItem(at: indexPath) else {
             return true

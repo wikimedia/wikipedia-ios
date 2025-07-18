@@ -8,7 +8,8 @@ enum ArticleTabConfig {
     case appendArticleAndAssignCurrentTabAndCleanoutFutureArticles // Navigating from article blue link or article search
     case appendArticleAndAssignNewTabAndSetToCurrent // Open in new tab long press
     case assignParticularTabAndSetToCurrent(WMFArticleTabsDataController.Identifiers) // Tapping tab from tabs overview
-    case assignNewTabAndSetToCurrent // Tapping add tab from tabs overview
+    case assignNewTabAndSetToCurrent // Tapping add tab from tabs overview - Main Page
+    case assignNewTabAndSetToCurrentFromNewTabSearch(title: String, project: WMFProject) // Clicking on search item on new tab
     case adjacentArticleInTab(WMFArticleTabsDataController.Identifiers) // Tapping 'forward in tab' / 'back in tab' buttons on article toolbar
  }
 
@@ -84,6 +85,11 @@ extension ArticleTabCoordinating {
                     self.tabItemIdentifier = identifiers.tabItemIdentifier
                 case .assignNewTabAndSetToCurrent:
                     let identifiers = try await tabsDataController.createArticleTab(initialArticle: nil, setAsCurrent: true)
+                    self.tabIdentifier = identifiers.tabIdentifier
+                    self.tabItemIdentifier = identifiers.tabItemIdentifier
+                case .assignNewTabAndSetToCurrentFromNewTabSearch(let artTitle, let artProject):
+                    let newArticle = WMFArticleTabsDataController.WMFArticle(identifier: nil, title: artTitle, project: artProject)
+                    let identifiers = try await tabsDataController.createArticleTab(initialArticle: newArticle, setAsCurrent: true)
                     self.tabIdentifier = identifiers.tabIdentifier
                     self.tabItemIdentifier = identifiers.tabItemIdentifier
                 case .adjacentArticleInTab(let identifiers):

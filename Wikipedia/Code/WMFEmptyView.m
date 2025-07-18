@@ -148,8 +148,8 @@
 + (instancetype)noHistoryEmptyView {
     WMFEmptyView *view = [[self class] emptyView];
     view.imageView.image = [UIImage imageNamed:@"history-blank"];
-    view.titleLabel.text = WMFLocalizedStringWithDefaultValue(@"empty-no-history-title", nil, nil, @"No history to show", @"Title of a blank screen shown when a user has no history");
-    view.messageLabel.text = WMFLocalizedStringWithDefaultValue(@"empty-no-history-message", nil, nil, @"Keep track of what you've been reading here", @"Message of a blank screen shown when a user has no history");
+    view.titleLabel.text = WMFCommonStrings.emptyNoHistoryTitle;
+    view.messageLabel.text = WMFCommonStrings.emptyNoHistorySubtitle;
 
     [view.actionLabel removeFromSuperview];
     [view.actionLine removeFromSuperview];

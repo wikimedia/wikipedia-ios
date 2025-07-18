@@ -3,6 +3,7 @@ import Foundation
 public protocol WMFDeveloperSettingsDataControlling: AnyObject {
     func loadFeatureConfig() -> WMFFeatureConfigResponse?
     var enableArticleTabs: Bool { get }
+    var enableMoreDynamicTabs: Bool { get }
     var forceMaxArticleTabsTo5: Bool { get }
 }
 
@@ -122,6 +123,15 @@ public protocol WMFDeveloperSettingsDataControlling: AnyObject {
         } set {
             try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsForceMaxArticleTabsTo5.rawValue, value: newValue)
         }
+    }
+
+    public var enableMoreDynamicTabs: Bool {
+        get {
+            return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsMoreDynamicTabs.rawValue)) ?? false
+        } set {
+            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsMoreDynamicTabs.rawValue, value: newValue)
+        }
+
     }
 
     // MARK: - Remote Settings from donatewiki AppsFeatureConfig json
