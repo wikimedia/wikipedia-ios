@@ -112,6 +112,23 @@ public class WMFArticleTabsDataController: WMFArticleTabsDataControlling {
     private var assignmentCache: ArticleTabsExperimentAssignment?
     private let articleTabsExperimentPercentage: Int = 50
     
+    public static var hasSeenFeatureAnnouncement: Bool {
+        get {
+            let defaults = UserDefaults.standard
+            let key = WMFUserDefaultsKey.articleTabsDidShowFeatureAnnouncement.rawValue
+            if defaults.object(forKey: key) == nil {
+                defaults.set(false, forKey: key)
+                return false
+            }
+            return defaults.bool(forKey: key)
+        }
+        set {
+            let defaults = UserDefaults.standard
+            let key = WMFUserDefaultsKey.articleTabsDidShowFeatureAnnouncement.rawValue
+            defaults.set(newValue, forKey: key)
+        }
+    }
+    
     // This setup allows us to try instantiation multiple times in case the first attempt fails (like for example, if coreDataStore is not available yet).
     private var _backgroundContext: NSManagedObjectContext?
     public var backgroundContext: NSManagedObjectContext? {
