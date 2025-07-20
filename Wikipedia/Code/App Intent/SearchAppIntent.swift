@@ -1,7 +1,6 @@
 import AppIntents
 
-@available(iOS 16.0, *)
-struct WikipediaSearchAppIntent: AppIntent {
+struct SearchAppIntent: AppIntent {
     static var title: LocalizedStringResource = "Search Wikipedia"
     static var description = IntentDescription("Search for articles on Wikipedia")
     static var openAppWhenRun: Bool = true
@@ -38,11 +37,10 @@ struct WikipediaSearchAppIntent: AppIntent {
 
 // MARK: - App Shortcuts Provider
 
-@available(iOS 16.0, *)
-struct WikipediaAppShortcutsProvider: AppShortcutsProvider {
+struct SearchIntentAppShortcutsProvider: AppShortcutsProvider {
     static var appShortcuts: [AppShortcut] {
         AppShortcut(
-            intent: WikipediaSearchAppIntent(),
+            intent: SearchAppIntent(),
             phrases: [
                 "Search Wikipedia",
                 "Search \(.applicationName)",
