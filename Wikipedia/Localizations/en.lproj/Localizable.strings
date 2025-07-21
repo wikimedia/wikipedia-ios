@@ -125,6 +125,7 @@
 "article-share" = "Share";
 "article-tabs-button-accessibility-hint" = "Navigates to tabs overview";
 "article-tabs-button-accessibility-label" = "Article tabs";
+"article-tabs-did-you-know-title" = "Did you know";
 "article-tabs-max-reached" = "Tab limit reached ($1). The article was opened in the current tab. Please close one or more tabs.";
 "article-tabs-navigation" = "Tabs navigation";
 "article-tabs-onboarding-tooltip" = "Onboarding tooltips for tabs";

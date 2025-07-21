@@ -8,6 +8,11 @@ public struct WMFNewArticleTabView: View {
         self.viewModel = viewModel
     }
     public var body: some View {
-        Text(viewModel.text)
+        WMFNewArticleTabViewDidYouKnow(
+            dykTitle: "Did you know...",
+            funFact: "that a <a href=\"https://en.wikipedia.org\">15-second commercial for a streaming service</a> has been blamed for causing arguments and domestic violence?",
+            fromSource: "from English Wikipedia"
+        )
+        .padding()
     }
 }
