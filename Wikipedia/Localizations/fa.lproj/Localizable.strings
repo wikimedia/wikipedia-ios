@@ -557,7 +557,6 @@
 "gan-variants-alert-body" = "برنامهٔ ویکی‌پدیا در حال حاضر از لهجه‌های مختلف زبان گان به عنوان زبان‌های اصلی یا ثانویه در برنامه پشتیبانی می‌کند و خواندن، جستجو، و ویرایش در لهجهٔ دلخواه شما را آسان می‌کند:\n\n贛語 原文 Gan (gan)\n赣语 简体 Gan, Simplified (gan-hans)\n贛語 繁體 Gan, Traditional (gan-hant)";
 "gan-variants-alert-title" = "بروزرسانی پشتیبانی از لهجه‌های زبان گان";
 "history-clear-all" = "پاک‌کردن";
-"history-clear-cancel" = "لغو";
 "history-clear-confirmation-heading" = "آیا مطمئن هستید که می‌خواهید همهٔ موارد اخیر را حذف کنید؟";
 "history-clear-delete-all" = "بله، حذف همه";
 "history-title" = "تاریخچه";
@@ -1068,7 +1067,6 @@
 "search-did-you-mean" = "منظورتان «$1» بود؟";
 "search-field-placeholder-text" = "جستجوی ویکی‌پدیا";
 "search-reading-list-placeholder-text" = "جستجوی فهرست مطالعه";
-"search-recent-clear-cancel" = "لغو";
 "search-recent-clear-confirmation-heading" = "حذف همهٔ جستجوهای اخیر ؟";
 "search-recent-clear-confirmation-sub-heading" = "این عمل نمی‌تواند برگردانده شود!";
 "search-recent-clear-delete-all" = "حذف همه";

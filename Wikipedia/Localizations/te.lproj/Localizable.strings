@@ -351,7 +351,6 @@
 "forgot-password-title" = "సంకేతపదాన్ని మార్చు";
 "forgot-password-username-or-email-title" = "లేదా";
 "history-clear-all" = "తుడిచివేయి";
-"history-clear-cancel" = "రద్దు";
 "history-clear-confirmation-heading" = "నిజంగానే మీ ఇటీవలి అంశాలన్నింటినీ తొలగించాలా?";
 "history-clear-delete-all" = "అవును, అన్నిటినీ తొలగించు";
 "history-title" = "చరిత్ర";
@@ -679,7 +678,6 @@
 "search-did-you-mean" = "మీరు అంటున్నది ఇదా - $1?";
 "search-field-placeholder-text" = "వికీపీడియాలో వెతకండి";
 "search-reading-list-placeholder-text" = "భద్రపరచిన {{PLURAL:$1|వ్యాసాన్ని|వ్యాసాలను}} తీసెయ్యాలా?";
-"search-recent-clear-cancel" = "రద్దుచేయి";
 "search-recent-clear-confirmation-heading" = "ఇటీవలి వెతుకులాట లన్నిటినీ తొలగించాలా?";
 "search-recent-clear-confirmation-sub-heading" = "ఈ చర్యను వెనక్కి తీసుకోలేరు!";
 "search-recent-clear-delete-all" = "అన్నిటినీ తొలగించు";

@@ -171,6 +171,7 @@
 "article-revision-history" = "Cronologia versioni voce";
 "article-save-error-not-enough-space" = "Memoria insufficiente per salvare questo articolo sul dispositivo";
 "article-share" = "Condividi";
+"article-tabs-button-accessibility-label" = "Schede voci";
 "article-tabs-open" = "Apri";
 "article-tabs-open-background-tab" = "Apri nella scheda in background";
 "article-tabs-open-new-tab" = "Apri in una nuova scheda";
@@ -462,7 +463,6 @@
 "forgot-password-title" = "Reimposta password";
 "forgot-password-username-or-email-title" = "O";
 "history-clear-all" = "Pulisci";
-"history-clear-cancel" = "Annulla";
 "history-clear-confirmation-heading" = "Sei sicuro di voler cancellare tutti i tuoi elementi recenti?";
 "history-clear-delete-all" = "Sì, cancella tutto";
 "history-title" = "Cronologia";
@@ -810,7 +810,6 @@
 "search-clear-title" = "Pulisci";
 "search-did-you-mean" = "Forse cercavi $1?";
 "search-field-placeholder-text" = "Cerca su Wikipedia";
-"search-recent-clear-cancel" = "Annulla";
 "search-recent-clear-confirmation-heading" = "Eliminare tutte le ricerche recenti?";
 "search-recent-clear-confirmation-sub-heading" = "Questa azione non può essere annullata!";
 "search-recent-clear-delete-all" = "Cancella tutto";
@@ -928,6 +927,7 @@
 "theme-default-display-name" = "Predefinito";
 "theme-light-display-name" = "Chiaro";
 "theme-sepia-display-name" = "Seppia";
+"today-title" = "Oggi";
 "top-read-widget-description" = "Scopri cosa sta leggendo il mondo oggi su Wikipedia.";
 "top-read-widget-readers-count" = "$1 lettori";
 "top-read-widget-title" = "Più letti";
@@ -1090,3 +1090,4 @@
 "year-in-review-survey-very-unsatisfied" = "Molto insoddisfatto";
 "year-in-review-wikipedia-w-accessibility-label" = "Logo W di Wikipedia";
 "year-in-review-wmf-logo-accessibility-label" = "Logo della Wikimedia Foundation";
+"yesterday-title" = "Ieri";

@@ -511,7 +511,6 @@
 "forgot-password-username-or-email-title" = "または";
 "gan-variants-alert-title" = "贛語言語変種サポートの更新";
 "history-clear-all" = "消去";
-"history-clear-cancel" = "キャンセル";
 "history-clear-confirmation-heading" = "本当にすべての最近の項目を削除しますか?";
 "history-clear-delete-all" = "すべて削除";
 "history-title" = "履歴";
@@ -936,7 +935,6 @@
 "search-did-you-mean" = "もしかして: $1";
 "search-field-placeholder-text" = "ウィキペディア内を検索";
 "search-reading-list-placeholder-text" = "あとで読むリストを検索";
-"search-recent-clear-cancel" = "キャンセル";
 "search-recent-clear-confirmation-heading" = "最近の検索をすべて削除しますか?";
 "search-recent-clear-confirmation-sub-heading" = "この操作は取り消せません!";
 "search-recent-clear-delete-all" = "すべて削除";

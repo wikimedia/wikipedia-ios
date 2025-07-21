@@ -68,7 +68,7 @@
 "action-saved-accessibility-notification" = "Artikel fir spéider gespäichert";
 "action-share" = "Deelen";
 "action-share-accessibility" = "Deelen";
-"action-sort" = "Zortéieren";
+"action-sort" = "Sortéieren";
 "action-thank-user-accessibility" = "Dem Benotzer Merci soen";
 "action-undo" = "Réckgängeg maachen";
 "action-unsave" = "Läschen";
@@ -421,7 +421,6 @@
 "forgot-password-title" = "Passwuert zrécksetzen";
 "forgot-password-username-or-email-title" = "Oder";
 "history-clear-all" = "Eidel maachen";
-"history-clear-cancel" = "Ofbriechen";
 "history-clear-confirmation-heading" = "Sidd Dir sécher, datt Dir all Är rezent Elementer läsche wëllt?";
 "history-clear-delete-all" = "Jo, all läschen";
 "history-title" = "Versiounen";
@@ -466,7 +465,7 @@
 "image-rec-tooltip-3-body" = "Entscheet, ob d'Bild dem Lieser dobäi hëlleft d'Theema besser ze verstoen.";
 "image-rec-tooltip-3-title" = "Entscheeden";
 "image-rec-view-article" = "Artikel weisen";
-"image-recs-no-title" = "Neen";
+"image-recs-no-title" = "Nee";
 "image-recs-not-sure-title" = "Net sécher";
 "image-recs-yes-title" = "Jo";
 "import-shared-reading-list-default-title" = "Meng Lieslëscht";
@@ -483,7 +482,7 @@
 "insert-media-add-image-details-title" = "Bilddetailer derbäisetzen";
 "insert-media-alternative-text-description" = "Textbeschreiwung fir Lieser, déi d'Bild net gesi kënnen";
 "insert-media-alternative-text-placeholder" = "Beschreift dëst Bild";
-"insert-media-alternative-text-title" = "Alternativen Text";
+"insert-media-alternative-text-title" = "Alternativtext";
 "insert-media-caption-caption-placeholder" = "Wéi hänkt dëst Bild mam Artikel zesummen?";
 "insert-media-caption-title" = "Beschrëftung";
 "insert-media-image-position-setting-center" = "Zentréiert";
@@ -723,13 +722,13 @@
 "reading-list-create-new-list-reading-list-name" = "Numm vun der Lieslëscht";
 "reading-list-create-new-list-title" = "Eng nei Lëscht uleeën";
 "reading-list-deleted-accessibility-notification" = "Lieslëscht geläscht";
-"reading-list-do-not-keep-button-title" = "Neen, Artikele vum Apparat läschen";
+"reading-list-do-not-keep-button-title" = "Nee, Artikele vum Apparat läschen";
 "reading-list-entry-limit-reached" = "{{PLURAL:$1|Den Artikel kann|D'Artikele kënnen}} net op dës Lëscht gesat ginn. Dir hutt d'Limitt vu(n) $2 Artikele pro Lieslëscht fir $3 erreecht.";
 "reading-list-exists-with-same-name" = "Numm vun der Lieslëscht gëtt scho benotzt";
 "reading-list-keep-button-title" = "Jo, Artikelen um Apparat halen";
-"reading-list-keep-sync-disabled-remove-article-button-title" = "Neen, d'Artikele vu mengem Apparat a vu mengem Wikipedia-Benotzerkont ewechhuelen.";
+"reading-list-keep-sync-disabled-remove-article-button-title" = "Nee, d'Artikele vu mengem Apparat a mengem Wikipedia-Kont ewechhuelen";
 "reading-list-keep-title" = "Gespäichert Artikelen um Apparat halen?";
-"reading-list-limit-hit-for-unsorted-articles-button-title" = "Artikelen zortéieren";
+"reading-list-limit-hit-for-unsorted-articles-button-title" = "Artikele sortéieren";
 "reading-list-limit-hit-for-unsorted-articles-title" = "Limitt fir net-zortéiert Artikelen";
 "reading-list-list-limit-reached" = "Dir hutt d'Limitt vu(n) $1 Lieslëschte pro Kont erreecht";
 "reading-list-login-button-title" = "Alogge fir Är gespäichert Artikelen ze synchroniséieren";
@@ -753,7 +752,7 @@
 "reading-lists-delete-reading-list-alert-title" = "{{PLURAL:$1|Lëscht|Lëschte}} läschen?";
 "reading-lists-large-sync-completed" = "{{PLURAL:$1|$1 Artikel|$1 Artikelen}} a(n) {{PLURAL:$2|$2 Lieslëscht|$2 Lieslëschte}} vun Ärem Benotzerkont synchroniséiert";
 "reading-lists-list-not-synced-limit-exceeded" = "Lëscht net synchroniséiert, Limitt iwwerschratt";
-"reading-lists-sort-saved-articles" = "Gespäichert Artikelen zortéieren";
+"reading-lists-sort-saved-articles" = "Gespäichert Artikelen sortéieren";
 "reading-themes-controls-accessibility-black-theme-button" = "Schwaarze Layout";
 "reading-themes-controls-accessibility-dark-theme-button" = "Däischtere Modus";
 "reading-themes-controls-accessibility-light-theme-button" = "Helle Modus";
@@ -797,7 +796,6 @@
 "search-did-you-mean" = "Mengt Dir $1?";
 "search-field-placeholder-text" = "Op Wikipedia sichen";
 "search-reading-list-placeholder-text" = "Lieslëscht duerchsichen";
-"search-recent-clear-cancel" = "Ofbriechen";
 "search-recent-clear-confirmation-heading" = "All rezent Ufroe fir ze siche läschen?";
 "search-recent-clear-confirmation-sub-heading" = "Dës Aktioun kann net réckgängeg gemaach ginn!";
 "search-recent-clear-delete-all" = "All läschen";

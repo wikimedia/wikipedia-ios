@@ -8,6 +8,7 @@
 // Author: Av6
 // Author: BadDog
 // Author: Batumski brodyaga
+// Author: Borealex
 // Author: Bsitzmann
 // Author: Butko
 // Author: Deltaspace
@@ -164,8 +165,13 @@
 "article-revision-history" = "История версий статьи";
 "article-save-error-not-enough-space" = "Не хватает места на вашем устройстве, чтобы сохранить эту статью";
 "article-share" = "Поделиться";
+"article-tabs-open" = "Открыть";
+"article-tabs-open-background-tab" = "Открыть в фоновой вкладке";
+"article-tabs-open-new-tab" = "Открыть в новой вкладке";
 "article-talk-page" = "Страница обсуждения статьи";
 "article-toolbar-reading-themes-controls-toolbar-item" = "Настройки темы для чтения";
+"article-view-controller-editing-temp-account-created-subtitle" = "Временная учётная запись $1 была создана после публикации вашей правки. Срок её действия истечёт через 90 дней.";
+"article-view-controller-editing-temp-account-created-title" = "Временная учётная запись создана";
 "back-button-accessibility-label" = "Назад";
 "back-button-popover-title" = "Нажмите, чтобы вернуться назад";
 "button-go-back" = "Назад";
@@ -185,10 +191,16 @@
 "clear-title-accessibility-label" = "Очистить";
 "clearing-cache-complete" = "Очистка кэша завершена.";
 "clearing-cache-in-progress" = "В процессе очистки кэша.";
+"close-all-tabs" = "Закрыть все вкладки";
+"close-all-tabs-confirmation" = "Хотите закрыть все $1 вкладок? Это действие нельзя отменить.";
+"close-all-tabs-confirmation-number" = "Закрыть все $1 вкладок";
 "close-button-accessibility-label" = "Закрыть";
+"close-tab-confirmation" = "Закрыть вкладку?";
+"close-tabs" = "Закрыть вкладки";
 "compass-direction" = "на $1 часов";
 "confirm-donation-history-deletion-subtitle" = "Это будет применяться только к пожертвованиям, сделанным с этого устройства.";
 "confirm-donation-history-deletion-title" = "Подтвердите удаление";
+"confirmed-donation-history-deletion" = "Локальная история удалена";
 "continue-button-title" = "Продолжить";
 "continue-reading-empty-description" = "Исследуйте Википедию, чтобы найти больше статей для чтения";
 "continue-reading-empty-title" = "Нет недавно прочитанных статей";
@@ -558,7 +570,6 @@
 "gan-variants-alert-body" = "Приложение Wikipedia теперь поддерживает следующие варианты Gan в качестве основных или дополнительных языков в приложении, что упрощает чтение, поиск и редактирование в предпочтительных вариантах:\n\n贛語 原文 Gan (gan)\n赣语 简体 Gan, Упрощенный (gan-hans)\n贛語 繁體 Gan, Традиционный (gan-hant)";
 "gan-variants-alert-title" = "Обновление поддержки вариантов Gan";
 "history-clear-all" = "Очистить";
-"history-clear-cancel" = "Отмена";
 "history-clear-confirmation-heading" = "Вы уверены, что хотите удалить все недавние элементы?";
 "history-clear-delete-all" = "Да, удалить всё";
 "history-title" = "История";
@@ -681,6 +692,7 @@
 "main-menu-terms-of-use" = "Условия использования";
 "main-menu-title" = "Ещё";
 "main-menu-zero-faq" = "ЧЗВ по Wikipedia Zero";
+"main-page" = "Заглавная страница";
 "microsite-yir-english-top-read-slide-title" = "Самые популярные статьи английской Википедии";
 "more-languages-tooltip-description" = "Искать в Википедии на более чем 300 языках";
 "more-languages-tooltip-title" = "Добавить языки";
@@ -693,6 +705,7 @@
 "nearby-distance-label-miles" = "$1 мил.";
 "new-password-instructions" = "Вы представились с помощью временного пароля.\nДля завершения входа необходимо задать новый пароль:";
 "new-password-title" = "Установите пароль";
+"new-tab" = "Новая вкладка";
 "next-action-title" = "Далее";
 "no-email-account-alert" = "Пожалуйста, настройте на вашем устройстве учётную запись электронной почты и попробуйте ещё раз.";
 "no-internet-connection" = "Нет подключения к интернету";
@@ -836,9 +849,9 @@
 "on-this-day-no-internet-error" = "Нет доступных данных";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 в Википедии: $2 раздел";
 "on-this-day-title" = "В этот день…";
+"open-in-tab-tooltip-title" = "Открыть в новой вкладке";
 "original-tab-button-popover-description" = "Нажмите 'W', чтобы вернуться к вкладке, с которой вы начали";
-// Fuzzy
-"page-history-bot-edits" = "правки ботов";
+"page-history-bot-edits" = "бот";
 "page-history-compare-accessibility-hint" = "Нажмите, чтобы выбрать две версии для сравнения";
 "page-history-compare-title" = "Сравнить";
 "page-history-graph-accessibility-label" = "График изменений во времени";
@@ -1025,10 +1038,14 @@
 "return-button-title" = "Вернуться";
 "return-to-article" = "Вернуться к статье";
 "reverted-edit-title" = "Отменённая правка";
+"save-all-tabs" = "Сохранить все вкладки";
 "saved-all-articles-title" = "Все статьи";
+"saved-all-tabs" = "Все вкладки сохранены.";
+"saved-all-tabs-view-reading-list" = "Все вкладки сохранены. Смотрите список для чтения.";
 "saved-default-reading-list-tag" = "Этот список не может быть удалён";
 "saved-pages-image-download-error" = "Не удалось загрузить изображения для этой сохранённой страницы.";
 "saved-pages-progress-syncing" = "Статья скачивается...";
+"saved-reading-lists-search-placeholder" = "Поиск по списку для чтения";
 "saved-reading-lists-title" = "Списки для чтения";
 "saved-search-default-text" = "Найти сохранённые статьи";
 "saved-title" = "Сохранено";
@@ -1039,7 +1056,6 @@
 "search-did-you-mean" = "Возможно, вы имели в виду $1?";
 "search-field-placeholder-text" = "Поиск по Википедии";
 "search-reading-list-placeholder-text" = "Поиск в списке для чтения";
-"search-recent-clear-cancel" = "Отмена";
 "search-recent-clear-confirmation-heading" = "Удалить все последние поисковые запросы?";
 "search-recent-clear-confirmation-sub-heading" = "Это действие нельзя отменить!";
 "search-recent-clear-delete-all" = "Удалить всё";
@@ -1047,6 +1063,7 @@
 "search-recent-title" = "Недавно искали";
 "search-result-redirected-from" = "Перенаправлено с: $1";
 "search-title" = "Поиск";
+"search-widget-wikipedia-title" = "Википедия";
 "serbian-variants-alert-body" = "Приложение Wikipedia теперь поддерживает следующие варианты сербского языка в качестве основных или дополнительных языков в приложении, что упрощает чтение, поиск и редактирование в предпочтительных вариантах:\n\nсрпски ћирилица Serbian, Cyrillic (sr-ec)\nsrpski latinica Serbian, Latin (sr-el)";
 "serbian-variants-alert-title" = "Обновления поддержки вариантов Сербского";
 "settings-account" = "Учётная запись";
@@ -1107,6 +1124,7 @@
 "sort-by-title-action" = "Заголовок";
 "suggested-edits-title" = "Предложенные правки";
 "survey-instructions" = "Выберите один или несколько вариантов";
+"survey-other-placeholder" = "Другое";
 "survey-submit" = "Отправить";
 "survey-title" = "Причина";
 "table-of-contents-button-label" = "Содержание";
@@ -1115,6 +1133,8 @@
 "table-of-contents-heading" = "Содержание";
 "table-of-contents-hide-button-label" = "Скрывает содержание";
 "table-of-contents-subheading-label" = "Подзаголовок $1";
+"tabs-close-tab" = "Закрыть вкладку";
+"tabs-open-tab" = "Открыть вкладку";
 "tachelhit-variants-alert-body" = "Приложение Wikipedia теперь поддерживает следующие варианты Тачелхита в качестве основных или дополнительных языков в приложении, что упрощает чтение, поиск и редактирование в предпочтительных вариантах:\n\nⵜⴰⵛⵍⵃⵉⵜ Tachelhit, Tifinagh (shi-tfng)\nTaclḥit Tachelhit, Latin (shi-latn)";
 "tachelhit-variants-alert-title" = "Обновление поддержки вариантов Тачелхита";
 "tajik-variants-alert-body" = "Приложение Википедия теперь поддерживает следующие варианты Таджикского языка в качестве основных или дополнительных языков в приложении, что упрощает чтение, поиск и редактирование в предпочтительных вариантах:\n\nтоҷикӣ кирилликӣ Tajik, Cyrillic (tg-cyrl)\ntojikī lotinī Tajik, Latin (tg-latn)";
