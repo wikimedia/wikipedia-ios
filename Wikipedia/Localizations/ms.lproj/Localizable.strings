@@ -111,7 +111,6 @@
 "button-ok" = "OK";
 "button-publish" = "Terbitkan";
 "button-publish-anyway" = "Tetap terbitkan";
-"button-read-now" = "Baca sekarang";
 "button-report-a-bug" = "Laporkan pepijat";
 "button-save-for-later" = "Simpan untuk nanti";
 "button-saved-for-later" = "Disimpan untuk nanti";
@@ -257,7 +256,7 @@
 "explore-feed-preferences-global-card-footer-text" = "Kad ini bukan bahasa khusus, mematikan kad ini akan mengeluarkannya dari suapan Teroka anda.";
 "explore-feed-preferences-global-cards-description" = "Kad khusus non-bahasa";
 "explore-feed-preferences-global-cards-subtitle" = "Bukan bahasa khusus";
-"explore-feed-preferences-global-cards-title" = "Kad global";
+"explore-feed-preferences-global-cards-title" = "Kad sejagat";
 "explore-feed-preferences-hide-card-action-title" = "Sembunyikan kad ini";
 "explore-feed-preferences-hide-feed-cards-action-title" = "Sembunyikan semua kad “$1”";
 "explore-feed-preferences-in-the-news-description" = "Rencana mengenai peristiwa semasa";
@@ -744,6 +743,7 @@
 "talk-page-subscribe-to-topic" = "Langgan";
 "talk-page-title-user-talk" = "Perbincangan Pengguna";
 "talk-pages-archives-view-title" = "Arkib";
+"temporary-account" = "Akaun sementara";
 "theme-black-display-name" = "Hitam";
 "theme-dark-display-name" = "Gelap";
 "theme-default-display-name" = "Asali";

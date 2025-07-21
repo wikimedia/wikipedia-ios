@@ -55,10 +55,10 @@ final class TabsOverviewCoordinator: Coordinator {
         ]
 
         let surveyView = WMFSurveyView(viewModel: WMFSurveyViewModel(localizedStrings: surveyLocalizedStrings, options: surveyOptions, selectionType: .single, shouldShowMultilineText: true), cancelAction: { [weak self] in
-            self?.logArticleTabsFeedbackClose()
+            ArticleTabsFunnel.shared.logFeedbackClose()
             self?.navigationController.presentedViewController?.dismiss(animated: true)
         }, submitAction: { [weak self] options, otherText in
-            self?.logArticleTabsFeedback(selectedItems: options, comment: otherText)
+            ArticleTabsFunnel.shared.logFeedbackSubmit(selectedItems: options, comment: otherText)
             self?.navigationController.presentedViewController?.dismiss(animated: true, completion: {
                 let image = UIImage(systemName: "checkmark.circle.fill")
                 WMFAlertManager.sharedInstance.showBottomAlertWithMessage(CommonStrings.feedbackSurveyToastTitle, subtitle: nil, image: image, type: .custom, customTypeName: "feedback-submitted", dismissPreviousAlerts: true)
@@ -84,6 +84,7 @@ final class TabsOverviewCoordinator: Coordinator {
                 guard let presentedVC = self?.navigationController.presentedViewController else { return }
                 let surveyVC = self?.surveyViewController()
                 guard let surveyVC else { return }
+                ArticleTabsFunnel.shared.logFeedbackImpression()
                 presentedVC.present(surveyVC, animated: true)
                 
                 surveyVC.modalPresentationStyle = .pageSheet
@@ -147,12 +148,26 @@ final class TabsOverviewCoordinator: Coordinator {
     }
     
     private func tappedAddTab() {
+        if dataController.needsMoreDynamicTabs && dataController.shouldShowArticleTabs {
+            let isOnStack = self.navigationController.viewControllers.contains { $0 is WMFNewArticleTabController }
+            // do not push a new tab if the user just came from a new tab
+            if isOnStack {
+                navigationController.dismiss(animated: true)
+            } else {
+                navigationController.dismiss(animated: true) {
+                    let newTabCoordinator = NewArticleTabCoordinator(navigationController: self.navigationController, dataStore: self.dataStore, theme: self.theme)
+                    newTabCoordinator.start()
+                }
+            }
+            return
+        }
         guard let siteURL = dataStore.languageLinkController.appLanguage?.siteURL,
               let articleURL = siteURL.wmf_URL(withTitle: "Main Page") else {
             return
         }
         
         let articleCoordinator = ArticleCoordinator(navigationController: navigationController, articleURL: articleURL, dataStore: MWKDataStore.shared(), theme: theme, needsAnimation: false, source: .undefined, tabConfig: .assignNewTabAndSetToCurrent)
+        ArticleTabsFunnel.shared.logAddNewBlankTab()
         articleCoordinator.start()
         
         navigationController.dismiss(animated: true)
@@ -177,12 +192,20 @@ extension TabsOverviewCoordinator: WMFArticleTabsLoggingDelegate {
         }
     }
 
-    func logArticleTabsFeedback(selectedItems: [String], comment: String?) {
-        ArticleTabsFunnel.shared.logFeedbackSubmit(selectedItems: selectedItems, comment: comment)
-    }
+}
 
-    func logArticleTabsFeedbackClose() {
-        ArticleTabsFunnel.shared.logFeedbackClose()
-    }
+/// Manages the lifecycle of TabsOverviewCoordinator independently of article tabs.
+/// Ensures the tabs UI works even if the current article tab is closed.
+final class TabsCoordinatorManager {
 
+    static let shared = TabsCoordinatorManager()
+
+    private var tabsOverviewCoordinator: TabsOverviewCoordinator?
+
+    func presentTabsOverview(from navigationController: UINavigationController, theme: Theme, dataStore: MWKDataStore) {
+        let coordinator = TabsOverviewCoordinator(navigationController: navigationController, theme: theme, dataStore: dataStore)
+        self.tabsOverviewCoordinator = coordinator
+
+        coordinator.start()
+    }
 }

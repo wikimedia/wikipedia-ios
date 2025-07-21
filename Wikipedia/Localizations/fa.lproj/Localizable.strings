@@ -153,7 +153,6 @@
 "button-ok" = "تأیید";
 "button-publish" = "انتشار";
 "button-publish-anyway" = "انتشار به هر روی";
-"button-read-now" = "الان بخوان";
 "button-report-a-bug" = "گزارش مشکل";
 "button-save-for-later" = "ذخیره برای بعد";
 "button-saved-for-later" = "برای بعد ذخیره شد";
@@ -670,6 +669,7 @@
 "languages-title" = "تغییر زبان";
 "languages-wikipedia" = "زبان‌های ویکی‌پدیا";
 "learn-more-title" = "بیشتر بدانید";
+"lockscreen-search-widget-description" = "دسترسی سریع به جستجوی ویکی‌پدیا از صفحهٔ قفل شما.";
 "logged-out-continue-without-logging-in-button-title" = "ادامه بدون ورود به حساب کاربری";
 "logged-out-log-back-in-button-title" = "ورود دوباره به حسابتان";
 "logged-out-subtitle" = "در اعتبارسنجی حساب شما مشکلی پیش آمد. برای همگام‌سازی فهرست خواندن و ویرایش با نام کاربری خود، لطفاً دوباره به سامانه وارد شوید.";
@@ -1076,6 +1076,7 @@
 "search-recent-title" = "جستجوهای اخیر";
 "search-result-redirected-from" = "تغییرمسیر از: $1";
 "search-title" = "جستجو";
+"search-widget-announcement-title" = "ابزارک جستجوی جدید در دسترس است";
 "serbian-variants-alert-body" = "برنامهٔ ویکی‌پدیا در حال حاضر از لهجه‌های مختلف زبان صربی به عنوان زبان‌های اصلی یا ثانویه در برنامه پشتیبانی می‌کند و خواندن، جستجو، و ویرایش در لهجهٔ دلخواه شما را آسان می‌کند:\n\nсрпски ћирилица Serbian, Cyrillic (sr-ec)\nsrpski latinica Serbian, Latin (sr-el)";
 "serbian-variants-alert-title" = "بروزرسانی پشتیبانی از لهجه‌های زبان صربی";
 "settings-account" = "حساب";

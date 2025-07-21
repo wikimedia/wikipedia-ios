@@ -5,11 +5,13 @@
 // Author: Ainali
 // Author: Bengtsson96
 // Author: Freked
+// Author: Gkyziridis
 // Author: Haxpett
 // Author: Jenniesarina
 // Author: Johan
 // Author: JohanahoJ
 // Author: Jopparn
+// Author: JorgeElias2302
 // Author: Josve05a
 // Author: Lokal Profil
 // Author: Macofe
@@ -153,6 +155,10 @@
 "article-revision-history" = "Artikelns versionshistorik";
 "article-save-error-not-enough-space" = "Du har inte tillräckligt mycket utrymme på din enhet för att spara denna artikel";
 "article-share" = "Dela";
+"article-tabs-max-reached" = "Flikgränsen nådd ($1). Artikeln öppnades i den aktuella fliken. Stäng en eller flera flikar.";
+"article-tabs-navigation" = "Flikar navigering";
+"article-tabs-onboarding-tooltip" = "Verktygstips för introduktion av flikar";
+"article-tabs-open" = "Öppna";
 "article-tabs-open-background-tab" = "Öppna flik i bakgrunden";
 "article-tabs-open-new-tab" = "Öppna i ny flik";
 "article-talk-page" = "Artikelns diskussionssida";
@@ -166,7 +172,6 @@
 "button-ok" = "OK";
 "button-publish" = "Publicera";
 "button-publish-anyway" = "Publicera ändå";
-"button-read-now" = "Läs nu";
 "button-report-a-bug" = "Rapportera ett fel";
 "button-save-for-later" = "Spara till senare";
 "button-saved-for-later" = "Sparades till senare";
@@ -179,7 +184,14 @@
 "clear-title-accessibility-label" = "Rensa";
 "clearing-cache-complete" = "Cacheminnet rensades.";
 "clearing-cache-in-progress" = "Cacheminnet rensas.";
+"close-all-tabs" = "Stäng alla flikar";
+"close-all-tabs-confirmation" = "Vill du stänga alla $1 flikar? Den här åtgärden kan inte ångras.";
+"close-all-tabs-confirmation-number" = "Stäng alla $1 flikar?";
 "close-button-accessibility-label" = "Stäng";
+"close-other-tabs" = "Stäng andra flikar";
+"close-tab-confirmation" = "Stänga fliken?";
+"close-tabs" = "Stäng flikar";
+"closed-all-tabs-confirmation" = "Stängde alla $1 flikar.";
 "compass-direction" = "mot klockan $1";
 "confirm-donation-history-deletion-subtitle" = "Detta gäller endast donationer som görs från den här enheten.";
 "confirm-donation-history-deletion-title" = "Bekräfta radering";
@@ -319,6 +331,7 @@
 "donate-transaction-fee-opt-in-text" = "Jag lägger generöst till $1 för att täcka transaktionsavgifterna så att ni kan behålla 100 %% av min donation.";
 "donate-wikimedia-fine-print-1" = "Vi varken säljer eller delar med oss av din information med någon annan. Genom att donera går du med på att dela med dig av din personliga information med Wikimedia Foundation, den icke-vinstdrivande organisationen som driver Wikipedia och andra Wikimediaprojekt, och dess tjänsteleverantörer enligt vår [donationspolicy]($1). Wikimedia Foundation och dess tjänsteleverantörer befinner sig i USA och i andra länder vars integritetspolicy kan motsvara din egen. För mer information kan du läsa vår [donationspolicy]($1).";
 "donate-wikimedia-fine-print-2" = "För återkommande givare kommer fasta månatliga bidrag debiteras varje år av Wikimedia Foundation på samma dag som din första donation, tills dess att du meddelar oss att avsluta dem. Donationer som inletts på månadens 29, 30, 31 dag kommer debiteras på månadens sista dag för kortare månader, så nära originaldatumet som möjligt. För frågor, vänligen kontakta donationspolicy.";
+"duplicate-tab" = "Duplicera fliken";
 "edit-link-display-text-title" = "Visa text";
 "edit-link-link-target-title" = "Länkmål";
 "edit-link-remove-link-title" = "Ta bort länk";
@@ -697,6 +710,7 @@
 "languages-title" = "Ändra språk";
 "languages-wikipedia" = "Wikipediaspråk";
 "learn-more-title" = "Läs mer";
+"lockscreen-search-widget-description" = "Snabb åtkomst till att söka på Wikipedia från din låsskärm.";
 "logged-out-continue-without-logging-in-button-title" = "Fortsätt utan att logga in";
 "logged-out-log-back-in-button-title" = "Logga in på ditt konto igen";
 "logged-out-subtitle" = "Ett problem uppstod när ditt konto autentiserades. Du måste logga in igen för att synkronisera dina läslistor och redigera under ditt användarnamn.";
@@ -718,8 +732,9 @@
 "main-menu-terms-of-use" = "Användarvillkor";
 "main-menu-title" = "Mer";
 "main-menu-zero-faq" = "Vanliga frågor om Wikipedia Zero";
+"main-page" = "Huvudsida";
 "microsite-yir-english-edits-bytes-slide-subtitle" = "Under 2024 lade volontärer till 4 104 852 969 byte på engelskspråkiga Wikipedia. Summan av deras arbete leder tillsammans till en faktabaserad och pålitlig kunskapsresurs för omvärlden som ständigt förbättras. Alla har kunskap att dela med sig, så [läs om hur man deltar]($1).";
-"microsite-yir-english-edits-bytes-slide-title" = "4 miljoner byte lades till";
+"microsite-yir-english-edits-bytes-slide-title" = "4 miljarder byte lades till";
 "microsite-yir-english-edits-slide-subtitle" = "Volontärer gjorde 98 222 407 ändringar på över 300 olika språkversioner av Wikipedia. Över 37 miljoner ändringar gjordes på engelskspråkiga Wikipedia. Varje timme och varje dag arbetar volontärer för att förbättra Wikipedia.";
 "microsite-yir-english-edits-slide-title" = "Redigerare gjorde 98 miljoner ändringar i år";
 "microsite-yir-english-non-donor-slide-subtitle" = "Med din hjälp kommer Wikimedia Foundation (den ideella organisationen bakom Wikipedia) att fortsätta säkerställa att informationen du litar på är annonsfri och pålitlig, samtidigt som Wikipedia fortsätter att fungera smidigt med avancerade verktyg och teknologier. Överväg att donera idag. [Läs mer om vårt arbete]($1).";
@@ -741,6 +756,7 @@
 "nearby-distance-label-miles" = "$1 engelska mil";
 "new-password-instructions" = "Du loggade in med ett temporärt lösenord. För att slutföra inloggningen måste du ange ett nytt lösenord här:";
 "new-password-title" = "Ändra ditt lösenord";
+"new-tab" = "Ny flik";
 "next-action-title" = "Nästa";
 "no-email-account-alert" = "Lägg in ett e-postkonto på din enhet och försök igen.";
 "no-internet-connection" = "Ingen Internetanslutning";
@@ -884,6 +900,8 @@
 "on-this-day-no-internet-error" = "Ingen tillgänglig data";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 från Wikipedia på $2";
 "on-this-day-title" = "På denna dag";
+"open-in-tab-tooltip-body" = "Tryck länge på en artikeltitel eller blå länk för att öppna den i en ny flik.";
+"open-in-tab-tooltip-title" = "Öppna i ny flik";
 "original-tab-button-popover-description" = "Tryck på \"W\" för att återvända till fliken du började ifrån";
 "page-history-bot-edits" = "robot";
 "page-history-compare-accessibility-hint" = "Tryck för att välja två versioner att jämföra";
@@ -1081,9 +1099,12 @@
 "return-button-title" = "Återgå";
 "return-to-article" = "Återgå till artikeln";
 "reverted-edit-title" = "Återställd redigering";
+"save-all-tabs" = "Spara alla flikar";
 "save-view-temp-account-notice" = "Du använder ett tillfälligt konto. Redigeringar tillskrivs $1...";
 "save-view-temp-account-warning" = "Du är inte inloggad. När du utfört en redigering kommer ett tillfälligt konto skapas åt dig för att skapa din integritet.";
 "saved-all-articles-title" = "Alla artiklar";
+"saved-all-tabs" = "Sparade alla flikar.";
+"saved-all-tabs-view-reading-list" = "Sparade alla flikar. Visa läslista.";
 "saved-default-reading-list-tag" = "Denna lista kan inte raderas";
 "saved-pages-image-download-error" = "Gick inte att ladda ner bilder för den här sparade sidan.";
 "saved-pages-progress-syncing" = "Nedladdning av artikel pågår...";
@@ -1106,6 +1127,10 @@
 "search-recent-title" = "Senaste sökningar";
 "search-result-redirected-from" = "Omdirigerad från: $1";
 "search-title" = "Sök";
+"search-widget-announcement-body" = "Lägg till Wikipedia-sökwidgeten på din startsida eller låsskärm för snabbare svar, direkt till hands.";
+"search-widget-announcement-title" = "Ny sökwidget tillgänglig";
+"search-widget-description" = "Snabb åtkomst till att söka på Wikipedia.";
+"search-widget-wikipedia-title" = "Wikipedia";
 "serbian-variants-alert-body" = "Wikipediaappen stödjer följande serbiska varianter som primära eller sekundära språk i appen, vilket gör det enklare att läsa, söka och redigera på dina föredragna varianter:\n\nсрпски ћирилица serbiska, kyrilliska (sr-ec)\nsrpski latinica serbiska, latinska (sr-el)";
 "serbian-variants-alert-title" = "Uppdaterades till stöd för serbiska varianter";
 "settings-account" = "Konto";
@@ -1176,6 +1201,14 @@
 "table-of-contents-heading" = "Innehåll";
 "table-of-contents-hide-button-label" = "Dölj innehållsförteckning";
 "table-of-contents-subheading-label" = "Underrubrik $1";
+"tabs-close-tab" = "Stäng fliken";
+"tabs-main-page-description" = "Upptäck utvalda artiklar, de senaste nyheterna, intressanta fakta och viktig statistik på Wikipedias huvudsida.";
+"tabs-main-page-subtitle" = "Wikipedias dagliga höjdpunkter";
+"tabs-navbar-title-format" = "{{PLURAL:$1|$1 flik|$1 flikar}}";
+"tabs-open-tab" = "Öppna fliken";
+"tabs-overview-tooltip-body" = "Skicka mellan öppna artiklar i flikorna överblick.";
+"tabs-overview-tooltip-title" = "Översikt över flikar";
+"tabs-survey-title" = "Hjälp till att förbättra flikfunktionen. Är du nöjd med den här funktionen?";
 "tachelhit-variants-alert-body" = "Wikipediaappen stödjer följande tachelhit varianter som primära eller sekundära språk i appen, vilket gör det enklare att läsa, söka och redigera på dina föredragna varianter:\n\nⵜⴰⵛⵍⵃⵉⵜ tachelhit, tifinagh (shi-tfng)\nTaclḥit tachelhit, latinska (shi-latn)";
 "tachelhit-variants-alert-title" = "Uppdaterades till stöd för tachelhit varianter";
 "tajik-variants-alert-body" = "Wikipediaappen stödjer följande tadzjikiska varianter som primära eller sekundära språk i appen, vilket gör det enklare att läsa, söka och redigera på dina föredragna varianter:\n\nтоҷикӣ кирилликӣ tadzjikiska, kyrilliska (tg-cyrl)\ntojikī lotinī tadzjikiska, latinska (tg-latn)";

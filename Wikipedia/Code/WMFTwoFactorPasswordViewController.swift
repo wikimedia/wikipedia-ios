@@ -245,6 +245,7 @@ class WMFTwoFactorPasswordViewController: WMFScrollViewController, UITextFieldDe
 
         if isEmailAuth {
             displayMode = .shortAlphanumeric
+            backupOathTokenField.textContentType = .oneTimeCode
             displayModeToggle.isHidden = true
 
             loginButton.setTitle(WMFLocalizedString("two-factor-email-login-continue", value:"Continue log in", comment:"Button text for finishing email two factor login"), for: .normal)

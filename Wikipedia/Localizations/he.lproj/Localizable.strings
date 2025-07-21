@@ -98,6 +98,7 @@
 "action-update" = "עדכון";
 "add-articles-to-reading-list" = "הוספת {{PLURAL:$1|ערך אחד|$1 ערכים}} לרשימת הקריאה";
 "advanced-settings-title" = "הגדרות מתקדמות";
+"alert-temporary-account" = "החשבון שלך חולף. החשבון יפוג בעוד 90 יום.";
 "alt-text-feedback-survey-toast-title" = "המשוב נשלח";
 "announcements-dismiss" = "סגירה";
 "app-store-keywords" = "ויקיפדיה, מקורות, ויקי, אנציקלופדיה, מידע, ידע, חקר, מחקר, גילוי, למידה";
@@ -134,7 +135,6 @@
 "button-ok" = "אישור";
 "button-publish" = "פרסום";
 "button-publish-anyway" = "לפרסם בכל־זאת";
-"button-read-now" = "לקרוא עכשיו";
 "button-report-a-bug" = "דיווח באג";
 "button-save-for-later" = "לשמור לאחר־כך";
 "button-saved-for-later" = "נשמרו לאחר־כך";
@@ -1034,6 +1034,7 @@
 "return-button-title" = "חזרה";
 "return-to-article" = "חזרה לערך";
 "reverted-edit-title" = "עריכה ששוחזרה";
+"save-view-temp-account-notice" = "החשבון שלך חולף. העריכות מיוחסות לשם המשתמש $1...";
 "saved-all-articles-title" = "כל הערכים";
 "saved-default-reading-list-tag" = "אין אפשרות למחוק רשימה זו";
 "saved-pages-image-download-error" = "הורדת התמונות עבור הדך השמור הזה לא עבדה.";
@@ -1209,6 +1210,7 @@
 "talk-pages-user-groups" = "קבוצות משתמשים";
 "talk-pages-user-logs" = "יומנים";
 "talk-pages-view-title" = "שיחה";
+"temp-account-warning-title" = "החשבון שלך חולף";
 "terms-of-use-title" = "תנאי שימוש";
 "theme-black-display-name" = "שחורה";
 "theme-dark-display-name" = "חשוכה";

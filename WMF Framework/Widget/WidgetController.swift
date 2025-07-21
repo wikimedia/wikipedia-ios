@@ -12,6 +12,8 @@ public final class WidgetController: NSObject {
         case onThisDay = "org.wikimedia.wikipedia.widgets.onThisDay"
         case pictureOfTheDay = "org.wikimedia.wikipedia.widgets.potd"
         case topRead = "org.wikimedia.wikipedia.widgets.topRead"
+        case search = "org.wikimedia.wikipedia.widgets.search"
+        case lockscreenSearch = "org.wikimedia.wikipedia.widgets.lockscreen-search"
 
         public var identifier: String {
             return self.rawValue

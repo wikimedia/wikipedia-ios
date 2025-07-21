@@ -11,6 +11,7 @@
 // Author: Gzhegozh
 // Author: Ice bulldog
 // Author: JoeWalshWMF
+// Author: JorgeElias2302
 // Author: Macofe
 // Author: Movses
 // Author: Nemo bis
@@ -151,6 +152,10 @@
 "article-revision-history" = "Історія редагування статті";
 "article-save-error-not-enough-space" = "Не вистачає місця на вашому приладі, щоб зберегти цю статтю.";
 "article-share" = "Поділитися";
+"article-tabs-max-reached" = "Досягнуто ліміту вкладок ($1). Статтю було відкрито у поточній вкладці. Будь ласка, закрийте одну або кілька вкладок.";
+"article-tabs-navigation" = "Навігація вкладками";
+"article-tabs-onboarding-tooltip" = "Навчальні підказки для вкладок";
+"article-tabs-open" = "Відкрити";
 "article-tabs-open-background-tab" = "Відкрити у фоновій вкладці";
 "article-tabs-open-new-tab" = "Відкрити у новій вкладці";
 "article-talk-page" = "Сторінка обговорення статті";
@@ -164,7 +169,6 @@
 "button-ok" = "Гаразд";
 "button-publish" = "Зберегти";
 "button-publish-anyway" = "Опублікувати в будь-якому випадку";
-"button-read-now" = "Читати зараз";
 "button-report-a-bug" = "Повідомити про помилку";
 "button-save-for-later" = "Зберегти наперед";
 "button-saved-for-later" = "Збережено наперед";
@@ -177,7 +181,14 @@
 "clear-title-accessibility-label" = "Очистити";
 "clearing-cache-complete" = "Очищення кешу завершено.";
 "clearing-cache-in-progress" = "Виконується очищення кешу.";
+"close-all-tabs" = "Закрити всі вкладки";
+"close-all-tabs-confirmation" = "Хочете закрити всі вкладки ($1)? Цю дію не можна скасувати.";
+"close-all-tabs-confirmation-number" = "Закрити всі вкладки ($1)?";
 "close-button-accessibility-label" = "Закрити";
+"close-other-tabs" = "Закрити інші вкладки";
+"close-tab-confirmation" = "Закрити вкладку?";
+"close-tabs" = "Закрити вкладки";
+"closed-all-tabs-confirmation" = "Закрити всі вкладки ($1).";
 "compass-direction" = "на $1 годину";
 "confirm-donation-history-deletion-subtitle" = "Це стосується лише пожертв, зроблених із цього пристрою.";
 "confirm-donation-history-deletion-title" = "Підтвердити вилучення";
@@ -234,6 +245,7 @@
 "developer-settings-bypass-donation" = "Обійти пожертвування";
 "developer-settings-enable-year-in-review" = "Увімкнути Огляд року";
 "developer-settings-send-analytics-to-wmflabs" = "Надсилати аналітику на wmflabs.";
+"developer-settings-suppress-image-rec-post" = "Не публікуйте рекомендації щодо редагування зображень.";
 "diff-article-revision-history" = "Історія редагування статті";
 "diff-change-added" = "Додавання, $1, кінець додавання.";
 "diff-change-paragraph-lines-moved-down" = "Абзац переміщено вниз на {{PLURAL:$1|0=0 рядків|$1 рядок|$1 рядки|$1 рядків}}. Перейти на нове місце.";
@@ -316,6 +328,7 @@
 "donate-transaction-fee-opt-in-text" = "Я щедро додам $1 для покриття комісії за транзакцію, щоб ви могли отримати 100%% моєї пожертви.";
 "donate-wikimedia-fine-print-1" = "Ми нікому не продаємо і ні з ким не обмінюємося вашою інформацією. Роблячи пожертву, ви даєте згоду на повідомлення вашої персональної інформації Фонду Wikimedia Foundation, некомерційній організації, яка підтримує роботу Вікіпедії та інших проєктів Wikimedia, а також його постачальникам послуг відповідно до нашої [політики щодо донорів]($1). Фонд Wikimedia Foundation і його постачальники послуг знаходяться у Сполучених Штатах та інших країнах, де законодавство про недоторканність приватного життя може відрізнятися від відповідного законодавства, яке діє у вашій країні. Щоб отримати докладнішу інформацію, ознайомтеся з нашою [політикою щодо донорів]($1).";
 "donate-wikimedia-fine-print-2" = "Фонд Wikimedia Foundation списуватиме щомісячні платежі встановленого розміру з рахунків регулярних донорів у день здійснення першої пожертви, поки ви не повідомите нас про припинення регулярних пожертв. Пожертви, зроблені 29-го, 30-го або 31-го числа місяця, надалі будуть списуватися в останній день коротшого місяця, якомога ближче до початкової дати. Якщо у вас виникли запитання, звертайтеся за адресою donate@wikimedia.org.";
+"duplicate-tab" = "Дублювати вкладку";
 "edit-link-display-text-title" = "Показати текст";
 "edit-link-link-target-title" = "Адреса посилання";
 "edit-link-remove-link-title" = "Вилучити посилання";
@@ -694,6 +707,7 @@
 "languages-title" = "Змінити мову";
 "languages-wikipedia" = "Мови Вікіпедії";
 "learn-more-title" = "Дізнатися більше";
+"lockscreen-search-widget-description" = "Швидкий доступ до пошуку у Вікіпедії з екрана блокування.";
 "logged-out-continue-without-logging-in-button-title" = "Продовжити без входу";
 "logged-out-log-back-in-button-title" = "Назад до входу з обліковим записом";
 "logged-out-subtitle" = "Під час автентифікації вашого облікового запису виникла проблема. Вам потрібно ще раз увійти, аби можна було узгодити читальні списки та редагувати під вашим ім'ям користувача.";
@@ -715,6 +729,7 @@
 "main-menu-terms-of-use" = "Умови використання";
 "main-menu-title" = "Ще";
 "main-menu-zero-faq" = "ЧАП по Вікіпедія Zero";
+"main-page" = "Головна сторінка";
 "microsite-yir-english-edits-bytes-slide-subtitle" = "У 2024 році волонтери додали до англійської Вікіпедії 4 104 852 969 байтів. Уся їхня спільна робота разом веде до стабільно вдосконалюваного, заснованого на фактах і надійного ресурсу знань, який вони дають світові. Усі ми маємо знання, якими можемо поділитися, [дізнайтеся, як взяти участь]($1).";
 "microsite-yir-english-edits-bytes-slide-title" = "Додано 4 мільярди байтів";
 "microsite-yir-english-edits-slide-subtitle" = "Волонтери внесли 98 222 407 змін у понад 300 мовних версіях Вікіпедії. В англійській Вікіпедії було зроблено понад 37 мільйонів змін. Щогодини щодня волонтери працюють над покращенням Вікіпедії.";
@@ -738,6 +753,7 @@
 "nearby-distance-label-miles" = "$1 миль";
 "new-password-instructions" = "Ви увійшли до системи за допомогою тимчасового пароля. Аби завершити вхід, встановіть новий пароль тут.";
 "new-password-title" = "Встановіть свій пароль";
+"new-tab" = "Нова вкладка";
 "next-action-title" = "Далі";
 "no-email-account-alert" = "Будь ласка, налаштуйте обліковий запис електронної пошти на вашому пристрої і спробуйте знову.";
 "no-internet-connection" = "Немає з'єднання з інтернетом";
@@ -881,6 +897,8 @@
 "on-this-day-no-internet-error" = "Немає доступних даних";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 у Вікіпедії мовою «$2»";
 "on-this-day-title" = "Цього дня";
+"open-in-tab-tooltip-body" = "Довго натисніть на назву статті або синє посилання, щоб відкрити її в новій вкладці.";
+"open-in-tab-tooltip-title" = "Відкрити у новій вкладці";
 "original-tab-button-popover-description" = "Натисніть «W», аби повернутися до вкладинки, з якої ви почали";
 "page-history-bot-edits" = "бот";
 "page-history-compare-accessibility-hint" = "Натисніть, аби порівняти дві версії";
@@ -1078,9 +1096,12 @@
 "return-button-title" = "Повернутися";
 "return-to-article" = "Повернутися до статті";
 "reverted-edit-title" = "Відкинуте редагування";
+"save-all-tabs" = "Зберегти всі вкладки";
 "save-view-temp-account-notice" = "Ви використовуєте тимчасовий обліковий запис. Редагування зберігаються під іменем $1…";
 "save-view-temp-account-warning" = "Ви не ввійшли в систему. Коли ви зробите редагування, для вас буде створено тимчасовий обліковий запис для захисту вашої конфіденційності.";
 "saved-all-articles-title" = "Усі статті";
+"saved-all-tabs" = "Збережено всі вкладки.";
+"saved-all-tabs-view-reading-list" = "Збережено всі вкладки. Переглянути список для читання.";
 "saved-default-reading-list-tag" = "Цей список не можна вилучити";
 "saved-pages-image-download-error" = "Не вдалося завантажити малюнки для цієї збереженої сторінки.";
 "saved-pages-progress-syncing" = "Стаття завантажується…";
@@ -1103,6 +1124,10 @@
 "search-recent-title" = "Недавні пошуки";
 "search-result-redirected-from" = "Перенаправлено з: $1";
 "search-title" = "Пошук";
+"search-widget-announcement-body" = "Додайте віджет пошуку по Вікіпедії на головний екран або екран блокування для швидших відповідей, прямо на кінчиках пальців.";
+"search-widget-announcement-title" = "Доступний новий віджет пошуку";
+"search-widget-description" = "Швидкий доступ до пошуку у Вікіпедії.";
+"search-widget-wikipedia-title" = "Вікіпедія";
 "serbian-variants-alert-body" = "Тепер додаток Вікіпедії підтримує різні варіанти сербської мови як основну чи другорядну мову додатка, полегшуючи читання, пошук і редагування відповідно до ваших вподобань:\n\nсрпски ћирилица сербська, кирилиця (sr-ec)\nsrpski latinica сербська, латинка (sr-el)";
 "serbian-variants-alert-title" = "Оновлення щодо підтримки варіантів сербської";
 "settings-account" = "Обліковий запис";
@@ -1173,9 +1198,14 @@
 "table-of-contents-heading" = "Вміст";
 "table-of-contents-hide-button-label" = "Приховати вміст";
 "table-of-contents-subheading-label" = "Підзаголовок $1";
+"tabs-close-tab" = "Закрити вкладку";
 "tabs-main-page-description" = "Відкрийте для себе вибрані статті, свіжі новини, цікаві факти та ключову статистику на головній сторінці Вікіпедії.";
 "tabs-main-page-subtitle" = "Найцікавіше від Вікіпедії за сьогодні";
 "tabs-navbar-title-format" = "{{PLURAL:$1|$1 вкладка|$1 вкладки|$1 вкладок}}";
+"tabs-open-tab" = "Відкрити вкладку";
+"tabs-overview-tooltip-body" = "Перемикатися між відкритими статтями в огляді вкладок.";
+"tabs-overview-tooltip-title" = "Огляд вкладок";
+"tabs-survey-title" = "Допоможіть покращити функцію вкладок. Ви задоволені цією функцією?";
 "tachelhit-variants-alert-body" = "Тепер додаток Вікіпедії підтримує різні варіанти мови ташельхіт як основну чи другорядну мову додатка, полегшуючи читання, пошук і редагування відповідно до ваших вподобань:\n\nⵜⴰⵛⵍⵃⵉⵜ ташельхіт, тифінаг (shi-tfng)\nTaclḥit ташельхіт, латинка (shi-latn)";
 "tachelhit-variants-alert-title" = "Оновлення щодо підтримки варіантів ташельхіту";
 "tajik-variants-alert-body" = "Тепер додаток Вікіпедії підтримує різні варіанти таджицької мови як основну чи другорядну мову додатка, полегшуючи читання, пошук і редагування відповідно до ваших вподобань:\n\nтоҷикӣ кирилликӣ таджицька, кирилиця (tg-cyrl)\ntojikī lotinī таджицька, латинка (tg-latn)";

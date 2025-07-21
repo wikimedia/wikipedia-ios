@@ -16,7 +16,9 @@ public extension WMFTooltipPresenting where Self: UIViewController {
             tooltipViewModel.buttonAction = { [weak self] in
                 
                 self?.dismiss(animated: true, completion: {
-                    self?.tooltipViewModels.removeFirst()
+                    if !tooltipViewModels.isEmpty {
+                        self?.tooltipViewModels.removeFirst()
+                    }
                     self?.displayNextTooltip()
                 })
                 

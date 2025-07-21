@@ -101,6 +101,8 @@
 "article-revision-history" = "Статья версияны тарихи";
 "article-save-error-not-enough-space" = "Статьяны сакъландырыр ючюн девайсыгъызда джетерли джер джокъду";
 "article-share" = "Юлюшле";
+"article-tabs-navigation" = "Салгъыч навигация";
+"article-tabs-onboarding-tooltip" = "Салгъычла ючюн эс салыула";
 "article-talk-page" = "Статьяны сюзюу бети";
 "article-toolbar-reading-themes-controls-toolbar-item" = "Окъуу Тема Джарашдырыула";
 "article-view-controller-editing-temp-account-created-title" = "Болджаллы хыйсаб болдурду";
@@ -111,7 +113,6 @@
 "button-ok" = "ОК";
 "button-publish" = "Басмала";
 "button-publish-anyway" = "Къалай алай да публикация эт";
-"button-read-now" = "Энди окъу";
 "button-report-a-bug" = "Халатны юсюнден билдир";
 "button-save-for-later" = "Артдагъа сакъландыр";
 "button-saved-for-later" = "Артдагъа сакъланнганды";
@@ -124,7 +125,14 @@
 "clear-title-accessibility-label" = "Тазала";
 "clearing-cache-complete" = "Кэш тазалау тамамланды.";
 "clearing-cache-in-progress" = "Кэш тазалана турады.";
+"close-all-tabs" = "Бютеу салгъычланы джаб";
+"close-all-tabs-confirmation" = "Бютеу $1 салгъынчы джабаргъа излеймисиз? Бу этиу кери алыналлыкъ тюлдю.";
+"close-all-tabs-confirmation-number" = "Бютеу $1 салгъыч джабылсынмы?";
 "close-button-accessibility-label" = "Джаб";
+"close-other-tabs" = "Башха салгъычланы джаб";
+"close-tab-confirmation" = "Салгъыч джабылсынмы?";
+"close-tabs" = "Салгъычланы джаб";
+"closed-all-tabs-confirmation" = "Бютеу $1 салгъыч джабылды.";
 "compass-direction" = "сагъат $1 табада";
 "continue-button-title" = "Бардыр";
 "continue-reading-empty-description" = "Аслам статья окъур ючюн Википедияны тинтигиз";
@@ -246,6 +254,7 @@
 "donate-success-title" = "Сау бол!";
 "donate-title" = "Сумма сайла";
 "donate-transaction-fee-opt-in-text" = "Багъышым 100 %% алаллыгъыз ючюн комиссияны джабар ючюн чомартча $1 къошарыкъмы.";
+"duplicate-tab" = "Салгъычны дубликат эт";
 "edit-link-display-text-title" = "Текстни кёргюз";
 "edit-link-link-target-title" = "Джибериуню нюзюрю";
 "edit-link-remove-link-title" = "Джибериуню къорат";
@@ -626,6 +635,7 @@
 "main-menu-terms-of-use" = "Хайырланыу Шартла";
 "main-menu-title" = "Энтда";
 "main-menu-zero-faq" = "Wikipedia Zero FAQ";
+"main-page" = "Баш бет";
 "more-languages-tooltip-description" = "Википедияда 300-дан аслам тилде излегиз";
 "more-languages-tooltip-title" = "Тилле къош";
 "more-menu" = "Энтда";
@@ -637,6 +647,7 @@
 "nearby-distance-label-miles" = "$1 миль";
 "new-password-instructions" = "Кёзюулю пароль бла кирдигиз. Кириуню тамамлар ючюн, былайда джангы пароль салыгъыз.";
 "new-password-title" = "Паролунгу сал";
+"new-tab" = "Джангы салгъыч";
 "next-action-title" = "Эндиги";
 "no-email-account-alert" = "Тилейбиз, девайсыгъызда электрон почта хыйсабны джарашдырыб, джангыдан сынагъыз.";
 "no-internet-connection" = "Интернет байлам джокъду";
@@ -964,7 +975,10 @@
 "return-button-title" = "Кери къайт";
 "return-to-article" = "Статьягъа кери къайт";
 "reverted-edit-title" = "Кери алыннган тюзетиу";
+"save-all-tabs" = "Бютеу салгъычланы сакъландыр";
 "saved-all-articles-title" = "Бютеу статьяла";
+"saved-all-tabs" = "Бютеу салгъычла сакъланды.";
+"saved-all-tabs-view-reading-list" = "Бютеу салгъычланы сакъландыр. Окуу тизмени кёргюз.";
 "saved-default-reading-list-tag" = "Бу тизме кетерилалмады";
 "saved-pages-image-download-error" = "Бу сакъланнган бет ючюн суратла эндирилмеди.";
 "saved-pages-progress-syncing" = "Статья эндириу ишлеу бардырылады...";

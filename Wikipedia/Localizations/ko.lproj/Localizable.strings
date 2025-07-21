@@ -123,6 +123,7 @@
 "activity-tab-view-editing-history" = "편집 역사 보기";
 "activity-tab-view-reading-history" = "읽기 역사 보기";
 "activity-tab-view-saved-articles" = "저장된 문서 참조";
+"activity-tab-you-edited" = "이번 주에 {{PLURAL:$1|$1번}} 편집했습니다.";
 "activity-tab-you-read" = "이번 주에 {{PLURAL:$1|$1개 문서}}를 읽었습니다.";
 "activity-tab-you-saved" = "이번 주에 {{PLURAL:$1|문서 $1개}}를 저장했습니다.";
 "add-articles-to-reading-list" = "{{PLURAL:$1|문서 $1개}}를 읽기 목록에 추가";
@@ -156,6 +157,10 @@
 "article-revision-history" = "문서 편집 역사";
 "article-save-error-not-enough-space" = "장치에 이 문서를 저장할 공간이 충분하지 않습니다";
 "article-share" = "공유";
+// Fuzzy
+"article-tabs-max-reached" = "탭 제한에 도달했습니다. ($1개) 하나 이상의 탭을 닫아 주십시오.";
+"article-tabs-navigation" = "탭 둘러보기";
+"article-tabs-open" = "열기";
 "article-tabs-open-background-tab" = "백그라운드 탭에서 열기";
 "article-tabs-open-new-tab" = "새 탭에서 열기";
 "article-talk-page" = "문서 토론 페이지";
@@ -169,7 +174,6 @@
 "button-ok" = "확인";
 "button-publish" = "게시";
 "button-publish-anyway" = "게시하기";
-"button-read-now" = "지금 읽기";
 "button-report-a-bug" = "버그 보고";
 "button-save-for-later" = "나중에 쓰기 위해 저장";
 "button-saved-for-later" = "나중에 쓰기 위해 저장";
@@ -182,7 +186,12 @@
 "clear-title-accessibility-label" = "지우기";
 "clearing-cache-complete" = "캐시 지우기가 완료되었습니다.";
 "clearing-cache-in-progress" = "캐시를 지우는 중입니다.";
+"close-all-tabs" = "모든 탭 닫기";
+"close-all-tabs-confirmation-number" = "$1개 탭을 모두 닫으시겠습니까?";
 "close-button-accessibility-label" = "닫기";
+"close-other-tabs" = "다른 탭 닫기";
+"close-tab-confirmation" = "탭을 닫으시겠습니까?";
+"close-tabs" = "탭 닫기";
 "compass-direction" = "$1시에";
 "confirm-donation-history-deletion-subtitle" = "이 장치를 통해 이루어진 기부에만 적용됩니다.";
 "confirm-donation-history-deletion-title" = "삭제 확인";
@@ -312,6 +321,7 @@
 "donate-success-subtitle" = "당신의 너그러움은 우리에게 너무나 소중합니다.";
 "donate-success-title" = "고맙습니다!";
 "donate-title" = "금액 선택";
+"duplicate-tab" = "탭 복제";
 "edit-link-display-text-title" = "텍스트 표시";
 "edit-link-link-target-title" = "링크 대상";
 "edit-link-remove-link-title" = "링크 제거";
@@ -705,8 +715,7 @@
 "main-menu-title" = "더 보기";
 "main-menu-zero-faq" = "위키백과 제로 FAQ";
 "microsite-yir-english-edits-bytes-slide-title" = "40억 바이트 추가됨";
-// Fuzzy
-"microsite-yir-english-edits-slide-title" = "편집자들은 올해 약 8,200만 건의 변경을 수행했습니다";
+"microsite-yir-english-edits-slide-title" = "편집자들은 올해 9,800만 건의 변경을 수행했습니다";
 "microsite-yir-english-non-donor-slide-title" = "위키백과에 게재된 광고는 0개입니다";
 "microsite-yir-english-reading-slide-title" = "읽기에 29억 시간이 할애됐습니다";
 "microsite-yir-english-saved-reading-slide-title" = "6,220만 개가 넘는 읽기 목록이 있습니다";
@@ -722,6 +731,7 @@
 "nearby-distance-label-miles" = "$1 마일";
 "new-password-instructions" = "임시 비밀번호로 로그인하였습니다. 로그인을 마치려면 여기에 새로운 비밀번호를 설정하십시오.";
 "new-password-title" = "비밀번호 설정";
+"new-tab" = "새 탭";
 "next-action-title" = "다음";
 "no-email-account-alert" = "장치에 이메일 계정을 설정한 뒤 다시 시도하세요.";
 "no-internet-connection" = "인터넷 연결 없음";
@@ -863,11 +873,13 @@
 "on-this-day-no-internet-error" = "이용 가능한 데이터 없음";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$2 위키백과에서 $1";
 "on-this-day-title" = "오늘의 역사";
+"open-in-tab-tooltip-title" = "새 탭에서 열기";
 "original-tab-button-popover-description" = "시작한 탭으로 돌아가려면 'W'를 탭하세요";
 "page-history-bot-edits" = "봇";
 "page-history-compare-accessibility-hint" = "탭하여 비교할 판 2개를 선택하십시오";
 "page-history-compare-title" = "비교하기";
 "page-history-graph-accessibility-label" = "시간의 경과에 따른 편집 그래프";
+"page-history-logged-in-edits" = "로그인함";
 "page-history-minor-edits" = "사소한 편집";
 "page-history-revision-author-accessibility-label" = "만든이: $1";
 "page-history-revision-comment-accessibility-label" = "$1의 의견";
@@ -958,6 +970,7 @@
 "reading-list-create-new-list-reading-list-name" = "읽기 목록 이름";
 "reading-list-create-new-list-title" = "새 목록 만들기";
 "reading-list-deleted-accessibility-notification" = "읽기 목록을 삭제했습니다";
+"reading-list-detail-search-placeholder" = "읽기 목록 검색";
 "reading-list-do-not-keep-button-title" = "아니요, 장치에서 문서를 삭제합니다";
 "reading-list-entry-limit-exceeded-message" = "이 문서의 모든 목록의 동기화를 계속하려면 이 목록의 문서 수를 $1개로 줄여 주십시오.";
 "reading-list-entry-limit-exceeded-title" = "계정 당 {{PLURAL:$1|$1개의 문서}} 제한에 도달했습니다.";
@@ -1051,9 +1064,12 @@
 "return-button-title" = "돌아가기";
 "return-to-article" = "문서로 돌아가기";
 "reverted-edit-title" = "되돌려진 편집";
+"save-all-tabs" = "모든 탭 저장";
 "save-view-temp-account-notice" = "임시 계정을 사용하고 있습니다. 편집은 $1에 귀속됩니다...";
 "save-view-temp-account-warning" = "로그인 상태가 아닙니다. 편집을 하면 개인정보 보호를 위해 임시 계정이 생성됩니다.";
 "saved-all-articles-title" = "모든 문서";
+"saved-all-tabs" = "모든 탭을 저장했습니다.";
+"saved-all-tabs-view-reading-list" = "모든 탭을 저장했습니다. 읽기 목록을 확인하세요.";
 "saved-default-reading-list-tag" = "이 목록은 삭제할 수 없습니다";
 "saved-pages-image-download-error" = "저장된 문서를 위해 이미지를 다운로드하는데 실패했습니다.";
 "saved-pages-progress-syncing" = "문서 다운로드 진행 중...";
@@ -1076,6 +1092,8 @@
 "search-recent-title" = "최근 검색한 항목";
 "search-result-redirected-from" = "($1에서 넘어옴)";
 "search-title" = "검색";
+"search-widget-announcement-title" = "새로운 검색 위젯을 사용할 수 있습니다";
+"search-widget-wikipedia-title" = "위키백과";
 "serbian-variants-alert-body" = "이제 위키백과 앱에서 아래의 세르비아어 변이형을 주 언어나 보조 언어로 설정할 수 있으며, 이를 통해 선호하는 변이형으로 문서의 열람, 검색, 편집 작업을 쉽게 할 수 있습니다.\n\nсрпски ћирилица 세르비아어 키릴 (sr-ec)\nsrpski latinica 세르비아어 라틴 (sr-el)";
 "serbian-variants-alert-title" = "세르비아어 변이형 지원 업데이트";
 "settings-account" = "계정";
@@ -1143,6 +1161,9 @@
 "table-of-contents-heading" = "목차";
 "table-of-contents-hide-button-label" = "목차 숨기기";
 "table-of-contents-subheading-label" = "$1단계 하위 문단";
+"tabs-close-tab" = "탭 닫기";
+"tabs-navbar-title-format" = "{{PLURAL:$1|탭 $1개}}";
+"tabs-open-tab" = "탭 열기";
 "tachelhit-variants-alert-body" = "이제 위키백과 앱에서 아래의 타셸히트어 변이형을 주 언어나 보조 언어로 설정할 수 있으며, 이를 통해 선호하는 변이형으로 문서의 열람, 검색, 편집 작업을 쉽게 할 수 있습니다.\n\nⵜⴰⵛⵍⵃⵉⵜ 타셸히트어 티피나그 (shi-tfng)\nTaclḥit 타셸히트어 라틴 (shi-latn)";
 "tachelhit-variants-alert-title" = "타셸히트어 변이형 지원 업데이트";
 "tajik-variants-alert-body" = "이제 위키백과 앱에서 아래의 타지크어 변이형을 주 언어나 보조 언어로 설정할 수 있으며, 이를 통해 선호하는 변이형으로 문서의 열람, 검색, 편집 작업을 쉽게 할 수 있습니다.\n\nтоҷикӣ кирилликӣ 타지크어 키릴 (tg-cyrl)\ntojikī lotinī 타지크어 라틴 (tg-latn)";

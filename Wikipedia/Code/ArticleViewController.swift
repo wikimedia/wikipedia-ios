@@ -188,6 +188,7 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
         super.init(nibName: nil, bundle: nil)
         self.theme = theme
         hidesBottomBarWhenPushed = true
+        
     }
     
     deinit {
@@ -467,9 +468,11 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
         DonateFunnel.shared.logArticleProfile(project: project, metricsID: metricsID)
         profileCoordinator?.start()
     }
-    
+
+    var showTabsOverview: (() -> Void)?
+
     @objc func userDidTapTabs() {
-        _ = tabsCoordinator?.start()
+        showTabsOverview?()
         if let wikimediaProject = WikimediaProject(siteURL: articleURL) {
             ArticleTabsFunnel.shared.logIconClick(interface: .article, project: wikimediaProject)
         }
@@ -513,6 +516,10 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
         saveArticleScrollPosition()
         stopSignificantlyViewedTimer()
         persistPageViewedSecondsForWikipediaInReview()
+        
+        if let tooltips = presentedViewController as? WMFTooltipViewController {
+            tooltips.dismiss(animated: true)
+        }
     }
 
     // MARK: Article load
@@ -747,7 +754,7 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
         
         searchViewController.populateSearchBarWithTextAction = populateSearchBarWithTextAction
         
-        let searchBarConfig = WMFNavigationBarSearchConfig(searchResultsController: searchViewController, searchControllerDelegate: self, searchResultsUpdater: self, searchBarDelegate: nil, searchBarPlaceholder: WMFLocalizedString("search-field-placeholder-text", value: "Search Wikipedia", comment: "Search field placeholder text"), showsScopeBar: false, scopeButtonTitles: nil)
+        let searchBarConfig = WMFNavigationBarSearchConfig(searchResultsController: searchViewController, searchControllerDelegate: self, searchResultsUpdater: self, searchBarDelegate: nil, searchBarPlaceholder: CommonStrings.searchBarPlaceholder, showsScopeBar: false, scopeButtonTitles: nil)
 
         configureNavigationBar(titleConfig: titleConfig, backButtonConfig: backButtonConfig, closeButtonConfig: nil, profileButtonConfig: profileButtonConfig, tabsButtonConfig: tabsButtonConfig, searchBarConfig: searchBarConfig, hideNavigationBarOnScroll: true)
     }
@@ -1175,6 +1182,16 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
         updateTableOfContentsHighlightIfNecessary()
 
         calculateNavigationBarHiddenState(scrollView: webView.scrollView)
+
+        if #available(iOS 18.0, *) {
+            let velocity = scrollView.panGestureRecognizer.velocity(in: scrollView).y
+
+            if velocity < 0 { // Scrolling down
+                tabBarController?.setTabBarHidden(true, animated: true)
+            } else if velocity > 0 { // Scrolling up
+                tabBarController?.setTabBarHidden(false, animated: true)
+            }
+        }
     }
     
     func scrollViewDidScrollToTop(_ scrollView: UIScrollView) {
@@ -1554,5 +1571,6 @@ extension ArticleViewController: UISearchControllerDelegate {
     func didDismissSearchController(_ searchController: UISearchController) {
         navigationController?.hidesBarsOnSwipe = true
         searchBarIsAnimating = false
+        SearchFunnel.shared.logSearchCancel(source: "article")
     }
 }

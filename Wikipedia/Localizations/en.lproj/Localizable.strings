@@ -123,6 +123,8 @@
 "article-revision-history" = "Article revision history";
 "article-save-error-not-enough-space" = "You do not have enough space on your device to save this article";
 "article-share" = "Share";
+"article-tabs-button-accessibility-hint" = "Navigates to tabs overview";
+"article-tabs-button-accessibility-label" = "Article tabs";
 "article-tabs-max-reached" = "Tab limit reached ($1). The article was opened in the current tab. Please close one or more tabs.";
 "article-tabs-navigation" = "Tabs navigation";
 "article-tabs-onboarding-tooltip" = "Onboarding tooltips for tabs";
@@ -561,7 +563,6 @@
 "gan-variants-alert-body" = "The Wikipedia app now supports the following Gan variants as primary or secondary languages within the app, making it easier to read, search and edit in your preferred variants:\n\n贛語 原文 Gan (gan)\n赣语 简体 Gan, Simplified (gan-hans)\n贛語 繁體 Gan, Traditional (gan-hant)";
 "gan-variants-alert-title" = "Updates to Gan variant support";
 "history-clear-all" = "Clear";
-"history-clear-cancel" = "Cancel";
 "history-clear-confirmation-heading" = "Are you sure you want to delete all your recent items?";
 "history-clear-delete-all" = "Yes, delete all";
 "history-title" = "History";
@@ -678,6 +679,7 @@
 "languages-title" = "Change language";
 "languages-wikipedia" = "Wikipedia languages";
 "learn-more-title" = "Learn more";
+"lockscreen-search-widget-description" = "Quick access to search Wikipedia from your lock screen.";
 "logged-out-continue-without-logging-in-button-title" = "Continue without logging in";
 "logged-out-log-back-in-button-title" = "Log back in to your account";
 "logged-out-subtitle" = "There was a problem authenticating your account. In order to sync your reading lists and edit under your user name please log back in.";
@@ -1086,7 +1088,6 @@
 "search-did-you-mean" = "Did you mean $1?";
 "search-field-placeholder-text" = "Search Wikipedia";
 "search-reading-list-placeholder-text" = "Search reading list";
-"search-recent-clear-cancel" = "Cancel";
 "search-recent-clear-confirmation-heading" = "Delete all recent searches?";
 "search-recent-clear-confirmation-sub-heading" = "This action cannot be undone!";
 "search-recent-clear-delete-all" = "Delete All";
@@ -1094,6 +1095,10 @@
 "search-recent-title" = "Recently searched";
 "search-result-redirected-from" = "Redirected from: $1";
 "search-title" = "Search";
+"search-widget-announcement-body" = "Add the Wikipedia Search widget to your Home or Lock Screen for faster answers, right at your fingertips.";
+"search-widget-announcement-title" = "New Search widget available";
+"search-widget-description" = "Quick access to search Wikipedia.";
+"search-widget-wikipedia-title" = "Wikipedia";
 "serbian-variants-alert-body" = "The Wikipedia app now supports the following Serbian variants as primary or secondary languages within the app, making it easier to read, search and edit in your preferred variants:\n\nсрпски ћирилица Serbian, Cyrillic (sr-ec)\nsrpski latinica Serbian, Latin (sr-el)";
 "serbian-variants-alert-title" = "Updates to Serbian variant support";
 "settings-account" = "Account";
@@ -1269,6 +1274,7 @@
 "theme-default-explanation" = "Matches system theme";
 "theme-light-display-name" = "Light";
 "theme-sepia-display-name" = "Sepia";
+"today-title" = "Today";
 "top-read-widget-description" = "Learn what the world is reading today on Wikipedia.";
 "top-read-widget-readers-count" = "$1 readers";
 "top-read-widget-title" = "Top read";
@@ -1472,3 +1478,4 @@
 "year-in-review-survey-very-unsatisfied" = "Very unsatisfied";
 "year-in-review-wikipedia-w-accessibility-label" = "Wikipedia w logo";
 "year-in-review-wmf-logo-accessibility-label" = "Wikimedia Foundation logo";
+"yesterday-title" = "Yesterday";

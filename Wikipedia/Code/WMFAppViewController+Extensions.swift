@@ -132,21 +132,24 @@ extension WMFAppViewController {
         }
         
         do {
-            _ = try dataController.assignActivityTabExperiment(project: wmfProject)
-            EditInteractionFunnel.shared.logActivityTabGroupAssignment(project: project)
+            let assignment = try dataController.assignActivityTabExperiment(project: wmfProject)
+            EditInteractionFunnel.shared.logActivityTabGroupAssignment(groupAssignment: assignment.rawValue, project: project)
         } catch {
             DDLogError("Error fetching activity tab experiment: \(error)")
         }
     }
 
     @objc func getAssignmentForActivityTabExperiment() -> Int {
-        guard let dataController = WMFActivityTabExperimentsDataController.shared else {
+        guard let dataController = WMFActivityTabExperimentsDataController.shared,
+              let primaryLanguage = dataStore.languageLinkController.appLanguage,
+              let project = WikimediaProject(siteURL: primaryLanguage.siteURL),
+              let wmfProject = project.wmfProject else {
             return 0
         }
         var assignment = 0 // start as control
-        
+
         do {
-            let currentAssigment = try dataController.getActivityTabExperimentAssignment()
+            let currentAssigment = try dataController.getActivityTabExperimentAssignment(project: wmfProject)
             assignment = currentAssigment.rawValue
         } catch {
             DDLogError("Error reading activity tab assignment: \(error)")
@@ -736,6 +739,70 @@ extension WMFAppViewController {
         return WMFAppEnvironment.current.traitCollection != traitCollection
     }
 
+    @objc func generateHistoryTab() -> WMFHistoryViewController {
+
+        // data controller properties
+        let recordsProvider: WMFHistoryDataController.RecordsProvider = { [weak self] in
+
+            guard let self else {
+                return []
+            }
+
+            let request: NSFetchRequest<WMFArticle> = WMFArticle.fetchRequest()
+            request.predicate = NSPredicate(format: "viewedDate != NULL")
+            request.sortDescriptors = [
+                NSSortDescriptor(keyPath: \WMFArticle.viewedDateWithoutTime, ascending: false),
+                NSSortDescriptor(keyPath: \WMFArticle.viewedDate, ascending: false)
+            ]
+
+            do {
+                var articles: [HistoryRecord] = []
+                let articleFetchRequest = try dataStore.viewContext.fetch(request)
+
+                for article in articleFetchRequest {
+                    if let viewedDate = article.viewedDate, let pageID = article.pageID {
+
+                        let record = HistoryRecord(
+                            id: Int(truncating: pageID),
+                            title: article.displayTitle ?? article.displayTitleHTML,
+                            descriptionOrSnippet: article.capitalizedWikidataDescriptionOrSnippet,
+                            shortDescription: article.snippet,
+                            articleURL: article.url,
+                            imageURL: article.imageURLString,
+                            viewedDate: viewedDate,
+                            isSaved: article.isSaved,
+                            snippet: article.snippet,
+                            variant: article.variant
+                        )
+                        articles.append(record)
+                    }
+                }
+
+                return articles
+
+            } catch {
+                DDLogError("Error fetching history: \(error)")
+                return []
+            }
+        }
+
+        let historyDataController = WMFHistoryDataController(
+            recordsProvider: recordsProvider
+        )
+
+        // view model properties
+
+        let todayTitle = WMFLocalizedString("today-title", value: "Today", comment: "Title for today section on article view history")
+
+        let yesterdayTitle = WMFLocalizedString("yesterday-title", value: "Yesterday", comment: "Title for yesterday section on article view history")
+
+        let localizedStrings = WMFHistoryViewModel.LocalizedStrings(emptyViewTitle: CommonStrings.emptyNoHistoryTitle, emptyViewSubtitle: CommonStrings.emptyNoHistorySubtitle, todayTitle: todayTitle, yesterdayTitle: yesterdayTitle, openArticleActionTitle: CommonStrings.articleTabsOpen, saveForLaterActionTitle: CommonStrings.saveTitle, unsaveActionTitle: CommonStrings.unsaveTitle, shareActionTitle: CommonStrings.shareMenuTitle, deleteSwipeActionLabel: CommonStrings.deleteActionTitle)
+        let viewModel = WMFHistoryViewModel(emptyViewImage: UIImage(named: "history-blank"), localizedStrings: localizedStrings, historyDataController: historyDataController)
+
+        let viewController = WMFHistoryViewController(viewModel: viewModel, dataController: historyDataController, theme: theme, dataStore: dataStore)
+        return viewController
+    }
+
     @objc func generateActivityTab(exploreViewController: ExploreViewController) -> WMFActivityTabViewController {
         
         var wikimediaProject: WikimediaProject? = nil
@@ -758,10 +825,7 @@ extension WMFAppViewController {
                 return
             }
 
-            let historyVC = HistoryViewController()
-            historyVC.dataStore = self.dataStore
-            historyVC.apply(theme: self.theme)
-            historyVC.title = CommonStrings.historyTabTitle
+            let historyVC = generateHistoryTab()
             navigationController.pushViewController(historyVC, animated: true)
         }
         
@@ -776,10 +840,7 @@ extension WMFAppViewController {
                 return
             }
 
-            let historyVC = HistoryViewController()
-            historyVC.dataStore = self.dataStore
-            historyVC.apply(theme: self.theme)
-            historyVC.title = CommonStrings.historyTabTitle
+            let historyVC = generateHistoryTab()
             navigationController.pushViewController(historyVC, animated: true)
         }
         

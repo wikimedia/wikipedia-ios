@@ -156,7 +156,6 @@
 "button-ok" = "OK";
 "button-publish" = "Publiceren";
 "button-publish-anyway" = "Toch publiceren";
-"button-read-now" = "Nu lezen";
 "button-report-a-bug" = "Probleem melden";
 "button-save-for-later" = "Opslaan voor later";
 "button-saved-for-later" = "Opgeslagen voor later";
@@ -1406,7 +1405,7 @@
 "year-in-review-feature-announcement-body-personalized" = "Bekijk inzichten over de artikelen die je leest op de Wikipedia-app, deel je reis en ontdek hoogtepunten uit je jaar.";
 "year-in-review-feature-announcement-title" = "Verken Wikipedia in Overzicht";
 "year-in-review-feature-announcement-title-personalized" = "Verken je jaaroverzicht van Wikipedia";
-"year-in-review-feature-explore-body" = "Wikipedia is de grootste kennisbron die ooit is verzameld in de geschiedenis van de wereld, en het is overal vrij toegankelijk voor iedereen. Kijk terug op 2024 door de lens van Wikipedia.";
+"year-in-review-feature-explore-body" = "Wikipedia is de grootste kennisbron die in de geschiedenis van de wereld ooit is samengesteld, en is overal en voor iedereen vrij toegankelijk. Kijk terug op 2024 door de lens van Wikipedia.";
 "year-in-review-feature-explore-body-personalized" = "Bekijk inzichten over welke artikelen u in de Wikipedia-app leest en welke bewerkingen u in 2024 hebt gemaakt. Uw leesgeschiedenis blijft beschermd. Leesinzichten worden berekend met behulp van lokaal op uw apparaat opgeslagen gegevens.";
 "year-in-review-finish" = "Voltooien";
 "year-in-review-login-subtitle" = "Log in of maak een account aan om in aanmerking te komen voor meer gepersonaliseerde inzichten";
@@ -1425,7 +1424,7 @@
 "year-in-review-personalized-explore" = "Een animatie van een hand die de Wikipedia-wereldbol vasthoudt. De wereldbol verandert geleidelijk in een klein puzzelstukje, wat symbool staat voor individuele bijdragen aan het platform.";
 "year-in-review-personalized-reading-subtitle-format" = "U hebt $1 artikel{{PLURAL:$1||en}} gelezen. Wikipedia bevatte $2 miljoen artikelen in meer dan $3 actieve talen. Samen met miljoenen anderen hebt u uw kennis uitgebreid en diverse onderwerpen verkend.";
 "year-in-review-personalized-reading-title-format" = "U hebt {{PLURAL:$1|$1 artikel|$1 artikelen}} gelezen";
-"year-in-review-personalized-saved-articles" = "Illustratie van een puzzelstukje met een helm, met op de achterkant computerschermen.";
+"year-in-review-personalized-saved-articles" = "Illustratie van een puzzelstukje met een veiligheidshelm op, met computerschermen in de achtergrond.";
 "year-in-review-personalized-saved-subtitle-format" = "Je hebt {{PLURAL:$1|$1 artikel|$1 artikelen}} opgeslagen, waaronder $2, $3 en $4. Elk opgeslagen artikel weerspiegelt je interesses en helpt bij het opbouwen van een persoonlijke kennisbank op Wikipedia.";
 "year-in-review-personalized-saved-title-format" = "Je hebt {{PLURAL:$1|$1 artikel|$1 artikelen}} opgeslagen";
 "year-in-review-personalized-user-edits" = "Een animatie van bytes die op elkaar gestapeld worden. Dit staat symbool voor voortdurende schepping van vrije kennis.";

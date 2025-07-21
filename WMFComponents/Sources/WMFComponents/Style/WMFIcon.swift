@@ -25,6 +25,7 @@ public enum WMFIcon {
     public static let addPhoto = UIImage(named: "photo-badge-plus", in: .module, with: nil) // Use SFSymbol once target is iOS17+
     public static let error = UIImage(named: "error", in: .module, with: nil)
     public static let personCircleX = UIImage(named: "person-circle-x", in: .module, with: nil) // Use SFSymbol once target is iOS17+
+    public static let anonymous = UIImage(named: "user-anonymous", in: .module, with: nil)
 
     // Project icons
     public static let commons = UIImage(named: "project-icons/commons", in: .module, with: nil)
@@ -110,6 +111,7 @@ public enum WMFSFSymbolIcon {
     case calendar
     case share
     case infoCircleFill
+    case trash
     case temporaryAccountIcon
     case tabsIcon
     case tabsIconBackground
@@ -275,6 +277,9 @@ public enum WMFSFSymbolIcon {
             image = UIImage(systemName: "square.and.arrow.up", withConfiguration: configuration)
         case .infoCircleFill:
             image = UIImage(systemName: "info.circle.fill", withConfiguration: configuration)
+        case .trash:
+            image = UIImage(systemName: "trash", withConfiguration: configuration)
+
         case .temporaryAccountIcon:
             image = UIImage(systemName: "person.crop.circle.badge.xmark", withConfiguration: configuration)
         case .tabsIcon:
