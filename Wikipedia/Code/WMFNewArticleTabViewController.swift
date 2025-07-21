@@ -230,8 +230,6 @@ extension WMFNewArticleTabController: UISearchControllerDelegate {
     func didDismissSearchController(_ searchController: UISearchController) {
         presentingSearchResults = false
         navigationController?.hidesBarsOnSwipe = true
-        navigationController?.popViewController(animated: true)
-
         userDidTapTabs()
     }
 }
