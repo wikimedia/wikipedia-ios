@@ -432,7 +432,6 @@
 "forgot-password-title" = "ตั้งรหัสผ่านใหม่";
 "forgot-password-username-or-email-title" = "หรือ";
 "history-clear-all" = "ล้าง";
-"history-clear-cancel" = "ยกเลิก";
 "history-clear-confirmation-heading" = "คุณแน่ใจหรือว่าคุณต้องการลบรายการล่าสุดของคุณทั้งหมด?";
 "history-clear-delete-all" = "ใช่ ลบทั้งหมด";
 "history-title" = "ประวัติ";
@@ -837,7 +836,6 @@
 "search-did-you-mean" = "คุณอาจหมายถึง $1";
 "search-field-placeholder-text" = "ค้นหาวิกิพีเดีย";
 "search-reading-list-placeholder-text" = "ค้นหารายการอ่าน";
-"search-recent-clear-cancel" = "ยกเลิก";
 "search-recent-clear-confirmation-heading" = "ลบการค้นหาล่าสุดทั้งหมด?";
 "search-recent-clear-confirmation-sub-heading" = "การกระทำนี้ไม่สามารถยกเลิกได้!";
 "search-recent-clear-delete-all" = "ลบทั้งหมด";

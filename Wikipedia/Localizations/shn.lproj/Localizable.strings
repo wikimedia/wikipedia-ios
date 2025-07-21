@@ -325,7 +325,6 @@
 "forgot-password-title" = "ၶိုၼ်းမႄးတင်ႈ ၶေႃႈလပ်ႉ";
 "forgot-password-username-or-email-title" = "ဢမ်ႇၼၼ်";
 "history-clear-all" = "ၽဵဝ်ႈလၢင်ႉ";
-"history-clear-cancel" = "ယုၵ်ႉလိူၵ်ႈ";
 "history-clear-confirmation-heading" = "ၸဝ်ႈၵဝ်ႇတေၶႂ်ႈမွတ်ႇပႅတ်ႈတင်းသဵင်ႈၼႆ လပ်ႉလွင်းယဝ်ႉႁႃႉ?";
 "history-clear-delete-all" = "ၸႂ်ႈယဝ်ႉ၊ မွတ်ႇပႅတ်ႈသဵင်ႈသဵင်ႈ";
 "history-title" = "ပိုၼ်း";
@@ -569,7 +568,6 @@
 "search-did-you-mean" = "ၸဝ်ႈၵဝ်ႇ မၢႆထိုင်ဝႃႈ  $1?";
 "search-field-placeholder-text" = "ၶူၼ်ႉႁႃ ဝီႇၶီႇၽီးတီးယႃး";
 "search-reading-list-placeholder-text" = "ၶူၼ်ႉႁႃ သဵၼ်ႈမၢႆလွင်ႈလူ";
-"search-recent-clear-cancel" = "ဢမ်ႇႁဵတ်း";
 "search-recent-clear-confirmation-heading" = "တေမွတ်ႇပႅတ်ႈ လွင်ႈၶူၼ်ႉႁႃၸိူဝ်းပႆႇႁိုင်တင်းသဵင်ႈၼႄႇ?";
 "search-recent-clear-confirmation-sub-heading" = "လွင်ႈႁဵတ်းသၢင်ႈဢၼ်ၼႆႉ တေဢမ်ႇၸၢင်ႈဢဝ်ၶိုၼ်း!";
 "search-recent-clear-delete-all" = "မွတ်ႇပႅတ်ႈမူတ်း";

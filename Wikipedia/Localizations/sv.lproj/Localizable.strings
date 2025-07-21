@@ -593,7 +593,6 @@
 "gan-variants-alert-body" = "Wikipediaappen stödjer följande gan varianter som primära eller sekundära språk i appen, vilket gör det enklare att läsa, söka och redigera på dina föredragna varianter:\n\n贛語 原文 gan (gan)\n赣语 简体 gan, förenklat (gan-hans)\n贛語 繁體 gan, traditionellt (gan-hant)";
 "gan-variants-alert-title" = "Uppdaterades till stöd för gan varianter";
 "history-clear-all" = "Rensa";
-"history-clear-cancel" = "Avbryt";
 "history-clear-confirmation-heading" = "Är du säker på att du vill radera alla dina senaste objekt?";
 "history-clear-delete-all" = "Ja, radera alla";
 "history-title" = "Historik";
@@ -1119,7 +1118,6 @@
 "search-did-you-mean" = "Menade du $1?";
 "search-field-placeholder-text" = "Sök på Wikipedia";
 "search-reading-list-placeholder-text" = "Sök i läslista";
-"search-recent-clear-cancel" = "Avbryt";
 "search-recent-clear-confirmation-heading" = "Radera alla senaste sökningar?";
 "search-recent-clear-confirmation-sub-heading" = "Denna åtgärd kan inte ångras!";
 "search-recent-clear-delete-all" = "Radera alla";

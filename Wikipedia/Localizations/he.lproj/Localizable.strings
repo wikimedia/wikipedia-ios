@@ -539,7 +539,6 @@
 "gan-variants-alert-body" = "יישום ויקיפדיה תומך עכשיו בסוגים הבאים של גאנית בתור שפה ראשית או משנית בתוך היישום, כדי שיהיה קל לקרוא, לחפש, ולערוך בצורות הכתב המועדפות עליך:\n\n贛語 原文 גאנית (gan)\n赣语 简体 גאנית, מפושטת (gan-hans)\n贛語 繁體 גאנית, מסורתית (gan-hant)";
 "gan-variants-alert-title" = "עדכונים לתמיכה בהגוונים של גאנית";
 "history-clear-all" = "ניקוי";
-"history-clear-cancel" = "ביטול";
 "history-clear-confirmation-heading" = "האם באמת למחוק את כל הפריטים האחרונים שלך?";
 "history-clear-delete-all" = "כן, למחוק הכול";
 "history-title" = "היסטוריה";
@@ -1050,7 +1049,6 @@
 "search-did-you-mean" = "האם התכוונת לחפש $1?";
 "search-field-placeholder-text" = "חיפוש בוויקיפדיה";
 "search-reading-list-placeholder-text" = "חיפוש ברשימת קריאה";
-"search-recent-clear-cancel" = "ביטול";
 "search-recent-clear-confirmation-heading" = "למחוק את כל החיפושים האחרונים?";
 "search-recent-clear-confirmation-sub-heading" = "לא ניתן לבטל את הפעולה הזאת!";
 "search-recent-clear-delete-all" = "למחוק הכול";

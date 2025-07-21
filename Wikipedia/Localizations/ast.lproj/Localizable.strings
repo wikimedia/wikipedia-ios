@@ -289,7 +289,6 @@
 "forgot-password-title" = "Reaniciar la contraseña";
 "forgot-password-username-or-email-title" = "O";
 "history-clear-all" = "Llimpiar";
-"history-clear-cancel" = "Zarrar";
 "history-clear-confirmation-heading" = "¿Seguro que quies desaniciar tolos elementos recientes?";
 "history-clear-delete-all" = "Si, desaniciar too";
 "history-title" = "Historial";
@@ -489,7 +488,6 @@
 "search-did-you-mean" = "¿Quixisti dicir $1?";
 "search-field-placeholder-text" = "Guetar na Wikipedia";
 "search-reading-list-placeholder-text" = "Guetar na llista de llectura";
-"search-recent-clear-cancel" = "Zarrar";
 "search-recent-clear-confirmation-heading" = "¿Desaniciar toles guetes de recién?";
 "search-recent-clear-confirmation-sub-heading" = "¡Esta aición nun puede desfacese!";
 "search-recent-clear-delete-all" = "Desaniciar too";

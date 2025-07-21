@@ -269,7 +269,6 @@
 "forgot-password-title" = "पासवर्ड रिसेट करें";
 "forgot-password-username-or-email-title" = "या";
 "history-clear-all" = "साफ करें";
-"history-clear-cancel" = "रद्द करें";
 "history-clear-confirmation-heading" = "क्या आप वास्तव में आपके सभी हाल के आइटम्स को मिटाना चाहते हैं?";
 "history-clear-delete-all" = "हाँ, सभी मिटायें";
 "history-title" = "इतिहास";
@@ -415,7 +414,6 @@
 "search-did-you-mean" = "क्या आपका मतलब $1 था?";
 "search-field-placeholder-text" = "विकिपीडिया में खोजें";
 "search-reading-list-placeholder-text" = "पठन सूची खोजें";
-"search-recent-clear-cancel" = "रद्द करें";
 "search-recent-clear-confirmation-heading" = "हाल की सभी खोजों को मिटायें?";
 "search-recent-clear-confirmation-sub-heading" = "इस क्रिया को वापस नहीं लिया जा सकता!";
 "search-recent-clear-delete-all" = "सभी हटाएँ";

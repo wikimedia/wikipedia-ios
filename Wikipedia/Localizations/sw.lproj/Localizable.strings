@@ -46,7 +46,6 @@
 "explore-feed-customize-accessibility-title" = "Rekebisha";
 "explore-feed-preferences-card-hidden-title" = "kadi iliyofichwa";
 "explore-nearby-placeholder-sub-heading-on-wikipedia" = "Kutoka Wikipedia";
-"history-clear-cancel" = "Ghairi";
 // Fuzzy
 "history-clear-confirmation-heading" = "Futa vifaa vyote vya hivi karibuni?";
 // Fuzzy
@@ -74,7 +73,6 @@
 "places-location-enabled" = "uonyeshi umewezeshwa";
 "search-did-you-mean" = "Ulimaanisha $1?";
 "search-field-placeholder-text" = "Tafuta Wikipedia";
-"search-recent-clear-cancel" = "Ghairi";
 "search-recent-clear-delete-all" = "Futa Zote";
 // Fuzzy
 "search-recent-title" = "Kutafuta kwa hivi karibuni";

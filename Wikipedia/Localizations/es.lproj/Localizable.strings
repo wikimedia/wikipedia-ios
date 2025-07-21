@@ -199,6 +199,8 @@
 "article-revision-history" = "Historial de revisión del artículo";
 "article-save-error-not-enough-space" = "No hay espacio suficiente en el dispositivo para guardar este artículo";
 "article-share" = "Compartir";
+"article-tabs-button-accessibility-hint" = "Navega a la descripción general de las pestañas";
+"article-tabs-button-accessibility-label" = "Pestañas de artículos";
 "article-tabs-max-reached" = "Se alcanzó el límite de pestañas ( $1 ). El artículo se abrió en la pestaña actual. Cierre una o más pestañas.";
 "article-tabs-navigation" = "Navegación por pestañas";
 "article-tabs-onboarding-tooltip" = "Información sobre herramientas de incorporación para pestañas";
@@ -637,7 +639,6 @@
 "gan-variants-alert-body" = "La aplicación de Wikipedia ahora soporta las variantes del gan siguientes como lenguas primarias o secundarias dentro de la aplicación, haciéndolo más fácil de leer, buscar y editar en tus variantes preferidas:\n\n贛語 原文 Gan (gan)\n赣语 简体 Gan, simplificado (gan-hans)\n贛語 繁體 Gan, tradicional (gan-hant)";
 "gan-variants-alert-title" = "Actualizaciones a soporte de variantes del gan";
 "history-clear-all" = "Vaciar";
-"history-clear-cancel" = "Cancelar";
 "history-clear-confirmation-heading" = "¿Confirmas que quieres borrar todos los elementos recientes?";
 "history-clear-delete-all" = "Sí, borrar todos";
 "history-title" = "Historial";
@@ -1163,7 +1164,6 @@
 "search-did-you-mean" = "¿Quisiste decir $1?";
 "search-field-placeholder-text" = "Buscar en Wikipedia";
 "search-reading-list-placeholder-text" = "Buscar en lista de lectura";
-"search-recent-clear-cancel" = "Cancelar";
 "search-recent-clear-confirmation-heading" = "¿Borrar todas las búsquedas recientes?";
 "search-recent-clear-confirmation-sub-heading" = "Esta acción no se puede deshacer.";
 "search-recent-clear-delete-all" = "Borrar todas";

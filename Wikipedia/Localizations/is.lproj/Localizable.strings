@@ -421,7 +421,6 @@
 "forgot-password-username-or-email-title" = "eða";
 "gan-variants-alert-title" = "Uppfærslur á stuðningi við tilbrigði Gan";
 "history-clear-all" = "Hreinsa";
-"history-clear-cancel" = "Hætta við";
 "history-clear-confirmation-heading" = "Á að eyða öllum nýlegum atriðum?";
 "history-clear-delete-all" = "Já, eyða öllu";
 "history-title" = "Ferilskrá";
@@ -840,7 +839,6 @@
 "search-did-you-mean" = "Áttir þú við $1?";
 "search-field-placeholder-text" = "Leita í Wikipedia";
 "search-reading-list-placeholder-text" = "Leita í leslista";
-"search-recent-clear-cancel" = "Hætta við";
 "search-recent-clear-confirmation-heading" = "Á að eyða öllum nýlegum leitum?";
 "search-recent-clear-confirmation-sub-heading" = "Þessa aðgerð er ekki hægt að afturkalla!";
 "search-recent-clear-delete-all" = "Eyða öllu";

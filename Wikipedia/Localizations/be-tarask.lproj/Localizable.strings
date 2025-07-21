@@ -49,7 +49,6 @@
 "explore-nearby-heading" = "Месцы побач";
 "explore-potd-heading" = "Выява дня";
 "explore-random-article-heading" = "Выпадковы артыкул";
-"history-clear-cancel" = "Скасаваць";
 "history-clear-confirmation-heading" = "Вы ўпэўненыя, што хочаце выдаліць усе вашыя нядаўнія элемэнты?";
 "history-clear-delete-all" = "Так, выдаліць усё";
 "history-title" = "Гісторыя";
@@ -87,7 +86,6 @@
 "saved-title" = "Захаваны";
 "search-did-you-mean" = "Магчыма, вы мелі на ўвазе $1?";
 "search-field-placeholder-text" = "Пошук па Вікіпэдыі";
-"search-recent-clear-cancel" = "Скасаваць";
 "search-recent-clear-confirmation-heading" = "Выдаліць усе апошнія пошукавыя запыты?";
 "search-recent-clear-confirmation-sub-heading" = "Гэта дзеяньне немагчыма скасаваць!";
 "search-recent-clear-delete-all" = "Выдаліць усе";

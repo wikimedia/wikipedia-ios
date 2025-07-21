@@ -613,7 +613,6 @@
 "gan-variants-alert-body" = "维基百科应用现在支持以下赣语变体作为应用内的主要语言或次要语言，从而使您更易于阅读，搜索和编辑首选变体：\n\n贛語 原文 Gan (gan)\n赣语 简体 Gan, Simplified (gan-hans)\n贛語 繁體 Gan, Traditional (gan-hant)";
 "gan-variants-alert-title" = "更新赣语变体支持";
 "history-clear-all" = "清除";
-"history-clear-cancel" = "取消";
 "history-clear-confirmation-heading" = "您确定要删除所有您最近的项目吗？";
 "history-clear-delete-all" = "是的，删除全部";
 "history-title" = "历史";
@@ -1124,7 +1123,6 @@
 "search-did-you-mean" = "您是想搜索$1吗？";
 "search-field-placeholder-text" = "搜索维基百科";
 "search-reading-list-placeholder-text" = "搜索阅读列表";
-"search-recent-clear-cancel" = "取消";
 "search-recent-clear-confirmation-heading" = "是否删除全部近期搜索记录？";
 "search-recent-clear-confirmation-sub-heading" = "此操作不能撤销！";
 "search-recent-clear-delete-all" = "删除全部";

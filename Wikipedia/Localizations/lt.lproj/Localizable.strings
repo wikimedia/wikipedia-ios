@@ -379,7 +379,6 @@
 "forgot-password-title" = "Atstatyti slaptažodį";
 "forgot-password-username-or-email-title" = "Arba";
 "history-clear-all" = "Išvalyti";
-"history-clear-cancel" = "Atšaukti";
 "history-clear-confirmation-heading" = "Ar tikrai norite ištrinti visus naujus elementus?";
 "history-clear-delete-all" = "Taip, ištrinti viską";
 "history-title" = "Istorija";
@@ -796,7 +795,6 @@
 "search-did-you-mean" = "Galbūt norėjote ieškoti: $1?";
 "search-field-placeholder-text" = "Paieška Vikipedijoje";
 "search-reading-list-placeholder-text" = "Ieškoti skaitymo sąraše";
-"search-recent-clear-cancel" = "Atšaukti";
 "search-recent-clear-confirmation-heading" = "Naikinti visas naujausias paieškas?";
 "search-recent-clear-confirmation-sub-heading" = "Šio veiksmo anuliuoti negalima!";
 "search-recent-clear-delete-all" = "Naikinti viską";
