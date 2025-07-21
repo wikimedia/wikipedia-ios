@@ -536,9 +536,9 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
     }
 
     lazy var didPressClearRecentSearches: () -> Void = { [weak self] in
-        let dialog = UIAlertController(title: WMFLocalizedString("search-recent-clear-confirmation-heading", value: "Delete all recent searches?", comment: "Heading text of delete all confirmation dialog"), message: WMFLocalizedString("search-recent-clear-confirmation-sub-heading", value: "This action cannot be undone!", comment: "Sub-heading text of delete all confirmation dialog"), preferredStyle: .alert)
+        let dialog = UIAlertController(title: CommonStrings.clearRecentSearchesDialogTitle, message: CommonStrings.clearRecentSearchesDialogSubtitle, preferredStyle: .alert)
         dialog.addAction(UIAlertAction(title:CommonStrings.cancelActionTitle, style: .cancel, handler: nil))
-        dialog.addAction(UIAlertAction(title: WMFLocalizedString("search-recent-clear-delete-all", value: "Delete All", comment: "Button text for confirming delete all action {{Identical|Delete all}}"), style: .destructive, handler: { (action) in
+        dialog.addAction(UIAlertAction(title: CommonStrings.deleteAllTitle, style: .destructive, handler: { (action) in
             self?.deleteAllAction()
         }))
         self?.present(dialog, animated: true)
