@@ -911,6 +911,9 @@
 		70B79820257577B800C10BCA /* StorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70B7981F257577B800C10BCA /* StorageManager.swift */; };
 		70B7982B25758E6D00C10BCA /* EPEventRecord+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70B7982A25758E6D00C10BCA /* EPEventRecord+CoreDataClass.swift */; };
 		70B7983625758EB800C10BCA /* EPEventRecord+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70B7983525758EB800C10BCA /* EPEventRecord+CoreDataProperties.swift */; };
+		782078FE2C9CF290007C9582 /* Capture in Frameworks */ = {isa = PBXBuildFile; productRef = 782078FD2C9CF290007C9582 /* Capture */; };
+		782079002C9CF290007C9582 /* CaptureCocoaLumberjack in Frameworks */ = {isa = PBXBuildFile; productRef = 782078FF2C9CF290007C9582 /* CaptureCocoaLumberjack */; };
+		782079022C9CF290007C9582 /* CaptureSwiftyBeaver in Frameworks */ = {isa = PBXBuildFile; productRef = 782079012C9CF290007C9582 /* CaptureSwiftyBeaver */; };
 		7A00D177208FB72900A9C7BA /* BatchEditToolbarViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A00D16C208FB61200A9C7BA /* BatchEditToolbarViewController.xib */; };
 		7A0161B41FE85C6000AEDC3D /* ReadingListsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A0161B31FE85C6000AEDC3D /* ReadingListsCollectionViewCell.swift */; };
 		7A0161B51FE85C6000AEDC3D /* ReadingListsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A0161B31FE85C6000AEDC3D /* ReadingListsCollectionViewCell.swift */; };
@@ -4765,8 +4768,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				D844D9731D6CB2600042D692 /* WMF.framework in Frameworks */,
+				782079022C9CF290007C9582 /* CaptureSwiftyBeaver in Frameworks */,
+				782079002C9CF290007C9582 /* CaptureCocoaLumberjack in Frameworks */,
 				83AF34F724D3341E000046D6 /* BackgroundTasks.framework in Frameworks */,
 				D8D553621DF1B63200B90177 /* QuartzCore.framework in Frameworks */,
+				782078FE2C9CF290007C9582 /* Capture in Frameworks */,
 				D4E6D9121A5C65F9004916C1 /* CoreData.framework in Frameworks */,
 				D499143B181D51DE00E6073C /* CoreGraphics.framework in Frameworks */,
 				D499143D181D51DE00E6073C /* UIKit.framework in Frameworks */,
@@ -7492,6 +7498,7 @@
 				0E26B0541C0E28E60004D687 /* Welcome */,
 				00D1F58D28885B8200127169 /* Talk Pages */,
 				67C797C62BD0B8F500B46869 /* UIViewController+FeatureComponentFactory.swift */,
+				7AB961D6202CB88E005DB2BA /* Protocols */,
 			);
 			name = Features;
 			sourceTree = "<group>";
@@ -7565,7 +7572,6 @@
 				BC45D5471C31E1EA007C72F3 /* Common */,
 				D810C34C1DF1C36F003427DA /* Third Party */,
 				BC45D58D1C32FD58007C72F3 /* Features */,
-				7AB961D6202CB88E005DB2BA /* Protocols */,
 			);
 			path = Code;
 			sourceTree = "<group>";
@@ -7838,21 +7844,21 @@
 		D499142C181D51DE00E6073C = {
 			isa = PBXGroup;
 			children = (
-				D499143E181D51DE00E6073C /* Wikipedia */,
-				67F47C0E2AAA6E16006E17FA /* Packages */,
-				D844D96D1D6CB2600042D692 /* WMF Framework */,
-				00021DE624D48EFD00476F97 /* Widgets */,
-				0E8380661D64989F0076EDE4 /* ContinueReadingWidget */,
-				D8479FAC1F222FE90025FD7A /* Wikipedia Stickers */,
-				676C864526D40AEB00A704C1 /* NotificationServiceExtension */,
-				D801C8501EB8E131001FA294 /* Localizations */,
-				D87021611EBA63EF000D02D6 /* Update Localizations */,
-				BC8309941A7BF935003FC5C7 /* Tests */,
-				674C176A2AAA869D007DC6CC /* Test Plans */,
 				83ACAA9F24E6DC8E003B3035 /* Command Line Tools */,
-				67623E0D2AFD2897007488C7 /* WikipediaUITests */,
-				D4991436181D51DE00E6073C /* Products */,
+				0E8380661D64989F0076EDE4 /* ContinueReadingWidget */,
 				679603972C5D48CC009606C4 /* Frameworks */,
+				D801C8501EB8E131001FA294 /* Localizations */,
+				676C864526D40AEB00A704C1 /* NotificationServiceExtension */,
+				67F47C0E2AAA6E16006E17FA /* Packages */,
+				D4991436181D51DE00E6073C /* Products */,
+				674C176A2AAA869D007DC6CC /* Test Plans */,
+				BC8309941A7BF935003FC5C7 /* Tests */,
+				D87021611EBA63EF000D02D6 /* Update Localizations */,
+				00021DE624D48EFD00476F97 /* Widgets */,
+				D499143E181D51DE00E6073C /* Wikipedia */,
+				D8479FAC1F222FE90025FD7A /* Wikipedia Stickers */,
+				67623E0D2AFD2897007488C7 /* WikipediaUITests */,
+				D844D96D1D6CB2600042D692 /* WMF Framework */,
 			);
 			sourceTree = "<group>";
 			usesTabs = 0;
@@ -8858,6 +8864,9 @@
 			);
 			name = Wikipedia;
 			packageProductDependencies = (
+				782078FD2C9CF290007C9582 /* Capture */,
+				782078FF2C9CF290007C9582 /* CaptureCocoaLumberjack */,
+				782079012C9CF290007C9582 /* CaptureSwiftyBeaver */,
 			);
 			productName = "Wikipedia-iOS";
 			productReference = D4991435181D51DE00E6073C /* Wikipedia.app */;
@@ -9223,6 +9232,7 @@
 			mainGroup = D499142C181D51DE00E6073C;
 			packageReferences = (
 				67A770C6251BFE0400F94EF9 /* XCRemoteSwiftPackageReference "CocoaLumberjack" */,
+				782078FC2C9CF290007C9582 /* XCRemoteSwiftPackageReference "capture-ios" */,
 			);
 			productRefGroup = D4991436181D51DE00E6073C /* Products */;
 			projectDirPath = "";
@@ -16790,7 +16800,15 @@
 			repositoryURL = "https://github.com/CocoaLumberjack/CocoaLumberjack.git";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 3.7.4;
+				minimumVersion = 3.8.5;
+			};
+		};
+		782078FC2C9CF290007C9582 /* XCRemoteSwiftPackageReference "capture-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/bitdriftlabs/capture-ios.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.17.13;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
@@ -16804,6 +16822,21 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 67A770C6251BFE0400F94EF9 /* XCRemoteSwiftPackageReference "CocoaLumberjack" */;
 			productName = CocoaLumberjackSwift;
+		};
+		782078FD2C9CF290007C9582 /* Capture */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 782078FC2C9CF290007C9582 /* XCRemoteSwiftPackageReference "capture-ios" */;
+			productName = Capture;
+		};
+		782078FF2C9CF290007C9582 /* CaptureCocoaLumberjack */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 782078FC2C9CF290007C9582 /* XCRemoteSwiftPackageReference "capture-ios" */;
+			productName = CaptureCocoaLumberjack;
+		};
+		782079012C9CF290007C9582 /* CaptureSwiftyBeaver */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 782078FC2C9CF290007C9582 /* XCRemoteSwiftPackageReference "capture-ios" */;
+			productName = CaptureSwiftyBeaver;
 		};
 /* End XCSwiftPackageProductDependency section */
 

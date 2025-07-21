@@ -1,6 +1,7 @@
 import UIKit
 import BackgroundTasks
 import CocoaLumberjackSwift
+import Capture
 
 #if TEST
 // Avoids loading needless dependencies during unit tests
@@ -25,6 +26,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
+        // TODO ales
+        /// Addig instrumentation
+        Logger.start(
+          withAPIKey: "x",
+          sessionStrategy: .fixed(),
+          apiURL: URL(string: "https://api.bitdrift.dev")!
+        )?
+        .enableIntegrations([.urlSession()])
         registerUserDefaults()
         
 #if DEBUG

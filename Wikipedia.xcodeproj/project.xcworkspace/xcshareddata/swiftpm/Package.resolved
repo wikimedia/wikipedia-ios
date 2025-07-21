@@ -1,6 +1,15 @@
 {
   "pins" : [
     {
+      "identity" : "capture-ios",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/bitdriftlabs/capture-ios.git",
+      "state" : {
+        "revision" : "37870419084175a09d81d49116f8cef30a25f561",
+        "version" : "0.17.13"
+      }
+    },
+    {
       "identity" : "cocoalumberjack",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/CocoaLumberjack/CocoaLumberjack.git",
@@ -16,6 +25,15 @@
       "state" : {
         "revision" : "9cb486020ebf03bfa5b5df985387a14a98744537",
         "version" : "1.6.1"
+      }
+    },
+    {
+      "identity" : "swiftybeaver",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/SwiftyBeaver/SwiftyBeaver.git",
+      "state" : {
+        "revision" : "8cba041db09596183331d123f337d0eb2e6e8e91",
+        "version" : "2.1.1"
       }
     }
   ],
