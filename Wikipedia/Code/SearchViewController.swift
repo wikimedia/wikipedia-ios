@@ -480,7 +480,6 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
             guard let navVC = customArticleCoordinatorNavigationController ?? navigationController else { return }
             let articleCoordinator = ArticleCoordinator(navigationController: navVC, articleURL: articleURL, dataStore: MWKDataStore.shared(), theme: self.theme, source: .undefined, tabConfig: .appendArticleAndAssignNewTabAndSetToCurrent)
             articleCoordinator.start()
-
         }
 
         resultsViewController.tappedSearchResultAction = tappedSearchResultAction
