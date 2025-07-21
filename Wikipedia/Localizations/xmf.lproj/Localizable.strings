@@ -25,7 +25,6 @@
 "explore-feed-preferences-featured-article-description" = "დღაშ გიშნაგორა სტატია ვიკიპედიას";
 "explore-feed-preferences-show-featured-article-title" = "ქაძირე ბართი „გიშნაგორა სტატია“";
 "featured-widget-content-failure-for-date" = "გიშნაგორა სტატია ვა რე ხემიოლუ თე თარიღიშო.";
-"history-clear-cancel" = "გოუქვაფა";
 // Fuzzy
 "history-clear-confirmation-heading" = "დობლასათო არძა ასერდეიანი ელემენტი?";
 // Fuzzy
@@ -55,7 +54,6 @@
 "navbar-title-mode-edit-wikitext-preview" = "გიწოთოლორაფა";
 "saved-title" = "ჩუალირი";
 "search-field-placeholder-text" = "გორუა ვიკიპედიას";
-"search-recent-clear-cancel" = "გოუქვაფა";
 "search-recent-clear-confirmation-heading" = "დობლასათო ასერდე მუნათხუა გორუეფი?";
 "search-recent-clear-confirmation-sub-heading" = "თე ქიმინჯუა ვეგიუქვებუ!";
 "search-recent-clear-delete-all" = "არძაშ ლასუა";

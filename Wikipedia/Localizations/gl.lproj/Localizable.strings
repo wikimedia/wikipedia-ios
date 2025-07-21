@@ -326,7 +326,6 @@
 "forgot-password-title" = "Restablecer o contrasinal";
 "forgot-password-username-or-email-title" = "Ou";
 "history-clear-all" = "Limpar";
-"history-clear-cancel" = "Cancelar";
 "history-clear-confirmation-heading" = "Está seguro de que quere borrar todos os seus elementos recentes?";
 "history-clear-delete-all" = "Si, borrar todo";
 "history-title" = "Historial";
@@ -575,7 +574,6 @@
 "search-did-you-mean" = "Quixo dicir \"$1\"?";
 "search-field-placeholder-text" = "Procurar na Wikipedia";
 "search-reading-list-placeholder-text" = "Procurar na lista de lectura";
-"search-recent-clear-cancel" = "Cancelar";
 "search-recent-clear-confirmation-heading" = "Borrar tódalas procuras recentes?";
 "search-recent-clear-confirmation-sub-heading" = "Esta acción non se pode desfacer.";
 "search-recent-clear-delete-all" = "Borrar todo";

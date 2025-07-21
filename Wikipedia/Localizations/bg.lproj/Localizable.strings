@@ -258,7 +258,6 @@
 "gan-variants-alert-body" = "Приложението Уикипедия вече поддържа следните варианти на Ган като основни или вторични езици в рамките на приложението, което улеснява четенето, търсенето и редактирането в предпочитаните от Вас варианти:\n\n贛語 原文 Gan (ган)\n赣语简体 Ган, опростен (ган-ханс)\n贛語 繁體 Ган, традиционен (ган-хант)";
 "gan-variants-alert-title" = "Актуализации за поддръжка на ган вариант";
 "history-clear-all" = "Изчистване";
-"history-clear-cancel" = "Отказ";
 "history-clear-confirmation-heading" = "Сигурни ли сте, че искате да изтриете всички скорошни елементи?";
 "history-clear-delete-all" = "Да, изтрий всички";
 "history-title" = "История";
@@ -478,7 +477,6 @@
 "search-did-you-mean" = "Имате предвид $1?";
 "search-field-placeholder-text" = "Търсене в Уикипедия";
 "search-reading-list-placeholder-text" = "Търсене в списъка за четене";
-"search-recent-clear-cancel" = "Отказ";
 "search-recent-clear-confirmation-heading" = "Изтриване на всички скорошни търсения?";
 "search-recent-clear-confirmation-sub-heading" = "Това действие не може да бъде отменено!";
 "search-recent-clear-delete-all" = "Изтриване на всички";

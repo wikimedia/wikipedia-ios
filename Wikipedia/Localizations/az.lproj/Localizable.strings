@@ -572,7 +572,6 @@
 "gan-variants-alert-body" = "Vikipediya proqramı indi tətbiq daxilində əsas və ya köməkçi dillər kimi aşağıdakı Gan variantlarını dəstəkləyir və bu, seçdiyiniz variantlarda oxumağı, axtarmağı və redaktə etməyi asanlaşdırır:\n\n贛語 原文 Gan (gan)\n赣语简体 Gan, Sadələşdirilmiş (gan-hans)\n贛語 繁體 Gan, Ənənəvi (gan-hant)";
 "gan-variants-alert-title" = "Gan variant dəstəyi üçün yeniləmələr";
 "history-clear-all" = "Təmizlə";
-"history-clear-cancel" = "İmtina";
 "history-clear-confirmation-heading" = "Bütün son elementlərinizi silmək istədiyinizə əminsiniz?";
 "history-clear-delete-all" = "Bəli, hamısını sil";
 "history-title" = "Tarixçə";
@@ -1094,7 +1093,6 @@
 "search-did-you-mean" = "Bəlkə, bunu nəzərdə tuturdunuz: $1";
 "search-field-placeholder-text" = "Vikipediyada axtar";
 "search-reading-list-placeholder-text" = "Oxuma siyahısında axtar";
-"search-recent-clear-cancel" = "Ləğv et";
 "search-recent-clear-confirmation-heading" = "Son axtarışlar silinsin?";
 "search-recent-clear-confirmation-sub-heading" = "Bu əməliyyat geri qaytarıla bilməz!";
 "search-recent-clear-delete-all" = "Hamısını sil";

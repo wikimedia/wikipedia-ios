@@ -91,7 +91,6 @@
 "field-username-placeholder" = "შეიყვანეთ მომხმარებლის სახელი";
 "field-username-title" = "მომხმარებლის სახელი";
 "history-clear-all" = "გასუფთავება";
-"history-clear-cancel" = "გაუქმება";
 "history-clear-confirmation-heading" = "დარწმუნებული ხართ, რომ გსურთ წაშალოთ ყველა თქვენი ბოლო ელემენტი?";
 "history-clear-delete-all" = "დიახ, ყველას წაშლა";
 "history-title" = "ისტორია";
@@ -145,7 +144,6 @@
 "saved-title" = "შენახულია";
 "search-did-you-mean" = "ხომ არ იგულისხმეთ $1?";
 "search-field-placeholder-text" = "ძიება ვიკიპედიაში";
-"search-recent-clear-cancel" = "გაუქმება";
 "search-recent-clear-confirmation-heading" = "წავშალოთ ყველა ბოლოს მოძიებულები?";
 "search-recent-clear-confirmation-sub-heading" = "ამ ქმედების გაუქმება შეუძლებელია!";
 "search-recent-clear-delete-all" = "ყველას წაშლა";

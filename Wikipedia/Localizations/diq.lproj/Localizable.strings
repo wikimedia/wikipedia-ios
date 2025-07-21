@@ -72,7 +72,6 @@
 "forgot-password-button-title" = "Raçarne";
 "forgot-password-title" = "Parola newe ke";
 "history-clear-all" = "Pak ke";
-"history-clear-cancel" = "Bıtexelne";
 "history-clear-confirmation-heading" = "Şıma qayılê vêrdey xo pêro besterê?";
 "history-clear-delete-all" = "Eya, pêro bestere";
 "history-title" = "Tarix";
@@ -127,7 +126,6 @@
 "saved-title" = "Qeyd bi";
 "search-did-you-mean" = "To ker kı vacê $1?";
 "search-field-placeholder-text" = "Wikipediya de cı geyre";
-"search-recent-clear-cancel" = "Bıtexelne";
 "search-recent-clear-confirmation-heading" = "Wa cı geyrayışi peyêni pêron esteri yê?";
 "search-recent-clear-confirmation-sub-heading" = "Ena kerden peyd nêgêrên na!";
 "search-recent-clear-delete-all" = "Pêron estern";

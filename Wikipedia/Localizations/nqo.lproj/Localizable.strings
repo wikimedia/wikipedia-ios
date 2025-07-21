@@ -295,7 +295,6 @@
 "forgot-password-title" = "ߕߊ߬ߡߌ߲߬ߞߊ߲ ߡߊߦߟߍ߬ߡߊ߲߬";
 "forgot-password-username-or-email-title" = "ߥߟߊ߫";
 "history-clear-all" = "ߊ߬ ߟߊߛߊ߬";
-"history-clear-cancel" = "ߊ߬ ߘߐߛߊ߬";
 "history-clear-confirmation-heading" = "ߌ ߟߊߣߴߊ߬ ߟߊ߫ ߓߊ߬ ߞߴߌ ߦߴߊ߬ ߝߍ߬ ߞߵߌ ߟߊ߫ ߞߐ߯ߟߊ߫ ߝߛߌ ߟߎ߬ ߓߍ߯ ߖߏ߬ߛߌ߫؟";
 "history-clear-delete-all" = "ߐ߲߬ߐ߲߬ߐ߲߫߸ ߊ߬ ߓߍ߯ ߖߏ߬ߛߌ߬ ߝߛߊߦߌ߫߹";
 "history-title" = "ߘߐ߬ߝߐ";
@@ -621,7 +620,6 @@
 "search-did-you-mean" = "ߌ ߞߊ߲߫ ߦߋ߫ $1 ߟߋ߬ ߡߊ߬؟";
 "search-field-placeholder-text" = "ߢߌߣߌ߲ߠߌ߲ ߞߍ߫ ߥߞߌߔߋߘߌߦߊ ߞߣߐ߫";
 "search-reading-list-placeholder-text" = "ߢߌߣߌ߲ߠߌ߲ ߞߍ߫ ߘߐ߬ߞߊ߬ߙߊ߲߬ߠߌ߲߫ ߛߙߍߘߍ ߘߐ߫";
-"search-recent-clear-cancel" = "ߊ߬ ߘߐߛߊ߬";
 "search-recent-clear-confirmation-heading" = "ߞߊ߬ ߞߐ߯ߟߊ߫ ߡߊߦߟߍߡߊ߲ߠߌ߲ ߠߎ߬ ߓߍ߯ ߖߏ߰ߛߌ߫؟";
 "search-recent-clear-confirmation-sub-heading" = "ߋ߫ ߗߍ߬߸ ߏ߬ ߕߍ߫ ߛߐ߲߬ ߘߐߛߊ߬ ߟߊ߫ ߘߋ߬߳߹";
 "search-recent-clear-delete-all" = "ߊ߬ ߓߍ߯ ߖߏ߰ߛߌ߬";

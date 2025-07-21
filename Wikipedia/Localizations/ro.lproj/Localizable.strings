@@ -4,6 +4,7 @@
 // Author: Alesaru
 // Author: Andreyyshore
 // Author: Cleinman
+// Author: Dimitrie569
 // Author: Firilacroco
 // Author: GabiBil
 // Author: Kyouko
@@ -112,6 +113,7 @@
 "article-reference-view-title" = "Referință $1";
 "article-save-error-not-enough-space" = "Nu aveți suficient spațiu pe dispozitiv pentru a salva acest articol";
 "article-share" = "Distribuie";
+"article-tabs-open-new-tab" = "Deschideți în filă nouă";
 "article-talk-page" = "Pagina de discuție a articolului";
 "article-toolbar-reading-themes-controls-toolbar-item" = "Controlul temelor de citire";
 "back-button-accessibility-label" = "Înapoi";
@@ -395,7 +397,6 @@
 "gan-variants-alert-body" = "Aplicația Wikipedia acceptă acum următoarele variante Gan ca limbi principale sau secundare în cadrul aplicației, facilitând citirea, căutarea și editarea în variantele preferate:\n\n贛語 原文 Gan (gan)\n赣语 简体 Gan, Simplificat (gan-hans)\n贛語 繁體 Gan, Tradiţional (gan-hant)";
 "gan-variants-alert-title" = "Actualizări ale suportului pentru varianta Gan";
 "history-clear-all" = "Curăță";
-"history-clear-cancel" = "Revocare";
 "history-clear-confirmation-heading" = "Sigur doriți să ștergeți toate elementele recente?";
 "history-clear-delete-all" = "Da, șterge tot";
 "history-title" = "Istoric";
@@ -818,7 +819,6 @@
 "search-did-you-mean" = "V-ați referit la $1?";
 "search-field-placeholder-text" = "Căutare în Wikipedia";
 "search-reading-list-placeholder-text" = "Caută în lista de citire";
-"search-recent-clear-cancel" = "Revocare";
 "search-recent-clear-confirmation-heading" = "Ștergeți toate căutările recente?";
 "search-recent-clear-confirmation-sub-heading" = "Această acțiune nu poate fi anulată!";
 "search-recent-clear-delete-all" = "Șterge tot";
