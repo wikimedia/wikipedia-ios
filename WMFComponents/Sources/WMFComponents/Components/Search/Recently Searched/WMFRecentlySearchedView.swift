@@ -71,6 +71,12 @@ public struct WMFRecentlySearchedView: View {
                 }
                 .listStyle(.plain)
             }
+            if viewModel.needsAttachedView {
+                HStack {
+                    Text("text")
+                    Spacer()
+                }
+            }
         }
         .background(Color(theme.paperBackground))
         .padding(.top, viewModel.topPadding)

@@ -102,8 +102,11 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
 
     // MARK: - Lifecycle
 
-    @objc required init(source: EventLoggingSource, customArticleCoordinatorNavigationController: UINavigationController? = nil) {
+    let needsAttachedView: Bool // TODO: Maybe rename to comes from new tabs exp for clarity
+
+    @objc required init(source: EventLoggingSource, customArticleCoordinatorNavigationController: UINavigationController? = nil, needsAttachedView: Bool = false) {
         self.source = source
+        self.needsAttachedView = needsAttachedView
         self.customArticleCoordinatorNavigationController = customArticleCoordinatorNavigationController
         super.init(nibName: nil, bundle: nil)
     }
@@ -596,7 +599,7 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
             clearAll: CommonStrings.clearTitle,
             deleteActionAccessibilityLabel: CommonStrings.deleteActionTitle
         )
-        return WMFRecentlySearchedViewModel(recentSearchTerms: recentSearchTerms, localizedStrings: localizedStrings, deleteAllAction: didPressClearRecentSearches, deleteItemAction: deleteItemAction, selectAction: selectAction)
+        return WMFRecentlySearchedViewModel(recentSearchTerms: recentSearchTerms, localizedStrings: localizedStrings, needsAttachedView: needsAttachedView, deleteAllAction: didPressClearRecentSearches, deleteItemAction: deleteItemAction, selectAction: selectAction)
     }()
 
     private lazy var recentSearchTerms: [WMFRecentlySearchedViewModel.RecentSearchTerm] = {

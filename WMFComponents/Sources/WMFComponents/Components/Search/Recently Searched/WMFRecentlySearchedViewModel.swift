@@ -34,13 +34,15 @@ public final class WMFRecentlySearchedViewModel: ObservableObject {
     let deleteAllAction: () -> Void
     let deleteItemAction: (Int) -> Void
     let selectAction: (RecentSearchTerm) -> Void
+    let needsAttachedView: Bool
 
-    public init(recentSearchTerms: [RecentSearchTerm], localizedStrings: LocalizedStrings, deleteAllAction: @escaping () -> Void, deleteItemAction: @escaping (Int) -> Void, selectAction: @escaping (RecentSearchTerm) -> Void) {
+    public init(recentSearchTerms: [RecentSearchTerm], localizedStrings: LocalizedStrings, needsAttachedView: Bool, deleteAllAction: @escaping () -> Void, deleteItemAction: @escaping (Int) -> Void, selectAction: @escaping (RecentSearchTerm) -> Void) {
         self.recentSearchTerms = recentSearchTerms
         self.localizedStrings = localizedStrings
         self.deleteAllAction = deleteAllAction
         self.deleteItemAction = deleteItemAction
         self.selectAction = selectAction
+        self.needsAttachedView = needsAttachedView
     }
 
 }
