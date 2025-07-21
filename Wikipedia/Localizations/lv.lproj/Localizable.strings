@@ -104,7 +104,6 @@
 "forgot-password-title" = "Atiestatīt paroli";
 "forgot-password-username-or-email-title" = "Vai";
 "history-clear-all" = "Notīrīt";
-"history-clear-cancel" = "Atcelt";
 "history-clear-delete-all" = "Jā, dzēst visu";
 "history-title" = "Vēsture";
 "icon-shortcut-random-title" = "Nejauša lapa";
@@ -185,7 +184,6 @@
 "search-button-accessibility-label" = "Meklēt Vikipēdijā";
 "search-did-you-mean" = "Vai tu domāji $1?";
 "search-field-placeholder-text" = "Meklēt Vikipēdijā";
-"search-recent-clear-cancel" = "Atcelt";
 "search-recent-clear-delete-all" = "Dzēst visu";
 "search-result-redirected-from" = "Pāradresēts no: $1";
 "search-title" = "Meklēt";

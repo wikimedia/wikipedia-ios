@@ -351,7 +351,6 @@
 "forgot-password-title" = "Set semula kata laluan";
 "forgot-password-username-or-email-title" = "Atau";
 "history-clear-all" = "Padamkan";
-"history-clear-cancel" = "Batalkan";
 "history-clear-confirmation-heading" = "Adakah anda benar-benar ingin memadamkan semua butir terbaru anda?";
 "history-clear-delete-all" = "Ya, padamkan semua";
 "history-title" = "Sejarah";
@@ -670,7 +669,6 @@
 "search-did-you-mean" = "Maksud anda, $1?";
 "search-field-placeholder-text" = "Cari dalam Wikipedia";
 "search-reading-list-placeholder-text" = "Cari senarai bacaan";
-"search-recent-clear-cancel" = "Batalkan";
 "search-recent-clear-confirmation-heading" = "Hapuskan semua carian terkini?";
 "search-recent-clear-confirmation-sub-heading" = "Tindakan ini tidak boleh dipulihkan!";
 "search-recent-clear-delete-all" = "Hapuskan Semua";

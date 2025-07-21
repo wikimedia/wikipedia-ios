@@ -117,7 +117,6 @@
 "forgot-password-title" = "Herstel wagwoord";
 "forgot-password-username-or-email-title" = "Of";
 "history-clear-all" = "Maak skoon";
-"history-clear-cancel" = "Kanselleer";
 // Fuzzy
 "history-clear-confirmation-heading" = "Skrap alle onlangse items?";
 "history-clear-delete-all" = "Ja, skrap alles";
@@ -189,7 +188,6 @@
 "search-clear-title" = "Maak skoon";
 "search-did-you-mean" = "Het u $1 bedoel?";
 "search-field-placeholder-text" = "Soek in Wikipedia";
-"search-recent-clear-cancel" = "Kanselleer";
 "search-recent-clear-confirmation-heading" = "Skrap alle onlangse soektogte?";
 "search-recent-clear-confirmation-sub-heading" = "Hierdie aksie kan nie ongedaan gemaak word nie!";
 "search-recent-clear-delete-all" = "Skrap Alles";

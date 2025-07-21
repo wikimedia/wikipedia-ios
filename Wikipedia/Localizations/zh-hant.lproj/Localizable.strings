@@ -170,6 +170,8 @@
 "article-revision-history" = "條目修訂紀錄";
 "article-save-error-not-enough-space" = "您的裝置沒有足夠的空間來儲存此條目";
 "article-share" = "分享";
+"article-tabs-button-accessibility-hint" = "導覽至分頁概要";
+"article-tabs-button-accessibility-label" = "條目分頁";
 "article-tabs-max-reached" = "已達到分頁限制（最多 $1 個）。條目已在目前分頁中開啟。請關閉一個或多個分頁。";
 "article-tabs-navigation" = "分頁導覽";
 "article-tabs-onboarding-tooltip" = "分頁的入門提示";
@@ -608,7 +610,6 @@
 "gan-variants-alert-body" = "維基百科應用程式現在支援下列贛語異體字作為應用程式裡的主要語言或次要語言，能以您首選的異體字來更易於閱讀、搜尋、編輯：\n\n贛語 原文（gan）\n赣语 简体（gan-hans）\n贛語 繁體（gan-hant）";
 "gan-variants-alert-title" = "贛語異體字支援更新";
 "history-clear-all" = "清除";
-"history-clear-cancel" = "取消";
 "history-clear-confirmation-heading" = "您確定要刪除您所有的近期項目嗎？";
 "history-clear-delete-all" = "是的，刪除全部";
 "history-title" = "歷史";
@@ -987,7 +988,7 @@
 "preference-summary-eventlogging-opt-in" = "允許維基媒體基金會收集有關您如何使用應用程式的資訊，來讓此應用程式能更好";
 "privacy-policy-title" = "隱私權政策";
 "problem-with-feature-title" = "功能問題";
-"profile-button-accessibility-hint" = "導航至個人資料檢視。";
+"profile-button-accessibility-hint" = "導覽至個人資料檢視。";
 "profile-button-accessibility-label" = "個人資料";
 "profile-button-badge-accessibility-label" = "帶有尚未讀取徽章通知的個人資料";
 "profile-page-donate-subtext" = "或透過捐款支持維基百科，來讓世界各地的人可免費使用。";
@@ -1134,7 +1135,6 @@
 "search-did-you-mean" = "您指的是 $1 嗎？";
 "search-field-placeholder-text" = "搜尋維基百科";
 "search-reading-list-placeholder-text" = "搜尋閱讀清單";
-"search-recent-clear-cancel" = "取消";
 "search-recent-clear-confirmation-heading" = "刪除所有近期搜尋嗎？";
 "search-recent-clear-confirmation-sub-heading" = "此操作不能還原！";
 "search-recent-clear-delete-all" = "刪除所有";

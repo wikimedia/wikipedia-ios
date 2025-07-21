@@ -130,7 +130,6 @@
 "forgot-password-title" = "கடவுச்சொலை மீளமை";
 "forgot-password-username-or-email-title" = "அல்லது";
 "history-clear-all" = "அழி";
-"history-clear-cancel" = "ரத்து செய்";
 "history-clear-delete-all" = "ஆம், யாவையும் நீக்கு";
 "history-title" = "வரலாறு";
 "home-button-explore-accessibility-label" = "விக்கிப்பீடியா, சுற்றிப்பார்க்க திரும்புக";
@@ -220,7 +219,6 @@
 "search-button-accessibility-label" = "விக்கிப்பீடியாவில் தேடவும்";
 "search-did-you-mean" = "தாங்கள் கருதியது $1?";
 "search-field-placeholder-text" = "விக்கிப்பீடியாவில் தேடவும்";
-"search-recent-clear-cancel" = "விட்டுவிடு";
 "search-recent-clear-confirmation-heading" = "அண்மைய தேடல்களையும் அனைத்தையும் நீக்கவா?";
 "search-recent-clear-delete-all" = "யாவையும் நீக்கு";
 "search-recent-title" = "அண்மையில் தேடப்பட்டது";

@@ -136,6 +136,8 @@
 "article-revision-history" = "Историја на преработки на страницата";
 "article-save-error-not-enough-space" = "Немате доволно простор на уредот за да ја зачувате статијава";
 "article-share" = "Сподели";
+"article-tabs-button-accessibility-hint" = "Преоѓа на преглед на јазичињата";
+"article-tabs-button-accessibility-label" = "Јазичиња на статии";
 "article-tabs-max-reached" = "Го достигнавте дозволениот број на јазичиња ($1). Статијата е отворена во тековното јазиче. Затворете едно или повеќе од нив.";
 "article-tabs-navigation" = "Прегледник на јазичиња";
 "article-tabs-onboarding-tooltip" = "Воведни поткажувалки за јазичиња";
@@ -574,7 +576,6 @@
 "gan-variants-alert-body" = "Прилогот на Википедија сега ги поддржува следниве варијанти на ган како главен или спореден јазик во прилогот, олеснувајќи го читањето, пребарувањето и уредувањето на вашите претпочитани варијанти\n\n贛語 原文 ган (gan)\n赣语 简体 ган, упростено (gan-hans)\n贛語 繁體 ган, традиционално (gan-hant)";
 "gan-variants-alert-title" = "Новост за поддршка на варијанти на ган";
 "history-clear-all" = "Исчисти";
-"history-clear-cancel" = "Откажи";
 "history-clear-confirmation-heading" = "Сигурни сте дека сакате да ги избришам сите скорешни ставки?";
 "history-clear-delete-all" = "Да, избриши ги сите";
 "history-title" = "Историја";
@@ -1100,7 +1101,6 @@
 "search-did-you-mean" = "Дали мислевте на $1?";
 "search-field-placeholder-text" = "Пребарај ја Википедија";
 "search-reading-list-placeholder-text" = "Пребарување по список за читање";
-"search-recent-clear-cancel" = "Откажи";
 "search-recent-clear-confirmation-heading" = "Да ги избришам сите скорешни пребарувања?";
 "search-recent-clear-confirmation-sub-heading" = "Ова дејство е неповратно!";
 "search-recent-clear-delete-all" = "Избриши ги сите";

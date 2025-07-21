@@ -417,7 +417,6 @@
 "gan-variants-alert-body" = "Aplikacija Wikipedia sada podržava sljedeće varijante gan jezika kao primarnih ili sekundarnih jezika unutar aplikacije, što olakšava čitanje, pretraživanje i uređivanje u željenim varijantama:\n\n贛語 原文 gan (gan)\n赣语 简体 gan, pojednostavljeni (gan-hans)\n贛語 繁體 gan, tradicionalni (gan-hant)";
 "gan-variants-alert-title" = "Ažuriranja podrške za varijantu gan jezika";
 "history-clear-all" = "Očisti";
-"history-clear-cancel" = "Odustani";
 "history-clear-confirmation-heading" = "Jeste li sigurni da želite izbrisati sve nedavne stavke?";
 "history-clear-delete-all" = "Da, izbriši sve";
 "history-title" = "Historija";
@@ -823,7 +822,6 @@
 "search-did-you-mean" = "Jeste li mislili $1?";
 "search-field-placeholder-text" = "Pretraži Wikipediju";
 "search-reading-list-placeholder-text" = "Pretraži spisak za čitanje";
-"search-recent-clear-cancel" = "Otkaži";
 "search-recent-clear-confirmation-heading" = "Izbrisati sve nedavne pretrage?";
 "search-recent-clear-confirmation-sub-heading" = "Ovu radnju nije moguće poništiti!";
 "search-recent-clear-delete-all" = "Izbriši sve";

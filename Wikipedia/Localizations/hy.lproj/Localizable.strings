@@ -89,7 +89,6 @@
 "forgot-password-button-title" = "Վերակայել";
 "forgot-password-username-or-email-title" = "Կամ";
 "history-clear-all" = "Մաքրել";
-"history-clear-cancel" = "Չեղարկել";
 "history-clear-delete-all" = "Այո, ջնջել ամբողջը";
 "history-title" = "Պատմություն";
 "home-button-history-accessibility-label" = "Վիքիպեդիա, վերադառնալ Պատմության";
@@ -170,7 +169,6 @@
 "search-clear-title" = "Մաքրել";
 "search-did-you-mean" = "Գուցե նկատի ունե՞ք՝ $1";
 "search-field-placeholder-text" = "Որոնել Վիքիպեդիայում";
-"search-recent-clear-cancel" = "Չեղարկել";
 "search-recent-clear-confirmation-heading" = "Հեռացնե՞լ բոլոր վերջին որոնումները:";
 "search-recent-clear-delete-all" = "Ջնջել ամբողջը";
 "search-recent-title" = "Վերջին որոնումները";

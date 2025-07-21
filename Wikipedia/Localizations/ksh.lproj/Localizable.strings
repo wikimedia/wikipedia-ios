@@ -62,7 +62,6 @@
 "explore-potd-heading" = "Belld vum Daach";
 "explore-random-article-heading" = "Ene zohfälleje Atikel";
 "history-clear-all" = "Läddesch maache";
-"history-clear-cancel" = "Ophühre!";
 "history-clear-confirmation-heading" = "Wells De veraftesch all Ding neujere Saache fott schmiiße?";
 "history-clear-delete-all" = "Joh, donn alle fottschmieße";
 "history-title" = "Väsjohne";
@@ -105,7 +104,6 @@
 "saved-title" = "Faßjehallde";
 "search-did-you-mean" = "Häß De „$1“ jemeint?";
 "search-field-placeholder-text" = "En de Wikkipehdija söhke";
-"search-recent-clear-cancel" = "Ophühre";
 "search-recent-clear-confirmation-heading" = "Wells De verhaftesch alle Söhke verjäße maache?";
 "search-recent-clear-confirmation-sub-heading" = "Dat kam_mer nit zerök nämme!";
 "search-recent-clear-delete-all" = "Alle fottschmieße";

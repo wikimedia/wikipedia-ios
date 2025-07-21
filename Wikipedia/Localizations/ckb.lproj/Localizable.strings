@@ -235,7 +235,6 @@
 "forgot-password-title" = "ڕێکخستنەوەی تێپەڕوشە";
 "forgot-password-username-or-email-title" = "یان";
 "history-clear-all" = "سڕینەوە";
-"history-clear-cancel" = "ھەڵوەشاندنەوە";
 "history-clear-confirmation-heading" = "دڵنیای کە دەتەوێت ھەموو پەڕەکانت بسڕیتەوە؟";
 "history-clear-delete-all" = "بەڵێ، ھەمووی بسڕەوە";
 "history-title" = "مێژوو";
@@ -430,7 +429,6 @@
 "search-button-accessibility-label" = "گەڕان بە ویکیپیدیادا";
 "search-did-you-mean" = "ئایا مەبەستت ئەمە بوو: $1؟";
 "search-field-placeholder-text" = "گەڕان بە ویکیپیدیادا";
-"search-recent-clear-cancel" = "ھەڵوەشاندنەوە";
 "search-recent-clear-confirmation-heading" = "دڵنیایت دەتەوێت ھەموو تازە گەڕانەکانت بسڕیتەوە؟";
 "search-recent-clear-confirmation-sub-heading" = "ئەم فرمانە ناتوانرێت بگەڕێندرێتەوە!";
 "search-recent-clear-delete-all" = "هەمووی بسڕەوە";
