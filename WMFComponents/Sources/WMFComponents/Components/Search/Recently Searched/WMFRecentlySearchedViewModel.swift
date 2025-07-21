@@ -1,4 +1,5 @@
 import Foundation
+import WMFData
 
 public final class WMFRecentlySearchedViewModel: ObservableObject {
 
@@ -28,13 +29,20 @@ public final class WMFRecentlySearchedViewModel: ObservableObject {
         }
     }
 
+    public var displayedSearchTerms: [RecentSearchTerm] {
+        needsAttachedView
+        ? Array(recentSearchTerms.prefix(3))
+        : recentSearchTerms
+    }
+
     @Published public var recentSearchTerms: [RecentSearchTerm] = []
     let localizedStrings: LocalizedStrings
     @Published public var topPadding: CGFloat = 0
+    let needsAttachedView: Bool
     let deleteAllAction: () -> Void
     let deleteItemAction: (Int) -> Void
     let selectAction: (RecentSearchTerm) -> Void
-    let needsAttachedView: Bool
+    public let tabsDataController: WMFArticleTabsDataController
 
     public init(recentSearchTerms: [RecentSearchTerm], localizedStrings: LocalizedStrings, needsAttachedView: Bool, deleteAllAction: @escaping () -> Void, deleteItemAction: @escaping (Int) -> Void, selectAction: @escaping (RecentSearchTerm) -> Void) {
         self.recentSearchTerms = recentSearchTerms
@@ -43,6 +51,7 @@ public final class WMFRecentlySearchedViewModel: ObservableObject {
         self.deleteItemAction = deleteItemAction
         self.selectAction = selectAction
         self.needsAttachedView = needsAttachedView
+        self.tabsDataController =  WMFArticleTabsDataController.shared
     }
 
 }

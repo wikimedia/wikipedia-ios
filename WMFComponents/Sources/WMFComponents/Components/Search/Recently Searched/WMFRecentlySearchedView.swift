@@ -5,7 +5,6 @@ public struct WMFRecentlySearchedView: View {
     @ObservedObject var viewModel: WMFRecentlySearchedViewModel
     @ObservedObject var appEnvironment = WMFAppEnvironment.current
 
-
     var theme: WMFTheme {
         return appEnvironment.theme
     }
@@ -43,7 +42,7 @@ public struct WMFRecentlySearchedView: View {
                 }
                 .padding()
                 List {
-                    ForEach(Array(viewModel.recentSearchTerms.enumerated()),
+                    ForEach(Array(viewModel.displayedSearchTerms.enumerated()),
                             id: \.element.id) { index, item in
                         HStack {
                             Text(item.text)
@@ -73,8 +72,13 @@ public struct WMFRecentlySearchedView: View {
             }
             if viewModel.needsAttachedView {
                 HStack {
-                    Text("text")
-                    Spacer()
+                    if viewModel.tabsDataController.getViewTypeForExperiment == .becauseYouRead {
+                        Text("because you read")
+                        Spacer()
+                    } else if viewModel.tabsDataController.getViewTypeForExperiment == .didYouKnow {
+                        Text("Did you know")
+                    }
+
                 }
             }
         }
