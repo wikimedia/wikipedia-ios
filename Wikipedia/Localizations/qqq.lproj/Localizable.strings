@@ -133,6 +133,15 @@
 "article-toolbar-reading-themes-controls-toolbar-item" = "Accessibility label for the Reading Themes Controls article toolbar item";
 "article-view-controller-editing-temp-account-created-subtitle" = "More information on the creation of temporary accounts, $1 replaces their username.";
 "article-view-controller-editing-temp-account-created-title" = "After a user edits an article, creating an IP account, this pop-up title lets them know.";
+"app-intent-search-title" = "Title for the Wikipedia search App Intent that appears in Siri and Spotlight";
+"app-intent-search-description" = "Description for the Wikipedia search App Intent that explains what the intent does";
+"app-intent-search-term-title" = "Title for the search term parameter in the Wikipedia search App Intent";
+"app-intent-search-term-description" = "Description for the search term parameter explaining what users should enter";
+"app-intent-search-phrase-1" = "First voice phrase for the Wikipedia search App Intent";
+"app-intent-search-phrase-2" = "Second voice phrase for the Wikipedia search App Intent, %1$@ will be replaced with the app name";
+"app-intent-search-phrase-3" = "Third voice phrase for the Wikipedia search App Intent";
+"app-intent-search-phrase-4" = "Fourth voice phrase for the Wikipedia search App Intent";
+"app-intent-search-short-title" = "Short title for the Wikipedia search App Intent used in App Shortcuts";
 "back-button-accessibility-label" = "Accessibility label for a button to navigate back. {{Identical|Back}}";
 "back-button-popover-title" = "Title for popover explaining the 'W' icon may be tapped to go back.";
 "button-go-back" = "Button text for Go back button used in various places";
