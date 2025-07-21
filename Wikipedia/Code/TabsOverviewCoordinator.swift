@@ -76,7 +76,9 @@ final class TabsOverviewCoordinator: Coordinator {
         }
         
         let didTapAddTab: () -> Void = { [weak self] in
-            self?.tappedAddTab()
+
+            guard let self else { return }
+            self.tappedAddTab()
         }
         
         let showSurveyClosure = { [weak self] in

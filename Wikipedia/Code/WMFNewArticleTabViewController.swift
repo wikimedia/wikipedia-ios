@@ -37,13 +37,6 @@ final class WMFNewArticleTabController: WMFCanvasViewController, WMFNavigationBa
         return existingYirCoordinator
     }
 
-    private var _tabsCoordinator: TabsOverviewCoordinator?
-    private var tabsCoordinator: TabsOverviewCoordinator? {
-        guard let navigationController else { return nil }
-        _tabsCoordinator = TabsOverviewCoordinator(navigationController: navigationController, theme: theme, dataStore: dataStore)
-        return _tabsCoordinator
-    }
-
     private var _profileCoordinator: ProfileCoordinator?
     private var profileCoordinator: ProfileCoordinator? {
 
@@ -78,11 +71,29 @@ final class WMFNewArticleTabController: WMFCanvasViewController, WMFNavigationBa
         fatalError("init(coder:) has not been implemented")
     }
 
+    var showTabsOverview: (() -> Void)?
+
     public override func viewDidLoad() {
         super.viewDidLoad()
         addComponent(hostingController, pinToEdges: true)
+        // Hack to solve coordinator retention issues
+        showTabsOverview = { [weak navigationController, weak self] in
+            guard let navController = navigationController, let self = self else { return }
+
+            TabsCoordinatorManager.shared.presentTabsOverview(
+                from: navController,
+                theme: self.theme,
+                dataStore: self.dataStore
+            )
+        }
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        DispatchQueue.main.async {
+            self.navigationItem.searchController?.searchBar.becomeFirstResponder()
+        }
+    }
     // MARK: - Navigation bar configuring
 
     private func configureNavigationBar() {
@@ -157,7 +168,8 @@ final class WMFNewArticleTabController: WMFCanvasViewController, WMFNavigationBa
     }
 
     @objc func userDidTapTabs() {
-        tabsCoordinator?.start()
+        navigationController?.popViewController(animated: true)
+        showTabsOverview?()
     }
 
     func updateProfileButton() {
@@ -218,6 +230,9 @@ extension WMFNewArticleTabController: UISearchControllerDelegate {
     func didDismissSearchController(_ searchController: UISearchController) {
         presentingSearchResults = false
         navigationController?.hidesBarsOnSwipe = true
+        navigationController?.popViewController(animated: true)
+
+        userDidTapTabs()
     }
 }
 
