@@ -1,9 +1,17 @@
 import UIKit
 import Combine
+import Capture
 
 /// UIKit `UIViewController` based Component
 open class WMFComponentViewController: UIViewController {
 
+    open override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        // Log screen view to Bitdrift
+        let screenName = String(describing: type(of: self))
+        Logger.logScreenView(screenName: screenName)
+    }
     // MARK: - Private Properties
 
     private var cancellables = Set<AnyCancellable>()
