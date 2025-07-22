@@ -301,7 +301,6 @@
 "forgot-password-title" = "Jumu kruna sandi";
 "forgot-password-username-or-email-title" = "Utawi";
 "history-clear-all" = "Resikin";
-"history-clear-cancel" = "Wangdé";
 "history-clear-delete-all" = "Nggih, apus makasami";
 "history-title" = "Lelintihan";
 "home-more-like-footer" = "Liyanan sekadi $1";
@@ -439,7 +438,6 @@
 "saved-all-articles-title" = "Makasami suratan";
 "search-button-accessibility-label" = "Rereh Wikipédia";
 "search-field-placeholder-text" = "Rereh Wikipédia";
-"search-recent-clear-cancel" = "Wangdé";
 "search-recent-clear-delete-all" = "Apus Makasami";
 "search-title" = "Rereh";
 "search-widget-wikipedia-title" = "Wikipédia";

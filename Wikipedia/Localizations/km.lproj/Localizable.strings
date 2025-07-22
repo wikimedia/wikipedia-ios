@@ -348,7 +348,6 @@
 "forgot-password-title" = "កំណត់ពាក្យសម្ងាត់ឡើងវិញ";
 "forgot-password-username-or-email-title" = "ឬ";
 "history-clear-all" = "សម្អាត";
-"history-clear-cancel" = "បោះបង់";
 "history-clear-confirmation-heading" = "តើអ្នកពិតជាងចង់លុបចោលរបស់ថ្មីៗទាំងអស់ឬ?";
 "history-clear-delete-all" = "លុបចោលទាំងអស់";
 "history-title" = "ប្រវត្តិ";
@@ -643,7 +642,6 @@
 "search-did-you-mean" = "ប្រហែលជាអ្នកចង់រក $1";
 "search-field-placeholder-text" = "ស្វែងរកក្នុងវិគីភីឌា";
 "search-reading-list-placeholder-text" = "ស្វែងរកបញ្ជីអត្ថបទចង់អាន";
-"search-recent-clear-cancel" = "បោះបង់";
 "search-recent-clear-confirmation-heading" = "លុបចោលការស្វែងរកថ្មីៗនេះទាំងអស់ឬ?";
 "search-recent-clear-confirmation-sub-heading" = "សកម្មភាពនេះមិនអាចឈប់ធ្វើវិញបានទេ!";
 "search-recent-clear-delete-all" = "លុបចោលទាំងអស់";

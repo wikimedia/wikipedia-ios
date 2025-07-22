@@ -205,7 +205,6 @@
 "forgot-password-title" = "پاسورڈ تبدیل کریں";
 "forgot-password-username-or-email-title" = "یا";
 "history-clear-all" = "واضح";
-"history-clear-cancel" = "منسوخ";
 "history-clear-confirmation-heading" = "کیا آپ تمام حالیہ مواد کو حذف کرنا چاہتے ہیں؟";
 "history-clear-delete-all" = "ہاں، تمام حذف کریں";
 "history-title" = "تاریخچہ";
@@ -318,7 +317,6 @@
 "saved-title" = "محفوظ";
 "search-did-you-mean" = "کیا آپ کی مراد $1 ہے؟";
 "search-field-placeholder-text" = "ویکیپیڈیا میں تلاش";
-"search-recent-clear-cancel" = "منسوخ";
 "search-recent-clear-confirmation-heading" = "حالیہ سبھی تلاشوں کو حذف کریں؟";
 "search-recent-clear-confirmation-sub-heading" = "اس عمل کو واپس نہیں کیا سکتا!";
 "search-recent-clear-delete-all" = "سبھی کو حذف کریں";

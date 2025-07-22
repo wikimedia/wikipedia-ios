@@ -613,7 +613,6 @@
 "gan-variants-alert-body" = "يدعم تطبيق Wikipedia الآن متغيرات Gan التالية كلغات أساسية أو ثانوية داخل التطبيق، مما يسهل القراءة والبحث والتحرير في المتغيرات المفضلة لديك:\n\n贛語 原文 Gan (gan)\n赣语简体 غان، مبسط (غان-هانز)\n贛語 繁體 غان، تقليدي (غان-هانت)";
 "gan-variants-alert-title" = "تحديثات لدعم متغير Gan";
 "history-clear-all" = "امسح";
-"history-clear-cancel" = "إلغاء";
 "history-clear-confirmation-heading" = "هل أنت متأكد من رغبتك في حذف جميع عناصرك الأخيرة؟";
 "history-clear-delete-all" = "نعم، احذف الكل";
 "history-title" = "التاريخ";
@@ -1139,7 +1138,6 @@
 "search-did-you-mean" = "هل عنيت $1؟";
 "search-field-placeholder-text" = "البحث في ويكيبيديا";
 "search-reading-list-placeholder-text" = "البحث في قائمة القراءة";
-"search-recent-clear-cancel" = "إلغاء";
 "search-recent-clear-confirmation-heading" = "إزالة كل عمليات البحث الأخيرة؟";
 "search-recent-clear-confirmation-sub-heading" = "لا يمكن التراجع عن هذا الفعل!";
 "search-recent-clear-delete-all" = "حذف الكل";

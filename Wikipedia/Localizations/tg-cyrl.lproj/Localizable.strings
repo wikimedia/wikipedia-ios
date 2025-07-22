@@ -66,7 +66,6 @@
 // Fuzzy
 "empty-no-search-results-message" = "Бахшиш, натиҷаҳоро кушода натавонистам";
 "field-username-title" = "Номи корбар";
-"history-clear-cancel" = "Лағв";
 // Fuzzy
 "history-clear-delete-all" = "Ҳазви Ҳама";
 "languages-title" = "Тағйир кардани забон";
@@ -104,7 +103,6 @@
 "relative-date-months-ago" = "{{PLURAL:$1|0=Ҳамин моҳ|1=Моҳи пешина|$1 моҳ пеш}}";
 "relative-date-seconds-abbreviated" = "$1ҳо";
 "search-field-placeholder-text" = "Ҷустуҷӯи Википедия";
-"search-recent-clear-cancel" = "Лағв";
 "search-recent-clear-delete-all" = "Ҳазви Ҳама";
 "search-title" = "Ҷустуҷӯ";
 "settings-title" = "Танзимот";

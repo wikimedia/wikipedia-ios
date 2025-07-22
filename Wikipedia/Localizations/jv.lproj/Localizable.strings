@@ -204,7 +204,6 @@
 "forgot-password-title" = "Ambali nyetèl tembung sandi";
 "forgot-password-username-or-email-title" = "Utawa";
 "history-clear-all" = "Resiki";
-"history-clear-cancel" = "Wurung";
 "history-clear-confirmation-heading" = "Panjenengan yakin arep mbusak kabèh barang anyar?";
 "history-clear-delete-all" = "Ha'a, busak kabèh";
 "history-title" = "Sajarah";
@@ -320,7 +319,6 @@
 "search-button-accessibility-label" = "Golèk ing Wikipédia";
 "search-did-you-mean" = "Sing penjenengan karepaké apa $1?";
 "search-field-placeholder-text" = "Golèk ing Wikipédia";
-"search-recent-clear-cancel" = "Wurung";
 "search-recent-clear-confirmation-heading" = "Busak kabèh golèkan sing mentas waé?";
 "search-recent-clear-confirmation-sub-heading" = "Laku iki ora bisa kawurungaké!";
 "search-recent-clear-delete-all" = "Busak Kabèh";

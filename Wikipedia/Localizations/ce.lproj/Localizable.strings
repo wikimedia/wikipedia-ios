@@ -216,7 +216,6 @@
 "reading-lists-default-list-title" = "Ӏалашйинарш";
 "relative-date-days-ago" = "{{PLURAL:$1|0=Тахана|1=Селхана|$1 де хьалха}}";
 "search-did-you-mean" = "Хила мега ахьа лоьхарг: $1";
-"search-recent-clear-cancel" = "ДӀадаккхар";
 "settings-clear-cache-cancel" = "ДӀадаккхар";
 "settings-help-and-feedback" = "ЗӀе";
 "share-default-format" = "«$1» «$2» чуьра: $3";

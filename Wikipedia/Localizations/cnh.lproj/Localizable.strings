@@ -35,7 +35,6 @@
 "edit-summary-choice-fixed-grammar" = "Grammar ka remh";
 "edit-summary-choice-fixed-typos" = "Tial palhmi ka remh";
 "edit-summary-choice-linked-words" = "Link betpiak";
-"history-clear-cancel" = "Let than";
 // Fuzzy
 "history-clear-confirmation-heading" = "tuandeuh ta vialte na hloh dih lai maw?";
 // Fuzzy
@@ -71,7 +70,6 @@
 "preference-summary-eventlogging-opt-in" = "App na hmannak ah a that deuh nakhga Wikimedia kha thil sining pawl laknak nawl pe";
 "search-did-you-mean" = "Na chimduh mi cu $1 maw?";
 "search-field-placeholder-text" = "Wikipedia ah kawl";
-"search-recent-clear-cancel" = "Let than";
 "search-recent-clear-confirmation-heading" = "Na kawlmi tete na hloh dih lai maw?";
 "search-recent-clear-confirmation-sub-heading" = "Tuah khawh a si lo!";
 "search-recent-clear-delete-all" = "Hlo Dih";

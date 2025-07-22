@@ -279,7 +279,6 @@
 "forgot-password-title" = "Adderaouekaat ar ger-tremen";
 "forgot-password-username-or-email-title" = "Pe";
 "history-clear-all" = "Diverkañ";
-"history-clear-cancel" = "Nullañ";
 "history-clear-confirmation-heading" = "Ha sur eo ho peus c'hoant da lemel ho holl elfennoù nevez ?";
 "history-clear-delete-all" = "Ya, lemel pep tra";
 "history-title" = "Istor";
@@ -550,7 +549,6 @@
 "search-clear-title" = "Riñsañ";
 "search-did-you-mean" = "N'ho poa ket soñjet kentoc'h e : $1";
 "search-field-placeholder-text" = "Klask e Wikipedia";
-"search-recent-clear-cancel" = "Nullañ";
 "search-recent-clear-confirmation-heading" = "Lemel an holl enklaskoù nevez";
 "search-recent-clear-confirmation-sub-heading" = "Ne c'hall ket an ober-mañ bezañ nullet !";
 "search-recent-clear-delete-all" = "Lemel pep tra";

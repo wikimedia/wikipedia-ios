@@ -26,7 +26,6 @@
 "edit-summary-choice-fixed-grammar" = "Rættaði mállæru";
 "edit-summary-choice-linked-words" = "Innsettar leinkjur";
 "history-clear-all" = "Rudda";
-"history-clear-cancel" = "Angra";
 "history-clear-confirmation-heading" = "Ert tú vís(ur) í at tú ynskir at strika allir tínir seinastu lutir?";
 "history-clear-delete-all" = "Ja, strika alt";
 "history-title" = "Søga";
@@ -54,7 +53,6 @@
 "saved-title" = "Goymt";
 "search-did-you-mean" = "Meinti tú $1?";
 "search-field-placeholder-text" = "Leita í Wikipedia";
-"search-recent-clear-cancel" = "Avbrót";
 "search-recent-clear-confirmation-heading" = "Slætta allar seinastu leitingar?";
 "search-recent-clear-confirmation-sub-heading" = "Tú kanst ikki angra hesa gerð!";
 "search-recent-clear-delete-all" = "Strika alt";

@@ -400,7 +400,6 @@
 "forgot-password-title" = "Přenastavit heslo";
 "forgot-password-username-or-email-title" = "Nebo";
 "history-clear-all" = "Vymazat";
-"history-clear-cancel" = "Zrušit";
 "history-clear-confirmation-heading" = "Jste si jisti, že chcete smazat všechny vaše poslední položky?";
 "history-clear-delete-all" = "Smazat vše";
 "history-title" = "Historie";
@@ -716,7 +715,6 @@
 "search-did-you-mean" = "Mysleli jste $1?";
 "search-field-placeholder-text" = "Hledat ve Wikipedii";
 "search-reading-list-placeholder-text" = "Hledat v seznamech k přečtení";
-"search-recent-clear-cancel" = "Zrušit";
 "search-recent-clear-confirmation-heading" = "Smazat všechna poslední hledání?";
 "search-recent-clear-confirmation-sub-heading" = "Tato operace nemůže být vrácena zpět!";
 "search-recent-clear-delete-all" = "Smazat vše";
