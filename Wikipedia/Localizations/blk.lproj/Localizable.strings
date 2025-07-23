@@ -218,7 +218,6 @@
 "forgot-password-title" = "ခိန်ႏသော့ꩻယင်း ငဝ်းဗိဉ်ႏပလို့ꩻ";
 "forgot-password-username-or-email-title" = "မွေးတဝ်းလဲ့";
 "history-clear-all" = "သျင်ꩻထိုꩻ";
-"history-clear-cancel" = "မာꩻတဝ်းဒွုမ်";
 "history-clear-delete-all" = "မွေး၊ ယားကုဲင်လို့သြ";
 "history-title" = "ရာႏဇာႏဝင်ႏ";
 "home-button-explore-accessibility-label" = "ဝီခီပီးဒီးယား၊ လွေꩻချာထိုမ်ႏလွူꩻထွားမုꩻထျꩻ";
@@ -412,7 +411,6 @@
 "search-did-you-mean" = "နာꩻမိဉ်ရိုꩻ $1 ယိုနဲ့ဟောင်း။";
 "search-field-placeholder-text" = "ထိုမ်ႏထွား ဝီခီပီးဒီးယားကို";
 "search-reading-list-placeholder-text" = "ထိုမ်ႏ ဟော်ꩻထွားစာႏရင်ꩻ";
-"search-recent-clear-cancel" = "မာꩻတဝ်းဒွုမ်";
 "search-recent-clear-confirmation-heading" = "လတ်တလောထိုမ်ႏခါꩻမုꩻဖုံႏ ကားကအဝ်ႏယို ယားကုဲင်ချာနဲ့?";
 "search-recent-clear-confirmation-sub-heading" = "ခွုမ်မာꩻချက်ယိုနဝ်ꩻ မာꩻချာနွောင်ꩻတဝ်းဒုမ်!";
 "search-recent-clear-delete-all" = "ယားကုဲင်လို့";

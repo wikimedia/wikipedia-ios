@@ -564,7 +564,6 @@
 "gan-variants-alert-body" = "Wikipedia အက်ပ်‌စွာ ‌ဒေဂုအခါ အောက်ပါ Gan မျိုးကွဲတိကို အက်ပ်အတွင်းမှာ အဓိက ယင်းသို့မဟုတ် အလယ်တန်းဘာသာစကားတိအနီနန့် ပံ့ပိုးပီးထားပြီး သင်နှစ်သက်တေမျိုးကွဲတိမှာ ဖတ်ဖို့၊ ရှာဖွီဖို့နန့် တီးဖြတ်ဖို့ ပိုမိုလွယ်ကူစီရေ-\n\nဂန် (ဂန်)\nGan၊ ရိုးရှင်းရေ (gan-hans)\nဂန်း၊ ရိုးရာ (ဂန်ဟန့်)";
 "gan-variants-alert-title" = "တရုတ်ဗားရှင်း ပံ့ပိုးမှုအတွက် အပ်ဒိတ်တိ";
 "history-clear-all" = "ရှင်းလင်းပါ";
-"history-clear-cancel" = "မလုပ်ယာ";
 "history-clear-confirmation-heading" = "မကြာခင်ကစာရင်းတိကို ဖျက်ပစ်ရန် သေချာပါလား?";
 "history-clear-delete-all" = "မှန်ရေ၊ အားလုံးဖျက်ပါ";
 "history-title" = "ရာဇဝင်";
@@ -1087,7 +1086,6 @@
 "search-did-you-mean" = "$1 လို့ဆိုချင်ခစော်လား?";
 "search-field-placeholder-text" = "ဝီကီးပီးဒီးယားထဲတွင် ယှာဖွီပါ";
 "search-reading-list-placeholder-text" = "စာဖတ်ခြင်းစာရင်းကို ယှာပါ";
-"search-recent-clear-cancel" = "မလုပ်ယာ";
 "search-recent-clear-confirmation-heading" = "မကြာသိမ့်ခင်က ယှာဖွီမှုတိအားနုန်း ဖျက်ဖို့လား?";
 "search-recent-clear-confirmation-sub-heading" = "ဒေဆောင်ရွက်ချက်စွာ နောက်ပြန်လို့ မရပါ!";
 "search-recent-clear-delete-all" = "အားနုန်းဖျက်";

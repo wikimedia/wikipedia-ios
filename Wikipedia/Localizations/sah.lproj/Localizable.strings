@@ -182,7 +182,6 @@
 "forgot-password-title" = "Аһарыгы саҥардыы";
 "forgot-password-username-or-email-title" = "Эбэтэр";
 "history-clear-all" = "Сот";
-"history-clear-cancel" = "Салҕаама";
 "history-clear-confirmation-heading" = "Соторутааҥыны барытын сотоору гынаҕын дуо?";
 "history-clear-delete-all" = "Оннук, барытын сот";
 "history-title" = "Устуоруйата";
@@ -288,7 +287,6 @@
 "saved-title" = "Бигэргэннэ";
 "search-did-you-mean" = "Маннык диэри гынаҕын дуо $1?";
 "search-field-placeholder-text" = "Бикипиэдьийэттэн булуу";
-"search-recent-clear-cancel" = "Салҕаама";
 "search-recent-clear-confirmation-heading" = "Кэлиҥҥи көрдөөһүннэри сотоҕун дуо?";
 "search-recent-clear-confirmation-sub-heading" = "Маны төннөрөр кыах суох!";
 "search-recent-clear-delete-all" = "Барытын сот";

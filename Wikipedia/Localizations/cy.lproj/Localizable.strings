@@ -355,7 +355,6 @@
 "forgot-password-username-or-email-title" = "Neu";
 "gan-variants-alert-title" = "Diweddariadau i gymorth Gan";
 "history-clear-all" = "Clirio";
-"history-clear-cancel" = "Canslo";
 "history-clear-confirmation-heading" = "Hollol sicr eich bod am ddileu'r cyfan?";
 "history-clear-delete-all" = "Ie! Dileu'r cyfan!";
 "history-title" = "Hanes";
@@ -625,7 +624,6 @@
 "search-did-you-mean" = "Oeddech chi'n golygu $1?";
 "search-field-placeholder-text" = "Chwilio ar Wicipedia";
 "search-reading-list-placeholder-text" = "Chwilio rhestr ddarllen";
-"search-recent-clear-cancel" = "Canslo";
 "search-recent-clear-confirmation-heading" = "Dileu'r holl chwiliadau?";
 "search-recent-clear-confirmation-sub-heading" = "Ni ellir dadwneud y weithred hon!";
 "search-recent-clear-delete-all" = "Dileu'r cyfan";

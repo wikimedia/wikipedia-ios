@@ -426,7 +426,6 @@
 "gan-variants-alert-body" = "Wikipédia teraz podporuje aj varianty jazyka gan ako primárny a sekundárny jazyk v aplikácii:\n\n贛語 原文 Gan (gan)\n赣语 简体 Gan, Simplified (gan-hans)\n贛語 繁體 Gan, Traditional (gan-hant)";
 "gan-variants-alert-title" = "Aktualizácie podpory jazyka gan";
 "history-clear-all" = "Vyčistiť";
-"history-clear-cancel" = "Zrušiť";
 "history-clear-confirmation-heading" = "Naozaj chcete vymazať vašu nedávnu históriu prehliadania?";
 "history-clear-delete-all" = "Áno, vymazať všetko";
 "history-title" = "História";
@@ -865,7 +864,6 @@
 "search-did-you-mean" = "Mali ste na mysli \"$1\"?";
 "search-field-placeholder-text" = "Hľadať";
 "search-reading-list-placeholder-text" = "Hľadať v zoznamoch na prečítanie";
-"search-recent-clear-cancel" = "Zrušiť";
 "search-recent-clear-confirmation-heading" = "Vymazať nedávno hľadané výrazy?";
 "search-recent-clear-confirmation-sub-heading" = "Táto akcia sa nedá vrátiť!";
 "search-recent-clear-delete-all" = "Vymazať všetko";

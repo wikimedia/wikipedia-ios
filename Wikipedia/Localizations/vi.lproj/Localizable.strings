@@ -427,7 +427,6 @@
 "gan-variants-alert-body" = "Ứng dụng Wikipedia mới hỗ trợ các biến thể chữ Hán cho tiếng Cám là ngôn ngữ giao diện chính hoặc phụ để cho bạn dễ tra cứu, tìm kiếm, và sửa đổi trong biến thể của bạn:\n\n贛語 原文 Cám (gan)\n赣语 简体 Cám giản thể (gan-hans)\n贛語 繁體 Cám phồn thể (gan-hant)";
 "gan-variants-alert-title" = "Cập nhật hỗ trợ biến thể chữ Hán trong tiếng Cám";
 "history-clear-all" = "Xóa sạch";
-"history-clear-cancel" = "Hủy bỏ";
 "history-clear-confirmation-heading" = "Bạn có chắc chắn muốn xóa tất cả các mục gần đây của bạn?";
 "history-clear-delete-all" = "Có, xóa toàn bộ";
 "history-title" = "Lịch sử";
@@ -835,7 +834,6 @@
 "search-did-you-mean" = "Có phải bạn muốn tìm “$1”?";
 "search-field-placeholder-text" = "Tìm trong Wikipedia";
 "search-reading-list-placeholder-text" = "Tìm trong danh sách đọc";
-"search-recent-clear-cancel" = "Hủy bỏ";
 "search-recent-clear-confirmation-heading" = "Xóa các tìm kiếm gần đây?";
 "search-recent-clear-confirmation-sub-heading" = "Không thể hoàn tác tác vụ này!";
 "search-recent-clear-delete-all" = "Xóa Toàn bộ";

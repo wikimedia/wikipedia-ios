@@ -289,7 +289,6 @@
 "forgot-password-title" = "စကားဝှက်ကို ပြန်ချိန်ရန်";
 "forgot-password-username-or-email-title" = "သို့မဟုတ်";
 "history-clear-all" = "ရှင်းလင်း";
-"history-clear-cancel" = "မလုပ်တော့ပါ";
 "history-clear-confirmation-heading" = "မကြာမီကစာရင်းများအား ဖျက်ပစ်ရန် သေချာပါသလား?";
 "history-clear-delete-all" = "မှန်သည်၊ အားလုံးဖျက်ပါ";
 "history-title" = "ရာဇဝင်";
@@ -585,7 +584,6 @@
 "search-did-you-mean" = "$1 ဟု ဆိုလိုပါသလား?";
 "search-field-placeholder-text" = "ဝီကီပီးဒီးယားထဲတွင် ရှာဖွေရန်";
 "search-reading-list-placeholder-text" = "ဖတ်ရှုစာရင်းအား ရှာဖွေပါ";
-"search-recent-clear-cancel" = "မလုပ်တော့ပါ";
 "search-recent-clear-confirmation-heading" = "လတ်တလော ရှာဖွေမှုများအားလုံး ဖျက်မည်လား?";
 "search-recent-clear-confirmation-sub-heading" = "ဤဆောင်ရွက်ချက်သည် နောက်ပြန်၍ မရပါ!";
 "search-recent-clear-delete-all" = "အားလုံးဖျက်";

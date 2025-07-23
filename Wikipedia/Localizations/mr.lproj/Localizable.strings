@@ -72,7 +72,6 @@
 "explore-potd-heading" = "आजचे चित्र";
 "explore-random-article-heading" = "अविशिष्ट लेख";
 "history-clear-all" = "स्वछ करा";
-"history-clear-cancel" = "रद्द करा";
 "history-clear-confirmation-heading" = "आपण हे निश्चित करता काय कि आपणास आपल्या अलीकडील सर्व बाबी वगळायच्या आहेत?";
 "history-clear-delete-all" = "होय, सर्व वगळा";
 "history-title" = "इतिहास";
@@ -126,7 +125,6 @@
 "saved-unsave-article-and-remove-from-reading-lists-title" = "साठवू नका {{PLURAL:$1|लेख|लेख}}?";
 "search-did-you-mean" = "तुम्हाला $1 म्हणायचे आहे काय?";
 "search-field-placeholder-text" = "विकिपीडिया मध्ये शोधा";
-"search-recent-clear-cancel" = "रद्द करा";
 "search-recent-clear-confirmation-heading" = "सध्याचे सर्व शोध वगळु?";
 "search-recent-clear-confirmation-sub-heading" = "ही क्रिया परतवू शकत नाही!";
 "search-recent-clear-delete-all" = "सर्व वगळा";

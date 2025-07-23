@@ -513,7 +513,6 @@
 "gan-variants-alert-body" = "Aplikasi Wikipedia sekarang mendukung varian bahasa Gan berikut sebagai bahasa utama atau sekunder dalam aplikasi, sehingga lebih mudah untuk membaca, mencari, dan mengedit dalam varian yang Anda sukai: \n\n贛語 原文 Gan (gan)\n赣语 简体 Gan, Sederhana (gan-hans)\n贛語 繁體 Gan, Tradisional (gan-hant)";
 "gan-variants-alert-title" = "Pembaruan dukungan untuk varian bahasa Gan";
 "history-clear-all" = "Kosongkan";
-"history-clear-cancel" = "Batalkan";
 "history-clear-confirmation-heading" = "Apakah Anda yakin ingin menghapus semua butir terkini Anda?";
 "history-clear-delete-all" = "Ya, hapus semua";
 "history-title" = "Riwayat";
@@ -953,7 +952,6 @@
 "search-did-you-mean" = "Mungkin maksud Anda adalah: $1";
 "search-field-placeholder-text" = "Telusuri Wikipedia";
 "search-reading-list-placeholder-text" = "Cari daftar bacaan";
-"search-recent-clear-cancel" = "Batalkan";
 "search-recent-clear-confirmation-heading" = "Hapus semua pencarian terkini?";
 "search-recent-clear-confirmation-sub-heading" = "Tindakan ini tidak bisa dibatalkan!";
 "search-recent-clear-delete-all" = "Hapus Semua";

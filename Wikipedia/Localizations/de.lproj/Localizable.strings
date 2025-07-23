@@ -15,6 +15,7 @@
 // Author: Hwboehm
 // Author: Ideophagous
 // Author: JanRei
+// Author: JorgeElias2302
 // Author: Justman10000
 // Author: Kghbln
 // Author: Killarnee
@@ -149,6 +150,8 @@
 "article-revision-history" = "Versionsgeschichte";
 "article-save-error-not-enough-space" = "Du hast nicht genügend Speicherplatz auf deinem Gerät, um diesen Artikel zu speichern.";
 "article-share" = "Teilen";
+"article-tabs-button-accessibility-hint" = "Navigiert zur Übersicht der Registerkarten";
+"article-tabs-button-accessibility-label" = "Artikelregister";
 "article-tabs-navigation" = "Tabnavigation";
 "article-tabs-open-background-tab" = "Im Hintergrund-Tab öffnen";
 "article-tabs-open-new-tab" = "In neuem Tab öffnen";
@@ -498,7 +501,6 @@
 "forgot-password-title" = "Passwort zurücksetzen";
 "forgot-password-username-or-email-title" = "Oder";
 "history-clear-all" = "Löschen";
-"history-clear-cancel" = "Abbrechen";
 "history-clear-confirmation-heading" = "Bist du sicher, dass du alle deine letzten Objekte löschen möchtest?";
 "history-clear-delete-all" = "Ja, alle löschen";
 "history-title" = "Verlauf";
@@ -926,7 +928,6 @@
 "search-did-you-mean" = "Meintest du $1?";
 "search-field-placeholder-text" = "Wikipedia durchsuchen";
 "search-reading-list-placeholder-text" = "Leseliste suchen";
-"search-recent-clear-cancel" = "Abbrechen";
 "search-recent-clear-confirmation-heading" = "Alle letzten Suchanfragen löschen?";
 "search-recent-clear-confirmation-sub-heading" = "Diese Aktion kann nicht rückgängig gemacht werden!";
 "search-recent-clear-delete-all" = "Alle löschen";

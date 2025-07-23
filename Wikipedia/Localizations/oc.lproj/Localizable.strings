@@ -92,7 +92,6 @@
 "forgot-password-title" = "Reïnicializar lo senhal";
 "forgot-password-username-or-email-title" = "O";
 "history-clear-all" = "Escafar";
-"history-clear-cancel" = "Anullar";
 "history-clear-delete-all" = "Òc, suprimir tot";
 "history-title" = "Istoric";
 "home-button-explore-accessibility-label" = "Wikipèdia, tornar a Explorar";
@@ -155,7 +154,6 @@
 "saved-title" = "Enregistrat";
 "search-did-you-mean" = "Volètz dire $1 ?";
 "search-field-placeholder-text" = "Recercar dins Wikipèdia";
-"search-recent-clear-cancel" = "Anullar";
 "search-recent-clear-confirmation-heading" = "Escafar totas las recèrcas recentas ?";
 "search-recent-clear-delete-all" = "Suprimir tot";
 "search-recent-title" = "Recercats recentament";

@@ -129,6 +129,8 @@
 "article-revision-history" = "Historia de versiones del articulo";
 "article-save-error-not-enough-space" = "Non resta spatio sufficiente sur tu apparato pro salveguardar iste articulo.";
 "article-share" = "Condivider";
+"article-tabs-button-accessibility-hint" = "Naviga al vista general de schedas";
+"article-tabs-button-accessibility-label" = "Schedas de articulo";
 "article-tabs-max-reached" = "Le limite de schedas ($1) ha essite attingite. Le articulo se ha aperite in le scheda actual. Per favor claude un o plus schedas.";
 "article-tabs-navigation" = "Navigation inter schedas";
 "article-tabs-onboarding-tooltip" = "Legendas emergente de introduction al schedas";
@@ -567,7 +569,6 @@
 "gan-variants-alert-body" = "Le application de Wikipedia ora supporta le variantes sequente del gan como linguas primari o secundari in le application, rendente lo plus facile leger, cercar e modificar in tu variantes preferite:\n\n贛語 原文 Gan (gan)\n赣语 简体 Gan simplificate (gan-hans)\n贛語 繁體 Gan traditional (gan-hant)";
 "gan-variants-alert-title" = "Actualisationes del supporto de variantes del gan";
 "history-clear-all" = "Rader";
-"history-clear-cancel" = "Cancellar";
 "history-clear-confirmation-heading" = "Es tu secur de voler deler tote tu elementos recente?";
 "history-clear-delete-all" = "Si, dele toto";
 "history-title" = "Historia";
@@ -1093,7 +1094,6 @@
 "search-did-you-mean" = "Vole tu dicer $1?";
 "search-field-placeholder-text" = "Cercar in Wikipedia";
 "search-reading-list-placeholder-text" = "Cercar in lista de lectura";
-"search-recent-clear-cancel" = "Cancellar";
 "search-recent-clear-confirmation-heading" = "Deler tote le recercas recente?";
 "search-recent-clear-confirmation-sub-heading" = "Iste action non pote esser disfacite!";
 "search-recent-clear-delete-all" = "Deler toto";

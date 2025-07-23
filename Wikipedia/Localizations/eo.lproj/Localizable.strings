@@ -325,7 +325,6 @@
 "forgot-password-title" = "Restarigi pasvorton";
 "forgot-password-username-or-email-title" = "Aŭ";
 "history-clear-all" = "Malplenigi";
-"history-clear-cancel" = "Nuligi";
 "history-clear-confirmation-heading" = "Ĉu vi certas, ke vi volas forigi ĉiujn viajn lastajn erojn?";
 "history-clear-delete-all" = "Jes, forigi ĉion";
 "history-title" = "Historio";
@@ -577,7 +576,6 @@
 "search-did-you-mean" = "Ĉu vi celis $1?";
 "search-field-placeholder-text" = "Serĉi tra Vikipedio";
 "search-reading-list-placeholder-text" = "Serĉi tra legolisto";
-"search-recent-clear-cancel" = "Nuligi";
 "search-recent-clear-confirmation-heading" = "Ĉu forigi ĉiujn lastajn serĉojn?";
 "search-recent-clear-confirmation-sub-heading" = "Tiu ĉi ago ne povas esti malfarita!";
 "search-recent-clear-delete-all" = "Forigi ĉiujn";

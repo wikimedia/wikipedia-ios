@@ -161,7 +161,6 @@
 "forgot-password-title" = "Ales awennez n wawal uffir";
 "forgot-password-username-or-email-title" = "Neɣ";
 "history-clear-all" = "Sfeḍ";
-"history-clear-cancel" = "Sefsex";
 "history-clear-confirmation-heading" = "Tebɣiḍ ad tekkseḍ akk iferdisen n melmi kan?";
 "history-clear-delete-all" = "Ih, kkes akk";
 "history-title" = "Amazray";
@@ -294,7 +293,6 @@
 "search-button-accessibility-label" = "Nadi di Wikipedia";
 "search-did-you-mean" = "Tebɣiḍ ad tiniḍ $1?";
 "search-field-placeholder-text" = "Nadi di Wikipedia";
-"search-recent-clear-cancel" = "Sefsex";
 "search-recent-clear-confirmation-heading" = "Kkes akk inadiyen n melmi kan?";
 "search-recent-clear-confirmation-sub-heading" = "Tigawt-agi ur tettwasefsax ara!";
 "search-recent-clear-delete-all" = "Kkes i meṛṛa";

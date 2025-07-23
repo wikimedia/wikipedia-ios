@@ -412,7 +412,6 @@
 "forgot-password-username-or-email-title" = "Lub";
 "gan-variants-alert-title" = "Aktualizacje obsługi wariantów Gan";
 "history-clear-all" = "Wyczyść";
-"history-clear-cancel" = "Anuluj";
 "history-clear-confirmation-heading" = "Czy na pewno chcesz usunąć wszystkie swoje ostatnie elementy?";
 "history-clear-delete-all" = "Tak, usuń wszystko";
 "history-title" = "Historia";
@@ -773,7 +772,6 @@
 "search-did-you-mean" = "Czy chodziło Ci o $1?";
 "search-field-placeholder-text" = "Szukaj w Wikipedii";
 "search-reading-list-placeholder-text" = "Przeszukaj listy do przeczytania";
-"search-recent-clear-cancel" = "Anuluj";
 "search-recent-clear-confirmation-heading" = "Usunąć wszystkie ostatnie wyszukiwania?";
 "search-recent-clear-confirmation-sub-heading" = "Ta akcja nie może zostać cofnięta!";
 "search-recent-clear-delete-all" = "Usuń wszystko";

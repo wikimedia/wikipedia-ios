@@ -523,7 +523,6 @@
 "forgot-password-username-or-email-title" = "tai";
 "gan-variants-alert-title" = "Päivityksiä Gan-version tukeen";
 "history-clear-all" = "Tyhjennä";
-"history-clear-cancel" = "Peruuta";
 "history-clear-confirmation-heading" = "Tyhjennetäänkö historia?";
 "history-clear-delete-all" = "Kyllä, poista kaikki";
 "history-title" = "Historia";
@@ -998,7 +997,6 @@
 "search-did-you-mean" = "Tarkoititko $1?";
 "search-field-placeholder-text" = "Wikipedia-haku";
 "search-reading-list-placeholder-text" = "Hae lukulistasta";
-"search-recent-clear-cancel" = "Keskeytä";
 "search-recent-clear-confirmation-heading" = "Poistetaanko kaikki äskettäiset haut?";
 "search-recent-clear-confirmation-sub-heading" = "Toimintoa ei voi kumota!";
 "search-recent-clear-delete-all" = "Poista kaikki";

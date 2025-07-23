@@ -28,7 +28,6 @@
 "edit-summary-choice-fixed-grammar" = "व्याकरण ठिक करु";
 "edit-summary-choice-fixed-typos" = "टाइपो ठिक करु";
 "edit-summary-choice-linked-words" = "लिंक जोडू";
-"history-clear-cancel" = "रद्द करु";
 // Fuzzy
 "history-clear-confirmation-heading" = "हालके सब वस्तुसभ नस्टकरु?";
 // Fuzzy
@@ -57,7 +56,6 @@
 // Fuzzy
 "search-did-you-mean" = "की आहाँ के था अछि $१ ?";
 "search-field-placeholder-text" = "विकिपिडिया खोजी";
-"search-recent-clear-cancel" = "रद्द करु";
 "search-recent-clear-confirmation-heading" = "हालक खोजसभ मेटाउ?";
 "search-recent-clear-confirmation-sub-heading" = "ई कार्य पूर्ववत नै भ्यसकई यऽ!";
 "search-recent-clear-delete-all" = "सभटाकेँ मेटाउ";

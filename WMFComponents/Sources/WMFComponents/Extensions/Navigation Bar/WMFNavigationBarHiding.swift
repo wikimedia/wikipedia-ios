@@ -16,7 +16,7 @@ public extension WMFNavigationBarHiding where Self:UIViewController {
         let overlayView = UIView()
         overlayView.translatesAutoresizingMaskIntoConstraints = false
         view.insertSubview(overlayView, aboveSubview: scrollView)
-        
+
         let overlayHeightConstraint = overlayView.heightAnchor.constraint(equalToConstant: 0)
         topSafeAreaOverlayHeightConstraint = overlayHeightConstraint
         calculateTopSafeAreaOverlayHeight()

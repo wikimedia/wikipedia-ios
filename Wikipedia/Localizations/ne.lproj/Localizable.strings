@@ -211,7 +211,6 @@
 "forgot-password-title" = "पासवर्ड पूर्वनिर्धारित गर्नुहोस्";
 "forgot-password-username-or-email-title" = "अथवा";
 "history-clear-all" = "खाली गर्नुहोस्";
-"history-clear-cancel" = "रद्द गर्नुहोस्";
 "history-clear-delete-all" = "हो, सबै मेट्नुहोस्";
 "history-title" = "इतिहास";
 "home-more-like-footer" = "$1 जस्तो अरु";
@@ -370,7 +369,6 @@
 "search-clear-title" = "खाली";
 "search-did-you-mean" = "के तपाईंको खोजाई: $1 हो?";
 "search-field-placeholder-text" = "विकिपिडियामा खोज्नुहोस्";
-"search-recent-clear-cancel" = "रद्द गर्नुहोस्";
 "search-recent-clear-delete-all" = "सबै मेट्ने";
 "search-recent-title" = "भर्खरैका खोजहरू";
 "search-result-redirected-from" = "$1: बाट अनुप्रेषित";

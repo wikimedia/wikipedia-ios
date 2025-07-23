@@ -230,7 +230,6 @@
 "forgot-password-title" = "Επαναφορά κωδικού";
 "forgot-password-username-or-email-title" = "Ή";
 "history-clear-all" = "Εκκαθάριση";
-"history-clear-cancel" = "Ακύρωση";
 "history-clear-delete-all" = "Ναι, διαγραφή όλων";
 "history-title" = "Ιστορικό";
 "home-button-explore-accessibility-label" = "Βικιπαίδεια, επιστροφή στην εξερεύνηση";
@@ -400,7 +399,6 @@
 "search-did-you-mean" = "Μήπως εννοούσατε $1;";
 "search-field-placeholder-text" = "Αναζήτηση στη Βικιπαίδεια";
 "search-reading-list-placeholder-text" = "Αναζητήστε την λίστα ανάγνωσης";
-"search-recent-clear-cancel" = "Ακύρωση";
 "search-recent-clear-confirmation-heading" = "Διαγραφή όλων των πρόσφατων αναζητήσεων;";
 "search-recent-clear-confirmation-sub-heading" = "Αυτή η ενέργεια δεν μπορεί να αναιρεθεί!";
 "search-recent-clear-delete-all" = "Διαγραφή Όλων";

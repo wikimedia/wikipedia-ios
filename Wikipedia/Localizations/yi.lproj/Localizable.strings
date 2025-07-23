@@ -50,7 +50,6 @@
 "forgot-password-button-title" = "צוריקשטעלן";
 "forgot-password-title" = "צוריקשטעלן פאַסווארט";
 "history-clear-all" = "אפליידיגן";
-"history-clear-cancel" = "אַנולירן";
 "history-clear-confirmation-heading" = "איר ווילט טאקע אויסמעקן אלע אייערע לעצטיקע אביעקטן?";
 "history-clear-delete-all" = "יא, אויסמעקן אלץ";
 "history-title" = "היסטאָריע";
@@ -94,7 +93,6 @@
 "saved-title" = "אויפֿגעהיטן";
 "search-did-you-mean" = "צי האט איר געמיינט $1?";
 "search-field-placeholder-text" = "זוכן וויקיפעדיע";
-"search-recent-clear-cancel" = "אַנולירן";
 "search-recent-clear-confirmation-heading" = "אויסמעקן אלע לעצטיקע זוכן?";
 "search-recent-clear-delete-all" = "אויסמעקן אלץ";
 "search-recent-title" = "לעצטנס געזוכט";

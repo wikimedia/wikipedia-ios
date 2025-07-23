@@ -16,7 +16,6 @@
 "field-email-title" = "ایمیل";
 "forgot-password-username-or-email-title" = "یا";
 "history-clear-all" = "پاک کورتین";
-"history-clear-cancel" = "کنسیل";
 // Fuzzy
 "history-clear-delete-all" = "موچانی پاک کورتین";
 "languages-title" = "زبانئ تغیر داتین";
@@ -31,7 +30,6 @@
 "nearby-distance-label-meters" = "$1 متر";
 "nearby-distance-label-miles" = "$1 مایل";
 "search-field-placeholder-text" = "به ویکی‌پیڈیای تا گشتین";
-"search-recent-clear-cancel" = "کنسیل";
 "search-recent-clear-delete-all" = "موچانی پاک کورتین";
 "search-title" = "گشتین";
 // Fuzzy

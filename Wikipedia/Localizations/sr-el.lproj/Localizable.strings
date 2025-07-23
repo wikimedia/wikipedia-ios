@@ -413,7 +413,6 @@
 "forgot-password-title" = "Resetovanje lozinke";
 "forgot-password-username-or-email-title" = "Ili";
 "history-clear-all" = "Obriši";
-"history-clear-cancel" = "Otkaži";
 "history-clear-confirmation-heading" = "Želite li zaista da izbrišete sve nedavne stavke?";
 "history-clear-delete-all" = "Da, izbriši sve";
 "history-title" = "Istorija";
@@ -840,7 +839,6 @@
 "search-did-you-mean" = "Da li ste mislili na „$1”?";
 "search-field-placeholder-text" = "Pretraga Vikipedije";
 "search-reading-list-placeholder-text" = "Pretraga po listi za čitanje";
-"search-recent-clear-cancel" = "Otkaži";
 "search-recent-clear-confirmation-heading" = "Izbrisati sve nedavne pretrage?";
 "search-recent-clear-confirmation-sub-heading" = "Ova radnja je nepovratna.";
 "search-recent-clear-delete-all" = "Izbriši sve";

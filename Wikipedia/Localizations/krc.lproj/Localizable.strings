@@ -510,7 +510,6 @@
 "gan-variants-alert-body" = "Wikipedia къошакъ энди энишгедеги Gan вариантланы биринчи недаэкинчи тил болуб къошакъны ичинде дагъан береди, алай бла сайлагъан вариантла андан да тынч окъуялырча, тинтелирча эмда тюзеталырча болады:\n\n贛語 原文 Gan (gan)\n赣语 简体 Gan, Къысхартылгъан (gan-hans)\n贛語 繁體 Gan, Адетдеги (gan-hant)";
 "gan-variants-alert-title" = "Gan вариантларыны дагъаныны джангыртыулары";
 "history-clear-all" = "Тазала";
-"history-clear-cancel" = "Ызына ал";
 "history-clear-confirmation-heading" = "Кёб болмагъан бютеу элементленеи кетерирге излегенигизге ишексизмисиз?";
 "history-clear-delete-all" = "Хоу, барысын да кетер";
 "history-title" = "Тарих";
@@ -992,7 +991,6 @@
 "search-did-you-mean" = "$1 излене болурму?";
 "search-field-placeholder-text" = "Википедияда излеу";
 "search-reading-list-placeholder-text" = "Окъуу тизмеде изле";
-"search-recent-clear-cancel" = "Ызына ал";
 "search-recent-clear-confirmation-heading" = "Ахыр излеулени бютеую кетерилсинми?";
 "search-recent-clear-confirmation-sub-heading" = "Бу этиу кери аллыналмаз!";
 "search-recent-clear-delete-all" = "Барысын да кетер";

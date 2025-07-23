@@ -224,7 +224,6 @@
 "forgot-password-title" = "Pasahitza berrezarri";
 "forgot-password-username-or-email-title" = "Edo";
 "history-clear-all" = "Garbitu";
-"history-clear-cancel" = "Utzi";
 "history-clear-confirmation-heading" = "Ziur al zaude zure azken elementu guztiak ezabatu nahi dituzula?";
 "history-clear-delete-all" = "Bai, dena ezabatu";
 "history-title" = "Historia";
@@ -421,7 +420,6 @@
 "search-did-you-mean" = "$1 esan nahi zenuen?";
 "search-field-placeholder-text" = "Bilatu Wikipedian";
 "search-reading-list-placeholder-text" = "Irakurketa zerrenda bilatu";
-"search-recent-clear-cancel" = "Utzi";
 "search-recent-clear-confirmation-heading" = "Ezabatu azken bilaketa guztiak?";
 "search-recent-clear-confirmation-sub-heading" = "Ekintza hau ezin da desegin!";
 "search-recent-clear-delete-all" = "Denak ezabatu";

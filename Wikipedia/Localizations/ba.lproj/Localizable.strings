@@ -399,7 +399,6 @@
 "gan-variants-alert-body" = "Wikipedia ҡушымтаһы хәҙер  Gan телен төп йәки өҫтәмә тел булараҡ хуплай, был һеҙ һайлаған форматта уҡыуҙы, эҙләүҙе һәм үҙгәрештәр индеререүҙе ябайлаштыра:\n贛語 原文 Gan (gan)\n赣语 简体 Gan, Ябайлаштырылған (gan-hans)\n贛語 繁體 Gan, Tрадицион (gan-hant)";
 "gan-variants-alert-title" = "Ган теле варианттарына ярҙамды яңыртыу";
 "history-clear-all" = "Таҙартырға";
-"history-clear-cancel" = "Баш тартыу";
 "history-clear-confirmation-heading" = "Һеҙ ысынлап та яңыраҡ булған элементтарҙы юйырға теләйһегеҙме?";
 "history-clear-delete-all" = "Эйе, бөтәһен дә юйырға";
 "history-title" = "Тарих";
@@ -533,7 +532,6 @@
 "saved-title" = "Һаҡланған";
 "search-did-you-mean" = "Бәлки һеҙ $1-ҙы күҙ уңында тотҡанһығыҙҙыр?";
 "search-field-placeholder-text" = "Википедияла эҙләү";
-"search-recent-clear-cancel" = "Кире алырға";
 "search-recent-clear-confirmation-heading" = "Бөтә һуңғы эҙләү һоратыуҙарын юйҙырырға";
 "search-recent-clear-confirmation-sub-heading" = "Был ғәмәлде кире алып булмай";
 "search-recent-clear-delete-all" = "Барыһын да юйырға";

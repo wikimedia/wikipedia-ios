@@ -204,7 +204,6 @@
 "forgot-password-title" = "পাসওয়ার্ড পুনঃস্থাপন";
 "forgot-password-username-or-email-title" = "অথবা";
 "history-clear-all" = "পরিষ্কার করুন";
-"history-clear-cancel" = "বাতিল";
 "history-clear-confirmation-heading" = "সাম্প্রতিক সব আইটেম মুছে ফেলবেন?";
 "history-clear-delete-all" = "হ্যাঁ, সব মুছে ফেলুন";
 "history-title" = "ইতিহাস";
@@ -376,7 +375,6 @@
 "search-clear-title" = "পরিষ্কার করুন";
 "search-did-you-mean" = "আপনি কি $1 বুঝাচ্ছেন?";
 "search-field-placeholder-text" = "উইকিপিডিয়া অনুসন্ধান";
-"search-recent-clear-cancel" = "বাতিল";
 "search-recent-clear-confirmation-heading" = "সাম্প্রতিক সব অনুসন্ধান মুছে ফেলবেন?";
 "search-recent-clear-confirmation-sub-heading" = "এই ক্রিয়াটি পূর্বাবস্থায় ফেরানো যাবে না!";
 "search-recent-clear-delete-all" = "সব মুছে ফেলুন";

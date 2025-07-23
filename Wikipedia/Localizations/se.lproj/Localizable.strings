@@ -518,7 +518,6 @@
 "gan-variants-alert-body" = "Wikipedia-áppa doarju dál čuovvovaš gan-variánttaid váldo- dahje nubbingiellan áppas, juoga mii dahká álkibun lohkat, ohcat, ja rievdadit iežat oidojuvvon variánttaid:\n\n贛語 原文 gan (gan)\n赣语 简体 álkiduvvon gan (gan-hans)\n贛語 繁體 árbevirolaš gan (gan-hant)";
 "gan-variants-alert-title" = "Ođasmahttimat mat dorjot gan-giella-variánttaid";
 "history-clear-all" = "Gurre";
-"history-clear-cancel" = "Gaskkalduhte";
 "history-clear-confirmation-heading" = "Háliidat go duođaid gurret iežat logga?";
 "history-clear-delete-all" = "Juo, sihko buot";
 "history-title" = "Historjá";
@@ -991,7 +990,6 @@
 "search-did-you-mean" = "Oaivvildit go $1?";
 "search-field-placeholder-text" = "Oza Wikipedias";
 "search-reading-list-placeholder-text" = "Oza lohkanlisttus";
-"search-recent-clear-cancel" = "Gaskkalduhte";
 "search-recent-clear-confirmation-heading" = "Sihko visot easkká ohcamiid?";
 "search-recent-clear-delete-all" = "Sihko buot";
 "search-recent-empty" = "Eai leat aittolaš ohcamat vuos";

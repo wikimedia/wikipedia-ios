@@ -396,7 +396,6 @@
 "forgot-password-title" = "Jelszó visszaállítása";
 "forgot-password-username-or-email-title" = "Vagy";
 "history-clear-all" = "Törlés";
-"history-clear-cancel" = "Mégsem";
 "history-clear-confirmation-heading" = "Biztosan törölni akarod az összes korábbi elemet?";
 "history-clear-delete-all" = "Igen, összes törlése";
 "history-title" = "Előzmények";
@@ -727,7 +726,6 @@
 "search-did-you-mean" = "Úgy érted: $1?";
 "search-field-placeholder-text" = "Keresés a Wikipédiában";
 "search-reading-list-placeholder-text" = "Keresés az olvasólistában";
-"search-recent-clear-cancel" = "Mégse";
 "search-recent-clear-confirmation-heading" = "Törlöd az összes friss keresést?";
 "search-recent-clear-confirmation-sub-heading" = "Ezt a műveletet nem lehet visszavonni!";
 "search-recent-clear-delete-all" = "Összes törlése";

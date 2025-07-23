@@ -152,6 +152,8 @@
 "article-revision-history" = "Історія редагування статті";
 "article-save-error-not-enough-space" = "Не вистачає місця на вашому приладі, щоб зберегти цю статтю.";
 "article-share" = "Поділитися";
+"article-tabs-button-accessibility-hint" = "Перехід до огляду вкладок";
+"article-tabs-button-accessibility-label" = "Вкладки статей";
 "article-tabs-max-reached" = "Досягнуто ліміту вкладок ($1). Статтю було відкрито у поточній вкладці. Будь ласка, закрийте одну або кілька вкладок.";
 "article-tabs-navigation" = "Навігація вкладками";
 "article-tabs-onboarding-tooltip" = "Навчальні підказки для вкладок";
@@ -590,7 +592,6 @@
 "gan-variants-alert-body" = "Тепер додаток Вікіпедії підтримує різні варіанти мови ґань як основну чи другорядну мову додатка, полегшуючи читання, пошук і редагування відповідно до ваших вподобань:\n\n贛語 原文 ґань (gan)\n赣语 简体 ґань, спрощена (gan-hans)\n贛語 繁體 ґань, традиційна (gan-hant)";
 "gan-variants-alert-title" = "Оновлення щодо підтримки варіантів ґань";
 "history-clear-all" = "Очистити";
-"history-clear-cancel" = "Скасувати";
 "history-clear-confirmation-heading" = "Ви впевнені, що хочете вилучити всі недавні елементи?";
 "history-clear-delete-all" = "Так, вилучити всі";
 "history-title" = "Історія";
@@ -1116,7 +1117,6 @@
 "search-did-you-mean" = "Можливо, ви мали на увазі «$1»?";
 "search-field-placeholder-text" = "Пошук по Вікіпедії";
 "search-reading-list-placeholder-text" = "Пошук у читальному списку";
-"search-recent-clear-cancel" = "Скасувати";
 "search-recent-clear-confirmation-heading" = "Вилучити всі недавні пошукові запити?";
 "search-recent-clear-confirmation-sub-heading" = "Цю дію скасувати не можна!";
 "search-recent-clear-delete-all" = "Вилучити всі";

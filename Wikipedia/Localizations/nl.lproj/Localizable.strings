@@ -563,7 +563,6 @@
 "gan-variants-alert-body" = "De Wikipedia-app ondersteunt nu de volgende Gan-varianten als primaire of secundaire talen binnen de app, waardoor het makkelijker wordt om te lezen, zoeken en bewerken in uw voorkeursvarianten:\n\n贛語 原文 Gan (gan)\n赣语 简体 Gan, vereenvoudigd (gan-hans)\n贛語 繁體 Gan, traditioneel (gan-hant)";
 "gan-variants-alert-title" = "Updates voor ondersteuning van Gan-varianten";
 "history-clear-all" = "Wissen";
-"history-clear-cancel" = "Annuleren";
 "history-clear-confirmation-heading" = "Weet u zeker dat u alle recente items wilt verwijderen?";
 "history-clear-delete-all" = "Ja, alles verwijderen";
 "history-title" = "Geschiedenis";
@@ -1074,7 +1073,6 @@
 "search-did-you-mean" = "Bedoelde u $1?";
 "search-field-placeholder-text" = "Zoeken in Wikipedia";
 "search-reading-list-placeholder-text" = "Leeslijst doorzoeken";
-"search-recent-clear-cancel" = "Annuleren";
 "search-recent-clear-confirmation-heading" = "Alle recente zoekopdrachten verwijderen?";
 "search-recent-clear-confirmation-sub-heading" = "Deze handeling kan niet ongedaan worden gemaakt!";
 "search-recent-clear-delete-all" = "Alles verwijderen";

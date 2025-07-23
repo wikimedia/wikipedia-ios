@@ -579,7 +579,6 @@
 "gan-variants-alert-body" = "Wikipedia-appen understøtter nu følgende Gan-varianter som primære eller sekundære sprog i appen, hvilket gør det nemmere at læse, søge og redigere i dine foretrukne varianter:\n\n贛語 原文 Gan (gan)\n赣语 简体 Gan, Simplified (gan-hans, 誫 甞 甞 紛n) (gan-hant)";
 "gan-variants-alert-title" = "Opdateringer til Gan variant support";
 "history-clear-all" = "Ryd";
-"history-clear-cancel" = "Annuller";
 "history-clear-confirmation-heading" = "Er du sikker på at du ønsker at slette alle dine seneste emner?";
 "history-clear-delete-all" = "Ja, slet alt";
 "history-title" = "Historik";
@@ -1004,7 +1003,6 @@
 "search-did-you-mean" = "Mente du $1?";
 "search-field-placeholder-text" = "Søg i Wikipedia";
 "search-reading-list-placeholder-text" = "Søg i læseliste";
-"search-recent-clear-cancel" = "Annullér";
 "search-recent-clear-confirmation-heading" = "Slet alle seneste søgninger?";
 "search-recent-clear-confirmation-sub-heading" = "Denne handling kan ikke fortrydes!";
 "search-recent-clear-delete-all" = "Slet";

@@ -42,7 +42,6 @@
 "explore-potd-heading" = "Fotografia e ditës";
 "explore-random-article-heading" = "Artikull i rastit";
 "history-clear-all" = "Pastro";
-"history-clear-cancel" = "Anulo";
 // Fuzzy
 "history-clear-confirmation-heading" = "Fshini të gjithë artikujt e fundit?";
 // Fuzzy
@@ -80,7 +79,6 @@
 "relative-date-days-ago" = "{{PLURAL:$1|0=Ditë|Dje|$1 ditë më parë}}";
 "search-did-you-mean" = "Mos kishit në mendje $1?";
 "search-field-placeholder-text" = "Kërko në Wikipedia";
-"search-recent-clear-cancel" = "Anulo";
 "search-recent-clear-confirmation-heading" = "Fshi të gjitha kërkimet e fundit?";
 "search-recent-clear-confirmation-sub-heading" = "Ky veprim nuk mund të zhbëhet!";
 "search-recent-clear-delete-all" = "Fshi të gjitha";

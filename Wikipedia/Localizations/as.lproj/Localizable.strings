@@ -137,7 +137,6 @@
 "find-textfield-accessibility" = "বিচাৰক";
 "forgot-password-username-or-email-title" = "অথবা";
 "history-clear-all" = "পৰিষ্কাৰ কৰক";
-"history-clear-cancel" = "বাতিল কৰক";
 "history-clear-confirmation-heading" = "আপুনি আপোনাৰ সকলো শেহতীয়া বস্তু মচিবলৈ বিচৰাটো নিশ্চিতনে?";
 "history-clear-delete-all" = "হয়, সকলো মচক";
 "history-title" = "ইতিহাস";
@@ -224,7 +223,6 @@
 "search-clear-title" = "পৰিষ্কাৰ";
 "search-did-you-mean" = "আপুনি $1 বুজাব খুজিছে নেকি?";
 "search-field-placeholder-text" = "ৱিকিপিডিয়াত সন্ধান কৰক";
-"search-recent-clear-cancel" = "বাতিল";
 "search-recent-clear-confirmation-heading" = "শেহতীয়া সকলো সন্ধান বিলোপ কৰিব?";
 "search-recent-clear-confirmation-sub-heading" = "এই কাৰ্য্য নোহোৱা কৰিব নোৱাৰি!";
 "search-recent-clear-delete-all" = "সকলো বিলোপ কৰক";

@@ -325,7 +325,6 @@
 "gan-variants-alert-body" = "Adess l'aplicazzion Wikipedia adess la suporta qyesta variant chì del Gan variants come lengue primarie o secondarie dedent de l'aplicazzion, per fà in manera de render pussee facil la letura, la ricerca e la modifega in di to variant preferide:\n\n贛語 原文 Gan (gan)\n赣语 简体 Gan, Semplificad(gan-hans)\n贛語 繁體 Gan, Tradizzional (gan-hant)";
 "gan-variants-alert-title" = "Atualizazzion al suport di variant del Gan noeuve";
 "history-clear-all" = "Neta";
-"history-clear-cancel" = "Anulla";
 "history-clear-confirmation-heading" = "Te see sicur che te voeulet scancellà tut i to element recent?";
 "history-clear-delete-all" = "Sì, scassa tuscoss";
 "history-title" = "Storia";

@@ -455,7 +455,6 @@
 "gan-variants-alert-body" = "Ara l’aplicació Wikipedia admet les següents variants Gan com a llengües primàries o secundàries de l’aplicació, cosa que facilita la lectura, la cerca i l’edició de les vostres variants preferides:\n\n贛 語 原文 Gan (gan)\n赣 语 简体 Gan, simplificat (gan-hans)\n贛 語 繁體 Gan, tradicional (gan-hant)";
 "gan-variants-alert-title" = "Actualitzacions del suport a les variants Gan";
 "history-clear-all" = "Neteja";
-"history-clear-cancel" = "Cancel·la";
 "history-clear-confirmation-heading" = "Esteu segurs que voleu eliminar els elements recents?";
 "history-clear-delete-all" = "Sí, esborra-ho tot";
 "history-title" = "Historial";
@@ -914,7 +913,6 @@
 "search-did-you-mean" = "Volíeu dir: $1?";
 "search-field-placeholder-text" = "Cerca a la Viquipèdia";
 "search-reading-list-placeholder-text" = "Cerca a la llista de lectura";
-"search-recent-clear-cancel" = "Cancel·la";
 "search-recent-clear-confirmation-heading" = "Voleu suprimir totes les cerques recents?";
 "search-recent-clear-confirmation-sub-heading" = "No es pot desfer l'acció!";
 "search-recent-clear-delete-all" = "Suprimeix-ho tot";

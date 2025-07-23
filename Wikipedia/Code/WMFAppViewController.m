@@ -318,7 +318,6 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
 
     self.transitionsController = [WMFViewControllerTransitionsController new];
 
-    self.recentArticlesViewController.dataStore = self.dataStore;
     [self.searchViewController applyTheme:self.theme];
     [self.settingsViewController applyTheme:self.theme];
 
@@ -1011,6 +1010,7 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
 
                                                            done();
                                                        }];
+            [self.dataStore.authenticationManager authStateIsTemporary];
         } else if ([self shouldShowExploreScreenOnLaunch]) {
             [self hideSplashView];
             [self showExplore];
@@ -1505,9 +1505,7 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
 
 - (WMFHistoryViewController *)recentArticlesViewController {
     if (!_recentArticlesViewController) {
-        _recentArticlesViewController = [[WMFHistoryViewController alloc] init];
-        [_recentArticlesViewController applyTheme:self.theme];
-        _recentArticlesViewController.dataStore = self.dataStore;
+        _recentArticlesViewController = [self generateHistoryTab];
         _recentArticlesViewController.tabBarItem.image = [UIImage imageNamed:@"tabbar-recent"];
         _recentArticlesViewController.title = [WMFCommonStrings historyTabTitle];
     }

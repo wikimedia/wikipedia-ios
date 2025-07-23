@@ -355,7 +355,6 @@
 "forgot-password-title" = "ကလေင်စုတ် မလိက်ပၞုက်";
 "forgot-password-username-or-email-title" = "ဟွံသေင်မ္ဂး";
 "history-clear-all" = "ဖ္အး";
-"history-clear-cancel" = "တးပဲါ";
 "history-clear-confirmation-heading" = "မၞး မိက်ဂွံ ပလီုထောအ် item မၞး သီုဖအိုတ် ကွေဟ်ဟ်ရဟာ？";
 "history-clear-delete-all" = "ယွံ၊ ပလီုထောအ် ဖအိုတ်";
 "history-title" = "အရာမဗှ်လဝ်တုဲ";
@@ -629,7 +628,6 @@
 "search-did-you-mean" = "မၞး မိက်ဂွံ ဟီု $1 ဟာ？";
 "search-field-placeholder-text" = "ဂၠာဲ ပ္ဍဲ ဝဳကဳပဳဒဳယာ";
 "search-reading-list-placeholder-text" = "ဂၠာဲ ပ္ဍဲ စရင် လိက်ဗွဟ်";
-"search-recent-clear-cancel" = "တးပဲါ";
 "search-recent-clear-confirmation-heading" = "ပလီုထောအ် အရာမဂၠိုင်လဝ် ပြဟ်ဟ်ဏအ် သီုဖအိုတ်ဟာ？";
 "search-recent-clear-confirmation-sub-heading" = "ပရေင်မကၠောန်ဒၟံင်ဏအ် ပဒေါအ်ထောအ် ဟွံဂွံ!";
 "search-recent-clear-delete-all" = "ပလီုထောအ် ဖအိုတ်";

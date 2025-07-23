@@ -35,7 +35,6 @@
 "edit-summary-choice-fixed-grammar" = "व्याकरणदोषः परिष्कृतः";
 "edit-summary-choice-fixed-typos" = "टङ्कणदोषः परिष्कृतः";
 "edit-summary-choice-linked-words" = "परिसन्धयः योजिताः";
-"history-clear-cancel" = "निरस्यताम्";
 // Fuzzy
 "history-clear-confirmation-heading" = "रक्षितानि वस्तूनि अपाकरणीयानि ?";
 // Fuzzy
@@ -71,7 +70,6 @@
 "preference-summary-eventlogging-opt-in" = "अनुप्रयोगे आवश्यकपरिवर्तनं कर्तुं भवान्/भवती विकिपीडिया-अनुप्रयोगस्य कथम् उपयोगं करोति इत्यस्य सूचनां क्रोडीकर्तुं विकिपीडिया-जालाय अनुमतिं ददातु ।";
 "search-did-you-mean" = "किं भवतः/भवत्याः आशयः $1 एवमस्ति ?";
 "search-field-placeholder-text" = "विकिपीडिया-जाले अन्विष्यताम्";
-"search-recent-clear-cancel" = "निरस्यताम्";
 "search-recent-clear-confirmation-heading" = "सद्यस्कस्य सर्वाणि अन्वेषणानि अपाक्रियन्ताम् ?";
 "search-recent-clear-confirmation-sub-heading" = "एषा क्रिया अपूर्णा भवितुं शक्नोति !";
 "search-recent-clear-delete-all" = "सर्वम् अपाक्रियताम्";

@@ -34,13 +34,17 @@ class HintController: NSObject {
         return containerView.superview == nil
     }
 
-    private var hintVisibilityTime: TimeInterval = 13 {
+    private lazy var hintVisibilityTime: TimeInterval = 13 {
         didSet {
             guard hintVisibilityTime != oldValue else {
                 return
             }
             dismissHint()
         }
+    }
+
+    func setCustomHintVisibilityTime(_ time: TimeInterval) {
+        hintVisibilityTime = time
     }
 
     func dismissHint(completion: (() -> Void)? = nil) {

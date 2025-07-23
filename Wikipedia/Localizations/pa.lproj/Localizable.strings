@@ -388,7 +388,6 @@
 "forgot-password-title" = "ਪਛਾਣ ਸ਼ਬਦ ਮੁੜ-ਕਾਇਮ ਕਰੋ";
 "forgot-password-username-or-email-title" = "ਜਾਂ";
 "history-clear-all" = "ਸਾਫ਼ ਕਰੋ";
-"history-clear-cancel" = "ਰੱਦ ਕਰੋ";
 "history-clear-confirmation-heading" = "ਕੀ ਤੁਸੀੰ ਪੱਕਾ ਆਪਣੀਆੰ ਸਾਰੀਆਂ ਹਾਲੀਆ ਚੀਜ਼ਾਂ ਮਿਟਾਉਣੀਆਂ ਚਾਹੁੰਦੇ ਹੋ?";
 "history-clear-delete-all" = "ਹਾੰਜੀ, ਸਾਰਾ ਕੁਝ ਮਿਟਾਉ";
 "history-title" = "ਅਤੀਤ";
@@ -729,7 +728,6 @@
 "search-did-you-mean" = "ਕੀ ਤੁਹਾਡਾ ਮਤਲਬ $1 ਸੀ?";
 "search-field-placeholder-text" = "ਵਿਕੀਪੀਡੀਆ ’ਤੇ ਭਾਲ਼ੋ";
 "search-reading-list-placeholder-text" = "ਪਡ਼੍ਹਨ ਦੀ ਸੂਚੀ ਵਿੱਚ ਲੱਭੋ";
-"search-recent-clear-cancel" = "ਰੱਦ ਕਰੋ";
 "search-recent-clear-confirmation-heading" = "ਸਾਰੀਆਂ ਹਾਲੀਆ ਖੋਜਾਂ ਮਿਟਾਓ?";
 "search-recent-clear-confirmation-sub-heading" = "ਇਸ ਕਾਰਜ ਨੂੰ ਰੱਦ ਨਹੀਂ ਕੀਤਾ ਜਾ ਸਕਦਾ!";
 "search-recent-clear-delete-all" = "ਸਾਰੇ ਮਿਟਾਓ";

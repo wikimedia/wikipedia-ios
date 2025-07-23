@@ -669,6 +669,22 @@
 			<string>os artigos</string>
 		</dict>
 	</dict>
+	<key>tabs-navbar-title-format</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d guia</string>
+			<key>other</key>
+			<string>%1$d guias</string>
+		</dict>
+	</dict>
 	<key>talk-page-active-users-accessibilty-label</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -715,6 +731,38 @@
 			<string>%1$d byte</string>
 			<key>other</key>
 			<string>%1$d bytes</string>
+		</dict>
+	</dict>
+	<key>year-in-review-personalized-reading-title-format</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Você leu %#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d artigo</string>
+			<key>other</key>
+			<string>%1$d artigos</string>
+		</dict>
+	</dict>
+	<key>year-in-review-personalized-saved-title-format</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Você salvou %#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d artigo</string>
+			<key>other</key>
+			<string>%1$d artigos</string>
 		</dict>
 	</dict>
 </dict>

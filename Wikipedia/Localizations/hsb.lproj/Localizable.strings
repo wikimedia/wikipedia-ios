@@ -258,7 +258,6 @@
 "forgot-password-title" = "Hesło wróćo stajić";
 "forgot-password-username-or-email-title" = "abo";
 "history-clear-all" = "Wuprózdnić";
-"history-clear-cancel" = "Přetorhnyć";
 "history-clear-confirmation-heading" = "Chceš woprawdźe wšě swoje poslednje objekty wušmórnyć?";
 "history-clear-delete-all" = "Haj, wšě wušmórnyć";
 "history-title" = "Stawizny";
@@ -364,7 +363,6 @@
 "search-button-accessibility-label" = "Wikipediju přepytać";
 "search-did-you-mean" = "Měnješe ty $1?";
 "search-field-placeholder-text" = "Wikipediju přepytać";
-"search-recent-clear-cancel" = "Přetorhnyć";
 "search-recent-clear-confirmation-heading" = "Zašłe pytanja wušmórnyć?";
 "search-recent-clear-confirmation-sub-heading" = "Njemóžeš tule akciju wróćo wzać!";
 "search-recent-clear-delete-all" = "Wšě wušmórnyć";

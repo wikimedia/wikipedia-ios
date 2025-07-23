@@ -183,7 +183,6 @@
 "find-textfield-accessibility" = "കണ്ടെത്തുക";
 "forgot-password-button-title" = "പുനഃക്രമീകരിക്കുക";
 "history-clear-all" = "ശൂന്യമാക്കുക";
-"history-clear-cancel" = "റദ്ദാക്കുക";
 "history-clear-delete-all" = "അതെ, എല്ലാം മായ്ക്കുക";
 "main-menu-about" = "ആപ്പിനെപ്പറ്റി";
 "main-menu-account-login" = "പ്രവേശിക്കുക";
@@ -204,7 +203,6 @@
 "saved-title" = "സേവ് ചെയ്തു";
 "search-did-you-mean" = "താങ്കൾ ഉദ്ദേശിച്ചത് $1 എന്നാണോ";
 "search-field-placeholder-text" = "വിക്കിപീഡിയയിൽ തിരയുക";
-"search-recent-clear-cancel" = "റദ്ദാക്കുക";
 "search-recent-clear-confirmation-heading" = "എല്ലാ സമീപകാല തിരച്ചിലുകളും ഒഴിവാക്കണോ ?";
 "search-recent-clear-delete-all" = "എല്ലാം മായ്ക്കുക";
 "search-recent-title" = "സമീപകാലത്ത് തിരഞ്ഞത്";

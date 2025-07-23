@@ -27,7 +27,6 @@
 "edit-summary-choice-fixed-typos" = "Sistemà un becanoto";
 "edit-summary-choice-linked-words" = "Xontà dei link";
 "edit-summary-placeholder-text" = "Come xe che te ghè mejorà ła voxe?";
-"history-clear-cancel" = "Descançełare";
 "history-clear-delete-all" = "Sì, descançeła tuto";
 "languages-title" = "Canbia łéngua";
 "main-menu-about" = "Informasion so l'app";
@@ -54,7 +53,6 @@
 "reading-themes-controls-syntax-highlighting" = "Rexalta ła sintasi";
 "search-did-you-mean" = "Te intendevito $1?";
 "search-field-placeholder-text" = "Serca su Wikipedia";
-"search-recent-clear-cancel" = "Descançełare";
 "search-recent-clear-delete-all" = "Scancela tuto";
 // Fuzzy
 "share-article-name-on-wikipedia" = "\"$1\" so @Wikipèdia Vèneta:";
