@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="23788.4" systemVersion="24F74" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="CDArticleTab" representedClassName="CDArticleTab" syncable="YES" codeGenerationType="class">
+        <attribute name="identifier" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="isCurrent" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
+        <attribute name="timestamp" attributeType="Date" usesScalarValueType="NO"/>
+        <relationship name="items" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="CDArticleTabItem" inverseName="tab" inverseEntity="CDArticleTabItem"/>
+    </entity>
+    <entity name="CDArticleTabItem" representedClassName="CDArticleTabItem" syncable="YES" codeGenerationType="class">
+        <attribute name="identifier" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="isCurrent" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
+        <relationship name="page" maxCount="1" deletionRule="Nullify" destinationEntity="CDPage" inverseName="articleTabItems" inverseEntity="CDPage"/>
+        <relationship name="tab" maxCount="1" deletionRule="Nullify" destinationEntity="CDArticleTab" inverseName="items" inverseEntity="CDArticleTab"/>
+    </entity>
+    <entity name="CDCategory" representedClassName="CDCategory" syncable="YES" codeGenerationType="class">
+        <attribute name="projectID" attributeType="String"/>
+        <attribute name="title" attributeType="String"/>
+        <relationship name="pages" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="CDPage" inverseName="categories" inverseEntity="CDPage"/>
+    </entity>
+    <entity name="CDPage" representedClassName="CDPage" syncable="YES" codeGenerationType="class">
+        <attribute name="namespaceID" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="projectID" attributeType="String"/>
+        <attribute name="timestamp" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="title" attributeType="String"/>
+        <relationship name="articleTabItems" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="CDArticleTabItem" inverseName="page" inverseEntity="CDArticleTabItem"/>
+        <relationship name="categories" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="CDCategory" inverseName="pages" inverseEntity="CDCategory"/>
+        <relationship name="pageViews" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="CDPageView" inverseName="page" inverseEntity="CDPageView"/>
+        <fetchIndex name="byProjectNamespace">
+            <fetchIndexElement property="projectID" type="Binary" order="ascending"/>
+            <fetchIndexElement property="namespaceID" type="Binary" order="ascending"/>
+        </fetchIndex>
+        <fetchIndex name="byProjectNamespaceTitle">
+            <fetchIndexElement property="projectID" type="Binary" order="ascending"/>
+            <fetchIndexElement property="namespaceID" type="Binary" order="ascending"/>
+            <fetchIndexElement property="title" type="Binary" order="ascending"/>
+        </fetchIndex>
+    </entity>
+    <entity name="CDPageView" representedClassName="CDPageView" syncable="YES" codeGenerationType="class">
+        <attribute name="numberOfSeconds" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="timestamp" attributeType="Date" usesScalarValueType="NO"/>
+        <relationship name="nextPageViews" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="CDPageView" inverseName="previousPageView" inverseEntity="CDPageView"/>
+        <relationship name="page" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDPage" inverseName="pageViews" inverseEntity="CDPage"/>
+        <relationship name="previousPageView" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDPageView" inverseName="nextPageViews" inverseEntity="CDPageView"/>
+    </entity>
+    <entity name="CDYearInReviewReport" representedClassName="CDYearInReviewReport" syncable="YES" codeGenerationType="class">
+        <attribute name="year" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <relationship name="slides" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="CDYearInReviewSlide" inverseName="report" inverseEntity="CDYearInReviewSlide"/>
+    </entity>
+    <entity name="CDYearInReviewSlide" representedClassName="CDYearInReviewSlide" syncable="YES" codeGenerationType="class">
+        <attribute name="data" optional="YES" attributeType="Binary"/>
+        <attribute name="id" attributeType="String"/>
+        <attribute name="year" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <relationship name="report" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDYearInReviewReport" inverseName="slides" inverseEntity="CDYearInReviewReport"/>
+    </entity>
+</model>
