@@ -16,13 +16,13 @@ final class NewArticleTabCoordinator: Coordinator {
     }
 
     var seed: WMFArticle?
-    var related: [ArticleSummary?] = []
+    var related: [WMFArticle?] = []
     private var seenSeedKeys = Set<String>()
 
     private let contentSource = WMFRelatedPagesContentSource()
 
     func loadNextBatch(
-      completion: @escaping (WMFArticle?, [ArticleSummary]) -> Void
+      completion: @escaping (WMFArticle?, [WMFArticle?]) -> Void
     ) {
         let moc = dataStore.feedImportContext
 
@@ -65,17 +65,39 @@ final class NewArticleTabCoordinator: Coordinator {
             }
 
             DispatchQueue.main.async {
-                self.fetcher.fetchRelatedArticles(forArticleWithURL: seedURL) { error, dict in
-                    let list = dict?.values.prefix(5).map { $0 } ?? []
-                    DispatchQueue.main.async {
-                        self.related = Array(list)
-                        completion(picked, list)
+                self.fetcher.fetchRelatedArticles(forArticleWithURL: seedURL) { error, summariesByKey in
+                    let summaries = summariesByKey?.values.prefix(3).map { $0 } ?? []
+                    moc.perform {
+                        do {
+
+                            guard let summariesByKey else {
+                                completion(picked, [])
+                                return
+                            }
+
+                            let articlesByKey =  try moc.wmf_createOrUpdateArticleSummmaries(withSummaryResponses: summariesByKey)
+
+
+                            let orderedKeys = Array(summariesByKey.keys)
+                            let relatedArticles: [WMFArticle] = orderedKeys.compactMap {
+                                articlesByKey[$0]
+                            }
+
+                            DispatchQueue.main.async {
+                                completion(picked, relatedArticles)
+                            }
+                        } catch {
+                            DispatchQueue.main.async {
+                                completion(picked, [])
+                            }
+                        }
                     }
+
                 }
             }
+
         }
     }
-
 
     @discardableResult
     func start() -> Bool {
@@ -84,6 +106,7 @@ final class NewArticleTabCoordinator: Coordinator {
             print("====== SEED: \(seed?.displayTitle ?? "nil"), RELATED: \(related)")
             self.seed    = seed
             self.related = related
+
         }
 
         let viewModel = WMFNewArticleTabViewModel(title: CommonStrings.newTab)
