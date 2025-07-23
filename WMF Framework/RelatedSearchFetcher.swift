@@ -1,9 +1,9 @@
 import Foundation
 
 @objc(WMFRelatedSearchFetcher)
-final class RelatedSearchFetcher: Fetcher {
+public final class RelatedSearchFetcher: Fetcher {
 
-    @objc func fetchRelatedArticles(forArticleWithURL articleURL: URL?, completion: @escaping (Error?, [WMFInMemoryURLKey: ArticleSummary]?) -> Void) {
+    @objc public func fetchRelatedArticles(forArticleWithURL articleURL: URL?, completion: @escaping (Error?, [WMFInMemoryURLKey: ArticleSummary]?) -> Void) {
         guard
             let articleURL = articleURL,
             let articleTitle = articleURL.wmf_title,

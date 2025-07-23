@@ -6,80 +6,83 @@ final class NewArticleTabCoordinator: Coordinator {
     var navigationController: UINavigationController
     var dataStore: MWKDataStore
     var theme: Theme
+    private let fetcher: RelatedSearchFetcher
 
-
-    init(navigationController: UINavigationController, dataStore: MWKDataStore, theme: Theme) {
+    init(navigationController: UINavigationController, dataStore: MWKDataStore, theme: Theme, fetcher: RelatedSearchFetcher = RelatedSearchFetcher()) {
         self.navigationController = navigationController
         self.dataStore = dataStore
         self.theme = theme
+        self.fetcher = fetcher
     }
 
     var seed: WMFArticle?
-    var related: [WMFArticle?] = []
+    var related: [ArticleSummary?] = []
+    private var seenSeedKeys = Set<String>()
 
     private let contentSource = WMFRelatedPagesContentSource()
 
     func loadNextBatch(
-        completion: @escaping (_ seed: WMFArticle?, _ related: [WMFArticle?]) -> Void
+      completion: @escaping (WMFArticle?, [ArticleSummary]) -> Void
     ) {
         let moc = dataStore.feedImportContext
 
-        contentSource.loadNewContent(in: moc, force: true) {
-            moc.perform {
-                let groupFetch: NSFetchRequest<WMFContentGroup> = WMFContentGroup.fetchRequest()
-                groupFetch.predicate = NSPredicate(
-                    format: "contentGroupKindInteger == %d",
-                    WMFContentGroupKind.relatedPages.rawValue
-                )
-                groupFetch.sortDescriptors = [ .init(key: "date", ascending: false) ]
-                groupFetch.fetchLimit = 1
+        // Retrieve significantly viewed
+        moc.perform {
+            let req: NSFetchRequest<WMFArticle> = WMFArticle.fetchRequest()
+            let base = NSPredicate(format:
+                "isExcludedFromFeed == NO AND (wasSignificantlyViewed == YES OR savedDate != nil)"
+            )
+            if !self.seenSeedKeys.isEmpty {
+                let exclude = NSPredicate(format: "NOT (key IN %@)", self.seenSeedKeys)
+                req.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [base, exclude])
+            } else {
+                req.predicate = base
+            }
+            let total = (try? moc.count(for: req)) ?? 0
+            if total == 0 {
+                self.seenSeedKeys.removeAll()
+            }
+            req.fetchOffset = Int.random(in: 0..<max(total,1))
+            req.fetchLimit  = 1
 
-                guard let group = (try? moc.fetch(groupFetch))?.first else {
-                    DispatchQueue.main.async {
-                        self.seed = nil
-                        self.related = []
-                    }
-                    return
+            guard let picked = (try? moc.fetch(req))?.first,
+                  let seedURL = picked.url else {
+                DispatchQueue.main.async {
+                    self.seed    = nil
+                    self.related = []
+                    completion(nil, [])
                 }
+                return
+            }
 
-                if let seedURL = group.articleURL {
-                    let seedKey = seedURL.wmf_databaseKey ?? ""
-                    let seedReq: NSFetchRequest<WMFArticle> = WMFArticle.fetchRequest()
-                    seedReq.predicate = NSPredicate(format: "key == %@", seedKey)
-                    seedReq.fetchLimit = 1
-                    let seedArticle = (try? moc.fetch(seedReq))?.first
+            // remember used articles
+            if let key = picked.key {
+                self.seenSeedKeys.insert(key)
+            }
 
-                    let urls = (group.fullContent?.object as? [URL]) ?? []
+            DispatchQueue.main.async {
+                self.seed = picked
+            }
 
-                    let relatedKeys = urls.compactMap { $0.wmf_databaseKey }
-                    let relatedReq: NSFetchRequest<WMFArticle> = WMFArticle.fetchRequest()
-                    relatedReq.predicate = NSPredicate(format: "key IN %@", relatedKeys)
-
-                    let fetched = (try? moc.fetch(relatedReq)) ?? []
-                    let byKey = [String: WMFArticle?](
-                        uniqueKeysWithValues: fetched.compactMap { art in
-                            guard let k = art.key else { return (String(), nil) }
-                            return (k, art)
-                        }
-                    )
-                    let relatedArticles = relatedKeys.compactMap { byKey[$0] }
-
+            DispatchQueue.main.async {
+                self.fetcher.fetchRelatedArticles(forArticleWithURL: seedURL) { error, dict in
+                    let list = dict?.values.prefix(5).map { $0 } ?? []
                     DispatchQueue.main.async {
-
-                        completion(seedArticle, relatedArticles)
+                        self.related = Array(list)
+                        completion(picked, list)
                     }
                 }
             }
         }
     }
 
+
     @discardableResult
     func start() -> Bool {
 
-
         loadNextBatch { seed, related in
-            print("====== SEED: \(seed?.displayTitle), RELATED: \(related)")
-            self.seed = seed
+            print("====== SEED: \(seed?.displayTitle ?? "nil"), RELATED: \(related)")
+            self.seed    = seed
             self.related = related
         }
 
