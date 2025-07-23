@@ -23,13 +23,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     // TODO: Refactor background task refresh and notification token registration logic out of WMFAppViewController. Then we can then move tab bar instantiation into SceneDelegate.
     let appViewController = WMFAppViewController()
-
+    private var bitdrift_key: String {
+        BitdriftSecretManager.shared.bitdrift_api_key
+    }
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
         // TODO ales
-        /// Addig instrumentation
         Logger.start(
-          withAPIKey: "x",
+          withAPIKey: bitdrift_key,
           sessionStrategy: .fixed(),
           apiURL: URL(string: "https://api.bitdrift.dev")!
         )?

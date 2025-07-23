@@ -80,7 +80,6 @@ fastlane/snapshot_derived_data/
 WikipediaUITests/Snapshots/
 
 # secrets
-Wikipedia/Code/Generated/BitdriftSecretManager.swift
-Wikipedia/Code/Generated
+Wikipedia/Code/Generated/*
 generate_secrets.py
 env.sh
