@@ -7,12 +7,11 @@ public struct WMFNewArticleTabViewDidYouKnow: View {
         return appEnvironment.theme
     }
     
-    let dykTitle: String
-    let funFact: String
+    let dyk: String
     let fromSource: String
     
     private var attributedString: AttributedString {
-        return (try? HtmlUtils.attributedStringFromHtml(funFact, styles: styles)) ?? AttributedString(funFact)
+        return (try? HtmlUtils.attributedStringFromHtml(dyk, styles: styles)) ?? AttributedString(dyk)
     }
     
     private var styles: HtmlUtils.Styles {
@@ -21,10 +20,6 @@ public struct WMFNewArticleTabViewDidYouKnow: View {
     
     public var body: some View {
         VStack(alignment: .leading, spacing: 8) {
-            Text(dykTitle)
-                .font(Font.for(.boldSubheadline))
-                .foregroundStyle(Color(theme.secondaryText))
-                // .frame(maxWidth: .infinity, alignment: .center)
             Text(attributedString)
             Text(fromSource)
                 .font(Font.for(.caption1))
@@ -34,15 +29,15 @@ public struct WMFNewArticleTabViewDidYouKnow: View {
     }
 }
 
-struct WMFNewArticleTabViewDidYouKnow_Previews: PreviewProvider {
-    static var previews: some View {
-        WMFNewArticleTabViewDidYouKnow(
-            dykTitle: "Did you know...",
-            funFact: "that a <a href=\"https://en.wikipedia.org\">15-second commercial for a streaming service</a> has been blamed for causing arguments and domestic violence?",
-            fromSource: "from English Wikipedia"
-        )
-        .padding()
-        .previewLayout(.sizeThatFits)
-    }
-}
+// struct WMFNewArticleTabViewDidYouKnow_Previews: PreviewProvider {
+//    static var previews: some View {
+//        WMFNewArticleTabViewDidYouKnow(
+//            dykTitle: "Did you know...",
+//            funFact: "that a <a href=\"https://en.wikipedia.org\">15-second commercial for a streaming service</a> has been blamed for causing arguments and domestic violence?",
+//            fromSource: "from English Wikipedia"
+//        )
+//        .padding()
+//        .previewLayout(.sizeThatFits)
+//    }
+// }
 

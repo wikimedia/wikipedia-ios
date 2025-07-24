@@ -48,6 +48,7 @@ final class EditorViewController: UIViewController, WMFNavigationBarConfiguring 
     private let wikitextFetcher: WikitextFetcher
     private let editNoticesFetcher: EditNoticesFetcher
     private var editNoticesViewModel: EditNoticesViewModel? = nil
+    private let dykFetcher: WMFFeedDidYouKnowFetcher
     
     private var sourceEditor: WMFSourceEditorViewController?
     private var editorTopConstraint: NSLayoutConstraint?
@@ -101,6 +102,7 @@ final class EditorViewController: UIViewController, WMFNavigationBarConfiguring 
         self.theme = theme
         self.editFlow = editFlow
         self.source = source
+        self.dykFetcher = WMFFeedDidYouKnowFetcher()
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -118,6 +120,19 @@ final class EditorViewController: UIViewController, WMFNavigationBarConfiguring 
         apply(theme: theme)
         
         loadContent()
+        
+        guard let url = URL(string: "https://en.wikipedia.org") else { return }
+        
+        dykFetcher.fetchDidYouKnow(withSiteURL: url) { error, facts in
+            guard let facts = facts else {
+                print("No facts or error: \(error?.localizedDescription ?? "unknown error")")
+                return
+            }
+            
+            for fact in facts {
+                print(fact.text)
+            }
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {

@@ -7,10 +7,10 @@ public struct WMFNewArticleTabView: View {
     public init(viewModel: WMFNewArticleTabViewModel) {
         self.viewModel = viewModel
     }
+    
     public var body: some View {
         WMFNewArticleTabViewDidYouKnow(
-            dykTitle: "Did you know...",
-            funFact: "that a <a href=\"https://en.wikipedia.org\">15-second commercial for a streaming service</a> has been blamed for causing arguments and domestic violence?",
+            dyk: viewModel.dyk,
             fromSource: "from English Wikipedia"
         )
         .padding()
