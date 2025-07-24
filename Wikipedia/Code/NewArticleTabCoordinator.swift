@@ -21,23 +21,25 @@ final class NewArticleTabCoordinator: Coordinator {
 
     private let contentSource = WMFRelatedPagesContentSource()
 
-    func loadNextBatch(
-      completion: @escaping (WMFArticle?, [WMFArticle?]) -> Void
-    ) {
+    func loadNextBatch(completion: @escaping (WMFArticle?, [WMFArticle]) -> Void) {
         let moc = dataStore.feedImportContext
 
-        // Retrieve significantly viewed
-        moc.perform {
+        // Get significantly read article
+        var pickedSeed: WMFArticle?
+        var seedURL:    URL?
+        moc.performAndWait {
             let req: NSFetchRequest<WMFArticle> = WMFArticle.fetchRequest()
             let base = NSPredicate(format:
                 "isExcludedFromFeed == NO AND (wasSignificantlyViewed == YES OR savedDate != nil)"
             )
+            // Remember used articles
             if !self.seenSeedKeys.isEmpty {
                 let exclude = NSPredicate(format: "NOT (key IN %@)", self.seenSeedKeys)
                 req.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [base, exclude])
             } else {
                 req.predicate = base
             }
+            // If we went through all articles, start again
             let total = (try? moc.count(for: req)) ?? 0
             if total == 0 {
                 self.seenSeedKeys.removeAll()
@@ -45,58 +47,64 @@ final class NewArticleTabCoordinator: Coordinator {
             req.fetchOffset = Int.random(in: 0..<max(total,1))
             req.fetchLimit  = 1
 
-            guard let picked = (try? moc.fetch(req))?.first,
-                  let seedURL = picked.url else {
-                DispatchQueue.main.async {
-                    self.seed    = nil
-                    self.related = []
-                    completion(nil, [])
+            if let seed = (try? moc.fetch(req))?.first {
+                pickedSeed = seed
+                seedURL    = seed.url
+                if let key = seed.key {
+                    self.seenSeedKeys.insert(key)
                 }
-                return
             }
+        }
 
-            // remember used articles
-            if let key = picked.key {
-                self.seenSeedKeys.insert(key)
+        DispatchQueue.main.async {
+            self.seed = pickedSeed
+        }
+        guard let seed = pickedSeed, let url = seedURL else {
+            return DispatchQueue.main.async {
+                self.related = []
+                completion(nil, [])
             }
+        }
 
-            DispatchQueue.main.async {
-                self.seed = picked
-            }
+        // Fetch related articles
+        fetcher.fetchRelatedArticles(forArticleWithURL: url) { error, summariesByKey in
 
-            DispatchQueue.main.async {
-                self.fetcher.fetchRelatedArticles(forArticleWithURL: seedURL) { error, summariesByKey in
-
-                    // Transfrom ArticleSummary into Article
-                    moc.perform {
-                        do {
-
-                            guard let summariesByKey else {
-                                completion(picked, [])
-                                return
-                            }
-
-                            let top3Summaries = Array(summariesByKey)
-                              .prefix(3)
-                              .reduce(into: [WMFInMemoryURLKey: ArticleSummary]()) { result, pair in
-                                result[pair.key] = pair.value
-                              }
-
-                            let articlesByKey = try moc.wmf_createOrUpdateArticleSummmaries(withSummaryResponses: top3Summaries)
-
-                            let orderedKeys = Array(summariesByKey.keys)
-                            let relatedArticles: [WMFArticle] = orderedKeys.compactMap {
-                                articlesByKey[$0]
-                            }
-
-                            DispatchQueue.main.async {
-                                completion(picked, relatedArticles)
-                            }
-                        } catch {
-                            DispatchQueue.main.async {
-                                completion(picked, [])
-                            }
+            // Transfrom ArticleSummary into Article
+            moc.perform {
+                do {
+                    // guard against nil dictionary
+                    guard let summariesByKey = summariesByKey else {
+                        DispatchQueue.main.async {
+                            completion(seed, [])
                         }
+                        return
+                    }
+
+                    // take the first 3
+                    let top3Summaries = Array(summariesByKey)
+                        .prefix(3)
+                        .reduce(into: [WMFInMemoryURLKey: ArticleSummary]()) { result, pair in
+                            result[pair.key] = pair.value
+                        }
+
+
+                    let articlesByKey = try moc.wmf_createOrUpdateArticleSummmaries(
+                        withSummaryResponses: top3Summaries
+                    )
+
+                    // preserve the original order
+                    let orderedKeys = Array(summariesByKey.keys)
+                    let relatedArticles: [WMFArticle] = orderedKeys.compactMap {
+                        articlesByKey[$0]
+                    }
+
+                    DispatchQueue.main.async {
+                        self.related = relatedArticles
+                        completion(seed, relatedArticles)
+                    }
+                } catch {
+                    DispatchQueue.main.async {
+                        completion(seed, [])
                     }
                 }
             }
