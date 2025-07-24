@@ -4,14 +4,17 @@ public final class WMFNewArticleTabViewModel {
 
     let text: String
     public let title: String
+    public let facts: [String]?
 
-    public init (text: String, title: String) {
+    public init (text: String, title: String, facts: [String]? = nil) {
         self.text = text
         self.title = title
+        self.facts = facts
     }
     
-    public var dyk: String {
-        replaceEllipsesWithSpace(in: "Did you know...that a <a href=\"https://en.wikipedia.org\">15-second commercial for a streaming service</a> has been blamed for causing arguments and domestic violence?")
+    public var dyk: String? {
+        guard facts != nil, let randomElement = facts?.randomElement() else { return nil }
+        return replaceEllipsesWithSpace(in: randomElement)
     }
 
     private func replaceEllipsesWithSpace(in text: String) -> String {

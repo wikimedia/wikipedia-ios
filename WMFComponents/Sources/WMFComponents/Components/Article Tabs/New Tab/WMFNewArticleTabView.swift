@@ -9,10 +9,14 @@ public struct WMFNewArticleTabView: View {
     }
     
     public var body: some View {
-        WMFNewArticleTabViewDidYouKnow(
-            dyk: viewModel.dyk,
-            fromSource: "from English Wikipedia"
-        )
-        .padding()
+        if let dyk = viewModel.dyk {
+            WMFNewArticleTabViewDidYouKnow(
+                dyk: dyk,
+                fromSource: "from English Wikipedia"
+            )
+            .padding()
+        } else {
+            Text("Loading...")
+        }
     }
 }
