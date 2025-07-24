@@ -149,7 +149,6 @@
 "forgot-password-button-title" = "Tozalash";
 "forgot-password-username-or-email-title" = "Yoki";
 "history-clear-all" = "Tozalash";
-"history-clear-cancel" = "Bekor qilish";
 "history-clear-confirmation-heading" = "Barcha soʻnggi elementlarni oʻchirib tashlaysizmi?";
 "history-clear-delete-all" = "Ha, barini";
 "history-title" = "Tarix";
@@ -251,7 +250,6 @@
 "search-button-accessibility-label" = "Vikipediyadan izlash";
 "search-clear-title" = "Tozalash";
 "search-field-placeholder-text" = "Vikipediyadan izlash";
-"search-recent-clear-cancel" = "Bekor qilish";
 "search-recent-clear-confirmation-heading" = "Barcha oxirgi paytdagi qidiruvlar o‘chirib tashlansinmi?";
 "search-recent-clear-confirmation-sub-heading" = "Bu amalni bekor qilib boʻlmaydi!";
 "search-recent-clear-delete-all" = "Barchasini oʻchirish";

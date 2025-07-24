@@ -138,6 +138,19 @@ final class TabsOverviewCoordinator: Coordinator {
     }
     
     private func tappedAddTab() {
+        if dataController.needsMoreDynamicTabs {
+            let isOnStack = self.navigationController.viewControllers.contains { $0 is WMFNewArticleTabController }
+            // do not push a new tab if the user just came from a new tab
+            if isOnStack {
+                navigationController.dismiss(animated: true)
+            } else {
+                navigationController.dismiss(animated: true) {
+                    let newTabCoordinator = NewArticleTabCoordinator(navigationController: self.navigationController, dataStore: self.dataStore, theme: self.theme)
+                    newTabCoordinator.start()
+                }
+            }
+            return
+        }
         guard let siteURL = dataStore.languageLinkController.appLanguage?.siteURL,
               let articleURL = siteURL.wmf_URL(withTitle: "Main Page") else {
             return

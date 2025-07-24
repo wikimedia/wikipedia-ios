@@ -446,7 +446,6 @@
 "forgot-password-title" = "ڳجهولفظ ٻيھر مقرر ڪريو";
 "forgot-password-username-or-email-title" = "يا";
 "history-clear-all" = "ختم ڪريو";
-"history-clear-cancel" = "رد";
 "history-clear-confirmation-heading" = "ڇا توھان کي پڪ آھي تہ توھان سڀ تازيون شيون ڊاھڻ چاھيو ٿا'";
 "history-clear-delete-all" = "ھا، سڀ ختم ڪريو";
 "history-title" = "سوانح";
@@ -858,7 +857,6 @@
 "search-did-you-mean" = "ڇا توهان جو مقصد $1 هيو؟";
 "search-field-placeholder-text" = "وڪيپيڊيا ۾ ڳوليو";
 "search-reading-list-placeholder-text" = "پڙھڻ جي فھرست ڳوليو";
-"search-recent-clear-cancel" = "رد";
 "search-recent-clear-confirmation-heading" = "سموريون تازيون ڳولائون ختم ڪريون؟";
 "search-recent-clear-confirmation-sub-heading" = "هي عمل واپس نٿو ڪري سگهجي!";
 "search-recent-clear-delete-all" = "سڀ ختم ڪريو";

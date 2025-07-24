@@ -470,7 +470,6 @@
 "forgot-password-title" = "Шолыпмутым кудалташ";
 "forgot-password-username-or-email-title" = "Але";
 "history-clear-all" = "Эрыкташ";
-"history-clear-cancel" = "Чараш";
 "history-clear-confirmation-heading" = "Тый чынжымак чыла шкендын шукерте огылсо элемент-влакым кораҥдынет?";
 "history-clear-delete-all" = "Туге, чыла кораҥдаш";
 "history-title" = "Историй";
@@ -612,7 +611,6 @@
 "reading-lists-default-list-title" = "Аралыме";
 "saved-title" = "Аралыме";
 "search-clear-title" = "Эрыкташ";
-"search-recent-clear-cancel" = "Чараш";
 "search-recent-clear-delete-all" = "Чыла кораҥдаш";
 "search-title" = "Кычалаш";
 "settings-account" = "Аккаунт";

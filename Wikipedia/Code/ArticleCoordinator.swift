@@ -8,7 +8,8 @@ enum ArticleTabConfig {
     case appendArticleAndAssignCurrentTabAndCleanoutFutureArticles // Navigating from article blue link or article search
     case appendArticleAndAssignNewTabAndSetToCurrent // Open in new tab long press
     case assignParticularTabAndSetToCurrent(WMFArticleTabsDataController.Identifiers) // Tapping tab from tabs overview
-    case assignNewTabAndSetToCurrent // Tapping add tab from tabs overview
+    case assignNewTabAndSetToCurrent // Tapping add tab from tabs overview - Main Page
+    case assignNewTabAndSetToCurrentFromNewTabSearch(title: String, project: WMFProject) // Clicking on search item on new tab
     case adjacentArticleInTab(WMFArticleTabsDataController.Identifiers) // Tapping 'forward in tab' / 'back in tab' buttons on article toolbar
  }
 
@@ -19,6 +20,8 @@ protocol ArticleTabCoordinating: AnyObject {
     var tabConfig: ArticleTabConfig { get }
     var tabIdentifier: UUID? { get set }
     var tabItemIdentifier: UUID? { get set }
+    var navigationController: UINavigationController { get }
+    var theme: Theme { get }
 }
 
 extension ArticleTabCoordinating {
@@ -80,6 +83,11 @@ extension ArticleTabCoordinating {
                     let identifiers = try await tabsDataController.createArticleTab(initialArticle: nil, setAsCurrent: true)
                     self.tabIdentifier = identifiers.tabIdentifier
                     self.tabItemIdentifier = identifiers.tabItemIdentifier
+                case .assignNewTabAndSetToCurrentFromNewTabSearch(let artTitle, let artProject):
+                    let newArticle = WMFArticleTabsDataController.WMFArticle(identifier: nil, title: artTitle, project: artProject)
+                    let identifiers = try await tabsDataController.createArticleTab(initialArticle: newArticle, setAsCurrent: true)
+                    self.tabIdentifier = identifiers.tabIdentifier
+                    self.tabItemIdentifier = identifiers.tabItemIdentifier
                 case .adjacentArticleInTab(let identifiers):
                     self.tabIdentifier = identifiers.tabIdentifier
                     self.tabItemIdentifier = identifiers.tabItemIdentifier
@@ -102,6 +110,18 @@ extension ArticleTabCoordinating {
         Task {
             try await tabsDataController.setTabItemAsCurrent(tabIdentifier: tabIdentifier, tabItemIdentifier: tabItemIdentifier)
             try await tabsDataController.deleteEmptyTabs()
+        }
+    }
+    
+    func prepareToShowTabsOverview(articleViewController: ArticleViewController, _ dataStore: MWKDataStore) {
+        articleViewController.showTabsOverview = { [weak navigationController, weak self] in
+            guard let navController = navigationController, let self = self else { return }
+
+            TabsCoordinatorManager.shared.presentTabsOverview(
+                from: navController,
+                theme: theme,
+                dataStore: dataStore
+            )
         }
     }
 }
@@ -151,16 +171,7 @@ final class ArticleCoordinator: NSObject, Coordinator, ArticleTabCoordinating {
             return false
         }
         articleVC.isRestoringState = isRestoringState
-        articleVC.showTabsOverview = { [weak navigationController, weak self] in
-            guard let navController = navigationController, let self = self else { return }
-
-            TabsCoordinatorManager.shared.presentTabsOverview(
-                from: navController,
-                theme: self.theme,
-                dataStore: self.dataStore
-            )
-        }
-
+        prepareToShowTabsOverview(articleViewController: articleVC, dataStore)
         trackArticleTab(articleViewController: articleVC)
         
         switch tabConfig {

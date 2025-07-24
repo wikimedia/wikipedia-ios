@@ -236,7 +236,6 @@
 "forgot-password-title" = "Athshocraigh pasfhocal";
 "forgot-password-username-or-email-title" = "Nó";
 "history-clear-all" = "Glan";
-"history-clear-cancel" = "Cealaigh";
 "history-clear-delete-all" = "Tá, scrios uile";
 "history-title" = "Stair";
 "home-button-explore-accessibility-label" = "Vicipéid, siar go Taiscéal";
@@ -403,7 +402,6 @@
 "search-did-you-mean" = "An raibh $1 á lorg agat?";
 "search-field-placeholder-text" = "Cuardaigh Vicipéid";
 "search-reading-list-placeholder-text" = "Cuardaigh liosta léitheoireachta";
-"search-recent-clear-cancel" = "Cealaigh";
 "search-recent-clear-confirmation-sub-heading" = "Ní féidir an gníomh seo a chealú!";
 "search-recent-clear-delete-all" = "Scrios Uile";
 "search-recent-title" = "Cuardaithe le déanaí";

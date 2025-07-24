@@ -143,7 +143,13 @@ public class WMFArticleTabsDataController: WMFArticleTabsDataControlling {
             self.experimentsDataController = nil
         }
     }
-    
+
+    // MARK: Entry point
+
+    public var needsMoreDynamicTabs: Bool {
+        return developerSettingsDataController.enableMoreDynamicTabs 
+    }
+
     // MARK: Experiment
     
     private var primaryAppLanguageProject: WMFProject? {
