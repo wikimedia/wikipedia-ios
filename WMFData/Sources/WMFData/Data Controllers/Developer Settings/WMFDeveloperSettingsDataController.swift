@@ -2,7 +2,6 @@ import Foundation
 
 public protocol WMFDeveloperSettingsDataControlling: AnyObject {
     func loadFeatureConfig() -> WMFFeatureConfigResponse?
-    var enableArticleTabs: Bool { get }
     var enableMoreDynamicTabs: Bool { get }
     var forceMaxArticleTabsTo5: Bool { get }
 }
@@ -95,24 +94,6 @@ public protocol WMFDeveloperSettingsDataControlling: AnyObject {
             if newValue {
                 try? userDefaultsStore?.save(key: WMFUserDefaultsKey.activityTabGroupA.rawValue, value: false)
                 try? userDefaultsStore?.save(key: WMFUserDefaultsKey.activityTabGroupB.rawValue, value: false)
-            }
-        }
-    }
-    
-    public var enableArticleTabs: Bool {
-        get {
-            return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsArticleTab.rawValue)) ?? false
-        } set {
-            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsArticleTab.rawValue, value: newValue)
-            
-            if newValue {
-                Task {
-                    do {
-                        try await WMFArticleTabsDataController.shared.checkAndCreateInitialArticleTabIfNeeded()
-                    } catch {
-                        debugPrint("Failed to check or create initial article tab: \(error)")
-                    }
-                }
             }
         }
     }

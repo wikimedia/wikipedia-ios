@@ -20,6 +20,8 @@ protocol ArticleTabCoordinating: AnyObject {
     var tabConfig: ArticleTabConfig { get }
     var tabIdentifier: UUID? { get set }
     var tabItemIdentifier: UUID? { get set }
+    var navigationController: UINavigationController { get }
+    var theme: Theme { get }
 }
 
 extension ArticleTabCoordinating {
@@ -29,11 +31,7 @@ extension ArticleTabCoordinating {
         articleViewController.coordinator = self
         
         let tabsDataController = WMFArticleTabsDataController.shared
-        
-        guard tabsDataController.shouldShowArticleTabs else {
-            return
-        }
-        
+
         // Handle Article Tabs
         Task {
             guard let title = articleURL?.wmf_title,
@@ -103,11 +101,7 @@ extension ArticleTabCoordinating {
     // Cleanup needed when tapping Back button
     func syncTabsOnArticleAppearance() {
         let tabsDataController = WMFArticleTabsDataController.shared
-        
-        guard tabsDataController.shouldShowArticleTabs else {
-            return
-        }
-        
+
         guard let tabIdentifier,
               let tabItemIdentifier else {
             return
@@ -116,6 +110,18 @@ extension ArticleTabCoordinating {
         Task {
             try await tabsDataController.setTabItemAsCurrent(tabIdentifier: tabIdentifier, tabItemIdentifier: tabItemIdentifier)
             try await tabsDataController.deleteEmptyTabs()
+        }
+    }
+    
+    func prepareToShowTabsOverview(articleViewController: ArticleViewController, _ dataStore: MWKDataStore) {
+        articleViewController.showTabsOverview = { [weak navigationController, weak self] in
+            guard let navController = navigationController, let self = self else { return }
+
+            TabsCoordinatorManager.shared.presentTabsOverview(
+                from: navController,
+                theme: theme,
+                dataStore: dataStore
+            )
         }
     }
 }
@@ -165,16 +171,7 @@ final class ArticleCoordinator: NSObject, Coordinator, ArticleTabCoordinating {
             return false
         }
         articleVC.isRestoringState = isRestoringState
-        articleVC.showTabsOverview = { [weak navigationController, weak self] in
-            guard let navController = navigationController, let self = self else { return }
-
-            TabsCoordinatorManager.shared.presentTabsOverview(
-                from: navController,
-                theme: self.theme,
-                dataStore: self.dataStore
-            )
-        }
-
+        prepareToShowTabsOverview(articleViewController: articleVC, dataStore)
         trackArticleTab(articleViewController: articleVC)
         
         switch tabConfig {

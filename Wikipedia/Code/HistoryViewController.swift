@@ -387,4 +387,3 @@ extension WMFHistoryViewController: LogoutCoordinatorDelegate {
 }
 
 extension WMFHistoryViewController: ShareableArticlesProvider {}
-

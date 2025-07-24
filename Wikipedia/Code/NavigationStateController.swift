@@ -30,26 +30,12 @@ final class NavigationStateController: NSObject {
         }
         
         let tabsDataController = WMFArticleTabsDataController.shared
-        if tabsDataController.shouldShowArticleTabs {
-            
-            Task {
-                do {
-                    try await tabsDataController.saveCurrentStateForLaterRestoration()
-                } catch {
-                    DDLogError("Error saving article tabs for later restoration: \(error)")
-                }
+        Task {
+            do {
+                try await tabsDataController.saveCurrentStateForLaterRestoration()
+            } catch {
+                DDLogError("Error saving article tabs for later restoration: \(error)")
             }
-        } else {
-            // Simple minimum state to save and restore: visible article view controller
-
-            let info = Info(articleKey: articleViewController.articleURL.wmf_databaseKey)
-            
-            guard let stateToPersist = NavigationState.ViewController(kind: .article, presentation: .push, info: info) else {
-                moc.navigationState = nil
-                return
-            }
-            
-            moc.navigationState = NavigationState(viewControllers: [stateToPersist], shouldAttemptLogin: false)
         }
     }
     
@@ -62,47 +48,20 @@ final class NavigationStateController: NSObject {
         }
         
         let tabsDataController = WMFArticleTabsDataController.shared
-        if tabsDataController.shouldShowArticleTabs {
-            guard let tab = try? tabsDataController.loadCurrentStateForRestoration() ,
-                  let article = tab.articles.last,
-                  let siteURL = article.project.siteURL,
-                  let articleURL = siteURL.wmf_URL(withTitle: article.title) else {
-                completion()
-                return
-            }
-            
-            let articleCoordinator = ArticleCoordinator(navigationController: selectedNavigationController, articleURL: articleURL, dataStore: dataStore, theme: theme, source: .undefined, isRestoringState: true, tabConfig: .assignParticularTabAndSetToCurrent(WMFArticleTabsDataController.Identifiers(tabIdentifier: tab.identifier, tabItemIdentifier: article.identifier)))
-            let success = articleCoordinator.start()
-            if success {
-                try? tabsDataController.clearCurrentStateForRestoration()
-            }
+        guard let tab = try? tabsDataController.loadCurrentStateForRestoration() ,
+              let article = tab.articles.last,
+              let siteURL = article.project.siteURL,
+              let articleURL = siteURL.wmf_URL(withTitle: article.title) else {
             completion()
-        } else {
-            guard let navigationState = moc.navigationState else {
-                completion()
-                return
-            }
-            
-            self.theme = theme
-            
-            guard navigationState.viewControllers.count == 1,
-            let articleViewControllerState = navigationState.viewControllers.last,
-                let articleInfo = articleViewControllerState.info else {
-                    moc.navigationState = nil
-                    completion()
-                    return
-                }
-            
-            
-            guard let articleURL = articleURL(from: articleInfo) else {
-                completion()
-                return
-            }
-            
-            let articleCoordinator = ArticleCoordinator(navigationController: selectedNavigationController, articleURL: articleURL, dataStore: dataStore, theme: theme, source: .undefined, isRestoringState: true)
-            articleCoordinator.start()
-            completion()
+            return
         }
+        
+        let articleCoordinator = ArticleCoordinator(navigationController: selectedNavigationController, articleURL: articleURL, dataStore: dataStore, theme: theme, source: .undefined, isRestoringState: true, tabConfig: .assignParticularTabAndSetToCurrent(WMFArticleTabsDataController.Identifiers(tabIdentifier: tab.identifier, tabItemIdentifier: article.identifier)))
+        let success = articleCoordinator.start()
+        if success {
+            try? tabsDataController.clearCurrentStateForRestoration()
+        }
+        completion()
     }
     
     func allPreservedArticleKeys(in moc: NSManagedObjectContext) -> [String]? {
