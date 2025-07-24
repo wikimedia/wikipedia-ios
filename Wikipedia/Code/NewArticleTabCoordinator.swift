@@ -66,7 +66,8 @@ final class NewArticleTabCoordinator: Coordinator {
 
             DispatchQueue.main.async {
                 self.fetcher.fetchRelatedArticles(forArticleWithURL: seedURL) { error, summariesByKey in
-                    let summaries = summariesByKey?.values.prefix(3).map { $0 } ?? []
+
+                    // Transfrom ArticleSummary into Article
                     moc.perform {
                         do {
 
@@ -75,8 +76,13 @@ final class NewArticleTabCoordinator: Coordinator {
                                 return
                             }
 
-                            let articlesByKey =  try moc.wmf_createOrUpdateArticleSummmaries(withSummaryResponses: summariesByKey)
+                            let top3Summaries = Array(summariesByKey)
+                              .prefix(3)
+                              .reduce(into: [WMFInMemoryURLKey: ArticleSummary]()) { result, pair in
+                                result[pair.key] = pair.value
+                              }
 
+                            let articlesByKey = try moc.wmf_createOrUpdateArticleSummmaries(withSummaryResponses: top3Summaries)
 
                             let orderedKeys = Array(summariesByKey.keys)
                             let relatedArticles: [WMFArticle] = orderedKeys.compactMap {
@@ -92,10 +98,8 @@ final class NewArticleTabCoordinator: Coordinator {
                             }
                         }
                     }
-
                 }
             }
-
         }
     }
 
@@ -106,7 +110,6 @@ final class NewArticleTabCoordinator: Coordinator {
             print("====== SEED: \(seed?.displayTitle ?? "nil"), RELATED: \(related)")
             self.seed    = seed
             self.related = related
-
         }
 
         let viewModel = WMFNewArticleTabViewModel(title: CommonStrings.newTab)
