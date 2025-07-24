@@ -133,15 +133,6 @@
 "article-toolbar-reading-themes-controls-toolbar-item" = "Reading Themes Controls";
 "article-view-controller-editing-temp-account-created-subtitle" = "Temporary account $1 was created after your edit was published. It will expire in 90 days.";
 "article-view-controller-editing-temp-account-created-title" = "Temporary account created";
-"app-intent-search-title" = "Search Wikipedia";
-"app-intent-search-description" = "Search for articles on Wikipedia";
-"app-intent-search-term-title" = "Search Term";
-"app-intent-search-term-description" = "What would you like to search for on Wikipedia?";
-"app-intent-search-phrase-1" = "Search Wikipedia";
-"app-intent-search-phrase-2" = "Search %1$@";
-"app-intent-search-phrase-3" = "Look up on Wikipedia";
-"app-intent-search-phrase-4" = "Find on Wikipedia";
-"app-intent-search-short-title" = "Search Wikipedia";
 "back-button-accessibility-label" = "Back";
 "back-button-popover-title" = "Tap to go back";
 "button-go-back" = "Go back";
