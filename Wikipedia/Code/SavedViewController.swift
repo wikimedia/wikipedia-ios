@@ -231,9 +231,7 @@ class SavedViewController: ThemeableViewController, WMFNavigationBarConfiguring,
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-        if WMFArticleTabsDataController.shared.shouldShowArticleTabs {
-            ArticleTabsFunnel.shared.logIconImpression(interface: .saved, project: nil)
-        }
+        ArticleTabsFunnel.shared.logIconImpression(interface: .saved, project: nil)
     }
 
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
