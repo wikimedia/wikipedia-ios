@@ -1332,6 +1332,7 @@
 "theme-default-explanation" = "Correspond au thème du système";
 "theme-light-display-name" = "Clair";
 "theme-sepia-display-name" = "Sépia";
+"today-title" = "Aujourd’hui";
 "top-read-widget-description" = "Apprendre ce qui est lu aujourd’hui dans le monde sur Wikipédia.";
 "top-read-widget-readers-count" = "$1 lecteurs";
 "top-read-widget-title" = "Les plus lus";
@@ -1535,3 +1536,4 @@
 "year-in-review-survey-very-unsatisfied" = "Très insatisfait";
 "year-in-review-wikipedia-w-accessibility-label" = "Logo w de Wikipédia";
 "year-in-review-wmf-logo-accessibility-label" = "Logo de la Fondation Wikimédia";
+"yesterday-title" = "Hier";

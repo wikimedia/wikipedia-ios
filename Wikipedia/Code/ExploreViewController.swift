@@ -111,9 +111,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
                 updateTabBarSnapshotImage()
             }
         }
-        if WMFArticleTabsDataController.shared.shouldShowArticleTabs {
-            ArticleTabsFunnel.shared.logIconImpression(interface: .feed, project: nil)
-        }
+        ArticleTabsFunnel.shared.logIconImpression(interface: .feed, project: nil)
     }
 
     override func viewWillHaveFirstAppearance(_ animated: Bool) {
