@@ -28,7 +28,7 @@ public struct WMFRecentlySearchedView: View {
             } else {
                 HStack {
                     Text(viewModel.localizedStrings.title)
-                        .font(Font(WMFFont.for(.boldHeadline)))
+                        .font(Font(WMFFont.for(.semiboldSubheadline)))
                         .foregroundStyle(Color(uiColor: theme.secondaryText))
                     Spacer()
                     if !viewModel.recentSearchTerms.isEmpty {
@@ -46,10 +46,10 @@ public struct WMFRecentlySearchedView: View {
                         HStack {
                             Text(item.text)
                                 .font(Font(WMFFont.for(.body)))
-                                .foregroundStyle(Color(uiColor: theme.secondaryText))
+                                .foregroundStyle(Color(uiColor: theme.text))
                             Spacer()
                         }
-                        .padding(.vertical, 8)
+                        .padding(.vertical, 4)
                         .background(Color(theme.paperBackground))
                         .contentShape(Rectangle())
                         .onTapGesture {
@@ -72,7 +72,8 @@ public struct WMFRecentlySearchedView: View {
                             .listRowInsets(EdgeInsets())
                             .listRowSeparator(.hidden, edges: .all)
                             .frame(maxWidth: .infinity, alignment: .leading)
-                            .listRowBackground(Color.clear)     
+                            .listRowBackground(Color.clear)
+                            .padding(.top, 4)
                     } else if viewModel.tabsDataController.getViewTypeForExperiment == .didYouKnow {
                         Text("Did you know")
                     }
