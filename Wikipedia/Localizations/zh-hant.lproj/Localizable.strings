@@ -1321,6 +1321,7 @@
 "theme-default-explanation" = "符合系統主題";
 "theme-light-display-name" = "明亮";
 "theme-sepia-display-name" = "棕褐色";
+"today-title" = "今日";
 "top-read-widget-description" = "了解全世界的人今天都在維基百科上讀些什麼。";
 "top-read-widget-readers-count" = "$1個讀者";
 "top-read-widget-title" = "最多閱讀";
@@ -1524,3 +1525,4 @@
 "year-in-review-survey-very-unsatisfied" = "非常不滿意";
 "year-in-review-wikipedia-w-accessibility-label" = "維基百科 w 標誌";
 "year-in-review-wmf-logo-accessibility-label" = "維基媒體基金會標誌";
+"yesterday-title" = "昨日";
