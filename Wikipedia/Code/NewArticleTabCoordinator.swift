@@ -116,22 +116,22 @@ final class NewArticleTabCoordinator: Coordinator {
     func start() -> Bool {
 
         loadNextBatch { seed, related in
-            guard let seed else { return }
-
-            let seedRecord    = seed.toHistoryRecord()
-            let relatedRecords = related.compactMap { article in
-                article.toHistoryRecord()
-            }
-
             var becauseVM: WMFBecauseYouReadViewModel? = nil
-            if !relatedRecords.isEmpty {
-                becauseVM = WMFBecauseYouReadViewModel(
-                    becauseYouReadText: "Because you read \(seedRecord.title)", // TODO: Localize
-                    seedArticle:        seedRecord,
-                    relatedArticles:    relatedRecords
-                )
-            }
+            if let seed {
+                let seedRecord = seed.toHistoryRecord()
+                let relatedRecords = related.compactMap { article in
+                    article.toHistoryRecord()
+                }
 
+                if !relatedRecords.isEmpty {
+                    becauseVM = WMFBecauseYouReadViewModel(
+                        becauseYouReadText: "Because you read \(seedRecord.title)", // TODO: Localize
+                        seedArticle:        seedRecord,
+                        relatedArticles:    relatedRecords
+                    )
+                }
+            }
+            // TODO: move out of this call
             let viewModel = WMFNewArticleTabViewModel(
                 title: CommonStrings.newTab,
                 becauseYouRedViewModel: becauseVM
