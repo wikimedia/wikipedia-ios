@@ -1,6 +1,7 @@
 import UIKit
 import WMF
 import WMFComponents
+import WMFData
 
 final class NewArticleTabCoordinator: Coordinator {
     var navigationController: UINavigationController
@@ -16,7 +17,7 @@ final class NewArticleTabCoordinator: Coordinator {
     }
 
     var seed: WMFArticle?
-    var related: [WMFArticle?] = []
+    var related: [WMFArticle] = []
     private var seenSeedKeys = Set<String>()
 
     private let contentSource = WMFRelatedPagesContentSource()
@@ -30,7 +31,7 @@ final class NewArticleTabCoordinator: Coordinator {
         moc.performAndWait {
             let req: NSFetchRequest<WMFArticle> = WMFArticle.fetchRequest()
             let base = NSPredicate(format:
-                "isExcludedFromFeed == NO AND (wasSignificantlyViewed == YES OR savedDate != nil)"
+                                    "isExcludedFromFeed == NO AND (wasSignificantlyViewed == YES OR savedDate != nil)"
             )
             // Remember used articles
             if !self.seenSeedKeys.isEmpty {
@@ -115,15 +116,51 @@ final class NewArticleTabCoordinator: Coordinator {
     func start() -> Bool {
 
         loadNextBatch { seed, related in
-            print("====== SEED: \(seed?.displayTitle ?? "nil"), RELATED: \(related)")
-            self.seed    = seed
-            self.related = related
-        }
+            guard let seed else { return }
 
-        let viewModel = WMFNewArticleTabViewModel(title: CommonStrings.newTab)
-        let viewController = WMFNewArticleTabController(dataStore: dataStore, theme: theme, viewModel: viewModel)
-        navigationController.pushViewController(viewController, animated: true)
+            let seedRecord    = seed.toHistoryRecord()
+            let relatedRecords = related
+                .compactMap { $0 }
+                .map { $0.toHistoryRecord()
+                }
+
+            let becauseVM = WMFBecauseYouReadViewModel(
+                becauseYouReadText: "Because you read \(seedRecord.title)",
+                seedArticle:        seedRecord,
+                relatedArticles:    relatedRecords
+            )
+
+            let viewModel = WMFNewArticleTabViewModel(
+                title: CommonStrings.newTab,
+                becauseYouRedViewModel: becauseVM
+            )
+            let vc = WMFNewArticleTabController(
+                dataStore: self.dataStore,
+                theme:     self.theme,
+                viewModel: viewModel
+            )
+            
+            self.navigationController.pushViewController(vc, animated: true)
+        }
         return true
     }
+}
 
+fileprivate extension WMFArticle {
+    func toHistoryRecord() -> HistoryRecord {
+        let id = Int(truncating: self.pageID ?? NSNumber())
+        let viewed = self.viewedDate ?? self.savedDate ?? Date()
+        return HistoryRecord(
+            id:                id,
+            title:             self.displayTitle ?? self.displayTitleHTML,
+            descriptionOrSnippet: self.capitalizedWikidataDescriptionOrSnippet,
+            shortDescription:     self.snippet,
+            articleURL:        self.url,
+            imageURL:          self.imageURLString,
+            viewedDate:        viewed,
+            isSaved:           self.isSaved,
+            snippet:           self.snippet,
+            variant:           self.variant
+        )
+    }
 }
