@@ -115,6 +115,7 @@ public enum WMFSFSymbolIcon {
     case tabsIconBackground
     case add
     case closeButtonFill
+    case gamecontroller
     
     public var name: String? {
         switch self {
@@ -285,6 +286,8 @@ public enum WMFSFSymbolIcon {
             image = UIImage(systemName: "plus", withConfiguration: configuration)
         case .closeButtonFill:
             image = UIImage(systemName: "x.circle.fill", withConfiguration: configuration)
+        case .gamecontroller:
+            image = UIImage(systemName: "gamecontroller", withConfiguration: configuration)
         }
         
         image = image?.withRenderingMode(.alwaysTemplate)
