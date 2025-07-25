@@ -110,33 +110,31 @@ class ArticleToolbarController: Themeable {
         
         actions.append(UIAction(title: CommonStrings.shortShareTitle, image: WMFSFSymbolIcon.for(symbol: .ellipsisCircle), handler: { [weak self] _ in self?.share()}))
         
-        if WMFArticleTabsDataController.shared.shouldShowArticleTabs {
             
-            if let title = nextArticleTab?.title.underscoresToSpaces.truncated() {
-                let forwardAttributes: UIMenuElement.Attributes = nextArticleTab != nil ? [] : .disabled
-                actions.append(UIAction(title: title, image: WMFSFSymbolIcon.for(symbol: .chevronForward), attributes: forwardAttributes,  handler: { [weak self] _ in
-                    
-                    guard let self else { return }
-                    
-                    if let nextArticleTab {
-                        self.delegate?.forwardInTab(article: nextArticleTab, controller: self)
-                    }
-                }))
-            }
-            
-            if let title = previousArticleTab?.title.underscoresToSpaces.truncated() {
-                let backAttributes: UIMenuElement.Attributes = previousArticleTab != nil ? [] : .disabled
-                actions.append(UIAction(title: title, image: WMFSFSymbolIcon.for(symbol: .chevronBackward), attributes: backAttributes, handler: { [weak self] _ in
-                    
-                    guard let self else { return }
-                    
-                    if let previousArticleTab {
-                        self.delegate?.backInTab(article: previousArticleTab, controller: self)
-                    }
-                }))
-            }
-            
+        if let title = nextArticleTab?.title.underscoresToSpaces.truncated() {
+            let forwardAttributes: UIMenuElement.Attributes = nextArticleTab != nil ? [] : .disabled
+            actions.append(UIAction(title: title, image: WMFSFSymbolIcon.for(symbol: .chevronForward), attributes: forwardAttributes,  handler: { [weak self] _ in
+                
+                guard let self else { return }
+                
+                if let nextArticleTab {
+                    self.delegate?.forwardInTab(article: nextArticleTab, controller: self)
+                }
+            }))
         }
+        
+        if let title = previousArticleTab?.title.underscoresToSpaces.truncated() {
+            let backAttributes: UIMenuElement.Attributes = previousArticleTab != nil ? [] : .disabled
+            actions.append(UIAction(title: title, image: WMFSFSymbolIcon.for(symbol: .chevronBackward), attributes: backAttributes, handler: { [weak self] _ in
+                
+                guard let self else { return }
+                
+                if let previousArticleTab {
+                    self.delegate?.backInTab(article: previousArticleTab, controller: self)
+                }
+            }))
+        }
+            
         
         let menu = UIMenu(title: "", options: .displayInline, children: actions)
 

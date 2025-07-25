@@ -13,18 +13,10 @@ final class TabsOverviewCoordinator: Coordinator {
     
     @discardableResult
     func start() -> Bool {
-        if shouldShowEntryPoint() {
-            presentTabs()
-            return true
-        } else {
-            return false
-        }
+        presentTabs()
+        return true
     }
-    
-    func shouldShowEntryPoint() -> Bool {
-        return dataController.shouldShowArticleTabs
-    }
-    
+
     public init(navigationController: UINavigationController, theme: Theme, dataStore: MWKDataStore) {
         self.navigationController = navigationController
         self.theme = theme
@@ -114,9 +106,7 @@ final class TabsOverviewCoordinator: Coordinator {
             self?.dataController.updateSurveyDataTabsOverviewSeenCount()
              guard let self else { return }
              
-             if self.dataController.shouldShowArticleTabs {
-                 showSurveyClosure()
-             }
+             showSurveyClosure()
          }
     }
     
@@ -148,7 +138,7 @@ final class TabsOverviewCoordinator: Coordinator {
     }
     
     private func tappedAddTab() {
-        if dataController.needsMoreDynamicTabs && dataController.shouldShowArticleTabs {
+        if dataController.needsMoreDynamicTabs {
             let isOnStack = self.navigationController.viewControllers.contains { $0 is WMFNewArticleTabController }
             // do not push a new tab if the user just came from a new tab
             if isOnStack {

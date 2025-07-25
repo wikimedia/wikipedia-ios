@@ -204,14 +204,6 @@ public extension WMFNavigationBarConfiguring where Self: UIViewController {
             
             var rightBarButtonItems: [UIBarButtonItem] = []
             
-            var profileLeadingButton: UIBarButtonItem? = profileButtonConfig.leadingBarButtonItem
-            
-            let tabsDataController = WMFArticleTabsDataController.shared
-            if let tabsButtonConfig,
-               !tabsDataController.shouldShowArticleTabs {
-                profileLeadingButton = tabsButtonConfig.leadingBarButtonItem
-            }
-            
             let image = profileButtonImage(theme: WMFAppEnvironment.current.theme, needsBadge: profileButtonConfig.needsBadge)
             let profileButton = UIBarButtonItem(image: image, style: .plain, target: profileButtonConfig.target, action: profileButtonConfig.action)
             
@@ -219,13 +211,8 @@ public extension WMFNavigationBarConfiguring where Self: UIViewController {
             profileButton.accessibilityIdentifier = profileButtonAccessibilityID
             
             rightBarButtonItems.append(profileButton)
-
-            if let profileLeadingButton {
-                rightBarButtonItems.append(profileLeadingButton)
-            }
             
-            if let tabsButtonConfig,
-               tabsDataController.shouldShowArticleTabs {
+            if let tabsButtonConfig {
                 
                 let image = WMFSFSymbolIcon.for(symbol: .tabsIcon)
                 let tabsButton = UIBarButtonItem(image: image, style: .plain, target: tabsButtonConfig.target, action: tabsButtonConfig.action)
@@ -239,7 +226,6 @@ public extension WMFNavigationBarConfiguring where Self: UIViewController {
             }
             
             navigationItem.rightBarButtonItems = rightBarButtonItems
-            
         }
         
         // Setup close button if needed
