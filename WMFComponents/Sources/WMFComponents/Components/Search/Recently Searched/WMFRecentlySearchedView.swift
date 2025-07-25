@@ -70,16 +70,12 @@ public struct WMFRecentlySearchedView: View {
                 }
                 .listStyle(.plain)
             }
-            if viewModel.needsAttachedView {
+            if viewModel.becauseYouReadViewModel != nil && viewModel.tabsDataController.getViewTypeForExperiment == .becauseYouRead {
                 HStack {
-                    if viewModel.tabsDataController.getViewTypeForExperiment == .becauseYouRead {
-                        Text("because you read")
-                        Spacer()
-                    } else if viewModel.tabsDataController.getViewTypeForExperiment == .didYouKnow {
-                        Text("Did you know")
-                    }
-
+                    Text("Because you read")
                 }
+            } else if viewModel.tabsDataController.getViewTypeForExperiment == .didYouKnow {
+                Text("Did you know")
             }
         }
         .background(Color(theme.paperBackground))

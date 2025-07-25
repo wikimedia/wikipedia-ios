@@ -4,7 +4,7 @@ import WMFData
 import WMFComponents
 import WMF
 
-final class WMFNewArticleTabController: WMFCanvasViewController, WMFNavigationBarConfiguring, Themeable {
+final class WMFNewArticleTabViewController: WMFCanvasViewController, WMFNavigationBarConfiguring, Themeable {
 
     // MARK: - Properties
 
@@ -108,7 +108,8 @@ final class WMFNewArticleTabController: WMFCanvasViewController, WMFNavigationBa
 
         let tabsButtonConfig = tabsButtonConfig(target: self, action: #selector(userDidTapTabs), dataStore: dataStore)
 
-        let searchViewController = SearchViewController(source: .article, customArticleCoordinatorNavigationController: self.navigationController, needsAttachedView: true)
+        let byrViewModel = self.viewModel.becauseYouRedViewModel != nil ? viewModel.becauseYouRedViewModel : nil
+        let searchViewController = SearchViewController(source: .article, customArticleCoordinatorNavigationController: self.navigationController, needsAttachedView: true, becauseYouReadViewModel: byrViewModel)
         searchViewController.dataStore = dataStore
         searchViewController.theme = theme
         searchViewController.shouldBecomeFirstResponder = true
@@ -198,7 +199,7 @@ fileprivate final class WMFNewArticleTabHostingController<WMFNewArticleTabView: 
 
 // MARK: - Extensions
 
-extension WMFNewArticleTabController: UISearchResultsUpdating {
+extension WMFNewArticleTabViewController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
         guard let text = searchController.searchBar.text else {
             return
@@ -220,7 +221,7 @@ extension WMFNewArticleTabController: UISearchResultsUpdating {
     }
 }
 
-extension WMFNewArticleTabController: UISearchControllerDelegate {
+extension WMFNewArticleTabViewController: UISearchControllerDelegate {
 
     func willPresentSearchController(_ searchController: UISearchController) {
         presentingSearchResults = true
@@ -234,19 +235,19 @@ extension WMFNewArticleTabController: UISearchControllerDelegate {
     }
 }
 
-extension WMFNewArticleTabController: UISearchBarDelegate {
+extension WMFNewArticleTabViewController: UISearchBarDelegate {
     public func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         navigationController?.popViewController(animated: true)
     }
 }
 
-extension WMFNewArticleTabController: YearInReviewBadgeDelegate {
+extension WMFNewArticleTabViewController: YearInReviewBadgeDelegate {
     func updateYIRBadgeVisibility() {
         updateProfileButton()
     }
 }
 
-extension WMFNewArticleTabController: LogoutCoordinatorDelegate {
+extension WMFNewArticleTabViewController: LogoutCoordinatorDelegate {
     func didTapLogout() {
         wmf_showKeepSavedArticlesOnDevicePanelIfNeeded(triggeredBy: .logout, theme: theme) {
             self.dataStore.authenticationManager.logout(initiatedBy: .user)
