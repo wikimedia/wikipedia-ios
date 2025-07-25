@@ -928,6 +928,7 @@
 "theme-default-display-name" = "Standard";
 "theme-light-display-name" = "Hell";
 "theme-sepia-display-name" = "Sepia";
+"today-title" = "Haut";
 "top-read-widget-description" = "Gitt gewuer, wat d'Welt haut esou op der Wikipedia liest.";
 "top-read-widget-readers-count" = "$1 Lieser";
 "top-read-widget-title" = "Am dackste gelies";
@@ -1044,3 +1045,4 @@
 "year-in-review-survey-very-satisfied" = "Ganz zefridden";
 "year-in-review-survey-very-unsatisfied" = "Ganz onzefridden";
 "year-in-review-wmf-logo-accessibility-label" = "Logo vun der Wikimedia Foundation";
+"yesterday-title" = "Gëschter";

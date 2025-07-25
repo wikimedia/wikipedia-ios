@@ -470,6 +470,7 @@
 "theme-default-display-name" = "پہلے کنوں طے تھیا ہویا";
 "theme-light-display-name" = "پھکّا";
 "theme-sepia-display-name" = "بھورا";
+"today-title" = "اڄ";
 "top-read-widget-readers-count" = "$1 قارئین";
 "tutorial-title" = "ٹیٹوریل";
 "two-factor-login-continue" = "لاگ ان جاری رکھو";
@@ -512,3 +513,4 @@
 "year-in-review-survey-unsatisfied" = "غیر مطمئن";
 "year-in-review-survey-very-satisfied" = "ݙاڈھا تسلی بخش";
 "year-in-review-survey-very-unsatisfied" = "ݙاڈھا تسلی بخش";
+"yesterday-title" = "کل";
