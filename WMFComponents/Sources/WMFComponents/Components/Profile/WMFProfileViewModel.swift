@@ -69,8 +69,9 @@ public class WMFProfileViewModel: ObservableObject {
         let donateSubtext: String
         let yearInReviewTitle: String
         let yearInReviewLoggedOutSubtext: String
+        let Trivia: String
 
-        public init(pageTitle: String, doneButtonTitle: String, notificationsTitle: String, userPageTitle: String, talkPageTitle: String, watchlistTitle: String, logOutTitle: String, donateTitle: String, settingsTitle: String, joinWikipediaTitle: String, joinWikipediaSubtext: String, donateSubtext: String, yearInReviewTitle: String, yearInReviewLoggedOutSubtext: String) {
+        public init(pageTitle: String, doneButtonTitle: String, notificationsTitle: String, userPageTitle: String, talkPageTitle: String, watchlistTitle: String, logOutTitle: String, donateTitle: String, settingsTitle: String, joinWikipediaTitle: String, joinWikipediaSubtext: String, donateSubtext: String, yearInReviewTitle: String, yearInReviewLoggedOutSubtext: String, Trivia: String) {
             self.pageTitle = pageTitle
             self.doneButtonTitle = doneButtonTitle
             self.notificationsTitle = notificationsTitle
@@ -85,6 +86,7 @@ public class WMFProfileViewModel: ObservableObject {
             self.donateSubtext = donateSubtext
             self.yearInReviewTitle = yearInReviewTitle
             self.yearInReviewLoggedOutSubtext = yearInReviewLoggedOutSubtext
+            self.Trivia = Trivia
         }
     }
 }
@@ -200,6 +202,16 @@ enum ProfileState {
                 }
             )
             
+            let gameTriviaItem = ProfileListItem(
+                text: localizedStrings.Trivia,
+                image: WMFSFSymbolIcon.for(symbol: .gamecontroller),
+                imageColor: UIColor(Color.blue),
+                hasNotifications: nil,
+                isDonate: false,
+                isLoadingDonateConfigs: false) {
+                    coordinatorDelegate?.handleProfileAction(.showTrivia)
+                }
+            
             var section3Items = [donateItem]
             if let yearInReviewDependencies,
                yearInReviewDependencies.dataController.shouldShowYearInReviewEntryPoint(countryCode: yearInReviewDependencies.countryCode, primaryAppLanguageProject: yearInReviewDependencies.primaryAppLanguageProject) {
@@ -229,7 +241,8 @@ enum ProfileState {
                         userPageItem,
                         talkPageItem,
                         watchlistItem,
-                        logoutItem
+                        logoutItem,
+                        gameTriviaItem
                     ],
                     subtext: nil
                 ),
