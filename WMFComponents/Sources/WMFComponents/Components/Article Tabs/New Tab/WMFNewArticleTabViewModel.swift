@@ -1,19 +1,21 @@
 import Foundation
 
-public final class WMFNewArticleTabViewModel {
+public final class WMFNewArticleTabViewModel: ObservableObject {
+    @Published public var isLoading: Bool = true
+    @Published public var facts: [String]? = nil
 
-    let text: String
+    public let text: String
     public let title: String
-    public let facts: [String]?
 
-    public init (text: String, title: String, facts: [String]? = nil) {
+    public init(text: String, title: String, facts: [String]? = nil) {
         self.text = text
         self.title = title
         self.facts = facts
+        self.isLoading = facts == nil
     }
-    
+
     public var dyk: String? {
-        guard facts != nil, let randomElement = facts?.randomElement() else { return nil }
+        guard let randomElement = facts?.randomElement() else { return nil }
         return replaceEllipsesWithSpace(in: randomElement)
     }
 
