@@ -136,6 +136,8 @@
 "article-revision-history" = "Məqalənin redaktə tarixçəsi";
 "article-save-error-not-enough-space" = "Bu məqaləni saxlamaq üçün cihazınızda kifayət qədər yer yoxdur";
 "article-share" = "Paylaş";
+"article-tabs-button-accessibility-hint" = "Vərəqələrə keçirir";
+"article-tabs-button-accessibility-label" = "Məqalə vərəqələri";
 "article-tabs-max-reached" = "Vərəqə limitinə çatıldı ($1). Məqalə bu vərəqədə açıldı. Zəhmət olmasa, bir və ya daha çox vərəqəni bağlayın.";
 "article-tabs-navigation" = "Vərəqə naviqasiyası";
 "article-tabs-onboarding-tooltip" = "Vərəqələr üçün əlavə ipucları";
@@ -1279,6 +1281,7 @@
 "theme-default-explanation" = "Sistem mövzusuna uyğunlaşdır";
 "theme-light-display-name" = "İşıqlı";
 "theme-sepia-display-name" = "Sepiya";
+"today-title" = "Bu gün";
 "top-read-widget-description" = "Dünyanın bu gün Vikipediyada nə oxuduğunu öyrənin.";
 "top-read-widget-readers-count" = "$1 oxucu";
 "top-read-widget-title" = "Ən çox oxunanlar";
@@ -1482,3 +1485,4 @@
 "year-in-review-survey-very-unsatisfied" = "Çox narazıyam";
 "year-in-review-wikipedia-w-accessibility-label" = "Vikipediya w loqosu";
 "year-in-review-wmf-logo-accessibility-label" = "Vikimedia Fondunun loqosu";
+"yesterday-title" = "Dünən";

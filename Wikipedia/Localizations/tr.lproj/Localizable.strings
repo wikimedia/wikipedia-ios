@@ -1327,6 +1327,7 @@
 "theme-default-explanation" = "Sistem temasıyla eşleş";
 "theme-light-display-name" = "Açık";
 "theme-sepia-display-name" = "Sepya";
+"today-title" = "Bugün";
 "top-read-widget-description" = "Dünyanın bugün Vikipedi'de ne okuduğunu öğrenin.";
 "top-read-widget-readers-count" = "$1 okuyucu";
 "top-read-widget-title" = "En çok okunanlar";
@@ -1530,3 +1531,4 @@
 "year-in-review-survey-very-unsatisfied" = "Çok mutsuz";
 "year-in-review-wikipedia-w-accessibility-label" = "Vikipedi v logosu";
 "year-in-review-wmf-logo-accessibility-label" = "Wikimedia Vakfı logosu";
+"yesterday-title" = "Dün";
