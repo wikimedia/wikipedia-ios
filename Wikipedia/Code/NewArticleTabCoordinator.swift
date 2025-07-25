@@ -125,9 +125,9 @@ final class NewArticleTabCoordinator: Coordinator {
 
                 if !relatedRecords.isEmpty {
                     becauseVM = WMFBecauseYouReadViewModel(
-                        becauseYouReadText: "Because you read \(seedRecord.title)", // TODO: Localize
-                        seedArticle:        seedRecord,
-                        relatedArticles:    relatedRecords
+                        becauseYouReadText: "Because you read", // TODO: Localize
+                        seedArticle: seedRecord,
+                        relatedArticles: relatedRecords
                     )
                 }
             }
@@ -138,7 +138,7 @@ final class NewArticleTabCoordinator: Coordinator {
             )
             let vc = WMFNewArticleTabViewController(
                 dataStore: self.dataStore,
-                theme:     self.theme,
+                theme: self.theme,
                 viewModel: viewModel
             )
             

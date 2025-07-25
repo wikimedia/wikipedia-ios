@@ -12,10 +12,9 @@ public struct WMFRecentlySearchedView: View {
     public init(viewModel: WMFRecentlySearchedViewModel) {
         self.viewModel = viewModel
     }
-    
+
     public var body: some View {
         VStack(spacing: 0) {
-            
             if viewModel.recentSearchTerms.isEmpty {
                 VStack(alignment: .leading) {
                     Text(viewModel.localizedStrings.noSearches)
@@ -30,7 +29,7 @@ public struct WMFRecentlySearchedView: View {
                 HStack {
                     Text(viewModel.localizedStrings.title)
                         .font(Font(WMFFont.for(.boldHeadline)))
-                        .foregroundStyle(Color(uiColor: theme.text))
+                        .foregroundStyle(Color(uiColor: theme.secondaryText))
                     Spacer()
                     if !viewModel.recentSearchTerms.isEmpty {
                         Button(viewModel.localizedStrings.clearAll) {
@@ -66,20 +65,23 @@ public struct WMFRecentlySearchedView: View {
                             .tint(Color(theme.destructive))
                             .labelStyle(.iconOnly)
                         }
+
+                    }
+                    if viewModel.tabsDataController.getViewTypeForExperiment == .becauseYouRead, let becauseVM = viewModel.becauseYouReadViewModel {
+                        WMFBecauseYouReadView(viewModel: becauseVM)
+                            .listRowInsets(EdgeInsets())
+                            .listRowSeparator(.hidden, edges: .all)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .listRowBackground(Color.clear)     
+                    } else if viewModel.tabsDataController.getViewTypeForExperiment == .didYouKnow {
+                        Text("Did you know")
                     }
                 }
                 .listStyle(.plain)
             }
-            if viewModel.becauseYouReadViewModel != nil && viewModel.tabsDataController.getViewTypeForExperiment == .becauseYouRead {
-                HStack {
-                    Text("Because you read")
-                }
-            } else if viewModel.tabsDataController.getViewTypeForExperiment == .didYouKnow {
-                Text("Did you know")
-            }
+
         }
         .background(Color(theme.paperBackground))
         .padding(.top, viewModel.topPadding)
-
     }
 }
