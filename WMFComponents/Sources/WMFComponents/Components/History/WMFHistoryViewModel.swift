@@ -44,7 +44,7 @@ public final class WMFHistoryViewModel: ObservableObject {
 
     @Published public var topPadding: CGFloat = 0
     @Published public var isEmpty: Bool = true
-    @Published var geometryFrames: [String: CGRect] = [:]
+    var geometryFrames: [String: CGRect] = [:]
 
     internal let localizedStrings: LocalizedStrings
     internal let emptyViewImage: UIImage?
