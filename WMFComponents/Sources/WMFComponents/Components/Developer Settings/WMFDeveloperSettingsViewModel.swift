@@ -46,8 +46,6 @@ import WMFData
         let bypassDonationItem = WMFFormItemSelectViewModel(title: localizedStrings.bypassDonation, isSelected: WMFDeveloperSettingsDataController.shared.bypassDonation)
         let forceEmailAuth = WMFFormItemSelectViewModel(title: localizedStrings.forceEmailAuth, isSelected: WMFDeveloperSettingsDataController.shared.forceEmailAuth)
         
-        let enableArticleTabs = WMFFormItemSelectViewModel(title: "Enable article tabs", isSelected: WMFDeveloperSettingsDataController.shared.enableArticleTabs)
-        
         let forceMaxArticleTabsTo5 = WMFFormItemSelectViewModel(title: "Force Max Article Tabs to 5", isSelected: WMFDeveloperSettingsDataController.shared.forceMaxArticleTabsTo5)
 
         let enableMoreDynamicTabs = WMFFormItemSelectViewModel(title: "Enable more dynamic tabs", isSelected: WMFDeveloperSettingsDataController.shared.enableMoreDynamicTabs)
@@ -66,7 +64,6 @@ import WMFData
                 setActivityTabGroupA,
                 setActivityTabGroupB,
                 setActivityTabGroupC,
-                enableArticleTabs,
                 forceMaxArticleTabsTo5,
                 enableMoreDynamicTabs
             ], selectType: .multi)
@@ -87,10 +84,6 @@ import WMFData
 
         forceEmailAuth.$isSelected
             .sink { isSelected in WMFDeveloperSettingsDataController.shared.forceEmailAuth = isSelected }
-            .store(in: &subscribers)
-        
-        enableArticleTabs.$isSelected
-            .sink { isSelected in WMFDeveloperSettingsDataController.shared.enableArticleTabs = isSelected }
             .store(in: &subscribers)
         
         forceMaxArticleTabsTo5.$isSelected

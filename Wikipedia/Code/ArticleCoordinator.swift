@@ -31,11 +31,7 @@ extension ArticleTabCoordinating {
         articleViewController.coordinator = self
         
         let tabsDataController = WMFArticleTabsDataController.shared
-        
-        guard tabsDataController.shouldShowArticleTabs else {
-            return
-        }
-        
+
         // Handle Article Tabs
         Task {
             guard let title = articleURL?.wmf_title,
@@ -105,11 +101,7 @@ extension ArticleTabCoordinating {
     // Cleanup needed when tapping Back button
     func syncTabsOnArticleAppearance() {
         let tabsDataController = WMFArticleTabsDataController.shared
-        
-        guard tabsDataController.shouldShowArticleTabs else {
-            return
-        }
-        
+
         guard let tabIdentifier,
               let tabItemIdentifier else {
             return

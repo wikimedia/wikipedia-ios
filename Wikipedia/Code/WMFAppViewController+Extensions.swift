@@ -1509,26 +1509,13 @@ extension WMFAppViewController: EditPreviewViewControllerLoggingDelegate {
 
  extension WMFAppViewController {
      @objc func checkAndCreateInitialArticleTab() {
-         
-         do {
-            let dataController = WMFArticleTabsDataController.shared
-            let assignment = try dataController.assignExperiment()
-                
-             switch assignment {
-             case .control:
-                 ArticleTabsFunnel.shared.logGroupAssignment(group: "tab_a")
-             case .test:
-                 ArticleTabsFunnel.shared.logGroupAssignment(group: "tab_b")
-                 Task {
-                     do {
-                         try await dataController.checkAndCreateInitialArticleTabIfNeeded()
-                     } catch {
-                         DDLogError("Failed to check or create initial article tab: \(error)")
-                     }
-                 }
+        let dataController = WMFArticleTabsDataController.shared
+         Task {
+             do {
+                 try await dataController.checkAndCreateInitialArticleTabIfNeeded()
+             } catch {
+                 DDLogError("Failed to check or create initial article tab: \(error)")
              }
-         } catch {
-             DDLogWarn("Failure assigning article tabs experiment: \(error)")
          }
      }
      

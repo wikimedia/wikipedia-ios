@@ -1287,6 +1287,7 @@
 "theme-default-explanation" = "Одговара на системскиот изглед";
 "theme-light-display-name" = "Светол";
 "theme-sepia-display-name" = "Сипа";
+"today-title" = "Денес";
 "top-read-widget-description" = "Дознајте што чита светот денес на Википедија.";
 "top-read-widget-readers-count" = "$1 читатели";
 "top-read-widget-title" = "Најчитани";
@@ -1490,3 +1491,4 @@
 "year-in-review-survey-very-unsatisfied" = "Многу незадоволен";
 "year-in-review-wikipedia-w-accessibility-label" = "Лого W на Википедија";
 "year-in-review-wmf-logo-accessibility-label" = "Лого на Фондацијата Викимедија";
+"yesterday-title" = "Вчера";
