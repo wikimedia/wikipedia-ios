@@ -205,8 +205,10 @@ final class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegat
     }
     
     private func showTrivia() {
-        
-        
+        let viewModel = TriviaGameSessionViewModel(dataStore: dataStore)
+        let triviaView = TriviaGameView(viewModel: viewModel)
+        let hostingController = UIHostingController(rootView: triviaView)
+        navigationController.present(hostingController, animated: true)
     }
     
     private func presentLoginPrompt() {

@@ -1620,7 +1620,16 @@
 		A4C558BD2403D74100AFBFDC /* LocationManagerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4C558BC2403D74100AFBFDC /* LocationManagerProtocol.swift */; };
 		A4C558BF2403D7E300AFBFDC /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4C558BE2403D7E200AFBFDC /* LocationManager.swift */; };
 		A714355D2E01CB56001514EB /* LockscreenSearchWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = A714355C2E01CB56001514EB /* LockscreenSearchWidget.swift */; };
+		A7409BC52E36B8DC00BEC5C4 /* TriviaData.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7409BC42E36B8DC00BEC5C4 /* TriviaData.swift */; };
+		A7409BC62E36B8DC00BEC5C4 /* TriviaData.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7409BC42E36B8DC00BEC5C4 /* TriviaData.swift */; };
+		A7409BC72E36B8DC00BEC5C4 /* TriviaData.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7409BC42E36B8DC00BEC5C4 /* TriviaData.swift */; };
 		A77070232DF6ECB500D9F09B /* SearchWidget+LocalizedStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = A77070222DF6ECA400D9F09B /* SearchWidget+LocalizedStrings.swift */; };
+		A786E1882E36BA6600FA9E44 /* TriviaGameSessionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A786E1872E36BA6600FA9E44 /* TriviaGameSessionViewModel.swift */; };
+		A786E1892E36BA6600FA9E44 /* TriviaGameSessionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A786E1872E36BA6600FA9E44 /* TriviaGameSessionViewModel.swift */; };
+		A786E18A2E36BA6600FA9E44 /* TriviaGameSessionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A786E1872E36BA6600FA9E44 /* TriviaGameSessionViewModel.swift */; };
+		A786E18C2E36C07A00FA9E44 /* TriviaGameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A786E18B2E36C07A00FA9E44 /* TriviaGameView.swift */; };
+		A786E18D2E36C07A00FA9E44 /* TriviaGameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A786E18B2E36C07A00FA9E44 /* TriviaGameView.swift */; };
+		A786E18E2E36C07A00FA9E44 /* TriviaGameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A786E18B2E36C07A00FA9E44 /* TriviaGameView.swift */; };
 		A7B292132DF1CF9D001C213F /* SearchWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7B292122DF1CF9D001C213F /* SearchWidget.swift */; };
 		B00050141C52D73800515F70 /* UIApplication+RTL.swift in Sources */ = {isa = PBXBuildFile; fileRef = B00050131C52D73800515F70 /* UIApplication+RTL.swift */; };
 		B0016CB921354D9D00FA1096 /* AutoLayoutSafeMultiLineButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0016CB821354D9D00FA1096 /* AutoLayoutSafeMultiLineButton.swift */; };
@@ -3786,7 +3795,10 @@
 		A4C558BC2403D74100AFBFDC /* LocationManagerProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationManagerProtocol.swift; sourceTree = "<group>"; };
 		A4C558BE2403D7E200AFBFDC /* LocationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		A714355C2E01CB56001514EB /* LockscreenSearchWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LockscreenSearchWidget.swift; sourceTree = "<group>"; };
+		A7409BC42E36B8DC00BEC5C4 /* TriviaData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TriviaData.swift; sourceTree = "<group>"; };
 		A77070222DF6ECA400D9F09B /* SearchWidget+LocalizedStrings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SearchWidget+LocalizedStrings.swift"; sourceTree = "<group>"; };
+		A786E1872E36BA6600FA9E44 /* TriviaGameSessionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TriviaGameSessionViewModel.swift; sourceTree = "<group>"; };
+		A786E18B2E36C07A00FA9E44 /* TriviaGameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TriviaGameView.swift; sourceTree = "<group>"; };
 		A7B292122DF1CF9D001C213F /* SearchWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchWidget.swift; sourceTree = "<group>"; };
 		B00050131C52D73800515F70 /* UIApplication+RTL.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIApplication+RTL.swift"; sourceTree = "<group>"; };
 		B0016CB821354D9D00FA1096 /* AutoLayoutSafeMultiLineButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutoLayoutSafeMultiLineButton.swift; sourceTree = "<group>"; };
@@ -6888,6 +6900,16 @@
 			name = MockLocationManager;
 			sourceTree = "<group>";
 		};
+		A7409BC32E36B85900BEC5C4 /* Trivia */ = {
+			isa = PBXGroup;
+			children = (
+				A7409BC42E36B8DC00BEC5C4 /* TriviaData.swift */,
+				A786E1872E36BA6600FA9E44 /* TriviaGameSessionViewModel.swift */,
+				A786E18B2E36C07A00FA9E44 /* TriviaGameView.swift */,
+			);
+			path = Trivia;
+			sourceTree = "<group>";
+		};
 		B011FA471D470F4700AD7C5E /* FindInPage */ = {
 			isa = PBXGroup;
 			children = (
@@ -7463,6 +7485,7 @@
 		BC45D58D1C32FD58007C72F3 /* Features */ = {
 			isa = PBXGroup;
 			children = (
+				A7409BC32E36B85900BEC5C4 /* Trivia */,
 				6730D8DD2A05BFA40035255B /* Editing */,
 				67033E122A61B23700896852 /* Watchlist */,
 				67DC5BDB23A00DF500B03A84 /* Article */,
@@ -10203,6 +10226,7 @@
 				67CA5EFF2AF2F469002CFC61 /* ScrollViewGradientView.swift in Sources */,
 				00FCB2BE26D8398700F5A47A /* NotificationsCenterCell.swift in Sources */,
 				83F1097323D0F115003F3E9E /* HelpViewController.swift in Sources */,
+				A7409BC52E36B8DC00BEC5C4 /* TriviaData.swift in Sources */,
 				67134A1728A73C0A00BA0BB9 /* TalkPageReplyComposeController.swift in Sources */,
 				83FBE96F1F6172ED0026C7EB /* ShareAFactActivityTextItemProvider.swift in Sources */,
 				D8A47C8523D7259A002AA823 /* NoIntrinsicContentSizeImageView.swift in Sources */,
@@ -10335,6 +10359,7 @@
 				7A71567922699D5B0066FEC4 /* InsertMediaLabelTableFooterView.swift in Sources */,
 				0042812525E6E841004945B3 /* NYTPhotoTransitionController.m in Sources */,
 				0EF2249A1CC5536200FDF78E /* WMFLanguageCell.m in Sources */,
+				A786E1882E36BA6600FA9E44 /* TriviaGameSessionViewModel.swift in Sources */,
 				7A1469BD220BBE44000A20F1 /* EditHintViewController.swift in Sources */,
 				0042813525E6E841004945B3 /* NYTPhotoDismissalInteractionController.m in Sources */,
 				6782DBA92343B7FC003FA21B /* DiffHeaderEditorView.swift in Sources */,
@@ -10472,6 +10497,7 @@
 				7AE1D3391FCD10B900393471 /* SavedViewController.swift in Sources */,
 				00D46DA52889B7F50015DE9B /* TalkPageView.swift in Sources */,
 				83B01F9A23DB62CD001185F4 /* ArticleViewController+ArticleInformation.swift in Sources */,
+				A786E18C2E36C07A00FA9E44 /* TriviaGameView.swift in Sources */,
 				B0CD9DD71F70997300051843 /* WMFWelcomeAnimationExtensions.swift in Sources */,
 				7A203F0B1FDEDCDD00A229EC /* ReadingListHintController.swift in Sources */,
 				B09B03F21CE0FB6300009083 /* PageHistoryFetcher.swift in Sources */,
@@ -11030,6 +11056,7 @@
 				6798331B22C174F00073CE6F /* LinkOnlyTextView.swift in Sources */,
 				67C6F79427E8C03A00B9C864 /* NotificationsCenterAction.swift in Sources */,
 				D8CE25391E698E2400DAE2E0 /* WMFChange.m in Sources */,
+				A786E18A2E36BA6600FA9E44 /* TriviaGameSessionViewModel.swift in Sources */,
 				D8CE253B1E698E2400DAE2E0 /* MWKSearchRedirectMapping.m in Sources */,
 				7A16C4E7212D941C00F0D5EC /* SubSettingsViewController.swift in Sources */,
 				8382F8CE20D9206000AE5250 /* ImageCollectionViewCell.swift in Sources */,
@@ -11074,6 +11101,7 @@
 				D8CE25651E698E2400DAE2E0 /* AboutViewController.m in Sources */,
 				67BF28562C3DEC5300C9F5DE /* AppDelegate.swift in Sources */,
 				00AA5AAE276BF2AE005295B0 /* TextBarButtonItem.swift in Sources */,
+				A786E18D2E36C07A00FA9E44 /* TriviaGameView.swift in Sources */,
 				B0CD9DE11F70997400051843 /* WMFWelcomeExplorationAnimationView.swift in Sources */,
 				7AFA21BC20110D7900E957E7 /* ReadingListHintViewController.swift in Sources */,
 				67CEF26A2351111D00D5CA6C /* DiffNetworkModels.swift in Sources */,
@@ -11358,6 +11386,7 @@
 				7A8422482268BBE70074648E /* InsertMediaImageInfoView.swift in Sources */,
 				672D69AB273ACAA100B123B3 /* UITabBarAppearance+Extensions.swift in Sources */,
 				83836ECD1F615E5B007D1A05 /* ShareViewController.swift in Sources */,
+				A7409BC72E36B8DC00BEC5C4 /* TriviaData.swift in Sources */,
 				D84DAA171EEEF527008E4B18 /* SWStepSlider.swift in Sources */,
 				D8CE25F81E698E2400DAE2E0 /* WMFImageGalleryDetailOverlayView.m in Sources */,
 				B0CD9DE31F70997400051843 /* WMFWelcomeAnalyticsAnimationView.swift in Sources */,
@@ -11586,6 +11615,7 @@
 				00CB6899288B0CD3002EBB0A /* TalkPageHeaderView.swift in Sources */,
 				7A29A5CA1F6C405900E8F42B /* HistoryViewController.swift in Sources */,
 				67C6F79327E8C03A00B9C864 /* NotificationsCenterAction.swift in Sources */,
+				A786E1892E36BA6600FA9E44 /* TriviaGameSessionViewModel.swift in Sources */,
 				D8EC3E2C1E9BDA35006712EB /* WMFTwoFactorPasswordViewController.swift in Sources */,
 				6798331C22C174F00073CE6F /* LinkOnlyTextView.swift in Sources */,
 				7A16C4E8212D941C00F0D5EC /* SubSettingsViewController.swift in Sources */,
@@ -11630,6 +11660,7 @@
 				83FBE9711F6172ED0026C7EB /* ShareAFactActivityTextItemProvider.swift in Sources */,
 				67BF28552C3DEC5300C9F5DE /* AppDelegate.swift in Sources */,
 				00AA5AAD276BF2AE005295B0 /* TextBarButtonItem.swift in Sources */,
+				A786E18E2E36C07A00FA9E44 /* TriviaGameView.swift in Sources */,
 				67CE5D22222F70C0007B0A2C /* IconBarButtonItem.swift in Sources */,
 				D8EC3E531E9BDA35006712EB /* UIViewController+WMFEmptyView.m in Sources */,
 				B0CD9DE81F70997400051843 /* WMFWelcomeExplorationAnimationView.swift in Sources */,
@@ -11914,6 +11945,7 @@
 				679471DE275F245900621071 /* NotificationsCenterInboxView.swift in Sources */,
 				7A8422492268BBE70074648E /* InsertMediaImageInfoView.swift in Sources */,
 				672D69AA273ACAA100B123B3 /* UITabBarAppearance+Extensions.swift in Sources */,
+				A7409BC62E36B8DC00BEC5C4 /* TriviaData.swift in Sources */,
 				D8EC3EF51E9BDA35006712EB /* UIScrollView+WMFContentOffsetUtils.m in Sources */,
 				D8EC3EF71E9BDA35006712EB /* WMFImageGalleryDetailOverlayView.m in Sources */,
 				B0CD9DEA1F70997400051843 /* WMFWelcomeAnalyticsAnimationView.swift in Sources */,
