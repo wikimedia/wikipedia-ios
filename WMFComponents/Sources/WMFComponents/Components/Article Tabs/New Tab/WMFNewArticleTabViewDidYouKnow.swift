@@ -25,10 +25,8 @@ public struct WMFNewArticleTabViewDidYouKnow: View {
                 .font(Font.for(.caption1))
                 .foregroundStyle(Color(theme.text))
         }
+        .background(Color(theme.midBackground))
         .frame(maxWidth: .infinity)
-        .onAppear {
-            print(dyk)
-        }
     }
 }
 
