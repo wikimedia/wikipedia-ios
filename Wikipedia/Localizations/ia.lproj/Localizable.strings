@@ -633,7 +633,7 @@
 "import-shared-reading-list-survey-prompt-button-cancel" = "Non ora";
 "import-shared-reading-list-survey-prompt-button-take-survey" = "Responder al sondage";
 "import-shared-reading-list-survey-prompt-footer" = "Consulta nostre $1declaration de confidentialitate$2. Sondage realisate per un tertie parte. Vide su $3politica de confidentialitate$4.";
-"import-shared-reading-list-survey-prompt-subtitle" = "\"Condivider listas de lectura\" es un function in test e nos ha besonio de tu retroaction pro meliorar o remover lo.";
+"import-shared-reading-list-survey-prompt-subtitle" = "“Condivider listas de lectura” es un function in test e nos ha besonio de tu evalutation pro meliorar o remover lo.";
 "import-shared-reading-list-survey-prompt-title" = "Poterea tu adjutar nos a meliorar \"Condivider listas de lectura\"?";
 "import-shared-reading-list-title" = "Importar lista de lectura condividite";
 "in-the-news-sub-title-from-language-wikipedia" = "De Wikipedia in $1";
