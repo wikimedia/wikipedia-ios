@@ -15,7 +15,7 @@ fileprivate class WMFMockYearInReviewDataController: WMFYearInReviewDataControll
 		let viewCountSlideSettings = WMFFeatureConfigResponse.IOS.YearInReview.SlideSettings(isEnabled: true)
         let savedCountSlideSettings = WMFFeatureConfigResponse.IOS.YearInReview.SlideSettings(isEnabled: true)
         let personalizedSlides = WMFFeatureConfigResponse.IOS.YearInReview.PersonalizedSlides(readCount: readCountSlideSettings, editCount: editCountSlideSettings, donateCount: donateCountSlideSettings, saveCount: savedCountSlideSettings, mostReadDay: mostReadDaySlideSettings, viewCount: viewCountSlideSettings)
-        let yearInReview = WMFFeatureConfigResponse.IOS.YearInReview(yearID: "2024.2", isEnabled: false, countryCodes: ["FR", "IT"], primaryAppLanguageCodes: ["fr", "it"], dataPopulationStartDateString: "2024-01-01T00:00:00Z", dataPopulationEndDateString: "2024-11-01T00:00:00Z", personalizedSlides: personalizedSlides, hideDonateCountryCodes: ["AE", "AF", "AX", "BY", "CD", "CI"])
+        let yearInReview = WMFFeatureConfigResponse.IOS.YearInReview(yearID: "2024.2", isEnabled: true, countryCodes: ["FR", "IT"], primaryAppLanguageCodes: ["fr", "it"], dataPopulationStartDateString: "2024-01-01T00:00:00Z", dataPopulationEndDateString: "2024-11-01T00:00:00Z", personalizedSlides: personalizedSlides, hideDonateCountryCodes: ["AE", "AF", "AX", "BY", "CD", "CI"])
         let ios = WMFFeatureConfigResponse.IOS(version: 1, yir: [yearInReview])
         let config = WMFFeatureConfigResponse(ios: [ios])
         let developerSettingsDataController = WMFMockDeveloperSettingsDataController(featureConfig: config)
@@ -42,7 +42,7 @@ final class WMFYearInReviewDataControllerCreateOrRetrieveTests: XCTestCase {
         return .wikipedia(language)
     }()
 
-    let year = 2023
+    let year = 2024
     let countryCode = "US"
     let username = "user"
 
@@ -104,14 +104,15 @@ final class WMFYearInReviewDataControllerCreateOrRetrieveTests: XCTestCase {
             throw TestsError.missingDataController
         }
 
-        var report = try await dataController.populateYearInReviewReportData(for: year, countryCode: countryCode, primaryAppLanguageProject: enProject, username: username, userID: nil, savedSlideDataDelegate: self, legacyPageViewsDataDelegate: self)
+        var report = try await dataController.populateYearInReviewReportData(for: year, countryCode: countryCode, primaryAppLanguageProject: enProject, username: nil, userID: nil, savedSlideDataDelegate: self, legacyPageViewsDataDelegate: self)
 
         try await dataController.deleteYearInReviewReport(year: year)
 
-        report = try await dataController.populateYearInReviewReportData(for: year, countryCode: countryCode, primaryAppLanguageProject: enProject, username: username, userID: nil, savedSlideDataDelegate: self, legacyPageViewsDataDelegate: self)
+        report = try await dataController.populateYearInReviewReportData(for: year, countryCode: countryCode, primaryAppLanguageProject: enProject, username: nil, userID: nil, savedSlideDataDelegate: self, legacyPageViewsDataDelegate: self)
 
         XCTAssertNotNil(report, "Expected a new report to be created")
         XCTAssertEqual(report?.year, year)
+        XCTAssertEqual(report?.slides.count, 4) // Expecting 4 slides instead of 6, because editing data (username and userID) is passed as nil above.
     }
 }
 

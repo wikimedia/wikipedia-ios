@@ -55,15 +55,19 @@ import CoreData
     }
     
     public func shouldShowYiRNotification(primaryAppLanguageProject: WMFProject?, isLoggedOut: Bool, isTemporaryAccount: Bool) -> Bool {
+        
+        #if DEBUG
+        if isTemporaryAccount {
+            return false
+        }
+
+        if isLoggedOut {
+            return !hasTappedProfileItem && !hasSeenYiRIntroSlide && shouldShowYearInReviewEntryPoint(countryCode: Locale.current.region?.identifier, primaryAppLanguageProject: primaryAppLanguageProject)
+        }
+        return !hasSeenYiRIntroSlide && shouldShowYearInReviewEntryPoint(countryCode: Locale.current.region?.identifier, primaryAppLanguageProject: primaryAppLanguageProject)
+        #else
         return false
-//        if isTemporaryAccount {
-//            return false
-//        }
-//
-//        if isLoggedOut {
-//            return !hasTappedProfileItem && !hasSeenYiRIntroSlide && shouldShowYearInReviewEntryPoint(countryCode: Locale.current.region?.identifier, primaryAppLanguageProject: primaryAppLanguageProject)
-//        }
-//        return !hasSeenYiRIntroSlide && shouldShowYearInReviewEntryPoint(countryCode: Locale.current.region?.identifier, primaryAppLanguageProject: primaryAppLanguageProject)
+        #endif
     }
     
     public var hasTappedProfileItem: Bool {
@@ -111,28 +115,31 @@ import CoreData
     }
 
     public func shouldShowYearInReviewFeatureAnnouncement(primaryAppLanguageProject: WMFProject?) -> Bool {
+        #if DEBUG
+        guard isAnnouncementActive() else {
+            return false
+        }
+
+        guard yearInReviewSettingsIsEnabled else {
+            return false
+        }
+
+        guard shouldShowYearInReviewEntryPoint(countryCode: Locale.current.region?.identifier, primaryAppLanguageProject: primaryAppLanguageProject) else {
+            return false
+        }
+
+        guard !hasPresentedYiRFeatureAnnouncementModel else {
+            return false
+        }
+
+        guard !hasSeenYiRIntroSlide else {
+            return false
+        }
+
+        return true
+        #else
         return false
-//        guard isAnnouncementActive() else {
-//            return false
-//        }
-//
-//        guard yearInReviewSettingsIsEnabled else {
-//            return false
-//        }
-//
-//        guard shouldShowYearInReviewEntryPoint(countryCode: Locale.current.region?.identifier, primaryAppLanguageProject: primaryAppLanguageProject) else {
-//            return false
-//        }
-//
-//        guard !hasPresentedYiRFeatureAnnouncementModel else {
-//            return false
-//        }
-//
-//        guard !hasSeenYiRIntroSlide else {
-//            return false
-//        }
-//
-//        return true
+        #endif
     }
 
     // MARK: Entry Point
