@@ -97,7 +97,7 @@ final class WMFNewArticleTabViewController: WMFCanvasViewController, WMFNavigati
             }
 
             searchController.isActive = true
-            searchController.searchBar.becomeFirstResponder() 
+            searchController.searchBar.becomeFirstResponder()
         }
     }
 
@@ -159,16 +159,6 @@ final class WMFNewArticleTabViewController: WMFCanvasViewController, WMFNavigati
         let backButtonConfig = WMFNavigationBarBackButtonConfig(needsCustomTruncateBackButtonTitle: true)
 
         configureNavigationBar(titleConfig: titleConfig, backButtonConfig: backButtonConfig, closeButtonConfig: nil, profileButtonConfig: profileButtonConfig, tabsButtonConfig: tabsButtonConfig, searchBarConfig: searchBarConfig, hideNavigationBarOnScroll: true)
-    }
-
-    let extractTitleFromURLBlock: (URL) -> String? = { url in
-        let components = URLComponents(url: url, resolvingAgainstBaseURL: false)
-        guard let fragment = components?.fragment else {
-            return nil
-        }
-        let title = fragment.removingPercentEncoding?.replacingOccurrences(of: "_", with: " ")
-
-        return title
     }
 
     @objc func userDidTapProfile() {
