@@ -35,7 +35,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
           sessionStrategy: .fixed(),
           apiURL: URL(string: "https://api.bitdrift.dev")!
         )?
-        .enableIntegrations([.urlSession()])
+        .enableIntegrations([.urlSession()], disableSwizzling: true)
         registerUserDefaults()
         
 #if DEBUG
