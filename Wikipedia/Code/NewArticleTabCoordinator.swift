@@ -19,12 +19,20 @@ final class NewArticleTabCoordinator: Coordinator {
 
     @discardableResult
     func start() -> Bool {
+        
+        let tappedURLAction: ((URL?) -> Void) = { url in
+            guard let url else { return }
+            
+            let linkCoordinator = LinkCoordinator(navigationController: self.navigationController, url: url, dataStore: self.dataStore, theme: self.theme, articleSource: .undefined)
+            linkCoordinator.start()
+        }
+        
         let viewModel = WMFNewArticleTabViewModel(
             text: "Placeholder",
             title: CommonStrings.newTab,
             languageCode: dataStore.languageLinkController.appLanguage?.languageCode,
             dykLocalizedStrings: WMFNewArticleTabViewModel.DYKLocalizedStrings.init(dyk: dyk, fromSource: fromLanguageWikipediaTextFor(languageCode: dataStore.languageLinkController.appLanguage?.languageCode)),
-            fromSourceDefault: fromWikipediaDefault)
+            fromSourceDefault: fromWikipediaDefault, tappedURLAction: tappedURLAction)
         let viewController = WMFNewArticleTabController(dataStore: dataStore, theme: theme, viewModel: viewModel)
         navigationController.pushViewController(viewController, animated: true)
 

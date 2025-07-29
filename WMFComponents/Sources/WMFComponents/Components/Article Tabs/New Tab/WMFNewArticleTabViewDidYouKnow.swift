@@ -9,6 +9,7 @@ public struct WMFNewArticleTabViewDidYouKnow: View {
     
     let dyk: String
     let fromSource: String
+    let tappedURLAction: (URL?) -> Void
     
     private var attributedString: AttributedString {
         return (try? HtmlUtils.attributedStringFromHtml(dyk, styles: styles)) ?? AttributedString(dyk)
@@ -21,6 +22,22 @@ public struct WMFNewArticleTabViewDidYouKnow: View {
     public var body: some View {
         VStack(alignment: .leading, spacing: 8) {
             Text(attributedString)
+                .environment(\.openURL, OpenURLAction { url in
+                    
+                    var components = url.pathComponents
+                    // remove relative bit?
+                    components = components.filter { $0 != "." }
+                    
+                    var finalComponents = URLComponents()
+                    finalComponents.scheme = "https"
+                    finalComponents.host = "en.wikipedia.org"
+                    finalComponents.path = "/wiki/" + components.joined(separator: "/")
+                    let finalURL = finalComponents.url
+      
+                    tappedURLAction(finalURL)
+                    
+                    return .handled
+                })
             Text(fromSource)
                 .font(Font.for(.caption1))
                 .foregroundStyle(Color(theme.text))
