@@ -32,41 +32,38 @@ public final class WMFNewArticleTabViewModel: ObservableObject {
             return cleanedText
         }
 
-        let combined = dykPrefix + " " + cleanedText
-        let sanitized = sanitizeMalformedHrefs(in: combined)
-        print("Sanitized: \(sanitized)")
-        return transformWikiLinks(in: sanitized, languageCode: languageCode)
+        let rewrittenHTML = replaceRelativeHrefs(in: randomElement, languageCode: languageCode)
+        let removeEllipses = replaceEllipsesWithSpace(in: rewrittenHTML)
+        let combined = dykPrefix + " " + removeEllipses
+        return combined
     }
-    
-    // Clean out the ellipses, any massive spaces, and anything else that might make the URL not work
-    private func transformWikiLinks(in html: String, languageCode: String) -> String {
-        let pattern = "<a[^>]+href=[\"']\\./([^\"'>]+)[\"']"
+
+    private func replaceRelativeHrefs(in html: String, languageCode: String) -> String {
+        let pattern = #"href="\./([^"]+)""#
         guard let regex = try? NSRegularExpression(pattern: pattern, options: []) else {
             return html
         }
 
-        let nsRange = NSRange(html.startIndex..<html.endIndex, in: html)
-        var resultHTML = html
+        let nsrange = NSRange(html.startIndex..<html.endIndex, in: html)
+        var result = html
+        let matches = regex.matches(in: html, options: [], range: nsrange).reversed()
 
-        var urlSafeCharacters = CharacterSet.urlPathAllowed
-        urlSafeCharacters.remove(charactersIn: "\"'")
+        for match in matches {
+            guard match.numberOfRanges > 1,
+                  let hrefRange = Range(match.range(at: 1), in: html) else {
+                continue
+            }
 
-        regex.matches(in: html, options: [], range: nsRange).reversed().forEach { match in
-            guard let pageTitleRange = Range(match.range(at: 1), in: resultHTML) else { return }
+            let relativePath = html[hrefRange]
+            let fullURL = "https://\(languageCode).wikipedia.org/wiki/\(relativePath)"
+            let replacement = #"href="\#(fullURL)""#
 
-            let pageTitle = String(resultHTML[pageTitleRange])
-
-            guard let encodedTitle = pageTitle.addingPercentEncoding(withAllowedCharacters: urlSafeCharacters) else { return }
-
-            let url = "https://\(languageCode).wikipedia.org/wiki/\(encodedTitle)"
-
-            if let fullRange = Range(match.range(at: 0), in: resultHTML) {
-                let newHref = "<a href=\"\(url)\""
-                resultHTML.replaceSubrange(fullRange, with: newHref)
+            if let fullMatchRange = Range(match.range(at: 0), in: html) {
+                result.replaceSubrange(fullMatchRange, with: replacement)
             }
         }
 
-        return resultHTML
+        return result
     }
 
     private func replaceEllipsesWithSpace(in text: String) -> String {
@@ -86,40 +83,6 @@ public final class WMFNewArticleTabViewModel: ObservableObject {
         }
 
         return result.trimmingCharacters(in: .whitespacesAndNewlines)
-    }
-    
-    private func sanitizeMalformedHrefs(in html: String) -> String {
-        let pattern = #"href="((?:https://|\.\/)en\.wikipedia\.org/wiki/[^"]*)""#
-        guard let regex = try? NSRegularExpression(pattern: pattern, options: []) else {
-            return html
-        }
-
-        let nsRange = NSRange(html.startIndex..<html.endIndex, in: html)
-        var resultHTML = html
-
-        regex.matches(in: html, options: [], range: nsRange).reversed().forEach { match in
-            guard let range = Range(match.range(at: 1), in: resultHTML) else { return }
-            let originalURL = String(resultHTML[range])
-
-            let baseURL: String
-            let path: String
-
-            if originalURL.hasPrefix("https://en.wikipedia.org") {
-                baseURL = "https://en.wikipedia.org"
-                path = String(originalURL.dropFirst(baseURL.count))
-            } else if originalURL.hasPrefix("./") {
-                baseURL = "./"
-                path = String(originalURL.dropFirst(2))
-            } else {
-                return
-            }
-            guard let encodedPath = path.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) else { return }
-
-            let sanitizedURL = baseURL + encodedPath
-            resultHTML.replaceSubrange(range, with: sanitizedURL)
-        }
-
-        return resultHTML
     }
     
     public struct DYKLocalizedStrings {
