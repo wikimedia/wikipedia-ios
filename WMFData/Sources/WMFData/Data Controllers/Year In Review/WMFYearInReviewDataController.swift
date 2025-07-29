@@ -501,7 +501,7 @@ import CoreData
                     
                     guard dataController.containsPersonalizedNetworkData else { continue }
 
-                    slide.data = nil
+                    backgroundContext.delete(slide)
                 }
             }
 
