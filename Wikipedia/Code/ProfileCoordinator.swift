@@ -35,6 +35,7 @@ final class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegat
     private let donateSouce: DonateCoordinator.Source
     private let targetRects = WMFProfileViewTargetRects()
     private var donateCoordinator: DonateCoordinator?
+    private var triviaGameCoordinator: TriviaGameCoordinator?
     private let yirCoordinator: YearInReviewCoordinator
     
     let sourcePage: ProfileCoordinatorSource
@@ -205,10 +206,8 @@ final class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegat
     }
     
     private func showTrivia() {
-        let viewModel = TriviaGameSessionViewModel(dataStore: dataStore)
-        let triviaView = TriviaGameView(viewModel: viewModel)
-        let hostingController = UIHostingController(rootView: triviaView)
-        navigationController.present(hostingController, animated: true)
+        triviaGameCoordinator = TriviaGameCoordinator(navigationController: navigationController, dataStore: dataStore, theme: theme)
+        triviaGameCoordinator?.start()
     }
     
     private func presentLoginPrompt() {
