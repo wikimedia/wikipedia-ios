@@ -7,10 +7,12 @@ public struct WMFNewArticleTabView: View {
         return appEnvironment.theme
     }
 
-    public init() {
-    }
+    public init() {}
 
     public var body: some View {
-        Text(String())
+        ZStack {
+            Spacer()
+        }
+        .background(Color(theme.paperBackground))
     }
 }
