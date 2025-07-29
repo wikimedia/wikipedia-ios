@@ -230,9 +230,7 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        if WMFArticleTabsDataController.shared.shouldShowArticleTabs {
-            ArticleTabsFunnel.shared.logIconImpression(interface: .places, project: nil)
-        }
+        ArticleTabsFunnel.shared.logIconImpression(interface: .places, project: nil)
     }
 
     override func viewWillDisappear(_ animated: Bool) {

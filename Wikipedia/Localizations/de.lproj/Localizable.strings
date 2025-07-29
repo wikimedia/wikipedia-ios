@@ -15,6 +15,7 @@
 // Author: Hwboehm
 // Author: Ideophagous
 // Author: JanRei
+// Author: JorgeElias2302
 // Author: Justman10000
 // Author: Kghbln
 // Author: Killarnee
@@ -149,6 +150,8 @@
 "article-revision-history" = "Versionsgeschichte";
 "article-save-error-not-enough-space" = "Du hast nicht genügend Speicherplatz auf deinem Gerät, um diesen Artikel zu speichern.";
 "article-share" = "Teilen";
+"article-tabs-button-accessibility-hint" = "Navigiert zur Übersicht der Registerkarten";
+"article-tabs-button-accessibility-label" = "Artikelregister";
 "article-tabs-navigation" = "Tabnavigation";
 "article-tabs-open-background-tab" = "Im Hintergrund-Tab öffnen";
 "article-tabs-open-new-tab" = "In neuem Tab öffnen";
@@ -498,7 +501,6 @@
 "forgot-password-title" = "Passwort zurücksetzen";
 "forgot-password-username-or-email-title" = "Oder";
 "history-clear-all" = "Löschen";
-"history-clear-cancel" = "Abbrechen";
 "history-clear-confirmation-heading" = "Bist du sicher, dass du alle deine letzten Objekte löschen möchtest?";
 "history-clear-delete-all" = "Ja, alle löschen";
 "history-title" = "Verlauf";
@@ -926,7 +928,6 @@
 "search-did-you-mean" = "Meintest du $1?";
 "search-field-placeholder-text" = "Wikipedia durchsuchen";
 "search-reading-list-placeholder-text" = "Leseliste suchen";
-"search-recent-clear-cancel" = "Abbrechen";
 "search-recent-clear-confirmation-heading" = "Alle letzten Suchanfragen löschen?";
 "search-recent-clear-confirmation-sub-heading" = "Diese Aktion kann nicht rückgängig gemacht werden!";
 "search-recent-clear-delete-all" = "Alle löschen";
@@ -1083,6 +1084,7 @@
 "watchlist-user-button-user-contributions" = "Benutzerbeiträge";
 "watchlist-user-button-user-page" = "Benutzerseite";
 "watchlist-user-button-user-talk-page" = "Benutzerdiskussionsseite";
+"welcome-data-privacy-title" = "Daten & Privatsphäre";
 "welcome-exploration-explore-feed-description" = "Empfohlener Lesestoff und täglich wechselnde Artikel aus unserer Gemeinschaft";
 "welcome-exploration-explore-feed-title" = "Entdecken-Feed";
 "welcome-exploration-on-this-day-description" = "Reise in der Zeit zurück, um zu erfahren, was heute in der Vergangenheit passiert ist.";
@@ -1104,6 +1106,8 @@
 "welcome-notifications-tell-me-more-creation" = "Benachrichtigungen werden auf deinem Gerät von der App erstellt und zur Verfügung gestellt und nicht von unseren oder Drittparteiservern.";
 "welcome-notifications-tell-me-more-storage" = "Benachrichtigungseinstellungen werden auf dem Gerät gespeichert und basieren nicht auf persönliche Informationen oder Aktivitäten.";
 "welcome-notifications-tell-me-more-title" = "Mehr über Benachrichtigungen";
+"welcome-privacy-subtitle" = "Wir sind der Meinung, dass Du keine persönlichen Daten angeben musst, um an der Bewegung für freies Wissen teilzunehmen. Die für diese App gesammelten Nutzungsdaten sind anonym.";
+"welcome-privacy-terms-button-text" = "Erfahre mehr über unsere Datenschutzrichtlinien und Nutzungsbedingungen";
 "widget-onthisday-description" = "Erforsche, was an diesem Tag in der Geschichte passiert ist.";
 "widget-onthisday-placeholder-article-snippet" = "Freie Online-Enzyklopädie, die jeder bearbeiten kann";
 "widget-onthisday-placeholder-event-snippet" = "Wikipedia, eine freie Enzyklopädie mit Wiki-Inhalten, geht online.";

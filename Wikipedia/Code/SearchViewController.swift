@@ -142,9 +142,7 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
             }
         }
 
-        if WMFArticleTabsDataController.shared.shouldShowArticleTabs {
-            ArticleTabsFunnel.shared.logIconImpression(interface: .search, project: nil)
-        }
+        ArticleTabsFunnel.shared.logIconImpression(interface: .search, project: nil)
     }
 
     override func viewDidLayoutSubviews() {

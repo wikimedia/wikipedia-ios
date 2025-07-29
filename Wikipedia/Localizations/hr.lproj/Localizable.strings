@@ -205,7 +205,6 @@
 "find-infolabel-number-matches" = "$1 / $2";
 "forgot-password-username-or-email-title" = "ili";
 "history-clear-all" = "Očisti";
-"history-clear-cancel" = "Odustani";
 "history-clear-confirmation-heading" = "Želite li zaista izbrisati sve nedavne stavke?";
 "history-clear-delete-all" = "Da, izbriši sve";
 "history-title" = "Povijest";
@@ -248,7 +247,6 @@
 "saved-all-articles-title" = "Svi članci";
 "saved-title" = "Spremljeno";
 "search-clear-title" = "Očisti";
-"search-recent-clear-cancel" = "Odustani";
 "settings-account" = "Račun";
 "welcome-intro-free-encyclopedia-description" = "Wikipedija je rezultat volonterske suradnje i sadrži više od 40 milijuna članaka na preko 300 jezika.";
 "welcome-languages-search-title" = "Pretraživanje u više od 300 jezika";

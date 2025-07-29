@@ -518,7 +518,6 @@
 "forgot-password-title" = "Ресетовање лозинке";
 "forgot-password-username-or-email-title" = "Или";
 "history-clear-all" = "Обриши";
-"history-clear-cancel" = "Откажи";
 "history-clear-confirmation-heading" = "Желите ли заиста да избришете све недавне ставке?";
 "history-clear-delete-all" = "Да, избриши све";
 "history-title" = "Историја";
@@ -1000,7 +999,6 @@
 "search-did-you-mean" = "Да ли сте мислили на „$1”?";
 "search-field-placeholder-text" = "Претрага Википедије";
 "search-reading-list-placeholder-text" = "Претрага по листи за читање";
-"search-recent-clear-cancel" = "Откажи";
 "search-recent-clear-confirmation-heading" = "Избрисати све недавне претраге?";
 "search-recent-clear-confirmation-sub-heading" = "Ова радња је неповратна.";
 "search-recent-clear-delete-all" = "Избриши све";
@@ -1169,6 +1167,7 @@
 "theme-default-explanation" = "Поклапа се са темом система";
 "theme-light-display-name" = "Светло";
 "theme-sepia-display-name" = "Сепија";
+"today-title" = "Данас";
 "top-read-widget-description" = "Сазнајте шта свет чита данас на Википедији";
 "top-read-widget-readers-count" = "Читалаца: $1";
 "top-read-widget-title" = "Најчитаније";
@@ -1325,3 +1324,4 @@
 "year-in-review-survey-very-unsatisfied" = "Веома незадовољан";
 "year-in-review-wikipedia-w-accessibility-label" = "Википедијин W логотип";
 "year-in-review-wmf-logo-accessibility-label" = "Логотип Задужбине Викимедије";
+"yesterday-title" = "Јуче";

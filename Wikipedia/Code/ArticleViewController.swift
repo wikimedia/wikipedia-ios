@@ -226,6 +226,11 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
     lazy var webView: WKWebView = {
         let webView = WMFWebView(frame: .zero, configuration: webViewConfiguration)
         webView.translatesAutoresizingMaskIntoConstraints = false
+#if DEBUG
+        if #available(iOS 16.4, *) {
+            webView.isInspectable = true
+        }
+#endif
         return webView
     }()
     
@@ -624,8 +629,7 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
             guard let self else { return }
             let tabDataController = WMFArticleTabsDataController.shared
             
-            if tabDataController.shouldShowArticleTabs,
-               let tabIdentifier = self.coordinator?.tabIdentifier {
+            if let tabIdentifier = self.coordinator?.tabIdentifier {
                 self.previousArticleTab = try? await tabDataController.getAdjacentArticleInTab(tabIdentifier: tabIdentifier, isPrev: true)
                 self.nextArticleTab = try? await tabDataController.getAdjacentArticleInTab(tabIdentifier: tabIdentifier, isPrev: false)
             }

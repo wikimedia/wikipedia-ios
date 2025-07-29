@@ -181,6 +181,8 @@
 "article-revision-history" = "Historique des versions de l’article";
 "article-save-error-not-enough-space" = "Vous n’avez pas assez d’espace disponible sur votre appareil pour enregistrer cet article";
 "article-share" = "Partager";
+"article-tabs-button-accessibility-hint" = "Navigue vers l’aperçu des onglets";
+"article-tabs-button-accessibility-label" = "Onglets de l’article";
 "article-tabs-max-reached" = "Limite d'onglets atteinte ( $1 ). L'article a été ouvert dans l'onglet actuel. Veuillez fermer un ou plusieurs onglets.";
 "article-tabs-navigation" = "Navigation entre les onglets";
 "article-tabs-onboarding-tooltip" = "Info-bulles pour les onglets";
@@ -619,7 +621,6 @@
 "gan-variants-alert-body" = "L’application Wikipédia prend maintenant en charge les variantes suivantes du gan comme langues principale et secondaire dans l’application, le rendant plus facile à lire, rechercher et modifier dans vos variantes préférées :\n\n贛語 原文 – gan (gan)\n赣语 简体 – gan simplifié (gan-hans)\n贛語 繁體 – gan traditionnel (gan-hant)";
 "gan-variants-alert-title" = "Mises à jour de la prise en charge des variantes du gan";
 "history-clear-all" = "Effacer";
-"history-clear-cancel" = "Annuler";
 "history-clear-confirmation-heading" = "Êtes-vous sûr{{GENDER:||e}} de vouloir supprimer tous vos éléments récents ?";
 "history-clear-delete-all" = "Oui, supprimer tout";
 "history-title" = "Historique";
@@ -1145,7 +1146,6 @@
 "search-did-you-mean" = "Voulez-vous dire $1 ?";
 "search-field-placeholder-text" = "Rechercher dans Wikipédia";
 "search-reading-list-placeholder-text" = "Rechercher les listes de lecture";
-"search-recent-clear-cancel" = "Annuler";
 "search-recent-clear-confirmation-heading" = "Supprimer toutes les recherches récentes ?";
 "search-recent-clear-confirmation-sub-heading" = "Cette action ne peut pas être annulée !";
 "search-recent-clear-delete-all" = "Supprimer tout";
@@ -1332,6 +1332,7 @@
 "theme-default-explanation" = "Correspond au thème du système";
 "theme-light-display-name" = "Clair";
 "theme-sepia-display-name" = "Sépia";
+"today-title" = "Aujourd’hui";
 "top-read-widget-description" = "Apprendre ce qui est lu aujourd’hui dans le monde sur Wikipédia.";
 "top-read-widget-readers-count" = "$1 lecteurs";
 "top-read-widget-title" = "Les plus lus";
@@ -1535,3 +1536,4 @@
 "year-in-review-survey-very-unsatisfied" = "Très insatisfait";
 "year-in-review-wikipedia-w-accessibility-label" = "Logo w de Wikipédia";
 "year-in-review-wmf-logo-accessibility-label" = "Logo de la Fondation Wikimédia";
+"yesterday-title" = "Hier";

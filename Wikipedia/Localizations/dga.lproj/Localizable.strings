@@ -414,7 +414,6 @@
 "gan-variants-alert-body" = "\nA Wikipiideɛ app pampana sage la a Gan aŋa paramare bee Sakondare kɔkɔɛ a app, na vɛŋ ka kannoo e mɔlɔ, bɔ ane maaloo:\n\n贛語 原文 Gan (gan)\n赣语 简体 Gan, Simplified (gan-hans)\n贛語 繁體 Gan, Traditional (gan-hant)";
 "gan-variants-alert-title" = "Leɛ e Gan sommo";
 "history-clear-all" = "Iri";
-"history-clear-cancel" = "Sãã";
 "history-clear-confirmation-heading" = "Fo serve boɔrɔ ka fo iri fo pampana boma bare?";
 "history-clear-delete-all" = "Ooo, iri a zaa";
 "history-title" = "Yipɔge";
@@ -797,7 +796,6 @@
 "search-did-you-mean" = "Fo yeli ka $1?";
 "search-field-placeholder-text" = "Bɔ Wikipiideɛ";
 "search-reading-list-placeholder-text" = "Bɔ kannoo gama";
-"search-recent-clear-cancel" = "Sãã bare";
 "search-recent-clear-confirmation-heading" = "Iri pampana ŋa bɔɔbu?";
 "search-recent-clear-confirmation-sub-heading" = "A Aatekel ŋa koŋ la baŋ leɛ e!";
 "search-recent-clear-delete-all" = "Iri a zaa";

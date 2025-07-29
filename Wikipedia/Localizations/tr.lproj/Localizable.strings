@@ -176,6 +176,8 @@
 "article-revision-history" = "Madde sürüm geçmişi";
 "article-save-error-not-enough-space" = "Bu maddeyi kaydetmek için cihazınızda yeterli alan yok";
 "article-share" = "Paylaş";
+"article-tabs-button-accessibility-hint" = "Sekme genel bakışına gider";
+"article-tabs-button-accessibility-label" = "Madde sekmeleri";
 "article-tabs-max-reached" = "Sekme sınırına ulaşıldı ($1). Madde geçerli sekmede açıldı. Lütfen bir ya da daha fazla sekmeyi kapatın.";
 "article-tabs-navigation" = "Sekme dolaşımı";
 "article-tabs-onboarding-tooltip" = "Sekmeler için katılım ipuçları";
@@ -614,7 +616,6 @@
 "gan-variants-alert-body" = "Vikipedi uygulaması artık aşağıdaki Gan biçimlerini birincil veya ikincil dil olarak uygulama içinde destekliyor, bu şekilde tercih ettiğiniz biçimle daha kolay okuyabilir, aratabilir ve değişiklik yapabilirsiniz:\n\n贛語 原文 Gan (gan)\n赣语 简体 Gan, Basitleştirilmiş (gan-hans)\n贛語 繁體 Gan, Geleneksel (gan-hant)";
 "gan-variants-alert-title" = "Ganca biçim desteği güncellemeleri";
 "history-clear-all" = "Temizle";
-"history-clear-cancel" = "İptal";
 "history-clear-confirmation-heading" = "Tüm geçmişinizi silmek istediğinizden emin misiniz?";
 "history-clear-delete-all" = "Evet, tümünü sil";
 "history-title" = "Geçmiş";
@@ -1140,7 +1141,6 @@
 "search-did-you-mean" = "Bunu mu demek istediniz: $1?";
 "search-field-placeholder-text" = "Vikipedi'de Ara";
 "search-reading-list-placeholder-text" = "Okuma listesinde ara";
-"search-recent-clear-cancel" = "İptal";
 "search-recent-clear-confirmation-heading" = "Son aramaların tümü silinsin mi?";
 "search-recent-clear-confirmation-sub-heading" = "Bu eylem geri alınamaz!";
 "search-recent-clear-delete-all" = "Tümünü Sil";
@@ -1327,6 +1327,7 @@
 "theme-default-explanation" = "Sistem temasıyla eşleş";
 "theme-light-display-name" = "Açık";
 "theme-sepia-display-name" = "Sepya";
+"today-title" = "Bugün";
 "top-read-widget-description" = "Dünyanın bugün Vikipedi'de ne okuduğunu öğrenin.";
 "top-read-widget-readers-count" = "$1 okuyucu";
 "top-read-widget-title" = "En çok okunanlar";
@@ -1530,3 +1531,4 @@
 "year-in-review-survey-very-unsatisfied" = "Çok mutsuz";
 "year-in-review-wikipedia-w-accessibility-label" = "Vikipedi v logosu";
 "year-in-review-wmf-logo-accessibility-label" = "Wikimedia Vakfı logosu";
+"yesterday-title" = "Dün";

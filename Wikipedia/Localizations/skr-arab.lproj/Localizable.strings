@@ -202,7 +202,6 @@
 "forgot-password-title" = "پاس ورڈ ولدا ٹھیک کرو";
 "forgot-password-username-or-email-title" = "یا";
 "history-clear-all" = "صاف";
-"history-clear-cancel" = "مکاؤ";
 "history-clear-delete-all" = "جیا سبھ مٹاؤ";
 "history-title" = "تاریخچہ";
 "home-more-like-footer" = "$1 وانگوں ٻئے";
@@ -392,7 +391,6 @@
 "search-clear-title" = "صاف";
 "search-did-you-mean" = "بھلا تہاݙا مطلب ہائی $1؟";
 "search-field-placeholder-text" = "وکیپیڈیا وچ ڳولو";
-"search-recent-clear-cancel" = "منسوخ";
 "search-recent-clear-confirmation-sub-heading" = "اے کم واپس نی تھی سڳدا";
 "search-recent-clear-delete-all" = "سارے مٹاؤ";
 "search-title" = "ڳولو";
@@ -472,6 +470,7 @@
 "theme-default-display-name" = "پہلے کنوں طے تھیا ہویا";
 "theme-light-display-name" = "پھکّا";
 "theme-sepia-display-name" = "بھورا";
+"today-title" = "اڄ";
 "top-read-widget-readers-count" = "$1 قارئین";
 "tutorial-title" = "ٹیٹوریل";
 "two-factor-login-continue" = "لاگ ان جاری رکھو";
@@ -514,3 +513,4 @@
 "year-in-review-survey-unsatisfied" = "غیر مطمئن";
 "year-in-review-survey-very-satisfied" = "ݙاڈھا تسلی بخش";
 "year-in-review-survey-very-unsatisfied" = "ݙاڈھا تسلی بخش";
+"yesterday-title" = "کل";
