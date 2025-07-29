@@ -54,14 +54,13 @@ final class WMFNewArticleTabViewController: WMFCanvasViewController, WMFNavigati
         return existingProfileCoordinator
     }
 
-
     // MARK: - Lifecycle
 
     init(dataStore: MWKDataStore, theme: Theme, viewModel: WMFNewArticleTabViewModel) {
         self.dataStore = dataStore
         self.theme = theme
         self.viewModel = viewModel
-        self.hostingController = WMFNewArticleTabHostingController(rootView: WMFNewArticleTabView(viewModel: viewModel))
+        self.hostingController = WMFNewArticleTabHostingController(rootView: WMFNewArticleTabView())
         super.init()
         self.hidesBottomBarWhenPushed = true
         self.configureNavigationBar()
