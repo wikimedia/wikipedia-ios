@@ -90,10 +90,17 @@ final class WMFNewArticleTabViewController: WMFCanvasViewController, WMFNavigati
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        DispatchQueue.main.async {
-            self.navigationItem.searchController?.searchBar.becomeFirstResponder()
+
+        DispatchQueue.main.async { [weak self] in
+            guard let searchController = self?.navigationItem.searchController else {
+                return
+            }
+
+            searchController.isActive = true
+            searchController.searchBar.becomeFirstResponder() 
         }
     }
+
     // MARK: - Navigation bar configuring
 
     private func configureNavigationBar() {
