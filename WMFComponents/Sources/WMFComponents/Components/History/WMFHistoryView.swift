@@ -73,7 +73,8 @@ public struct WMFHistoryView: View {
             },
             saveOrUnsaveItemAction: {
                 viewModel.saveOrUnsave(item: item, in: section)
-            }
+            },
+            showsSwipeActions: true
         )
     }
 
