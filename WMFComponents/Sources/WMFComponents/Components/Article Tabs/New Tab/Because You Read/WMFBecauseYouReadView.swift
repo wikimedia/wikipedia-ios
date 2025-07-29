@@ -23,7 +23,7 @@ struct WMFBecauseYouReadView: View {
                 }
 
                 VStack(alignment: .leading, spacing: 4) {
-                    Text(viewModel.becauseYouReadText)
+                    Text(viewModel.becauseYouReadTitle)
                         .font(Font(WMFFont.for(.semiboldSubheadline)))
                         .foregroundColor(Color(theme.secondaryText))
                     Text(viewModel.seedArticle.title)

@@ -30,9 +30,7 @@ final class NewArticleTabCoordinator: Coordinator {
         var seedURL:    URL?
         moc.performAndWait {
             let req: NSFetchRequest<WMFArticle> = WMFArticle.fetchRequest()
-            let base = NSPredicate(format:
-                                    "isExcludedFromFeed == NO AND (wasSignificantlyViewed == YES OR savedDate != nil)"
-            )
+            let base = NSPredicate(format:"isExcludedFromFeed == NO AND (wasSignificantlyViewed == YES OR savedDate != nil)")
             // Remember used articles
             if !self.seenSeedKeys.isEmpty {
                 let exclude = NSPredicate(format: "NOT (key IN %@)", self.seenSeedKeys)
@@ -125,7 +123,7 @@ final class NewArticleTabCoordinator: Coordinator {
 
                 if !relatedRecords.isEmpty {
                     becauseVM = WMFBecauseYouReadViewModel(
-                        becauseYouReadText: "Because you read", // TODO: Localize
+                        becauseYouReadTitle: "Because you read", // TODO: Localize
                         seedArticle: seedRecord,
                         relatedArticles: relatedRecords
                     )
@@ -153,16 +151,16 @@ fileprivate extension WMFArticle {
         let id = Int(truncating: self.pageID ?? NSNumber())
         let viewed = self.viewedDate ?? self.savedDate ?? Date()
         return HistoryRecord(
-            id:                id,
-            title:             self.displayTitle ?? self.displayTitleHTML,
-            descriptionOrSnippet: self.capitalizedWikidataDescriptionOrSnippet,
-            shortDescription:     self.snippet,
-            articleURL:        self.url,
-            imageURL:          self.imageURLString,
-            viewedDate:        viewed,
-            isSaved:           self.isSaved,
-            snippet:           self.snippet,
-            variant:           self.variant
+            id: id,
+            title: self.displayTitle ?? self.displayTitleHTML,
+            descriptionOrSnippet:self.capitalizedWikidataDescriptionOrSnippet,
+            shortDescription: self.snippet,
+            articleURL: self.url,
+            imageURL: self.imageURLString,
+            viewedDate: viewed,
+            isSaved: self.isSaved,
+            snippet: self.snippet,
+            variant: self.variant
         )
     }
 }

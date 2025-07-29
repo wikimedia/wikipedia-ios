@@ -3,12 +3,12 @@ import Foundation
 
 @objc public class WMFBecauseYouReadViewModel: NSObject {
 
-    let becauseYouReadText: String
+    let becauseYouReadTitle: String
     let seedArticle: HistoryRecord
     let relatedArticles: [HistoryRecord]
 
-    public init(becauseYouReadText: String, seedArticle: HistoryRecord, relatedArticles: [HistoryRecord]) {
-        self.becauseYouReadText = becauseYouReadText
+    public init(becauseYouReadTitle: String, seedArticle: HistoryRecord, relatedArticles: [HistoryRecord]) {
+        self.becauseYouReadTitle = becauseYouReadTitle
         self.seedArticle = seedArticle
         self.relatedArticles = relatedArticles
     }
