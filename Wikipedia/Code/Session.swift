@@ -167,7 +167,7 @@ public class Session: NSObject {
         let config = URLSessionConfiguration.default
         config.httpCookieStorage = Session.defaultCookieStorage
         config.urlCache = permanentCacheController?.urlCache ?? URLCache.shared
-        return URLSession(configuration: config, delegate: delegate, delegateQueue: delegate.delegateQueue)
+        return URLSession(instrumentedSessionWithConfiguration: config, delegate: delegate, delegateQueue: delegate.delegateQueue)
     }
     
     private let configuration: Configuration
@@ -199,7 +199,7 @@ public class Session: NSObject {
         let config = URLSessionConfiguration.default
         config.httpCookieStorage = Session.defaultCookieStorage
         config.allowsCellularAccess = false
-        return URLSession(configuration: config)
+        return URLSession(instrumentedSessionWithConfiguration: config)
     }()
     
     @objc(requestToGetURL:)
