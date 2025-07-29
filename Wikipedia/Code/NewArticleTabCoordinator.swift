@@ -122,11 +122,21 @@ final class NewArticleTabCoordinator: Coordinator {
                 }
 
                 if !relatedRecords.isEmpty {
+                    let onTapArticleAction: WMFBecauseYouReadViewModel.OnRecordTapAction = { [weak self] historyItem in
+                        guard let self else {
+                            return
+                        }
+
+                        self.tappedArticle(historyItem)
+                    }
+
                     becauseVM = WMFBecauseYouReadViewModel(
                         becauseYouReadTitle: "Because you read", // TODO: Localize
                         seedArticle: seedRecord,
                         relatedArticles: relatedRecords
                     )
+                    becauseVM?.onTapArticle = onTapArticleAction
+
                 }
             }
             // TODO: move out of this call
@@ -143,6 +153,34 @@ final class NewArticleTabCoordinator: Coordinator {
             self.navigationController.pushViewController(vc, animated: true)
         }
         return true
+    }
+
+    func tappedArticle(_ item: HistoryItem) {
+        guard let articleURL = item.url,
+              let title = articleURL.wmf_title,
+              let siteURL = articleURL.wmf_site,
+              let wmfProject = WikimediaProject(siteURL: siteURL)?.wmfProject else {
+            return
+        }
+
+        let articleCoordinator = ArticleCoordinator(
+            navigationController: navigationController,
+            articleURL: articleURL,
+            dataStore: dataStore,
+            theme: theme,
+            source: .history,
+            tabConfig: .assignNewTabAndSetToCurrentFromNewTabSearch(title: title, project: wmfProject)
+        )
+
+        var vcs = navigationController.viewControllers
+        if vcs.last is WMFNewArticleTabViewController {
+            vcs.removeLast()
+        }
+        articleCoordinator.start()
+        if let newVC = navigationController.viewControllers.last {
+            vcs.append(newVC)
+            navigationController.setViewControllers(vcs, animated: true)
+        }
     }
 }
 

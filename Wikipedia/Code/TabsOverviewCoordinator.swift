@@ -10,7 +10,8 @@ final class TabsOverviewCoordinator: Coordinator {
     let dataStore: MWKDataStore
     private let dataController: WMFArticleTabsDataController
     private let summaryController: ArticleSummaryController
-    
+    private var newTabCoordinator: NewArticleTabCoordinator?
+
     @discardableResult
     func start() -> Bool {
         if shouldShowEntryPoint() {
@@ -157,8 +158,8 @@ final class TabsOverviewCoordinator: Coordinator {
                 navigationController.dismiss(animated: true)
             } else {
                 navigationController.dismiss(animated: true) {
-                    let newTabCoordinator = NewArticleTabCoordinator(navigationController: self.navigationController, dataStore: self.dataStore, theme: self.theme)
-                    newTabCoordinator.start()
+                    self.newTabCoordinator = NewArticleTabCoordinator(navigationController: self.navigationController, dataStore: self.dataStore, theme: self.theme)
+                    self.newTabCoordinator?.start()
                 }
             }
             return

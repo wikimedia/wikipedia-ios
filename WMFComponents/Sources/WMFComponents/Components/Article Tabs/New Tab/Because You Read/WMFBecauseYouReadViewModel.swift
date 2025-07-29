@@ -3,9 +3,13 @@ import Foundation
 
 @objc public class WMFBecauseYouReadViewModel: NSObject {
 
+    public typealias OnRecordTapAction = ((HistoryItem) -> Void)
+
     let becauseYouReadTitle: String
     let seedArticle: HistoryRecord
     let relatedArticles: [HistoryRecord]
+
+    public var onTapArticle: OnRecordTapAction?
 
     public init(becauseYouReadTitle: String, seedArticle: HistoryRecord, relatedArticles: [HistoryRecord]) {
         self.becauseYouReadTitle = becauseYouReadTitle
@@ -30,6 +34,10 @@ import Foundation
     private func getURL(_ string: String?) -> URL? {
         guard let string else { return nil }
         return URL(string: string)
+    }
+
+    func onTap(_ item: HistoryItem) {
+        onTapArticle?(item)
     }
 
 }

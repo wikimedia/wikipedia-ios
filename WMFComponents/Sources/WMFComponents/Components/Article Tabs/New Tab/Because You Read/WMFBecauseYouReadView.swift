@@ -54,6 +54,10 @@ struct WMFBecauseYouReadView: View {
                         saveOrUnsaveItemAction: nil,
                         showsSwipeActions: false
                     )
+                    .containerShape(Rectangle())
+                    .onTapGesture {
+                        viewModel.onTap(item)
+                    }
                 }
             }
             .padding(.horizontal, 16)
