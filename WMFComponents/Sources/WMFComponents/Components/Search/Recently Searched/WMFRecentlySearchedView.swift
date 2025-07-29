@@ -16,33 +16,38 @@ public struct WMFRecentlySearchedView: View {
     public var body: some View {
         VStack(spacing: 0) {
             if viewModel.recentSearchTerms.isEmpty {
-                VStack(alignment: .leading) {
+                VStack(alignment: .leading, spacing: 16) {
+                    Text(viewModel.localizedStrings.title)
+                        .font(Font(WMFFont.for(.semiboldSubheadline)))
+                        .foregroundStyle(Color(uiColor: theme.secondaryText))
                     Text(viewModel.localizedStrings.noSearches)
                         .font(Font(WMFFont.for(.callout)))
                         .foregroundStyle(Color(uiColor: theme.secondaryText))
                         .multilineTextAlignment(.leading)
-                        .padding(16)
-                    Spacer()
+
                 }
+                .padding(16)
                 .frame(maxWidth: .infinity, alignment: .leading)
+
             } else {
                 HStack {
                     Text(viewModel.localizedStrings.title)
                         .font(Font(WMFFont.for(.semiboldSubheadline)))
                         .foregroundStyle(Color(uiColor: theme.secondaryText))
                     Spacer()
-                    if !viewModel.recentSearchTerms.isEmpty {
-                        Button(viewModel.localizedStrings.clearAll) {
-                            viewModel.deleteAllAction()
-                        }
-                        .font(Font(WMFFont.for(.subheadline)))
-                        .foregroundStyle(Color(uiColor: theme.link))
+                    Button(viewModel.localizedStrings.clearAll) {
+                        viewModel.deleteAllAction()
                     }
+                    .font(Font(WMFFont.for(.subheadline)))
+                    .foregroundStyle(Color(uiColor: theme.link))
                 }
-                .padding()
-                List {
-                    ForEach(Array(viewModel.displayedSearchTerms.enumerated()),
-                            id: \.element.id) { index, item in
+                .padding(.horizontal)
+                .padding(.top)
+            }
+
+            List {
+                if !viewModel.recentSearchTerms.isEmpty {
+                    ForEach(Array(viewModel.displayedSearchTerms.enumerated()), id: \.element.id) { index, item in
                         HStack {
                             Text(item.text)
                                 .font(Font(WMFFont.for(.body)))
@@ -65,21 +70,22 @@ public struct WMFRecentlySearchedView: View {
                             .tint(Color(theme.destructive))
                             .labelStyle(.iconOnly)
                         }
-
-                    }
-                    if viewModel.tabsDataController.getViewTypeForExperiment == .becauseYouRead, let becauseVM = viewModel.becauseYouReadViewModel {
-                        WMFBecauseYouReadView(viewModel: becauseVM)
-                            .listRowInsets(EdgeInsets())
-                            .listRowSeparator(.hidden, edges: .all)
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                            .listRowBackground(Color.clear)
-                            .padding(.top, 4)
-                    } else if viewModel.tabsDataController.getViewTypeForExperiment == .didYouKnow {
-                        Text("Did you know")
+                        .listRowBackground(Color(theme.paperBackground))
                     }
                 }
-                .listStyle(.plain)
+
+                if viewModel.tabsDataController.getViewTypeForExperiment == .becauseYouRead, let becauseVM = viewModel.becauseYouReadViewModel {
+                    WMFBecauseYouReadView(viewModel: becauseVM)
+                        .listRowInsets(EdgeInsets())
+                        .listRowSeparator(.hidden, edges: .all)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .listRowBackground(Color.clear)
+                        .padding(.top, 4)
+                } else if viewModel.tabsDataController.getViewTypeForExperiment == .didYouKnow {
+                    Text("Did you know")
+                }
             }
+            .listStyle(.plain)
 
         }
         .background(Color(theme.paperBackground))
