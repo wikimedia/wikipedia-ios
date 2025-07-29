@@ -5,21 +5,19 @@ import Foundation
 
     let becauseYouReadText: String
     let seedArticle: HistoryRecord
-    let relatedArticles: [HistoryRecord?]
+    let relatedArticles: [HistoryRecord]
 
-    public init(becauseYouReadText: String, seedArticle: HistoryRecord, relatedArticles: [HistoryRecord?]) {
+    public init(becauseYouReadText: String, seedArticle: HistoryRecord, relatedArticles: [HistoryRecord]) {
         self.becauseYouReadText = becauseYouReadText
         self.seedArticle = seedArticle
         self.relatedArticles = relatedArticles
     }
 
-    public func loadItems() -> [HistoryItem?] {
+    public func loadItems() -> [HistoryItem] {
         var related: [HistoryItem] = []
         for item in relatedArticles {
-            if let item {
-                let historyItem = HistoryItem(id: String(item.id), url: item.articleURL, titleHtml: item.title, description: item.descriptionOrSnippet, shortDescription: item.shortDescription, imageURL: getURL(item.imageURL), isSaved: item.isSaved, snippet: item.snippet, variant: item.variant)
-                related.append(historyItem)
-            }
+            let historyItem = HistoryItem(id: String(item.id), url: item.articleURL, titleHtml: item.title, description: item.descriptionOrSnippet, shortDescription: item.shortDescription, imageURL: getURL(item.imageURL), isSaved: item.isSaved, snippet: item.snippet, variant: item.variant)
+            related.append(historyItem)
         }
         return related
     }
