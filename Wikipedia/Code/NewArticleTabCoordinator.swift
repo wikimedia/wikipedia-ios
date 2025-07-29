@@ -139,7 +139,7 @@ final class NewArticleTabCoordinator: Coordinator {
 
                 }
             }
-            // TODO: move out of this call
+            
             let viewModel = WMFNewArticleTabViewModel(
                 title: CommonStrings.newTab,
                 becauseYouRedViewModel: becauseVM
