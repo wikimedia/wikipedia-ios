@@ -131,7 +131,7 @@ final class NewArticleTabCoordinator: Coordinator {
                     }
 
                     becauseVM = WMFBecauseYouReadViewModel(
-                        becauseYouReadTitle: "Because you read", // TODO: Localize
+                        becauseYouReadTitle: CommonStrings.relatedPagesTitle,
                         seedArticle: seedRecord,
                         relatedArticles: relatedRecords
                     )
@@ -139,7 +139,7 @@ final class NewArticleTabCoordinator: Coordinator {
 
                 }
             }
-            
+
             let viewModel = WMFNewArticleTabViewModel(
                 title: CommonStrings.newTab,
                 becauseYouRedViewModel: becauseVM
