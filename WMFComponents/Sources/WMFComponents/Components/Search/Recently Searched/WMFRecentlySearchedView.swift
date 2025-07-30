@@ -5,6 +5,8 @@ public struct WMFRecentlySearchedView: View {
     @ObservedObject var viewModel: WMFRecentlySearchedViewModel
     @ObservedObject var appEnvironment = WMFAppEnvironment.current
 
+    @State private var estimatedListHeight: CGFloat = 0
+
     var theme: WMFTheme {
         return appEnvironment.theme
     }
@@ -15,8 +17,7 @@ public struct WMFRecentlySearchedView: View {
 
     public var body: some View {
         ScrollView {
-            LazyVStack(spacing: 0, pinnedViews: []) {
-
+            LazyVStack(spacing: 0) {
                 if viewModel.recentSearchTerms.isEmpty {
                     VStack(alignment: .leading, spacing: 16) {
                         Text(viewModel.localizedStrings.title)
@@ -45,49 +46,87 @@ public struct WMFRecentlySearchedView: View {
                     .padding(.horizontal)
                     .padding(.top)
                 }
-
                 List {
-                    if !viewModel.recentSearchTerms.isEmpty {
-                        ForEach(Array(viewModel.displayedSearchTerms.enumerated()), id: \.element.id) { index, item in
-                            HStack {
-                                Text(item.text)
-                                    .font(Font(WMFFont.for(.body)))
-                                    .foregroundStyle(Color(uiColor: theme.text))
-                                Spacer()
-                            }
-                            .padding(.vertical, 4)
-                            .background(Color(theme.paperBackground))
-                            .contentShape(Rectangle())
-                            .onTapGesture {
-                                viewModel.selectAction(item)
-                            }
-                            .swipeActions {
-                                Button {
-                                    viewModel.deleteItemAction(index)
-                                } label: {
-                                    Image(uiImage: WMFSFSymbolIcon.for(symbol: .trash) ?? UIImage())
-                                        .accessibilityLabel(viewModel.localizedStrings.deleteActionAccessibilityLabel)
-                                }
-                                .tint(Color(theme.destructive))
-                                .labelStyle(.iconOnly)
-                            }
-                            .listRowBackground(Color(theme.paperBackground))
+                    ForEach(Array(viewModel.displayedSearchTerms.enumerated()), id: \.element.id) { index, item in
+                        HStack {
+                            Text(item.text)
+                                .font(Font(WMFFont.for(.body)))
+                                .foregroundStyle(Color(uiColor: theme.text))
+                            Spacer()
                         }
+                        .padding(.vertical, 4)
+                        .background(Color(theme.paperBackground))
+                        .contentShape(Rectangle())
+                        .onTapGesture {
+                            viewModel.selectAction(item)
+                        }
+                        .swipeActions {
+                            Button {
+                                viewModel.deleteItemAction(index)
+                            } label: {
+                                Image(uiImage: WMFSFSymbolIcon.for(symbol: .trash) ?? UIImage())
+                                    .accessibilityLabel(viewModel.localizedStrings.deleteActionAccessibilityLabel)
+                            }
+                            .tint(Color(theme.destructive))
+                            .labelStyle(.iconOnly)
+                        }
+                        .listRowBackground(Color(theme.paperBackground))
                     }
                 }
                 .listStyle(.plain)
-                .scrollDisabled(viewModel.needsAttachedView)
-                .frame(height: CGFloat(viewModel.displayedSearchTerms.count) * 44)
-
-                if viewModel.needsAttachedView && viewModel.tabsDataController.getViewTypeForExperiment == .becauseYouRead,
+                .scrollDisabled(true)
+                .frame(height: estimatedListHeight)
+                if viewModel.tabsDataController.getViewTypeForExperiment == .becauseYouRead,
                    let becauseVM = viewModel.becauseYouReadViewModel {
                     WMFBecauseYouReadView(viewModel: becauseVM)
-                } else if viewModel.needsAttachedView && viewModel.tabsDataController.getViewTypeForExperiment == .didYouKnow {
+                } else if viewModel.tabsDataController.getViewTypeForExperiment == .didYouKnow {
                     Text("Did you know")
                 }
             }
         }
         .background(Color(theme.paperBackground))
         .padding(.top, viewModel.topPadding)
+        .onAppear {
+            recalculateEstimatedListHeight()
+        }
     }
+
+    private func recalculateEstimatedListHeight() {
+        let screenWidth = UIScreen.main.bounds.width
+        let horizontalPadding: CGFloat = 32
+        let availableWidth = screenWidth - horizontalPadding
+        let font = UIFont.preferredFont(forTextStyle: .body)
+
+        let verticalPadding: CGFloat = 16
+        let rowSpacing: CGFloat = 8
+
+        let rowHeights: [CGFloat] = viewModel.displayedSearchTerms.map { item in
+            let textHeight = estimatedTextHeight(
+                text: item.text,
+                font: font,
+                width: availableWidth
+            )
+            return textHeight + verticalPadding
+        }
+        let totalRowSpacing = CGFloat(max(viewModel.displayedSearchTerms.count - 1, 0)) * rowSpacing
+        let totalHeight = rowHeights.reduce(0, +) + totalRowSpacing
+
+        estimatedListHeight = totalHeight
+    }
+
+
 }
+
+import UIKit
+
+func estimatedTextHeight(text: String, font: UIFont, width: CGFloat) -> CGFloat {
+    let constraintRect = CGSize(width: width, height: .greatestFiniteMagnitude)
+    let boundingBox = text.boundingRect(
+        with: constraintRect,
+        options: [.usesLineFragmentOrigin, .usesFontLeading],
+        attributes: [.font: font],
+        context: nil
+    )
+    return ceil(boundingBox.height)
+}
+
