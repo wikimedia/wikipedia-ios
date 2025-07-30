@@ -18,10 +18,10 @@ struct WMFPageRow: View {
     let shareAccessibilityLabel: String?
     let saveAccessibilityLabel: String?
     let unsaveAccessibilityLabel: String?
+    let showsSwipeActions: Bool
     let deleteItemAction: (() -> Void)?
     let shareItemAction: ((CGRect?) -> Void)?
     let saveOrUnsaveItemAction: (() -> Void)?
-    let showsSwipeActions: Bool
     let loadImageAction: (String?) async -> UIImage?
 
     @State private var globalFrame: CGRect = .zero

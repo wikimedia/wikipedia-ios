@@ -65,6 +65,7 @@ public struct WMFHistoryView: View {
             shareAccessibilityLabel: viewModel.localizedStrings.shareActionTitle,
             saveAccessibilityLabel: viewModel.localizedStrings.saveForLaterActionTitle,
             unsaveAccessibilityLabel: viewModel.localizedStrings.unsaveActionTitle,
+            showsSwipeActions: true,
             deleteItemAction: {
                 viewModel.delete(section: section, item: item)
             },
@@ -74,9 +75,6 @@ public struct WMFHistoryView: View {
             saveOrUnsaveItemAction: {
                 viewModel.saveOrUnsave(item: item, in: section)
             },
-
-            showsSwipeActions: true,
-
             loadImageAction: { imageURLString in
                 return try? await viewModel.loadImage(imageURLString: imageURLString)
             }

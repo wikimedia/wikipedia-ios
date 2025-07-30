@@ -1,5 +1,6 @@
 import WMFData
 import Foundation
+import UIKit
 
 @objc public class WMFBecauseYouReadViewModel: NSObject {
 
@@ -10,6 +11,8 @@ import Foundation
     let relatedArticles: [HistoryRecord]
 
     public var onTapArticle: OnRecordTapAction?
+
+    private let imageDataController = WMFImageDataController()
 
     public init(becauseYouReadTitle: String, seedArticle: HistoryRecord, relatedArticles: [HistoryRecord]) {
         self.becauseYouReadTitle = becauseYouReadTitle
@@ -31,13 +34,19 @@ import Foundation
         return historyItem
     }
 
-    private func getURL(_ string: String?) -> URL? {
-        guard let string else { return nil }
-        return URL(string: string)
-    }
-
     func onTap(_ item: HistoryItem) {
         onTapArticle?(item)
+    }
+
+    func loadImage(imageURLString: String?) async throws -> UIImage? {
+
+        guard let imageURLString,
+              let url = URL(string: imageURLString) else {
+            return nil
+        }
+
+        let data = try await imageDataController.fetchImageData(url: url)
+        return UIImage(data: data)
     }
 
 }
