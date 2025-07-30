@@ -715,11 +715,11 @@ extension WMFAppViewController {
         }
     }
     
-    @objc func deleteYearInReviewPersonalizedEditingData() {
+    @objc func deleteYearInReviewPersonalizedNetworkData() {
         Task {
             do {
                 let yirDataController = try WMFYearInReviewDataController()
-                try await yirDataController.deleteAllPersonalizedEditingData()
+                try await yirDataController.deleteAllPersonalizedNetworkData()
             } catch {
                 DDLogError("Failure deleting personalized editing data from year in review: \(error)")
             }
@@ -754,10 +754,13 @@ extension WMFAppViewController {
                 NSSortDescriptor(keyPath: \WMFArticle.viewedDateWithoutTime, ascending: false),
                 NSSortDescriptor(keyPath: \WMFArticle.viewedDate, ascending: false)
             ]
+            request.fetchLimit = 1000
 
             do {
                 var articles: [HistoryRecord] = []
                 let articleFetchRequest = try dataStore.viewContext.fetch(request)
+                
+                let thumbnailImageWidth = UIScreen.main.wmf_listThumbnailWidthForScale().intValue
 
                 for article in articleFetchRequest {
                     if let viewedDate = article.viewedDate, let pageID = article.pageID {
@@ -768,7 +771,7 @@ extension WMFAppViewController {
                             descriptionOrSnippet: article.capitalizedWikidataDescriptionOrSnippet,
                             shortDescription: article.snippet,
                             articleURL: article.url,
-                            imageURL: article.imageURLString,
+                            imageURL: article.imageURL(forWidth: thumbnailImageWidth)?.absoluteString,
                             viewedDate: viewedDate,
                             isSaved: article.isSaved,
                             snippet: article.snippet,

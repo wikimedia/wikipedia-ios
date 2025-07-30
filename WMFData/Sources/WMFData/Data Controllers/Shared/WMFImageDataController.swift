@@ -10,6 +10,19 @@ public final class WMFImageDataController {
         self.mediaWikiService = mediaWikiService
     }
     
+    public func fetchImageData(url: URL) async throws -> Data {
+        return try await withCheckedThrowingContinuation { continuation in
+            fetchImageData(url: url) { result in
+                switch result {
+                case .success(let data):
+                    continuation.resume(returning: data)
+                case .failure(let error):
+                    continuation.resume(throwing: error)
+                }
+            }
+        }
+    }
+    
     public func fetchImageData(url: URL, completion: @escaping (Result<Data, Error>) -> Void) {
         
         if let cachedData = imageCache.object(forKey: url as NSURL) {
