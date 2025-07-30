@@ -2,16 +2,18 @@ import SwiftUI
 
 public struct WMFNewArticleTabViewDidYouKnow: View {
     @ObservedObject var appEnvironment = WMFAppEnvironment.current
+    @ObservedObject var viewModel: WMFNewArticleTabDidYouKnowViewModel
+    
+    public init(viewModel: WMFNewArticleTabDidYouKnowViewModel) {
+        self.viewModel = viewModel
+    }
 
     var theme: WMFTheme {
         return appEnvironment.theme
     }
     
-    let dyk: String
-    let fromSource: String
-    
     private var attributedString: AttributedString {
-        return (try? HtmlUtils.attributedStringFromHtml(dyk, styles: styles)) ?? AttributedString(dyk)
+        return (try? HtmlUtils.attributedStringFromHtml(viewModel.dyk ?? "", styles: styles)) ?? AttributedString(viewModel.dyk ?? "")
     }
     
     private var styles: HtmlUtils.Styles {
@@ -21,7 +23,7 @@ public struct WMFNewArticleTabViewDidYouKnow: View {
     public var body: some View {
         VStack(alignment: .leading, spacing: 8) {
             Text(attributedString)
-            Text(fromSource)
+            Text(viewModel.fromSource)
                 .font(Font.for(.caption1))
                 .foregroundStyle(Color(theme.text))
         }

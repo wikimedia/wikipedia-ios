@@ -293,7 +293,18 @@ public class CommonStrings: NSObject {
 
     public static let clearTitle = WMFLocalizedString("search-clear-title", value: "Clear", comment: "Text of the button shown to clear recent search terms")
 
+
+    public static let clearRecentSearchesDialogTitle = WMFLocalizedString("search-recent-clear-confirmation-heading", value: "Delete all recent searches?", comment: "Heading text of delete all confirmation dialog")
+
+    public static let clearRecentSearchesDialogSubtitle = WMFLocalizedString("search-recent-clear-confirmation-sub-heading", value: "This action cannot be undone!", comment: "Sub-heading text of delete all confirmation dialog")
+
+    public static let deleteAllTitle = WMFLocalizedString("search-recent-clear-delete-all", value: "Delete All", comment: "Button text for confirming delete all action {{Identical|Delete all}}")
+
     public static let accessibilityClearTitle = WMFLocalizedString("clear-title-accessibility-label", value: "Clear", comment: "Accessibility label title for action that clears text")
+
+    public static let recentlySearchedTitle = WMFLocalizedString("search-recent-title", value: "Recently searched", comment: "Title for list of recent search terms")
+
+    public static let recentlySearchedEmpty = WMFLocalizedString("search-recent-empty", value: "No recent searches yet", comment: "String for no recent searches available")
 
     public static let successfullyPublishedDiscussion = WMFLocalizedString("talk-page-new-topic-success-text", value: "Your discussion was successfully published", comment: "Banner text that appears after a new discussion was successfully published on a talk page.")
 
@@ -785,6 +796,8 @@ public class CommonStrings: NSObject {
     // New Article Tab Did You Know
     
     public static let articleTabsDYKTitle = WMFLocalizedString("article-tabs-did-you-know-title", value: "Did you know", comment: "Title for the new article tab did you know section")
+    
+    public static let fromWikipediaDefault = WMFLocalizedString("new-article-tab-from-wikipedia-default", value: "from Wikipedia", comment: "Text displayed as Wikipedia source on new tab if language is unavailable.")
 
 }
 

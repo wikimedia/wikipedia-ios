@@ -8,10 +8,6 @@ public struct WMFNewArticleTabView: View {
     }
     
     public var body: some View {
-        if viewModel.isLoading {
-            ProgressView("Loading Did You Know…")
-        } else if let dyk = viewModel.dyk {
-            WMFNewArticleTabViewDidYouKnow(dyk: dyk, fromSource: viewModel.dykLocalizedStrings?.fromSource ?? viewModel.fromSourceDefault)
-        }
+        Text("")
     }
 }
