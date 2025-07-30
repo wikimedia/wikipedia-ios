@@ -154,7 +154,7 @@ final class NewArticleTabCoordinator: Coordinator {
             let viewModel = WMFNewArticleTabViewModel(
                 title: CommonStrings.newTab,
                 becauseYouReadViewModel: becauseVM,
-                dykViewModel: nil
+                dykViewModel: dykVM
             )
 
             let vc = WMFNewArticleTabViewController(

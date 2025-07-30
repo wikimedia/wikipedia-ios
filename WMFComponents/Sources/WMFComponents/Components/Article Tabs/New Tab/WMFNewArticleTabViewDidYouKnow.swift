@@ -22,25 +22,16 @@ public struct WMFNewArticleTabViewDidYouKnow: View {
     
     public var body: some View {
         VStack(alignment: .leading, spacing: 8) {
-            Text(attributedString)
-            Text(viewModel.fromSource)
-                .font(Font.for(.caption1))
-                .foregroundStyle(Color(theme.text))
+            if viewModel.isLoading {
+                ProgressView()
+            } else {
+                Text(attributedString)
+                Text(viewModel.fromSource)
+                    .font(Font.for(.caption1))
+                    .foregroundStyle(Color(theme.text))
+            }
         }
-        .background(Color(theme.midBackground))
+        .background(Color(theme.paperBackground))
         .frame(maxWidth: .infinity)
     }
 }
-
-// struct WMFNewArticleTabViewDidYouKnow_Previews: PreviewProvider {
-//    static var previews: some View {
-//        WMFNewArticleTabViewDidYouKnow(
-//            dykTitle: "Did you know...",
-//            funFact: "that a <a href=\"https://en.wikipedia.org\">15-second commercial for a streaming service</a> has been blamed for causing arguments and domestic violence?",
-//            fromSource: "from English Wikipedia"
-//        )
-//        .padding()
-//        .previewLayout(.sizeThatFits)
-//    }
-// }
-

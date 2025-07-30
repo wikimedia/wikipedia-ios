@@ -23,48 +23,17 @@ import WMFData
         guard let randomElement = facts?.randomElement() else { return nil }
         let cleanedText = replaceEllipsesWithSpace(in: randomElement)
 
-        guard let languageCode,
-              let dykPrefix = dykLocalizedStrings?.dyk,
-              !dykPrefix.isEmpty else {
+        guard let dykPrefix = dykLocalizedStrings?.dyk, !dykPrefix.isEmpty else {
             return cleanedText
         }
 
-        let rewrittenHTML = replaceRelativeHrefs(in: randomElement, languageCode: languageCode)
-        let removeEllipses = replaceEllipsesWithSpace(in: rewrittenHTML)
+        let removeEllipses = replaceEllipsesWithSpace(in: randomElement)
         let combined = dykPrefix + " " + removeEllipses
         return combined
     }
     
     public var fromSource: String {
         dykLocalizedStrings?.fromSource ?? fromSourceDefault
-    }
-
-    private func replaceRelativeHrefs(in html: String, languageCode: String) -> String {
-        let pattern = #"href="\./([^"]+)""#
-        guard let regex = try? NSRegularExpression(pattern: pattern, options: []) else {
-            return html
-        }
-
-        let nsrange = NSRange(html.startIndex..<html.endIndex, in: html)
-        var result = html
-        let matches = regex.matches(in: html, options: [], range: nsrange).reversed()
-
-        for match in matches {
-            guard match.numberOfRanges > 1,
-                  let hrefRange = Range(match.range(at: 1), in: html) else {
-                continue
-            }
-
-            let relativePath = html[hrefRange]
-            let fullURL = "https://\(languageCode).wikipedia.org/wiki/\(relativePath)"
-            let replacement = #"href="\#(fullURL)""#
-
-            if let fullMatchRange = Range(match.range(at: 0), in: html) {
-                result.replaceSubrange(fullMatchRange, with: replacement)
-            }
-        }
-
-        return result
     }
 
     private func replaceEllipsesWithSpace(in text: String) -> String {
