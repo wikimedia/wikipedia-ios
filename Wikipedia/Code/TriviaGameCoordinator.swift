@@ -41,7 +41,7 @@ class TriviaGameCoordinator {
         
         let language = contentGroup.siteURL?.wmf_languageCode
         
-        let TriviaEvents = allEvents.compactMap { event -> (WMFFeedOnThisDayEvent, String)? in
+        let ValidTriviaEvents = allEvents.compactMap { event -> (WMFFeedOnThisDayEvent, String)? in
             guard let year = event.year?.intValue else { return nil }
             
             var components = calendar.components([.month, .day], from: midnightUTCDate)
@@ -55,7 +55,7 @@ class TriviaGameCoordinator {
             return (event, dateString)
         }
         
-        guard TriviaEvents.count >= 2 else {
+        guard ValidTriviaEvents.count >= 2 else {
             DispatchQueue.main.async {
                 completion(nil)
             }
@@ -63,7 +63,7 @@ class TriviaGameCoordinator {
         }
         
         // Randomly select two different events
-        let selectedEvents = Array(TriviaEvents.shuffled().prefix(2))
+        let selectedEvents = Array(ValidTriviaEvents.shuffled().prefix(2))
         
         let gameData = TriviaGameEvent(
             firstEvent: selectedEvents[0].0.text ?? "",
