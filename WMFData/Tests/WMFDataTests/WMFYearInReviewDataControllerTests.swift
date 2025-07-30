@@ -269,7 +269,6 @@ final class WMFYearInReviewDataControllerTests: XCTestCase {
             let shouldShowEntryPointFR = yearInReviewDataController.shouldShowYearInReviewEntryPoint(countryCode: frCountryCode, primaryAppLanguageProject: frProject)
             
             XCTAssertTrue(shouldShowEntryPointFR, "FR should show entry point for mock YiR config of [FR, IT] country codes.")
-            // XCTAssertFalse(shouldShowEntryPointFR) // Entry points disabled
         }
     }
     
@@ -310,7 +309,6 @@ final class WMFYearInReviewDataControllerTests: XCTestCase {
             let shouldShowEntryPointFRProject = yearInReviewDataController.shouldShowYearInReviewEntryPoint(countryCode: frCountryCode, primaryAppLanguageProject: frProject)
             
             XCTAssertTrue(shouldShowEntryPointFRProject, "Primary app language FR project should show entry point for mock YiR config of [FR, IT] primary app language projects.")
-            // XCTAssertFalse(shouldShowEntryPointFRProject) // Entry points disabled
         }
     }
     
