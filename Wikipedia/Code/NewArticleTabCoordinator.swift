@@ -130,6 +130,7 @@ final class NewArticleTabCoordinator: Coordinator {
 
                     becauseVM = WMFBecauseYouReadViewModel(
                         becauseYouReadTitle: CommonStrings.relatedPagesTitle,
+                        openButtonTitle: CommonStrings.articleTabsOpen,
                         seedArticle: seedRecord,
                         relatedArticles: relatedRecords
                     )

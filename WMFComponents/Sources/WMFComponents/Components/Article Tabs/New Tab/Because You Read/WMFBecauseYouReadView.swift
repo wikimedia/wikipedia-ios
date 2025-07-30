@@ -70,7 +70,7 @@ struct WMFBecauseYouReadView: View {
                         Button {
                             viewModel.onTap(item)
                         } label: {
-                            Text("Open")
+                            Text(viewModel.openButtonTitle)
                             Image(uiImage: WMFSFSymbolIcon.for(symbol: .chevronForward) ?? UIImage())
                         }
                     } preview: {

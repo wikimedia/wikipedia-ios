@@ -7,6 +7,7 @@ import UIKit
     public typealias OnRecordTapAction = ((HistoryItem) -> Void)
 
     let becauseYouReadTitle: String
+    let openButtonTitle: String
     let seedArticle: HistoryRecord
     let relatedArticles: [HistoryRecord]
 
@@ -14,8 +15,9 @@ import UIKit
 
     private let imageDataController = WMFImageDataController()
 
-    public init(becauseYouReadTitle: String, seedArticle: HistoryRecord, relatedArticles: [HistoryRecord]) {
+    public init(becauseYouReadTitle: String, openButtonTitle: String, seedArticle: HistoryRecord, relatedArticles: [HistoryRecord]) {
         self.becauseYouReadTitle = becauseYouReadTitle
+        self.openButtonTitle = openButtonTitle
         self.seedArticle = seedArticle
         self.relatedArticles = relatedArticles
     }
