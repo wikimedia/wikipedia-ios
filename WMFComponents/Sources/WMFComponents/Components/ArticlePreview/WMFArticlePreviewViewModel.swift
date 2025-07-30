@@ -8,11 +8,17 @@ public final class WMFArticlePreviewViewModel {
     public let imageURL: URL?
     public let snippet: String?
 
-    public init(url: URL?, titleHtml: String, description: String?, imageURL: URL?, isSaved: Bool, snippet: String?) {
+    public init(url: URL?, titleHtml: String, description: String?, imageURLString: String?, isSaved: Bool, snippet: String?) {
         self.url = url
         self.titleHtml = titleHtml
         self.description = description
-        self.imageURL = imageURL
+        
+        if let imageURLString {
+            self.imageURL = URL(string: imageURLString)
+        } else {
+            self.imageURL = nil
+        }
+        
         self.snippet = snippet
     }
 

@@ -12,7 +12,7 @@ struct WMFPageRow: View {
     let id: String
     let titleHtml: String
     let articleDescription: String?
-    let imageURL: URL?
+    let imageURLString: String?
     let isSaved: Bool
     let deleteAccessibilityLabel: String?
     let shareAccessibilityLabel: String?
@@ -22,8 +22,10 @@ struct WMFPageRow: View {
     let shareItemAction: ((CGRect?) -> Void)?
     let saveOrUnsaveItemAction: (() -> Void)?
     let showsSwipeActions: Bool
+    let loadImageAction: (String?) async -> UIImage?
 
     @State private var globalFrame: CGRect = .zero
+    @State private var uiImage: UIImage?
 
     var rowContent: some View {
         HStack(spacing: 4) {
@@ -41,18 +43,13 @@ struct WMFPageRow: View {
             }
 
             Spacer()
+            if let uiImage {
+                Image(uiImage: uiImage)
+                    .resizable()
+                    .scaledToFill()
+                    .frame(width: 40, height: 40)
+                    .clipShape(RoundedRectangle(cornerRadius: 4))
 
-            if let imageURL = imageURL {
-                AsyncImage(url: imageURL) { image in
-                    image
-                        .resizable()
-                        .scaledToFill()
-                        .frame(width: 40, height: 40)
-                        .clipShape(RoundedRectangle(cornerRadius: 4))
-                } placeholder: {
-                    Color.clear
-                        .frame(width: 40, height: 40)
-                }
             }
         }
         .background(Color(theme.paperBackground))
@@ -68,6 +65,12 @@ struct WMFPageRow: View {
                     }
             }
         )
+        .task {
+            if let imageURLString {
+                self.uiImage = await loadImageAction(imageURLString)
+            }
+            
+        }
     }
 
     var body: some View {

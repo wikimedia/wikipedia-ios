@@ -44,13 +44,14 @@ public final class WMFHistoryViewModel: ObservableObject {
 
     @Published public var topPadding: CGFloat = 0
     @Published public var isEmpty: Bool = true
-    @Published var geometryFrames: [String: CGRect] = [:]
+    var geometryFrames: [String: CGRect] = [:]
 
     internal let localizedStrings: LocalizedStrings
     internal let emptyViewImage: UIImage?
     private let historyDataController: WMFHistoryDataControllerProtocol
     public var onTapArticle: OnRecordTapAction?
     public var shareRecordAction: ShareRecordAction?
+    private let imageDataController = WMFImageDataController()
 
     // MARK: - Lifecycle
 
@@ -74,7 +75,7 @@ public final class WMFHistoryViewModel: ObservableObject {
                             titleHtml: dataItem.titleHtml,
                             description: dataItem.description,
                             shortDescription: dataItem.shortDescription,
-                            imageURL: dataItem.imageURL,
+                            imageURLString: dataItem.imageURLString,
                             isSaved: dataItem.isSaved,
                             snippet: dataItem.snippet,
                             variant: dataItem.variant)
@@ -130,6 +131,17 @@ public final class WMFHistoryViewModel: ObservableObject {
                 }
             }
         }
+    }
+    
+    func loadImage(imageURLString: String?) async throws -> UIImage? {
+        
+        guard let imageURLString,
+              let url = URL(string: imageURLString) else {
+            return nil
+        }
+        
+        let data = try await imageDataController.fetchImageData(url: url)
+        return UIImage(data: data)
     }
 
     func share(frame: CGRect?, item: HistoryItem) {

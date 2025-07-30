@@ -11,7 +11,7 @@ struct WMFBecauseYouReadView: View {
         VStack(alignment: .leading, spacing: 16) {
 
             HStack(spacing: 12) {
-                if let url = viewModel.getSeedArticle().imageURL {
+                if let string = viewModel.getSeedArticle().imageURLString, let url = URL(string: string) {
                     AsyncImage(url: url) { img in
                         img.resizable()
                             .scaledToFill()
@@ -43,7 +43,7 @@ struct WMFBecauseYouReadView: View {
                         id: String(item.id),
                         titleHtml: item.titleHtml,
                         articleDescription: item.description,
-                        imageURL: item.imageURL,
+                        imageURLString: item.imageURLString,
                         isSaved: item.isSaved,
                         deleteAccessibilityLabel: nil,
                         shareAccessibilityLabel: nil,
@@ -52,7 +52,10 @@ struct WMFBecauseYouReadView: View {
                         deleteItemAction: nil,
                         shareItemAction: nil,
                         saveOrUnsaveItemAction: nil,
-                        showsSwipeActions: false
+                        showsSwipeActions: false,
+                        loadImageAction: { imageURLString in
+                            UIImage()
+                        }
                     )
                     .containerShape(Rectangle())
                     .onTapGesture {
