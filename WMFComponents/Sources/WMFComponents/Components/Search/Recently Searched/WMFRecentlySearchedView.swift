@@ -7,6 +7,8 @@ public struct WMFRecentlySearchedView: View {
 
     @State private var estimatedListHeight: CGFloat = 0
 
+    @Environment(\.sizeCategory) private var sizeCategory
+
     var theme: WMFTheme {
         return appEnvironment.theme
     }
@@ -89,6 +91,9 @@ public struct WMFRecentlySearchedView: View {
         .onAppear {
             recalculateEstimatedListHeight()
         }
+        .onChange(of: sizeCategory) { _ in
+            recalculateEstimatedListHeight()
+        }
     }
 
     private func recalculateEstimatedListHeight() {
@@ -113,8 +118,6 @@ public struct WMFRecentlySearchedView: View {
 
         estimatedListHeight = totalHeight
     }
-
-
 }
 
 import UIKit
