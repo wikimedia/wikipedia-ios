@@ -1,4 +1,5 @@
 import Foundation
+import Capture
 
 @objc(WMFNavigationEventsFunnel)
 final internal class NavigationEventsFunnel: NSObject {
@@ -50,6 +51,18 @@ final internal class NavigationEventsFunnel: NSObject {
     func logEvent(action: NavigationAction) {
         let event = Event(action: action)
         EventPlatformClient.shared.submit(stream: .navigation, event: event)
+        
+        // Add capture-sdk logging with high-level action details
+        let fields: [String: String] = [
+            "navigation_action": action.rawValue,
+            "event_type": "navigation",
+            "schema": "navigation_events_funnel"
+        ]
+        
+        Capture.Logger.logInfo(
+            "Navigation action performed: \(action.rawValue)",
+            fields: fields
+        )
     }
 
     @objc func logTappedExplore() {
