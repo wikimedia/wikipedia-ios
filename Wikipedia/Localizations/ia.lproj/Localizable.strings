@@ -1280,6 +1280,7 @@
 "theme-default-explanation" = "Se adapta al thema del systema";
 "theme-light-display-name" = "Clar";
 "theme-sepia-display-name" = "Sepia";
+"today-title" = "Hodie";
 "top-read-widget-description" = "Discoperi lo que le mundo lege hodie sur Wikipedia.";
 "top-read-widget-readers-count" = "$1 lectores";
 "top-read-widget-title" = "Le plus legite";
@@ -1483,3 +1484,4 @@
 "year-in-review-survey-very-unsatisfied" = "Multo insatisfacite";
 "year-in-review-wikipedia-w-accessibility-label" = "Logotypo “W” de Wikipedia";
 "year-in-review-wmf-logo-accessibility-label" = "Logotypo del Fundation Wikimedia";
+"yesterday-title" = "Heri";

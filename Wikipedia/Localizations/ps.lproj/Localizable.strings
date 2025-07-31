@@ -122,6 +122,7 @@
 "article-revision-history" = "مخ بياکتنې پېښليک";
 "article-save-error-not-enough-space" = "ستاسو وسيله دومره ځای نه لري چې دا ليکنه خوندي کړي";
 "article-share" = "وېشل";
+"article-tabs-button-accessibility-label" = "ليکنې ريښکې";
 "article-tabs-open" = "پرانېستل";
 "article-tabs-open-background-tab" = "په شاليد ريښکه کې پرانېستل";
 "article-tabs-open-new-tab" = "په نوې ريښکه کې پرانيستل";
@@ -252,6 +253,7 @@
 "table-of-contents-button-label" = "نيوليک";
 "table-of-contents-close-accessibility-hint" = "تړل";
 "table-of-contents-heading" = "منځپانگې";
+"watchlist-change-expiry-subtitle" = "د کتنلړ وخت موده غوره‌کول";
 "welcome-explore-continue-button" = "پيلول";
 "welcome-explore-tell-me-more-done-button" = "وپوهېدم";
 "welcome-languages-add-button" = "بله ژبه ورگډول";
