@@ -8,13 +8,15 @@ public struct WMFRecentlySearchedView: View {
     @State private var estimatedListHeight: CGFloat = 0
 
     @Environment(\.sizeCategory) private var sizeCategory
+    weak var linkDelegate: UITextViewDelegate?
 
     var theme: WMFTheme {
         return appEnvironment.theme
     }
 
-    public init(viewModel: WMFRecentlySearchedViewModel) {
+    public init(viewModel: WMFRecentlySearchedViewModel, linkDelegate: UITextViewDelegate? = nil) {
         self.viewModel = viewModel
+        self.linkDelegate = linkDelegate
     }
 
     public var body: some View {
@@ -89,7 +91,7 @@ public struct WMFRecentlySearchedView: View {
                 //                        .padding(.top, 4)
                 //                } else
                 if let dykVM = viewModel.didYouKnowViewModel {
-                    WMFNewArticleTabViewDidYouKnow(viewModel: dykVM)
+                    WMFNewArticleTabViewDidYouKnow(viewModel: dykVM, linkDelegate: linkDelegate)
                 }
             }
             .background(Color(theme.midBackground))

@@ -549,7 +549,7 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
     }
 
     private lazy var recentSearchesViewController: UIViewController = {
-        let root = WMFRecentlySearchedView(viewModel: recentSearchesViewModel)
+        let root = WMFRecentlySearchedView(viewModel: recentSearchesViewModel, linkDelegate: self)
         let host = UIHostingController(rootView: root)
         return host
     }()
@@ -646,6 +646,38 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
          resultsViewController.view.isHidden = searchText.isEmpty
     }
 
+}
+
+extension SearchViewController: UITextViewDelegate {
+    func tappedLink(_ url: URL, sourceTextView: UITextView) {
+        guard let url = URL(string: "https://en.wikipedia.org/wiki/Baldur's_Gate_3") else {
+            return
+        }
+        
+        let legacyNavigateAction = { [weak self] in
+            guard let self else { return }
+            let userInfo: [AnyHashable : Any] = [RoutingUserInfoKeys.source: RoutingUserInfoSourceValue.talkPage.rawValue]
+            navigate(to: url.absoluteURL, userInfo: userInfo)
+        }
+        
+        // first try to navigate using LinkCoordinator. If it fails, use the legacy approach.
+        if let navigationController {
+            
+            let linkCoordinator = LinkCoordinator(navigationController: navigationController, url: url.absoluteURL, dataStore: nil, theme: theme, articleSource: .undefined)
+            let success = linkCoordinator.start()
+            guard success else {
+                legacyNavigateAction()
+                return
+            }
+        } else {
+            legacyNavigateAction()
+        }
+    }
+    
+    func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
+        tappedLink(URL, sourceTextView: textView)
+        return false
+    }
 }
 
 extension SearchViewController: SearchLanguagesBarViewControllerDelegate {
