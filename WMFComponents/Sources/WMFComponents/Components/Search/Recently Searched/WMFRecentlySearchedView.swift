@@ -110,13 +110,15 @@ public struct WMFRecentlySearchedView: View {
         let verticalPadding: CGFloat = 16
         let rowSpacing: CGFloat = 8
 
+        let extraPaddingPerRow: CGFloat = sizeCategory.isAccessibilityCategory ? 6 : 0
+
         let rowHeights: [CGFloat] = viewModel.displayedSearchTerms.map { item in
             let textHeight = estimatedTextHeight(
                 text: item.text,
                 font: font,
                 width: availableWidth
             )
-            return textHeight + verticalPadding
+            return textHeight + verticalPadding + extraPaddingPerRow
         }
         let totalRowSpacing = CGFloat(max(viewModel.displayedSearchTerms.count - 1, 0)) * rowSpacing
         let totalHeight = rowHeights.reduce(0, +) + totalRowSpacing
