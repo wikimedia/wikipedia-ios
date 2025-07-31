@@ -539,6 +539,10 @@ extension ColumnarCollectionViewController: ArticlePreviewingDelegate {
     }
     
     @objc func shareArticlePreviewActionSelected(with peekController: ArticlePeekPreviewViewController, shareActivityController: UIActivityViewController) {
+        if let popover = shareActivityController.popoverPresentationController {
+            popover.sourceView = peekController.view
+            popover.sourceRect = peekController.view.bounds
+        }
         present(shareActivityController, animated: true, completion: nil)
     }
     
