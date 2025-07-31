@@ -71,7 +71,7 @@ final class WMFHistoryViewModelTests: XCTestCase {
                                 titleHtml: "Article 1",
                                 description: nil,
                                 shortDescription: nil,
-                                imageURL: nil,
+                                imageURLString: nil,
                                 isSaved: false,
                                 snippet: nil,
                                 variant: nil)
@@ -80,7 +80,7 @@ final class WMFHistoryViewModelTests: XCTestCase {
                                 titleHtml: "Article 2",
                                 description: nil,
                                 shortDescription: nil,
-                                imageURL: nil,
+                                imageURLString: nil,
                                 isSaved: false,
                                 snippet: nil,
                                 variant: nil)
@@ -89,7 +89,7 @@ final class WMFHistoryViewModelTests: XCTestCase {
                                 titleHtml: "Article 3",
                                 description: nil,
                                 shortDescription: nil,
-                                imageURL: nil,
+                                imageURLString: nil,
                                 isSaved: false,
                                 snippet: nil,
                                 variant: nil)
@@ -132,7 +132,7 @@ final class WMFHistoryViewModelTests: XCTestCase {
                                titleHtml: "Article 1",
                                description: nil,
                                shortDescription: nil,
-                               imageURL: nil,
+                               imageURLString: nil,
                                isSaved: false,
                                snippet: nil,
                                variant: nil)
@@ -183,7 +183,7 @@ final class WMFHistoryViewModelTests: XCTestCase {
             titleHtml: "Article 1",
             description: nil,
             shortDescription: nil,
-            imageURL: nil,
+            imageURLString: nil,
             isSaved: true,
             snippet: nil,
             variant: nil
@@ -194,7 +194,7 @@ final class WMFHistoryViewModelTests: XCTestCase {
             titleHtml: "Article 2",
             description: nil,
             shortDescription: nil,
-            imageURL: nil,
+            imageURLString: nil,
             isSaved: false,
             snippet: nil,
             variant: nil
@@ -245,7 +245,7 @@ final class WMFHistoryViewModelTests: XCTestCase {
                                titleHtml: "Article 1",
                                description: nil,
                                shortDescription: nil,
-                               imageURL: nil,
+                               imageURLString: nil,
                                isSaved: false,
                                snippet: nil,
                                variant: nil)

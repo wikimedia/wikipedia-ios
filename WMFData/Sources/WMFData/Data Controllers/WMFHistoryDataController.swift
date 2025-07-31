@@ -55,11 +55,6 @@ public final class WMFHistoryDataController: WMFHistoryDataControllerProtocol {
         self.recordsProvider = recordsProvider
     }
 
-    private func getURL(_ string: String?) -> URL? {
-        guard let string else { return nil }
-        return URL(string: string)
-    }
-
     // MARK: - Data Access Methods
 
     /// Groups history records by day (using the start of the day) and returns an array of `HistorySection`.
@@ -78,7 +73,7 @@ public final class WMFHistoryDataController: WMFHistoryDataControllerProtocol {
                             titleHtml: record.title,
                             description: record.descriptionOrSnippet,
                             shortDescription: record.shortDescription,
-                            imageURL: getURL(record.imageURL),
+                            imageURLString: record.imageURL,
                             isSaved: record.isSaved,
                             snippet: record.snippet,
                             variant: record.variant
@@ -160,18 +155,18 @@ public final class HistoryItem: Identifiable, Equatable {
     public let titleHtml: String
     public let description: String?
     public let shortDescription: String?
-    public let imageURL: URL?
+    public let imageURLString: String?
     public var isSaved: Bool
     public let snippet: String?
     public let variant: String?
 
-    public init(id: String, url: URL?, titleHtml: String, description: String?, shortDescription: String?, imageURL: URL?, isSaved: Bool, snippet: String?, variant: String?) {
+    public init(id: String, url: URL?, titleHtml: String, description: String?, shortDescription: String?, imageURLString: String?, isSaved: Bool, snippet: String?, variant: String?) {
         self.id = id
         self.url = url
         self.titleHtml = titleHtml
         self.description = description
         self.shortDescription = shortDescription
-        self.imageURL = imageURL
+        self.imageURLString = imageURLString
         self.isSaved = isSaved
         self.snippet = snippet
         self.variant = variant

@@ -30,9 +30,7 @@ public final class WMFRecentlySearchedViewModel: ObservableObject {
     }
 
     public var displayedSearchTerms: [RecentSearchTerm] {
-        needsAttachedView
-        ? Array(recentSearchTerms.prefix(3))
-        : recentSearchTerms
+        needsAttachedView ? Array(recentSearchTerms.prefix(3)) : recentSearchTerms
     }
 
 

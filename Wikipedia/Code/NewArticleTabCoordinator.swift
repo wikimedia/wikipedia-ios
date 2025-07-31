@@ -90,17 +90,15 @@ final class NewArticleTabCoordinator: Coordinator {
                             result[pair.key] = pair.value
                         }
 
-
                     let articlesByKey = try moc.wmf_createOrUpdateArticleSummmaries(
                         withSummaryResponses: top3Summaries
                     )
 
                     // preserve the original order
-                    let orderedKeys = Array(summariesByKey.keys)
+                    let orderedKeys = Array(top3Summaries.keys)
                     let relatedArticles: [WMFArticle] = orderedKeys.compactMap {
                         articlesByKey[$0]
                     }
-
                     DispatchQueue.main.async {
                         self.related = relatedArticles
                         completion(seed, relatedArticles)
@@ -135,6 +133,7 @@ final class NewArticleTabCoordinator: Coordinator {
 
                     becauseVM = WMFBecauseYouReadViewModel(
                         becauseYouReadTitle: CommonStrings.relatedPagesTitle,
+                        openButtonTitle: CommonStrings.articleTabsOpen,
                         seedArticle: seedRecord,
                         relatedArticles: relatedRecords
                     )

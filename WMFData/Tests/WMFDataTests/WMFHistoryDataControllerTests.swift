@@ -106,7 +106,7 @@ final class WMFHistoryDataControllerTests: XCTestCase {
             titleHtml: "Test Article",
             description: nil,
             shortDescription: nil,
-            imageURL: nil,
+            imageURLString: nil,
             isSaved: false,
             snippet: nil,
             variant: nil
@@ -124,7 +124,7 @@ final class WMFHistoryDataControllerTests: XCTestCase {
             titleHtml: "Test Save Article",
             description: nil,
             shortDescription: nil,
-            imageURL: nil,
+            imageURLString: nil,
             isSaved: false,
             snippet: nil,
             variant: nil
@@ -141,7 +141,7 @@ final class WMFHistoryDataControllerTests: XCTestCase {
             titleHtml: "Test Unsave Article",
             description: nil,
             shortDescription: nil,
-            imageURL: nil,
+            imageURLString: nil,
             isSaved: true,
             snippet: nil,
             variant: nil
