@@ -1,6 +1,7 @@
 // Messages for Brazilian Portuguese (português do Brasil)
 // Exported from translatewiki.net
 // Author: !Silent
+// Author: ACheJu
 // Author: Anaclaudiaml
 // Author: Araceletorres
 // Author: Arthurteb303
@@ -120,11 +121,15 @@
 "activity-tab-add-images-title" = "Adicionar imagens";
 "activity-tab-additional-thoughts" = "Alguma observação adicional?";
 "activity-tab-generic-no-edits" = "Você não editou esta semana. Comece agora a acompanhar suas contribuições.";
+"activity-tab-greeting" = "$1Oi $2$3 👋 Aqui está seu resumo semanal da Wikipédia.";
+"activity-tab-logged-out-subtitle" = "Acompanhe o que você leu e visualize suas contribuições ao longo do tempo de uma nova maneira";
+"activity-tab-logged-out-title" = "Entre ou crie uma conta para ver mais atividades de edição e leitura.";
 "activity-tab-neutral" = "Neutro";
 "activity-tab-no-edits-title" = "Não editou esta semana. Adicione imagens para melhorar a compreensão do artigo.";
 "activity-tab-read-title" = "Ver histórico de leitura";
 "activity-tab-satisfied" = "Satisfeito(a)";
 "activity-tab-start-editing" = "Começar a editar";
+"activity-tab-survey" = "Você está satisfeito(a) com a sua tela de \"Atividade\"? O que mais gostaria de ver aqui no futuro?";
 "activity-tab-survey-title" = "Pesquisa de satisfação";
 "activity-tab-title" = "Atividade";
 "activity-tab-unsatisfied" = "Insatisfeito(a)";
@@ -133,6 +138,9 @@
 "activity-tab-view-editing-history" = "Ver histórico de edições";
 "activity-tab-view-reading-history" = "Ver histórico de leitura";
 "activity-tab-view-saved-articles" = "Ver artigos salvos";
+"activity-tab-you-edited" = "Você editou {{PLURAL:$1|$1 vez|$1 vezes}} esta semana.";
+"activity-tab-you-read" = "Você leu {{PLURAL:$1|artigo de $1|artigos de $1}} esta semana.";
+"activity-tab-you-saved" = "Você salvou {{PLURAL:$1|$1 artigo|$1 artigos}} esta semana.";
 "add-articles-to-reading-list" = "Adicionar $1 {{PLURAL:$1|artigo|artigos}} à lista de leitura";
 "advanced-settings-title" = "Configurações avançadas";
 "alert-temporary-account" = "Você está usando uma conta temporária. A conta expirará em 90 dias.";
@@ -166,6 +174,7 @@
 "article-share" = "Compartilhar";
 "article-tabs-button-accessibility-hint" = "Navega até a visão geral das guias";
 "article-tabs-button-accessibility-label" = "Guias de artigo";
+"article-tabs-max-reached" = "Limite de abas atingido ($1). O artigo foi aberto na aba atual. Feche uma ou mais abas.";
 "article-tabs-navigation" = "Navegação por guias";
 "article-tabs-onboarding-tooltip" = "Dicas de ferramentas de integração para guias";
 "article-tabs-open" = "Abrir";
@@ -255,12 +264,17 @@
 "developer-settings-activity-tab-group-B" = "Defina a guia de atividades para o grupo B";
 "developer-settings-activity-tab-group-C" = "Defina a guia de atividades para o grupo C";
 "developer-settings-activity-tabs" = "Ativar guias de atividades";
+"developer-settings-bypass-donation" = "Pular Doação";
 "developer-settings-enable-year-in-review" = "Ativar resumo do ano";
 "developer-settings-send-analytics-to-wmflabs" = "Enviar análises para wmflabs.";
 "developer-settings-suppress-image-rec-post" = "Não publicar recomendações de imagens editadas.";
 "diff-article-revision-history" = "Histórico de revisões do artigo";
 "diff-change-added" = "Adição, $1, fim de adição.";
 "diff-change-paragraph-lines-moved-down" = "Parágrafo movido {{PLURAL:$1|0=0 linhas|$1 linha|$1 linhas}} para baixo. Ir para nova localização.";
+"diff-change-paragraph-lines-moved-up" = "Parágrafo movido para cima {{PLURAL:$1|0=0 linhas|$1 linha|$1 linhas}}. Ir para o novo local.";
+"diff-change-paragraph-moved" = "Parágrafo movido. Ir para o local anterior.";
+"diff-change-paragraph-sections-moved-down" = "Parágrafo movido para baixo {{PLURAL:$1|0=0 seções|$1 seção|$1 seções}}. Ir para o novo local.";
+"diff-change-paragraph-sections-moved-up" = "Parágrafo movido para cima {{PLURAL:$1|0=0 seções|$1 seção|$1 seções}}. Ir para o novo local.";
 "diff-change-removal" = "Remoção, $1, fim da remoção.";
 "diff-compare-header-from-info-heading" = "Edição anterior";
 "diff-compare-header-heading" = "Comparar revisões";
@@ -301,6 +315,8 @@
 "diff-thanks-sent" = "O seu 'Obrigado' foi enviado para $1";
 "diff-thanks-sent-already" = "Você já enviou um \"Obrigado\" por esta edição";
 "diff-thanks-sent-cannot-unsend" = "Os agradecimentos enviados não podem ser desfeitos";
+"diff-unchanged-contextual-line" = "Linha contextual, inalterada: $1";
+"diff-undo-message" = "Esta operação irá desfazer as alterações realizadas pelas revisões do artigo mostradas aqui. Para continuar, forneça um motivo para desfazer esta edição.";
 "diff-undo-success" = "A revisão foi desfeita.";
 "diff-unedited-lines-format" = "{{PLURAL:$1|$1 linha não editada|$1 linhas não editadas}}";
 "diff-user-button-accessibility-text" = "Toque duas vezes para abrir o menu";
@@ -332,6 +348,7 @@
 "donate-success-title" = "Obrigado!";
 "donate-title" = "Escolha um valor";
 "donate-transaction-fee-opt-in-text" = "Gostaria de acrescentar $1 para cobrir as taxas operacionais para que vocês possam receber 100%% da minha doação.";
+"donate-wikimedia-fine-print-1" = "Não vendemos nem trocamos suas informações com ninguém. Ao doar, você concorda em compartilhar suas informações pessoais com a Fundação Wikimedia, a organização sem fins lucrativos que hospeda a Wikipédia e outros projetos Wikimedia, e seus provedores de serviços, de acordo com nossa [política de doadores(as)]($1). A Fundação Wikimedia e seus provedores de serviços estão localizados nos Estados Unidos e em outros países cujas leis de privacidade podem não ser equivalentes às suas. Para mais informações, leia nossa [política de doadores(as)]($1).";
 "donate-wikimedia-fine-print-2" = "Para doadores recorrentes, pagamentos mensais fixos serão debitados pela Fundação Wikimedia na data mensal de aniversário da primeira doação, até que você nos notifique para interrompê-los. Doações iniciadas nos dias 29, 30 ou 31 do mês serão recorrentes no último dia do mês para meses mais curtos, o mais próximo possível da data original. Em caso de dúvidas, entre em contato com donate@wikimedia.org.";
 "duplicate-tab" = "Duplicar guia";
 "edit-link-display-text-title" = "Mostrar texto";
@@ -378,6 +395,7 @@
 "editor-exit-confirmation-title" = "Sair do modo de edição?";
 "editor-find-clear-button-accessibility" = "Limpar e encontrar";
 "editor-find-close-button-accessibility" = "Fechar localizar";
+"editor-find-current-match-info-accessibility" = "Total de correspondências encontradas: $1. Número de correspondência destacado: $2.";
 "editor-find-current-match-info-zero-results-accessibility" = "Nenhuma correspondência encontrada";
 "editor-find-next-button-accessibility" = "Em seguida, encontre o resultado";
 "editor-find-previous-button-accessibility" = "Resultado da busca anterior";
@@ -416,6 +434,13 @@
 "editor-title" = "Editor";
 "editor-toolbar-bold-accessibility" = "Formatação de texto em negrito";
 "editor-toolbar-cursor-down-accessibility" = "Mova o cursor para a próxima linha.";
+"editor-toolbar-cursor-next-accessibility" = "Mover o cursor para o próximo caractere.";
+"editor-toolbar-cursor-previous-accessibility" = "Mover o cursor para o caractere anterior.";
+"editor-toolbar-cursor-up-accessibility" = "Mover o cursor para a linha anterior.";
+"editor-toolbar-find-accessibility" = "Encontrar na página";
+"editor-toolbar-image-accessibility" = "Formatação de texto de imagem";
+"editor-toolbar-indent-decrease-accessibility" = "Diminuir a formatação do recuo do texto";
+"editor-toolbar-indent-increase-accessibility" = "Aumentar a formatação do recuo do texto";
 "editor-toolbar-italics-accessibility" = "Formatação de texto em itálico";
 "editor-toolbar-link-accessibility" = "Formatação do texto do link";
 "editor-toolbar-list-ordered-accessibility" = "Formatação de texto de lista ordenada";
@@ -610,6 +635,7 @@
 "image-rec-empty-subtitle" = "Tente voltar mais tarde.";
 "image-rec-empty-title" = "Você não possui imagens sugeridas no momento.";
 "image-rec-error-subtitle" = "Algo deu errado.";
+"image-rec-error-title" = "Não foi possível carregar a página";
 "image-rec-onboarding-item-1-body" = "Decida se uma imagem sugerida deve ser colocada em um artigo da Wikipédia.";
 "image-rec-onboarding-item-1-title" = "Ver uma sugestão";
 "image-rec-onboarding-item-2-body" = "As sugestões são geradas automaticamente e você deverá julgar se deve aceitá-las ou rejeitá-las.";
@@ -691,6 +717,8 @@
 "inuktitut-variants-alert-title" = "Atualizações para suporte a variantes de inuctitute";
 "ip-account-cta-bottom" = "Continuar sem entrar";
 "ip-account-cta-top" = "Entre ou crie uma conta";
+"ip-account-edit-sheet-subtitle" = "Depois de fazer uma edição, uma $1conta temporária$2 será criada para proteger sua privacidade. $3Saiba mais. $4$5Efetue login ou crie uma conta para receber créditos para edições futuras e acessar outros recursos.";
+"ip-account-warning-subtitle" = "Ao publicar, uma conta temporária será criada para você.";
 "ip-account-warning-title" = "Não tem entrado";
 "kazakh-variants-alert-body" = "O aplicativo Wikipedia agora oferece suporte às seguintes variantes do Cazaque como idiomas primários ou secundários dentro do aplicativo, tornando mais fácil ler, pesquisar e editar em suas variantes preferidas:\n\nҚазақша Cazaque (kk)\nҚазақша Кирил Cazaque cirílico (kk-cyrl)\nqazaqşa latin Cazaque latino (kk-latn)\nتوتە قازاقشا Cazaque árabe (kk-arab)";
 "kazakh-variants-alert-title" = "Atualizações para o suporte à variante do idioma Cazaque";
@@ -700,6 +728,7 @@
 "languages-title" = "Alterar idioma";
 "languages-wikipedia" = "Idiomas de Wikipedia";
 "learn-more-title" = "Saiba mais";
+"lockscreen-search-widget-description" = "Acesso rápido para pesquisar na Wikipédia a partir da tela de bloqueio.";
 "logged-out-continue-without-logging-in-button-title" = "Continuar sem entrar";
 "logged-out-log-back-in-button-title" = "Entre novamente na sua conta";
 "logged-out-subtitle" = "Houve um problema ao autenticar sua conta. Para sincronizar suas listas de leitura e editar com o seu nome de usuário, faça o login novamente.";
@@ -722,12 +751,17 @@
 "main-menu-title" = "Mais";
 "main-menu-zero-faq" = "Perguntas frequentes sobre a Wikipédia Zero";
 "main-page" = "Página principal";
+"microsite-yir-english-edits-bytes-slide-subtitle" = "Em 2024, voluntários(as) adicionaram 4.104.852.969 bytes à Wikipédia em inglês. A soma de todo o trabalho conjunto resulta em um recurso de conhecimento confiável, baseado em fatos e em constante aprimoramento, que eles disponibilizam ao mundo. Todos nós temos conhecimento para compartilhar, [saiba como participar]($1).";
 "microsite-yir-english-edits-bytes-slide-title" = "4 bilhões de bytes adicionados";
 "microsite-yir-english-edits-slide-subtitle" = "Os voluntários fizeram 98.222.407 alterações em mais de 300 edições da Wikipédia em diferentes idiomas. Mais de 37 milhões de alterações foram feitas na Wikipédia em inglês. A cada hora de cada dia, voluntários trabalham para melhorar a Wikipédia.";
 "microsite-yir-english-edits-slide-title" = "Os editores fizeram 98 milhões de alterações este ano.";
+"microsite-yir-english-non-donor-slide-subtitle" = "Com a sua ajuda, a Fundação Wikimedia — a organização sem fins lucrativos por trás da Wikipédia — continuará a garantir que as informações em que você confia sejam livres de anúncios e confiáveis, ao mesmo tempo em que mantém a Wikipédia funcionando sem problemas com ferramentas e tecnologias de ponta. Considere fazer uma doação hoje mesmo. [Saiba mais sobre o nosso trabalho]($1).";
 "microsite-yir-english-non-donor-slide-title" = "0 anúncios exibidos na Wikipédia";
+"microsite-yir-english-reading-slide-subtitle" = "Estima-se que as pessoas tenham passado 2,9 bilhões de horas — mais de 331.000 anos! — lendo a Wikipédia em inglês em 2024. A Wikipédia está lá quando você quer aprender sobre o nosso mundo em constante mudança, ganhar uma aposta entre amigos(as) ou responder à pergunta curiosa de uma criança.";
 "microsite-yir-english-reading-slide-title" = "Passamos 2,9 bilhões de horas lendo";
+"microsite-yir-english-saved-reading-slide-subtitle" = "Usuários ativos do aplicativo iOS tinham mais de 62,2 milhões de listas de leitura. Adicionar artigos às listas de leitura permite que você acesse os artigos mesmo estando offline. Você também pode fazer login para sincronizar as listas de leitura entre dispositivos.";
 "microsite-yir-english-saved-reading-slide-title" = "Tivemos mais de 62,2 milhões de listas de leitura";
+"microsite-yir-english-top-read-slide-subtitle" = "Os 5 artigos mais visitados na Wikipédia em inglês foram:\n\n1. $1\n2. $2\n3. $3\n4. $4\n5. $5\nLeia mais na $6nossa postagem dedicada no blog$7.";
 "microsite-yir-english-top-read-slide-title" = "Artigos mais populares da Wikipédia em inglês";
 "more-languages-tooltip-description" = "Pesquise na Wikipédia em mais de 300 idiomas";
 "more-languages-tooltip-title" = "Adicionar idiomas";
@@ -884,12 +918,14 @@
 "on-this-day-no-internet-error" = "Sem dados disponíveis";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 a partir de $2 Wikipedia";
 "on-this-day-title" = "Neste dia";
+"open-in-tab-tooltip-body" = "Pressione e segure o título de um artigo ou link azul para abri-lo em uma nova aba.";
 "open-in-tab-tooltip-title" = "Abrir em uma nova guia";
 "original-tab-button-popover-description" = "Toque no 'W' para voltar a a guia onde começou";
 "page-history-bot-edits" = "robô";
 "page-history-compare-accessibility-hint" = "Toque para selecionar duas revisões para comparar";
 "page-history-compare-title" = "Comparar";
 "page-history-graph-accessibility-label" = "Gráfico de edições ao longo do tempo";
+"page-history-logged-in-edits" = "Logado(a)";
 "page-history-minor-edits" = "edições menores";
 "page-history-revision-author-accessibility-label" = "Autor: $1";
 "page-history-revision-comment-accessibility-label" = "Comentário $1";
@@ -1086,6 +1122,7 @@
 "save-view-temp-account-warning" = "Você não está conectado. Assim que fizer uma edição, uma conta temporária será criada para proteger sua privacidade.";
 "saved-all-articles-title" = "Todos os artigos";
 "saved-all-tabs" = "Salvado todas as guias.";
+"saved-all-tabs-view-reading-list" = "Todas as abas foram salvas. Ver lista de leitura.";
 "saved-default-reading-list-tag" = "Esta lista não pode ser eliminada";
 "saved-pages-image-download-error" = "Erro em baixar imagens desta página salva.";
 "saved-pages-progress-syncing" = "Download do artigo em andamento...";
@@ -1226,6 +1263,7 @@
 "talk-page-reply-button-accessibility-label" = "Responder a $1";
 "talk-page-reply-depth-accessibility-label" = "Profundidade da resposta: $1";
 "talk-page-reply-placeholder-format" = "Responder a $1";
+"talk-page-reply-terms-and-licenses-ccsa4" = "Observe que sua resposta será assinada automaticamente com seu nome de usuário(a). Ao salvar as alterações, você concorda com os $1Termos de Uso$2 e concorda em liberar sua contribuição sob as licenças $3CC BY-SA 4.0$4 e $5GFDL$6.";
 "talk-page-revision-history" = "Histórico de revisão";
 "talk-page-rply-close-button-accessibility-hint" = "Fechar visualização de resposta";
 "talk-page-share-button" = "Compartilhar página de discussão";
@@ -1235,6 +1273,7 @@
 "talk-page-subscription-failed-alert" = "Ocorreu uma falha ao se inscrever no tópico. Tente novamente, por favor.";
 "talk-page-title-article-talk" = "Discussão de artigo";
 "talk-page-title-user-talk" = "Discussão do usuário";
+"talk-page-topic-compose-terms-and-licenses-ccsa4" = "Ao publicar alterações, você concorda com os $1Termos de Uso$2 e concorda irrevogavelmente em liberar sua contribuição sob a $3Licença CC BY-SA 4.0$4 e a $5GFDL$6.";
 "talk-page-unsubscribe-to-topic" = "Cancelar inscrição";
 "talk-page-unsubscribed-alert-subtitle" = "Você não receberá mais notificações sobre novos comentários neste tópico";
 "talk-page-unsubscribed-alert-title" = "Cancelar inscrição.";
@@ -1269,8 +1308,11 @@
 "talk-pages-user-groups" = "Grupos de usuários";
 "talk-pages-user-logs" = "Registros";
 "talk-pages-view-title" = "Discussão";
+"temp-account-alert-read-more-information" = "$1Você está usando uma conta temporária. $2 A conta expirará em 90 dias. Após o vencimento, uma nova será criada na próxima vez que você fizer uma edição sem fazer login. $3Faça login ou crie uma conta para receber créditos para edições futuras e acessar outros recursos.";
 "temp-account-edit-sheet-cta-top" = "Entre ou crie uma conta";
+"temp-account-edit-sheet-subtitle" = "$2Você está usando uma conta temporária.$3 As edições feitas com a conta temporária $1 não serão transferidas para sua conta permanente quando você fizer login. Faça login ou crie uma conta para obter créditos em seu nome de usuário(a), entre outros benefícios.";
 "temp-account-toast-read-more-title" = "Leia mais";
+"temp-account-toast-title" = "$1Você está usando uma conta temporária.$2 Edições feitas com a conta temporária...";
 "temp-account-warning-title" = "Você está usando uma conta temporária.";
 "temp-warning-subtitle-format" = "Sua edição será atribuída a $1";
 "temporary-account" = "Conta temporária";
@@ -1328,6 +1370,7 @@
 "watchlist-edit-summary-accessibility" = "Resumo da edição";
 "watchlist-empty-view-button-title" = "Pesquisar artigos";
 "watchlist-empty-view-filter-title" = "Não tem páginas vigiadas";
+"watchlist-empty-view-subtitle" = "Acompanhe o que está acontecendo com os artigos nos quais você está interessado(a). Toque no menu do artigo e selecione “Vigiar” para ver as alterações em um artigo.";
 "watchlist-empty-view-title" = "Os artigos que adicionou às páginas vigiadas aparecem aqui";
 "watchlist-expiration-title" = "Definir expiração";
 "watchlist-filter" = "Filtro";
