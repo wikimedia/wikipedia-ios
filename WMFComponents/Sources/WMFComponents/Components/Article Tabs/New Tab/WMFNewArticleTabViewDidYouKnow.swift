@@ -31,7 +31,7 @@ public struct WMFNewArticleTabViewDidYouKnow: View {
                     .foregroundStyle(Color(theme.text))
             }
         }
-        .background(Color(theme.paperBackground))
+        .background(Color(theme.midBackground))
         .frame(maxWidth: .infinity)
     }
 }
