@@ -2,15 +2,13 @@ import Foundation
 import WMFData
 
 @objc public final class WMFNewArticleTabDidYouKnowViewModel: NSObject, ObservableObject {
-    @Published public var isLoading: Bool = true
     @Published public var facts: [String]? = nil
     
     public let fromSourceDefault: String
     public let languageCode: String?
     public let dykLocalizedStrings: LocalizedStrings?
     
-    public init(isLoading: Bool, facts: [String]? = nil, fromSourceDefault: String, languageCode: String?, dykLocalizedStrings: LocalizedStrings?) {
-        self.isLoading = isLoading
+    public init(facts: [String]? = nil, fromSourceDefault: String, languageCode: String?, dykLocalizedStrings: LocalizedStrings?) {
         self.facts = facts
         self.fromSourceDefault = fromSourceDefault
         self.languageCode = languageCode

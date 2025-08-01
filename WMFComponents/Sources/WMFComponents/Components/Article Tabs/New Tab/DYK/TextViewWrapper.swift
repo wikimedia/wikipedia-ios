@@ -16,10 +16,9 @@ public struct TextViewWrapper: UIViewRepresentable {
         textView.isScrollEnabled = false
         textView.attributedText = NSAttributedString(string: text)
         textView.apply(theme: theme)
-        textView.dataDetectorTypes = []
-        textView.textContainerInset = .zero
-        textView.textContainer.lineFragmentPadding = 0
         textView.delegate = linkDelegate
+        textView.textContainer.lineBreakMode = .byWordWrapping
+        textView.textContainer.maximumNumberOfLines = 100
         return textView
     }
 

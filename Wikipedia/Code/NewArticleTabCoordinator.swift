@@ -142,7 +142,6 @@ final class NewArticleTabCoordinator: Coordinator {
             }
             
             let dykVM = WMFNewArticleTabDidYouKnowViewModel(
-                isLoading: false,
                 fromSourceDefault: self.fromWikipediaDefault,
                 languageCode:  self.dataStore.languageLinkController.appLanguage?.languageCode,
                 dykLocalizedStrings: WMFNewArticleTabDidYouKnowViewModel.LocalizedStrings.init(
@@ -165,7 +164,6 @@ final class NewArticleTabCoordinator: Coordinator {
             self.fetchDYK { facts in
                 DispatchQueue.main.async {
                     dykVM.facts = facts?.map { $0.html }
-                    dykVM.isLoading = false
                 }
             }
 
