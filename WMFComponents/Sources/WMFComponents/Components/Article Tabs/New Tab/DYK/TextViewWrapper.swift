@@ -1,29 +1,29 @@
-import SwiftUI
 import UIKit
+import SwiftUI
 
 public struct TextViewWrapper: UIViewRepresentable {
+    @ObservedObject var appEnvironment = WMFAppEnvironment.current
     let text: String
-    let theme: WMFTheme
-    weak var delegate: UITextViewDelegate?
+    var theme: WMFTheme {
+        return appEnvironment.theme
+    }
+    
+    weak var linkDelegate: UITextViewDelegate?
 
-    @Binding var dynamicHeight: CGFloat
-
-    public func makeUIView(context: Context) -> UITextView {
-        let textView = UITextView()
+    public func makeUIView(context: Context) -> SwiftUILinkDetectingTextView {
+        let textView = SwiftUILinkDetectingTextView()
         textView.isEditable = false
         textView.isScrollEnabled = false
-        textView.backgroundColor = .clear
-        textView.textContainer.lineFragmentPadding = 0
+        textView.attributedText = NSAttributedString(string: text)
+        textView.apply(theme: theme)
+        textView.dataDetectorTypes = []
         textView.textContainerInset = .zero
-        textView.dataDetectorTypes = [.link]
-        textView.delegate = delegate
-        textView.isUserInteractionEnabled = true
-        textView.isSelectable = true
-        textView.linkTextAttributes = [.foregroundColor: theme.link]
+        textView.textContainer.lineFragmentPadding = 0
+        textView.delegate = linkDelegate
         return textView
     }
 
-    public func updateUIView(_ uiView: UITextView, context: Context) {
+    public func updateUIView(_ uiView: SwiftUILinkDetectingTextView, context: Context) {
         let styles = HtmlUtils.Styles(
             font: WMFFont.for(.subheadline),
             boldFont: WMFFont.for(.boldSubheadline),
@@ -33,15 +33,19 @@ public struct TextViewWrapper: UIViewRepresentable {
             linkColor: theme.link,
             lineSpacing: 3
         )
-
         let attributed = (try? HtmlUtils.nsAttributedStringFromHtml(text, styles: styles)) ?? NSAttributedString(string: text)
         uiView.attributedText = attributed
+    }
+}
 
-        DispatchQueue.main.async {
-            let size = uiView.sizeThatFits(CGSize(width: uiView.bounds.width, height: .greatestFiniteMagnitude))
-            if self.dynamicHeight != size.height {
-                self.dynamicHeight = size.height
-            }
-        }
+public class SwiftUILinkDetectingTextView: UITextView {
+    private var currentTheme = WMFAppEnvironment.current.theme
+
+    func apply(theme: WMFTheme) {
+        currentTheme = theme
+        backgroundColor = theme.paperBackground
+        textColor = theme.text
+        keyboardAppearance = theme.keyboardAppearance
+        tintColor = theme.link
     }
 }

@@ -148,9 +148,7 @@ final class NewArticleTabCoordinator: Coordinator {
                 dykLocalizedStrings: WMFNewArticleTabDidYouKnowViewModel.LocalizedStrings.init(
                 dyk: self.dyk,
                 fromSource: self.fromLanguageWikipediaTextFor(languageCode: self.dataStore.languageLinkController.appLanguage?.languageCode),
-                ), onTap: { [weak self] url in
-                    self?.navigationController.topViewController?.navigate(to: url)
-                })
+                ))
             
             let viewModel = WMFNewArticleTabViewModel(
                 title: CommonStrings.newTab,

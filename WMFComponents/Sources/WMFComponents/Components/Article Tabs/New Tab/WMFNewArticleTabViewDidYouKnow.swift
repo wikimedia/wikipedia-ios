@@ -28,8 +28,11 @@ public struct WMFNewArticleTabViewDidYouKnow: View {
             if viewModel.isLoading {
                 ProgressView()
             } else {
-                TextViewWrapper(text: viewModel.dyk ?? "", theme: theme, delegate: linkDelegate, dynamicHeight: $textViewHeight)
+                GeometryReader { geometry in
+                    TextViewWrapper(text: viewModel.dyk ?? "", linkDelegate: linkDelegate)
                     .frame(height: textViewHeight)
+                }
+                .frame(height: textViewHeight)
                 Text(viewModel.fromSource)
                     .font(Font.for(.caption1))
                     .foregroundStyle(Color(theme.text))
@@ -38,5 +41,4 @@ public struct WMFNewArticleTabViewDidYouKnow: View {
         .background(Color(theme.midBackground))
         .frame(maxWidth: .infinity)
     }
-
 }

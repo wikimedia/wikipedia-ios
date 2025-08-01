@@ -8,15 +8,13 @@ import WMFData
     public let fromSourceDefault: String
     public let languageCode: String?
     public let dykLocalizedStrings: LocalizedStrings?
-    public let onTap: (URL) -> Void?
     
-    public init(isLoading: Bool, facts: [String]? = nil, fromSourceDefault: String, languageCode: String?, dykLocalizedStrings: LocalizedStrings?, onTap: @escaping (URL) -> Void) {
+    public init(isLoading: Bool, facts: [String]? = nil, fromSourceDefault: String, languageCode: String?, dykLocalizedStrings: LocalizedStrings?) {
         self.isLoading = isLoading
         self.facts = facts
         self.fromSourceDefault = fromSourceDefault
         self.languageCode = languageCode
         self.dykLocalizedStrings = dykLocalizedStrings
-        self.onTap = onTap
     }
 
     public var dyk: String? {

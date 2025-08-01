@@ -650,7 +650,7 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
 
 extension SearchViewController: UITextViewDelegate {
     func tappedLink(_ url: URL, sourceTextView: UITextView) {
-        guard let url = URL(string: "https://en.wikipedia.org/wiki/Baldur's_Gate_3") else {
+        guard let url = URL(string: url.absoluteString) else {
             return
         }
         
