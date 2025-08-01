@@ -4,7 +4,7 @@ import WMFData
 import WMFComponents
 import WMF
 
-final class WMFNewArticleTabController: WMFCanvasViewController, WMFNavigationBarConfiguring, Themeable {
+final class WMFNewArticleTabViewController: WMFCanvasViewController, WMFNavigationBarConfiguring, Themeable {
 
     // MARK: - Properties
 
@@ -37,13 +37,6 @@ final class WMFNewArticleTabController: WMFCanvasViewController, WMFNavigationBa
         return existingYirCoordinator
     }
 
-    private var _tabsCoordinator: TabsOverviewCoordinator?
-    private var tabsCoordinator: TabsOverviewCoordinator? {
-        guard let navigationController else { return nil }
-        _tabsCoordinator = TabsOverviewCoordinator(navigationController: navigationController, theme: theme, dataStore: dataStore)
-        return _tabsCoordinator
-    }
-
     private var _profileCoordinator: ProfileCoordinator?
     private var profileCoordinator: ProfileCoordinator? {
 
@@ -61,14 +54,13 @@ final class WMFNewArticleTabController: WMFCanvasViewController, WMFNavigationBa
         return existingProfileCoordinator
     }
 
-
     // MARK: - Lifecycle
 
     init(dataStore: MWKDataStore, theme: Theme, viewModel: WMFNewArticleTabViewModel) {
         self.dataStore = dataStore
         self.theme = theme
         self.viewModel = viewModel
-        self.hostingController = WMFNewArticleTabHostingController(rootView: WMFNewArticleTabView(viewModel: viewModel))
+        self.hostingController = WMFNewArticleTabHostingController(rootView: WMFNewArticleTabView())
         super.init()
         self.hidesBottomBarWhenPushed = true
         self.configureNavigationBar()
@@ -78,9 +70,34 @@ final class WMFNewArticleTabController: WMFCanvasViewController, WMFNavigationBa
         fatalError("init(coder:) has not been implemented")
     }
 
+    var showTabsOverview: (() -> Void)?
+
     public override func viewDidLoad() {
         super.viewDidLoad()
         addComponent(hostingController, pinToEdges: true)
+        // Hack to solve coordinator retention issues
+        showTabsOverview = { [weak navigationController, weak self] in
+            guard let navController = navigationController, let self = self else { return }
+
+            TabsCoordinatorManager.shared.presentTabsOverview(
+                from: navController,
+                theme: self.theme,
+                dataStore: self.dataStore
+            )
+        }
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
+        DispatchQueue.main.async { [weak self] in
+            guard let searchController = self?.navigationItem.searchController else {
+                return
+            }
+
+            searchController.isActive = true
+            searchController.searchBar.becomeFirstResponder()
+        }
     }
 
     // MARK: - Navigation bar configuring
@@ -97,7 +114,8 @@ final class WMFNewArticleTabController: WMFCanvasViewController, WMFNavigationBa
 
         let tabsButtonConfig = tabsButtonConfig(target: self, action: #selector(userDidTapTabs), dataStore: dataStore)
 
-        let searchViewController = SearchViewController(source: .article, customArticleCoordinatorNavigationController: self.navigationController)
+        let byrViewModel = self.viewModel.becauseYouReadViewModel != nil ? viewModel.becauseYouReadViewModel : nil
+        let searchViewController = SearchViewController(source: .article, customArticleCoordinatorNavigationController: self.navigationController, needsAttachedView: true, becauseYouReadViewModel: byrViewModel)
         searchViewController.dataStore = dataStore
         searchViewController.theme = theme
         searchViewController.shouldBecomeFirstResponder = true
@@ -142,22 +160,13 @@ final class WMFNewArticleTabController: WMFCanvasViewController, WMFNavigationBa
         configureNavigationBar(titleConfig: titleConfig, backButtonConfig: backButtonConfig, closeButtonConfig: nil, profileButtonConfig: profileButtonConfig, tabsButtonConfig: tabsButtonConfig, searchBarConfig: searchBarConfig, hideNavigationBarOnScroll: true)
     }
 
-    let extractTitleFromURLBlock: (URL) -> String? = { url in
-        let components = URLComponents(url: url, resolvingAgainstBaseURL: false)
-        guard let fragment = components?.fragment else {
-            return nil
-        }
-        let title = fragment.removingPercentEncoding?.replacingOccurrences(of: "_", with: " ")
-
-        return title
-    }
-
     @objc func userDidTapProfile() {
         profileCoordinator?.start()
     }
 
     @objc func userDidTapTabs() {
-        tabsCoordinator?.start()
+        navigationController?.popViewController(animated: true)
+        showTabsOverview?()
     }
 
     func updateProfileButton() {
@@ -186,7 +195,7 @@ fileprivate final class WMFNewArticleTabHostingController<WMFNewArticleTabView: 
 
 // MARK: - Extensions
 
-extension WMFNewArticleTabController: UISearchResultsUpdating {
+extension WMFNewArticleTabViewController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
         guard let text = searchController.searchBar.text else {
             return
@@ -208,7 +217,7 @@ extension WMFNewArticleTabController: UISearchResultsUpdating {
     }
 }
 
-extension WMFNewArticleTabController: UISearchControllerDelegate {
+extension WMFNewArticleTabViewController: UISearchControllerDelegate {
 
     func willPresentSearchController(_ searchController: UISearchController) {
         presentingSearchResults = true
@@ -218,22 +227,23 @@ extension WMFNewArticleTabController: UISearchControllerDelegate {
     func didDismissSearchController(_ searchController: UISearchController) {
         presentingSearchResults = false
         navigationController?.hidesBarsOnSwipe = true
+        userDidTapTabs()
     }
 }
 
-extension WMFNewArticleTabController: UISearchBarDelegate {
+extension WMFNewArticleTabViewController: UISearchBarDelegate {
     public func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         navigationController?.popViewController(animated: true)
     }
 }
 
-extension WMFNewArticleTabController: YearInReviewBadgeDelegate {
+extension WMFNewArticleTabViewController: YearInReviewBadgeDelegate {
     func updateYIRBadgeVisibility() {
         updateProfileButton()
     }
 }
 
-extension WMFNewArticleTabController: LogoutCoordinatorDelegate {
+extension WMFNewArticleTabViewController: LogoutCoordinatorDelegate {
     func didTapLogout() {
         wmf_showKeepSavedArticlesOnDevicePanelIfNeeded(triggeredBy: .logout, theme: theme) {
             self.dataStore.authenticationManager.logout(initiatedBy: .user)

@@ -10,7 +10,8 @@ final class TabsOverviewCoordinator: Coordinator {
     let dataStore: MWKDataStore
     private let dataController: WMFArticleTabsDataController
     private let summaryController: ArticleSummaryController
-    
+    private var newTabCoordinator: NewArticleTabCoordinator?
+
     @discardableResult
     func start() -> Bool {
         presentTabs()
@@ -68,7 +69,9 @@ final class TabsOverviewCoordinator: Coordinator {
         }
         
         let didTapAddTab: () -> Void = { [weak self] in
-            self?.tappedAddTab()
+
+            guard let self else { return }
+            self.tappedAddTab()
         }
         
         let showSurveyClosure = { [weak self] in
@@ -138,15 +141,16 @@ final class TabsOverviewCoordinator: Coordinator {
     }
     
     private func tappedAddTab() {
+
         if dataController.needsMoreDynamicTabs {
-            let isOnStack = self.navigationController.viewControllers.contains { $0 is WMFNewArticleTabController }
+            let isOnStack = self.navigationController.viewControllers.contains { $0 is WMFNewArticleTabViewController }
             // do not push a new tab if the user just came from a new tab
             if isOnStack {
                 navigationController.dismiss(animated: true)
             } else {
                 navigationController.dismiss(animated: true) {
-                    let newTabCoordinator = NewArticleTabCoordinator(navigationController: self.navigationController, dataStore: self.dataStore, theme: self.theme)
-                    newTabCoordinator.start()
+                    self.newTabCoordinator = NewArticleTabCoordinator(navigationController: self.navigationController, dataStore: self.dataStore, theme: self.theme)
+                    self.newTabCoordinator?.start()
                 }
             }
             return

@@ -1,6 +1,6 @@
 import SwiftUI
 
-/// A reusable component for displaying a page row (typically an article) with swipe actions. These should be embedded inside of a List.
+/// A reusable component for displaying a page row (typically an article) with optional swipe actions. These should be embedded inside of a List.
 struct WMFPageRow: View {
 
     @ObservedObject var appEnvironment = WMFAppEnvironment.current
@@ -14,20 +14,20 @@ struct WMFPageRow: View {
     let articleDescription: String?
     let imageURLString: String?
     let isSaved: Bool
-    let deleteAccessibilityLabel: String
-    let shareAccessibilityLabel: String
-    let saveAccessibilityLabel: String
-    let unsaveAccessibilityLabel: String
-    let deleteItemAction: () -> Void
-    let shareItemAction: ((CGRect?) -> Void)
-    let saveOrUnsaveItemAction: () -> Void
-    
+    let deleteAccessibilityLabel: String?
+    let shareAccessibilityLabel: String?
+    let saveAccessibilityLabel: String?
+    let unsaveAccessibilityLabel: String?
+    let showsSwipeActions: Bool
+    let deleteItemAction: (() -> Void)?
+    let shareItemAction: ((CGRect?) -> Void)?
+    let saveOrUnsaveItemAction: (() -> Void)?
     let loadImageAction: (String?) async -> UIImage?
-    
+
     @State private var globalFrame: CGRect = .zero
     @State private var uiImage: UIImage?
 
-    var body: some View {
+    var rowContent: some View {
         HStack(spacing: 4) {
             VStack(alignment: .leading, spacing: 4) {
                 Text(titleHtml)
@@ -41,6 +41,7 @@ struct WMFPageRow: View {
                         .lineLimit(1)
                 }
             }
+
             Spacer()
             if let uiImage {
                 Image(uiImage: uiImage)
@@ -48,45 +49,11 @@ struct WMFPageRow: View {
                     .scaledToFill()
                     .frame(width: 40, height: 40)
                     .clipShape(RoundedRectangle(cornerRadius: 4))
+
             }
         }
         .background(Color(theme.paperBackground))
         .padding(.vertical, 8)
-        .swipeActions {
-            Button {
-                withAnimation(.default) {
-                    deleteItemAction()
-                }
-            } label: {
-                Image(uiImage: WMFSFSymbolIcon.for(symbol: .trash) ?? UIImage())
-                    .accessibilityLabel(deleteAccessibilityLabel)
-            }
-            .tint(Color(theme.destructive))
-            .labelStyle(.iconOnly)
-
-            Button {
-                shareItemAction(globalFrame)
-            } label: {
-                Image(uiImage: WMFSFSymbolIcon.for(symbol: .share) ?? UIImage())
-                    .accessibilityLabel(shareAccessibilityLabel)
-            }
-            .tint(Color(theme.secondaryAction))
-            .labelStyle(.iconOnly)
-
-            Button {
-                saveOrUnsaveItemAction()
-            } label: {
-                if isSaved {
-                    Image(uiImage: WMFSFSymbolIcon.for(symbol: .bookmarkFill) ?? UIImage())
-                        .accessibilityLabel(saveAccessibilityLabel)
-                } else {
-                    Image(uiImage: WMFSFSymbolIcon.for(symbol: .bookmark) ?? UIImage())
-                        .accessibilityLabel(unsaveAccessibilityLabel)
-                }
-            }
-            .tint(Color(theme.link))
-            .labelStyle(.iconOnly)
-        }
         .overlay(
             GeometryReader { geometry in
                 Color.clear
@@ -103,6 +70,52 @@ struct WMFPageRow: View {
                 self.uiImage = await loadImageAction(imageURLString)
             }
             
+        }
+    }
+
+    var body: some View {
+        if showsSwipeActions {
+            rowContent
+                .swipeActions {
+                    if let deleteItemAction {
+                        Button {
+                            withAnimation(.default) {
+                                deleteItemAction()
+                            }
+                        } label: {
+                            Image(uiImage: WMFSFSymbolIcon.for(symbol: .trash) ?? UIImage())
+                                .accessibilityLabel(deleteAccessibilityLabel ?? "")
+                        }
+                        .tint(Color(theme.destructive))
+                        .labelStyle(.iconOnly)
+                    }
+
+                    if let shareItemAction {
+                        Button {
+                            shareItemAction(globalFrame)
+                        } label: {
+                            Image(uiImage: WMFSFSymbolIcon.for(symbol: .share) ?? UIImage())
+                                .accessibilityLabel(shareAccessibilityLabel ?? "")
+                        }
+                        .tint(Color(theme.secondaryAction))
+                        .labelStyle(.iconOnly)
+                    }
+
+                    if let saveOrUnsaveItemAction {
+                        Button {
+                            saveOrUnsaveItemAction()
+                        } label: {
+                            let symbol: WMFSFSymbolIcon = isSaved ? .bookmarkFill : .bookmark
+                            let label = isSaved ? saveAccessibilityLabel : unsaveAccessibilityLabel
+                            Image(uiImage: WMFSFSymbolIcon.for(symbol: symbol) ?? UIImage())
+                                .accessibilityLabel(label ?? "")
+                        }
+                        .tint(Color(theme.link))
+                        .labelStyle(.iconOnly)
+                    }
+                }
+        } else {
+            rowContent
         }
     }
 }
