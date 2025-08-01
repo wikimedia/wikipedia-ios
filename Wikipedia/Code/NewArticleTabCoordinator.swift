@@ -8,12 +8,16 @@ final class NewArticleTabCoordinator: Coordinator {
     var dataStore: MWKDataStore
     var theme: Theme
     private let fetcher: RelatedSearchFetcher
+    var dykFetcher: WMFFeedDidYouKnowFetcher
+    private let sharedCache = SharedContainerCache(fileName: SharedContainerCacheCommonNames.dykCache)
+    public var dykFacts: [WMFFeedDidYouKnow]? = nil
 
     init(navigationController: UINavigationController, dataStore: MWKDataStore, theme: Theme, fetcher: RelatedSearchFetcher = RelatedSearchFetcher()) {
         self.navigationController = navigationController
         self.dataStore = dataStore
         self.theme = theme
         self.fetcher = fetcher
+		dykFetcher = WMFFeedDidYouKnowFetcher()
     }
 
     var seed: WMFArticle?
@@ -110,7 +114,6 @@ final class NewArticleTabCoordinator: Coordinator {
 
     @discardableResult
     func start() -> Bool {
-
         loadNextBatch { seed, related in
             var becauseVM: WMFBecauseYouReadViewModel? = nil
             if let seed {
@@ -135,25 +138,74 @@ final class NewArticleTabCoordinator: Coordinator {
                         relatedArticles: relatedRecords
                     )
                     becauseVM?.onTapArticle = onTapArticleAction
-
                 }
             }
-
+            
+            let dykVM = WMFNewArticleTabDidYouKnowViewModel(
+                fromSourceDefault: self.fromWikipediaDefault,
+                languageCode:  self.dataStore.languageLinkController.appLanguage?.languageCode,
+                dykLocalizedStrings: WMFNewArticleTabDidYouKnowViewModel.LocalizedStrings.init(
+                dyk: self.dyk,
+                fromSource: self.fromLanguageWikipediaTextFor(languageCode: self.dataStore.languageLinkController.appLanguage?.languageCode),
+                ))
+            
             let viewModel = WMFNewArticleTabViewModel(
                 title: CommonStrings.newTab,
-                becauseYouReadViewModel: becauseVM
+                becauseYouReadViewModel: becauseVM,
+                dykViewModel: dykVM
             )
+
             let vc = WMFNewArticleTabViewController(
                 dataStore: self.dataStore,
                 theme: self.theme,
                 viewModel: viewModel
             )
-            
+
+            self.fetchDYK { facts in
+                DispatchQueue.main.async {
+                    dykVM.facts = facts?.map { $0.html }
+                }
+            }
+
             self.navigationController.pushViewController(vc, animated: true)
         }
+
         return true
     }
+    
+    // MARK: - DYK
+    
+    let fromLanguageWikipedia = WMFLocalizedString("new-article-tab-from-language-wikipedia", value: "from %1$@ Wikipedia", comment: "Text displayed as Wikipedia source on new tab. %1$@ will be replaced with the language.")
+    let fromWikipediaDefault = CommonStrings.fromWikipediaDefault
+    let dyk = WMFLocalizedString("did-you-know", value: "Did you know", comment: "Text displayed as heading for section of new tab dedicated to DYK")
+    
+    private func fromLanguageWikipediaTextFor(languageCode: String?) -> String {
+        guard let languageCode = languageCode, let localizedLanguageString = Locale.current.localizedString(forLanguageCode: languageCode) else {
+            return fromWikipediaDefault
+        }
 
+        return String.localizedStringWithFormat(fromLanguageWikipedia, localizedLanguageString)
+    }
+    
+    private func fetchDYK(completion: @escaping ([WMFFeedDidYouKnow]?) -> Void) {
+        guard let languageCode = dataStore.languageLinkController.appLanguage?.languageCode else {
+            return
+        }
+        guard let url = URL(string: "https://\(languageCode).wikipedia.org") else {
+            completion(nil)
+            return
+        }
+
+        dykFetcher.fetchDidYouKnow(withSiteURL: url) { [weak self] error, facts in
+            guard error == nil else {
+                completion(nil)
+                return
+            }
+            self?.dykFacts = facts
+            completion(facts)
+        }
+    }
+        
     func tappedArticle(_ item: HistoryItem) {
         guard let articleURL = item.url,
               let title = articleURL.wmf_title,

@@ -8,13 +8,16 @@ public struct WMFRecentlySearchedView: View {
     @State private var estimatedListHeight: CGFloat = 0
 
     @Environment(\.sizeCategory) private var sizeCategory
+    
+    weak var linkDelegate: UITextViewDelegate?
 
     var theme: WMFTheme {
         return appEnvironment.theme
     }
 
-    public init(viewModel: WMFRecentlySearchedViewModel) {
+    public init(viewModel: WMFRecentlySearchedViewModel, linkDelegate: UITextViewDelegate? = nil) {
         self.viewModel = viewModel
+        self.linkDelegate = linkDelegate
     }
 
     public var body: some View {
@@ -81,12 +84,12 @@ public struct WMFRecentlySearchedView: View {
                 if viewModel.tabsDataController.getViewTypeForExperiment == .becauseYouRead,
                    let becauseVM = viewModel.becauseYouReadViewModel {
                     WMFBecauseYouReadView(viewModel: becauseVM)
-                } else if viewModel.tabsDataController.getViewTypeForExperiment == .didYouKnow {
-                    Text("Did you know")
+                } else if viewModel.tabsDataController.getViewTypeForExperiment == .didYouKnow, let dykVM = viewModel.didYouKnowViewModel {
+                    WMFNewArticleTabViewDidYouKnow(viewModel: dykVM, linkDelegate: linkDelegate)
                 }
             }
         }
-        .background(Color(theme.paperBackground))
+        .background(viewModel.tabsDataController.getViewTypeForExperiment == .becauseYouRead ? Color(theme.midBackground) : Color(theme.paperBackground))
         .padding(.top, viewModel.topPadding)
         .onAppear {
             recalculateEstimatedListHeight()
@@ -134,4 +137,3 @@ func estimatedTextHeight(text: String, font: UIFont, width: CGFloat) -> CGFloat 
     )
     return ceil(boundingBox.height)
 }
-
