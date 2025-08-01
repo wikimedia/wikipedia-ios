@@ -1,13 +1,18 @@
 import SwiftUI
 
 public struct WMFNewArticleTabView: View {
-    @ObservedObject var viewModel: WMFNewArticleTabViewModel
+    @ObservedObject var appEnvironment = WMFAppEnvironment.current
 
-    public init(viewModel: WMFNewArticleTabViewModel) {
-        self.viewModel = viewModel
+    var theme: WMFTheme {
+        return appEnvironment.theme
     }
-    
+
+    public init() {}
+
     public var body: some View {
-        Text("")
+        ZStack {
+            Spacer()
+        }
+        .background(Color(theme.paperBackground))
     }
 }

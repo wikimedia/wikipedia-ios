@@ -8,6 +8,7 @@ public struct WMFRecentlySearchedView: View {
     @State private var estimatedListHeight: CGFloat = 0
 
     @Environment(\.sizeCategory) private var sizeCategory
+    
     weak var linkDelegate: UITextViewDelegate?
 
     var theme: WMFTheme {
@@ -77,25 +78,16 @@ public struct WMFRecentlySearchedView: View {
                         .listRowBackground(Color(theme.paperBackground))
                     }
                 }
-            }
-            .listStyle(.plain)
-            
-            VStack {
-                
-                //                if viewModel.tabsDataController.getViewTypeForExperiment == .becauseYouRead, let becauseVM = viewModel.becauseYouReadViewModel {
-                //                    WMFBecauseYouReadView(viewModel: becauseVM)
-                //                        .listRowInsets(EdgeInsets())
-                //                        .listRowSeparator(.hidden, edges: .all)
-                //                        .frame(maxWidth: .infinity, alignment: .leading)
-                //                        .listRowBackground(Color.clear)
-                //                        .padding(.top, 4)
-                //                } else
-                if let dykVM = viewModel.didYouKnowViewModel {
+                .listStyle(.plain)
+                .scrollDisabled(true)
+                .frame(height: estimatedListHeight)
+                if viewModel.tabsDataController.getViewTypeForExperiment == .becauseYouRead,
+                   let becauseVM = viewModel.becauseYouReadViewModel {
+                    WMFBecauseYouReadView(viewModel: becauseVM)
+                } else if viewModel.tabsDataController.getViewTypeForExperiment == .didYouKnow, let dykVM = viewModel.didYouKnowViewModel {
                     WMFNewArticleTabViewDidYouKnow(viewModel: dykVM, linkDelegate: linkDelegate)
                 }
             }
-            .background(Color(theme.midBackground))
-            .frame(maxWidth: .infinity)
         }
         .background(Color(theme.paperBackground))
         .padding(.top, viewModel.topPadding)
@@ -145,4 +137,3 @@ func estimatedTextHeight(text: String, font: UIFont, width: CGFloat) -> CGFloat 
     )
     return ceil(boundingBox.height)
 }
-

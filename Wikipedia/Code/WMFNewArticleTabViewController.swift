@@ -60,7 +60,7 @@ final class WMFNewArticleTabViewController: WMFCanvasViewController, WMFNavigati
         self.dataStore = dataStore
         self.theme = theme
         self.viewModel = viewModel
-        self.hostingController = WMFNewArticleTabHostingController(rootView: WMFNewArticleTabView(viewModel: viewModel))
+        self.hostingController = WMFNewArticleTabHostingController(rootView: WMFNewArticleTabView())
         super.init()
         self.hidesBottomBarWhenPushed = true
         self.configureNavigationBar()
