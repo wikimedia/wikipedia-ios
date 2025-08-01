@@ -141,7 +141,7 @@ final class NewArticleTabCoordinator: Coordinator {
 
             let viewModel = WMFNewArticleTabViewModel(
                 title: CommonStrings.newTab,
-                becauseYouRedViewModel: becauseVM
+                becauseYouReadViewModel: becauseVM
             )
             let vc = WMFNewArticleTabViewController(
                 dataStore: self.dataStore,

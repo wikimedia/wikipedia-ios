@@ -114,7 +114,7 @@ final class WMFNewArticleTabViewController: WMFCanvasViewController, WMFNavigati
 
         let tabsButtonConfig = tabsButtonConfig(target: self, action: #selector(userDidTapTabs), dataStore: dataStore)
 
-        let byrViewModel = self.viewModel.becauseYouRedViewModel != nil ? viewModel.becauseYouRedViewModel : nil
+        let byrViewModel = self.viewModel.becauseYouReadViewModel != nil ? viewModel.becauseYouReadViewModel : nil
         let searchViewController = SearchViewController(source: .article, customArticleCoordinatorNavigationController: self.navigationController, needsAttachedView: true, becauseYouReadViewModel: byrViewModel)
         searchViewController.dataStore = dataStore
         searchViewController.theme = theme

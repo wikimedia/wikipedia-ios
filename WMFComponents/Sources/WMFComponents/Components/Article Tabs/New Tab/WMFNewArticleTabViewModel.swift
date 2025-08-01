@@ -3,10 +3,10 @@ import Foundation
 public final class WMFNewArticleTabViewModel {
 
     public let title: String
-    public let becauseYouRedViewModel: WMFBecauseYouReadViewModel?
+    public let becauseYouReadViewModel: WMFBecauseYouReadViewModel?
 
-    public init(title: String, becauseYouRedViewModel: WMFBecauseYouReadViewModel?) {
+    public init(title: String, becauseYouReadViewModel: WMFBecauseYouReadViewModel?) {
         self.title = title
-        self.becauseYouRedViewModel = becauseYouRedViewModel
+        self.becauseYouReadViewModel = becauseYouReadViewModel
     }
 }
