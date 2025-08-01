@@ -2,11 +2,11 @@ import Foundation
 
 public final class WMFNewArticleTabViewModel {
 
-    let text: String
     public let title: String
+    public let becauseYouReadViewModel: WMFBecauseYouReadViewModel?
 
-    public init (text: String, title: String) {
-        self.text = text
+    public init(title: String, becauseYouReadViewModel: WMFBecauseYouReadViewModel?) {
         self.title = title
+        self.becauseYouReadViewModel = becauseYouReadViewModel
     }
 }

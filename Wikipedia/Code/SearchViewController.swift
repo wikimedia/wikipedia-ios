@@ -102,8 +102,13 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
 
     // MARK: - Lifecycle
 
-    @objc required init(source: EventLoggingSource, customArticleCoordinatorNavigationController: UINavigationController? = nil) {
+    let needsAttachedView: Bool // TODO: Maybe rename to comes from new tabs exp for clarity
+    let becauseYouReadViewModel: WMFBecauseYouReadViewModel?
+
+    @objc required init(source: EventLoggingSource, customArticleCoordinatorNavigationController: UINavigationController? = nil, needsAttachedView: Bool = false, becauseYouReadViewModel: WMFBecauseYouReadViewModel? = nil) {
         self.source = source
+        self.needsAttachedView = needsAttachedView
+        self.becauseYouReadViewModel = becauseYouReadViewModel
         self.customArticleCoordinatorNavigationController = customArticleCoordinatorNavigationController
         super.init(nibName: nil, bundle: nil)
     }
@@ -475,7 +480,6 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
             guard let navVC = customArticleCoordinatorNavigationController ?? navigationController else { return }
             let articleCoordinator = ArticleCoordinator(navigationController: navVC, articleURL: articleURL, dataStore: MWKDataStore.shared(), theme: self.theme, source: .undefined, tabConfig: .appendArticleAndAssignNewTabAndSetToCurrent)
             articleCoordinator.start()
-
         }
 
         resultsViewController.tappedSearchResultAction = tappedSearchResultAction
@@ -534,9 +538,9 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
     }
 
     lazy var didPressClearRecentSearches: () -> Void = { [weak self] in
-        let dialog = UIAlertController(title: WMFLocalizedString("search-recent-clear-confirmation-heading", value: "Delete all recent searches?", comment: "Heading text of delete all confirmation dialog"), message: WMFLocalizedString("search-recent-clear-confirmation-sub-heading", value: "This action cannot be undone!", comment: "Sub-heading text of delete all confirmation dialog"), preferredStyle: .alert)
+        let dialog = UIAlertController(title: CommonStrings.clearRecentSearchesDialogTitle, message: CommonStrings.clearRecentSearchesDialogSubtitle, preferredStyle: .alert)
         dialog.addAction(UIAlertAction(title:CommonStrings.cancelActionTitle, style: .cancel, handler: nil))
-        dialog.addAction(UIAlertAction(title: WMFLocalizedString("search-recent-clear-delete-all", value: "Delete All", comment: "Button text for confirming delete all action {{Identical|Delete all}}"), style: .destructive, handler: { (action) in
+        dialog.addAction(UIAlertAction(title: CommonStrings.deleteAllTitle, style: .destructive, handler: { (action) in
             self?.deleteAllAction()
         }))
         self?.present(dialog, animated: true)
@@ -589,12 +593,12 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
 
     private lazy var recentSearchesViewModel: WMFRecentlySearchedViewModel = {
         let localizedStrings = WMFRecentlySearchedViewModel.LocalizedStrings(
-            title: WMFLocalizedString("search-recent-title", value: "Recently searched", comment: "Title for list of recent search terms"),
-            noSearches: WMFLocalizedString("search-recent-empty", value: "No recent searches yet", comment: "String for no recent searches available"),
+            title: CommonStrings.recentlySearchedTitle,
+            noSearches: CommonStrings.recentlySearchedEmpty,
             clearAll: CommonStrings.clearTitle,
             deleteActionAccessibilityLabel: CommonStrings.deleteActionTitle
         )
-        return WMFRecentlySearchedViewModel(recentSearchTerms: recentSearchTerms, localizedStrings: localizedStrings, deleteAllAction: didPressClearRecentSearches, deleteItemAction: deleteItemAction, selectAction: selectAction)
+        return WMFRecentlySearchedViewModel(recentSearchTerms: recentSearchTerms, localizedStrings: localizedStrings, needsAttachedView: needsAttachedView, becauseYouReadViewModel: becauseYouReadViewModel, deleteAllAction: didPressClearRecentSearches, deleteItemAction: deleteItemAction, selectAction: selectAction)
     }()
 
     private lazy var recentSearchTerms: [WMFRecentlySearchedViewModel.RecentSearchTerm] = {

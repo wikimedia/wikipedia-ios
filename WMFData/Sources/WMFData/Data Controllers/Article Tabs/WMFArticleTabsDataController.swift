@@ -163,6 +163,16 @@ public class WMFArticleTabsDataController: WMFArticleTabsDataControlling {
 
     // MARK: Entry point
 
+    public enum ExperimentViewType {
+        case didYouKnow
+        case becauseYouRead
+    }
+
+    public var getViewTypeForExperiment: WMFArticleTabsDataController.ExperimentViewType? {
+        // TODO: switch based on A/B/C test assigment
+        return .becauseYouRead
+    }
+
     public var needsMoreDynamicTabs: Bool {
         return developerSettingsDataController.enableMoreDynamicTabs 
     }
