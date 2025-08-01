@@ -78,11 +78,15 @@ public struct WMFRecentlySearchedView: View {
                 .listStyle(.plain)
                 .scrollDisabled(true)
                 .frame(height: estimatedListHeight)
-                if viewModel.tabsDataController.getViewTypeForExperiment == .becauseYouRead,
-                   let becauseVM = viewModel.becauseYouReadViewModel {
-                    WMFBecauseYouReadView(viewModel: becauseVM)
-                } else if viewModel.tabsDataController.getViewTypeForExperiment == .didYouKnow {
-                    Text("Did you know")
+                if viewModel.needsAttachedView {
+                    let assignment = try? viewModel.tabsDataController.getMoreDynamicTabsExperimentAssignment()
+                    if viewModel.devSettingsDataControler.enableMoreDynamicTabsBYR ||
+                       (!viewModel.devSettingsDataControler.enableMoreDynamicTabsDYK && assignment == .becauseYouRead),
+                       let becauseVM = viewModel.becauseYouReadViewModel {
+                        WMFBecauseYouReadView(viewModel: becauseVM)
+                    } else if viewModel.devSettingsDataControler.enableMoreDynamicTabsBYR || (viewModel.devSettingsDataControler.enableMoreDynamicTabsDYK || assignment == .didYouKnow) {
+                        Text("Did you know")
+                    }
                 }
             }
         }
