@@ -37,48 +37,51 @@ struct WMFBecauseYouReadView: View {
             .frame(maxWidth: .infinity, alignment: .leading)
             .background(Color(theme.midBackground))
 
-            // Article rows
             VStack(spacing: 0) {
                 ForEach(viewModel.loadItems(), id: \.id) { item in
-                    ZStack {
-                        WMFPageRow(
-                            id: String(item.id),
-                            titleHtml: item.titleHtml,
-                            articleDescription: item.description,
-                            imageURLString: item.imageURLString,
-                            isSaved: item.isSaved,
-                            deleteAccessibilityLabel: nil,
-                            shareAccessibilityLabel: nil,
-                            saveAccessibilityLabel: nil,
-                            unsaveAccessibilityLabel: nil,
-                            showsSwipeActions: false,
-                            deleteItemAction: nil,
-                            shareItemAction: nil,
-                            saveOrUnsaveItemAction: nil,
-                            loadImageAction: { imageURLString in
-                                return try? await viewModel.loadImage(imageURLString: imageURLString)
-                            }
-                        )
-                        .frame(maxWidth: .infinity)
-                        .background(Color.clear)
-                        .containerShape(Rectangle())
-                        .onTapGesture {
-                            viewModel.onTap(item)
-                        }
-                    }
-                    .contextMenu {
-                        Button {
-                            viewModel.onTap(item)
-                        } label: {
-                            Text(viewModel.openButtonTitle)
-                            Image(uiImage: WMFSFSymbolIcon.for(symbol: .chevronForward) ?? UIImage())
-                        }
-                    } preview: {
-                        WMFArticlePreviewView(viewModel: getPreviewViewModel(from: item))
-                    }
+                    rowView(item: item)
                 }
             }
             .padding(.horizontal, 16)
+        }
+    }
+
+    private func rowView(item: HistoryItem) -> some View {
+        ZStack {
+            WMFPageRow(
+                id: String(item.id),
+                titleHtml: item.titleHtml,
+                articleDescription: item.description,
+                imageURLString: item.imageURLString,
+                isSaved: item.isSaved,
+                deleteAccessibilityLabel: nil,
+                shareAccessibilityLabel: nil,
+                saveAccessibilityLabel: nil,
+                unsaveAccessibilityLabel: nil,
+                showsSwipeActions: false,
+                deleteItemAction: nil,
+                shareItemAction: nil,
+                saveOrUnsaveItemAction: nil,
+                loadImageAction: { imageURLString in
+                    return try? await viewModel.loadImage(imageURLString: imageURLString)
+                }
+            )
+            .frame(maxWidth: .infinity)
+            .background(Color.clear)
+            .containerShape(Rectangle())
+            .onTapGesture {
+                viewModel.onTap(item)
+            }
+        }
+        .contextMenu {
+            Button {
+                viewModel.onTap(item)
+            } label: {
+                Text(viewModel.openButtonTitle)
+                Image(uiImage: WMFSFSymbolIcon.for(symbol: .chevronForward) ?? UIImage())
+            }
+        } preview: {
+            WMFArticlePreviewView(viewModel: getPreviewViewModel(from: item))
         }
     }
 
