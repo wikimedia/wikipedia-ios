@@ -87,7 +87,7 @@ public class WMFArticleTabsDataController: WMFArticleTabsDataControlling {
     }
 
     public enum MoreDynamicTabsExperimentAssignment {
-        case control1
+        case control
         case becauseYouRead
         case didYouKnow
     }
@@ -147,24 +147,34 @@ public class WMFArticleTabsDataController: WMFArticleTabsDataControlling {
         }
     }
 
-    // MARK: Entry point
+    // MARK: - Experiment
 
-    public enum ExperimentViewType {
-        case didYouKnow
-        case becauseYouRead
+
+    public func shouldAssignToBucket() -> Bool {
+        return experimentsDataController?.bucketForExperiment(.moreDynamicTabs) == nil
     }
 
-    public var getViewTypeForExperiment: WMFArticleTabsDataController.ExperimentViewType? {
-        // TODO: switch based on A/B/C test assigment
-        return .becauseYouRead
+    public var shouldShowMoreDynamicTabs: Bool {
+        guard !developerSettingsDataController.enableMoreDynamicTabsDYK else {
+            return true
+        }
+
+        guard !developerSettingsDataController.enableMoreDynamicTabsBYR else {
+            return true
+        }
+
+        guard let assignment = try? getMoreDynamicTabsExperimentAssignment() else {
+            return false
+        }
+
+        switch assignment {
+        case .becauseYouRead, .didYouKnow:
+            return true
+        case .control:
+            return false
+        }
     }
 
-    public var needsMoreDynamicTabs: Bool {
-        return developerSettingsDataController.enableMoreDynamicTabs 
-    }
-
-    // MARK: Experiment
-    
     private var primaryAppLanguageProject: WMFProject? {
         if let language = WMFDataEnvironment.current.appData.appLanguages.first {
             return WMFProject.wikipedia(language)
@@ -191,10 +201,9 @@ public class WMFArticleTabsDataController: WMFArticleTabsDataControlling {
         }
 
         return Locale.current.qualifiesForExperiment && primaryAppLanguageProject.qualifiesForExperiment
-
     }
 
-    public func getArticleTabsExperimentAssignment() throws -> MoreDynamicTabsExperimentAssignment {
+    public func getMoreDynamicTabsExperimentAssignment() throws -> MoreDynamicTabsExperimentAssignment {
         guard qualifiesForExperiment() else {
             throw CustomError.doesNotQualifyForExperiment
         }
@@ -207,12 +216,57 @@ public class WMFArticleTabsDataController: WMFArticleTabsDataControlling {
             return assignmentCache
         }
 
-
         guard let bucketValue = experimentsDataController.bucketForExperiment(.moreDynamicTabs) else {
             throw CustomError.missingAssignment
         }
 
+        let assignment: MoreDynamicTabsExperimentAssignment
+        switch bucketValue {
 
+        case .moreDynamicTabsControl:
+            assignment = .control
+        case .moreDynamicTabsBecauseYouRead:
+            assignment = .becauseYouRead
+        case .moreDynamicTabsDidYouKnow:
+            assignment = .didYouKnow
+        default:
+            throw CustomError.unexpectedAssignment
+        }
+
+        self.assignmentCache = assignment
+        return assignment
+    }
+
+    public func assignExperiment() throws -> MoreDynamicTabsExperimentAssignment {
+        guard qualifiesForExperiment() else {
+            throw CustomError.doesNotQualifyForExperiment
+        }
+
+        guard isBeforeAssignmentEndDate else {
+            throw CustomError.pastAssignmentEndDate
+        }
+
+        guard let experimentsDataController else {
+            throw CustomError.missingExperimentsDataController
+        }
+
+        let bucketValue = try experimentsDataController.determineBucketForExperiment(.moreDynamicTabs, withPercentage: moreDynamicTabsExperimentPercentage)
+
+        let assignment: MoreDynamicTabsExperimentAssignment
+
+        switch bucketValue {
+        case .moreDynamicTabsControl:
+            assignment = .control
+        case .moreDynamicTabsBecauseYouRead:
+            assignment = .becauseYouRead
+        case .moreDynamicTabsDidYouKnow:
+            assignment = .didYouKnow
+        default:
+            throw CustomError.unexpectedAssignment
+        }
+
+        self.assignmentCache = assignment
+        return assignment
     }
 
     // MARK: Onboarding
@@ -858,11 +912,11 @@ private extension Locale {
             return false
         }
         switch identifier {
-        case "au", "hk", "id", "jp", "my", "mm", "nz", "ph", "sg", "kr", "tw", "th", "vn": //eseap
+        case "au", "hk", "id", "jp", "my", "mm", "nz", "ph", "sg", "kr", "tw", "th", "vn": // eseap
             return true
-        case "dz", "bh", "eg", "jo", "kw", "lb", "ly", "ma", "om", "qa", "sa", "tn", "ae", "ye": //mena
+        case "dz", "bh", "eg", "jo", "kw", "lb", "ly", "ma", "om", "qa", "sa", "tn", "ae", "ye": // mena
             return true
-        case "de": //germany
+        case "de": // germany
             return true
         default:
             return false

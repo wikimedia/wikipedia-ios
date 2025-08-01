@@ -24,6 +24,7 @@ final class WMFExperimentsDataController {
         var config: ExperimentConfig {
             switch self {
             case .activityTab:
+                return WMFExperimentsDataController.activityTabConfig
             case .moreDynamicTabs:
                 return WMFExperimentsDataController.moreDynamicTabsConfig
             }
