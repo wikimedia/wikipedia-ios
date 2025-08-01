@@ -89,7 +89,7 @@ public struct WMFRecentlySearchedView: View {
                 }
             }
         }
-        .background(Color(theme.paperBackground))
+        .background(viewModel.tabsDataController.getViewTypeForExperiment == .becauseYouRead ? Color(theme.midBackground) : Color(theme.paperBackground))
         .padding(.top, viewModel.topPadding)
         .onAppear {
             recalculateEstimatedListHeight()
