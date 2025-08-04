@@ -68,6 +68,16 @@
                                            disclosureText:nil
                                                isSwitchOn:NO];
         }
+        case WMFSettingsMenuItemType_Tabs: {
+            return
+                [[WMFSettingsMenuItem alloc] initWithType:type
+                                                    title:[WMFCommonStrings tabsPreferencesTitle]
+                                                 iconName:@"settings-search"
+                                                iconColor:[UIColor wmf_blue_300]
+                                           disclosureType:WMFSettingsMenuItemDisclosureType_ViewController
+                                           disclosureText:nil
+                                               isSwitchOn:NO];
+        }
         case WMFSettingsMenuItemType_ExploreFeed: {
             return
                 [[WMFSettingsMenuItem alloc] initWithType:type

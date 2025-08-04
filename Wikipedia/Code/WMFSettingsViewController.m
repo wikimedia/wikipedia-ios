@@ -227,6 +227,9 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
         case WMFSettingsMenuItemType_Search:
             [self showSearch];
             break;
+        case WMFSettingsMenuItemType_Tabs:
+            [self showTabsPreferences];
+            break;
         case WMFSettingsMenuItemType_ExploreFeed:
             [self showExploreFeedSettings];
             break;
@@ -470,6 +473,17 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
     [self.navigationController pushViewController:searchSettingsViewController animated:YES];
 }
 
+#pragma mark - Tabs preferences
+
+// TODO GREY
+
+- (void)showTabsPreferences {
+    WMFExploreFeedSettingsViewController *feedSettingsVC = [[WMFExploreFeedSettingsViewController alloc] init];
+    feedSettingsVC.dataStore = self.dataStore;
+    [feedSettingsVC applyTheme:self.theme];
+    [self.navigationController pushViewController:feedSettingsVC animated:YES];
+}
+
 #pragma mark - Feed
 
 - (void)showExploreFeedSettings {
@@ -590,6 +604,8 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
                              [WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_Search]];
     NSMutableArray *items = [NSMutableArray arrayWithArray:commonItems];
     [items addObject:[WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_ExploreFeed]];
+    
+    // Grey here
     
     if ([[WMFYearInReviewDataController dataControllerForObjectiveC] shouldShowYearInReviewSettingsItemWithCountryCode:NSLocale.currentLocale.countryCode primaryAppLanguageCode:self.dataStore.languageLinkController.appLanguage.languageCode]) {
 #if DEBUG
