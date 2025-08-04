@@ -1128,7 +1128,7 @@ extension ExploreViewController {
             UIAccessibility.post(notification: .layoutChanged, argument: nil)
         })
 
-        WMFArticleTabsDataController.hasSeenFeatureAnnouncement = true
+        WMFArticleTabsDataController.shared.hasSeenFeatureAnnouncement = true
     }
     
     private func displayURLWebView(url: URL) {

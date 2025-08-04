@@ -95,9 +95,10 @@ public class WMFArticleTabsDataController: WMFArticleTabsDataControlling {
 
     struct OnboardingStatus: Codable {
         var hasPresentedOnboardingTooltips: Bool
+        var hasPresentedOnboardingTabs: Bool
 
         static var `default`: OnboardingStatus {
-            return OnboardingStatus(hasPresentedOnboardingTooltips: false)
+            return OnboardingStatus(hasPresentedOnboardingTooltips: false, hasPresentedOnboardingTabs: false)
         }
     }
 
@@ -110,23 +111,6 @@ public class WMFArticleTabsDataController: WMFArticleTabsDataControlling {
     
     private let experimentsDataController: WMFExperimentsDataController?
     private var assignmentCache: ArticleTabsExperimentAssignment?
-    
-    public static var hasSeenFeatureAnnouncement: Bool {
-        get {
-            let defaults = UserDefaults.standard
-            let key = WMFUserDefaultsKey.articleTabsDidShowFeatureAnnouncement.rawValue
-            if defaults.object(forKey: key) == nil {
-                defaults.set(false, forKey: key)
-                return false
-            }
-            return defaults.bool(forKey: key)
-        }
-        set {
-            let defaults = UserDefaults.standard
-            let key = WMFUserDefaultsKey.articleTabsDidShowFeatureAnnouncement.rawValue
-            defaults.set(newValue, forKey: key)
-        }
-    }
     
     // This setup allows us to try instantiation multiple times in case the first attempt fails (like for example, if coreDataStore is not available yet).
     private var _backgroundContext: NSManagedObjectContext?
@@ -218,7 +202,18 @@ public class WMFArticleTabsDataController: WMFArticleTabsDataControlling {
             try? userDefaultsStore?.save(key: WMFUserDefaultsKey.articleTabsOnboarding.rawValue, value: currentStatus)
         }
     }
-
+    
+    public var hasSeenFeatureAnnouncement: Bool {
+        get {
+            return onboardingStatus.hasPresentedOnboardingTabs
+        }
+        set {
+            var currentStatus = onboardingStatus
+            currentStatus.hasPresentedOnboardingTabs = newValue
+            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.articleTabsDidShowFeatureAnnouncement.rawValue, value: currentStatus)
+        }
+    }
+    
     // MARK: - Tabs Manipulation Methods
     
     public func tabsCount() async throws -> Int {
