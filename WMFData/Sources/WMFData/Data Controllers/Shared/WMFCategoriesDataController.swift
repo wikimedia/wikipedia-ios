@@ -112,7 +112,7 @@ public final class WMFCategoriesDataController {
                         continue
                     }
                     
-                    print("Category: \(title), Page: \(page.title)")
+                    //print("Category: \(title), Page: \(page.title)")
                     countsByCategory[WMFCategory(categoryName: title, project: project), default: 0] += 1
                 }
             }

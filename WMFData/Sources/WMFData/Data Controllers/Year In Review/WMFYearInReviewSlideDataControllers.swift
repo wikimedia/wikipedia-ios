@@ -493,7 +493,7 @@ final class YearInReviewMostReadCategorySlideDataController: YearInReviewSlideDa
             .sorted { $0.value > $1.value } // sort by count descending
             .prefix(10)
         
-        print(top10)
+        //print(top10)
     
         isEvaluated = true
     }
