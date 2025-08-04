@@ -24,7 +24,7 @@ final class YearInReviewReadCountSlideDataController: YearInReviewSlideDataContr
         
         guard let startDate = yirConfig.dataPopulationStartDate,
               let endDate = yirConfig.dataPopulationEndDate,
-            let pageViews = try await legacyPageViewsDataDelegate?.getLegacyPageViews(from: startDate, to: endDate) else {
+            let pageViews = try await legacyPageViewsDataDelegate?.getLegacyPageViews(from: startDate, to: endDate, needsLatLong: false) else {
             throw NSError(domain: "", code: 0, userInfo: nil)
         }
         
@@ -326,7 +326,7 @@ final class YearInReviewMostReadDaySlideDataController: YearInReviewSlideDataCon
         
         guard let startDate = yirConfig.dataPopulationStartDate,
               let endDate = yirConfig.dataPopulationEndDate,
-            let pageViews = try await legacyPageViewsDataDelegate?.getLegacyPageViews(from: startDate, to: endDate) else {
+            let pageViews = try await legacyPageViewsDataDelegate?.getLegacyPageViews(from: startDate, to: endDate, needsLatLong: false) else {
             throw NSError(domain: "", code: 0, userInfo: nil)
         }
         
@@ -541,11 +541,11 @@ final class YearInReviewMostReadArticleSlideDataController: YearInReviewSlideDat
         let top10 = pageViewCounts.sorted(by: {$0.count > $1.count}).prefix(10)
         
         for count in top10 {
-            //print("title: \(count.page.title)...count: \(count.count)")
+            // print("title: \(count.page.title)...count: \(count.count)")
         }
         
-        //print("most read title: \(mostRead?.page.title)")
-        //print("most read count \(mostRead?.count)")
+        // print("most read title: \(mostRead?.page.title)")
+        // print("most read count \(mostRead?.count)")
         
         self.mostReadArticle = mostRead?.page.title
     }
@@ -563,4 +563,58 @@ final class YearInReviewMostReadArticleSlideDataController: YearInReviewSlideDat
     }
     
     let id = WMFYearInReviewPersonalizedSlideID.mostReadCategory.rawValue
+}
+
+// MARK: - Read Count Slide
+final class YearInReviewReadLocationSlideDataController: YearInReviewSlideDataControllerProtocol {
+
+    let id = WMFYearInReviewPersonalizedSlideID.locationRead.rawValue
+    let year: Int
+    var isEvaluated: Bool = false
+    static var containsPersonalizedNetworkData = false
+    
+    private var locationRead: String?
+
+    private weak var legacyPageViewsDataDelegate: LegacyPageViewsDataDelegate?
+    private let yirConfig: YearInReviewFeatureConfig
+    
+    init(year: Int, yirConfig: YearInReviewFeatureConfig, dependencies: YearInReviewSlideDataControllerDependencies) {
+        self.year = year
+        self.yirConfig = yirConfig
+        self.legacyPageViewsDataDelegate = dependencies.legacyPageViewsDataDelegate
+    }
+
+    func populateSlideData(in context: NSManagedObjectContext) async throws {
+        
+        guard let startDate = yirConfig.dataPopulationStartDate,
+              let endDate = yirConfig.dataPopulationEndDate,
+            let pageViews = try await legacyPageViewsDataDelegate?.getLegacyPageViews(from: startDate, to: endDate, needsLatLong: true) else {
+            throw NSError(domain: "", code: 0, userInfo: nil)
+        }
+        
+        for pageView in pageViews {
+            print("title: \(pageView.title), lat: \(pageView.latitude), long: \(pageView.longitude)")
+        }
+        
+        // todo: how to cluster by area and get a region name?
+        
+        isEvaluated = true
+    }
+
+    func makeCDSlide(in context: NSManagedObjectContext) throws -> CDYearInReviewSlide {
+        let slide = CDYearInReviewSlide(context: context)
+        slide.id = id
+        slide.year = Int32(year)
+
+        if let locationRead {
+            let encoder = JSONEncoder()
+            slide.data = try encoder.encode(locationRead)
+        }
+
+        return slide
+    }
+
+    static func shouldPopulate(from config: YearInReviewFeatureConfig, userInfo: YearInReviewUserInfo) -> Bool {
+        return config.isEnabled // && config.slideConfig.readCountIsEnabled
+    }
 }

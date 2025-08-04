@@ -50,11 +50,15 @@ public final class WMFLegacyPageView {
     let title: String
     let project: WMFProject
     let viewedDate: Date
+    let latitude: Double
+    let longitude: Double
     
-    public init(title: String, project: WMFProject, viewedDate: Date) {
+    public init(title: String, project: WMFProject, viewedDate: Date, latitude: Double, longitude: Double) {
         self.title = title
         self.project = project
         self.viewedDate = viewedDate
+        self.latitude = latitude
+        self.longitude = longitude
     }
     
 }

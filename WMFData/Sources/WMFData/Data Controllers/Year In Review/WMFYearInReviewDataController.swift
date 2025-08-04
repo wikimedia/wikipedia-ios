@@ -629,5 +629,5 @@ public protocol SavedArticleSlideDataDelegate: AnyObject {
 }
 
 public protocol LegacyPageViewsDataDelegate: AnyObject {
-    func getLegacyPageViews(from startDate: Date, to endDate: Date) async throws -> [WMFLegacyPageView]
+    func getLegacyPageViews(from startDate: Date, to endDate: Date, needsLatLong: Bool) async throws -> [WMFLegacyPageView]
 }
