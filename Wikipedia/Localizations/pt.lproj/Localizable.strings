@@ -89,7 +89,7 @@
 "action-share-accessibility" = "Partilhar";
 "action-sort" = "Ordenar";
 "action-thank-user-accessibility" = "Agradecer ao utilizador";
-"action-undo" = "Desfazer";
+"action-undo" = "Anular";
 "action-unsave" = "Não guardar";
 "action-unsaved-accessibility-notification" = "Artigo não guardado";
 "action-update" = "Atualizar";
@@ -142,6 +142,7 @@
 "clear-title-accessibility-label" = "Limpar";
 "clearing-cache-complete" = "Limpeza da cache concluída.";
 "clearing-cache-in-progress" = "Limpeza da cache em andamento.";
+"close-all-tabs-confirmation" = "Deseja fechar todos os $1 separadores? Esta ação não pode ser anulada.";
 "close-button-accessibility-label" = "Fechar";
 "compass-direction" = "às $1 horas";
 "continue-button-title" = "Continuar";
@@ -216,13 +217,13 @@
 "diff-thanks-login-subtitle" = "Agradecimentos são uma maneira fácil de mostrar apreço pelo trabalho de um editor na Wikipédia. Para enviar um agradecimento tem de ter uma sessão iniciada.";
 "diff-thanks-login-title" = "Inicie uma sessão para enviar agradecimento";
 "diff-thanks-send-button-title" = "Enviar agradecimento";
-"diff-thanks-send-subtitle" = "Agradecimentos são uma maneira fácil de mostrar apreço pelo trabalho de um editor na Wikipédia. Os agradecimentos não podem ser retirados e são públicos.";
+"diff-thanks-send-subtitle" = "Os 'Agradecimentos' são uma maneira fácil de mostrar apreciação pelo trabalho de um editor na Wikipédia. Os 'Agradecimentos' não podem ser anulados e são públicos.";
 "diff-thanks-send-title" = "Enviar um agradecimento público";
 "diff-thanks-sent" = "O seu agradecimento foi enviado a $1";
 "diff-thanks-sent-already" = "Já enviou um agradecimento por esta edição";
 "diff-thanks-sent-cannot-unsend" = "Os agradecimentos enviados não podem ser retirados";
-"diff-undo-message" = "Esta operação irá desfazer as alterações realizadas pelas revisões do artigo mostradas aqui. Para continuar, introduza um motivo para desfazer esta edição.";
-"diff-undo-success" = "A revisão foi desfeita.";
+"diff-undo-message" = "Esta operação irá anular as alterações realizadas pelas revisões do artigo mostradas aqui. Para continuar, introduza um motivo para anular esta edição.";
+"diff-undo-success" = "A revisão foi anulada.";
 "diff-unedited-lines-format" = "{{PLURAL:$1|$1 linha não editada|$1 linhas não editadas}}";
 "diff-user-button-accessibility-text" = "Toque duas vezes para abrir o menu";
 "dim-images" = "Atenuar imagens";
@@ -749,8 +750,7 @@
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 da Wikipédia em $2";
 "on-this-day-title" = "Neste dia";
 "original-tab-button-popover-description" = "Toque no 'W' para regressar ao separador de onde começou";
-// Fuzzy
-"page-history-bot-edits" = "edições de robô";
+"page-history-bot-edits" = "robô";
 "page-history-compare-accessibility-hint" = "Toque para selecionar duas revisões a comparar";
 "page-history-compare-title" = "Comparar";
 "page-history-graph-accessibility-label" = "Gráfico de edições ao longo do tempo";
@@ -889,7 +889,7 @@
 "reading-lists-count" = "{{PLURAL:$1|$1 lista|$1 listas}} de leitura";
 "reading-lists-default-list-description" = "Lista padrão para os seus artigos guardados";
 "reading-lists-default-list-title" = "Guardados";
-"reading-lists-delete-reading-list-alert-message" = "Esta ação não pode ser desfeita. Todos os artigos guardados apenas {{PLURAL:$1|nesta lista|nestas listas}} deixarão de ser guardados.";
+"reading-lists-delete-reading-list-alert-message" = "Esta ação não pode ser anulada. Todos os artigos guardados apenas {{PLURAL:$1|nesta lista|nestas listas}} deixarão de ser guardados.";
 "reading-lists-delete-reading-list-alert-title" = "Eliminar {{PLURAL:$1|lista|listas}}?";
 "reading-lists-large-sync-completed" = "{{PLURAL:$1|$1 artigo|$1 artigos}} e {{PLURAL:$2|$2 lista de leitura|$2 listas de leitura}} sincronizados da sua conta";
 "reading-lists-list-not-synced-limit-exceeded" = "A lista não foi sincronizada, o limite foi excedido";
@@ -946,7 +946,7 @@
 "search-field-placeholder-text" = "Procurar na Wikipédia";
 "search-reading-list-placeholder-text" = "Pesquisar na lista de leitura";
 "search-recent-clear-confirmation-heading" = "Apagar todas as pesquisas recentes?";
-"search-recent-clear-confirmation-sub-heading" = "Esta ação não pode ser desfeita!";
+"search-recent-clear-confirmation-sub-heading" = "Esta ação não pode ser anulada!";
 "search-recent-clear-delete-all" = "Apagar tudo";
 "search-recent-empty" = "Ainda não existem pesquisas recentes";
 "search-recent-title" = "Pesquisado recentemente";
@@ -982,7 +982,7 @@
 "settings-search-open-app-on-search" = "Abrir aplicação no separador Pesquisar";
 "settings-storage-and-syncing-enable-sync-footer-text" = "Permitir que, ao se autenticar e sincronizar, a Wikimedia grave nas suas preferências os artigos guardados e as listas de leitura.";
 "settings-storage-and-syncing-enable-sync-title" = "Sincronizar os artigos e listas guardados";
-"settings-storage-and-syncing-erase-saved-articles-alert-message" = "Ao apagar os seus artigos guardados irá removê-los da sua conta de utilizador se ativou a sincronização neste dispositivo. Esta operação não pode ser desfeita.";
+"settings-storage-and-syncing-erase-saved-articles-alert-message" = "Ao limpar os seus artigos guardados irá removê-los da sua conta de utilizador se ativou a sincronização neste dispositivo. Esta operação não pode ser anulada.";
 "settings-storage-and-syncing-erase-saved-articles-alert-title" = "Apagar todos os artigos gravados?";
 "settings-storage-and-syncing-erase-saved-articles-button-title" = "Apagar";
 "settings-storage-and-syncing-erase-saved-articles-footer-text" = "Se ativou a sincronização a partir deste dispositivo, apagar os seus artigos guardados irá removê-los também da sua conta de utilizador.\n\nApagar os seus artigos guardados libertará cerca de $1 de armazenamento.";
