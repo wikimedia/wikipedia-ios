@@ -175,6 +175,8 @@
 "article-revision-history" = "تاريخ تعديل المقالة";
 "article-save-error-not-enough-space" = "ليس لديك مساحة كافية على جهازك لحفظ هذه المقالة";
 "article-share" = "مشاركة";
+"article-tabs-button-accessibility-hint" = "ينتقل إلى نظرة عامة على علامات التبويب";
+"article-tabs-button-accessibility-label" = "علامات تبويب المقالة";
 "article-tabs-max-reached" = "تم الوصول إلى الحد الأقصى لعلامات التبويب ($1). تم فتح المقال في علامة التبويب الحالية. يُرجى إغلاق علامة تبويب واحدة أو أكثر.";
 "article-tabs-navigation" = "التنقل بين علامات التبويب";
 "article-tabs-onboarding-tooltip" = "خطوات الإعداد لعلامات التبويب";
@@ -1324,6 +1326,7 @@
 "theme-default-explanation" = "يطابق موضوع النظام";
 "theme-light-display-name" = "فاتح";
 "theme-sepia-display-name" = "بني داكن";
+"today-title" = "اليوم";
 "top-read-widget-description" = "تعرَّف على ما أكثر ما قُرأ على ويكيبيديا اليوم";
 "top-read-widget-readers-count" = "$1 قارئ";
 "top-read-widget-title" = "الأكثر قراءة";
@@ -1527,3 +1530,4 @@
 "year-in-review-survey-very-unsatisfied" = "غير راض جدا";
 "year-in-review-wikipedia-w-accessibility-label" = "ويكيبيديا مع الشعار";
 "year-in-review-wmf-logo-accessibility-label" = "شعار مؤسسة ويكيميديا";
+"yesterday-title" = "أمس";

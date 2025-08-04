@@ -437,7 +437,7 @@
 	<key>reading-lists-delete-reading-list-alert-message</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Esta ação não pode ser desfeita. Todos os artigos guardados apenas %#@v1@ deixarão de ser guardados.</string>
+		<string>Esta ação não pode ser anulada. Todos os artigos guardados apenas %#@v1@ deixarão de ser guardados.</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
