@@ -461,3 +461,52 @@ final class YearInReviewViewCountSlideDataController: YearInReviewSlideDataContr
     }
 }
 
+// MARK: Most Read Category
+
+final class YearInReviewMostReadCategorySlideDataController: YearInReviewSlideDataControllerProtocol {
+    let id = WMFYearInReviewPersonalizedSlideID.mostReadCategory.rawValue
+    let year: Int
+    var isEvaluated: Bool = false
+    static var containsPersonalizedNetworkData = false
+    
+    private var mostReadCategory: String?
+    
+    private let yirConfig: YearInReviewFeatureConfig
+    
+    init(year: Int, yirConfig: YearInReviewFeatureConfig, dependencies: YearInReviewSlideDataControllerDependencies) {
+        self.year = year
+        self.yirConfig = yirConfig
+    }
+
+    func populateSlideData(in context: NSManagedObjectContext) async throws {
+        
+        guard let startDate = yirConfig.dataPopulationStartDate,
+              let endDate = yirConfig.dataPopulationEndDate else {
+            return
+        }
+        
+        let categoryCounts = try await WMFCategoriesDataController().fetchCategoryCounts(startDate: startDate, endDate: endDate)
+        
+        mostReadCategory = categoryCounts.max(by: { $0.value < $1.value })?.key.categoryName
+        
+        let top10 = categoryCounts
+            .sorted { $0.value > $1.value } // sort by count descending
+            .prefix(10)
+        
+        print(top10)
+    
+        isEvaluated = true
+    }
+
+    func makeCDSlide(in context: NSManagedObjectContext) throws -> CDYearInReviewSlide {
+        let slide = CDYearInReviewSlide(context: context)
+        slide.id = id
+        slide.year = Int32(year)
+        slide.data = try mostReadCategory.map { try JSONEncoder().encode($0) }
+        return slide
+    }
+
+    static func shouldPopulate(from config: YearInReviewFeatureConfig, userInfo: YearInReviewUserInfo) -> Bool {
+        config.isEnabled // && config.slideConfig.donateCountIsEnabled
+    }
+}

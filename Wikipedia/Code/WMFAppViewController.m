@@ -43,7 +43,7 @@ typedef NS_ENUM(NSUInteger, WMFAppTabType) {
 
 static NSTimeInterval const WMFTimeBeforeShowingExploreScreenOnLaunch = 24 * 60 * 60;
 
-static CFTimeInterval const WMFRemoteAppConfigCheckInterval = 3 * 60 * 60;
+static CFTimeInterval const WMFRemoteAppConfigCheckInterval = 1;
 static CFTimeInterval const WMFTempAccountConfigCheckInterval = 3 * 60 * 60; // what should be this interval
 static NSString *const WMFLastRemoteAppConfigCheckAbsoluteTimeKey = @"WMFLastRemoteAppConfigCheckAbsoluteTimeKey";
 static NSString *const WMFTempAccountConfigCheckAbsoluteTimeKey = @"WMFTempAccountConfigCheckAbsoluteTimeKey";

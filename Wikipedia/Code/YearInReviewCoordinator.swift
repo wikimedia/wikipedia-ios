@@ -671,8 +671,14 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
                             hideDonateButton: shoudlHideDonateButton())
                     }
                 }
-                break
-            }
+                case .mostReadCategory:
+                    if let data = slide.data {
+                        let decoder = JSONDecoder()
+                        if let categoryName = try? decoder.decode(String.self, from: data) {
+                            print(categoryName)
+                        }
+                    }
+                }
         }
         return PersonalizedSlides(readCount: readCountSlide, editCount: editCountSlide, donateCount: donateCountSlide, saveCount: saveCountSlide, mostReadDay: mostReadDaySlide, viewCount: viewCountSlide)
     }
