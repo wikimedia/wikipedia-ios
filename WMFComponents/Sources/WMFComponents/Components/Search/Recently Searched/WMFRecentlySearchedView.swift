@@ -81,15 +81,19 @@ public struct WMFRecentlySearchedView: View {
                 .listStyle(.plain)
                 .scrollDisabled(true)
                 .frame(height: estimatedListHeight)
-                if viewModel.tabsDataController.getViewTypeForExperiment == .becauseYouRead,
-                   let becauseVM = viewModel.becauseYouReadViewModel {
-                    WMFBecauseYouReadView(viewModel: becauseVM)
-                } else if viewModel.tabsDataController.getViewTypeForExperiment == .didYouKnow, let dykVM = viewModel.didYouKnowViewModel {
-                    WMFNewArticleTabViewDidYouKnow(viewModel: dykVM, linkDelegate: linkDelegate)
+                if viewModel.needsAttachedView {
+                    let assignment = try? viewModel.tabsDataController.getMoreDynamicTabsExperimentAssignment()
+                    if viewModel.devSettingsDataControler.enableMoreDynamicTabsBYR ||
+                       (!viewModel.devSettingsDataControler.enableMoreDynamicTabsDYK && assignment == .becauseYouRead),
+                       let becauseVM = viewModel.becauseYouReadViewModel {
+                        WMFBecauseYouReadView(viewModel: becauseVM)
+                    } else if viewModel.devSettingsDataControler.enableMoreDynamicTabsDYK && assignment == .didYouKnow, let dykVM = viewModel.didYouKnowViewModel {
+                    	WMFNewArticleTabViewDidYouKnow(viewModel: dykVM, linkDelegate: linkDelegate)
+                    }
                 }
             }
         }
-        .background(viewModel.tabsDataController.getViewTypeForExperiment == .becauseYouRead ? Color(theme.midBackground) : Color(theme.paperBackground))
+        .background(viewModel.devSettingsDataControler.enableMoreDynamicTabsBYR && ((try? viewModel.tabsDataController.getMoreDynamicTabsExperimentAssignment() == .becauseYouRead) != nil) ? Color(theme.midBackground) : Color(theme.paperBackground))
         .padding(.top, viewModel.topPadding)
         .onAppear {
             recalculateEstimatedListHeight()
@@ -123,17 +127,15 @@ public struct WMFRecentlySearchedView: View {
 
         estimatedListHeight = totalHeight
     }
-}
-
-import UIKit
-
-func estimatedTextHeight(text: String, font: UIFont, width: CGFloat) -> CGFloat {
-    let constraintRect = CGSize(width: width, height: .greatestFiniteMagnitude)
-    let boundingBox = text.boundingRect(
-        with: constraintRect,
-        options: [.usesLineFragmentOrigin, .usesFontLeading],
-        attributes: [.font: font],
-        context: nil
-    )
-    return ceil(boundingBox.height)
+    
+    func estimatedTextHeight(text: String, font: UIFont, width: CGFloat) -> CGFloat {
+        let constraintRect = CGSize(width: width, height: .greatestFiniteMagnitude)
+        let boundingBox = text.boundingRect(
+            with: constraintRect,
+            options: [.usesLineFragmentOrigin, .usesFontLeading],
+            attributes: [.font: font],
+            context: nil
+        )
+        return ceil(boundingBox.height)
+    }
 }

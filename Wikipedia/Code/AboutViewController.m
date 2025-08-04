@@ -204,15 +204,17 @@ static NSString *const kWMFContributorsKey = @"contributors";
 
     NSString *forceEmailAuth = WMFLocalizedStringWithDefaultValue(@"developer-force-email-auth", nil, nil, @"Force email auth", @"Title for option to force email auth in developer settings menu.");
 
-    NSString *setActivityTabGroupA =  WMFLocalizedStringWithDefaultValue(@"developer-settings-activity-tab-group-A", nil, nil, @"Set activity tab to group A", @"Title for option to set activity tab experiment to group A");
+    NSString *setActivityTabGroupA = WMFLocalizedStringWithDefaultValue(@"developer-settings-activity-tab-group-A", nil, nil, @"Set activity tab to group A", @"Title for option to set activity tab experiment to group A");
 
     NSString *setActivityTabGroupB = WMFLocalizedStringWithDefaultValue(@"developer-settings-activity-tab-group-B", nil, nil, @"Set activity tab to group B", @"Title for option to set activity tab experiment to group B");
 
     NSString *setActivityTabGroupC = WMFLocalizedStringWithDefaultValue(@"developer-settings-activity-tab-group-C", nil, nil, @"Set activity tab to group C", @"Title for option to set activity tab experiment to group C");
-    
-    NSString *enableArticleTab = WMFLocalizedStringWithDefaultValue(@"developer-settings-activity-tabs", nil, nil, @"Enable activity tabs", @"Title for option to enable activity tabs");
 
-    WMFDeveloperSettingsLocalizedStrings *localizedStrings = [[WMFDeveloperSettingsLocalizedStrings alloc] initWithDeveloperSettings:developerSettings doNotPostImageRecommendations:doNotPostImageRecommendations sendAnalyticsToWMFLabs:sendAnalyticsToWMFLabs enableArticleTab:enableArticleTab enableYearinReview:enableYearInReview bypassDonation:bypassDonation forceEmailAuth:forceEmailAuth setActivityTabGroupA:setActivityTabGroupA setActivityTabGroupB:setActivityTabGroupB setActivityTabGroupC:setActivityTabGroupC done:WMFCommonStrings.doneTitle];
+    NSString *enableMoreDynamicTabsBYR = WMFLocalizedStringWithDefaultValue(@"developer-settings-dynamic-tabs-BYR", nil, nil, @"Enable tabs with Because You Read", @"Title for option to enable tabs Because You Read option");
+
+    NSString *enableMoreDynamicTabsDYK = WMFLocalizedStringWithDefaultValue(@"developer-settings-dynamic-tabs-DYK", nil, nil, @"Enable tabs with Did You Know", @"Title for option to enable Did You Know option");
+
+    WMFDeveloperSettingsLocalizedStrings *localizedStrings = [[WMFDeveloperSettingsLocalizedStrings alloc] initWithDeveloperSettings:developerSettings doNotPostImageRecommendations:doNotPostImageRecommendations sendAnalyticsToWMFLabs:sendAnalyticsToWMFLabs enableMoreDynamicTabsBYR:enableMoreDynamicTabsBYR enableMoreDynamicTabsDYK:enableMoreDynamicTabsDYK enableYearinReview:enableYearInReview bypassDonation:bypassDonation forceEmailAuth:forceEmailAuth setActivityTabGroupA:setActivityTabGroupA setActivityTabGroupB:setActivityTabGroupB setActivityTabGroupC:setActivityTabGroupC done:WMFCommonStrings.doneTitle];
     WMFDeveloperSettingsViewModel *viewModel = [[WMFDeveloperSettingsViewModel alloc] initWithLocalizedStrings:localizedStrings];
 
     WMFDeveloperSettingsViewController *viewController = [[WMFDeveloperSettingsViewController alloc] initWithViewModel:viewModel];

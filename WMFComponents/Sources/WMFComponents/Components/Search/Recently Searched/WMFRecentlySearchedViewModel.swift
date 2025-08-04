@@ -44,6 +44,7 @@ public final class WMFRecentlySearchedViewModel: ObservableObject {
     let deleteItemAction: (Int) -> Void
     let selectAction: (RecentSearchTerm) -> Void
     public let tabsDataController: WMFArticleTabsDataController
+    public let devSettingsDataControler: WMFDeveloperSettingsDataController
 
     public init(recentSearchTerms: [RecentSearchTerm], localizedStrings: LocalizedStrings, needsAttachedView: Bool,  becauseYouReadViewModel: WMFBecauseYouReadViewModel?, didYouKnowViewModel: WMFNewArticleTabDidYouKnowViewModel?, deleteAllAction: @escaping () -> Void, deleteItemAction: @escaping (Int) -> Void, selectAction: @escaping (RecentSearchTerm) -> Void) {
         self.recentSearchTerms = recentSearchTerms
@@ -54,6 +55,7 @@ public final class WMFRecentlySearchedViewModel: ObservableObject {
         self.needsAttachedView = needsAttachedView
         self.becauseYouReadViewModel = becauseYouReadViewModel
         self.tabsDataController =  WMFArticleTabsDataController.shared
+        self.devSettingsDataControler = WMFDeveloperSettingsDataController.shared
         self.didYouKnowViewModel = didYouKnowViewModel
     }
 
