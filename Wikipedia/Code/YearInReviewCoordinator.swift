@@ -574,10 +574,10 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         for slide in report.slides {
             switch slide.id {
             case .readCount:
-                if slide.display == true,
-                   let data = slide.data {
+                if let data = slide.data {
                     let decoder = JSONDecoder()
-                    if let readCount = try? decoder.decode(Int.self, from: data) {
+                    if let readCount = try? decoder.decode(Int.self, from: data),
+                       readCount > 5 {
                         readCountSlide = YearInReviewSlideContent(
                             gifName: "personal-slide-01",
                             altText: localizedStrings.personalizedYouReadAccessibilityLabel,
@@ -590,10 +590,10 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
                     }
                 }
             case .editCount:
-                if slide.display == true,
-                   let data = slide.data {
+                if let data = slide.data {
                     let decoder = JSONDecoder()
-                    if let editCount = try? decoder.decode(Int.self, from: data) {
+                    if let editCount = try? decoder.decode(Int.self, from: data),
+                       editCount > 0 {
                         editCountSlide = YearInReviewSlideContent(
                             gifName: "personal-slide-04",
                             altText: localizedStrings.personalizedUserEditsAccessibilityLabel,
@@ -606,8 +606,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
                     }
                 }
             case .donateCount:
-                if slide.display == true,
-                   let data = slide.data {
+                if let data = slide.data {
                     let decoder = JSONDecoder()
                     if let donateCount = try? decoder.decode(Int.self, from: data),
                        donateCount > 0 {
@@ -623,8 +622,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
                     }
                 }
             case .saveCount:
-                if slide.display == true,
-                   let data = slide.data {
+                if let data = slide.data {
                     let decoder = JSONDecoder()
                     if let savedSlideData = try? decoder.decode(SavedArticleSlideData.self, from: data),
                        savedSlideData.savedArticlesCount > 3,
@@ -642,8 +640,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
                     }
                 }
             case .mostReadDay:
-                if slide.display == true,
-                   let data = slide.data {
+                if let data = slide.data {
                     let decoder = JSONDecoder()
                     if let mostReadDay = try? decoder.decode(WMFPageViewDay.self, from: data),
                        mostReadDay.getViewCount() > 0 {
@@ -659,8 +656,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
                     }
                 }
             case .viewCount:
-                if slide.display == true,
-                   let data = slide.data {
+                if let data = slide.data {
                     let decoder = JSONDecoder()
                     if let viewCount = try? decoder.decode(Int.self, from: data),
                        viewCount > 0 {

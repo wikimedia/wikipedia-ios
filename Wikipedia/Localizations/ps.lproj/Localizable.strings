@@ -122,6 +122,7 @@
 "article-revision-history" = "مخ بياکتنې پېښليک";
 "article-save-error-not-enough-space" = "ستاسو وسيله دومره ځای نه لري چې دا ليکنه خوندي کړي";
 "article-share" = "وېشل";
+"article-tabs-button-accessibility-label" = "ليکنې ريښکې";
 "article-tabs-open" = "پرانېستل";
 "article-tabs-open-background-tab" = "په شاليد ريښکه کې پرانېستل";
 "article-tabs-open-new-tab" = "په نوې ريښکه کې پرانيستل";
@@ -193,7 +194,6 @@
 "empty-no-search-results-message" = "کومې پايلې و نه موندل شوې";
 "explore-featured-article-heading" = "مخکښه ليکنه";
 "explore-main-page-heading" = "نن په ويکيپېډيا کې";
-// Fuzzy
 "explore-most-read-footer" = "ټولې ډېرې لوستل شوې ليکنې";
 "explore-most-read-generic-heading" = "ډېر لوستل شوي";
 "explore-nearby-heading" = "نژدې ځايونه";
@@ -245,13 +245,12 @@
 "search-title" = "پلټل";
 "settings-my-languages" = "زما ژبې";
 "settings-title" = "اوڼنې";
-// Fuzzy
-"share-article-name-on-wikipedia" = "\"$1\" په @Wikipedia کې:";
-// Fuzzy
-"share-on-twitter-sign-off" = "د @ويکيپېډيا له لارې";
+"share-article-name-on-wikipedia" = "\"$1\" په ويکيپېډيا کې:";
+"share-on-twitter-sign-off" = "د ويکيپېډيا له لارې";
 "table-of-contents-button-label" = "نيوليک";
 "table-of-contents-close-accessibility-hint" = "تړل";
 "table-of-contents-heading" = "منځپانگې";
+"watchlist-change-expiry-subtitle" = "د کتنلړ وخت موده غوره‌کول";
 "welcome-explore-continue-button" = "پيلول";
 "welcome-explore-tell-me-more-done-button" = "وپوهېدم";
 "welcome-languages-add-button" = "بله ژبه ورگډول";

@@ -1482,7 +1482,7 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
 
 - (SearchViewController *)searchViewController {
     if (!_searchViewController) {
-        _searchViewController = [[SearchViewController alloc] initWithSource:EventLoggingSourceSearchTab customArticleCoordinatorNavigationController:nil];
+        _searchViewController = [[SearchViewController alloc] initWithSource:EventLoggingSourceSearchTab customArticleCoordinatorNavigationController:nil needsAttachedView: NO becauseYouReadViewModel:NULL];
         [_searchViewController applyTheme:self.theme];
         _searchViewController.dataStore = self.dataStore;
         _searchViewController.tabBarItem.image = [UIImage imageNamed:@"search"];
@@ -2046,7 +2046,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
         [searchVC clear]; // clear search VC before bringing it forward
         [nc setViewControllers:mutableVCs animated:NO];
     } else {
-        searchVC = [[SearchViewController alloc] initWithSource:EventLoggingSourceUnknown customArticleCoordinatorNavigationController:nc];
+        searchVC = [[SearchViewController alloc] initWithSource:EventLoggingSourceUnknown customArticleCoordinatorNavigationController:nc needsAttachedView:NO becauseYouReadViewModel:NULL];
         searchVC.shouldBecomeFirstResponder = YES;
         [searchVC applyTheme:self.theme];
         searchVC.dataStore = self.dataStore;
@@ -2183,7 +2183,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
                                                        completion:nil];
     });
 
-    [self deleteYearInReviewPersonalizedEditingData];
+    [self deleteYearInReviewPersonalizedNetworkData];
 }
 
 - (void)userWasLoggedIn:(NSNotification *)note {

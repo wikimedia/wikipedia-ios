@@ -52,8 +52,8 @@ final class WMFYearInReviewDataControllerTests: XCTestCase {
             throw TestError.missingStore
         }
         
-        let slide1 = WMFYearInReviewSlide(year: 2024, id: .editCount,  evaluated: true, display: true, data: nil)
-        let slide2 = WMFYearInReviewSlide(year: 2023, id: .readCount, evaluated: false, display: true, data: nil)
+        let slide1 = WMFYearInReviewSlide(year: 2024, id: .editCount, data: nil)
+        let slide2 = WMFYearInReviewSlide(year: 2023, id: .readCount, data: nil)
 
         try await dataController.createNewYearInReviewReport(year: 2023, slides: [slide1, slide2])
 
@@ -75,7 +75,7 @@ final class WMFYearInReviewDataControllerTests: XCTestCase {
             throw TestError.missingStore
         }
         
-        let slide = WMFYearInReviewSlide(year: 2024, id: .editCount,  evaluated: true, display: true, data: nil)
+        let slide = WMFYearInReviewSlide(year: 2024, id: .editCount, data: nil)
         let report = WMFYearInReviewReport(year: 2024, slides: [slide])
 
         try await dataController.saveYearInReviewReport(report)
@@ -99,8 +99,8 @@ final class WMFYearInReviewDataControllerTests: XCTestCase {
             throw TestError.missingStore
         }
         
-        let slide = WMFYearInReviewSlide(year: 2024, id: .editCount,  evaluated: true, display: true, data: nil)
-        let slide2 = WMFYearInReviewSlide(year: 2024, id: .readCount,  evaluated: true, display: true, data: nil)
+        let slide = WMFYearInReviewSlide(year: 2024, id: .editCount, data: nil)
+        let slide2 = WMFYearInReviewSlide(year: 2024, id: .readCount, data: nil)
         let report = WMFYearInReviewReport(year: 2024, slides: [slide, slide2])
 
         try await dataController.saveYearInReviewReport(report)
@@ -119,8 +119,8 @@ final class WMFYearInReviewDataControllerTests: XCTestCase {
             throw TestError.missingDataController
         }
         
-        let slide1 = WMFYearInReviewSlide(year: 2021, id: .editCount, evaluated: true, display: true)
-        let slide2 = WMFYearInReviewSlide(year: 2021, id: .readCount, evaluated: false, display: true)
+        let slide1 = WMFYearInReviewSlide(year: 2021, id: .editCount)
+        let slide2 = WMFYearInReviewSlide(year: 2021, id: .readCount)
 
         let report = WMFYearInReviewReport(year: 2021, slides: [slide1, slide2])
         try await dataController.saveYearInReviewReport(report)
@@ -153,7 +153,7 @@ final class WMFYearInReviewDataControllerTests: XCTestCase {
             throw TestError.missingStore
         }
         
-        let slide = WMFYearInReviewSlide(year: 2021, id: .readCount,  evaluated: true, display: true, data: nil)
+        let slide = WMFYearInReviewSlide(year: 2021, id: .readCount, data: nil)
         try await dataController.createNewYearInReviewReport(year: 2021, slides: [slide])
 
         var reports: [CDYearInReviewReport]?
@@ -180,8 +180,8 @@ final class WMFYearInReviewDataControllerTests: XCTestCase {
             throw TestError.missingStore
         }
         
-        let slide1 = WMFYearInReviewSlide(year: 2024, id: .editCount,  evaluated: true, display: true, data: nil)
-        let slide2 = WMFYearInReviewSlide(year: 2023, id: .readCount, evaluated: false, display: true, data: nil)
+        let slide1 = WMFYearInReviewSlide(year: 2024, id: .editCount, data: nil)
+        let slide2 = WMFYearInReviewSlide(year: 2023, id: .readCount, data: nil)
 
         try await dataController.createNewYearInReviewReport(year: 2024, slides: [slide1])
         try await dataController.createNewYearInReviewReport(year: 2023, slides: [slide2])
@@ -253,7 +253,7 @@ final class WMFYearInReviewDataControllerTests: XCTestCase {
         let yearInReviewDataController = try WMFYearInReviewDataController(coreDataStore: store, developerSettingsDataController: developerSettingsDataController)
         
         // Persist a valid YiR report
-        let slides = WMFYearInReviewSlide(year: 2024, id: .readCount, evaluated: true, display: true)
+        let slides = WMFYearInReviewSlide(year: 2024, id: .readCount)
         try await yearInReviewDataController.createNewYearInReviewReport(year: 2024, slides: [slides])
         
         guard let usCountryCode, let frCountryCode else {
@@ -293,7 +293,7 @@ final class WMFYearInReviewDataControllerTests: XCTestCase {
         let yearInReviewDataController = try WMFYearInReviewDataController(coreDataStore: store, developerSettingsDataController: developerSettingsDataController)
         
         // Persist a valid YiR report
-        let slides = WMFYearInReviewSlide(year: 2024, id: .readCount, evaluated: true, display: true)
+        let slides = WMFYearInReviewSlide(year: 2024, id: .readCount)
         try await yearInReviewDataController.createNewYearInReviewReport(year: 2024, slides: [slides])
         
         guard let frCountryCode else {
@@ -333,7 +333,7 @@ final class WMFYearInReviewDataControllerTests: XCTestCase {
         let yearInReviewDataController = try WMFYearInReviewDataController(coreDataStore: store, developerSettingsDataController: developerSettingsDataController)
         
         // Persist a valid YiR report
-        let slides = WMFYearInReviewSlide(year: 2024, id: .readCount, evaluated: true, display: true)
+        let slides = WMFYearInReviewSlide(year: 2024, id: .readCount)
         try await yearInReviewDataController.createNewYearInReviewReport(year: 2024, slides: [slides])
 
         guard let frCountryCode else {
@@ -369,7 +369,7 @@ final class WMFYearInReviewDataControllerTests: XCTestCase {
         let yearInReviewDataController = try WMFYearInReviewDataController(coreDataStore: store, developerSettingsDataController: developerSettingsDataController)
         
         // Persist a valid YiR report
-        let slides = WMFYearInReviewSlide(year: 2024, id: .readCount, evaluated: true, display: true)
+        let slides = WMFYearInReviewSlide(year: 2024, id: .readCount)
         try await yearInReviewDataController.createNewYearInReviewReport(year: 2024, slides: [slides])
 
         guard let frCountryCode else {
