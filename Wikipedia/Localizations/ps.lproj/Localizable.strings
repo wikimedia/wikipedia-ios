@@ -194,7 +194,6 @@
 "empty-no-search-results-message" = "کومې پايلې و نه موندل شوې";
 "explore-featured-article-heading" = "مخکښه ليکنه";
 "explore-main-page-heading" = "نن په ويکيپېډيا کې";
-// Fuzzy
 "explore-most-read-footer" = "ټولې ډېرې لوستل شوې ليکنې";
 "explore-most-read-generic-heading" = "ډېر لوستل شوي";
 "explore-nearby-heading" = "نژدې ځايونه";
@@ -246,10 +245,8 @@
 "search-title" = "پلټل";
 "settings-my-languages" = "زما ژبې";
 "settings-title" = "اوڼنې";
-// Fuzzy
-"share-article-name-on-wikipedia" = "\"$1\" په @Wikipedia کې:";
-// Fuzzy
-"share-on-twitter-sign-off" = "د @ويکيپېډيا له لارې";
+"share-article-name-on-wikipedia" = "\"$1\" په ويکيپېډيا کې:";
+"share-on-twitter-sign-off" = "د ويکيپېډيا له لارې";
 "table-of-contents-button-label" = "نيوليک";
 "table-of-contents-close-accessibility-hint" = "تړل";
 "table-of-contents-heading" = "منځپانگې";

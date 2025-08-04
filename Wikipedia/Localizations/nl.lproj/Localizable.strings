@@ -114,6 +114,7 @@
 "action-unsave" = "Opslaan ongedaan maken";
 "action-unsaved-accessibility-notification" = "Artikel niet meer opgeslagen";
 "action-update" = "Bijwerken";
+"activity-tab-title" = "Activiteit";
 "add-articles-to-reading-list" = "{{PLURAL:$1|$1 artikel|$1 artikelen}} aan leeslijst toevoegen";
 "advanced-settings-title" = "Geavanceerde instellingen";
 "alert-temporary-account" = "U gebruikt een tijdelijk account. Het account verloopt over 90 dagen.";
@@ -1239,11 +1240,13 @@
 "theme-default-explanation" = "Is gelijk aan het thema van het systeem";
 "theme-light-display-name" = "Licht";
 "theme-sepia-display-name" = "Sepia";
+"today-title" = "Vandaag";
 "top-read-widget-description" = "Ontdek wat de wereld tegenwoordig leest op Wikipedia.";
 "top-read-widget-readers-count" = "$1 lezers";
 "top-read-widget-title" = "Meest gelezen";
 "try-now-title" = "Probeer nu";
 "tutorial-title" = "Snelcursus";
+"two-factor-email-login-continue" = "Doorgaan met inloggen";
 "two-factor-login-continue" = "Doorgaan met aanmelden";
 "two-factor-login-instructions" = "Tweetrapsauthenticatiecode invullen";
 "two-factor-login-title" = "Aanmelden bij uw account";
@@ -1440,3 +1443,4 @@
 "year-in-review-survey-very-unsatisfied" = "Zeer ontevreden";
 "year-in-review-wikipedia-w-accessibility-label" = "W-logo van Wikipedia";
 "year-in-review-wmf-logo-accessibility-label" = "Logo van de Wikimedia Foundation";
+"yesterday-title" = "Gisteren";
