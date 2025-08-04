@@ -167,7 +167,8 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
     var coordinator: ArticleTabCoordinating?
     var previousArticleTab: WMFArticleTabsDataController.WMFArticle? = nil
     var nextArticleTab: WMFArticleTabsDataController.WMFArticle? = nil
-    
+    let tabDataController = WMFArticleTabsDataController.shared
+
     @objc init?(articleURL: URL, dataStore: MWKDataStore, theme: Theme, source: ArticleSource, schemeHandler: SchemeHandler? = nil, previousPageViewObjectID: NSManagedObjectID? = nil) {
 
         guard let article = dataStore.fetchOrCreateArticle(with: articleURL) else {
@@ -444,8 +445,29 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
         setup()
 
         setupForStateRestorationIfNecessary()
+        setupMoreDynamicTabsExperiment()
     }
-    
+
+    private func setupMoreDynamicTabsExperiment() {
+        guard tabDataController.shouldAssignToBucket() else {
+            return
+        }
+
+        do {
+            let assignment = try tabDataController.assignExperiment()
+            switch assignment {
+            case .control:
+                debugPrint("to do: logging/ CONTROL")
+            case .becauseYouRead:
+                debugPrint("to do: logging/ BECAUSE YOU READ")
+            case .didYouKnow:
+                debugPrint("to do: logging/ DID YOU KNOW")
+            }
+        } catch {
+            DDLogWarn("Failure assigning more dynamic tabs experiment: \(error)")
+        }
+    }
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         tableOfContentsController.setup(with: traitCollection)
@@ -627,8 +649,7 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
     func loadNextAndPreviousArticleTabs() {
         Task { [weak self] in
             guard let self else { return }
-            let tabDataController = WMFArticleTabsDataController.shared
-            
+
             if let tabIdentifier = self.coordinator?.tabIdentifier {
                 self.previousArticleTab = try? await tabDataController.getAdjacentArticleInTab(tabIdentifier: tabIdentifier, isPrev: true)
                 self.nextArticleTab = try? await tabDataController.getAdjacentArticleInTab(tabIdentifier: tabIdentifier, isPrev: false)

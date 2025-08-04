@@ -107,8 +107,7 @@ final class TabsOverviewCoordinator: Coordinator {
 
         navigationController.present(navVC, animated: true) { [weak self] in
             self?.dataController.updateSurveyDataTabsOverviewSeenCount()
-             guard let self else { return }
-             
+             guard self != nil else { return }
              showSurveyClosure()
          }
     }
@@ -142,7 +141,7 @@ final class TabsOverviewCoordinator: Coordinator {
     
     private func tappedAddTab() {
 
-        if dataController.needsMoreDynamicTabs {
+        if dataController.shouldShowMoreDynamicTabs {
             let isOnStack = self.navigationController.viewControllers.contains { $0 is WMFNewArticleTabViewController }
             // do not push a new tab if the user just came from a new tab
             if isOnStack {

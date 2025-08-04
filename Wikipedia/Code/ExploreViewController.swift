@@ -1090,7 +1090,6 @@ extension ExploreViewController {
     
     func presentArticleTabsAnnouncement() {
         guard isBeforeAssignmentEndDate,
-            WMFArticleTabsDataController.shared.needsMoreDynamicTabs,
               !WMFArticleTabsDataController.shared.hasSeenFeatureAnnouncement
         else { return }
         

@@ -23,6 +23,8 @@ enum WMFUserDefaultsKey: String {
     case articleTabsOverviewOpenedCount = "article-tabs-overview-opened-count"
     case articleTabsDidTapOpenInNewTab = "article-tabs-did-tap-open-in-new-tab"
     case articleTabsDidShowSurvey = "article-tabs-did-show-survey"
+    case developerSettingsMoreDynamicTabsBYR = "more-dynamic-tabs-BYR"
+    case developerSettingsMoreDynamicTabsDYK = "more-dynamic-tabs-DYK"
     case developerSettingsMoreDynamicTabs = "more-dynamic-tabs"
     case articleTabsDidShowFeatureAnnouncement = "article-tabs-did-show-feature-announcement"
 }
