@@ -673,3 +673,55 @@ final class YearInReviewLongestRabbitHoleSlideDataController: YearInReviewSlideD
         return config.isEnabled // && config.slideConfig.readCountIsEnabled
     }
 }
+
+// MARK: - Time Spent
+final class YearInReviewTimeSpentSlideDataController: YearInReviewSlideDataControllerProtocol {
+
+    let id = WMFYearInReviewPersonalizedSlideID.timeSpent.rawValue
+    let year: Int
+    var isEvaluated: Bool = false
+    static var containsPersonalizedNetworkData = false
+    
+    private var timeSpent: String?
+
+    private let yirConfig: YearInReviewFeatureConfig
+    
+    init(year: Int, yirConfig: YearInReviewFeatureConfig, dependencies: YearInReviewSlideDataControllerDependencies) {
+        self.year = year
+        self.yirConfig = yirConfig
+    }
+
+    func populateSlideData(in context: NSManagedObjectContext) async throws {
+        
+        guard let startDate = yirConfig.dataPopulationStartDate,
+              let endDate = yirConfig.dataPopulationEndDate else {
+            throw NSError(domain: "", code: 0, userInfo: nil)
+        }
+        
+        let timeSpent = try await WMFPageViewsDataController().fetchTotalTimeSpentReadingByPage(startDate: startDate, endDate: endDate)
+        
+        print(timeSpent)
+        
+        // todo: aggregate all seconds, sort by seconds and grab longest read
+        
+        
+        isEvaluated = true
+    }
+
+    func makeCDSlide(in context: NSManagedObjectContext) throws -> CDYearInReviewSlide {
+        let slide = CDYearInReviewSlide(context: context)
+        slide.id = id
+        slide.year = Int32(year)
+
+        if let timeSpent {
+            let encoder = JSONEncoder()
+            slide.data = try encoder.encode(timeSpent)
+        }
+
+        return slide
+    }
+
+    static func shouldPopulate(from config: YearInReviewFeatureConfig, userInfo: YearInReviewUserInfo) -> Bool {
+        return config.isEnabled // && config.slideConfig.readCountIsEnabled
+    }
+}

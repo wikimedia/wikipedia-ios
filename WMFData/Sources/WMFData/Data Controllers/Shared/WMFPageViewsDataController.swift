@@ -1,7 +1,7 @@
 import Foundation
 import CoreData
 
- public final class WMFPage {
+public final class WMFPage: Hashable, Equatable {
    public let namespaceID: Int
    public let projectID: String
    public let title: String
@@ -11,6 +11,18 @@ import CoreData
        self.projectID = projectID
        self.title = title
    }
+    
+    public static func == (lhs: WMFPage, rhs: WMFPage) -> Bool {
+        return lhs.namespaceID == rhs.namespaceID &&
+               lhs.projectID == rhs.projectID &&
+               lhs.title == rhs.title
+    }
+
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(namespaceID)
+        hasher.combine(projectID)
+        hasher.combine(title)
+    }
  }
 
 public final class WMFPageViewCount: Identifiable {
@@ -277,6 +289,63 @@ public final class WMFPageViewsDataController {
         return results
     }
     
+    public func fetchTotalTimeSpentReadingByPage(startDate: Date, endDate: Date) async throws -> [WMFPage: Int64] {
+        let context = try coreDataStore.newBackgroundContext
+
+        let result: [WMFPage: Int64] = try await context.perform {
+
+            let fetchRequest = NSFetchRequest<NSDictionary>(entityName: "CDPageView")
+
+            let predicate = NSPredicate(format: "timestamp >= %@ && timestamp <= %@", startDate as CVarArg, endDate as CVarArg)
+            fetchRequest.predicate = predicate
+
+            let sumExpression = NSExpressionDescription()
+            sumExpression.name = "totalSeconds"
+            sumExpression.expression = NSExpression(
+                forFunction: "sum:",
+                arguments: [NSExpression(forKeyPath: "numberOfSeconds")]
+            )
+            sumExpression.expressionResultType = .integer64AttributeType
+
+            fetchRequest.resultType = .dictionaryResultType
+            fetchRequest.propertiesToFetch = ["page", sumExpression]
+            fetchRequest.propertiesToGroupBy = ["page"]
+
+            let rawResults = try context.fetch(fetchRequest)
+
+            var totalsByObjectID: [NSManagedObjectID: Int64] = [:]
+
+            for dict in rawResults {
+                if let pageID = dict["page"] as? NSManagedObjectID,
+                   let totalSeconds = dict["totalSeconds"] as? Int64 {
+                    totalsByObjectID[pageID] = totalSeconds
+                }
+            }
+            
+            let pageIds = Array(totalsByObjectID.keys)
+            let pagePredicate = NSPredicate(format: "SELF IN %@", pageIds)
+            guard let cdPages = try self.coreDataStore.fetch(entityType: CDPage.self, predicate: pagePredicate, fetchLimit: nil, in: context) else {
+                return [:]
+            }
+            
+            var totalsByPage: [WMFPage: Int64] = [:]
+            
+            for page in cdPages {
+                
+                guard let title = page.title,
+                      let projectID = page.projectID else {
+                    continue
+                }
+                
+                totalsByPage[WMFPage(namespaceID: Int(page.namespaceID), projectID: projectID, title: title)] = totalsByObjectID[page.objectID]
+            }
+
+            return totalsByPage
+        }
+
+        return result
+    }
+ 
     public func fetchLinkedPageViews(startDate: Date, endDate: Date) async throws -> [[WMFPage]] {
         let context = try coreDataStore.newBackgroundContext
         
