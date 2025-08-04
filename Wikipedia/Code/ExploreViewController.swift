@@ -1076,9 +1076,22 @@ extension ExploreViewController {
         return true
     }
     
+    private var isBeforeAssignmentEndDate: Bool {
+            var dateComponents = DateComponents()
+            dateComponents.year = 2025
+            dateComponents.month = 12
+            dateComponents.day = 31
+            guard let endDate = Calendar.current.date(from: dateComponents) else {
+                return false
+            }
+
+            return endDate >= Date()
+        }
+    
     func presentArticleTabsAnnouncement() {
-        guard WMFArticleTabsDataController.shared.needsMoreDynamicTabs,
-              !WMFArticleTabsDataController.shared.hasPresentedTooltips
+        guard isBeforeAssignmentEndDate,
+            WMFArticleTabsDataController.shared.needsMoreDynamicTabs,
+              !WMFArticleTabsDataController.shared.hasSeenFeatureAnnouncement
         else { return }
         
         let title = CommonStrings.articleTabsFeatureAnnouncementTitle
