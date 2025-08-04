@@ -692,6 +692,13 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
                             print(locationName)
                         }
                     }
+                case .longestRabbitHole:
+                    if let data = slide.data {
+                        let decoder = JSONDecoder()
+                        if let locationName = try? decoder.decode(String.self, from: data) {
+                            print(locationName)
+                        }
+                    }
                 }
         }
         return PersonalizedSlides(readCount: readCountSlide, editCount: editCountSlide, donateCount: donateCountSlide, saveCount: saveCountSlide, mostReadDay: mostReadDaySlide, viewCount: viewCountSlide)

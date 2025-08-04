@@ -277,17 +277,22 @@ public final class WMFPageViewsDataController {
         return results
     }
     
-    public func fetchLinkedPageViews() async throws -> [[CDPageView]] {
-        let context = try coreDataStore.viewContext
+    public func fetchLinkedPageViews(startDate: Date, endDate: Date) async throws -> [[WMFPage]] {
+        let context = try coreDataStore.newBackgroundContext
         
-        let result: [[CDPageView]] = try await context.perform {
-            let fetchRequest: NSFetchRequest<CDPageView> = CDPageView.fetchRequest()
-            let allPageViews = try context.fetch(fetchRequest)
+        let result: [[WMFPage]] = try await context.perform {
+            
+            let predicate = NSPredicate(format: "timestamp >= %@ && timestamp <= %@", startDate as CVarArg, endDate as CVarArg)
+            
+            guard let allPageViews = try self.coreDataStore.fetch(entityType: CDPageView.self, predicate: predicate, fetchLimit: nil, in: context) else {
+                return []
+            }
 
             // Find roots: page views with no previousPageView
             let roots = allPageViews.filter { $0.previousPageView == nil }
 
-            var result: [[CDPageView]] = []
+            var cdResult: [[CDPageView]] = []
+            var wmfResult: [[WMFPage]] = []
 
             // Walk all possible branches
             func walk(current: CDPageView, path: [CDPageView]) {
@@ -297,7 +302,19 @@ public final class WMFPageViewsDataController {
                 if nextViews.isEmpty {
                     // Leaf node — end of a navigation path
                     let sortedPath = newPath.sorted(by: { $0.timestamp ?? .distantPast < $1.timestamp ?? .distantPast })
-                    result.append(sortedPath)
+                    cdResult.append(sortedPath)
+                    
+                    let pages: [WMFPage] = sortedPath.compactMap { cdPageView in
+                        guard let cdPage = cdPageView.page,
+                              let projectID = cdPage.projectID,
+                              let title = cdPage.title else {
+                            return nil
+                        }
+
+                        return WMFPage(namespaceID: Int(cdPage.namespaceID), projectID: projectID, title: title)
+                    }
+                    
+                    wmfResult.append(pages)
                 } else {
                     for next in nextViews {
                         walk(current: next, path: newPath)
@@ -309,7 +326,7 @@ public final class WMFPageViewsDataController {
                 walk(current: root, path: [])
             }
 
-            return result
+            return wmfResult
         }
         
         return result

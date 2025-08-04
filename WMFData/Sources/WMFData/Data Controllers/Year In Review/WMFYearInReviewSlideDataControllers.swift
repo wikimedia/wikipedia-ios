@@ -514,6 +514,8 @@ final class YearInReviewMostReadCategorySlideDataController: YearInReviewSlideDa
 // MARK: Most Read Article
 
 final class YearInReviewMostReadArticleSlideDataController: YearInReviewSlideDataControllerProtocol {
+    let id = WMFYearInReviewPersonalizedSlideID.mostReadArticle.rawValue
+    
     var year: Int
     
     var isEvaluated: Bool = false
@@ -561,11 +563,9 @@ final class YearInReviewMostReadArticleSlideDataController: YearInReviewSlideDat
     static func shouldPopulate(from config: YearInReviewFeatureConfig, userInfo: YearInReviewUserInfo) -> Bool {
         config.isEnabled // && config.slideConfig.donateCountIsEnabled
     }
-    
-    let id = WMFYearInReviewPersonalizedSlideID.mostReadCategory.rawValue
 }
 
-// MARK: - Read Count Slide
+// MARK: - Read Location Slide
 final class YearInReviewReadLocationSlideDataController: YearInReviewSlideDataControllerProtocol {
 
     let id = WMFYearInReviewPersonalizedSlideID.locationRead.rawValue
@@ -593,10 +593,65 @@ final class YearInReviewReadLocationSlideDataController: YearInReviewSlideDataCo
         }
         
         for pageView in pageViews {
-            print("title: \(pageView.title), lat: \(pageView.latitude), long: \(pageView.longitude)")
+            // print("title: \(pageView.title), lat: \(pageView.latitude), long: \(pageView.longitude)")
         }
         
         // todo: how to cluster by area and get a region name?
+        
+        isEvaluated = true
+    }
+
+    func makeCDSlide(in context: NSManagedObjectContext) throws -> CDYearInReviewSlide {
+        let slide = CDYearInReviewSlide(context: context)
+        slide.id = id
+        slide.year = Int32(year)
+
+        if let locationRead {
+            let encoder = JSONEncoder()
+            slide.data = try encoder.encode(locationRead)
+        }
+
+        return slide
+    }
+
+    static func shouldPopulate(from config: YearInReviewFeatureConfig, userInfo: YearInReviewUserInfo) -> Bool {
+        return config.isEnabled // && config.slideConfig.readCountIsEnabled
+    }
+}
+
+// MARK: - Rabbit Hole
+final class YearInReviewLongestRabbitHoleSlideDataController: YearInReviewSlideDataControllerProtocol {
+
+    let id = WMFYearInReviewPersonalizedSlideID.longestRabbitHole.rawValue
+    let year: Int
+    var isEvaluated: Bool = false
+    static var containsPersonalizedNetworkData = false
+    
+    private var locationRead: String?
+
+    private let yirConfig: YearInReviewFeatureConfig
+    
+    init(year: Int, yirConfig: YearInReviewFeatureConfig, dependencies: YearInReviewSlideDataControllerDependencies) {
+        self.year = year
+        self.yirConfig = yirConfig
+    }
+
+    func populateSlideData(in context: NSManagedObjectContext) async throws {
+        
+        guard let startDate = yirConfig.dataPopulationStartDate,
+              let endDate = yirConfig.dataPopulationEndDate else {
+            throw NSError(domain: "", code: 0, userInfo: nil)
+        }
+        
+        let rabbitHole = try await WMFPageViewsDataController().fetchLinkedPageViews(startDate: startDate, endDate: endDate)
+        
+        let orderedRabbitHole = rabbitHole.sorted { rabbitHole1, rabbitHole2 in
+            rabbitHole1.count > rabbitHole2.count
+        }
+        
+        let longestRabbitHole = orderedRabbitHole.first
+
+        print(longestRabbitHole)
         
         isEvaluated = true
     }
