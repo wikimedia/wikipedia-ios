@@ -21,7 +21,7 @@ final class WMFMockDeveloperSettingsDataController: WMFDeveloperSettingsDataCont
         return false
     }
 
-    var enableMoreDynamicTabsBYR: Bool{
+    var enableMoreDynamicTabsBYR: Bool {
         return true
     }
 
