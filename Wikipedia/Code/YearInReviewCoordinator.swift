@@ -678,6 +678,13 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
                             print(categoryName)
                         }
                     }
+                case .mostReadArticle:
+                    if let data = slide.data {
+                        let decoder = JSONDecoder()
+                        if let articleName = try? decoder.decode(String.self, from: data) {
+                            print(articleName)
+                        }
+                    }
                 }
         }
         return PersonalizedSlides(readCount: readCountSlide, editCount: editCountSlide, donateCount: donateCountSlide, saveCount: saveCountSlide, mostReadDay: mostReadDaySlide, viewCount: viewCountSlide)

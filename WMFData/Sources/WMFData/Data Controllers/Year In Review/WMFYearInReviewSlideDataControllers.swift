@@ -493,7 +493,7 @@ final class YearInReviewMostReadCategorySlideDataController: YearInReviewSlideDa
             .sorted { $0.value > $1.value } // sort by count descending
             .prefix(10)
         
-        //print(top10)
+        // print(top10)
     
         isEvaluated = true
     }
@@ -509,4 +509,58 @@ final class YearInReviewMostReadCategorySlideDataController: YearInReviewSlideDa
     static func shouldPopulate(from config: YearInReviewFeatureConfig, userInfo: YearInReviewUserInfo) -> Bool {
         config.isEnabled // && config.slideConfig.donateCountIsEnabled
     }
+}
+
+// MARK: Most Read Article
+
+final class YearInReviewMostReadArticleSlideDataController: YearInReviewSlideDataControllerProtocol {
+    var year: Int
+    
+    var isEvaluated: Bool = false
+    
+    static var containsPersonalizedNetworkData: Bool = false
+    
+    private let yirConfig: YearInReviewFeatureConfig
+    
+    private var mostReadArticle: String?
+    
+    init(year: Int, yirConfig: YearInReviewFeatureConfig, dependencies: YearInReviewSlideDataControllerDependencies) {
+        self.year = year
+        self.yirConfig = yirConfig
+    }
+    
+    func populateSlideData(in context: NSManagedObjectContext) async throws {
+        guard let startDate = yirConfig.dataPopulationStartDate,
+              let endDate = yirConfig.dataPopulationEndDate else {
+            return
+        }
+        
+        let pageViewCounts = try await WMFPageViewsDataController().fetchPageViewCounts(startDate: startDate, endDate: endDate)
+        let mostRead = pageViewCounts.max(by: { $0.count < $1.count })
+        
+        let top10 = pageViewCounts.sorted(by: {$0.count > $1.count}).prefix(10)
+        
+        for count in top10 {
+            //print("title: \(count.page.title)...count: \(count.count)")
+        }
+        
+        //print("most read title: \(mostRead?.page.title)")
+        //print("most read count \(mostRead?.count)")
+        
+        self.mostReadArticle = mostRead?.page.title
+    }
+    
+    func makeCDSlide(in context: NSManagedObjectContext) throws -> CDYearInReviewSlide {
+        let slide = CDYearInReviewSlide(context: context)
+        slide.id = id
+        slide.year = Int32(year)
+        slide.data = try mostReadArticle.map { try JSONEncoder().encode($0) }
+        return slide
+    }
+    
+    static func shouldPopulate(from config: YearInReviewFeatureConfig, userInfo: YearInReviewUserInfo) -> Bool {
+        config.isEnabled // && config.slideConfig.donateCountIsEnabled
+    }
+    
+    let id = WMFYearInReviewPersonalizedSlideID.mostReadCategory.rawValue
 }
