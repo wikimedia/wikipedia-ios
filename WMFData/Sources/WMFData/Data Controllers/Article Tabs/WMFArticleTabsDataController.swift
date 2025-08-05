@@ -14,7 +14,7 @@ public protocol WMFArticleTabsDataControlling {
     func fetchAllArticleTabs() async throws -> [WMFArticleTabsDataController.WMFArticleTab]
 }
 
-public class WMFArticleTabsDataController: WMFArticleTabsDataControlling {
+@objc public class WMFArticleTabsDataController: NSObject, WMFArticleTabsDataControlling {
 
     // MARK: - Nested Public Types
     
@@ -104,6 +104,7 @@ public class WMFArticleTabsDataController: WMFArticleTabsDataControlling {
 
     // MARK: - Properties
     
+    @objc(sharedInstance)
     public static let shared = WMFArticleTabsDataController()
     
     private let userDefaultsStore = WMFDataEnvironment.current.userDefaultsStore
@@ -135,7 +136,7 @@ public class WMFArticleTabsDataController: WMFArticleTabsDataControlling {
     
     // MARK: - Lifecycle
     
-    init(coreDataStore: WMFCoreDataStore? = WMFDataEnvironment.current.coreDataStore,
+    public init(coreDataStore: WMFCoreDataStore? = WMFDataEnvironment.current.coreDataStore,
          developerSettingsDataController: WMFDeveloperSettingsDataControlling = WMFDeveloperSettingsDataController.shared,
          experimentStore: WMFKeyValueStore? = WMFDataEnvironment.current.sharedCacheStore) {
         self._coreDataStore = coreDataStore
@@ -175,6 +176,12 @@ public class WMFArticleTabsDataController: WMFArticleTabsDataControlling {
         }
     }
 
+    @objc public var needsMoreDynamicTabs: Bool {
+        return developerSettingsDataController.enableMoreDynamicTabsBYR || developerSettingsDataController.enableMoreDynamicTabsDYK
+    }
+
+    // MARK: Experiment
+    
     private var primaryAppLanguageProject: WMFProject? {
         if let language = WMFDataEnvironment.current.appData.appLanguages.first {
             return WMFProject.wikipedia(language)

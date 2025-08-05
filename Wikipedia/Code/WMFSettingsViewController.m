@@ -478,10 +478,8 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 // TODO GREY
 
 - (void)showTabsPreferences {
-    WMFExploreFeedSettingsViewController *feedSettingsVC = [[WMFExploreFeedSettingsViewController alloc] init];
-    feedSettingsVC.dataStore = self.dataStore;
-    [feedSettingsVC applyTheme:self.theme];
-    [self.navigationController pushViewController:feedSettingsVC animated:YES];
+    WMFNewArticleTabsSettingsViewController *tabsSettingsVC = [[WMFNewArticleTabsSettingsViewController alloc] initWithDataStore:self.dataStore theme:self.theme];
+    [self.navigationController pushViewController:tabsSettingsVC animated:YES];
 }
 
 #pragma mark - Feed
@@ -603,9 +601,11 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
     NSArray *commonItems = @[[WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_SearchLanguage],
                              [WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_Search]];
     NSMutableArray *items = [NSMutableArray arrayWithArray:commonItems];
-    [items addObject:[WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_ExploreFeed]];
     
-    // Grey here
+    if ([WMFArticleTabsDataController sharedInstance].needsMoreDynamicTabs) {
+        [items addObject:[WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_Tabs]];
+    }
+    [items addObject:[WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_ExploreFeed]];
     
     if ([[WMFYearInReviewDataController dataControllerForObjectiveC] shouldShowYearInReviewSettingsItemWithCountryCode:NSLocale.currentLocale.countryCode primaryAppLanguageCode:self.dataStore.languageLinkController.appLanguage.languageCode]) {
 #if DEBUG

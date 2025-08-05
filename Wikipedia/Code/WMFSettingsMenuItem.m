@@ -71,7 +71,7 @@
         case WMFSettingsMenuItemType_Tabs: {
             return
                 [[WMFSettingsMenuItem alloc] initWithType:type
-                                                    title:[WMFCommonStrings tabsPreferencesTitle]
+                                                    title:[WMFCommonStrings tabsTitle]
                                                  iconName:@"settings-search"
                                                 iconColor:[UIColor wmf_blue_300]
                                            disclosureType:WMFSettingsMenuItemDisclosureType_ViewController
