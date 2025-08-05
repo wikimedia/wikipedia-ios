@@ -457,11 +457,11 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
             let assignment = try tabDataController.assignExperiment()
             switch assignment {
             case .control:
-                debugPrint("to do: logging/ CONTROL")
+                ArticleTabsFunnel.shared.logGroupAssignment(group: "dynamic_a")
             case .becauseYouRead:
-                debugPrint("to do: logging/ BECAUSE YOU READ")
+                ArticleTabsFunnel.shared.logGroupAssignment(group: "dynamic_b")
             case .didYouKnow:
-                debugPrint("to do: logging/ DID YOU KNOW")
+                ArticleTabsFunnel.shared.logGroupAssignment(group: "dynamic_c")
             }
         } catch {
             DDLogWarn("Failure assigning more dynamic tabs experiment: \(error)")
