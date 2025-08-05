@@ -700,10 +700,21 @@ final class YearInReviewTimeSpentSlideDataController: YearInReviewSlideDataContr
         
         let timeSpent = try await WMFPageViewsDataController().fetchTotalTimeSpentReadingByPage(startDate: startDate, endDate: endDate)
         
-        print(timeSpent)
         
-        // todo: aggregate all seconds, sort by seconds and grab longest read
+        var totalSeconds = Int64(0)
+        for page in timeSpent {
+            totalSeconds += page.numberOfSeconds
+        }
         
+        let sortedTimeSpent = timeSpent.sorted { first, second in
+            first.numberOfSeconds > second.numberOfSeconds
+        }
+        
+        guard let topTimeSpent = sortedTimeSpent.first else {
+            return
+        }
+        
+        print("title: \(topTimeSpent.page.title), numberOfSeconds: \(topTimeSpent.numberOfSeconds)")
         
         isEvaluated = true
     }

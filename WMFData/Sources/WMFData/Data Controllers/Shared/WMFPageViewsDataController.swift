@@ -58,6 +58,16 @@ public final class WMFPageViewDay: Decodable, Encodable {
     }
 }
 
+final class WMFPageViewTime {
+    let page: WMFPage
+    let numberOfSeconds: Int64
+    
+    init(page: WMFPage, numberOfSeconds: Int64) {
+        self.page = page
+        self.numberOfSeconds = numberOfSeconds
+    }
+}
+
 public final class WMFLegacyPageView {
     let title: String
     let project: WMFProject
@@ -289,10 +299,10 @@ public final class WMFPageViewsDataController {
         return results
     }
     
-    public func fetchTotalTimeSpentReadingByPage(startDate: Date, endDate: Date) async throws -> [WMFPage: Int64] {
+    func fetchTotalTimeSpentReadingByPage(startDate: Date, endDate: Date) async throws -> [WMFPageViewTime] {
         let context = try coreDataStore.newBackgroundContext
 
-        let result: [WMFPage: Int64] = try await context.perform {
+        let result: [WMFPageViewTime] = try await context.perform {
 
             let fetchRequest = NSFetchRequest<NSDictionary>(entityName: "CDPageView")
 
@@ -325,10 +335,10 @@ public final class WMFPageViewsDataController {
             let pageIds = Array(totalsByObjectID.keys)
             let pagePredicate = NSPredicate(format: "SELF IN %@", pageIds)
             guard let cdPages = try self.coreDataStore.fetch(entityType: CDPage.self, predicate: pagePredicate, fetchLimit: nil, in: context) else {
-                return [:]
+                return []
             }
             
-            var totalsByPage: [WMFPage: Int64] = [:]
+            var result: [WMFPageViewTime] = []
             
             for page in cdPages {
                 
@@ -337,10 +347,12 @@ public final class WMFPageViewsDataController {
                     continue
                 }
                 
-                totalsByPage[WMFPage(namespaceID: Int(page.namespaceID), projectID: projectID, title: title)] = totalsByObjectID[page.objectID]
+                let wmfPage = WMFPage(namespaceID: Int(page.namespaceID), projectID: projectID, title: title)
+                
+                result.append(WMFPageViewTime(page: wmfPage, numberOfSeconds: totalsByObjectID[page.objectID] ?? 0))
             }
 
-            return totalsByPage
+            return result
         }
 
         return result
