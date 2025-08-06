@@ -137,8 +137,8 @@ public protocol WMFArticleTabsDataControlling {
     // MARK: - Lifecycle
     
     public init(coreDataStore: WMFCoreDataStore? = WMFDataEnvironment.current.coreDataStore,
-         developerSettingsDataController: WMFDeveloperSettingsDataControlling = WMFDeveloperSettingsDataController.shared,
-         experimentStore: WMFKeyValueStore? = WMFDataEnvironment.current.sharedCacheStore) {
+                developerSettingsDataController: WMFDeveloperSettingsDataControlling = WMFDeveloperSettingsDataController.shared,
+                experimentStore: WMFKeyValueStore? = WMFDataEnvironment.current.sharedCacheStore) {
         self._coreDataStore = coreDataStore
         self.developerSettingsDataController = developerSettingsDataController
         if let experimentStore {
@@ -177,7 +177,7 @@ public protocol WMFArticleTabsDataControlling {
     }
 
     @objc public var needsMoreDynamicTabs: Bool {
-        return developerSettingsDataController.enableMoreDynamicTabsBYR || developerSettingsDataController.enableMoreDynamicTabsDYK
+        return shouldShowMoreDynamicTabs
     }
 
     // MARK: Experiment
@@ -393,6 +393,22 @@ public protocol WMFArticleTabsDataControlling {
             try coreDataStore.saveIfNeeded(moc: moc)
         }
     }
+    
+   public var moreDynamicTabsBYRIsEnabled: Bool {
+        get {
+            return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsMoreDynamicTabsBYR.rawValue)) ?? true
+        } set {
+            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsMoreDynamicTabsBYR.rawValue, value: newValue)
+        }
+    }
+    
+    public var moreDynamicTabsDYKIsEnabled: Bool {
+         get {
+             return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsMoreDynamicTabsDYK.rawValue)) ?? true
+         } set {
+             try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsMoreDynamicTabsDYK.rawValue, value: newValue)
+         }
+     }
     
     public func appendArticle(_ article: WMFArticle, toTabIdentifier tabIdentifier: UUID, needsCleanoutOfFutureArticles: Bool = false) async throws -> Identifiers {
         

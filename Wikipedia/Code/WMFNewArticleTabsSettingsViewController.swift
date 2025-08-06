@@ -18,8 +18,8 @@ final class WMFNewArticleTabsSettingsViewController: SubSettingsViewController, 
         let headerText: String
         let items: [NewArticleTabsSettingsSwitchItem]
     }
-
-    fileprivate struct NewArticleTabsSettingsSwitchItem: NewArticleTabsSettingsItem {
+    
+    fileprivate class NewArticleTabsSettingsSwitchItem {
         let title: String
         let iconName: String
         let iconColor: UIColor
@@ -27,8 +27,27 @@ final class WMFNewArticleTabsSettingsViewController: SubSettingsViewController, 
         let tag: Int
         let valueChecker: () -> Bool
         let action: (Bool) -> Void
+
+        private(set) var isOn: Bool
+
+        init(title: String, iconName: String, iconColor: UIColor, iconBackgroundColor: UIColor, tag: Int, valueChecker: @escaping () -> Bool, action: @escaping (Bool) -> Void) {
+            self.title = title
+            self.iconName = iconName
+            self.iconColor = iconColor
+            self.iconBackgroundColor = iconBackgroundColor
+            self.tag = tag
+            self.valueChecker = valueChecker
+            self.action = action
+            self.isOn = valueChecker()
+        }
+
+        func setIsOn(_ newValue: Bool) {
+            guard newValue != isOn else { return }
+            isOn = newValue
+            action(newValue)
+        }
     }
-    
+
     // MARK: - Properties
 
     private let dataStore: MWKDataStore
@@ -80,42 +99,58 @@ final class WMFNewArticleTabsSettingsViewController: SubSettingsViewController, 
     }
     
     private func updateSections() {
-        let recommendationsItem = NewArticleTabsSettingsSwitchItem(
+        var recommendationsItem: NewArticleTabsSettingsSwitchItem!
+        var didYouKnowItem: NewArticleTabsSettingsSwitchItem!
+
+        recommendationsItem = NewArticleTabsSettingsSwitchItem(
             title: WMFLocalizedString("new-article-tab-settings-recommendations", value: "Recommendations", comment: "Toggle for article recommendations / because you read"),
             iconName: "settings-star",
-            iconColor: UIColor.white,
-            iconBackgroundColor: UIColor.systemPurple,
+            iconColor: .white,
+            iconBackgroundColor: .systemPurple,
             tag: 0,
             valueChecker: { [weak self] in
                 return (try? self?.userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsMoreDynamicTabsBYR.rawValue)) ?? false
             },
             action: { [weak self] isOn in
-                guard let self = self, let store = self.userDefaultsStore else { return }
+                guard let self = self else { return }
 
-                let currentValue = (try? store.load(key: WMFUserDefaultsKey.developerSettingsMoreDynamicTabsBYR.rawValue)) ?? false
-                if currentValue != isOn {
-                    try? store.save(key: WMFUserDefaultsKey.developerSettingsMoreDynamicTabsBYR.rawValue, value: isOn)
-                }
-                
+                self.dataController.moreDynamicTabsBYRIsEnabled = isOn
+                self.dataController.moreDynamicTabsDYKIsEnabled = !isOn
+
+                try? self.userDefaultsStore?.save(
+                    key: WMFUserDefaultsKey.developerSettingsMoreDynamicTabsBYR.rawValue,
+                    value: isOn
+                )
+                try? self.userDefaultsStore?.save(
+                    key: WMFUserDefaultsKey.developerSettingsMoreDynamicTabsDYK.rawValue,
+                    value: !isOn
+                )
             }
         )
 
-        let didYouKnowItem = NewArticleTabsSettingsSwitchItem(
+        didYouKnowItem = NewArticleTabsSettingsSwitchItem(
             title: WMFLocalizedString("new-article-tab-settings-did-you-know", value: "Did you know", comment: "Toggle for did you know"),
             iconName: "settings-lightbulb",
-            iconColor: UIColor.white,
-            iconBackgroundColor: UIColor.systemOrange,
+            iconColor: .white,
+            iconBackgroundColor: .systemOrange,
             tag: 1,
             valueChecker: { [weak self] in
                 return (try? self?.userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsMoreDynamicTabsDYK.rawValue)) ?? false
             },
             action: { [weak self] isOn in
-                guard let self = self, let store = self.userDefaultsStore else { return }
+                guard let self = self else { return }
 
-                let currentValue = (try? store.load(key: WMFUserDefaultsKey.developerSettingsMoreDynamicTabsDYK.rawValue)) ?? false
-                if currentValue != isOn {
-                    try? store.save(key: WMFUserDefaultsKey.developerSettingsMoreDynamicTabsDYK.rawValue, value: isOn)
-                }
+                self.dataController.moreDynamicTabsBYRIsEnabled = !isOn
+                self.dataController.moreDynamicTabsDYKIsEnabled = isOn
+
+                try? self.userDefaultsStore?.save(
+                    key: WMFUserDefaultsKey.developerSettingsMoreDynamicTabsDYK.rawValue,
+                    value: isOn
+                )
+                try? self.userDefaultsStore?.save(
+                    key: WMFUserDefaultsKey.developerSettingsMoreDynamicTabsBYR.rawValue,
+                    value: !isOn
+                )
             }
         )
 
@@ -154,10 +189,8 @@ final class WMFNewArticleTabsSettingsViewController: SubSettingsViewController, 
             themeableCell.apply(theme: theme)
         }
 
-        cell.disclosureType = .switch
-        cell.disclosureSwitch.tag = item.tag
-        cell.disclosureSwitch.isOn = item.valueChecker()
-        cell.disclosureSwitch.addTarget(self, action: #selector(userDidTapSwitch(_:)), for: .valueChanged)
+        cell.disclosureType = .none
+        cell.accessoryType = item.isOn ? .checkmark : .none
 
         return cell
     }
@@ -174,38 +207,31 @@ final class WMFNewArticleTabsSettingsViewController: SubSettingsViewController, 
         header.text = sections[section].headerText
         return header
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let selectedItem = sections[indexPath.section].items[indexPath.row]
+
+        guard !selectedItem.isOn else { return }
+
+        for section in sections {
+            for item in section.items {
+                if item !== selectedItem {
+                    item.setIsOn(false)
+                }
+            }
+        }
+
+        selectedItem.setIsOn(true)
+
+        tableView.reloadData()
+    }
 
     func tableView(_ tableView: UITableView, shouldHighlightRowAt indexPath: IndexPath) -> Bool {
-        return false
+        return true
     }
 
     // MARK: - UI Actions
 
-    @objc func userDidTapSwitch(_ sender: UISwitch) {
-        let items = sections.flatMap { $0.items }
-
-        guard let toggledItem = items.first(where: { $0.tag == sender.tag }) else {
-            return
-        }
-
-        toggledItem.action(sender.isOn)
-
-        if sender.isOn {
-            for item in items where item.tag != sender.tag {
-                guard let currentValue: Bool = (try? userDefaultsStore?.load(key: tagToKey(item.tag))) ?? false, currentValue == true else {
-                    continue
-                }
-
-                try? userDefaultsStore?.save(key: tagToKey(item.tag), value: false)
-
-                if let indexPath = indexPath(forTag: item.tag),
-                   let cell = tableView.cellForRow(at: indexPath) as? WMFSettingsTableViewCell {
-                    cell.disclosureSwitch.setOn(false, animated: true)
-                }
-            }
-        }
-    }
-    
     private func tagToKey(_ tag: Int) -> String {
         switch tag {
         case 0:
