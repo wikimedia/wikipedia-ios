@@ -10,6 +10,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     public var shouldRestoreScrollPosition = false
 
     @objc public weak var notificationsCenterPresentationDelegate: NotificationsCenterPresentationDelegate?
+    private let userDefaultsStore = WMFDataEnvironment.current.userDefaultsStore
 
     private weak var imageRecommendationsViewModel: WMFImageRecommendationsViewModel?
 
@@ -1140,8 +1141,9 @@ extension ExploreViewController {
         present(onboardingController, animated: true, completion: {
             UIAccessibility.post(notification: .layoutChanged, argument: nil)
         })
-
-        WMFArticleTabsDataController.shared.hasSeenFeatureAnnouncement = true
+        
+        let dataController = WMFArticleTabsDataController.shared
+        dataController.hasSeenFeatureAnnouncement = true
     }
     
     private func displayURLWebView(url: URL) {

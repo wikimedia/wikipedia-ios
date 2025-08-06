@@ -4,7 +4,6 @@ enum WMFUserDefaultsKey: String {
     case developerSettingsDoNotPostImageRecommendationsEdit = "dev-settings-do-not-post-image-rec-edit"
     case developerSettingsSendAnalyticsToWMFLabs = "dev-settings-send-analytics-to-wmflabs"
     case developerSettingsArticleTab = "dev-settings-article-tab"
-    case developerSettingsArticleTabV2 = "dev-settings-article-tab-v2"
     case developerSettingsForceMaxArticleTabsTo5 = "dev-settings-article-tab-max-5"
     case hasLocallySavedDonations = "donate-history-has-locally-saved-donations"
     case yearInReviewSettingsIsEnabled = "year-in-review-settings-is-enabled"
@@ -26,5 +25,4 @@ enum WMFUserDefaultsKey: String {
     case developerSettingsMoreDynamicTabsBYR = "more-dynamic-tabs-BYR"
     case developerSettingsMoreDynamicTabsDYK = "more-dynamic-tabs-DYK"
     case developerSettingsMoreDynamicTabs = "more-dynamic-tabs"
-    case articleTabsDidShowFeatureAnnouncement = "article-tabs-did-show-feature-announcement"
 }

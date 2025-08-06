@@ -273,7 +273,9 @@ public class WMFArticleTabsDataController: WMFArticleTabsDataControlling {
     // MARK: Onboarding
 
     internal var onboardingStatus: OnboardingStatus {
-        return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.articleTabsOnboarding.rawValue)) ?? OnboardingStatus.default
+        get {
+            return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.articleTabsOnboarding.rawValue)) ?? OnboardingStatus.default
+        }
     }
 
     public var hasPresentedTooltips: Bool {
@@ -293,7 +295,7 @@ public class WMFArticleTabsDataController: WMFArticleTabsDataControlling {
         set {
             var currentStatus = onboardingStatus
             currentStatus.hasPresentedOnboardingTabs = newValue
-            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.articleTabsDidShowFeatureAnnouncement.rawValue, value: currentStatus)
+            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.articleTabsOnboarding.rawValue, value: currentStatus)
         }
     }
     
