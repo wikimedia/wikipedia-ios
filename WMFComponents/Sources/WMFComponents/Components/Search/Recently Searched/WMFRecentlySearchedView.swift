@@ -18,86 +18,103 @@ public struct WMFRecentlySearchedView: View {
     }
 
     public var body: some View {
-        ScrollView {
-            LazyVStack(spacing: 0) {
-                if viewModel.recentSearchTerms.isEmpty {
-                    VStack(alignment: .leading, spacing: 16) {
-                        Text(viewModel.localizedStrings.title)
-                            .font(Font(WMFFont.for(.semiboldSubheadline)))
-                            .foregroundStyle(Color(uiColor: theme.secondaryText))
-                        Text(viewModel.localizedStrings.noSearches)
-                            .font(Font(WMFFont.for(.callout)))
-                            .foregroundStyle(Color(uiColor: theme.secondaryText))
-                            .multilineTextAlignment(.leading)
-                    }
-                    .padding(16)
-                    .frame(maxWidth: .infinity, alignment: .leading)
-
-                } else {
-                    HStack {
-                        Text(viewModel.localizedStrings.title)
-                            .font(Font(WMFFont.for(.semiboldSubheadline)))
-                            .foregroundStyle(Color(uiColor: theme.secondaryText))
-                        Spacer()
-                        Button(viewModel.localizedStrings.clearAll) {
-                            viewModel.deleteAllAction()
+        ZStack {
+            ScrollView {
+                LazyVStack(spacing: 0) {
+                    if viewModel.recentSearchTerms.isEmpty {
+                        VStack(alignment: .leading, spacing: 16) {
+                            Text(viewModel.localizedStrings.title)
+                                .font(Font(WMFFont.for(.semiboldSubheadline)))
+                                .foregroundStyle(Color(uiColor: theme.secondaryText))
+                            Text(viewModel.localizedStrings.noSearches)
+                                .font(Font(WMFFont.for(.callout)))
+                                .foregroundStyle(Color(uiColor: theme.secondaryText))
+                                .multilineTextAlignment(.leading)
                         }
-                        .font(Font(WMFFont.for(.subheadline)))
-                        .foregroundStyle(Color(uiColor: theme.link))
-                    }
-                    .padding(.horizontal)
-                    .padding(.top)
-                }
-                List {
-                    ForEach(Array(viewModel.displayedSearchTerms.enumerated()), id: \.element.id) { index, item in
+                        .padding(16)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        
+                    } else {
                         HStack {
-                            Text(item.text)
-                                .font(Font(WMFFont.for(.body)))
-                                .foregroundStyle(Color(uiColor: theme.text))
+                            Text(viewModel.localizedStrings.title)
+                                .font(Font(WMFFont.for(.semiboldSubheadline)))
+                                .foregroundStyle(Color(uiColor: theme.secondaryText))
                             Spacer()
-                        }
-                        .padding(.vertical, 4)
-                        .background(Color(theme.paperBackground))
-                        .contentShape(Rectangle())
-                        .onTapGesture {
-                            viewModel.selectAction(item)
-                        }
-                        .swipeActions {
-                            Button {
-                                viewModel.deleteItemAction(index)
-                            } label: {
-                                Image(uiImage: WMFSFSymbolIcon.for(symbol: .trash) ?? UIImage())
-                                    .accessibilityLabel(viewModel.localizedStrings.deleteActionAccessibilityLabel)
+                            Button(viewModel.localizedStrings.clearAll) {
+                                viewModel.deleteAllAction()
                             }
-                            .tint(Color(theme.destructive))
-                            .labelStyle(.iconOnly)
+                            .font(Font(WMFFont.for(.subheadline)))
+                            .foregroundStyle(Color(uiColor: theme.link))
                         }
-                        .listRowBackground(Color(theme.paperBackground))
+                        .padding(.horizontal)
+                        .padding(.top)
                     }
-                }
-                .listStyle(.plain)
-                .scrollDisabled(true)
-                .frame(height: estimatedListHeight)
-                if viewModel.needsAttachedView {
-                    let assignment = try? viewModel.tabsDataController.getMoreDynamicTabsExperimentAssignment()
-                    if viewModel.devSettingsDataControler.enableMoreDynamicTabsBYR ||
-                       (!viewModel.devSettingsDataControler.enableMoreDynamicTabsDYK && assignment == .becauseYouRead),
-                       let becauseVM = viewModel.becauseYouReadViewModel {
-                        WMFBecauseYouReadView(viewModel: becauseVM)
-                    } else if viewModel.devSettingsDataControler.enableMoreDynamicTabsBYR || (viewModel.devSettingsDataControler.enableMoreDynamicTabsDYK || assignment == .didYouKnow) {
-                        Text("Did you know")
+                    List {
+                        ForEach(Array(viewModel.displayedSearchTerms.enumerated()), id: \.element.id) { index, item in
+                            HStack {
+                                Text(item.text)
+                                    .font(Font(WMFFont.for(.body)))
+                                    .foregroundStyle(Color(uiColor: theme.text))
+                                Spacer()
+                            }
+                            .padding(.vertical, 4)
+                            .background(Color(theme.paperBackground))
+                            .contentShape(Rectangle())
+                            .onTapGesture {
+                                viewModel.selectAction(item)
+                            }
+                            .swipeActions {
+                                Button {
+                                    viewModel.deleteItemAction(index)
+                                } label: {
+                                    Image(uiImage: WMFSFSymbolIcon.for(symbol: .trash) ?? UIImage())
+                                        .accessibilityLabel(viewModel.localizedStrings.deleteActionAccessibilityLabel)
+                                }
+                                .tint(Color(theme.destructive))
+                                .labelStyle(.iconOnly)
+                            }
+                            .listRowBackground(Color(theme.paperBackground))
+                        }
+                    }
+                    .listStyle(.plain)
+                    .scrollDisabled(true)
+                    .frame(height: estimatedListHeight)
+                    if viewModel.needsAttachedView {
+                        let enableBYR = viewModel.devSettingsDataControler.enableMoreDynamicTabsBYR
+                        let enableDYK = viewModel.devSettingsDataControler.enableMoreDynamicTabsDYK
+                        let assignment = try? viewModel.tabsDataController.getMoreDynamicTabsExperimentAssignment()
+                        
+                        if enableBYR || (!enableDYK && assignment == .becauseYouRead),
+                           let becauseVM = viewModel.becauseYouReadViewModel {
+                            WMFBecauseYouReadView(viewModel: becauseVM)
+                        } else if enableDYK || assignment == .didYouKnow {
+                            Text("DYK")
+                        }
                     }
                 }
             }
+            .background(Color(theme.paperBackground))
+            .padding(.top, viewModel.topPadding)
+            .onAppear {
+                recalculateEstimatedListHeight()
+            }
+            .onChange(of: sizeCategory) { _ in
+                recalculateEstimatedListHeight()
+            }
+
+            VStack {
+                Spacer()
+                Button(action: {
+                    viewModel.onTapEdit()
+                }, label: {
+                    Text(viewModel.localizedStrings.editButtonTitle)
+                        .foregroundStyle(Color(theme.text))
+                        .font(Font(WMFFont.for(.boldSubheadline)))
+                })
+                .padding(.bottom, 32)
+            }
         }
-        .background(Color(theme.paperBackground))
-        .padding(.top, viewModel.topPadding)
-        .onAppear {
-            recalculateEstimatedListHeight()
-        }
-        .onChange(of: sizeCategory) { _ in
-            recalculateEstimatedListHeight()
-        }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
 
     private func recalculateEstimatedListHeight() {

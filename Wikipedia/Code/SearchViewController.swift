@@ -99,6 +99,10 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
     private var customArticleCoordinatorNavigationController: UINavigationController?
 
     private var presentingSearchResults: Bool = false
+    
+    private let userDefaultsStore = WMFDataEnvironment.current.userDefaultsStore
+    private var hostingController: UIHostingController<WMFNewArticleTabSettingsView>?
+    private var viewModel: WMFNewArticleTabSettingsViewModel?
 
     // MARK: - Lifecycle
 
@@ -110,6 +114,18 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
         self.needsAttachedView = needsAttachedView
         self.becauseYouReadViewModel = becauseYouReadViewModel
         self.customArticleCoordinatorNavigationController = customArticleCoordinatorNavigationController
+        
+        let isBYREnabled = (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsMoreDynamicTabsBYR.rawValue)) ?? false
+        let isDYKEnabled = (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsMoreDynamicTabsDYK.rawValue)) ?? false
+
+        if isBYREnabled {
+            initialIndex = 0
+        } else if isDYKEnabled {
+            initialIndex = 1
+        } else {
+            initialIndex = 0
+        }
+        
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -590,16 +606,63 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
         self.search()
 
     }
+    
+    private var initialIndex: Int
 
     private lazy var recentSearchesViewModel: WMFRecentlySearchedViewModel = {
         let localizedStrings = WMFRecentlySearchedViewModel.LocalizedStrings(
             title: CommonStrings.recentlySearchedTitle,
             noSearches: CommonStrings.recentlySearchedEmpty,
             clearAll: CommonStrings.clearTitle,
-            deleteActionAccessibilityLabel: CommonStrings.deleteActionTitle
+            deleteActionAccessibilityLabel: CommonStrings.deleteActionTitle, editButtonTitle: CommonStrings.editContextMenuTitle
         )
-        return WMFRecentlySearchedViewModel(recentSearchTerms: recentSearchTerms, localizedStrings: localizedStrings, needsAttachedView: needsAttachedView, becauseYouReadViewModel: becauseYouReadViewModel, deleteAllAction: didPressClearRecentSearches, deleteItemAction: deleteItemAction, selectAction: selectAction)
+        return WMFRecentlySearchedViewModel(recentSearchTerms: recentSearchTerms, localizedStrings: localizedStrings, needsAttachedView: needsAttachedView, becauseYouReadViewModel: becauseYouReadViewModel, deleteAllAction: didPressClearRecentSearches, deleteItemAction: deleteItemAction, selectAction: selectAction, onTapEdit: {
+            self.viewModel = WMFNewArticleTabSettingsViewModel(
+                title: CommonStrings.tabsPreferencesTitle,
+                header: CommonStrings.newTabTheme,
+                options: [
+                    CommonStrings.recommendations,
+                    CommonStrings.didyouknow
+                ],
+                saveSelection: { [weak self] selectedIndex in
+                    self?.saveSelection(selectedIndex: selectedIndex)
+                },
+                selectedIndex: self.initialIndex
+            )
+            guard let viewModel = self.viewModel else { return }
+            let view = WMFNewArticleTabSettingsView(viewModel: viewModel)
+            let hostingController = UIHostingController(rootView: view)
+            self.hostingController = hostingController
+            self.present(hostingController, animated: true, completion: { [weak self] in
+                let isBYREnabled = (try? self?.userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsMoreDynamicTabsBYR.rawValue)) ?? false
+                let isDYKEnabled = (try? self?.userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsMoreDynamicTabsDYK.rawValue)) ?? false
+
+                if isBYREnabled {
+                    self?.viewModel?.selectedIndex = 0
+                    self?.initialIndex = 0
+                } else if isDYKEnabled {
+                    self?.viewModel?.selectedIndex = 1
+                    self?.initialIndex = 1
+                } else {
+                    self?.viewModel?.selectedIndex = 0
+                    self?.initialIndex = 0
+                }
+            })
+        })
     }()
+    
+    let dataController = WMFArticleTabsDataController()
+    
+    private func saveSelection(selectedIndex: Int) {
+        let isBYR = selectedIndex == 0
+        let isDYK = selectedIndex == 1
+
+        try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsMoreDynamicTabsBYR.rawValue, value: isBYR)
+        try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsMoreDynamicTabsDYK.rawValue, value: isDYK)
+
+        dataController.moreDynamicTabsBYRIsEnabled = isBYR
+        dataController.moreDynamicTabsDYKIsEnabled = isDYK
+    }
 
     private lazy var recentSearchTerms: [WMFRecentlySearchedViewModel.RecentSearchTerm] = {
         guard let recent = recentSearches else { return [] }

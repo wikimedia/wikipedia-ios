@@ -10,9 +10,11 @@ class WMFNewArticleTabsSettingsViewController: UIViewController {
     let dataController = WMFArticleTabsDataController()
     private var dataStore: MWKDataStore?
     private var initialIndex: Int
+    private var theme: Theme
     
     @objc init(dataStore: MWKDataStore, theme: Theme) {
         self.dataStore = dataStore
+        self.theme = theme
         
         let isBYREnabled = (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsMoreDynamicTabsBYR.rawValue)) ?? false
         let isDYKEnabled = (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsMoreDynamicTabsDYK.rawValue)) ?? false
@@ -59,17 +61,21 @@ class WMFNewArticleTabsSettingsViewController: UIViewController {
 
         self.viewModel = WMFNewArticleTabSettingsViewModel(
             title: CommonStrings.tabsPreferencesTitle,
-            header: WMFLocalizedString("settings-new-article-tab-header-text", value: "New Tab Theme", comment: "Header title for the New Article Tabs settings to determine between preferences"),
+            header: CommonStrings.newTabTheme,
             options: [
-                WMFLocalizedString("new-article-tab-settings-recommendations", value: "Recommendations", comment: "Toggle for article recommendations / because you read"),
-                WMFLocalizedString("new-article-tab-settings-did-you-know", value: "Did You Know?", comment: "Toggle for did you know")
+                CommonStrings.recommendations,
+                CommonStrings.didyouknow
             ],
             saveSelection: { [weak self] selectedIndex in
                 self?.saveSelection(selectedIndex: selectedIndex)
             },
             selectedIndex: initialIndex
         )
+
         guard let viewModel else { return }
+        
+        self.title = viewModel.title
+
         let swiftUIView = WMFNewArticleTabSettingsView(viewModel: viewModel)
         let hostingController = UIHostingController(rootView: swiftUIView)
         self.hostingController = hostingController
@@ -77,6 +83,13 @@ class WMFNewArticleTabsSettingsViewController: UIViewController {
         addChild(hostingController)
         view.addSubview(hostingController.view)
         hostingController.view.translatesAutoresizingMaskIntoConstraints = false
+        let appearance = UINavigationBarAppearance()
+        appearance.configureWithOpaqueBackground()
+        appearance.backgroundColor = theme.colors.midBackground
+
+        navigationController?.navigationBar.standardAppearance = appearance
+        navigationController?.navigationBar.scrollEdgeAppearance = appearance
+        navigationController?.navigationBar.compactAppearance = appearance
 
         NSLayoutConstraint.activate([
             hostingController.view.topAnchor.constraint(equalTo: view.topAnchor),
