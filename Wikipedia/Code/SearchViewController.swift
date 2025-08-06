@@ -589,6 +589,10 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
         }
         self.search()
 
+        if needsAttachedView {
+            ArticleTabsFunnel.shared.logRecentSearchesClick()
+        }
+
     }
 
     private lazy var recentSearchesViewModel: WMFRecentlySearchedViewModel = {
