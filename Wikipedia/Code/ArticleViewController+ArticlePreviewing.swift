@@ -17,9 +17,13 @@ extension ArticleViewController: ArticlePreviewingDelegate {
     }
     
     @objc func shareArticlePreviewActionSelected(with peekController: ArticlePeekPreviewViewController, shareActivityController: UIActivityViewController) {
+        if let popover = shareActivityController.popoverPresentationController {
+            popover.sourceView = peekController.view
+            popover.sourceRect = peekController.view.bounds
+        }
         present(shareActivityController, animated: true, completion: nil)
     }
-    
+
     @objc func viewOnMapArticlePreviewActionSelected(with peekController: ArticlePeekPreviewViewController) {
         let placesURL = NSUserActivity.wmf_URLForActivity(of: .places, withArticleURL: peekController.articleURL)
         UIApplication.shared.open(placesURL, options: [:], completionHandler: nil)
