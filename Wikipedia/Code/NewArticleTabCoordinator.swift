@@ -13,6 +13,7 @@ final class NewArticleTabCoordinator: Coordinator {
     private let sharedCache = SharedContainerCache(fileName: SharedContainerCacheCommonNames.dykCache)
     public var dykFacts: [WMFFeedDidYouKnow]? = nil
     private var dataController = WMFArticleTabsDataController.shared
+    private let userDefaultsStore = WMFDataEnvironment.current.userDefaultsStore
 
     init(navigationController: UINavigationController, dataStore: MWKDataStore, theme: Theme, fetcher: RelatedSearchFetcher = RelatedSearchFetcher()) {
         self.navigationController = navigationController
@@ -225,12 +226,33 @@ final class NewArticleTabCoordinator: Coordinator {
             return
         }
 
+        let calendar = Calendar.current
+        let today = calendar.startOfDay(for: Date())
+        let stringToday = today.formatted()
+        let key = "dyk-last-fetch-date"
+        
+        let lastChecked = try? userDefaultsStore?.load(key: key) ?? ""
+        
+        let wasCheckedToday = stringToday == lastChecked
+
+        let cached = sharedCache.loadCache() ?? DidYouKnowCache()
+        let facts = cached.facts
+
+        if wasCheckedToday, let facts = facts, !facts.isEmpty {
+            completion(facts)
+            return
+        }
+
+        try? sharedCache.removeCache()
+
         dykFetcher.fetchDidYouKnow(withSiteURL: url) { [weak self] error, facts in
             guard error == nil else {
                 completion(nil)
                 return
             }
             self?.dykFacts = facts
+            self?.sharedCache.saveCache(facts)
+            try? self?.userDefaultsStore?.save(key: key, value: stringToday)
             completion(facts)
         }
     }

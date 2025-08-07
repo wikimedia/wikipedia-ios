@@ -1,6 +1,6 @@
 import Foundation
 
-@objc public class WMFFeedDidYouKnow: NSObject, Decodable {
+@objc public class WMFFeedDidYouKnow: NSObject, Decodable, Encodable {
     @objc public let html: String
     @objc public let text: String
     
