@@ -118,8 +118,11 @@ final class NewArticleTabCoordinator: Coordinator {
     func start() -> Bool {
         loadNextBatch { seed, related in
             let experiment = try? self.dataController.getMoreDynamicTabsExperimentAssignment()
+            let devSettingsDataController = WMFDeveloperSettingsDataController.shared
+            let enableBYR = devSettingsDataController.enableMoreDynamicTabsBYR
+            let enableDYK = devSettingsDataController.enableMoreDynamicTabsDYK
 
-            if experiment == .didYouKnow {
+            if enableDYK || experiment == .didYouKnow {
                 self.fetchDYK { facts in
                     DispatchQueue.main.async {
                         let dykVM = WMFNewArticleTabDidYouKnowViewModel(
@@ -147,7 +150,7 @@ final class NewArticleTabCoordinator: Coordinator {
                     }
                 }
 
-            } else if experiment == .becauseYouRead {
+            } else if enableBYR || experiment == .becauseYouRead {
                 var becauseVM: WMFBecauseYouReadViewModel?
 
                 if let seed {
@@ -172,6 +175,20 @@ final class NewArticleTabCoordinator: Coordinator {
                 let viewModel = WMFNewArticleTabViewModel(
                     title: CommonStrings.newTab,
                     becauseYouReadViewModel: becauseVM,
+                    dykViewModel: nil
+                )
+
+                let vc = WMFNewArticleTabViewController(
+                    dataStore: self.dataStore,
+                    theme: self.theme,
+                    viewModel: viewModel
+                )
+
+                self.navigationController.pushViewController(vc, animated: true)
+            } else {
+                let viewModel = WMFNewArticleTabViewModel(
+                    title: CommonStrings.newTab,
+                    becauseYouReadViewModel: nil,
                     dykViewModel: nil
                 )
 

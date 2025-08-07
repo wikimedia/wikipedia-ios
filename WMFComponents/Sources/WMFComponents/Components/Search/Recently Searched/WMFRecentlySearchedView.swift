@@ -82,12 +82,13 @@ public struct WMFRecentlySearchedView: View {
                 .scrollDisabled(true)
                 .frame(height: estimatedListHeight)
                 if viewModel.needsAttachedView {
+                    let enableBYR = viewModel.devSettingsDataControler.enableMoreDynamicTabsBYR
+                    let enableDYK = viewModel.devSettingsDataControler.enableMoreDynamicTabsDYK
                     let assignment = try? viewModel.tabsDataController.getMoreDynamicTabsExperimentAssignment()
-                    if viewModel.devSettingsDataControler.enableMoreDynamicTabsBYR ||
-                       (!viewModel.devSettingsDataControler.enableMoreDynamicTabsDYK && assignment == .becauseYouRead),
-                       let becauseVM = viewModel.becauseYouReadViewModel {
+                    
+                    if enableBYR || (!enableDYK && assignment == .becauseYouRead), let becauseVM = viewModel.becauseYouReadViewModel {
                         WMFBecauseYouReadView(viewModel: becauseVM)
-                    } else if viewModel.devSettingsDataControler.enableMoreDynamicTabsDYK && assignment == .didYouKnow, let dykVM = viewModel.didYouKnowViewModel {
+                    } else if enableDYK || assignment == .didYouKnow, let dykVM = viewModel.didYouKnowViewModel {
                     	WMFNewArticleTabViewDidYouKnow(viewModel: dykVM, linkDelegate: linkDelegate)
                     }
                 }
