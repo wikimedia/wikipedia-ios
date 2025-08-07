@@ -13,7 +13,7 @@ import WMFData
         self.dykLocalizedStrings = dykLocalizedStrings
     }
 
-    public var dyk: String? {
+    public var didYouKnowFact: String? {
         guard let randomElement = facts.randomElement() else { return nil }
         let dykPrefix = dykLocalizedStrings.dyk
         let removeEllipses = replaceEllipsesWithSpace(in: randomElement)

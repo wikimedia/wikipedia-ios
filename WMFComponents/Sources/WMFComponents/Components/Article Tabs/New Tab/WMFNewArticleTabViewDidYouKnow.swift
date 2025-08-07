@@ -18,7 +18,7 @@ public struct WMFNewArticleTabViewDidYouKnow: View {
     public var body: some View {
         VStack(alignment: .leading, spacing: 8) {
             TextViewWrapper(
-                text: viewModel.dyk ?? "",
+                text: viewModel.didYouKnowFact ?? "",
                 linkDelegate: linkDelegate,
                 dynamicHeight: $textViewHeight
             )

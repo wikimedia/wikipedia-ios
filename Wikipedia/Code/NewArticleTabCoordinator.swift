@@ -220,10 +220,7 @@ final class NewArticleTabCoordinator: Coordinator {
     }
     
     private func fetchDYK(completion: @escaping ([WMFFeedDidYouKnow]?) -> Void) {
-        guard let languageCode = dataStore.languageLinkController.appLanguage?.languageCode else {
-            return
-        }
-        guard let url = URL(string: "https://\(languageCode).wikipedia.org") else {
+        guard let url = URL(string: Configuration.current.defaultSiteDomain) else {
             completion(nil)
             return
         }
