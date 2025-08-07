@@ -114,18 +114,7 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
         self.needsAttachedView = needsAttachedView
         self.becauseYouReadViewModel = becauseYouReadViewModel
         self.customArticleCoordinatorNavigationController = customArticleCoordinatorNavigationController
-        
-        let isBYREnabled = (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsMoreDynamicTabsBYR.rawValue)) ?? false
-        let isDYKEnabled = (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsMoreDynamicTabsDYK.rawValue)) ?? false
 
-        if isBYREnabled {
-            initialIndex = 0
-        } else if isDYKEnabled {
-            initialIndex = 1
-        } else {
-            initialIndex = 0
-        }
-        
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -606,8 +595,6 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
         self.search()
 
     }
-    
-    private var initialIndex: Int
 
     private lazy var recentSearchesViewModel: WMFRecentlySearchedViewModel = {
         let localizedStrings = WMFRecentlySearchedViewModel.LocalizedStrings(
@@ -627,31 +614,46 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
                 saveSelection: { [weak self] selectedIndex in
                     self?.saveSelection(selectedIndex: selectedIndex)
                 },
-                selectedIndex: self.initialIndex
+                selectedIndex: self.getSelectedIndex()
             )
             guard let viewModel = self.viewModel else { return }
             let view = WMFNewArticleTabSettingsView(viewModel: viewModel)
             let hostingController = UIHostingController(rootView: view)
-            self.hostingController = hostingController
-            self.present(hostingController, animated: true, completion: { [weak self] in
-                let isBYREnabled = (try? self?.userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsMoreDynamicTabsBYR.rawValue)) ?? false
-                let isDYKEnabled = (try? self?.userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsMoreDynamicTabsDYK.rawValue)) ?? false
+            hostingController.title = CommonStrings.tabsPreferencesTitle
+            hostingController.navigationItem.largeTitleDisplayMode = .never
 
-                if isBYREnabled {
-                    self?.viewModel?.selectedIndex = 0
-                    self?.initialIndex = 0
-                } else if isDYKEnabled {
-                    self?.viewModel?.selectedIndex = 1
-                    self?.initialIndex = 1
-                } else {
-                    self?.viewModel?.selectedIndex = 0
-                    self?.initialIndex = 0
-                }
+            hostingController.navigationItem.leftBarButtonItem = UIBarButtonItem(
+                title: CommonStrings.doneTitle,
+                style: .done,
+                target: self,
+                action: #selector(self.doneButtonTapped)
+            )
+
+            hostingController.title = CommonStrings.tabsPreferencesTitle
+            hostingController.navigationItem.largeTitleDisplayMode = .never
+
+            self.viewModel = viewModel
+            self.hostingController = hostingController
+
+            let navController = UINavigationController(rootViewController: hostingController)
+            self.present(navController, animated: true, completion: { [weak self] in
+                self?.saveSelection(selectedIndex: viewModel.selectedIndex)
             })
         })
     }()
     
+    @objc private func doneButtonTapped() {
+        self.hostingController?.dismiss(animated: true)
+    }
+    
     let dataController = WMFArticleTabsDataController()
+    
+    private func getSelectedIndex() -> Int {
+        let isBYREnabled = (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsMoreDynamicTabsBYR.rawValue)) ?? false
+        let isDYKEnabled = (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsMoreDynamicTabsDYK.rawValue)) ?? false
+
+        return (isBYREnabled) ? 0 : (isDYKEnabled) ? 1 : 0
+    }
     
     private func saveSelection(selectedIndex: Int) {
         let isBYR = selectedIndex == 0
@@ -662,6 +664,9 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
 
         dataController.moreDynamicTabsBYRIsEnabled = isBYR
         dataController.moreDynamicTabsDYKIsEnabled = isDYK
+        
+        self.view.setNeedsLayout()
+        self.view.layoutIfNeeded()
     }
 
     private lazy var recentSearchTerms: [WMFRecentlySearchedViewModel.RecentSearchTerm] = {
@@ -704,9 +709,8 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
             return
         }
 
-         resultsViewController.view.isHidden = searchText.isEmpty
+        resultsViewController.view.isHidden = searchText.isEmpty
     }
-
 }
 
 extension SearchViewController: SearchLanguagesBarViewControllerDelegate {
