@@ -16,7 +16,7 @@ final class ArticleTabsFunnel {
         case learnClick = "learn_click"
         case resultClick = "result_click"
         case recommendationPrefClick = "rec_click"
-        case didYouKnowprefClick = "dyk_click"
+        case didYouKnowPrefClick = "dyk_click"
         case tabsSettingsClick = "tabs_click"
         case screenshot = "screenshot"
     }
@@ -137,6 +137,10 @@ final class ArticleTabsFunnel {
 
     func logAnnouncementClick(action: ArticleTabsFunnel.Action) {
         logEvent(activeInterface: .announcement, action: action)
+    }
+
+    func logAnnouncementImpression() {
+        logEvent(activeInterface: .announcement, action: .impression)
     }
 
     func logRecentSearchesClick() {
