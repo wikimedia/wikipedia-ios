@@ -89,11 +89,18 @@ final class TabsOverviewCoordinator: Coordinator {
                 }
             }
         }
-        
+
+        let needsMoreDynamicTabs = dataController.shouldShowMoreDynamicTabs
+
+        let pageTitle = needsMoreDynamicTabs ? CommonStrings.newTab : nil
+        let pageSubtitle = needsMoreDynamicTabs ? CommonStrings.tabThumbnailSubtitle : CommonStrings.mainPageSubtitle
+        let pageDescription = needsMoreDynamicTabs ? CommonStrings.tabThumbanailDescription : CommonStrings.mainPageDescription
+
         let localizedStrings = WMFArticleTabsViewModel.LocalizedStrings(
             navBarTitleFormat: WMFLocalizedString("tabs-navbar-title-format", value: "{{PLURAL:%1$d|%1$d tab|%1$d tabs}}", comment: "$1 is the amount of tabs. Navigation title for tabs, displaying how many open tabs."),
-            mainPageSubtitle: WMFLocalizedString("tabs-main-page-subtitle", value: "Wikipedia’s daily highlights", comment: "Main page subtitle"),
-            mainPageDescription: WMFLocalizedString("tabs-main-page-description", value: "Discover featured articles, the latest news, interesting facts, and key stats on Wikipedia’s main page.", comment: "Main page description"),
+            mainPageTitle: pageTitle,
+            mainPageSubtitle: pageSubtitle,
+            mainPageDescription: pageDescription,
             closeTabAccessibility: WMFLocalizedString("tabs-close-tab", value: "Close tab", comment: "Accessibility label for close tab button"),
             openTabAccessibility: WMFLocalizedString("tabs-open-tab", value: "Open tab", comment: "Accessibility label for opening a tab")
         )
