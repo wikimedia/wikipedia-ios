@@ -2,18 +2,25 @@ import UIKit
 import WMF
 import WMFComponents
 import WMFData
+import Foundation
 
 final class NewArticleTabCoordinator: Coordinator {
     var navigationController: UINavigationController
     var dataStore: MWKDataStore
     var theme: Theme
     private let fetcher: RelatedSearchFetcher
+    var dykFetcher: WMFFeedDidYouKnowFetcher
+    private let sharedCache = SharedContainerCache(fileName: SharedContainerCacheCommonNames.dykCache)
+    public var dykFacts: [WMFFeedDidYouKnow]? = nil
+    private var dataController = WMFArticleTabsDataController.shared
+    private let userDefaultsStore = WMFDataEnvironment.current.userDefaultsStore
 
     init(navigationController: UINavigationController, dataStore: MWKDataStore, theme: Theme, fetcher: RelatedSearchFetcher = RelatedSearchFetcher()) {
         self.navigationController = navigationController
         self.dataStore = dataStore
         self.theme = theme
         self.fetcher = fetcher
+		dykFetcher = WMFFeedDidYouKnowFetcher()
     }
 
     var seed: WMFArticle?
@@ -110,50 +117,146 @@ final class NewArticleTabCoordinator: Coordinator {
 
     @discardableResult
     func start() -> Bool {
-
         loadNextBatch { seed, related in
-            var becauseVM: WMFBecauseYouReadViewModel? = nil
-            if let seed {
-                let seedRecord = seed.toHistoryRecord()
-                let relatedRecords = related.compactMap { article in
-                    article.toHistoryRecord()
+            let experiment = try? self.dataController.getMoreDynamicTabsExperimentAssignment()
+            let devSettingsDataController = WMFDeveloperSettingsDataController.shared
+            let enableBYR = devSettingsDataController.enableMoreDynamicTabsBYR
+            let enableDYK = devSettingsDataController.enableMoreDynamicTabsDYK
+
+            if enableDYK || experiment == .didYouKnow {
+                self.fetchDYK { facts in
+                    DispatchQueue.main.async {
+                        let dykVM = WMFNewArticleTabDidYouKnowViewModel(
+                            facts: facts?.map { $0.html } ?? [],
+                            languageCode: self.dataStore.languageLinkController.appLanguage?.languageCode,
+                            dykLocalizedStrings: WMFNewArticleTabDidYouKnowViewModel.LocalizedStrings.init(
+                                dyk: self.dyk,
+                                fromSource: self.fromLanguageWikipediaTextFor(languageCode: self.dataStore.languageLinkController.appLanguage?.languageCode)
+                            )
+                        )
+
+                        let viewModel = WMFNewArticleTabViewModel(
+                            title: CommonStrings.newTab,
+                            becauseYouReadViewModel: nil,
+                            dykViewModel: dykVM
+                        )
+
+                        let vc = WMFNewArticleTabViewController(
+                            dataStore: self.dataStore,
+                            theme: self.theme,
+                            viewModel: viewModel
+                        )
+
+                        self.navigationController.pushViewController(vc, animated: true)
+                    }
                 }
 
-                if !relatedRecords.isEmpty {
-                    let onTapArticleAction: WMFBecauseYouReadViewModel.OnRecordTapAction = { [weak self] historyItem in
-                        guard let self else {
-                            return
+            } else if enableBYR || experiment == .becauseYouRead {
+                var becauseVM: WMFBecauseYouReadViewModel?
+
+                if let seed {
+                    let seedRecord = seed.toHistoryRecord()
+                    let relatedRecords = related.compactMap { $0.toHistoryRecord() }
+
+                    if !relatedRecords.isEmpty {
+                        let onTapArticleAction: WMFBecauseYouReadViewModel.OnRecordTapAction = { [weak self] historyItem in
+                            self?.tappedArticle(historyItem)
                         }
 
-                        self.tappedArticle(historyItem)
+                        becauseVM = WMFBecauseYouReadViewModel(
+                            becauseYouReadTitle: CommonStrings.relatedPagesTitle,
+                            openButtonTitle: CommonStrings.articleTabsOpen,
+                            seedArticle: seedRecord,
+                            relatedArticles: relatedRecords
+                        )
+                        becauseVM?.onTapArticle = onTapArticleAction
                     }
-
-                    becauseVM = WMFBecauseYouReadViewModel(
-                        becauseYouReadTitle: CommonStrings.relatedPagesTitle,
-                        openButtonTitle: CommonStrings.articleTabsOpen,
-                        seedArticle: seedRecord,
-                        relatedArticles: relatedRecords
-                    )
-                    becauseVM?.onTapArticle = onTapArticleAction
-
                 }
-            }
 
-            let viewModel = WMFNewArticleTabViewModel(
-                title: CommonStrings.newTab,
-                becauseYouReadViewModel: becauseVM
-            )
-            let vc = WMFNewArticleTabViewController(
-                dataStore: self.dataStore,
-                theme: self.theme,
-                viewModel: viewModel
-            )
-            
-            self.navigationController.pushViewController(vc, animated: true)
+                let viewModel = WMFNewArticleTabViewModel(
+                    title: CommonStrings.newTab,
+                    becauseYouReadViewModel: becauseVM,
+                    dykViewModel: nil
+                )
+
+                let vc = WMFNewArticleTabViewController(
+                    dataStore: self.dataStore,
+                    theme: self.theme,
+                    viewModel: viewModel
+                )
+
+                self.navigationController.pushViewController(vc, animated: true)
+            } else {
+                let viewModel = WMFNewArticleTabViewModel(
+                    title: CommonStrings.newTab,
+                    becauseYouReadViewModel: nil,
+                    dykViewModel: nil
+                )
+
+                let vc = WMFNewArticleTabViewController(
+                    dataStore: self.dataStore,
+                    theme: self.theme,
+                    viewModel: viewModel
+                )
+
+                self.navigationController.pushViewController(vc, animated: true)
+            }
         }
+
         return true
     }
+    
+    // MARK: - DYK
+    
+    let fromLanguageWikipedia = WMFLocalizedString("new-article-tab-from-language-wikipedia", value: "from %1$@ Wikipedia", comment: "Text displayed to indicate Did You Know source displayed on a new tab. %1$@ will be replaced with the Wikipedia language set as the app default")
+    let fromWikipediaDefault = CommonStrings.fromWikipediaDefault
+    let dyk = WMFLocalizedString("did-you-know", value: "Did you know", comment: "Text displayed as heading for section of new tab dedicated to DYK")
+    
+    private func fromLanguageWikipediaTextFor(languageCode: String?) -> String {
+        guard let languageCode = languageCode, let localizedLanguageString = Locale.current.localizedString(forLanguageCode: languageCode) else {
+            return fromWikipediaDefault
+        }
 
+        return String.localizedStringWithFormat(fromLanguageWikipedia, localizedLanguageString)
+    }
+    
+    private func fetchDYK(completion: @escaping ([WMFFeedDidYouKnow]?) -> Void) {
+        guard let url = URL(string: Configuration.current.defaultSiteDomain) else {
+            completion(nil)
+            return
+        }
+
+        let calendar = Calendar.current
+        let today = calendar.startOfDay(for: Date())
+        let stringToday = today.formatted()
+        let key = "dyk-last-fetch-date"
+        
+        let lastChecked = try? userDefaultsStore?.load(key: key) ?? ""
+        
+        let wasCheckedToday = stringToday == lastChecked
+
+        let cached = sharedCache.loadCache() ?? DidYouKnowCache()
+        let facts = cached.facts
+
+        if wasCheckedToday, let facts = facts, !facts.isEmpty {
+            completion(facts)
+            return
+        }
+
+        try? sharedCache.removeCache()
+
+        dykFetcher.fetchDidYouKnow(withSiteURL: url) { [weak self] error, facts in
+            guard error == nil else {
+                completion(nil)
+                return
+            }
+            self?.dykFacts = facts
+            self?.sharedCache.saveCache(facts)
+            try? self?.userDefaultsStore?.save(key: key, value: stringToday)
+            completion(facts)
+        }
+    }
+        
     func tappedArticle(_ item: HistoryItem) {
         guard let articleURL = item.url,
               let title = articleURL.wmf_title,

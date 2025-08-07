@@ -44,6 +44,5 @@ extension NSUserActivity {
     public func navigate(to url: URL?) {
         return navigate(to: url, userInfo: nil, useSafari: false)
     }
-
 }
 

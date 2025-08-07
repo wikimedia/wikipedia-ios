@@ -379,18 +379,21 @@
 		3717C38C2CAB2A0D00978DB2 /* YearInReviewCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3717C38B2CAB2A0700978DB2 /* YearInReviewCoordinator.swift */; };
 		3717C38D2CAB2A0D00978DB2 /* YearInReviewCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3717C38B2CAB2A0700978DB2 /* YearInReviewCoordinator.swift */; };
 		3717C38E2CAB2A0D00978DB2 /* YearInReviewCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3717C38B2CAB2A0700978DB2 /* YearInReviewCoordinator.swift */; };
+		372994202E32AF3B006F4093 /* WMFFeedDidYouKnow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3729941F2E32AF36006F4093 /* WMFFeedDidYouKnow.swift */; };
 		372F04842D7B7554002C6D2C /* TempAccountsSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 372F04832D7B754B002C6D2C /* TempAccountsSettingsViewController.swift */; };
 		372F04852D7B7554002C6D2C /* TempAccountsSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 372F04832D7B754B002C6D2C /* TempAccountsSettingsViewController.swift */; };
 		372F04862D7B7554002C6D2C /* TempAccountsSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 372F04832D7B754B002C6D2C /* TempAccountsSettingsViewController.swift */; };
 		372F048D2D80C205002C6D2C /* TempAccountExpiryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 372F048C2D80C1F9002C6D2C /* TempAccountExpiryViewController.swift */; };
 		372F048E2D80C205002C6D2C /* TempAccountExpiryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 372F048C2D80C1F9002C6D2C /* TempAccountExpiryViewController.swift */; };
 		372F048F2D80C205002C6D2C /* TempAccountExpiryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 372F048C2D80C1F9002C6D2C /* TempAccountExpiryViewController.swift */; };
+		373BF90A2E32A352000F6643 /* WMFFeedDidYouKnowFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 373BF9092E32A34E000F6643 /* WMFFeedDidYouKnowFetcher.swift */; };
 		37C4A98D2DB95FE000AD7141 /* WMFActivityTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37C4A98C2DB95FE000AD7141 /* WMFActivityTabViewController.swift */; };
 		37C4A98E2DB95FE000AD7141 /* WMFActivityTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37C4A98C2DB95FE000AD7141 /* WMFActivityTabViewController.swift */; };
 		37C4A98F2DB95FE000AD7141 /* WMFActivityTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37C4A98C2DB95FE000AD7141 /* WMFActivityTabViewController.swift */; };
 		37C5C1FB2DC28D390082852E /* TabsOverviewCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37C5C1FA2DC28D350082852E /* TabsOverviewCoordinator.swift */; };
 		37C5C1FC2DC28D390082852E /* TabsOverviewCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37C5C1FA2DC28D350082852E /* TabsOverviewCoordinator.swift */; };
 		37C5C1FD2DC28D390082852E /* TabsOverviewCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37C5C1FA2DC28D350082852E /* TabsOverviewCoordinator.swift */; };
+		37FAFB352E45382500EEFEC5 /* DidYouKnowCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37FAFB342E45382000EEFEC5 /* DidYouKnowCache.swift */; };
 		41CCB67421CC1F9700206B47 /* SavedArticlesCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41CCB67321CC1F9700206B47 /* SavedArticlesCollectionViewController.swift */; };
 		41CCB67521CC1F9700206B47 /* SavedArticlesCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41CCB67321CC1F9700206B47 /* SavedArticlesCollectionViewController.swift */; };
 		41CCB67621CC1F9700206B47 /* SavedArticlesCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41CCB67321CC1F9700206B47 /* SavedArticlesCollectionViewController.swift */; };
@@ -3207,10 +3210,13 @@
 		19A172FA6AE61E76FCEF4259 /* NSUserActivity+WMFExtensionsTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSUserActivity+WMFExtensionsTest.m"; sourceTree = "<group>"; };
 		370107A92D5EEBF600E17486 /* TempAccountSheetCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TempAccountSheetCoordinator.swift; sourceTree = "<group>"; };
 		3717C38B2CAB2A0700978DB2 /* YearInReviewCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YearInReviewCoordinator.swift; sourceTree = "<group>"; };
+		3729941F2E32AF36006F4093 /* WMFFeedDidYouKnow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WMFFeedDidYouKnow.swift; sourceTree = "<group>"; };
 		372F04832D7B754B002C6D2C /* TempAccountsSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TempAccountsSettingsViewController.swift; sourceTree = "<group>"; };
 		372F048C2D80C1F9002C6D2C /* TempAccountExpiryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TempAccountExpiryViewController.swift; sourceTree = "<group>"; };
+		373BF9092E32A34E000F6643 /* WMFFeedDidYouKnowFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WMFFeedDidYouKnowFetcher.swift; sourceTree = "<group>"; };
 		37C4A98C2DB95FE000AD7141 /* WMFActivityTabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WMFActivityTabViewController.swift; sourceTree = "<group>"; };
 		37C5C1FA2DC28D350082852E /* TabsOverviewCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabsOverviewCoordinator.swift; sourceTree = "<group>"; };
+		37FAFB342E45382000EEFEC5 /* DidYouKnowCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DidYouKnowCache.swift; sourceTree = "<group>"; };
 		41CCB67321CC1F9700206B47 /* SavedArticlesCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedArticlesCollectionViewController.swift; sourceTree = "<group>"; };
 		41FCAA3521C844CB001D8411 /* ReadingListEntryCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadingListEntryCollectionViewController.swift; sourceTree = "<group>"; };
 		533AB8AD259792A9003A43D9 /* wikipedia-language-variants.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "wikipedia-language-variants.json"; sourceTree = "<group>"; };
@@ -5870,6 +5876,7 @@
 		0E728D271DAEE3200074EB4B /* Feed */ = {
 			isa = PBXGroup;
 			children = (
+				373BF90B2E32A493000F6643 /* Did You Know */,
 				0E728D261DAEE2FC0074EB4B /* Feed ContentFetcher */,
 				0E19B9AC1DA7DBE300239F3A /* Feed Models */,
 			);
@@ -6117,6 +6124,16 @@
 				372F04832D7B754B002C6D2C /* TempAccountsSettingsViewController.swift */,
 			);
 			path = "Temp Accounts";
+			sourceTree = "<group>";
+		};
+		373BF90B2E32A493000F6643 /* Did You Know */ = {
+			isa = PBXGroup;
+			children = (
+				37FAFB342E45382000EEFEC5 /* DidYouKnowCache.swift */,
+				373BF9092E32A34E000F6643 /* WMFFeedDidYouKnowFetcher.swift */,
+				3729941F2E32AF36006F4093 /* WMFFeedDidYouKnow.swift */,
+			);
+			path = "Did You Know";
 			sourceTree = "<group>";
 		};
 		67033E122A61B23700896852 /* Watchlist */ = {
@@ -10517,6 +10534,7 @@
 				67D6C00C24058714005709B1 /* CacheItemMappingModel.xcmappingmodel in Sources */,
 				7A9133AA22B162E8002AEBCF /* RemoteNotifications.xcdatamodeld in Sources */,
 				D8733C941ECA16940011E379 /* HasText.swift in Sources */,
+				37FAFB352E45382500EEFEC5 /* DidYouKnowCache.swift in Sources */,
 				B0016CBF2136105900FA1096 /* SetupButton.swift in Sources */,
 				D8FA18BE1E1BD891009675C3 /* NSFileManager+WMFExtendedFileAttributes.m in Sources */,
 				D84B224E1DAFD0FC007C44AA /* WMFNotificationsController.m in Sources */,
@@ -10559,6 +10577,7 @@
 				D8FA18AC1E1BD874009675C3 /* EXTScope.m in Sources */,
 				67D6C01C2405A4FB005709B1 /* CacheItem+CoreDataClass.swift in Sources */,
 				7A630F71217A400200FC93FC /* Array+Chunked.swift in Sources */,
+				372994202E32AF3B006F4093 /* WMFFeedDidYouKnow.swift in Sources */,
 				67F9AE4923AD2F38003D4F5E /* Array+SafeIndex.swift in Sources */,
 				D826C51B217741C50012F940 /* ReachabilityNotifier.swift in Sources */,
 				0E728D391DAEEAD60074EB4B /* WMFLocationSearchFetcher.m in Sources */,
@@ -10696,6 +10715,7 @@
 				6779618F29246BC900C2A65F /* NSUserActivity+Extensions.swift in Sources */,
 				831937E923E1CEAC006A9FF3 /* CharacterSet+LinkParsing.swift in Sources */,
 				D8FA18DB1E1BD899009675C3 /* NSURLComponents+WMFLinkParsing.m in Sources */,
+				373BF90A2E32A352000F6643 /* WMFFeedDidYouKnowFetcher.swift in Sources */,
 				00D9B10329C8E5BB008A01E0 /* WidgetTopRead.swift in Sources */,
 				D8FA18C21E1BD891009675C3 /* NSURL+WMFQueryParameters.m in Sources */,
 				D8FA18C71E1BD891009675C3 /* NSIndexSet+BKReduce.m in Sources */,
