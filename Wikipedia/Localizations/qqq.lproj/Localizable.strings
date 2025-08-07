@@ -726,7 +726,7 @@
 "nearby-distance-label-km" = "Label for showing distance in kilometers to nearby geotagged articles.\n\nParameters:\n* $1 - the number of kilometers. (The iOS app doesn't support pluralization syntax yet.)\n{{Related|Wikipedia-ios-nearby-distance-label}}";
 "nearby-distance-label-meters" = "Label for showing distance in meters to nearby geotagged articles.\n\nParameters:\n* $1 - the number of meters. (The iOS app doesn't support pluralization syntax yet.)\n{{Related|Wikipedia-ios-nearby-distance-label}}";
 "nearby-distance-label-miles" = "Label for showing distance in miles to nearby geotagged articles.\n\nParamaeters:\n* $1 - the number of miles. (The iOS app doesn't support pluralization syntax yet.)\n{{Related|Wikipedia-ios-nearby-distance-label}} {{Identical|Mile}}";
-"new-article-tab-from-language-wikipedia" = "Text displayed as Wikipedia source on new tab. $1 will be replaced with the language.";
+"new-article-tab-from-language-wikipedia" = "Text displayed to indicate Did You Know source displayed on a new tab. $1 will be replaced with the Wikipedia language set as the app default";
 "new-article-tab-from-wikipedia-default" = "Text displayed as Wikipedia source on new tab if language is unavailable.";
 "new-password-instructions" = "Instructions for password change interface";
 "new-password-title" = "Title for password change interface";

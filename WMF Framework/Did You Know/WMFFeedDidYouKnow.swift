@@ -7,6 +7,5 @@ import Foundation
     @objc public init(html: String, text: String) {
         self.html = html
         self.text = text
-        super.init()
     }
 }

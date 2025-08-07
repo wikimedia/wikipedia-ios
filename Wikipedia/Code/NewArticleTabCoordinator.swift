@@ -2,6 +2,7 @@ import UIKit
 import WMF
 import WMFComponents
 import WMFData
+import Foundation
 
 final class NewArticleTabCoordinator: Coordinator {
     var navigationController: UINavigationController
@@ -11,6 +12,7 @@ final class NewArticleTabCoordinator: Coordinator {
     var dykFetcher: WMFFeedDidYouKnowFetcher
     private let sharedCache = SharedContainerCache(fileName: SharedContainerCacheCommonNames.dykCache)
     public var dykFacts: [WMFFeedDidYouKnow]? = nil
+    private var dataController = WMFArticleTabsDataController.shared
 
     init(navigationController: UINavigationController, dataStore: MWKDataStore, theme: Theme, fetcher: RelatedSearchFetcher = RelatedSearchFetcher()) {
         self.navigationController = navigationController
@@ -115,59 +117,72 @@ final class NewArticleTabCoordinator: Coordinator {
     @discardableResult
     func start() -> Bool {
         loadNextBatch { seed, related in
-            var becauseVM: WMFBecauseYouReadViewModel? = nil
-            if let seed {
-                let seedRecord = seed.toHistoryRecord()
-                let relatedRecords = related.compactMap { article in
-                    article.toHistoryRecord()
+            let experiment = try? self.dataController.getMoreDynamicTabsExperimentAssignment()
+
+            if experiment == .didYouKnow {
+                self.fetchDYK { facts in
+                    DispatchQueue.main.async {
+                        let dykVM = WMFNewArticleTabDidYouKnowViewModel(
+                            facts: facts?.map { $0.html } ?? [],
+                            languageCode: self.dataStore.languageLinkController.appLanguage?.languageCode,
+                            dykLocalizedStrings: WMFNewArticleTabDidYouKnowViewModel.LocalizedStrings.init(
+                                dyk: self.dyk,
+                                fromSource: self.fromLanguageWikipediaTextFor(languageCode: self.dataStore.languageLinkController.appLanguage?.languageCode)
+                            )
+                        )
+
+                        let viewModel = WMFNewArticleTabViewModel(
+                            title: CommonStrings.newTab,
+                            becauseYouReadViewModel: nil,
+                            dykViewModel: dykVM
+                        )
+
+                        let vc = WMFNewArticleTabViewController(
+                            dataStore: self.dataStore,
+                            theme: self.theme,
+                            viewModel: viewModel
+                        )
+
+                        self.navigationController.pushViewController(vc, animated: true)
+                    }
                 }
 
-                if !relatedRecords.isEmpty {
-                    let onTapArticleAction: WMFBecauseYouReadViewModel.OnRecordTapAction = { [weak self] historyItem in
-                        guard let self else {
-                            return
+            } else if experiment == .becauseYouRead {
+                var becauseVM: WMFBecauseYouReadViewModel?
+
+                if let seed {
+                    let seedRecord = seed.toHistoryRecord()
+                    let relatedRecords = related.compactMap { $0.toHistoryRecord() }
+
+                    if !relatedRecords.isEmpty {
+                        let onTapArticleAction: WMFBecauseYouReadViewModel.OnRecordTapAction = { [weak self] historyItem in
+                            self?.tappedArticle(historyItem)
                         }
 
-                        self.tappedArticle(historyItem)
+                        becauseVM = WMFBecauseYouReadViewModel(
+                            becauseYouReadTitle: CommonStrings.relatedPagesTitle,
+                            openButtonTitle: CommonStrings.articleTabsOpen,
+                            seedArticle: seedRecord,
+                            relatedArticles: relatedRecords
+                        )
+                        becauseVM?.onTapArticle = onTapArticleAction
                     }
-
-                    becauseVM = WMFBecauseYouReadViewModel(
-                        becauseYouReadTitle: CommonStrings.relatedPagesTitle,
-                        openButtonTitle: CommonStrings.articleTabsOpen,
-                        seedArticle: seedRecord,
-                        relatedArticles: relatedRecords
-                    )
-                    becauseVM?.onTapArticle = onTapArticleAction
                 }
+
+                let viewModel = WMFNewArticleTabViewModel(
+                    title: CommonStrings.newTab,
+                    becauseYouReadViewModel: becauseVM,
+                    dykViewModel: nil
+                )
+
+                let vc = WMFNewArticleTabViewController(
+                    dataStore: self.dataStore,
+                    theme: self.theme,
+                    viewModel: viewModel
+                )
+
+                self.navigationController.pushViewController(vc, animated: true)
             }
-            
-            let dykVM = WMFNewArticleTabDidYouKnowViewModel(
-                fromSourceDefault: self.fromWikipediaDefault,
-                languageCode:  self.dataStore.languageLinkController.appLanguage?.languageCode,
-                dykLocalizedStrings: WMFNewArticleTabDidYouKnowViewModel.LocalizedStrings.init(
-                dyk: self.dyk,
-                fromSource: self.fromLanguageWikipediaTextFor(languageCode: self.dataStore.languageLinkController.appLanguage?.languageCode),
-                ))
-            
-            let viewModel = WMFNewArticleTabViewModel(
-                title: CommonStrings.newTab,
-                becauseYouReadViewModel: becauseVM,
-                dykViewModel: dykVM
-            )
-
-            let vc = WMFNewArticleTabViewController(
-                dataStore: self.dataStore,
-                theme: self.theme,
-                viewModel: viewModel
-            )
-
-            self.fetchDYK { facts in
-                DispatchQueue.main.async {
-                    dykVM.facts = facts?.map { $0.html }
-                }
-            }
-
-            self.navigationController.pushViewController(vc, animated: true)
         }
 
         return true
@@ -175,7 +190,7 @@ final class NewArticleTabCoordinator: Coordinator {
     
     // MARK: - DYK
     
-    let fromLanguageWikipedia = WMFLocalizedString("new-article-tab-from-language-wikipedia", value: "from %1$@ Wikipedia", comment: "Text displayed as Wikipedia source on new tab. %1$@ will be replaced with the language.")
+    let fromLanguageWikipedia = WMFLocalizedString("new-article-tab-from-language-wikipedia", value: "from %1$@ Wikipedia", comment: "Text displayed to indicate Did You Know source displayed on a new tab. %1$@ will be replaced with the Wikipedia language set as the app default")
     let fromWikipediaDefault = CommonStrings.fromWikipediaDefault
     let dyk = WMFLocalizedString("did-you-know", value: "Did you know", comment: "Text displayed as heading for section of new tab dedicated to DYK")
     

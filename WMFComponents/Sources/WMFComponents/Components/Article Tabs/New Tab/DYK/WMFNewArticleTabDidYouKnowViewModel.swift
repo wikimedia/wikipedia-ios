@@ -2,34 +2,27 @@ import Foundation
 import WMFData
 
 @objc public final class WMFNewArticleTabDidYouKnowViewModel: NSObject, ObservableObject {
-    @Published public var facts: [String]? = nil
+    @Published public var facts: [String]
     
-    public let fromSourceDefault: String
     public let languageCode: String?
-    public let dykLocalizedStrings: LocalizedStrings?
+    public let dykLocalizedStrings: LocalizedStrings
     
-    public init(facts: [String]? = nil, fromSourceDefault: String, languageCode: String?, dykLocalizedStrings: LocalizedStrings?) {
+    public init(facts: [String], languageCode: String?, dykLocalizedStrings: LocalizedStrings) {
         self.facts = facts
-        self.fromSourceDefault = fromSourceDefault
         self.languageCode = languageCode
         self.dykLocalizedStrings = dykLocalizedStrings
     }
 
     public var dyk: String? {
-        guard let randomElement = facts?.randomElement() else { return nil }
-        let cleanedText = replaceEllipsesWithSpace(in: randomElement)
-
-        guard let dykPrefix = dykLocalizedStrings?.dyk, !dykPrefix.isEmpty else {
-            return cleanedText
-        }
-
+        guard let randomElement = facts.randomElement() else { return nil }
+        let dykPrefix = dykLocalizedStrings.dyk
         let removeEllipses = replaceEllipsesWithSpace(in: randomElement)
         let combined = dykPrefix + " " + removeEllipses
         return combined
     }
     
     public var fromSource: String {
-        dykLocalizedStrings?.fromSource ?? fromSourceDefault
+        dykLocalizedStrings.fromSource
     }
 
     private func replaceEllipsesWithSpace(in text: String) -> String {
