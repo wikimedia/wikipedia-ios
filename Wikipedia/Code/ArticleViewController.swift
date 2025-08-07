@@ -547,6 +547,14 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
         if let tooltips = presentedViewController as? WMFTooltipViewController {
             tooltips.dismiss(animated: true)
         }
+        
+        
+        guard #available(iOS 18.0, *),
+              UIDevice.current.userInterfaceIdiom == .pad else {
+            return
+        }
+        
+        self.tabBarController?.setTabBarHidden(false, animated: true)
     }
 
     // MARK: Article load
@@ -1207,15 +1215,18 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
         updateTableOfContentsHighlightIfNecessary()
 
         calculateNavigationBarHiddenState(scrollView: webView.scrollView)
+        
+        guard #available(iOS 18.0, *),
+              UIDevice.current.userInterfaceIdiom == .pad else {
+            return
+        }
 
-        if #available(iOS 18.0, *) {
-            let velocity = scrollView.panGestureRecognizer.velocity(in: scrollView).y
+        let velocity = scrollView.panGestureRecognizer.velocity(in: scrollView).y
 
-            if velocity < 0 { // Scrolling down
-                tabBarController?.setTabBarHidden(true, animated: true)
-            } else if velocity > 0 { // Scrolling up
-                tabBarController?.setTabBarHidden(false, animated: true)
-            }
+        if velocity < 0 { // Scrolling down
+            tabBarController?.setTabBarHidden(true, animated: true)
+        } else if velocity > 0 { // Scrolling up
+            tabBarController?.setTabBarHidden(false, animated: true)
         }
     }
     
