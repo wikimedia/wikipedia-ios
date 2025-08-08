@@ -77,6 +77,6 @@ public class WMFArticleTabsHostingController<HostedView: View>: WMFComponentHost
     }
     
     private func openTabsPreferences() {
-        print("Open tabs preferences")
+        viewModel.didTabOpenTabs()
     }
 }

@@ -18,6 +18,7 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
 
     public let didTapTab: (WMFArticleTabsDataController.WMFArticleTab) -> Void
     public let didTapAddTab: () -> Void
+    public let didTabOpenTabs: () -> Void
     
     public let localizedStrings: LocalizedStrings
     
@@ -25,7 +26,8 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
                 localizedStrings: LocalizedStrings,
                 loggingDelegate: WMFArticleTabsLoggingDelegate?,
                 didTapTab: @escaping (WMFArticleTabsDataController.WMFArticleTab) -> Void,
-                didTapAddTab: @escaping () -> Void) {
+                didTapAddTab: @escaping () -> Void,
+                didTapOpenTabs: @escaping () -> Void) {
         self.dataController = dataController
         self.localizedStrings = localizedStrings
         self.loggingDelegate = loggingDelegate
@@ -33,6 +35,7 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
         self.shouldShowCloseButton = false
         self.didTapTab = didTapTab
         self.didTapAddTab = didTapAddTab
+        self.didTabOpenTabs = didTapOpenTabs
         super.init()
         Task {
             await loadTabs()
