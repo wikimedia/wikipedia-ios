@@ -24,4 +24,5 @@ public enum WMFUserDefaultsKey: String {
     case articleTabsDidShowSurvey = "article-tabs-did-show-survey"
     case developerSettingsMoreDynamicTabsBYR = "more-dynamic-tabs-BYR"
     case developerSettingsMoreDynamicTabsDYK = "more-dynamic-tabs-DYK"
+    case developerSettingsMoreDynamicTabs = "more-dynamic-tabs"
 }
