@@ -14,8 +14,7 @@ public struct WMFNewArticleTabSettingsView: View {
 
     public var body: some View {
         List {
-            Section(header:
-                        Text(viewModel.header)
+            Section(header: Text(viewModel.header)
                 .foregroundStyle(Color(theme.secondaryText))
             ) {
                 ForEach(viewModel.options.indices, id: \.self) { index in
@@ -24,7 +23,7 @@ public struct WMFNewArticleTabSettingsView: View {
                             .foregroundStyle(Color(theme.text))
                             .font(Font(WMFFont.for(.body)))
                         Spacer()
-                        if viewModel.selectedIndex == index {
+                        if viewModel.shouldShowCheckmark(for: index) {
                             Image(systemName: "checkmark")
                                 .foregroundStyle(Color(theme.link))
                         }

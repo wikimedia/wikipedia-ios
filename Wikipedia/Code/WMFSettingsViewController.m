@@ -475,8 +475,6 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 
 #pragma mark - Tabs preferences
 
-// TODO GREY
-
 - (void)showTabsPreferences {
     WMFNewArticleTabsSettingsViewController *tabsSettingsVC = [[WMFNewArticleTabsSettingsViewController alloc] initWithDataStore:self.dataStore theme:self.theme];
     [self.navigationController pushViewController:tabsSettingsVC animated:YES];

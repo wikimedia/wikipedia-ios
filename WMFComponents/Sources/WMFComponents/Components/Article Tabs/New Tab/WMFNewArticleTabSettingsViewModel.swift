@@ -13,6 +13,10 @@ public final class WMFNewArticleTabSettingsViewModel: ObservableObject {
             saveSelection(selectedIndex)
         }
     }
+    
+    public func shouldShowCheckmark(for index: Int) -> Bool {
+        selectedIndex == index
+    }
 
     public init(title: String, header: String, options: [String], saveSelection: @escaping (Int) -> Void, selectedIndex: Int) {
         self.title = title
