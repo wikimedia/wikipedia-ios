@@ -227,8 +227,9 @@
 "developer-settings-activity-tab-group-A" = "Задај го јазиче за активност на групата A";
 "developer-settings-activity-tab-group-B" = "Задај го јазиче за активност на групата B";
 "developer-settings-activity-tab-group-C" = "Задај го јазиче за активност на групата C";
-"developer-settings-activity-tabs" = "Овозможи јазичиња за активности";
 "developer-settings-bypass-donation" = "Прескокни дарување";
+"developer-settings-dynamic-tabs-BYR" = "Овозможи јазичиња со „Бидејќи читавте“";
+"developer-settings-dynamic-tabs-DYK" = "Овозможи јазичиња со „Дали сте знаеле“";
 "developer-settings-enable-year-in-review" = "Овозможи Преглед на годината";
 "developer-settings-send-analytics-to-wmflabs" = "Испраќај аналитика во WMFLabs.";
 "developer-settings-suppress-image-rec-post" = "Не објавувај уредувања на преорачани слики.";
