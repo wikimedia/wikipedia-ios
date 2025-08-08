@@ -7,6 +7,11 @@ public class WMFArticleTabsHostingController<HostedView: View>: WMFComponentHost
         return button
     }()
     
+    lazy var overflowButton: UIBarButtonItem = {
+        let button = UIBarButtonItem(image: WMFSFSymbolIcon.for(symbol: .ellipsisCircle), primaryAction: nil, menu: overflowMenu)
+        return button
+    }()
+    
     private let viewModel: WMFArticleTabsViewModel
     private let doneButtonText: String
     
@@ -32,7 +37,7 @@ public class WMFArticleTabsHostingController<HostedView: View>: WMFComponentHost
         
         configureNavigationBar()
         
-        navigationItem.rightBarButtonItem = addTabButton
+        navigationItem.rightBarButtonItems = [addTabButton, overflowButton]
     }
 
     public override func viewDidLoad() {
@@ -54,5 +59,24 @@ public class WMFArticleTabsHostingController<HostedView: View>: WMFComponentHost
     
     @objc private func tappedAdd() {
         viewModel.didTapAddTab()
+    }
+    
+    @objc private func tappedOverflow() {
+        viewModel.didTapAddTab()
+    }
+    
+    var overflowMenu: UIMenu {
+        let tabsPreferences = UIAction(title: viewModel.localizedStrings.tabsPreferencesTitle, image: UIImage(systemName: "gear"), handler: { [weak self] _ in
+            self?.openTabsPreferences()
+        })
+        
+        let children: [UIMenuElement] = [tabsPreferences]
+        let mainMenu = UIMenu(title: String(), children: children)
+
+        return mainMenu
+    }
+    
+    private func openTabsPreferences() {
+        print("Open tabs preferences")
     }
 }
