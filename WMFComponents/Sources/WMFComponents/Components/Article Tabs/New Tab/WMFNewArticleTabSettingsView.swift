@@ -14,7 +14,10 @@ public struct WMFNewArticleTabSettingsView: View {
 
     public var body: some View {
         List {
-            Section(header: Text(viewModel.header)) {
+            Section(header:
+                        Text(viewModel.header)
+                .foregroundStyle(Color(theme.secondaryText))
+            ) {
                 ForEach(viewModel.options.indices, id: \.self) { index in
                     HStack {
                         Text(viewModel.options[index])
@@ -26,16 +29,15 @@ public struct WMFNewArticleTabSettingsView: View {
                                 .foregroundStyle(Color(theme.link))
                         }
                     }
-                    .background((Color(theme.paperBackground)))
                     .contentShape(Rectangle())
+                    .listRowBackground(Color(theme.paperBackground))
                     .onTapGesture {
                         viewModel.selectedIndex = index
                     }
                 }
             }
         }
-        .navigationTitle(viewModel.title)
-        .background(Color(theme.midBackground).ignoresSafeArea())
+        .listBackgroundColor(Color(theme.midBackground))
         .listStyle(.insetGrouped)
     }
 }
