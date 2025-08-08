@@ -99,6 +99,10 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
     private var customArticleCoordinatorNavigationController: UINavigationController?
 
     private var presentingSearchResults: Bool = false
+    
+    private let userDefaultsStore = WMFDataEnvironment.current.userDefaultsStore
+    private var hostingController: UIHostingController<WMFNewArticleTabSettingsView>?
+    private var viewModel: WMFNewArticleTabSettingsViewModel?
 
     // MARK: - Lifecycle
 
@@ -110,6 +114,7 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
         self.needsAttachedView = needsAttachedView
         self.becauseYouReadViewModel = becauseYouReadViewModel
         self.customArticleCoordinatorNavigationController = customArticleCoordinatorNavigationController
+
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -596,10 +601,81 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
             title: CommonStrings.recentlySearchedTitle,
             noSearches: CommonStrings.recentlySearchedEmpty,
             clearAll: CommonStrings.clearTitle,
-            deleteActionAccessibilityLabel: CommonStrings.deleteActionTitle
+            deleteActionAccessibilityLabel: CommonStrings.deleteActionTitle, editButtonTitle: CommonStrings.editContextMenuTitle
         )
-        return WMFRecentlySearchedViewModel(recentSearchTerms: recentSearchTerms, localizedStrings: localizedStrings, needsAttachedView: needsAttachedView, becauseYouReadViewModel: becauseYouReadViewModel, deleteAllAction: didPressClearRecentSearches, deleteItemAction: deleteItemAction, selectAction: selectAction)
+        return WMFRecentlySearchedViewModel(recentSearchTerms: recentSearchTerms, localizedStrings: localizedStrings, needsAttachedView: needsAttachedView, becauseYouReadViewModel: becauseYouReadViewModel, deleteAllAction: didPressClearRecentSearches, deleteItemAction: deleteItemAction, selectAction: selectAction, onTapEdit: {
+            self.viewModel = WMFNewArticleTabSettingsViewModel(
+                title: CommonStrings.tabsPreferencesTitle,
+                header: CommonStrings.newTabTheme,
+                options: [
+                    CommonStrings.recommendations,
+                    CommonStrings.didyouknow
+                ],
+                saveSelection: { [weak self] selectedIndex in
+                    self?.saveSelection(selectedIndex: selectedIndex)
+                },
+                selectedIndex: self.getSelectedIndex()
+            )
+            guard let viewModel = self.viewModel else { return }
+            let view = WMFNewArticleTabSettingsView(viewModel: viewModel)
+            let hostingController = UIHostingController(rootView: view)
+            hostingController.title = CommonStrings.tabsPreferencesTitle
+            hostingController.navigationItem.largeTitleDisplayMode = .never
+
+            hostingController.navigationItem.leftBarButtonItem = UIBarButtonItem(
+                title: CommonStrings.doneTitle,
+                style: .done,
+                target: self,
+                action: #selector(self.doneButtonTapped)
+            )
+            
+            let appearance = UINavigationBarAppearance()
+            appearance.configureWithOpaqueBackground()
+            appearance.titleTextAttributes = [.foregroundColor: self.theme.colors.primaryText]
+            appearance.backgroundColor = self.theme.colors.midBackground
+
+            hostingController.title = CommonStrings.tabsPreferencesTitle
+            hostingController.navigationItem.largeTitleDisplayMode = .never
+            
+            hostingController.navigationItem.standardAppearance = appearance
+            hostingController.navigationItem.scrollEdgeAppearance = appearance
+
+            self.viewModel = viewModel
+            self.hostingController = hostingController
+
+            let navController = UINavigationController(rootViewController: hostingController)
+            self.present(navController, animated: true, completion: { [weak self] in
+                self?.saveSelection(selectedIndex: viewModel.selectedIndex)
+            })
+        })
     }()
+    
+    @objc private func doneButtonTapped() {
+        self.hostingController?.dismiss(animated: true)
+    }
+    
+    let dataController = WMFArticleTabsDataController()
+    
+    private func getSelectedIndex() -> Int {
+        let isBYREnabled = (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsMoreDynamicTabsBYR.rawValue)) ?? false
+        let isDYKEnabled = (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsMoreDynamicTabsDYK.rawValue)) ?? false
+
+        return (isBYREnabled) ? 0 : (isDYKEnabled) ? 1 : 0
+    }
+    
+    private func saveSelection(selectedIndex: Int) {
+        let isBYR = selectedIndex == 0
+        let isDYK = selectedIndex == 1
+
+        try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsMoreDynamicTabsBYR.rawValue, value: isBYR)
+        try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsMoreDynamicTabsDYK.rawValue, value: isDYK)
+
+        dataController.moreDynamicTabsBYRIsEnabled = isBYR
+        dataController.moreDynamicTabsDYKIsEnabled = isDYK
+        
+        self.view.setNeedsLayout()
+        self.view.layoutIfNeeded()
+    }
 
     private lazy var recentSearchTerms: [WMFRecentlySearchedViewModel.RecentSearchTerm] = {
         guard let recent = recentSearches else { return [] }
@@ -641,9 +717,8 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
             return
         }
 
-         resultsViewController.view.isHidden = searchText.isEmpty
+        resultsViewController.view.isHidden = searchText.isEmpty
     }
-
 }
 
 extension SearchViewController: SearchLanguagesBarViewControllerDelegate {

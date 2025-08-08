@@ -141,7 +141,6 @@ private final class ActivityTabGroupBindingCoordinator {
     }
 }
 
-
 private final class MoreDynamicTabsGroupBindingCoordinator {
     private var subscribers: Set<AnyCancellable> = []
 
@@ -162,4 +161,3 @@ private final class MoreDynamicTabsGroupBindingCoordinator {
 
     }
 }
-

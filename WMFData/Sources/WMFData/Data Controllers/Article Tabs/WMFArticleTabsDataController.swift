@@ -14,7 +14,7 @@ public protocol WMFArticleTabsDataControlling {
     func fetchAllArticleTabs() async throws -> [WMFArticleTabsDataController.WMFArticleTab]
 }
 
-public class WMFArticleTabsDataController: WMFArticleTabsDataControlling {
+@objc public class WMFArticleTabsDataController: NSObject, WMFArticleTabsDataControlling {
 
     // MARK: - Nested Public Types
     
@@ -105,6 +105,7 @@ public class WMFArticleTabsDataController: WMFArticleTabsDataControlling {
 
     // MARK: - Properties
     
+    @objc(sharedInstance)
     public static let shared = WMFArticleTabsDataController()
     
     private let userDefaultsStore = WMFDataEnvironment.current.userDefaultsStore
@@ -136,9 +137,9 @@ public class WMFArticleTabsDataController: WMFArticleTabsDataControlling {
     
     // MARK: - Lifecycle
     
-    init(coreDataStore: WMFCoreDataStore? = WMFDataEnvironment.current.coreDataStore,
-         developerSettingsDataController: WMFDeveloperSettingsDataControlling = WMFDeveloperSettingsDataController.shared,
-         experimentStore: WMFKeyValueStore? = WMFDataEnvironment.current.sharedCacheStore) {
+    public init(coreDataStore: WMFCoreDataStore? = WMFDataEnvironment.current.coreDataStore,
+                developerSettingsDataController: WMFDeveloperSettingsDataControlling = WMFDeveloperSettingsDataController.shared,
+                experimentStore: WMFKeyValueStore? = WMFDataEnvironment.current.sharedCacheStore) {
         self._coreDataStore = coreDataStore
         self.developerSettingsDataController = developerSettingsDataController
         if let experimentStore {
@@ -176,6 +177,12 @@ public class WMFArticleTabsDataController: WMFArticleTabsDataControlling {
         }
     }
 
+    @objc public var needsMoreDynamicTabs: Bool {
+        return shouldShowMoreDynamicTabs
+    }
+
+    // MARK: Experiment
+    
     private var primaryAppLanguageProject: WMFProject? {
         if let language = WMFDataEnvironment.current.appData.appLanguages.first {
             return WMFProject.wikipedia(language)
@@ -400,6 +407,22 @@ public class WMFArticleTabsDataController: WMFArticleTabsDataControlling {
             try coreDataStore.saveIfNeeded(moc: moc)
         }
     }
+    
+   public var moreDynamicTabsBYRIsEnabled: Bool {
+        get {
+            return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsMoreDynamicTabsBYR.rawValue)) ?? true
+        } set {
+            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsMoreDynamicTabsBYR.rawValue, value: newValue)
+        }
+    }
+    
+    public var moreDynamicTabsDYKIsEnabled: Bool {
+         get {
+             return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsMoreDynamicTabsDYK.rawValue)) ?? true
+         } set {
+             try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsMoreDynamicTabsDYK.rawValue, value: newValue)
+         }
+     }
     
     public func appendArticle(_ article: WMFArticle, toTabIdentifier tabIdentifier: UUID, needsCleanoutOfFutureArticles: Bool = false) async throws -> Identifiers {
         
