@@ -138,11 +138,23 @@ final class TabsOverviewCoordinator: Coordinator {
             
             let tabConfig = ArticleTabConfig.assignParticularTabAndSetToCurrent(WMFArticleTabsDataController.Identifiers(tabIdentifier: tab.identifier, tabItemIdentifier: article.identifier))
 
-            // isRestoringState = true allows for us to retain the previous scroll position
-            let articleCoordinator = ArticleCoordinator(navigationController: navigationController, articleURL: articleURL, dataStore: MWKDataStore.shared(), theme: theme, needsAnimation: false, source: .undefined, isRestoringState: true, tabConfig: tabConfig)
-            articleCoordinator.start()
-        }
+            let needsMoreDynamicTabs = dataController.shouldShowMoreDynamicTabs
 
+            // If we're showing more dynamic tabs, we need to push to the new tab experience instead of main page
+            if needsMoreDynamicTabs {
+                if tab.articles.last?.isMain == true {
+                    self.newTabCoordinator = NewArticleTabCoordinator(navigationController: self.navigationController, dataStore: self.dataStore, theme: self.theme)
+                    self.newTabCoordinator?.start()
+                } else {
+                    let articleCoordinator = ArticleCoordinator(navigationController: navigationController, articleURL: articleURL, dataStore: MWKDataStore.shared(), theme: theme, needsAnimation: false, source: .undefined, isRestoringState: true, tabConfig: tabConfig)
+                    articleCoordinator.start()
+                }
+            } else {
+                // isRestoringState = true allows for us to retain the previous scroll position
+                let articleCoordinator = ArticleCoordinator(navigationController: navigationController, articleURL: articleURL, dataStore: MWKDataStore.shared(), theme: theme, needsAnimation: false, source: .undefined, isRestoringState: true, tabConfig: tabConfig)
+                articleCoordinator.start()
+            }
+        }
         navigationController.dismiss(animated: true)
     }
     
