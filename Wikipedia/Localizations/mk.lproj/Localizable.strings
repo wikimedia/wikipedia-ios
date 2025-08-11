@@ -138,6 +138,16 @@
 "article-share" = "Сподели";
 "article-tabs-button-accessibility-hint" = "Преоѓа на преглед на јазичињата";
 "article-tabs-button-accessibility-label" = "Јазичиња на статии";
+"article-tabs-feature-announcement-item-1-subtitle" = "Отворајте повеќе статии наеднаш и префрлајте се меѓу нив со леснотија.";
+"article-tabs-feature-announcement-item-1-title" = "Прелистувај со јазичиња";
+"article-tabs-feature-announcement-item-2-subtitle" = "Јазичињата автоматски помнат до каде сте пролизгале.";
+"article-tabs-feature-announcement-item-2-title" = "Продолжете од каде што застанавте";
+"article-tabs-feature-announcement-item-3-subtitle" = "Отворајте ги врските во позадински јазичиња без да си го изгубите местото.";
+"article-tabs-feature-announcement-item-3-title" = "Зачувајте врски за подоцна";
+"article-tabs-feature-announcement-item-4-subtitle" = "Избирете занимливости или предлози за читање кога отворате ново јазиче.";
+"article-tabs-feature-announcement-item-4-title" = "Лично прилагодете го вашето ново јазиче";
+"article-tabs-feature-announcement-sub-cta" = "Дознајте повеќе за Јазичињата";
+"article-tabs-feature-announcement-title" = "Ви ги претставуваме Јазичињата";
 "article-tabs-max-reached" = "Го достигнавте дозволениот број на јазичиња ($1). Статијата е отворена во тековното јазиче. Затворете едно или повеќе од нив.";
 "article-tabs-navigation" = "Прегледник на јазичиња";
 "article-tabs-onboarding-tooltip" = "Воведни поткажувалки за јазичиња";
@@ -227,8 +237,9 @@
 "developer-settings-activity-tab-group-A" = "Задај го јазиче за активност на групата A";
 "developer-settings-activity-tab-group-B" = "Задај го јазиче за активност на групата B";
 "developer-settings-activity-tab-group-C" = "Задај го јазиче за активност на групата C";
-"developer-settings-activity-tabs" = "Овозможи јазичиња за активности";
 "developer-settings-bypass-donation" = "Прескокни дарување";
+"developer-settings-dynamic-tabs-BYR" = "Овозможи јазичиња со „Бидејќи читавте“";
+"developer-settings-dynamic-tabs-DYK" = "Овозможи јазичиња со „Дали сте знаеле“";
 "developer-settings-enable-year-in-review" = "Овозможи Преглед на годината";
 "developer-settings-send-analytics-to-wmflabs" = "Испраќај аналитика во WMFLabs.";
 "developer-settings-suppress-image-rec-post" = "Не објавувај уредувања на преорачани слики.";

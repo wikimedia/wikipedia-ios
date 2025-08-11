@@ -177,6 +177,16 @@
 "article-share" = "مشاركة";
 "article-tabs-button-accessibility-hint" = "ينتقل إلى نظرة عامة على علامات التبويب";
 "article-tabs-button-accessibility-label" = "علامات تبويب المقالة";
+"article-tabs-feature-announcement-item-1-subtitle" = "افتح عدة مقالات وقم بالتبديل بينها بسهولة.";
+"article-tabs-feature-announcement-item-1-title" = "التصفح باستخدام علامات التبويب";
+"article-tabs-feature-announcement-item-2-subtitle" = "تتذكر علامات التبويب موضع التمرير الخاص بك تلقائيًا.";
+"article-tabs-feature-announcement-item-2-title" = "إستأنف من حيث توقفت";
+"article-tabs-feature-announcement-item-3-subtitle" = "افتح الروابط في علامات التبويب في الخلفية دون أن تفقد مكانك.";
+"article-tabs-feature-announcement-item-3-title" = "حفظ الروابط لوقت لاحق";
+"article-tabs-feature-announcement-item-4-subtitle" = "اختر حقائق ممتعة أو اقتراحات للقراءة عند فتح علامة تبويب جديدة.";
+"article-tabs-feature-announcement-item-4-title" = "قم بتخصيص علامة التبويب الجديدة الخاصة بك";
+"article-tabs-feature-announcement-sub-cta" = "تعرف على المزيد حول علامات التبويب";
+"article-tabs-feature-announcement-title" = "مقدمة عن علامات التبويب";
 "article-tabs-max-reached" = "تم الوصول إلى الحد الأقصى لعلامات التبويب ($1). تم فتح المقال في علامة التبويب الحالية. يُرجى إغلاق علامة تبويب واحدة أو أكثر.";
 "article-tabs-navigation" = "التنقل بين علامات التبويب";
 "article-tabs-onboarding-tooltip" = "خطوات الإعداد لعلامات التبويب";
@@ -266,8 +276,9 @@
 "developer-settings-activity-tab-group-A" = "تعيين علامة تبويب النشاط للمجموعة أ";
 "developer-settings-activity-tab-group-B" = "تعيين علامة تبويب النشاط إلى المجموعة ب";
 "developer-settings-activity-tab-group-C" = "تعيين علامة تبويب النشاط إلى المجموعة C";
-"developer-settings-activity-tabs" = "تمكين علامات تبويب النشاط";
 "developer-settings-bypass-donation" = "التبرع بالدم";
+"developer-settings-dynamic-tabs-BYR" = "تمكين علامات التبويب باستخدام \"لأنك تقرأ\"";
+"developer-settings-dynamic-tabs-DYK" = "تمكين علامات التبويب باستخدام هل تعلم";
 "developer-settings-enable-year-in-review" = "تمكين مراجعة العام";
 "developer-settings-send-analytics-to-wmflabs" = "إرسال التحليلات إلى wmflabs.";
 "developer-settings-suppress-image-rec-post" = "لا تنشر توصيات الصور.";
