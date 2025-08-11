@@ -165,6 +165,12 @@ final class WMFNewArticleTabViewController: WMFCanvasViewController, WMFNavigati
     }
 
     @objc func userDidTapTabs() {
+
+        let dc = WMFArticleTabsDataController.shared
+        Task {
+           try? await dc.createArticleTab(initialArticle: nil, setAsCurrent: true)
+            // tab is created, but is not loaded right away
+        }
         navigationController?.popViewController(animated: true)
         showTabsOverview?()
     }
