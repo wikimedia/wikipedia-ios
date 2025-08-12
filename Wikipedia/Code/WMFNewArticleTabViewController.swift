@@ -13,6 +13,7 @@ final class WMFNewArticleTabViewController: WMFCanvasViewController, WMFNavigati
     private var theme: Theme
     private var presentingSearchResults: Bool = false
     private let viewModel: WMFNewArticleTabViewModel
+    private var showTabsOverview: (() -> Void)?
 
     // MARK: - Navigation bar button properties
 
@@ -21,7 +22,7 @@ final class WMFNewArticleTabViewController: WMFCanvasViewController, WMFNavigati
     }
 
     private var _yirCoordinator: YearInReviewCoordinator?
-    var yirCoordinator: YearInReviewCoordinator? {
+    private var yirCoordinator: YearInReviewCoordinator? {
 
         guard let navigationController,
               let yirDataController else {
@@ -69,8 +70,6 @@ final class WMFNewArticleTabViewController: WMFCanvasViewController, WMFNavigati
     @MainActor required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
-    var showTabsOverview: (() -> Void)?
 
     public override func viewDidLoad() {
         super.viewDidLoad()
@@ -160,11 +159,11 @@ final class WMFNewArticleTabViewController: WMFCanvasViewController, WMFNavigati
         configureNavigationBar(titleConfig: titleConfig, backButtonConfig: backButtonConfig, closeButtonConfig: nil, profileButtonConfig: profileButtonConfig, tabsButtonConfig: tabsButtonConfig, searchBarConfig: searchBarConfig, hideNavigationBarOnScroll: true)
     }
 
-    @objc func userDidTapProfile() {
+    @objc private func userDidTapProfile() {
         profileCoordinator?.start()
     }
 
-    @objc func userDidTapTabs() {
+    @objc private func userDidTapTabs() {
 
         let dc = WMFArticleTabsDataController.shared
         Task {
@@ -175,7 +174,7 @@ final class WMFNewArticleTabViewController: WMFCanvasViewController, WMFNavigati
         showTabsOverview?()
     }
 
-    func updateProfileButton() {
+    private func updateProfileButton() {
         let config = self.profileButtonConfig(target: self, action: #selector(userDidTapProfile), dataStore: dataStore, yirDataController: yirDataController, leadingBarButtonItem: nil)
         updateNavigationBarProfileButton(needsBadge: config.needsBadge, needsBadgeLabel: CommonStrings.profileButtonBadgeTitle, noBadgeLabel: CommonStrings.profileButtonTitle)
     }
