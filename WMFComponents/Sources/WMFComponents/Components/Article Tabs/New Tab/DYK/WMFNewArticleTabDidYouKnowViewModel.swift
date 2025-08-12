@@ -15,7 +15,7 @@ import WMFData
 
     public var didYouKnowFact: String? {
         guard let randomElement = facts.randomElement() else { return nil }
-        let dykPrefix = dykLocalizedStrings.dyk
+        let dykPrefix = dykLocalizedStrings.didYouKnowString
         let removeEllipses = replaceEllipsesWithSpace(in: randomElement)
         let combined = dykPrefix + " " + removeEllipses
         return combined
@@ -45,11 +45,11 @@ import WMFData
     }
     
     public struct LocalizedStrings {
-        let dyk: String
+        let didYouKnowString: String
         let fromSource: String
         
         public init(dyk: String, fromSource: String) {
-            self.dyk = dyk
+            self.didYouKnowString = dyk
             self.fromSource = fromSource
         }
     }
