@@ -123,12 +123,12 @@ final class NewArticleTabCoordinator: Coordinator {
         let enableDYK = devSettingsDataController.enableMoreDynamicTabsDYK
         
         if enableBYR || experiment == .becauseYouRead {
-            loadBecauseYouRead { seed, related in
+            loadBecauseYouRead { seedArticle, related in
 
                 var becauseVM: WMFBecauseYouReadViewModel?
                 
-                if let seed {
-                    let seedRecord = seed.toHistoryRecord()
+                if let seedArticle {
+                    let seedRecord = seedArticle.toHistoryRecord()
                     let relatedRecords = related.compactMap { $0.toHistoryRecord() }
                     
                     if !relatedRecords.isEmpty {
