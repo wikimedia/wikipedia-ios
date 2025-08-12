@@ -23,19 +23,7 @@ public struct WMFNewArticleTabViewDidYouKnow: View {
         VStack(alignment: .leading, spacing: 8) {
             Text(attributedString)
                 .environment(\.openURL, OpenURLAction { url in
-                    
-                    var components = url.pathComponents
-                    // remove relative bit?
-                    components = components.filter { $0 != "." }
-                    
-                    var finalComponents = URLComponents()
-                    finalComponents.scheme = "https"
-                    finalComponents.host = "en.wikipedia.org"
-                    finalComponents.path = "/wiki/" + components.joined(separator: "/")
-                    let finalURL = finalComponents.url
-      
-                    tappedURLAction(finalURL)
-                    
+                    tappedURLAction(url)
                     return .handled
                 })
             Text(fromSource)
