@@ -21,6 +21,9 @@ public struct WMFRecentlySearchedView: View {
     }
 
     public var body: some View {
+        let enableBYR = viewModel.devSettingsDataControler.enableMoreDynamicTabsBYR
+        let enableDYK = viewModel.devSettingsDataControler.enableMoreDynamicTabsDYK
+        let assignment = try? viewModel.tabsDataController.getMoreDynamicTabsExperimentAssignment()
         ScrollView {
             LazyVStack(spacing: 0) {
                 if viewModel.recentSearchTerms.isEmpty {
@@ -41,15 +44,20 @@ public struct WMFRecentlySearchedView: View {
                         Text(viewModel.localizedStrings.title)
                             .font(Font(WMFFont.for(.semiboldSubheadline)))
                             .foregroundStyle(Color(uiColor: theme.secondaryText))
+                            .padding(.top)
+                            .padding(.leading)
+                            .padding(.bottom)
                         Spacer()
                         Button(viewModel.localizedStrings.clearAll) {
                             viewModel.deleteAllAction()
                         }
                         .font(Font(WMFFont.for(.subheadline)))
                         .foregroundStyle(Color(uiColor: theme.link))
+                        .padding(.top)
+                        .padding(.trailing)
+                        .padding(.bottom)
                     }
-                    .padding(.horizontal)
-                    .padding(.top)
+                    .background(Color(theme.paperBackground))
                 }
                 List {
                     ForEach(Array(viewModel.displayedSearchTerms.enumerated()), id: \.element.id) { index, item in
@@ -82,19 +90,15 @@ public struct WMFRecentlySearchedView: View {
                 .scrollDisabled(true)
                 .frame(height: estimatedListHeight)
                 if viewModel.needsAttachedView {
-                    let enableBYR = viewModel.devSettingsDataControler.enableMoreDynamicTabsBYR
-                    let enableDYK = viewModel.devSettingsDataControler.enableMoreDynamicTabsDYK
-                    let assignment = try? viewModel.tabsDataController.getMoreDynamicTabsExperimentAssignment()
-                    
                     if enableBYR || (!enableDYK && assignment == .becauseYouRead), let becauseVM = viewModel.becauseYouReadViewModel {
                         WMFBecauseYouReadView(viewModel: becauseVM)
-                    } else if enableDYK || assignment == .didYouKnow, let dykVM = viewModel.didYouKnowViewModel {
+                    } else if shouldShowDidYouKnow(), let dykVM = viewModel.didYouKnowViewModel {
                     	WMFNewArticleTabViewDidYouKnow(viewModel: dykVM, linkDelegate: linkDelegate)
                     }
                 }
             }
         }
-        .background(viewModel.devSettingsDataControler.enableMoreDynamicTabsBYR && ((try? viewModel.tabsDataController.getMoreDynamicTabsExperimentAssignment() == .becauseYouRead) != nil) ? Color(theme.midBackground) : Color(theme.paperBackground))
+        .background(shouldShowDidYouKnow() ? Color(theme.midBackground) : Color(theme.paperBackground))
         .padding(.top, viewModel.topPadding)
         .onAppear {
             recalculateEstimatedListHeight()
@@ -129,7 +133,7 @@ public struct WMFRecentlySearchedView: View {
         estimatedListHeight = totalHeight
     }
     
-    func estimatedTextHeight(text: String, font: UIFont, width: CGFloat) -> CGFloat {
+    private func estimatedTextHeight(text: String, font: UIFont, width: CGFloat) -> CGFloat {
         let constraintRect = CGSize(width: width, height: .greatestFiniteMagnitude)
         let boundingBox = text.boundingRect(
             with: constraintRect,
@@ -138,5 +142,16 @@ public struct WMFRecentlySearchedView: View {
             context: nil
         )
         return ceil(boundingBox.height)
+    }
+
+    private func shouldShowDidYouKnow() -> Bool {
+        let enableDYK = viewModel.devSettingsDataControler.enableMoreDynamicTabsDYK
+        let assignment = try? viewModel.tabsDataController.getMoreDynamicTabsExperimentAssignment()
+
+        if enableDYK || assignment == .didYouKnow && viewModel.didYouKnowViewModel != nil {
+            return true
+        }
+
+        return false
     }
 }
