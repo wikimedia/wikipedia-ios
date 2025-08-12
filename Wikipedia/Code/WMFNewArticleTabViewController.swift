@@ -111,7 +111,7 @@ final class WMFNewArticleTabViewController: WMFCanvasViewController, WMFNavigati
         let yirDataController = try? WMFYearInReviewDataController()
         let profileButtonConfig = profileButtonConfig(target: self, action: #selector(userDidTapProfile), dataStore: dataStore, yirDataController: yirDataController, leadingBarButtonItem: nil)
 
-        let tabsButtonConfig = tabsButtonConfig(target: self, action: #selector(userDidTapTabs), dataStore: dataStore)
+        let tabsButtonConfig = tabsButtonConfig(target: self, action: #selector(goToTabsOverview), dataStore: dataStore)
 
         let byrViewModel = self.viewModel.becauseYouReadViewModel != nil ? viewModel.becauseYouReadViewModel : nil
         let searchViewController = SearchViewController(source: .article, customArticleCoordinatorNavigationController: self.navigationController, needsAttachedView: true, becauseYouReadViewModel: byrViewModel)
@@ -163,15 +163,25 @@ final class WMFNewArticleTabViewController: WMFCanvasViewController, WMFNavigati
         profileCoordinator?.start()
     }
 
-    @objc private func userDidTapTabs() {
+    @MainActor
+    @objc private func goToTabsOverview() {
+        let articleTabsDataController = WMFArticleTabsDataController.shared
+        Task { @MainActor in
+            do {
+                _ = try await articleTabsDataController.createArticleTab(initialArticle: nil, setAsCurrent: true)
 
-        let dc = WMFArticleTabsDataController.shared
-        Task {
-           try? await dc.createArticleTab(initialArticle: nil, setAsCurrent: true)
-            // tab is created, but is not loaded right away
+                if let viewContext = articleTabsDataController.coreDataStore?.persistentContainer?.viewContext {
+                     await viewContext.perform {
+                        viewContext.processPendingChanges()
+                    }
+                }
+                navigationController?.popViewController(animated: true)
+                showTabsOverview?()
+            } catch {
+                navigationController?.popViewController(animated: true)
+                showTabsOverview?()
+            }
         }
-        navigationController?.popViewController(animated: true)
-        showTabsOverview?()
     }
 
     private func updateProfileButton() {
@@ -194,9 +204,7 @@ final class WMFNewArticleTabViewController: WMFCanvasViewController, WMFNavigati
 
 // MARK: - Fileprivate classes
 
-fileprivate final class WMFNewArticleTabHostingController<WMFNewArticleTabView: View>: WMFComponentHostingController<WMFNewArticleTabView> {
-
-}
+fileprivate final class WMFNewArticleTabHostingController<WMFNewArticleTabView: View>: WMFComponentHostingController<WMFNewArticleTabView> {}
 
 // MARK: - Extensions
 
@@ -232,7 +240,7 @@ extension WMFNewArticleTabViewController: UISearchControllerDelegate {
     func didDismissSearchController(_ searchController: UISearchController) {
         presentingSearchResults = false
         navigationController?.hidesBarsOnSwipe = true
-        userDidTapTabs()
+        goToTabsOverview()
     }
 }
 

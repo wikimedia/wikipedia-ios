@@ -129,7 +129,7 @@ public class WMFArticleTabsDataController: WMFArticleTabsDataControlling {
     }
     
     private var _coreDataStore: WMFCoreDataStore?
-    private var coreDataStore: WMFCoreDataStore? {
+    public var coreDataStore: WMFCoreDataStore? {
         return _coreDataStore ?? WMFDataEnvironment.current.coreDataStore
     }
     
