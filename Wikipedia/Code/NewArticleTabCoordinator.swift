@@ -9,7 +9,6 @@ final class NewArticleTabCoordinator: Coordinator {
     private var dataStore: MWKDataStore
     private var theme: Theme
     private var dataController = WMFArticleTabsDataController.shared
-    private let userDefaultsStore = WMFDataEnvironment.current.userDefaultsStore
 
     // MARK: - Related pages props
     private let fetcher: RelatedSearchFetcher
@@ -21,7 +20,6 @@ final class NewArticleTabCoordinator: Coordinator {
 
     // MARK: - Did you know props
     private var dykFetcher: WMFFeedDidYouKnowFetcher
-    private let sharedCache = SharedContainerCache(fileName: SharedContainerCacheCommonNames.dykCache)
     public var dykFacts: [WMFFeedDidYouKnow]? = nil
     private let fromLanguageWikipedia = WMFLocalizedString("new-article-tab-from-language-wikipedia", value: "from %1$@ Wikipedia", comment: "Text displayed to indicate Did You Know source displayed on a new tab. %1$@ will be replaced with the Wikipedia language set as the app default")
     private let fromWikipediaDefault = CommonStrings.fromWikipediaDefault
@@ -82,12 +80,13 @@ final class NewArticleTabCoordinator: Coordinator {
                 
                 self.navigationController.pushViewController(vc, animated: true)
             }
-        } else if enableDYK || experiment == .didYouKnow {
-            self.fetchDYK { facts in
+        } else if enableDYK || experiment == .didYouKnow,
+                  let primaryLanguage = self.dataStore.languageLinkController.appLanguage?.languageCode {
+            self.fetchDYK(for: primaryLanguage) { facts in
                 DispatchQueue.main.async {
                     let dykVM = WMFNewArticleTabDidYouKnowViewModel(
                         facts: facts?.map { $0.html } ?? [],
-                        languageCode: self.dataStore.languageLinkController.appLanguage?.languageCode,
+                        languageCode: primaryLanguage,
                         dykLocalizedStrings: WMFNewArticleTabDidYouKnowViewModel.LocalizedStrings.init(
                             didYouKnowTitle: self.didYouKnowTitle,
                             fromSource: self.fromLanguageWikipediaTextFor(languageCode: self.dataStore.languageLinkController.appLanguage?.languageCode)
@@ -215,39 +214,17 @@ final class NewArticleTabCoordinator: Coordinator {
         }
     }
 
-    private func fetchDYK(completion: @escaping ([WMFFeedDidYouKnow]?) -> Void) {
-        guard let url = URL(string: Configuration.current.defaultSiteDomain) else {
+    private func fetchDYK(for language: String, completion: @escaping ([WMFFeedDidYouKnow]?) -> Void) {
+        guard let url = NSURL.wmf_URL(withDefaultSiteAndLanguageCode: language) else {
             completion(nil)
             return
         }
         
-        let calendar = Calendar.current
-        let today = calendar.startOfDay(for: Date())
-        let stringToday = today.formatted()
-        let key = "dyk-last-fetch-date"
-        
-        let lastChecked = try? userDefaultsStore?.load(key: key) ?? ""
-        
-        let wasCheckedToday = stringToday == lastChecked
-        
-        let cached = sharedCache.loadCache() ?? DidYouKnowCache()
-        let facts = cached.facts
-        
-        if wasCheckedToday, let facts = facts, !facts.isEmpty {
-            completion(facts)
-            return
-        }
-        
-        try? sharedCache.removeCache()
-        
-        dykFetcher.fetchDidYouKnow(withSiteURL: url) { [weak self] error, facts in
+        dykFetcher.fetchDidYouKnow(withSiteURL: url) { error, facts in
             guard error == nil else {
                 completion(nil)
                 return
             }
-            self?.dykFacts = facts
-            self?.sharedCache.saveCache(facts)
-            try? self?.userDefaultsStore?.save(key: key, value: stringToday)
             completion(facts)
         }
     }

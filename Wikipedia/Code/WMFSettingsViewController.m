@@ -425,6 +425,7 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
     }];
 
     [SharedContainerCacheHousekeeping deleteStaleCachedItemsIn:SharedContainerCacheCommonNames.talkPageCache cleanupLevel:WMFCleanupLevelHigh];
+    [SharedContainerCacheHousekeeping deleteStaleCachedItemsIn:SharedContainerCacheCommonNames.didYouKnowCache cleanupLevel:WMFCleanupLevelHigh];
 }
 
 - (void)showClearCacheInProgressBanner {

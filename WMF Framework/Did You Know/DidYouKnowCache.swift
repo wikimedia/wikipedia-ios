@@ -4,12 +4,12 @@ public struct DidYouKnowCache: Codable {
 
     // MARK: - Properties
 
-    public var facts: [WMFFeedDidYouKnow]?
+    public var didYouKnowItems: [WMFFeedDidYouKnow]?
 
     // MARK: - Public
 
-    public init(facts: [WMFFeedDidYouKnow]? = nil ) {
-        self.facts = facts
+    public init(didYouKnowItems: [WMFFeedDidYouKnow]? = nil ) {
+        self.didYouKnowItems = didYouKnowItems
     }
 }
 
