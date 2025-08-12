@@ -131,6 +131,16 @@
 "article-share" = "Condivider";
 "article-tabs-button-accessibility-hint" = "Naviga al vista general de schedas";
 "article-tabs-button-accessibility-label" = "Schedas de articulo";
+"article-tabs-feature-announcement-item-1-subtitle" = "Aperi plure articulos e cambia inter illos con facilitate.";
+"article-tabs-feature-announcement-item-1-title" = "Navigar con schedas";
+"article-tabs-feature-announcement-item-2-subtitle" = "Le schedas se rememora automaticamente tu position de rolamento.";
+"article-tabs-feature-announcement-item-2-title" = "Continua ubi tu ha cessate";
+"article-tabs-feature-announcement-item-3-subtitle" = "Aperi ligamines in schedas de fundo sin perder tu position.";
+"article-tabs-feature-announcement-item-3-title" = "Salveguardar ligamines pro plus tarde";
+"article-tabs-feature-announcement-item-4-subtitle" = "Elige factos curiose o suggestiones de lectura quando se aperi un nove scheda.";
+"article-tabs-feature-announcement-item-4-title" = "Personalisar tu nove scheda";
+"article-tabs-feature-announcement-sub-cta" = "Discoperi plus sur le schedas";
+"article-tabs-feature-announcement-title" = "Presentation de Schedas";
 "article-tabs-max-reached" = "Le limite de schedas ($1) ha essite attingite. Le articulo se ha aperite in le scheda actual. Per favor claude un o plus schedas.";
 "article-tabs-navigation" = "Navigation inter schedas";
 "article-tabs-onboarding-tooltip" = "Legendas emergente de introduction al schedas";
@@ -220,8 +230,9 @@
 "developer-settings-activity-tab-group-A" = "Mitter le scheda de activitate al gruppo A";
 "developer-settings-activity-tab-group-B" = "Mitter le scheda de activitate al gruppo B";
 "developer-settings-activity-tab-group-C" = "Mitter le scheda de activitate al gruppo C";
-"developer-settings-activity-tabs" = "Activar le schedas de activitate";
 "developer-settings-bypass-donation" = "Contornar donation";
+"developer-settings-dynamic-tabs-BYR" = "Activar schedas con “Perque tu ha legite”";
+"developer-settings-dynamic-tabs-DYK" = "Activar schedas con “Sapeva tu que…”";
 "developer-settings-enable-year-in-review" = "Activar le Summario del anno";
 "developer-settings-send-analytics-to-wmflabs" = "Inviar informationes analytic a wmflabs.";
 "developer-settings-suppress-image-rec-post" = "Non publicar le modification de recommendationes de imagine.";

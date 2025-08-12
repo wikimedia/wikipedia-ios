@@ -114,6 +114,12 @@
 "article-reference-view-title" = "Referenz $1";
 "article-save-error-not-enough-space" = "Dir hutt net genuch op Ärem Apparat fir dësen Artikel ze späicheren";
 "article-share" = "Deelen";
+"article-tabs-feature-announcement-item-2-subtitle" = "Tabs erënnere sech automatesch un Är Scrollpositioun.";
+"article-tabs-feature-announcement-item-2-title" = "Fuert do virun, wou Dir opgehal hutt";
+"article-tabs-feature-announcement-item-3-subtitle" = "Maacht Linken an Hannergrondtabs op, ouni Är Positioun ze verléieren.";
+"article-tabs-feature-announcement-item-3-title" = "Linke fir méi spéit späicheren";
+"article-tabs-feature-announcement-item-4-title" = "Personaliséiert Ären neien Tab";
+"article-tabs-feature-announcement-sub-cta" = "Méi iwwer Tabs gewuer ginn";
 "article-tabs-navigation" = "Tabs-Navigatioun";
 "article-tabs-open" = "Opmaachen";
 "article-tabs-open-background-tab" = "An engem Hannergrond-Tab opmaachen";
