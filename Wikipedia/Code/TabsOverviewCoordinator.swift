@@ -154,17 +154,9 @@ final class TabsOverviewCoordinator: Coordinator {
             action: #selector(self.doneButtonTapped)
         )
 
-        let appearance = UINavigationBarAppearance()
-        appearance.configureWithOpaqueBackground()
-        appearance.titleTextAttributes = [.foregroundColor: theme.colors.primaryText]
-        appearance.backgroundColor = theme.colors.midBackground
-
-        hostingController.navigationItem.standardAppearance = appearance
-        hostingController.navigationItem.scrollEdgeAppearance = appearance
-
         self.hostingController = hostingController
 
-        let navController = UINavigationController(rootViewController: hostingController)
+        let navController = WMFComponentNavigationController(rootViewController: hostingController)
 
         let presenter = navigationController.presentedViewController ?? navigationController
         presenter.present(navController, animated: true) { [weak self] in

@@ -66,7 +66,7 @@ public class WMFArticleTabsHostingController<HostedView: View>: WMFComponentHost
     }
     
     var overflowMenu: UIMenu {
-        let tabsPreferences = UIAction(title: viewModel.localizedStrings.tabsPreferencesTitle, image: UIImage(systemName: "gear"), handler: { [weak self] _ in
+        let tabsPreferences = UIAction(title: viewModel.localizedStrings.tabsPreferencesTitle, image: WMFSFSymbolIcon.for(symbol: .gear), handler: { [weak self] _ in
             self?.openTabsPreferences()
         })
         

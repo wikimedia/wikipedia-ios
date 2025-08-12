@@ -101,17 +101,18 @@ public struct WMFRecentlySearchedView: View {
             .onChange(of: sizeCategory) { _ in
                 recalculateEstimatedListHeight()
             }
-
-            VStack {
-                Spacer()
-                Button(action: {
-                    viewModel.onTapEdit()
-                }, label: {
-                    Text(viewModel.localizedStrings.editButtonTitle)
-                        .foregroundStyle(Color(theme.text))
-                        .font(Font(WMFFont.for(.boldSubheadline)))
-                })
-                .padding(.bottom, 32)
+            if viewModel.needsAttachedView {
+                VStack {
+                    Spacer()
+                    Button(action: {
+                        viewModel.onTapEdit()
+                    }, label: {
+                        Text(viewModel.localizedStrings.editButtonTitle)
+                            .foregroundStyle(Color(theme.text))
+                            .font(Font(WMFFont.for(.boldSubheadline)))
+                    })
+                    .padding(.bottom, 32)
+                }
             }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)

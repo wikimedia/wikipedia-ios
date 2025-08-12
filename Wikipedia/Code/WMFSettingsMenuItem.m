@@ -72,7 +72,7 @@
             return
                 [[WMFSettingsMenuItem alloc] initWithType:type
                                                     title:[WMFCommonStrings tabsTitle]
-                                                 iconName:@"settings-search"
+                                                 iconName:@"article-tabs-square"
                                                 iconColor:[UIColor wmf_blue_300]
                                            disclosureType:WMFSettingsMenuItemDisclosureType_ViewController
                                            disclosureText:nil

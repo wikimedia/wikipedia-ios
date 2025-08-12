@@ -628,22 +628,11 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
                 target: self,
                 action: #selector(self.doneButtonTapped)
             )
-            
-            let appearance = UINavigationBarAppearance()
-            appearance.configureWithOpaqueBackground()
-            appearance.titleTextAttributes = [.foregroundColor: self.theme.colors.primaryText]
-            appearance.backgroundColor = self.theme.colors.midBackground
-
-            hostingController.title = CommonStrings.tabsPreferencesTitle
-            hostingController.navigationItem.largeTitleDisplayMode = .never
-            
-            hostingController.navigationItem.standardAppearance = appearance
-            hostingController.navigationItem.scrollEdgeAppearance = appearance
 
             self.viewModel = viewModel
             self.hostingController = hostingController
 
-            let navController = UINavigationController(rootViewController: hostingController)
+            let navController = WMFComponentNavigationController(rootViewController: hostingController)
             self.present(navController, animated: true, completion: { [weak self] in
                 self?.saveSelection(selectedIndex: viewModel.selectedIndex)
             })

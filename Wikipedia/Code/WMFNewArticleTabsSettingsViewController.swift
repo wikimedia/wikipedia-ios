@@ -8,12 +8,10 @@ class WMFNewArticleTabsSettingsViewController: UIViewController {
     private var viewModel: WMFNewArticleTabSettingsViewModel?
     private let userDefaultsStore = WMFDataEnvironment.current.userDefaultsStore
     let dataController = WMFArticleTabsDataController()
-    private var dataStore: MWKDataStore?
     private var initialIndex: Int
     private var theme: Theme
     
-    @objc init(dataStore: MWKDataStore, theme: Theme) {
-        self.dataStore = dataStore
+    @objc init(theme: Theme) {
         self.theme = theme
         
         let isBYREnabled = (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsMoreDynamicTabsBYR.rawValue)) ?? false
@@ -83,13 +81,6 @@ class WMFNewArticleTabsSettingsViewController: UIViewController {
         addChild(hostingController)
         view.addSubview(hostingController.view)
         hostingController.view.translatesAutoresizingMaskIntoConstraints = false
-        let appearance = UINavigationBarAppearance()
-        appearance.configureWithOpaqueBackground()
-        appearance.backgroundColor = theme.colors.midBackground
-
-        navigationController?.navigationBar.standardAppearance = appearance
-        navigationController?.navigationBar.scrollEdgeAppearance = appearance
-        navigationController?.navigationBar.compactAppearance = appearance
 
         NSLayoutConstraint.activate([
             hostingController.view.topAnchor.constraint(equalTo: view.topAnchor),
