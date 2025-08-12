@@ -573,7 +573,7 @@ final class YearInReviewReadLocationSlideDataController: YearInReviewSlideDataCo
     var isEvaluated: Bool = false
     static var containsPersonalizedNetworkData = false
     
-    private var locationRead: String?
+    private var legacyPageViews: [WMFLegacyPageView]
 
     private weak var legacyPageViewsDataDelegate: LegacyPageViewsDataDelegate?
     private let yirConfig: YearInReviewFeatureConfig
@@ -582,6 +582,7 @@ final class YearInReviewReadLocationSlideDataController: YearInReviewSlideDataCo
         self.year = year
         self.yirConfig = yirConfig
         self.legacyPageViewsDataDelegate = dependencies.legacyPageViewsDataDelegate
+        self.legacyPageViews = []
     }
 
     func populateSlideData(in context: NSManagedObjectContext) async throws {
@@ -593,10 +594,10 @@ final class YearInReviewReadLocationSlideDataController: YearInReviewSlideDataCo
         }
         
         for pageView in pageViews {
-            // print("title: \(pageView.title), lat: \(pageView.latitude), long: \(pageView.longitude)")
+            print("title: \(pageView.title), lat: \(pageView.latitude), long: \(pageView.longitude)")
         }
         
-        // todo: how to cluster by area and get a region name?
+        legacyPageViews = pageViews
         
         isEvaluated = true
     }
@@ -606,10 +607,8 @@ final class YearInReviewReadLocationSlideDataController: YearInReviewSlideDataCo
         slide.id = id
         slide.year = Int32(year)
 
-        if let locationRead {
-            let encoder = JSONEncoder()
-            slide.data = try encoder.encode(locationRead)
-        }
+        let encoder = JSONEncoder()
+        slide.data = try encoder.encode(legacyPageViews)
 
         return slide
     }

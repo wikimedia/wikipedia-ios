@@ -68,12 +68,12 @@ final class WMFPageViewTime {
     }
 }
 
-public final class WMFLegacyPageView {
-    let title: String
+public final class WMFLegacyPageView: Codable, Identifiable {
+    public let title: String
     let project: WMFProject
     let viewedDate: Date
-    let latitude: Double
-    let longitude: Double
+    public let latitude: Double
+    public let longitude: Double
     
     public init(title: String, project: WMFProject, viewedDate: Date, latitude: Double, longitude: Double) {
         self.title = title

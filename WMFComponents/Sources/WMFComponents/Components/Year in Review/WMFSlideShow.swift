@@ -34,30 +34,32 @@ public struct WMFSlideShow: View {
     
     public var body: some View {
         Group {
-            ForEach(0..<slides.count, id: \.self) { slide in
+            ForEach(0..<slides.count, id: \.self) { slideIndex in
+                let slide = slides[slideIndex]
                 WMFYearInReviewScrollView(
-                    scrollViewContents: slideView(slide: slide),
+                    scrollViewContents: slideView(slideIndex: slideIndex),
                     hasLargeInsets: false,
-                    gifName: slides[slide].gifName,
-                    altText: slides[slide].altText
+                    gifName: slides[slideIndex].gifName,
+                    altText: slides[slideIndex].altText,
+                    locationArticles: slide.locationArticles
                 )
-                    .frame(maxWidth: .infinity, maxHeight: .infinity)
-                    .tag(slide)
-                    .background(Color(uiColor: theme.midBackground))
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .tag(slideIndex)
+                .background(Color(uiColor: theme.midBackground))
             }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
     
-    private func subtitleAttributedString(slide: Int) -> AttributedString {
-        let text = slides[slide].subtitle
+    private func subtitleAttributedString(slideIndex: Int) -> AttributedString {
+        let text = slides[slideIndex].subtitle
         return (try? AttributedString(markdown: text)) ?? AttributedString(text)
     }
     
-    private func slideView(slide: Int) -> some View {
+    private func slideView(slideIndex: Int) -> some View {
         VStack(spacing: 16) {
             HStack(alignment: .top) {
-                Text(slides[slide].title)
+                Text(slides[slideIndex].title)
                     .font(Font(WMFFont.for(.boldTitle1)))
                     .foregroundStyle(Color(uiColor: theme.text))
                     .frame(maxWidth: .infinity, alignment: .topLeading)
@@ -76,11 +78,11 @@ public struct WMFSlideShow: View {
                     }
                 }
             }
-            if slides[slide].isSubtitleAttributedString ?? false {
-                WMFHtmlText(html: slides[slide].subtitle, styles: subtitleStyles)
+            if slides[slideIndex].isSubtitleAttributedString ?? false {
+                WMFHtmlText(html: slides[slideIndex].subtitle, styles: subtitleStyles)
                     .frame(maxWidth: .infinity, alignment: .topLeading)
             } else {
-                Text(subtitleAttributedString(slide: slide))
+                Text(subtitleAttributedString(slideIndex: slideIndex))
                     .font(Font(WMFFont.for(.title3)))
                     .foregroundStyle(Color(uiColor: theme.text))
                     .accentColor(Color(uiColor: theme.link))
@@ -98,4 +100,5 @@ public protocol SlideShowProtocol {
     var altText: String { get }
     var isSubtitleAttributedString: Bool? { get }
     var infoURL: URL? { get }
+    var locationArticles: [WMFLegacyPageView] { get }
 }

@@ -1,6 +1,7 @@
 import Foundation
 import SwiftUI
 import WMFData
+import CoreLocation
 
 public protocol WMFYearInReviewLoggingDelegate: AnyObject {
     func logYearInReviewIntroDidTapContinue()
@@ -213,8 +214,9 @@ public struct YearInReviewSlideContent: SlideShowProtocol {
     public let isSubtitleAttributedString: Bool?
     public let loggingID: String
     public let hideDonateButton: Bool
+    public let locationArticles: [WMFLegacyPageView]
     
-    public init(gifName: String, altText: String, title: String, informationBubbleText: String?, subtitle: String, isSubtitleAttributedString: Bool? = false, loggingID: String, infoURL: URL? = nil, hideDonateButton: Bool) {
+    public init(gifName: String, altText: String, title: String, informationBubbleText: String?, subtitle: String, isSubtitleAttributedString: Bool? = false, loggingID: String, infoURL: URL? = nil, hideDonateButton: Bool, locationArticles: [WMFLegacyPageView]? = nil) {
         self.altText = altText
         self.title = title
         self.informationBubbleText = informationBubbleText
@@ -224,6 +226,7 @@ public struct YearInReviewSlideContent: SlideShowProtocol {
 		self.hideDonateButton = hideDonateButton
         self.gifName = gifName
         self.isSubtitleAttributedString = isSubtitleAttributedString
+        self.locationArticles = locationArticles ?? []
     }
 }
 

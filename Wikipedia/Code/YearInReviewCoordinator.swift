@@ -4,6 +4,7 @@ import SwiftUI
 import WMFComponents
 import WMFData
 import CocoaLumberjackSwift
+import CoreLocation
 
 @objc(WMFYearInReviewCoordinator)
 final class YearInReviewCoordinator: NSObject, Coordinator {
@@ -548,6 +549,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         let saveCount: YearInReviewSlideContent?
         let mostReadDay: YearInReviewSlideContent?
         let viewCount: YearInReviewSlideContent?
+        let locationRead: YearInReviewSlideContent?
     }
 
     func shoudlHideDonateButton() -> Bool {
@@ -561,7 +563,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
 
         guard let dataController = try? WMFYearInReviewDataController(),
               let report = try? dataController.fetchYearInReviewReport(forYear: WMFYearInReviewDataController.targetYear) else {
-            return PersonalizedSlides(readCount: nil, editCount: nil, donateCount: nil, saveCount: nil, mostReadDay: nil, viewCount: nil)
+            return PersonalizedSlides(readCount: nil, editCount: nil, donateCount: nil, saveCount: nil, mostReadDay: nil, viewCount: nil, locationRead: nil)
         }
 
         var readCountSlide: YearInReviewSlideContent? = nil
@@ -570,6 +572,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         var saveCountSlide: YearInReviewSlideContent? = nil
         var mostReadDaySlide: YearInReviewSlideContent? = nil
         var viewCountSlide: YearInReviewSlideContent? = nil
+        var locationReadSlide: YearInReviewSlideContent? = nil
         
         for slide in report.slides {
             switch slide.id {
@@ -688,8 +691,18 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
                 case .locationRead:
                     if let data = slide.data {
                         let decoder = JSONDecoder()
-                        if let locationName = try? decoder.decode(String.self, from: data) {
-                            print(locationName)
+                        if let locationArticles = try? decoder.decode([WMFLegacyPageView].self, from: data),
+                           locationArticles.count > 0 {
+                            locationReadSlide = YearInReviewSlideContent(
+                                gifName: "personal-slide-05",
+                                altText: "Alt text",
+                                title: "Title",
+                                informationBubbleText: nil,
+                                subtitle: "Subtitle",
+                                loggingID: "edit_view_count_custom",
+                                infoURL: aboutYIRURL,
+                                hideDonateButton: shoudlHideDonateButton(),
+                                locationArticles: locationArticles)
                         }
                     }
                 case .longestRabbitHole:
@@ -708,7 +721,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
                     }
                 }
         }
-        return PersonalizedSlides(readCount: readCountSlide, editCount: editCountSlide, donateCount: donateCountSlide, saveCount: saveCountSlide, mostReadDay: mostReadDaySlide, viewCount: viewCountSlide)
+        return PersonalizedSlides(readCount: readCountSlide, editCount: editCountSlide, donateCount: donateCountSlide, saveCount: saveCountSlide, mostReadDay: mostReadDaySlide, viewCount: viewCountSlide, locationRead: locationReadSlide)
     }
 
     @discardableResult
@@ -839,14 +852,16 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
                            (personalizedSlides.saveCount ?? (isEnglish ? englishReadingListSlide : collectiveSavedArticlesSlide)),
                            (personalizedSlides.editCount ?? (isEnglish ? englishEditsSlide : collectiveAmountEditsSlide)),
                            (personalizedSlides.viewCount ?? (isEnglish ? englishEditsBytesSlide : collectiveEditsPerMinuteSlide)),
-                           (personalizedSlides.donateCount ?? collectiveZeroAdsSlide)]
+                           (personalizedSlides.donateCount ?? collectiveZeroAdsSlide),
+                           (personalizedSlides.locationRead ?? collectiveZeroAdsSlide)]
         } else {
             finalSlides = [(isEnglish ? englishHoursReadingSlide : collectiveLanguagesSlide),
                            (isEnglish ? englishTopReadSlide : collectiveArticleViewsSlide),
                            (isEnglish ? englishReadingListSlide : collectiveSavedArticlesSlide),
                            (isEnglish ? englishEditsSlide : collectiveAmountEditsSlide),
                            (isEnglish ? englishEditsBytesSlide : collectiveEditsPerMinuteSlide),
-                           (personalizedSlides.donateCount ?? collectiveZeroAdsSlide)]
+                           (personalizedSlides.donateCount ?? collectiveZeroAdsSlide),
+                            collectiveZeroAdsSlide]
         }
         
         let appShareLink = WMFYearInReviewDataController.appShareLink

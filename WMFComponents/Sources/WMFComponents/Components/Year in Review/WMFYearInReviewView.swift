@@ -53,7 +53,7 @@ public struct WMFYearInReviewView: View {
                         scrollViewContents: scrollViewContent,
                         contents: { AnyView(buttons) },
                         gifName: viewModel.isUserAuth ? "personal-slide-00" : "english-slide-00",
-                        altText: viewModel.isUserAuth ? viewModel.localizedStrings.personalizedExploreAccessibilityLabel : viewModel.localizedStrings.collectiveExploreAccessibilityLabel)
+                        altText: viewModel.isUserAuth ? viewModel.localizedStrings.personalizedExploreAccessibilityLabel : viewModel.localizedStrings.collectiveExploreAccessibilityLabel, locationArticles: viewModel.slides[viewModel.currentSlide].locationArticles)
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
                         .onAppear {
                             viewModel.logYearInReviewSlideDidAppear()

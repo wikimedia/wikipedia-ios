@@ -1,4 +1,6 @@
 import SwiftUI
+import WMFData
+import MapKit
 
 public struct WMFYearInReviewScrollView: View {
 
@@ -23,19 +25,22 @@ public struct WMFYearInReviewScrollView: View {
     let hasLargeInsets: Bool
     let gifName: String
     let altText: String
+    let locationArticles: [WMFLegacyPageView]
     
     public init<ScrollViewContent: View>(
         scrollViewContents: ScrollViewContent,
         @ViewBuilder contents: () -> AnyView? = { nil },
         hasLargeInsets: Bool = true,
         gifName: String,
-        altText: String
+        altText: String,
+        locationArticles: [WMFLegacyPageView]
     ) {
         self.scrollViewContents = AnyView(scrollViewContents)
         self.contents = contents()
         self.hasLargeInsets = hasLargeInsets
         self.altText = altText
         self.gifName = gifName
+        self.locationArticles = locationArticles
     }
 
     // MARK: - Lifecycle
@@ -44,19 +49,33 @@ public struct WMFYearInReviewScrollView: View {
     var flashingScrollView: some View {
         ScrollView(showsIndicators: true) {
             VStack(spacing: 16) {
-                ZStack {
-                    Image(gifName, bundle: .module)
-                        .resizable()
+                if locationArticles.count > 0 {
+                        Map {
+                                                    ForEach(locationArticles) { locationArticle in
+                                                        Marker(locationArticle.title, coordinate: CLLocationCoordinate2D(latitude: locationArticle.latitude, longitude: locationArticle.longitude))
+                                                    }
+                        }
                         .scaledToFit()
                         .frame(maxWidth: .infinity)
-                    WMFGIFImageView(gifName)
-                        .aspectRatio(1.5, contentMode: .fit)
-                        .frame(maxWidth: .infinity)
+                    scrollViewContents
+                        .padding(EdgeInsets(top: 0, leading: sizeClassPadding, bottom: hasLargeInsets ? scrollViewBottomInset : 0, trailing: sizeClassPadding))
+                } else {
+                    ZStack {
+                        Image(gifName, bundle: .module)
+                            .resizable()
+                            .scaledToFit()
+                            .frame(maxWidth: .infinity)
+                        WMFGIFImageView(gifName)
+                                                .aspectRatio(1.5, contentMode: .fit)
+                                                .frame(maxWidth: .infinity)
+                    }
+                    .accessibilityElement(children: .combine)
+                    .accessibilityLabel(altText)
+                    scrollViewContents
+                        .padding(EdgeInsets(top: 0, leading: sizeClassPadding, bottom: hasLargeInsets ? scrollViewBottomInset : 0, trailing: sizeClassPadding))
                 }
-                .accessibilityElement(children: .combine)
-                .accessibilityLabel(altText)
-                scrollViewContents
-                    .padding(EdgeInsets(top: 0, leading: sizeClassPadding, bottom: hasLargeInsets ? scrollViewBottomInset : 0, trailing: sizeClassPadding))
+                
+                
             }
         }
         .scrollIndicatorsFlash(trigger: flashScrollIndicators)
@@ -64,21 +83,35 @@ public struct WMFYearInReviewScrollView: View {
     
     var scrollView: some View {
         ScrollView(showsIndicators: true) {
-            VStack(spacing: 16) {
-                ZStack {
-                    Image(gifName, bundle: .module)
-                        .resizable()
-                        .scaledToFit()
-                        .frame(maxWidth: .infinity)
-                        .accessibilityHidden(true)
-                    WMFGIFImageView(gifName)
-                        .aspectRatio(1.5, contentMode: .fit)
-                        .frame(maxWidth: .infinity)
+            if locationArticles.count > 0, #available(iOS 17.0, *) {
+                Map {
+                    ForEach(locationArticles) { locationArticle in
+                        Marker(locationArticle.title, coordinate: CLLocationCoordinate2D(latitude: locationArticle.latitude, longitude: locationArticle.longitude))
+                    }
                 }
+                .frame(maxWidth: .infinity)
+                .aspectRatio(1.5, contentMode: .fit)
                 .accessibilityElement(children: .combine)
                 .accessibilityLabel(altText)
                 scrollViewContents
-                    .padding(EdgeInsets(top: 0, leading: sizeClassPadding, bottom: scrollViewBottomInset, trailing: sizeClassPadding))
+                    .padding(EdgeInsets(top: 0, leading: sizeClassPadding, bottom: hasLargeInsets ? scrollViewBottomInset : 0, trailing: sizeClassPadding))
+            } else {
+                VStack(spacing: 16) {
+                    ZStack {
+                        Image(gifName, bundle: .module)
+                            .resizable()
+                            .scaledToFit()
+                            .frame(maxWidth: .infinity)
+                            .accessibilityHidden(true)
+                        WMFGIFImageView(gifName)
+                                                .aspectRatio(1.5, contentMode: .fit)
+                                                .frame(maxWidth: .infinity)
+                    }
+                    .accessibilityElement(children: .combine)
+                    .accessibilityLabel(altText)
+                    scrollViewContents
+                        .padding(EdgeInsets(top: 0, leading: sizeClassPadding, bottom: scrollViewBottomInset, trailing: sizeClassPadding))
+                }
             }
         }
         .padding(36)
