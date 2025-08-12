@@ -29,7 +29,7 @@ final class NewArticleTabCoordinator: Coordinator {
     
     private let contentSource = WMFRelatedPagesContentSource()
     
-    func loadNextBatch(completion: @escaping (WMFArticle?, [WMFArticle]) -> Void) {
+    func loadBecauseYouRead(completion: @escaping (WMFArticle?, [WMFArticle]) -> Void) {
         let moc = dataStore.feedImportContext
         
         // Get significantly read article
@@ -123,8 +123,8 @@ final class NewArticleTabCoordinator: Coordinator {
         let enableDYK = devSettingsDataController.enableMoreDynamicTabsDYK
         
         if enableBYR || experiment == .becauseYouRead {
-            loadNextBatch { seed, related in
-                
+            loadBecauseYouRead { seed, related in
+
                 var becauseVM: WMFBecauseYouReadViewModel?
                 
                 if let seed {
