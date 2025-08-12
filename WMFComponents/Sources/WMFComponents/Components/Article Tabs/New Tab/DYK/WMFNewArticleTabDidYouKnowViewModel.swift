@@ -15,7 +15,7 @@ import WMFData
 
     public var didYouKnowFact: String? {
         guard let randomElement = facts.randomElement() else { return nil }
-        let dykPrefix = dykLocalizedStrings.didYouKnowString
+        let dykPrefix = dykLocalizedStrings.didYouKnowTitle
         let removeEllipses = replaceEllipsesWithSpace(in: randomElement)
         let combined = dykPrefix + " " + removeEllipses
         return combined
