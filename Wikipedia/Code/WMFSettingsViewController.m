@@ -476,7 +476,7 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 #pragma mark - Tabs preferences
 
 - (void)showTabsPreferences {
-    WMFNewArticleTabsSettingsViewController *tabsSettingsVC = [[WMFNewArticleTabsSettingsViewController alloc] initWithDataStore:self.dataStore theme:self.theme];
+    WMFNewArticleTabsSettingsViewController *tabsSettingsVC = [[WMFNewArticleTabsSettingsViewController alloc] init];
     [self.navigationController pushViewController:tabsSettingsVC animated:YES];
 }
 
@@ -599,12 +599,12 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
     NSArray *commonItems = @[[WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_SearchLanguage],
                              [WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_Search]];
     NSMutableArray *items = [NSMutableArray arrayWithArray:commonItems];
-    
+
     if ([WMFArticleTabsDataController sharedInstance].needsMoreDynamicTabs) {
         [items addObject:[WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_Tabs]];
     }
     [items addObject:[WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_ExploreFeed]];
-    
+
     if ([[WMFYearInReviewDataController dataControllerForObjectiveC] shouldShowYearInReviewSettingsItemWithCountryCode:NSLocale.currentLocale.countryCode primaryAppLanguageCode:self.dataStore.languageLinkController.appLanguage.languageCode]) {
 #if DEBUG
         [items addObject:[WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_YearInReview]];
