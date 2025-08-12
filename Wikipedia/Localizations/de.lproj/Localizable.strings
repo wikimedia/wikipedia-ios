@@ -152,6 +152,15 @@
 "article-share" = "Teilen";
 "article-tabs-button-accessibility-hint" = "Navigiert zur Übersicht der Registerkarten";
 "article-tabs-button-accessibility-label" = "Artikelregister";
+"article-tabs-feature-announcement-item-1-subtitle" = "Öffne mehrere Artikel und wechsle problemlos zwischen ihnen.";
+"article-tabs-feature-announcement-item-1-title" = "Mit Tabs browsen";
+"article-tabs-feature-announcement-item-2-subtitle" = "Tabs merken sich deine Scrollposition automatisch.";
+"article-tabs-feature-announcement-item-2-title" = "Beginne, wo du aufgehört hast.";
+"article-tabs-feature-announcement-item-3-subtitle" = "Öffne Links in Hintergrund-Tabs, ohne deine Position zu verlieren.";
+"article-tabs-feature-announcement-item-3-title" = "Links für später speichern";
+"article-tabs-feature-announcement-item-4-subtitle" = "Wähle Fun Facts oder lese Vorschläge, wenn du einen neuen Tab öffnest.";
+"article-tabs-feature-announcement-item-4-title" = "Personalisiere deinen neuen Tab";
+"article-tabs-feature-announcement-sub-cta" = "Mehr über Tabs erfahren";
 "article-tabs-navigation" = "Tabnavigation";
 "article-tabs-open-background-tab" = "Im Hintergrund-Tab öffnen";
 "article-tabs-open-new-tab" = "In neuem Tab öffnen";

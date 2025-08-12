@@ -201,6 +201,16 @@
 "article-share" = "Compartir";
 "article-tabs-button-accessibility-hint" = "Navega a la descripción general de las pestañas";
 "article-tabs-button-accessibility-label" = "Pestañas de artículos";
+"article-tabs-feature-announcement-item-1-subtitle" = "Abra varios artículos y alterne entre ellos con facilidad.";
+"article-tabs-feature-announcement-item-1-title" = "Navegar con pestañas";
+"article-tabs-feature-announcement-item-2-subtitle" = "Las pestañas recuerdan automáticamente tu posición de desplazamiento.";
+"article-tabs-feature-announcement-item-2-title" = "Continúa donde lo dejaste";
+"article-tabs-feature-announcement-item-3-subtitle" = "Abra enlaces en pestañas en segundo plano sin perder su ubicación.";
+"article-tabs-feature-announcement-item-3-title" = "Guardar enlaces para más tarde";
+"article-tabs-feature-announcement-item-4-subtitle" = "Elija datos curiosos o sugerencias de lectura al abrir una nueva pestaña.";
+"article-tabs-feature-announcement-item-4-title" = "Personaliza tu nueva pestaña";
+"article-tabs-feature-announcement-sub-cta" = "Más información sobre Pestañas";
+"article-tabs-feature-announcement-title" = "Presentando las Pestañas";
 "article-tabs-max-reached" = "Se alcanzó el límite de pestañas ( $1 ). El artículo se abrió en la pestaña actual. Cierre una o más pestañas.";
 "article-tabs-navigation" = "Navegación por pestañas";
 "article-tabs-onboarding-tooltip" = "Información sobre herramientas de incorporación para pestañas";
@@ -290,8 +300,9 @@
 "developer-settings-activity-tab-group-A" = "Establecer la pestaña de actividad en el grupo A";
 "developer-settings-activity-tab-group-B" = "Establecer la pestaña de actividad en el grupo B";
 "developer-settings-activity-tab-group-C" = "Establecer la pestaña de actividad en el grupo C";
-"developer-settings-activity-tabs" = "Habilitar pestañas de actividad";
 "developer-settings-bypass-donation" = "Saltar donación";
+"developer-settings-dynamic-tabs-BYR" = "Habilitar pestañas con Porque lees";
+"developer-settings-dynamic-tabs-DYK" = "Habilitar pestañas con Sabías que";
 "developer-settings-enable-year-in-review" = "Habilitar Resumen del año";
 "developer-settings-send-analytics-to-wmflabs" = "Enviar análisis a wmflabs";
 "developer-settings-suppress-image-rec-post" = "No publicar la edición de imágenes recomendadas.";
@@ -1350,6 +1361,7 @@
 "theme-default-explanation" = "Coincidir con tema del sistema";
 "theme-light-display-name" = "Claro";
 "theme-sepia-display-name" = "Sepia";
+"today-title" = "Hoy";
 "top-read-widget-description" = "Entérate lo que el mundo está leyendo hoy en Wikipedia.";
 "top-read-widget-readers-count" = "$1 lectores";
 "top-read-widget-title" = "Más leídos";
@@ -1553,3 +1565,4 @@
 "year-in-review-survey-very-unsatisfied" = "Muy insatisfecho";
 "year-in-review-wikipedia-w-accessibility-label" = "Logotipo de Wikipedia";
 "year-in-review-wmf-logo-accessibility-label" = "Logotipo de la Fundación Wikimedia";
+"yesterday-title" = "Ayer";
