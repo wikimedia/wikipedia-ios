@@ -661,10 +661,22 @@ extension SearchViewController: UITextViewDelegate {
         }
         
         // first try to navigate using LinkCoordinator. If it fails, use the legacy approach.
-        if let navigationController {
-            
-            let linkCoordinator = LinkCoordinator(navigationController: navigationController, url: url.absoluteURL, dataStore: nil, theme: theme, articleSource: .undefined)
+        let navController = customArticleCoordinatorNavigationController
+            ?? self.navigationController
+            ?? self.parent?.navigationController
+
+        if let navController {
+            let linkCoordinator = LinkCoordinator(navigationController: navController, url: url.absoluteURL, dataStore: nil, theme: theme, articleSource: .undefined)
             let success = linkCoordinator.start()
+
+            var vcs = navController.viewControllers
+            let newTabControllerIsOnStack = vcs.contains { $0 is WMFNewArticleTabViewController }
+            if newTabControllerIsOnStack {
+                guard vcs.count >= 2 else { return }
+                vcs.remove(at: vcs.count - 2)
+                navController.setViewControllers(vcs, animated: false)
+            }
+
             guard success else {
                 legacyNavigateAction()
                 return

@@ -63,7 +63,6 @@ final class WMFNewArticleTabViewController: WMFCanvasViewController, WMFNavigati
         self.hostingController = WMFNewArticleTabHostingController(rootView: WMFNewArticleTabView())
         super.init()
         self.hidesBottomBarWhenPushed = true
-        self.configureNavigationBar()
     }
     
     @MainActor required init?(coder: NSCoder) {
@@ -74,6 +73,7 @@ final class WMFNewArticleTabViewController: WMFCanvasViewController, WMFNavigati
     
     public override func viewDidLoad() {
         super.viewDidLoad()
+        self.configureNavigationBar()
         addComponent(hostingController, pinToEdges: true)
         // Hack to solve coordinator retention issues
         showTabsOverview = { [weak navigationController, weak self] in
