@@ -167,7 +167,7 @@ final class NewArticleTabCoordinator: Coordinator {
                         facts: facts?.map { $0.html } ?? [],
                         languageCode: self.dataStore.languageLinkController.appLanguage?.languageCode,
                         dykLocalizedStrings: WMFNewArticleTabDidYouKnowViewModel.LocalizedStrings.init(
-                            dyk: self.didYouKnowTitle,
+                            didYouKnowTitle: self.didYouKnowTitle,
                             fromSource: self.fromLanguageWikipediaTextFor(languageCode: self.dataStore.languageLinkController.appLanguage?.languageCode)
                         )
                     )

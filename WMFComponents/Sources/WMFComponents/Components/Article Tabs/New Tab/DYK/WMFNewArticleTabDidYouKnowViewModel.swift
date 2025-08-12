@@ -45,11 +45,11 @@ import WMFData
     }
     
     public struct LocalizedStrings {
-        let didYouKnowString: String
+        let didYouKnowTitle: String
         let fromSource: String
         
-        public init(dyk: String, fromSource: String) {
-            self.didYouKnowString = dyk
+        public init(didYouKnowTitle: String, fromSource: String) {
+            self.didYouKnowTitle = didYouKnowTitle
             self.fromSource = fromSource
         }
     }
