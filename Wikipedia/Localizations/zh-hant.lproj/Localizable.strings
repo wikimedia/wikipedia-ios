@@ -172,6 +172,16 @@
 "article-share" = "分享";
 "article-tabs-button-accessibility-hint" = "導覽至分頁概要";
 "article-tabs-button-accessibility-label" = "條目分頁";
+"article-tabs-feature-announcement-item-1-subtitle" = "打開多篇條目並輕鬆在各條目間切換。";
+"article-tabs-feature-announcement-item-1-title" = "使用分頁瀏覽";
+"article-tabs-feature-announcement-item-2-subtitle" = "分頁會自動記住您的滑動位置。";
+"article-tabs-feature-announcement-item-2-title" = "從您上次結束的地方開始";
+"article-tabs-feature-announcement-item-3-subtitle" = "在後台分頁裡開啟連結且不遺失您的位置。";
+"article-tabs-feature-announcement-item-3-title" = "儲存連結以供事後使用";
+"article-tabs-feature-announcement-item-4-subtitle" = "當開啟新分頁時選擇有趣的事實或閱讀建議。";
+"article-tabs-feature-announcement-item-4-title" = "個人化您的新分頁";
+"article-tabs-feature-announcement-sub-cta" = "了解更多有關分頁";
+"article-tabs-feature-announcement-title" = "引入分頁";
 "article-tabs-max-reached" = "已達到分頁限制（最多 $1 個）。條目已在目前分頁中開啟。請關閉一個或多個分頁。";
 "article-tabs-navigation" = "分頁導覽";
 "article-tabs-onboarding-tooltip" = "分頁的入門提示";
@@ -261,8 +271,9 @@
 "developer-settings-activity-tab-group-A" = "將活動分頁設定成群組 A";
 "developer-settings-activity-tab-group-B" = "將活動分頁設定成群組 B";
 "developer-settings-activity-tab-group-C" = "將活動分頁設定成群組 C";
-"developer-settings-activity-tabs" = "啟用有效的分頁";
 "developer-settings-bypass-donation" = "跳過捐贈";
+"developer-settings-dynamic-tabs-BYR" = "以「您曾閱讀過的」啟用分頁";
+"developer-settings-dynamic-tabs-DYK" = "以「您知道嗎」啟用分頁";
 "developer-settings-enable-year-in-review" = "啟用年度回顧";
 "developer-settings-send-analytics-to-wmflabs" = "傳送分析給維基媒體基金會實驗室。";
 "developer-settings-suppress-image-rec-post" = "請不要發送圖片推薦編輯。";

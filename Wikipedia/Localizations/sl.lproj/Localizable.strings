@@ -1016,6 +1016,7 @@
 "share-social-mention-format" = "»$1« iz Wikipedije: $2";
 "sort-by-recently-added-action" = "Pred kratkim dodano";
 "sort-by-title-action" = "Naslov";
+"suggested-edits-title" = "Predlagana urejanja";
 "table-of-contents-button-label" = "Kazalo vsebine";
 "table-of-contents-close-accessibility-hint" = "Zapri";
 "table-of-contents-close-accessibility-label" = "Zapri kazalo";

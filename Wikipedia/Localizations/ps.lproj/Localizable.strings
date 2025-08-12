@@ -169,6 +169,7 @@
 "description-welcome-start-editing-button" = "سمون پيلول";
 "developer-force-email-auth" = "اجباري برېښليک تاييد";
 "developer-settings" = "پراختياگر اوڼنې";
+"developer-settings-dynamic-tabs-DYK" = "د ايا پوهېدې سره ريښکې چارنول";
 "diff-compare-header-from-info-heading" = "پخوانی سمون";
 "diff-compare-header-heading" = "بياکتنو پرتلنه";
 "diff-compare-header-to-info-heading" = "ښودل‌شوی سمون";
