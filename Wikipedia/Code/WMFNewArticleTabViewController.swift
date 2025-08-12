@@ -166,7 +166,7 @@ final class WMFNewArticleTabViewController: WMFCanvasViewController, WMFNavigati
     @MainActor
     @objc private func goToTabsOverview() {
         let articleTabsDataController = WMFArticleTabsDataController.shared
-        Task { @MainActor in
+        Task {
             do {
                 _ = try await articleTabsDataController.createArticleTab(initialArticle: nil, setAsCurrent: true)
 
