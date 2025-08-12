@@ -5,16 +5,29 @@ import WMFData
 import Foundation
 
 final class NewArticleTabCoordinator: Coordinator {
-    var navigationController: UINavigationController
-    var dataStore: MWKDataStore
-    var theme: Theme
-    private let fetcher: RelatedSearchFetcher
-    var dykFetcher: WMFFeedDidYouKnowFetcher
-    private let sharedCache = SharedContainerCache(fileName: SharedContainerCacheCommonNames.dykCache)
-    public var dykFacts: [WMFFeedDidYouKnow]? = nil
+    internal var navigationController: UINavigationController
+    private var dataStore: MWKDataStore
+    private var theme: Theme
     private var dataController = WMFArticleTabsDataController.shared
     private let userDefaultsStore = WMFDataEnvironment.current.userDefaultsStore
-    
+
+    // MARK: - Related pages props
+    private let fetcher: RelatedSearchFetcher
+
+    private var seed: WMFArticle?
+    private var related: [WMFArticle] = []
+    private var seenSeedKeys = Set<String>()
+    private let contentSource = WMFRelatedPagesContentSource()
+
+    // MARK: - Did you know props
+    private var dykFetcher: WMFFeedDidYouKnowFetcher
+    private let sharedCache = SharedContainerCache(fileName: SharedContainerCacheCommonNames.dykCache)
+    public var dykFacts: [WMFFeedDidYouKnow]? = nil
+    private let fromLanguageWikipedia = WMFLocalizedString("new-article-tab-from-language-wikipedia", value: "from %1$@ Wikipedia", comment: "Text displayed to indicate Did You Know source displayed on a new tab. %1$@ will be replaced with the Wikipedia language set as the app default")
+    private let fromWikipediaDefault = CommonStrings.fromWikipediaDefault
+    private let didYouKnowTitle = WMFLocalizedString("did-you-know", value: "Did you know", comment: "Text displayed as heading for section of new tab dedicated to DYK")
+
+    // MARK: - Lifecycle
     init(navigationController: UINavigationController, dataStore: MWKDataStore, theme: Theme, fetcher: RelatedSearchFetcher = RelatedSearchFetcher()) {
         self.navigationController = navigationController
         self.dataStore = dataStore
@@ -22,99 +35,8 @@ final class NewArticleTabCoordinator: Coordinator {
         self.fetcher = fetcher
         dykFetcher = WMFFeedDidYouKnowFetcher()
     }
-    
-    var seed: WMFArticle?
-    var related: [WMFArticle] = []
-    private var seenSeedKeys = Set<String>()
-    
-    private let contentSource = WMFRelatedPagesContentSource()
-    
-    func loadBecauseYouRead(completion: @escaping (WMFArticle?, [WMFArticle]) -> Void) {
-        let moc = dataStore.feedImportContext
-        
-        // Get significantly read article
-        var pickedSeed: WMFArticle?
-        var seedURL:    URL?
-        moc.performAndWait {
-            let req: NSFetchRequest<WMFArticle> = WMFArticle.fetchRequest()
-            let base = NSPredicate(format:"isExcludedFromFeed == NO AND (wasSignificantlyViewed == YES OR savedDate != nil)")
-            // Remember used articles
-            if !self.seenSeedKeys.isEmpty {
-                let exclude = NSPredicate(format: "NOT (key IN %@)", self.seenSeedKeys)
-                req.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [base, exclude])
-            } else {
-                req.predicate = base
-            }
-            // If we went through all articles, start again
-            let total = (try? moc.count(for: req)) ?? 0
-            if total == 0 {
-                self.seenSeedKeys.removeAll()
-            }
-            req.fetchOffset = Int.random(in: 0..<max(total,1))
-            req.fetchLimit  = 1
-            
-            if let seed = (try? moc.fetch(req))?.first {
-                pickedSeed = seed
-                seedURL    = seed.url
-                if let key = seed.key {
-                    self.seenSeedKeys.insert(key)
-                }
-            }
-        }
-        
-        DispatchQueue.main.async {
-            self.seed = pickedSeed
-        }
-        guard let seed = pickedSeed, let url = seedURL else {
-            return DispatchQueue.main.async {
-                self.related = []
-                completion(nil, [])
-            }
-        }
-        
-        // Fetch related articles
-        fetcher.fetchRelatedArticles(forArticleWithURL: url) { error, summariesByKey in
-            
-            // Transfrom ArticleSummary into Article
-            moc.perform {
-                do {
-                    // guard against nil dictionary
-                    guard let summariesByKey = summariesByKey else {
-                        DispatchQueue.main.async {
-                            completion(seed, [])
-                        }
-                        return
-                    }
-                    
-                    // take the first 3
-                    let top3Summaries = Array(summariesByKey)
-                        .prefix(3)
-                        .reduce(into: [WMFInMemoryURLKey: ArticleSummary]()) { result, pair in
-                            result[pair.key] = pair.value
-                        }
-                    
-                    let articlesByKey = try moc.wmf_createOrUpdateArticleSummmaries(
-                        withSummaryResponses: top3Summaries
-                    )
-                    
-                    // preserve the original order
-                    let orderedKeys = Array(top3Summaries.keys)
-                    let relatedArticles: [WMFArticle] = orderedKeys.compactMap {
-                        articlesByKey[$0]
-                    }
-                    DispatchQueue.main.async {
-                        self.related = relatedArticles
-                        completion(seed, relatedArticles)
-                    }
-                } catch {
-                    DispatchQueue.main.async {
-                        completion(seed, [])
-                    }
-                }
-            }
-        }
-    }
-    
+
+    // MARK: - Methods
     @discardableResult
     func start() -> Bool {
         let experiment = try? self.dataController.getMoreDynamicTabsExperimentAssignment()
@@ -123,7 +45,7 @@ final class NewArticleTabCoordinator: Coordinator {
         let enableDYK = devSettingsDataController.enableMoreDynamicTabsDYK
         
         if enableBYR || experiment == .becauseYouRead {
-            loadBecauseYouRead { seedArticle, related in
+            fetchBecauseYouRead { seedArticle, related in
 
                 var becauseVM: WMFBecauseYouReadViewModel?
                 
@@ -205,21 +127,94 @@ final class NewArticleTabCoordinator: Coordinator {
         
         return true
     }
-    
-    // MARK: - DYK
-    
-    let fromLanguageWikipedia = WMFLocalizedString("new-article-tab-from-language-wikipedia", value: "from %1$@ Wikipedia", comment: "Text displayed to indicate Did You Know source displayed on a new tab. %1$@ will be replaced with the Wikipedia language set as the app default")
-    let fromWikipediaDefault = CommonStrings.fromWikipediaDefault
-    let didYouKnowTitle = WMFLocalizedString("did-you-know", value: "Did you know", comment: "Text displayed as heading for section of new tab dedicated to DYK")
-    
-    private func fromLanguageWikipediaTextFor(languageCode: String?) -> String {
-        guard let languageCode = languageCode, let localizedLanguageString = Locale.current.localizedString(forLanguageCode: languageCode) else {
-            return fromWikipediaDefault
+
+    // MARK: - Fetchers
+    private func fetchBecauseYouRead(completion: @escaping (WMFArticle?, [WMFArticle]) -> Void) {
+        let moc = dataStore.feedImportContext
+
+        // Get significantly read article
+        var pickedSeed: WMFArticle?
+        var seedURL:    URL?
+        moc.performAndWait {
+            let req: NSFetchRequest<WMFArticle> = WMFArticle.fetchRequest()
+            let base = NSPredicate(format:"isExcludedFromFeed == NO AND (wasSignificantlyViewed == YES OR savedDate != nil)")
+            // Remember used articles
+            if !self.seenSeedKeys.isEmpty {
+                let exclude = NSPredicate(format: "NOT (key IN %@)", self.seenSeedKeys)
+                req.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [base, exclude])
+            } else {
+                req.predicate = base
+            }
+            // If we went through all articles, start again
+            let total = (try? moc.count(for: req)) ?? 0
+            if total == 0 {
+                self.seenSeedKeys.removeAll()
+            }
+            req.fetchOffset = Int.random(in: 0..<max(total,1))
+            req.fetchLimit  = 1
+
+            if let seed = (try? moc.fetch(req))?.first {
+                pickedSeed = seed
+                seedURL    = seed.url
+                if let key = seed.key {
+                    self.seenSeedKeys.insert(key)
+                }
+            }
         }
-        
-        return String.localizedStringWithFormat(fromLanguageWikipedia, localizedLanguageString)
+
+        DispatchQueue.main.async {
+            self.seed = pickedSeed
+        }
+        guard let seed = pickedSeed, let url = seedURL else {
+            return DispatchQueue.main.async {
+                self.related = []
+                completion(nil, [])
+            }
+        }
+
+        // Fetch related articles
+        fetcher.fetchRelatedArticles(forArticleWithURL: url) { error, summariesByKey in
+
+            // Transfrom ArticleSummary into Article
+            moc.perform {
+                do {
+                    // guard against nil dictionary
+                    guard let summariesByKey = summariesByKey else {
+                        DispatchQueue.main.async {
+                            completion(seed, [])
+                        }
+                        return
+                    }
+
+                    // take the first 3
+                    let top3Summaries = Array(summariesByKey)
+                        .prefix(3)
+                        .reduce(into: [WMFInMemoryURLKey: ArticleSummary]()) { result, pair in
+                            result[pair.key] = pair.value
+                        }
+
+                    let articlesByKey = try moc.wmf_createOrUpdateArticleSummmaries(
+                        withSummaryResponses: top3Summaries
+                    )
+
+                    // preserve the original order
+                    let orderedKeys = Array(top3Summaries.keys)
+                    let relatedArticles: [WMFArticle] = orderedKeys.compactMap {
+                        articlesByKey[$0]
+                    }
+                    DispatchQueue.main.async {
+                        self.related = relatedArticles
+                        completion(seed, relatedArticles)
+                    }
+                } catch {
+                    DispatchQueue.main.async {
+                        completion(seed, [])
+                    }
+                }
+            }
+        }
     }
-    
+
     private func fetchDYK(completion: @escaping ([WMFFeedDidYouKnow]?) -> Void) {
         guard let url = URL(string: Configuration.current.defaultSiteDomain) else {
             completion(nil)
@@ -256,8 +251,17 @@ final class NewArticleTabCoordinator: Coordinator {
             completion(facts)
         }
     }
-    
-    func tappedArticle(_ item: HistoryItem) {
+
+    // MARK: - Private methods
+    private func fromLanguageWikipediaTextFor(languageCode: String?) -> String {
+        guard let languageCode = languageCode, let localizedLanguageString = Locale.current.localizedString(forLanguageCode: languageCode) else {
+            return fromWikipediaDefault
+        }
+
+        return String.localizedStringWithFormat(fromLanguageWikipedia, localizedLanguageString)
+    }
+
+    private func tappedArticle(_ item: HistoryItem) {
         guard let articleURL = item.url,
               let title = articleURL.wmf_title,
               let siteURL = articleURL.wmf_site,
@@ -285,6 +289,8 @@ final class NewArticleTabCoordinator: Coordinator {
         }
     }
 }
+
+// MARK: - Extensions
 
 fileprivate extension WMFArticle {
     func toHistoryRecord() -> HistoryRecord {
