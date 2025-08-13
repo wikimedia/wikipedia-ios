@@ -9,8 +9,8 @@ import CoreData
     private let userDefaultsStore: WMFKeyValueStore?
     private let developerSettingsDataController: WMFDeveloperSettingsDataControlling
 
-    public let targetConfigYearID = "2024.2"
-    @objc public static let targetYear = 2024
+    public let targetConfigYearID = "2025.1"
+    @objc public static let targetYear = 2025
     public static let appShareLink = "https://apps.apple.com/app/apple-store/id324715238?pt=208305&ct=yir_2024_share&mt=8"
 
     private let service = WMFDataEnvironment.current.mediaWikiService
@@ -159,7 +159,7 @@ import CoreData
         let yirConfig: WMFFeatureConfigResponse.IOS.YearInReview?
 
         #if DEBUG
-        if let iosFeatureConfig = developerSettingsDataController.loadFeatureConfig()?.ios.first,
+        if let iosFeatureConfig = developerSettingsDataController.loadFeatureConfig()?.ios,
            let config = iosFeatureConfig.yir(yearID: targetConfigYearID) {
             yirConfig = config
         } else {
@@ -215,7 +215,7 @@ import CoreData
             return false
         }
 
-        guard let iosFeatureConfig = developerSettingsDataController.loadFeatureConfig()?.ios.first,
+        guard let iosFeatureConfig = developerSettingsDataController.loadFeatureConfig()?.ios,
               let yirConfig = iosFeatureConfig.yir(yearID: targetConfigYearID) else {
             return false
         }
@@ -256,7 +256,7 @@ import CoreData
         let yirConfig: WMFFeatureConfigResponse.IOS.YearInReview?
 
         #if DEBUG
-        if let iosFeatureConfig = developerSettingsDataController.loadFeatureConfig()?.ios.first,
+        if let iosFeatureConfig = developerSettingsDataController.loadFeatureConfig()?.ios,
            let config = iosFeatureConfig.yir(yearID: targetConfigYearID) {
             yirConfig = config
         } else {
@@ -331,7 +331,7 @@ import CoreData
         
         var yirConfig: WMFFeatureConfigResponse.IOS.YearInReview? = nil
         #if DEBUG
-        yirConfig = developerSettingsDataController.loadFeatureConfig()?.ios.first?.yir(yearID: targetConfigYearID)
+        yirConfig = developerSettingsDataController.loadFeatureConfig()?.ios.yir(yearID: targetConfigYearID)
         #else
         return nil
         #endif
@@ -513,7 +513,7 @@ import CoreData
         let yirConfig: WMFFeatureConfigResponse.IOS.YearInReview?
 
         #if DEBUG
-        guard let iosFeatureConfig = developerSettingsDataController.loadFeatureConfig()?.ios.first,
+        guard let iosFeatureConfig = developerSettingsDataController.loadFeatureConfig()?.ios,
               let config = iosFeatureConfig.yir(yearID: targetConfigYearID) else {
             return false
         }
