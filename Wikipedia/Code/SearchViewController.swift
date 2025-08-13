@@ -666,7 +666,12 @@ extension SearchViewController: UITextViewDelegate {
             ?? self.parent?.navigationController
 
         if let navController {
-            let linkCoordinator = LinkCoordinator(navigationController: navController, url: url.absoluteURL, dataStore: nil, theme: theme, articleSource: .undefined)
+            guard let title = url.wmf_title,
+                  let siteURL = url.wmf_site,
+                  let wmfProject = WikimediaProject(siteURL: siteURL)?.wmfProject else {
+                return
+            }
+            let linkCoordinator = LinkCoordinator(navigationController: navController, url: url.absoluteURL, dataStore: nil, theme: theme, articleSource: .undefined, tabConfig: .assignNewTabAndSetToCurrentFromNewTabSearch(title: title, project: wmfProject))
             let success = linkCoordinator.start()
 
             var vcs = navController.viewControllers
