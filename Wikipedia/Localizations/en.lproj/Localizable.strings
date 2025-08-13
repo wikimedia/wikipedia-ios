@@ -736,7 +736,6 @@
 "nearby-distance-label-km" = "$1 km";
 "nearby-distance-label-meters" = "$1 m";
 "nearby-distance-label-miles" = "$1 miles";
-"new-article-tab-from-language-wikipedia" = "from $1 Wikipedia";
 "new-article-tab-from-wikipedia-default" = "from Wikipedia";
 "new-password-instructions" = "You logged in with a temporary password. To finish logging in set a new password here.";
 "new-password-title" = "Set your password";
