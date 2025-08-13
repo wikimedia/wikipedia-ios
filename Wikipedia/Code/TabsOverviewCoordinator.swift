@@ -167,12 +167,6 @@ final class TabsOverviewCoordinator: Coordinator {
     }
 }
 
-extension UIViewController {
-    @objc func dismissSelf() {
-        self.dismiss(animated: true, completion: nil)
-    }
-}
-
 extension TabsOverviewCoordinator: WMFArticleTabsLoggingDelegate {
 
     func logArticleTabsOverviewImpression() {

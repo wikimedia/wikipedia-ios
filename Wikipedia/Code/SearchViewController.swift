@@ -104,12 +104,14 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
 
     let needsAttachedView: Bool // TODO: Maybe rename to comes from new tabs exp for clarity
     let becauseYouReadViewModel: WMFBecauseYouReadViewModel?
+    let didYouKnowViewModel: WMFNewArticleTabDidYouKnowViewModel?
 
-    @objc required init(source: EventLoggingSource, customArticleCoordinatorNavigationController: UINavigationController? = nil, needsAttachedView: Bool = false, becauseYouReadViewModel: WMFBecauseYouReadViewModel? = nil) {
+    @objc required init(source: EventLoggingSource, customArticleCoordinatorNavigationController: UINavigationController? = nil, needsAttachedView: Bool = false, becauseYouReadViewModel: WMFBecauseYouReadViewModel? = nil, didYouKnowViewModel: WMFNewArticleTabDidYouKnowViewModel? = nil) {
         self.source = source
         self.needsAttachedView = needsAttachedView
         self.becauseYouReadViewModel = becauseYouReadViewModel
         self.customArticleCoordinatorNavigationController = customArticleCoordinatorNavigationController
+        self.didYouKnowViewModel = didYouKnowViewModel
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -547,7 +549,7 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
     }
 
     private lazy var recentSearchesViewController: UIViewController = {
-        let root = WMFRecentlySearchedView(viewModel: recentSearchesViewModel)
+        let root = WMFRecentlySearchedView(viewModel: recentSearchesViewModel, linkDelegate: self)
         let host = UIHostingController(rootView: root)
         return host
     }()
@@ -598,7 +600,7 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
             clearAll: CommonStrings.clearTitle,
             deleteActionAccessibilityLabel: CommonStrings.deleteActionTitle
         )
-        return WMFRecentlySearchedViewModel(recentSearchTerms: recentSearchTerms, localizedStrings: localizedStrings, needsAttachedView: needsAttachedView, becauseYouReadViewModel: becauseYouReadViewModel, deleteAllAction: didPressClearRecentSearches, deleteItemAction: deleteItemAction, selectAction: selectAction)
+        return WMFRecentlySearchedViewModel(recentSearchTerms: recentSearchTerms, localizedStrings: localizedStrings, needsAttachedView: needsAttachedView, becauseYouReadViewModel: becauseYouReadViewModel, didYouKnowViewModel: didYouKnowViewModel, deleteAllAction: didPressClearRecentSearches, deleteItemAction: deleteItemAction, selectAction: selectAction)
     }()
 
     private lazy var recentSearchTerms: [WMFRecentlySearchedViewModel.RecentSearchTerm] = {
@@ -644,6 +646,50 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
          resultsViewController.view.isHidden = searchText.isEmpty
     }
 
+}
+
+extension SearchViewController: UITextViewDelegate {
+    func tappedLink(_ url: URL, sourceTextView: UITextView) {
+        guard let url = URL(string: url.absoluteString) else {
+            return
+        }
+        
+        let legacyNavigateAction = { [weak self] in
+            guard let self else { return }
+            let userInfo: [AnyHashable : Any] = [RoutingUserInfoKeys.source: RoutingUserInfoSourceValue.talkPage.rawValue]
+            navigate(to: url.absoluteURL, userInfo: userInfo)
+        }
+        
+        // first try to navigate using LinkCoordinator. If it fails, use the legacy approach.
+        let navController = customArticleCoordinatorNavigationController
+            ?? self.navigationController
+            ?? self.parent?.navigationController
+
+        if let navController {
+            let linkCoordinator = LinkCoordinator(navigationController: navController, url: url.absoluteURL, dataStore: nil, theme: theme, articleSource: .undefined)
+            let success = linkCoordinator.start()
+
+            var vcs = navController.viewControllers
+            let newTabControllerIsOnStack = vcs.contains { $0 is WMFNewArticleTabViewController }
+            if newTabControllerIsOnStack {
+                guard vcs.count >= 2 else { return }
+                vcs.remove(at: vcs.count - 2)
+                navController.setViewControllers(vcs, animated: false)
+            }
+
+            guard success else {
+                legacyNavigateAction()
+                return
+            }
+        } else {
+            legacyNavigateAction()
+        }
+    }
+    
+    func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
+        tappedLink(URL, sourceTextView: textView)
+        return false
+    }
 }
 
 extension SearchViewController: SearchLanguagesBarViewControllerDelegate {
