@@ -1,4 +1,6 @@
 import SwiftUI
+import Foundation
+import WMFData
 
 public class WMFArticleTabsHostingController<HostedView: View>: WMFComponentHostingController<HostedView>, WMFNavigationBarConfiguring {
     
@@ -37,7 +39,12 @@ public class WMFArticleTabsHostingController<HostedView: View>: WMFComponentHost
         
         configureNavigationBar()
         
-        navigationItem.rightBarButtonItems = [addTabButton, overflowButton]
+        let dataController = WMFArticleTabsDataController.shared
+        if dataController.shouldShowMoreDynamicTabs {
+            navigationItem.rightBarButtonItems = [addTabButton, overflowButton]
+        } else {
+            navigationItem.rightBarButtonItem = addTabButton
+        }
     }
 
     public override func viewDidLoad() {
