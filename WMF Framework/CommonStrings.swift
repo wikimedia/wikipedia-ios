@@ -809,6 +809,11 @@ public class CommonStrings: NSObject {
     public static let newTabTheme = WMFLocalizedString("settings-new-article-tab-header-text", value: "New Tab Theme", comment: "Header title for the New Article Tabs settings to determine between preferences")
     public static let recommendations = WMFLocalizedString("new-article-tab-settings-recommendations", value: "Recommendations", comment: "Toggle for article recommendations / because you read")
     public static let didyouknow = WMFLocalizedString("new-article-tab-settings-did-you-know", value: "Did You Know?", comment: "Toggle for did you know")
+    // New Article Tab Did You Know
+    
+    public static let articleTabsDYKTitle = WMFLocalizedString("article-tabs-did-you-know-title", value: "Did you know", comment: "Title for the new article tab did you know section")
+    
+    public static let fromWikipediaDefault = WMFLocalizedString("new-article-tab-from-wikipedia-default", value: "from Wikipedia", comment: "Text displayed as Wikipedia source on new tab if language is unavailable.")
 
 }
 

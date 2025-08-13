@@ -125,6 +125,7 @@
 "article-share" = "Share";
 "article-tabs-button-accessibility-hint" = "Navigates to tabs overview";
 "article-tabs-button-accessibility-label" = "Article tabs";
+"article-tabs-did-you-know-title" = "Did you know";
 "article-tabs-feature-announcement-item-1-subtitle" = "Open multiple articles and switch between them with ease.";
 "article-tabs-feature-announcement-item-1-title" = "Browse with tabs";
 "article-tabs-feature-announcement-item-2-subtitle" = "Tabs remember your scroll position automatically.";
@@ -230,6 +231,7 @@
 "developer-settings-enable-year-in-review" = "Enable Year in Review";
 "developer-settings-send-analytics-to-wmflabs" = "Send analytics to wmflabs.";
 "developer-settings-suppress-image-rec-post" = "Do not post image recommendations edit.";
+"did-you-know" = "Did you know";
 "diff-article-revision-history" = "Article revision history";
 "diff-change-added" = "Addition, $1, addition end.";
 "diff-change-paragraph-lines-moved-down" = "Paragraph moved down {{PLURAL:$1|0=0 lines|$1 line|$1 lines}}. Go to new location.";
@@ -734,6 +736,8 @@
 "nearby-distance-label-km" = "$1 km";
 "nearby-distance-label-meters" = "$1 m";
 "nearby-distance-label-miles" = "$1 miles";
+"new-article-tab-from-language-wikipedia" = "from $1 Wikipedia";
+"new-article-tab-from-wikipedia-default" = "from Wikipedia";
 "new-article-tab-settings-did-you-know" = "Did You Know?";
 "new-article-tab-settings-recommendations" = "Recommendations";
 "new-password-instructions" = "You logged in with a temporary password. To finish logging in set a new password here.";
