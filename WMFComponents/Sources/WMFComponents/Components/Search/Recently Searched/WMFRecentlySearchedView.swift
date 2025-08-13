@@ -62,39 +62,80 @@ public struct WMFRecentlySearchedView: View {
                 List {
                     ForEach(Array(viewModel.displayedSearchTerms.enumerated()), id: \.element.id) { index, item in
                         HStack {
-                            Text(item.text)
-                                .font(Font(WMFFont.for(.body)))
-                                .foregroundStyle(Color(uiColor: theme.text))
+                            Text(viewModel.localizedStrings.title)
+                                .font(Font(WMFFont.for(.semiboldSubheadline)))
+                                .foregroundStyle(Color(uiColor: theme.secondaryText))
                             Spacer()
+                            Button(viewModel.localizedStrings.clearAll) {
+                                viewModel.deleteAllAction()
+                            }
+                            .font(Font(WMFFont.for(.subheadline)))
+                            .foregroundStyle(Color(uiColor: theme.link))
                         }
-                        .padding(.vertical, 4)
-                        .background(Color(theme.paperBackground))
-                        .contentShape(Rectangle())
-                        .onTapGesture {
-                            viewModel.selectAction(item)
-                        }
-                        .swipeActions {
-                            Button {
-                                viewModel.deleteItemAction(index)
-                            } label: {
-                                Image(uiImage: WMFSFSymbolIcon.for(symbol: .trash) ?? UIImage())
-                                    .accessibilityLabel(viewModel.localizedStrings.deleteActionAccessibilityLabel)
+                        .padding(.horizontal)
+                        .padding(.top)
+                    }
+                    List {
+                        ForEach(Array(viewModel.displayedSearchTerms.enumerated()), id: \.element.id) { index, item in
+                            HStack {
+                                Text(item.text)
+                                    .font(Font(WMFFont.for(.body)))
+                                    .foregroundStyle(Color(uiColor: theme.text))
+                                Spacer()
+                            }
+                            .padding(.vertical, 4)
+                            .background(Color(theme.paperBackground))
+                            .contentShape(Rectangle())
+                            .onTapGesture {
+                                viewModel.selectAction(item)
                             }
                             .tint(Color(theme.destructive))
                             .labelStyle(.iconOnly)
+                            .swipeActions {
+                                Button {
+                                    viewModel.deleteItemAction(index)
+                                } label: {
+                                    Image(uiImage: WMFSFSymbolIcon.for(symbol: .trash) ?? UIImage())
+                                        .accessibilityLabel(viewModel.localizedStrings.deleteActionAccessibilityLabel)
+                                }
+                                .tint(Color(theme.destructive))
+                                .labelStyle(.iconOnly)
+                            }
+                            .listRowBackground(Color(theme.paperBackground))
                         }
                         .listRowBackground(Color(theme.paperBackground))
                     }
+                    .listStyle(.plain)
+                    .scrollDisabled(true)
+                    .frame(height: estimatedListHeight)
                 }
-                .listStyle(.plain)
-                .scrollDisabled(true)
-                .frame(height: estimatedListHeight)
                 if viewModel.needsAttachedView {
                     if enableBYR || (!enableDYK && assignment == .becauseYouRead), let becauseVM = viewModel.becauseYouReadViewModel {
                         WMFBecauseYouReadView(viewModel: becauseVM)
                     } else if shouldShowDidYouKnow(), let dykVM = viewModel.didYouKnowViewModel {
-                    	WMFNewArticleTabViewDidYouKnow(viewModel: dykVM, linkDelegate: linkDelegate)
+                        WMFNewArticleTabViewDidYouKnow(viewModel: dykVM, linkDelegate: linkDelegate)
                     }
+                }
+            }
+            .background(Color(theme.paperBackground))
+            .padding(.top, viewModel.topPadding)
+            .onAppear {
+                recalculateEstimatedListHeight()
+            }
+            .onChange(of: sizeCategory) { _ in
+                recalculateEstimatedListHeight()
+            }
+            if viewModel.needsAttachedView {
+                VStack {
+                    Spacer()
+                    Button(action: {
+                        viewModel.onTapEdit()
+                    }, label: {
+                        Text(viewModel.localizedStrings.editButtonTitle)
+                            .foregroundStyle(Color(theme.text))
+                            .font(Font(WMFFont.for(.boldSubheadline)))
+                    })
+                    .padding(.bottom, 32)
                 }
             }
         }
