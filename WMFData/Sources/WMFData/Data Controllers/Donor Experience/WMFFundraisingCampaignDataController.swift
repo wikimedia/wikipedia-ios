@@ -135,14 +135,12 @@ import Foundation
             return
         }
         
-        guard let url = URL(string: "https://test.wikipedia.org/w/index.php") else { // URL.fundraisingCampaignConfigURL() else {
+        guard let url = URL.fundraisingCampaignConfigURL() else {
             completion(.failure(WMFDataControllerError.failureCreatingRequestURL))
             return
         }
         
         let parameters: [String: Any] = [
-            "title": "MediaWiki:AppsCampaignConfig.json",
-            "oldid": "667545",
             "action": "raw"
         ]
         
