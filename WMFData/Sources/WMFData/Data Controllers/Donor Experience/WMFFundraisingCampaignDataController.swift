@@ -135,12 +135,14 @@ import Foundation
             return
         }
         
-        guard let url = URL.fundraisingCampaignConfigURL() else {
+        guard let url = URL(string: "https://test.wikipedia.org/w/index.php") else { // URL.fundraisingCampaignConfigURL() else {
             completion(.failure(WMFDataControllerError.failureCreatingRequestURL))
             return
         }
         
         let parameters: [String: Any] = [
+            "title": "MediaWiki:AppsCampaignConfig.json",
+            "oldid": "667545",
             "action": "raw"
         ]
         
@@ -153,6 +155,7 @@ import Foundation
 
             switch result {
             case .success(let response):
+                
                 activeCountryConfigs = self.activeCountryConfigs(from: response, countryCode: countryCode, currentDate: currentDate)
 
                 try? sharedCacheStore?.save(key: cacheDirectoryName, cacheConfigFileName, value: response)
@@ -323,10 +326,18 @@ import Foundation
                 return
             }
             
-            var assets: [String: WMFFundraisingCampaignConfig.WMFAsset] = [:]
+            var finalAssets: [String: WMFFundraisingCampaignConfig.WMFAsset] = [:]
+            
             for (key, value) in config.assets {
                 
-                let actions: [WMFFundraisingCampaignConfig.WMFAsset.WMFAction] = value.actions.map { action in
+                guard !value.isEmpty else {
+                    continue
+                }
+                
+                // For v2, assets come back as an array with weights attached for us to randomly A/B test copy. We must choose a random one here.
+                let randomAsset = randomAssetFrom(assets: value)
+                
+                let actions: [WMFFundraisingCampaignConfig.WMFAsset.WMFAction] = randomAsset.actions.map { action in
                     
                     guard let urlString = action.urlString?.replacingOccurrences(of: "$platform;", with: "iOS"),
                        let url = URL(string: urlString) else {
@@ -336,14 +347,36 @@ import Foundation
                     return WMFFundraisingCampaignConfig.WMFAsset.WMFAction(title: action.title, url: url)
                 }
 
-                let asset = WMFFundraisingCampaignConfig.WMFAsset(id: config.id, textHtml: value.text, footerHtml: value.footer, actions: actions, countryCode: countryCode, currencyCode: value.currencyCode, startDate: startDate, endDate: endDate, languageCode: key)
-                assets[key] = asset
+                let asset = WMFFundraisingCampaignConfig.WMFAsset(id: config.id, assetID: randomAsset.id, textHtml: randomAsset.text, footerHtml: randomAsset.footer, actions: actions, countryCode: countryCode, currencyCode: randomAsset.currencyCode, startDate: startDate, endDate: endDate, languageCode: key)
+                finalAssets[key] = asset
             }
             
-            configs.append(WMFFundraisingCampaignConfig(id: config.id, assets: assets))
+            configs.append(WMFFundraisingCampaignConfig(id: config.id, assets: finalAssets))
         })
         
         return configs
+    }
+    
+    private func randomAssetFrom(assets: [WMFFundraisingCampaignConfigResponse.FundraisingCampaignConfig.Asset]) -> WMFFundraisingCampaignConfigResponse.FundraisingCampaignConfig.Asset {
+        guard assets.count > 1 else {
+            return assets[0]
+        }
+        
+        // TODO: Is a seed needed?
+        let f = Float.random(in: 0..<1)
+            
+        var sum: Float = 0
+        for (i, asset) in assets.enumerated() {
+            
+            guard let weight = asset.weight else { continue }
+            
+            sum += weight
+            if f <= sum {
+                return assets[i]
+            }
+        }
+        
+        return assets[assets.count - 1]
     }
 }
 
@@ -373,12 +406,15 @@ private struct WMFFundraisingCampaignConfigResponse: Codable {
                 }
             }
             
+            let weight: Float?
+            let id: String?
             let text: String
             let footer: String
             let actions: [Action]
             let currencyCode: String
             
             enum CodingKeys: String, CodingKey {
+                case id, weight
                 case text = "text"
                 case footer = "footer"
                 case actions = "actions"
@@ -392,7 +428,7 @@ private struct WMFFundraisingCampaignConfigResponse: Codable {
         let platforms: Platforms
         let version: Int
         let countryCodes: [String]
-        let assets: [String: Asset]
+        let assets: [String: [Asset]]
         
         enum CodingKeys: String, CodingKey {
             case startTimeString = "start_time"
@@ -405,7 +441,7 @@ private struct WMFFundraisingCampaignConfigResponse: Codable {
         }
     }
     
-    static var currentVersion = 1
+    static var currentVersion = 2
     let configs: [FundraisingCampaignConfig]
     
     init(from decoder: Decoder) throws {
