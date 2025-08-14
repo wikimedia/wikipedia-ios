@@ -393,7 +393,7 @@
 "main-menu-nearby" = "ႁိမ်းႁွမ်း";
 "main-menu-privacy-policy" = "လၵ်း​ၼမ်း လွင်ႈ​ႁူမ်ႇ​လူမ်ႈ သုၼ်ႇ​လဵဝ်";
 "main-menu-rate-app" = "ပၼ်ထၢၼ်ႈ ဢႅပ်ႉ";
-"main-menu-terms-of-use" = "ၶေႃႈၽၢင်ႉလွင်ႈၸႂ်ႉတိုဝ်း";
+"main-menu-terms-of-use" = "ၶေႃႈမၵ်းမၼ်ႈလွင်ႈၸႂ်ႉတိုဝ်း";
 "main-menu-title" = "ၼမ်လိူဝ်";
 "main-menu-zero-faq" = "ၶေႃႈၵႆႉထၢမ်တွပ်ႇ တႃႇ ဝီႇၶီႇၽီးတီးယႃး သုၼ်";
 "more-languages-tooltip-description" = "ၶူၼ်ႉႁႃ ဝီႇၶီႇၽီးတီးယႃး ၼႂ်းၽႃႇသႃႇၵႂၢမ်း 300 လိူဝ်";
@@ -688,4 +688,4 @@
 "wikitext-upload-save-anonymously-or-login" = "လွင်ႈမႄးထတ်းၼႆႉ တေမၢႆဢဝ် ႁဵင်းၵွင်ႉဢၢႆႇၽီႇၶွင်ၶိူင်ႈၸဝ်ႈၵဝ်ႇ။ သင်ၸိူဝ်ႈၸဝ်ႈၵဝ်ႇ  ၶဝ်ႈ $1လွၵ်ႉဢိၼ်ႇ$2 ၼႆ ၸဝ်ႈၵဝ်ႇတေတိူဝ်းမီးလွင်ႈႁူမ်ႈလူမ်ႈသုၼ်တူဝ်။";
 "wikitext-upload-save-anonymously-warning" = "လွင်ႈမႄးထတ်း တေမၢႆဢဝ် ႁဵင်းလိၵ်ႈဢၢႆႇၽီႇ ၶွင်ၶိူင်ႈၸဝ်ႈၵဝ်ႇ။ သင်ၸိူဝ်ႉဝႃႈ ၸဝ်ႈၵဝ်ႇ $1 ၸဝ်ႈၵဝ်ႇ တေမီးပၢႆးႁူမ်ႇလူမ်ႈသုၼ်ႇတူဝ်လိူဝ်။";
 "wikitext-upload-save-sign-in" = "လွၵ်ႉဢိၼ်ႇ";
-"wikitext-upload-save-terms-name" = "ၶေႃႈၽၢင်ႉလွင်ႈၸႂ်ႉတိုဝ်း";
+"wikitext-upload-save-terms-name" = "ၶေႃႈမၵ်းမၼ်ႈလွင်ႈၸႂ်ႉတိုဝ်း";
