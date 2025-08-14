@@ -264,6 +264,7 @@ final class NewArticleTabCoordinator: Coordinator {
             vcs.append(newVC)
             navigationController.setViewControllers(vcs, animated: true)
         }
+        ArticleTabsFunnel.shared.logBecauseYouReadClick()
     }
 }
 
