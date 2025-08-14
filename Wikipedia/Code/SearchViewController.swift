@@ -619,7 +619,8 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
                 saveSelection: { [weak self] selectedIndex in
                     self?.saveSelection(selectedIndex: selectedIndex)
                 },
-                selectedIndex: self.getSelectedIndex()
+                selectedIndex: self.getSelectedIndex(),
+                loggingDelegate: self
             )
             guard let viewModel = self.viewModel else { return }
             let view = WMFNewArticleTabSettingsView(viewModel: viewModel)
@@ -845,4 +846,11 @@ extension SearchViewController: YearInReviewBadgeDelegate {
     func updateYIRBadgeVisibility() {
         updateProfileButton()
     }
+}
+
+extension SearchViewController: WMFNewArticleTabSettingsLoggingDelegate {
+    func logPreference(index: Int) {
+        ArticleTabsFunnel.shared.logTabsPreferenceClick(action: index == 0 ? .recommendationPrefClick : .didYouKnowPrefClick)
+    }
+
 }
