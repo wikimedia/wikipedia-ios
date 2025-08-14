@@ -102,6 +102,10 @@ public class CommonStrings: NSObject {
     @objc public static func onThisDayTitle(with languageCode: String? = nil) -> String {
         WMFLocalizedString("on-this-day-title", languageCode: languageCode, value: "On this day", comment: "Title for the 'On this day' feed section")
     }
+
+    @objc public static let fromWikipedia = WMFLocalizedStringWithDefaultValue("explore-featured-article-sub-heading-from-language-wikipedia", nil, nil, "From %1$@ Wikipedia", "Subtext beneath the 'Featured article' header when describing which specific Wikipedia. %1$@ will be replaced with the language - for example, 'From English Wikipedia'")
+
+    @objc public static let defaultFromWikipedia = WMFLocalizedStringWithDefaultValue("explore-featured-article-sub-heading-from-wikipedia", nil, nil, "From Wikipedia", "Subtext beneath the 'Featured article' header when the specific language wikipedia is unknown.")
     @objc public static let topReadTitle = WMFLocalizedString("places-filter-top-articles", value:"Top read", comment: "Title of places search filter that searches top articles")
     @objc public static let pictureOfTheDayTitle = WMFLocalizedString("explore-potd-heading", value: "Picture of the day", comment: "Text for 'Picture of the day' header")
     @objc public static let randomizerTitle = WMFLocalizedString("explore-randomizer", value: "Randomizer", comment: "Displayed on a button that loads another random article - it's a 'Randomizer'")

@@ -5,6 +5,7 @@ import WMFData
 public protocol WMFArticleTabsLoggingDelegate: AnyObject {
     func logArticleTabsOverviewImpression()
     func logArticleTabsArticleClick(wmfProject: WMFProject?)
+    func logTabsOverviewScreenshot()
 }
 
 public class WMFArticleTabsViewModel: NSObject, ObservableObject {
