@@ -43,6 +43,7 @@ public final class WMFFeedDidYouKnowFetcher: Fetcher {
             }
             cache.didYouKnowItems = facts
             sharedCache.saveCache(cache)
+            try? self.userDefaultsStore?.save(key: key, value: stringToday)
             completion(nil, facts)
         }
     }
