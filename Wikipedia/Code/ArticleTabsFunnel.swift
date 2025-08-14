@@ -1,8 +1,8 @@
 import WMF
 
-final class ArticleTabsFunnel {
+@objc final class ArticleTabsFunnel: NSObject {
 
-    static let shared = ArticleTabsFunnel()
+    @objc static let shared = ArticleTabsFunnel()
 
     public enum Action: String {
         case impression = "impression"
@@ -157,6 +157,10 @@ final class ArticleTabsFunnel {
 
     func logTabsPreferenceClick(action: ArticleTabsFunnel.Action) {
         logEvent(activeInterface: .tabsPreferences, action: action)
+    }
+
+    @objc func logTabsPreferenceSettingsClick() {
+        logEvent(activeInterface: .settings, action: .tabsSettingsClick)
     }
 
     func logTabsOverviewScreenshot() {
