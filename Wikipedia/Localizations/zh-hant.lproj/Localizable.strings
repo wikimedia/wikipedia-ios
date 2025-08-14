@@ -172,6 +172,7 @@
 "article-share" = "分享";
 "article-tabs-button-accessibility-hint" = "導覽至分頁概要";
 "article-tabs-button-accessibility-label" = "條目分頁";
+"article-tabs-did-you-know-title" = "你知道嗎";
 "article-tabs-feature-announcement-item-1-subtitle" = "打開多篇條目並輕鬆在各條目間切換。";
 "article-tabs-feature-announcement-item-1-title" = "使用分頁瀏覽";
 "article-tabs-feature-announcement-item-2-subtitle" = "分頁會自動記住您的滑動位置。";
@@ -273,10 +274,11 @@
 "developer-settings-activity-tab-group-C" = "將活動分頁設定成群組 C";
 "developer-settings-bypass-donation" = "跳過捐贈";
 "developer-settings-dynamic-tabs-BYR" = "以「您曾閱讀過的」啟用分頁";
-"developer-settings-dynamic-tabs-DYK" = "以「您知道嗎」啟用分頁";
+"developer-settings-dynamic-tabs-DYK" = "以「你知道嗎」啟用分頁";
 "developer-settings-enable-year-in-review" = "啟用年度回顧";
 "developer-settings-send-analytics-to-wmflabs" = "傳送分析給維基媒體基金會實驗室。";
 "developer-settings-suppress-image-rec-post" = "請不要發送圖片推薦編輯。";
+"did-you-know" = "你知道嗎";
 "diff-article-revision-history" = "條目修訂紀錄";
 "diff-change-added" = "已新增：$1，新增結束。";
 "diff-change-paragraph-lines-moved-down" = "章節向下移動了 {{PLURAL:$1|0=0|$1}} 行。轉到新的位置。";
@@ -781,6 +783,10 @@
 "nearby-distance-label-km" = "$1 公里";
 "nearby-distance-label-meters" = "$1 公尺";
 "nearby-distance-label-miles" = "$1 英里";
+"new-article-tab-from-language-wikipedia" = "來自$1維基百科";
+"new-article-tab-from-wikipedia-default" = "來自維基百科";
+"new-article-tab-settings-did-you-know" = "你知道嗎？";
+"new-article-tab-settings-recommendations" = "建議";
 "new-password-instructions" = "您以臨時密碼登入。要完成登入，請在此設定新密碼。";
 "new-password-title" = "設定您的密碼";
 "new-tab" = "新分頁";
@@ -1171,6 +1177,7 @@
 "settings-language-bar" = "搜尋時顯示語言";
 "settings-languages-feed-customization" = "透過自訂您的探索摘要設定，您可以管理在您的探索摘要裡所要顯示出的語言。";
 "settings-my-languages" = "我的語言";
+"settings-new-article-tab-header-text" = "新分頁主題";
 "settings-notifications" = "推送通知";
 "settings-notifications-echo-failure-message" = "檢查您的帳號相關通知訂閱時發生錯誤。";
 "settings-notifications-echo-failure-title" = "無法檢查 Echo 通知訂閱";
@@ -1235,6 +1242,8 @@
 "tabs-overview-tooltip-body" = "在分頁總覽中切換開啟的條目。";
 "tabs-overview-tooltip-title" = "分頁總覽";
 "tabs-survey-title" = "請協助改善分頁功能。您對此功能滿意嗎？";
+"tabs-title" = "分頁";
+"tabs-title-preferences" = "分頁偏好設定";
 "tachelhit-variants-alert-body" = "維基百科應用程式現在支援下列施盧赫語異體字作為應用程式裡的主要語言或次要語言，能以您首選的異體字來更易於閱讀、搜尋、編輯：\n\nⵜⴰⵛⵍⵃⵉⵜ，提非納字母施盧赫語（shi-tfng）\nTaclḥit，拉丁字母施盧赫語（shi-latn）";
 "tachelhit-variants-alert-title" = "施盧赫語異體字支援更新";
 "tajik-variants-alert-body" = "維基百科應用程式現在支援下列塔吉克語異體字作為應用程式裡的主要語言或次要語言，能以您首選的異體字來更易於閱讀、搜尋、編輯：\n\nтоҷикӣ кирилликӣ，西里爾字母塔吉克語（tg-cyrl）\ntojikī lotinī，拉丁字母塔吉克語（tg-latn）";
