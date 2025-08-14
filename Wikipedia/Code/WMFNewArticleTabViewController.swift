@@ -14,6 +14,7 @@ final class WMFNewArticleTabViewController: WMFCanvasViewController, WMFNavigati
     private var presentingSearchResults: Bool = false
     private let viewModel: WMFNewArticleTabViewModel
     private var showTabsOverview: (() -> Void)?
+    private var cameFromNewTab: Bool
 
     // MARK: - Navigation bar button properties
 
@@ -57,11 +58,12 @@ final class WMFNewArticleTabViewController: WMFCanvasViewController, WMFNavigati
 
     // MARK: - Lifecycle
 
-    init(dataStore: MWKDataStore, theme: Theme, viewModel: WMFNewArticleTabViewModel) {
+    init(dataStore: MWKDataStore, theme: Theme, viewModel: WMFNewArticleTabViewModel, cameFromNewTab: Bool) {
         self.dataStore = dataStore
         self.theme = theme
         self.viewModel = viewModel
         self.hostingController = WMFNewArticleTabHostingController(rootView: WMFNewArticleTabView())
+        self.cameFromNewTab = cameFromNewTab
         super.init()
         self.hidesBottomBarWhenPushed = true
         self.configureNavigationBar()
@@ -166,21 +168,26 @@ final class WMFNewArticleTabViewController: WMFCanvasViewController, WMFNavigati
     @MainActor
     @objc private func goToTabsOverview() {
         let articleTabsDataController = WMFArticleTabsDataController.shared
-        Task {
-            do {
-                _ = try await articleTabsDataController.createArticleTab(initialArticle: nil, setAsCurrent: true)
+        if !cameFromNewTab {
+            Task {
+                do {
+                    _ = try await articleTabsDataController.createArticleTab(initialArticle: nil, setAsCurrent: true)
 
-                if let viewContext = articleTabsDataController.coreDataStore?.persistentContainer?.viewContext {
-                     await viewContext.perform {
-                        viewContext.processPendingChanges()
+                    if let viewContext = articleTabsDataController.coreDataStore?.persistentContainer?.viewContext {
+                        await viewContext.perform {
+                            viewContext.processPendingChanges()
+                        }
                     }
+                    navigationController?.popViewController(animated: true)
+                    showTabsOverview?()
+                } catch {
+                    navigationController?.popViewController(animated: true)
+                    showTabsOverview?()
                 }
-                navigationController?.popViewController(animated: true)
-                showTabsOverview?()
-            } catch {
-                navigationController?.popViewController(animated: true)
-                showTabsOverview?()
             }
+        } else {
+            navigationController?.popViewController(animated: true)
+            showTabsOverview?()
         }
     }
 

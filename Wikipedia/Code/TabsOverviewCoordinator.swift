@@ -143,7 +143,7 @@ final class TabsOverviewCoordinator: Coordinator {
             // If we're showing more dynamic tabs, we need to push to the new tab experience instead of main page
             if needsMoreDynamicTabs {
                 if tab.articles.last?.isMain == true {
-                    self.newTabCoordinator = NewArticleTabCoordinator(navigationController: self.navigationController, dataStore: self.dataStore, theme: self.theme)
+                    self.newTabCoordinator = NewArticleTabCoordinator(navigationController: self.navigationController, dataStore: self.dataStore, theme: self.theme, cameFromNewTab: true)
                     self.newTabCoordinator?.start()
                 } else {
                     let articleCoordinator = ArticleCoordinator(navigationController: navigationController, articleURL: articleURL, dataStore: MWKDataStore.shared(), theme: theme, needsAnimation: false, source: .undefined, isRestoringState: true, tabConfig: tabConfig)
@@ -167,7 +167,7 @@ final class TabsOverviewCoordinator: Coordinator {
                 navigationController.dismiss(animated: true)
             } else {
                 navigationController.dismiss(animated: true) {
-                    self.newTabCoordinator = NewArticleTabCoordinator(navigationController: self.navigationController, dataStore: self.dataStore, theme: self.theme)
+                    self.newTabCoordinator = NewArticleTabCoordinator(navigationController: self.navigationController, dataStore: self.dataStore, theme: self.theme, cameFromNewTab: false)
                     self.newTabCoordinator?.start()
                 }
             }
