@@ -114,6 +114,7 @@
 "article-reference-view-title" = "Referenz $1";
 "article-save-error-not-enough-space" = "Dir hutt net genuch op Ärem Apparat fir dësen Artikel ze späicheren";
 "article-share" = "Deelen";
+"article-tabs-did-you-know-title" = "Wousst Dir";
 "article-tabs-feature-announcement-item-2-subtitle" = "Tabs erënnere sech automatesch un Är Scrollpositioun.";
 "article-tabs-feature-announcement-item-2-title" = "Fuert do virun, wou Dir opgehal hutt";
 "article-tabs-feature-announcement-item-3-subtitle" = "Maacht Linken an Hannergrondtabs op, ouni Är Positioun ze verléieren.";
@@ -186,6 +187,7 @@
 "description-welcome-start-editing-button" = "Ufänke mat Änneren";
 "developer-settings" = "Entwécklerastellungen";
 "developer-settings-enable-year-in-review" = "Joresréckbléck aktivéieren";
+"did-you-know" = "Wousst Dir";
 "diff-compare-header-from-info-heading" = "Vireg Ännerung";
 "diff-compare-header-heading" = "Versioune vergläichen";
 "diff-compare-header-to-info-heading" = "Gewisen Ännerung";
@@ -547,6 +549,10 @@
 "nearby-distance-label-km" = "$1 km";
 "nearby-distance-label-meters" = "$1 Meter";
 "nearby-distance-label-miles" = "$1 Meilen";
+"new-article-tab-from-language-wikipedia" = "vun der Wikipedia op $1";
+"new-article-tab-from-wikipedia-default" = "vu Wikipedia";
+"new-article-tab-settings-did-you-know" = "Wousst Dir schonn?";
+"new-article-tab-settings-recommendations" = "Recommandatiounen";
 "new-password-instructions" = "Dir sidd mat engem temporäre Passwuert ageloggt. Fir d'Aloggen ofzeschléissen, leet een neit Passwuert hei fest.";
 "new-password-title" = "Leet Äert Passwuert fest";
 "new-tab" = "Neien Tab";
@@ -867,6 +873,8 @@
 "tabs-open-tab" = "Tab opmaachen";
 "tabs-overview-tooltip-body" = "Tëscht oppenen Artikelen an der Tabiwwersiicht wiesselen.";
 "tabs-overview-tooltip-title" = "Tabiwwersiicht";
+"tabs-title" = "Tabs";
+"tabs-title-preferences" = "Tabs-Astellungen";
 "talk-page-active-users-accessibilty-label" = "{{PLURAL:$1|$1 aktive Benotzer|$1 aktiv Benotzer}}";
 "talk-page-add-topic-button" = "Sujet derbäisetzen";
 "talk-page-archives" = "Archiven";
