@@ -6,7 +6,7 @@ public final class WMFCoreDataStore {
     private let appContainerURL: URL
     
     // Will only be populated if persistent stores load correctly
-    private(set) public var persistentContainer: NSPersistentContainer?
+    private var persistentContainer: NSPersistentContainer?
 
     public init(appContainerURL: URL? = WMFDataEnvironment.current.appContainerURL) async throws {
         

@@ -168,26 +168,26 @@ final class WMFNewArticleTabViewController: WMFCanvasViewController, WMFNavigati
     @MainActor
     @objc private func goToTabsOverview() {
         let articleTabsDataController = WMFArticleTabsDataController.shared
-        if !cameFromNewTab {
-            Task {
-                do {
-                    _ = try await articleTabsDataController.createArticleTab(initialArticle: nil, setAsCurrent: true)
 
-                    if let viewContext = articleTabsDataController.coreDataStore?.persistentContainer?.viewContext {
-                        await viewContext.perform {
-                            viewContext.processPendingChanges()
-                        }
-                    }
-                    navigationController?.popViewController(animated: true)
-                    showTabsOverview?()
-                } catch {
-                    navigationController?.popViewController(animated: true)
-                    showTabsOverview?()
-                }
+        let gotToOverview: () -> Void = { [weak self] in
+            self?.navigationController?.popViewController(animated: true)
+            self?.showTabsOverview?()
+        }
+
+        guard !cameFromNewTab else {
+            gotToOverview()
+            return
+        }
+
+        Task {
+            defer { gotToOverview() }
+
+            do {
+                _ = try await articleTabsDataController.createArticleTab(initialArticle: nil, setAsCurrent: true)
+
+            } catch {
+                gotToOverview()
             }
-        } else {
-            navigationController?.popViewController(animated: true)
-            showTabsOverview?()
         }
     }
 
