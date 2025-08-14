@@ -739,6 +739,7 @@ extension SearchViewController: UITextViewDelegate {
             var vcs = navController.viewControllers
             let newTabControllerIsOnStack = vcs.contains { $0 is WMFNewArticleTabViewController }
             if newTabControllerIsOnStack {
+                ArticleTabsFunnel.shared.logDidYouKnowClick()
                 guard vcs.count >= 2 else { return }
                 vcs.remove(at: vcs.count - 2)
                 navController.setViewControllers(vcs, animated: false)
