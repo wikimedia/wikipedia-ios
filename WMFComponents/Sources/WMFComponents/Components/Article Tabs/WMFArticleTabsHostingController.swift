@@ -1,9 +1,16 @@
 import SwiftUI
+import Foundation
+import WMFData
 
 public class WMFArticleTabsHostingController<HostedView: View>: WMFComponentHostingController<HostedView>, WMFNavigationBarConfiguring {
     
     lazy var addTabButton: UIBarButtonItem = {
         let button = UIBarButtonItem(image: WMFSFSymbolIcon.for(symbol: .add), style: .plain, target: self, action: #selector(tappedAdd))
+        return button
+    }()
+    
+    lazy var overflowButton: UIBarButtonItem = {
+        let button = UIBarButtonItem(image: WMFSFSymbolIcon.for(symbol: .ellipsisCircle), primaryAction: nil, menu: overflowMenu)
         return button
     }()
     
@@ -32,7 +39,12 @@ public class WMFArticleTabsHostingController<HostedView: View>: WMFComponentHost
         
         configureNavigationBar()
         
-        navigationItem.rightBarButtonItem = addTabButton
+        let dataController = WMFArticleTabsDataController.shared
+        if dataController.shouldShowMoreDynamicTabs {
+            navigationItem.rightBarButtonItems = [addTabButton, overflowButton]
+        } else {
+            navigationItem.rightBarButtonItem = addTabButton
+        }
     }
 
     public override func viewDidLoad() {
@@ -67,7 +79,29 @@ public class WMFArticleTabsHostingController<HostedView: View>: WMFComponentHost
         viewModel.loggingDelegate?.logTabsOverviewScreenshot()
     }
 
+
+    @objc private func tappedOverflow() {
+        viewModel.didTapAddTab()
+    }
+    
+    var overflowMenu: UIMenu {
+        let tabsPreferences = UIAction(title: viewModel.localizedStrings.tabsPreferencesTitle, image: WMFSFSymbolIcon.for(symbol: .gear), handler: { [weak self] _ in
+            self?.openTabsPreferences()
+        })
+        
+        let children: [UIMenuElement] = [tabsPreferences]
+        let mainMenu = UIMenu(title: String(), children: children)
+
+        return mainMenu
+    }
+    
+    private func openTabsPreferences() {
+        viewModel.didTabOpenTabs()
+
+    }
+
     deinit {
         NotificationCenter.default.removeObserver(self, name: UIApplication.userDidTakeScreenshotNotification, object: nil)
+
     }
 }

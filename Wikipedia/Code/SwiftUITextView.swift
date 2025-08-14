@@ -6,6 +6,7 @@ struct TextView: UIViewRepresentable {
     let placeholder: String
     let theme: Theme
     @Binding var text: String
+    var isEditable: Bool = true
     
     typealias UIViewType = SwiftUITextView
     
@@ -15,6 +16,7 @@ struct TextView: UIViewRepresentable {
         textView.delegate = context.coordinator
         let font = WMFFont.for(.callout, compatibleWith: textView.traitCollection)
         textView.font = font
+        textView.isEditable = isEditable
         textView.placeholderLabel.font = font
         return textView
     }
@@ -25,6 +27,7 @@ struct TextView: UIViewRepresentable {
     
     func updateUIView(_ uiView: UIViewType, context: UIViewRepresentableContext<Self>) {
         uiView.text = text
+        uiView.isEditable = isEditable
     }
     
     class Coordinator: NSObject, UITextViewDelegate {

@@ -2,27 +2,133 @@ import UIKit
 import WMF
 import WMFComponents
 import WMFData
+import Foundation
 
 final class NewArticleTabCoordinator: Coordinator {
-    var navigationController: UINavigationController
-    var dataStore: MWKDataStore
-    var theme: Theme
+    internal var navigationController: UINavigationController
+    private var dataStore: MWKDataStore
+    private var theme: Theme
+    private var dataController = WMFArticleTabsDataController.shared
+
+    // MARK: - Related pages props
     private let fetcher: RelatedSearchFetcher
 
+    private var seed: WMFArticle?
+    private var related: [WMFArticle] = []
+    private var seenSeedKeys = Set<String>()
+    private let contentSource = WMFRelatedPagesContentSource()
+
+    // MARK: - Did you know props
+    private var dykFetcher: WMFFeedDidYouKnowFetcher
+    public var dykFacts: [WMFFeedDidYouKnow]? = nil
+    private let fromLanguageWikipedia = WMFLocalizedString("new-article-tab-from-language-wikipedia", value: "from %1$@ Wikipedia", comment: "Text displayed to indicate Did You Know source displayed on a new tab. %1$@ will be replaced with the Wikipedia language set as the app default")
+    private let fromWikipediaDefault = CommonStrings.fromWikipediaDefault
+    private let didYouKnowTitle = WMFLocalizedString("did-you-know", value: "Did you know", comment: "Text displayed as heading for section of new tab dedicated to DYK")
+
+    // MARK: - Lifecycle
     init(navigationController: UINavigationController, dataStore: MWKDataStore, theme: Theme, fetcher: RelatedSearchFetcher = RelatedSearchFetcher()) {
         self.navigationController = navigationController
         self.dataStore = dataStore
         self.theme = theme
         self.fetcher = fetcher
+        dykFetcher = WMFFeedDidYouKnowFetcher()
     }
 
-    var seed: WMFArticle?
-    var related: [WMFArticle] = []
-    private var seenSeedKeys = Set<String>()
+    // MARK: - Methods
+    @discardableResult
+    func start() -> Bool {
+        let experiment = try? self.dataController.getMoreDynamicTabsExperimentAssignment()
+        let devSettingsDataController = WMFDeveloperSettingsDataController.shared
+        let enableBYR = devSettingsDataController.enableMoreDynamicTabsBYR
+        let enableDYK = devSettingsDataController.enableMoreDynamicTabsDYK
+        
+        if enableBYR || experiment == .becauseYouRead {
+            fetchBecauseYouRead { seedArticle, related in
 
-    private let contentSource = WMFRelatedPagesContentSource()
+                var becauseVM: WMFBecauseYouReadViewModel?
+                
+                if let seedArticle {
+                    let seedRecord = seedArticle.toHistoryRecord()
+                    let relatedRecords = related.compactMap { $0.toHistoryRecord() }
+                    
+                    if !relatedRecords.isEmpty {
+                        let onTapArticleAction: WMFBecauseYouReadViewModel.OnRecordTapAction = { [weak self] historyItem in
+                            self?.tappedArticle(historyItem)
+                        }
+                        
+                        becauseVM = WMFBecauseYouReadViewModel(
+                            becauseYouReadTitle: CommonStrings.relatedPagesTitle,
+                            openButtonTitle: CommonStrings.articleTabsOpen,
+                            seedArticle: seedRecord,
+                            relatedArticles: relatedRecords
+                        )
+                        becauseVM?.onTapArticle = onTapArticleAction
+                    }
+                }
+                
+                let viewModel = WMFNewArticleTabViewModel(
+                    title: CommonStrings.newTab,
+                    becauseYouReadViewModel: becauseVM,
+                    dykViewModel: nil
+                )
+                
+                let vc = WMFNewArticleTabViewController(
+                    dataStore: self.dataStore,
+                    theme: self.theme,
+                    viewModel: viewModel
+                )
+                
+                self.navigationController.pushViewController(vc, animated: true)
+            }
+        } else if enableDYK || experiment == .didYouKnow,
+                  let primaryLanguage = self.dataStore.languageLinkController.appLanguage?.languageCode {
+            self.fetchDYK(for: primaryLanguage) { facts in
+                DispatchQueue.main.async {
+                    let dykVM = WMFNewArticleTabDidYouKnowViewModel(
+                        facts: facts?.map { $0.html } ?? [],
+                        languageCode: primaryLanguage,
+                        dykLocalizedStrings: WMFNewArticleTabDidYouKnowViewModel.LocalizedStrings.init(
+                            didYouKnowTitle: self.didYouKnowTitle,
+                            fromSource: self.fromLanguageWikipediaTextFor(languageCode: self.dataStore.languageLinkController.appLanguage?.languageCode)
+                        )
+                    )
+                    
+                    let viewModel = WMFNewArticleTabViewModel(
+                        title: CommonStrings.newTab,
+                        becauseYouReadViewModel: nil,
+                        dykViewModel: dykVM
+                    )
+                    
+                    let vc = WMFNewArticleTabViewController(
+                        dataStore: self.dataStore,
+                        theme: self.theme,
+                        viewModel: viewModel
+                    )
+                    
+                    self.navigationController.pushViewController(vc, animated: true)
+                }
+            }
+        } else {
+            let viewModel = WMFNewArticleTabViewModel(
+                title: CommonStrings.newTab,
+                becauseYouReadViewModel: nil,
+                dykViewModel: nil
+            )
+            
+            let vc = WMFNewArticleTabViewController(
+                dataStore: self.dataStore,
+                theme: self.theme,
+                viewModel: viewModel
+            )
+            
+            self.navigationController.pushViewController(vc, animated: true)
+        }
+        
+        return true
+    }
 
-    func loadNextBatch(completion: @escaping (WMFArticle?, [WMFArticle]) -> Void) {
+    // MARK: - Fetchers
+    private func fetchBecauseYouRead(completion: @escaping (WMFArticle?, [WMFArticle]) -> Void) {
         let moc = dataStore.feedImportContext
 
         // Get significantly read article
@@ -108,60 +214,38 @@ final class NewArticleTabCoordinator: Coordinator {
         }
     }
 
-    @discardableResult
-    func start() -> Bool {
-
-        loadNextBatch { seed, related in
-            var becauseVM: WMFBecauseYouReadViewModel? = nil
-            if let seed {
-                let seedRecord = seed.toHistoryRecord()
-                let relatedRecords = related.compactMap { article in
-                    article.toHistoryRecord()
-                }
-
-                if !relatedRecords.isEmpty {
-                    let onTapArticleAction: WMFBecauseYouReadViewModel.OnRecordTapAction = { [weak self] historyItem in
-                        guard let self else {
-                            return
-                        }
-
-                        self.tappedArticle(historyItem)
-                    }
-
-                    becauseVM = WMFBecauseYouReadViewModel(
-                        becauseYouReadTitle: CommonStrings.relatedPagesTitle,
-                        openButtonTitle: CommonStrings.articleTabsOpen,
-                        seedArticle: seedRecord,
-                        relatedArticles: relatedRecords
-                    )
-                    becauseVM?.onTapArticle = onTapArticleAction
-
-                }
-            }
-
-            let viewModel = WMFNewArticleTabViewModel(
-                title: CommonStrings.newTab,
-                becauseYouReadViewModel: becauseVM
-            )
-            let vc = WMFNewArticleTabViewController(
-                dataStore: self.dataStore,
-                theme: self.theme,
-                viewModel: viewModel
-            )
-            
-            self.navigationController.pushViewController(vc, animated: true)
+    private func fetchDYK(for language: String, completion: @escaping ([WMFFeedDidYouKnow]?) -> Void) {
+        guard let url = NSURL.wmf_URL(withDefaultSiteAndLanguageCode: language) else {
+            completion(nil)
+            return
         }
-        return true
+        
+        dykFetcher.fetchDidYouKnow(withSiteURL: url) { error, facts in
+            guard error == nil else {
+                completion(nil)
+                return
+            }
+            completion(facts)
+        }
     }
 
-    func tappedArticle(_ item: HistoryItem) {
+    // MARK: - Private methods
+    private func fromLanguageWikipediaTextFor(languageCode: String?) -> String {
+        guard let languageCode = languageCode, let localizedLanguageString = Locale.current.localizedString(forLanguageCode: languageCode) else {
+            return fromWikipediaDefault
+        }
+
+        return String.localizedStringWithFormat(fromLanguageWikipedia, localizedLanguageString)
+    }
+
+    private func tappedArticle(_ item: HistoryItem) {
         guard let articleURL = item.url,
               let title = articleURL.wmf_title,
               let siteURL = articleURL.wmf_site,
               let wmfProject = WikimediaProject(siteURL: siteURL)?.wmfProject else {
             return
         }
-
+        
         let articleCoordinator = ArticleCoordinator(
             navigationController: navigationController,
             articleURL: articleURL,
@@ -170,7 +254,7 @@ final class NewArticleTabCoordinator: Coordinator {
             source: .history,
             tabConfig: .assignNewTabAndSetToCurrentFromNewTabSearch(title: title, project: wmfProject)
         )
-
+        
         var vcs = navigationController.viewControllers
         if vcs.last is WMFNewArticleTabViewController {
             vcs.removeLast()
@@ -183,6 +267,8 @@ final class NewArticleTabCoordinator: Coordinator {
         ArticleTabsFunnel.shared.logBecauseYouReadClick()
     }
 }
+
+// MARK: - Extensions
 
 fileprivate extension WMFArticle {
     func toHistoryRecord() -> HistoryRecord {

@@ -99,17 +99,23 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
     private var customArticleCoordinatorNavigationController: UINavigationController?
 
     private var presentingSearchResults: Bool = false
+    
+    private let userDefaultsStore = WMFDataEnvironment.current.userDefaultsStore
+    private var hostingController: UIHostingController<WMFNewArticleTabSettingsView>?
+    private var viewModel: WMFNewArticleTabSettingsViewModel?
 
     // MARK: - Lifecycle
 
     let needsAttachedView: Bool // TODO: Maybe rename to comes from new tabs exp for clarity
     let becauseYouReadViewModel: WMFBecauseYouReadViewModel?
+    let didYouKnowViewModel: WMFNewArticleTabDidYouKnowViewModel?
 
-    @objc required init(source: EventLoggingSource, customArticleCoordinatorNavigationController: UINavigationController? = nil, needsAttachedView: Bool = false, becauseYouReadViewModel: WMFBecauseYouReadViewModel? = nil) {
+    @objc required init(source: EventLoggingSource, customArticleCoordinatorNavigationController: UINavigationController? = nil, needsAttachedView: Bool = false, becauseYouReadViewModel: WMFBecauseYouReadViewModel? = nil, didYouKnowViewModel: WMFNewArticleTabDidYouKnowViewModel? = nil) {
         self.source = source
         self.needsAttachedView = needsAttachedView
         self.becauseYouReadViewModel = becauseYouReadViewModel
         self.customArticleCoordinatorNavigationController = customArticleCoordinatorNavigationController
+        self.didYouKnowViewModel = didYouKnowViewModel
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -547,7 +553,7 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
     }
 
     private lazy var recentSearchesViewController: UIViewController = {
-        let root = WMFRecentlySearchedView(viewModel: recentSearchesViewModel)
+        let root = WMFRecentlySearchedView(viewModel: recentSearchesViewModel, linkDelegate: self)
         let host = UIHostingController(rootView: root)
         return host
     }()
@@ -600,10 +606,70 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
             title: CommonStrings.recentlySearchedTitle,
             noSearches: CommonStrings.recentlySearchedEmpty,
             clearAll: CommonStrings.clearTitle,
-            deleteActionAccessibilityLabel: CommonStrings.deleteActionTitle
+            deleteActionAccessibilityLabel: CommonStrings.deleteActionTitle, editButtonTitle: CommonStrings.editContextMenuTitle
         )
-        return WMFRecentlySearchedViewModel(recentSearchTerms: recentSearchTerms, localizedStrings: localizedStrings, needsAttachedView: needsAttachedView, becauseYouReadViewModel: becauseYouReadViewModel, deleteAllAction: didPressClearRecentSearches, deleteItemAction: deleteItemAction, selectAction: selectAction)
+        return WMFRecentlySearchedViewModel(recentSearchTerms: recentSearchTerms, localizedStrings: localizedStrings, needsAttachedView: needsAttachedView, becauseYouReadViewModel: becauseYouReadViewModel, didYouKnowViewModel: didYouKnowViewModel, deleteAllAction: didPressClearRecentSearches, deleteItemAction: deleteItemAction, selectAction: selectAction, onTapEdit: {
+            self.viewModel = WMFNewArticleTabSettingsViewModel(
+                title: CommonStrings.tabsPreferencesTitle,
+                header: CommonStrings.newTabTheme,
+                options: [
+                    CommonStrings.recommendations,
+                    CommonStrings.didyouknow
+                ],
+                saveSelection: { [weak self] selectedIndex in
+                    self?.saveSelection(selectedIndex: selectedIndex)
+                },
+                selectedIndex: self.getSelectedIndex()
+            )
+            guard let viewModel = self.viewModel else { return }
+            let view = WMFNewArticleTabSettingsView(viewModel: viewModel)
+            let hostingController = UIHostingController(rootView: view)
+            hostingController.title = CommonStrings.tabsPreferencesTitle
+            hostingController.navigationItem.largeTitleDisplayMode = .never
+
+            hostingController.navigationItem.leftBarButtonItem = UIBarButtonItem(
+                title: CommonStrings.doneTitle,
+                style: .done,
+                target: self,
+                action: #selector(self.doneButtonTapped)
+            )
+
+            self.viewModel = viewModel
+            self.hostingController = hostingController
+
+            let navController = WMFComponentNavigationController(rootViewController: hostingController)
+            self.present(navController, animated: true, completion: { [weak self] in
+                self?.saveSelection(selectedIndex: viewModel.selectedIndex)
+            })
+        })
     }()
+    
+    @objc private func doneButtonTapped() {
+        self.hostingController?.dismiss(animated: true)
+    }
+    
+    let dataController = WMFArticleTabsDataController()
+    
+    private func getSelectedIndex() -> Int {
+        let isBYREnabled = (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsMoreDynamicTabsBYR.rawValue)) ?? false
+        let isDYKEnabled = (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsMoreDynamicTabsDYK.rawValue)) ?? false
+
+        return (isBYREnabled) ? 0 : (isDYKEnabled) ? 1 : 0
+    }
+    
+    private func saveSelection(selectedIndex: Int) {
+        let isBYR = selectedIndex == 0
+        let isDYK = selectedIndex == 1
+
+        try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsMoreDynamicTabsBYR.rawValue, value: isBYR)
+        try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsMoreDynamicTabsDYK.rawValue, value: isDYK)
+
+        dataController.moreDynamicTabsBYRIsEnabled = isBYR
+        dataController.moreDynamicTabsDYKIsEnabled = isDYK
+        
+        self.view.setNeedsLayout()
+        self.view.layoutIfNeeded()
+    }
 
     private lazy var recentSearchTerms: [WMFRecentlySearchedViewModel.RecentSearchTerm] = {
         guard let recent = recentSearches else { return [] }
@@ -645,9 +711,52 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
             return
         }
 
-         resultsViewController.view.isHidden = searchText.isEmpty
+        resultsViewController.view.isHidden = searchText.isEmpty
     }
+}
 
+extension SearchViewController: UITextViewDelegate {
+    func tappedLink(_ url: URL, sourceTextView: UITextView) {
+        guard let url = URL(string: url.absoluteString) else {
+            return
+        }
+        
+        let legacyNavigateAction = { [weak self] in
+            guard let self else { return }
+            let userInfo: [AnyHashable : Any] = [RoutingUserInfoKeys.source: RoutingUserInfoSourceValue.talkPage.rawValue]
+            navigate(to: url.absoluteURL, userInfo: userInfo)
+        }
+        
+        // first try to navigate using LinkCoordinator. If it fails, use the legacy approach.
+        let navController = customArticleCoordinatorNavigationController
+            ?? self.navigationController
+            ?? self.parent?.navigationController
+
+        if let navController {
+            let linkCoordinator = LinkCoordinator(navigationController: navController, url: url.absoluteURL, dataStore: nil, theme: theme, articleSource: .undefined)
+            let success = linkCoordinator.start()
+
+            var vcs = navController.viewControllers
+            let newTabControllerIsOnStack = vcs.contains { $0 is WMFNewArticleTabViewController }
+            if newTabControllerIsOnStack {
+                guard vcs.count >= 2 else { return }
+                vcs.remove(at: vcs.count - 2)
+                navController.setViewControllers(vcs, animated: false)
+            }
+
+            guard success else {
+                legacyNavigateAction()
+                return
+            }
+        } else {
+            legacyNavigateAction()
+        }
+    }
+    
+    func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
+        tappedLink(URL, sourceTextView: textView)
+        return false
+    }
 }
 
 extension SearchViewController: SearchLanguagesBarViewControllerDelegate {

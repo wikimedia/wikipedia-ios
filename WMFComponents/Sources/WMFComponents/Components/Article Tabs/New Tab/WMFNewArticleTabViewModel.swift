@@ -1,12 +1,13 @@
 import Foundation
 
-public final class WMFNewArticleTabViewModel {
-
+public final class WMFNewArticleTabViewModel: ObservableObject {
     public let title: String
-    public let becauseYouReadViewModel: WMFBecauseYouReadViewModel?
+	public let becauseYouReadViewModel: WMFBecauseYouReadViewModel?
+    public let dykViewModel: WMFNewArticleTabDidYouKnowViewModel?
 
-    public init(title: String, becauseYouReadViewModel: WMFBecauseYouReadViewModel?) {
+    public init(title: String, becauseYouReadViewModel: WMFBecauseYouReadViewModel?, dykViewModel: WMFNewArticleTabDidYouKnowViewModel?) {
         self.title = title
-        self.becauseYouReadViewModel = becauseYouReadViewModel
+        self.dykViewModel = dykViewModel
+		self.becauseYouReadViewModel = becauseYouReadViewModel
     }
 }
