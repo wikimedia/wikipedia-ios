@@ -77,7 +77,11 @@ public class WMFArticleTabsHostingController<HostedView: View>: WMFComponentHost
             self?.openTabsPreferences()
         })
         
-        let children: [UIMenuElement] = [tabsPreferences]
+        let closeAllTabs = UIAction(title: viewModel.localizedStrings.closeAllTabs, image: WMFSFSymbolIcon.for(symbol: .close), handler: { [weak self] _ in
+            self?.closeAllTabs()
+        })
+        
+        let children: [UIMenuElement] = [tabsPreferences, closeAllTabs]
         let mainMenu = UIMenu(title: String(), children: children)
 
         return mainMenu
@@ -85,5 +89,9 @@ public class WMFArticleTabsHostingController<HostedView: View>: WMFComponentHost
     
     private func openTabsPreferences() {
         viewModel.didTabOpenTabs()
+    }
+    
+    private func closeAllTabs() {
+        viewModel.closeAllTabs()
     }
 }

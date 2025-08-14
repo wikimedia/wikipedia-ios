@@ -19,6 +19,7 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
     public let didTapTab: (WMFArticleTabsDataController.WMFArticleTab) -> Void
     public let didTapAddTab: () -> Void
     public let didTabOpenTabs: () -> Void
+    public let closeAllTabs: () -> Void
     
     public let localizedStrings: LocalizedStrings
     
@@ -27,7 +28,8 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
                 loggingDelegate: WMFArticleTabsLoggingDelegate?,
                 didTapTab: @escaping (WMFArticleTabsDataController.WMFArticleTab) -> Void,
                 didTapAddTab: @escaping () -> Void,
-                didTapOpenTabs: @escaping () -> Void) {
+                didTapOpenTabs: @escaping () -> Void,
+                closeAllTabs: @escaping () -> Void) {
         self.dataController = dataController
         self.localizedStrings = localizedStrings
         self.loggingDelegate = loggingDelegate
@@ -36,6 +38,7 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
         self.didTapTab = didTapTab
         self.didTapAddTab = didTapAddTab
         self.didTabOpenTabs = didTapOpenTabs
+        self.closeAllTabs = closeAllTabs
         super.init()
         Task {
             await loadTabs()
@@ -49,14 +52,16 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
         public let closeTabAccessibility: String
         public let openTabAccessibility: String
         public let tabsPreferencesTitle: String
+        public let closeAllTabs: String
         
-        public init(navBarTitleFormat: String, mainPageSubtitle: String, mainPageDescription: String, closeTabAccessibility: String, openTabAccessibility: String, tabsPreferencesTitle: String) {
+        public init(navBarTitleFormat: String, mainPageSubtitle: String, mainPageDescription: String, closeTabAccessibility: String, openTabAccessibility: String, tabsPreferencesTitle: String, closeAllTabs: String) {
             self.navBarTitleFormat = navBarTitleFormat
             self.mainPageSubtitle = mainPageSubtitle
             self.mainPageDescription = mainPageDescription
             self.closeTabAccessibility = closeTabAccessibility
             self.openTabAccessibility = openTabAccessibility
             self.tabsPreferencesTitle = tabsPreferencesTitle
+            self.closeAllTabs = closeAllTabs
         }
     }
     

@@ -166,8 +166,10 @@
 "clearing-cache-complete" = "Title of banner that appears after clearing cache completes. Clearing cache is a button triggered by the user in Settings.";
 "clearing-cache-in-progress" = "Title of banner that appears when a user taps clear cache button in Settings. Informs the user that clearing of cache is in progress.";
 "close-all-tabs" = "Action to close all open tabs.";
-"close-all-tabs-confirmation" = "Confirmation message for closing a variable number of tabs. $1 is the amount of tabs currently open.";
+"close-all-tabs-confirmation" = "Confirmation action to delete all tabs.";
 "close-all-tabs-confirmation-number" = "Confirmation message closing a number of tabs. $1 is the amount of tabs to be closed";
+"close-all-tabs-confirmation-subtitle" = "Subtitle of alert that asks user to confirm all tabs deletion. $1 represents the number of tabs.";
+"close-all-tabs-confirmation-title" = "Title of alert that asks user if they want to delete all tabs, $1 is representative of the number of tabs they have open.";
 "close-button-accessibility-label" = "Accessibility label for a button that closes a dialog. {{Identical|Close}}";
 "close-other-tabs" = "Action to close all tabs except the current one.";
 "close-tab-confirmation" = "Confirmation prompt to close a single tab.";
@@ -1187,6 +1189,7 @@
 "table-of-contents-heading" = "Header text appearing above the first section in the table of contents {{Identical|Content}}";
 "table-of-contents-hide-button-label" = "Accessibility label for the hide Table of Contents button";
 "table-of-contents-subheading-label" = "VoiceOver label to indicate level of subheading in table of contents. $1 is replaced by the level of subheading.";
+"tabs-close-all-tabs" = "Button title for closing all tabs.";
 "tabs-close-tab" = "Accessibility label for close tab button";
 "tabs-main-page-description" = "Main page description";
 "tabs-main-page-subtitle" = "Main page subtitle";
