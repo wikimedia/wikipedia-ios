@@ -702,7 +702,8 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
                                 loggingID: "edit_view_count_custom",
                                 infoURL: aboutYIRURL,
                                 hideDonateButton: shoudlHideDonateButton(),
-                                locationArticles: locationArticles)
+                                locationArticles: locationArticles,
+                                isLocationSlide: true)
                         }
                     }
                 case .longestRabbitHole:
@@ -841,7 +842,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         
         let personalizedSlides = getPersonalizedSlides()
         
-        let finalSlides: [YearInReviewSlideContent]
+        var finalSlides: [YearInReviewSlideContent]
         
         let isEnglish = dataStore.languageLinkController.appLanguage?.languageCode == "en"
         
@@ -852,8 +853,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
                            (personalizedSlides.saveCount ?? (isEnglish ? englishReadingListSlide : collectiveSavedArticlesSlide)),
                            (personalizedSlides.editCount ?? (isEnglish ? englishEditsSlide : collectiveAmountEditsSlide)),
                            (personalizedSlides.viewCount ?? (isEnglish ? englishEditsBytesSlide : collectiveEditsPerMinuteSlide)),
-                           (personalizedSlides.donateCount ?? collectiveZeroAdsSlide),
-                           (personalizedSlides.locationRead ?? collectiveZeroAdsSlide)]
+                           (personalizedSlides.donateCount ?? collectiveZeroAdsSlide)]
         } else {
             finalSlides = [(isEnglish ? englishHoursReadingSlide : collectiveLanguagesSlide),
                            (isEnglish ? englishTopReadSlide : collectiveArticleViewsSlide),
@@ -862,6 +862,10 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
                            (isEnglish ? englishEditsBytesSlide : collectiveEditsPerMinuteSlide),
                            (personalizedSlides.donateCount ?? collectiveZeroAdsSlide),
                             collectiveZeroAdsSlide]
+        }
+        
+        if let locationRead = personalizedSlides.locationRead {
+            finalSlides.insert(locationRead, at: finalSlides.count - 1)
         }
         
         let appShareLink = WMFYearInReviewDataController.appShareLink

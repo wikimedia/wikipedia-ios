@@ -56,7 +56,7 @@ import CoreData
     
     public func shouldShowYiRNotification(primaryAppLanguageProject: WMFProject?, isLoggedOut: Bool, isTemporaryAccount: Bool) -> Bool {
         
-        #if DEBUG
+        // #if DEBUG
         if isTemporaryAccount {
             return false
         }
@@ -65,9 +65,9 @@ import CoreData
             return !hasTappedProfileItem && !hasSeenYiRIntroSlide && shouldShowYearInReviewEntryPoint(countryCode: Locale.current.region?.identifier, primaryAppLanguageProject: primaryAppLanguageProject)
         }
         return !hasSeenYiRIntroSlide && shouldShowYearInReviewEntryPoint(countryCode: Locale.current.region?.identifier, primaryAppLanguageProject: primaryAppLanguageProject)
-        #else
-        return false
-        #endif
+//        #else
+//        return false
+//        #endif
     }
     
     public var hasTappedProfileItem: Bool {
@@ -115,7 +115,7 @@ import CoreData
     }
 
     public func shouldShowYearInReviewFeatureAnnouncement(primaryAppLanguageProject: WMFProject?) -> Bool {
-        #if DEBUG
+        // #if DEBUG
         guard isAnnouncementActive() else {
             return false
         }
@@ -137,9 +137,9 @@ import CoreData
         }
 
         return true
-        #else
-        return false
-        #endif
+//        #else
+//        return false
+//        #endif
     }
 
     // MARK: Entry Point
@@ -158,16 +158,16 @@ import CoreData
         
         let yirConfig: WMFFeatureConfigResponse.IOS.YearInReview?
 
-        #if DEBUG
+        // #if DEBUG
         if let iosFeatureConfig = developerSettingsDataController.loadFeatureConfig()?.ios.first,
            let config = iosFeatureConfig.yir(yearID: targetConfigYearID) {
             yirConfig = config
         } else {
             return false
         }
-        #else
-        return false
-        #endif
+//        #else
+//        return false
+//        #endif
 
         guard let yirConfig = yirConfig, yirConfig.isEnabled else {
             return false
@@ -255,16 +255,16 @@ import CoreData
 
         let yirConfig: WMFFeatureConfigResponse.IOS.YearInReview?
 
-        #if DEBUG
+       // #if DEBUG
         if let iosFeatureConfig = developerSettingsDataController.loadFeatureConfig()?.ios.first,
            let config = iosFeatureConfig.yir(yearID: targetConfigYearID) {
             yirConfig = config
         } else {
             return false
         }
-        #else
-        return false
-        #endif
+//        #else
+//        return false
+//        #endif
 
         guard let countryCode,
               let primaryAppLanguageProject else {
@@ -330,11 +330,11 @@ import CoreData
         let backgroundContext = try coreDataStore.newBackgroundContext
         
         var yirConfig: WMFFeatureConfigResponse.IOS.YearInReview? = nil
-        #if DEBUG
+  //      #if DEBUG
         yirConfig = developerSettingsDataController.loadFeatureConfig()?.ios.first?.yir(yearID: targetConfigYearID)
-        #else
-        return nil
-        #endif
+//        #else
+//        return nil
+//        #endif
 
         guard let yirConfig else {
             return nil
@@ -512,15 +512,15 @@ import CoreData
     public func shouldHideDonateButton() -> Bool {
         let yirConfig: WMFFeatureConfigResponse.IOS.YearInReview?
 
-        #if DEBUG
+//        #if DEBUG
         guard let iosFeatureConfig = developerSettingsDataController.loadFeatureConfig()?.ios.first,
               let config = iosFeatureConfig.yir(yearID: targetConfigYearID) else {
             return false
         }
         yirConfig = config
-        #else
-        return false
-        #endif
+//        #else
+//        return false
+//        #endif
 
         guard let locale = Locale.current.region?.identifier else {
             return false

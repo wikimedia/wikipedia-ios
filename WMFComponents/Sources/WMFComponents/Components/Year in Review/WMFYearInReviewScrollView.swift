@@ -25,7 +25,10 @@ public struct WMFYearInReviewScrollView: View {
     let hasLargeInsets: Bool
     let gifName: String
     let altText: String
+    
     let locationArticles: [WMFLegacyPageView]
+    @Binding var locationName: String?
+    @Binding var randomArticles: [String]
     
     public init<ScrollViewContent: View>(
         scrollViewContents: ScrollViewContent,
@@ -33,7 +36,9 @@ public struct WMFYearInReviewScrollView: View {
         hasLargeInsets: Bool = true,
         gifName: String,
         altText: String,
-        locationArticles: [WMFLegacyPageView]
+        locationArticles: [WMFLegacyPageView],
+        locationName: Binding<String?>,
+        randomArticles: Binding<[String]>
     ) {
         self.scrollViewContents = AnyView(scrollViewContents)
         self.contents = contents()
@@ -41,6 +46,8 @@ public struct WMFYearInReviewScrollView: View {
         self.altText = altText
         self.gifName = gifName
         self.locationArticles = locationArticles
+        self._locationName = locationName
+        self._randomArticles = randomArticles
     }
 
     // MARK: - Lifecycle
@@ -50,27 +57,26 @@ public struct WMFYearInReviewScrollView: View {
         ScrollView(showsIndicators: true) {
             VStack(spacing: 16) {
                 if locationArticles.count > 0 {
-                        Map {
-                                                    ForEach(locationArticles) { locationArticle in
-                                                        Marker(locationArticle.title, coordinate: CLLocationCoordinate2D(latitude: locationArticle.latitude, longitude: locationArticle.longitude))
-                                                    }
-                        }
-                        .scaledToFit()
+                    WMFYearInReviewMapView(locationName: $locationName, randomArticles: $randomArticles, locationArticles: locationArticles)
                         .frame(maxWidth: .infinity)
+                        .aspectRatio(1.5, contentMode: .fit)
+//                        .accessibilityElement(children: .combine)
+//                        .accessibilityLabel(altText)
                     scrollViewContents
                         .padding(EdgeInsets(top: 0, leading: sizeClassPadding, bottom: hasLargeInsets ? scrollViewBottomInset : 0, trailing: sizeClassPadding))
                 } else {
-                    ZStack {
-                        Image(gifName, bundle: .module)
-                            .resizable()
-                            .scaledToFit()
-                            .frame(maxWidth: .infinity)
+//                    ZStack {
+//                        Image(gifName, bundle: .module)
+//                            .resizable()
+//                            .scaledToFit()
+//                            .frame(maxWidth: .infinity)
                         WMFGIFImageView(gifName)
-                                                .aspectRatio(1.5, contentMode: .fit)
-                                                .frame(maxWidth: .infinity)
-                    }
-                    .accessibilityElement(children: .combine)
-                    .accessibilityLabel(altText)
+                            .frame(maxWidth: .infinity)
+                             .aspectRatio(1.5, contentMode: .fit)
+                                                
+                   // }
+//                    .accessibilityElement(children: .combine)
+//                    .accessibilityLabel(altText)
                     scrollViewContents
                         .padding(EdgeInsets(top: 0, leading: sizeClassPadding, bottom: hasLargeInsets ? scrollViewBottomInset : 0, trailing: sizeClassPadding))
                 }
@@ -83,35 +89,33 @@ public struct WMFYearInReviewScrollView: View {
     
     var scrollView: some View {
         ScrollView(showsIndicators: true) {
-            if locationArticles.count > 0, #available(iOS 17.0, *) {
-                Map {
-                    ForEach(locationArticles) { locationArticle in
-                        Marker(locationArticle.title, coordinate: CLLocationCoordinate2D(latitude: locationArticle.latitude, longitude: locationArticle.longitude))
-                    }
-                }
+            if locationArticles.count > 0 {
+                
+                WMFYearInReviewMapView(locationName: $locationName, randomArticles: $randomArticles, locationArticles: locationArticles)
                 .frame(maxWidth: .infinity)
                 .aspectRatio(1.5, contentMode: .fit)
-                .accessibilityElement(children: .combine)
-                .accessibilityLabel(altText)
+//                .accessibilityElement(children: .combine)
+//                .accessibilityLabel(altText)
                 scrollViewContents
                     .padding(EdgeInsets(top: 0, leading: sizeClassPadding, bottom: hasLargeInsets ? scrollViewBottomInset : 0, trailing: sizeClassPadding))
             } else {
-                VStack(spacing: 16) {
-                    ZStack {
-                        Image(gifName, bundle: .module)
-                            .resizable()
-                            .scaledToFit()
-                            .frame(maxWidth: .infinity)
-                            .accessibilityHidden(true)
+                // VStack(spacing: 16) {
+//                    ZStack {
+//                        Image(gifName, bundle: .module)
+//                            .resizable()
+//                            .scaledToFit()
+//                            .frame(maxWidth: .infinity)
+//                            .accessibilityHidden(true)
                         WMFGIFImageView(gifName)
+                                            .frame(maxWidth: .infinity)
                                                 .aspectRatio(1.5, contentMode: .fit)
-                                                .frame(maxWidth: .infinity)
-                    }
-                    .accessibilityElement(children: .combine)
-                    .accessibilityLabel(altText)
+                                                
+                    // }
+//                    .accessibilityElement(children: .combine)
+//                    .accessibilityLabel(altText)
                     scrollViewContents
-                        .padding(EdgeInsets(top: 0, leading: sizeClassPadding, bottom: scrollViewBottomInset, trailing: sizeClassPadding))
-                }
+                    .padding(EdgeInsets(top: 0, leading: sizeClassPadding, bottom: hasLargeInsets ? scrollViewBottomInset : 0, trailing: sizeClassPadding))
+                // }
             }
         }
         .padding(36)

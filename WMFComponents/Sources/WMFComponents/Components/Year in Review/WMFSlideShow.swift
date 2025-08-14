@@ -19,8 +19,11 @@ public struct WMFSlideShow: View {
     let slides: [SlideShowProtocol]
     
     private var subtitleStyles: HtmlUtils.Styles {
-        return HtmlUtils.Styles(font: WMFFont.for(.title3), boldFont: WMFFont.for(.title3), italicsFont: WMFFont.for(.title3), boldItalicsFont: WMFFont.for(.title3), color: theme.text, linkColor: theme.link, lineSpacing: 3)
+        return HtmlUtils.Styles(font: WMFFont.for(.title3), boldFont: WMFFont.for(.boldTitle3), italicsFont: WMFFont.for(.title3), boldItalicsFont: WMFFont.for(.title3), color: theme.text, linkColor: theme.link, lineSpacing: 3)
     }
+    
+    @State var locationName: String? = nil
+    @State var randomArticles: [String] = []
     
     public init(
         currentSlide: Binding<Int>,
@@ -41,7 +44,7 @@ public struct WMFSlideShow: View {
                     hasLargeInsets: false,
                     gifName: slides[slideIndex].gifName,
                     altText: slides[slideIndex].altText,
-                    locationArticles: slide.locationArticles
+                    locationArticles: slide.locationArticles, locationName: $locationName, randomArticles: $randomArticles
                 )
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .tag(slideIndex)
@@ -56,10 +59,36 @@ public struct WMFSlideShow: View {
         return (try? AttributedString(markdown: text)) ?? AttributedString(text)
     }
     
+    private func title(slideIndex: Int) -> String {
+        if let locationName, slides[slideIndex].isLocationSlide == true {
+            return "You read the most articles in the \(locationName) area."
+        } else {
+            return slides[slideIndex].title
+        }
+    }
+    
+    private func randomArticlesText(slideIndex: Int) -> String? {
+        guard randomArticles.count > 0, slides[slideIndex].isLocationSlide == true else { return nil }
+        
+        if randomArticles.count == 1 {
+            return "This includes the article <b>\(randomArticles[0])</b>."
+        }
+        
+        if randomArticles.count == 2 {
+            return "This includes the articles <b>\(randomArticles[0])</b> and <b>\(randomArticles[1])</b>."
+        }
+        
+        if randomArticles.count > 2 {
+            return "This includes the articles <b>\(randomArticles[0])</b>, <b>\(randomArticles[1])</b> and <b>\(randomArticles[2])</b>."
+        }
+        
+        return nil
+    }
+    
     private func slideView(slideIndex: Int) -> some View {
         VStack(spacing: 16) {
             HStack(alignment: .top) {
-                Text(slides[slideIndex].title)
+                Text(title(slideIndex: slideIndex))
                     .font(Font(WMFFont.for(.boldTitle1)))
                     .foregroundStyle(Color(uiColor: theme.text))
                     .frame(maxWidth: .infinity, alignment: .topLeading)
@@ -78,7 +107,9 @@ public struct WMFSlideShow: View {
                     }
                 }
             }
-            if slides[slideIndex].isSubtitleAttributedString ?? false {
+            if let randomArticlesText = randomArticlesText(slideIndex: slideIndex) {
+                WMFHtmlText(html: randomArticlesText, styles: subtitleStyles)
+            } else if slides[slideIndex].isSubtitleAttributedString ?? false {
                 WMFHtmlText(html: slides[slideIndex].subtitle, styles: subtitleStyles)
                     .frame(maxWidth: .infinity, alignment: .topLeading)
             } else {
@@ -88,6 +119,7 @@ public struct WMFSlideShow: View {
                     .accentColor(Color(uiColor: theme.link))
                     .frame(maxWidth: .infinity, alignment: .leading)
             }
+            
             Spacer()
         }
     }
@@ -101,4 +133,5 @@ public protocol SlideShowProtocol {
     var isSubtitleAttributedString: Bool? { get }
     var infoURL: URL? { get }
     var locationArticles: [WMFLegacyPageView] { get }
+    var isLocationSlide: Bool { get }
 }

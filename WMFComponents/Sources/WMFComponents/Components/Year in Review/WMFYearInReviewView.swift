@@ -14,6 +14,9 @@ public struct WMFYearInReviewView: View {
     }
 
     let configuration = WMFSmallButton.Configuration(style: .quiet, trailingIcon: nil)
+    
+    @State var fakeLocationName: String?
+    @State var fakeRandomArticles: [String] = []
 
     public var body: some View {
         NavigationView {
@@ -53,7 +56,7 @@ public struct WMFYearInReviewView: View {
                         scrollViewContents: scrollViewContent,
                         contents: { AnyView(buttons) },
                         gifName: viewModel.isUserAuth ? "personal-slide-00" : "english-slide-00",
-                        altText: viewModel.isUserAuth ? viewModel.localizedStrings.personalizedExploreAccessibilityLabel : viewModel.localizedStrings.collectiveExploreAccessibilityLabel, locationArticles: viewModel.slides[viewModel.currentSlide].locationArticles)
+                        altText: viewModel.isUserAuth ? viewModel.localizedStrings.personalizedExploreAccessibilityLabel : viewModel.localizedStrings.collectiveExploreAccessibilityLabel, locationArticles: viewModel.slides[viewModel.currentSlide].locationArticles, locationName: $fakeLocationName, randomArticles: $fakeRandomArticles)
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
                         .onAppear {
                             viewModel.logYearInReviewSlideDidAppear()

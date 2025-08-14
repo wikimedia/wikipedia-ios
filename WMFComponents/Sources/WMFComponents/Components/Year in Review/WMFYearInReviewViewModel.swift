@@ -215,8 +215,9 @@ public struct YearInReviewSlideContent: SlideShowProtocol {
     public let loggingID: String
     public let hideDonateButton: Bool
     public let locationArticles: [WMFLegacyPageView]
+    public let isLocationSlide: Bool
     
-    public init(gifName: String, altText: String, title: String, informationBubbleText: String?, subtitle: String, isSubtitleAttributedString: Bool? = false, loggingID: String, infoURL: URL? = nil, hideDonateButton: Bool, locationArticles: [WMFLegacyPageView]? = nil) {
+    public init(gifName: String, altText: String, title: String, informationBubbleText: String?, subtitle: String, isSubtitleAttributedString: Bool? = false, loggingID: String, infoURL: URL? = nil, hideDonateButton: Bool, locationArticles: [WMFLegacyPageView]? = nil, isLocationSlide: Bool = false) {
         self.altText = altText
         self.title = title
         self.informationBubbleText = informationBubbleText
@@ -227,6 +228,7 @@ public struct YearInReviewSlideContent: SlideShowProtocol {
         self.gifName = gifName
         self.isSubtitleAttributedString = isSubtitleAttributedString
         self.locationArticles = locationArticles ?? []
+        self.isLocationSlide = isLocationSlide
     }
 }
 

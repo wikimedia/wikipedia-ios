@@ -120,13 +120,14 @@ extension URL {
         var components = URLComponents()
         components.scheme = "https"
         components.path = "/wiki/MediaWiki:AppsFeatureConfig.json"
-        
-        switch environment {
-        case .production:
-            components.host = "donate.wikimedia.org"
-        case .staging:
+    
+        // force testwiki for now
+//        switch environment {
+//        case .production:
+//            components.host = "donate.wikimedia.org"
+//        case .staging:
             components.host = "test.wikipedia.org"
-        }
+  //      }
         return components.url
     }
 }
