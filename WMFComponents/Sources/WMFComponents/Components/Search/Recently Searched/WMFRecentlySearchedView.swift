@@ -126,7 +126,6 @@ public struct WMFRecentlySearchedView: View {
             }
         }
         .background(shouldShowDidYouKnow() ? Color(theme.midBackground) : Color(theme.paperBackground))
-        .padding(.top, viewModel.topPadding)
         .onAppear {
             recalculateEstimatedListHeight()
         }
