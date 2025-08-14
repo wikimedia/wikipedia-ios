@@ -352,7 +352,7 @@
 "forgot-password-button-title" = "ကလေင်တၟိ";
 "forgot-password-email-sent" = "အဳမေလ် နကဵု မလိက်ပၞုက် မကလေင်ကၠောန်လဝ်တၟိဂှ် ပလံင်ဏာရ";
 "forgot-password-instructions" = "ကျောဝ် ပ္ဍဲဝှာင် ဗွဲသၟဝ်ဏအ် သွက်ဂွံ ဒုင်တဲ မလိက်ပၞုက် မကလေင်ကၠောန်လဝ်တၟိ နကဵု အဳမေလ်";
-"forgot-password-title" = "ကလေင်စုတ် မလိက်ပၞုက်";
+"forgot-password-title" = "ကလေင်ကၠောန် မလိက်ပၞုက်";
 "forgot-password-username-or-email-title" = "ဟွံသေင်မ္ဂး";
 "history-clear-all" = "ဖ္အး";
 "history-clear-confirmation-heading" = "မၞး မိက်ဂွံ ပလီုထောအ် item မၞး သီုဖအိုတ် ကွေဟ်ဟ်ရဟာ？";
@@ -446,6 +446,7 @@
 "notifications-center-filters-read-status-item-title-read" = "ဗှ်တုဲ";
 "notifications-center-filters-read-status-item-title-unread" = "ဟွံဂွံဗှ်ဏီ";
 "notifications-center-status-read" = "ဗှ်တုဲ";
+"notifications-center-type-item-description-notice" = "ဂဗံက်လလောၚ်";
 "number-billions" = "$1B";
 "number-millions" = "$1M";
 "number-thousands" = "$1လ္ၚီ";

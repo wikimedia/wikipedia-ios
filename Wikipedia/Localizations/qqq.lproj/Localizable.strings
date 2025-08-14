@@ -737,6 +737,8 @@
 "nearby-distance-label-meters" = "Label for showing distance in meters to nearby geotagged articles.\n\nParameters:\n* $1 - the number of meters. (The iOS app doesn't support pluralization syntax yet.)\n{{Related|Wikipedia-ios-nearby-distance-label}}";
 "nearby-distance-label-miles" = "Label for showing distance in miles to nearby geotagged articles.\n\nParamaeters:\n* $1 - the number of miles. (The iOS app doesn't support pluralization syntax yet.)\n{{Related|Wikipedia-ios-nearby-distance-label}} {{Identical|Mile}}";
 "new-article-tab-from-wikipedia-default" = "Text displayed as Wikipedia source on new tab if language is unavailable.";
+"new-article-tab-settings-did-you-know" = "Toggle for did you know";
+"new-article-tab-settings-recommendations" = "Toggle for article recommendations / because you read";
 "new-password-instructions" = "Instructions for password change interface";
 "new-password-title" = "Title for password change interface";
 "new-tab" = "Title for creating a new tab.";
@@ -1127,6 +1129,7 @@
 "settings-language-bar" = "Title in Settings for toggling the display the language bar in the search view";
 "settings-languages-feed-customization" = "Explanation of how you can manage which languages appear in the feed.";
 "settings-my-languages" = "Title for list of user's preferred languages";
+"settings-new-article-tab-header-text" = "Header title for the New Article Tabs settings to determine between preferences";
 "settings-notifications" = "Title for view and button letting users change their push notifications settings.";
 "settings-notifications-echo-failure-message" = "Alert message text informing user of failure when subscribing to Echo Notifications.";
 "settings-notifications-echo-failure-title" = "Alert title text informing user of failure when subscribing to Echo Notifications.";
@@ -1191,6 +1194,8 @@
 "tabs-overview-tooltip-body" = "Description for tooltip explaining the tabs overview functionality";
 "tabs-overview-tooltip-title" = "Title for tooltip explaining the tabs overview functionality";
 "tabs-survey-title" = "Title for article tabs survey";
+"tabs-title" = "Title for tabs";
+"tabs-title-preferences" = "Title for tabs preferences";
 "tachelhit-variants-alert-body" = "Body text of alert used to inform users about Tachelhit variant support. Please do not translate the newlines (\n) or Tachelhit characters (ⵜⴰⵛⵍⵃⵉⵜ, etc.).";
 "tachelhit-variants-alert-title" = "Title of alert used to inform users about Tachelhit variant support.";
 "tajik-variants-alert-body" = "Body text of alert used to inform users about Tajik variant support. Please do not translate the newlines (\n) or Tajik characters (тоҷикӣ кирилликӣ, etc.).";
