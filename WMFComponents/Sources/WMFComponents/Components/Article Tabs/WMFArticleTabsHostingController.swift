@@ -50,6 +50,13 @@ public class WMFArticleTabsHostingController<HostedView: View>: WMFComponentHost
     public override func viewDidLoad() {
         super.viewDidLoad()
         viewModel.loggingDelegate?.logArticleTabsOverviewImpression()
+
+        NotificationCenter.default.addObserver(
+                self,
+                selector: #selector(userDidTakeScreenshot),
+                name: UIApplication.userDidTakeScreenshotNotification,
+                object: nil
+            )
     }
 
     private func configureNavigationBar(_ title: String? = nil) {
@@ -67,7 +74,12 @@ public class WMFArticleTabsHostingController<HostedView: View>: WMFComponentHost
     @objc private func tappedAdd() {
         viewModel.didTapAddTab()
     }
-    
+
+    @objc private func userDidTakeScreenshot() {
+        viewModel.loggingDelegate?.logTabsOverviewScreenshot()
+    }
+
+
     @objc private func tappedOverflow() {
         viewModel.didTapAddTab()
     }
@@ -85,5 +97,11 @@ public class WMFArticleTabsHostingController<HostedView: View>: WMFComponentHost
     
     private func openTabsPreferences() {
         viewModel.didTabOpenTabs()
+
+    }
+
+    deinit {
+        NotificationCenter.default.removeObserver(self, name: UIApplication.userDidTakeScreenshotNotification, object: nil)
+
     }
 }

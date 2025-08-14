@@ -254,6 +254,7 @@ final class NewArticleTabCoordinator: Coordinator {
             vcs.append(newVC)
             navigationController.setViewControllers(vcs, animated: true)
         }
+        ArticleTabsFunnel.shared.logBecauseYouReadClick()
     }
 
     private func stringWithLocalizedCurrentSiteLanguageReplacingPlaceholder(in format: String, fallingBackOn genericString: String

@@ -595,6 +595,10 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
         }
         self.search()
 
+        if needsAttachedView {
+            ArticleTabsFunnel.shared.logRecentSearchesClick()
+        }
+
     }
 
     private lazy var recentSearchesViewModel: WMFRecentlySearchedViewModel = {
@@ -615,7 +619,8 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
                 saveSelection: { [weak self] selectedIndex in
                     self?.saveSelection(selectedIndex: selectedIndex)
                 },
-                selectedIndex: self.getSelectedIndex()
+                selectedIndex: self.getSelectedIndex(),
+                loggingDelegate: self
             )
             guard let viewModel = self.viewModel else { return }
             let view = WMFNewArticleTabSettingsView(viewModel: viewModel)
@@ -740,6 +745,7 @@ extension SearchViewController: UITextViewDelegate {
             var vcs = navController.viewControllers
             let newTabControllerIsOnStack = vcs.contains { $0 is WMFNewArticleTabViewController }
             if newTabControllerIsOnStack {
+                ArticleTabsFunnel.shared.logDidYouKnowClick()
                 guard vcs.count >= 2 else { return }
                 vcs.remove(at: vcs.count - 2)
                 navController.setViewControllers(vcs, animated: false)
@@ -845,4 +851,11 @@ extension SearchViewController: YearInReviewBadgeDelegate {
     func updateYIRBadgeVisibility() {
         updateProfileButton()
     }
+}
+
+extension SearchViewController: WMFNewArticleTabSettingsLoggingDelegate {
+    func logPreference(index: Int) {
+        ArticleTabsFunnel.shared.logTabsPreferenceClick(action: index == 0 ? .recommendationPrefClick : .didYouKnowPrefClick)
+    }
+
 }
