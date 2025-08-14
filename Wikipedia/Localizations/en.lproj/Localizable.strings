@@ -174,7 +174,7 @@
 "close-other-tabs" = "Close other tabs";
 "close-tab-confirmation" = "Close tab?";
 "close-tabs" = "Close tabs";
-"closed-all-tabs-confirmation" = "Closed all $1 tabs.";
+"closed-all-tabs-confirmation" = "Closed all {{PLURAL:$1|$1 tab|$1 tabs}}.";
 "compass-direction" = "at $1 o'clock";
 "confirm-donation-history-deletion-subtitle" = "This will only apply to donations made from this device.";
 "confirm-donation-history-deletion-title" = "Confirm deletion";
@@ -1189,7 +1189,6 @@
 "table-of-contents-heading" = "Contents";
 "table-of-contents-hide-button-label" = "Hide table of contents";
 "table-of-contents-subheading-label" = "Subheading $1";
-"tabs-close-all-tabs" = "Close all tabs";
 "tabs-close-tab" = "Close tab";
 "tabs-main-page-description" = "Discover featured articles, the latest news, interesting facts, and key stats on Wikipedia’s main page.";
 "tabs-main-page-subtitle" = "Wikipedia’s daily highlights";

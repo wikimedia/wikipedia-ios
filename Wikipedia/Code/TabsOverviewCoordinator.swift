@@ -116,7 +116,7 @@ final class TabsOverviewCoordinator: Coordinator {
             closeTabAccessibility: WMFLocalizedString("tabs-close-tab", value: "Close tab", comment: "Accessibility label for close tab button"),
             openTabAccessibility: WMFLocalizedString("tabs-open-tab", value: "Open tab", comment: "Accessibility label for opening a tab"),
             tabsPreferencesTitle: CommonStrings.tabsPreferencesTitle,
-            closeAllTabs: WMFLocalizedString("tabs-close-all-tabs", value: "Close all tabs", comment: "Button title for closing all tabs.")
+            closeAllTabs: CommonStrings.closeAllTabs
         )
         
         let articleTabsViewModel = WMFArticleTabsViewModel(
@@ -150,6 +150,11 @@ final class TabsOverviewCoordinator: Coordinator {
         return String.localizedStringWithFormat(format, numberTabs)
     }
     
+    func closedAlertsNotification(numberTabs: Int) -> String {
+        let format = WMFLocalizedString("closed-all-tabs-confirmation", value: "Closed all {{PLURAL:%1$d|%1$d tab|%1$d tabs}}.", comment: "Confirmation title of deleting all tabs. $1 is the number of tabs deleted.")
+        return String.localizedStringWithFormat(format, numberTabs)
+    }
+    
     private func presentCloseAllTabsConfirmationDialog() async {
         let button1Title = CommonStrings.cancelActionTitle
         let button2Title = WMFLocalizedString("close-all-tabs-confirmation", value: "Close tabs", comment: "Confirmation action to delete all tabs.")
@@ -164,9 +169,11 @@ final class TabsOverviewCoordinator: Coordinator {
             self.presentTabs()
         }
 
-        let action2 = await UIAlertAction(title: button2Title, style: .destructive) { _ in
+        let action2 = await UIAlertAction(title: button2Title, style: .destructive) { [weak self] _ in
+            guard let self else { return }
             Task {
                 try? await self.dataController.deleteAllTabs()
+                WMFAlertManager.sharedInstance.showBottomAlertWithMessage(self.closedAlertsNotification(numberTabs: numberTabs), subtitle: nil, buttonTitle: nil, image: WMFSFSymbolIcon.for(symbol: .checkmark), dismissPreviousAlerts: true)
             }
         }
 
@@ -176,7 +183,6 @@ final class TabsOverviewCoordinator: Coordinator {
         await navigationController.present(alert, animated: true)
     }
 
-    
     private func didTapOpenTabsPreferences() {
         let viewModel = WMFNewArticleTabSettingsViewModel(
             title: CommonStrings.tabsPreferencesTitle,
