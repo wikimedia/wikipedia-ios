@@ -194,7 +194,8 @@ final class TabsOverviewCoordinator: Coordinator {
             saveSelection: { [weak self] selectedIndex in
                 self?.saveSelection(selectedIndex: selectedIndex)
             },
-            selectedIndex: self.getSelectedIndex()
+            selectedIndex: self.getSelectedIndex(),
+            loggingDelegate: self
         )
 
         self.viewModel = viewModel
@@ -310,6 +311,15 @@ extension TabsOverviewCoordinator: WMFArticleTabsLoggingDelegate {
         }
     }
 
+    func logTabsOverviewScreenshot() {
+        ArticleTabsFunnel.shared.logTabsOverviewScreenshot()
+    }
+}
+
+extension TabsOverviewCoordinator: WMFNewArticleTabSettingsLoggingDelegate {
+    func logPreference(index: Int) {
+        ArticleTabsFunnel.shared.logTabsPreferenceClick(action: index == 0 ? .recommendationPrefClick : .didYouKnowPrefClick)
+    }
 }
 
 /// Manages the lifecycle of TabsOverviewCoordinator independently of article tabs.

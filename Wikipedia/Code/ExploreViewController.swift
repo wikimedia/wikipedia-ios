@@ -1129,9 +1129,11 @@ extension ExploreViewController {
             primaryButtonTitle: primaryButtonTitle,
             secondaryButtonTitle: secondaryButtonTitle,
             primaryButtonAction: { [weak self] in
+                ArticleTabsFunnel.shared.logAnnouncementClick(action: .continueClick)
                 self?.navigationController?.presentedViewController?.dismiss(animated: true, completion: nil)
             },
             secondaryButtonAction: { [weak self] in
+                ArticleTabsFunnel.shared.logAnnouncementClick(action: .learnClick)
                 guard let aboutTabsURL else { return }
                 self?.displayURLWebView(url: aboutTabsURL)
             }
@@ -1140,6 +1142,7 @@ extension ExploreViewController {
         
         present(onboardingController, animated: true, completion: {
             UIAccessibility.post(notification: .layoutChanged, argument: nil)
+            ArticleTabsFunnel.shared.logAnnouncementImpression()
         })
         
         let dataController = WMFArticleTabsDataController.shared

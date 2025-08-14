@@ -738,7 +738,6 @@
 "nearby-distance-label-km" = "$1 km";
 "nearby-distance-label-meters" = "$1 m";
 "nearby-distance-label-miles" = "$1 miles";
-"new-article-tab-from-language-wikipedia" = "from $1 Wikipedia";
 "new-article-tab-from-wikipedia-default" = "from Wikipedia";
 "new-article-tab-settings-did-you-know" = "Did You Know?";
 "new-article-tab-settings-recommendations" = "Recommendations";

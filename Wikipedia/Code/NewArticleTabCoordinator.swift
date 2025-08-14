@@ -2,7 +2,6 @@ import UIKit
 import WMF
 import WMFComponents
 import WMFData
-import Foundation
 
 final class NewArticleTabCoordinator: Coordinator {
     internal var navigationController: UINavigationController
@@ -21,7 +20,7 @@ final class NewArticleTabCoordinator: Coordinator {
     // MARK: - Did you know props
     private var dykFetcher: WMFFeedDidYouKnowFetcher
     public var dykFacts: [WMFFeedDidYouKnow]? = nil
-    private let fromLanguageWikipedia = WMFLocalizedString("new-article-tab-from-language-wikipedia", value: "from %1$@ Wikipedia", comment: "Text displayed to indicate Did You Know source displayed on a new tab. %1$@ will be replaced with the Wikipedia language set as the app default")
+
     private let fromWikipediaDefault = CommonStrings.fromWikipediaDefault
     private let didYouKnowTitle = WMFLocalizedString("did-you-know", value: "Did you know", comment: "Text displayed as heading for section of new tab dedicated to DYK")
 
@@ -89,7 +88,7 @@ final class NewArticleTabCoordinator: Coordinator {
                         languageCode: primaryLanguage,
                         dykLocalizedStrings: WMFNewArticleTabDidYouKnowViewModel.LocalizedStrings.init(
                             didYouKnowTitle: self.didYouKnowTitle,
-                            fromSource: self.fromLanguageWikipediaTextFor(languageCode: self.dataStore.languageLinkController.appLanguage?.languageCode)
+                            fromSource: self.stringWithLocalizedCurrentSiteLanguageReplacingPlaceholder(in: CommonStrings.fromWikipedia, fallingBackOn: CommonStrings.defaultFromWikipedia)
                         )
                     )
                     
@@ -229,15 +228,6 @@ final class NewArticleTabCoordinator: Coordinator {
         }
     }
 
-    // MARK: - Private methods
-    private func fromLanguageWikipediaTextFor(languageCode: String?) -> String {
-        guard let languageCode = languageCode, let localizedLanguageString = Locale.current.localizedString(forLanguageCode: languageCode) else {
-            return fromWikipediaDefault
-        }
-
-        return String.localizedStringWithFormat(fromLanguageWikipedia, localizedLanguageString)
-    }
-
     private func tappedArticle(_ item: HistoryItem) {
         guard let articleURL = item.url,
               let title = articleURL.wmf_title,
@@ -263,6 +253,26 @@ final class NewArticleTabCoordinator: Coordinator {
         if let newVC = navigationController.viewControllers.last {
             vcs.append(newVC)
             navigationController.setViewControllers(vcs, animated: true)
+        }
+        ArticleTabsFunnel.shared.logBecauseYouReadClick()
+    }
+
+    private func stringWithLocalizedCurrentSiteLanguageReplacingPlaceholder(in format: String, fallingBackOn genericString: String
+    ) -> String {
+        guard let code = self.dataStore.languageLinkController.appLanguage?.languageCode else {
+            return genericString
+        }
+
+        if let language = Locale.current.localizedString(forLanguageCode: code) {
+            return String.localizedStringWithFormat(format, language)
+        } else {
+            if code == "test" {
+                return String.localizedStringWithFormat(format, "Test")
+            } else if code == "test2" {
+                return String.localizedStringWithFormat(format, "Test 2")
+            } else {
+                return genericString
+            }
         }
     }
 }
