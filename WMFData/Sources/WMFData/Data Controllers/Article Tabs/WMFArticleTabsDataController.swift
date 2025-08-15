@@ -408,6 +408,25 @@ public protocol WMFArticleTabsDataControlling {
         }
     }
     
+    public func deleteAllTabs() async throws {
+        
+        guard let coreDataStore else {
+            throw WMFDataControllerError.coreDataStoreUnavailable
+        }
+        
+        guard let moc = backgroundContext else {
+            throw CustomError.missingContext
+        }
+        
+        try await moc.perform { [weak self] in
+            guard let self else { throw CustomError.missingSelf }
+            Task {
+                try await self.deleteAllTabs(moc: moc)
+            }
+            try coreDataStore.saveIfNeeded(moc: moc)
+        }
+    }
+    
    public var moreDynamicTabsBYRIsEnabled: Bool {
         get {
             return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsMoreDynamicTabsBYR.rawValue)) ?? true
@@ -760,6 +779,38 @@ public protocol WMFArticleTabsDataControlling {
             name: WMFNSNotification.articleTabDeleted,
             object: nil,
             userInfo: [WMFNSNotification.UserInfoKey.articleTabIdentifier: identifier]
+        )
+    }
+    
+    private func deleteAllTabs(moc: NSManagedObjectContext) async throws {
+        guard let coreDataStore else {
+            throw WMFDataControllerError.coreDataStoreUnavailable
+        }
+        
+        let tabs = try coreDataStore.fetch(entityType: CDArticleTab.self, predicate: nil, fetchLimit: nil, in: moc) ?? []
+        
+        if tabs.isEmpty {
+            return
+        }
+        
+        for tab in tabs {
+            if let items = tab.items {
+                let safeItems = items.compactMap { $0 as? CDArticleTabItem }
+                for item in safeItems {
+                    item.tab = nil
+                    moc.delete(item)
+                }
+            }
+            
+            moc.delete(tab)
+        }
+        
+        _ = try? await self.createArticleTab(initialArticle: nil, setAsCurrent: true)
+        
+        NotificationCenter.default.post(
+            name: WMFNSNotification.articleTabDeleted,
+            object: nil,
+            userInfo: nil
         )
     }
     

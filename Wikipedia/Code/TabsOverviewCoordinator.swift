@@ -81,6 +81,18 @@ final class TabsOverviewCoordinator: Coordinator {
             self?.didTapOpenTabsPreferences()
         }
         
+        let closeAllTabs: () -> Void = { [weak self] in
+            guard let self else { return }
+            let presenter = self.navigationController.presentedViewController ?? self.navigationController
+
+            presenter.dismiss(animated: true) { [weak self] in
+                guard let self else { return }
+                Task {
+                    await self.presentCloseAllTabsConfirmationDialog()
+                }
+            }
+        }
+
         let showSurveyClosure = { [weak self] in
             if let shouldShowSurvey = self?.dataController.shouldShowSurvey(), shouldShowSurvey {
                 guard let presentedVC = self?.navigationController.presentedViewController else { return }
@@ -103,7 +115,8 @@ final class TabsOverviewCoordinator: Coordinator {
             mainPageDescription: WMFLocalizedString("tabs-main-page-description", value: "Discover featured articles, the latest news, interesting facts, and key stats on Wikipedia’s main page.", comment: "Main page description"),
             closeTabAccessibility: WMFLocalizedString("tabs-close-tab", value: "Close tab", comment: "Accessibility label for close tab button"),
             openTabAccessibility: WMFLocalizedString("tabs-open-tab", value: "Open tab", comment: "Accessibility label for opening a tab"),
-            tabsPreferencesTitle: CommonStrings.tabsPreferencesTitle
+            tabsPreferencesTitle: CommonStrings.tabsPreferencesTitle,
+            closeAllTabs: CommonStrings.closeAllTabs
         )
         
         let articleTabsViewModel = WMFArticleTabsViewModel(
@@ -112,7 +125,8 @@ final class TabsOverviewCoordinator: Coordinator {
             loggingDelegate: self,
             didTapTab: didTapTab,
             didTapAddTab: didTapAddTab,
-            didTapOpenTabs: didTapOpenPreferences)
+            didTapOpenTabs: didTapOpenPreferences,
+            closeAllTabs: closeAllTabs)
         let articleTabsView = WMFArticleTabsView(viewModel: articleTabsViewModel)
         
         let hostingController = WMFArticleTabsHostingController(rootView: articleTabsView, viewModel: articleTabsViewModel,
@@ -126,6 +140,49 @@ final class TabsOverviewCoordinator: Coordinator {
          }
     }
     
+    func closeAllTabsTitle(numberTabs: Int) -> String {
+        let format = WMFLocalizedString("close-all-tabs-confirmation-title", value: "Close all {{PLURAL:%1$d|%1$d tab|%1$d tabs}}?", comment: "Title of alert that asks user if they want to delete all tabs, $1 is representative of the number of tabs they have open.")
+        return String.localizedStringWithFormat(format, numberTabs)
+    }
+    
+    func closeAllTabsSubtitle(numberTabs: Int) -> String {
+        let format = WMFLocalizedString("close-all-tabs-confirmation-subtitle", value: "Do you want to close all {{PLURAL:%1$d|%1$d tab|%1$d tabs}}? This action can’t be undone.", comment: "Subtitle of alert that asks user to confirm all tabs deletion. $1 represents the number of tabs.")
+        return String.localizedStringWithFormat(format, numberTabs)
+    }
+    
+    func closedAlertsNotification(numberTabs: Int) -> String {
+        let format = WMFLocalizedString("closed-all-tabs-confirmation", value: "Closed all {{PLURAL:%1$d|%1$d tab|%1$d tabs}}.", comment: "Confirmation title of deleting all tabs. $1 is the number of tabs deleted.")
+        return String.localizedStringWithFormat(format, numberTabs)
+    }
+    
+    private func presentCloseAllTabsConfirmationDialog() async {
+        let button1Title = CommonStrings.cancelActionTitle
+        let button2Title = WMFLocalizedString("close-all-tabs-confirmation", value: "Close tabs", comment: "Confirmation action to delete all tabs.")
+        guard let numberTabs = try? await dataController.tabsCount() else { return }
+        
+        let alert = await UIAlertController(
+            title: closeAllTabsTitle(numberTabs: numberTabs),
+            message: closeAllTabsSubtitle(numberTabs: numberTabs), preferredStyle: .alert)
+
+        let action1 = await UIAlertAction(title: button1Title, style: .cancel) { [weak self] _ in
+            guard let self else { return }
+            self.presentTabs()
+        }
+
+        let action2 = await UIAlertAction(title: button2Title, style: .destructive) { [weak self] _ in
+            guard let self else { return }
+            Task {
+                try? await self.dataController.deleteAllTabs()
+                WMFAlertManager.sharedInstance.showBottomAlertWithMessage(self.closedAlertsNotification(numberTabs: numberTabs), subtitle: nil, buttonTitle: nil, image: WMFSFSymbolIcon.for(symbol: .checkmark), dismissPreviousAlerts: true)
+            }
+        }
+
+        await alert.addAction(action1)
+        await alert.addAction(action2)
+
+        await navigationController.present(alert, animated: true)
+    }
+
     private func didTapOpenTabsPreferences() {
         let viewModel = WMFNewArticleTabSettingsViewModel(
             title: CommonStrings.tabsPreferencesTitle,
