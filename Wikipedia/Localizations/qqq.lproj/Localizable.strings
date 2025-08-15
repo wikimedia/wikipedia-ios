@@ -125,6 +125,7 @@
 "article-share" = "Text of the article list row action shown on swipe which allows the user to choose the sharing option";
 "article-tabs-button-accessibility-hint" = "Accessibility hint for the tabs navigation bar button";
 "article-tabs-button-accessibility-label" = "Accessibility label for the tabs navigation bar button";
+"article-tabs-did-you-know-title" = "Title for the new article tab did you know section";
 "article-tabs-feature-announcement-item-1-subtitle" = "Subtitle for the article tabs feature announcement item 2";
 "article-tabs-feature-announcement-item-1-title" = "Title for the article tabs feature announcement item";
 "article-tabs-feature-announcement-item-2-subtitle" = "Subtitle for the article tabs feature announcement item 2";
@@ -230,6 +231,7 @@
 "developer-settings-enable-year-in-review" = "Title for enabling the Year in Review feature. Displayed on the developer settings view.";
 "developer-settings-send-analytics-to-wmflabs" = "Title for setting to send analytics to a different backend. Displayed on the developer settings view.";
 "developer-settings-suppress-image-rec-post" = "Title for setting to suppress image recommendations edit postsing. Displayed on the developer settings view.";
+"did-you-know" = "Text displayed as heading for section of new tab dedicated to DYK";
 "diff-article-revision-history" = "Label for article edit history menu item in diff more menu.";
 "diff-change-added" = "Accessibility text announced in VoiceOver when content additions are announced in a diff. $1 is replaced with the added content.";
 "diff-change-paragraph-lines-moved-down" = "Accessibility text announced in VoiceOver to indicate content has moved. $1 is replaced by the number of lines.";
@@ -734,6 +736,9 @@
 "nearby-distance-label-km" = "Label for showing distance in kilometers to nearby geotagged articles.\n\nParameters:\n* $1 - the number of kilometers. (The iOS app doesn't support pluralization syntax yet.)\n{{Related|Wikipedia-ios-nearby-distance-label}}";
 "nearby-distance-label-meters" = "Label for showing distance in meters to nearby geotagged articles.\n\nParameters:\n* $1 - the number of meters. (The iOS app doesn't support pluralization syntax yet.)\n{{Related|Wikipedia-ios-nearby-distance-label}}";
 "nearby-distance-label-miles" = "Label for showing distance in miles to nearby geotagged articles.\n\nParamaeters:\n* $1 - the number of miles. (The iOS app doesn't support pluralization syntax yet.)\n{{Related|Wikipedia-ios-nearby-distance-label}} {{Identical|Mile}}";
+"new-article-tab-from-wikipedia-default" = "Text displayed as Wikipedia source on new tab if language is unavailable.";
+"new-article-tab-settings-did-you-know" = "Toggle for did you know";
+"new-article-tab-settings-recommendations" = "Toggle for article recommendations / because you read";
 "new-password-instructions" = "Instructions for password change interface";
 "new-password-title" = "Title for password change interface";
 "new-tab" = "Title for creating a new tab.";
@@ -1124,6 +1129,7 @@
 "settings-language-bar" = "Title in Settings for toggling the display the language bar in the search view";
 "settings-languages-feed-customization" = "Explanation of how you can manage which languages appear in the feed.";
 "settings-my-languages" = "Title for list of user's preferred languages";
+"settings-new-article-tab-header-text" = "Header title for the New Article Tabs settings to determine between preferences";
 "settings-notifications" = "Title for view and button letting users change their push notifications settings.";
 "settings-notifications-echo-failure-message" = "Alert message text informing user of failure when subscribing to Echo Notifications.";
 "settings-notifications-echo-failure-title" = "Alert title text informing user of failure when subscribing to Echo Notifications.";
@@ -1190,6 +1196,8 @@
 "tabs-survey-title" = "Title for article tabs survey";
 "tabs-thumbnail-description" = "New tab thumbanail description";
 "tabs-thumbnail-subtitle" = "New tab thumbanail subtitle";
+"tabs-title" = "Title for tabs";
+"tabs-title-preferences" = "Title for tabs preferences";
 "tachelhit-variants-alert-body" = "Body text of alert used to inform users about Tachelhit variant support. Please do not translate the newlines (\n) or Tachelhit characters (ⵜⴰⵛⵍⵃⵉⵜ, etc.).";
 "tachelhit-variants-alert-title" = "Title of alert used to inform users about Tachelhit variant support.";
 "tajik-variants-alert-body" = "Body text of alert used to inform users about Tajik variant support. Please do not translate the newlines (\n) or Tajik characters (тоҷикӣ кирилликӣ, etc.).";
