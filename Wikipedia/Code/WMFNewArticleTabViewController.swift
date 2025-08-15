@@ -121,7 +121,8 @@ final class WMFNewArticleTabViewController: WMFCanvasViewController, WMFNavigati
         searchViewController.theme = theme
         searchViewController.shouldBecomeFirstResponder = true
         searchViewController.customTabConfigUponArticleNavigation = .appendArticleAndAssignCurrentTabAndCleanoutFutureArticles
-        
+        searchViewController.tabIdentifier = self.tabIdentifier
+
         let populateSearchBarWithTextAction: (String) -> Void = { [weak self] searchTerm in
             self?.navigationItem.searchController?.searchBar.text = searchTerm
             self?.navigationItem.searchController?.searchBar.becomeFirstResponder()
