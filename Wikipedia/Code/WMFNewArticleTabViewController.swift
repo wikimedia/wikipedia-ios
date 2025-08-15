@@ -13,7 +13,10 @@ final class WMFNewArticleTabViewController: WMFCanvasViewController, WMFNavigati
     private var theme: Theme
     private var presentingSearchResults: Bool = false
     private let viewModel: WMFNewArticleTabViewModel
-    
+    private var showTabsOverview: (() -> Void)?
+    private var cameFromNewTab: Bool
+    private var tabIdentifier: WMFArticleTabsDataController.Identifiers?
+
     // MARK: - Navigation bar button properties
     
     private var yirDataController: WMFYearInReviewDataController? {
@@ -21,8 +24,7 @@ final class WMFNewArticleTabViewController: WMFCanvasViewController, WMFNavigati
     }
     
     private var _yirCoordinator: YearInReviewCoordinator?
-    var yirCoordinator: YearInReviewCoordinator? {
-        
+    private var yirCoordinator: YearInReviewCoordinator? {
         guard let navigationController,
               let yirDataController else {
             return nil
@@ -55,12 +57,13 @@ final class WMFNewArticleTabViewController: WMFCanvasViewController, WMFNavigati
     }
     
     // MARK: - Lifecycle
-    
-    init(dataStore: MWKDataStore, theme: Theme, viewModel: WMFNewArticleTabViewModel) {
+    init(dataStore: MWKDataStore, theme: Theme, viewModel: WMFNewArticleTabViewModel, cameFromNewTab: Bool, tabIdentifier: WMFArticleTabsDataController.Identifiers?) {
         self.dataStore = dataStore
         self.theme = theme
         self.viewModel = viewModel
         self.hostingController = WMFNewArticleTabHostingController(rootView: WMFNewArticleTabView())
+        self.cameFromNewTab = cameFromNewTab
+        self.tabIdentifier = tabIdentifier
         super.init()
         self.hidesBottomBarWhenPushed = true
     }
@@ -68,9 +71,7 @@ final class WMFNewArticleTabViewController: WMFCanvasViewController, WMFNavigati
     @MainActor required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    var showTabsOverview: (() -> Void)?
-    
+
     public override func viewDidLoad() {
         super.viewDidLoad()
         self.configureNavigationBar()
@@ -111,8 +112,8 @@ final class WMFNewArticleTabViewController: WMFCanvasViewController, WMFNavigati
         
         let yirDataController = try? WMFYearInReviewDataController()
         let profileButtonConfig = profileButtonConfig(target: self, action: #selector(userDidTapProfile), dataStore: dataStore, yirDataController: yirDataController, leadingBarButtonItem: nil)
-        
-        let tabsButtonConfig = tabsButtonConfig(target: self, action: #selector(userDidTapTabs), dataStore: dataStore)
+        let tabsButtonConfig = tabsButtonConfig(target: self, action: #selector(goToTabsOverview), dataStore: dataStore)
+
 
         let byrViewModel = self.viewModel.becauseYouReadViewModel != nil ? viewModel.becauseYouReadViewModel : nil
         let searchViewController = SearchViewController(source: .article, customArticleCoordinatorNavigationController: self.navigationController, needsAttachedView: true, becauseYouReadViewModel: byrViewModel, didYouKnowViewModel: viewModel.dykViewModel)
@@ -120,7 +121,8 @@ final class WMFNewArticleTabViewController: WMFCanvasViewController, WMFNavigati
         searchViewController.theme = theme
         searchViewController.shouldBecomeFirstResponder = true
         searchViewController.customTabConfigUponArticleNavigation = .appendArticleAndAssignCurrentTabAndCleanoutFutureArticles
-        
+        searchViewController.tabIdentifier = self.tabIdentifier
+
         let populateSearchBarWithTextAction: (String) -> Void = { [weak self] searchTerm in
             self?.navigationItem.searchController?.searchBar.text = searchTerm
             self?.navigationItem.searchController?.searchBar.becomeFirstResponder()
@@ -135,8 +137,15 @@ final class WMFNewArticleTabViewController: WMFCanvasViewController, WMFNavigati
                       let wmfProject = WikimediaProject(siteURL: siteURL)?.wmfProject else {
                     return
                 }
-                
-                let articleCoord = ArticleCoordinator(navigationController: navigationController, articleURL: url, dataStore: self.dataStore, theme: self.theme, source: .undefined, tabConfig: .assignNewTabAndSetToCurrentFromNewTabSearch(title: title, project: wmfProject))
+
+                let tabConfig: ArticleTabConfig
+                if let tabIdentifier {
+                    tabConfig = .appendArticleToEmptyTabAndSetToCurrent(identifiers: tabIdentifier)
+                } else {
+                    tabConfig = .assignNewTabAndSetToCurrentFromNewTabSearch(title: title, project: wmfProject)
+                }
+                let articleCoord = ArticleCoordinator(navigationController: navigationController, articleURL: url, dataStore: self.dataStore, theme: self.theme, source: .undefined, tabConfig: tabConfig)
+
                 articleCoord.start()
                 
                 // remove the new tab view controller from stack
@@ -159,7 +168,33 @@ final class WMFNewArticleTabViewController: WMFCanvasViewController, WMFNavigati
         
         configureNavigationBar(titleConfig: titleConfig, backButtonConfig: backButtonConfig, closeButtonConfig: nil, profileButtonConfig: profileButtonConfig, tabsButtonConfig: tabsButtonConfig, searchBarConfig: searchBarConfig, hideNavigationBarOnScroll: true)
     }
-    
+
+    @MainActor
+    @objc private func goToTabsOverview() {
+        let articleTabsDataController = WMFArticleTabsDataController.shared
+
+        let goToOverview: () -> Void = { [weak self] in
+            self?.navigationController?.popViewController(animated: true)
+            self?.showTabsOverview?()
+        }
+
+        guard !cameFromNewTab else {
+            goToOverview()
+            return
+        }
+
+        Task {
+            defer { goToOverview() }
+
+            do {
+                _ = try await articleTabsDataController.createArticleTab(initialArticle: nil, setAsCurrent: true)
+
+            } catch {
+                goToOverview()
+            }
+        }
+    }
+
     @objc func userDidTapProfile() {
         profileCoordinator?.start()
     }
@@ -188,9 +223,7 @@ final class WMFNewArticleTabViewController: WMFCanvasViewController, WMFNavigati
 
 // MARK: - Fileprivate classes
 
-fileprivate final class WMFNewArticleTabHostingController<WMFNewArticleTabView: View>: WMFComponentHostingController<WMFNewArticleTabView> {
-
-}
+fileprivate final class WMFNewArticleTabHostingController<WMFNewArticleTabView: View>: WMFComponentHostingController<WMFNewArticleTabView> {}
 
 // MARK: - Extensions
 
@@ -226,7 +259,7 @@ extension WMFNewArticleTabViewController: UISearchControllerDelegate {
     func didDismissSearchController(_ searchController: UISearchController) {
         presentingSearchResults = false
         navigationController?.hidesBarsOnSwipe = true
-        userDidTapTabs()
+        goToTabsOverview()
     }
 }
 

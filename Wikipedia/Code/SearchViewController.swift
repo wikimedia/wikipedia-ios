@@ -104,6 +104,8 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
     private var hostingController: UIHostingController<WMFNewArticleTabSettingsView>?
     private var viewModel: WMFNewArticleTabSettingsViewModel?
 
+    public var tabIdentifier: WMFArticleTabsDataController.Identifiers?
+
     // MARK: - Lifecycle
 
     let needsAttachedView: Bool // TODO: Maybe rename to comes from new tabs exp for clarity
@@ -739,7 +741,15 @@ extension SearchViewController: UITextViewDelegate {
                   let wmfProject = WikimediaProject(siteURL: siteURL)?.wmfProject else {
                 return
             }
-            let linkCoordinator = LinkCoordinator(navigationController: navController, url: url.absoluteURL, dataStore: nil, theme: theme, articleSource: .undefined, tabConfig: .assignNewTabAndSetToCurrentFromNewTabSearch(title: title, project: wmfProject))
+
+            let tabConfig: ArticleTabConfig
+            if let tabIdentifier {
+                tabConfig = .appendArticleToEmptyTabAndSetToCurrent(identifiers: tabIdentifier)
+            } else {
+                tabConfig = .assignNewTabAndSetToCurrentFromNewTabSearch(title: title, project: wmfProject)
+            }
+
+            let linkCoordinator = LinkCoordinator(navigationController: navController, url: url.absoluteURL, dataStore: nil, theme: theme, articleSource: .undefined, tabConfig: tabConfig)
             let success = linkCoordinator.start()
 
             var vcs = navController.viewControllers

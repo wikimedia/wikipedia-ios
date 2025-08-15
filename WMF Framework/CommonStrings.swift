@@ -803,6 +803,10 @@ public class CommonStrings: NSObject {
 
     public static let tabsButtonAccessibilityHint = WMFLocalizedString("article-tabs-button-accessibility-hint", value: "Navigates to tabs overview", comment: "Accessibility hint for the tabs navigation bar button")
     public static let tabsButtonAccessibilityLabel = WMFLocalizedString("article-tabs-button-accessibility-label", value: "Article tabs", comment: "Accessibility label for the tabs navigation bar button")
+    public static let mainPageSubtitle = WMFLocalizedString("tabs-main-page-subtitle", value: "Wikipedia’s daily highlights", comment: "Main page subtitle")
+    public static let mainPageDescription = WMFLocalizedString("tabs-main-page-description", value: "Discover featured articles, the latest news, interesting facts, and key stats on Wikipedia’s main page.", comment: "Main page description")
+    public static let tabThumbnailSubtitle = WMFLocalizedString("tabs-thumbnail-subtitle", value: "Begin your search here", comment: "New tab thumbanail subtitle")
+    public static let tabThumbanailDescription = WMFLocalizedString("tabs-thumbnail-description", value: "Explore Wikipedia, the free encyclopedia that any one can edit", comment: "New tab thumbanail description")
 
     // Search Widget Feature Announcement
 

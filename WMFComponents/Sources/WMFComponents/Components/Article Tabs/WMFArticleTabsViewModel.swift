@@ -45,14 +45,16 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
     
     public struct LocalizedStrings {
         public let navBarTitleFormat: String
+        public let mainPageTitle: String?
         public let mainPageSubtitle: String
         public let mainPageDescription: String
         public let closeTabAccessibility: String
         public let openTabAccessibility: String
         public let tabsPreferencesTitle: String
-        
-        public init(navBarTitleFormat: String, mainPageSubtitle: String, mainPageDescription: String, closeTabAccessibility: String, openTabAccessibility: String, tabsPreferencesTitle: String) {
+
+        public init(navBarTitleFormat: String, mainPageTitle: String?, mainPageSubtitle: String, mainPageDescription: String, closeTabAccessibility: String, openTabAccessibility: String, tabsPreferencesTitle: String) {
             self.navBarTitleFormat = navBarTitleFormat
+            self.mainPageTitle = mainPageTitle
             self.mainPageSubtitle = mainPageSubtitle
             self.mainPageDescription = mainPageDescription
             self.closeTabAccessibility = closeTabAccessibility
