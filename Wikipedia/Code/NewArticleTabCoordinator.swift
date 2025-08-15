@@ -9,13 +9,15 @@ final class NewArticleTabCoordinator: Coordinator {
     var theme: Theme
     private let fetcher: RelatedSearchFetcher
     private let cameFromNewTab: Bool
+    private let tabIdentifier: WMFArticleTabsDataController.Identifiers?
 
-    init(navigationController: UINavigationController, dataStore: MWKDataStore, theme: Theme, fetcher: RelatedSearchFetcher = RelatedSearchFetcher(), cameFromNewTab: Bool) {
+    init(navigationController: UINavigationController, dataStore: MWKDataStore, theme: Theme, fetcher: RelatedSearchFetcher = RelatedSearchFetcher(), cameFromNewTab: Bool, tabIdentifier: WMFArticleTabsDataController.Identifiers? = nil) {
         self.navigationController = navigationController
         self.dataStore = dataStore
         self.theme = theme
         self.fetcher = fetcher
         self.cameFromNewTab = cameFromNewTab
+        self.tabIdentifier = tabIdentifier
     }
 
     var seed: WMFArticle?
@@ -149,7 +151,8 @@ final class NewArticleTabCoordinator: Coordinator {
                 dataStore: self.dataStore,
                 theme: self.theme,
                 viewModel: viewModel,
-                cameFromNewTab: self.cameFromNewTab
+                cameFromNewTab: self.cameFromNewTab,
+                tabIdentifier: self.tabIdentifier
             )
             
             self.navigationController.pushViewController(vc, animated: true)
@@ -165,13 +168,21 @@ final class NewArticleTabCoordinator: Coordinator {
             return
         }
 
+        let tabConfig: ArticleTabConfig
+
+        if let tabIdentifier {
+            tabConfig = .appendArticleToEmptyTabAndSetToCurrent(identifiers: tabIdentifier)
+        } else {
+            tabConfig = .assignNewTabAndSetToCurrentFromNewTabSearch(title: title, project: wmfProject)
+        }
+
         let articleCoordinator = ArticleCoordinator(
             navigationController: navigationController,
             articleURL: articleURL,
             dataStore: dataStore,
             theme: theme,
             source: .history,
-            tabConfig: .assignNewTabAndSetToCurrentFromNewTabSearch(title: title, project: wmfProject)
+            tabConfig: tabConfig
         )
 
         var vcs = navigationController.viewControllers

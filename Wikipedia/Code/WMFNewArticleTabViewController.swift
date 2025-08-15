@@ -15,6 +15,7 @@ final class WMFNewArticleTabViewController: WMFCanvasViewController, WMFNavigati
     private let viewModel: WMFNewArticleTabViewModel
     private var showTabsOverview: (() -> Void)?
     private var cameFromNewTab: Bool
+    private var tabIdentifier: WMFArticleTabsDataController.Identifiers?
 
     // MARK: - Navigation bar button properties
 
@@ -58,12 +59,13 @@ final class WMFNewArticleTabViewController: WMFCanvasViewController, WMFNavigati
 
     // MARK: - Lifecycle
 
-    init(dataStore: MWKDataStore, theme: Theme, viewModel: WMFNewArticleTabViewModel, cameFromNewTab: Bool) {
+    init(dataStore: MWKDataStore, theme: Theme, viewModel: WMFNewArticleTabViewModel, cameFromNewTab: Bool, tabIdentifier: WMFArticleTabsDataController.Identifiers?) {
         self.dataStore = dataStore
         self.theme = theme
         self.viewModel = viewModel
         self.hostingController = WMFNewArticleTabHostingController(rootView: WMFNewArticleTabView())
         self.cameFromNewTab = cameFromNewTab
+        self.tabIdentifier = tabIdentifier
         super.init()
         self.hidesBottomBarWhenPushed = true
         self.configureNavigationBar()
@@ -137,7 +139,14 @@ final class WMFNewArticleTabViewController: WMFCanvasViewController, WMFNavigati
                     return
                 }
 
-                let articleCoord = ArticleCoordinator(navigationController: navigationController, articleURL: url, dataStore: self.dataStore, theme: self.theme, source: .undefined, tabConfig: .assignNewTabAndSetToCurrentFromNewTabSearch(title: title, project: wmfProject))
+                let tabConfig: ArticleTabConfig
+                if let tabIdentifier {
+                    tabConfig = .appendArticleToEmptyTabAndSetToCurrent(identifiers: tabIdentifier)
+                } else {
+                    tabConfig = .assignNewTabAndSetToCurrentFromNewTabSearch(title: title, project: wmfProject)
+                }
+                let articleCoord = ArticleCoordinator(navigationController: navigationController, articleURL: url, dataStore: self.dataStore, theme: self.theme, source: .undefined, tabConfig: tabConfig)
+                
                 articleCoord.start()
 
                 // remove the new tab view controller from stack
@@ -169,24 +178,24 @@ final class WMFNewArticleTabViewController: WMFCanvasViewController, WMFNavigati
     @objc private func goToTabsOverview() {
         let articleTabsDataController = WMFArticleTabsDataController.shared
 
-        let gotToOverview: () -> Void = { [weak self] in
+        let goToOverview: () -> Void = { [weak self] in
             self?.navigationController?.popViewController(animated: true)
             self?.showTabsOverview?()
         }
 
         guard !cameFromNewTab else {
-            gotToOverview()
+            goToOverview()
             return
         }
 
         Task {
-            defer { gotToOverview() }
+            defer { goToOverview() }
 
             do {
                 _ = try await articleTabsDataController.createArticleTab(initialArticle: nil, setAsCurrent: true)
 
             } catch {
-                gotToOverview()
+                goToOverview()
             }
         }
     }
