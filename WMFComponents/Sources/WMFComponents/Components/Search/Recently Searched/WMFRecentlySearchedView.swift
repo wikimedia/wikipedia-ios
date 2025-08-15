@@ -78,6 +78,7 @@ public struct WMFRecentlySearchedView: View {
                         .swipeActions {
                             Button {
                                 viewModel.deleteItemAction(index)
+                                recalculateEstimatedListHeight()
                             } label: {
                                 Image(uiImage: WMFSFSymbolIcon.for(symbol: .trash) ?? UIImage())
                                     .accessibilityLabel(viewModel.localizedStrings.deleteActionAccessibilityLabel)
@@ -106,6 +107,9 @@ public struct WMFRecentlySearchedView: View {
                 recalculateEstimatedListHeight()
             }
             .onChange(of: sizeCategory) { _ in
+                recalculateEstimatedListHeight()
+            }
+            .onChange(of: viewModel.displayedSearchTerms) { _ in
                 recalculateEstimatedListHeight()
             }
             if viewModel.needsAttachedView {

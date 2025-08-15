@@ -19,7 +19,7 @@ public final class WMFRecentlySearchedViewModel: ObservableObject {
         }
     }
 
-    public struct RecentSearchTerm: Identifiable {
+    public struct RecentSearchTerm: Identifiable, Equatable {
         public let text: String
 
         public init(text: String) {
@@ -34,7 +34,6 @@ public final class WMFRecentlySearchedViewModel: ObservableObject {
     public var displayedSearchTerms: [RecentSearchTerm] {
         needsAttachedView ? Array(recentSearchTerms.prefix(3)) : recentSearchTerms
     }
-
 
     @Published public var recentSearchTerms: [RecentSearchTerm] = []
     @Published public var topPadding: CGFloat = 0
