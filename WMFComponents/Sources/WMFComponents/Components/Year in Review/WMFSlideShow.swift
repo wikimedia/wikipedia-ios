@@ -90,12 +90,3 @@ public struct WMFSlideShow: View {
         }
     }
 }
-    
-public protocol SlideShowProtocol {
-    var title: String { get }
-    var subtitle: String { get }
-    var gifName: String { get }
-    var altText: String { get }
-    var isSubtitleAttributedString: Bool? { get }
-    var infoURL: URL? { get }
-}

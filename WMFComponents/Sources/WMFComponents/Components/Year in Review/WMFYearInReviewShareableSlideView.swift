@@ -13,18 +13,13 @@ struct WMFYearInReviewShareableSlideView: View {
     var slideTitle: String
     var slideSubtitle: String
     var hashtag: String
-    var isAttributedString: Bool
     
     private var attributedString: AttributedString {
         return (try? HtmlUtils.attributedStringFromHtml(slideSubtitle, styles: styles)) ?? AttributedString(slideSubtitle)
     }
     
     private var styles: HtmlUtils.Styles {
-        if isAttributedString {
-            return HtmlUtils.Styles(font: WMFFont.for(.headline), boldFont: WMFFont.for(.headline), italicsFont: WMFFont.for(.headline), boldItalicsFont: WMFFont.for(.title3), color: theme.text, linkColor: theme.link, lineSpacing: 3)
-        } else {
-            return HtmlUtils.Styles(font: WMFFont.for(.title3), boldFont: WMFFont.for(.title3), italicsFont: WMFFont.for(.title3), boldItalicsFont: WMFFont.for(.title3), color: theme.text, linkColor: theme.link, lineSpacing: 3)
-        }
+        return HtmlUtils.Styles(font: WMFFont.for(.headline), boldFont: WMFFont.for(.headline), italicsFont: WMFFont.for(.headline), boldItalicsFont: WMFFont.for(.title3), color: theme.text, linkColor: theme.link, lineSpacing: 3)
     }
 
     var body: some View {
@@ -55,7 +50,7 @@ struct WMFYearInReviewShareableSlideView: View {
                             .accentColor(Color(uiColor: theme.link))
                     }
                     .padding([.top, .horizontal], 28)
-                    .padding(.bottom, isAttributedString ? 0 : 28)
+                    .padding(.bottom, 0)
                 }
 
                 Spacer(minLength: 10)
