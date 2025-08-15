@@ -93,10 +93,6 @@ public struct WMFRecentlySearchedView: View {
                 .scrollDisabled(true)
                 .frame(height: estimatedListHeight)
                 if viewModel.needsAttachedView {
-                    let enableBYR = viewModel.devSettingsDataControler.enableMoreDynamicTabsBYR
-                    let enableDYK = viewModel.devSettingsDataControler.enableMoreDynamicTabsDYK
-                    let assignment = try? viewModel.tabsDataController.getMoreDynamicTabsExperimentAssignment()
-
                     if enableBYR || (!enableDYK && assignment == .becauseYouRead), let becauseVM = viewModel.becauseYouReadViewModel {
                         WMFBecauseYouReadView(viewModel: becauseVM)
                     } else if shouldShowDidYouKnow(), let dykVM = viewModel.didYouKnowViewModel {
