@@ -9,6 +9,6 @@ public enum YearInReviewCoordinatorAction {
     case share(image: UIImage)
     case dismiss(hasSeenTwoSlides: Bool)
     case introLearnMore
-    case learnMore(url: URL, shouldShowDonateButton: Bool)
-    case info(url: URL)
+    case learnMore(url: URL?, shouldShowDonateButton: Bool)
+    case info(url: URL?)
 }
