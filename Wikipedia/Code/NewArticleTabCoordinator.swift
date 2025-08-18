@@ -40,10 +40,9 @@ final class NewArticleTabCoordinator: Coordinator {
         let devSettingsDataController = WMFDeveloperSettingsDataController.shared
         let enableBYR = devSettingsDataController.enableMoreDynamicTabsBYR
         let enableDYK = devSettingsDataController.enableMoreDynamicTabsDYK
-        
-        if enableBYR || experiment == .becauseYouRead {
-            fetchBecauseYouRead { seedArticle, related in
 
+        if experiment == .didYouKnow || experiment == .becauseYouRead || enableBYR || enableDYK, let primaryLanguage = self.dataStore.languageLinkController.appLanguage?.languageCode {
+            fetchBecauseYouReadAndDYK(language: primaryLanguage) { seedArticle, related, facts in
                 var becauseVM: WMFBecauseYouReadViewModel?
                 
                 if let seedArticle {
@@ -65,10 +64,19 @@ final class NewArticleTabCoordinator: Coordinator {
                     }
                 }
                 
+                let dykVM = WMFNewArticleTabDidYouKnowViewModel(
+                    facts: facts?.map { $0.html } ?? [],
+                    languageCode: primaryLanguage,
+                    dykLocalizedStrings: WMFNewArticleTabDidYouKnowViewModel.LocalizedStrings.init(
+                        didYouKnowTitle: self.didYouKnowTitle,
+                        fromSource: self.stringWithLocalizedCurrentSiteLanguageReplacingPlaceholder(in: CommonStrings.fromWikipedia, fallingBackOn: CommonStrings.defaultFromWikipedia)
+                    )
+                )
+                
                 let viewModel = WMFNewArticleTabViewModel(
                     title: CommonStrings.newTab,
                     becauseYouReadViewModel: becauseVM,
-                    dykViewModel: nil
+                    dykViewModel: dykVM
                 )
                 
                 let vc = WMFNewArticleTabViewController(
@@ -78,34 +86,6 @@ final class NewArticleTabCoordinator: Coordinator {
                 )
                 
                 self.navigationController.pushViewController(vc, animated: true)
-            }
-        } else if enableDYK || experiment == .didYouKnow,
-                  let primaryLanguage = self.dataStore.languageLinkController.appLanguage?.languageCode {
-            self.fetchDYK(for: primaryLanguage) { facts in
-                DispatchQueue.main.async {
-                    let dykVM = WMFNewArticleTabDidYouKnowViewModel(
-                        facts: facts?.map { $0.html } ?? [],
-                        languageCode: primaryLanguage,
-                        dykLocalizedStrings: WMFNewArticleTabDidYouKnowViewModel.LocalizedStrings.init(
-                            didYouKnowTitle: self.didYouKnowTitle,
-                            fromSource: self.stringWithLocalizedCurrentSiteLanguageReplacingPlaceholder(in: CommonStrings.fromWikipedia, fallingBackOn: CommonStrings.defaultFromWikipedia)
-                        )
-                    )
-                    
-                    let viewModel = WMFNewArticleTabViewModel(
-                        title: CommonStrings.newTab,
-                        becauseYouReadViewModel: nil,
-                        dykViewModel: dykVM
-                    )
-                    
-                    let vc = WMFNewArticleTabViewController(
-                        dataStore: self.dataStore,
-                        theme: self.theme,
-                        viewModel: viewModel
-                    )
-                    
-                    self.navigationController.pushViewController(vc, animated: true)
-                }
             }
         } else {
             let viewModel = WMFNewArticleTabViewModel(
@@ -127,6 +107,31 @@ final class NewArticleTabCoordinator: Coordinator {
     }
 
     // MARK: - Fetchers
+    func fetchBecauseYouReadAndDYK(language: String, completion: @escaping (_ seed: WMFArticle?, _ related: [WMFArticle], _ dykFacts: [WMFFeedDidYouKnow]?) -> Void) {
+        var seedArticle: WMFArticle?
+        var relatedArticles: [WMFArticle] = []
+        var didYouKnowFacts: [WMFFeedDidYouKnow]?
+        
+        let group = DispatchGroup()
+        
+        group.enter()
+        fetchBecauseYouRead { seed, related in
+            seedArticle = seed
+            relatedArticles = related
+            group.leave()
+        }
+        
+        group.enter()
+        fetchDYK(for: language) { facts in
+            didYouKnowFacts = facts
+            group.leave()
+        }
+        
+        group.notify(queue: .main) {
+            completion(seedArticle, relatedArticles, didYouKnowFacts)
+        }
+    }
+
     private func fetchBecauseYouRead(completion: @escaping (WMFArticle?, [WMFArticle]) -> Void) {
         let moc = dataStore.feedImportContext
 
