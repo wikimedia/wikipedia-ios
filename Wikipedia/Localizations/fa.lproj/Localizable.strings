@@ -144,6 +144,8 @@
 "article-revision-history" = "تاریخچهٔ نسخه‌های مقاله";
 "article-save-error-not-enough-space" = "حافظهٔ کافی برای ذخیره‌سازی این مقاله بر روی دستگاهتان ندارید";
 "article-share" = "اشتراک‌گذاری";
+"article-tabs-did-you-know-title" = "آیا می‌دانستید";
+"article-tabs-feature-announcement-item-4-title" = "زبانهٔ جدید خود را شخصی‌سازی کنید";
 "article-talk-page" = "صفحهٔ بحث مقاله";
 "article-toolbar-reading-themes-controls-toolbar-item" = "تنظیمات پوسته‌های مطالعه";
 "back-button-accessibility-label" = "بازگشت";
@@ -217,6 +219,7 @@
 "developer-settings-enable-year-in-review" = "فعال‌سازی سال در یک نگاه";
 "developer-settings-send-analytics-to-wmflabs" = "ارسال تحلیل‌ها به wmflabs.";
 "developer-settings-suppress-image-rec-post" = "ویرایش پیشنهادهای تصویر را ارسال نکن.";
+"did-you-know" = "آیا می‌دانستید";
 "diff-article-revision-history" = "تاریخچهٔ نسخه‌های مقاله";
 "diff-change-added" = "اضافه، $1، پایان اضافه.";
 "diff-change-paragraph-lines-moved-down" = "بند به میزان {{PLURAL:$1|0=۰ سطر|$1 سطر}} به پایین منتقل شد. به موقعیت جدید بروید.";
@@ -711,6 +714,9 @@
 "nearby-distance-label-km" = "$1 کیلومتر";
 "nearby-distance-label-meters" = "$1 متر";
 "nearby-distance-label-miles" = "$1 مایل";
+"new-article-tab-from-wikipedia-default" = "از ویکی‌پدیا";
+"new-article-tab-settings-did-you-know" = "آیا می‌دانستید؟";
+"new-article-tab-settings-recommendations" = "پیشنهادها";
 "new-password-instructions" = "با رمز عبور موقت به سامانه وارد شدید. برای تکمیل ورود، رمز عبور جدید انتخاب کنید.";
 "new-password-title" = "تنظیم رمز عبورتان";
 "next-action-title" = "بعدی";
@@ -1144,6 +1150,8 @@
 "table-of-contents-heading" = "محتویات";
 "table-of-contents-hide-button-label" = "نهفتن جعبهٔ محتویات";
 "table-of-contents-subheading-label" = "زیربخش $1";
+"tabs-title" = "زبانه‌ها";
+"tabs-title-preferences" = "ترجیحات زبانه‌ها";
 "tachelhit-variants-alert-body" = "برنامهٔ ویکی‌پدیا در حال حاضر از لهجه‌های مختلف زبان تشلیحت به عنوان زبان‌های اصلی یا ثانویه در برنامه پشتیبانی می‌کند و خواندن، جستجو، و ویرایش در لهجهٔ دلخواه شما را آسان می‌کند:\n\nⵜⴰⵛⵍⵃⵉⵜ Tachelhit, Tifinagh (shi-tfng)\nTaclḥit Tachelhit, Latin (shi-latn)";
 "tachelhit-variants-alert-title" = "بروزرسانی پشتیبانی از لهجه‌های زبان تشلیحت";
 "tajik-variants-alert-body" = "برنامهٔ ویکی‌پدیا در حال حاضر از لهجه‌های مختلف زبان تاجیکی به عنوان زبان‌های اصلی یا ثانویه در برنامه پشتیبانی می‌کند و خواندن، جستجو، و ویرایش در لهجهٔ دلخواه شما را آسان می‌کند:\n\nтоҷикӣ кирилликӣ Tajik, Cyrillic (tg-cyrl)\ntojikī lotinī Tajik, Latin (tg-latn)";

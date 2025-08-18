@@ -42,6 +42,7 @@
 // Author: Josuert
 // Author: Juan Cuartas
 // Author: Koavf
+// Author: Laranxa
 // Author: Luisangelrg
 // Author: Luzcaru
 // Author: Macofe
@@ -205,7 +206,7 @@
 "article-tabs-feature-announcement-item-1-title" = "Navegar con pestañas";
 "article-tabs-feature-announcement-item-2-subtitle" = "Las pestañas recuerdan automáticamente tu posición de desplazamiento.";
 "article-tabs-feature-announcement-item-2-title" = "Continúa donde lo dejaste";
-"article-tabs-feature-announcement-item-3-subtitle" = "Abra enlaces en pestañas en segundo plano sin perder su ubicación.";
+"article-tabs-feature-announcement-item-3-subtitle" = "Abra enlaces en pestañas en segundo plano sin perder tu lugar.";
 "article-tabs-feature-announcement-item-3-title" = "Guardar enlaces para más tarde";
 "article-tabs-feature-announcement-item-4-subtitle" = "Elija datos curiosos o sugerencias de lectura al abrir una nueva pestaña.";
 "article-tabs-feature-announcement-item-4-title" = "Personaliza tu nueva pestaña";
