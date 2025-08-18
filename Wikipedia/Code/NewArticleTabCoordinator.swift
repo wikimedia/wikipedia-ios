@@ -8,10 +8,11 @@ final class NewArticleTabCoordinator: Coordinator {
     private var dataStore: MWKDataStore
     private var theme: Theme
     private var dataController = WMFArticleTabsDataController.shared
+    private let cameFromNewTab: Bool
+    private let tabIdentifier: WMFArticleTabsDataController.Identifiers?
 
     // MARK: - Related pages props
     private let fetcher: RelatedSearchFetcher
-
     private var seed: WMFArticle?
     private var related: [WMFArticle] = []
     private var seenSeedKeys = Set<String>()
@@ -25,11 +26,13 @@ final class NewArticleTabCoordinator: Coordinator {
     private let didYouKnowTitle = WMFLocalizedString("did-you-know", value: "Did you know", comment: "Text displayed as heading for section of new tab dedicated to DYK")
 
     // MARK: - Lifecycle
-    init(navigationController: UINavigationController, dataStore: MWKDataStore, theme: Theme, fetcher: RelatedSearchFetcher = RelatedSearchFetcher()) {
+    init(navigationController: UINavigationController, dataStore: MWKDataStore, theme: Theme, fetcher: RelatedSearchFetcher = RelatedSearchFetcher(), cameFromNewTab: Bool, tabIdentifier: WMFArticleTabsDataController.Identifiers? = nil) {
         self.navigationController = navigationController
         self.dataStore = dataStore
         self.theme = theme
         self.fetcher = fetcher
+        self.cameFromNewTab = cameFromNewTab
+        self.tabIdentifier = tabIdentifier
         dykFetcher = WMFFeedDidYouKnowFetcher()
     }
 
@@ -82,7 +85,9 @@ final class NewArticleTabCoordinator: Coordinator {
                 let vc = WMFNewArticleTabViewController(
                     dataStore: self.dataStore,
                     theme: self.theme,
-                    viewModel: viewModel
+                    viewModel: viewModel,
+                    cameFromNewTab: self.cameFromNewTab,
+                    tabIdentifier: self.tabIdentifier
                 )
                 
                 self.navigationController.pushViewController(vc, animated: true)
@@ -97,7 +102,9 @@ final class NewArticleTabCoordinator: Coordinator {
             let vc = WMFNewArticleTabViewController(
                 dataStore: self.dataStore,
                 theme: self.theme,
-                viewModel: viewModel
+                viewModel: viewModel,
+                cameFromNewTab: self.cameFromNewTab,
+                tabIdentifier: self.tabIdentifier
             )
             
             self.navigationController.pushViewController(vc, animated: true)
@@ -218,6 +225,7 @@ final class NewArticleTabCoordinator: Coordinator {
         }
     }
 
+
     private func fetchDYK(for language: String, completion: @escaping ([WMFFeedDidYouKnow]?) -> Void) {
         guard let url = NSURL.wmf_URL(withDefaultSiteAndLanguageCode: language) else {
             completion(nil)
@@ -240,14 +248,22 @@ final class NewArticleTabCoordinator: Coordinator {
               let wmfProject = WikimediaProject(siteURL: siteURL)?.wmfProject else {
             return
         }
-        
+
+        let tabConfig: ArticleTabConfig
+
+        if let tabIdentifier {
+            tabConfig = .appendArticleToEmptyTabAndSetToCurrent(identifiers: tabIdentifier)
+        } else {
+            tabConfig = .assignNewTabAndSetToCurrentFromNewTabSearch(title: title, project: wmfProject)
+        }
+
         let articleCoordinator = ArticleCoordinator(
             navigationController: navigationController,
             articleURL: articleURL,
             dataStore: dataStore,
             theme: theme,
             source: .history,
-            tabConfig: .assignNewTabAndSetToCurrentFromNewTabSearch(title: title, project: wmfProject)
+            tabConfig: tabConfig
         )
         
         var vcs = navigationController.viewControllers

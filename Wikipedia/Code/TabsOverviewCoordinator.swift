@@ -107,11 +107,18 @@ final class TabsOverviewCoordinator: Coordinator {
                 }
             }
         }
-        
+
+        let needsMoreDynamicTabs = dataController.shouldShowMoreDynamicTabs
+
+        let pageTitle = needsMoreDynamicTabs ? CommonStrings.newTab : nil
+        let pageSubtitle = needsMoreDynamicTabs ? CommonStrings.tabThumbnailSubtitle : CommonStrings.mainPageSubtitle
+        let pageDescription = needsMoreDynamicTabs ? CommonStrings.tabThumbanailDescription : CommonStrings.mainPageDescription
+
         let localizedStrings = WMFArticleTabsViewModel.LocalizedStrings(
             navBarTitleFormat: WMFLocalizedString("tabs-navbar-title-format", value: "{{PLURAL:%1$d|%1$d tab|%1$d tabs}}", comment: "$1 is the amount of tabs. Navigation title for tabs, displaying how many open tabs."),
-            mainPageSubtitle: WMFLocalizedString("tabs-main-page-subtitle", value: "Wikipedia’s daily highlights", comment: "Main page subtitle"),
-            mainPageDescription: WMFLocalizedString("tabs-main-page-description", value: "Discover featured articles, the latest news, interesting facts, and key stats on Wikipedia’s main page.", comment: "Main page description"),
+            mainPageTitle: pageTitle,
+            mainPageSubtitle: pageSubtitle,
+            mainPageDescription: pageDescription,
             closeTabAccessibility: WMFLocalizedString("tabs-close-tab", value: "Close tab", comment: "Accessibility label for close tab button"),
             openTabAccessibility: WMFLocalizedString("tabs-open-tab", value: "Open tab", comment: "Accessibility label for opening a tab"),
             tabsPreferencesTitle: CommonStrings.tabsPreferencesTitle,
@@ -339,11 +346,23 @@ final class TabsOverviewCoordinator: Coordinator {
             
             let tabConfig = ArticleTabConfig.assignParticularTabAndSetToCurrent(WMFArticleTabsDataController.Identifiers(tabIdentifier: tab.identifier, tabItemIdentifier: article.identifier))
 
-            // isRestoringState = true allows for us to retain the previous scroll position
-            let articleCoordinator = ArticleCoordinator(navigationController: navigationController, articleURL: articleURL, dataStore: MWKDataStore.shared(), theme: theme, needsAnimation: false, source: .undefined, isRestoringState: true, tabConfig: tabConfig)
-            articleCoordinator.start()
-        }
+            let needsMoreDynamicTabs = dataController.shouldShowMoreDynamicTabs
 
+            // If we're showing more dynamic tabs, we need to push to the new tab experience instead of main page
+            if needsMoreDynamicTabs {
+                if tab.articles.last?.isMain == true {
+                    self.newTabCoordinator = NewArticleTabCoordinator(navigationController: self.navigationController, dataStore: self.dataStore, theme: self.theme, cameFromNewTab: true, tabIdentifier: WMFArticleTabsDataController.Identifiers(tabIdentifier: tab.identifier, tabItemIdentifier: article.identifier))
+                    self.newTabCoordinator?.start()
+                } else {
+                    let articleCoordinator = ArticleCoordinator(navigationController: navigationController, articleURL: articleURL, dataStore: MWKDataStore.shared(), theme: theme, needsAnimation: false, source: .undefined, isRestoringState: true, tabConfig: tabConfig)
+                    articleCoordinator.start()
+                }
+            } else {
+                // isRestoringState = true allows for us to retain the previous scroll position
+                let articleCoordinator = ArticleCoordinator(navigationController: navigationController, articleURL: articleURL, dataStore: MWKDataStore.shared(), theme: theme, needsAnimation: false, source: .undefined, isRestoringState: true, tabConfig: tabConfig)
+                articleCoordinator.start()
+            }
+        }
         navigationController.dismiss(animated: true)
     }
     
@@ -356,7 +375,7 @@ final class TabsOverviewCoordinator: Coordinator {
                 navigationController.dismiss(animated: true)
             } else {
                 navigationController.dismiss(animated: true) {
-                    self.newTabCoordinator = NewArticleTabCoordinator(navigationController: self.navigationController, dataStore: self.dataStore, theme: self.theme)
+                    self.newTabCoordinator = NewArticleTabCoordinator(navigationController: self.navigationController, dataStore: self.dataStore, theme: self.theme, cameFromNewTab: false)
                     self.newTabCoordinator?.start()
                 }
             }
