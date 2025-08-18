@@ -408,6 +408,25 @@ public protocol WMFArticleTabsDataControlling {
         }
     }
     
+    public func deleteAllTabs() async throws {
+        
+        guard let coreDataStore else {
+            throw WMFDataControllerError.coreDataStoreUnavailable
+        }
+        
+        guard let moc = backgroundContext else {
+            throw CustomError.missingContext
+        }
+        
+        try await moc.perform { [weak self] in
+            guard let self else { throw CustomError.missingSelf }
+            Task {
+                try await self.deleteAllTabs(moc: moc)
+            }
+            try coreDataStore.saveIfNeeded(moc: moc)
+        }
+    }
+    
     public func deleteAllTabsExceptCurrent() async throws {
         guard let coreDataStore else {
             throw WMFDataControllerError.coreDataStoreUnavailable

@@ -169,12 +169,15 @@
 "close-all-tabs-confirmation" = "Close tabs";
 "close-all-tabs-confirmation-number" = "Close all $1 tabs?";
 "close-all-tabs-confirmation-subtitle" = "Do you want to close all other tabs? This action can’t be undone.";
+"close-all-tabs-confirmation-subtitle-with-value" = "Do you want to close all {{PLURAL:$1|$1 tab|$1 tabs}}? This action can’t be undone.";
 "close-all-tabs-confirmation-title" = "Close other tabs?";
+"close-all-tabs-confirmation-title-with-value" = "Close all {{PLURAL:$1|$1 tab|$1 tabs}}?";
 "close-button-accessibility-label" = "Close";
 "close-other-tabs" = "Close other tabs";
 "close-tab-confirmation" = "Close tab?";
 "close-tabs" = "Close tabs";
 "closed-all-tabs-confirmation" = "Closed all other tabs.";
+"closed-all-tabs-confirmation-with-value" = "Closed all {{PLURAL:$1|$1 tab|$1 tabs}}.";
 "compass-direction" = "at $1 o'clock";
 "confirm-donation-history-deletion-subtitle" = "This will only apply to donations made from this device.";
 "confirm-donation-history-deletion-title" = "Confirm deletion";
