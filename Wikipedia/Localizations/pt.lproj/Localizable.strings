@@ -9,6 +9,7 @@
 // Author: Giro720
 // Author: Hamilton Abreu
 // Author: Imperadeiro98
+// Author: ItsaMeSandy
 // Author: Jkb8
 // Author: Ldacosta
 // Author: Macofe
@@ -52,7 +53,7 @@
 "account-creation-captcha-title" = "Verificação de segurança CAPTCHA";
 "account-creation-create-account" = "Crie a sua conta";
 "account-creation-have-account" = "Já tem uma conta? $1";
-"account-creation-log-in" = "Entrar.";
+"account-creation-log-in" = "Iniciar sessão.";
 "account-creation-logging-in" = "A autenticar...";
 "account-creation-missing-fields" = "Tem de inserir um nome de utilizador, uma palavra-passe e a respetiva confirmação para criar uma conta.";
 "account-creation-passwords-mismatched" = "As palavras-passe não coincidem.";
@@ -98,7 +99,7 @@
 "announcements-dismiss" = "Ignorar";
 "app-store-keywords" = "Wikipédia, referência, wiki, enciclopédia, informação, conhecimento, pesquisa, informação, explorar, aprender";
 "app-store-release-notes" = "Feed Explorar completamente personalizável e mais fácil de ler. Localização, melhorias de desempenho e correções de defeitos.";
-"app-store-short-description" = "Descarregue a aplicação Wikipédia para explorar locais perto de si, sincronizar artigos para lê-los ''off-line'' e personalizar a sua experiência de leitura.";
+"app-store-short-description" = "Transfira a aplicação Wikipédia para explorar locais perto de si, sincronizar os artigos para lê-los ''off-line'' e personalizar a sua experiência de leitura.";
 "app-store-subtitle" = "A enciclopédia livre";
 "appearance-settings-adjust-text-sizing" = "Ajustar tamanho de texto dos artigos";
 "appearance-settings-expand-tables" = "Expandir tabelas";
@@ -121,6 +122,12 @@
 "article-revision-history" = "Historial de revisões do artigo";
 "article-save-error-not-enough-space" = "Não tem espaço suficiente no seu dispositivo para guardar este artigo";
 "article-share" = "Partilhar";
+"article-tabs-did-you-know-title" = "Sabia que";
+"article-tabs-feature-announcement-item-1-title" = "Explore com os separadores";
+"article-tabs-feature-announcement-item-3-title" = "Guardar hiperligação para mais tarde";
+"article-tabs-feature-announcement-item-4-title" = "Personalize o seu novo separador";
+"article-tabs-feature-announcement-sub-cta" = "Saiba mais sobre os 'Separadores'";
+"article-tabs-feature-announcement-title" = "Apresentando os Separadores";
 "article-talk-page" = "Página de discussão do artigo";
 "article-toolbar-reading-themes-controls-toolbar-item" = "Controlos dos temas de leitura";
 "back-button-accessibility-label" = "Retroceder";
@@ -186,6 +193,7 @@
 "description-welcome-descriptions-title" = "Descrições de artigos";
 "description-welcome-promise-title" = "Ao começar, prometo não utilizar de forma irresponsável esta funcionalidade";
 "description-welcome-start-editing-button" = "Começar a editar";
+"did-you-know" = "Sabia que";
 "diff-article-revision-history" = "Historial de revisões do artigo";
 "diff-compare-header-from-info-heading" = "Edição anterior";
 "diff-compare-header-heading" = "Comparar revisões";
@@ -215,7 +223,7 @@
 "diff-single-line-format" = "Linha $1";
 "diff-thanks-anonymous-no-thanks" = "Os utilizadores anónimos não podem receber agradecimentos";
 "diff-thanks-login-subtitle" = "Agradecimentos são uma maneira fácil de mostrar apreço pelo trabalho de um editor na Wikipédia. Para enviar um agradecimento tem de ter uma sessão iniciada.";
-"diff-thanks-login-title" = "Inicie uma sessão para enviar agradecimento";
+"diff-thanks-login-title" = "Inicie a sessão para enviar 'Agradecimentos'";
 "diff-thanks-send-button-title" = "Enviar agradecimento";
 "diff-thanks-send-subtitle" = "Os 'Agradecimentos' são uma maneira fácil de mostrar apreciação pelo trabalho de um editor na Wikipédia. Os 'Agradecimentos' não podem ser anulados e são públicos.";
 "diff-thanks-send-title" = "Enviar um agradecimento público";
@@ -480,7 +488,7 @@
 "home-nearby-footer" = "Mais locais nas suas redondezas";
 "home-nearby-location-footer" = "Mais, perto de $1";
 "home-news-footer" = "Mais atualidades";
-"home-reading-list-prompt" = "Os seus artigos guardados já podem ser organizados em listas de leitura e sincronizados nos dispositivos. Entre, para permitir que as suas listas de leitura sejam guardadas nas preferências de utilizador.";
+"home-reading-list-prompt" = "Os seus artigos guardados agora podem ser organizados em listas de leitura e sincronizados nos dispositivos. Inicie a sessão para permitir que as suas listas de leitura sejam guardadas nas preferências do utilizador.";
 "home-themes-action-title" = "Gerir preferências";
 "home-themes-prompt" = "Ajuste as suas preferências de leitura, incluindo o tamanho do texto e o tema, a partir da barra de ferramentas do artigo ou nas suas configurações de utilizador, para uma leitura mais confortável.";
 "home-title" = "Explorar";
@@ -575,18 +583,18 @@
 "languages-wikipedia" = "Línguas da Wikipédia";
 "learn-more-title" = "Saiba mais";
 "logged-out-continue-without-logging-in-button-title" = "Continuar sem iniciar sessão";
-"logged-out-log-back-in-button-title" = "Entrar novamente na sua conta";
-"logged-out-subtitle" = "Ocorreu um problema na autenticação da sua conta. Para sincronizar as suas listas de leitura e editar com o seu nome de utilizador, volte a iniciar uma sessão.";
+"logged-out-log-back-in-button-title" = "Inicie a sessão novamente na sua conta";
+"logged-out-subtitle" = "Ocorreu um problema na autenticação da sua conta. Para sincronizar as suas listas de leitura e editar com o seu nome de utilizador, por favor, inicie a sessão novamente.";
 "logged-out-title" = "A sua sessão foi terminada";
 "login-forgot-password" = "Esqueceu-se da palavra-passe?";
 "login-join-wikipedia" = "Junte-se à Wikipédia.";
 "login-no-account" = "Não tem uma conta? $1";
-"login-title" = "Inicie sessão na sua conta";
+"login-title" = "Inicie a sessão na sua conta";
 "main-menu-about" = "Sobre a aplicação";
-"main-menu-account-login" = "Entrar";
-"main-menu-account-logout" = "Sair";
-"main-menu-account-logout-are-you-sure" = "Tem a certeza de que pretende encerrar a sessão?";
-"main-menu-account-logout-are-you-sure-message" = "Terminar a sessão apagará os seus dados de conta armazenados localmente (notificações e mensagens), mas os dados da sua conta continuarão a estar disponíveis na internet e voltarão a ser descarregados se voltar a iniciar uma sessão.";
+"main-menu-account-login" = "Iniciar sessão";
+"main-menu-account-logout" = "Terminar sessão";
+"main-menu-account-logout-are-you-sure" = "Tem a certeza de que pretende terminar a sessão?";
+"main-menu-account-logout-are-you-sure-message" = "Terminar a sessão irá eliminar os seus dados de conta guardados localmente (notificações e mensagens), mas os dados da sua conta continuarão a estar disponíveis na Web e voltarão a ser transferidos se voltar a iniciar a sessão.";
 "main-menu-account-title-logged-in" = "Sessão iniciada como $1";
 "main-menu-heading-legal" = "Privacidade e Condições";
 "main-menu-nearby" = "Aqui perto";
@@ -604,6 +612,9 @@
 "nearby-distance-label-km" = "$1 km";
 "nearby-distance-label-meters" = "$1 m";
 "nearby-distance-label-miles" = "$1 milhas";
+"new-article-tab-from-wikipedia-default" = "Da Wikipédia";
+"new-article-tab-settings-did-you-know" = "Sabia que?";
+"new-article-tab-settings-recommendations" = "Recomendações";
 "new-password-instructions" = "Autenticou-se com uma palavra-passe temporária. Para concluir a autenticação, defina uma palavra-passe nova aqui.";
 "new-password-title" = "Definir a sua palavra-passe";
 "next-action-title" = "Próximo";
@@ -692,8 +703,8 @@
 "notifications-center-subheader-edit-milestone" = "Meta de edição";
 "notifications-center-subheader-edit-reverted" = "A sua edição foi revertida";
 "notifications-center-subheader-email-from-other-user" = "Mensagem nova";
-"notifications-center-subheader-login-fail-known-device" = "Várias tentativas falhadas de início de sessão";
-"notifications-center-subheader-login-fail-unknown-device" = "Tentativas falhada de início de sessão";
+"notifications-center-subheader-login-fail-known-device" = "Várias tentativas falhadas do iniciar a sessão";
+"notifications-center-subheader-login-fail-unknown-device" = "Tentativas falhada do iniciar a sessão";
 "notifications-center-subheader-login-success-unknown-device" = "Início de sessão de dispositivo desconhecido";
 "notifications-center-subheader-mention-article-talk-page" = "Menção na página de discussão de um artigo";
 "notifications-center-subheader-mention-edit-summary" = "Menção no resumo de uma edição";
@@ -845,7 +856,7 @@
 "reading-list-exists-with-same-name" = "O nome da lista de leitura já está a ser utilizado";
 "reading-list-generic-error" = "Ocorreu um erro inesperado ao atualizar as suas listas de leitura.";
 "reading-list-keep-button-title" = "Sim, manter os artigos no dispositivo";
-"reading-list-keep-subtitle" = "Existem artigos sincronizados na sua conta da Wikipédia. Deseja mantê-los neste dispositivo depois de sair?";
+"reading-list-keep-subtitle" = "Existem artigos sincronizados na sua conta da Wikipédia. Deseja mantê-los neste dispositivo depois de terminar a sessão?";
 "reading-list-keep-sync-disabled-additional-subtitle" = "Desligar a sincronização removerá estes artigos da sua conta. Se os remover do seu dispositivo, eles não serão recuperáveis voltando a ligar a sincronização no futuro.";
 "reading-list-keep-sync-disabled-remove-article-button-title" = "Não, remover artigos do dispositivo e da minha conta da Wikipédia";
 "reading-list-keep-title" = "Manter os artigos guardados no dispositivo?";
@@ -855,10 +866,10 @@
 "reading-list-list-limit-exceeded-message" = "Esta lista de leitura e os artigos nela guardados não serão sincronizados. Para continuar a sincronização da lista reduza o número de listas para $1, por favor.";
 "reading-list-list-limit-exceeded-title" = "Excedeu o limite de {{PLURAL:$1|$1 lista de leitura|$1 listas de leitura}} por conta.";
 "reading-list-list-limit-reached" = "Atingiu o limite de $1 listas de leitura por conta";
-"reading-list-login-button-title" = "Entre para sincronizar os seus artigos guardados";
-"reading-list-login-or-create-account-button-title" = "Entrar ou criar conta";
-"reading-list-login-or-create-account-title" = "Entre para sincronizar os artigos guardados";
-"reading-list-login-subtitle" = "Entrar ou criar uma conta para permitir que os seus artigos guardados sejam sincronizados entre os dispositivos e gravados nas suas preferências de utilizador.";
+"reading-list-login-button-title" = "Inicie a sessão para sincronizar os seus artigos guardados";
+"reading-list-login-or-create-account-button-title" = "Iniciar sessão ou criar conta";
+"reading-list-login-or-create-account-title" = "Inicie a sessão para sincronizar os artigos guardados";
+"reading-list-login-subtitle" = "Inicie a sessão ou crie uma conta para permitir que os seus artigos guardados sejam sincronizados entre os dispositivos e guardados nas suas preferências do utilizador.";
 "reading-list-login-title" = "Sincronizar os seus artigos guardados?";
 "reading-list-name-user-created-annotation" = "_[criada pelo utilizador]";
 "reading-list-new-list-description-placeholder" = "descrição breve opcional";
@@ -881,7 +892,7 @@
 "reading-lists-article-not-synced" = "Não sincronizado";
 "reading-lists-article-not-synced-article-limit-exceeded" = "Limite de artigos excedido, não é possível sincronizar o artigo";
 "reading-lists-article-not-synced-list-limit-exceeded" = "Limite de listas excedido, não é possível sincronizar o artigo";
-"reading-lists-article-queued-to-be-downloaded" = "Artigo em fila para ser descarregado";
+"reading-lists-article-queued-to-be-downloaded" = "Artigo em fila para ser transferido";
 "reading-lists-article-save-to-disk-failed" = "Limite de dispositivos excedido; não é possível sincronizar o artigo";
 "reading-lists-article-save-to-disk-recovery-suggestion" = "Liberte espaço no seu dispositivo e tente novamente";
 "reading-lists-articles-not-synced-limit-exceeded" = "Alguns artigos não foram sincronizados, o limite foi excedido";
@@ -933,8 +944,8 @@
 "reverted-edit-title" = "Edição revertida";
 "saved-all-articles-title" = "Todos os artigos";
 "saved-default-reading-list-tag" = "Esta lista não pode ser eliminada";
-"saved-pages-image-download-error" = "Não foi possível descarregar as imagens desta página guardada.";
-"saved-pages-progress-syncing" = "Descarregamento do artigo em progresso...";
+"saved-pages-image-download-error" = "Não foi possível transferir as imagens desta página guardada.";
+"saved-pages-progress-syncing" = "Transferência do artigo em progresso...";
 "saved-reading-lists-title" = "Listas de leitura";
 "saved-search-default-text" = "Pesquisar nos artigos guardados";
 "saved-title" = "Guardados";
@@ -966,6 +977,7 @@
 "settings-language-bar" = "Mostrar línguas na pesquisa";
 "settings-languages-feed-customization" = "Pode gerir as línguas mostradas personalizando as configurações do seu feed Explorar.";
 "settings-my-languages" = "Línguas";
+"settings-new-article-tab-header-text" = "Tema do Novo Separador";
 "settings-notifications" = "Notificações imediatas";
 "settings-notifications-echo-failure-message" = "Ocorreu um erro na determinação das subscrições de notificações relacionadas com a sua conta.";
 "settings-notifications-echo-failure-title" = "Não foi possível determinar as subscrições de notificações Echo";
@@ -1015,6 +1027,8 @@
 "table-of-contents-heading" = "Índice";
 "table-of-contents-hide-button-label" = "Ocultar índice";
 "table-of-contents-subheading-label" = "Subtítulo $1";
+"tabs-title" = "Separadores";
+"tabs-title-preferences" = "Preferências dos separadores";
 "tachelhit-variants-alert-body" = "A aplicação da Wikipédia admite agora as seguintes variantes da língua tachelhit como línguas principais ou secundárias dentro da aplicação, simplificando a leitura, pesquisa e edição nas suas variantes preferidas:\n\nⵜⴰⵛⵍⵃⵉⵜ - Tachelhit tifinagh (shi-tfng)\nTaclḥit - Tachelhit latino (shi-latn)";
 "tachelhit-variants-alert-title" = "Atualizações ao suporte de variantes do tachelhit";
 "tajik-variants-alert-body" = "A aplicação da Wikipédia admite agora as seguintes variantes da língua tajique como línguas principais ou secundárias dentro da aplicação, simplificando a leitura, pesquisa e edição nas suas variantes preferidas:\n\nтоҷикӣ кирилликӣ - Tajique cirílico (tg-cyrl)\ntojikī lotinī - Tajique latino (tg-latn)";
@@ -1105,9 +1119,9 @@
 "top-read-widget-title" = "Mais lidos";
 "try-now-title" = "Experimentar agora";
 "tutorial-title" = "Tutorial";
-"two-factor-login-continue" = "Continuar o início de sessão";
+"two-factor-login-continue" = "Continuar a iniciar a sessão";
 "two-factor-login-instructions" = "Escreva o código de verificação de dois fatores";
-"two-factor-login-title" = "Entrar na sua conta";
+"two-factor-login-title" = "Inicie a sessão na sua conta";
 "two-factor-login-with-backup-code" = "Usar um dos seus códigos de uso único";
 "two-factor-login-with-regular-code" = "Usar código de verificação";
 "unable-to-load-talk-page-title" = "Não foi possível carregar a página de discussão";
@@ -1223,6 +1237,6 @@
 "wikitext-upload-save" = "A publicar...";
 "wikitext-upload-save-anonymously-or-login" = "As suas edições serão atribuídas ao endereço IP do seu dispositivo. Se $1iniciar uma sessão$2, terá mais privacidade.";
 "wikitext-upload-save-anonymously-warning" = "As suas edições serão atribuídas ao endereço IP do seu dispositivo. Se $1, terá mais privacidade.";
-"wikitext-upload-save-sign-in" = "Entrar";
+"wikitext-upload-save-sign-in" = "Iniciar sessão";
 "wikitext-upload-save-terms-and-licenses-ccsa4" = "Ao publicar as alterações, concorda com as $1Condições de Utilização$2 e concorda irrevogavelmente em publicar o seu contributo com a licença $3CC BY-SA 4.0$4 e a $5GFDL$6. Concorda que uma hiperligação ou um URL são forma suficiente de atribuição ao abrigo da licença Creative Commons.";
 "wikitext-upload-save-terms-name" = "Condições de utilização";
