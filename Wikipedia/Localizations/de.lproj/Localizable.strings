@@ -30,6 +30,7 @@
 // Author: Nemo bis
 // Author: Nortix
 // Author: Purodha
+// Author: Russianbabe1978
 // Author: TheRabbit22
 // Author: ThisCarthing
 // Author: TomatoCake
@@ -152,6 +153,7 @@
 "article-share" = "Teilen";
 "article-tabs-button-accessibility-hint" = "Navigiert zur Übersicht der Registerkarten";
 "article-tabs-button-accessibility-label" = "Artikelregister";
+"article-tabs-did-you-know-title" = "Wusstest du";
 "article-tabs-feature-announcement-item-1-subtitle" = "Öffne mehrere Artikel und wechsle problemlos zwischen ihnen.";
 "article-tabs-feature-announcement-item-1-title" = "Mit Tabs browsen";
 "article-tabs-feature-announcement-item-2-subtitle" = "Tabs merken sich deine Scrollposition automatisch.";
@@ -161,6 +163,7 @@
 "article-tabs-feature-announcement-item-4-subtitle" = "Wähle Fun Facts oder lese Vorschläge, wenn du einen neuen Tab öffnest.";
 "article-tabs-feature-announcement-item-4-title" = "Personalisiere deinen neuen Tab";
 "article-tabs-feature-announcement-sub-cta" = "Mehr über Tabs erfahren";
+"article-tabs-feature-announcement-title" = "Einführung von Tabs";
 "article-tabs-navigation" = "Tabnavigation";
 "article-tabs-open-background-tab" = "Im Hintergrund-Tab öffnen";
 "article-tabs-open-new-tab" = "In neuem Tab öffnen";
@@ -236,6 +239,7 @@
 "description-welcome-descriptions-title" = "Artikelbeschreibungen";
 "description-welcome-promise-title" = "Mit dem Anfangen verspreche ich, diese Funktion nicht zu missbrauchen.";
 "description-welcome-start-editing-button" = "Jetzt bearbeiten";
+"did-you-know" = "Wusstest du";
 "diff-article-revision-history" = "Versionsgeschichte";
 "diff-compare-header-from-info-heading" = "Vorherige Bearbeitung";
 "diff-compare-header-heading" = "Versionen vergleichen";
@@ -617,6 +621,9 @@
 "nearby-distance-label-km" = "$1 km";
 "nearby-distance-label-meters" = "$1 Meter";
 "nearby-distance-label-miles" = "$1 Meilen";
+"new-article-tab-from-wikipedia-default" = "aus Wikipedia";
+"new-article-tab-settings-did-you-know" = "Wussten Sie?";
+"new-article-tab-settings-recommendations" = "Empfehlungen";
 "new-password-instructions" = "Du hast dich mit einem temporären Passwort angemeldet. Um die Anmeldung abzuschließen, lege hier ein neues Passwort fest.";
 "new-password-title" = "Passwort festlegen";
 "new-tab" = "Neuer Tab";
@@ -958,6 +965,7 @@
 "settings-language-bar" = "Sprachen in der Suche anzeigen";
 "settings-languages-feed-customization" = "Du kannst bestimmen, welche Sprachen auf deinem Entdecken-Feed angezeigt werden, indem du die Einstellungen für deinen Entdecken-Feed anpasst.";
 "settings-my-languages" = "Meine Sprachen";
+"settings-new-article-tab-header-text" = "Neues Tab-Design";
 "settings-notifications" = "Push-Benachrichtigungen";
 "settings-notifications-echo-failure-try-again" = "Erneut versuchen";
 "settings-notifications-info" = "Werde über beliebte Artikel auf Wikipedia benachrichtigt mit unseren Push-Benachrichtigungen. Alles wird hinsichtlich des Datenschutzes und bis zu den Minutendaten zur Verfügung gestellt.";
@@ -1004,6 +1012,8 @@
 "table-of-contents-close-accessibility-label" = "Inhaltsverzeichnis schließen";
 "table-of-contents-heading" = "Inhalte";
 "table-of-contents-hide-button-label" = "Inhaltsverzeichnis ausblenden";
+"tabs-title" = "Tabs";
+"tabs-title-preferences" = "Registerkarteneinstellungen";
 "talk-page-add-topic-button" = "Thema hinzufügen";
 "talk-page-archives" = "Archive";
 "talk-page-article-about" = "Über Diskussionsseiten";

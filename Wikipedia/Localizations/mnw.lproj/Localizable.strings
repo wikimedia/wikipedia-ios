@@ -446,7 +446,7 @@
 "notifications-center-filters-read-status-item-title-read" = "ဗှ်တုဲ";
 "notifications-center-filters-read-status-item-title-unread" = "ဟွံဂွံဗှ်ဏီ";
 "notifications-center-status-read" = "ဗှ်တုဲ";
-"notifications-center-type-item-description-notice" = "ဂဗံက်လလောၚ်";
+"notifications-center-type-item-description-notice" = "ဂတဵုလလောင်";
 "number-billions" = "$1B";
 "number-millions" = "$1M";
 "number-thousands" = "$1လ္ၚီ";
@@ -491,7 +491,7 @@
 "places-enable-location-description" = "Access to your location is available only when the app or one of its features is visible on your screen.";
 "places-enable-location-title" = "နကဵု အရီုအဗင် အရာမလုပ်စိုပ် ဒၞာဲဒတန်ဟေင် ဂၠာဲသ္ၚေဝ် လိက်ပရေင် ဗဒဲါ ဒၞာဲဒတန်ဒၞာဲ မၞး ဂွံမာန်ရ၊၊";
 "places-filter-articles-action-sheet-title" = "ဖဍိုဟ် လိက်ပရေင်";
-"places-filter-button-title" = "ဖဍိုဟ်";
+"places-filter-button-title" = "ခဍိုဟ်";
 "places-filter-no-saved-places" = "မၞး မဂိုင်သိပ်လဝ် ဒၞာဲ မွဲမွဲ ဟွံမွဲ";
 "places-filter-saved-articles" = "ဂိုင်သိပ် လိက်ပရေင်";
 "places-filter-top-articles" = "လိက် မၞိဟ်မဗှ်ဂၠိုင်";

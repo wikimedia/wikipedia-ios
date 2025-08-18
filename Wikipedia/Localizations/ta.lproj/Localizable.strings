@@ -62,6 +62,7 @@
 "article-languages-others" = "மற்ற மொழிகளில்";
 "article-languages-yours" = "தங்களது மொழி";
 "article-share" = "பகிர்க";
+"article-tabs-did-you-know-title" = "உங்களுக்குத் தெரியுமா";
 "back-button-accessibility-label" = "பின்னே";
 "button-next" = "அடுத்தது";
 "button-ok" = "சரி";
@@ -78,6 +79,7 @@
 "continue-reading-empty-title" = "அண்மையில் படித்த கட்டுரைகள் ஏதுமில்லை";
 "description-edit-length-warning" = "$2 இல் $1";
 "description-help-about-title" = "நிரலைப் பற்றி";
+"did-you-know" = "உங்களுக்கு தெரியுமா";
 "dim-images" = "படங்களை மந்தப்படுத்து";
 "edit-summary-choice-fixed-grammar" = "நிலையான இலக்கணம்";
 "edit-summary-choice-fixed-typos" = "தட்டுப்பிழைத்திருத்தம்";
@@ -170,6 +172,7 @@
 "nearby-distance-label-km" = "$1 கி.மீ.";
 "nearby-distance-label-meters" = "$1 மீ";
 "nearby-distance-label-miles" = "$1 மைல்கள்";
+"new-article-tab-settings-recommendations" = "பரிந்துரைகள்";
 "new-password-instructions" = "நீங்கள் தற்காலிகமாக மின்னஞ்சல் செய்யப்பட்ட குறியீடுடன் புகுபதிந்துள்ளீர்.\nபுகுபதிவை நிறைவு செய்ய, புதிய கடவுச்சொல்லை இங்கு உருவாக்குங்கள்:";
 "new-password-title" = "உங்கள் கடவுச்சொல்லை அமைக்கவும்";
 "notifications-center-subheader-email-from-other-user" = "புது மின்னஞ்சல்";

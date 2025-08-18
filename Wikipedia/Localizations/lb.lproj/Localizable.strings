@@ -449,6 +449,7 @@
 "image-rec-add-image-title" = "Dëst Bild derbäisetzen?";
 "image-rec-empty-title" = "Fir de Moment hu mir keng weider Billervirschléi fir Iech.";
 "image-rec-error-subtitle" = "Et ass eppes schif gaangen.";
+"image-rec-error-title" = "Säit konnt net geluede ginn";
 "image-rec-onboarding-item-1-body" = "Decidéiert, ob ee virgeschloent Bild an ee Wikipediaartikel derbäigesat soll ginn.";
 "image-rec-onboarding-item-1-title" = "E Virschlag weisen";
 "image-rec-onboarding-item-2-body" = "D'Virschléi si maschinnegeneréiert an et ass un Iech fir mat Ärem Urteelsverméigen ze decidéieren, ob Dir se akzeptéiert oder ofleent.";
@@ -549,7 +550,6 @@
 "nearby-distance-label-km" = "$1 km";
 "nearby-distance-label-meters" = "$1 Meter";
 "nearby-distance-label-miles" = "$1 Meilen";
-"new-article-tab-from-language-wikipedia" = "vun der Wikipedia op $1";
 "new-article-tab-from-wikipedia-default" = "vu Wikipedia";
 "new-article-tab-settings-did-you-know" = "Wousst Dir schonn?";
 "new-article-tab-settings-recommendations" = "Recommandatiounen";
