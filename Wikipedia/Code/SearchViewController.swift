@@ -125,7 +125,11 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        embedRecentSearches()
+        if needsAttachedView {
+            embedNewTab()
+        } else {
+            embedRecentSearches()
+        }
         embedResultsViewController()
     }
 
@@ -553,7 +557,13 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
     }
 
     private lazy var recentSearchesViewController: UIViewController = {
-        let root = WMFRecentlySearchedView(viewModel: recentSearchesViewModel, linkDelegate: self)
+        let root = WMFRecentlySearchedView(viewModel: recentSearchesViewModel)
+        let host = UIHostingController(rootView: root)
+        return host
+    }()
+
+    private lazy var newTabViewController: UIViewController = {
+        let root = WMFNewTabSearchView(viewModel: recentSearchesViewModel, linkDelegate: self)
         let host = UIHostingController(rootView: root)
         return host
     }()
@@ -692,6 +702,21 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
         ])
 
         recentSearchesViewController.didMove(toParent: self)
+    }
+
+    private func embedNewTab() {
+        addChild(newTabViewController)
+        view.addSubview(newTabViewController.view)
+        newTabViewController.view.translatesAutoresizingMaskIntoConstraints = false
+
+        NSLayoutConstraint.activate([
+            newTabViewController.view.topAnchor.constraint(equalTo: view.topAnchor),
+            newTabViewController.view.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            newTabViewController.view.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            newTabViewController.view.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        ])
+
+        newTabViewController.didMove(toParent: self)
     }
 
     private func reloadRecentSearches() {
