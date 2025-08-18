@@ -55,8 +55,8 @@ public struct WMFYearInReviewSlideStandardViewContent: View {
         horizontalSizeClass == .regular ? 64 : 32
     }
     
-    private var subtitleStyles: HtmlUtils.Styles {
-        return HtmlUtils.Styles(font: WMFFont.for(.title3), boldFont: WMFFont.for(.title3), italicsFont: WMFFont.for(.title3), boldItalicsFont: WMFFont.for(.title3), color: theme.text, linkColor: theme.link, lineSpacing: 3)
+    private func subtitleAttributedString(subtitle: String) -> AttributedString {
+        return (try? AttributedString(markdown: subtitle)) ?? AttributedString(subtitle)
     }
     
     public var body: some View {
@@ -97,8 +97,11 @@ public struct WMFYearInReviewSlideStandardViewContent: View {
                     }
                 }
                 
-                WMFHtmlText(html: viewModel.subtitle, styles: subtitleStyles)
-                        .frame(maxWidth: .infinity, alignment: .topLeading)
+                Text(subtitleAttributedString(subtitle: viewModel.subtitle))
+                    .font(Font(WMFFont.for(.title3)))
+                    .foregroundStyle(Color(uiColor: theme.text))
+                    .accentColor(Color(uiColor: theme.link))
+                    .frame(maxWidth: .infinity, alignment: .leading)
                 Spacer()
             }
             .padding(EdgeInsets(top: 0, leading: sizeClassPadding, bottom: 0, trailing: sizeClassPadding))
@@ -147,6 +150,9 @@ struct WMFYearInReviewSlideIntroView: View {
                 }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .onAppear {
+            viewModel.onAppear()
+        }
     }
 }
 

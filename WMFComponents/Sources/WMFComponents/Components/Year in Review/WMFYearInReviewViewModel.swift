@@ -165,7 +165,14 @@ public class WMFYearInReviewViewModel: ObservableObject {
         }
     }
     
-    @Published var currentSlideIndex = 0
+    @Published var currentSlideIndex = 0 {
+        didSet {
+            logSlideAppearance()
+            if currentSlideIndex == 1 {
+                hasSeenTwoSlides = true
+            }
+        }
+    }
     @Published var isShowingIntro: Bool = true
     
     public let localizedStrings: LocalizedStrings
@@ -294,8 +301,7 @@ public class WMFYearInReviewViewModel: ObservableObject {
                                 infoURL: aboutYiRURL,
                                 forceHideDonateButton: false,
                                 loggingID: "read_count_custom",
-                                tappedInfo: tappedInfo,
-                                onAppear: onSlideAppear
+                                tappedInfo: tappedInfo
                             )
                         }
                     }
@@ -312,8 +318,7 @@ public class WMFYearInReviewViewModel: ObservableObject {
                                 infoURL: aboutYiRURL,
                                 forceHideDonateButton: false,
                                 loggingID: "edit_count_custom",
-                                tappedInfo: tappedInfo,
-                                onAppear: onSlideAppear
+                                tappedInfo: tappedInfo
                             )
                         }
                     }
@@ -332,8 +337,7 @@ public class WMFYearInReviewViewModel: ObservableObject {
                                 forceHideDonateButton: true,
                                 loggingID: "thank_custom",
                                 tappedLearnMore: tappedLearnMore(url:),
-                                tappedInfo: tappedInfo,
-                                onAppear: onSlideAppear
+                                tappedInfo: tappedInfo
                             )
                         }
                     }
@@ -353,8 +357,7 @@ public class WMFYearInReviewViewModel: ObservableObject {
                                 infoURL: aboutYiRURL,
                                 forceHideDonateButton: false,
                                 loggingID: "save_count_custom",
-                                tappedInfo: tappedInfo,
-                                onAppear: onSlideAppear
+                                tappedInfo: tappedInfo
                             )
                         }
                     }
@@ -372,8 +375,7 @@ public class WMFYearInReviewViewModel: ObservableObject {
                                 infoURL: aboutYiRURL,
                                 forceHideDonateButton: false,
                                 loggingID: "read_day_custom",
-                                tappedInfo: tappedInfo,
-                                onAppear: onSlideAppear
+                                tappedInfo: tappedInfo
                             )
                         }
                     }
@@ -391,8 +393,7 @@ public class WMFYearInReviewViewModel: ObservableObject {
                                 infoURL: aboutYiRURL,
                                 forceHideDonateButton: false,
                                 loggingID: "edit_view_count_custom",
-                                tappedInfo: tappedInfo,
-                                onAppear: onSlideAppear
+                                tappedInfo: tappedInfo
                             )
                         }
                     }
@@ -414,8 +415,7 @@ public class WMFYearInReviewViewModel: ObservableObject {
             infoURL: aboutYiRURL,
             forceHideDonateButton: false,
             loggingID: "en_read_hours_base",
-            tappedInfo: tappedInfo,
-            onAppear: onSlideAppear
+            tappedInfo: tappedInfo
         )
     }
     
@@ -428,8 +428,7 @@ public class WMFYearInReviewViewModel: ObservableObject {
             infoURL: aboutYiRURL,
             forceHideDonateButton: false,
             loggingID: "en_most_visit_base",
-            tappedInfo: tappedInfo,
-            onAppear: onSlideAppear
+            tappedInfo: tappedInfo
         )
     }
     
@@ -442,8 +441,7 @@ public class WMFYearInReviewViewModel: ObservableObject {
             infoURL: aboutYiRURL,
             forceHideDonateButton: false,
             loggingID: "en_list_count_base",
-            tappedInfo: tappedInfo,
-            onAppear: onSlideAppear
+            tappedInfo: tappedInfo
         )
     }
     
@@ -456,8 +454,7 @@ public class WMFYearInReviewViewModel: ObservableObject {
             infoURL: aboutYiRURL,
             forceHideDonateButton: false,
             loggingID: "en_edit_count_base",
-            tappedInfo: tappedInfo,
-            onAppear: onSlideAppear
+            tappedInfo: tappedInfo
         )
     }
     
@@ -470,8 +467,7 @@ public class WMFYearInReviewViewModel: ObservableObject {
             infoURL: aboutYiRURL,
             forceHideDonateButton: false,
             loggingID: "en_byte_base",
-            tappedInfo: tappedInfo,
-            onAppear: onSlideAppear
+            tappedInfo: tappedInfo
         )
     }
     
@@ -486,8 +482,7 @@ public class WMFYearInReviewViewModel: ObservableObject {
             infoURL: aboutYiRURL,
             forceHideDonateButton: false,
             loggingID: "read_count_base",
-            tappedInfo: tappedInfo,
-            onAppear: onSlideAppear
+            tappedInfo: tappedInfo
         )
     }
     
@@ -500,8 +495,7 @@ public class WMFYearInReviewViewModel: ObservableObject {
             infoURL: aboutYiRURL,
             forceHideDonateButton: false,
             loggingID: "read_view_base",
-            tappedInfo: tappedInfo,
-            onAppear: onSlideAppear
+            tappedInfo: tappedInfo
         )
     }
 
@@ -514,8 +508,7 @@ public class WMFYearInReviewViewModel: ObservableObject {
             infoURL: aboutYiRURL,
             forceHideDonateButton: false,
             loggingID: "list_count_base",
-            tappedInfo: tappedInfo,
-            onAppear: onSlideAppear
+            tappedInfo: tappedInfo
         )
     }
 
@@ -528,8 +521,7 @@ public class WMFYearInReviewViewModel: ObservableObject {
             infoURL: aboutYiRURL,
             forceHideDonateButton: false,
             loggingID: "edit_count_base",
-            tappedInfo: tappedInfo,
-            onAppear: onSlideAppear
+            tappedInfo: tappedInfo
         )
     }
     
@@ -542,8 +534,7 @@ public class WMFYearInReviewViewModel: ObservableObject {
             infoURL: aboutYiRURL,
             forceHideDonateButton: false,
             loggingID: "edit_rate_base",
-            tappedInfo: tappedInfo,
-            onAppear: onSlideAppear
+            tappedInfo: tappedInfo
         )
     }
 
@@ -557,8 +548,7 @@ public class WMFYearInReviewViewModel: ObservableObject {
             forceHideDonateButton: false,
             loggingID: "ads_served_base",
             tappedLearnMore: tappedLearnMore(url:),
-            tappedInfo: tappedInfo,
-            onAppear: onSlideAppear
+            tappedInfo: tappedInfo
         )
     }
     
@@ -567,23 +557,22 @@ public class WMFYearInReviewViewModel: ObservableObject {
     }
     
     public func tappedGetStarted() {
+        loggingDelegate?.logYearInReviewIntroDidTapContinue()
         isShowingIntro = false
+        logSlideAppearance() // Manually logs appearance of first slide (currentSlideIndex is already set to 0)
     }
     
     private func incrementSlideIndex() {
         currentSlideIndex = (currentSlideIndex + 1) % slides.count
-        if currentSlideIndex == 1 {
-            hasSeenTwoSlides = true
-        }
     }
     
     public func tappedNext() {
+        logYearInReviewSlideDidTapNext()
         if isLastSlide {
             coordinatorDelegate?.handleYearInReviewAction(.dismiss(hasSeenTwoSlides: true))
         } else {
             incrementSlideIndex()
         }
-        logYearInReviewSlideDidTapNext()
     }
 
     func tappedShare() {
@@ -695,7 +684,7 @@ public class WMFYearInReviewViewModel: ObservableObject {
         }
     }
     
-    public func onSlideAppear() {
+    public func logSlideAppearance() {
         logYearInReviewSlideDidAppear()
     }
 
@@ -743,9 +732,8 @@ public struct WMFYearInReviewSlideStandardViewModel {
     public let loggingID: String
     public let tappedLearnMore: ((URL) -> Void)?
     public let tappedInfo: () -> Void
-    public let onAppear: () -> Void
     
-    public init(gifName: String, altText: String, title: String, subtitle: String, infoURL: URL?, forceHideDonateButton: Bool, loggingID: String, tappedLearnMore: ((URL) -> Void)? = nil, tappedInfo: @escaping () -> Void, onAppear: @escaping () -> Void) {
+    public init(gifName: String, altText: String, title: String, subtitle: String, infoURL: URL?, forceHideDonateButton: Bool, loggingID: String, tappedLearnMore: ((URL) -> Void)? = nil, tappedInfo: @escaping () -> Void) {
         self.gifName = gifName
         self.altText = altText
         self.title = title
@@ -755,7 +743,6 @@ public struct WMFYearInReviewSlideStandardViewModel {
         self.loggingID = loggingID
         self.tappedLearnMore = tappedLearnMore
         self.tappedInfo = tappedInfo
-        self.onAppear = onAppear
     }
 }
 
