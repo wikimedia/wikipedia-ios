@@ -16,10 +16,12 @@ public class WMFArticleTabsHostingController<HostedView: View>: WMFComponentHost
     
     private let viewModel: WMFArticleTabsViewModel
     private let doneButtonText: String
+    private let articleTabsCount: Int
     
-    public init(rootView: HostedView, viewModel: WMFArticleTabsViewModel, doneButtonText: String) {
+    public init(rootView: HostedView, viewModel: WMFArticleTabsViewModel, doneButtonText: String, articleTabsCount: Int) {
         self.viewModel = viewModel
         self.doneButtonText = doneButtonText
+        self.articleTabsCount = articleTabsCount
         super.init(rootView: rootView)
         
         // Defining format outside the block fixes a retain cycle on WMFArticleTabsViewModel
@@ -93,6 +95,9 @@ public class WMFArticleTabsHostingController<HostedView: View>: WMFComponentHost
             self?.closeAllTabs()
         })
         
+        if articleTabsCount == 1 {
+            return UIMenu(title: String(), children: [tabsPreferences])
+        }
         let children: [UIMenuElement] = [tabsPreferences, closeAllTabs]
         let mainMenu = UIMenu(title: String(), children: children)
 

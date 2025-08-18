@@ -15,7 +15,7 @@ public protocol WMFArticleTabsDataControlling {
 }
 
 @objc public class WMFArticleTabsDataController: NSObject, WMFArticleTabsDataControlling {
-
+    
     // MARK: - Nested Public Types
     
     public enum CustomError: Error {
@@ -85,24 +85,24 @@ public protocol WMFArticleTabsDataControlling {
             self.tabItemIdentifier = tabItemIdentifier
         }
     }
-
+    
     public enum MoreDynamicTabsExperimentAssignment {
         case control
         case becauseYouRead
         case didYouKnow
     }
-
+    
     // MARK: Nested internal types
-
+    
     struct OnboardingStatus: Codable {
         var hasPresentedOnboardingTooltips: Bool
         var hasPresentedOnboardingTabs: Bool
-
+        
         static var `default`: OnboardingStatus {
             return OnboardingStatus(hasPresentedOnboardingTooltips: false, hasPresentedOnboardingTabs: false)
         }
     }
-
+    
     // MARK: - Properties
     
     @objc(sharedInstance)
@@ -113,9 +113,9 @@ public protocol WMFArticleTabsDataControlling {
     
     private let experimentsDataController: WMFExperimentsDataController?
     private var assignmentCache: MoreDynamicTabsExperimentAssignment?
-
+    
     private let moreDynamicTabsExperimentPercentage: Int = 33
-
+    
     // This setup allows us to try instantiation multiple times in case the first attempt fails (like for example, if coreDataStore is not available yet).
     private var _backgroundContext: NSManagedObjectContext?
     public var backgroundContext: NSManagedObjectContext? {
@@ -148,27 +148,27 @@ public protocol WMFArticleTabsDataControlling {
             self.experimentsDataController = nil
         }
     }
-
+    
     // MARK: - Experiment
-
-
+    
+    
     public func shouldAssignToBucket() -> Bool {
         return experimentsDataController?.bucketForExperiment(.moreDynamicTabs) == nil
     }
-
+    
     public var shouldShowMoreDynamicTabs: Bool {
         guard !developerSettingsDataController.enableMoreDynamicTabsDYK else {
             return true
         }
-
+        
         guard !developerSettingsDataController.enableMoreDynamicTabsBYR else {
             return true
         }
-
+        
         guard let assignment = try? getMoreDynamicTabsExperimentAssignment() else {
             return false
         }
-
+        
         switch assignment {
         case .becauseYouRead, .didYouKnow:
             return true
@@ -176,11 +176,11 @@ public protocol WMFArticleTabsDataControlling {
             return false
         }
     }
-
+    
     @objc public var needsMoreDynamicTabs: Bool {
         return shouldShowMoreDynamicTabs
     }
-
+    
     // MARK: Experiment
     
     private var primaryAppLanguageProject: WMFProject? {
@@ -190,7 +190,7 @@ public protocol WMFArticleTabsDataControlling {
         
         return nil
     }
-
+    
     private var isBeforeAssignmentEndDate: Bool {
         var dateComponents = DateComponents()
         dateComponents.year = 2025
@@ -202,35 +202,35 @@ public protocol WMFArticleTabsDataControlling {
         
         return endDate >= Date()
     }
-
+    
     public func qualifiesForExperiment() -> Bool {
         guard let primaryAppLanguageProject else {
             return false
         }
-
+        
         return Locale.current.qualifiesForExperiment && primaryAppLanguageProject.qualifiesForExperiment
     }
-
+    
     public func getMoreDynamicTabsExperimentAssignment() throws -> MoreDynamicTabsExperimentAssignment {
         guard qualifiesForExperiment() else {
             throw CustomError.doesNotQualifyForExperiment
         }
-
+        
         guard let experimentsDataController else {
             throw CustomError.missingExperimentsDataController
         }
-
+        
         if let assignmentCache {
             return assignmentCache
         }
-
+        
         guard let bucketValue = experimentsDataController.bucketForExperiment(.moreDynamicTabs) else {
             throw CustomError.missingAssignment
         }
-
+        
         let assignment: MoreDynamicTabsExperimentAssignment
         switch bucketValue {
-
+            
         case .moreDynamicTabsControl:
             assignment = .control
         case .moreDynamicTabsBecauseYouRead:
@@ -240,28 +240,28 @@ public protocol WMFArticleTabsDataControlling {
         default:
             throw CustomError.unexpectedAssignment
         }
-
+        
         self.assignmentCache = assignment
         return assignment
     }
-
+    
     public func assignExperiment() throws -> MoreDynamicTabsExperimentAssignment {
         guard qualifiesForExperiment() else {
             throw CustomError.doesNotQualifyForExperiment
         }
-
+        
         guard isBeforeAssignmentEndDate else {
             throw CustomError.pastAssignmentEndDate
         }
-
+        
         guard let experimentsDataController else {
             throw CustomError.missingExperimentsDataController
         }
-
+        
         let bucketValue = try experimentsDataController.determineBucketForExperiment(.moreDynamicTabs, withPercentage: moreDynamicTabsExperimentPercentage)
-
+        
         let assignment: MoreDynamicTabsExperimentAssignment
-
+        
         switch bucketValue {
         case .moreDynamicTabsControl:
             assignment = .control
@@ -272,19 +272,19 @@ public protocol WMFArticleTabsDataControlling {
         default:
             throw CustomError.unexpectedAssignment
         }
-
+        
         self.assignmentCache = assignment
         return assignment
     }
-
+    
     // MARK: Onboarding
-
+    
     internal var onboardingStatus: OnboardingStatus {
         get {
             return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.articleTabsOnboarding.rawValue)) ?? OnboardingStatus.default
         }
     }
-
+    
     public var hasPresentedTooltips: Bool {
         get {
             return onboardingStatus.hasPresentedOnboardingTooltips
@@ -330,7 +330,7 @@ public protocol WMFArticleTabsDataControlling {
     public var tabsMax: Int {
         return developerSettingsDataController.forceMaxArticleTabsTo5 ? 5 : 500
     }
-
+    
     public func createArticleTab(initialArticle: WMFArticle?, setAsCurrent: Bool = false) async throws -> Identifiers {
         
         guard let coreDataStore else {
@@ -402,14 +402,13 @@ public protocol WMFArticleTabsDataControlling {
         
         try await moc.perform { [weak self] in
             guard let self else { throw CustomError.missingSelf }
-
+            
             try self.deleteArticleTab(identifier: identifier, moc: moc)
             try coreDataStore.saveIfNeeded(moc: moc)
         }
     }
     
-    public func deleteAllTabs() async throws {
-        
+    public func deleteAllTabsExceptCurrent() async throws {
         guard let coreDataStore else {
             throw WMFDataControllerError.coreDataStoreUnavailable
         }
@@ -420,14 +419,50 @@ public protocol WMFArticleTabsDataControlling {
         
         try await moc.perform { [weak self] in
             guard let self else { throw CustomError.missingSelf }
-            Task {
-                try await self.deleteAllTabs(moc: moc)
+            
+            let currentPredicate = NSPredicate(format: "isCurrent == YES")
+            guard let currentTab = try coreDataStore.fetch(
+                entityType: CDArticleTab.self,
+                predicate: currentPredicate,
+                fetchLimit: 1,
+                in: moc
+            )?.first else {
+                throw CustomError.missingTab
+            }
+            
+            let allTabs = try coreDataStore.fetch(
+                entityType: CDArticleTab.self,
+                predicate: nil,
+                fetchLimit: nil,
+                in: moc
+            ) ?? []
+            
+            for tab in allTabs {
+                if tab != currentTab {
+                    if let items = tab.items {
+                        let safeItems = items.compactMap { $0 as? CDArticleTabItem }
+                        for item in safeItems {
+                            item.tab = nil
+                            moc.delete(item)
+                        }
+                    }
+                    
+                    moc.delete(tab)
+                    
+                    if let tabIdentifier = tab.identifier {
+                        NotificationCenter.default.post(
+                            name: WMFNSNotification.articleTabDeleted,
+                            object: nil,
+                            userInfo: [WMFNSNotification.UserInfoKey.articleTabIdentifier: tabIdentifier]
+                        )
+                    }
+                }
             }
             try coreDataStore.saveIfNeeded(moc: moc)
         }
     }
     
-   public var moreDynamicTabsBYRIsEnabled: Bool {
+    public var moreDynamicTabsBYRIsEnabled: Bool {
         get {
             return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsMoreDynamicTabsBYR.rawValue)) ?? true
         } set {
@@ -436,12 +471,12 @@ public protocol WMFArticleTabsDataControlling {
     }
     
     public var moreDynamicTabsDYKIsEnabled: Bool {
-         get {
-             return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsMoreDynamicTabsDYK.rawValue)) ?? true
-         } set {
-             try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsMoreDynamicTabsDYK.rawValue, value: newValue)
-         }
-     }
+        get {
+            return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsMoreDynamicTabsDYK.rawValue)) ?? true
+        } set {
+            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsMoreDynamicTabsDYK.rawValue, value: newValue)
+        }
+    }
     
     public func appendArticle(_ article: WMFArticle, toTabIdentifier tabIdentifier: UUID, needsCleanoutOfFutureArticles: Bool = false) async throws -> Identifiers {
         
@@ -473,7 +508,7 @@ public protocol WMFArticleTabsDataControlling {
             if let currentItems = tab.items as? NSMutableOrderedSet {
                 let safeCurrentItems = currentItems.compactMap { $0 as? CDArticleTabItem }
                 for tabItem in safeCurrentItems {
-
+                    
                     if tabItem.isCurrent {
                         tabItem.isCurrent = false
                         newItems.append(tabItem)
@@ -548,11 +583,11 @@ public protocol WMFArticleTabsDataControlling {
             var adjacentArticle: Any?
             for (index, item) in items.enumerated() {
                 guard let articleItem = item as? CDArticleTabItem else { continue }
-
+                
                 if articleItem.isCurrent {
                     if isPrev,
-                        (index - 1) >= 0,
-                        items.count > index - 1 {
+                       (index - 1) >= 0,
+                       items.count > index - 1 {
                         adjacentArticle = items[index - 1]
                         break
                     } else if
@@ -579,7 +614,7 @@ public protocol WMFArticleTabsDataControlling {
         
         let result: WMFArticle? = try await moc.perform(block)
         return result
-            
+        
     }
     
     public func setTabItemAsCurrent(tabIdentifier: UUID, tabItemIdentifier: UUID) async throws {
@@ -664,7 +699,7 @@ public protocol WMFArticleTabsDataControlling {
         let now = Date()
         let calendar = Calendar.current
         let deadlineComponents = DateComponents(year: 2025, month: 7, day: 31)
-
+        
         guard let deadline = calendar.date(from: deadlineComponents),
               now <= deadline else {
             return false
@@ -673,7 +708,7 @@ public protocol WMFArticleTabsDataControlling {
         let seenCount: Int = (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.articleTabsOverviewOpenedCount.rawValue)) ?? 0
         let didTapLongPress = (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.articleTabsDidTapOpenInNewTab.rawValue)) ?? false
         let seenSurvey = (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.articleTabsDidShowSurvey.rawValue)) ?? false
-
+        
         if seenSurvey {
             return false
         }
@@ -939,34 +974,34 @@ public protocol WMFArticleTabsDataControlling {
         guard let coreDataStore else {
             throw WMFDataControllerError.coreDataStoreUnavailable
         }
-
+        
         guard let moc = backgroundContext else {
             throw CustomError.missingContext
         }
-
-       try await moc.perform { [weak self] in
+        
+        try await moc.perform { [weak self] in
             guard let self else { return }
             let currentPredicate = NSPredicate(format: "isCurrent == YES")
             guard let cdTab = try coreDataStore.fetch(entityType: CDArticleTab.self, predicate: currentPredicate, fetchLimit: 1, in: moc)?.first,
-            let tabIdentifier = cdTab.identifier,
-            let tabTimestamp = cdTab.timestamp else {
+                  let tabIdentifier = cdTab.identifier,
+                  let tabTimestamp = cdTab.timestamp else {
                 throw CustomError.missingTab
             }
             
             let cdItems = cdTab.items?.compactMap { $0 as? CDArticleTabItem }
-           let cdItem = cdItems?.first(where: { $0.isCurrent == true })
-           guard let cdItem,
-                let articleIdentifier = cdItem.identifier,
-                let page = cdItem.page,
-                let title = page.title,
-                let projectID = page.projectID,
-                 let project = WMFProject(coreDataIdentifier: projectID) else {
+            let cdItem = cdItems?.first(where: { $0.isCurrent == true })
+            guard let cdItem,
+                  let articleIdentifier = cdItem.identifier,
+                  let page = cdItem.page,
+                  let title = page.title,
+                  let projectID = page.projectID,
+                  let project = WMFProject(coreDataIdentifier: projectID) else {
                 throw CustomError.missingTabItem
             }
             
-           let tab = WMFArticleTab(identifier: tabIdentifier, timestamp: tabTimestamp, isCurrent: cdTab.isCurrent, articles: [WMFArticle(identifier: articleIdentifier, title: title, project: project)])
-           
-           try userDefaultsStore?.save(key: WMFUserDefaultsKey.articleTabRestoration.rawValue, value: tab)
+            let tab = WMFArticleTab(identifier: tabIdentifier, timestamp: tabTimestamp, isCurrent: cdTab.isCurrent, articles: [WMFArticle(identifier: articleIdentifier, title: title, project: project)])
+            
+            try userDefaultsStore?.save(key: WMFUserDefaultsKey.articleTabRestoration.rawValue, value: tab)
         }
     }
     

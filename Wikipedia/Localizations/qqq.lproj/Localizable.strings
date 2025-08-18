@@ -168,8 +168,8 @@
 "close-all-tabs" = "Action to close all open tabs.";
 "close-all-tabs-confirmation" = "Confirmation action to delete all tabs.";
 "close-all-tabs-confirmation-number" = "Confirmation message closing a number of tabs. $1 is the amount of tabs to be closed";
-"close-all-tabs-confirmation-subtitle" = "Subtitle of alert that asks user to confirm all tabs deletion. $1 represents the number of tabs.";
-"close-all-tabs-confirmation-title" = "Title of alert that asks user if they want to delete all tabs, $1 is representative of the number of tabs they have open.";
+"close-all-tabs-confirmation-subtitle" = "Subtitle of alert that asks user to confirm all tabs deletion.";
+"close-all-tabs-confirmation-title" = "Title of alert that asks user if they want to delete all tabs besides the current one.";
 "close-button-accessibility-label" = "Accessibility label for a button that closes a dialog. {{Identical|Close}}";
 "close-other-tabs" = "Action to close all tabs except the current one.";
 "close-tab-confirmation" = "Confirmation prompt to close a single tab.";
