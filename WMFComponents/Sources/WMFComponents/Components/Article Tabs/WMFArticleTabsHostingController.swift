@@ -92,7 +92,9 @@ public class WMFArticleTabsHostingController<HostedView: View>: WMFComponentHost
         })
         
         let closeAllTabs = UIAction(title: viewModel.localizedStrings.closeAllTabs, image: WMFSFSymbolIcon.for(symbol: .close), handler: { [weak self] _ in
-            self?.closeAllTabs()
+            Task {
+                await self?.presentCloseAllTabsConfirmationDialog()
+            }
         })
         
         if articleTabsCount == 1 {
@@ -111,10 +113,33 @@ public class WMFArticleTabsHostingController<HostedView: View>: WMFComponentHost
 
     deinit {
         NotificationCenter.default.removeObserver(self, name: UIApplication.userDidTakeScreenshotNotification, object: nil)
-
     }
-    
-    private func closeAllTabs() {
-        viewModel.closeAllTabs()
+
+    private func presentCloseAllTabsConfirmationDialog() async {
+        let button1Title = viewModel.localizedStrings.cancelActionTitle
+        let button2Title = viewModel.localizedStrings.closeAllTabs
+
+        let alert = UIAlertController(
+            title: viewModel.localizedStrings.closeAllTabsTitle,
+            message: viewModel.localizedStrings.closeAllTabsSubtitle,
+            preferredStyle: .alert
+        )
+        
+        let action1 = UIAlertAction(title: button1Title, style: .cancel) { [weak self] _ in
+            self?.viewModel.didTapAddTab()
+        }
+        
+        let action2 = UIAlertAction(title: button2Title, style: .destructive) { [weak self] _ in
+            guard let self else { return }
+            Task {
+                self.viewModel.didTapCloseAllTabs()
+                self.viewModel.displayDeleteAllTabsToast(self.articleTabsCount)
+                await self.viewModel.reloadTabs()
+            }
+        }
+        
+        alert.addAction(action1)
+        alert.addAction(action2)
+        present(alert, animated: true)
     }
 }

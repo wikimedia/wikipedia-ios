@@ -794,6 +794,13 @@ public protocol WMFArticleTabsDataControlling {
         }
         
         for tab in tabs {
+            guard let identifier = tab.identifier else { return }
+            NotificationCenter.default.post(
+                name: WMFNSNotification.articleTabDeleted,
+                object: nil,
+                userInfo: [WMFNSNotification.UserInfoKey.articleTabIdentifier: identifier]
+            )
+            
             if let items = tab.items {
                 let safeItems = items.compactMap { $0 as? CDArticleTabItem }
                 for item in safeItems {
@@ -806,12 +813,6 @@ public protocol WMFArticleTabsDataControlling {
         }
         
         _ = try? await self.createArticleTab(initialArticle: nil, setAsCurrent: true)
-        
-        NotificationCenter.default.post(
-            name: WMFNSNotification.articleTabDeleted,
-            object: nil,
-            userInfo: nil
-        )
     }
     
     public func currentTabIdentifier() async throws -> UUID {

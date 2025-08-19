@@ -166,7 +166,7 @@
 "clearing-cache-complete" = "Clearing cache complete.";
 "clearing-cache-in-progress" = "Clearing cache in progress.";
 "close-all-tabs" = "Close all tabs";
-"close-all-tabs-confirmation" = "Close tabs";
+"close-all-tabs-confirmation" = "Do you want to close all $1 tabs? This action can’t be undone.";
 "close-all-tabs-confirmation-number" = "Close all $1 tabs?";
 "close-all-tabs-confirmation-subtitle-with-value" = "Do you want to close all {{PLURAL:$1|$1 tab|$1 tabs}}? This action can’t be undone.";
 "close-all-tabs-confirmation-title-with-value" = "Close all {{PLURAL:$1|$1 tab|$1 tabs}}?";

@@ -166,7 +166,7 @@
 "clearing-cache-complete" = "Title of banner that appears after clearing cache completes. Clearing cache is a button triggered by the user in Settings.";
 "clearing-cache-in-progress" = "Title of banner that appears when a user taps clear cache button in Settings. Informs the user that clearing of cache is in progress.";
 "close-all-tabs" = "Action to close all open tabs.";
-"close-all-tabs-confirmation" = "Confirmation action to delete all tabs.";
+"close-all-tabs-confirmation" = "Confirmation message for closing a variable number of tabs. $1 is the amount of tabs currently open.";
 "close-all-tabs-confirmation-number" = "Confirmation message closing a number of tabs. $1 is the amount of tabs to be closed";
 "close-all-tabs-confirmation-subtitle-with-value" = "Subtitle of alert that asks user to confirm all tabs deletion. $1 represents the number of tabs.";
 "close-all-tabs-confirmation-title-with-value" = "Title of alert that asks user if they want to delete all tabs, $1 is representative of the number of tabs they have open.";
