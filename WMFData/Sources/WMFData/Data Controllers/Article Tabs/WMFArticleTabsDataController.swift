@@ -427,60 +427,6 @@ public protocol WMFArticleTabsDataControlling {
         }
     }
     
-    public func deleteAllTabsExceptCurrent() async throws {
-        guard let coreDataStore else {
-            throw WMFDataControllerError.coreDataStoreUnavailable
-        }
-        
-        guard let moc = backgroundContext else {
-            throw CustomError.missingContext
-        }
-        
-        try await moc.perform { [weak self] in
-            guard let self else { throw CustomError.missingSelf }
-            
-            let currentPredicate = NSPredicate(format: "isCurrent == YES")
-            guard let currentTab = try coreDataStore.fetch(
-                entityType: CDArticleTab.self,
-                predicate: currentPredicate,
-                fetchLimit: 1,
-                in: moc
-            )?.first else {
-                throw CustomError.missingTab
-            }
-            
-            let allTabs = try coreDataStore.fetch(
-                entityType: CDArticleTab.self,
-                predicate: nil,
-                fetchLimit: nil,
-                in: moc
-            ) ?? []
-            
-            for tab in allTabs {
-                if tab != currentTab {
-                    if let items = tab.items {
-                        let safeItems = items.compactMap { $0 as? CDArticleTabItem }
-                        for item in safeItems {
-                            item.tab = nil
-                            moc.delete(item)
-                        }
-                    }
-                    
-                    moc.delete(tab)
-                    
-                    if let tabIdentifier = tab.identifier {
-                        NotificationCenter.default.post(
-                            name: WMFNSNotification.articleTabDeleted,
-                            object: nil,
-                            userInfo: [WMFNSNotification.UserInfoKey.articleTabIdentifier: tabIdentifier]
-                        )
-                    }
-                }
-            }
-            try coreDataStore.saveIfNeeded(moc: moc)
-        }
-    }
-    
     public var moreDynamicTabsBYRIsEnabled: Bool {
         get {
             return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsMoreDynamicTabsBYR.rawValue)) ?? true

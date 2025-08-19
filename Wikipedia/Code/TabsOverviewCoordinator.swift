@@ -185,85 +185,42 @@ final class TabsOverviewCoordinator: Coordinator {
         )
         
         guard let numberTabs = try? await dataController.tabsCount() else { return }
+
+        let alert = await UIAlertController(
+            title: closeAllTabsTitle(numberTabs: numberTabs),
+            message: closeAllTabsTitle(numberTabs: numberTabs),
+            preferredStyle: .alert
+        )
         
-        let isComingFromCurrentArticle: Bool = navigationController.viewControllers.contains {
-            $0 is ArticleViewController
+        let action1 = await UIAlertAction(title: button1Title, style: .cancel) { [weak self] _ in
+            self?.presentTabs()
         }
         
-        if !isComingFromCurrentArticle {
-            let alert = await UIAlertController(
-                title: closeAllTabsTitle(numberTabs: numberTabs),
-                message: closeAllTabsTitle(numberTabs: numberTabs),
-                preferredStyle: .alert
-            )
-            
-            let action1 = await UIAlertAction(title: button1Title, style: .cancel) { [weak self] _ in
-                self?.presentTabs()
-            }
-            
-            let action2 = await UIAlertAction(title: button2Title, style: .destructive) { [weak self] _ in
-                guard let self else { return }
-                Task {
-                    try? await self.dataController.deleteAllTabs()
-                    WMFAlertManager.sharedInstance.showBottomAlertWithMessage(
-                        self.closedAlertsNotification(numberTabs: numberTabs),
-                        subtitle: nil,
-                        buttonTitle: nil,
-                        image: WMFSFSymbolIcon.for(symbol: .checkmark),
-                        dismissPreviousAlerts: true
-                    )
+        let action2 = await UIAlertAction(title: button2Title, style: .destructive) { [weak self] _ in
+            guard let self else { return }
+            Task {
+                try? await self.dataController.deleteAllTabs()
+                
+                if self.navigationController.topViewController is ArticleViewController {
+                    self.navigationController.popViewController(animated: true)
+                } else if let presented = self.navigationController.presentedViewController as? ArticleViewController {
+                    presented.dismiss(animated: true)
                 }
+                
+                WMFAlertManager.sharedInstance.showBottomAlertWithMessage(
+                    self.closedAlertsNotification(numberTabs: numberTabs),
+                    subtitle: nil,
+                    buttonTitle: nil,
+                    image: WMFSFSymbolIcon.for(symbol: .checkmark),
+                    dismissPreviousAlerts: true
+                )
+                TabsCoordinatorManager.shared.presentTabsOverview(from: self.navigationController, theme: self.theme, dataStore: self.dataStore)
             }
-            
-            await alert.addAction(action1)
-            await alert.addAction(action2)
-            await navigationController.present(alert, animated: true)
-            
-        } else {
-            let closeAllTabsTitle = WMFLocalizedString(
-                "close-all-tabs-confirmation-title",
-                value: "Close other tabs?",
-                comment: "Title of alert that asks user if they want to delete all tabs besides the current one."
-            )
-            let closeAllTabsSubtitle = WMFLocalizedString(
-                "close-all-tabs-confirmation-subtitle",
-                value: "Do you want to close all other tabs? This action can’t be undone.",
-                comment: "Subtitle of alert that asks user to confirm all tabs deletion."
-            )
-            let closedAlertsNotification = WMFLocalizedString(
-                "closed-all-tabs-confirmation",
-                value: "Closed all other tabs.",
-                comment: "Confirmation title of deleting all tabs."
-            )
-            
-            let alert = await UIAlertController(
-                title: closeAllTabsTitle,
-                message: closeAllTabsSubtitle,
-                preferredStyle: .alert
-            )
-            
-            let action1 = await UIAlertAction(title: button1Title, style: .cancel) { [weak self] _ in
-                self?.presentTabs()
-            }
-            
-            let action2 = await UIAlertAction(title: button2Title, style: .destructive) { [weak self] _ in
-                guard let self else { return }
-                Task {
-                    try? await self.dataController.deleteAllTabsExceptCurrent()
-                    WMFAlertManager.sharedInstance.showBottomAlertWithMessage(
-                        closedAlertsNotification,
-                        subtitle: nil,
-                        buttonTitle: nil,
-                        image: WMFSFSymbolIcon.for(symbol: .checkmark),
-                        dismissPreviousAlerts: true
-                    )
-                }
-            }
-            
-            await alert.addAction(action1)
-            await alert.addAction(action2)
-            await navigationController.present(alert, animated: true)
         }
+        
+        await alert.addAction(action1)
+        await alert.addAction(action2)
+        await navigationController.present(alert, animated: true)
     }
 
     private func didTapOpenTabsPreferences() {
