@@ -229,8 +229,7 @@
 "edit-summary-choice-fixed-typos" = "Corectat greșeli ortografice";
 "edit-summary-choice-linked-words" = "Adăugat legături";
 "edit-summary-placeholder-text" = "Cum ai îmbunătățit articolul?";
-// Fuzzy
-"edit-watch-list-learn-more-text" = "Aflați mai multe despre listele de urmărire";
+"edit-watch-list-learn-more-text" = "Aflați mai multe despre lista dvs. de pagini urmărite";
 "edit-watch-this-page-text" = "Urmăriți această pagină";
 "editing-welcome-be-bold-subtitle" = "Fii îndrăzneț, dar nu nesăbuit în actualizarea articolelor. Nu agoniza dacă ai făcut greșeli: fiecare versiune anterioară a unei pagini este salvată, astfel încât greșelile pot fi ușor corectate de comunitatea noastră.";
 "editing-welcome-be-bold-title" = "Vocea ta este importantă";
@@ -629,8 +628,7 @@
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 de la $2 Wikipedia";
 "on-this-day-title" = "Astăzi în istorie";
 "original-tab-button-popover-description" = "Atingeți „W” pentru a reveni la fila de la care ați început";
-// Fuzzy
-"page-history-bot-edits" = "modificări robot";
+"page-history-bot-edits" = "robot";
 "page-history-compare-accessibility-hint" = "Atingeți pentru a selecta două versiuni pentru a compara";
 "page-history-compare-title" = "Compară";
 "page-history-graph-accessibility-label" = "Grafic al modificărilor de-a lungul timpului";

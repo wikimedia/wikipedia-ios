@@ -1192,6 +1192,8 @@
 "tabs-overview-tooltip-body" = "Description for tooltip explaining the tabs overview functionality";
 "tabs-overview-tooltip-title" = "Title for tooltip explaining the tabs overview functionality";
 "tabs-survey-title" = "Title for article tabs survey";
+"tabs-thumbnail-description" = "New tab thumbanail description";
+"tabs-thumbnail-subtitle" = "New tab thumbanail subtitle";
 "tabs-title" = "Title for tabs";
 "tabs-title-preferences" = "Title for tabs preferences";
 "tachelhit-variants-alert-body" = "Body text of alert used to inform users about Tachelhit variant support. Please do not translate the newlines (\n) or Tachelhit characters (ⵜⴰⵛⵍⵃⵉⵜ, etc.).";

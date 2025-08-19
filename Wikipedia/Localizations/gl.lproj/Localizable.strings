@@ -579,7 +579,7 @@
 "search-recent-clear-delete-all" = "Borrar todo";
 "search-recent-empty" = "Non hai procuras recentes aínda";
 "search-recent-title" = "Procurado recentemente";
-"search-result-redirected-from" = "Redirixido de: $1";
+"search-result-redirected-from" = "Redirección desde: $1";
 "search-title" = "Procurar";
 "settings-account" = "Conta";
 "settings-appearance" = "Preferencias de lectura";

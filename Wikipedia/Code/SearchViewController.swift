@@ -104,6 +104,8 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
     private var hostingController: UIHostingController<WMFNewArticleTabSettingsView>?
     private var viewModel: WMFNewArticleTabSettingsViewModel?
 
+    public var tabIdentifier: WMFArticleTabsDataController.Identifiers?
+
     // MARK: - Lifecycle
 
     let needsAttachedView: Bool // TODO: Maybe rename to comes from new tabs exp for clarity
@@ -125,7 +127,11 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        embedRecentSearches()
+        if needsAttachedView {
+            embedNewTab()
+        } else {
+            embedRecentSearches()
+        }
         embedResultsViewController()
     }
 
@@ -553,7 +559,13 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
     }
 
     private lazy var recentSearchesViewController: UIViewController = {
-        let root = WMFRecentlySearchedView(viewModel: recentSearchesViewModel, linkDelegate: self)
+        let root = WMFRecentlySearchedView(viewModel: recentSearchesViewModel)
+        let host = UIHostingController(rootView: root)
+        return host
+    }()
+
+    private lazy var newTabViewController: UIViewController = {
+        let root = WMFNewTabSearchView(viewModel: recentSearchesViewModel, linkDelegate: self)
         let host = UIHostingController(rootView: root)
         return host
     }()
@@ -694,6 +706,21 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
         recentSearchesViewController.didMove(toParent: self)
     }
 
+    private func embedNewTab() {
+        addChild(newTabViewController)
+        view.addSubview(newTabViewController.view)
+        newTabViewController.view.translatesAutoresizingMaskIntoConstraints = false
+
+        NSLayoutConstraint.activate([
+            newTabViewController.view.topAnchor.constraint(equalTo: view.topAnchor),
+            newTabViewController.view.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            newTabViewController.view.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            newTabViewController.view.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        ])
+
+        newTabViewController.didMove(toParent: self)
+    }
+
     private func reloadRecentSearches() {
         let entries = recentSearches?.entries ?? []
         let terms = entries.map { entry in
@@ -739,7 +766,15 @@ extension SearchViewController: UITextViewDelegate {
                   let wmfProject = WikimediaProject(siteURL: siteURL)?.wmfProject else {
                 return
             }
-            let linkCoordinator = LinkCoordinator(navigationController: navController, url: url.absoluteURL, dataStore: nil, theme: theme, articleSource: .undefined, tabConfig: .assignNewTabAndSetToCurrentFromNewTabSearch(title: title, project: wmfProject))
+
+            let tabConfig: ArticleTabConfig
+            if let tabIdentifier {
+                tabConfig = .appendArticleToEmptyTabAndSetToCurrent(identifiers: tabIdentifier)
+            } else {
+                tabConfig = .assignNewTabAndSetToCurrentFromNewTabSearch(title: title, project: wmfProject)
+            }
+
+            let linkCoordinator = LinkCoordinator(navigationController: navController, url: url.absoluteURL, dataStore: nil, theme: theme, articleSource: .undefined, tabConfig: tabConfig)
             let success = linkCoordinator.start()
 
             var vcs = navController.viewControllers
