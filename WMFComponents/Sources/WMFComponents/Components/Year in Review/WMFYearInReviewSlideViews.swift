@@ -1,8 +1,8 @@
 import SwiftUI
 import WMFData
 
-public struct WMFYearInReviewSlideCategoryView: View {
-    let viewModel: WMFYearInReviewSlideCategoryViewModel
+public struct WMFYearInReviewSlideLocationView: View {
+    let viewModel: WMFYearInReviewSlideLocationViewModel
     
     @ObservedObject var appEnvironment = WMFAppEnvironment.current
     
@@ -11,7 +11,7 @@ public struct WMFYearInReviewSlideCategoryView: View {
     }
     
     public var body: some View {
-        WMFYearInReviewScrollView(scrollViewContents: WMFYearInReviewSlideCategoryViewContent())
+        WMFYearInReviewScrollView(scrollViewContents: WMFYearInReviewSlideCategoryViewContent(viewModel: viewModel))
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .background(Color(uiColor: theme.midBackground))
             .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -19,8 +19,10 @@ public struct WMFYearInReviewSlideCategoryView: View {
 }
 
 public struct WMFYearInReviewSlideCategoryViewContent: View {
+    let viewModel: WMFYearInReviewSlideLocationViewModel
+    
     public var body: some View {
-        Text("Categories!")
+        Text(viewModel.title)
     }
 }
 

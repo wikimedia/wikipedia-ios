@@ -114,8 +114,8 @@ private struct WMFYearInReviewBodyView: View {
                             WMFYearInReviewSlideStandardView(viewModel: standardViewModel)
                         }
                         
-                        if case .category(let categoryViewModel) = slide {
-                            WMFYearInReviewSlideCategoryView(viewModel: categoryViewModel)
+                        if case .location(let locationViewModel) = slide {
+                            WMFYearInReviewSlideLocationView(viewModel: locationViewModel)
                         }
                     }
                     
