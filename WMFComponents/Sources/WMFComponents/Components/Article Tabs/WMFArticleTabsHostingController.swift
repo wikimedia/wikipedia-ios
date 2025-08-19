@@ -125,16 +125,12 @@ public class WMFArticleTabsHostingController<HostedView: View>: WMFComponentHost
             preferredStyle: .alert
         )
         
-        let action1 = UIAlertAction(title: button1Title, style: .cancel) { [weak self] _ in
-            self?.viewModel.didTapAddTab()
-        }
+        let action1 = UIAlertAction(title: button1Title, style: .cancel)
         
         let action2 = UIAlertAction(title: button2Title, style: .destructive) { [weak self] _ in
             guard let self else { return }
             Task {
                 self.viewModel.didTapCloseAllTabs()
-                self.viewModel.displayDeleteAllTabsToast(self.articleTabsCount)
-                await self.viewModel.reloadTabs()
             }
         }
         

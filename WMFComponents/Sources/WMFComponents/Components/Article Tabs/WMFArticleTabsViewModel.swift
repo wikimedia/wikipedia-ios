@@ -20,7 +20,6 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
     public let didTapTab: (WMFArticleTabsDataController.WMFArticleTab) -> Void
     public let didTapAddTab: () -> Void
     public let didTabOpenTabs: () -> Void
-    private let closeAllTabs: () -> Void
     public let displayDeleteAllTabsToast: (Int) -> Void
     
     public let localizedStrings: LocalizedStrings
@@ -31,7 +30,6 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
                 didTapTab: @escaping (WMFArticleTabsDataController.WMFArticleTab) -> Void,
                 didTapAddTab: @escaping () -> Void,
                 didTapOpenTabs: @escaping () -> Void,
-                closeAllTabs: @escaping () -> Void,
                 displayDeleteAllTabsToast: @escaping (Int) -> Void) {
         self.dataController = dataController
         self.localizedStrings = localizedStrings
@@ -41,7 +39,6 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
         self.didTapTab = didTapTab
         self.didTapAddTab = didTapAddTab
         self.didTabOpenTabs = didTapOpenTabs
-        self.closeAllTabs = closeAllTabs
         self.displayDeleteAllTabsToast = displayDeleteAllTabsToast
         super.init()
         Task {
@@ -50,11 +47,15 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
     }
     
     public func didTapCloseAllTabs() {
-        closeAllTabs()
-    }
-    
-    public func reloadTabs() async {
-        await loadTabs()
+        Task {
+            guard let numberTabs = try? await dataController.tabsCount() else { return }
+            try? await dataController.deleteAllTabs()
+            Task { @MainActor in
+                displayDeleteAllTabsToast(numberTabs)
+                await loadTabs()
+            }
+        }
+        
     }
     
     public struct LocalizedStrings {

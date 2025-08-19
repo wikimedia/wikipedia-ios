@@ -97,21 +97,6 @@ final class TabsOverviewCoordinator: Coordinator {
             self?.didTapOpenTabsPreferences()
         }
         
-        let closeAllTabs: () -> Void = { [weak self] in
-            guard let self else { return }
-            Task {
-                let numberTabs = try? await self.dataController.tabsCount()
-                try? await self.dataController.deleteAllTabs()
-                WMFAlertManager.sharedInstance.showBottomAlertWithMessage(
-                    self.closedAlertsNotification(numberTabs: numberTabs ?? 0),
-                    subtitle: nil,
-                    buttonTitle: nil,
-                    image: WMFSFSymbolIcon.for(symbol: .checkmark),
-                    dismissPreviousAlerts: true
-                )
-            }
-        }
-        
         let displayDeleteAllTabsToast: (Int) -> Void = { [weak self] articleTabsCount in
             guard let self else { return }
             Task {
@@ -175,7 +160,6 @@ final class TabsOverviewCoordinator: Coordinator {
                 didTapTab: didTapTab,
                 didTapAddTab: didTapAddTab,
                 didTapOpenTabs: didTapOpenPreferences,
-                closeAllTabs: closeAllTabs,
                 displayDeleteAllTabsToast: displayDeleteAllTabsToast
             )
             

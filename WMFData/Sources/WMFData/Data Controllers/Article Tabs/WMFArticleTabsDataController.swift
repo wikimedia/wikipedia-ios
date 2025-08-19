@@ -409,22 +409,17 @@ public protocol WMFArticleTabsDataControlling {
     }
     
     public func deleteAllTabs() async throws {
-        
-        guard let coreDataStore else {
-            throw WMFDataControllerError.coreDataStoreUnavailable
-        }
-        
+
         guard let moc = backgroundContext else {
             throw CustomError.missingContext
         }
         
         try await moc.perform { [weak self] in
             guard let self else { throw CustomError.missingSelf }
-            Task {
-                try await self.deleteAllTabs(moc: moc)
-            }
-            try coreDataStore.saveIfNeeded(moc: moc)
+            try self.deleteAllTabs(moc: moc)
         }
+        
+        _ = try? await self.createArticleTab(initialArticle: nil, setAsCurrent: true)
     }
     
     public var moreDynamicTabsBYRIsEnabled: Bool {
@@ -782,7 +777,7 @@ public protocol WMFArticleTabsDataControlling {
         )
     }
     
-    private func deleteAllTabs(moc: NSManagedObjectContext) async throws {
+    private func deleteAllTabs(moc: NSManagedObjectContext) throws {
         guard let coreDataStore else {
             throw WMFDataControllerError.coreDataStoreUnavailable
         }
@@ -812,7 +807,7 @@ public protocol WMFArticleTabsDataControlling {
             moc.delete(tab)
         }
         
-        _ = try? await self.createArticleTab(initialArticle: nil, setAsCurrent: true)
+        try coreDataStore.saveIfNeeded(moc: moc)
     }
     
     public func currentTabIdentifier() async throws -> UUID {
