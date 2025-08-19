@@ -333,6 +333,7 @@ public class WMFYearInReviewViewModel: ObservableObject {
                                 altText: localizedStrings.personalizedDonationThankYouAccessibilityLabel,
                                 title: localizedStrings.personalizedThankYouTitle,
                                 subtitle: localizedStrings.personalizedThankYouSubtitle(primaryAppLanguage.languageCode ?? "en"),
+                                subtitleType: .markdown,
                                 infoURL: aboutYiRURL,
                                 forceHideDonateButton: true,
                                 loggingID: "thank_custom",
@@ -425,6 +426,7 @@ public class WMFYearInReviewViewModel: ObservableObject {
             altText: localizedStrings.collectiveArticleViewsAccessibilityLabel,
             title: localizedStrings.englishTopReadSlideTitle,
             subtitle: localizedStrings.englishTopReadSlideSubtitle,
+            subtitleType: .html,
             infoURL: aboutYiRURL,
             forceHideDonateButton: false,
             loggingID: "en_most_visit_base",
@@ -464,6 +466,7 @@ public class WMFYearInReviewViewModel: ObservableObject {
             altText: localizedStrings.personalizedUserEditsAccessibilityLabel,
             title: localizedStrings.englishEditsBytesSlideTitle,
             subtitle: localizedStrings.englishEditsBytesSlideSubtitle,
+            subtitleType: .markdown,
             infoURL: aboutYiRURL,
             forceHideDonateButton: false,
             loggingID: "en_byte_base",
@@ -531,6 +534,7 @@ public class WMFYearInReviewViewModel: ObservableObject {
             altText: localizedStrings.collectiveEditsPerMinuteAccessibilityLabel,
             title: localizedStrings.collectiveEditsPerMinuteSlideTitle,
             subtitle: localizedStrings.collectiveEditsPerMinuteSlideSubtitle,
+            subtitleType: .markdown,
             infoURL: aboutYiRURL,
             forceHideDonateButton: false,
             loggingID: "edit_rate_base",
@@ -544,6 +548,7 @@ public class WMFYearInReviewViewModel: ObservableObject {
             altText: localizedStrings.collectiveZeroAdsAccessibilityLabel,
             title: localizedStrings.collectiveZeroAdsSlideTitle,
             subtitle: localizedStrings.collectiveZeroAdsSlideSubtitle(),
+            subtitleType: .markdown,
             infoURL: aboutYiRURL,
             forceHideDonateButton: false,
             loggingID: "ads_served_base",
@@ -723,21 +728,30 @@ public struct WMFYearInReviewIntroViewModel {
 }
 
 public struct WMFYearInReviewSlideStandardViewModel {
+    
+    public enum SubtitleType {
+        case html
+        case markdown
+        case standard
+    }
+    
     public let gifName: String
     public let altText: String
     public let title: String
     public let subtitle: String
+    public let subtitleType: SubtitleType
     public var infoURL: URL?
     public let forceHideDonateButton: Bool
     public let loggingID: String
     public let tappedLearnMore: ((URL) -> Void)?
     public let tappedInfo: () -> Void
     
-    public init(gifName: String, altText: String, title: String, subtitle: String, infoURL: URL?, forceHideDonateButton: Bool, loggingID: String, tappedLearnMore: ((URL) -> Void)? = nil, tappedInfo: @escaping () -> Void) {
+    public init(gifName: String, altText: String, title: String, subtitle: String, subtitleType: SubtitleType = .standard, infoURL: URL?, forceHideDonateButton: Bool, loggingID: String, tappedLearnMore: ((URL) -> Void)? = nil, tappedInfo: @escaping () -> Void) {
         self.gifName = gifName
         self.altText = altText
         self.title = title
         self.subtitle = subtitle
+        self.subtitleType = subtitleType
         self.infoURL = infoURL
         self.forceHideDonateButton = forceHideDonateButton
         self.loggingID = loggingID

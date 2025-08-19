@@ -61,6 +61,10 @@ public struct WMFYearInReviewSlideStandardViewContent: View {
         return (try? AttributedString(markdown: subtitle)) ?? AttributedString(subtitle)
     }
     
+    private var subtitleStyles: HtmlUtils.Styles {
+            return HtmlUtils.Styles(font: WMFFont.for(.title3), boldFont: WMFFont.for(.title3), italicsFont: WMFFont.for(.title3), boldItalicsFont: WMFFont.for(.title3), color: theme.text, linkColor: theme.link, lineSpacing: 3)
+        }
+    
     public var body: some View {
         VStack(spacing: 48) {
             VStack(spacing: 16) {
@@ -99,11 +103,24 @@ public struct WMFYearInReviewSlideStandardViewContent: View {
                     }
                 }
                 
-                Text(subtitleAttributedString(subtitle: viewModel.subtitle))
-                    .font(Font(WMFFont.for(.title3)))
-                    .foregroundStyle(Color(uiColor: theme.text))
-                    .accentColor(Color(uiColor: theme.link))
-                    .frame(maxWidth: .infinity, alignment: .leading)
+                switch viewModel.subtitleType {
+                case .html:
+                    WMFHtmlText(html: viewModel.subtitle, styles: subtitleStyles)
+                        .frame(maxWidth: .infinity, alignment: .topLeading)
+                case .markdown:
+                    Text(subtitleAttributedString(subtitle: viewModel.subtitle))
+                        .font(Font(WMFFont.for(.title3)))
+                        .foregroundStyle(Color(uiColor: theme.text))
+                        .accentColor(Color(uiColor: theme.link))
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                case .standard:
+                    Text(viewModel.subtitle)
+                        .font(Font(WMFFont.for(.title3)))
+                        .foregroundStyle(Color(uiColor: theme.text))
+                        .accentColor(Color(uiColor: theme.link))
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                }
+                
                 Spacer()
             }
             .padding(EdgeInsets(top: 0, leading: sizeClassPadding, bottom: 0, trailing: sizeClassPadding))
