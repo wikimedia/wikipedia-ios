@@ -138,6 +138,7 @@
 "article-share" = "Сподели";
 "article-tabs-button-accessibility-hint" = "Преоѓа на преглед на јазичињата";
 "article-tabs-button-accessibility-label" = "Јазичиња на статии";
+"article-tabs-did-you-know-title" = "Дали сте знаеле";
 "article-tabs-feature-announcement-item-1-subtitle" = "Отворајте повеќе статии наеднаш и префрлајте се меѓу нив со леснотија.";
 "article-tabs-feature-announcement-item-1-title" = "Прелистувај со јазичиња";
 "article-tabs-feature-announcement-item-2-subtitle" = "Јазичињата автоматски помнат до каде сте пролизгале.";
@@ -243,6 +244,7 @@
 "developer-settings-enable-year-in-review" = "Овозможи Преглед на годината";
 "developer-settings-send-analytics-to-wmflabs" = "Испраќај аналитика во WMFLabs.";
 "developer-settings-suppress-image-rec-post" = "Не објавувај уредувања на преорачани слики.";
+"did-you-know" = "Дали сте знаеле";
 "diff-article-revision-history" = "Историја на преработки на страницата";
 "diff-change-added" = "Додавање, $1, крај на додавањето.";
 "diff-change-paragraph-lines-moved-down" = "Пасусот е преместен {{PLURAL:$1|0=0 редови|$1 ред|$1 реда}} надолу. Одете на ново место.";
@@ -747,6 +749,9 @@
 "nearby-distance-label-km" = "$1 км";
 "nearby-distance-label-meters" = "$1 м";
 "nearby-distance-label-miles" = "$1 милји";
+"new-article-tab-from-wikipedia-default" = "од Википедија";
+"new-article-tab-settings-did-you-know" = "Дали сте знаеле?";
+"new-article-tab-settings-recommendations" = "Препораки";
 "new-password-instructions" = "Се најавивте со привремена лозинка. За да ја довршите најавата, ќе мора тука да зададете нова лозинка.";
 "new-password-title" = "Ставете лозинка";
 "new-tab" = "Ново јазиче";
@@ -1137,6 +1142,7 @@
 "settings-language-bar" = "Прикажувај јазици при пребарувањето";
 "settings-languages-feed-customization" = "Можете да изберете кои јазици да се прикажуваат во поставките за тековникот „Истражи“.";
 "settings-my-languages" = "Мои јазици";
+"settings-new-article-tab-header-text" = "Изглед на ново јазиче";
 "settings-notifications" = "Доставни известувања";
 "settings-notifications-echo-failure-message" = "Се јави грешка при проверката на следените известувања поврзани со вашата сметка.";
 "settings-notifications-echo-failure-title" = "Не можам да ја ги проверам следените известувања со „Ехо“";
@@ -1201,6 +1207,8 @@
 "tabs-overview-tooltip-body" = "Префрлање помеѓу отворени статии во прегледот на јазичињата.";
 "tabs-overview-tooltip-title" = "Преглед на јазичиња";
 "tabs-survey-title" = "Помогнете ни да ги подобриме јазичињата во иднина. Дали сте задоволни со оваа функција?";
+"tabs-title" = "Јазичиња";
+"tabs-title-preferences" = "Нагодувања за јазичиња";
 "tachelhit-variants-alert-body" = "Прилогот на Википедија сега ги поддржува следниве шилхански варијанти како главен или спореден јазик во прилогот, олеснувајќи го читањето, пребарувањето и уредувањето на вашите претпочитани варијанти:\n\n\nⵜⴰⵛⵍⵃⵉⵜ — шилхански со старолибиско писмо (shi-tfng)\nTaclḥit — шилхански на латиница (shi-latn)";
 "tachelhit-variants-alert-title" = "Новост за поддршка на шилхански варијанти";
 "tajik-variants-alert-body" = "Прилогот на Википедија сега ги поддржува следниве таџички варијанти како главен или спореден јазик во прилогот, олеснувајќи го читањето, пребарувањето и уредувањето на вашите претпочитани варијанти:\n\nтоҷикӣ кирилликӣ — таџички на кирилица (tg-cyrl)\ntojikī lotinī — таџички на латиница (tg-latn)";

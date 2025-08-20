@@ -783,7 +783,6 @@
 "nearby-distance-label-km" = "$1 公里";
 "nearby-distance-label-meters" = "$1 公尺";
 "nearby-distance-label-miles" = "$1 英里";
-"new-article-tab-from-language-wikipedia" = "來自$1維基百科";
 "new-article-tab-from-wikipedia-default" = "來自維基百科";
 "new-article-tab-settings-did-you-know" = "你知道嗎？";
 "new-article-tab-settings-recommendations" = "建議";
