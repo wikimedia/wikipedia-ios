@@ -656,33 +656,6 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
             })
         })
     }()
-    
-    @objc private func doneButtonTapped() {
-        self.hostingController?.dismiss(animated: true)
-    }
-    
-    let dataController = WMFArticleTabsDataController()
-    
-    private func getSelectedIndex() -> Int {
-        let isBYREnabled = (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsMoreDynamicTabsBYR.rawValue)) ?? false
-        let isDYKEnabled = (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsMoreDynamicTabsDYK.rawValue)) ?? false
-
-        return (isBYREnabled) ? 0 : (isDYKEnabled) ? 1 : 0
-    }
-    
-    private func saveSelection(selectedIndex: Int) {
-        let isBYR = selectedIndex == 0
-        let isDYK = selectedIndex == 1
-
-        try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsMoreDynamicTabsBYR.rawValue, value: isBYR)
-        try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsMoreDynamicTabsDYK.rawValue, value: isDYK)
-
-        dataController.moreDynamicTabsBYRIsEnabled = isBYR
-        dataController.moreDynamicTabsDYKIsEnabled = isDYK
-        
-        self.view.setNeedsLayout()
-        self.view.layoutIfNeeded()
-    }
 
     private lazy var recentSearchTerms: [WMFRecentlySearchedViewModel.RecentSearchTerm] = {
         guard let recent = recentSearches else { return [] }
@@ -740,6 +713,35 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
         }
 
         resultsViewController.view.isHidden = searchText.isEmpty
+    }
+
+    // MARK: - New Tab preferences
+
+    @objc private func doneButtonTapped() {
+        self.hostingController?.dismiss(animated: true)
+    }
+
+    let dataController = WMFArticleTabsDataController()
+
+    private func getSelectedIndex() -> Int {
+        let isBYREnabled = (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsMoreDynamicTabsBYR.rawValue)) ?? false
+        let isDYKEnabled = (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsMoreDynamicTabsDYK.rawValue)) ?? false
+
+        return (isBYREnabled) ? 0 : (isDYKEnabled) ? 1 : 0
+    }
+
+    private func saveSelection(selectedIndex: Int) {
+        let isBYR = selectedIndex == 0
+        let isDYK = selectedIndex == 1
+
+        try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsMoreDynamicTabsBYR.rawValue, value: isBYR)
+        try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsMoreDynamicTabsDYK.rawValue, value: isDYK)
+
+        dataController.moreDynamicTabsBYRIsEnabled = isBYR
+        dataController.moreDynamicTabsDYKIsEnabled = isDYK
+
+        self.view.setNeedsLayout()
+        self.view.layoutIfNeeded()
     }
 }
 
