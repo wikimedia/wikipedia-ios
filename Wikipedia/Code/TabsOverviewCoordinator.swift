@@ -236,7 +236,7 @@ final class TabsOverviewCoordinator: Coordinator {
     private func tappedAddTab() {
 
         if dataController.shouldShowMoreDynamicTabs {
-            let isOnStack = self.navigationController.viewControllers.contains { $0 is WMFNewArticleTabViewController }
+            let isOnStack = self.navigationController.viewControllers.contains { $0 is SearchViewController }
             // do not push a new tab if the user just came from a new tab
             if isOnStack {
                 navigationController.dismiss(animated: true)

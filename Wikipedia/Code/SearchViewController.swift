@@ -829,7 +829,7 @@ extension SearchViewController: UITextViewDelegate {
             let success = linkCoordinator.start()
 
             var vcs = navController.viewControllers
-            let newTabControllerIsOnStack = vcs.contains { $0 is WMFNewArticleTabViewController }
+            let newTabControllerIsOnStack = vcs.contains { $0 is SearchViewController } // TODO: review
             if newTabControllerIsOnStack {
                 ArticleTabsFunnel.shared.logDidYouKnowClick()
                 guard vcs.count >= 2 else { return }

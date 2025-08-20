@@ -96,7 +96,7 @@ public struct WMFNewTabSearchView: View {
                     if enableBYR || (!enableDYK && assignment == .becauseYouRead), let becauseVM = viewModel.becauseYouReadViewModel {
                         WMFBecauseYouReadView(viewModel: becauseVM)
                     } else if shouldShowDidYouKnow(), let dykVM = viewModel.didYouKnowViewModel {
-                        WMFNewArticleTabViewDidYouKnow(viewModel: dykVM, linkDelegate: linkDelegate)
+                        WMFNewArticleTabViewDidYouKnowView(viewModel: dykVM, linkDelegate: linkDelegate)
                     }
                 }
             }
