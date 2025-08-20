@@ -493,14 +493,14 @@ final class YearInReviewMostReadCategoriesSlideDataController: YearInReviewSlide
                 }
                 .sorted { $0.value > $1.value }
                 .prefix(3)).map { item in
-                        return item.key.categoryName
+                    return item.key.categoryName.replacingOccurrences(of: "_", with: " ")
                 }
             mostReadCategories = filteredTop3
         } else {
             let top3 = Array(categoryCounts
                 .sorted { $0.value > $1.value }
                 .prefix(3)).map { item in
-                        return item.key.categoryName
+                        return item.key.categoryName.replacingOccurrences(of: "_", with: " ")
                 }
             mostReadCategories = top3
         }
