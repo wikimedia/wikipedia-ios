@@ -174,12 +174,17 @@ fileprivate struct WMFArticleTabsViewContent: View {
                     .frame(minWidth: 44, minHeight: 44)
                 }
             }
-
-            tabTitle(title: tab.title)
-                .padding(.horizontal, 10)
-                .padding(.top, 10)
-                .padding(.bottom, 2)
-
+            if let newTabTitle = viewModel.localizedStrings.mainPageTitle {
+                tabTitle(title: newTabTitle)
+                    .padding(.horizontal, 10)
+                    .padding(.top, 10)
+                    .padding(.bottom, 2)
+            } else {
+                tabTitle(title: tab.title)
+                    .padding(.horizontal, 10)
+                    .padding(.top, 10)
+                    .padding(.bottom, 2)
+            }
             VStack(alignment: .leading) {
                 Text(viewModel.localizedStrings.mainPageSubtitle)
                     .font(Font(WMFFont.for(.caption1)))
