@@ -346,7 +346,8 @@ import CoreData
             donateCountIsEnabled: .init(yirConfig.personalizedSlides.donateCount.isEnabled),
             saveCountIsEnabled: .init(yirConfig.personalizedSlides.saveCount.isEnabled),
             mostReadDayIsEnabled: .init(yirConfig.personalizedSlides.mostReadDay.isEnabled),
-            viewCountIsEnabled: .init(yirConfig.personalizedSlides.viewCount.isEnabled)
+            viewCountIsEnabled: .init(yirConfig.personalizedSlides.viewCount.isEnabled),
+            categoriesIsEnabled: .init(yirConfig.personalizedSlides.mostReadCategories.isEnabled)
         )
 
         let featureConfig = YearInReviewFeatureConfig(
