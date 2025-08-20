@@ -1197,7 +1197,7 @@
 "tabs-thumbnail-description" = "New tab thumbanail description";
 "tabs-thumbnail-subtitle" = "New tab thumbanail subtitle";
 "tabs-title" = "Title for tabs";
-"tabs-title-preferences" = "Title for tabs preferences";
+"tabs-title-preferences" = "Title for tab preferences";
 "tachelhit-variants-alert-body" = "Body text of alert used to inform users about Tachelhit variant support. Please do not translate the newlines (\n) or Tachelhit characters (ⵜⴰⵛⵍⵃⵉⵜ, etc.).";
 "tachelhit-variants-alert-title" = "Title of alert used to inform users about Tachelhit variant support.";
 "tajik-variants-alert-body" = "Body text of alert used to inform users about Tajik variant support. Please do not translate the newlines (\n) or Tajik characters (тоҷикӣ кирилликӣ, etc.).";
