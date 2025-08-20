@@ -103,6 +103,8 @@
 "app-store-short-description" = "Download the Wikipedia app to explore places near you, sync articles to read offline and customize your reading experience.";
 "app-store-subtitle" = "The free encyclopedia";
 "appearance-settings-adjust-text-sizing" = "Adjust article text sizing";
+"appearance-settings-app-icon" = "App Icon";
+"appearance-settings-app-icon-footer" = "Select alternate icon.";
 "appearance-settings-expand-tables" = "Expand tables";
 "appearance-settings-expand-tables-footer" = "Set all tables in all articles to be open by default, including Quick facts, References, Notes and External links.";
 "appearance-settings-image-dimming-footer" = "Decrease the opacity of images on the dark and black themes";

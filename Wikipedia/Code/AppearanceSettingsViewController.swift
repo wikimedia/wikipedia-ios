@@ -40,6 +40,11 @@ struct AppearanceSettingsSpacerViewItem: AppearanceSettingsItem {
     let spacing: CGFloat
 }
 
+struct AppearanceSettingsAppIconToggleItem: AppearanceSettingsItem {
+    let title: String?
+    let subtitle: String?
+}
+
 @objc(WMFAppearanceSettingsViewController)
 final class AppearanceSettingsViewController: SubSettingsViewController, WMFNavigationBarConfiguring {
     static let customViewCellReuseIdentifier = "org.wikimedia.custom"
@@ -103,7 +108,13 @@ final class AppearanceSettingsViewController: SubSettingsViewController, WMFNavi
         
         let textSizingSection = AppearanceSettingsSection(headerTitle: WMFLocalizedString("appearance-settings-adjust-text-sizing", value: "Adjust article text sizing", comment: "Header of the Text sizing section in Appearance settings"), footerText: nil, items: [AppearanceSettingsCustomViewItem(title: nil, subtitle: nil, viewController: TextSizeChangeExampleViewController(nibName: "TextSizeChangeExampleViewController", bundle: nil)), AppearanceSettingsSpacerViewItem(title: nil, subtitle: nil, spacing: 15.0), AppearanceSettingsCustomViewItem(title: nil, subtitle: nil, viewController: FontSizeSliderViewController(nibName: "FontSizeSliderViewController", bundle: nil))])
         
-        return [readingThemesSection, themeOptionsSection, tableAutomaticOpenSection, textSizingSection]
+        let appIconSection = AppearanceSettingsSection(
+            headerTitle: WMFLocalizedString("appearance-settings-app-icon", value: "App Icon", comment: "Title of the App Icon section in Appearance settings"),
+            footerText: WMFLocalizedString("appearance-settings-app-icon-footer", value: "Select alternate icon.", comment: "Footer of the App Icon section in Appearance settings"),
+            items: [AppearanceSettingsAppIconToggleItem(title: "Use Alternate Icon", subtitle: nil)]
+        )
+
+        return [readingThemesSection, themeOptionsSection, tableAutomaticOpenSection, textSizingSection, appIconSection]
     }
     
     public override func numberOfSections(in tableView: UITableView) -> Int {
@@ -177,6 +188,15 @@ final class AppearanceSettingsViewController: SubSettingsViewController, WMFNavi
             cell.disclosureSwitch.addTarget(self, action: #selector(self.handleAutomaticTableOpenSwitchValueChange(_:)), for: .valueChanged)
             cell.iconName = "settings-tables-expand"
             cell.iconBackgroundColor = WMFColor.blue300
+            cell.iconColor = WMFColor.white
+            cell.selectionStyle = .none
+        } else if item is AppearanceSettingsAppIconToggleItem {
+            cell.disclosureType = .switch
+            cell.disclosureSwitch.isEnabled = true
+            cell.disclosureSwitch.isOn = (UIApplication.shared.alternateIconName == "BackupIcon")
+            cell.disclosureSwitch.addTarget(self, action: #selector(self.handleAppIconToggleValueChange(_:)), for: .valueChanged)
+            cell.iconName = "settings-app-icon"
+            cell.iconBackgroundColor = WMFColor.gray400
             cell.iconColor = WMFColor.white
             cell.selectionStyle = .none
         } else {
@@ -312,4 +332,31 @@ final class AppearanceSettingsViewController: SubSettingsViewController, WMFNavi
         tableView.reloadData()
     }
     
+    private func toggleIcon(newValue: Bool) {
+        if newValue {
+            // Set new icon
+            UIApplication.shared.setAlternateIconName("BackupIcon") { (error) in
+                if let error = error {
+                    print("Failed request to update the app’s icon: \(error)")
+                }
+            }
+        } else {
+            // Set default icon
+            UIApplication.shared.setAlternateIconName(nil) { (error) in
+                if let error = error {
+                    print("Failed request to update the app’s icon: \(error)")
+                }
+            }
+        }
+    }
+    
+    @objc func applyAppIconToggleChange(isOn: NSNumber) {
+        toggleIcon(newValue: isOn.boolValue)
+    }
+
+    @objc func handleAppIconToggleValueChange(_ sender: UISwitch) {
+        let selector = #selector(applyAppIconToggleChange)
+        NSObject.cancelPreviousPerformRequests(withTarget: self)
+        perform(selector, with: NSNumber(value: sender.isOn), afterDelay: CATransaction.animationDuration())
+    }
 }
