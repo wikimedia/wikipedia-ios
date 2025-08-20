@@ -56,7 +56,7 @@ import CoreData
     
     public func shouldShowYiRNotification(primaryAppLanguageProject: WMFProject?, isLoggedOut: Bool, isTemporaryAccount: Bool) -> Bool {
         
-        #if DEBUG
+        #if DEBUG || WMF_STAGING
         if isTemporaryAccount {
             return false
         }
@@ -115,7 +115,7 @@ import CoreData
     }
 
     public func shouldShowYearInReviewFeatureAnnouncement(primaryAppLanguageProject: WMFProject?) -> Bool {
-        #if DEBUG
+        #if DEBUG || WMF_STAGING
         guard isAnnouncementActive() else {
             return false
         }
@@ -158,7 +158,7 @@ import CoreData
         
         let yirConfig: WMFFeatureConfigResponse.IOS.YearInReview?
 
-        #if DEBUG
+        #if DEBUG || WMF_STAGING
         if let iosFeatureConfig = developerSettingsDataController.loadFeatureConfig()?.ios.first,
            let config = iosFeatureConfig.yir(yearID: targetConfigYearID) {
             yirConfig = config
@@ -255,7 +255,7 @@ import CoreData
 
         let yirConfig: WMFFeatureConfigResponse.IOS.YearInReview?
 
-        #if DEBUG
+        #if DEBUG || WMF_STAGING
         if let iosFeatureConfig = developerSettingsDataController.loadFeatureConfig()?.ios.first,
            let config = iosFeatureConfig.yir(yearID: targetConfigYearID) {
             yirConfig = config
@@ -330,7 +330,7 @@ import CoreData
         let backgroundContext = try coreDataStore.newBackgroundContext
         
         var yirConfig: WMFFeatureConfigResponse.IOS.YearInReview? = nil
-        #if DEBUG
+        #if DEBUG || WMF_STAGING
         yirConfig = developerSettingsDataController.loadFeatureConfig()?.ios.first?.yir(yearID: targetConfigYearID)
         #else
         return nil
@@ -512,7 +512,7 @@ import CoreData
     public func shouldHideDonateButton() -> Bool {
         let yirConfig: WMFFeatureConfigResponse.IOS.YearInReview?
 
-        #if DEBUG
+        #if DEBUG || WMF_STAGING
         guard let iosFeatureConfig = developerSettingsDataController.loadFeatureConfig()?.ios.first,
               let config = iosFeatureConfig.yir(yearID: targetConfigYearID) else {
             return false
