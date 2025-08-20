@@ -433,7 +433,7 @@ public class WMFYearInReviewViewModel: ObservableObject {
                     if let data = slide.data {
                         let decoder = JSONDecoder()
                         if let mostReadCategories = try? decoder.decode([String].self, from: data),
-                           mostReadCategories.count > 2 { // TODO: confirm we don't show slide at all if categories < 2?
+                           mostReadCategories.count >= 5 { // TODO: confirm we don't show slide at all if categories < 5?
                             
                             mostReadCategoriesSlide = WMFYearInReviewSlideStandardViewModel(
                                 gifName: "personal-slide-05", // TODO: modify gif name
