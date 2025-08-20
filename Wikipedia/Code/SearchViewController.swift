@@ -126,6 +126,8 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
     let needsAttachedView: Bool
     let becauseYouReadViewModel: WMFBecauseYouReadViewModel?
     let didYouKnowViewModel: WMFNewArticleTabDidYouKnowViewModel?
+    private var lastBYRVM: WMFBecauseYouReadViewModel?
+    private var lastDYKVM: WMFNewArticleTabDidYouKnowViewModel?
 
     @objc required init(source: EventLoggingSource, customArticleCoordinatorNavigationController: UINavigationController? = nil, needsAttachedView: Bool = false, becauseYouReadViewModel: WMFBecauseYouReadViewModel? = nil, didYouKnowViewModel: WMFNewArticleTabDidYouKnowViewModel? = nil) {
         self.source = source
@@ -708,15 +710,29 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
         let isBYR = selectedIndex == 0
         let isDYK = selectedIndex == 1
 
-        try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsMoreDynamicTabsBYR.rawValue, value: isBYR)
-        try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsMoreDynamicTabsDYK.rawValue, value: isDYK)
+        try? userDefaultsStore?.save(
+            key: WMFUserDefaultsKey.developerSettingsMoreDynamicTabsBYR.rawValue,
+            value: isBYR
+        )
+        try? userDefaultsStore?.save(
+            key: WMFUserDefaultsKey.developerSettingsMoreDynamicTabsDYK.rawValue,
+            value: isDYK
+        )
 
         dataController.moreDynamicTabsBYRIsEnabled = isBYR
         dataController.moreDynamicTabsDYKIsEnabled = isDYK
 
-        self.view.setNeedsLayout()
-        self.view.layoutIfNeeded()
+        Task {
+            WMFArticleTabsDataController.shared.moreDynamicTabsBYRIsEnabled = isBYR
+            WMFArticleTabsDataController.shared.moreDynamicTabsDYKIsEnabled = isDYK
+
+            self.replaceNewTabHost(because: self.lastBYRVM, dyk: self.lastDYKVM)
+
+            self.view.setNeedsLayout()
+            self.view.layoutIfNeeded()
+        }
     }
+
 
     private lazy var recentSearchTerms: [WMFRecentlySearchedViewModel.RecentSearchTerm] = {
         guard let recent = recentSearches else { return [] }
@@ -973,6 +989,8 @@ private extension SearchViewController {
                 }
 
                 await MainActor.run {
+                    self.lastBYRVM = byrVM
+                    self.lastDYKVM = dykVM
                     self.replaceNewTabHost(because: byrVM, dyk: dykVM)
                     self.hideLoading()
                 }
@@ -986,6 +1004,9 @@ private extension SearchViewController {
 
     @MainActor
     func replaceNewTabHost(because: WMFBecauseYouReadViewModel?, dyk: WMFNewArticleTabDidYouKnowViewModel?) {
+
+        self.lastBYRVM = because
+        self.lastDYKVM = dyk
 
         let localizedStrings = recentSearchesViewModel.localizedStrings
         let newVM = WMFRecentlySearchedViewModel(
