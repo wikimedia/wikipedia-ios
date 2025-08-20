@@ -105,21 +105,16 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
 
     public var tabIdentifier: WMFArticleTabsDataController.Identifiers?
 
-    // MARK: - BYR/DYK additions (new)
+    // MARK: - BYR/DYK additions
 
-    /// Repo responsible for BYR + DYK
     private var newTabDataController: NewArticleTabDataControlling?
 
-    /// Task for concurrent BYR/DYK loading so we can cancel on deinit or nav transitions
     private var newTabLoadTask: Task<Void, Never>?
 
-    /// Simple UIKit spinner overlayed on top of the VC (no changes to WMFComponents needed)
     private var loadingView: UIActivityIndicatorView?
 
-    /// We need to be able to swap the SwiftUI host after BYR/DYK load completes
     private var _newTabHostViewController: UIViewController?
     private var _recentSearchesViewModel: WMFRecentlySearchedViewModel?
-
 
     // MARK: - Lifecycle
 
@@ -147,14 +142,13 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
 
         definesPresentationContext = true
 
-        // BYR/DYK: initialize repo if dataStore is present
         if let ds = dataStore {
             newTabDataController = NewArticleTabDataController(dataStore: ds)
         }
 
         if needsAttachedView {
-            embedNewTab()                 // placeholder host (may have no BYR/DYK yet)
-            startLoadingAttachedContent() // BYR/DYK load + spinner + host swap
+            embedNewTab()
+            loadNewTabContent()
         } else {
             embedRecentSearches()
         }
@@ -217,7 +211,7 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
     }
 
     deinit {
-        newTabLoadTask?.cancel() // BYR/DYK cleanup
+        newTabLoadTask?.cancel() // new tab cleanup
     }
 
     // MARK: - Navigation bar configuring
@@ -726,7 +720,7 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
             WMFArticleTabsDataController.shared.moreDynamicTabsBYRIsEnabled = isBYR
             WMFArticleTabsDataController.shared.moreDynamicTabsDYKIsEnabled = isDYK
 
-            self.replaceNewTabHost(because: self.lastBYRVM, dyk: self.lastDYKVM)
+            self.updateNewTabContent(because: self.lastBYRVM, dyk: self.lastDYKVM)
 
             self.view.setNeedsLayout()
             self.view.layoutIfNeeded()
@@ -967,7 +961,7 @@ private extension SearchViewController {
         loadingView?.stopAnimating()
     }
 
-    func startLoadingAttachedContent() {
+    func loadNewTabContent() {
         guard needsAttachedView, let repo = newTabDataController else { return }
 
         newTabLoadTask?.cancel()
@@ -979,7 +973,7 @@ private extension SearchViewController {
                 async let becauseYouReadViewModel = repo.loadBecauseYouRead()
                 async let didYouKnowViewModel = repo.loadDidYouKnow()
 
-                var (byrVM, dykVM) = try await (becauseYouReadViewModel, didYouKnowViewModel)
+                let (byrVM, dykVM) = try await (becauseYouReadViewModel, didYouKnowViewModel)
                 try Task.checkCancellation()
 
                 if let byrVM {
@@ -991,7 +985,7 @@ private extension SearchViewController {
                 await MainActor.run {
                     self.lastBYRVM = byrVM
                     self.lastDYKVM = dykVM
-                    self.replaceNewTabHost(because: byrVM, dyk: dykVM)
+                    self.updateNewTabContent(because: byrVM, dyk: dykVM)
                     self.hideLoading()
                 }
             } catch is CancellationError {
@@ -1003,7 +997,7 @@ private extension SearchViewController {
     }
 
     @MainActor
-    func replaceNewTabHost(because: WMFBecauseYouReadViewModel?, dyk: WMFNewArticleTabDidYouKnowViewModel?) {
+    func updateNewTabContent(because: WMFBecauseYouReadViewModel?, dyk: WMFNewArticleTabDidYouKnowViewModel?) {
 
         self.lastBYRVM = because
         self.lastDYKVM = dyk
