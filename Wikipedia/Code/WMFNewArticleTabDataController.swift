@@ -52,8 +52,8 @@ final class NewArticleTabDataController: NewArticleTabDataControlling {
         guard let facts, !facts.isEmpty else { return nil }
 
         let localized = WMFNewArticleTabDidYouKnowViewModel.LocalizedStrings(
-            didYouKnowTitle: CommonStrings.didyouknow,
-            fromSource: "From..." // TODO - get loc string
+            didYouKnowTitle: WMFLocalizedString("did-you-know", value: "Did you know", comment: "Text displayed as heading for section of new tab dedicated to DYK"),
+            fromSource: self.stringWithLocalizedCurrentSiteLanguageReplacingPlaceholder(in: CommonStrings.fromWikipedia, fallingBackOn: CommonStrings.defaultFromWikipedia)
         )
 
         let vm = WMFNewArticleTabDidYouKnowViewModel(
@@ -62,6 +62,25 @@ final class NewArticleTabDataController: NewArticleTabDataControlling {
             dykLocalizedStrings: localized
         )
         return vm
+    }
+
+    private func stringWithLocalizedCurrentSiteLanguageReplacingPlaceholder(in format: String, fallingBackOn genericString: String
+    ) -> String {
+        guard let code = self.dataStore.languageLinkController.appLanguage?.languageCode else {
+            return genericString
+        }
+
+        if let language = Locale.current.localizedString(forLanguageCode: code) {
+            return String.localizedStringWithFormat(format, language)
+        } else {
+            if code == "test" {
+                return String.localizedStringWithFormat(format, "Test")
+            } else if code == "test2" {
+                return String.localizedStringWithFormat(format, "Test 2")
+            } else {
+                return genericString
+            }
+        }
     }
 
     // MARK: - Async helpers
