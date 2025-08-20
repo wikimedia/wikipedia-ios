@@ -122,6 +122,14 @@ public protocol WMFDeveloperSettingsDataControlling: AnyObject {
             try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsMoreDynamicTabsDYK.rawValue, value: newValue)
         }
     }
+    
+    public var limitYiRCategoriesTo2Underscores: Bool {
+        get {
+            return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsYiRLimitCategoriesTo2Underscores.rawValue)) ?? false
+        } set {
+            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsYiRLimitCategoriesTo2Underscores.rawValue, value: newValue)
+        }
+    }
 
     // MARK: - Remote Settings from donatewiki AppsFeatureConfig json
     

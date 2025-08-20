@@ -58,6 +58,8 @@ import WMFData
         let setActivityTabGroupA = WMFFormItemSelectViewModel(title: localizedStrings.setActivityTabGroupA, isSelected: WMFDeveloperSettingsDataController.shared.setActivityTabGroupA)
         let setActivityTabGroupB = WMFFormItemSelectViewModel(title: localizedStrings.setActivityTabGroupB, isSelected: WMFDeveloperSettingsDataController.shared.setActivityTabGroupB)
         let setActivityTabGroupC = WMFFormItemSelectViewModel(title: localizedStrings.setActivityTabGroupC, isSelected: WMFDeveloperSettingsDataController.shared.setActivityTabGroupC)
+        
+        let limitYiRCategoriesTo2Underscores = WMFFormItemSelectViewModel(title: "Limit Year In Review categories to at least 2 underscores", isSelected: WMFDeveloperSettingsDataController.shared.limitYiRCategoriesTo2Underscores)
 
         // Form ViewModel
         formViewModel = WMFFormViewModel(sections: [
@@ -71,7 +73,8 @@ import WMFData
                 setActivityTabGroupC,
                 forceMaxArticleTabsTo5,
                 enableMoreDynamicTabsBYR,
-                enableMoreDynamicTabsDYK
+                enableMoreDynamicTabsDYK,
+                limitYiRCategoriesTo2Underscores
 
             ], selectType: .multi)
         ])
@@ -99,6 +102,10 @@ import WMFData
 
         enableMoreDynamicTabsBYR.$isSelected
             .sink { isSelected in WMFDeveloperSettingsDataController.shared.enableMoreDynamicTabsBYR = isSelected }
+            .store(in: &subscribers)
+        
+        limitYiRCategoriesTo2Underscores.$isSelected
+            .sink { isSelected in WMFDeveloperSettingsDataController.shared.limitYiRCategoriesTo2Underscores = isSelected }
             .store(in: &subscribers)
 
         moreDynamicTabsGroupCoordinator = MoreDynamicTabsGroupBindingCoordinator(becauseYouRead: enableMoreDynamicTabsBYR, didYouKnow: enableMoreDynamicTabsDYK)

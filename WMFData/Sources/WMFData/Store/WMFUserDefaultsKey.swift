@@ -25,4 +25,5 @@ public enum WMFUserDefaultsKey: String {
     case developerSettingsMoreDynamicTabsBYR = "more-dynamic-tabs-BYR"
     case developerSettingsMoreDynamicTabsDYK = "more-dynamic-tabs-DYK"
     case developerSettingsMoreDynamicTabs = "more-dynamic-tabs"
+    case developerSettingsYiRLimitCategoriesTo2Underscores = "dev-settings-yir-limit-categories-to-2-underscores"
 }
