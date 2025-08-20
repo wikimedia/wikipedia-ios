@@ -1101,7 +1101,6 @@
 "saved-unsave-article-and-remove-from-reading-lists-title" = "Title of the alert action that unsaves a selected article and removes it from all associated reading lists. $1 will be replaced with the number of articles to be unsaved.";
 "search-button-accessibility-label" = "Accessibility label for a button that opens a search box to search Wikipedia.";
 "search-clear-title" = "Text of the button shown to clear recent search terms";
-"search-did-you-mean" = "Button text for searching for an alternate spelling of the search term. Parameters: * $1 - alternate spelling of the search term the user entered - ie if user types 'thunk' the API can suggest the alternate term 'think'";
 "search-field-placeholder-text" = "Search field placeholder text";
 "search-reading-list-placeholder-text" = "Placeholder text for the search bar in reading list detail view.";
 "search-recent-clear-confirmation-heading" = "Heading text of delete all confirmation dialog";
