@@ -1,7 +1,7 @@
 import Foundation
 import CoreData
 
-public struct YearInReviewFeatureConfig {
+struct YearInReviewFeatureConfig {
     let isEnabled: Bool
     let slideConfig: SlideConfig
     let dataPopulationStartDateString: String?
