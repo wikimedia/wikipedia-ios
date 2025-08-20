@@ -64,7 +64,12 @@ final class NewArticleTabDataController: NewArticleTabDataControlling {
         return vm
     }
 
-    // MARK: - Helpers (async wrappers)
+    // MARK: - Async helpers
+
+    @MainActor
+    private func obtainFeedImportContext() -> NSManagedObjectContext {
+        dataStore.feedImportContext
+    }
 
     private func relatedArticles(for url: URL?) async throws -> [HistoryRecord] {
         try await withCheckedThrowingContinuation { cont in
@@ -85,20 +90,22 @@ final class NewArticleTabDataController: NewArticleTabDataControlling {
                         result[pair.key] = pair.value
                     }
 
-                let moc = self.dataStore.feedImportContext
-                moc.perform {
-                    do {
-                        let articlesByKey = try moc.wmf_createOrUpdateArticleSummmaries(
-                            withSummaryResponses: top3Summaries
-                        )
-                        let orderedKeys = Array(top3Summaries.keys)
-                        let relatedArticles: [WMFArticle] = orderedKeys.compactMap {
-                            articlesByKey[$0]
+                Task {
+                    let moc = await self.obtainFeedImportContext()
+                    await moc.perform {
+                        do {
+                            let articlesByKey = try moc.wmf_createOrUpdateArticleSummmaries(
+                                withSummaryResponses: top3Summaries
+                            )
+                            let orderedKeys = Array(top3Summaries.keys)
+                            let relatedArticles: [WMFArticle] = orderedKeys.compactMap {
+                                articlesByKey[$0]
+                            }
+                            let records = relatedArticles.map { $0.toHistoryRecord() }
+                            cont.resume(returning: records)
+                        } catch {
+                            cont.resume(throwing: error)
                         }
-                        let records = relatedArticles.map { $0.toHistoryRecord() }
-                        cont.resume(returning: records)
-                    } catch {
-                        cont.resume(throwing: error)
                     }
                 }
             }
@@ -115,7 +122,7 @@ final class NewArticleTabDataController: NewArticleTabDataControlling {
 
     private func mostRecentHistoryRecordWithURL() async throws -> HistoryRecord? {
 
-        let moc = dataStore.feedImportContext
+        let moc = await self.obtainFeedImportContext()
         var pickedSeed: WMFArticle?
         return await moc.perform {
             let req: NSFetchRequest<WMFArticle> = WMFArticle.fetchRequest()
