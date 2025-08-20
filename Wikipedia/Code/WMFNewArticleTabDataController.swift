@@ -8,7 +8,7 @@ protocol NewArticleTabDataControlling {
     func loadDidYouKnow() async throws -> WMFNewArticleTabDidYouKnowViewModel?
 }
 
-final class DefaultNewTabRepository: NewArticleTabDataControlling {
+final class NewArticleTabDataController: NewArticleTabDataControlling {
     private let dataStore: MWKDataStore
     private let relatedFetcher = RelatedSearchFetcher()
     private let dykFetcher = WMFFeedDidYouKnowFetcher()

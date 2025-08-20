@@ -13,7 +13,11 @@ final class WMFNewArticleTabViewController: WMFCanvasViewController, WMFNavigati
     private var theme: Theme
     private var presentingSearchResults: Bool = false
     private let viewModel: WMFNewArticleTabViewModel
-    
+
+    private var loadTask: Task<Void, Never>?
+    private var spinner: UIActivityIndicatorView!
+    private let dataController: NewArticleTabDataController
+
     // MARK: - Navigation bar button properties
     
     private var yirDataController: WMFYearInReviewDataController? {
@@ -61,6 +65,7 @@ final class WMFNewArticleTabViewController: WMFCanvasViewController, WMFNavigati
         self.theme = theme
         self.viewModel = viewModel
         self.hostingController = WMFNewArticleTabHostingController(rootView: WMFNewArticleTabView())
+        self.dataController = NewArticleTabDataController(dataStore: dataStore)
         super.init()
         self.hidesBottomBarWhenPushed = true
     }
