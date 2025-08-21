@@ -57,7 +57,7 @@ final class NewArticleTabDataController: NewArticleTabDataControlling {
         )
 
         let vm = WMFNewArticleTabDidYouKnowViewModel(
-            facts: facts.map { $0.text },
+            facts: facts.map { $0.html },
             languageCode: dataStore.languageLinkController.appLanguage?.languageCode,
             dykLocalizedStrings: localized
         )
