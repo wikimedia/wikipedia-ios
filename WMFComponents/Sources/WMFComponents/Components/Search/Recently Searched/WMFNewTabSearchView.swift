@@ -57,6 +57,7 @@ public struct WMFNewTabSearchView: View {
                         .padding(.trailing)
                         .padding(.bottom)
                     }
+                    .padding(.leading, 2)
                     .background(Color(theme.paperBackground))
                 }
                 List {
@@ -89,14 +90,14 @@ public struct WMFNewTabSearchView: View {
                     }
                     .listRowBackground(Color(theme.paperBackground))
                 }
-                .padding(0)
                 .listStyle(.plain)
                 .scrollDisabled(true)
                 .frame(height: estimatedListHeight)
                 if viewModel.needsAttachedView {
                     if enableBYR || (!enableDYK && assignment == .becauseYouRead), let becauseVM = viewModel.becauseYouReadViewModel {
                         WMFBecauseYouReadView(viewModel: becauseVM)
-                            .padding(.top, 20)
+                            .padding(.top, 24)
+                            .padding(.horizontal, 4)
                     } else if shouldShowDidYouKnow(), let dykVM = viewModel.didYouKnowViewModel {
                         WMFNewArticleTabViewDidYouKnow(viewModel: dykVM, linkDelegate: linkDelegate)
                     }
