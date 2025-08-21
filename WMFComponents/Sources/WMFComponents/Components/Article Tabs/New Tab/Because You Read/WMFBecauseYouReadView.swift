@@ -8,8 +8,7 @@ struct WMFBecauseYouReadView: View {
     private var theme: WMFTheme { appEnvironment.theme }
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 16) {
-
+        VStack(alignment: .leading, spacing: 12) {
             HStack(spacing: 12) {
                 if let string = viewModel.getSeedArticle().imageURLString, let url = URL(string: string) {
                     AsyncImage(url: url) { img in
