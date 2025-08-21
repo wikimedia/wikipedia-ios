@@ -35,6 +35,7 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
 
     var customTitle: String?
     @objc var needsCenteredTitle: Bool = false
+    private let isMainRootView: Bool
 
     private var searchLanguageBarViewController: SearchLanguagesBarViewController?
     private var needsAnimateLanguageBarMovement = false
@@ -124,13 +125,17 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
     private var lastBYRVM: WMFBecauseYouReadViewModel?
     private var lastDYKVM: WMFNewArticleTabDidYouKnowViewModel?
 
-    @objc required init(source: EventLoggingSource, customArticleCoordinatorNavigationController: UINavigationController? = nil, needsAttachedView: Bool = false, becauseYouReadViewModel: WMFBecauseYouReadViewModel? = nil, didYouKnowViewModel: WMFNewArticleTabDidYouKnowViewModel? = nil) {
+    @objc required init(source: EventLoggingSource, customArticleCoordinatorNavigationController: UINavigationController? = nil, needsAttachedView: Bool = false, becauseYouReadViewModel: WMFBecauseYouReadViewModel? = nil, didYouKnowViewModel: WMFNewArticleTabDidYouKnowViewModel? = nil, isMainRootView: Bool = false) {
         self.source = source
         self.needsAttachedView = needsAttachedView
         self.becauseYouReadViewModel = becauseYouReadViewModel
         self.customArticleCoordinatorNavigationController = customArticleCoordinatorNavigationController
         self.didYouKnowViewModel = didYouKnowViewModel
+        self.isMainRootView = isMainRootView
         super.init(nibName: nil, bundle: nil)
+        if !isMainRootView {
+            hidesBottomBarWhenPushed = true
+        }
     }
 
     @MainActor required init?(coder: NSCoder) {
@@ -238,7 +243,7 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
 
         let profileButtonConfig: WMFNavigationBarProfileButtonConfig?
         let tabsButtonConfig: WMFNavigationBarTabsButtonConfig?
-        if let dataStore {
+        if let dataStore, isMainRootView {
             profileButtonConfig = self.profileButtonConfig(target: self, action: #selector(userDidTapProfile), dataStore: dataStore, yirDataController: yirDataController, leadingBarButtonItem: nil)
             tabsButtonConfig = self.tabsButtonConfig(target: self, action: #selector(userDidTapTabs), dataStore: dataStore)
         } else {
