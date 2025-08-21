@@ -1,30 +1,28 @@
 import SwiftUI
 
-struct WMFYearInReviewShareableSlideView: View {
+struct WMFYearInReviewSlideStandardShareableView: View {
+    let viewModel: WMFYearInReviewSlideStandardViewModel
 
     @ObservedObject var appEnvironment = WMFAppEnvironment.current
 
-    var theme: WMFTheme {
+    private var theme: WMFTheme {
         return appEnvironment.theme
     }
 
-    let imageName: String
-    var altText: String
-    var slideTitle: String
-    var slideSubtitle: String
-    var hashtag: String
-    var isAttributedString: Bool
+    private let hashtag: String
+    
+    init(viewModel: WMFYearInReviewSlideStandardViewModel, appEnvironment: WMFAppEnvironment = WMFAppEnvironment.current, hashtag: String) {
+        self.viewModel = viewModel
+        self.appEnvironment = appEnvironment
+        self.hashtag = hashtag
+    }
     
     private var attributedString: AttributedString {
-        return (try? HtmlUtils.attributedStringFromHtml(slideSubtitle, styles: styles)) ?? AttributedString(slideSubtitle)
+        return (try? HtmlUtils.attributedStringFromHtml(viewModel.subtitle, styles: styles)) ?? AttributedString(viewModel.subtitle)
     }
     
     private var styles: HtmlUtils.Styles {
-        if isAttributedString {
-            return HtmlUtils.Styles(font: WMFFont.for(.headline), boldFont: WMFFont.for(.headline), italicsFont: WMFFont.for(.headline), boldItalicsFont: WMFFont.for(.title3), color: theme.text, linkColor: theme.link, lineSpacing: 3)
-        } else {
-            return HtmlUtils.Styles(font: WMFFont.for(.title3), boldFont: WMFFont.for(.title3), italicsFont: WMFFont.for(.title3), boldItalicsFont: WMFFont.for(.title3), color: theme.text, linkColor: theme.link, lineSpacing: 3)
-        }
+        return HtmlUtils.Styles(font: WMFFont.for(.headline), boldFont: WMFFont.for(.headline), italicsFont: WMFFont.for(.headline), boldItalicsFont: WMFFont.for(.title3), color: theme.text, linkColor: theme.link, lineSpacing: 3)
     }
 
     var body: some View {
@@ -37,7 +35,7 @@ struct WMFYearInReviewShareableSlideView: View {
                         .foregroundColor(Color(theme.text))
 
                     ZStack {
-                        Image(imageName, bundle: .module)
+                        Image(viewModel.gifName, bundle: .module)
                             .resizable()
                             .scaledToFit()
                             .frame(maxWidth: .infinity)
@@ -46,7 +44,7 @@ struct WMFYearInReviewShareableSlideView: View {
                     }
                     .padding(.top, 10)
                     VStack(alignment: .leading, spacing: 12) {
-                        Text(slideTitle)
+                        Text(viewModel.title)
                             .font(Font(WMFFont.for(.boldTitle1, compatibleWith: UITraitCollection(preferredContentSizeCategory: .medium))))
                             .foregroundStyle(Color(uiColor: theme.text))
                         Text(attributedString)
@@ -55,7 +53,7 @@ struct WMFYearInReviewShareableSlideView: View {
                             .accentColor(Color(uiColor: theme.link))
                     }
                     .padding([.top, .horizontal], 28)
-                    .padding(.bottom, isAttributedString ? 0 : 28)
+                    .padding(.bottom, 0)
                 }
 
                 Spacer(minLength: 10)
