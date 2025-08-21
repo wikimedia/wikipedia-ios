@@ -109,15 +109,11 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
     // MARK: - New tab properties
 
     private var newTabDataController: NewArticleTabDataControlling?
-
     private var newTabLoadTask: Task<Void, Never>?
-
     private var loadingView: UIActivityIndicatorView?
-
     private var _newTabHostViewController: UIViewController?
     private var _recentSearchesViewModel: WMFRecentlySearchedViewModel?
-    let dataController = WMFArticleTabsDataController()
-
+    private let tabsDataController = WMFArticleTabsDataController()
     private let attachedContentContainer = UIView()
     private var attachedHostController: UIViewController?
 
@@ -734,8 +730,8 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
         )
 
         Task {
-            dataController.moreDynamicTabsBYRIsEnabled = isBYR
-            dataController.moreDynamicTabsDYKIsEnabled = isDYK
+            tabsDataController.moreDynamicTabsBYRIsEnabled = isBYR
+            tabsDataController.moreDynamicTabsDYKIsEnabled = isDYK
 
             self.updateNewTabContent(becauseYouReadVM: self.lastBYRVM, didYouKnowVM: self.lastDYKVM)
 
@@ -918,7 +914,7 @@ extension SearchViewController: UISearchControllerDelegate {
         SearchFunnel.shared.logSearchCancel(source: source.stringValue)
 
         Task {
-            _ = try? await dataController.createArticleTab(initialArticle: nil, setAsCurrent: true) // TODO: - fix duplicating creation of tab
+            _ = try? await tabsDataController.createArticleTab(initialArticle: nil, setAsCurrent: true) // TODO: - fix duplicating creation of tab
         }
     }
 }
@@ -952,7 +948,6 @@ extension SearchViewController: WMFNewArticleTabSettingsLoggingDelegate {
     func logPreference(index: Int) {
         ArticleTabsFunnel.shared.logTabsPreferenceClick(action: index == 0 ? .recommendationPrefClick : .didYouKnowPrefClick)
     }
-
 }
 
 // MARK: - New tab experience extension
