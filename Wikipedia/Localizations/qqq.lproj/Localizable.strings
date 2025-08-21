@@ -103,6 +103,8 @@
 "app-store-short-description" = "Short description of the app for the app store";
 "app-store-subtitle" = "Subtitle describing the app for the app store";
 "appearance-settings-adjust-text-sizing" = "Header of the Text sizing section in Appearance settings";
+"appearance-settings-app-icon" = "Title of the App Icon section in Appearance settings";
+"appearance-settings-app-icon-footer" = "Footer of the App Icon section in Appearance settings";
 "appearance-settings-expand-tables" = "Title for the setting that expands tables in an article by default";
 "appearance-settings-expand-tables-footer" = "Footer of the expand tables section in Appearance settings, explaining the expand tables setting";
 "appearance-settings-image-dimming-footer" = "Footer of the Theme options section in Appearance settings, explaining image dimming";
