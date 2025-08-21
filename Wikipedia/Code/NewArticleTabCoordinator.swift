@@ -32,6 +32,7 @@ final class NewArticleTabCoordinator: Coordinator {
             searchVC.shouldBecomeFirstResponder = true
             searchVC.tabIdentifier = tabIdentifier
             searchVC.needsCenteredTitle = true
+            searchVC.customTitle = CommonStrings.newTab
             navigationController.pushViewController(searchVC, animated: true)
             return true
         }

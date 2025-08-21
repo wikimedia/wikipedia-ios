@@ -116,6 +116,7 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
 
     private var _newTabHostViewController: UIViewController?
     private var _recentSearchesViewModel: WMFRecentlySearchedViewModel?
+    let dataController = WMFArticleTabsDataController()
 
     // MARK: - Lifecycle
 
@@ -233,17 +234,29 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
                 extendedLayoutIncludesOpaqueBars = true
             }
         }
+        let wButton = UIButton(type: .custom)
+            wButton.setImage(UIImage(named: "W"), for: .normal)
 
-        var titleConfig: WMFNavigationBarTitleConfig = WMFNavigationBarTitleConfig(title: title, customView: nil, alignment: alignment)
+        var titleConfig: WMFNavigationBarTitleConfig
+        if needsAttachedView {
+            titleConfig = WMFNavigationBarTitleConfig(title: title, customView: wButton, alignment: .centerCompact)
+        } else {
+            titleConfig = WMFNavigationBarTitleConfig(title: title, customView: nil, alignment: alignment)
+        }
+
         if #available(iOS 18, *) {
             if UIDevice.current.userInterfaceIdiom == .pad && traitCollection.horizontalSizeClass == .regular {
-                titleConfig = WMFNavigationBarTitleConfig(title: CommonStrings.searchTitle, customView: nil, alignment: .leadingLarge)
+                if needsAttachedView {
+                    titleConfig = WMFNavigationBarTitleConfig(title: title, customView: wButton, alignment: .centerCompact)
+                } else {
+                    titleConfig = WMFNavigationBarTitleConfig(title: CommonStrings.searchTitle, customView: nil, alignment: .leadingLarge)
+                }
             }
         }
 
         let profileButtonConfig: WMFNavigationBarProfileButtonConfig?
         let tabsButtonConfig: WMFNavigationBarTabsButtonConfig?
-        if let dataStore, isMainRootView {
+        if let dataStore {
             profileButtonConfig = self.profileButtonConfig(target: self, action: #selector(userDidTapProfile), dataStore: dataStore, yirDataController: yirDataController, leadingBarButtonItem: nil)
             tabsButtonConfig = self.tabsButtonConfig(target: self, action: #selector(userDidTapTabs), dataStore: dataStore)
         } else {
@@ -252,9 +265,9 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
         }
         
         let searchBarConfig = WMFNavigationBarSearchConfig(searchResultsController: nil, searchControllerDelegate: self, searchResultsUpdater: self, searchBarDelegate: self, searchBarPlaceholder: CommonStrings.searchBarPlaceholder, showsScopeBar: false, scopeButtonTitles: nil)
-        let backButtonConfig = WMFNavigationBarBackButtonConfig(needsCustomTruncateBackButtonTitle: true)
+        let backButtonConfig = needsAttachedView ? WMFNavigationBarBackButtonConfig(needsCustomTruncateBackButtonTitle: true) : nil
 
-        configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: nil, profileButtonConfig: profileButtonConfig, tabsButtonConfig: tabsButtonConfig, searchBarConfig: searchBarConfig, hideNavigationBarOnScroll: !presentingSearchResults)
+        configureNavigationBar(titleConfig: titleConfig, backButtonConfig: backButtonConfig, closeButtonConfig: nil, profileButtonConfig: profileButtonConfig, tabsButtonConfig: tabsButtonConfig, searchBarConfig: searchBarConfig, hideNavigationBarOnScroll: !presentingSearchResults)
     }
 
     private func updateProfileButton() {
@@ -696,8 +709,6 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
         self.hostingController?.dismiss(animated: true)
     }
 
-    let dataController = WMFArticleTabsDataController()
-
     private func getSelectedIndex() -> Int {
         let isBYREnabled = (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsMoreDynamicTabsBYR.rawValue)) ?? false
         let isDYKEnabled = (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsMoreDynamicTabsDYK.rawValue)) ?? false
@@ -718,14 +729,11 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
             value: isDYK
         )
 
-        dataController.moreDynamicTabsBYRIsEnabled = isBYR
-        dataController.moreDynamicTabsDYKIsEnabled = isDYK
-
         Task {
-            WMFArticleTabsDataController.shared.moreDynamicTabsBYRIsEnabled = isBYR
-            WMFArticleTabsDataController.shared.moreDynamicTabsDYKIsEnabled = isDYK
+            dataController.moreDynamicTabsBYRIsEnabled = isBYR
+            dataController.moreDynamicTabsDYKIsEnabled = isDYK
 
-            self.updateNewTabContent(because: self.lastBYRVM, dyk: self.lastDYKVM)
+            self.updateNewTabContent(becauseYouReadVM: self.lastBYRVM, didYouKnowVM: self.lastDYKVM)
 
             self.view.setNeedsLayout()
             self.view.layoutIfNeeded()
@@ -905,8 +913,8 @@ extension SearchViewController: UISearchControllerDelegate {
         presentingSearchResults = false
         SearchFunnel.shared.logSearchCancel(source: source.stringValue)
 
-        if let nav = navigationController, let ds = dataStore {
-            TabsCoordinatorManager.shared.presentTabsOverview(from: nav, theme: theme, dataStore: ds)
+        Task {
+            _ = try? await dataController.createArticleTab(initialArticle: nil, setAsCurrent: true) // TODO: - fix duplicating creation of tab
         }
     }
 }
@@ -978,19 +986,19 @@ private extension SearchViewController {
                 async let becauseYouReadViewModel = repo.loadBecauseYouRead()
                 async let didYouKnowViewModel = repo.loadDidYouKnow()
 
-                let (byrVM, dykVM) = try await (becauseYouReadViewModel, didYouKnowViewModel)
+                let (becauseYouReadVM, didYouKnowVM) = try await (becauseYouReadViewModel, didYouKnowViewModel)
                 try Task.checkCancellation()
 
-                if let byrVM {
-                    byrVM.onTapArticle = { [weak self] item in
+                if let becauseYouReadVM {
+                    becauseYouReadVM.onTapArticle = { [weak self] item in
                         self?.openFromBYR(item: item)
                     }
                 }
 
                 await MainActor.run {
-                    self.lastBYRVM = byrVM
-                    self.lastDYKVM = dykVM
-                    self.updateNewTabContent(because: byrVM, dyk: dykVM)
+                    self.lastBYRVM = becauseYouReadVM
+                    self.lastDYKVM = didYouKnowVM
+                    self.updateNewTabContent(becauseYouReadVM: becauseYouReadVM, didYouKnowVM: didYouKnowVM)
                     self.hideLoading()
                 }
             } catch is CancellationError {
@@ -1002,18 +1010,18 @@ private extension SearchViewController {
     }
 
     @MainActor
-    func updateNewTabContent(because: WMFBecauseYouReadViewModel?, dyk: WMFNewArticleTabDidYouKnowViewModel?) {
+    func updateNewTabContent(becauseYouReadVM: WMFBecauseYouReadViewModel?, didYouKnowVM: WMFNewArticleTabDidYouKnowViewModel?) {
 
-        self.lastBYRVM = because
-        self.lastDYKVM = dyk
+        self.lastBYRVM = becauseYouReadVM
+        self.lastDYKVM = didYouKnowVM
 
         let localizedStrings = recentSearchesViewModel.localizedStrings
         let newVM = WMFRecentlySearchedViewModel(
             recentSearchTerms: recentSearchesViewModel.recentSearchTerms,
             localizedStrings: localizedStrings,
             needsAttachedView: true,
-            becauseYouReadViewModel: because,
-            didYouKnowViewModel: dyk,
+            becauseYouReadViewModel: becauseYouReadVM,
+            didYouKnowViewModel: didYouKnowVM,
             deleteAllAction: didPressClearRecentSearches,
             deleteItemAction: deleteItemAction,
             selectAction: selectAction,
