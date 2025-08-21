@@ -1,6 +1,6 @@
 import SwiftUI
 
-public struct WMFYearInReviewScrollView: View {
+struct WMFYearInReviewScrollView: View {
 
     @ObservedObject var appEnvironment = WMFAppEnvironment.current
 
@@ -8,9 +8,9 @@ public struct WMFYearInReviewScrollView: View {
     
     @State private var flashScrollIndicators: Bool = false
     
-    let scrollViewContents: AnyView
+    private let scrollViewContents: AnyView
     
-    public init<ScrollViewContent: View>(
+    init<ScrollViewContent: View>(
         scrollViewContents: ScrollViewContent
     ) {
         self.scrollViewContents = AnyView(scrollViewContents)
@@ -18,19 +18,19 @@ public struct WMFYearInReviewScrollView: View {
 
     // MARK: - Lifecycle
     
-    var scrollView: some View {
+    private var scrollView: some View {
         ScrollView(showsIndicators: true) {
             scrollViewContents
         }
     }
     
     @available(iOS 17.0, *)
-    var flashingScrollView: some View {
+    private var flashingScrollView: some View {
         scrollView
         .scrollIndicatorsFlash(trigger: flashScrollIndicators)
     }
     
-    var nonFlashingScrollView: some View {
+    private var nonFlashingScrollView: some View {
         scrollView
     }
     
@@ -44,7 +44,7 @@ public struct WMFYearInReviewScrollView: View {
         }
     }
 
-    public var body: some View {
+    var body: some View {
         content
             .background {
                 Color(appEnvironment.theme.midBackground).ignoresSafeArea()
