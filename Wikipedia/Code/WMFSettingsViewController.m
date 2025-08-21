@@ -608,10 +608,8 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
     [items addObject:[WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_ExploreFeed]];
 
     if ([[WMFYearInReviewDataController dataControllerForObjectiveC] shouldShowYearInReviewSettingsItemWithCountryCode:NSLocale.currentLocale.countryCode primaryAppLanguageCode:self.dataStore.languageLinkController.appLanguage.languageCode]) {
-#if DEBUG || WMF_STAGING
         [items addObject:[WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_YearInReview]];
         [[NSUserDefaults standardUserDefaults] wmf_setShowYirSettingToggle:YES];
-#endif
     } else {
         [[NSUserDefaults standardUserDefaults] wmf_setShowYirSettingToggle:NO];
     }
