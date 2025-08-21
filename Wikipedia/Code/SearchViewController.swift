@@ -106,7 +106,7 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
 
     public var tabIdentifier: WMFArticleTabsDataController.Identifiers?
 
-    // MARK: - BYR/DYK additions
+    // MARK: - New tab properties
 
     private var newTabDataController: NewArticleTabDataControlling?
 
@@ -117,6 +117,9 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
     private var _newTabHostViewController: UIViewController?
     private var _recentSearchesViewModel: WMFRecentlySearchedViewModel?
     let dataController = WMFArticleTabsDataController()
+
+    private let attachedContentContainer = UIView()
+    private var attachedHostController: UIViewController?
 
     // MARK: - Lifecycle
 
@@ -148,17 +151,18 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
 
         definesPresentationContext = true
 
-        if let ds = dataStore {
-            newTabDataController = NewArticleTabDataController(dataStore: ds)
+        if let dataStore {
+            newTabDataController = NewArticleTabDataController(dataStore: dataStore)
         }
 
         if needsAttachedView {
-            embedNewTab()
+            installAttachedContentContainer()
             loadNewTabContent()
         } else {
             embedRecentSearches()
         }
         embedResultsViewController()
+        updateLanguageBarVisibility()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -960,10 +964,10 @@ private extension SearchViewController {
             let spinner = UIActivityIndicatorView(style: .large)
             spinner.hidesWhenStopped = true
             spinner.translatesAutoresizingMaskIntoConstraints = false
-            view.addSubview(spinner)
+            attachedContentContainer.addSubview(spinner)
             NSLayoutConstraint.activate([
-                spinner.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-                spinner.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+                spinner.centerXAnchor.constraint(equalTo: attachedContentContainer.centerXAnchor),
+                spinner.centerYAnchor.constraint(equalTo: attachedContentContainer.centerYAnchor)
             ])
             loadingView = spinner
         }
@@ -1009,9 +1013,20 @@ private extension SearchViewController {
         }
     }
 
+    private func installAttachedContentContainer() {
+        attachedContentContainer.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(attachedContentContainer)
+        NSLayoutConstraint.activate([
+            attachedContentContainer.topAnchor.constraint(equalTo: view.topAnchor),
+            attachedContentContainer.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            attachedContentContainer.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            attachedContentContainer.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        ])
+    }
+
+
     @MainActor
     func updateNewTabContent(becauseYouReadVM: WMFBecauseYouReadViewModel?, didYouKnowVM: WMFNewArticleTabDidYouKnowViewModel?) {
-
         self.lastBYRVM = becauseYouReadVM
         self.lastDYKVM = didYouKnowVM
 
@@ -1025,7 +1040,8 @@ private extension SearchViewController {
             deleteAllAction: didPressClearRecentSearches,
             deleteItemAction: deleteItemAction,
             selectAction: selectAction,
-            onTapEdit: {
+            onTapEdit: { [weak self] in
+                guard let self else { return }
                 self.viewModel = WMFNewArticleTabSettingsViewModel(
                     title: CommonStrings.tabsPreferencesTitle,
                     header: CommonStrings.newTabTheme,
@@ -1050,38 +1066,44 @@ private extension SearchViewController {
                 self.viewModel = viewModel
                 self.hostingController = hostingController
                 let navController = WMFComponentNavigationController(rootViewController: hostingController)
-                self.present(navController, animated: true, completion: { [weak self] in
+                self.present(navController, animated: true) { [weak self] in
                     self?.saveSelection(selectedIndex: viewModel.selectedIndex)
-                })
+                }
             }
         )
+
         newVM.topPadding = recentSearchesViewModel.topPadding
         _recentSearchesViewModel = newVM
 
-        if let host = _newTabHostViewController {
-            host.willMove(toParent: nil)
-            host.view.removeFromSuperview()
-            host.removeFromParent()
+        if let oldHost = attachedHostController {
+            oldHost.willMove(toParent: nil)
+            oldHost.view.removeFromSuperview()
+            oldHost.removeFromParent()
+            attachedHostController = nil
         }
 
         let host = UIHostingController(rootView: WMFNewTabSearchView(viewModel: newVM, linkDelegate: self))
         addChild(host)
-        view.addSubview(host.view)
+        attachedContentContainer.addSubview(host.view)
         host.view.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            host.view.topAnchor.constraint(equalTo: view.topAnchor),
-            host.view.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            host.view.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            host.view.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+            host.view.topAnchor.constraint(equalTo: attachedContentContainer.topAnchor),
+            host.view.leadingAnchor.constraint(equalTo: attachedContentContainer.leadingAnchor),
+            host.view.trailingAnchor.constraint(equalTo: attachedContentContainer.trailingAnchor),
+            host.view.bottomAnchor.constraint(equalTo: attachedContentContainer.bottomAnchor)
         ])
         host.didMove(toParent: self)
-        _newTabHostViewController = host
+        attachedHostController = host
+
+        if let bar = searchLanguageBarViewController?.view {
+            view.bringSubviewToFront(bar)
+        }
     }
 
     func openFromBYR(item: HistoryItem) {
 
-        let nav = customArticleCoordinatorNavigationController ?? navigationController
-        guard let nav else { return }
+        let navController = customArticleCoordinatorNavigationController ?? navigationController
+        guard let navController else { return }
 
         guard let url = item.url,
             let title = url.wmf_title,
@@ -1098,7 +1120,7 @@ private extension SearchViewController {
         }
 
         let coord = ArticleCoordinator(
-            navigationController: nav,
+            navigationController: navController,
             articleURL: url,
             dataStore: dataStore,
             theme: theme,
@@ -1107,10 +1129,10 @@ private extension SearchViewController {
         )
         coord.start()
 
-        var vcs = nav.viewControllers
+        var vcs = navController.viewControllers
         if vcs.count >= 2 {
             vcs.remove(at: vcs.count - 2)
-            nav.setViewControllers(vcs, animated: false)
+            navController.setViewControllers(vcs, animated: false)
         }
     }
 }
