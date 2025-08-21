@@ -1077,6 +1077,7 @@
 "table-of-contents-subheading-label" = "Поднаслов $1";
 "tabs-close-tab" = "Затвори картицу";
 "tabs-open-tab" = "Отвори картицу";
+"tabs-thumbnail-description" = "Истражите Википедију, слободну енциклопедију коју свако може да уређује";
 "talk-page-active-users-accessibilty-label" = "{{PLURAL:$1|$1 активни корисник|$1 активних корисника}}";
 "talk-page-add-topic-button" = "Додај тему";
 "talk-page-archives" = "Архиве";

@@ -124,6 +124,7 @@
 "article-share" = "Partilhar";
 "article-tabs-did-you-know-title" = "Sabia que";
 "article-tabs-feature-announcement-item-1-title" = "Explore com os separadores";
+"article-tabs-feature-announcement-item-3-subtitle" = "Abra as hiperligações nos separadores em segundo plano sem perder o seu lugar.";
 "article-tabs-feature-announcement-item-3-title" = "Guardar hiperligação para mais tarde";
 "article-tabs-feature-announcement-item-4-title" = "Personalize o seu novo separador";
 "article-tabs-feature-announcement-sub-cta" = "Saiba mais sobre os 'Separadores'";
@@ -612,7 +613,7 @@
 "nearby-distance-label-km" = "$1 km";
 "nearby-distance-label-meters" = "$1 m";
 "nearby-distance-label-miles" = "$1 milhas";
-"new-article-tab-from-wikipedia-default" = "Da Wikipédia";
+"new-article-tab-from-wikipedia-default" = "aa Wikipédia";
 "new-article-tab-settings-did-you-know" = "Sabia que?";
 "new-article-tab-settings-recommendations" = "Recomendações";
 "new-password-instructions" = "Autenticou-se com uma palavra-passe temporária. Para concluir a autenticação, defina uma palavra-passe nova aqui.";
