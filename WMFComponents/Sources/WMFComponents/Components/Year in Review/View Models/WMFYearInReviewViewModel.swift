@@ -91,11 +91,13 @@ public class WMFYearInReviewViewModel: ObservableObject {
         let personalizedYourEditsViewedSlideSubtitle: (Int) -> String
         let personalizedThankYouTitle: String
         let personalizedThankYouSubtitle: (String) -> String
+        let personalizedMostReadCategoriesSlideTitle: String
+        let personalizedMostReadCategoriesSlideSubtitle: ([String]) -> String
         
         // Location Slide Strings
         let locationTitle: String
         
-        public init(donateButtonTitle: String, doneButtonTitle: String, shareButtonTitle: String, nextButtonTitle: String, finishButtonTitle: String, shareText: String, introTitle: String, introTitlePersonalized: String, introSubtitle: String, introSubtitlePersonzalized: String, introPrimaryButtonTitle: String, introSecondaryButtonTitle: String, wIconAccessibilityLabel: String, wmfLogoImageAccessibilityLabel: String, personalizedExploreAccessibilityLabel: String, personalizedYouReadAccessibilityLabel: String, personalizedUserEditsAccessibilityLabel: String, personalizedDonationThankYouAccessibilityLabel: String, personalizedSavedArticlesAccessibilityLabel: String, personalizedWeekdayAccessibilityLabel: String, personalizedYourEditsViewsAccessibilityLabel: String, collectiveExploreAccessibilityLabel: String, collectiveLanguagesAccessibilityLabel: String, collectiveArticleViewsAccessibilityLabel: String, collectiveSavedArticlesAccessibilityLabel: String, collectiveAmountEditsAccessibilityLabel: String, englishEditsAccessibilityLabel: String, collectiveEditsPerMinuteAccessibilityLabel: String, collectiveZeroAdsAccessibilityLabel: String, englishReadingSlideTitle: String, englishReadingSlideSubtitle: String, englishTopReadSlideTitle: String, englishTopReadSlideSubtitle: String, englishSavedReadingSlideTitle: String, englishSavedReadingSlideSubtitle: String, englishEditsSlideTitle: String, englishEditsSlideSubtitle: String, englishEditsBytesSlideTitle: String, englishEditsBytesSlideSubtitle: String, collectiveLanguagesSlideTitle: String, collectiveLanguagesSlideSubtitle: String, collectiveArticleViewsSlideTitle: String, collectiveArticleViewsSlideSubtitle: String, collectiveSavedArticlesSlideTitle: String, collectiveSavedArticlesSlideSubtitle: String, collectiveAmountEditsSlideTitle: String, collectiveAmountEditsSlideSubtitle: String, collectiveEditsPerMinuteSlideTitle: String, collectiveEditsPerMinuteSlideSubtitle: String, collectiveZeroAdsSlideTitle: String, collectiveZeroAdsSlideSubtitle: @escaping () -> String, personalizedYouReadSlideTitle: @escaping (Int) -> String, personalizedYouReadSlideSubtitle: @escaping (Int) -> String, personalizedDaySlideTitle: @escaping (Int) -> String, personalizedDaySlideSubtitle: @escaping (Int) -> String, personalizedSaveCountSlideTitle: @escaping (Int) -> String, personalizedSaveCountSlideSubtitle: @escaping (Int, [String]) -> String, personalizedUserEditsSlideTitle: @escaping (Int) -> String, personzlizedUserEditsSlideTitle500Plus: String, personzlizedUserEditsSlideSubtitle: @escaping (Int) -> String, personzlizedUserEditsSlideSubtitle500Plus: String, personalizedYourEditsViewedSlideTitle: @escaping (Int) -> String, personalizedYourEditsViewedSlideSubtitle: @escaping (Int) -> String, personalizedThankYouTitle: String, personalizedThankYouSubtitle: @escaping (String) -> String, locationTitle: String) {
+        public init(donateButtonTitle: String, doneButtonTitle: String, shareButtonTitle: String, nextButtonTitle: String, finishButtonTitle: String, shareText: String, introTitle: String, introTitlePersonalized: String, introSubtitle: String, introSubtitlePersonzalized: String, introPrimaryButtonTitle: String, introSecondaryButtonTitle: String, wIconAccessibilityLabel: String, wmfLogoImageAccessibilityLabel: String, personalizedExploreAccessibilityLabel: String, personalizedYouReadAccessibilityLabel: String, personalizedUserEditsAccessibilityLabel: String, personalizedDonationThankYouAccessibilityLabel: String, personalizedSavedArticlesAccessibilityLabel: String, personalizedWeekdayAccessibilityLabel: String, personalizedYourEditsViewsAccessibilityLabel: String, collectiveExploreAccessibilityLabel: String, collectiveLanguagesAccessibilityLabel: String, collectiveArticleViewsAccessibilityLabel: String, collectiveSavedArticlesAccessibilityLabel: String, collectiveAmountEditsAccessibilityLabel: String, englishEditsAccessibilityLabel: String, collectiveEditsPerMinuteAccessibilityLabel: String, collectiveZeroAdsAccessibilityLabel: String, englishReadingSlideTitle: String, englishReadingSlideSubtitle: String, englishTopReadSlideTitle: String, englishTopReadSlideSubtitle: String, englishSavedReadingSlideTitle: String, englishSavedReadingSlideSubtitle: String, englishEditsSlideTitle: String, englishEditsSlideSubtitle: String, englishEditsBytesSlideTitle: String, englishEditsBytesSlideSubtitle: String, collectiveLanguagesSlideTitle: String, collectiveLanguagesSlideSubtitle: String, collectiveArticleViewsSlideTitle: String, collectiveArticleViewsSlideSubtitle: String, collectiveSavedArticlesSlideTitle: String, collectiveSavedArticlesSlideSubtitle: String, collectiveAmountEditsSlideTitle: String, collectiveAmountEditsSlideSubtitle: String, collectiveEditsPerMinuteSlideTitle: String, collectiveEditsPerMinuteSlideSubtitle: String, collectiveZeroAdsSlideTitle: String, collectiveZeroAdsSlideSubtitle: @escaping () -> String, personalizedYouReadSlideTitle: @escaping (Int) -> String, personalizedYouReadSlideSubtitle: @escaping (Int) -> String, personalizedDaySlideTitle: @escaping (Int) -> String, personalizedDaySlideSubtitle: @escaping (Int) -> String, personalizedSaveCountSlideTitle: @escaping (Int) -> String, personalizedSaveCountSlideSubtitle: @escaping (Int, [String]) -> String, personalizedUserEditsSlideTitle: @escaping (Int) -> String, personzlizedUserEditsSlideTitle500Plus: String, personzlizedUserEditsSlideSubtitle: @escaping (Int) -> String, personzlizedUserEditsSlideSubtitle500Plus: String, personalizedYourEditsViewedSlideTitle: @escaping (Int) -> String, personalizedYourEditsViewedSlideSubtitle: @escaping (Int) -> String, personalizedThankYouTitle: String, personalizedThankYouSubtitle: @escaping (String) -> String, personalizedMostReadCategoriesSlideTitle: String, personalizedMostReadCategoriesSlideSubtitle: @escaping ([String]) -> String, locationTitle: String) {
             self.donateButtonTitle = donateButtonTitle
             self.doneButtonTitle = doneButtonTitle
             self.shareButtonTitle = shareButtonTitle
@@ -161,6 +163,8 @@ public class WMFYearInReviewViewModel: ObservableObject {
             self.personalizedYourEditsViewedSlideSubtitle = personalizedYourEditsViewedSlideSubtitle
             self.personalizedThankYouTitle = personalizedThankYouTitle
             self.personalizedThankYouSubtitle = personalizedThankYouSubtitle
+            self.personalizedMostReadCategoriesSlideTitle = personalizedMostReadCategoriesSlideTitle
+            self.personalizedMostReadCategoriesSlideSubtitle = personalizedMostReadCategoriesSlideSubtitle
             self.locationTitle = locationTitle
         }
     }
@@ -236,20 +240,42 @@ public class WMFYearInReviewViewModel: ObservableObject {
         self.introViewModel = introViewModel
         
         let personalizedSlides = getPersonalizedSlides(aboutYiRURL: aboutYiRURL)
-        if isUserPermanent {
-            slides.append(.standard(personalizedSlides.readCountSlide ?? (primaryAppLanguage.isEnglishWikipedia ? englishHoursReadingSlide : collectiveLanguagesSlide)))
-            slides.append(.standard(personalizedSlides.mostReadDaySlide ?? (primaryAppLanguage.isEnglishWikipedia ? englishTopReadSlide : collectiveArticleViewsSlide)))
-            slides.append(.standard(personalizedSlides.saveCountSlide ?? (primaryAppLanguage.isEnglishWikipedia ? englishReadingListSlide : collectiveSavedArticlesSlide)))
-            slides.append(.standard(personalizedSlides.editCountSlide ?? (primaryAppLanguage.isEnglishWikipedia ? englishEditsSlide : collectiveAmountEditsSlide)))
-            slides.append(.standard(personalizedSlides.viewCountSlide ?? (primaryAppLanguage.isEnglishWikipedia ? englishEditsBytesSlide : collectiveEditsPerMinuteSlide)))
-            slides.append(.standard(personalizedSlides.donateCountSlide ?? collectiveZeroAdsSlide))
-        } else {
-            slides.append(.standard(primaryAppLanguage.isEnglishWikipedia ? englishHoursReadingSlide : collectiveLanguagesSlide))
-            slides.append(.standard(primaryAppLanguage.isEnglishWikipedia ? englishTopReadSlide : collectiveArticleViewsSlide))
-            slides.append(.standard(primaryAppLanguage.isEnglishWikipedia ? englishReadingListSlide : collectiveSavedArticlesSlide))
-            slides.append(.standard(primaryAppLanguage.isEnglishWikipedia ? englishEditsSlide : collectiveAmountEditsSlide))
-            slides.append(.standard(primaryAppLanguage.isEnglishWikipedia ? englishEditsBytesSlide : collectiveEditsPerMinuteSlide))
-            slides.append(.standard(personalizedSlides.donateCountSlide ?? collectiveZeroAdsSlide))
+        
+        if true { // TODO: Wrap up in some sort of YiR V3 check for user testing. Confirm ordering / fallbacks are correct once product requirements are finalized.
+            if isUserPermanent {
+                slides.append(.standard(personalizedSlides.readCountSlide ?? (primaryAppLanguage.isEnglishWikipedia ? englishHoursReadingSlide : collectiveLanguagesSlide)))
+                slides.append(.standard(personalizedSlides.mostReadDaySlide ?? (primaryAppLanguage.isEnglishWikipedia ? englishTopReadSlide : collectiveArticleViewsSlide)))
+                if let categorySlide = personalizedSlides.mostReadCategoriesSlide {
+                    slides.append(.standard(categorySlide))
+                }
+                slides.append(.standard(personalizedSlides.saveCountSlide ?? (primaryAppLanguage.isEnglishWikipedia ? englishReadingListSlide : collectiveSavedArticlesSlide)))
+                slides.append(.standard(personalizedSlides.editCountSlide ?? (primaryAppLanguage.isEnglishWikipedia ? englishEditsSlide : collectiveAmountEditsSlide)))
+                slides.append(.standard(personalizedSlides.viewCountSlide ?? (primaryAppLanguage.isEnglishWikipedia ? englishEditsBytesSlide : collectiveEditsPerMinuteSlide)))
+                slides.append(.standard(personalizedSlides.donateCountSlide ?? collectiveZeroAdsSlide))
+            } else {
+                slides.append(.standard(primaryAppLanguage.isEnglishWikipedia ? englishHoursReadingSlide : collectiveLanguagesSlide))
+                slides.append(.standard(primaryAppLanguage.isEnglishWikipedia ? englishTopReadSlide : collectiveArticleViewsSlide))
+                slides.append(.standard(primaryAppLanguage.isEnglishWikipedia ? englishReadingListSlide : collectiveSavedArticlesSlide))
+                slides.append(.standard(primaryAppLanguage.isEnglishWikipedia ? englishEditsSlide : collectiveAmountEditsSlide))
+                slides.append(.standard(primaryAppLanguage.isEnglishWikipedia ? englishEditsBytesSlide : collectiveEditsPerMinuteSlide))
+                slides.append(.standard(personalizedSlides.donateCountSlide ?? collectiveZeroAdsSlide))
+            }
+        } else { // TODO: Wrap up in some sort of YiR V2 check for user testing
+            if isUserPermanent {
+                slides.append(.standard(personalizedSlides.readCountSlide ?? (primaryAppLanguage.isEnglishWikipedia ? englishHoursReadingSlide : collectiveLanguagesSlide)))
+                slides.append(.standard(personalizedSlides.mostReadDaySlide ?? (primaryAppLanguage.isEnglishWikipedia ? englishTopReadSlide : collectiveArticleViewsSlide)))
+                slides.append(.standard(personalizedSlides.saveCountSlide ?? (primaryAppLanguage.isEnglishWikipedia ? englishReadingListSlide : collectiveSavedArticlesSlide)))
+                slides.append(.standard(personalizedSlides.editCountSlide ?? (primaryAppLanguage.isEnglishWikipedia ? englishEditsSlide : collectiveAmountEditsSlide)))
+                slides.append(.standard(personalizedSlides.viewCountSlide ?? (primaryAppLanguage.isEnglishWikipedia ? englishEditsBytesSlide : collectiveEditsPerMinuteSlide)))
+                slides.append(.standard(personalizedSlides.donateCountSlide ?? collectiveZeroAdsSlide))
+            } else {
+                slides.append(.standard(primaryAppLanguage.isEnglishWikipedia ? englishHoursReadingSlide : collectiveLanguagesSlide))
+                slides.append(.standard(primaryAppLanguage.isEnglishWikipedia ? englishTopReadSlide : collectiveArticleViewsSlide))
+                slides.append(.standard(primaryAppLanguage.isEnglishWikipedia ? englishReadingListSlide : collectiveSavedArticlesSlide))
+                slides.append(.standard(primaryAppLanguage.isEnglishWikipedia ? englishEditsSlide : collectiveAmountEditsSlide))
+                slides.append(.standard(primaryAppLanguage.isEnglishWikipedia ? englishEditsBytesSlide : collectiveEditsPerMinuteSlide))
+                slides.append(.standard(personalizedSlides.donateCountSlide ?? collectiveZeroAdsSlide))
+            }
         }
         
         if personalizedSlides.donateCountSlide != nil {
@@ -270,6 +296,7 @@ public class WMFYearInReviewViewModel: ObservableObject {
         var saveCountSlide: WMFYearInReviewSlideStandardViewModel?
         var mostReadDaySlide: WMFYearInReviewSlideStandardViewModel?
         var viewCountSlide: WMFYearInReviewSlideStandardViewModel?
+        var mostReadCategoriesSlide: WMFYearInReviewSlideStandardViewModel?
     }
     
     private func getPersonalizedSlides(aboutYiRURL: URL?) -> PersonalizedSlides {
@@ -280,6 +307,7 @@ public class WMFYearInReviewViewModel: ObservableObject {
         var saveCountSlide: WMFYearInReviewSlideStandardViewModel?
         var mostReadDaySlide: WMFYearInReviewSlideStandardViewModel?
         var viewCountSlide: WMFYearInReviewSlideStandardViewModel?
+        var mostReadCategoriesSlide: WMFYearInReviewSlideStandardViewModel?
         
         let dataController = try? WMFYearInReviewDataController()
         
@@ -398,11 +426,30 @@ public class WMFYearInReviewViewModel: ObservableObject {
                             )
                         }
                     }
+                case .mostReadCategories:
+                    if let data = slide.data {
+                        let decoder = JSONDecoder()
+                        if let mostReadCategories = try? decoder.decode([String].self, from: data),
+                           mostReadCategories.count >= 5 { // TODO: confirm we don't show slide at all if categories < 5?
+
+                            mostReadCategoriesSlide = WMFYearInReviewSlideStandardViewModel(
+                                gifName: "personal-slide-05", // TODO: modify gif name
+                                altText: "", // TODO: alt text
+                                title: localizedStrings.personalizedMostReadCategoriesSlideTitle,
+                                subtitle: localizedStrings.personalizedMostReadCategoriesSlideSubtitle(mostReadCategories),
+                                subtitleType: .standard,
+                                infoURL: aboutYiRURL,
+                                forceHideDonateButton: false,
+                                loggingID: "", // TODO: logging ID
+                                tappedInfo: tappedInfo
+                            )
+                        }
+                    }
                 }
             }
         }
         
-        return PersonalizedSlides(readCountSlide: readCountSlide, editCountSlide: editCountSlide, donateCountSlide: donateCountSlide, saveCountSlide: saveCountSlide, mostReadDaySlide: mostReadDaySlide, viewCountSlide: viewCountSlide)
+        return PersonalizedSlides(readCountSlide: readCountSlide, editCountSlide: editCountSlide, donateCountSlide: donateCountSlide, saveCountSlide: saveCountSlide, mostReadDaySlide: mostReadDaySlide, viewCountSlide: viewCountSlide, mostReadCategoriesSlide: mostReadCategoriesSlide)
     }
     
     // MARK: English Slides
