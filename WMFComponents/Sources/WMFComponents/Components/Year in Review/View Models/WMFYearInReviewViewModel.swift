@@ -265,7 +265,7 @@ public class WMFYearInReviewViewModel: ObservableObject {
                 slides.append(.standard(primaryAppLanguage.isEnglishWikipedia ? englishEditsBytesSlide : collectiveEditsPerMinuteSlide))
                 slides.append(.standard(personalizedSlides.donateCountSlide ?? collectiveZeroAdsSlide))
             }
-        } else { // YIR V2
+        } else if WMFDeveloperSettingsDataController.shared.showYiRV2 {
             if isUserPermanent {
                 slides.append(.standard(personalizedSlides.readCountSlide ?? (primaryAppLanguage.isEnglishWikipedia ? englishHoursReadingSlide : collectiveLanguagesSlide)))
                 slides.append(.standard(personalizedSlides.mostReadDaySlide ?? (primaryAppLanguage.isEnglishWikipedia ? englishTopReadSlide : collectiveArticleViewsSlide)))

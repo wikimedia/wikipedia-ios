@@ -56,6 +56,11 @@ import CoreData
     
     public func shouldShowYiRNotification(primaryAppLanguageProject: WMFProject?, isLoggedOut: Bool, isTemporaryAccount: Bool) -> Bool {
         
+        if !WMFDeveloperSettingsDataController.shared.showYiRV2 &&
+            !WMFDeveloperSettingsDataController.shared.showYiRV3 {
+            return false
+        }
+        
         if isTemporaryAccount {
             return false
         }
@@ -95,6 +100,12 @@ import CoreData
     }
 
     func isAnnouncementActive() -> Bool {
+        
+        if WMFDeveloperSettingsDataController.shared.showYiRV2 ||
+            WMFDeveloperSettingsDataController.shared.showYiRV3 {
+            return true
+        }
+        
         let expiryDate: Date? = {
             var expiryDateComponents = DateComponents()
             expiryDateComponents.year = 2025
@@ -111,6 +122,12 @@ import CoreData
     }
 
     public func shouldShowYearInReviewFeatureAnnouncement(primaryAppLanguageProject: WMFProject?) -> Bool {
+        
+        if !WMFDeveloperSettingsDataController.shared.showYiRV2 &&
+            !WMFDeveloperSettingsDataController.shared.showYiRV3 {
+            return false
+        }
+        
         guard isAnnouncementActive() else {
             return false
         }
@@ -138,6 +155,11 @@ import CoreData
 
     public func shouldShowYearInReviewEntryPoint(countryCode: String?, primaryAppLanguageProject: WMFProject?) -> Bool {
         assert(Thread.isMainThread, "This method must be called from the main thread in order to keep it synchronous")
+        
+        if !WMFDeveloperSettingsDataController.shared.showYiRV2 &&
+            !WMFDeveloperSettingsDataController.shared.showYiRV3 {
+            return false
+        }
 
         guard yearInReviewSettingsIsEnabled else {
             return false
@@ -197,6 +219,11 @@ import CoreData
     // MARK: - Hide Year in Review
 
     @objc public func shouldShowYearInReviewSettingsItem(countryCode: String?, primaryAppLanguageCode: String?) -> Bool {
+        
+        if !WMFDeveloperSettingsDataController.shared.showYiRV2 &&
+            !WMFDeveloperSettingsDataController.shared.showYiRV3 {
+            return false
+        }
 
         guard let countryCode,
               let primaryAppLanguageCode else {
@@ -237,6 +264,12 @@ import CoreData
     // MARK: Report Data Population
 
     func shouldPopulateYearInReviewReportData(countryCode: String?, primaryAppLanguageProject: WMFProject?) -> Bool {
+        
+        if !WMFDeveloperSettingsDataController.shared.showYiRV2 &&
+            !WMFDeveloperSettingsDataController.shared.showYiRV3 {
+            return false
+        }
+        
         guard yearInReviewSettingsIsEnabled else {
             return false
         }
