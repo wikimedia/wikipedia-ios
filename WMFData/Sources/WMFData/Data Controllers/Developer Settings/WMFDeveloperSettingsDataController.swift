@@ -130,6 +130,22 @@ public protocol WMFDeveloperSettingsDataControlling: AnyObject {
             try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsYiRLimitCategoriesTo2Underscores.rawValue, value: newValue)
         }
     }
+    
+    public var showYiRV2: Bool {
+        get {
+            return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsShowYiRV2.rawValue)) ?? false
+        } set {
+            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsShowYiRV2.rawValue, value: newValue)
+        }
+    }
+    
+    public var showYiRV3: Bool {
+        get {
+            return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsShowYiRV3.rawValue)) ?? true // Defaulting to true initially
+        } set {
+            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsShowYiRV3.rawValue, value: newValue)
+        }
+    }
 
     // MARK: - Remote Settings from donatewiki AppsFeatureConfig json
     

@@ -241,13 +241,18 @@ public class WMFYearInReviewViewModel: ObservableObject {
         
         let personalizedSlides = getPersonalizedSlides(aboutYiRURL: aboutYiRURL)
         
-        if true { // TODO: Wrap up in some sort of YiR V3 check for user testing. Confirm ordering / fallbacks are correct once product requirements are finalized.
+        if WMFDeveloperSettingsDataController.shared.showYiRV3 { // TODO: Confirm ordering / fallbacks are correct once product requirements are finalized.
             if isUserPermanent {
                 slides.append(.standard(personalizedSlides.readCountSlide ?? (primaryAppLanguage.isEnglishWikipedia ? englishHoursReadingSlide : collectiveLanguagesSlide)))
                 slides.append(.standard(personalizedSlides.mostReadDaySlide ?? (primaryAppLanguage.isEnglishWikipedia ? englishTopReadSlide : collectiveArticleViewsSlide)))
                 if let categorySlide = personalizedSlides.mostReadCategoriesSlide {
                     slides.append(.standard(categorySlide))
                 }
+                
+                // TODO: Need location data crunched
+                let fakeLocation = WMFYearInReviewSlideLocationViewModel(localizedStrings: localizedStrings, loggingID: "")
+                slides.append(.location(fakeLocation))
+                
                 slides.append(.standard(personalizedSlides.saveCountSlide ?? (primaryAppLanguage.isEnglishWikipedia ? englishReadingListSlide : collectiveSavedArticlesSlide)))
                 slides.append(.standard(personalizedSlides.editCountSlide ?? (primaryAppLanguage.isEnglishWikipedia ? englishEditsSlide : collectiveAmountEditsSlide)))
                 slides.append(.standard(personalizedSlides.viewCountSlide ?? (primaryAppLanguage.isEnglishWikipedia ? englishEditsBytesSlide : collectiveEditsPerMinuteSlide)))
@@ -260,7 +265,7 @@ public class WMFYearInReviewViewModel: ObservableObject {
                 slides.append(.standard(primaryAppLanguage.isEnglishWikipedia ? englishEditsBytesSlide : collectiveEditsPerMinuteSlide))
                 slides.append(.standard(personalizedSlides.donateCountSlide ?? collectiveZeroAdsSlide))
             }
-        } else { // TODO: Wrap up in some sort of YiR V2 check for user testing
+        } else { // YIR V2
             if isUserPermanent {
                 slides.append(.standard(personalizedSlides.readCountSlide ?? (primaryAppLanguage.isEnglishWikipedia ? englishHoursReadingSlide : collectiveLanguagesSlide)))
                 slides.append(.standard(personalizedSlides.mostReadDaySlide ?? (primaryAppLanguage.isEnglishWikipedia ? englishTopReadSlide : collectiveArticleViewsSlide)))
@@ -281,10 +286,6 @@ public class WMFYearInReviewViewModel: ObservableObject {
         if personalizedSlides.donateCountSlide != nil {
             self.hasPersonalizedDonateSlide = true
         }
-        
-        // Add a quick fake location slide
-        let fakeLocation = WMFYearInReviewSlideLocationViewModel(localizedStrings: localizedStrings, loggingID: "")
-        slides.append(.location(fakeLocation))
     }
     
     // MARK: Personalized Slides
