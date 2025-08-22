@@ -1462,6 +1462,8 @@
 "year-in-review-feature-announcement-title-personalized" = "Explore your Wikipedia Year in Review";
 "year-in-review-feature-explore-body" = "Wikipedia is the largest knowledge resource ever assembled in the history of the world, and it’s freely available to everyone everywhere. Here’s a review of 2024 through the lens of Wikipedia. ";
 "year-in-review-feature-explore-body-personalized" = "See insights about which articles you read on the Wikipedia app and the edits you made in 2024. Your reading history is kept protected. Reading insights are calculated using locally stored data on your device.";
+"year-in-review-feature-explore-body-v3" = "See insights about which articles you read on the Wikipedia app and the edits you made.";
+"year-in-review-feature-explore-footer-v3" = "Your reading history is kept protected. Reading insights are calculated using locally stored data on your device.";
 "year-in-review-finish" = "Finish";
 "year-in-review-login-subtitle" = "Login or create an account to be eligible for more personalized insights";
 "year-in-review-login-title" = "Improve your Year in Review";

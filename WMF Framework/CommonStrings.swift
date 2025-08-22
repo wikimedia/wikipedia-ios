@@ -660,6 +660,10 @@ public class CommonStrings: NSObject {
     
     public static let exploreYIRTitlePersonalized = WMFLocalizedString("year-in-review-feature-announcement-title-personalized", value: "Explore your Wikipedia Year in Review", comment: "Title for year in review feature announcement")
     public static let exploreYIRBodyPersonalized =  WMFLocalizedString("year-in-review-feature-explore-body-personalized", value: "See insights about which articles you read on the Wikipedia app and the edits you made in 2024. Your reading history is kept protected. Reading insights are calculated using locally stored data on your device.", comment: "Body for year in review feature announcement")
+    
+    public static let exploreYIRBodyV3 =  WMFLocalizedString("year-in-review-feature-explore-body-v3", value: "See insights about which articles you read on the Wikipedia app and the edits you made.", comment: "Body for year in review feature announcement - version 3")
+    
+    public static let exploreYIRFooterV3 =  WMFLocalizedString("year-in-review-feature-explore-footer-v3", value: "Your reading history is kept protected. Reading insights are calculated using locally stored data on your device.", comment: "Footer text in the year in review intro view.")
 
     public static let exploreYiRTitle = WMFLocalizedString("year-in-review-feature-announcement-title", value: "Explore Wikipedia in Review", comment: "Title for year in review feature announcement")
     public static let exploreYIRBody =  WMFLocalizedString("year-in-review-feature-explore-body", value: "Wikipedia is the largest knowledge resource ever assembled in the history of the world, and it’s freely available to everyone everywhere. Here’s a review of 2024 through the lens of Wikipedia. ", comment: "Body for year in review feature announcement")

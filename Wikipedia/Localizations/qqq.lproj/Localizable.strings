@@ -1462,6 +1462,8 @@
 "year-in-review-feature-announcement-title-personalized" = "Title for year in review feature announcement";
 "year-in-review-feature-explore-body" = "Body for year in review feature announcement";
 "year-in-review-feature-explore-body-personalized" = "Body for year in review feature announcement";
+"year-in-review-feature-explore-body-v3" = "Body for year in review feature announcement - version 3";
+"year-in-review-feature-explore-footer-v3" = "Footer text in the year in review intro view.";
 "year-in-review-finish" = "Year in review finish button. Displayed on last slide and dismisses feature view.";
 "year-in-review-login-subtitle" = "Subtitle of alert that asks user to login. Displayed after they completed the feature for the first time.";
 "year-in-review-login-title" = "Title of alert that asks user to login. Displayed after they completed the feature for the first time.";
