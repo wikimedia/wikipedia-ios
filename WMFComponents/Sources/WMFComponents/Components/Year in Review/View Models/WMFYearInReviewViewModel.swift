@@ -244,7 +244,7 @@ public class WMFYearInReviewViewModel: ObservableObject {
                     self?.markFirstSlideAsSeen()
                 },
                 tappedPrimaryButton: { [weak self] in
-                    self?.tappedGetStarted()
+                    self?.tappedIntroV3GetStarted()
                 },
                 tappedSecondaryButton: { [weak self] in
                     self?.loggingDelegate?.logYearInReviewIntroDidTapLearnMore()
@@ -267,7 +267,7 @@ public class WMFYearInReviewViewModel: ObservableObject {
                     self?.markFirstSlideAsSeen()
                 },
                 tappedPrimaryButton: { [weak self] in
-                    self?.tappedGetStarted()
+                    self?.tappedIntroV2GetStarted()
                 },
                 tappedSecondaryButton: { [weak self] in
                     self?.loggingDelegate?.logYearInReviewIntroDidTapLearnMore()
@@ -647,9 +647,43 @@ public class WMFYearInReviewViewModel: ObservableObject {
         return slides[currentSlideIndex]
     }
     
-    func tappedGetStarted() {
+    func tappedIntroV2GetStarted() {
         loggingDelegate?.logYearInReviewIntroDidTapContinue()
         isShowingIntro = false
+        logSlideAppearance() // Manually logs appearance of first slide (currentSlideIndex is already set to 0)
+    }
+    
+    func tappedIntroV3GetStarted() {
+        if !isUserPermanent {
+            coordinatorDelegate?.handleYearInReviewAction(.tappedIntroV3GetStartedWhileLoggedOut)
+        } else {
+            loggingDelegate?.logYearInReviewIntroDidTapContinue()
+            isShowingIntro = false
+            logSlideAppearance() // Manually logs appearance of first slide (currentSlideIndex is already set to 0)
+        }
+    }
+    
+    public func tappedIntroV3LoginPromptNoThanks() {
+        withAnimation {
+            isShowingIntro = false
+        }
+        
+        logSlideAppearance() // Manually logs appearance of first slide (currentSlideIndex is already set to 0)
+    }
+    
+    public func tappedIntroV3ExitConfirmationGetStarted() {
+        withAnimation {
+            isShowingIntro = false
+        }
+        
+        logSlideAppearance() // Manually logs appearance of first slide (currentSlideIndex is already set to 0)
+    }
+    
+    public func completedLoginFromIntroV3LoginPrompt() {
+        withAnimation {
+            isShowingIntro = false
+        }
+        
         logSlideAppearance() // Manually logs appearance of first slide (currentSlideIndex is already set to 0)
     }
     
@@ -680,8 +714,23 @@ public class WMFYearInReviewViewModel: ObservableObject {
     }
     
     func tappedDone() {
-        logYearInReviewDidTapDone()
-        coordinatorDelegate?.handleYearInReviewAction(.dismiss(hasSeenTwoSlides: hasSeenTwoSlides))
+        let standardDismissal: () -> Void = { [weak self] in
+            guard let self else { return }
+            logYearInReviewDidTapDone()
+            coordinatorDelegate?.handleYearInReviewAction(.dismiss(hasSeenTwoSlides: hasSeenTwoSlides))
+        }
+        
+        if !isShowingIntro {
+            standardDismissal()
+        } else if WMFDeveloperSettingsDataController.shared.showYiRV2 {
+            standardDismissal()
+        } else if WMFDeveloperSettingsDataController.shared.showYiRV3 {
+            if isUserPermanent {
+                standardDismissal()
+            } else {
+                coordinatorDelegate?.handleYearInReviewAction(.tappedIntroV3DoneWhileLoggedOut)
+            }
+        }
     }
     
     func handleDonate(sourceRect: CGRect) {

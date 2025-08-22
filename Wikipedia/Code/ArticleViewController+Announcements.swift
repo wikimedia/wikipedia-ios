@@ -128,6 +128,8 @@ extension ArticleViewController {
 
     // TODO: remove after expiry date (1 March 2025)
     func needsYearInReviewAnnouncement() -> Bool {
+        return true
+        
         if UIDevice.current.userInterfaceIdiom == .pad && (navigationController?.navigationBar.isHidden ?? false) {
             return false
         }
