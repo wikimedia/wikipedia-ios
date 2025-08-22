@@ -15,8 +15,8 @@ struct WMFYearInReviewBodyView: View {
     
     var body: some View {
         if viewModel.isShowingIntro,
-           let introViewModel = viewModel.introViewModel {
-            WMFYearInReviewSlideIntroView(viewModel: introViewModel)
+           let introV2ViewModel = viewModel.introV2ViewModel {
+            WMFYearInReviewSlideIntroV2View(viewModel: introV2ViewModel)
         } else {
             VStack {
                 

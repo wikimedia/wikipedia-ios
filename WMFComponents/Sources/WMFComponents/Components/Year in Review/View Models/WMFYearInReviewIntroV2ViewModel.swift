@@ -1,4 +1,4 @@
-struct WMFYearInReviewIntroViewModel {
+struct WMFYearInReviewIntroV2ViewModel {
     let gifName: String
     let altText: String
     let title: String
