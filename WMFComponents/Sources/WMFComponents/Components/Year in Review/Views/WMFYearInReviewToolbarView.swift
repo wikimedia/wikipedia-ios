@@ -16,7 +16,7 @@ struct WMFYearInReviewToolbarView: View {
     var body: some View {
         HStack(alignment: .center) {
             Button(action: {
-                viewModel.tappedShare()
+                viewModel.handleShareAll()
             }) {
                 HStack(alignment: .center, spacing: 6) {
                     if let uiImage = WMFSFSymbolIcon.for(symbol: .share, font: .semiboldHeadline) {
