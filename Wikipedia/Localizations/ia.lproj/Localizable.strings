@@ -131,6 +131,7 @@
 "article-share" = "Condivider";
 "article-tabs-button-accessibility-hint" = "Naviga al vista general de schedas";
 "article-tabs-button-accessibility-label" = "Schedas de articulo";
+"article-tabs-did-you-know-title" = "Sapeva tu que...";
 "article-tabs-feature-announcement-item-1-subtitle" = "Aperi plure articulos e cambia inter illos con facilitate.";
 "article-tabs-feature-announcement-item-1-title" = "Navigar con schedas";
 "article-tabs-feature-announcement-item-2-subtitle" = "Le schedas se rememora automaticamente tu position de rolamento.";
@@ -236,6 +237,7 @@
 "developer-settings-enable-year-in-review" = "Activar le Summario del anno";
 "developer-settings-send-analytics-to-wmflabs" = "Inviar informationes analytic a wmflabs.";
 "developer-settings-suppress-image-rec-post" = "Non publicar le modification de recommendationes de imagine.";
+"did-you-know" = "Sapeva tu que...";
 "diff-article-revision-history" = "Historia de versiones del articulo";
 "diff-change-added" = "Addition: $1. Fin del addition.";
 "diff-change-paragraph-lines-moved-down" = "Paragrapho displaciate a basso de {{PLURAL:$1|0=0 lineas|$1 linea|$1 lineas}}. Va al nove position.";
@@ -740,6 +742,9 @@
 "nearby-distance-label-km" = "$1 km";
 "nearby-distance-label-meters" = "$1 m";
 "nearby-distance-label-miles" = "$1 millias";
+"new-article-tab-from-wikipedia-default" = "de Wikipedia";
+"new-article-tab-settings-did-you-know" = "Sapeva tu que...?";
+"new-article-tab-settings-recommendations" = "Recommendationes";
 "new-password-instructions" = "Tu ha aperite session con un contrasigno temporari.\nPro completar le accesso, defini un nove contrasigno hic.";
 "new-password-title" = "Definir tu contrasigno";
 "new-tab" = "Nove scheda";
@@ -1130,6 +1135,7 @@
 "settings-language-bar" = "Monstrar linguas in recerca";
 "settings-languages-feed-customization" = "Tu pote eliger le linguas que appare in tu canal Explorar personalisante tu parametros de canal Explorar.";
 "settings-my-languages" = "Mi linguas";
+"settings-new-article-tab-header-text" = "Nove thema de schedas";
 "settings-notifications" = "Notificationes push";
 "settings-notifications-echo-failure-message" = "Un error ha occurrite durante le controlo del abonamentos de notification associate a tu conto.";
 "settings-notifications-echo-failure-title" = "Non pote controlar abonamentos de notification Echo";
@@ -1194,6 +1200,10 @@
 "tabs-overview-tooltip-body" = "Cambia inter articulos aperte in le vista general de schedas.";
 "tabs-overview-tooltip-title" = "Vista general de schedas";
 "tabs-survey-title" = "Adjuta a meliorar le function de schedas. Es tu satisfacite de iste function?";
+"tabs-thumbnail-description" = "Explora Wikipedia, le encyclopedia libere al qual omnes pote contribuer";
+"tabs-thumbnail-subtitle" = "Comencia tu recerca hic";
+"tabs-title" = "Schedas";
+"tabs-title-preferences" = "Preferentias de schedas";
 "tachelhit-variants-alert-body" = "Le application de Wikipedia supporta ora le sequente variantes del tachelhit como linguas primari o secundari in le application, rendente plus facile leger, cercar e modificar in tu variantes preferite:\n\nⵜⴰⵛⵍⵃⵉⵜ: tachelhit tifinagh (shi-tfng)\nTaclḥit: tachelhit latin (shi-latn)";
 "tachelhit-variants-alert-title" = "Actualisationes del supporto de variantes del tachelhit";
 "tajik-variants-alert-body" = "Le application de Wikipedia ora supporta le variantes sequente del tajiko como linguas primari o secundari in le application, rendente lo plus facile leger, cercar e modificar in tu variantes preferite:\n\nтоҷикӣ кирилликӣ: tajiko cyrillic (tg-cyrl)\ntojikī lotinī: tajiko latin (tg-latn)";
