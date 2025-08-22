@@ -108,6 +108,8 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
 
     // MARK: - New tab properties
 
+    let needsAttachedView: Bool
+
     private var newTabDataController: NewArticleTabDataControlling?
     private var newTabLoadTask: Task<Void, Never>?
     private var loadingView: UIActivityIndicatorView?
@@ -117,20 +119,18 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
     private let attachedContentContainer = UIView()
     private var attachedHostController: UIViewController?
 
-    // MARK: - Lifecycle
-
-    let needsAttachedView: Bool
-    let becauseYouReadViewModel: WMFBecauseYouReadViewModel?
-    let didYouKnowViewModel: WMFNewArticleTabDidYouKnowViewModel?
+    private var becauseYouReadViewModel: WMFBecauseYouReadViewModel?
+    private var didYouKnowViewModel: WMFNewArticleTabDidYouKnowViewModel?
     private var lastBYRVM: WMFBecauseYouReadViewModel?
     private var lastDYKVM: WMFNewArticleTabDidYouKnowViewModel?
 
-    @objc required init(source: EventLoggingSource, customArticleCoordinatorNavigationController: UINavigationController? = nil, needsAttachedView: Bool = false, becauseYouReadViewModel: WMFBecauseYouReadViewModel? = nil, didYouKnowViewModel: WMFNewArticleTabDidYouKnowViewModel? = nil, isMainRootView: Bool = false) {
+    // MARK: - Lifecycle
+
+
+    @objc required init(source: EventLoggingSource, customArticleCoordinatorNavigationController: UINavigationController? = nil, needsAttachedView: Bool = false, isMainRootView: Bool = false) {
         self.source = source
         self.needsAttachedView = needsAttachedView
-        self.becauseYouReadViewModel = becauseYouReadViewModel
         self.customArticleCoordinatorNavigationController = customArticleCoordinatorNavigationController
-        self.didYouKnowViewModel = didYouKnowViewModel
         self.isMainRootView = isMainRootView
         super.init(nibName: nil, bundle: nil)
         if !isMainRootView {

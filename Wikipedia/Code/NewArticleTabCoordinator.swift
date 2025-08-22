@@ -23,9 +23,7 @@ final class NewArticleTabCoordinator: Coordinator {
             let searchVC = SearchViewController(
                 source: .unknown,
                 customArticleCoordinatorNavigationController: navigationController,
-                needsAttachedView: true,
-                becauseYouReadViewModel: nil,
-                didYouKnowViewModel: nil
+                needsAttachedView: true
             )
             searchVC.dataStore = dataStore
             searchVC.theme = theme

@@ -56,10 +56,10 @@ public final class WMFRecentlySearchedViewModel: ObservableObject {
         self.selectAction = selectAction
         self.needsAttachedView = needsAttachedView
         self.becauseYouReadViewModel = becauseYouReadViewModel
+        self.didYouKnowViewModel = didYouKnowViewModel
         self.tabsDataController =  WMFArticleTabsDataController.shared
         self.devSettingsDataControler = WMFDeveloperSettingsDataController.shared
         self.onTapEdit = onTapEdit
-        self.didYouKnowViewModel = didYouKnowViewModel
     }
 
 }
