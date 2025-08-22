@@ -749,20 +749,20 @@ extension YearInReviewCoordinator: YearInReviewCoordinatorDelegate {
             let loginCoordinator = LoginCoordinator(navigationController: self.navigationController, theme: self.theme)
             loginCoordinator.loginSuccessCompletion = { [weak self] in
                 guard let self else { return }
-                // TODO: reassign all the slide view models
                 if let loginVC = self.navigationController.presentedViewController?.presentedViewController {
                     loginVC.dismiss(animated: true) { [weak self] in
                         guard let viewModel = self?.viewModel else { return }
+                        viewModel.updateSlides(isUserPermanent: true)
                         viewModel.completedLoginFromIntroV3LoginPrompt()
                     }
                 }
             }
             
             loginCoordinator.createAccountSuccessCustomDismissBlock = {
-                // TODO: reassign all the slide view models
                 if let createAccountVC = self.navigationController.presentedViewController?.presentedViewController {
                     createAccountVC.dismiss(animated: true) { [weak self] in
                         guard let viewModel = self?.viewModel else { return }
+                        viewModel.updateSlides(isUserPermanent: true)
                         viewModel.completedLoginFromIntroV3LoginPrompt()
                     }
                 }
