@@ -593,6 +593,10 @@ public class WMFYearInReviewViewModel: ObservableObject {
         logYearInReviewDidTapShare()
     }
     
+    func tappedShareAll() {
+        
+    }
+    
     func tappedDone() {
         logYearInReviewDidTapDone()
         coordinatorDelegate?.handleYearInReviewAction(.dismiss(hasSeenTwoSlides: hasSeenTwoSlides))
