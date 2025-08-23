@@ -475,7 +475,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
     }
 
     private func needsPostSurveyLoginPrompt() -> Bool {
-        return !dataStore.authenticationManager.authStateIsPermanent
+        return !dataStore.authenticationManager.authStateIsPermanent && WMFDeveloperSettingsDataController.shared.showYiRV2
     }
 
     private func presentPostSurveyLoginPrompt() {
