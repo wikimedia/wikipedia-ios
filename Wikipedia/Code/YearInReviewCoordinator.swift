@@ -638,6 +638,36 @@ extension YearInReviewCoordinator: YearInReviewCoordinatorDelegate {
 
                 visibleVC.present(activityController, animated: true, completion: nil)
             }
+        case .shareAll(let images):
+            guard let viewModel else { return }
+
+            let contentProvider = YiRShareActivityContentProvider(
+                text: viewModel.localizedStrings.shareText,
+                appStoreURL: viewModel.shareLink,
+                hashtag: viewModel.hashtag
+            )
+
+            let imageProviders = images.map {
+                ShareAFactActivityImageItemProvider(image: $0)
+            }
+
+            let activityItems: [Any] = [contentProvider] + imageProviders
+
+            let activityController = UIActivityViewController(
+                activityItems: activityItems,
+                applicationActivities: nil
+            )
+            activityController.excludedActivityTypes = [.print, .assignToContact, .addToReadingList]
+
+            if let visibleVC = self.navigationController.visibleViewController {
+                if let popover = activityController.popoverPresentationController {
+                    popover.sourceRect = visibleVC.view.bounds
+                    popover.sourceView = visibleVC.view
+                    popover.permittedArrowDirections = []
+                }
+
+                visibleVC.present(activityController, animated: true, completion: nil)
+            }
         case .dismiss(let hasSeenTwoSlides):
             (self.navigationController as? WMFComponentNavigationController)?.turnOffForcePortrait()
             navigationController.dismiss(animated: true, completion: { [weak self] in
