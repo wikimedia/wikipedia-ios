@@ -56,8 +56,8 @@ import CoreData
     
     public func shouldShowYiRNotification(primaryAppLanguageProject: WMFProject?, isLoggedOut: Bool, isTemporaryAccount: Bool) -> Bool {
         
-        if !WMFDeveloperSettingsDataController.shared.showYiRV2 &&
-            !WMFDeveloperSettingsDataController.shared.showYiRV3 {
+        if !developerSettingsDataController.showYiRV2 &&
+            !developerSettingsDataController.showYiRV3 {
             return false
         }
         
@@ -101,8 +101,8 @@ import CoreData
 
     func isAnnouncementActive() -> Bool {
         
-        if WMFDeveloperSettingsDataController.shared.showYiRV2 ||
-            WMFDeveloperSettingsDataController.shared.showYiRV3 {
+        if developerSettingsDataController.showYiRV2 ||
+            developerSettingsDataController.showYiRV3 {
             return true
         }
         
@@ -123,8 +123,8 @@ import CoreData
 
     public func shouldShowYearInReviewFeatureAnnouncement(primaryAppLanguageProject: WMFProject?) -> Bool {
         
-        if !WMFDeveloperSettingsDataController.shared.showYiRV2 &&
-            !WMFDeveloperSettingsDataController.shared.showYiRV3 {
+        if !developerSettingsDataController.showYiRV2 &&
+            !developerSettingsDataController.showYiRV3 {
             return false
         }
         
@@ -156,8 +156,8 @@ import CoreData
     public func shouldShowYearInReviewEntryPoint(countryCode: String?, primaryAppLanguageProject: WMFProject?) -> Bool {
         assert(Thread.isMainThread, "This method must be called from the main thread in order to keep it synchronous")
         
-        if !WMFDeveloperSettingsDataController.shared.showYiRV2 &&
-            !WMFDeveloperSettingsDataController.shared.showYiRV3 {
+        if !developerSettingsDataController.showYiRV2 &&
+            !developerSettingsDataController.showYiRV3 {
             return false
         }
 
@@ -220,8 +220,8 @@ import CoreData
 
     @objc public func shouldShowYearInReviewSettingsItem(countryCode: String?, primaryAppLanguageCode: String?) -> Bool {
         
-        if !WMFDeveloperSettingsDataController.shared.showYiRV2 &&
-            !WMFDeveloperSettingsDataController.shared.showYiRV3 {
+        if !developerSettingsDataController.showYiRV2 &&
+            !developerSettingsDataController.showYiRV3 {
             return false
         }
 
@@ -265,8 +265,8 @@ import CoreData
 
     func shouldPopulateYearInReviewReportData(countryCode: String?, primaryAppLanguageProject: WMFProject?) -> Bool {
         
-        if !WMFDeveloperSettingsDataController.shared.showYiRV2 &&
-            !WMFDeveloperSettingsDataController.shared.showYiRV3 {
+        if !developerSettingsDataController.showYiRV2 &&
+            !developerSettingsDataController.showYiRV3 {
             return false
         }
         

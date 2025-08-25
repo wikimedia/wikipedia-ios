@@ -5,6 +5,8 @@ public protocol WMFDeveloperSettingsDataControlling: AnyObject {
     var enableMoreDynamicTabsBYR: Bool { get }
     var enableMoreDynamicTabsDYK: Bool { get }
     var forceMaxArticleTabsTo5: Bool { get }
+    var showYiRV2: Bool { get }
+    var showYiRV3: Bool { get }
 }
 
 @objc public final class WMFDeveloperSettingsDataController: NSObject, WMFDeveloperSettingsDataControlling {
