@@ -57,6 +57,7 @@ public struct WMFNewTabSearchView: View {
                         .padding(.trailing)
                         .padding(.bottom)
                     }
+                    .padding(.leading, 2)
                     .background(Color(theme.paperBackground))
                 }
                 List {
@@ -94,6 +95,8 @@ public struct WMFNewTabSearchView: View {
                 .frame(height: estimatedListHeight)
                 if enableBYR || (!enableDYK && assignment == .becauseYouRead), let becauseVM = viewModel.becauseYouReadViewModel {
                     WMFBecauseYouReadView(viewModel: becauseVM)
+                        .padding(.top, 24)
+                        .padding(.horizontal, 4)
                 } else if shouldShowDidYouKnow(), let dykVM = viewModel.didYouKnowViewModel {
                     WMFNewArticleTabViewDidYouKnowView(viewModel: dykVM, linkDelegate: linkDelegate)
                 }

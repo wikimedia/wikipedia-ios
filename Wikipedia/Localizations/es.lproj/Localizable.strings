@@ -62,6 +62,7 @@
 // Author: RicardoSGZ
 // Author: Rodm23
 // Author: Rodney Araujo
+// Author: Rousmery96
 // Author: Ryo567
 // Author: Samthony
 // Author: SpikeShroom
@@ -211,7 +212,7 @@
 "article-tabs-feature-announcement-item-4-subtitle" = "Elija datos curiosos o sugerencias de lectura al abrir una nueva pestaña.";
 "article-tabs-feature-announcement-item-4-title" = "Personaliza tu nueva pestaña";
 "article-tabs-feature-announcement-sub-cta" = "Más información sobre Pestañas";
-"article-tabs-feature-announcement-title" = "Presentando las Pestañas";
+"article-tabs-feature-announcement-title" = "Presentación de las pestañas";
 "article-tabs-max-reached" = "Se alcanzó el límite de pestañas ( $1 ). El artículo se abrió en la pestaña actual. Cierre una o más pestañas.";
 "article-tabs-navigation" = "Navegación por pestañas";
 "article-tabs-onboarding-tooltip" = "Información sobre herramientas de incorporación para pestañas";
@@ -794,8 +795,6 @@
 "microsite-yir-english-edits-bytes-slide-title" = "4 mil millones de bytes añadidos";
 "microsite-yir-english-edits-slide-subtitle" = "Los voluntarios realizaron 98.222.407 cambios en más de 300 ediciones de Wikipedia en diferentes idiomas. Se realizaron más de 37 millones de cambios en la Wikipedia en inglés. Cada hora, los voluntarios trabajan para mejorar Wikipedia.";
 "microsite-yir-english-edits-slide-title" = "Los editores realizaron 98 millones de cambios este año";
-"microsite-yir-english-non-donor-slide-subtitle" = "Con tu ayuda, la Fundación Wikimedia, la organización sin fines de lucro detrás de Wikipedia, seguirá garantizando que la información en la que confías esté libre de publicidad y sea confiable, a la vez que mantiene Wikipedia funcionando sin problemas con herramientas y tecnologías de vanguardia. Por favor, considera hacer una donación hoy mismo. [Más información sobre nuestro trabajo]($1).";
-"microsite-yir-english-non-donor-slide-title" = "0 anuncios publicados en Wikipedia";
 "microsite-yir-english-reading-slide-subtitle" = "Se estima que la gente pasó 2.900 millones de horas (¡más de 331.000 años!) leyendo Wikipedia en inglés en 2024. Wikipedia está ahí cuando quieres aprender sobre nuestro mundo cambiante, ganar una apuesta entre amigos o responder la pregunta de un niño curioso.";
 "microsite-yir-english-reading-slide-title" = "Nosotros(as) pasamos 2.900 millones de horas leyendo";
 "microsite-yir-english-saved-reading-slide-subtitle" = "Los usuarios activos de la app iOS tenían más de 62,2 millones de listas de lectura. Añadir artículos a las listas de lectura te permite acceder a ellos incluso sin conexión. También puedes iniciar sesión para sincronizar las listas de lectura en todos tus dispositivos.";
@@ -1265,6 +1264,9 @@
 "tabs-overview-tooltip-body" = "Cambiar entre artículos abiertos en la descripción general de pestañas.";
 "tabs-overview-tooltip-title" = "Descripción general de las pestañas";
 "tabs-survey-title" = "Ayuda a mejorar la función de pestañas. ¿Estás satisfecho con esta función?";
+// Fuzzy
+"tabs-thumbnail-description" = "Explora Wikipedia, la enciclopedia libre que cualquiera puede editar";
+"tabs-thumbnail-subtitle" = "Comience su búsqueda aquí";
 "tachelhit-variants-alert-body" = "La aplicación de Wikipedia ahora soporta las variantes del tashelit siguientes como lenguas primarias o secundarias dentro de la aplicación, haciéndolo más fácil de leer, buscar y editar en tus variantes preferidas:\n\nⵜⴰⵛⵍⵃⵉⵜ tashelit, tifinagh (shi-tfng)\nTaclḥit tashelit, latino (shi-latn)";
 "tachelhit-variants-alert-title" = "Actualizaciones a soporte de variantes del tashelhit";
 "tajik-variants-alert-body" = "La aplicación de Wikipedia ahora soporta las variantes del tayiko siguientes como lenguas primarias o secundarias dentro de la aplicación, haciéndolo más fácil de leer, buscar y editar en tus variantes preferidas:\n\nтоҷикӣ кирилликӣ tayiko, cirílico (tg-cyrl)\ntojikī lotinī tayiko, latino (tg-latn)";

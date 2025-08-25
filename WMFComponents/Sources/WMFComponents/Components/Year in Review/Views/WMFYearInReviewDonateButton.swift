@@ -13,7 +13,6 @@ struct WMFYearInReviewDonateButton: View {
     var body: some View {
         Button(action: {
             viewModel.handleDonate(sourceRect: buttonRect)
-            viewModel.logYearInReviewDidTapDonate()
         }) {
 
             ZStack {

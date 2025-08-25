@@ -24,7 +24,7 @@ public struct WMFNewArticleTabSettingsView: View {
                             .font(Font(WMFFont.for(.body)))
                         Spacer()
                         if viewModel.shouldShowCheckmark(for: index),
-                           let uiImage = WMFSFSymbolIcon.for(symbol: .checkmark) {
+                           let uiImage = WMFSFSymbolIcon.for(symbol: .checkmark, font: .semiboldSubheadline) {
                             Image(uiImage: uiImage)
                                 .foregroundStyle(Color(theme.link))
                         }

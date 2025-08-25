@@ -772,8 +772,6 @@
 "microsite-yir-english-edits-bytes-slide-title" = "4 milyar bayt eklendi";
 "microsite-yir-english-edits-slide-subtitle" = "Gönüllüler, Vikipedi'nin 300'den fazla farklı dil sürümünde 98.222.407 değişiklik yaptı. İngilizce Vikipedi'de 37 milyondan fazla değişiklik yapıldı. Gönüllüler, her günün her saati Vikipedi'yi iyileştirmek için çalışmaktadır.";
 "microsite-yir-english-edits-slide-title" = "Editörler bu yıl 98 milyon değişiklik yaptı";
-"microsite-yir-english-non-donor-slide-subtitle" = "Yardımınızla, Vikipedi'nin arkasındaki kâr amacı gütmeyen kuruluş olan Wikimedia Vakfı, güvendiğiniz bilgilerin reklamsız ve güvenilir olmasını sağlamaya devam ederken, Vikipedi'nin en yeni araçlar ve teknolojilerle sorunsuz çalışmasını sağlayacaktır. Lütfen bugün bağış yapmayı düşünün. [Çalışmalarımız hakkında daha fazla bilgi edinin]($1).";
-"microsite-yir-english-non-donor-slide-title" = "Vikipedi'de 0 reklam yayımlandı";
 "microsite-yir-english-reading-slide-subtitle" = "İnsanlar 2024 yılında tahmini 2,9 milyar saati, yani 331.000 yıldan uzun bir zamanı İngilizce Vikipedi'yi okuyarak geçirdiler. Değişen dünyamız hakkında bilgi edinmek, arkadaşlarınız arasında bir iddiayı kazanmak veya meraklı bir çocuğun sorusuna cevap vermek istediğinizde Vikipedi yanınızda.";
 "microsite-yir-english-reading-slide-title" = "Okumaya 2,9 milyar saat harcadık";
 "microsite-yir-english-saved-reading-slide-subtitle" = "Aktif iOS uygulaması kullanıcıları 62,2 milyondan fazla okuma listesine sahip. Maddeleri okuma listesine eklemek, o maddelere çevrimdışı olarak ulaşabilmeyi sağlar. Ayrıca oturum açarak okuma listelerinizi aygıtlarınız arasında eş zamanlayabilirsiniz.";
@@ -1248,6 +1246,7 @@
 "tabs-overview-tooltip-title" = "Sekme genel görünümü";
 "tabs-survey-title" = "Sekmeler özelliğini iyileştirmeye yardımcı olun. Bu özellikten memnun musunuz?";
 "tabs-title" = "Sekmeler";
+// Fuzzy
 "tabs-title-preferences" = "Sekme tercihleri";
 "tachelhit-variants-alert-body" = "Vikipedi uygulaması artık aşağıdaki Tachelhit biçimlerini birincil veya ikincil dil olarak uygulama içinde destekliyor, bu şekilde tercih ettiğiniz biçimle daha kolay okuyabilir, aratabilir ve değişiklik yapabilirsiniz:\n\nⵜⴰⵛⵍⵃⵉⵜ Tachelhit, Tifinagh (shi-tfng)\nTaclḥit Tachelhit, Latin (shi-latn)";
 "tachelhit-variants-alert-title" = "Tachelhit biçim desteği güncellemeleri";
