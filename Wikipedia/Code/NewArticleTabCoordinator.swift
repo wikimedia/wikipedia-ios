@@ -8,13 +8,15 @@ final class NewArticleTabCoordinator: Coordinator {
     private var dataStore: MWKDataStore
     private var theme: Theme
     private let tabIdentifier: WMFArticleTabsDataController.Identifiers?
+    private let cameFromNewTab: Bool
 
     // MARK: - Lifecycle
-    init(navigationController: UINavigationController, dataStore: MWKDataStore, theme: Theme, fetcher: RelatedSearchFetcher = RelatedSearchFetcher(), tabIdentifier: WMFArticleTabsDataController.Identifiers? = nil) {
+    init(navigationController: UINavigationController, dataStore: MWKDataStore, theme: Theme, tabIdentifier: WMFArticleTabsDataController.Identifiers? = nil, cameFromNewTab: Bool) {
         self.navigationController = navigationController
         self.dataStore = dataStore
         self.theme = theme
         self.tabIdentifier = tabIdentifier
+        self.cameFromNewTab = cameFromNewTab
     }
 
     // MARK: - Methods
@@ -31,6 +33,7 @@ final class NewArticleTabCoordinator: Coordinator {
             searchVC.tabIdentifier = tabIdentifier
             searchVC.needsCenteredTitle = true
             searchVC.customTitle = CommonStrings.newTab
+            searchVC.cameFromNewTab = cameFromNewTab
             navigationController.pushViewController(searchVC, animated: true)
             return true
         }

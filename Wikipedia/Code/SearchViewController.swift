@@ -122,6 +122,8 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
     private var didYouKnowViewModel: WMFNewArticleTabDidYouKnowViewModel?
     private var lastBYRVM: WMFBecauseYouReadViewModel?
     private var lastDYKVM: WMFNewArticleTabDidYouKnowViewModel?
+    private var needsCreatingNewEmptyTab: Bool = true
+    public var cameFromNewTab: Bool?
 
     // MARK: - Lifecycle
 
@@ -166,8 +168,11 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
         updateLanguageBarVisibility()
         reloadRecentSearches()
 
-        navigationItem.searchController?.obscuresBackgroundDuringPresentation = false
-        navigationItem.searchController?.hidesNavigationBarDuringPresentation = false
+        if needsAttachedView {
+            needsCreatingNewEmptyTab = true
+            navigationItem.searchController?.obscuresBackgroundDuringPresentation = false
+            navigationItem.searchController?.hidesNavigationBarDuringPresentation = false
+        }
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -195,6 +200,19 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
         } else {
             recentSearchesViewModel.topPadding = 0
             resultsViewController.collectionView.contentInset.top = 0
+        }
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+
+        guard needsAttachedView, needsCreatingNewEmptyTab, let cameFromNewTab, !cameFromNewTab else { return }
+
+        let leavingNavStack = self.isMovingFromParent || self.isBeingDismissed || (self.navigationController?.isBeingDismissed ?? false)
+
+        Task { [weak self] in
+            guard let self else { return }
+            _ = try? await self.tabsDataController.createArticleTab(initialArticle: nil, setAsCurrent: true)
         }
     }
 
@@ -496,7 +514,7 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
             guard let self else {
                 return
             }
-
+            self.needsCreatingNewEmptyTab = false
             SearchFunnel.shared.logSearchResultTap(position: indexPath.item, source: source.stringValue)
 
             saveLastSearch()
@@ -654,6 +672,7 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
         self.search()
 
         if needsAttachedView {
+            needsCreatingNewEmptyTab = false
             ArticleTabsFunnel.shared.logRecentSearchesClick()
         }
 
@@ -814,6 +833,7 @@ extension SearchViewController: UITextViewDelegate {
             } else {
                 tabConfig = .assignNewTabAndSetToCurrentFromNewTabSearch(title: title, project: wmfProject)
             }
+            self.needsCreatingNewEmptyTab = false
 
             let linkCoordinator = LinkCoordinator(navigationController: navController, url: url.absoluteURL, dataStore: nil, theme: theme, articleSource: .undefined, tabConfig: tabConfig)
             let success = linkCoordinator.start()
@@ -887,10 +907,6 @@ extension SearchViewController: UISearchControllerDelegate {
         navigationController?.hidesBarsOnSwipe = true
         presentingSearchResults = false
         SearchFunnel.shared.logSearchCancel(source: source.stringValue)
-
-        Task {
-            _ = try? await tabsDataController.createArticleTab(initialArticle: nil, setAsCurrent: true) // TODO: - fix duplicating creation of tab
-        }
     }
 }
 
