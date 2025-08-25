@@ -187,6 +187,12 @@
 "diff-rollback-alert-title" = "سمونونو شاگرځ";
 "diff-single-intro-title" = "سریزه";
 "duplicate-tab" = "دوه‌گونې ريښکه";
+"edit-link-display-text-title" = "ليک ښکارېدنه";
+"edit-link-link-target-title" = "تړوني موخه";
+"edit-link-remove-link-title" = "تړونی لرې‌کول";
+"edit-link-title" = "تړونی سمول";
+"edit-menu-item" = "سمول";
+"edit-minor-text" = "دا يو کوچنی سمون دی";
 "edit-summary-choice-linked-words" = "ورگډې شوې تړنې";
 "empty-no-article-message" = "وبښئ، ليکنه رابرسېره نه شوه";
 "empty-no-feed-action-message" = "لا تر اوسه پورې تاسو خوندي مخونه لوستلی شئ";

@@ -768,8 +768,6 @@
 "microsite-yir-english-edits-bytes-slide-title" = "4 bilhões de bytes adicionados";
 "microsite-yir-english-edits-slide-subtitle" = "Os voluntários fizeram 98.222.407 alterações em mais de 300 edições da Wikipédia em diferentes idiomas. Mais de 37 milhões de alterações foram feitas na Wikipédia em inglês. A cada hora de cada dia, voluntários trabalham para melhorar a Wikipédia.";
 "microsite-yir-english-edits-slide-title" = "Os editores fizeram 98 milhões de alterações este ano.";
-"microsite-yir-english-non-donor-slide-subtitle" = "Com a sua ajuda, a Fundação Wikimedia — a organização sem fins lucrativos por trás da Wikipédia — continuará a garantir que as informações em que você confia sejam livres de anúncios e confiáveis, ao mesmo tempo em que mantém a Wikipédia funcionando sem problemas com ferramentas e tecnologias de ponta. Considere fazer uma doação hoje mesmo. [Saiba mais sobre o nosso trabalho]($1).";
-"microsite-yir-english-non-donor-slide-title" = "0 anúncios exibidos na Wikipédia";
 "microsite-yir-english-reading-slide-subtitle" = "Estima-se que as pessoas tenham passado 2,9 bilhões de horas — mais de 331.000 anos! — lendo a Wikipédia em inglês em 2024. A Wikipédia está lá quando você quer aprender sobre o nosso mundo em constante mudança, ganhar uma aposta entre amigos(as) ou responder à pergunta curiosa de uma criança.";
 "microsite-yir-english-reading-slide-title" = "Passamos 2,9 bilhões de horas lendo";
 "microsite-yir-english-saved-reading-slide-subtitle" = "Usuários ativos do aplicativo iOS tinham mais de 62,2 milhões de listas de leitura. Adicionar artigos às listas de leitura permite que você acesse os artigos mesmo estando offline. Você também pode fazer login para sincronizar as listas de leitura entre dispositivos.";
@@ -785,7 +783,7 @@
 "nearby-distance-label-km" = "$1 km";
 "nearby-distance-label-meters" = "$1 m";
 "nearby-distance-label-miles" = "$1 milhas";
-"new-article-tab-from-wikipedia-default" = "Da Wikipédia";
+"new-article-tab-from-wikipedia-default" = "da Wikipédia";
 "new-article-tab-settings-did-you-know" = "Você sabia?";
 "new-article-tab-settings-recommendations" = "Recomendações";
 "new-password-instructions" = "Você efetuou login com uma senha temporária. Para concluir o login, defina uma nova senha aqui.";
@@ -1244,6 +1242,7 @@
 "tabs-overview-tooltip-title" = "Visão geral das guias";
 "tabs-survey-title" = "Ajude a melhorar o recurso de guias. Você está satisfeito com esse recurso?";
 "tabs-title" = "Guias";
+// Fuzzy
 "tabs-title-preferences" = "Preferências de guias";
 "tachelhit-variants-alert-body" = "O aplicativo da Wikipédia agora suporta as seguintes variantes Tachelhit como idiomas principais ou secundários dentro do aplicativo, tornando mais fácil ler, editar e pesquisar em suas variantes preferidas:\n\nⵜⴰⵛⵍⵃⵉⵜ Tachelhit, Tifinagh (shi-tfng)\nTaclḥit Tachelhit, Latino (shi-latn)";
 "tachelhit-variants-alert-title" = "Atualizações para o suporte da variante Tachelhit";

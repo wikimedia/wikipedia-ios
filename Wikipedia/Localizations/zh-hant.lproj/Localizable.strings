@@ -766,8 +766,6 @@
 "microsite-yir-english-edits-bytes-slide-title" = "增加了 40 億位元組";
 "microsite-yir-english-edits-slide-subtitle" = "志工們對維基百科的 300 多種不同語言版本做出了 98,222,407次修改。英文維基百科則進行了超過 3700 萬次修改。每一天、每一刻、每一秒，志工們都在努力改進維基百科。";
 "microsite-yir-english-edits-slide-title" = "編輯者今年做出了 9800 萬次修改";
-"microsite-yir-english-non-donor-slide-subtitle" = "在您的支持下，維基媒體基金會—維基百科背後的非營利組織—將繼續確保您所依賴的資訊無營利、值得信賴，同時利用尖端工具和技術，讓維基百科平穩運作。請考慮今天就捐款支持，[並了解更多關於我們的工作內容]($1)。";
-"microsite-yir-english-non-donor-slide-title" = "維基百科沒有任何廣告";
 "microsite-yir-english-reading-slide-subtitle" = "在 2024 年，人們花了 29 億小時（超過 331,000 年！）閱讀英文維基百科。當您想了解我們不斷變化的世界、在朋友之間贏得對事物了解的賭注、或是回答孩子好奇的問題時，維基百科就會在您身邊。";
 "microsite-yir-english-reading-slide-title" = "大家花了 29 億小時閱讀維基百科";
 "microsite-yir-english-saved-reading-slide-subtitle" = "iOS 應用程式的活躍使用者做出了超過 6220 萬個閱讀清單。將條目增加到閱讀清單可讓您即使在離線時也能查看條目。此外，您還可以透過登入將閱讀清單同步到不同裝置裡。";
@@ -1241,9 +1239,11 @@
 "tabs-overview-tooltip-body" = "在分頁總覽中切換開啟的條目。";
 "tabs-overview-tooltip-title" = "分頁總覽";
 "tabs-survey-title" = "請協助改善分頁功能。您對此功能滿意嗎？";
+// Fuzzy
 "tabs-thumbnail-description" = "探索維基百科，一個任何人都可編輯的自由百科全書";
 "tabs-thumbnail-subtitle" = "在此來開始您的搜尋";
 "tabs-title" = "分頁";
+// Fuzzy
 "tabs-title-preferences" = "分頁偏好設定";
 "tachelhit-variants-alert-body" = "維基百科應用程式現在支援下列施盧赫語異體字作為應用程式裡的主要語言或次要語言，能以您首選的異體字來更易於閱讀、搜尋、編輯：\n\nⵜⴰⵛⵍⵃⵉⵜ，提非納字母施盧赫語（shi-tfng）\nTaclḥit，拉丁字母施盧赫語（shi-latn）";
 "tachelhit-variants-alert-title" = "施盧赫語異體字支援更新";

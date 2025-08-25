@@ -160,7 +160,7 @@
 "article-tabs-feature-announcement-item-2-title" = "Beginne, wo du aufgehört hast.";
 "article-tabs-feature-announcement-item-3-subtitle" = "Öffne Links in Hintergrund-Tabs, ohne deine Position zu verlieren.";
 "article-tabs-feature-announcement-item-3-title" = "Links für später speichern";
-"article-tabs-feature-announcement-item-4-subtitle" = "Wähle Fun Facts oder lese Vorschläge, wenn du einen neuen Tab öffnest.";
+"article-tabs-feature-announcement-item-4-subtitle" = "Wähle Fun Facts oder lies Vorschläge, wenn du einen neuen Tab öffnest.";
 "article-tabs-feature-announcement-item-4-title" = "Personalisiere deinen neuen Tab";
 "article-tabs-feature-announcement-sub-cta" = "Mehr über Tabs erfahren";
 "article-tabs-feature-announcement-title" = "Einführung von Tabs";
@@ -1013,6 +1013,7 @@
 "table-of-contents-heading" = "Inhalte";
 "table-of-contents-hide-button-label" = "Inhaltsverzeichnis ausblenden";
 "tabs-title" = "Tabs";
+// Fuzzy
 "tabs-title-preferences" = "Registerkarteneinstellungen";
 "talk-page-add-topic-button" = "Thema hinzufügen";
 "talk-page-archives" = "Archive";
