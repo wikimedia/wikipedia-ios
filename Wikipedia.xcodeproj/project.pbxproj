@@ -6886,6 +6886,14 @@
 			path = "Update Languages";
 			sourceTree = "<group>";
 		};
+		83B420D22E5CE5A100CF9889 /* New Article Tab */ = {
+			isa = PBXGroup;
+			children = (
+				83B624E42E536D3E001E416B /* WMFNewArticleTabDataController.swift */,
+			);
+			name = "New Article Tab";
+			sourceTree = "<group>";
+		};
 		83C0688B292EEBE300DF1403 /* Coffee Roll */ = {
 			isa = PBXGroup;
 			children = (
@@ -7494,6 +7502,7 @@
 		BC45D58D1C32FD58007C72F3 /* Features */ = {
 			isa = PBXGroup;
 			children = (
+				83B420D22E5CE5A100CF9889 /* New Article Tab */,
 				6730D8DD2A05BFA40035255B /* Editing */,
 				67033E122A61B23700896852 /* Watchlist */,
 				67DC5BDB23A00DF500B03A84 /* Article */,
@@ -7967,7 +7976,6 @@
 		D818D37F1ED725240076110D /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				83B624E42E536D3E001E416B /* WMFNewArticleTabDataController.swift */,
 				834C811D2E03479B00FC7599 /* HistoryViewController.swift */,
 				372F048C2D80C1F9002C6D2C /* TempAccountExpiryViewController.swift */,
 				83023C1720E6581A00EC7592 /* Transitions */,
