@@ -108,7 +108,7 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
 
     // MARK: - New tab properties
 
-    public let needsAttachedView: Bool
+    public let isNewTab: Bool
     private var newTabDataController: NewArticleTabDataControlling?
     private var newTabLoadTask: Task<Void, Never>?
     private var loadingView: UIActivityIndicatorView?
@@ -130,7 +130,7 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
 
     @objc required init(source: EventLoggingSource, customArticleCoordinatorNavigationController: UINavigationController? = nil, needsAttachedView: Bool = false, isMainRootView: Bool = false) {
         self.source = source
-        self.needsAttachedView = needsAttachedView
+        self.isNewTab = needsAttachedView
         self.customArticleCoordinatorNavigationController = customArticleCoordinatorNavigationController
         self.isMainRootView = isMainRootView
         super.init(nibName: nil, bundle: nil)
@@ -152,7 +152,7 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
             newTabDataController = NewArticleTabDataController(dataStore: dataStore)
         }
 
-        if needsAttachedView {
+        if isNewTab {
             installAttachedContentContainer()
             loadNewTabContent()
         } else {
@@ -168,7 +168,7 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
         updateLanguageBarVisibility()
         reloadRecentSearches()
 
-        if needsAttachedView {
+        if isNewTab {
             needsCreatingNewEmptyTab = true
             navigationItem.searchController?.obscuresBackgroundDuringPresentation = false
             navigationItem.searchController?.hidesNavigationBarDuringPresentation = false
@@ -206,7 +206,7 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
 
-        guard needsAttachedView, needsCreatingNewEmptyTab, let cameFromNewTab, !cameFromNewTab else { return }
+        guard isNewTab, needsCreatingNewEmptyTab, let cameFromNewTab, !cameFromNewTab else { return }
 
         let leavingNavStack = self.isMovingFromParent || self.isBeingDismissed || (self.navigationController?.isBeingDismissed ?? false)
 
@@ -258,7 +258,7 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
             wButton.setImage(UIImage(named: "W"), for: .normal)
 
         var titleConfig: WMFNavigationBarTitleConfig
-        if needsAttachedView {
+        if isNewTab {
             titleConfig = WMFNavigationBarTitleConfig(title: title, customView: wButton, alignment: .centerCompact)
         } else {
             titleConfig = WMFNavigationBarTitleConfig(title: title, customView: nil, alignment: alignment)
@@ -266,7 +266,7 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
 
         if #available(iOS 18, *) {
             if UIDevice.current.userInterfaceIdiom == .pad && traitCollection.horizontalSizeClass == .regular {
-                if needsAttachedView {
+                if isNewTab {
                     titleConfig = WMFNavigationBarTitleConfig(title: title, customView: wButton, alignment: .centerCompact)
                 } else {
                     titleConfig = WMFNavigationBarTitleConfig(title: CommonStrings.searchTitle, customView: nil, alignment: .leadingLarge)
@@ -285,7 +285,7 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
         }
         
         let searchBarConfig = WMFNavigationBarSearchConfig(searchResultsController: nil, searchControllerDelegate: self, searchResultsUpdater: self, searchBarDelegate: self, searchBarPlaceholder: CommonStrings.searchBarPlaceholder, showsScopeBar: false, scopeButtonTitles: nil)
-        let backButtonConfig = needsAttachedView ? WMFNavigationBarBackButtonConfig(needsCustomTruncateBackButtonTitle: true) : nil
+        let backButtonConfig = isNewTab ? WMFNavigationBarBackButtonConfig(needsCustomTruncateBackButtonTitle: true) : nil
 
         configureNavigationBar(titleConfig: titleConfig, backButtonConfig: backButtonConfig, closeButtonConfig: nil, profileButtonConfig: profileButtonConfig, tabsButtonConfig: tabsButtonConfig, searchBarConfig: searchBarConfig, hideNavigationBarOnScroll: !presentingSearchResults)
     }
@@ -671,7 +671,7 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
         }
         self.search()
 
-        if needsAttachedView {
+        if isNewTab {
             needsCreatingNewEmptyTab = false
             ArticleTabsFunnel.shared.logRecentSearchesClick()
         }
@@ -685,7 +685,7 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
             clearAll: CommonStrings.clearTitle,
             deleteActionAccessibilityLabel: CommonStrings.deleteActionTitle, editButtonTitle: CommonStrings.editContextMenuTitle
         )
-        let vm = WMFRecentlySearchedViewModel(recentSearchTerms: recentSearchTerms, localizedStrings: localizedStrings, needsAttachedView: needsAttachedView, becauseYouReadViewModel: becauseYouReadViewModel, didYouKnowViewModel: didYouKnowViewModel, deleteAllAction: didPressClearRecentSearches, deleteItemAction: deleteItemAction, selectAction: selectAction, onTapEdit: {
+        let vm = WMFRecentlySearchedViewModel(recentSearchTerms: recentSearchTerms, localizedStrings: localizedStrings, needsAttachedView: isNewTab, becauseYouReadViewModel: becauseYouReadViewModel, didYouKnowViewModel: didYouKnowViewModel, deleteAllAction: didPressClearRecentSearches, deleteItemAction: deleteItemAction, selectAction: selectAction, onTapEdit: {
             self.viewModel = WMFNewArticleTabSettingsViewModel(
                 title: CommonStrings.tabsPreferencesTitle,
                 header: CommonStrings.newTabTheme,
@@ -965,7 +965,7 @@ private extension SearchViewController {
     }
 
     func loadNewTabContent() {
-        guard needsAttachedView, let repo = newTabDataController else { return }
+        guard isNewTab, let repo = newTabDataController else { return }
 
         newTabLoadTask?.cancel()
         newTabLoadTask = Task { [weak self] in

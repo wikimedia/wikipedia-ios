@@ -239,7 +239,7 @@ final class TabsOverviewCoordinator: Coordinator {
 
             let isNewTabSearchOnTheStack = self.navigationController.viewControllers.lastIndex {
                 guard let svc = $0 as? SearchViewController else { return false }
-                return svc.needsAttachedView == true
+                return svc.isNewTab == true
             }
             // do not push a new tab if the user just came from a new tab
             if isNewTabSearchOnTheStack != nil {
