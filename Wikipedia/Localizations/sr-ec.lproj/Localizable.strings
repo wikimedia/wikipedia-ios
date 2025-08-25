@@ -642,7 +642,6 @@
 "main-page" = "Почетна";
 "microsite-yir-english-edits-bytes-slide-title" = "4 милијарде бајтова додато";
 "microsite-yir-english-edits-slide-title" = "Уредници су ове године начинили 98 милиона измена";
-"microsite-yir-english-non-donor-slide-title" = "На Википедији нема реклама";
 "more-languages-tooltip-description" = "Претражујте Википедију на преко 300 језика";
 "more-languages-tooltip-title" = "Додај језике";
 "more-menu" = "Више";
@@ -1077,6 +1076,7 @@
 "table-of-contents-subheading-label" = "Поднаслов $1";
 "tabs-close-tab" = "Затвори картицу";
 "tabs-open-tab" = "Отвори картицу";
+"tabs-thumbnail-description" = "Истражите Википедију, слободну енциклопедију коју свако може да уређује";
 "talk-page-active-users-accessibilty-label" = "{{PLURAL:$1|$1 активни корисник|$1 активних корисника}}";
 "talk-page-add-topic-button" = "Додај тему";
 "talk-page-archives" = "Архиве";

@@ -722,8 +722,6 @@
 "microsite-yir-english-edits-bytes-slide-title" = "4 billion bytes added";
 "microsite-yir-english-edits-slide-subtitle" = "Volunteers made 98,222,407 changes across over 300 different language editions of Wikipedia. Over 37 million changes were made on English Wikipedia. Every hour of every day, volunteers are working to improve Wikipedia.";
 "microsite-yir-english-edits-slide-title" = "Editors made 98 million changes this year";
-"microsite-yir-english-non-donor-slide-subtitle" = "With your help, the Wikimedia Foundation—the nonprofit behind Wikipedia—will continue to ensure that the information you rely on is ad-free and trustworthy, while keeping Wikipedia running smoothly with cutting-edge tools and technologies. Please consider making a donation today. [Learn more about our work]($1).";
-"microsite-yir-english-non-donor-slide-title" = "0 ads served on Wikipedia";
 "microsite-yir-english-reading-slide-subtitle" = "People spent an estimated 2.9 billion hours—over 331,000 years!—reading English Wikipedia in 2024. Wikipedia is there when you want to learn about our changing world, win a bet among friends, or answer a curious child’s question.";
 "microsite-yir-english-reading-slide-title" = "We spent 2.9 billion hours reading";
 "microsite-yir-english-saved-reading-slide-subtitle" = "Active iOS App users had over 62.2 million reading lists. Adding articles to reading lists allows you to access articles even while offline. You can also log in to sync reading lists across devices.";
@@ -1197,10 +1195,10 @@
 "tabs-overview-tooltip-body" = "Switch between open articles in the tabs overview.";
 "tabs-overview-tooltip-title" = "Tabs overview";
 "tabs-survey-title" = "Help improve the tabs feature. Are you satisfied with this feature?";
-"tabs-thumbnail-description" = "Explore Wikipedia, the free encyclopedia that any one can edit";
+"tabs-thumbnail-description" = "Explore Wikipedia, the free encyclopedia that anyone can edit";
 "tabs-thumbnail-subtitle" = "Begin your search here";
 "tabs-title" = "Tabs";
-"tabs-title-preferences" = "Tabs preferences";
+"tabs-title-preferences" = "Tab preferences";
 "tachelhit-variants-alert-body" = "The Wikipedia app now supports the following Tachelhit variants as primary or secondary languages within the app, making it easier to read, search and edit in your preferred variants:\n\nⵜⴰⵛⵍⵃⵉⵜ Tachelhit, Tifinagh (shi-tfng)\nTaclḥit Tachelhit, Latin (shi-latn)";
 "tachelhit-variants-alert-title" = "Updates to Tachelhit variant support";
 "tajik-variants-alert-body" = "The Wikipedia app now supports the following Tajik variants as primary or secondary languages within the app, making it easier to read, search and edit in your preferred variants:\n\nтоҷикӣ кирилликӣ Tajik, Cyrillic (tg-cyrl)\ntojikī lotinī Tajik, Latin (tg-latn)";
