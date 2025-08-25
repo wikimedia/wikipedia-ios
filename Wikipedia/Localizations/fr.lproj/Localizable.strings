@@ -777,8 +777,6 @@
 "microsite-yir-english-edits-bytes-slide-title" = "4 milliards d'octets ajoutés";
 "microsite-yir-english-edits-slide-subtitle" = "Les bénévoles ont apporté 98 222 407 modifications dans plus de 300 versions linguistiques différentes de Wikipédia. Plus de 37 millions de modifications ont été apportées à Wikipédia en anglais. Chaque heure de chaque jour, des bénévoles travaillent à l'amélioration de Wikipédia.";
 "microsite-yir-english-edits-slide-title" = "Les contributeurs ont réalisé 98 millions de modifications cette année";
-"microsite-yir-english-non-donor-slide-subtitle" = "Grâce à votre aide, la Fondation Wikimédia, l'organisme à but non lucratif à l'origine de Wikipédia, continuera à garantir que les informations sur lesquelles vous comptez sont exemptes de publicité et fiables, tout en permettant à Wikipédia de fonctionner sans problème avec des outils et des technologies de pointe. N'hésitez pas à faire un don dès aujourd'hui. [En savoir plus sur notre travail]($1).";
-"microsite-yir-english-non-donor-slide-title" = "Aucune publicité n'est diffusée sur Wikipédia";
 "microsite-yir-english-reading-slide-subtitle" = "Les utilisateurs ont passé environ 2,9 milliards d'heures (près de 331 000 ans !) à lire Wikipédia en anglais en 2024. Wikipédia est là lorsque vous souhaitez en savoir plus sur l'évolution de notre monde, gagner un pari entre amis ou répondre à la question d'un enfant curieux.";
 "microsite-yir-english-reading-slide-title" = "Nous avons passé 2,9 milliards d’heures à lire";
 "microsite-yir-english-saved-reading-slide-subtitle" = "Les utilisateurs actifs de l'application iOS comptaient plus de 62,2 millions de listes de lecture. L'ajout d'articles aux listes de lecture vous permet d'accéder aux articles même hors ligne. Vous pouvez également vous connecter pour synchroniser les listes de lecture sur plusieurs appareils.";
@@ -1252,9 +1250,11 @@
 "tabs-overview-tooltip-body" = "Basculez entre les articles ouverts dans l'aperçu des onglets.";
 "tabs-overview-tooltip-title" = "Aperçu des onglets";
 "tabs-survey-title" = "Aidez-nous à améliorer la fonctionnalité des onglets. Êtes-vous satisfait de cette fonctionnalité ?";
+// Fuzzy
 "tabs-thumbnail-description" = "Explorez Wikipédia, l’encyclopédie libre que n’importe qui peut modifier";
 "tabs-thumbnail-subtitle" = "Commencez votre recherche ici";
 "tabs-title" = "Onglets";
+// Fuzzy
 "tabs-title-preferences" = "Préférences des onglets";
 "tachelhit-variants-alert-body" = "L’application Wikipédia prend maintenant en charge les variantes suivantes du chleuh comme langues primaire ou secondaires dans l’application, le rendant plus facile à lire, rechercher ou modifier dans vos variantes préférées :\n\nⵜⴰⵛⵍⵃⵉⵜ – chleuh tifinagh (shi-tfng)\nTaclḥit – chleuh latin (shi-latn)";
 "tachelhit-variants-alert-title" = "Mises à jour de la prise en charge des variantes du chleuh";
