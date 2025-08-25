@@ -108,7 +108,7 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
 
     // MARK: - New tab properties
 
-    private let needsAttachedView: Bool
+    public let needsAttachedView: Bool
     private var newTabDataController: NewArticleTabDataControlling?
     private var newTabLoadTask: Task<Void, Never>?
     private var loadingView: UIActivityIndicatorView?
