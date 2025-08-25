@@ -20,6 +20,7 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
     public let didTapTab: (WMFArticleTabsDataController.WMFArticleTab) -> Void
     public let didTapAddTab: () -> Void
     public let didTabOpenTabs: () -> Void
+    public let displayDeleteAllTabsToast: (Int) -> Void
     
     public let localizedStrings: LocalizedStrings
     
@@ -28,7 +29,8 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
                 loggingDelegate: WMFArticleTabsLoggingDelegate?,
                 didTapTab: @escaping (WMFArticleTabsDataController.WMFArticleTab) -> Void,
                 didTapAddTab: @escaping () -> Void,
-                didTapOpenTabs: @escaping () -> Void) {
+                didTapOpenTabs: @escaping () -> Void,
+                displayDeleteAllTabsToast: @escaping (Int) -> Void) {
         self.dataController = dataController
         self.localizedStrings = localizedStrings
         self.loggingDelegate = loggingDelegate
@@ -37,10 +39,23 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
         self.didTapTab = didTapTab
         self.didTapAddTab = didTapAddTab
         self.didTabOpenTabs = didTapOpenTabs
+        self.displayDeleteAllTabsToast = displayDeleteAllTabsToast
         super.init()
         Task {
             await loadTabs()
         }
+    }
+    
+    public func didTapCloseAllTabs() {
+        Task {
+            guard let numberTabs = try? await dataController.tabsCount() else { return }
+            try? await dataController.deleteAllTabs()
+            Task { @MainActor in
+                displayDeleteAllTabsToast(numberTabs)
+                await loadTabs()
+            }
+        }
+        
     }
     
     public struct LocalizedStrings {
@@ -51,8 +66,13 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
         public let closeTabAccessibility: String
         public let openTabAccessibility: String
         public let tabsPreferencesTitle: String
-
-        public init(navBarTitleFormat: String, mainPageTitle: String?, mainPageSubtitle: String, mainPageDescription: String, closeTabAccessibility: String, openTabAccessibility: String, tabsPreferencesTitle: String) {
+        public let closeAllTabs: String
+        public let cancelActionTitle: String
+        public let closeAllTabsTitle: String
+        public let closeAllTabsSubtitle: String
+        public let closedAlertsNotification: String
+        
+        public init(navBarTitleFormat: String, mainPageTitle: String?, mainPageSubtitle: String, mainPageDescription: String, closeTabAccessibility: String, openTabAccessibility: String, tabsPreferencesTitle: String, closeAllTabs: String, cancelActionTitle: String, closeAllTabsTitle: String, closeAllTabsSubtitle: String, closedAlertsNotification: String) {
             self.navBarTitleFormat = navBarTitleFormat
             self.mainPageTitle = mainPageTitle
             self.mainPageSubtitle = mainPageSubtitle
@@ -60,6 +80,11 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
             self.closeTabAccessibility = closeTabAccessibility
             self.openTabAccessibility = openTabAccessibility
             self.tabsPreferencesTitle = tabsPreferencesTitle
+            self.closeAllTabs = closeAllTabs
+            self.cancelActionTitle = cancelActionTitle
+            self.closeAllTabsTitle = closeAllTabsTitle
+            self.closeAllTabsSubtitle = closeAllTabsSubtitle
+            self.closedAlertsNotification = closedAlertsNotification
         }
     }
     
