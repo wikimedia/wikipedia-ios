@@ -145,7 +145,15 @@ final class NewArticleTabDataController: NewArticleTabDataControlling {
         var pickedSeed: WMFArticle?
         return await moc.perform {
             let req: NSFetchRequest<WMFArticle> = WMFArticle.fetchRequest()
-            let base = NSPredicate(format:"isExcludedFromFeed == NO AND (wasSignificantlyViewed == YES OR savedDate != nil)")
+
+            let mainTitle = "Main Page"
+            let mainKey   = "Main_Page"
+            let excludeMain = NSPredicate(format: "NOT (displayTitle ==[cd] %@ OR key == %@)", mainTitle, mainKey)
+
+            let base = NSCompoundPredicate(andPredicateWithSubpredicates: [
+                        NSPredicate(format:"isExcludedFromFeed == NO AND (wasSignificantlyViewed == YES OR savedDate != nil)"),
+                        excludeMain
+                    ])
             // Remember used articles
             if !self.seenSeedKeys.isEmpty {
                 let exclude = NSPredicate(format: "NOT (key IN %@)", self.seenSeedKeys)
