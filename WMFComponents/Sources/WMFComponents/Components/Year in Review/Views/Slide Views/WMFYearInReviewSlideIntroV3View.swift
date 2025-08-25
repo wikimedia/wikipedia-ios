@@ -1,11 +1,11 @@
 import SwiftUI
 import WMFData
 
-struct WMFYearInReviewSlideIntroView: View {
+struct WMFYearInReviewSlideIntroV3View: View {
     @ObservedObject var appEnvironment = WMFAppEnvironment.current
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
     
-    private let viewModel: WMFYearInReviewIntroViewModel
+    private let viewModel: WMFYearInReviewIntroV3ViewModel
     
     private var theme: WMFTheme {
         return appEnvironment.theme
@@ -15,14 +15,14 @@ struct WMFYearInReviewSlideIntroView: View {
         horizontalSizeClass == .regular ? 64 : 32
     }
     
-    init(viewModel: WMFYearInReviewIntroViewModel) {
+    init(viewModel: WMFYearInReviewIntroV3ViewModel) {
         self.viewModel = viewModel
     }
     
     var body: some View {
         
         ZStack(alignment: .bottom) {
-            WMFYearInReviewScrollView(scrollViewContents: WMFYearInReviewSlideIntroViewContent(viewModel: viewModel))
+            WMFYearInReviewScrollView(scrollViewContents: WMFYearInReviewSlideIntroV3ViewContent(viewModel: viewModel))
             
             VStack {
                 WMFLargeButton(configuration: .primary, title: viewModel.primaryButtonTitle) {
@@ -49,9 +49,9 @@ struct WMFYearInReviewSlideIntroView: View {
 }
 
 
-fileprivate struct WMFYearInReviewSlideIntroViewContent: View {
+fileprivate struct WMFYearInReviewSlideIntroV3ViewContent: View {
     @ObservedObject var appEnvironment = WMFAppEnvironment.current
-    let viewModel: WMFYearInReviewIntroViewModel
+    let viewModel: WMFYearInReviewIntroV3ViewModel
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
     
     private var theme: WMFTheme {
@@ -62,7 +62,7 @@ fileprivate struct WMFYearInReviewSlideIntroViewContent: View {
         horizontalSizeClass == .regular ? 64 : 32
     }
     
-    fileprivate init(viewModel: WMFYearInReviewIntroViewModel) {
+    fileprivate init(viewModel: WMFYearInReviewIntroV3ViewModel) {
         self.viewModel = viewModel
     }
     
@@ -83,13 +83,23 @@ fileprivate struct WMFYearInReviewSlideIntroViewContent: View {
                 .accessibilityLabel(viewModel.altText)
             }
             
-            VStack(alignment: .leading, spacing: 16) {
-                Text(viewModel.title)
-                    .font(Font(WMFFont.for(.boldTitle1)))
-                Text(viewModel.subtitle)
-                    .font(Font(WMFFont.for(.title3)))
+            VStack(alignment: .center, spacing: 75) {
+                VStack(alignment: .center, spacing: 16) {
+                    Text(viewModel.title)
+                        .multilineTextAlignment(.center)
+                        .font(Font(WMFFont.for(.boldTitle1)))
+                        .foregroundColor(Color(uiColor: theme.text))
+                    Text(viewModel.subtitle)
+                        .multilineTextAlignment(.center)
+                        .font(Font(WMFFont.for(.body)))
+                        .foregroundColor(Color(uiColor: theme.text))
+                }
+                Text(viewModel.footer)
+                    .multilineTextAlignment(.center)
+                    .font(Font(WMFFont.for(.caption2)))
+                    .foregroundColor(Color(uiColor: theme.secondaryText))
             }
-            .foregroundStyle(Color(uiColor: theme.text))
+            
             .padding(EdgeInsets(top: 0, leading: sizeClassPadding, bottom: 0, trailing: sizeClassPadding))
         }
     }
