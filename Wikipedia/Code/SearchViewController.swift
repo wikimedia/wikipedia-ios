@@ -108,8 +108,7 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
 
     // MARK: - New tab properties
 
-    let needsAttachedView: Bool
-
+    private let needsAttachedView: Bool
     private var newTabDataController: NewArticleTabDataControlling?
     private var newTabLoadTask: Task<Void, Never>?
     private var loadingView: UIActivityIndicatorView?
@@ -220,7 +219,7 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
     }
 
     deinit {
-        newTabLoadTask?.cancel() // new tab cleanup
+        newTabLoadTask?.cancel()
     }
 
     // MARK: - Navigation bar configuring
@@ -370,7 +369,7 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
         }
     }
 
-    // MARK: - State
+    // MARK: - Search
 
     @objc var shouldBecomeFirstResponder: Bool = false
 
@@ -466,8 +465,6 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
             }
         }
     }
-
-    // MARK: - Search
 
     lazy var fetcher: WMFSearchFetcher = {
         return WMFSearchFetcher()
@@ -788,8 +785,6 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
     }
 }
 
-// MARK: - UISearch plumbing
-
 extension SearchViewController: UITextViewDelegate {
     func tappedLink(_ url: URL, sourceTextView: UITextView) {
         guard let url = URL(string: url.absoluteString) else {
@@ -822,15 +817,7 @@ extension SearchViewController: UITextViewDelegate {
 
             let linkCoordinator = LinkCoordinator(navigationController: navController, url: url.absoluteURL, dataStore: nil, theme: theme, articleSource: .undefined, tabConfig: tabConfig)
             let success = linkCoordinator.start()
-
-            var vcs = navController.viewControllers
-            let newTabControllerIsOnStack = vcs.contains { $0 is SearchViewController } // TODO: review
-            if newTabControllerIsOnStack {
-                ArticleTabsFunnel.shared.logDidYouKnowClick()
-                guard vcs.count >= 2 else { return }
-                vcs.remove(at: vcs.count - 2)
-                navController.setViewControllers(vcs, animated: false)
-            }
+            ArticleTabsFunnel.shared.logDidYouKnowClick()
 
             guard success else {
                 legacyNavigateAction()
@@ -978,7 +965,7 @@ private extension SearchViewController {
 
                 if let becauseYouReadVM {
                     becauseYouReadVM.onTapArticle = { [weak self] item in
-                        self?.openFromBYR(item: item)
+                        self?.openFromBecauseYouRead(item: item)
                     }
                 }
 
@@ -1083,7 +1070,7 @@ private extension SearchViewController {
         }
     }
 
-    func openFromBYR(item: HistoryItem) {
+    func openFromBecauseYouRead(item: HistoryItem) {
 
         let navController = customArticleCoordinatorNavigationController ?? navigationController
         guard let navController else { return }
@@ -1111,11 +1098,5 @@ private extension SearchViewController {
             tabConfig: tabConfig
         )
         coord.start()
-
-        var vcs = navController.viewControllers
-        if vcs.count >= 2 {
-            vcs.remove(at: vcs.count - 2)
-            navController.setViewControllers(vcs, animated: false)
-        }
     }
 }
