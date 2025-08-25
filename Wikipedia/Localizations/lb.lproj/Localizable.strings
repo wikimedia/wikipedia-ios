@@ -875,6 +875,7 @@
 "tabs-overview-tooltip-title" = "Tabiwwersiicht";
 "tabs-thumbnail-subtitle" = "Fänkt Är Sich hei un";
 "tabs-title" = "Tabs";
+// Fuzzy
 "tabs-title-preferences" = "Tabs-Astellungen";
 "talk-page-active-users-accessibilty-label" = "{{PLURAL:$1|$1 aktive Benotzer|$1 aktiv Benotzer}}";
 "talk-page-add-topic-button" = "Sujet derbäisetzen";
