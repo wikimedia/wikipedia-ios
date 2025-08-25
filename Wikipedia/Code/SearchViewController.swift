@@ -127,7 +127,6 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
 
     // MARK: - Lifecycle
 
-
     @objc required init(source: EventLoggingSource, customArticleCoordinatorNavigationController: UINavigationController? = nil, needsAttachedView: Bool = false, isMainRootView: Bool = false) {
         self.source = source
         self.isNewTab = needsAttachedView
@@ -193,7 +192,6 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
 
-        // TODO: Update for new tab with and wo lang bar
         if let searchLanguageBarViewController {
             recentSearchesViewModel.topPadding = searchLanguageBarViewController.view.bounds.height
             resultsViewController.collectionView.contentInset.top = searchLanguageBarViewController.view.bounds.height
@@ -585,22 +583,6 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
         }
     }
 
-    // MARK: - Theme
-
-    override func apply(theme: Theme) {
-        super.apply(theme: theme)
-        guard viewIfLoaded != nil else {
-            return
-        }
-
-        searchLanguageBarViewController?.apply(theme: theme)
-        resultsViewController.apply(theme: theme)
-        view.backgroundColor = theme.colors.paperBackground
-        themeTopSafeAreaOverlay()
-        updateProfileButton()
-        profileCoordinator?.theme = theme
-    }
-
     // MARK: - Recently Searched
 
     var recentSearches: MWKRecentSearchList? {
@@ -720,45 +702,13 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
                 self?.saveSelection(selectedIndex: viewModel.selectedIndex)
             })
         })
-        _recentSearchesViewModel = vm // keep reference for later swap
+        _recentSearchesViewModel = vm
         return vm
     }()
 
     @objc private func doneButtonTapped() {
         self.hostingController?.dismiss(animated: true)
     }
-
-    private func getSelectedIndex() -> Int {
-        let isBYREnabled = (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsMoreDynamicTabsBYR.rawValue)) ?? false
-        let isDYKEnabled = (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsMoreDynamicTabsDYK.rawValue)) ?? false
-
-        return (isBYREnabled) ? 0 : (isDYKEnabled) ? 1 : 0
-    }
-
-    private func saveSelection(selectedIndex: Int) {
-        let isBYR = selectedIndex == 0
-        let isDYK = selectedIndex == 1
-
-        try? userDefaultsStore?.save(
-            key: WMFUserDefaultsKey.developerSettingsMoreDynamicTabsBYR.rawValue,
-            value: isBYR
-        )
-        try? userDefaultsStore?.save(
-            key: WMFUserDefaultsKey.developerSettingsMoreDynamicTabsDYK.rawValue,
-            value: isDYK
-        )
-
-        Task {
-            tabsDataController.moreDynamicTabsBYRIsEnabled = isBYR
-            tabsDataController.moreDynamicTabsDYKIsEnabled = isDYK
-
-            self.updateNewTabContent(becauseYouReadVM: self.lastBYRVM, didYouKnowVM: self.lastDYKVM)
-
-            self.view.setNeedsLayout()
-            self.view.layoutIfNeeded()
-        }
-    }
-
 
     private lazy var recentSearchTerms: [WMFRecentlySearchedViewModel.RecentSearchTerm] = {
         guard let recent = recentSearches else { return [] }
@@ -802,57 +752,25 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
 
         resultsViewController.view.isHidden = searchText.isEmpty
     }
-}
 
-extension SearchViewController: UITextViewDelegate {
-    func tappedLink(_ url: URL, sourceTextView: UITextView) {
-        guard let url = URL(string: url.absoluteString) else {
+    // MARK: - Theme
+
+    override func apply(theme: Theme) {
+        super.apply(theme: theme)
+        guard viewIfLoaded != nil else {
             return
         }
 
-        let legacyNavigateAction = { [weak self] in
-            guard let self else { return }
-            let userInfo: [AnyHashable : Any] = [RoutingUserInfoKeys.source: RoutingUserInfoSourceValue.talkPage.rawValue]
-            navigate(to: url.absoluteURL, userInfo: userInfo)
-        }
-
-        let navController = customArticleCoordinatorNavigationController
-            ?? self.navigationController
-            ?? self.parent?.navigationController
-
-        if let navController {
-            guard let title = url.wmf_title,
-                  let siteURL = url.wmf_site,
-                  let wmfProject = WikimediaProject(siteURL: siteURL)?.wmfProject else {
-                return
-            }
-
-            let tabConfig: ArticleTabConfig
-            if let tabIdentifier {
-                tabConfig = .appendArticleToEmptyTabAndSetToCurrent(identifiers: tabIdentifier)
-            } else {
-                tabConfig = .assignNewTabAndSetToCurrentFromNewTabSearch(title: title, project: wmfProject)
-            }
-            self.needsCreatingNewEmptyTab = false
-
-            let linkCoordinator = LinkCoordinator(navigationController: navController, url: url.absoluteURL, dataStore: nil, theme: theme, articleSource: .undefined, tabConfig: tabConfig)
-            let success = linkCoordinator.start()
-            ArticleTabsFunnel.shared.logDidYouKnowClick()
-
-            guard success else {
-                legacyNavigateAction()
-                return
-            }
-        } else {
-            legacyNavigateAction()
-        }
+        searchLanguageBarViewController?.apply(theme: theme)
+        resultsViewController.apply(theme: theme)
+        view.backgroundColor = theme.colors.paperBackground
+        themeTopSafeAreaOverlay()
+        updateProfileButton()
+        profileCoordinator?.theme = theme
     }
 
-    func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
-        tappedLink(URL, sourceTextView: textView)
-        return false
-    }
 }
+
 
 extension SearchViewController: SearchLanguagesBarViewControllerDelegate {
     func searchLanguagesBarViewController(_ controller: SearchLanguagesBarViewController, didChangeSelectedSearchContentLanguageCode contentLanguageCode: String) {
@@ -941,7 +859,7 @@ extension SearchViewController: WMFNewArticleTabSettingsLoggingDelegate {
     }
 }
 
-// MARK: - New tab experience extension
+// MARK: - New tab experience extensions
 
 private extension SearchViewController {
 
@@ -1114,5 +1032,86 @@ private extension SearchViewController {
             tabConfig: tabConfig
         )
         coord.start()
+    }
+
+    private func getSelectedIndex() -> Int {
+        let isBYREnabled = (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsMoreDynamicTabsBYR.rawValue)) ?? false
+        let isDYKEnabled = (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsMoreDynamicTabsDYK.rawValue)) ?? false
+
+        return (isBYREnabled) ? 0 : (isDYKEnabled) ? 1 : 0
+    }
+
+    private func saveSelection(selectedIndex: Int) {
+        let isBYR = selectedIndex == 0
+        let isDYK = selectedIndex == 1
+
+        try? userDefaultsStore?.save(
+            key: WMFUserDefaultsKey.developerSettingsMoreDynamicTabsBYR.rawValue,
+            value: isBYR
+        )
+        try? userDefaultsStore?.save(
+            key: WMFUserDefaultsKey.developerSettingsMoreDynamicTabsDYK.rawValue,
+            value: isDYK
+        )
+
+        Task {
+            tabsDataController.moreDynamicTabsBYRIsEnabled = isBYR
+            tabsDataController.moreDynamicTabsDYKIsEnabled = isDYK
+
+            self.updateNewTabContent(becauseYouReadVM: self.lastBYRVM, didYouKnowVM: self.lastDYKVM)
+
+            self.view.setNeedsLayout()
+            self.view.layoutIfNeeded()
+        }
+    }
+}
+
+extension SearchViewController: UITextViewDelegate {
+    func tappedLink(_ url: URL, sourceTextView: UITextView) {
+        guard let url = URL(string: url.absoluteString) else {
+            return
+        }
+
+        let legacyNavigateAction = { [weak self] in
+            guard let self else { return }
+            let userInfo: [AnyHashable : Any] = [RoutingUserInfoKeys.source: RoutingUserInfoSourceValue.talkPage.rawValue]
+            navigate(to: url.absoluteURL, userInfo: userInfo)
+        }
+
+        let navController = customArticleCoordinatorNavigationController
+            ?? self.navigationController
+            ?? self.parent?.navigationController
+
+        if let navController {
+            guard let title = url.wmf_title,
+                  let siteURL = url.wmf_site,
+                  let wmfProject = WikimediaProject(siteURL: siteURL)?.wmfProject else {
+                return
+            }
+
+            let tabConfig: ArticleTabConfig
+            if let tabIdentifier {
+                tabConfig = .appendArticleToEmptyTabAndSetToCurrent(identifiers: tabIdentifier)
+            } else {
+                tabConfig = .assignNewTabAndSetToCurrentFromNewTabSearch(title: title, project: wmfProject)
+            }
+            self.needsCreatingNewEmptyTab = false
+
+            let linkCoordinator = LinkCoordinator(navigationController: navController, url: url.absoluteURL, dataStore: nil, theme: theme, articleSource: .undefined, tabConfig: tabConfig)
+            let success = linkCoordinator.start()
+            ArticleTabsFunnel.shared.logDidYouKnowClick()
+
+            guard success else {
+                legacyNavigateAction()
+                return
+            }
+        } else {
+            legacyNavigateAction()
+        }
+    }
+
+    func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
+        tappedLink(URL, sourceTextView: textView)
+        return false
     }
 }
