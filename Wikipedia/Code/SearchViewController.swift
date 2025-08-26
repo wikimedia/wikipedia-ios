@@ -112,7 +112,6 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
     private var newTabDataController: NewArticleTabDataControlling?
     private var newTabLoadTask: Task<Void, Never>?
     private var loadingView: UIActivityIndicatorView?
-    private var _newTabHostViewController: UIViewController?
     private var _recentSearchesViewModel: WMFRecentlySearchedViewModel?
     private let tabsDataController = WMFArticleTabsDataController()
     private let attachedContentContainer = UIView()
@@ -144,8 +143,6 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        definesPresentationContext = true
 
         if let dataStore {
             newTabDataController = NewArticleTabDataController(dataStore: dataStore)
@@ -205,8 +202,6 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
         super.viewWillDisappear(animated)
 
         guard isNewTab, needsCreatingNewEmptyTab, let cameFromNewTab, !cameFromNewTab else { return }
-
-        let leavingNavStack = self.isMovingFromParent || self.isBeingDismissed || (self.navigationController?.isBeingDismissed ?? false)
 
         Task { [weak self] in
             guard let self else { return }
@@ -605,14 +600,6 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
     private lazy var recentSearchesViewController: UIViewController = {
         let root = WMFRecentlySearchedView(viewModel: recentSearchesViewModel)
         let host = UIHostingController(rootView: root)
-        return host
-    }()
-
-    // NOTE: we’ll hold a reference to the *current* new-tab host so we can swap it after BYR/DYK loads
-    private lazy var newTabViewController: UIViewController = {
-        let root = WMFNewTabSearchView(viewModel: recentSearchesViewModel, linkDelegate: self)
-        let host = UIHostingController(rootView: root)
-        _newTabHostViewController = host
         return host
     }()
 
