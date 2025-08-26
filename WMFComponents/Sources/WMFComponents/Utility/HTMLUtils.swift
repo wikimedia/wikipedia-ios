@@ -159,8 +159,15 @@ public struct HtmlUtils {
         // Style Link
         if let linkColor = styles.linkColor {
             for (linkRange, linkHref) in zip(allStyleData.link.completeNSRanges, allStyleData.link.targetAttributeValues) {
+                
+                // Here the href might contain special characters, making the URL invalid. We must encode it first.
+                // For example:
+                // https://en.wikipedia.org/wiki/Stephen_of_La_Ferté
+                
+                guard let url = URL(string: linkHref) else { continue }
+                
                 nsAttributedString.addAttribute(.foregroundColor, value: linkColor, range: linkRange)
-                nsAttributedString.addAttribute(.link, value: linkHref, range: linkRange)
+                nsAttributedString.addAttribute(.link, value: url, range: linkRange)
             }
         }
         
