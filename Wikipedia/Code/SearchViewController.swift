@@ -104,8 +104,6 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
     private var hostingController: UIHostingController<WMFNewArticleTabSettingsView>?
     private var viewModel: WMFNewArticleTabSettingsViewModel?
 
-    public var tabIdentifier: WMFArticleTabsDataController.Identifiers?
-
     // MARK: - New tab properties
 
     public let isNewTab: Bool
@@ -121,7 +119,6 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
     private var didYouKnowViewModel: WMFNewArticleTabDidYouKnowViewModel?
     private var lastBYRVM: WMFBecauseYouReadViewModel?
     private var lastDYKVM: WMFNewArticleTabDidYouKnowViewModel?
-    private var needsCreatingNewEmptyTab: Bool = true
     public var cameFromNewTab: Bool?
 
     // MARK: - Lifecycle
@@ -151,6 +148,12 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
         if isNewTab {
             installAttachedContentContainer()
             loadNewTabContent()
+            guard let cameFromNewTab, !cameFromNewTab else { return }
+
+            Task { [weak self] in
+                guard let self else { return }
+                _ = try? await self.tabsDataController.createArticleTab(initialArticle: nil, setAsCurrent: true)
+            }
         } else {
             embedRecentSearches()
         }
@@ -165,7 +168,6 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
         reloadRecentSearches()
 
         if isNewTab {
-            needsCreatingNewEmptyTab = true
             navigationItem.searchController?.obscuresBackgroundDuringPresentation = false
             navigationItem.searchController?.hidesNavigationBarDuringPresentation = false
         }
@@ -195,17 +197,6 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
         } else {
             recentSearchesViewModel.topPadding = 0
             resultsViewController.collectionView.contentInset.top = 0
-        }
-    }
-
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-
-        guard isNewTab, needsCreatingNewEmptyTab, let cameFromNewTab, !cameFromNewTab else { return }
-
-        Task { [weak self] in
-            guard let self else { return }
-            _ = try? await self.tabsDataController.createArticleTab(initialArticle: nil, setAsCurrent: true)
         }
     }
 
@@ -507,7 +498,6 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
             guard let self else {
                 return
             }
-            self.needsCreatingNewEmptyTab = false
             SearchFunnel.shared.logSearchResultTap(position: indexPath.item, source: source.stringValue)
 
             saveLastSearch()
@@ -516,7 +506,7 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
                 navigateToSearchResultAction(articleURL)
             } else if let customArticleCoordinatorNavigationController {
 
-                let linkCoordinator = LinkCoordinator(navigationController: customArticleCoordinatorNavigationController, url: articleURL, dataStore: dataStore, theme: theme, articleSource: .search, tabConfig: customTabConfigUponArticleNavigation ?? .appendArticleAndAssignCurrentTab)
+                let linkCoordinator = LinkCoordinator(navigationController: customArticleCoordinatorNavigationController, url: articleURL, dataStore: dataStore, theme: theme, articleSource: .search, tabConfig: .appendArticleAndAssignCurrentTab)
                 let success = linkCoordinator.start()
 
                 if !success {
@@ -545,7 +535,7 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
             guard let self else { return }
 
             guard let navVC = customArticleCoordinatorNavigationController ?? navigationController else { return }
-            let articleCoordinator = ArticleCoordinator(navigationController: navVC, articleURL: articleURL, dataStore: MWKDataStore.shared(), theme: self.theme, source: .undefined, tabConfig: .appendArticleAndAssignNewTabAndSetToCurrent)
+            let articleCoordinator = ArticleCoordinator(navigationController: navVC, articleURL: articleURL, dataStore: MWKDataStore.shared(), theme: self.theme, source: .undefined, tabConfig: .appendArticleAndAssignCurrentTab)
             articleCoordinator.start()
         }
 
@@ -641,7 +631,6 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
         self.search()
 
         if isNewTab {
-            needsCreatingNewEmptyTab = false
             ArticleTabsFunnel.shared.logRecentSearchesClick()
         }
 
@@ -1003,20 +992,13 @@ private extension SearchViewController {
             let wmfProject = WikimediaProject(siteURL: siteURL)?.wmfProject
         else { return }
 
-        let tabConfig: ArticleTabConfig
-        if let tabIdentifier {
-            tabConfig = .appendArticleToEmptyTabAndSetToCurrent(identifiers: tabIdentifier)
-        } else {
-            tabConfig = .assignNewTabAndSetToCurrentFromNewTabSearch(title: title, project: wmfProject)
-        }
-
         let coord = ArticleCoordinator(
             navigationController: navController,
             articleURL: url,
             dataStore: dataStore,
             theme: theme,
             source: .undefined,
-            tabConfig: tabConfig
+            tabConfig: .appendArticleAndAssignCurrentTab
         )
         coord.start()
     }
@@ -1076,15 +1058,7 @@ extension SearchViewController: UITextViewDelegate {
                 return
             }
 
-            let tabConfig: ArticleTabConfig
-            if let tabIdentifier {
-                tabConfig = .appendArticleToEmptyTabAndSetToCurrent(identifiers: tabIdentifier)
-            } else {
-                tabConfig = .assignNewTabAndSetToCurrentFromNewTabSearch(title: title, project: wmfProject)
-            }
-            self.needsCreatingNewEmptyTab = false
-
-            let linkCoordinator = LinkCoordinator(navigationController: navController, url: url.absoluteURL, dataStore: nil, theme: theme, articleSource: .undefined, tabConfig: tabConfig)
+            let linkCoordinator = LinkCoordinator(navigationController: navController, url: url.absoluteURL, dataStore: nil, theme: theme, articleSource: .undefined, tabConfig: .appendArticleAndAssignCurrentTab)
             let success = linkCoordinator.start()
             ArticleTabsFunnel.shared.logDidYouKnowClick()
 

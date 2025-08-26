@@ -30,7 +30,6 @@ final class NewArticleTabCoordinator: Coordinator {
             searchVC.dataStore = dataStore
             searchVC.theme = theme
             searchVC.shouldBecomeFirstResponder = true
-            searchVC.tabIdentifier = tabIdentifier
             searchVC.needsCenteredTitle = true
             searchVC.customTitle = CommonStrings.newTab
             searchVC.cameFromNewTab = cameFromNewTab
