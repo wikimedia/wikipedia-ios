@@ -37,7 +37,7 @@ public final class WMFRecentlySearchedViewModel: ObservableObject {
 
     @Published public var recentSearchTerms: [RecentSearchTerm] = []
     @Published public var topPadding: CGFloat = 0
-    let localizedStrings: LocalizedStrings
+    public let localizedStrings: LocalizedStrings
     let needsAttachedView: Bool
     let becauseYouReadViewModel: WMFBecauseYouReadViewModel?
     let didYouKnowViewModel: WMFNewArticleTabDidYouKnowViewModel?
@@ -56,10 +56,10 @@ public final class WMFRecentlySearchedViewModel: ObservableObject {
         self.selectAction = selectAction
         self.needsAttachedView = needsAttachedView
         self.becauseYouReadViewModel = becauseYouReadViewModel
+        self.didYouKnowViewModel = didYouKnowViewModel
         self.tabsDataController =  WMFArticleTabsDataController.shared
         self.devSettingsDataControler = WMFDeveloperSettingsDataController.shared
         self.onTapEdit = onTapEdit
-        self.didYouKnowViewModel = didYouKnowViewModel
     }
 
 }

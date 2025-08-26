@@ -93,34 +93,29 @@ public struct WMFNewTabSearchView: View {
                 .listStyle(.plain)
                 .scrollDisabled(true)
                 .frame(height: estimatedListHeight)
-                if viewModel.needsAttachedView {
-                    if enableBYR || (!enableDYK && assignment == .becauseYouRead), let becauseVM = viewModel.becauseYouReadViewModel {
-                        WMFBecauseYouReadView(viewModel: becauseVM)
-                            .padding(.top, 24)
-                            .padding(.horizontal, 4)
-                    } else if shouldShowDidYouKnow(), let dykVM = viewModel.didYouKnowViewModel {
-                        WMFNewArticleTabViewDidYouKnow(viewModel: dykVM, linkDelegate: linkDelegate)
-                    }
+                if enableBYR || (!enableDYK && assignment == .becauseYouRead), let becauseVM = viewModel.becauseYouReadViewModel {
+                    WMFBecauseYouReadView(viewModel: becauseVM)
+                        .padding(.top, 24)
+                        .padding(.horizontal, 4)
+                } else if shouldShowDidYouKnow(), let dykVM = viewModel.didYouKnowViewModel {
+                    WMFNewArticleTabViewDidYouKnowView(viewModel: dykVM, linkDelegate: linkDelegate)
                 }
             }
             .padding(.top, viewModel.topPadding)
-
-            if viewModel.needsAttachedView {
-                Button(action: {
-                    viewModel.onTapEdit()
-                }, label: {
-                    Text(viewModel.localizedStrings.editButtonTitle)
-                        .foregroundStyle(Color(theme.text))
-                        .font(Font(WMFFont.for(.boldSubheadline)))
-                        .padding(.vertical, 7)
-                        .padding(.horizontal, 14)
-                        .background(
-                            Capsule()
-                                .fill(Color(theme.paperBackground))
-                        )
-                })
-                .padding(.top, 64)
-            }
+            Button(action: {
+                viewModel.onTapEdit()
+            }, label: {
+                Text(viewModel.localizedStrings.editButtonTitle)
+                    .foregroundStyle(Color(theme.text))
+                    .font(Font(WMFFont.for(.boldSubheadline)))
+                    .padding(.vertical, 7)
+                    .padding(.horizontal, 14)
+                    .background(
+                        Capsule()
+                            .fill(Color(theme.paperBackground))
+                    )
+            })
+            .padding(.top, 64)
         }
         .background(shouldShowDidYouKnow() ? Color(theme.midBackground) : Color(theme.paperBackground))
         .onAppear {
