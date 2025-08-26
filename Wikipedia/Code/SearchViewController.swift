@@ -1043,8 +1043,7 @@ extension SearchViewController: UITextViewDelegate {
 
         let legacyNavigateAction = { [weak self] in
             guard let self else { return }
-            let userInfo: [AnyHashable : Any] = [RoutingUserInfoKeys.source: RoutingUserInfoSourceValue.talkPage.rawValue]
-            navigate(to: url.absoluteURL, userInfo: userInfo)
+            navigate(to: url.absoluteURL)
         }
 
         let navController = customArticleCoordinatorNavigationController
