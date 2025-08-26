@@ -269,7 +269,7 @@ final class TabsOverviewCoordinator: Coordinator {
             // If we're showing more dynamic tabs, we need to push to the new tab experience instead of main page
             if needsMoreDynamicTabs {
                 if tab.articles.last?.isMain == true {
-                    self.newTabCoordinator = NewArticleTabCoordinator(navigationController: self.navigationController, dataStore: self.dataStore, theme: self.theme, cameFromNewTab: true, tabIdentifier: WMFArticleTabsDataController.Identifiers(tabIdentifier: tab.identifier, tabItemIdentifier: article.identifier))
+                    self.newTabCoordinator = NewArticleTabCoordinator(navigationController: self.navigationController, dataStore: self.dataStore, theme: self.theme, tabIdentifier: WMFArticleTabsDataController.Identifiers(tabIdentifier: tab.identifier, tabItemIdentifier: article.identifier), cameFromNewTab: true)
                     self.newTabCoordinator?.start()
                 } else {
                     let articleCoordinator = ArticleCoordinator(navigationController: navigationController, articleURL: articleURL, dataStore: MWKDataStore.shared(), theme: theme, needsAnimation: false, source: .undefined, isRestoringState: true, tabConfig: tabConfig)
@@ -287,9 +287,13 @@ final class TabsOverviewCoordinator: Coordinator {
     private func tappedAddTab() {
 
         if dataController.shouldShowMoreDynamicTabs {
-            let isOnStack = self.navigationController.viewControllers.contains { $0 is WMFNewArticleTabViewController }
+
+            let isNewTabSearchOnTheStack = self.navigationController.viewControllers.lastIndex {
+                guard let svc = $0 as? SearchViewController else { return false }
+                return svc.isNewTab == true
+            }
             // do not push a new tab if the user just came from a new tab
-            if isOnStack {
+            if isNewTabSearchOnTheStack != nil {
                 navigationController.dismiss(animated: true)
             } else {
                 navigationController.dismiss(animated: true) {
