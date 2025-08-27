@@ -47,11 +47,11 @@ public final class WMFPageViewDay: Decodable, Encodable {
 }
 
 public final class WMFLegacyPageView: Codable {
-    let title: String
+    public let title: String
     let project: WMFProject
     let viewedDate: Date
-    let latitude: Double?
-    let longitude: Double?
+    public let latitude: Double?
+    public let longitude: Double?
     
     public init(title: String, project: WMFProject, viewedDate: Date, latitude: Double? = nil, longitude: Double? = nil) {
         self.title = title

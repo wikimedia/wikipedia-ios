@@ -1,32 +1,65 @@
 import Foundation
 import WMFData
+import CoreLocation
 
 final class WMFYearInReviewSlideLocationViewModel: ObservableObject {
     
-    @Published var title: String
+    let localizedStrings: WMFYearInReviewViewModel.LocalizedStrings
     let legacyPageViews: [WMFLegacyPageView]
-    let loggingID: String
-    @Published var isLoading: Bool = true
     
-    init(localizedStrings: WMFYearInReviewViewModel.LocalizedStrings, legacyPageViews: [WMFLegacyPageView], loggingID: String) {
-        self.title = ""
+    var countryOrOceanName: String
+    var randomArticleTitles: [String]
+    
+    var title: String
+    var subtitle: String
+    
+    var infoURL: URL?
+    let tappedInfo: () -> Void
+    let loggingID: String
+    
+    @Published var isLoading: Bool = true
+    var didZoomToLargestCluster = false
+    
+    init(localizedStrings: WMFYearInReviewViewModel.LocalizedStrings, legacyPageViews: [WMFLegacyPageView], loggingID: String, infoURL: URL?, tappedInfo: @escaping () -> Void) {
+        self.localizedStrings = localizedStrings
+        
+        title = ""
+        subtitle = ""
+        
+        countryOrOceanName = ""
+        randomArticleTitles = []
+        
         self.legacyPageViews = legacyPageViews
+        
+        self.infoURL = infoURL
+        self.tappedInfo = tappedInfo
         self.loggingID = loggingID
-        self.isLoading = true
+        
+        isLoading = true
     }
     
-    func fakeDataCall() {
+    func reverseGeocode(location: CLLocation) {
+        
         Task {
-            do {
-                try await Task.sleep(for: .seconds(5)) // Replace 5 with your desired delay
-                Task { @MainActor [weak self] in
-                    guard let self else { return }
-                    title = "Fake title: \(legacyPageViews.count)"
-                    isLoading = false
-                }
-            } catch {
-                // Handle cancellation or other errors
-                print("Task sleep was cancelled or encountered an error: \(error)")
+            
+            let geocoder = CLGeocoder()
+            let placemarks = try await geocoder.reverseGeocodeLocation(location)
+            
+            guard let placemark = placemarks.first else {
+                return
+            }
+            
+            if let country = placemark.country {
+                countryOrOceanName = country
+            } else if let ocean = placemark.ocean {
+                countryOrOceanName = ocean
+            }
+            
+            title = localizedStrings.personalizedLocationSlideTitle(countryOrOceanName)
+            subtitle = localizedStrings.personalizedLocationSlideSubtitle(randomArticleTitles)
+            
+            Task { @MainActor in
+                isLoading = false
             }
         }
     }
