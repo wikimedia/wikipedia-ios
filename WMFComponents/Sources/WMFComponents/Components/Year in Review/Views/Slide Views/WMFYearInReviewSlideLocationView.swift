@@ -1,8 +1,7 @@
 import SwiftUI
 
 struct WMFYearInReviewSlideLocationView: View {
-    let viewModel: WMFYearInReviewSlideLocationViewModel
-    
+    @ObservedObject var viewModel: WMFYearInReviewSlideLocationViewModel
     @ObservedObject var appEnvironment = WMFAppEnvironment.current
     
     var theme: WMFTheme {
@@ -14,13 +13,27 @@ struct WMFYearInReviewSlideLocationView: View {
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .background(Color(uiColor: theme.midBackground))
             .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .onAppear {
+                viewModel.fakeDataCall()
+            }
     }
 }
 
 fileprivate struct WMFYearInReviewSlideLocationViewContent: View {
-    let viewModel: WMFYearInReviewSlideLocationViewModel
+    @ObservedObject var viewModel: WMFYearInReviewSlideLocationViewModel
+    @ObservedObject var appEnvironment = WMFAppEnvironment.current
+    
+    var theme: WMFTheme {
+        return appEnvironment.theme
+    }
     
     var body: some View {
-        Text(viewModel.title)
+        if viewModel.isLoading {
+            ProgressView()
+                    .progressViewStyle(CircularProgressViewStyle())
+                    .background(Color(theme.midBackground))
+        } else {
+            Text(viewModel.title)
+        }
     }
 }

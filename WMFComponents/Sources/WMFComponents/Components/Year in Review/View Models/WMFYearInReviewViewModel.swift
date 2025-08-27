@@ -245,13 +245,14 @@ public class WMFYearInReviewViewModel: ObservableObject {
             if isUserPermanent {
                 slides.append(.standard(personalizedSlides.readCountSlide ?? (primaryAppLanguage.isEnglishWikipedia ? englishHoursReadingSlide : collectiveLanguagesSlide)))
                 slides.append(.standard(personalizedSlides.mostReadDaySlide ?? (primaryAppLanguage.isEnglishWikipedia ? englishTopReadSlide : collectiveArticleViewsSlide)))
+                
                 if let categorySlide = personalizedSlides.mostReadCategoriesSlide {
                     slides.append(.standard(categorySlide))
                 }
                 
-                // TODO: Need location data crunched
-                let fakeLocation = WMFYearInReviewSlideLocationViewModel(localizedStrings: localizedStrings, loggingID: "")
-                slides.append(.location(fakeLocation))
+                if let locationSlide = personalizedSlides.locationSlide {
+                    slides.append(.location(locationSlide))
+                }
                 
                 slides.append(.standard(personalizedSlides.saveCountSlide ?? (primaryAppLanguage.isEnglishWikipedia ? englishReadingListSlide : collectiveSavedArticlesSlide)))
                 slides.append(.standard(personalizedSlides.editCountSlide ?? (primaryAppLanguage.isEnglishWikipedia ? englishEditsSlide : collectiveAmountEditsSlide)))
@@ -298,6 +299,7 @@ public class WMFYearInReviewViewModel: ObservableObject {
         var mostReadDaySlide: WMFYearInReviewSlideStandardViewModel?
         var viewCountSlide: WMFYearInReviewSlideStandardViewModel?
         var mostReadCategoriesSlide: WMFYearInReviewSlideStandardViewModel?
+        var locationSlide: WMFYearInReviewSlideLocationViewModel?
     }
     
     private func getPersonalizedSlides(aboutYiRURL: URL?) -> PersonalizedSlides {
@@ -309,6 +311,7 @@ public class WMFYearInReviewViewModel: ObservableObject {
         var mostReadDaySlide: WMFYearInReviewSlideStandardViewModel?
         var viewCountSlide: WMFYearInReviewSlideStandardViewModel?
         var mostReadCategoriesSlide: WMFYearInReviewSlideStandardViewModel?
+        var locationSlide: WMFYearInReviewSlideLocationViewModel?
         
         let dataController = try? WMFYearInReviewDataController()
         
@@ -450,14 +453,14 @@ public class WMFYearInReviewViewModel: ObservableObject {
                     if let data = slide.data {
                         let decoder = JSONDecoder()
                         if let locations = try? decoder.decode([WMFLegacyPageView].self, from: data) {
-                            break
+                            locationSlide = WMFYearInReviewSlideLocationViewModel(localizedStrings: localizedStrings, legacyPageViews: locations, loggingID: "") // TODO: Logging ID
                         }
                     }
                 }
             }
         }
         
-        return PersonalizedSlides(readCountSlide: readCountSlide, editCountSlide: editCountSlide, donateCountSlide: donateCountSlide, saveCountSlide: saveCountSlide, mostReadDaySlide: mostReadDaySlide, viewCountSlide: viewCountSlide, mostReadCategoriesSlide: mostReadCategoriesSlide)
+        return PersonalizedSlides(readCountSlide: readCountSlide, editCountSlide: editCountSlide, donateCountSlide: donateCountSlide, saveCountSlide: saveCountSlide, mostReadDaySlide: mostReadDaySlide, viewCountSlide: viewCountSlide, mostReadCategoriesSlide: mostReadCategoriesSlide, locationSlide: locationSlide)
     }
     
     // MARK: English Slides
