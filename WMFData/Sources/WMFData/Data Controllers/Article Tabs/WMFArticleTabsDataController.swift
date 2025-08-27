@@ -258,7 +258,7 @@ public protocol WMFArticleTabsDataControlling {
             throw CustomError.missingExperimentsDataController
         }
         
-        let bucketValue = try experimentsDataController.determineBucketForExperiment(.moreDynamicTabs, withPercentage: moreDynamicTabsExperimentPercentage)
+        let bucketValue = try experimentsDataController.determineBucketForExperiment(.moreDynamicTabs, withPercentage: moreDynamicTabsExperimentPercentage, forceValue: .moreDynamicTabsControl)
         
         let assignment: MoreDynamicTabsExperimentAssignment
         

@@ -1,6 +1,7 @@
 import Foundation
 import WMFData
 import CoreLocation
+import UIKit
 
 final class WMFYearInReviewSlideLocationViewModel: ObservableObject {
     
@@ -19,6 +20,8 @@ final class WMFYearInReviewSlideLocationViewModel: ObservableObject {
     
     @Published var isLoading: Bool = true
     var didZoomToLargestCluster = false
+    
+    var mapViewSnapshotForSharing: UIImage?
     
     let clusterReuseIdentifier = "cluster"
     let clusteringIdentifier = "clusterID"

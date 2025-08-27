@@ -33,8 +33,8 @@ fileprivate struct WMFYearInReviewSlideLocationViewContent: View {
     }
     
     private var subtitleStyles: HtmlUtils.Styles {
-            return HtmlUtils.Styles(font: WMFFont.for(.title3), boldFont: WMFFont.for(.boldTitle3), italicsFont: WMFFont.for(.title3), boldItalicsFont: WMFFont.for(.title3), color: theme.text, linkColor: theme.link, lineSpacing: 3)
-        }
+        return HtmlUtils.Styles(font: WMFFont.for(.title3), boldFont: WMFFont.for(.boldTitle3), italicsFont: WMFFont.for(.title3), boldItalicsFont: WMFFont.for(.title3), color: theme.text, linkColor: theme.link, lineSpacing: 3)
+    }
     
     var body: some View {
         VStack(spacing: 48) {
@@ -151,7 +151,17 @@ fileprivate struct YearInReviewMapView: UIViewRepresentable {
         }
         
         func mapViewDidFinishRenderingMap(_ mapView: MKMapView, fullyRendered: Bool) {
-            guard !viewModel.didZoomToLargestCluster else { return }
+            guard !viewModel.didZoomToLargestCluster else {
+                if fullyRendered {
+                    
+                    // Delay a bit so annotions finish loading
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) { [weak self] in
+                        self?.viewModel.mapViewSnapshotForSharing = mapView.snapshot()
+                    }
+                    
+                }
+                return
+            }
             
             // Schedule a check on the next run loop so clusters have time to form
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) { [weak self] in
@@ -176,9 +186,8 @@ fileprivate struct YearInReviewMapView: UIViewRepresentable {
         }
         
         private func populateAnnotationLocationName(mapView: MKMapView, annotation: MKAnnotation) {
-            if let title = annotation.title,
-            let titleAgain = title {
-                viewModel.randomArticleTitles = [titleAgain]
+            if let title = annotation.title ?? nil {
+                viewModel.randomArticleTitles = [title]
             }
             
             // Center map on annotation
@@ -225,7 +234,6 @@ fileprivate struct YearInReviewMapView: UIViewRepresentable {
                 let location = CLLocation(latitude: avgLat, longitude: avgLon)
                 
                 viewModel.reverseGeocode(location: location)
-                
             }
             
             viewModel.didZoomToLargestCluster = true
