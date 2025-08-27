@@ -123,6 +123,8 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
             personalizedThankYouSubtitle: personalizedThankYouSubtitle(languageCode:),
             personalizedMostReadCategoriesSlideTitle: "Your most interesting categories", // TODO: Localize when we have final product requirements
             personalizedMostReadCategoriesSlideSubtitle: personalizedMostReadCategoriesSlideSubtitle(categories:),
+            personalizedMostReadArticlesSlideTitle: "Your top articles", // TODO: Localize when we have final product requirements
+            personalizedMostReadArticlesSlideSubtitle: personalizedMostReadCategoriesSlideSubtitle(categories:),
             locationTitle: "Location Slide Here", // TODO: localize when we have final product requirements
         )
     }
