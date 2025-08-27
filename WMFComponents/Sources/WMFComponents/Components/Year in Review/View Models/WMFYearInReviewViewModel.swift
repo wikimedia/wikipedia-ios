@@ -650,6 +650,9 @@ public class WMFYearInReviewViewModel: ObservableObject {
             let shareView = view.snapshot()
             coordinatorDelegate?.handleYearInReviewAction(.share(image: shareView))
         case .location(let viewModel):
+            if viewModel.isLoading || viewModel.mapViewSnapshotForSharing == nil {
+                return
+            }
             let view = WMFYearInReviewSlideLocationShareableView(viewModel: viewModel, hashtag: hashtag)
             let renderer = ImageRenderer(content: view)
             renderer.proposedSize = .init(width: 402, height: nil)
