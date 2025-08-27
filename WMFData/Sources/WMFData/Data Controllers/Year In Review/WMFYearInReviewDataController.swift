@@ -361,7 +361,8 @@ import CoreData
             saveCountIsEnabled: .init(yirConfig.personalizedSlides.saveCount.isEnabled),
             mostReadDayIsEnabled: .init(yirConfig.personalizedSlides.mostReadDay.isEnabled),
             viewCountIsEnabled: .init(yirConfig.personalizedSlides.viewCount.isEnabled),
-            categoriesIsEnabled: .init(yirConfig.personalizedSlides.mostReadCategories.isEnabled)
+            categoriesIsEnabled: .init(yirConfig.personalizedSlides.mostReadCategories.isEnabled),
+            locationsIsEnabled: .init(yirConfig.personalizedSlides.locationArticles.isEnabled)
         )
 
         let featureConfig = YearInReviewFeatureConfig(
@@ -640,5 +641,5 @@ public protocol SavedArticleSlideDataDelegate: AnyObject {
 }
 
 public protocol LegacyPageViewsDataDelegate: AnyObject {
-    func getLegacyPageViews(from startDate: Date, to endDate: Date) async throws -> [WMFLegacyPageView]
+    func getLegacyPageViews(from startDate: Date, to endDate: Date, needsLatLong: Bool) async throws -> [WMFLegacyPageView]
 }

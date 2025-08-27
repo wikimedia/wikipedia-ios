@@ -446,6 +446,13 @@ public class WMFYearInReviewViewModel: ObservableObject {
                             )
                         }
                     }
+                case .location:
+                    if let data = slide.data {
+                        let decoder = JSONDecoder()
+                        if let locations = try? decoder.decode([WMFLegacyPageView].self, from: data) {
+                            break
+                        }
+                    }
                 }
             }
         }
