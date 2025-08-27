@@ -20,6 +20,10 @@ final class WMFYearInReviewSlideLocationViewModel: ObservableObject {
     @Published var isLoading: Bool = true
     var didZoomToLargestCluster = false
     
+    let clusterReuseIdentifier = "cluster"
+    let clusteringIdentifier = "clusterID"
+    let markerReuseIdentifier = "marker"
+    
     init(localizedStrings: WMFYearInReviewViewModel.LocalizedStrings, legacyPageViews: [WMFLegacyPageView], loggingID: String, infoURL: URL?, tappedInfo: @escaping () -> Void) {
         self.localizedStrings = localizedStrings
         

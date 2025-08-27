@@ -87,14 +87,15 @@ fileprivate struct WMFYearInReviewSlideLocationViewContent: View {
 
 
 fileprivate struct YearInReviewMapView: UIViewRepresentable {
+    
     @ObservedObject var viewModel: WMFYearInReviewSlideLocationViewModel
     
     func makeUIView(context: Context) -> MKMapView {
         let mapView = MKMapView()
         mapView.delegate = context.coordinator
         
-        mapView.register(MKMarkerAnnotationView.self, forAnnotationViewWithReuseIdentifier: "marker")
-        mapView.register(MKMarkerAnnotationView.self, forAnnotationViewWithReuseIdentifier: "cluster")
+        mapView.register(MKMarkerAnnotationView.self, forAnnotationViewWithReuseIdentifier: viewModel.markerReuseIdentifier)
+        mapView.register(MKMarkerAnnotationView.self, forAnnotationViewWithReuseIdentifier: viewModel.clusterReuseIdentifier)
         
         // Add annotations for each page view
         let annotations = viewModel.legacyPageViews.map { pageView -> MKPointAnnotation? in
@@ -125,6 +126,7 @@ fileprivate struct YearInReviewMapView: UIViewRepresentable {
     
     class Coordinator: NSObject, MKMapViewDelegate {
         @ObservedObject var viewModel: WMFYearInReviewSlideLocationViewModel
+        @ObservedObject var appEnvironment = WMFAppEnvironment.current
         
         init(viewModel: WMFYearInReviewSlideLocationViewModel) {
             self.viewModel = viewModel
@@ -134,18 +136,17 @@ fileprivate struct YearInReviewMapView: UIViewRepresentable {
             if annotation is MKUserLocation { return nil }
             
             if let cluster = annotation as? MKClusterAnnotation {
-                let clusterView = mapView.dequeueReusableAnnotationView(withIdentifier: "cluster") as? MKMarkerAnnotationView
-                ?? MKMarkerAnnotationView(annotation: cluster, reuseIdentifier: "cluster")
-                clusterView.canShowCallout = true
-                clusterView.markerTintColor = .purple
+                let clusterView = mapView.dequeueReusableAnnotationView(withIdentifier: viewModel.clusterReuseIdentifier) as? MKMarkerAnnotationView
+                ?? MKMarkerAnnotationView(annotation: cluster, reuseIdentifier: viewModel.clusterReuseIdentifier)
+                clusterView.markerTintColor = appEnvironment.theme.accent
                 clusterView.glyphText = "\(cluster.memberAnnotations.count)"
                 return clusterView
             }
             
-            let markerView = mapView.dequeueReusableAnnotationView(withIdentifier: "marker") as? MKMarkerAnnotationView
-            ?? MKMarkerAnnotationView(annotation: annotation, reuseIdentifier: "marker")
-            markerView.canShowCallout = true
-            markerView.clusteringIdentifier = "clusterID"
+            let markerView = mapView.dequeueReusableAnnotationView(withIdentifier: viewModel.markerReuseIdentifier) as? MKMarkerAnnotationView
+            ?? MKMarkerAnnotationView(annotation: annotation, reuseIdentifier: viewModel.markerReuseIdentifier)
+            markerView.markerTintColor = appEnvironment.theme.accent
+            markerView.clusteringIdentifier = viewModel.clusteringIdentifier
             return markerView
         }
         
@@ -157,46 +158,77 @@ fileprivate struct YearInReviewMapView: UIViewRepresentable {
                 guard let self else { return }
                 
                 let clusters = mapView.annotations.compactMap { $0 as? MKClusterAnnotation }
-                if let largestCluster = clusters.max(by: { $0.memberAnnotations.count < $1.memberAnnotations.count }) {
+                
+                // if no cluster exists, focus on a random article.
+                if clusters.count == 0 {
                     
-                    let annotations = largestCluster.memberAnnotations
-                    
-                    // Grab some article titles, save off to view model
-                    var allTitlesInCluster = annotations.compactMap { $0.title }.compactMap { $0 }
-                    let randomThreeTitlesInCluster = Array(allTitlesInCluster.shuffled().prefix(3))
-                    viewModel.randomArticleTitles = randomThreeTitlesInCluster
-                    
-                    // Center map only on largest cluster
-                    let rect = annotations.reduce(MKMapRect.null) { $0.union(MKMapRect(origin: MKMapPoint($1.coordinate), size: MKMapSize(width: 0, height: 0))) }
-                    mapView.setVisibleMapRect(rect, edgePadding: UIEdgeInsets(top: 50, left: 50, bottom: 50, right: 50), animated: true)
-                    
-                    // wait for animation to complete
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) { [weak self] in
-                        
-                        guard let self else { return }
-                        
-                        populateClusterLocationName(cluster: largestCluster)
+                    if let randomAnnotation = mapView.annotations.randomElement() {
+                        populateAnnotationLocationName(mapView: mapView, annotation: randomAnnotation)
+                    } else {
+                        // Error state?
                     }
                     
                     
-                    viewModel.didZoomToLargestCluster = true
+                } else if let largestCluster = clusters.max(by: { $0.memberAnnotations.count < $1.memberAnnotations.count }) {
+                    populateClusterLocationName(mapView: mapView, cluster: largestCluster)
                 }
             }
         }
         
-        func populateClusterLocationName(cluster: MKClusterAnnotation) {
-            let coordinates = cluster.memberAnnotations.map { $0.coordinate }
-            
-            guard !coordinates.isEmpty else {
-                return
+        private func populateAnnotationLocationName(mapView: MKMapView, annotation: MKAnnotation) {
+            if let title = annotation.title,
+            let titleAgain = title {
+                viewModel.randomArticleTitles = [titleAgain]
             }
             
-            // Compute average coordinate for the cluster
-            let avgLat = coordinates.map { $0.latitude }.reduce(0, +) / Double(coordinates.count)
-            let avgLon = coordinates.map { $0.longitude }.reduce(0, +) / Double(coordinates.count)
-            let location = CLLocation(latitude: avgLat, longitude: avgLon)
+            // Center map on annotation
+            mapView.setVisibleMapRect(MKMapRect(origin: MKMapPoint(annotation.coordinate), size: MKMapSize(width: 0, height: 0)), animated: true)
             
-            viewModel.reverseGeocode(location: location)
+            // wait for animation to complete
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) { [weak self] in
+                
+                guard let self else { return }
+                
+                viewModel.reverseGeocode(location: CLLocation(latitude: annotation.coordinate.latitude, longitude: annotation.coordinate.longitude))
+            }
+            
+            
+            viewModel.didZoomToLargestCluster = true
+        }
+        
+        private func populateClusterLocationName(mapView: MKMapView, cluster: MKClusterAnnotation) {
+            
+            let annotations = cluster.memberAnnotations
+            
+            // Grab some article titles, save off to view model
+            let allTitlesInCluster = annotations.compactMap { $0.title }.compactMap { $0 }
+            let randomThreeTitlesInCluster = Array(allTitlesInCluster.shuffled().prefix(3))
+            viewModel.randomArticleTitles = randomThreeTitlesInCluster
+            
+            // Center map only on largest cluster
+            let rect = annotations.reduce(MKMapRect.null) { $0.union(MKMapRect(origin: MKMapPoint($1.coordinate), size: MKMapSize(width: 0, height: 0))) }
+            mapView.setVisibleMapRect(rect, edgePadding: UIEdgeInsets(top: 50, left: 50, bottom: 50, right: 50), animated: true)
+            
+            // wait for animation to complete
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) { [weak self] in
+                guard let self else { return }
+                
+                let coordinates = cluster.memberAnnotations.map { $0.coordinate }
+                
+                guard !coordinates.isEmpty else {
+                    return
+                }
+                
+                // Compute average coordinate for the cluster
+                let avgLat = coordinates.map { $0.latitude }.reduce(0, +) / Double(coordinates.count)
+                let avgLon = coordinates.map { $0.longitude }.reduce(0, +) / Double(coordinates.count)
+                let location = CLLocation(latitude: avgLat, longitude: avgLon)
+                
+                viewModel.reverseGeocode(location: location)
+                
+            }
+            
+            viewModel.didZoomToLargestCluster = true
         }
     }
 }

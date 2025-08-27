@@ -452,7 +452,7 @@ public class WMFYearInReviewViewModel: ObservableObject {
                     if let data = slide.data {
                         let decoder = JSONDecoder()
                         if let legacyPageViews = try? decoder.decode([WMFLegacyPageView].self, from: data),
-                           legacyPageViews.count > 0 {
+                           legacyPageViews.count >= 2 {
                             locationSlide = WMFYearInReviewSlideLocationViewModel(
                                 localizedStrings: localizedStrings,
                                 legacyPageViews: legacyPageViews,
