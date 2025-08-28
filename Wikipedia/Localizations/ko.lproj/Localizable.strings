@@ -1081,7 +1081,6 @@
 "saved-unsave-article-and-remove-from-reading-lists-title" = "{{PLURAL:$1|문서}}의 저장을 취소하시겠습니까?";
 "search-button-accessibility-label" = "위키백과 검색";
 "search-clear-title" = "지우기";
-"search-did-you-mean" = "$1 문서를 찾고 있었나요?";
 "search-field-placeholder-text" = "위키백과 검색";
 "search-reading-list-placeholder-text" = "읽기 목록 검색";
 "search-recent-clear-confirmation-heading" = "최근의 검색 항목을 모두 삭제하겠습니까?";

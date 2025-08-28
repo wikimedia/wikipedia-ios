@@ -910,7 +910,6 @@
 "saved-unsave-article-and-remove-from-reading-lists-title" = "Voleu deixar de tenir desats {{PLURAL:$1|article|articles}}?";
 "search-button-accessibility-label" = "Cerca a la Viquipèdia";
 "search-clear-title" = "Esborra";
-"search-did-you-mean" = "Volíeu dir: $1?";
 "search-field-placeholder-text" = "Cerca a la Viquipèdia";
 "search-reading-list-placeholder-text" = "Cerca a la llista de lectura";
 "search-recent-clear-confirmation-heading" = "Voleu suprimir totes les cerques recents?";

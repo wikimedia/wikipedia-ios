@@ -1,6 +1,6 @@
 import SwiftUI
 
-public struct WMFNewArticleTabViewDidYouKnow: View {
+public struct WMFNewArticleTabViewDidYouKnowView: View {
     @ObservedObject var appEnvironment = WMFAppEnvironment.current
     @ObservedObject var viewModel: WMFNewArticleTabDidYouKnowViewModel
     @State private var textViewHeight: CGFloat = 0

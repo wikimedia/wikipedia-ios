@@ -1112,7 +1112,6 @@
 "saved-unsave-article-and-remove-from-reading-lists-title" = "Ta bort {{PLURAL:$1|artikeln|artiklarna}}?";
 "search-button-accessibility-label" = "Sök på Wikipedia";
 "search-clear-title" = "Rensa";
-"search-did-you-mean" = "Menade du $1?";
 "search-field-placeholder-text" = "Sök på Wikipedia";
 "search-reading-list-placeholder-text" = "Sök i läslista";
 "search-recent-clear-confirmation-heading" = "Radera alla senaste sökningar?";

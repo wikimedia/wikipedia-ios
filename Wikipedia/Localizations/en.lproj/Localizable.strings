@@ -168,11 +168,14 @@
 "close-all-tabs" = "Close all tabs";
 "close-all-tabs-confirmation" = "Do you want to close all $1 tabs? This action can’t be undone.";
 "close-all-tabs-confirmation-number" = "Close all $1 tabs?";
+"close-all-tabs-confirmation-subtitle-with-value" = "Do you want to close {{PLURAL:$1|$1 tab|$1 tabs}}? This action can’t be undone.";
+"close-all-tabs-confirmation-title-with-value" = "Close {{PLURAL:$1|$1 tab|$1 tabs}}?";
 "close-button-accessibility-label" = "Close";
 "close-other-tabs" = "Close other tabs";
 "close-tab-confirmation" = "Close tab?";
 "close-tabs" = "Close tabs";
 "closed-all-tabs-confirmation" = "Closed all $1 tabs.";
+"closed-all-tabs-confirmation-with-value" = "{{PLURAL:$1|$1 tab|$1 tabs}} closed.";
 "compass-direction" = "at $1 o'clock";
 "confirm-donation-history-deletion-subtitle" = "This will only apply to donations made from this device.";
 "confirm-donation-history-deletion-title" = "Confirm deletion";
@@ -1098,7 +1101,6 @@
 "saved-unsave-article-and-remove-from-reading-lists-title" = "Unsave {{PLURAL:$1|article|articles}}?";
 "search-button-accessibility-label" = "Search Wikipedia";
 "search-clear-title" = "Clear";
-"search-did-you-mean" = "Did you mean $1?";
 "search-field-placeholder-text" = "Search Wikipedia";
 "search-reading-list-placeholder-text" = "Search reading list";
 "search-recent-clear-confirmation-heading" = "Delete all recent searches?";
