@@ -485,7 +485,6 @@
 "saved-unsave-article-and-remove-from-reading-lists-title" = "¿Dexar de guardar {{PLURAL:$1|l'artículu|los artículos}}?";
 "search-button-accessibility-label" = "Guetar na Wikipedia";
 "search-clear-title" = "Llimpiar";
-"search-did-you-mean" = "¿Quixisti dicir $1?";
 "search-field-placeholder-text" = "Guetar na Wikipedia";
 "search-reading-list-placeholder-text" = "Guetar na llista de llectura";
 "search-recent-clear-confirmation-heading" = "¿Desaniciar toles guetes de recién?";

@@ -181,11 +181,17 @@
 "close-all-tabs" = "Затвори ги сите јазичиња";
 "close-all-tabs-confirmation" = "Дали сакате да ги затворите сите $1 јазичиња? Ова дејство е неповратно.";
 "close-all-tabs-confirmation-number" = "Да ги затворам сите $1 јазичиња?";
+// Fuzzy
+"close-all-tabs-confirmation-subtitle-with-value" = "Дали сакате да {{PLURAL:$1|го затворите јазичето|ги затворите сите $1 јазичиња}}? Ова дејство е неповратно.";
+// Fuzzy
+"close-all-tabs-confirmation-title-with-value" = "Да {{PLURAL:$1|го затворам јазичето|ги затворам сите $1 јазичиња}}?";
 "close-button-accessibility-label" = "Затвори";
 "close-other-tabs" = "Затвори други јазичиња";
 "close-tab-confirmation" = "За го затворам јазичето?";
 "close-tabs" = "Затвори јазичиња";
 "closed-all-tabs-confirmation" = "Затворени сите $1 јазичиња.";
+// Fuzzy
+"closed-all-tabs-confirmation-with-value" = "{{PLURAL:$1|Јазичето е затворено|Затворени се сите $1 јазичиња}}.";
 "compass-direction" = "во $1 часот";
 "confirm-donation-history-deletion-subtitle" = "Ова ќе важи само за прилозите дадени од овој уред.";
 "confirm-donation-history-deletion-title" = "Потврдете бришење";
@@ -1112,7 +1118,6 @@
 "saved-unsave-article-and-remove-from-reading-lists-title" = "Да {{PLURAL:$1|ја одзачувам статијата|ги одзачувам статиите}}?";
 "search-button-accessibility-label" = "Пребарај ја Википедија";
 "search-clear-title" = "Исчисти";
-"search-did-you-mean" = "Дали мислевте на $1?";
 "search-field-placeholder-text" = "Пребарај ја Википедија";
 "search-reading-list-placeholder-text" = "Пребарување по список за читање";
 "search-recent-clear-confirmation-heading" = "Да ги избришам сите скорешни пребарувања?";
@@ -1205,11 +1210,9 @@
 "tabs-overview-tooltip-body" = "Префрлање помеѓу отворени статии во прегледот на јазичињата.";
 "tabs-overview-tooltip-title" = "Преглед на јазичиња";
 "tabs-survey-title" = "Помогнете ни да ги подобриме јазичињата во иднина. Дали сте задоволни со оваа функција?";
-// Fuzzy
 "tabs-thumbnail-description" = "Истражете ја Википедија, слободната енциклопедија што секој може да ја уредува";
 "tabs-thumbnail-subtitle" = "Тука започнете го вашето пребарување";
 "tabs-title" = "Јазичиња";
-// Fuzzy
 "tabs-title-preferences" = "Нагодувања за јазичиња";
 "tachelhit-variants-alert-body" = "Прилогот на Википедија сега ги поддржува следниве шилхански варијанти како главен или спореден јазик во прилогот, олеснувајќи го читањето, пребарувањето и уредувањето на вашите претпочитани варијанти:\n\n\nⵜⴰⵛⵍⵃⵉⵜ — шилхански со старолибиско писмо (shi-tfng)\nTaclḥit — шилхански на латиница (shi-latn)";
 "tachelhit-variants-alert-title" = "Новост за поддршка на шилхански варијанти";

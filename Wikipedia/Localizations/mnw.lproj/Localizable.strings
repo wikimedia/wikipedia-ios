@@ -445,6 +445,7 @@
 "notifications-center-feed-news-notification-button-text" = "ပံက် နုတိဝှိကေရှေန်";
 "notifications-center-filters-read-status-item-title-read" = "ဗှ်တုဲ";
 "notifications-center-filters-read-status-item-title-unread" = "ဟွံဂွံဗှ်ဏီ";
+"notifications-center-mark-all-as-read" = "သမ္တီထောံပရောပရာမဗှ်တုဲသီုဖ္အိုတ်";
 "notifications-center-status-read" = "ဗှ်တုဲ";
 "notifications-center-type-item-description-notice" = "ဂတဵုလလောင်";
 "number-billions" = "$1B";
@@ -626,7 +627,6 @@
 "saved-unsave-article-and-remove-from-reading-lists-title" = "ဂိုင်သိပ်ဟွံဂွံ {{PLURAL:$1|လိက်ပရေင်|လိက်ပရေင်ဂမၠိုင်}}?";
 "search-button-accessibility-label" = "ဂၠာဲ ပ္ဍဲ ဝဳကဳပဳဒဳယာ";
 "search-clear-title" = "ဖ္အး";
-"search-did-you-mean" = "မၞး မိက်ဂွံ ဟီု $1 ဟာ？";
 "search-field-placeholder-text" = "ဂၠာဲ ပ္ဍဲ ဝဳကဳပဳဒဳယာ";
 "search-reading-list-placeholder-text" = "ဂၠာဲ ပ္ဍဲ စရင် လိက်ဗွဟ်";
 "search-recent-clear-confirmation-heading" = "ပလီုထောအ် အရာမဂၠိုင်လဝ် ပြဟ်ဟ်ဏအ် သီုဖအိုတ်ဟာ？";

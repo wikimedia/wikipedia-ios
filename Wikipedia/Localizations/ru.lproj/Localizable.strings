@@ -1053,7 +1053,6 @@
 "saved-unsave-article-and-remove-from-reading-lists-title" = "Несохраненная {{PLURAL:$1|статья|статьи|статей}}";
 "search-button-accessibility-label" = "Поиск по Википедии";
 "search-clear-title" = "Очистить";
-"search-did-you-mean" = "Возможно, вы имели в виду $1?";
 "search-field-placeholder-text" = "Поиск по Википедии";
 "search-reading-list-placeholder-text" = "Поиск в списке для чтения";
 "search-recent-clear-confirmation-heading" = "Удалить все последние поисковые запросы?";

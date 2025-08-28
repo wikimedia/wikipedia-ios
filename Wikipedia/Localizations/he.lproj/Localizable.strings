@@ -1044,7 +1044,6 @@
 "saved-unsave-article-and-remove-from-reading-lists-title" = "לבטל את השמירה של {{PLURAL:$1|הערך|הערכים}}?";
 "search-button-accessibility-label" = "חיפוש בוויקיפדיה";
 "search-clear-title" = "ניקוי";
-"search-did-you-mean" = "האם התכוונת לחפש $1?";
 "search-field-placeholder-text" = "חיפוש בוויקיפדיה";
 "search-reading-list-placeholder-text" = "חיפוש ברשימת קריאה";
 "search-recent-clear-confirmation-heading" = "למחוק את כל החיפושים האחרונים?";

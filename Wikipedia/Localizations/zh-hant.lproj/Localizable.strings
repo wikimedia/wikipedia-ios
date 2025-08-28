@@ -215,11 +215,14 @@
 "close-all-tabs" = "關閉所有分頁";
 "close-all-tabs-confirmation" = "您是否要關閉所有 $1 個分頁？此操作無法取消。";
 "close-all-tabs-confirmation-number" = "關閉所有 $1 個分頁？";
+"close-all-tabs-confirmation-subtitle-with-value" = "您是否要關閉 {{PLURAL:$1|$1}} 個分頁？此操作無法取消。";
+"close-all-tabs-confirmation-title-with-value" = "關閉 {{PLURAL:$1|$1}} 個分頁？";
 "close-button-accessibility-label" = "關閉";
 "close-other-tabs" = "關閉其他分頁";
 "close-tab-confirmation" = "關閉分頁？";
 "close-tabs" = "關閉分頁";
 "closed-all-tabs-confirmation" = "已關閉 $1 個分頁";
+"closed-all-tabs-confirmation-with-value" = "已關閉 {{PLURAL:$1|$1}} 個分頁。";
 "compass-direction" = "在 $1 時";
 "confirm-donation-history-deletion-subtitle" = "這僅套用到透過此裝置所做過的捐款。";
 "confirm-donation-history-deletion-title" = "確認刪除";
@@ -1146,7 +1149,6 @@
 "saved-unsave-article-and-remove-from-reading-lists-title" = "取消儲存{{PLURAL:$1|條目|條目}}嗎？";
 "search-button-accessibility-label" = "搜尋維基百科";
 "search-clear-title" = "清除";
-"search-did-you-mean" = "您指的是 $1 嗎？";
 "search-field-placeholder-text" = "搜尋維基百科";
 "search-reading-list-placeholder-text" = "搜尋閱讀清單";
 "search-recent-clear-confirmation-heading" = "刪除所有近期搜尋嗎？";
@@ -1239,11 +1241,9 @@
 "tabs-overview-tooltip-body" = "在分頁總覽中切換開啟的條目。";
 "tabs-overview-tooltip-title" = "分頁總覽";
 "tabs-survey-title" = "請協助改善分頁功能。您對此功能滿意嗎？";
-// Fuzzy
 "tabs-thumbnail-description" = "探索維基百科，一個任何人都可編輯的自由百科全書";
 "tabs-thumbnail-subtitle" = "在此來開始您的搜尋";
 "tabs-title" = "分頁";
-// Fuzzy
 "tabs-title-preferences" = "分頁偏好設定";
 "tachelhit-variants-alert-body" = "維基百科應用程式現在支援下列施盧赫語異體字作為應用程式裡的主要語言或次要語言，能以您首選的異體字來更易於閱讀、搜尋、編輯：\n\nⵜⴰⵛⵍⵃⵉⵜ，提非納字母施盧赫語（shi-tfng）\nTaclḥit，拉丁字母施盧赫語（shi-latn）";
 "tachelhit-variants-alert-title" = "施盧赫語異體字支援更新";

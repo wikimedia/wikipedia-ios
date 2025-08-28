@@ -1148,7 +1148,6 @@
 "saved-unsave-article-and-remove-from-reading-lists-title" = "Não salvar {{PLURAL:$1|o artigo|os artigos}}?";
 "search-button-accessibility-label" = "Pesquisar na Wikipédia";
 "search-clear-title" = "Limpar";
-"search-did-you-mean" = "Você quis dizer $1?";
 "search-field-placeholder-text" = "Procurar Wikipédia";
 "search-reading-list-placeholder-text" = "Pesquisar na lista de leitura";
 "search-recent-clear-confirmation-heading" = "Apagar todas as pesquisas recentes?";

@@ -833,7 +833,6 @@
 "saved-unsave-article-and-remove-from-reading-lists-title" = "ยกเลิกการบันทึก {{PLURAL:$1|บทความ}}?";
 "search-button-accessibility-label" = "ค้นหาวิกิพีเดีย";
 "search-clear-title" = "ล้าง";
-"search-did-you-mean" = "คุณอาจหมายถึง $1";
 "search-field-placeholder-text" = "ค้นหาวิกิพีเดีย";
 "search-reading-list-placeholder-text" = "ค้นหารายการอ่าน";
 "search-recent-clear-confirmation-heading" = "ลบการค้นหาล่าสุดทั้งหมด?";
