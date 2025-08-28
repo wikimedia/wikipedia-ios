@@ -67,17 +67,17 @@ final class TabsOverviewCoordinator: Coordinator {
     
     
     func closeAllTabsTitle(numberTabs: Int) -> String {
-        let format = WMFLocalizedString("close-all-tabs-confirmation-title-with-value", value: "Close all {{PLURAL:%1$d|%1$d tab|%1$d tabs}}?", comment: "Title of alert that asks user if they want to delete all tabs, $1 is representative of the number of tabs they have open.")
+        let format = WMFLocalizedString("close-all-tabs-confirmation-title-with-value", value: "Close {{PLURAL:%1$d|%1$d tab|%1$d tabs}}?", comment: "Title of alert that asks user if they want to delete all tabs, $1 is representative of the number of tabs they have open.")
         return String.localizedStringWithFormat(format, numberTabs)
     }
 
     func closeAllTabsSubtitle(numberTabs: Int) -> String {
-        let format = WMFLocalizedString("close-all-tabs-confirmation-subtitle-with-value", value: "Do you want to close all {{PLURAL:%1$d|%1$d tab|%1$d tabs}}? This action can’t be undone.", comment: "Subtitle of alert that asks user to confirm all tabs deletion. $1 represents the number of tabs.")
+        let format = WMFLocalizedString("close-all-tabs-confirmation-subtitle-with-value", value: "Do you want to close {{PLURAL:%1$d|%1$d tab|%1$d tabs}}? This action can’t be undone.", comment: "Subtitle of alert that asks user to confirm all tabs deletion. $1 represents the number of tabs.")
         return String.localizedStringWithFormat(format, numberTabs)
     }
 
     func closedAlertsNotification(numberTabs: Int) -> String {
-        let format = WMFLocalizedString("closed-all-tabs-confirmation-with-value", value: "Closed all {{PLURAL:%1$d|%1$d tab|%1$d tabs}}.", comment: "Confirmation title of deleting all tabs. $1 is the number of tabs deleted.")
+        let format = WMFLocalizedString("closed-all-tabs-confirmation-with-value", value: "{{PLURAL:%1$d|%1$d tab|%1$d tabs}} closed.", comment: "Confirmation title of deleting all tabs. $1 is the number of tabs deleted.")
         return String.localizedStringWithFormat(format, numberTabs)
     }
     

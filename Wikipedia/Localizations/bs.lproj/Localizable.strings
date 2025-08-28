@@ -819,7 +819,6 @@
 "saved-unsave-article-and-remove-from-reading-lists-title" = "Ukloni {{PLURAL:$1|članak|članke}}?";
 "search-button-accessibility-label" = "Pretraži Wikipediju";
 "search-clear-title" = "Očisti";
-"search-did-you-mean" = "Jeste li mislili $1?";
 "search-field-placeholder-text" = "Pretraži Wikipediju";
 "search-reading-list-placeholder-text" = "Pretraži spisak za čitanje";
 "search-recent-clear-confirmation-heading" = "Izbrisati sve nedavne pretrage?";

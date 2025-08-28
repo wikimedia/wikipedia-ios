@@ -932,7 +932,6 @@
 "saved-unsave-article-and-remove-from-reading-lists-title" = "$1記事を削除しますか?";
 "search-button-accessibility-label" = "ウィキペディア内を検索";
 "search-clear-title" = "消去";
-"search-did-you-mean" = "もしかして: $1";
 "search-field-placeholder-text" = "ウィキペディア内を検索";
 "search-reading-list-placeholder-text" = "あとで読むリストを検索";
 "search-recent-clear-confirmation-heading" = "最近の検索をすべて削除しますか?";

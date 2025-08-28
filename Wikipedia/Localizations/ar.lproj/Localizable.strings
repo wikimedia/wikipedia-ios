@@ -220,11 +220,17 @@
 "close-all-tabs" = "إغلاق جميع علامات التبويب";
 "close-all-tabs-confirmation" = "هل تريد إغلاق جميع علامات التبويب البالغ عددها $1؟ لا يمكن التراجع عن هذا الإجراء.";
 "close-all-tabs-confirmation-number" = "هل تريد إغلاق جميع علامات التبويب البالغ عددها $1؟";
+// Fuzzy
+"close-all-tabs-confirmation-subtitle-with-value" = "هل تريد إغلاق جميع {{PLURAL:$1|$1 لسان|$1 ألسنة}}؟ لا يمكن التراجع عن هذا الإجراء.";
+// Fuzzy
+"close-all-tabs-confirmation-title-with-value" = "إغلاق جميع {{PLURAL:$1|$1 لسان|$1 ألسنة}}؟";
 "close-button-accessibility-label" = "أغلق";
 "close-other-tabs" = "إغلاق علامات التبويب الأخرى";
 "close-tab-confirmation" = "هل تريد إغلاق علامة التبويب؟";
 "close-tabs" = "إغلاق علامات التبويب";
 "closed-all-tabs-confirmation" = "تم إغلاق جميع علامات التبويب البالغ عددها $1.";
+// Fuzzy
+"closed-all-tabs-confirmation-with-value" = "تم إغلاق جميع {{PLURAL:$1|$1 لسان|$1 ألسنة}}.";
 "compass-direction" = "عند الساعة $1";
 "confirm-donation-history-deletion-subtitle" = "سيتم تطبيق هذا فقط على التبرعات المقدمة من هذا الجهاز.";
 "confirm-donation-history-deletion-title" = "تأكيد الحذف";
@@ -1151,7 +1157,6 @@
 "saved-unsave-article-and-remove-from-reading-lists-title" = "إلغاء حفظ {{PLURAL:$1|مقالة|مقالات}}؟";
 "search-button-accessibility-label" = "البحث في ويكيبيديا";
 "search-clear-title" = "مسح";
-"search-did-you-mean" = "هل عنيت $1؟";
 "search-field-placeholder-text" = "البحث في ويكيبيديا";
 "search-reading-list-placeholder-text" = "البحث في قائمة القراءة";
 "search-recent-clear-confirmation-heading" = "إزالة كل عمليات البحث الأخيرة؟";
@@ -1244,11 +1249,9 @@
 "tabs-overview-tooltip-body" = "التبديل بين المقالات المفتوحة في النظرة العامة على علامات التبويب.";
 "tabs-overview-tooltip-title" = "نظرة عامة على علامات التبويب";
 "tabs-survey-title" = "ساعد في تحسين ميزة علامات التبويب. هل أنت راضٍ عن هذه الميزة؟";
-// Fuzzy
 "tabs-thumbnail-description" = "استكشف ويكيبيديا، الموسوعة الحرة التي يمكن لأي شخص تعديلها";
 "tabs-thumbnail-subtitle" = "ابدأ بحثك هنا";
 "tabs-title" = "علامات التبويب";
-// Fuzzy
 "tabs-title-preferences" = "تفضيلات علامات التبويب";
 "tachelhit-variants-alert-body" = "يدعم تطبيق ويكيبيديا الآن المتغيرات التالية من تشلحيت كلغات أساسية أو ثانوية داخل التطبيق، مما يجعل من الأسهل القراءة والبحث والتحرير بالمتغيرات المفضلة لديك:\n\nⵜⴰⵛⵍⵃⵉⵜ تشلحيت، تيفيناغ (shi-tfng)\nTaclḥit تشلحيت، اللاتينية (shi-latn)";
 "tachelhit-variants-alert-title" = "تحديثات لدعم متغير تشلحيت";

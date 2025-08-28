@@ -581,7 +581,6 @@
 "saved-unsave-article-and-remove-from-reading-lists-title" = "ဆောင်းပါး {{PLURAL:$1|ခု|ခု}} မသိမ်းတော့ရန်?";
 "search-button-accessibility-label" = "ဝီကီပီးဒီးယားထဲတွင် ရှာဖွေပါ";
 "search-clear-title" = "ရှင်းလင်း";
-"search-did-you-mean" = "$1 ဟု ဆိုလိုပါသလား?";
 "search-field-placeholder-text" = "ဝီကီပီးဒီးယားထဲတွင် ရှာဖွေရန်";
 "search-reading-list-placeholder-text" = "ဖတ်ရှုစာရင်းအား ရှာဖွေပါ";
 "search-recent-clear-confirmation-heading" = "လတ်တလော ရှာဖွေမှုများအားလုံး ဖျက်မည်လား?";

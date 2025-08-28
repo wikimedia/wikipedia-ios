@@ -836,7 +836,6 @@
 "saved-unsave-article-and-remove-from-reading-lists-title" = "Afturkalla vistun á {{PLURAL:$|$ grein|$1 greinar}}?";
 "search-button-accessibility-label" = "Leita á Wikipedia";
 "search-clear-title" = "Hreinsa";
-"search-did-you-mean" = "Áttir þú við $1?";
 "search-field-placeholder-text" = "Leita í Wikipedia";
 "search-reading-list-placeholder-text" = "Leita í leslista";
 "search-recent-clear-confirmation-heading" = "Á að eyða öllum nýlegum leitum?";
