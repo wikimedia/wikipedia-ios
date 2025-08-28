@@ -121,7 +121,10 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
             personalizedYourEditsViewedSlideSubtitle: personalizedYourEditsViewedSlideSubtitle(views:),
             personalizedThankYouTitle: WMFLocalizedString("year-in-review-personalized-donate-title", value: "Your generosity helped keep Wikipedia thriving", comment: "Year in review, personalized donate slide title for users that donated at least once that year. "),
             personalizedThankYouSubtitle: personalizedThankYouSubtitle(languageCode:),
-            locationTitle: "Location Slide Here") // todo
+            personalizedMostReadCategoriesSlideTitle: "Your most interesting categories", // TODO: Localize when we have final product requirements
+            personalizedMostReadCategoriesSlideSubtitle: personalizedMostReadCategoriesSlideSubtitle(categories:),
+            locationTitle: "Location Slide Here", // TODO: localize when we have final product requirements
+        )
     }
 
 
@@ -406,6 +409,16 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         
         let format = WMFLocalizedString("year-in-review-personalized-saved-subtitle-format", value: "You saved {{PLURAL:%1$d|%1$d article|%1$d articles}} this year, including %2$@, %3$@ and %4$@. Each saved article reflects your interests and helps build a personalized knowledge base on Wikipedia.", comment: "Year in review, personalized saved articles slide subtitle. %1$D is replaced with the number of articles the user saved, %2$@, %3$@ and %4$@ are replaced with the names  three random articles the user saved.")
         return String.localizedStringWithFormat(format, saveCount, articleName1, articleName2, articleName3)
+    }
+    
+    func personalizedMostReadCategoriesSlideSubtitle(categories: [String]) -> String {
+        
+        var listItems: String = ""
+        for (index, category) in categories.enumerated() {
+            listItems += String.localizedStringWithFormat("%d. \(category)\n", index + 1)
+        }
+
+        return "\(listItems)"
     }
 
     // MARK: - Funcs
