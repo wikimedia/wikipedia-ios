@@ -208,18 +208,13 @@ public final class WMFPageViewsDataController {
         }
     }
     
-    public func fetchPageViewCounts(startDate: Date, endDate: Date, moc: NSManagedObjectContext? = nil) throws -> [WMFPageViewCount] {
+    public func fetchPageViewCounts(startDate: Date, endDate: Date) async throws -> [WMFPageViewCount] {
         
-        let context: NSManagedObjectContext
-        if let moc {
-            context = moc
-        } else {
-            context = try coreDataStore.viewContext
-        }
+        let backgroundContext = try coreDataStore.newBackgroundContext
         
-        let results: [WMFPageViewCount] = try context.performAndWait {
+        let results: [WMFPageViewCount] = try await backgroundContext.perform {
             let predicate = NSPredicate(format: "timestamp >= %@ && timestamp <= %@", startDate as CVarArg, endDate as CVarArg)
-            let pageViewsDict = try self.coreDataStore.fetchGrouped(entityType: CDPageView.self, predicate: predicate, propertyToCount: "page", propertiesToGroupBy: ["page"], propertiesToFetch: ["page"], in: context)
+            let pageViewsDict = try self.coreDataStore.fetchGrouped(entityType: CDPageView.self, predicate: predicate, propertyToCount: "page", propertiesToGroupBy: ["page"], propertiesToFetch: ["page"], in: backgroundContext)
             var pageViewCounts: [WMFPageViewCount] = []
             for dict in pageViewsDict {
                 
@@ -228,7 +223,7 @@ public final class WMFPageViewsDataController {
                     continue
                 }
                 
-                guard let page = context.object(with: objectID) as? CDPage,
+                guard let page = backgroundContext.object(with: objectID) as? CDPage,
                       let projectID = page.projectID, let title = page.title else {
                     continue
                 }
@@ -243,17 +238,12 @@ public final class WMFPageViewsDataController {
         return results
     }
     
-    public func fetchPageViewDates(startDate: Date, endDate: Date, moc: NSManagedObjectContext? = nil) throws -> [WMFPageViewDay] {
-        let context: NSManagedObjectContext
-        if let moc {
-            context = moc
-        } else {
-            context = try coreDataStore.viewContext
-        }
+    public func fetchPageViewDates(startDate: Date, endDate: Date, moc: NSManagedObjectContext? = nil) async throws -> [WMFPageViewDay] {
+        let backgroundContext = try coreDataStore.newBackgroundContext
         
-        let results: [WMFPageViewDay] = try context.performAndWait {
+        let results: [WMFPageViewDay] = try await backgroundContext.perform {
             let predicate = NSPredicate(format: "timestamp >= %@ && timestamp <= %@", startDate as CVarArg, endDate as CVarArg)
-            let cdPageViews = try self.coreDataStore.fetch(entityType: CDPageView.self, predicate: predicate, fetchLimit: nil, in: context)
+            let cdPageViews = try self.coreDataStore.fetch(entityType: CDPageView.self, predicate: predicate, fetchLimit: nil, in: backgroundContext)
             
             guard let cdPageViews = cdPageViews else {
                 return []

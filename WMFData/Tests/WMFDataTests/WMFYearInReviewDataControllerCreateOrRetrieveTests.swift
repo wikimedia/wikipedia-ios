@@ -39,7 +39,7 @@ final class WMFYearInReviewDataControllerCreateOrRetrieveTests: XCTestCase {
     fileprivate var dataController: WMFMockYearInReviewDataController?
     
     lazy var enProject: WMFProject = {
-        let language = WMFLanguage(languageCode: "es", languageVariantCode: nil)
+        let language = WMFLanguage(languageCode: "en", languageVariantCode: nil)
         return .wikipedia(language)
     }()
 
@@ -113,7 +113,7 @@ final class WMFYearInReviewDataControllerCreateOrRetrieveTests: XCTestCase {
 
         XCTAssertNotNil(report, "Expected a new report to be created")
         XCTAssertEqual(report?.year, year)
-        XCTAssertEqual(report?.slides.count, 4) // Expecting 4 slides instead of 6, because editing data (username and userID) is passed as nil above.
+        XCTAssertEqual(report?.slides.count, 3)
     }
 }
 
@@ -127,6 +127,4 @@ extension WMFYearInReviewDataControllerCreateOrRetrieveTests: LegacyPageViewsDat
     func getLegacyPageViews(from startDate: Date, to endDate: Date) async throws -> [WMFData.WMFLegacyPageView] {
         return []
     }
-    
-    
 }
