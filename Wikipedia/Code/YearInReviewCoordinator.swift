@@ -431,14 +431,14 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         
         switch articleNames.count {
         case 1:
-            let format = WMFLocalizedString("year-in-review-personalized-location-subtitle-format-1", value: "You read about <b>%1$@</b>.", comment: "Year in review, personalized location slide subtitle. %1$@ is replaced with an article name in the area they most read about.")
-            return String.localizedStringWithFormat(format, articleNames[0])
+            let format = WMFLocalizedString("year-in-review-personalized-location-subtitle-format-1", value: "You read about %2$@%1$@%3$@.", comment: "Year in review, personalized location slide subtitle. %1$@ is replaced with an article name in the area they most read about. %2$@ and %3$@ are enclosing tags to make the name bold.")
+            return String.localizedStringWithFormat(format, articleNames[0], "<b>", "</b>")
         case 2:
-            let format = WMFLocalizedString("year-in-review-personalized-location-subtitle-format-2", value: "You read about <b>%1$@</b> and <b>%2$@</b>.", comment: "Year in review, personalized location slide subtitle. %1$@ and %2$@ are replaced with article names in the area they most read about.")
-            return String.localizedStringWithFormat(format, articleNames[0], articleNames[1])
+            let format = WMFLocalizedString("year-in-review-personalized-location-subtitle-format-2", value: "You read about %3$@%1$@%4$@ and %3$@%2$@%4$@.", comment: "Year in review, personalized location slide subtitle. %1$@ and %2$@ are replaced with article names in the area they most read about, %3$@ and %4$@ are enclosing tags to make the names bold.")
+            return String.localizedStringWithFormat(format, articleNames[0], articleNames[1], "<b>", "</b>")
         case 3:
-            let format = WMFLocalizedString("year-in-review-personalized-location-subtitle-format-3", value: "You read about <b>%1$@</b>, <b>%2$@</b> and <b>%3$@</b>.", comment: "Year in review, personalized location slide subtitle. %1$@, %2$@ and %3$@ are replaced with article names in the area they most read about.")
-            return String.localizedStringWithFormat(format, articleNames[0], articleNames[1], articleNames[2])
+            let format = WMFLocalizedString("year-in-review-personalized-location-subtitle-format-3", value: "You read about %4$@%1$@%5$@, %4$@%2$@%5$@ and %4$@%3$@%5$@.", comment: "Year in review, personalized location slide subtitle. %1$@, %2$@ and %3$@ are replaced with article names in the area they most read about, %4$@ and %5$@ are enclosing tags to make the names bold.")
+            return String.localizedStringWithFormat(format, articleNames[0], articleNames[1], articleNames[2], "<b>", "</b>")
         default:
             assertionFailure("Unexpected number of article names passed in, should be 1-3")
             return ""
