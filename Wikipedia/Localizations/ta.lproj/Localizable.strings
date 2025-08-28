@@ -220,7 +220,6 @@
 "relative-date-years-ago" = "{{PLURAL:$1|0=இந்த வருடம்|1=சென்ற வருடம்|$1 வருடங்களுக்கு முன்பு}}";
 "saved-title" = "சேமிக்கப்பட்டது";
 "search-button-accessibility-label" = "விக்கிப்பீடியாவில் தேடவும்";
-"search-did-you-mean" = "தாங்கள் கருதியது $1?";
 "search-field-placeholder-text" = "விக்கிப்பீடியாவில் தேடவும்";
 "search-recent-clear-confirmation-heading" = "அண்மைய தேடல்களையும் அனைத்தையும் நீக்கவா?";
 "search-recent-clear-delete-all" = "யாவையும் நீக்கு";

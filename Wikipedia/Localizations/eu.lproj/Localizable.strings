@@ -417,7 +417,6 @@
 "saved-unsave-article-and-remove-from-reading-lists-title" = "{{PLURAL:$1|artikulu $1|$1 artikuluak}} ezabatu?";
 "search-button-accessibility-label" = "Bilatu Wikipedian";
 "search-clear-title" = "Garbitu";
-"search-did-you-mean" = "$1 esan nahi zenuen?";
 "search-field-placeholder-text" = "Bilatu Wikipedian";
 "search-reading-list-placeholder-text" = "Irakurketa zerrenda bilatu";
 "search-recent-clear-confirmation-heading" = "Ezabatu azken bilaketa guztiak?";

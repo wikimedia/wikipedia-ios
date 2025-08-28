@@ -941,7 +941,6 @@
 "saved-unsave-article-and-remove-from-reading-lists-title" = "{{PLURAL:$1|Artikel}} löschen?";
 "search-button-accessibility-label" = "Wikipedia durchsuchen";
 "search-clear-title" = "Löschen";
-"search-did-you-mean" = "Meintest du $1?";
 "search-field-placeholder-text" = "Wikipedia durchsuchen";
 "search-reading-list-placeholder-text" = "Leseliste suchen";
 "search-recent-clear-confirmation-heading" = "Alle letzten Suchanfragen löschen?";
