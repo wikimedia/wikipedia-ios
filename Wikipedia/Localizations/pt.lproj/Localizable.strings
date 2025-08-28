@@ -955,7 +955,6 @@
 "saved-unsave-article-and-remove-from-reading-lists-title" = "Deixar de guardar {{PLURAL:$1|o artigo|os artigos}}?";
 "search-button-accessibility-label" = "Pesquisar na Wikipédia";
 "search-clear-title" = "Limpar";
-"search-did-you-mean" = "Queria dizer $1?";
 "search-field-placeholder-text" = "Procurar na Wikipédia";
 "search-reading-list-placeholder-text" = "Pesquisar na lista de leitura";
 "search-recent-clear-confirmation-heading" = "Apagar todas as pesquisas recentes?";

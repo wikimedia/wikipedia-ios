@@ -998,7 +998,6 @@
 "saved-unsave-article-and-remove-from-reading-lists-title" = "Fjern {{PLURAL:$1|artikkelen|artiklene}}?";
 "search-button-accessibility-label" = "Søk i Wikipedia";
 "search-clear-title" = "Tøm";
-"search-did-you-mean" = "Mente du $1?";
 "search-field-placeholder-text" = "Søk i Wikipedia";
 "search-reading-list-placeholder-text" = "Søk i leseliste";
 "search-recent-clear-confirmation-heading" = "Slette alle nylige søk?";

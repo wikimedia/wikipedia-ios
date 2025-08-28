@@ -814,7 +814,6 @@
 "saved-unsave-article-and-remove-from-reading-lists-title" = "Desalvează {{PLURAL:$1|articol|articole}}?";
 "search-button-accessibility-label" = "Caută pe Wikipedia";
 "search-clear-title" = "Șterge";
-"search-did-you-mean" = "V-ați referit la $1?";
 "search-field-placeholder-text" = "Căutare în Wikipedia";
 "search-reading-list-placeholder-text" = "Caută în lista de citire";
 "search-recent-clear-confirmation-heading" = "Ștergeți toate căutările recente?";

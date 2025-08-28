@@ -571,7 +571,6 @@
 "saved-unsave-article-and-remove-from-reading-lists-title" = "Non gardar {{PLURAL:$1|o artigo|os artigos}}?";
 "search-button-accessibility-label" = "Procurar na Wikipedia";
 "search-clear-title" = "Limpar";
-"search-did-you-mean" = "Quixo dicir \"$1\"?";
 "search-field-placeholder-text" = "Procurar na Wikipedia";
 "search-reading-list-placeholder-text" = "Procurar na lista de lectura";
 "search-recent-clear-confirmation-heading" = "Borrar tódalas procuras recentes?";

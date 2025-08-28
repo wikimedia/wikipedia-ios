@@ -949,7 +949,6 @@
 "saved-unsave-article-and-remove-from-reading-lists-title" = "Batal simpan {{PLURAL:$1|artikel|artikel}}?";
 "search-button-accessibility-label" = "Telusuri Wikipedia";
 "search-clear-title" = "Kosongkan";
-"search-did-you-mean" = "Mungkin maksud Anda adalah: $1";
 "search-field-placeholder-text" = "Telusuri Wikipedia";
 "search-reading-list-placeholder-text" = "Cari daftar bacaan";
 "search-recent-clear-confirmation-heading" = "Hapus semua pencarian terkini?";

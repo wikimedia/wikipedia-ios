@@ -174,11 +174,17 @@
 "close-all-tabs" = "Clauder tote le schedas";
 "close-all-tabs-confirmation" = "Vole tu clauder tote le $1 schedas? Isto es irreversibile.";
 "close-all-tabs-confirmation-number" = "Clauder tote le $1 schedas?";
+// Fuzzy
+"close-all-tabs-confirmation-subtitle-with-value" = "Vole tu clauder {{PLURAL:$1|le scheda|tote le $1 schedas}}? Isto es irreversibile.";
+// Fuzzy
+"close-all-tabs-confirmation-title-with-value" = "Clauder {{PLURAL:$1|le scheda|tote le $1 schedas}}?";
 "close-button-accessibility-label" = "Clauder";
 "close-other-tabs" = "Clauder altere schedas";
 "close-tab-confirmation" = "Clauder scheda?";
 "close-tabs" = "Clauder schedas";
 "closed-all-tabs-confirmation" = "Tote le $1 schedas ha essite claudite.";
+// Fuzzy
+"closed-all-tabs-confirmation-with-value" = "{{PLURAL:$1|Scheda|Tote le $1 schedas}} claudite.";
 "compass-direction" = "a $1 horas";
 "confirm-donation-history-deletion-subtitle" = "Isto se applicara solmente al donationes facite desde iste apparato.";
 "confirm-donation-history-deletion-title" = "Confirmar deletion";
@@ -1105,7 +1111,6 @@
 "saved-unsave-article-and-remove-from-reading-lists-title" = "Remover articulo{{PLURAL:$1||s}} salveguardate?";
 "search-button-accessibility-label" = "Cercar in Wikipedia";
 "search-clear-title" = "Vacuar";
-"search-did-you-mean" = "Vole tu dicer $1?";
 "search-field-placeholder-text" = "Cercar in Wikipedia";
 "search-reading-list-placeholder-text" = "Cercar in lista de lectura";
 "search-recent-clear-confirmation-heading" = "Deler tote le recercas recente?";
@@ -1198,11 +1203,9 @@
 "tabs-overview-tooltip-body" = "Cambia inter articulos aperte in le vista general de schedas.";
 "tabs-overview-tooltip-title" = "Vista general de schedas";
 "tabs-survey-title" = "Adjuta a meliorar le function de schedas. Es tu satisfacite de iste function?";
-// Fuzzy
 "tabs-thumbnail-description" = "Explora Wikipedia, le encyclopedia libere al qual omnes pote contribuer";
 "tabs-thumbnail-subtitle" = "Comencia tu recerca hic";
 "tabs-title" = "Schedas";
-// Fuzzy
 "tabs-title-preferences" = "Preferentias de schedas";
 "tachelhit-variants-alert-body" = "Le application de Wikipedia supporta ora le sequente variantes del tachelhit como linguas primari o secundari in le application, rendente plus facile leger, cercar e modificar in tu variantes preferite:\n\nⵜⴰⵛⵍⵃⵉⵜ: tachelhit tifinagh (shi-tfng)\nTaclḥit: tachelhit latin (shi-latn)";
 "tachelhit-variants-alert-title" = "Actualisationes del supporto de variantes del tachelhit";
