@@ -214,11 +214,17 @@
 "close-all-tabs" = "Alle tabbladen sluiten";
 "close-all-tabs-confirmation" = "Wilt u alle $1 tabbladen sluiten? Dit kan niet ongedaan worden gemaakt.";
 "close-all-tabs-confirmation-number" = "Alle $1 tabbladen sluiten?";
+// Fuzzy
+"close-all-tabs-confirmation-subtitle-with-value" = "Wilt u {{PLURAL:$1|het tabblad|alle $1 tabbladen}} sluiten? Dit kan niet ongedaan worden gemaakt.";
+// Fuzzy
+"close-all-tabs-confirmation-title-with-value" = "{{PLURAL:$1|Tabblad|Alle $1 tabbladen}} sluiten?";
 "close-button-accessibility-label" = "Sluiten";
 "close-other-tabs" = "Andere tabbladen sluiten";
 "close-tab-confirmation" = "Tabblad sluiten?";
 "close-tabs" = "Tabbladen sluiten";
 "closed-all-tabs-confirmation" = "Alle $1 tabbladen zijn gesloten.";
+// Fuzzy
+"closed-all-tabs-confirmation-with-value" = "{{PLURAL:$1|Het tabblad is|Alle $1 tabbladen zijn}} gesloten.";
 "compass-direction" = "op $1 uur";
 "confirm-donation-history-deletion-subtitle" = "Dit geldt alleen voor donaties die via dit apparaat worden gedaan.";
 "confirm-donation-history-deletion-title" = "Bevestig verwijdering";
@@ -1145,7 +1151,6 @@
 "saved-unsave-article-and-remove-from-reading-lists-title" = "Wis opgeslagen {{PLURAL:$1|artikel|artikelen}}?";
 "search-button-accessibility-label" = "Zoeken in Wikipedia";
 "search-clear-title" = "Wissen";
-"search-did-you-mean" = "Bedoelde u $1?";
 "search-field-placeholder-text" = "Zoeken in Wikipedia";
 "search-reading-list-placeholder-text" = "Leeslijst doorzoeken";
 "search-recent-clear-confirmation-heading" = "Alle recente zoekopdrachten verwijderen?";
@@ -1238,11 +1243,9 @@
 "tabs-overview-tooltip-body" = "Schakel tussen geopende artikelen in het tabbladenoverzicht.";
 "tabs-overview-tooltip-title" = "Tabbladenoverzicht";
 "tabs-survey-title" = "Help de tabblad-functie te verbeteren. Bent u er tevreden mee?";
-// Fuzzy
 "tabs-thumbnail-description" = "Ontdek Wikipedia, de vrije encyclopedie die iedereen kan bewerken";
 "tabs-thumbnail-subtitle" = "Begin hier met zoeken";
 "tabs-title" = "Tabbladen";
-// Fuzzy
 "tabs-title-preferences" = "Tabbladvoorkeuren";
 "tachelhit-variants-alert-body" = "De Wikipedia app ondersteund nu de volgende varianten van Tashelhiyt als primaire of secundaire talen in de app, wat het makkelijker maakt artikelen te lezen, zoeken en bewerken in deze varianten:";
 "tachelhit-variants-alert-title" = "Updates voor ondersteuning van Tashelhiytse variant";

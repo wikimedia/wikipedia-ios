@@ -361,7 +361,6 @@
 "places-filter-top-read-articles" = "Najhusćišo čitane zapiski";
 "relative-date-days-ago" = "{{PLURAL:$1|0=Dźensa|1=Wčera|2=Předwčerawšim|Před $1 dnjemi}}";
 "search-button-accessibility-label" = "Wikipediju přepytać";
-"search-did-you-mean" = "Měnješe ty $1?";
 "search-field-placeholder-text" = "Wikipediju přepytać";
 "search-recent-clear-confirmation-heading" = "Zašłe pytanja wušmórnyć?";
 "search-recent-clear-confirmation-sub-heading" = "Njemóžeš tule akciju wróćo wzać!";
