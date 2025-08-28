@@ -1080,7 +1080,6 @@
 "saved-unsave-article-and-remove-from-reading-lists-title" = "ဆောင်းပါး {{PLURAL:$1|ဆောင်းပါး|ဆောင်းပါးတိ}} မသိမ်းဖို့?";
 "search-button-accessibility-label" = "ဝီကီးပီးဒီးယားထဲတွင် ယှာဖွီပါ";
 "search-clear-title" = "ရှင်းလင်းပါ";
-"search-did-you-mean" = "$1 လို့ဆိုချင်ခစော်လား?";
 "search-field-placeholder-text" = "ဝီကီးပီးဒီးယားထဲတွင် ယှာဖွီပါ";
 "search-reading-list-placeholder-text" = "စာဖတ်ခြင်းစာရင်းကို ယှာပါ";
 "search-recent-clear-confirmation-heading" = "မကြာသိမ့်ခင်က ယှာဖွီမှုတိအားနုန်း ဖျက်ဖို့လား?";

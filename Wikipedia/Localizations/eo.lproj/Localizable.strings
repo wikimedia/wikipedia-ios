@@ -573,7 +573,6 @@
 "saved-unsave-article-and-remove-from-reading-lists-title" = "Ĉu malkonservi {{PLURAL:$1|la artikolon|la artikolojn}}?";
 "search-button-accessibility-label" = "Serĉi tra Vikipedio";
 "search-clear-title" = "Malplenigi";
-"search-did-you-mean" = "Ĉu vi celis $1?";
 "search-field-placeholder-text" = "Serĉi tra Vikipedio";
 "search-reading-list-placeholder-text" = "Serĉi tra legolisto";
 "search-recent-clear-confirmation-heading" = "Ĉu forigi ĉiujn lastajn serĉojn?";

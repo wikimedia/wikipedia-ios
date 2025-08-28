@@ -85,7 +85,7 @@
 	<key>close-all-tabs-confirmation-subtitle-with-value</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Do you want to close all %#@v1@? This action can’t be undone.</string>
+		<string>Do you want to close %#@v1@? This action can’t be undone.</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -101,7 +101,7 @@
 	<key>close-all-tabs-confirmation-title-with-value</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Close all %#@v1@?</string>
+		<string>Close %#@v1@?</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -117,7 +117,7 @@
 	<key>closed-all-tabs-confirmation-with-value</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Closed all %#@v1@.</string>
+		<string>%#@v1@ closed.</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>

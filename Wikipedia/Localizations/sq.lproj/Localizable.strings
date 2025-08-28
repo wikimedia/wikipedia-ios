@@ -77,7 +77,6 @@
 "page-protected-can-not-edit-title" = "Kjo faqe është e mbrojtur";
 // Fuzzy
 "relative-date-days-ago" = "{{PLURAL:$1|0=Ditë|Dje|$1 ditë më parë}}";
-"search-did-you-mean" = "Mos kishit në mendje $1?";
 "search-field-placeholder-text" = "Kërko në Wikipedia";
 "search-recent-clear-confirmation-heading" = "Fshi të gjitha kërkimet e fundit?";
 "search-recent-clear-confirmation-sub-heading" = "Ky veprim nuk mund të zhbëhet!";

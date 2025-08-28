@@ -1152,7 +1152,6 @@
 "saved-unsave-article-and-remove-from-reading-lists-title" = "{{PLURAL:$1|Maddeyi|Maddeleri}} iptal edilsin mi?";
 "search-button-accessibility-label" = "Vikipedi'de Ara";
 "search-clear-title" = "Temizle";
-"search-did-you-mean" = "Bunu mu demek istediniz: $1?";
 "search-field-placeholder-text" = "Vikipedi'de Ara";
 "search-reading-list-placeholder-text" = "Okuma listesinde ara";
 "search-recent-clear-confirmation-heading" = "Son aramaların tümü silinsin mi?";

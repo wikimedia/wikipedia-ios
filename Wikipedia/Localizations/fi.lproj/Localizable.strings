@@ -993,7 +993,6 @@
 "saved-unsave-article-and-remove-from-reading-lists-title" = "Poista {{PLURAL:$1|artikkeli|artikkelia}}?";
 "search-button-accessibility-label" = "Etsi Wikipediasta";
 "search-clear-title" = "Tyhjennä";
-"search-did-you-mean" = "Tarkoititko $1?";
 "search-field-placeholder-text" = "Wikipedia-haku";
 "search-reading-list-placeholder-text" = "Hae lukulistasta";
 "search-recent-clear-confirmation-heading" = "Poistetaanko kaikki äskettäiset haut?";

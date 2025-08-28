@@ -1123,7 +1123,6 @@
 "saved-unsave-article-and-remove-from-reading-lists-title" = "Не зберігати {{PLURAL:$1|стаття|статті|статей}}?";
 "search-button-accessibility-label" = "Пошук по Вікіпедії";
 "search-clear-title" = "Очистити";
-"search-did-you-mean" = "Можливо, ви мали на увазі «$1»?";
 "search-field-placeholder-text" = "Пошук по Вікіпедії";
 "search-reading-list-placeholder-text" = "Пошук у читальному списку";
 "search-recent-clear-confirmation-heading" = "Вилучити всі недавні пошукові запити?";

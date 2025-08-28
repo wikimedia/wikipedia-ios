@@ -861,7 +861,6 @@
 "saved-unsave-article-and-remove-from-reading-lists-title" = "Zrušiť uloženie {{PLURAL:$1|článku|článkov}}?";
 "search-button-accessibility-label" = "Hľadať";
 "search-clear-title" = "Vymazať";
-"search-did-you-mean" = "Mali ste na mysli \"$1\"?";
 "search-field-placeholder-text" = "Hľadať";
 "search-reading-list-placeholder-text" = "Hľadať v zoznamoch na prečítanie";
 "search-recent-clear-confirmation-heading" = "Vymazať nedávno hľadané výrazy?";
