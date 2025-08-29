@@ -21,6 +21,7 @@ public enum WMFFont {
     case georgiaCallout
     case callout
     case caption1
+    case caption2
     case editorHeading
     case editorSubheading1
     case editorSubheading2
@@ -147,6 +148,9 @@ public enum WMFFont {
 
         case .caption1:
             return UIFont.preferredFont(forTextStyle: .caption1, compatibleWith: traitCollection)
+            
+        case .caption2:
+            return UIFont.preferredFont(forTextStyle: .caption2, compatibleWith: traitCollection)
 
         case .editorHeading:
             return UIFontMetrics(forTextStyle: .headline).scaledFont(for: UIFont.systemFont(ofSize: 28, weight: .semibold), compatibleWith: traitCollection)
