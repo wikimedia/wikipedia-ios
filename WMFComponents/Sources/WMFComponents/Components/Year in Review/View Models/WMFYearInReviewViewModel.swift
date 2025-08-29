@@ -491,7 +491,7 @@ public class WMFYearInReviewViewModel: ObservableObject {
             }
         }
 
-        return PersonalizedSlides(readCountSlide: readCountSlide, editCountSlide: editCountSlide, donateCountSlide: donateCountSlide, saveCountSlide: saveCountSlide, mostReadDaySlide: mostReadDaySlide, viewCountSlide: viewCountSlide, opArticlesSlide: topArticlesSlide, mostReadCategoriesSlide: mostReadCategoriesSlide, locationSlide: locationSlide)
+        return PersonalizedSlides(readCountSlide: readCountSlide, editCountSlide: editCountSlide, donateCountSlide: donateCountSlide, saveCountSlide: saveCountSlide, mostReadDaySlide: mostReadDaySlide, viewCountSlide: viewCountSlide, topArticlesSlide: topArticlesSlide, mostReadCategoriesSlide: mostReadCategoriesSlide, locationSlide: locationSlide)
     }
     
     // MARK: English Slides
