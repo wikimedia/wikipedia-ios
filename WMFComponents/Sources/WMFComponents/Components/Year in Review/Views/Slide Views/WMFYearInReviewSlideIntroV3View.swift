@@ -66,6 +66,8 @@ fileprivate struct WMFYearInReviewSlideIntroV3ViewContent: View {
         self.viewModel = viewModel
     }
     
+    @ScaledMetric private var bottomInset = 125.0
+    
     var body: some View {
         
         VStack(spacing: 48) {
@@ -100,7 +102,7 @@ fileprivate struct WMFYearInReviewSlideIntroV3ViewContent: View {
                     .foregroundColor(Color(uiColor: theme.secondaryText))
             }
             
-            .padding(EdgeInsets(top: 0, leading: sizeClassPadding, bottom: 0, trailing: sizeClassPadding))
+            .padding(EdgeInsets(top: 0, leading: sizeClassPadding, bottom: bottomInset, trailing: sizeClassPadding))
         }
     }
 }
