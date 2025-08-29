@@ -459,7 +459,8 @@ public class WMFYearInReviewViewModel: ObservableObject {
                 case .topArticles:
                     if let data = slide.data {
                         let decoder = JSONDecoder()
-                        if let topArticles = try? decoder.decode([String].self, from: data) {
+                        if let topArticles = try? decoder.decode([String].self, from: data),
+                           topArticles.count > 0 {
                             topArticlesSlide = WMFYearInReviewSlideStandardViewModel(
                                 gifName: "english-slide-02", // TODO: modify gif name
                                 altText: "", // TODO: alt text
