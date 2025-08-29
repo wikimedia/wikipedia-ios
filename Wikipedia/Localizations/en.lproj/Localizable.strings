@@ -1483,6 +1483,7 @@
 "year-in-review-personalized-editing-title-format" = "You edited Wikipedia {{PLURAL:$1|$1 time|$1 times}}";
 "year-in-review-personalized-editing-title-format-500plus" = "You edited Wikipedia 500+ times";
 "year-in-review-personalized-explore" = "An animated illustration of a hand holding the Wikipedia globe, which gradually transforms into a small puzzle piece, symbolizing individual contributions to the platform.";
+"year-in-review-personalized-most-read-articles-title" = "Your top articles";
 "year-in-review-personalized-reading-subtitle-format" = "You read {{PLURAL:$1|$1 article|$1 articles}}. Wikipedia had $2 million articles available across over $3 active languages. You joined millions in expanding knowledge and exploring diverse topics.";
 "year-in-review-personalized-reading-title-format" = "You read {{PLURAL:$1|$1 article|$1 articles}}";
 "year-in-review-personalized-saved-articles" = "Illustration of a puzzle piece wearing a hardhat with computer screens in the back.";

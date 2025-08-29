@@ -8,5 +8,6 @@ struct SlideConfig {
     let saveCountIsEnabled: Bool
     let mostReadDateIsEnabled: Bool
     let viewCountIsEnabled: Bool
+    let mostReadArticleIsEnabled: Bool
     let categoriesIsEnabled: Bool
 }
