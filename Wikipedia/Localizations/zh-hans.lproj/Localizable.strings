@@ -1118,7 +1118,6 @@
 "saved-unsave-article-and-remove-from-reading-lists-title" = "取消保存{{PLURAL:$1|条目}}？";
 "search-button-accessibility-label" = "搜索维基百科";
 "search-clear-title" = "清空";
-"search-did-you-mean" = "您是想搜索$1吗？";
 "search-field-placeholder-text" = "搜索维基百科";
 "search-reading-list-placeholder-text" = "搜索阅读列表";
 "search-recent-clear-confirmation-heading" = "是否删除全部近期搜索记录？";

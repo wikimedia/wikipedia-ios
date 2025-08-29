@@ -805,7 +805,6 @@
 "saved-unsave-article-and-remove-from-reading-lists-title" = "{{PLURAL:$1|Artikel|Artikele}} läschen?";
 "search-button-accessibility-label" = "Op Wikipedia sichen";
 "search-clear-title" = "Eidel maachen";
-"search-did-you-mean" = "Mengt Dir $1?";
 "search-field-placeholder-text" = "Op Wikipedia sichen";
 "search-reading-list-placeholder-text" = "Lieslëscht duerchsichen";
 "search-recent-clear-confirmation-heading" = "All rezent Ufroe fir ze siche läschen?";
@@ -875,8 +874,7 @@
 "tabs-overview-tooltip-title" = "Tabiwwersiicht";
 "tabs-thumbnail-subtitle" = "Fänkt Är Sich hei un";
 "tabs-title" = "Tabs";
-// Fuzzy
-"tabs-title-preferences" = "Tabs-Astellungen";
+"tabs-title-preferences" = "Tab-Astellungen";
 "talk-page-active-users-accessibilty-label" = "{{PLURAL:$1|$1 aktive Benotzer|$1 aktiv Benotzer}}";
 "talk-page-add-topic-button" = "Sujet derbäisetzen";
 "talk-page-archives" = "Archiven";

@@ -1068,7 +1068,6 @@
 "saved-unsave-article-and-remove-from-reading-lists-title" = "عدم ذخیرهٔ {{PLURAL:$1|مقاله|مقالات}}؟";
 "search-button-accessibility-label" = "جستجوی ویکی‌پدیا";
 "search-clear-title" = "پاک‌کردن";
-"search-did-you-mean" = "منظورتان «$1» بود؟";
 "search-field-placeholder-text" = "جستجوی ویکی‌پدیا";
 "search-reading-list-placeholder-text" = "جستجوی فهرست مطالعه";
 "search-recent-clear-confirmation-heading" = "حذف همهٔ جستجوهای اخیر ؟";

@@ -243,7 +243,6 @@
 "places-filter-top-articles-count" = "{{PLURAL:$1|$1 ليکنې|$1 ليکنې}}";
 "potd-description-prefix" = "د $1 د ورځې انځور";
 "saved-title" = "خوندي شو";
-"search-did-you-mean" = "آيا $1 مو موخه ده؟";
 "search-field-placeholder-text" = "ويکيپېډيا پلټل";
 "search-recent-clear-confirmation-heading" = "ټولې وروستنۍ پلټنې ړنگول؟";
 "search-recent-clear-confirmation-sub-heading" = "دا کړنه پر شا نه گرځول کېږي!";
