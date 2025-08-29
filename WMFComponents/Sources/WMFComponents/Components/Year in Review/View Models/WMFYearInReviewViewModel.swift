@@ -671,15 +671,20 @@ public class WMFYearInReviewViewModel: ObservableObject {
         }
     }
 
-    func tappedShare() {
+    @MainActor func tappedShare() {
         switch currentSlide {
         case .standard(let viewModel):
             let view = WMFYearInReviewSlideStandardShareableView(viewModel: viewModel, hashtag: hashtag)
             let shareView = view.snapshot()
             coordinatorDelegate?.handleYearInReviewAction(.share(image: shareView))
         case .mostReadDateV3(let viewModel):
-            break
-            // todo:
+            let view = WMFYearInReviewSlideMostReadDateV3ShareableView(viewModel: viewModel, hashtag: hashtag)
+            let renderer = ImageRenderer(content: view)
+            renderer.proposedSize = .init(width: 402, height: nil)
+            renderer.scale = UIScreen.main.scale
+            if let uiImage = renderer.uiImage {
+                coordinatorDelegate?.handleYearInReviewAction(.share(image: uiImage))
+            }
         case .location:
             break
             // todo:

@@ -31,6 +31,16 @@ fileprivate struct WMFYearInReviewSlideMostReadDateV3ViewContent: View {
         horizontalSizeClass == .regular ? 64 : 32
     }
     
+    private func dateItemView(text: String, footer: String) -> some View {
+        VStack(alignment: .leading) {
+            Text(text)
+                .font(Font(WMFFont.for(.georgiaTitle3, compatibleWith: UITraitCollection(preferredContentSizeCategory: .large))))
+            Text(footer)
+                .font(Font(WMFFont.for(.subheadline, compatibleWith: UITraitCollection(preferredContentSizeCategory: .large))))
+        }
+        .frame(maxWidth: .infinity, alignment: .topLeading)
+    }
+    
     var body: some View {
         VStack(spacing: 48) {
             VStack(spacing: 16) {
@@ -70,29 +80,9 @@ fileprivate struct WMFYearInReviewSlideMostReadDateV3ViewContent: View {
                 }
                 
                 VStack(spacing: 16) {
-                    VStack(alignment: .leading) {
-                        Text(viewModel.time)
-                            .font(Font(WMFFont.for(.georgiaTitle3)))
-                        Text(viewModel.timeFooter)
-                            .font(Font(WMFFont.for(.subheadline)))
-                    }
-                    .frame(maxWidth: .infinity, alignment: .topLeading)
-                    
-                    VStack(alignment: .leading) {
-                        Text(viewModel.day)
-                            .font(Font(WMFFont.for(.georgiaTitle3)))
-                        Text(viewModel.dayFooter)
-                            .font(Font(WMFFont.for(.subheadline)))
-                    }
-                    .frame(maxWidth: .infinity, alignment: .topLeading)
-                    
-                    VStack(alignment: .leading) {
-                        Text(viewModel.month)
-                            .font(Font(WMFFont.for(.georgiaTitle3)))
-                        Text(viewModel.monthFooter)
-                            .font(Font(WMFFont.for(.subheadline)))
-                    }
-                    .frame(maxWidth: .infinity, alignment: .topLeading)
+                    dateItemView(text: viewModel.time, footer: viewModel.timeFooter)
+                    dateItemView(text: viewModel.day, footer: viewModel.dayFooter)
+                    dateItemView(text: viewModel.month, footer: viewModel.monthFooter)
                 }
                 .foregroundStyle(Color(uiColor: theme.text))
                 
