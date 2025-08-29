@@ -1467,6 +1467,8 @@
 "year-in-review-finish" = "Finish";
 "year-in-review-login-subtitle" = "Login or create an account to be eligible for more personalized insights";
 "year-in-review-login-title" = "Improve your Year in Review";
+"year-in-review-personalized-date-subtitle-format-v3" = "$1\nFavorite time to read\n\n$2\nFavorite day to read\n\n$3\nFavorite month to read";
+"year-in-review-personalized-date-title-v3" = "You have clear reading patterns";
 "year-in-review-personalized-day-subtitle-format" = "You read the most articles on $1. It's clear that $1 are your prime day for exploring new content. Thanks for making the most of your reading time!";
 "year-in-review-personalized-day-title-format" = "You read most on $1.";
 "year-in-review-personalized-donate-subtitle" = "Thank you for investing in the future of free knowledge. This year, the Wikimedia Foundation improved the technology to serve every reader and volunteer better, developed tools that empower collaboration, and supported Wikipedia in more languages. [Learn more about our work]($1).";
@@ -1497,6 +1499,12 @@
 "year-in-review-survey-unsatisfied" = "Unsatisfied";
 "year-in-review-survey-very-satisfied" = "Very satisfied";
 "year-in-review-survey-very-unsatisfied" = "Very unsatisfied";
+"year-in-review-time-afternoon" = "Afternoon";
+"year-in-review-time-evening" = "Evening";
+"year-in-review-time-late-night" = "Late night";
+"year-in-review-time-midday" = "Midday";
+"year-in-review-time-morning" = "Morning";
+"year-in-review-time-night" = "Night";
 "year-in-review-wikipedia-w-accessibility-label" = "Wikipedia w logo";
 "year-in-review-wmf-logo-accessibility-label" = "Wikimedia Foundation logo";
 "yesterday-title" = "Yesterday";

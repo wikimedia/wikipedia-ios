@@ -1,12 +1,12 @@
 import CoreData
 
-final class YearInReviewMostReadDaySlideDataController: YearInReviewSlideDataControllerProtocol {
-    let id = WMFYearInReviewPersonalizedSlideID.mostReadDay.rawValue
+final class YearInReviewMostReadDateSlideDataController: YearInReviewSlideDataControllerProtocol {
+    let id = WMFYearInReviewPersonalizedSlideID.mostReadDate.rawValue
     let year: Int
     var isEvaluated: Bool = false
     static var containsPersonalizedNetworkData = false
     
-    var mostReadDay: WMFPageViewDay?
+    var mostReadDate: WMFPageViewDates?
 
     private weak var legacyPageViewsDataDelegate: LegacyPageViewsDataDelegate?
     private let yirConfig: YearInReviewFeatureConfig
@@ -24,19 +24,25 @@ final class YearInReviewMostReadDaySlideDataController: YearInReviewSlideDataCon
             throw NSError(domain: "", code: 0, userInfo: nil)
         }
         
-        mostReadDay = try await WMFPageViewsDataController().fetchPageViewDates(startDate: startDate, endDate: endDate).sorted { $0.viewCount < $1.viewCount }.first
-        isEvaluated = true
+        let dates = try await WMFPageViewsDataController().fetchPageViewDates(startDate: startDate, endDate: endDate)
+        
+        if let mostReadHour = dates?.times.sorted(by: { $0.viewCount < $1.viewCount }).first,
+           let mostReadDay = dates?.days.sorted(by: { $0.viewCount < $1.viewCount }).first,
+           let mostReadMonth = dates?.months.sorted(by: { $0.viewCount < $1.viewCount }).first {
+                self.mostReadDate = WMFPageViewDates(days: [mostReadDay], times: [mostReadHour], months: [mostReadMonth])
+                isEvaluated = true
+            }
     }
 
     func makeCDSlide(in context: NSManagedObjectContext) throws -> CDYearInReviewSlide {
         let slide = CDYearInReviewSlide(context: context)
         slide.id = id
         slide.year = Int32(year)
-        slide.data = try mostReadDay.map { try JSONEncoder().encode($0) }
+        slide.data = try mostReadDate.map { try JSONEncoder().encode($0) }
         return slide
     }
 
     static func shouldPopulate(from config: YearInReviewFeatureConfig, userInfo: YearInReviewUserInfo) -> Bool {
-        config.isEnabled && config.slideConfig.mostReadDayIsEnabled
+        config.isEnabled && config.slideConfig.mostReadDateIsEnabled
     }
 }

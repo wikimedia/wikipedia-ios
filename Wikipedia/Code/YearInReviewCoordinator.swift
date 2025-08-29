@@ -109,8 +109,10 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
             collectiveZeroAdsSlideSubtitle: collectiveZeroAdsSlideSubtitle,
             personalizedYouReadSlideTitle: personalizedYouReadSlideTitle(readCount:),
             personalizedYouReadSlideSubtitle:personalizedYouReadSlideSubtitle(readCount:),
-            personalizedDaySlideTitle: personalizedDaySlideTitle(day:),
-            personalizedDaySlideSubtitle: personalizedDaySlideSubtitle(day:),
+            personalizedDateSlideTitleV2: personalizedDateSlideTitleV2(day:),
+            personalizedDateSlideSubtitleV2: personalizedDateSlideSubtitleV2(day:),
+            personalizedDateSlideTitleV3: WMFLocalizedString("year-in-review-personalized-date-title-v3", value: "You have clear reading patterns", comment: "Year in review, personalized slide title for users that displays the time / day of the week / month they read most."),
+            personalizedDateSlideSubtitleV3: personalizedDateSlideSubtitleV3(hour:day:month:),
             personalizedSaveCountSlideTitle: personalizedSaveCountSlideTitle(saveCount:),
             personalizedSaveCountSlideSubtitle: personalizedSaveCountSlideSubtitle(saveCount:articleNames:),
             personalizedUserEditsSlideTitle: personzlizedUserEditsSlideTitle(editCount:),
@@ -276,7 +278,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         return String.localizedStringWithFormat(format, readCount, numArticlesString, numLanguagesString)
     }
     
-    func personalizedDaySlideTitle(day: Int) -> String {
+    func personalizedDateSlideTitleV2(day: Int) -> String {
         let format = WMFLocalizedString(
             "year-in-review-personalized-day-title-format",
             value: "You read most on %1$@.",
@@ -286,13 +288,43 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         return String.localizedStringWithFormat(format, getLocalizedDay(day: day))
     }
     
-    func personalizedDaySlideSubtitle(day: Int) -> String {
+    func personalizedDateSlideSubtitleV2(day: Int) -> String {
         let format = WMFLocalizedString(
             "year-in-review-personalized-day-subtitle-format",
             value: "You read the most articles on %1$@. It's clear that %1$@ are your prime day for exploring new content. Thanks for making the most of your reading time!",
             comment: "Year in review, personalized slide subtitle for users that displays the weekday they read most. %1$@ is replaced with the weekday."
         )
         return String.localizedStringWithFormat(format, getLocalizedDay(day: day))
+    }
+    
+    func personalizedDateSlideSubtitleV3(hour: Int, day: Int, month: Int) -> String {
+        let format = WMFLocalizedString(
+            "year-in-review-personalized-date-subtitle-format-v3",
+            value: "%1$@\nFavorite time to read\n\n%2$@\nFavorite day to read\n\n%3$@\nFavorite month to read",
+            comment: "Year in review, personalized slide title for users that displays the time / day of the week / month they read most. %1$@ is replaced with the calculated time (Afternoon, etc.), %2$@ is replaced with the favorite day (Wednesdays, etc), %3$@ is replaced with the favorite month (December, etc)."
+        )
+        
+        let monthName = DateFormatter().monthSymbols[month - 1]
+        return String.localizedStringWithFormat(format, getLocalizedTime(hour: hour), getLocalizedDay(day: day), monthName)
+    }
+    
+    func getLocalizedTime(hour: Int) -> String {
+        let localizedTime: String
+        switch hour {
+        case 5...11:
+            localizedTime = WMFLocalizedString("year-in-review-time-morning",value: "Morning", comment: "Localized name for morning time period (5:00AM-11:59PM).")
+        case 12:
+            localizedTime = WMFLocalizedString("year-in-review-time-midday",value: "Midday", comment: "Localized name for midday time period (12:00PM-12:59PM).")
+        case 13...16:
+            localizedTime = WMFLocalizedString("year-in-review-time-afternoon",value: "Afternoon", comment: "Localized name for afternoon time period (1:00PM-4:59PM).")
+        case 17...20:
+            localizedTime = WMFLocalizedString("year-in-review-time-evening",value: "Evening", comment: "Localized name for evening time period (5:00PM-8:59 PM).")
+        case 21...23:
+            localizedTime = WMFLocalizedString("year-in-review-time-night",value: "Night", comment: "Localized name for night time period (9:00PM-11:59PM).")
+        default:
+            localizedTime = WMFLocalizedString("year-in-review-time-late-night",value: "Late night", comment: "Localized name for late night time period (12:00AM-4:59AM).")
+        }
+        return localizedTime
     }
     
     func getLocalizedDay(day: Int) -> String {

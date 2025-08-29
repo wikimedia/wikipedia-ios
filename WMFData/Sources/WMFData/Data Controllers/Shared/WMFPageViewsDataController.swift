@@ -28,21 +28,45 @@ public final class WMFPageViewCount: Identifiable {
    }
  }
 
-public final class WMFPageViewDay: Decodable, Encodable {
+public final class WMFPageViewDates: Codable {
+    public let days: [WMFPageViewDay]
+    public let times: [WMFPageViewTime]
+    public let months: [WMFPageViewMonth]
+    
+    init(days: [WMFPageViewDay], times: [WMFPageViewTime], months: [WMFPageViewMonth]) {
+        self.days = days
+        self.times = times
+        self.months = months
+    }
+}
+
+public final class WMFPageViewDay: Codable {
     public let day: Int
     public let viewCount: Int
     
-    public init(day: Int, viewCount: Int) {
+    init(day: Int, viewCount: Int) {
         self.day = day
         self.viewCount = viewCount
     }
+}
 
-    public func getViewCount() -> Int {
-        viewCount
-    }
+public final class WMFPageViewMonth: Codable {
+    public let month: Int
+    public let viewCount: Int
     
-    public func getDay() -> Int {
-        day
+    init(month: Int, viewCount: Int) {
+        self.month = month
+        self.viewCount = viewCount
+    }
+}
+
+public final class WMFPageViewTime: Codable {
+    public let hour: Int
+    public let viewCount: Int
+    
+    init(hour: Int, viewCount: Int) {
+        self.hour = hour
+        self.viewCount = viewCount
     }
 }
 
@@ -238,31 +262,47 @@ public final class WMFPageViewsDataController {
         return results
     }
     
-    public func fetchPageViewDates(startDate: Date, endDate: Date, moc: NSManagedObjectContext? = nil) async throws -> [WMFPageViewDay] {
+    func fetchPageViewDates(startDate: Date, endDate: Date, moc: NSManagedObjectContext? = nil) async throws -> WMFPageViewDates? {
         let backgroundContext = try coreDataStore.newBackgroundContext
         
-        let results: [WMFPageViewDay] = try await backgroundContext.perform {
+        let results: WMFPageViewDates? = try await backgroundContext.perform { () -> WMFPageViewDates? in
             let predicate = NSPredicate(format: "timestamp >= %@ && timestamp <= %@", startDate as CVarArg, endDate as CVarArg)
             let cdPageViews = try self.coreDataStore.fetch(entityType: CDPageView.self, predicate: predicate, fetchLimit: nil, in: backgroundContext)
             
             guard let cdPageViews = cdPageViews else {
-                return []
+                return nil
             }
             
-            var countsDictionary: [Int: Int] = [:]
+            var countsDictionaryDay: [Int: Int] = [:]
+            var countsDictionaryTime: [Int: Int] = [:]
+            var countsDictionaryMonth: [Int: Int] = [:]
             
             for cdPageView in cdPageViews {
                 if let timestamp = cdPageView.timestamp {
                     let calendar = Calendar.current
-                    let dayOfWeek = calendar.component(.weekday, from: timestamp) // Sunday = 1, Monday = 2, ..., Saturday = 7
+                    let dayOfWeek = calendar.component(.weekday, from: timestamp)
+                    let hourOfDay = calendar.component(.hour, from: timestamp)
+                    let month = calendar.component(.month, from: timestamp)
                     
-                    countsDictionary[dayOfWeek, default: 0] += 1
+                    countsDictionaryDay[dayOfWeek, default: 0] += 1
+                    countsDictionaryTime[hourOfDay, default: 0] += 1
+                    countsDictionaryMonth[month, default: 0] += 1
                 }
             }
             
-            return countsDictionary.sorted(by: { $0.key < $1.key }).map { dayOfWeek, count in
+            let days = countsDictionaryDay.sorted(by: { $0.key < $1.key }).map { dayOfWeek, count in
                 WMFPageViewDay(day: dayOfWeek, viewCount: count)
             }
+            
+            let times: [WMFPageViewTime] = countsDictionaryTime.sorted(by: { $0.key < $1.key }).map { hour, count in
+                return WMFPageViewTime(hour: hour, viewCount: count)
+            }
+            
+            let months = countsDictionaryMonth.sorted(by: { $0.key < $1.key }).map { month, count in
+                WMFPageViewMonth(month: month, viewCount: count)
+            }
+            
+            return WMFPageViewDates(days: days, times: times, months: months)
         }
         
         return results
