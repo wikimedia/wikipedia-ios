@@ -174,7 +174,7 @@ final class WMFPageViewsDataControllerTests: XCTestCase {
         _ = try await dataController.addPageView(title: "Cat", namespaceID: 0, project: enProject, previousPageViewObjectID: nil)
         _ = try await dataController.addPageView(title: "Felis silvestris catus", namespaceID: 0, project: esProject, previousPageViewObjectID: nil)
         
-        let results = try dataController.fetchPageViewCounts(startDate: yesterdayDate, endDate: Date.now)
+        let results = try await dataController.fetchPageViewCounts(startDate: yesterdayDate, endDate: Date.now)
         
         XCTAssertEqual(results.count, 2)
         XCTAssertEqual(results[0].page.title, "Cat")

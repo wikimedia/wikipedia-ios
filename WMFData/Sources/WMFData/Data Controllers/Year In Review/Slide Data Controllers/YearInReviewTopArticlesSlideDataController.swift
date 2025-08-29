@@ -25,7 +25,7 @@ final class YearInReviewTopReadArticleSlideDataController: YearInReviewSlideData
               let endDate = yirConfig.dataPopulationEndDate else {
             throw NSError(domain: "", code: 0, userInfo: nil)
         }
-        if let pageViewCounts = try? dataController.fetchPageViewCounts(startDate: startDate, endDate: endDate) {
+        if let pageViewCounts = try? await dataController.fetchPageViewCounts(startDate: startDate, endDate: endDate) {
             let top5 = pageViewCounts
                 .sorted { $0.count > $1.count }
                 .prefix(5).map { item in
