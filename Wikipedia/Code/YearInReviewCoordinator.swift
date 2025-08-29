@@ -112,7 +112,12 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
             personalizedDateSlideTitleV2: personalizedDateSlideTitleV2(day:),
             personalizedDateSlideSubtitleV2: personalizedDateSlideSubtitleV2(day:),
             personalizedDateSlideTitleV3: WMFLocalizedString("year-in-review-personalized-date-title-v3", value: "You have clear reading patterns", comment: "Year in review, personalized slide title for users that displays the time / day of the week / month they read most."),
-            personalizedDateSlideSubtitleV3: personalizedDateSlideSubtitleV3(hour:day:month:),
+            personalizedDateSlideTimeV3: getLocalizedTime(hour:),
+            personalizedDateSlideTimeFooterV3: WMFLocalizedString("year-in-review-personalized-date-time-footer-v3", value: "Favorite time to read", comment: "Year in review, personalized slide footer text below the time-of-day that users read the most."),
+            personalizedDateSlideDayV3: getLocalizedDay(day:),
+            personalizedDateSlideDayFooterV3: WMFLocalizedString("year-in-review-personalized-date-day-footer-v3", value: "Favorite day to read", comment: "Year in review, personalized slide footer text below the day-of-week that users read the most."),
+            personalizedDateSlideMonthV3: getLocalizedMonth(month:),
+            personalizedDateSlideMonthFooterV3: WMFLocalizedString("year-in-review-personalized-date-month-footer-v3", value: "Month you did the most reading", comment: "Year in review, personalized slide footer text below the month that users read the most."),
             personalizedSaveCountSlideTitle: personalizedSaveCountSlideTitle(saveCount:),
             personalizedSaveCountSlideSubtitle: personalizedSaveCountSlideSubtitle(saveCount:articleNames:),
             personalizedUserEditsSlideTitle: personzlizedUserEditsSlideTitle(editCount:),
@@ -297,15 +302,8 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         return String.localizedStringWithFormat(format, getLocalizedDay(day: day))
     }
     
-    func personalizedDateSlideSubtitleV3(hour: Int, day: Int, month: Int) -> String {
-        let format = WMFLocalizedString(
-            "year-in-review-personalized-date-subtitle-format-v3",
-            value: "%1$@\nFavorite time to read\n\n%2$@\nFavorite day to read\n\n%3$@\nFavorite month to read",
-            comment: "Year in review, personalized slide title for users that displays the time / day of the week / month they read most. %1$@ is replaced with the calculated time (Afternoon, etc.), %2$@ is replaced with the favorite day (Wednesdays, etc), %3$@ is replaced with the favorite month (December, etc)."
-        )
-        
-        let monthName = DateFormatter().monthSymbols[month - 1]
-        return String.localizedStringWithFormat(format, getLocalizedTime(hour: hour), getLocalizedDay(day: day), monthName)
+    func getLocalizedMonth(month: Int) -> String {
+        return DateFormatter().monthSymbols[month - 1]
     }
     
     func getLocalizedTime(hour: Int) -> String {

@@ -1467,7 +1467,9 @@
 "year-in-review-finish" = "Year in review finish button. Displayed on last slide and dismisses feature view.";
 "year-in-review-login-subtitle" = "Subtitle of alert that asks user to login. Displayed after they completed the feature for the first time.";
 "year-in-review-login-title" = "Title of alert that asks user to login. Displayed after they completed the feature for the first time.";
-"year-in-review-personalized-date-subtitle-format-v3" = "Year in review, personalized slide title for users that displays the time / day of the week / month they read most. $1 is replaced with the calculated time (Afternoon, etc.), $2 is replaced with the favorite day (Wednesdays, etc), $3 is replaced with the favorite month (December, etc).";
+"year-in-review-personalized-date-day-footer-v3" = "Year in review, personalized slide footer text below the day-of-week that users read the most.";
+"year-in-review-personalized-date-month-footer-v3" = "Year in review, personalized slide footer text below the month that users read the most.";
+"year-in-review-personalized-date-time-footer-v3" = "Year in review, personalized slide footer text below the time-of-day that users read the most.";
 "year-in-review-personalized-date-title-v3" = "Year in review, personalized slide title for users that displays the time / day of the week / month they read most.";
 "year-in-review-personalized-day-subtitle-format" = "Year in review, personalized slide subtitle for users that displays the weekday they read most. $1 is replaced with the weekday.";
 "year-in-review-personalized-day-title-format" = "Year in review, personalized slide title for users that displays the weekday they read most. $1 is replaced with the weekday.";

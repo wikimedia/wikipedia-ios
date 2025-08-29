@@ -1467,7 +1467,9 @@
 "year-in-review-finish" = "Finish";
 "year-in-review-login-subtitle" = "Login or create an account to be eligible for more personalized insights";
 "year-in-review-login-title" = "Improve your Year in Review";
-"year-in-review-personalized-date-subtitle-format-v3" = "$1\nFavorite time to read\n\n$2\nFavorite day to read\n\n$3\nFavorite month to read";
+"year-in-review-personalized-date-day-footer-v3" = "Favorite day to read";
+"year-in-review-personalized-date-month-footer-v3" = "Month you did the most reading";
+"year-in-review-personalized-date-time-footer-v3" = "Favorite time to read";
 "year-in-review-personalized-date-title-v3" = "You have clear reading patterns";
 "year-in-review-personalized-day-subtitle-format" = "You read the most articles on $1. It's clear that $1 are your prime day for exploring new content. Thanks for making the most of your reading time!";
 "year-in-review-personalized-day-title-format" = "You read most on $1.";
