@@ -21,7 +21,7 @@ final class YearInReviewMostReadDaySlideDataController: YearInReviewSlideDataCon
         
         guard let startDate = yirConfig.dataPopulationStartDate,
               let endDate = yirConfig.dataPopulationEndDate,
-            let pageViews = try await legacyPageViewsDataDelegate?.getLegacyPageViews(from: startDate, to: endDate) else {
+            let pageViews = try await legacyPageViewsDataDelegate?.getLegacyPageViews(from: startDate, to: endDate, needsLatLong: false) else {
             throw NSError(domain: "", code: 0, userInfo: nil)
         }
         

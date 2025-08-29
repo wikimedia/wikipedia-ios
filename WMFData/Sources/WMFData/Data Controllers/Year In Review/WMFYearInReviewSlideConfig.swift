@@ -10,4 +10,5 @@ struct SlideConfig {
     let viewCountIsEnabled: Bool
     let mostReadArticleIsEnabled: Bool
     let categoriesIsEnabled: Bool
+    let locationsIsEnabled: Bool
 }

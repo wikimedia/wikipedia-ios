@@ -57,10 +57,15 @@ extension MWKDataStore {
 }
 
 extension MWKDataStore: LegacyPageViewsDataDelegate {
-    public func getLegacyPageViews(from startDate: Date, to endDate: Date) async throws -> [WMFLegacyPageView] {
+    public func getLegacyPageViews(from startDate: Date, to endDate: Date, needsLatLong: Bool = false) async throws -> [WMFLegacyPageView] {
         try await MainActor.run {
             let articleRequest = WMFArticle.fetchRequest()
-            articleRequest.predicate = NSPredicate(format: "viewedDate >= %@ && viewedDate <= %@", startDate as CVarArg, endDate as CVarArg)
+            
+            var predicate = NSPredicate(format: "viewedDate >= %@ && viewedDate <= %@", startDate as CVarArg, endDate as CVarArg)
+            if needsLatLong {
+                predicate = NSPredicate(format: "viewedDate >= %@ && viewedDate <= %@ && signedQuadKey != NULL", startDate as CVarArg, endDate as CVarArg)
+            }
+            articleRequest.predicate = predicate
             
             let articles = try viewContext.fetch(articleRequest)
             
@@ -79,7 +84,10 @@ extension MWKDataStore: LegacyPageViewsDataDelegate {
                 let language = WMFLanguage(languageCode: languageCode, languageVariantCode: article.variant)
                 let project = WMFProject.wikipedia(language)
                 
-                return WMFLegacyPageView(title: title, project: project, viewedDate: viewedDate)
+                let latitude = article.coordinate?.latitude
+                let longitude = article.coordinate?.longitude
+                
+                return WMFLegacyPageView(title: title, project: project, viewedDate: viewedDate, latitude: latitude, longitude: longitude)
             }
             
             return legacyPageViews

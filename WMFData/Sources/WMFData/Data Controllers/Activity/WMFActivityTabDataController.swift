@@ -46,7 +46,7 @@ public class WMFActivityDataController: NSObject {
         }
         
         
-        let legacyPageViews = try await legacyPageViewsDataDelegate?.getLegacyPageViews(from: oneWeekAgo, to: now)
+        let legacyPageViews = try await legacyPageViewsDataDelegate?.getLegacyPageViews(from: oneWeekAgo, to: now, needsLatLong: false)
         return legacyPageViews?.count
     }
     
