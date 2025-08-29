@@ -1484,6 +1484,7 @@
 "year-in-review-personalized-editing-title-format" = "Year in review, personalized editing article count slide title for users that edited articles. $1 is replaced with the number of edits the user made.";
 "year-in-review-personalized-editing-title-format-500plus" = "Year in review, personalized editing article count slide title for users that edited articles 500+ times.";
 "year-in-review-personalized-explore" = "Accessibility description for the personalized explore slide.";
+"year-in-review-personalized-most-read-articles-title" = "Year in review, personalized most read articles slide title";
 "year-in-review-personalized-reading-subtitle-format" = "Year in review, personalized reading article count slide subtitle for users that read articles. $1 is replaced with the number of articles the user read. $2 is replaced with the number of articles available across Wikipedia, for example, \"63.59\". $3 is replaced with the number of active languages available on Wikipedia, for example \"300\"";
 "year-in-review-personalized-reading-title-format" = "Year in review, personalized reading article count slide title for users that read articles. $1 is replaced with the number of articles the user read.";
 "year-in-review-personalized-saved-articles" = "Accessibility description for the personalized saved articles slide.";
