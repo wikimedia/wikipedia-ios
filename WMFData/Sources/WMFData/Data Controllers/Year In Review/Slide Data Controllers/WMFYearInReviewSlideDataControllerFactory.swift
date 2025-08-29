@@ -48,7 +48,8 @@ final class YearInReviewSlideDataControllerFactory {
             .mostReadDay,
             .viewCount,
             .mostReadCategories,
-            .location
+            .location,
+            .topArticles
         ]
         
         let dependencies = YearInReviewSlideDataControllerDependencies.init(legacyPageViewsDataDelegate: legacyPageViewsDataDelegate, savedSlideDataDelegate: savedSlideDataDelegate, username: username, project: project, userID: userID, languageCode: project?.languageCode)

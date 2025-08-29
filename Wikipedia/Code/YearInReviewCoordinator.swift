@@ -121,8 +121,10 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
             personalizedYourEditsViewedSlideSubtitle: personalizedYourEditsViewedSlideSubtitle(views:),
             personalizedThankYouTitle: WMFLocalizedString("year-in-review-personalized-donate-title", value: "Your generosity helped keep Wikipedia thriving", comment: "Year in review, personalized donate slide title for users that donated at least once that year. "),
             personalizedThankYouSubtitle: personalizedThankYouSubtitle(languageCode:),
-            personalizedMostReadCategoriesSlideTitle: "Your most interesting categories", // TODO: Localize when we have final product requirements
-            personalizedMostReadCategoriesSlideSubtitle: personalizedMostReadCategoriesSlideSubtitle(categories:),
+            personalizedMostReadCategoriesSlideTitle: "Your most interesting categories", // TODO: Localize when we have final product requirements,
+            personalizedMostReadCategoriesSlideSubtitle: personalizedListSlideSubtitle(items:),
+            personalizedMostReadArticlesSlideTitle: WMFLocalizedString("year-in-review-personalized-most-read-articles-title", value: "Your top articles", comment: "Year in review, personalized most read articles slide title"),
+            personalizedMostReadArticlesSlideSubtitle: personalizedListSlideSubtitle(items:),
             personalizedLocationSlideTitle: personalizedLocationSlideTitle(countryOrOcean:),
             personalizedLocationSlideSubtitle: personalizedLocationSlideSubtitle(articleNames:)
         )
@@ -412,10 +414,10 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         return String.localizedStringWithFormat(format, saveCount, articleName1, articleName2, articleName3)
     }
     
-    func personalizedMostReadCategoriesSlideSubtitle(categories: [String]) -> String {
+    func personalizedListSlideSubtitle(items: [String]) -> String {
         
         var listItems: String = ""
-        for (index, category) in categories.enumerated() {
+        for (index, category) in items.enumerated() {
             listItems += String.localizedStringWithFormat("%d. \(category)\n", index + 1)
         }
 

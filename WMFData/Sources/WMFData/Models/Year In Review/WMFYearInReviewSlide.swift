@@ -19,6 +19,7 @@ public enum WMFYearInReviewPersonalizedSlideID: String, Comparable {
     case saveCount
     case mostReadDay
     case viewCount
+    case topArticles
     case mostReadCategories
     case location
 
@@ -40,6 +41,8 @@ public enum WMFYearInReviewPersonalizedSlideID: String, Comparable {
             return YearInReviewMostReadDaySlideDataController.self
         case .viewCount:
             return YearInReviewViewCountSlideDataController.self
+        case .topArticles:
+            return YearInReviewTopReadArticleSlideDataController.self
         case .mostReadCategories:
             return YearInReviewMostReadCategoriesSlideDataController.self
         case .location:
