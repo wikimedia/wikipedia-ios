@@ -712,7 +712,6 @@
 "saved-unsave-article-and-remove-from-reading-lists-title" = "Zrušit uložení {{PLURAL:$1|článku|článků}}?";
 "search-button-accessibility-label" = "Hledat na Wikipedii";
 "search-clear-title" = "Odebrat";
-"search-did-you-mean" = "Mysleli jste $1?";
 "search-field-placeholder-text" = "Hledat ve Wikipedii";
 "search-reading-list-placeholder-text" = "Hledat v seznamech k přečtení";
 "search-recent-clear-confirmation-heading" = "Smazat všechna poslední hledání?";
@@ -804,6 +803,7 @@
 "two-factor-login-with-regular-code" = "Použít ověřovací kód";
 "unable-to-load-talk-page-title" = "Nelze načíst diskusní stránku";
 "unknown-generic-text" = "Neznámé";
+"variants-alert-dismiss-button" = "Ne, děkuji";
 "welcome-exploration-explore-feed-description" = "Doporučené čtení a vybrané články z naší komunity";
 "welcome-exploration-explore-feed-title" = "Kanál Objevit";
 "welcome-exploration-on-this-day-description" = "Cestujte zpět v čase, abyste se dozvěděli, co se dělo v historii";

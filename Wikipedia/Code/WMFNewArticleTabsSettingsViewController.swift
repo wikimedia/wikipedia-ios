@@ -67,7 +67,7 @@ class WMFNewArticleTabsSettingsViewController: UIViewController {
             saveSelection: { [weak self] selectedIndex in
                 self?.saveSelection(selectedIndex: selectedIndex)
             },
-            selectedIndex: initialIndex
+            selectedIndex: initialIndex, loggingDelegate: self
         )
 
         guard let viewModel else { return }
@@ -91,4 +91,11 @@ class WMFNewArticleTabsSettingsViewController: UIViewController {
 
         hostingController.didMove(toParent: self)
     }
+}
+
+extension WMFNewArticleTabsSettingsViewController: WMFNewArticleTabSettingsLoggingDelegate {
+    func logPreference(index: Int) {
+        ArticleTabsFunnel.shared.logTabsPreferenceClick(action: index == 0 ? .recommendationPrefClick : .didYouKnowPrefClick)
+    }
+
 }

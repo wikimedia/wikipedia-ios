@@ -46,7 +46,7 @@ public class CommonStrings: NSObject {
     @objc public static let historyTabTitle = WMFLocalizedString("history-title", value: "History", comment: "Title of the history screen shown on history tab {{Identical|History}}")
     @objc public static let exploreTabTitle = WMFLocalizedString("home-title", value: "Explore", comment: "Title for home interface. {{Identical|Explore}}")
     @objc public static let tabsTitle = WMFLocalizedString("tabs-title", value: "Tabs", comment: "Title for tabs")
-    @objc public static let tabsPreferencesTitle = WMFLocalizedString("tabs-title-preferences", value: "Tabs preferences", comment: "Title for tabs preferences")
+    @objc public static let tabsPreferencesTitle = WMFLocalizedString("tabs-title-preferences", value: "Tab preferences", comment: "Title for tab preferences")
     @objc public static let savedTabTitle = WMFLocalizedString("saved-title", value: "Saved", comment: "Title of the saved screen shown on the saved tab {{Identical|Saved}}")
 
     public static let wikimediaProjectsHeader = WMFLocalizedString("notifications-center-inbox-wikimedia-projects-section-title", value: "Wikimedia Projects", comment: "Title of the \"Wikimedia Projects\" section on filter adjustment views. This section allows the user to filter out other (non-Wikipedia) Wikimedia projects from displaying in their lists.")
@@ -102,6 +102,10 @@ public class CommonStrings: NSObject {
     @objc public static func onThisDayTitle(with languageCode: String? = nil) -> String {
         WMFLocalizedString("on-this-day-title", languageCode: languageCode, value: "On this day", comment: "Title for the 'On this day' feed section")
     }
+
+    @objc public static let fromWikipedia = WMFLocalizedStringWithDefaultValue("explore-featured-article-sub-heading-from-language-wikipedia", nil, nil, "From %1$@ Wikipedia", "Subtext beneath the 'Featured article' header when describing which specific Wikipedia. %1$@ will be replaced with the language - for example, 'From English Wikipedia'")
+
+    @objc public static let defaultFromWikipedia = WMFLocalizedStringWithDefaultValue("explore-featured-article-sub-heading-from-wikipedia", nil, nil, "From Wikipedia", "Subtext beneath the 'Featured article' header when the specific language wikipedia is unknown.")
     @objc public static let topReadTitle = WMFLocalizedString("places-filter-top-articles", value:"Top read", comment: "Title of places search filter that searches top articles")
     @objc public static let pictureOfTheDayTitle = WMFLocalizedString("explore-potd-heading", value: "Picture of the day", comment: "Text for 'Picture of the day' header")
     @objc public static let randomizerTitle = WMFLocalizedString("explore-randomizer", value: "Randomizer", comment: "Displayed on a button that loads another random article - it's a 'Randomizer'")
@@ -799,6 +803,10 @@ public class CommonStrings: NSObject {
 
     public static let tabsButtonAccessibilityHint = WMFLocalizedString("article-tabs-button-accessibility-hint", value: "Navigates to tabs overview", comment: "Accessibility hint for the tabs navigation bar button")
     public static let tabsButtonAccessibilityLabel = WMFLocalizedString("article-tabs-button-accessibility-label", value: "Article tabs", comment: "Accessibility label for the tabs navigation bar button")
+    public static let mainPageSubtitle = WMFLocalizedString("tabs-main-page-subtitle", value: "Wikipedia’s daily highlights", comment: "Main page subtitle")
+    public static let mainPageDescription = WMFLocalizedString("tabs-main-page-description", value: "Discover featured articles, the latest news, interesting facts, and key stats on Wikipedia’s main page.", comment: "Main page description")
+    public static let tabThumbnailSubtitle = WMFLocalizedString("tabs-thumbnail-subtitle", value: "Begin your search here", comment: "New tab thumbanail subtitle")
+    public static let tabThumbanailDescription = WMFLocalizedString("tabs-thumbnail-description", value: "Explore Wikipedia, the free encyclopedia that anyone can edit", comment: "New tab thumbanail description")
 
     // Search Widget Feature Announcement
 

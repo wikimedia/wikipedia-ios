@@ -164,7 +164,7 @@
 "diff-single-header-summary-heading" = "Resumo de edición";
 "diff-single-line-format" = "Liña $1";
 "dim-images" = "Atenuación de imaxes";
-"edit-link-display-text-title" = "Amosar texto";
+"edit-link-display-text-title" = "Texto para mostrar";
 "edit-link-link-target-title" = "Destino da ligazón";
 "edit-link-remove-link-title" = "Eliminar ligazón";
 "edit-link-title" = "Editar ligazón";
@@ -571,7 +571,6 @@
 "saved-unsave-article-and-remove-from-reading-lists-title" = "Non gardar {{PLURAL:$1|o artigo|os artigos}}?";
 "search-button-accessibility-label" = "Procurar na Wikipedia";
 "search-clear-title" = "Limpar";
-"search-did-you-mean" = "Quixo dicir \"$1\"?";
 "search-field-placeholder-text" = "Procurar na Wikipedia";
 "search-reading-list-placeholder-text" = "Procurar na lista de lectura";
 "search-recent-clear-confirmation-heading" = "Borrar tódalas procuras recentes?";
@@ -579,7 +578,7 @@
 "search-recent-clear-delete-all" = "Borrar todo";
 "search-recent-empty" = "Non hai procuras recentes aínda";
 "search-recent-title" = "Procurado recentemente";
-"search-result-redirected-from" = "Redirixido de: $1";
+"search-result-redirected-from" = "Redirección desde: $1";
 "search-title" = "Procurar";
 "settings-account" = "Conta";
 "settings-appearance" = "Preferencias de lectura";

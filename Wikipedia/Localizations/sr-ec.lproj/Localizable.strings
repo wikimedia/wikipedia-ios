@@ -492,7 +492,7 @@
 "field-captcha-title" = "Унесите горенаведени текст";
 "field-email-placeholder" = "primer@example.org";
 "field-email-title" = "Имејл";
-"field-email-title-optional" = "Имејл (опционално)";
+"field-email-title-optional" = "Имејл (необавезно)";
 "field-new-password-confirm-placeholder" = "поново унесите нову лозинку";
 "field-new-password-confirm-title" = "Потврдите нову лозинку";
 "field-new-password-placeholder" = "унесите нову лозинку";
@@ -642,7 +642,6 @@
 "main-page" = "Почетна";
 "microsite-yir-english-edits-bytes-slide-title" = "4 милијарде бајтова додато";
 "microsite-yir-english-edits-slide-title" = "Уредници су ове године начинили 98 милиона измена";
-"microsite-yir-english-non-donor-slide-title" = "На Википедији нема реклама";
 "more-languages-tooltip-description" = "Претражујте Википедију на преко 300 језика";
 "more-languages-tooltip-title" = "Додај језике";
 "more-menu" = "Више";
@@ -996,7 +995,6 @@
 "saved-unsave-article-and-remove-from-reading-lists-title" = "Уклонити {{PLURAL:$1|чланак|чланке}} из сачуваних?";
 "search-button-accessibility-label" = "Претрага";
 "search-clear-title" = "Обриши";
-"search-did-you-mean" = "Да ли сте мислили на „$1”?";
 "search-field-placeholder-text" = "Претрага Википедије";
 "search-reading-list-placeholder-text" = "Претрага по листи за читање";
 "search-recent-clear-confirmation-heading" = "Избрисати све недавне претраге?";
@@ -1077,6 +1075,7 @@
 "table-of-contents-subheading-label" = "Поднаслов $1";
 "tabs-close-tab" = "Затвори картицу";
 "tabs-open-tab" = "Отвори картицу";
+"tabs-thumbnail-description" = "Истражите Википедију, слободну енциклопедију коју свако може да уређује";
 "talk-page-active-users-accessibilty-label" = "{{PLURAL:$1|$1 активни корисник|$1 активних корисника}}";
 "talk-page-add-topic-button" = "Додај тему";
 "talk-page-archives" = "Архиве";

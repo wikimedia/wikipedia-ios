@@ -652,7 +652,6 @@
 "main-menu-zero-faq" = "Usein kysyttyjä kysymyksiä Wikipedia Zerosta";
 "microsite-yir-english-edits-bytes-slide-title" = "4 miljardia tavua lisätty";
 "microsite-yir-english-edits-slide-subtitle" = "Vapaaehtoiset tekivät 98 222 407 muutosta yli 300 eri kieliversioon Wikipediassa. Englanninkieliseen Wikipediaan tehtiin yli 37 miljoonaa muutosta. Joka päivä, joka tunti, vapaaehtoiset työskentelevät parantaakseen Wikipediaa.";
-"microsite-yir-english-non-donor-slide-title" = "0 Wikipediassa näytettyä mainosta";
 "microsite-yir-english-reading-slide-subtitle" = "Ihmiset viettivät arviolta 2,9 miljardia tuntia – yli 331 000 vuotta! – englanninkielisen Wikipedian lukemiseen vuonna 2024. Wikipedia on palveluksessasi, kun haluat oppia lisää muuttuvasta maailmasta, voittaa vedon ystävien kesken tai vastata uteliaan lapsen kysymykseen.";
 "microsite-yir-english-saved-reading-slide-subtitle" = "Aktiivisilla iOS-sovelluksen käyttäjillä oli yli 62,2 miljoonaa lukulistaa. Artikkelien lisääminen lukulistoihin mahdollistaa artikkelien käytön myös ilman Internet-yhteyttä. Voit myös synkronoida lukulistoja eri laitteiden välillä.";
 "microsite-yir-english-saved-reading-slide-title" = "Yli 62,2 miljoonaa lukulistaa";
@@ -994,7 +993,6 @@
 "saved-unsave-article-and-remove-from-reading-lists-title" = "Poista {{PLURAL:$1|artikkeli|artikkelia}}?";
 "search-button-accessibility-label" = "Etsi Wikipediasta";
 "search-clear-title" = "Tyhjennä";
-"search-did-you-mean" = "Tarkoititko $1?";
 "search-field-placeholder-text" = "Wikipedia-haku";
 "search-reading-list-placeholder-text" = "Hae lukulistasta";
 "search-recent-clear-confirmation-heading" = "Poistetaanko kaikki äskettäiset haut?";

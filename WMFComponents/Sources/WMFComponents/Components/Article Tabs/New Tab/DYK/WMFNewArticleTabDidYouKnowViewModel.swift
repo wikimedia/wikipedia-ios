@@ -17,7 +17,8 @@ import WMFData
         guard let randomElement = facts.randomElement() else { return nil }
         let dykPrefix = dykLocalizedStrings.didYouKnowTitle
         let removeEllipses = replaceEllipsesWithSpace(in: randomElement)
-        let combined = dykPrefix + " " + removeEllipses
+        let removeBold = removeBoldTags(in: removeEllipses)
+        let combined = dykPrefix + " " + removeBold
         return combined
     }
     
@@ -44,6 +45,18 @@ import WMFData
         return result.trimmingCharacters(in: .whitespacesAndNewlines)
     }
     
+    private func removeBoldTags(in text: String) -> String {
+        let boldTagPattern = "(<b>|</b>)"
+        var result = text
+
+        if let regex = try? NSRegularExpression(pattern: boldTagPattern, options: .caseInsensitive) {
+            let range = NSRange(result.startIndex..<result.endIndex, in: result)
+            result = regex.stringByReplacingMatches(in: result, options: [], range: range, withTemplate: "")
+        }
+
+        return result
+    }
+
     public struct LocalizedStrings {
         let didYouKnowTitle: String
         let fromSource: String

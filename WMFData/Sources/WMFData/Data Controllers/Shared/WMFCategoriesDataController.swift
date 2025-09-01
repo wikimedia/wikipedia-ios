@@ -3,10 +3,9 @@ import CoreData
 
 public final class WMFCategoriesDataController {
     
-    public struct WMFCategoryCount {
+    public struct WMFCategory: Hashable {
         public let categoryName: String
         public let project: WMFProject
-        public let count: Int
     }
     
     private let coreDataStore: WMFCoreDataStore
@@ -83,33 +82,42 @@ public final class WMFCategoriesDataController {
         }
     }
     
-    public func fetchCategoryCounts() async throws -> [WMFCategoryCount] {
+    public func fetchCategoryCounts(startDate: Date, endDate: Date) async throws -> [WMFCategory: Int] {
         
-        let context = try coreDataStore.viewContext
+        let context = try coreDataStore.newBackgroundContext
         
-        let counts: [WMFCategoryCount] = try await context.perform { [weak self] in
+        let results: [WMFCategory: Int] = try await context.perform { [weak self] in
             
-            guard let self else { return [] }
+            guard let self else { return [:] }
             
-            var counts: [WMFCategoryCount] = []
+            let predicate = NSPredicate(format: "timestamp >= %@ && timestamp <= %@", startDate as CVarArg, endDate as CVarArg)
             
-            guard let categories = try coreDataStore.fetch(entityType: CDCategory.self, predicate: nil, fetchLimit: nil, in: context) else {
-                return counts
+            var countsByCategory: [WMFCategory: Int] = [:]
+            
+            guard let pageViews = try coreDataStore.fetch(entityType: CDPageView.self, predicate: predicate, fetchLimit: nil, in: context) else {
+                return countsByCategory
             }
             
-            for category in categories {
-                guard let title = category.title,
-                      let projectID = category.projectID,
-                      let project = WMFProject(coreDataIdentifier: projectID),
-                      let pages = category.pages else {
-                    continue
+            let uniquePages = Set(pageViews.compactMap { $0.page })
+            
+            for page in uniquePages {
+                guard let categories = page.categories as? Set<CDCategory> else { continue }
+                
+                for category in categories {
+                    
+                    guard let title = category.title,
+                          let projectID = category.projectID,
+                          let project = WMFProject(coreDataIdentifier: projectID) else {
+                        continue
+                    }
+                    
+                    countsByCategory[WMFCategory(categoryName: title, project: project), default: 0] += 1
                 }
-                counts.append(WMFCategoryCount(categoryName: title, project: project, count: pages.count))
             }
             
-            return counts
+            return countsByCategory
         }
         
-        return counts
+        return results
     }
 }

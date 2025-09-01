@@ -16,10 +16,12 @@ public class WMFArticleTabsHostingController<HostedView: View>: WMFComponentHost
     
     private let viewModel: WMFArticleTabsViewModel
     private let doneButtonText: String
+    private let articleTabsCount: Int
     
-    public init(rootView: HostedView, viewModel: WMFArticleTabsViewModel, doneButtonText: String) {
+    public init(rootView: HostedView, viewModel: WMFArticleTabsViewModel, doneButtonText: String, articleTabsCount: Int) {
         self.viewModel = viewModel
         self.doneButtonText = doneButtonText
+        self.articleTabsCount = articleTabsCount
         super.init(rootView: rootView)
         
         // Defining format outside the block fixes a retain cycle on WMFArticleTabsViewModel
@@ -50,6 +52,13 @@ public class WMFArticleTabsHostingController<HostedView: View>: WMFComponentHost
     public override func viewDidLoad() {
         super.viewDidLoad()
         viewModel.loggingDelegate?.logArticleTabsOverviewImpression()
+
+        NotificationCenter.default.addObserver(
+                self,
+                selector: #selector(userDidTakeScreenshot),
+                name: UIApplication.userDidTakeScreenshotNotification,
+                object: nil
+            )
     }
 
     private func configureNavigationBar(_ title: String? = nil) {
@@ -67,7 +76,12 @@ public class WMFArticleTabsHostingController<HostedView: View>: WMFComponentHost
     @objc private func tappedAdd() {
         viewModel.didTapAddTab()
     }
-    
+
+    @objc private func userDidTakeScreenshot() {
+        viewModel.loggingDelegate?.logTabsOverviewScreenshot()
+    }
+
+
     @objc private func tappedOverflow() {
         viewModel.didTapAddTab()
     }
@@ -77,7 +91,16 @@ public class WMFArticleTabsHostingController<HostedView: View>: WMFComponentHost
             self?.openTabsPreferences()
         })
         
-        let children: [UIMenuElement] = [tabsPreferences]
+        let closeAllTabs = UIAction(title: viewModel.localizedStrings.closeAllTabs, image: WMFSFSymbolIcon.for(symbol: .close), handler: { [weak self] _ in
+            Task {
+                await self?.presentCloseAllTabsConfirmationDialog()
+            }
+        })
+        
+        if articleTabsCount == 1 {
+            return UIMenu(title: String(), children: [tabsPreferences])
+        }
+        let children: [UIMenuElement] = [tabsPreferences, closeAllTabs]
         let mainMenu = UIMenu(title: String(), children: children)
 
         return mainMenu
@@ -85,5 +108,34 @@ public class WMFArticleTabsHostingController<HostedView: View>: WMFComponentHost
     
     private func openTabsPreferences() {
         viewModel.didTabOpenTabs()
+
+    }
+
+    deinit {
+        NotificationCenter.default.removeObserver(self, name: UIApplication.userDidTakeScreenshotNotification, object: nil)
+    }
+
+    private func presentCloseAllTabsConfirmationDialog() async {
+        let button1Title = viewModel.localizedStrings.cancelActionTitle
+        let button2Title = viewModel.localizedStrings.closeAllTabs
+
+        let alert = UIAlertController(
+            title: viewModel.localizedStrings.closeAllTabsTitle,
+            message: viewModel.localizedStrings.closeAllTabsSubtitle,
+            preferredStyle: .alert
+        )
+        
+        let action1 = UIAlertAction(title: button1Title, style: .cancel)
+        
+        let action2 = UIAlertAction(title: button2Title, style: .destructive) { [weak self] _ in
+            guard let self else { return }
+            Task {
+                self.viewModel.didTapCloseAllTabs()
+            }
+        }
+        
+        alert.addAction(action1)
+        alert.addAction(action2)
+        present(alert, animated: true)
     }
 }
