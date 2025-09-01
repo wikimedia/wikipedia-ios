@@ -30,7 +30,8 @@ import Foundation
     private let cacheDirectoryName = WMFSharedCacheDirectoryNames.donorExperience.rawValue
     private let cacheConfigFileName = "AppsCampaignConfig"
     private let cachePromptStateFileName = "WMFFundraisingCampaignPromptState"
-    
+    private var installIDProvider: () -> String = { "unknown-install-id" }
+
     // MARK: - Lifecycle
     
     private init(service: WMFService? = WMFDataEnvironment.current.basicService, sharedCacheStore: WMFKeyValueStore? = WMFDataEnvironment.current.sharedCacheStore, mediaWikiService: WMFService? = WMFDataEnvironment.current.mediaWikiService) {
@@ -332,9 +333,9 @@ import Foundation
                     continue
                 }
                 
-                // For v2, assets come back as an array with weights attached for us to randomly A/B test copy. We must choose a random one here.
-                let randomAsset = randomAssetFrom(assets: value)
-                
+                let seed = "\(config.id)|\(key)|\(installIDProvider())"
+                let randomAsset = randomAssetFrom(assets: value, seed: seed)
+
                 let actions: [WMFFundraisingCampaignConfig.WMFAsset.WMFAction] = randomAsset.actions.map { action in
                     
                     guard let urlString = action.urlString?.replacingOccurrences(of: "$platform;", with: "iOS"),
@@ -354,28 +355,76 @@ import Foundation
         
         return configs
     }
-    
-    private func randomAssetFrom(assets: [WMFFundraisingCampaignConfigResponse.FundraisingCampaignConfig.Asset]) -> WMFFundraisingCampaignConfigResponse.FundraisingCampaignConfig.Asset {
-        guard assets.count > 1 else {
-            return assets[0]
+
+
+    // MARK: - Deterministic bucketing
+
+    /// Stable hash mapped to [0, 1).
+    private func stableHash01(_ seed: String) -> Double {
+        // FNV-1a 64-bit
+        var hash: UInt64 = 1469598103934665603
+        let prime: UInt64 = 1099511628211
+        for b in seed.utf8 {
+            hash ^= UInt64(b)
+            hash &*= prime
         }
-        
-        // TODO: Is a seed needed?
-        let f = Float.random(in: 0..<1)
-            
-        var sum: Float = 0
-        for (i, asset) in assets.enumerated() {
-            
-            guard let weight = asset.weight else { continue }
-            
-            sum += weight
-            if f <= sum {
-                return assets[i]
+        return Double(hash) / Double(UInt64.max)
+    }
+
+    /// Deterministically picks one asset using (optionally) weighted A/B configuration.
+    /// - If all weights are nil → uniform distribution.
+    /// - If some weights are nil → they default to 1.0, then all weights are normalized.
+    private func randomAssetFrom(assets: [WMFFundraisingCampaignConfigResponse.FundraisingCampaignConfig.Asset], seed: String) -> WMFFundraisingCampaignConfigResponse.FundraisingCampaignConfig.Asset {
+        guard assets.count > 1 else { return assets[0] }
+
+        var weights: [Double] = []
+        weights.reserveCapacity(assets.count)
+
+        var sawNonNil = false
+        var sum: Double = 0
+
+        for a in assets {
+            if let w = a.weight {
+                sawNonNil = true
+                let v = max(0.0, Double(w)) // clamp negatives to 0
+                weights.append(v)
+                sum += v
+            } else {
+                weights.append(.nan) // mark as nil for now
             }
         }
-        
-        return assets[assets.count - 1]
+
+        // Default behavior for nil weights and normalization
+        if !sawNonNil {
+            let uniform = 1.0 / Double(assets.count)
+            weights = Array(repeating: uniform, count: assets.count)
+        } else {
+            // Treat nil weights as 1.0
+            for i in 0..<weights.count where weights[i].isNaN {
+                weights[i] = 1.0
+                sum += 1.0
+            }
+            if sum <= 0 {
+                let uniform = 1.0 / Double(assets.count)
+                weights = Array(repeating: uniform, count: assets.count)
+            } else {
+                for i in 0..<weights.count { weights[i] /= sum }
+            }
+        }
+
+        let r = stableHash01(seed)
+        var acc = 0.0
+        for (i, w) in weights.enumerated() {
+            acc += w
+            if r <= acc { return assets[i] }
+        }
+        return assets.last! // guard against rounding
     }
+
+    @objc public func setInstallIDProvider(_ provider: @escaping () -> String) {
+        self.installIDProvider = provider
+    }
+
 }
 
 // MARK: - Private Models
