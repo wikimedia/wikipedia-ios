@@ -181,17 +181,14 @@
 "close-all-tabs" = "Затвори ги сите јазичиња";
 "close-all-tabs-confirmation" = "Дали сакате да ги затворите сите $1 јазичиња? Ова дејство е неповратно.";
 "close-all-tabs-confirmation-number" = "Да ги затворам сите $1 јазичиња?";
-// Fuzzy
-"close-all-tabs-confirmation-subtitle-with-value" = "Дали сакате да {{PLURAL:$1|го затворите јазичето|ги затворите сите $1 јазичиња}}? Ова дејство е неповратно.";
-// Fuzzy
-"close-all-tabs-confirmation-title-with-value" = "Да {{PLURAL:$1|го затворам јазичето|ги затворам сите $1 јазичиња}}?";
+"close-all-tabs-confirmation-subtitle-with-value" = "Дали сакате да {{PLURAL:$1|го затворите јазичето|затворите $1 јазичиња}}? Ова дејство е неповратно.";
+"close-all-tabs-confirmation-title-with-value" = "Да {{PLURAL:$1|го затворам јазичето|затворам $1 јазичиња}}?";
 "close-button-accessibility-label" = "Затвори";
 "close-other-tabs" = "Затвори други јазичиња";
 "close-tab-confirmation" = "За го затворам јазичето?";
 "close-tabs" = "Затвори јазичиња";
 "closed-all-tabs-confirmation" = "Затворени сите $1 јазичиња.";
-// Fuzzy
-"closed-all-tabs-confirmation-with-value" = "{{PLURAL:$1|Јазичето е затворено|Затворени се сите $1 јазичиња}}.";
+"closed-all-tabs-confirmation-with-value" = "{{PLURAL:$1|Јазичето е затворено|Затворени се $1 јазичиња}}.";
 "compass-direction" = "во $1 часот";
 "confirm-donation-history-deletion-subtitle" = "Ова ќе важи само за прилозите дадени од овој уред.";
 "confirm-donation-history-deletion-title" = "Потврдете бришење";
@@ -1495,6 +1492,7 @@
 "year-in-review-personalized-editing-title-format" = "Ја имате уредено Википедија {{PLURAL:$1|еднаш|$1 пати}}";
 "year-in-review-personalized-editing-title-format-500plus" = "Ја имате уредено Википедија преку 500 пати";
 "year-in-review-personalized-explore" = "Анимирана илустрација на рака како ја држи Википедиината топка, која постепено се претвора во мало парче од сложувалка, симболизирајќи ги поединечните придонеси на платформата.";
+"year-in-review-personalized-most-read-articles-title" = "Вашите најчитани статии";
 "year-in-review-personalized-reading-subtitle-format" = "Прочитавте {{PLURAL:$1|$1 статија|$1 статии}}. Википедија имаше $2 милиони статии на преку $3 активни јазици. Се придруживте на милиони луѓе во проширување на знаењето и истражувањето на разновидни теми.";
 "year-in-review-personalized-reading-title-format" = "Прочитавте {{PLURAL:$1|$1 статија|$1 статии}}";
 "year-in-review-personalized-saved-articles" = "Илустрација на парче од служувалка како носи градежен шлем со сметачки екрани во позадината.";
