@@ -1,11 +1,11 @@
 import SwiftUI
 import WMFData
 
-struct WMFYearInReviewSlideIntroView: View {
+struct WMFYearInReviewSlideIntroV2View: View {
     @ObservedObject var appEnvironment = WMFAppEnvironment.current
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
     
-    private let viewModel: WMFYearInReviewIntroViewModel
+    private let viewModel: WMFYearInReviewIntroV2ViewModel
     
     private var theme: WMFTheme {
         return appEnvironment.theme
@@ -15,14 +15,14 @@ struct WMFYearInReviewSlideIntroView: View {
         horizontalSizeClass == .regular ? 64 : 32
     }
     
-    init(viewModel: WMFYearInReviewIntroViewModel) {
+    init(viewModel: WMFYearInReviewIntroV2ViewModel) {
         self.viewModel = viewModel
     }
     
     var body: some View {
         
         ZStack(alignment: .bottom) {
-            WMFYearInReviewScrollView(scrollViewContents: WMFYearInReviewSlideIntroViewContent(viewModel: viewModel))
+            WMFYearInReviewScrollView(scrollViewContents: WMFYearInReviewSlideIntroV2ViewContent(viewModel: viewModel))
             
             VStack {
                 WMFLargeButton(configuration: .primary, title: viewModel.primaryButtonTitle) {
@@ -49,9 +49,9 @@ struct WMFYearInReviewSlideIntroView: View {
 }
 
 
-fileprivate struct WMFYearInReviewSlideIntroViewContent: View {
+fileprivate struct WMFYearInReviewSlideIntroV2ViewContent: View {
     @ObservedObject var appEnvironment = WMFAppEnvironment.current
-    let viewModel: WMFYearInReviewIntroViewModel
+    let viewModel: WMFYearInReviewIntroV2ViewModel
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
     
     private var theme: WMFTheme {
@@ -62,9 +62,11 @@ fileprivate struct WMFYearInReviewSlideIntroViewContent: View {
         horizontalSizeClass == .regular ? 64 : 32
     }
     
-    fileprivate init(viewModel: WMFYearInReviewIntroViewModel) {
+    fileprivate init(viewModel: WMFYearInReviewIntroV2ViewModel) {
         self.viewModel = viewModel
     }
+    
+    @ScaledMetric private var bottomInset = 125.0
     
     var body: some View {
         
@@ -90,7 +92,7 @@ fileprivate struct WMFYearInReviewSlideIntroViewContent: View {
                     .font(Font(WMFFont.for(.title3)))
             }
             .foregroundStyle(Color(uiColor: theme.text))
-            .padding(EdgeInsets(top: 0, leading: sizeClassPadding, bottom: 0, trailing: sizeClassPadding))
+            .padding(EdgeInsets(top: 0, leading: sizeClassPadding, bottom: bottomInset, trailing: sizeClassPadding))
         }
     }
 }

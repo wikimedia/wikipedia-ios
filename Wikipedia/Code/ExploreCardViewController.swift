@@ -340,7 +340,7 @@ class ExploreCardViewController: UIViewController, UICollectionViewDataSource, U
             cell.imageViewDimension = cell.imageView.image?.size.height ?? 0
             cell.messageHTML = WMFLocalizedString("notifications-center-feed-news-notification-text", value: "Editing notifications for all Wikimedia projects are now available through the app. Opt in to push notifications to keep up to date with your messages on Wikipedia while on the go.", comment: "Text shown to users to notify them that it is now possible to get push notifications for all Wikimedia projects through the app")
             cell.actionButton.setTitle(WMFLocalizedString("notifications-center-feed-news-notification-button-text", value: "Turn on push notifications", comment: "Text for button to turn on push notifications"), for:.normal)
-            cell.dismissButton.setTitle(WMFLocalizedString("notifications-center-feed-news-notification-dismiss-button-text", value: "Not now", comment: "Text for the dismiss button on the explore feed notifications card"), for: .normal)
+            cell.dismissButton.setTitle(CommonStrings.notNowTitle, for: .normal)
         case .theme:
             cell.isImageViewHidden = false
             cell.imageView.image = UIImage(named: "feed-card-themes")
