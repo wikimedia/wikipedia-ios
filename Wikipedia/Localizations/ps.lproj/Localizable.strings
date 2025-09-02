@@ -122,6 +122,7 @@
 "article-revision-history" = "مخ بياکتنې پېښليک";
 "article-save-error-not-enough-space" = "ستاسو وسيله دومره ځای نه لري چې دا ليکنه خوندي کړي";
 "article-share" = "وېشل";
+"article-tabs-button-accessibility-label" = "ليکنې ريښکې";
 "article-tabs-open" = "پرانېستل";
 "article-tabs-open-background-tab" = "په شاليد ريښکه کې پرانېستل";
 "article-tabs-open-new-tab" = "په نوې ريښکه کې پرانيستل";
@@ -168,6 +169,7 @@
 "description-welcome-start-editing-button" = "سمون پيلول";
 "developer-force-email-auth" = "اجباري برېښليک تاييد";
 "developer-settings" = "پراختياگر اوڼنې";
+"developer-settings-dynamic-tabs-DYK" = "د ايا پوهېدې سره ريښکې چارنول";
 "diff-compare-header-from-info-heading" = "پخوانی سمون";
 "diff-compare-header-heading" = "بياکتنو پرتلنه";
 "diff-compare-header-to-info-heading" = "ښودل‌شوی سمون";
@@ -185,6 +187,12 @@
 "diff-rollback-alert-title" = "سمونونو شاگرځ";
 "diff-single-intro-title" = "سریزه";
 "duplicate-tab" = "دوه‌گونې ريښکه";
+"edit-link-display-text-title" = "ليک ښکارېدنه";
+"edit-link-link-target-title" = "تړوني موخه";
+"edit-link-remove-link-title" = "تړونی لرې‌کول";
+"edit-link-title" = "تړونی سمول";
+"edit-menu-item" = "سمول";
+"edit-minor-text" = "دا يو کوچنی سمون دی";
 "edit-summary-choice-linked-words" = "ورگډې شوې تړنې";
 "empty-no-article-message" = "وبښئ، ليکنه رابرسېره نه شوه";
 "empty-no-feed-action-message" = "لا تر اوسه پورې تاسو خوندي مخونه لوستلی شئ";
@@ -193,7 +201,6 @@
 "empty-no-search-results-message" = "کومې پايلې و نه موندل شوې";
 "explore-featured-article-heading" = "مخکښه ليکنه";
 "explore-main-page-heading" = "نن په ويکيپېډيا کې";
-// Fuzzy
 "explore-most-read-footer" = "ټولې ډېرې لوستل شوې ليکنې";
 "explore-most-read-generic-heading" = "ډېر لوستل شوي";
 "explore-nearby-heading" = "نژدې ځايونه";
@@ -220,7 +227,7 @@
 "main-menu-account-logout" = "وتل";
 "main-menu-account-title-logged-in" = "د $1 په توگه ورننوتئ";
 "main-menu-nearby" = "نژدې";
-"main-menu-privacy-policy" = "د پټنتيا تگلاره";
+"main-menu-privacy-policy" = "پټنتيا تگلار";
 "main-menu-rate-app" = "کاريال ارزول";
 "main-menu-terms-of-use" = "د کارولو منښتونه";
 "main-menu-title" = "نور";
@@ -236,7 +243,6 @@
 "places-filter-top-articles-count" = "{{PLURAL:$1|$1 ليکنې|$1 ليکنې}}";
 "potd-description-prefix" = "د $1 د ورځې انځور";
 "saved-title" = "خوندي شو";
-"search-did-you-mean" = "آيا $1 مو موخه ده؟";
 "search-field-placeholder-text" = "ويکيپېډيا پلټل";
 "search-recent-clear-confirmation-heading" = "ټولې وروستنۍ پلټنې ړنگول؟";
 "search-recent-clear-confirmation-sub-heading" = "دا کړنه پر شا نه گرځول کېږي!";
@@ -245,13 +251,12 @@
 "search-title" = "پلټل";
 "settings-my-languages" = "زما ژبې";
 "settings-title" = "اوڼنې";
-// Fuzzy
-"share-article-name-on-wikipedia" = "\"$1\" په @Wikipedia کې:";
-// Fuzzy
-"share-on-twitter-sign-off" = "د @ويکيپېډيا له لارې";
+"share-article-name-on-wikipedia" = "\"$1\" په ويکيپېډيا کې:";
+"share-on-twitter-sign-off" = "د ويکيپېډيا له لارې";
 "table-of-contents-button-label" = "نيوليک";
 "table-of-contents-close-accessibility-hint" = "تړل";
 "table-of-contents-heading" = "منځپانگې";
+"watchlist-change-expiry-subtitle" = "د کتنلړ وخت موده غوره‌کول";
 "welcome-explore-continue-button" = "پيلول";
 "welcome-explore-tell-me-more-done-button" = "وپوهېدم";
 "welcome-languages-add-button" = "بله ژبه ورگډول";

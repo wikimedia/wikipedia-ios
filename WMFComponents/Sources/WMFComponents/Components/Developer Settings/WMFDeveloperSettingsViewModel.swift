@@ -6,7 +6,8 @@ import WMFData
     let developerSettings: String
     let doNotPostImageRecommendations: String
     let sendAnalyticsToWMFLabs: String
-    let enableArticleTab: String
+    let enableMoreDynamicTabsBYR: String
+    let enableMoreDynamicTabsDYK: String
     let enableYearinReview: String
     let bypassDonation: String
     let forceEmailAuth: String
@@ -15,12 +16,13 @@ import WMFData
     let setActivityTabGroupC: String
     let done: String
 
-    @objc public init(developerSettings: String, doNotPostImageRecommendations: String, sendAnalyticsToWMFLabs: String, enableArticleTab: String, enableYearinReview: String, bypassDonation: String, forceEmailAuth: String, setActivityTabGroupA: String, setActivityTabGroupB: String, setActivityTabGroupC: String, done: String) {
+    @objc public init(developerSettings: String, doNotPostImageRecommendations: String, sendAnalyticsToWMFLabs: String, enableMoreDynamicTabsBYR: String, enableMoreDynamicTabsDYK: String, enableYearinReview: String, bypassDonation: String, forceEmailAuth: String, setActivityTabGroupA: String, setActivityTabGroupB: String, setActivityTabGroupC: String, done: String) {
         self.developerSettings = developerSettings
         self.doNotPostImageRecommendations = doNotPostImageRecommendations
         self.sendAnalyticsToWMFLabs = sendAnalyticsToWMFLabs
+        self.enableMoreDynamicTabsBYR = enableMoreDynamicTabsBYR
+        self.enableMoreDynamicTabsDYK = enableMoreDynamicTabsDYK
         self.enableYearinReview = enableYearinReview
-        self.enableArticleTab = enableArticleTab
         self.bypassDonation = bypassDonation
         self.forceEmailAuth = forceEmailAuth
         self.setActivityTabGroupA = setActivityTabGroupA
@@ -36,6 +38,8 @@ import WMFData
     let formViewModel: WMFFormViewModel
     private var subscribers: Set<AnyCancellable> = []
     private var activityTabGroupCoordinator: ActivityTabGroupBindingCoordinator?
+    private var moreDynamicTabsGroupCoordinator: MoreDynamicTabsGroupBindingCoordinator?
+    private var yirGroupCoordinator: YearInReviewGroupBindingCoordinator?
 
     @objc public init(localizedStrings: WMFDeveloperSettingsLocalizedStrings) {
         self.localizedStrings = localizedStrings
@@ -48,11 +52,19 @@ import WMFData
         
         let forceMaxArticleTabsTo5 = WMFFormItemSelectViewModel(title: "Force Max Article Tabs to 5", isSelected: WMFDeveloperSettingsDataController.shared.forceMaxArticleTabsTo5)
 
-        let enableMoreDynamicTabs = WMFFormItemSelectViewModel(title: "Enable more dynamic tabs", isSelected: WMFDeveloperSettingsDataController.shared.enableMoreDynamicTabs)
+        let enableMoreDynamicTabsBYR = WMFFormItemSelectViewModel(title: localizedStrings.enableMoreDynamicTabsBYR, isSelected: WMFDeveloperSettingsDataController.shared.enableMoreDynamicTabsBYR)
+
+        let enableMoreDynamicTabsDYK = WMFFormItemSelectViewModel(title: localizedStrings.enableMoreDynamicTabsDYK, isSelected: WMFDeveloperSettingsDataController.shared.enableMoreDynamicTabsDYK)
 
         let setActivityTabGroupA = WMFFormItemSelectViewModel(title: localizedStrings.setActivityTabGroupA, isSelected: WMFDeveloperSettingsDataController.shared.setActivityTabGroupA)
         let setActivityTabGroupB = WMFFormItemSelectViewModel(title: localizedStrings.setActivityTabGroupB, isSelected: WMFDeveloperSettingsDataController.shared.setActivityTabGroupB)
         let setActivityTabGroupC = WMFFormItemSelectViewModel(title: localizedStrings.setActivityTabGroupC, isSelected: WMFDeveloperSettingsDataController.shared.setActivityTabGroupC)
+        
+        let limitYiRCategoriesTo2Underscores = WMFFormItemSelectViewModel(title: "Limit Year In Review categories to at least 2 underscores", isSelected: WMFDeveloperSettingsDataController.shared.limitYiRCategoriesTo2Underscores)
+        
+        let showYiRV2 = WMFFormItemSelectViewModel(title: "Show Year in Review Version 2", isSelected: WMFDeveloperSettingsDataController.shared.showYiRV2)
+        
+        let showYiRV3 = WMFFormItemSelectViewModel(title: "Show Year in Review Version 3", isSelected: WMFDeveloperSettingsDataController.shared.showYiRV3)
 
         // Form ViewModel
         formViewModel = WMFFormViewModel(sections: [
@@ -65,7 +77,11 @@ import WMFData
                 setActivityTabGroupB,
                 setActivityTabGroupC,
                 forceMaxArticleTabsTo5,
-                enableMoreDynamicTabs
+                enableMoreDynamicTabsBYR,
+                enableMoreDynamicTabsDYK,
+                showYiRV2,
+                showYiRV3,
+                limitYiRCategoriesTo2Underscores
             ], selectType: .multi)
         ])
 
@@ -90,15 +106,19 @@ import WMFData
             .sink { isSelected in WMFDeveloperSettingsDataController.shared.forceMaxArticleTabsTo5 = isSelected }
             .store(in: &subscribers)
 
-        enableMoreDynamicTabs.$isSelected
-            .sink { isSelected in WMFDeveloperSettingsDataController.shared.enableMoreDynamicTabs = isSelected }
+        enableMoreDynamicTabsBYR.$isSelected
+            .sink { isSelected in WMFDeveloperSettingsDataController.shared.enableMoreDynamicTabsBYR = isSelected }
             .store(in: &subscribers)
+
+        moreDynamicTabsGroupCoordinator = MoreDynamicTabsGroupBindingCoordinator(becauseYouRead: enableMoreDynamicTabsBYR, didYouKnow: enableMoreDynamicTabsDYK)
 
         activityTabGroupCoordinator = ActivityTabGroupBindingCoordinator(
             groupA: setActivityTabGroupA,
             groupB: setActivityTabGroupB,
             groupC: setActivityTabGroupC
         )
+        
+        yirGroupCoordinator = YearInReviewGroupBindingCoordinator(showYiRV2: showYiRV2, showYiRV3: showYiRV3, limitYiRCategoriesTo2Underscores: limitYiRCategoriesTo2Underscores)
     }
 }
 
@@ -129,5 +149,58 @@ private final class ActivityTabGroupBindingCoordinator {
                 groupB.isSelected = false
             }
         }.store(in: &subscribers)
+    }
+}
+
+private final class MoreDynamicTabsGroupBindingCoordinator {
+    private var subscribers: Set<AnyCancellable> = []
+
+    init(becauseYouRead: WMFFormItemSelectViewModel, didYouKnow: WMFFormItemSelectViewModel) {
+        becauseYouRead.$isSelected.sink { isSelected in
+            WMFDeveloperSettingsDataController.shared.enableMoreDynamicTabsBYR = isSelected
+            if isSelected {
+                didYouKnow.isSelected = false
+            }
+        }.store(in: &subscribers)
+
+        didYouKnow.$isSelected.sink { isSelected in
+            WMFDeveloperSettingsDataController.shared.enableMoreDynamicTabsDYK = isSelected
+            if isSelected {
+                becauseYouRead.isSelected = false
+            }
+        }.store(in: &subscribers)
+
+    }
+}
+
+
+private final class YearInReviewGroupBindingCoordinator {
+    private var subscribers: Set<AnyCancellable> = []
+
+    init(showYiRV2: WMFFormItemSelectViewModel, showYiRV3: WMFFormItemSelectViewModel, limitYiRCategoriesTo2Underscores: WMFFormItemSelectViewModel) {
+        
+        showYiRV2.$isSelected.sink { isSelected in
+            WMFDeveloperSettingsDataController.shared.showYiRV2 = isSelected
+            if isSelected {
+                showYiRV3.isSelected = false
+                limitYiRCategoriesTo2Underscores.isSelected = false
+            }
+        }.store(in: &subscribers)
+
+        showYiRV3.$isSelected.sink { isSelected in
+            WMFDeveloperSettingsDataController.shared.showYiRV3 = isSelected
+            if isSelected {
+                showYiRV2.isSelected = false
+            }
+        }.store(in: &subscribers)
+        
+        limitYiRCategoriesTo2Underscores.$isSelected.sink { isSelected in
+            WMFDeveloperSettingsDataController.shared.limitYiRCategoriesTo2Underscores = isSelected
+            if isSelected {
+                showYiRV3.isSelected = true
+                showYiRV2.isSelected = false
+            }
+        }.store(in: &subscribers)
+
     }
 }

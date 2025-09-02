@@ -492,7 +492,7 @@
 "field-captcha-title" = "Унесите горенаведени текст";
 "field-email-placeholder" = "primer@example.org";
 "field-email-title" = "Имејл";
-"field-email-title-optional" = "Имејл (опционално)";
+"field-email-title-optional" = "Имејл (необавезно)";
 "field-new-password-confirm-placeholder" = "поново унесите нову лозинку";
 "field-new-password-confirm-title" = "Потврдите нову лозинку";
 "field-new-password-placeholder" = "унесите нову лозинку";
@@ -580,7 +580,7 @@
 "import-shared-reading-list-title" = "Увези подељену листу за читање";
 "in-the-news-sub-title-from-language-wikipedia" = "Са Википедије на $1";
 "in-the-news-sub-title-from-wikipedia" = "Са Википедије";
-"in-the-news-title" = "Вести";
+"in-the-news-title" = "У вестима";
 "insert-action-title" = "Уметни";
 "insert-link-title" = "Уметни везу";
 "insert-media-add-image-details-title" = "Додај детаље о слици";
@@ -642,7 +642,6 @@
 "main-page" = "Почетна";
 "microsite-yir-english-edits-bytes-slide-title" = "4 милијарде бајтова додато";
 "microsite-yir-english-edits-slide-title" = "Уредници су ове године начинили 98 милиона измена";
-"microsite-yir-english-non-donor-slide-title" = "На Википедији нема реклама";
 "more-languages-tooltip-description" = "Претражујте Википедију на преко 300 језика";
 "more-languages-tooltip-title" = "Додај језике";
 "more-menu" = "Више";
@@ -996,7 +995,6 @@
 "saved-unsave-article-and-remove-from-reading-lists-title" = "Уклонити {{PLURAL:$1|чланак|чланке}} из сачуваних?";
 "search-button-accessibility-label" = "Претрага";
 "search-clear-title" = "Обриши";
-"search-did-you-mean" = "Да ли сте мислили на „$1”?";
 "search-field-placeholder-text" = "Претрага Википедије";
 "search-reading-list-placeholder-text" = "Претрага по листи за читање";
 "search-recent-clear-confirmation-heading" = "Избрисати све недавне претраге?";
@@ -1077,6 +1075,7 @@
 "table-of-contents-subheading-label" = "Поднаслов $1";
 "tabs-close-tab" = "Затвори картицу";
 "tabs-open-tab" = "Отвори картицу";
+"tabs-thumbnail-description" = "Истражите Википедију, слободну енциклопедију коју свако може да уређује";
 "talk-page-active-users-accessibilty-label" = "{{PLURAL:$1|$1 активни корисник|$1 активних корисника}}";
 "talk-page-add-topic-button" = "Додај тему";
 "talk-page-archives" = "Архиве";
@@ -1167,6 +1166,7 @@
 "theme-default-explanation" = "Поклапа се са темом система";
 "theme-light-display-name" = "Светло";
 "theme-sepia-display-name" = "Сепија";
+"today-title" = "Данас";
 "top-read-widget-description" = "Сазнајте шта свет чита данас на Википедији";
 "top-read-widget-readers-count" = "Читалаца: $1";
 "top-read-widget-title" = "Најчитаније";
@@ -1323,3 +1323,4 @@
 "year-in-review-survey-very-unsatisfied" = "Веома незадовољан";
 "year-in-review-wikipedia-w-accessibility-label" = "Википедијин W логотип";
 "year-in-review-wmf-logo-accessibility-label" = "Логотип Задужбине Викимедије";
+"yesterday-title" = "Јуче";

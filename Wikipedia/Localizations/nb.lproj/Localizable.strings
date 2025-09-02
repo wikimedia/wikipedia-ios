@@ -185,7 +185,6 @@
 "description-welcome-descriptions-title" = "Artikkelbeskrivelser";
 "description-welcome-promise-title" = "Gjennom å starte lover jeg å ikke misbruke denne funksjonen";
 "description-welcome-start-editing-button" = "Begynn å redigere";
-"developer-settings-activity-tabs" = "Aktiver aktivitetsfaner";
 "diff-article-revision-history" = "Artikkelsideversjonshistorikk";
 "diff-change-added" = "Tillegg, $1, slutt på tillegg.";
 "diff-change-paragraph-lines-moved-down" = "Avsnitt flyttet $1 {{PLURAL:$1|linje|linjer}} ned. Gå til den nye plasseringen.";
@@ -999,7 +998,6 @@
 "saved-unsave-article-and-remove-from-reading-lists-title" = "Fjern {{PLURAL:$1|artikkelen|artiklene}}?";
 "search-button-accessibility-label" = "Søk i Wikipedia";
 "search-clear-title" = "Tøm";
-"search-did-you-mean" = "Mente du $1?";
 "search-field-placeholder-text" = "Søk i Wikipedia";
 "search-reading-list-placeholder-text" = "Søk i leseliste";
 "search-recent-clear-confirmation-heading" = "Slette alle nylige søk?";

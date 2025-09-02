@@ -639,7 +639,6 @@
 "saved-unsave-article-and-remove-from-reading-lists-title" = "ឈប់រក្សាទុក{{PLURAL:$1|អត្ថបទ|អត្ថបទ}}ឬ?";
 "search-button-accessibility-label" = "ស្វែងរកក្នុងវិគីភីឌា";
 "search-clear-title" = "ជម្រះ";
-"search-did-you-mean" = "ប្រហែលជាអ្នកចង់រក $1";
 "search-field-placeholder-text" = "ស្វែងរកក្នុងវិគីភីឌា";
 "search-reading-list-placeholder-text" = "ស្វែងរកបញ្ជីអត្ថបទចង់អាន";
 "search-recent-clear-confirmation-heading" = "លុបចោលការស្វែងរកថ្មីៗនេះទាំងអស់ឬ?";

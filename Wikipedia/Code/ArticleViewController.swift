@@ -167,7 +167,8 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
     var coordinator: ArticleTabCoordinating?
     var previousArticleTab: WMFArticleTabsDataController.WMFArticle? = nil
     var nextArticleTab: WMFArticleTabsDataController.WMFArticle? = nil
-    
+    let tabDataController = WMFArticleTabsDataController.shared
+
     @objc init?(articleURL: URL, dataStore: MWKDataStore, theme: Theme, source: ArticleSource, schemeHandler: SchemeHandler? = nil, previousPageViewObjectID: NSManagedObjectID? = nil) {
 
         guard let article = dataStore.fetchOrCreateArticle(with: articleURL) else {
@@ -226,6 +227,11 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
     lazy var webView: WKWebView = {
         let webView = WMFWebView(frame: .zero, configuration: webViewConfiguration)
         webView.translatesAutoresizingMaskIntoConstraints = false
+#if DEBUG
+        if #available(iOS 16.4, *) {
+            webView.isInspectable = true
+        }
+#endif
         return webView
     }()
     
@@ -439,8 +445,32 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
         setup()
 
         setupForStateRestorationIfNecessary()
+        setupMoreDynamicTabsExperiment()
     }
-    
+
+    private func setupMoreDynamicTabsExperiment() {
+        guard tabDataController.shouldAssignToBucket() else {
+            return
+        }
+
+        do {
+            let assignment = try tabDataController.assignExperiment()
+            // TODO: Bring back logging when more dynamic tabs is relased
+            /*
+            switch assignment {
+            case .control:
+                ArticleTabsFunnel.shared.logGroupAssignment(group: "dynamic_a")
+            case .becauseYouRead:
+                ArticleTabsFunnel.shared.logGroupAssignment(group: "dynamic_b")
+            case .didYouKnow:
+                ArticleTabsFunnel.shared.logGroupAssignment(group: "dynamic_c")
+            }
+             */
+        } catch {
+            DDLogWarn("Failure assigning more dynamic tabs experiment: \(error)")
+        }
+    }
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         tableOfContentsController.setup(with: traitCollection)
@@ -520,6 +550,14 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
         if let tooltips = presentedViewController as? WMFTooltipViewController {
             tooltips.dismiss(animated: true)
         }
+        
+        
+        guard #available(iOS 18.0, *),
+              UIDevice.current.userInterfaceIdiom == .pad else {
+            return
+        }
+        
+        self.tabBarController?.setTabBarHidden(false, animated: true)
     }
 
     // MARK: Article load
@@ -622,8 +660,7 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
     func loadNextAndPreviousArticleTabs() {
         Task { [weak self] in
             guard let self else { return }
-            let tabDataController = WMFArticleTabsDataController.shared
-            
+
             if let tabIdentifier = self.coordinator?.tabIdentifier {
                 self.previousArticleTab = try? await tabDataController.getAdjacentArticleInTab(tabIdentifier: tabIdentifier, isPrev: true)
                 self.nextArticleTab = try? await tabDataController.getAdjacentArticleInTab(tabIdentifier: tabIdentifier, isPrev: false)
@@ -1181,15 +1218,18 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
         updateTableOfContentsHighlightIfNecessary()
 
         calculateNavigationBarHiddenState(scrollView: webView.scrollView)
+        
+        guard #available(iOS 18.0, *),
+              UIDevice.current.userInterfaceIdiom == .pad else {
+            return
+        }
 
-        if #available(iOS 18.0, *) {
-            let velocity = scrollView.panGestureRecognizer.velocity(in: scrollView).y
+        let velocity = scrollView.panGestureRecognizer.velocity(in: scrollView).y
 
-            if velocity < 0 { // Scrolling down
-                tabBarController?.setTabBarHidden(true, animated: true)
-            } else if velocity > 0 { // Scrolling up
-                tabBarController?.setTabBarHidden(false, animated: true)
-            }
+        if velocity < 0 { // Scrolling down
+            tabBarController?.setTabBarHidden(true, animated: true)
+        } else if velocity > 0 { // Scrolling up
+            tabBarController?.setTabBarHidden(false, animated: true)
         }
     }
     

@@ -950,7 +950,6 @@
 "saved-unsave-article-and-remove-from-reading-lists-title" = "Odshranim $1 {{PLURAL:$1|članek|članka|članke|člankov}}?";
 "search-button-accessibility-label" = "Preišči Wikipedijo";
 "search-clear-title" = "Počisti";
-"search-did-you-mean" = "Ste mislili $1?";
 "search-field-placeholder-text" = "Preiščite Wikipedijo";
 "search-reading-list-placeholder-text" = "Proiščite bralni seznam";
 "search-recent-clear-confirmation-heading" = "Želite izbrisati vsa nedavna iskanja?";
@@ -1016,6 +1015,7 @@
 "share-social-mention-format" = "»$1« iz Wikipedije: $2";
 "sort-by-recently-added-action" = "Pred kratkim dodano";
 "sort-by-title-action" = "Naslov";
+"suggested-edits-title" = "Predlagana urejanja";
 "table-of-contents-button-label" = "Kazalo vsebine";
 "table-of-contents-close-accessibility-hint" = "Zapri";
 "table-of-contents-close-accessibility-label" = "Zapri kazalo";

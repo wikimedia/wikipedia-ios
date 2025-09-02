@@ -42,6 +42,7 @@ struct Page: Codable {
     let lastrevid: Int
     let length: Int
     let varianttitles: [String: String]?
+    let extract: String?
 
 }
 
@@ -68,6 +69,7 @@ public class RelatedPage: NSObject {
     public let touched: String
     public let lastRevId: Int
     public let length: Int
+    public let extract: String?
 
     var languageVariantCode: String?
 
@@ -78,7 +80,7 @@ public class RelatedPage: NSObject {
         return articleURL?.wmf_inMemoryKey
     }
 
-    public init(pageId: Int, ns: Int, title: String, index: Int, thumbnail: Thumbnail?, articleDescription: String?, descriptionSource: String?, contentModel: String, pageLanguage: String, pageLanguageHtmlCode: String, pageLanguageDir: String, touched: String, lastRevId: Int, length: Int) {
+    public init(pageId: Int, ns: Int, title: String, index: Int, thumbnail: Thumbnail?, articleDescription: String?, descriptionSource: String?, contentModel: String, pageLanguage: String, pageLanguageHtmlCode: String, pageLanguageDir: String, touched: String, lastRevId: Int, length: Int, extract: String?) {
         self.pageId = pageId
         self.ns = ns
         self.title = title
@@ -93,5 +95,6 @@ public class RelatedPage: NSObject {
         self.touched = touched
         self.lastRevId = lastRevId
         self.length = length
+        self.extract = extract
     }
 }

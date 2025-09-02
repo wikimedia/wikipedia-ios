@@ -89,6 +89,16 @@ class ColumnarCollectionViewController: ThemeableViewController, ColumnarCollect
         }
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        guard #available(iOS 18.0, *),
+              UIDevice.current.userInterfaceIdiom == .pad else {
+            return
+        }
+        
+        self.tabBarController?.setTabBarHidden(false, animated: true)
+    }
+    
     open func viewWillHaveFirstAppearance(_ animated: Bool) {
         // subclassers can override
     }
@@ -392,7 +402,11 @@ class ColumnarCollectionViewController: ThemeableViewController, ColumnarCollect
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         _maxViewed = max(_maxViewed, percentViewed)
 
-        guard UIDevice.current.userInterfaceIdiom == .pad, #available(iOS 18.0, *) else { return }
+        guard #available(iOS 18.0, *),
+              UIDevice.current.userInterfaceIdiom == .pad,
+            UITraitCollection.current.horizontalSizeClass == .regular else {
+            return
+        }
 
         let velocity = scrollView.panGestureRecognizer.velocity(in: scrollView).y
         if velocity < -30 {
@@ -413,8 +427,8 @@ class ColumnarCollectionViewController: ThemeableViewController, ColumnarCollect
     }
 
     private func handleShortContentBounce(_ scrollView: UIScrollView, immediately: Bool) {
-        guard UIDevice.current.userInterfaceIdiom == .pad,
-              #available(iOS 18.0, *) else { return }
+        guard #available(iOS 18.0, *),
+              UIDevice.current.userInterfaceIdiom == .pad else { return }
 
         let visibleHeight = scrollView.bounds.height
                            - scrollView.adjustedContentInset.top
@@ -539,6 +553,10 @@ extension ColumnarCollectionViewController: ArticlePreviewingDelegate {
     }
     
     @objc func shareArticlePreviewActionSelected(with peekController: ArticlePeekPreviewViewController, shareActivityController: UIActivityViewController) {
+        if let popover = shareActivityController.popoverPresentationController {
+            popover.sourceView = peekController.view
+            popover.sourceRect = peekController.view.bounds
+        }
         present(shareActivityController, animated: true, completion: nil)
     }
     

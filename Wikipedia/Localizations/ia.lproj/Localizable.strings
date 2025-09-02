@@ -131,6 +131,17 @@
 "article-share" = "Condivider";
 "article-tabs-button-accessibility-hint" = "Naviga al vista general de schedas";
 "article-tabs-button-accessibility-label" = "Schedas de articulo";
+"article-tabs-did-you-know-title" = "Sapeva tu que...";
+"article-tabs-feature-announcement-item-1-subtitle" = "Aperi plure articulos e cambia inter illos con facilitate.";
+"article-tabs-feature-announcement-item-1-title" = "Navigar con schedas";
+"article-tabs-feature-announcement-item-2-subtitle" = "Le schedas se rememora automaticamente tu position de rolamento.";
+"article-tabs-feature-announcement-item-2-title" = "Continua ubi tu ha cessate";
+"article-tabs-feature-announcement-item-3-subtitle" = "Aperi ligamines in schedas de fundo sin perder tu position.";
+"article-tabs-feature-announcement-item-3-title" = "Salveguardar ligamines pro plus tarde";
+"article-tabs-feature-announcement-item-4-subtitle" = "Elige factos curiose o suggestiones de lectura quando se aperi un nove scheda.";
+"article-tabs-feature-announcement-item-4-title" = "Personalisar tu nove scheda";
+"article-tabs-feature-announcement-sub-cta" = "Discoperi plus sur le schedas";
+"article-tabs-feature-announcement-title" = "Presentation de Schedas";
 "article-tabs-max-reached" = "Le limite de schedas ($1) ha essite attingite. Le articulo se ha aperite in le scheda actual. Per favor claude un o plus schedas.";
 "article-tabs-navigation" = "Navigation inter schedas";
 "article-tabs-onboarding-tooltip" = "Legendas emergente de introduction al schedas";
@@ -163,11 +174,17 @@
 "close-all-tabs" = "Clauder tote le schedas";
 "close-all-tabs-confirmation" = "Vole tu clauder tote le $1 schedas? Isto es irreversibile.";
 "close-all-tabs-confirmation-number" = "Clauder tote le $1 schedas?";
+// Fuzzy
+"close-all-tabs-confirmation-subtitle-with-value" = "Vole tu clauder {{PLURAL:$1|le scheda|tote le $1 schedas}}? Isto es irreversibile.";
+// Fuzzy
+"close-all-tabs-confirmation-title-with-value" = "Clauder {{PLURAL:$1|le scheda|tote le $1 schedas}}?";
 "close-button-accessibility-label" = "Clauder";
 "close-other-tabs" = "Clauder altere schedas";
 "close-tab-confirmation" = "Clauder scheda?";
 "close-tabs" = "Clauder schedas";
 "closed-all-tabs-confirmation" = "Tote le $1 schedas ha essite claudite.";
+// Fuzzy
+"closed-all-tabs-confirmation-with-value" = "{{PLURAL:$1|Scheda|Tote le $1 schedas}} claudite.";
 "compass-direction" = "a $1 horas";
 "confirm-donation-history-deletion-subtitle" = "Isto se applicara solmente al donationes facite desde iste apparato.";
 "confirm-donation-history-deletion-title" = "Confirmar deletion";
@@ -220,11 +237,13 @@
 "developer-settings-activity-tab-group-A" = "Mitter le scheda de activitate al gruppo A";
 "developer-settings-activity-tab-group-B" = "Mitter le scheda de activitate al gruppo B";
 "developer-settings-activity-tab-group-C" = "Mitter le scheda de activitate al gruppo C";
-"developer-settings-activity-tabs" = "Activar le schedas de activitate";
 "developer-settings-bypass-donation" = "Contornar donation";
+"developer-settings-dynamic-tabs-BYR" = "Activar schedas con “Perque tu ha legite”";
+"developer-settings-dynamic-tabs-DYK" = "Activar schedas con “Sapeva tu que…”";
 "developer-settings-enable-year-in-review" = "Activar le Summario del anno";
 "developer-settings-send-analytics-to-wmflabs" = "Inviar informationes analytic a wmflabs.";
 "developer-settings-suppress-image-rec-post" = "Non publicar le modification de recommendationes de imagine.";
+"did-you-know" = "Sapeva tu que...";
 "diff-article-revision-history" = "Historia de versiones del articulo";
 "diff-change-added" = "Addition: $1. Fin del addition.";
 "diff-change-paragraph-lines-moved-down" = "Paragrapho displaciate a basso de {{PLURAL:$1|0=0 lineas|$1 linea|$1 lineas}}. Va al nove position.";
@@ -633,7 +652,7 @@
 "import-shared-reading-list-survey-prompt-button-cancel" = "Non ora";
 "import-shared-reading-list-survey-prompt-button-take-survey" = "Responder al sondage";
 "import-shared-reading-list-survey-prompt-footer" = "Consulta nostre $1declaration de confidentialitate$2. Sondage realisate per un tertie parte. Vide su $3politica de confidentialitate$4.";
-"import-shared-reading-list-survey-prompt-subtitle" = "\"Condivider listas de lectura\" es un function in test e nos ha besonio de tu retroaction pro meliorar o remover lo.";
+"import-shared-reading-list-survey-prompt-subtitle" = "“Condivider listas de lectura” es un function in test e nos ha besonio de tu evalutation pro meliorar o remover lo.";
 "import-shared-reading-list-survey-prompt-title" = "Poterea tu adjutar nos a meliorar \"Condivider listas de lectura\"?";
 "import-shared-reading-list-title" = "Importar lista de lectura condividite";
 "in-the-news-sub-title-from-language-wikipedia" = "De Wikipedia in $1";
@@ -712,8 +731,6 @@
 "microsite-yir-english-edits-bytes-slide-title" = "4 milliardos de bytes addite";
 "microsite-yir-english-edits-slide-subtitle" = "Le voluntarios ha apportate 98.222.407 modificationes in plus de 300 editiones de Wikipedia in linguas differente. Plus de 37 milliones de modificationes ha essite apportate sur Wikipedia in anglese. Cata hora de cata die, voluntarios labora pro meliorar Wikipedia.";
 "microsite-yir-english-edits-slide-title" = "Redactores ha apportate 98 milliones de modificationes iste anno";
-"microsite-yir-english-non-donor-slide-subtitle" = "Con tu adjuta, le Fundation Wikimedia (le organisation sin scopo lucrative que gere Wikipedia) continuara a assecurar que le informationes sur le quales tu depende resta sin publicitate e digne de fide, mantenente Wikipedia in optime forma con le instrumentos e technologias le plus moderne. Per favor considera facer un donation hodie. [Apprende plus sur nostre labor]($1).";
-"microsite-yir-english-non-donor-slide-title" = "Necun publicitate sur Wikipedia";
 "microsite-yir-english-reading-slide-subtitle" = "Le gente ha passate circa 2.9 milliardos de horas (plus de 331.000 annos!) legente Wikipedia in anglese in 2024. Wikipedia es la quando tu vole saper plus sur nostre mundo evolvente, ganiar un sponsion inter amicos, o responder al question de un infante curiose.";
 "microsite-yir-english-reading-slide-title" = "Nos ha passate 2.9 milliardos de horas legente";
 "microsite-yir-english-saved-reading-slide-subtitle" = "Le usatores active del app iOS habeva plus de 62.2 milliones de listas de lectura. Adder articulos a listas de lectura te permitte acceder a articulos mesmo sin connexion. Tu pote tamben, post aperir session, synchronisar le listas de lectura inter apparatos.";
@@ -729,6 +746,9 @@
 "nearby-distance-label-km" = "$1 km";
 "nearby-distance-label-meters" = "$1 m";
 "nearby-distance-label-miles" = "$1 millias";
+"new-article-tab-from-wikipedia-default" = "de Wikipedia";
+"new-article-tab-settings-did-you-know" = "Sapeva tu que...?";
+"new-article-tab-settings-recommendations" = "Recommendationes";
 "new-password-instructions" = "Tu ha aperite session con un contrasigno temporari.\nPro completar le accesso, defini un nove contrasigno hic.";
 "new-password-title" = "Definir tu contrasigno";
 "new-tab" = "Nove scheda";
@@ -1091,7 +1111,6 @@
 "saved-unsave-article-and-remove-from-reading-lists-title" = "Remover articulo{{PLURAL:$1||s}} salveguardate?";
 "search-button-accessibility-label" = "Cercar in Wikipedia";
 "search-clear-title" = "Vacuar";
-"search-did-you-mean" = "Vole tu dicer $1?";
 "search-field-placeholder-text" = "Cercar in Wikipedia";
 "search-reading-list-placeholder-text" = "Cercar in lista de lectura";
 "search-recent-clear-confirmation-heading" = "Deler tote le recercas recente?";
@@ -1119,6 +1138,7 @@
 "settings-language-bar" = "Monstrar linguas in recerca";
 "settings-languages-feed-customization" = "Tu pote eliger le linguas que appare in tu canal Explorar personalisante tu parametros de canal Explorar.";
 "settings-my-languages" = "Mi linguas";
+"settings-new-article-tab-header-text" = "Thema de nove schedas";
 "settings-notifications" = "Notificationes push";
 "settings-notifications-echo-failure-message" = "Un error ha occurrite durante le controlo del abonamentos de notification associate a tu conto.";
 "settings-notifications-echo-failure-title" = "Non pote controlar abonamentos de notification Echo";
@@ -1183,6 +1203,10 @@
 "tabs-overview-tooltip-body" = "Cambia inter articulos aperte in le vista general de schedas.";
 "tabs-overview-tooltip-title" = "Vista general de schedas";
 "tabs-survey-title" = "Adjuta a meliorar le function de schedas. Es tu satisfacite de iste function?";
+"tabs-thumbnail-description" = "Explora Wikipedia, le encyclopedia libere al qual omnes pote contribuer";
+"tabs-thumbnail-subtitle" = "Comencia tu recerca hic";
+"tabs-title" = "Schedas";
+"tabs-title-preferences" = "Preferentias de schedas";
 "tachelhit-variants-alert-body" = "Le application de Wikipedia supporta ora le sequente variantes del tachelhit como linguas primari o secundari in le application, rendente plus facile leger, cercar e modificar in tu variantes preferite:\n\nⵜⴰⵛⵍⵃⵉⵜ: tachelhit tifinagh (shi-tfng)\nTaclḥit: tachelhit latin (shi-latn)";
 "tachelhit-variants-alert-title" = "Actualisationes del supporto de variantes del tachelhit";
 "tajik-variants-alert-body" = "Le application de Wikipedia ora supporta le variantes sequente del tajiko como linguas primari o secundari in le application, rendente lo plus facile leger, cercar e modificar in tu variantes preferite:\n\nтоҷикӣ кирилликӣ: tajiko cyrillic (tg-cyrl)\ntojikī lotinī: tajiko latin (tg-latn)";
@@ -1280,6 +1304,7 @@
 "theme-default-explanation" = "Se adapta al thema del systema";
 "theme-light-display-name" = "Clar";
 "theme-sepia-display-name" = "Sepia";
+"today-title" = "Hodie";
 "top-read-widget-description" = "Discoperi lo que le mundo lege hodie sur Wikipedia.";
 "top-read-widget-readers-count" = "$1 lectores";
 "top-read-widget-title" = "Le plus legite";
@@ -1483,3 +1508,4 @@
 "year-in-review-survey-very-unsatisfied" = "Multo insatisfacite";
 "year-in-review-wikipedia-w-accessibility-label" = "Logotypo “W” de Wikipedia";
 "year-in-review-wmf-logo-accessibility-label" = "Logotypo del Fundation Wikimedia";
+"yesterday-title" = "Heri";

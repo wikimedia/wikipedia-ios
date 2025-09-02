@@ -45,6 +45,8 @@ public class CommonStrings: NSObject {
     @objc public static let placesTabTitle = WMFLocalizedString("places-title", value: "Places", comment: "Title of the Places screen shown on the places tab.")
     @objc public static let historyTabTitle = WMFLocalizedString("history-title", value: "History", comment: "Title of the history screen shown on history tab {{Identical|History}}")
     @objc public static let exploreTabTitle = WMFLocalizedString("home-title", value: "Explore", comment: "Title for home interface. {{Identical|Explore}}")
+    @objc public static let tabsTitle = WMFLocalizedString("tabs-title", value: "Tabs", comment: "Title for tabs")
+    @objc public static let tabsPreferencesTitle = WMFLocalizedString("tabs-title-preferences", value: "Tab preferences", comment: "Title for tab preferences")
     @objc public static let savedTabTitle = WMFLocalizedString("saved-title", value: "Saved", comment: "Title of the saved screen shown on the saved tab {{Identical|Saved}}")
 
     public static let wikimediaProjectsHeader = WMFLocalizedString("notifications-center-inbox-wikimedia-projects-section-title", value: "Wikimedia Projects", comment: "Title of the \"Wikimedia Projects\" section on filter adjustment views. This section allows the user to filter out other (non-Wikipedia) Wikimedia projects from displaying in their lists.")
@@ -100,6 +102,10 @@ public class CommonStrings: NSObject {
     @objc public static func onThisDayTitle(with languageCode: String? = nil) -> String {
         WMFLocalizedString("on-this-day-title", languageCode: languageCode, value: "On this day", comment: "Title for the 'On this day' feed section")
     }
+
+    @objc public static let fromWikipedia = WMFLocalizedStringWithDefaultValue("explore-featured-article-sub-heading-from-language-wikipedia", nil, nil, "From %1$@ Wikipedia", "Subtext beneath the 'Featured article' header when describing which specific Wikipedia. %1$@ will be replaced with the language - for example, 'From English Wikipedia'")
+
+    @objc public static let defaultFromWikipedia = WMFLocalizedStringWithDefaultValue("explore-featured-article-sub-heading-from-wikipedia", nil, nil, "From Wikipedia", "Subtext beneath the 'Featured article' header when the specific language wikipedia is unknown.")
     @objc public static let topReadTitle = WMFLocalizedString("places-filter-top-articles", value:"Top read", comment: "Title of places search filter that searches top articles")
     @objc public static let pictureOfTheDayTitle = WMFLocalizedString("explore-potd-heading", value: "Picture of the day", comment: "Text for 'Picture of the day' header")
     @objc public static let randomizerTitle = WMFLocalizedString("explore-randomizer", value: "Randomizer", comment: "Displayed on a button that loads another random article - it's a 'Randomizer'")
@@ -293,7 +299,18 @@ public class CommonStrings: NSObject {
 
     public static let clearTitle = WMFLocalizedString("search-clear-title", value: "Clear", comment: "Text of the button shown to clear recent search terms")
 
+
+    public static let clearRecentSearchesDialogTitle = WMFLocalizedString("search-recent-clear-confirmation-heading", value: "Delete all recent searches?", comment: "Heading text of delete all confirmation dialog")
+
+    public static let clearRecentSearchesDialogSubtitle = WMFLocalizedString("search-recent-clear-confirmation-sub-heading", value: "This action cannot be undone!", comment: "Sub-heading text of delete all confirmation dialog")
+
+    public static let deleteAllTitle = WMFLocalizedString("search-recent-clear-delete-all", value: "Delete All", comment: "Button text for confirming delete all action {{Identical|Delete all}}")
+
     public static let accessibilityClearTitle = WMFLocalizedString("clear-title-accessibility-label", value: "Clear", comment: "Accessibility label title for action that clears text")
+
+    public static let recentlySearchedTitle = WMFLocalizedString("search-recent-title", value: "Recently searched", comment: "Title for list of recent search terms")
+
+    public static let recentlySearchedEmpty = WMFLocalizedString("search-recent-empty", value: "No recent searches yet", comment: "String for no recent searches available")
 
     public static let successfullyPublishedDiscussion = WMFLocalizedString("talk-page-new-topic-success-text", value: "Your discussion was successfully published", comment: "Banner text that appears after a new discussion was successfully published on a talk page.")
 
@@ -772,15 +789,39 @@ public class CommonStrings: NSObject {
     public static let savedAllTabs = WMFLocalizedString("saved-all-tabs", value: "Saved all tabs.", comment: "Message indicating all open tabs were saved.")
     public static let savedAllTabsViewReadingList = WMFLocalizedString("saved-all-tabs-view-reading-list", value: "Saved all tabs. View reading list.", comment: "Message indicating all tabs were saved with option to view reading list.")
     public static let mainPage = WMFLocalizedString("main-page", value: "Main page", comment: "Title for the Wikipedia main page.")
+    
+    public static let articleTabsFeatureAnnouncementTitle = WMFLocalizedString("article-tabs-feature-announcement-title", value: "Introducing Tabs", comment: "Title for the article tabs feature announcement")
+    public static let articleTabsFeatureAnnouncementItem1Title = WMFLocalizedString("article-tabs-feature-announcement-item-1-title", value: "Browse with tabs", comment: "Title for the article tabs feature announcement item")
+    public static let articleTabsFeatureAnnouncementItem1Subtitle = WMFLocalizedString("article-tabs-feature-announcement-item-1-subtitle", value: "Open multiple articles and switch between them with ease.", comment: "Subtitle for the article tabs feature announcement item 2")
+    public static let articleTabsFeatureAnnouncementItem2Title = WMFLocalizedString("article-tabs-feature-announcement-item-2-title", value: "Pick up where you left off", comment: "Title for the article tabs feature announcement item 2")
+    public static let articleTabsFeatureAnnouncementItem2Subtitle = WMFLocalizedString("article-tabs-feature-announcement-item-2-subtitle", value: "Tabs remember your scroll position automatically.", comment: "Subtitle for the article tabs feature announcement item 2")
+    public static let articleTabsFeatureAnnouncementItem3Title = WMFLocalizedString("article-tabs-feature-announcement-item-3-title", value: "Save links for later", comment: "Title for the article tabs feature announcement item 3")
+    public static let articleTabsFeatureAnnouncementItem3Subtitle = WMFLocalizedString("article-tabs-feature-announcement-item-3-subtitle", value: "Open links in background tabs without losing your place.", comment: "Subtitle for the article tabs feature announcement item 3")
+    public static let articleTabsFeatureAnnouncementItem4Title = WMFLocalizedString("article-tabs-feature-announcement-item-4-title", value: "Personalize your new tab", comment: "Title for the article tabs feature announcement item 4")
+    public static let articleTabsFeatureAnnouncementItem4Subtitle = WMFLocalizedString("article-tabs-feature-announcement-item-4-subtitle", value: "Choose fun facts or reading suggestions when opening a new tab.", comment: "Subtitle for the article tabs feature announcement item 4")
+    public static let articleTabsFeatureAnnouncementSubCTA = WMFLocalizedString("article-tabs-feature-announcement-sub-cta", value: "Learn more about Tabs", comment: "Call to action text in the article tabs feature announcement, inviting the user to learn more about tabs.")
 
     public static let tabsButtonAccessibilityHint = WMFLocalizedString("article-tabs-button-accessibility-hint", value: "Navigates to tabs overview", comment: "Accessibility hint for the tabs navigation bar button")
     public static let tabsButtonAccessibilityLabel = WMFLocalizedString("article-tabs-button-accessibility-label", value: "Article tabs", comment: "Accessibility label for the tabs navigation bar button")
+    public static let mainPageSubtitle = WMFLocalizedString("tabs-main-page-subtitle", value: "Wikipedia’s daily highlights", comment: "Main page subtitle")
+    public static let mainPageDescription = WMFLocalizedString("tabs-main-page-description", value: "Discover featured articles, the latest news, interesting facts, and key stats on Wikipedia’s main page.", comment: "Main page description")
+    public static let tabThumbnailSubtitle = WMFLocalizedString("tabs-thumbnail-subtitle", value: "Begin your search here", comment: "New tab thumbanail subtitle")
+    public static let tabThumbanailDescription = WMFLocalizedString("tabs-thumbnail-description", value: "Explore Wikipedia, the free encyclopedia that anyone can edit", comment: "New tab thumbanail description")
 
     // Search Widget Feature Announcement
 
     @objc public static let searchWidgetAnnouncementTitle = WMFLocalizedString("search-widget-announcement-title", value: "New Search widget available", comment: "Title for the search widget feature announcement")
     
     @objc public static let searchWidgetAnnouncementBody = WMFLocalizedString("search-widget-announcement-body", value: "Add the Wikipedia Search widget to your Home or Lock Screen for faster answers, right at your fingertips.", comment: "Body text for the search widget feature announcement")
+    
+    public static let newTabTheme = WMFLocalizedString("settings-new-article-tab-header-text", value: "New Tab Theme", comment: "Header title for the New Article Tabs settings to determine between preferences")
+    public static let recommendations = WMFLocalizedString("new-article-tab-settings-recommendations", value: "Recommendations", comment: "Toggle for article recommendations / because you read")
+    public static let didyouknow = WMFLocalizedString("new-article-tab-settings-did-you-know", value: "Did You Know?", comment: "Toggle for did you know")
+    // New Article Tab Did You Know
+    
+    public static let articleTabsDYKTitle = WMFLocalizedString("article-tabs-did-you-know-title", value: "Did you know", comment: "Title for the new article tab did you know section")
+    
+    public static let fromWikipediaDefault = WMFLocalizedString("new-article-tab-from-wikipedia-default", value: "from Wikipedia", comment: "Text displayed as Wikipedia source on new tab if language is unavailable.")
 
 }
 

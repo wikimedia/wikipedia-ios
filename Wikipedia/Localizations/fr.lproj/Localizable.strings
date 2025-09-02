@@ -183,6 +183,17 @@
 "article-share" = "Partager";
 "article-tabs-button-accessibility-hint" = "Navigue vers l’aperçu des onglets";
 "article-tabs-button-accessibility-label" = "Onglets de l’article";
+"article-tabs-did-you-know-title" = "Le saviez-vous ?";
+"article-tabs-feature-announcement-item-1-subtitle" = "Ouvrez plusieurs articles et passez facilement d’un à un autre.";
+"article-tabs-feature-announcement-item-1-title" = "Naviguez avec des onglets";
+"article-tabs-feature-announcement-item-2-subtitle" = "Les onglets mémorisent automatiquement votre position de défilement.";
+"article-tabs-feature-announcement-item-2-title" = "Reprenez là où vous vous êtes arrêté";
+"article-tabs-feature-announcement-item-3-subtitle" = "Ouvrez les liens dans des onglets en arrière-plan sans perdre votre page courante.";
+"article-tabs-feature-announcement-item-3-title" = "Enregistrez des liens pour plus tard";
+"article-tabs-feature-announcement-item-4-subtitle" = "Choisissez des faits amusants ou des suggestions de lecture lorsque vous ouvrez un nouvel onglet.";
+"article-tabs-feature-announcement-item-4-title" = "Personnalisez votre nouvel onglet";
+"article-tabs-feature-announcement-sub-cta" = "Apprenez-en plus sur les onglets";
+"article-tabs-feature-announcement-title" = "Présentation des onglets";
 "article-tabs-max-reached" = "Limite d'onglets atteinte ( $1 ). L'article a été ouvert dans l'onglet actuel. Veuillez fermer un ou plusieurs onglets.";
 "article-tabs-navigation" = "Navigation entre les onglets";
 "article-tabs-onboarding-tooltip" = "Info-bulles pour les onglets";
@@ -272,11 +283,13 @@
 "developer-settings-activity-tab-group-A" = "Définir l’onglet d’activité sur le groupe A";
 "developer-settings-activity-tab-group-B" = "Définir l’onglet d’activité sur le groupe B";
 "developer-settings-activity-tab-group-C" = "Définir l’onglet d’activité sur le groupe C";
-"developer-settings-activity-tabs" = "Activer les onglets d’activité";
 "developer-settings-bypass-donation" = "Contourner un don";
+"developer-settings-dynamic-tabs-BYR" = "Activer les onglets avec « Parce que vous avez lu »";
+"developer-settings-dynamic-tabs-DYK" = "Activer les onglets avec « Le saviez-vous ? »";
 "developer-settings-enable-year-in-review" = "Activer le Bilan de l'Année";
 "developer-settings-send-analytics-to-wmflabs" = "Envoyez les analyses à WMFlabs.";
 "developer-settings-suppress-image-rec-post" = "Ne publiez pas de recommandations d'édition d'image.";
+"did-you-know" = "Le saviez-vous ?";
 "diff-article-revision-history" = "Historique des révisions de l’article";
 "diff-change-added" = "Ajout, $1, fin de l'ajout.";
 "diff-change-paragraph-lines-moved-down" = "Paragraphe déplacé vers le bas {{PLURAL:$1|0=0 lignes|$1 ligne|$1 lignes}}. Aller au nouvel emplacement.";
@@ -530,7 +543,7 @@
 "explore-feed-preferences-show-places-title" = "Afficher la carte « Lieux »";
 "explore-feed-preferences-show-randomizer-footer-text" = "Désactiver la carte « Aléatoire » la désactivera dans toutes les langues disponibles.";
 "explore-feed-preferences-show-randomizer-title" = "Afficher la carte « Aléatoire »";
-"explore-feed-preferences-show-related-pages-title" = "Afficher la carte « Parce que vous lisez »";
+"explore-feed-preferences-show-related-pages-title" = "Afficher la carte « Parce que vous avez lu »";
 "explore-feed-preferences-show-top-read-footer-text" = "Désactiver la carte « Le plus lu » la désactivera dans toutes les langues disponibles.";
 "explore-feed-preferences-show-top-read-title" = "Afficher la carte « Le plus lu »";
 "explore-feed-preferences-suggested-edits-description" = "Suggestions pour ajouter du contenu à Wikipedia";
@@ -764,8 +777,6 @@
 "microsite-yir-english-edits-bytes-slide-title" = "4 milliards d'octets ajoutés";
 "microsite-yir-english-edits-slide-subtitle" = "Les bénévoles ont apporté 98 222 407 modifications dans plus de 300 versions linguistiques différentes de Wikipédia. Plus de 37 millions de modifications ont été apportées à Wikipédia en anglais. Chaque heure de chaque jour, des bénévoles travaillent à l'amélioration de Wikipédia.";
 "microsite-yir-english-edits-slide-title" = "Les contributeurs ont réalisé 98 millions de modifications cette année";
-"microsite-yir-english-non-donor-slide-subtitle" = "Grâce à votre aide, la Fondation Wikimédia, l'organisme à but non lucratif à l'origine de Wikipédia, continuera à garantir que les informations sur lesquelles vous comptez sont exemptes de publicité et fiables, tout en permettant à Wikipédia de fonctionner sans problème avec des outils et des technologies de pointe. N'hésitez pas à faire un don dès aujourd'hui. [En savoir plus sur notre travail]($1).";
-"microsite-yir-english-non-donor-slide-title" = "Aucune publicité n'est diffusée sur Wikipédia";
 "microsite-yir-english-reading-slide-subtitle" = "Les utilisateurs ont passé environ 2,9 milliards d'heures (près de 331 000 ans !) à lire Wikipédia en anglais en 2024. Wikipédia est là lorsque vous souhaitez en savoir plus sur l'évolution de notre monde, gagner un pari entre amis ou répondre à la question d'un enfant curieux.";
 "microsite-yir-english-reading-slide-title" = "Nous avons passé 2,9 milliards d’heures à lire";
 "microsite-yir-english-saved-reading-slide-subtitle" = "Les utilisateurs actifs de l'application iOS comptaient plus de 62,2 millions de listes de lecture. L'ajout d'articles aux listes de lecture vous permet d'accéder aux articles même hors ligne. Vous pouvez également vous connecter pour synchroniser les listes de lecture sur plusieurs appareils.";
@@ -781,6 +792,9 @@
 "nearby-distance-label-km" = "$1 km";
 "nearby-distance-label-meters" = "$1 m";
 "nearby-distance-label-miles" = "$1 miles";
+"new-article-tab-from-wikipedia-default" = "de Wikipédia";
+"new-article-tab-settings-did-you-know" = "Le saviez-vous ?";
+"new-article-tab-settings-recommendations" = "Recommandations";
 "new-password-instructions" = "Vous vous êtes connecté avec un mot de passe temporaire. Pour achever de vous connecter, saisissez un nouveau mot de passe ici.";
 "new-password-title" = "Définir votre mot de passe";
 "new-tab" = "Nouvel onglet";
@@ -1143,7 +1157,6 @@
 "saved-unsave-article-and-remove-from-reading-lists-title" = "Ne plus enregistrer l{{PLURAL:$1|’|es}} article{{PLURAL:$1||s}} ?";
 "search-button-accessibility-label" = "Rechercher dans Wikipédia";
 "search-clear-title" = "Effacer";
-"search-did-you-mean" = "Voulez-vous dire $1 ?";
 "search-field-placeholder-text" = "Rechercher dans Wikipédia";
 "search-reading-list-placeholder-text" = "Rechercher les listes de lecture";
 "search-recent-clear-confirmation-heading" = "Supprimer toutes les recherches récentes ?";
@@ -1171,6 +1184,7 @@
 "settings-language-bar" = "Afficher les langues dans la recherche";
 "settings-languages-feed-customization" = "Vous pouvez gérer les langues affichées dans votre flux d'exploration en personnalisant vos paramètres du flux d'exploration.";
 "settings-my-languages" = "Mes langues";
+"settings-new-article-tab-header-text" = "Nouveau thème d’onglet";
 "settings-notifications" = "Notifications envoyées";
 "settings-notifications-echo-failure-message" = "Une erreur s’est produite en vérifiant les abonnements aux notifications liées à votre compte.";
 "settings-notifications-echo-failure-title" = "Impossible de vérifier les abonnements aux notifications d’Echo";
@@ -1235,6 +1249,12 @@
 "tabs-overview-tooltip-body" = "Basculez entre les articles ouverts dans l'aperçu des onglets.";
 "tabs-overview-tooltip-title" = "Aperçu des onglets";
 "tabs-survey-title" = "Aidez-nous à améliorer la fonctionnalité des onglets. Êtes-vous satisfait de cette fonctionnalité ?";
+// Fuzzy
+"tabs-thumbnail-description" = "Explorez Wikipédia, l’encyclopédie libre que n’importe qui peut modifier";
+"tabs-thumbnail-subtitle" = "Commencez votre recherche ici";
+"tabs-title" = "Onglets";
+// Fuzzy
+"tabs-title-preferences" = "Préférences des onglets";
 "tachelhit-variants-alert-body" = "L’application Wikipédia prend maintenant en charge les variantes suivantes du chleuh comme langues primaire ou secondaires dans l’application, le rendant plus facile à lire, rechercher ou modifier dans vos variantes préférées :\n\nⵜⴰⵛⵍⵃⵉⵜ – chleuh tifinagh (shi-tfng)\nTaclḥit – chleuh latin (shi-latn)";
 "tachelhit-variants-alert-title" = "Mises à jour de la prise en charge des variantes du chleuh";
 "tajik-variants-alert-body" = "L’application Wikipédia prend maintenant en charge les variantes suivantes du tadjik comme langues primaire ou secondaires dans l’application, le rendant plus facile à lire, rechercher ou modifier dans vos variantes préférées :\n\nтоҷикӣ кирилликӣ – tadjik cyrillique (tg-cyrl)\ntojikī lotinī – tadjik latin (tg-latn)";

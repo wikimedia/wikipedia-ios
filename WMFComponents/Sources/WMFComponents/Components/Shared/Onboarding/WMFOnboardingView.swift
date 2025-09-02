@@ -63,12 +63,12 @@ public struct WMFOnboardingView: View {
                 scrollView
             }
             VStack(spacing: 20) {
-                WMFLargeButton(configuration: .primary, title: viewModel.primaryButtonTitle, action: primaryButtonAction)
+                WMFLargeButton(configuration: .primary, title: viewModel.primaryButtonTitle, action: ( viewModel.primaryButtonAction != nil ? viewModel.primaryButtonAction : primaryButtonAction))
                     .padding([.top], 16)
 
                 if let secondaryTitle = viewModel.secondaryButtonTitle {
                     let configuration = WMFSmallButton.Configuration(style: .quiet, trailingIcon: viewModel.secondaryButtonTrailingIcon)
-                    WMFSmallButton(configuration: configuration, title: secondaryTitle, action: secondaryButtonAction)
+                    WMFSmallButton(configuration: configuration, title: secondaryTitle, action: ( viewModel.secondaryButtonAction != nil ? viewModel.secondaryButtonAction : secondaryButtonAction))
                 }
             }
             .padding(EdgeInsets(top: 12, leading: sizeClassPadding, bottom: 24, trailing: sizeClassPadding))

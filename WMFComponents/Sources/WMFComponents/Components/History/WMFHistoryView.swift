@@ -59,12 +59,13 @@ public struct WMFHistoryView: View {
             id: item.id,
             titleHtml: item.titleHtml,
             articleDescription: item.description,
-            imageURL: item.imageURL,
+            imageURLString: item.imageURLString,
             isSaved: item.isSaved,
             deleteAccessibilityLabel: viewModel.localizedStrings.deleteSwipeActionLabel,
             shareAccessibilityLabel: viewModel.localizedStrings.shareActionTitle,
             saveAccessibilityLabel: viewModel.localizedStrings.saveForLaterActionTitle,
             unsaveAccessibilityLabel: viewModel.localizedStrings.unsaveActionTitle,
+            showsSwipeActions: true,
             deleteItemAction: {
                 viewModel.delete(section: section, item: item)
             },
@@ -73,7 +74,11 @@ public struct WMFHistoryView: View {
             },
             saveOrUnsaveItemAction: {
                 viewModel.saveOrUnsave(item: item, in: section)
+            },
+            loadImageAction: { imageURLString in
+                return try? await viewModel.loadImage(imageURLString: imageURLString)
             }
+
         )
     }
 
@@ -145,7 +150,7 @@ public struct WMFHistoryView: View {
     }
 
     private func getPreviewViewModel(from item: HistoryItem) -> WMFArticlePreviewViewModel {
-        return WMFArticlePreviewViewModel(url: item.url, titleHtml: item.titleHtml, description: item.description, imageURL: item.imageURL, isSaved: item.isSaved, snippet: item.snippet)
+        return WMFArticlePreviewViewModel(url: item.url, titleHtml: item.titleHtml, description: item.description, imageURLString: item.imageURLString, isSaved: item.isSaved, snippet: item.snippet)
     }
 
     // MARK: - Public methods

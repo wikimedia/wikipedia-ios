@@ -675,8 +675,6 @@
 "microsite-yir-english-edits-bytes-slide-title" = "נוספו 4 מיליארד בתים";
 "microsite-yir-english-edits-slide-subtitle" = "מתנדבים עשו 98,222,407 שינויים ביותר מ־300 מהדורות של ויקיפדיה בשפות שונות. יותר מ־37 מיליון שינויים נעשו בויקיפדיה האנגלית. כל שעה בכל יום עובדים מתנדבים לשיפור ויקיפדיה.";
 "microsite-yir-english-edits-slide-title" = "העורכים עשו השנה כמעט 98 מיליון שינויים";
-"microsite-yir-english-non-donor-slide-subtitle" = "בעזרתכם, קרן ויקימדיה - המוסד ללא כוונת רווח שמאחורי ויקיפדיה - תמשיך להבטיח שהמידע שאתם מסתמכים עליו יהיה נטול פרסומות ואמין, תוך שמירה על הפעלה חלקה של ויקיפדיה עם כלים וטכנולוגיות מתקדמות. בבקשה, תשקלו לתרום כבר היום. [למידע נוסף על העבודה שלנו]($1).";
-"microsite-yir-english-non-donor-slide-title" = "0 פרסומות הופיעו בוויקיפדיה";
 "microsite-yir-english-reading-slide-subtitle" = "אנשים השקיעו כ־2.9 מיליארד שעות - כמעט 331,000 שנה! - בקריאה בוויקיפדיה האנגלית בשנת 2024. ויקיפדיה נמצאת שם כאשר אתם רוצים ללמוד על העולם המשתנה שלנו, לזכות בהתערבות בין חברים או לענות על שאלה של ילד סקרן.";
 "microsite-yir-english-reading-slide-title" = "בילינו 2.9 מיליארד שעות בקריאה";
 "microsite-yir-english-saved-reading-slide-subtitle" = "למשתמשים הפעילים של היישום ל־iOS היו יותר מ־62.2 מיליון רשימות קריאה. הוספת ערכים לרשימות קריאה מאפשרת לך לגשת לערכים גם ללא חיבור לרשת. אפשר גם להיכנס לחשבון כדי לסנכרן רשימות קריאה בין מכשירים.";
@@ -1046,7 +1044,6 @@
 "saved-unsave-article-and-remove-from-reading-lists-title" = "לבטל את השמירה של {{PLURAL:$1|הערך|הערכים}}?";
 "search-button-accessibility-label" = "חיפוש בוויקיפדיה";
 "search-clear-title" = "ניקוי";
-"search-did-you-mean" = "האם התכוונת לחפש $1?";
 "search-field-placeholder-text" = "חיפוש בוויקיפדיה";
 "search-reading-list-placeholder-text" = "חיפוש ברשימת קריאה";
 "search-recent-clear-confirmation-heading" = "למחוק את כל החיפושים האחרונים?";

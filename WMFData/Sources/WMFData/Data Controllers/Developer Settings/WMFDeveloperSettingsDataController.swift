@@ -2,8 +2,11 @@ import Foundation
 
 public protocol WMFDeveloperSettingsDataControlling: AnyObject {
     func loadFeatureConfig() -> WMFFeatureConfigResponse?
-    var enableMoreDynamicTabs: Bool { get }
+    var enableMoreDynamicTabsBYR: Bool { get }
+    var enableMoreDynamicTabsDYK: Bool { get }
     var forceMaxArticleTabsTo5: Bool { get }
+    var showYiRV2: Bool { get }
+    var showYiRV3: Bool { get }
 }
 
 @objc public final class WMFDeveloperSettingsDataController: NSObject, WMFDeveloperSettingsDataControlling {
@@ -106,13 +109,44 @@ public protocol WMFDeveloperSettingsDataControlling: AnyObject {
         }
     }
 
-    public var enableMoreDynamicTabs: Bool {
+    public var enableMoreDynamicTabsBYR: Bool {
         get {
-            return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsMoreDynamicTabs.rawValue)) ?? false
+            return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsMoreDynamicTabsBYR.rawValue)) ?? false
         } set {
-            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsMoreDynamicTabs.rawValue, value: newValue)
+            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsMoreDynamicTabsBYR.rawValue, value: newValue)
         }
+    }
 
+    public var enableMoreDynamicTabsDYK: Bool {
+        get {
+            return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsMoreDynamicTabsDYK.rawValue)) ?? false
+        } set {
+            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsMoreDynamicTabsDYK.rawValue, value: newValue)
+        }
+    }
+    
+    public var limitYiRCategoriesTo2Underscores: Bool {
+        get {
+            return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsYiRLimitCategoriesTo2Underscores.rawValue)) ?? false
+        } set {
+            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsYiRLimitCategoriesTo2Underscores.rawValue, value: newValue)
+        }
+    }
+    
+    public var showYiRV2: Bool {
+        get {
+            return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsShowYiRV2.rawValue)) ?? false
+        } set {
+            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsShowYiRV2.rawValue, value: newValue)
+        }
+    }
+    
+    public var showYiRV3: Bool {
+        get {
+            return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsShowYiRV3.rawValue)) ?? false
+        } set {
+            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsShowYiRV3.rawValue, value: newValue)
+        }
     }
 
     // MARK: - Remote Settings from donatewiki AppsFeatureConfig json

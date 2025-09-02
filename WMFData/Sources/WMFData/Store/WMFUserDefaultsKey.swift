@@ -1,4 +1,4 @@
-enum WMFUserDefaultsKey: String {
+public enum WMFUserDefaultsKey: String {
     case watchlistFilterSettings = "watchlist-filter-settings"
 	case imageRecommendationsOnboarding = "image-recommendations-onboarding"
     case developerSettingsDoNotPostImageRecommendationsEdit = "dev-settings-do-not-post-image-rec-edit"
@@ -22,5 +22,10 @@ enum WMFUserDefaultsKey: String {
     case articleTabsOverviewOpenedCount = "article-tabs-overview-opened-count"
     case articleTabsDidTapOpenInNewTab = "article-tabs-did-tap-open-in-new-tab"
     case articleTabsDidShowSurvey = "article-tabs-did-show-survey"
+    case developerSettingsMoreDynamicTabsBYR = "more-dynamic-tabs-BYR"
+    case developerSettingsMoreDynamicTabsDYK = "more-dynamic-tabs-DYK"
     case developerSettingsMoreDynamicTabs = "more-dynamic-tabs"
+    case developerSettingsYiRLimitCategoriesTo2Underscores = "dev-settings-yir-limit-categories-to-2-underscores"
+    case developerSettingsShowYiRV2 = "dev-settings-yir-show-v2"
+    case developerSettingsShowYiRV3 = "dev-settings-yir-show-v3"
 }

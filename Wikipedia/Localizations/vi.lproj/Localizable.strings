@@ -831,7 +831,6 @@
 "saved-unsave-article-and-remove-from-reading-lists-title" = "Xóa {{PLURAL:$1|bài|các bài}} đã lưu?";
 "search-button-accessibility-label" = "Tìm trong Wikipedia";
 "search-clear-title" = "Xóa sạch";
-"search-did-you-mean" = "Có phải bạn muốn tìm “$1”?";
 "search-field-placeholder-text" = "Tìm trong Wikipedia";
 "search-reading-list-placeholder-text" = "Tìm trong danh sách đọc";
 "search-recent-clear-confirmation-heading" = "Xóa các tìm kiếm gần đây?";

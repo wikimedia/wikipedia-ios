@@ -83,5 +83,4 @@ extension URLComponents {
     public func wmf_URLWithLanguageVariantCode(_ code: String?) -> URL? {
         return (self as NSURLComponents).wmf_URL(withLanguageVariantCode: code)
     }
-
 }

@@ -42,6 +42,7 @@
 // Author: Josuert
 // Author: Juan Cuartas
 // Author: Koavf
+// Author: Laranxa
 // Author: Luisangelrg
 // Author: Luzcaru
 // Author: Macofe
@@ -61,6 +62,7 @@
 // Author: RicardoSGZ
 // Author: Rodm23
 // Author: Rodney Araujo
+// Author: Rousmery96
 // Author: Ryo567
 // Author: Samthony
 // Author: SpikeShroom
@@ -201,6 +203,16 @@
 "article-share" = "Compartir";
 "article-tabs-button-accessibility-hint" = "Navega a la descripción general de las pestañas";
 "article-tabs-button-accessibility-label" = "Pestañas de artículos";
+"article-tabs-feature-announcement-item-1-subtitle" = "Abra varios artículos y alterne entre ellos con facilidad.";
+"article-tabs-feature-announcement-item-1-title" = "Navegar con pestañas";
+"article-tabs-feature-announcement-item-2-subtitle" = "Las pestañas recuerdan automáticamente tu posición de desplazamiento.";
+"article-tabs-feature-announcement-item-2-title" = "Continúa donde lo dejaste";
+"article-tabs-feature-announcement-item-3-subtitle" = "Abra enlaces en pestañas en segundo plano sin perder tu lugar.";
+"article-tabs-feature-announcement-item-3-title" = "Guardar enlaces para más tarde";
+"article-tabs-feature-announcement-item-4-subtitle" = "Elija datos curiosos o sugerencias de lectura al abrir una nueva pestaña.";
+"article-tabs-feature-announcement-item-4-title" = "Personaliza tu nueva pestaña";
+"article-tabs-feature-announcement-sub-cta" = "Más información sobre Pestañas";
+"article-tabs-feature-announcement-title" = "Presentación de las pestañas";
 "article-tabs-max-reached" = "Se alcanzó el límite de pestañas ( $1 ). El artículo se abrió en la pestaña actual. Cierre una o más pestañas.";
 "article-tabs-navigation" = "Navegación por pestañas";
 "article-tabs-onboarding-tooltip" = "Información sobre herramientas de incorporación para pestañas";
@@ -290,8 +302,9 @@
 "developer-settings-activity-tab-group-A" = "Establecer la pestaña de actividad en el grupo A";
 "developer-settings-activity-tab-group-B" = "Establecer la pestaña de actividad en el grupo B";
 "developer-settings-activity-tab-group-C" = "Establecer la pestaña de actividad en el grupo C";
-"developer-settings-activity-tabs" = "Habilitar pestañas de actividad";
 "developer-settings-bypass-donation" = "Saltar donación";
+"developer-settings-dynamic-tabs-BYR" = "Habilitar pestañas con Porque lees";
+"developer-settings-dynamic-tabs-DYK" = "Habilitar pestañas con Sabías que";
 "developer-settings-enable-year-in-review" = "Habilitar Resumen del año";
 "developer-settings-send-analytics-to-wmflabs" = "Enviar análisis a wmflabs";
 "developer-settings-suppress-image-rec-post" = "No publicar la edición de imágenes recomendadas.";
@@ -782,8 +795,6 @@
 "microsite-yir-english-edits-bytes-slide-title" = "4 mil millones de bytes añadidos";
 "microsite-yir-english-edits-slide-subtitle" = "Los voluntarios realizaron 98.222.407 cambios en más de 300 ediciones de Wikipedia en diferentes idiomas. Se realizaron más de 37 millones de cambios en la Wikipedia en inglés. Cada hora, los voluntarios trabajan para mejorar Wikipedia.";
 "microsite-yir-english-edits-slide-title" = "Los editores realizaron 98 millones de cambios este año";
-"microsite-yir-english-non-donor-slide-subtitle" = "Con tu ayuda, la Fundación Wikimedia, la organización sin fines de lucro detrás de Wikipedia, seguirá garantizando que la información en la que confías esté libre de publicidad y sea confiable, a la vez que mantiene Wikipedia funcionando sin problemas con herramientas y tecnologías de vanguardia. Por favor, considera hacer una donación hoy mismo. [Más información sobre nuestro trabajo]($1).";
-"microsite-yir-english-non-donor-slide-title" = "0 anuncios publicados en Wikipedia";
 "microsite-yir-english-reading-slide-subtitle" = "Se estima que la gente pasó 2.900 millones de horas (¡más de 331.000 años!) leyendo Wikipedia en inglés en 2024. Wikipedia está ahí cuando quieres aprender sobre nuestro mundo cambiante, ganar una apuesta entre amigos o responder la pregunta de un niño curioso.";
 "microsite-yir-english-reading-slide-title" = "Nosotros(as) pasamos 2.900 millones de horas leyendo";
 "microsite-yir-english-saved-reading-slide-subtitle" = "Los usuarios activos de la app iOS tenían más de 62,2 millones de listas de lectura. Añadir artículos a las listas de lectura te permite acceder a ellos incluso sin conexión. También puedes iniciar sesión para sincronizar las listas de lectura en todos tus dispositivos.";
@@ -1161,7 +1172,6 @@
 "saved-unsave-article-and-remove-from-reading-lists-title" = "¿No guardar {{PLURAL:$1|el artículo|los artículos}}?";
 "search-button-accessibility-label" = "Buscar en Wikipedia";
 "search-clear-title" = "Limpiar";
-"search-did-you-mean" = "¿Quisiste decir $1?";
 "search-field-placeholder-text" = "Buscar en Wikipedia";
 "search-reading-list-placeholder-text" = "Buscar en lista de lectura";
 "search-recent-clear-confirmation-heading" = "¿Borrar todas las búsquedas recientes?";
@@ -1253,6 +1263,9 @@
 "tabs-overview-tooltip-body" = "Cambiar entre artículos abiertos en la descripción general de pestañas.";
 "tabs-overview-tooltip-title" = "Descripción general de las pestañas";
 "tabs-survey-title" = "Ayuda a mejorar la función de pestañas. ¿Estás satisfecho con esta función?";
+// Fuzzy
+"tabs-thumbnail-description" = "Explora Wikipedia, la enciclopedia libre que cualquiera puede editar";
+"tabs-thumbnail-subtitle" = "Comience su búsqueda aquí";
 "tachelhit-variants-alert-body" = "La aplicación de Wikipedia ahora soporta las variantes del tashelit siguientes como lenguas primarias o secundarias dentro de la aplicación, haciéndolo más fácil de leer, buscar y editar en tus variantes preferidas:\n\nⵜⴰⵛⵍⵃⵉⵜ tashelit, tifinagh (shi-tfng)\nTaclḥit tashelit, latino (shi-latn)";
 "tachelhit-variants-alert-title" = "Actualizaciones a soporte de variantes del tashelhit";
 "tajik-variants-alert-body" = "La aplicación de Wikipedia ahora soporta las variantes del tayiko siguientes como lenguas primarias o secundarias dentro de la aplicación, haciéndolo más fácil de leer, buscar y editar en tus variantes preferidas:\n\nтоҷикӣ кирилликӣ tayiko, cirílico (tg-cyrl)\ntojikī lotinī tayiko, latino (tg-latn)";
@@ -1350,6 +1363,7 @@
 "theme-default-explanation" = "Coincidir con tema del sistema";
 "theme-light-display-name" = "Claro";
 "theme-sepia-display-name" = "Sepia";
+"today-title" = "Hoy";
 "top-read-widget-description" = "Entérate lo que el mundo está leyendo hoy en Wikipedia.";
 "top-read-widget-readers-count" = "$1 lectores";
 "top-read-widget-title" = "Más leídos";
@@ -1553,3 +1567,4 @@
 "year-in-review-survey-very-unsatisfied" = "Muy insatisfecho";
 "year-in-review-wikipedia-w-accessibility-label" = "Logotipo de Wikipedia";
 "year-in-review-wmf-logo-accessibility-label" = "Logotipo de la Fundación Wikimedia";
+"yesterday-title" = "Ayer";

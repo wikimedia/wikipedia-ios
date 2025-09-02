@@ -3,15 +3,11 @@ import Foundation
 public class WMFYearInReviewSlide: Identifiable {
     public let year: Int
     public let id: WMFYearInReviewPersonalizedSlideID
-    public var evaluated: Bool
-    public var display: Bool
     public var data: Data?
 
-    init(year: Int, id: WMFYearInReviewPersonalizedSlideID, evaluated: Bool, display: Bool, data: Data? = nil) {
+    init(year: Int, id: WMFYearInReviewPersonalizedSlideID, data: Data? = nil) {
         self.year = year
         self.id = id
-        self.evaluated = evaluated
-        self.display = display
         self.data = data
     }
 }
@@ -23,8 +19,31 @@ public enum WMFYearInReviewPersonalizedSlideID: String, Comparable {
     case saveCount
     case mostReadDay
     case viewCount
+    case topArticles
+    case mostReadCategories
 
     public static func < (lhs: WMFYearInReviewPersonalizedSlideID, rhs: WMFYearInReviewPersonalizedSlideID) -> Bool {
         return lhs.rawValue < rhs.rawValue
+    }
+    
+    func dataController() -> YearInReviewSlideDataControllerProtocol.Type {
+        switch self {
+        case .readCount:
+            return YearInReviewReadCountSlideDataController.self
+        case .editCount:
+            return YearInReviewEditCountSlideDataController.self
+        case .donateCount:
+            return YearInReviewDonateCountSlideDataController.self
+        case .saveCount:
+            return YearInReviewSaveCountSlideDataController.self
+        case .mostReadDay:
+            return YearInReviewMostReadDaySlideDataController.self
+        case .viewCount:
+            return YearInReviewViewCountSlideDataController.self
+        case .topArticles:
+            return YearInReviewTopReadArticleSlideDataController.self
+        case .mostReadCategories:
+            return YearInReviewMostReadCategoriesSlideDataController.self
+        }
     }
 }

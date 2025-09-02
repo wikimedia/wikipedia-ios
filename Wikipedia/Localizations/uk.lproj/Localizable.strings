@@ -154,6 +154,16 @@
 "article-share" = "Поділитися";
 "article-tabs-button-accessibility-hint" = "Перехід до огляду вкладок";
 "article-tabs-button-accessibility-label" = "Вкладки статей";
+"article-tabs-feature-announcement-item-1-subtitle" = "Відкривайте кілька статей та легко перемикайтеся між ними.";
+"article-tabs-feature-announcement-item-1-title" = "Перегляд за допомогою вкладок";
+"article-tabs-feature-announcement-item-2-subtitle" = "Вкладки автоматично запам'ятовують позицію прокручування.";
+"article-tabs-feature-announcement-item-2-title" = "Продовжуйте з того місця, де зупинилися";
+"article-tabs-feature-announcement-item-3-subtitle" = "Відкривайте посилання у фонових вкладках, не втрачаючи місця, на якому ви є.";
+"article-tabs-feature-announcement-item-3-title" = "Зберігайте посилання на потім";
+"article-tabs-feature-announcement-item-4-subtitle" = "Вибирайте цікаві факти або пропозиції для читання під час відкриття нової вкладки.";
+"article-tabs-feature-announcement-item-4-title" = "Персоналізуйте свою нову вкладку";
+"article-tabs-feature-announcement-sub-cta" = "Дізнайтеся більше про вкладки";
+"article-tabs-feature-announcement-title" = "Знайомство з вкладками";
 "article-tabs-max-reached" = "Досягнуто ліміту вкладок ($1). Статтю було відкрито у поточній вкладці. Будь ласка, закрийте одну або кілька вкладок.";
 "article-tabs-navigation" = "Навігація вкладками";
 "article-tabs-onboarding-tooltip" = "Навчальні підказки для вкладок";
@@ -243,8 +253,9 @@
 "developer-settings-activity-tab-group-A" = "Встановити вкладку «Діяльність» групі A";
 "developer-settings-activity-tab-group-B" = "Встановити вкладку «Діяльність» групі B";
 "developer-settings-activity-tab-group-C" = "Встановити вкладку «Діяльність» групі C";
-"developer-settings-activity-tabs" = "Увімкнути вкладки активності";
 "developer-settings-bypass-donation" = "Обійти пожертвування";
+"developer-settings-dynamic-tabs-BYR" = "Увімкнути вкладки з «Оскільки Ви читали»";
+"developer-settings-dynamic-tabs-DYK" = "Увімкнути вкладки з «Чи знаєте ви»";
 "developer-settings-enable-year-in-review" = "Увімкнути Огляд року";
 "developer-settings-send-analytics-to-wmflabs" = "Надсилати аналітику на wmflabs.";
 "developer-settings-suppress-image-rec-post" = "Не публікуйте рекомендації щодо редагування зображень.";
@@ -735,8 +746,6 @@
 "microsite-yir-english-edits-bytes-slide-title" = "Додано 4 мільярди байтів";
 "microsite-yir-english-edits-slide-subtitle" = "Волонтери внесли 98 222 407 змін у понад 300 мовних версіях Вікіпедії. В англійській Вікіпедії було зроблено понад 37 мільйонів змін. Щогодини щодня волонтери працюють над покращенням Вікіпедії.";
 "microsite-yir-english-edits-slide-title" = "Цього року редактори внесли 98 мільйонів змін";
-"microsite-yir-english-non-donor-slide-subtitle" = "З вашою допомогою Фонд Вікімедіа — некомерційна організація, що стоїть за Вікіпедією — продовжуватиме забезпечувати відсутність реклами і надійність інформації, на яку ви покладаєтеся, водночас підтримуючи безперебійну роботу Вікіпедії за допомогою найсучасніших інструментів і технологій. Будь ласка, розгляньте можливість зробити пожертву сьогодні. [Докладніше про нашу роботу]($1).";
-"microsite-yir-english-non-donor-slide-title" = "У Вікіпедії розміщено 0 рекламних оголошень";
 "microsite-yir-english-reading-slide-subtitle" = "У 2024 році люди витратили приблизно 2,9 мільярда годин — понад 331 000 років! — на читання англомовної Вікіпедії. Вікіпедія тут, коли ви хочете дізнатися про наш мінливий світ, виграти парі серед друзів або відповісти на запитання допитливої дитини.";
 "microsite-yir-english-reading-slide-title" = "Ми витратили 2,9 мільярда годин на читання";
 "microsite-yir-english-saved-reading-slide-subtitle" = "Активні користувачі iOS App мали понад 62,2 мільйона списків читання. Додавання статей до списків читання дає вам доступ до статей навіть у режимі офлайн. Ви також можете увійти в систему, щоб синхронізувати списки читання на різних пристроях.";
@@ -1114,7 +1123,6 @@
 "saved-unsave-article-and-remove-from-reading-lists-title" = "Не зберігати {{PLURAL:$1|стаття|статті|статей}}?";
 "search-button-accessibility-label" = "Пошук по Вікіпедії";
 "search-clear-title" = "Очистити";
-"search-did-you-mean" = "Можливо, ви мали на увазі «$1»?";
 "search-field-placeholder-text" = "Пошук по Вікіпедії";
 "search-reading-list-placeholder-text" = "Пошук у читальному списку";
 "search-recent-clear-confirmation-heading" = "Вилучити всі недавні пошукові запити?";
@@ -1303,6 +1311,7 @@
 "theme-default-explanation" = "Підлаштована під вигляд системи";
 "theme-light-display-name" = "Світла";
 "theme-sepia-display-name" = "Сепія";
+"today-title" = "Сьогодні";
 "top-read-widget-description" = "Дізнайтеся, що світ читає у Вікіпедії сьогодні.";
 "top-read-widget-readers-count" = "$1 читачів";
 "top-read-widget-title" = "Найчитаніше";
@@ -1506,3 +1515,4 @@
 "year-in-review-survey-very-unsatisfied" = "Дуже незадоволений/а";
 "year-in-review-wikipedia-w-accessibility-label" = "Логотип Вікіпедії";
 "year-in-review-wmf-logo-accessibility-label" = "Логотип Фонду Вікімедіа";
+"yesterday-title" = "Учора";

@@ -666,7 +666,6 @@
 "saved-unsave-article-and-remove-from-reading-lists-title" = "Batal simpan {{PLURAL:$1|rencana|rencana}}?";
 "search-button-accessibility-label" = "Cari dalam Wikipedia";
 "search-clear-title" = "Padamkan";
-"search-did-you-mean" = "Maksud anda, $1?";
 "search-field-placeholder-text" = "Cari dalam Wikipedia";
 "search-reading-list-placeholder-text" = "Cari senarai bacaan";
 "search-recent-clear-confirmation-heading" = "Hapuskan semua carian terkini?";

@@ -175,6 +175,19 @@
 "article-revision-history" = "تاريخ تعديل المقالة";
 "article-save-error-not-enough-space" = "ليس لديك مساحة كافية على جهازك لحفظ هذه المقالة";
 "article-share" = "مشاركة";
+"article-tabs-button-accessibility-hint" = "ينتقل إلى نظرة عامة على علامات التبويب";
+"article-tabs-button-accessibility-label" = "علامات تبويب المقالة";
+"article-tabs-did-you-know-title" = "هل تعلم";
+"article-tabs-feature-announcement-item-1-subtitle" = "افتح عدة مقالات وقم بالتبديل بينها بسهولة.";
+"article-tabs-feature-announcement-item-1-title" = "التصفح باستخدام علامات التبويب";
+"article-tabs-feature-announcement-item-2-subtitle" = "تتذكر علامات التبويب موضع التمرير الخاص بك تلقائيًا.";
+"article-tabs-feature-announcement-item-2-title" = "إستأنف من حيث توقفت";
+"article-tabs-feature-announcement-item-3-subtitle" = "افتح الروابط في علامات التبويب في الخلفية دون أن تفقد مكانك.";
+"article-tabs-feature-announcement-item-3-title" = "حفظ الروابط لوقت لاحق";
+"article-tabs-feature-announcement-item-4-subtitle" = "اختر حقائق ممتعة أو اقتراحات للقراءة عند فتح علامة تبويب جديدة.";
+"article-tabs-feature-announcement-item-4-title" = "قم بتخصيص علامة التبويب الجديدة الخاصة بك";
+"article-tabs-feature-announcement-sub-cta" = "تعرف على المزيد حول علامات التبويب";
+"article-tabs-feature-announcement-title" = "مقدمة عن علامات التبويب";
 "article-tabs-max-reached" = "تم الوصول إلى الحد الأقصى لعلامات التبويب ($1). تم فتح المقال في علامة التبويب الحالية. يُرجى إغلاق علامة تبويب واحدة أو أكثر.";
 "article-tabs-navigation" = "التنقل بين علامات التبويب";
 "article-tabs-onboarding-tooltip" = "خطوات الإعداد لعلامات التبويب";
@@ -207,11 +220,17 @@
 "close-all-tabs" = "إغلاق جميع علامات التبويب";
 "close-all-tabs-confirmation" = "هل تريد إغلاق جميع علامات التبويب البالغ عددها $1؟ لا يمكن التراجع عن هذا الإجراء.";
 "close-all-tabs-confirmation-number" = "هل تريد إغلاق جميع علامات التبويب البالغ عددها $1؟";
+// Fuzzy
+"close-all-tabs-confirmation-subtitle-with-value" = "هل تريد إغلاق جميع {{PLURAL:$1|$1 لسان|$1 ألسنة}}؟ لا يمكن التراجع عن هذا الإجراء.";
+// Fuzzy
+"close-all-tabs-confirmation-title-with-value" = "إغلاق جميع {{PLURAL:$1|$1 لسان|$1 ألسنة}}؟";
 "close-button-accessibility-label" = "أغلق";
 "close-other-tabs" = "إغلاق علامات التبويب الأخرى";
 "close-tab-confirmation" = "هل تريد إغلاق علامة التبويب؟";
 "close-tabs" = "إغلاق علامات التبويب";
 "closed-all-tabs-confirmation" = "تم إغلاق جميع علامات التبويب البالغ عددها $1.";
+// Fuzzy
+"closed-all-tabs-confirmation-with-value" = "تم إغلاق جميع {{PLURAL:$1|$1 لسان|$1 ألسنة}}.";
 "compass-direction" = "عند الساعة $1";
 "confirm-donation-history-deletion-subtitle" = "سيتم تطبيق هذا فقط على التبرعات المقدمة من هذا الجهاز.";
 "confirm-donation-history-deletion-title" = "تأكيد الحذف";
@@ -264,11 +283,13 @@
 "developer-settings-activity-tab-group-A" = "تعيين علامة تبويب النشاط للمجموعة أ";
 "developer-settings-activity-tab-group-B" = "تعيين علامة تبويب النشاط إلى المجموعة ب";
 "developer-settings-activity-tab-group-C" = "تعيين علامة تبويب النشاط إلى المجموعة C";
-"developer-settings-activity-tabs" = "تمكين علامات تبويب النشاط";
 "developer-settings-bypass-donation" = "التبرع بالدم";
+"developer-settings-dynamic-tabs-BYR" = "تمكين علامات التبويب باستخدام \"لأنك تقرأ\"";
+"developer-settings-dynamic-tabs-DYK" = "تمكين علامات التبويب باستخدام هل تعلم";
 "developer-settings-enable-year-in-review" = "تمكين مراجعة العام";
 "developer-settings-send-analytics-to-wmflabs" = "إرسال التحليلات إلى wmflabs.";
 "developer-settings-suppress-image-rec-post" = "لا تنشر توصيات الصور.";
+"did-you-know" = "هل تعلم";
 "diff-article-revision-history" = "تاريخ مراجعة المقال";
 "diff-change-added" = "إضافة $1 ، نهاية الإضافة.";
 "diff-change-paragraph-lines-moved-down" = "تم نقل الفقرة إلى الأسفل {{PLURAL:$1|0=0 سطر|$1 سطر}}. انتقل إلى الموقع الجديد.";
@@ -756,8 +777,6 @@
 "microsite-yir-english-edits-bytes-slide-title" = "تمت إضافة 4 مليار بايت";
 "microsite-yir-english-edits-slide-subtitle" = "أجرى المتطوعون 98,222,407 تعديلاً على أكثر من 300 إصدار لغوي مختلف من ويكيبيديا. وتم إجراء أكثر من 37 مليون تعديل على ويكيبيديا الإنجليزية. وفي كل ساعة من كل يوم، يعمل المتطوعون على تحسين ويكيبيديا.";
 "microsite-yir-english-edits-slide-title" = "أجرى المحررون 98 مليون تغيير هذا العام";
-"microsite-yir-english-non-donor-slide-subtitle" = "بفضل مساعدتك، ستواصل مؤسسة ويكيميديا - المؤسسة غير الربحية التي تقف وراء ويكيبيديا - ضمان خلو المعلومات التي تعتمد عليها من الإعلانات وكونها جديرة بالثقة، مع الحفاظ على تشغيل ويكيبيديا بسلاسة باستخدام أدوات وتقنيات متطورة. يرجى التفكير في التبرع اليوم. [تعرف على المزيد حول عملنا]($1).";
-"microsite-yir-english-non-donor-slide-title" = "0 إعلان تم تقديمه على ويكيبيديا";
 "microsite-yir-english-reading-slide-subtitle" = "في عام 2024، قضى الناس ما يقدر بنحو 2.9 مليار ساعة - أي أكثر من 331000 سنة! - في قراءة ويكيبيديا الإنجليزية. ويكيبيديا موجودة عندما تريد التعرف على عالمنا المتغير، أو الفوز في رهان بين الأصدقاء، أو الإجابة على سؤال طفل فضولي.";
 "microsite-yir-english-reading-slide-title" = "لقد قضينا 2.9 مليار ساعة في القراءة";
 "microsite-yir-english-saved-reading-slide-subtitle" = "كان لدى مستخدمي تطبيق iOS النشطين أكثر من 62.2 مليون قائمة قراءة. تتيح لك إضافة المقالات إلى قوائم القراءة الوصول إلى المقالات حتى أثناء عدم الاتصال بالإنترنت. يمكنك أيضًا تسجيل الدخول لمزامنة قوائم القراءة عبر الأجهزة.";
@@ -773,6 +792,9 @@
 "nearby-distance-label-km" = "$1 كيلومتر";
 "nearby-distance-label-meters" = " $1 م";
 "nearby-distance-label-miles" = "$1 ميل";
+"new-article-tab-from-wikipedia-default" = "من ويكيبيديا";
+"new-article-tab-settings-did-you-know" = "هل تعلم؟";
+"new-article-tab-settings-recommendations" = "التوصيات";
 "new-password-instructions" = "أنت الآن مسجل الدخول بكلمة سر مؤقتة. لإكمال تسجيل الدخول أعد تعيين كلمة سر جديدة هنا.";
 "new-password-title" = "قم بتعيين كلمة المرور الخاصة بك";
 "new-tab" = "علامة تبويب جديدة";
@@ -1135,7 +1157,6 @@
 "saved-unsave-article-and-remove-from-reading-lists-title" = "إلغاء حفظ {{PLURAL:$1|مقالة|مقالات}}؟";
 "search-button-accessibility-label" = "البحث في ويكيبيديا";
 "search-clear-title" = "مسح";
-"search-did-you-mean" = "هل عنيت $1؟";
 "search-field-placeholder-text" = "البحث في ويكيبيديا";
 "search-reading-list-placeholder-text" = "البحث في قائمة القراءة";
 "search-recent-clear-confirmation-heading" = "إزالة كل عمليات البحث الأخيرة؟";
@@ -1163,6 +1184,7 @@
 "settings-language-bar" = "إظهار اللغات في البحث";
 "settings-languages-feed-customization" = "أنت يمكنك التحكم في أي اللغات تكون معروضة على تلقيم استكشف الخاص بك عن طريق تعديل إعدادات تلقيم استكشف الخاص بك";
 "settings-my-languages" = "لغاتي";
+"settings-new-article-tab-header-text" = "موضوع علامة التبويب الجديدة";
 "settings-notifications" = "الإشعارات";
 "settings-notifications-echo-failure-message" = "حدث خطأ أثناء التحقق من اشتراكات الإشعارات المتعلقة بحسابك.";
 "settings-notifications-echo-failure-title" = "تعذر التحقق من اشتراكات Echo Notification";
@@ -1227,6 +1249,10 @@
 "tabs-overview-tooltip-body" = "التبديل بين المقالات المفتوحة في النظرة العامة على علامات التبويب.";
 "tabs-overview-tooltip-title" = "نظرة عامة على علامات التبويب";
 "tabs-survey-title" = "ساعد في تحسين ميزة علامات التبويب. هل أنت راضٍ عن هذه الميزة؟";
+"tabs-thumbnail-description" = "استكشف ويكيبيديا، الموسوعة الحرة التي يمكن لأي شخص تعديلها";
+"tabs-thumbnail-subtitle" = "ابدأ بحثك هنا";
+"tabs-title" = "علامات التبويب";
+"tabs-title-preferences" = "تفضيلات علامات التبويب";
 "tachelhit-variants-alert-body" = "يدعم تطبيق ويكيبيديا الآن المتغيرات التالية من تشلحيت كلغات أساسية أو ثانوية داخل التطبيق، مما يجعل من الأسهل القراءة والبحث والتحرير بالمتغيرات المفضلة لديك:\n\nⵜⴰⵛⵍⵃⵉⵜ تشلحيت، تيفيناغ (shi-tfng)\nTaclḥit تشلحيت، اللاتينية (shi-latn)";
 "tachelhit-variants-alert-title" = "تحديثات لدعم متغير تشلحيت";
 "tajik-variants-alert-body" = "يدعم تطبيق ويكيبيديا الآن المتغيرات الطاجيكية التالية كلغات أساسية أو ثانوية داخل التطبيق، مما يجعل من الأسهل القراءة والبحث والتحرير بالمتغيرات المفضلة لديك:\n\nтоҷикӣ кирилликӣ الطاجيكية، السيريلية (tg-cyrl)\ntojikī lotinī الطاجيكية، اللاتينية (tg-latn)";
@@ -1324,6 +1350,7 @@
 "theme-default-explanation" = "يطابق موضوع النظام";
 "theme-light-display-name" = "فاتح";
 "theme-sepia-display-name" = "بني داكن";
+"today-title" = "اليوم";
 "top-read-widget-description" = "تعرَّف على ما أكثر ما قُرأ على ويكيبيديا اليوم";
 "top-read-widget-readers-count" = "$1 قارئ";
 "top-read-widget-title" = "الأكثر قراءة";
@@ -1527,3 +1554,4 @@
 "year-in-review-survey-very-unsatisfied" = "غير راض جدا";
 "year-in-review-wikipedia-w-accessibility-label" = "ويكيبيديا مع الشعار";
 "year-in-review-wmf-logo-accessibility-label" = "شعار مؤسسة ويكيميديا";
+"yesterday-title" = "أمس";
