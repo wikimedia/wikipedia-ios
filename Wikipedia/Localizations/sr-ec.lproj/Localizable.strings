@@ -164,11 +164,14 @@
 "clearing-cache-complete" = "Чишћење кеша завршено.";
 "clearing-cache-in-progress" = "Чишћење кеша у току.";
 "close-all-tabs" = "Затвори све картице";
+"close-all-tabs-confirmation-subtitle-with-value" = "Желите ли да затворите {{PLURAL:$1|$1 картицу|$1 картице}}? Ово је неповратна радња.";
+"close-all-tabs-confirmation-title-with-value" = "Затвори {{PLURAL:$1|$1 картицу|$1 картица}}?";
 "close-button-accessibility-label" = "Затвори";
 "close-other-tabs" = "Затвори друге картице";
 "close-tab-confirmation" = "Затвори картицу?";
 "close-tabs" = "Затвори картице";
 "closed-all-tabs-confirmation" = "Затвори свих $1 картица.";
+"closed-all-tabs-confirmation-with-value" = "{{PLURAL:$1|Затворена $1 картица|Затворено $1 картица}}.";
 "compass-direction" = "у $1 ч.";
 "confirm-donation-history-deletion-title" = "Потврди брисање";
 "confirmed-donation-history-deletion" = "Локална историја је обрисана";
@@ -651,6 +654,7 @@
 "nearby-distance-label-km" = "$1 км";
 "nearby-distance-label-meters" = "$1 м";
 "nearby-distance-label-miles" = "$1 миља";
+"new-article-tab-settings-did-you-know" = "Да ли сте знали?";
 "new-password-instructions" = "Пријавили сте се са привременом лозинком. Да бисте завршили пријаву, овде поставите нову.";
 "new-password-title" = "Поставите лозинку";
 "new-tab" = "Нова картица";

@@ -214,17 +214,14 @@
 "close-all-tabs" = "Alle tabbladen sluiten";
 "close-all-tabs-confirmation" = "Wilt u alle $1 tabbladen sluiten? Dit kan niet ongedaan worden gemaakt.";
 "close-all-tabs-confirmation-number" = "Alle $1 tabbladen sluiten?";
-// Fuzzy
-"close-all-tabs-confirmation-subtitle-with-value" = "Wilt u {{PLURAL:$1|het tabblad|alle $1 tabbladen}} sluiten? Dit kan niet ongedaan worden gemaakt.";
-// Fuzzy
-"close-all-tabs-confirmation-title-with-value" = "{{PLURAL:$1|Tabblad|Alle $1 tabbladen}} sluiten?";
+"close-all-tabs-confirmation-subtitle-with-value" = "Wilt u {{PLURAL:$1|één tabblad|$1 tabbladen}} sluiten? Dit kan niet ongedaan worden gemaakt.";
+"close-all-tabs-confirmation-title-with-value" = "{{PLURAL:$1|Eén tabblad|$1 tabbladen}} sluiten?";
 "close-button-accessibility-label" = "Sluiten";
 "close-other-tabs" = "Andere tabbladen sluiten";
 "close-tab-confirmation" = "Tabblad sluiten?";
 "close-tabs" = "Tabbladen sluiten";
 "closed-all-tabs-confirmation" = "Alle $1 tabbladen zijn gesloten.";
-// Fuzzy
-"closed-all-tabs-confirmation-with-value" = "{{PLURAL:$1|Het tabblad is|Alle $1 tabbladen zijn}} gesloten.";
+"closed-all-tabs-confirmation-with-value" = "{{PLURAL:$1|Eén tabblad is|$1 tabbladen zijn}} gesloten.";
 "compass-direction" = "op $1 uur";
 "confirm-donation-history-deletion-subtitle" = "Dit geldt alleen voor donaties die via dit apparaat worden gedaan.";
 "confirm-donation-history-deletion-title" = "Bevestig verwijdering";
@@ -1528,6 +1525,7 @@
 "year-in-review-personalized-editing-title-format" = "Je hebt Wikipedia {{PLURAL:$1|$1 keer}} bewerkt";
 "year-in-review-personalized-editing-title-format-500plus" = "Je hebt Wikipedia 500+ keer bewerkt.";
 "year-in-review-personalized-explore" = "Een animatie van een hand die de Wikipedia-wereldbol vasthoudt. De wereldbol verandert geleidelijk in een klein puzzelstukje, wat symbool staat voor individuele bijdragen aan het platform.";
+"year-in-review-personalized-most-read-articles-title" = "Uw meest gelezen artikelen";
 "year-in-review-personalized-reading-subtitle-format" = "U hebt $1 artikel{{PLURAL:$1||en}} gelezen. Wikipedia bevatte $2 miljoen artikelen in meer dan $3 actieve talen. Samen met miljoenen anderen hebt u uw kennis uitgebreid en diverse onderwerpen verkend.";
 "year-in-review-personalized-reading-title-format" = "U hebt {{PLURAL:$1|$1 artikel|$1 artikelen}} gelezen";
 "year-in-review-personalized-saved-articles" = "Illustratie van een puzzelstukje met een veiligheidshelm op, met computerschermen in de achtergrond.";

@@ -130,7 +130,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
             personalizedMostReadCategoriesSlideSubtitle: personalizedListSlideSubtitle(items:),
             personalizedMostReadArticlesSlideTitle: WMFLocalizedString("year-in-review-personalized-most-read-articles-title", value: "Your top articles", comment: "Year in review, personalized most read articles slide title"),
             personalizedMostReadArticlesSlideSubtitle: personalizedListSlideSubtitle(items:),
-            locationTitle: "Location Slide Here", // TODO: localize when we have final product requirements
+            locationTitle: "Location Slide Here" // TODO: localize when we have final product requirements
         )
     }
 

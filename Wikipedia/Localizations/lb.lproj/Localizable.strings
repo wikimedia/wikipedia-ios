@@ -145,11 +145,14 @@
 "close-all-tabs" = "All Tabs zoumaachen";
 "close-all-tabs-confirmation" = "Wëllt Dir all $1 Tabs zoumaachen? Dës Aktioun kann net réckgängeg gemaach ginn.";
 "close-all-tabs-confirmation-number" = "All $1 Tabs zoumaachen?";
+"close-all-tabs-confirmation-subtitle-with-value" = "Wëllt Dir {{PLURAL:$1|$1 Tab|$1 Tabs}} zoumaachen? Dës Aktioun kann net réckgängeg gemaach ginn.";
+"close-all-tabs-confirmation-title-with-value" = "{{PLURAL:$1|$1 Tab|$1 Tabs}} zoumaachen?";
 "close-button-accessibility-label" = "Zoumaachen";
 "close-other-tabs" = "Aner Tabs zoumaachen";
 "close-tab-confirmation" = "Tab zoumaachen?";
 "close-tabs" = "Tabs zoumaachen";
 "closed-all-tabs-confirmation" = "All $1 Tabs zougemaach.";
+"closed-all-tabs-confirmation-with-value" = "{{PLURAL:$1|$1 Tab|$1 Tabs}} zougemaach.";
 "compass-direction" = "um $1 Auer";
 "confirm-donation-history-deletion-title" = "Läsche confirméieren";
 "confirmed-donation-history-deletion" = "Lokalen Historique geläscht";
@@ -744,6 +747,7 @@
 "reading-list-limit-hit-for-unsorted-articles-title" = "Limitt fir net-zortéiert Artikelen";
 "reading-list-list-limit-reached" = "Dir hutt d'Limitt vu(n) $1 Lieslëschte pro Kont erreecht";
 "reading-list-login-button-title" = "Alogge fir Är gespäichert Artikelen ze synchroniséieren";
+"reading-list-login-or-create-account-button-title" = "Aloggen oder e Kont uleeën";
 "reading-list-login-or-create-account-title" = "Alogge fir gespäichert Artikelen ze synchroniséieren";
 "reading-list-login-title" = "Är gespäichert Artikele synchroniséieren?";
 "reading-list-name-user-created-annotation" = "_[user created]";
