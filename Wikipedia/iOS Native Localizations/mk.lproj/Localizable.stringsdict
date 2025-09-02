@@ -95,7 +95,7 @@
 			<key>one</key>
 			<string>го затворите јазичето</string>
 			<key>other</key>
-			<string>ги затворите сите %1$d јазичиња</string>
+			<string>затворите %1$d јазичиња</string>
 		</dict>
 	</dict>
 	<key>close-all-tabs-confirmation-title-with-value</key>
@@ -111,7 +111,7 @@
 			<key>one</key>
 			<string>го затворам јазичето</string>
 			<key>other</key>
-			<string>ги затворам сите %1$d јазичиња</string>
+			<string>затворам %1$d јазичиња</string>
 		</dict>
 	</dict>
 	<key>closed-all-tabs-confirmation-with-value</key>
@@ -127,7 +127,7 @@
 			<key>one</key>
 			<string>Јазичето е затворено</string>
 			<key>other</key>
-			<string>Затворени се сите %1$d јазичиња</string>
+			<string>Затворени се %1$d јазичиња</string>
 		</dict>
 	</dict>
 	<key>diff-change-paragraph-lines-moved-down</key>
