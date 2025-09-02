@@ -402,19 +402,19 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
     }
 
     func personalizedSaveCountSlideSubtitle(saveCount: Int, articleNames: [String]) -> String {
-        let articleName1 = articleNames.count >= 3 ? "*\(articleNames[0])*" : ""
-        let articleName2 = articleNames.count >= 3 ? "_\(articleNames[1])_" : ""
-        let articleName3 = articleNames.count >= 3 ? "***\(articleNames[2])***" : ""
+        let articleName1 = articleNames.count >= 1 ? "<b>\(articleNames[0])</b>" : ""
+        let articleName2 = articleNames.count >= 2 ? "<b>\(articleNames[1])</b>" : ""
+        let articleName3 = articleNames.count >= 3 ? "<b>\(articleNames[2])</b>" : ""
         
         let format = WMFLocalizedString(
             "year-in-review-personalized-saved-subtitle-format",
             value: "You saved {{PLURAL:%1$d|%1$d article|%1$d articles}} this year, including %2$@, %3$@ and %4$@. Each saved article reflects your interests and helps build a personalized knowledge base on Wikipedia.",
-            comment: "Year in review, personalized saved articles slide subtitle. %1$D is replaced with the number of articles the user saved, %2$@, %3$@ and %4$@ are replaced with the names three random articles the user saved."
+            comment: "Year in review, personalized saved articles slide subtitle. %1$d is replaced with the number of articles the user saved, %2$@, %3$@ and %4$@ are replaced with up to three article names the user saved (each enclosed in <b> tags)."
         )
         
         return String.localizedStringWithFormat(format, saveCount, articleName1, articleName2, articleName3)
     }
-    
+
     func personalizedMostReadCategoriesSlideSubtitle(categories: [String]) -> String {
         
         var listItems: String = ""
