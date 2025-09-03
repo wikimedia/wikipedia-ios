@@ -178,6 +178,7 @@
 "article-share" = "Paylaş";
 "article-tabs-button-accessibility-hint" = "Sekme genel bakışına gider";
 "article-tabs-button-accessibility-label" = "Madde sekmeleri";
+"article-tabs-did-you-know-title" = "Biliyor muydunuz";
 "article-tabs-feature-announcement-item-1-subtitle" = "Birden fazla maddeyi açın ve aralarında kolayca geçiş yapın.";
 "article-tabs-feature-announcement-item-1-title" = "Sekmelerle göz atın";
 "article-tabs-feature-announcement-item-2-subtitle" = "Sekmeler kaydırma konumunuzu otomatik olarak hatırlar.";
@@ -283,6 +284,7 @@
 "developer-settings-enable-year-in-review" = "Yıl İncelemesini Etkinleştir";
 "developer-settings-send-analytics-to-wmflabs" = "Analizleri wmflabs'a gönder.";
 "developer-settings-suppress-image-rec-post" = "Görsel önerileri düzenlemleri yayınlamayın.";
+"did-you-know" = "Biliyor muydunuz";
 "diff-article-revision-history" = "Madde sürüm geçmişi";
 "diff-change-added" = "Ekleme, $1, ekleme sonu.";
 "diff-change-paragraph-lines-moved-down" = "Paragraf {{PLURAL:$1|$1 satır}} aşağıya taşındı. Yeni yere gidin.";
@@ -770,8 +772,6 @@
 "microsite-yir-english-edits-bytes-slide-title" = "4 milyar bayt eklendi";
 "microsite-yir-english-edits-slide-subtitle" = "Gönüllüler, Vikipedi'nin 300'den fazla farklı dil sürümünde 98.222.407 değişiklik yaptı. İngilizce Vikipedi'de 37 milyondan fazla değişiklik yapıldı. Gönüllüler, her günün her saati Vikipedi'yi iyileştirmek için çalışmaktadır.";
 "microsite-yir-english-edits-slide-title" = "Editörler bu yıl 98 milyon değişiklik yaptı";
-"microsite-yir-english-non-donor-slide-subtitle" = "Yardımınızla, Vikipedi'nin arkasındaki kâr amacı gütmeyen kuruluş olan Wikimedia Vakfı, güvendiğiniz bilgilerin reklamsız ve güvenilir olmasını sağlamaya devam ederken, Vikipedi'nin en yeni araçlar ve teknolojilerle sorunsuz çalışmasını sağlayacaktır. Lütfen bugün bağış yapmayı düşünün. [Çalışmalarımız hakkında daha fazla bilgi edinin]($1).";
-"microsite-yir-english-non-donor-slide-title" = "Vikipedi'de 0 reklam yayımlandı";
 "microsite-yir-english-reading-slide-subtitle" = "İnsanlar 2024 yılında tahmini 2,9 milyar saati, yani 331.000 yıldan uzun bir zamanı İngilizce Vikipedi'yi okuyarak geçirdiler. Değişen dünyamız hakkında bilgi edinmek, arkadaşlarınız arasında bir iddiayı kazanmak veya meraklı bir çocuğun sorusuna cevap vermek istediğinizde Vikipedi yanınızda.";
 "microsite-yir-english-reading-slide-title" = "Okumaya 2,9 milyar saat harcadık";
 "microsite-yir-english-saved-reading-slide-subtitle" = "Aktif iOS uygulaması kullanıcıları 62,2 milyondan fazla okuma listesine sahip. Maddeleri okuma listesine eklemek, o maddelere çevrimdışı olarak ulaşabilmeyi sağlar. Ayrıca oturum açarak okuma listelerinizi aygıtlarınız arasında eş zamanlayabilirsiniz.";
@@ -787,6 +787,9 @@
 "nearby-distance-label-km" = "$1 km";
 "nearby-distance-label-meters" = "$1 m";
 "nearby-distance-label-miles" = "$1 mil";
+"new-article-tab-from-wikipedia-default" = "Vikipedi'den";
+"new-article-tab-settings-did-you-know" = "Biliyor muydunuz?";
+"new-article-tab-settings-recommendations" = "Öneriler";
 "new-password-instructions" = "Geçici bir parolayla giriş yaptınız. Oturum açmayı tamamlamak için bu sayfada yeni bir parola belirleyin.";
 "new-password-title" = "Parolanızı belirleyin";
 "new-tab" = "Yeni sekme";
@@ -1149,7 +1152,6 @@
 "saved-unsave-article-and-remove-from-reading-lists-title" = "{{PLURAL:$1|Maddeyi|Maddeleri}} iptal edilsin mi?";
 "search-button-accessibility-label" = "Vikipedi'de Ara";
 "search-clear-title" = "Temizle";
-"search-did-you-mean" = "Bunu mu demek istediniz: $1?";
 "search-field-placeholder-text" = "Vikipedi'de Ara";
 "search-reading-list-placeholder-text" = "Okuma listesinde ara";
 "search-recent-clear-confirmation-heading" = "Son aramaların tümü silinsin mi?";
@@ -1177,6 +1179,7 @@
 "settings-language-bar" = "Aramada dilleri göster";
 "settings-languages-feed-customization" = "Keşfet akış ayarlarınızı özelleştirerek Keşfet özet akışınızda hangi dillerin gösterileceğini yönetebilirsiniz.";
 "settings-my-languages" = "Dillerim";
+"settings-new-article-tab-header-text" = "Yeni Sekme Teması";
 "settings-notifications" = "Anlık bildirimler";
 "settings-notifications-echo-failure-message" = "Hesabınızla ilgili bildirim abonelikleri kontrol edilirken bir hata oluştu.";
 "settings-notifications-echo-failure-title" = "Echo Bildirimi abonelikleri kontrol edilemiyor";
@@ -1241,6 +1244,9 @@
 "tabs-overview-tooltip-body" = "Sekme genel görünümünde açık maddeler arasında geçiş yapın.";
 "tabs-overview-tooltip-title" = "Sekme genel görünümü";
 "tabs-survey-title" = "Sekmeler özelliğini iyileştirmeye yardımcı olun. Bu özellikten memnun musunuz?";
+"tabs-title" = "Sekmeler";
+// Fuzzy
+"tabs-title-preferences" = "Sekme tercihleri";
 "tachelhit-variants-alert-body" = "Vikipedi uygulaması artık aşağıdaki Tachelhit biçimlerini birincil veya ikincil dil olarak uygulama içinde destekliyor, bu şekilde tercih ettiğiniz biçimle daha kolay okuyabilir, aratabilir ve değişiklik yapabilirsiniz:\n\nⵜⴰⵛⵍⵃⵉⵜ Tachelhit, Tifinagh (shi-tfng)\nTaclḥit Tachelhit, Latin (shi-latn)";
 "tachelhit-variants-alert-title" = "Tachelhit biçim desteği güncellemeleri";
 "tajik-variants-alert-body" = "Vikipedi uygulaması artık aşağıdaki Tacikçe biçimlerini birincil veya ikincil dil olarak uygulama içinde destekliyor, bu şekilde tercih ettiğiniz biçimle daha kolay okuyabilir, aratabilir ve değişiklik yapabilirsiniz:\n\nтоҷикӣ кирилликӣ Tacikçe, Kiril (tg-cyrl)\ntojikī lotinī Tacikçe, Latin (tg-latn)";

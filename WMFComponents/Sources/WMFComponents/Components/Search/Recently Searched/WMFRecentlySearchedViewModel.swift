@@ -19,7 +19,7 @@ public final class WMFRecentlySearchedViewModel: ObservableObject {
         }
     }
 
-    public struct RecentSearchTerm: Identifiable {
+    public struct RecentSearchTerm: Identifiable, Equatable {
         public let text: String
 
         public init(text: String) {
@@ -35,10 +35,9 @@ public final class WMFRecentlySearchedViewModel: ObservableObject {
         needsAttachedView ? Array(recentSearchTerms.prefix(3)) : recentSearchTerms
     }
 
-
     @Published public var recentSearchTerms: [RecentSearchTerm] = []
     @Published public var topPadding: CGFloat = 0
-    let localizedStrings: LocalizedStrings
+    public let localizedStrings: LocalizedStrings
     let needsAttachedView: Bool
     let becauseYouReadViewModel: WMFBecauseYouReadViewModel?
     let didYouKnowViewModel: WMFNewArticleTabDidYouKnowViewModel?
@@ -57,10 +56,10 @@ public final class WMFRecentlySearchedViewModel: ObservableObject {
         self.selectAction = selectAction
         self.needsAttachedView = needsAttachedView
         self.becauseYouReadViewModel = becauseYouReadViewModel
+        self.didYouKnowViewModel = didYouKnowViewModel
         self.tabsDataController =  WMFArticleTabsDataController.shared
         self.devSettingsDataControler = WMFDeveloperSettingsDataController.shared
         self.onTapEdit = onTapEdit
-        self.didYouKnowViewModel = didYouKnowViewModel
     }
 
 }

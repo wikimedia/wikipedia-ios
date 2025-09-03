@@ -172,6 +172,7 @@
 "article-share" = "分享";
 "article-tabs-button-accessibility-hint" = "導覽至分頁概要";
 "article-tabs-button-accessibility-label" = "條目分頁";
+"article-tabs-did-you-know-title" = "你知道嗎";
 "article-tabs-feature-announcement-item-1-subtitle" = "打開多篇條目並輕鬆在各條目間切換。";
 "article-tabs-feature-announcement-item-1-title" = "使用分頁瀏覽";
 "article-tabs-feature-announcement-item-2-subtitle" = "分頁會自動記住您的滑動位置。";
@@ -214,11 +215,14 @@
 "close-all-tabs" = "關閉所有分頁";
 "close-all-tabs-confirmation" = "您是否要關閉所有 $1 個分頁？此操作無法取消。";
 "close-all-tabs-confirmation-number" = "關閉所有 $1 個分頁？";
+"close-all-tabs-confirmation-subtitle-with-value" = "您是否要關閉 {{PLURAL:$1|$1}} 個分頁？此操作無法取消。";
+"close-all-tabs-confirmation-title-with-value" = "關閉 {{PLURAL:$1|$1}} 個分頁？";
 "close-button-accessibility-label" = "關閉";
 "close-other-tabs" = "關閉其他分頁";
 "close-tab-confirmation" = "關閉分頁？";
 "close-tabs" = "關閉分頁";
 "closed-all-tabs-confirmation" = "已關閉 $1 個分頁";
+"closed-all-tabs-confirmation-with-value" = "已關閉 {{PLURAL:$1|$1}} 個分頁。";
 "compass-direction" = "在 $1 時";
 "confirm-donation-history-deletion-subtitle" = "這僅套用到透過此裝置所做過的捐款。";
 "confirm-donation-history-deletion-title" = "確認刪除";
@@ -273,10 +277,11 @@
 "developer-settings-activity-tab-group-C" = "將活動分頁設定成群組 C";
 "developer-settings-bypass-donation" = "跳過捐贈";
 "developer-settings-dynamic-tabs-BYR" = "以「您曾閱讀過的」啟用分頁";
-"developer-settings-dynamic-tabs-DYK" = "以「您知道嗎」啟用分頁";
+"developer-settings-dynamic-tabs-DYK" = "以「你知道嗎」啟用分頁";
 "developer-settings-enable-year-in-review" = "啟用年度回顧";
 "developer-settings-send-analytics-to-wmflabs" = "傳送分析給維基媒體基金會實驗室。";
 "developer-settings-suppress-image-rec-post" = "請不要發送圖片推薦編輯。";
+"did-you-know" = "你知道嗎";
 "diff-article-revision-history" = "條目修訂紀錄";
 "diff-change-added" = "已新增：$1，新增結束。";
 "diff-change-paragraph-lines-moved-down" = "章節向下移動了 {{PLURAL:$1|0=0|$1}} 行。轉到新的位置。";
@@ -764,8 +769,6 @@
 "microsite-yir-english-edits-bytes-slide-title" = "增加了 40 億位元組";
 "microsite-yir-english-edits-slide-subtitle" = "志工們對維基百科的 300 多種不同語言版本做出了 98,222,407次修改。英文維基百科則進行了超過 3700 萬次修改。每一天、每一刻、每一秒，志工們都在努力改進維基百科。";
 "microsite-yir-english-edits-slide-title" = "編輯者今年做出了 9800 萬次修改";
-"microsite-yir-english-non-donor-slide-subtitle" = "在您的支持下，維基媒體基金會—維基百科背後的非營利組織—將繼續確保您所依賴的資訊無營利、值得信賴，同時利用尖端工具和技術，讓維基百科平穩運作。請考慮今天就捐款支持，[並了解更多關於我們的工作內容]($1)。";
-"microsite-yir-english-non-donor-slide-title" = "維基百科沒有任何廣告";
 "microsite-yir-english-reading-slide-subtitle" = "在 2024 年，人們花了 29 億小時（超過 331,000 年！）閱讀英文維基百科。當您想了解我們不斷變化的世界、在朋友之間贏得對事物了解的賭注、或是回答孩子好奇的問題時，維基百科就會在您身邊。";
 "microsite-yir-english-reading-slide-title" = "大家花了 29 億小時閱讀維基百科";
 "microsite-yir-english-saved-reading-slide-subtitle" = "iOS 應用程式的活躍使用者做出了超過 6220 萬個閱讀清單。將條目增加到閱讀清單可讓您即使在離線時也能查看條目。此外，您還可以透過登入將閱讀清單同步到不同裝置裡。";
@@ -781,6 +784,9 @@
 "nearby-distance-label-km" = "$1 公里";
 "nearby-distance-label-meters" = "$1 公尺";
 "nearby-distance-label-miles" = "$1 英里";
+"new-article-tab-from-wikipedia-default" = "來自維基百科";
+"new-article-tab-settings-did-you-know" = "你知道嗎？";
+"new-article-tab-settings-recommendations" = "建議";
 "new-password-instructions" = "您以臨時密碼登入。要完成登入，請在此設定新密碼。";
 "new-password-title" = "設定您的密碼";
 "new-tab" = "新分頁";
@@ -1143,7 +1149,6 @@
 "saved-unsave-article-and-remove-from-reading-lists-title" = "取消儲存{{PLURAL:$1|條目|條目}}嗎？";
 "search-button-accessibility-label" = "搜尋維基百科";
 "search-clear-title" = "清除";
-"search-did-you-mean" = "您指的是 $1 嗎？";
 "search-field-placeholder-text" = "搜尋維基百科";
 "search-reading-list-placeholder-text" = "搜尋閱讀清單";
 "search-recent-clear-confirmation-heading" = "刪除所有近期搜尋嗎？";
@@ -1171,6 +1176,7 @@
 "settings-language-bar" = "搜尋時顯示語言";
 "settings-languages-feed-customization" = "透過自訂您的探索摘要設定，您可以管理在您的探索摘要裡所要顯示出的語言。";
 "settings-my-languages" = "我的語言";
+"settings-new-article-tab-header-text" = "新分頁主題";
 "settings-notifications" = "推送通知";
 "settings-notifications-echo-failure-message" = "檢查您的帳號相關通知訂閱時發生錯誤。";
 "settings-notifications-echo-failure-title" = "無法檢查 Echo 通知訂閱";
@@ -1235,6 +1241,10 @@
 "tabs-overview-tooltip-body" = "在分頁總覽中切換開啟的條目。";
 "tabs-overview-tooltip-title" = "分頁總覽";
 "tabs-survey-title" = "請協助改善分頁功能。您對此功能滿意嗎？";
+"tabs-thumbnail-description" = "探索維基百科，一個任何人都可編輯的自由百科全書";
+"tabs-thumbnail-subtitle" = "在此來開始您的搜尋";
+"tabs-title" = "分頁";
+"tabs-title-preferences" = "分頁偏好設定";
 "tachelhit-variants-alert-body" = "維基百科應用程式現在支援下列施盧赫語異體字作為應用程式裡的主要語言或次要語言，能以您首選的異體字來更易於閱讀、搜尋、編輯：\n\nⵜⴰⵛⵍⵃⵉⵜ，提非納字母施盧赫語（shi-tfng）\nTaclḥit，拉丁字母施盧赫語（shi-latn）";
 "tachelhit-variants-alert-title" = "施盧赫語異體字支援更新";
 "tajik-variants-alert-body" = "維基百科應用程式現在支援下列塔吉克語異體字作為應用程式裡的主要語言或次要語言，能以您首選的異體字來更易於閱讀、搜尋、編輯：\n\nтоҷикӣ кирилликӣ，西里爾字母塔吉克語（tg-cyrl）\ntojikī lotinī，拉丁字母塔吉克語（tg-latn）";

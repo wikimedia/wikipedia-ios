@@ -200,11 +200,14 @@
 "close-all-tabs" = "Chiudi tutte le schede";
 "close-all-tabs-confirmation" = "Vuoi chiudere tutte le schede $1? Questa azione non può essere annullata.";
 "close-all-tabs-confirmation-number" = "Chiudere tutte le $1 schede?";
+"close-all-tabs-confirmation-subtitle-with-value" = "Vuoi chiudere {{PLURAL:$1|$1 scheda|$1 schede}}? Questa azione non può essere annullata.";
+"close-all-tabs-confirmation-title-with-value" = "Chiudi {{PLURAL:$1|$1 scheda|$1 schede}}?";
 "close-button-accessibility-label" = "Chiudi";
 "close-other-tabs" = "Chiudi altre schede";
 "close-tab-confirmation" = "Chiudi scheda";
 "close-tabs" = "Chiudi scheda";
 "closed-all-tabs-confirmation" = "Chiuse tutte le $1 schede.";
+"closed-all-tabs-confirmation-with-value" = "{{PLURAL:$1|$1 scheda chiusa|$1 schede chiuse}}.";
 "compass-direction" = "alle ore $1";
 "confirm-donation-history-deletion-subtitle" = "Questo si applicherà solo alle donazioni effettuate tramite questo dispositivo.";
 "confirm-donation-history-deletion-title" = "Conferma cancellazione";
@@ -808,7 +811,6 @@
 "saved-title" = "Salvato";
 "search-button-accessibility-label" = "Cerca su Wikipedia";
 "search-clear-title" = "Pulisci";
-"search-did-you-mean" = "Forse cercavi $1?";
 "search-field-placeholder-text" = "Cerca su Wikipedia";
 "search-recent-clear-confirmation-heading" = "Eliminare tutte le ricerche recenti?";
 "search-recent-clear-confirmation-sub-heading" = "Questa azione non può essere annullata!";

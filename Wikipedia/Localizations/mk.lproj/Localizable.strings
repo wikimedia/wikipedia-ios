@@ -138,6 +138,7 @@
 "article-share" = "Сподели";
 "article-tabs-button-accessibility-hint" = "Преоѓа на преглед на јазичињата";
 "article-tabs-button-accessibility-label" = "Јазичиња на статии";
+"article-tabs-did-you-know-title" = "Дали сте знаеле";
 "article-tabs-feature-announcement-item-1-subtitle" = "Отворајте повеќе статии наеднаш и префрлајте се меѓу нив со леснотија.";
 "article-tabs-feature-announcement-item-1-title" = "Прелистувај со јазичиња";
 "article-tabs-feature-announcement-item-2-subtitle" = "Јазичињата автоматски помнат до каде сте пролизгале.";
@@ -180,11 +181,17 @@
 "close-all-tabs" = "Затвори ги сите јазичиња";
 "close-all-tabs-confirmation" = "Дали сакате да ги затворите сите $1 јазичиња? Ова дејство е неповратно.";
 "close-all-tabs-confirmation-number" = "Да ги затворам сите $1 јазичиња?";
+// Fuzzy
+"close-all-tabs-confirmation-subtitle-with-value" = "Дали сакате да {{PLURAL:$1|го затворите јазичето|ги затворите сите $1 јазичиња}}? Ова дејство е неповратно.";
+// Fuzzy
+"close-all-tabs-confirmation-title-with-value" = "Да {{PLURAL:$1|го затворам јазичето|ги затворам сите $1 јазичиња}}?";
 "close-button-accessibility-label" = "Затвори";
 "close-other-tabs" = "Затвори други јазичиња";
 "close-tab-confirmation" = "За го затворам јазичето?";
 "close-tabs" = "Затвори јазичиња";
 "closed-all-tabs-confirmation" = "Затворени сите $1 јазичиња.";
+// Fuzzy
+"closed-all-tabs-confirmation-with-value" = "{{PLURAL:$1|Јазичето е затворено|Затворени се сите $1 јазичиња}}.";
 "compass-direction" = "во $1 часот";
 "confirm-donation-history-deletion-subtitle" = "Ова ќе важи само за прилозите дадени од овој уред.";
 "confirm-donation-history-deletion-title" = "Потврдете бришење";
@@ -243,6 +250,7 @@
 "developer-settings-enable-year-in-review" = "Овозможи Преглед на годината";
 "developer-settings-send-analytics-to-wmflabs" = "Испраќај аналитика во WMFLabs.";
 "developer-settings-suppress-image-rec-post" = "Не објавувај уредувања на преорачани слики.";
+"did-you-know" = "Дали сте знаеле";
 "diff-article-revision-history" = "Историја на преработки на страницата";
 "diff-change-added" = "Додавање, $1, крај на додавањето.";
 "diff-change-paragraph-lines-moved-down" = "Пасусот е преместен {{PLURAL:$1|0=0 редови|$1 ред|$1 реда}} надолу. Одете на ново место.";
@@ -730,8 +738,6 @@
 "microsite-yir-english-edits-bytes-slide-title" = "Додадени 4 милијарди бајти";
 "microsite-yir-english-edits-slide-subtitle" = "Доброволците направија 98.222.407 промени на преку 300 различни јазични изданија на Википедија. Преку 37 милиони промени беа направени на англиската Википедија. Секој час од секој ден доброволците работат на подобрување на Википедија.";
 "microsite-yir-english-edits-slide-title" = "Годинава уредниците направија 98 милиони промени";
-"microsite-yir-english-non-donor-slide-subtitle" = "Со ваша помош, Фондацијата Викимедија — непрофитната организација што ја води Википедија — и понатаму ќе обезбеди информациите на кои се потпирате да бидат без реклами и веродостојни, притоа осигурувајќи непречена работа на Википедија со најсовремени алатки и технологии. Би ве замолиле да размислите за ваш паричен прилог денес. [Дознајте повеќе за нашата работа]($1).";
-"microsite-yir-english-non-donor-slide-title" = "0 реклами на Википедија";
 "microsite-yir-english-reading-slide-subtitle" = "Во 2024 г. луѓето проведоа околу 2,9 милијарди часови — речиси 331.000 години!—читајќи ја Википедија на англиски. Википедија ви стои на располагање кога сакате да дознавате нешта за нашиот свет што се менува, да добиете облог меѓу пријателите или да одговорите на прашање на љубипитно дете.";
 "microsite-yir-english-reading-slide-title" = "Проведовме 2,9 милијарди часови читајќи";
 "microsite-yir-english-saved-reading-slide-subtitle" = "Активните корисници од прилогот за iOS имаа преку 62,2 милиони списоци за читање. Ставањето на статии во списоци за читање ви овозможува пристап до статии дури и кога немате линија. Можете и да се најавите за да ги усогласите списоците за читање на повеќе уреди.";
@@ -747,6 +753,9 @@
 "nearby-distance-label-km" = "$1 км";
 "nearby-distance-label-meters" = "$1 м";
 "nearby-distance-label-miles" = "$1 милји";
+"new-article-tab-from-wikipedia-default" = "од Википедија";
+"new-article-tab-settings-did-you-know" = "Дали сте знаеле?";
+"new-article-tab-settings-recommendations" = "Препораки";
 "new-password-instructions" = "Се најавивте со привремена лозинка. За да ја довршите најавата, ќе мора тука да зададете нова лозинка.";
 "new-password-title" = "Ставете лозинка";
 "new-tab" = "Ново јазиче";
@@ -1109,7 +1118,6 @@
 "saved-unsave-article-and-remove-from-reading-lists-title" = "Да {{PLURAL:$1|ја одзачувам статијата|ги одзачувам статиите}}?";
 "search-button-accessibility-label" = "Пребарај ја Википедија";
 "search-clear-title" = "Исчисти";
-"search-did-you-mean" = "Дали мислевте на $1?";
 "search-field-placeholder-text" = "Пребарај ја Википедија";
 "search-reading-list-placeholder-text" = "Пребарување по список за читање";
 "search-recent-clear-confirmation-heading" = "Да ги избришам сите скорешни пребарувања?";
@@ -1137,6 +1145,7 @@
 "settings-language-bar" = "Прикажувај јазици при пребарувањето";
 "settings-languages-feed-customization" = "Можете да изберете кои јазици да се прикажуваат во поставките за тековникот „Истражи“.";
 "settings-my-languages" = "Мои јазици";
+"settings-new-article-tab-header-text" = "Изглед на ново јазиче";
 "settings-notifications" = "Доставни известувања";
 "settings-notifications-echo-failure-message" = "Се јави грешка при проверката на следените известувања поврзани со вашата сметка.";
 "settings-notifications-echo-failure-title" = "Не можам да ја ги проверам следените известувања со „Ехо“";
@@ -1201,6 +1210,10 @@
 "tabs-overview-tooltip-body" = "Префрлање помеѓу отворени статии во прегледот на јазичињата.";
 "tabs-overview-tooltip-title" = "Преглед на јазичиња";
 "tabs-survey-title" = "Помогнете ни да ги подобриме јазичињата во иднина. Дали сте задоволни со оваа функција?";
+"tabs-thumbnail-description" = "Истражете ја Википедија, слободната енциклопедија што секој може да ја уредува";
+"tabs-thumbnail-subtitle" = "Тука започнете го вашето пребарување";
+"tabs-title" = "Јазичиња";
+"tabs-title-preferences" = "Нагодувања за јазичиња";
 "tachelhit-variants-alert-body" = "Прилогот на Википедија сега ги поддржува следниве шилхански варијанти како главен или спореден јазик во прилогот, олеснувајќи го читањето, пребарувањето и уредувањето на вашите претпочитани варијанти:\n\n\nⵜⴰⵛⵍⵃⵉⵜ — шилхански со старолибиско писмо (shi-tfng)\nTaclḥit — шилхански на латиница (shi-latn)";
 "tachelhit-variants-alert-title" = "Новост за поддршка на шилхански варијанти";
 "tajik-variants-alert-body" = "Прилогот на Википедија сега ги поддржува следниве таџички варијанти како главен или спореден јазик во прилогот, олеснувајќи го читањето, пребарувањето и уредувањето на вашите претпочитани варијанти:\n\nтоҷикӣ кирилликӣ — таџички на кирилица (tg-cyrl)\ntojikī lotinī — таџички на латиница (tg-latn)";

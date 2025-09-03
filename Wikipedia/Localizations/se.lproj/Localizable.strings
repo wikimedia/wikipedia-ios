@@ -987,7 +987,6 @@
 "saved-unsave-article-and-remove-from-reading-lists-title" = "Sihko {{PLURAL:$1|artihkkala|artihkkaliid}}?";
 "search-button-accessibility-label" = "Oza Wikipedias";
 "search-clear-title" = "Gurre";
-"search-did-you-mean" = "Oaivvildit go $1?";
 "search-field-placeholder-text" = "Oza Wikipedias";
 "search-reading-list-placeholder-text" = "Oza lohkanlisttus";
 "search-recent-clear-confirmation-heading" = "Sihko visot easkká ohcamiid?";

@@ -988,7 +988,6 @@
 "saved-unsave-article-and-remove-from-reading-lists-title" = "{{PLURAL:$1|Статьяны|Статьяланы}} сакъландырыулары кери алынсынмы?";
 "search-button-accessibility-label" = "Википедияда излеу";
 "search-clear-title" = "Тазала";
-"search-did-you-mean" = "$1 излене болурму?";
 "search-field-placeholder-text" = "Википедияда излеу";
 "search-reading-list-placeholder-text" = "Окъуу тизмеде изле";
 "search-recent-clear-confirmation-heading" = "Ахыр излеулени бютеую кетерилсинми?";

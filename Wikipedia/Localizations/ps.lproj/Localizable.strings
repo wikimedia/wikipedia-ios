@@ -187,6 +187,12 @@
 "diff-rollback-alert-title" = "سمونونو شاگرځ";
 "diff-single-intro-title" = "سریزه";
 "duplicate-tab" = "دوه‌گونې ريښکه";
+"edit-link-display-text-title" = "ليک ښکارېدنه";
+"edit-link-link-target-title" = "تړوني موخه";
+"edit-link-remove-link-title" = "تړونی لرې‌کول";
+"edit-link-title" = "تړونی سمول";
+"edit-menu-item" = "سمول";
+"edit-minor-text" = "دا يو کوچنی سمون دی";
 "edit-summary-choice-linked-words" = "ورگډې شوې تړنې";
 "empty-no-article-message" = "وبښئ، ليکنه رابرسېره نه شوه";
 "empty-no-feed-action-message" = "لا تر اوسه پورې تاسو خوندي مخونه لوستلی شئ";
@@ -221,7 +227,7 @@
 "main-menu-account-logout" = "وتل";
 "main-menu-account-title-logged-in" = "د $1 په توگه ورننوتئ";
 "main-menu-nearby" = "نژدې";
-"main-menu-privacy-policy" = "د پټنتيا تگلاره";
+"main-menu-privacy-policy" = "پټنتيا تگلار";
 "main-menu-rate-app" = "کاريال ارزول";
 "main-menu-terms-of-use" = "د کارولو منښتونه";
 "main-menu-title" = "نور";
@@ -237,7 +243,6 @@
 "places-filter-top-articles-count" = "{{PLURAL:$1|$1 ليکنې|$1 ليکنې}}";
 "potd-description-prefix" = "د $1 د ورځې انځور";
 "saved-title" = "خوندي شو";
-"search-did-you-mean" = "آيا $1 مو موخه ده؟";
 "search-field-placeholder-text" = "ويکيپېډيا پلټل";
 "search-recent-clear-confirmation-heading" = "ټولې وروستنۍ پلټنې ړنگول؟";
 "search-recent-clear-confirmation-sub-heading" = "دا کړنه پر شا نه گرځول کېږي!";

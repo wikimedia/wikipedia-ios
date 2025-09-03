@@ -35,6 +35,19 @@ final class HtmlUtilsTests: XCTestCase {
         let linkAttribute = attributed.attribute(.link, at: 0, effectiveRange: nil)
         XCTAssertNotNil(linkAttribute, "The link attribute should be present.")
     }
+    
+    func testHtmlLinkWithSpecialCharacter() throws {
+        let html = "<a rel=\"mw:WikiLink\" href=\"https://en.wikipedia.org/wiki/Stephen_of_La_Ferté\" title=\"Stephen of La Ferté\" id=\"mwFQ\">Patriarch Stephen</a>"
+        let attributed = try HtmlUtils.nsAttributedStringFromHtml(html, styles: .testStyle)
+        
+        // Preferrable that this is a URL type: https://developer.apple.com/documentation/Foundation/NSAttributedString/Key/link
+        if let linkAttributeURL = attributed.attribute(.link, at: 0, effectiveRange: nil) as? URL {
+            XCTAssertEqual(linkAttributeURL.absoluteString, "https://en.wikipedia.org/wiki/Stephen_of_La_Fert%C3%A9", "Special characters can cause crashes in UITextView - é should be encoded.")
+        } else if let linkAttributeString = attributed.attribute(.link, at: 0, effectiveRange: nil) as? String {
+            XCTAssertEqual(linkAttributeString, "https://en.wikipedia.org/wiki/Stephen_of_La_Fert%C3%A9", "Special characters can cause crashes in UITextView - é should be encoded.")
+        }
+        
+    }
 }
 
 fileprivate extension HtmlUtils.Styles {
