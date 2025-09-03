@@ -372,53 +372,29 @@ import Foundation
     }
 
     /// Deterministically picks one asset using (optionally) weighted A/B configuration.
-    /// - If all weights are nil → uniform distribution.
-    /// - If some weights are nil → they default to 1.0, then all weights are normalized.
-    private func randomAssetFrom(assets: [WMFFundraisingCampaignConfigResponse.FundraisingCampaignConfig.Asset], seed: String) -> WMFFundraisingCampaignConfigResponse.FundraisingCampaignConfig.Asset {
-        guard assets.count > 1 else { return assets[0] }
+    private func randomAssetFrom(assets: [WMFFundraisingCampaignConfigResponse.FundraisingCampaignConfig.Asset], seed: String
+    ) -> WMFFundraisingCampaignConfigResponse.FundraisingCampaignConfig.Asset {
+        guard !assets.isEmpty else { return assets[0] }
 
-        var weights: [Double] = []
-        weights.reserveCapacity(assets.count)
-
-        var sawNonNil = false
-        var sum: Double = 0
-
-        for a in assets {
-            if let w = a.weight {
-                sawNonNil = true
-                let v = max(0.0, Double(w)) // clamp negatives to 0
-                weights.append(v)
-                sum += v
-            } else {
-                weights.append(.nan) // mark as nil for now
-            }
+        let weights = assets.compactMap { $0.weight.map(Double.init) }
+        if weights.count != assets.count || !weights.allSatisfy({ $0 >= 0 }) {
+            return assets[0]
         }
 
-        // Default behavior for nil weights and normalization
-        if !sawNonNil {
-            let uniform = 1.0 / Double(assets.count)
-            weights = Array(repeating: uniform, count: assets.count)
-        } else {
-            // Treat nil weights as 1.0
-            for i in 0..<weights.count where weights[i].isNaN {
-                weights[i] = 1.0
-                sum += 1.0
-            }
-            if sum <= 0 {
-                let uniform = 1.0 / Double(assets.count)
-                weights = Array(repeating: uniform, count: assets.count)
-            } else {
-                for i in 0..<weights.count { weights[i] /= sum }
-            }
+        let sum = weights.reduce(0, +)
+        if abs(sum - 1.0) >= 1e-6 { // tolerence for 0.000001
+            return assets[0]
         }
 
-        let r = stableHash01(seed)
-        var acc = 0.0
-        for (i, w) in weights.enumerated() {
-            acc += w
-            if r <= acc { return assets[i] }
+        let stableSeed = stableHash01(seed)
+        var currentSum = 0.0
+        for (index, weight) in weights.enumerated() {
+            currentSum += weight
+            if stableSeed <= currentSum || index == weights.count - 1 {
+                return assets[index]
+            }
         }
-        return assets.last! // guard against rounding
+        return assets[0]
     }
 
     @objc public func setInstallIDProvider(_ provider: @escaping () -> String) {
