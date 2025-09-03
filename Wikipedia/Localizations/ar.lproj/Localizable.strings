@@ -220,17 +220,14 @@
 "close-all-tabs" = "إغلاق جميع علامات التبويب";
 "close-all-tabs-confirmation" = "هل تريد إغلاق جميع علامات التبويب البالغ عددها $1؟ لا يمكن التراجع عن هذا الإجراء.";
 "close-all-tabs-confirmation-number" = "هل تريد إغلاق جميع علامات التبويب البالغ عددها $1؟";
-// Fuzzy
-"close-all-tabs-confirmation-subtitle-with-value" = "هل تريد إغلاق جميع {{PLURAL:$1|$1 لسان|$1 ألسنة}}؟ لا يمكن التراجع عن هذا الإجراء.";
-// Fuzzy
-"close-all-tabs-confirmation-title-with-value" = "إغلاق جميع {{PLURAL:$1|$1 لسان|$1 ألسنة}}؟";
+"close-all-tabs-confirmation-subtitle-with-value" = "هل تريد إغلاق {{PLURAL:$1|$1 لسان|$1 ألسنة}}؟ لا يمكن التراجع عن هذا الإجراء.";
+"close-all-tabs-confirmation-title-with-value" = "إغلاق {{PLURAL:$1|$1 لسان|$1 ألسنة}}؟";
 "close-button-accessibility-label" = "أغلق";
 "close-other-tabs" = "إغلاق علامات التبويب الأخرى";
 "close-tab-confirmation" = "هل تريد إغلاق علامة التبويب؟";
 "close-tabs" = "إغلاق علامات التبويب";
 "closed-all-tabs-confirmation" = "تم إغلاق جميع علامات التبويب البالغ عددها $1.";
-// Fuzzy
-"closed-all-tabs-confirmation-with-value" = "تم إغلاق جميع {{PLURAL:$1|$1 لسان|$1 ألسنة}}.";
+"closed-all-tabs-confirmation-with-value" = "تم إغلاق {{PLURAL:$1|$1 لسان|$1 ألسنة}}.";
 "compass-direction" = "عند الساعة $1";
 "confirm-donation-history-deletion-subtitle" = "سيتم تطبيق هذا فقط على التبرعات المقدمة من هذا الجهاز.";
 "confirm-donation-history-deletion-title" = "تأكيد الحذف";

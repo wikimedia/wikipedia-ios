@@ -76,6 +76,48 @@
 			<string>madde</string>
 		</dict>
 	</dict>
+	<key>close-all-tabs-confirmation-subtitle-with-value</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%1$d %#@v1@ kapatmak istiyor musunuz? Bu işlem geri alınamaz.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>other</key>
+			<string>sekmeyi</string>
+		</dict>
+	</dict>
+	<key>close-all-tabs-confirmation-title-with-value</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%1$d %#@v1@ kapatılsın mı?</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>other</key>
+			<string>sekme</string>
+		</dict>
+	</dict>
+	<key>closed-all-tabs-confirmation-with-value</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v1@ kapatıldı.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>other</key>
+			<string>%1$d sekme</string>
+		</dict>
+	</dict>
 	<key>diff-change-paragraph-lines-moved-down</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>

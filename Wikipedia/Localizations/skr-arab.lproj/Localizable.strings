@@ -90,6 +90,7 @@
 "cc-zero" = "کریٹیو کامنز سی سی صفر";
 "clear-title-accessibility-label" = "صاف";
 "close-all-tabs" = "سارے ٹیب بند کرو";
+"close-all-tabs-confirmation-title-with-value" = "{{PLURAL:$1|$1 ٹیب|$1 ٹیباں}} بند کروں؟";
 "close-button-accessibility-label" = "بند کرو";
 "close-tab-confirmation" = "ٹیب بند کروں؟";
 "close-tabs" = "ٹیباں بند کرو";

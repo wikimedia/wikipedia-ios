@@ -1148,8 +1148,7 @@
 "table-of-contents-hide-button-label" = "نهفتن جعبهٔ محتویات";
 "table-of-contents-subheading-label" = "زیربخش $1";
 "tabs-title" = "زبانه‌ها";
-// Fuzzy
-"tabs-title-preferences" = "ترجیحات زبانه‌ها";
+"tabs-title-preferences" = "ترجیحات زبانه";
 "tachelhit-variants-alert-body" = "برنامهٔ ویکی‌پدیا در حال حاضر از لهجه‌های مختلف زبان تشلیحت به عنوان زبان‌های اصلی یا ثانویه در برنامه پشتیبانی می‌کند و خواندن، جستجو، و ویرایش در لهجهٔ دلخواه شما را آسان می‌کند:\n\nⵜⴰⵛⵍⵃⵉⵜ Tachelhit, Tifinagh (shi-tfng)\nTaclḥit Tachelhit, Latin (shi-latn)";
 "tachelhit-variants-alert-title" = "بروزرسانی پشتیبانی از لهجه‌های زبان تشلیحت";
 "tajik-variants-alert-body" = "برنامهٔ ویکی‌پدیا در حال حاضر از لهجه‌های مختلف زبان تاجیکی به عنوان زبان‌های اصلی یا ثانویه در برنامه پشتیبانی می‌کند و خواندن، جستجو، و ویرایش در لهجهٔ دلخواه شما را آسان می‌کند:\n\nтоҷикӣ кирилликӣ Tajik, Cyrillic (tg-cyrl)\ntojikī lotinī Tajik, Latin (tg-latn)";

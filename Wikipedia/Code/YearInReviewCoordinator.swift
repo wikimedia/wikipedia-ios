@@ -58,12 +58,17 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
             nextButtonTitle: CommonStrings.nextTitle,
             finishButtonTitle: WMFLocalizedString("year-in-review-finish", value: "Finish", comment: "Year in review finish button. Displayed on last slide and dismisses feature view."),
             shareText: WMFLocalizedString("year-in-review-share-text", value: "Here's my Wikipedia Year In Review. Created with the Wikipedia iOS app", comment: "Text shared the Year In Review slides"),
-            introTitle: CommonStrings.exploreYiRTitle,
-            introTitlePersonalized: CommonStrings.exploreYIRTitlePersonalized,
-            introSubtitle: CommonStrings.exploreYIRBody,
-            introSubtitlePersonzalized: CommonStrings.exploreYIRBodyPersonalized,
-            introPrimaryButtonTitle: CommonStrings.getStartedTitle,
-            introSecondaryButtonTitle: CommonStrings.learnMoreTitle(),
+            introV2Title: CommonStrings.exploreYiRTitle,
+            introV2TitlePersonalized: CommonStrings.exploreYIRTitlePersonalized,
+            introV2Subtitle: CommonStrings.exploreYIRBody,
+            introV2SubtitlePersonzalized: CommonStrings.exploreYIRBodyPersonalized,
+            introV2PrimaryButtonTitle: CommonStrings.getStartedTitle,
+            introV2SecondaryButtonTitle: CommonStrings.learnMoreTitle(),
+            introV3Title: CommonStrings.exploreYiRTitle,
+            introV3Subtitle: CommonStrings.exploreYIRBodyV3,
+            introV3Footer: CommonStrings.exploreYIRFooterV3,
+            introV3PrimaryButtonTitle: CommonStrings.getStartedTitle,
+            introV3SecondaryButtonTitle: CommonStrings.learnMoreTitle(),
             wIconAccessibilityLabel: WMFLocalizedString("year-in-review-wikipedia-w-accessibility-label", value: "Wikipedia w logo", comment: "Accessibility label for the Wikipedia w logo"),
             wmfLogoImageAccessibilityLabel: WMFLocalizedString("year-in-review-wmf-logo-accessibility-label", value: "Wikimedia Foundation logo", comment: "Accessibility label for the Wikimedia Foundation logo"),
             personalizedExploreAccessibilityLabel: CommonStrings.personalizedExploreAccessibilityLabel,
@@ -132,7 +137,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
             personalizedMostReadCategoriesSlideSubtitle: personalizedListSlideSubtitle(items:),
             personalizedMostReadArticlesSlideTitle: WMFLocalizedString("year-in-review-personalized-most-read-articles-title", value: "Your top articles", comment: "Year in review, personalized most read articles slide title"),
             personalizedMostReadArticlesSlideSubtitle: personalizedListSlideSubtitle(items:),
-            locationTitle: "Location Slide Here", // TODO: localize when we have final product requirements
+            locationTitle: "Location Slide Here" // TODO: localize when we have final product requirements
         )
     }
 
@@ -501,11 +506,11 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         }
     }
 
-    private func needsLoginPrompt() -> Bool {
-        return !dataStore.authenticationManager.authStateIsPermanent
+    private func needsPostSurveyLoginPrompt() -> Bool {
+        return !dataStore.authenticationManager.authStateIsPermanent && WMFDeveloperSettingsDataController.shared.showYiRV2
     }
 
-    private func presentLoginPrompt() {
+    private func presentPostSurveyLoginPrompt() {
         let title = WMFLocalizedString("year-in-review-login-title", value: "Improve your Year in Review", comment: "Title of alert that asks user to login. Displayed after they completed the feature for the first time.")
         let subtitle = WMFLocalizedString("year-in-review-login-subtitle", value: "Login or create an account to be eligible for more personalized insights", comment: "Subtitle of alert that asks user to login. Displayed after they completed the feature for the first time.")
         let button1Title = CommonStrings.joinLoginTitle
@@ -578,8 +583,8 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
             self?.navigationController.dismiss(animated: true, completion: { [weak self] in
                 guard let self else { return }
 
-                if self.needsLoginPrompt() {
-                    presentLoginPrompt()
+                if self.needsPostSurveyLoginPrompt() {
+                    presentPostSurveyLoginPrompt()
                 }
             })
             DonateFunnel.shared.logYearInReviewSurveyDidTapCancel()
@@ -589,8 +594,8 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
 
                 guard let self else { return }
 
-                if self.needsLoginPrompt() {
-                    presentLoginPrompt()
+                if self.needsPostSurveyLoginPrompt() {
+                    presentPostSurveyLoginPrompt()
                 } else {
                     let image = UIImage(systemName: "checkmark.circle.fill")
                     WMFAlertManager.sharedInstance.showBottomAlertWithMessage(CommonStrings.feedbackSurveyToastTitle, subtitle: nil, image: image, type: .custom, customTypeName: "feedback-submitted", dismissPreviousAlerts: true)
@@ -651,6 +656,10 @@ extension YearInReviewCoordinator: UIAdaptivePresentationControllerDelegate {
 extension YearInReviewCoordinator: YearInReviewCoordinatorDelegate {
     func handleYearInReviewAction(_ action: WMFComponents.YearInReviewCoordinatorAction) {
         switch action {
+        case .tappedIntroV3GetStartedWhileLoggedOut:
+            showLoginPromptFromIntroV3GetStarted()
+        case .tappedIntroV3DoneWhileLoggedOut:
+            showExitConfirmationPromptFromIntroV3Done()
         case .donate(let rect):
             let donateCoordinator = DonateCoordinator(navigationController: navigationController, donateButtonGlobalRect: rect, source: .yearInReview, dataStore: dataStore, theme: theme, navigationStyle: .present, setLoadingBlock: {  [weak self] loading in
                 guard let self,
@@ -754,6 +763,88 @@ extension YearInReviewCoordinator: YearInReviewCoordinatorDelegate {
             let newNavigationVC =
             WMFComponentNavigationController(rootViewController: webVC, modalPresentationStyle: .formSheet)
             presentedViewController.present(newNavigationVC, animated: true)
+        }
+    }
+    
+    private func showLoginPromptFromIntroV3GetStarted() {
+        let title = CommonStrings.yearInReviewLoginPromptIntroTitle
+        let subtitle = CommonStrings.yearInReviewLoginPromptSubtitle
+        let button1Title = CommonStrings.joinLoginTitle
+        let button2Title = CommonStrings.noThanksTitle
+        
+        let alert = UIAlertController(title: title, message: subtitle, preferredStyle: .alert)
+
+        let action1 = UIAlertAction(title: button1Title, style: .default) { [weak self] action in
+                    
+            guard let self else { return }
+            
+            let loginCoordinator = LoginCoordinator(navigationController: self.navigationController, theme: self.theme)
+            loginCoordinator.loginSuccessCompletion = { [weak self] in
+                guard let self else { return }
+                if let loginVC = self.navigationController.presentedViewController?.presentedViewController {
+                    loginVC.dismiss(animated: true) { [weak self] in
+                        guard let viewModel = self?.viewModel else { return }
+                        viewModel.updateSlides(isUserPermanent: true)
+                        viewModel.completedLoginFromIntroV3LoginPrompt()
+                    }
+                }
+            }
+            
+            loginCoordinator.createAccountSuccessCustomDismissBlock = {
+                if let createAccountVC = self.navigationController.presentedViewController?.presentedViewController {
+                    createAccountVC.dismiss(animated: true) { [weak self] in
+                        guard let viewModel = self?.viewModel else { return }
+                        viewModel.updateSlides(isUserPermanent: true)
+                        viewModel.completedLoginFromIntroV3LoginPrompt()
+                    }
+                }
+            }
+
+            loginCoordinator.start()
+        }
+        
+        let action2 = UIAlertAction(title: button2Title, style: .default) { [weak self] action in
+            guard let viewModel = self?.viewModel else { return }
+            
+            viewModel.tappedIntroV3LoginPromptNoThanks()
+        }
+        
+        if let presentedViewController = navigationController.presentedViewController {
+            alert.addAction(action1)
+            alert.addAction(action2)
+            
+            presentedViewController.present(alert, animated: true)
+        }
+    }
+    
+    private func showExitConfirmationPromptFromIntroV3Done() {
+        let title = WMFLocalizedString("year-in-review-intro-exit-confirmation-title", value: "Are you sure you want to exit?", comment: "Title of alert that appears when a logged-out user attempts to exit on the Year in Review intro.")
+        let subtitle = WMFLocalizedString("year-in-review-intro-exit-confirmation-subtitle", value: "You can still see a collective Year in Review without logging in.", comment: "Subtitle of alert that appears when a logged-out user attempts to exit on the Year in Review intro.")
+        let button1Title = CommonStrings.getStartedTitle
+        let button2Title = CommonStrings.notNowTitle
+        
+        let alert = UIAlertController(title: title, message: subtitle, preferredStyle: .alert)
+
+        let action1 = UIAlertAction(title: button1Title, style: .default) { [weak self] action in
+            
+            guard let viewModel = self?.viewModel else { return }
+                    
+            viewModel.tappedIntroV3ExitConfirmationGetStarted()
+        }
+        
+        let action2 = UIAlertAction(title: button2Title, style: .default) { [weak self] action in
+            guard let self else { return }
+            
+            navigationController.dismiss(animated: true) {
+                WMFAlertManager.sharedInstance.showBottomAlertWithMessage(WMFLocalizedString("year-in-review-intro-exit-toast-title", value: "You can access your Year in Review later in Profile.", comment: "Toast displayed to user after the exit Year in Review on the intro slide."), subtitle: nil, buttonTitle: nil, image: nil, dismissPreviousAlerts: true)
+            }
+        }
+        
+        if let presentedViewController = navigationController.presentedViewController {
+            alert.addAction(action1)
+            alert.addAction(action2)
+            
+            presentedViewController.present(alert, animated: true)
         }
     }
 }
