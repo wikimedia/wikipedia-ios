@@ -1526,6 +1526,7 @@
 "year-in-review-personalized-editing-title-format" = "您在維基百科上進行了 {{PLURAL:$1|$1}} 次編輯";
 "year-in-review-personalized-editing-title-format-500plus" = "您編輯了維基百科 500 多次。";
 "year-in-review-personalized-explore" = "一隻手捏著逐漸變化成一小塊拼圖的維基百科地球儀之動畫插圖，象徵個人對維基百科平台的貢獻。";
+"year-in-review-personalized-most-read-articles-title" = "您的熱門條目";
 "year-in-review-personalized-reading-subtitle-format" = "您閱讀了{{PLURAL:$1|$1篇}}文章。維基百科提供超過$2百萬篇文章，涵蓋超過$3種活躍的語言版本。您與數百萬人一起拓展知識，探索多樣化的主題。";
 "year-in-review-personalized-reading-title-format" = "您閱讀了 {{PLURAL:$1|$1}} 篇條目";
 "year-in-review-personalized-saved-articles" = "一張戴有安全帽、背後是電腦螢幕的拼圖碎片插圖。";

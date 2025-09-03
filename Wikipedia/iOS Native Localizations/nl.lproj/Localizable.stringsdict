@@ -93,9 +93,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>het tabblad</string>
+			<string>één tabblad</string>
 			<key>other</key>
-			<string>alle %1$d tabbladen</string>
+			<string>%1$d tabbladen</string>
 		</dict>
 	</dict>
 	<key>close-all-tabs-confirmation-title-with-value</key>
@@ -109,9 +109,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Tabblad</string>
+			<string>Eén tabblad</string>
 			<key>other</key>
-			<string>Alle %1$d tabbladen</string>
+			<string>%1$d tabbladen</string>
 		</dict>
 	</dict>
 	<key>closed-all-tabs-confirmation-with-value</key>
@@ -125,9 +125,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Het tabblad is</string>
+			<string>Eén tabblad is</string>
 			<key>other</key>
-			<string>Alle %1$d tabbladen zijn</string>
+			<string>%1$d tabbladen zijn</string>
 		</dict>
 	</dict>
 	<key>diff-change-paragraph-lines-moved-down</key>
