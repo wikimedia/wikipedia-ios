@@ -265,14 +265,16 @@ public class WMFYearInReviewViewModel: ObservableObject {
                 slides.append(.standard(personalizedSlides.saveCountSlide ?? (primaryAppLanguage.isEnglishWikipedia ? englishReadingListSlide : collectiveSavedArticlesSlide)))
                 slides.append(.standard(personalizedSlides.editCountSlide ?? (primaryAppLanguage.isEnglishWikipedia ? englishEditsSlide : collectiveAmountEditsSlide)))
                 slides.append(.standard(personalizedSlides.viewCountSlide ?? (primaryAppLanguage.isEnglishWikipedia ? englishEditsBytesSlide : collectiveEditsPerMinuteSlide)))
-                slides.append(.standard(personalizedSlides.donateCountSlide ?? collectiveZeroAdsSlide))
+                slides.append(.contribution(personalizedSlides.donateCountSlide ?? nonContributorSlide))
             } else {
                 slides.append(.standard(primaryAppLanguage.isEnglishWikipedia ? englishHoursReadingSlide : collectiveLanguagesSlide))
                 slides.append(.standard(primaryAppLanguage.isEnglishWikipedia ? englishTopReadSlide : collectiveArticleViewsSlide))
                 slides.append(.standard(primaryAppLanguage.isEnglishWikipedia ? englishReadingListSlide : collectiveSavedArticlesSlide))
                 slides.append(.standard(primaryAppLanguage.isEnglishWikipedia ? englishEditsSlide : collectiveAmountEditsSlide))
                 slides.append(.standard(primaryAppLanguage.isEnglishWikipedia ? englishEditsBytesSlide : collectiveEditsPerMinuteSlide))
-                slides.append(.standard(personalizedSlides.donateCountSlide ?? collectiveZeroAdsSlide))
+                
+                // TODO: Grey here
+                slides.append(.contribution(personalizedSlides.donateCountSlide ?? nonContributorSlide))
             }
         } else if WMFDeveloperSettingsDataController.shared.showYiRV2 {
             if isUserPermanent {
@@ -281,14 +283,14 @@ public class WMFYearInReviewViewModel: ObservableObject {
                 slides.append(.standard(personalizedSlides.saveCountSlide ?? (primaryAppLanguage.isEnglishWikipedia ? englishReadingListSlide : collectiveSavedArticlesSlide)))
                 slides.append(.standard(personalizedSlides.editCountSlide ?? (primaryAppLanguage.isEnglishWikipedia ? englishEditsSlide : collectiveAmountEditsSlide)))
                 slides.append(.standard(personalizedSlides.viewCountSlide ?? (primaryAppLanguage.isEnglishWikipedia ? englishEditsBytesSlide : collectiveEditsPerMinuteSlide)))
-                slides.append(.standard(personalizedSlides.donateCountSlide ?? collectiveZeroAdsSlide))
+                slides.append(.contribution(personalizedSlides.donateCountSlide ?? nonContributorSlide))
             } else {
                 slides.append(.standard(primaryAppLanguage.isEnglishWikipedia ? englishHoursReadingSlide : collectiveLanguagesSlide))
                 slides.append(.standard(primaryAppLanguage.isEnglishWikipedia ? englishTopReadSlide : collectiveArticleViewsSlide))
                 slides.append(.standard(primaryAppLanguage.isEnglishWikipedia ? englishReadingListSlide : collectiveSavedArticlesSlide))
                 slides.append(.standard(primaryAppLanguage.isEnglishWikipedia ? englishEditsSlide : collectiveAmountEditsSlide))
                 slides.append(.standard(primaryAppLanguage.isEnglishWikipedia ? englishEditsBytesSlide : collectiveEditsPerMinuteSlide))
-                slides.append(.standard(personalizedSlides.donateCountSlide ?? collectiveZeroAdsSlide))
+                slides.append(.contribution(personalizedSlides.donateCountSlide ?? nonContributorSlide))
             }
         }
         
@@ -302,7 +304,7 @@ public class WMFYearInReviewViewModel: ObservableObject {
     private struct PersonalizedSlides {
         var readCountSlide: WMFYearInReviewSlideStandardViewModel?
         var editCountSlide: WMFYearInReviewSlideStandardViewModel?
-        var donateCountSlide: WMFYearInReviewSlideStandardViewModel?
+        var donateCountSlide: WMFYearInReviewContributorSlideViewModel?
         var saveCountSlide: WMFYearInReviewSlideStandardViewModel?
         var mostReadDaySlide: WMFYearInReviewSlideStandardViewModel?
         var viewCountSlide: WMFYearInReviewSlideStandardViewModel?
@@ -314,7 +316,7 @@ public class WMFYearInReviewViewModel: ObservableObject {
         // Personalized Slides
         var readCountSlide: WMFYearInReviewSlideStandardViewModel?
         var editCountSlide: WMFYearInReviewSlideStandardViewModel?
-        var donateCountSlide: WMFYearInReviewSlideStandardViewModel?
+        var donateCountSlide: WMFYearInReviewContributorSlideViewModel?
         var saveCountSlide: WMFYearInReviewSlideStandardViewModel?
         var mostReadDaySlide: WMFYearInReviewSlideStandardViewModel?
         var viewCountSlide: WMFYearInReviewSlideStandardViewModel?
@@ -365,21 +367,25 @@ public class WMFYearInReviewViewModel: ObservableObject {
                 case .donateCount:
                     if let data = slide.data {
                         let decoder = JSONDecoder()
-                        if let donateCount = try? decoder.decode(Int.self, from: data),
-                           donateCount > 0 {
-                            
-                            donateCountSlide = WMFYearInReviewSlideStandardViewModel(
-                                gifName: "all-slide-06",
-                                altText: localizedStrings.personalizedDonationThankYouAccessibilityLabel,
-                                title: localizedStrings.personalizedThankYouTitle,
-                                subtitle: localizedStrings.personalizedThankYouSubtitle(primaryAppLanguage.languageCode ?? "en"),
-                                subtitleType: .markdown,
-                                infoURL: aboutYiRURL,
-                                forceHideDonateButton: true,
-                                loggingID: "thank_custom",
-                                tappedLearnMore: tappedLearnMore(url:),
-                                tappedInfo: tappedInfo
-                            )
+                        if let donateSlideData = try? decoder.decode(DonateAndEditCounts.self, from: data),
+                           donateSlideData.donateCount ?? 0 > 0 || donateSlideData.editCount ?? 0 > 0 {
+                            donateCountSlide = WMFYearInReviewContributorSlideViewModel(
+                                gifName: "personal-slide-06",
+                                altText: "",
+                                title: "title",
+                                subtitle: "subtitle",
+                                primaryButtonTitle: "one",
+                                secondaryButtonTitle: "two",
+                                loggingID: "",
+                                onAppear: {
+                                    print("appear")
+                                },
+                                tappedPrimaryButton: {
+                                    print("first")
+                                },
+                                tappedSecondaryButton: {
+                                    print("second")
+                                })
                         }
                     }
                 case .saveCount:
@@ -632,6 +638,24 @@ public class WMFYearInReviewViewModel: ObservableObject {
         )
     }
     
+    private var nonContributorSlide: WMFYearInReviewContributorSlideViewModel {
+        WMFYearInReviewContributorSlideViewModel(
+            gifName: "personal-slide-06",
+            altText: "",
+            title: "Here's a title",
+            subtitle: "Here is a subtitle",
+            primaryButtonTitle: "button",
+            secondaryButtonTitle: "button 2",
+            loggingID: "", // todo
+            onAppear: {
+                print("appear")
+            }, tappedPrimaryButton: {
+                print("primary")
+            }, tappedSecondaryButton: {
+                print("secondary")
+            })
+    }
+    
     private var currentSlide: WMFYearInReviewSlide {
         return slides[currentSlideIndex]
     }
@@ -664,6 +688,9 @@ public class WMFYearInReviewViewModel: ObservableObject {
         case .location:
             break
             // todo:
+        case .contribution(let viewModel):
+            break
+            // todo: Grey here
         }
         logYearInReviewDidTapShare()
     }
@@ -688,6 +715,8 @@ public class WMFYearInReviewViewModel: ObservableObject {
             return viewModel.loggingID
         case .location(let viewModel):
             return viewModel.loggingID
+        case .contribution(let viewModel):
+            return viewModel.loggingID
         }
     }
     
@@ -707,6 +736,9 @@ public class WMFYearInReviewViewModel: ObservableObject {
                 return true
             }
         case .location:
+            return true
+        case .contribution(let viewModel):
+            // TODO: Grey here
             return true
         }
     }
@@ -762,6 +794,10 @@ public class WMFYearInReviewViewModel: ObservableObject {
         case .location:
             // info button not yet on location
             break
+        case .contribution(let vm):
+            break
+            // info button not yet on donate
+           //  coordinatorDelegate?.handleYearInReviewAction(.info(url: vm.infoURL))
         }
     }
     
@@ -780,6 +816,7 @@ public class WMFYearInReviewViewModel: ObservableObject {
 enum WMFYearInReviewSlide {
     case standard(WMFYearInReviewSlideStandardViewModel)
     case location(WMFYearInReviewSlideLocationViewModel)
+    case contribution(WMFYearInReviewContributorSlideViewModel)
     // todo: articles read
 }
 

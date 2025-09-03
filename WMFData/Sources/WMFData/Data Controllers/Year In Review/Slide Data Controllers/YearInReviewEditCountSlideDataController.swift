@@ -122,7 +122,7 @@ final class YearInReviewEditCountSlideDataController: YearInReviewSlideDataContr
         }
     }
     
-    struct UserContributionsAPIResponse: Codable {
+    public struct UserContributionsAPIResponse: Codable {
         let batchcomplete: Bool?
         let `continue`: ContinueData?
         let query: UserContributionsQuery?
@@ -136,7 +136,7 @@ final class YearInReviewEditCountSlideDataController: YearInReviewSlideDataContr
         }
     }
 
-    struct UserContribution: Codable {
+    public struct UserContribution: Codable {
         let userid: Int
         let user: String
         let pageid: Int

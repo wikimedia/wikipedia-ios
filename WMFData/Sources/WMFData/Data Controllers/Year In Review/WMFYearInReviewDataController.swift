@@ -636,6 +636,16 @@ public class SavedArticleSlideData: NSObject, Codable {
     }
 }
 
+public struct DonateAndEditCounts: Codable {
+    public let donateCount: Int?
+    public let editCount: Int?
+    
+    public init(donateCount: Int?, editCount: Int?) {
+        self.donateCount = donateCount
+        self.editCount = editCount
+    }
+}
+
 public protocol SavedArticleSlideDataDelegate: AnyObject {
     func getSavedArticleSlideData(from startDate: Date, to endEnd: Date) async -> SavedArticleSlideData
 }
