@@ -640,7 +640,6 @@
 "image-recs-time-warning-message" = "Please review the article to understand its topic and inspect the image";
 "image-recs-yes-title" = "Yes";
 "import-shared-reading-list-default-title" = "My Reading List";
-"import-shared-reading-list-survey-prompt-button-cancel" = "Not now";
 "import-shared-reading-list-survey-prompt-button-take-survey" = "Take survey";
 "import-shared-reading-list-survey-prompt-footer" = "View our $1privacy statement$2. Survey powered by a third-party. View their $3privacy policy$4.";
 "import-shared-reading-list-survey-prompt-subtitle" = "\"Share reading lists\" is a test feature and we need your feedback to improve or remove it.";
@@ -748,6 +747,7 @@
 "no-internet-connection" = "No internet connection";
 "no-internet-connection-article-reload" = "A newer version of this article might be available, but cannot be loaded without a connection to the internet";
 "no-internet-connection-article-reload-button" = "Return to last saved version";
+"not-now-title" = "Not now";
 "notifications-center-agent-description-from-format" = "From $1";
 "notifications-center-alert" = "Alert";
 "notifications-center-applied-filters-accessibility-label" = "Notifications Filter - has filters applied";
@@ -767,7 +767,6 @@
 "notifications-center-empty-state-num-filters" = "{{PLURAL:$1|$1 filter|$1 filters}}";
 "notifications-center-feed-card-title" = "Editing notifications now available";
 "notifications-center-feed-news-notification-button-text" = "Turn on push notifications";
-"notifications-center-feed-news-notification-dismiss-button-text" = "Not now";
 "notifications-center-feed-news-notification-text" = "Editing notifications for all Wikimedia projects are now available through the app. Opt in to push notifications to keep up to date with your messages on Wikipedia while on the go.";
 "notifications-center-filters-accessibility-label" = "Notifications Filter";
 "notifications-center-filters-read-status-item-title-all" = "All";
@@ -1464,7 +1463,13 @@
 "year-in-review-feature-announcement-title-personalized" = "Explore your Wikipedia Year in Review";
 "year-in-review-feature-explore-body" = "Wikipedia is the largest knowledge resource ever assembled in the history of the world, and it’s freely available to everyone everywhere. Here’s a review of 2024 through the lens of Wikipedia. ";
 "year-in-review-feature-explore-body-personalized" = "See insights about which articles you read on the Wikipedia app and the edits you made in 2024. Your reading history is kept protected. Reading insights are calculated using locally stored data on your device.";
+"year-in-review-feature-explore-body-v3" = "See insights about which articles you read on the Wikipedia app and the edits you made.";
+"year-in-review-feature-explore-footer-v3" = "Your reading history is kept protected. Reading insights are calculated using locally stored data on your device.";
 "year-in-review-finish" = "Finish";
+"year-in-review-intro-exit-confirmation-subtitle" = "You can still see a collective Year in Review without logging in.";
+"year-in-review-intro-exit-confirmation-title" = "Are you sure you want to exit?";
+"year-in-review-intro-exit-toast-title" = "You can access your Year in Review later in Profile.";
+"year-in-review-intro-login-title" = "Log in for personalization";
 "year-in-review-login-subtitle" = "Login or create an account to be eligible for more personalized insights";
 "year-in-review-login-title" = "Improve your Year in Review";
 "year-in-review-personalized-day-subtitle-format" = "You read the most articles on $1. It's clear that $1 are your prime day for exploring new content. Thanks for making the most of your reading time!";

@@ -1486,6 +1486,7 @@
 "year-in-review-personalized-editing-title-format" = "Vikipediyanı {{PLURAL:$1|$1 dəfə}} redaktə etmisiniz";
 "year-in-review-personalized-editing-title-format-500plus" = "Vikipediyanı 500+ dəfə redaktə etmisiniz";
 "year-in-review-personalized-explore" = "Vikipediya kürəsini tutan bir əlin animasiyalı illüstrasiyası; kürə tədricən kiçik bir pazl parçasına çevrilir və bu da platformaya edilən fərdi töhfələri simvolizə edir.";
+"year-in-review-personalized-most-read-articles-title" = "Ən çox oxunan məqalələriniz";
 "year-in-review-personalized-reading-subtitle-format" = "Siz {{PLURAL:$1|$1 məqalə}} oxumusunuz. Vikipediyada $3+ aktiv dildə $2 məqalə mövcud olub. Siz biliyi genişləndirməkdə və müxtəlif mövzuları araşdırmaqda milyonlarla insana qoşulmusunuz.";
 "year-in-review-personalized-reading-title-format" = "Siz {{PLURAL:$1|$1 məqalə}} oxumusunuz";
 "year-in-review-personalized-saved-articles" = "Arxasında kompüter ekranları olan şlyapa geymiş tapmaca parçasının təsviri.";
