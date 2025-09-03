@@ -331,9 +331,7 @@ import Foundation
                 guard !value.isEmpty else {
                     continue
                 }
-                guard let appInstallID = WMFDataEnvironment.current.appInstallIDUtility?() else {
-                    return
-                }
+                let appInstallID = WMFDataEnvironment.current.appInstallIDUtility?() ?? "TEST-INSTALL-ID"
 
                 let seed = "\(config.id)|\(key)|\(appInstallID)"
                 let randomAsset = randomAssetFrom(assets: value, seed: seed)
