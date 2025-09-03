@@ -30,7 +30,6 @@ import Foundation
     private let cacheDirectoryName = WMFSharedCacheDirectoryNames.donorExperience.rawValue
     private let cacheConfigFileName = "AppsCampaignConfig"
     private let cachePromptStateFileName = "WMFFundraisingCampaignPromptState"
-    private var installIDProvider: () -> String = { "unknown-install-id" }
 
     // MARK: - Lifecycle
     
@@ -332,8 +331,11 @@ import Foundation
                 guard !value.isEmpty else {
                     continue
                 }
-                
-                let seed = "\(config.id)|\(key)|\(installIDProvider())"
+                guard let appInstallID = WMFDataEnvironment.current.appInstallIDUtility?() else {
+                    return
+                }
+
+                let seed = "\(config.id)|\(key)|\(appInstallID)"
                 let randomAsset = randomAssetFrom(assets: value, seed: seed)
 
                 let actions: [WMFFundraisingCampaignConfig.WMFAsset.WMFAction] = randomAsset.actions.map { action in
@@ -395,10 +397,6 @@ import Foundation
             }
         }
         return assets[0]
-    }
-
-    @objc public func setInstallIDProvider(_ provider: @escaping () -> String) {
-        self.installIDProvider = provider
     }
 
 }

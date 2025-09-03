@@ -1020,11 +1020,6 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
             [self hideSplashView];
             done();
         }
-        WMFFundraisingCampaignDataController *controller = [WMFFundraisingCampaignDataController sharedInstance];
-        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-        [controller setInstallIDProvider:^NSString * _Nonnull{
-            return defaults.wmf_appInstallId;
-        }];
     }];
 }
 
