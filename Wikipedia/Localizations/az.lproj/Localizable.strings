@@ -651,7 +651,6 @@
 "image-recs-time-warning-message" = "Mövzunu başa düşmək üçün məqaləni nəzərdən keçirin və şəkli yoxlayın";
 "image-recs-yes-title" = "Bəli";
 "import-shared-reading-list-default-title" = "Mənim oxuma siyahım";
-"import-shared-reading-list-survey-prompt-button-cancel" = "İndi yox";
 "import-shared-reading-list-survey-prompt-button-take-survey" = "Sorğuda iştirak et";
 "import-shared-reading-list-survey-prompt-footer" = "$1məxfilik bəyanatımıza$2 baxın. Sorğu üçüncü tərəf istifadə edilərək yaradılıb. Onların $3məxfilik siyasətinə$4 baxın.";
 "import-shared-reading-list-survey-prompt-subtitle" = "\"Oxuma siyahılarını paylaş\" test funksiyasıdır və onu təkmilləşdirmək və ya silmək üçün rəyinizə ehtiyacımız var.";
@@ -756,6 +755,7 @@
 "no-internet-connection" = "İnternet bağlantısı yoxdur";
 "no-internet-connection-article-reload" = "Bu məqalənin daha yeni versiyası mövcud ola bilər, lakin internet bağlantısı olmadan yükləmək mümkün deyil";
 "no-internet-connection-article-reload-button" = "Son saxlanmış versiyaya qayıt";
+"not-now-title" = "İndi yox";
 "notifications-center-agent-description-from-format" = "$1";
 "notifications-center-alert" = "Xəbərdarlıq";
 "notifications-center-applied-filters-accessibility-label" = "Bildirişlər Filtri - tətbiq olunmuş filtrlər var";
@@ -775,7 +775,6 @@
 "notifications-center-empty-state-num-filters" = "{{PLURAL:$1|$1 filtr}}";
 "notifications-center-feed-card-title" = "Redaktə bildirişləri indi əlçatandır";
 "notifications-center-feed-news-notification-button-text" = "Push bildirişlərini yandırın";
-"notifications-center-feed-news-notification-dismiss-button-text" = "İndi yox";
 "notifications-center-feed-news-notification-text" = "Bütün Vikimedia layihələri üçün redaktə bildirişləri artıq proqram vasitəsilə əlçatandır. Yolda olarkən Vikipediyadakı mesajlarınızdan xəbərdar olmaq üçün bildirişləri təkmilləşdirməyə qoşulun.";
 "notifications-center-filters-accessibility-label" = "Bildirişlər Filtri";
 "notifications-center-filters-read-status-item-title-all" = "Hamısı";
@@ -1471,7 +1470,13 @@
 "year-in-review-feature-announcement-title-personalized" = "Vikipediyadakı iliniz icmalını nəzərdən keçirin";
 "year-in-review-feature-explore-body" = "Vikipediya dünya tarixində indiyə qədər yığılmış ən böyük bilik resursudur və o, hər yerdə hər kəs üçün açıqdır. Vikipediya obyektivindən 2024-cü ilin icmalı.";
 "year-in-review-feature-explore-body-personalized" = "2024-cü ildə Vikipediya proqramında oxuduğunuz məqalələr və etdiyiniz redaktələr haqqında statistikaya baxın. Oxuma tarixçəniz qorunur. Oxuma statistikası cihazınızda lokal olaraq saxlanılan datadan istifadə etməklə hesablanır.";
+"year-in-review-feature-explore-body-v3" = "Vikipediya proqramında oxuduğunuz məqalələr və etdiyiniz redaktələr haqqında məlumatlara baxın.";
+"year-in-review-feature-explore-footer-v3" = "Oxuma tarixçəniz qorunur. Oxuma məlumatları cihazınızda lokal olaraq saxlanılan datadan istifadə etməklə hesablanır.";
 "year-in-review-finish" = "Bitir";
+"year-in-review-intro-exit-confirmation-subtitle" = "Siz hələ də giriş etmədən İlin İcmalına baxa bilərsiniz.";
+"year-in-review-intro-exit-confirmation-title" = "Çıxmaq istədiyinizə əminsiniz?";
+"year-in-review-intro-exit-toast-title" = "Daha sonra profildən İlin İcmalına baxa bilərsiniz.";
+"year-in-review-intro-login-title" = "Fərdiləşdirmə üçün daxil ol";
 "year-in-review-login-subtitle" = "Daha çox fərdiləşdirilmiş məlumatlar əldə etmək üçün daxil olun və ya hesab yaradın";
 "year-in-review-login-title" = "İliniz İcmalını təkmilləşdirin";
 "year-in-review-personalized-day-subtitle-format" = "Ən çox məqaləni $1 oxumusunuz. Aydındır ki, $1 yeni məzmunu araşdırmaq həvəsiniz daha çoxdur. Oxuma vaxtınızdan maksimum istifadə etdiyiniz üçün təşəkkür edirik!";

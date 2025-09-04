@@ -575,7 +575,6 @@
 "image-recs-not-sure-title" = "Eahpesihkar";
 "image-recs-time-warning-message" = "Loga artihkkala vai ipmirdat dan fáttá, ja dárkkis gova";
 "import-shared-reading-list-default-title" = "Mu lohkanlistu";
-"import-shared-reading-list-survey-prompt-button-cancel" = "Ii dál";
 "import-shared-reading-list-survey-prompt-footer" = "Loga $1min persovdnasuodjalusjulggaštusa$2. Iskkus čađahuvvo goalmmátlađđasis. Geahča $3sin persovdnasuodjaluspolitihka$4.";
 "import-shared-reading-list-survey-prompt-subtitle" = "«Juoge lohkanlisttuid» lea geahččalanfunkšuvdna, ja mii dárbbašit geavaheddjiin máhcahagaid vai sáhttit buoridit dahje sihkkut dan.";
 "import-shared-reading-list-survey-prompt-title" = "Sáhtát go veahkkin midjiide buoridit «Juoge lohkanlisttuid»?";
@@ -665,6 +664,7 @@
 "no-internet-connection" = "Ii leat interneahttaoktavuohta";
 "no-internet-connection-article-reload" = "Ođđaset veršuvdna dán artihkkalis soaitá gávdnot, muhto dárbbašuvvo doaibmi interneahttaoktavuohta vai sáhttá dárkkistit";
 "no-internet-connection-article-reload-button" = "Ruovttoluotta maŋemus vurkejuvvon veršuvdnii";
+"not-now-title" = "Ii dál";
 "notifications-center-agent-description-from-format" = "$1:is";
 "notifications-center-alert" = "Várrehus";
 "notifications-center-applied-filters-accessibility-label" = "Almmuhussilli - das leat gustovaš sillit";
@@ -684,7 +684,6 @@
 "notifications-center-empty-state-num-filters" = "{{PLURAL:$1|$1 silli}}";
 "notifications-center-feed-card-title" = "Rievdadanalmmuhusat lea dál olámuttos";
 "notifications-center-feed-news-notification-button-text" = "Váldde atnui push-almmuhusaid";
-"notifications-center-feed-news-notification-dismiss-button-text" = "Ii dál";
 "notifications-center-feed-news-notification-text" = "Rievdadanalmmuhusat buot Wikimedia prošeavttaide leat dál olámuttos áppa bokte. Váldde atnui push-almmuhusaid vai oaččut álo ođđaseamos dieđuid go leat mátkkis.";
 "notifications-center-filters-accessibility-label" = "Almmuhussilli";
 "notifications-center-filters-read-status-item-title-all" = "Buot";

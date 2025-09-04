@@ -219,7 +219,6 @@
 "image-rec-survey-title" = "سبب";
 "image-recs-no-title" = "کو";
 "image-recs-yes-title" = "جیا";
-"import-shared-reading-list-survey-prompt-button-cancel" = "ہُݨ نہ";
 "in-the-news-sub-title-from-language-wikipedia" = "$1 وکیپیڈیا کنوں";
 "in-the-news-sub-title-from-wikipedia" = "وکیپیڈیا کنوں";
 "in-the-news-title" = "خبراں وچ";
@@ -274,6 +273,7 @@
 "new-password-title" = "پاس ورڈ درج کرو";
 "new-tab" = "نویں ٹیب";
 "next-action-title" = "اڳلا";
+"not-now-title" = "ہُݨ نہ";
 "notifications-center-agent-description-from-format" = "$1 کنوں";
 "notifications-center-alert" = "الرٹ";
 "notifications-center-cell-notification-type-accessibility-label-format" = "$1 اطلاعہ نامہ";
@@ -281,7 +281,6 @@
 "notifications-center-destination-app" = "ایپ وچ";
 "notifications-center-destination-web" = "ویب تے";
 "notifications-center-empty-no-messages" = "تہاݙے کیتے کوئی سنیہے کائنی";
-"notifications-center-feed-news-notification-dismiss-button-text" = "ہُݨ نہ";
 "notifications-center-filters-read-status-item-title-all" = "یکے";
 "notifications-center-filters-read-status-item-title-read" = "پڑھا ہویا";
 "notifications-center-filters-read-status-item-title-unread" = "کائنی پڑھا";

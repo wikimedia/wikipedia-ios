@@ -502,7 +502,6 @@
 "image-recs-not-sure-title" = "پڪ ناھي";
 "image-recs-yes-title" = "ها";
 "import-shared-reading-list-default-title" = "منھنجي پڙھڻ جي فھرست";
-"import-shared-reading-list-survey-prompt-button-cancel" = "ھاڻي نہ";
 "import-shared-reading-list-survey-prompt-button-take-survey" = "سروي ڏيو";
 "import-shared-reading-list-title" = "ونڊيل فھرست درآمد ڪريو";
 "in-the-news-sub-title-from-language-wikipedia" = "$1 وڪيپيڊيا مان";
@@ -576,6 +575,7 @@
 "no-internet-connection" = "انٽرنيٽ ڳانڍاپو ناھي";
 "no-internet-connection-article-reload" = "ھن مضمون جو ڪو اڃا نئون ورجاءُ موجود ٿي سگهي ٿو، پر انٽرنيٽ ڏانھن ڪنھن ڳانڍاپي سواءِ لاھي نٿو سگهجي";
 "no-internet-connection-article-reload-button" = "آخري سانڍيل ورجاءَ ڏانھن ورو";
+"not-now-title" = "ھاڻي نہ";
 "notifications-center-agent-description-from-format" = "$1 کان";
 "notifications-center-alert" = "چتاءُ";
 "notifications-center-badge-button-accessibility-label" = "نہ-پڙھيل بيج وارا اطلاع";
@@ -593,7 +593,6 @@
 "notifications-center-empty-state-num-filters" = "{{PLURAL:$1|$1 ڇاڻي|$1 ڇاڻيون}}";
 "notifications-center-feed-card-title" = "سنوارڻ جا اطلاع ھاڻي موجود آھن";
 "notifications-center-feed-news-notification-button-text" = "ڌڪيل اطلاع آن ڪريو";
-"notifications-center-feed-news-notification-dismiss-button-text" = "ھاڻي نہ";
 "notifications-center-filters-accessibility-label" = "اطلاعن جي ڇاڻي";
 "notifications-center-filters-read-status-item-title-all" = "سڀ";
 "notifications-center-filters-read-status-item-title-read" = "پڙھيل";

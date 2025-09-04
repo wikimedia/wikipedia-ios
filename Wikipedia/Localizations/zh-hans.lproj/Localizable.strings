@@ -674,7 +674,6 @@
 "image-recs-time-warning-message" = "请查看条目以了解其主题，并检查图片";
 "image-recs-yes-title" = "是";
 "import-shared-reading-list-default-title" = "我的阅读列表";
-"import-shared-reading-list-survey-prompt-button-cancel" = "现在不要";
 "import-shared-reading-list-survey-prompt-button-take-survey" = "参加调查";
 "import-shared-reading-list-survey-prompt-footer" = "请查看我们的$1隐私声明$2。调查由第三方驱动。请查看他们的$3隐私政策$4。";
 "import-shared-reading-list-survey-prompt-subtitle" = "“分享阅读列表”是测试功能，我们需要您的反馈来改进或移除此功能。";
@@ -771,6 +770,7 @@
 "no-internet-connection" = "无互联网连接";
 "no-internet-connection-article-reload" = "此条目有新版本，但由于无互联网连接而无法加载";
 "no-internet-connection-article-reload-button" = "返回最后保存的版本";
+"not-now-title" = "现在不要";
 "notifications-center-agent-description-from-format" = "来自$1";
 "notifications-center-alert" = "提醒";
 "notifications-center-applied-filters-accessibility-label" = "通知过滤器 - 已应用过滤器";
@@ -790,7 +790,6 @@
 "notifications-center-empty-state-num-filters" = "{{PLURAL:$1|$1 种筛选}}";
 "notifications-center-feed-card-title" = "编辑通知现已可用";
 "notifications-center-feed-news-notification-button-text" = "打开推送通知";
-"notifications-center-feed-news-notification-dismiss-button-text" = "不是现在";
 "notifications-center-feed-news-notification-text" = "现在在本应用内可以收到所有维基媒体项目的编辑通知。启用推送通知以便在繁忙时也能及时收到您在维基百科上的消息。";
 "notifications-center-filters-accessibility-label" = "通知过滤器";
 "notifications-center-filters-read-status-item-title-all" = "所有";

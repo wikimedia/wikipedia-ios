@@ -174,7 +174,6 @@
 "close-other-tabs" = "Close other tabs";
 "close-tab-confirmation" = "Close tab?";
 "close-tabs" = "Close tabs";
-"closed-all-tabs-confirmation" = "Closed all $1 tabs.";
 "closed-all-tabs-confirmation-with-value" = "{{PLURAL:$1|$1 tab|$1 tabs}} closed.";
 "compass-direction" = "at $1 o'clock";
 "confirm-donation-history-deletion-subtitle" = "This will only apply to donations made from this device.";
