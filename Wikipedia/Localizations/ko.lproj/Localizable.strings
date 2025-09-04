@@ -643,7 +643,6 @@
 "image-recs-time-warning-message" = "주제를 이해하고 이미지를 점검하기 위해 문서를 검토해 주십시오";
 "image-recs-yes-title" = "예";
 "import-shared-reading-list-default-title" = "내 읽기 목록";
-"import-shared-reading-list-survey-prompt-button-cancel" = "지금은 괜찮습니다";
 "import-shared-reading-list-survey-prompt-button-take-survey" = "설문 조사에 참가하기";
 "import-shared-reading-list-survey-prompt-footer" = "저희의 $1개인정보 정책$2을 확인하세요. 설문조사는 제3자가 제공합니다. 제3자의 $3개인정보 정책$4을 확인하세요.";
 "import-shared-reading-list-survey-prompt-title" = "\"읽기 목록 공유\" 개선에 도움을 주시겠습니까?";
@@ -740,6 +739,7 @@
 "no-internet-connection" = "인터넷 연결 없음";
 "no-internet-connection-article-reload" = "이 문서의 더 새로운 판을 볼 수 있으나 인터넷에 연결되지 않으면 불러올 수 없습니다";
 "no-internet-connection-article-reload-button" = "마지막으로 저장한 판으로 돌아가기";
+"not-now-title" = "지금은 괜찮습니다";
 "notifications-center-agent-description-from-format" = "$1에서";
 "notifications-center-alert" = "중요 알림";
 "notifications-center-applied-filters-accessibility-label" = "알림 필터 - 필터 적용됨";
@@ -759,7 +759,6 @@
 "notifications-center-empty-state-num-filters" = "{{PLURAL:$1|$1개 필터}}";
 "notifications-center-feed-card-title" = "지금 편집 알림을 사용할 수 있습니다";
 "notifications-center-feed-news-notification-button-text" = "푸시 알림 켜기";
-"notifications-center-feed-news-notification-dismiss-button-text" = "지금은 괜찮습니다";
 "notifications-center-feed-news-notification-text" = "모든 위키미디어 프로젝트의 편집 알림을 이제 앱을 통해 사용할 수 있습니다. 위키백과에서 계속 들어오는 메시지와 최신화를 유지하려면 푸시 알림을 활성화하십시오.";
 "notifications-center-filters-accessibility-label" = "알림 필터";
 "notifications-center-filters-read-status-item-title-all" = "모두";
@@ -1401,6 +1400,7 @@
 "year-in-review-donate" = "기부";
 "year-in-review-donate-now" = "지금 기부하기";
 "year-in-review-finish" = "완료";
+"year-in-review-intro-exit-confirmation-title" = "종료하시겠습니까?";
 "year-in-review-personalized-day-subtitle-format" = "$1에 가장 많은 문서를 읽었습니다. $1이 새로운 콘텐츠를 둘러보기에 가장 좋은 날이라는 것은 분명합니다. 읽는 시간을 최대한 활용해주셔서 고맙습니다!";
 "year-in-review-personalized-day-title-format" = "읽기에 가장 많이 할애한 날은 $1입니다.";
 "year-in-review-personalized-donate-title" = "귀하의 기부 덕분에 위키백과의 번영 유지에 도움이 되었습니다";

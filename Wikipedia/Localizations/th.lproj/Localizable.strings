@@ -466,7 +466,6 @@
 "image-recs-not-sure-title" = "ไม่แน่ใจ";
 "image-recs-yes-title" = "ใช่";
 "import-shared-reading-list-default-title" = "รายการอ่านของฉัน";
-"import-shared-reading-list-survey-prompt-button-cancel" = "ไม่ใช่ตอนนี้";
 "import-shared-reading-list-survey-prompt-button-take-survey" = "ทำแบบสำรวจ";
 "import-shared-reading-list-survey-prompt-subtitle" = "\"แบ่งปันรายการอ่าน\" เป็นคุณลักษณะทดสอบและเราต้องการคำติชมของคุณเพื่อปรับปรุงหรือลบออก";
 "import-shared-reading-list-survey-prompt-title" = "คุณช่วยเราปรับปรุง \"แบ่งปันรายการอ่าน\" ได้ไหม?";
@@ -545,6 +544,7 @@
 "no-internet-connection" = "ไม่มีการเชื่อมต่ออินเทอร์เน็ต";
 "no-internet-connection-article-reload" = "อาจมีรุ่นใหม่ของบทความนี้ แต่ไม่สามารถโหลดได้โดยไม่เชื่อมต่อกับอินเทอร์เน็ต";
 "no-internet-connection-article-reload-button" = "กลับไปยังรุ่นที่บันทึกไว้ล่าสุด";
+"not-now-title" = "ไม่ใช่ตอนนี้";
 "notifications-center-agent-description-from-format" = "จาก $1";
 "notifications-center-cell-notification-type-accessibility-label-format" = "$1 การแจ้งเตือน";
 "notifications-center-change-password" = "เปลี่ยนรหัสผ่าน";
@@ -559,7 +559,6 @@
 "notifications-center-empty-state-num-filters" = "{{PLURAL:$1|$1 ตัวกรอง}}";
 "notifications-center-feed-card-title" = "การแก้ไขการแจ้งเตือนพร้อมใช้งานแล้ว";
 "notifications-center-feed-news-notification-button-text" = "เปิดการแจ้งเตือนแบบพุช";
-"notifications-center-feed-news-notification-dismiss-button-text" = "ไม่ใช่ตอนนี้";
 "notifications-center-feed-news-notification-text" = "ขณะนี้การแก้ไขการแจ้งเตือนสำหรับโครงการวิกิมีเดียทั้งหมดพร้อมใช้งานผ่านแอปแล้ว เลือกใช้การแจ้งเตือนแบบพุชเพื่อติดตามข้อความของคุณบนวิกิพีเดียขณะเดินทาง";
 "notifications-center-filters-accessibility-label" = "ตัวกรองการแจ้งเตือน";
 "notifications-center-filters-read-status-item-title-all" = "ทั้งหมด";

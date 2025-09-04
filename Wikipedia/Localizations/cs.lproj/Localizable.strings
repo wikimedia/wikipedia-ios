@@ -494,7 +494,6 @@
 "notifications-center-empty-no-messages" = "Nemáte žádné zprávy";
 "notifications-center-empty-not-subscribed" = "Momentálně nejste přihlášeni k odběru žádného oznámení z Wikipedie";
 "notifications-center-feed-news-notification-button-text" = "Zapnout push oznámení";
-"notifications-center-feed-news-notification-dismiss-button-text" = "Teď ne";
 "notifications-center-filters-read-status-item-title-all" = "Vše";
 "notifications-center-filters-read-status-section-title" = "Stav čtení";
 "notifications-center-filters-title" = "Filtry";

@@ -638,7 +638,6 @@
 "image-recs-not-sure-title" = "Ikke sikker";
 "image-recs-yes-title" = "Ja";
 "import-shared-reading-list-default-title" = "Min læseliste";
-"import-shared-reading-list-survey-prompt-button-cancel" = "Ikke nu";
 "import-shared-reading-list-survey-prompt-button-take-survey" = "Deltag i undersøgelse";
 "in-the-news-sub-title-from-language-wikipedia" = "Fra $1 Wikipedia";
 "in-the-news-sub-title-from-wikipedia" = "Fra Wikipedia";
@@ -718,6 +717,7 @@
 "no-internet-connection" = "Ingen internetforbindelse";
 "no-internet-connection-article-reload" = "Der findes mligvis en nyere version af denne artikel, men den kan ikke indlæses uden forbindelse til internettet";
 "no-internet-connection-article-reload-button" = "Vend tilbage til seneste gemte version";
+"not-now-title" = "Ikke nu";
 "notifications-center-agent-description-from-format" = "Fra $1";
 "notifications-center-alert" = "Advarsel";
 "notifications-center-applied-filters-accessibility-label" = "Meddelelsesfilter - har filtre anvendt";
@@ -735,7 +735,6 @@
 "notifications-center-empty-state-no-projects-selected" = "Tilføj projekter for at se flere beskeder";
 "notifications-center-empty-state-num-filters" = "{{PLURAL:$1|$1 filter|$1 filtre}}";
 "notifications-center-feed-news-notification-button-text" = "Slå push-notifikationer til";
-"notifications-center-feed-news-notification-dismiss-button-text" = "Ikke nu";
 "notifications-center-filters-read-status-item-title-all" = "Alle";
 "notifications-center-filters-read-status-item-title-read" = "Læst";
 "notifications-center-filters-read-status-item-title-unread" = "Ulæst";
