@@ -181,17 +181,14 @@
 "close-all-tabs" = "Затвори ги сите јазичиња";
 "close-all-tabs-confirmation" = "Дали сакате да ги затворите сите $1 јазичиња? Ова дејство е неповратно.";
 "close-all-tabs-confirmation-number" = "Да ги затворам сите $1 јазичиња?";
-// Fuzzy
-"close-all-tabs-confirmation-subtitle-with-value" = "Дали сакате да {{PLURAL:$1|го затворите јазичето|ги затворите сите $1 јазичиња}}? Ова дејство е неповратно.";
-// Fuzzy
-"close-all-tabs-confirmation-title-with-value" = "Да {{PLURAL:$1|го затворам јазичето|ги затворам сите $1 јазичиња}}?";
+"close-all-tabs-confirmation-subtitle-with-value" = "Дали сакате да {{PLURAL:$1|го затворите јазичето|затворите $1 јазичиња}}? Ова дејство е неповратно.";
+"close-all-tabs-confirmation-title-with-value" = "Да {{PLURAL:$1|го затворам јазичето|затворам $1 јазичиња}}?";
 "close-button-accessibility-label" = "Затвори";
 "close-other-tabs" = "Затвори други јазичиња";
 "close-tab-confirmation" = "За го затворам јазичето?";
 "close-tabs" = "Затвори јазичиња";
 "closed-all-tabs-confirmation" = "Затворени сите $1 јазичиња.";
-// Fuzzy
-"closed-all-tabs-confirmation-with-value" = "{{PLURAL:$1|Јазичето е затворено|Затворени се сите $1 јазичиња}}.";
+"closed-all-tabs-confirmation-with-value" = "{{PLURAL:$1|Јазичето е затворено|Затворени се $1 јазичиња}}.";
 "compass-direction" = "во $1 часот";
 "confirm-donation-history-deletion-subtitle" = "Ова ќе важи само за прилозите дадени од овој уред.";
 "confirm-donation-history-deletion-title" = "Потврдете бришење";
@@ -656,7 +653,6 @@
 "image-recs-time-warning-message" = "Прочитајте ја статијата за да ја разберете темата и разгледајте ја сликата";
 "image-recs-yes-title" = "Да";
 "import-shared-reading-list-default-title" = "Мој список за читање";
-"import-shared-reading-list-survey-prompt-button-cancel" = "Не сега";
 "import-shared-reading-list-survey-prompt-button-take-survey" = "Пополнете ја анкетата";
 "import-shared-reading-list-survey-prompt-footer" = "ПОгледајте ја нашата $1изјава за личните податоци$2. Анкетата ја овозможува трето лице. Погледајте ги нивните $3правила за личните податоци$4.";
 "import-shared-reading-list-survey-prompt-subtitle" = "„Сподели списоци за читање“ е пробна функција и ни требаат ваши мислења за да ја подобриме или отстраниме.";
@@ -764,6 +760,7 @@
 "no-internet-connection" = "Не сте поврзани со семрежјето";
 "no-internet-connection-article-reload" = "Може да постои понова верзија на статијава, но не може да се вчита без врска со семрежјето";
 "no-internet-connection-article-reload-button" = "Врати на последната зачувана верзија";
+"not-now-title" = "Не сега";
 "notifications-center-agent-description-from-format" = "Од $1";
 "notifications-center-alert" = "Напомена";
 "notifications-center-applied-filters-accessibility-label" = "Филтер на известувања — има зададени филтри";
@@ -783,7 +780,6 @@
 "notifications-center-empty-state-num-filters" = "{{PLURAL:$1|$1 филтер|$1 филтри}}";
 "notifications-center-feed-card-title" = "Сега се достапни Известувањата за уредувања";
 "notifications-center-feed-news-notification-button-text" = "Вклучи доставни известувања";
-"notifications-center-feed-news-notification-dismiss-button-text" = "Не сега";
 "notifications-center-feed-news-notification-text" = "Известувањата за уредувања за сите Викимедиини проекти сега се достапни преку прилогот. Вклучете ги доставните известувања за да бидете во тект со вашите пораки на Википедија додека работите.";
 "notifications-center-filters-accessibility-label" = "Филтер на известувања";
 "notifications-center-filters-read-status-item-title-all" = "Сите";
@@ -1480,7 +1476,13 @@
 "year-in-review-feature-announcement-title-personalized" = "Истражете го вашиот Преглед на годината на Википедија";
 "year-in-review-feature-explore-body" = "Википедија е најголемиот ресурс на знаења во историјата на светот, и истиот е слободно достапен за секого и секаде. Да се осврнеме на 2024 година низ призмата на Википедија.";
 "year-in-review-feature-explore-body-personalized" = "Добијте сознанија за тоа кои статии ги читавте на прилогот на Википедија и кои уредувања ги правевте во 2024 г. Вашата историја на читање е заштитена. Сознанијата за читањето се пресметуваат со месно складирани податоци на вашиот уред.";
+"year-in-review-feature-explore-body-v3" = "Погледнете кои статии ги имате читано на Википединиот прилог и уредувањата што ги имате направнео.";
+"year-in-review-feature-explore-footer-v3" = "Вашата историја на читање е заштитена. Увидите во вашите читања се пресметуваат користејќи месно складирани податоци на вашиот уред.";
 "year-in-review-finish" = "Готово";
+"year-in-review-intro-exit-confirmation-subtitle" = "Сепак можете да го погледате збирниот Преглед на годината без да се најавите.";
+"year-in-review-intro-exit-confirmation-title" = "Сигурно сакате да излезете?";
+"year-in-review-intro-exit-toast-title" = "Можете подоцна да го отворите вашиот Преглед на годината во Профилот.";
+"year-in-review-intro-login-title" = "Најавете се за лични прилагодувања";
 "year-in-review-login-subtitle" = "Најавете се или направете сметка за да добиете персонализирани сознанија";
 "year-in-review-login-title" = "Подобрете го вашиот Преглед на годината";
 "year-in-review-personalized-day-subtitle-format" = "Највеќе статии читате во $1. Јасно е дека $1 е вашиот главен ден за истражување на нови содржини. Благодариме што така полезно го користите времето за читање!";
@@ -1495,6 +1497,7 @@
 "year-in-review-personalized-editing-title-format" = "Ја имате уредено Википедија {{PLURAL:$1|еднаш|$1 пати}}";
 "year-in-review-personalized-editing-title-format-500plus" = "Ја имате уредено Википедија преку 500 пати";
 "year-in-review-personalized-explore" = "Анимирана илустрација на рака како ја држи Википедиината топка, која постепено се претвора во мало парче од сложувалка, симболизирајќи ги поединечните придонеси на платформата.";
+"year-in-review-personalized-most-read-articles-title" = "Вашите најчитани статии";
 "year-in-review-personalized-reading-subtitle-format" = "Прочитавте {{PLURAL:$1|$1 статија|$1 статии}}. Википедија имаше $2 милиони статии на преку $3 активни јазици. Се придруживте на милиони луѓе во проширување на знаењето и истражувањето на разновидни теми.";
 "year-in-review-personalized-reading-title-format" = "Прочитавте {{PLURAL:$1|$1 статија|$1 статии}}";
 "year-in-review-personalized-saved-articles" = "Илустрација на парче од служувалка како носи градежен шлем со сметачки екрани во позадината.";

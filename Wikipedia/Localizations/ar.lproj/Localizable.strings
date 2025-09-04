@@ -220,17 +220,14 @@
 "close-all-tabs" = "إغلاق جميع علامات التبويب";
 "close-all-tabs-confirmation" = "هل تريد إغلاق جميع علامات التبويب البالغ عددها $1؟ لا يمكن التراجع عن هذا الإجراء.";
 "close-all-tabs-confirmation-number" = "هل تريد إغلاق جميع علامات التبويب البالغ عددها $1؟";
-// Fuzzy
-"close-all-tabs-confirmation-subtitle-with-value" = "هل تريد إغلاق جميع {{PLURAL:$1|$1 لسان|$1 ألسنة}}؟ لا يمكن التراجع عن هذا الإجراء.";
-// Fuzzy
-"close-all-tabs-confirmation-title-with-value" = "إغلاق جميع {{PLURAL:$1|$1 لسان|$1 ألسنة}}؟";
+"close-all-tabs-confirmation-subtitle-with-value" = "هل تريد إغلاق {{PLURAL:$1|$1 لسان|$1 ألسنة}}؟ لا يمكن التراجع عن هذا الإجراء.";
+"close-all-tabs-confirmation-title-with-value" = "إغلاق {{PLURAL:$1|$1 لسان|$1 ألسنة}}؟";
 "close-button-accessibility-label" = "أغلق";
 "close-other-tabs" = "إغلاق علامات التبويب الأخرى";
 "close-tab-confirmation" = "هل تريد إغلاق علامة التبويب؟";
 "close-tabs" = "إغلاق علامات التبويب";
 "closed-all-tabs-confirmation" = "تم إغلاق جميع علامات التبويب البالغ عددها $1.";
-// Fuzzy
-"closed-all-tabs-confirmation-with-value" = "تم إغلاق جميع {{PLURAL:$1|$1 لسان|$1 ألسنة}}.";
+"closed-all-tabs-confirmation-with-value" = "تم إغلاق {{PLURAL:$1|$1 لسان|$1 ألسنة}}.";
 "compass-direction" = "عند الساعة $1";
 "confirm-donation-history-deletion-subtitle" = "سيتم تطبيق هذا فقط على التبرعات المقدمة من هذا الجهاز.";
 "confirm-donation-history-deletion-title" = "تأكيد الحذف";
@@ -695,7 +692,6 @@
 "image-recs-time-warning-message" = "يرجى مراجعة المقال لفهم موضوعه ومعاينة الصورة";
 "image-recs-yes-title" = "نعم";
 "import-shared-reading-list-default-title" = "قائمة القراءة الخاصة بي";
-"import-shared-reading-list-survey-prompt-button-cancel" = "ليس الآن";
 "import-shared-reading-list-survey-prompt-button-take-survey" = "المشاركة في الاستطلاع";
 "import-shared-reading-list-survey-prompt-footer" = "اطلع على $1بيان الخصوصية$2 الخاص بنا. الاستطلاع مدعوم من قِبل جهة خارجية. اطلع على $3سياسة الخصوصية$4 الخاصة بهم.";
 "import-shared-reading-list-survey-prompt-subtitle" = "\"مشاركة قوائم القراءة\" هي ميزة اختبار ونحن بحاجة إلى ملاحظاتك لتحسينها أو إزالتها.";
@@ -803,6 +799,7 @@
 "no-internet-connection" = "لا يوجد اتصال بالإنترنت";
 "no-internet-connection-article-reload" = "قد يتوفر إصدار أحدث من هذه المقالة، ولكن لا يمكن تحميله دون الاتصال بالإنترنت";
 "no-internet-connection-article-reload-button" = "العودة إلى النسخة الأخيرة المحفوظة";
+"not-now-title" = "ليس الآن";
 "notifications-center-agent-description-from-format" = "من $1";
 "notifications-center-alert" = "انذار";
 "notifications-center-applied-filters-accessibility-label" = "تصفية الاشعارات - تم اضافة التصفيات";
@@ -822,7 +819,6 @@
 "notifications-center-empty-state-num-filters" = "{{PLURAL:$1| مرشح $1 | مرشحات $1 }}";
 "notifications-center-feed-card-title" = "تحرير الإخطارات متاح الآن";
 "notifications-center-feed-news-notification-button-text" = "أظهر الإشعارات";
-"notifications-center-feed-news-notification-dismiss-button-text" = "ليس الآن";
 "notifications-center-feed-news-notification-text" = "إخطارات التحرير لجميع مشاريع ويكيميديا متاحة الآن من خلال التطبيق. اشترك في إخطارات الدفع  لمواكبة رسائلك على ويكيبيديا أثناء التنقل.";
 "notifications-center-filters-accessibility-label" = "مُرشّح الإشعارات";
 "notifications-center-filters-read-status-item-title-all" = "الكل";
@@ -1534,6 +1530,7 @@
 "year-in-review-personalized-editing-title-format" = "لقد قمت بتحرير ويكيبيديا {{PLURAL:$1|$1 مرة}}";
 "year-in-review-personalized-editing-title-format-500plus" = "لقد قمت بتعديل ويكيبيديا 500 مرة+";
 "year-in-review-personalized-explore" = "رسم متحرك ليد تحمل مجسم الكرة الأرضية لويكيبيديا، والذي يتحول تدريجيًا إلى قطعة صغيرة من اللغز، ترمز إلى المساهمات الفردية في المنصة.";
+"year-in-review-personalized-most-read-articles-title" = "أفضل مقالاتك";
 "year-in-review-personalized-reading-subtitle-format" = "لقد قرأت {{PLURAL:$1|$1 مقال|$1 مقالة}}. تحتوي ويكيبيديا على $2 مليون مقالة متاحة بأكثر من $3 لغات نشطة. لقد انضممت إلى ملايين الأشخاص في توسيع المعرفة واستكشاف مواضيع متنوعة.";
 "year-in-review-personalized-reading-title-format" = "لقد قرأت {{PLURAL:$1|$1 مقال|$1 مقالة}}";
 "year-in-review-personalized-saved-articles" = "رسم توضيحي لقطعة من اللغز ترتدي خوذة صلبة مع شاشات كمبيوتر في الخلف.";

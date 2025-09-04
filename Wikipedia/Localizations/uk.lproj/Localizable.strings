@@ -664,7 +664,6 @@
 "image-recs-time-warning-message" = "Перегляньте статтю, щоб зрозуміти її тему, і перегляньте зображення";
 "image-recs-yes-title" = "Так";
 "import-shared-reading-list-default-title" = "Мій список читання";
-"import-shared-reading-list-survey-prompt-button-cancel" = "Не зараз";
 "import-shared-reading-list-survey-prompt-button-take-survey" = "Взяти участь в опитуванні";
 "import-shared-reading-list-survey-prompt-footer" = "Перегляньте нашу $1заяву про конфіденційність$2. Опитування розроблене третьою стороною, перегляньте їх $3політику конфіденційності$4.";
 "import-shared-reading-list-survey-prompt-subtitle" = "Спільні списки читання є тестовою функцією і нам потрібні ваші відгуки, щоб ми могли її покращити чи прибрати.";
@@ -769,6 +768,7 @@
 "no-internet-connection" = "Немає з'єднання з інтернетом";
 "no-internet-connection-article-reload" = "Можливо, доступна новіша версія цієї статті, але вона не може бути завантажена через відсутність підключення до Інтернету";
 "no-internet-connection-article-reload-button" = "Повернутися до останньої збереженої версії";
+"not-now-title" = "Не зараз";
 "notifications-center-agent-description-from-format" = "З $1";
 "notifications-center-alert" = "Сповіщення";
 "notifications-center-applied-filters-accessibility-label" = "Фільтр сповіщень – має застосовані фільтри";
@@ -788,7 +788,6 @@
 "notifications-center-empty-state-num-filters" = "{{PLURAL:$1|$1 фільтр|$1 фільтри|$1 фільтрів}}";
 "notifications-center-feed-card-title" = "Тепер доступні сповіщення про редагування";
 "notifications-center-feed-news-notification-button-text" = "Увімкнути push-сповіщення";
-"notifications-center-feed-news-notification-dismiss-button-text" = "Не зараз";
 "notifications-center-feed-news-notification-text" = "У програмці тепер доступні сповіщення про редагування для всіх проєктів Вікімедіа. Увімкніть push-сповіщення, щоб бути в курсі своїх повідомлень у Вікіпедії навіть на ходу.";
 "notifications-center-filters-accessibility-label" = "Фільтр сповіщень";
 "notifications-center-filters-read-status-item-title-all" = "Усі";

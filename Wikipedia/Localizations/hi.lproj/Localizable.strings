@@ -289,7 +289,6 @@
 "icon-shortcut-search-title" = "विकिपीडिया में खोजें";
 "image-gallery-unknown-owner" = "अज्ञात लेखक";
 "image-rec-error-subtitle" = "कोई त्रुटि आई।";
-"import-shared-reading-list-survey-prompt-button-cancel" = "अभी नहीं";
 "import-shared-reading-list-survey-prompt-button-take-survey" = "सर्वे लें";
 "import-shared-reading-list-survey-prompt-footer" = "हमारी $1गोपनीयता स्टेटमेंट$2 देखें. सर्वे एक थर्ड पार्टी के ज़रिए पावर किया गया है. उनकी $3गोपनीयता नीति$4 देखें.";
 // Fuzzy
@@ -328,12 +327,12 @@
 "new-password-title" = "एक पासवर्ड जोड़ें";
 "next-action-title" = "अगला";
 "no-email-account-alert" = "कृपया अपनी डिवाइस पर एक ईमेल अकाउंट स्थापित करें और पुनः प्रयास करें।";
+"not-now-title" = "अभी नहीं";
 "notifications-center-alert" = "चेतावनी";
 "notifications-center-change-password" = "पासवर्ड बदलें";
 "notifications-center-destination-app" = "ऐप में";
 "notifications-center-destination-web" = "वेब पर";
 "notifications-center-feed-news-notification-button-text" = "पुश नोटिफिकेशन चालू करें";
-"notifications-center-feed-news-notification-dismiss-button-text" = "अभी नहीं";
 "notifications-center-go-to-article" = "लेख";
 "notifications-center-go-to-diff" = "अन्तर";
 "notifications-center-more-action-accessibility-label" = "और";

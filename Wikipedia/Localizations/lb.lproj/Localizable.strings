@@ -145,11 +145,14 @@
 "close-all-tabs" = "All Tabs zoumaachen";
 "close-all-tabs-confirmation" = "Wëllt Dir all $1 Tabs zoumaachen? Dës Aktioun kann net réckgängeg gemaach ginn.";
 "close-all-tabs-confirmation-number" = "All $1 Tabs zoumaachen?";
+"close-all-tabs-confirmation-subtitle-with-value" = "Wëllt Dir {{PLURAL:$1|$1 Tab|$1 Tabs}} zoumaachen? Dës Aktioun kann net réckgängeg gemaach ginn.";
+"close-all-tabs-confirmation-title-with-value" = "{{PLURAL:$1|$1 Tab|$1 Tabs}} zoumaachen?";
 "close-button-accessibility-label" = "Zoumaachen";
 "close-other-tabs" = "Aner Tabs zoumaachen";
 "close-tab-confirmation" = "Tab zoumaachen?";
 "close-tabs" = "Tabs zoumaachen";
 "closed-all-tabs-confirmation" = "All $1 Tabs zougemaach.";
+"closed-all-tabs-confirmation-with-value" = "{{PLURAL:$1|$1 Tab|$1 Tabs}} zougemaach.";
 "compass-direction" = "um $1 Auer";
 "confirm-donation-history-deletion-title" = "Läsche confirméieren";
 "confirmed-donation-history-deletion" = "Lokalen Historique geläscht";
@@ -478,7 +481,6 @@
 "image-recs-not-sure-title" = "Net sécher";
 "image-recs-yes-title" = "Jo";
 "import-shared-reading-list-default-title" = "Meng Lieslëscht";
-"import-shared-reading-list-survey-prompt-button-cancel" = "Net elo";
 "import-shared-reading-list-survey-prompt-button-take-survey" = "Bei der Ëmfro matmaachen";
 "import-shared-reading-list-survey-prompt-subtitle" = "„Lieslëscht deelen“ ass eng Testfunktioun a mir sinn op Äre Feedback ugewise fir se ze verbesseren oder eventuell ewechzehuelen.";
 "import-shared-reading-list-survey-prompt-title" = "Kéint Dir eis hëllefe fir d'Funktioun „Lieslëscht deelen“ besser ze maachen?";
@@ -560,6 +562,7 @@
 "no-email-account-alert" = "Configuréiert wgl. en E-Mail-Kont op Ärem Apparat a probéiert nach eng Kéier.";
 "no-internet-connection" = "Keng Internet Verbindung";
 "no-internet-connection-article-reload-button" = "Zréck op déi lescht gespäichert Versioun";
+"not-now-title" = "Net elo";
 "notifications-center-agent-description-from-format" = "Vum $1";
 "notifications-center-alert" = "Warnung";
 "notifications-center-cell-notification-type-accessibility-label-format" = "$1-Notifikatioun";
@@ -571,7 +574,6 @@
 "notifications-center-empty-state-no-projects-selected" = "Setzt Projeten derbäi fir méi Messagen ze gesinn";
 "notifications-center-empty-state-num-filters" = "{{PLURAL:$1|$1 Filter|$1 Filteren}}";
 "notifications-center-feed-news-notification-button-text" = "Push-Notifikatiounen aschalten";
-"notifications-center-feed-news-notification-dismiss-button-text" = "Net elo";
 "notifications-center-filters-accessibility-label" = "Notifikatiounsfilter";
 "notifications-center-filters-read-status-item-title-all" = "All";
 "notifications-center-filters-read-status-item-title-read" = "Liesen";
@@ -744,6 +746,7 @@
 "reading-list-limit-hit-for-unsorted-articles-title" = "Limitt fir net-zortéiert Artikelen";
 "reading-list-list-limit-reached" = "Dir hutt d'Limitt vu(n) $1 Lieslëschte pro Kont erreecht";
 "reading-list-login-button-title" = "Alogge fir Är gespäichert Artikelen ze synchroniséieren";
+"reading-list-login-or-create-account-button-title" = "Aloggen oder e Kont uleeën";
 "reading-list-login-or-create-account-title" = "Alogge fir gespäichert Artikelen ze synchroniséieren";
 "reading-list-login-title" = "Är gespäichert Artikele synchroniséieren?";
 "reading-list-name-user-created-annotation" = "_[user created]";
@@ -1042,6 +1045,7 @@
 "year-in-review-donate-now" = "Maacht elo en Don";
 "year-in-review-feature-announcement-title" = "Entdeckt de Wikipedia-Réckbléck";
 "year-in-review-feature-announcement-title-personalized" = "Entdeckt Äre Wikipedia-Joresréckbléck";
+"year-in-review-intro-exit-confirmation-title" = "Sidd Dir sécher, datt Dir erausgoe wëllt?";
 "year-in-review-login-title" = "Verbessert Äre Joresréckbléck";
 // Fuzzy
 "year-in-review-personalized-donate-title" = "Merci fir Är Kontributioun!";

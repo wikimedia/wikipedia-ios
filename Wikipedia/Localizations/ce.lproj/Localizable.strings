@@ -66,7 +66,7 @@
 "article-delete" = "ДӀайаккха";
 "article-deleted-accessibility-notification" = "{{PLURAL:$1|йаззам}} дӀабаьккхина";
 "article-languages-filter-placeholder" = "Мотт лаха";
-"article-languages-label" = "Харжа мотт";
+"article-languages-label" = "Мотт харжа";
 "article-languages-others" = "Кхин меттанаш";
 "article-languages-yours" = "Хьан меттанаш";
 "article-read-more-title" = "Мадарра";
