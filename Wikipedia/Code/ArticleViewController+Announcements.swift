@@ -7,6 +7,9 @@ extension ArticleViewController {
     
     func showFundraisingCampaignAnnouncementIfNeeded() {
         
+        // Tooltips might unintentionally suppress campaign modals
+        guard !needsTooltips() else { return }
+        
         guard let countryCode = Locale.current.region?.identifier,
            let wikimediaProject = WikimediaProject(siteURL: articleURL),
            let wmfProject = wikimediaProject.wmfProject else {
@@ -182,7 +185,11 @@ extension ArticleViewController {
 
 extension WMFFundraisingCampaignConfig.WMFAsset {
     var metricsID: String {
-        return "\(languageCode)\(countryCode)_\(id)_iOS"
+        if let assetID {
+            return "\(languageCode)\(countryCode)_\(id)_\(assetID)_iOS"
+        } else {
+            return "\(languageCode)\(countryCode)_\(id)_iOS"
+        }
     }
 }
 
