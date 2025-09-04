@@ -34,64 +34,74 @@ struct WMFYearInReviewSlideMostReadDateV3ShareableView: View {
     var body: some View {
             VStack {
 
-                // header
-                VStack(alignment: .leading, spacing: 16) {
-                    Image("W-share-logo", bundle: .module)
-                        .frame(height: 50)
-                        .frame(maxWidth: .infinity)
-                        .foregroundColor(Color(theme.text))
-                        .padding(.top, 20)
+                header()
 
-                    Image(viewModel.gifName, bundle: .module)
-                        .resizable()
-                        .scaledToFit()
-                        .frame(maxWidth: .infinity)
-                        .ignoresSafeArea()
-                        .padding(.horizontal, 0)
-                }
-
-                // content
-                VStack(alignment: .leading, spacing: 12) {
-                    Text(viewModel.title)
-                        .font(Font(WMFFont.for(.boldTitle1, compatibleWith: UITraitCollection(preferredContentSizeCategory: .medium))))
-                        .foregroundStyle(Color(uiColor: theme.text))
-                    
-                    VStack(spacing: 16) {
-                        
-                        dateItemView(text: viewModel.time, footer: viewModel.timeFooter)
-                        dateItemView(text: viewModel.day, footer: viewModel.dayFooter)
-                        dateItemView(text: viewModel.month, footer: viewModel.monthFooter)
-                    }
-                    .foregroundStyle(Color(uiColor: theme.text))
-                    
-                }
-                .padding([.top, .horizontal], 28)
-                .padding(.bottom, 0)
+                content()
 
                 Spacer(minLength: 10)
 
-                // footer
-                HStack {
-                    Image("globe", bundle: .module)
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .frame(width: 50, height: 50)
-                    VStack(alignment: .leading) {
-                        Text(hashtag)
-                            .font(Font(WMFFont.for(.boldTitle3, compatibleWith: UITraitCollection(preferredContentSizeCategory: .medium))))
-                            .foregroundStyle(Color(uiColor: theme.link))
-                    }
-                }
-                .padding()
-                .background(Color(uiColor: theme.paperBackground))
-                .cornerRadius(12)
-                .shadow(color: Color.gray.opacity(0.4), radius: 10, x: 0, y: 5)
-                .padding(.horizontal, 24)
-                .frame(height: 80)
-                .padding(.bottom, 60)
+                footer()
+                
             }
             .background(Color(uiColor: theme.paperBackground))
             .frame(maxWidth: 402)
             .frame(minHeight: 847)
+    }
+    
+    private func header() -> some View {
+        VStack(alignment: .leading, spacing: 16) {
+            Image("W-share-logo", bundle: .module)
+                .frame(height: 50)
+                .frame(maxWidth: .infinity)
+                .foregroundColor(Color(theme.text))
+                .padding(.top, 20)
+
+            Image(viewModel.gifName, bundle: .module)
+                .resizable()
+                .scaledToFit()
+                .frame(maxWidth: .infinity)
+                .ignoresSafeArea()
+                .padding(.horizontal, 0)
+        }
+    }
+    
+    private func content() -> some View {
+        VStack(alignment: .leading, spacing: 12) {
+            Text(viewModel.title)
+                .font(Font(WMFFont.for(.boldTitle1, compatibleWith: UITraitCollection(preferredContentSizeCategory: .medium))))
+                .foregroundStyle(Color(uiColor: theme.text))
+            
+            VStack(spacing: 16) {
+                
+                dateItemView(text: viewModel.time, footer: viewModel.timeFooter)
+                dateItemView(text: viewModel.day, footer: viewModel.dayFooter)
+                dateItemView(text: viewModel.month, footer: viewModel.monthFooter)
+            }
+            .foregroundStyle(Color(uiColor: theme.text))
+            
+        }
+        .padding([.top, .horizontal], 28)
+        .padding(.bottom, 0)
+    }
+    
+    private func footer() -> some View {
+        HStack {
+            Image("globe", bundle: .module)
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+                .frame(width: 50, height: 50)
+            VStack(alignment: .leading) {
+                Text(hashtag)
+                    .font(Font(WMFFont.for(.boldTitle3, compatibleWith: UITraitCollection(preferredContentSizeCategory: .medium))))
+                    .foregroundStyle(Color(uiColor: theme.link))
+            }
+        }
+        .padding()
+        .background(Color(uiColor: theme.paperBackground))
+        .cornerRadius(12)
+        .shadow(color: Color.gray.opacity(0.4), radius: 10, x: 0, y: 5)
+        .padding(.horizontal, 24)
+        .frame(height: 80)
+        .padding(.bottom, 60)
     }
 }
