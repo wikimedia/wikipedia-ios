@@ -40,9 +40,9 @@ public struct WMFRecentlySearchedView: View {
                     }
                 }
                 .padding()
+
                 List {
-                    ForEach(Array(viewModel.recentSearchTerms.enumerated()),
-                            id: \.element.id) { index, item in
+                    ForEach(Array(viewModel.recentSearchTerms.enumerated()), id: \.element.id) { index, item in
                         HStack {
                             Text(item.text)
                                 .font(Font(WMFFont.for(.body)))
@@ -50,7 +50,6 @@ public struct WMFRecentlySearchedView: View {
                             Spacer()
                         }
                         .padding(.vertical, 4)
-                        .background(Color(theme.paperBackground))
                         .contentShape(Rectangle())
                         .onTapGesture {
                             viewModel.selectAction(item)
@@ -69,10 +68,12 @@ public struct WMFRecentlySearchedView: View {
                     .listRowBackground(Color(theme.paperBackground))
                 }
                 .listStyle(.plain)
+                .listRowSpacing(0)
+                .scrollContentBackground(.hidden)
+                .background(Color(theme.paperBackground))
             }
         }
         .background(Color(theme.paperBackground))
         .padding(.top, viewModel.topPadding)
-
     }
 }
