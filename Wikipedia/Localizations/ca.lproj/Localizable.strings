@@ -495,7 +495,6 @@
 "image-recs-not-sure-title" = "No ho sé";
 "image-recs-yes-title" = "Sí";
 "import-shared-reading-list-default-title" = "La meva llista de lectura";
-"import-shared-reading-list-survey-prompt-button-cancel" = "Ara no";
 "import-shared-reading-list-survey-prompt-button-take-survey" = "Feu l'enquesta";
 "import-shared-reading-list-survey-prompt-footer" = "Mostra la $1declaració de privadesa$2. Enquesta creada amb tecnologia de tercers. Vegeu llur $3política de privadesa$4.";
 "import-shared-reading-list-survey-prompt-subtitle" = "«Comparteix llistes de lectura» és una funcionalitat en proves i ens calen comentaris per a millorar-la o treure-la.";
@@ -578,6 +577,7 @@
 "no-internet-connection" = "Sense connexió a Internet";
 "no-internet-connection-article-reload" = "Podria haver-hi una nova versió de l'article, però no pot carregar-se perquè no hi ha connexió a Internet.";
 "no-internet-connection-article-reload-button" = "Torna a la darrera versió desada";
+"not-now-title" = "Ara no";
 "notifications-center-agent-description-from-format" = "De $1";
 "notifications-center-alert" = "Alerta";
 "notifications-center-applied-filters-accessibility-label" = "Filtre de notificacions - té filtres aplicats";
@@ -597,7 +597,6 @@
 "notifications-center-empty-state-num-filters" = "{{PLURAL:$1|$1 filtre|$1 filtres}}";
 "notifications-center-feed-card-title" = "Les notificacions d'edició ja són disponibles";
 "notifications-center-feed-news-notification-button-text" = "Activa les notificacions emergents";
-"notifications-center-feed-news-notification-dismiss-button-text" = "Ara no";
 "notifications-center-feed-news-notification-text" = "Les notificacions d'edició de tots els projectes Wikimedia ja es troben disponibles des de l'aplicació. Accepteu les notificacions emergents per a estar al dia dels vostres missatges de la Viquipèdia des de qualsevol lloc.";
 "notifications-center-filters-accessibility-label" = "Filtre de notificacions";
 "notifications-center-filters-read-status-item-title-all" = "Tots";

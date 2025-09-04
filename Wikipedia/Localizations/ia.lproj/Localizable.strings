@@ -174,17 +174,14 @@
 "close-all-tabs" = "Clauder tote le schedas";
 "close-all-tabs-confirmation" = "Vole tu clauder tote le $1 schedas? Isto es irreversibile.";
 "close-all-tabs-confirmation-number" = "Clauder tote le $1 schedas?";
-// Fuzzy
-"close-all-tabs-confirmation-subtitle-with-value" = "Vole tu clauder {{PLURAL:$1|le scheda|tote le $1 schedas}}? Isto es irreversibile.";
-// Fuzzy
-"close-all-tabs-confirmation-title-with-value" = "Clauder {{PLURAL:$1|le scheda|tote le $1 schedas}}?";
+"close-all-tabs-confirmation-subtitle-with-value" = "Vole tu clauder $1 scheda{{PLURAL:$1||s}}? Isto es irreversibile.";
+"close-all-tabs-confirmation-title-with-value" = "Clauder $1 scheda{{PLURAL:$1||s}}?";
 "close-button-accessibility-label" = "Clauder";
 "close-other-tabs" = "Clauder altere schedas";
 "close-tab-confirmation" = "Clauder scheda?";
 "close-tabs" = "Clauder schedas";
 "closed-all-tabs-confirmation" = "Tote le $1 schedas ha essite claudite.";
-// Fuzzy
-"closed-all-tabs-confirmation-with-value" = "{{PLURAL:$1|Scheda|Tote le $1 schedas}} claudite.";
+"closed-all-tabs-confirmation-with-value" = "$1 scheda{{PLURAL:$1||s}} claudite.";
 "compass-direction" = "a $1 horas";
 "confirm-donation-history-deletion-subtitle" = "Isto se applicara solmente al donationes facite desde iste apparato.";
 "confirm-donation-history-deletion-title" = "Confirmar deletion";
@@ -649,7 +646,6 @@
 "image-recs-time-warning-message" = "Per favor revide le articulo pro comprender su subjecto e inspectar le imagine";
 "image-recs-yes-title" = "Si";
 "import-shared-reading-list-default-title" = "Mi lista de lectura";
-"import-shared-reading-list-survey-prompt-button-cancel" = "Non ora";
 "import-shared-reading-list-survey-prompt-button-take-survey" = "Responder al sondage";
 "import-shared-reading-list-survey-prompt-footer" = "Consulta nostre $1declaration de confidentialitate$2. Sondage realisate per un tertie parte. Vide su $3politica de confidentialitate$4.";
 "import-shared-reading-list-survey-prompt-subtitle" = "“Condivider listas de lectura” es un function in test e nos ha besonio de tu evalutation pro meliorar o remover lo.";
@@ -757,6 +753,7 @@
 "no-internet-connection" = "Necun connexion a internet";
 "no-internet-connection-article-reload" = "Un version plus nove de iste articulo pote esser disponibile, ma non pote esser cargate sin connexion a internet";
 "no-internet-connection-article-reload-button" = "Retornar al ultime version salveguardate";
+"not-now-title" = "Non ora";
 "notifications-center-agent-description-from-format" = "De $1";
 "notifications-center-alert" = "Alerta";
 "notifications-center-applied-filters-accessibility-label" = "Filtro de notificationes – ha filtros applicate";
@@ -776,7 +773,6 @@
 "notifications-center-empty-state-num-filters" = "$1 filtro{{PLURAL:$1||s}}";
 "notifications-center-feed-card-title" = "Notificationes de modification ora disponibile";
 "notifications-center-feed-news-notification-button-text" = "Activar notificationes push";
-"notifications-center-feed-news-notification-dismiss-button-text" = "Non ora";
 "notifications-center-feed-news-notification-text" = "Notificationes de modificationes pro tote le projectos de Wikimedia es ora disponibile via le application. Opta pro reciper notificationes push pro mantener te al currente con tu message sur Wikipedia durante que tu viagia.";
 "notifications-center-filters-accessibility-label" = "Filtro de notificationes";
 "notifications-center-filters-read-status-item-title-all" = "Totes";
@@ -1488,6 +1484,7 @@
 "year-in-review-personalized-editing-title-format" = "Tu ha modificate Wikipedia $1 vice{{PLURAL:$1||s}}";
 "year-in-review-personalized-editing-title-format-500plus" = "Tu ha modificate Wikipedia plus de 500 vices";
 "year-in-review-personalized-explore" = "Un illustration animate de un mano que tene le globo de Wikipedia, que gradualmente se transforma in un micre pecia de puzzle, symbolisante le contributiones individual al platteforma.";
+"year-in-review-personalized-most-read-articles-title" = "Tu articulos principal";
 "year-in-review-personalized-reading-subtitle-format" = "Tu ha legite $1 articulo{{PLURAL:$1||s}}. Wikipedia habeva $2 milliones de articulos disponibile in $3 linguas active. Tu te ha jungite a milliones pro expander le cognoscentia e explorar diverse topicos.";
 "year-in-review-personalized-reading-title-format" = "Tu ha legite $1 articulo{{PLURAL:$1||s}}";
 "year-in-review-personalized-saved-articles" = "Illustration de un pecia de puzzle que porta un casco de securitate, con schermos de computator in le fundo.";

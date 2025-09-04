@@ -448,7 +448,6 @@
 "image-gallery-unknown-owner" = "Tác giả không rõ.";
 "image-recs-no-title" = "Không";
 "import-shared-reading-list-default-title" = "Danh sách đọc của tôi";
-"import-shared-reading-list-survey-prompt-button-cancel" = "Để sau";
 "import-shared-reading-list-survey-prompt-button-take-survey" = "Thực hiện khảo sát";
 "import-shared-reading-list-survey-prompt-footer" = "Xem $1tuyên bố về quyền riêng tư$2 của chúng tôi. Khảo sát do bên thứ ba cung cấp. Xem $3chính sách bảo mật$4 của họ.";
 "import-shared-reading-list-survey-prompt-subtitle" = "\"Chia sẻ danh sách đọc\" là một tính năng thử nghiệm và chúng tôi cần phản hồi của bạn để cải thiện hoặc xóa tính năng này.";
@@ -528,6 +527,7 @@
 "no-internet-connection" = "Không có kết nối Internet";
 "no-internet-connection-article-reload" = "Bài viết này có thể có một phiên bản mới hơn nhưng không thể tải nó vì không có kết nối Internet";
 "no-internet-connection-article-reload-button" = "Quay về phiên bản cuối cùng được lưu";
+"not-now-title" = "Để sau";
 "notifications-center-agent-description-from-format" = "Từ $1";
 "notifications-center-alert" = "Nhắc nhở";
 "notifications-center-applied-filters-accessibility-label" = "Bộ lọc thông báo - đã áp dụng bộ lọc";
@@ -547,7 +547,6 @@
 "notifications-center-empty-state-num-filters" = "{{PLURAL:$1|Bộ lọc $1}}";
 "notifications-center-feed-card-title" = "Chỉnh sửa thông báo hiện có sẵn";
 "notifications-center-feed-news-notification-button-text" = "Bật thông báo đẩy";
-"notifications-center-feed-news-notification-dismiss-button-text" = "Không phải bây giờ";
 "notifications-center-feed-news-notification-text" = "Thông báo chỉnh sửa cho tất cả các dự án Wikimedia hiện có sẵn thông qua ứng dụng. Chọn nhận thông báo đẩy để cập nhật tin nhắn của bạn trên Wikipedia khi đang di chuyển.";
 "notifications-center-filters-accessibility-label" = "Bộ lọc thông báo";
 "notifications-center-filters-read-status-item-title-all" = "Tất cả";

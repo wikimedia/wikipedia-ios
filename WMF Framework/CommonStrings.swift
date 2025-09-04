@@ -778,12 +778,7 @@ public class CommonStrings: NSObject {
         let format = WMFLocalizedString("close-all-tabs-confirmation", value: "Do you want to close all %1$@ tabs? This action can’t be undone.", comment: "Confirmation message for closing a variable number of tabs. $1 is the amount of tabs currently open.")
         return String.localizedStringWithFormat(format, count ?? 0)
     }
-    
-    public static func closedAllTabsConfirmation(count: Int? = 0) -> String {
-        let format = WMFLocalizedString("closed-all-tabs-confirmation", value: "Closed all %1$@ tabs.", comment: "Confirmation message closing a number of tabs. $1 is the amount of tabs currently open.")
-        return String.localizedStringWithFormat(format, count ?? 0)
-    }
-    
+
     public static func closeAllTabsConfirmationNumber(count: Int? = 0) -> String {
         let format = WMFLocalizedString("close-all-tabs-confirmation-number", value: "Close all %1$@ tabs?", comment: "Confirmation message closing a number of tabs. $1 is the amount of tabs to be closed")
         return String.localizedStringWithFormat(format, count ?? 0)

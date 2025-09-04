@@ -379,7 +379,6 @@
 "image-recs-no-title" = "Na";
 "image-recs-yes-title" = "Ie";
 "import-shared-reading-list-default-title" = "Fy rhestr ddarllen";
-"import-shared-reading-list-survey-prompt-button-cancel" = "Nes ymlaen";
 "import-shared-reading-list-survey-prompt-button-take-survey" = "Cymryd yr arolwg";
 "in-the-news-sub-title-from-language-wikipedia" = "Wicipedia $1";
 "in-the-news-sub-title-from-wikipedia" = "Wicipedia";
@@ -448,6 +447,7 @@
 "new-password-title" = "Gosodwch eich cyfrinair";
 "next-action-title" = "Nesaf";
 "no-internet-connection" = "Dim cysylltiad gwe";
+"not-now-title" = "Nes ymlaen";
 "notifications-center-agent-description-from-format" = "Gan $1";
 "notifications-center-alert" = "Rhybudd";
 "notifications-center-cell-notification-type-accessibility-label-format" = "Hysbysiad $1";
@@ -458,7 +458,6 @@
 "notifications-center-empty-checking-for-notifications" = "Wrthi'n chwilio am hysbysiadau...";
 "notifications-center-empty-no-messages" = "Dim negeseuon";
 "notifications-center-empty-state-num-filters" = "{{PLURAL:$1|$1 hidlydd}}";
-"notifications-center-feed-news-notification-dismiss-button-text" = "Nes ymlaen";
 "notifications-center-filters-accessibility-label" = "Hidlydd Hysbysiadau";
 "notifications-center-filters-read-status-item-title-all" = "Popeth";
 "notifications-center-filters-read-status-item-title-read" = "Wedi'i ddarllen";

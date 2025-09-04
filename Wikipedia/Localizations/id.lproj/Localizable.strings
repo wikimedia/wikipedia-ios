@@ -535,7 +535,6 @@
 "image-rec-error-subtitle" = "Ada yang tidak beres.";
 "image-rec-error-title" = "Tidak dapat memuat halaman";
 "import-shared-reading-list-default-title" = "Daftar Bacaan Saya";
-"import-shared-reading-list-survey-prompt-button-cancel" = "Nanti";
 "import-shared-reading-list-survey-prompt-button-take-survey" = "Ikuti survei";
 "import-shared-reading-list-survey-prompt-footer" = "Lihat $1 pernyataan privasi $2 kami. Survei didukung oleh pihak ketiga. Lihat $3kebijakan privasi$4 mereka.";
 "import-shared-reading-list-survey-prompt-subtitle" = "\"Bagikan daftar bacaan\" adalah fitur pengujian dan kami membutuhkan umpan balik Anda untuk meningkatkan atau menghapusnya.";
@@ -617,6 +616,7 @@
 "no-internet-connection" = "Tidak ada sambungan internet";
 "no-internet-connection-article-reload" = "Versi yang lebih baru dari artikel ini mungkin tersedia, tetapi tidak dapat dimuat tanpa sambungan ke internet";
 "no-internet-connection-article-reload-button" = "Kembali ke versi terakhir yang disimpan";
+"not-now-title" = "Nanti";
 "notifications-center-agent-description-from-format" = "Dari $1";
 "notifications-center-alert" = "Peringatan";
 "notifications-center-applied-filters-accessibility-label" = "Filter Pemberitahuan - sudah menerapkan filter";
@@ -636,7 +636,6 @@
 "notifications-center-empty-state-num-filters" = "{{PLURAL:$1|$1 filter}}";
 "notifications-center-feed-card-title" = "Pemberitahuan suntingan sekarang tersedia";
 "notifications-center-feed-news-notification-button-text" = "Aktifkan pemberitahuan otomatis";
-"notifications-center-feed-news-notification-dismiss-button-text" = "Nanti";
 "notifications-center-feed-news-notification-text" = "Pemberitahuan suntingan untuk semua proyek Wikimedia sekarang tersedia melalui aplikasi. Aktifkan pemberitahuan agar bisa tetap mendapatkan informasi terbaru mengenai pesan Anda di Wikipedia di sepanjang perjalanan.";
 "notifications-center-filters-accessibility-label" = "Saringan Pemberitahuan";
 "notifications-center-filters-read-status-item-title-all" = "Semua";

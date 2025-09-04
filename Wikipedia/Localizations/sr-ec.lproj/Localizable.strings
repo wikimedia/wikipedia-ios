@@ -575,7 +575,6 @@
 "image-recs-not-sure-title" = "Нисам сигуран";
 "image-recs-yes-title" = "Да";
 "import-shared-reading-list-default-title" = "Моја листа за читање";
-"import-shared-reading-list-survey-prompt-button-cancel" = "Не сада";
 "import-shared-reading-list-survey-prompt-button-take-survey" = "Попуни анкету";
 "import-shared-reading-list-survey-prompt-footer" = "Видите нашу $1политику приватности$2. Анкету врши трећа страна. Видите њихову $3политику приватности$4.";
 "import-shared-reading-list-survey-prompt-subtitle" = "\"Дељење листи за читање\" је тестна могућност и потребне су нам ваше повратне информације да би смо је унапредили или уклонили.";
@@ -663,6 +662,7 @@
 "no-internet-connection" = "Нема интернет везе";
 "no-internet-connection-article-reload" = "Новија верзија овог чланка је можда доступна, али не може бити учитана без интернет конекције.";
 "no-internet-connection-article-reload-button" = "Врати се на претходно сачувану верзију";
+"not-now-title" = "Не сада";
 "notifications-center-agent-description-from-format" = "Од $1";
 "notifications-center-alert" = "Обавештења";
 "notifications-center-applied-filters-accessibility-label" = "Филтер обавештења - има примењене филтере";
@@ -682,7 +682,6 @@
 "notifications-center-empty-state-num-filters" = "{{PLURAL:$1|$1 филтер|$1 филтера}}";
 "notifications-center-feed-card-title" = "Обавештења о уређивању су сада доступна";
 "notifications-center-feed-news-notification-button-text" = "Укључи обавештења";
-"notifications-center-feed-news-notification-dismiss-button-text" = "Не сада";
 "notifications-center-feed-news-notification-text" = "Обавештења о уређивању за све Викимедијине пројекте су сада доступна. Омогућите push обавештења да би сте остали у току са вашим порукама на Википедији, у покрету.";
 "notifications-center-filters-accessibility-label" = "Филтер обавештења";
 "notifications-center-filters-read-status-item-title-all" = "Све";
@@ -1314,6 +1313,7 @@
 "year-in-review-donate" = "Донирај";
 "year-in-review-donate-now" = "Донирајте сада";
 "year-in-review-finish" = "Готово";
+"year-in-review-intro-exit-confirmation-title" = "Сигурно желите да изађете?";
 "year-in-review-personalized-day-subtitle-format" = "Прочитали сте највише чланака у $1. Очигледно $1 је Ваш главни дан за истраживање новог садржаја. Хвала на утрошеном времену!";
 "year-in-review-personalized-day-title-format" = "Највише сте читали у $1.";
 "year-in-review-personalized-donate-title" = "Хвала вам на Вашем прилогу!";

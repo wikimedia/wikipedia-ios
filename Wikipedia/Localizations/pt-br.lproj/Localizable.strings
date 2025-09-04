@@ -686,7 +686,6 @@
 "image-recs-time-warning-message" = "Examine o artigo para entender melhor o assunto e analise a imagem";
 "image-recs-yes-title" = "Sim";
 "import-shared-reading-list-default-title" = "Minha lista de leitura";
-"import-shared-reading-list-survey-prompt-button-cancel" = "Agora não";
 "import-shared-reading-list-survey-prompt-button-take-survey" = "Participar da pesquisa";
 "import-shared-reading-list-survey-prompt-footer" = "Ver a nossa $1política de privacidade$2. Pesquisa conduzida por uma entidade terceira. Ver a $3política de privacidade$4 dessa entidade.";
 "import-shared-reading-list-survey-prompt-subtitle" = "\"Compartilhar listas de leitura\" é um recurso de teste e precisamos do seu feedback para melhorá-lo ou removê-lo.";
@@ -794,6 +793,7 @@
 "no-internet-connection" = "Sem conexão com a internet";
 "no-internet-connection-article-reload" = "Uma versão mais recente deste artigo pode estar disponível, mas não pode ser carregada sem uma conexão com a Internet";
 "no-internet-connection-article-reload-button" = "Retornar para a última versão salva";
+"not-now-title" = "Agora não";
 "notifications-center-agent-description-from-format" = "De $1";
 "notifications-center-alert" = "Alerta";
 "notifications-center-applied-filters-accessibility-label" = "Filtro de notificações - tem filtros aplicados";
@@ -813,7 +813,6 @@
 "notifications-center-empty-state-num-filters" = "{{PLURAL:$1|$1 filtro|$1 filtros}}";
 "notifications-center-feed-card-title" = "Editando notificações agora disponíveis";
 "notifications-center-feed-news-notification-button-text" = "Ativar notificações push";
-"notifications-center-feed-news-notification-dismiss-button-text" = "Agora não";
 "notifications-center-feed-news-notification-text" = "As notificações de edição para todos os projetos da Wikimedia estão agora disponíveis através do aplicativo. Ative as notificações push para se manter atualizado com suas mensagens na Wikipedia enquanto estiver ausente.";
 "notifications-center-filters-accessibility-label" = "Filtro de notificações";
 "notifications-center-filters-read-status-item-title-all" = "Tudo";

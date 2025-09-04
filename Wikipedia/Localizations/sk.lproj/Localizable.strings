@@ -449,7 +449,6 @@
 "image-recs-no-title" = "Nie";
 "image-recs-yes-title" = "Áno";
 "import-shared-reading-list-default-title" = "Môj zoznam na čítanie";
-"import-shared-reading-list-survey-prompt-button-cancel" = "Teraz nie";
 "import-shared-reading-list-survey-prompt-footer" = "Pozrite si naše $1vyhlásenie o ochrane osobných údajov$2. Prieskum je od tretej strany. Pozrite si ich $3pravidlá ochrany osobných údajov$4.";
 "in-the-news-sub-title-from-language-wikipedia" = "Z Wikipédie v jazyku $1";
 "in-the-news-sub-title-from-wikipedia" = "Z Wikipédie";
@@ -533,6 +532,7 @@
 "no-internet-connection" = "Žiadne pripojenie na internet";
 "no-internet-connection-article-reload" = "Môže byť dostupná novšia verzia tohto článku, ale nedá sa ju načítať bez pripojenia k internetu.";
 "no-internet-connection-article-reload-button" = "Vrátiť sa k poslednej uloženej verzii";
+"not-now-title" = "Teraz nie";
 "notifications-center-agent-description-from-format" = "Od $1";
 "notifications-center-alert" = "Upozornenie";
 "notifications-center-applied-filters-accessibility-label" = "Filter oznámení - má vybraný filter";
@@ -551,7 +551,6 @@
 "notifications-center-empty-state-num-filters" = "{{PLURAL:$1|$1 filter|$1 filtre|$1 filtrov}}";
 "notifications-center-feed-card-title" = "Upravovanie oznámení je teraz dostupné";
 "notifications-center-feed-news-notification-button-text" = "Zapnúť upozornenia";
-"notifications-center-feed-news-notification-dismiss-button-text" = "Teraz nie";
 "notifications-center-feed-news-notification-text" = "Upravovanie oznámení pre všetky projekty Wikimédia je teraz dostupné v aplikácii. Pre priebežnú aktualizáciu nových správ zapnite push oznámenia.";
 "notifications-center-filters-accessibility-label" = "Filter notifikácií";
 "notifications-center-filters-read-status-item-title-all" = "Všetky";
