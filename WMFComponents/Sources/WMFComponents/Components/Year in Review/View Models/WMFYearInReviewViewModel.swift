@@ -805,7 +805,7 @@ public class WMFYearInReviewViewModel: ObservableObject {
             // todo:
         case .contribution(let viewModel):
             break
-            // todo: Grey here
+            // todo: 
         }
         logYearInReviewDidTapShare()
     }
@@ -871,8 +871,10 @@ public class WMFYearInReviewViewModel: ObservableObject {
         case .location:
             return true
         case .contribution(let viewModel):
-            // TODO: Grey here
-            return true
+            if viewModel.contributionStatus == .contributor {
+                return true
+            }
+            return false
         }
     }
     

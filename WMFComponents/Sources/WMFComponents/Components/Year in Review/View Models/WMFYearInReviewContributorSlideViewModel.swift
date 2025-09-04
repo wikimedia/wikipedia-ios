@@ -47,6 +47,7 @@ public class WMFYearInReviewContributorSlideViewModel: ObservableObject {
     public enum SubtitleType {
         case html
         case standard
+        case markdown
     }
     
     public var subtitletype: SubtitleType {
@@ -54,7 +55,7 @@ public class WMFYearInReviewContributorSlideViewModel: ObservableObject {
         case .contributor:
             return .standard
         case .noncontributor:
-            return .html
+            return .markdown
         }
     }
 }
