@@ -7,6 +7,9 @@ extension ArticleViewController {
     
     func showFundraisingCampaignAnnouncementIfNeeded() {
         
+        // Tooltips might unintentionally suppress campaign modals
+        guard !needsTooltips() else { return }
+        
         guard let countryCode = Locale.current.region?.identifier,
            let wikimediaProject = WikimediaProject(siteURL: articleURL),
            let wmfProject = wikimediaProject.wmfProject else {
