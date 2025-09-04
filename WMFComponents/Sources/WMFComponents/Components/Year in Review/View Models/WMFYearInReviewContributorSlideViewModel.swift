@@ -1,4 +1,8 @@
-public struct WMFYearInReviewContributorSlideViewModel {
+import Foundation
+import SwiftUI
+import WMFData
+
+public class WMFYearInReviewContributorSlideViewModel: ObservableObject {
     public enum ContributionStatus {
         case contributor
         case noncontributor
@@ -12,12 +16,18 @@ public struct WMFYearInReviewContributorSlideViewModel {
     public let onAppear: () -> Void
     public let contributionStatus: ContributionStatus
     public let onTappedDonateButton: () -> Void
-    public let onToggleIcon: (Bool) -> Void
+    public let onToggleIcon: ((Bool) -> Void)?
+    public let onInfoButtonTap: () -> Void
     public let donateButtonTitle: String
     public let toggleButtonTitle: String
     public let toggleButtonSubtitle: String
+    @Published var isIconOn: Bool? = false {
+        didSet {
+            onToggleIcon?(isIconOn ?? false)
+        }
+    }
     
-    public init(gifName: String, altText: String, title: String, subtitle: String, loggingID: String, onAppear: @escaping () -> Void, contributionStatus: ContributionStatus, onTappedDonateButton: @escaping () -> Void, onToggleIcon: @escaping (Bool) -> Void, donateButtonTitle: String, toggleButtonTitle: String, toggleButtonSubtitle: String) {
+    public init(gifName: String, altText: String, title: String, subtitle: String, loggingID: String, onAppear: @escaping () -> Void, contributionStatus: ContributionStatus, onTappedDonateButton: @escaping () -> Void, onToggleIcon: ((Bool) -> Void)? = nil, onInfoButtonTap: @escaping () -> Void, donateButtonTitle: String, toggleButtonTitle: String, toggleButtonSubtitle: String, isIconOn: Bool? = nil) {
         self.gifName = gifName
         self.altText = altText
         self.title = title
@@ -27,9 +37,11 @@ public struct WMFYearInReviewContributorSlideViewModel {
         self.contributionStatus = contributionStatus
         self.onTappedDonateButton = onTappedDonateButton
         self.onToggleIcon = onToggleIcon
+        self.onInfoButtonTap = onInfoButtonTap
         self.donateButtonTitle = donateButtonTitle
         self.toggleButtonTitle = toggleButtonTitle
         self.toggleButtonSubtitle = toggleButtonSubtitle
+        self.isIconOn = isIconOn
     }
     
     public enum SubtitleType {

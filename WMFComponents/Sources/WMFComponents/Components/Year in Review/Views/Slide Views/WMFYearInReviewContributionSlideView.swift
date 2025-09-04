@@ -1,8 +1,7 @@
 import SwiftUI
 
 struct WMFYearInReviewContributionSlideView: View {
-    let viewModel: WMFYearInReviewContributorSlideViewModel
-    
+    @ObservedObject var viewModel: WMFYearInReviewContributorSlideViewModel
     @ObservedObject var appEnvironment = WMFAppEnvironment.current
     
     var theme: WMFTheme {
@@ -24,9 +23,8 @@ struct WMFYearInReviewContributionSlideView: View {
     }
 }
 
-
 fileprivate struct WMFYearInReviewSlideContributionViewContent: View {
-    let viewModel: WMFYearInReviewContributorSlideViewModel
+    @ObservedObject var viewModel: WMFYearInReviewContributorSlideViewModel
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
     
     @ObservedObject var appEnvironment = WMFAppEnvironment.current
@@ -72,7 +70,7 @@ fileprivate struct WMFYearInReviewSlideContributionViewContent: View {
                     Spacer()
                     if let uiImage = WMFSFSymbolIcon.for(symbol: .infoCircleFill) {
                         Button {
-                            print("")
+                            
                         } label: {
                             Image(uiImage: uiImage)
                                 .resizable()
@@ -97,22 +95,31 @@ fileprivate struct WMFYearInReviewSlideContributionViewContent: View {
                         .frame(maxWidth: .infinity, alignment: .leading)
                 }
                 
-                Spacer()
-                
                 switch viewModel.contributionStatus {
                 case .contributor:
-                    VStack {
+                    VStack(spacing: 16) {
                         Divider()
-                        HStack {
-                            VStack {
+                        HStack(spacing: 0) {
+                            VStack(alignment: .leading, spacing: 2) {
                                 Text(viewModel.toggleButtonTitle)
                                     .font(Font(WMFFont.for(.title3)))
                                     .foregroundStyle(Color(uiColor: theme.text))
+                                    .frame(maxWidth: .infinity, alignment: .leading)
+
                                 Text(viewModel.toggleButtonSubtitle)
                                     .font(Font(WMFFont.for(.caption2)))
                                     .foregroundStyle(Color(uiColor: theme.secondaryText))
+                                    .frame(maxWidth: .infinity, alignment: .leading)
                             }
-                            
+                            .layoutPriority(1)
+                            .padding(.trailing, 16)
+
+                            Toggle("", isOn: Binding(
+                                get: { viewModel.isIconOn ?? false },
+                                set: { viewModel.isIconOn = $0 }
+                            ))
+                            .toggleStyle(.switch)
+                            .labelsHidden()
                         }
                     }
                 case .noncontributor:

@@ -136,8 +136,8 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
             noncontributorButtonText: CommonStrings.donateTitle,
             contributorTitle: WMFLocalizedString("year-in-review-contributor-slide-title", value: "New icon unlocked", comment: "Year in review subtitle for contributors"),
             contributorSubtitle: contributorSlideSubtitle(isEditor:isDonator:),
-            contributorGiftTitle: "",
-            contributorGiftSubtitle: ""
+            contributorGiftTitle: WMFLocalizedString("year-in-review-contributor-gift-title", value: "Activate new app icon", comment: "Year in review title for the new icon"),
+            contributorGiftSubtitle: WMFLocalizedString("year-in-review-contributor-gift-subtitle", value: "If you don’t turn it on now, you can access it later in Settings under Theme.", comment: "Year in review subtitle for the new icon")
         )
     }
 

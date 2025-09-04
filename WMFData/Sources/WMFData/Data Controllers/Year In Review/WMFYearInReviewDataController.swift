@@ -99,6 +99,18 @@ import CoreData
         }
     }
 
+    public var isNewIconOn: Bool {
+        get {
+            return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.isNewIconOn.rawValue)) ?? false
+        }
+        set {
+            try? userDefaultsStore?.save(
+                key: WMFUserDefaultsKey.isNewIconOn.rawValue,
+                value: newValue
+            )
+        }
+    }
+
     func isAnnouncementActive() -> Bool {
         
         if developerSettingsDataController.showYiRV2 ||

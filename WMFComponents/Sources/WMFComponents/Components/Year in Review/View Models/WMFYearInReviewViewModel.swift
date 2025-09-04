@@ -322,24 +322,28 @@ public class WMFYearInReviewViewModel: ObservableObject {
                             
                             if donateCount > 0 || editCount > 0 {
                                 donateCountSlide = WMFYearInReviewContributorSlideViewModel(
-                                    gifName: "personal-slide-06",
+                                    gifName: "all-slide-06",
                                     altText: "",
                                     title: localizedStrings.contributorTitle,
                                     subtitle: localizedStrings.contributorSubtitle(editCount > 0, donateCount > 0),
-                                    loggingID: "",
+                                    loggingID: "", // todo
                                     onAppear: {
-                                        print("")
+                                        
                                     },
                                     contributionStatus: .contributor,
                                     onTappedDonateButton: {
                                         
                                     },
                                     onToggleIcon: { toggleValue in
+                                        self.onToggleIcon(isOn: toggleValue, dataController: dataController)
+                                    },
+                                    onInfoButtonTap: {
                                         
                                     },
                                     donateButtonTitle: localizedStrings.donateButtonTitle,
                                     toggleButtonTitle: localizedStrings.contributorGiftTitle,
-                                    toggleButtonSubtitle: localizedStrings.contributorGiftSubtitle)
+                                    toggleButtonSubtitle: localizedStrings.contributorGiftSubtitle,
+                                    isIconOn: getIsIconOn(dataController: dataController))
                             }
                         }
                     }
@@ -717,12 +721,20 @@ public class WMFYearInReviewViewModel: ObservableObject {
             onTappedDonateButton: {
                 
             },
-            onToggleIcon: { _ in
+            onInfoButtonTap: {
                 
             },
             donateButtonTitle: localizedStrings.donateButtonTitle,
             toggleButtonTitle: localizedStrings.contributorGiftTitle,
             toggleButtonSubtitle: localizedStrings.contributorGiftSubtitle)
+    }
+    
+    private func getIsIconOn(dataController: WMFYearInReviewDataController) -> Bool {
+        return dataController.isNewIconOn
+    }
+    
+    private func onToggleIcon(isOn: Bool, dataController: WMFYearInReviewDataController) {
+        return dataController.isNewIconOn = isOn
     }
     
     private var currentSlide: WMFYearInReviewSlide {

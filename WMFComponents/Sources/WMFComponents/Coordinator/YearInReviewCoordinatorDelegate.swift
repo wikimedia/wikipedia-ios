@@ -13,4 +13,5 @@ public enum YearInReviewCoordinatorAction {
     case introLearnMore
     case learnMore(url: URL?, shouldShowDonateButton: Bool)
     case info(url: URL?)
+    case toggleIcon(isOn: Bool)
 }
