@@ -36,6 +36,78 @@
 			<string>статьи</string>
 		</dict>
 	</dict>
+	<key>close-all-tabs-confirmation-subtitle-with-value</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Хотите закрыть %#@v1@? Это действие нельзя отменить.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>few</key>
+			<string>%1$d вкладки</string>
+			<key>one</key>
+			<string>%1$d вкладку</string>
+			<key>other</key>
+			<string>%1$d вкладок</string>
+		</dict>
+	</dict>
+	<key>close-all-tabs-confirmation-title-with-value</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Закрыть %#@v1@?</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>few</key>
+			<string>%1$d вкладки</string>
+			<key>one</key>
+			<string>%1$d вкладку</string>
+			<key>other</key>
+			<string>%1$d вкладок</string>
+		</dict>
+	</dict>
+	<key>closed-all-tabs-confirmation</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Закрыть все %#@v1@.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>@</string>
+			<key>few</key>
+			<string>%1$@ вкладки</string>
+			<key>one</key>
+			<string>%1$@ вкладка</string>
+			<key>other</key>
+			<string>%1$@ вкладок</string>
+		</dict>
+	</dict>
+	<key>closed-all-tabs-confirmation-with-value</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v1@ закрыто.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>few</key>
+			<string>%1$d вкладки</string>
+			<key>one</key>
+			<string>%1$d вкладка</string>
+			<key>other</key>
+			<string>%1$d вкладок</string>
+		</dict>
+	</dict>
 	<key>diff-change-paragraph-lines-moved-down</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -837,7 +909,7 @@
 	<key>year-in-review-personalized-reading-title-format</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Вы прочитали %1$d %#@v1@ в этом году</string>
+		<string>Вы прочитали %1$d %#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
