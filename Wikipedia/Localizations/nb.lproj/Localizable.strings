@@ -579,7 +579,6 @@
 "image-recs-not-sure-title" = "Usikker";
 "image-recs-yes-title" = "Ja";
 "import-shared-reading-list-default-title" = "Min leseliste";
-"import-shared-reading-list-survey-prompt-button-cancel" = "Ikke nå";
 "import-shared-reading-list-survey-prompt-button-take-survey" = "Ta undersøkelsen";
 "import-shared-reading-list-survey-prompt-footer" = "Les $1personvernserklæringen vår$2. Undersøkelsen utføres hos en tredjepart. Se $3personvernspolitikken deres$4.";
 "import-shared-reading-list-survey-prompt-subtitle" = "«Del leselister» er en testfunksjon, og vi trenger tilbakemelding fra brukerne for å forbedre eller fjerne den.";
@@ -665,6 +664,7 @@
 "no-internet-connection" = "Ingen internettforbindelse";
 "no-internet-connection-article-reload" = "Det kan hende at en nyere versjon av denne artikkelen er tilgjengelig, men en fungerende internettforbindelse trengs for å kunne sjekke";
 "no-internet-connection-article-reload-button" = "Tilbake til sist lagrede versjon";
+"not-now-title" = "Ikke nå";
 "notifications-center-agent-description-from-format" = "Fra $1";
 "notifications-center-alert" = "Varsel";
 "notifications-center-applied-filters-accessibility-label" = "Varselfilter – har gjeldende filtre";
@@ -684,7 +684,6 @@
 "notifications-center-empty-state-num-filters" = "{{PLURAL:$1|$1 filter|$1 filtre}}";
 "notifications-center-feed-card-title" = "Redigeringsvarsler er nå tilgjengelige";
 "notifications-center-feed-news-notification-button-text" = "Slå på pushvarsler";
-"notifications-center-feed-news-notification-dismiss-button-text" = "Ikke nå";
 "notifications-center-feed-news-notification-text" = "Redigeringsvarsler for alle Wikimedia-prosjekter er nå tilgjengelige via appen. Slå på pushvarsler for å holde deg oppdatert mens du er i farta.";
 "notifications-center-filters-accessibility-label" = "Varselfilter";
 "notifications-center-filters-read-status-item-title-all" = "Alle";

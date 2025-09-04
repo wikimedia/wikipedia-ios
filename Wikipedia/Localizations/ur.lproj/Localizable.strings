@@ -217,7 +217,6 @@
 "icon-shortcut-random-title" = "تصادفی مضمون";
 "icon-shortcut-search-title" = "ویکیپیڈیا میں تلاش";
 "image-gallery-unknown-owner" = "نامعلوم تخلیق کار۔";
-"import-shared-reading-list-survey-prompt-button-cancel" = "ابھی نہیں";
 "import-shared-reading-list-survey-prompt-button-take-survey" = "سروے پُر کریں";
 "import-shared-reading-list-survey-prompt-footer" = "ہمارے $1اصول برائے اخفائے راز$2 ملاحظہ کریں۔ یہ سروے ایک تیسرے فریق کی جانب سے چلایا جاتا ہے۔ اُن کے $3اصول برائے اخفائے راز$4 ملاحظہ کریں۔";
 // Fuzzy
@@ -271,6 +270,7 @@
 "new-password-instructions" = "آپ ایک عارضی پاسورڈ سے لاگ ان ہیں۔ لاگ ان کو مکمل کرنے کے لیے براہ مہربانی یہاں ایک نیا پاسورڈ سیٹ کریں۔";
 "new-password-title" = "اپنا پاسورڈ سیٹ کریں";
 "no-email-account-alert" = "اپنے آلے پر ای میل کھاتہ کھول کر پھر سے کوشش کریں۔";
+"not-now-title" = "ابھی نہیں";
 // Fuzzy
 "notifications-center-feed-news-notification-button-text" = "اطلاع ناموں کو فعال کریں";
 "number-billions" = "$1 بلین";

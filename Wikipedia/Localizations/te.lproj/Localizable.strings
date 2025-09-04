@@ -441,7 +441,6 @@
 "notifications-center-empty-state-num-filters" = "{{PLURAL:$1|$1 వడపోత|$1 వడపోతలు}}";
 "notifications-center-feed-card-title" = "ఇప్పుడు దిద్దుబాటు గమనింపులు అందుబాటులో ఉన్నాయి";
 "notifications-center-feed-news-notification-button-text" = "పుష్ గమనింపులను ఆన్ చెయ్యి";
-"notifications-center-feed-news-notification-dismiss-button-text" = "ఇప్పుడు కాదు";
 "notifications-center-filters-accessibility-label" = "గమనింపుల వడపోత";
 "notifications-center-filters-read-status-item-title-all" = "అన్నీ";
 "notifications-center-filters-read-status-item-title-read" = "చదవండి";

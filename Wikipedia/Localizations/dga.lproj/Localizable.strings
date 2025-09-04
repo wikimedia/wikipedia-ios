@@ -434,7 +434,6 @@
 "icon-shortcut-search-title" = "Bɔ Wikipiideɛ";
 "image-gallery-unknown-owner" = "Ba baŋ sɛgerɛ";
 "import-shared-reading-list-default-title" = "N kannoo gama";
-"import-shared-reading-list-survey-prompt-button-cancel" = "Ba e pampana";
 "import-shared-reading-list-survey-prompt-button-take-survey" = "De leɛ kaa";
 "import-shared-reading-list-survey-prompt-footer" = "Kaa te $1yɛlɛ$2.kaa a yel-ennɛ $3yɛlɛ merɛ$4.";
 "import-shared-reading-list-survey-prompt-subtitle" = "\"Poɔ kannoo gama\" e la ŋmaaroo kyɛ te boɔrɔ la fo teɛroo bee iri o bare.";
@@ -508,6 +507,7 @@
 "nearby-distance-label-meters" = "$1 m";
 "nearby-distance-label-miles" = "$1 miles";
 "new-password-title" = "Maale fo gu-bie";
+"not-now-title" = "Ba e pampana";
 "notifications-center-agent-description-from-format" = "A yi $1";
 "notifications-center-alert" = "Kpegere";
 "notifications-center-cell-notification-type-accessibility-label-format" = "$1 leɛ teɛre ma";
@@ -523,7 +523,6 @@
 "notifications-center-empty-state-num-filters" = "{{PLURAL:$1|$1 filter|$1 filters}}";
 "notifications-center-feed-card-title" = "Teɛroo fo naŋ maale Bebe la";
 "notifications-center-feed-news-notification-button-text" = "You a nyɛ teɛroo";
-"notifications-center-feed-news-notification-dismiss-button-text" = "Pampana ŋa naane";
 "notifications-center-filters-accessibility-label" = "Teɛroo ma gampɛle";
 "notifications-center-filters-read-status-item-title-all" = "Zaa";
 "notifications-center-filters-read-status-item-title-read" = "Kanne";
