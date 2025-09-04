@@ -103,7 +103,16 @@ public class WMFYearInReviewViewModel: ObservableObject {
         // Location Slide Strings
         let locationTitle: String
         
-        public init(donateButtonTitle: String, doneButtonTitle: String, shareButtonTitle: String, nextButtonTitle: String, finishButtonTitle: String, shareText: String, introV2Title: String, introV2TitlePersonalized: String, introV2Subtitle: String, introV2SubtitlePersonzalized: String, introV2PrimaryButtonTitle: String, introV2SecondaryButtonTitle: String, introV3Title: String, introV3Subtitle: String, introV3Footer: String, introV3PrimaryButtonTitle: String, introV3SecondaryButtonTitle: String, wIconAccessibilityLabel: String, wmfLogoImageAccessibilityLabel: String, personalizedExploreAccessibilityLabel: String, personalizedYouReadAccessibilityLabel: String, personalizedUserEditsAccessibilityLabel: String, personalizedDonationThankYouAccessibilityLabel: String, personalizedSavedArticlesAccessibilityLabel: String, personalizedWeekdayAccessibilityLabel: String, personalizedYourEditsViewsAccessibilityLabel: String, collectiveExploreAccessibilityLabel: String, collectiveLanguagesAccessibilityLabel: String, collectiveArticleViewsAccessibilityLabel: String, collectiveSavedArticlesAccessibilityLabel: String, collectiveAmountEditsAccessibilityLabel: String, englishEditsAccessibilityLabel: String, collectiveEditsPerMinuteAccessibilityLabel: String, collectiveZeroAdsAccessibilityLabel: String, englishReadingSlideTitle: String, englishReadingSlideSubtitle: String, englishTopReadSlideTitle: String, englishTopReadSlideSubtitle: String, englishSavedReadingSlideTitle: String, englishSavedReadingSlideSubtitle: String, englishEditsSlideTitle: String, englishEditsSlideSubtitle: String, englishEditsBytesSlideTitle: String, englishEditsBytesSlideSubtitle: String, collectiveLanguagesSlideTitle: String, collectiveLanguagesSlideSubtitle: String, collectiveArticleViewsSlideTitle: String, collectiveArticleViewsSlideSubtitle: String, collectiveSavedArticlesSlideTitle: String, collectiveSavedArticlesSlideSubtitle: String, collectiveAmountEditsSlideTitle: String, collectiveAmountEditsSlideSubtitle: String, collectiveEditsPerMinuteSlideTitle: String, collectiveEditsPerMinuteSlideSubtitle: String, collectiveZeroAdsSlideTitle: String, collectiveZeroAdsSlideSubtitle: @escaping () -> String, personalizedYouReadSlideTitle: @escaping (Int) -> String, personalizedYouReadSlideSubtitle: @escaping (Int) -> String, personalizedDaySlideTitle: @escaping (Int) -> String, personalizedDaySlideSubtitle: @escaping (Int) -> String, personalizedSaveCountSlideTitle: @escaping (Int) -> String, personalizedSaveCountSlideSubtitle: @escaping (Int, [String]) -> String, personalizedUserEditsSlideTitle: @escaping (Int) -> String, personzlizedUserEditsSlideTitle500Plus: String, personzlizedUserEditsSlideSubtitle: @escaping (Int) -> String, personzlizedUserEditsSlideSubtitle500Plus: String, personalizedYourEditsViewedSlideTitle: @escaping (Int) -> String, personalizedYourEditsViewedSlideSubtitle: @escaping (Int) -> String, personalizedThankYouTitle: String, personalizedThankYouSubtitle: @escaping (String) -> String, personalizedMostReadCategoriesSlideTitle: String, personalizedMostReadCategoriesSlideSubtitle: @escaping ([String]) -> String, personalizedMostReadArticlesSlideTitle: String, personalizedMostReadArticlesSlideSubtitle: @escaping ([String]) -> String, locationTitle: String) {
+        // Contribution Slide Strings
+        let noncontributorTitle: String
+        let noncontributorSubtitle: String
+        let noncontributorButtonText: String
+        let contributorTitle: String
+        let contributorSubtitle: (Bool, Bool) -> String
+        let contributorGiftTitle: String
+        let contributorGiftSubtitle: String
+        
+        public init(donateButtonTitle: String, doneButtonTitle: String, shareButtonTitle: String, nextButtonTitle: String, finishButtonTitle: String, shareText: String, introV2Title: String, introV2TitlePersonalized: String, introV2Subtitle: String, introV2SubtitlePersonzalized: String, introV2PrimaryButtonTitle: String, introV2SecondaryButtonTitle: String, introV3Title: String, introV3Subtitle: String, introV3Footer: String, introV3PrimaryButtonTitle: String, introV3SecondaryButtonTitle: String, wIconAccessibilityLabel: String, wmfLogoImageAccessibilityLabel: String, personalizedExploreAccessibilityLabel: String, personalizedYouReadAccessibilityLabel: String, personalizedUserEditsAccessibilityLabel: String, personalizedDonationThankYouAccessibilityLabel: String, personalizedSavedArticlesAccessibilityLabel: String, personalizedWeekdayAccessibilityLabel: String, personalizedYourEditsViewsAccessibilityLabel: String, collectiveExploreAccessibilityLabel: String, collectiveLanguagesAccessibilityLabel: String, collectiveArticleViewsAccessibilityLabel: String, collectiveSavedArticlesAccessibilityLabel: String, collectiveAmountEditsAccessibilityLabel: String, englishEditsAccessibilityLabel: String, collectiveEditsPerMinuteAccessibilityLabel: String, collectiveZeroAdsAccessibilityLabel: String, englishReadingSlideTitle: String, englishReadingSlideSubtitle: String, englishTopReadSlideTitle: String, englishTopReadSlideSubtitle: String, englishSavedReadingSlideTitle: String, englishSavedReadingSlideSubtitle: String, englishEditsSlideTitle: String, englishEditsSlideSubtitle: String, englishEditsBytesSlideTitle: String, englishEditsBytesSlideSubtitle: String, collectiveLanguagesSlideTitle: String, collectiveLanguagesSlideSubtitle: String, collectiveArticleViewsSlideTitle: String, collectiveArticleViewsSlideSubtitle: String, collectiveSavedArticlesSlideTitle: String, collectiveSavedArticlesSlideSubtitle: String, collectiveAmountEditsSlideTitle: String, collectiveAmountEditsSlideSubtitle: String, collectiveEditsPerMinuteSlideTitle: String, collectiveEditsPerMinuteSlideSubtitle: String, collectiveZeroAdsSlideTitle: String, collectiveZeroAdsSlideSubtitle: @escaping () -> String, personalizedYouReadSlideTitle: @escaping (Int) -> String, personalizedYouReadSlideSubtitle: @escaping (Int) -> String, personalizedDaySlideTitle: @escaping (Int) -> String, personalizedDaySlideSubtitle: @escaping (Int) -> String, personalizedSaveCountSlideTitle: @escaping (Int) -> String, personalizedSaveCountSlideSubtitle: @escaping (Int, [String]) -> String, personalizedUserEditsSlideTitle: @escaping (Int) -> String, personzlizedUserEditsSlideTitle500Plus: String, personzlizedUserEditsSlideSubtitle: @escaping (Int) -> String, personzlizedUserEditsSlideSubtitle500Plus: String, personalizedYourEditsViewedSlideTitle: @escaping (Int) -> String, personalizedYourEditsViewedSlideSubtitle: @escaping (Int) -> String, personalizedThankYouTitle: String, personalizedThankYouSubtitle: @escaping (String) -> String, personalizedMostReadCategoriesSlideTitle: String, personalizedMostReadCategoriesSlideSubtitle: @escaping ([String]) -> String, personalizedMostReadArticlesSlideTitle: String, personalizedMostReadArticlesSlideSubtitle: @escaping ([String]) -> String, locationTitle: String, noncontributorTitle: String, noncontributorSubtitle: String, noncontributorButtonText: String, contributorTitle: String, contributorSubtitle: @escaping (Bool, Bool) -> String, contributorGiftTitle: String, contributorGiftSubtitle: String) {
             self.donateButtonTitle = donateButtonTitle
             self.doneButtonTitle = doneButtonTitle
             self.shareButtonTitle = shareButtonTitle
@@ -179,6 +188,13 @@ public class WMFYearInReviewViewModel: ObservableObject {
             self.personalizedMostReadArticlesSlideTitle = personalizedMostReadArticlesSlideTitle
             self.personalizedMostReadArticlesSlideSubtitle = personalizedMostReadArticlesSlideSubtitle
             self.locationTitle = locationTitle
+            self.noncontributorTitle = noncontributorTitle
+            self.noncontributorSubtitle = noncontributorSubtitle
+            self.noncontributorButtonText = noncontributorButtonText
+            self.contributorTitle = contributorTitle
+            self.contributorSubtitle = contributorSubtitle
+            self.contributorGiftTitle = contributorGiftTitle
+            self.contributorGiftSubtitle = contributorGiftSubtitle
         }
     }
     
@@ -300,25 +316,31 @@ public class WMFYearInReviewViewModel: ObservableObject {
                 case .donateCount:
                     if let data = slide.data {
                         let decoder = JSONDecoder()
-                        if let donateSlideData = try? decoder.decode(DonateAndEditCounts.self, from: data),
-                           donateSlideData.donateCount ?? 0 > 0 || donateSlideData.editCount ?? 0 > 0 {
-                            donateCountSlide = WMFYearInReviewContributorSlideViewModel(
-                                gifName: "personal-slide-06",
-                                altText: "",
-                                title: "title",
-                                subtitle: "subtitle",
-                                primaryButtonTitle: "one",
-                                secondaryButtonTitle: "two",
-                                loggingID: "",
-                                onAppear: {
-                                    print("appear")
-                                },
-                                tappedPrimaryButton: {
-                                    print("first")
-                                },
-                                tappedSecondaryButton: {
-                                    print("second")
-                                })
+                        if let donateSlideData = try? decoder.decode(DonateAndEditCounts.self, from: data) {
+                            let donateCount = donateSlideData.donateCount ?? 0
+                            let editCount = donateSlideData.editCount ?? 0
+                            
+                            if donateCount > 0 || editCount > 0 {
+                                donateCountSlide = WMFYearInReviewContributorSlideViewModel(
+                                    gifName: "personal-slide-06",
+                                    altText: "",
+                                    title: localizedStrings.contributorTitle,
+                                    subtitle: localizedStrings.contributorSubtitle(editCount > 0, donateCount > 0),
+                                    loggingID: "",
+                                    onAppear: {
+                                        print("")
+                                    },
+                                    contributionStatus: .contributor,
+                                    onTappedDonateButton: {
+                                        
+                                    },
+                                    onToggleIcon: { toggleValue in
+                                        
+                                    },
+                                    donateButtonTitle: localizedStrings.donateButtonTitle,
+                                    toggleButtonTitle: localizedStrings.contributorGiftTitle,
+                                    toggleButtonSubtitle: localizedStrings.contributorGiftSubtitle)
+                            }
                         }
                     }
                 case .saveCount:
@@ -683,20 +705,24 @@ public class WMFYearInReviewViewModel: ObservableObject {
     
     private var nonContributorSlide: WMFYearInReviewContributorSlideViewModel {
         WMFYearInReviewContributorSlideViewModel(
-            gifName: "personal-slide-06",
+            gifName: "all-slide-06",
             altText: "",
-            title: "Here's a title",
-            subtitle: "Here is a subtitle",
-            primaryButtonTitle: "button",
-            secondaryButtonTitle: "button 2",
-            loggingID: "", // todo
+            title: localizedStrings.noncontributorTitle,
+            subtitle: localizedStrings.noncontributorSubtitle,
+            loggingID: "",
             onAppear: {
-                print("appear")
-            }, tappedPrimaryButton: {
-                print("primary")
-            }, tappedSecondaryButton: {
-                print("secondary")
-            })
+                
+            },
+            contributionStatus: .noncontributor,
+            onTappedDonateButton: {
+                
+            },
+            onToggleIcon: { _ in
+                
+            },
+            donateButtonTitle: localizedStrings.donateButtonTitle,
+            toggleButtonTitle: localizedStrings.contributorGiftTitle,
+            toggleButtonSubtitle: localizedStrings.contributorGiftSubtitle)
     }
     
     private var currentSlide: WMFYearInReviewSlide {

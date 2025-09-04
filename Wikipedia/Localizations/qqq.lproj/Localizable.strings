@@ -1447,6 +1447,11 @@
 "year-in-review-collective-languages" = "Accessibility description for the collective languages slide.";
 "year-in-review-collective-saved-articles" = "Accessibility description for the collective saved articles slide.";
 "year-in-review-collective-zero-ads" = "Accessibility description for the collective zero ads slide.";
+"year-in-review-contributor-slide-status-both" = "Contribution slide status for both editor and donor status";
+"year-in-review-contributor-slide-status-donor" = "Contribution slide status for donor status";
+"year-in-review-contributor-slide-status-editor" = "Contribution slide status for editor status";
+"year-in-review-contributor-slide-subtitle" = "Year in review, contributor slide subtitle. $1 is replaced with text indicating if they are an editor, donor, or both. Do not alter markdown when translating.";
+"year-in-review-contributor-slide-title" = "Year in review subtitle for contributors";
 "year-in-review-day-friday" = "Localized name for Friday in plural form.";
 "year-in-review-day-monday" = "Localized name for Monday in plural form.";
 "year-in-review-day-saturday" = "Localized name for Saturday in plural form.";
@@ -1472,6 +1477,8 @@
 "year-in-review-intro-login-title" = "Title of alert that asks user to login if they want to view the personalized feature.";
 "year-in-review-login-subtitle" = "Subtitle of alert that asks user to login. Displayed after they completed the feature for the first time.";
 "year-in-review-login-title" = "Title of alert that asks user to login. Displayed after they completed the feature for the first time.";
+"year-in-review-non-contributor-slide-title" = "Year in review, non contributor slide title";
+"year-in-review-noncontributor-slide-subtitle" = "Year in review, noncontributor slide subtitle. $1 is replaced with a MediaWiki url with more information about WMF. Do not alter markdown when translating.";
 "year-in-review-personalized-day-subtitle-format" = "Year in review, personalized slide subtitle for users that displays the weekday they read most. $1 is replaced with the weekday.";
 "year-in-review-personalized-day-title-format" = "Year in review, personalized slide title for users that displays the weekday they read most. $1 is replaced with the weekday.";
 "year-in-review-personalized-donate-subtitle" = "Year in review, personalized donate slide subtitle for users that donated at least once that year. $1 is replaced with a MediaWiki url with more information about WMF. Do not alter markdown when translating.";

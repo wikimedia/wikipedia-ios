@@ -1447,6 +1447,11 @@
 "year-in-review-collective-languages" = "An animated illustration of a stone engraved with inscriptions representing various languages, symbolizing how Wikipedia collaboratively builds knowledge from diverse cultures and regions.";
 "year-in-review-collective-saved-articles" = "A puzzle globe featuring Wikipedia's logo, representing global collaboration.";
 "year-in-review-collective-zero-ads" = "Wikimedia logo";
+"year-in-review-contributor-slide-status-both" = "a donor and editor";
+"year-in-review-contributor-slide-status-donor" = "a donor";
+"year-in-review-contributor-slide-status-editor" = "an editor";
+"year-in-review-contributor-slide-subtitle" = "Thank you for investing in the future of free knowledge.\n\nYour contributions as $1 in 2025 are helping pave the way to a world of free information and as a result you have unlocked a custom contributor icon.";
+"year-in-review-contributor-slide-title" = "New icon unlocked";
 "year-in-review-day-friday" = "Fridays";
 "year-in-review-day-monday" = "Mondays";
 "year-in-review-day-saturday" = "Saturdays";
@@ -1472,6 +1477,8 @@
 "year-in-review-intro-login-title" = "Log in for personalization";
 "year-in-review-login-subtitle" = "Login or create an account to be eligible for more personalized insights";
 "year-in-review-login-title" = "Improve your Year in Review";
+"year-in-review-non-contributor-slide-title" = "Unlock custom icon";
+"year-in-review-noncontributor-slide-subtitle" = "Become a contributor and unlock a custom contributor icon. [Learn more]($1) about the ways you can join the free knowledge movement. You can become an editor or donate to the Wikimedia Foundation--the nonprofit behind Wikipedia--to ensure that the information you rely on remains ad-free and trustworthy, while keeping Wikipedia running smoothly with cutting-edge tools and technologies.";
 "year-in-review-personalized-day-subtitle-format" = "You read the most articles on $1. It's clear that $1 are your prime day for exploring new content. Thanks for making the most of your reading time!";
 "year-in-review-personalized-day-title-format" = "You read most on $1.";
 "year-in-review-personalized-donate-subtitle" = "Thank you for investing in the future of free knowledge. This year, the Wikimedia Foundation improved the technology to serve every reader and volunteer better, developed tools that empower collaboration, and supported Wikipedia in more languages. [Learn more about our work]($1).";

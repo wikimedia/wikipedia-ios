@@ -15,27 +15,111 @@ struct WMFYearInReviewContributionSlideView: View {
     
     var body: some View {
         ZStack(alignment: .bottom) {
-            WMFYearInReviewScrollView(scrollViewContents: Text("Text"))
-            
-            VStack {
-                WMFLargeButton(configuration: .primary, title: viewModel.primaryButtonTitle) {
-                    withAnimation(.easeInOut(duration: 0.75)) {
-                        viewModel.tappedPrimaryButton()
-                    }
-                }
-                
-                WMFLargeButton(configuration: .secondary, title: viewModel.secondaryButtonTitle) {
-                    viewModel.tappedSecondaryButton()
-                }
-                
-            }
-            .background {
-                    Color(appEnvironment.theme.midBackground).ignoresSafeArea()
-            }
+            WMFYearInReviewScrollView(scrollViewContents: WMFYearInReviewSlideContributionViewContent(viewModel: viewModel))
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .onAppear {
             viewModel.onAppear()
+        }
+    }
+}
+
+
+fileprivate struct WMFYearInReviewSlideContributionViewContent: View {
+    let viewModel: WMFYearInReviewContributorSlideViewModel
+    @Environment(\.horizontalSizeClass) private var horizontalSizeClass
+    
+    @ObservedObject var appEnvironment = WMFAppEnvironment.current
+    
+    private var theme: WMFTheme {
+        return appEnvironment.theme
+    }
+    
+    private var sizeClassPadding: CGFloat {
+        horizontalSizeClass == .regular ? 64 : 32
+    }
+    
+    private func subtitleAttributedString(subtitle: String) -> AttributedString {
+        return (try? AttributedString(markdown: subtitle)) ?? AttributedString(subtitle)
+    }
+    
+    private var subtitleStyles: HtmlUtils.Styles {
+            return HtmlUtils.Styles(font: WMFFont.for(.title3), boldFont: WMFFont.for(.title3), italicsFont: WMFFont.for(.title3), boldItalicsFont: WMFFont.for(.title3), color: theme.text, linkColor: theme.link, lineSpacing: 3)
+        }
+    
+    var body: some View {
+        VStack(spacing: 48) {
+            VStack(spacing: 16) {
+                ZStack {
+                    Image(viewModel.gifName, bundle: .module)
+                        .resizable()
+                        .scaledToFit()
+                        .frame(maxWidth: .infinity)
+                    WMFGIFImageView(viewModel.gifName)
+                        .aspectRatio(1.5, contentMode: .fit)
+                        .frame(maxWidth: .infinity)
+                }
+                .accessibilityElement(children: .combine)
+                .accessibilityLabel(viewModel.altText)
+            }
+            
+            VStack(spacing: 16) {
+                HStack(alignment: .top) {
+                    Text(viewModel.title)
+                        .font(Font(WMFFont.for(.boldTitle1)))
+                        .foregroundStyle(Color(uiColor: theme.text))
+                        .frame(maxWidth: .infinity, alignment: .topLeading)
+                    Spacer()
+                    if let uiImage = WMFSFSymbolIcon.for(symbol: .infoCircleFill) {
+                        Button {
+                            print("")
+                        } label: {
+                            Image(uiImage: uiImage)
+                                .resizable()
+                                .foregroundStyle(Color(uiColor: theme.icon))
+                                .frame(width: 24, height: 24)
+                                .alignmentGuide(.top) { dimensions in
+                                    dimensions[.top] - 5
+                                }
+                        }
+                    }
+                }
+                
+                switch viewModel.subtitletype {
+                case .html:
+                    WMFHtmlText(html: viewModel.subtitle, styles: subtitleStyles)
+                        .frame(maxWidth: .infinity, alignment: .topLeading)
+                case .standard:
+                    Text(viewModel.subtitle)
+                        .font(Font(WMFFont.for(.title3)))
+                        .foregroundStyle(Color(uiColor: theme.text))
+                        .accentColor(Color(uiColor: theme.link))
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                }
+                
+                Spacer()
+                
+                switch viewModel.contributionStatus {
+                case .contributor:
+                    VStack {
+                        Divider()
+                        HStack {
+                            VStack {
+                                Text(viewModel.toggleButtonTitle)
+                                    .font(Font(WMFFont.for(.title3)))
+                                    .foregroundStyle(Color(uiColor: theme.text))
+                                Text(viewModel.toggleButtonSubtitle)
+                                    .font(Font(WMFFont.for(.caption2)))
+                                    .foregroundStyle(Color(uiColor: theme.secondaryText))
+                            }
+                            
+                        }
+                    }
+                case .noncontributor:
+                    Text("")
+                }
+            }
+            .padding(EdgeInsets(top: 0, leading: sizeClassPadding, bottom: 0, trailing: sizeClassPadding))
         }
     }
 }
