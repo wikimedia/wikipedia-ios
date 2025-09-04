@@ -126,11 +126,12 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
             personalizedYourEditsViewedSlideSubtitle: personalizedYourEditsViewedSlideSubtitle(views:),
             personalizedThankYouTitle: WMFLocalizedString("year-in-review-personalized-donate-title", value: "Your generosity helped keep Wikipedia thriving", comment: "Year in review, personalized donate slide title for users that donated at least once that year. "),
             personalizedThankYouSubtitle: personalizedThankYouSubtitle(languageCode:),
-            personalizedMostReadCategoriesSlideTitle: "Your most interesting categories", // TODO: Localize when we have final product requirements
+            personalizedMostReadCategoriesSlideTitle: "Your most interesting categories", // TODO: Localize when we have final product requirements,
             personalizedMostReadCategoriesSlideSubtitle: personalizedListSlideSubtitle(items:),
             personalizedMostReadArticlesSlideTitle: WMFLocalizedString("year-in-review-personalized-most-read-articles-title", value: "Your top articles", comment: "Year in review, personalized most read articles slide title"),
             personalizedMostReadArticlesSlideSubtitle: personalizedListSlideSubtitle(items:),
-            locationTitle: "Location Slide Here" // TODO: localize when we have final product requirements
+            personalizedLocationSlideTitle: personalizedLocationSlideTitle(countryOrOcean:),
+            personalizedLocationSlideSubtitle: personalizedLocationSlideSubtitle(articleNames:)
         )
     }
 
@@ -426,6 +427,29 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         }
 
         return "\(listItems)"
+    }
+    
+    func personalizedLocationSlideTitle(countryOrOcean: String) -> String {
+        let format = WMFLocalizedString("year-in-review-personalized-location-title-format", value: "Articles you read are closest to %1$@.", comment: "Year in review, personalized location slide title. %1$@ is replaced with a country or ocean name.")
+        return String.localizedStringWithFormat(format, countryOrOcean)
+    }
+    
+    func personalizedLocationSlideSubtitle(articleNames: [String]) -> String {
+        
+        switch articleNames.count {
+        case 1:
+            let format = WMFLocalizedString("year-in-review-personalized-location-subtitle-format-1", value: "You read about %2$@%1$@%3$@.", comment: "Year in review, personalized location slide subtitle. %1$@ is replaced with an article name in the area they most read about. %2$@ and %3$@ are enclosing tags to make the name bold.")
+            return String.localizedStringWithFormat(format, articleNames[0], "<b>", "</b>")
+        case 2:
+            let format = WMFLocalizedString("year-in-review-personalized-location-subtitle-format-2", value: "You read about %3$@%1$@%4$@ and %3$@%2$@%4$@.", comment: "Year in review, personalized location slide subtitle. %1$@ and %2$@ are replaced with article names in the area they most read about, %3$@ and %4$@ are enclosing tags to make the names bold.")
+            return String.localizedStringWithFormat(format, articleNames[0], articleNames[1], "<b>", "</b>")
+        case 3:
+            let format = WMFLocalizedString("year-in-review-personalized-location-subtitle-format-3", value: "You read about %4$@%1$@%5$@, %4$@%2$@%5$@ and %4$@%3$@%5$@.", comment: "Year in review, personalized location slide subtitle. %1$@, %2$@ and %3$@ are replaced with article names in the area they most read about, %4$@ and %5$@ are enclosing tags to make the names bold.")
+            return String.localizedStringWithFormat(format, articleNames[0], articleNames[1], articleNames[2], "<b>", "</b>")
+        default:
+            assertionFailure("Unexpected number of article names passed in, should be 1-3")
+            return ""
+        }
     }
 
     // MARK: - Funcs
