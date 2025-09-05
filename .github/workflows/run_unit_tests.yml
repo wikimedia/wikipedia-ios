@@ -8,7 +8,7 @@ on:
 
 env:
   XCODE_VERSION: "16.4"
-  IOS_VERSION: "18.6"
+  IOS_VERSION: "18.5"
   SCHEMES: "Wikipedia WMFComponents WMFData"
   
 concurrency:
@@ -22,7 +22,7 @@ jobs:
       matrix:
         scheme: ["Wikipedia", "WMFComponents", "WMFData"]
 
-    name: ${{ matrix.scheme }}
+    name: Test ${{ matrix.scheme }}
     steps:
       - uses: actions/checkout@v4
 
