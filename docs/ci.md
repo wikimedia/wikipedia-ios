@@ -8,10 +8,11 @@ We have a Github Action [workflow](../.github/workflows/localization.yml) that a
 
 ## PR Tests
 
-Our PR unit tests are run in an Xcode Cloud workflow named "Run Tests". This kicks off any time a PR is opened or changed against any branch.
+Our PR unit tests are run in a GitHub Action workflow named "Run Unit Tests". This kicks off any time a PR is opened or changed against the main branch.
 
 
-#### Localization Tests
+#### Localization Tests - Xcode Cloud workaround 
+*Note: These tweaks were needed to get our localiation tests to run in Xcode Cloud. We have since moved tests to GitHub Actions, so it's possible these workarounds are no longer needed. We are keeping our reasoning here for posterity.*
 
 In order to get our [localization tests](../WikipediaUnitTests/Code/TWNStringsTests.m) to run properly, some workarounds were needed to make the localization source code (files within `Wikipedia/iOS Native Localizations` and `Wikipedia/Localizations`) available in the Xcode Cloud environment.
 
