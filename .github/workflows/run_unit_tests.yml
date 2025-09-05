@@ -32,7 +32,7 @@ jobs:
 
       - name: Test ${{ matrix.scheme }} scheme
         run: |
-          SIMULATORS=("iPhone 16")
+          SIMULATORS=("iPhone 15")
           for SIMULATOR in "${SIMULATORS[@]}"; do
             echo "Running scheme: ${{ matrix.scheme }} on $SIMULATOR iOS $IOS_VERSION with Xcode $XCODE_VERSION"
             xcodebuild test \
