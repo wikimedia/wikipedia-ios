@@ -32,9 +32,13 @@ final class YearInReviewDonateCountSlideDataController: YearInReviewSlideDataCon
         donateCount = getDonateCount(startDate: startDate, endDate: endDate)
         
         if let username, let project {
-            editCount = try? await getEditCount(startDate: startDate.description, endDate: endDate.description, username: username, project: project)
+            do {
+                editCount = try await getEditCount(startDate: startDate.description, endDate: endDate.description, username: username, project: project)
+                isEvaluated = true
+            } catch {
+                isEvaluated = false
+            }
         }
-        isEvaluated = true
     }
     
     func getDonateCount(startDate: Date, endDate: Date) -> Int? {
@@ -98,7 +102,7 @@ final class YearInReviewDonateCountSlideDataController: YearInReviewSlideDataCon
 
         let request = WMFMediaWikiServiceRequest(url: url, method: .GET, backend: .mediaWiki, parameters: parameters)
 
-        service.performDecodableGET(request: request) { (result: Result<YearInReviewEditCountSlideDataController.UserContributionsAPIResponse, Error>) in
+        service.performDecodableGET(request: request) { (result: Result<UserContributionsAPIResponse, Error>) in
             switch result {
             case .success(let response):
                 guard let query = response.query else {

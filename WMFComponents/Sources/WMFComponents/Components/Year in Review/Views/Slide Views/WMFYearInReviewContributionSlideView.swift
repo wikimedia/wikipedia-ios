@@ -17,9 +17,6 @@ struct WMFYearInReviewContributionSlideView: View {
             WMFYearInReviewScrollView(scrollViewContents: WMFYearInReviewSlideContributionViewContent(viewModel: viewModel))
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .onAppear {
-            viewModel.onAppear()
-        }
     }
 }
 
@@ -120,10 +117,7 @@ fileprivate struct WMFYearInReviewSlideContributionViewContent: View {
                             .layoutPriority(1)
                             .padding(.trailing, 16)
 
-                            Toggle("", isOn: Binding(
-                                get: { viewModel.isIconOn ?? false },
-                                set: { viewModel.isIconOn = $0 }
-                            ))
+                            Toggle("", isOn: $viewModel.isIconOn)
                             .toggleStyle(.switch)
                             .labelsHidden()
                         }

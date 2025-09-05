@@ -13,7 +13,6 @@ public class WMFYearInReviewContributorSlideViewModel: ObservableObject {
     public let title: String
     public let subtitle: String
     public let loggingID: String
-    public let onAppear: () -> Void
     public let contributionStatus: ContributionStatus
     public let onTappedDonateButton: () -> Void
     public let onToggleIcon: ((Bool) -> Void)?
@@ -21,19 +20,18 @@ public class WMFYearInReviewContributorSlideViewModel: ObservableObject {
     public let donateButtonTitle: String
     public let toggleButtonTitle: String
     public let toggleButtonSubtitle: String
-    @Published var isIconOn: Bool? = false {
+    @Published var isIconOn: Bool = false {
         didSet {
-            onToggleIcon?(isIconOn ?? false)
+            onToggleIcon?(isIconOn)
         }
     }
     
-    public init(gifName: String, altText: String, title: String, subtitle: String, loggingID: String, onAppear: @escaping () -> Void, contributionStatus: ContributionStatus, onTappedDonateButton: @escaping () -> Void, onToggleIcon: ((Bool) -> Void)? = nil, onInfoButtonTap: @escaping () -> Void, donateButtonTitle: String, toggleButtonTitle: String, toggleButtonSubtitle: String, isIconOn: Bool? = nil) {
+    public init(gifName: String, altText: String, title: String, subtitle: String, loggingID: String, contributionStatus: ContributionStatus, onTappedDonateButton: @escaping () -> Void, onToggleIcon: ((Bool) -> Void)? = nil, onInfoButtonTap: @escaping () -> Void, donateButtonTitle: String, toggleButtonTitle: String, toggleButtonSubtitle: String, isIconOn: Bool = false) {
         self.gifName = gifName
         self.altText = altText
         self.title = title
         self.subtitle = subtitle
         self.loggingID = loggingID
-        self.onAppear = onAppear
         self.contributionStatus = contributionStatus
         self.onTappedDonateButton = onTappedDonateButton
         self.onToggleIcon = onToggleIcon
