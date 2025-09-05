@@ -7,8 +7,8 @@ on:
   workflow_dispatch:
 
 env:
-  XCODE_VERSION: "16.2"
-  IOS_VERSION: "18.2"
+  XCODE_VERSION: "16.4"
+  IOS_VERSION: "18.5"
   SCHEMES: "Wikipedia WMFComponents WMFData"
   
 concurrency:
