@@ -624,7 +624,6 @@
 "image-recs-time-warning-message" = "ယင်းဧ့အကြောင်းအရာကို နားလည်ဖို့ ဆောင်းပါးကို ပြန်ပနာသုံးသပ်ပြီး ပုံကို စစ်ဆေးပါ";
 "image-recs-yes-title" = "ဟုတ်ပါရေ";
 "import-shared-reading-list-default-title" = "အကျွန့်ဧ့စာဖတ်ခြင်းစာရင်း";
-"import-shared-reading-list-survey-prompt-button-cancel" = "အဂု မဟုတ်ပါ";
 "import-shared-reading-list-survey-prompt-button-take-survey" = "စစ်တမ်းယူပါ";
 "import-shared-reading-list-survey-prompt-footer" = "အကျွန်ရို့ဧ့ $1 ကိုယ်ရီးကိုယ်တာထုတ်ပြန်ချက် $2 ကိုကြေ့ပါ။  ပြင်ပအဖွိ့စည်းက လုပ်ဆောင်ရေ စစ်တမ်း။  ယင်းတိဧ့ $3 ကိုယ်ရီးကိုယ်တာ မူဝါဒ $4 ကို ‌‌ကြေ့ပါ။";
 "import-shared-reading-list-survey-prompt-subtitle" = "\"စာဖတ်ခြင်းစရင်းတိကို မျှဝီပါ\" စွာ စမ်းသပ်မှုအင်္ဂါရပ်တခုဖြစ်ပြီး ယင်းကို မြှင့်တင်ဖို့ ယင်းသို့မဟုတ် ဖယ်ရှားဖို့ သင့်အကြံပြုချက် လိုအပ်ပါရေ။";
@@ -726,6 +725,7 @@
 "no-internet-connection" = "အင်တာနက် ကွန်နက်ရှင် မဟိမ့်ပါ";
 "no-internet-connection-article-reload" = "ဒေဆောင်းပါးဧ့ ပိုအသစ်ဖြိုက်တေမူကို ရဟိနိုင်ကောင်းပါရေ၊ ယကေလေ့ အင်တာနက်ကွန်နက်ရှင်မဟိဘဲ မဆွဲတင်နိုင်ပါ";
 "no-internet-connection-article-reload-button" = "နောက်ဆုံးသိမ်းဆည်းထားရေ ဗားရှင်းပသို့ ပြန်လားပါ";
+"not-now-title" = "အဂု မဟုတ်ပါ";
 "notifications-center-agent-description-from-format" = "$1 က";
 "notifications-center-alert" = "သတိပီးချက်";
 "notifications-center-applied-filters-accessibility-label" = "အကြောင်းကြားချက်တိ စစ်ထုတ်ခြင်း - စစ်ထုတ်မှုတိ ထည့်သွင်းထားရေ";
@@ -745,7 +745,6 @@
 "notifications-center-empty-state-num-filters" = "{{PLURAL:$1|$1 စစ်ထုတ်|$1 စစ်ထုတ်မှုတိ}}";
 "notifications-center-feed-card-title" = "အကြောင်းကြားချက်တိကို တီးဖြတ်နိုင်ပါယာ";
 "notifications-center-feed-news-notification-button-text" = "တွန်းအားပီး အသိပေးချက်တိကို ဖွင့်ပါ";
-"notifications-center-feed-news-notification-dismiss-button-text" = "အဂု မဟုတ်ပါ";
 "notifications-center-feed-news-notification-text" = "Wikimedia ပရောဂျက်အားနုန်းအတွက် အကြောင်းကြားချက်တိကို တီးဖြတ်ခြင်းကို အက်ပ်ကတဆင့် အဂုရဟနိုင်ပါယာ။  လားနီစိုင်မှာ Wikipedia က သင့်မက်ဆေ့ချ်တိနန့် နောက်ဆုံးရသတင်းတိကို ဆက်ပြီးသိဟိနိုင်ဖို့ တွန်းအားပီးအကြောင်းကြားချက်တိကို ဝင်ရောက်ပါ။";
 "notifications-center-filters-accessibility-label" = "အကြောင်းကြားချက်တိ စစ်ထုတ်ခြင်း";
 "notifications-center-filters-read-status-item-title-all" = "အားနုန်း";

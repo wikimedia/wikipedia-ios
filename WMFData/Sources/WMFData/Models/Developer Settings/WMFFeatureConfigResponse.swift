@@ -14,6 +14,7 @@ public struct WMFFeatureConfigResponse: Codable {
                 let viewCount: SlideSettings
                 let mostReadArticles: SlideSettings
                 let mostReadCategories: SlideSettings
+                let locationArticles: SlideSettings
             }
             
             public struct SlideSettings: Codable {

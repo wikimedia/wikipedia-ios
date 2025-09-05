@@ -116,7 +116,7 @@ class ArticleWebMessagingController: NSObject {
     }
 
     func getPageContentServiceMargins(from insets: UIEdgeInsets, leadImageHeight: CGFloat = 0) -> PageContentService.Setup.Parameters.Margins {
-        return PageContentService.Setup.Parameters.Margins(top: "\(insets.top + leadImageHeight)px", right: "\(insets.right)px", bottom: "\(insets.bottom)px", left: "\(insets.left)px")
+        return PageContentService.Setup.Parameters.Margins(top: "\(insets.top + leadImageHeight)px", bottom: "\(insets.bottom)px")
     }
     
     func updateMargins(with layoutMargins: UIEdgeInsets, leadImageHeight: CGFloat) {

@@ -427,7 +427,6 @@
 "notifications-center-empty-state-num-filters" = "{{PLURAL:$1|$1 filter}}";
 "notifications-center-feed-card-title" = "Notifeghe dora i modifeghe mò disponibil";
 "notifications-center-feed-news-notification-button-text" = "Ativa i notifeghe push";
-"notifications-center-feed-news-notification-dismiss-button-text" = "Minga adess";
 "notifications-center-filters-read-status-item-title-all" = "Tute";
 "notifications-center-filters-read-status-item-title-read" = "Lensgiude";
 "notifications-center-filters-read-status-item-title-unread" = "Minga lensgiude";

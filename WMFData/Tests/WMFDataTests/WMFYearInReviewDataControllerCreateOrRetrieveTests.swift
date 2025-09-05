@@ -15,8 +15,11 @@ fileprivate class WMFMockYearInReviewDataController: WMFYearInReviewDataControll
 		let viewCountSlideSettings = WMFFeatureConfigResponse.IOS.YearInReview.SlideSettings(isEnabled: true)
         let savedCountSlideSettings = WMFFeatureConfigResponse.IOS.YearInReview.SlideSettings(isEnabled: true)
         let mostReadCategoriesSlideSettings = WMFFeatureConfigResponse.IOS.YearInReview.SlideSettings(isEnabled: true)
+        let locationSlideSettings = WMFFeatureConfigResponse.IOS.YearInReview.SlideSettings(isEnabled: true)
         let mostReadArticles = WMFFeatureConfigResponse.IOS.YearInReview.SlideSettings(isEnabled: true)
-        let personalizedSlides = WMFFeatureConfigResponse.IOS.YearInReview.PersonalizedSlides(readCount: readCountSlideSettings, editCount: editCountSlideSettings, donateCount: donateCountSlideSettings, saveCount: savedCountSlideSettings, mostReadDay: mostReadDaySlideSettings, viewCount: viewCountSlideSettings, mostReadArticles: mostReadArticles, mostReadCategories: mostReadCategoriesSlideSettings)
+        
+        let personalizedSlides = WMFFeatureConfigResponse.IOS.YearInReview.PersonalizedSlides(readCount: readCountSlideSettings, editCount: editCountSlideSettings, donateCount: donateCountSlideSettings, saveCount: savedCountSlideSettings, mostReadDay: mostReadDaySlideSettings, viewCount: viewCountSlideSettings, mostReadArticles: mostReadArticles, mostReadCategories: mostReadCategoriesSlideSettings, locationArticles: locationSlideSettings)
+
         let yearInReview = WMFFeatureConfigResponse.IOS.YearInReview(yearID: "2025.1", isEnabled: true, countryCodes: ["US"], primaryAppLanguageCodes: ["en"], dataPopulationStartDateString: "2025-01-01T00:00:00Z", dataPopulationEndDateString: "2025-12-31T00:00:00Z", personalizedSlides: personalizedSlides, hideDonateCountryCodes: [])
         let ios = WMFFeatureConfigResponse.IOS(version: 1, yir: [yearInReview])
         let config = WMFFeatureConfigResponse(ios: [ios])
@@ -97,7 +100,7 @@ final class WMFYearInReviewDataControllerCreateOrRetrieveTests: XCTestCase {
 
         XCTAssertNotNil(report, "Expected a report to be retrieved")
         XCTAssertEqual(report?.year, year)
-        XCTAssertEqual(report?.slides.count, 6)
+        XCTAssertEqual(report?.slides.count, 7)
     }
 
     func testShouldCreateOrRetrieveYearInReviewWithNewReport() async throws {
@@ -114,7 +117,7 @@ final class WMFYearInReviewDataControllerCreateOrRetrieveTests: XCTestCase {
 
         XCTAssertNotNil(report, "Expected a new report to be created")
         XCTAssertEqual(report?.year, year)
-        XCTAssertEqual(report?.slides.count, 4) // Expecting 4 slides instead of 6, because editing data (username and userID) is passed as nil above.
+        XCTAssertEqual(report?.slides.count, 5) // Expecting 4 slides instead of 6, because editing data (username and userID) is passed as nil above.
     }
 }
 
@@ -125,7 +128,7 @@ extension WMFYearInReviewDataControllerCreateOrRetrieveTests: SavedArticleSlideD
 }
 
 extension WMFYearInReviewDataControllerCreateOrRetrieveTests: LegacyPageViewsDataDelegate {
-    func getLegacyPageViews(from startDate: Date, to endDate: Date) async throws -> [WMFData.WMFLegacyPageView] {
+    func getLegacyPageViews(from startDate: Date, to endDate: Date, needsLatLong: Bool) async throws -> [WMFData.WMFLegacyPageView] {
         return []
     }
     

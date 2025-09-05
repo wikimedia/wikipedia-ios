@@ -174,7 +174,6 @@
 "close-other-tabs" = "Action to close all tabs except the current one.";
 "close-tab-confirmation" = "Confirmation prompt to close a single tab.";
 "close-tabs" = "Action to confirm closing multiple tabs.";
-"closed-all-tabs-confirmation" = "Confirmation message closing a number of tabs. $1 is the amount of tabs currently open.";
 "closed-all-tabs-confirmation-with-value" = "Confirmation title of deleting all tabs. $1 is the number of tabs deleted.";
 "compass-direction" = "Spoken description of compass direction, e.g. \"at 3 o'clock\" means \"to the right\", \"at 11 o'clock\" means \"slightly to the left\", etc. $1 is the hour.";
 "confirm-donation-history-deletion-subtitle" = "Subtitle for confirm local donation history deletion alert";
@@ -1484,11 +1483,15 @@
 "year-in-review-personalized-editing-title-format" = "Year in review, personalized editing article count slide title for users that edited articles. $1 is replaced with the number of edits the user made.";
 "year-in-review-personalized-editing-title-format-500plus" = "Year in review, personalized editing article count slide title for users that edited articles 500+ times.";
 "year-in-review-personalized-explore" = "Accessibility description for the personalized explore slide.";
+"year-in-review-personalized-location-subtitle-format-1" = "Year in review, personalized location slide subtitle. $1 is replaced with an article name in the area they most read about. $2 and $3 are enclosing tags to make the name bold.";
+"year-in-review-personalized-location-subtitle-format-2" = "Year in review, personalized location slide subtitle. $1 and $2 are replaced with article names in the area they most read about, $3 and $4 are enclosing tags to make the names bold.";
+"year-in-review-personalized-location-subtitle-format-3" = "Year in review, personalized location slide subtitle. $1, $2 and $3 are replaced with article names in the area they most read about, $4 and $5 are enclosing tags to make the names bold.";
+"year-in-review-personalized-location-title-format" = "Year in review, personalized location slide title. $1 is replaced with a country or ocean name.";
 "year-in-review-personalized-most-read-articles-title" = "Year in review, personalized most read articles slide title";
 "year-in-review-personalized-reading-subtitle-format" = "Year in review, personalized reading article count slide subtitle for users that read articles. $1 is replaced with the number of articles the user read. $2 is replaced with the number of articles available across Wikipedia, for example, \"63.59\". $3 is replaced with the number of active languages available on Wikipedia, for example \"300\"";
 "year-in-review-personalized-reading-title-format" = "Year in review, personalized reading article count slide title for users that read articles. $1 is replaced with the number of articles the user read.";
 "year-in-review-personalized-saved-articles" = "Accessibility description for the personalized saved articles slide.";
-"year-in-review-personalized-saved-subtitle-format" = "Year in review, personalized saved articles slide subtitle. $1 is replaced with the number of articles the user saved, $2, $3 and $4 are replaced with the names  three random articles the user saved.";
+"year-in-review-personalized-saved-subtitle-format" = "Year in review, personalized saved articles slide subtitle. $1 is replaced with the number of articles the user saved, $2, $3 and $4 are replaced with up to three article names the user saved (each enclosed in <b> tags).";
 "year-in-review-personalized-saved-title-format" = "Year in review, personalized saved articles slide subtitle. $1 is replaced with the number of articles the user saved.";
 "year-in-review-personalized-user-edits" = "Accessibility description for the personalized user edits slide.";
 "year-in-review-personalized-weekday" = "Accessibility description for the personalized weekday slide.";

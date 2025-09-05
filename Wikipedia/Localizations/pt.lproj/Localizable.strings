@@ -538,7 +538,6 @@
 "image-recs-not-sure-title" = "Não tenho certeza";
 "image-recs-yes-title" = "Sim";
 "import-shared-reading-list-default-title" = "A minha lista de leitura";
-"import-shared-reading-list-survey-prompt-button-cancel" = "Agora não";
 "import-shared-reading-list-survey-prompt-button-take-survey" = "Participar em inquérito";
 "import-shared-reading-list-survey-prompt-footer" = "Ver a nossa $1declaração de privacidade$2. Inquérito conduzido por uma entidade terceira. Ver a $3declaração de privacidade$4 dessa entidade.";
 "import-shared-reading-list-survey-prompt-subtitle" = "\"Partilhar listas de leitura\" é uma funcionalidade de teste e precisamos dos seus comentários para melhorá-la ou removê-la.";
@@ -624,6 +623,7 @@
 "no-internet-connection" = "Sem ligação à Internet";
 "no-internet-connection-article-reload" = "Talvez esteja disponível uma versão mais recente deste artigo, mas não pode ser carregada sem ligação à Internet";
 "no-internet-connection-article-reload-button" = "Voltar à última versão guardada";
+"not-now-title" = "Agora não";
 "notifications-center-agent-description-from-format" = "De $1";
 "notifications-center-alert" = "Alerta";
 "notifications-center-applied-filters-accessibility-label" = "Filtro de notificações - tem filtros aplicados";
@@ -643,7 +643,6 @@
 "notifications-center-empty-state-num-filters" = "{{PLURAL:$1|$1 filtro|$1 filtros}}";
 "notifications-center-feed-card-title" = "As notificações de edições já estão disponíveis";
 "notifications-center-feed-news-notification-button-text" = "Ativar as notificações imediatas";
-"notifications-center-feed-news-notification-dismiss-button-text" = "Agora não";
 "notifications-center-feed-news-notification-text" = "As notificações de edições em todos os projetos da Wikimedia estão agora disponíveis através da aplicação. Opte por notificações imediatas para se manter atualizado sobre as suas mensagens na Wikipédia quando estiver ausente.";
 "notifications-center-filters-accessibility-label" = "Filtro de notificações";
 "notifications-center-filters-read-status-item-title-all" = "Todas";

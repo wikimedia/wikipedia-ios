@@ -33,6 +33,14 @@ extension ArticleViewController {
     func presentTooltipsIfNeeded() {
         perform(#selector(showTooltipsIfNecessary), with: nil, afterDelay: 1.0)
     }
+    
+    func needsTooltips() -> Bool {
+        if !WMFArticleTabsDataController.shared.hasPresentedTooltips || shouldShowWIconPopover {
+            return true
+        }
+        
+        return false
+    }
 
     @objc private func showTooltipsIfNecessary() {
         guard let navigationBar = navigationController?.navigationBar
