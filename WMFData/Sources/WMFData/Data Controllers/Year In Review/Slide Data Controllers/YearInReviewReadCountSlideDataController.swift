@@ -8,6 +8,7 @@ final class YearInReviewReadCountSlideDataController: YearInReviewSlideDataContr
     static var containsPersonalizedNetworkData = false
     
     private var readCount: Int?
+    private var pageViewHours: Int?
 
     private weak var legacyPageViewsDataDelegate: LegacyPageViewsDataDelegate?
     private let yirConfig: YearInReviewFeatureConfig
@@ -25,9 +26,11 @@ final class YearInReviewReadCountSlideDataController: YearInReviewSlideDataContr
             throw NSError(domain: "", code: 0, userInfo: nil)
         }
         
-        let pageViewCounts = try await WMFPageViewsDataController().fetchPageViewCounts(startDate: startDate, endDate: endDate)
+        let dataController = try WMFPageViewsDataController()
         
-        readCount = pageViewCounts.count
+        self.readCount = try await dataController.fetchPageViewCounts(startDate: startDate, endDate: endDate).count
+        self.pageViewHours = try await dataController.fetchPageViewHours(startDate: startDate, endDate: endDate)
+        
         isEvaluated = true
     }
 
