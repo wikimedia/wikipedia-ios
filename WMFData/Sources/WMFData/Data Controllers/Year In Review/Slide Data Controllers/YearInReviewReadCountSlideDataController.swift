@@ -21,12 +21,13 @@ final class YearInReviewReadCountSlideDataController: YearInReviewSlideDataContr
     func populateSlideData(in context: NSManagedObjectContext) async throws {
         
         guard let startDate = yirConfig.dataPopulationStartDate,
-              let endDate = yirConfig.dataPopulationEndDate,
-            let pageViews = try await legacyPageViewsDataDelegate?.getLegacyPageViews(from: startDate, to: endDate, needsLatLong: false) else {
+              let endDate = yirConfig.dataPopulationEndDate else {
             throw NSError(domain: "", code: 0, userInfo: nil)
         }
         
-        readCount = pageViews.count
+        let pageViewCounts = try await WMFPageViewsDataController().fetchPageViewCounts(startDate: startDate, endDate: endDate)
+        
+        readCount = pageViewCounts.count
         isEvaluated = true
     }
 
