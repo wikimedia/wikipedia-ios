@@ -22,7 +22,7 @@ jobs:
       matrix:
         scheme: ["Wikipedia", "WMFComponents", "WMFData"]
 
-    name: ${{ matrix.scheme }}
+    name: Test ${{ matrix.scheme }}
     steps:
       - uses: actions/checkout@v4
 
