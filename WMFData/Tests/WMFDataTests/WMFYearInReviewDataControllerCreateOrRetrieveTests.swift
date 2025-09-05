@@ -117,7 +117,7 @@ final class WMFYearInReviewDataControllerCreateOrRetrieveTests: XCTestCase {
 
         XCTAssertNotNil(report, "Expected a new report to be created")
         XCTAssertEqual(report?.year, year)
-        XCTAssertEqual(report?.slides.count, 5) // Expecting 4 slides instead of 6, because editing data (username and userID) is passed as nil above.
+        XCTAssertEqual(report?.slides.count, 4) // Expecting 4 slides instead of 6, because editing data (username and userID) is passed as nil above.
     }
 }
 
