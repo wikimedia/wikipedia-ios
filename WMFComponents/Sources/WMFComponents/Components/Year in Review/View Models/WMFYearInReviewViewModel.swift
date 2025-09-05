@@ -332,6 +332,7 @@ public class WMFYearInReviewViewModel: ObservableObject {
                                 altText: localizedStrings.personalizedSavedArticlesAccessibilityLabel,
                                 title: localizedStrings.personalizedSaveCountSlideTitle(count),
                                 subtitle: localizedStrings.personalizedSaveCountSlideSubtitle(count, savedSlideData.articleTitles),
+                                subtitleType: .html,
                                 infoURL: aboutYiRURL,
                                 forceHideDonateButton: false,
                                 loggingID: "save_count_custom",
