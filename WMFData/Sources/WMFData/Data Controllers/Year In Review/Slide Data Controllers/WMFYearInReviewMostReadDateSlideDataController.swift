@@ -1,12 +1,12 @@
 import CoreData
 
-final class YearInReviewMostReadDaySlideDataController: YearInReviewSlideDataControllerProtocol {
-    let id = WMFYearInReviewPersonalizedSlideID.mostReadDay.rawValue
+final class YearInReviewMostReadDateSlideDataController: YearInReviewSlideDataControllerProtocol {
+    let id = WMFYearInReviewPersonalizedSlideID.mostReadDate.rawValue
     let year: Int
     var isEvaluated: Bool = false
     static var containsPersonalizedNetworkData = false
     
-    var mostReadDay: WMFPageViewDay?
+    var mostReadDate: WMFPageViewDates?
 
     private weak var legacyPageViewsDataDelegate: LegacyPageViewsDataDelegate?
     private let yirConfig: YearInReviewFeatureConfig
@@ -20,31 +20,29 @@ final class YearInReviewMostReadDaySlideDataController: YearInReviewSlideDataCon
     func populateSlideData(in context: NSManagedObjectContext) async throws {
         
         guard let startDate = yirConfig.dataPopulationStartDate,
-              let endDate = yirConfig.dataPopulationEndDate,
-            let pageViews = try await legacyPageViewsDataDelegate?.getLegacyPageViews(from: startDate, to: endDate, needsLatLong: false) else {
+              let endDate = yirConfig.dataPopulationEndDate else {
             throw NSError(domain: "", code: 0, userInfo: nil)
         }
         
-        let dayCounts = pageViews.reduce(into: [Int: Int]()) { dict, view in
-            let day = Calendar.current.component(.weekday, from: view.viewedDate)
-            dict[day, default: 0] += 1
-        }
-
-        if let (day, count) = dayCounts.max(by: { $0.value < $1.value }) {
-            mostReadDay = WMFPageViewDay(day: day, viewCount: count)
-            isEvaluated = true
-        }
+        let dates = try await WMFPageViewsDataController().fetchPageViewDates(startDate: startDate, endDate: endDate)
+        
+        if let mostReadHour = dates?.times.sorted(by: { $0.viewCount < $1.viewCount }).first,
+           let mostReadDay = dates?.days.sorted(by: { $0.viewCount < $1.viewCount }).first,
+           let mostReadMonth = dates?.months.sorted(by: { $0.viewCount < $1.viewCount }).first {
+                self.mostReadDate = WMFPageViewDates(days: [mostReadDay], times: [mostReadHour], months: [mostReadMonth])
+                isEvaluated = true
+            }
     }
 
     func makeCDSlide(in context: NSManagedObjectContext) throws -> CDYearInReviewSlide {
         let slide = CDYearInReviewSlide(context: context)
         slide.id = id
         slide.year = Int32(year)
-        slide.data = try mostReadDay.map { try JSONEncoder().encode($0) }
+        slide.data = try mostReadDate.map { try JSONEncoder().encode($0) }
         return slide
     }
 
     static func shouldPopulate(from config: YearInReviewFeatureConfig, userInfo: YearInReviewUserInfo) -> Bool {
-        config.isEnabled && config.slideConfig.mostReadDayIsEnabled
+        config.isEnabled && config.slideConfig.mostReadDateIsEnabled
     }
 }
