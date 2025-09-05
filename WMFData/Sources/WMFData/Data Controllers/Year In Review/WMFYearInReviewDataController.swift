@@ -99,6 +99,18 @@ import CoreData
         }
     }
 
+    public var isNewIconOn: Bool {
+        get {
+            return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.isNewIconOn.rawValue)) ?? false
+        }
+        set {
+            try? userDefaultsStore?.save(
+                key: WMFUserDefaultsKey.isNewIconOn.rawValue,
+                value: newValue
+            )
+        }
+    }
+
     func isAnnouncementActive() -> Bool {
         
         if developerSettingsDataController.showYiRV2 ||
@@ -634,6 +646,16 @@ public class SavedArticleSlideData: NSObject, Codable {
     public init(savedArticlesCount: Int, articleTitles: [String]) {
         self.savedArticlesCount = savedArticlesCount
         self.articleTitles = articleTitles
+    }
+}
+
+public struct DonateAndEditCounts: Codable {
+    public let donateCount: Int?
+    public let editCount: Int?
+    
+    public init(donateCount: Int?, editCount: Int?) {
+        self.donateCount = donateCount
+        self.editCount = editCount
     }
 }
 
