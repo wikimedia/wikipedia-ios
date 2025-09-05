@@ -174,7 +174,6 @@
 "close-other-tabs" = "Close other tabs";
 "close-tab-confirmation" = "Close tab?";
 "close-tabs" = "Close tabs";
-"closed-all-tabs-confirmation" = "Closed all $1 tabs.";
 "closed-all-tabs-confirmation-with-value" = "{{PLURAL:$1|$1 tab|$1 tabs}} closed.";
 "compass-direction" = "at $1 o'clock";
 "confirm-donation-history-deletion-subtitle" = "This will only apply to donations made from this device.";
@@ -1488,6 +1487,10 @@
 "year-in-review-personalized-editing-title-format" = "You edited Wikipedia {{PLURAL:$1|$1 time|$1 times}}";
 "year-in-review-personalized-editing-title-format-500plus" = "You edited Wikipedia 500+ times";
 "year-in-review-personalized-explore" = "An animated illustration of a hand holding the Wikipedia globe, which gradually transforms into a small puzzle piece, symbolizing individual contributions to the platform.";
+"year-in-review-personalized-location-subtitle-format-1" = "You read about $2$1$3.";
+"year-in-review-personalized-location-subtitle-format-2" = "You read about $3$1$4 and $3$2$4.";
+"year-in-review-personalized-location-subtitle-format-3" = "You read about $4$1$5, $4$2$5 and $4$3$5.";
+"year-in-review-personalized-location-title-format" = "Articles you read are closest to $1.";
 "year-in-review-personalized-most-read-articles-title" = "Your top articles";
 "year-in-review-personalized-reading-subtitle-format" = "You read {{PLURAL:$1|$1 article|$1 articles}}. Wikipedia had $2 million articles available across over $3 active languages. You joined millions in expanding knowledge and exploring diverse topics.";
 "year-in-review-personalized-reading-title-format" = "You read {{PLURAL:$1|$1 article|$1 articles}}";

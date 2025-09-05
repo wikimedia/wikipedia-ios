@@ -415,7 +415,6 @@
 "icon-shortcut-random-title" = "Articol aleatoriu";
 "icon-shortcut-search-title" = "Căutare în Wikipedia";
 "image-gallery-unknown-owner" = "Autor necunoscut.";
-"import-shared-reading-list-survey-prompt-button-cancel" = "Nu acum";
 "in-the-news-sub-title-from-language-wikipedia" = "De la $1 Wikipedia";
 "in-the-news-sub-title-from-wikipedia" = "De la Wikipedia";
 "in-the-news-title" = "Știri";
@@ -490,6 +489,7 @@
 "no-internet-connection" = "Fără conexiune internet";
 "no-internet-connection-article-reload" = "O versiune mai recentă a acestui articol poate fi disponibilă, dar nu poate fi încărcată fără o conexiune la internet";
 "no-internet-connection-article-reload-button" = "Reveniți la ultima versiune salvată";
+"not-now-title" = "Nu acum";
 "notifications-center-agent-description-from-format" = "De la $1";
 "notifications-center-alert" = "Alerte";
 "notifications-center-applied-filters-accessibility-label" = "Filtru de notificări - are filtre aplicate";
@@ -508,7 +508,6 @@
 "notifications-center-empty-state-num-filters" = "{{PLURAL:$1|$1 filtru|$1 filtre}}";
 "notifications-center-feed-card-title" = "Editarea notificărilor acum disponibilă";
 "notifications-center-feed-news-notification-button-text" = "Activați notificările push";
-"notifications-center-feed-news-notification-dismiss-button-text" = "Nu acum";
 "notifications-center-feed-news-notification-text" = "Notificările de editare pentru toate proiectele Wikimedia sunt acum disponibile prin intermediul aplicației. Înscrieți-vă pentru notificări push pentru a fi la curent cu mesajele dvs. de pe Wikipedia în timp ce sunteți în deplasare.";
 "notifications-center-filters-accessibility-label" = "Filtru de notificări";
 "notifications-center-filters-read-status-item-title-all" = "Toate";

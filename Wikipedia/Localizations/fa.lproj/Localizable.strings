@@ -621,7 +621,6 @@
 "image-recs-time-warning-message" = "لطفاً به منظور درک موضوع، مقاله را مرور کرده و تصویر را بررسی نمایید.";
 "image-recs-yes-title" = "بله";
 "import-shared-reading-list-default-title" = "فهرست مطالعهٔ من";
-"import-shared-reading-list-survey-prompt-button-cancel" = "حالا نه";
 "import-shared-reading-list-survey-prompt-button-take-survey" = "شرکت در نظرسنجی";
 "import-shared-reading-list-survey-prompt-footer" = "$1اظهارنامه حریم خصوصی$2 ما را ببینید. نظرسنجی توسط شخص ثالث پشتیبانی شده است. $3اظهارنامه حریم خصوصی$4 آنان را ببینید.";
 "import-shared-reading-list-survey-prompt-subtitle" = "«فهرست‌های مطالعهٔ اشتراکی» یک ویژگی آزمایشی است و ما برای بهبود یا حذف آن به بازخوردهای شما نیاز داریم.";
@@ -722,6 +721,7 @@
 "no-internet-connection" = "عدم اتصال به اینترنت";
 "no-internet-connection-article-reload" = "نسخهٔ جدیدتر این مقاله ممکن است موجود باشد، اما بدون اتصال به اینترنت، قابل دست‌یابی نیست";
 "no-internet-connection-article-reload-button" = "برگشت به آخرین نسخهٔ ذخیره‌شده";
+"not-now-title" = "حالا نه";
 "notifications-center-agent-description-from-format" = "از $1";
 "notifications-center-alert" = "هشدار";
 "notifications-center-applied-filters-accessibility-label" = "پالایهٔ اعلان‌ها - دارای پالایه‌های اعمال‌شده";
@@ -741,7 +741,6 @@
 "notifications-center-empty-state-num-filters" = "{{PLURAL:$1|$1 پالایه}}";
 "notifications-center-feed-card-title" = "ویرایش اعلان‌ها اکنون در دسترس است";
 "notifications-center-feed-news-notification-button-text" = "روشن کردن اعلان‌های تشویقی";
-"notifications-center-feed-news-notification-dismiss-button-text" = "حالا نه";
 "notifications-center-feed-news-notification-text" = "آگاه‌سازی‌های ویرایشی برای تمامی پروژه‌های ویکی‌مدیا اکنون از طریق نرم‌افزار در دستس هستند. برای این که از پیام‌های خود در ویکی‌پدیا در هر کجا و هر زمان آگاه شوید، اعلان‌های فشاری را فعال کنید.";
 "notifications-center-filters-accessibility-label" = "پالایهٔ اعلان‌ها";
 "notifications-center-filters-read-status-item-title-all" = "همه";

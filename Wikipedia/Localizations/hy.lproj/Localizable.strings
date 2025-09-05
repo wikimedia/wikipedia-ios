@@ -100,7 +100,6 @@
 "image-rec-survey-title" = "Պատճառ";
 "image-rec-title" = "Ավելացնել պատկեր";
 "image-rec-view-article" = "Դիտել հոդվածը";
-"import-shared-reading-list-survey-prompt-button-cancel" = "Հիմա չէ";
 "in-the-news-sub-title-from-language-wikipedia" = "$1 Վիքիպեդիայից";
 "in-the-news-sub-title-from-wikipedia" = "Վիքիպեդիայից";
 "in-the-news-title" = "Նորություններում";
@@ -137,6 +136,7 @@
 "nearby-distance-label-meters" = "$1 մ";
 "nearby-distance-label-miles" = "$1 մղոն";
 "next-action-title" = "Հաջորդ";
+"not-now-title" = "Հիմա չէ";
 "notifications-center-go-to-article" = "Հոդված";
 "notifications-center-go-to-article-talk-format" = "$1 քննարկման էջ";
 "notifications-center-go-to-wikidata-item" = "Վիկիտվյալների տառռ";

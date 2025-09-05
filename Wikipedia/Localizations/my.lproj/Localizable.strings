@@ -305,7 +305,6 @@
 "icon-shortcut-random-title" = "ကျပန်း ဆောင်းပါး";
 "icon-shortcut-search-title" = "ဝီကီပီးဒီးယားထဲတွင် ရှာဖွေပါ";
 "image-gallery-unknown-owner" = "စာရေးသူ မသိရ";
-"import-shared-reading-list-survey-prompt-button-cancel" = "အခု မဟုတ်ပါ";
 "in-the-news-sub-title-from-language-wikipedia" = "$1 ဝီကီပီးဒီးယားမှ";
 "in-the-news-sub-title-from-wikipedia" = "ဝီကီပီးဒီးယားမှ";
 "in-the-news-title" = "သတင်းထဲတွင်";
@@ -364,6 +363,7 @@
 "no-email-account-alert" = "သင်၏ စက်ပစ္စည်းတွင် အီးမေးလ်လိပ်စာတစ်ခု ထည့်သွင်း၍ ထပ်မံကြိုးစားပါ။";
 "no-internet-connection" = "အင်တာနက် ကွန်နက်ရှင် မရှိပါ";
 "no-internet-connection-article-reload" = "ဤဆောင်းပါး၏ ပိုမိုသစ်လွင်သောမူကို ရရှိနိုင်ကောင်းပါသည်၊ သို့သော် အင်တာနက်ကွန်နက်ရှင်မရှိဘဲ မဆွဲတင်နိုင်ပါ။";
+"not-now-title" = "အခု မဟုတ်ပါ";
 "notifications-center-agent-description-from-format" = "$1 မှ";
 "notifications-center-alert" = "သတိပေးချက်";
 "notifications-center-cell-notification-type-accessibility-label-format" = "$1 အသိပေးချက်";
@@ -375,7 +375,6 @@
 "notifications-center-empty-no-messages" = "မက်ဆေ့များ မရောက်ရှိပါ";
 // Fuzzy
 "notifications-center-feed-news-notification-button-text" = "အသိပေးချက်များ ဖွင့်ရန်။";
-"notifications-center-feed-news-notification-dismiss-button-text" = "အခု မဟုတ်ပါ";
 "notifications-center-filters-read-status-item-title-all" = "အားလုံး";
 "notifications-center-filters-read-status-item-title-read" = "ဖတ်ပြီး";
 "notifications-center-filters-read-status-item-title-unread" = "မဖတ်ရသေး";

@@ -40,6 +40,7 @@
 // Author: Oupsa
 // Author: Pols12
 // Author: Pyb
+// Author: Pyschobbens
 // Author: Selhom
 // Author: SleaY
 // Author: Solucer
@@ -184,7 +185,7 @@
 "article-tabs-button-accessibility-hint" = "Navigue vers l’aperçu des onglets";
 "article-tabs-button-accessibility-label" = "Onglets de l’article";
 "article-tabs-did-you-know-title" = "Le saviez-vous ?";
-"article-tabs-feature-announcement-item-1-subtitle" = "Ouvrez plusieurs articles et passez facilement d’un à un autre.";
+"article-tabs-feature-announcement-item-1-subtitle" = "Ouvrez plusieurs articles et passez facilement de l’un à l'autre.";
 "article-tabs-feature-announcement-item-1-title" = "Naviguez avec des onglets";
 "article-tabs-feature-announcement-item-2-subtitle" = "Les onglets mémorisent automatiquement votre position de défilement.";
 "article-tabs-feature-announcement-item-2-title" = "Reprenez là où vous vous êtes arrêté";
@@ -695,7 +696,6 @@
 "image-recs-time-warning-message" = "Veuillez consulter l'article pour comprendre son sujet et inspecter l'image";
 "image-recs-yes-title" = "Oui";
 "import-shared-reading-list-default-title" = "Ma liste de lecture";
-"import-shared-reading-list-survey-prompt-button-cancel" = "Pas maintenant";
 "import-shared-reading-list-survey-prompt-button-take-survey" = "Répondre au sondage";
 "import-shared-reading-list-survey-prompt-footer" = "Consultez notre $1déclaration de confidentialité$2. Enquête réalisée par un tiers. Consultez sa $3politique de confidentialité$4.";
 "import-shared-reading-list-survey-prompt-subtitle" = "Le « Partage de listes de lecture » est une fonctionnalité en test et nous avons besoin de vos commentaires pour l’améliorer ou la supprimer.";
@@ -803,6 +803,7 @@
 "no-internet-connection" = "Aucune connexion à Internet";
 "no-internet-connection-article-reload" = "Une version plus récente de cet article est peut-être disponible, mais ne peut pas être chargée sans connexion à Internet";
 "no-internet-connection-article-reload-button" = "Retour à la dernière version enregistrée";
+"not-now-title" = "Pas maintenant";
 "notifications-center-agent-description-from-format" = "De $1";
 "notifications-center-alert" = "Alerte";
 "notifications-center-applied-filters-accessibility-label" = "Filtrage des notifications : a des filtres appliqués";
@@ -822,7 +823,6 @@
 "notifications-center-empty-state-num-filters" = "$1 filtre{{PLURAL:$1||s}}";
 "notifications-center-feed-card-title" = "Notifications de modification maintenant disponibles";
 "notifications-center-feed-news-notification-button-text" = "Activer les notifications poussées";
-"notifications-center-feed-news-notification-dismiss-button-text" = "Pas maintenant";
 "notifications-center-feed-news-notification-text" = "Les notifications de modification pour tous les projets Wikimedia sont maintenant disponibles via l’appli. Acceptez les notifications poussées pour rester à jour de vos messages sur Wikipédia lorsque vous vous allez ailleurs.";
 "notifications-center-filters-accessibility-label" = "Fitrage des notifications";
 "notifications-center-filters-read-status-item-title-all" = "Tous";

@@ -48,6 +48,7 @@ final class YearInReviewSlideDataControllerFactory {
             .mostReadDate,
             .viewCount,
             .mostReadCategories,
+            .location,
             .topArticles
         ]
         

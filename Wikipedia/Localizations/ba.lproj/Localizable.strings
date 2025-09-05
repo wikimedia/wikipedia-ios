@@ -419,7 +419,6 @@
 "icon-shortcut-search-title" = "Википедияла эҙләү";
 "image-gallery-unknown-owner" = "Авторы билдәһеҙ";
 "import-shared-reading-list-default-title" = "Уҡыу исемлегем";
-"import-shared-reading-list-survey-prompt-button-cancel" = "Хәҙер түгел";
 "import-shared-reading-list-survey-prompt-button-take-survey" = "Һорауламала ҡатнашыу";
 "import-shared-reading-list-survey-prompt-subtitle" = "«Уҡыу исемлектәре менән бүлешергә» -  тест функцияһы, һәм беҙгә уны яҡшыртыу йәки алып ташлау өсөн һеҙҙең фекер кәрәк.";
 "import-shared-reading-list-survey-prompt-title" = "\"Уҡыу исемлектәре менән уртаҡлашыу\" функцияһын яҡшыртыуҙа ярҙам итә алмаҫһығыҙмы?";
@@ -495,6 +494,7 @@
 "no-internet-connection" = "Интернет бәйләнеше юҡ";
 "no-internet-connection-article-reload" = "Мәҡәләнең яңы өлгөһө булыуы ихтимал, әммә ул интернетҡа тоташмайынса асылмай.";
 "no-internet-connection-article-reload-button" = "Һуңғы һаҡланған өлгөнө асырға.";
+"not-now-title" = "Хәҙер түгел";
 "notifications-center-agent-description-from-format" = "$1 битенән";
 "notifications-center-alert" = "Хәбәр итеүҙәр";
 "notifications-center-applied-filters-accessibility-label" = "Хәбәрҙәр фильтры - фильтрҙар ҡулланыла";
@@ -513,7 +513,6 @@
 "notifications-center-empty-state-num-filters" = "{{PLURAL:$1|$1 фильтр}}";
 "notifications-center-feed-card-title" = "Хәҙер хәбәрҙәрҙе мөхәррирләү мөмкинлеге бар";
 "notifications-center-feed-news-notification-button-text" = "Push-хәбәр итеүҙе ҡабыҙырға";
-"notifications-center-feed-news-notification-dismiss-button-text" = "Хәҙер түгел";
 "notifications-center-feed-news-notification-text" = "Викимедианың бөтә проекттары өсөн мөхәррирләү тураһында белдереүҙәр хәҙер ҡушымта аша килә. Википедияла белдереү алыу өсөн push-белдереүҙе ҡабыҙығыҙ.";
 "notifications-center-filters-accessibility-label" = "Белдереүҙәр фильтры";
 "notifications-center-filters-read-status-item-title-all" = "Барыһы ла";

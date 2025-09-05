@@ -70,15 +70,19 @@ public final class WMFPageViewTime: Codable {
     }
 }
 
-public final class WMFLegacyPageView {
-    let title: String
+public final class WMFLegacyPageView: Codable {
+    public let title: String
     let project: WMFProject
     let viewedDate: Date
+    public let latitude: Double?
+    public let longitude: Double?
     
-    public init(title: String, project: WMFProject, viewedDate: Date) {
+    public init(title: String, project: WMFProject, viewedDate: Date, latitude: Double? = nil, longitude: Double? = nil) {
         self.title = title
         self.project = project
         self.viewedDate = viewedDate
+        self.latitude = latitude
+        self.longitude = longitude
     }
     
 }

@@ -19,3 +19,17 @@ import SwiftUI
          }
      }
  }
+
+extension UIView {
+    func snapshot(afterScreenUpdates: Bool) -> UIImage? {
+        UIGraphicsBeginImageContextWithOptions(bounds.size, true, 0)
+        drawHierarchy(in: bounds, afterScreenUpdates: afterScreenUpdates)
+        let image = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return image
+    }
+    
+    func snapshot() -> UIImage? {
+        return snapshot(afterScreenUpdates: true)
+    }
+}
