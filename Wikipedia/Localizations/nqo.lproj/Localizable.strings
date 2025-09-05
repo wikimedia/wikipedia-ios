@@ -314,7 +314,6 @@
 "icon-shortcut-search-title" = "ߊ߬ ߢߌߣߌ߲߫ ߥߞߌߔߋߘߌߦߊ ߞߊ߲߬";
 "image-gallery-unknown-owner" = "ߛߓߍߦߟߊ߫ ߡߊߟߐ߲ߓߊߟߌ";
 "import-shared-reading-list-default-title" = "ߒ ߠߊ߫ ߘߐ߬ߞߊ߬ߙߊ߲߬ߠߌ߲߬ ߛߙߍߘߍ";
-"import-shared-reading-list-survey-prompt-button-cancel" = "ߌߞߘߐߣߌ߲߬ ߕߴߏ ߘߌ߫";
 "import-shared-reading-list-survey-prompt-button-take-survey" = "ߘߐ߬ߛߏ߰ߙߋߟߌ ߞߐߖߋ߬ߓߌ߬";
 "in-the-news-sub-title-from-language-wikipedia" = "ߞߊ߬ ߝߘߊ߫ $1 ߥߞߌߔߋߘߌߦߊ ߟߊ߫";
 "in-the-news-sub-title-from-wikipedia" = "ߞߊ߬ ߝߘߊ߫ ߥߞߌߔߋߘߌߦߊ ߟߊ߫";
@@ -375,6 +374,7 @@
 "new-password-title" = "ߌ ߟߊ߫ ߕߊ߬ߡߌ߲߬ߞߊ߲ ߠߊߘߏ߲߬";
 "no-internet-connection" = "ߓߟߐߟߐ ߜߊ߲߬ߞߎ߲߬ߠߌ߲߬ ߕߴߦߋ߲߬";
 "no-internet-connection-article-reload-button" = "ߌ ߞߐߛߊ߬ߦߌ߬ ߞߐߟߊ߫ ߦߌߟߡߊ߫ ߟߊߞߎ߲߬ߘߎ߬ߣߍ߲ ߡߊ߬";
+"not-now-title" = "ߌߞߘߐߣߌ߲߬ ߕߴߏ ߘߌ߫";
 "notifications-center-agent-description-from-format" = "ߞߊ߬ ߝߘߊ߫ $1";
 "notifications-center-alert" = "ߟߊ߬ߛߏ߬ߓߌ߬ߟߌ";
 "notifications-center-cell-notification-type-accessibility-label-format" = "ߖߊ߲߬ߓߌ߬ߟߊ߬ߟߌ $1";
@@ -390,7 +390,6 @@
 "notifications-center-empty-state-num-filters" = "{{PLURAL:$1|ߛߍ߲ߛߍ߲ߟߊ߲ $1|ߛߍ߲ߛߍ߲ߟߊ߲ $1 ߠߎ߬}}";
 "notifications-center-feed-card-title" = "ߡߊ߬ߦߟߍ߬ߡߊ߲߬ߠߌ߲ ߖߊ߲߬ߓߌ߬ߟߊ߬ߟߌ ߘߌ߫ ߛߋ߫ ߡߊߛߐ߬ߙߐ߲߬ ߠߊ߫ ߕߊ߲߬";
 "notifications-center-feed-news-notification-button-text" = "ߖߊ߲߬ߓߌ߬ߟߊ߬ߟߌ ߕߎ߲߬ߕߎ߲߬ߠߌ߲ ߓߌ߬ߟߴߊ߬ ߟߊ߫";
-"notifications-center-feed-news-notification-dismiss-button-text" = "ߌߞߘߐߣߌ߲߬ ߕߴߏ ߘߌ߫";
 "notifications-center-filters-accessibility-label" = "ߖߊ߲߬ߓߌ߬ߟߊ߬ߟߌ ߛߍ߲ߛߍ߲ߟߊ߲";
 "notifications-center-filters-read-status-item-title-all" = "ߊ߬ ߓߍ߯";
 "notifications-center-filters-read-status-item-title-read" = "ߘߐ߬ߞߊ߬ߙߊ߲߬ߣߍ߲";

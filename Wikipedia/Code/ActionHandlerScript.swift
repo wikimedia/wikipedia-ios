@@ -15,9 +15,7 @@ final class PageContentService {
             struct Margins: Codable {
                 // these values are strings to allow for units to be included
                 let top: String
-                let right: String
                 let bottom: String
-                let left: String
             }
             var margins: Margins
             var leadImageHeight: String // units are included

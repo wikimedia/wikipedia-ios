@@ -536,7 +536,6 @@
 "image-recs-not-sure-title" = "わからない";
 "image-recs-yes-title" = "はい";
 "import-shared-reading-list-default-title" = "リーディング リスト";
-"import-shared-reading-list-survey-prompt-button-cancel" = "今はしない";
 "import-shared-reading-list-survey-prompt-button-take-survey" = "調査の実施";
 "import-shared-reading-list-survey-prompt-subtitle" = "''リーディングリストを共有''はテスト中です。改善または削除のため、フィードバックをください。";
 "import-shared-reading-list-title" = "共有されたあとで読むリストをインポート";
@@ -615,6 +614,7 @@
 "no-internet-connection" = "インターネットに接続されていません";
 "no-internet-connection-article-reload" = "この記事の新しい版があるかもしれませんが、インターネットに接続するまで読みこめません。";
 "no-internet-connection-article-reload-button" = "最後に保存した版に戻る";
+"not-now-title" = "今はしない";
 "notifications-center-agent-description-from-format" = "$1 より";
 "notifications-center-alert" = "アラート";
 "notifications-center-applied-filters-accessibility-label" = "通知フィルター - フィルターが適用されています";
@@ -633,7 +633,6 @@
 "notifications-center-empty-state-num-filters" = "{{PLURAL:$1|$1件のフィルター}}";
 "notifications-center-feed-card-title" = "編集の通知が利用可能になりました";
 "notifications-center-feed-news-notification-button-text" = "プッシュ通知をオンにする";
-"notifications-center-feed-news-notification-dismiss-button-text" = "今はしない";
 "notifications-center-filters-accessibility-label" = "通知フィルター";
 "notifications-center-filters-read-status-item-title-all" = "すべて";
 "notifications-center-filters-read-status-item-title-read" = "既読";

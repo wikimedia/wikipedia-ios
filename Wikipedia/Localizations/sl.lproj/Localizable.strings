@@ -534,7 +534,6 @@
 "image-rec-title" = "Dodaj sliko";
 "image-rec-view-article" = "Ogled članka";
 "import-shared-reading-list-default-title" = "Moj bralni seznam";
-"import-shared-reading-list-survey-prompt-button-cancel" = "Ne zdaj";
 "import-shared-reading-list-survey-prompt-button-take-survey" = "Izpolni anketo";
 "import-shared-reading-list-survey-prompt-footer" = "Oglejte si našo $1izjavo o zasebnosti$2. Anketo poganja tretja oseba. Oglejte si njen  $3pravilnik o zasebnosti$4.";
 "import-shared-reading-list-survey-prompt-subtitle" = "»Deli bralne sezname« je preizkusna možnoste, zato vas prosimo za vaše mnenje, da jo izboljšamo ali odstranimo.";
@@ -615,6 +614,7 @@
 "no-internet-connection" = "Ni internetne povezave";
 "no-internet-connection-article-reload" = "Morda je na voljo novejša redakcija tega članka, vendar je ni mogoče naložiti brez povezave z internetom";
 "no-internet-connection-article-reload-button" = "Nazaj na zadnjo shranjeno redakcijo";
+"not-now-title" = "Ne zdaj";
 "notifications-center-agent-description-from-format" = "Iz $1";
 "notifications-center-alert" = "Opomnik";
 "notifications-center-applied-filters-accessibility-label" = "Filter obvestil – ima uporabljene filtre";
@@ -634,7 +634,6 @@
 "notifications-center-empty-state-num-filters" = "{{PLURAL:$1|$1 filter|$1 filtra|$1 filtri|$1 filtrov}}";
 "notifications-center-feed-card-title" = "Zdaj je na voljo urejanje obvestil";
 "notifications-center-feed-news-notification-button-text" = "Vklopi potisna obvestila";
-"notifications-center-feed-news-notification-dismiss-button-text" = "Ne zdaj";
 "notifications-center-feed-news-notification-text" = "V aplikaciji je zdaj na voljo urejanje obvestil za vse projekte Wikimedie. Prijavite se za potisna obvestila, da boste na tekočem s svojimi sporočili v Wikipediji, ko ste na poti.";
 "notifications-center-filters-accessibility-label" = "Filter obvestil";
 "notifications-center-filters-read-status-item-title-all" = "Vsa";

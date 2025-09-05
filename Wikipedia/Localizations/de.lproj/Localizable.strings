@@ -548,7 +548,6 @@
 "image-recs-not-sure-title" = "Nicht sicher";
 "image-recs-yes-title" = "Ja";
 "import-shared-reading-list-default-title" = "Meine Leseliste";
-"import-shared-reading-list-survey-prompt-button-cancel" = "Jetzt nicht";
 "import-shared-reading-list-survey-prompt-button-take-survey" = "Umfrage durchführen";
 "import-shared-reading-list-survey-prompt-footer" = "Sieh dir unsere $1Datenschutzerklärung$2 an. Die Umfrage wird durch Dritte durchgeführt. Sieh dir deren $3Datenschutzerklärungen$4 an.";
 "import-shared-reading-list-survey-prompt-subtitle" = "\"Leselisten teilen\" ist eine Testfunktion und wir brauchen dein Feedback, um sie zu verbessern oder zu entfernen.";
@@ -631,6 +630,7 @@
 "no-internet-connection" = "Keine Internetverbindung";
 "no-internet-connection-article-reload" = "Eine neuere Version dieses Artikels könnte verfügbar sein, sie kann jedoch ohne Internetverbindung nicht geladen werden.";
 "no-internet-connection-article-reload-button" = "Zurück zur zuletzt gespeicherten Version";
+"not-now-title" = "Jetzt nicht";
 "notifications-center-agent-description-from-format" = "Von $1";
 "notifications-center-alert" = "Warnung";
 "notifications-center-cell-notification-type-accessibility-label-format" = "$1 Benachrichtigung";
@@ -645,7 +645,6 @@
 "notifications-center-empty-state-no-projects-selected" = "Projekte hinzufügen, um mehr Nachrichten zu sehen";
 "notifications-center-empty-state-num-filters" = "{{PLURAL:$1|$1 Filter}}";
 "notifications-center-feed-news-notification-button-text" = "Push-Benachrichtigungen anschalten";
-"notifications-center-feed-news-notification-dismiss-button-text" = "Nicht jetzt";
 "notifications-center-feed-news-notification-text" = "Bearbeitungsbenachrichtigungen für alle Wikimedia-Projekte sind jetzt über die App verfügbar. Melde dich für Push-Benachrichtigungen an, um auch unterwegs über deine Nachrichten auf Wikipedia auf dem Laufenden zu bleiben.";
 "notifications-center-filters-accessibility-label" = "Benachrichtigungsfilter";
 "notifications-center-filters-read-status-item-title-all" = "Alle";

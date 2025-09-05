@@ -433,7 +433,6 @@
 "icon-shortcut-search-title" = "Pretraži Vikipediju";
 "image-gallery-unknown-owner" = "Otpremalac je nepoznat.";
 "import-shared-reading-list-default-title" = "Moja lista za čitanje";
-"import-shared-reading-list-survey-prompt-button-cancel" = "Ne sada";
 "import-shared-reading-list-survey-prompt-button-take-survey" = "Popuni anketu";
 "import-shared-reading-list-survey-prompt-footer" = "Vidite našu $1politiku privatnosti$2. Anketu pruža treća strana. Vidite njihovu $3politiku privatnosti$4.";
 "import-shared-reading-list-survey-prompt-subtitle" = "\"Deljenje listi za čitanje\" je testna mogućnost i potrebne su nam vaše povratne informacije da bi smo je unapredili ili uklonili.";
@@ -507,6 +506,7 @@
 "no-internet-connection" = "Nema internet veze";
 "no-internet-connection-article-reload" = "Novija verzija ovog članka je možda dostupna, ali ne može biti učitana bez internet konekcije.";
 "no-internet-connection-article-reload-button" = "Vrati se na prethodno sačuvanu verziju";
+"not-now-title" = "Ne sada";
 "notifications-center-agent-description-from-format" = "Od $1";
 "notifications-center-alert" = "Obaveštenja";
 "notifications-center-applied-filters-accessibility-label" = "Filter obaveštenja - ima primenjene filtere";
@@ -526,7 +526,6 @@
 "notifications-center-empty-state-num-filters" = "{{PLURAL:$1|$1 filter|$1 filtera}}";
 "notifications-center-feed-card-title" = "Obaveštenja o uređivanju su sada dostupna";
 "notifications-center-feed-news-notification-button-text" = "Uključi obaveštenja";
-"notifications-center-feed-news-notification-dismiss-button-text" = "Ne sada";
 "notifications-center-feed-news-notification-text" = "Obaveštenja o uređivanju za sve Vikimedijine projekte su sada dostupna. Omogućite push obaveštenja da bi ste ostali u toku sa vašim porukama na Vikipediji, u pokretu.";
 "notifications-center-filters-accessibility-label" = "Filter obaveštenja";
 "notifications-center-filters-read-status-item-title-all" = "Sve";

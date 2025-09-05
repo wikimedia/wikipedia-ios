@@ -578,7 +578,6 @@
 "image-recs-time-warning-message" = "Ymmärrä aihepiiri paremmin tutustumalla artikkeliin ja tarkista kuva";
 "image-recs-yes-title" = "Kyllä";
 "import-shared-reading-list-default-title" = "Oma lukulista";
-"import-shared-reading-list-survey-prompt-button-cancel" = "Ei nyt";
 "import-shared-reading-list-survey-prompt-button-take-survey" = "Vastaa kyselyyn";
 "import-shared-reading-list-survey-prompt-footer" = "Katso $1tieto­suoja­lausuntomme$2 . Kyselyn tarjoaa kolmas osapuoli. Katso heidän $3tietosuojakäytäntönsä$4 .";
 "import-shared-reading-list-survey-prompt-subtitle" = "Lukulistojen jakaminen on testiominaisuus, jonka kehittämiseen tarvitsemme palautettasi";
@@ -671,6 +670,7 @@
 "no-internet-connection" = "Ei Internet-yhteyttä";
 "no-internet-connection-article-reload" = "Uudempi versio tästä artikkelista saattaa olla saatavilla, mutta sitä ei voida ladata ilman yhteyttä Internetiin";
 "no-internet-connection-article-reload-button" = "Palaa viimeksi tallennettuun versioon";
+"not-now-title" = "Ei nyt";
 "notifications-center-alert" = "Hälytys";
 "notifications-center-cell-notification-type-accessibility-label-format" = "$1-ilmoitus";
 "notifications-center-change-password" = "Vaihda salasana";
@@ -685,7 +685,6 @@
 "notifications-center-empty-state-num-filters" = "{{PLURAL:$1|$1 suodatin|$1 suodatinta}}";
 "notifications-center-feed-card-title" = "Muokkausilmoitukset nyt saatavilla";
 "notifications-center-feed-news-notification-button-text" = "Ota push-ilmoitukset käyttöön";
-"notifications-center-feed-news-notification-dismiss-button-text" = "Ei nyt";
 "notifications-center-filters-accessibility-label" = "Ilmoitussuodatin";
 "notifications-center-filters-read-status-item-title-all" = "Kaikki";
 "notifications-center-filters-read-status-item-title-read" = "Luettu";

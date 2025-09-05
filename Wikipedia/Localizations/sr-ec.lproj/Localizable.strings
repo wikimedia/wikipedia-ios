@@ -164,11 +164,14 @@
 "clearing-cache-complete" = "Чишћење кеша завршено.";
 "clearing-cache-in-progress" = "Чишћење кеша у току.";
 "close-all-tabs" = "Затвори све картице";
+"close-all-tabs-confirmation-subtitle-with-value" = "Желите ли да затворите {{PLURAL:$1|$1 картицу|$1 картице}}? Ово је неповратна радња.";
+"close-all-tabs-confirmation-title-with-value" = "Затвори {{PLURAL:$1|$1 картицу|$1 картица}}?";
 "close-button-accessibility-label" = "Затвори";
 "close-other-tabs" = "Затвори друге картице";
 "close-tab-confirmation" = "Затвори картицу?";
 "close-tabs" = "Затвори картице";
 "closed-all-tabs-confirmation" = "Затвори свих $1 картица.";
+"closed-all-tabs-confirmation-with-value" = "{{PLURAL:$1|Затворена $1 картица|Затворено $1 картица}}.";
 "compass-direction" = "у $1 ч.";
 "confirm-donation-history-deletion-title" = "Потврди брисање";
 "confirmed-donation-history-deletion" = "Локална историја је обрисана";
@@ -572,7 +575,6 @@
 "image-recs-not-sure-title" = "Нисам сигуран";
 "image-recs-yes-title" = "Да";
 "import-shared-reading-list-default-title" = "Моја листа за читање";
-"import-shared-reading-list-survey-prompt-button-cancel" = "Не сада";
 "import-shared-reading-list-survey-prompt-button-take-survey" = "Попуни анкету";
 "import-shared-reading-list-survey-prompt-footer" = "Видите нашу $1политику приватности$2. Анкету врши трећа страна. Видите њихову $3политику приватности$4.";
 "import-shared-reading-list-survey-prompt-subtitle" = "\"Дељење листи за читање\" је тестна могућност и потребне су нам ваше повратне информације да би смо је унапредили или уклонили.";
@@ -651,6 +653,7 @@
 "nearby-distance-label-km" = "$1 км";
 "nearby-distance-label-meters" = "$1 м";
 "nearby-distance-label-miles" = "$1 миља";
+"new-article-tab-settings-did-you-know" = "Да ли сте знали?";
 "new-password-instructions" = "Пријавили сте се са привременом лозинком. Да бисте завршили пријаву, овде поставите нову.";
 "new-password-title" = "Поставите лозинку";
 "new-tab" = "Нова картица";
@@ -659,6 +662,7 @@
 "no-internet-connection" = "Нема интернет везе";
 "no-internet-connection-article-reload" = "Новија верзија овог чланка је можда доступна, али не може бити учитана без интернет конекције.";
 "no-internet-connection-article-reload-button" = "Врати се на претходно сачувану верзију";
+"not-now-title" = "Не сада";
 "notifications-center-agent-description-from-format" = "Од $1";
 "notifications-center-alert" = "Обавештења";
 "notifications-center-applied-filters-accessibility-label" = "Филтер обавештења - има примењене филтере";
@@ -678,7 +682,6 @@
 "notifications-center-empty-state-num-filters" = "{{PLURAL:$1|$1 филтер|$1 филтера}}";
 "notifications-center-feed-card-title" = "Обавештења о уређивању су сада доступна";
 "notifications-center-feed-news-notification-button-text" = "Укључи обавештења";
-"notifications-center-feed-news-notification-dismiss-button-text" = "Не сада";
 "notifications-center-feed-news-notification-text" = "Обавештења о уређивању за све Викимедијине пројекте су сада доступна. Омогућите push обавештења да би сте остали у току са вашим порукама на Википедији, у покрету.";
 "notifications-center-filters-accessibility-label" = "Филтер обавештења";
 "notifications-center-filters-read-status-item-title-all" = "Све";
@@ -1310,6 +1313,7 @@
 "year-in-review-donate" = "Донирај";
 "year-in-review-donate-now" = "Донирајте сада";
 "year-in-review-finish" = "Готово";
+"year-in-review-intro-exit-confirmation-title" = "Сигурно желите да изађете?";
 "year-in-review-personalized-day-subtitle-format" = "Прочитали сте највише чланака у $1. Очигледно $1 је Ваш главни дан за истраживање новог садржаја. Хвала на утрошеном времену!";
 "year-in-review-personalized-day-title-format" = "Највише сте читали у $1.";
 "year-in-review-personalized-donate-title" = "Хвала вам на Вашем прилогу!";

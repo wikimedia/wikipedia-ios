@@ -10,6 +10,7 @@ public struct WMFFundraisingCampaignConfig {
      }
      
      public let id: String // Matches parent id
+     public let assetID: String? // Populated if asset is a part of an A/B test
      public let textHtml: String
      public let footerHtml: String
      public let actions: [WMFAction]

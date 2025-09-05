@@ -137,6 +137,7 @@
 "action-unsave" = "Не сохранено";
 "action-unsaved-accessibility-notification" = "Статья убрана из сохранённых";
 "action-update" = "Обновить";
+"activity-tab-add-images-title" = "Добавить изображения";
 "add-articles-to-reading-list" = "Добавить {{PLURAL:$1|$1 статью|$1 статьи|$1 статей}} в список для чтения";
 "advanced-settings-title" = "Дополнительные настройки";
 "announcements-dismiss" = "Закрыть";
@@ -194,9 +195,14 @@
 "close-all-tabs" = "Закрыть все вкладки";
 "close-all-tabs-confirmation" = "Хотите закрыть все $1 вкладок? Это действие нельзя отменить.";
 "close-all-tabs-confirmation-number" = "Закрыть все $1 вкладок";
+"close-all-tabs-confirmation-subtitle-with-value" = "Хотите закрыть {{PLURAL:$1|$1 вкладку|$1 вкладки|$1 вкладок}}? Это действие нельзя отменить.";
+"close-all-tabs-confirmation-title-with-value" = "Закрыть {{PLURAL:$1|$1 вкладку|$1 вкладки|$1 вкладок}}?";
 "close-button-accessibility-label" = "Закрыть";
+"close-other-tabs" = "Закрыть другие вкладки";
 "close-tab-confirmation" = "Закрыть вкладку?";
 "close-tabs" = "Закрыть вкладки";
+"closed-all-tabs-confirmation" = "Закрыть все {{PLURAL:$1|$1 вкладка|$1 вкладки|$1 вкладок}}.";
+"closed-all-tabs-confirmation-with-value" = "{{PLURAL:$1|$1 вкладка|$1 вкладки|$1 вкладок}} закрыто.";
 "compass-direction" = "на $1 часов";
 "confirm-donation-history-deletion-subtitle" = "Это будет применяться только к пожертвованиям, сделанным с этого устройства.";
 "confirm-donation-history-deletion-title" = "Подтвердите удаление";
@@ -208,6 +214,7 @@
 "crimean-tatar-variants-alert-title" = "Обновления поддержки вариантов Крымскотатарского";
 "data-migration-status" = "Обновление…";
 "description-add-title" = "Добавить описание";
+"description-article-introduction-warning-message" = "Порядок элементов в режиме редактирования будет отличаться от порядка в режиме статьи.";
 "description-edit-for-article" = "Описание статьи для $1";
 "description-edit-length-warning" = "$1 / $2";
 "description-edit-license" = "Изменяя описание статьи, я соглашаюсь на $1 и безотзывно опубликовать свой вклад под лицензией $2";
@@ -218,6 +225,7 @@
 "description-edit-title" = "Править описание";
 "description-edit-warning" = "Старайтесь ограничивать размер описаний, чтобы участники могли понимать предмет статьи с одного взгляда";
 "description-edit-warning-casing" = "Только собственные имена должны быть написаны с большой буквы, даже в начале предложения.";
+"description-editing-temp-account-created-subtitle" = "Временная учётная запись $1 была создана после публикации вашей правки. Срок её действия истечёт через 90 дней.";
 "description-help-about-description" = "Описания статей помогают читателям понять их тему с первого взгляда, суммируя содержание статьи";
 "description-help-about-title" = "О приложении";
 "description-help-about-wikidata" = "О Викиданных";
@@ -242,6 +250,7 @@
 "description-welcome-descriptions-title" = "Описания статей";
 "description-welcome-promise-title" = "Начиная использование, я обещаю не злоупотреблять этой возможностью";
 "description-welcome-start-editing-button" = "Начать редактирование";
+"developer-force-email-auth" = "Принудительная аутентификация по электронной почте";
 "developer-settings" = "Настройки для разработчиков";
 "developer-settings-send-analytics-to-wmflabs" = "Отправлять аналитику в wmflabs.";
 "diff-article-revision-history" = "История версий статьи";
@@ -324,6 +333,7 @@
 "donate-transaction-fee-opt-in-text" = "Я по щедроте души добавлю $1 для покрытия комиссии за транзакцию, чтобы вы могли сохранить 100%% моего пожертвования.";
 "donate-wikimedia-fine-print-1" = "Мы не продаём информацию о вас и ни с кем ею не обмениваемся. Делая пожертвование, вы соглашаетесь поделиться своей персональной информацией с Фондом Викимедиа — некоммерческой организацией, которая обеспечивает работоспособность Википедии и других проектов Викимедиа, а также с её поставщиками услуг в соответствии с нашей [политикой конфиденциальности доноров]($1). Фонд Викимедиа и его поставщики услуг расположены в США и других странах, законодательство которых может отличаться от принятого в вашей стране. Подробнее об этом см. в нашей [политике конфиденциальности доноров]($1).";
 "donate-wikimedia-fine-print-2" = "Фиксированные ежемесячные платежи будут списываться «Фондом Викимедиа» у наших постоянных доноров в накануне числа вашего первого пожертвования до тех пор, пока вы не уведомите нас о прекращении поддержки. Пожертвования, инициированные 29-го, 30-го или 31-го числа месяца, будут списываться в последний день более коротких месяцев, как можно ближе к первоначальной дате. Все вопросы вы можете направлять по адресу donate@wikimedia.org.";
+"duplicate-tab" = "Дублировать вкладку";
 "edit-link-display-text-title" = "Показать текст";
 "edit-link-link-target-title" = "Адрес ссылки";
 "edit-link-remove-link-title" = "Убрать ссылку";
@@ -622,7 +632,6 @@
 "image-recs-not-sure-title" = "Точно сказать нельзя";
 "image-recs-yes-title" = "Да";
 "import-shared-reading-list-default-title" = "Мой список для чтения";
-"import-shared-reading-list-survey-prompt-button-cancel" = "Не сейчас";
 "import-shared-reading-list-survey-prompt-button-take-survey" = "Участие в опросе";
 "import-shared-reading-list-survey-prompt-footer" = "Ознакомьтесь с нашим $1заявлением о конфиденциальности$2. Опрос проводится третьей стороной: ознакомиться с их $3политикой конфиденциальности$4.";
 "import-shared-reading-list-survey-prompt-subtitle" = "«Поделиться списком для чтения» — тестовый функционал, и нам нужна обратная связь от вас для дальнейшего улучшения функционала или его удаления.";
@@ -663,6 +672,9 @@
 "insert-media-title" = "Вставить медиа-файл";
 "inuktitut-variants-alert-body" = "Приложение Wikipedia теперь поддерживает следующие варианты Инуктитут в качестве основных или дополнительных языков в приложении, что упрощает чтение, поиск и редактирование в предпочтительных вариантах:\n\nᐃᓄᒃᑎᑐᑦ ᑎᑎᕋᐅᓯᖅ ᓄᑖᖅ Inuktitut, Syllabics (ike-cans)\nInuktitut ilisautik, Inuktitut, Latin (ike-latn)";
 "inuktitut-variants-alert-title" = "Обновления поддержки вариантов Инуктитут";
+"ip-account-cta-bottom" = "Продолжить без входа";
+"ip-account-cta-top" = "Войти или создать учётную запись";
+"ip-account-warning-title" = "Вы не вошли в систему";
 "kazakh-variants-alert-body" = "Приложение Wikipedia теперь поддерживает следующие варианты казахского языка в качестве основных или дополнительных языков в приложении, что упрощает чтение, поиск и редактирование в предпочтительных вариантах:\n\nҚазақша Kazakh (kk)\nҚазақша Kazakh, Cyrillic (kk-cyrl)\nqazaqşa Kazakh, Latin (kk-latn)\nتوتە قازاقشا Kazakh, Arabic (kk-arab)";
 "kazakh-variants-alert-title" = "Обновление поддержки вариантов Казахского";
 "kurdish-variants-alert-body" = "Приложение Википедия теперь поддерживает следующие варианты курдского языка в качестве основных или дополнительных языков в приложении, что упрощает чтение, поиск и редактирование в предпочтительных вариантах:\n\nKurdî Latînî Kurdish, Latin (ku-latn)\nكوردی Kurdish, Arabic (kk-arab)";
@@ -671,6 +683,7 @@
 "languages-title" = "Изменить язык";
 "languages-wikipedia" = "Языки Википедии";
 "learn-more-title" = "Узнать больше";
+"lockscreen-search-widget-description" = "Быстрый доступ к поиску в Википедии с экрана блокировки.";
 "logged-out-continue-without-logging-in-button-title" = "Продолжить без входа";
 "logged-out-log-back-in-button-title" = "Войдите повторно в свою учётную запись";
 "logged-out-subtitle" = "Произошла ошибка при аутентификации вашей учётной записи. Вам нужно повторно войти, чтобы была возможность синхронизировать списки для чтения и редактировать под вашим именем участника.";
@@ -693,6 +706,9 @@
 "main-menu-title" = "Ещё";
 "main-menu-zero-faq" = "ЧЗВ по Wikipedia Zero";
 "main-page" = "Заглавная страница";
+"microsite-yir-english-edits-bytes-slide-subtitle" = "В 2024 году добровольцы добавили 4 104 852 969 байт текста в англоязычную Википедию. В результате их работы создаётся постоянно совершенствующийся, основанный на фактах и ​​надёжный ресурс знаний, который они предоставляют миру. У каждого из нас есть знания, которыми можно поделиться. [Узнайте, как и вам принять участие]($1).";
+"microsite-yir-english-edits-bytes-slide-title" = "Добавлено 4 миллиарда байт";
+"microsite-yir-english-edits-slide-title" = "В этом году редакторы внесли 98 миллионов правок.";
 "microsite-yir-english-top-read-slide-title" = "Самые популярные статьи английской Википедии";
 "more-languages-tooltip-description" = "Искать в Википедии на более чем 300 языках";
 "more-languages-tooltip-title" = "Добавить языки";
@@ -703,6 +719,8 @@
 "nearby-distance-label-km" = "$1 км";
 "nearby-distance-label-meters" = "$1 м";
 "nearby-distance-label-miles" = "$1 мил.";
+"new-article-tab-settings-did-you-know" = "Знаете ли вы?";
+"new-article-tab-settings-recommendations" = "Рекомендации";
 "new-password-instructions" = "Вы представились с помощью временного пароля.\nДля завершения входа необходимо задать новый пароль:";
 "new-password-title" = "Установите пароль";
 "new-tab" = "Новая вкладка";
@@ -711,6 +729,7 @@
 "no-internet-connection" = "Нет подключения к интернету";
 "no-internet-connection-article-reload" = "Возможно есть более новая версия статьи, но, чтобы её скачать, требуется подключение к интернету";
 "no-internet-connection-article-reload-button" = "Вернуться к последней сохранённой версии";
+"not-now-title" = "Не сейчас";
 "notifications-center-agent-description-from-format" = "От $1";
 "notifications-center-alert" = "Оповещение";
 "notifications-center-applied-filters-accessibility-label" = "Фильтр уведомлений: с применёнными фильтрами";
@@ -730,7 +749,6 @@
 "notifications-center-empty-state-num-filters" = "$1 {{PLURAL:$1|фильтр|фильтра|фильтров}}";
 "notifications-center-feed-card-title" = "Теперь доступно редактирование уведомлений";
 "notifications-center-feed-news-notification-button-text" = "Включить пуш-уведомления";
-"notifications-center-feed-news-notification-dismiss-button-text" = "Не сейчас";
 "notifications-center-feed-news-notification-text" = "Уведомления о редактировании для всех проектов Викимедиа теперь доступны через приложение. Включите push-уведомления, чтобы быть в курсе ваших сообщений в Википедии на ходу.";
 "notifications-center-filters-accessibility-label" = "Фильтр уведомлений";
 "notifications-center-filters-read-status-item-title-all" = "Все";
@@ -1134,6 +1152,8 @@
 "table-of-contents-subheading-label" = "Подзаголовок $1";
 "tabs-close-tab" = "Закрыть вкладку";
 "tabs-open-tab" = "Открыть вкладку";
+"tabs-title" = "Вкладки";
+"tabs-title-preferences" = "Настройки вкладок";
 "tachelhit-variants-alert-body" = "Приложение Wikipedia теперь поддерживает следующие варианты Тачелхита в качестве основных или дополнительных языков в приложении, что упрощает чтение, поиск и редактирование в предпочтительных вариантах:\n\nⵜⴰⵛⵍⵃⵉⵜ Tachelhit, Tifinagh (shi-tfng)\nTaclḥit Tachelhit, Latin (shi-latn)";
 "tachelhit-variants-alert-title" = "Обновление поддержки вариантов Тачелхита";
 "tajik-variants-alert-body" = "Приложение Википедия теперь поддерживает следующие варианты Таджикского языка в качестве основных или дополнительных языков в приложении, что упрощает чтение, поиск и редактирование в предпочтительных вариантах:\n\nтоҷикӣ кирилликӣ Tajik, Cyrillic (tg-cyrl)\ntojikī lotinī Tajik, Latin (tg-latn)";
@@ -1209,6 +1229,7 @@
 "talk-pages-user-groups" = "Группы участников";
 "talk-pages-user-logs" = "Журналы";
 "talk-pages-view-title" = "Обсуждение";
+"temporary-account" = "Временная учётная запись";
 "terms-of-use-title" = "Условия использования";
 "theme-black-display-name" = "Чёрное";
 "theme-dark-display-name" = "Тёмная";
@@ -1216,11 +1237,14 @@
 "theme-default-explanation" = "Соответствует системной теме оформления";
 "theme-light-display-name" = "Свет";
 "theme-sepia-display-name" = "Сепия";
+"today-title" = "Сегодня";
 "top-read-widget-description" = "Узнайте, что мир читает сегодня в Википедии.";
 "top-read-widget-readers-count" = "$1 читателей";
 "top-read-widget-title" = "Самые читаемые";
 "try-now-title" = "Попробуйте сейчас";
 "tutorial-title" = "Руководство";
+"two-factor-email-login-continue" = "Продолжить процедуру входа";
+"two-factor-email-login-instructions" = "Введите код подтверждения адреса электронной почты";
 "two-factor-login-continue" = "Продолжить процедуру входа";
 "two-factor-login-instructions" = "Пожалуйста, введите проверочный код двухэтапной авторизации";
 "two-factor-login-title" = "Войдите в свою учётную запись";
@@ -1359,8 +1383,7 @@
 "year-in-review-personalized-editing-subtitle-format" = "Вы редактировали Википедию {{PLURAL:$1|$1 раз|раз}}. Спасибо, что вы один из добровольных редакторов, которые вносят свой вклад в проекты Викимедиа по всему миру.";
 "year-in-review-personalized-editing-title-format" = "Вы редактировали Википедию {{PLURAL:$1|$1 раз|раз}}";
 "year-in-review-personalized-editing-title-format-500plus" = "Вы редактировали Википедию более 500 раз";
-// Fuzzy
-"year-in-review-personalized-reading-title-format" = "Вы прочитали $1 {{PLURAL:$1|статью|статьи|статей}} в этом году";
+"year-in-review-personalized-reading-title-format" = "Вы прочитали $1 {{PLURAL:$1|статью|статьи|статей}}";
 "year-in-review-survey-additional-thoughts" = "Есть ли у вас какие-нибудь дополнительные мысли?";
 "year-in-review-survey-title" = "Опрос по удовлетворённости";
 "year-in-review-survey-unsatisfied" = "Недоволен";
@@ -1368,3 +1391,4 @@
 "year-in-review-survey-very-unsatisfied" = "Очень недоволен";
 "year-in-review-wikipedia-w-accessibility-label" = "Логотип Википедии";
 "year-in-review-wmf-logo-accessibility-label" = "Логотип Фонда Викимедиа";
+"yesterday-title" = "Вчера";
