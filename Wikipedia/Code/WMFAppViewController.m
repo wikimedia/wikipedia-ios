@@ -371,6 +371,7 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
                                viewControllerProvider:^UIViewController *_Nonnull(__kindof UITab *tab) {
                                    return nav;
                                }];
+            tab.preferredPlacement = UITabPlacementFixed;
             self.tabs = [self.tabs arrayByAddingObject:tab];
         }
     } else {
