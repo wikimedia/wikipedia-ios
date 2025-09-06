@@ -362,7 +362,20 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
     WMFComponentNavigationController *nav4 = [self setupFourthTab:assignment];
     WMFComponentNavigationController *nav5 = [self rootNavigationControllerWithRootViewController:[self searchViewController]];
 
-    [self setViewControllers:@[nav1, nav2, nav3, nav4, nav5] animated:NO];
+    if (@available(iOS 18.0, *)) {
+        // A magic fix for https://phabricator.wikimedia.org/T403896
+        for (WMFComponentNavigationController *nav in @[nav1, nav2, nav3, nav4, nav5]) {
+            UITab *tab = [[UITab alloc] initWithTitle:nav.viewControllers[0].title
+                                                image:nav.viewControllers[0].tabBarItem.image
+                                           identifier:nav.viewControllers[0].title
+                               viewControllerProvider:^UIViewController *_Nonnull(__kindof UITab *tab) {
+                                   return nav;
+                               }];
+            self.tabs = [self.tabs arrayByAddingObject:tab];
+        }
+    } else {
+        [self setViewControllers:@[nav1, nav2, nav3, nav4, nav5] animated:NO];
+    }
 
     [self updateUserInterfaceStyleOfNavigationControllersForCurrentTheme];
 
