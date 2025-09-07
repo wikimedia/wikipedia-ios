@@ -1,6 +1,5 @@
 #!/bin/bash
 set -e
-set -u
 set -o pipefail
 
 ### This script sets up the bundle identifier for the Xcode project using selected TEAM_ID.
@@ -77,13 +76,15 @@ echo "You do not have access to the $DEFAULT_TEAM_ID team. Would you like to cha
 read -r CHANGE_BUNDLE_ID
 CHANGE_BUNDLE_ID=${CHANGE_BUNDLE_ID:-N}
 
-if [[ "$CHANGE_BUNDLE_ID" =~ ^[Nn]$ ]]; then
+if [[ ! "$CHANGE_BUNDLE_ID" =~ ^[Yy]$ ]]; then
     exit 0
 fi
 
 if [ -z "$1" ]; then
     # Show team IDs to user for selection
-    # Reuse print_team_ids to get all team IDs and info
+    echo ""
+    echo "Here are the team IDs found in your Xcode preferences:"
+    echo ""
     printf "%b" "$TEAM_INFO_RESULT"
     echo ""
     echo "> Please enter your Apple Developer Team ID (e.g. 1A23BDCD):"
@@ -104,11 +105,11 @@ if [ -f "$TEAM_ID_FILE" ]; then
 fi
 echo "// This file was automatically generated, do not edit directly." > "$TEAM_ID_FILE"
 echo "" >> "$TEAM_ID_FILE"
-echo "DEVELOPMENT_TEAM=$DEFAULT_TEAM_ID" >> "$TEAM_ID_FILE"
+echo "DEVELOPMENT_TEAM=$TEAM_ID" >> "$TEAM_ID_FILE"
 echo "" >> "$TEAM_ID_FILE"
-echo "SIGNING_DISAMBIGUATOR=" >> "$TEAM_ID_FILE"
+echo "SIGNING_DISAMBIGUATOR=\$(DEVELOPMENT_TEAM)" >> "$TEAM_ID_FILE"
 
 echo ""
-echo "Successfully generated configuration at $TEAM_ID_FILE, you may now build the app using the \"Wikipedia\" target"
+echo "Successfully generated configuration at $(realpath $TEAM_ID_FILE), you may now build the app using the \"Wikipedia\" target"
 echo "You may need to close and re-open the project in Xcode if it's already open"
 echo ""
