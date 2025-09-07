@@ -330,7 +330,7 @@ public class WMFYearInReviewViewModel: ObservableObject {
                             
                             if donateCount > 0 || editCount > 0 {
                                 donateCountSlideV3 = WMFYearInReviewContributorSlideViewModel(
-                                    gifName: "all-slide-06",
+                                    gifName: "contribution-slide",
                                     altText: "",
                                     title: localizedStrings.contributorTitle,
                                     subtitle: localizedStrings.contributorSubtitle(editCount > 0, donateCount > 0),
@@ -742,7 +742,7 @@ public class WMFYearInReviewViewModel: ObservableObject {
     
     private var nonContributorSlide: WMFYearInReviewContributorSlideViewModel {
         WMFYearInReviewContributorSlideViewModel(
-            gifName: "all-slide-06",
+            gifName: "contributor-slide",
             altText: "",
             title: localizedStrings.noncontributorTitle,
             subtitle: localizedStrings.noncontributorSubtitle,
