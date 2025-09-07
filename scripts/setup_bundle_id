@@ -76,7 +76,7 @@ if echo "$TEAM_INFO_RESULT" | grep -q "$DEFAULT_TEAM_ID"; then
 fi
 
 echo ""
-echo "You do not have access to the $DEFAULT_TEAM_ID team. Would you like to change the bundle identifier to use your own Team ID so you can build and run on a physical device? [y/N]"
+echo "You don't seem to have access to the $DEFAULT_TEAM_ID team. Would you like to change the bundle identifier to use your own Team ID so you can build and run on a physical device? [y/N]"
 read -r CHANGE_BUNDLE_ID
 CHANGE_BUNDLE_ID=${CHANGE_BUNDLE_ID:-N}
 
