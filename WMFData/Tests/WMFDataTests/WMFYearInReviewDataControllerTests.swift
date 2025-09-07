@@ -208,15 +208,14 @@ final class WMFYearInReviewDataControllerTests: XCTestCase {
         let readCountSlideSettings = WMFFeatureConfigResponse.IOS.YearInReview.SlideSettings(isEnabled: true)
         let editCountSlideSettings = WMFFeatureConfigResponse.IOS.YearInReview.SlideSettings(isEnabled: true)
         let donateCountSlideSettings = WMFFeatureConfigResponse.IOS.YearInReview.SlideSettings(isEnabled: true)
-        let mostReadDaySlideSettings = WMFFeatureConfigResponse.IOS.YearInReview.SlideSettings(isEnabled: true)
+        let mostReadDateSlideSettings = WMFFeatureConfigResponse.IOS.YearInReview.SlideSettings(isEnabled: true)
         let savedCountSlideSettings = WMFFeatureConfigResponse.IOS.YearInReview.SlideSettings(isEnabled: true)
         let viewCountSlideSettings = WMFFeatureConfigResponse.IOS.YearInReview.SlideSettings(isEnabled: true)
         let mostReadCategoriesSlideSettings = WMFFeatureConfigResponse.IOS.YearInReview.SlideSettings(isEnabled: true)
         let locationSlideSettings = WMFFeatureConfigResponse.IOS.YearInReview.SlideSettings(isEnabled: true)
         let mostReadArticles = WMFFeatureConfigResponse.IOS.YearInReview.SlideSettings(isEnabled: true)
         
-        let personalizedSlides = WMFFeatureConfigResponse.IOS.YearInReview.PersonalizedSlides(readCount: readCountSlideSettings, editCount: editCountSlideSettings, donateCount: donateCountSlideSettings, saveCount: savedCountSlideSettings, mostReadDay: mostReadDaySlideSettings, viewCount: viewCountSlideSettings, mostReadArticles: mostReadArticles, mostReadCategories: mostReadCategoriesSlideSettings, locationArticles: locationSlideSettings)
-        
+        let personalizedSlides = WMFFeatureConfigResponse.IOS.YearInReview.PersonalizedSlides(readCount: readCountSlideSettings, editCount: editCountSlideSettings, donateCount: donateCountSlideSettings, saveCount: savedCountSlideSettings, mostReadDate: mostReadDateSlideSettings, viewCount: viewCountSlideSettings, mostReadArticles: mostReadArticles, mostReadCategories: mostReadCategoriesSlideSettings, locationArticles: locationSlideSettings)
         let yearInReview = WMFFeatureConfigResponse.IOS.YearInReview(yearID: "2024.2", isEnabled: false, countryCodes: ["FR", "IT"], primaryAppLanguageCodes: ["fr", "it"], dataPopulationStartDateString: "2024-01-01T00:00:00Z", dataPopulationEndDateString: "2024-11-01T00:00:00Z", personalizedSlides: personalizedSlides, hideDonateCountryCodes: ["AE", "AF", "AX", "BY", "CD", "CI"])
         let ios = WMFFeatureConfigResponse.IOS(version: 1, yir: [yearInReview])
         let config = WMFFeatureConfigResponse(ios: [ios])
@@ -243,15 +242,15 @@ final class WMFYearInReviewDataControllerTests: XCTestCase {
         let readCountSlideSettings = WMFFeatureConfigResponse.IOS.YearInReview.SlideSettings(isEnabled: true)
         let editCountSlideSettings = WMFFeatureConfigResponse.IOS.YearInReview.SlideSettings(isEnabled: true)
         let donateCountSlideSettings = WMFFeatureConfigResponse.IOS.YearInReview.SlideSettings(isEnabled: true)
-        let mostReadDaySlideSettings = WMFFeatureConfigResponse.IOS.YearInReview.SlideSettings(isEnabled: true)
+        let mostReadDateSlideSettings = WMFFeatureConfigResponse.IOS.YearInReview.SlideSettings(isEnabled: true)
         let viewCountSlideSettings = WMFFeatureConfigResponse.IOS.YearInReview.SlideSettings(isEnabled: true)
         let savedCountSlideSettings = WMFFeatureConfigResponse.IOS.YearInReview.SlideSettings(isEnabled: true)
         let mostReadCategoriesSlideSettings = WMFFeatureConfigResponse.IOS.YearInReview.SlideSettings(isEnabled: true)
         let locationSlideSettings = WMFFeatureConfigResponse.IOS.YearInReview.SlideSettings(isEnabled: true)
         let mostReadArticles = WMFFeatureConfigResponse.IOS.YearInReview.SlideSettings(isEnabled: true)
         
-        let personalizedSlides = WMFFeatureConfigResponse.IOS.YearInReview.PersonalizedSlides(readCount: readCountSlideSettings, editCount: editCountSlideSettings, donateCount: donateCountSlideSettings, saveCount: savedCountSlideSettings, mostReadDay: mostReadDaySlideSettings, viewCount: viewCountSlideSettings, mostReadArticles: mostReadArticles, mostReadCategories: mostReadCategoriesSlideSettings, locationArticles: locationSlideSettings)
-        
+        let personalizedSlides = WMFFeatureConfigResponse.IOS.YearInReview.PersonalizedSlides(readCount: readCountSlideSettings, editCount: editCountSlideSettings, donateCount: donateCountSlideSettings, saveCount: savedCountSlideSettings, mostReadDate: mostReadDateSlideSettings, viewCount: viewCountSlideSettings, mostReadArticles: mostReadArticles, mostReadCategories: mostReadCategoriesSlideSettings, locationArticles: locationSlideSettings)
+
         let yearInReview = WMFFeatureConfigResponse.IOS.YearInReview(yearID: "2025.1", isEnabled: true, countryCodes: ["US"], primaryAppLanguageCodes: ["en"], dataPopulationStartDateString: "2025-01-01T00:00:00Z", dataPopulationEndDateString: "2025-12-31T00:00:00Z", personalizedSlides: personalizedSlides, hideDonateCountryCodes: [])
         let ios = WMFFeatureConfigResponse.IOS(version: 1, yir: [yearInReview])
         let config = WMFFeatureConfigResponse(ios: [ios])
@@ -288,15 +287,15 @@ final class WMFYearInReviewDataControllerTests: XCTestCase {
         let readCountSlideSettings = WMFFeatureConfigResponse.IOS.YearInReview.SlideSettings(isEnabled: true)
         let editCountSlideSettings = WMFFeatureConfigResponse.IOS.YearInReview.SlideSettings(isEnabled: true)
         let donateCountSlideSettings = WMFFeatureConfigResponse.IOS.YearInReview.SlideSettings(isEnabled: true)
-        let mostReadDaySlideSettings = WMFFeatureConfigResponse.IOS.YearInReview.SlideSettings(isEnabled: true)
+        let mostReadDateSlideSettings = WMFFeatureConfigResponse.IOS.YearInReview.SlideSettings(isEnabled: true)
         let savedCountSlideSettings = WMFFeatureConfigResponse.IOS.YearInReview.SlideSettings(isEnabled: true)
         let viewCountSlideSettings = WMFFeatureConfigResponse.IOS.YearInReview.SlideSettings(isEnabled: true)
         let mostReadCategoriesSlideSettings = WMFFeatureConfigResponse.IOS.YearInReview.SlideSettings(isEnabled: true)
         let locationSlideSettings = WMFFeatureConfigResponse.IOS.YearInReview.SlideSettings(isEnabled: true)
         let mostReadArticles = WMFFeatureConfigResponse.IOS.YearInReview.SlideSettings(isEnabled: true)
         
-        let personalizedSlides = WMFFeatureConfigResponse.IOS.YearInReview.PersonalizedSlides(readCount: readCountSlideSettings, editCount: editCountSlideSettings, donateCount: donateCountSlideSettings, saveCount: savedCountSlideSettings, mostReadDay: mostReadDaySlideSettings, viewCount: viewCountSlideSettings, mostReadArticles: mostReadArticles, mostReadCategories: mostReadCategoriesSlideSettings, locationArticles: locationSlideSettings)
-        
+        let personalizedSlides = WMFFeatureConfigResponse.IOS.YearInReview.PersonalizedSlides(readCount: readCountSlideSettings, editCount: editCountSlideSettings, donateCount: donateCountSlideSettings, saveCount: savedCountSlideSettings, mostReadDate: mostReadDateSlideSettings, viewCount: viewCountSlideSettings, mostReadArticles: mostReadArticles, mostReadCategories: mostReadCategoriesSlideSettings, locationArticles: locationSlideSettings)
+
         let yearInReview = WMFFeatureConfigResponse.IOS.YearInReview(yearID: "2025.1", isEnabled: true, countryCodes: ["US"], primaryAppLanguageCodes: ["en"], dataPopulationStartDateString: "2025-01-01T00:00:00Z", dataPopulationEndDateString: "2025-12-31T00:00:00Z", personalizedSlides: personalizedSlides, hideDonateCountryCodes: [])
         let ios = WMFFeatureConfigResponse.IOS(version: 1, yir: [yearInReview])
         let config = WMFFeatureConfigResponse(ios: [ios])
@@ -333,15 +332,15 @@ final class WMFYearInReviewDataControllerTests: XCTestCase {
         let readCountSlideSettings = WMFFeatureConfigResponse.IOS.YearInReview.SlideSettings(isEnabled: false)
         let editCountSlideSettings = WMFFeatureConfigResponse.IOS.YearInReview.SlideSettings(isEnabled: false)
         let donateCountSlideSettings = WMFFeatureConfigResponse.IOS.YearInReview.SlideSettings(isEnabled: true)
-        let mostReadDaySlideSettings = WMFFeatureConfigResponse.IOS.YearInReview.SlideSettings(isEnabled: true)
+        let mostReadDateSlideSettings = WMFFeatureConfigResponse.IOS.YearInReview.SlideSettings(isEnabled: true)
         let savedCountSlideSettings = WMFFeatureConfigResponse.IOS.YearInReview.SlideSettings(isEnabled: true)
         let viewCountSlideSettings = WMFFeatureConfigResponse.IOS.YearInReview.SlideSettings(isEnabled: true)
         let mostReadCategoriesSlideSettings = WMFFeatureConfigResponse.IOS.YearInReview.SlideSettings(isEnabled: true)
         let locationSlideSettings = WMFFeatureConfigResponse.IOS.YearInReview.SlideSettings(isEnabled: true)
         let mostReadArticles = WMFFeatureConfigResponse.IOS.YearInReview.SlideSettings(isEnabled: true)
-        
-        let personalizedSlides = WMFFeatureConfigResponse.IOS.YearInReview.PersonalizedSlides(readCount: readCountSlideSettings, editCount: editCountSlideSettings, donateCount: donateCountSlideSettings, saveCount: savedCountSlideSettings, mostReadDay: mostReadDaySlideSettings, viewCount: viewCountSlideSettings, mostReadArticles: mostReadArticles, mostReadCategories: mostReadCategoriesSlideSettings, locationArticles: locationSlideSettings)
-        
+
+        let personalizedSlides = WMFFeatureConfigResponse.IOS.YearInReview.PersonalizedSlides(readCount: readCountSlideSettings, editCount: editCountSlideSettings, donateCount: donateCountSlideSettings, saveCount: savedCountSlideSettings, mostReadDate: mostReadDateSlideSettings, viewCount: viewCountSlideSettings, mostReadArticles: mostReadArticles, mostReadCategories: mostReadCategoriesSlideSettings, locationArticles: locationSlideSettings)
+
         let yearInReview = WMFFeatureConfigResponse.IOS.YearInReview(yearID: "2025.1", isEnabled: true, countryCodes: ["US"], primaryAppLanguageCodes: ["en"], dataPopulationStartDateString: "2025-01-01T00:00:00Z", dataPopulationEndDateString: "2025-12-31T00:00:00Z", personalizedSlides: personalizedSlides, hideDonateCountryCodes: [])
         let ios = WMFFeatureConfigResponse.IOS(version: 1, yir: [yearInReview])
         let config = WMFFeatureConfigResponse(ios: [ios])
@@ -374,15 +373,15 @@ final class WMFYearInReviewDataControllerTests: XCTestCase {
         let readCountSlideSettings = WMFFeatureConfigResponse.IOS.YearInReview.SlideSettings(isEnabled: true)
         let editCountSlideSettings = WMFFeatureConfigResponse.IOS.YearInReview.SlideSettings(isEnabled: false)
         let donateCountSlideSettings = WMFFeatureConfigResponse.IOS.YearInReview.SlideSettings(isEnabled: true)
-        let mostReadDaySlideSettings = WMFFeatureConfigResponse.IOS.YearInReview.SlideSettings(isEnabled: true)
+        let mostReadDateSlideSettings = WMFFeatureConfigResponse.IOS.YearInReview.SlideSettings(isEnabled: true)
         let savedCountSlideSettings = WMFFeatureConfigResponse.IOS.YearInReview.SlideSettings(isEnabled: true)
         let viewCountSlideSettings = WMFFeatureConfigResponse.IOS.YearInReview.SlideSettings(isEnabled: true)
         let mostReadCategoriesSlideSettings = WMFFeatureConfigResponse.IOS.YearInReview.SlideSettings(isEnabled: true)
         let locationSlideSettings = WMFFeatureConfigResponse.IOS.YearInReview.SlideSettings(isEnabled: true)
         let mostReadArticles = WMFFeatureConfigResponse.IOS.YearInReview.SlideSettings(isEnabled: true)
         
-        let personalizedSlides = WMFFeatureConfigResponse.IOS.YearInReview.PersonalizedSlides(readCount: readCountSlideSettings, editCount: editCountSlideSettings, donateCount: donateCountSlideSettings, saveCount: savedCountSlideSettings, mostReadDay: mostReadDaySlideSettings, viewCount: viewCountSlideSettings, mostReadArticles: mostReadArticles, mostReadCategories: mostReadCategoriesSlideSettings, locationArticles: locationSlideSettings)
-        
+        let personalizedSlides = WMFFeatureConfigResponse.IOS.YearInReview.PersonalizedSlides(readCount: readCountSlideSettings, editCount: editCountSlideSettings, donateCount: donateCountSlideSettings, saveCount: savedCountSlideSettings, mostReadDate: mostReadDateSlideSettings, viewCount: viewCountSlideSettings, mostReadArticles: mostReadArticles, mostReadCategories: mostReadCategoriesSlideSettings, locationArticles: locationSlideSettings)
+
         let yearInReview = WMFFeatureConfigResponse.IOS.YearInReview(yearID: "2025.1", isEnabled: true, countryCodes: ["US"], primaryAppLanguageCodes: ["en"], dataPopulationStartDateString: "2025-01-01T00:00:00Z", dataPopulationEndDateString: "2025-12-31T00:00:00Z", personalizedSlides: personalizedSlides, hideDonateCountryCodes: [])
         let ios = WMFFeatureConfigResponse.IOS(version: 1, yir: [yearInReview])
         let config = WMFFeatureConfigResponse(ios: [ios])

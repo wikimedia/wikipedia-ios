@@ -371,7 +371,7 @@ import CoreData
             editCountIsEnabled: .init(yirConfig.personalizedSlides.editCount.isEnabled),
             donateCountIsEnabled: .init(yirConfig.personalizedSlides.donateCount.isEnabled),
             saveCountIsEnabled: .init(yirConfig.personalizedSlides.saveCount.isEnabled),
-            mostReadDayIsEnabled: .init(yirConfig.personalizedSlides.mostReadDay.isEnabled),
+            mostReadDateIsEnabled: .init(yirConfig.personalizedSlides.mostReadDate.isEnabled),
             viewCountIsEnabled: .init(yirConfig.personalizedSlides.viewCount.isEnabled),
             mostReadArticleIsEnabled: .init(yirConfig.personalizedSlides.mostReadArticles.isEnabled),
             categoriesIsEnabled: .init(yirConfig.personalizedSlides.mostReadCategories.isEnabled),

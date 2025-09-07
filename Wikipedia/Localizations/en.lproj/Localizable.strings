@@ -1480,6 +1480,10 @@
 "year-in-review-login-title" = "Improve your Year in Review";
 "year-in-review-non-contributor-slide-title" = "Unlock custom icon";
 "year-in-review-noncontributor-slide-subtitle" = "Become a contributor and unlock a custom contributor icon. [Learn more]($1) about the ways you can join the free knowledge movement. You can become an editor or donate to the Wikimedia Foundation--the nonprofit behind Wikipedia--to ensure that the information you rely on remains ad-free and trustworthy, while keeping Wikipedia running smoothly with cutting-edge tools and technologies.";
+"year-in-review-personalized-date-day-footer-v3" = "Favorite day to read";
+"year-in-review-personalized-date-month-footer-v3" = "Month you did the most reading";
+"year-in-review-personalized-date-time-footer-v3" = "Favorite time to read";
+"year-in-review-personalized-date-title-v3" = "You have clear reading patterns";
 "year-in-review-personalized-day-subtitle-format" = "You read the most articles on $1. It's clear that $1 are your prime day for exploring new content. Thanks for making the most of your reading time!";
 "year-in-review-personalized-day-title-format" = "You read most on $1.";
 "year-in-review-personalized-donate-subtitle" = "Thank you for investing in the future of free knowledge. This year, the Wikimedia Foundation improved the technology to serve every reader and volunteer better, developed tools that empower collaboration, and supported Wikipedia in more languages. [Learn more about our work]($1).";
@@ -1515,6 +1519,12 @@
 "year-in-review-survey-unsatisfied" = "Unsatisfied";
 "year-in-review-survey-very-satisfied" = "Very satisfied";
 "year-in-review-survey-very-unsatisfied" = "Very unsatisfied";
+"year-in-review-time-afternoon" = "Afternoon";
+"year-in-review-time-evening" = "Evening";
+"year-in-review-time-late-night" = "Late night";
+"year-in-review-time-midday" = "Midday";
+"year-in-review-time-morning" = "Morning";
+"year-in-review-time-night" = "Night";
 "year-in-review-wikipedia-w-accessibility-label" = "Wikipedia w logo";
 "year-in-review-wmf-logo-accessibility-label" = "Wikimedia Foundation logo";
 "yesterday-title" = "Yesterday";

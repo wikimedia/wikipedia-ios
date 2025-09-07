@@ -1480,6 +1480,10 @@
 "year-in-review-login-title" = "Title of alert that asks user to login. Displayed after they completed the feature for the first time.";
 "year-in-review-non-contributor-slide-title" = "Year in review, non contributor slide title";
 "year-in-review-noncontributor-slide-subtitle" = "Year in review, noncontributor slide subtitle. $1 is replaced with a MediaWiki url with more information about WMF. Do not alter markdown when translating.";
+"year-in-review-personalized-date-day-footer-v3" = "Year in review, personalized slide footer text below the day-of-week that users read the most.";
+"year-in-review-personalized-date-month-footer-v3" = "Year in review, personalized slide footer text below the month that users read the most.";
+"year-in-review-personalized-date-time-footer-v3" = "Year in review, personalized slide footer text below the time-of-day that users read the most.";
+"year-in-review-personalized-date-title-v3" = "Year in review, personalized slide title for users that displays the time / day of the week / month they read most.";
 "year-in-review-personalized-day-subtitle-format" = "Year in review, personalized slide subtitle for users that displays the weekday they read most. $1 is replaced with the weekday.";
 "year-in-review-personalized-day-title-format" = "Year in review, personalized slide title for users that displays the weekday they read most. $1 is replaced with the weekday.";
 "year-in-review-personalized-donate-subtitle" = "Year in review, personalized donate slide subtitle for users that donated at least once that year. $1 is replaced with a MediaWiki url with more information about WMF. Do not alter markdown when translating.";
@@ -1515,6 +1519,12 @@
 "year-in-review-survey-unsatisfied" = "Year in review survey option 4 text. Survey is displayed after user has viewed the last slide of their year in review feature.";
 "year-in-review-survey-very-satisfied" = "Year in review survey option 1 text. Survey is displayed after user has viewed the last slide of their year in review feature.";
 "year-in-review-survey-very-unsatisfied" = "Year in review survey option 5 text. Survey is displayed after user has viewed the last slide of their year in review feature.";
+"year-in-review-time-afternoon" = "Localized name for afternoon time period (1:00PM-4:59PM).";
+"year-in-review-time-evening" = "Localized name for evening time period (5:00PM-8:59 PM).";
+"year-in-review-time-late-night" = "Localized name for late night time period (12:00AM-4:59AM).";
+"year-in-review-time-midday" = "Localized name for midday time period (12:00PM-12:59PM).";
+"year-in-review-time-morning" = "Localized name for morning time period (5:00AM-11:59PM).";
+"year-in-review-time-night" = "Localized name for night time period (9:00PM-11:59PM).";
 "year-in-review-wikipedia-w-accessibility-label" = "Accessibility label for the Wikipedia w logo";
 "year-in-review-wmf-logo-accessibility-label" = "Accessibility label for the Wikimedia Foundation logo";
 "yesterday-title" = "Title for yesterday section on article view history";
