@@ -18,6 +18,10 @@ echo "DEVELOPMENT_TEAM=$DEFAULT_TEAM_ID" >> "$TEAM_ID_FILE"
 echo "" >> "$TEAM_ID_FILE"
 echo "SIGNING_DISAMBIGUATOR=" >> "$TEAM_ID_FILE"
 
+# skip prompt and exit, ususally used in CI
+if [ "${1:-}" = "ci" ]; then
+    exit 0
+fi
 
 TEAM_INFO_RESULT=""
 
