@@ -170,7 +170,6 @@
 "close-other-tabs" = "Затвори друге картице";
 "close-tab-confirmation" = "Затвори картицу?";
 "close-tabs" = "Затвори картице";
-"closed-all-tabs-confirmation" = "Затвори свих $1 картица.";
 "closed-all-tabs-confirmation-with-value" = "{{PLURAL:$1|Затворена $1 картица|Затворено $1 картица}}.";
 "compass-direction" = "у $1 ч.";
 "confirm-donation-history-deletion-title" = "Потврди брисање";
