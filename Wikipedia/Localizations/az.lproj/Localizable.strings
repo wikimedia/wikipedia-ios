@@ -186,7 +186,6 @@
 "close-other-tabs" = "Digər vərəqələri bağla";
 "close-tab-confirmation" = "Vərəqə bağlansın?";
 "close-tabs" = "Vərəqələri bağla";
-"closed-all-tabs-confirmation" = "$1 vərəqənin hamısı bağlandı.";
 "closed-all-tabs-confirmation-with-value" = "{{PLURAL:$1|$1 vərəqə}} bağlandı.";
 "compass-direction" = "saat $1 istiqamətində";
 "confirm-donation-history-deletion-subtitle" = "Bu, yalnız bu cihazdan edilən ianələrə şamil ediləcək.";
@@ -1479,6 +1478,10 @@
 "year-in-review-intro-login-title" = "Fərdiləşdirmə üçün daxil ol";
 "year-in-review-login-subtitle" = "Daha çox fərdiləşdirilmiş məlumatlar əldə etmək üçün daxil olun və ya hesab yaradın";
 "year-in-review-login-title" = "İliniz İcmalını təkmilləşdirin";
+"year-in-review-personalized-date-day-footer-v3" = "Oxumaq üçün sevimli gününüz";
+"year-in-review-personalized-date-month-footer-v3" = "Ən çox oxuduğunuz ay";
+"year-in-review-personalized-date-time-footer-v3" = "Oxumaq üçün sevimli vaxt";
+"year-in-review-personalized-date-title-v3" = "Aydın oxuma üslubunuz var";
 "year-in-review-personalized-day-subtitle-format" = "Ən çox məqaləni $1 oxumusunuz. Aydındır ki, $1 yeni məzmunu araşdırmaq həvəsiniz daha çoxdur. Oxuma vaxtınızdan maksimum istifadə etdiyiniz üçün təşəkkür edirik!";
 "year-in-review-personalized-day-title-format" = "Ən çox $1 oxuyursunuz.";
 "year-in-review-personalized-donate-subtitle" = "Pulsuz biliyin gələcəyinə sərmayə qoyduğunuz üçün təşəkkür edirik. Bu il Vikimedia Fondu hər bir oxucuya və könüllülərə daha yaxşı xidmət göstərmək üçün texnologiyanı təkmilləşdirdi, əməkdaşlığı gücləndirən alətlər hazırladı və Vikipediyanı daha çox dildə dəstəklədi. [İşimiz haqqında ətraflı öyrənin]($1).";
@@ -1491,6 +1494,10 @@
 "year-in-review-personalized-editing-title-format" = "Vikipediyanı {{PLURAL:$1|$1 dəfə}} redaktə etmisiniz";
 "year-in-review-personalized-editing-title-format-500plus" = "Vikipediyanı 500+ dəfə redaktə etmisiniz";
 "year-in-review-personalized-explore" = "Vikipediya kürəsini tutan bir əlin animasiyalı illüstrasiyası; kürə tədricən kiçik bir pazl parçasına çevrilir və bu da platformaya edilən fərdi töhfələri simvolizə edir.";
+"year-in-review-personalized-location-subtitle-format-1" = "$2$1$3 haqqında oxumusunuz.";
+"year-in-review-personalized-location-subtitle-format-2" = "$3$1$4 və $3$2$4 haqqında oxumusunuz.";
+"year-in-review-personalized-location-subtitle-format-3" = "$4$1$5, $4$2$5 və $4$3$5 haqqında oxumusunuz.";
+"year-in-review-personalized-location-title-format" = "Oxuduğunuz məqalələrə ən yaxın yer: $1.";
 "year-in-review-personalized-most-read-articles-title" = "Ən çox oxunan məqalələriniz";
 "year-in-review-personalized-reading-subtitle-format" = "Siz {{PLURAL:$1|$1 məqalə}} oxumusunuz. Vikipediyada $3+ aktiv dildə $2 məqalə mövcud olub. Siz biliyi genişləndirməkdə və müxtəlif mövzuları araşdırmaqda milyonlarla insana qoşulmusunuz.";
 "year-in-review-personalized-reading-title-format" = "Siz {{PLURAL:$1|$1 məqalə}} oxumusunuz";
@@ -1510,6 +1517,12 @@
 "year-in-review-survey-unsatisfied" = "Məmnun deyiləm";
 "year-in-review-survey-very-satisfied" = "Çox məmnunam";
 "year-in-review-survey-very-unsatisfied" = "Çox narazıyam";
+"year-in-review-time-afternoon" = "Günorta";
+"year-in-review-time-evening" = "Axşam";
+"year-in-review-time-late-night" = "Gecə";
+"year-in-review-time-midday" = "Günorta";
+"year-in-review-time-morning" = "Səhər";
+"year-in-review-time-night" = "Gecə";
 "year-in-review-wikipedia-w-accessibility-label" = "Vikipediya w loqosu";
 "year-in-review-wmf-logo-accessibility-label" = "Vikimedia Fondunun loqosu";
 "yesterday-title" = "Dünən";
