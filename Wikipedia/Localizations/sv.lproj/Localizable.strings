@@ -191,7 +191,6 @@
 "close-other-tabs" = "Stäng andra flikar";
 "close-tab-confirmation" = "Stänga fliken?";
 "close-tabs" = "Stäng flikar";
-"closed-all-tabs-confirmation" = "Stängde alla $1 flikar.";
 "compass-direction" = "mot klockan $1";
 "confirm-donation-history-deletion-subtitle" = "Detta gäller endast donationer som görs från den här enheten.";
 "confirm-donation-history-deletion-title" = "Bekräfta radering";

@@ -221,7 +221,6 @@
 "close-other-tabs" = "Fechar outras guias";
 "close-tab-confirmation" = "Fechar guia?";
 "close-tabs" = "Fechar guias";
-"closed-all-tabs-confirmation" = "Fechou todas as guias de $1.";
 "compass-direction" = "às $1 horas";
 "confirm-donation-history-deletion-subtitle" = "Isso só se aplicará a doações feitas a partir deste dispositivo.";
 "confirm-donation-history-deletion-title" = "Confirmar exclusão";

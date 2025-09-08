@@ -221,7 +221,6 @@
 "close-other-tabs" = "關閉其他分頁";
 "close-tab-confirmation" = "關閉分頁？";
 "close-tabs" = "關閉分頁";
-"closed-all-tabs-confirmation" = "已關閉 $1 個分頁";
 "closed-all-tabs-confirmation-with-value" = "已關閉 {{PLURAL:$1|$1}} 個分頁。";
 "compass-direction" = "在 $1 時";
 "confirm-donation-history-deletion-subtitle" = "這僅套用到透過此裝置所做過的捐款。";
@@ -1519,6 +1518,10 @@
 "year-in-review-intro-login-title" = "登入進行個人化";
 "year-in-review-login-subtitle" = "登入或建立你的帳戶，以獲得更多個人化的洞察資訊。";
 "year-in-review-login-title" = "改進您的年度回顧";
+"year-in-review-personalized-date-day-footer-v3" = "最喜歡閱讀的日子";
+"year-in-review-personalized-date-month-footer-v3" = "您閱讀最多次的月份";
+"year-in-review-personalized-date-time-footer-v3" = "最喜歡的閱讀時間";
+"year-in-review-personalized-date-title-v3" = "您有明確的閱讀規律";
 "year-in-review-personalized-day-subtitle-format" = "您在 $1 閱讀了最多文章。顯然，$1 是您探索新內容的最佳時機。感謝您充分利用閱讀時間！";
 "year-in-review-personalized-day-title-format" = "您閱讀最多次的是$1。";
 "year-in-review-personalized-donate-subtitle" = "感謝您為自由知識的未來投入支持。今年，維基媒體基金會改進了技術，以更好地服務每一位讀者和志願者，開發了促進合作的工具，並支持更多語言版本的維基百科。[了解更多關於我們的工作內容]。($1)";
@@ -1531,6 +1534,10 @@
 "year-in-review-personalized-editing-title-format" = "您在維基百科上進行了 {{PLURAL:$1|$1}} 次編輯";
 "year-in-review-personalized-editing-title-format-500plus" = "您編輯了維基百科 500 多次。";
 "year-in-review-personalized-explore" = "一隻手捏著逐漸變化成一小塊拼圖的維基百科地球儀之動畫插圖，象徵個人對維基百科平台的貢獻。";
+"year-in-review-personalized-location-subtitle-format-1" = "您閱讀過關於$2$1$3的內容。";
+"year-in-review-personalized-location-subtitle-format-2" = "您閱讀過關於$3$1$4和$3$2$4的內容。";
+"year-in-review-personalized-location-subtitle-format-3" = "您閱讀過關於$4$1$5、$4$2$5和$4$3$5的內容。";
+"year-in-review-personalized-location-title-format" = "您閱讀過的條目其位置最靠近$1。";
 "year-in-review-personalized-most-read-articles-title" = "您的熱門條目";
 "year-in-review-personalized-reading-subtitle-format" = "您閱讀了{{PLURAL:$1|$1篇}}文章。維基百科提供超過$2百萬篇文章，涵蓋超過$3種活躍的語言版本。您與數百萬人一起拓展知識，探索多樣化的主題。";
 "year-in-review-personalized-reading-title-format" = "您閱讀了 {{PLURAL:$1|$1}} 篇條目";
@@ -1550,6 +1557,12 @@
 "year-in-review-survey-unsatisfied" = "不滿意";
 "year-in-review-survey-very-satisfied" = "非常滿意";
 "year-in-review-survey-very-unsatisfied" = "非常不滿意";
+"year-in-review-time-afternoon" = "下午";
+"year-in-review-time-evening" = "傍晚";
+"year-in-review-time-late-night" = "深夜";
+"year-in-review-time-midday" = "中午";
+"year-in-review-time-morning" = "早上";
+"year-in-review-time-night" = "晚上";
 "year-in-review-wikipedia-w-accessibility-label" = "維基百科 w 標誌";
 "year-in-review-wmf-logo-accessibility-label" = "維基媒體基金會標誌";
 "yesterday-title" = "昨日";
