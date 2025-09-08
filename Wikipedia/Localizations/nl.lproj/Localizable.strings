@@ -220,7 +220,6 @@
 "close-other-tabs" = "Andere tabbladen sluiten";
 "close-tab-confirmation" = "Tabblad sluiten?";
 "close-tabs" = "Tabbladen sluiten";
-"closed-all-tabs-confirmation" = "Alle $1 tabbladen zijn gesloten.";
 "closed-all-tabs-confirmation-with-value" = "{{PLURAL:$1|Eén tabblad is|$1 tabbladen zijn}} gesloten.";
 "compass-direction" = "op $1 uur";
 "confirm-donation-history-deletion-subtitle" = "Dit geldt alleen voor donaties die via dit apparaat worden gedaan.";
