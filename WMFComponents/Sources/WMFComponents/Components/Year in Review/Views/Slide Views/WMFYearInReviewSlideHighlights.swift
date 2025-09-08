@@ -1,6 +1,6 @@
 import SwiftUI
 
-public struct WMFYearInReviewSlideSummary: View {
+public struct WMFYearInReviewSlideHighlights: View {
 
     @ObservedObject var appEnvironment = WMFAppEnvironment.current
 
@@ -8,7 +8,7 @@ public struct WMFYearInReviewSlideSummary: View {
         appEnvironment.theme
     }
 
-    var viewModel: WMFYearInReviewSummaryViewModel
+    var viewModel: WMFYearInReviewHighlightsViewModel
     
     public var body: some View {
         Text("Summary")
