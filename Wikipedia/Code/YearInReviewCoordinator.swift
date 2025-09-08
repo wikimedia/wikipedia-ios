@@ -534,7 +534,12 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
             badgeDelegate: badgeDelegate,
             isUserPermanent: dataStore.authenticationManager.authStateIsPermanent,
             aboutYiRURL: aboutYIRURL,
-            primaryAppLanguage: primaryAppLanguage)
+            primaryAppLanguage: primaryAppLanguage,
+            toggleAppIcon: {
+                AppIconUtility.shared.isNewIconOn.toggle()
+            },
+            isIconOn: AppIconUtility.shared.isNewIconOn
+        )
         
         let yirView = WMFYearInReviewView(viewModel: viewModel)
 
