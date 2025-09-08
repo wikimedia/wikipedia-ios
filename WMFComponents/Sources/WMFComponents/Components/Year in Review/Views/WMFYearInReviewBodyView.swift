@@ -30,6 +30,10 @@ struct WMFYearInReviewBodyView: View {
                             WMFYearInReviewSlideStandardView(viewModel: standardViewModel)
                         }
                         
+                        if case .mostReadDateV3(let mostReadDateSlideV3ViewModel) = slide {
+                            WMFYearInReviewSlideMostReadDateV3View(viewModel: mostReadDateSlideV3ViewModel)
+                        }
+                        
                         if case .location(let locationViewModel) = slide {
                             WMFYearInReviewSlideLocationView(viewModel: locationViewModel)
                         }
