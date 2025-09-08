@@ -136,17 +136,25 @@
     <dict>
         <key>CFBundlePrimaryIcon</key>
         <dict>
-            <key>CFBundleIconName</key>
-            <string>AppIcon</string>
+            <key>CFBundleIconFiles</key>
+            <array>
+                <string>AppIcon60x60</string>
+            </array>
+            <key>UIPrerenderedIcon</key>
+            <false/>
         </dict>
         <key>CFBundleAlternateIcons</key>
         <dict>
             <key>ContributorAppIcon</key>
             <dict>
-                <key>CFBundleIconName</key>
-                <string>ContributorAppIcon</string>
+                <key>CFBundleIconFiles</key>
+                <array>
+                    <string>ContributorAppIcon60x60</string>
+                </array>
+                <key>UIPrerenderedIcon</key>
+                <false/>
             </dict>
-        </dict>
+       </dict>
     </dict>
 </dict>
 </plist>
