@@ -628,8 +628,8 @@ import CoreData
 }
 
 public struct WMFYearInReviewReadData: Codable {
-    let readCount: Int
-    let hoursRead: Int
+    public let readCount: Int
+    public let hoursRead: Int
 }
 
 public class SavedArticleSlideData: NSObject, Codable {

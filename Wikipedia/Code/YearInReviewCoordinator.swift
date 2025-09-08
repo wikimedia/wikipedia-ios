@@ -112,8 +112,8 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
             collectiveEditsPerMinuteSlideSubtitle: collectiveEditsPerMinuteSlideSubtitle,
             collectiveZeroAdsSlideTitle: WMFLocalizedString("year-in-review-base-donate-title", value: "0 ads served on Wikipedia", comment: "Year in review, donate slide title when user has not made any donations that year."),
             collectiveZeroAdsSlideSubtitle: collectiveZeroAdsSlideSubtitle,
-            personalizedYouReadSlideTitle: personalizedYouReadSlideTitle(readCount:),
-            personalizedYouReadSlideSubtitle:personalizedYouReadSlideSubtitle(readCount:),
+            personalizedYouReadSlideTitleV2: personalizedYouReadSlideTitleV2(readCount:),
+            personalizedYouReadSlideSubtitleV2: personalizedYouReadSlideSubtitleV2(readCount:),
             personalizedDateSlideTitleV2: personalizedDateSlideTitleV2(day:),
             personalizedDateSlideSubtitleV2: personalizedDateSlideSubtitleV2(day:),
             personalizedDateSlideTitleV3: WMFLocalizedString("year-in-review-personalized-date-title-v3", value: "You have clear reading patterns", comment: "Year in review, personalized slide title for users that displays the time / day of the week / month they read most."),
@@ -270,12 +270,12 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
     
     // MARK: - Personalized Slide Strings
 
-    func personalizedYouReadSlideTitle(readCount: Int) -> String {
+    func personalizedYouReadSlideTitleV2(readCount: Int) -> String {
         let format = WMFLocalizedString("year-in-review-personalized-reading-title-format", value: "You read {{PLURAL:%1$d|%1$d article|%1$d articles}}", comment: "Year in review, personalized reading article count slide title for users that read articles. %1$d is replaced with the number of articles the user read.")
         return String.localizedStringWithFormat(format, readCount)
     }
 
-    func personalizedYouReadSlideSubtitle(readCount: Int) -> String {
+    func personalizedYouReadSlideSubtitleV2(readCount: Int) -> String {
         let format = WMFLocalizedString("year-in-review-personalized-reading-subtitle-format", value: "You read {{PLURAL:%1$d|%1$d article|%1$d articles}}. Wikipedia had %2$@ million articles available across over %3$@ active languages. You joined millions in expanding knowledge and exploring diverse topics.", comment: "Year in review, personalized reading article count slide subtitle for users that read articles. %1$d is replaced with the number of articles the user read. %2$@ is replaced with the number of articles available across Wikipedia, for example, \"63.59\". %3$@ is replaced with the number of active languages available on Wikipedia, for example \"300\"")
 
         let formatter = NumberFormatter()
