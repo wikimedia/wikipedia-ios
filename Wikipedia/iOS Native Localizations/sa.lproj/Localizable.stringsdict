@@ -867,6 +867,22 @@
 			<string>%1$d replies</string>
 		</dict>
 	</dict>
+	<key>testing-whyyyy</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>This puts you in the top &lt;&lt;PERCENT&gt;&gt; of Wikipedia readers globally. The average person reads %#@v1@ a year.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d article</string>
+			<key>other</key>
+			<string>%1$d articles</string>
+		</dict>
+	</dict>
 	<key>watchlist-byte-change</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -961,6 +977,33 @@
 			<string>%1$d article</string>
 			<key>other</key>
 			<string>%1$d articles</string>
+		</dict>
+	</dict>
+	<key>year-in-review-personalized-reading-title-v3-format</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>You spent %#@v1@ reading %#@v2@ in 2025</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d hour</string>
+			<key>other</key>
+			<string>%1$d hours</string>
+		</dict>
+		<key>v2</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%2$d article</string>
+			<key>other</key>
+			<string>%2$d articles</string>
 		</dict>
 	</dict>
 	<key>year-in-review-personalized-saved-subtitle-format</key>

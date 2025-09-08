@@ -91,7 +91,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
                 value: "We spent 2.9 billion hours reading",
                 comment: "Reading slide title for English Year in Review."
             ),
-            englishReadingSlideSubtitle: WMFLocalizedString("microsite-yir-english-reading-slide-subtitle", value: "People spent an estimated 2.9 billion hours—over 331,000 years!—reading English Wikipedia in 2024. Wikipedia is there when you want to learn about our changing world, win a bet among friends, or answer a curious child’s question.", comment: "Reading slide subtitle for English Year in Review."),
+            englishReadingSlideSubtitle: englishReadingSlideSubtitle,
             englishTopReadSlideTitle: WMFLocalizedString("microsite-yir-english-top-read-slide-title", value: "English Wikipedia’s most popular articles", comment: "Top read slide title for English Year in Review."),
             englishTopReadSlideSubtitle: englishTopReadSlideSubtitle,
             englishSavedReadingSlideTitle: WMFLocalizedString("microsite-yir-english-saved-reading-slide-title", value: "We had over 62.2 million reading lists", comment: "Saved reading slide title for English Year in Review."),
@@ -114,6 +114,8 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
             collectiveZeroAdsSlideSubtitle: collectiveZeroAdsSlideSubtitle,
             personalizedYouReadSlideTitleV2: personalizedYouReadSlideTitleV2(readCount:),
             personalizedYouReadSlideSubtitleV2: personalizedYouReadSlideSubtitleV2(readCount:),
+            personalizedYouReadSlideTitleV3: personalizedYouReadSlideTitleV3(readCount:hoursRead:),
+            personalizedYouReadSlideSubtitleV3: personalizedYouReadSlideSubtitleV3(readCount:),
             personalizedDateSlideTitleV2: personalizedDateSlideTitleV2(day:),
             personalizedDateSlideSubtitleV2: personalizedDateSlideSubtitleV2(day:),
             personalizedDateSlideTitleV3: WMFLocalizedString("year-in-review-personalized-date-title-v3", value: "You have clear reading patterns", comment: "Year in review, personalized slide title for users that displays the time / day of the week / month they read most."),
@@ -232,6 +234,14 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
     }
     
     // MARK: - English Slide Strings
+    
+    var englishReadingSlideSubtitle: String {
+        WMFLocalizedString("microsite-yir-english-reading-slide-subtitle", value: "People spent an estimated 2.4 billion hours—over 275,000 years!—reading English Wikipedia in 2025. Wikipedia is there when you want to learn about our changing world, win a bet among friends, or answer a curious child’s question.", comment: "Reading slide subtitle for English Year in Review.")
+    }
+    
+    var englishReadingSlideSubtitleShort: String {
+        WMFLocalizedString("microsite-yir-english-reading-slide-subtitle-short", value: "People spent an estimated 2.4 billion hours—over 275,000 years!—reading English Wikipedia in 2025.", comment: "Shortened reading slide subtitle for English Year in Review. This shortened sentence is appended to the personalized reading slide for EN Wiki users.")
+    }
 
     var englishTopReadSlideSubtitle: String {
         // Individual top read items
@@ -289,6 +299,44 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         let numLanguagesString = formatter.string(from: numLanguages) ?? "300"
 
         return String.localizedStringWithFormat(format, readCount, numArticlesString, numLanguagesString)
+    }
+    
+    func personalizedYouReadSlideTitleV3(readCount: Int, hoursRead: Int) -> String {
+        let format = WMFLocalizedString("year-in-review-personalized-reading-title-v3-format", value: "You spent {{PLURAL:%1$d|%1$d hour|%1$d hours}} reading {{PLURAL:%2$d|%2$d article|%2$d articles}} in 2025", comment: "Year in review, personalized reading article count slide title for users that read articles. %1$d is replaced with the number of hours the user spent reading and %2$d is replaced with the number of articles the user read in 2025.")
+        return String.localizedStringWithFormat(format, hoursRead, readCount)
+    }
+
+    func personalizedYouReadSlideSubtitleV3(readCount: Int) -> String {
+        
+        let minReadCount = 1
+        let maxReadCount = 43740
+        let containedReadCount = min(max(readCount, minReadCount), maxReadCount)
+        let percentage = 100 - (Double(containedReadCount) / Double(maxReadCount) * 100)
+        
+        let percentageString: String
+        if readCount > maxReadCount {
+            percentageString = "0.001"
+        } else {
+            percentageString = String(format: "%.3f", percentage)
+        }
+        
+        let format = WMFLocalizedString(
+            "testing-whyyyy",
+            value: "This puts you in the top <<PERCENT>> of Wikipedia readers globally. The average person reads {{PLURAL:%1$d|%1$d article|%1$d articles}} a year.",
+            comment: "Year in review, personalized reading article count slide subtitle for users that read articles. <<PERCENT>> is the percentage number (i.e. '25%'), do not adjust it, percentage sign is added via the client. %1$d is the average number of articles read per user."
+        )
+        
+        // TODO: Average number of articles.
+        let firstSentence = String.localizedStringWithFormat(format, 3647).replacingOccurrences(of: "<<PERCENT>>", with: "<b>\(percentageString)%</b>")
+        
+        let secondSentence: String
+        if primaryAppLanguage.isEnglishWikipedia {
+            secondSentence = englishReadingSlideSubtitleShort
+        } else {
+            secondSentence = collectiveLanguagesSlideSubtitle
+        }
+        
+        return "\(firstSentence)\n\n\(secondSentence)"
     }
     
     func personalizedDateSlideTitleV2(day: Int) -> String {

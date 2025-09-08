@@ -720,7 +720,8 @@
 "microsite-yir-english-edits-bytes-slide-title" = "4 billion bytes added";
 "microsite-yir-english-edits-slide-subtitle" = "Volunteers made 98,222,407 changes across over 300 different language editions of Wikipedia. Over 37 million changes were made on English Wikipedia. Every hour of every day, volunteers are working to improve Wikipedia.";
 "microsite-yir-english-edits-slide-title" = "Editors made 98 million changes this year";
-"microsite-yir-english-reading-slide-subtitle" = "People spent an estimated 2.9 billion hours—over 331,000 years!—reading English Wikipedia in 2024. Wikipedia is there when you want to learn about our changing world, win a bet among friends, or answer a curious child’s question.";
+"microsite-yir-english-reading-slide-subtitle" = "People spent an estimated 2.4 billion hours—over 275,000 years!—reading English Wikipedia in 2025. Wikipedia is there when you want to learn about our changing world, win a bet among friends, or answer a curious child’s question.";
+"microsite-yir-english-reading-slide-subtitle-short" = "People spent an estimated 2.4 billion hours—over 275,000 years!—reading English Wikipedia in 2025.";
 "microsite-yir-english-reading-slide-title" = "We spent 2.9 billion hours reading";
 "microsite-yir-english-saved-reading-slide-subtitle" = "Active iOS App users had over 62.2 million reading lists. Adding articles to reading lists allows you to access articles even while offline. You can also log in to sync reading lists across devices.";
 "microsite-yir-english-saved-reading-slide-title" = "We had over 62.2 million reading lists";
@@ -1287,6 +1288,7 @@
 "temp-warning-subtitle-format" = "Your edit will be attributed to $1";
 "temporary-account" = "Temporary Account";
 "terms-of-use-title" = "Terms of use";
+"testing-whyyyy" = "This puts you in the top <<PERCENT>> of Wikipedia readers globally. The average person reads {{PLURAL:$1|$1 article|$1 articles}} a year.";
 "theme-black-display-name" = "Black";
 "theme-dark-display-name" = "Dark";
 "theme-default-display-name" = "Default";
@@ -1494,6 +1496,7 @@
 "year-in-review-personalized-most-read-articles-title" = "Your top articles";
 "year-in-review-personalized-reading-subtitle-format" = "You read {{PLURAL:$1|$1 article|$1 articles}}. Wikipedia had $2 million articles available across over $3 active languages. You joined millions in expanding knowledge and exploring diverse topics.";
 "year-in-review-personalized-reading-title-format" = "You read {{PLURAL:$1|$1 article|$1 articles}}";
+"year-in-review-personalized-reading-title-v3-format" = "You spent {{PLURAL:$1|$1 hour|$1 hours}} reading {{PLURAL:$2|$2 article|$2 articles}} in 2025";
 "year-in-review-personalized-saved-articles" = "Illustration of a puzzle piece wearing a hardhat with computer screens in the back.";
 "year-in-review-personalized-saved-subtitle-format" = "You saved {{PLURAL:$1|$1 article|$1 articles}} this year, including $2, $3 and $4. Each saved article reflects your interests and helps build a personalized knowledge base on Wikipedia.";
 "year-in-review-personalized-saved-title-format" = "You saved {{PLURAL:$1|$1 article|$1 articles}}";

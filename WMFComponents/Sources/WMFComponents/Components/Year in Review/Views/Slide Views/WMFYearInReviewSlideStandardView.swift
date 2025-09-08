@@ -32,7 +32,14 @@ fileprivate struct WMFYearInReviewSlideStandardViewContent: View {
     }
     
     private func subtitleAttributedString(subtitle: String) -> AttributedString {
-        return (try? AttributedString(markdown: subtitle)) ?? AttributedString(subtitle)
+        if let attributedString = try? AttributedString(
+            markdown: subtitle,
+            options: .init(interpretedSyntax: .full)
+        ) {
+            return attributedString
+        }
+        
+        return AttributedString(subtitle)
     }
     
     private var subtitleStyles: HtmlUtils.Styles {
