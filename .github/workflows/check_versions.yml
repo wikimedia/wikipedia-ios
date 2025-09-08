@@ -9,6 +9,7 @@ on:
       - reopened
       - labeled
       - unlabeled
+      - synchronize
     branches:
       - 'main'
 
