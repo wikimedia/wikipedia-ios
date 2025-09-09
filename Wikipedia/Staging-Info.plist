@@ -134,6 +134,15 @@
 	<true/>
     <key>CFBundleIcons</key>
     <dict>
+        <key>CFBundlePrimaryIcon</key>
+        <dict>
+            <key>CFBundleIconFiles</key>
+            <array>
+                <string>AlphacAppIcon</string>
+            </array>
+            <key>UIPrerenderedIcon</key>
+            <false/>
+        </dict>
         <key>CFBundleAlternateIcons</key>
         <dict>
             <key>ContributorAppIcon</key>

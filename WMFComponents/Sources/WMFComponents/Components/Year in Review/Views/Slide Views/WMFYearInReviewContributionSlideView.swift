@@ -120,6 +120,11 @@ fileprivate struct WMFYearInReviewSlideContributionViewContent: View {
                             Toggle("", isOn: $viewModel.isIconOn)
                             .toggleStyle(.switch)
                             .labelsHidden()
+                            .onChange(of: viewModel.isIconOn) { newValue in
+                                if let toggleIcon = viewModel.onToggleIcon {
+                                    toggleIcon(newValue)
+                                }
+                             }
                         }
                     }
                 case .noncontributor:

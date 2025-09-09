@@ -536,8 +536,8 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
             isUserPermanent: dataStore.authenticationManager.authStateIsPermanent,
             aboutYiRURL: aboutYIRURL,
             primaryAppLanguage: primaryAppLanguage,
-            toggleAppIcon: {
-                AppIconUtility.shared.isNewIconOn.toggle()
+            toggleAppIcon: { isNew in
+                AppIconUtility.shared.updateAppIcon(isNew: isNew)
             },
             isIconOn: AppIconUtility.shared.isNewIconOn
         )

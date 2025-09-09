@@ -243,12 +243,12 @@ public class WMFYearInReviewViewModel: ObservableObject {
     private let primaryAppLanguage: WMFProject
     private let aboutYiRURL: URL?
     private var hasPersonalizedDonateSlide: Bool
-    public var toggleAppIcon: () -> Void
+    public var toggleAppIcon: (Bool) -> Void
     public var isIconOn: Bool
     
     @Published public var isLoading: Bool = false
     
-    public init(localizedStrings: LocalizedStrings, shareLink: String, hashtag: String, coordinatorDelegate: YearInReviewCoordinatorDelegate?, loggingDelegate: WMFYearInReviewLoggingDelegate, badgeDelegate: YearInReviewBadgeDelegate?, isUserPermanent: Bool, aboutYiRURL: URL?, primaryAppLanguage: WMFProject, toggleAppIcon: @escaping () -> Void, isIconOn: Bool) {
+    public init(localizedStrings: LocalizedStrings, shareLink: String, hashtag: String, coordinatorDelegate: YearInReviewCoordinatorDelegate?, loggingDelegate: WMFYearInReviewLoggingDelegate, badgeDelegate: YearInReviewBadgeDelegate?, isUserPermanent: Bool, aboutYiRURL: URL?, primaryAppLanguage: WMFProject, toggleAppIcon: @escaping (Bool) -> Void, isIconOn: Bool) {
         self.localizedStrings = localizedStrings
         self.shareLink = shareLink
         self.hashtag = hashtag
@@ -359,8 +359,8 @@ public class WMFYearInReviewViewModel: ObservableObject {
                                     onTappedDonateButton: {
                                         
                                     },
-                                    onToggleIcon: { [weak self] in
-                                        self?.toggleAppIcon()
+                                    onToggleIcon: { isOn in
+                                        self.toggleAppIcon(isOn)
                                     },
                                     onInfoButtonTap: { [weak self] in
                                         self?.tappedInfo()

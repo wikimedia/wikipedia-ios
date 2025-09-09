@@ -17,7 +17,7 @@ public final class AppIconUtility {
         }
     }
     
-    private func updateAppIcon(isNew: Bool) {
+    public func updateAppIcon(isNew: Bool) {
         guard UIApplication.shared.supportsAlternateIcons else {
             print("Device does not support alternate icons")
             return
