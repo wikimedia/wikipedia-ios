@@ -898,6 +898,23 @@ public class WMFYearInReviewViewModel: ObservableObject {
         logYearInReviewDidTapShare()
     }
     
+    func handleShareAll() {
+        var snapshots: [UIImage] = []
+
+        for slide in slides {
+            switch slide {
+            case .standard(let viewModel):
+                let view = WMFYearInReviewSlideStandardShareableView(viewModel: viewModel, hashtag: hashtag)
+                snapshots.append(view.snapshot())
+            case .location:
+                // todo
+                break
+            }
+        }
+
+        coordinatorDelegate?.handleYearInReviewAction(.shareAll(images: snapshots))
+    }
+    
     func tappedDone() {
         let standardDismissal: () -> Void = { [weak self] in
             guard let self else { return }

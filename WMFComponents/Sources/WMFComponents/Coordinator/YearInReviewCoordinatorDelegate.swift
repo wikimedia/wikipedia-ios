@@ -9,6 +9,7 @@ public enum YearInReviewCoordinatorAction {
     case tappedIntroV3DoneWhileLoggedOut
     case donate(sourceRect: CGRect)
     case share(image: UIImage)
+    case shareAll(images: [UIImage])
     case dismiss(hasSeenTwoSlides: Bool)
     case introLearnMore
     case learnMore(url: URL?, shouldShowDonateButton: Bool)
