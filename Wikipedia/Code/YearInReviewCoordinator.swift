@@ -140,7 +140,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
             personalizedLocationSlideTitle: personalizedLocationSlideTitle(countryOrOcean:),
             personalizedLocationSlideSubtitle: personalizedLocationSlideSubtitle(articleNames:),
             locationTitle: "Location Slide Here",// TODO: localize when we have final product requirements
-            noncontributorTitle: WMFLocalizedString("year-in-review-non-contributor-slide-title", value: "Unlock custom icon", comment: "Year in review, non contributor slide title"),
+            noncontributorTitle: WMFLocalizedString("year-in-review-non-contributor-slide-title", value: "Unlock your custom contributor icon", comment: "Year in review, non contributor slide title"),
             noncontributorSubtitle: noncontributorSlideSubtitle(),
             noncontributorButtonText: CommonStrings.donateTitle,
             contributorTitle: WMFLocalizedString("year-in-review-contributor-slide-title", value: "New icon unlocked", comment: "Year in review subtitle for contributors"),
@@ -258,7 +258,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
     let donorStatus = WMFLocalizedString("year-in-review-contributor-slide-status-donor", value: "a donor", comment: "Contribution slide status for donor status")
     
     func noncontributorSlideSubtitle() -> String {
-        let format = WMFLocalizedString("year-in-review-noncontributor-slide-subtitle", value: "Become a contributor and unlock a custom contributor icon. [Learn more](%1$@) about the ways you can join the free knowledge movement. You can become an editor or donate to the Wikimedia Foundation--the nonprofit behind Wikipedia--to ensure that the information you rely on remains ad-free and trustworthy, while keeping Wikipedia running smoothly with cutting-edge tools and technologies.", comment: "Year in review, noncontributor slide subtitle. %1$@ is replaced with a MediaWiki url with more information about WMF. Do not alter markdown when translating.")
+        let format = WMFLocalizedString("year-in-review-noncontributor-slide-subtitle", value: "We’re glad Wikipedia was part of your 2025! [Learn more](%1$@) about the ways to unlock your icon by becoming a contributor—whether by editing Wikipedia or by donating to the Wikimedia Foundation, the non-profit behind it. If Wikipedia has been useful to you this year, please consider donating to help sustain its future and keep it free, ad-free, trustworthy, and accessible to all.", comment: "Year in review, noncontributor slide subtitle. %1$@ is replaced with a MediaWiki url with more information about WMF. Do not alter markdown when translating.")
         return String.localizedStringWithFormat(format, aboutWikimediaURLString)
     }
     
