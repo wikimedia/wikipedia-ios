@@ -249,7 +249,6 @@
 "close-other-tabs" = "Cerrar otras pestañas";
 "close-tab-confirmation" = "¿Cerrar pestaña?";
 "close-tabs" = "Cerrar pestañas";
-"closed-all-tabs-confirmation" = "Se cerró todas las $1 pestañas.";
 "compass-direction" = "a las $1 en punto";
 "confirm-donation-history-deletion-subtitle" = "Esto sólo se aplicará a las donaciones realizadas desde este dispositivo.";
 "confirm-donation-history-deletion-title" = "Confirmar la eliminación";

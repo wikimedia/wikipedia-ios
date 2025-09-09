@@ -226,7 +226,6 @@
 "close-other-tabs" = "إغلاق علامات التبويب الأخرى";
 "close-tab-confirmation" = "هل تريد إغلاق علامة التبويب؟";
 "close-tabs" = "إغلاق علامات التبويب";
-"closed-all-tabs-confirmation" = "تم إغلاق جميع علامات التبويب البالغ عددها $1.";
 "closed-all-tabs-confirmation-with-value" = "تم إغلاق {{PLURAL:$1|$1 لسان|$1 ألسنة}}.";
 "compass-direction" = "عند الساعة $1";
 "confirm-donation-history-deletion-subtitle" = "سيتم تطبيق هذا فقط على التبرعات المقدمة من هذا الجهاز.";
@@ -1515,7 +1514,13 @@
 "year-in-review-feature-announcement-title-personalized" = "استكشف مراجعة العام على ويكيبيديا";
 "year-in-review-feature-explore-body" = "ويكيبيديا هي أكبر مصدر للمعرفة تم تجميعه على الإطلاق في تاريخ العالم، وهي متاحة مجانًا للجميع في كل مكان. إليكم مراجعة لعام 2024 من خلال عدسة ويكيبيديا.";
 "year-in-review-feature-explore-body-personalized" = "اطلع على رؤى حول المقالات التي تقرأها على تطبيق ويكيبيديا والتعديلات التي أجريتها في عام 2024. يتم حماية سجل القراءة الخاص بك. يتم حساب رؤى القراءة باستخدام البيانات المخزنة محليًا على جهازك.";
+"year-in-review-feature-explore-body-v3" = "اطلع على رؤى حول المقالات التي تقرأها على تطبيق ويكيبيديا والتعديلات التي أجريتها.";
+"year-in-review-feature-explore-footer-v3" = "سجل قراءتك محمي. تُحسب إحصاءات القراءة باستخدام البيانات المخزنة محليًا على جهازك.";
 "year-in-review-finish" = "إنهاء";
+"year-in-review-intro-exit-confirmation-subtitle" = "لا يزال بإمكانك رؤية مراجعة جماعية للعام دون تسجيل الدخول.";
+"year-in-review-intro-exit-confirmation-title" = "هل أنت متأكد أنك تريد الخروج؟";
+"year-in-review-intro-exit-toast-title" = "يمكنك الوصول إلى مراجعة العام الخاص بك لاحقًا في الملف الشخصي.";
+"year-in-review-intro-login-title" = "تسجيل الدخول للتخصيص";
 "year-in-review-login-subtitle" = "قم بتسجيل الدخول أو إنشاء حساب لتكون مؤهلاً للحصول على رؤى أكثر تخصيصا";
 "year-in-review-login-title" = "تحسين مراجعة العام الخاص بك";
 "year-in-review-personalized-day-subtitle-format" = "لقد قرأت معظم المقالات على $1 . من الواضح أن $1 هو يومك المثالي لاستكشاف محتوى جديد. شكرًا لك على الاستفادة القصوى من وقت القراءة!";
@@ -1530,6 +1535,10 @@
 "year-in-review-personalized-editing-title-format" = "لقد قمت بتحرير ويكيبيديا {{PLURAL:$1|$1 مرة}}";
 "year-in-review-personalized-editing-title-format-500plus" = "لقد قمت بتعديل ويكيبيديا 500 مرة+";
 "year-in-review-personalized-explore" = "رسم متحرك ليد تحمل مجسم الكرة الأرضية لويكيبيديا، والذي يتحول تدريجيًا إلى قطعة صغيرة من اللغز، ترمز إلى المساهمات الفردية في المنصة.";
+"year-in-review-personalized-location-subtitle-format-1" = "قرأت عن $2 $1 $3 .";
+"year-in-review-personalized-location-subtitle-format-2" = "قرأت عن $3 $1 $4 و $3 $2 $4 .";
+"year-in-review-personalized-location-subtitle-format-3" = "لقد قرأت عن $4 $1 $5 $4 $2 $5 و $4 $3 $5 .";
+"year-in-review-personalized-location-title-format" = "المقالات التي تقرأها هي الأقرب إلى $1 .";
 "year-in-review-personalized-most-read-articles-title" = "أفضل مقالاتك";
 "year-in-review-personalized-reading-subtitle-format" = "لقد قرأت {{PLURAL:$1|$1 مقال|$1 مقالة}}. تحتوي ويكيبيديا على $2 مليون مقالة متاحة بأكثر من $3 لغات نشطة. لقد انضممت إلى ملايين الأشخاص في توسيع المعرفة واستكشاف مواضيع متنوعة.";
 "year-in-review-personalized-reading-title-format" = "لقد قرأت {{PLURAL:$1|$1 مقال|$1 مقالة}}";

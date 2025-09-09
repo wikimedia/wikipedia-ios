@@ -200,7 +200,6 @@
 "close-other-tabs" = "Закрити інші вкладки";
 "close-tab-confirmation" = "Закрити вкладку?";
 "close-tabs" = "Закрити вкладки";
-"closed-all-tabs-confirmation" = "Закрити всі вкладки ($1).";
 "compass-direction" = "на $1 годину";
 "confirm-donation-history-deletion-subtitle" = "Це стосується лише пожертв, зроблених із цього пристрою.";
 "confirm-donation-history-deletion-title" = "Підтвердити вилучення";
