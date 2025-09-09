@@ -138,7 +138,15 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
             personalizedMostReadArticlesSlideTitle: WMFLocalizedString("year-in-review-personalized-most-read-articles-title", value: "Your top articles", comment: "Year in review, personalized most read articles slide title"),
             personalizedMostReadArticlesSlideSubtitle: personalizedListSlideSubtitle(items:),
             personalizedLocationSlideTitle: personalizedLocationSlideTitle(countryOrOcean:),
-            personalizedLocationSlideSubtitle: personalizedLocationSlideSubtitle(articleNames:)
+            personalizedLocationSlideSubtitle: personalizedLocationSlideSubtitle(articleNames:),
+            locationTitle: "Location Slide Here",// TODO: localize when we have final product requirements
+            noncontributorTitle: WMFLocalizedString("year-in-review-non-contributor-slide-title", value: "Unlock custom icon", comment: "Year in review, non contributor slide title"),
+            noncontributorSubtitle: noncontributorSlideSubtitle(),
+            noncontributorButtonText: CommonStrings.donateTitle,
+            contributorTitle: WMFLocalizedString("year-in-review-contributor-slide-title", value: "New icon unlocked", comment: "Year in review subtitle for contributors"),
+            contributorSubtitle: contributorSlideSubtitle(isEditor:isDonator:),
+            contributorGiftTitle: WMFLocalizedString("year-in-review-contributor-gift-title", value: "Activate new app icon", comment: "Year in review title for the new icon"),
+            contributorGiftSubtitle: WMFLocalizedString("year-in-review-contributor-gift-subtitle", value: "If you don’t turn it on now, you can access it later in Settings under Theme.", comment: "Year in review subtitle for the new icon")
         )
     }
 
@@ -228,6 +236,29 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
 
     func collectiveZeroAdsSlideSubtitle() -> String {
         let format = WMFLocalizedString("year-in-review-base-donate-subtitle", value: "With your help, the Wikimedia Foundation—the nonprofit behind Wikipedia—will continue to ensure that the information you rely on is ad-free and trustworthy, while keeping Wikipedia running smoothly with cutting-edge tools and technologies. Please consider making a donation today. [Learn more about our work](%1$@).", comment: "Year in review, donate slide subtitle when user has not made any donations that year. %1$@ is replaced with a MediaWiki url with more information about WMF. Do not alter markdown when translating.")
+        return String.localizedStringWithFormat(format, aboutWikimediaURLString)
+    }
+    
+    // MARK: - Contributor
+    func contributorSlideSubtitle(isEditor: Bool, isDonator: Bool) -> String {
+        let format = WMFLocalizedString("year-in-review-contributor-slide-subtitle", value: "Thank you for investing in the future of free knowledge.\n\nYour contributions as %1$@ in 2025 are helping pave the way to a world of free information and as a result you have unlocked a custom contributor icon.", comment: "Year in review, contributor slide subtitle. %1$@ is replaced with text indicating if they are an editor, donor, or both. Do not alter markdown when translating.")
+        
+        let contribution =
+            isEditor && isDonator ? bothDonorAndEditor :
+            isEditor ? editorStatus :
+        isDonator ? donorStatus : ""
+
+        return String.localizedStringWithFormat(format, contribution)
+    }
+    
+    let bothDonorAndEditor = WMFLocalizedString("year-in-review-contributor-slide-status-both", value: "a donor and editor", comment: "Contribution slide status for both editor and donor status")
+    
+    let editorStatus = WMFLocalizedString("year-in-review-contributor-slide-status-editor", value: "an editor", comment: "Contribution slide status for editor status")
+    
+    let donorStatus = WMFLocalizedString("year-in-review-contributor-slide-status-donor", value: "a donor", comment: "Contribution slide status for donor status")
+    
+    func noncontributorSlideSubtitle() -> String {
+        let format = WMFLocalizedString("year-in-review-noncontributor-slide-subtitle", value: "Become a contributor and unlock a custom contributor icon. [Learn more](%1$@) about the ways you can join the free knowledge movement. You can become an editor or donate to the Wikimedia Foundation--the nonprofit behind Wikipedia--to ensure that the information you rely on remains ad-free and trustworthy, while keeping Wikipedia running smoothly with cutting-edge tools and technologies.", comment: "Year in review, noncontributor slide subtitle. %1$@ is replaced with a MediaWiki url with more information about WMF. Do not alter markdown when translating.")
         return String.localizedStringWithFormat(format, aboutWikimediaURLString)
     }
     

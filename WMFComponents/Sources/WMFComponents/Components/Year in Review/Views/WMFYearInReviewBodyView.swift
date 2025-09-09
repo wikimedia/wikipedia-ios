@@ -37,6 +37,10 @@ struct WMFYearInReviewBodyView: View {
                         if case .location(let locationViewModel) = slide {
                             WMFYearInReviewSlideLocationView(viewModel: locationViewModel)
                         }
+                        
+                        if case .contribution(let contributionsViewModel) = slide {
+                            WMFYearInReviewContributionSlideView(viewModel: contributionsViewModel)
+                        }
                     }
                     
                     
