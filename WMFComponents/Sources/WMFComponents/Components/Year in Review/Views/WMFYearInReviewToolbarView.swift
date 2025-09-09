@@ -8,9 +8,12 @@ struct WMFYearInReviewToolbarView: View {
     private var theme: WMFTheme {
         return appEnvironment.theme
     }
-    
-    init(viewModel: WMFYearInReviewViewModel) {
+
+    var needShareButton: Bool
+
+    init(viewModel: WMFYearInReviewViewModel, needShareButton: Bool = true) {
         self.viewModel = viewModel
+        self.needShareButton = needShareButton
     }
     
     var body: some View {
@@ -29,6 +32,10 @@ struct WMFYearInReviewToolbarView: View {
                 .font(Font(WMFFont.for(.semiboldHeadline)))
             }
             .frame(maxWidth: .infinity)
+            .opacity(needShareButton ? 1 : 0)
+            .allowsHitTesting(needShareButton)
+            .accessibilityHidden(!needShareButton)
+
             Spacer()
             HStack(spacing: 9) {
                 ForEach(0..<viewModel.slides.count, id: \.self) { index in

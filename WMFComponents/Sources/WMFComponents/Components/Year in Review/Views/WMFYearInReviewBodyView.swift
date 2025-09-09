@@ -37,14 +37,17 @@ struct WMFYearInReviewBodyView: View {
                         if case .location(let locationViewModel) = slide {
                             WMFYearInReviewSlideLocationView(viewModel: locationViewModel)
                         }
+
+                        if case .highlights(let highlightsViewModel) = slide {
+                            ZStack {
+                                WMFYearInReviewSlideHighlightsView(viewModel: highlightsViewModel)
+                            }
+                        }
                     }
-                    
-                    
                 }
                 .tabViewStyle(.page(indexDisplayMode: .never))
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
             }
-            .ignoresSafeArea(edges: .bottom)
             .frame(maxWidth: .infinity, maxHeight: .infinity)
         }
     }

@@ -546,11 +546,13 @@ public class WMFYearInReviewViewModel: ObservableObject {
                 if let topArticlesSlide = personalizedSlides.topArticlesSlide {
                     slides.append(.standard(topArticlesSlide))
                 }
-                
+
+
                 slides.append(.standard(personalizedSlides.saveCountSlide ?? (primaryAppLanguage.isEnglishWikipedia ? englishReadingListSlide : collectiveSavedArticlesSlide)))
                 slides.append(.standard(personalizedSlides.editCountSlide ?? (primaryAppLanguage.isEnglishWikipedia ? englishEditsSlide : collectiveAmountEditsSlide)))
                 slides.append(.standard(personalizedSlides.viewCountSlide ?? (primaryAppLanguage.isEnglishWikipedia ? englishEditsBytesSlide : collectiveEditsPerMinuteSlide)))
                 slides.append(.standard(personalizedSlides.donateCountSlide ?? collectiveZeroAdsSlide))
+                slides.append(.highlights(getHighlights()))
             } else {
                 slides.append(.standard(primaryAppLanguage.isEnglishWikipedia ? englishHoursReadingSlide : collectiveLanguagesSlide))
                 slides.append(.standard(primaryAppLanguage.isEnglishWikipedia ? englishTopReadSlide : collectiveArticleViewsSlide))
@@ -585,7 +587,11 @@ public class WMFYearInReviewViewModel: ObservableObject {
     }
     
     // MARK: English Slides
-    
+
+    func getHighlights() -> WMFYearInReviewSlideHighlightsViewModel {
+        return WMFYearInReviewSlideHighlightsViewModel()
+    }
+
     private var englishHoursReadingSlide: WMFYearInReviewSlideStandardViewModel {
         WMFYearInReviewSlideStandardViewModel(
             gifName: "english-slide-01",
@@ -652,7 +658,7 @@ public class WMFYearInReviewViewModel: ObservableObject {
             tappedInfo: tappedInfo
         )
     }
-    
+
     // MARK: Collective Slides
     
     private var collectiveLanguagesSlide: WMFYearInReviewSlideStandardViewModel {
@@ -818,6 +824,8 @@ public class WMFYearInReviewViewModel: ObservableObject {
             if let uiImage = renderer.uiImage {
                 coordinatorDelegate?.handleYearInReviewAction(.share(image: uiImage))
             }
+        case .highlights(let viewModel):
+            print("Highlights")
         }
         logYearInReviewDidTapShare()
     }
@@ -862,6 +870,8 @@ public class WMFYearInReviewViewModel: ObservableObject {
             return viewModel.loggingID
         case .mostReadDateV3(let viewModel):
             return viewModel.loggingID
+        case .highlights(let viewModel):
+            return "To do"
         }
     }
     
@@ -880,9 +890,7 @@ public class WMFYearInReviewViewModel: ObservableObject {
             } else {
                 return true
             }
-        case .location:
-            return true
-        case .mostReadDateV3:
+        default:
             return true
         }
     }
@@ -939,6 +947,8 @@ public class WMFYearInReviewViewModel: ObservableObject {
             coordinatorDelegate?.handleYearInReviewAction(.info(url: vm.infoURL))
         case .location(let vm):
             coordinatorDelegate?.handleYearInReviewAction(.info(url: vm.infoURL))
+        case .highlights:
+            break
         }
     }
     
@@ -958,6 +968,7 @@ enum WMFYearInReviewSlide {
     case standard(WMFYearInReviewSlideStandardViewModel)
     case location(WMFYearInReviewSlideLocationViewModel)
     case mostReadDateV3(WMFYearInReviewSlideMostReadDateV3ViewModel)
+    case highlights(WMFYearInReviewSlideHighlightsViewModel)
     // todo: articles read
 }
 

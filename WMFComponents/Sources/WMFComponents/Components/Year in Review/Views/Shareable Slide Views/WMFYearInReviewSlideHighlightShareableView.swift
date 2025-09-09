@@ -8,7 +8,7 @@ struct WMFYearInReviewSlideHighlightShareableView: View {
         appEnvironment.theme
     }
 
-    var viewModel: WMFYearInReviewHighlightsViewModel
+    var viewModel: WMFYearInReviewSlideHighlightsViewModel
 
     var body: some View {
         Text("Shareable summary")
