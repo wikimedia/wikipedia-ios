@@ -784,13 +784,15 @@ public class WMFYearInReviewViewModel: ObservableObject {
     }
     
     private var nonContributorSlide: WMFYearInReviewContributorSlideViewModel {
-        WMFYearInReviewContributorSlideViewModel(
+        let forceHideDonateButton = (try? WMFYearInReviewDataController().shouldHideDonateButton()) ?? false
+        return WMFYearInReviewContributorSlideViewModel(
             gifName: "contributor-slide",
             altText: "",
             title: localizedStrings.noncontributorTitle,
             subtitle: localizedStrings.noncontributorSubtitle,
             loggingID: "",
             contributionStatus: .noncontributor,
+            forceHideDonateButton: forceHideDonateButton,
             onTappedDonateButton: {
                 
             },
@@ -948,13 +950,17 @@ public class WMFYearInReviewViewModel: ObservableObject {
             return false
         }
         
+        // Config has certain countries that do not show donate button
+        let configShouldHide = (try? WMFYearInReviewDataController().shouldHideDonateButton()) ?? false
+        if configShouldHide {
+            return false
+        }
+        
         let slide = currentSlide
         switch slide {
         case .standard(let viewModel):
             if viewModel.forceHideDonateButton {
                 return false
-            } else if let shouldHide = try? WMFYearInReviewDataController().shouldHideDonateButton() {
-                    return !shouldHide
             } else {
                 return true
             }
@@ -962,6 +968,10 @@ public class WMFYearInReviewViewModel: ObservableObject {
             return true
         case .contribution(let viewModel):
             if viewModel.contributionStatus == .contributor {
+                if viewModel.forceHideDonateButton {
+                    return false
+                }
+                
                 return true
             }
             return false
