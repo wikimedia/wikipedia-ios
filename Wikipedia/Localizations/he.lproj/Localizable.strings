@@ -600,7 +600,6 @@
 "image-recs-time-warning-message" = "נא לסקור את הערך כדי להבין את הנושא שלו ולהתבונן היטב בתמונה";
 "image-recs-yes-title" = "כן";
 "import-shared-reading-list-default-title" = "רשימת הקריאה שלי";
-"import-shared-reading-list-survey-prompt-button-cancel" = "לא עכשיו";
 "import-shared-reading-list-survey-prompt-button-take-survey" = "מילוי סקר";
 "import-shared-reading-list-survey-prompt-footer" = "צפייה בהצהרת הפרטיות של $1שלנו$2. הסקר מופעל על־ידי צד שלישי. צפייה במדיניות הפרטיות $3שלהם$4.";
 "import-shared-reading-list-survey-prompt-subtitle" = "\"שיתוף רשימות קריאה\" היא תכונה בבדיקה ואנחנו זקוקים למשוב שלך כדי לשפר או להסיר אותה.";
@@ -675,8 +674,6 @@
 "microsite-yir-english-edits-bytes-slide-title" = "נוספו 4 מיליארד בתים";
 "microsite-yir-english-edits-slide-subtitle" = "מתנדבים עשו 98,222,407 שינויים ביותר מ־300 מהדורות של ויקיפדיה בשפות שונות. יותר מ־37 מיליון שינויים נעשו בויקיפדיה האנגלית. כל שעה בכל יום עובדים מתנדבים לשיפור ויקיפדיה.";
 "microsite-yir-english-edits-slide-title" = "העורכים עשו השנה כמעט 98 מיליון שינויים";
-"microsite-yir-english-non-donor-slide-subtitle" = "בעזרתכם, קרן ויקימדיה - המוסד ללא כוונת רווח שמאחורי ויקיפדיה - תמשיך להבטיח שהמידע שאתם מסתמכים עליו יהיה נטול פרסומות ואמין, תוך שמירה על הפעלה חלקה של ויקיפדיה עם כלים וטכנולוגיות מתקדמות. בבקשה, תשקלו לתרום כבר היום. [למידע נוסף על העבודה שלנו]($1).";
-"microsite-yir-english-non-donor-slide-title" = "0 פרסומות הופיעו בוויקיפדיה";
 "microsite-yir-english-reading-slide-subtitle" = "אנשים השקיעו כ־2.9 מיליארד שעות - כמעט 331,000 שנה! - בקריאה בוויקיפדיה האנגלית בשנת 2024. ויקיפדיה נמצאת שם כאשר אתם רוצים ללמוד על העולם המשתנה שלנו, לזכות בהתערבות בין חברים או לענות על שאלה של ילד סקרן.";
 "microsite-yir-english-reading-slide-title" = "בילינו 2.9 מיליארד שעות בקריאה";
 "microsite-yir-english-saved-reading-slide-subtitle" = "למשתמשים הפעילים של היישום ל־iOS היו יותר מ־62.2 מיליון רשימות קריאה. הוספת ערכים לרשימות קריאה מאפשרת לך לגשת לערכים גם ללא חיבור לרשת. אפשר גם להיכנס לחשבון כדי לסנכרן רשימות קריאה בין מכשירים.";
@@ -699,6 +696,7 @@
 "no-internet-connection" = "אין חיבור אינטרנט";
 "no-internet-connection-article-reload" = "ייתכן שזמינה גרסה חדשה של הערך הזה, אבל אי־אפשר לטעון אותה ללא חיבור לאינטרנט";
 "no-internet-connection-article-reload-button" = "חזרה לגרסה השמורה האחרונה";
+"not-now-title" = "לא עכשיו";
 "notifications-center-agent-description-from-format" = "מאת $1";
 "notifications-center-alert" = "התראה";
 "notifications-center-applied-filters-accessibility-label" = "מסנן עדכונים – מסננים מופעלים";
@@ -718,7 +716,6 @@
 "notifications-center-empty-state-num-filters" = "{{PLURAL:$1|מסנן אחד|$1 מסננים}}";
 "notifications-center-feed-card-title" = "התראות עריכה זמינות עכשיו";
 "notifications-center-feed-news-notification-button-text" = "הפעלת עדכוני דחיפה";
-"notifications-center-feed-news-notification-dismiss-button-text" = "לא עכשיו";
 "notifications-center-feed-news-notification-text" = "התראות עריכה זמינות עכשיו לכל מיזמי ויקימדיה זמינות עכשיו בכל היישום. אפשר להפעיל את עדכוני הדחיפה כדי להיות מעודכנים עם ההודעות בוויקיפדיה בתנועה.";
 "notifications-center-filters-accessibility-label" = "מסנן עדכונים";
 "notifications-center-filters-read-status-item-title-all" = "הכול";
@@ -1046,7 +1043,6 @@
 "saved-unsave-article-and-remove-from-reading-lists-title" = "לבטל את השמירה של {{PLURAL:$1|הערך|הערכים}}?";
 "search-button-accessibility-label" = "חיפוש בוויקיפדיה";
 "search-clear-title" = "ניקוי";
-"search-did-you-mean" = "האם התכוונת לחפש $1?";
 "search-field-placeholder-text" = "חיפוש בוויקיפדיה";
 "search-reading-list-placeholder-text" = "חיפוש ברשימת קריאה";
 "search-recent-clear-confirmation-heading" = "למחוק את כל החיפושים האחרונים?";

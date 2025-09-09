@@ -1,11 +1,14 @@
 import Foundation
 import CoreData
 
-public struct SlideConfig {
-    public let readCountIsEnabled: Bool
-    public let editCountIsEnabled: Bool
-    public let donateCountIsEnabled: Bool
-    public let saveCountIsEnabled: Bool
-    public let mostReadDayIsEnabled: Bool
-    public let viewCountIsEnabled: Bool
+struct SlideConfig {
+    let readCountIsEnabled: Bool
+    let editCountIsEnabled: Bool
+    let donateCountIsEnabled: Bool
+    let saveCountIsEnabled: Bool
+    let mostReadDateIsEnabled: Bool
+    let viewCountIsEnabled: Bool
+    let mostReadArticleIsEnabled: Bool
+    let categoriesIsEnabled: Bool
+    let locationsIsEnabled: Bool
 }

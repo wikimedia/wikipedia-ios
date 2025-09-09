@@ -144,6 +144,8 @@
 "article-revision-history" = "تاریخچهٔ نسخه‌های مقاله";
 "article-save-error-not-enough-space" = "حافظهٔ کافی برای ذخیره‌سازی این مقاله بر روی دستگاهتان ندارید";
 "article-share" = "اشتراک‌گذاری";
+"article-tabs-did-you-know-title" = "آیا می‌دانستید";
+"article-tabs-feature-announcement-item-4-title" = "زبانهٔ جدید خود را شخصی‌سازی کنید";
 "article-talk-page" = "صفحهٔ بحث مقاله";
 "article-toolbar-reading-themes-controls-toolbar-item" = "تنظیمات پوسته‌های مطالعه";
 "back-button-accessibility-label" = "بازگشت";
@@ -217,6 +219,7 @@
 "developer-settings-enable-year-in-review" = "فعال‌سازی سال در یک نگاه";
 "developer-settings-send-analytics-to-wmflabs" = "ارسال تحلیل‌ها به wmflabs.";
 "developer-settings-suppress-image-rec-post" = "ویرایش پیشنهادهای تصویر را ارسال نکن.";
+"did-you-know" = "آیا می‌دانستید";
 "diff-article-revision-history" = "تاریخچهٔ نسخه‌های مقاله";
 "diff-change-added" = "اضافه، $1، پایان اضافه.";
 "diff-change-paragraph-lines-moved-down" = "بند به میزان {{PLURAL:$1|0=۰ سطر|$1 سطر}} به پایین منتقل شد. به موقعیت جدید بروید.";
@@ -618,7 +621,6 @@
 "image-recs-time-warning-message" = "لطفاً به منظور درک موضوع، مقاله را مرور کرده و تصویر را بررسی نمایید.";
 "image-recs-yes-title" = "بله";
 "import-shared-reading-list-default-title" = "فهرست مطالعهٔ من";
-"import-shared-reading-list-survey-prompt-button-cancel" = "حالا نه";
 "import-shared-reading-list-survey-prompt-button-take-survey" = "شرکت در نظرسنجی";
 "import-shared-reading-list-survey-prompt-footer" = "$1اظهارنامه حریم خصوصی$2 ما را ببینید. نظرسنجی توسط شخص ثالث پشتیبانی شده است. $3اظهارنامه حریم خصوصی$4 آنان را ببینید.";
 "import-shared-reading-list-survey-prompt-subtitle" = "«فهرست‌های مطالعهٔ اشتراکی» یک ویژگی آزمایشی است و ما برای بهبود یا حذف آن به بازخوردهای شما نیاز داریم.";
@@ -694,8 +696,6 @@
 "microsite-yir-english-edits-bytes-slide-title" = "۴ میلیارد بایت محتوا افزوده شد";
 "microsite-yir-english-edits-slide-subtitle" = "داوطلبان ۹۸٬۲۲۲٬۴۰۷ تغییر در سرتاسر ۳۰۰ نسخهٔ زبانی مختلف ویکی‌پدیا اعمال کرده‌اند. بیش از ۳۷ میلیون تغییر در ویکی‌پدیای انگلیسی اعمال شده است. در هر ساعت از هر روز، داوطلبان در حال کار بر روی بهبود ویکی‌پدیا هستند.";
 "microsite-yir-english-edits-slide-title" = "ویرایشگران امسال ۹۸ میلیون تغییر اعمال کردند";
-"microsite-yir-english-non-donor-slide-subtitle" = "بنیاد ویکی‌مدیا—سازمان ناسودبر در پس ویکی‌پدیا—با کمک شما همچنان اطمینان حاصل خواهد کرد که اطلاعاتی که شما بر آن متکی هستید عاری از هرگونه تبلیغات و قابل اطمینان باشد و در عین حال با استفاده از ابزارها و فناوری‌های پیشرفته عملکرد ویکی‌پدیا را به‌شکلی روان حفظ خواهد کرد. لطفاً همین امروز به این بنیاد کمک مالی کنید. [دربارهٔ کارهای ما بیشتر بدانید]($1).";
-"microsite-yir-english-non-donor-slide-title" = "ویکی‌پدیا میزبان هیچ تبلیغی نبوده است";
 "microsite-yir-english-reading-slide-subtitle" = "در سال ۲۰۲۴، افراد حدود ۲٫۹ میلیارد ساعت—۳۳۱٬۰۰۰ سال!— را صرف مطالعهٔ ویکی‌پدیای انگلیسی کرده‌اند. هرگاه بخواهید دربارهٔ دنیای رو به تغییرمان چیزی بدانید، در یک شرط‌بندی بین دوستانتان پیروز شوید، یا پاسخ سؤال یک کودک را پیدا کنید، ویکی‌پدیا در کنار شماست.";
 "microsite-yir-english-reading-slide-title" = "ما ۲٫۹ میلیارد ساعت را صرف مطالعه کرده‌ایم";
 "microsite-yir-english-saved-reading-slide-subtitle" = "کاربران فعال نرم‌افزار iOS بیش از ۶۲٫۲ میلیون فهرست مطالعه داشته‌اند. افزودن مقاله‌ها به فهرست‌های مطالعه این امکان را به شما می‌دهد که حتی در صورت برخط نبودن به مقاله‌ها دسترسی داشته باشید. همچنین می‌توانید برای همگام‌سازی فهرست‌های مطالعه در تمام دستگاه‌های خود، به سامانه وارد شوید.";
@@ -711,6 +711,9 @@
 "nearby-distance-label-km" = "$1 کیلومتر";
 "nearby-distance-label-meters" = "$1 متر";
 "nearby-distance-label-miles" = "$1 مایل";
+"new-article-tab-from-wikipedia-default" = "از ویکی‌پدیا";
+"new-article-tab-settings-did-you-know" = "آیا می‌دانستید؟";
+"new-article-tab-settings-recommendations" = "پیشنهادها";
 "new-password-instructions" = "با رمز عبور موقت به سامانه وارد شدید. برای تکمیل ورود، رمز عبور جدید انتخاب کنید.";
 "new-password-title" = "تنظیم رمز عبورتان";
 "next-action-title" = "بعدی";
@@ -718,6 +721,7 @@
 "no-internet-connection" = "عدم اتصال به اینترنت";
 "no-internet-connection-article-reload" = "نسخهٔ جدیدتر این مقاله ممکن است موجود باشد، اما بدون اتصال به اینترنت، قابل دست‌یابی نیست";
 "no-internet-connection-article-reload-button" = "برگشت به آخرین نسخهٔ ذخیره‌شده";
+"not-now-title" = "حالا نه";
 "notifications-center-agent-description-from-format" = "از $1";
 "notifications-center-alert" = "هشدار";
 "notifications-center-applied-filters-accessibility-label" = "پالایهٔ اعلان‌ها - دارای پالایه‌های اعمال‌شده";
@@ -737,7 +741,6 @@
 "notifications-center-empty-state-num-filters" = "{{PLURAL:$1|$1 پالایه}}";
 "notifications-center-feed-card-title" = "ویرایش اعلان‌ها اکنون در دسترس است";
 "notifications-center-feed-news-notification-button-text" = "روشن کردن اعلان‌های تشویقی";
-"notifications-center-feed-news-notification-dismiss-button-text" = "حالا نه";
 "notifications-center-feed-news-notification-text" = "آگاه‌سازی‌های ویرایشی برای تمامی پروژه‌های ویکی‌مدیا اکنون از طریق نرم‌افزار در دستس هستند. برای این که از پیام‌های خود در ویکی‌پدیا در هر کجا و هر زمان آگاه شوید، اعلان‌های فشاری را فعال کنید.";
 "notifications-center-filters-accessibility-label" = "پالایهٔ اعلان‌ها";
 "notifications-center-filters-read-status-item-title-all" = "همه";
@@ -1064,7 +1067,6 @@
 "saved-unsave-article-and-remove-from-reading-lists-title" = "عدم ذخیرهٔ {{PLURAL:$1|مقاله|مقالات}}؟";
 "search-button-accessibility-label" = "جستجوی ویکی‌پدیا";
 "search-clear-title" = "پاک‌کردن";
-"search-did-you-mean" = "منظورتان «$1» بود؟";
 "search-field-placeholder-text" = "جستجوی ویکی‌پدیا";
 "search-reading-list-placeholder-text" = "جستجوی فهرست مطالعه";
 "search-recent-clear-confirmation-heading" = "حذف همهٔ جستجوهای اخیر ؟";
@@ -1144,6 +1146,8 @@
 "table-of-contents-heading" = "محتویات";
 "table-of-contents-hide-button-label" = "نهفتن جعبهٔ محتویات";
 "table-of-contents-subheading-label" = "زیربخش $1";
+"tabs-title" = "زبانه‌ها";
+"tabs-title-preferences" = "ترجیحات زبانه";
 "tachelhit-variants-alert-body" = "برنامهٔ ویکی‌پدیا در حال حاضر از لهجه‌های مختلف زبان تشلیحت به عنوان زبان‌های اصلی یا ثانویه در برنامه پشتیبانی می‌کند و خواندن، جستجو، و ویرایش در لهجهٔ دلخواه شما را آسان می‌کند:\n\nⵜⴰⵛⵍⵃⵉⵜ Tachelhit, Tifinagh (shi-tfng)\nTaclḥit Tachelhit, Latin (shi-latn)";
 "tachelhit-variants-alert-title" = "بروزرسانی پشتیبانی از لهجه‌های زبان تشلیحت";
 "tajik-variants-alert-body" = "برنامهٔ ویکی‌پدیا در حال حاضر از لهجه‌های مختلف زبان تاجیکی به عنوان زبان‌های اصلی یا ثانویه در برنامه پشتیبانی می‌کند و خواندن، جستجو، و ویرایش در لهجهٔ دلخواه شما را آسان می‌کند:\n\nтоҷикӣ кирилликӣ Tajik, Cyrillic (tg-cyrl)\ntojikī lotinī Tajik, Latin (tg-latn)";

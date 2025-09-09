@@ -182,6 +182,7 @@
 "description-welcome-descriptions-title" = "लेख विवरण";
 "description-welcome-promise-title" = "शुरू करने से, मैं यह वादा करता हूँ कि इस सुविधा का दुरुपयोग नहीं करूँगा(गी)।";
 "description-welcome-start-editing-button" = "संपादन शुरू करें";
+"did-you-know" = "क्या आप जानते हैं";
 // Fuzzy
 "diff-compare-header-from-info-heading" = "मूल";
 "diff-compare-header-heading" = "अवतरणों की तुलना करें";
@@ -288,7 +289,6 @@
 "icon-shortcut-search-title" = "विकिपीडिया में खोजें";
 "image-gallery-unknown-owner" = "अज्ञात लेखक";
 "image-rec-error-subtitle" = "कोई त्रुटि आई।";
-"import-shared-reading-list-survey-prompt-button-cancel" = "अभी नहीं";
 "import-shared-reading-list-survey-prompt-button-take-survey" = "सर्वे लें";
 "import-shared-reading-list-survey-prompt-footer" = "हमारी $1गोपनीयता स्टेटमेंट$2 देखें. सर्वे एक थर्ड पार्टी के ज़रिए पावर किया गया है. उनकी $3गोपनीयता नीति$4 देखें.";
 // Fuzzy
@@ -322,16 +322,17 @@
 "nearby-distance-label-km" = "$1 कि.मी.";
 "nearby-distance-label-meters" = "$1 मीटर";
 "nearby-distance-label-miles" = "$1 माइल्स";
+"new-article-tab-settings-did-you-know" = "क्या आप जानते हैं?";
 "new-password-instructions" = "अपने एक अस्थाई पासवर्ड से लॉगिन किया। लॉगिन को पूरा करने के लिए यहाँ एक नया पासवर्ड जोड़ें।";
 "new-password-title" = "एक पासवर्ड जोड़ें";
 "next-action-title" = "अगला";
 "no-email-account-alert" = "कृपया अपनी डिवाइस पर एक ईमेल अकाउंट स्थापित करें और पुनः प्रयास करें।";
+"not-now-title" = "अभी नहीं";
 "notifications-center-alert" = "चेतावनी";
 "notifications-center-change-password" = "पासवर्ड बदलें";
 "notifications-center-destination-app" = "ऐप में";
 "notifications-center-destination-web" = "वेब पर";
 "notifications-center-feed-news-notification-button-text" = "पुश नोटिफिकेशन चालू करें";
-"notifications-center-feed-news-notification-dismiss-button-text" = "अभी नहीं";
 "notifications-center-go-to-article" = "लेख";
 "notifications-center-go-to-diff" = "अन्तर";
 "notifications-center-more-action-accessibility-label" = "और";
@@ -411,7 +412,6 @@
 "saved-pages-progress-syncing" = "लेख डाउनलोड हो रहा है...";
 "saved-title" = "सहेजा गया";
 "search-button-accessibility-label" = "विकिपीडिया में खोजें";
-"search-did-you-mean" = "क्या आपका मतलब $1 था?";
 "search-field-placeholder-text" = "विकिपीडिया में खोजें";
 "search-reading-list-placeholder-text" = "पठन सूची खोजें";
 "search-recent-clear-confirmation-heading" = "हाल की सभी खोजों को मिटायें?";

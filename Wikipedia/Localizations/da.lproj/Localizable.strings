@@ -179,7 +179,6 @@
 "close-other-tabs" = "Luk andre faner";
 "close-tab-confirmation" = "Luk fane?";
 "close-tabs" = "Luk faner";
-"closed-all-tabs-confirmation" = "Lukkede alle $1-faner.";
 "compass-direction" = "mod klokken $1";
 "confirm-donation-history-deletion-subtitle" = "Dette gælder kun for donationer fra denne enhed.";
 "confirm-donation-history-deletion-title" = "Bekræft sletning";
@@ -638,7 +637,6 @@
 "image-recs-not-sure-title" = "Ikke sikker";
 "image-recs-yes-title" = "Ja";
 "import-shared-reading-list-default-title" = "Min læseliste";
-"import-shared-reading-list-survey-prompt-button-cancel" = "Ikke nu";
 "import-shared-reading-list-survey-prompt-button-take-survey" = "Deltag i undersøgelse";
 "in-the-news-sub-title-from-language-wikipedia" = "Fra $1 Wikipedia";
 "in-the-news-sub-title-from-wikipedia" = "Fra Wikipedia";
@@ -696,7 +694,6 @@
 "main-menu-zero-faq" = "Ofte stillede spørgsmål om Wikipedia Zero";
 "microsite-yir-english-edits-bytes-slide-title" = "4 milliarder bytes tilføjet";
 "microsite-yir-english-edits-slide-title" = "Bidragere lavede 98 millioner ændringer dette år";
-"microsite-yir-english-non-donor-slide-title" = "0 annoncer vist på Wikipedia";
 "microsite-yir-english-reading-slide-subtitle" = "Det anslås at folk har brugt 2,9 milliarder timer – over 331.000 år! – på at læse engelsk Wikipedia i 2024. Wikipedia er der, når du vil lære om vores foranderlige verden, vinde et væddemål blandt venner eller besvare et nysgerrigt barns spørgsmål.";
 "microsite-yir-english-reading-slide-title" = "Vi brugte 2,9 milliarder timer på at læse";
 "microsite-yir-english-saved-reading-slide-subtitle" = "Aktive iOS App-brugere havde over 62,2 millioner læselister. Tilføjelse af artikler til læselister giver dig adgang til artikler, selv når du er offline. Du kan også logge ind for at synkronisere læselister på tværs af enheder.";
@@ -719,6 +716,7 @@
 "no-internet-connection" = "Ingen internetforbindelse";
 "no-internet-connection-article-reload" = "Der findes mligvis en nyere version af denne artikel, men den kan ikke indlæses uden forbindelse til internettet";
 "no-internet-connection-article-reload-button" = "Vend tilbage til seneste gemte version";
+"not-now-title" = "Ikke nu";
 "notifications-center-agent-description-from-format" = "Fra $1";
 "notifications-center-alert" = "Advarsel";
 "notifications-center-applied-filters-accessibility-label" = "Meddelelsesfilter - har filtre anvendt";
@@ -736,7 +734,6 @@
 "notifications-center-empty-state-no-projects-selected" = "Tilføj projekter for at se flere beskeder";
 "notifications-center-empty-state-num-filters" = "{{PLURAL:$1|$1 filter|$1 filtre}}";
 "notifications-center-feed-news-notification-button-text" = "Slå push-notifikationer til";
-"notifications-center-feed-news-notification-dismiss-button-text" = "Ikke nu";
 "notifications-center-filters-read-status-item-title-all" = "Alle";
 "notifications-center-filters-read-status-item-title-read" = "Læst";
 "notifications-center-filters-read-status-item-title-unread" = "Ulæst";
@@ -999,7 +996,6 @@
 "saved-unsave-article-and-remove-from-reading-lists-title" = "Fjern {{PLURAL:$1|artikel|artikler}}?";
 "search-button-accessibility-label" = "Søg i Wikipedia";
 "search-clear-title" = "Ryd";
-"search-did-you-mean" = "Mente du $1?";
 "search-field-placeholder-text" = "Søg i Wikipedia";
 "search-reading-list-placeholder-text" = "Søg i læseliste";
 "search-recent-clear-confirmation-heading" = "Slet alle seneste søgninger?";

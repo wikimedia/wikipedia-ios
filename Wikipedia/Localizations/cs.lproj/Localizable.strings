@@ -494,7 +494,6 @@
 "notifications-center-empty-no-messages" = "Nemáte žádné zprávy";
 "notifications-center-empty-not-subscribed" = "Momentálně nejste přihlášeni k odběru žádného oznámení z Wikipedie";
 "notifications-center-feed-news-notification-button-text" = "Zapnout push oznámení";
-"notifications-center-feed-news-notification-dismiss-button-text" = "Teď ne";
 "notifications-center-filters-read-status-item-title-all" = "Vše";
 "notifications-center-filters-read-status-section-title" = "Stav čtení";
 "notifications-center-filters-title" = "Filtry";
@@ -712,7 +711,6 @@
 "saved-unsave-article-and-remove-from-reading-lists-title" = "Zrušit uložení {{PLURAL:$1|článku|článků}}?";
 "search-button-accessibility-label" = "Hledat na Wikipedii";
 "search-clear-title" = "Odebrat";
-"search-did-you-mean" = "Mysleli jste $1?";
 "search-field-placeholder-text" = "Hledat ve Wikipedii";
 "search-reading-list-placeholder-text" = "Hledat v seznamech k přečtení";
 "search-recent-clear-confirmation-heading" = "Smazat všechna poslední hledání?";
@@ -804,6 +802,7 @@
 "two-factor-login-with-regular-code" = "Použít ověřovací kód";
 "unable-to-load-talk-page-title" = "Nelze načíst diskusní stránku";
 "unknown-generic-text" = "Neznámé";
+"variants-alert-dismiss-button" = "Ne, děkuji";
 "welcome-exploration-explore-feed-description" = "Doporučené čtení a vybrané články z naší komunity";
 "welcome-exploration-explore-feed-title" = "Kanál Objevit";
 "welcome-exploration-on-this-day-description" = "Cestujte zpět v čase, abyste se dozvěděli, co se dělo v historii";

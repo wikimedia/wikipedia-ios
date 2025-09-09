@@ -30,7 +30,7 @@ import Foundation
     private let cacheDirectoryName = WMFSharedCacheDirectoryNames.donorExperience.rawValue
     private let cacheConfigFileName = "AppsCampaignConfig"
     private let cachePromptStateFileName = "WMFFundraisingCampaignPromptState"
-    
+
     // MARK: - Lifecycle
     
     private init(service: WMFService? = WMFDataEnvironment.current.basicService, sharedCacheStore: WMFKeyValueStore? = WMFDataEnvironment.current.sharedCacheStore, mediaWikiService: WMFService? = WMFDataEnvironment.current.mediaWikiService) {
@@ -153,6 +153,7 @@ import Foundation
 
             switch result {
             case .success(let response):
+                
                 activeCountryConfigs = self.activeCountryConfigs(from: response, countryCode: countryCode, currentDate: currentDate)
 
                 try? sharedCacheStore?.save(key: cacheDirectoryName, cacheConfigFileName, value: response)
@@ -323,10 +324,19 @@ import Foundation
                 return
             }
             
-            var assets: [String: WMFFundraisingCampaignConfig.WMFAsset] = [:]
+            var finalAssets: [String: WMFFundraisingCampaignConfig.WMFAsset] = [:]
+            
             for (key, value) in config.assets {
                 
-                let actions: [WMFFundraisingCampaignConfig.WMFAsset.WMFAction] = value.actions.map { action in
+                guard !value.isEmpty else {
+                    continue
+                }
+                let appInstallID = WMFDataEnvironment.current.appInstallIDUtility?() ?? "TEST-INSTALL-ID"
+
+                let seed = "\(config.id)|\(key)|\(appInstallID)"
+                let randomAsset = randomAssetFrom(assets: value, seed: seed)
+
+                let actions: [WMFFundraisingCampaignConfig.WMFAsset.WMFAction] = randomAsset.actions.map { action in
                     
                     guard let urlString = action.urlString?.replacingOccurrences(of: "$platform;", with: "iOS"),
                        let url = URL(string: urlString) else {
@@ -336,15 +346,57 @@ import Foundation
                     return WMFFundraisingCampaignConfig.WMFAsset.WMFAction(title: action.title, url: url)
                 }
 
-                let asset = WMFFundraisingCampaignConfig.WMFAsset(id: config.id, textHtml: value.text, footerHtml: value.footer, actions: actions, countryCode: countryCode, currencyCode: value.currencyCode, startDate: startDate, endDate: endDate, languageCode: key)
-                assets[key] = asset
+                let asset = WMFFundraisingCampaignConfig.WMFAsset(id: config.id, assetID: randomAsset.id, textHtml: randomAsset.text, footerHtml: randomAsset.footer, actions: actions, countryCode: countryCode, currencyCode: randomAsset.currencyCode, startDate: startDate, endDate: endDate, languageCode: key)
+                finalAssets[key] = asset
             }
             
-            configs.append(WMFFundraisingCampaignConfig(id: config.id, assets: assets))
+            configs.append(WMFFundraisingCampaignConfig(id: config.id, assets: finalAssets))
         })
         
         return configs
     }
+
+
+    // MARK: - Deterministic bucketing
+
+    /// Stable hash mapped to [0, 1).
+    private func stableHash01(_ seed: String) -> Double {
+        // FNV-1a 64-bit
+        var hash: UInt64 = 1469598103934665603
+        let prime: UInt64 = 1099511628211
+        for b in seed.utf8 {
+            hash ^= UInt64(b)
+            hash &*= prime
+        }
+        return Double(hash) / Double(UInt64.max)
+    }
+
+    /// Deterministically picks one asset using (optionally) weighted A/B configuration.
+    private func randomAssetFrom(assets: [WMFFundraisingCampaignConfigResponse.FundraisingCampaignConfig.Asset], seed: String
+    ) -> WMFFundraisingCampaignConfigResponse.FundraisingCampaignConfig.Asset {
+        guard !assets.isEmpty else { return assets[0] }
+
+        let weights = assets.compactMap { $0.weight.map(Double.init) }
+        if weights.count != assets.count || !weights.allSatisfy({ $0 >= 0 }) {
+            return assets[0]
+        }
+
+        let sum = weights.reduce(0, +)
+        if abs(sum - 1.0) >= 1e-6 { // tolerence for 0.000001
+            return assets[0]
+        }
+
+        let stableSeed = stableHash01(seed)
+        var currentSum = 0.0
+        for (index, weight) in weights.enumerated() {
+            currentSum += weight
+            if stableSeed <= currentSum || index == weights.count - 1 {
+                return assets[index]
+            }
+        }
+        return assets[0]
+    }
+
 }
 
 // MARK: - Private Models
@@ -373,12 +425,15 @@ private struct WMFFundraisingCampaignConfigResponse: Codable {
                 }
             }
             
+            let weight: Float?
+            let id: String?
             let text: String
             let footer: String
             let actions: [Action]
             let currencyCode: String
             
             enum CodingKeys: String, CodingKey {
+                case id, weight
                 case text = "text"
                 case footer = "footer"
                 case actions = "actions"
@@ -392,7 +447,7 @@ private struct WMFFundraisingCampaignConfigResponse: Codable {
         let platforms: Platforms
         let version: Int
         let countryCodes: [String]
-        let assets: [String: Asset]
+        let assets: [String: [Asset]]
         
         enum CodingKeys: String, CodingKey {
             case startTimeString = "start_time"
@@ -405,7 +460,7 @@ private struct WMFFundraisingCampaignConfigResponse: Codable {
         }
     }
     
-    static var currentVersion = 1
+    static var currentVersion = 2
     let configs: [FundraisingCampaignConfig]
     
     init(from decoder: Decoder) throws {

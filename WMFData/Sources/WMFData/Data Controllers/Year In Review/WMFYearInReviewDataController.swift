@@ -9,8 +9,8 @@ import CoreData
     private let userDefaultsStore: WMFKeyValueStore?
     private let developerSettingsDataController: WMFDeveloperSettingsDataControlling
 
-    public let targetConfigYearID = "2024.2"
-    @objc public static let targetYear = 2024
+    public let targetConfigYearID = "2025.1"
+    @objc public static let targetYear = 2025
     public static let appShareLink = "https://apps.apple.com/app/apple-store/id324715238?pt=208305&ct=yir_2024_share&mt=8"
 
     private let service = WMFDataEnvironment.current.mediaWikiService
@@ -56,7 +56,11 @@ import CoreData
     
     public func shouldShowYiRNotification(primaryAppLanguageProject: WMFProject?, isLoggedOut: Bool, isTemporaryAccount: Bool) -> Bool {
         
-        #if DEBUG
+        if !developerSettingsDataController.showYiRV2 &&
+            !developerSettingsDataController.showYiRV3 {
+            return false
+        }
+        
         if isTemporaryAccount {
             return false
         }
@@ -65,9 +69,6 @@ import CoreData
             return !hasTappedProfileItem && !hasSeenYiRIntroSlide && shouldShowYearInReviewEntryPoint(countryCode: Locale.current.region?.identifier, primaryAppLanguageProject: primaryAppLanguageProject)
         }
         return !hasSeenYiRIntroSlide && shouldShowYearInReviewEntryPoint(countryCode: Locale.current.region?.identifier, primaryAppLanguageProject: primaryAppLanguageProject)
-        #else
-        return false
-        #endif
     }
     
     public var hasTappedProfileItem: Bool {
@@ -98,7 +99,25 @@ import CoreData
         }
     }
 
+    public var isNewIconOn: Bool {
+        get {
+            return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.isNewIconOn.rawValue)) ?? false
+        }
+        set {
+            try? userDefaultsStore?.save(
+                key: WMFUserDefaultsKey.isNewIconOn.rawValue,
+                value: newValue
+            )
+        }
+    }
+
     func isAnnouncementActive() -> Bool {
+        
+        if developerSettingsDataController.showYiRV2 ||
+            developerSettingsDataController.showYiRV3 {
+            return true
+        }
+        
         let expiryDate: Date? = {
             var expiryDateComponents = DateComponents()
             expiryDateComponents.year = 2025
@@ -115,7 +134,12 @@ import CoreData
     }
 
     public func shouldShowYearInReviewFeatureAnnouncement(primaryAppLanguageProject: WMFProject?) -> Bool {
-        #if DEBUG
+        
+        if !developerSettingsDataController.showYiRV2 &&
+            !developerSettingsDataController.showYiRV3 {
+            return false
+        }
+        
         guard isAnnouncementActive() else {
             return false
         }
@@ -137,15 +161,17 @@ import CoreData
         }
 
         return true
-        #else
-        return false
-        #endif
     }
 
     // MARK: Entry Point
 
     public func shouldShowYearInReviewEntryPoint(countryCode: String?, primaryAppLanguageProject: WMFProject?) -> Bool {
         assert(Thread.isMainThread, "This method must be called from the main thread in order to keep it synchronous")
+        
+        if !developerSettingsDataController.showYiRV2 &&
+            !developerSettingsDataController.showYiRV3 {
+            return false
+        }
 
         guard yearInReviewSettingsIsEnabled else {
             return false
@@ -158,16 +184,12 @@ import CoreData
         
         let yirConfig: WMFFeatureConfigResponse.IOS.YearInReview?
 
-        #if DEBUG
-        if let iosFeatureConfig = developerSettingsDataController.loadFeatureConfig()?.ios,
+        if let iosFeatureConfig = developerSettingsDataController.loadFeatureConfig()?.ios.first,
            let config = iosFeatureConfig.yir(yearID: targetConfigYearID) {
             yirConfig = config
         } else {
             return false
         }
-        #else
-        return false
-        #endif
 
         guard let yirConfig = yirConfig, yirConfig.isEnabled else {
             return false
@@ -209,6 +231,11 @@ import CoreData
     // MARK: - Hide Year in Review
 
     @objc public func shouldShowYearInReviewSettingsItem(countryCode: String?, primaryAppLanguageCode: String?) -> Bool {
+        
+        if !developerSettingsDataController.showYiRV2 &&
+            !developerSettingsDataController.showYiRV3 {
+            return false
+        }
 
         guard let countryCode,
               let primaryAppLanguageCode else {
@@ -249,23 +276,25 @@ import CoreData
     // MARK: Report Data Population
 
     func shouldPopulateYearInReviewReportData(countryCode: String?, primaryAppLanguageProject: WMFProject?) -> Bool {
+        
+        if !developerSettingsDataController.showYiRV2 &&
+            !developerSettingsDataController.showYiRV3 {
+            return false
+        }
+        
         guard yearInReviewSettingsIsEnabled else {
             return false
         }
 
         let yirConfig: WMFFeatureConfigResponse.IOS.YearInReview?
 
-        #if DEBUG
-        if let iosFeatureConfig = developerSettingsDataController.loadFeatureConfig()?.ios,
+        if let iosFeatureConfig = developerSettingsDataController.loadFeatureConfig()?.ios.first,
            let config = iosFeatureConfig.yir(yearID: targetConfigYearID) {
             yirConfig = config
         } else {
             return false
         }
-        #else
-        return false
-        #endif
-
+        
         guard let countryCode,
               let primaryAppLanguageProject else {
             return false
@@ -330,11 +359,8 @@ import CoreData
         let backgroundContext = try coreDataStore.newBackgroundContext
         
         var yirConfig: WMFFeatureConfigResponse.IOS.YearInReview? = nil
-        #if DEBUG
-        yirConfig = developerSettingsDataController.loadFeatureConfig()?.ios.yir(yearID: targetConfigYearID)
-        #else
-        return nil
-        #endif
+
+        yirConfig = developerSettingsDataController.loadFeatureConfig()?.ios.first?.yir(yearID: targetConfigYearID)
 
         guard let yirConfig else {
             return nil
@@ -345,8 +371,11 @@ import CoreData
             editCountIsEnabled: .init(yirConfig.personalizedSlides.editCount.isEnabled),
             donateCountIsEnabled: .init(yirConfig.personalizedSlides.donateCount.isEnabled),
             saveCountIsEnabled: .init(yirConfig.personalizedSlides.saveCount.isEnabled),
-            mostReadDayIsEnabled: .init(yirConfig.personalizedSlides.mostReadDay.isEnabled),
-            viewCountIsEnabled: .init(yirConfig.personalizedSlides.viewCount.isEnabled)
+            mostReadDateIsEnabled: .init(yirConfig.personalizedSlides.mostReadDate.isEnabled),
+            viewCountIsEnabled: .init(yirConfig.personalizedSlides.viewCount.isEnabled),
+            mostReadArticleIsEnabled: .init(yirConfig.personalizedSlides.mostReadArticles.isEnabled),
+            categoriesIsEnabled: .init(yirConfig.personalizedSlides.mostReadCategories.isEnabled),
+            locationsIsEnabled: .init(yirConfig.personalizedSlides.locationArticles.isEnabled),
         )
 
         let featureConfig = YearInReviewFeatureConfig(
@@ -512,15 +541,11 @@ import CoreData
     public func shouldHideDonateButton() -> Bool {
         let yirConfig: WMFFeatureConfigResponse.IOS.YearInReview?
 
-        #if DEBUG
-        guard let iosFeatureConfig = developerSettingsDataController.loadFeatureConfig()?.ios,
+        guard let iosFeatureConfig = developerSettingsDataController.loadFeatureConfig()?.ios.first,
               let config = iosFeatureConfig.yir(yearID: targetConfigYearID) else {
             return false
         }
         yirConfig = config
-        #else
-        return false
-        #endif
 
         guard let locale = Locale.current.region?.identifier else {
             return false
@@ -624,10 +649,20 @@ public class SavedArticleSlideData: NSObject, Codable {
     }
 }
 
+public struct DonateAndEditCounts: Codable {
+    public let donateCount: Int?
+    public let editCount: Int?
+    
+    public init(donateCount: Int?, editCount: Int?) {
+        self.donateCount = donateCount
+        self.editCount = editCount
+    }
+}
+
 public protocol SavedArticleSlideDataDelegate: AnyObject {
     func getSavedArticleSlideData(from startDate: Date, to endEnd: Date) async -> SavedArticleSlideData
 }
 
 public protocol LegacyPageViewsDataDelegate: AnyObject {
-    func getLegacyPageViews(from startDate: Date, to endDate: Date) async throws -> [WMFLegacyPageView]
+    func getLegacyPageViews(from startDate: Date, to endDate: Date, needsLatLong: Bool) async throws -> [WMFLegacyPageView]
 }

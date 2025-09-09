@@ -278,7 +278,6 @@
 "notifications-center-cell-notification-type-accessibility-label-format" = "$1 सूचना";
 // Fuzzy
 "notifications-center-feed-news-notification-button-text" = "जानकारीहरू बन्द गर्नुहोस्";
-"notifications-center-feed-news-notification-dismiss-button-text" = "अहिले हैन";
 "notifications-center-filters-read-status-item-title-all" = "सबै";
 "notifications-center-go-to-diff" = "अन्तर";
 "notifications-center-go-to-user-page" = "$1को प्रयोगकर्ता पृष्ठ";
@@ -367,7 +366,6 @@
 "saved-title" = "सङ्ग्रह गर्ने";
 "search-button-accessibility-label" = "विकिपिडियामा खोज्नुहोस्";
 "search-clear-title" = "खाली";
-"search-did-you-mean" = "के तपाईंको खोजाई: $1 हो?";
 "search-field-placeholder-text" = "विकिपिडियामा खोज्नुहोस्";
 "search-recent-clear-delete-all" = "सबै मेट्ने";
 "search-recent-title" = "भर्खरैका खोजहरू";
@@ -392,6 +390,7 @@
 "share-open-in-maps" = "नक्सामा खोल्नुहोस्";
 "sort-by-recently-added-action" = "भर्खरै थपिएका";
 "sort-by-title-action" = "शीर्षक";
+"suggested-edits-title" = "सुझाइएका सम्पादनहरू";
 "table-of-contents-button-label" = "विषयसूची";
 "table-of-contents-close-accessibility-hint" = "बन्द गर्नुहोस्";
 "table-of-contents-close-accessibility-label" = "विषयसूची बन्द गर्नहोस्";

@@ -396,7 +396,6 @@
 "saved-unsave-article-and-remove-from-reading-lists-title" = "Ξεαποθήκευση {{PLURAL:$1|λήμμα|λημμάτων}};";
 // Fuzzy
 "search-button-accessibility-label" = "Αυτό δεν είναι έγκυρο url MediaWiki";
-"search-did-you-mean" = "Μήπως εννοούσατε $1;";
 "search-field-placeholder-text" = "Αναζήτηση στη Βικιπαίδεια";
 "search-reading-list-placeholder-text" = "Αναζητήστε την λίστα ανάγνωσης";
 "search-recent-clear-confirmation-heading" = "Διαγραφή όλων των πρόσφατων αναζητήσεων;";

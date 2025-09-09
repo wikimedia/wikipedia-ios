@@ -399,7 +399,6 @@
 "icon-shortcut-search-title" = "Ieškoti Vikipedijoje";
 "image-gallery-unknown-owner" = "Autorius nežinomas.";
 "import-shared-reading-list-default-title" = "Mano skaitymo sąrašas";
-"import-shared-reading-list-survey-prompt-button-cancel" = "Ne dabar";
 "import-shared-reading-list-survey-prompt-button-take-survey" = "Atlikti apklausą";
 "import-shared-reading-list-survey-prompt-footer" = "Žiūrėkite mūsų $1privatumo deklaraciją$2. Apklausa per trečios šalies sistemą. Žiūrėkite jų $3privatumo politiką$4.";
 "import-shared-reading-list-survey-prompt-subtitle" = "Skaitymo sąrašų dalijimasis yra bandoma funkcija ir mums reikia jūsų grįžtamojo ryšio, kad galėtume patobulinti ar pašalinti šią funkciją.";
@@ -477,6 +476,7 @@
 "no-internet-connection" = "Nėra interneto ryšio";
 "no-internet-connection-article-reload" = "Gali būti prieinama naujesnė šio straipsnio versija, tačiau jos negalima įkelti be interneto ryšio";
 "no-internet-connection-article-reload-button" = "Grįžti į paskutinę išsaugotą versiją";
+"not-now-title" = "Ne dabar";
 "notifications-center-agent-description-from-format" = "Iš $1";
 "notifications-center-alert" = "Įspėjimas";
 "notifications-center-applied-filters-accessibility-label" = "Pranešimų filtras - yra taikomų filtrų";
@@ -496,7 +496,6 @@
 "notifications-center-feed-card-title" = "Pranešimų redagavimas dabar prieinamas";
 // Fuzzy
 "notifications-center-feed-news-notification-button-text" = "Įjungti pranešimus";
-"notifications-center-feed-news-notification-dismiss-button-text" = "Ne dabar";
 "notifications-center-filters-accessibility-label" = "Pranešimų filtras";
 "notifications-center-filters-read-status-item-title-all" = "Visi";
 "notifications-center-filters-read-status-item-title-read" = "Skaityti";
@@ -792,7 +791,6 @@
 "saved-title" = "Išsaugota";
 "search-button-accessibility-label" = "Paieška Vikipedijoje";
 "search-clear-title" = "Išvalyti";
-"search-did-you-mean" = "Galbūt norėjote ieškoti: $1?";
 "search-field-placeholder-text" = "Paieška Vikipedijoje";
 "search-reading-list-placeholder-text" = "Ieškoti skaitymo sąraše";
 "search-recent-clear-confirmation-heading" = "Naikinti visas naujausias paieškas?";

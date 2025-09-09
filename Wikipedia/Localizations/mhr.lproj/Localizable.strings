@@ -491,7 +491,6 @@
 "image-rec-error-subtitle" = "Ала-могай йоҥылыш.";
 "image-rec-error-title" = "Велыжым почаш ок лий";
 "import-shared-reading-list-default-title" = "Лудашлан мыйын спискем";
-"import-shared-reading-list-survey-prompt-button-cancel" = "Кызыт огыл";
 "import-shared-reading-list-survey-prompt-button-take-survey" = "Йодыштмашыш ушнаш";
 "in-the-news-sub-title-from-language-wikipedia" = "$1 Википедий ужаш гыч";
 "in-the-news-sub-title-from-wikipedia" = "Википедий гыч";
@@ -550,6 +549,7 @@
 "nearby-distance-label-meters" = "$1 м";
 "nearby-distance-label-miles" = "$1 мил.";
 "new-password-title" = "Шолыпмутым шынде";
+"not-now-title" = "Кызыт огыл";
 "notifications-center-agent-description-from-format" = "$1 деч";
 "notifications-center-alert" = "Увертарымаш";
 "notifications-center-cell-notification-type-accessibility-label-format" = "«$1» шижтарымаш";
@@ -559,7 +559,6 @@
 "notifications-center-destination-web" = "Интернетыште";
 "notifications-center-empty-checking-for-notifications" = "Шижтарымашым тергымаш…";
 "notifications-center-empty-no-messages" = "Тыйын серыш уке";
-"notifications-center-feed-news-notification-dismiss-button-text" = "Кызыт огыл";
 "notifications-center-filters-accessibility-label" = "Шижтарымаш фильтр";
 "notifications-center-filters-read-status-item-title-all" = "Чыла";
 "notifications-center-filters-read-status-item-title-read" = "Лудаш";

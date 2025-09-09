@@ -437,7 +437,6 @@
 "image-rec-survey-option-6" = "Inne";
 "image-recs-no-title" = "Nie";
 "image-recs-yes-title" = "Tak";
-"import-shared-reading-list-survey-prompt-button-cancel" = "Nie teraz";
 "in-the-news-sub-title-from-language-wikipedia" = "Z $1 Wikipedii";
 "in-the-news-sub-title-from-wikipedia" = "Z Wikipedii";
 "in-the-news-title" = "W wiadomościach";
@@ -513,6 +512,7 @@
 "no-internet-connection" = "Brak połączenia z internetem";
 "no-internet-connection-article-reload" = "Nowsza wersja tego artykułu może być dostępna, ale nie można jej załadować bez połączenia z Internetem";
 "no-internet-connection-article-reload-button" = "Wróć do ostatnio zapisanej wersji";
+"not-now-title" = "Nie teraz";
 "notifications-center-agent-description-from-format" = "Od $1";
 "notifications-center-alert" = "Uwaga";
 "notifications-center-applied-filters-accessibility-label" = "Filtr powiadomień - ma zastosowane filtry";
@@ -528,7 +528,6 @@
 "notifications-center-empty-state-no-projects-selected" = "Dodaj projekty, aby zobaczyć więcej wiadomości";
 "notifications-center-feed-card-title" = "Edytowanie powiadomień jest już dostępne";
 "notifications-center-feed-news-notification-button-text" = "Włącz powiadomienia push";
-"notifications-center-feed-news-notification-dismiss-button-text" = "Nie teraz";
 "notifications-center-filters-accessibility-label" = "Filtr powiadomień";
 "notifications-center-filters-read-status-item-title-all" = "Wszystkie";
 "notifications-center-filters-read-status-section-title" = "Stan przeczytania";
@@ -769,7 +768,6 @@
 "saved-title" = "Zapisane";
 "search-button-accessibility-label" = "Szukaj w Wikipedii";
 "search-clear-title" = "Wyczyść";
-"search-did-you-mean" = "Czy chodziło Ci o $1?";
 "search-field-placeholder-text" = "Szukaj w Wikipedii";
 "search-reading-list-placeholder-text" = "Przeszukaj listy do przeczytania";
 "search-recent-clear-confirmation-heading" = "Usunąć wszystkie ostatnie wyszukiwania?";

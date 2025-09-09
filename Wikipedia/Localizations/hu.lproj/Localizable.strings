@@ -432,7 +432,6 @@
 "image-recs-no-title" = "Nem";
 "image-recs-not-sure-title" = "Nem tudom biztosan";
 "image-recs-yes-title" = "Igen";
-"import-shared-reading-list-survey-prompt-button-cancel" = "Ne most";
 "import-shared-reading-list-survey-prompt-button-take-survey" = "Kérdőív kitöltése";
 "in-the-news-sub-title-from-language-wikipedia" = "A(z) $1 Wikipédiáról";
 "in-the-news-sub-title-from-wikipedia" = "A Wikipédiáról";
@@ -503,6 +502,7 @@
 "no-internet-connection" = "Nincs internetkapcsolat";
 "no-internet-connection-article-reload" = "Ennek a cikknek lehet egy újabb változata is, de az internetkapcsolat nélkül nem tölthető be.";
 "no-internet-connection-article-reload-button" = "Visszatérés az utolsó mentett változathoz";
+"not-now-title" = "Ne most";
 "notifications-center-change-password" = "Jelszó módosítása";
 "notifications-center-checking-for-notifications" = "Értesítések keresése...";
 "notifications-center-detail-title" = "Értesítés részletei";
@@ -510,7 +510,6 @@
 "notifications-center-empty-no-messages" = "Nincsenek üzeneteid";
 "notifications-center-empty-not-subscribed" = "Nincsenek beállítva a Wikipédia értesítések";
 "notifications-center-feed-news-notification-button-text" = "Értesítések bekapcsolása";
-"notifications-center-feed-news-notification-dismiss-button-text" = "Ne most";
 "notifications-center-feed-news-notification-text" = "Az összes Wikimédia-projekt szerkesztési értesítései mostantól elérhetők az alkalmazáson keresztül. Iratkozz fel a push értesítésekre, hogy útközben is naprakész legyen a Wikipédián lévő üzeneteiddel.";
 "notifications-center-filters-accessibility-label" = "Értesítés szűrő";
 "notifications-center-filters-read-status-item-title-all" = "Mind";
@@ -723,7 +722,6 @@
 "saved-title" = "Elmentve";
 "search-button-accessibility-label" = "Keresés a Wikipédiában";
 "search-clear-title" = "Törlés";
-"search-did-you-mean" = "Úgy érted: $1?";
 "search-field-placeholder-text" = "Keresés a Wikipédiában";
 "search-reading-list-placeholder-text" = "Keresés az olvasólistában";
 "search-recent-clear-confirmation-heading" = "Törlöd az összes friss keresést?";

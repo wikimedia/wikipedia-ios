@@ -445,7 +445,6 @@
 "image-recs-not-sure-title" = "Nisam siguran";
 "image-recs-yes-title" = "Da";
 "import-shared-reading-list-default-title" = "Moj spisak za čitanje";
-"import-shared-reading-list-survey-prompt-button-cancel" = "Ne sada";
 "import-shared-reading-list-survey-prompt-button-take-survey" = "Popuni anketu";
 "in-the-news-sub-title-from-language-wikipedia" = "s Wikipedije ($1)";
 "in-the-news-sub-title-from-wikipedia" = "s Wikipedije";
@@ -520,6 +519,7 @@
 "no-internet-connection" = "Nema internetske veze";
 "no-internet-connection-article-reload" = "Moguće da je novija verzija ovog članka dostupna, ali se ne može učitati bez veze s internetom";
 "no-internet-connection-article-reload-button" = "Povratak na posljednju sačuvanu verziju";
+"not-now-title" = "Ne sada";
 "notifications-center-agent-description-from-format" = "Od $1";
 "notifications-center-alert" = "Upozorenje";
 "notifications-center-applied-filters-accessibility-label" = "Filter obavještenja - ima primijenjene filtere";
@@ -538,7 +538,6 @@
 "notifications-center-empty-state-num-filters" = "{{PLURAL:$1|$1 filter|$1 filtera}}";
 "notifications-center-feed-card-title" = "Uređivanje obavještenja je sada dostupno";
 "notifications-center-feed-news-notification-button-text" = "Uključi push obavještenja";
-"notifications-center-feed-news-notification-dismiss-button-text" = "Ne sada";
 "notifications-center-feed-news-notification-text" = "Uređivanje obavještenja svih Wikimedijinih projekata sada je dostupno putem aplikacije. Uključite push obavještenja da budete u toku sa svojim porukama na Wikipediji dok ste u pokretu.";
 "notifications-center-filters-accessibility-label" = "Filter obavještenja";
 "notifications-center-filters-read-status-item-title-all" = "Sve";
@@ -819,7 +818,6 @@
 "saved-unsave-article-and-remove-from-reading-lists-title" = "Ukloni {{PLURAL:$1|članak|članke}}?";
 "search-button-accessibility-label" = "Pretraži Wikipediju";
 "search-clear-title" = "Očisti";
-"search-did-you-mean" = "Jeste li mislili $1?";
 "search-field-placeholder-text" = "Pretraži Wikipediju";
 "search-reading-list-placeholder-text" = "Pretraži spisak za čitanje";
 "search-recent-clear-confirmation-heading" = "Izbrisati sve nedavne pretrage?";

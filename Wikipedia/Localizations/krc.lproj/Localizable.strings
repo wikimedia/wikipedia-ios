@@ -132,7 +132,6 @@
 "close-other-tabs" = "Башха салгъычланы джаб";
 "close-tab-confirmation" = "Салгъыч джабылсынмы?";
 "close-tabs" = "Салгъычланы джаб";
-"closed-all-tabs-confirmation" = "Бютеу $1 салгъыч джабылды.";
 "compass-direction" = "сагъат $1 табада";
 "continue-button-title" = "Бардыр";
 "continue-reading-empty-description" = "Аслам статья окъур ючюн Википедияны тинтигиз";
@@ -567,7 +566,6 @@
 "image-recs-not-sure-title" = "Ишексиз тюлме";
 "image-recs-yes-title" = "Хоу";
 "import-shared-reading-list-default-title" = "Окъуу Тизмем";
-"import-shared-reading-list-survey-prompt-button-cancel" = "Бусагъатда тюл";
 "import-shared-reading-list-survey-prompt-button-take-survey" = "Соруулаугъа къошул";
 "import-shared-reading-list-survey-prompt-footer" = "$1privacy Ташалыкъны юсюнден билдириу бла танышыгъыз$2. Соруулауну ючюнчю джаны къурагъанды. Аланы $3 ташалыкъ политикаларына къара$4.";
 "import-shared-reading-list-survey-prompt-subtitle" = "\"Окъургъа тизмелени джайыу\"  — тест функцияды, аны маджаллашдырырча неда кетерирча, бизге сизни багъаларыгъыз керекди.";
@@ -652,6 +650,7 @@
 "no-internet-connection" = "Интернет байлам джокъду";
 "no-internet-connection-article-reload" = "Бу статьяны андан да джангы версиясы болургъа болур, алай а интернет байлам болмаса джюкленалмаз.";
 "no-internet-connection-article-reload-button" = "Эм арт сакъланнган версиягъа къайт";
+"not-now-title" = "Бусагъатда тюл";
 "notifications-center-agent-description-from-format" = "Джиберген $1";
 "notifications-center-alert" = "Эсгертриу";
 "notifications-center-applied-filters-accessibility-label" = "Хапарландырыу Фильтр - хайырланнган фильтрле барды";
@@ -671,7 +670,6 @@
 "notifications-center-empty-state-num-filters" = "{{PLURAL:$1|$1 фильтр}}";
 "notifications-center-feed-card-title" = "Хапарландыруланы тюзетиу энди ачыкъды";
 "notifications-center-feed-news-notification-button-text" = "Push-хапарландырыуланы джандыр";
-"notifications-center-feed-news-notification-dismiss-button-text" = "Бусагъатда тюл";
 "notifications-center-feed-news-notification-text" = "Бютеу Викимедиа проектле ючюн тюзетиу хапарландырыула энди къошакъны болушлугъу бла хайырланырчады. Гузаба заманыгъызда Википедиядагъы билдириулеригизден хапарлы болур ючюн пуш-хапарландырыуланы сайлагъыз.";
 "notifications-center-filters-accessibility-label" = "Хапарландырыу Фильтр";
 "notifications-center-filters-read-status-item-title-all" = "Барысы да";
@@ -988,7 +986,6 @@
 "saved-unsave-article-and-remove-from-reading-lists-title" = "{{PLURAL:$1|Статьяны|Статьяланы}} сакъландырыулары кери алынсынмы?";
 "search-button-accessibility-label" = "Википедияда излеу";
 "search-clear-title" = "Тазала";
-"search-did-you-mean" = "$1 излене болурму?";
 "search-field-placeholder-text" = "Википедияда излеу";
 "search-reading-list-placeholder-text" = "Окъуу тизмеде изле";
 "search-recent-clear-confirmation-heading" = "Ахыр излеулени бютеую кетерилсинми?";

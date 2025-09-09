@@ -137,7 +137,6 @@
 "close-other-tabs" = "Sineb tab sané lianan";
 "close-tab-confirmation" = "Sineb tab?";
 "close-tabs" = "Sineb tab";
-"closed-all-tabs-confirmation" = "Sineb $1 tab makasami.";
 "compass-direction" = "ring pukul $1 tepet";
 "confirm-donation-history-deletion-subtitle" = "Puniki wantah prasida kalaksanayang antuk punia sané kamargiang saking piranti puniki.";
 "confirm-donation-history-deletion-title" = "Konfirmasi pangapusan";
@@ -311,7 +310,6 @@
 "image-recs-no-title" = "Nénten";
 "image-recs-not-sure-title" = "Nénten pasti";
 "image-recs-yes-title" = "Inggih";
-"import-shared-reading-list-survey-prompt-button-cancel" = "Nyanan";
 "import-shared-reading-list-survey-prompt-button-take-survey" = "Sarengin survéi";
 "in-the-news-sub-title-from-language-wikipedia" = "Saking Wikipédia $1";
 "in-the-news-sub-title-from-wikipedia" = "Saking Wikipédia";
@@ -370,13 +368,13 @@
 "new-tab" = "Tab anyar";
 "next-action-title" = "Selanturné";
 "no-internet-connection" = "Nénten kasambung internét";
+"not-now-title" = "Nyanan";
 "notifications-center-agent-description-from-format" = "Saking $1";
 "notifications-center-alert" = "Paingetan";
 "notifications-center-change-password" = "Gentos kruna sandi";
 "notifications-center-destination-app" = "Ring aplikasi";
 "notifications-center-destination-web" = "Ring wéb";
 "notifications-center-empty-state-num-filters" = "{{PLURAL:$1|$1 saring}}";
-"notifications-center-feed-news-notification-dismiss-button-text" = "Nyanan";
 "notifications-center-filters-read-status-item-title-all" = "Sinamian";
 "notifications-center-filters-read-status-item-title-read" = "Wacén";
 "notifications-center-filters-read-status-item-title-unread" = "Durung kawacén";

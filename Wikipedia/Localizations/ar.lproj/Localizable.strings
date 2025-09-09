@@ -177,6 +177,7 @@
 "article-share" = "مشاركة";
 "article-tabs-button-accessibility-hint" = "ينتقل إلى نظرة عامة على علامات التبويب";
 "article-tabs-button-accessibility-label" = "علامات تبويب المقالة";
+"article-tabs-did-you-know-title" = "هل تعلم";
 "article-tabs-feature-announcement-item-1-subtitle" = "افتح عدة مقالات وقم بالتبديل بينها بسهولة.";
 "article-tabs-feature-announcement-item-1-title" = "التصفح باستخدام علامات التبويب";
 "article-tabs-feature-announcement-item-2-subtitle" = "تتذكر علامات التبويب موضع التمرير الخاص بك تلقائيًا.";
@@ -219,11 +220,13 @@
 "close-all-tabs" = "إغلاق جميع علامات التبويب";
 "close-all-tabs-confirmation" = "هل تريد إغلاق جميع علامات التبويب البالغ عددها $1؟ لا يمكن التراجع عن هذا الإجراء.";
 "close-all-tabs-confirmation-number" = "هل تريد إغلاق جميع علامات التبويب البالغ عددها $1؟";
+"close-all-tabs-confirmation-subtitle-with-value" = "هل تريد إغلاق {{PLURAL:$1|$1 لسان|$1 ألسنة}}؟ لا يمكن التراجع عن هذا الإجراء.";
+"close-all-tabs-confirmation-title-with-value" = "إغلاق {{PLURAL:$1|$1 لسان|$1 ألسنة}}؟";
 "close-button-accessibility-label" = "أغلق";
 "close-other-tabs" = "إغلاق علامات التبويب الأخرى";
 "close-tab-confirmation" = "هل تريد إغلاق علامة التبويب؟";
 "close-tabs" = "إغلاق علامات التبويب";
-"closed-all-tabs-confirmation" = "تم إغلاق جميع علامات التبويب البالغ عددها $1.";
+"closed-all-tabs-confirmation-with-value" = "تم إغلاق {{PLURAL:$1|$1 لسان|$1 ألسنة}}.";
 "compass-direction" = "عند الساعة $1";
 "confirm-donation-history-deletion-subtitle" = "سيتم تطبيق هذا فقط على التبرعات المقدمة من هذا الجهاز.";
 "confirm-donation-history-deletion-title" = "تأكيد الحذف";
@@ -282,6 +285,7 @@
 "developer-settings-enable-year-in-review" = "تمكين مراجعة العام";
 "developer-settings-send-analytics-to-wmflabs" = "إرسال التحليلات إلى wmflabs.";
 "developer-settings-suppress-image-rec-post" = "لا تنشر توصيات الصور.";
+"did-you-know" = "هل تعلم";
 "diff-article-revision-history" = "تاريخ مراجعة المقال";
 "diff-change-added" = "إضافة $1 ، نهاية الإضافة.";
 "diff-change-paragraph-lines-moved-down" = "تم نقل الفقرة إلى الأسفل {{PLURAL:$1|0=0 سطر|$1 سطر}}. انتقل إلى الموقع الجديد.";
@@ -687,7 +691,6 @@
 "image-recs-time-warning-message" = "يرجى مراجعة المقال لفهم موضوعه ومعاينة الصورة";
 "image-recs-yes-title" = "نعم";
 "import-shared-reading-list-default-title" = "قائمة القراءة الخاصة بي";
-"import-shared-reading-list-survey-prompt-button-cancel" = "ليس الآن";
 "import-shared-reading-list-survey-prompt-button-take-survey" = "المشاركة في الاستطلاع";
 "import-shared-reading-list-survey-prompt-footer" = "اطلع على $1بيان الخصوصية$2 الخاص بنا. الاستطلاع مدعوم من قِبل جهة خارجية. اطلع على $3سياسة الخصوصية$4 الخاصة بهم.";
 "import-shared-reading-list-survey-prompt-subtitle" = "\"مشاركة قوائم القراءة\" هي ميزة اختبار ونحن بحاجة إلى ملاحظاتك لتحسينها أو إزالتها.";
@@ -769,8 +772,6 @@
 "microsite-yir-english-edits-bytes-slide-title" = "تمت إضافة 4 مليار بايت";
 "microsite-yir-english-edits-slide-subtitle" = "أجرى المتطوعون 98,222,407 تعديلاً على أكثر من 300 إصدار لغوي مختلف من ويكيبيديا. وتم إجراء أكثر من 37 مليون تعديل على ويكيبيديا الإنجليزية. وفي كل ساعة من كل يوم، يعمل المتطوعون على تحسين ويكيبيديا.";
 "microsite-yir-english-edits-slide-title" = "أجرى المحررون 98 مليون تغيير هذا العام";
-"microsite-yir-english-non-donor-slide-subtitle" = "بفضل مساعدتك، ستواصل مؤسسة ويكيميديا - المؤسسة غير الربحية التي تقف وراء ويكيبيديا - ضمان خلو المعلومات التي تعتمد عليها من الإعلانات وكونها جديرة بالثقة، مع الحفاظ على تشغيل ويكيبيديا بسلاسة باستخدام أدوات وتقنيات متطورة. يرجى التفكير في التبرع اليوم. [تعرف على المزيد حول عملنا]($1).";
-"microsite-yir-english-non-donor-slide-title" = "0 إعلان تم تقديمه على ويكيبيديا";
 "microsite-yir-english-reading-slide-subtitle" = "في عام 2024، قضى الناس ما يقدر بنحو 2.9 مليار ساعة - أي أكثر من 331000 سنة! - في قراءة ويكيبيديا الإنجليزية. ويكيبيديا موجودة عندما تريد التعرف على عالمنا المتغير، أو الفوز في رهان بين الأصدقاء، أو الإجابة على سؤال طفل فضولي.";
 "microsite-yir-english-reading-slide-title" = "لقد قضينا 2.9 مليار ساعة في القراءة";
 "microsite-yir-english-saved-reading-slide-subtitle" = "كان لدى مستخدمي تطبيق iOS النشطين أكثر من 62.2 مليون قائمة قراءة. تتيح لك إضافة المقالات إلى قوائم القراءة الوصول إلى المقالات حتى أثناء عدم الاتصال بالإنترنت. يمكنك أيضًا تسجيل الدخول لمزامنة قوائم القراءة عبر الأجهزة.";
@@ -786,6 +787,9 @@
 "nearby-distance-label-km" = "$1 كيلومتر";
 "nearby-distance-label-meters" = " $1 م";
 "nearby-distance-label-miles" = "$1 ميل";
+"new-article-tab-from-wikipedia-default" = "من ويكيبيديا";
+"new-article-tab-settings-did-you-know" = "هل تعلم؟";
+"new-article-tab-settings-recommendations" = "التوصيات";
 "new-password-instructions" = "أنت الآن مسجل الدخول بكلمة سر مؤقتة. لإكمال تسجيل الدخول أعد تعيين كلمة سر جديدة هنا.";
 "new-password-title" = "قم بتعيين كلمة المرور الخاصة بك";
 "new-tab" = "علامة تبويب جديدة";
@@ -794,6 +798,7 @@
 "no-internet-connection" = "لا يوجد اتصال بالإنترنت";
 "no-internet-connection-article-reload" = "قد يتوفر إصدار أحدث من هذه المقالة، ولكن لا يمكن تحميله دون الاتصال بالإنترنت";
 "no-internet-connection-article-reload-button" = "العودة إلى النسخة الأخيرة المحفوظة";
+"not-now-title" = "ليس الآن";
 "notifications-center-agent-description-from-format" = "من $1";
 "notifications-center-alert" = "انذار";
 "notifications-center-applied-filters-accessibility-label" = "تصفية الاشعارات - تم اضافة التصفيات";
@@ -813,7 +818,6 @@
 "notifications-center-empty-state-num-filters" = "{{PLURAL:$1| مرشح $1 | مرشحات $1 }}";
 "notifications-center-feed-card-title" = "تحرير الإخطارات متاح الآن";
 "notifications-center-feed-news-notification-button-text" = "أظهر الإشعارات";
-"notifications-center-feed-news-notification-dismiss-button-text" = "ليس الآن";
 "notifications-center-feed-news-notification-text" = "إخطارات التحرير لجميع مشاريع ويكيميديا متاحة الآن من خلال التطبيق. اشترك في إخطارات الدفع  لمواكبة رسائلك على ويكيبيديا أثناء التنقل.";
 "notifications-center-filters-accessibility-label" = "مُرشّح الإشعارات";
 "notifications-center-filters-read-status-item-title-all" = "الكل";
@@ -1148,7 +1152,6 @@
 "saved-unsave-article-and-remove-from-reading-lists-title" = "إلغاء حفظ {{PLURAL:$1|مقالة|مقالات}}؟";
 "search-button-accessibility-label" = "البحث في ويكيبيديا";
 "search-clear-title" = "مسح";
-"search-did-you-mean" = "هل عنيت $1؟";
 "search-field-placeholder-text" = "البحث في ويكيبيديا";
 "search-reading-list-placeholder-text" = "البحث في قائمة القراءة";
 "search-recent-clear-confirmation-heading" = "إزالة كل عمليات البحث الأخيرة؟";
@@ -1176,6 +1179,7 @@
 "settings-language-bar" = "إظهار اللغات في البحث";
 "settings-languages-feed-customization" = "أنت يمكنك التحكم في أي اللغات تكون معروضة على تلقيم استكشف الخاص بك عن طريق تعديل إعدادات تلقيم استكشف الخاص بك";
 "settings-my-languages" = "لغاتي";
+"settings-new-article-tab-header-text" = "موضوع علامة التبويب الجديدة";
 "settings-notifications" = "الإشعارات";
 "settings-notifications-echo-failure-message" = "حدث خطأ أثناء التحقق من اشتراكات الإشعارات المتعلقة بحسابك.";
 "settings-notifications-echo-failure-title" = "تعذر التحقق من اشتراكات Echo Notification";
@@ -1240,6 +1244,10 @@
 "tabs-overview-tooltip-body" = "التبديل بين المقالات المفتوحة في النظرة العامة على علامات التبويب.";
 "tabs-overview-tooltip-title" = "نظرة عامة على علامات التبويب";
 "tabs-survey-title" = "ساعد في تحسين ميزة علامات التبويب. هل أنت راضٍ عن هذه الميزة؟";
+"tabs-thumbnail-description" = "استكشف ويكيبيديا، الموسوعة الحرة التي يمكن لأي شخص تعديلها";
+"tabs-thumbnail-subtitle" = "ابدأ بحثك هنا";
+"tabs-title" = "علامات التبويب";
+"tabs-title-preferences" = "تفضيلات علامات التبويب";
 "tachelhit-variants-alert-body" = "يدعم تطبيق ويكيبيديا الآن المتغيرات التالية من تشلحيت كلغات أساسية أو ثانوية داخل التطبيق، مما يجعل من الأسهل القراءة والبحث والتحرير بالمتغيرات المفضلة لديك:\n\nⵜⴰⵛⵍⵃⵉⵜ تشلحيت، تيفيناغ (shi-tfng)\nTaclḥit تشلحيت، اللاتينية (shi-latn)";
 "tachelhit-variants-alert-title" = "تحديثات لدعم متغير تشلحيت";
 "tajik-variants-alert-body" = "يدعم تطبيق ويكيبيديا الآن المتغيرات الطاجيكية التالية كلغات أساسية أو ثانوية داخل التطبيق، مما يجعل من الأسهل القراءة والبحث والتحرير بالمتغيرات المفضلة لديك:\n\nтоҷикӣ кирилликӣ الطاجيكية، السيريلية (tg-cyrl)\ntojikī lotinī الطاجيكية، اللاتينية (tg-latn)";
@@ -1506,7 +1514,13 @@
 "year-in-review-feature-announcement-title-personalized" = "استكشف مراجعة العام على ويكيبيديا";
 "year-in-review-feature-explore-body" = "ويكيبيديا هي أكبر مصدر للمعرفة تم تجميعه على الإطلاق في تاريخ العالم، وهي متاحة مجانًا للجميع في كل مكان. إليكم مراجعة لعام 2024 من خلال عدسة ويكيبيديا.";
 "year-in-review-feature-explore-body-personalized" = "اطلع على رؤى حول المقالات التي تقرأها على تطبيق ويكيبيديا والتعديلات التي أجريتها في عام 2024. يتم حماية سجل القراءة الخاص بك. يتم حساب رؤى القراءة باستخدام البيانات المخزنة محليًا على جهازك.";
+"year-in-review-feature-explore-body-v3" = "اطلع على رؤى حول المقالات التي تقرأها على تطبيق ويكيبيديا والتعديلات التي أجريتها.";
+"year-in-review-feature-explore-footer-v3" = "سجل قراءتك محمي. تُحسب إحصاءات القراءة باستخدام البيانات المخزنة محليًا على جهازك.";
 "year-in-review-finish" = "إنهاء";
+"year-in-review-intro-exit-confirmation-subtitle" = "لا يزال بإمكانك رؤية مراجعة جماعية للعام دون تسجيل الدخول.";
+"year-in-review-intro-exit-confirmation-title" = "هل أنت متأكد أنك تريد الخروج؟";
+"year-in-review-intro-exit-toast-title" = "يمكنك الوصول إلى مراجعة العام الخاص بك لاحقًا في الملف الشخصي.";
+"year-in-review-intro-login-title" = "تسجيل الدخول للتخصيص";
 "year-in-review-login-subtitle" = "قم بتسجيل الدخول أو إنشاء حساب لتكون مؤهلاً للحصول على رؤى أكثر تخصيصا";
 "year-in-review-login-title" = "تحسين مراجعة العام الخاص بك";
 "year-in-review-personalized-day-subtitle-format" = "لقد قرأت معظم المقالات على $1 . من الواضح أن $1 هو يومك المثالي لاستكشاف محتوى جديد. شكرًا لك على الاستفادة القصوى من وقت القراءة!";
@@ -1521,6 +1535,11 @@
 "year-in-review-personalized-editing-title-format" = "لقد قمت بتحرير ويكيبيديا {{PLURAL:$1|$1 مرة}}";
 "year-in-review-personalized-editing-title-format-500plus" = "لقد قمت بتعديل ويكيبيديا 500 مرة+";
 "year-in-review-personalized-explore" = "رسم متحرك ليد تحمل مجسم الكرة الأرضية لويكيبيديا، والذي يتحول تدريجيًا إلى قطعة صغيرة من اللغز، ترمز إلى المساهمات الفردية في المنصة.";
+"year-in-review-personalized-location-subtitle-format-1" = "قرأت عن $2 $1 $3 .";
+"year-in-review-personalized-location-subtitle-format-2" = "قرأت عن $3 $1 $4 و $3 $2 $4 .";
+"year-in-review-personalized-location-subtitle-format-3" = "لقد قرأت عن $4 $1 $5 $4 $2 $5 و $4 $3 $5 .";
+"year-in-review-personalized-location-title-format" = "المقالات التي تقرأها هي الأقرب إلى $1 .";
+"year-in-review-personalized-most-read-articles-title" = "أفضل مقالاتك";
 "year-in-review-personalized-reading-subtitle-format" = "لقد قرأت {{PLURAL:$1|$1 مقال|$1 مقالة}}. تحتوي ويكيبيديا على $2 مليون مقالة متاحة بأكثر من $3 لغات نشطة. لقد انضممت إلى ملايين الأشخاص في توسيع المعرفة واستكشاف مواضيع متنوعة.";
 "year-in-review-personalized-reading-title-format" = "لقد قرأت {{PLURAL:$1|$1 مقال|$1 مقالة}}";
 "year-in-review-personalized-saved-articles" = "رسم توضيحي لقطعة من اللغز ترتدي خوذة صلبة مع شاشات كمبيوتر في الخلف.";

@@ -736,7 +736,7 @@ extension WMFAppViewController {
     }
     
     @objc func appEnvironmentTraitCollectionIsDifferentThanTraitCollection(_ traitCollection: UITraitCollection) -> Bool {
-        return WMFAppEnvironment.current.traitCollection != traitCollection
+        return WMFAppEnvironment.current.traitCollection.hasDifferentColorAppearance(comparedTo: traitCollection)
     }
 
     @objc func generateHistoryTab() -> WMFHistoryViewController {

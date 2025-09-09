@@ -674,7 +674,6 @@
 "image-recs-time-warning-message" = "请查看条目以了解其主题，并检查图片";
 "image-recs-yes-title" = "是";
 "import-shared-reading-list-default-title" = "我的阅读列表";
-"import-shared-reading-list-survey-prompt-button-cancel" = "现在不要";
 "import-shared-reading-list-survey-prompt-button-take-survey" = "参加调查";
 "import-shared-reading-list-survey-prompt-footer" = "请查看我们的$1隐私声明$2。调查由第三方驱动。请查看他们的$3隐私政策$4。";
 "import-shared-reading-list-survey-prompt-subtitle" = "“分享阅读列表”是测试功能，我们需要您的反馈来改进或移除此功能。";
@@ -749,8 +748,6 @@
 "microsite-yir-english-edits-bytes-slide-title" = "增加了 40 亿字节";
 "microsite-yir-english-edits-slide-subtitle" = "志愿者们在超过300种不同语言版本的维基百科上共完成了98222407次修改。其中，英文维基百科的修改次数就超过了3700万次。每一天的每一个小时，都有志愿者在努力完善维基百科。";
 "microsite-yir-english-edits-slide-title" = "编辑者们今年进行了9800万次修改";
-"microsite-yir-english-non-donor-slide-subtitle" = "有了您的帮助，支撑维基百科的非营利组织，维基媒体基金会将继续保障您需要的信息不含广告且足够可靠，同时采用最前沿工具和技术保证维基百科得以稳定运行。现在就考虑捐款吧。[详细了解我们的工作]($1)。";
-"microsite-yir-english-non-donor-slide-title" = "维基百科上没有投放任何广告";
 "microsite-yir-english-reading-slide-subtitle" = "2024年，人们花费了大约29亿小时——相当于超过33.1万年！——阅读英文维基百科。无论是想要了解这个不断变化的世界，赢得朋友之间的打赌，还是回答一个好奇孩子的问题，维基百科都能随时为你提供帮助。";
 "microsite-yir-english-reading-slide-title" = "我们花了29亿小时阅读";
 "microsite-yir-english-saved-reading-slide-subtitle" = "活跃的iOS应用用户拥有超过6220万份阅读清单。将文章加入阅读清单，就能在离线状态下随时查看。此外，登录后还能在不同设备上同步阅读清单。";
@@ -773,6 +770,7 @@
 "no-internet-connection" = "无互联网连接";
 "no-internet-connection-article-reload" = "此条目有新版本，但由于无互联网连接而无法加载";
 "no-internet-connection-article-reload-button" = "返回最后保存的版本";
+"not-now-title" = "现在不要";
 "notifications-center-agent-description-from-format" = "来自$1";
 "notifications-center-alert" = "提醒";
 "notifications-center-applied-filters-accessibility-label" = "通知过滤器 - 已应用过滤器";
@@ -792,7 +790,6 @@
 "notifications-center-empty-state-num-filters" = "{{PLURAL:$1|$1 种筛选}}";
 "notifications-center-feed-card-title" = "编辑通知现已可用";
 "notifications-center-feed-news-notification-button-text" = "打开推送通知";
-"notifications-center-feed-news-notification-dismiss-button-text" = "不是现在";
 "notifications-center-feed-news-notification-text" = "现在在本应用内可以收到所有维基媒体项目的编辑通知。启用推送通知以便在繁忙时也能及时收到您在维基百科上的消息。";
 "notifications-center-filters-accessibility-label" = "通知过滤器";
 "notifications-center-filters-read-status-item-title-all" = "所有";
@@ -1120,7 +1117,6 @@
 "saved-unsave-article-and-remove-from-reading-lists-title" = "取消保存{{PLURAL:$1|条目}}？";
 "search-button-accessibility-label" = "搜索维基百科";
 "search-clear-title" = "清空";
-"search-did-you-mean" = "您是想搜索$1吗？";
 "search-field-placeholder-text" = "搜索维基百科";
 "search-reading-list-placeholder-text" = "搜索阅读列表";
 "search-recent-clear-confirmation-heading" = "是否删除全部近期搜索记录？";

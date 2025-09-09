@@ -178,6 +178,7 @@
 "article-share" = "Paylaş";
 "article-tabs-button-accessibility-hint" = "Sekme genel bakışına gider";
 "article-tabs-button-accessibility-label" = "Madde sekmeleri";
+"article-tabs-did-you-know-title" = "Biliyor muydunuz";
 "article-tabs-feature-announcement-item-1-subtitle" = "Birden fazla maddeyi açın ve aralarında kolayca geçiş yapın.";
 "article-tabs-feature-announcement-item-1-title" = "Sekmelerle göz atın";
 "article-tabs-feature-announcement-item-2-subtitle" = "Sekmeler kaydırma konumunuzu otomatik olarak hatırlar.";
@@ -220,11 +221,13 @@
 "close-all-tabs" = "Tüm sekmeleri kapat";
 "close-all-tabs-confirmation" = "Tüm $1 sekmeyi kapatmak ister misiniz? Bu işlem geri alınamaz.";
 "close-all-tabs-confirmation-number" = "Tüm $1 sekme kapatılsın mı?";
+"close-all-tabs-confirmation-subtitle-with-value" = "$1 {{PLURAL:$1|sekmeyi}} kapatmak istiyor musunuz? Bu işlem geri alınamaz.";
+"close-all-tabs-confirmation-title-with-value" = "$1 {{PLURAL:$1|sekme}} kapatılsın mı?";
 "close-button-accessibility-label" = "Kapat";
 "close-other-tabs" = "Diğer sekmeleri kapat";
 "close-tab-confirmation" = "Sekme kapatılsın mı?";
 "close-tabs" = "Sekmeleri kapat";
-"closed-all-tabs-confirmation" = "Tüm $1 sekme kapatıldı.";
+"closed-all-tabs-confirmation-with-value" = "{{PLURAL:$1|$1 sekme}} kapatıldı.";
 "compass-direction" = "saat $1 yönünde";
 "confirm-donation-history-deletion-subtitle" = "Bu yalnızca bu aygıttan yapılan bağışlar için geçerli olacaktır.";
 "confirm-donation-history-deletion-title" = "Silmeyi onayla";
@@ -283,6 +286,7 @@
 "developer-settings-enable-year-in-review" = "Yıl İncelemesini Etkinleştir";
 "developer-settings-send-analytics-to-wmflabs" = "Analizleri wmflabs'a gönder.";
 "developer-settings-suppress-image-rec-post" = "Görsel önerileri düzenlemleri yayınlamayın.";
+"did-you-know" = "Biliyor muydunuz";
 "diff-article-revision-history" = "Madde sürüm geçmişi";
 "diff-change-added" = "Ekleme, $1, ekleme sonu.";
 "diff-change-paragraph-lines-moved-down" = "Paragraf {{PLURAL:$1|$1 satır}} aşağıya taşındı. Yeni yere gidin.";
@@ -688,7 +692,6 @@
 "image-recs-time-warning-message" = "Konusunu anlamak için lütfen maddeyi gözden geçirin ve görseli inceleyin";
 "image-recs-yes-title" = "Evet";
 "import-shared-reading-list-default-title" = "Okuma Listem";
-"import-shared-reading-list-survey-prompt-button-cancel" = "Şimdi değil";
 "import-shared-reading-list-survey-prompt-button-take-survey" = "Ankete katıl";
 "import-shared-reading-list-survey-prompt-footer" = "$1Gizlilik bildirimimizi$2 görüntüleyin. Anket üçüncü taraflarca desteklenir. $3Gizlilik ilkelerini$4 görüntüleyin.";
 "import-shared-reading-list-survey-prompt-subtitle" = "\"Okuma listelerini paylaş\" bir deneme özelliğidir ve iyileştirmek ya da kaldırmak için geri bildiriminize ihtiyacımız var.";
@@ -770,8 +773,6 @@
 "microsite-yir-english-edits-bytes-slide-title" = "4 milyar bayt eklendi";
 "microsite-yir-english-edits-slide-subtitle" = "Gönüllüler, Vikipedi'nin 300'den fazla farklı dil sürümünde 98.222.407 değişiklik yaptı. İngilizce Vikipedi'de 37 milyondan fazla değişiklik yapıldı. Gönüllüler, her günün her saati Vikipedi'yi iyileştirmek için çalışmaktadır.";
 "microsite-yir-english-edits-slide-title" = "Editörler bu yıl 98 milyon değişiklik yaptı";
-"microsite-yir-english-non-donor-slide-subtitle" = "Yardımınızla, Vikipedi'nin arkasındaki kâr amacı gütmeyen kuruluş olan Wikimedia Vakfı, güvendiğiniz bilgilerin reklamsız ve güvenilir olmasını sağlamaya devam ederken, Vikipedi'nin en yeni araçlar ve teknolojilerle sorunsuz çalışmasını sağlayacaktır. Lütfen bugün bağış yapmayı düşünün. [Çalışmalarımız hakkında daha fazla bilgi edinin]($1).";
-"microsite-yir-english-non-donor-slide-title" = "Vikipedi'de 0 reklam yayımlandı";
 "microsite-yir-english-reading-slide-subtitle" = "İnsanlar 2024 yılında tahmini 2,9 milyar saati, yani 331.000 yıldan uzun bir zamanı İngilizce Vikipedi'yi okuyarak geçirdiler. Değişen dünyamız hakkında bilgi edinmek, arkadaşlarınız arasında bir iddiayı kazanmak veya meraklı bir çocuğun sorusuna cevap vermek istediğinizde Vikipedi yanınızda.";
 "microsite-yir-english-reading-slide-title" = "Okumaya 2,9 milyar saat harcadık";
 "microsite-yir-english-saved-reading-slide-subtitle" = "Aktif iOS uygulaması kullanıcıları 62,2 milyondan fazla okuma listesine sahip. Maddeleri okuma listesine eklemek, o maddelere çevrimdışı olarak ulaşabilmeyi sağlar. Ayrıca oturum açarak okuma listelerinizi aygıtlarınız arasında eş zamanlayabilirsiniz.";
@@ -787,6 +788,9 @@
 "nearby-distance-label-km" = "$1 km";
 "nearby-distance-label-meters" = "$1 m";
 "nearby-distance-label-miles" = "$1 mil";
+"new-article-tab-from-wikipedia-default" = "Vikipedi'den";
+"new-article-tab-settings-did-you-know" = "Biliyor muydunuz?";
+"new-article-tab-settings-recommendations" = "Öneriler";
 "new-password-instructions" = "Geçici bir parolayla giriş yaptınız. Oturum açmayı tamamlamak için bu sayfada yeni bir parola belirleyin.";
 "new-password-title" = "Parolanızı belirleyin";
 "new-tab" = "Yeni sekme";
@@ -795,6 +799,7 @@
 "no-internet-connection" = "İnternet bağlantısı yok";
 "no-internet-connection-article-reload" = "Bu maddenin daha yeni bir sürümü mevcut olabilir ancak internet bağlantısı olmadan yüklenemez";
 "no-internet-connection-article-reload-button" = "En son kaydedilen sürüme dön";
+"not-now-title" = "Şimdi değil";
 "notifications-center-agent-description-from-format" = "Gönderen $1";
 "notifications-center-alert" = "Uyarı";
 "notifications-center-applied-filters-accessibility-label" = "Bildirim Filtresi - uygulanan filtreler var";
@@ -814,7 +819,6 @@
 "notifications-center-empty-state-num-filters" = "{{PLURAL:$1|$1 filtre|$1 filtre}}";
 "notifications-center-feed-card-title" = "Bildirimleri düzenleme artık mevcut";
 "notifications-center-feed-news-notification-button-text" = "BAnında iletme bildirimlerini aç";
-"notifications-center-feed-news-notification-dismiss-button-text" = "Şimdi değil";
 "notifications-center-feed-news-notification-text" = "Tüm Wikimedia projeleri için değişiklik bildirimleri artık uygulama aracılığıyla kullanılabilir. Hareket halindeyken Vikipedi'deki mesajlarınızdan haberdar olmak için push bildirimlerini seçin.";
 "notifications-center-filters-accessibility-label" = "Bildirim filtresi";
 "notifications-center-filters-read-status-item-title-all" = "Tümü";
@@ -1149,7 +1153,6 @@
 "saved-unsave-article-and-remove-from-reading-lists-title" = "{{PLURAL:$1|Maddeyi|Maddeleri}} iptal edilsin mi?";
 "search-button-accessibility-label" = "Vikipedi'de Ara";
 "search-clear-title" = "Temizle";
-"search-did-you-mean" = "Bunu mu demek istediniz: $1?";
 "search-field-placeholder-text" = "Vikipedi'de Ara";
 "search-reading-list-placeholder-text" = "Okuma listesinde ara";
 "search-recent-clear-confirmation-heading" = "Son aramaların tümü silinsin mi?";
@@ -1177,6 +1180,7 @@
 "settings-language-bar" = "Aramada dilleri göster";
 "settings-languages-feed-customization" = "Keşfet akış ayarlarınızı özelleştirerek Keşfet özet akışınızda hangi dillerin gösterileceğini yönetebilirsiniz.";
 "settings-my-languages" = "Dillerim";
+"settings-new-article-tab-header-text" = "Yeni Sekme Teması";
 "settings-notifications" = "Anlık bildirimler";
 "settings-notifications-echo-failure-message" = "Hesabınızla ilgili bildirim abonelikleri kontrol edilirken bir hata oluştu.";
 "settings-notifications-echo-failure-title" = "Echo Bildirimi abonelikleri kontrol edilemiyor";
@@ -1241,6 +1245,10 @@
 "tabs-overview-tooltip-body" = "Sekme genel görünümünde açık maddeler arasında geçiş yapın.";
 "tabs-overview-tooltip-title" = "Sekme genel görünümü";
 "tabs-survey-title" = "Sekmeler özelliğini iyileştirmeye yardımcı olun. Bu özellikten memnun musunuz?";
+"tabs-thumbnail-description" = "Herkesin düzenleyebileceği özgür ansiklopedi Vikipedi'yi keşfedin";
+"tabs-thumbnail-subtitle" = "Aramanıza buradan başlayın";
+"tabs-title" = "Sekmeler";
+"tabs-title-preferences" = "Sekme tercihleri";
 "tachelhit-variants-alert-body" = "Vikipedi uygulaması artık aşağıdaki Tachelhit biçimlerini birincil veya ikincil dil olarak uygulama içinde destekliyor, bu şekilde tercih ettiğiniz biçimle daha kolay okuyabilir, aratabilir ve değişiklik yapabilirsiniz:\n\nⵜⴰⵛⵍⵃⵉⵜ Tachelhit, Tifinagh (shi-tfng)\nTaclḥit Tachelhit, Latin (shi-latn)";
 "tachelhit-variants-alert-title" = "Tachelhit biçim desteği güncellemeleri";
 "tajik-variants-alert-body" = "Vikipedi uygulaması artık aşağıdaki Tacikçe biçimlerini birincil veya ikincil dil olarak uygulama içinde destekliyor, bu şekilde tercih ettiğiniz biçimle daha kolay okuyabilir, aratabilir ve değişiklik yapabilirsiniz:\n\nтоҷикӣ кирилликӣ Tacikçe, Kiril (tg-cyrl)\ntojikī lotinī Tacikçe, Latin (tg-latn)";
@@ -1507,9 +1515,18 @@
 "year-in-review-feature-announcement-title-personalized" = "Vikipedi'deki Yılın Değerlendirmenizi keşfedin";
 "year-in-review-feature-explore-body" = "Vikipedi, dünya tarihinde bir araya getirilmiş en büyük bilgi kaynağıdır ve her yerdeki herkes tarafından ücretsiz olarak kullanılabilir. İşte Vikipedi'nin gözünden 2024'ün bir incelemesi.";
 "year-in-review-feature-explore-body-personalized" = "Vikipedi uygulamasında hangi maddeleri okuduğunuza ve 2024'te yaptığınız düzenlemelere ilişkin içgörüler görün. Okuma geçmişiniz korunur. Okuma içgörüleri, cihazınızda yerel olarak depolanan veri kullanılarak hesaplanır.";
+"year-in-review-feature-explore-body-v3" = "Vikipedi uygulamasında okuduğunuz maddelere ve yaptığınız düzenlemelere ilişkin içgörüler görün.";
+"year-in-review-feature-explore-footer-v3" = "Okuma geçmişiniz korunmaktadır. Okuma içgörüleri, aygıtınızda yerel olarak saklanan veriler kullanılarak hesaplanır.";
 "year-in-review-finish" = "Bitir";
+"year-in-review-intro-exit-confirmation-subtitle" = "Giriş yapmadan da toplu bir Yılın İncelemesini görebilirsiniz.";
+"year-in-review-intro-exit-confirmation-title" = "Çıkmak istediğinize emin misiniz?";
+"year-in-review-intro-exit-toast-title" = "Yıl Sonu Değerlendirmenize daha sonra Profilinizden ulaşabilirsiniz.";
+"year-in-review-intro-login-title" = "Kişiselleştirme için giriş yapın";
 "year-in-review-login-subtitle" = "Daha fazla kişiselleştirilmiş içgörüye erişmek için oturum açın ya da bir hesap oluşturun";
 "year-in-review-login-title" = "Yılın Değerlendirmenizi Geliştirin";
+"year-in-review-personalized-date-day-footer-v3" = "Okumayı en sevilen gün";
+"year-in-review-personalized-date-month-footer-v3" = "En çok okuduğunuz ay";
+"year-in-review-personalized-date-time-footer-v3" = "Okumayı en sevilen zaman";
 "year-in-review-personalized-day-subtitle-format" = "En çok makaleyi $1 okuyorsunuz. $1, açıkça yeni içerik keşfetmek için en iyi gününüz. Okuma sürenizi en iyi şekilde değerlendirdiğiniz için teşekkürler!";
 "year-in-review-personalized-day-title-format" = "En çok $1 okudunuz.";
 "year-in-review-personalized-donate-subtitle" = "Özgür bilginin geleceğine yatırım yaptığınız için teşekkür ederiz. Bu yıl, Wikimedia Vakfı her okuyucuya ve gönüllüye daha iyi hizmet vermek için teknolojiyi geliştirdi, iş birliğini güçlendiren araçlar geliştirdi ve Vikipedi'yi daha fazla dilde destekledi. [Çalışmalarımız hakkında daha fazla bilgi edinin]($1).";
@@ -1522,6 +1539,11 @@
 "year-in-review-personalized-editing-title-format" = "Vikipedi'de {{PLURAL:$1|$1 kez}} değişiklik yaptınız";
 "year-in-review-personalized-editing-title-format-500plus" = "Vikipedi'yi 500'den fazla kez düzenlediniz";
 "year-in-review-personalized-explore" = "Platforma yapılan bireysel katkıları simgeleyen, giderek küçük bir yapboz parçasına dönüşen Vikipedi küresini tutan bir elin canlandırmalı çizimi.";
+"year-in-review-personalized-location-subtitle-format-1" = "$2$1$3 hakkında okudunuz.";
+"year-in-review-personalized-location-subtitle-format-2" = "$3$1$4 ve $3$2$4 hakkında okudunuz.";
+"year-in-review-personalized-location-subtitle-format-3" = "$4$1$5, $4$2$5 ve $4$3$5 hakkında okudunuz.";
+"year-in-review-personalized-location-title-format" = "Okuduğunuz maddelere en yakın yer $1.";
+"year-in-review-personalized-most-read-articles-title" = "En çok okunan maddeleriniz";
 "year-in-review-personalized-reading-subtitle-format" = "{{PLURAL:$1|$1 madde}} okudunuz. Vikipedi'de $3 ve daha fazla etkin dilde $2 milyon madde var. Bilgiyi yayma ve çeşitli konuları keşfetme konusunda milyonlara katıldınız.";
 "year-in-review-personalized-reading-title-format" = "{{PLURAL:$1|$1 madde}} okudunuz";
 "year-in-review-personalized-saved-articles" = "Arkasında bilgisayar ekranı olan, kask takan bir yapboz parçasının çizimi.";
@@ -1540,6 +1562,12 @@
 "year-in-review-survey-unsatisfied" = "Memnuniyetsiz";
 "year-in-review-survey-very-satisfied" = "Çok mutlu";
 "year-in-review-survey-very-unsatisfied" = "Çok mutsuz";
+"year-in-review-time-afternoon" = "Öğleden sonra";
+"year-in-review-time-evening" = "Akşam";
+"year-in-review-time-late-night" = "Gece geç saatlerde";
+"year-in-review-time-midday" = "Öğle vakti";
+"year-in-review-time-morning" = "Sabah";
+"year-in-review-time-night" = "Gece";
 "year-in-review-wikipedia-w-accessibility-label" = "Vikipedi v logosu";
 "year-in-review-wmf-logo-accessibility-label" = "Wikimedia Vakfı logosu";
 "yesterday-title" = "Dün";

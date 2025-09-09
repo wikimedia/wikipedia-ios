@@ -66,7 +66,7 @@
 "article-delete" = "ДӀайаккха";
 "article-deleted-accessibility-notification" = "{{PLURAL:$1|йаззам}} дӀабаьккхина";
 "article-languages-filter-placeholder" = "Мотт лаха";
-"article-languages-label" = "Харжа мотт";
+"article-languages-label" = "Мотт харжа";
 "article-languages-others" = "Кхин меттанаш";
 "article-languages-yours" = "Хьан меттанаш";
 "article-read-more-title" = "Мадарра";
@@ -215,7 +215,6 @@
 "places-search-saved-articles" = "Ӏалашйина агӀонаш";
 "reading-lists-default-list-title" = "Ӏалашйинарш";
 "relative-date-days-ago" = "{{PLURAL:$1|0=Тахана|1=Селхана|$1 де хьалха}}";
-"search-did-you-mean" = "Хила мега ахьа лоьхарг: $1";
 "settings-clear-cache-cancel" = "ДӀадаккхар";
 "settings-help-and-feedback" = "ЗӀе";
 "share-default-format" = "«$1» «$2» чуьра: $3";

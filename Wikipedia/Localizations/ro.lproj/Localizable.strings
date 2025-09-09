@@ -229,9 +229,8 @@
 "edit-summary-choice-fixed-typos" = "Corectat greșeli ortografice";
 "edit-summary-choice-linked-words" = "Adăugat legături";
 "edit-summary-placeholder-text" = "Cum ai îmbunătățit articolul?";
-// Fuzzy
-"edit-watch-list-learn-more-text" = "Aflați mai multe despre listele de urmărire";
-"edit-watch-this-page-text" = "Urmăriți această pagină";
+"edit-watch-list-learn-more-text" = "Aflați mai multe despre lista dvs. de pagini urmărite";
+"edit-watch-this-page-text" = "Urmărește această pagină";
 "editing-welcome-be-bold-subtitle" = "Fii îndrăzneț, dar nu nesăbuit în actualizarea articolelor. Nu agoniza dacă ai făcut greșeli: fiecare versiune anterioară a unei pagini este salvată, astfel încât greșelile pot fi ușor corectate de comunitatea noastră.";
 "editing-welcome-be-bold-title" = "Vocea ta este importantă";
 "editing-welcome-citations-subtitle" = "Tot conținutul trebuie să fie verificabil. Atunci când adăugați informații noi la un articol, editorii ar trebui să furnizeze o citare în rând către o sursă de încredere care să susțină direct afirmația.";
@@ -283,7 +282,7 @@
 "explore-feed-preferences-card-hidden-title" = "Card ascuns";
 "explore-feed-preferences-continue-reading-description" = "Legătură rapid înapoi la citirea unui articol deschis";
 "explore-feed-preferences-customize-explore-feed" = "Personalizează Explorare flux";
-"explore-feed-preferences-customize-explore-feed-action-title" = "Personalizați fluxul Explorează";
+"explore-feed-preferences-customize-explore-feed-action-title" = "Personalizează fluxul Explorează";
 "explore-feed-preferences-customize-explore-feed-footer-text" = "Ascunderea unui tip de card va opri acest tip de card să apară în fluxul Explore.";
 "explore-feed-preferences-explore-tab" = "Fila Explore";
 "explore-feed-preferences-featured-article-description" = "Articol de calitate zilnic pe Wikipedia";
@@ -416,7 +415,6 @@
 "icon-shortcut-random-title" = "Articol aleatoriu";
 "icon-shortcut-search-title" = "Căutare în Wikipedia";
 "image-gallery-unknown-owner" = "Autor necunoscut.";
-"import-shared-reading-list-survey-prompt-button-cancel" = "Nu acum";
 "in-the-news-sub-title-from-language-wikipedia" = "De la $1 Wikipedia";
 "in-the-news-sub-title-from-wikipedia" = "De la Wikipedia";
 "in-the-news-title" = "Știri";
@@ -491,6 +489,7 @@
 "no-internet-connection" = "Fără conexiune internet";
 "no-internet-connection-article-reload" = "O versiune mai recentă a acestui articol poate fi disponibilă, dar nu poate fi încărcată fără o conexiune la internet";
 "no-internet-connection-article-reload-button" = "Reveniți la ultima versiune salvată";
+"not-now-title" = "Nu acum";
 "notifications-center-agent-description-from-format" = "De la $1";
 "notifications-center-alert" = "Alerte";
 "notifications-center-applied-filters-accessibility-label" = "Filtru de notificări - are filtre aplicate";
@@ -509,7 +508,6 @@
 "notifications-center-empty-state-num-filters" = "{{PLURAL:$1|$1 filtru|$1 filtre}}";
 "notifications-center-feed-card-title" = "Editarea notificărilor acum disponibilă";
 "notifications-center-feed-news-notification-button-text" = "Activați notificările push";
-"notifications-center-feed-news-notification-dismiss-button-text" = "Nu acum";
 "notifications-center-feed-news-notification-text" = "Notificările de editare pentru toate proiectele Wikimedia sunt acum disponibile prin intermediul aplicației. Înscrieți-vă pentru notificări push pentru a fi la curent cu mesajele dvs. de pe Wikipedia în timp ce sunteți în deplasare.";
 "notifications-center-filters-accessibility-label" = "Filtru de notificări";
 "notifications-center-filters-read-status-item-title-all" = "Toate";
@@ -629,8 +627,7 @@
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 de la $2 Wikipedia";
 "on-this-day-title" = "Astăzi în istorie";
 "original-tab-button-popover-description" = "Atingeți „W” pentru a reveni la fila de la care ați început";
-// Fuzzy
-"page-history-bot-edits" = "modificări robot";
+"page-history-bot-edits" = "robot";
 "page-history-compare-accessibility-hint" = "Atingeți pentru a selecta două versiuni pentru a compara";
 "page-history-compare-title" = "Compară";
 "page-history-graph-accessibility-label" = "Grafic al modificărilor de-a lungul timpului";
@@ -816,7 +813,6 @@
 "saved-unsave-article-and-remove-from-reading-lists-title" = "Desalvează {{PLURAL:$1|articol|articole}}?";
 "search-button-accessibility-label" = "Caută pe Wikipedia";
 "search-clear-title" = "Șterge";
-"search-did-you-mean" = "V-ați referit la $1?";
 "search-field-placeholder-text" = "Căutare în Wikipedia";
 "search-reading-list-placeholder-text" = "Caută în lista de citire";
 "search-recent-clear-confirmation-heading" = "Ștergeți toate căutările recente?";

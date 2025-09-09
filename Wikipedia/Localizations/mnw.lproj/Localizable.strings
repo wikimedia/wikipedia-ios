@@ -352,7 +352,7 @@
 "forgot-password-button-title" = "ကလေင်တၟိ";
 "forgot-password-email-sent" = "အဳမေလ် နကဵု မလိက်ပၞုက် မကလေင်ကၠောန်လဝ်တၟိဂှ် ပလံင်ဏာရ";
 "forgot-password-instructions" = "ကျောဝ် ပ္ဍဲဝှာင် ဗွဲသၟဝ်ဏအ် သွက်ဂွံ ဒုင်တဲ မလိက်ပၞုက် မကလေင်ကၠောန်လဝ်တၟိ နကဵု အဳမေလ်";
-"forgot-password-title" = "ကလေင်စုတ် မလိက်ပၞုက်";
+"forgot-password-title" = "ကလေင်ကၠောန် မလိက်ပၞုက်";
 "forgot-password-username-or-email-title" = "ဟွံသေင်မ္ဂး";
 "history-clear-all" = "ဖ္အး";
 "history-clear-confirmation-heading" = "မၞး မိက်ဂွံ ပလီုထောအ် item မၞး သီုဖအိုတ် ကွေဟ်ဟ်ရဟာ？";
@@ -445,7 +445,9 @@
 "notifications-center-feed-news-notification-button-text" = "ပံက် နုတိဝှိကေရှေန်";
 "notifications-center-filters-read-status-item-title-read" = "ဗှ်တုဲ";
 "notifications-center-filters-read-status-item-title-unread" = "ဟွံဂွံဗှ်ဏီ";
+"notifications-center-mark-all-as-read" = "သမ္တီထောံပရောပရာမဗှ်တုဲသီုဖ္အိုတ်";
 "notifications-center-status-read" = "ဗှ်တုဲ";
+"notifications-center-type-item-description-notice" = "ဂတဵုလလောင်";
 "number-billions" = "$1B";
 "number-millions" = "$1M";
 "number-thousands" = "$1လ္ၚီ";
@@ -490,7 +492,7 @@
 "places-enable-location-description" = "Access to your location is available only when the app or one of its features is visible on your screen.";
 "places-enable-location-title" = "နကဵု အရီုအဗင် အရာမလုပ်စိုပ် ဒၞာဲဒတန်ဟေင် ဂၠာဲသ္ၚေဝ် လိက်ပရေင် ဗဒဲါ ဒၞာဲဒတန်ဒၞာဲ မၞး ဂွံမာန်ရ၊၊";
 "places-filter-articles-action-sheet-title" = "ဖဍိုဟ် လိက်ပရေင်";
-"places-filter-button-title" = "ဖဍိုဟ်";
+"places-filter-button-title" = "ခဍိုဟ်";
 "places-filter-no-saved-places" = "မၞး မဂိုင်သိပ်လဝ် ဒၞာဲ မွဲမွဲ ဟွံမွဲ";
 "places-filter-saved-articles" = "ဂိုင်သိပ် လိက်ပရေင်";
 "places-filter-top-articles" = "လိက် မၞိဟ်မဗှ်ဂၠိုင်";
@@ -625,7 +627,6 @@
 "saved-unsave-article-and-remove-from-reading-lists-title" = "ဂိုင်သိပ်ဟွံဂွံ {{PLURAL:$1|လိက်ပရေင်|လိက်ပရေင်ဂမၠိုင်}}?";
 "search-button-accessibility-label" = "ဂၠာဲ ပ္ဍဲ ဝဳကဳပဳဒဳယာ";
 "search-clear-title" = "ဖ္အး";
-"search-did-you-mean" = "မၞး မိက်ဂွံ ဟီု $1 ဟာ？";
 "search-field-placeholder-text" = "ဂၠာဲ ပ္ဍဲ ဝဳကဳပဳဒဳယာ";
 "search-reading-list-placeholder-text" = "ဂၠာဲ ပ္ဍဲ စရင် လိက်ဗွဟ်";
 "search-recent-clear-confirmation-heading" = "ပလီုထောအ် အရာမဂၠိုင်လဝ် ပြဟ်ဟ်ဏအ် သီုဖအိုတ်ဟာ？";

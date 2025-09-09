@@ -75,6 +75,7 @@
 "article-read-more-title" = "ٻیا پڑھو";
 "article-reference-view-title" = "حوالہ$1";
 "article-share" = "شیئر";
+"article-tabs-did-you-know-title" = "بھلا تساں ڄاݨدے ہو";
 "article-tabs-open" = "کھولو";
 "back-button-accessibility-label" = "پچھوں";
 "button-go-back" = "واپس ڄُلو";
@@ -89,6 +90,7 @@
 "cc-zero" = "کریٹیو کامنز سی سی صفر";
 "clear-title-accessibility-label" = "صاف";
 "close-all-tabs" = "سارے ٹیب بند کرو";
+"close-all-tabs-confirmation-title-with-value" = "{{PLURAL:$1|$1 ٹیب|$1 ٹیباں}} بند کروں؟";
 "close-button-accessibility-label" = "بند کرو";
 "close-tab-confirmation" = "ٹیب بند کروں؟";
 "close-tabs" = "ٹیباں بند کرو";
@@ -109,6 +111,7 @@
 "description-published-title" = "تفصیل شائع تھی ڳئی!";
 "description-welcome-descriptions-title" = "عنوان دی تفصیل";
 "description-welcome-start-editing-button" = "لکھݨ شروع کرو";
+"did-you-know" = "بھلا تساں ڄاݨدے ہو";
 "diff-compare-header-from-info-heading" = "پچھلی تبدیلی";
 // Fuzzy
 "diff-compare-header-to-info-heading" = "کوں";
@@ -216,7 +219,6 @@
 "image-rec-survey-title" = "سبب";
 "image-recs-no-title" = "کو";
 "image-recs-yes-title" = "جیا";
-"import-shared-reading-list-survey-prompt-button-cancel" = "ہُݨ نہ";
 "in-the-news-sub-title-from-language-wikipedia" = "$1 وکیپیڈیا کنوں";
 "in-the-news-sub-title-from-wikipedia" = "وکیپیڈیا کنوں";
 "in-the-news-title" = "خبراں وچ";
@@ -266,9 +268,12 @@
 "nearby-distance-label-km" = "$1 کلو میٹر";
 "nearby-distance-label-meters" = "$1 میٹر";
 "nearby-distance-label-miles" = "$1 میل";
+"new-article-tab-from-wikipedia-default" = "وکیپیڈیا کنوں";
+"new-article-tab-settings-did-you-know" = "بھلا تساں ڄاݨدے ہو؟";
 "new-password-title" = "پاس ورڈ درج کرو";
 "new-tab" = "نویں ٹیب";
 "next-action-title" = "اڳلا";
+"not-now-title" = "ہُݨ نہ";
 "notifications-center-agent-description-from-format" = "$1 کنوں";
 "notifications-center-alert" = "الرٹ";
 "notifications-center-cell-notification-type-accessibility-label-format" = "$1 اطلاعہ نامہ";
@@ -276,7 +281,6 @@
 "notifications-center-destination-app" = "ایپ وچ";
 "notifications-center-destination-web" = "ویب تے";
 "notifications-center-empty-no-messages" = "تہاݙے کیتے کوئی سنیہے کائنی";
-"notifications-center-feed-news-notification-dismiss-button-text" = "ہُݨ نہ";
 "notifications-center-filters-read-status-item-title-all" = "یکے";
 "notifications-center-filters-read-status-item-title-read" = "پڑھا ہویا";
 "notifications-center-filters-read-status-item-title-unread" = "کائنی پڑھا";
@@ -389,7 +393,6 @@
 "saved-title" = "محفوظ";
 "search-button-accessibility-label" = "وکیپیڈیا وچ ڳولو";
 "search-clear-title" = "صاف";
-"search-did-you-mean" = "بھلا تہاݙا مطلب ہائی $1؟";
 "search-field-placeholder-text" = "وکیپیڈیا وچ ڳولو";
 "search-recent-clear-confirmation-sub-heading" = "اے کم واپس نی تھی سڳدا";
 "search-recent-clear-delete-all" = "سارے مٹاؤ";
@@ -426,6 +429,7 @@
 "table-of-contents-close-accessibility-hint" = "بند کرو";
 "table-of-contents-heading" = "شامل حصے";
 "tabs-close-tab" = "ٹیب بند کرو";
+"tabs-title" = "ٹیباں";
 "talk-page-add-topic-button" = "موضوع شامل کرو";
 "talk-page-archives" = "آرکائیواں";
 "talk-page-article-about" = "ڳالھ مہاڑ ورقیاں بارے";
@@ -513,4 +517,7 @@
 "year-in-review-survey-unsatisfied" = "غیر مطمئن";
 "year-in-review-survey-very-satisfied" = "ݙاڈھا تسلی بخش";
 "year-in-review-survey-very-unsatisfied" = "ݙاڈھا تسلی بخش";
+"year-in-review-time-evening" = "شام";
+"year-in-review-time-morning" = "سویر";
+"year-in-review-time-night" = "رات";
 "yesterday-title" = "کل";

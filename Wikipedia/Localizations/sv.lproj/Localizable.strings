@@ -191,7 +191,6 @@
 "close-other-tabs" = "Stäng andra flikar";
 "close-tab-confirmation" = "Stänga fliken?";
 "close-tabs" = "Stäng flikar";
-"closed-all-tabs-confirmation" = "Stängde alla $1 flikar.";
 "compass-direction" = "mot klockan $1";
 "confirm-donation-history-deletion-subtitle" = "Detta gäller endast donationer som görs från den här enheten.";
 "confirm-donation-history-deletion-title" = "Bekräfta radering";
@@ -653,7 +652,6 @@
 "image-recs-time-warning-message" = "Granska artikeln för att förstå dess ämne och inspektera bilden";
 "image-recs-yes-title" = "Ja";
 "import-shared-reading-list-default-title" = "Min läslista";
-"import-shared-reading-list-survey-prompt-button-cancel" = "Inte nu";
 "import-shared-reading-list-survey-prompt-button-take-survey" = "Delta i undersökning";
 "import-shared-reading-list-survey-prompt-footer" = "Se vår $1sekretesspolicy$2. Enkäten drivs av tredje part. Se deras $3sekretesspolicy$4.";
 "import-shared-reading-list-survey-prompt-subtitle" = "\"Dela läslistor\" är en testfunktion och vi behöver din återkoppling för att förbättra eller ta bort den.";
@@ -735,8 +733,6 @@
 "microsite-yir-english-edits-bytes-slide-title" = "4 miljarder byte lades till";
 "microsite-yir-english-edits-slide-subtitle" = "Volontärer gjorde 98 222 407 ändringar på över 300 olika språkversioner av Wikipedia. Över 37 miljoner ändringar gjordes på engelskspråkiga Wikipedia. Varje timme och varje dag arbetar volontärer för att förbättra Wikipedia.";
 "microsite-yir-english-edits-slide-title" = "Redigerare gjorde 98 miljoner ändringar i år";
-"microsite-yir-english-non-donor-slide-subtitle" = "Med din hjälp kommer Wikimedia Foundation (den ideella organisationen bakom Wikipedia) att fortsätta säkerställa att informationen du litar på är annonsfri och pålitlig, samtidigt som Wikipedia fortsätter att fungera smidigt med avancerade verktyg och teknologier. Överväg att donera idag. [Läs mer om vårt arbete]($1).";
-"microsite-yir-english-non-donor-slide-title" = "0 reklam visades på Wikipedia";
 "microsite-yir-english-reading-slide-subtitle" = "Folk tillbringade uppskattningsvis 2,9 miljarder timmar (över 331 000 år!) på att läsa på engelskspråkiga Wikipedia under 2024. Wikipedia finns där när du vill lära dig mer om vår föränderliga värld, vinna ett vad bland vänner eller besvara en fråga från ett nyfiket barn.";
 "microsite-yir-english-reading-slide-title" = "Vi spenderade 2,9 miljarder timmar på att läsa";
 "microsite-yir-english-saved-reading-slide-subtitle" = "Aktiva användare av iOS-appen hade över 62,2 miljoner läslistor. Genom att lägga till artiklar i läslistor kan du komma åt artiklar även när du är offline. Du kan också logga in för att synkronisera läslistor mellan enheter.";
@@ -760,6 +756,7 @@
 "no-internet-connection" = "Ingen Internetanslutning";
 "no-internet-connection-article-reload" = "En nyare version av denna artikel kanske finns tillgänglig, men kan inte läsas in utan en Internetanslutning";
 "no-internet-connection-article-reload-button" = "Gå tillbaka till senast sparade version";
+"not-now-title" = "Inte nu";
 "notifications-center-agent-description-from-format" = "Från $1";
 "notifications-center-alert" = "Varning";
 "notifications-center-applied-filters-accessibility-label" = "Aviseringsfilter - har tillämpade filter";
@@ -779,7 +776,6 @@
 "notifications-center-empty-state-num-filters" = "{{PLURAL:$1|$1 filter}}";
 "notifications-center-feed-card-title" = "Redigeringsnotiser är nu tillgängliga";
 "notifications-center-feed-news-notification-button-text" = "Aktivera push-notiser";
-"notifications-center-feed-news-notification-dismiss-button-text" = "Inte nu";
 "notifications-center-feed-news-notification-text" = "Redigeringsnotiser för alla Wikimediaprojekten är nu tillgängliga via appen. Välj push-notiser för att hålla dig uppdaterad om meddelanden på Wikipedia till dig när du är på språng.";
 "notifications-center-filters-accessibility-label" = "Aviseringsfilter";
 "notifications-center-filters-read-status-item-title-all" = "Alla";
@@ -1114,7 +1110,6 @@
 "saved-unsave-article-and-remove-from-reading-lists-title" = "Ta bort {{PLURAL:$1|artikeln|artiklarna}}?";
 "search-button-accessibility-label" = "Sök på Wikipedia";
 "search-clear-title" = "Rensa";
-"search-did-you-mean" = "Menade du $1?";
 "search-field-placeholder-text" = "Sök på Wikipedia";
 "search-reading-list-placeholder-text" = "Sök i läslista";
 "search-recent-clear-confirmation-heading" = "Radera alla senaste sökningar?";

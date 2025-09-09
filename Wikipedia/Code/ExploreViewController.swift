@@ -1129,9 +1129,11 @@ extension ExploreViewController {
             primaryButtonTitle: primaryButtonTitle,
             secondaryButtonTitle: secondaryButtonTitle,
             primaryButtonAction: { [weak self] in
+                ArticleTabsFunnel.shared.logAnnouncementClick(action: .continueClick)
                 self?.navigationController?.presentedViewController?.dismiss(animated: true, completion: nil)
             },
             secondaryButtonAction: { [weak self] in
+                ArticleTabsFunnel.shared.logAnnouncementClick(action: .learnClick)
                 guard let aboutTabsURL else { return }
                 self?.displayURLWebView(url: aboutTabsURL)
             }
@@ -1140,6 +1142,7 @@ extension ExploreViewController {
         
         present(onboardingController, animated: true, completion: {
             UIAccessibility.post(notification: .layoutChanged, argument: nil)
+            ArticleTabsFunnel.shared.logAnnouncementImpression()
         })
         
         let dataController = WMFArticleTabsDataController.shared
@@ -1168,27 +1171,35 @@ extension ExploreViewController {
             return
         }
 
-        let title = dataStore.authenticationManager.authStateIsPermanent ?  CommonStrings.exploreYIRTitlePersonalized : CommonStrings.exploreYiRTitle
-        let body = dataStore.authenticationManager.authStateIsPermanent ? CommonStrings.yirFeatureAnnoucementBodyPersonalized : CommonStrings.yirFeatureAnnoucementBody
-        let primaryButtonTitle = CommonStrings.continueButton
-        let image = UIImage(named: "wikipedia-globe")
-        let backgroundImage = UIImage(named: "Announcement")
-        let gifName = dataStore.authenticationManager.authStateIsPermanent ? "personal-slide-00" : "english-slide-00"
-        let altText = dataStore.authenticationManager.authStateIsPermanent ? CommonStrings.personalizedExploreAccessibilityLabel : CommonStrings.collectiveExploreAccessibilityLabel
+        if WMFDeveloperSettingsDataController.shared.showYiRV2 {
+            let title = dataStore.authenticationManager.authStateIsPermanent ?  CommonStrings.exploreYIRTitlePersonalized : CommonStrings.exploreYiRTitle
+            let body = dataStore.authenticationManager.authStateIsPermanent ? CommonStrings.yirFeatureAnnoucementBodyPersonalized : CommonStrings.yirFeatureAnnoucementBody
+            let primaryButtonTitle = CommonStrings.continueButton
+            let image = UIImage(named: "wikipedia-globe")
+            let backgroundImage = UIImage(named: "Announcement")
+            let gifName = dataStore.authenticationManager.authStateIsPermanent ? "personal-slide-00" : "english-slide-00"
+            let altText = dataStore.authenticationManager.authStateIsPermanent ? CommonStrings.personalizedExploreAccessibilityLabel : CommonStrings.collectiveExploreAccessibilityLabel
 
-        let viewModel = WMFFeatureAnnouncementViewModel(title: title, body: body, primaryButtonTitle: primaryButtonTitle, image: image, backgroundImage: backgroundImage, gifName: gifName, altText: altText, primaryButtonAction: { [weak self] in
-            guard let self else { return }
-            yirCoordinator?.start()
-            DonateFunnel.shared.logYearInReviewFeatureAnnouncementDidTapContinue(isEntryA: !dataStore.authenticationManager.authStateIsPermanent)
-        }, closeButtonAction: {
-            DonateFunnel.shared.logYearInReviewFeatureAnnouncementDidTapClose(isEntryA: !self.dataStore.authenticationManager.authStateIsPermanent)
-        })
+            let viewModel = WMFFeatureAnnouncementViewModel(title: title, body: body, primaryButtonTitle: primaryButtonTitle, image: image, backgroundImage: backgroundImage, gifName: gifName, altText: altText, primaryButtonAction: { [weak self] in
+                guard let self else { return }
+                yirCoordinator?.start()
+                DonateFunnel.shared.logYearInReviewFeatureAnnouncementDidTapContinue(isEntryA: !dataStore.authenticationManager.authStateIsPermanent)
+            }, closeButtonAction: {
+                DonateFunnel.shared.logYearInReviewFeatureAnnouncementDidTapClose(isEntryA: !self.dataStore.authenticationManager.authStateIsPermanent)
+            })
 
-        if let profileBarButtonItem = navigationItem.rightBarButtonItem {
-            announceFeature(viewModel: viewModel, sourceView: nil, sourceRect: nil, barButtonItem: profileBarButtonItem)
-            DonateFunnel.shared.logYearInReviewFeatureAnnouncementDidAppear(isEntryA: !dataStore.authenticationManager.authStateIsPermanent)
+            if let profileBarButtonItem = navigationItem.rightBarButtonItem {
+                announceFeature(viewModel: viewModel, sourceView: nil, sourceRect: nil, barButtonItem: profileBarButtonItem)
+                DonateFunnel.shared.logYearInReviewFeatureAnnouncementDidAppear(isEntryA: !dataStore.authenticationManager.authStateIsPermanent)
+                yirDataController.hasPresentedYiRFeatureAnnouncementModel = true
+            }
+        } else if WMFDeveloperSettingsDataController.shared.showYiRV3 {
+            // A change in V3 is that we just show the feature itself with a modified intro slide.
+            // No feature announcement component
+            self.yirCoordinator?.start()
             yirDataController.hasPresentedYiRFeatureAnnouncementModel = true
         }
+        
     }
     
     private func shouldShowSearchWidgetAnnouncement() -> Bool {

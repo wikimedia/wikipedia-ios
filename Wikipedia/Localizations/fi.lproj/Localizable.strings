@@ -578,7 +578,6 @@
 "image-recs-time-warning-message" = "Ymmärrä aihepiiri paremmin tutustumalla artikkeliin ja tarkista kuva";
 "image-recs-yes-title" = "Kyllä";
 "import-shared-reading-list-default-title" = "Oma lukulista";
-"import-shared-reading-list-survey-prompt-button-cancel" = "Ei nyt";
 "import-shared-reading-list-survey-prompt-button-take-survey" = "Vastaa kyselyyn";
 "import-shared-reading-list-survey-prompt-footer" = "Katso $1tieto­suoja­lausuntomme$2 . Kyselyn tarjoaa kolmas osapuoli. Katso heidän $3tietosuojakäytäntönsä$4 .";
 "import-shared-reading-list-survey-prompt-subtitle" = "Lukulistojen jakaminen on testiominaisuus, jonka kehittämiseen tarvitsemme palautettasi";
@@ -652,7 +651,6 @@
 "main-menu-zero-faq" = "Usein kysyttyjä kysymyksiä Wikipedia Zerosta";
 "microsite-yir-english-edits-bytes-slide-title" = "4 miljardia tavua lisätty";
 "microsite-yir-english-edits-slide-subtitle" = "Vapaaehtoiset tekivät 98 222 407 muutosta yli 300 eri kieliversioon Wikipediassa. Englanninkieliseen Wikipediaan tehtiin yli 37 miljoonaa muutosta. Joka päivä, joka tunti, vapaaehtoiset työskentelevät parantaakseen Wikipediaa.";
-"microsite-yir-english-non-donor-slide-title" = "0 Wikipediassa näytettyä mainosta";
 "microsite-yir-english-reading-slide-subtitle" = "Ihmiset viettivät arviolta 2,9 miljardia tuntia – yli 331 000 vuotta! – englanninkielisen Wikipedian lukemiseen vuonna 2024. Wikipedia on palveluksessasi, kun haluat oppia lisää muuttuvasta maailmasta, voittaa vedon ystävien kesken tai vastata uteliaan lapsen kysymykseen.";
 "microsite-yir-english-saved-reading-slide-subtitle" = "Aktiivisilla iOS-sovelluksen käyttäjillä oli yli 62,2 miljoonaa lukulistaa. Artikkelien lisääminen lukulistoihin mahdollistaa artikkelien käytön myös ilman Internet-yhteyttä. Voit myös synkronoida lukulistoja eri laitteiden välillä.";
 "microsite-yir-english-saved-reading-slide-title" = "Yli 62,2 miljoonaa lukulistaa";
@@ -672,6 +670,7 @@
 "no-internet-connection" = "Ei Internet-yhteyttä";
 "no-internet-connection-article-reload" = "Uudempi versio tästä artikkelista saattaa olla saatavilla, mutta sitä ei voida ladata ilman yhteyttä Internetiin";
 "no-internet-connection-article-reload-button" = "Palaa viimeksi tallennettuun versioon";
+"not-now-title" = "Ei nyt";
 "notifications-center-alert" = "Hälytys";
 "notifications-center-cell-notification-type-accessibility-label-format" = "$1-ilmoitus";
 "notifications-center-change-password" = "Vaihda salasana";
@@ -686,7 +685,6 @@
 "notifications-center-empty-state-num-filters" = "{{PLURAL:$1|$1 suodatin|$1 suodatinta}}";
 "notifications-center-feed-card-title" = "Muokkausilmoitukset nyt saatavilla";
 "notifications-center-feed-news-notification-button-text" = "Ota push-ilmoitukset käyttöön";
-"notifications-center-feed-news-notification-dismiss-button-text" = "Ei nyt";
 "notifications-center-filters-accessibility-label" = "Ilmoitussuodatin";
 "notifications-center-filters-read-status-item-title-all" = "Kaikki";
 "notifications-center-filters-read-status-item-title-read" = "Luettu";
@@ -994,7 +992,6 @@
 "saved-unsave-article-and-remove-from-reading-lists-title" = "Poista {{PLURAL:$1|artikkeli|artikkelia}}?";
 "search-button-accessibility-label" = "Etsi Wikipediasta";
 "search-clear-title" = "Tyhjennä";
-"search-did-you-mean" = "Tarkoititko $1?";
 "search-field-placeholder-text" = "Wikipedia-haku";
 "search-reading-list-placeholder-text" = "Hae lukulistasta";
 "search-recent-clear-confirmation-heading" = "Poistetaanko kaikki äskettäiset haut?";
