@@ -23,7 +23,7 @@ public final class AppIconUtility {
             return
         }
         
-        let iconName = isNew ? nil : "ContributorAppIcon"
+        let iconName = isNew ? "ContributorAppIcon" : nil
         
         UIApplication.shared.setAlternateIconName(iconName) { error in
             if let error = error {
