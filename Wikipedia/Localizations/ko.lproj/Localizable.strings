@@ -159,6 +159,10 @@
 "article-save-error-not-enough-space" = "장치에 이 문서를 저장할 공간이 충분하지 않습니다";
 "article-share" = "공유";
 "article-tabs-button-accessibility-label" = "문서 탭";
+"article-tabs-did-you-know-title" = "알고 계십니까";
+"article-tabs-feature-announcement-item-3-title" = "나중을 위해 링크 저장";
+"article-tabs-feature-announcement-sub-cta" = "탭에 관해 더 알아보기";
+"article-tabs-feature-announcement-title" = "탭 소개";
 // Fuzzy
 "article-tabs-max-reached" = "탭 제한에 도달했습니다. ($1개) 하나 이상의 탭을 닫아 주십시오.";
 "article-tabs-navigation" = "탭 둘러보기";
@@ -195,7 +199,6 @@
 "close-other-tabs" = "다른 탭 닫기";
 "close-tab-confirmation" = "탭을 닫으시겠습니까?";
 "close-tabs" = "탭 닫기";
-"closed-all-tabs-confirmation" = "탭 $1개를 모두 닫았습니다.";
 "closed-all-tabs-confirmation-with-value" = "{{PLURAL:$1|탭 $1개}}가 닫혔습니다.";
 "compass-direction" = "$1시에";
 "confirm-donation-history-deletion-subtitle" = "이 장치를 통해 이루어진 기부에만 적용됩니다.";
@@ -252,6 +255,7 @@
 "developer-settings-bypass-donation" = "기부 건너뛰기";
 "developer-settings-send-analytics-to-wmflabs" = "wmflabs에 분석을 보냅니다.";
 "developer-settings-suppress-image-rec-post" = "이미지 제안 편집을 게시하지 않습니다.";
+"did-you-know" = "알고 계십니까";
 "diff-article-revision-history" = "문서 편집 역사";
 "diff-change-added" = "추가, $1, 추가 끝.";
 "diff-change-paragraph-moved" = "문단이 이동되었습니다. 이전 위치로 이동합니다.";
@@ -731,6 +735,8 @@
 "nearby-distance-label-km" = "$1 km";
 "nearby-distance-label-meters" = "$1 m";
 "nearby-distance-label-miles" = "$1 마일";
+"new-article-tab-settings-did-you-know" = "알고 계십니까?";
+"new-article-tab-settings-recommendations" = "권장";
 "new-password-instructions" = "임시 비밀번호로 로그인하였습니다. 로그인을 마치려면 여기에 새로운 비밀번호를 설정하십시오.";
 "new-password-title" = "비밀번호 설정";
 "new-tab" = "새 탭";
@@ -1108,6 +1114,7 @@
 "settings-language-bar" = "검색 결과에 표시할 언어";
 "settings-languages-feed-customization" = "탐색 피드 설정의 사용자 지정을 통해 어느 언어가 탐색 피드에 표시될지 관리할 수 있습니다.";
 "settings-my-languages" = "내 언어";
+"settings-new-article-tab-header-text" = "새 탭 테마";
 "settings-notifications" = "푸시 알림";
 "settings-notifications-echo-failure-message" = "계정과 관련된 알림 구독을 확인하는 동안 오류가 발생했습니다.";
 "settings-notifications-echo-failure-try-again" = "다시 시도";
@@ -1165,6 +1172,8 @@
 "tabs-navbar-title-format" = "{{PLURAL:$1|탭 $1개}}";
 "tabs-open-tab" = "탭 열기";
 "tabs-overview-tooltip-title" = "탭 개요";
+"tabs-title" = "탭";
+"tabs-title-preferences" = "탭 환경 설정";
 "tachelhit-variants-alert-body" = "이제 위키백과 앱에서 아래의 타셸히트어 변이형을 주 언어나 보조 언어로 설정할 수 있으며, 이를 통해 선호하는 변이형으로 문서의 열람, 검색, 편집 작업을 쉽게 할 수 있습니다.\n\nⵜⴰⵛⵍⵃⵉⵜ 타셸히트어 티피나그 (shi-tfng)\nTaclḥit 타셸히트어 라틴 (shi-latn)";
 "tachelhit-variants-alert-title" = "타셸히트어 변이형 지원 업데이트";
 "tajik-variants-alert-body" = "이제 위키백과 앱에서 아래의 타지크어 변이형을 주 언어나 보조 언어로 설정할 수 있으며, 이를 통해 선호하는 변이형으로 문서의 열람, 검색, 편집 작업을 쉽게 할 수 있습니다.\n\nтоҷикӣ кирилликӣ 타지크어 키릴 (tg-cyrl)\ntojikī lotinī 타지크어 라틴 (tg-latn)";
@@ -1401,6 +1410,8 @@
 "year-in-review-donate-now" = "지금 기부하기";
 "year-in-review-finish" = "완료";
 "year-in-review-intro-exit-confirmation-title" = "종료하시겠습니까?";
+"year-in-review-intro-login-title" = "개인화를 위해선 로그인하세요";
+"year-in-review-personalized-date-month-footer-v3" = "가장 많이 읽은 달";
 "year-in-review-personalized-day-subtitle-format" = "$1에 가장 많은 문서를 읽었습니다. $1이 새로운 콘텐츠를 둘러보기에 가장 좋은 날이라는 것은 분명합니다. 읽는 시간을 최대한 활용해주셔서 고맙습니다!";
 "year-in-review-personalized-day-title-format" = "읽기에 가장 많이 할애한 날은 $1입니다.";
 "year-in-review-personalized-donate-title" = "귀하의 기부 덕분에 위키백과의 번영 유지에 도움이 되었습니다";
@@ -1417,6 +1428,12 @@
 "year-in-review-survey-unsatisfied" = "불만족";
 "year-in-review-survey-very-satisfied" = "매우 만족";
 "year-in-review-survey-very-unsatisfied" = "매우 불만족";
+"year-in-review-time-afternoon" = "오후";
+"year-in-review-time-evening" = "저녁";
+"year-in-review-time-late-night" = "늦은 밤";
+"year-in-review-time-midday" = "대낮";
+"year-in-review-time-morning" = "아침";
+"year-in-review-time-night" = "밤";
 "year-in-review-wikipedia-w-accessibility-label" = "위키백과 w 로고";
 "year-in-review-wmf-logo-accessibility-label" = "위키미디어 재단 로고";
 "yesterday-title" = "어제";

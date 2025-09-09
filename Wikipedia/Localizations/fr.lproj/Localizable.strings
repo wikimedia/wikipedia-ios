@@ -227,11 +227,13 @@
 "close-all-tabs" = "Fermer tous les onglets";
 "close-all-tabs-confirmation" = "Voulez-vous fermer l'ensemble des $1 onglets ? Cette action est irréversible.";
 "close-all-tabs-confirmation-number" = "Fermer les $1 onglets ?";
+"close-all-tabs-confirmation-subtitle-with-value" = "Voulez-vous fermer {{PLURAL:$1|$1 onglet|$1 onglets}} ? Cette action est irréversible.";
+"close-all-tabs-confirmation-title-with-value" = "Fermer {{PLURAL:$1|$1 onglet|$1 onglets}} ?";
 "close-button-accessibility-label" = "Fermer";
 "close-other-tabs" = "Fermer les autres onglets";
 "close-tab-confirmation" = "Fermer l'onglet ?";
 "close-tabs" = "Fermer l’onglet";
-"closed-all-tabs-confirmation" = "$1 onglets fermés.";
+"closed-all-tabs-confirmation-with-value" = "{{PLURAL:$1|$1 onglet fermé|$1 onglets fermés}}.";
 "compass-direction" = "à $1 heures";
 "confirm-donation-history-deletion-subtitle" = "Ceci ne s’appliquera qu’aux dons effectués à partir de cet appareil.";
 "confirm-donation-history-deletion-title" = "Confirmer la suppression";
@@ -1249,11 +1251,9 @@
 "tabs-overview-tooltip-body" = "Basculez entre les articles ouverts dans l'aperçu des onglets.";
 "tabs-overview-tooltip-title" = "Aperçu des onglets";
 "tabs-survey-title" = "Aidez-nous à améliorer la fonctionnalité des onglets. Êtes-vous satisfait de cette fonctionnalité ?";
-// Fuzzy
 "tabs-thumbnail-description" = "Explorez Wikipédia, l’encyclopédie libre que n’importe qui peut modifier";
 "tabs-thumbnail-subtitle" = "Commencez votre recherche ici";
 "tabs-title" = "Onglets";
-// Fuzzy
 "tabs-title-preferences" = "Préférences des onglets";
 "tachelhit-variants-alert-body" = "L’application Wikipédia prend maintenant en charge les variantes suivantes du chleuh comme langues primaire ou secondaires dans l’application, le rendant plus facile à lire, rechercher ou modifier dans vos variantes préférées :\n\nⵜⴰⵛⵍⵃⵉⵜ – chleuh tifinagh (shi-tfng)\nTaclḥit – chleuh latin (shi-latn)";
 "tachelhit-variants-alert-title" = "Mises à jour de la prise en charge des variantes du chleuh";
@@ -1521,9 +1521,19 @@
 "year-in-review-feature-announcement-title-personalized" = "Explorez votre Bilan Wikipédia de l'Année";
 "year-in-review-feature-explore-body" = "Wikipédia est la plus grande ressource de connaissances jamais constituée dans l'histoire du monde. Elle est accessible gratuitement à tous, partout dans le monde. Voici un aperçu de l'année 2024 à travers le prisme de Wikipédia.";
 "year-in-review-feature-explore-body-personalized" = "Consultez des informations sur les articles que vous avez lus sur l'application Wikipédia et les modifications que vous avez apportées en 2024. Votre historique de lecture est protégé. Les informations de lecture sont calculées à l'aide des données stockées localement sur votre appareil.";
+"year-in-review-feature-explore-body-v3" = "Voir des informations sur les articles que vous lisez sur l'application Wikipédia et les modifications que vous avez effectuées.";
+"year-in-review-feature-explore-footer-v3" = "Votre historique de lecture est protégé. Les statistiques de lecture sont calculées à partir des données enregistrées localement sur votre appareil.";
 "year-in-review-finish" = "Terminer";
+"year-in-review-intro-exit-confirmation-subtitle" = "Vous pouvez quand même consulter une revue collective de l'année sans vous connecter.";
+"year-in-review-intro-exit-confirmation-title" = "Êtes-vous sûr(e) de vouloir quitter ?";
+"year-in-review-intro-exit-toast-title" = "Vous pourrez accéder à votre bilan annuel ultérieurement dans Profil.";
+"year-in-review-intro-login-title" = "Connectez-vous pour la personnalisation";
 "year-in-review-login-subtitle" = "Connectez-vous ou créez un compte pour bénéficier d'informations plus personnalisées";
 "year-in-review-login-title" = "Améliorez votre Bilan de l'Année";
+"year-in-review-personalized-date-day-footer-v3" = "Jour favori pour la lecture";
+"year-in-review-personalized-date-month-footer-v3" = "Mois où vous avez le plus lu";
+"year-in-review-personalized-date-time-footer-v3" = "Moment préféré pour lire";
+"year-in-review-personalized-date-title-v3" = "Vous avez des schémas de lecture précis";
 "year-in-review-personalized-day-subtitle-format" = "Vous avez lu le plus d'articles les $1. En d'autres termes, c'est ce jour-là que vous avez privilégié la découverte de nouveaux contenus. Merci de profiter au maximum de votre temps de lecture !";
 "year-in-review-personalized-day-title-format" = "Vous lisez le plus les $1.";
 "year-in-review-personalized-donate-subtitle" = "Merci d'investir dans l'avenir du savoir en accès libre. Cette année, la Fondation Wikimédia a fait progresser la technologie pour mieux servir chaque lecteur et bénévole, a développé des outils qui favorisent la collaboration et a soutenu Wikipédia dans davantage de langues. [En savoir plus sur notre travail]($1).";
@@ -1536,6 +1546,11 @@
 "year-in-review-personalized-editing-title-format" = "Vous avez modifié Wikipédia {{PLURAL:$1|une|$1}} fois";
 "year-in-review-personalized-editing-title-format-500plus" = "Vous avez modifié Wikipédia plus de 500 fois";
 "year-in-review-personalized-explore" = "Une illustration animée d'une main tenant le globe Wikipédia qui se transforme progressivement en une petite pièce de puzzle, symbolisant les contributions individuelles à la plateforme.";
+"year-in-review-personalized-location-subtitle-format-1" = "Vous avez lu des articles dans le domaine $2$1$3.";
+"year-in-review-personalized-location-subtitle-format-2" = "Vous avez lu des articles dans les domaines $3$1$4 et $3$2$4 .";
+"year-in-review-personalized-location-subtitle-format-3" = "Vous avez lu des articles dans les domaines $4$1$5, $4$2$5 et$4$3$5.";
+"year-in-review-personalized-location-title-format" = "Les articles que vous avez lus sont proches de $1.";
+"year-in-review-personalized-most-read-articles-title" = "Vos articles les plu lus";
 "year-in-review-personalized-reading-subtitle-format" = "Cette année, vous avez consulté {{PLURAL:$1|$1 article|$1 articles}}. Wikipédia propose $2 millions d’articles dans plus de $3 langues actives. Vous avez rejoint des millions de personnes pour le développement de la connaissance et l’exploration de divers sujets.";
 "year-in-review-personalized-reading-title-format" = "Vous avez lu {{PLURAL:$1| $1 article| $1 articles}}";
 "year-in-review-personalized-saved-articles" = "Illustration d'une pièce de puzzle portant un casque de sécurité avec des écrans d'ordinateur à l'arrière.";
@@ -1554,6 +1569,12 @@
 "year-in-review-survey-unsatisfied" = "Insatisfait";
 "year-in-review-survey-very-satisfied" = "Très satisfait";
 "year-in-review-survey-very-unsatisfied" = "Très insatisfait";
+"year-in-review-time-afternoon" = "Après-midi";
+"year-in-review-time-evening" = "Soirée";
+"year-in-review-time-late-night" = "Nuit avancée";
+"year-in-review-time-midday" = "Midi";
+"year-in-review-time-morning" = "Matin";
+"year-in-review-time-night" = "Nuit";
 "year-in-review-wikipedia-w-accessibility-label" = "Logo w de Wikipédia";
 "year-in-review-wmf-logo-accessibility-label" = "Logo de la Fondation Wikimédia";
 "yesterday-title" = "Hier";
