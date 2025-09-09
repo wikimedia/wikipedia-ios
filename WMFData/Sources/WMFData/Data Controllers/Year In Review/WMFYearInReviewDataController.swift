@@ -184,7 +184,7 @@ import CoreData
         
         let yirConfig: WMFFeatureConfigResponse.IOS.YearInReview?
 
-        if let iosFeatureConfig = developerSettingsDataController.loadFeatureConfig()?.ios.first,
+        if let iosFeatureConfig = developerSettingsDataController.loadFeatureConfig()?.ios,
            let config = iosFeatureConfig.yir(yearID: targetConfigYearID) {
             yirConfig = config
         } else {
@@ -288,7 +288,7 @@ import CoreData
 
         let yirConfig: WMFFeatureConfigResponse.IOS.YearInReview?
 
-        if let iosFeatureConfig = developerSettingsDataController.loadFeatureConfig()?.ios.first,
+        if let iosFeatureConfig = developerSettingsDataController.loadFeatureConfig()?.ios,
            let config = iosFeatureConfig.yir(yearID: targetConfigYearID) {
             yirConfig = config
         } else {
@@ -360,7 +360,7 @@ import CoreData
         
         var yirConfig: WMFFeatureConfigResponse.IOS.YearInReview? = nil
 
-        yirConfig = developerSettingsDataController.loadFeatureConfig()?.ios.first?.yir(yearID: targetConfigYearID)
+        yirConfig = developerSettingsDataController.loadFeatureConfig()?.ios.yir(yearID: targetConfigYearID)
 
         guard let yirConfig else {
             return nil
@@ -541,7 +541,7 @@ import CoreData
     public func shouldHideDonateButton() -> Bool {
         let yirConfig: WMFFeatureConfigResponse.IOS.YearInReview?
 
-        guard let iosFeatureConfig = developerSettingsDataController.loadFeatureConfig()?.ios.first,
+        guard let iosFeatureConfig = developerSettingsDataController.loadFeatureConfig()?.ios,
               let config = iosFeatureConfig.yir(yearID: targetConfigYearID) else {
             return false
         }
