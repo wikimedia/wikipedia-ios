@@ -323,7 +323,7 @@ public class WMFYearInReviewViewModel: ObservableObject {
                             readCountSlideV3 = WMFYearInReviewSlideStandardViewModel(
                                 gifName: "personal-slide-01",
                                 altText: localizedStrings.personalizedYouReadAccessibilityLabel,
-                                title: localizedStrings.personalizedYouReadSlideTitleV3(readData.readCount, readData.hoursRead),
+                                title: localizedStrings.personalizedYouReadSlideTitleV3(readData.readCount, readData.minutesRead),
                                 subtitle: localizedStrings.personalizedYouReadSlideSubtitleV3(readData.readCount),
                                 subtitleType: .html,
                                 infoURL: aboutYiRURL,

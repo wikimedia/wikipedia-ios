@@ -28,9 +28,9 @@ final class YearInReviewReadCountSlideDataController: YearInReviewSlideDataContr
         let dataController = try WMFPageViewsDataController()
         
         let readCount = try await dataController.fetchPageViewCounts(startDate: startDate, endDate: endDate).count
-        let hoursRead = try await dataController.fetchPageViewHours(startDate: startDate, endDate: endDate)
+        let minutesRead = try await dataController.fetchPageViewMinutes(startDate: startDate, endDate: endDate)
         
-        readData = WMFYearInReviewReadData(readCount: readCount, hoursRead: hoursRead)
+        readData = WMFYearInReviewReadData(readCount: readCount, minutesRead: minutesRead)
         
         isEvaluated = true
     }

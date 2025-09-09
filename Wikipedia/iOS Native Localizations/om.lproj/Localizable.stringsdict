@@ -990,9 +990,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>%1$d hour</string>
+			<string>%1$d minute</string>
 			<key>other</key>
-			<string>%1$d hours</string>
+			<string>%1$d minutes</string>
 		</dict>
 		<key>v2</key>
 		<dict>

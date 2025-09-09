@@ -266,7 +266,7 @@ public final class WMFPageViewsDataController {
         return results
     }
     
-    public func fetchPageViewHours(startDate: Date, endDate: Date) async throws -> Int {
+    public func fetchPageViewMinutes(startDate: Date, endDate: Date) async throws -> Int {
         let backgroundContext = try coreDataStore.newBackgroundContext
         
         let result: Int64 = try await backgroundContext.perform {

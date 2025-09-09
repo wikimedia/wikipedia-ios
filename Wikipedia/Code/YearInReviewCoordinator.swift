@@ -114,7 +114,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
             collectiveZeroAdsSlideSubtitle: collectiveZeroAdsSlideSubtitle,
             personalizedYouReadSlideTitleV2: personalizedYouReadSlideTitleV2(readCount:),
             personalizedYouReadSlideSubtitleV2: personalizedYouReadSlideSubtitleV2(readCount:),
-            personalizedYouReadSlideTitleV3: personalizedYouReadSlideTitleV3(readCount:hoursRead:),
+            personalizedYouReadSlideTitleV3: personalizedYouReadSlideTitleV3(readCount:minutesRead:),
             personalizedYouReadSlideSubtitleV3: personalizedYouReadSlideSubtitleV3(readCount:),
             personalizedDateSlideTitleV2: personalizedDateSlideTitleV2(day:),
             personalizedDateSlideSubtitleV2: personalizedDateSlideSubtitleV2(day:),
@@ -331,9 +331,9 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         return String.localizedStringWithFormat(format, readCount, numArticlesString, numLanguagesString)
     }
     
-    func personalizedYouReadSlideTitleV3(readCount: Int, hoursRead: Int) -> String {
-        let format = WMFLocalizedString("year-in-review-personalized-reading-title-v3-format", value: "You spent {{PLURAL:%1$d|%1$d hour|%1$d hours}} reading {{PLURAL:%2$d|%2$d article|%2$d articles}} in 2025", comment: "Year in review, personalized reading article count slide title for users that read articles. %1$d is replaced with the number of hours the user spent reading and %2$d is replaced with the number of articles the user read in 2025.")
-        return String.localizedStringWithFormat(format, hoursRead, readCount)
+    func personalizedYouReadSlideTitleV3(readCount: Int, minutesRead: Int) -> String {
+        let format = WMFLocalizedString("year-in-review-personalized-reading-title-v3-format", value: "You spent {{PLURAL:%1$d|%1$d minute|%1$d minutes}} reading {{PLURAL:%2$d|%2$d article|%2$d articles}} in 2025", comment: "Year in review, personalized reading article count slide title for users that read articles. %1$d is replaced with the number of minutes the user spent reading and %2$d is replaced with the number of articles the user read in 2025.")
+        return String.localizedStringWithFormat(format, minutesRead, readCount)
     }
 
     func personalizedYouReadSlideSubtitleV3(readCount: Int) -> String {
