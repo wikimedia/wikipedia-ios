@@ -5,7 +5,7 @@ public final class AppIconUtility {
     static let shared = AppIconUtility()
     private init() {}
     
-    private let iconKey = "isNewIconOn"
+    private let iconKey = "yearInReviewNewIcon2025"
     
     public var isNewIconOn: Bool {
         get {

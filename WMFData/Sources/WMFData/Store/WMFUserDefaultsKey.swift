@@ -28,5 +28,5 @@ public enum WMFUserDefaultsKey: String {
     case developerSettingsYiRLimitCategoriesTo2Underscores = "dev-settings-yir-limit-categories-to-2-underscores"
     case developerSettingsShowYiRV2 = "dev-settings-yir-show-v2"
     case developerSettingsShowYiRV3 = "dev-settings-yir-show-v3"
-    case isNewIconOn = "icon-toggle"
+    case yearInReviewNewIcon2025 = "year-in-review-new-icon-2025"
 }

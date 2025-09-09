@@ -1448,10 +1448,7 @@
 "year-in-review-collective-zero-ads" = "Accessibility description for the collective zero ads slide.";
 "year-in-review-contributor-gift-subtitle" = "Year in review subtitle for the new icon";
 "year-in-review-contributor-gift-title" = "Year in review title for the new icon";
-"year-in-review-contributor-slide-status-both" = "Contribution slide status for both editor and donor status";
-"year-in-review-contributor-slide-status-donor" = "Contribution slide status for donor status";
-"year-in-review-contributor-slide-status-editor" = "Contribution slide status for editor status";
-"year-in-review-contributor-slide-subtitle" = "Year in review, contributor slide subtitle. $1 is replaced with text indicating if they are an editor, donor, or both. Do not alter markdown when translating.";
+"year-in-review-contributor-slide-subtitle-editor" = "Year in review, contributor slide subtitle, when user has donated that year.";
 "year-in-review-contributor-slide-title" = "Year in review subtitle for contributors";
 "year-in-review-day-friday" = "Localized name for Friday in plural form.";
 "year-in-review-day-monday" = "Localized name for Monday in plural form.";
