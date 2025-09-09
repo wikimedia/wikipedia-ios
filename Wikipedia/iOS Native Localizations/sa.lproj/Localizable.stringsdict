@@ -950,7 +950,7 @@
 	<key>year-in-review-personalized-reading-subtitle-format-v3</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>This puts you in the top &lt;&lt;PERCENT&gt;&gt; of Wikipedia readers globally. The average person reads %#@v1@ a year.</string>
+		<string>This puts you in the top **PERCENT** of Wikipedia readers globally. The average person reads %#@v1@ a year.</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
