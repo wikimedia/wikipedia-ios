@@ -63,3 +63,14 @@ public enum WMFProject: Equatable, Hashable, Identifiable, Codable {
         return nil
     }
 }
+
+public extension WMFProject {
+    var isEnglishWikipedia: Bool {
+        switch self {
+        case .wikipedia(let language):
+            return language.languageCode.lowercased() == "en"
+        default:
+            return false
+        }
+    }
+}
