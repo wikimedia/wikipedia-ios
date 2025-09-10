@@ -57,7 +57,7 @@ NS_ASSUME_NONNULL_BEGIN
                             languageCode:(nullable NSString *)languageCode;
 
 /**
- * Create new NSString containing the full host for a Wikimedia `domain` and `subDomain` for mobile or desktop based on `isMobile`.
+ * Create new NSString containing the full host for a Wikimedia `domain` and `subDomain` for desktop.
  *
  * @param domain        Wikimedia domain - for example: `wikimedia.org`.
  * @param subDomain      An optional subDomain. For example `commons`.

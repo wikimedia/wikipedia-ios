@@ -110,12 +110,9 @@ NSString *const WMFEditPencil = @"WMFEditPencil";
     return [components wmf_URLWithLanguageVariantCode:self.wmf_languageVariantCode];
 }
 
-- (NSURL *)wmf_URLWithPath:(NSString *)path isMobile:(BOOL)isMobile {
+- (NSURL *)wmf_URLWithPath:(NSString *)path {
     NSURLComponents *components = [NSURLComponents componentsWithURL:self resolvingAgainstBaseURL:NO];
     components.path = [path precomposedStringWithCanonicalMapping];
-    if (isMobile != self.wmf_isMobile) {
-        components.host = [NSURLComponents wmf_hostWithDomain:self.wmf_domain languageCode:self.wmf_languageCode];
-    }
     return [components wmf_URLWithLanguageVariantCode:self.wmf_languageVariantCode];
 }
 
@@ -126,30 +123,16 @@ NSString *const WMFEditPencil = @"WMFEditPencil";
     return [components wmf_URLWithLanguageVariantCode:self.wmf_languageVariantCode];
 }
 
-- (NSURL *)wmf_APIURL:(BOOL)isMobile {
-    return [[self wmf_siteURL] wmf_URLWithPath:WMFAPIPath isMobile:isMobile];
+- (NSURL *)wmf_APIURL {
+    return [[self wmf_siteURL] wmf_URLWithPath:WMFAPIPath];
 }
 
-+ (NSURL *)wmf_APIURLForURL:(NSURL *)URL isMobile:(BOOL)isMobile {
-    return [[URL wmf_siteURL] wmf_URLWithPath:WMFAPIPath isMobile:isMobile];
-}
-
-+ (NSURL *)wmf_mobileAPIURLForURL:(NSURL *)URL {
-    return [NSURL wmf_APIURLForURL:URL isMobile:YES];
++ (NSURL *)wmf_APIURLForURL:(NSURL *)URL {
+    return [[URL wmf_siteURL] wmf_URLWithPath:WMFAPIPath];
 }
 
 + (NSURL *)wmf_desktopAPIURLForURL:(NSURL *)URL {
-    return [NSURL wmf_APIURLForURL:URL isMobile:NO];
-}
-
-+ (NSURL *)wmf_mobileURLForURL:(NSURL *)url {
-    if (url.wmf_isMobile) {
-        return url;
-    } else {
-        NSURLComponents *components = [NSURLComponents componentsWithURL:url resolvingAgainstBaseURL:NO];
-        components.host = [NSURLComponents wmf_hostWithDomain:url.wmf_domain languageCode:url.wmf_languageCode];
-        return components.URL;
-    }
+    return [NSURL wmf_APIURLForURL:URL];
 }
 
 + (NSURL *)wmf_desktopURLForURL:(NSURL *)url {
@@ -188,19 +171,6 @@ NSString *const WMFEditPencil = @"WMFEditPencil";
     return NO;
 }
 
-- (BOOL)wmf_isMobile {
-    NSArray *hostComponents = [self.host componentsSeparatedByString:@"."];
-    if (hostComponents.count < 3) {
-        return NO;
-    } else {
-        if ([hostComponents[0] isEqualToString:@"m"]) {
-            return true;
-        } else {
-            return [hostComponents[1] isEqualToString:@"m"];
-        }
-    }
-}
-
 - (NSString *)wmf_pathWithoutWikiPrefix {
     return [self.path wmf_pathWithoutWikiPrefix];
 }
@@ -211,9 +181,6 @@ NSString *const WMFEditPencil = @"WMFEditPencil";
         return self.host;
     } else {
         NSInteger firstIndex = 1;
-        if ([hostComponents[1] isEqualToString:@"m"]) {
-            firstIndex = 2;
-        }
         NSArray *subarray = [hostComponents subarrayWithRange:NSMakeRange(firstIndex, hostComponents.count - firstIndex)];
         return [subarray componentsJoinedByString:@"."];
     }
@@ -224,8 +191,7 @@ NSString *const WMFEditPencil = @"WMFEditPencil";
     if (hostComponents.count < 3) {
         return nil;
     } else {
-        NSString *potentialLanguage = hostComponents[0];
-        return [potentialLanguage isEqualToString:@"m"] ? nil : potentialLanguage;
+        return hostComponents[0];
     }
 }
 
