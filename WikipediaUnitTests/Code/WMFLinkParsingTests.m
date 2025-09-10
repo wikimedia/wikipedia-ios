@@ -30,15 +30,10 @@
 }
 
 - (void)testWMFDomainComponents {
-    NSURLComponents *components = [NSURLComponents wmf_componentsWithDomain:@"wikipedia.org" languageCode:@"en" isMobile:NO];
+    NSURLComponents *components = [NSURLComponents wmf_componentsWithDomain:@"wikipedia.org" languageCode:@"en"];
     XCTAssertEqualObjects(@"en.wikipedia.org", components.host);
     components = [NSURLComponents wmf_componentsWithDomain:@"wikipedia.org" languageCode:@"en"];
     XCTAssertEqualObjects(@"en.wikipedia.org", components.host);
-}
-
-- (void)testWMFMobileDomainComponents {
-    NSURLComponents *components = [NSURLComponents wmf_componentsWithDomain:@"wikipedia.org" languageCode:@"en" isMobile:YES];
-    XCTAssertEqualObjects(@"en.m.wikipedia.org", components.host);
 }
 
 - (void)testWMFLinksFromLinks {
@@ -49,8 +44,6 @@
     XCTAssertEqualObjects(@"https://fr.wikipedia.org/wiki/Main_Page", titledURL.absoluteString);
     NSURL *titledAndFragmentedURL = [siteURL wmf_URLWithTitle:@"Main Page" fragment:@"section" query:nil];
     XCTAssertEqualObjects(@"https://fr.wikipedia.org/wiki/Main_Page#section", titledAndFragmentedURL.absoluteString);
-    NSURL *mobileURL = [siteURL wmf_URLWithPath:@"/w/api.php" isMobile:YES];
-    XCTAssertEqualObjects(@"https://fr.m.wikipedia.org/w/api.php", mobileURL.absoluteString);
 }
 
 - (void)testWMFInternalLinks {
@@ -72,12 +65,8 @@
     NSURL *siteURL = [NSURL wmf_URLWithDomain:@"mediawiki.org" languageCode:nil];
     NSURL *desktopURL = [NSURL wmf_desktopURLForURL:siteURL];
     XCTAssertEqualObjects(@"https://mediawiki.org", desktopURL.absoluteString);
-    NSURL *mobileURL = [NSURL wmf_mobileURLForURL:siteURL];
-    XCTAssertEqualObjects(@"https://m.mediawiki.org", mobileURL.absoluteString);
     NSURL *apiURL = [siteURL wmf_URLWithPath:@"/w/api.php" isMobile:NO];
     XCTAssertEqualObjects(@"https://mediawiki.org/w/api.php", apiURL.absoluteString);
-    NSURL *mobileAPIURL = [siteURL wmf_URLWithPath:@"/w/api.php" isMobile:YES];
-    XCTAssertEqualObjects(@"https://m.mediawiki.org/w/api.php", mobileAPIURL.absoluteString);
 }
 
 - (void)testWMFLanguagelessMobileLinks {
