@@ -63,19 +63,19 @@
 }
 
 - (void)testWMFSpecialCharacters {
-    NSURL *URL = [NSURL URLWithString:@"https://en.m.wikipedia.org"];
+    NSURL *URL = [NSURL URLWithString:@"https://en.wikipedia.org"];
     NSURL *kirkjubURL = [URL wmf_URLWithTitle:@"Kirkjubæjarklaustur"];
-    XCTAssertEqualObjects(@"https://en.m.wikipedia.org/wiki/Kirkjub%C3%A6jarklaustur", kirkjubURL.absoluteString);
+    XCTAssertEqualObjects(@"https://en.wikipedia.org/wiki/Kirkjub%C3%A6jarklaustur", kirkjubURL.absoluteString);
     NSURL *eldgjaURL = [URL wmf_URLWithTitle:@"Eldgjá"];
-    XCTAssertEqualObjects(@"https://en.m.wikipedia.org/wiki/Eldgj%C3%A1", eldgjaURL.absoluteString);
+    XCTAssertEqualObjects(@"https://en.wikipedia.org/wiki/Eldgj%C3%A1", eldgjaURL.absoluteString);
 }
 
 - (void)testTitlesWithSlashes {
-    NSURL *URL = [NSURL URLWithString:@"https://en.m.wikipedia.org"];
+    NSURL *URL = [NSURL URLWithString:@"https://en.wikipedia.org"];
     NSURL *devNullURL = [URL wmf_URLWithTitle:@"/dev/null"];
-    XCTAssertEqualObjects(@"https://en.m.wikipedia.org/wiki/%2Fdev%2Fnull", devNullURL.absoluteString);
+    XCTAssertEqualObjects(@"https://en.wikipedia.org/wiki/%2Fdev%2Fnull", devNullURL.absoluteString);
     NSURL *albumURL = [URL wmf_URLWithTitle:@"/2016ALBUM/"];
-    XCTAssertEqualObjects(@"https://en.m.wikipedia.org/wiki/%2F2016ALBUM%2F", albumURL.absoluteString);
+    XCTAssertEqualObjects(@"https://en.wikipedia.org/wiki/%2F2016ALBUM%2F", albumURL.absoluteString);
 }
 
 - (void)testWMFCanonicalMappingURLComponents {

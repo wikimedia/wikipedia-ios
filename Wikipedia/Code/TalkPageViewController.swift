@@ -666,8 +666,8 @@ class TalkPageViewController: ThemeableViewController, WMFNavigationBarConfiguri
     fileprivate func pushToPermanentLink() {
         
         guard let latestRevisionID = viewModel.latestRevisionID,
-              let mobileSiteURL = viewModel.siteURL.wmf_URL(withPath: ""),
-              let host = mobileSiteURL.host,
+              let siteURL = viewModel.siteURL.wmf_URL(withPath: ""),
+              let host = siteURL.host,
               let url = Configuration.current.expandedArticleURLForHost(host, languageVariantCode: viewModel.siteURL.wmf_languageVariantCode, queryParameters: ["title": viewModel.pageTitle,
                                                                                                                                                                 "oldid": latestRevisionID]) else {
             showGenericError()
