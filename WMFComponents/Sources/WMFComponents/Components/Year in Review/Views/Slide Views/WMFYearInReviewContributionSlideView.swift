@@ -151,11 +151,11 @@ fileprivate struct WMFYearInReviewSlideContributionViewContent: View {
                             }
                             .padding(.vertical, 11)
                             .padding(.horizontal, 16)
-                            .frame(maxWidth: .infinity, alignment: .center)
+                            .frame(maxWidth: .infinity)
+                            .contentShape(RoundedRectangle(cornerRadius: 12))
                             .overlay(
                                 RoundedRectangle(cornerRadius: 12)
                                     .stroke(Color(uiColor: theme.newBorder), lineWidth: 1)
-                                    .padding(0)
                             )
                         }
                         .buttonStyle(PlainButtonStyle())

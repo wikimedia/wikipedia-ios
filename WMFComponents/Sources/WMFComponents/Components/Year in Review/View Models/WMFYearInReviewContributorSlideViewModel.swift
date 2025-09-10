@@ -2,7 +2,7 @@ import Foundation
 import SwiftUI
 import WMFData
 
-public class WMFYearInReviewContributorSlideViewModel: ObservableObject {
+public class WMFYearInReviewContributorSlideViewModel: ObservableObject, WMFYIRViewModel {
     public enum ContributionStatus {
         case contributor
         case noncontributor
