@@ -352,8 +352,8 @@ public class WMFYearInReviewViewModel: ObservableObject {
                                     subtitle: localizedStrings.contributorSubtitle(editCount > 0, donateCount > 0),
                                     loggingID: "", // todo
                                     contributionStatus: .contributor,
-                                    onTappedDonateButton: {
-                                        
+                                    onTappedDonateButton: { [weak self] sourceRect in
+                                        self?.handleDonate(sourceRect: sourceRect)
                                     },
                                     onToggleIcon: { toggleValue in
                                         self.onToggleIcon(isOn: toggleValue, dataController: dataController)
@@ -786,15 +786,15 @@ public class WMFYearInReviewViewModel: ObservableObject {
     private var nonContributorSlide: WMFYearInReviewContributorSlideViewModel {
         let forceHideDonateButton = (try? WMFYearInReviewDataController().shouldHideDonateButton()) ?? false
         return WMFYearInReviewContributorSlideViewModel(
-            gifName: "contributor-slide",
+            gifName: "contribution-slide",
             altText: "",
             title: localizedStrings.noncontributorTitle,
             subtitle: localizedStrings.noncontributorSubtitle,
             loggingID: "",
             contributionStatus: .noncontributor,
             forceHideDonateButton: forceHideDonateButton,
-            onTappedDonateButton: {
-                
+            onTappedDonateButton: { [weak self] sourceRect in
+                self?.handleDonate(sourceRect: sourceRect)
             },
             onInfoButtonTap: { [weak self] in
                 self?.tappedInfo()

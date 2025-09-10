@@ -3,18 +3,15 @@ import SwiftUI
 struct WMFYearInReviewContributionSlideView: View {
     @ObservedObject var viewModel: WMFYearInReviewContributorSlideViewModel
     @ObservedObject var appEnvironment = WMFAppEnvironment.current
+    @Binding var isLoading: Bool
     
     var theme: WMFTheme {
         return appEnvironment.theme
     }
     
-    init(viewModel: WMFYearInReviewContributorSlideViewModel) {
-        self.viewModel = viewModel
-    }
-    
     var body: some View {
         ZStack(alignment: .bottom) {
-            WMFYearInReviewScrollView(scrollViewContents: WMFYearInReviewSlideContributionViewContent(viewModel: viewModel))
+            WMFYearInReviewScrollView(scrollViewContents: WMFYearInReviewSlideContributionViewContent(viewModel: viewModel, isLoading: $isLoading))
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
@@ -25,6 +22,9 @@ fileprivate struct WMFYearInReviewSlideContributionViewContent: View {
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
     
     @ObservedObject var appEnvironment = WMFAppEnvironment.current
+    
+    @State private var buttonRect: CGRect = .zero
+    @Binding var isLoading: Bool
     
     private var theme: WMFTheme {
         return appEnvironment.theme
@@ -124,15 +124,25 @@ fileprivate struct WMFYearInReviewSlideContributionViewContent: View {
                     }
                 case .noncontributor:
                     if !viewModel.forceHideDonateButton {
-                        Button(action: { viewModel.onTappedDonateButton() }) {
-                            HStack(alignment: .center, spacing: 6) {
-                                if let uiImage = WMFSFSymbolIcon.for(symbol: .heartFilled, font: .semiboldHeadline) {
-                                    Image(uiImage: uiImage)
-                                        .foregroundStyle(Color(uiColor: theme.destructive))
+                        
+                        Button(action: { viewModel.onTappedDonateButton(buttonRect) }) {
+                            
+                            Group {
+                                if isLoading {
+                                    ProgressView()
+                                        .progressViewStyle(CircularProgressViewStyle(tint: Color(uiColor: theme.destructive)))
+                                        .scaleEffect(1.2)
+                                } else {
+                                    HStack(alignment: .center, spacing: 6) {
+                                        if let uiImage = WMFSFSymbolIcon.for(symbol: .heartFilled, font: .semiboldHeadline) {
+                                            Image(uiImage: uiImage)
+                                                .foregroundStyle(Color(uiColor: theme.destructive))
+                                        }
+                                        Text(viewModel.donateButtonTitle)
+                                            .font(Font(WMFFont.for(.semiboldHeadline)))
+                                            .foregroundStyle(Color(uiColor: theme.destructive))
+                                    }
                                 }
-                                Text(viewModel.donateButtonTitle)
-                                    .font(Font(WMFFont.for(.semiboldHeadline)))
-                                    .foregroundStyle(Color(uiColor: theme.destructive))
                             }
                             .padding(.vertical, 11)
                             .padding(.horizontal, 16)
@@ -144,6 +154,15 @@ fileprivate struct WMFYearInReviewSlideContributionViewContent: View {
                             )
                         }
                         .buttonStyle(PlainButtonStyle())
+                        .background(
+                            GeometryReader { geometry in
+                                Color.clear
+                                    .onAppear {
+                                        let frame = geometry.frame(in: .global)
+                                        buttonRect = frame
+                                    }
+                            }
+                        )
                     }
                 }
             }

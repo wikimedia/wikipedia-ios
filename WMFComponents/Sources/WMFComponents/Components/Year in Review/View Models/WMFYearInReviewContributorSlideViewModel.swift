@@ -16,7 +16,7 @@ public class WMFYearInReviewContributorSlideViewModel: ObservableObject {
     public let contributionStatus: ContributionStatus
     public let forceHideDonateButton: Bool
     
-    public let onTappedDonateButton: () -> Void
+    public let onTappedDonateButton: (CGRect) -> Void
     public let onToggleIcon: ((Bool) -> Void)?
     public let onInfoButtonTap: () -> Void
     public let donateButtonTitle: String
@@ -29,7 +29,7 @@ public class WMFYearInReviewContributorSlideViewModel: ObservableObject {
         }
     }
     
-    public init(gifName: String, altText: String, title: String, subtitle: String, loggingID: String, contributionStatus: ContributionStatus, forceHideDonateButton: Bool = false, onTappedDonateButton: @escaping () -> Void, onToggleIcon: ((Bool) -> Void)? = nil, onInfoButtonTap: @escaping () -> Void, donateButtonTitle: String, toggleButtonTitle: String, toggleButtonSubtitle: String, isIconOn: Bool = false) {
+    public init(gifName: String, altText: String, title: String, subtitle: String, loggingID: String, contributionStatus: ContributionStatus, forceHideDonateButton: Bool = false, onTappedDonateButton: @escaping (CGRect) -> Void, onToggleIcon: ((Bool) -> Void)? = nil, onInfoButtonTap: @escaping () -> Void, donateButtonTitle: String, toggleButtonTitle: String, toggleButtonSubtitle: String, isIconOn: Bool = false) {
         self.gifName = gifName
         self.altText = altText
         self.title = title
