@@ -27,9 +27,15 @@ public struct WMFYearInReviewSlideHighlightsView: View {
                                 .multilineTextAlignment(.center)
 
                             WMFYearInReviewInfoTableView(viewModel: viewModel.getTableViewModel())
+                                .overlay(
+                                    Rectangle()
+                                        .stroke(Color(WMFColor.gray300), lineWidth: 1)
+                                )
 
                             WMFLargeButton(configuration: .primary, title: "title") {
-                                withAnimation(.easeInOut(duration: 0.75)) { }
+                                withAnimation(.easeInOut(duration: 0.75)) {
+                                    viewModel.tappedShare()
+                                }
                             }
                             .padding(.top, 8)
                         }

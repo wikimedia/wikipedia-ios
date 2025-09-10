@@ -648,7 +648,7 @@ public class WMFYearInReviewViewModel: ObservableObject {
     // MARK: English Slides
 
     func getHighlights() -> WMFYearInReviewSlideHighlightsViewModel {
-        return WMFYearInReviewSlideHighlightsViewModel()
+        return WMFYearInReviewSlideHighlightsViewModel(coordinatorDelegate: coordinatorDelegate)
     }
 
     private var englishHoursReadingSlide: WMFYearInReviewSlideStandardViewModel {
@@ -912,9 +912,8 @@ public class WMFYearInReviewViewModel: ObservableObject {
             }
         case .contribution(let viewModel):
             break
-        case .highlights(let viewModel):
-            print("Highlights")
-
+        case .highlights:
+            break
         }
         logYearInReviewDidTapShare()
     }

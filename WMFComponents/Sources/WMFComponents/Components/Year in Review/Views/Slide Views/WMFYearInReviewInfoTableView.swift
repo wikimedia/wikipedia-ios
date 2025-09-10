@@ -24,8 +24,9 @@ public struct WMFYearInReviewInfoTableView: View {
                         Text(viewModel.tableItems[index].title)
                             .font(Font(WMFFont.for(.boldSubheadline)))
                             .foregroundStyle(Color(uiColor: WMFColor.black))
-                            .frame(width: 140, alignment: .leading) // TODO: get width for several devices, ipad
+                            .frame(width: 140, alignment: .leading)
                         Text(viewModel.tableItems[index].text)// TODO: format link color
+                        // TODO: Limit lines to 2 and truncate on iPhone and sharing, not iPad
                             .font(Font(WMFFont.for(.subheadline)))
                             .foregroundStyle(Color(uiColor: WMFColor.black))
                             .multilineTextAlignment(.leading)
@@ -33,10 +34,7 @@ public struct WMFYearInReviewInfoTableView: View {
                 }
             }
             .padding(16)
-            .overlay(
-                Rectangle()
-                    .stroke(Color(WMFColor.gray200), lineWidth: 1)
-            )
+            
         }
         .background(Color(WMFColor.gray100))
     }
