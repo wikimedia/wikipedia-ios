@@ -62,7 +62,7 @@ extension ArticleViewController {
 
         guard let articleSourceRect = computeApproximateTextSourceRect() else { return }
 
-        let openInTabVM = WMFTooltipViewModel(localizedStrings: makeOpenInTabStrings(), buttonNeedsDisclosure: false, sourceView: view, sourceRect: articleSourceRect, permittedArrowDirections: .down) { [weak self] in
+        let openInTabVM = WMFTooltipViewModel(localizedStrings: makeOpenInTabStrings(), buttonNeedsDisclosure: false, sourceView: view, sourceRect: articleSourceRect) { [weak self] in
             guard let self else { return }
             if let siteURL = self.articleURL.wmf_site, let project = WikimediaProject(siteURL: siteURL) {
                 ArticleTabsFunnel.shared.logTabTooltipImpression(project: project)

@@ -91,7 +91,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
                 value: "We spent 2.9 billion hours reading",
                 comment: "Reading slide title for English Year in Review."
             ),
-            englishReadingSlideSubtitle: WMFLocalizedString("microsite-yir-english-reading-slide-subtitle", value: "People spent an estimated 2.9 billion hours—over 331,000 years!—reading English Wikipedia in 2024. Wikipedia is there when you want to learn about our changing world, win a bet among friends, or answer a curious child’s question.", comment: "Reading slide subtitle for English Year in Review."),
+            englishReadingSlideSubtitle: englishReadingSlideSubtitle,
             englishTopReadSlideTitle: WMFLocalizedString("microsite-yir-english-top-read-slide-title", value: "English Wikipedia’s most popular articles", comment: "Top read slide title for English Year in Review."),
             englishTopReadSlideSubtitle: englishTopReadSlideSubtitle,
             englishSavedReadingSlideTitle: WMFLocalizedString("microsite-yir-english-saved-reading-slide-title", value: "We had over 62.2 million reading lists", comment: "Saved reading slide title for English Year in Review."),
@@ -112,8 +112,10 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
             collectiveEditsPerMinuteSlideSubtitle: collectiveEditsPerMinuteSlideSubtitle,
             collectiveZeroAdsSlideTitle: WMFLocalizedString("year-in-review-base-donate-title", value: "0 ads served on Wikipedia", comment: "Year in review, donate slide title when user has not made any donations that year."),
             collectiveZeroAdsSlideSubtitle: collectiveZeroAdsSlideSubtitle,
-            personalizedYouReadSlideTitle: personalizedYouReadSlideTitle(readCount:),
-            personalizedYouReadSlideSubtitle:personalizedYouReadSlideSubtitle(readCount:),
+            personalizedYouReadSlideTitleV2: personalizedYouReadSlideTitleV2(readCount:),
+            personalizedYouReadSlideSubtitleV2: personalizedYouReadSlideSubtitleV2(readCount:),
+            personalizedYouReadSlideTitleV3: personalizedYouReadSlideTitleV3(readCount:minutesRead:),
+            personalizedYouReadSlideSubtitleV3: personalizedYouReadSlideSubtitleV3(readCount:),
             personalizedDateSlideTitleV2: personalizedDateSlideTitleV2(day:),
             personalizedDateSlideSubtitleV2: personalizedDateSlideSubtitleV2(day:),
             personalizedDateSlideTitleV3: WMFLocalizedString("year-in-review-personalized-date-title-v3", value: "You have clear reading patterns", comment: "Year in review, personalized slide title for users that displays the time / day of the week / month they read most."),
@@ -138,7 +140,14 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
             personalizedMostReadArticlesSlideTitle: WMFLocalizedString("year-in-review-personalized-most-read-articles-title", value: "Your top articles", comment: "Year in review, personalized most read articles slide title"),
             personalizedMostReadArticlesSlideSubtitle: personalizedListSlideSubtitle(items:),
             personalizedLocationSlideTitle: personalizedLocationSlideTitle(countryOrOcean:),
-            personalizedLocationSlideSubtitle: personalizedLocationSlideSubtitle(articleNames:)
+            personalizedLocationSlideSubtitle: personalizedLocationSlideSubtitle(articleNames:),
+            noncontributorTitle: WMFLocalizedString("year-in-review-non-contributor-slide-title", value: "Unlock custom icon", comment: "Year in review, non contributor slide title"),
+            noncontributorSubtitle: noncontributorSlideSubtitle(),
+            noncontributorButtonText: CommonStrings.donateTitle,
+            contributorTitle: WMFLocalizedString("year-in-review-contributor-slide-title", value: "New icon unlocked", comment: "Year in review subtitle for contributors"),
+            contributorSubtitle: contributorSlideSubtitle(isEditor:isDonator:),
+            contributorGiftTitle: WMFLocalizedString("year-in-review-contributor-gift-title", value: "Activate new app icon", comment: "Year in review title for the new icon"),
+            contributorGiftSubtitle: WMFLocalizedString("year-in-review-contributor-gift-subtitle", value: "If you don’t turn it on now, you can access it later in Settings under Theme.", comment: "Year in review subtitle for the new icon")
         )
     }
 
@@ -231,7 +240,38 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         return String.localizedStringWithFormat(format, aboutWikimediaURLString)
     }
     
+    // MARK: - Contributor
+    func contributorSlideSubtitle(isEditor: Bool, isDonator: Bool) -> String {
+        let format = WMFLocalizedString("year-in-review-contributor-slide-subtitle", value: "Thank you for investing in the future of free knowledge.\n\nYour contributions as %1$@ in 2025 are helping pave the way to a world of free information and as a result you have unlocked a custom contributor icon.", comment: "Year in review, contributor slide subtitle. %1$@ is replaced with text indicating if they are an editor, donor, or both. Do not alter markdown when translating.")
+        
+        let contribution =
+            isEditor && isDonator ? bothDonorAndEditor :
+            isEditor ? editorStatus :
+        isDonator ? donorStatus : ""
+
+        return String.localizedStringWithFormat(format, contribution)
+    }
+    
+    let bothDonorAndEditor = WMFLocalizedString("year-in-review-contributor-slide-status-both", value: "a donor and editor", comment: "Contribution slide status for both editor and donor status")
+    
+    let editorStatus = WMFLocalizedString("year-in-review-contributor-slide-status-editor", value: "an editor", comment: "Contribution slide status for editor status")
+    
+    let donorStatus = WMFLocalizedString("year-in-review-contributor-slide-status-donor", value: "a donor", comment: "Contribution slide status for donor status")
+    
+    func noncontributorSlideSubtitle() -> String {
+        let format = WMFLocalizedString("year-in-review-noncontributor-slide-subtitle", value: "Become a contributor and unlock a custom contributor icon. [Learn more](%1$@) about the ways you can join the free knowledge movement. You can become an editor or donate to the Wikimedia Foundation--the nonprofit behind Wikipedia--to ensure that the information you rely on remains ad-free and trustworthy, while keeping Wikipedia running smoothly with cutting-edge tools and technologies.", comment: "Year in review, noncontributor slide subtitle. %1$@ is replaced with a MediaWiki url with more information about WMF. Do not alter markdown when translating.")
+        return String.localizedStringWithFormat(format, aboutWikimediaURLString)
+    }
+    
     // MARK: - English Slide Strings
+    
+    var englishReadingSlideSubtitle: String {
+        WMFLocalizedString("microsite-yir-english-reading-slide-subtitle", value: "People spent an estimated 2.4 billion hours—over 275,000 years!—reading English Wikipedia in 2025. Wikipedia is there when you want to learn about our changing world, win a bet among friends, or answer a curious child’s question.", comment: "Reading slide subtitle for English Year in Review.")
+    }
+    
+    var englishReadingSlideSubtitleShort: String {
+        WMFLocalizedString("microsite-yir-english-reading-slide-subtitle-short", value: "People spent an estimated 2.4 billion hours—over 275,000 years!—reading English Wikipedia in 2025.", comment: "Shortened reading slide subtitle for English Year in Review. This shortened sentence is appended to the personalized reading slide for EN Wiki users.")
+    }
 
     var englishTopReadSlideSubtitle: String {
         // Individual top read items
@@ -270,12 +310,12 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
     
     // MARK: - Personalized Slide Strings
 
-    func personalizedYouReadSlideTitle(readCount: Int) -> String {
+    func personalizedYouReadSlideTitleV2(readCount: Int) -> String {
         let format = WMFLocalizedString("year-in-review-personalized-reading-title-format", value: "You read {{PLURAL:%1$d|%1$d article|%1$d articles}}", comment: "Year in review, personalized reading article count slide title for users that read articles. %1$d is replaced with the number of articles the user read.")
         return String.localizedStringWithFormat(format, readCount)
     }
 
-    func personalizedYouReadSlideSubtitle(readCount: Int) -> String {
+    func personalizedYouReadSlideSubtitleV2(readCount: Int) -> String {
         let format = WMFLocalizedString("year-in-review-personalized-reading-subtitle-format", value: "You read {{PLURAL:%1$d|%1$d article|%1$d articles}}. Wikipedia had %2$@ million articles available across over %3$@ active languages. You joined millions in expanding knowledge and exploring diverse topics.", comment: "Year in review, personalized reading article count slide subtitle for users that read articles. %1$d is replaced with the number of articles the user read. %2$@ is replaced with the number of articles available across Wikipedia, for example, \"63.59\". %3$@ is replaced with the number of active languages available on Wikipedia, for example \"300\"")
 
         let formatter = NumberFormatter()
@@ -289,6 +329,44 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         let numLanguagesString = formatter.string(from: numLanguages) ?? "300"
 
         return String.localizedStringWithFormat(format, readCount, numArticlesString, numLanguagesString)
+    }
+    
+    func personalizedYouReadSlideTitleV3(readCount: Int, minutesRead: Int) -> String {
+        let format = WMFLocalizedString("year-in-review-personalized-reading-title-v3-format", value: "You spent {{PLURAL:%1$d|%1$d minute|%1$d minutes}} reading {{PLURAL:%2$d|%2$d article|%2$d articles}} in 2025", comment: "Year in review, personalized reading article count slide title for users that read articles. %1$d is replaced with the number of minutes the user spent reading and %2$d is replaced with the number of articles the user read in 2025.")
+        return String.localizedStringWithFormat(format, minutesRead, readCount)
+    }
+
+    func personalizedYouReadSlideSubtitleV3(readCount: Int) -> String {
+        
+        let minReadCount = 1
+        let maxReadCount = 43740
+        let containedReadCount = min(max(readCount, minReadCount), maxReadCount)
+        let percentage = 100 - (Double(containedReadCount) / Double(maxReadCount) * 100)
+        
+        let percentageString: String
+        if readCount > maxReadCount {
+            percentageString = "0.001"
+        } else {
+            percentageString = String(format: "%.3f", percentage)
+        }
+        
+        let format = WMFLocalizedString(
+            "year-in-review-personalized-reading-subtitle-format-v3",
+            value: "This puts you in the top **PERCENT** of Wikipedia readers globally. The average person reads {{PLURAL:%1$d|%1$d article|%1$d articles}} a year.",
+            comment: "Year in review, personalized reading article count slide subtitle for users that read articles. **PERCENT** is the percentage number (i.e. '25%'), do not adjust it, percentage sign is added via the client. %1$d is the average number of articles read per user."
+        )
+        
+        // TODO: Average number of articles.
+        let firstSentence = String.localizedStringWithFormat(format, 3647).replacingOccurrences(of: "**PERCENT**", with: "<b>\(percentageString)%</b>")
+        
+        let secondSentence: String
+        if primaryAppLanguage.isEnglishWikipedia {
+            secondSentence = englishReadingSlideSubtitleShort
+        } else {
+            secondSentence = collectiveLanguagesSlideSubtitle
+        }
+        
+        return "\(firstSentence)\n\n\(secondSentence)"
     }
     
     func personalizedDateSlideTitleV2(day: Int) -> String {
