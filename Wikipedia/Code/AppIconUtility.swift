@@ -19,19 +19,12 @@ public final class AppIconUtility {
     
     public func updateAppIcon(isNew: Bool) {
         guard UIApplication.shared.supportsAlternateIcons else {
-            print("Device does not support alternate icons")
             return
         }
         
         let iconName = isNew ? "ContributorAppIcon" : nil
         
-        UIApplication.shared.setAlternateIconName(iconName) { error in
-            if let error = error {
-                print("Failed request to update the app’s icon: \(error.localizedDescription)")
-            } else {
-                print("App icon updated to: \(iconName ?? "Default")")
-            }
-        }
+        UIApplication.shared.setAlternateIconName(iconName) { _ in }
     }
     
     public func syncIconWithStoredPreference() {
