@@ -84,7 +84,7 @@ public class Router: NSObject {
             if language.uppercased() == "EN" || language.uppercased() == "TEST",
                 title == "MyContributions",
                let username = permanentUsername,
-               let newURL = url.wmf_URL(withPath: "/wiki/Special:Contributions/\(username)", isMobile: true) {
+               let newURL = url.wmf_URL(withPath: "/wiki/Special:Contributions/\(username)") {
                 return .inAppLink(newURL)
             }
             
