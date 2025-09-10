@@ -39,9 +39,7 @@ struct WMFYearInReviewBodyView: View {
                         }
 
                         if case .highlights(let highlightsViewModel) = slide {
-                            ZStack {
-                                WMFYearInReviewSlideHighlightsView(viewModel: highlightsViewModel)
-                            }
+                            WMFYearInReviewSlideHighlightsView(viewModel: highlightsViewModel)
                         }
                         if case .contribution(let contributionsViewModel) = slide {
                             WMFYearInReviewContributionSlideView(viewModel: contributionsViewModel)

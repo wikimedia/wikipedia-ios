@@ -8,31 +8,39 @@ public struct WMFYearInReviewSlideHighlightsView: View {
     public var body: some View {
         ZStack {
             GradientBackgroundView()
-                .ignoresSafeArea(.container, edges: [.top]) // don't ignore bottom
+                .ignoresSafeArea(.container, edges: [.top])
 
-            ScrollView(.vertical, showsIndicators: true) {
-                VStack(spacing: 24) {
-                    Text("Titleeeeee loooooooooooooooooooooooong long")
-                        .font(Font(WMFFont.for(.boldTitle1)))
-                        .foregroundColor(.white)
-                        .multilineTextAlignment(.center)
+            GeometryReader { proxy in
+                ScrollView(.vertical, showsIndicators: true) {
 
-                    Text("subtitle loooooooooooooooooooooooong")
-                        .font(Font(WMFFont.for(.headline)))
-                        .foregroundColor(.white)
-                        .multilineTextAlignment(.center)
+                    VStack {
+                        Spacer(minLength: 0)
+                        VStack(spacing: 24) {
+                            Text("Titleeeeee loooooooooooooooooooooooong long")
+                                .font(Font(WMFFont.for(.boldTitle1)))
+                                .foregroundColor(.white)
+                                .multilineTextAlignment(.center)
 
-                    WMFYearInReviewInfoTableView(viewModel: viewModel.getTableViewModel())
+                            Text("subtitle loooooooooooooooooooooooong")
+                                .font(Font(WMFFont.for(.headline)))
+                                .foregroundColor(.white)
+                                .multilineTextAlignment(.center)
 
+                            WMFYearInReviewInfoTableView(viewModel: viewModel.getTableViewModel())
 
-                    WMFLargeButton(configuration: .primary, title: "title") {
-                        withAnimation(.easeInOut(duration: 0.75)) { }
+                            WMFLargeButton(configuration: .primary, title: "title") {
+                                withAnimation(.easeInOut(duration: 0.75)) { }
+                            }
+                            .padding(.top, 8)
+                        }
+                        .padding(.horizontal, 32)
+                        .padding(.vertical, 24)
+
+                        Spacer(minLength: 0)
                     }
-                    .padding(.top, 8)
+                    .frame(maxWidth: .infinity)
+                    .frame(minHeight: proxy.size.height)
                 }
-                .padding(.horizontal, 32)
-                .padding(.top, 24)
-                .padding(.bottom, 32)
             }
         }
     }
