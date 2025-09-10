@@ -266,6 +266,37 @@ public final class WMFPageViewsDataController {
         return results
     }
     
+    public func fetchPageViewMinutes(startDate: Date, endDate: Date) async throws -> Int {
+        let backgroundContext = try coreDataStore.newBackgroundContext
+        
+        let result: Int64 = try await backgroundContext.perform {
+            let predicate = NSPredicate(format: "timestamp >= %@ && timestamp <= %@", startDate as CVarArg, endDate as CVarArg)
+            
+            let request = NSFetchRequest<NSDictionary>(entityName: "CDPageView")
+            request.predicate = predicate
+
+            let sumExpression = NSExpressionDescription()
+            sumExpression.name = "totalSeconds"
+            sumExpression.expression = NSExpression(
+                forFunction: "sum:",
+                arguments: [NSExpression(forKeyPath: "numberOfSeconds")]
+            )
+            sumExpression.expressionResultType = .integer64AttributeType
+
+            request.resultType = .dictionaryResultType
+            request.propertiesToFetch = [sumExpression]
+
+            if let result = try backgroundContext.fetch(request).first,
+               let totalSeconds = result["totalSeconds"] as? Int64 {
+                return totalSeconds / Int64(60)
+            }
+            
+            return 0
+        }
+        
+        return Int(result)
+    }
+    
     func fetchPageViewDates(startDate: Date, endDate: Date, moc: NSManagedObjectContext? = nil) async throws -> WMFPageViewDates? {
         let backgroundContext = try coreDataStore.newBackgroundContext
         
