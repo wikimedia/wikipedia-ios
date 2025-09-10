@@ -7,7 +7,7 @@ final class YearInReviewReadCountSlideDataController: YearInReviewSlideDataContr
     var isEvaluated: Bool = false
     static var containsPersonalizedNetworkData = false
     
-    private var readCount: Int?
+    private var readData: WMFYearInReviewReadData?
 
     private weak var legacyPageViewsDataDelegate: LegacyPageViewsDataDelegate?
     private let yirConfig: YearInReviewFeatureConfig
@@ -21,12 +21,17 @@ final class YearInReviewReadCountSlideDataController: YearInReviewSlideDataContr
     func populateSlideData(in context: NSManagedObjectContext) async throws {
         
         guard let startDate = yirConfig.dataPopulationStartDate,
-              let endDate = yirConfig.dataPopulationEndDate,
-            let pageViews = try await legacyPageViewsDataDelegate?.getLegacyPageViews(from: startDate, to: endDate, needsLatLong: false) else {
+              let endDate = yirConfig.dataPopulationEndDate else {
             throw NSError(domain: "", code: 0, userInfo: nil)
         }
         
-        readCount = pageViews.count
+        let dataController = try WMFPageViewsDataController()
+        
+        let readCount = try await dataController.fetchPageViewCounts(startDate: startDate, endDate: endDate).count
+        let minutesRead = try await dataController.fetchPageViewMinutes(startDate: startDate, endDate: endDate)
+        
+        readData = WMFYearInReviewReadData(readCount: readCount, minutesRead: minutesRead)
+        
         isEvaluated = true
     }
 
@@ -35,9 +40,9 @@ final class YearInReviewReadCountSlideDataController: YearInReviewSlideDataContr
         slide.id = id
         slide.year = Int32(year)
 
-        if let readCount {
+        if let readData {
             let encoder = JSONEncoder()
-            slide.data = try encoder.encode(readCount)
+            slide.data = try encoder.encode(readData)
         }
 
         return slide

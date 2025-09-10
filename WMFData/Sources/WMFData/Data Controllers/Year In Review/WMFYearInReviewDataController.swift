@@ -627,6 +627,11 @@ import CoreData
     }
 }
 
+public struct WMFYearInReviewReadData: Codable {
+    public let readCount: Int
+    public let minutesRead: Int
+}
+
 public class SavedArticleSlideData: NSObject, Codable {
     public let savedArticlesCount: Int
     public let articleTitles: [String]
