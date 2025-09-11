@@ -32,7 +32,6 @@ struct WMFYearInReviewSlideStandardShareableView: View {
     }
 
     var body: some View {
-        GeometryReader { geometry in
             VStack {
                 VStack(alignment: .leading, spacing: 16) {
                     Image("W-share-logo", bundle: .module)
@@ -49,6 +48,7 @@ struct WMFYearInReviewSlideStandardShareableView: View {
                             .padding(.horizontal, 0)
                     }
                     .padding(.top, 10)
+                    
                     VStack(alignment: .leading, spacing: 12) {
                         Text(viewModel.title)
                             .font(Font(WMFFont.for(.boldTitle1, compatibleWith: UITraitCollection(preferredContentSizeCategory: .medium))))
@@ -92,10 +92,9 @@ struct WMFYearInReviewSlideStandardShareableView: View {
                 .frame(height: 80)
                 .padding(.bottom, 60)
             }
-            .frame(width: geometry.size.width, height: geometry.size.height)
             .background(Color(uiColor: theme.paperBackground))
-        }
-        .frame(width: 402, height: 847)
+            .frame(maxWidth: 402)
+            .frame(minHeight: 847)
     }
 }
 
