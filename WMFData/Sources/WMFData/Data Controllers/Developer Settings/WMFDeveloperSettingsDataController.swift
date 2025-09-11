@@ -183,7 +183,7 @@ public protocol WMFDeveloperSettingsDataControlling: AnyObject {
         }
 
         guard let primaryAppLanguage = WMFDataEnvironment.current.primaryAppLanguage,
-            let featureConfigURL = URL.wikimediaRestAPIURL(project: WMFProject.wikipedia(primaryAppLanguage), additionalPathComponents: ["feed","configuration"]) else {
+            let featureConfigURL = URL.featureConfigURL(project: WMFProject.wikipedia(primaryAppLanguage)) else {
             completion(WMFDataControllerError.failureCreatingRequestURL)
             return
         }
