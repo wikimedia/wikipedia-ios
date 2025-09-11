@@ -767,7 +767,8 @@
 "microsite-yir-english-edits-bytes-slide-title" = "增加了 40 億位元組";
 "microsite-yir-english-edits-slide-subtitle" = "志工們對維基百科的 300 多種不同語言版本做出了 98,222,407次修改。英文維基百科則進行了超過 3700 萬次修改。每一天、每一刻、每一秒，志工們都在努力改進維基百科。";
 "microsite-yir-english-edits-slide-title" = "編輯者今年做出了 9800 萬次修改";
-"microsite-yir-english-reading-slide-subtitle" = "在 2024 年，人們花了 29 億小時（超過 331,000 年！）閱讀英文維基百科。當您想了解我們不斷變化的世界、在朋友之間贏得對事物了解的賭注、或是回答孩子好奇的問題時，維基百科就會在您身邊。";
+"microsite-yir-english-reading-slide-subtitle" = "在 2025 年，人們花了 24 億小時（超過 275,000 年！）閱讀英文維基百科。當您想了解我們不斷變化的世界、在朋友之間贏得對事物了解的賭注、或是回答孩子好奇的問題時，維基百科就會在您身邊。";
+"microsite-yir-english-reading-slide-subtitle-short" = "在 2025 年，人們花了 24 億小時（超過 275,000 年！）閱讀英文維基百科。";
 "microsite-yir-english-reading-slide-title" = "大家花了 29 億小時閱讀維基百科";
 "microsite-yir-english-saved-reading-slide-subtitle" = "iOS 應用程式的活躍使用者做出了超過 6220 萬個閱讀清單。將條目增加到閱讀清單可讓您即使在離線時也能查看條目。此外，您還可以透過登入將閱讀清單同步到不同裝置裡。";
 "microsite-yir-english-saved-reading-slide-title" = "我們有超過 6220 萬個閱讀清單";
@@ -1493,6 +1494,13 @@
 "year-in-review-collective-languages" = "一塊刻有代表各種語言銘文的石頭的動畫插圖，象徵維基百科如何協作建構來自不同文化與地區的知識。";
 "year-in-review-collective-saved-articles" = "一個帶有維基百科標誌的拼圖地球儀，代表著全球協作。";
 "year-in-review-collective-zero-ads" = "維基媒體標誌";
+"year-in-review-contributor-gift-subtitle" = "如果您現在不啟用，您可以事後在主題下方的設定裡存取它。";
+"year-in-review-contributor-gift-title" = "啟動新的應用程式圖示";
+"year-in-review-contributor-slide-status-both" = "捐款者與編輯者";
+"year-in-review-contributor-slide-status-donor" = "捐款者";
+"year-in-review-contributor-slide-status-editor" = "編輯者";
+"year-in-review-contributor-slide-subtitle" = "感謝您對自由知識未來的投入\n\n您在 2025 年作為$1的貢獻有助於打造通往自由資訊世界的道路，您因此解鎖了「自訂貢獻者圖示」成就。";
+"year-in-review-contributor-slide-title" = "已解鎖新圖示";
 "year-in-review-day-friday" = "星期五";
 "year-in-review-day-monday" = "星期一";
 "year-in-review-day-saturday" = "星期六";
@@ -1518,6 +1526,8 @@
 "year-in-review-intro-login-title" = "登入進行個人化";
 "year-in-review-login-subtitle" = "登入或建立你的帳戶，以獲得更多個人化的洞察資訊。";
 "year-in-review-login-title" = "改進您的年度回顧";
+"year-in-review-non-contributor-slide-title" = "解鎖自訂圖示";
+"year-in-review-noncontributor-slide-subtitle" = "成為貢獻者並解鎖自訂貢獻者圖示。[了解更多]（$1）關於如何加入自由知識運動。您可以成為一名編輯者，或著是向維基媒體基金會（維基百科背後的非營利組織）捐款，以確保您所依賴的資訊維持無廣告和可信度，同時利用尖端工具與技術維持維基百科可平穩運作。";
 "year-in-review-personalized-date-day-footer-v3" = "最喜歡閱讀的日子";
 "year-in-review-personalized-date-month-footer-v3" = "您閱讀最多次的月份";
 "year-in-review-personalized-date-time-footer-v3" = "最喜歡的閱讀時間";
@@ -1540,7 +1550,9 @@
 "year-in-review-personalized-location-title-format" = "您閱讀過的條目其位置最靠近$1。";
 "year-in-review-personalized-most-read-articles-title" = "您的熱門條目";
 "year-in-review-personalized-reading-subtitle-format" = "您閱讀了{{PLURAL:$1|$1篇}}文章。維基百科提供超過$2百萬篇文章，涵蓋超過$3種活躍的語言版本。您與數百萬人一起拓展知識，探索多樣化的主題。";
+"year-in-review-personalized-reading-subtitle-format-v3" = "這使您列入維基百科全球讀者的前 **PERCENT**。平均每人每年閱讀 {{PLURAL:$1|$1}} 篇條目。";
 "year-in-review-personalized-reading-title-format" = "您閱讀了 {{PLURAL:$1|$1}} 篇條目";
+"year-in-review-personalized-reading-title-v3-format" = "您在 2025 年花了 {{PLURAL:$1|$1}} 分鐘閱讀了 {{PLURAL:$2|$2}} 篇條目";
 "year-in-review-personalized-saved-articles" = "一張戴有安全帽、背後是電腦螢幕的拼圖碎片插圖。";
 "year-in-review-personalized-saved-subtitle-format" = "您儲存了 {{PLURAL:$1|$1}} 篇條目，包括$2、$3和$4。每篇儲存的條目都反應出您的喜好，並幫助您在維基百科上建立個人化知識庫。";
 "year-in-review-personalized-saved-title-format" = "您儲存了 {{PLURAL:$1|$1}} 篇條目";

@@ -766,6 +766,7 @@
 "microsite-yir-english-edits-bytes-slide-title" = "4 miljard bytes toegevoegd";
 "microsite-yir-english-edits-slide-subtitle" = "Vrijwilligers hebben 98.222.407 wijzigingen aangebracht in meer dan 300 verschillende taalversies van Wikipedia. Meer dan 37 miljoen wijzigingen zijn aangebracht op de Engelstalige Wikipedia. Vrijwilligers werken elk uur van de dag aan het verbeteren van Wikipedia.";
 "microsite-yir-english-edits-slide-title" = "Bewerkers hebben dit jaar 98 miljoen wijzigingen doorgevoerd";
+// Fuzzy
 "microsite-yir-english-reading-slide-subtitle" = "Naar schatting hebben mensen in 2024 2,9 miljard uur (meer dan 331.000 jaar!) besteed aan het lezen van de Engelstalige Wikipedia. Wikipedia is er voor u als u meer wilt weten over onze veranderende wereld, een weddenschap met vrienden wilt winnen, of de vraag van een nieuwsgierig kind wilt beantwoorden.";
 "microsite-yir-english-reading-slide-title" = "We hebben 2,9 miljard uur gelezen";
 "microsite-yir-english-saved-reading-slide-subtitle" = "Gebruikers van de iOS-app hadden meer dan 62,2 miljoen leeslijsten. Artikelen die u aan leeslijsten hebt toegevoegd kunt u ook offline raadplegen. Daarnaast kunt u, na aanmelden, leeslijsten op verschillende apparaten synchroniseren.";
@@ -1492,6 +1493,13 @@
 "year-in-review-collective-languages" = "Een geanimeerde illustratie van een steen met inscripties in verschillende talen. Deze inscriptie symboliseert de samenwerking waardoor Wikipedia kennis uit verschillende culturen en regio’s opbouwt.";
 "year-in-review-collective-saved-articles" = "Een puzzelwereldbol met het logo van Wikipedia, symbool voor wereldwijde samenwerking.";
 "year-in-review-collective-zero-ads" = "Wikimedia-logo";
+"year-in-review-contributor-gift-subtitle" = "Als u het nu niet inschakelt, dan kan dat later via Instellingen onder Thema.";
+"year-in-review-contributor-gift-title" = "Nieuw app-pictogram activeren";
+"year-in-review-contributor-slide-status-both" = "donateur en redacteur";
+"year-in-review-contributor-slide-status-donor" = "donateur";
+"year-in-review-contributor-slide-status-editor" = "redacteur";
+"year-in-review-contributor-slide-subtitle" = "Bedankt voor het investeren in de toekomst van de vrije kennis.\n\nUw bijdragen van $1 in 2025 helpen de weg vrij te maken naar een wereld van vrije informatie. Daarom is nu voor u een eigen bijdragerspictogram ontgrendeld.";
+"year-in-review-contributor-slide-title" = "Nieuw pictogram ontgrendeld";
 "year-in-review-day-friday" = "Vrijdagen";
 "year-in-review-day-monday" = "Maandagen";
 "year-in-review-day-saturday" = "Zaterdagen";
@@ -1517,6 +1525,12 @@
 "year-in-review-intro-login-title" = "Meld u aan voor personalisatie";
 "year-in-review-login-subtitle" = "Log in of maak een account aan om in aanmerking te komen voor meer gepersonaliseerde inzichten";
 "year-in-review-login-title" = "Verbeter uw jaaroverzicht";
+"year-in-review-non-contributor-slide-title" = "Eigen pictogram ontgrendelen";
+"year-in-review-noncontributor-slide-subtitle" = "Word bijdrager en ontgrendel een eigen bijdragersicoon. [Lees meer]($1) over de manieren waarop u zich kunt aansluiten bij de beweging voor vrije kennis. U kunt redacteur worden of doneren aan de Wikimedia Foundation, de non-profitorganisatie achter Wikipedia, om ervoor te zorgen dat de informatie waarop u vertrouwt advertentievrij en betrouwbaar blijft, en dat Wikipedia soepel blijft draaien met geavanceerde tools en technologieën.";
+"year-in-review-personalized-date-day-footer-v3" = "Favoriete dag om te lezen";
+"year-in-review-personalized-date-month-footer-v3" = "Maand waarin u het meest hebt gelezen";
+"year-in-review-personalized-date-time-footer-v3" = "Favoriete tijd om te lezen";
+"year-in-review-personalized-date-title-v3" = "U hebt duidelijke leespatronen";
 "year-in-review-personalized-day-subtitle-format" = "U leest de meeste artikelen op $1. Het is duidelijk dat $1 uw belangrijkste dag is om nieuwe inhoud te ontdekken. Bedankt voor het optimaal benutten van uw leestijd!";
 "year-in-review-personalized-day-title-format" = "U leest op $1 het meeste.";
 "year-in-review-personalized-donate-subtitle" = "Bedankt voor uw investering in de toekomst van vrije kennis. Dit jaar heeft de Wikimedia Foundation de technologie verbeterd om elke lezer en vrijwilliger beter van dienst te zijn, tools ontwikkeld die samenwerking mogelijk maken en Wikipedia in meer talen ondersteund. [Lees meer over ons werk]($1).";
@@ -1529,6 +1543,10 @@
 "year-in-review-personalized-editing-title-format" = "U hebt Wikipedia {{PLURAL:$1|$1 keer}} bewerkt";
 "year-in-review-personalized-editing-title-format-500plus" = "U hebt Wikipedia meer dan 500 keer bewerkt.";
 "year-in-review-personalized-explore" = "Een animatie van een hand die de Wikipedia-wereldbol vasthoudt. De wereldbol verandert geleidelijk in een klein puzzelstukje, wat symbool staat voor individuele bijdragen aan het platform.";
+"year-in-review-personalized-location-subtitle-format-1" = "U hebt over $2$1$3 gelezen.";
+"year-in-review-personalized-location-subtitle-format-2" = "U hebt over $3$1$4 en $3$2$4 gelezen.";
+"year-in-review-personalized-location-subtitle-format-3" = "U hebt over $4$1$5, $4$2$5 en $4$3$5 gelezen.";
+"year-in-review-personalized-location-title-format" = "De artikelen die u hebt gelezen staan het dichtst bij $1.";
 "year-in-review-personalized-most-read-articles-title" = "Uw meest gelezen artikelen";
 "year-in-review-personalized-reading-subtitle-format" = "U hebt $1 artikel{{PLURAL:$1||en}} gelezen. Wikipedia bevatte $2 miljoen artikelen in meer dan $3 actieve talen. Samen met miljoenen anderen hebt u uw kennis uitgebreid en diverse onderwerpen verkend.";
 "year-in-review-personalized-reading-title-format" = "U hebt {{PLURAL:$1|$1 artikel|$1 artikelen}} gelezen";
@@ -1548,6 +1566,12 @@
 "year-in-review-survey-unsatisfied" = "Niet tevreden";
 "year-in-review-survey-very-satisfied" = "Zeer tevreden";
 "year-in-review-survey-very-unsatisfied" = "Zeer ontevreden";
+"year-in-review-time-afternoon" = "Middag";
+"year-in-review-time-evening" = "Avond";
+"year-in-review-time-late-night" = "Laat in de nacht";
+"year-in-review-time-midday" = "Vroeg in de middag";
+"year-in-review-time-morning" = "Ochtend";
+"year-in-review-time-night" = "Nacht";
 "year-in-review-wikipedia-w-accessibility-label" = "W-logo van Wikipedia";
 "year-in-review-wmf-logo-accessibility-label" = "Logo van de Wikimedia Foundation";
 "yesterday-title" = "Gisteren";

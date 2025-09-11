@@ -772,6 +772,7 @@
 "microsite-yir-english-edits-bytes-slide-title" = "تمت إضافة 4 مليار بايت";
 "microsite-yir-english-edits-slide-subtitle" = "أجرى المتطوعون 98,222,407 تعديلاً على أكثر من 300 إصدار لغوي مختلف من ويكيبيديا. وتم إجراء أكثر من 37 مليون تعديل على ويكيبيديا الإنجليزية. وفي كل ساعة من كل يوم، يعمل المتطوعون على تحسين ويكيبيديا.";
 "microsite-yir-english-edits-slide-title" = "أجرى المحررون 98 مليون تغيير هذا العام";
+// Fuzzy
 "microsite-yir-english-reading-slide-subtitle" = "في عام 2024، قضى الناس ما يقدر بنحو 2.9 مليار ساعة - أي أكثر من 331000 سنة! - في قراءة ويكيبيديا الإنجليزية. ويكيبيديا موجودة عندما تريد التعرف على عالمنا المتغير، أو الفوز في رهان بين الأصدقاء، أو الإجابة على سؤال طفل فضولي.";
 "microsite-yir-english-reading-slide-title" = "لقد قضينا 2.9 مليار ساعة في القراءة";
 "microsite-yir-english-saved-reading-slide-subtitle" = "كان لدى مستخدمي تطبيق iOS النشطين أكثر من 62.2 مليون قائمة قراءة. تتيح لك إضافة المقالات إلى قوائم القراءة الوصول إلى المقالات حتى أثناء عدم الاتصال بالإنترنت. يمكنك أيضًا تسجيل الدخول لمزامنة قوائم القراءة عبر الأجهزة.";
@@ -1423,7 +1424,7 @@
 "watchlist-onboarding-button-title" = "تعرف على المزيد حول قائمة المراقبة";
 "watchlist-onboarding-title" = "تقديم قائمة المراقبة الخاصة بك";
 "watchlist-removed" = "تمت إزالته من قائمة المراقبة الخاصة بك";
-"watchlist-thanks-success" = "لقد تم إرسال رسالة الشكر الخاصة بك إلى $1";
+"watchlist-thanks-success" = "لقد أُرسلت رسالة شكر خاصة إلى $1";
 "watchlist-track-subtitle" = "قائمة المراقبة هي أداة تسمح لك بتتبع التغييرات التي أجريتها على الصفحات أو المقالات التي تهمك.";
 "watchlist-track-title" = "تتبع التغييرات";
 "watchlist-updates-subtitle" = "يمكنك الوصول إلى قائمة مراقبة الصفحات التي أضفتها، مثل التعديلات أو المناقشات، عبر الإعدادات → الحساب.";
@@ -1498,6 +1499,13 @@
 "year-in-review-collective-languages" = "رسم متحرك لحجر محفور عليه نقوش تمثل لغات مختلفة، ترمز إلى كيفية قيام ويكيبيديا ببناء المعرفة بشكل تعاوني من ثقافات ومناطق متنوعة.";
 "year-in-review-collective-saved-articles" = "كرة أرضية تحتوي على شعار ويكيبيديا، والتي تمثل التعاون العالمي.";
 "year-in-review-collective-zero-ads" = "شعار ويكيميديا";
+"year-in-review-contributor-gift-subtitle" = "إذا لم تقم بتشغيله الآن، فيمكنك الوصول إليه لاحقًا في الإعدادات ضمن السمة.";
+"year-in-review-contributor-gift-title" = "تفعيل أيقونة التطبيق الجديد";
+"year-in-review-contributor-slide-status-both" = "متبرع ومحرر";
+"year-in-review-contributor-slide-status-donor" = "متبرع";
+"year-in-review-contributor-slide-status-editor" = "محرر";
+"year-in-review-contributor-slide-subtitle" = "نشكرك على الاستثمار في مستقبل المعرفة المجانية.!مساهماتك بمبلغ $1 في عام 2025 تساعد في تمهيد الطريق لعالم من المعلومات المجانية ونتيجة لذلك قمت بفتح أيقونة مساهم مخصصة.";
+"year-in-review-contributor-slide-title" = "تم فتح الرمز الجديد";
 "year-in-review-day-friday" = "الجمعة";
 "year-in-review-day-monday" = "الإثنين";
 "year-in-review-day-saturday" = "السبت";
@@ -1523,6 +1531,12 @@
 "year-in-review-intro-login-title" = "تسجيل الدخول للتخصيص";
 "year-in-review-login-subtitle" = "قم بتسجيل الدخول أو إنشاء حساب لتكون مؤهلاً للحصول على رؤى أكثر تخصيصا";
 "year-in-review-login-title" = "تحسين مراجعة العام الخاص بك";
+"year-in-review-non-contributor-slide-title" = "فتح الرمز المخصص";
+"year-in-review-noncontributor-slide-subtitle" = "انضم إلينا كمساهم واحصل على أيقونة مساهم مخصصة. [تعرّف على المزيد] ( $1 ) حول طرق الانضمام إلى حركة المعرفة الحرة. يمكنك أن تصبح محررًا أو تتبرع لمؤسسة ويكيميديا - المؤسسة غير الربحية التي تقف وراء ويكيبيديا - لضمان بقاء المعلومات التي تعتمد عليها خالية من الإعلانات وموثوقة، مع الحفاظ على سلاسة عمل ويكيبيديا باستخدام أحدث الأدوات والتقنيات.";
+"year-in-review-personalized-date-day-footer-v3" = "اليوم المفضل للقراءة";
+"year-in-review-personalized-date-month-footer-v3" = "الشهر الذي قرأت فيه أكثر";
+"year-in-review-personalized-date-time-footer-v3" = "الوقت المفضل للقراءة";
+"year-in-review-personalized-date-title-v3" = "لديك أنماط قراءة واضحة";
 "year-in-review-personalized-day-subtitle-format" = "لقد قرأت معظم المقالات على $1 . من الواضح أن $1 هو يومك المثالي لاستكشاف محتوى جديد. شكرًا لك على الاستفادة القصوى من وقت القراءة!";
 "year-in-review-personalized-day-title-format" = "تقرأ معظمها مقابل $1.";
 "year-in-review-personalized-donate-subtitle" = "نشكرك على الاستثمار في مستقبل المعرفة المجانية. هذا العام، قامت مؤسسة ويكيميديا بتحسين التكنولوجيا لخدمة كل قارئ ومتطوع بشكل أفضل، وتطوير أدوات تعمل على تمكين التعاون، ودعم ويكيبيديا بمزيد من اللغات. [تعرف على المزيد حول عملنا]($1).";
@@ -1558,6 +1572,12 @@
 "year-in-review-survey-unsatisfied" = "غير راضٍ";
 "year-in-review-survey-very-satisfied" = "راض جدا";
 "year-in-review-survey-very-unsatisfied" = "غير راض جدا";
+"year-in-review-time-afternoon" = "بعد الظهر";
+"year-in-review-time-evening" = "مساء";
+"year-in-review-time-late-night" = "في وقت متأخر من الليل";
+"year-in-review-time-midday" = "منتصف النهار";
+"year-in-review-time-morning" = "صباح";
+"year-in-review-time-night" = "ليلة";
 "year-in-review-wikipedia-w-accessibility-label" = "ويكيبيديا مع الشعار";
 "year-in-review-wmf-logo-accessibility-label" = "شعار مؤسسة ويكيميديا";
 "yesterday-title" = "أمس";
