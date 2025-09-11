@@ -1,20 +1,26 @@
 import SwiftUI
 
 struct WMFYearInReviewSlideStandardShareableView: View {
-    let viewModel: WMFYearInReviewSlideStandardViewModel
+    let viewModel: WMFYearInReviewSlideViewModelProtocol
 
     @ObservedObject var appEnvironment = WMFAppEnvironment.current
 
     private var theme: WMFTheme {
         return appEnvironment.theme
     }
+    
+    private func subtitleAttributedString(subtitle: String) -> AttributedString {
+        return (try? AttributedString(markdown: subtitle)) ?? AttributedString(subtitle)
+    }
 
     private let hashtag: String
+    private let needsFormatting: Bool
     
-    init(viewModel: WMFYearInReviewSlideStandardViewModel, appEnvironment: WMFAppEnvironment = WMFAppEnvironment.current, hashtag: String) {
+    init(viewModel: WMFYearInReviewSlideViewModelProtocol, appEnvironment: WMFAppEnvironment = WMFAppEnvironment.current, hashtag: String, needsFormatting: Bool = false) {
         self.viewModel = viewModel
         self.appEnvironment = appEnvironment
         self.hashtag = hashtag
+        self.needsFormatting = needsFormatting
     }
     
     private var attributedString: AttributedString {
@@ -26,7 +32,6 @@ struct WMFYearInReviewSlideStandardShareableView: View {
     }
 
     var body: some View {
-        GeometryReader { geometry in
             VStack {
                 VStack(alignment: .leading, spacing: 16) {
                     Image("W-share-logo", bundle: .module)
@@ -43,14 +48,23 @@ struct WMFYearInReviewSlideStandardShareableView: View {
                             .padding(.horizontal, 0)
                     }
                     .padding(.top, 10)
+                    
                     VStack(alignment: .leading, spacing: 12) {
                         Text(viewModel.title)
                             .font(Font(WMFFont.for(.boldTitle1, compatibleWith: UITraitCollection(preferredContentSizeCategory: .medium))))
                             .foregroundStyle(Color(uiColor: theme.text))
-                        Text(attributedString)
-                            .font(Font(WMFFont.for(.title3, compatibleWith: UITraitCollection(preferredContentSizeCategory: .medium))))
-                            .foregroundStyle(Color(uiColor: theme.text))
-                            .accentColor(Color(uiColor: theme.link))
+                        if needsFormatting {
+                            Text(subtitleAttributedString(subtitle: viewModel.subtitle))
+                                .font(Font(WMFFont.for(.title3)))
+                                .foregroundStyle(Color(uiColor: theme.text))
+                                .accentColor(Color(uiColor: theme.link))
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                        } else {
+                            Text(attributedString)
+                                .font(Font(WMFFont.for(.title3, compatibleWith: UITraitCollection(preferredContentSizeCategory: .medium))))
+                                .foregroundStyle(Color(uiColor: theme.text))
+                                .accentColor(Color(uiColor: theme.link))
+                        }
                     }
                     .padding([.top, .horizontal], 28)
                     .padding(.bottom, 0)
@@ -78,9 +92,15 @@ struct WMFYearInReviewSlideStandardShareableView: View {
                 .frame(height: 80)
                 .padding(.bottom, 60)
             }
-            .frame(width: geometry.size.width, height: geometry.size.height)
             .background(Color(uiColor: theme.paperBackground))
-        }
-        .frame(width: 402, height: 847)
+            .frame(maxWidth: 402)
+            .frame(minHeight: 847)
     }
+}
+
+
+public protocol WMFYearInReviewSlideViewModelProtocol {
+    var gifName: String { get }
+    var subtitle: String { get }
+    var title: String { get }
 }

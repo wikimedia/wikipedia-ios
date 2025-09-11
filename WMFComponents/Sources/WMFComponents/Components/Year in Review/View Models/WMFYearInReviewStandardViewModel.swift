@@ -1,6 +1,6 @@
 import Foundation
 
-struct WMFYearInReviewSlideStandardViewModel {
+struct WMFYearInReviewSlideStandardViewModel: WMFYearInReviewSlideViewModelProtocol {
     
     enum SubtitleType {
         case html
