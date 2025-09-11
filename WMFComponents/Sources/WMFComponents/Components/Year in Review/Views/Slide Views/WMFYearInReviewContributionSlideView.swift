@@ -67,7 +67,7 @@ fileprivate struct WMFYearInReviewSlideContributionViewContent: View {
                     Spacer()
                     if let uiImage = WMFSFSymbolIcon.for(symbol: .infoCircleFill) {
                         Button {
-                            
+                            viewModel.onInfoButtonTap()
                         } label: {
                             Image(uiImage: uiImage)
                                 .resizable()

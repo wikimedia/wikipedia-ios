@@ -375,13 +375,13 @@ public class WMFYearInReviewViewModel: ObservableObject {
                                     onToggleIcon: { isOn in
                                         self.toggleAppIcon(isOn)
                                     },
-                                    onInfoButtonTap: { [weak self] in
-                                        self?.tappedInfo()
-                                    },
+                                    onInfoButtonTap: tappedInfo,
                                     donateButtonTitle: localizedStrings.donateButtonTitle,
                                     toggleButtonTitle: localizedStrings.contributorGiftTitle,
                                     toggleButtonSubtitle: localizedStrings.contributorGiftSubtitle,
-                                    isIconOn: isIconOn)
+                                    isIconOn: isIconOn,
+                                    infoURL: aboutYiRURL
+                                )
                             }
                             
                             if donateCount > 0 {
@@ -813,12 +813,11 @@ public class WMFYearInReviewViewModel: ObservableObject {
             onTappedDonateButton: { [weak self] sourceRect in
                 self?.handleDonate(sourceRect: sourceRect)
             },
-            onInfoButtonTap: { [weak self] in
-                self?.tappedInfo()
-            },
+            onInfoButtonTap: tappedInfo,
             donateButtonTitle: localizedStrings.donateButtonTitle,
             toggleButtonTitle: localizedStrings.contributorGiftTitle,
-            toggleButtonSubtitle: localizedStrings.contributorGiftSubtitle)
+            toggleButtonSubtitle: localizedStrings.contributorGiftSubtitle,
+            infoURL: aboutYiRURL)
     }
     
     private var currentSlide: WMFYearInReviewSlide {
@@ -1044,9 +1043,7 @@ public class WMFYearInReviewViewModel: ObservableObject {
         case .location(let vm):
             coordinatorDelegate?.handleYearInReviewAction(.info(url: vm.infoURL))
         case .contribution(let vm):
-            break
-            // info button not yet on donate
-           //  coordinatorDelegate?.handleYearInReviewAction(.info(url: vm.infoURL))
+            coordinatorDelegate?.handleYearInReviewAction(.info(url: vm.infoURL))
         }
     }
     

@@ -13,7 +13,6 @@ public final class AppIconUtility {
         }
         set {
             UserDefaults.standard.set(newValue, forKey: iconKey)
-            updateAppIcon(isNew: newValue)
         }
     }
     
@@ -23,11 +22,8 @@ public final class AppIconUtility {
         }
         
         let iconName = isNew ? "ContributorAppIcon" : nil
+        isNewIconOn = isNew ? true : false
         
         UIApplication.shared.setAlternateIconName(iconName) { _ in }
-    }
-    
-    public func syncIconWithStoredPreference() {
-        updateAppIcon(isNew: isNewIconOn)
     }
 }
