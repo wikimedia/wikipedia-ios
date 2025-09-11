@@ -307,6 +307,9 @@
 "table-of-contents-button-label" = "نيوليک";
 "table-of-contents-close-accessibility-hint" = "تړل";
 "table-of-contents-heading" = "منځپانگې";
+"talk-page-subscription-failed-alert" = "سکالو کې گډون‌کول نابرياله شو، مهرباني وکړئ بيا هڅه وکړئ.";
+"talk-page-unsubscription-failed-alert" = "د سکالو ونډکښنې نه وتل نابرياله شو، مهرباني وکړئ وروسته بيا هڅه وکړئ.";
+"vanish-account-warning-body" = "ورکېدل يوه **وروستۍ چاره ده** او بايد **يوازې هغه وخت وکارول شي کله چې تاسو غواړئ د تل لپاره سمون پرېږدئ** او همدارنگه تر شوني بريده د ځان اړوند پخوانۍ اړيکې پټې کړئ.\n\nپه ويکيپېډيا کې گڼون ړنگول ستاسو د گڼون نوم بدلولو له لارې ترسره کېږي؛ ترڅو نور ستاسو ونډې ونه پېژني، دې چارې ته ورکېدل يا گڼون له منځه وړل وايي. **ورکېدل په پروژو کې په بشپړ ډول ستاسو د هويت او ونډو لرې کولو ډاډ نه درکوي**.";
 "watchlist-change-expiry-subtitle" = "د کتنلړ وخت موده غوره‌کول";
 "welcome-explore-continue-button" = "پيلول";
 "welcome-explore-tell-me-more-done-button" = "وپوهېدم";
