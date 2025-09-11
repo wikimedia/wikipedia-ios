@@ -903,9 +903,13 @@ public class WMFYearInReviewViewModel: ObservableObject {
                 coordinatorDelegate?.handleYearInReviewAction(.share(image: uiImage))
             }
         case .contribution(let viewModel):
-            let view = WMFYearInReviewSlideStandardShareableView(viewModel: viewModel, hashtag: hashtag)
-            let shareView = view.snapshot()
-            coordinatorDelegate?.handleYearInReviewAction(.share(image: shareView))
+            let view = WMFYearInReviewSlideStandardShareableView(viewModel: viewModel, hashtag: hashtag, needsFormatting: true)
+            let renderer = ImageRenderer(content: view)
+            renderer.proposedSize = .init(width: 402, height: nil)
+            renderer.scale = UIScreen.main.scale
+            if let uiImage = renderer.uiImage {
+                coordinatorDelegate?.handleYearInReviewAction(.share(image: uiImage))
+            }
         }
         logYearInReviewDidTapShare()
     }
