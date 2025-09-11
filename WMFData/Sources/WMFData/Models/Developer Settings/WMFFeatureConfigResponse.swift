@@ -3,6 +3,7 @@ import Foundation
 public struct WMFFeatureConfigResponse: Codable {
     public struct IOS: Codable {
         
+        public let yir: [YearInReview]
         public struct YearInReview: Codable {
             
             public struct PersonalizedSlides: Codable {
@@ -40,97 +41,26 @@ public struct WMFFeatureConfigResponse: Codable {
                 return dateFormatter.date(from: dataPopulationEndDateString)
             }
         }
-
-        let version: Int
-
-        public let yir: [YearInReview]
         
         public func yir(yearID: String) -> YearInReview? {
             return yir.first { $0.yearID == yearID }
         }
         
-        public init(version: Int, yir: [YearInReview]) {
-            self.version = version
+        public init(yir: [YearInReview]) {
             self.yir = yir
         }
-        
-        public init(from decoder: Decoder) throws {
-            let overallContainer = try decoder.container(keyedBy: CodingKeys.self)
-            
-            var yearInReviewContainer = try overallContainer.nestedUnkeyedContainer(forKey: .yir)
-            
-            var validYiRs: [YearInReview] = []
-            
-            while !yearInReviewContainer.isAtEnd {
-                
-                let yir: YearInReview
-                do {
-                    yir = try yearInReviewContainer.decode(YearInReview.self)
-                } catch {
-                    // Skip
-                    _ = try? yearInReviewContainer.decode(WMFDiscardedElement.self)
-                    continue
-                }
-                
-                validYiRs.append(yir)
-            }
-            
-            self.yir = validYiRs
-            self.version = try overallContainer.decode(Int.self, forKey: .version)
-        }
     }
     
-    public let ios: [IOS]
+    public let ios: IOS
     var cachedDate: Date?
     
-    private let currentFeatureConfigVersion = 1
-    
-    public init(ios: [WMFFeatureConfigResponse.IOS], cachedDate: Date? = nil) {
-        self.ios = ios
-        self.cachedDate = cachedDate
+    enum CodingKeys: String, CodingKey {
+        case ios = "iosv1"
+        case cachedDate
     }
     
-    public init(from decoder: Decoder) throws {
-        
-        // Custom decoding to filter out invalid versions
-        
-        let overallContainer = try decoder.container(keyedBy: CodingKeys.self)
-        
-        var versionContainer = try overallContainer.nestedUnkeyedContainer(forKey: .ios)
-        var iosContainer = try overallContainer.nestedUnkeyedContainer(forKey: .ios)
-        
-        var validConfigs: [IOS] = []
-        while !versionContainer.isAtEnd {
-            
-            let wmfVersion: WMFConfigVersion
-            let config: IOS
-            do {
-                wmfVersion = try versionContainer.decode(WMFConfigVersion.self)
-            } catch {
-                // Skip
-                _ = try? versionContainer.decode(WMFDiscardedElement.self)
-                _ = try? iosContainer.decode(WMFDiscardedElement.self)
-                continue
-            }
-            
-            guard wmfVersion.version == currentFeatureConfigVersion else {
-                // Skip
-                _ = try? iosContainer.decode(WMFDiscardedElement.self)
-                continue
-            }
-                
-            do {
-                config = try iosContainer.decode(IOS.self)
-            } catch {
-                // Skip
-                _ = try? iosContainer.decode(WMFDiscardedElement.self)
-                continue
-            }
-            
-            validConfigs.append(config)
-        }
-        
-        self.ios = validConfigs
-        self.cachedDate = try? overallContainer.decode(Date.self, forKey: .cachedDate)
+    public init(ios: WMFFeatureConfigResponse.IOS, cachedDate: Date? = nil) {
+        self.ios = ios
+        self.cachedDate = cachedDate
     }
 }

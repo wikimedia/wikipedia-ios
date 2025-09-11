@@ -149,7 +149,7 @@ public protocol WMFDeveloperSettingsDataControlling: AnyObject {
         }
     }
 
-    // MARK: - Remote Settings from donatewiki AppsFeatureConfig json
+    // MARK: - Remote Settings from https://en.wikipedia.org/api/rest_v1/configuration
     
     public func loadFeatureConfig() -> WMFFeatureConfigResponse? {
         
@@ -182,16 +182,13 @@ public protocol WMFDeveloperSettingsDataControlling: AnyObject {
             return
         }
 
-        guard let featureConfigURL = URL.featureConfigURL() else {
-            completion(WMFDataControllerError.basicServiceUnavailable)
+        guard let primaryAppLanguage = WMFDataEnvironment.current.primaryAppLanguage,
+            let featureConfigURL = URL.featureConfigURL(project: WMFProject.wikipedia(primaryAppLanguage)) else {
+            completion(WMFDataControllerError.failureCreatingRequestURL)
             return
         }
 
-        let featureConfigParameters: [String: Any] = [
-            "action": "raw"
-        ]
-
-        let featureConfigRequest = WMFBasicServiceRequest(url: featureConfigURL, method: .GET, parameters: featureConfigParameters, acceptType: .json)
+        let featureConfigRequest = WMFBasicServiceRequest(url: featureConfigURL, method: .GET, acceptType: .json)
         service.performDecodableGET(request: featureConfigRequest) { [weak self] (result: Result<WMFFeatureConfigResponse, Error>) in
 
             guard let self else {
