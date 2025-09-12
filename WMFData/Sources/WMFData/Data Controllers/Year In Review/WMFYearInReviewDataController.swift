@@ -625,6 +625,11 @@ import CoreData
             return nil
         }
     }
+    
+    public func updateContributorStatus(isContributor: Bool) {
+        let iconKey = "qualifiesForIcon2025"
+        UserDefaults.standard.set(isContributor, forKey: iconKey)
+    }
 }
 
 public struct WMFYearInReviewReadData: Codable {

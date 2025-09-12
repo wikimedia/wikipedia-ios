@@ -22,6 +22,13 @@ struct AppearanceSettingsCheckmarkItem: AppearanceSettingsItem {
     let checkmarkAction: () -> Void
 }
 
+struct AppearanceSettingsIconItem: AppearanceSettingsItem {
+    let title: String?
+    let subtitle: String?
+    let imageName: String?
+    let checkmarkAction: () -> Void
+}
+
 struct AppearanceSettingsSection {
     let headerTitle: String?
     let footerText: String?
@@ -86,7 +93,7 @@ final class AppearanceSettingsViewController: SubSettingsViewController, WMFNavi
             }
         }
 
-        let subtitle =   WMFLocalizedString("theme-default-explanation", value:"Matches system theme", comment: "Explains that the default theme matches the iOS system theme setting")
+        let subtitle = WMFLocalizedString("theme-default-explanation", value:"Matches system theme", comment: "Explains that the default theme matches the iOS system theme setting")
         
         let defaultThemeItem = AppearanceSettingsCheckmarkItem(title: CommonStrings.defaultThemeDisplayName, subtitle: subtitle, theme: Theme.defaultThemeName, checkmarkAction: { [weak self] in
             self?.userDidSelect(theme: Theme.defaultThemeName)
@@ -103,6 +110,31 @@ final class AppearanceSettingsViewController: SubSettingsViewController, WMFNavi
         
         let textSizingSection = AppearanceSettingsSection(headerTitle: WMFLocalizedString("appearance-settings-adjust-text-sizing", value: "Adjust article text sizing", comment: "Header of the Text sizing section in Appearance settings"), footerText: nil, items: [AppearanceSettingsCustomViewItem(title: nil, subtitle: nil, viewController: TextSizeChangeExampleViewController(nibName: "TextSizeChangeExampleViewController", bundle: nil)), AppearanceSettingsSpacerViewItem(title: nil, subtitle: nil, spacing: 15.0), AppearanceSettingsCustomViewItem(title: nil, subtitle: nil, viewController: FontSizeSliderViewController(nibName: "FontSizeSliderViewController", bundle: nil))])
         
+        if UserDefaults.standard.bool(forKey: "qualifiesForIcon2025") {
+            let appIconSection = AppearanceSettingsSection(
+                headerTitle: WMFLocalizedString("appearance-settings-set-icon-header", value: "App Icon", comment: "Header text for changing app icon"),
+                footerText: WMFLocalizedString("appearance-settings-set-icon-footer", value: "The contributor icon celebrates your 2025 in-app contributions to Wikipedia. It will remain until the next Year in Review.", comment: "Footer information about the contributor icon and its purpose"),
+                items: [
+                    AppearanceSettingsIconItem(
+                        title: CommonStrings.defaultText,
+                        subtitle: nil,
+                        imageName: "AppIcon",
+                        checkmarkAction: {
+                            AppIconUtility.shared.updateAppIcon(isNew: false)
+                        }
+                    ),
+                    AppearanceSettingsIconItem(
+                        title: "Contributor",
+                        subtitle: nil,
+                        imageName: "ContributorAppIcon",
+                        checkmarkAction: {
+                            AppIconUtility.shared.updateAppIcon(isNew: true)
+                        }
+                    )
+                ])
+            return [readingThemesSection, appIconSection, themeOptionsSection, tableAutomaticOpenSection, textSizingSection]
+        }
+
         return [readingThemesSection, themeOptionsSection, tableAutomaticOpenSection, textSizingSection]
     }
     
@@ -160,6 +192,16 @@ final class AppearanceSettingsViewController: SubSettingsViewController, WMFNavi
         
         if let tc = cell as Themeable? {
             tc.apply(theme: theme)
+        } else if let iconItem = sections[indexPath.section].items[indexPath.item] as? AppearanceSettingsIconItem {
+            let isContributor = (iconItem.title == "Contributor")
+            if (isContributor && AppIconUtility.shared.isNewIconOn) ||
+               (!isContributor && !AppIconUtility.shared.isNewIconOn) {
+                cell.accessoryType = .checkmark
+                cell.isSelected = true
+            } else {
+                cell.accessoryType = .none
+                cell.isSelected = false
+            }
         }
 
         if item is AppearanceSettingsDimSwitchItem {
@@ -224,23 +266,26 @@ final class AppearanceSettingsViewController: SubSettingsViewController, WMFNavi
     }
     
     @objc public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard let item = sections[indexPath.section].items[indexPath.item] as? AppearanceSettingsCheckmarkItem else {
-            return
+        if let item = sections[indexPath.section].items[indexPath.item] as? AppearanceSettingsCheckmarkItem {
+            item.checkmarkAction()
+            tableView.reloadData()
+        } else if let item = sections[indexPath.section].items[indexPath.item] as? AppearanceSettingsIconItem {
+            item.checkmarkAction()
+            tableView.reloadData()
         }
-        item.checkmarkAction()
-        tableView.reloadData()
     }
     
     @objc public func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
-        guard sections[indexPath.section].items[indexPath.item] is AppearanceSettingsCheckmarkItem else {
-            return nil
+        let item = sections[indexPath.section].items[indexPath.item]
+        if item is AppearanceSettingsCheckmarkItem || item is AppearanceSettingsIconItem {
+            return indexPath
         }
-        return indexPath
+        return nil
     }
-    
+
     @objc public func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         let currentAppTheme = UserDefaults.standard.themeName
-        
+
         if let checkmarkItem = sections[indexPath.section].items[indexPath.item] as? AppearanceSettingsCheckmarkItem {
             if currentAppTheme.hasPrefix(checkmarkItem.theme) {
                 cell.accessoryType = .checkmark
@@ -249,6 +294,13 @@ final class AppearanceSettingsViewController: SubSettingsViewController, WMFNavi
                 cell.accessoryType = .none
                 cell.isSelected = false
             }
+        } else if let iconItem = sections[indexPath.section].items[indexPath.item] as? AppearanceSettingsIconItem {
+            let isContributorItem = (iconItem.title == "Contributor")
+            let shouldCheck = (isContributorItem && AppIconUtility.shared.isNewIconOn) ||
+                              (!isContributorItem && !AppIconUtility.shared.isNewIconOn)
+            
+            cell.accessoryType = shouldCheck ? .checkmark : .none
+            cell.isSelected = shouldCheck
         }
     }
     
