@@ -50,9 +50,9 @@ struct AppearanceSettingsSpacerViewItem: AppearanceSettingsItem {
 @objc(WMFAppearanceSettingsViewController)
 final class AppearanceSettingsViewController: SubSettingsViewController, WMFNavigationBarConfiguring {
     static let customViewCellReuseIdentifier = "org.wikimedia.custom"
-
+    
     var sections = [AppearanceSettingsSection]()
-
+    
     @objc static var disclosureText: String {
         return UserDefaults.standard.themeDisplayName
     }
@@ -92,7 +92,7 @@ final class AppearanceSettingsViewController: SubSettingsViewController, WMFNavi
                 self?.userDidSelect(theme: theme.name)
             }
         }
-
+        
         let subtitle = WMFLocalizedString("theme-default-explanation", value:"Matches system theme", comment: "Explains that the default theme matches the iOS system theme setting")
         
         let defaultThemeItem = AppearanceSettingsCheckmarkItem(title: CommonStrings.defaultThemeDisplayName, subtitle: subtitle, theme: Theme.defaultThemeName, checkmarkAction: { [weak self] in
@@ -102,7 +102,7 @@ final class AppearanceSettingsViewController: SubSettingsViewController, WMFNavi
         let items = [defaultThemeItem, checkmarkItem(for: Theme.light), checkmarkItem(for: Theme.sepia), checkmarkItem(for: Theme.dark), checkmarkItem(for: Theme.black)]
         
         let readingThemesSection =
-            AppearanceSettingsSection(headerTitle: WMFLocalizedString("appearance-settings-reading-themes", value: "Reading themes", comment: "Title of the Reading themes section in Appearance settings"), footerText: nil, items: items)
+        AppearanceSettingsSection(headerTitle: WMFLocalizedString("appearance-settings-reading-themes", value: "Reading themes", comment: "Title of the Reading themes section in Appearance settings"), footerText: nil, items: items)
         
         let themeOptionsSection = AppearanceSettingsSection(headerTitle: WMFLocalizedString("appearance-settings-theme-options", value: "Theme options", comment: "Title of the Theme options section in Appearance settings"), footerText: WMFLocalizedString("appearance-settings-image-dimming-footer", value: "Decrease the opacity of images on the dark and black themes", comment: "Footer of the Theme options section in Appearance settings, explaining image dimming"), items: [AppearanceSettingsCustomViewItem(title: nil, subtitle: nil, viewController: ImageDimmingExampleViewController(nibName: "ImageDimmingExampleViewController", bundle: nil)), AppearanceSettingsSpacerViewItem(title: nil, subtitle: nil, spacing: 15.0), AppearanceSettingsDimSwitchItem(title: CommonStrings.dimImagesTitle, subtitle: nil)])
         
@@ -118,7 +118,7 @@ final class AppearanceSettingsViewController: SubSettingsViewController, WMFNavi
                     AppearanceSettingsIconItem(
                         title: CommonStrings.defaultText,
                         subtitle: nil,
-                        imageName: "AppIcon",
+                        imageName: "AppIcon_Small",
                         checkmarkAction: {
                             AppIconUtility.shared.updateAppIcon(isNew: false)
                         }
@@ -126,7 +126,7 @@ final class AppearanceSettingsViewController: SubSettingsViewController, WMFNavi
                     AppearanceSettingsIconItem(
                         title: "Contributor",
                         subtitle: nil,
-                        imageName: "ContributorAppIcon",
+                        imageName: "AppIconContributor_Small",
                         checkmarkAction: {
                             AppIconUtility.shared.updateAppIcon(isNew: true)
                         }
@@ -134,7 +134,7 @@ final class AppearanceSettingsViewController: SubSettingsViewController, WMFNavi
                 ])
             return [readingThemesSection, appIconSection, themeOptionsSection, tableAutomaticOpenSection, textSizingSection]
         }
-
+        
         return [readingThemesSection, themeOptionsSection, tableAutomaticOpenSection, textSizingSection]
     }
     
@@ -152,7 +152,7 @@ final class AppearanceSettingsViewController: SubSettingsViewController, WMFNavi
         if let customViewItem = item as? AppearanceSettingsCustomViewItem {
             let cell = tableView.dequeueReusableCell(withIdentifier: AppearanceSettingsViewController.customViewCellReuseIdentifier, for: indexPath)
             let vc = customViewItem.viewController
-
+            
             if let view = vc.view {
                 addChild(vc)
                 view.frame = cell.contentView.bounds
@@ -177,33 +177,31 @@ final class AppearanceSettingsViewController: SubSettingsViewController, WMFNavi
         }
         
         if item is AppearanceSettingsSpacerViewItem {
-            let cell = tableView.dequeueReusableCell(withIdentifier: AppearanceSettingsViewController.customViewCellReuseIdentifier, for: indexPath)
+            let cell = tableView.dequeueReusableCell(
+                withIdentifier: AppearanceSettingsViewController.customViewCellReuseIdentifier,
+                for: indexPath
+            )
             cell.backgroundColor = tableView.backgroundColor
             return cell
         }
         
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: WMFSettingsTableViewCell.identifier, for: indexPath) as? WMFSettingsTableViewCell else {
+        guard let cell = tableView.dequeueReusableCell(
+            withIdentifier: WMFSettingsTableViewCell.identifier,
+            for: indexPath
+        ) as? WMFSettingsTableViewCell else {
             return UITableViewCell()
         }
         
         cell.title = item.title
         cell.subtitle = item.subtitle
         cell.iconName = nil
+        cell.disclosureType = .none
+        cell.selectionStyle = .default
         
         if let tc = cell as Themeable? {
             tc.apply(theme: theme)
-        } else if let iconItem = sections[indexPath.section].items[indexPath.item] as? AppearanceSettingsIconItem {
-            let isContributor = (iconItem.title == "Contributor")
-            if (isContributor && AppIconUtility.shared.isNewIconOn) ||
-               (!isContributor && !AppIconUtility.shared.isNewIconOn) {
-                cell.accessoryType = .checkmark
-                cell.isSelected = true
-            } else {
-                cell.accessoryType = .none
-                cell.isSelected = false
-            }
         }
-
+        
         if item is AppearanceSettingsDimSwitchItem {
             cell.disclosureType = .switch
             cell.disclosureSwitch.isOn = UserDefaults.standard.wmf_isImageDimmingEnabled
@@ -221,15 +219,20 @@ final class AppearanceSettingsViewController: SubSettingsViewController, WMFNavi
             cell.iconBackgroundColor = WMFColor.blue300
             cell.iconColor = WMFColor.white
             cell.selectionStyle = .none
-        } else {
-            cell.disclosureType = .none
+        } else if let iconItem = item as? AppearanceSettingsIconItem {
+            cell.iconName = iconItem.imageName
+            cell.iconBackgroundColor = .clear
+            cell.iconColor = nil
+            cell.selectionStyle = .default
         }
-
-        if let iconBackgroundColor = theme.colors.iconBackground, let iconColor = theme.colors.icon {
+        
+        if !(item is AppearanceSettingsIconItem),
+           let iconBackgroundColor = theme.colors.iconBackground,
+           let iconColor = theme.colors.icon {
             cell.iconBackgroundColor = iconColor
             cell.iconColor = iconBackgroundColor
         }
-
+        
         return cell
     }
     
@@ -282,10 +285,10 @@ final class AppearanceSettingsViewController: SubSettingsViewController, WMFNavi
         }
         return nil
     }
-
+    
     @objc public func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         let currentAppTheme = UserDefaults.standard.themeName
-
+        
         if let checkmarkItem = sections[indexPath.section].items[indexPath.item] as? AppearanceSettingsCheckmarkItem {
             if currentAppTheme.hasPrefix(checkmarkItem.theme) {
                 cell.accessoryType = .checkmark
@@ -297,7 +300,7 @@ final class AppearanceSettingsViewController: SubSettingsViewController, WMFNavi
         } else if let iconItem = sections[indexPath.section].items[indexPath.item] as? AppearanceSettingsIconItem {
             let isContributorItem = (iconItem.title == "Contributor")
             let shouldCheck = (isContributorItem && AppIconUtility.shared.isNewIconOn) ||
-                              (!isContributorItem && !AppIconUtility.shared.isNewIconOn)
+            (!isContributorItem && !AppIconUtility.shared.isNewIconOn)
             
             cell.accessoryType = shouldCheck ? .checkmark : .none
             cell.isSelected = shouldCheck
@@ -339,8 +342,8 @@ final class AppearanceSettingsViewController: SubSettingsViewController, WMFNavi
     @objc func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         guard let text = sections[safeIndex: section]?.footerText,
               !text.isEmpty else {
-               
-                  return section < (self.sections.count - 1) ? 0 : 44
+            
+            return section < (self.sections.count - 1) ? 0 : 44
         }
         
         return UITableView.automaticDimension
@@ -351,9 +354,9 @@ final class AppearanceSettingsViewController: SubSettingsViewController, WMFNavi
         let text = sections[safeIndex: section]?.footerText
         return WMFTableHeaderFooterLabelView.headerFooterViewForTableView(tableView, text: text, type: .footer, theme: theme)
     }
-
+    
     // MARK: - Themeable
-
+    
     override public func apply(theme: Theme) {
         super.apply(theme: theme)
         guard viewIfLoaded != nil else {
