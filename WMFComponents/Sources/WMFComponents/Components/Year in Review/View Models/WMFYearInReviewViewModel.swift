@@ -413,8 +413,8 @@ public class WMFYearInReviewViewModel: ObservableObject {
                                     subtitle: localizedStrings.contributorSubtitle(editCount > 0, donateCount > 0),
                                     loggingID: "", // todo
                                     contributionStatus: .contributor,
-                                    onTappedDonateButton: {
-                                        
+                                    onTappedDonateButton: { [weak self] sourceRect in
+                                        self?.handleDonate(sourceRect: sourceRect)
                                     },
                                     onToggleIcon: { toggleValue in
                                         self.onToggleIcon(isOn: toggleValue, dataController: dataController)
@@ -933,15 +933,17 @@ public class WMFYearInReviewViewModel: ObservableObject {
     }
     
     private var nonContributorSlide: WMFYearInReviewContributorSlideViewModel {
-        WMFYearInReviewContributorSlideViewModel(
-            gifName: "contributor-slide",
+        let forceHideDonateButton = (try? WMFYearInReviewDataController().shouldHideDonateButton()) ?? false
+        return WMFYearInReviewContributorSlideViewModel(
+            gifName: "contribution-slide",
             altText: "",
             title: localizedStrings.noncontributorTitle,
             subtitle: localizedStrings.noncontributorSubtitle,
             loggingID: "",
             contributionStatus: .noncontributor,
-            onTappedDonateButton: {
-                
+            forceHideDonateButton: forceHideDonateButton,
+            onTappedDonateButton: { [weak self] sourceRect in
+                self?.handleDonate(sourceRect: sourceRect)
             },
             onInfoButtonTap: { [weak self] in
                 self?.tappedInfo()
@@ -1101,18 +1103,26 @@ public class WMFYearInReviewViewModel: ObservableObject {
             return false
         }
         
+        // Config has certain countries that do not show donate button
+        let configShouldHide = (try? WMFYearInReviewDataController().shouldHideDonateButton()) ?? false
+        if configShouldHide {
+            return false
+        }
+        
         let slide = currentSlide
         switch slide {
         case .standard(let viewModel):
             if viewModel.forceHideDonateButton {
                 return false
-            } else if let shouldHide = try? WMFYearInReviewDataController().shouldHideDonateButton() {
-                    return !shouldHide
             } else {
                 return true
             }
         case .contribution(let viewModel):
             if viewModel.contributionStatus == .contributor {
+                if viewModel.forceHideDonateButton {
+                    return false
+                }
+                
                 return true
             }
             return false
