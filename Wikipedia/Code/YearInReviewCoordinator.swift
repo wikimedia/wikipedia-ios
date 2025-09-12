@@ -358,7 +358,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         )
         
         // TODO: Average number of articles.
-        let firstSentence = String.localizedStringWithFormat(format, 3647).replacingOccurrences(of: "**PERCENT**", with: "<b>\(percentageString)%</b>")
+        let firstSentence = String.localizedStringWithFormat(format, 335).replacingOccurrences(of: "**PERCENT**", with: "<b>\(percentageString)%</b>")
         
         let secondSentence: String
         if primaryAppLanguage.isEnglishWikipedia {
