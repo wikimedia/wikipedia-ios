@@ -64,7 +64,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
             introV2SubtitlePersonzalized: CommonStrings.exploreYIRBodyPersonalized,
             introV2PrimaryButtonTitle: CommonStrings.getStartedTitle,
             introV2SecondaryButtonTitle: CommonStrings.learnMoreTitle(),
-            introV3Title: CommonStrings.exploreYiRTitle,
+            introV3Title: CommonStrings.exploreYIRTitlePersonalized,
             introV3Subtitle: CommonStrings.exploreYIRBodyV3,
             introV3Footer: CommonStrings.exploreYIRFooterV3,
             introV3PrimaryButtonTitle: CommonStrings.getStartedTitle,
