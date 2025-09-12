@@ -245,11 +245,11 @@ public class WMFYearInReviewViewModel: ObservableObject {
 
     // Highlights
     var savedCount: Int?
-    var mostReadDay1: WMFPageViewDay?
-    var mostReadCategories1: [String]?
-    var topArticles1: [String]?
+    var favoriteReadingDay: WMFPageViewDay?
+    var frequentCategories: [String]?
+    var topReadArticles: [String]?
     var minutesRead: Int?
-    var editedCount1: Int?
+    var editNumber: Int?
 
     @Published public var isLoading: Bool = false
     
@@ -347,7 +347,7 @@ public class WMFYearInReviewViewModel: ObservableObject {
                         let decoder = JSONDecoder()
                         if let editCount = try? decoder.decode(Int.self, from: data),
                            editCount > 0 {
-                            editedCount1 = editCount
+                            editNumber = editCount
                             editCountSlide = WMFYearInReviewSlideStandardViewModel(
                                 gifName: "personal-slide-04",
                                 altText: localizedStrings.personalizedUserEditsAccessibilityLabel,
@@ -436,7 +436,7 @@ public class WMFYearInReviewViewModel: ObservableObject {
                            mostReadDay.viewCount > 0,
                            mostReadTime.viewCount > 0,
                            mostReadMonth.viewCount > 0 {
-                            mostReadDay1 = mostReadDay
+                            favoriteReadingDay = mostReadDay
 
                             mostReadDateSlideV2 = WMFYearInReviewSlideStandardViewModel(
                                 gifName: "personal-slide-02",
@@ -488,7 +488,7 @@ public class WMFYearInReviewViewModel: ObservableObject {
                     if let data = slide.data {
                         let decoder = JSONDecoder()
                         if let mostReadCategories = try? decoder.decode([String].self, from: data), mostReadCategories.count >= 3 {
-                            mostReadCategories1 = mostReadCategories
+                            frequentCategories = mostReadCategories
                             mostReadCategoriesSlide = WMFYearInReviewSlideStandardViewModel(
                                 gifName: "personal-slide-05", // TODO: modify gif name
                                 altText: "", // TODO: alt text
@@ -506,7 +506,7 @@ public class WMFYearInReviewViewModel: ObservableObject {
                         let decoder = JSONDecoder()
                         if let topArticles = try? decoder.decode([String].self, from: data),
                            topArticles.count > 0 {
-                            topArticles1 = topArticles
+                            topReadArticles = topArticles
                             topArticlesSlide = WMFYearInReviewSlideStandardViewModel(
                                 gifName: "english-slide-02", // TODO: modify gif name
                                 altText: "", // TODO: alt text
@@ -660,8 +660,8 @@ public class WMFYearInReviewViewModel: ObservableObject {
     func getPersonalizedHighlights() -> WMFYearInReviewSlideHighlightsViewModel {
         var itemArray: [TableItem] = []
 
-        if let topArticles1 {
-            let top3 = topArticles1.prefix(3)
+        if let topReadArticles {
+            let top3 = topReadArticles.prefix(3)
 
             let titles = top3.enumerated()
                 .map { index, item in
@@ -678,8 +678,8 @@ public class WMFYearInReviewViewModel: ObservableObject {
             itemArray.append(timeItem)
         }
 
-        if let mostReadDay1 {
-            let mostReadTimeItem = TableItem(title: "most read day", text: localizedStrings.personalizedDateSlideDayV3(mostReadDay1.day))
+        if let favoriteReadingDay {
+            let mostReadTimeItem = TableItem(title: "most read day", text: localizedStrings.personalizedDateSlideDayV3(favoriteReadingDay.day))
             itemArray.append(mostReadTimeItem)
         }
 
@@ -688,8 +688,8 @@ public class WMFYearInReviewViewModel: ObservableObject {
             itemArray.append(savedCountItem)
         }
 
-        if let mostReadCategories1 {
-            let top3 = mostReadCategories1.prefix(3)
+        if let frequentCategories {
+            let top3 = frequentCategories.prefix(3)
 
             let categories = top3.enumerated()
                 .map { index, item in
