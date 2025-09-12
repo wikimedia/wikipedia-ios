@@ -8,13 +8,12 @@ public struct WMFYearInReviewSlideHighlightsView: View {
     public var body: some View {
         ZStack {
             GradientBackgroundView()
-                .ignoresSafeArea(.container, edges: [.top])
 
             GeometryReader { proxy in
                 ScrollView(.vertical, showsIndicators: true) {
-
-                    VStack {
+                    VStack(spacing: 0) {
                         Spacer(minLength: 0)
+
                         VStack(spacing: 24) {
                             Text(viewModel.localizedStrings.title)
                                 .font(Font(WMFFont.for(.boldTitle1)))
@@ -26,32 +25,36 @@ public struct WMFYearInReviewSlideHighlightsView: View {
                                 .foregroundColor(.white)
                                 .multilineTextAlignment(.center)
 
-                            WMFYearInReviewInfoboxView(viewModel: viewModel.infoBoxViewModel, isSharing: false)
-                                .overlay(
-                                    Rectangle()
-                                        .stroke(Color(WMFColor.gray300), lineWidth: 1)
-                                )
-
-                            WMFLargeButton(configuration: .primary, title: viewModel.localizedStrings.buttonTitle) {
-                                withAnimation(.easeInOut(duration: 0.75)) {
-                                    viewModel.tappedShare()
-                                }
-                            }
-                            .padding(.top, 8)
+                            WMFYearInReviewInfoboxView(
+                                viewModel: viewModel.infoBoxViewModel,
+                                isSharing: false
+                            )
+                            .overlay(
+                                Rectangle().stroke(Color(WMFColor.gray300), lineWidth: 1)
+                            )
                         }
                         .padding(.horizontal, 32)
                         .padding(.vertical, 24)
 
                         Spacer(minLength: 0)
                     }
-                    .frame(maxWidth: .infinity)
                     .frame(minHeight: proxy.size.height)
+                    .frame(maxWidth: .infinity)
                 }
             }
         }
+        .safeAreaInset(edge: .bottom) {
+            WMFLargeButton(configuration: .primary,
+                           title: viewModel.localizedStrings.buttonTitle) {
+                withAnimation(.easeInOut(duration: 0.75)) {
+                    viewModel.tappedShare()
+                }
+            }
+            .padding(.horizontal, 32)
+            .padding(.vertical, 12)
+        }
     }
 }
-
 
 struct GradientBackgroundView: View {
     var body: some View {
