@@ -10,19 +10,25 @@ public class WMFInfoboxViewModel {
 
 public struct TableItem {
     public let title: String
+
     public let text: String?
-    public let attributedText: AttributedString?
+    public let richRows: [InfoboxRichRow]?
 
     public init(title: String, text: String) {
         self.title = title
         self.text = text
-        self.attributedText = nil
+        self.richRows = nil
     }
 
-    public init(title: String, attributedText: AttributedString) {
+    public init(title: String, richRows: [InfoboxRichRow]) {
         self.title = title
         self.text = nil
-        self.attributedText = attributedText
+        self.richRows = richRows
     }
 }
 
+public struct InfoboxRichRow: Identifiable {
+    public let id = UUID()
+    public let numberText: AttributedString
+    public let titleText: AttributedString
+}
