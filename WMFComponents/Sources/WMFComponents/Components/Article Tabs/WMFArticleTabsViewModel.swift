@@ -128,7 +128,16 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
         let isPad = UIDevice.current.userInterfaceIdiom == .pad
 
         if isPortrait {
-            return isPad ? 4 : 2
+            if isPad {
+                // Reduce number of columns on iPad mini screen to preserve 3/4 aspect ratio
+                if size.width <= 744.0 {
+                    return 3
+                } else {
+                    return 4
+                }
+            } else {
+                return 2
+            }
         } else {
             return 4
         }

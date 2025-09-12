@@ -19,9 +19,9 @@ public struct WMFArticleTabsView: View {
     }
 
     public var body: some View {
-        Group {
+        GeometryReader { geometry in
             if isReady {
-                tabsGrid
+                tabsGrid(geometry)
             } else {
                 ProgressView()
                     .progressViewStyle(CircularProgressViewStyle())
@@ -42,37 +42,32 @@ public struct WMFArticleTabsView: View {
         .toolbarBackground(Color(theme.midBackground), for: .automatic)
     }
 
-    private var tabsGrid: some View {
+    private func tabsGrid(_ geometry: GeometryProxy) -> some View {
         ScrollViewReader { proxy in
-            GeometryReader { geometry in
-                let columns = viewModel.calculateColumns(for: geometry.size)
-                let gridItem = GridItem(.flexible())
+            ScrollView {
+                LazyVGrid(columns: Array(repeating: GridItem(.flexible()), count: viewModel.calculateColumns(for: geometry.size))) {
+                    ForEach(viewModel.articleTabs.sorted(by: { $0.dateCreated < $1.dateCreated }), id: \.id) { tab in
+                        WMFArticleTabsViewContent(viewModel: viewModel, tab: tab)
+                            .id(tab.id)
+                            .accessibilityActions {
+                                accessibilityAction(named: viewModel.localizedStrings.openTabAccessibility) {
+                                    viewModel.didTapTab(tab.data)
+                                }
 
-                ScrollView {
-                    LazyVGrid(columns: Array(repeating: gridItem, count: columns)) {
-                        ForEach(viewModel.articleTabs.sorted(by: { $0.dateCreated < $1.dateCreated }), id: \.id) { tab in
-                            WMFArticleTabsViewContent(viewModel: viewModel, tab: tab)
-                                .id(tab.id)
-                                .accessibilityActions {
-                                    accessibilityAction(named: viewModel.localizedStrings.openTabAccessibility) {
-                                        viewModel.didTapTab(tab.data)
-                                    }
-
-                                    if viewModel.shouldShowCloseButton {
-                                        accessibilityAction(named: viewModel.localizedStrings.closeTabAccessibility) {
-                                            viewModel.closeTab(tab: tab)
-                                        }
+                                if viewModel.shouldShowCloseButton {
+                                    accessibilityAction(named: viewModel.localizedStrings.closeTabAccessibility) {
+                                        viewModel.closeTab(tab: tab)
                                     }
                                 }
-                        }
-                    }
-                    .padding(.horizontal, 8)
-                    .onAppear {
-                        Task {
-                            await Task.yield()
-                            if let id = currentTabID {
-                                proxy.scrollTo(id, anchor: .bottom)
                             }
+                    }
+                }
+                .padding(.horizontal, 8)
+                .onAppear {
+                    Task {
+                        await Task.yield()
+                        if let id = currentTabID {
+                            proxy.scrollTo(id, anchor: .bottom)
                         }
                     }
                 }
