@@ -89,7 +89,7 @@ fileprivate struct WMFYearInReviewSlideIntroV2ViewContent: View {
                 Text(viewModel.title)
                     .font(Font(WMFFont.for(.boldTitle1)))
                 Text(viewModel.subtitle)
-                    .font(Font(WMFFont.for(.title3)))
+                    .font(Font(WMFFont.for(.body)))
             }
             .foregroundStyle(Color(uiColor: theme.text))
             .padding(EdgeInsets(top: 0, leading: sizeClassPadding, bottom: bottomInset, trailing: sizeClassPadding))

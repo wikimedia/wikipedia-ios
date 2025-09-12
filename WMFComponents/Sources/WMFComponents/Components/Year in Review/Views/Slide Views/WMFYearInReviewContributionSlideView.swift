@@ -39,7 +39,7 @@ fileprivate struct WMFYearInReviewSlideContributionViewContent: View {
     }
     
     private var subtitleStyles: HtmlUtils.Styles {
-            return HtmlUtils.Styles(font: WMFFont.for(.title3), boldFont: WMFFont.for(.title3), italicsFont: WMFFont.for(.title3), boldItalicsFont: WMFFont.for(.title3), color: theme.text, linkColor: theme.link, lineSpacing: 3)
+            return HtmlUtils.Styles(font: WMFFont.for(.body), boldFont: WMFFont.for(.boldBody), italicsFont: WMFFont.for(.body), boldItalicsFont: WMFFont.for(.body), color: theme.text, linkColor: theme.link, lineSpacing: 3)
         }
     
     var body: some View {
@@ -86,13 +86,13 @@ fileprivate struct WMFYearInReviewSlideContributionViewContent: View {
                         .frame(maxWidth: .infinity, alignment: .topLeading)
                 case .standard:
                     Text(viewModel.subtitle)
-                        .font(Font(WMFFont.for(.title3)))
+                        .font(Font(WMFFont.for(.body)))
                         .foregroundStyle(Color(uiColor: theme.text))
                         .accentColor(Color(uiColor: theme.link))
                         .frame(maxWidth: .infinity, alignment: .leading)
                 case .markdown:
                     Text(subtitleAttributedString(subtitle: viewModel.subtitle))
-                        .font(Font(WMFFont.for(.title3)))
+                        .font(Font(WMFFont.for(.body)))
                         .foregroundStyle(Color(uiColor: theme.text))
                         .accentColor(Color(uiColor: theme.link))
                         .frame(maxWidth: .infinity, alignment: .leading)
@@ -105,7 +105,7 @@ fileprivate struct WMFYearInReviewSlideContributionViewContent: View {
                         HStack(spacing: 0) {
                             VStack(alignment: .leading, spacing: 2) {
                                 Text(viewModel.toggleButtonTitle)
-                                    .font(Font(WMFFont.for(.title3)))
+                                    .font(Font(WMFFont.for(.body)))
                                     .foregroundStyle(Color(uiColor: theme.text))
                                     .frame(maxWidth: .infinity, alignment: .leading)
 

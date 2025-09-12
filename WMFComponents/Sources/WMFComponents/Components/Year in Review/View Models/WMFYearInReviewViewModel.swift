@@ -390,7 +390,7 @@ public class WMFYearInReviewViewModel: ObservableObject {
                                 altText: localizedStrings.personalizedDonationThankYouAccessibilityLabel,
                                 title: localizedStrings.personalizedThankYouTitle,
                                 subtitle: localizedStrings.personalizedThankYouSubtitle(primaryAppLanguage.languageCode ?? "en"),
-                                subtitleType: .html,
+                                subtitleType: .markdown,
                                 infoURL: aboutYiRURL,
                                 forceHideDonateButton: true,
                                 loggingID: "thank_custom",
@@ -880,9 +880,22 @@ public class WMFYearInReviewViewModel: ObservableObject {
     @MainActor func tappedShare() {
         switch currentSlide {
         case .standard(let viewModel):
-            let view = WMFYearInReviewSlideStandardShareableView(viewModel: viewModel, hashtag: hashtag)
-            let shareView = view.snapshot()
-            coordinatorDelegate?.handleYearInReviewAction(.share(image: shareView))
+            let needsMarkdownSubtitle: Bool
+            switch viewModel.subtitleType {
+            case .html:
+                needsMarkdownSubtitle = false
+            case .markdown:
+                needsMarkdownSubtitle = true
+            case .standard:
+                needsMarkdownSubtitle = false
+            }
+            let view = WMFYearInReviewSlideStandardShareableView(viewModel: viewModel, hashtag: hashtag, needsMarkdownSubtitle: needsMarkdownSubtitle)
+            let renderer = ImageRenderer(content: view)
+            renderer.proposedSize = .init(width: 402, height: nil)
+            renderer.scale = UIScreen.main.scale
+            if let uiImage = renderer.uiImage {
+                coordinatorDelegate?.handleYearInReviewAction(.share(image: uiImage))
+            }
         case .mostReadDateV3(let viewModel):
             let view = WMFYearInReviewSlideMostReadDateV3ShareableView(viewModel: viewModel, hashtag: hashtag)
             let renderer = ImageRenderer(content: view)
@@ -903,7 +916,15 @@ public class WMFYearInReviewViewModel: ObservableObject {
                 coordinatorDelegate?.handleYearInReviewAction(.share(image: uiImage))
             }
         case .contribution(let viewModel):
-            let view = WMFYearInReviewSlideStandardShareableView(viewModel: viewModel, hashtag: hashtag, needsFormatting: true)
+            let needsMarkdownSubtitle: Bool
+            // Handles the "Learn more" link
+            switch viewModel.contributionStatus {
+            case .contributor:
+                needsMarkdownSubtitle = false
+            case .noncontributor:
+                needsMarkdownSubtitle = true
+            }
+            let view = WMFYearInReviewSlideStandardShareableView(viewModel: viewModel, hashtag: hashtag, needsMarkdownSubtitle: needsMarkdownSubtitle)
             let renderer = ImageRenderer(content: view)
             renderer.proposedSize = .init(width: 402, height: nil)
             renderer.scale = UIScreen.main.scale

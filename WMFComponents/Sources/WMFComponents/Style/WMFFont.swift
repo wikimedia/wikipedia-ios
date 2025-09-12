@@ -4,6 +4,7 @@ import SwiftUI
 public enum WMFFont {
 
     case body
+    case boldBody
     case boldCallout
     case boldCaption1
     case boldFootnote
@@ -52,6 +53,11 @@ public enum WMFFont {
         switch font {
         case .body:
             return UIFont.preferredFont(forTextStyle: .body, compatibleWith: traitCollection)
+        case .boldBody:
+            guard let descriptor = UIFontDescriptor.preferredFontDescriptor(withTextStyle: .body, compatibleWith: traitCollection).withSymbolicTraits(.traitBold) else {
+                fatalError()
+            }
+            return UIFont(descriptor: descriptor, size: 0)
         case .boldCallout:
             guard let descriptor = UIFontDescriptor.preferredFontDescriptor(withTextStyle: .callout, compatibleWith: traitCollection).withSymbolicTraits(.traitBold) else {
                 fatalError()
