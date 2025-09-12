@@ -125,14 +125,6 @@ public protocol WMFDeveloperSettingsDataControlling: AnyObject {
         }
     }
     
-    public var limitYiRCategoriesTo2Underscores: Bool {
-        get {
-            return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsYiRLimitCategoriesTo2Underscores.rawValue)) ?? false
-        } set {
-            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsYiRLimitCategoriesTo2Underscores.rawValue, value: newValue)
-        }
-    }
-    
     public var showYiRV2: Bool {
         get {
             return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsShowYiRV2.rawValue)) ?? false
