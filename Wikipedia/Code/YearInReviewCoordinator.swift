@@ -163,7 +163,8 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
             numberOfViewedArticlesTitle: WMFLocalizedString("year-in-review-highlights-articles-viewed", value: "Number of viewed articles", comment: "Title for the number of viewed articles in Wikipedia in the Year in review highlights slide"),
             numberOfReadingListsTitle: WMFLocalizedString("year-in-review-highlights-created-lists", value: "Number of reading lists created", comment: "Title for the number of reading lists created collectivelly in the Year in Review highlights slide"),
             numberOfEditorsTitle: WMFLocalizedString("year-in-review-highlights-number-app-editors", value: "Editors on-app", comment: "Title for the number of editors using the Wikipedia app in the Year in review highlights slide"),
-            editFrequencyTitle: WMFLocalizedString("year-in-review-highlights-edit-frequency", value: "How often Wikipedia was edited", comment: "Title for the frequency of edits on Wikipedia in the Year in review highlights slide")
+            editFrequencyTitle: WMFLocalizedString("year-in-review-highlights-edit-frequency", value: "How often Wikipedia was edited", comment: "Title for the frequency of edits on Wikipedia in the Year in review highlights slide"),
+            logoCaption: WMFLocalizedString("year-in-review-highlights-share-logo-caption", value: "Wikipedia logo", comment: "Caption for Wikipedia logo on sharable version of the highlights year in review slide")
         )
     }
 
@@ -586,11 +587,13 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         
         let appShareLink = WMFYearInReviewDataController.appShareLink
         let hashtag = "#WikipediaYearInReview"
-        
+        let plaintextURL = "wikipedia.org/year-in-review"
+
         let viewModel = WMFYearInReviewViewModel(
             localizedStrings: localizedStrings,
             shareLink: appShareLink,
             hashtag: hashtag,
+            plaintextURL: plaintextURL,
             coordinatorDelegate: self,
             loggingDelegate: self,
             badgeDelegate: badgeDelegate,

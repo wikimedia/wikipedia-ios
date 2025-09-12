@@ -12,10 +12,10 @@ public struct WMFYearInReviewInfoboxView: View {
     }
 
     private var titleFont: Font {
-        Font(WMFFont.for(.boldSubheadline, compatibleWith: fontTraitOverride ?? appEnvironment.traitCollection))
+        Font(WMFFont.for(.helveticaBodyBold, compatibleWith: fontTraitOverride ?? appEnvironment.traitCollection))
     }
     private var rowFont: Font {
-        Font(WMFFont.for(.subheadline, compatibleWith: fontTraitOverride ?? appEnvironment.traitCollection))
+        Font(WMFFont.for(.helveticaBody, compatibleWith: fontTraitOverride ?? appEnvironment.traitCollection))
     }
 
     public init(viewModel: WMFInfoboxViewModel, isSharing: Bool) {

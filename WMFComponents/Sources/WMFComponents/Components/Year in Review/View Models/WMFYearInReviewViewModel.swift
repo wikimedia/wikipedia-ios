@@ -136,8 +136,9 @@ public class WMFYearInReviewViewModel: ObservableObject {
         let numberOfReadingListsTitle: String
         let numberOfEditorsTitle: String
         let editFrequencyTitle: String
+        let logoCaption: String
 
-        public init(donateButtonTitle: String, doneButtonTitle: String, shareButtonTitle: String, nextButtonTitle: String, finishButtonTitle: String, shareText: String, introV2Title: String, introV2TitlePersonalized: String, introV2Subtitle: String, introV2SubtitlePersonzalized: String, introV2PrimaryButtonTitle: String, introV2SecondaryButtonTitle: String, introV3Title: String, introV3Subtitle: String, introV3Footer: String, introV3PrimaryButtonTitle: String, introV3SecondaryButtonTitle: String, wIconAccessibilityLabel: String, wmfLogoImageAccessibilityLabel: String, personalizedExploreAccessibilityLabel: String, personalizedYouReadAccessibilityLabel: String, personalizedUserEditsAccessibilityLabel: String, personalizedDonationThankYouAccessibilityLabel: String, personalizedSavedArticlesAccessibilityLabel: String, personalizedWeekdayAccessibilityLabel: String, personalizedYourEditsViewsAccessibilityLabel: String, collectiveExploreAccessibilityLabel: String, collectiveLanguagesAccessibilityLabel: String, collectiveArticleViewsAccessibilityLabel: String, collectiveSavedArticlesAccessibilityLabel: String, collectiveAmountEditsAccessibilityLabel: String, englishEditsAccessibilityLabel: String, collectiveEditsPerMinuteAccessibilityLabel: String, collectiveZeroAdsAccessibilityLabel: String, englishReadingSlideTitle: String, englishReadingSlideSubtitle: String, englishTopReadSlideTitle: String, englishTopReadSlideSubtitle: String, englishSavedReadingSlideTitle: String, englishSavedReadingSlideSubtitle: String, englishEditsSlideTitle: String, englishEditsSlideSubtitle: String, englishEditsBytesSlideTitle: String, englishEditsBytesSlideSubtitle: String, collectiveLanguagesSlideTitle: String, collectiveLanguagesSlideSubtitle: String, collectiveArticleViewsSlideTitle: String, collectiveArticleViewsSlideSubtitle: String, collectiveSavedArticlesSlideTitle: String, collectiveSavedArticlesSlideSubtitle: String, collectiveAmountEditsSlideTitle: String, collectiveAmountEditsSlideSubtitle: String, collectiveEditsPerMinuteSlideTitle: String, collectiveEditsPerMinuteSlideSubtitle: String, collectiveZeroAdsSlideTitle: String, collectiveZeroAdsSlideSubtitle: @escaping () -> String, personalizedYouReadSlideTitleV2: @escaping (Int) -> String, personalizedYouReadSlideSubtitleV2: @escaping (Int) -> String, personalizedYouReadSlideTitleV3: @escaping (Int, Int) -> String, personalizedYouReadSlideSubtitleV3: @escaping (Int) -> String, personalizedDateSlideTitleV2: @escaping (Int) -> String, personalizedDateSlideSubtitleV2: @escaping (Int) -> String, personalizedDateSlideTitleV3: String, personalizedDateSlideTimeV3: @escaping (Int) -> String, personalizedDateSlideTimeFooterV3: String, personalizedDateSlideDayV3: @escaping (Int) -> String, personalizedDateSlideDayFooterV3: String, personalizedDateSlideMonthV3: @escaping (Int) -> String, personalizedDateSlideMonthFooterV3: String, personalizedSaveCountSlideTitle: @escaping (Int) -> String, personalizedSaveCountSlideSubtitle: @escaping (Int, [String]) -> String, personalizedUserEditsSlideTitle: @escaping (Int) -> String, personzlizedUserEditsSlideTitle500Plus: String, personzlizedUserEditsSlideSubtitle: @escaping (Int) -> String, personzlizedUserEditsSlideSubtitle500Plus: String, personalizedYourEditsViewedSlideTitle: @escaping (Int) -> String, personalizedYourEditsViewedSlideSubtitle: @escaping (Int) -> String, personalizedThankYouTitle: String, personalizedThankYouSubtitle: @escaping (String) -> String, personalizedMostReadCategoriesSlideTitle: String, personalizedMostReadCategoriesSlideSubtitle: @escaping ([String]) -> String, personalizedMostReadArticlesSlideTitle: String, personalizedMostReadArticlesSlideSubtitle: @escaping ([String]) -> String, personalizedLocationSlideTitle: @escaping (String) -> String, personalizedLocationSlideSubtitle: @escaping ([String]) -> String, noncontributorTitle: String, noncontributorSubtitle: String, noncontributorButtonText: String, contributorTitle: String, contributorSubtitle: @escaping (Bool, Bool) -> String, contributorGiftTitle: String, contributorGiftSubtitle: String, highlightsSlideTitle: String, highlightsSlideSubtitle: String, highlightsSlideButtonTitle: String, longestReadArticlesTitle: String, minutesReadTitle: String, favoriteReadingDayTitle: String, savedArticlesTitle: String, favoriteCategoriesTitle: String, editedArticlesTitle: String, enWikiTopArticlesTitle: String, hoursSpentReadingTitle: String, numberOfChangesMadeTitle: String, numberOfViewedArticlesTitle: String, numberOfReadingListsTitle: String, numberOfEditorsTitle: String, editFrequencyTitle: String) {
+        public init(donateButtonTitle: String, doneButtonTitle: String, shareButtonTitle: String, nextButtonTitle: String, finishButtonTitle: String, shareText: String, introV2Title: String, introV2TitlePersonalized: String, introV2Subtitle: String, introV2SubtitlePersonzalized: String, introV2PrimaryButtonTitle: String, introV2SecondaryButtonTitle: String, introV3Title: String, introV3Subtitle: String, introV3Footer: String, introV3PrimaryButtonTitle: String, introV3SecondaryButtonTitle: String, wIconAccessibilityLabel: String, wmfLogoImageAccessibilityLabel: String, personalizedExploreAccessibilityLabel: String, personalizedYouReadAccessibilityLabel: String, personalizedUserEditsAccessibilityLabel: String, personalizedDonationThankYouAccessibilityLabel: String, personalizedSavedArticlesAccessibilityLabel: String, personalizedWeekdayAccessibilityLabel: String, personalizedYourEditsViewsAccessibilityLabel: String, collectiveExploreAccessibilityLabel: String, collectiveLanguagesAccessibilityLabel: String, collectiveArticleViewsAccessibilityLabel: String, collectiveSavedArticlesAccessibilityLabel: String, collectiveAmountEditsAccessibilityLabel: String, englishEditsAccessibilityLabel: String, collectiveEditsPerMinuteAccessibilityLabel: String, collectiveZeroAdsAccessibilityLabel: String, englishReadingSlideTitle: String, englishReadingSlideSubtitle: String, englishTopReadSlideTitle: String, englishTopReadSlideSubtitle: String, englishSavedReadingSlideTitle: String, englishSavedReadingSlideSubtitle: String, englishEditsSlideTitle: String, englishEditsSlideSubtitle: String, englishEditsBytesSlideTitle: String, englishEditsBytesSlideSubtitle: String, collectiveLanguagesSlideTitle: String, collectiveLanguagesSlideSubtitle: String, collectiveArticleViewsSlideTitle: String, collectiveArticleViewsSlideSubtitle: String, collectiveSavedArticlesSlideTitle: String, collectiveSavedArticlesSlideSubtitle: String, collectiveAmountEditsSlideTitle: String, collectiveAmountEditsSlideSubtitle: String, collectiveEditsPerMinuteSlideTitle: String, collectiveEditsPerMinuteSlideSubtitle: String, collectiveZeroAdsSlideTitle: String, collectiveZeroAdsSlideSubtitle: @escaping () -> String, personalizedYouReadSlideTitleV2: @escaping (Int) -> String, personalizedYouReadSlideSubtitleV2: @escaping (Int) -> String, personalizedYouReadSlideTitleV3: @escaping (Int, Int) -> String, personalizedYouReadSlideSubtitleV3: @escaping (Int) -> String, personalizedDateSlideTitleV2: @escaping (Int) -> String, personalizedDateSlideSubtitleV2: @escaping (Int) -> String, personalizedDateSlideTitleV3: String, personalizedDateSlideTimeV3: @escaping (Int) -> String, personalizedDateSlideTimeFooterV3: String, personalizedDateSlideDayV3: @escaping (Int) -> String, personalizedDateSlideDayFooterV3: String, personalizedDateSlideMonthV3: @escaping (Int) -> String, personalizedDateSlideMonthFooterV3: String, personalizedSaveCountSlideTitle: @escaping (Int) -> String, personalizedSaveCountSlideSubtitle: @escaping (Int, [String]) -> String, personalizedUserEditsSlideTitle: @escaping (Int) -> String, personzlizedUserEditsSlideTitle500Plus: String, personzlizedUserEditsSlideSubtitle: @escaping (Int) -> String, personzlizedUserEditsSlideSubtitle500Plus: String, personalizedYourEditsViewedSlideTitle: @escaping (Int) -> String, personalizedYourEditsViewedSlideSubtitle: @escaping (Int) -> String, personalizedThankYouTitle: String, personalizedThankYouSubtitle: @escaping (String) -> String, personalizedMostReadCategoriesSlideTitle: String, personalizedMostReadCategoriesSlideSubtitle: @escaping ([String]) -> String, personalizedMostReadArticlesSlideTitle: String, personalizedMostReadArticlesSlideSubtitle: @escaping ([String]) -> String, personalizedLocationSlideTitle: @escaping (String) -> String, personalizedLocationSlideSubtitle: @escaping ([String]) -> String, noncontributorTitle: String, noncontributorSubtitle: String, noncontributorButtonText: String, contributorTitle: String, contributorSubtitle: @escaping (Bool, Bool) -> String, contributorGiftTitle: String, contributorGiftSubtitle: String, highlightsSlideTitle: String, highlightsSlideSubtitle: String, highlightsSlideButtonTitle: String, longestReadArticlesTitle: String, minutesReadTitle: String, favoriteReadingDayTitle: String, savedArticlesTitle: String, favoriteCategoriesTitle: String, editedArticlesTitle: String, enWikiTopArticlesTitle: String, hoursSpentReadingTitle: String, numberOfChangesMadeTitle: String, numberOfViewedArticlesTitle: String, numberOfReadingListsTitle: String, numberOfEditorsTitle: String, editFrequencyTitle: String, logoCaption: String) {
             self.donateButtonTitle = donateButtonTitle
             self.doneButtonTitle = doneButtonTitle
             self.shareButtonTitle = shareButtonTitle
@@ -246,7 +247,7 @@ public class WMFYearInReviewViewModel: ObservableObject {
             self.numberOfReadingListsTitle = numberOfReadingListsTitle
             self.numberOfEditorsTitle = numberOfEditorsTitle
             self.editFrequencyTitle = editFrequencyTitle
-
+            self.logoCaption = logoCaption
         }
     }
 
@@ -268,6 +269,7 @@ public class WMFYearInReviewViewModel: ObservableObject {
     private(set) var slides: [WMFYearInReviewSlide] // doesn't include intro
     public let shareLink: String
     public let hashtag: String
+    public let plaintextURL: String
     private weak var coordinatorDelegate: YearInReviewCoordinatorDelegate?
     private weak var badgeDelegate: YearInReviewBadgeDelegate?
     private(set) weak var loggingDelegate: WMFYearInReviewLoggingDelegate?
@@ -288,10 +290,11 @@ public class WMFYearInReviewViewModel: ObservableObject {
 
     @Published public var isLoading: Bool = false
     
-    public init(localizedStrings: LocalizedStrings, shareLink: String, hashtag: String, coordinatorDelegate: YearInReviewCoordinatorDelegate?, loggingDelegate: WMFYearInReviewLoggingDelegate, badgeDelegate: YearInReviewBadgeDelegate?, isUserPermanent: Bool, aboutYiRURL: URL?, primaryAppLanguage: WMFProject) {
+    public init(localizedStrings: LocalizedStrings, shareLink: String, hashtag: String, plaintextURL: String, coordinatorDelegate: YearInReviewCoordinatorDelegate?, loggingDelegate: WMFYearInReviewLoggingDelegate, badgeDelegate: YearInReviewBadgeDelegate?, isUserPermanent: Bool, aboutYiRURL: URL?, primaryAppLanguage: WMFProject) {
         self.localizedStrings = localizedStrings
         self.shareLink = shareLink
         self.hashtag = hashtag
+        self.plaintextURL = plaintextURL
         self.coordinatorDelegate = coordinatorDelegate
         self.loggingDelegate = loggingDelegate
         self.badgeDelegate = badgeDelegate
@@ -732,9 +735,11 @@ public class WMFYearInReviewViewModel: ObservableObject {
 
         return WMFYearInReviewSlideHighlightsViewModel(
             infoBoxViewModel: WMFInfoboxViewModel(tableItems: itemArray),
-            loggingId: "",  // TODO: logging ID
+            loggingID: "",  // TODO: logging ID
             localizedStrings: getHighlightsStrings(),
-            coordinatorDelegate: coordinatorDelegate
+            coordinatorDelegate: coordinatorDelegate,
+            hashtag: hashtag,
+            plaintextURL: plaintextURL
         )
     }
 
@@ -752,9 +757,11 @@ public class WMFYearInReviewViewModel: ObservableObject {
         let changesMade = TableItem(title: localizedStrings.numberOfChangesMadeTitle, text: "82 million")
         return WMFYearInReviewSlideHighlightsViewModel(
             infoBoxViewModel: WMFInfoboxViewModel(tableItems: [topArticles, hoursSpent, changesMade]),
-            loggingId: "", // TODO: logging ID
+            loggingID: "", // TODO: logging ID
             localizedStrings: getHighlightsStrings(),
-            coordinatorDelegate: coordinatorDelegate
+            coordinatorDelegate: coordinatorDelegate,
+            hashtag: hashtag,
+            plaintextURL: plaintextURL
         )
     }
 
@@ -836,9 +843,11 @@ public class WMFYearInReviewViewModel: ObservableObject {
         let editFrequency = TableItem(title: localizedStrings.editFrequencyTitle, text: "123 times per minute")
         return WMFYearInReviewSlideHighlightsViewModel(
             infoBoxViewModel: WMFInfoboxViewModel(tableItems: [viewedArticles, readingLists, editors, editFrequency]),
-            loggingId: "", // TODO: logging ID
+            loggingID: "", // TODO: logging ID
             localizedStrings: getHighlightsStrings(),
-            coordinatorDelegate: coordinatorDelegate
+            coordinatorDelegate: coordinatorDelegate,
+            hashtag: hashtag,
+            plaintextURL: plaintextURL
         )
     }
 
@@ -1185,7 +1194,7 @@ public class WMFYearInReviewViewModel: ObservableObject {
     }
 
     private func getHighlightsStrings() -> WMFYearInReviewSlideHighlightsViewModel.LocalizedStrings {
-        return WMFYearInReviewSlideHighlightsViewModel.LocalizedStrings(title: localizedStrings.highlightsSlideTitle, subtitle: localizedStrings.highlightsSlideSubtitle, buttonTitle: localizedStrings.highlightsSlideButtonTitle)
+        return WMFYearInReviewSlideHighlightsViewModel.LocalizedStrings(title: localizedStrings.highlightsSlideTitle, subtitle: localizedStrings.highlightsSlideSubtitle, buttonTitle: localizedStrings.highlightsSlideButtonTitle, logoCaption: localizedStrings.logoCaption)
     }
 
     // Helper methods to format the infobox on the highlights slide

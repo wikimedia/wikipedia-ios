@@ -30,7 +30,7 @@ public struct WMFYearInReviewSlideHighlightShareableView: View {
                     .font(Font(WMFFont.for(.callout)))
                     .foregroundStyle(Color(uiColor: WMFColor.black))
                     .multilineTextAlignment(.center)
-                    .padding(.bottom, 20)
+                    .padding(.bottom, 16)
             }
             .frame(width: 402, height: 847)
             
@@ -60,13 +60,13 @@ public struct WMFYearInReviewSlideHighlightShareableView: View {
                         .foregroundStyle(Color(WMFColor.black))
                         .multilineTextAlignment(.center)
                 }
-                .padding(.horizontal, 24)
 
                 WMFYearInReviewInfoboxView(viewModel: viewModel.infoBoxViewModel, isSharing: true)
                     .frame(maxWidth: 324)
             }
-            .padding(16)
+
         }
+        .padding(8)
         .background(Color(WMFColor.gray100))
         .overlay(
             Rectangle()
