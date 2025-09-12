@@ -220,6 +220,7 @@ final class AppearanceSettingsViewController: SubSettingsViewController, WMFNavi
             cell.iconColor = WMFColor.white
             cell.selectionStyle = .none
         } else if let iconItem = item as? AppearanceSettingsIconItem {
+            cell.iconOriginalRendering = true
             cell.iconName = iconItem.imageName
             cell.iconBackgroundColor = .clear
             cell.iconColor = nil
