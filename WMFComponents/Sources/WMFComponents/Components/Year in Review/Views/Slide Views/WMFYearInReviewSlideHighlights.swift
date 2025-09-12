@@ -26,7 +26,7 @@ public struct WMFYearInReviewSlideHighlightsView: View {
                                 .foregroundColor(.white)
                                 .multilineTextAlignment(.center)
 
-                            WMFYearInReviewInfoTableView(viewModel: viewModel.getTableViewModel())
+                            WMFYearInReviewInfoTableView(viewModel: viewModel.infoBoxViewModel)
                                 .overlay(
                                     Rectangle()
                                         .stroke(Color(WMFColor.gray300), lineWidth: 1)

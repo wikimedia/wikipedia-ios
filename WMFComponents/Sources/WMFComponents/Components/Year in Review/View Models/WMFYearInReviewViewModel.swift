@@ -242,7 +242,15 @@ public class WMFYearInReviewViewModel: ObservableObject {
     private let primaryAppLanguage: WMFProject
     private let aboutYiRURL: URL?
     private var hasPersonalizedDonateSlide: Bool
-    
+
+    // Highlights
+    var savedCount: Int?
+    var mostReadDay1: WMFPageViewDay?
+    var mostReadCategories1: [String]?
+    var topArticles1: [String]?
+    var minutesRead: Int?
+    var editedCount1: Int?
+
     @Published public var isLoading: Bool = false
     
     public init(localizedStrings: LocalizedStrings, shareLink: String, hashtag: String, coordinatorDelegate: YearInReviewCoordinatorDelegate?, loggingDelegate: WMFYearInReviewLoggingDelegate, badgeDelegate: YearInReviewBadgeDelegate?, isUserPermanent: Bool, aboutYiRURL: URL?, primaryAppLanguage: WMFProject) {
@@ -309,6 +317,7 @@ public class WMFYearInReviewViewModel: ObservableObject {
                         let decoder = JSONDecoder()
                         if let readData = try? decoder.decode(WMFYearInReviewReadData.self, from: data),
                            readData.readCount > 5 {
+                            minutesRead = readData.minutesRead
                             readCountSlideV2 = WMFYearInReviewSlideStandardViewModel(
                                 gifName: "personal-slide-01",
                                 altText: localizedStrings.personalizedYouReadAccessibilityLabel,
@@ -338,6 +347,7 @@ public class WMFYearInReviewViewModel: ObservableObject {
                         let decoder = JSONDecoder()
                         if let editCount = try? decoder.decode(Int.self, from: data),
                            editCount > 0 {
+                            editedCount1 = editCount
                             editCountSlide = WMFYearInReviewSlideStandardViewModel(
                                 gifName: "personal-slide-04",
                                 altText: localizedStrings.personalizedUserEditsAccessibilityLabel,
@@ -402,7 +412,7 @@ public class WMFYearInReviewViewModel: ObservableObject {
                            savedSlideData.savedArticlesCount > 3,
                            savedSlideData.articleTitles.count >= 3 {
                             let count = savedSlideData.savedArticlesCount
-                            
+                            savedCount = count
                             saveCountSlide = WMFYearInReviewSlideStandardViewModel(
                                 gifName: "personal-slide-03",
                                 altText: localizedStrings.personalizedSavedArticlesAccessibilityLabel,
@@ -426,7 +436,8 @@ public class WMFYearInReviewViewModel: ObservableObject {
                            mostReadDay.viewCount > 0,
                            mostReadTime.viewCount > 0,
                            mostReadMonth.viewCount > 0 {
-                            
+                            mostReadDay1 = mostReadDay
+
                             mostReadDateSlideV2 = WMFYearInReviewSlideStandardViewModel(
                                 gifName: "personal-slide-02",
                                 altText: localizedStrings.personalizedWeekdayAccessibilityLabel,
@@ -476,9 +487,8 @@ public class WMFYearInReviewViewModel: ObservableObject {
                 case .mostReadCategories:
                     if let data = slide.data {
                         let decoder = JSONDecoder()
-                        if let mostReadCategories = try? decoder.decode([String].self, from: data),
-                           mostReadCategories.count >= 5 { // TODO: confirm we don't show slide at all if categories < 5?
-                            
+                        if let mostReadCategories = try? decoder.decode([String].self, from: data), mostReadCategories.count >= 3 {
+                            mostReadCategories1 = mostReadCategories
                             mostReadCategoriesSlide = WMFYearInReviewSlideStandardViewModel(
                                 gifName: "personal-slide-05", // TODO: modify gif name
                                 altText: "", // TODO: alt text
@@ -496,6 +506,7 @@ public class WMFYearInReviewViewModel: ObservableObject {
                         let decoder = JSONDecoder()
                         if let topArticles = try? decoder.decode([String].self, from: data),
                            topArticles.count > 0 {
+                            topArticles1 = topArticles
                             topArticlesSlide = WMFYearInReviewSlideStandardViewModel(
                                 gifName: "english-slide-02", // TODO: modify gif name
                                 altText: "", // TODO: alt text
@@ -611,7 +622,7 @@ public class WMFYearInReviewViewModel: ObservableObject {
                 slides.append(.standard(personalizedSlides.editCountSlide ?? (primaryAppLanguage.isEnglishWikipedia ? englishEditsSlide : collectiveAmountEditsSlide)))
                 slides.append(.standard(personalizedSlides.viewCountSlide ?? (primaryAppLanguage.isEnglishWikipedia ? englishEditsBytesSlide : collectiveEditsPerMinuteSlide)))
                 slides.append(.contribution(personalizedSlides.donateCountSlideV3 ?? nonContributorSlide))
-                slides.append(.highlights(getHighlights()))
+                slides.append(.highlights(getPersonalizedHighlights()))
             } else {
                 slides.append(.standard(primaryAppLanguage.isEnglishWikipedia ? englishHoursReadingSlide : collectiveLanguagesSlide))
                 slides.append(.standard(primaryAppLanguage.isEnglishWikipedia ? englishTopReadSlide : collectiveArticleViewsSlide))
@@ -619,6 +630,7 @@ public class WMFYearInReviewViewModel: ObservableObject {
                 slides.append(.standard(primaryAppLanguage.isEnglishWikipedia ? englishEditsSlide : collectiveAmountEditsSlide))
                 slides.append(.standard(primaryAppLanguage.isEnglishWikipedia ? englishEditsBytesSlide : collectiveEditsPerMinuteSlide))
                 slides.append(.contribution(personalizedSlides.donateCountSlideV3 ?? nonContributorSlide))
+                slides.append(.highlights(primaryAppLanguage.isEnglishWikipedia ? getEnglishCollectiveHighlights() : getCollectiveHighlights()))
             }
         } else if WMFDeveloperSettingsDataController.shared.showYiRV2 {
             if isUserPermanent {
@@ -644,11 +656,78 @@ public class WMFYearInReviewViewModel: ObservableObject {
             self.hasPersonalizedDonateSlide = true
         }
     }
-    
-    // MARK: English Slides
 
-    func getHighlights() -> WMFYearInReviewSlideHighlightsViewModel {
-        return WMFYearInReviewSlideHighlightsViewModel(coordinatorDelegate: coordinatorDelegate)
+    func getPersonalizedHighlights() -> WMFYearInReviewSlideHighlightsViewModel {
+        var itemArray: [TableItem] = []
+
+        if let topArticles1 {
+            let top3 = topArticles1.prefix(3)
+
+            let titles = top3.enumerated()
+                .map { index, item in
+                    "\(index + 1). \(item)"
+                }
+                .joined(separator: "\n")
+
+            let topArticlesItem = TableItem(title: "Top Articles", text: titles)
+            itemArray.append(topArticlesItem)
+        }
+
+        if let minutesRead {
+            let timeItem = TableItem(title: "Minutes read", text: String(minutesRead))
+            itemArray.append(timeItem)
+        }
+
+        if let mostReadDay1 {
+            let mostReadTimeItem = TableItem(title: "most read day", text: localizedStrings.personalizedDateSlideDayV3(mostReadDay1.day))
+            itemArray.append(mostReadTimeItem)
+        }
+
+        if savedCount != nil, let savedCount {
+            let savedCountItem = TableItem(title: "Saved items", text: String(savedCount))
+            itemArray.append(savedCountItem)
+        }
+
+        if let mostReadCategories1 {
+            let top3 = mostReadCategories1.prefix(3)
+
+            let categories = top3.enumerated()
+                .map { index, item in
+                    "\(index + 1). \(item)"
+                }
+                .joined(separator: "\n")
+            let categoriesItem = TableItem(title: "categories", text: categories)
+            itemArray.append(categoriesItem)
+        }
+
+        return WMFYearInReviewSlideHighlightsViewModel(
+            infoBoxViewModel: WMFInfoTableViewModel(tableItems: itemArray),
+            loggingId: "", // TODO: logging ID
+            coordinatorDelegate: coordinatorDelegate
+        )
+    }
+
+    // MARK: - English Slides
+
+    // TODO: Get real numbers
+    // TODO: Confirm copy
+    func getEnglishCollectiveHighlights() -> WMFYearInReviewSlideHighlightsViewModel {
+        let articles = ["Super long very long article title that is long ", "Article Article Article", "Article Article"]
+
+        let titles = articles.enumerated()
+            .map { index, item in
+                "\(index + 1). \(item)"
+            }
+            .joined(separator: "\n")
+
+        let topArticles = TableItem(title: "Most popular articles on English Wikipedia", text: titles)
+        let hoursSpent = TableItem(title: "Hours spent reading", text: "987654321")
+        let changesMade = TableItem(title: "Changes editors made", text: "82 million")
+        return WMFYearInReviewSlideHighlightsViewModel(
+            infoBoxViewModel: WMFInfoTableViewModel(tableItems: [topArticles, hoursSpent, changesMade]),
+            loggingId: "", // TODO: logging ID
+            coordinatorDelegate: coordinatorDelegate
+        )
     }
 
     private var englishHoursReadingSlide: WMFYearInReviewSlideStandardViewModel {
@@ -718,8 +797,22 @@ public class WMFYearInReviewViewModel: ObservableObject {
         )
     }
 
-    // MARK: Collective Slides
-    
+    // MARK: - Collective Slides
+
+    // TODO: Get real numbers
+    // TODO: Confirm copy
+    func getCollectiveHighlights() -> WMFYearInReviewSlideHighlightsViewModel {
+        let viewedArticles = TableItem(title: "Number of viewed articles", text: "123456789")
+        let readingLists = TableItem(title: "Number of reading lists created", text: "987654321")
+        let editors = TableItem(title: "Editors on-app", text: "121212121")
+        let editFrequency = TableItem(title: "How often Wikipedia was edited", text: "123 times per minute")
+        return WMFYearInReviewSlideHighlightsViewModel(
+            infoBoxViewModel: WMFInfoTableViewModel(tableItems: [viewedArticles, readingLists, editors, editFrequency]),
+            loggingId: "", // TODO: logging ID
+            coordinatorDelegate: coordinatorDelegate
+        )
+    }
+
     private var collectiveLanguagesSlide: WMFYearInReviewSlideStandardViewModel {
         WMFYearInReviewSlideStandardViewModel(
             gifName: "non-english-slide-01",
