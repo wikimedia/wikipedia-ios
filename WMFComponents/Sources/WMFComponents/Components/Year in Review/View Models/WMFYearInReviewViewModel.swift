@@ -688,6 +688,11 @@ public class WMFYearInReviewViewModel: ObservableObject {
             itemArray.append(savedCountItem)
         }
 
+        if let editNumber, editNumber > 0 {
+            let editCountItem = TableItem(title: "Saved items", text: String(editNumber))
+            itemArray.append(editCountItem)
+        }
+
         if let frequentCategories {
             let top3 = frequentCategories.prefix(3)
 
