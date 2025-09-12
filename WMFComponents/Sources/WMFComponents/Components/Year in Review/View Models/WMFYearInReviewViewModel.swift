@@ -741,7 +741,7 @@ public class WMFYearInReviewViewModel: ObservableObject {
         }
 
         return WMFYearInReviewSlideHighlightsViewModel(
-            infoBoxViewModel: WMFInfoTableViewModel(tableItems: itemArray),
+            infoBoxViewModel: WMFInfoboxViewModel(tableItems: itemArray),
             loggingId: "",  // TODO: logging ID
             localizedStrings: getHighlightsStrings(),
             coordinatorDelegate: coordinatorDelegate
@@ -765,7 +765,7 @@ public class WMFYearInReviewViewModel: ObservableObject {
         let hoursSpent = TableItem(title: localizedStrings.hoursSpentReadingTitle, text: "987654321")
         let changesMade = TableItem(title: localizedStrings.numberOfChangesMadeTitle, text: "82 million")
         return WMFYearInReviewSlideHighlightsViewModel(
-            infoBoxViewModel: WMFInfoTableViewModel(tableItems: [topArticles, hoursSpent, changesMade]),
+            infoBoxViewModel: WMFInfoboxViewModel(tableItems: [topArticles, hoursSpent, changesMade]),
             loggingId: "", // TODO: logging ID
             localizedStrings: getHighlightsStrings(),
             coordinatorDelegate: coordinatorDelegate
@@ -849,7 +849,7 @@ public class WMFYearInReviewViewModel: ObservableObject {
         let editors = TableItem(title: localizedStrings.numberOfEditorsTitle, text: "121212121")
         let editFrequency = TableItem(title: localizedStrings.editFrequencyTitle, text: "123 times per minute")
         return WMFYearInReviewSlideHighlightsViewModel(
-            infoBoxViewModel: WMFInfoTableViewModel(tableItems: [viewedArticles, readingLists, editors, editFrequency]),
+            infoBoxViewModel: WMFInfoboxViewModel(tableItems: [viewedArticles, readingLists, editors, editFrequency]),
             loggingId: "", // TODO: logging ID
             localizedStrings: getHighlightsStrings(),
             coordinatorDelegate: coordinatorDelegate

@@ -63,7 +63,7 @@ public struct WMFYearInReviewSlideHighlightShareableView: View {
                 }
                 .padding(.horizontal, 24)
 
-                WMFYearInReviewInfoTableView(viewModel: viewModel.infoBoxViewModel)
+                WMFYearInReviewInfoboxView(viewModel: viewModel.infoBoxViewModel)
                     .accessibilityElement(children: .contain)
             }
             .padding(16)

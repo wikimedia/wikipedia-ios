@@ -1,6 +1,6 @@
 import Foundation
 
-public class WMFInfoTableViewModel {
+public class WMFInfoboxViewModel {
     let tableItems: [TableItem]
 
     public init(tableItems: [TableItem]) {

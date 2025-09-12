@@ -1,7 +1,7 @@
 import SwiftUI
 
 /// Table with hard coded colors - not theme-dependent
-public struct WMFYearInReviewInfoTableView: View {
+public struct WMFYearInReviewInfoboxView: View {
 
     @ObservedObject var appEnvironment = WMFAppEnvironment.current
 
@@ -9,9 +9,9 @@ public struct WMFYearInReviewInfoTableView: View {
         appEnvironment.theme
     }
 
-    var viewModel: WMFInfoTableViewModel
+    var viewModel: WMFInfoboxViewModel
 
-    init(viewModel: WMFInfoTableViewModel) {
+    init(viewModel: WMFInfoboxViewModel) {
         self.viewModel = viewModel
     }
 

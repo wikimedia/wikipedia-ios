@@ -16,12 +16,12 @@ public class WMFYearInReviewSlideHighlightsViewModel {
         }
     }
 
-    let infoBoxViewModel: WMFInfoTableViewModel
+    let infoBoxViewModel: WMFInfoboxViewModel
     let loggingID: String
     public let localizedStrings: LocalizedStrings
     private weak var coordinatorDelegate: YearInReviewCoordinatorDelegate?
 
-    init(infoBoxViewModel: WMFInfoTableViewModel, loggingId: String, localizedStrings: LocalizedStrings, coordinatorDelegate: YearInReviewCoordinatorDelegate?) {
+    init(infoBoxViewModel: WMFInfoboxViewModel, loggingId: String, localizedStrings: LocalizedStrings, coordinatorDelegate: YearInReviewCoordinatorDelegate?) {
         self.infoBoxViewModel = infoBoxViewModel
         self.loggingID = loggingId
         self.localizedStrings = localizedStrings
