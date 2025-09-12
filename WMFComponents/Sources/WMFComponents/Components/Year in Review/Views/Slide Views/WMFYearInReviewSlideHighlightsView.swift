@@ -16,12 +16,12 @@ public struct WMFYearInReviewSlideHighlightsView: View {
                     VStack {
                         Spacer(minLength: 0)
                         VStack(spacing: 24) {
-                            Text("Titleeeeee loooooooooooooooooooooooong long")
+                            Text(viewModel.localizedStrings.title)
                                 .font(Font(WMFFont.for(.boldTitle1)))
                                 .foregroundColor(.white)
                                 .multilineTextAlignment(.center)
 
-                            Text("subtitle loooooooooooooooooooooooong")
+                            Text(viewModel.localizedStrings.subtitle)
                                 .font(Font(WMFFont.for(.headline)))
                                 .foregroundColor(.white)
                                 .multilineTextAlignment(.center)
@@ -32,7 +32,7 @@ public struct WMFYearInReviewSlideHighlightsView: View {
                                         .stroke(Color(WMFColor.gray300), lineWidth: 1)
                                 )
 
-                            WMFLargeButton(configuration: .primary, title: "title") {
+                            WMFLargeButton(configuration: .primary, title: viewModel.localizedStrings.buttonTitle) {
                                 withAnimation(.easeInOut(duration: 0.75)) {
                                     viewModel.tappedShare()
                                 }

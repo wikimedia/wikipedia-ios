@@ -3,13 +3,28 @@ import SwiftUI
 import WMFData
 
 public class WMFYearInReviewSlideHighlightsViewModel {
+
+    public struct LocalizedStrings {
+        let title: String
+        let subtitle: String
+        let buttonTitle: String
+
+        public init(title: String, subtitle: String, buttonTitle: String) {
+            self.title = title
+            self.subtitle = subtitle
+            self.buttonTitle = buttonTitle
+        }
+    }
+
     let infoBoxViewModel: WMFInfoTableViewModel
-    private let loggingId: String
+    let loggingID: String
+    public let localizedStrings: LocalizedStrings
     private weak var coordinatorDelegate: YearInReviewCoordinatorDelegate?
 
-    init(infoBoxViewModel: WMFInfoTableViewModel, loggingId: String, coordinatorDelegate: YearInReviewCoordinatorDelegate?) {
+    init(infoBoxViewModel: WMFInfoTableViewModel, loggingId: String, localizedStrings: LocalizedStrings, coordinatorDelegate: YearInReviewCoordinatorDelegate?) {
         self.infoBoxViewModel = infoBoxViewModel
-        self.loggingId = loggingId
+        self.loggingID = loggingId
+        self.localizedStrings = localizedStrings
         self.coordinatorDelegate = coordinatorDelegate
     }
 
