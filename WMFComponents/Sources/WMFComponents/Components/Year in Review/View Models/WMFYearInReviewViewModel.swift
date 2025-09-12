@@ -698,13 +698,10 @@ public class WMFYearInReviewViewModel: ObservableObject {
         if let topReadArticles {
             let top3 = topReadArticles.prefix(3)
 
-            let titles = top3.enumerated()
-                .map { index, item in
-                    "\(index + 1). \(item)"
-                }
-                .joined(separator: "\n")
+            let articleList = makeNumberedBlueList(Array(top3))
 
-            let topArticlesItem = TableItem(title: localizedStrings.longestReadArticlesTitle, text: titles)
+            let topArticlesItem = TableItem(title: localizedStrings.longestReadArticlesTitle, attributedText: articleList)
+
             itemArray.append(topArticlesItem)
         }
 
@@ -730,13 +727,8 @@ public class WMFYearInReviewViewModel: ObservableObject {
 
         if let frequentCategories {
             let top3 = frequentCategories.prefix(3)
-
-            let categories = top3.enumerated()
-                .map { index, item in
-                    "\(index + 1). \(item)"
-                }
-                .joined(separator: "\n")
-            let categoriesItem = TableItem(title: localizedStrings.editedArticlesTitle, text: categories)
+            let categoryList = makeNumberedBlueList(Array(top3))
+            let categoriesItem = TableItem(title: localizedStrings.editedArticlesTitle, attributedText: categoryList)
             itemArray.append(categoriesItem)
         }
 
@@ -755,13 +747,9 @@ public class WMFYearInReviewViewModel: ObservableObject {
     func getEnglishCollectiveHighlights() -> WMFYearInReviewSlideHighlightsViewModel {
         let articles = ["Super long very long article title that is long ", "Article Article Article", "Article Article"]
 
-        let titles = articles.enumerated()
-            .map { index, item in
-                "\(index + 1). \(item)"
-            }
-            .joined(separator: "\n")
+        let blueList = makeNumberedBlueList(articles)
 
-        let topArticles = TableItem(title: localizedStrings.enWikiTopArticlesTitle, text: titles)
+        let topArticles = TableItem(title: localizedStrings.enWikiTopArticlesTitle, attributedText: blueList)
         let hoursSpent = TableItem(title: localizedStrings.hoursSpentReadingTitle, text: "987654321")
         let changesMade = TableItem(title: localizedStrings.numberOfChangesMadeTitle, text: "82 million")
         return WMFYearInReviewSlideHighlightsViewModel(
@@ -1201,6 +1189,28 @@ public class WMFYearInReviewViewModel: ObservableObject {
     private func getHighlightsStrings() -> WMFYearInReviewSlideHighlightsViewModel.LocalizedStrings {
         return WMFYearInReviewSlideHighlightsViewModel.LocalizedStrings(title: localizedStrings.highlightsSlideTitle, subtitle: localizedStrings.highlightsSlideSubtitle, buttonTitle: localizedStrings.highlightsSlideButtonTitle)
     }
+
+    // Helper method to format the infobox on the highlights slide
+    private func makeNumberedBlueList(_ articles: [String]) -> AttributedString {
+        var result = AttributedString()
+
+        for (i, title) in articles.enumerated() {
+            var numberRun = AttributedString("\(i + 1). ")
+            numberRun.foregroundColor = Color(WMFColor.black)
+
+            var titleRun = AttributedString(title)
+            titleRun.foregroundColor = Color(WMFColor.blue600)
+
+            result += numberRun
+            result += titleRun
+
+            if i < articles.count - 1 {
+                result += AttributedString("\n")
+            }
+        }
+        return result
+    }
+
 }
 
 enum WMFYearInReviewSlide {
