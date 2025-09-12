@@ -1449,10 +1449,9 @@
 "year-in-review-collective-zero-ads" = "Wikimedia logo";
 "year-in-review-contributor-gift-subtitle" = "If you don’t turn it on now, you can access it later in Settings under Theme.";
 "year-in-review-contributor-gift-title" = "Activate new app icon";
-"year-in-review-contributor-slide-status-both" = "a donor and editor";
-"year-in-review-contributor-slide-status-donor" = "a donor";
-"year-in-review-contributor-slide-status-editor" = "an editor";
-"year-in-review-contributor-slide-subtitle" = "Thank you for investing in the future of free knowledge.\n\nYour contributions as $1 in 2025 are helping pave the way to a world of free information and as a result you have unlocked a custom contributor icon.";
+"year-in-review-contributor-slide-subtitle-donor" = "Thank you for investing in the future of free knowledge.\n\nYour contributions as a donor in 2025 are helping pave the way to a world of free information and as a result you have unlocked a custom contributor icon.";
+"year-in-review-contributor-slide-subtitle-editor" = "Thank you for investing in the future of free knowledge.\n\nYour contributions as an editor in 2025 are helping pave the way to a world of free information and as a result you have unlocked a custom contributor icon.";
+"year-in-review-contributor-slide-subtitle-editor-and-donor" = "Thank you for investing in the future of free knowledge.\n\nYour contributions as a donor and editor in 2025 are helping pave the way to a world of free information and as a result you have unlocked a custom contributor icon.";
 "year-in-review-contributor-slide-title" = "New icon unlocked";
 "year-in-review-day-friday" = "Fridays";
 "year-in-review-day-monday" = "Mondays";
@@ -1479,8 +1478,8 @@
 "year-in-review-intro-login-title" = "Log in for personalization";
 "year-in-review-login-subtitle" = "Login or create an account to be eligible for more personalized insights";
 "year-in-review-login-title" = "Improve your Year in Review";
-"year-in-review-non-contributor-slide-title" = "Unlock custom icon";
-"year-in-review-noncontributor-slide-subtitle" = "Become a contributor and unlock a custom contributor icon. [Learn more]($1) about the ways you can join the free knowledge movement. You can become an editor or donate to the Wikimedia Foundation--the nonprofit behind Wikipedia--to ensure that the information you rely on remains ad-free and trustworthy, while keeping Wikipedia running smoothly with cutting-edge tools and technologies.";
+"year-in-review-non-contributor-slide-title" = "Unlock your custom contributor icon";
+"year-in-review-noncontributor-slide-subtitle" = "We’re glad Wikipedia was part of your 2025! [Learn more]($1) about the ways to unlock your icon by becoming a contributor—whether by editing Wikipedia or by donating to the Wikimedia Foundation, the non-profit behind it. If Wikipedia has been useful to you this year, please consider donating to help sustain its future and keep it free, ad-free, trustworthy, and accessible to all.";
 "year-in-review-personalized-date-day-footer-v3" = "Favorite day to read";
 "year-in-review-personalized-date-month-footer-v3" = "Month you did the most reading";
 "year-in-review-personalized-date-time-footer-v3" = "Favorite time to read";
