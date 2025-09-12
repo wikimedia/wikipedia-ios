@@ -24,7 +24,7 @@ public struct WMFYearInReviewView: View {
             .toolbar {
                 if !viewModel.isShowingIntro {
                     ToolbarItem(placement: .bottomBar) {
-                        WMFYearInReviewToolbarView(viewModel: viewModel)
+                        WMFYearInReviewToolbarView(viewModel: viewModel, needShareButton: !viewModel.isLastSlide)
                     }
                 }
             }
