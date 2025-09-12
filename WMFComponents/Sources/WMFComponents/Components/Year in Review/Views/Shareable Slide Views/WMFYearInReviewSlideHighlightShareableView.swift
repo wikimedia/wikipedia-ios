@@ -27,7 +27,7 @@ public struct WMFYearInReviewSlideHighlightShareableView: View {
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
 
                 Text("wikipedia.org/year-in-review")
-                    .font(Font(WMFFont.for(.subheadline)))
+                    .font(Font(WMFFont.for(.callout)))
                     .foregroundStyle(Color(uiColor: WMFColor.black))
                     .multilineTextAlignment(.center)
                     .padding(.bottom, 20)
@@ -48,7 +48,6 @@ public struct WMFYearInReviewSlideHighlightShareableView: View {
                     .font(Font(WMFFont.for(.boldHeadline)))
                     .foregroundStyle(Color(uiColor: WMFColor.black))
                     .multilineTextAlignment(.center)
-
                 VStack(spacing: 8) {
                     Image("globe_yir", bundle: .module)
                         .resizable()
@@ -64,7 +63,7 @@ public struct WMFYearInReviewSlideHighlightShareableView: View {
                 .padding(.horizontal, 24)
 
                 WMFYearInReviewInfoboxView(viewModel: viewModel.infoBoxViewModel, isSharing: true)
-                    .accessibilityElement(children: .contain)
+                    .frame(maxWidth: 324)
             }
             .padding(16)
         }
