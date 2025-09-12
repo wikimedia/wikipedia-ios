@@ -69,7 +69,7 @@ struct WMFYearInReviewSlideStandardShareableView: View {
                                 .fixedSize(horizontal: false, vertical: true)
                         }
                     }
-                    .padding([.top, .horizontal], 28)
+                    .padding(.horizontal, 28)
                     .padding(.bottom, 0)
                 }
 

@@ -70,7 +70,7 @@ fileprivate struct WMFYearInReviewSlideIntroV3ViewContent: View {
     
     var body: some View {
         
-        VStack(spacing: 48) {
+        VStack(spacing: 16) {
             VStack(spacing: 16) {
                 ZStack {
                     Image(viewModel.gifName, bundle: .module)

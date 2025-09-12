@@ -37,7 +37,7 @@ fileprivate struct WMFYearInReviewSlideLocationViewContent: View {
     }
     
     var body: some View {
-        VStack(spacing: 48) {
+        VStack(spacing: 16) {
             VStack(spacing: 16) {
                 YearInReviewMapView(viewModel: viewModel)
                     .aspectRatio(1.5, contentMode: .fit)
@@ -50,7 +50,7 @@ fileprivate struct WMFYearInReviewSlideLocationViewContent: View {
                         .progressViewStyle(CircularProgressViewStyle())
                         .background(Color(theme.midBackground))
                 } else {
-                    VStack(spacing: 16) {
+                    VStack(spacing: 12) {
                         HStack(alignment: .top) {
                             Text(viewModel.title)
                                 .font(Font(WMFFont.for(.boldTitle1)))

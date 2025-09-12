@@ -43,7 +43,7 @@ fileprivate struct WMFYearInReviewSlideContributionViewContent: View {
         }
     
     var body: some View {
-        VStack(spacing: 48) {
+        VStack(spacing: 16) {
             VStack(spacing: 16) {
                 ZStack {
                     Image(viewModel.gifName, bundle: .module)
@@ -58,7 +58,7 @@ fileprivate struct WMFYearInReviewSlideContributionViewContent: View {
                 .accessibilityLabel(viewModel.altText)
             }
             
-            VStack(spacing: 16) {
+            VStack(spacing: 12) {
                 HStack(alignment: .top) {
                     Text(viewModel.title)
                         .font(Font(WMFFont.for(.boldTitle1)))
