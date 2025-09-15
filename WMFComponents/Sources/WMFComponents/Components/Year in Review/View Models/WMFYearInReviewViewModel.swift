@@ -641,26 +641,47 @@ public class WMFYearInReviewViewModel: ObservableObject {
         
         let personalizedSlides = getPersonalizedSlides(aboutYiRURL: aboutYiRURL)
         
-        if WMFDeveloperSettingsDataController.shared.showYiRV3 { // TODO: Confirm ordering / fallbacks are correct once product requirements are finalized.
+        if WMFDeveloperSettingsDataController.shared.showYiRV3 {
             if isUserPermanent {
                 slides.append(.standard(personalizedSlides.readCountSlideV3 ?? (primaryAppLanguage.isEnglishWikipedia ? englishHoursReadingSlide : collectiveLanguagesSlide)))
                 
-                if let mostReadDateSlideV3 = personalizedSlides.mostReadDateSlideV3 {
-                    slides.append(.mostReadDateV3(mostReadDateSlideV3))
+                if primaryAppLanguage.isEnglishWikipedia {
+                    slides.append(.standard(englishTopReadSlide))
+                    
+                    if let topArticlesSlide = personalizedSlides.topArticlesSlide {
+                        slides.append(.standard(topArticlesSlide))
+                    }
+                    
+                    if let mostReadDateSlideV3 = personalizedSlides.mostReadDateSlideV3 {
+                        slides.append(.mostReadDateV3(mostReadDateSlideV3))
+                    }
+                    
+                    if let categorySlide = personalizedSlides.mostReadCategoriesSlide {
+                        slides.append(.standard(categorySlide))
+                    }
+                    
+                    if let locationSlide = personalizedSlides.locationSlide {
+                        slides.append(.location(locationSlide))
+                    }
+                    
                 } else {
-                    slides.append(.standard(primaryAppLanguage.isEnglishWikipedia ? englishTopReadSlide : collectiveArticleViewsSlide))
-                }
-                
-                if let categorySlide = personalizedSlides.mostReadCategoriesSlide {
-                    slides.append(.standard(categorySlide))
-                }
-                
-                if let locationSlide = personalizedSlides.locationSlide {
-                    slides.append(.location(locationSlide))
-                }
-                
-                if let topArticlesSlide = personalizedSlides.topArticlesSlide {
-                    slides.append(.standard(topArticlesSlide))
+                    slides.append(.standard(collectiveArticleViewsSlide))
+                    
+                    if let mostReadDateSlideV3 = personalizedSlides.mostReadDateSlideV3 {
+                        slides.append(.mostReadDateV3(mostReadDateSlideV3))
+                    }
+                    
+                    if let categorySlide = personalizedSlides.mostReadCategoriesSlide {
+                        slides.append(.standard(categorySlide))
+                    }
+                    
+                    if let topArticlesSlide = personalizedSlides.topArticlesSlide {
+                        slides.append(.standard(topArticlesSlide))
+                    }
+                    
+                    if let locationSlide = personalizedSlides.locationSlide {
+                        slides.append(.location(locationSlide))
+                    }
                 }
 
                 slides.append(.standard(personalizedSlides.saveCountSlide ?? (primaryAppLanguage.isEnglishWikipedia ? englishReadingListSlide : collectiveSavedArticlesSlide)))
