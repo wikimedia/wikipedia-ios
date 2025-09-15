@@ -112,6 +112,7 @@ fileprivate struct YearInReviewMapView: UIViewRepresentable {
         mapView.addAnnotations(annotations)
         
         mapView.setVisibleMapRect(MKMapRect.world, animated: false)
+        mapView.isUserInteractionEnabled = false
         
         return mapView
     }
