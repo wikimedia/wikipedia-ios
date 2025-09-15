@@ -722,7 +722,7 @@ public class WMFYearInReviewViewModel: ObservableObject {
         }
 
         if let editNumber, editNumber > 0 {
-            let editCountItem = TableItem(title: localizedStrings.favoriteCategoriesTitle, text: String(editNumber))
+            let editCountItem = TableItem(title: localizedStrings.editedArticlesTitle, text: String(editNumber))
             itemArray.append(editCountItem)
         }
 
