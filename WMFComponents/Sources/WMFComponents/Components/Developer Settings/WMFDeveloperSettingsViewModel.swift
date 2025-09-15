@@ -60,8 +60,6 @@ import WMFData
         let setActivityTabGroupB = WMFFormItemSelectViewModel(title: localizedStrings.setActivityTabGroupB, isSelected: WMFDeveloperSettingsDataController.shared.setActivityTabGroupB)
         let setActivityTabGroupC = WMFFormItemSelectViewModel(title: localizedStrings.setActivityTabGroupC, isSelected: WMFDeveloperSettingsDataController.shared.setActivityTabGroupC)
         
-        let limitYiRCategoriesTo2Underscores = WMFFormItemSelectViewModel(title: "Limit Year In Review categories to at least 2 underscores", isSelected: WMFDeveloperSettingsDataController.shared.limitYiRCategoriesTo2Underscores)
-        
         let showYiRV2 = WMFFormItemSelectViewModel(title: "Show Year in Review Version 2", isSelected: WMFDeveloperSettingsDataController.shared.showYiRV2)
         
         let showYiRV3 = WMFFormItemSelectViewModel(title: "Show Year in Review Version 3", isSelected: WMFDeveloperSettingsDataController.shared.showYiRV3)
@@ -80,8 +78,7 @@ import WMFData
                 enableMoreDynamicTabsBYR,
                 enableMoreDynamicTabsDYK,
                 showYiRV2,
-                showYiRV3,
-                limitYiRCategoriesTo2Underscores
+                showYiRV3
             ], selectType: .multi)
         ])
 
@@ -118,7 +115,7 @@ import WMFData
             groupC: setActivityTabGroupC
         )
         
-        yirGroupCoordinator = YearInReviewGroupBindingCoordinator(showYiRV2: showYiRV2, showYiRV3: showYiRV3, limitYiRCategoriesTo2Underscores: limitYiRCategoriesTo2Underscores)
+        yirGroupCoordinator = YearInReviewGroupBindingCoordinator(showYiRV2: showYiRV2, showYiRV3: showYiRV3)
     }
 }
 
@@ -177,13 +174,12 @@ private final class MoreDynamicTabsGroupBindingCoordinator {
 private final class YearInReviewGroupBindingCoordinator {
     private var subscribers: Set<AnyCancellable> = []
 
-    init(showYiRV2: WMFFormItemSelectViewModel, showYiRV3: WMFFormItemSelectViewModel, limitYiRCategoriesTo2Underscores: WMFFormItemSelectViewModel) {
+    init(showYiRV2: WMFFormItemSelectViewModel, showYiRV3: WMFFormItemSelectViewModel) {
         
         showYiRV2.$isSelected.sink { isSelected in
             WMFDeveloperSettingsDataController.shared.showYiRV2 = isSelected
             if isSelected {
                 showYiRV3.isSelected = false
-                limitYiRCategoriesTo2Underscores.isSelected = false
             }
         }.store(in: &subscribers)
 
@@ -193,14 +189,5 @@ private final class YearInReviewGroupBindingCoordinator {
                 showYiRV2.isSelected = false
             }
         }.store(in: &subscribers)
-        
-        limitYiRCategoriesTo2Underscores.$isSelected.sink { isSelected in
-            WMFDeveloperSettingsDataController.shared.limitYiRCategoriesTo2Underscores = isSelected
-            if isSelected {
-                showYiRV3.isSelected = true
-                showYiRV2.isSelected = false
-            }
-        }.store(in: &subscribers)
-
     }
 }
