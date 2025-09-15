@@ -70,6 +70,7 @@ struct WMFYearInReviewSlideMostReadDateV3ShareableView: View {
             Text(viewModel.title)
                 .font(Font(WMFFont.for(.boldTitle1, compatibleWith: UITraitCollection(preferredContentSizeCategory: .medium))))
                 .foregroundStyle(Color(uiColor: theme.text))
+                .fixedSize(horizontal: false, vertical: true)
             
             VStack(spacing: 16) {
                 

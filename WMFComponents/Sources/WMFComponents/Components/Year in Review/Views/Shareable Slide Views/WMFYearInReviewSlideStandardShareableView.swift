@@ -14,13 +14,13 @@ struct WMFYearInReviewSlideStandardShareableView: View {
     }
 
     private let hashtag: String
-    private let needsFormatting: Bool
+    private let needsMarkdownSubtitle: Bool
     
-    init(viewModel: WMFYearInReviewSlideViewModelProtocol, appEnvironment: WMFAppEnvironment = WMFAppEnvironment.current, hashtag: String, needsFormatting: Bool = false) {
+    init(viewModel: WMFYearInReviewSlideViewModelProtocol, appEnvironment: WMFAppEnvironment = WMFAppEnvironment.current, hashtag: String, needsMarkdownSubtitle: Bool = false) {
         self.viewModel = viewModel
         self.appEnvironment = appEnvironment
         self.hashtag = hashtag
-        self.needsFormatting = needsFormatting
+        self.needsMarkdownSubtitle = needsMarkdownSubtitle
     }
     
     private var attributedString: AttributedString {
@@ -28,7 +28,7 @@ struct WMFYearInReviewSlideStandardShareableView: View {
     }
     
     private var styles: HtmlUtils.Styles {
-        return HtmlUtils.Styles(font: WMFFont.for(.headline), boldFont: WMFFont.for(.headline), italicsFont: WMFFont.for(.headline), boldItalicsFont: WMFFont.for(.title3), color: theme.text, linkColor: theme.link, lineSpacing: 3)
+        return HtmlUtils.Styles(font: WMFFont.for(.body), boldFont: WMFFont.for(.boldBody), italicsFont: WMFFont.for(.body), boldItalicsFont: WMFFont.for(.body), color: theme.text, linkColor: theme.link, lineSpacing: 3)
     }
 
     var body: some View {
@@ -38,6 +38,7 @@ struct WMFYearInReviewSlideStandardShareableView: View {
                         .frame(height: 50)
                         .frame(maxWidth: .infinity)
                         .foregroundColor(Color(theme.text))
+                        .padding(.top, 20)
 
                     ZStack {
                         Image(viewModel.gifName, bundle: .module)
@@ -53,17 +54,19 @@ struct WMFYearInReviewSlideStandardShareableView: View {
                         Text(viewModel.title)
                             .font(Font(WMFFont.for(.boldTitle1, compatibleWith: UITraitCollection(preferredContentSizeCategory: .medium))))
                             .foregroundStyle(Color(uiColor: theme.text))
-                        if needsFormatting {
+                            .fixedSize(horizontal: false, vertical: true)
+                        if needsMarkdownSubtitle {
                             Text(subtitleAttributedString(subtitle: viewModel.subtitle))
-                                .font(Font(WMFFont.for(.title3)))
+                                .font(Font(WMFFont.for(.body)))
                                 .foregroundStyle(Color(uiColor: theme.text))
                                 .accentColor(Color(uiColor: theme.link))
-                                .frame(maxWidth: .infinity, alignment: .leading)
+                                .fixedSize(horizontal: false, vertical: true)
                         } else {
                             Text(attributedString)
-                                .font(Font(WMFFont.for(.title3, compatibleWith: UITraitCollection(preferredContentSizeCategory: .medium))))
+                                .font(Font(WMFFont.for(.body, compatibleWith: UITraitCollection(preferredContentSizeCategory: .medium))))
                                 .foregroundStyle(Color(uiColor: theme.text))
                                 .accentColor(Color(uiColor: theme.link))
+                                .fixedSize(horizontal: false, vertical: true)
                         }
                     }
                     .padding([.top, .horizontal], 28)

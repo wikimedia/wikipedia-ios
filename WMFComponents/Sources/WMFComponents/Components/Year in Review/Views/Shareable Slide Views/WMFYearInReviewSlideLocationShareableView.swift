@@ -18,7 +18,7 @@ struct WMFYearInReviewSlideLocationShareableView: View {
     }
     
     private var styles: HtmlUtils.Styles {
-        return HtmlUtils.Styles(font: WMFFont.for(.headline), boldFont: WMFFont.for(.boldHeadline), italicsFont: WMFFont.for(.headline), boldItalicsFont: WMFFont.for(.title3), color: theme.text, linkColor: theme.link, lineSpacing: 3)
+        return HtmlUtils.Styles(font: WMFFont.for(.body), boldFont: WMFFont.for(.boldBody), italicsFont: WMFFont.for(.body), boldItalicsFont: WMFFont.for(.body), color: theme.text, linkColor: theme.link, lineSpacing: 3)
     }
     
     private var mapView: Image {
@@ -54,6 +54,7 @@ struct WMFYearInReviewSlideLocationShareableView: View {
                     Text(viewModel.title)
                         .font(Font(WMFFont.for(.boldTitle1, compatibleWith: UITraitCollection(preferredContentSizeCategory: .medium))))
                         .foregroundStyle(Color(uiColor: theme.text))
+                        .fixedSize(horizontal: false, vertical: true)
                     WMFHtmlText(html: viewModel.subtitle, styles: styles)
                 }
                 .padding([.top, .horizontal], 28)
