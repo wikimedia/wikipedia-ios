@@ -730,7 +730,8 @@
 "microsite-yir-english-edits-bytes-slide-title" = "4 milyard bayt əlavə edildi";
 "microsite-yir-english-edits-slide-subtitle" = "Könüllülər Vikipediyanın 300-dən çox müxtəlif dildə nəşrlərində 98.222.407 dəyişiklik etdilər. İngiliscə Vikipediyada 37 milyondan çox dəyişiklik edilib. Hər günün hər saatında könüllülər Vikipediyanı təkmilləşdirmək üçün çalışırlar.";
 "microsite-yir-english-edits-slide-title" = "Bu il redaktorlar 98 milyona yaxın dəyişiklik edib";
-"microsite-yir-english-reading-slide-subtitle" = "İnsanlar 2024-cü ildə İngiliscə Vikipediyanı oxumaq üçün təqribən 2,9 milyard saat - təxminən 331 000 il sərf ediblər! Siz dəyişən dünyamız haqqında öyrənmək, dostlar arasında mərci qazanmaq və ya maraqlı suallar verən uşağa cavab vermək istədiyiniz zaman Vikipediya oradadır.";
+"microsite-yir-english-reading-slide-subtitle" = "İnsanlar 2025-ci ildə İngilis Vikipediyasını oxumağa təqribən 2,4 milyard saat sərf ediblər - 275 000 ildən çox!. Siz dəyişən dünyamız haqqında öyrənmək, dostlar arasında mərc qazanmaq və ya maraqlı uşağın sualına cavab vermək istədiyiniz zaman Vikipediya oradadır.";
+"microsite-yir-english-reading-slide-subtitle-short" = "İnsanlar 2025-ci ildə İngilis Vikipediyasını oxumaq üçün təxminən 2,4 milyard saat - 275 000 ildən çox vaxt sərf ediblər.";
 "microsite-yir-english-reading-slide-title" = "Kitab oxumağa 2,9 milyard saat sərf etmişik";
 "microsite-yir-english-saved-reading-slide-subtitle" = "Aktiv iOS tətbiqi istifadəçiləri 62,2 milyon oxuma siyahısına sahib olub. Oxuma siyahıları onlara məqalələr əlavə etmək hətta oflayn olarkən məqalələrə daxil olmaq imkanı verir. Siz həmçinin cihazlar arasında oxuma siyahılarını sinxronlaşdırmaq üçün hesabınıza daxil ola bilərsiniz.";
 "microsite-yir-english-saved-reading-slide-title" = "62,2 milyondan çox oxuma siyahılarımız olub.";
@@ -1453,6 +1454,13 @@
 "year-in-review-collective-languages" = "Müxtəlif dilləri təmsil edən yazıların həkk olunduğu daşın animasiyalı təsviri, Vikipediyanın necə müxtəlif mədəniyyətlərdən və bölgələrdən olan bilikləri birgə şəkildə topladığını simvollaşdırır.";
 "year-in-review-collective-saved-articles" = "Vikipediyanın loqosunu əks etdirən, qlobal əməkdaşlığı təmsil edən tapmaca qlobusu.";
 "year-in-review-collective-zero-ads" = "Vikimedia loqosu";
+"year-in-review-contributor-gift-subtitle" = "Əgər onu indi aktiv etməsəniz, daha sonra Tema altındakı Parametrlərdə ona daxil ola bilərsiniz.";
+"year-in-review-contributor-gift-title" = "Yeni proqram ikonasını aktivləşdir";
+"year-in-review-contributor-slide-status-both" = "donor və redaktor";
+"year-in-review-contributor-slide-status-donor" = "donor";
+"year-in-review-contributor-slide-status-editor" = "redaktor";
+"year-in-review-contributor-slide-subtitle" = "Açıq biliyin gələcəyinə sərmayə qoyduğunuz üçün təşəkkür edirik.\n\n2025-ci ildə $1 kimi töhfələriniz azad məlumat dünyasına yol açmağa kömək edir və nəticədə siz xüsusi töhfəçi ikonasını açdınız.";
+"year-in-review-contributor-slide-title" = "Yeni ikonanın kilidi açıldı";
 "year-in-review-day-friday" = "cümə günlərində";
 "year-in-review-day-monday" = "bazar ertəsi günlərində";
 "year-in-review-day-saturday" = "şənbə günlərində";
@@ -1478,6 +1486,8 @@
 "year-in-review-intro-login-title" = "Fərdiləşdirmə üçün daxil ol";
 "year-in-review-login-subtitle" = "Daha çox fərdiləşdirilmiş məlumatlar əldə etmək üçün daxil olun və ya hesab yaradın";
 "year-in-review-login-title" = "İliniz İcmalını təkmilləşdirin";
+"year-in-review-non-contributor-slide-title" = "Xüsusi ikonanın kilidini aç";
+"year-in-review-noncontributor-slide-subtitle" = "Töhfəçi olun və xüsusi töhfəçi ikonasını açın. Azad bilik hərəkatına qoşulmağın yolları haqqında [Ətraflı məlumat]($1). Siz redaktor ola və ya etibar etdiyiniz məlumatın reklamsız və etibarlı qalmasını, eyni zamanda Vikipediyanın qabaqcıl alətlər və texnologiyalarla düzgün işləməsini təmin edən Vikimedia Fonduna - Vikipediyanın yaradıcısı olan qeyri-kommersiya təşkilatına ianə verə bilərsiniz.";
 "year-in-review-personalized-date-day-footer-v3" = "Oxumaq üçün sevimli gününüz";
 "year-in-review-personalized-date-month-footer-v3" = "Ən çox oxuduğunuz ay";
 "year-in-review-personalized-date-time-footer-v3" = "Oxumaq üçün sevimli vaxt";
@@ -1500,7 +1510,9 @@
 "year-in-review-personalized-location-title-format" = "Oxuduğunuz məqalələrə ən yaxın yer: $1.";
 "year-in-review-personalized-most-read-articles-title" = "Ən çox oxunan məqalələriniz";
 "year-in-review-personalized-reading-subtitle-format" = "Siz {{PLURAL:$1|$1 məqalə}} oxumusunuz. Vikipediyada $3+ aktiv dildə $2 məqalə mövcud olub. Siz biliyi genişləndirməkdə və müxtəlif mövzuları araşdırmaqda milyonlarla insana qoşulmusunuz.";
+"year-in-review-personalized-reading-subtitle-format-v3" = "Bu, sizi qlobal miqyasda Vikipediya oxucuları arasında **PERCENT**-ə qoyur. Bir insan ortalama ildə {{PLURAL:$1|$1 məqalə}} oxuyur.";
 "year-in-review-personalized-reading-title-format" = "Siz {{PLURAL:$1|$1 məqalə}} oxumusunuz";
+"year-in-review-personalized-reading-title-v3-format" = "Siz 2025-ci ildə {{PLURAL:$2|$2 məqaləni}} oxumağa {{PLURAL:$1|$1 dəqiqə vaxt sərf etmisiniz}}";
 "year-in-review-personalized-saved-articles" = "Arxasında kompüter ekranları olan şlyapa geymiş tapmaca parçasının təsviri.";
 "year-in-review-personalized-saved-subtitle-format" = "Siz bu il $2, $3 and $4 daxil olmaqla {{PLURAL:$1|$1 məqalə}} yadda saxlamısınız. Hər bir saxlanılan məqalə sizin maraqlarınızı əks etdirir və Vikipediyada fərdiləşdirilmiş bilik bazası yaratmağa kömək edir.";
 "year-in-review-personalized-saved-title-format" = "{{PLURAL:$1|$1 məqalə}} yadda saxlamısınız";

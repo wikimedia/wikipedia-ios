@@ -67,7 +67,7 @@ fileprivate struct WMFYearInReviewSlideContributionViewContent: View {
                     Spacer()
                     if let uiImage = WMFSFSymbolIcon.for(symbol: .infoCircleFill) {
                         Button {
-                            
+                            viewModel.onInfoButtonTap()
                         } label: {
                             Image(uiImage: uiImage)
                                 .resizable()
@@ -120,6 +120,11 @@ fileprivate struct WMFYearInReviewSlideContributionViewContent: View {
                             Toggle("", isOn: $viewModel.isIconOn)
                             .toggleStyle(.switch)
                             .labelsHidden()
+                            .onChange(of: viewModel.isIconOn) { newValue in
+                                if let toggleIcon = viewModel.onToggleIcon {
+                                    toggleIcon(newValue)
+                                }
+                             }
                         }
                     }
                 case .noncontributor:
@@ -146,11 +151,11 @@ fileprivate struct WMFYearInReviewSlideContributionViewContent: View {
                             }
                             .padding(.vertical, 11)
                             .padding(.horizontal, 16)
-                            .frame(maxWidth: .infinity, alignment: .center)
+                            .frame(maxWidth: .infinity)
+                            .contentShape(RoundedRectangle(cornerRadius: 12))
                             .overlay(
                                 RoundedRectangle(cornerRadius: 12)
                                     .stroke(Color(uiColor: theme.newBorder), lineWidth: 1)
-                                    .padding(0)
                             )
                         }
                         .buttonStyle(PlainButtonStyle())
