@@ -147,10 +147,26 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
             contributorTitle: WMFLocalizedString("year-in-review-contributor-slide-title", value: "New icon unlocked", comment: "Year in review subtitle for contributors"),
             contributorSubtitle: contributorSlideSubtitle(isEditor:isDonator:),
             contributorGiftTitle: WMFLocalizedString("year-in-review-contributor-gift-title", value: "Activate new app icon", comment: "Year in review title for the new icon"),
-            contributorGiftSubtitle: WMFLocalizedString("year-in-review-contributor-gift-subtitle", value: "If you don’t turn it on now, you can access it later in Settings under Theme.", comment: "Year in review subtitle for the new icon")
+            contributorGiftSubtitle: WMFLocalizedString("year-in-review-contributor-gift-subtitle", value: "If you don’t turn it on now, you can access it later in Settings under Theme.", comment: "Year in review subtitle for the new icon"),
+            highlightsSlideTitle: WMFLocalizedString("year-in-review-highlights-title", value: "Thank you for spending your year with Wikipedia", comment: "Title for year in review highlights slide"),
+            highlightsSlideSubtitle: WMFLocalizedString("year-in-review-highlights-subtitle", value: "We look forward to next year!", comment: "Subtitle for year in review highlights slide"),
+            highlightsSlideButtonTitle: WMFLocalizedString("year-in-review-highlights-button-title", value: "Share highlights", comment: "Title for the share button on Year in Review Highlights slide"),
+            longestReadArticlesTitle: WMFLocalizedString("year-in-review-highlights-personalized-articles", value: "Articles I read the longest", comment: "Title for the list of articles read the longest in the year in review slide"),
+            minutesReadTitle: WMFLocalizedString("year-in-review-highlights-reading-time", value: "Minutes read", comment: "Title for the minutes read in the Year in review highlights slide"),
+            favoriteReadingDayTitle: WMFLocalizedString("year-in-review-highlights-favorite-day", value: "Favorite day to read", comment: "Title for the favorite day to read in the Year in review highlights slide"),
+            savedArticlesTitle: WMFLocalizedString("year-in-review-highlights-articles-saved", value: "Articles saved", comment: "Title for the articles saved by an user in the Year in review highlights slide"),
+            favoriteCategoriesTitle: WMFLocalizedString("year-in-review-highlights-categories", value: "Categories that interested me", comment: "Title for the top categories for an user in the Year in review highlights slide"),
+            editedArticlesTitle: WMFLocalizedString("year-in-review-highlights-articles-edited", value: "Articles edited", comment: "Title for the number of articles edited by an user in the Year in review highlights slide"),
+            enWikiTopArticlesTitle: WMFLocalizedString("year-in-review-highlights-english-articles", value: "Most popular articles on English Wikipedia", comment: "Title for the list of most popular articles on English Wikipedia in the Year in review slide"),
+            hoursSpentReadingTitle: WMFLocalizedString("year-in-review-highlights-collective-time-spent", value: "Hours spent reading", comment: "Title for the estimation collective hours spent reading Wikipedia in the Year in review highlights slide"),
+            numberOfChangesMadeTitle: WMFLocalizedString("year-in-review-highlights-changes", value: "Changes editors made", comment: "Title for the number of changes editors made on Wikipedia in the Year in review highlights slide"),
+            numberOfViewedArticlesTitle: WMFLocalizedString("year-in-review-highlights-articles-viewed", value: "Number of viewed articles", comment: "Title for the number of viewed articles in Wikipedia in the Year in review highlights slide"),
+            numberOfReadingListsTitle: WMFLocalizedString("year-in-review-highlights-created-lists", value: "Number of reading lists created", comment: "Title for the number of reading lists created collectivelly in the Year in Review highlights slide"),
+            numberOfEditorsTitle: WMFLocalizedString("year-in-review-highlights-number-app-editors", value: "Editors on-app", comment: "Title for the number of editors using the Wikipedia app in the Year in review highlights slide"),
+            editFrequencyTitle: WMFLocalizedString("year-in-review-highlights-edit-frequency", value: "How often Wikipedia was edited", comment: "Title for the frequency of edits on Wikipedia in the Year in review highlights slide"),
+            logoCaption: WMFLocalizedString("year-in-review-highlights-share-logo-caption", value: "Wikipedia logo", comment: "Caption for Wikipedia logo on sharable version of the highlights year in review slide")
         )
     }
-
 
     @objc public init(navigationController: UINavigationController, theme: Theme, dataStore: MWKDataStore, dataController: WMFYearInReviewDataController) {
         self.navigationController = navigationController
@@ -572,11 +588,13 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         
         let appShareLink = WMFYearInReviewDataController.appShareLink
         let hashtag = "#WikipediaYearInReview"
-        
+        let plaintextURL = "wikipedia.org/year-in-review"
+
         let viewModel = WMFYearInReviewViewModel(
             localizedStrings: localizedStrings,
             shareLink: appShareLink,
             hashtag: hashtag,
+            plaintextURL: plaintextURL,
             coordinatorDelegate: self,
             loggingDelegate: self,
             badgeDelegate: badgeDelegate,
