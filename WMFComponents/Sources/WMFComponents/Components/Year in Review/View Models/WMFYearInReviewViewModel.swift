@@ -242,10 +242,12 @@ public class WMFYearInReviewViewModel: ObservableObject {
     private let primaryAppLanguage: WMFProject
     private let aboutYiRURL: URL?
     private var hasPersonalizedDonateSlide: Bool
+    public var toggleAppIcon: (Bool) -> Void
+    public var isIconOn: Bool
     
     @Published public var isLoading: Bool = false
     
-    public init(localizedStrings: LocalizedStrings, shareLink: String, hashtag: String, coordinatorDelegate: YearInReviewCoordinatorDelegate?, loggingDelegate: WMFYearInReviewLoggingDelegate, badgeDelegate: YearInReviewBadgeDelegate?, isUserPermanent: Bool, aboutYiRURL: URL?, primaryAppLanguage: WMFProject) {
+    public init(localizedStrings: LocalizedStrings, shareLink: String, hashtag: String, coordinatorDelegate: YearInReviewCoordinatorDelegate?, loggingDelegate: WMFYearInReviewLoggingDelegate, badgeDelegate: YearInReviewBadgeDelegate?, isUserPermanent: Bool, aboutYiRURL: URL?, primaryAppLanguage: WMFProject, toggleAppIcon: @escaping (Bool) -> Void, isIconOn: Bool) {
         self.localizedStrings = localizedStrings
         self.shareLink = shareLink
         self.hashtag = hashtag
@@ -255,6 +257,8 @@ public class WMFYearInReviewViewModel: ObservableObject {
         self.isUserPermanent = isUserPermanent
         self.primaryAppLanguage = primaryAppLanguage
         self.aboutYiRURL = aboutYiRURL
+        self.toggleAppIcon = toggleAppIcon
+        self.isIconOn = isIconOn
         
         // Default inits to avoid compiler complaints later in this method
         self.introV2ViewModel = nil
@@ -368,16 +372,16 @@ public class WMFYearInReviewViewModel: ObservableObject {
                                     onTappedDonateButton: { [weak self] sourceRect in
                                         self?.handleDonate(sourceRect: sourceRect)
                                     },
-                                    onToggleIcon: { toggleValue in
-                                        self.onToggleIcon(isOn: toggleValue, dataController: dataController)
+                                    onToggleIcon: { isOn in
+                                        self.toggleAppIcon(isOn)
                                     },
-                                    onInfoButtonTap: { [weak self] in
-                                        self?.tappedInfo()
-                                    },
+                                    onInfoButtonTap: tappedInfo,
                                     donateButtonTitle: localizedStrings.donateButtonTitle,
                                     toggleButtonTitle: localizedStrings.contributorGiftTitle,
                                     toggleButtonSubtitle: localizedStrings.contributorGiftSubtitle,
-                                    isIconOn: getIsIconOn(dataController: dataController))
+                                    isIconOn: isIconOn,
+                                    infoURL: aboutYiRURL
+                                )
                             }
                             
                             if donateCount > 0 {
@@ -809,20 +813,11 @@ public class WMFYearInReviewViewModel: ObservableObject {
             onTappedDonateButton: { [weak self] sourceRect in
                 self?.handleDonate(sourceRect: sourceRect)
             },
-            onInfoButtonTap: { [weak self] in
-                self?.tappedInfo()
-            },
+            onInfoButtonTap: tappedInfo,
             donateButtonTitle: localizedStrings.donateButtonTitle,
             toggleButtonTitle: localizedStrings.contributorGiftTitle,
-            toggleButtonSubtitle: localizedStrings.contributorGiftSubtitle)
-    }
-    
-    private func getIsIconOn(dataController: WMFYearInReviewDataController) -> Bool {
-        return dataController.isNewIconOn
-    }
-    
-    private func onToggleIcon(isOn: Bool, dataController: WMFYearInReviewDataController) {
-        return dataController.isNewIconOn = isOn
+            toggleButtonSubtitle: localizedStrings.contributorGiftSubtitle,
+            infoURL: aboutYiRURL)
     }
     
     private var currentSlide: WMFYearInReviewSlide {
@@ -908,7 +903,13 @@ public class WMFYearInReviewViewModel: ObservableObject {
                 coordinatorDelegate?.handleYearInReviewAction(.share(image: uiImage))
             }
         case .contribution(let viewModel):
-            break
+            let view = WMFYearInReviewSlideStandardShareableView(viewModel: viewModel, hashtag: hashtag, needsFormatting: true)
+            let renderer = ImageRenderer(content: view)
+            renderer.proposedSize = .init(width: 402, height: nil)
+            renderer.scale = UIScreen.main.scale
+            if let uiImage = renderer.uiImage {
+                coordinatorDelegate?.handleYearInReviewAction(.share(image: uiImage))
+            }
         }
         logYearInReviewDidTapShare()
     }
@@ -1046,9 +1047,7 @@ public class WMFYearInReviewViewModel: ObservableObject {
         case .location(let vm):
             coordinatorDelegate?.handleYearInReviewAction(.info(url: vm.infoURL))
         case .contribution(let vm):
-            break
-            // info button not yet on donate
-           //  coordinatorDelegate?.handleYearInReviewAction(.info(url: vm.infoURL))
+            coordinatorDelegate?.handleYearInReviewAction(.info(url: vm.infoURL))
         }
     }
     
