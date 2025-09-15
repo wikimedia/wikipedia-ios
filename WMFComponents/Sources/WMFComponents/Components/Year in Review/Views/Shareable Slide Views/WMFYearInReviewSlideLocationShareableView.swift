@@ -30,7 +30,7 @@ struct WMFYearInReviewSlideLocationShareableView: View {
     }
 
     var body: some View {
-            VStack {
+            VStack(spacing: 16) {
                 
                 // header
                 VStack(alignment: .leading, spacing: 16) {
@@ -57,7 +57,7 @@ struct WMFYearInReviewSlideLocationShareableView: View {
                         .fixedSize(horizontal: false, vertical: true)
                     WMFHtmlText(html: viewModel.subtitle, styles: styles)
                 }
-                .padding([.top, .horizontal], 28)
+                .padding(.horizontal, 28)
                 .padding(.bottom, 0)
                 
                 Spacer(minLength: 10)
