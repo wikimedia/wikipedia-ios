@@ -46,6 +46,8 @@ public enum WMFFont {
     case title1
     case title3
     case xxlTitleBold
+    case helveticaBody
+    case helveticaBodyBold
 
     public static func `for`(_ font: WMFFont, compatibleWith traitCollection: UITraitCollection = WMFAppEnvironment.current.traitCollection) -> UIFont {
 
@@ -244,6 +246,13 @@ public enum WMFFont {
         case .xxlTitleBold:
             return UIFontMetrics(forTextStyle: .title3).scaledFont(for: UIFont.systemFont(ofSize: 40, weight: .bold), compatibleWith: traitCollection)
 
+        case .helveticaBody:
+            return UIFontMetrics(forTextStyle: .subheadline)
+                    .scaledFont(for: UIFont(descriptor: UIFontDescriptor(name: "Helvetica", size: 14), size: 0), compatibleWith: traitCollection)
+
+        case .helveticaBodyBold:
+            return UIFontMetrics(forTextStyle: .subheadline)
+                   .scaledFont(for: UIFont(descriptor: UIFontDescriptor(name: "Helvetica-Bold", size: 14), size: 0), compatibleWith: traitCollection)
         }
     }
 }
