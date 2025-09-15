@@ -24,7 +24,12 @@ struct WMFYearInReviewSlideIntroV3View: View {
         ZStack(alignment: .bottom) {
             WMFYearInReviewScrollView(scrollViewContents: WMFYearInReviewSlideIntroV3ViewContent(viewModel: viewModel))
             
-            VStack {
+            VStack(spacing: 16) {
+                Text(viewModel.footer)
+                    .multilineTextAlignment(.center)
+                    .font(Font(WMFFont.for(.caption2)))
+                    .foregroundColor(Color(uiColor: theme.secondaryText))
+                
                 WMFLargeButton(configuration: .primary, title: viewModel.primaryButtonTitle) {
                     withAnimation(.easeInOut(duration: 0.75)) {
                         viewModel.tappedPrimaryButton()
@@ -66,7 +71,7 @@ fileprivate struct WMFYearInReviewSlideIntroV3ViewContent: View {
         self.viewModel = viewModel
     }
     
-    @ScaledMetric private var bottomInset = 125.0
+    @ScaledMetric private var bottomInset = 135.0
     
     var body: some View {
         
@@ -85,7 +90,6 @@ fileprivate struct WMFYearInReviewSlideIntroV3ViewContent: View {
                 .accessibilityLabel(viewModel.altText)
             }
             
-            VStack(alignment: .center, spacing: 75) {
                 VStack(alignment: .center, spacing: 16) {
                     Text(viewModel.title)
                         .multilineTextAlignment(.center)
@@ -96,13 +100,7 @@ fileprivate struct WMFYearInReviewSlideIntroV3ViewContent: View {
                         .font(Font(WMFFont.for(.body)))
                         .foregroundColor(Color(uiColor: theme.text))
                 }
-                Text(viewModel.footer)
-                    .multilineTextAlignment(.center)
-                    .font(Font(WMFFont.for(.caption2)))
-                    .foregroundColor(Color(uiColor: theme.secondaryText))
-            }
-            
-            .padding(EdgeInsets(top: 0, leading: sizeClassPadding, bottom: bottomInset, trailing: sizeClassPadding))
+                .padding(EdgeInsets(top: 0, leading: sizeClassPadding, bottom: bottomInset, trailing: sizeClassPadding))
         }
     }
 }
