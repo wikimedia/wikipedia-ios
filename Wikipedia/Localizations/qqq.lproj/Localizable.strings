@@ -1119,7 +1119,7 @@
 "serbian-variants-alert-body" = "Body text of alert used to inform users about Serbian variant support. Please do not translate the newlines (\n) or Serbian characters (nсрпски ћирилица, etc.).";
 "serbian-variants-alert-title" = "Title of alert used to inform users about Serbian variant support.";
 "settings-account" = "Title for button and page letting user view their account page.";
-"settings-appearance" = "Title of the reading preferences screen.";
+"settings-appearance" = "Title of the app theme screen.";
 "settings-clear-cache" = "Title for the 'Clear cached data' settings row";
 "settings-clear-cache-are-you-sure-message" = "Message for the confirmation presented to the user to verify they are sure they want to clear clear cached data. $1 is replaced with the approximate file size in bytes that will be made available. Also explains that the action will not delete their saved pages.";
 "settings-clear-cache-are-you-sure-title" = "Title for the confirmation presented to the user to verify they are sure they want to clear clear cached data.";

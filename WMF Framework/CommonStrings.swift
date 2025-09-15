@@ -200,7 +200,7 @@ public class CommonStrings: NSObject {
     @objc public static let account = WMFLocalizedString("settings-account", value: "Account", comment: "Title for button and page letting user view their account page.")
 
     @objc public static let myLanguages = WMFLocalizedString("settings-my-languages", value: "My languages", comment: "Title for list of user's preferred languages")
-    @objc public static let readingPreferences = WMFLocalizedString("settings-appearance", value: "Reading preferences", comment: "Title of the reading preferences screen.")
+    @objc public static let readingPreferences = WMFLocalizedString("settings-appearance", value: "App theme", comment: "Title of the app theme screen.")
     @objc public static let pushNotifications = WMFLocalizedString("settings-notifications", value: "Push notifications", comment: "Title for view and button letting users change their push notifications settings.")
 
     public static let tryAgain = WMFLocalizedString("settings-notifications-echo-failure-try-again", value: "Try again", comment: "Text alerting the user to try action again after error")
