@@ -45,7 +45,7 @@ final class YearInReviewSlideDataControllerFactory {
             .editCount,
             .donateCount,
             .saveCount,
-            .mostReadDay,
+            .mostReadDate,
             .viewCount,
             .mostReadCategories,
             .location,

@@ -359,7 +359,7 @@ import CoreData
             editCountIsEnabled: .init(yirConfig.personalizedSlides.editCount.isEnabled),
             donateCountIsEnabled: .init(yirConfig.personalizedSlides.donateCount.isEnabled),
             saveCountIsEnabled: .init(yirConfig.personalizedSlides.saveCount.isEnabled),
-            mostReadDayIsEnabled: .init(yirConfig.personalizedSlides.mostReadDay.isEnabled),
+            mostReadDateIsEnabled: .init(yirConfig.personalizedSlides.mostReadDate.isEnabled),
             viewCountIsEnabled: .init(yirConfig.personalizedSlides.viewCount.isEnabled),
             mostReadArticleIsEnabled: .init(yirConfig.personalizedSlides.mostReadArticles.isEnabled),
             categoriesIsEnabled: .init(yirConfig.personalizedSlides.mostReadCategories.isEnabled),
@@ -627,6 +627,11 @@ import CoreData
     }
 }
 
+public struct WMFYearInReviewReadData: Codable {
+    public let readCount: Int
+    public let minutesRead: Int
+}
+
 public class SavedArticleSlideData: NSObject, Codable {
     public let savedArticlesCount: Int
     public let articleTitles: [String]
@@ -634,6 +639,16 @@ public class SavedArticleSlideData: NSObject, Codable {
     public init(savedArticlesCount: Int, articleTitles: [String]) {
         self.savedArticlesCount = savedArticlesCount
         self.articleTitles = articleTitles
+    }
+}
+
+public struct DonateAndEditCounts: Codable {
+    public let donateCount: Int?
+    public let editCount: Int?
+    
+    public init(donateCount: Int?, editCount: Int?) {
+        self.donateCount = donateCount
+        self.editCount = editCount
     }
 }
 

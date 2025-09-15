@@ -191,7 +191,6 @@
 "close-other-tabs" = "Stäng andra flikar";
 "close-tab-confirmation" = "Stänga fliken?";
 "close-tabs" = "Stäng flikar";
-"closed-all-tabs-confirmation" = "Stängde alla $1 flikar.";
 "compass-direction" = "mot klockan $1";
 "confirm-donation-history-deletion-subtitle" = "Detta gäller endast donationer som görs från den här enheten.";
 "confirm-donation-history-deletion-title" = "Bekräfta radering";
@@ -734,6 +733,7 @@
 "microsite-yir-english-edits-bytes-slide-title" = "4 miljarder byte lades till";
 "microsite-yir-english-edits-slide-subtitle" = "Volontärer gjorde 98 222 407 ändringar på över 300 olika språkversioner av Wikipedia. Över 37 miljoner ändringar gjordes på engelskspråkiga Wikipedia. Varje timme och varje dag arbetar volontärer för att förbättra Wikipedia.";
 "microsite-yir-english-edits-slide-title" = "Redigerare gjorde 98 miljoner ändringar i år";
+// Fuzzy
 "microsite-yir-english-reading-slide-subtitle" = "Folk tillbringade uppskattningsvis 2,9 miljarder timmar (över 331 000 år!) på att läsa på engelskspråkiga Wikipedia under 2024. Wikipedia finns där när du vill lära dig mer om vår föränderliga värld, vinna ett vad bland vänner eller besvara en fråga från ett nyfiket barn.";
 "microsite-yir-english-reading-slide-title" = "Vi spenderade 2,9 miljarder timmar på att läsa";
 "microsite-yir-english-saved-reading-slide-subtitle" = "Aktiva användare av iOS-appen hade över 62,2 miljoner läslistor. Genom att lägga till artiklar i läslistor kan du komma åt artiklar även när du är offline. Du kan också logga in för att synkronisera läslistor mellan enheter.";
@@ -1199,8 +1199,8 @@
 "tabs-main-page-subtitle" = "Wikipedias dagliga höjdpunkter";
 "tabs-navbar-title-format" = "{{PLURAL:$1|$1 flik|$1 flikar}}";
 "tabs-open-tab" = "Öppna fliken";
-"tabs-overview-tooltip-body" = "Skicka mellan öppna artiklar i flikorna överblick.";
-"tabs-overview-tooltip-title" = "Översikt över flikar";
+"tabs-overview-tooltip-body" = "Växla mellan öppna artiklar i fliköversikten.";
+"tabs-overview-tooltip-title" = "Fliköversikt";
 "tabs-survey-title" = "Hjälp till att förbättra flikfunktionen. Är du nöjd med den här funktionen?";
 "tachelhit-variants-alert-body" = "Wikipediaappen stödjer följande tachelhit varianter som primära eller sekundära språk i appen, vilket gör det enklare att läsa, söka och redigera på dina föredragna varianter:\n\nⵜⴰⵛⵍⵃⵉⵜ tachelhit, tifinagh (shi-tfng)\nTaclḥit tachelhit, latinska (shi-latn)";
 "tachelhit-variants-alert-title" = "Uppdaterades till stöd för tachelhit varianter";

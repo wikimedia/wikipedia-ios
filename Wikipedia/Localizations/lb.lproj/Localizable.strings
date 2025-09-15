@@ -76,7 +76,8 @@
 "action-update" = "Aktualiséieren";
 "activity-tab-add-images-subtitle" = "Setzt virgeschloe Biller a Wikipedia-Artikelen derbäi fir d'Verständnis ze verbesseren.";
 "activity-tab-add-images-title" = "Biller derbäisetzen";
-"activity-tab-greeting" = "$1Salut $2$3 👋 Hei ass Äre wëchentleche Wikipedia-Resumé.";
+"activity-tab-additional-thoughts" = "Wëllt Dir nach eppes soen?";
+"activity-tab-greeting" = "$1Salut $2$3 👋 Hei ass Äre wëchentleche Wikipedia-Resümmee.";
 "activity-tab-logged-out-title" = "Loggt Iech ab oder leet e Kont u fir méi Ännerungs- a Liesaktivitéiten ze gesinn.";
 "activity-tab-neutral" = "Neutral";
 "activity-tab-read-title" = "Lies-Historique weisen";
@@ -127,9 +128,9 @@
 "article-tabs-open-new-tab" = "An engem neien Tab opmaachen";
 "article-talk-page" = "Diskussiounssäit vum Artikel";
 "article-view-controller-editing-temp-account-created-title" = "Temporäre Kont ugeluecht";
-"back-button-accessibility-label" = "Zréck";
+"back-button-accessibility-label" = "Zeréck";
 "back-button-popover-title" = "Tippe fir zréckzegoen";
-"button-go-back" = "Zréck goen";
+"button-go-back" = "Zeréck goen";
 "button-next" = "Weider";
 "button-ok" = "OK";
 "button-publish" = "Verëffentlechen";
@@ -151,7 +152,6 @@
 "close-other-tabs" = "Aner Tabs zoumaachen";
 "close-tab-confirmation" = "Tab zoumaachen?";
 "close-tabs" = "Tabs zoumaachen";
-"closed-all-tabs-confirmation" = "All $1 Tabs zougemaach.";
 "closed-all-tabs-confirmation-with-value" = "{{PLURAL:$1|$1 Tab|$1 Tabs}} zougemaach.";
 "compass-direction" = "um $1 Auer";
 "confirm-donation-history-deletion-title" = "Läsche confirméieren";
@@ -216,7 +216,7 @@
 "diff-single-header-editor-number-edits-format" = "{{PLURAL:$1|$1 Ännerung|$1 Ännerungen}}";
 "diff-single-header-subtitle-bytes-added" = "{{PLURAL:$1|$1 Byte derbäigesat}}";
 "diff-single-header-subtitle-bytes-removed" = "{{PLURAL:$1|$1 Byte ewechgeholl}}";
-"diff-single-header-summary-heading" = "Resumé vun der Ännerung";
+"diff-single-header-summary-heading" = "Resümmee vun der Ännerung";
 "diff-single-intro-title" = "Aféierung";
 "diff-single-line-format" = "Linn $1";
 "diff-thanks-anonymous-no-thanks" = "Anonym Benotzer kënne kee Merci kréien";
@@ -261,7 +261,7 @@
 "edit-notices-please-read" = "Wgl. virum ännere liesen";
 "edit-published" = "Ännerung verëffentlecht";
 "edit-published-subtitle" = "Dir hutt elo Wikipedia fir jidderee besser gemaach";
-"edit-summary-add-summary-text" = "E Resumé vun der Ännerung derbäisetzen";
+"edit-summary-add-summary-text" = "E Resümmee vun der Ännerung derbäisetzen";
 "edit-summary-choice-added-image" = "Bild derbäigesat";
 "edit-summary-choice-added-image-and-caption" = "Bild a Beschrëftung derbäigesat";
 "edit-summary-choice-fixed-grammar" = "Grammaire verbessert";
@@ -310,7 +310,7 @@
 "editor-toolbar-find-accessibility" = "Op der Säit sichen";
 "editor-wikitext-textview-accessibility" = "Wikitext-Editeur";
 "empty-diff-compare-title" = "Keen Ënnerscheed tëscht de Versiounen";
-"empty-edit-summary" = "Eidele Resumé vun der Ännerung";
+"empty-edit-summary" = "Eidele Resümmee vun der Ännerung";
 "empty-insert-media-title" = "E Fichier op Wikimedia Commons eraussichen";
 "empty-no-article-message" = "Leider konnt den Artikel net geluede ginn";
 "empty-no-feed-action-message" = "Dir kënnt trotzdem gespäichert Säite liesen";
@@ -793,7 +793,7 @@
 "replace-infolabel-method-replace-all" = "All ersetzen";
 "replace-textfield-accessibility" = "Ersetzen";
 "replace-textfield-placeholder" = "Ersetzen duerch...";
-"return-button-title" = "Zréck";
+"return-button-title" = "Zeréck";
 "return-to-article" = "Zréck op den Artikel";
 "reverted-edit-title" = "Zréckgesaten Ännerung";
 "save-all-tabs" = "All Tabs späicheren";
@@ -940,6 +940,7 @@
 "temp-account-toast-read-more-title" = "Méi liesen";
 "temp-account-warning-title" = "Dir benotzt en temporäre Kont";
 "temporary-account" = "Temporäre Kont";
+"terms-of-use-title" = "Benotzungskonditiounen";
 "theme-black-display-name" = "Schwaarz";
 "theme-dark-display-name" = "Däischter";
 "theme-default-display-name" = "Standard";
@@ -949,6 +950,10 @@
 "top-read-widget-description" = "Gitt gewuer, wat d'Welt haut esou op der Wikipedia liest.";
 "top-read-widget-readers-count" = "$1 Lieser";
 "top-read-widget-title" = "Am dackste gelies";
+"try-now-title" = "Elo probéieren";
+"tutorial-title" = "Uleedung";
+"two-factor-email-login-continue" = "Virufuere mam Aloggen";
+"two-factor-email-login-instructions" = "Gitt wgl. den E-Mail-Verifizéierungscode an";
 "two-factor-login-continue" = "Virufuere mam Aloggen";
 "two-factor-login-instructions" = "Gitt wgl. den Zwee-Faktor-Verifizéierungscode an";
 "two-factor-login-title" = "An Äre Benotzerkont aloggen";
@@ -979,7 +984,7 @@
 "watchlist-change-expiry-option-permanent" = "Dauerhaft";
 "watchlist-change-expiry-option-six-months" = "6 Méint";
 "watchlist-change-expiry-option-three-months" = "3 Méint";
-"watchlist-edit-summary-accessibility" = "Resumé vun der Ännerung";
+"watchlist-edit-summary-accessibility" = "Resümmee vun der Ännerung";
 "watchlist-filter" = "Filter";
 "watchlist-filter-automated-contributions-header" = "Automatiséiert Kontributiounen";
 "watchlist-filter-automated-contributions-options-bot" = "Bot";
@@ -1042,11 +1047,19 @@
 "year-in-review-collective-edits" = "Eng Illustratioun vun zwee Wikipedia-Puzzelstécker, allebéid mat engem Deel vun Informatiounen.";
 "year-in-review-collective-edits-per-minute" = "Eng Auer déi tickt, fir d'Zäit ze symboliséieren, déi d'Leit mat Liesen op der Wikipedia verbréngen.";
 "year-in-review-collective-zero-ads" = "Wikimedia-Logo";
+"year-in-review-contributor-gift-title" = "Neit Symbol vun der App aktivéieren";
+"year-in-review-contributor-slide-status-both" = "Donateur an Editeur";
+"year-in-review-contributor-slide-status-donor" = "en Donateur";
+"year-in-review-contributor-slide-status-editor" = "Editeur";
+"year-in-review-contributor-slide-title" = "Neit Symbol fräigeschalt";
 "year-in-review-donate-now" = "Maacht elo en Don";
 "year-in-review-feature-announcement-title" = "Entdeckt de Wikipedia-Réckbléck";
 "year-in-review-feature-announcement-title-personalized" = "Entdeckt Äre Wikipedia-Joresréckbléck";
 "year-in-review-intro-exit-confirmation-title" = "Sidd Dir sécher, datt Dir erausgoe wëllt?";
 "year-in-review-login-title" = "Verbessert Äre Joresréckbléck";
+"year-in-review-non-contributor-slide-title" = "Personaliséiert Symboler fräischalten";
+"year-in-review-personalized-date-day-footer-v3" = "Liblingsdag fir ze liesen";
+"year-in-review-personalized-date-time-footer-v3" = "Liblingszäit fir ze liesen";
 // Fuzzy
 "year-in-review-personalized-donate-title" = "Merci fir Är Kontributioun!";
 "year-in-review-personalized-donation-thank-you" = "Wikimedia-Logo";
@@ -1055,6 +1068,7 @@
 "year-in-review-personalized-reading-title-format" = "Dir hutt {{PLURAL:$1|$1 Artikel|$1 Artikele}} gelies";
 "year-in-review-personalized-saved-title-format" = "Dir hutt {{PLURAL:$1|$1 Artikel|$1 Artikele}} gespäichert";
 "year-in-review-share-text" = "Hei ass mäi Wikipedia-Joresréckbléck. Mat der Wikipedia-iOS-App erstallt";
+"year-in-review-survey-additional-thoughts" = "Wëllt Dir nach eppes soen?";
 "year-in-review-survey-neutral" = "Neutral";
 "year-in-review-survey-satisfied" = "Zefridden";
 "year-in-review-survey-subtitle" = "Hëlleft mat fir de Wikipedia-Joresréckbléck ze verbesseren. Sidd Dir zefridde mat dëser Funktioun? Wat géift Dir d'nächst Joer gäre gesinn?";

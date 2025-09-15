@@ -249,7 +249,6 @@
 "close-other-tabs" = "Cerrar otras pestañas";
 "close-tab-confirmation" = "¿Cerrar pestaña?";
 "close-tabs" = "Cerrar pestañas";
-"closed-all-tabs-confirmation" = "Se cerró todas las $1 pestañas.";
 "compass-direction" = "a las $1 en punto";
 "confirm-donation-history-deletion-subtitle" = "Esto sólo se aplicará a las donaciones realizadas desde este dispositivo.";
 "confirm-donation-history-deletion-title" = "Confirmar la eliminación";
@@ -794,6 +793,7 @@
 "microsite-yir-english-edits-bytes-slide-title" = "4 mil millones de bytes añadidos";
 "microsite-yir-english-edits-slide-subtitle" = "Los voluntarios realizaron 98.222.407 cambios en más de 300 ediciones de Wikipedia en diferentes idiomas. Se realizaron más de 37 millones de cambios en la Wikipedia en inglés. Cada hora, los voluntarios trabajan para mejorar Wikipedia.";
 "microsite-yir-english-edits-slide-title" = "Los editores realizaron 98 millones de cambios este año";
+// Fuzzy
 "microsite-yir-english-reading-slide-subtitle" = "Se estima que la gente pasó 2.900 millones de horas (¡más de 331.000 años!) leyendo Wikipedia en inglés en 2024. Wikipedia está ahí cuando quieres aprender sobre nuestro mundo cambiante, ganar una apuesta entre amigos o responder la pregunta de un niño curioso.";
 "microsite-yir-english-reading-slide-title" = "Nosotros(as) pasamos 2.900 millones de horas leyendo";
 "microsite-yir-english-saved-reading-slide-subtitle" = "Los usuarios activos de la app iOS tenían más de 62,2 millones de listas de lectura. Añadir artículos a las listas de lectura te permite acceder a ellos incluso sin conexión. También puedes iniciar sesión para sincronizar las listas de lectura en todos tus dispositivos.";

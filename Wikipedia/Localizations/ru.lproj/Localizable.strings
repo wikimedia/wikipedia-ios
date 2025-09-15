@@ -201,7 +201,6 @@
 "close-other-tabs" = "Закрыть другие вкладки";
 "close-tab-confirmation" = "Закрыть вкладку?";
 "close-tabs" = "Закрыть вкладки";
-"closed-all-tabs-confirmation" = "Закрыть все {{PLURAL:$1|$1 вкладка|$1 вкладки|$1 вкладок}}.";
 "closed-all-tabs-confirmation-with-value" = "{{PLURAL:$1|$1 вкладка|$1 вкладки|$1 вкладок}} закрыто.";
 "compass-direction" = "на $1 часов";
 "confirm-donation-history-deletion-subtitle" = "Это будет применяться только к пожертвованиям, сделанным с этого устройства.";

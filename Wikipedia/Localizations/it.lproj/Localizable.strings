@@ -206,7 +206,6 @@
 "close-other-tabs" = "Chiudi altre schede";
 "close-tab-confirmation" = "Chiudi scheda";
 "close-tabs" = "Chiudi scheda";
-"closed-all-tabs-confirmation" = "Chiuse tutte le $1 schede.";
 "closed-all-tabs-confirmation-with-value" = "{{PLURAL:$1|$1 scheda chiusa|$1 schede chiuse}}.";
 "compass-direction" = "alle ore $1";
 "confirm-donation-history-deletion-subtitle" = "Questo si applicherà solo alle donazioni effettuate tramite questo dispositivo.";
@@ -1048,6 +1047,10 @@
 "year-in-review-base-viewed-title" = "Abbiamo visualizzato le voci di Wikipedia $1 miliardi di volte";
 "year-in-review-button-title" = "Anno in Rassegna";
 "year-in-review-collective-zero-ads" = "Logo di Wikimedia";
+"year-in-review-contributor-slide-status-both" = "un donatore e un editore";
+"year-in-review-contributor-slide-status-donor" = "un donatore";
+"year-in-review-contributor-slide-status-editor" = "un editore";
+"year-in-review-contributor-slide-title" = "Nuova icona sbloccata";
 "year-in-review-day-friday" = "Venerdì";
 "year-in-review-day-monday" = "Lunedì";
 "year-in-review-day-saturday" = "Sabati";
@@ -1067,6 +1070,11 @@
 "year-in-review-intro-exit-confirmation-title" = "Sei sicuro di voler uscire?";
 "year-in-review-login-subtitle" = "Accedi o crea un account per essere idoneo per informazioni interessanti più personalizzate";
 "year-in-review-login-title" = "Migliora il tuo Anno in Rassegna";
+"year-in-review-non-contributor-slide-title" = "Sblocca l'icona personalizzata";
+"year-in-review-personalized-date-day-footer-v3" = "Giorno preferito per leggere";
+"year-in-review-personalized-date-month-footer-v3" = "Mese in cui hai letto di più";
+"year-in-review-personalized-date-time-footer-v3" = "Momento preferito per leggere";
+"year-in-review-personalized-date-title-v3" = "Hai schemi di lettura chiari";
 "year-in-review-personalized-day-subtitle-format" = "Hai letto il maggior numero di articoli di $1. È chiaro che i/le $1 sono le tue giornate preferite per esplorare nuovi contenuti. Grazie per sfruttare al meglio il tuo tempo di lettura!";
 "year-in-review-personalized-donate-subtitle" = "Grazie per aver investito nel futuro della conoscenza libera. Quest'anno, Wikimedia Foundation ha migliorato la tecnologia per servire meglio ogni lettore e volontario, ha sviluppato strumenti che promuovono la collaborazione e ha supportato Wikipedia in più lingue. [Scopri di più sul nostro lavoro]($1).";
 "year-in-review-personalized-donate-title" = "La tua generosità ha aiutato Wikipedia a continuare a prosperare";
@@ -1090,6 +1098,12 @@
 "year-in-review-survey-unsatisfied" = "Insoddisfatto";
 "year-in-review-survey-very-satisfied" = "Molto soddisfatto";
 "year-in-review-survey-very-unsatisfied" = "Molto insoddisfatto";
+"year-in-review-time-afternoon" = "Pomeriggio";
+"year-in-review-time-evening" = "Sera";
+"year-in-review-time-late-night" = "Tarda notte";
+"year-in-review-time-midday" = "Mezzogiorno";
+"year-in-review-time-morning" = "Mattina";
+"year-in-review-time-night" = "Notte";
 "year-in-review-wikipedia-w-accessibility-label" = "Logo W di Wikipedia";
 "year-in-review-wmf-logo-accessibility-label" = "Logo della Wikimedia Foundation";
 "yesterday-title" = "Ieri";

@@ -6,7 +6,7 @@ struct SlideConfig {
     let editCountIsEnabled: Bool
     let donateCountIsEnabled: Bool
     let saveCountIsEnabled: Bool
-    let mostReadDayIsEnabled: Bool
+    let mostReadDateIsEnabled: Bool
     let viewCountIsEnabled: Bool
     let mostReadArticleIsEnabled: Bool
     let categoriesIsEnabled: Bool
