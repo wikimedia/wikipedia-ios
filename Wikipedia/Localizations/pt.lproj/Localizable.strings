@@ -35,7 +35,7 @@
 "about-libraries-licenses-title" = "Adoramos ''software'' de código aberto $1";
 "about-places-maps-license" = "Licença dos mapas de Lugares";
 "about-places-maps-license-details" = "Lugares usa mapas fornecidos por Apple Maps. $1.";
-"about-places-maps-license-details-link-text" = "Conheça aqui os detalhes da licença";
+"about-places-maps-license-details-link-text" = "Por favor, veja aqui os detalhes da licença";
 "about-product-of" = "Criada pela $1 com a ajuda de voluntários como você";
 "about-repositories" = "Repositórios";
 "about-repositories-app-source-license" = "Código-fonte disponibilizado ao abrigo da $1.";
@@ -100,15 +100,15 @@
 "announcements-dismiss" = "Ignorar";
 "app-store-keywords" = "Wikipédia, referência, wiki, enciclopédia, informação, conhecimento, pesquisa, informação, explorar, aprender";
 "app-store-release-notes" = "Feed Explorar completamente personalizável e mais fácil de ler. Localização, melhorias de desempenho e correções de defeitos.";
-"app-store-short-description" = "Transfira a aplicação Wikipédia para explorar locais perto de si, sincronizar os artigos para lê-los ''off-line'' e personalizar a sua experiência de leitura.";
+"app-store-short-description" = "Transfira a aplicação Wikipédia para explorar lugares perto de si, sincronize os artigos para os ler ''off-line'' e personalize a sua experiência de leitura.";
 "app-store-subtitle" = "A enciclopédia livre";
 "appearance-settings-adjust-text-sizing" = "Ajustar tamanho de texto dos artigos";
 "appearance-settings-expand-tables" = "Expandir tabelas";
 "appearance-settings-expand-tables-footer" = "Definir que todas as tabelas em todos os artigos serão apresentadas abertas por padrão, incluindo 'Factos rápidos', 'Referências', 'Notas' e 'Hiperligações externas'.";
 "appearance-settings-image-dimming-footer" = "Diminuir a opacidade das imagens nos temas escuro e negro";
 "appearance-settings-reading-themes" = "Temas de leitura";
-"appearance-settings-set-automatic-table-opening" = "Configurações de tabelas";
-"appearance-settings-text-sizing-example-text" = "Arraste o controlo deslizante para alterar o tamanho de texto dos artigos. Use o tamanho de texto do seu sistema para redimensionar outras áreas de texto da aplicação.";
+"appearance-settings-set-automatic-table-opening" = "Definições da Tabela";
+"appearance-settings-text-sizing-example-text" = "Arraste o cursor para alterar o tamanho de texto dos artigos. Use o tamanho de texto do seu sistema para redimensionar outras áreas de texto da aplicação.";
 "appearance-settings-theme-options" = "Opções do tema";
 "article-about-title" = "Sobre este artigo";
 "article-delete" = "Eliminar";
@@ -255,10 +255,10 @@
 "donate-maximum-error-text" = "Não podemos aceitar donativos superiores a $1 $2 através do nosso ''site''. Entre em contacto com a nossa equipa de contribuições substanciais em benefactors@wikimedia.org, por favor.";
 "donate-minimum-error-text" = "Selecionar um montante (mínimo $1 $2).";
 "donate-monthly-recurring-text" = "Tornar este donativo em recorrente mensal.";
-"donate-payment-method-prompt-apple-pay-button-title" = "Donativo com o Apple Pay";
-"donate-payment-method-prompt-message" = "Fazer um donativo com o Apple Pay ou escolher outro método de pagamento.";
+"donate-payment-method-prompt-apple-pay-button-title" = "Doe com Apple Pay";
+"donate-payment-method-prompt-message" = "Doe com Apple Pay ou escolha outro método de pagamento.";
 "donate-payment-method-prompt-other-button-title" = "Outro método de pagamento";
-"donate-payment-method-prompt-title" = "Fazer donativo com o Apple Pay?";
+"donate-payment-method-prompt-title" = "Doar com Apple Pay?";
 "donate-success-subtitle" = "A sua generosidade tem grande significado para nós.";
 "donate-success-title" = "Obrigado!";
 "donate-title" = "Selecionar um montante";
@@ -333,9 +333,9 @@
 "empty-no-history-title" = "Não há histórico para mostrar";
 "empty-no-other-article-languages-message" = "Este artigo ainda não foi escrito noutras línguas";
 "empty-no-other-article-languages-title" = "Não há nenhuma outra língua disponível";
-"empty-no-reading-lists-message" = "Criar listas de leitura de lugares a visitar, de temas preferidos e de muito mais";
+"empty-no-reading-lists-message" = "Criar listas de lugares para viajar, tópicos preferidos e muito mais";
 "empty-no-reading-lists-title" = "Organizar os artigos guardados com listas de leitura";
-"empty-no-saved-pages-in-reading-list-message" = "Guarde páginas nesta lista para vê-las aparecerem aqui";
+"empty-no-saved-pages-in-reading-list-message" = "Guarde as páginas nesta lista para vê-las aparecerem aqui";
 "empty-no-saved-pages-in-reading-list-title" = "Não foram guardadas páginas nesta lista";
 "empty-no-saved-pages-message" = "Guarde páginas para lê-las mais tarde, mesmo sem ligação";
 "empty-no-saved-pages-title" = "Ainda não tem páginas guardadas";
@@ -388,7 +388,7 @@
 "explore-feed-preferences-show-on-this-day-footer-text" = "Desativar o cartão 'Neste dia' desativa-o em todas as línguas disponíveis.";
 "explore-feed-preferences-show-on-this-day-title" = "Mostrar o cartão 'Neste dia'";
 "explore-feed-preferences-show-picture-of-the-day-title" = "Mostrar o cartão 'Imagem do dia'";
-"explore-feed-preferences-show-places-footer-text" = "Desativar o cartão 'Lugares' desativa-o em todas as línguas disponíveis.";
+"explore-feed-preferences-show-places-footer-text" = "Se desativar o cartão 'Lugares' desativa-o em todos os idiomas disponíveis.";
 "explore-feed-preferences-show-places-title" = "Mostrar o cartão 'Lugares'";
 "explore-feed-preferences-show-randomizer-footer-text" = "Desativar o cartão 'Aleatorizador' desativa-o em todas as línguas disponíveis.";
 "explore-feed-preferences-show-randomizer-title" = "Mostrar o cartão 'Aleatorizador'";
@@ -415,7 +415,7 @@
 "explore-most-read-more-list-title-for-date" = "Mais lidos de $1";
 "explore-most-read-sub-heading-on-language-wikipedia" = "Na Wikipédia em $1";
 "explore-most-read-sub-heading-on-wikipedia" = "Na Wikipédia";
-"explore-nearby-heading" = "Locais próximos";
+"explore-nearby-heading" = "Lugares próximos";
 "explore-nearby-placeholder-heading" = "Lugares";
 "explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "Da Wikipédia em $1";
 "explore-nearby-placeholder-sub-heading-on-wikipedia" = "Da Wikipédia";
@@ -487,7 +487,7 @@
 "home-button-history-accessibility-label" = "Wikipédia, voltar ao Histórico";
 "home-button-saved-accessibility-label" = "Wikipédia, voltar aos Guardados";
 "home-more-like-footer" = "Mais, como $1";
-"home-nearby-footer" = "Mais locais nas suas redondezas";
+"home-nearby-footer" = "Mais lugares nas suas redondezas";
 "home-nearby-location-footer" = "Mais, perto de $1";
 "home-news-footer" = "Mais atualidades";
 "home-reading-list-prompt" = "Os seus artigos guardados agora podem ser organizados em listas de leitura e sincronizados nos dispositivos. Inicie a sessão para permitir que as suas listas de leitura sejam guardadas nas preferências do utilizador.";
@@ -600,7 +600,7 @@
 "main-menu-heading-legal" = "Privacidade e Condições";
 "main-menu-nearby" = "Aqui perto";
 "main-menu-privacy-policy" = "Normas de privacidade";
-"main-menu-rate-app" = "Avaliar aplicação";
+"main-menu-rate-app" = "Classificar a aplicação";
 "main-menu-terms-of-use" = "Condições de utilização";
 "main-menu-title" = "Mais";
 "main-menu-zero-faq" = "Perguntas frequentes sobre a Wikipédia Zero";
@@ -632,7 +632,7 @@
 "notifications-center-cell-notification-type-accessibility-label-format" = "Notificação $1";
 "notifications-center-change-password" = "Alterar palavra-passe";
 "notifications-center-checking-for-notifications" = "A verificar se existem notificações...";
-"notifications-center-destination-app" = "na aplicação";
+"notifications-center-destination-app" = "Na aplicação";
 "notifications-center-destination-web" = "na internet";
 "notifications-center-detail-title" = "Detalhe da notificação";
 "notifications-center-empty-checking-for-notifications" = "A verificar se existem notificações...";
@@ -643,7 +643,7 @@
 "notifications-center-empty-state-num-filters" = "{{PLURAL:$1|$1 filtro|$1 filtros}}";
 "notifications-center-feed-card-title" = "As notificações de edições já estão disponíveis";
 "notifications-center-feed-news-notification-button-text" = "Ativar as notificações imediatas";
-"notifications-center-feed-news-notification-text" = "As notificações de edições em todos os projetos da Wikimedia estão agora disponíveis através da aplicação. Opte por notificações imediatas para se manter atualizado sobre as suas mensagens na Wikipédia quando estiver ausente.";
+"notifications-center-feed-news-notification-text" = "As notificações de edições para todos os projetos da Wikimédia estão agora disponíveis através da aplicação. Opte por notificações imediatas para se manter atualizado sobre as suas mensagens na Wikipédia quando estiver ausente.";
 "notifications-center-filters-accessibility-label" = "Filtro de notificações";
 "notifications-center-filters-read-status-item-title-all" = "Todas";
 "notifications-center-filters-read-status-item-title-read" = "Lidas";
@@ -794,7 +794,7 @@
 "places-accessibility-show-as-map" = "Mostrar como mapa";
 "places-accessibility-show-more" = "Mostrar mais artigos";
 "places-empty-search-description" = "Explorar cidades, países, continentes, marcos naturais, acontecimentos históricos, edifícios e mais.";
-"places-empty-search-title" = "Pesquisar artigos da Wikipédia com localizações geográficas";
+"places-empty-search-title" = "Procurar por artigos da Wikipédia com localizações geográficas";
 "places-enable-location-action-button-title" = "Ativar localização";
 "places-enable-location-description" = "O acesso à sua localização só está disponível quando a aplicação ou uma das suas funcionalidades for visível no ecrã.";
 "places-enable-location-title" = "Explore artigos perto da sua localização, ativando o acesso à sua localização";
@@ -805,10 +805,12 @@
 "places-filter-top-articles" = "Mais lidos";
 "places-filter-top-articles-count" = "{{PLURAL:$1|$1 artigo|$1 artigos}}";
 "places-filter-top-read-articles" = "Artigos mais lidos";
+"places-list-title'" = "Lisa";
 "places-location-enabled" = "Localização ativada";
+"places-map-title" = "Mapa";
 "places-no-saved-articles-have-location" = "Nenhum dos seus artigos guardados tem informação de localização";
 "places-search-articles-that-match" = "$1 que coincidem com \"$2\"";
-"places-search-default-text" = "Procurar lugares";
+"places-search-default-text" = "Procurar por Lugares";
 "places-search-did-you-mean" = "Queria dizer $1?";
 "places-search-recently-searched-header" = "Pesquisas recentes";
 "places-search-saved-articles" = "Todos os artigos guardados";
@@ -1205,7 +1207,7 @@
 "welcome-exploration-on-this-day-description" = "Retroceda no tempo para saber o que aconteceu hoje na história";
 "welcome-exploration-on-this-day-title" = "Neste dia";
 "welcome-exploration-places-description" = "Descubra marcos próximos de si ou procure lugares do mundo";
-"welcome-exploration-places-title" = "O separador \"Lugares\"";
+"welcome-exploration-places-title" = "Separador de 'Lugares'";
 "welcome-explore-continue-button" = "Começar";
 "welcome-explore-new-ways-title" = "Novas formas de explorar";
 "welcome-explore-tell-me-more-done-button" = "Entendi";
@@ -1241,3 +1243,4 @@
 "wikitext-upload-save-sign-in" = "Iniciar sessão";
 "wikitext-upload-save-terms-and-licenses-ccsa4" = "Ao publicar as alterações, concorda com as $1Condições de Utilização$2 e concorda irrevogavelmente em publicar o seu contributo com a licença $3CC BY-SA 4.0$4 e a $5GFDL$6. Concorda que uma hiperligação ou um URL são forma suficiente de atribuição ao abrigo da licença Creative Commons.";
 "wikitext-upload-save-terms-name" = "Condições de utilização";
+"year-in-review-contributor-gift-title" = "Ativar novo ícone da aplicação";

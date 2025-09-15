@@ -726,7 +726,8 @@
 "microsite-yir-english-edits-bytes-slide-title" = "4 milliardos de bytes addite";
 "microsite-yir-english-edits-slide-subtitle" = "Le voluntarios ha apportate 98.222.407 modificationes in plus de 300 editiones de Wikipedia in linguas differente. Plus de 37 milliones de modificationes ha essite apportate sur Wikipedia in anglese. Cata hora de cata die, voluntarios labora pro meliorar Wikipedia.";
 "microsite-yir-english-edits-slide-title" = "Redactores ha apportate 98 milliones de modificationes iste anno";
-"microsite-yir-english-reading-slide-subtitle" = "Le gente ha passate circa 2.9 milliardos de horas (plus de 331.000 annos!) legente Wikipedia in anglese in 2024. Wikipedia es la quando tu vole saper plus sur nostre mundo evolvente, ganiar un sponsion inter amicos, o responder al question de un infante curiose.";
+"microsite-yir-english-reading-slide-subtitle" = "Le gente ha passate circa 2.4 milliardos de horas (plus de 275.000 annos!) legente Wikipedia in anglese in 2025. Wikipedia es la quando tu vole saper plus sur nostre mundo evolvente, ganiar un sponsion inter amicos, o responder al question de un infante curiose.";
+"microsite-yir-english-reading-slide-subtitle-short" = "Le gente ha passate circa 2,4 milliardos de horas (plus de 275.000 annos!) a leger Wikipedia in anglese in 2025.";
 "microsite-yir-english-reading-slide-title" = "Nos ha passate 2.9 milliardos de horas legente";
 "microsite-yir-english-saved-reading-slide-subtitle" = "Le usatores active del app iOS habeva plus de 62.2 milliones de listas de lectura. Adder articulos a listas de lectura te permitte acceder a articulos mesmo sin connexion. Tu pote tamben, post aperir session, synchronisar le listas de lectura inter apparatos.";
 "microsite-yir-english-saved-reading-slide-title" = "Nos habeva plus de 62.2 milliones de listas de lectura";
@@ -1452,6 +1453,13 @@
 "year-in-review-collective-languages" = "Un illustration animate de un petra gravate con inscriptiones representante varie linguas, symbolisante le collaboration que permitte a Wikipedia construer le cognoscentia a partir de culturas e regiones diverse.";
 "year-in-review-collective-saved-articles" = "Un globo de puzzle con le logo de Wikipedia, representante le collaboration global.";
 "year-in-review-collective-zero-ads" = "Logotypo de Wikimedia";
+"year-in-review-contributor-gift-subtitle" = "Si tu non lo activa ora, tu pote acceder a illo plus tarde in Parametros sub Thema.";
+"year-in-review-contributor-gift-title" = "Activar le nove icone del application";
+"year-in-review-contributor-slide-status-both" = "donator e redactor";
+"year-in-review-contributor-slide-status-donor" = "donator";
+"year-in-review-contributor-slide-status-editor" = "redactor";
+"year-in-review-contributor-slide-subtitle" = "Gratias pro investir in le futuro del cognoscentia libere.\n\nTu contributiones como $1 in 2025 adjuta a aperir le via verso un mundo de information libere. Como regratiamento, te ha essite concedite un icone personal de contributor.";
+"year-in-review-contributor-slide-title" = "Nove icone concedite";
 "year-in-review-day-friday" = "venerdis";
 "year-in-review-day-monday" = "lunedis";
 "year-in-review-day-saturday" = "sabbatos";
@@ -1477,6 +1485,8 @@
 "year-in-review-intro-login-title" = "Aperi session pro personalisation";
 "year-in-review-login-subtitle" = "Aperi session o crea un conto pro reciper plus informationes personalisate";
 "year-in-review-login-title" = "Meliora tu Summario del anno";
+"year-in-review-non-contributor-slide-title" = "Disvelar un icone personalisate";
+"year-in-review-noncontributor-slide-subtitle" = "Deveni contributor e disvela un icone personal de contributor. [Apprende plus]($1) sur le manieras in que tu pote adherer al movimento pro le cognoscentia libere. Tu pote devenir redactor o donar al Fundation Wikimedia (le organisation sin scopo lucrative detra Wikipedia) pro assecurar que le informationes del quales tu depende remane sin reclamos e digne de fide, e que Wikipedia continua a functionar sin impedimento con instrumentos e technologias de vanguarda.";
 "year-in-review-personalized-date-day-footer-v3" = "Die favorite pro leger";
 "year-in-review-personalized-date-month-footer-v3" = "Mense in le qual tu ha legite le plus";
 "year-in-review-personalized-date-time-footer-v3" = "Hora favorite pro leger";
@@ -1499,7 +1509,9 @@
 "year-in-review-personalized-location-title-format" = "Le articulos que tu ha legite es le plus proxime a $1.";
 "year-in-review-personalized-most-read-articles-title" = "Tu articulos principal";
 "year-in-review-personalized-reading-subtitle-format" = "Tu ha legite $1 articulo{{PLURAL:$1||s}}. Wikipedia habeva $2 milliones de articulos disponibile in $3 linguas active. Tu te ha jungite a milliones pro expander le cognoscentia e explorar diverse topicos.";
+"year-in-review-personalized-reading-subtitle-format-v3" = "Isto te pone in le prime **PERCENT** del lectores de Wikipedia de tote le mundo. In media, un persona lege $1 articulo{{PLURAL:$1||s}} per anno.";
 "year-in-review-personalized-reading-title-format" = "Tu ha legite $1 articulo{{PLURAL:$1||s}}";
+"year-in-review-personalized-reading-title-v3-format" = "Tu ha passate $1 minuta{{PLURAL:$1||s}} a leger $2 articulo{{PLURAL:$2||s}} in 2025";
 "year-in-review-personalized-saved-articles" = "Illustration de un pecia de puzzle que porta un casco de securitate, con schermos de computator in le fundo.";
 "year-in-review-personalized-saved-subtitle-format" = "Tu ha salveguardate $1 articulo{{PLURAL:$1||s}} iste anno, includente $2, $3 e $4. Cata articulo salveguardate reflecte tu interesses e adjuta a construer un base de cognoscentia personalisate sur Wikipedia.";
 "year-in-review-personalized-saved-title-format" = "Tu ha salveguardate $1 articulo{{PLURAL:$1||s}}";
