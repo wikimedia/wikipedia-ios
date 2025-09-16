@@ -115,18 +115,18 @@ extension URL {
         return components.url
     }
     
-    static func featureConfigURL(environment: WMFServiceEnvironment = WMFDataEnvironment.current.serviceEnvironment) -> URL? {
-        
-        var components = URLComponents()
-        components.scheme = "https"
-        components.path = "/wiki/MediaWiki:AppsFeatureConfig.json"
+    static func featureConfigURL(environment: WMFServiceEnvironment = WMFDataEnvironment.current.serviceEnvironment, project: WMFProject) -> URL? {
         
         switch environment {
         case .production:
-            components.host = "donate.wikimedia.org"
+            return wikimediaRestAPIURL(project: project, additionalPathComponents: ["feed","configuration"])
         case .staging:
+            var components = URLComponents()
+            components.scheme = "https"
+            components.path = "/wiki/MediaWiki:AppsFeatureConfig.json"
             components.host = "test.wikipedia.org"
+            components.queryItems = [URLQueryItem(name: "action", value: "raw")]
+            return components.url
         }
-        return components.url
     }
 }
