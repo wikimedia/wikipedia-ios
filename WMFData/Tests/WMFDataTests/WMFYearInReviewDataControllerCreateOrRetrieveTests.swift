@@ -21,8 +21,8 @@ fileprivate class WMFMockYearInReviewDataController: WMFYearInReviewDataControll
         let personalizedSlides = WMFFeatureConfigResponse.IOS.YearInReview.PersonalizedSlides(readCount: readCountSlideSettings, editCount: editCountSlideSettings, donateCount: donateCountSlideSettings, saveCount: savedCountSlideSettings, mostReadDate: mostReadDateSlideSettings, viewCount: viewCountSlideSettings, mostReadArticles: mostReadArticles, mostReadCategories: mostReadCategoriesSlideSettings, locationArticles: locationSlideSettings)
 
         let yearInReview = WMFFeatureConfigResponse.IOS.YearInReview(yearID: "2025.1", isEnabled: true, countryCodes: ["US"], primaryAppLanguageCodes: ["en"], dataPopulationStartDateString: "2025-01-01T00:00:00Z", dataPopulationEndDateString: "2025-12-31T00:00:00Z", personalizedSlides: personalizedSlides, hideDonateCountryCodes: [])
-        let ios = WMFFeatureConfigResponse.IOS(version: 1, yir: [yearInReview])
-        let config = WMFFeatureConfigResponse(ios: [ios])
+        let ios = WMFFeatureConfigResponse.IOS(yir: [yearInReview])
+        let config = WMFFeatureConfigResponse(ios: ios)
         let developerSettingsDataController = WMFMockDeveloperSettingsDataController(featureConfig: config)
         
         try super.init(coreDataStore: coreDataStore, developerSettingsDataController: developerSettingsDataController)
