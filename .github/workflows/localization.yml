@@ -31,4 +31,4 @@ jobs:
         git config user.email wmf-apps-ci@users.noreply.github.com
         git add .
         git commit -m "Import translations from TranslateWiki"
-        git push https://x-access-token:${APPS_BOT_TOKEN}@github.com/${{ github.repository }} HEAD:twn
+        git push https://x-access-token:${APPS_BOT_TOKEN}@github.com/${{ github.repository }}
