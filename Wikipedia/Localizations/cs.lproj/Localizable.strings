@@ -33,6 +33,7 @@
 // Author: Tsevener
 // Author: Vojtěch Dostál
 // Author: Walter Klosse
+// Author: Zagothal
 // Author: Zbyso23
 
 "about-content-license" = "Licence obsahu";
@@ -540,8 +541,7 @@
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 z Wikipedie v jazyce $2";
 "on-this-day-title" = "Dnešek v minulosti";
 "original-tab-button-popover-description" = "Klepnutím na W se vrátíte na kartu, ze které jste začali";
-// Fuzzy
-"page-history-bot-edits" = "editace robotů";
+"page-history-bot-edits" = "robot";
 "page-history-compare-accessibility-hint" = "Klepněte pro vybrání dvou revizí k porovnání";
 "page-history-compare-title" = "Porovnat";
 "page-history-graph-accessibility-label" = "Graf editací v čase";
@@ -598,6 +598,7 @@
 "potd-description-prefix" = "Obrázek dne $1";
 "potd-empty-error-description" = "Nepodařilo se načíst obrázek dne pro $1";
 "preference-summary-eventlogging-opt-in" = "Umožnit nadaci Wikimedia sbírat informace o používání aplikace, aby ji mohla zlepšovat";
+"problem-with-feature-title" = "Problém s funkcí";
 "reading-list-add-generic-hint-title" = "Přidat tento článek do seznamu k přečtení?";
 "reading-list-add-hint-title" = "Přidat „$1“ do seznamu k přečtení?";
 "reading-list-add-saved-button-title" = "Ano, přidat články do tohoto seznamu k přečtení";

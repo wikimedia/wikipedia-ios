@@ -99,18 +99,6 @@ import CoreData
         }
     }
 
-    public var isNewIconOn: Bool {
-        get {
-            return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.isNewIconOn.rawValue)) ?? false
-        }
-        set {
-            try? userDefaultsStore?.save(
-                key: WMFUserDefaultsKey.isNewIconOn.rawValue,
-                value: newValue
-            )
-        }
-    }
-
     func isAnnouncementActive() -> Bool {
         
         if developerSettingsDataController.showYiRV2 ||
@@ -184,7 +172,7 @@ import CoreData
         
         let yirConfig: WMFFeatureConfigResponse.IOS.YearInReview?
 
-        if let iosFeatureConfig = developerSettingsDataController.loadFeatureConfig()?.ios.first,
+        if let iosFeatureConfig = developerSettingsDataController.loadFeatureConfig()?.ios,
            let config = iosFeatureConfig.yir(yearID: targetConfigYearID) {
             yirConfig = config
         } else {
@@ -242,7 +230,7 @@ import CoreData
             return false
         }
 
-        guard let iosFeatureConfig = developerSettingsDataController.loadFeatureConfig()?.ios.first,
+        guard let iosFeatureConfig = developerSettingsDataController.loadFeatureConfig()?.ios,
               let yirConfig = iosFeatureConfig.yir(yearID: targetConfigYearID) else {
             return false
         }
@@ -288,7 +276,7 @@ import CoreData
 
         let yirConfig: WMFFeatureConfigResponse.IOS.YearInReview?
 
-        if let iosFeatureConfig = developerSettingsDataController.loadFeatureConfig()?.ios.first,
+        if let iosFeatureConfig = developerSettingsDataController.loadFeatureConfig()?.ios,
            let config = iosFeatureConfig.yir(yearID: targetConfigYearID) {
             yirConfig = config
         } else {
@@ -360,7 +348,7 @@ import CoreData
         
         var yirConfig: WMFFeatureConfigResponse.IOS.YearInReview? = nil
 
-        yirConfig = developerSettingsDataController.loadFeatureConfig()?.ios.first?.yir(yearID: targetConfigYearID)
+        yirConfig = developerSettingsDataController.loadFeatureConfig()?.ios.yir(yearID: targetConfigYearID)
 
         guard let yirConfig else {
             return nil
@@ -541,7 +529,7 @@ import CoreData
     public func shouldHideDonateButton() -> Bool {
         let yirConfig: WMFFeatureConfigResponse.IOS.YearInReview?
 
-        guard let iosFeatureConfig = developerSettingsDataController.loadFeatureConfig()?.ios.first,
+        guard let iosFeatureConfig = developerSettingsDataController.loadFeatureConfig()?.ios,
               let config = iosFeatureConfig.yir(yearID: targetConfigYearID) else {
             return false
         }

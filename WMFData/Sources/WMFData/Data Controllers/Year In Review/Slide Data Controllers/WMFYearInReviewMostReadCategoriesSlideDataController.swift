@@ -25,24 +25,15 @@ final class YearInReviewMostReadCategoriesSlideDataController: YearInReviewSlide
 
         let categoryCounts = try await WMFCategoriesDataController().fetchCategoryCounts(startDate: startDate, endDate: endDate)
 
-        if WMFDeveloperSettingsDataController.shared.limitYiRCategoriesTo2Underscores {
-            let filteredTop5 = Array(categoryCounts
-                .filter { key, _ in
-                    key.categoryName.components(separatedBy: "_").count - 1 >= 2
-                }
-                .sorted { $0.value > $1.value }
-                .prefix(5)).map { item in
-                    return item.key.categoryName.replacingOccurrences(of: "_", with: " ")
-                }
-            mostReadCategories = filteredTop5
-        } else {
-            let top5 = Array(categoryCounts
-                .sorted { $0.value > $1.value }
-                .prefix(5)).map { item in
-                        return item.key.categoryName.replacingOccurrences(of: "_", with: " ")
-                }
-            mostReadCategories = top5
-        }
+        let filteredTop5 = Array(categoryCounts
+            .filter { key, _ in
+                key.categoryName.components(separatedBy: "_").count - 1 >= 2
+            }
+            .sorted { $0.value > $1.value }
+            .prefix(5)).map { item in
+                return item.key.categoryName.replacingOccurrences(of: "_", with: " ")
+            }
+        mostReadCategories = filteredTop5
 
         isEvaluated = true
     }

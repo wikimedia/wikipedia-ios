@@ -2,7 +2,7 @@ import Foundation
 import SwiftUI
 import WMFData
 
-public class WMFYearInReviewContributorSlideViewModel: ObservableObject {
+public class WMFYearInReviewContributorSlideViewModel: ObservableObject, WMFYearInReviewSlideViewModelProtocol {
     public enum ContributionStatus {
         case contributor
         case noncontributor
@@ -22,14 +22,10 @@ public class WMFYearInReviewContributorSlideViewModel: ObservableObject {
     public let donateButtonTitle: String
     public let toggleButtonTitle: String
     public let toggleButtonSubtitle: String
+    public let infoURL: URL?
+    @Published var isIconOn: Bool
     
-    @Published var isIconOn: Bool = false {
-        didSet {
-            onToggleIcon?(isIconOn)
-        }
-    }
-    
-    public init(gifName: String, altText: String, title: String, subtitle: String, loggingID: String, contributionStatus: ContributionStatus, forceHideDonateButton: Bool = false, onTappedDonateButton: @escaping (CGRect) -> Void, onToggleIcon: ((Bool) -> Void)? = nil, onInfoButtonTap: @escaping () -> Void, donateButtonTitle: String, toggleButtonTitle: String, toggleButtonSubtitle: String, isIconOn: Bool = false) {
+    public init(gifName: String, altText: String, title: String, subtitle: String, loggingID: String, contributionStatus: ContributionStatus, forceHideDonateButton: Bool = false, onTappedDonateButton: @escaping (CGRect) -> Void, onToggleIcon: ((Bool) -> Void)? = nil, onInfoButtonTap: @escaping () -> Void, donateButtonTitle: String, toggleButtonTitle: String, toggleButtonSubtitle: String, isIconOn: Bool = false, infoURL: URL? = nil) {
         self.gifName = gifName
         self.altText = altText
         self.title = title
@@ -44,6 +40,7 @@ public class WMFYearInReviewContributorSlideViewModel: ObservableObject {
         self.toggleButtonTitle = toggleButtonTitle
         self.toggleButtonSubtitle = toggleButtonSubtitle
         self.isIconOn = isIconOn
+        self.infoURL = infoURL
     }
     
     public enum SubtitleType {

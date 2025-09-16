@@ -111,6 +111,7 @@
 "appearance-settings-reading-themes" = "لوست پوښۍ";
 "appearance-settings-set-automatic-table-opening" = "لښتيال اوڼنې";
 "appearance-settings-theme-options" = "پوښۍ خوښنې";
+"article-about-title" = "د دې ليکنې په اړه";
 "article-delete" = "ړنگول";
 "article-deleted-accessibility-notification" = "{{PLURAL:$1|ليکنه ړنگه شوه|ليکنې ړنگې شوې}}";
 "article-languages-filter-placeholder" = "ژبه موندل";
@@ -126,6 +127,12 @@
 "article-tabs-did-you-know-title" = "ايا پوهېدې";
 "article-tabs-feature-announcement-item-1-subtitle" = "ډېرې ليکنې پرانېځئ او په خپلمنځي ډول يې په اسانۍ سره بدلې کړئ.";
 "article-tabs-feature-announcement-item-1-title" = "ريښکو سره ښوول";
+"article-tabs-feature-announcement-item-2-title" = "له هغه ځايه يې پيل کړئ پرکوم ځای مو چې پرېښی و";
+"article-tabs-feature-announcement-item-3-title" = "تړوني د وروسته ليدلو لپاره خوندي‌کول";
+"article-tabs-feature-announcement-item-4-title" = "خپله نوې ريښکه ځانواله‌کول";
+"article-tabs-feature-announcement-sub-cta" = "د ريښکو په اړه نور زده‌کول";
+"article-tabs-feature-announcement-title" = "ريښکو پېژندون";
+"article-tabs-navigation" = "ريښکو چلند";
 "article-tabs-open" = "پرانېستل";
 "article-tabs-open-background-tab" = "په شاليد ريښکه کې پرانېستل";
 "article-tabs-open-new-tab" = "په نوې ريښکه کې پرانيستل";
@@ -247,7 +254,7 @@
 "empty-no-history-title" = "د ښکاره کولو لپاره کوم پېښليک نشته";
 "empty-no-saved-pages-title" = "لا تر اوسه پورې خوندي مخونه نشته";
 "empty-no-search-results-message" = "کومې پايلې و نه موندل شوې";
-"explore-featured-article-heading" = "مخکښه ليکنه";
+"explore-featured-article-heading" = "غوره ليکنه";
 "explore-feed-preferences-feed-card-visibility-all-languages-off" = "گول";
 "explore-feed-preferences-feed-card-visibility-all-languages-on" = "ټول بلول";
 "explore-feed-preferences-feed-card-visibility-global-cards-on" = "بل";
@@ -307,6 +314,9 @@
 "table-of-contents-button-label" = "نيوليک";
 "table-of-contents-close-accessibility-hint" = "تړل";
 "table-of-contents-heading" = "منځپانگې";
+"talk-page-subscription-failed-alert" = "سکالو کې گډون‌کول نابرياله شو، مهرباني وکړئ بيا هڅه وکړئ.";
+"talk-page-unsubscription-failed-alert" = "د سکالو ونډکښنې نه وتل نابرياله شو، مهرباني وکړئ وروسته بيا هڅه وکړئ.";
+"vanish-account-warning-body" = "ورکېدل يوه **وروستۍ چاره ده** او بايد **يوازې هغه وخت وکارول شي کله چې تاسو غواړئ د تل لپاره سمون پرېږدئ** او همدارنگه تر شوني بريده د ځان اړوند پخوانۍ اړيکې پټې کړئ.\n\nپه ويکيپېډيا کې گڼون ړنگول ستاسو د گڼون نوم بدلولو له لارې ترسره کېږي؛ ترڅو نور ستاسو ونډې ونه پېژني، دې چارې ته ورکېدل يا گڼون له منځه وړل وايي. **ورکېدل په پروژو کې په بشپړ ډول ستاسو د هويت او ونډو لرې کولو ډاډ نه درکوي**.";
 "watchlist-change-expiry-subtitle" = "د کتنلړ وخت موده غوره‌کول";
 "welcome-explore-continue-button" = "پيلول";
 "welcome-explore-tell-me-more-done-button" = "وپوهېدم";

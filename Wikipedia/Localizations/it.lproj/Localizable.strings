@@ -1047,6 +1047,10 @@
 "year-in-review-base-viewed-title" = "Abbiamo visualizzato le voci di Wikipedia $1 miliardi di volte";
 "year-in-review-button-title" = "Anno in Rassegna";
 "year-in-review-collective-zero-ads" = "Logo di Wikimedia";
+"year-in-review-contributor-slide-status-both" = "un donatore e un editore";
+"year-in-review-contributor-slide-status-donor" = "un donatore";
+"year-in-review-contributor-slide-status-editor" = "un editore";
+"year-in-review-contributor-slide-title" = "Nuova icona sbloccata";
 "year-in-review-day-friday" = "Venerdì";
 "year-in-review-day-monday" = "Lunedì";
 "year-in-review-day-saturday" = "Sabati";
@@ -1066,6 +1070,7 @@
 "year-in-review-intro-exit-confirmation-title" = "Sei sicuro di voler uscire?";
 "year-in-review-login-subtitle" = "Accedi o crea un account per essere idoneo per informazioni interessanti più personalizzate";
 "year-in-review-login-title" = "Migliora il tuo Anno in Rassegna";
+"year-in-review-non-contributor-slide-title" = "Sblocca l'icona personalizzata";
 "year-in-review-personalized-date-day-footer-v3" = "Giorno preferito per leggere";
 "year-in-review-personalized-date-month-footer-v3" = "Mese in cui hai letto di più";
 "year-in-review-personalized-date-time-footer-v3" = "Momento preferito per leggere";

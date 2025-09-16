@@ -5,6 +5,7 @@
 // Author: Cleinman
 // Author: HNordeen (WMF)
 // Author: Macofe
+// Author: McDutchie
 // Author: Nemo bis
 // Author: Tsevener
 // Author: Violetova
@@ -733,7 +734,8 @@
 "microsite-yir-english-edits-bytes-slide-title" = "Додадени 4 милијарди бајти";
 "microsite-yir-english-edits-slide-subtitle" = "Доброволците направија 98.222.407 промени на преку 300 различни јазични изданија на Википедија. Преку 37 милиони промени беа направени на англиската Википедија. Секој час од секој ден доброволците работат на подобрување на Википедија.";
 "microsite-yir-english-edits-slide-title" = "Годинава уредниците направија 98 милиони промени";
-"microsite-yir-english-reading-slide-subtitle" = "Во 2024 г. луѓето проведоа околу 2,9 милијарди часови — речиси 331.000 години!—читајќи ја Википедија на англиски. Википедија ви стои на располагање кога сакате да дознавате нешта за нашиот свет што се менува, да добиете облог меѓу пријателите или да одговорите на прашање на љубипитно дете.";
+"microsite-yir-english-reading-slide-subtitle" = "Во 2025 г. луѓето проведоа околу 2,4 милијарди часови — речиси 275.000 години! — читајќи ја Википедија на англиски. Википедија ви стои на располагање кога сакате да дознавате нешта за нашиот свет што се менува, да добиете облог меѓу пријателите или да одговорите на прашање на љубипитно дете.";
+"microsite-yir-english-reading-slide-subtitle-short" = "Во 2025 г. луѓето проведоа околу 2,4 милијарди часови — речиси 275.000 години! — читајќи ја Википедија на англиски.";
 "microsite-yir-english-reading-slide-title" = "Проведовме 2,9 милијарди часови читајќи";
 "microsite-yir-english-saved-reading-slide-subtitle" = "Активните корисници од прилогот за iOS имаа преку 62,2 милиони списоци за читање. Ставањето на статии во списоци за читање ви овозможува пристап до статии дури и кога немате линија. Можете и да се најавите за да ги усогласите списоците за читање на повеќе уреди.";
 "microsite-yir-english-saved-reading-slide-title" = "Имавме преку 62,2 милиони списоци за читање";
@@ -1459,6 +1461,13 @@
 "year-in-review-collective-languages" = "Анимирана илустрација на камен со врежани зборови на разни јазици, што симболизира како Википедија соработно го гради знаењето од разновидни култури и краишта.";
 "year-in-review-collective-saved-articles" = "Топка-сложувалка со логото на Википедија, што ја претставува глобалната соработка.";
 "year-in-review-collective-zero-ads" = "Лого на Викимедија";
+"year-in-review-contributor-gift-subtitle" = "Ако не го вклучите сега, можете да дојдете до него подоцна во Нагодувањата под „Изглед“";
+"year-in-review-contributor-gift-title" = "Активирај нова икона за прилог";
+"year-in-review-contributor-slide-status-both" = "дарител и уредник";
+"year-in-review-contributor-slide-status-donor" = "дарител";
+"year-in-review-contributor-slide-status-editor" = "уредник";
+"year-in-review-contributor-slide-subtitle" = "Ви благодариме што вложувате во иднината на слободното знаење.\n\nВашите придонеси како $1 во 2025 г. ни помагаат да го отвориме патот кон  свет на слободни информации. Поради придонесите, отклучивте прилагодлива учесничка икона.";
+"year-in-review-contributor-slide-title" = "Новата икона е отклучена";
 "year-in-review-day-friday" = "петок";
 "year-in-review-day-monday" = "понеделник";
 "year-in-review-day-saturday" = "сабота";
@@ -1484,6 +1493,8 @@
 "year-in-review-intro-login-title" = "Најавете се за лични прилагодувања";
 "year-in-review-login-subtitle" = "Најавете се или направете сметка за да добиете персонализирани сознанија";
 "year-in-review-login-title" = "Подобрете го вашиот Преглед на годината";
+"year-in-review-non-contributor-slide-title" = "Отклучи прилагодлива икона";
+"year-in-review-noncontributor-slide-subtitle" = "Станете учесник и отклучете прилагодлива учесничка икона. [Дознајте повеќе]($1) за тоа како се приклучите во движењето за слободно знаење. Можете да станете уредник или да дарувате парични средства за Фондацијата Викимедија--непрофитната организација што стои зад Википедија--за да се осигураме дека информациите на кои се потпирате ќе останат без реклами и меродавни, а притоа Википедија да работи глатко, со најсовремени алатки и технологии.";
 "year-in-review-personalized-date-day-footer-v3" = "Омилен ден за читање";
 "year-in-review-personalized-date-month-footer-v3" = "Месецот кога највеќе читавте";
 "year-in-review-personalized-date-time-footer-v3" = "Омилено време за читање";
@@ -1506,7 +1517,9 @@
 "year-in-review-personalized-location-title-format" = "Статиите што ги читате се најблиску до $1.";
 "year-in-review-personalized-most-read-articles-title" = "Вашите најчитани статии";
 "year-in-review-personalized-reading-subtitle-format" = "Прочитавте {{PLURAL:$1|$1 статија|$1 статии}}. Википедија имаше $2 милиони статии на преку $3 активни јазици. Се придруживте на милиони луѓе во проширување на знаењето и истражувањето на разновидни теми.";
+"year-in-review-personalized-reading-subtitle-format-v3" = "Ова ве става во највисокиот **PERCENT** од читателите на Википедија во светот. Просечниот човек чита {{PLURAL:$1|$1 статија|$1 статии}} годишно.";
 "year-in-review-personalized-reading-title-format" = "Прочитавте {{PLURAL:$1|$1 статија|$1 статии}}";
+"year-in-review-personalized-reading-title-v3-format" = "Во 2025 г. проведовте {{PLURAL:$1|$1 минута|$1 минути}} читајќи {{PLURAL:$2|$2 статија|$2 статии}}";
 "year-in-review-personalized-saved-articles" = "Илустрација на парче од служувалка како носи градежен шлем со сметачки екрани во позадината.";
 "year-in-review-personalized-saved-subtitle-format" = "Годинава зачувавте {{PLURAL:$1|$1 статија|$1 статии}} како $2, $3 и $4. Секоја зачувана статија ги одразува вашите интереси и ни помага да изградиме персонализирана база на знаења на Википедија.";
 "year-in-review-personalized-saved-title-format" = "Зачувавте {{PLURAL:$1|$1 статија|$1 статии}}";

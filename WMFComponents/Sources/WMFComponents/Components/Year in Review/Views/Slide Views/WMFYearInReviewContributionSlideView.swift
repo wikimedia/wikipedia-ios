@@ -39,11 +39,11 @@ fileprivate struct WMFYearInReviewSlideContributionViewContent: View {
     }
     
     private var subtitleStyles: HtmlUtils.Styles {
-            return HtmlUtils.Styles(font: WMFFont.for(.title3), boldFont: WMFFont.for(.title3), italicsFont: WMFFont.for(.title3), boldItalicsFont: WMFFont.for(.title3), color: theme.text, linkColor: theme.link, lineSpacing: 3)
+            return HtmlUtils.Styles(font: WMFFont.for(.body), boldFont: WMFFont.for(.boldBody), italicsFont: WMFFont.for(.body), boldItalicsFont: WMFFont.for(.body), color: theme.text, linkColor: theme.link, lineSpacing: 3)
         }
     
     var body: some View {
-        VStack(spacing: 48) {
+        VStack(spacing: 16) {
             VStack(spacing: 16) {
                 ZStack {
                     Image(viewModel.gifName, bundle: .module)
@@ -58,7 +58,7 @@ fileprivate struct WMFYearInReviewSlideContributionViewContent: View {
                 .accessibilityLabel(viewModel.altText)
             }
             
-            VStack(spacing: 16) {
+            VStack(spacing: 12) {
                 HStack(alignment: .top) {
                     Text(viewModel.title)
                         .font(Font(WMFFont.for(.boldTitle1)))
@@ -67,7 +67,7 @@ fileprivate struct WMFYearInReviewSlideContributionViewContent: View {
                     Spacer()
                     if let uiImage = WMFSFSymbolIcon.for(symbol: .infoCircleFill) {
                         Button {
-                            
+                            viewModel.onInfoButtonTap()
                         } label: {
                             Image(uiImage: uiImage)
                                 .resizable()
@@ -86,13 +86,13 @@ fileprivate struct WMFYearInReviewSlideContributionViewContent: View {
                         .frame(maxWidth: .infinity, alignment: .topLeading)
                 case .standard:
                     Text(viewModel.subtitle)
-                        .font(Font(WMFFont.for(.title3)))
+                        .font(Font(WMFFont.for(.body)))
                         .foregroundStyle(Color(uiColor: theme.text))
                         .accentColor(Color(uiColor: theme.link))
                         .frame(maxWidth: .infinity, alignment: .leading)
                 case .markdown:
                     Text(subtitleAttributedString(subtitle: viewModel.subtitle))
-                        .font(Font(WMFFont.for(.title3)))
+                        .font(Font(WMFFont.for(.body)))
                         .foregroundStyle(Color(uiColor: theme.text))
                         .accentColor(Color(uiColor: theme.link))
                         .frame(maxWidth: .infinity, alignment: .leading)
@@ -105,7 +105,7 @@ fileprivate struct WMFYearInReviewSlideContributionViewContent: View {
                         HStack(spacing: 0) {
                             VStack(alignment: .leading, spacing: 2) {
                                 Text(viewModel.toggleButtonTitle)
-                                    .font(Font(WMFFont.for(.title3)))
+                                    .font(Font(WMFFont.for(.body)))
                                     .foregroundStyle(Color(uiColor: theme.text))
                                     .frame(maxWidth: .infinity, alignment: .leading)
 
@@ -120,6 +120,11 @@ fileprivate struct WMFYearInReviewSlideContributionViewContent: View {
                             Toggle("", isOn: $viewModel.isIconOn)
                             .toggleStyle(.switch)
                             .labelsHidden()
+                            .onChange(of: viewModel.isIconOn) { newValue in
+                                if let toggleIcon = viewModel.onToggleIcon {
+                                    toggleIcon(newValue)
+                                }
+                             }
                         }
                     }
                 case .noncontributor:
@@ -146,11 +151,11 @@ fileprivate struct WMFYearInReviewSlideContributionViewContent: View {
                             }
                             .padding(.vertical, 11)
                             .padding(.horizontal, 16)
-                            .frame(maxWidth: .infinity, alignment: .center)
+                            .frame(maxWidth: .infinity)
+                            .contentShape(RoundedRectangle(cornerRadius: 12))
                             .overlay(
                                 RoundedRectangle(cornerRadius: 12)
                                     .stroke(Color(uiColor: theme.newBorder), lineWidth: 1)
-                                    .padding(0)
                             )
                         }
                         .buttonStyle(PlainButtonStyle())

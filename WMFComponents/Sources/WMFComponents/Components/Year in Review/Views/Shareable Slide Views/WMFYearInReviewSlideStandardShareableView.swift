@@ -1,20 +1,26 @@
 import SwiftUI
 
 struct WMFYearInReviewSlideStandardShareableView: View {
-    let viewModel: WMFYearInReviewSlideStandardViewModel
+    let viewModel: WMFYearInReviewSlideViewModelProtocol
 
     @ObservedObject var appEnvironment = WMFAppEnvironment.current
 
     private var theme: WMFTheme {
         return appEnvironment.theme
     }
+    
+    private func subtitleAttributedString(subtitle: String) -> AttributedString {
+        return (try? AttributedString(markdown: subtitle)) ?? AttributedString(subtitle)
+    }
 
     private let hashtag: String
+    private let needsMarkdownSubtitle: Bool
     
-    init(viewModel: WMFYearInReviewSlideStandardViewModel, appEnvironment: WMFAppEnvironment = WMFAppEnvironment.current, hashtag: String) {
+    init(viewModel: WMFYearInReviewSlideViewModelProtocol, appEnvironment: WMFAppEnvironment = WMFAppEnvironment.current, hashtag: String, needsMarkdownSubtitle: Bool = false) {
         self.viewModel = viewModel
         self.appEnvironment = appEnvironment
         self.hashtag = hashtag
+        self.needsMarkdownSubtitle = needsMarkdownSubtitle
     }
     
     private var attributedString: AttributedString {
@@ -22,17 +28,17 @@ struct WMFYearInReviewSlideStandardShareableView: View {
     }
     
     private var styles: HtmlUtils.Styles {
-        return HtmlUtils.Styles(font: WMFFont.for(.headline), boldFont: WMFFont.for(.headline), italicsFont: WMFFont.for(.headline), boldItalicsFont: WMFFont.for(.title3), color: theme.text, linkColor: theme.link, lineSpacing: 3)
+        return HtmlUtils.Styles(font: WMFFont.for(.body), boldFont: WMFFont.for(.boldBody), italicsFont: WMFFont.for(.body), boldItalicsFont: WMFFont.for(.body), color: theme.text, linkColor: theme.link, lineSpacing: 3)
     }
 
     var body: some View {
-        GeometryReader { geometry in
             VStack {
                 VStack(alignment: .leading, spacing: 16) {
                     Image("W-share-logo", bundle: .module)
                         .frame(height: 50)
                         .frame(maxWidth: .infinity)
                         .foregroundColor(Color(theme.text))
+                        .padding(.top, 20)
 
                     ZStack {
                         Image(viewModel.gifName, bundle: .module)
@@ -43,16 +49,27 @@ struct WMFYearInReviewSlideStandardShareableView: View {
                             .padding(.horizontal, 0)
                     }
                     .padding(.top, 10)
+                    
                     VStack(alignment: .leading, spacing: 12) {
                         Text(viewModel.title)
                             .font(Font(WMFFont.for(.boldTitle1, compatibleWith: UITraitCollection(preferredContentSizeCategory: .medium))))
                             .foregroundStyle(Color(uiColor: theme.text))
-                        Text(attributedString)
-                            .font(Font(WMFFont.for(.title3, compatibleWith: UITraitCollection(preferredContentSizeCategory: .medium))))
-                            .foregroundStyle(Color(uiColor: theme.text))
-                            .accentColor(Color(uiColor: theme.link))
+                            .fixedSize(horizontal: false, vertical: true)
+                        if needsMarkdownSubtitle {
+                            Text(subtitleAttributedString(subtitle: viewModel.subtitle))
+                                .font(Font(WMFFont.for(.body)))
+                                .foregroundStyle(Color(uiColor: theme.text))
+                                .accentColor(Color(uiColor: theme.link))
+                                .fixedSize(horizontal: false, vertical: true)
+                        } else {
+                            Text(attributedString)
+                                .font(Font(WMFFont.for(.body, compatibleWith: UITraitCollection(preferredContentSizeCategory: .medium))))
+                                .foregroundStyle(Color(uiColor: theme.text))
+                                .accentColor(Color(uiColor: theme.link))
+                                .fixedSize(horizontal: false, vertical: true)
+                        }
                     }
-                    .padding([.top, .horizontal], 28)
+                    .padding(.horizontal, 28)
                     .padding(.bottom, 0)
                 }
 
@@ -78,9 +95,15 @@ struct WMFYearInReviewSlideStandardShareableView: View {
                 .frame(height: 80)
                 .padding(.bottom, 60)
             }
-            .frame(width: geometry.size.width, height: geometry.size.height)
             .background(Color(uiColor: theme.paperBackground))
-        }
-        .frame(width: 402, height: 847)
+            .frame(maxWidth: 402)
+            .frame(minHeight: 847)
     }
+}
+
+
+public protocol WMFYearInReviewSlideViewModelProtocol {
+    var gifName: String { get }
+    var subtitle: String { get }
+    var title: String { get }
 }
