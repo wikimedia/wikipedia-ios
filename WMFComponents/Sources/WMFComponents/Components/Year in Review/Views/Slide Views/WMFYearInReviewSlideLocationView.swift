@@ -33,11 +33,11 @@ fileprivate struct WMFYearInReviewSlideLocationViewContent: View {
     }
     
     private var subtitleStyles: HtmlUtils.Styles {
-        return HtmlUtils.Styles(font: WMFFont.for(.title3), boldFont: WMFFont.for(.boldTitle3), italicsFont: WMFFont.for(.title3), boldItalicsFont: WMFFont.for(.title3), color: theme.text, linkColor: theme.link, lineSpacing: 3)
+        return HtmlUtils.Styles(font: WMFFont.for(.body), boldFont: WMFFont.for(.boldBody), italicsFont: WMFFont.for(.body), boldItalicsFont: WMFFont.for(.body), color: theme.text, linkColor: theme.link, lineSpacing: 3)
     }
     
     var body: some View {
-        VStack(spacing: 48) {
+        VStack(spacing: 16) {
             VStack(spacing: 16) {
                 YearInReviewMapView(viewModel: viewModel)
                     .aspectRatio(1.5, contentMode: .fit)
@@ -50,7 +50,7 @@ fileprivate struct WMFYearInReviewSlideLocationViewContent: View {
                         .progressViewStyle(CircularProgressViewStyle())
                         .background(Color(theme.midBackground))
                 } else {
-                    VStack(spacing: 16) {
+                    VStack(spacing: 12) {
                         HStack(alignment: .top) {
                             Text(viewModel.title)
                                 .font(Font(WMFFont.for(.boldTitle1)))
@@ -112,6 +112,7 @@ fileprivate struct YearInReviewMapView: UIViewRepresentable {
         mapView.addAnnotations(annotations)
         
         mapView.setVisibleMapRect(MKMapRect.world, animated: false)
+        mapView.isUserInteractionEnabled = false
         
         return mapView
     }

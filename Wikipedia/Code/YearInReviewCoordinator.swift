@@ -64,7 +64,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
             introV2SubtitlePersonzalized: CommonStrings.exploreYIRBodyPersonalized,
             introV2PrimaryButtonTitle: CommonStrings.getStartedTitle,
             introV2SecondaryButtonTitle: CommonStrings.learnMoreTitle(),
-            introV3Title: CommonStrings.exploreYiRTitle,
+            introV3Title: CommonStrings.exploreYIRTitlePersonalized,
             introV3Subtitle: CommonStrings.exploreYIRBodyV3,
             introV3Footer: CommonStrings.exploreYIRFooterV3,
             introV3PrimaryButtonTitle: CommonStrings.getStartedTitle,
@@ -373,8 +373,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
             comment: "Year in review, personalized reading article count slide subtitle for users that read articles. **PERCENT** is the percentage number (i.e. '25%'), do not adjust it, percentage sign is added via the client. %1$d is the average number of articles read per user."
         )
         
-        // TODO: Average number of articles.
-        let firstSentence = String.localizedStringWithFormat(format, 3647).replacingOccurrences(of: "**PERCENT**", with: "<b>\(percentageString)%</b>")
+        let firstSentence = String.localizedStringWithFormat(format, 335).replacingOccurrences(of: "**PERCENT**", with: "<b>\(percentageString)%</b>")
         
         let secondSentence: String
         if primaryAppLanguage.isEnglishWikipedia {
@@ -559,7 +558,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
     }
     
     func personalizedLocationSlideTitle(countryOrOcean: String) -> String {
-        let format = WMFLocalizedString("year-in-review-personalized-location-title-format", value: "Articles you read are closest to %1$@.", comment: "Year in review, personalized location slide title. %1$@ is replaced with a country or ocean name.")
+        let format = WMFLocalizedString("year-in-review-personalized-location-title-format", value: "Articles you read are closest to %1$@", comment: "Year in review, personalized location slide title. %1$@ is replaced with a country or ocean name.")
         return String.localizedStringWithFormat(format, countryOrOcean)
     }
     
@@ -573,7 +572,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
             let format = WMFLocalizedString("year-in-review-personalized-location-subtitle-format-2", value: "You read about %3$@%1$@%4$@ and %3$@%2$@%4$@.", comment: "Year in review, personalized location slide subtitle. %1$@ and %2$@ are replaced with article names in the area they most read about, %3$@ and %4$@ are enclosing tags to make the names bold.")
             return String.localizedStringWithFormat(format, articleNames[0], articleNames[1], "<b>", "</b>")
         case 3:
-            let format = WMFLocalizedString("year-in-review-personalized-location-subtitle-format-3", value: "You read about %4$@%1$@%5$@, %4$@%2$@%5$@ and %4$@%3$@%5$@.", comment: "Year in review, personalized location slide subtitle. %1$@, %2$@ and %3$@ are replaced with article names in the area they most read about, %4$@ and %5$@ are enclosing tags to make the names bold.")
+            let format = WMFLocalizedString("year-in-review-personalized-location-subtitle-format-3", value: "You read about %4$@%1$@%5$@, %4$@%2$@%5$@, and %4$@%3$@%5$@.", comment: "Year in review, personalized location slide subtitle. %1$@, %2$@ and %3$@ are replaced with article names in the area they most read about, %4$@ and %5$@ are enclosing tags to make the names bold.")
             return String.localizedStringWithFormat(format, articleNames[0], articleNames[1], articleNames[2], "<b>", "</b>")
         default:
             assertionFailure("Unexpected number of article names passed in, should be 1-3")
