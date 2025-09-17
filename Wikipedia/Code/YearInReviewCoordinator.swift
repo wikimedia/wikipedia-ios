@@ -353,15 +353,23 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         let format = WMFLocalizedString("year-in-review-personalized-reading-title-v3-format", value: "You spent {{PLURAL:%1$d|%1$d minute|%1$d minutes}} reading {{PLURAL:%2$d|%2$d article|%2$d articles}} in 2025", comment: "Year in review, personalized reading article count slide title for users that read articles. %1$d is replaced with the number of minutes the user spent reading and %2$d is replaced with the number of articles the user read in 2025.")
         return String.localizedStringWithFormat(format, minutesRead, readCount)
     }
+    
+    // MARK: - Spicy math
+
+    private func bellCurve(x: Double, average: Double, standardDeviation: Double) -> Double {
+        let z = (x - average) / standardDeviation
+        return 0.5 * (1 + erf(z / sqrt(2)))
+    }
 
     func personalizedYouReadSlideSubtitleV3(readCount: Int) -> String {
-        
         let minReadCount = 1
         let maxReadCount = 43740
-        let containedReadCount = min(max(readCount, minReadCount), maxReadCount)
+        let containedReadCount = min(max(1020, minReadCount), maxReadCount)
         
-        // % of people who have read MORE than you
-        var percentageAbove = (Double(maxReadCount - containedReadCount) / Double(maxReadCount)) * 100
+        let meanReadCount = 1000.0   // avg articles read
+        let stdDevReadCount = 2000.0 // deviation so like spread of averages
+        
+        var percentageAbove = (1.0 - bellCurve(x: Double(containedReadCount), average: meanReadCount, standardDeviation: stdDevReadCount)) * 100
         
         let minimumPercentage = 0.01
         if percentageAbove < minimumPercentage {
