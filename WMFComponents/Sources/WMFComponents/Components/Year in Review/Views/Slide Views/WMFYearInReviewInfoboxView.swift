@@ -36,7 +36,7 @@ public struct WMFYearInReviewInfoboxView: View {
                         .frame(width: 108, alignment: .leading)
 
                     if let rows = item.richRows {
-                        VStack(alignment: .leading, spacing: 4) {
+                        VStack(alignment: .leading, spacing: 12) {
                             ForEach(rows) { row in
                                 HStack(alignment: .top, spacing: 4) {
                                     Text(row.numberText)
