@@ -52,13 +52,6 @@ public class WMFArticleTabsHostingController<HostedView: View>: WMFComponentHost
     public override func viewDidLoad() {
         super.viewDidLoad()
         viewModel.loggingDelegate?.logArticleTabsOverviewImpression()
-
-        NotificationCenter.default.addObserver(
-                self,
-                selector: #selector(userDidTakeScreenshot),
-                name: UIApplication.userDidTakeScreenshotNotification,
-                object: nil
-            )
     }
 
     private func configureNavigationBar(_ title: String? = nil) {
@@ -77,18 +70,13 @@ public class WMFArticleTabsHostingController<HostedView: View>: WMFComponentHost
         viewModel.didTapAddTab()
     }
 
-    @objc private func userDidTakeScreenshot() {
-        viewModel.loggingDelegate?.logTabsOverviewScreenshot()
-    }
-
-
     @objc private func tappedOverflow() {
         viewModel.didTapAddTab()
     }
     
     var overflowMenu: UIMenu {
         let tabsPreferences = UIAction(title: viewModel.localizedStrings.tabsPreferencesTitle, image: WMFSFSymbolIcon.for(symbol: .gear), handler: { [weak self] _ in
-            self?.openTabsPreferences()
+            // reuse for hide article suggestions
         })
         
         let closeAllTabs = UIAction(title: viewModel.localizedStrings.closeAllTabs, image: WMFSFSymbolIcon.for(symbol: .close), handler: { [weak self] _ in
@@ -104,11 +92,6 @@ public class WMFArticleTabsHostingController<HostedView: View>: WMFComponentHost
         let mainMenu = UIMenu(title: String(), children: children)
 
         return mainMenu
-    }
-    
-    private func openTabsPreferences() {
-        viewModel.didTabOpenTabs()
-
     }
 
     deinit {

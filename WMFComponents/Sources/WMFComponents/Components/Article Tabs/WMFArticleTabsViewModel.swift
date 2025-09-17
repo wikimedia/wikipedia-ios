@@ -5,7 +5,6 @@ import WMFData
 public protocol WMFArticleTabsLoggingDelegate: AnyObject {
     func logArticleTabsOverviewImpression()
     func logArticleTabsArticleClick(wmfProject: WMFProject?)
-    func logTabsOverviewScreenshot()
 }
 
 public class WMFArticleTabsViewModel: NSObject, ObservableObject {
@@ -19,7 +18,6 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
 
     public let didTapTab: (WMFArticleTabsDataController.WMFArticleTab) -> Void
     public let didTapAddTab: () -> Void
-    public let didTabOpenTabs: () -> Void
     public let displayDeleteAllTabsToast: (Int) -> Void
     
     public let localizedStrings: LocalizedStrings
@@ -29,7 +27,6 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
                 loggingDelegate: WMFArticleTabsLoggingDelegate?,
                 didTapTab: @escaping (WMFArticleTabsDataController.WMFArticleTab) -> Void,
                 didTapAddTab: @escaping () -> Void,
-                didTapOpenTabs: @escaping () -> Void,
                 displayDeleteAllTabsToast: @escaping (Int) -> Void) {
         self.dataController = dataController
         self.localizedStrings = localizedStrings
@@ -38,7 +35,6 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
         self.shouldShowCloseButton = false
         self.didTapTab = didTapTab
         self.didTapAddTab = didTapAddTab
-        self.didTabOpenTabs = didTapOpenTabs
         self.displayDeleteAllTabsToast = displayDeleteAllTabsToast
         super.init()
         Task {
