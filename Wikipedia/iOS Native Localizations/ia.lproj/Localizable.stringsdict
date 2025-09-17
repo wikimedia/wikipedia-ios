@@ -899,22 +899,6 @@
 			<string>%1$d filtros</string>
 		</dict>
 	</dict>
-	<key>year-in-review-personalized-editing-subtitle-format</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>Tu ha modificate Wikipedia %1$d vice%#@v1@. Gratias pro esser un del redactores voluntari que face le differentia pro le projectos de Wikimedia in tote le mundo.</string>
-		<key>v1</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
-			<key>one</key>
-			<string></string>
-			<key>other</key>
-			<string>s</string>
-		</dict>
-	</dict>
 	<key>year-in-review-personalized-editing-title-format</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -995,22 +979,6 @@
 			<string>s</string>
 		</dict>
 		<key>v2</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
-			<key>one</key>
-			<string></string>
-			<key>other</key>
-			<string>s</string>
-		</dict>
-	</dict>
-	<key>year-in-review-personalized-saved-subtitle-format</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>Tu ha salveguardate %1$d articulo%#@v1@ iste anno, includente %2$@, %3$@ e %4$@. Cata articulo salveguardate reflecte tu interesses e adjuta a construer un base de cognoscentia personalisate sur Wikipedia.</string>
-		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
 			<string>NSStringPluralRuleType</string>
