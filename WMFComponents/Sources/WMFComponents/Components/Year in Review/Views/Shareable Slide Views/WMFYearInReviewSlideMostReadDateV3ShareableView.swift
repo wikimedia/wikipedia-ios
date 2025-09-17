@@ -32,7 +32,7 @@ struct WMFYearInReviewSlideMostReadDateV3ShareableView: View {
     }
 
     var body: some View {
-            VStack {
+            VStack(spacing: 16) {
 
                 header()
 
@@ -70,6 +70,7 @@ struct WMFYearInReviewSlideMostReadDateV3ShareableView: View {
             Text(viewModel.title)
                 .font(Font(WMFFont.for(.boldTitle1, compatibleWith: UITraitCollection(preferredContentSizeCategory: .medium))))
                 .foregroundStyle(Color(uiColor: theme.text))
+                .fixedSize(horizontal: false, vertical: true)
             
             VStack(spacing: 16) {
                 
@@ -80,7 +81,7 @@ struct WMFYearInReviewSlideMostReadDateV3ShareableView: View {
             .foregroundStyle(Color(uiColor: theme.text))
             
         }
-        .padding([.top, .horizontal], 28)
+        .padding(.horizontal, 28)
         .padding(.bottom, 0)
     }
     

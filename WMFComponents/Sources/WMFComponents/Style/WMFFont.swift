@@ -4,6 +4,7 @@ import SwiftUI
 public enum WMFFont {
 
     case body
+    case boldBody
     case boldCallout
     case boldCaption1
     case boldFootnote
@@ -46,12 +47,19 @@ public enum WMFFont {
     case title1
     case title3
     case xxlTitleBold
+    case helveticaBody
+    case helveticaBodyBold
 
     public static func `for`(_ font: WMFFont, compatibleWith traitCollection: UITraitCollection = WMFAppEnvironment.current.traitCollection) -> UIFont {
 
         switch font {
         case .body:
             return UIFont.preferredFont(forTextStyle: .body, compatibleWith: traitCollection)
+        case .boldBody:
+            guard let descriptor = UIFontDescriptor.preferredFontDescriptor(withTextStyle: .body, compatibleWith: traitCollection).withSymbolicTraits(.traitBold) else {
+                fatalError()
+            }
+            return UIFont(descriptor: descriptor, size: 0)
         case .boldCallout:
             guard let descriptor = UIFontDescriptor.preferredFontDescriptor(withTextStyle: .callout, compatibleWith: traitCollection).withSymbolicTraits(.traitBold) else {
                 fatalError()
@@ -244,6 +252,13 @@ public enum WMFFont {
         case .xxlTitleBold:
             return UIFontMetrics(forTextStyle: .title3).scaledFont(for: UIFont.systemFont(ofSize: 40, weight: .bold), compatibleWith: traitCollection)
 
+        case .helveticaBody:
+            return UIFontMetrics(forTextStyle: .subheadline)
+                    .scaledFont(for: UIFont(descriptor: UIFontDescriptor(name: "Helvetica", size: 14), size: 0), compatibleWith: traitCollection)
+
+        case .helveticaBodyBold:
+            return UIFontMetrics(forTextStyle: .subheadline)
+                   .scaledFont(for: UIFont(descriptor: UIFontDescriptor(name: "Helvetica-Bold", size: 14), size: 0), compatibleWith: traitCollection)
         }
     }
 }
