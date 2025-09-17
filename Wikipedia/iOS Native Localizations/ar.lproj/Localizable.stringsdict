@@ -869,20 +869,6 @@
 			<string>%1$d مرشح</string>
 		</dict>
 	</dict>
-	<key>year-in-review-personalized-editing-subtitle-format</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>لقد قمت بتحرير ويكيبيديا %#@v1@. شكرًا لك على كونك أحد المحررين المتطوعين الذين يصنعون الفارق في مشاريع ويكيميديا حول العالم.</string>
-		<key>v1</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
-			<key>other</key>
-			<string>%1$d مرة</string>
-		</dict>
-	</dict>
 	<key>year-in-review-personalized-editing-title-format</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -970,20 +956,6 @@
 			<string>%2$d مقالة</string>
 			<key>other</key>
 			<string>%2$d مقالات</string>
-		</dict>
-	</dict>
-	<key>year-in-review-personalized-saved-subtitle-format</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>لقد قمت بحفظ %#@v1@ هذا العام، بما في ذلك %2$@ و %3$@ و %4$@. تعكس كل مقالة محفوظة اهتماماتك وتساعد في بناء قاعدة معرفية مخصصة على ويكيبيديا.</string>
-		<key>v1</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
-			<key>other</key>
-			<string>%1$d مقالة</string>
 		</dict>
 	</dict>
 	<key>year-in-review-personalized-saved-title-format</key>
