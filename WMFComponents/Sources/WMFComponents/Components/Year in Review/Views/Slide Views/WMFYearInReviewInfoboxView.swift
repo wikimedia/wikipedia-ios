@@ -24,19 +24,18 @@ public struct WMFYearInReviewInfoboxView: View {
     }
 
     public var body: some View {
-        VStack(alignment: .leading, spacing: 12) {
+        VStack(alignment: .leading, spacing: 16) {
             ForEach(viewModel.tableItems.indices, id: \.self) { index in
                 let item = viewModel.tableItems[index]
                 HStack(alignment: .top, spacing: 8) {
                     Text(item.title)
                         .font(titleFont)
                         .foregroundStyle(Color(uiColor: WMFColor.black))
-                        .lineLimit(3)
                         .fixedSize(horizontal: false, vertical: true)
                         .frame(width: 108, alignment: .leading)
 
                     if let rows = item.richRows {
-                        VStack(alignment: .leading, spacing: 12) {
+                        VStack(alignment: .leading, spacing: 6) {
                             ForEach(rows) { row in
                                 HStack(alignment: .top, spacing: 4) {
                                     Text(row.numberText)
