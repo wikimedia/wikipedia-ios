@@ -754,16 +754,16 @@ public class WMFYearInReviewViewModel: ObservableObject {
             itemArray.append(savedCountItem)
         }
 
-        if let editNumber, editNumber > 0 {
-            let editCountItem = TableItem(title: localizedStrings.editedArticlesTitle, text: String(editNumber))
-            itemArray.append(editCountItem)
-        }
-
         if let frequentCategories {
             let top3 = frequentCategories.prefix(3)
             let categoryList = makeNumberedBlueList(Array(top3), needsLinkColor: false)
             let categoriesItem = TableItem(title: localizedStrings.favoriteCategoriesTitle, richRows: categoryList)
             itemArray.append(categoriesItem)
+        }
+        
+        if let editNumber, editNumber > 0 {
+            let editCountItem = TableItem(title: localizedStrings.editedArticlesTitle, text: String(editNumber))
+            itemArray.append(editCountItem)
         }
 
         return WMFYearInReviewSlideHighlightsViewModel(
