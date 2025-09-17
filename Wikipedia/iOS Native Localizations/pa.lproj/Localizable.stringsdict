@@ -522,22 +522,6 @@
 			<string>%1$d ਬਾਈਟਾਂ</string>
 		</dict>
 	</dict>
-	<key>year-in-review-personalized-editing-subtitle-format</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>ਤੁਸੀਂ ਵਿਕੀਪੀਡੀਆ %#@v1@ ਸੋਧਿਆ। ਦੁਨੀਆ ਭਰ ਵਿੱਚ ਵਿਕੀਮੀਡੀਆ ਪ੍ਰੋਜੈਕਟਾਂ ਵਿੱਚ ਇੱਕ ਫਰਕ ਲਿਆਉਣ ਵਾਲੇ ਸਵੈ-ਸੇਵੀ ਸੋਧਕਾਂ ਵਿੱਚੋਂ ਇੱਕ ਹੋਣ ਲਈ ਤੁਹਾਡਾ ਧੰਨਵਾਦ।</string>
-		<key>v1</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
-			<key>one</key>
-			<string> %1$d ਵਾਰ</string>
-			<key>other</key>
-			<string> %1$d ਵਾਰੀ</string>
-		</dict>
-	</dict>
 	<key>year-in-review-personalized-editing-title-format</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
