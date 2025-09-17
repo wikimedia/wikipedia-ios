@@ -29,7 +29,8 @@ final class YearInReviewDonateCountSlideDataController: YearInReviewSlideDataCon
               let endDate = yirConfig.dataPopulationEndDate else {
             return
         }
-        donateCount = getDonateCount(startDate: startDate, endDate: endDate)
+        
+        donateCount = 10 // getDonateCount(startDate: startDate, endDate: endDate)
         
         if let username, let project {
             do {
@@ -37,7 +38,7 @@ final class YearInReviewDonateCountSlideDataController: YearInReviewSlideDataCon
                       let endDateString = yirConfig.dataPopulationEndDateString else {
                     return
                 }
-                editCount = try await getEditCount(startDate: startDateString, endDate: endDateString, username: username, project: project)
+                editCount = 10 // try await getEditCount(startDate: startDateString, endDate: endDateString, username: username, project: project)
                 isEvaluated = true
             } catch {
                 isEvaluated = false
