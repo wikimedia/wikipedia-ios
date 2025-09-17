@@ -441,7 +441,7 @@ public class WMFYearInReviewViewModel: ObservableObject {
                                 altText: localizedStrings.personalizedDonationThankYouAccessibilityLabel,
                                 title: localizedStrings.personalizedThankYouTitle,
                                 subtitle: localizedStrings.personalizedThankYouSubtitle(primaryAppLanguage.languageCode ?? "en"),
-                                subtitleType: .html,
+                                subtitleType: .markdown,
                                 infoURL: aboutYiRURL,
                                 forceHideDonateButton: true,
                                 loggingID: "thank_custom",
@@ -641,26 +641,47 @@ public class WMFYearInReviewViewModel: ObservableObject {
         
         let personalizedSlides = getPersonalizedSlides(aboutYiRURL: aboutYiRURL)
         
-        if WMFDeveloperSettingsDataController.shared.showYiRV3 { // TODO: Confirm ordering / fallbacks are correct once product requirements are finalized.
+        if WMFDeveloperSettingsDataController.shared.showYiRV3 {
             if isUserPermanent {
                 slides.append(.standard(personalizedSlides.readCountSlideV3 ?? (primaryAppLanguage.isEnglishWikipedia ? englishHoursReadingSlide : collectiveLanguagesSlide)))
                 
-                if let mostReadDateSlideV3 = personalizedSlides.mostReadDateSlideV3 {
-                    slides.append(.mostReadDateV3(mostReadDateSlideV3))
+                if primaryAppLanguage.isEnglishWikipedia {
+                    slides.append(.standard(englishTopReadSlide))
+                    
+                    if let topArticlesSlide = personalizedSlides.topArticlesSlide {
+                        slides.append(.standard(topArticlesSlide))
+                    }
+                    
+                    if let mostReadDateSlideV3 = personalizedSlides.mostReadDateSlideV3 {
+                        slides.append(.mostReadDateV3(mostReadDateSlideV3))
+                    }
+                    
+                    if let categorySlide = personalizedSlides.mostReadCategoriesSlide {
+                        slides.append(.standard(categorySlide))
+                    }
+                    
+                    if let locationSlide = personalizedSlides.locationSlide {
+                        slides.append(.location(locationSlide))
+                    }
+                    
                 } else {
-                    slides.append(.standard(primaryAppLanguage.isEnglishWikipedia ? englishTopReadSlide : collectiveArticleViewsSlide))
-                }
-                
-                if let categorySlide = personalizedSlides.mostReadCategoriesSlide {
-                    slides.append(.standard(categorySlide))
-                }
-                
-                if let locationSlide = personalizedSlides.locationSlide {
-                    slides.append(.location(locationSlide))
-                }
-                
-                if let topArticlesSlide = personalizedSlides.topArticlesSlide {
-                    slides.append(.standard(topArticlesSlide))
+                    slides.append(.standard(collectiveArticleViewsSlide))
+                    
+                    if let mostReadDateSlideV3 = personalizedSlides.mostReadDateSlideV3 {
+                        slides.append(.mostReadDateV3(mostReadDateSlideV3))
+                    }
+                    
+                    if let categorySlide = personalizedSlides.mostReadCategoriesSlide {
+                        slides.append(.standard(categorySlide))
+                    }
+                    
+                    if let topArticlesSlide = personalizedSlides.topArticlesSlide {
+                        slides.append(.standard(topArticlesSlide))
+                    }
+                    
+                    if let locationSlide = personalizedSlides.locationSlide {
+                        slides.append(.location(locationSlide))
+                    }
                 }
 
                 slides.append(.standard(personalizedSlides.saveCountSlide ?? (primaryAppLanguage.isEnglishWikipedia ? englishReadingListSlide : collectiveSavedArticlesSlide)))
@@ -1019,9 +1040,22 @@ public class WMFYearInReviewViewModel: ObservableObject {
     @MainActor func tappedShare() {
         switch currentSlide {
         case .standard(let viewModel):
-            let view = WMFYearInReviewSlideStandardShareableView(viewModel: viewModel, hashtag: hashtag)
-            let shareView = view.snapshot()
-            coordinatorDelegate?.handleYearInReviewAction(.share(image: shareView))
+            let needsMarkdownSubtitle: Bool
+            switch viewModel.subtitleType {
+            case .html:
+                needsMarkdownSubtitle = false
+            case .markdown:
+                needsMarkdownSubtitle = true
+            case .standard:
+                needsMarkdownSubtitle = false
+            }
+            let view = WMFYearInReviewSlideStandardShareableView(viewModel: viewModel, hashtag: hashtag, needsMarkdownSubtitle: needsMarkdownSubtitle)
+            let renderer = ImageRenderer(content: view)
+            renderer.proposedSize = .init(width: 402, height: nil)
+            renderer.scale = UIScreen.main.scale
+            if let uiImage = renderer.uiImage {
+                coordinatorDelegate?.handleYearInReviewAction(.share(image: uiImage))
+            }
         case .mostReadDateV3(let viewModel):
             let view = WMFYearInReviewSlideMostReadDateV3ShareableView(viewModel: viewModel, hashtag: hashtag)
             let renderer = ImageRenderer(content: view)
@@ -1042,7 +1076,15 @@ public class WMFYearInReviewViewModel: ObservableObject {
                 coordinatorDelegate?.handleYearInReviewAction(.share(image: uiImage))
             }
         case .contribution(let viewModel):
-            let view = WMFYearInReviewSlideStandardShareableView(viewModel: viewModel, hashtag: hashtag, needsFormatting: true)
+            let needsMarkdownSubtitle: Bool
+            // Handles the "Learn more" link
+            switch viewModel.contributionStatus {
+            case .contributor:
+                needsMarkdownSubtitle = false
+            case .noncontributor:
+                needsMarkdownSubtitle = true
+            }
+            let view = WMFYearInReviewSlideStandardShareableView(viewModel: viewModel, hashtag: hashtag, needsMarkdownSubtitle: needsMarkdownSubtitle)
             let renderer = ImageRenderer(content: view)
             renderer.proposedSize = .init(width: 402, height: nil)
             renderer.scale = UIScreen.main.scale
