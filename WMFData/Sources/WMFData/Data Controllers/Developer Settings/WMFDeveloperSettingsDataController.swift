@@ -127,6 +127,7 @@ public protocol WMFDeveloperSettingsDataControlling: AnyObject {
     
     public var showYiRV2: Bool {
         get {
+            return false
             return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsShowYiRV2.rawValue)) ?? false
         } set {
             try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsShowYiRV2.rawValue, value: newValue)
@@ -135,6 +136,7 @@ public protocol WMFDeveloperSettingsDataControlling: AnyObject {
     
     public var showYiRV3: Bool {
         get {
+            return true
             return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsShowYiRV3.rawValue)) ?? false
         } set {
             try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsShowYiRV3.rawValue, value: newValue)
