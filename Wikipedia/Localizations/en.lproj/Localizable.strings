@@ -1524,7 +1524,7 @@
 "year-in-review-personalized-reading-title-format" = "You read {{PLURAL:$1|$1 article|$1 articles}}";
 "year-in-review-personalized-reading-title-v3-format" = "You spent {{PLURAL:$1|$1 minute|$1 minutes}} reading {{PLURAL:$2|$2 article|$2 articles}} in 2025";
 "year-in-review-personalized-saved-articles" = "Illustration of a puzzle piece wearing a hardhat with computer screens in the back.";
-"year-in-review-personalized-saved-subtitle-format" = "You saved {{PLURAL:$1|$1 article|$1 articles}} this year, including $2, $3 and $4. Each saved article reflects your interests and helps build a personalized knowledge base on Wikipedia.\n\nActive app users had over $5 million saved articles this year.";
+"year-in-review-personalized-saved-subtitle-format" = "These articles included $1, $2, and $3. Each saved article reflects your interests and helps build a personalized knowledge base on Wikipedia.\n\nActive app users had over $4 million saved articles this year.";
 "year-in-review-personalized-saved-title-format" = "You saved {{PLURAL:$1|$1 article|$1 articles}}";
 "year-in-review-personalized-user-edits" = "An animated illustration showing bytes stacking on top of each other, symbolizing the continuous creation of free knowledge.";
 "year-in-review-personalized-weekday" = "A clock ticking, symbolizing the time spent by people reading Wikipedia.";

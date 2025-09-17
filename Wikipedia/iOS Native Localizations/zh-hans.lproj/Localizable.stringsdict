@@ -784,6 +784,20 @@
 			<string>%1$d 篇文章</string>
 		</dict>
 	</dict>
+	<key>year-in-review-personalized-saved-subtitle-format</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>您今年保存了%#@v1@，包括%2$@、%3$@ 和%4$@。每篇保存的文章都反映了您的兴趣所在，并帮助在维基百科上建立个性化的知识库。</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>@</string>
+			<key>other</key>
+			<string>%1$@ 篇文章</string>
+		</dict>
+	</dict>
 	<key>year-in-review-personalized-saved-title-format</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>

@@ -895,6 +895,22 @@
 			<string>статей</string>
 		</dict>
 	</dict>
+	<key>year-in-review-personalized-saved-subtitle-format</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Ви зберегли %#@v1@ цього року, зокрема %2$@, %3$@ і %4$@. Кожна збережена стаття відображає ваші інтереси та допомагає створити персональну базу знань у Вікіпедії.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>@</string>
+			<key>one</key>
+			<string>%1$@ статтю</string>
+			<key>other</key>
+			<string>%1$@ статей</string>
+		</dict>
+	</dict>
 	<key>year-in-review-personalized-saved-title-format</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>

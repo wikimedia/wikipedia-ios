@@ -893,6 +893,20 @@
 			<string>%2$d madde</string>
 		</dict>
 	</dict>
+	<key>year-in-review-personalized-saved-subtitle-format</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Bu yıl %2$@, %3$@ ve %4$@ dahil olmak üzere %#@v1@ sakladınız. Saklanan her madde ilgi alanlarınızı yansıtır ve Vikipedi'de kişiselleştirilmiş bir bilgi tabanı oluşturmaya yardımcı olur.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>@</string>
+			<key>other</key>
+			<string>%1$@ madde</string>
+		</dict>
+	</dict>
 	<key>year-in-review-personalized-saved-title-format</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
