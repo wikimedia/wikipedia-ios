@@ -165,9 +165,12 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
             hoursSpentReadingTitle: WMFLocalizedString("year-in-review-highlights-collective-time-spent", value: "Hours spent reading", comment: "Title for the estimation collective hours spent reading Wikipedia in the Year in review highlights slide"),
             numberOfChangesMadeTitle: WMFLocalizedString("year-in-review-highlights-changes", value: "Changes editors made", comment: "Title for the number of changes editors made on Wikipedia in the Year in review highlights slide"),
             numberOfViewedArticlesTitle: WMFLocalizedString("year-in-review-highlights-articles-viewed", value: "Number of viewed articles", comment: "Title for the number of viewed articles in Wikipedia in the Year in review highlights slide"),
+            numberOfViewedArticlesValue: numberOfViewedArticlesValue,
             numberOfReadingListsTitle: WMFLocalizedString("year-in-review-highlights-created-lists", value: "Number of reading lists created", comment: "Title for the number of reading lists created collectivelly in the Year in Review highlights slide"),
-            numberOfEditorsTitle: WMFLocalizedString("year-in-review-highlights-number-app-editors", value: "Editors on-app", comment: "Title for the number of editors using the Wikipedia app in the Year in review highlights slide"),
+            numberOfEditsTitle: WMFLocalizedString("year-in-review-highlights-number-app-editors", value: "Edits on-app", comment: "Title for the number of edits using the Wikipedia app in the Year in review highlights slide"),
+            numberOfEditsValue: numberOfEditsValue,
             editFrequencyTitle: WMFLocalizedString("year-in-review-highlights-edit-frequency", value: "How often Wikipedia was edited", comment: "Title for the frequency of edits on Wikipedia in the Year in review highlights slide"),
+            editFrequencyValue: editFrequencyValue,
             logoCaption: WMFLocalizedString("year-in-review-highlights-share-logo-caption", value: "Wikipedia logo", comment: "Caption for Wikipedia logo on sharable version of the highlights year in review slide")
         )
     }
@@ -258,6 +261,25 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
     func collectiveZeroAdsSlideSubtitle() -> String {
         let format = WMFLocalizedString("year-in-review-base-donate-subtitle", value: "With your help, the Wikimedia Foundation—the nonprofit behind Wikipedia—will continue to ensure that the information you rely on is ad-free and trustworthy, while keeping Wikipedia running smoothly with cutting-edge tools and technologies. Please consider making a donation today. [Learn more about our work](%1$@).", comment: "Year in review, donate slide subtitle when user has not made any donations that year. %1$@ is replaced with a MediaWiki url with more information about WMF. Do not alter markdown when translating.")
         return String.localizedStringWithFormat(format, aboutWikimediaURLString)
+    }
+    
+    var numberOfViewedArticlesValue: String {
+        let format = WMFLocalizedString("year-in-review-highlights-articles-viewed-value", value: "%1$@ billion", comment: "Value for the number of viewed articles in Wikipedia in the Year in review highlights slide. %1$@ is replaced with the number of viewed articles, e.g. \"1.5\"")
+
+        let numViewedArticlesString = formatNumber(1.5, fractionDigits: 1)
+
+        return String.localizedStringWithFormat(format, numViewedArticlesString)
+    }
+    
+    var numberOfEditsValue: String {
+        return formatNumber(12435, fractionDigits: 0)
+    }
+    
+    var editFrequencyValue: String {
+        
+        let format = WMFLocalizedString("year-in-review-highlights-edit-frequency-value", value: "{{PLURAL:%1$d|%1$d time|%1$d times}} per minute", comment: "Value for the frequency of edits on Wikipedia in the Year in review highlights slide. %1$d is replaced with the number of edits per minute, e.g. \"342\"")
+        
+        return String.localizedStringWithFormat(format, 342)
     }
     
     // MARK: - Contributor
