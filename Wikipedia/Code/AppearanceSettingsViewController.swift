@@ -1,4 +1,5 @@
 import WMFComponents
+import WMFData
 
 protocol AppearanceSettingsItem {
     var title: String? { get }
@@ -110,7 +111,8 @@ final class AppearanceSettingsViewController: SubSettingsViewController, WMFNavi
         
         let textSizingSection = AppearanceSettingsSection(headerTitle: WMFLocalizedString("appearance-settings-adjust-text-sizing", value: "Adjust article text sizing", comment: "Header of the Text sizing section in Appearance settings"), footerText: nil, items: [AppearanceSettingsCustomViewItem(title: nil, subtitle: nil, viewController: TextSizeChangeExampleViewController(nibName: "TextSizeChangeExampleViewController", bundle: nil)), AppearanceSettingsSpacerViewItem(title: nil, subtitle: nil, spacing: 15.0), AppearanceSettingsCustomViewItem(title: nil, subtitle: nil, viewController: FontSizeSliderViewController(nibName: "FontSizeSliderViewController", bundle: nil))])
         
-        if UserDefaults.standard.bool(forKey: "qualifiesForIcon2025") {
+        let userDefaultsStore = WMFDataEnvironment.current.userDefaultsStore
+        if (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.qualifiesForIcon2025.rawValue)) ?? false {
             let appIconSection = AppearanceSettingsSection(
                 headerTitle: WMFLocalizedString("appearance-settings-set-icon-header", value: "App Icon", comment: "Header text for changing app icon"),
                 footerText: WMFLocalizedString("appearance-settings-set-icon-footer", value: "The contributor icon celebrates your 2025 in-app contributions to Wikipedia. It will remain until the next Year in Review.", comment: "Footer information about the contributor icon and its purpose"),

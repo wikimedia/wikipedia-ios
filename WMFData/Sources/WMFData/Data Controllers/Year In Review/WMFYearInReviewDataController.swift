@@ -627,8 +627,7 @@ import CoreData
     }
     
     public func updateContributorStatus(isContributor: Bool) {
-        let iconKey = "qualifiesForIcon2025"
-        UserDefaults.standard.set(isContributor, forKey: iconKey)
+        UserDefaults.standard.set(isContributor, forKey: WMFUserDefaultsKey.qualifiesForIcon2025.rawValue)
     }
 }
 
