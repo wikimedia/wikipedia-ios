@@ -114,7 +114,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
             collectiveZeroAdsSlideSubtitle: collectiveZeroAdsSlideSubtitle,
             personalizedYouReadSlideTitleV2: personalizedYouReadSlideTitleV2(readCount:),
             personalizedYouReadSlideSubtitleV2: personalizedYouReadSlideSubtitleV2(readCount:),
-            personalizedYouReadSlideTitleV3: personalizedYouReadSlideTitleV3(readCount:minutesRead:),
+            personalizedYouReadSlideTitleV3: personalizedYouReadSlideTitleV3(readCount:),
             personalizedYouReadSlideSubtitleV3: personalizedYouReadSlideSubtitleV3(readCount:),
             personalizedDateSlideTitleV2: personalizedDateSlideTitleV2(day:),
             personalizedDateSlideSubtitleV2: personalizedDateSlideSubtitleV2(day:),
@@ -348,7 +348,8 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         return String.localizedStringWithFormat(format, readCount, numArticlesString, numLanguagesString)
     }
     
-    func personalizedYouReadSlideTitleV3(readCount: Int, minutesRead: Int) -> String {
+    func personalizedYouReadSlideTitleV3(readCount: Int) -> String {
+        let minutesRead = readCount * 3
         let format = WMFLocalizedString("year-in-review-personalized-reading-title-v3-format", value: "You spent {{PLURAL:%1$d|%1$d minute|%1$d minutes}} reading {{PLURAL:%2$d|%2$d article|%2$d articles}} in 2025", comment: "Year in review, personalized reading article count slide title for users that read articles. %1$d is replaced with the number of minutes the user spent reading and %2$d is replaced with the number of articles the user read in 2025.")
         return String.localizedStringWithFormat(format, minutesRead, readCount)
     }
@@ -358,14 +359,16 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         let minReadCount = 1
         let maxReadCount = 43740
         let containedReadCount = min(max(readCount, minReadCount), maxReadCount)
-        let percentage = 100 - (Double(containedReadCount) / Double(maxReadCount) * 100)
         
-        let percentageString: String
-        if readCount > maxReadCount {
-            percentageString = "0.001"
-        } else {
-            percentageString = String(format: "%.3f", percentage)
+        // % of people who have read MORE than you
+        var percentageAbove = (Double(maxReadCount - containedReadCount) / Double(maxReadCount)) * 100
+        
+        let minimumPercentage = 0.01
+        if percentageAbove < minimumPercentage {
+            percentageAbove = minimumPercentage
         }
+        
+        let percentageString = formatToOneSignificantFigure(percentageAbove)
         
         let format = WMFLocalizedString(
             "year-in-review-personalized-reading-subtitle-format-v3",
@@ -373,7 +376,8 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
             comment: "Year in review, personalized reading article count slide subtitle for users that read articles. **PERCENT** is the percentage number (i.e. '25%'), do not adjust it, percentage sign is added via the client. %1$d is the average number of articles read per user."
         )
         
-        let firstSentence = String.localizedStringWithFormat(format, 335).replacingOccurrences(of: "**PERCENT**", with: "<b>\(percentageString)%</b>")
+        let firstSentence = String.localizedStringWithFormat(format, 335)
+            .replacingOccurrences(of: "**PERCENT**", with: "<b>\(percentageString)%</b>")
         
         let secondSentence: String
         if primaryAppLanguage.isEnglishWikipedia {
@@ -384,7 +388,23 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         
         return "\(firstSentence)\n\n\(secondSentence)"
     }
-    
+
+    func formatToOneSignificantFigure(_ value: Double) -> String {
+        if value == 0 { return "0" }
+        
+        let log10 = floor(log10(value))
+        let scale = pow(10, log10)
+        let rounded = (value / scale).rounded() * scale
+        
+        if value < 1 {
+            return String(format: "%.2f", rounded)
+        } else if value < 10 {
+            return String(format: "%.1f", rounded)
+        } else {
+            return String(format: "%.0f", rounded)
+        }
+    }
+
     func personalizedDateSlideTitleV2(day: Int) -> String {
         let format = WMFLocalizedString(
             "year-in-review-personalized-day-title-format",
