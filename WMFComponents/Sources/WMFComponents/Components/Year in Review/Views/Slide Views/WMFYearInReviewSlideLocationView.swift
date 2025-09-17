@@ -217,7 +217,7 @@ fileprivate struct YearInReviewMapView: UIViewRepresentable {
             
             // Center map only on largest cluster
             let rect = annotations.reduce(MKMapRect.null) { $0.union(MKMapRect(origin: MKMapPoint($1.coordinate), size: MKMapSize(width: 0, height: 0))) }
-            mapView.setVisibleMapRect(rect, edgePadding: UIEdgeInsets(top: 50, left: 50, bottom: 50, right: 50), animated: true)
+            mapView.setVisibleMapRect(rect, edgePadding: UIEdgeInsets(top: 100, left: 100, bottom: 100, right: 100), animated: true)
             
             // wait for animation to complete
             DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) { [weak self] in

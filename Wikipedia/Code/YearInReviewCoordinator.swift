@@ -372,7 +372,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
             comment: "Year in review, personalized reading article count slide subtitle for users that read articles. **PERCENT** is the percentage number (i.e. '25%'), do not adjust it, percentage sign is added via the client. %1$d is the average number of articles read per user."
         )
         
-        let firstSentence = String.localizedStringWithFormat(format, 335).replacingOccurrences(of: "**PERCENT**", with: "<b>\(percentageString)%</b>")
+        let firstSentence = String.localizedStringWithFormat(format, 335).replacingOccurrences(of: "**PERCENT**", with: "<b>25%</b>")
         
         let secondSentence: String
         if primaryAppLanguage.isEnglishWikipedia {
@@ -543,13 +543,13 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         
         let format = WMFLocalizedString(
             "year-in-review-personalized-saved-subtitle-format",
-            value: "You saved {{PLURAL:%1$d|%1$d article|%1$d articles}} this year, including %2$@, %3$@ and %4$@. Each saved article reflects your interests and helps build a personalized knowledge base on Wikipedia.\n\nActive app users had over %5$@ million saved articles this year.",
-            comment: "Year in review, personalized saved articles slide subtitle. %1$d is replaced with the number of articles the user saved, %2$@, %3$@ and %4$@ are replaced with up to three article names the user saved (each enclosed in <b> tags). %5$@ is replaced with the number of saved articles text, e.g. \"37\"."
+            value: "These articles included %1$@, %2$@, and %3$@. Each saved article reflects your interests and helps build a personalized knowledge base on Wikipedia.\n\nActive app users had over %4$@ million saved articles this year.",
+            comment: "Year in review, personalized saved articles slide subtitle. %1$@, %2$@ and %3$@ are replaced with up to three article names the user saved (each enclosed in <b> tags). %4$@ is replaced with the number of saved articles text, e.g. \"37\"."
         )
         
         let numSavedArticlesString = formatNumber(37, fractionDigits: 0)
         
-        return String.localizedStringWithFormat(format, saveCount, articleName1, articleName2, articleName3, numSavedArticlesString)
+        return String.localizedStringWithFormat(format, articleName1, articleName2, articleName3, numSavedArticlesString)
     }
     
     func personalizedListSlideSubtitle(items: [String]) -> String {

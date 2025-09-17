@@ -32,7 +32,7 @@ final class YearInReviewTopReadArticleSlideDataController: YearInReviewSlideData
                     return item.page.title.replacingOccurrences(of: "_", with: " ")
                 }
             
-            articles = top5
+            articles = ["Pamela Anderson", "Pamukkale", "History of US science fiction and fantasy magazines to 1950"]
         }
         
         isEvaluated = true

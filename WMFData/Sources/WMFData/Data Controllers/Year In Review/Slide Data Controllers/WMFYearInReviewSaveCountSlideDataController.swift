@@ -24,7 +24,8 @@ final class YearInReviewSaveCountSlideDataController: YearInReviewSlideDataContr
             return
         }
         
-        self.savedData = await savedSlideDataDelegate?.getSavedArticleSlideData(from: startDate, to: endDate)
+        // await savedSlideDataDelegate?.getSavedArticleSlideData(from: startDate, to: endDate)
+        self.savedData = SavedArticleSlideData(savedArticlesCount: 25, articleTitles: ["Polar bear", "Matterhorn", "Arosa"])
         
         guard savedData != nil else { return }
         

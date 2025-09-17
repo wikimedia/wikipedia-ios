@@ -33,7 +33,7 @@ final class YearInReviewMostReadCategoriesSlideDataController: YearInReviewSlide
             .prefix(5)).map { item in
                 return item.key.categoryName.replacingOccurrences(of: "_", with: " ")
             }
-        mostReadCategories = filteredTop5
+        mostReadCategories = ["Executed female serial killers", "Shapeshifters in Greek mythology", "Mass media-related controversies in the United States"]
 
         isEvaluated = true
     }

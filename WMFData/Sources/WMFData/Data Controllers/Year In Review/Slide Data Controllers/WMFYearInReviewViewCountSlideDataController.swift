@@ -23,7 +23,8 @@ final class YearInReviewViewCountSlideDataController: YearInReviewSlideDataContr
 
     func populateSlideData(in context: NSManagedObjectContext) async throws {
         guard let userID, let languageCode else { return }
-        viewCount = try await self.fetchEditViews(project: project, userId: userID, language: languageCode)
+        // try await self.fetchEditViews(project: project, userId: userID, language: languageCode)
+        viewCount = 14791
         isEvaluated = true
     }
 

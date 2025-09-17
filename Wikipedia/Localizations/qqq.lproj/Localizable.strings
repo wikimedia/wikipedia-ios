@@ -1524,7 +1524,7 @@
 "year-in-review-personalized-reading-title-format" = "Year in review, personalized reading article count slide title for users that read articles. $1 is replaced with the number of articles the user read.";
 "year-in-review-personalized-reading-title-v3-format" = "Year in review, personalized reading article count slide title for users that read articles. $1 is replaced with the number of minutes the user spent reading and $2 is replaced with the number of articles the user read in 2025.";
 "year-in-review-personalized-saved-articles" = "Accessibility description for the personalized saved articles slide.";
-"year-in-review-personalized-saved-subtitle-format" = "Year in review, personalized saved articles slide subtitle. $1 is replaced with the number of articles the user saved, $2, $3 and $4 are replaced with up to three article names the user saved (each enclosed in <b> tags). $5 is replaced with the number of saved articles text, e.g. \"37\".";
+"year-in-review-personalized-saved-subtitle-format" = "Year in review, personalized saved articles slide subtitle. $1, $2 and $3 are replaced with up to three article names the user saved (each enclosed in <b> tags). $4 is replaced with the number of saved articles text, e.g. \"37\".";
 "year-in-review-personalized-saved-title-format" = "Year in review, personalized saved articles slide subtitle. $1 is replaced with the number of articles the user saved.";
 "year-in-review-personalized-user-edits" = "Accessibility description for the personalized user edits slide.";
 "year-in-review-personalized-weekday" = "Accessibility description for the personalized weekday slide.";

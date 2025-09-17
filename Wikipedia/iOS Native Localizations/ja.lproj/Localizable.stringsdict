@@ -636,6 +636,20 @@
 		<key>NSStringLocalizedFormatKey</key>
 		<string>あなたが読んだのは、</string>
 	</dict>
+	<key>year-in-review-personalized-saved-subtitle-format</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>あなたは%2$@、%3$@、%4$@ を含め、%#@v1@を保存しました。保存されたどの記事もあなたが興味をいだいた事柄を反映しており、あなた専用の知識ベースをウィキペディア上に構築する役に立ちます。</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>@</string>
+			<key>other</key>
+			<string>%1$@ 件の記事</string>
+		</dict>
+	</dict>
 	<key>year-in-review-personalized-saved-title-format</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>

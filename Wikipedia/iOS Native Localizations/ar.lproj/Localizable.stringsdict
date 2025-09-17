@@ -958,6 +958,20 @@
 			<string>%2$d مقالات</string>
 		</dict>
 	</dict>
+	<key>year-in-review-personalized-saved-subtitle-format</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>لقد قمت بحفظ %#@v1@ هذا العام، بما في ذلك %2$@ و %3$@ و %4$@. تعكس كل مقالة محفوظة اهتماماتك وتساعد في بناء قاعدة معرفية مخصصة على ويكيبيديا.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>@</string>
+			<key>other</key>
+			<string>%1$@ مقالة</string>
+		</dict>
+	</dict>
 	<key>year-in-review-personalized-saved-title-format</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
