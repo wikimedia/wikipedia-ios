@@ -84,8 +84,9 @@ struct WMFYearInReviewContributionSlideView: View {
                         if viewModel.contributionStatus == .contributor {
                             VStack(spacing: 16) {
                                 Divider()
+                                    .padding(.top, 8)
                                 HStack(spacing: 0) {
-                                    VStack(alignment: .leading, spacing: 2) {
+                                    VStack(alignment: .leading, spacing: 4) {
                                         Text(viewModel.toggleButtonTitle)
                                             .font(Font(WMFFont.for(.title3)))
                                             .foregroundStyle(Color(uiColor: theme.text))
@@ -110,7 +111,7 @@ struct WMFYearInReviewContributionSlideView: View {
                                 }
                             }
                         }
-                    } // here
+                    }
                     .padding(EdgeInsets(top: 0, leading: sizeClassPadding, bottom: viewModel.contributionStatus == .noncontributor && !viewModel.forceHideDonateButton ? 66 : 0, trailing: sizeClassPadding))
                 }
             )
