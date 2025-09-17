@@ -728,7 +728,7 @@ public class WMFYearInReviewViewModel: ObservableObject {
 
         if let topReadArticles {
             let top3 = topReadArticles.prefix(3)
-            let articleList = makeNumberedBlueList(Array(top3))
+            let articleList = makeNumberedBlueList(Array(top3), needsLinkColor: true)
             let topArticlesItem = TableItem(title: localizedStrings.longestReadArticlesTitle, richRows: articleList)
 
             itemArray.append(topArticlesItem)
@@ -756,7 +756,7 @@ public class WMFYearInReviewViewModel: ObservableObject {
 
         if let frequentCategories {
             let top3 = frequentCategories.prefix(3)
-            let categoryList = makeNumberedBlueList(Array(top3))
+            let categoryList = makeNumberedBlueList(Array(top3), needsLinkColor: false)
             let categoriesItem = TableItem(title: localizedStrings.favoriteCategoriesTitle, richRows: categoryList)
             itemArray.append(categoriesItem)
         }
@@ -778,7 +778,7 @@ public class WMFYearInReviewViewModel: ObservableObject {
     func getEnglishCollectiveHighlights() -> WMFYearInReviewSlideHighlightsViewModel {
         let articles = ["Super long very long article title that is long ", "Article Article Article", "Article Article"]
 
-        let blueList = makeNumberedBlueList(articles)
+        let blueList = makeNumberedBlueList(articles, needsLinkColor: true)
 
         let topArticles = TableItem(title: localizedStrings.enWikiTopArticlesTitle, richRows: blueList)
         let hoursSpent = TableItem(title: localizedStrings.hoursSpentReadingTitle, text: "987654321")
@@ -1268,13 +1268,13 @@ public class WMFYearInReviewViewModel: ObservableObject {
     }
 
     /// Helper method to format the infobox on the highlights slide
-    func makeNumberedBlueList(_ articles: [String]) -> [InfoboxRichRow] {
+    func makeNumberedBlueList(_ articles: [String], needsLinkColor: Bool) -> [InfoboxRichRow] {
         articles.enumerated().map { (i, title) in
             var numberRun = AttributedString("\(i + 1). ")
             numberRun.foregroundColor = Color(WMFColor.black)
 
             var titleRun = AttributedString(title)
-            titleRun.foregroundColor = Color(WMFColor.blue600)
+            titleRun.foregroundColor = needsLinkColor ? Color(WMFColor.blue600) : Color(WMFColor.black)
 
             return InfoboxRichRow(numberText: numberRun, titleText: titleRun)
         }
