@@ -978,22 +978,6 @@
 			<string>%2$d статии</string>
 		</dict>
 	</dict>
-	<key>year-in-review-personalized-saved-subtitle-format</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>Годинава зачувавте %#@v1@ како %2$@, %3$@ и %4$@. Секоја зачувана статија ги одразува вашите интереси и ни помага да изградиме персонализирана база на знаења на Википедија.</string>
-		<key>v1</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>@</string>
-			<key>one</key>
-			<string>%1$@ статија</string>
-			<key>other</key>
-			<string>%1$@ статии</string>
-		</dict>
-	</dict>
 	<key>year-in-review-personalized-saved-title-format</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>

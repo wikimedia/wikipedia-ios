@@ -957,20 +957,6 @@
 			<string>%2$d Artikel</string>
 		</dict>
 	</dict>
-	<key>year-in-review-personalized-saved-subtitle-format</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>Du hast dieses Jahr %#@v1@ gespeichert, darunter %2$@, %3$@, und %4$@. Jeder gespeicherte Artikel spiegelt deine Interessen wider und hilft dabei, eine personalisierte Wissensbasis auf Wikipedia aufzubauen.</string>
-		<key>v1</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>@</string>
-			<key>other</key>
-			<string>%1$@ Artikel</string>
-		</dict>
-	</dict>
 	<key>year-in-review-personalized-saved-title-format</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
