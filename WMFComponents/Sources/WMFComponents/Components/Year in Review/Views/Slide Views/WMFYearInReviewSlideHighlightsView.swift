@@ -52,7 +52,7 @@ public struct WMFYearInReviewSlideHighlightsView: View {
                 }
             }
             .padding(.horizontal, 32)
-            .padding(.bottom, 24)
+            .padding(.bottom, 16)
             .padding(.top, 32)
         }
     }
