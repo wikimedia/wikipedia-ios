@@ -564,7 +564,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         let articleName3 = articleNames.count >= 3 ? "<b>\(articleNames[2])</b>" : ""
         
         let format = WMFLocalizedString(
-            "year-in-review-personalized-saved-subtitle-format",
+            "year-in-review-personalized-saved-subtitle-format-v3",
             value: "These articles included %1$@, %2$@, and %3$@. Each saved article reflects your interests and helps build a personalized knowledge base on Wikipedia.\n\nActive app users had over %4$@ million saved articles this year.",
             comment: "Year in review, personalized saved articles slide subtitle. %1$@, %2$@ and %3$@ are replaced with up to three article names the user saved (each enclosed in <b> tags). %4$@ is replaced with the number of saved articles text, e.g. \"37\"."
         )
