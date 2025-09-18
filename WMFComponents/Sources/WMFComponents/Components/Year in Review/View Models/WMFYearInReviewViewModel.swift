@@ -297,7 +297,7 @@ public class WMFYearInReviewViewModel: ObservableObject {
     public var toggleAppIcon: (Bool) -> Void
     public var isIconOn: Bool
 
-    @Published public var isLoading: Bool = false
+    @Published public var isLoadingDonate: Bool = false
     
     public init(localizedStrings: LocalizedStrings, shareLink: String, hashtag: String, plaintextURL: String, coordinatorDelegate: YearInReviewCoordinatorDelegate?, loggingDelegate: WMFYearInReviewLoggingDelegate, badgeDelegate: YearInReviewBadgeDelegate?, isUserPermanent: Bool, aboutYiRURL: URL?, primaryAppLanguage: WMFProject, toggleAppIcon: @escaping (Bool) -> Void, isIconOn: Bool) {
 

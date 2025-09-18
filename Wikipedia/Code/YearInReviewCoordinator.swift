@@ -823,7 +823,7 @@ extension YearInReviewCoordinator: YearInReviewCoordinatorDelegate {
                     return
                 }
 
-                viewModel.isLoading = loading
+                viewModel.isLoadingDonate = loading
             })
 
             self.donateCoordinator = donateCoordinator
