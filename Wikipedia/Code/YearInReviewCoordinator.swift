@@ -317,19 +317,8 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
     }
 
     func personalizedYouReadSlideSubtitleV2(readCount: Int) -> String {
-        let format = WMFLocalizedString("year-in-review-personalized-reading-subtitle-format", value: "You read {{PLURAL:%1$d|%1$d article|%1$d articles}}. Wikipedia had %2$@ million articles available across over %3$@ active languages. You joined millions in expanding knowledge and exploring diverse topics.", comment: "Year in review, personalized reading article count slide subtitle for users that read articles. %1$d is replaced with the number of articles the user read. %2$@ is replaced with the number of articles available across Wikipedia, for example, \"63.59\". %3$@ is replaced with the number of active languages available on Wikipedia, for example \"300\"")
-
-        let formatter = NumberFormatter()
-        formatter.numberStyle = .decimal
-        formatter.maximumFractionDigits = 0
-        let numArticles = NSNumber(63)
-        let numArticlesString = formatter.string(from: numArticles) ?? "63"
-
-        formatter.maximumFractionDigits = 0
-        let numLanguages = NSNumber(300)
-        let numLanguagesString = formatter.string(from: numLanguages) ?? "300"
-
-        return String.localizedStringWithFormat(format, readCount, numArticlesString, numLanguagesString)
+        let format = WMFLocalizedString("year-in-review-personalized-reading-subtitle-format", value: "You read {{PLURAL:%1$d|%1$d article|%1$d articles}}. Wikipedia had 63 million articles available across over 300 active languages. You joined millions in expanding knowledge and exploring diverse topics.", comment: "Year in review, personalized reading article count slide subtitle for users that read articles. %1$d is replaced with the number of articles the user read.")
+        return String.localizedStringWithFormat(format, readCount)
     }
     
     func personalizedYouReadSlideTitleV3(readCount: Int, minutesRead: Int) -> String {
@@ -481,7 +470,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
     }
     
     func personzlizedUserEditsSlideSubtitleNonEN() -> String {
-        let format = WMFLocalizedString("year-in-review-personalized-editing-subtitle-non-en", value: "Thank you for being one of the volunteer editors making a difference on Wikimedia projects around the world.", comment: "Year in review, personalized editing article count slide subtitle for users that edited articles. %1$d is replaced with the number of edits the user made.")
+        let format = WMFLocalizedString("year-in-review-personalized-editing-subtitle-non-en", value: "Thank you for being one of the volunteer editors making a difference on Wikimedia projects around the world.", comment: "Year in review, personalized editing article count slide subtitle for users that edited articles.")
         return String.localizedStringWithFormat(format)
     }
     
