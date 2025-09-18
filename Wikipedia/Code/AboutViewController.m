@@ -210,11 +210,11 @@ static NSString *const kWMFContributorsKey = @"contributors";
 
     NSString *setActivityTabGroupC = WMFLocalizedStringWithDefaultValue(@"developer-settings-activity-tab-group-C", nil, nil, @"Set activity tab to group C", @"Title for option to set activity tab experiment to group C");
 
-    NSString *enableMoreDynamicTabsBYR = WMFLocalizedStringWithDefaultValue(@"developer-settings-dynamic-tabs-BYR", nil, nil, @"Enable tabs with Because You Read", @"Title for option to enable tabs Because You Read option");
+    NSString *enableMoreDynamicTabsGroupB = WMFLocalizedStringWithDefaultValue(@"developer-settings-dynamic-tabs-group-B", nil, nil, @"Enable tabs with group B", @"Title for option to enable tabs for Group B");
 
-    NSString *enableMoreDynamicTabsDYK = WMFLocalizedStringWithDefaultValue(@"developer-settings-dynamic-tabs-DYK", nil, nil, @"Enable tabs with Did You Know", @"Title for option to enable Did You Know option");
+    NSString *enableMoreDynamicTabsGroupC = WMFLocalizedStringWithDefaultValue(@"developer-settings-dynamic-tabs-group-C", nil, nil, @"Enable tabs with group C", @"Title for option to enable for Group C");
 
-    WMFDeveloperSettingsLocalizedStrings *localizedStrings = [[WMFDeveloperSettingsLocalizedStrings alloc] initWithDeveloperSettings:developerSettings doNotPostImageRecommendations:doNotPostImageRecommendations sendAnalyticsToWMFLabs:sendAnalyticsToWMFLabs enableMoreDynamicTabsBYR:enableMoreDynamicTabsBYR enableMoreDynamicTabsDYK:enableMoreDynamicTabsDYK enableYearinReview:enableYearInReview bypassDonation:bypassDonation forceEmailAuth:forceEmailAuth setActivityTabGroupA:setActivityTabGroupA setActivityTabGroupB:setActivityTabGroupB setActivityTabGroupC:setActivityTabGroupC done:WMFCommonStrings.doneTitle];
+    WMFDeveloperSettingsLocalizedStrings *localizedStrings = [[WMFDeveloperSettingsLocalizedStrings alloc] initWithDeveloperSettings:developerSettings doNotPostImageRecommendations:doNotPostImageRecommendations sendAnalyticsToWMFLabs:sendAnalyticsToWMFLabs enableMoreDynamicTabsGroupB:enableMoreDynamicTabsGroupB enableMoreDynamicTabsGroupC:enableMoreDynamicTabsGroupC enableYearinReview:enableYearInReview bypassDonation:bypassDonation forceEmailAuth:forceEmailAuth setActivityTabGroupA:setActivityTabGroupA setActivityTabGroupB:setActivityTabGroupB setActivityTabGroupC:setActivityTabGroupC done:WMFCommonStrings.doneTitle];
     WMFDeveloperSettingsViewModel *viewModel = [[WMFDeveloperSettingsViewModel alloc] initWithLocalizedStrings:localizedStrings];
 
     WMFDeveloperSettingsViewController *viewController = [[WMFDeveloperSettingsViewController alloc] initWithViewModel:viewModel];
