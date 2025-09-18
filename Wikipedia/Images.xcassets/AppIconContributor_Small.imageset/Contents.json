@@ -1,7 +1,7 @@
 {
   "images" : [
     {
-      "filename" : "ContributorAppIcon.png",
+      "filename" : "60 (1).pdf",
       "idiom" : "universal"
     }
   ],
@@ -10,7 +10,6 @@
     "version" : 1
   },
   "properties" : {
-    "preserves-vector-representation" : true,
     "template-rendering-intent" : "template"
   }
 }

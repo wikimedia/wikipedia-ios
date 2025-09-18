@@ -53,13 +53,6 @@
 
 - (void)setIconOriginalRendering:(BOOL)iconOriginalRendering {
     _iconOriginalRendering = iconOriginalRendering;
-    if (iconOriginalRendering) {
-        self.titleIcon.image = [[UIImage imageNamed:self.iconName] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-        self.titleIcon.contentMode = UIViewContentModeScaleAspectFit;
-    } else {
-        self.titleIcon.image = [[UIImage imageNamed:self.iconName] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
-        self.titleIcon.contentMode = UIViewContentModeScaleAspectFill;
-    }
 }
 
 - (void)setDisclosureText:(NSString *)disclosureText {
