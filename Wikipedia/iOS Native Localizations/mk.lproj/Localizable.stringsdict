@@ -903,38 +903,6 @@
 			<string>%1$d пати</string>
 		</dict>
 	</dict>
-	<key>year-in-review-personalized-reading-subtitle-format</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>Прочитавте %#@v1@. Википедија имаше %2$@ милиони статии на преку %3$@ активни јазици. Се придруживте на милиони луѓе во проширување на знаењето и истражувањето на разновидни теми.</string>
-		<key>v1</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
-			<key>one</key>
-			<string>%1$d статија</string>
-			<key>other</key>
-			<string>%1$d статии</string>
-		</dict>
-	</dict>
-	<key>year-in-review-personalized-reading-subtitle-format-v3</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>Ова ве става во највисокиот **PERCENT** од читателите на Википедија во светот. Просечниот човек чита %#@v1@ годишно.</string>
-		<key>v1</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
-			<key>one</key>
-			<string>%1$d статија</string>
-			<key>other</key>
-			<string>%1$d статии</string>
-		</dict>
-	</dict>
 	<key>year-in-review-personalized-reading-title-format</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>

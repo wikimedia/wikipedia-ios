@@ -861,34 +861,6 @@
 			<string>%1$d</string>
 		</dict>
 	</dict>
-	<key>year-in-review-personalized-reading-subtitle-format</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>您閱讀了%#@v1@文章。維基百科提供超過%2$@百萬篇文章，涵蓋超過%3$@種活躍的語言版本。您與數百萬人一起拓展知識，探索多樣化的主題。</string>
-		<key>v1</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
-			<key>other</key>
-			<string>%1$d篇</string>
-		</dict>
-	</dict>
-	<key>year-in-review-personalized-reading-subtitle-format-v3</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>這使您列入維基百科全球讀者的前 **PERCENT**。平均每人每年閱讀 %#@v1@ 篇條目。</string>
-		<key>v1</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
-			<key>other</key>
-			<string>%1$d</string>
-		</dict>
-	</dict>
 	<key>year-in-review-personalized-reading-title-format</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
