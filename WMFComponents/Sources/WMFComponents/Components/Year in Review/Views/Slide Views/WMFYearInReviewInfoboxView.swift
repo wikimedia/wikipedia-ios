@@ -6,6 +6,7 @@ public struct WMFYearInReviewInfoboxView: View {
     var theme: WMFTheme { appEnvironment.theme }
     var viewModel: WMFInfoboxViewModel
     var isSharing: Bool
+    @State private var containerWidth: CGFloat?
 
     private var fontTraitOverride: UITraitCollection? {
         isSharing ? UITraitCollection(preferredContentSizeCategory: .medium) : nil
@@ -32,7 +33,7 @@ public struct WMFYearInReviewInfoboxView: View {
                         .font(titleFont)
                         .foregroundStyle(Color(uiColor: WMFColor.black))
                         .fixedSize(horizontal: false, vertical: true)
-                        .frame(width: 108, alignment: .leading)
+                        .frame(width: ((containerWidth ?? 540) / 5) * 2, alignment: .leading)
 
                     if let rows = item.richRows {
                         VStack(alignment: .leading, spacing: 6) {
@@ -63,10 +64,28 @@ public struct WMFYearInReviewInfoboxView: View {
                     }
                 }
                 .frame(maxWidth: .infinity, alignment: .leading)
+                .background(
+                    GeometryReader { geo in
+                        Color.clear
+                            .preference(key: WidthKey.self, value: geo.size.width)
+                    }
+                )
+                .onPreferenceChange(WidthKey.self) { width in
+                    containerWidth = width
+                }
             }
         }
         .padding(8)
         .background(Color(WMFColor.gray100))
         .frame(maxWidth: .infinity, alignment: .leading)
+    }
+}
+
+struct WidthKey: PreferenceKey {
+    static var defaultValue: CGFloat = 0
+
+    static func reduce(value: inout CGFloat, nextValue: () -> CGFloat) {
+        // Keep the largest reported width (or sum, or whatever logic you need)
+        value = max(value, nextValue())
     }
 }
