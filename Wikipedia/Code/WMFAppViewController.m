@@ -1029,8 +1029,6 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
     [resumeAndAnnouncementsCompleteGroup enter];
     [self.dataStore.authenticationManager
         attemptLoginWithCompletion:^{
-            [self populateYearInReviewReportFor:WMFYearInReviewDataController.targetYear];
-
             [self checkRemoteAppConfigIfNecessary];
             if (!self.reachabilityNotifier) {
                 @weakify(self);
@@ -1483,7 +1481,7 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
 
 - (SearchViewController *)searchViewController {
     if (!_searchViewController) {
-        _searchViewController = [[SearchViewController alloc] initWithSource:EventLoggingSourceSearchTab customArticleCoordinatorNavigationController:nil needsAttachedView: NO isMainRootView:YES];
+        _searchViewController = [[SearchViewController alloc] initWithSource:EventLoggingSourceSearchTab customArticleCoordinatorNavigationController:nil needsAttachedView:NO isMainRootView:YES];
         [_searchViewController applyTheme:self.theme];
         _searchViewController.dataStore = self.dataStore;
         _searchViewController.tabBarItem.image = [UIImage imageNamed:@"search"];
