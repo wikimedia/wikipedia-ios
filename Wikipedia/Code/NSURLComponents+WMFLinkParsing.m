@@ -6,13 +6,7 @@
 
 + (NSURLComponents *)wmf_componentsWithDomain:(NSString *)domain
                                  languageCode:(NSString *)languageCode {
-    return [self wmf_componentsWithDomain:domain languageCode:languageCode isMobile:NO];
-}
-
-+ (NSURLComponents *)wmf_componentsWithDomain:(NSString *)domain
-                                 languageCode:(NSString *)languageCode
-                                     isMobile:(BOOL)isMobile {
-    return [self wmf_componentsWithDomain:domain languageCode:languageCode title:nil fragment:nil isMobile:isMobile];
+    return [self wmf_componentsWithDomain:domain languageCode:languageCode title:nil fragment:nil];
 }
 
 + (NSURLComponents *)wmf_componentsWithDomain:(NSString *)domain
@@ -25,17 +19,9 @@
                                  languageCode:(NSString *)languageCode
                                         title:(NSString *)title
                                      fragment:(NSString *)fragment {
-    return [self wmf_componentsWithDomain:domain languageCode:languageCode title:title fragment:fragment isMobile:NO];
-}
-
-+ (NSURLComponents *)wmf_componentsWithDomain:(NSString *)domain
-                                 languageCode:(NSString *)languageCode
-                                        title:(NSString *)title
-                                     fragment:(NSString *)fragment
-                                     isMobile:(BOOL)isMobile {
     NSURLComponents *URLComponents = [[NSURLComponents alloc] init];
     URLComponents.scheme = @"https";
-    URLComponents.host = [NSURLComponents wmf_hostWithDomain:domain languageCode:languageCode isMobile:isMobile];
+    URLComponents.host = [NSURLComponents wmf_hostWithDomain:domain languageCode:languageCode];
     if (fragment != nil) {
         URLComponents.wmf_fragment = fragment;
     }
@@ -46,20 +32,15 @@
 }
 
 + (NSString *)wmf_hostWithDomain:(NSString *)domain
-                    languageCode:(NSString *)languageCode
-                        isMobile:(BOOL)isMobile {
-    return [self wmf_hostWithDomain:domain subDomain:languageCode isMobile:isMobile];
+                    languageCode:(NSString *)languageCode {
+    return [self wmf_hostWithDomain:domain subDomain:languageCode];
 }
 
 + (NSString *)wmf_hostWithDomain:(NSString *)domain
-                       subDomain:(NSString *)subDomain
-                        isMobile:(BOOL)isMobile {
+                       subDomain:(NSString *)subDomain {
     NSMutableArray *hostComponents = [NSMutableArray array];
     if (subDomain) {
         [hostComponents addObject:subDomain];
-    }
-    if (isMobile) {
-        [hostComponents addObject:@"m"];
     }
     if (domain) {
         [hostComponents addObject:domain];
