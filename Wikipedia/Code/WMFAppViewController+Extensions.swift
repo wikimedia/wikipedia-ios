@@ -681,39 +681,6 @@ extension WMFAppViewController {
             }
         }
     }
-
-
-    @objc func populateYearInReviewReport(for year: Int) {
-        guard let language  = dataStore.languageLinkController.appLanguage?.languageCode,
-              let countryCode = Locale.current.region?.identifier
-        else { return }
-        let wmfLanguage = WMFLanguage(languageCode: language, languageVariantCode: nil)
-        let project = WMFProject.wikipedia(wmfLanguage)
-        var userId: Int?
-
-        if let siteURL = dataStore.languageLinkController.appLanguage?.siteURL,
-           let userID = dataStore.authenticationManager.permanentUser(siteURL: siteURL)?.userID {
-            userId = userID
-        }
-        
-        let userIdString: String? = userId.map { String($0) }
-
-        Task {
-            do {
-                let yirDataController = try WMFYearInReviewDataController()
-                try await yirDataController.populateYearInReviewReportData(
-                    for: year,
-                    countryCode: countryCode,
-                    primaryAppLanguageProject: project,
-                    username: dataStore.authenticationManager.authStatePermanentUsername,
-                    userID: userIdString,
-                    savedSlideDataDelegate: dataStore.savedPageList,
-                    legacyPageViewsDataDelegate: dataStore)
-            } catch {
-                DDLogError("Failure populating year in review report: \(error)")
-            }
-        }
-    }
     
     @objc func deleteYearInReviewPersonalizedNetworkData() {
         Task {
