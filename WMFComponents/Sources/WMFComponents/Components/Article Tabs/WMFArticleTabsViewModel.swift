@@ -67,8 +67,10 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
         public let closeAllTabsTitle: String
         public let closeAllTabsSubtitle: String
         public let closedAlertsNotification: String
-        
-        public init(navBarTitleFormat: String, mainPageTitle: String?, mainPageSubtitle: String, mainPageDescription: String, closeTabAccessibility: String, openTabAccessibility: String, tabsPreferencesTitle: String, closeAllTabs: String, cancelActionTitle: String, closeAllTabsTitle: String, closeAllTabsSubtitle: String, closedAlertsNotification: String) {
+        public let emptyStateTitle: String
+        public let emptyStateSubtitle: String
+
+        public init(navBarTitleFormat: String, mainPageTitle: String?, mainPageSubtitle: String, mainPageDescription: String, closeTabAccessibility: String, openTabAccessibility: String, tabsPreferencesTitle: String, closeAllTabs: String, cancelActionTitle: String, closeAllTabsTitle: String, closeAllTabsSubtitle: String, closedAlertsNotification: String, emptyStateTitle: String, emptyStateSubtitle: String) {
             self.navBarTitleFormat = navBarTitleFormat
             self.mainPageTitle = mainPageTitle
             self.mainPageSubtitle = mainPageSubtitle
@@ -81,6 +83,8 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
             self.closeAllTabsTitle = closeAllTabsTitle
             self.closeAllTabsSubtitle = closeAllTabsSubtitle
             self.closedAlertsNotification = closedAlertsNotification
+            self.emptyStateTitle = emptyStateTitle
+            self.emptyStateSubtitle = emptyStateSubtitle
         }
     }
     
