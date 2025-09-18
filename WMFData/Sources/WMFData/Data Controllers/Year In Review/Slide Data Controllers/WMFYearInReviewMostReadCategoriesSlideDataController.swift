@@ -33,7 +33,14 @@ final class YearInReviewMostReadCategoriesSlideDataController: YearInReviewSlide
             .prefix(5)).map { item in
                 return item.key.categoryName.replacingOccurrences(of: "_", with: " ")
             }
-        mostReadCategories = ["Executed female serial killers", "Shapeshifters in Greek mythology", "Mass media-related controversies in the United States"]
+        
+        if let topLanguage = Locale.preferredLanguages.first,
+           topLanguage.hasPrefix("ja") {
+            mostReadCategories = ["処刑された女性連続殺人犯", "ギリシャ神話の変身能力者", "米国におけるマスメディア関連の論争"]
+        } else {
+            mostReadCategories = ["Executed female serial killers", "Shapeshifters in Greek mythology", "Mass media-related controversies in the United States"]
+        }
+        
 
         isEvaluated = true
     }
