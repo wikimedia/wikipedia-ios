@@ -785,22 +785,6 @@
 			<string>%1$d voci</string>
 		</dict>
 	</dict>
-	<key>year-in-review-personalized-saved-subtitle-format</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>Hai salvato %#@v1@ quest'anno, inclusi %2$@ , %3$@ e %4$@ . Ogni articolo salvato riflette i tuoi interessi e contribuisce a creare una base di conoscenza personalizzata su Wikipedia.</string>
-		<key>v1</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>@</string>
-			<key>one</key>
-			<string> %1$@ articolo</string>
-			<key>other</key>
-			<string> %1$@ articoli</string>
-		</dict>
-	</dict>
 	<key>year-in-review-personalized-saved-title-format</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
