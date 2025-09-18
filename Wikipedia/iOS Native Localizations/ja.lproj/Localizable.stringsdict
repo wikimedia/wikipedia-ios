@@ -650,7 +650,7 @@
 	<key>year-in-review-personalized-saved-title-format</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>あなたは%#@v1@を保存しました。</string>
+		<string>あなたは%#@v1@を保存しました</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
