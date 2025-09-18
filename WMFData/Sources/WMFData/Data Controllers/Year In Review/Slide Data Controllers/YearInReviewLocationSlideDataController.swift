@@ -27,10 +27,19 @@ final class YearInReviewLocationSlideDataController: YearInReviewSlideDataContro
             throw NSError(domain: "", code: 0, userInfo: nil)
         }
         
-        legacyPageViews = [
-            WMFLegacyPageView(title: "Eiffel Tower", project: .wikipedia(WMFLanguage(languageCode: "en", languageVariantCode: nil)), viewedDate: Date(), latitude: 48.858222206788668, longitude: 2.2945000190042322),
-            WMFLegacyPageView(title: "The Louvre", project: .wikipedia(WMFLanguage(languageCode: "en", languageVariantCode: nil)), viewedDate: Date(), latitude: 48.861111113536424, longitude: 2.3358333628475236)
-        ]
+        if let topLanguage = Locale.preferredLanguages.first,
+           topLanguage.hasPrefix("ja") {
+            legacyPageViews = [
+                WMFLegacyPageView(title: "エッフェル塔", project: .wikipedia(WMFLanguage(languageCode: "en", languageVariantCode: nil)), viewedDate: Date(), latitude: 48.858222206788668, longitude: 2.2945000190042322),
+                WMFLegacyPageView(title: "ルーブル美術館", project: .wikipedia(WMFLanguage(languageCode: "en", languageVariantCode: nil)), viewedDate: Date(), latitude: 48.861111113536424, longitude: 2.3358333628475236)
+            ]
+        } else {
+            legacyPageViews = [
+                WMFLegacyPageView(title: "Eiffel Tower", project: .wikipedia(WMFLanguage(languageCode: "en", languageVariantCode: nil)), viewedDate: Date(), latitude: 48.858222206788668, longitude: 2.2945000190042322),
+                WMFLegacyPageView(title: "The Louvre", project: .wikipedia(WMFLanguage(languageCode: "en", languageVariantCode: nil)), viewedDate: Date(), latitude: 48.861111113536424, longitude: 2.3358333628475236)
+            ]
+        }
+        
         
         isEvaluated = true
     }

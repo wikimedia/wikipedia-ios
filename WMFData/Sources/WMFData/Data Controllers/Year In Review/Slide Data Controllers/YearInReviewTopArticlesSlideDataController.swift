@@ -32,7 +32,13 @@ final class YearInReviewTopReadArticleSlideDataController: YearInReviewSlideData
                     return item.page.title.replacingOccurrences(of: "_", with: " ")
                 }
             
-            articles = ["Pamela Anderson", "Pamukkale", "History of US science fiction and fantasy magazines to 1950"]
+            if let topLanguage = Locale.preferredLanguages.first,
+               topLanguage.hasPrefix("ja") {
+                articles = ["ノム・ワー・ティーパーラー", "科学研究開発局", "パメラ・アンダーソン"]
+            } else {
+                articles = ["Pamela Anderson", "Pamukkale", "History of US science fiction and fantasy magazines to 1950"]
+            }
+            
         }
         
         isEvaluated = true

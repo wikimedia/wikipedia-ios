@@ -25,7 +25,12 @@ final class YearInReviewSaveCountSlideDataController: YearInReviewSlideDataContr
         }
         
         // await savedSlideDataDelegate?.getSavedArticleSlideData(from: startDate, to: endDate)
-        self.savedData = SavedArticleSlideData(savedArticlesCount: 25, articleTitles: ["Polar bear", "Matterhorn", "Arosa"])
+        if let topLanguage = Locale.preferredLanguages.first,
+           topLanguage.hasPrefix("ja") {
+            self.savedData = SavedArticleSlideData(savedArticlesCount: 25, articleTitles: ["ホッキョクグマ", "マッターホルン", "アローザ"])
+        } else {
+            self.savedData = SavedArticleSlideData(savedArticlesCount: 25, articleTitles: ["Polar bear", "Matterhorn", "Arosa"])
+        }
         
         guard savedData != nil else { return }
         

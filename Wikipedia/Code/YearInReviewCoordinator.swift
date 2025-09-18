@@ -134,7 +134,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
             personalizedUserEditsSlideTitle: personzlizedUserEditsSlideTitle(editCount:),
             personzlizedUserEditsSlideTitle500Plus: WMFLocalizedString("year-in-review-personalized-editing-title-format-500plus", value: "You edited Wikipedia 500+ times", comment: "Year in review, personalized editing article count slide title for users that edited articles 500+ times."),
             personzlizedUserEditsSlideSubtitleEN: personzlizedUserEditsSlideSubtitleEN(),
-            personzlizedUserEditsSlideSubtitleNonEN: personzlizedUserEditsSlideSubtitleFirstSentence(),
+            personzlizedUserEditsSlideSubtitleNonEN: personzlizedUserEditsSlideSubtitleNonEN(),
             personalizedYourEditsViewedSlideTitle: personalizedYourEditsViewedSlideTitle(views:),
             personalizedYourEditsViewedSlideSubtitle: personalizedYourEditsViewedSlideSubtitle(views:),
             personalizedThankYouTitle: WMFLocalizedString("year-in-review-personalized-donate-title", value: "Your generosity helped keep Wikipedia thriving", comment: "Year in review, personalized donate slide title for users that donated at least once that year. "),
@@ -470,8 +470,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
     }
     
     func personzlizedUserEditsSlideSubtitleNonEN() -> String {
-        let format = WMFLocalizedString("year-in-review-personalized-editing-subtitle-non-en", value: "Thank you for being one of the volunteer editors making a difference on Wikimedia projects around the world.", comment: "Year in review, personalized editing article count slide subtitle for users that edited articles.")
-        return String.localizedStringWithFormat(format)
+        return "\(personzlizedUserEditsSlideSubtitleFirstSentence()) \(personzlizedUserEditsSlideSubtitleSecondSentence())"
     }
     
     func personalizedYourEditsViewedSlideTitle(views: Int) -> String {
