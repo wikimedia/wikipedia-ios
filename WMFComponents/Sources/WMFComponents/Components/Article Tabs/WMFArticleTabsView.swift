@@ -24,7 +24,7 @@ public struct WMFArticleTabsView: View {
             Group {
                 if !isReady {
                     loadingView
-                } else if true {
+                } else if viewModel.articleTabs.isEmpty {
                     emptyStateContainer
                 } else {
                     tabsGrid(geometry)

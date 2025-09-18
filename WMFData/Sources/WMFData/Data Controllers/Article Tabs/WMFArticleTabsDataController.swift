@@ -88,8 +88,8 @@ public protocol WMFArticleTabsDataControlling {
     
     public enum MoreDynamicTabsExperimentAssignment {
         case control
-        case becauseYouRead
-        case didYouKnow
+        case groupB
+        case groupC
     }
     
     // MARK: Nested internal types
@@ -156,11 +156,11 @@ public protocol WMFArticleTabsDataControlling {
     }
     
     public var shouldShowMoreDynamicTabs: Bool {
-        guard !developerSettingsDataController.enableMoreDynamicTabsDYK else {
+        guard !developerSettingsDataController.enableMoreDynamicTabsGroupB else {
             return true
         }
         
-        guard !developerSettingsDataController.enableMoreDynamicTabsBYR else {
+        guard !developerSettingsDataController.enableMoreDynamicTabsGroupC else {
             return true
         }
         
@@ -169,7 +169,7 @@ public protocol WMFArticleTabsDataControlling {
         }
         
         switch assignment {
-        case .becauseYouRead, .didYouKnow:
+        case .groupB, .groupC:
             return true
         case .control:
             return false
@@ -232,10 +232,10 @@ public protocol WMFArticleTabsDataControlling {
             
         case .moreDynamicTabsControl:
             assignment = .control
-        case .moreDynamicTabsBecauseYouRead:
-            assignment = .becauseYouRead
-        case .moreDynamicTabsDidYouKnow:
-            assignment = .didYouKnow
+        case .moreDynamicTabsGroupB:
+            assignment = .groupB
+        case .moreDynamicTabsGroupC:
+            assignment = .groupC
         default:
             throw CustomError.unexpectedAssignment
         }
@@ -264,10 +264,10 @@ public protocol WMFArticleTabsDataControlling {
         switch bucketValue {
         case .moreDynamicTabsControl:
             assignment = .control
-        case .moreDynamicTabsBecauseYouRead:
-            assignment = .becauseYouRead
-        case .moreDynamicTabsDidYouKnow:
-            assignment = .didYouKnow
+        case .moreDynamicTabsGroupB:
+            assignment = .groupB
+        case .moreDynamicTabsGroupC:
+            assignment = .groupC
         default:
             throw CustomError.unexpectedAssignment
         }
@@ -305,8 +305,15 @@ public protocol WMFArticleTabsDataControlling {
             return try moc.count(for: fetchRequest)
         }
     }
-    
+
+    private var isGroupC: Bool {
+        return ((try? getMoreDynamicTabsExperimentAssignment() == .groupC || developerSettingsDataController.enableMoreDynamicTabsGroupC) != nil)
+    }
+
     public func checkAndCreateInitialArticleTabIfNeeded() async throws {
+
+        guard !isGroupC else { return }
+
         let count = try await tabsCount()
         if count == 0 {
             _ = try await createArticleTab(initialArticle: nil, setAsCurrent: true)
@@ -408,19 +415,19 @@ public protocol WMFArticleTabsDataControlling {
         _ = try? await self.createArticleTab(initialArticle: nil, setAsCurrent: true)
     }
     
-    public var moreDynamicTabsBYRIsEnabled: Bool {
+    public var moreDynamicTabsGroupBEnabled: Bool {
         get {
-            return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsMoreDynamicTabsBYR.rawValue)) ?? true
+            return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsMoreDynamicTabsGroupB.rawValue)) ?? true
         } set {
-            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsMoreDynamicTabsBYR.rawValue, value: newValue)
+            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsMoreDynamicTabsGroupB.rawValue, value: newValue)
         }
     }
     
-    public var moreDynamicTabsDYKIsEnabled: Bool {
+    public var moreDynamicTabsGroupCEnabled: Bool {
         get {
-            return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsMoreDynamicTabsDYK.rawValue)) ?? true
+            return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsMoreDynamicTabsGroupC.rawValue)) ?? true
         } set {
-            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsMoreDynamicTabsDYK.rawValue, value: newValue)
+            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsMoreDynamicTabsGroupC.rawValue, value: newValue)
         }
     }
     
