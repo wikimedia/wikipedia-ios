@@ -299,7 +299,10 @@ public class WMFYearInReviewViewModel: ObservableObject {
 
     @Published public var isLoadingDonate: Bool = false
     
-    public init(localizedStrings: LocalizedStrings, shareLink: String, hashtag: String, plaintextURL: String, coordinatorDelegate: YearInReviewCoordinatorDelegate?, loggingDelegate: WMFYearInReviewLoggingDelegate, badgeDelegate: YearInReviewBadgeDelegate?, isUserPermanent: Bool, aboutYiRURL: URL?, primaryAppLanguage: WMFProject, toggleAppIcon: @escaping (Bool) -> Void, isIconOn: Bool) {
+    public var populateYearInReviewReport: () async throws -> Void
+    @Published public var isPopulatingReport: Bool = false
+    
+    public init(localizedStrings: LocalizedStrings, shareLink: String, hashtag: String, plaintextURL: String, coordinatorDelegate: YearInReviewCoordinatorDelegate?, loggingDelegate: WMFYearInReviewLoggingDelegate, badgeDelegate: YearInReviewBadgeDelegate?, isUserPermanent: Bool, aboutYiRURL: URL?, primaryAppLanguage: WMFProject, toggleAppIcon: @escaping (Bool) -> Void, isIconOn: Bool, populateYearInReviewReport: @escaping () async throws -> Void) {
 
         self.localizedStrings = localizedStrings
         self.shareLink = shareLink
@@ -313,6 +316,7 @@ public class WMFYearInReviewViewModel: ObservableObject {
         self.aboutYiRURL = aboutYiRURL
         self.toggleAppIcon = toggleAppIcon
         self.isIconOn = isIconOn
+        self.populateYearInReviewReport = populateYearInReviewReport
         
         // Default inits to avoid compiler complaints later in this method
         self.introV2ViewModel = nil
@@ -320,7 +324,7 @@ public class WMFYearInReviewViewModel: ObservableObject {
         self.slides = []
         self.hasPersonalizedDonateSlide = false
         
-        self.updateSlides(isUserPermanent: isUserPermanent)
+        self.setupIntro(isUserPermanent: isUserPermanent)
     }
     
     // MARK: Personalized Slides
@@ -589,11 +593,10 @@ public class WMFYearInReviewViewModel: ObservableObject {
         return PersonalizedSlides(readCountSlideV2: readCountSlideV2, readCountSlideV3: readCountSlideV3, editCountSlide: editCountSlide, donateCountSlideV2: donateCountSlideV2, donateCountSlideV3: donateCountSlideV3, saveCountSlide: saveCountSlide, mostReadDateSlideV2: mostReadDateSlideV2, mostReadDateSlideV3: mostReadDateSlideV3, viewCountSlide: viewCountSlide, topArticlesSlide: topArticlesSlide, mostReadCategoriesSlide: mostReadCategoriesSlide, locationSlide: locationSlide)
     }
     
-    public func updateSlides(isUserPermanent: Bool) {
-        
-        var slides: [WMFYearInReviewSlide] = []
-        
+    private func setupIntro(isUserPermanent: Bool) {
+
         self.isUserPermanent = isUserPermanent
+        
         // Intro slide
         if WMFDeveloperSettingsDataController.shared.showYiRV3 {
             let introV3LoggingID = "" // TODO: logging ID
@@ -643,6 +646,12 @@ public class WMFYearInReviewViewModel: ObservableObject {
             )
             self.introV2ViewModel = introV2ViewModel
         }
+    }
+    
+    public func updateSlides(isUserPermanent: Bool) {
+
+        setupIntro(isUserPermanent: isUserPermanent)
+        var slides: [WMFYearInReviewSlide] = []
         
         let personalizedSlides = getPersonalizedSlides(aboutYiRURL: aboutYiRURL)
         
@@ -999,9 +1008,28 @@ public class WMFYearInReviewViewModel: ObservableObject {
         if !isUserPermanent {
             coordinatorDelegate?.handleYearInReviewAction(.tappedIntroV3GetStartedWhileLoggedOut)
         } else {
-            loggingDelegate?.logYearInReviewIntroDidTapContinue()
-            isShowingIntro = false
-            logSlideAppearance() // Manually logs appearance of first slide (currentSlideIndex is already set to 0)
+            isPopulatingReport = true
+            Task {
+                
+                do {
+                    try await self.populateYearInReviewReport()
+                    Task { @MainActor in
+                        self.updateSlides(isUserPermanent: isUserPermanent)
+                        self.isPopulatingReport = false
+                        self.loggingDelegate?.logYearInReviewIntroDidTapContinue()
+                        self.logSlideAppearance() // Manually logs appearance of first slide (currentSlideIndex is already set to 0)
+                        withAnimation {
+                            self.isShowingIntro = false
+                        }
+                    }
+                } catch {
+                    Task { @MainActor in
+                        isPopulatingReport = false
+                    }
+                    // todo: error?
+                }
+            }
+            
         }
     }
     
