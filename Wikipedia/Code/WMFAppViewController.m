@@ -2194,7 +2194,6 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
             [self.dataStore.feedContentController updateContentSource:[WMFAnnouncementsContentSource class]
                                                                 force:YES
                                                            completion:nil];
-            [self populateYearInReviewReportFor:WMFYearInReviewDataController.targetYear];
             [self updateActivityTabLoginStateObjC];
         }
 
