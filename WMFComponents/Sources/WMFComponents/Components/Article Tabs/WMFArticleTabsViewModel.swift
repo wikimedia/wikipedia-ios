@@ -100,8 +100,14 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
                     data: tab
                 )
             }
-            shouldShowCloseButton = articleTabs.count > 1
             updateNavigationBarTitleAction?(articleTabs.count)
+
+            if dataController.shouldShowMoreDynamicTabs {
+                shouldShowCloseButton = true
+            } else {
+                shouldShowCloseButton = articleTabs.count > 1
+            }
+
         } catch {
             // Handle error appropriately
             debugPrint("Error loading tabs: \(error)")
@@ -188,7 +194,11 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
                 Task { @MainActor [weak self]  in
                     guard let self else { return }
                     articleTabs.removeAll { $0 == tab }
-                    shouldShowCloseButton = articleTabs.count > 1
+                    if dataController.shouldShowMoreDynamicTabs {
+                        shouldShowCloseButton = true
+                    } else {
+                        shouldShowCloseButton = articleTabs.count > 1
+                    }
                     updateNavigationBarTitleAction?(articleTabs.count)
                 }
                 

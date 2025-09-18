@@ -72,7 +72,7 @@ public struct WMFArticleTabsView: View {
                     )
                     let emptyViewModel = WMFEmptyViewModel(
                         localizedStrings: locStrings,
-                        image: UIImage(named: "empty-tabs"),
+                        image: UIImage(named: "empty-tabs", in: .module, with: nil),
                         imageColor: nil,
                         numberOfFilters: 0
                     )

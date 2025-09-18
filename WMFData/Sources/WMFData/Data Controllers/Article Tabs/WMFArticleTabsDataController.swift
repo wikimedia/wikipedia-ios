@@ -307,7 +307,7 @@ public protocol WMFArticleTabsDataControlling {
     }
 
     private var isGroupC: Bool {
-        return ((try? getMoreDynamicTabsExperimentAssignment() == .groupC || developerSettingsDataController.enableMoreDynamicTabsGroupC) != nil)
+        ((try? getMoreDynamicTabsExperimentAssignment()) == .groupC) || developerSettingsDataController.enableMoreDynamicTabsGroupC
     }
 
     public func checkAndCreateInitialArticleTabIfNeeded() async throws {
@@ -729,7 +729,7 @@ public protocol WMFArticleTabsDataControlling {
         
         let tabsCount = try tabsCount(moc: moc)
         
-        if tabsCount <= 1 {
+        if tabsCount <= 1 && !shouldShowMoreDynamicTabs {
             throw CustomError.cannotDeleteLastTab
         }
         
