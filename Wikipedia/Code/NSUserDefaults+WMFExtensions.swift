@@ -374,6 +374,7 @@ let WMFYiRSettingsToggleShouldShow = "WMFYiRSettingsToggleShouldShow"
     }
     
     @objc func wmf_didShowSyncEnabledPanel() -> Bool {
+        return true
         return self.bool(forKey: WMFDidShowSyncEnabledPanel)
     }
     
