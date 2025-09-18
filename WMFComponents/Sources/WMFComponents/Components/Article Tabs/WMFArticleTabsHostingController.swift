@@ -17,7 +17,8 @@ public class WMFArticleTabsHostingController<HostedView: View>: WMFComponentHost
     private let viewModel: WMFArticleTabsViewModel
     private let doneButtonText: String
     private let articleTabsCount: Int
-    
+    private var format: String?
+
     public init(rootView: HostedView, viewModel: WMFArticleTabsViewModel, doneButtonText: String, articleTabsCount: Int) {
         self.viewModel = viewModel
         self.doneButtonText = doneButtonText
@@ -25,9 +26,9 @@ public class WMFArticleTabsHostingController<HostedView: View>: WMFComponentHost
         super.init(rootView: rootView)
         
         // Defining format outside the block fixes a retain cycle on WMFArticleTabsViewModel
-        let format = viewModel.localizedStrings.navBarTitleFormat
+        format = viewModel.localizedStrings.navBarTitleFormat
         viewModel.updateNavigationBarTitleAction = { [weak self] numTabs in
-            let newNavigationBarTitle = String.localizedStringWithFormat(format, numTabs)
+            let newNavigationBarTitle = String.localizedStringWithFormat(self?.format ?? "", numTabs)
             self?.configureNavigationBar(newNavigationBarTitle)
         }
     }
@@ -55,8 +56,9 @@ public class WMFArticleTabsHostingController<HostedView: View>: WMFComponentHost
     }
 
     private func configureNavigationBar(_ title: String? = nil) {
-        let titleConfig = WMFNavigationBarTitleConfig(title: title ?? "", customView: nil, alignment: .centerCompact)
-        
+        let newNavigationBarTitle = String.localizedStringWithFormat(self.format ?? "", articleTabsCount)
+        let titleConfig = WMFNavigationBarTitleConfig(title: title ?? newNavigationBarTitle, customView: nil, alignment: .centerCompact)
+
         let closeConfig = WMFNavigationBarCloseButtonConfig(text: doneButtonText, target: self, action: #selector(tappedDone), alignment: .leading)
 
         configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: closeConfig, profileButtonConfig: nil, tabsButtonConfig: nil, searchBarConfig: nil, hideNavigationBarOnScroll: false)
