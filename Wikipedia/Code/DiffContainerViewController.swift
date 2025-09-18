@@ -916,11 +916,11 @@ private extension DiffContainerViewController {
                 let url: URL?
                 switch destination {
                 case .userContributions:
-                    url = self.siteURL.wmf_URL(withPath: "/wiki/Special:Contributions/\(username)", isMobile: true)
+                    url = self.siteURL.wmf_URL(withPath: "/wiki/Special:Contributions/\(username)")
                 case .userTalkPage:
-                    url = self.siteURL.wmf_URL(withPath: "/wiki/User_talk:\(username)", isMobile: true)
+                    url = self.siteURL.wmf_URL(withPath: "/wiki/User_talk:\(username)")
                 case .userPage:
-                    url = self.siteURL.wmf_URL(withPath: "/wiki/User:\(username)", isMobile: true)
+                    url = self.siteURL.wmf_URL(withPath: "/wiki/User:\(username)")
                 }
                 
                 navigate(to: url)
