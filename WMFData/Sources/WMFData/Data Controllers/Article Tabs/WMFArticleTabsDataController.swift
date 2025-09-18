@@ -96,10 +96,9 @@ public protocol WMFArticleTabsDataControlling {
     
     struct OnboardingStatus: Codable {
         var hasPresentedOnboardingTooltips: Bool
-        var hasPresentedOnboardingTabs: Bool
         
         static var `default`: OnboardingStatus {
-            return OnboardingStatus(hasPresentedOnboardingTooltips: false, hasPresentedOnboardingTabs: false)
+            return OnboardingStatus(hasPresentedOnboardingTooltips: false)
         }
     }
     
@@ -280,9 +279,7 @@ public protocol WMFArticleTabsDataControlling {
     // MARK: Onboarding
     
     internal var onboardingStatus: OnboardingStatus {
-        get {
-            return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.articleTabsOnboarding.rawValue)) ?? OnboardingStatus.default
-        }
+        return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.articleTabsOnboarding.rawValue)) ?? OnboardingStatus.default
     }
     
     public var hasPresentedTooltips: Bool {
@@ -291,17 +288,6 @@ public protocol WMFArticleTabsDataControlling {
         } set {
             var currentStatus = onboardingStatus
             currentStatus.hasPresentedOnboardingTooltips = newValue
-            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.articleTabsOnboarding.rawValue, value: currentStatus)
-        }
-    }
-    
-    public var hasSeenFeatureAnnouncement: Bool {
-        get {
-            return onboardingStatus.hasPresentedOnboardingTabs
-        }
-        set {
-            var currentStatus = onboardingStatus
-            currentStatus.hasPresentedOnboardingTabs = newValue
             try? userDefaultsStore?.save(key: WMFUserDefaultsKey.articleTabsOnboarding.rawValue, value: currentStatus)
         }
     }
