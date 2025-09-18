@@ -931,22 +931,6 @@
 			<string>s</string>
 		</dict>
 	</dict>
-	<key>year-in-review-personalized-reading-subtitle-format-v3</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>Isto te pone in le prime **PERCENT** del lectores de Wikipedia de tote le mundo. In media, un persona lege %1$d articulo%#@v1@ per anno.</string>
-		<key>v1</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
-			<key>one</key>
-			<string></string>
-			<key>other</key>
-			<string>s</string>
-		</dict>
-	</dict>
 	<key>year-in-review-personalized-reading-title-format</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
