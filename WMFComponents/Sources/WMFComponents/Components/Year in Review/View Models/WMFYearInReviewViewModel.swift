@@ -648,9 +648,8 @@ public class WMFYearInReviewViewModel: ObservableObject {
         }
     }
     
-    public func updateSlides(isUserPermanent: Bool) {
+    private func updateSlides(isUserPermanent: Bool) {
 
-        setupIntro(isUserPermanent: isUserPermanent)
         var slides: [WMFYearInReviewSlide] = []
         
         let personalizedSlides = getPersonalizedSlides(aboutYiRURL: aboutYiRURL)
@@ -1000,61 +999,73 @@ public class WMFYearInReviewViewModel: ObservableObject {
     
     func tappedIntroV2GetStarted() {
         loggingDelegate?.logYearInReviewIntroDidTapContinue()
-        isShowingIntro = false
-        logSlideAppearance() // Manually logs appearance of first slide (currentSlideIndex is already set to 0)
+        populateReportAndShowFirstSlide()
     }
     
     func tappedIntroV3GetStarted() {
         if !isUserPermanent {
             coordinatorDelegate?.handleYearInReviewAction(.tappedIntroV3GetStartedWhileLoggedOut)
         } else {
-            isPopulatingReport = true
-            Task {
-                
-                do {
-                    try await self.populateYearInReviewReport()
-                    Task { @MainActor in
-                        self.updateSlides(isUserPermanent: isUserPermanent)
-                        self.isPopulatingReport = false
-                        self.loggingDelegate?.logYearInReviewIntroDidTapContinue()
-                        self.logSlideAppearance() // Manually logs appearance of first slide (currentSlideIndex is already set to 0)
-                        withAnimation {
-                            self.isShowingIntro = false
-                        }
+            populateReportAndShowFirstSlide()
+        }
+    }
+    
+    private func populateReportAndShowFirstSlide() {
+        isPopulatingReport = true
+        Task { [weak self] in
+            guard let self else { return }
+            do {
+                try await self.populateYearInReviewReport()
+                Task { @MainActor [weak self] in
+                    
+                    guard let self else { return }
+                    
+                    self.updateSlides(isUserPermanent: isUserPermanent)
+                    self.isPopulatingReport = false
+                    self.loggingDelegate?.logYearInReviewIntroDidTapContinue()
+                    self.logSlideAppearance() // Manually logs appearance of first slide (currentSlideIndex is already set to 0)
+                    
+                    // Maybe delay a little bit to let slide changes propagate
+                    try await Task.sleep(nanoseconds: 200_000_000)
+                    
+                    withAnimation {
+                        self.isShowingIntro = false
                     }
-                } catch {
-                    Task { @MainActor in
-                        isPopulatingReport = false
+                }
+            } catch {
+                Task { @MainActor [weak self] in
+                    
+                    guard let self else { return }
+                    
+                    self.updateSlides(isUserPermanent: isUserPermanent)
+                    self.isPopulatingReport = false
+                    self.loggingDelegate?.logYearInReviewIntroDidTapContinue()
+                    self.logSlideAppearance() // Manually logs appearance of first slide (currentSlideIndex is already set to 0)
+                    
+                    // Maybe delay a little bit to let slide changes propagate
+                    try await Task.sleep(nanoseconds: 200_000_000)
+                    
+                    withAnimation {
+                        self.isShowingIntro = false
                     }
-                    // todo: error?
                 }
             }
-            
         }
     }
     
     public func tappedIntroV3LoginPromptNoThanks() {
-        withAnimation {
-            isShowingIntro = false
-        }
-        
-        logSlideAppearance() // Manually logs appearance of first slide (currentSlideIndex is already set to 0)
+        isUserPermanent = false
+        populateReportAndShowFirstSlide()
     }
     
     public func tappedIntroV3ExitConfirmationGetStarted() {
-        withAnimation {
-            isShowingIntro = false
-        }
-        
-        logSlideAppearance() // Manually logs appearance of first slide (currentSlideIndex is already set to 0)
+        isUserPermanent = false
+        populateReportAndShowFirstSlide()
     }
     
     public func completedLoginFromIntroV3LoginPrompt() {
-        withAnimation {
-            isShowingIntro = false
-        }
-        
-        logSlideAppearance() // Manually logs appearance of first slide (currentSlideIndex is already set to 0)
+        isUserPermanent = true
+        populateReportAndShowFirstSlide()
     }
     
     private func incrementSlideIndex() {

@@ -963,7 +963,6 @@ extension YearInReviewCoordinator: YearInReviewCoordinatorDelegate {
                 if let loginVC = self.navigationController.presentedViewController?.presentedViewController {
                     loginVC.dismiss(animated: true) { [weak self] in
                         guard let viewModel = self?.viewModel else { return }
-                        viewModel.updateSlides(isUserPermanent: true)
                         viewModel.completedLoginFromIntroV3LoginPrompt()
                     }
                 }
@@ -973,7 +972,6 @@ extension YearInReviewCoordinator: YearInReviewCoordinatorDelegate {
                 if let createAccountVC = self.navigationController.presentedViewController?.presentedViewController {
                     createAccountVC.dismiss(animated: true) { [weak self] in
                         guard let viewModel = self?.viewModel else { return }
-                        viewModel.updateSlides(isUserPermanent: true)
                         viewModel.completedLoginFromIntroV3LoginPrompt()
                     }
                 }

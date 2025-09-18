@@ -227,6 +227,8 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
                                              selector:@selector(userWasLoggedIn:)
                                                  name:[WMFAuthenticationManager didLogInNotification]
                                                object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleAppLanguageDidChangeNotification:) name:WMFAppLanguageDidChangeNotification object:nil];
 
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(authManagerDidHandlePrimaryLanguageChange:)
@@ -2201,6 +2203,10 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
                                                             force:YES
                                                        completion:nil];
     });
+}
+
+- (void)handleAppLanguageDidChangeNotification:(NSNotification *)note {
+    [self deleteYearInReviewPersonalizedNetworkData];
 }
 
 - (void)authManagerDidHandlePrimaryLanguageChange:(NSNotification *)note {
