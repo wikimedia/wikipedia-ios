@@ -26,12 +26,14 @@ final class YearInReviewMostReadDateSlideDataController: YearInReviewSlideDataCo
         
         let dates = try await WMFPageViewsDataController().fetchPageViewDates(startDate: startDate, endDate: endDate)
         
-        if let mostReadHour = dates?.times.sorted(by: { $0.viewCount < $1.viewCount }).first,
-           let mostReadDay = dates?.days.sorted(by: { $0.viewCount < $1.viewCount }).first,
-           let mostReadMonth = dates?.months.sorted(by: { $0.viewCount < $1.viewCount }).first {
-                self.mostReadDate = WMFPageViewDates(days: [WMFPageViewDay(day: 4, viewCount: 30)], times: [WMFPageViewTime(hour: 13, viewCount: 30)], months: [WMFPageViewMonth(month: 12, viewCount: 38)])
-                isEvaluated = true
-            }
+//        if let mostReadHour = dates?.times.sorted(by: { $0.viewCount < $1.viewCount }).first,
+//           let mostReadDay = dates?.days.sorted(by: { $0.viewCount < $1.viewCount }).first,
+//           let mostReadMonth = dates?.months.sorted(by: { $0.viewCount < $1.viewCount }).first {
+//                self.mostReadDate = WMFPageViewDates(days: [WMFPageViewDay(day: 4, viewCount: 30)], times: [WMFPageViewTime(hour: 13, viewCount: 30)], months: [WMFPageViewMonth(month: 12, viewCount: 38)])
+//                isEvaluated = true
+//            }
+        self.mostReadDate = WMFPageViewDates(days: [WMFPageViewDay(day: 4, viewCount: 30)], times: [WMFPageViewTime(hour: 13, viewCount: 30)], months: [WMFPageViewMonth(month: 12, viewCount: 38)])
+        isEvaluated = true
     }
 
     func makeCDSlide(in context: NSManagedObjectContext) throws -> CDYearInReviewSlide {
