@@ -32,7 +32,7 @@ final class YearInReviewEditCountSlideDataController: YearInReviewSlideDataContr
         
         let (edits, _) = try await fetchUserContributionsCount(username: username, project: project, startDate: startDate, endDate: endDate)
         
-        editCount = 150
+        editCount = 0
         isEvaluated = true
     }
 
