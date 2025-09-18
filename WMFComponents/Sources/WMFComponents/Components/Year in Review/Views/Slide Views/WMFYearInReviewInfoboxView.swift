@@ -6,6 +6,8 @@ public struct WMFYearInReviewInfoboxView: View {
     var theme: WMFTheme { appEnvironment.theme }
     var viewModel: WMFInfoboxViewModel
     var isSharing: Bool
+    private let needsAdaptiveTitleColumnWidth: Bool
+    private let defaultTitleColumnWidth = 108.0
     @State private var containerWidth: CGFloat?
 
     private var fontTraitOverride: UITraitCollection? {
@@ -18,10 +20,16 @@ public struct WMFYearInReviewInfoboxView: View {
     private var rowFont: Font {
         Font(WMFFont.for(.helveticaBody, compatibleWith: fontTraitOverride ?? appEnvironment.traitCollection))
     }
+    
+    private var adaptiveTitleColumnWidth: CGFloat {
+        // Aiming for title column width = 2/5 of infobox width
+        return ((containerWidth ?? (defaultTitleColumnWidth * 5)) / 5) * 2
+    }
 
-    public init(viewModel: WMFInfoboxViewModel, isSharing: Bool) {
+    public init(viewModel: WMFInfoboxViewModel, isSharing: Bool, needsAdaptiveTitleColumnWidth: Bool = false) {
         self.viewModel = viewModel
         self.isSharing = isSharing
+        self.needsAdaptiveTitleColumnWidth = needsAdaptiveTitleColumnWidth
     }
 
     public var body: some View {
@@ -31,9 +39,10 @@ public struct WMFYearInReviewInfoboxView: View {
                 HStack(alignment: .top, spacing: 8) {
                     Text(item.title)
                         .font(titleFont)
+                        .lineSpacing(3)
                         .foregroundStyle(Color(uiColor: WMFColor.black))
                         .fixedSize(horizontal: false, vertical: true)
-                        .frame(width: ((containerWidth ?? 540) / 5) * 2, alignment: .leading)
+                        .frame(width: needsAdaptiveTitleColumnWidth ? adaptiveTitleColumnWidth : defaultTitleColumnWidth, alignment: .leading)
 
                     if let rows = item.richRows {
                         VStack(alignment: .leading, spacing: 6) {
@@ -45,6 +54,7 @@ public struct WMFYearInReviewInfoboxView: View {
                                     Text(row.titleText)
                                         .font(rowFont)
                                         .multilineTextAlignment(.leading)
+                                        .lineSpacing(3)
                                         .lineLimit(3)
                                         .truncationMode(.tail)
                                         .fixedSize(horizontal: false, vertical: true)
@@ -57,6 +67,7 @@ public struct WMFYearInReviewInfoboxView: View {
                             .font(rowFont)
                             .foregroundStyle(Color(uiColor: WMFColor.black))
                             .multilineTextAlignment(.leading)
+                            .lineSpacing(3)
                             .lineLimit(3)
                             .truncationMode(.tail)
                             .fixedSize(horizontal: false, vertical: true)

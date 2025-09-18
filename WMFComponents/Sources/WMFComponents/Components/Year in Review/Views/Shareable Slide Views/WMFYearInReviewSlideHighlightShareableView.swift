@@ -10,6 +10,22 @@ public struct WMFYearInReviewSlideHighlightShareableView: View {
     public init(viewModel: WMFYearInReviewSlideHighlightsViewModel) {
         self.viewModel = viewModel
     }
+    
+    private var fontTraitOverride: UITraitCollection {
+        UITraitCollection(preferredContentSizeCategory: .medium)
+    }
+
+    private var hashtagFont: Font {
+        Font(WMFFont.for(.helveticaLargeHeadline, compatibleWith: fontTraitOverride))
+    }
+    
+    private var logoFont: Font {
+        Font(WMFFont.for(.helveticaCaption1, compatibleWith: fontTraitOverride))
+    }
+    
+    private var rowFont: Font {
+        Font(WMFFont.for(.helveticaBody, compatibleWith: fontTraitOverride))
+    }
 
     public var body: some View {
         ZStack {
@@ -20,6 +36,7 @@ public struct WMFYearInReviewSlideHighlightShareableView: View {
                     Spacer(minLength: 0)
 
                     infoboxView
+                        .frame(maxWidth: .infinity, alignment: .center)
                         .padding(.horizontal, 24)
 
                     Spacer(minLength: 0)
@@ -27,12 +44,13 @@ public struct WMFYearInReviewSlideHighlightShareableView: View {
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
 
                 Text("wikipedia.org/year-in-review")
-                    .font(Font(WMFFont.for(.callout)))
+                    .font(Font(WMFFont.for(.body)))
                     .foregroundStyle(Color(uiColor: WMFColor.black))
                     .multilineTextAlignment(.center)
                     .padding(.bottom, 16)
             }
-            .frame(width: 402, height: 847)
+            .frame(maxWidth: 402)
+            .frame(minHeight: 847)
             
         }
         .overlay(
@@ -45,7 +63,7 @@ public struct WMFYearInReviewSlideHighlightShareableView: View {
         VStack(spacing: 24) {
             VStack(spacing: 16) {
                 Text("#WikipediaYearInReview")
-                    .font(Font(WMFFont.for(.boldHeadline)))
+                    .font(hashtagFont)
                     .foregroundStyle(Color(uiColor: WMFColor.black))
                     .multilineTextAlignment(.center)
                 VStack(spacing: 8) {
@@ -56,13 +74,13 @@ public struct WMFYearInReviewSlideHighlightShareableView: View {
                         .accessibilityHidden(true)
 
                     Text("Wikipedia logo")
-                        .font(Font(WMFFont.for(.footnote)))
+                        .font(logoFont)
                         .foregroundStyle(Color(WMFColor.black))
                         .multilineTextAlignment(.center)
                 }
 
                 WMFYearInReviewInfoboxView(viewModel: viewModel.infoBoxViewModel, isSharing: true)
-                    .frame(maxWidth: 324)
+                    .frame(maxWidth: 393)
             }
 
         }
