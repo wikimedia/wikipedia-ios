@@ -35,7 +35,12 @@
 - (void)setIconName:(NSString *)iconName {
     _iconName = iconName;
     if (_iconName) {
-        self.titleIcon.image = [[UIImage imageNamed:iconName] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+        if (self.iconOriginalRendering) {
+            self.titleIcon.image = [[UIImage imageNamed:iconName] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+            self.titleIcon.contentMode = UIViewContentModeScaleAspectFit;
+        } else {
+            self.titleIcon.image = [[UIImage imageNamed:iconName] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+        }
         self.titleIcon.hidden = NO;
         self.titleLabelLeadingWidth.constant = self.titleLabelLeadingWidthForVisibleImage;
     } else {
@@ -43,6 +48,10 @@
         self.titleLabelLeadingWidth.constant = self.imageLeadingWidth.constant;
         self.separatorInset = UIEdgeInsetsZero;
     }
+}
+
+- (void)setIconOriginalRendering:(BOOL)iconOriginalRendering {
+    _iconOriginalRendering = iconOriginalRendering;
 }
 
 - (void)setDisclosureText:(NSString *)disclosureText {
@@ -142,14 +151,14 @@
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
-    //HAX: reset the titleIcon's background color so it remains during the selection cell selection animation.
+    // HAX: reset the titleIcon's background color so it remains during the selection cell selection animation.
     self.iconColor = self.iconColor;
     self.iconBackgroundColor = self.iconBackgroundColor;
 }
 
 - (void)setHighlighted:(BOOL)highlighted animated:(BOOL)animated {
     [super setHighlighted:highlighted animated:animated];
-    //HAX: reset the titleIcon's background color so there's not a tiny flicker at the beginning of the selection cell selection animation.
+    // HAX: reset the titleIcon's background color so there's not a tiny flicker at the beginning of the selection cell selection animation.
     self.iconColor = self.iconColor;
     self.iconBackgroundColor = self.iconBackgroundColor;
 }
@@ -162,11 +171,12 @@
     [self wmf_configureSubviewsForDynamicType];
 }
 
-- (void)configure:(WMFSettingsMenuItemDisclosureType)disclosureType disclosureText:(NSString *)disclosureText title:(NSString *)title subtitle:(NSString *)subtitle iconName:(NSString *)iconName iconColor:(UIColor *)iconColor iconBackgroundColor:(UIColor *)iconBackgroundColor theme:(WMFTheme *)theme {
+- (void)configure:(WMFSettingsMenuItemDisclosureType)disclosureType disclosureText:(NSString *)disclosureText title:(NSString *)title subtitle:(NSString *)subtitle iconName:(NSString *)iconName iconColor:(UIColor *)iconColor iconBackgroundColor:(UIColor *)iconBackgroundColor iconOriginalRendering:(BOOL)iconOriginalRendering theme:(WMFTheme *)theme {
     self.disclosureType = disclosureType;
     self.disclosureText = disclosureText;
     self.title = title;
     self.subtitle = subtitle;
+    self.iconOriginalRendering = iconOriginalRendering;
     self.iconName = iconName;
     self.iconColor = iconColor;
     self.iconBackgroundColor = iconBackgroundColor;

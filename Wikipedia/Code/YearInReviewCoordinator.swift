@@ -284,6 +284,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
     
     // MARK: - Contributor
     func contributorSlideSubtitle(isEditor: Bool, isDonator: Bool) -> String {
+        dataController.updateContributorStatus(isContributor: (isEditor || isDonator))
         let editorText = WMFLocalizedString("year-in-review-contributor-slide-subtitle-editor", value: "Thank you for investing in the future of free knowledge.\n\nYour contributions as an editor in 2025 are helping pave the way to a world of free information and as a result you have unlocked a custom contributor icon.", comment: "Year in review, contributor slide subtitle, when user has edited that year.")
 
         let donorText = WMFLocalizedString("year-in-review-contributor-slide-subtitle-donor", value: "Thank you for investing in the future of free knowledge.\n\nYour contributions as a donor in 2025 are helping pave the way to a world of free information and as a result you have unlocked a custom contributor icon.", comment: "Year in review, contributor slide subtitle, when user has donated that year.")
@@ -630,7 +631,8 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
             toggleAppIcon: { isNew in
                 AppIconUtility.shared.updateAppIcon(isNew: isNew)
             },
-            isIconOn: AppIconUtility.shared.isNewIconOn
+            isIconOn: AppIconUtility.shared.isNewIconOn,
+            populateYearInReviewReport: populateYearInReviewReport
         )
         
         let yirView = WMFYearInReviewView(viewModel: viewModel)
@@ -651,6 +653,31 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         navigationController.present(hostingController, animated: true, completion: nil)
         return true
     }
+    
+    func populateYearInReviewReport() async throws {
+       guard let language  = dataStore.languageLinkController.appLanguage?.languageCode,
+             let countryCode = Locale.current.region?.identifier
+       else { return }
+       let wmfLanguage = WMFLanguage(languageCode: language, languageVariantCode: nil)
+       let project = WMFProject.wikipedia(wmfLanguage)
+       var userId: Int?
+
+       if let siteURL = dataStore.languageLinkController.appLanguage?.siteURL,
+          let userID = dataStore.authenticationManager.permanentUser(siteURL: siteURL)?.userID {
+           userId = userID
+       }
+       
+       let userIdString: String? = userId.map { String($0) }
+        let yirDataController = try WMFYearInReviewDataController()
+        try await yirDataController.populateYearInReviewReportData(
+            for: WMFYearInReviewDataController.targetYear,
+            countryCode: countryCode,
+            primaryAppLanguageProject: project,
+            username: dataStore.authenticationManager.authStatePermanentUsername,
+            userID: userIdString,
+            savedSlideDataDelegate: dataStore.savedPageList,
+            legacyPageViewsDataDelegate: dataStore)
+   }
 
     private func presentSurveyIfNeeded() {
         if !self.dataController.hasPresentedYiRSurvey {
@@ -823,7 +850,7 @@ extension YearInReviewCoordinator: YearInReviewCoordinatorDelegate {
                     return
                 }
 
-                viewModel.isLoading = loading
+                viewModel.isLoadingDonate = loading
             })
 
             self.donateCoordinator = donateCoordinator
@@ -937,7 +964,6 @@ extension YearInReviewCoordinator: YearInReviewCoordinatorDelegate {
                 if let loginVC = self.navigationController.presentedViewController?.presentedViewController {
                     loginVC.dismiss(animated: true) { [weak self] in
                         guard let viewModel = self?.viewModel else { return }
-                        viewModel.updateSlides(isUserPermanent: true)
                         viewModel.completedLoginFromIntroV3LoginPrompt()
                     }
                 }
@@ -947,7 +973,6 @@ extension YearInReviewCoordinator: YearInReviewCoordinatorDelegate {
                 if let createAccountVC = self.navigationController.presentedViewController?.presentedViewController {
                     createAccountVC.dismiss(animated: true) { [weak self] in
                         guard let viewModel = self?.viewModel else { return }
-                        viewModel.updateSlides(isUserPermanent: true)
                         viewModel.completedLoginFromIntroV3LoginPrompt()
                     }
                 }

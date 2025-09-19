@@ -227,6 +227,8 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
                                              selector:@selector(userWasLoggedIn:)
                                                  name:[WMFAuthenticationManager didLogInNotification]
                                                object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleAppLanguageDidChangeNotification:) name:WMFAppLanguageDidChangeNotification object:nil];
 
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(authManagerDidHandlePrimaryLanguageChange:)
@@ -1029,8 +1031,6 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
     [resumeAndAnnouncementsCompleteGroup enter];
     [self.dataStore.authenticationManager
         attemptLoginWithCompletion:^{
-            [self populateYearInReviewReportFor:WMFYearInReviewDataController.targetYear];
-
             [self checkRemoteAppConfigIfNecessary];
             if (!self.reachabilityNotifier) {
                 @weakify(self);
@@ -2196,7 +2196,6 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
             [self.dataStore.feedContentController updateContentSource:[WMFAnnouncementsContentSource class]
                                                                 force:YES
                                                            completion:nil];
-            [self populateYearInReviewReportFor:WMFYearInReviewDataController.targetYear];
             [self updateActivityTabLoginStateObjC];
         }
 
@@ -2204,6 +2203,10 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
                                                             force:YES
                                                        completion:nil];
     });
+}
+
+- (void)handleAppLanguageDidChangeNotification:(NSNotification *)note {
+    [self deleteYearInReviewPersonalizedNetworkData];
 }
 
 - (void)authManagerDidHandlePrimaryLanguageChange:(NSNotification *)note {
