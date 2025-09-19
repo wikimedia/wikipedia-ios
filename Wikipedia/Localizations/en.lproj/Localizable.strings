@@ -1474,7 +1474,6 @@
 "year-in-review-feature-explore-body-v3" = "See insights about which articles you read on the Wikipedia app and the edits you made.";
 "year-in-review-feature-explore-footer-v3" = "Your reading history is kept protected. Reading insights are calculated using locally stored data on your device.";
 "year-in-review-finish" = "Finish";
-"year-in-review-highlights-articles-edited" = "Articles edited";
 "year-in-review-highlights-articles-saved" = "Articles saved";
 "year-in-review-highlights-articles-viewed" = "Number of viewed articles";
 "year-in-review-highlights-articles-viewed-value" = "$1 billion";
@@ -1492,6 +1491,7 @@
 "year-in-review-highlights-reading-time" = "Minutes read";
 "year-in-review-highlights-share-logo-caption" = "Wikipedia logo";
 "year-in-review-highlights-subtitle" = "We look forward to next year!";
+"year-in-review-highlights-times-edited" = "Times edited";
 "year-in-review-highlights-title" = "Thank you for spending your year with Wikipedia";
 "year-in-review-intro-exit-confirmation-subtitle" = "You can still see a collective Year in Review without logging in.";
 "year-in-review-intro-exit-confirmation-title" = "Are you sure you want to exit?";
