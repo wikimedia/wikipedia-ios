@@ -4,7 +4,6 @@ import WMF
 import WMFComponents
 
 protocol NewArticleTabDataControlling {
-    func loadBecauseYouRead() async throws -> WMFBecauseYouReadViewModel?
     func loadDidYouKnow() async throws -> WMFNewArticleTabDidYouKnowViewModel?
 }
 
@@ -19,27 +18,6 @@ final class NewArticleTabDataController: NewArticleTabDataControlling {
 
     init(dataStore: MWKDataStore) {
         self.dataStore = dataStore
-    }
-
-    // MARK: - BYR
-
-    func loadBecauseYouRead() async throws -> WMFBecauseYouReadViewModel? {
-        guard let seed = try await mostRecentHistoryRecordWithURL() else {
-            return nil
-        }
-
-        let relatedRecords = try await relatedArticles(for: seed.articleURL)
-
-        guard !relatedRecords.isEmpty else { return nil }
-
-        let vm = WMFBecauseYouReadViewModel(
-            becauseYouReadTitle: CommonStrings.relatedPagesTitle,
-            openButtonTitle: CommonStrings.articleTabsOpen,
-            seedArticle: seed,
-            relatedArticles: relatedRecords
-        )
-
-        return vm
     }
 
     // MARK: - DYK
