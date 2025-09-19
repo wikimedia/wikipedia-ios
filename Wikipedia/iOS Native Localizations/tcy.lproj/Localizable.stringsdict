@@ -899,10 +899,10 @@
 			<string>%1$d filters</string>
 		</dict>
 	</dict>
-	<key>year-in-review-personalized-editing-subtitle-format</key>
+	<key>year-in-review-highlights-edit-frequency-value</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>You edited Wikipedia %#@v1@. Thank you for being one of the volunteer editors making a difference on Wikimedia projects around the world.</string>
+		<string>%#@v1@ per minute</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -1004,22 +1004,6 @@
 			<string>%2$d article</string>
 			<key>other</key>
 			<string>%2$d articles</string>
-		</dict>
-	</dict>
-	<key>year-in-review-personalized-saved-subtitle-format</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>You saved %#@v1@ this year, including %2$@, %3$@ and %4$@. Each saved article reflects your interests and helps build a personalized knowledge base on Wikipedia.</string>
-		<key>v1</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
-			<key>one</key>
-			<string>%1$d article</string>
-			<key>other</key>
-			<string>%1$d articles</string>
 		</dict>
 	</dict>
 	<key>year-in-review-personalized-saved-title-format</key>
