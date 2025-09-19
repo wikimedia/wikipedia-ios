@@ -131,7 +131,6 @@ final class TabsOverviewCoordinator: Coordinator {
                 mainPageDescription: CommonStrings.mainPageDescription,
                 closeTabAccessibility: WMFLocalizedString("tabs-close-tab", value: "Close tab", comment: "Accessibility label for close tab button"),
                 openTabAccessibility: WMFLocalizedString("tabs-open-tab", value: "Open tab", comment: "Accessibility label for opening a tab"),
-                tabsPreferencesTitle: CommonStrings.tabsPreferencesTitle,
                 closeAllTabs: CommonStrings.closeAllTabs,
                 cancelActionTitle: CommonStrings.cancelActionTitle,
                 closeAllTabsTitle: closeAllTabsTitle(numberTabs: articleTabsCount),

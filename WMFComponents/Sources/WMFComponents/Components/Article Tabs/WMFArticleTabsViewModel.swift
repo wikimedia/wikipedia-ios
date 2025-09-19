@@ -61,21 +61,19 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
         public let mainPageDescription: String
         public let closeTabAccessibility: String
         public let openTabAccessibility: String
-        public let tabsPreferencesTitle: String
         public let closeAllTabs: String
         public let cancelActionTitle: String
         public let closeAllTabsTitle: String
         public let closeAllTabsSubtitle: String
         public let closedAlertsNotification: String
         
-        public init(navBarTitleFormat: String, mainPageTitle: String?, mainPageSubtitle: String, mainPageDescription: String, closeTabAccessibility: String, openTabAccessibility: String, tabsPreferencesTitle: String, closeAllTabs: String, cancelActionTitle: String, closeAllTabsTitle: String, closeAllTabsSubtitle: String, closedAlertsNotification: String) {
+        public init(navBarTitleFormat: String, mainPageTitle: String?, mainPageSubtitle: String, mainPageDescription: String, closeTabAccessibility: String, openTabAccessibility: String, closeAllTabs: String, cancelActionTitle: String, closeAllTabsTitle: String, closeAllTabsSubtitle: String, closedAlertsNotification: String) {
             self.navBarTitleFormat = navBarTitleFormat
             self.mainPageTitle = mainPageTitle
             self.mainPageSubtitle = mainPageSubtitle
             self.mainPageDescription = mainPageDescription
             self.closeTabAccessibility = closeTabAccessibility
             self.openTabAccessibility = openTabAccessibility
-            self.tabsPreferencesTitle = tabsPreferencesTitle
             self.closeAllTabs = closeAllTabs
             self.cancelActionTitle = cancelActionTitle
             self.closeAllTabsTitle = closeAllTabsTitle
