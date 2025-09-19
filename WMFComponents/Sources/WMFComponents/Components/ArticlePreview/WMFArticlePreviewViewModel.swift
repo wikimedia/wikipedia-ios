@@ -22,4 +22,12 @@ public final class WMFArticlePreviewViewModel {
         self.snippet = snippet
     }
 
+    public init(url: URL?, titleHtml: String, description: String?, imageURL: URL?, isSaved: Bool, snippet: String?) {
+        self.url = url
+        self.titleHtml = titleHtml
+        self.description = description
+        self.imageURL = imageURL
+        self.snippet = snippet
+    }
+
 }

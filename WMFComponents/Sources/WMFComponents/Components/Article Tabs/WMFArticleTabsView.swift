@@ -106,7 +106,7 @@ public struct WMFArticleTabsView: View {
                                     }
                                 }
                             }, preview: {
-
+                                WMFArticlePreviewView(viewModel: getPreviewViewModel(from: tab))
                             })
                             .accessibilityActions {
                                 accessibilityAction(named: viewModel.localizedStrings.openTabAccessibility) {
@@ -131,6 +131,10 @@ public struct WMFArticleTabsView: View {
                 }
             }
         }
+    }
+
+    private func getPreviewViewModel(from tab: ArticleTab) -> WMFArticlePreviewViewModel {
+        return WMFArticlePreviewViewModel(url: tab.data.articles.last?.articleURL, titleHtml: tab.title, description: tab.data.articles.last?.description, imageURL: tab.data.articles.last?.imageURL, isSaved: false, snippet: tab.data.articles.last?.extract)
     }
 
 }
