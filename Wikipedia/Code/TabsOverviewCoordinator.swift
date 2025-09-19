@@ -240,3 +240,4 @@ final class TabsCoordinatorManager {
         coordinator.start()
     }
 }
+

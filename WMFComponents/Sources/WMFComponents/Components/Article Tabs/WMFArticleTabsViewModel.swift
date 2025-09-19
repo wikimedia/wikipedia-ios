@@ -222,7 +222,7 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
             let summary = try await dataController.fetchArticleSummary(project: lastArticle.project, title: lastArticle.title)
             
             var newArticles = Array(tab.articles.prefix(tab.articles.count - 1))
-            let newArticle = WMFArticleTabsDataController.WMFArticle(identifier: lastArticle.identifier, title: lastArticle.title, description: summary.description, extract: summary.extract, imageURL: summary.thumbnailURL, project: lastArticle.project)
+            let newArticle = WMFArticleTabsDataController.WMFArticle(identifier: lastArticle.identifier, title: lastArticle.title, description: summary.description, extract: summary.extract, imageURL: summary.thumbnailURL, project: lastArticle.project, articleURL: lastArticle.articleURL)
             newArticles.append(newArticle)
             let newTab = WMFArticleTabsDataController.WMFArticleTab(identifier: tab.identifier, timestamp: tab.timestamp, isCurrent: tab.isCurrent, articles: newArticles)
             return newTab
@@ -254,8 +254,10 @@ class ArticleTab: Identifiable, Hashable, Equatable, ObservableObject {
         let subtitle: String?
         let image: URL?
         let description: String?
+        let url: URL?
+        let snippet: String?
     }
-    
+
     let title: String
     @Published var info: Info?
     

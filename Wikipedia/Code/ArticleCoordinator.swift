@@ -35,11 +35,12 @@ extension ArticleTabCoordinating {
         Task {
             guard let title = articleURL?.wmf_title,
                   let siteURL = articleURL?.wmf_site,
-                  let wmfProject = WikimediaProject(siteURL: siteURL)?.wmfProject else {
+                  let wmfProject = WikimediaProject(siteURL: siteURL)?.wmfProject,
+                  let articleURL = siteURL.wmf_URL(withTitle: title) else {
                 return
             }
 
-            let article = WMFArticleTabsDataController.WMFArticle(identifier: nil, title: title, project: wmfProject)
+            let article = WMFArticleTabsDataController.WMFArticle(identifier: nil, title: title, project: wmfProject, articleURL: articleURL)
             do {
                 
                 // If current tabs count is at 500, do not create any new tabs. Instead append article to current tab.

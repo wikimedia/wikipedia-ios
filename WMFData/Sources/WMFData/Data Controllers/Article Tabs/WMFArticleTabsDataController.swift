@@ -43,14 +43,16 @@ public protocol WMFArticleTabsDataControlling {
         public let extract: String?
         public let imageURL: URL?
         public let project: WMFProject
-        
-        public init(identifier: UUID?, title: String, description: String? = nil, extract: String? = nil, imageURL: URL? = nil, project: WMFProject) {
+        public let articleURL: URL?
+
+        public init(identifier: UUID?, title: String, description: String? = nil, extract: String? = nil, imageURL: URL? = nil, project: WMFProject, articleURL: URL?) {
             self.identifier = identifier
             self.title = title
             self.description = description
             self.extract = extract
             self.imageURL = imageURL
             self.project = project
+            self.articleURL = articleURL
         }
         
         public var isMain: Bool {
@@ -323,7 +325,7 @@ public protocol WMFArticleTabsDataControlling {
     public var tabsMax: Int {
         return developerSettingsDataController.forceMaxArticleTabsTo5 ? 5 : 500
     }
-    
+
     public func createArticleTab(initialArticle: WMFArticle?, setAsCurrent: Bool = false) async throws -> Identifiers {
         
         guard let coreDataStore else {
@@ -341,12 +343,16 @@ public protocol WMFArticleTabsDataControlling {
         } else {
             if let primaryAppLanguage = WMFDataEnvironment.current.appData.appLanguages.first {
                 let project = WMFProject.wikipedia(primaryAppLanguage)
-                article = WMFArticle(identifier: nil, title: "Main_Page", project: project)
+                let lang = project.languageCode ?? "en"
+                let title = "Main_Page"
+                let urlString = "https://\(lang).wikipedia.org/wiki/\(title)"
+
+                article = WMFArticle(identifier: nil, title: title, project: project, articleURL: URL(string: urlString))
             } else {
                 throw CustomError.missingAppLanguage
             }
         }
-        
+
         return try await moc.perform { [weak self] in
             guard let self else { throw CustomError.missingSelf }
             
@@ -558,7 +564,7 @@ public protocol WMFArticleTabsDataControlling {
                let identifier = cdArticleItem.identifier,
                let coreDataIdentifier = cdArticleItem.page?.projectID,
                let wmfProject = WMFProject(coreDataIdentifier: coreDataIdentifier) {
-                let wmfArticle = WMFArticle(identifier: identifier, title: title, project: wmfProject)
+                let wmfArticle = WMFArticle(identifier: identifier, title: title, project: wmfProject, articleURL: URL(string: ""))
                 return wmfArticle
             }
             
@@ -904,7 +910,7 @@ public protocol WMFArticleTabsDataControlling {
                         throw CustomError.unexpectedType
                     }
                     
-                    let article = WMFArticle(identifier: identifier, title: title, project: project)
+                    let article = WMFArticle(identifier: identifier, title: title, project: project, articleURL: URL(string: ""))
                     articles.append(article)
                     
                     // don't append any more after current article.
@@ -953,7 +959,7 @@ public protocol WMFArticleTabsDataControlling {
                 throw CustomError.missingTabItem
             }
             
-            let tab = WMFArticleTab(identifier: tabIdentifier, timestamp: tabTimestamp, isCurrent: cdTab.isCurrent, articles: [WMFArticle(identifier: articleIdentifier, title: title, project: project)])
+            let tab = WMFArticleTab(identifier: tabIdentifier, timestamp: tabTimestamp, isCurrent: cdTab.isCurrent, articles: [WMFArticle(identifier: articleIdentifier, title: title, project: project, articleURL: URL(string: ""))])
             
             try userDefaultsStore?.save(key: WMFUserDefaultsKey.articleTabRestoration.rawValue, value: tab)
         }
@@ -1000,3 +1006,4 @@ private extension Locale {
         }
     }
 }
+

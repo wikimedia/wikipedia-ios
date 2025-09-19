@@ -106,7 +106,7 @@ public struct WMFArticleTabsView: View {
                                     }
                                 }
                             }, preview: {
-                                // add view
+
                             })
                             .accessibilityActions {
                                 accessibilityAction(named: viewModel.localizedStrings.openTabAccessibility) {
@@ -132,6 +132,7 @@ public struct WMFArticleTabsView: View {
             }
         }
     }
+
 }
 
 // MARK: - Tab content
@@ -186,7 +187,7 @@ fileprivate struct WMFArticleTabsViewContent: View {
             Task {
                 if tab.info == nil {
                     let populatedTab = await viewModel.populateArticleSummary(tab.data)
-                    let info = ArticleTab.Info(subtitle: populatedTab.articles.last?.description, image: populatedTab.articles.last?.imageURL, description: populatedTab.articles.last?.extract)
+                    let info = ArticleTab.Info(subtitle: populatedTab.articles.last?.description, image: populatedTab.articles.last?.imageURL, description: populatedTab.articles.last?.extract, url: populatedTab.articles.last?.articleURL, snippet: populatedTab.articles.last?.extract)
                     tab.info = info
                 }
             }
