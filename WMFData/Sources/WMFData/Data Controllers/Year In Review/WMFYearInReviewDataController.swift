@@ -197,12 +197,6 @@ import CoreData
             return false
         }
 
-        // Check persisted year in review report exists.
-        let yirReport = try? fetchYearInReviewReport(forYear: Self.targetYear)
-        guard yirReport != nil else {
-            return false
-        }
-
         return true
     }
 
@@ -624,6 +618,13 @@ import CoreData
         } catch {
             return nil
         }
+    }
+    
+    public func updateContributorStatus(isContributor: Bool) {
+        try? userDefaultsStore?.save(
+            key: WMFUserDefaultsKey.qualifiesForIcon2025.rawValue,
+            value: isContributor
+        )
     }
 }
 

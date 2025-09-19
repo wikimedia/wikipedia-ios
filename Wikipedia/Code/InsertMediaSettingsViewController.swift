@@ -100,7 +100,7 @@ final class InsertMediaSettingsViewController: ThemeableViewController, WMFNavig
                 var displayTitle: String {
                     switch self {
                     case .default:
-                        return WMFLocalizedString("insert-media-image-size-setting-default", value: "Default", comment: "Title for image size setting that sizes image using default size")
+                        return CommonStrings.defaultText
                     case .custom:
                         return WMFLocalizedString("insert-media-image-size-setting-custom", value: "Custom", comment: "Title for image size setting that sizes image using custom size")
                     }
