@@ -34,6 +34,7 @@ public protocol WMFArticleTabsDataControlling {
         case missingAssignment
         case doesNotQualifyForExperiment
         case pastAssignmentEndDate
+        case missingURL
     }
     
     public struct WMFArticle: Codable {
@@ -345,9 +346,12 @@ public protocol WMFArticleTabsDataControlling {
                 let project = WMFProject.wikipedia(primaryAppLanguage)
                 let lang = project.languageCode ?? "en"
                 let title = "Main_Page"
-                let urlString = "https://\(lang).wikipedia.org/wiki/\(title)"
+                guard let siteURL = project.siteURL,
+                      let articleURL = siteURL.wmfURL(withTitle: title, languageVariantCode: nil) else {
+                    throw CustomError.missingURL
+                }
 
-                article = WMFArticle(identifier: nil, title: title, project: project, articleURL: URL(string: urlString))
+                article = WMFArticle(identifier: nil, title: title, project: project, articleURL: articleURL)
             } else {
                 throw CustomError.missingAppLanguage
             }
@@ -558,13 +562,19 @@ public protocol WMFArticleTabsDataControlling {
                     }
                 }
             }
-            
+
+
             if let cdArticleItem = adjacentArticle as? CDArticleTabItem,
                let title = cdArticleItem.page?.title,
                let identifier = cdArticleItem.identifier,
                let coreDataIdentifier = cdArticleItem.page?.projectID,
                let wmfProject = WMFProject(coreDataIdentifier: coreDataIdentifier) {
-                let wmfArticle = WMFArticle(identifier: identifier, title: title, project: wmfProject, articleURL: URL(string: ""))
+
+                guard let siteURL = wmfProject.siteURL,
+                      let articleURL = siteURL.wmfURL(withTitle: title, languageVariantCode: nil) else {
+                    throw CustomError.missingURL
+                }
+                let wmfArticle = WMFArticle(identifier: identifier, title: title, project: wmfProject, articleURL: articleURL)
                 return wmfArticle
             }
             
@@ -909,8 +919,13 @@ public protocol WMFArticleTabsDataControlling {
                           let project = WMFProject(coreDataIdentifier: projectID) else {
                         throw CustomError.unexpectedType
                     }
-                    
-                    let article = WMFArticle(identifier: identifier, title: title, project: project, articleURL: URL(string: ""))
+
+                    guard let siteURL = project.siteURL,
+                          let articleURL = siteURL.wmfURL(withTitle: title, languageVariantCode: nil) else {
+                        throw CustomError.missingURL
+                    }
+
+                    let article = WMFArticle(identifier: identifier, title: title, project: project, articleURL: articleURL)
                     articles.append(article)
                     
                     // don't append any more after current article.
@@ -958,9 +973,12 @@ public protocol WMFArticleTabsDataControlling {
                   let project = WMFProject(coreDataIdentifier: projectID) else {
                 throw CustomError.missingTabItem
             }
-            
-            let tab = WMFArticleTab(identifier: tabIdentifier, timestamp: tabTimestamp, isCurrent: cdTab.isCurrent, articles: [WMFArticle(identifier: articleIdentifier, title: title, project: project, articleURL: URL(string: ""))])
-            
+            guard let siteURL = project.siteURL,
+                  let articleURL = siteURL.wmfURL(withTitle: title, languageVariantCode: nil) else {
+                throw CustomError.missingURL
+            }
+            let tab = WMFArticleTab(identifier: tabIdentifier, timestamp: tabTimestamp, isCurrent: cdTab.isCurrent, articles: [WMFArticle(identifier: articleIdentifier, title: title, project: project, articleURL: articleURL)])
+
             try userDefaultsStore?.save(key: WMFUserDefaultsKey.articleTabRestoration.rawValue, value: tab)
         }
     }
