@@ -619,6 +619,13 @@ import CoreData
             return nil
         }
     }
+    
+    public func updateContributorStatus(isContributor: Bool) {
+        try? userDefaultsStore?.save(
+            key: WMFUserDefaultsKey.qualifiesForIcon2025.rawValue,
+            value: isContributor
+        )
+    }
 }
 
 public struct WMFYearInReviewReadData: Codable {
