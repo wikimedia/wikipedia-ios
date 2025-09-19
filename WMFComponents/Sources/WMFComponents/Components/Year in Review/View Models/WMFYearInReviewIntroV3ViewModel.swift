@@ -1,3 +1,5 @@
+import SwiftUI
+
 struct WMFYearInReviewIntroV3ViewModel {
     let gifName: String
     let altText: String
