@@ -271,11 +271,11 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
     // MARK: - English Slide Strings
     
     var englishReadingSlideSubtitle: String {
-        WMFLocalizedString("microsite-yir-english-reading-slide-subtitle", value: "People spent an estimated 2.4 billion hours—over 275,000 years!—reading English Wikipedia in 2024. Wikipedia is there when you want to learn about our changing world, win a bet among friends, or answer a curious child’s question.", comment: "Reading slide subtitle for English Year in Review.")
+        WMFLocalizedString("microsite-yir-english-reading-slide-subtitle", value: "People spent an estimated 2.4 billion hours — nearly 275,000 years! — reading English Wikipedia in 2024. Wikipedia is there when you want to learn about our changing world, win a bet among friends, or answer a curious child’s question.", comment: "Reading slide subtitle for English Year in Review.")
     }
     
     var englishReadingSlideSubtitleShort: String {
-        WMFLocalizedString("microsite-yir-english-reading-slide-subtitle-short", value: "People spent an estimated 2.4 billion hours—over 275,000 years!—reading English Wikipedia in 2025.", comment: "Shortened reading slide subtitle for English Year in Review. This shortened sentence is appended to the personalized reading slide for EN Wiki users.")
+        WMFLocalizedString("microsite-yir-english-reading-slide-subtitle-short", value: "People spent an estimated 2.4 billion hours — nearly 275,000 years! — reading English Wikipedia in 2025.", comment: "Shortened reading slide subtitle for English Year in Review. This shortened sentence is appended to the personalized reading slide for EN Wiki users.")
     }
 
     var englishTopReadSlideSubtitle: String {
@@ -291,7 +291,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         
         let format = WMFLocalizedString(
             "microsite-yir-english-top-read-slide-subtitle",
-            value: "When people want to learn about our world - the good, bad, weird, and wild alike - they turn to Wikipedia. The top 5 visited articles on English Wikipedia were:\n\n1. %1$@\n2. %2$@\n3. %3$@\n4. %4$@\n5. %5$@\n\nRead more in %6$@our dedicated blog post%7$@.",
+            value: "When people want to learn about our world — the good, bad, weird, and wild alike — they turn to Wikipedia. The top 5 visited articles on English Wikipedia were:\n\n1. %1$@\n2. %2$@\n3. %3$@\n4. %4$@\n5. %5$@\n\nRead more in %6$@our dedicated blog post%7$@.",
             comment: "Top read slide subtitle for English Year in Review. %1$@ %2$@ %3$@ %4$@ %5$@ are replaced with article titles, %6$@ and %7$@ wrap the blog post link."
         )
         
@@ -301,7 +301,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
     var englishEditsBytesSlideSubtitle: String {
         let format = WMFLocalizedString(
             "microsite-yir-english-edits-bytes-slide-subtitle",
-            value: "In 2024, volunteers added 3,416,899,197 bytes to English Wikipedia. The sum of all their work together leads to a steadily improving, fact-based, and reliable knowledge resource that they give to the world. All of us have knowledge to share, [learn how to participate](%1$@).",
+            value: "In 2025, volunteers added 3,416,899,197 bytes to English Wikipedia. The sum of all their work together leads to a steadily improving, fact-based, and reliable knowledge resource that they give to the world. All of us have knowledge to share, [learn how to participate](%1$@).",
             comment: "Edits bytes slide subtitle for English Year in Review, %1$@ is replaced by link to learn to participate."
         )
 
