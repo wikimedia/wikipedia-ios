@@ -811,20 +811,6 @@
 			<string>%1$d filtri</string>
 		</dict>
 	</dict>
-	<key>year-in-review-personalized-editing-subtitle-format</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>Siz Vikipediyada %#@v1@ düzəliş etmisiniz. Bütün dünyada Vikimedia layihələrində fərq yaradan könüllü redaktorlardan biri olduğunuz üçün təşəkkür edirik.</string>
-		<key>v1</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
-			<key>other</key>
-			<string>%1$d dəfə</string>
-		</dict>
-	</dict>
 	<key>year-in-review-personalized-editing-title-format</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -902,20 +888,6 @@
 			<string>d</string>
 			<key>other</key>
 			<string>%2$d məqaləni</string>
-		</dict>
-	</dict>
-	<key>year-in-review-personalized-saved-subtitle-format</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>Siz bu il %2$@, %3$@ and %4$@ daxil olmaqla %#@v1@ yadda saxlamısınız. Hər bir saxlanılan məqalə sizin maraqlarınızı əks etdirir və Vikipediyada fərdiləşdirilmiş bilik bazası yaratmağa kömək edir.</string>
-		<key>v1</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
-			<key>other</key>
-			<string>%1$d məqalə</string>
 		</dict>
 	</dict>
 	<key>year-in-review-personalized-saved-title-format</key>

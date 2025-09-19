@@ -887,22 +887,6 @@
 			<string>%1$d филтри</string>
 		</dict>
 	</dict>
-	<key>year-in-review-personalized-editing-subtitle-format</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>Ја имате уредено Википедија %#@v1@. Ви благодариме за вашето учество доброволен уредувач и за вложениот труд во име на проектите ширум светот.</string>
-		<key>v1</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
-			<key>one</key>
-			<string>еднаш</string>
-			<key>other</key>
-			<string>%1$d пати</string>
-		</dict>
-	</dict>
 	<key>year-in-review-personalized-editing-title-format</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -992,22 +976,6 @@
 			<string>%2$d статија</string>
 			<key>other</key>
 			<string>%2$d статии</string>
-		</dict>
-	</dict>
-	<key>year-in-review-personalized-saved-subtitle-format</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>Годинава зачувавте %#@v1@ како %2$@, %3$@ и %4$@. Секоја зачувана статија ги одразува вашите интереси и ни помага да изградиме персонализирана база на знаења на Википедија.</string>
-		<key>v1</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
-			<key>one</key>
-			<string>%1$d статија</string>
-			<key>other</key>
-			<string>%1$d статии</string>
 		</dict>
 	</dict>
 	<key>year-in-review-personalized-saved-title-format</key>
