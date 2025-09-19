@@ -68,16 +68,6 @@
                                            disclosureText:nil
                                                isSwitchOn:NO];
         }
-        case WMFSettingsMenuItemType_Tabs: {
-            return
-                [[WMFSettingsMenuItem alloc] initWithType:type
-                                                    title:[WMFCommonStrings tabsTitle]
-                                                 iconName:@"article-tabs-square"
-                                                iconColor:[UIColor wmf_blue_300]
-                                           disclosureType:WMFSettingsMenuItemDisclosureType_ViewController
-                                           disclosureText:nil
-                                               isSwitchOn:NO];
-        }
         case WMFSettingsMenuItemType_ExploreFeed: {
             return
                 [[WMFSettingsMenuItem alloc] initWithType:type

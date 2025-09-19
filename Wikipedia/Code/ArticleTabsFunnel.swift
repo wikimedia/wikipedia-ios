@@ -12,13 +12,6 @@ import WMF
         case iconClick = "icon_click"
         case newTabClick = "new_tab_click"
         case newTabClickBackground = "new_tab_click_background"
-        case continueClick = "continue_click"
-        case learnClick = "learn_click"
-        case resultClick = "result_click"
-        case recommendationPrefClick = "rec_click"
-        case didYouKnowPrefClick = "dyk_click"
-        case tabsSettingsClick = "tabs_click"
-        case screenshot = "screenshot"
     }
 
     public enum ActiveInterface: String {
@@ -33,10 +26,6 @@ import WMF
         case saved = "saved"
         case history = "history"
         case search = "search"
-        case announcement = "tab_announce"
-        case tabSearch = "tab_search"
-        case tabsPreferences = "tabs_prefs"
-        case settings = "setting"
     }
 
     private struct Event: EventInterface {
@@ -133,38 +122,6 @@ import WMF
 
     func logOpenArticleInBackgroundTab() {
         logEvent(activeInterface: .articleMenu, action: .newTabClickBackground, project: nil)
-    }
-
-    func logAnnouncementClick(action: ArticleTabsFunnel.Action) {
-        logEvent(activeInterface: .announcement, action: action)
-    }
-
-    func logAnnouncementImpression() {
-        logEvent(activeInterface: .announcement, action: .impression)
-    }
-
-    func logRecentSearchesClick() {
-        logEvent(activeInterface: .tabSearch, action: .resultClick, actionData: ["result": "recent"])
-    }
-
-    func logBecauseYouReadClick() {
-        logEvent(activeInterface: .tabSearch, action: .resultClick, actionData: ["result": "byr"])
-    }
-
-    func logDidYouKnowClick() {
-        logEvent(activeInterface: .tabSearch, action: .resultClick, actionData: ["result": "dyk"])
-    }
-
-    func logTabsPreferenceClick(action: ArticleTabsFunnel.Action) {
-        logEvent(activeInterface: .tabsPreferences, action: action)
-    }
-
-    @objc func logTabsPreferenceSettingsClick() {
-        logEvent(activeInterface: .settings, action: .tabsSettingsClick)
-    }
-
-    func logTabsOverviewScreenshot() {
-        logEvent(activeInterface: .overview, action: .screenshot)
     }
 
 }
