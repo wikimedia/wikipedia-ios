@@ -12,7 +12,7 @@ public struct WMFYearInReviewSlideHighlightShareableView: View {
     }
     
     private var fontTraitOverride: UITraitCollection {
-        UITraitCollection(preferredContentSizeCategory: .medium)
+        UITraitCollection(preferredContentSizeCategory: .large)
     }
 
     private var hashtagFont: Font {
@@ -26,6 +26,10 @@ public struct WMFYearInReviewSlideHighlightShareableView: View {
     private var rowFont: Font {
         Font(WMFFont.for(.helveticaBody, compatibleWith: fontTraitOverride))
     }
+    
+    private var footerFont: Font {
+        Font(WMFFont.for(.body, compatibleWith: fontTraitOverride))
+    }
 
     public var body: some View {
         ZStack {
@@ -37,20 +41,20 @@ public struct WMFYearInReviewSlideHighlightShareableView: View {
 
                     infoboxView
                         .frame(maxWidth: .infinity, alignment: .center)
-                        .padding(.horizontal, 24)
+                        .padding(.horizontal, 35)
 
                     Spacer(minLength: 0)
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
 
                 Text("wikipedia.org/year-in-review")
-                    .font(Font(WMFFont.for(.body)))
+                    .font(footerFont)
                     .foregroundStyle(Color(uiColor: WMFColor.black))
                     .multilineTextAlignment(.center)
                     .padding(.bottom, 16)
             }
-            .frame(maxWidth: 402)
-            .frame(minHeight: 847)
+            .frame(maxWidth: 393)
+            .frame(minHeight: 852)
             
         }
         .overlay(
@@ -66,11 +70,12 @@ public struct WMFYearInReviewSlideHighlightShareableView: View {
                     .font(hashtagFont)
                     .foregroundStyle(Color(uiColor: WMFColor.black))
                     .multilineTextAlignment(.center)
+                    .padding([.top], 8)
                 VStack(spacing: 8) {
                     Image("globe_yir", bundle: .module)
                         .resizable()
                         .scaledToFit()
-                        .frame(width: 196, height: 196)
+                        .frame(width: 166, height: 166)
                         .accessibilityHidden(true)
 
                     Text("Wikipedia logo")
@@ -84,7 +89,6 @@ public struct WMFYearInReviewSlideHighlightShareableView: View {
             }
 
         }
-        .padding(8)
         .background(Color(WMFColor.gray100))
         .overlay(
             Rectangle()
