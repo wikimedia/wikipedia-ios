@@ -94,11 +94,24 @@ public struct WMFArticleTabsView: View {
                     ForEach(viewModel.articleTabs.sorted(by: { $0.dateCreated < $1.dateCreated }), id: \.id) { tab in
                         WMFArticleTabsViewContent(viewModel: viewModel, tab: tab)
                             .id(tab.id)
+                            .contextMenu(menuItems: {
+                                Button(viewModel.localizedStrings.openTabAccessibility) {
+                                    viewModel.didTapTab(tab.data)
+                                }
+                                if viewModel.shouldShowCloseButton {
+                                    Button(role: .destructive) {
+                                        viewModel.closeTab(tab: tab)
+                                    } label: {
+                                        Label(viewModel.localizedStrings.closeTabAccessibility, systemImage: "xmark.circle")
+                                    }
+                                }
+                            }, preview: {
+                                // add view
+                            })
                             .accessibilityActions {
                                 accessibilityAction(named: viewModel.localizedStrings.openTabAccessibility) {
                                     viewModel.didTapTab(tab.data)
                                 }
-
                                 if viewModel.shouldShowCloseButton {
                                     accessibilityAction(named: viewModel.localizedStrings.closeTabAccessibility) {
                                         viewModel.closeTab(tab: tab)
