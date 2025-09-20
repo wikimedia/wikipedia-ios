@@ -373,10 +373,11 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
                                }];
             tab.preferredPlacement = UITabPlacementFixed;
             self.tabs = [self.tabs arrayByAddingObject:tab];
+            // Once set, `UITabBarController.viewControllers` and related properties and methods will not be called.
         }
-    } else {
-        [self setViewControllers:@[nav1, nav2, nav3, nav4, nav5] animated:NO];
     }
+    // This should be called all the time for backward compatibility
+    [self setViewControllers:@[nav1, nav2, nav3, nav4, nav5] animated:NO];
 
     [self updateUserInterfaceStyleOfNavigationControllersForCurrentTheme];
 
