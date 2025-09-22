@@ -32,8 +32,11 @@ public struct WMFYearInReviewSlideHighlightsView: View {
                             .overlay(
                                 Rectangle().stroke(Color(WMFColor.gray300), lineWidth: 1)
                             )
-                            .frame(maxWidth: 324)
+                            .frame(maxWidth: 350)
+                            .frame(maxWidth: .infinity)
+                            
                         }
+                        .frame(maxWidth: .infinity)
                         .padding(.horizontal, 32)
                         .padding(.vertical, 24)
 
@@ -52,7 +55,7 @@ public struct WMFYearInReviewSlideHighlightsView: View {
                 }
             }
             .padding(.horizontal, 32)
-            .padding(.bottom, 24)
+            .padding(.bottom, 16)
             .padding(.top, 32)
         }
     }
