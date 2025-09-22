@@ -36,15 +36,18 @@ public struct WMFArticleTabsView: View {
         .onReceive(viewModel.$articleTabs) { tabs in
             guard !isReady else { return }
 
-            if tabs.isEmpty {
-                isReady = true
-            } else {
-                Task {
-                    if let tab = await viewModel.getCurrentTab() {
-                        currentTabID = tab.id
-                    }
-                    isReady = true
+            Task {
+                if tabs.isEmpty {
+                    await MainActor.run { isReady = true }
+                    return
                 }
+                if let tab = await viewModel.getCurrentTab() {
+                    await MainActor.run { currentTabID = tab.id }
+                }
+
+                await viewModel.prefetchSummariesIfNeeded(limit: 12)
+
+                await MainActor.run { isReady = true }
             }
         }
         .background(Color(theme.midBackground))
@@ -134,9 +137,16 @@ public struct WMFArticleTabsView: View {
     }
 
     private func getPreviewViewModel(from tab: ArticleTab) -> WMFArticlePreviewViewModel {
-        return WMFArticlePreviewViewModel(url: tab.data.articles.last?.articleURL, titleHtml: tab.title, description: tab.data.articles.last?.description, imageURL: tab.data.articles.last?.imageURL, isSaved: false, snippet: tab.data.articles.last?.extract)
+        let info = tab.info
+        return WMFArticlePreviewViewModel(
+            url: info?.url ?? tab.data.articles.last?.articleURL,
+            titleHtml: tab.title,
+            description: info?.subtitle ?? info?.description,
+            imageURL: info?.image,
+            isSaved: false,
+            snippet: info?.snippet ?? tab.data.articles.last?.extract
+        )
     }
-
 }
 
 // MARK: - Tab content
@@ -187,15 +197,6 @@ fileprivate struct WMFArticleTabsViewContent: View {
             viewModel.loggingDelegate?.logArticleTabsArticleClick(wmfProject: tab.data.articles.first?.project)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
-        .onAppear {
-            Task {
-                if tab.info == nil {
-                    let populatedTab = await viewModel.populateArticleSummary(tab.data)
-                    let info = ArticleTab.Info(subtitle: populatedTab.articles.last?.description, image: populatedTab.articles.last?.imageURL, description: populatedTab.articles.last?.extract, url: populatedTab.articles.last?.articleURL, snippet: populatedTab.articles.last?.extract)
-                    tab.info = info
-                }
-            }
-        }
     }
 
     private func mainPageTabContent() -> some View {
@@ -341,7 +342,6 @@ fileprivate struct WMFArticleTabsViewContent: View {
                     .font(Font(WMFFont.for(.caption1)))
                     .foregroundStyle(Color(theme.secondaryText))
                     .lineLimit(1)
-                
                 Divider()
                     .frame(width: 24)
                     .padding(.vertical, 8)

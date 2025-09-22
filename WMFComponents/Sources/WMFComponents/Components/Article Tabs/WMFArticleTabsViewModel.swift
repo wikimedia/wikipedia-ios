@@ -232,6 +232,39 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
         }
     }
 
+    /// Prefetch summaries for tabs that don't have info yet, so previews are populated with all the data
+    @MainActor
+    func prefetchSummariesIfNeeded(limit: Int? = nil) async {
+        let tabsSnapshot: [ArticleTab] = self.articleTabs
+
+        let toFetch = tabsSnapshot.filter { $0.info == nil }
+        let limited = limit.map { Array(toFetch.prefix($0)) } ?? toFetch
+
+        await withTaskGroup(of: Void.self) { group in
+            for tab in limited {
+                group.addTask { [weak self] in
+                    guard let self else { return }
+                    let populated = await self.populateArticleSummary(tab.data)
+
+                    let last = populated.articles.last
+                    let newInfo = ArticleTab.Info(
+                        subtitle: last?.description,
+                        image: last?.imageURL,
+                        description: last?.extract,
+                        url: last?.articleURL,
+                        snippet: last?.extract
+                    )
+
+                    await MainActor.run {
+                        if tab.info == nil {
+                            tab.info = newInfo
+                        }
+                    }
+                }
+            }
+        }
+    }
+
     func getCurrentTab() async -> ArticleTab? {
         do {
             let tabUUID = try await dataController.currentTabIdentifier()
