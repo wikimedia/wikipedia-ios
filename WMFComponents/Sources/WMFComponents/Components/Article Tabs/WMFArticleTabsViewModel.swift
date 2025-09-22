@@ -18,6 +18,7 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
 
     public let didTapTab: (WMFArticleTabsDataController.WMFArticleTab) -> Void
     public let didTapAddTab: () -> Void
+    public let didTapShareTab: (WMFArticleTabsDataController.WMFArticleTab) -> Void
     public let displayDeleteAllTabsToast: (Int) -> Void
     
     public let localizedStrings: LocalizedStrings
@@ -27,6 +28,7 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
                 loggingDelegate: WMFArticleTabsLoggingDelegate?,
                 didTapTab: @escaping (WMFArticleTabsDataController.WMFArticleTab) -> Void,
                 didTapAddTab: @escaping () -> Void,
+                didTapShareTab: @escaping (WMFArticleTabsDataController.WMFArticleTab) -> Void,
                 displayDeleteAllTabsToast: @escaping (Int) -> Void) {
         self.dataController = dataController
         self.localizedStrings = localizedStrings
@@ -35,23 +37,12 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
         self.shouldShowCloseButton = false
         self.didTapTab = didTapTab
         self.didTapAddTab = didTapAddTab
+        self.didTapShareTab = didTapShareTab
         self.displayDeleteAllTabsToast = displayDeleteAllTabsToast
         super.init()
         Task {
             await loadTabs()
         }
-    }
-    
-    public func didTapCloseAllTabs() {
-        Task {
-            guard let numberTabs = try? await dataController.tabsCount() else { return }
-            try? await dataController.deleteAllTabs()
-            Task { @MainActor in
-                displayDeleteAllTabsToast(numberTabs)
-                await loadTabs()
-            }
-        }
-        
     }
     
     public struct LocalizedStrings {
@@ -62,6 +53,7 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
         public let closeTabAccessibility: String
         public let openTabAccessibility: String
         public let tabsPreferencesTitle: String
+        public let shareTabButtonTitle: String
         public let closeAllTabs: String
         public let cancelActionTitle: String
         public let closeAllTabsTitle: String
@@ -70,7 +62,7 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
         public let emptyStateTitle: String
         public let emptyStateSubtitle: String
 
-        public init(navBarTitleFormat: String, mainPageTitle: String?, mainPageSubtitle: String, mainPageDescription: String, closeTabAccessibility: String, openTabAccessibility: String, tabsPreferencesTitle: String, closeAllTabs: String, cancelActionTitle: String, closeAllTabsTitle: String, closeAllTabsSubtitle: String, closedAlertsNotification: String, emptyStateTitle: String, emptyStateSubtitle: String) {
+        public init(navBarTitleFormat: String, mainPageTitle: String?, mainPageSubtitle: String, mainPageDescription: String, closeTabAccessibility: String, openTabAccessibility: String, tabsPreferencesTitle: String, shareTabButtonTitle: String, closeAllTabs: String, cancelActionTitle: String, closeAllTabsTitle: String, closeAllTabsSubtitle: String, closedAlertsNotification: String, emptyStateTitle: String, emptyStateSubtitle: String) {
             self.navBarTitleFormat = navBarTitleFormat
             self.mainPageTitle = mainPageTitle
             self.mainPageSubtitle = mainPageSubtitle
@@ -78,6 +70,7 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
             self.closeTabAccessibility = closeTabAccessibility
             self.openTabAccessibility = openTabAccessibility
             self.tabsPreferencesTitle = tabsPreferencesTitle
+            self.shareTabButtonTitle = shareTabButtonTitle
             self.closeAllTabs = closeAllTabs
             self.cancelActionTitle = cancelActionTitle
             self.closeAllTabsTitle = closeAllTabsTitle
@@ -207,26 +200,66 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
             }
         }
     }
-    
+
+    public func didTapCloseAllTabs() {
+        Task {
+            guard let numberTabs = try? await dataController.tabsCount() else { return }
+            try? await dataController.deleteAllTabs()
+            Task { @MainActor in
+                displayDeleteAllTabsToast(numberTabs)
+                await loadTabs()
+            }
+        }
+
+    }
+
+    var shouldShowTabsV2: Bool {
+        return dataController.shouldShowMoreDynamicTabs
+    }
+
     func populateArticleSummary(_ tab: WMFArticleTabsDataController.WMFArticleTab) async -> WMFArticleTabsDataController.WMFArticleTab {
-        guard let lastArticle = tab.articles.last else {
-            return tab
-        }
-        
-        guard !lastArticle.isMain else {
-            return tab
-        }
-        
+        guard let lastArticle = tab.articles.last else { return tab }
+
         let dataController = WMFArticleSummaryDataController()
+
         do {
-            let summary = try await dataController.fetchArticleSummary(project: lastArticle.project, title: lastArticle.title)
-            
-            var newArticles = Array(tab.articles.prefix(tab.articles.count - 1))
-            let newArticle = WMFArticleTabsDataController.WMFArticle(identifier: lastArticle.identifier, title: lastArticle.title, description: summary.description, extract: summary.extract, imageURL: summary.thumbnailURL, project: lastArticle.project, articleURL: lastArticle.articleURL)
-            newArticles.append(newArticle)
-            let newTab = WMFArticleTabsDataController.WMFArticleTab(identifier: tab.identifier, timestamp: tab.timestamp, isCurrent: tab.isCurrent, articles: newArticles)
-            return newTab
-            
+            let summary = try await dataController.fetchArticleSummary(
+                project: lastArticle.project,
+                title: lastArticle.title
+            )
+
+            let descriptionText: String?
+            let extractText: String?
+            if lastArticle.isMain {
+                descriptionText = localizedStrings.mainPageSubtitle
+                extractText     = localizedStrings.mainPageDescription
+            } else {
+                descriptionText = summary.description
+                extractText     = summary.extract
+            }
+
+            let updatedLast = WMFArticleTabsDataController.WMFArticle(
+                identifier: lastArticle.identifier,
+                title: lastArticle.title,
+                description: descriptionText,
+                extract: extractText,
+                imageURL: summary.thumbnailURL,
+                project: lastArticle.project,
+                articleURL: lastArticle.articleURL
+            )
+
+            var newArticles = tab.articles
+            if !newArticles.isEmpty {
+                newArticles[newArticles.count - 1] = updatedLast
+            }
+
+            return WMFArticleTabsDataController.WMFArticleTab(
+                identifier: tab.identifier,
+                timestamp: tab.timestamp,
+                isCurrent: tab.isCurrent,
+                articles: newArticles
+            )
+
         } catch {
             return tab
         }

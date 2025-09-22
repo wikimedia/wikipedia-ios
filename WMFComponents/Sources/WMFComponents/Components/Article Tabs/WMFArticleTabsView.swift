@@ -27,7 +27,11 @@ public struct WMFArticleTabsView: View {
                 } else if viewModel.articleTabs.isEmpty {
                     emptyStateContainer
                 } else {
-                    tabsGrid(geometry)
+                    if viewModel.shouldShowTabsV2 {
+                        tabsV2Grid(geometry)
+                    } else {
+                        tabsGrid(geometry)
+                    }
                 }
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -97,15 +101,57 @@ public struct WMFArticleTabsView: View {
                     ForEach(viewModel.articleTabs.sorted(by: { $0.dateCreated < $1.dateCreated }), id: \.id) { tab in
                         WMFArticleTabsViewContent(viewModel: viewModel, tab: tab)
                             .id(tab.id)
-                            .contextMenu(menuItems: {
-                                Button(viewModel.localizedStrings.openTabAccessibility) {
+                            .accessibilityActions {
+                                accessibilityAction(named: viewModel.localizedStrings.openTabAccessibility) {
                                     viewModel.didTapTab(tab.data)
+                                }
+                                if viewModel.shouldShowCloseButton {
+                                    accessibilityAction(named: viewModel.localizedStrings.closeTabAccessibility) {
+                                        viewModel.closeTab(tab: tab)
+                                    }
+                                }
+                            }
+                    }
+                }
+                .padding(.horizontal, 8)
+                .onAppear {
+                    Task {
+                        await Task.yield()
+                        if let id = currentTabID {
+                            proxy.scrollTo(id, anchor: .bottom)
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    private func tabsV2Grid(_ geometry: GeometryProxy) -> some View {
+        ScrollViewReader { proxy in
+            ScrollView {
+                LazyVGrid(columns: Array(repeating: GridItem(.flexible()), count: viewModel.calculateColumns(for: geometry.size))) {
+                    ForEach(viewModel.articleTabs.sorted(by: { $0.dateCreated < $1.dateCreated }), id: \.id) { tab in
+                        WMFArticleTabsViewContent(viewModel: viewModel, tab: tab)
+                            .id(tab.id)
+                            .contextMenu(menuItems: {
+                                Button {
+                                    viewModel.didTapTab(tab.data)
+                                } label: {
+                                    Text(viewModel.localizedStrings.openTabAccessibility)
+                                    Image(uiImage: WMFSFSymbolIcon.for(symbol: .chevronForward) ?? UIImage())
+                                }
+                                Button {
+                                    viewModel.didTapShareTab(tab.data)
+                                } label: {
+                                    Text(viewModel.localizedStrings.shareTabButtonTitle)
+                                    Image(uiImage:  WMFSFSymbolIcon.for(symbol: .share) ?? UIImage())
                                 }
                                 if viewModel.shouldShowCloseButton {
                                     Button(role: .destructive) {
                                         viewModel.closeTab(tab: tab)
                                     } label: {
-                                        Label(viewModel.localizedStrings.closeTabAccessibility, systemImage: "xmark.circle")
+                                        Text(viewModel.localizedStrings.closeTabAccessibility)
+                                        Image(uiImage: WMFSFSymbolIcon.for(symbol: .close) ?? UIImage())
                                     }
                                 }
                             }, preview: {

@@ -583,7 +583,6 @@ public protocol WMFArticleTabsDataControlling {
         
         let result: WMFArticle? = try await moc.perform(block)
         return result
-        
     }
     
     public func setTabItemAsCurrent(tabIdentifier: UUID, tabItemIdentifier: UUID) async throws {

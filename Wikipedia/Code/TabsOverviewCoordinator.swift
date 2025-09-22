@@ -89,6 +89,11 @@ final class TabsOverviewCoordinator: Coordinator {
             self.tappedAddTab()
         }
 
+        let didTapShareTab: (WMFArticleTabsDataController.WMFArticleTab) -> Void = { [weak self] tab in
+            guard let self else { return }
+            self.tappedShareTab(tab)
+        }
+
         let displayDeleteAllTabsToast: (Int) -> Void = { [weak self] articleTabsCount in
             guard let self else { return }
             Task {
@@ -132,6 +137,7 @@ final class TabsOverviewCoordinator: Coordinator {
                 closeTabAccessibility: WMFLocalizedString("tabs-close-tab", value: "Close tab", comment: "Accessibility label for close tab button"),
                 openTabAccessibility: WMFLocalizedString("tabs-open-tab", value: "Open tab", comment: "Accessibility label for opening a tab"),
                 tabsPreferencesTitle: CommonStrings.tabsPreferencesTitle,
+                shareTabButtonTitle: CommonStrings.shareActionTitle,
                 closeAllTabs: CommonStrings.closeAllTabs,
                 cancelActionTitle: CommonStrings.cancelActionTitle,
                 closeAllTabsTitle: closeAllTabsTitle(numberTabs: articleTabsCount),
@@ -147,6 +153,7 @@ final class TabsOverviewCoordinator: Coordinator {
                 loggingDelegate: self,
                 didTapTab: didTapTab,
                 didTapAddTab: didTapAddTab,
+                didTapShareTab: didTapShareTab,
                 displayDeleteAllTabsToast: displayDeleteAllTabsToast
             )
             
@@ -209,6 +216,10 @@ final class TabsOverviewCoordinator: Coordinator {
         articleCoordinator.start()
         
         navigationController.dismiss(animated: true)
+    }
+
+    private func tappedShareTab(_ tab: WMFArticleTabsDataController.WMFArticleTab) {
+        print("Todo.......................")
     }
 }
 
