@@ -14,12 +14,13 @@ public extension WMFTooltipPresenting where Self: UIViewController {
         for tooltipViewModel in self.tooltipViewModels {
             let oldAction = tooltipViewModel.buttonAction
             tooltipViewModel.buttonAction = { [weak self] in
+                guard let self else { return }
                 
-                self?.dismiss(animated: true, completion: {
-                    if !tooltipViewModels.isEmpty {
-                        self?.tooltipViewModels.removeFirst()
+                self.dismiss(animated: true, completion: {
+                    if !self.tooltipViewModels.isEmpty {
+                        self.tooltipViewModels.removeFirst()
                     }
-                    self?.displayNextTooltip()
+                    self.displayNextTooltip()
                 })
                 
                 oldAction?()

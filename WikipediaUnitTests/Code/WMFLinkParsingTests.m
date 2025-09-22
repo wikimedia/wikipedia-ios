@@ -22,23 +22,11 @@
     XCTAssertEqualObjects(@"Tyrannosaurus", URL.wmf_title);
 }
 
-- (void)testWMFMobileDomain {
-    NSURL *URL = [NSURL URLWithString:@"https://en.m.wikipedia.org/wiki/Tyrannosaurus"];
-    XCTAssertEqualObjects(@"wikipedia.org", URL.wmf_domain);
-    XCTAssertEqualObjects(@"en", URL.wmf_languageCode);
-    XCTAssertEqualObjects(@"Tyrannosaurus", URL.wmf_title);
-}
-
 - (void)testWMFDomainComponents {
-    NSURLComponents *components = [NSURLComponents wmf_componentsWithDomain:@"wikipedia.org" languageCode:@"en" isMobile:NO];
+    NSURLComponents *components = [NSURLComponents wmf_componentsWithDomain:@"wikipedia.org" languageCode:@"en"];
     XCTAssertEqualObjects(@"en.wikipedia.org", components.host);
     components = [NSURLComponents wmf_componentsWithDomain:@"wikipedia.org" languageCode:@"en"];
     XCTAssertEqualObjects(@"en.wikipedia.org", components.host);
-}
-
-- (void)testWMFMobileDomainComponents {
-    NSURLComponents *components = [NSURLComponents wmf_componentsWithDomain:@"wikipedia.org" languageCode:@"en" isMobile:YES];
-    XCTAssertEqualObjects(@"en.m.wikipedia.org", components.host);
 }
 
 - (void)testWMFLinksFromLinks {
@@ -49,8 +37,6 @@
     XCTAssertEqualObjects(@"https://fr.wikipedia.org/wiki/Main_Page", titledURL.absoluteString);
     NSURL *titledAndFragmentedURL = [siteURL wmf_URLWithTitle:@"Main Page" fragment:@"section" query:nil];
     XCTAssertEqualObjects(@"https://fr.wikipedia.org/wiki/Main_Page#section", titledAndFragmentedURL.absoluteString);
-    NSURL *mobileURL = [siteURL wmf_URLWithPath:@"/w/api.php" isMobile:YES];
-    XCTAssertEqualObjects(@"https://fr.m.wikipedia.org/w/api.php", mobileURL.absoluteString);
 }
 
 - (void)testWMFInternalLinks {
@@ -72,40 +58,24 @@
     NSURL *siteURL = [NSURL wmf_URLWithDomain:@"mediawiki.org" languageCode:nil];
     NSURL *desktopURL = [NSURL wmf_desktopURLForURL:siteURL];
     XCTAssertEqualObjects(@"https://mediawiki.org", desktopURL.absoluteString);
-    NSURL *mobileURL = [NSURL wmf_mobileURLForURL:siteURL];
-    XCTAssertEqualObjects(@"https://m.mediawiki.org", mobileURL.absoluteString);
-    NSURL *apiURL = [siteURL wmf_URLWithPath:@"/w/api.php" isMobile:NO];
+    NSURL *apiURL = [siteURL wmf_URLWithPath:@"/w/api.php"];
     XCTAssertEqualObjects(@"https://mediawiki.org/w/api.php", apiURL.absoluteString);
-    NSURL *mobileAPIURL = [siteURL wmf_URLWithPath:@"/w/api.php" isMobile:YES];
-    XCTAssertEqualObjects(@"https://m.mediawiki.org/w/api.php", mobileAPIURL.absoluteString);
-}
-
-- (void)testWMFLanguagelessMobileLinks {
-    NSURL *siteURL = [NSURL URLWithString:@"https://m.mediawiki.org/wiki/Wikimedia_Apps/iOS_FAQ"];
-    NSURL *desktopURL = [NSURL wmf_desktopURLForURL:siteURL];
-    XCTAssertEqualObjects(@"https://mediawiki.org/wiki/Wikimedia_Apps/iOS_FAQ", desktopURL.absoluteString);
-    NSURL *mobileURL = [NSURL wmf_mobileURLForURL:siteURL];
-    XCTAssertEqualObjects(@"https://m.mediawiki.org/wiki/Wikimedia_Apps/iOS_FAQ", mobileURL.absoluteString);
-    NSURL *apiURL = [siteURL wmf_URLWithPath:@"/w/api.php" isMobile:NO];
-    XCTAssertEqualObjects(@"https://mediawiki.org/w/api.php", apiURL.absoluteString);
-    NSURL *mobileAPIURL = [siteURL wmf_URLWithPath:@"/w/api.php" isMobile:YES];
-    XCTAssertEqualObjects(@"https://m.mediawiki.org/w/api.php", mobileAPIURL.absoluteString);
 }
 
 - (void)testWMFSpecialCharacters {
-    NSURL *URL = [NSURL URLWithString:@"https://en.m.wikipedia.org"];
+    NSURL *URL = [NSURL URLWithString:@"https://en.wikipedia.org"];
     NSURL *kirkjubURL = [URL wmf_URLWithTitle:@"Kirkjubæjarklaustur"];
-    XCTAssertEqualObjects(@"https://en.m.wikipedia.org/wiki/Kirkjub%C3%A6jarklaustur", kirkjubURL.absoluteString);
+    XCTAssertEqualObjects(@"https://en.wikipedia.org/wiki/Kirkjub%C3%A6jarklaustur", kirkjubURL.absoluteString);
     NSURL *eldgjaURL = [URL wmf_URLWithTitle:@"Eldgjá"];
-    XCTAssertEqualObjects(@"https://en.m.wikipedia.org/wiki/Eldgj%C3%A1", eldgjaURL.absoluteString);
+    XCTAssertEqualObjects(@"https://en.wikipedia.org/wiki/Eldgj%C3%A1", eldgjaURL.absoluteString);
 }
 
 - (void)testTitlesWithSlashes {
-    NSURL *URL = [NSURL URLWithString:@"https://en.m.wikipedia.org"];
+    NSURL *URL = [NSURL URLWithString:@"https://en.wikipedia.org"];
     NSURL *devNullURL = [URL wmf_URLWithTitle:@"/dev/null"];
-    XCTAssertEqualObjects(@"https://en.m.wikipedia.org/wiki/%2Fdev%2Fnull", devNullURL.absoluteString);
+    XCTAssertEqualObjects(@"https://en.wikipedia.org/wiki/%2Fdev%2Fnull", devNullURL.absoluteString);
     NSURL *albumURL = [URL wmf_URLWithTitle:@"/2016ALBUM/"];
-    XCTAssertEqualObjects(@"https://en.m.wikipedia.org/wiki/%2F2016ALBUM%2F", albumURL.absoluteString);
+    XCTAssertEqualObjects(@"https://en.wikipedia.org/wiki/%2F2016ALBUM%2F", albumURL.absoluteString);
 }
 
 - (void)testWMFCanonicalMappingURLComponents {
@@ -159,9 +129,9 @@
     XCTAssertEqualObjects(ole, secondOle);
     XCTAssertEqualObjects(ole, thirdOle);
 
-    ole = [URL wmf_URLWithPath:@"/wiki/Olé#Olé" isMobile:NO];
-    secondOle = [URL wmf_URLWithPath:@"/wiki/Ol\u00E9#Ol\u00E9" isMobile:NO];
-    thirdOle = [URL wmf_URLWithPath:@"/wiki/Ole\u0301#Ole\u0301" isMobile:NO];
+    ole = [URL wmf_URLWithPath:@"/wiki/Olé#Olé"];
+    secondOle = [URL wmf_URLWithPath:@"/wiki/Ol\u00E9#Ol\u00E9"];
+    thirdOle = [URL wmf_URLWithPath:@"/wiki/Ole\u0301#Ole\u0301"];
     XCTAssertEqualObjects(ole, secondOle);
     XCTAssertEqualObjects(ole, thirdOle);
 }

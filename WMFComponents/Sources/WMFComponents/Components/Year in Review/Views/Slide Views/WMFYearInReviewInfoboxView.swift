@@ -6,6 +6,9 @@ public struct WMFYearInReviewInfoboxView: View {
     var theme: WMFTheme { appEnvironment.theme }
     var viewModel: WMFInfoboxViewModel
     var isSharing: Bool
+    private let needsAdaptiveTitleColumnWidth: Bool
+    private let defaultTitleColumnWidth = 108.0
+    @State private var containerWidth: CGFloat?
 
     private var fontTraitOverride: UITraitCollection? {
         isSharing ? UITraitCollection(preferredContentSizeCategory: .medium) : nil
@@ -17,55 +20,83 @@ public struct WMFYearInReviewInfoboxView: View {
     private var rowFont: Font {
         Font(WMFFont.for(.helveticaBody, compatibleWith: fontTraitOverride ?? appEnvironment.traitCollection))
     }
+    
+    private var adaptiveTitleColumnWidth: CGFloat {
+        // Aiming for title column width = 2/5 of infobox width
+        return ((containerWidth ?? (defaultTitleColumnWidth * 5)) / 5) * 2
+    }
 
-    public init(viewModel: WMFInfoboxViewModel, isSharing: Bool) {
+    public init(viewModel: WMFInfoboxViewModel, isSharing: Bool, needsAdaptiveTitleColumnWidth: Bool = false) {
         self.viewModel = viewModel
         self.isSharing = isSharing
+        self.needsAdaptiveTitleColumnWidth = needsAdaptiveTitleColumnWidth
     }
 
     public var body: some View {
-        Group {
-            VStack(alignment: .leading, spacing: 12) {
-                ForEach(viewModel.tableItems.indices, id: \.self) { index in
-                    let item = viewModel.tableItems[index]
-                    HStack(alignment: .top, spacing: 8) {
-                        Text(item.title)
-                            .font(titleFont)
-                            .foregroundStyle(Color(uiColor: WMFColor.black))
-                            .lineLimit(3)
-                            .fixedSize(horizontal: false, vertical: true)
-                            .frame(width: 108, alignment: .leading)
+        VStack(alignment: .leading, spacing: 16) {
+            ForEach(viewModel.tableItems.indices, id: \.self) { index in
+                let item = viewModel.tableItems[index]
+                HStack(alignment: .top, spacing: 8) {
+                    Text(item.title)
+                        .font(titleFont)
+                        .lineSpacing(3)
+                        .foregroundStyle(Color(uiColor: WMFColor.black))
+                        .fixedSize(horizontal: false, vertical: true)
+                        .frame(width: needsAdaptiveTitleColumnWidth ? adaptiveTitleColumnWidth : defaultTitleColumnWidth, alignment: .leading)
 
-                        if let rows = item.richRows {
-                            VStack(alignment: .leading, spacing: 4) {
-                                ForEach(rows) { row in
-                                    HStack(alignment: .top, spacing: 4) {
-                                        Text(row.numberText)
-                                            .font(rowFont)
+                    if let rows = item.richRows {
+                        VStack(alignment: .leading, spacing: 6) {
+                            ForEach(rows) { row in
+                                HStack(alignment: .top, spacing: 4) {
+                                    Text(row.numberText)
+                                        .font(rowFont)
 
-                                        Text(row.titleText)
-                                            .font(rowFont)
-                                            .multilineTextAlignment(.leading)
-                                            .lineLimit(3)
-                                            .truncationMode(.tail)
-                                            .fixedSize(horizontal: false, vertical: true)
-                                    }
+                                    Text(row.titleText)
+                                        .font(rowFont)
+                                        .multilineTextAlignment(.leading)
+                                        .lineSpacing(3)
+                                        .lineLimit(3)
+                                        .truncationMode(.tail)
+                                        .fixedSize(horizontal: false, vertical: true)
                                 }
+                                .frame(maxWidth: .infinity, alignment: .leading)
                             }
-                        } else if let plain = item.text {
-                            Text(plain)
-                                .font(rowFont)
-                                .foregroundStyle(Color(uiColor: WMFColor.black))
-                                .multilineTextAlignment(.leading)
-                                .lineLimit(3)
-                                .truncationMode(.tail)
-                                .fixedSize(horizontal: false, vertical: true)
                         }
+                    } else if let plain = item.text {
+                        Text(plain)
+                            .font(rowFont)
+                            .foregroundStyle(Color(uiColor: WMFColor.black))
+                            .multilineTextAlignment(.leading)
+                            .lineSpacing(3)
+                            .lineLimit(3)
+                            .truncationMode(.tail)
+                            .fixedSize(horizontal: false, vertical: true)
+                            .frame(maxWidth: .infinity, alignment: .leading)
                     }
                 }
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .background(
+                    GeometryReader { geo in
+                        Color.clear
+                            .preference(key: WidthKey.self, value: geo.size.width)
+                    }
+                )
+                .onPreferenceChange(WidthKey.self) { width in
+                    containerWidth = width
+                }
             }
-            .padding(8)
         }
+        .padding(8)
         .background(Color(WMFColor.gray100))
+        .frame(maxWidth: .infinity, alignment: .leading)
+    }
+}
+
+struct WidthKey: PreferenceKey {
+    static var defaultValue: CGFloat = 0
+
+    static func reduce(value: inout CGFloat, nextValue: () -> CGFloat) {
+        // Keep the largest reported width (or sum, or whatever logic you need)
+        value = max(value, nextValue())
     }
 }

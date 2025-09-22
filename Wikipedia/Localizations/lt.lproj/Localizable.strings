@@ -803,6 +803,7 @@
 "serbian-variants-alert-body" = "Vikipedijos programėlė dabar palaiko šiuos serbų k. variantus kaip pirmines ar antrines programėlės kalbas ir tai suteikia galimybę lengviau skaityti, ieškoti ir redaguoti jūsų norimais variantais:\n\nсрпски ћирилица Serbian, Cyrillic (sr-ec)\nsrpski latinica Serbian, Latin (sr-el)";
 "serbian-variants-alert-title" = "Serbų k. varianto palaikymo atnaujinimai";
 "settings-account" = "Paskyra";
+// Fuzzy
 "settings-appearance" = "Skaitymo nustatymai";
 "settings-clear-cache-cancel" = "Atšaukti";
 "settings-help-and-feedback" = "Pagalba ir atsiliepimai";
