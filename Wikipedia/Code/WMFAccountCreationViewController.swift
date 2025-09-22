@@ -1,6 +1,7 @@
 import UIKit
 import WMFComponents
 import CocoaLumberjackSwift
+import HCaptcha
 
 class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewControllerDelegate, UITextFieldDelegate, UIScrollViewDelegate, Themeable, WMFNavigationBarConfiguring {
     @IBOutlet fileprivate var usernameField: ThemeableTextField!
@@ -146,7 +147,7 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
         super.viewWillAppear(animated)
         
         // Check if captcha is required right away. Things could be configured so captcha is required at all times.
-        getCaptcha()
+        getCaptcha(checkHCaptcha: false)
         
         updateEmailFieldReturnKeyType()
         enableProgressiveButtonIfNecessary()
@@ -159,19 +160,36 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
         configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: closeConfig, profileButtonConfig: nil, tabsButtonConfig: nil, searchBarConfig: nil, hideNavigationBarOnScroll: false)
     }
     
-    fileprivate func getCaptcha() {
+    fileprivate func getCaptcha(checkHCaptcha: Bool) {
         let failure: WMFErrorHandler = {error in }
         let siteURL = dataStore.primarySiteURL
-        accountCreationInfoFetcher.fetchAccountCreationInfoForSiteURL(siteURL!, success: { info in
+        accountCreationInfoFetcher.fetchAccountCreationInfoForSiteURL(siteURL!, success: { [weak self] info in
+            guard let self else { return }
             DispatchQueue.main.async {
-                self.captchaViewController?.captcha = info.captcha
-                if info.captcha != nil {
+                if let classicInfo = info.captcha?.classicInfo {
+                    self.captchaViewController?.captcha = info.captcha
                 }
+                
+                if checkHCaptcha,
+                   let hCaptcha = info.captcha?.hCaptchaInfo,
+                   hCaptcha.needsHCaptcha {
+                    self.displayHCaptcha()
+                }
+                
                 self.updateEmailFieldReturnKeyType()
                 self.enableProgressiveButtonIfNecessary()
             }
         }, failure:failure)
         enableProgressiveButtonIfNecessary()
+    }
+    
+    private var hCaptcha: HCaptcha?
+    private func displayHCaptcha() {
+        let hcaptchaVC = WMFHCaptchaViewController()
+        hcaptchaVC.theme = theme
+        present(hcaptchaVC, animated: true) {
+            hcaptchaVC.validate()
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -371,6 +389,11 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
     }
 
     fileprivate func createAccount() {
+        
+        // todo: remove
+        displayHCaptcha()
+        return
+        
         WMFAlertManager.sharedInstance.showAlert(WMFLocalizedString("account-creation-saving", value:"Saving...", comment:"Alert shown when user saves account creation form. {{Identical|Saving}}"), sticky: true, canBeDismissedByUser: false, dismissPreviousAlerts: true, tapCallBack: nil)
         
         let siteURL = dataStore.primarySiteURL
@@ -380,7 +403,7 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
                 self.setViewControllerUserInteraction(enabled: true)
                 
                 // Captcha's appear to be one-time, so always try to get a new one on failure.
-                self.getCaptcha()
+                self.getCaptcha(checkHCaptcha: true)
                 
                 if let error = error as? WMFAccountCreatorError {
                     switch error {

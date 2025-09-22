@@ -1,12 +1,9 @@
 import UIKit
 import HCaptcha
 import WebKit
+import WMF
 
-class WMFHCaptchaViewController: UIViewController {
-
-    struct Constants {
-        static let webViewTag = 123
-    }
+class WMFHCaptchaViewController: ThemeableViewController {
 
     // MARK: - UI Elements
     let captchaContainer: UIView = {
@@ -15,212 +12,85 @@ class WMFHCaptchaViewController: UIViewController {
         return view
     }()
 
-    let label: UILabel = {
-        let label = UILabel()
-        label.font = .systemFont(ofSize: 18)
-        label.textAlignment = .center
-        label.numberOfLines = 0
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
-
-    let spinner: UIActivityIndicatorView = {
-        let spinner = UIActivityIndicatorView(style: .large)
-        spinner.hidesWhenStopped = true
-        spinner.translatesAutoresizingMaskIntoConstraints = false
-        return spinner
-    }()
-
-    let localeSegmentedControl: UISegmentedControl = {
-        let sc = UISegmentedControl(items: ["Default", "Chinese"])
-        sc.selectedSegmentIndex = 0
-        sc.translatesAutoresizingMaskIntoConstraints = false
-        return sc
-    }()
-
-    let validateButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.setTitle("Validate", for: .normal)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        return button
-    }()
-
-    let stopButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.setTitle("Stop", for: .normal)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        return button
-    }()
-
-    let resetButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.setTitle("Reset", for: .normal)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        return button
-    }()
-
     // MARK: - HCaptcha
-    var hcaptcha: HCaptcha!
-    var locale: Locale?
-    private var challengeShown = false
+    var hCaptcha: HCaptcha?
+    var captchaWebView: WKWebView?
 
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .systemBackground
 
         setupLayout()
-        setupActions()
-        setupHCaptchaIfNeeded()
+        setupHCaptcha()
+        apply(theme: theme)
     }
 
     // MARK: - Layout
     private func setupLayout() {
         view.addSubview(captchaContainer)
 
-        // Bottom controls
-        view.addSubview(label)
-        view.addSubview(spinner)
-        view.addSubview(localeSegmentedControl)
-
-        let buttonStack = UIStackView(arrangedSubviews: [validateButton, stopButton, resetButton])
-        buttonStack.axis = .horizontal
-        buttonStack.spacing = 20
-        buttonStack.alignment = .fill
-        buttonStack.distribution = .fillEqually
-        buttonStack.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(buttonStack)
-
-        // MARK: Constraints
-
-        // HCaptcha container at top
         NSLayoutConstraint.activate([
             captchaContainer.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            captchaContainer.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            captchaContainer.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            captchaContainer.bottomAnchor.constraint(equalTo: localeSegmentedControl.topAnchor, constant: -20)
-        ])
-
-        // Locale segmented control pinned above buttons
-        NSLayoutConstraint.activate([
-            localeSegmentedControl.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            localeSegmentedControl.bottomAnchor.constraint(equalTo: validateButton.topAnchor, constant: -20),
-            localeSegmentedControl.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.6)
-        ])
-
-        // Label and spinner above segmented control
-        NSLayoutConstraint.activate([
-            label.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            label.bottomAnchor.constraint(equalTo: localeSegmentedControl.topAnchor, constant: -40),
-            spinner.centerXAnchor.constraint(equalTo: label.centerXAnchor),
-            spinner.topAnchor.constraint(equalTo: label.bottomAnchor, constant: 8)
-        ])
-
-        // Button stack pinned to bottom
-        NSLayoutConstraint.activate([
-            buttonStack.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            buttonStack.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-            buttonStack.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20),
-            buttonStack.heightAnchor.constraint(equalToConstant: 44)
+            captchaContainer.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            captchaContainer.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+            captchaContainer.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
     }
 
-    // MARK: - Actions
-    private func setupActions() {
-        localeSegmentedControl.addTarget(self, action: #selector(didPressLocaleSegmentedControl(_:)), for: .valueChanged)
-        stopButton.addTarget(self, action: #selector(didPressStopButton(_:)), for: .touchUpInside)
-        resetButton.addTarget(self, action: #selector(didPressResetButton(_:)), for: .touchUpInside)
-        validateButton.addTarget(self, action: #selector(didPressValidateButton(_:)), for: .touchUpInside)
-    }
+    func validate() {
 
-    private func bringControlsToFront() {
-        view.bringSubviewToFront(label)
-        view.bringSubviewToFront(spinner)
-        view.bringSubviewToFront(localeSegmentedControl)
-        view.bringSubviewToFront(validateButton)
-        view.bringSubviewToFront(stopButton)
-        view.bringSubviewToFront(resetButton)
-    }
-
-    @objc private func didPressLocaleSegmentedControl(_ sender: UISegmentedControl) {
-        label.text = ""
-        switch sender.selectedSegmentIndex {
-        case 0: locale = nil
-        case 1: locale = Locale(identifier: "zh-CN")
-        default: assertionFailure("invalid index")
-        }
-        setupHCaptchaIfNeeded()
-    }
-
-    @objc private func didPressStopButton(_ sender: UIButton) {
-        hcaptcha.stop()
-        spinner.stopAnimating()
-    }
-
-    @objc private func didPressResetButton(_ sender: UIButton) {
-        hcaptcha.reset()
-        label.text = ""
-        spinner.stopAnimating()
-    }
-
-    @objc private func didPressValidateButton(_ sender: UIButton) {
-        spinner.startAnimating()
-        label.text = ""
-
-        hcaptcha.validate(on: captchaContainer) { [weak self] result in
+        hCaptcha?.validate(on: captchaContainer) { [weak self] result in
             guard let self = self else { return }
 
-            self.spinner.stopAnimating()
-
             do {
-                self.label.text = try result.dematerialize()
+                let token = try result.dematerialize()
+                print("token: \(token)")
             } catch let error as HCaptchaError {
-                self.label.text = error.description
+                print("HCaptchaError: \(error.description)")
             } catch let error {
-                self.label.text = String(describing: error)
+                print("error: \(error)")
             }
 
-            if let subview = self.captchaContainer.viewWithTag(Constants.webViewTag) {
+            for subview in self.captchaContainer.subviews {
                 subview.removeFromSuperview()
             }
-            self.challengeShown = false
         }
     }
 
     // MARK: - HCaptcha Setup
-    private func setupHCaptchaIfNeeded() {
-        guard !Bundle.main.bundlePath.contains("Tests") else { return }
-
-        // swiftlint:disable:next force_try
-        hcaptcha = try! HCaptcha(apiKey: "45205f58-be1c-40f0-b286-07a4498ea3da",
-                                 baseURL: URL(string: "https://hcaptcha.wikimedia.org")!,
-                                locale: locale,
+    private func setupHCaptcha() {
+        // "f1f21d64-6384-4114-b7d0-d9d23e203b4a" //don't always challenge
+        // "45205f58-be1c-40f0-b286-07a4498ea3da" //always challenge
+        hCaptcha = try? HCaptcha(apiKey: "f1f21d64-6384-4114-b7d0-d9d23e203b4a",
+                                 baseURL: URL(string: "https://meta.wikimedia.org")!,
+                                 jsSrc: URL(string:"https://assets-hcaptcha.wikimedia.org/1/api.js")!,
+                                 endpoint: URL(string: "https://hcaptcha.wikimedia.org")!,
+                                 reportapi: URL(string: "https://report-hcaptcha.wikimedia.org")!,
+                                 assethost: URL(string: "https://assets-hcaptcha.wikimedia.org")!,
+                                 imghost: URL(string: "https://imgs-hcaptcha.wikimedia.org")!,
+                                 theme: theme.isDark ? "dark" : "light",
                                 diagnosticLog: true)
 
-        hcaptcha.onEvent { [weak self] event, _ in
+        hCaptcha?.onEvent { [weak self] event, _ in
             guard let self = self else { return }
             if event == .open {
-                if let webview = self.captchaContainer.viewWithTag(Constants.webViewTag) {
-                    self.moveHCaptchaUp(webview)
-                }
-                // Ensure buttons & controls are on top
-                self.bringControlsToFront()
+                print("open!")
             }
         }
 
-        hcaptcha.configureWebView { [weak self] webview in
+        hCaptcha?.configureWebView { [weak self] webView in
             guard let self = self else { return }
-            webview.frame = self.captchaContainer.bounds
-            webview.tag = Constants.webViewTag
-            webview.isOpaque = false
-            webview.backgroundColor = .clear
-            webview.scrollView.backgroundColor = .clear
-            self.captchaContainer.addSubview(webview)
+            webView.frame = self.captchaContainer.bounds
+            webView.isOpaque = false
+            webView.backgroundColor = UIColor.clear
+            webView.scrollView.backgroundColor = .clear
+            self.captchaContainer.addSubview(webView)
+            self.captchaWebView = webView
         }
     }
-
-    // MARK: - Helper
-    private func moveHCaptchaUp(_ webview: UIView) {
-        webview.frame = captchaContainer.bounds
+    
+    override func apply(theme: Theme) {
+        super.apply(theme: theme)
+        view.backgroundColor = theme.colors.paperBackground
     }
 }
