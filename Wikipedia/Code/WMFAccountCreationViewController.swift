@@ -147,7 +147,7 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
         super.viewWillAppear(animated)
         
         // Check if captcha is required right away. Things could be configured so captcha is required at all times.
-        getCaptcha(checkHCaptcha: false)
+        //getCaptcha(checkHCaptcha: false)
         
         updateEmailFieldReturnKeyType()
         enableProgressiveButtonIfNecessary()
