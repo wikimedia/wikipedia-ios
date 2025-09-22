@@ -1263,7 +1263,12 @@
 "year-in-review-personalized-reading-subtitle-format-v3" = "つまり、あなたは世界中のWikipedia読者の上位**PERCENT**に入ることになります。平均的な人は年間335件の記事を読みます。";
 "year-in-review-personalized-donate-title" = "皆様の寛大なご支援により、ウィキペディアは発展を続けています";
 "year-in-review-personalized-date-title-v3" = "あなたには記事を読む明確なパターンがあります";
+"year-in-review-time-morning" = "朝";
+"year-in-review-time-midday" = "真昼";
 "year-in-review-time-afternoon" = "午後";
+"year-in-review-time-evening" = "夕方";
+"year-in-review-time-night" = "夜";
+"year-in-review-time-late-night" = "深夜";
 "year-in-review-personalized-date-time-footer-v3" = "一日のうち最も読むのが好きな時間";
 "year-in-review-personalized-date-day-footer-v3" = "読むのが好きな日";
 "year-in-review-personalized-date-month-footer-v3" = "最もたくさん読んだ月";
@@ -1290,7 +1295,9 @@
 "year-in-review-wmf-logo-accessibility-label" = "ウィキメディア財団のロゴ";
 "year-in-review-personalized-saved-subtitle-format-v3" = "それらには、$1、$2、$3の記事が含まれています。保存されたそれぞれの記事があなたの興味を反映しており、ウィキペディア上でパーソナライズされた知識ベースを構築するのに役立ちます。\n\nアクティブなアプリユーザーたちが今年、370万件以上の記事を保存していました。";
 "year-in-review-personalized-location-title-format" = "あなたが読んだ記事は$1と最も関連があります";
+"year-in-review-personalized-location-subtitle-format-1" = "$2$1$3について読みました。";
 "year-in-review-personalized-location-subtitle-format-2" = "あなたは$3$1$4や$3$2$4について読みました。";
+"year-in-review-personalized-location-subtitle-format-3" = "$4$1$5、$4$2$5、$4$3$5について読みます。";
 "year-in-review-personalized-most-read-articles-title" = "あなたのトップ記事";
 "year-in-review-personalized-categories-title" = "あなたの最も興味があるカテゴリ";
 "year-in-review-personalized-editing-subtitle-1" = "あなたが世界中のウィキメディア・プロジェクトで改善をもたらしているボランティア編集者の1人であることに感謝します。";
