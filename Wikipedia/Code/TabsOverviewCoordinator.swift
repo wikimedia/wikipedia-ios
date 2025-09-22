@@ -135,7 +135,9 @@ final class TabsOverviewCoordinator: Coordinator {
                 cancelActionTitle: CommonStrings.cancelActionTitle,
                 closeAllTabsTitle: closeAllTabsTitle(numberTabs: articleTabsCount),
                 closeAllTabsSubtitle: closeAllTabsSubtitle(numberTabs: articleTabsCount),
-                closedAlertsNotification: closedAlertsNotification(numberTabs: articleTabsCount)
+                closedAlertsNotification: closedAlertsNotification(numberTabs: articleTabsCount),
+                hideSuggestedArticlesTitle: WMFLocalizedString("tabs-hide-suggested-articles", value: "Hide article suggestions", comment: "Hide suggested articles button title"),
+                showSuggestedArticlesTitle: WMFLocalizedString("tabs-show-suggested-articles", value: "Show article suggestions", comment: "Show suggested articles button title")
             )
             
             let articleTabsViewModel = WMFArticleTabsViewModel(

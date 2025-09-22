@@ -78,22 +78,28 @@ public class WMFArticleTabsHostingController<HostedView: View>: WMFComponentHost
     }
     
     var overflowMenu: UIMenu {
-        let closeAllTabs = UIAction(title: viewModel.localizedStrings.closeAllTabs, image: WMFIcon.closeTabs, handler: { [weak self] _ in
+        let closeAllTabs = UIAction(
+            title: viewModel.localizedStrings.closeAllTabs,
+            image: WMFIcon.closeTabs,
+            attributes: [.destructive],
+            handler: { [weak self] _ in
             Task {
                 await self?.presentCloseAllTabsConfirmationDialog()
             }
         })
         
-        let hideArticleSuggestions = UIAction(title: "Hide", image: WMFSFSymbolIcon.for(symbol: .eyeSlash), handler: { [weak self] _ in
+        let hideArticleSuggestions = UIAction(title: viewModel.localizedStrings.hideSuggestedArticlesTitle, image: WMFSFSymbolIcon.for(symbol: .eyeSlash), handler: { [weak self] _ in
             guard let self else { return }
             self.dataController.shouldHideArticleSuggestions.toggle()
             self.overflowButton.menu = self.overflowMenu
+            
         })
         
-        let showArticleSuggestions = UIAction(title: "Show", image: WMFSFSymbolIcon.for(symbol: .eye), handler: { [weak self] _ in
+        let showArticleSuggestions = UIAction(title: viewModel.localizedStrings.showSuggestedArticlesTitle, image: WMFSFSymbolIcon.for(symbol: .eye), handler: { [weak self] _ in
             guard let self else { return }
             self.dataController.shouldHideArticleSuggestions.toggle()
             self.overflowButton.menu = self.overflowMenu
+            
         })
         
         var children: [UIMenuElement]

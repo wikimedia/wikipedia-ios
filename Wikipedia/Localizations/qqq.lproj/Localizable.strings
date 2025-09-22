@@ -1188,12 +1188,14 @@
 "table-of-contents-hide-button-label" = "Accessibility label for the hide Table of Contents button";
 "table-of-contents-subheading-label" = "VoiceOver label to indicate level of subheading in table of contents. $1 is replaced by the level of subheading.";
 "tabs-close-tab" = "Accessibility label for close tab button";
+"tabs-hide-suggested-articles" = "Hide suggested articles button title";
 "tabs-main-page-description" = "Main page description";
 "tabs-main-page-subtitle" = "Main page subtitle";
 "tabs-navbar-title-format" = "$1 is the amount of tabs. Navigation title for tabs, displaying how many open tabs.";
 "tabs-open-tab" = "Accessibility label for opening a tab";
 "tabs-overview-tooltip-body" = "Description for tooltip explaining the tabs overview functionality";
 "tabs-overview-tooltip-title" = "Title for tooltip explaining the tabs overview functionality";
+"tabs-show-suggested-articles" = "Show suggested articles button title";
 "tabs-survey-title" = "Title for article tabs survey";
 "tabs-thumbnail-description" = "New tab thumbanail description";
 "tabs-thumbnail-subtitle" = "New tab thumbanail subtitle";

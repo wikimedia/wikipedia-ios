@@ -66,8 +66,10 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
         public let closeAllTabsTitle: String
         public let closeAllTabsSubtitle: String
         public let closedAlertsNotification: String
+        public let hideSuggestedArticlesTitle: String
+        public let showSuggestedArticlesTitle: String
         
-        public init(navBarTitleFormat: String, mainPageTitle: String?, mainPageSubtitle: String, mainPageDescription: String, closeTabAccessibility: String, openTabAccessibility: String, closeAllTabs: String, cancelActionTitle: String, closeAllTabsTitle: String, closeAllTabsSubtitle: String, closedAlertsNotification: String) {
+        public init(navBarTitleFormat: String, mainPageTitle: String?, mainPageSubtitle: String, mainPageDescription: String, closeTabAccessibility: String, openTabAccessibility: String, closeAllTabs: String, cancelActionTitle: String, closeAllTabsTitle: String, closeAllTabsSubtitle: String, closedAlertsNotification: String, hideSuggestedArticlesTitle: String, showSuggestedArticlesTitle: String) {
             self.navBarTitleFormat = navBarTitleFormat
             self.mainPageTitle = mainPageTitle
             self.mainPageSubtitle = mainPageSubtitle
@@ -79,6 +81,8 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
             self.closeAllTabsTitle = closeAllTabsTitle
             self.closeAllTabsSubtitle = closeAllTabsSubtitle
             self.closedAlertsNotification = closedAlertsNotification
+            self.hideSuggestedArticlesTitle = hideSuggestedArticlesTitle
+            self.showSuggestedArticlesTitle = showSuggestedArticlesTitle
         }
     }
     
