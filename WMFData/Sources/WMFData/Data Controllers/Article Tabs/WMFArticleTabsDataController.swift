@@ -136,11 +136,12 @@ public protocol WMFArticleTabsDataControlling {
     }
     
     // Different than should SHOW article suggestions, this is based on user's preferences to hide or not
+    // Should hide = user has chosen to hide the element
+    // ! should hide = user has not chose to hide the element
     public var shouldHideArticleSuggestions: Bool {
         get {
             return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.userHasHiddenArticleSuggestionsTabs.rawValue)) ?? false
         } set {
-            print("Updating :\(newValue)")
             try? userDefaultsStore?.save(key: WMFUserDefaultsKey.userHasHiddenArticleSuggestionsTabs.rawValue, value: newValue)
         }
     }

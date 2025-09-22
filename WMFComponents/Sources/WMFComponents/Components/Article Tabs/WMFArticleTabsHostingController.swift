@@ -44,7 +44,7 @@ public class WMFArticleTabsHostingController<HostedView: View>: WMFComponentHost
         
         configureNavigationBar()
         
-        if true {
+        if dataController.shouldShowMoreDynamicTabs {
             navigationItem.rightBarButtonItems = [addTabButton, overflowButton]
         } else {
             navigationItem.rightBarButtonItem = addTabButton
