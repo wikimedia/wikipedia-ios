@@ -581,6 +581,7 @@
 "search-result-redirected-from" = "Redirección desde: $1";
 "search-title" = "Procurar";
 "settings-account" = "Conta";
+// Fuzzy
 "settings-appearance" = "Preferencias de lectura";
 "settings-clear-cache" = "Borrar os datos da caché";
 "settings-clear-cache-are-you-sure-message" = "Se se borran os datos da caché liberaranse preto de $1 de espazo. Non borrará as súas páxinas gardadas.";

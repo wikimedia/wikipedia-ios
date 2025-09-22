@@ -960,6 +960,7 @@
 "serbian-variants-alert-body" = "Aplikasi Wikipedia kini mendukung varian bahasa Serbia berikut sebagai bahasa utama maupun bahasa kedua di dalam aplikasi, membuatnya lebih mudah untuk dibaca, cari dan sunting dalam varian pilihan Anda:\n\nсрпски ћирилица Serbian, Sirilik (sr-ec)\nsrpski latinica Serbian, Latin (sr-el)";
 "serbian-variants-alert-title" = "Pembaruan dukungan untuk varian bahasa Serbia";
 "settings-account" = "Akun";
+// Fuzzy
 "settings-appearance" = "Preferensi pembacaan";
 "settings-clear-cache" = "Hapus data dalam cache";
 "settings-clear-cache-are-you-sure-message" = "Menghapus data cache akan membebaskan sekitar $1 ruang. Ini tidak akan menghapus halaman tersimpan Anda.";

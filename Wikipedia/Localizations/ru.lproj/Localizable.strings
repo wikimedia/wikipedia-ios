@@ -166,6 +166,7 @@
 "article-revision-history" = "История версий статьи";
 "article-save-error-not-enough-space" = "Не хватает места на вашем устройстве, чтобы сохранить эту статью";
 "article-share" = "Поделиться";
+"article-tabs-did-you-know-title" = "Знаете ли вы";
 "article-tabs-open" = "Открыть";
 "article-tabs-open-background-tab" = "Открыть в фоновой вкладке";
 "article-tabs-open-new-tab" = "Открыть в новой вкладке";
@@ -705,8 +706,11 @@
 "main-menu-title" = "Ещё";
 "main-menu-zero-faq" = "ЧЗВ по Wikipedia Zero";
 "main-page" = "Заглавная страница";
+// Fuzzy
 "microsite-yir-english-edits-bytes-slide-subtitle" = "В 2024 году добровольцы добавили 4 104 852 969 байт текста в англоязычную Википедию. В результате их работы создаётся постоянно совершенствующийся, основанный на фактах и ​​надёжный ресурс знаний, который они предоставляют миру. У каждого из нас есть знания, которыми можно поделиться. [Узнайте, как и вам принять участие]($1).";
+// Fuzzy
 "microsite-yir-english-edits-bytes-slide-title" = "Добавлено 4 миллиарда байт";
+// Fuzzy
 "microsite-yir-english-edits-slide-title" = "В этом году редакторы внесли 98 миллионов правок.";
 "microsite-yir-english-top-read-slide-title" = "Самые популярные статьи английской Википедии";
 "more-languages-tooltip-description" = "Искать в Википедии на более чем 300 языках";
@@ -1083,6 +1087,7 @@
 "serbian-variants-alert-body" = "Приложение Wikipedia теперь поддерживает следующие варианты сербского языка в качестве основных или дополнительных языков в приложении, что упрощает чтение, поиск и редактирование в предпочтительных вариантах:\n\nсрпски ћирилица Serbian, Cyrillic (sr-ec)\nsrpski latinica Serbian, Latin (sr-el)";
 "serbian-variants-alert-title" = "Обновления поддержки вариантов Сербского";
 "settings-account" = "Учётная запись";
+// Fuzzy
 "settings-appearance" = "Настройки чтения";
 "settings-clear-cache" = "Очистить кэш";
 "settings-clear-cache-are-you-sure-message" = "Очистка кэша освободит около $1 места на вашем устройстве. Это не удалит ваши сохранённые страницы.";
@@ -1152,7 +1157,6 @@
 "tabs-close-tab" = "Закрыть вкладку";
 "tabs-open-tab" = "Открыть вкладку";
 "tabs-title" = "Вкладки";
-"tabs-title-preferences" = "Настройки вкладок";
 "tachelhit-variants-alert-body" = "Приложение Wikipedia теперь поддерживает следующие варианты Тачелхита в качестве основных или дополнительных языков в приложении, что упрощает чтение, поиск и редактирование в предпочтительных вариантах:\n\nⵜⴰⵛⵍⵃⵉⵜ Tachelhit, Tifinagh (shi-tfng)\nTaclḥit Tachelhit, Latin (shi-latn)";
 "tachelhit-variants-alert-title" = "Обновление поддержки вариантов Тачелхита";
 "tajik-variants-alert-body" = "Приложение Википедия теперь поддерживает следующие варианты Таджикского языка в качестве основных или дополнительных языков в приложении, что упрощает чтение, поиск и редактирование в предпочтительных вариантах:\n\nтоҷикӣ кирилликӣ Tajik, Cyrillic (tg-cyrl)\ntojikī lotinī Tajik, Latin (tg-latn)";
@@ -1283,6 +1287,7 @@
 "watchlist-empty-view-filter-title" = "У вас нет элементов в Списке наблюдения";
 "watchlist-expiration-title" = "Установить срок действия";
 "watchlist-filter" = "Фильтр";
+"watchlist-filter-activity-header" = "Активность в списке наблюдения";
 "watchlist-filter-activity-options-seen-changes" = "Просмотренные изменения";
 "watchlist-filter-activity-options-unseen-changes" = "Непросмотренные изменения";
 "watchlist-filter-automated-contributions-header" = "Автоматизированные вклады";
@@ -1358,9 +1363,11 @@
 "wikitext-upload-save-sign-in" = "Войти";
 "wikitext-upload-save-terms-and-licenses-ccsa4" = "Публикуя изменения, вы соглашаетесь с $1Условиями использования$2 и с тем, что размещаете свой вклад под лицензиями $3CC BY-SA 3.0$4 и $5GFDL$6. Вы также соглашаетесь с тем, что для атрибуции согласно условиям лицензии Creative Commons достаточно будет указать гиперссылку или URL страницы.";
 "wikitext-upload-save-terms-name" = "Условия использования";
+// Fuzzy
 "year-in-review-base-editors-title" = "Редакторы приложения для iOS сделали более $1 правок";
 "year-in-review-base-edits-title" = "Википедия редактировалась $1 раз в минуту";
 "year-in-review-base-reading-title" = "Википедия доступна на более чем 300 языках";
+// Fuzzy
 "year-in-review-base-viewed-title" = "Мы просмотрели статьи Википедии $1 миллиард раз";
 "year-in-review-button-title" = "Обзор года";
 "year-in-review-collective-edits" = "Иллюстрация двух объединённых фрагментов пазла с логотипом Википедии, каждый из которых несёт информацию.";
@@ -1379,7 +1386,6 @@
 "year-in-review-personalized-day-subtitle-format" = "$1 — тот день, когда вы читали больше всего статей. Очевидно, что это ваш главный день для изучения нового контента. Спасибо, что максимально используете время чтения!";
 "year-in-review-personalized-donate-title" = "Ваша щедрость помогла Википедии процветать";
 "year-in-review-personalized-donation-thank-you" = "Логотип Викимедиа";
-"year-in-review-personalized-editing-subtitle-format" = "Вы редактировали Википедию {{PLURAL:$1|$1 раз|раз}}. Спасибо, что вы один из добровольных редакторов, которые вносят свой вклад в проекты Викимедиа по всему миру.";
 "year-in-review-personalized-editing-title-format" = "Вы редактировали Википедию {{PLURAL:$1|$1 раз|раз}}";
 "year-in-review-personalized-editing-title-format-500plus" = "Вы редактировали Википедию более 500 раз";
 "year-in-review-personalized-reading-title-format" = "Вы прочитали $1 {{PLURAL:$1|статью|статьи|статей}}";
