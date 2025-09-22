@@ -479,7 +479,7 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
         
         let editTagStrings = editTags?.map { $0.rawValue }
         
-        wikiTextSectionUploader.uploadWikiText(wikitext, forArticleURL: editURL, section: section, summary: summaryText, isMinorEdit: minorEditToggle.isOn, addToWatchlist: addToWatchlistToggle.isOn, baseRevID: nil, captchaId: captchaViewController?.captcha?.captchaID, captchaWord: captchaViewController?.solution, editTags: editTagStrings, completion: { (result, error) in
+        wikiTextSectionUploader.uploadWikiText(wikitext, forArticleURL: editURL, section: section, summary: summaryText, isMinorEdit: minorEditToggle.isOn, addToWatchlist: addToWatchlistToggle.isOn, baseRevID: nil, captchaId: captchaViewController?.captcha?.classicInfo?.captchaID, captchaWord: captchaViewController?.solution, editTags: editTagStrings, completion: { (result, error) in
             
             DispatchQueue.main.async {
                 
@@ -556,10 +556,14 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
         
         switch errorType {
         case .needsCaptcha:
-            let captchaUrl = URL(string: nsError.userInfo["captchaUrl"] as? String ?? "")
+            guard let captchaUrl = URL(string: nsError.userInfo["captchaUrl"] as? String ?? "") else {
+                return
+            }
+            
             let captchaId = nsError.userInfo["captchaId"] as? String ?? ""
             WMFAlertManager.sharedInstance.showErrorAlert(nsError, sticky: false, dismissPreviousAlerts: true, tapCallBack: nil)
-            captchaViewController?.captcha = WMFCaptcha(captchaID: captchaId, captchaURL: captchaUrl!)
+            let classicInfo = WMFCaptcha.ClassicInfo(captchaID: captchaId, captchaURL: captchaUrl)
+            captchaViewController?.captcha = WMFCaptcha(classicInfo: classicInfo, hCaptchaInfo: nil)
             mode = .captcha
             highlightCaptchaSubmitButton(false)
             dispatchOnMainQueueAfterDelayInSeconds(0.1) { // Prevents weird animation.

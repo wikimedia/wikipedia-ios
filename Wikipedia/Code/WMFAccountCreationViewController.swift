@@ -40,11 +40,6 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
     
     fileprivate lazy var captchaViewController: WMFCaptchaViewController? = WMFCaptchaViewController.wmf_initialViewControllerFromClassStoryboard()
     
-    fileprivate lazy var hcaptchaViewController: WMFHCaptchaViewController? = {
-        return WMFHCaptchaViewController()
-            // vc = try WMFHCaptchaViewController(apiKey: "45205f58-be1c-40f0-b286-07a4498ea3da", domain: "https://hcaptcha.wikimedia.org")
-    }()
-    
     private var checkingUsernameAvailability: Bool = false
     
     @objc func closeButtonPushed(_ : UIBarButtonItem?) {
@@ -52,8 +47,7 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
     }
 
     @IBAction fileprivate func createAccountButtonTapped(withSender sender: UIButton) {
-        present(hcaptchaViewController!, animated: true)
-        // save()
+        save()
     }
 
     @objc func loginButtonPushed(_ recognizer: UITapGestureRecognizer) {
@@ -106,8 +100,7 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
         view.wmf_configureSubviewsForDynamicType()
         
         captchaViewController?.captchaDelegate = self
-        // wmf_add(childController:captchaViewController, andConstrainToEdgesOfContainerView: captchaContainer)
-        // wmf_add(childController:hcaptchaViewController, andConstrainToEdgesOfContainerView: captchaContainer)
+        wmf_add(childController:captchaViewController, andConstrainToEdgesOfContainerView: captchaContainer)
         
         apply(theme: theme)
         
@@ -153,7 +146,7 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
         super.viewWillAppear(animated)
         
         // Check if captcha is required right away. Things could be configured so captcha is required at all times.
-        // getCaptcha()
+        getCaptcha()
         
         updateEmailFieldReturnKeyType()
         enableProgressiveButtonIfNecessary()
@@ -387,7 +380,7 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
                 self.setViewControllerUserInteraction(enabled: true)
                 
                 // Captcha's appear to be one-time, so always try to get a new one on failure.
-                // self.getCaptcha()
+                self.getCaptcha()
                 
                 if let error = error as? WMFAccountCreatorError {
                     switch error {
@@ -399,7 +392,7 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
                         WMFAlertManager.sharedInstance.dismissAlert()
                         return
                     case .wrongCaptcha:
-                        // self.captchaViewController?.captchaTextFieldBecomeFirstResponder()
+                        self.captchaViewController?.captchaTextFieldBecomeFirstResponder()
                         break
                     case .blockedError(let parsedMessage):
                         
@@ -425,7 +418,7 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
         }
         
         self.setViewControllerUserInteraction(enabled: false)
-        accountCreator.createAccount(username: usernameField.text!, password: passwordField.text!, retypePassword: passwordRepeatField.text!, email: emailField.text!, captchaID: captchaViewController?.captcha?.captchaID, captchaWord: captchaViewController?.solution, siteURL: siteURL!, success: {_ in
+        accountCreator.createAccount(username: usernameField.text!, password: passwordField.text!, retypePassword: passwordRepeatField.text!, email: emailField.text!, captchaID: captchaViewController?.captcha?.classicInfo?.captchaID, captchaWord: captchaViewController?.solution, siteURL: siteURL!, success: {_ in
             DispatchQueue.main.async {
                 self.login()
             }
