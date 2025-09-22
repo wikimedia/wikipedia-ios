@@ -147,7 +147,7 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
         super.viewWillAppear(animated)
         
         // Check if captcha is required right away. Things could be configured so captcha is required at all times.
-        //getCaptcha(checkHCaptcha: false)
+        // getCaptcha(checkHCaptcha: false)
         
         updateEmailFieldReturnKeyType()
         enableProgressiveButtonIfNecessary()
@@ -166,7 +166,7 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
         accountCreationInfoFetcher.fetchAccountCreationInfoForSiteURL(siteURL!, success: { [weak self] info in
             guard let self else { return }
             DispatchQueue.main.async {
-                if let classicInfo = info.captcha?.classicInfo {
+                if info.captcha?.classicInfo != nil {
                     self.captchaViewController?.captcha = info.captcha
                 }
                 
@@ -183,10 +183,28 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
         enableProgressiveButtonIfNecessary()
     }
     
-    private var hCaptcha: HCaptcha?
+    private var hCaptchaToken: String?
+    
     private func displayHCaptcha() {
         let hcaptchaVC = WMFHCaptchaViewController()
         hcaptchaVC.theme = theme
+        hcaptchaVC.modalTransitionStyle = .crossDissolve
+        hcaptchaVC.modalPresentationStyle = .overFullScreen
+        
+        hcaptchaVC.successAction = { token in
+            hcaptchaVC.dismiss(animated: true) { [weak self] in
+                self?.hCaptchaToken = token
+                self?.createAccount()
+            }
+        }
+        
+        hcaptchaVC.errorAction = { error in
+            hcaptchaVC.dismiss(animated: true) { [weak self] in
+                self?.hCaptchaToken = nil
+                WMFAlertManager.sharedInstance.showErrorAlert(error, sticky: true, dismissPreviousAlerts: true)
+            }
+        }
+        
         present(hcaptchaVC, animated: true) {
             hcaptchaVC.validate()
         }
@@ -343,7 +361,9 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
             return
         }
         wmf_hideKeyboard()
-        createAccount()
+        
+        // todo: createAccount()
+        displayHCaptcha()
     }
     
     @IBAction func textFieldDidBeginEditing(_ textField: UITextField) {
@@ -389,10 +409,6 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
     }
 
     fileprivate func createAccount() {
-        
-        // todo: remove
-        displayHCaptcha()
-        return
         
         WMFAlertManager.sharedInstance.showAlert(WMFLocalizedString("account-creation-saving", value:"Saving...", comment:"Alert shown when user saves account creation form. {{Identical|Saving}}"), sticky: true, canBeDismissedByUser: false, dismissPreviousAlerts: true, tapCallBack: nil)
         
@@ -441,7 +457,7 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
         }
         
         self.setViewControllerUserInteraction(enabled: false)
-        accountCreator.createAccount(username: usernameField.text!, password: passwordField.text!, retypePassword: passwordRepeatField.text!, email: emailField.text!, captchaID: captchaViewController?.captcha?.classicInfo?.captchaID, captchaWord: captchaViewController?.solution, siteURL: siteURL!, success: {_ in
+        accountCreator.createAccount(username: usernameField.text!, password: passwordField.text!, retypePassword: passwordRepeatField.text!, email: emailField.text!, captchaID: captchaViewController?.captcha?.classicInfo?.captchaID, captchaWord: captchaViewController?.solution, hCaptchaToken: hCaptchaToken, siteURL: siteURL!, success: {_ in
             DispatchQueue.main.async {
                 self.login()
             }
