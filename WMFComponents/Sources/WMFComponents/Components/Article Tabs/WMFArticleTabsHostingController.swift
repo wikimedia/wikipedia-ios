@@ -18,11 +18,13 @@ public class WMFArticleTabsHostingController<HostedView: View>: WMFComponentHost
     private let doneButtonText: String
     private let articleTabsCount: Int
     private var format: String?
+    private var dataController: WMFArticleTabsDataController
 
     public init(rootView: HostedView, viewModel: WMFArticleTabsViewModel, doneButtonText: String, articleTabsCount: Int) {
         self.viewModel = viewModel
         self.doneButtonText = doneButtonText
         self.articleTabsCount = articleTabsCount
+        dataController = WMFArticleTabsDataController.shared
         super.init(rootView: rootView)
         
         // Defining format outside the block fixes a retain cycle on WMFArticleTabsViewModel
@@ -42,8 +44,7 @@ public class WMFArticleTabsHostingController<HostedView: View>: WMFComponentHost
         
         configureNavigationBar()
         
-        let dataController = WMFArticleTabsDataController.shared
-        if dataController.shouldShowMoreDynamicTabs {
+        if true {
             navigationItem.rightBarButtonItems = [addTabButton, overflowButton]
         } else {
             navigationItem.rightBarButtonItem = addTabButton
@@ -77,14 +78,34 @@ public class WMFArticleTabsHostingController<HostedView: View>: WMFComponentHost
     }
     
     var overflowMenu: UIMenu {
-
-        let closeAllTabs = UIAction(title: viewModel.localizedStrings.closeAllTabs, image: WMFSFSymbolIcon.for(symbol: .close), handler: { [weak self] _ in
+        let closeAllTabs = UIAction(title: viewModel.localizedStrings.closeAllTabs, image: WMFIcon.closeTabs, handler: { [weak self] _ in
             Task {
                 await self?.presentCloseAllTabsConfirmationDialog()
             }
         })
-
-        let children: [UIMenuElement] = [closeAllTabs]
+        
+        let hideArticleSuggestions = UIAction(title: "Hide", image: WMFSFSymbolIcon.for(symbol: .eyeSlash), handler: { [weak self] _ in
+            guard let self else { return }
+            self.dataController.shouldHideArticleSuggestions.toggle()
+            self.overflowButton.menu = self.overflowMenu
+        })
+        
+        let showArticleSuggestions = UIAction(title: "Show", image: WMFSFSymbolIcon.for(symbol: .eye), handler: { [weak self] _ in
+            guard let self else { return }
+            self.dataController.shouldHideArticleSuggestions.toggle()
+            self.overflowButton.menu = self.overflowMenu
+        })
+        
+        var children: [UIMenuElement]
+        if dataController.shouldShowArticleSuggestions {
+            if dataController.shouldHideArticleSuggestions {
+                children = [showArticleSuggestions, closeAllTabs]
+            } else {
+                children = [hideArticleSuggestions, closeAllTabs]
+            }
+        } else {
+            children = [closeAllTabs]
+        }
         let mainMenu = UIMenu(title: String(), children: children)
 
         return mainMenu

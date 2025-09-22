@@ -135,6 +135,16 @@ public protocol WMFArticleTabsDataControlling {
         return _coreDataStore ?? WMFDataEnvironment.current.coreDataStore
     }
     
+    // Different than should SHOW article suggestions, this is based on user's preferences to hide or not
+    public var shouldHideArticleSuggestions: Bool {
+        get {
+            return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.userHasHiddenArticleSuggestionsTabs.rawValue)) ?? false
+        } set {
+            print("Updating :\(newValue)")
+            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.userHasHiddenArticleSuggestionsTabs.rawValue, value: newValue)
+        }
+    }
+    
     // MARK: - Lifecycle
     
     public init(coreDataStore: WMFCoreDataStore? = WMFDataEnvironment.current.coreDataStore,
@@ -151,6 +161,11 @@ public protocol WMFArticleTabsDataControlling {
     
     // MARK: - Experiment
     
+    // If a user qualifies for article suggestions
+    public var shouldShowArticleSuggestions: Bool {
+        true
+        // todo
+    }
     
     public func shouldAssignToBucket() -> Bool {
         return experimentsDataController?.bucketForExperiment(.moreDynamicTabs) == nil
@@ -180,8 +195,6 @@ public protocol WMFArticleTabsDataControlling {
     @objc public var needsMoreDynamicTabs: Bool {
         return shouldShowMoreDynamicTabs
     }
-    
-    // MARK: Experiment
     
     private var primaryAppLanguageProject: WMFProject? {
         if let language = WMFDataEnvironment.current.appData.appLanguages.first {
