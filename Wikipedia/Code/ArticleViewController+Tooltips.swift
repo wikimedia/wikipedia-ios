@@ -43,7 +43,8 @@ extension ArticleViewController {
     }
 
     @objc private func showTooltipsIfNecessary() {
-        guard let navigationBar = navigationController?.navigationBar
+        guard let navigationBar = navigationController?.navigationBar,
+              !navigationBar.isHidden
         else {
             return
         }
