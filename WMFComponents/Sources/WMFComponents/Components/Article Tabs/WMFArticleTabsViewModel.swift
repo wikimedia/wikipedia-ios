@@ -18,7 +18,7 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
 
     public let didTapTab: (WMFArticleTabsDataController.WMFArticleTab) -> Void
     public let didTapAddTab: () -> Void
-    public let didTapShareTab: (WMFArticleTabsDataController.WMFArticleTab) -> Void
+    public let didTapShareTab: (WMFArticleTabsDataController.WMFArticleTab, CGRect?) -> Void
     public let displayDeleteAllTabsToast: (Int) -> Void
     
     public let localizedStrings: LocalizedStrings
@@ -28,7 +28,7 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
                 loggingDelegate: WMFArticleTabsLoggingDelegate?,
                 didTapTab: @escaping (WMFArticleTabsDataController.WMFArticleTab) -> Void,
                 didTapAddTab: @escaping () -> Void,
-                didTapShareTab: @escaping (WMFArticleTabsDataController.WMFArticleTab) -> Void,
+                didTapShareTab: @escaping (WMFArticleTabsDataController.WMFArticleTab, CGRect?) -> Void,
                 displayDeleteAllTabsToast: @escaping (Int) -> Void) {
         self.dataController = dataController
         self.localizedStrings = localizedStrings

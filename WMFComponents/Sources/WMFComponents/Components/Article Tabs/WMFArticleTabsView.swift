@@ -14,6 +14,7 @@ public struct WMFArticleTabsView: View {
     /// Flag to allow us to know if we can scroll to the current tab position
     @State private var isReady: Bool = false
     @State private var currentTabID: String?
+    @State private var cellFrames: [String: CGRect] = [:]
 
     public init(viewModel: WMFArticleTabsViewModel) {
         self.viewModel = viewModel
@@ -133,6 +134,13 @@ public struct WMFArticleTabsView: View {
                     ForEach(viewModel.articleTabs.sorted(by: { $0.dateCreated < $1.dateCreated }), id: \.id) { tab in
                         WMFArticleTabsViewContent(viewModel: viewModel, tab: tab)
                             .id(tab.id)
+                            .background(
+                                GeometryReader { geo in
+                                    Color.clear
+                                        .preference(key: TabGlobalFramePreferenceKey.self,
+                                                    value: [tab.id: geo.frame(in: .global)])
+                                }
+                            )
                             .contextMenu(menuItems: {
                                 Button {
                                     viewModel.didTapTab(tab.data)
@@ -141,7 +149,7 @@ public struct WMFArticleTabsView: View {
                                     Image(uiImage: WMFSFSymbolIcon.for(symbol: .chevronForward) ?? UIImage())
                                 }
                                 Button {
-                                    viewModel.didTapShareTab(tab.data)
+                                    viewModel.didTapShareTab(tab.data, cellFrames[tab.id])
                                 } label: {
                                     Text(viewModel.localizedStrings.shareTabButtonTitle)
                                     Image(uiImage:  WMFSFSymbolIcon.for(symbol: .share) ?? UIImage())
@@ -168,6 +176,9 @@ public struct WMFArticleTabsView: View {
                                 }
                             }
                     }
+                }
+                .onPreferenceChange(TabGlobalFramePreferenceKey.self) { updates in
+                    cellFrames.merge(updates, uniquingKeysWith: { _, new in new })
                 }
                 .padding(.horizontal, 8)
                 .onAppear {
@@ -424,5 +435,13 @@ struct AspectRatioModifier: ViewModifier {
         } else {
             content
         }
+    }
+}
+
+/// Collect  frame size from each child tab to the parent grind view on Geometry Reader
+private struct TabGlobalFramePreferenceKey: PreferenceKey {
+    static var defaultValue: [String: CGRect] = [:]
+    static func reduce(value: inout [String: CGRect], nextValue: () -> [String: CGRect]) {
+        value.merge(nextValue(), uniquingKeysWith: { _, new in new })
     }
 }

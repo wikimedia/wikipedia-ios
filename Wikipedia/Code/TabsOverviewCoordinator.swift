@@ -89,9 +89,9 @@ final class TabsOverviewCoordinator: Coordinator {
             self.tappedAddTab()
         }
 
-        let didTapShareTab: (WMFArticleTabsDataController.WMFArticleTab) -> Void = { [weak self] tab in
+        let didTapShareTab: (WMFArticleTabsDataController.WMFArticleTab, CGRect?) -> Void = { [weak self] tab, frame in
             guard let self else { return }
-            self.tappedShareTab(tab)
+            self.tappedShareTab(tab, sourceFrameInWindow: frame)
         }
 
         let displayDeleteAllTabsToast: (Int) -> Void = { [weak self] articleTabsCount in
@@ -218,9 +218,30 @@ final class TabsOverviewCoordinator: Coordinator {
         navigationController.dismiss(animated: true)
     }
 
-    private func tappedShareTab(_ tab: WMFArticleTabsDataController.WMFArticleTab) {
-        print("Todo.......................")
+    private func tappedShareTab(_ tab: WMFArticleTabsDataController.WMFArticleTab, sourceFrameInWindow: CGRect?) {
+        guard let article = tab.articles.last, let url = article.articleURL else { return }
+        let articleURL = url.wmf_URLForTextSharing
+        let presenter = navigationController.presentedViewController ?? navigationController
+        shareURL(articleURL, from: presenter, sourceFrameInWindow: sourceFrameInWindow)
     }
+
+
+    private func shareURL(_ url: URL, from presenter: UIViewController, sourceFrameInWindow: CGRect?) {
+        let activityVC = UIActivityViewController(activityItems: [url], applicationActivities: nil)
+
+        if let pop = activityVC.popoverPresentationController {
+            pop.sourceView = presenter.view
+            if let rectInWindow = sourceFrameInWindow {
+                let rectInPresenter = presenter.view.convert(rectInWindow, from: presenter.view.window)
+                pop.sourceRect = rectInPresenter
+            } else {
+                pop.sourceRect = presenter.view.bounds
+            }
+        }
+
+        presenter.present(activityVC, animated: true)
+    }
+
 }
 
 extension TabsOverviewCoordinator: WMFArticleTabsLoggingDelegate {
