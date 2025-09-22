@@ -492,6 +492,7 @@
 "search-result-redirected-from" = "Пренасочване от: $1";
 "search-title" = "Търсене";
 "settings-account" = "Сметка";
+// Fuzzy
 "settings-appearance" = "Настройки за четене";
 "settings-clear-cache" = "Изчистване на кешираните данни";
 "settings-clear-cache-are-you-sure-message" = "Изчистването на кешираните данни ще освободи около $1 от пространството. Съхранените Ви страници няма да бъдат изтрити.";

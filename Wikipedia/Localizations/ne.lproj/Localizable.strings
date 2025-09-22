@@ -372,6 +372,7 @@
 "search-result-redirected-from" = "$1: बाट अनुप्रेषित";
 "search-title" = "खोज्नुहोस्";
 "settings-account" = "खाता";
+// Fuzzy
 "settings-appearance" = "अध्ययन अभिरूचिहरू";
 "settings-clear-cache-cancel" = "रद्द गर्नुहोस्";
 "settings-my-languages" = "मेरा भाषाहरू";

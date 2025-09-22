@@ -676,6 +676,7 @@
 "search-result-redirected-from" = "Dilencongkan dari: $1";
 "search-title" = "Cari";
 "settings-account" = "Akaun";
+// Fuzzy
 "settings-appearance" = "Keutamaan membaca";
 "settings-clear-cache" = "Padamkan data dalam cache";
 "settings-clear-cache-are-you-sure-message" = "Mengosongkan data cache akan membebaskan kira-kira $1 ruang. Ia tidak akan memadamkan halaman anda disimpan.";

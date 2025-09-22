@@ -325,6 +325,7 @@
 "search-result-redirected-from" = "Dilih saka: $1";
 "search-title" = "Golèk";
 "settings-account" = "Akun";
+// Fuzzy
 "settings-appearance" = "Pepilihaning wewacan";
 "settings-clear-cache" = "Resiki dhata ing cache";
 "settings-clear-cache-are-you-sure-message" = "Mbusak dhata ing cache bisa ngosongaké ruwang $1. Laku iki ora bakal mbusek kaca simpenané panjenengan.";

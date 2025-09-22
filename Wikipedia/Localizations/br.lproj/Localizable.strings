@@ -554,6 +554,7 @@
 "search-result-redirected-from" = "Adkaset eus:$1";
 "search-title" = "Klask";
 "settings-account" = "Kont";
+// Fuzzy
 "settings-appearance" = "Penndibaboù lenn";
 "settings-clear-cache" = "Diverkañ ar roadennoù krubuilhet";
 "settings-clear-cache-are-you-sure-message" = "Diverkañ roadennoù krubuilhet a ziac'hubo war-dro $1 a blas. Ne ziverko ket ho pajennoù enrollet.";

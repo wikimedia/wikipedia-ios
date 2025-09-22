@@ -830,6 +830,7 @@
 "serbian-variants-alert-body" = "Aplikacija Wikipedia sada podržava sljedeće varijante srpskog jezika kao primarnih ili sekundarnih jezika unutar aplikacije, što olakšava čitanje, pretraživanje i uređivanje u željenim varijantama:\n\nсрпски ћирилица srpski, ćirilica (sr-ec)\nsrpski latinica srpski, latinica (sr-el)";
 "serbian-variants-alert-title" = "Ažuriranja podrške za varijantu srpskog jezika";
 "settings-account" = "Račun";
+// Fuzzy
 "settings-appearance" = "Postavke čitanja";
 "settings-clear-cache" = "Očisti keširane podatke";
 "settings-clear-cache-are-you-sure-message" = "Čišćenjem keširanih podataka oslobodit ćete otprilike $1 prostora. Ovim se neće izbrisati sačuvane stranice.";
