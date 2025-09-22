@@ -722,6 +722,7 @@
 "search-result-redirected-from" = "Přesměrováno z „$1“";
 "search-title" = "Hledání";
 "settings-account" = "Účet";
+// Fuzzy
 "settings-appearance" = "Nastavení čtení";
 "settings-clear-cache" = "Vymažte data uložená v cache";
 "settings-clear-cache-are-you-sure-message" = "Vymazání dat uložených v mezipaměti (cache) uvolní přibližně $1 místa. Vaše uložené články nebudou smazány.";

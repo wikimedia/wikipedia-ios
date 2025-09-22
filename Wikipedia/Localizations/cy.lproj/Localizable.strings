@@ -630,6 +630,7 @@
 "search-result-redirected-from" = "Ailgyfeiriwyd o: $1";
 "search-title" = "Chwilio";
 "settings-account" = "Cyfrif";
+// Fuzzy
 "settings-appearance" = "Dewisiadau darllen";
 "settings-clear-cache" = "Clirio data wedi'i storio";
 "settings-clear-cache-are-you-sure-title" = "Clirio data wedi'i storio?";

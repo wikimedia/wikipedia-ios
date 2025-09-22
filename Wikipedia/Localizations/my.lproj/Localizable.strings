@@ -590,6 +590,7 @@
 "search-result-redirected-from" = "$1 မှ ပြန်ညွှန်းထားသည်";
 "search-title" = "ရှာဖွေရန်";
 "settings-account" = "အကောင့်";
+// Fuzzy
 "settings-appearance" = "စာဖတ် အပြင်အဆင်များ";
 "settings-clear-cache-cancel" = "မလုပ်တော့ပါ";
 "settings-help-and-feedback" = "အကူအညီနှင့် အကြံပြုချက်";

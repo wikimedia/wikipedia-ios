@@ -998,6 +998,7 @@
 "serbian-variants-alert-body" = "Wikipedia-áppa doarju dál čuovvovaš serbialaš-variánttaid váldo- dahje nubbingiellan áppas, juoga mii dahká álkibun lohkat, ohcat, ja rievdadit iežat oidojuvvon variánttaid:\n\nсрпски ћирилица kyrillialaš serbalaš (sr-ec)\nsrpski latinica Serbian, latiinna serbalaš (sr-el)";
 "serbian-variants-alert-title" = "Ođasmahttimat mat dorjot serbalaš-variánttaid";
 "settings-account" = "Geavaheaddjidovddaldat";
+// Fuzzy
 "settings-appearance" = "Lohkanheivehusat";
 "settings-clear-cache" = "Gurre gaskavuorkká";
 "settings-clear-cache-are-you-sure-message" = "Gaskavuorkká gurrema bokte luvvet sullii $1 saji. Jus ležžet vurkejuvvon siiddut, de dat eai sihkkojuvvo.";
