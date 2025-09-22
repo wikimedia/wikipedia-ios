@@ -861,22 +861,6 @@
 			<string>%1$d filter</string>
 		</dict>
 	</dict>
-	<key>year-in-review-highlights-edit-frequency-value</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@ per minut</string>
-		<key>v1</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
-			<key>one</key>
-			<string>%1$d gång</string>
-			<key>other</key>
-			<string>%1$d gånger</string>
-		</dict>
-	</dict>
 	<key>year-in-review-personalized-editing-title-format</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>

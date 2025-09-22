@@ -897,38 +897,6 @@
 			<string>%1$d keer</string>
 		</dict>
 	</dict>
-	<key>year-in-review-personalized-reading-subtitle-format</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>U hebt %1$d artikel%#@v1@ gelezen. Wikipedia bevatte %2$@ miljoen artikelen in meer dan %3$@ actieve talen. Samen met miljoenen anderen hebt u uw kennis uitgebreid en diverse onderwerpen verkend.</string>
-		<key>v1</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
-			<key>one</key>
-			<string></string>
-			<key>other</key>
-			<string>en</string>
-		</dict>
-	</dict>
-	<key>year-in-review-personalized-reading-subtitle-format-v3</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>Hiermee behoort u wereldwijd tot de top **PERCENT** van Wikipedia-lezers. De gemiddelde persoon leest %1$d artikel%#@v1@ per jaar.</string>
-		<key>v1</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
-			<key>one</key>
-			<string></string>
-			<key>other</key>
-			<string>en</string>
-		</dict>
-	</dict>
 	<key>year-in-review-personalized-reading-title-format</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
