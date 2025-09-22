@@ -842,6 +842,7 @@
 "search-result-redirected-from" = "เปลี่ยนทางจาก: $1";
 "search-title" = "ค้นหา";
 "settings-account" = "บัญชี";
+// Fuzzy
 "settings-appearance" = "การตั้งค่าการอ่าน";
 "settings-clear-cache" = "ล้างข้อมูลที่แคชไว้";
 "settings-clear-cache-are-you-sure-message" = "การล้างข้อมูลที่แคชจะเพิ่มเนื้อที่ประมาณ $1 แต่จะไม่ลบหน้าที่บันทึกไว้ของคุณ";

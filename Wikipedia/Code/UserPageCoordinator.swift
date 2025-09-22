@@ -23,7 +23,7 @@ final class UserPageCoordinator: Coordinator {
 
     @discardableResult
     func start() -> Bool {
-        guard let url = siteURL.wmf_URL(withPath: "/wiki/User:\(username)", isMobile: true) else {
+        guard let url = siteURL.wmf_URL(withPath: "/wiki/User:\(username)") else {
             return false
         }
         

@@ -77,20 +77,14 @@ public class WMFArticleTabsHostingController<HostedView: View>: WMFComponentHost
     }
     
     var overflowMenu: UIMenu {
-        let tabsPreferences = UIAction(title: viewModel.localizedStrings.tabsPreferencesTitle, image: WMFSFSymbolIcon.for(symbol: .gear), handler: { [weak self] _ in
-            // reuse for hide article suggestions
-        })
-        
+
         let closeAllTabs = UIAction(title: viewModel.localizedStrings.closeAllTabs, image: WMFSFSymbolIcon.for(symbol: .close), handler: { [weak self] _ in
             Task {
                 await self?.presentCloseAllTabsConfirmationDialog()
             }
         })
-        
-        if articleTabsCount == 1 {
-            return UIMenu(title: String(), children: [tabsPreferences])
-        }
-        let children: [UIMenuElement] = [tabsPreferences, closeAllTabs]
+
+        let children: [UIMenuElement] = [closeAllTabs]
         let mainMenu = UIMenu(title: String(), children: children)
 
         return mainMenu

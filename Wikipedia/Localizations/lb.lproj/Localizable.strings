@@ -542,6 +542,7 @@
 "main-menu-title" = "Méi";
 "main-menu-zero-faq" = "Wikipedia Zero FAQ";
 "main-page" = "Haaptsäit";
+// Fuzzy
 "microsite-yir-english-edits-bytes-slide-title" = "4 Milliarde Byte derbäigesat";
 "more-languages-tooltip-description" = "Op Wikipedia a méi wéi 300 Sprooche sichen";
 "more-languages-tooltip-title" = "Sproochen derbäisetzen";
@@ -820,6 +821,7 @@
 "search-widget-description" = "Schnellzougrëff fir op Wikipedia ze sichen.";
 "search-widget-wikipedia-title" = "Wikipedia";
 "settings-account" = "Benotzerkont";
+// Fuzzy
 "settings-appearance" = "Lies-Astellungen";
 "settings-clear-cache" = "Tëschegespäichert Date läschen";
 "settings-clear-cache-are-you-sure-message" = "D'Läsche vun tëschegespäicherten Donnéeën mécht ongeféier $1 Plaz fräi. Är gespäichert Säite ginn net geläscht.";
@@ -877,7 +879,6 @@
 "tabs-overview-tooltip-title" = "Tabiwwersiicht";
 "tabs-thumbnail-subtitle" = "Fänkt Är Sich hei un";
 "tabs-title" = "Tabs";
-"tabs-title-preferences" = "Tab-Astellungen";
 "talk-page-active-users-accessibilty-label" = "{{PLURAL:$1|$1 aktive Benotzer|$1 aktiv Benotzer}}";
 "talk-page-add-topic-button" = "Sujet derbäisetzen";
 "talk-page-archives" = "Archiven";
@@ -1048,16 +1049,23 @@
 "year-in-review-collective-edits-per-minute" = "Eng Auer déi tickt, fir d'Zäit ze symboliséieren, déi d'Leit mat Liesen op der Wikipedia verbréngen.";
 "year-in-review-collective-zero-ads" = "Wikimedia-Logo";
 "year-in-review-contributor-gift-title" = "Neit Symbol vun der App aktivéieren";
-"year-in-review-contributor-slide-status-both" = "Donateur an Editeur";
-"year-in-review-contributor-slide-status-donor" = "en Donateur";
-"year-in-review-contributor-slide-status-editor" = "Editeur";
 "year-in-review-contributor-slide-title" = "Neit Symbol fräigeschalt";
 "year-in-review-donate-now" = "Maacht elo en Don";
 "year-in-review-feature-announcement-title" = "Entdeckt de Wikipedia-Réckbléck";
 "year-in-review-feature-announcement-title-personalized" = "Entdeckt Äre Wikipedia-Joresréckbléck";
+"year-in-review-highlights-articles-saved" = "Gespäichert Artikelen";
+"year-in-review-highlights-articles-viewed" = "Zuel vun de gekuckten Artikelen";
+"year-in-review-highlights-button-title" = "Highlights deelen";
+"year-in-review-highlights-categories" = "Kategorien, déi mech interesséiert hunn";
+"year-in-review-highlights-created-lists" = "Zuel vun de Lieslëschten, déi ugeluecht goufen";
+"year-in-review-highlights-favorite-day" = "Liblingsdag fir ze liesen";
+"year-in-review-highlights-personalized-articles" = "Artikelen, déi ech am längste gelies hunn";
+"year-in-review-highlights-reading-time" = "Minutte gelies";
+"year-in-review-highlights-share-logo-caption" = "Wikipedia-Logo";
+"year-in-review-highlights-subtitle" = "Mir freeën eis op d'nächst Joer!";
 "year-in-review-intro-exit-confirmation-title" = "Sidd Dir sécher, datt Dir erausgoe wëllt?";
 "year-in-review-login-title" = "Verbessert Äre Joresréckbléck";
-"year-in-review-non-contributor-slide-title" = "Personaliséiert Symboler fräischalten";
+"year-in-review-non-contributor-slide-title" = "Äert personaliséiert Contributeur-Symbol fräischalten";
 "year-in-review-personalized-date-day-footer-v3" = "Liblingsdag fir ze liesen";
 "year-in-review-personalized-date-time-footer-v3" = "Liblingszäit fir ze liesen";
 // Fuzzy

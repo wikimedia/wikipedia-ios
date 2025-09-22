@@ -433,6 +433,7 @@
 "search-recent-title" = "گەڕانە نوێکان";
 "search-result-redirected-from" = "ڕەوانەکراوە لە: $1";
 "search-title" = "گەڕان";
+// Fuzzy
 "settings-appearance" = "ھەڵبژاردەکانی خوێندنەوە";
 "settings-clear-cache" = "کاشی دراوە پاک بکەرەوە";
 "settings-clear-cache-are-you-sure-message" = "پاککردنەوەی دراوەی کاش $1 لە مێمۆریت بۆ دەگەڕێنێتەوە. پەڕە پاشەکەوتکراوەکانت ناسڕێتەوە.";

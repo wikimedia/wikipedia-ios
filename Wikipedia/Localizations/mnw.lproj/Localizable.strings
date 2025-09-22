@@ -637,6 +637,7 @@
 "search-result-redirected-from" = "ကလေင်ထ္ၜး နူကဵု $1";
 "search-title" = "ဂၠာဲ";
 "settings-account" = "အကံက်";
+// Fuzzy
 "settings-appearance" = "လိက်မဒးဂၞပ်စိုတ်ဂမၠိုင်";
 "settings-clear-cache" = "တင်ဂၞင် မပၞုက်ဒၟံင်တအ်ဂှ် ဖအးထောအ်ညိ";
 "settings-clear-cache-are-you-sure-message" = "ပွမဖအးထောအ် တင်ဂၞင် မပၞုက်ဒၟံင်ဂှ် ပကဵုဒၞာဲ $1 ဂွံသၠးအာ၊၊ မုက်လိက် မၞးမဂိုင်သိပ်လဝ်ဂှ် ဍေဟ်ဟွံဇိုတ်ပထောအ်ပုဟ်၊၊";

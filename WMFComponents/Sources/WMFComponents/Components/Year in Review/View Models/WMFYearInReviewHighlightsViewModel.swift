@@ -38,7 +38,7 @@ public class WMFYearInReviewSlideHighlightsViewModel {
     func tappedShare() {
         let view = WMFYearInReviewSlideHighlightShareableView(viewModel: self)
         let renderer = ImageRenderer(content: view)
-        renderer.proposedSize = .init(width: 402, height: nil)
+        renderer.proposedSize = .init(width: 393, height: nil)
         renderer.scale = UIScreen.main.scale
         if let uiImage = renderer.uiImage {
             coordinatorDelegate?.handleYearInReviewAction(.share(image: uiImage))

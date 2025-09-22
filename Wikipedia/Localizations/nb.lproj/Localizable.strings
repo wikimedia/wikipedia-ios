@@ -1009,6 +1009,7 @@
 "serbian-variants-alert-body" = "Wikipedia-appen støtter nå følgende serbiske varianter som primær- eller sekundærspråk i appen, noe som gjør det enklere å lese, søke i og redigere på dine foretrukne varianter:\n\nсрпски ћирилица kyrillisk serbisk (sr-ec)\nsrpski latinica Serbian, latinsk serbisk (sr-el)";
 "serbian-variants-alert-title" = "Oppdateringer i støtte for serbiske varianter";
 "settings-account" = "Konto";
+// Fuzzy
 "settings-appearance" = "Leseinnstillinger";
 "settings-clear-cache" = "Tøm mellomlager";
 "settings-clear-cache-are-you-sure-message" = "Ved å tømme mellomlageret frigjør du rundt $1 med plass. Eventuelle lagrede sider vil ikke bli fjernet.";

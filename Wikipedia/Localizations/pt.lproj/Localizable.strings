@@ -968,6 +968,7 @@
 "serbian-variants-alert-body" = "A aplicação da Wikipédia admite agora as seguintes variantes da língua sérvia como línguas principais ou secundárias dentro da aplicação, simplificando a leitura, pesquisa e edição nas suas variantes preferidas:\n\nсрпски ћирилица - Sérvio cirílico (sr-ec)\nsrpski latinica - Sérvio latino (sr-el)";
 "serbian-variants-alert-title" = "Atualizações ao suporte de variantes do sérvio";
 "settings-account" = "Conta";
+// Fuzzy
 "settings-appearance" = "Leitura";
 "settings-clear-cache" = "Limpar dados da cache";
 "settings-clear-cache-are-you-sure-message" = "Limpar os dados da cache libertará cerca de $1 de espaço. Não apaga as suas páginas guardadas.";
@@ -1030,8 +1031,6 @@
 "table-of-contents-hide-button-label" = "Ocultar índice";
 "table-of-contents-subheading-label" = "Subtítulo $1";
 "tabs-title" = "Separadores";
-// Fuzzy
-"tabs-title-preferences" = "Preferências dos separadores";
 "tachelhit-variants-alert-body" = "A aplicação da Wikipédia admite agora as seguintes variantes da língua tachelhit como línguas principais ou secundárias dentro da aplicação, simplificando a leitura, pesquisa e edição nas suas variantes preferidas:\n\nⵜⴰⵛⵍⵃⵉⵜ - Tachelhit tifinagh (shi-tfng)\nTaclḥit - Tachelhit latino (shi-latn)";
 "tachelhit-variants-alert-title" = "Atualizações ao suporte de variantes do tachelhit";
 "tajik-variants-alert-body" = "A aplicação da Wikipédia admite agora as seguintes variantes da língua tajique como línguas principais ou secundárias dentro da aplicação, simplificando a leitura, pesquisa e edição nas suas variantes preferidas:\n\nтоҷикӣ кирилликӣ - Tajique cirílico (tg-cyrl)\ntojikī lotinī - Tajique latino (tg-latn)";

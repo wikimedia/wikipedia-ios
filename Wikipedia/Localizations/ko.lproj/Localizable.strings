@@ -721,9 +721,13 @@
 "main-menu-title" = "더 보기";
 "main-menu-zero-faq" = "위키백과 제로 FAQ";
 "main-page" = "대문";
+// Fuzzy
 "microsite-yir-english-edits-bytes-slide-title" = "40억 바이트 추가됨";
+// Fuzzy
 "microsite-yir-english-edits-slide-title" = "편집자들은 올해 9,800만 건의 변경을 수행했습니다";
+// Fuzzy
 "microsite-yir-english-reading-slide-title" = "읽기에 29억 시간이 할애됐습니다";
+// Fuzzy
 "microsite-yir-english-saved-reading-slide-title" = "6,220만 개가 넘는 읽기 목록이 있습니다";
 "microsite-yir-english-top-read-slide-title" = "영어 위키백과의 가장 인기 있는 문서";
 "more-languages-tooltip-description" = "300개 이상의 언어에서 위키백과 검색";
@@ -1103,6 +1107,7 @@
 "serbian-variants-alert-body" = "이제 위키백과 앱에서 아래의 세르비아어 변이형을 주 언어나 보조 언어로 설정할 수 있으며, 이를 통해 선호하는 변이형으로 문서의 열람, 검색, 편집 작업을 쉽게 할 수 있습니다.\n\nсрпски ћирилица 세르비아어 키릴 (sr-ec)\nsrpski latinica 세르비아어 라틴 (sr-el)";
 "serbian-variants-alert-title" = "세르비아어 변이형 지원 업데이트";
 "settings-account" = "계정";
+// Fuzzy
 "settings-appearance" = "읽기 환경 설정";
 "settings-clear-cache" = "캐시된 데이터 지우기";
 "settings-clear-cache-are-you-sure-message" = "캐시된 데이터를 지우면 약 $1의 공간을 확보할 것입니다. 당신이 저장한 문서를 삭제하지는 않습니다.";
@@ -1173,7 +1178,6 @@
 "tabs-open-tab" = "탭 열기";
 "tabs-overview-tooltip-title" = "탭 개요";
 "tabs-title" = "탭";
-"tabs-title-preferences" = "탭 환경 설정";
 "tachelhit-variants-alert-body" = "이제 위키백과 앱에서 아래의 타셸히트어 변이형을 주 언어나 보조 언어로 설정할 수 있으며, 이를 통해 선호하는 변이형으로 문서의 열람, 검색, 편집 작업을 쉽게 할 수 있습니다.\n\nⵜⴰⵛⵍⵃⵉⵜ 타셸히트어 티피나그 (shi-tfng)\nTaclḥit 타셸히트어 라틴 (shi-latn)";
 "tachelhit-variants-alert-title" = "타셸히트어 변이형 지원 업데이트";
 "tajik-variants-alert-body" = "이제 위키백과 앱에서 아래의 타지크어 변이형을 주 언어나 보조 언어로 설정할 수 있으며, 이를 통해 선호하는 변이형으로 문서의 열람, 검색, 편집 작업을 쉽게 할 수 있습니다.\n\nтоҷикӣ кирилликӣ 타지크어 키릴 (tg-cyrl)\ntojikī lotinī 타지크어 라틴 (tg-latn)";
@@ -1394,9 +1398,12 @@
 "wikitext-upload-save-sign-in" = "로그인";
 "wikitext-upload-save-terms-name" = "이용 약관";
 "year-in-review-base-donate-title" = "위키백과에 게재된 광고는 0개입니다";
+// Fuzzy
 "year-in-review-base-editors-title" = "iOS 앱의 편집자는 $1번 이상 편집을 했습니다";
 "year-in-review-base-edits-title" = "위키백과는 분당 편집 수는 $1회입니다";
+// Fuzzy
 "year-in-review-base-saved-title" = "$1백만 개가 넘는 읽기 목록이 있습니다";
+// Fuzzy
 "year-in-review-base-viewed-title" = "위키백과 문서의 조회 수는 $1억 회입니다";
 "year-in-review-collective-zero-ads" = "위키미디어 로고";
 "year-in-review-day-friday" = "금요일";

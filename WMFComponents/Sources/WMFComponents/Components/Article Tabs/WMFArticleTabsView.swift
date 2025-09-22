@@ -212,8 +212,8 @@ fileprivate struct WMFArticleTabsViewContent: View {
                     .accessibilityHidden(true)
                     .padding(.horizontal, 8)
                     .padding(.top, -8)
+                    .frame(minWidth: 48, minHeight: 48)
                     .contentShape(Rectangle())
-                    .frame(minWidth: 44, minHeight: 44)
                 }
             }
             if let newTabTitle = viewModel.localizedStrings.mainPageTitle {
@@ -288,7 +288,7 @@ fileprivate struct WMFArticleTabsViewContent: View {
                     .padding(.horizontal, 8)
                     .padding(.top, -8)
                     .contentShape(Rectangle())
-                    .frame(minWidth: 44, minHeight: 44)
+                    .frame(minWidth: 48, minHeight: 48)
                 }
             }
 

@@ -863,6 +863,7 @@
 "search-result-redirected-from" = "$1: کان چوريل";
 "search-title" = "ڳوليو";
 "settings-account" = "کاتو";
+// Fuzzy
 "settings-appearance" = "پڙھڻ جون ترجيحون";
 "settings-clear-cache" = "ڪيچڊ ڊيٽا صاف ڪريو";
 "settings-clear-cache-are-you-sure-message" = "ڪيچڊ ڊيٽا صاف ڪرڻ سان توھان $1 جڳھ بچندي. ان سان توھان جا سانڍيل صفحا نہ ڊھندا.";
