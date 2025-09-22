@@ -846,6 +846,7 @@
 "search-title" = "Leita";
 "serbian-variants-alert-title" = "Uppfærslur á stuðningi við tilbrigði serbnesku";
 "settings-account" = "Aðgangur";
+// Fuzzy
 "settings-appearance" = "Kjörstillingar við lestur";
 "settings-clear-cache" = "Hreinsa gögn úr skyndiminni";
 "settings-clear-cache-are-you-sure-message" = "Hreinsun gagna úr skyndiminni losar um það bil $1 af plássi. Það eyðir ekki vistuðu síðunum þínum.";

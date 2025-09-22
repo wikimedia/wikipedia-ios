@@ -921,6 +921,7 @@
 "serbian-variants-alert-body" = "L'aplicació Wikipedia admet ara les següents variants sèrbies com a llengües primàries o secundàries de l'aplicació, cosa que facilita la lectura, la cerca i l'edició de les vostres variants preferides:\n\nсрпски ћирилица Serbi, ciríl·lic (sr-ec)\nsrpski latinica serbi, llatí (sr-el)";
 "serbian-variants-alert-title" = "Actualitzacions per a l'admissió de variants sèrbies";
 "settings-account" = "Compte";
+// Fuzzy
 "settings-appearance" = "Preferències de lectura";
 "settings-clear-cache" = "Neteja les dades en cau";
 "settings-clear-cache-are-you-sure-message" = "En netejar la memòria cau s'alliberaran fins a $1 d'espai. No s'eliminaran les pàgines que heu desat.";

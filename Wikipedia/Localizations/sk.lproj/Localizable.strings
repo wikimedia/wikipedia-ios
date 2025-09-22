@@ -873,6 +873,7 @@
 "serbian-variants-alert-body" = "Wikipédia teraz podporuje aj varianty srbského jazyka ako primárny a sekundárny jazyk aplikácie:\n\nсрпски ћирилица Serbian, Cyrillic (sr-ec)\nsrpski latinica Serbian, Latin (sr-el)";
 "serbian-variants-alert-title" = "Aktualizácie podpory variánt srbského jazyka";
 "settings-account" = "Účet";
+// Fuzzy
 "settings-appearance" = "Nastavenia čítania";
 "settings-clear-cache" = "Vyčistiť údaje vo vyrovnávacej pamäti";
 "settings-clear-cache-are-you-sure-message" = "Vyčistenie údajov vo vyrovnávacej pamäti uvoľní $1 miesta. Vaše uložené stránky sa neodstránia.";

@@ -648,6 +648,7 @@
 "search-result-redirected-from" = "បានបញ្ជូនបន្តពី៖$1";
 "search-title" = "ស្វែងរក";
 "settings-account" = "គណនី";
+// Fuzzy
 "settings-appearance" = "ចំណង់ចំណូលចិត្តអំណាន";
 "settings-clear-cache-cancel" = "បោះបង់";
 "settings-help-and-feedback" = "ជំនួយនិងមតិយោបល់";

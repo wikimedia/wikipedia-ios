@@ -20,6 +20,7 @@
 // Author: F. Cosoleto
 // Author: Giacomo Checchin
 // Author: Gianfranco
+// Author: Giorgx12
 // Author: Giuseppe Forte
 // Author: GpieroMW
 // Author: Greis
@@ -128,7 +129,9 @@
 "activity-tab-add-images-title" = "Aggiungi immagini";
 "activity-tab-additional-thoughts" = "Qualcosa da aggiungere?";
 "activity-tab-generic-no-edits" = "Non hai fatto alcuna modifica questa settimana. Inizia subito a monitorare i tuoi contributi.";
+"activity-tab-greeting" = "$1Ciao, $2$3 👋 Qui c'è il tuo riepilogo Wikipediani settimanale.";
 "activity-tab-logged-out-title" = "Accedi o crea un account per vedere ulteriori attività di modifica e lettura.";
+"activity-tab-neutral" = "Neutrale";
 "activity-tab-no-edits-title" = "Non hai fatto alcuna modifica questa settimana. Aggiungi immagini per migliorare la comprensione della voce.";
 "activity-tab-read-title" = "Vedi cronologia delle letture";
 "activity-tab-satisfied" = "Soddisfatto";
@@ -172,6 +175,7 @@
 "article-save-error-not-enough-space" = "Memoria insufficiente per salvare questo articolo sul dispositivo";
 "article-share" = "Condividi";
 "article-tabs-button-accessibility-label" = "Schede voci";
+"article-tabs-did-you-know-title" = "Lo sapevi";
 "article-tabs-open" = "Apri";
 "article-tabs-open-background-tab" = "Apri nella scheda in background";
 "article-tabs-open-new-tab" = "Apri in una nuova scheda";
@@ -271,6 +275,7 @@
 "diff-paragraph-moved-distance-section" = "{{PLURAL:$1|$1 sezione|$1 sezioni}}";
 "diff-paragraph-moved-format" = "Paragrafo spostato $1 $2";
 "diff-revision-error-title" = "Impossibile caricare i dati della versione";
+"diff-rollback" = "Rollback";
 "diff-rollback-alert-message" = "Sei sicuro di voler annullare le modifiche?";
 "diff-single-header-editor-number-edits-format" = "{{PLURAL:$1|$1 modifica|$1 modifiche}}";
 "diff-single-header-editor-title" = "Informazioni sul contributore";
@@ -570,10 +575,10 @@
 "main-menu-terms-of-use" = "Condizioni d'uso";
 "main-menu-title" = "Altro";
 "main-menu-zero-faq" = "FAQ di Wikipedia Zero";
-"microsite-yir-english-edits-bytes-slide-subtitle" = "Nel 2024, i volontari hanno aggiunto 4.104.852.969 byte alla Wikipedia in inglese. La somma di tutto il loro lavoro insieme porta a una risorsa di conoscenza in costante miglioramento, basata sui fatti e affidabile che danno al mondo. Tutti noi abbiamo conoscenze da condividere, [impara come partecipare]($1).";
-"microsite-yir-english-edits-bytes-slide-title" = "4 miliardi di byte aggiunti";
-"microsite-yir-english-edits-slide-title" = "Gli editori hanno apportato 98 milioni di modifiche quest'anno";
-"microsite-yir-english-saved-reading-slide-subtitle" = "Gli utenti attivi dell'app iOS hanno avuto oltre 62,2 milioni di elenchi di lettura. Aggiungere voci agli elenchi di lettura ti consente di accedere alle voci anche quando sei offline. Puoi anche effettuare l'accesso per sincronizzare gli elenchi di lettura tra i dispositivi.";
+"microsite-yir-english-edits-bytes-slide-subtitle" = "Nel 2024, i volontari hanno aggiunto 3.416.899.197 byte alla Wikipedia in inglese. La somma di tutto il loro lavoro insieme porta a una risorsa di conoscenza in costante miglioramento, basata sui fatti e affidabile che danno al mondo. Tutti noi abbiamo conoscenze da condividere, [impara come partecipare]($1).";
+"microsite-yir-english-edits-bytes-slide-title" = "3,4 miliardi di byte aggiunti";
+"microsite-yir-english-edits-slide-title" = "Gli editori hanno apportato quasi 82 milioni di modifiche quest'anno";
+"microsite-yir-english-saved-reading-slide-subtitle" = "Quest'anno, gli utenti attivi dell'app hanno salvato oltre 37 milioni di voci. Aggiungere voci agli elenchi di lettura ti consente di accedere alle voci anche quando sei offline. Puoi anche effettuare l'accesso per sincronizzare gli elenchi di lettura tra i dispositivi.";
 "more-languages-tooltip-description" = "Cerca in Wikipedia in più di 300 lingue";
 "more-languages-tooltip-title" = "Aggiungi lingue";
 "more-menu" = "Altro";
@@ -758,6 +763,8 @@
 "reading-list-login-button-title" = "Accedi per sincronizzare le tue voci salvate";
 "reading-list-login-or-create-account-button-title" = "Accedi o registrati";
 "reading-list-login-or-create-account-title" = "Accedi per sincronizzare le voci salvate";
+"reading-list-name-user-created-annotation" = "_[utenza creata]";
+"reading-list-new-list-description-placeholder" = "breve descrizione facoltativa";
 "reading-list-new-list-name-placeholder" = "titolo dell'elenco di lettura";
 "reading-list-sync-disabled-panel-title" = "Sincronizzazione disattivata";
 "reading-list-sync-enable-button-title" = "Attiva sincronizzazione";
@@ -819,7 +826,7 @@
 "search-widget-description" = "Accesso rapido alla ricerca su Wikipedia.";
 "search-widget-wikipedia-title" = "Wikipedia";
 "settings-account" = "Utenza";
-"settings-appearance" = "Preferenze di lettura";
+"settings-appearance" = "Tema dell'applicazione";
 "settings-clear-cache" = "Cancella i dati nella cache";
 "settings-clear-cache-are-you-sure-message" = "Cancellando i dati della cache libererai circa $1 di spazio. Questo non cancellerà gli elenchi di lettura.";
 "settings-clear-cache-are-you-sure-title" = "Vuoi cancellare i dati nella cache?";
@@ -834,6 +841,8 @@
 "settings-notifications-learn-more" = "Ulteriori informazioni sulle notifiche";
 "settings-notifications-push-notifications" = "Notifiche push";
 "settings-notifications-system-turn-on" = "Attiva le notifiche";
+"settings-off" = "Off";
+"settings-on" = "On";
 "settings-primary-language" = "Primaria";
 "settings-primary-language-details" = "La prima lingua in questo elenco è utilizzata come lingua principale per l'applicazione.";
 "settings-storage-and-syncing-enable-sync-footer-text" = "Permetti a Wikipedia di conservare le tue voci salvate e i tuoi elenchi di lettura nelle tue preferenze utente quando ti colleghi e sincronizzi";
@@ -915,6 +924,7 @@
 "talk-pages-topic-compose-title-placeholder" = "Titolo dell'argomento";
 "talk-pages-topic-reply-onboarding-body-note-ios15" = "Per favore sii gentile, siamo tutti umani qui.";
 "talk-pages-topic-reply-onboarding-title" = "Pagine di discussione";
+"talk-pages-user-groups" = "Gruppi utente";
 "talk-pages-user-logs" = "Registri";
 "talk-pages-view-title" = "Discussione";
 "temp-account-edit-sheet-cta-top" = "Entra o crea un'utenza";
@@ -987,12 +997,15 @@
 "watchlist-filter-user-registration-options-registered" = "Registrato";
 "watchlist-filter-user-registration-options-unregistered" = "Non registrato";
 "watchlist-filters-add-language" = "Aggiungi lingua...";
+"watchlist-onboarding-button-title" = "Scopri di più riguardo agli Osservati Speciali";
+"watchlist-onboarding-title" = "Introduzione alla tua lista degli Osservati Speciali";
 "watchlist-removed" = "Rimossa dai tuoi osservati speciali";
 "watchlist-thanks-success" = "Il tuo 'ringraziamento' è stato inviato a $1";
 "watchlist-user-button-thank" = "Ringrazia";
 "watchlist-user-button-user-contributions" = "Contributi dell'utente";
 "watchlist-user-button-user-page" = "Pagina utente";
 "watchlist-user-button-user-talk-page" = "Pagina di discussione dell'utente";
+"welcome-data-privacy-title" = "Dati & Privacy";
 "welcome-exploration-explore-feed-description" = "Letture consigliate e voci quotidiane della nostra comunità";
 "welcome-exploration-explore-feed-title" = "Feed Esplora";
 "welcome-exploration-on-this-day-description" = "Viaggia indietro nel tempo per sapere cosa è successo oggi nella storia";
@@ -1035,21 +1048,18 @@
 "wikitext-upload-save-terms-name" = "Condizioni d'uso";
 "year-in-review-base-donate-subtitle" = "Con il tuo aiuto Wikimedia Foundation, l'ente senza scopo di lucro dietro a Wikipedia, continuerà ad assicurare che le informazioni su cui fai affidamento siano senza pubblicità e affidabili, facendo funzionare al contempo Wikipedia senza interruzioni con strumenti e tecnologie innovative. Per favore, considera di fare una donazione oggi. [Scopri di più sul nostro lavoro]($1).";
 "year-in-review-base-donate-title" = "0 inserzioni pubblicitarie servite su Wikipedia";
-"year-in-review-base-editors-subtitle" = "La comunità di editor volontari di Wikipedia ha effettuato più di 555.647 modifiche sull'app iOS. Il cuore e l'anima di Wikipedia sono la nostra comunità globale di collaboratori volontari, donatori e miliardi di lettori come te, tutti uniti per condividere un accesso illimitato a informazioni affidabili.";
-"year-in-review-base-editors-title" = "Gli editor hanno effettuato più di $1 modifiche sull'app iOS";
-"year-in-review-base-edits-subtitle" = "Wikipedia è stata modificata ad un ritmo medio di $1 volte al minuto. Le voci vengono create in maniera collaborativa e migliorate usando fonti affidabili. Tutti noi abbiamo conoscenza da condividere, [scopri come partecipare]($2).";
+"year-in-review-base-editors-subtitle" = "Il cuore e l'anima di Wikipedia sono la nostra comunità globale di collaboratori volontari, donatori e miliardi di lettori come te, tutti uniti per condividere un accesso illimitato a informazioni affidabili.";
+"year-in-review-base-editors-title" = "Gli editor hanno effettuato più di $1 modifiche sulle applicazioni ufficiali di Wikipedia";
+"year-in-review-base-edits-subtitle" = "Le voci vengono create in maniera collaborativa e migliorate usando fonti affidabili. Tutti noi abbiamo conoscenza da condividere, [scopri come partecipare]($1).";
 "year-in-review-base-edits-title" = "Wikipedia è stata modificata $1 volte al minuto";
 "year-in-review-base-reading-subtitle" = "Wikipedia ha avuto più di $1 milione di voci in oltre $2 lingue attive. Ti sei unito a milioni di persone nell'espansione della conoscenza e nell'approfondimento di argomenti diversi.";
 "year-in-review-base-reading-title" = "Wikipedia è stata disponibile in più di 300 lingue";
-"year-in-review-base-saved-subtitle" = "Gli utenti attivi dell'app iOS hanno avuto oltre 62,2 milioni di elenchi di lettura. Aggiungere voci agli elenchi di lettura ti consente di accedere alle voci anche quando sei offline. Puoi anche effettuare l'accesso per sincronizzare gli elenchi di lettura tra i dispositivi.";
-"year-in-review-base-saved-title" = "Abbiamo avuto più di $1 milioni di elenchi di lettura";
-"year-in-review-base-viewed-subtitle" = "Gli utenti dell'app iOS hanno visualizzato le voci di Wikipedia $1 miliardi di volte. Per le persone di tutto il mondo, Wikipedia è il punto di riferimento quando si risponde a una domanda, si cercano informazioni per scuola o lavoro o per imparare un nuovo fatto.";
+"year-in-review-base-saved-subtitle" = "Quest'anno, gli utenti attivi dell'app hanno salvato oltre $1 milioni di voci. Aggiungere voci agli elenchi di lettura ti consente di accedere alle voci anche quando sei offline. Puoi anche effettuare l'accesso per sincronizzare gli elenchi di lettura tra i dispositivi.";
+"year-in-review-base-saved-title" = "Abbiamo avuto più di $1 milioni di voci salvate";
+"year-in-review-base-viewed-subtitle" = "Gli utenti dell'app hanno visualizzato le voci di Wikipedia $1 miliardi di volte. Per le persone di tutto il mondo, Wikipedia è il punto di riferimento quando si risponde a una domanda, si cercano informazioni per scuola o lavoro o per imparare un nuovo fatto.";
 "year-in-review-base-viewed-title" = "Abbiamo visualizzato le voci di Wikipedia $1 miliardi di volte";
 "year-in-review-button-title" = "Anno in Rassegna";
 "year-in-review-collective-zero-ads" = "Logo di Wikimedia";
-"year-in-review-contributor-slide-status-both" = "un donatore e un editore";
-"year-in-review-contributor-slide-status-donor" = "un donatore";
-"year-in-review-contributor-slide-status-editor" = "un editore";
 "year-in-review-contributor-slide-title" = "Nuova icona sbloccata";
 "year-in-review-day-friday" = "Venerdì";
 "year-in-review-day-monday" = "Lunedì";
@@ -1067,10 +1077,14 @@
 "year-in-review-feature-explore-body" = "Wikipedia è la più grande risorsa di conoscenza mai raccolta nella storia mondiale, ed è disponibile gratuitamente a tutti ovunque. Guarda il 2024 passato tramite le lenti di Wikipedia.";
 "year-in-review-feature-explore-body-personalized" = "Guarda informazioni utili su quali articoli hai letto sull'app di Wikipedia e sulle modifiche che hai effettuato nel 2024. La tua cronologia di lettura viene mantenuta al sicuro. Le informazioni utili sulla lettura sono calcolate usando dati archiviati localmente sul tuo dispositivo.";
 "year-in-review-finish" = "Termina";
+"year-in-review-highlights-articles-saved" = "Pagine salvate";
+"year-in-review-highlights-articles-viewed" = "Numero di pagine visualizzate";
+"year-in-review-highlights-articles-viewed-value" = "$1 miliardo";
+"year-in-review-highlights-button-title" = "Condividi evidenziazioni";
 "year-in-review-intro-exit-confirmation-title" = "Sei sicuro di voler uscire?";
 "year-in-review-login-subtitle" = "Accedi o crea un account per essere idoneo per informazioni interessanti più personalizzate";
 "year-in-review-login-title" = "Migliora il tuo Anno in Rassegna";
-"year-in-review-non-contributor-slide-title" = "Sblocca l'icona personalizzata";
+"year-in-review-non-contributor-slide-title" = "Sblocca l'icona del contribuente personalizzata";
 "year-in-review-personalized-date-day-footer-v3" = "Giorno preferito per leggere";
 "year-in-review-personalized-date-month-footer-v3" = "Mese in cui hai letto di più";
 "year-in-review-personalized-date-time-footer-v3" = "Momento preferito per leggere";
@@ -1079,15 +1093,14 @@
 "year-in-review-personalized-donate-subtitle" = "Grazie per aver investito nel futuro della conoscenza libera. Quest'anno, Wikimedia Foundation ha migliorato la tecnologia per servire meglio ogni lettore e volontario, ha sviluppato strumenti che promuovono la collaborazione e ha supportato Wikipedia in più lingue. [Scopri di più sul nostro lavoro]($1).";
 "year-in-review-personalized-donate-title" = "La tua generosità ha aiutato Wikipedia a continuare a prosperare";
 "year-in-review-personalized-donation-thank-you" = "Logo di Wikimedia";
-"year-in-review-personalized-edit-views-subtitle-format" = "I lettori da tutto il mondo apprezzano i tuoi contributi. Negli ultimi 2 mesi, le voci che hai modificato hanno ricevuto $1 visualizzazioni totali. Grazie ad editor come te, Wikipedia è una risorsa affidabile di conoscenza in continuo miglioramento e basata sui fatti";
+"year-in-review-personalized-edit-views-subtitle-format" = "I lettori da tutto il mondo apprezzano i tuoi contributi. Negli ultimi 2 mesi, le voci che hai modificato hanno ricevuto $1 visualizzazioni totali. Grazie ad editor come te, Wikipedia è una risorsa affidabile di conoscenza in continuo miglioramento e basata sui fatti.";
 "year-in-review-personalized-edit-views-title-format" = "Recentemente le tue modifiche sono state visualizzate più di $1 volte";
-"year-in-review-personalized-editing-subtitle-format" = "Hai modificato Wikipedia {{PLURAL:$1|$1 volta|$1 volte}}. Grazie per essere uno dei redattori volontari che offrono il loro contributo nei progetti Wikimedia in tutto il mondo.";
-"year-in-review-personalized-editing-subtitle-format-500plus" = "Hai modificato Wikipedia più di 500 volte. Grazie per essere uno dei redattori volontari che offrono il loro contributo nei progetti Wikimedia in tutto il mondo.";
 "year-in-review-personalized-editing-title-format" = "Hai modificato Wikipedia {{PLURAL:$1|$1 volta|$1 volte}}";
 "year-in-review-personalized-editing-title-format-500plus" = "Hai modificato Wikipedia oltre 500 volte.";
+"year-in-review-personalized-location-subtitle-format-1" = "Hai letto riguardo $2$1$3";
+"year-in-review-personalized-most-read-articles-title" = "Le tue migliori voci";
 "year-in-review-personalized-reading-subtitle-format" = "Hai letto $1 {{PLURAL:$1|voce|voci}}. Wikipedia ha avuto più di $2 milioni di voci disponibili in oltre $3 lingue. Ti sei unito a milioni di persone nell'espandere la conoscenza e nell'esplorare argomenti diversi.";
 "year-in-review-personalized-reading-title-format" = "Hai letto {{PLURAL:$1|$1 voce|$1 voci}}";
-"year-in-review-personalized-saved-subtitle-format" = "Hai salvato {{PLURAL:$1| $1 articolo| $1 articoli}} quest'anno, inclusi $2 , $3 e $4 . Ogni articolo salvato riflette i tuoi interessi e contribuisce a creare una base di conoscenza personalizzata su Wikipedia.";
 "year-in-review-personalized-saved-title-format" = "Hai salvato {{PLURAL:$1|$1 voce|$1 voci}}";
 "year-in-review-share-text" = "Ecco il mio Anno in Rassegna su Wikipedia. Creato con l'app iOS di Wikipedia (https://apps.apple.com/app/wikipedia/id324715238) #WikipediaYearInReview";
 "year-in-review-survey-additional-thoughts" = "Qualche pensiero aggiuntivo?";
