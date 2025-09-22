@@ -344,7 +344,6 @@ public protocol WMFArticleTabsDataControlling {
         } else {
             if let primaryAppLanguage = WMFDataEnvironment.current.appData.appLanguages.first {
                 let project = WMFProject.wikipedia(primaryAppLanguage)
-                let lang = project.languageCode ?? "en"
                 let title = "Main_Page"
                 guard let siteURL = project.siteURL,
                       let articleURL = siteURL.wmfURL(withTitle: title, languageVariantCode: nil) else {
@@ -827,17 +826,35 @@ public protocol WMFArticleTabsDataControlling {
         guard let moc = backgroundContext else {
             throw CustomError.missingContext
         }
-        
-        return try await moc.perform {
-            let predicate = NSPredicate(format: "isCurrent == YES")
-            guard let currentTab = try coreDataStore.fetch(entityType: CDArticleTab.self, predicate: predicate, fetchLimit: 1, in: moc)?.first,
-                  let identifier = currentTab.identifier else {
-                throw CustomError.missingTab
-            }
-            return identifier
+
+        if let existingID = try await fetchCurrentTabID(coreDataStore: coreDataStore, moc: moc) {
+            return existingID
         }
+
+        guard shouldShowMoreDynamicTabs else {
+            throw CustomError.missingTab
+        }
+
+        let newTab = try await createArticleTab(initialArticle: nil, setAsCurrent: true)
+        return newTab.tabIdentifier
     }
-    
+
+        // MARK: - Helpers
+
+        /// Reads the current tab's UUID from Core Data on the context's queue.
+        private func fetchCurrentTabID(coreDataStore: WMFCoreDataStore, moc: NSManagedObjectContext) async throws -> UUID? {
+            try await moc.perform {
+                let predicate = NSPredicate(format: "isCurrent == YES")
+                let tab = try coreDataStore
+                    .fetch(entityType: CDArticleTab.self,
+                           predicate: predicate,
+                           fetchLimit: 1,
+                           in: moc)?
+                    .first
+                return tab?.identifier
+            }
+        }
+
     public func setTabAsCurrent(tabIdentifier: UUID) async throws {
         
         guard let coreDataStore else {
