@@ -88,18 +88,17 @@ public protocol WMFArticleTabsDataControlling {
     
     public enum MoreDynamicTabsExperimentAssignment {
         case control
-        case becauseYouRead
-        case didYouKnow
+        case groupB
+        case groupC
     }
     
     // MARK: Nested internal types
     
     struct OnboardingStatus: Codable {
         var hasPresentedOnboardingTooltips: Bool
-        var hasPresentedOnboardingTabs: Bool
         
         static var `default`: OnboardingStatus {
-            return OnboardingStatus(hasPresentedOnboardingTooltips: false, hasPresentedOnboardingTabs: false)
+            return OnboardingStatus(hasPresentedOnboardingTooltips: false)
         }
     }
     
@@ -157,11 +156,11 @@ public protocol WMFArticleTabsDataControlling {
     }
     
     public var shouldShowMoreDynamicTabs: Bool {
-        guard !developerSettingsDataController.enableMoreDynamicTabsDYK else {
+        guard !developerSettingsDataController.enableMoreDynamicTabsGroupB else {
             return true
         }
         
-        guard !developerSettingsDataController.enableMoreDynamicTabsBYR else {
+        guard !developerSettingsDataController.enableMoreDynamicTabsGroupC else {
             return true
         }
         
@@ -170,7 +169,7 @@ public protocol WMFArticleTabsDataControlling {
         }
         
         switch assignment {
-        case .becauseYouRead, .didYouKnow:
+        case .groupB, .groupC:
             return true
         case .control:
             return false
@@ -233,10 +232,10 @@ public protocol WMFArticleTabsDataControlling {
             
         case .moreDynamicTabsControl:
             assignment = .control
-        case .moreDynamicTabsBecauseYouRead:
-            assignment = .becauseYouRead
-        case .moreDynamicTabsDidYouKnow:
-            assignment = .didYouKnow
+        case .moreDynamicTabsGroupB:
+            assignment = .groupB
+        case .moreDynamicTabsGroupC:
+            assignment = .groupC
         default:
             throw CustomError.unexpectedAssignment
         }
@@ -265,10 +264,10 @@ public protocol WMFArticleTabsDataControlling {
         switch bucketValue {
         case .moreDynamicTabsControl:
             assignment = .control
-        case .moreDynamicTabsBecauseYouRead:
-            assignment = .becauseYouRead
-        case .moreDynamicTabsDidYouKnow:
-            assignment = .didYouKnow
+        case .moreDynamicTabsGroupB:
+            assignment = .groupB
+        case .moreDynamicTabsGroupC:
+            assignment = .groupC
         default:
             throw CustomError.unexpectedAssignment
         }
@@ -280,9 +279,7 @@ public protocol WMFArticleTabsDataControlling {
     // MARK: Onboarding
     
     internal var onboardingStatus: OnboardingStatus {
-        get {
-            return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.articleTabsOnboarding.rawValue)) ?? OnboardingStatus.default
-        }
+        return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.articleTabsOnboarding.rawValue)) ?? OnboardingStatus.default
     }
     
     public var hasPresentedTooltips: Bool {
@@ -291,17 +288,6 @@ public protocol WMFArticleTabsDataControlling {
         } set {
             var currentStatus = onboardingStatus
             currentStatus.hasPresentedOnboardingTooltips = newValue
-            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.articleTabsOnboarding.rawValue, value: currentStatus)
-        }
-    }
-    
-    public var hasSeenFeatureAnnouncement: Bool {
-        get {
-            return onboardingStatus.hasPresentedOnboardingTabs
-        }
-        set {
-            var currentStatus = onboardingStatus
-            currentStatus.hasPresentedOnboardingTabs = newValue
             try? userDefaultsStore?.save(key: WMFUserDefaultsKey.articleTabsOnboarding.rawValue, value: currentStatus)
         }
     }
@@ -319,8 +305,15 @@ public protocol WMFArticleTabsDataControlling {
             return try moc.count(for: fetchRequest)
         }
     }
-    
+
+    private var isGroupC: Bool {
+        ((try? getMoreDynamicTabsExperimentAssignment()) == .groupC) || developerSettingsDataController.enableMoreDynamicTabsGroupC
+    }
+
     public func checkAndCreateInitialArticleTabIfNeeded() async throws {
+
+        guard !isGroupC else { return }
+
         let count = try await tabsCount()
         if count == 0 {
             _ = try await createArticleTab(initialArticle: nil, setAsCurrent: true)
@@ -422,19 +415,19 @@ public protocol WMFArticleTabsDataControlling {
         _ = try? await self.createArticleTab(initialArticle: nil, setAsCurrent: true)
     }
     
-    public var moreDynamicTabsBYRIsEnabled: Bool {
+    public var moreDynamicTabsGroupBEnabled: Bool {
         get {
-            return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsMoreDynamicTabsBYR.rawValue)) ?? true
+            return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsMoreDynamicTabsGroupB.rawValue)) ?? true
         } set {
-            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsMoreDynamicTabsBYR.rawValue, value: newValue)
+            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsMoreDynamicTabsGroupB.rawValue, value: newValue)
         }
     }
     
-    public var moreDynamicTabsDYKIsEnabled: Bool {
+    public var moreDynamicTabsGroupCEnabled: Bool {
         get {
-            return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsMoreDynamicTabsDYK.rawValue)) ?? true
+            return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsMoreDynamicTabsGroupC.rawValue)) ?? true
         } set {
-            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsMoreDynamicTabsDYK.rawValue, value: newValue)
+            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsMoreDynamicTabsGroupC.rawValue, value: newValue)
         }
     }
     
@@ -736,7 +729,7 @@ public protocol WMFArticleTabsDataControlling {
         
         let tabsCount = try tabsCount(moc: moc)
         
-        if tabsCount <= 1 {
+        if tabsCount <= 1 && !shouldShowMoreDynamicTabs {
             throw CustomError.cannotDeleteLastTab
         }
         
