@@ -92,14 +92,14 @@ public class WMFArticleTabsHostingController<HostedView: View>: WMFComponentHost
             guard let self else { return }
             self.dataController.shouldHideArticleSuggestions.toggle()
             self.overflowButton.menu = self.overflowMenu
-            
+            viewModel.didToggleSuggestedArticles()
         })
         
         let showArticleSuggestions = UIAction(title: viewModel.localizedStrings.showSuggestedArticlesTitle, image: WMFSFSymbolIcon.for(symbol: .eye), handler: { [weak self] _ in
             guard let self else { return }
             self.dataController.shouldHideArticleSuggestions.toggle()
             self.overflowButton.menu = self.overflowMenu
-            
+            viewModel.didToggleSuggestedArticles()
         })
         
         var children: [UIMenuElement]

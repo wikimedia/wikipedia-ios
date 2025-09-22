@@ -62,6 +62,26 @@ final class TabsOverviewCoordinator: Coordinator {
     }
     
     
+    public func showAlertForArticleSuggestionsDisplayChangeConfirmation() {
+        if dataController.shouldHideArticleSuggestions {
+            WMFAlertManager.sharedInstance.showBottomAlertWithMessage(
+                WMFLocalizedString("tabs-suggested-articles-hide-suggestions-confirmation", value: "Suggestions are now hidden", comment: "Confirmation on hiding of the suggested articles in tabs."),
+                subtitle: nil,
+                buttonTitle: nil,
+                image: WMFSFSymbolIcon.for(symbol: .checkmark),
+                dismissPreviousAlerts: true
+            )
+        } else {
+            WMFAlertManager.sharedInstance.showBottomAlertWithMessage(
+                WMFLocalizedString("tabs-suggested-articles-show-suggestions-confirmation", value: "Suggestions are now visible", comment: "Confirmation on showing of the suggested articles in tabs."),
+                subtitle: nil,
+                buttonTitle: nil,
+                image: WMFSFSymbolIcon.for(symbol: .checkmark),
+                dismissPreviousAlerts: true
+            )
+        }
+    }
+    
     func closeAllTabsTitle(numberTabs: Int) -> String {
         let format = WMFLocalizedString("close-all-tabs-confirmation-title-with-value", value: "Close {{PLURAL:%1$d|%1$d tab|%1$d tabs}}?", comment: "Title of alert that asks user if they want to delete all tabs, $1 is representative of the number of tabs they have open.")
         return String.localizedStringWithFormat(format, numberTabs)
@@ -76,7 +96,6 @@ final class TabsOverviewCoordinator: Coordinator {
         let format = WMFLocalizedString("closed-all-tabs-confirmation-with-value", value: "{{PLURAL:%1$d|%1$d tab|%1$d tabs}} closed.", comment: "Confirmation title of deleting all tabs. $1 is the number of tabs deleted.")
         return String.localizedStringWithFormat(format, numberTabs)
     }
-    
     
     private func presentTabs() {
         
@@ -146,6 +165,7 @@ final class TabsOverviewCoordinator: Coordinator {
                 loggingDelegate: self,
                 didTapTab: didTapTab,
                 didTapAddTab: didTapAddTab,
+                didToggleSuggestedArticles: showAlertForArticleSuggestionsDisplayChangeConfirmation,
                 displayDeleteAllTabsToast: displayDeleteAllTabsToast
             )
             
@@ -154,7 +174,8 @@ final class TabsOverviewCoordinator: Coordinator {
                 rootView: articleTabsView,
                 viewModel: articleTabsViewModel,
                 doneButtonText: CommonStrings.doneTitle,
-                articleTabsCount: articleTabsCount
+                articleTabsCount: articleTabsCount,
+                
             )
             
             let navVC = WMFComponentNavigationController(

@@ -1196,6 +1196,8 @@
 "tabs-overview-tooltip-body" = "Switch between open articles in the tabs overview.";
 "tabs-overview-tooltip-title" = "Tabs overview";
 "tabs-show-suggested-articles" = "Show article suggestions";
+"tabs-suggested-articles-hide-suggestions-confirmation" = "Suggestions are now hidden";
+"tabs-suggested-articles-show-suggestions-confirmation" = "Suggestions are now visible";
 "tabs-survey-title" = "Help improve the tabs feature. Are you satisfied with this feature?";
 "tabs-thumbnail-description" = "Explore Wikipedia, the free encyclopedia that anyone can edit";
 "tabs-thumbnail-subtitle" = "Begin your search here";
