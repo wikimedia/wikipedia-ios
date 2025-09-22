@@ -241,7 +241,7 @@ fileprivate struct WMFArticleTabsViewContent: View {
                     .padding(.horizontal, 8)
                     .padding(.top, -8)
                     .contentShape(Rectangle())
-                    .frame(minWidth: 44, minHeight: 44)
+                    .frame(minWidth: 48, minHeight: 48)
                 }
             }
 
