@@ -108,6 +108,8 @@
 "appearance-settings-image-dimming-footer" = "Decrease the opacity of images on the dark and black themes";
 "appearance-settings-reading-themes" = "Reading themes";
 "appearance-settings-set-automatic-table-opening" = "Table Settings";
+"appearance-settings-set-icon-footer" = "The contributor icon celebrates your 2025 in-app contributions to Wikipedia. It will remain until the next Year in Review.";
+"appearance-settings-set-icon-header" = "App Icon";
 "appearance-settings-text-sizing-example-text" = "Drag the slider to change the article text sizing. Utilize your system text size to resize other text areas in the app.";
 "appearance-settings-theme-options" = "Theme options";
 "article-about-title" = "About this article";
@@ -1117,7 +1119,7 @@
 "serbian-variants-alert-body" = "The Wikipedia app now supports the following Serbian variants as primary or secondary languages within the app, making it easier to read, search and edit in your preferred variants:\n\nсрпски ћирилица Serbian, Cyrillic (sr-ec)\nsrpski latinica Serbian, Latin (sr-el)";
 "serbian-variants-alert-title" = "Updates to Serbian variant support";
 "settings-account" = "Account";
-"settings-appearance" = "Reading preferences";
+"settings-appearance" = "App theme";
 "settings-clear-cache" = "Clear cached data";
 "settings-clear-cache-are-you-sure-message" = "Clearing cached data will free up about $1 of space. It will not delete your saved pages.";
 "settings-clear-cache-are-you-sure-title" = "Clear cached data?";
@@ -1196,7 +1198,6 @@
 "tabs-thumbnail-description" = "Explore Wikipedia, the free encyclopedia that anyone can edit";
 "tabs-thumbnail-subtitle" = "Begin your search here";
 "tabs-title" = "Tabs";
-"tabs-title-preferences" = "Tab preferences";
 "tachelhit-variants-alert-body" = "The Wikipedia app now supports the following Tachelhit variants as primary or secondary languages within the app, making it easier to read, search and edit in your preferred variants:\n\nⵜⴰⵛⵍⵃⵉⵜ Tachelhit, Tifinagh (shi-tfng)\nTaclḥit Tachelhit, Latin (shi-latn)";
 "tachelhit-variants-alert-title" = "Updates to Tachelhit variant support";
 "tajik-variants-alert-body" = "The Wikipedia app now supports the following Tajik variants as primary or secondary languages within the app, making it easier to read, search and edit in your preferred variants:\n\nтоҷикӣ кирилликӣ Tajik, Cyrillic (tg-cyrl)\ntojikī lotinī Tajik, Latin (tg-latn)";

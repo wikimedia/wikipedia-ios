@@ -296,9 +296,12 @@ public class WMFYearInReviewViewModel: ObservableObject {
     public var toggleAppIcon: (Bool) -> Void
     public var isIconOn: Bool
 
-    @Published public var isLoading: Bool = false
+    @Published public var isLoadingDonate: Bool = false
     
-    public init(localizedStrings: LocalizedStrings, shareLink: String, hashtag: String, plaintextURL: String, coordinatorDelegate: YearInReviewCoordinatorDelegate?, loggingDelegate: WMFYearInReviewLoggingDelegate, badgeDelegate: YearInReviewBadgeDelegate?, isUserPermanent: Bool, aboutYiRURL: URL?, primaryAppLanguage: WMFProject, toggleAppIcon: @escaping (Bool) -> Void, isIconOn: Bool) {
+    public var populateYearInReviewReport: () async throws -> Void
+    @Published public var isPopulatingReport: Bool = false
+    
+    public init(localizedStrings: LocalizedStrings, shareLink: String, hashtag: String, plaintextURL: String, coordinatorDelegate: YearInReviewCoordinatorDelegate?, loggingDelegate: WMFYearInReviewLoggingDelegate, badgeDelegate: YearInReviewBadgeDelegate?, isUserPermanent: Bool, aboutYiRURL: URL?, primaryAppLanguage: WMFProject, toggleAppIcon: @escaping (Bool) -> Void, isIconOn: Bool, populateYearInReviewReport: @escaping () async throws -> Void) {
 
         self.localizedStrings = localizedStrings
         self.shareLink = shareLink
@@ -312,6 +315,7 @@ public class WMFYearInReviewViewModel: ObservableObject {
         self.aboutYiRURL = aboutYiRURL
         self.toggleAppIcon = toggleAppIcon
         self.isIconOn = isIconOn
+        self.populateYearInReviewReport = populateYearInReviewReport
         
         // Default inits to avoid compiler complaints later in this method
         self.introV2ViewModel = nil
@@ -319,7 +323,7 @@ public class WMFYearInReviewViewModel: ObservableObject {
         self.slides = []
         self.hasPersonalizedDonateSlide = false
         
-        self.updateSlides(isUserPermanent: isUserPermanent)
+        self.setupIntro(isUserPermanent: isUserPermanent)
     }
     
     // MARK: Personalized Slides
@@ -588,11 +592,10 @@ public class WMFYearInReviewViewModel: ObservableObject {
         return PersonalizedSlides(readCountSlideV2: readCountSlideV2, readCountSlideV3: readCountSlideV3, editCountSlide: editCountSlide, donateCountSlideV2: donateCountSlideV2, donateCountSlideV3: donateCountSlideV3, saveCountSlide: saveCountSlide, mostReadDateSlideV2: mostReadDateSlideV2, mostReadDateSlideV3: mostReadDateSlideV3, viewCountSlide: viewCountSlide, topArticlesSlide: topArticlesSlide, mostReadCategoriesSlide: mostReadCategoriesSlide, locationSlide: locationSlide)
     }
     
-    public func updateSlides(isUserPermanent: Bool) {
-        
-        var slides: [WMFYearInReviewSlide] = []
-        
+    private func setupIntro(isUserPermanent: Bool) {
+
         self.isUserPermanent = isUserPermanent
+        
         // Intro slide
         if WMFDeveloperSettingsDataController.shared.showYiRV3 {
             let introV3LoggingID = "" // TODO: logging ID
@@ -642,6 +645,11 @@ public class WMFYearInReviewViewModel: ObservableObject {
             )
             self.introV2ViewModel = introV2ViewModel
         }
+    }
+    
+    private func updateSlides(isUserPermanent: Bool) {
+
+        var slides: [WMFYearInReviewSlide] = []
         
         let personalizedSlides = getPersonalizedSlides(aboutYiRURL: aboutYiRURL)
         
@@ -732,7 +740,7 @@ public class WMFYearInReviewViewModel: ObservableObject {
 
         if let topReadArticles {
             let top3 = topReadArticles.prefix(3)
-            let articleList = makeNumberedBlueList(Array(top3))
+            let articleList = makeNumberedBlueList(Array(top3), needsLinkColor: true)
             let topArticlesItem = TableItem(title: localizedStrings.longestReadArticlesTitle, richRows: articleList)
 
             itemArray.append(topArticlesItem)
@@ -753,16 +761,16 @@ public class WMFYearInReviewViewModel: ObservableObject {
             itemArray.append(savedCountItem)
         }
 
+        if let frequentCategories {
+            let top3 = frequentCategories.prefix(3)
+            let categoryList = makeNumberedBlueList(Array(top3), needsLinkColor: false)
+            let categoriesItem = TableItem(title: localizedStrings.favoriteCategoriesTitle, richRows: categoryList)
+            itemArray.append(categoriesItem)
+        }
+        
         if let editNumber, editNumber > 0 {
             let editCountItem = TableItem(title: localizedStrings.editedArticlesTitle, text: String(editNumber))
             itemArray.append(editCountItem)
-        }
-
-        if let frequentCategories {
-            let top3 = frequentCategories.prefix(3)
-            let categoryList = makeNumberedBlueList(Array(top3))
-            let categoriesItem = TableItem(title: localizedStrings.favoriteCategoriesTitle, richRows: categoryList)
-            itemArray.append(categoriesItem)
         }
 
         return WMFYearInReviewSlideHighlightsViewModel(
@@ -782,7 +790,7 @@ public class WMFYearInReviewViewModel: ObservableObject {
     func getEnglishCollectiveHighlights() -> WMFYearInReviewSlideHighlightsViewModel {
         let articles = ["Deaths in 2024", "Kamala Harris", "2024 United States presidential election", "Lyle and Erik Menendez", "Donald Trump"]
 
-        let blueList = makeNumberedBlueList(articles)
+        let blueList = makeNumberedBlueList(articles, needsLinkColor: true)
 
         let topArticles = TableItem(title: localizedStrings.enWikiTopArticlesTitle, richRows: blueList)
         let hoursSpent = TableItem(title: localizedStrings.hoursSpentReadingTitle, text: "2.4 billion")
@@ -990,42 +998,73 @@ public class WMFYearInReviewViewModel: ObservableObject {
     
     func tappedIntroV2GetStarted() {
         loggingDelegate?.logYearInReviewIntroDidTapContinue()
-        isShowingIntro = false
-        logSlideAppearance() // Manually logs appearance of first slide (currentSlideIndex is already set to 0)
+        populateReportAndShowFirstSlide()
     }
     
     func tappedIntroV3GetStarted() {
         if !isUserPermanent {
             coordinatorDelegate?.handleYearInReviewAction(.tappedIntroV3GetStartedWhileLoggedOut)
         } else {
-            loggingDelegate?.logYearInReviewIntroDidTapContinue()
-            isShowingIntro = false
-            logSlideAppearance() // Manually logs appearance of first slide (currentSlideIndex is already set to 0)
+            populateReportAndShowFirstSlide()
+        }
+    }
+    
+    private func populateReportAndShowFirstSlide() {
+        isPopulatingReport = true
+        Task { [weak self] in
+            guard let self else { return }
+            do {
+                try await self.populateYearInReviewReport()
+                Task { @MainActor [weak self] in
+                    
+                    guard let self else { return }
+                    
+                    self.updateSlides(isUserPermanent: isUserPermanent)
+                    self.isPopulatingReport = false
+                    self.loggingDelegate?.logYearInReviewIntroDidTapContinue()
+                    self.logSlideAppearance() // Manually logs appearance of first slide (currentSlideIndex is already set to 0)
+                    
+                    // Maybe delay a little bit to let slide changes propagate
+                    try await Task.sleep(nanoseconds: 200_000_000)
+                    
+                    withAnimation {
+                        self.isShowingIntro = false
+                    }
+                }
+            } catch {
+                Task { @MainActor [weak self] in
+                    
+                    guard let self else { return }
+                    
+                    self.updateSlides(isUserPermanent: isUserPermanent)
+                    self.isPopulatingReport = false
+                    self.loggingDelegate?.logYearInReviewIntroDidTapContinue()
+                    self.logSlideAppearance() // Manually logs appearance of first slide (currentSlideIndex is already set to 0)
+                    
+                    // Maybe delay a little bit to let slide changes propagate
+                    try await Task.sleep(nanoseconds: 200_000_000)
+                    
+                    withAnimation {
+                        self.isShowingIntro = false
+                    }
+                }
+            }
         }
     }
     
     public func tappedIntroV3LoginPromptNoThanks() {
-        withAnimation {
-            isShowingIntro = false
-        }
-        
-        logSlideAppearance() // Manually logs appearance of first slide (currentSlideIndex is already set to 0)
+        isUserPermanent = false
+        populateReportAndShowFirstSlide()
     }
     
     public func tappedIntroV3ExitConfirmationGetStarted() {
-        withAnimation {
-            isShowingIntro = false
-        }
-        
-        logSlideAppearance() // Manually logs appearance of first slide (currentSlideIndex is already set to 0)
+        isUserPermanent = false
+        populateReportAndShowFirstSlide()
     }
     
     public func completedLoginFromIntroV3LoginPrompt() {
-        withAnimation {
-            isShowingIntro = false
-        }
-        
-        logSlideAppearance() // Manually logs appearance of first slide (currentSlideIndex is already set to 0)
+        isUserPermanent = true
+        populateReportAndShowFirstSlide()
     }
     
     private func incrementSlideIndex() {
@@ -1272,13 +1311,13 @@ public class WMFYearInReviewViewModel: ObservableObject {
     }
 
     /// Helper method to format the infobox on the highlights slide
-    func makeNumberedBlueList(_ articles: [String]) -> [InfoboxRichRow] {
+    func makeNumberedBlueList(_ articles: [String], needsLinkColor: Bool) -> [InfoboxRichRow] {
         articles.enumerated().map { (i, title) in
             var numberRun = AttributedString("\(i + 1). ")
             numberRun.foregroundColor = Color(WMFColor.black)
 
             var titleRun = AttributedString(title)
-            titleRun.foregroundColor = Color(WMFColor.blue600)
+            titleRun.foregroundColor = needsLinkColor ? Color(WMFColor.blue600) : Color(WMFColor.black)
 
             return InfoboxRichRow(numberText: numberRun, titleText: titleRun)
         }

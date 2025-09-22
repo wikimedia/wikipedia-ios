@@ -940,6 +940,7 @@
 "search-result-redirected-from" = "$1 から転送されました";
 "search-title" = "検索";
 "settings-account" = "アカウント";
+// Fuzzy
 "settings-appearance" = "閲覧設定";
 "settings-clear-cache" = "キャッシュを消去";
 "settings-clear-cache-are-you-sure-message" = "キャッシュを消去すると約$1の容量が解放されます。この操作によってあなたが保存したページが削除されることはありません。";
@@ -1205,15 +1206,22 @@
 "wikitext-upload-save-terms-name" = "利用規約";
 "year-in-review-base-donate-subtitle" = "ウィキメディア財団（ウィキペディアを運営する非営利団体）は、皆様のご支援により、皆さまが頼りにする情報が広告なしかつ信頼できるものであることを今後も保証しつつ、最先端のツールと技術でウィキペディアを円滑に運営していきます。ぜひ本日寄付をご検討ください。[私達の活動についてさらに詳しく知る]($1)。";
 "year-in-review-base-donate-title" = "ウィキペディアに掲載された広告は0件です";
+// Fuzzy
 "year-in-review-base-editors-subtitle" = "ウィキペディアの核心は、ボランティアの寄稿者、寄付者、そして何十億人ものあなたのような読者から成るグローバルなコミュニティです。その全員が、信頼できる情報への無制限のアクセスを共有するために一致協力しました。";
+// Fuzzy
 "year-in-review-base-editors-title" = "ウィキペディア公式アプリの編集者たちが452,257件以上の編集を行いました";
+// Fuzzy
 "year-in-review-base-edits-subtitle" = "記事は、信頼できる情報源を用い、協力して作成・改善されます。私たち全員が、共有すべき知識を持っています。[参加方法を学びましょう]($1)。";
 "year-in-review-base-edits-title" = "ウィキペディアは1分間に342回編集されました";
 "year-in-review-base-reading-subtitle" = "ウィキペディアには今年、活発に使われている300以上の言語にわたり、6,300万件以上の記事が掲載されていました。あなたも、知識を広げ、さまざまな話題を探求する何百万人もの人々に加わりました。";
 "year-in-review-base-reading-title" = "ウィキペディアは300以上の言語で利用可能でした";
+// Fuzzy
 "year-in-review-base-saved-subtitle" = "アクティブアプリユーザーは今年、3,700万件以上の記事を保存しました。記事をリーディングリストに追加すると、オフラインでも記事にアクセスできるようになります。また、ログインしてリーディングリストをデバイス間で同期することも可能です。";
+// Fuzzy
 "year-in-review-base-saved-title" = "3,700万件以上の記事が保存されました";
+// Fuzzy
 "year-in-review-base-viewed-subtitle" = "アプリユーザーたちは、ウィキペディアの記事を15億回閲覧しました。世界中の人々にとって、ウィキペディアは、質問に答えたり、学校や仕事で必要な情報を調べたり、新しい事実を学んだりするときに、最初に立ち寄る場所です。";
+// Fuzzy
 "year-in-review-base-viewed-title" = "私たちはウィキペディアの記事を15億回閲覧しました";
 "year-in-review-intro-exit-confirmation-title" = "本当に終了しますか？";
 "year-in-review-intro-exit-confirmation-subtitle" = "ログインしなくても、ユーザー全体の今年の振り返りを見ることができます。";
@@ -1261,8 +1269,8 @@
 "year-in-review-personalized-date-month-footer-v3" = "最もたくさん読んだ月";
 "year-in-review-day-wednesday" = "水曜日";
 "year-in-review-highlights-favorite-day" = "読むのが好きな日";
-"year-in-review-personalized-edit-views-subtitle-format" = "世界中の読者があなたの貢献に感謝しています。この2か月間、あなたが編集した記事は合計で $1 回閲覧されました。あなたのような編集者のおかげで、ウィキペディアは着実に改良され、事実に基づく信頼性の高い世界の知識源となっているのです";
 "year-in-review-personalized-edit-views-title-format" = "あなたの編集は最近、$1回以上閲覧されました";
+// Fuzzy
 "year-in-review-personalized-edit-views-subtitle-format" = "世界中の読者があなたの貢献を高く評価しています。過去2ヶ月の間に、あなたが編集した記事は合計$1回閲覧されました。あなたのような編集者たちのおかげで、ウィキペディアは着実に改善され、事実に基づいており、信頼できる、世界のための知識リソースになっています。";
 "year-in-review-personalized-editing-subtitle-format" = "あなたがウィキペディアを編集した回数は{{PLURAL:$1 回}}です。世界各地でウィキメディア・プロジェクトに変革をもたらすボランティア編集者の一人としてご協力いただき、ありがとうございます。";
 "year-in-review-personalized-editing-title-format" = "あなたがウィキペディアを編集した回数は{{PLURAL:$1|$1 回}}です。";

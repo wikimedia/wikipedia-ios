@@ -732,6 +732,7 @@
 "search-title" = "Keresés";
 "serbian-variants-alert-title" = "A szerb nyelvi változat támogatásának frissítése";
 "settings-account" = "Fiók";
+// Fuzzy
 "settings-appearance" = "Olvasási preferenciák";
 "settings-clear-cache" = "Gyorsítótárazott adatok törlése";
 "settings-clear-cache-are-you-sure-message" = "A gyorsítótárazott adatok törlése körülbelül $1 helyet fog felszabadítani, az elmentett lapokat nem érinti.";

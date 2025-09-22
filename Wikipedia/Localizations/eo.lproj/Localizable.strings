@@ -583,6 +583,7 @@
 "search-result-redirected-from" = "Alidirektita el: $1";
 "search-title" = "Serĉi";
 "settings-account" = "Konto";
+// Fuzzy
 "settings-appearance" = "Legopreferoj";
 "settings-clear-cache" = "Malplenigi la kaŝmemorigitajn datumojn";
 "settings-clear-cache-are-you-sure-message" = "Malplenigi la kaŝmemorigitajn datumojn liberigos ĉirkaŭ $1 da spaco. Tio ne forigos viajn konservitajn paĝojn.";

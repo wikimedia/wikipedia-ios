@@ -656,6 +656,7 @@
 "potd-widget-description" = "Ciesz się pięknym codziennym zdjęciem wybranym przez naszą społeczność.";
 "potd-widget-title" = "Grafika dnia";
 "preference-summary-eventlogging-opt-in" = "Pozwól Fundacji Wikimedia zbierać informacje o tym, jak korzystasz z aplikacji, aby ją ulepszać";
+// Fuzzy
 "profile-year-in-review-login-subtitle" = "Zaloguj się lub utwórz konto, aby ponownie zobaczyć Podsumowanie roku i uzyskać dostęp do bardziej spersonalizowanych informacji.";
 "profile-year-in-review-login-title" = "Zaloguj się, aby uzyskać dostęp do Podsumowania roku";
 "project-name-mediawiki" = "MediaWiki";
@@ -779,6 +780,7 @@
 "search-title" = "Wyszukiwanie";
 "serbian-variants-alert-title" = "Aktualizacje obsługi wariantów serbskich";
 "settings-account" = "Konto";
+// Fuzzy
 "settings-appearance" = "Preferencje czytania";
 "settings-clear-cache" = "Wyczyść dane z pamięci podręcznej";
 "settings-clear-cache-are-you-sure-message" = "Wyczyszczenie danych z pamięci podręcznej zwolni około $1 miejsca. Nie spowoduje to usunięcia zapisanych stron.";
@@ -931,6 +933,7 @@
 "year-in-review-base-reading-title" = "Wikipedia była (i jest) dostępna w ponad 300 językach";
 // Fuzzy
 "year-in-review-base-saved-subtitle" = "Aktywni użytkownicy aplikacji iOS mieli w tym roku ponad 62,2 miliona list do przeczytania. Dodawanie do nich artykułów pozwala na czytanie ich nawet bez dostępu do internetu. Możesz się zalogować, aby synchronizować zawartość list między urządzeniami.";
+// Fuzzy
 "year-in-review-base-saved-title" = "Mieliśmy ponad $1 mln list do przeczytania";
 "year-in-review-collective-article-views" = "Animowana ilustracja przedstawiająca ekran komputera z otwartą przeglądarką internetową i aktywnym przeglądaniem artykułu w Wikipedii.";
 // Fuzzy
@@ -958,7 +961,6 @@
 // Fuzzy
 "year-in-review-personalized-reading-subtitle-format" = "W tym roku przeczytałeś(-aś) {{PLURAL:$1|$1 artykuł|$1 artykuły|$1 artykułów}}. Wikipedia miała $2 mln artykułów dostępnych w ponad $3 językach. Dołączyłeś(-aś) do milionów ludzi, poszerzających wiedzę i zgłębiających różnorodne tematy.";
 "year-in-review-personalized-saved-articles" = "Ilustracja puzzla noszącego hask z ekranami komputerów w tle.";
-"year-in-review-personalized-saved-subtitle-format" = "Zapisałeś(-aś) {{PLURAL:$1|$1 artykuł|$1 artykuły|$1 artykułów}} w tym roku, w tym $2, $3 i $4. Każdy z nich odzwierciedla Twoje zainteresowania i pomaga zbudować bazę wiedzy w Wikipedii.";
 "year-in-review-personalized-saved-title-format" = "Zapisałeś(-aś) {{PLURAL:$1|$1 artykuł|$1 artykuły|$1 artykułów}}";
 "year-in-review-personalized-user-edits" = "Animowana ilustracja przedstawiająca bajty układające się jeden na drugim, symbolizujące nieustanne tworzenie wolnej wiedzy.";
 "year-in-review-personalized-weekday" = "Tykający zegar, symbolizujący czas spędzony przez ludzi czytających Wikipedię.";

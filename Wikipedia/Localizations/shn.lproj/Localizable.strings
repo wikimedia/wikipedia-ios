@@ -575,6 +575,7 @@
 "search-result-redirected-from" = "ၶိုၼ်းပိၼ်ႇဝၢႆႇမႃးတီႈ : $1";
 "search-title" = "ၶူၼ်ႉႁႃ";
 "settings-account" = "ဢၶွင်ႉ";
+// Fuzzy
 "settings-appearance" = "ငဝ်ႈၵုမ်းပိူင် လွင်ႈလူ";
 "settings-clear-cache" = "ၽဵဝ်ႈလၢင်ႉပႅတ်ႈ ၶေႃႈမုၼ်းသိူင်ႇတူဝ်";
 "settings-clear-cache-are-you-sure-message" = "လွင်ႈၽဵဝ်ႈလၢင်ႉပႅတ်ႈ ၶေႃႈမုၼ်းသိူင်ႇတူဝ်ၼၼ်ႉ မၼ်းတေႁႂ်ႈ ဢွင်ႈတီႈပဝ်ႇ $1 လိူဝ်မႃး။ မၼ်းတေဢမ်ႇမွတ်ႇပႅတ်ႈ ၼႃႈလိၵ်ႈဢၼ်ၸဝ်ႈၵဝ်ႇသိမ်းဝႆႉၼၼ်ႉ။";
