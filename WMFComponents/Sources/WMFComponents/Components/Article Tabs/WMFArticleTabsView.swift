@@ -195,25 +195,29 @@ public struct WMFArticleTabsView: View {
 
     private func getPreviewViewModel(from tab: ArticleTab) -> WMFArticlePreviewViewModel {
         let info = tab.info
-        if let lastArticle = tab.data.articles.last, lastArticle.isMain {
+        let last = tab.data.articles.last
+
+        if last?.isMain == true {
             return WMFArticlePreviewViewModel(
-                url: info?.url ?? tab.data.articles.last?.articleURL,
-                titleHtml: tab.title,
-                description: info?.subtitle ?? info?.description,
+                url: info?.url ?? last?.articleURL,
+                titleHtml: viewModel.localizedStrings.mainPageTitle ?? tab.title,
+                description: info?.subtitle
+                ?? info?.description
+                ?? viewModel.localizedStrings.mainPageSubtitle,
                 image: UIImage(named: "globe_yir", in: .module, with: nil),
                 backgroundImage: UIImage(named: "main-page-bg", in: .module, with: nil),
                 isSaved: false,
-                snippet: info?.snippet ?? tab.data.articles.last?.extract
+                snippet: info?.snippet ?? viewModel.localizedStrings.mainPageDescription
             )
         }
 
         return WMFArticlePreviewViewModel(
-            url: info?.url ?? tab.data.articles.last?.articleURL,
+            url: info?.url ?? last?.articleURL,
             titleHtml: tab.title,
             description: info?.subtitle ?? info?.description,
             imageURL: info?.image,
             isSaved: false,
-            snippet: info?.snippet ?? tab.data.articles.last?.extract
+            snippet: info?.snippet ?? last?.extract
         )
     }
 }
