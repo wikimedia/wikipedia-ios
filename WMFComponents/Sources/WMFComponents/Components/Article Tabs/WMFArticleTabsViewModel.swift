@@ -216,83 +216,137 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
         return dataController.shouldShowMoreDynamicTabs
     }
 
-    func populateArticleSummary(_ tab: WMFArticleTabsDataController.WMFArticleTab) async -> WMFArticleTabsDataController.WMFArticleTab {
-        guard let lastArticle = tab.articles.last else { return tab }
+    // MARK: - Populate article summary
 
-        let dataController = WMFArticleSummaryDataController()
+    @MainActor private var incomingTabIDs = Set<String>()
+    @MainActor private var prefetchedTabIDs = Set<String>()
 
-        do {
-            let summary = try await dataController.fetchArticleSummary(
-                project: lastArticle.project,
-                title: lastArticle.title
+    /// Kick off a prefetch immediately for the visible window of 24 tabs, then trickle the rest in the background
+    func prefetchAllSummariesTrickled(initialWindow: Int = 24,
+                                      pageSize: Int = 12,
+                                      delayBetweenBatchesNs: UInt64 = 150_000_000) {
+        let tabsSnapshot = articleTabs
+        let mainSubtitle = localizedStrings.mainPageSubtitle
+        let mainDescription = localizedStrings.mainPageDescription
+
+        Task { [weak self] in
+            guard let self else { return }
+            await self.prefetchBatch(
+                for: Array(tabsSnapshot.prefix(initialWindow)),
+                mainSubtitle: mainSubtitle,
+                mainDescription: mainDescription
             )
+        }
 
-            let descriptionText: String?
-            let extractText: String?
-            if lastArticle.isMain {
-                descriptionText = localizedStrings.mainPageSubtitle
-                extractText     = localizedStrings.mainPageDescription
-            } else {
-                descriptionText = summary.description
-                extractText     = summary.extract
+        // Background fetch remainder of tabs
+        Task.detached(priority: .background) { [weak self] in
+            guard let self else { return }
+            var remainder = Array(tabsSnapshot.dropFirst(initialWindow))
+
+            while !remainder.isEmpty {
+                let chunk = Array(remainder.prefix(pageSize))
+                await self.prefetchBatch(
+                    for: chunk,
+                    mainSubtitle: mainSubtitle,
+                    mainDescription: mainDescription
+                )
+                remainder.removeFirst(min(pageSize, remainder.count))
+                try? await Task.sleep(nanoseconds: delayBetweenBatchesNs)
             }
-
-            let updatedLast = WMFArticleTabsDataController.WMFArticle(
-                identifier: lastArticle.identifier,
-                title: lastArticle.title,
-                description: descriptionText,
-                extract: extractText,
-                imageURL: summary.thumbnailURL,
-                project: lastArticle.project,
-                articleURL: lastArticle.articleURL
-            )
-
-            var newArticles = tab.articles
-            if !newArticles.isEmpty {
-                newArticles[newArticles.count - 1] = updatedLast
-            }
-
-            return WMFArticleTabsDataController.WMFArticleTab(
-                identifier: tab.identifier,
-                timestamp: tab.timestamp,
-                isCurrent: tab.isCurrent,
-                articles: newArticles
-            )
-
-        } catch {
-            return tab
         }
     }
 
-    /// Prefetch summaries for tabs that don't have info yet, so previews are populated with all the data
-    @MainActor
-    func prefetchSummariesIfNeeded(limit: Int? = nil) async {
-        let tabsSnapshot: [ArticleTab] = self.articleTabs
+    /// Prefetch tabs snapshot info for thumbs and previews
+    private func prefetchBatch(for tabs: [ArticleTab], mainSubtitle: String, mainDescription: String) async {
 
-        let toFetch = tabsSnapshot.filter { $0.info == nil }
-        let limited = limit.map { Array(toFetch.prefix($0)) } ?? toFetch
+        struct Input: Sendable {
+            let id: String
+            let project: WMFProject
+            let title: String
+            let url: URL?
+            let isMain: Bool
+        }
 
-        await withTaskGroup(of: Void.self) { group in
-            for tab in limited {
-                group.addTask { [weak self] in
-                    guard let self else { return }
-                    let populated = await self.populateArticleSummary(tab.data)
+        let inputs: [Input] = await MainActor.run { [weak self] in
+            guard let self else { return [] }
+            return tabs.compactMap { tab -> Input? in
+                // Check prefetched items
+                if self.prefetchedTabIDs.contains(tab.id) || self.incomingTabIDs.contains(tab.id) { return nil }
+                guard let last = tab.data.articles.last else { return nil }
+                self.incomingTabIDs.insert(tab.id)
+                return Input(id: tab.id, project: last.project, title: last.title, url: last.articleURL, isMain: last.isMain)
+            }
+        }
 
-                    let last = populated.articles.last
-                    let newInfo = ArticleTab.Info(
-                        subtitle: last?.description,
-                        image: last?.imageURL,
-                        description: last?.extract,
-                        url: last?.articleURL,
-                        snippet: last?.extract
-                    )
+        guard !inputs.isEmpty else { return }
 
-                    await MainActor.run {
-                        if tab.info == nil {
-                            tab.info = newInfo
-                        }
+        await withTaskGroup(of: (id: String, info: ArticleTab.Info?).self) { group in
+            for input in inputs {
+                group.addTask {
+                    do {
+                        let dc = WMFArticleSummaryDataController()
+                        let summary = try await dc.fetchArticleSummary(project: input.project, title: input.title)
+
+                        let subtitle = input.isMain ? mainSubtitle     : summary.description
+                        let desc     = input.isMain ? mainDescription  : summary.extract
+
+                        let info = ArticleTab.Info(
+                            subtitle: subtitle,
+                            image: summary.thumbnailURL,
+                            description: desc,
+                            url: input.url,
+                            snippet: desc
+                        )
+                        return (input.id, info)
+                    } catch {
+                        return (input.id, nil)
                     }
                 }
+            }
+
+            for await (id, info) in group {
+                await MainActor.run { [weak self] in
+                    guard let self else { return }
+                    self.incomingTabIDs.remove(id)
+                    self.prefetchedTabIDs.insert(id)
+                    if let idx = self.articleTabs.firstIndex(where: { $0.id == id }),
+                       self.articleTabs[idx].info == nil {
+                        self.articleTabs[idx].info = info
+                    }
+                }
+            }
+        }
+    }
+
+    /// One-off fetch (newly visible cells or newly created tabs)
+    @MainActor
+    func ensureInfo(for tab: ArticleTab) async {
+        guard tab.info == nil, let last = tab.data.articles.last else { return }
+
+        if incomingTabIDs.contains(tab.id) || prefetchedTabIDs.contains(tab.id) { return }
+
+        incomingTabIDs.insert(tab.id)
+        Task.detached(priority: .utility) { [weak self] in
+            guard let self else { return }
+            defer { Task { @MainActor in self.incomingTabIDs.remove(tab.id) } }
+            do {
+                let dc = WMFArticleSummaryDataController()
+                let summary = try await dc.fetchArticleSummary(project: last.project, title: last.title)
+                let subtitle = last.isMain ? self.localizedStrings.mainPageSubtitle : summary.description
+                let snippet = last.isMain ? self.localizedStrings.mainPageDescription : summary.extract
+                let info = ArticleTab.Info(
+                    subtitle: subtitle,
+                    image: summary.thumbnailURL,
+                    description: snippet,
+                    url: last.articleURL,
+                    snippet: snippet
+                )
+                await MainActor.run {
+                    if tab.info == nil { tab.info = info }
+                    self.prefetchedTabIDs.insert(tab.id)
+                }
+            } catch {
+                print( "Unable to fetch article summary: \(error)")
             }
         }
     }

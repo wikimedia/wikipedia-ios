@@ -49,8 +49,7 @@ public struct WMFArticleTabsView: View {
                 if let tab = await viewModel.getCurrentTab() {
                     await MainActor.run { currentTabID = tab.id }
                 }
-
-                await viewModel.prefetchSummariesIfNeeded(limit: 12)
+                viewModel.prefetchAllSummariesTrickled(initialWindow: 24, pageSize: 12)
 
                 await MainActor.run { isReady = true }
             }
@@ -141,6 +140,9 @@ public struct WMFArticleTabsView: View {
                                                     value: [tab.id: geo.frame(in: .global)])
                                 }
                             )
+                            .onAppear {
+                                Task { await viewModel.ensureInfo(for: tab) }
+                            }
                             .contextMenu(menuItems: {
                                 Button {
                                     viewModel.didTapTab(tab.data)

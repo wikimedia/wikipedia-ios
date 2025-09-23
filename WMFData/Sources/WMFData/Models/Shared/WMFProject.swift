@@ -1,6 +1,6 @@
 import Foundation
 
-public enum WMFProject: Equatable, Hashable, Identifiable, Codable {
+public enum WMFProject: Equatable, Hashable, Identifiable, Codable, Sendable {
     public var id: String {
         switch self {
         case .commons:
