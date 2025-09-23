@@ -6,7 +6,10 @@ import WMF
 class WMFHCaptchaViewController: ThemeableViewController {
     
     enum CustomError: Error {
-        case invalidURL
+        case hCaptchaInvalidURL
+        case hCaptchaExpired
+        case hCaptchaClosed
+        case hCaptchaError
     }
 
     // MARK: - UI Elements
@@ -89,7 +92,7 @@ class WMFHCaptchaViewController: ThemeableViewController {
                   let reportapi = URL(string: "https://report-hcaptcha.wikimedia.org"),
                   let assethost = URL(string: "https://assets-hcaptcha.wikimedia.org"),
                   let imghost = URL(string: "https://imgs-hcaptcha.wikimedia.org") else {
-                      errorAction?(CustomError.invalidURL)
+                      errorAction?(CustomError.hCaptchaInvalidURL)
                       return
                   }
             
@@ -110,8 +113,17 @@ class WMFHCaptchaViewController: ThemeableViewController {
 
         hCaptcha?.onEvent { [weak self] event, _ in
             guard let self = self else { return }
-            if event == .open {
-                print("open!")
+            switch event {
+            case .challengeExpired:
+                self.errorAction?(CustomError.hCaptchaExpired)
+            case .close:
+                self.errorAction?(CustomError.hCaptchaClosed)
+            case .error:
+                self.errorAction?(CustomError.hCaptchaError)
+            case .expired:
+                self.errorAction?(CustomError.hCaptchaExpired)
+            case .open:
+                break
             }
         }
 
@@ -124,6 +136,16 @@ class WMFHCaptchaViewController: ThemeableViewController {
             self.captchaContainer.addSubview(webView)
             self.captchaWebView = webView
         }
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+        guard let captchaWebView = captchaWebView else {
+            return
+        }
+        
+        captchaWebView.frame = self.captchaContainer.bounds
     }
     
     override func apply(theme: Theme) {
