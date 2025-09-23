@@ -1,6 +1,6 @@
 import WMF
 
-final class RandomArticleCoordinator: Coordinator, ArticleTabCoordinating {
+final class RandomArticleCoordinator: @preconcurrency Coordinator, ArticleTabCoordinating {
     let navigationController: UINavigationController
     private(set) var articleURL: URL?
     private(set) var siteURL: URL?
@@ -27,7 +27,7 @@ final class RandomArticleCoordinator: Coordinator, ArticleTabCoordinating {
         self.tabConfig = tabConfig
     }
     
-    @discardableResult
+    @MainActor @discardableResult
     func start() -> Bool {
         
         // We want to push on a particular random article.

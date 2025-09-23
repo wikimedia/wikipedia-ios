@@ -1,6 +1,6 @@
 import WMF
 
-final class LinkCoordinator: Coordinator {
+final class LinkCoordinator: @preconcurrency Coordinator {
     
     enum Destination {
         case article
@@ -24,7 +24,8 @@ final class LinkCoordinator: Coordinator {
         self.previousPageViewObjectID = previousPageViewObjectID
         self.tabConfig = tabConfig
     }
-    
+
+    @MainActor
     @discardableResult
     func start() -> Bool {
         

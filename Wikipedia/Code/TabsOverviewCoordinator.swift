@@ -4,7 +4,8 @@ import WMFComponents
 import WMFData
 import CocoaLumberjackSwift
 
-final class TabsOverviewCoordinator: Coordinator {
+@MainActor
+final class TabsOverviewCoordinator: @preconcurrency Coordinator {
     var navigationController: UINavigationController
     var theme: Theme
     let dataStore: MWKDataStore
@@ -249,7 +250,7 @@ extension TabsOverviewCoordinator: WMFArticleTabsLoggingDelegate {
         ArticleTabsFunnel.shared.logTabsOverviewImpression()
     }
     
-    func logArticleTabsArticleClick(wmfProject: WMFProject?) {
+    nonisolated func logArticleTabsArticleClick(wmfProject: WMFProject?) {
         if let url = wmfProject?.siteURL, let project =  WikimediaProject(siteURL:url) {
             ArticleTabsFunnel.shared.logArticleClick(project: project)
         }
@@ -258,6 +259,7 @@ extension TabsOverviewCoordinator: WMFArticleTabsLoggingDelegate {
 
 /// Manages the lifecycle of TabsOverviewCoordinator independently of article tabs.
 /// Ensures the tabs UI works even if the current article tab is closed.
+@MainActor
 final class TabsCoordinatorManager {
 
     static let shared = TabsCoordinatorManager()

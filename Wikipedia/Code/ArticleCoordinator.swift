@@ -23,6 +23,7 @@ protocol ArticleTabCoordinating: AnyObject {
     var theme: Theme { get }
 }
 
+@MainActor
 extension ArticleTabCoordinating {
     
     func trackArticleTab(articleViewController: ArticleViewController) {
@@ -107,7 +108,8 @@ extension ArticleTabCoordinating {
             try await tabsDataController.deleteEmptyTabs()
         }
     }
-    
+
+    @MainActor
     func prepareToShowTabsOverview(articleViewController: ArticleViewController, _ dataStore: MWKDataStore) {
         articleViewController.showTabsOverview = { [weak navigationController, weak self] in
             guard let navController = navigationController, let self = self else { return }
@@ -150,7 +152,7 @@ final class ArticleCoordinator: NSObject, Coordinator, ArticleTabCoordinating {
         super.init()
     }
     
-    @discardableResult
+    @MainActor @discardableResult
     func start() -> Bool {
         
         guard let articleURL else {
