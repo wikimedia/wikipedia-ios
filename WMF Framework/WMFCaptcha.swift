@@ -28,11 +28,15 @@ public final class WMFCaptcha {
     static public func captcha(from requests: [[String : AnyObject]]) -> WMFCaptcha? {
         
         let hasHCaptchaRequest = requests.first(where: { dict in
-            guard let stringID = dict["id"] as? String else {
+            guard let stringID = dict["id"] as? String,
+                stringID.lowercased().contains("captcha"),
+                  let metadata = dict["metadata"] as? [String: Any],
+                let type = metadata["type"] as? String,
+                  type.lowercased().contains("hcaptcha") else {
                 return false
             }
             
-            return stringID.lowercased().contains("hcaptcha")
+            return true
         })
         
         if hasHCaptchaRequest != nil {
