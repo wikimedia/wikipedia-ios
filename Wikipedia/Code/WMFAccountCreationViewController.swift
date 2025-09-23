@@ -411,8 +411,12 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
         
         let creationFailure: WMFErrorHandler = {error in
             DispatchQueue.main.async {
+                
+                self.hCaptchaToken = nil
+                
                 self.setViewControllerUserInteraction(enabled: true)
                 
+                var isCaptchaError = false
                 if let error = error as? WMFAccountCreatorError {
                     switch error {
                     case .usernameUnavailable:
@@ -423,7 +427,21 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
                         WMFAlertManager.sharedInstance.dismissAlert()
                         return
                     case .wrongCaptcha:
-                        self.captchaViewController?.captchaTextFieldBecomeFirstResponder()
+                        isCaptchaError = true
+                        
+                        self.getCaptcha(checkHCaptcha: true) { [weak self] captcha in
+                            
+                            guard let self else { return }
+                            if captcha?.classicInfo != nil {
+                                WMFAlertManager.sharedInstance.showErrorAlert(error as NSError, sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
+                                self.captchaViewController?.captcha = captcha
+                                self.captchaViewController?.captchaTextFieldBecomeFirstResponder()
+                                self.updateEmailFieldReturnKeyType()
+                            } else if let hCaptcha = captcha?.hCaptchaInfo,
+                               hCaptcha.needsHCaptcha {
+                                self.displayHCaptcha()
+                            }
+                        }
                         break
                     case .blockedError(let parsedMessage):
                         
@@ -433,11 +451,8 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
                         
                         WMFAlertManager.sharedInstance.dismissAlert()
                         
-                            self.wmf_showBlockedPanel(messageHtml: parsedMessage, linkBaseURL: linkBaseURL, currentTitle: "Special:CreateAccount", theme: self.theme)
+                        self.wmf_showBlockedPanel(messageHtml: parsedMessage, linkBaseURL: linkBaseURL, currentTitle: "Special:CreateAccount", theme: self.theme)
 
-                        self.enableProgressiveButtonIfNecessary()
-                        return
-                        
                     default:
                         break
                     }
@@ -445,24 +460,8 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
                 
                 self.enableProgressiveButtonIfNecessary()
                 
-                // todo: check error once block is undone. Only show this if it indicates NOT hcaptcha?
-                if false {
+                if !isCaptchaError {
                     WMFAlertManager.sharedInstance.showErrorAlert(error as NSError, sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
-                }
-                
-                // todo: check error once block is undone. Only do this if it indicates a captcha need.
-                self.getCaptcha(checkHCaptcha: true) { [weak self] captcha in
-                    
-                    guard let self else { return }
-                    if captcha?.classicInfo != nil {
-                        self.captchaViewController?.captcha = captcha
-                    } else if let hCaptcha = captcha?.hCaptchaInfo,
-                       hCaptcha.needsHCaptcha {
-                        self.displayHCaptcha()
-                    }
-                    
-                    self.updateEmailFieldReturnKeyType()
-                    self.enableProgressiveButtonIfNecessary()
                 }
                 
             }
