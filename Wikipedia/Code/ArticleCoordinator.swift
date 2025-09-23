@@ -12,6 +12,7 @@ enum ArticleTabConfig {
     case adjacentArticleInTab(WMFArticleTabsDataController.Identifiers) // Tapping 'forward in tab' / 'back in tab' buttons on article toolbar
  }
 
+@MainActor
 protocol ArticleTabCoordinating: AnyObject {
     func trackArticleTab(articleViewController: ArticleViewController)
     func syncTabsOnArticleAppearance()

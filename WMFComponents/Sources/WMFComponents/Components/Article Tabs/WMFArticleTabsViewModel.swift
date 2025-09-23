@@ -2,6 +2,7 @@ import Foundation
 import SwiftUI
 import WMFData
 
+@MainActor
 public protocol WMFArticleTabsLoggingDelegate: AnyObject {
     func logArticleTabsOverviewImpression()
     func logArticleTabsArticleClick(wmfProject: WMFProject?)

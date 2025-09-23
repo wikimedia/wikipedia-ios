@@ -5,7 +5,7 @@ import WMFData
 import CocoaLumberjackSwift
 
 @MainActor
-final class TabsOverviewCoordinator: @preconcurrency Coordinator {
+final class TabsOverviewCoordinator: Coordinator {
     var navigationController: UINavigationController
     var theme: Theme
     let dataStore: MWKDataStore
@@ -157,20 +157,20 @@ final class TabsOverviewCoordinator: @preconcurrency Coordinator {
                 displayDeleteAllTabsToast: displayDeleteAllTabsToast
             )
             
-            let articleTabsView = await WMFArticleTabsView(viewModel: articleTabsViewModel)
-            let hostingController = await WMFArticleTabsHostingController(
+            let articleTabsView = WMFArticleTabsView(viewModel: articleTabsViewModel)
+            let hostingController = WMFArticleTabsHostingController(
                 rootView: articleTabsView,
                 viewModel: articleTabsViewModel,
                 doneButtonText: CommonStrings.doneTitle,
                 articleTabsCount: articleTabsCount
             )
             
-            let navVC = await WMFComponentNavigationController(
+            let navVC = WMFComponentNavigationController(
                 rootViewController: hostingController,
                 modalPresentationStyle: .overFullScreen
             )
             
-            await navigationController.present(navVC, animated: true) { [weak self] in
+            navigationController.present(navVC, animated: true) { [weak self] in
                 self?.dataController.updateSurveyDataTabsOverviewSeenCount()
                 guard self != nil else { return }
                 showSurveyClosure()

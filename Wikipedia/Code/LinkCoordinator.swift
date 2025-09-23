@@ -1,6 +1,7 @@
 import WMF
 
-final class LinkCoordinator: @preconcurrency Coordinator {
+@MainActor
+final class LinkCoordinator: Coordinator {
     
     enum Destination {
         case article

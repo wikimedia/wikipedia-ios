@@ -1,6 +1,7 @@
 import WMF
 
-final class RandomArticleCoordinator: @preconcurrency Coordinator, ArticleTabCoordinating {
+@MainActor
+final class RandomArticleCoordinator: Coordinator, ArticleTabCoordinating {
     let navigationController: UINavigationController
     private(set) var articleURL: URL?
     private(set) var siteURL: URL?
