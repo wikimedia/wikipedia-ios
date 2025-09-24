@@ -14,7 +14,7 @@ public struct WMFFeatureConfigResponse: Codable {
             public let imghost: String
             public let reportapi: String
             public let sentry: Bool
-            public let siteKey: String
+            public let apiKey: String
         }
         
         public struct YearInReview: Codable {
