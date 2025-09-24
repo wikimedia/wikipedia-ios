@@ -916,6 +916,15 @@
 "panel-not-logged-in-continue-edit-action-title" = "Title for button that continues publishing the edit anonymously.";
 "panel-not-logged-in-subtitle" = "Subtitle for letting user know that they are not logged in, after they attempt to publish an edit. Parameters:\n* $1 - app-specific text formatting - beginning bold text, $2 - app-specific text formatting - ending bold text, $3 - app-specific text formatting - beginning bold text, $4 - app-specific text formatting - ending bold text.";
 "panel-not-logged-in-title" = "Title for education panel letting user know they are not logged in.";
+"percentile-0.01" = "0.01th percentile range";
+"percentile-1" = "1st percentile range";
+"percentile-10" = "10th percentile range";
+"percentile-20" = "20th percentile range";
+"percentile-30" = "30th percentile range";
+"percentile-40" = "40th percentile range";
+"percentile-5" = "5th percentile range";
+"percentile-50" = "50th percentile range";
+"percentile-below-50" = "Percentile range below 50th";
 "pictured" = "Indicates the person or item is pictured (as in a news story).";
 "places-accessibility-clear-saved-searches" = "Accessibility hint for clearing saved searches";
 "places-accessibility-group" = "Accessibility label for a map icon - $1 is replaced with the number of articles in the group {{Identical|Article}}";
