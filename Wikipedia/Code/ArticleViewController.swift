@@ -479,6 +479,17 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
         startSignificantlyViewedTimer()
 
         configureNavigationBar()
+        
+        if tabDataController.moreDynamicTabsGroupBEnabled {
+            DispatchQueue.main.async { [weak self] in
+                guard let searchController = self?.navigationItem.searchController else {
+                    return
+                }
+                
+                searchController.isActive = true
+                searchController.searchBar.becomeFirstResponder()
+            }
+        }
     }
     
     var isFirstAppearance = true
