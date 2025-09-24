@@ -22,10 +22,11 @@ public enum WMFUserDefaultsKey: String {
     case articleTabsOverviewOpenedCount = "article-tabs-overview-opened-count"
     case articleTabsDidTapOpenInNewTab = "article-tabs-did-tap-open-in-new-tab"
     case articleTabsDidShowSurvey = "article-tabs-did-show-survey"
-    case developerSettingsMoreDynamicTabsBYR = "more-dynamic-tabs-BYR"
-    case developerSettingsMoreDynamicTabsDYK = "more-dynamic-tabs-DYK"
+    case developerSettingsMoreDynamicTabsGroupB = "more-dynamic-tabs-group-b"
+    case developerSettingsMoreDynamicTabsGroupC = "more-dynamic-tabs-group-c"
     case developerSettingsMoreDynamicTabs = "more-dynamic-tabs"
     case developerSettingsShowYiRV2 = "dev-settings-yir-show-v2"
     case developerSettingsShowYiRV3 = "dev-settings-yir-show-v3"
     case yearInReviewNewIcon2025 = "year-in-review-new-icon-2025"
+    case qualifiesForIcon2025 = "qualifies-for-icon-2025"
 }

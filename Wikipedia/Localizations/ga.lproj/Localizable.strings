@@ -406,6 +406,7 @@
 "search-recent-title" = "Cuardaithe le déanaí";
 "search-result-redirected-from" = "Atreoraithe ó: $1";
 "search-title" = "Cuardaigh";
+// Fuzzy
 "settings-appearance" = "Sainroghanna léitheoireachta";
 "settings-clear-cache" = "Glan sonraí taiscthe";
 "settings-clear-cache-are-you-sure-title" = "Glan sonraí taiscthe?";

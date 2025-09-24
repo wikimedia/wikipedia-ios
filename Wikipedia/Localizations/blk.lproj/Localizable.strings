@@ -418,6 +418,7 @@
 "search-result-redirected-from" = "$1 ယီးနယ်ချာခါꩻဒျာႏသွူ";
 "search-title" = "ထိုမ်ႏ";
 "settings-account" = "အကောက်";
+// Fuzzy
 "settings-appearance" = "ဟော်ꩻလိတ် အပွိုင်အဆင်ဖိုင်ႏ";
 "settings-clear-cache" = "သျင်ꩻထိုꩻ cachedဒေတာ";
 "settings-clear-cache-are-you-sure-title" = "သျင်ꩻထိုꩻသွူ cachedဒေတာနဲ့?";

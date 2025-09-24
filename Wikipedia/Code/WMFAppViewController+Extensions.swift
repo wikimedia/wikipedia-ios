@@ -322,11 +322,11 @@ extension WMFAppViewController: WMFWatchlistDelegate {
         let diffURL: URL?
 
         if revisionID == 0 {
-            diffURL = siteURL.wmf_URL(withPath: "/wiki/Special:MobileDiff/\(oldRevisionID)", isMobile: true)
+            diffURL = siteURL.wmf_URL(withPath: "/wiki/Special:MobileDiff/\(oldRevisionID)")
         } else if oldRevisionID == 0 {
-            diffURL = siteURL.wmf_URL(withPath: "/wiki/Special:MobileDiff/\(revisionID)", isMobile: true)
+            diffURL = siteURL.wmf_URL(withPath: "/wiki/Special:MobileDiff/\(revisionID)")
         } else {
-            diffURL = siteURL.wmf_URL(withPath: "/wiki/Special:MobileDiff/\(oldRevisionID)...\(revisionID)", isMobile: true)
+            diffURL = siteURL.wmf_URL(withPath: "/wiki/Special:MobileDiff/\(oldRevisionID)...\(revisionID)")
         }
         
         let userInfo: [AnyHashable : Any] = [RoutingUserInfoKeys.source: RoutingUserInfoSourceValue.watchlist.rawValue]
@@ -342,11 +342,11 @@ extension WMFAppViewController: WMFWatchlistDelegate {
 
         switch action {
         case .userPage:
-            navigate(to: siteURL.wmf_URL(withPath: "/wiki/User:\(username)", isMobile: true))
+            navigate(to: siteURL.wmf_URL(withPath: "/wiki/User:\(username)"))
         case .userTalkPage:
-            navigate(to: siteURL.wmf_URL(withPath: "/wiki/User_talk:\(username)", isMobile: true))
+            navigate(to: siteURL.wmf_URL(withPath: "/wiki/User_talk:\(username)"))
         case .userContributions:
-            navigate(to: siteURL.wmf_URL(withPath: "/wiki/Special:Contributions/\(username)", isMobile: true))
+            navigate(to: siteURL.wmf_URL(withPath: "/wiki/Special:Contributions/\(username)"))
         case .thank(let revisionID):
             let performThanks = {
                 let diffThanker = DiffThanker()
@@ -681,39 +681,6 @@ extension WMFAppViewController {
             }
         }
     }
-
-
-    @objc func populateYearInReviewReport(for year: Int) {
-        guard let language  = dataStore.languageLinkController.appLanguage?.languageCode,
-              let countryCode = Locale.current.region?.identifier
-        else { return }
-        let wmfLanguage = WMFLanguage(languageCode: language, languageVariantCode: nil)
-        let project = WMFProject.wikipedia(wmfLanguage)
-        var userId: Int?
-
-        if let siteURL = dataStore.languageLinkController.appLanguage?.siteURL,
-           let userID = dataStore.authenticationManager.permanentUser(siteURL: siteURL)?.userID {
-            userId = userID
-        }
-        
-        let userIdString: String? = userId.map { String($0) }
-
-        Task {
-            do {
-                let yirDataController = try WMFYearInReviewDataController()
-                try await yirDataController.populateYearInReviewReportData(
-                    for: year,
-                    countryCode: countryCode,
-                    primaryAppLanguageProject: project,
-                    username: dataStore.authenticationManager.authStatePermanentUsername,
-                    userID: userIdString,
-                    savedSlideDataDelegate: dataStore.savedPageList,
-                    legacyPageViewsDataDelegate: dataStore)
-            } catch {
-                DDLogError("Failure populating year in review report: \(error)")
-            }
-        }
-    }
     
     @objc func deleteYearInReviewPersonalizedNetworkData() {
         Task {
@@ -910,7 +877,7 @@ extension WMFAppViewController {
                 EditInteractionFunnel.shared.logActivityTabDidTapEditPopulatedCapsule(project: wikimediaProject)
             }
 
-            guard let url = self.dataStore.languageLinkController.appLanguage?.siteURL.wmf_URL(withPath: "/wiki/Special:Contributions/\(username)", isMobile: true) else {
+            guard let url = self.dataStore.languageLinkController.appLanguage?.siteURL.wmf_URL(withPath: "/wiki/Special:Contributions/\(username)") else {
                 showGenericError()
                 return
             }

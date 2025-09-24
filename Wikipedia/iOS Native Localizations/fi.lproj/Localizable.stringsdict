@@ -758,22 +758,6 @@
 			<string>%1$d tavua</string>
 		</dict>
 	</dict>
-	<key>year-in-review-personalized-editing-subtitle-format</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>Muokkasit Wikipediaa %#@v1@. Kiitos, että olet yksi vapaaehtoisista, jotka kehittävät Wikimedia-projekteja ympäri maailmaa.</string>
-		<key>v1</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
-			<key>one</key>
-			<string>%1$d kerran</string>
-			<key>other</key>
-			<string>%1$d kertaa</string>
-		</dict>
-	</dict>
 	<key>year-in-review-personalized-editing-title-format</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>

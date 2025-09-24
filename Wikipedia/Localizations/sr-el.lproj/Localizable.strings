@@ -847,6 +847,7 @@
 "serbian-variants-alert-body" = "Aplikacija Vikipedija odsad podržava sledeće varijante srpskog jezika kao glavne ili sporedne jezike olakšavajući čitanje, pretraživanje i uređivanje u željenim varijantama:\n\nsrpski ćirilica (sr-ec)\nsrpski latinica (sr-el)";
 "serbian-variants-alert-title" = "Ažuriranja podrške za varijante srpskog jezika";
 "settings-account" = "Nalog";
+// Fuzzy
 "settings-appearance" = "Podešavanja za čitanje";
 "settings-clear-cache" = "Brisanje keširanih podataka";
 "settings-clear-cache-are-you-sure-message" = "Čišćenjem keširanih podataka oslobodićete oko $1 prostora. Vaše sačuvane stranice se neće izbrisati.";

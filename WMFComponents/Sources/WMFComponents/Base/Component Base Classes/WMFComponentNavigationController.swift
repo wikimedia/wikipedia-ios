@@ -123,14 +123,17 @@ open class WMFComponentNavigationController: UINavigationController {
 
 extension WMFComponentNavigationController: UIGestureRecognizerDelegate {
     public func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
-        return viewControllers.count > 0
+        guard viewControllers.count > 1,
+              transitionCoordinator == nil else {
+            return false
+        }
+        return true
     }
     
     public func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
-        if gestureRecognizer is UIScreenEdgePanGestureRecognizer {
+        if gestureRecognizer == interactivePopGestureRecognizer {
             return false
         }
-        
         return true
     }
 }

@@ -381,6 +381,7 @@
 "search-result-redirected-from" = "$1 থেকে পুনর্নির্দেশিত";
 "search-title" = "অনুসন্ধান";
 "search-widget-wikipedia-title" = "উইকিপিডিয়া";
+// Fuzzy
 "settings-appearance" = "পড়ার পছন্দ";
 "settings-clear-cache-cancel" = "বাতিল";
 "settings-donate" = "দান করুন";

@@ -12,8 +12,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-static NSString *const WMFSettingsURLZeroFAQ = @"https://foundation.m.wikimedia.org/wiki/Wikipedia_Zero_App_FAQ";
-static NSString *const WMFSettingsURLTerms = @"https://foundation.m.wikimedia.org/wiki/Terms_of_Use/en";
+static NSString *const WMFSettingsURLZeroFAQ = @"https://foundation.wikimedia.org/wiki/Wikipedia_Zero_App_FAQ";
+static NSString *const WMFSettingsURLTerms = @"https://foundation.wikimedia.org/wiki/Terms_of_Use/en";
 static NSString *const WMFSettingsURLRate = @"itms-apps://itunes.apple.com/app/id324715238";
 static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?utm_medium=WikipediaApp&utm_campaign=iOS&utm_source=appmenu&app_version=<app-version>&uselang=<langcode>";
 
@@ -226,9 +226,6 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
             break;
         case WMFSettingsMenuItemType_Search:
             [self showSearch];
-            break;
-        case WMFSettingsMenuItemType_Tabs:
-            [self showTabsPreferences];
             break;
         case WMFSettingsMenuItemType_ExploreFeed:
             [self showExploreFeedSettings];
@@ -474,14 +471,6 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
     [self.navigationController pushViewController:searchSettingsViewController animated:YES];
 }
 
-#pragma mark - Tabs preferences
-
-- (void)showTabsPreferences {
-    WMFNewArticleTabsSettingsViewController *tabsSettingsVC = [[WMFNewArticleTabsSettingsViewController alloc] initWithTheme:self.theme];
-    [self.navigationController pushViewController:tabsSettingsVC animated:YES];
-    [ArticleTabsFunnel.shared logTabsPreferenceSettingsClick];
-}
-
 #pragma mark - Feed
 
 - (void)showExploreFeedSettings {
@@ -601,10 +590,6 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
     NSArray *commonItems = @[[WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_SearchLanguage],
                              [WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_Search]];
     NSMutableArray *items = [NSMutableArray arrayWithArray:commonItems];
-
-    if ([WMFArticleTabsDataController sharedInstance].needsMoreDynamicTabs) {
-        [items addObject:[WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_Tabs]];
-    }
     [items addObject:[WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_ExploreFeed]];
 
     if ([[WMFYearInReviewDataController dataControllerForObjectiveC] shouldShowYearInReviewSettingsItemWithCountryCode:NSLocale.currentLocale.countryCode primaryAppLanguageCode:self.dataStore.languageLinkController.appLanguage.languageCode]) {
