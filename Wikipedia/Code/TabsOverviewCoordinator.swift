@@ -61,7 +61,6 @@ final class TabsOverviewCoordinator: Coordinator {
         return hostedView
     }
     
-    
     func closeAllTabsTitle(numberTabs: Int) -> String {
         let format = WMFLocalizedString("close-all-tabs-confirmation-title-with-value", value: "Close {{PLURAL:%1$d|%1$d tab|%1$d tabs}}?", comment: "Title of alert that asks user if they want to delete all tabs, $1 is representative of the number of tabs they have open.")
         return String.localizedStringWithFormat(format, numberTabs)
