@@ -11,6 +11,7 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
     // articleTab should NEVER be empty - take care of logic of inserting main page in datacontroller/viewcontroller
     @Published var articleTabs: [ArticleTab]
     @Published var shouldShowCloseButton: Bool
+    @Published var currentTabID: String?
 
     private(set) weak var loggingDelegate: WMFArticleTabsLoggingDelegate?
     private let dataController: WMFArticleTabsDataController
@@ -51,7 +52,6 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
                 await loadTabs()
             }
         }
-        
     }
     
     public struct LocalizedStrings {
@@ -114,13 +114,27 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
 
     // MARK: - Public funcs
     
+    @MainActor
+    func refreshCurrentTab() async {
+        do {
+            let tabUUID = try await dataController.currentTabIdentifier()
+            currentTabID = tabUUID.uuidString
+        } catch {
+            print("Not able to get tab UUID")
+        }
+    }
+
+    func isCurrentTab(_ tab: ArticleTab) -> Bool {
+        tab.id == currentTabID
+    }
+    
+    @MainActor
     func shouldLockAspectRatio() -> Bool {
         if UIApplication.shared.preferredContentSizeCategory.isAccessibilityCategory {
             return false
         }
         return true
     }
-    
     
     func calculateColumns(for size: CGSize) -> Int {
         // If text is scaled up for accessibility, use single column

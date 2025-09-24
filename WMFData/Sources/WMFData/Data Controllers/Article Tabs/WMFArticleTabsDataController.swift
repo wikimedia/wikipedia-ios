@@ -412,7 +412,9 @@ public protocol WMFArticleTabsDataControlling {
             try self.deleteAllTabs(moc: moc)
         }
         
-        _ = try? await self.createArticleTab(initialArticle: nil, setAsCurrent: true)
+        if !moreDynamicTabsGroupBEnabled {
+            _ = try? await self.createArticleTab(initialArticle: nil, setAsCurrent: true)
+        }
     }
     
     public var moreDynamicTabsGroupBEnabled: Bool {

@@ -161,6 +161,14 @@ fileprivate struct WMFArticleTabsViewContent: View {
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
         .background(Color(theme.chromeBackground))
         .cornerRadius(12)
+        .overlay {
+            RoundedRectangle(cornerRadius: 12)
+                .inset(by: 0.5)
+                .stroke(viewModel.isCurrentTab(tab) ? Color(uiColor: theme.secondaryText) : Color.clear, lineWidth: 1)
+        }
+        .task {
+            await viewModel.refreshCurrentTab()
+        }
         .shadow(color: Color.black.opacity(0.05), radius: 16, x: 0, y: 0)
         .contentShape(Rectangle())
         .modifier(AspectRatioModifier(shouldLockAspectRatio: viewModel.shouldLockAspectRatio()))

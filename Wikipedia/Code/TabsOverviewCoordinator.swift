@@ -61,7 +61,6 @@ final class TabsOverviewCoordinator: Coordinator {
         return hostedView
     }
     
-    
     func closeAllTabsTitle(numberTabs: Int) -> String {
         let format = WMFLocalizedString("close-all-tabs-confirmation-title-with-value", value: "Close {{PLURAL:%1$d|%1$d tab|%1$d tabs}}?", comment: "Title of alert that asks user if they want to delete all tabs, $1 is representative of the number of tabs they have open.")
         return String.localizedStringWithFormat(format, numberTabs)
@@ -197,13 +196,20 @@ final class TabsOverviewCoordinator: Coordinator {
     }
     
     private func tappedAddTab() {
-
         guard let siteURL = dataStore.languageLinkController.appLanguage?.siteURL,
               let articleURL = siteURL.wmf_URL(withTitle: "Main Page") else {
             return
         }
         
-        let articleCoordinator = ArticleCoordinator(navigationController: navigationController, articleURL: articleURL, dataStore: MWKDataStore.shared(), theme: theme, needsAnimation: false, source: .undefined, tabConfig: .assignNewTabAndSetToCurrent)
+        let articleCoordinator = ArticleCoordinator(
+            navigationController: navigationController,
+            articleURL: articleURL,
+            dataStore: MWKDataStore.shared(),
+            theme: theme,
+            needsAnimation: false,
+            source: .undefined,
+            tabConfig: .assignNewTabAndSetToCurrent,
+            needsFocusOnSearch: true)
         ArticleTabsFunnel.shared.logAddNewBlankTab()
         articleCoordinator.start()
         
