@@ -4,6 +4,19 @@ public struct WMFFeatureConfigResponse: Codable {
     public struct IOS: Codable {
         
         public let yir: [YearInReview]
+        public let hCaptcha: HCaptcha?
+        
+        public struct HCaptcha: Codable {
+            public let baseURL: String
+            public let jsSrc: String
+            public let endpoint: String
+            public let assethost: String
+            public let imghost: String
+            public let reportapi: String
+            public let sentry: Bool
+            public let siteKey: String
+        }
+        
         public struct YearInReview: Codable {
             
             public struct PersonalizedSlides: Codable {
@@ -46,8 +59,9 @@ public struct WMFFeatureConfigResponse: Codable {
             return yir.first { $0.yearID == yearID }
         }
         
-        public init(yir: [YearInReview]) {
+        public init(yir: [YearInReview], hCaptcha: HCaptcha? = nil) {
             self.yir = yir
+            self.hCaptcha = hCaptcha
         }
     }
     

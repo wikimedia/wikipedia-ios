@@ -2,6 +2,7 @@ import UIKit
 import HCaptcha
 import WebKit
 import WMF
+import WMFData
 
 class WMFHCaptchaViewController: ThemeableViewController {
     
@@ -10,6 +11,7 @@ class WMFHCaptchaViewController: ThemeableViewController {
         case hCaptchaExpired
         case hCaptchaClosed
         case hCaptchaError
+        case hCaptchaMissingConfig
     }
 
     // MARK: - UI Elements
@@ -40,8 +42,12 @@ class WMFHCaptchaViewController: ThemeableViewController {
 
         setupLayout()
         spinner.startAnimating()
-        setupHCaptcha()
         apply(theme: theme)
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        setupHCaptcha()
     }
 
     // MARK: - Layout
@@ -86,12 +92,17 @@ class WMFHCaptchaViewController: ThemeableViewController {
             // "f1f21d64-6384-4114-b7d0-d9d23e203b4a" //doesn't always challenge
             // "45205f58-be1c-40f0-b286-07a4498ea3da" //always challenge
             
-            guard let baseURL = URL(string: "https://meta.wikimedia.org"),
-                  let jsSrc = URL(string:"https://assets-hcaptcha.wikimedia.org/1/api.js"),
-                  let endpoint = URL(string: "https://hcaptcha.wikimedia.org"),
-                  let reportapi = URL(string: "https://report-hcaptcha.wikimedia.org"),
-                  let assethost = URL(string: "https://assets-hcaptcha.wikimedia.org"),
-                  let imghost = URL(string: "https://imgs-hcaptcha.wikimedia.org") else {
+            guard let config = WMFDeveloperSettingsDataController.shared.loadFeatureConfig()?.ios.hCaptcha else {
+                errorAction?(CustomError.hCaptchaMissingConfig)
+                return
+            }
+            
+            guard let baseURL = URL(string: config.baseURL),
+                  let jsSrc = URL(string: config.jsSrc),
+                  let endpoint = URL(string: config.endpoint),
+                  let reportapi = URL(string: config.reportapi),
+                  let assethost = URL(string: config.assethost),
+                  let imghost = URL(string: config.imghost) else {
                       errorAction?(CustomError.hCaptchaInvalidURL)
                       return
                   }
@@ -99,7 +110,7 @@ class WMFHCaptchaViewController: ThemeableViewController {
             hCaptcha = try HCaptcha(apiKey: "45205f58-be1c-40f0-b286-07a4498ea3da",
                                      baseURL: baseURL,
                                      jsSrc: jsSrc,
-                                     sentry: false,
+                                     sentry: config.sentry,
                                      endpoint: endpoint,
                                      reportapi: reportapi,
                                      assethost: assethost,
