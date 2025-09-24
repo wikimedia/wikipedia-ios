@@ -356,27 +356,33 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
     
     // MARK: - Spicy math
 
-    private func bellCurve(x: Double, average: Double, standardDeviation: Double) -> Double {
-        let z = (x - average) / standardDeviation
-        return 0.5 * (1 + erf(z / sqrt(2)))
+    func percentileRange(for readCount: Int) -> String {
+        switch readCount {
+        case ...355:
+            return WMFLocalizedString("percentile-below-50", value: "<50", comment: "Percentile range below 50th")
+            // Should never get here, safety net in case
+        case 356...1233:
+            return WMFLocalizedString("percentile-50", value: "50", comment: "50th percentile range")
+        case 1234...2455:
+            return WMFLocalizedString("percentile-40", value: "40", comment: "40th percentile range")
+        case 2456...4566:
+            return WMFLocalizedString("percentile-30", value: "30", comment: "30th percentile range")
+        case 4567...8900:
+            return WMFLocalizedString("percentile-20", value: "20", comment: "20th percentile range")
+        case 8901...12344:
+            return WMFLocalizedString("percentile-10", value: "10", comment: "10th percentile range")
+        case 12345...23455:
+            return WMFLocalizedString("percentile-5", value: "5", comment: "5th percentile range")
+        case 23456...43739:
+            return WMFLocalizedString("percentile-1", value: "1", comment: "1st percentile range")
+        default:
+            return WMFLocalizedString("percentile-0.01", value: "0.01", comment: "0.01th percentile range")
+        }
     }
 
+
     func personalizedYouReadSlideSubtitleV3(readCount: Int) -> String {
-        let minReadCount = 1
-        let maxReadCount = 43740
-        let containedReadCount = min(max(1020, minReadCount), maxReadCount)
-        
-        let meanReadCount = 1000.0   // avg articles read
-        let stdDevReadCount = 2000.0 // deviation so like spread of averages
-        
-        var percentageAbove = (1.0 - bellCurve(x: Double(containedReadCount), average: meanReadCount, standardDeviation: stdDevReadCount)) * 100
-        
-        let minimumPercentage = 0.01
-        if percentageAbove < minimumPercentage {
-            percentageAbove = minimumPercentage
-        }
-        
-        let percentageString = formatToOneSignificantFigure(percentageAbove)
+        let percentageString = percentileRange(for: readCount)
         
         let format = WMFLocalizedString(
             "year-in-review-personalized-reading-subtitle-format-v3",
@@ -395,22 +401,6 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         }
         
         return "\(firstSentence)\n\n\(secondSentence)"
-    }
-
-    func formatToOneSignificantFigure(_ value: Double) -> String {
-        if value == 0 { return "0" }
-        
-        let log10 = floor(log10(value))
-        let scale = pow(10, log10)
-        let rounded = (value / scale).rounded() * scale
-        
-        if value < 1 {
-            return String(format: "%.2f", rounded)
-        } else if value < 10 {
-            return String(format: "%.1f", rounded)
-        } else {
-            return String(format: "%.0f", rounded)
-        }
     }
 
     func personalizedDateSlideTitleV2(day: Int) -> String {

@@ -374,17 +374,19 @@ public class WMFYearInReviewViewModel: ObservableObject {
                                 tappedInfo: tappedInfo
                             )
                             
-                            readCountSlideV3 = WMFYearInReviewSlideStandardViewModel(
-                                gifName: "personal-slide-01",
-                                altText: localizedStrings.personalizedYouReadAccessibilityLabel,
-                                title: localizedStrings.personalizedYouReadSlideTitleV3(readData.readCount),
-                                subtitle: localizedStrings.personalizedYouReadSlideSubtitleV3(readData.readCount),
-                                subtitleType: .html,
-                                infoURL: aboutYiRURL,
-                                forceHideDonateButton: false,
-                                loggingID: "read_count_custom",
-                                tappedInfo: tappedInfo
-                            )
+                            if readData.readCount > 255 {
+                                readCountSlideV3 = WMFYearInReviewSlideStandardViewModel(
+                                    gifName: "personal-slide-01",
+                                    altText: localizedStrings.personalizedYouReadAccessibilityLabel,
+                                    title: localizedStrings.personalizedYouReadSlideTitleV3(readData.readCount),
+                                    subtitle: localizedStrings.personalizedYouReadSlideSubtitleV3(readData.readCount),
+                                    subtitleType: .html,
+                                    infoURL: aboutYiRURL,
+                                    forceHideDonateButton: false,
+                                    loggingID: "read_count_custom",
+                                    tappedInfo: tappedInfo
+                                )
+                            }
                         }
                     }
                 case .editCount:
