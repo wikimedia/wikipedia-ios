@@ -456,7 +456,7 @@ struct AspectRatioModifier: ViewModifier {
     }
 }
 
-/// Collect  frame size from each child tab to the parent grind view on Geometry Reader
+/// Collect  frame size from each child tab to the parent grid view on Geometry Reader
 private struct TabGlobalFramePreferenceKey: PreferenceKey {
     static var defaultValue: [String: CGRect] = [:]
     static func reduce(value: inout [String: CGRect], nextValue: () -> [String: CGRect]) {
