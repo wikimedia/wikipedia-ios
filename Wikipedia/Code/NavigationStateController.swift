@@ -40,7 +40,7 @@ final class NavigationStateController: NSObject {
     }
     
     /// Finds the topmost article from persisted NavigationState and pushes it onto navigationController
-    @objc func restoreLastArticle(for tabBarController: UITabBarController, in moc: NSManagedObjectContext, with theme: Theme, completion: @escaping () -> Void) {
+    @MainActor @objc func restoreLastArticle(for tabBarController: UITabBarController, in moc: NSManagedObjectContext, with theme: Theme, completion: @escaping () -> Void) {
         
         guard let selectedNavigationController = tabBarController.selectedViewController as? UINavigationController else {
             completion()

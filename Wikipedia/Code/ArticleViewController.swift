@@ -445,30 +445,6 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
         setup()
 
         setupForStateRestorationIfNecessary()
-        setupMoreDynamicTabsExperiment()
-    }
-
-    private func setupMoreDynamicTabsExperiment() {
-        guard tabDataController.shouldAssignToBucket() else {
-            return
-        }
-
-        do {
-            let assignment = try tabDataController.assignExperiment()
-            // TODO: Bring back logging when more dynamic tabs is relased
-            /*
-            switch assignment {
-            case .control:
-                ArticleTabsFunnel.shared.logGroupAssignment(group: "dynamic_a")
-            case .becauseYouRead:
-                ArticleTabsFunnel.shared.logGroupAssignment(group: "dynamic_b")
-            case .didYouKnow:
-                ArticleTabsFunnel.shared.logGroupAssignment(group: "dynamic_c")
-            }
-             */
-        } catch {
-            DDLogWarn("Failure assigning more dynamic tabs experiment: \(error)")
-        }
     }
 
     override func viewWillAppear(_ animated: Bool) {

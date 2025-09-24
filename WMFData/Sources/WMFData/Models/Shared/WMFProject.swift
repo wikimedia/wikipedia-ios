@@ -1,6 +1,6 @@
 import Foundation
 
-public enum WMFProject: Equatable, Hashable, Identifiable, Codable {
+public enum WMFProject: Equatable, Hashable, Identifiable, Codable, Sendable {
     public var id: String {
         switch self {
         case .commons:
@@ -72,5 +72,21 @@ public extension WMFProject {
         default:
             return false
         }
+    }
+}
+
+public extension WMFProject {
+    var siteURL: URL? {
+        var components = URLComponents()
+        components.scheme = "https"
+
+        switch self {
+        case .wikipedia(let language):
+            components.host = "\(language.languageCode).wikipedia.org"
+        default:
+            return nil
+        }
+
+        return components.url
     }
 }
