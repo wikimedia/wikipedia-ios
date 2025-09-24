@@ -375,8 +375,6 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         let format = WMFLocalizedString("year-in-review-personalized-reading-title-v3-format", value: "You spent {{PLURAL:%1$d|%1$d minute|%1$d minutes}} reading {{PLURAL:%2$d|%2$d article|%2$d articles}} in 2025", comment: "Year in review, personalized reading article count slide title for users that read articles. %1$d is replaced with the number of minutes the user spent reading and %2$d is replaced with the number of articles the user read in 2025.")
         return String.localizedStringWithFormat(format, minutesRead, readCount)
     }
-    
-    // MARK: - Spicy math
 
     func percentileRange(for readCount: Int) -> String {
         switch readCount {
