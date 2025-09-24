@@ -165,7 +165,11 @@ public struct WMFArticleTabsView: View {
                                     }
                                 }
                             }, preview: {
-                                WMFArticlePreviewView(viewModel: getPreviewViewModel(from: tab))
+                                ArticlePreviewContainer(
+                                       tab: tab,
+                                       viewModel: viewModel,
+                                       build: { getPreviewViewModel(from: $0) }
+                                   )
                             })
                             .accessibilityActions {
                                 accessibilityAction(named: viewModel.localizedStrings.openTabAccessibility) {
@@ -453,6 +457,17 @@ struct AspectRatioModifier: ViewModifier {
         } else {
             content
         }
+    }
+}
+
+private struct ArticlePreviewContainer: View {
+    @ObservedObject var tab: ArticleTab
+    @ObservedObject var viewModel: WMFArticleTabsViewModel
+    let build: (ArticleTab) -> WMFArticlePreviewViewModel
+
+    var body: some View {
+        WMFArticlePreviewView(viewModel: build(tab))
+            .task { await viewModel.ensureInfo(for: tab) }
     }
 }
 
