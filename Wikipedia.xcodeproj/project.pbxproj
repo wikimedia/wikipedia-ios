@@ -504,6 +504,8 @@
 		6747118825072D1500287951 /* IconTitleBadge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6747118725072D1500287951 /* IconTitleBadge.swift */; };
 		6747118925072D1500287951 /* IconTitleBadge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6747118725072D1500287951 /* IconTitleBadge.swift */; };
 		6747118A25072D1500287951 /* IconTitleBadge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6747118725072D1500287951 /* IconTitleBadge.swift */; };
+		674DF84C2E84250900F58603 /* HCaptcha in Frameworks */ = {isa = PBXBuildFile; productRef = 674DF84B2E84250900F58603 /* HCaptcha */; };
+		674DF84E2E84251500F58603 /* HCaptcha in Frameworks */ = {isa = PBXBuildFile; productRef = 674DF84D2E84251500F58603 /* HCaptcha */; };
 		674E8AB92382DEFF0053D206 /* DiffTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 674E8AB82382DEFF0053D206 /* DiffTransformer.swift */; };
 		674E8ABA2382DF020053D206 /* DiffTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 674E8AB82382DEFF0053D206 /* DiffTransformer.swift */; };
 		674E8ABB2382DF030053D206 /* DiffTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 674E8AB82382DEFF0053D206 /* DiffTransformer.swift */; };
@@ -4821,6 +4823,7 @@
 				D8CE26201E698E2400DAE2E0 /* QuartzCore.framework in Frameworks */,
 				D8CE262B1E698E2400DAE2E0 /* CoreData.framework in Frameworks */,
 				D8CE262E1E698E2400DAE2E0 /* CoreGraphics.framework in Frameworks */,
+				674DF84C2E84250900F58603 /* HCaptcha in Frameworks */,
 				D8CE26321E698E2400DAE2E0 /* UIKit.framework in Frameworks */,
 				D8CE26351E698E2400DAE2E0 /* Foundation.framework in Frameworks */,
 				D8CE26361E698E2400DAE2E0 /* MapKit.framework in Frameworks */,
@@ -4836,6 +4839,7 @@
 				D8EC3F241E9BDA35006712EB /* QuartzCore.framework in Frameworks */,
 				D8EC3F2D1E9BDA35006712EB /* CoreData.framework in Frameworks */,
 				D8EC3F301E9BDA35006712EB /* CoreGraphics.framework in Frameworks */,
+				674DF84E2E84251500F58603 /* HCaptcha in Frameworks */,
 				D8EC3F341E9BDA35006712EB /* UIKit.framework in Frameworks */,
 				D8EC3F361E9BDA35006712EB /* Foundation.framework in Frameworks */,
 				D8EC3F371E9BDA35006712EB /* MapKit.framework in Frameworks */,
@@ -8991,6 +8995,7 @@
 			);
 			name = Experimental;
 			packageProductDependencies = (
+				674DF84B2E84250900F58603 /* HCaptcha */,
 			);
 			productName = "Wikipedia-iOS";
 			productReference = D8CE26AF1E698E2400DAE2E0 /* Experimental.app */;
@@ -9016,6 +9021,7 @@
 			);
 			name = Staging;
 			packageProductDependencies = (
+				674DF84D2E84251500F58603 /* HCaptcha */,
 			);
 			productName = "Wikipedia-iOS";
 			productReference = D8EC3FB41E9BDA35006712EB /* Staging.app */;
@@ -16898,6 +16904,16 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		674DF84B2E84250900F58603 /* HCaptcha */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 679B89EB2E7DFC8B009902BE /* XCRemoteSwiftPackageReference "HCaptcha-ios-sdk" */;
+			productName = HCaptcha;
+		};
+		674DF84D2E84251500F58603 /* HCaptcha */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 679B89EB2E7DFC8B009902BE /* XCRemoteSwiftPackageReference "HCaptcha-ios-sdk" */;
+			productName = HCaptcha;
+		};
 		679603982C5D48CC009606C4 /* WMFComponents */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = WMFComponents;
