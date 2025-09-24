@@ -208,7 +208,8 @@ final class TabsOverviewCoordinator: Coordinator {
             theme: theme,
             needsAnimation: false,
             source: .undefined,
-            tabConfig: .assignNewTabAndSetToCurrent)
+            tabConfig: .assignNewTabAndSetToCurrent,
+            needsFocusOnSearch: true)
         ArticleTabsFunnel.shared.logAddNewBlankTab()
         articleCoordinator.start()
         

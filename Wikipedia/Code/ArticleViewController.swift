@@ -168,8 +168,10 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
     var previousArticleTab: WMFArticleTabsDataController.WMFArticle? = nil
     var nextArticleTab: WMFArticleTabsDataController.WMFArticle? = nil
     let tabDataController = WMFArticleTabsDataController.shared
+    
+    var needsFocusOnSearch: Bool
 
-    @objc init?(articleURL: URL, dataStore: MWKDataStore, theme: Theme, source: ArticleSource, schemeHandler: SchemeHandler? = nil, previousPageViewObjectID: NSManagedObjectID? = nil) {
+    @objc init?(articleURL: URL, dataStore: MWKDataStore, theme: Theme, source: ArticleSource, schemeHandler: SchemeHandler? = nil, previousPageViewObjectID: NSManagedObjectID? = nil, needsFocusOnSearch: Bool = false) {
 
         guard let article = dataStore.fetchOrCreateArticle(with: articleURL) else {
                 return nil
@@ -185,6 +187,7 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
         self.cacheController = cacheController
         self.articleViewSource = source
         self.previousPageViewObjectID = previousPageViewObjectID
+        self.needsFocusOnSearch = needsFocusOnSearch
 
         super.init(nibName: nil, bundle: nil)
         self.theme = theme
@@ -480,7 +483,7 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
 
         configureNavigationBar()
         
-        if tabDataController.moreDynamicTabsGroupBEnabled {
+        if tabDataController.moreDynamicTabsGroupBEnabled && needsFocusOnSearch {
             DispatchQueue.main.async { [weak self] in
                 guard let searchController = self?.navigationItem.searchController else {
                     return

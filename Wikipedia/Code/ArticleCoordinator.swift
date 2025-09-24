@@ -135,8 +135,9 @@ final class ArticleCoordinator: NSObject, Coordinator, ArticleTabCoordinating {
     let tabConfig: ArticleTabConfig
     var tabIdentifier: UUID?
     var tabItemIdentifier: UUID?
+    var needsFocusOnSearch: Bool
     
-    init(navigationController: UINavigationController, articleURL: URL, dataStore: MWKDataStore, theme: Theme, needsAnimation: Bool = true, source: ArticleSource, isRestoringState: Bool = false, previousPageViewObjectID: NSManagedObjectID? = nil, tabConfig: ArticleTabConfig = .appendArticleAndAssignCurrentTab) {
+    init(navigationController: UINavigationController, articleURL: URL, dataStore: MWKDataStore, theme: Theme, needsAnimation: Bool = true, source: ArticleSource, isRestoringState: Bool = false, previousPageViewObjectID: NSManagedObjectID? = nil, tabConfig: ArticleTabConfig = .appendArticleAndAssignCurrentTab, needsFocusOnSearch: Bool = false) {
         self.navigationController = navigationController
         self.articleURL = articleURL
         self.dataStore = dataStore
@@ -146,6 +147,7 @@ final class ArticleCoordinator: NSObject, Coordinator, ArticleTabCoordinating {
         self.isRestoringState = isRestoringState
         self.previousPageViewObjectID = previousPageViewObjectID
         self.tabConfig = tabConfig
+        self.needsFocusOnSearch = needsFocusOnSearch
         super.init()
     }
     
@@ -161,7 +163,7 @@ final class ArticleCoordinator: NSObject, Coordinator, ArticleTabCoordinating {
             self.articleURL?.wmf_languageVariantCode = dataStore.languageLinkController .swiftCompatiblePreferredLanguageVariantCodeForLanguageCode(articleURL.wmf_languageCode)
         }
         
-        guard let articleVC = ArticleViewController(articleURL: articleURL, dataStore: dataStore, theme: theme, source: source, previousPageViewObjectID: previousPageViewObjectID) else {
+        guard let articleVC = ArticleViewController(articleURL: articleURL, dataStore: dataStore, theme: theme, source: source, previousPageViewObjectID: previousPageViewObjectID, needsFocusOnSearch: needsFocusOnSearch) else {
             return false
         }
         articleVC.isRestoringState = isRestoringState
