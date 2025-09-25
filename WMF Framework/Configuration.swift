@@ -48,7 +48,7 @@ public class Configuration: NSObject {
 			.appsLabsForPCS = Product Infrastructure team's labs instance for PCS endpoints
 			All other endpoints would point to production */
 		
-        return Configuration.staging(options: [])
+        return Configuration.staging(options: [.betaCluster])
         #else
         return .production
         #endif
@@ -149,11 +149,11 @@ public class Configuration: NSObject {
     
     public struct Domain {
         public static let wikipedia = "wikipedia.org"
-        public static let wikipediaBetaLabs = "wikipedia.beta.wmflabs.org"
+        public static let wikipediaBetaLabs = "wikipedia.beta.wmcloud.org"
         public static let wikidata = "wikidata.org"
-        public static let wikidataBetaLabs = "wikidata.beta.wmflabs.org"
+        public static let wikidataBetaLabs = "wikidata.beta.wmcloud.org"
         public static let commons = "commons.wikimedia.org"
-        public static let commonsBetaLabs = "commons.wikimedia.beta.wmflabs.org"
+        public static let commonsBetaLabs = "commons.wikimedia.beta.wmcloud.org"
         public static let mediaWiki = "www.mediawiki.org"
         public static let wikispecies = "species.wikimedia.org"
         public static let appsLabs = "mobileapps.wmflabs.org" // Product Infrastructure team's labs instance
