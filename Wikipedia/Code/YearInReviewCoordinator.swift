@@ -402,17 +402,6 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
 
 
     func personalizedYouReadSlideSubtitleV3(readCount: Int) -> String {
-        let percentageString = percentileRange(for: readCount)
-        
-        let format = WMFLocalizedString(
-            "year-in-review-personalized-reading-subtitle-format-v3",
-            value: "This puts you in the top **PERCENT** of Wikipedia readers globally. The average person reads {{PLURAL:%1$d|%1$d article|%1$d articles}} a year.",
-            comment: "Year in review, personalized reading article count slide subtitle for users that read articles. **PERCENT** is the percentage number (i.e. '25%'), do not adjust it, percentage sign is added via the client. %1$d is the average number of articles read per user."
-        )
-        
-        let firstSentence = String.localizedStringWithFormat(format, 335)
-            .replacingOccurrences(of: "**PERCENT**", with: "<b>\(percentageString)%</b>")
-        
         let secondSentence: String
         if primaryAppLanguage.isEnglishWikipedia {
             secondSentence = englishReadingSlideSubtitleShort
@@ -420,7 +409,22 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
             secondSentence = collectiveLanguagesSlideSubtitle
         }
         
-        return "\(firstSentence)\n\n\(secondSentence)"
+        if readCount < 336 {
+            return secondSentence
+        } else {
+            let percentageString = percentileRange(for: readCount)
+            
+            let format = WMFLocalizedString(
+                "year-in-review-personalized-reading-subtitle-format-v3",
+                value: "We estimate that puts you in the top **PERCENT** of Wikipedia readers globally. The average person reads {{PLURAL:%1$d|%1$d article|%1$d articles}} a year.",
+                comment: "Year in review, personalized reading article count slide subtitle for users that read articles. **PERCENT** is the percentage number (i.e. '25%'), do not adjust it, percentage sign is added via the client. %1$d is the average number of articles read per user."
+            )
+            
+            let firstSentence = String.localizedStringWithFormat(format, 335)
+                .replacingOccurrences(of: "**PERCENT**", with: "<b>\(percentageString)%</b>")
+            
+            return "\(firstSentence)\n\n\(secondSentence)"
+        }
     }
 
     func personalizedDateSlideTitleV2(day: Int) -> String {
