@@ -15,23 +15,29 @@ public struct WMFNewArticleTabViewDidYouKnowView: View {
         return appEnvironment.theme
     }
 
+    // Todo: limit dynamic type sizes
     public var body: some View {
         VStack(alignment: .leading, spacing: 8) {
+            HStack(spacing: 8) {
+                Image(uiImage: WMFSFSymbolIcon.for(symbol: .questionMarkBubble) ?? UIImage())
+                Text(viewModel.dykLocalizedStrings.didYouKnowTitle)
+                    .font(Font(WMFFont.for(.subheadline)))
+                    .foregroundStyle(Color(theme.text))
+            }
+
             TextViewWrapper(
                 text: viewModel.didYouKnowFact ?? "",
                 linkDelegate: linkDelegate,
-                dynamicHeight: $textViewHeight
+                dynamicHeight: $textViewHeight,
+                maxLines: 3
             )
             .frame(height: textViewHeight)
 
             Text(viewModel.fromSource)
                 .font(Font.for(.caption1))
-                .foregroundStyle(Color(theme.text))
-            Spacer()
-                .frame(maxHeight: .infinity)
+                .foregroundStyle(Color(theme.secondaryText))
         }
-        .padding(.horizontal, 16)
-        .padding(.vertical, 24)
+        .padding(16)
         .background(Color(theme.midBackground))
         .frame(maxHeight: .infinity)
     }

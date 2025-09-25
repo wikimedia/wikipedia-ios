@@ -117,7 +117,8 @@ public enum WMFSFSymbolIcon {
     case tabsIconBackground
     case add
     case closeButtonFill
-    
+    case questionMarkBubble
+
     public var name: String? {
         switch self {
         case .closeCircleFill:
@@ -290,6 +291,8 @@ public enum WMFSFSymbolIcon {
             image = UIImage(systemName: "plus", withConfiguration: configuration)
         case .closeButtonFill:
             image = UIImage(systemName: "x.circle.fill", withConfiguration: configuration)
+        case .questionMarkBubble:
+            image = UIImage(systemName: "questionmark.bubble", withConfiguration: configuration)
         }
         
         image = image?.withRenderingMode(.alwaysTemplate)

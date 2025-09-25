@@ -16,27 +16,52 @@ public struct WMFArticleTabsView: View {
     @State private var currentTabID: String?
     @State private var cellFrames: [String: CGRect] = [:]
 
+    @State private var dykLinkDelegate: DYKLinkDelegate?
+
+
+    var shouldShowBottom = true // testing only prop
+
     public init(viewModel: WMFArticleTabsViewModel) {
         self.viewModel = viewModel
     }
 
     public var body: some View {
         GeometryReader { geometry in
-            Group {
-                if !isReady {
-                    loadingView
-                } else if viewModel.articleTabs.isEmpty {
-                    emptyStateContainer
-                } else {
-                    if viewModel.shouldShowTabsV2 {
-                        tabsV2Grid(geometry)
+            VStack(spacing: 0) {
+                Group {
+                    if !isReady {
+                        loadingView
+                    } else if viewModel.articleTabs.isEmpty {
+                        emptyStateContainer
                     } else {
-                        tabsGrid(geometry)
+                        if viewModel.shouldShowTabsV2 {
+                            tabsV2Grid(geometry)
+                        } else {
+                            tabsGrid(geometry)
+                        }
+                    }
+                }
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .background(Color(theme.midBackground))
+
+                Group {
+                    if let dykVM = viewModel.didYouKnowViewModel,
+                       dykVM.didYouKnowFact?.isEmpty == false {
+                        VStack(spacing: 0) {
+                            Rectangle()
+                                .fill(Color(theme.secondaryText))
+                                .frame(height: 1 / UIScreen.main.scale)
+                                .frame(maxWidth: .infinity)
+                            WMFNewArticleTabViewDidYouKnowView(
+                                viewModel: dykVM,
+                                linkDelegate: dykLinkDelegate
+                            )
+                            .frame(height: 140)
+                            .clipped()
+                        }
                     }
                 }
             }
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .background(Color(theme.midBackground))
         }
         .onReceive(viewModel.$articleTabs) { tabs in
             guard !isReady else { return }
@@ -54,6 +79,14 @@ public struct WMFArticleTabsView: View {
                 await MainActor.run { isReady = true }
             }
         }
+        .onAppear {
+            if dykLinkDelegate == nil {
+                dykLinkDelegate = DYKLinkDelegate { url in
+                    viewModel.openFromDidYouKnow(url: url)
+                }
+            }
+        }
+
         .background(Color(theme.midBackground))
         .toolbarBackground(Color(theme.midBackground), for: .automatic)
     }
@@ -476,5 +509,17 @@ private struct TabGlobalFramePreferenceKey: PreferenceKey {
     static var defaultValue: [String: CGRect] = [:]
     static func reduce(value: inout [String: CGRect], nextValue: () -> [String: CGRect]) {
         value.merge(nextValue(), uniquingKeysWith: { _, new in new })
+    }
+}
+
+private final class DYKLinkDelegate: NSObject, UITextViewDelegate {
+    let onTap: (URL) -> Void
+    init(onTap: @escaping (URL) -> Void) { self.onTap = onTap }
+    func textView(_ textView: UITextView,
+                  shouldInteractWith URL: URL,
+                  in characterRange: NSRange,
+                  interaction: UITextItemInteraction) -> Bool {
+        onTap(URL)
+        return false
     }
 }

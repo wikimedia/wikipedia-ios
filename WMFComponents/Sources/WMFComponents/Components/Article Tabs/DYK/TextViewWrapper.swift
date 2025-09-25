@@ -8,6 +8,9 @@ public struct TextViewWrapper: UIViewRepresentable {
 
     @Binding var dynamicHeight: CGFloat
 
+    var maxLines: Int? = nil
+    var truncation: NSLineBreakMode = .byWordWrapping
+
     var theme: WMFTheme {
         return appEnvironment.theme
     }
@@ -17,8 +20,9 @@ public struct TextViewWrapper: UIViewRepresentable {
         textView.isEditable = false
         textView.isScrollEnabled = false
         textView.delegate = linkDelegate
-        textView.textContainer.lineBreakMode = .byWordWrapping
+        textView.textContainer.lineBreakMode = truncation
         textView.textContainerInset = .zero
+        textView.textContainer.maximumNumberOfLines = maxLines ?? 0
         textView.textContainer.lineFragmentPadding = 0
         textView.backgroundColor = .clear
         textView.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
@@ -26,6 +30,8 @@ public struct TextViewWrapper: UIViewRepresentable {
     }
 
     public func updateUIView(_ uiView: UITextView, context: Context) {
+        uiView.textContainer.lineBreakMode = truncation
+        uiView.textContainer.maximumNumberOfLines = maxLines ?? 0
         let styles = HtmlUtils.Styles(
             font: WMFFont.for(.subheadline),
             boldFont: WMFFont.for(.boldSubheadline),
