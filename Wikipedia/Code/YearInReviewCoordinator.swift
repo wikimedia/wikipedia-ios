@@ -378,7 +378,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
 
     func percentileRange(for readCount: Int) -> String {
         switch readCount {
-        case ...355:
+        case ...335:
             return WMFLocalizedString("percentile-below-50", value: "<50", comment: "Percentile range below 50th")
             // Should never get here, safety net in case
         case 356...1233:
