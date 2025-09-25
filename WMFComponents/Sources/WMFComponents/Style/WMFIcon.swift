@@ -26,6 +26,7 @@ public enum WMFIcon {
     public static let error = UIImage(named: "error", in: .module, with: nil)
     public static let personCircleX = UIImage(named: "person-circle-x", in: .module, with: nil) // Use SFSymbol once target is iOS17+
     public static let anonymous = UIImage(named: "user-anonymous", in: .module, with: nil)
+    public static let closeTabs = UIImage(named: "close-tabs", in: .module, with: nil)
 
     // Project icons
     public static let commons = UIImage(named: "project-icons/commons", in: .module, with: nil)
@@ -91,6 +92,7 @@ public enum WMFSFSymbolIcon {
     case infoCircle
     case squareTextSquare
     case eye
+    case eyeSlash
     case ellipsisBubble
     case flag
     case lightbulbMin
@@ -235,6 +237,8 @@ public enum WMFSFSymbolIcon {
             image = UIImage(systemName: "square.text.square", withConfiguration: configuration)
         case .eye:
             image = UIImage(systemName: "eye", withConfiguration: configuration)
+        case .eyeSlash:
+            image = UIImage(systemName: "eye.slash", withConfiguration: configuration)
         case.ellipsisBubble:
             image = UIImage(systemName: "ellipsis.bubble", withConfiguration: configuration)
         case .flag:

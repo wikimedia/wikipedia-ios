@@ -1190,12 +1190,16 @@
 "tabs-close-tab" = "Accessibility label for close tab button";
 "tabs-empty-view-subtitle" = "Subtitle for the tabs overview screen when there are no tabs";
 "tabs-empty-view-title" = "Title for the tabs overview screen when there are no tabs";
+"tabs-hide-suggested-articles" = "Hide suggested articles button title";
 "tabs-main-page-description" = "Main page description";
 "tabs-main-page-subtitle" = "Main page subtitle";
 "tabs-navbar-title-format" = "$1 is the amount of tabs. Navigation title for tabs, displaying how many open tabs.";
 "tabs-open-tab" = "Accessibility label for opening a tab";
 "tabs-overview-tooltip-body" = "Description for tooltip explaining the tabs overview functionality";
 "tabs-overview-tooltip-title" = "Title for tooltip explaining the tabs overview functionality";
+"tabs-show-suggested-articles" = "Show suggested articles button title";
+"tabs-suggested-articles-hide-suggestions-confirmation" = "Confirmation on hiding of the suggested articles in tabs.";
+"tabs-suggested-articles-show-suggestions-confirmation" = "Confirmation on showing of the suggested articles in tabs.";
 "tabs-survey-title" = "Title for article tabs survey";
 "tabs-thumbnail-description" = "New tab thumbanail description";
 "tabs-thumbnail-subtitle" = "New tab thumbanail subtitle";
