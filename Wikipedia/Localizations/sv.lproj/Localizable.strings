@@ -261,8 +261,6 @@
 "developer-settings-activity-tab-group-B" = "Ändra aktivitetsfliken till grupp B";
 "developer-settings-activity-tab-group-C" = "Ändra aktivitetsfliken till grupp C";
 "developer-settings-bypass-donation" = "Hoppa över donation";
-"developer-settings-dynamic-tabs-BYR" = "Aktivera flikar med \"Eftersom du läste\"";
-"developer-settings-dynamic-tabs-DYK" = "Aktivera flikar med \"Visste du att\"";
 "developer-settings-enable-year-in-review" = "Aktivera årsöversikt";
 "developer-settings-send-analytics-to-wmflabs" = "Skicka analys till wmflabs.";
 "developer-settings-suppress-image-rec-post" = "Publicera inte redigering med bildrekommendationer.";
