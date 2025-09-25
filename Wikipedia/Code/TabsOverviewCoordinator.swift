@@ -63,7 +63,7 @@ final class TabsOverviewCoordinator: Coordinator {
     
     
     public func showAlertForArticleSuggestionsDisplayChangeConfirmation() {
-        if dataController.shouldHideArticleSuggestions {
+        if dataController.userHasHiddenArticleSuggestionsTabs {
             WMFAlertManager.sharedInstance.showBottomAlertWithMessage(
                 WMFLocalizedString("tabs-suggested-articles-hide-suggestions-confirmation", value: "Suggestions are now hidden", comment: "Confirmation on hiding of the suggested articles in tabs."),
                 subtitle: nil,

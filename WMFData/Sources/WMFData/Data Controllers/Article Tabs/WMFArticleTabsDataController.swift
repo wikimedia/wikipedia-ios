@@ -134,11 +134,8 @@ public protocol WMFArticleTabsDataControlling {
     private var coreDataStore: WMFCoreDataStore? {
         return _coreDataStore ?? WMFDataEnvironment.current.coreDataStore
     }
-    
-    // Different than should SHOW article suggestions, this is based on user's preferences to hide or not
-    // Should hide = user has chosen to hide the element
-    // ! should hide = user has not chose to hide the element
-    public var shouldHideArticleSuggestions: Bool {
+
+    public var userHasHiddenArticleSuggestionsTabs: Bool {
         get {
             return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.userHasHiddenArticleSuggestionsTabs.rawValue)) ?? false
         } set {
@@ -161,13 +158,7 @@ public protocol WMFArticleTabsDataControlling {
     }
     
     // MARK: - Experiment
-    
-    // If a user qualifies for article suggestions
-    public var shouldShowArticleSuggestions: Bool {
-        true
-        // todo
-    }
-    
+
     public func shouldAssignToBucket() -> Bool {
         return experimentsDataController?.bucketForExperiment(.moreDynamicTabs) == nil
     }
