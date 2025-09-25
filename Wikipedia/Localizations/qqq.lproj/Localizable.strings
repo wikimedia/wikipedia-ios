@@ -230,8 +230,8 @@
 "developer-settings-activity-tab-group-B" = "Title for option to set activity tab experiment to group B";
 "developer-settings-activity-tab-group-C" = "Title for option to set activity tab experiment to group C";
 "developer-settings-bypass-donation" = "Title for option to bypass a donation in developer settings menu.";
-"developer-settings-dynamic-tabs-BYR" = "Title for option to enable tabs Because You Read option";
-"developer-settings-dynamic-tabs-DYK" = "Title for option to enable Did You Know option";
+"developer-settings-dynamic-tabs-group-B" = "Title for option to enable tabs for Group B";
+"developer-settings-dynamic-tabs-group-C" = "Title for option to enable for Group C";
 "developer-settings-enable-year-in-review" = "Title for enabling the Year in Review feature. Displayed on the developer settings view.";
 "developer-settings-send-analytics-to-wmflabs" = "Title for setting to send analytics to a different backend. Displayed on the developer settings view.";
 "developer-settings-suppress-image-rec-post" = "Title for setting to suppress image recommendations edit postsing. Displayed on the developer settings view.";
@@ -1188,6 +1188,8 @@
 "table-of-contents-hide-button-label" = "Accessibility label for the hide Table of Contents button";
 "table-of-contents-subheading-label" = "VoiceOver label to indicate level of subheading in table of contents. $1 is replaced by the level of subheading.";
 "tabs-close-tab" = "Accessibility label for close tab button";
+"tabs-empty-view-subtitle" = "Subtitle for the tabs overview screen when there are no tabs";
+"tabs-empty-view-title" = "Title for the tabs overview screen when there are no tabs";
 "tabs-hide-suggested-articles" = "Hide suggested articles button title";
 "tabs-main-page-description" = "Main page description";
 "tabs-main-page-subtitle" = "Main page subtitle";

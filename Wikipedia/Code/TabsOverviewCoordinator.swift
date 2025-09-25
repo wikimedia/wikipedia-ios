@@ -156,7 +156,9 @@ final class TabsOverviewCoordinator: Coordinator {
                 closeAllTabsSubtitle: closeAllTabsSubtitle(numberTabs: articleTabsCount),
                 closedAlertsNotification: closedAlertsNotification(numberTabs: articleTabsCount),
                 hideSuggestedArticlesTitle: WMFLocalizedString("tabs-hide-suggested-articles", value: "Hide article suggestions", comment: "Hide suggested articles button title"),
-                showSuggestedArticlesTitle: WMFLocalizedString("tabs-show-suggested-articles", value: "Show article suggestions", comment: "Show suggested articles button title")
+                showSuggestedArticlesTitle: WMFLocalizedString("tabs-show-suggested-articles", value: "Show article suggestions", comment: "Show suggested articles button title"),
+                emptyStateTitle: WMFLocalizedString("tabs-empty-view-title", value: "Your tabs will show up here", comment: "Title for the tabs overview screen when there are no tabs"),
+                emptyStateSubtitle: WMFLocalizedString("tabs-empty-view-subtitle", value: "Tap “+” to add tabs to this space or long press an article link to open it in a new tab.", comment: "Subtitle for the tabs overview screen when there are no tabs")
             )
             
             let articleTabsViewModel = WMFArticleTabsViewModel(
@@ -169,8 +171,8 @@ final class TabsOverviewCoordinator: Coordinator {
                 displayDeleteAllTabsToast: displayDeleteAllTabsToast
             )
             
-            let articleTabsView = WMFArticleTabsView(viewModel: articleTabsViewModel)
-            let hostingController = WMFArticleTabsHostingController(
+            let articleTabsView = await WMFArticleTabsView(viewModel: articleTabsViewModel)
+            let hostingController = await WMFArticleTabsHostingController(
                 rootView: articleTabsView,
                 viewModel: articleTabsViewModel,
                 doneButtonText: CommonStrings.doneTitle,
@@ -178,12 +180,12 @@ final class TabsOverviewCoordinator: Coordinator {
                 
             )
             
-            let navVC = WMFComponentNavigationController(
+            let navVC = await WMFComponentNavigationController(
                 rootViewController: hostingController,
                 modalPresentationStyle: .overFullScreen
             )
             
-            navigationController.present(navVC, animated: true) { [weak self] in
+            await navigationController.present(navVC, animated: true) { [weak self] in
                 self?.dataController.updateSurveyDataTabsOverviewSeenCount()
                 guard self != nil else { return }
                 showSurveyClosure()

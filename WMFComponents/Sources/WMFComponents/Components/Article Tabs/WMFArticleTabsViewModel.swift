@@ -71,8 +71,10 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
         public let closedAlertsNotification: String
         public let hideSuggestedArticlesTitle: String
         public let showSuggestedArticlesTitle: String
+        public let emptyStateTitle: String
+        public let emptyStateSubtitle: String
         
-        public init(navBarTitleFormat: String, mainPageTitle: String?, mainPageSubtitle: String, mainPageDescription: String, closeTabAccessibility: String, openTabAccessibility: String, closeAllTabs: String, cancelActionTitle: String, closeAllTabsTitle: String, closeAllTabsSubtitle: String, closedAlertsNotification: String, hideSuggestedArticlesTitle: String, showSuggestedArticlesTitle: String) {
+        public init(navBarTitleFormat: String, mainPageTitle: String?, mainPageSubtitle: String, mainPageDescription: String, closeTabAccessibility: String, openTabAccessibility: String, closeAllTabs: String, cancelActionTitle: String, closeAllTabsTitle: String, closeAllTabsSubtitle: String, closedAlertsNotification: String, hideSuggestedArticlesTitle: String, showSuggestedArticlesTitle: String, emptyStateTitle: String, emptyStateSubtitle: String) {
             self.navBarTitleFormat = navBarTitleFormat
             self.mainPageTitle = mainPageTitle
             self.mainPageSubtitle = mainPageSubtitle
@@ -86,6 +88,8 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
             self.closedAlertsNotification = closedAlertsNotification
             self.hideSuggestedArticlesTitle = hideSuggestedArticlesTitle
             self.showSuggestedArticlesTitle = showSuggestedArticlesTitle
+            self.emptyStateTitle = emptyStateTitle
+            self.emptyStateSubtitle = emptyStateSubtitle
         }
     }
     
@@ -101,8 +105,14 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
                     data: tab
                 )
             }
-            shouldShowCloseButton = articleTabs.count > 1
             updateNavigationBarTitleAction?(articleTabs.count)
+
+            if dataController.shouldShowMoreDynamicTabs {
+                shouldShowCloseButton = true
+            } else {
+                shouldShowCloseButton = articleTabs.count > 1
+            }
+
         } catch {
             // Handle error appropriately
             debugPrint("Error loading tabs: \(error)")
@@ -189,7 +199,11 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
                 Task { @MainActor [weak self]  in
                     guard let self else { return }
                     articleTabs.removeAll { $0 == tab }
-                    shouldShowCloseButton = articleTabs.count > 1
+                    if dataController.shouldShowMoreDynamicTabs {
+                        shouldShowCloseButton = true
+                    } else {
+                        shouldShowCloseButton = articleTabs.count > 1
+                    }
                     updateNavigationBarTitleAction?(articleTabs.count)
                 }
                 
