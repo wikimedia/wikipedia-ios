@@ -11,6 +11,7 @@ public class Configuration: NSObject {
         public let rawValue: Int
 
         public static let appsLabsforPCS = StagingOptions(rawValue: 1 << 0)
+        public static let patchDemo = StagingOptions(rawValue: 1 << 1)
         public static let betaCluster = StagingOptions(rawValue: 1 << 2) // note, this will force beta cluster for PCS (thus ignoring an appsLabsforPCS value if also set)
         
         public init(rawValue: Int) {
@@ -49,7 +50,7 @@ public class Configuration: NSObject {
 			.appsLabsForPCS = Product Infrastructure team's labs instance for PCS endpoints
 			All other endpoints would point to production */
 		
-        return Configuration.staging(options: [.betaCluster])
+        return Configuration.staging(options: [.patchDemo])
         #else
         return .production
         #endif
@@ -99,8 +100,8 @@ public class Configuration: NSObject {
     
     private static func staging(options: StagingOptions) -> Configuration {
         
-        let defaultSiteDomain = options.contains(.betaCluster) ? Domain.wikipediaBetaLabs : Domain.wikipedia
-        let wikipediaCookieDomain = options.contains(.betaCluster) ? Domain.wikipediaBetaLabs.withDotPrefix : Domain.wikipedia.withDotPrefix
+        let defaultSiteDomain = options.contains(.patchDemo) ? Domain.patchDemo : (options.contains(.betaCluster) ? Domain.wikipediaBetaLabs : Domain.wikipedia)
+        let wikipediaCookieDomain = options.contains(.patchDemo) ? Domain.patchDemo : (options.contains(.betaCluster) ? Domain.wikipediaBetaLabs.withDotPrefix : Domain.wikipedia.withDotPrefix)
         let wikidataCookieDomain = options.contains(.betaCluster) ? Domain.wikidataBetaLabs.withDotPrefix : Domain.wikidata.withDotPrefix
         let commonsCookieDomain = options.contains(.betaCluster) ? Domain.commonsBetaLabs.withDotPrefix : Domain.commons.withDotPrefix
         
@@ -165,6 +166,7 @@ public class Configuration: NSObject {
     public struct Domain {
         public static let wikipedia = "wikipedia.org"
         public static let wikipediaBetaLabs = "wikipedia.beta.wmcloud.org"
+        public static let patchDemo = "d22139cba6.catalyst.wmcloud.org"
         public static let wikidata = "wikidata.org"
         public static let wikidataBetaLabs = "wikidata.beta.wmcloud.org"
         public static let commons = "commons.wikimedia.org"
@@ -227,7 +229,7 @@ public class Configuration: NSObject {
         self.environment = environment
         self.defaultSiteDomain = defaultSiteDomain
         var components = URLComponents()
-        components.scheme = "http"
+        components.scheme = "https"
         components.host = defaultSiteDomain
         
         if mediaWikiAPIType == .local {
@@ -326,10 +328,9 @@ public class Configuration: NSObject {
     }
     
     public func mediaWikiAPIURLForHost(_ host: String? = nil, with queryParameters: [String: Any]? = nil) -> URLComponents {
-        
         var finalHost: String? = host
-        if host == "en.localhost" {
-            finalHost = "127.0.0.1"
+        if host == "en.d22139cba6.catalyst.wmcloud.org" {
+            finalHost = "d22139cba6.catalyst.wmcloud.org"
         }
         
         let builder = mediaWikiAPIType.builder(withWikiHost: finalHost)
