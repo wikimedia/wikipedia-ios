@@ -12,6 +12,8 @@ final class TabsOverviewCoordinator: Coordinator {
     private let dataController: WMFArticleTabsDataController
     private let summaryController: ArticleSummaryController
 
+    public var didYouKnowProvider: WMFArticleTabsDataController.DidYouKnowProvider?
+
     @discardableResult
     func start() -> Bool {
         presentTabs()
@@ -26,7 +28,7 @@ final class TabsOverviewCoordinator: Coordinator {
         self.dataController = dataController
         self.summaryController = dataStore.articleSummaryController
     }
-    
+
     private func surveyViewController() -> UIViewController {
         let subtitle = WMFLocalizedString("tabs-survey-title", value: "Help improve the tabs feature. Are you satisfied with this feature?", comment: "Title for article tabs survey")
         
@@ -146,11 +148,14 @@ final class TabsOverviewCoordinator: Coordinator {
                 emptyStateTitle: WMFLocalizedString("tabs-empty-view-title", value: "Your tabs will show up here", comment: "Title for the tabs overview screen when there are no tabs"),
                 emptyStateSubtitle: WMFLocalizedString("tabs-empty-view-subtitle", value: "Tap “+” to add tabs to this space or long press an article link to open it in a new tab. ", comment: "Subtitle for the tabs overview screen when there are no tabs")
             )
-            
+
+            let dykVM = try? await loadDidYouKnowViewModel()
+
             let articleTabsViewModel = WMFArticleTabsViewModel(
                 dataController: dataController,
                 localizedStrings: localizedStrings,
                 loggingDelegate: self,
+                didYouKnowViewModel: dykVM,
                 didTapTab: didTapTab,
                 didTapAddTab: didTapAddTab,
                 didTapShareTab: didTapShareTab,
@@ -177,7 +182,50 @@ final class TabsOverviewCoordinator: Coordinator {
             }
         }
     }
-    
+
+    func loadDidYouKnowViewModel() async throws -> WMFNewArticleTabDidYouKnowViewModel? {
+        guard let provider = didYouKnowProvider else {
+            DDLogWarn("TabsOverviewCoordinator: no DYK provider attached")
+            return nil }
+
+        let facts = await provider()
+        guard let facts, !facts.isEmpty else {
+            DDLogWarn("TabsOverviewCoordinator: DYK provider returned empty")
+            return nil
+        }
+
+        let localized = WMFNewArticleTabDidYouKnowViewModel.LocalizedStrings(
+            didYouKnowTitle: WMFLocalizedString("did-you-know", value: "Did you know", comment: "Text displayed as heading for section of new tab dedicated to DYK"),
+            fromSource: self.stringWithLocalizedCurrentSiteLanguageReplacingPlaceholder(in: CommonStrings.fromWikipedia, fallingBackOn: CommonStrings.defaultFromWikipedia)
+        )
+
+        let viewModel = WMFNewArticleTabDidYouKnowViewModel(
+            facts: facts.map { $0.html },
+            languageCode: dataStore.languageLinkController.appLanguage?.languageCode,
+            dykLocalizedStrings: localized
+        )
+        return viewModel
+    }
+
+    private func stringWithLocalizedCurrentSiteLanguageReplacingPlaceholder(in format: String, fallingBackOn genericString: String
+    ) -> String {
+        guard let code = self.dataStore.languageLinkController.appLanguage?.languageCode else {
+            return genericString
+        }
+
+        if let language = Locale.current.localizedString(forLanguageCode: code) {
+            return String.localizedStringWithFormat(format, language)
+        } else {
+            if code == "test" {
+                return String.localizedStringWithFormat(format, "Test")
+            } else if code == "test2" {
+                return String.localizedStringWithFormat(format, "Test 2")
+            } else {
+                return genericString
+            }
+        }
+    }
+
     private func tappedTab(_ tab: WMFArticleTabsDataController.WMFArticleTab) {
         // If navigation controller is already displaying tab, just dismiss without pushing on any more tabs.
         if let displayedArticleViewController = navigationController.viewControllers.last as? ArticleViewController,

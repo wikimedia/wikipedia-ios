@@ -3,11 +3,7 @@ import WMFData
 import WMF
 import WMFComponents
 
-protocol NewArticleTabDataControlling {
-    func loadDidYouKnow() async throws -> WMFNewArticleTabDidYouKnowViewModel?
-}
-
-final class NewArticleTabDataController: NewArticleTabDataControlling {
+final class NewArticleTabDataController {
     private let dataStore: MWKDataStore
     private let relatedFetcher = RelatedSearchFetcher()
     private let dykFetcher = WMFFeedDidYouKnowFetcher()
@@ -19,49 +15,6 @@ final class NewArticleTabDataController: NewArticleTabDataControlling {
     init(dataStore: MWKDataStore) {
         self.dataStore = dataStore
     }
-
-    // MARK: - DYK
-
-    func loadDidYouKnow() async throws -> WMFNewArticleTabDidYouKnowViewModel? {
-        guard let siteURL = dataStore.languageLinkController.appLanguage?.siteURL
-        else { return nil }
-
-        let facts = try await didYouKnowFacts(siteURL: siteURL)
-        guard let facts, !facts.isEmpty else { return nil }
-
-        let localized = WMFNewArticleTabDidYouKnowViewModel.LocalizedStrings(
-            didYouKnowTitle: WMFLocalizedString("did-you-know", value: "Did you know", comment: "Text displayed as heading for section of new tab dedicated to DYK"),
-            fromSource: self.stringWithLocalizedCurrentSiteLanguageReplacingPlaceholder(in: CommonStrings.fromWikipedia, fallingBackOn: CommonStrings.defaultFromWikipedia)
-        )
-
-        let vm = WMFNewArticleTabDidYouKnowViewModel(
-            facts: facts.map { $0.html },
-            languageCode: dataStore.languageLinkController.appLanguage?.languageCode,
-            dykLocalizedStrings: localized
-        )
-        return vm
-    }
-
-    private func stringWithLocalizedCurrentSiteLanguageReplacingPlaceholder(in format: String, fallingBackOn genericString: String
-    ) -> String {
-        guard let code = self.dataStore.languageLinkController.appLanguage?.languageCode else {
-            return genericString
-        }
-
-        if let language = Locale.current.localizedString(forLanguageCode: code) {
-            return String.localizedStringWithFormat(format, language)
-        } else {
-            if code == "test" {
-                return String.localizedStringWithFormat(format, "Test")
-            } else if code == "test2" {
-                return String.localizedStringWithFormat(format, "Test 2")
-            } else {
-                return genericString
-            }
-        }
-    }
-
-    // MARK: - Async helpers
 
     @MainActor
     private func obtainFeedImportContext() -> NSManagedObjectContext {
@@ -109,7 +62,7 @@ final class NewArticleTabDataController: NewArticleTabDataControlling {
         }
     }
 
-    private func didYouKnowFacts(siteURL: URL) async throws -> [WMFFeedDidYouKnow]? {
+    public func fetchDidYouKnowFacts(siteURL: URL) async throws -> [WMFDidYouKnow]? {
         try await withCheckedThrowingContinuation { cont in
             dykFetcher.fetchDidYouKnow(withSiteURL: siteURL) { error, facts in
                 if let error { cont.resume(throwing: error) } else { cont.resume(returning: facts) }

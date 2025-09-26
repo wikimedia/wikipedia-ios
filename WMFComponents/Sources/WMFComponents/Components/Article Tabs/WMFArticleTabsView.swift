@@ -45,15 +45,16 @@ public struct WMFArticleTabsView: View {
                 .background(Color(theme.midBackground))
 
                 Group {
-                    if let dykVM = viewModel.didYouKnowViewModel,
-                       dykVM.didYouKnowFact?.isEmpty == false {
+                    if let didYouKnowViewModel = viewModel.didYouKnowViewModel,
+                       didYouKnowViewModel.didYouKnowFact?.isEmpty == false,
+                       viewModel.shouldShowTabsV2 {
                         VStack(spacing: 0) {
                             Rectangle()
                                 .fill(Color(theme.secondaryText))
                                 .frame(height: 1 / UIScreen.main.scale)
                                 .frame(maxWidth: .infinity)
                             WMFNewArticleTabViewDidYouKnowView(
-                                viewModel: dykVM,
+                                viewModel: didYouKnowViewModel,
                                 linkDelegate: dykLinkDelegate
                             )
                             .frame(height: 140)

@@ -104,12 +104,19 @@ public protocol WMFArticleTabsDataControlling {
             return OnboardingStatus(hasPresentedOnboardingTooltips: false)
         }
     }
-    
+
+    // MARK: - Dependency Injection Closures
+
+    /// Closure used to provide data fectching of Did You Know
+    public typealias DidYouKnowProvider = @MainActor () async -> [WMFDidYouKnow]?
+
+    private var didYouKnowProvider: DidYouKnowProvider?
+
     // MARK: - Properties
-    
+
     @objc(sharedInstance)
     public static let shared = WMFArticleTabsDataController()
-    
+
     private let userDefaultsStore = WMFDataEnvironment.current.userDefaultsStore
     private let developerSettingsDataController: WMFDeveloperSettingsDataControlling
     
@@ -141,7 +148,8 @@ public protocol WMFArticleTabsDataControlling {
     
     public init(coreDataStore: WMFCoreDataStore? = WMFDataEnvironment.current.coreDataStore,
                 developerSettingsDataController: WMFDeveloperSettingsDataControlling = WMFDeveloperSettingsDataController.shared,
-                experimentStore: WMFKeyValueStore? = WMFDataEnvironment.current.sharedCacheStore) {
+                experimentStore: WMFKeyValueStore? = WMFDataEnvironment.current.sharedCacheStore
+    ) {
         self._coreDataStore = coreDataStore
         self.developerSettingsDataController = developerSettingsDataController
         if let experimentStore {

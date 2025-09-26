@@ -12,6 +12,7 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
     // articleTab should NEVER be empty - take care of logic of inserting main page in datacontroller/viewcontroller
     @Published var articleTabs: [ArticleTab]
     @Published var shouldShowCloseButton: Bool
+    var didYouKnowViewModel: WMFNewArticleTabDidYouKnowViewModel?
 
     private(set) weak var loggingDelegate: WMFArticleTabsLoggingDelegate?
     private let dataController: WMFArticleTabsDataController
@@ -27,6 +28,7 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
     public init(dataController: WMFArticleTabsDataController,
                 localizedStrings: LocalizedStrings,
                 loggingDelegate: WMFArticleTabsLoggingDelegate?,
+                didYouKnowViewModel: WMFNewArticleTabDidYouKnowViewModel?,
                 didTapTab: @escaping (WMFArticleTabsDataController.WMFArticleTab) -> Void,
                 didTapAddTab: @escaping () -> Void,
                 didTapShareTab: @escaping (WMFArticleTabsDataController.WMFArticleTab, CGRect?) -> Void,
@@ -37,6 +39,7 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
         self.articleTabs = []
         self.shouldShowCloseButton = false
         self.didTapTab = didTapTab
+        self.didYouKnowViewModel = didYouKnowViewModel
         self.didTapAddTab = didTapAddTab
         self.didTapShareTab = didTapShareTab
         self.displayDeleteAllTabsToast = displayDeleteAllTabsToast
@@ -107,7 +110,11 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
     }
 
     // MARK: - Public funcs
-    
+
+    func openFromDidYouKnow(url: URL) {
+        print(url)
+    }
+
     func shouldLockAspectRatio() -> Bool {
         if UIApplication.shared.preferredContentSizeCategory.isAccessibilityCategory {
             return false
