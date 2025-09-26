@@ -188,7 +188,7 @@ NSString *const WMFEditPencil = @"WMFEditPencil";
 
 - (NSString *)wmf_languageCode {
     NSArray *hostComponents = [self.host componentsSeparatedByString:@"."];
-    if (hostComponents.count < 3) {
+    if (hostComponents.count < 2) {
         return nil;
     } else {
         return hostComponents[0];

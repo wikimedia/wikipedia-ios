@@ -27,7 +27,10 @@ public class WMFAuthLoginInfoFetcher: Fetcher {
             "format": "json"
         ]
         
-        performMediaWikiAPIPOST(for: siteURL, with: parameters) { (result, response, error) in
+        // Converts to 127.0.0.1 if needed
+        let finalUrl = Configuration.current.mediaWikiAPIURLForURL(siteURL)
+        
+        performMediaWikiAPIPOST(for: finalUrl, with: parameters) { (result, response, error) in
             if let error = error {
                 failure(error)
                 return

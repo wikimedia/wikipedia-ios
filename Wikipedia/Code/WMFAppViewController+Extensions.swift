@@ -642,6 +642,8 @@ extension WMFAppViewController {
         WMFDataEnvironment.current.mediaWikiService = MediaWikiFetcher(session: dataStore.session, configuration: dataStore.configuration)
         
         switch Configuration.current.environment {
+        case .local:
+            WMFDataEnvironment.current.serviceEnvironment = .local
         case .staging:
             WMFDataEnvironment.current.serviceEnvironment = .staging
         default:
