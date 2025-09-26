@@ -17,7 +17,7 @@ public struct WMFArticleTabsView: View {
     @State private var currentTabID: String?
     @State private var cellFrames: [String: CGRect] = [:]
 
-    @State private var dykLinkDelegate: UITextViewDelegate?
+    private var dykLinkDelegate: UITextViewDelegate?
 
     var shouldShowBottom = true // testing only prop
 

@@ -1592,32 +1592,28 @@ extension WMFAppViewController: EditPreviewViewControllerLoggingDelegate {
 
 extension WMFAppViewController: UITextViewDelegate {
     func tappedLink(_ url: URL, sourceTextView: UITextView) {
-        guard let url = URL(string: url.absoluteString) else {
+        guard let articleURL = URL(string: url.absoluteString) else {
             return
         }
 
-        let legacyNavigateAction = { [weak self] in
-            guard let self else { return }
-            let userInfo: [AnyHashable : Any] = [RoutingUserInfoKeys.source: RoutingUserInfoSourceValue.talkPage.rawValue]
-            navigate(to: url.absoluteURL, userInfo: userInfo)
+        guard let nav = self.navigationController ?? self.parent?.navigationController else {
+            return
         }
 
-        // first try to navigate using LinkCoordinator. If it fails, use the legacy approach.
-        let navController = self.navigationController
-            ?? self.parent?.navigationController
-
-        if let navController {
-            let linkCoordinator = LinkCoordinator(navigationController: navController, url: url.absoluteURL, dataStore: nil, theme: theme, articleSource: .undefined)
-            let success = linkCoordinator.start()
-
-
-            guard success else {
-                legacyNavigateAction()
-                return
+        let linkCoordinator = LinkCoordinator(
+            navigationController: nav,
+            url: articleURL,
+            dataStore: self.dataStore,
+            theme: self.theme,
+            articleSource: .undefined,
+            tabConfig: .appendToNewTabAndSetToCurrent
+        )
+        if let presented = nav.presentedViewController {
+            presented.dismiss(animated: true) {
+                linkCoordinator.start()
             }
-        } else {
-            legacyNavigateAction()
         }
+
     }
 
     public func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {

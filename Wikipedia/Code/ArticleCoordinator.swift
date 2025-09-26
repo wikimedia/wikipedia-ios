@@ -10,6 +10,7 @@ enum ArticleTabConfig {
     case assignParticularTabAndSetToCurrent(WMFArticleTabsDataController.Identifiers) // Tapping tab from tabs overview
     case assignNewTabAndSetToCurrent // Tapping add tab from tabs overview - Main Page
     case adjacentArticleInTab(WMFArticleTabsDataController.Identifiers) // Tapping 'forward in tab' / 'back in tab' buttons on article toolbar
+    case appendToNewTabAndSetToCurrent // Tapping DYK or BYR from tabs overview
  }
 
 @MainActor
@@ -87,6 +88,10 @@ extension ArticleTabCoordinating {
                     self.tabIdentifier = identifiers.tabIdentifier
                     self.tabItemIdentifier = identifiers.tabItemIdentifier
                 case .adjacentArticleInTab(let identifiers):
+                    self.tabIdentifier = identifiers.tabIdentifier
+                    self.tabItemIdentifier = identifiers.tabItemIdentifier
+                case .appendToNewTabAndSetToCurrent:
+                    let identifiers = try await tabsDataController.createArticleTab(initialArticle: article, setAsCurrent: true)
                     self.tabIdentifier = identifiers.tabIdentifier
                     self.tabItemIdentifier = identifiers.tabItemIdentifier
                 }
@@ -177,8 +182,6 @@ final class ArticleCoordinator: NSObject, Coordinator, ArticleTabCoordinating {
         prepareToShowTabsOverview(articleViewController: articleVC, dataStore, didYouKnowProvider: articleVC.didYouKnowProviderClosure)
         trackArticleTab(articleViewController: articleVC)
 
-        let inExperiment = WMFArticleTabsDataController.shared.shouldShowMoreDynamicTabs
-
         switch tabConfig {
         case .adjacentArticleInTab:
             var viewControllers = navigationController.viewControllers
@@ -189,15 +192,8 @@ final class ArticleCoordinator: NSObject, Coordinator, ArticleTabCoordinating {
             viewControllers.append(articleVC)
             navigationController.setViewControllers(viewControllers, animated: needsAnimation)
         default:
-            if inExperiment,
-               navigationController.viewControllers.last is SearchViewController {
-                var stack = navigationController.viewControllers
-                stack.removeLast()
-                stack.append(articleVC)
-                navigationController.setViewControllers(stack, animated: needsAnimation)
-            } else {
-                navigationController.pushViewController(articleVC, animated: needsAnimation)
-            }
+            navigationController.pushViewController(articleVC, animated: needsAnimation)
+
         }
         return true
     }
