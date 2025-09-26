@@ -1,11 +1,12 @@
-import Foundation
+import WMFData
 
 class FirstRandomViewController: UIViewController, Themeable {
     
     private let siteURL: URL
     private let dataStore: MWKDataStore
     private let theme: Theme
-    
+    var didYouKnowProvider: WMFArticleTabsDataController.DidYouKnowProvider?
+
     init(siteURL: URL, dataStore: MWKDataStore, theme: Theme) {
         self.siteURL = siteURL
         self.dataStore = dataStore
@@ -41,6 +42,7 @@ class FirstRandomViewController: UIViewController, Themeable {
                 
                 if let navigationController = self.navigationController {
                     let randomCoordinator = RandomArticleCoordinator(navigationController: navigationController, articleURL: articleURL, siteURL: self.siteURL, dataStore: self.dataStore, theme: self.theme, source: .undefined, animated: false, replaceLastViewControllerInNavStack: true, linkDelegate: self)
+                    randomCoordinator.didYouKnowProvider = self.didYouKnowProvider
                     randomCoordinator.start()
                 }
                 

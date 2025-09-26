@@ -1,4 +1,4 @@
-import Foundation
+import WMFData
 
 @objc(WMFRandomArticleViewController)
 class RandomArticleViewController: ArticleViewController {
@@ -115,6 +115,7 @@ class RandomArticleViewController: ArticleViewController {
                 self.secondToolbar.items = []
                 
                 let randomCoordinator = RandomArticleCoordinator(navigationController: navigationController, articleURL: articleURL, siteURL: nil, dataStore: dataStore, theme: theme, source: .undefined, animated: true, linkDelegate: self)
+                randomCoordinator.didYouKnowProvider = didYouKnowProviderClosure
                 randomCoordinator.start()
             }
         }

@@ -316,10 +316,10 @@ final class TabsCoordinatorManager {
 
     private var tabsOverviewCoordinator: TabsOverviewCoordinator?
 
-    func presentTabsOverview(from navigationController: UINavigationController, theme: Theme, dataStore: MWKDataStore, dykLinkDelegate: UITextViewDelegate?) {
+    func presentTabsOverview(from navigationController: UINavigationController, theme: Theme, dataStore: MWKDataStore, didYouKnowProvider: WMFArticleTabsDataController.DidYouKnowProvider?, dykLinkDelegate: UITextViewDelegate?) {
         let coordinator = TabsOverviewCoordinator(navigationController: navigationController, theme: theme, dataStore: dataStore, dykLinkDelegate: dykLinkDelegate)
         self.tabsOverviewCoordinator = coordinator
-
+        self.tabsOverviewCoordinator?.didYouKnowProvider = didYouKnowProvider
         coordinator.start()
     }
 }
