@@ -47,6 +47,7 @@ class DonateCoordinator: Coordinator {
     private let setLoadingBlock: (Bool) -> Void
     
     private let getDonateButtonGlobalRect: (() -> CGRect)
+    private let donateSuccessAction: (() -> Void)?
     
     private let dataStore: MWKDataStore
     private let theme: Theme
@@ -102,7 +103,7 @@ class DonateCoordinator: Coordinator {
     
     // MARK: Lifecycle
     
-    init(navigationController: UINavigationController, source: Source, dataStore: MWKDataStore, theme: Theme, navigationStyle: NavigationStyle, setLoadingBlock: @escaping (Bool) -> Void, getDonateButtonGlobalRect: @escaping () -> CGRect) {
+    init(navigationController: UINavigationController, source: Source, dataStore: MWKDataStore, theme: Theme, navigationStyle: NavigationStyle, setLoadingBlock: @escaping (Bool) -> Void, getDonateButtonGlobalRect: @escaping () -> CGRect, donateSuccessAction: (() -> Void)? = nil) {
         self.navigationController = navigationController
         self.source = source
         self.dataStore = dataStore
@@ -110,6 +111,7 @@ class DonateCoordinator: Coordinator {
         self.navigationStyle = navigationStyle
         self.setLoadingBlock = setLoadingBlock
         self.getDonateButtonGlobalRect = getDonateButtonGlobalRect
+        self.donateSuccessAction = donateSuccessAction
     }
     
     static func metricsID(for donateSource: Source, languageCode: String?) -> String? {
@@ -467,10 +469,12 @@ extension DonateCoordinator: DonateCoordinatorDelegate {
             showTaxDeductibilityInformation()
         case .nativeFormDidTriggerPaymentSuccess:
             popAndShowSuccessToastFromNativeForm()
+            donateSuccessAction?()
         case .webViewFormThankYouDidTapReturn:
             popFromWebFormThankYouPage()
         case .webViewFormThankYouDidDisappear:
             displayThankYouToastAfterDelay()
+            donateSuccessAction?()
         }
     }
     

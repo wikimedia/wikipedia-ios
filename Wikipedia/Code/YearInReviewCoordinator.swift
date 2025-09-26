@@ -844,6 +844,11 @@ extension YearInReviewCoordinator: YearInReviewCoordinatorDelegate {
         case .tappedIntroV3DoneWhileLoggedOut:
             showExitConfirmationPromptFromIntroV3Done()
         case .donate(let getSourceRect):
+            
+            let donateSuccessAction: () -> Void = { [weak self] in
+                self?.viewModel?.donateDidSucceed()
+            }
+            
             let donateCoordinator = DonateCoordinator(navigationController: navigationController, source: .yearInReview, dataStore: dataStore, theme: theme, navigationStyle: .present, setLoadingBlock: {  [weak self] loading in
                 guard let self,
                       let viewModel = self.viewModel else {
@@ -851,7 +856,7 @@ extension YearInReviewCoordinator: YearInReviewCoordinatorDelegate {
                 }
 
                 viewModel.isLoadingDonate = loading
-            }, getDonateButtonGlobalRect: getSourceRect)
+            }, getDonateButtonGlobalRect: getSourceRect, donateSuccessAction: donateSuccessAction)
 
             self.donateCoordinator = donateCoordinator
             donateCoordinator.start()

@@ -272,7 +272,7 @@ public class WMFYearInReviewViewModel: ObservableObject {
     private(set) var introV2ViewModel: WMFYearInReviewIntroV2ViewModel?
     private(set) var introV3ViewModel: WMFYearInReviewIntroV3ViewModel?
     
-    private(set) var slides: [WMFYearInReviewSlide] // doesn't include intro
+    @Published var slides: [WMFYearInReviewSlide] // doesn't include intro
     public let shareLink: String
     public let hashtag: String
     public let plaintextURL: String
@@ -1011,6 +1011,23 @@ public class WMFYearInReviewViewModel: ObservableObject {
         }
     }
     
+    private func populateReportAndUpdateSlides() {
+        Task { [weak self] in
+            guard let self else { return }
+            do {
+                try await self.populateYearInReviewReport()
+                Task { @MainActor [weak self] in
+                    
+                    guard let self else { return }
+                    
+                    self.updateSlides(isUserPermanent: isUserPermanent)
+                }
+            } catch {
+                // do nothing
+            }
+        }
+    }
+    
     private func populateReportAndShowFirstSlide() {
         isPopulatingReport = true
         Task { [weak self] in
@@ -1067,6 +1084,10 @@ public class WMFYearInReviewViewModel: ObservableObject {
     public func completedLoginFromIntroV3LoginPrompt() {
         isUserPermanent = true
         populateReportAndShowFirstSlide()
+    }
+    
+    public func donateDidSucceed() {
+        populateReportAndUpdateSlides()
     }
     
     private func incrementSlideIndex() {
