@@ -37,7 +37,9 @@ public typealias Username = String
 
 public class WMFAccountLoginLogoutFetcher: Fetcher {
     
-    public func login(username: String, password: String, retypePassword: String?, oathToken: String?, emailAuthCode: String?, captchaID: String?, captchaWord: String?, siteURL: URL, reattemptOn401Response: Bool = false, success: @escaping (Username) -> Void, failure: @escaping WMFErrorHandler) {
+    public func login(username: String, password: String, retypePassword: String?, oathToken: String?, emailAuthCode: String?, captchaID: String?, captchaWord: String?, siteURL: URL, reattemptOn401Response: Bool = false, attempt: Int = 0, newModule: String? = nil, success: @escaping (Username) -> Void, failure: @escaping WMFErrorHandler) {
+        
+        var attempt = attempt + 1
 
         var parameters = [
             "action": "clientlogin",
@@ -69,12 +71,19 @@ public class WMFAccountLoginLogoutFetcher: Fetcher {
         if let captchaWord = captchaWord {
             parameters["captchaWord"] = captchaWord
         }
+        
+        if let newModule {
+            parameters["newModule"] = newModule
+        }
 
         if WMFDeveloperSettingsDataController.shared.forceEmailAuth {
             self.session.injectEmailAuthCookie()
         }
-
-        performTokenizedMediaWikiAPIPOST(tokenType: .login, to: siteURL, with: parameters, reattemptLoginOn401Response:  reattemptOn401Response) { (result, response, error) in
+        
+        performTokenizedMediaWikiAPIPOST(tokenType: .login, to: siteURL, with: parameters, reattemptLoginOn401Response:  reattemptOn401Response) { [weak self] (result, response, error) in
+            
+            guard let self else { return }
+            
             if let error = error {
                 failure(error)
                 return
@@ -142,6 +151,22 @@ public class WMFAccountLoginLogoutFetcher: Fetcher {
                         failure(WMFAccountLoginError.temporaryPasswordNeedsChange(message))
                         return
                     }
+                    
+                    if let twoFactorModuleSelectRequest = requests.first(where: { request in
+                        guard let id = request["id"] as? String else {
+                            return false
+                        }
+                        return id.hasSuffix("TwoFactorModuleSelectAuthenticationRequest")
+                    }),
+                       let metadata = twoFactorModuleSelectRequest["metadata"] as? [String: Any],
+                       let allowedModules = metadata["allowedModules"] as? [String],
+                       allowedModules.contains("totp"),
+                       attempt == 1 {
+                        // repeat call once, passing in "newModule=totp" https://phabricator.wikimedia.org/T399654#11133473
+                        login(username: username, password: password, retypePassword: retypePassword, oathToken: oathToken, emailAuthCode: emailAuthCode, captchaID: captchaID, captchaWord: captchaWord, siteURL: siteURL, attempt: attempt, newModule: "totp", success: success, failure: failure)
+                        return
+                    }
+                    
                     if let OATHTokenRequest = requests.first(where: { request in
                         guard let id = request["id"] as? String else {
                             return false
