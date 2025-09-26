@@ -124,10 +124,12 @@ public class WMFArticleTabsHostingController<HostedView: View>: WMFComponentHost
     private func presentCloseAllTabsConfirmationDialog() async {
         let button1Title = viewModel.localizedStrings.cancelActionTitle
         let button2Title = viewModel.localizedStrings.closeAllTabs
+        guard let tabsCount = try? await dataController.tabsCount() else { return }
+        
 
         let alert = UIAlertController(
-            title: viewModel.localizedStrings.closeAllTabsTitle,
-            message: viewModel.localizedStrings.closeAllTabsSubtitle,
+            title: viewModel.localizedStrings.closeAllTabsTitle(tabsCount),
+            message: viewModel.localizedStrings.closeAllTabsSubtitle(tabsCount),
             preferredStyle: .alert
         )
         
