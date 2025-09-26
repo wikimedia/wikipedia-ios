@@ -5,6 +5,7 @@ final class YearInReviewMostReadCategoriesSlideDataController: YearInReviewSlide
     let year: Int
     var isEvaluated: Bool = false
     static var containsPersonalizedNetworkData = false
+    static var shouldFreeze = true
 
     private var mostReadCategories: [String]
 
