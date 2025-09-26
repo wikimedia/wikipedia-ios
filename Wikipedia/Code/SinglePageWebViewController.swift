@@ -335,16 +335,19 @@ class SinglePageWebViewController: ThemeableViewController, WMFNavigationBarConf
                 DonateFunnel.shared.logYearInReviewDonateSlideLearnMoreWebViewDidTapDonateButton(metricsID: metricsID)
             }
             
+            let getDonateButtonGlobalRect: () -> CGRect = { [weak self] in
+                return self?.overlayButtonContainer.frame ?? .zero
+            }
+            
             let coordinator = DonateCoordinator(
                 navigationController: navigationController,
-                donateButtonGlobalRect: overlayButtonContainer.frame,
                 source: .yearInReview,
                 dataStore: dataStore,
                 theme: theme,
                 navigationStyle: .push,
                 setLoadingBlock: { [weak self] isLoading in
                     self?.setOverlayButtonLoading(isLoading)
-                }, getDonateButtonGlobalRect: nil)
+                }, getDonateButtonGlobalRect: getDonateButtonGlobalRect)
             coordinator.start()
             config.donateCoordinator = coordinator
         case .standard:

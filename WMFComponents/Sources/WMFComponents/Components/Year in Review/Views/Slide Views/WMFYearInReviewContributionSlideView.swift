@@ -4,7 +4,6 @@ struct WMFYearInReviewContributionSlideView: View {
     @ObservedObject var viewModel: WMFYearInReviewContributorSlideViewModel
     @ObservedObject var parentViewModel: WMFYearInReviewViewModel
     @ObservedObject var appEnvironment = WMFAppEnvironment.current
-    @Binding var isLoading: Bool
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
     
     var theme: WMFTheme {
@@ -120,7 +119,7 @@ struct WMFYearInReviewContributionSlideView: View {
                 Group {
                     Button(action: { viewModel.onTappedDonateButton() }) {
                         Group {
-                            if isLoading {
+                            if parentViewModel.isLoadingDonate {
                                 ProgressView()
                                     .progressViewStyle(CircularProgressViewStyle(tint: Color(uiColor: theme.destructive)))
                                     .scaleEffect(1.2)
