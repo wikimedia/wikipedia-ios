@@ -865,7 +865,7 @@ NSString *const WMFCacheContextCrossProcessNotificiationChannelNamePrefix = @"or
     WMFTaskGroup *taskGroup = [[WMFTaskGroup alloc] init];
 
     // Site info
-    NSURL *siteURL = [NSURL URLWithString:@"//d22139cba6.catalyst.wmcloud.org"]; // Only the host of the URL is needed
+    NSURL *siteURL = [NSURL URLWithString:@"http://en.localhost:8080"]; // Only the host of the URL is needed
     NSURL *URL = [self.configuration mediaWikiAPIURLForURL:siteURL withQueryParameters:WikipediaSiteInfo.defaultRequestParameters];
     [taskGroup enter];
     [self.session getJSONDictionaryFromURL:URL
