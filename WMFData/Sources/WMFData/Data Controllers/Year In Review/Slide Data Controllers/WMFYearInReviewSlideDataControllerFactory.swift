@@ -70,7 +70,7 @@ final class YearInReviewSlideDataControllerFactory {
     
     private func shouldAddSlideDataController(existingSlideIDs: Set<String>, id: WMFYearInReviewPersonalizedSlideID) -> Bool {
         
-        // If slide should not freeze it's data, always return true, which will trigger calculation each time.
+        // If slide should not freeze its data, always return true, which will trigger calculation each time.
         if !id.dataController().shouldFreeze {
             return true
         }

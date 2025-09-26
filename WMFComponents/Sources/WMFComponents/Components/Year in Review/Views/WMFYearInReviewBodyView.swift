@@ -42,7 +42,7 @@ struct WMFYearInReviewBodyView: View {
                             WMFYearInReviewSlideHighlightsView(viewModel: highlightsViewModel)
                         }
                         if case .contribution(let contributionsViewModel) = slide {
-                            WMFYearInReviewContributionSlideView(viewModel: contributionsViewModel, isLoading: $viewModel.isLoadingDonate)
+                            WMFYearInReviewContributionSlideView(viewModel: contributionsViewModel, parentViewModel: viewModel, isLoading: $viewModel.isLoadingDonate)
                         }
                     }
                 }

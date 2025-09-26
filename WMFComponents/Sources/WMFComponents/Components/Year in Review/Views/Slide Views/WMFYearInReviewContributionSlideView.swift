@@ -2,6 +2,7 @@ import SwiftUI
 
 struct WMFYearInReviewContributionSlideView: View {
     @ObservedObject var viewModel: WMFYearInReviewContributorSlideViewModel
+    @ObservedObject var parentViewModel: WMFYearInReviewViewModel
     @ObservedObject var appEnvironment = WMFAppEnvironment.current
     @Binding var isLoading: Bool
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
@@ -117,7 +118,7 @@ struct WMFYearInReviewContributionSlideView: View {
             
             if viewModel.contributionStatus == .noncontributor && !viewModel.forceHideDonateButton {
                 Group {
-                    Button(action: { viewModel.onTappedDonateButton(viewModel.donateButtonRect) }) {
+                    Button(action: { viewModel.onTappedDonateButton() }) {
                         Group {
                             if isLoading {
                                 ProgressView()
@@ -128,7 +129,7 @@ struct WMFYearInReviewContributionSlideView: View {
                                             Color.clear
                                                 .onAppear {
                                                     let frame = geometry.frame(in: .global)
-                                                    viewModel.donateButtonRect = frame
+                                                    parentViewModel.donateButtonRect = frame
                                                 }
                                         }
                                     )

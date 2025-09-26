@@ -265,6 +265,7 @@ public class WMFYearInReviewViewModel: ObservableObject {
         }
     }
     @Published var isShowingIntro: Bool = true
+    @Published var donateButtonRect: CGRect = .zero
     
     public let localizedStrings: LocalizedStrings
     
@@ -429,8 +430,8 @@ public class WMFYearInReviewViewModel: ObservableObject {
                                     subtitle: localizedStrings.contributorSubtitle(editCount > 0, donateCount > 0),
                                     loggingID: "", // todo
                                     contributionStatus: .contributor,
-                                    onTappedDonateButton: { [weak self] sourceRect in
-                                        self?.handleDonate(sourceRect: sourceRect)
+                                    onTappedDonateButton: { [weak self] in
+                                        self?.handleDonate()
                                     },
                                     onToggleIcon: { isOn in
                                         self.toggleAppIcon(isOn)
@@ -983,8 +984,8 @@ public class WMFYearInReviewViewModel: ObservableObject {
             loggingID: "",
             contributionStatus: .noncontributor,
             forceHideDonateButton: forceHideDonateButton,
-            onTappedDonateButton: { [weak self] sourceRect in
-                self?.handleDonate(sourceRect: sourceRect)
+            onTappedDonateButton: { [weak self] in
+                self?.handleDonate()
             },
             onInfoButtonTap: tappedInfo,
             donateButtonTitle: localizedStrings.donateButtonTitle,
@@ -1162,17 +1163,9 @@ public class WMFYearInReviewViewModel: ObservableObject {
         }
     }
     
-    func handleDonate(sourceRect: CGRect) {
-        let getSourceRect: () -> CGRect = {
-            for slide in self.slides {
-                switch slide {
-                case .contribution(let viewModel):
-                    return viewModel.donateButtonRect
-                default:
-                    continue
-                }
-            }
-            return .zero
+    func handleDonate() {
+        let getSourceRect: () -> CGRect = { [weak self] in
+            return self?.donateButtonRect ?? .zero
         }
         coordinatorDelegate?.handleYearInReviewAction(.donate(getSourceRect: getSourceRect))
         logYearInReviewDidTapDonate()
