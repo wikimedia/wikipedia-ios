@@ -344,7 +344,7 @@ class SinglePageWebViewController: ThemeableViewController, WMFNavigationBarConf
                 navigationStyle: .push,
                 setLoadingBlock: { [weak self] isLoading in
                     self?.setOverlayButtonLoading(isLoading)
-            })
+                }, getDonateButtonGlobalRect: nil)
             coordinator.start()
             config.donateCoordinator = coordinator
         case .standard:

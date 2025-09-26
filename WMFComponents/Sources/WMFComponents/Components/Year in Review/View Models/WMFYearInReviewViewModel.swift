@@ -1163,7 +1163,18 @@ public class WMFYearInReviewViewModel: ObservableObject {
     }
     
     func handleDonate(sourceRect: CGRect) {
-        coordinatorDelegate?.handleYearInReviewAction(.donate(sourceRect: sourceRect))
+        let getSourceRect: () -> CGRect = {
+            for slide in self.slides {
+                switch slide {
+                case .contribution(let viewModel):
+                    return viewModel.donateButtonRect
+                default:
+                    continue
+                }
+            }
+            return .zero
+        }
+        coordinatorDelegate?.handleYearInReviewAction(.donate(getSourceRect: getSourceRect))
         logYearInReviewDidTapDonate()
     }
     

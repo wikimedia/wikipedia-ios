@@ -71,7 +71,7 @@ extension ArticleViewController {
                 }
                 
                 fundraisingPanelVC.isLoading = isLoading
-            })
+            }, getDonateButtonGlobalRect: nil)
             
             self.donateCoordinator = donateCoordinator
             donateCoordinator.start()

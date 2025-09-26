@@ -47,6 +47,8 @@ class DonateCoordinator: Coordinator {
     // Code to run when we are fetching donate configs. Typically this changes some donate button into a spinner.
     private let setLoadingBlock: (Bool) -> Void
     
+    private let getDonateButtonGlobalRect: (() -> CGRect)?
+    
     private let dataStore: MWKDataStore
     private let theme: Theme
     
@@ -101,7 +103,7 @@ class DonateCoordinator: Coordinator {
     
     // MARK: Lifecycle
     
-    init(navigationController: UINavigationController, donateButtonGlobalRect: CGRect, source: Source, dataStore: MWKDataStore, theme: Theme, navigationStyle: NavigationStyle, setLoadingBlock: @escaping (Bool) -> Void) {
+    init(navigationController: UINavigationController, donateButtonGlobalRect: CGRect, source: Source, dataStore: MWKDataStore, theme: Theme, navigationStyle: NavigationStyle, setLoadingBlock: @escaping (Bool) -> Void, getDonateButtonGlobalRect: (() -> CGRect)?) {
         self.navigationController = navigationController
         self.donateButtonGlobalRect = donateButtonGlobalRect
         self.source = source
@@ -109,6 +111,7 @@ class DonateCoordinator: Coordinator {
         self.theme = theme
         self.navigationStyle = navigationStyle
         self.setLoadingBlock = setLoadingBlock
+        self.getDonateButtonGlobalRect = getDonateButtonGlobalRect
     }
     
     static func metricsID(for donateSource: Source, languageCode: String?) -> String? {
@@ -292,7 +295,8 @@ class DonateCoordinator: Coordinator {
         alert.overrideUserInterfaceStyle = theme.isDark ? .dark : .light
 
         alert.popoverPresentationController?.sourceView = navigationController.view
-        alert.popoverPresentationController?.sourceRect = donateButtonGlobalRect
+        let sourceRect = getDonateButtonGlobalRect?() ?? donateButtonGlobalRect
+        alert.popoverPresentationController?.sourceRect = sourceRect
         
         viewControllerToPresentActionSheet?.present(alert, animated: true)
     }

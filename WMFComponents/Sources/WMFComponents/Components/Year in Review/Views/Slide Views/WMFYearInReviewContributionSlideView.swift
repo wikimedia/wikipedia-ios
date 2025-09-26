@@ -5,7 +5,6 @@ struct WMFYearInReviewContributionSlideView: View {
     @ObservedObject var appEnvironment = WMFAppEnvironment.current
     @Binding var isLoading: Bool
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
-    @State private var buttonRect: CGRect = .zero
     
     var theme: WMFTheme {
         return appEnvironment.theme
@@ -118,12 +117,21 @@ struct WMFYearInReviewContributionSlideView: View {
             
             if viewModel.contributionStatus == .noncontributor && !viewModel.forceHideDonateButton {
                 Group {
-                    Button(action: { viewModel.onTappedDonateButton(buttonRect) }) {
+                    Button(action: { viewModel.onTappedDonateButton(viewModel.donateButtonRect) }) {
                         Group {
                             if isLoading {
                                 ProgressView()
                                     .progressViewStyle(CircularProgressViewStyle(tint: Color(uiColor: theme.destructive)))
                                     .scaleEffect(1.2)
+                                    .background(
+                                        GeometryReader { geometry in
+                                            Color.clear
+                                                .onAppear {
+                                                    let frame = geometry.frame(in: .global)
+                                                    viewModel.donateButtonRect = frame
+                                                }
+                                        }
+                                    )
                             } else {
                                 HStack(alignment: .center, spacing: 6) {
                                     if let uiImage = WMFSFSymbolIcon.for(symbol: .heartFilled, font: .semiboldHeadline) {
@@ -152,15 +160,6 @@ struct WMFYearInReviewContributionSlideView: View {
                     .padding(.horizontal, horizontalSizeClass == .regular ? 64 : 32)
                     .padding(.bottom, 16)
                     .buttonStyle(PlainButtonStyle())
-                    .background(
-                        GeometryReader { geometry in
-                            Color.clear
-                                .onAppear {
-                                    let frame = geometry.frame(in: .global)
-                                    buttonRect = frame
-                                }
-                        }
-                    )
                 }
                 .frame(maxWidth: .infinity)
                 .padding(.top, 12)

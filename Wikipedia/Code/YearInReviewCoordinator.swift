@@ -843,15 +843,15 @@ extension YearInReviewCoordinator: YearInReviewCoordinatorDelegate {
             showLoginPromptFromIntroV3GetStarted()
         case .tappedIntroV3DoneWhileLoggedOut:
             showExitConfirmationPromptFromIntroV3Done()
-        case .donate(let rect):
-            let donateCoordinator = DonateCoordinator(navigationController: navigationController, donateButtonGlobalRect: rect, source: .yearInReview, dataStore: dataStore, theme: theme, navigationStyle: .present, setLoadingBlock: {  [weak self] loading in
+        case .donate(let getSourceRect):
+            let donateCoordinator = DonateCoordinator(navigationController: navigationController, donateButtonGlobalRect: .zero, source: .yearInReview, dataStore: dataStore, theme: theme, navigationStyle: .present, setLoadingBlock: {  [weak self] loading in
                 guard let self,
                       let viewModel = self.viewModel else {
                     return
                 }
 
                 viewModel.isLoadingDonate = loading
-            })
+            }, getDonateButtonGlobalRect: getSourceRect)
 
             self.donateCoordinator = donateCoordinator
             donateCoordinator.start()
