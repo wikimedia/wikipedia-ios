@@ -82,11 +82,7 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
     }
 
     private var _tabsCoordinator: TabsOverviewCoordinator?
-    private var tabsCoordinator: TabsOverviewCoordinator? {
-        guard let navigationController, let dataStore else { return nil }
-        _tabsCoordinator = TabsOverviewCoordinator(navigationController: navigationController, theme: theme, dataStore: dataStore, dykLinkDelegate: self)
-        return _tabsCoordinator
-    }
+
     var customTabConfigUponArticleNavigation: ArticleTabConfig?
 
     private var yirDataController: WMFYearInReviewDataController? {
@@ -246,8 +242,31 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
     }
 
     @objc func userDidTapTabs() {
-        _ = tabsCoordinator?.start()
+        guard let coordinator = makeTabsCoordinatorIfNeeded() else { return }
+        coordinator.start()
         ArticleTabsFunnel.shared.logIconClick(interface: .search, project: nil)
+    }
+
+    @discardableResult
+    private func makeTabsCoordinatorIfNeeded() -> TabsOverviewCoordinator? {
+        if let existing = _tabsCoordinator { return existing }
+        guard let nav = navigationController, let dataStore else { return nil }
+        let created = TabsOverviewCoordinator(navigationController: nav, theme: theme, dataStore: dataStore, dykLinkDelegate: self)
+        created.didYouKnowProvider = didYouKnowProviderClosure
+        _tabsCoordinator = created
+        return created
+    }
+
+    private lazy var didYouKnowProviderClosure: (@MainActor () async -> [WMFDidYouKnow]?) = { [weak self] in
+        guard let self, let dataStore = self.dataStore else { return nil }
+        guard let siteURL = dataStore.languageLinkController.appLanguage?.siteURL else { return nil }
+        let dc = NewArticleTabDataController(dataStore: dataStore)
+        do {
+            return try await dc.fetchDidYouKnowFacts(siteURL: siteURL)
+        } catch {
+            DDLogError("DYK fetch error: \(error) from HistoryViewController")
+            return nil
+        }
     }
 
     private func embedResultsViewController() {

@@ -264,10 +264,33 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
     private var tabsButtonConfig: WMFNavigationBarTabsButtonConfig {
         return self.tabsButtonConfig(target: self, action: #selector(userDidTapTabs), dataStore: dataStore, leadingBarButtonItem: filterButtonItem)
     }
-    
+
     @objc func userDidTapTabs() {
-        _ = tabsCoordinator?.start()
+        guard let coordinator = makeTabsCoordinatorIfNeeded() else { return }
+        coordinator.start()
         ArticleTabsFunnel.shared.logIconClick(interface: .places, project: nil)
+    }
+
+    @discardableResult
+    private func makeTabsCoordinatorIfNeeded() -> TabsOverviewCoordinator? {
+        if let existing = _tabsCoordinator { return existing }
+        guard let nav = navigationController else { return nil }
+        let created = TabsOverviewCoordinator(navigationController: nav, theme: theme, dataStore: dataStore, dykLinkDelegate: self)
+        created.didYouKnowProvider = didYouKnowProviderClosure
+        _tabsCoordinator = created
+        return created
+    }
+
+    private lazy var didYouKnowProviderClosure: (@MainActor () async -> [WMFDidYouKnow]?) = { [weak self] in
+        guard let self else { return nil }
+        guard let siteURL = dataStore.languageLinkController.appLanguage?.siteURL else { return nil }
+        let dc = NewArticleTabDataController(dataStore: dataStore)
+        do {
+            return try await dc.fetchDidYouKnowFacts(siteURL: siteURL)
+        } catch {
+            DDLogError("DYK fetch error: \(error) from PlacesViewController")
+            return nil
+        }
     }
 
     private func configureNavigationBar() {
@@ -420,11 +443,6 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
     }
     
     private var _tabsCoordinator: TabsOverviewCoordinator?
-    private var tabsCoordinator: TabsOverviewCoordinator? {
-        guard let navigationController else { return nil }
-        _tabsCoordinator = TabsOverviewCoordinator(navigationController: navigationController, theme: theme, dataStore: dataStore, dykLinkDelegate: self)
-        return _tabsCoordinator
-    }
 
     private var _profileCoordinator: ProfileCoordinator?
     private var profileCoordinator: ProfileCoordinator? {
