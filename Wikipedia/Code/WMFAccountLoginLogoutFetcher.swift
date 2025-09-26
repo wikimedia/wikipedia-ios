@@ -39,7 +39,7 @@ public class WMFAccountLoginLogoutFetcher: Fetcher {
     
     public func login(username: String, password: String, retypePassword: String?, oathToken: String?, emailAuthCode: String?, captchaID: String?, captchaWord: String?, siteURL: URL, reattemptOn401Response: Bool = false, attempt: Int = 0, newModule: String? = nil, success: @escaping (Username) -> Void, failure: @escaping WMFErrorHandler) {
         
-        var attempt = attempt + 1
+        let attempt = attempt + 1
 
         var parameters = [
             "action": "clientlogin",
@@ -74,6 +74,7 @@ public class WMFAccountLoginLogoutFetcher: Fetcher {
         
         if let newModule {
             parameters["newModule"] = newModule
+            parameters["logincontinue"] = "1"
         }
 
         if WMFDeveloperSettingsDataController.shared.forceEmailAuth {
