@@ -29,6 +29,8 @@ fileprivate extension WMFData.WMFServiceRequest {
             }
             
             return method == .GET && action == "raw"
+        case .local:
+            return false
         }
     }
     
@@ -52,6 +54,8 @@ fileprivate extension WMFData.WMFServiceRequest {
             }
             
             return method == .GET && action == "raw"
+        case .local:
+            return false
         }
     }
     
@@ -95,6 +99,8 @@ fileprivate extension WMFData.WMFServiceRequest {
             }
             
             return method == .GET && action == "raw"
+        case .local:
+            return false
         }
     }
     
