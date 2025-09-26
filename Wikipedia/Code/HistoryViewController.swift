@@ -5,9 +5,7 @@ import WMF
 import Combine
 
 
-final class WMFHistoryHostingController: WMFComponentHostingController<WMFHistoryView> {
-
-}
+final class WMFHistoryHostingController: WMFComponentHostingController<WMFHistoryView> {}
 
 @objc public final class WMFHistoryViewController: WMFCanvasViewController, Themeable, WMFNavigationBarConfiguring, HintPresenting, MEPEventsProviding {
 
@@ -241,7 +239,7 @@ final class WMFHistoryHostingController: WMFComponentHostingController<WMFHistor
 
     func tappedArticle(_ item: HistoryItem) {
         if let articleURL = item.url, let dataStore, let navVC = navigationController {
-            let articleCoordinator = ArticleCoordinator(navigationController: navVC, articleURL: articleURL, dataStore: dataStore, theme: theme, source: .history)
+            let articleCoordinator = ArticleCoordinator(navigationController: navVC, articleURL: articleURL, dataStore: dataStore, theme: theme, source: .history, linkDelegate: self)
             articleCoordinator.start()
         }
     }
@@ -383,6 +381,42 @@ extension WMFHistoryViewController: LogoutCoordinatorDelegate {
         wmf_showKeepSavedArticlesOnDevicePanelIfNeeded(triggeredBy: .logout, theme: theme) {
             dataStore.authenticationManager.logout(initiatedBy: .user)
         }
+    }
+}
+
+extension WMFHistoryViewController: UITextViewDelegate {
+    func tappedLink(_ url: URL, sourceTextView: UITextView) {
+        guard let url = URL(string: url.absoluteString) else {
+            return
+        }
+
+        let legacyNavigateAction = { [weak self] in
+            guard let self else { return }
+            let userInfo: [AnyHashable : Any] = [RoutingUserInfoKeys.source: RoutingUserInfoSourceValue.talkPage.rawValue]
+            navigate(to: url.absoluteURL, userInfo: userInfo)
+        }
+
+        // first try to navigate using LinkCoordinator. If it fails, use the legacy approach.
+        let navController = self.navigationController
+            ?? self.parent?.navigationController
+
+        if let navController {
+            let linkCoordinator = LinkCoordinator(navigationController: navController, url: url.absoluteURL, dataStore: nil, theme: theme, articleSource: .undefined)
+            let success = linkCoordinator.start()
+
+
+            guard success else {
+                legacyNavigateAction()
+                return
+            }
+        } else {
+            legacyNavigateAction()
+        }
+    }
+
+    public func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
+        tappedLink(URL, sourceTextView: textView)
+        return false
     }
 }
 

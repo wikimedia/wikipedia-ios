@@ -21,7 +21,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     private var _tabsCoordinator: TabsOverviewCoordinator?
     private var tabsCoordinator: TabsOverviewCoordinator? {
         guard let navigationController else { return nil }
-        _tabsCoordinator = TabsOverviewCoordinator(navigationController: navigationController, theme: theme, dataStore: dataStore)
+        _tabsCoordinator = TabsOverviewCoordinator(navigationController: navigationController, theme: theme, dataStore: dataStore, dykLinkDelegate: self)
         return _tabsCoordinator
     }
     
@@ -622,7 +622,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
                let randomSiteURL = group.siteURL {
                 
                 // let articleSource = Explore tapped "Another random article" title
-                let randomCoordinator = RandomArticleCoordinator(navigationController: navigationController, articleURL: nil, siteURL: randomSiteURL, dataStore: dataStore, theme: theme, source: .undefined, animated: true)
+                let randomCoordinator = RandomArticleCoordinator(navigationController: navigationController, articleURL: nil, siteURL: randomSiteURL, dataStore: dataStore, theme: theme, source: .undefined, animated: true, linkDelegate: self)
                 randomCoordinator.start()
                 return
             } else if let vc = group.detailViewControllerWithDataStore(dataStore, theme: theme, imageRecDelegate: self, imageRecLoggingDelegate: self) {
@@ -831,7 +831,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
                     break
                 }
                 
-                let articleCoordinator = ArticleCoordinator(navigationController: navigationController, articleURL: articleURL, dataStore: dataStore, theme: theme, source: articleSource)
+                let articleCoordinator = ArticleCoordinator(navigationController: navigationController, articleURL: articleURL, dataStore: dataStore, theme: theme, source: articleSource, linkDelegate: self)
                 articleCoordinator.start()
                 return true
             case .pageWithRandomButton:
@@ -845,7 +845,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
                     break
                 }
                 
-                let randomArticleCoordinator = RandomArticleCoordinator(navigationController: navigationController, articleURL: articleURL, siteURL: nil, dataStore: dataStore, theme: theme, source: articleSource, animated: true)
+                let randomArticleCoordinator = RandomArticleCoordinator(navigationController: navigationController, articleURL: articleURL, siteURL: nil, dataStore: dataStore, theme: theme, source: articleSource, animated: true, linkDelegate: self)
                 randomArticleCoordinator.start()
                 return true
             default:
@@ -994,10 +994,10 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
             } else if let peekVC = viewControllerToCommit as? ArticlePeekPreviewViewController {
                 if let navVC = navigationController {
                     if peekVC.needsRandomOnPush {
-                        let coordinator = RandomArticleCoordinator(navigationController: navVC, articleURL: peekVC.articleURL, siteURL: nil, dataStore: dataStore, theme: theme, source: .undefined, animated: true)
+                        let coordinator = RandomArticleCoordinator(navigationController: navVC, articleURL: peekVC.articleURL, siteURL: nil, dataStore: dataStore, theme: theme, source: .undefined, animated: true, linkDelegate: self)
                         coordinator.start()
                     } else {
-                        let coordinator = ArticleCoordinator(navigationController: navVC, articleURL: peekVC.articleURL, dataStore: dataStore, theme: theme, source: .undefined)
+                        let coordinator = ArticleCoordinator(navigationController: navVC, articleURL: peekVC.articleURL, dataStore: dataStore, theme: theme, source: .undefined, linkDelegate: self)
                         coordinator.start()
                     }
                 }
@@ -1011,10 +1011,10 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     override func readMoreArticlePreviewActionSelected(with peekController: ArticlePeekPreviewViewController) {
         guard let navVC = navigationController else { return }
         if peekController.needsRandomOnPush {
-            let coordinator = RandomArticleCoordinator(navigationController: navVC, articleURL: peekController.articleURL, siteURL: nil, dataStore: dataStore, theme: theme, source: .undefined, animated: true)
+            let coordinator = RandomArticleCoordinator(navigationController: navVC, articleURL: peekController.articleURL, siteURL: nil, dataStore: dataStore, theme: theme, source: .undefined, animated: true, linkDelegate: self)
             coordinator.start()
         } else {
-            let coordinator = ArticleCoordinator(navigationController: navVC, articleURL: peekController.articleURL, dataStore: dataStore, theme: theme, source: .undefined)
+            let coordinator = ArticleCoordinator(navigationController: navVC, articleURL: peekController.articleURL, dataStore: dataStore, theme: theme, source: .undefined, linkDelegate: self)
             coordinator.start()
         }
         
@@ -1464,7 +1464,7 @@ extension ExploreViewController: WMFImageRecommendationsDelegate {
             return
         }
         
-        let coordinator = ArticleCoordinator(navigationController: navigationController, articleURL: articleURL, dataStore: dataStore, theme: theme, source: .undefined)
+        let coordinator = ArticleCoordinator(navigationController: navigationController, articleURL: articleURL, dataStore: dataStore, theme: theme, source: .undefined, linkDelegate: self)
         coordinator.start()
     }
     

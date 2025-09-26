@@ -15,8 +15,9 @@ final class RandomArticleCoordinator: Coordinator, ArticleTabCoordinating {
     let tabConfig: ArticleTabConfig
     var tabIdentifier: UUID?
     var tabItemIdentifier: UUID?
-    
-    init(navigationController: UINavigationController, articleURL: URL?, siteURL: URL?, dataStore: MWKDataStore, theme: Theme, source: ArticleSource, animated: Bool, tabConfig: ArticleTabConfig = .appendArticleAndAssignCurrentTab, replaceLastViewControllerInNavStack: Bool = false) {
+    var linkDelegate: UITextViewDelegate?
+
+    init(navigationController: UINavigationController, articleURL: URL?, siteURL: URL?, dataStore: MWKDataStore, theme: Theme, source: ArticleSource, animated: Bool, tabConfig: ArticleTabConfig = .appendArticleAndAssignCurrentTab, replaceLastViewControllerInNavStack: Bool = false, linkDelegate: UITextViewDelegate?) {
         self.navigationController = navigationController
         self.articleURL = articleURL
         self.siteURL = siteURL
@@ -26,6 +27,7 @@ final class RandomArticleCoordinator: Coordinator, ArticleTabCoordinating {
         self.animated = animated
         self.replaceLastViewControllerInNavStack = replaceLastViewControllerInNavStack
         self.tabConfig = tabConfig
+        self.linkDelegate = linkDelegate
     }
     
     @MainActor @discardableResult

@@ -261,7 +261,7 @@ extension WMFAppViewController {
     
     @objc func showRandomArticleFromShortcut(siteURL: URL?, animated: Bool) {
         guard let navVC = currentTabNavigationController else { return }
-        let coordinator = RandomArticleCoordinator(navigationController: navVC, articleURL: nil, siteURL: siteURL, dataStore: dataStore, theme: theme, source: .undefined, animated: animated)
+        let coordinator = RandomArticleCoordinator(navigationController: navVC, articleURL: nil, siteURL: siteURL, dataStore: dataStore, theme: theme, source: .undefined, animated: animated, linkDelegate: self)
         coordinator.start()
     }
 }
@@ -1169,7 +1169,7 @@ extension WMFAppViewController: WMFImageRecommendationsDelegate, InsertMediaSett
             return
         }
         
-        let coordinator = ArticleCoordinator(navigationController: navigationController, articleURL: articleURL, dataStore: dataStore, theme: theme, source: .undefined)
+        let coordinator = ArticleCoordinator(navigationController: navigationController, articleURL: articleURL, dataStore: dataStore, theme: theme, source: .undefined, linkDelegate: self)
         coordinator.start()
     }
     
@@ -1571,3 +1571,39 @@ extension WMFAppViewController: EditPreviewViewControllerLoggingDelegate {
          tabItemIdentifiersToDelete.removeAllObjects()
       }
  }
+
+extension WMFAppViewController: UITextViewDelegate {
+    func tappedLink(_ url: URL, sourceTextView: UITextView) {
+        guard let url = URL(string: url.absoluteString) else {
+            return
+        }
+
+        let legacyNavigateAction = { [weak self] in
+            guard let self else { return }
+            let userInfo: [AnyHashable : Any] = [RoutingUserInfoKeys.source: RoutingUserInfoSourceValue.talkPage.rawValue]
+            navigate(to: url.absoluteURL, userInfo: userInfo)
+        }
+
+        // first try to navigate using LinkCoordinator. If it fails, use the legacy approach.
+        let navController = self.navigationController
+            ?? self.parent?.navigationController
+
+        if let navController {
+            let linkCoordinator = LinkCoordinator(navigationController: navController, url: url.absoluteURL, dataStore: nil, theme: theme, articleSource: .undefined)
+            let success = linkCoordinator.start()
+
+
+            guard success else {
+                legacyNavigateAction()
+                return
+            }
+        } else {
+            legacyNavigateAction()
+        }
+    }
+
+    public func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
+        tappedLink(URL, sourceTextView: textView)
+        return false
+    }
+}

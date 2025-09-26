@@ -13,6 +13,7 @@ final class TabsOverviewCoordinator: Coordinator {
     private let summaryController: ArticleSummaryController
 
     public var didYouKnowProvider: WMFArticleTabsDataController.DidYouKnowProvider?
+    public weak var dykLinkDelegate: UITextViewDelegate?
 
     @discardableResult
     func start() -> Bool {
@@ -20,13 +21,14 @@ final class TabsOverviewCoordinator: Coordinator {
         return true
     }
 
-    public init(navigationController: UINavigationController, theme: Theme, dataStore: MWKDataStore) {
+    public init(navigationController: UINavigationController, theme: Theme, dataStore: MWKDataStore, dykLinkDelegate: UITextViewDelegate?) {
         self.navigationController = navigationController
         self.theme = theme
         self.dataStore = dataStore
         let dataController = WMFArticleTabsDataController.shared
         self.dataController = dataController
         self.summaryController = dataStore.articleSummaryController
+        self.dykLinkDelegate = dykLinkDelegate
     }
 
     private func surveyViewController() -> UIViewController {
@@ -162,7 +164,7 @@ final class TabsOverviewCoordinator: Coordinator {
                 displayDeleteAllTabsToast: displayDeleteAllTabsToast
             )
             
-            let articleTabsView = WMFArticleTabsView(viewModel: articleTabsViewModel)
+            let articleTabsView = WMFArticleTabsView(viewModel: articleTabsViewModel, dykLinkDelegate: dykLinkDelegate)
             let hostingController = WMFArticleTabsHostingController(
                 rootView: articleTabsView,
                 viewModel: articleTabsViewModel,
@@ -245,7 +247,7 @@ final class TabsOverviewCoordinator: Coordinator {
             
             let tabConfig = ArticleTabConfig.assignParticularTabAndSetToCurrent(WMFArticleTabsDataController.Identifiers(tabIdentifier: tab.identifier, tabItemIdentifier: article.identifier))
                 // isRestoringState = true allows for us to retain the previous scroll position
-                let articleCoordinator = ArticleCoordinator(navigationController: navigationController, articleURL: articleURL, dataStore: MWKDataStore.shared(), theme: theme, needsAnimation: false, source: .undefined, isRestoringState: true, tabConfig: tabConfig)
+            let articleCoordinator = ArticleCoordinator(navigationController: navigationController, articleURL: articleURL, dataStore: MWKDataStore.shared(), theme: theme, needsAnimation: false, source: .undefined, isRestoringState: true, tabConfig: tabConfig, linkDelegate: dykLinkDelegate)
                 articleCoordinator.start()
 
         }
@@ -259,7 +261,7 @@ final class TabsOverviewCoordinator: Coordinator {
             return
         }
         
-        let articleCoordinator = ArticleCoordinator(navigationController: navigationController, articleURL: articleURL, dataStore: MWKDataStore.shared(), theme: theme, needsAnimation: false, source: .undefined, tabConfig: .assignNewTabAndSetToCurrent)
+        let articleCoordinator = ArticleCoordinator(navigationController: navigationController, articleURL: articleURL, dataStore: MWKDataStore.shared(), theme: theme, needsAnimation: false, source: .undefined, tabConfig: .assignNewTabAndSetToCurrent, linkDelegate: dykLinkDelegate)
         ArticleTabsFunnel.shared.logAddNewBlankTab()
         articleCoordinator.start()
         
@@ -314,8 +316,8 @@ final class TabsCoordinatorManager {
 
     private var tabsOverviewCoordinator: TabsOverviewCoordinator?
 
-    func presentTabsOverview(from navigationController: UINavigationController, theme: Theme, dataStore: MWKDataStore) {
-        let coordinator = TabsOverviewCoordinator(navigationController: navigationController, theme: theme, dataStore: dataStore)
+    func presentTabsOverview(from navigationController: UINavigationController, theme: Theme, dataStore: MWKDataStore, dykLinkDelegate: UITextViewDelegate?) {
+        let coordinator = TabsOverviewCoordinator(navigationController: navigationController, theme: theme, dataStore: dataStore, dykLinkDelegate: dykLinkDelegate)
         self.tabsOverviewCoordinator = coordinator
 
         coordinator.start()

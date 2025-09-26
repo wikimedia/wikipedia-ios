@@ -111,10 +111,6 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
 
     // MARK: - Public funcs
 
-    func openFromDidYouKnow(url: URL) {
-        print(url)
-    }
-
     func shouldLockAspectRatio() -> Bool {
         if UIApplication.shared.preferredContentSizeCategory.isAccessibilityCategory {
             return false

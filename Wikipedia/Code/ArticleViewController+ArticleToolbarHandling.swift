@@ -12,7 +12,7 @@ extension ArticleViewController: ArticleToolbarHandling {
         }
         
         let identifiers = WMFArticleTabsDataController.Identifiers(tabIdentifier: tabIdentifier, tabItemIdentifier: tabItemIdentifier)
-        let articleCoordinator = ArticleCoordinator(navigationController: navigationController, articleURL: articleURL, dataStore: dataStore, theme: theme, needsAnimation: false, source: .undefined, tabConfig: .adjacentArticleInTab(identifiers))
+        let articleCoordinator = ArticleCoordinator(navigationController: navigationController, articleURL: articleURL, dataStore: dataStore, theme: theme, needsAnimation: false, source: .undefined, tabConfig: .adjacentArticleInTab(identifiers), linkDelegate: self)
         articleCoordinator.start()
     }
     
@@ -26,7 +26,7 @@ extension ArticleViewController: ArticleToolbarHandling {
         }
         
         let identifiers = WMFArticleTabsDataController.Identifiers(tabIdentifier: tabIdentifier, tabItemIdentifier: tabItemIdentifier)
-        let articleCoordinator = ArticleCoordinator(navigationController: navigationController, articleURL: articleURL, dataStore: dataStore, theme: theme, needsAnimation: false, source: .undefined, tabConfig: .adjacentArticleInTab(identifiers))
+        let articleCoordinator = ArticleCoordinator(navigationController: navigationController, articleURL: articleURL, dataStore: dataStore, theme: theme, needsAnimation: false, source: .undefined, tabConfig: .adjacentArticleInTab(identifiers), linkDelegate: self)
         articleCoordinator.start()
     }
     

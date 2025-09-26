@@ -16,7 +16,7 @@ protocol SavedViewControllerDelegate: NSObjectProtocol {
 }
 
 @objc(WMFSavedViewController)
-class SavedViewController: ThemeableViewController, WMFNavigationBarConfiguring, WMFNavigationBarHiding {
+class SavedViewController: ThemeableViewController, WMFNavigationBarConfiguring, WMFNavigationBarHiding, UITextViewDelegate {
 
     private var savedArticlesViewController: SavedArticlesCollectionViewController?
     
@@ -73,7 +73,7 @@ class SavedViewController: ThemeableViewController, WMFNavigationBarConfiguring,
     private var _tabsCoordinator: TabsOverviewCoordinator?
     private var tabsCoordinator: TabsOverviewCoordinator? {
         guard let navigationController, let dataStore else { return nil }
-        _tabsCoordinator = TabsOverviewCoordinator(navigationController: navigationController, theme: theme, dataStore: dataStore)
+        _tabsCoordinator = TabsOverviewCoordinator(navigationController: navigationController, theme: theme, dataStore: dataStore, dykLinkDelegate: self)
         return _tabsCoordinator
     }
     
@@ -538,7 +538,7 @@ extension SavedViewController: ReadingListEntryCollectionViewControllerDelegate 
             return
         }
         
-        let coordinator = ArticleCoordinator(navigationController: navigationController, articleURL: articleURL, dataStore: dataStore ?? MWKDataStore.shared(), theme: theme, source: .undefined)
+        let coordinator = ArticleCoordinator(navigationController: navigationController, articleURL: articleURL, dataStore: dataStore ?? MWKDataStore.shared(), theme: theme, source: .undefined, linkDelegate: self)
         coordinator.start()
     }
 }

@@ -22,6 +22,7 @@ protocol ArticleTabCoordinating: AnyObject {
     var tabItemIdentifier: UUID? { get set }
     var navigationController: UINavigationController { get }
     var theme: Theme { get }
+    var linkDelegate: UITextViewDelegate? { get set }
 }
 
 @MainActor
@@ -118,7 +119,8 @@ extension ArticleTabCoordinating {
             TabsCoordinatorManager.shared.presentTabsOverview(
                 from: navController,
                 theme: theme,
-                dataStore: dataStore
+                dataStore: dataStore,
+                dykLinkDelegate: linkDelegate
             )
         }
     }
@@ -139,8 +141,9 @@ final class ArticleCoordinator: NSObject, Coordinator, ArticleTabCoordinating {
     let tabConfig: ArticleTabConfig
     var tabIdentifier: UUID?
     var tabItemIdentifier: UUID?
-    
-    init(navigationController: UINavigationController, articleURL: URL, dataStore: MWKDataStore, theme: Theme, needsAnimation: Bool = true, source: ArticleSource, isRestoringState: Bool = false, previousPageViewObjectID: NSManagedObjectID? = nil, tabConfig: ArticleTabConfig = .appendArticleAndAssignCurrentTab) {
+    var linkDelegate: UITextViewDelegate?
+
+    init(navigationController: UINavigationController, articleURL: URL, dataStore: MWKDataStore, theme: Theme, needsAnimation: Bool = true, source: ArticleSource, isRestoringState: Bool = false, previousPageViewObjectID: NSManagedObjectID? = nil, tabConfig: ArticleTabConfig = .appendArticleAndAssignCurrentTab, linkDelegate: UITextViewDelegate?) {
         self.navigationController = navigationController
         self.articleURL = articleURL
         self.dataStore = dataStore
@@ -150,6 +153,7 @@ final class ArticleCoordinator: NSObject, Coordinator, ArticleTabCoordinating {
         self.isRestoringState = isRestoringState
         self.previousPageViewObjectID = previousPageViewObjectID
         self.tabConfig = tabConfig
+        self.linkDelegate = linkDelegate
         super.init()
     }
     

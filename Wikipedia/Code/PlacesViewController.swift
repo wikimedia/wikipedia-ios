@@ -422,7 +422,7 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
     private var _tabsCoordinator: TabsOverviewCoordinator?
     private var tabsCoordinator: TabsOverviewCoordinator? {
         guard let navigationController else { return nil }
-        _tabsCoordinator = TabsOverviewCoordinator(navigationController: navigationController, theme: theme, dataStore: dataStore)
+        _tabsCoordinator = TabsOverviewCoordinator(navigationController: navigationController, theme: theme, dataStore: dataStore, dykLinkDelegate: self)
         return _tabsCoordinator
     }
 
@@ -1771,7 +1771,7 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
             guard let navigationController else {
                 return
             }
-            let articleCoordinator = ArticleCoordinator(navigationController: navigationController, articleURL: url, dataStore: dataStore, theme: theme, source: .places)
+            let articleCoordinator = ArticleCoordinator(navigationController: navigationController, articleURL: url, dataStore: dataStore, theme: theme, source: .places, linkDelegate: self)
             articleCoordinator.start()
             break
         case .save:

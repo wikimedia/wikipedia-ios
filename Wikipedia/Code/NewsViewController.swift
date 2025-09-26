@@ -88,7 +88,7 @@ class NewsViewController: ColumnarCollectionViewController, WMFNavigationBarConf
         
         guard let navVC = navigationController else { return }
         
-        let coordinator = ArticleCoordinator(navigationController: navVC, articleURL: peekController.articleURL, dataStore: dataStore, theme: theme, source: .undefined)
+        let coordinator = ArticleCoordinator(navigationController: navVC, articleURL: peekController.articleURL, dataStore: dataStore, theme: theme, source: .undefined, linkDelegate: self)
         coordinator.start()
         previewedIndex = nil
     }
@@ -214,7 +214,7 @@ extension NewsViewController: SideScrollingCollectionViewCellDelegate {
             return
         }
         
-        let articleCoordinator = ArticleCoordinator(navigationController: navigationController, articleURL: articleURL, dataStore: dataStore, theme: theme, source: .undefined)
+        let articleCoordinator = ArticleCoordinator(navigationController: navigationController, articleURL: articleURL, dataStore: dataStore, theme: theme, source: .undefined, linkDelegate: self)
         articleCoordinator.start()
     }
 }
@@ -263,7 +263,7 @@ extension NewsViewController: NestedCollectionViewContextMenuDelegate {
             
             guard let self else { return }
             
-            let coordinator = ArticleCoordinator(navigationController: navVC, articleURL: peekVC.articleURL, dataStore: MWKDataStore.shared(), theme: self.theme, source: .undefined)
+            let coordinator = ArticleCoordinator(navigationController: navVC, articleURL: peekVC.articleURL, dataStore: MWKDataStore.shared(), theme: self.theme, source: .undefined, linkDelegate: self)
             coordinator.start()
             self.previewedIndex = nil
         }

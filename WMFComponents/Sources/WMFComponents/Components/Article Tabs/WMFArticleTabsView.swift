@@ -1,5 +1,6 @@
 import SwiftUI
 import WMFData
+import UIKit
 
 @available(iOS 16.4, *) // Note: the app is currently 16.6+, but the package config doesn't allow minor version configs
 public struct WMFArticleTabsView: View {
@@ -16,13 +17,13 @@ public struct WMFArticleTabsView: View {
     @State private var currentTabID: String?
     @State private var cellFrames: [String: CGRect] = [:]
 
-    @State private var dykLinkDelegate: DYKLinkDelegate?
-
+    @State private var dykLinkDelegate: UITextViewDelegate?
 
     var shouldShowBottom = true // testing only prop
 
-    public init(viewModel: WMFArticleTabsViewModel) {
+    public init(viewModel: WMFArticleTabsViewModel, dykLinkDelegate: UITextViewDelegate?) {
         self.viewModel = viewModel
+        self.dykLinkDelegate = dykLinkDelegate
     }
 
     public var body: some View {
@@ -80,14 +81,6 @@ public struct WMFArticleTabsView: View {
                 await MainActor.run { isReady = true }
             }
         }
-        .onAppear {
-            if dykLinkDelegate == nil {
-                dykLinkDelegate = DYKLinkDelegate { url in
-                    viewModel.openFromDidYouKnow(url: url)
-                }
-            }
-        }
-
         .background(Color(theme.midBackground))
         .toolbarBackground(Color(theme.midBackground), for: .automatic)
     }
@@ -510,17 +503,5 @@ private struct TabGlobalFramePreferenceKey: PreferenceKey {
     static var defaultValue: [String: CGRect] = [:]
     static func reduce(value: inout [String: CGRect], nextValue: () -> [String: CGRect]) {
         value.merge(nextValue(), uniquingKeysWith: { _, new in new })
-    }
-}
-
-private final class DYKLinkDelegate: NSObject, UITextViewDelegate {
-    let onTap: (URL) -> Void
-    init(onTap: @escaping (URL) -> Void) { self.onTap = onTap }
-    func textView(_ textView: UITextView,
-                  shouldInteractWith URL: URL,
-                  in characterRange: NSRange,
-                  interaction: UITextItemInteraction) -> Bool {
-        onTap(URL)
-        return false
     }
 }
