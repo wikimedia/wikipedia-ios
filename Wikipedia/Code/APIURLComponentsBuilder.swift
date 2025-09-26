@@ -106,7 +106,6 @@ public struct APIURLComponentsBuilder {
         public enum BuilderType {
             case productionRest
             case production
-            case local
             
             func builder(withWikiHost wikiHost: String? = nil) -> APIURLComponentsBuilder {
                 switch self {
@@ -114,8 +113,6 @@ public struct APIURLComponentsBuilder {
                     return MediaWiki.productionRestBuilder(withWikiHost: wikiHost)
                 case .production:
                     return MediaWiki.productionBuilder(withWikiHost: wikiHost)
-                case .local:
-                    return MediaWiki.localBuilder(withWikiHost: wikiHost)
                 }
             }
         }
@@ -131,14 +128,6 @@ public struct APIURLComponentsBuilder {
             var components = URLComponents()
             components.host = wikiHost ?? Configuration.Domain.metaWiki
             components.scheme = Configuration.Scheme.https
-            return APIURLComponentsBuilder(hostComponents: components, basePathComponents: Configuration.Path.mediaWikiAPIComponents)
-        }
-        
-        private static func localBuilder(withWikiHost wikiHost: String? = nil) -> APIURLComponentsBuilder {
-            var components = URLComponents()
-            components.host = wikiHost ?? Configuration.Domain.metaWiki
-            components.scheme = Configuration.Scheme.http
-            components.port = 8080
             return APIURLComponentsBuilder(hostComponents: components, basePathComponents: Configuration.Path.mediaWikiAPIComponents)
         }
     }

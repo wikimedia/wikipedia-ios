@@ -23,7 +23,6 @@ public class Configuration: NSObject {
         
         public static let localAnnouncements = LocalOptions(rawValue: 1 << 0)
         public static let localPCS = LocalOptions(rawValue: 1 << 1)
-        public static let localMediaWiki = LocalOptions(rawValue: 1 << 2)
         
         public init(rawValue: Int) {
             self.rawValue = rawValue
@@ -40,7 +39,7 @@ public class Configuration: NSObject {
     
     @objc public static let current: Configuration = {
         #if WMF_LOCAL
-        return Configuration.local(options: [.localMediaWiki])
+        return Configuration.local(options: [.localPCS, .localAnnouncements])
         #elseif WMF_STAGING
 		
 		/* NOTE: .betaCluster attempts to point to the MediaWiki beta cluster for all possible endpoints.
@@ -59,7 +58,7 @@ public class Configuration: NSObject {
     private let feedContentAPIType: APIURLComponentsBuilder.RESTBase.BuilderType
     private let announcementsAPIType: APIURLComponentsBuilder.RESTBase.BuilderType
     private let mediaWikiRestAPIType = APIURLComponentsBuilder.MediaWiki.BuilderType.productionRest
-    private let mediaWikiAPIType: APIURLComponentsBuilder.MediaWiki.BuilderType
+    private let mediaWikiAPIType = APIURLComponentsBuilder.MediaWiki.BuilderType.production
     private let wikidataAPIType: APIURLComponentsBuilder.Wikidata.BuilderType
     private let commonsAPIType: APIURLComponentsBuilder.Commons.BuilderType
     private let metricsAPIType = APIURLComponentsBuilder.RESTBase.BuilderType.production
@@ -89,7 +88,6 @@ public class Configuration: NSObject {
             defaultSiteDomain: Domain.wikipedia,
             wikipediaCookieDomain: Domain.wikipedia.withDotPrefix,
             centralAuthCookieTargetDomains: centralAuthCookieTargetDomains,
-            mediaWikiAPIType: .production,
             pageContentServiceAPIType: .production,
             feedContentAPIType: .production,
             announcementsAPIType: .production,
@@ -115,7 +113,6 @@ public class Configuration: NSObject {
             defaultSiteDomain: defaultSiteDomain,
             wikipediaCookieDomain: wikipediaCookieDomain,
             centralAuthCookieTargetDomains: centralAuthCookieTargetDomains,
-            mediaWikiAPIType: .production,
             pageContentServiceAPIType: pcsApiType,
             feedContentAPIType: .production,
             announcementsAPIType: .production,
@@ -125,34 +122,22 @@ public class Configuration: NSObject {
     }
     
     private static func local(options: LocalOptions) -> Configuration {
-        let defaultSiteDomain = options.contains(.localMediaWiki) ? "localhost" : Domain.wikipedia
-        
-        let wikipediaCookieDomain = options.contains(.localMediaWiki) ? "localhost" : Domain.wikipedia.withDotPrefix
-        let wikidataCookieDomain = Domain.wikidata.withDotPrefix
-        let commonsCookieDomain = Domain.commons.withDotPrefix
-        
-        let centralAuthCookieTargetDomains = commonProductionCentralAuthCookieTargetDomains + [wikidataCookieDomain, commonsCookieDomain]
         
         let pcsApiType: APIURLComponentsBuilder.RESTBase.BuilderType = options.contains(.localPCS) ? .localPCS : .production
-        let wikidataApiType: APIURLComponentsBuilder.Wikidata.BuilderType = .production
-        let commonsApiType: APIURLComponentsBuilder.Commons.BuilderType = .production
-        
         let announcementsApiType: APIURLComponentsBuilder.RESTBase.BuilderType = options.contains(.localAnnouncements) ? .localAnnouncements : .production
         
-        let mediaWikiAPIType: APIURLComponentsBuilder.MediaWiki.BuilderType = options.contains(.localMediaWiki) ? .local : .production
-
+        let centralAuthCookieTargetDomains = commonProductionCentralAuthCookieTargetDomains + [Domain.wikidata.withDotPrefix, Domain.commons.withDotPrefix]
         
         return Configuration(
             environment: .local(options),
-            defaultSiteDomain: defaultSiteDomain,
-            wikipediaCookieDomain: wikipediaCookieDomain,
+            defaultSiteDomain: Domain.wikipedia,
+            wikipediaCookieDomain: Domain.wikipedia.withDotPrefix,
             centralAuthCookieTargetDomains: centralAuthCookieTargetDomains,
-            mediaWikiAPIType: mediaWikiAPIType,
             pageContentServiceAPIType: pcsApiType,
             feedContentAPIType: .production,
             announcementsAPIType: announcementsApiType,
-            wikidataAPIType: wikidataApiType,
-            commonsAPIType: commonsApiType)
+            wikidataAPIType: .production,
+            commonsAPIType: .production)
     }
     
     // MARK: Constants
@@ -218,7 +203,6 @@ public class Configuration: NSObject {
     required init(environment: Environment, defaultSiteDomain: String,
                   wikipediaCookieDomain: String,
                   centralAuthCookieTargetDomains: [String] = [],
-                  mediaWikiAPIType: APIURLComponentsBuilder.MediaWiki.BuilderType,
                   pageContentServiceAPIType: APIURLComponentsBuilder.RESTBase.BuilderType,
                   feedContentAPIType: APIURLComponentsBuilder.RESTBase.BuilderType,
                   announcementsAPIType: APIURLComponentsBuilder.RESTBase.BuilderType,
@@ -227,13 +211,8 @@ public class Configuration: NSObject {
         self.environment = environment
         self.defaultSiteDomain = defaultSiteDomain
         var components = URLComponents()
-        components.scheme = "http"
+        components.scheme = "https"
         components.host = defaultSiteDomain
-        
-        if mediaWikiAPIType == .local {
-            components.port = 8080
-        }
-        
         self.defaultSiteURL = components.url!
         self.wikipediaCookieDomain = wikipediaCookieDomain
         self.centralAuthCookieSourceDomain = self.wikipediaCookieDomain
@@ -241,7 +220,6 @@ public class Configuration: NSObject {
         
         self.wikipediaDomains = [Domain.wikipedia, Domain.wikipediaBetaLabs, Domain.appsLabs]
         self.inAppWebViewRoutingDomains = wikipediaDomains + [Domain.mediaWiki, Domain.wikidata, Domain.wikimedia, Domain.wikimediafoundation]
-        self.mediaWikiAPIType = mediaWikiAPIType
         self.pageContentServiceAPIType = pageContentServiceAPIType
         self.feedContentAPIType = feedContentAPIType
         self.announcementsAPIType = announcementsAPIType
@@ -326,13 +304,7 @@ public class Configuration: NSObject {
     }
     
     public func mediaWikiAPIURLForHost(_ host: String? = nil, with queryParameters: [String: Any]? = nil) -> URLComponents {
-        
-        var finalHost: String? = host
-        if host == "en.localhost" {
-            finalHost = "127.0.0.1"
-        }
-        
-        let builder = mediaWikiAPIType.builder(withWikiHost: finalHost)
+        let builder = mediaWikiAPIType.builder(withWikiHost: host)
         guard let queryParameters = queryParameters else {
             return builder.components()
         }
