@@ -6,6 +6,7 @@ final class YearInReviewDonateCountSlideDataController: YearInReviewSlideDataCon
     let year: Int
     var isEvaluated: Bool = false
     static var containsPersonalizedNetworkData = false
+    static var shouldFreeze = false
     
     private let username: String?
     private let project: WMFProject?

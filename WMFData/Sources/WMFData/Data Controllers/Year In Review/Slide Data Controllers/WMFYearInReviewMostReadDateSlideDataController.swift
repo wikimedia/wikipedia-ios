@@ -5,6 +5,7 @@ final class YearInReviewMostReadDateSlideDataController: YearInReviewSlideDataCo
     let year: Int
     var isEvaluated: Bool = false
     static var containsPersonalizedNetworkData = false
+    static var shouldFreeze = true
     
     var mostReadDate: WMFPageViewDates?
 

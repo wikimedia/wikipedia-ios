@@ -412,8 +412,21 @@ import CoreData
             )!
 
             cdReport.year = Int32(year)
-
-            var finalCDSlides = cdReport.slides as? Set<CDYearInReviewSlide> ?? []
+            
+            var finalCDSlides: Set<CDYearInReviewSlide> = []
+            
+            // Only preserve existing slides that should freeze
+            for slide in cdReport.slides as? Set<CDYearInReviewSlide> ?? [] {
+                if let cdSlideID = slide.id,
+                   let slideID = WMFYearInReviewPersonalizedSlideID(rawValue: cdSlideID) {
+                    let dataController = slideID.dataController()
+                    if dataController.shouldFreeze {
+                        finalCDSlides.insert(slide)
+                    } else {
+                        backgroundContext.delete(slide)
+                    }
+                }
+            }
 
             for slideDataController in slideDataControllers where slideDataController.isEvaluated {
                 if let cdSlide = try? slideDataController.makeCDSlide(in: backgroundContext) {

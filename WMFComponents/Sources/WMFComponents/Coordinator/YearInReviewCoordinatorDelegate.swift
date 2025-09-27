@@ -7,7 +7,7 @@ public protocol YearInReviewCoordinatorDelegate: AnyObject {
 public enum YearInReviewCoordinatorAction {
     case tappedIntroV3GetStartedWhileLoggedOut
     case tappedIntroV3DoneWhileLoggedOut
-    case donate(sourceRect: CGRect)
+    case donate(getSourceRect: () -> CGRect)
     case share(image: UIImage)
     case dismiss(hasSeenTwoSlides: Bool)
     case introLearnMore

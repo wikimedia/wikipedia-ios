@@ -6,6 +6,7 @@ final class YearInReviewReadCountSlideDataController: YearInReviewSlideDataContr
     let year: Int
     var isEvaluated: Bool = false
     static var containsPersonalizedNetworkData = false
+    static var shouldFreeze = true
     
     private var readData: WMFYearInReviewReadData?
 

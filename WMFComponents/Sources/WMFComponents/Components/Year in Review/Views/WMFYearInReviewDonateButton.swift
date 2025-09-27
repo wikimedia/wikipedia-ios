@@ -12,7 +12,7 @@ struct WMFYearInReviewDonateButton: View {
 
     var body: some View {
         Button(action: {
-            viewModel.handleDonate(sourceRect: buttonRect)
+            viewModel.handleDonate()
         }) {
 
             ZStack {
@@ -32,19 +32,19 @@ struct WMFYearInReviewDonateButton: View {
                     ProgressView()
                         .progressViewStyle(CircularProgressViewStyle(tint: Color(uiColor: theme.destructive)))
                         .scaleEffect(1.2)
+                        .background(
+                            GeometryReader { geometry in
+                                Color.clear
+                                    .onAppear {
+                                        let frame = geometry.frame(in: .global)
+                                        viewModel.donateButtonRect = frame
+                                    }
+                            }
+                        )
                 }
             }
         }
         .disabled(viewModel.isLoadingDonate)
-        .background(
-            GeometryReader { geometry in
-                Color.clear
-                    .onAppear {
-                        let frame = geometry.frame(in: .global)
-                        buttonRect = frame
-                    }
-            }
-        )
         .animation(.easeInOut, value: viewModel.isLoadingDonate)
     }
 

@@ -5,6 +5,7 @@ final class YearInReviewViewCountSlideDataController: YearInReviewSlideDataContr
     let year: Int
     var isEvaluated: Bool = false
     static var containsPersonalizedNetworkData = true
+    static var shouldFreeze = false
     
     private var viewCount: Int?
     
