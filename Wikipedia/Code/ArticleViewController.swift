@@ -626,8 +626,8 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
         let needsCategories = self.articleURL.wmf_title != "Main Page"
         guard let request = try? WMFArticleDataController.ArticleInfoRequest(needsWatchedStatus: self.dataStore.authenticationManager.authStateIsPermanent, needsRollbackRights: false, needsCategories: needsCategories) else {
             self.needsWatchButton = false
-            self.needsUnwatchFullButton = false
             self.needsUnwatchHalfButton = false
+            self.needsUnwatchFullButton = false
             self.toolbarController.updateMoreButton(needsWatchButton: self.needsWatchButton, needsUnwatchHalfButton: self.needsUnwatchHalfButton, needsUnwatchFullButton: self.needsUnwatchFullButton, previousArticleTab: self.previousArticleTab, nextArticleTab: self.nextArticleTab)
             return
         }
@@ -1006,8 +1006,13 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
         }
         
         toolbarContainerView.backgroundColor = theme.colors.paperBackground
-        toolbar.setBackgroundImage(theme.navigationBarBackgroundImage, forToolbarPosition: .any, barMetrics: .default)
-        toolbar.isTranslucent = false
+        // CHANGE: Align article toolbar with home tab bar flush style (paper background, no chrome image, no shadow).
+        // Previous: toolbar.setBackgroundImage(theme.navigationBarBackgroundImage, forToolbarPosition: .any, barMetrics: .default)
+        toolbar.setBackgroundImage(UIImage(), forToolbarPosition: .any, barMetrics: .default) // transparent image suppresses chrome background
+        toolbar.backgroundColor = theme.colors.paperBackground
+        toolbar.barTintColor = theme.colors.paperBackground
+        toolbar.setShadowImage(UIImage(), forToolbarPosition: .any) // remove top hairline
+        toolbar.isTranslucent = false // keep layout stable (could set true if future design prefers)
         
         messagingController.updateDarkModeMainPageIfNeeded(articleURL: articleURL, theme: theme)
     }
