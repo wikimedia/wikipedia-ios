@@ -29,4 +29,5 @@ public enum WMFUserDefaultsKey: String {
     case developerSettingsShowYiRV3 = "dev-settings-yir-show-v3"
     case yearInReviewNewIcon2025 = "year-in-review-new-icon-2025"
     case qualifiesForIcon2025 = "qualifies-for-icon-2025"
+    case userHasHiddenArticleSuggestionsTabs = "user-has-hidden-article-suggestions"
 }
