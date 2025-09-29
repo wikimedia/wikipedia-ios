@@ -1,7 +1,7 @@
 import Foundation
 import WMFData
 
-@objc public final class WMFNewArticleTabDidYouKnowViewModel: NSObject, ObservableObject {
+@objc public final class WMFTabsOverviewDidYouKnowViewModel: NSObject, ObservableObject {
     @Published public var facts: [String]
     
     public let languageCode: String?

@@ -185,7 +185,7 @@ final class TabsOverviewCoordinator: Coordinator {
         }
     }
 
-    func loadDidYouKnowViewModel() async throws -> WMFNewArticleTabDidYouKnowViewModel? {
+    func loadDidYouKnowViewModel() async throws -> WMFTabsOverviewDidYouKnowViewModel? {
         guard let provider = didYouKnowProvider else {
             DDLogWarn("TabsOverviewCoordinator: no DYK provider attached")
             return nil }
@@ -196,12 +196,12 @@ final class TabsOverviewCoordinator: Coordinator {
             return nil
         }
 
-        let localized = WMFNewArticleTabDidYouKnowViewModel.LocalizedStrings(
+        let localized = WMFTabsOverviewDidYouKnowViewModel.LocalizedStrings(
             didYouKnowTitle: WMFLocalizedString("did-you-know", value: "Did you know?", comment: "Text displayed as heading for section of tabs overview dedicated to Did You Know "),
             fromSource: self.stringWithLocalizedCurrentSiteLanguageReplacingPlaceholder(in: CommonStrings.fromWikipedia, fallingBackOn: CommonStrings.defaultFromWikipedia)
         )
 
-        let viewModel = WMFNewArticleTabDidYouKnowViewModel(
+        let viewModel = WMFTabsOverviewDidYouKnowViewModel(
             facts: facts.map { $0.html },
             languageCode: dataStore.languageLinkController.appLanguage?.languageCode,
             dykLocalizedStrings: localized

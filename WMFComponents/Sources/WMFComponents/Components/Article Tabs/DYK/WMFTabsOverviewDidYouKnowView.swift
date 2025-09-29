@@ -1,12 +1,12 @@
 import SwiftUI
 
-public struct WMFNewArticleTabViewDidYouKnowView: View {
+public struct WMFTabsOverviewDidYouKnowView: View {
     @ObservedObject var appEnvironment = WMFAppEnvironment.current
-    @ObservedObject var viewModel: WMFNewArticleTabDidYouKnowViewModel
+    @ObservedObject var viewModel: WMFTabsOverviewDidYouKnowViewModel
     @State private var textViewHeight: CGFloat = 0
     weak var linkDelegate: UITextViewDelegate?
     
-    public init(viewModel: WMFNewArticleTabDidYouKnowViewModel, linkDelegate: UITextViewDelegate?) {
+    public init(viewModel: WMFTabsOverviewDidYouKnowViewModel, linkDelegate: UITextViewDelegate?) {
         self.viewModel = viewModel
         self.linkDelegate = linkDelegate
     }

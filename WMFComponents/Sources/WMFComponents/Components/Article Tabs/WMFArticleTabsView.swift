@@ -58,7 +58,7 @@ public struct WMFArticleTabsView: View {
                                 .fill(Color(theme.secondaryText).opacity(0.5))
                                 .frame(height: 1 / UIScreen.main.scale)
                                 .frame(maxWidth: .infinity)
-                            WMFNewArticleTabViewDidYouKnowView(
+                            WMFTabsOverviewDidYouKnowView(
                                 viewModel: didYouKnowViewModel,
                                 linkDelegate: dykLinkDelegate
                             )
