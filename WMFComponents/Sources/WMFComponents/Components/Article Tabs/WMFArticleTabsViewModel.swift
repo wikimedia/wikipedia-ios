@@ -20,6 +20,7 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
     public let didTapTab: (WMFArticleTabsDataController.WMFArticleTab) -> Void
     public let didTapAddTab: () -> Void
     public let displayDeleteAllTabsToast: (Int) -> Void
+    public let didToggleSuggestedArticles: () -> Void
     
     public let localizedStrings: LocalizedStrings
     
@@ -28,6 +29,7 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
                 loggingDelegate: WMFArticleTabsLoggingDelegate?,
                 didTapTab: @escaping (WMFArticleTabsDataController.WMFArticleTab) -> Void,
                 didTapAddTab: @escaping () -> Void,
+                didToggleSuggestedArticles: @escaping () -> Void,
                 displayDeleteAllTabsToast: @escaping (Int) -> Void) {
         self.dataController = dataController
         self.localizedStrings = localizedStrings
@@ -37,6 +39,7 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
         self.didTapTab = didTapTab
         self.didTapAddTab = didTapAddTab
         self.displayDeleteAllTabsToast = displayDeleteAllTabsToast
+        self.didToggleSuggestedArticles = didToggleSuggestedArticles
         super.init()
         Task {
             await loadTabs()
@@ -66,10 +69,12 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
         public let closeAllTabsTitle: String
         public let closeAllTabsSubtitle: String
         public let closedAlertsNotification: String
+        public let hideSuggestedArticlesTitle: String
+        public let showSuggestedArticlesTitle: String
         public let emptyStateTitle: String
         public let emptyStateSubtitle: String
-
-        public init(navBarTitleFormat: String, mainPageTitle: String?, mainPageSubtitle: String, mainPageDescription: String, closeTabAccessibility: String, openTabAccessibility: String, closeAllTabs: String, cancelActionTitle: String, closeAllTabsTitle: String, closeAllTabsSubtitle: String, closedAlertsNotification: String, emptyStateTitle: String, emptyStateSubtitle: String) {
+        
+        public init(navBarTitleFormat: String, mainPageTitle: String?, mainPageSubtitle: String, mainPageDescription: String, closeTabAccessibility: String, openTabAccessibility: String, closeAllTabs: String, cancelActionTitle: String, closeAllTabsTitle: String, closeAllTabsSubtitle: String, closedAlertsNotification: String, hideSuggestedArticlesTitle: String, showSuggestedArticlesTitle: String, emptyStateTitle: String, emptyStateSubtitle: String) {
             self.navBarTitleFormat = navBarTitleFormat
             self.mainPageTitle = mainPageTitle
             self.mainPageSubtitle = mainPageSubtitle
@@ -81,6 +86,8 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
             self.closeAllTabsTitle = closeAllTabsTitle
             self.closeAllTabsSubtitle = closeAllTabsSubtitle
             self.closedAlertsNotification = closedAlertsNotification
+            self.hideSuggestedArticlesTitle = hideSuggestedArticlesTitle
+            self.showSuggestedArticlesTitle = showSuggestedArticlesTitle
             self.emptyStateTitle = emptyStateTitle
             self.emptyStateSubtitle = emptyStateSubtitle
         }

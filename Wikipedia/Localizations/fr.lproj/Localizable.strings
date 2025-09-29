@@ -27,6 +27,7 @@
 // Author: MacOS Weed
 // Author: Macofe
 // Author: Mahabarata
+// Author: Marphy 123
 // Author: McDutchie
 // Author: Melimeli
 // Author: Méthodes Bulebe Hangi
@@ -287,8 +288,8 @@
 "developer-settings-activity-tab-group-B" = "Définir l’onglet d’activité sur le groupe B";
 "developer-settings-activity-tab-group-C" = "Définir l’onglet d’activité sur le groupe C";
 "developer-settings-bypass-donation" = "Contourner un don";
-"developer-settings-dynamic-tabs-BYR" = "Activer les onglets avec « Parce que vous avez lu »";
-"developer-settings-dynamic-tabs-DYK" = "Activer les onglets avec « Le saviez-vous ? »";
+"developer-settings-dynamic-tabs-group-B" = "Activer les onglets avec le groupe B";
+"developer-settings-dynamic-tabs-group-C" = "Activer les onglets avec le groupe C";
 "developer-settings-enable-year-in-review" = "Activer le Bilan de l'Année";
 "developer-settings-send-analytics-to-wmflabs" = "Envoyez les analyses à WMFlabs.";
 "developer-settings-suppress-image-rec-post" = "Ne publiez pas de recommandations d'édition d'image.";
@@ -1254,6 +1255,8 @@
 "table-of-contents-hide-button-label" = "Masquer la table des matières";
 "table-of-contents-subheading-label" = "Sous-titre $1";
 "tabs-close-tab" = "Fermer l’onglet";
+"tabs-empty-view-subtitle" = "Appuyez sur « + » pour ajouter des onglets à cet espace ou appuyez longuement sur le lien d’un article pour l’ouvrir dans un nouvel onglet.";
+"tabs-empty-view-title" = "Vos onglets apparaîtront ici";
 "tabs-main-page-description" = "Découvrez des articles en vedette, les dernières nouvelles, des faits intéressants et des statistiques clés sur la page d'accueil de Wikipédia.";
 "tabs-main-page-subtitle" = "Aujourd'hui sur Wikipédia";
 "tabs-navbar-title-format" = "{{PLURAL:$1|$1 onglet|$1 onglets}}";
