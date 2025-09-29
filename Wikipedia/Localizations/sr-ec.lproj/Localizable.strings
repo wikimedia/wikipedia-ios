@@ -641,10 +641,8 @@
 "main-menu-title" = "Више";
 "main-menu-zero-faq" = "Честа питања о Wikipedia Zero";
 "main-page" = "Почетна";
-// Fuzzy
-"microsite-yir-english-edits-bytes-slide-title" = "4 милијарде бајтова додато";
-// Fuzzy
-"microsite-yir-english-edits-slide-title" = "Уредници су ове године начинили 98 милиона измена";
+"microsite-yir-english-edits-bytes-slide-title" = "3.4 милијарде бајтова додато";
+"microsite-yir-english-edits-slide-title" = "Уредници су ове године начинили скоро 82 милиона измена";
 "more-languages-tooltip-description" = "Претражујте Википедију на преко 300 језика";
 "more-languages-tooltip-title" = "Додај језике";
 "more-menu" = "Више";
@@ -1012,8 +1010,7 @@
 "serbian-variants-alert-body" = "Апликација Википедија одсад подржава следеће варијанте српског језика као главне или споредне језике олакшавајући читање, претраживање и уређивање у жељеним варијантама:\n\nсрпски ћирилица (sr-ec)\nsrpski latinica (sr-el)";
 "serbian-variants-alert-title" = "Ажурирања подршке за варијанте српског језика";
 "settings-account" = "Налог";
-// Fuzzy
-"settings-appearance" = "Подешавања за читање";
+"settings-appearance" = "Тема апликације";
 "settings-clear-cache" = "Брисање кешираних података";
 "settings-clear-cache-are-you-sure-message" = "Чишћењем кешираних података ослободићете око $1 простора. Ваше сачуване странице се неће избрисати.";
 "settings-clear-cache-are-you-sure-title" = "Обрисати кеширане податке?";
@@ -1300,11 +1297,9 @@
 "wikitext-upload-save-terms-and-licenses-ccsa4" = "Објављивањем измена прихватате $1услове коришћења$2 и неопозиво објављивање свог доприноса под лиценцама $3CC BY-SA 4.0$4 и $5GFDL$6. Слажете се да су линк или URL довољни за признавање ауторства под лиценцом Creative Commons.";
 "wikitext-upload-save-terms-name" = "услове коришћења";
 "year-in-review-base-donate-title" = "На Википедији нема реклама";
-// Fuzzy
 "year-in-review-base-editors-title" = "Преко iOS апликације је начињено преко $1 измена";
 "year-in-review-base-edits-title" = "Википедија се уређује $1 пута у минуту";
 "year-in-review-base-reading-title" = "Википедија је доступна на више од 300 језика";
-// Fuzzy
 "year-in-review-base-viewed-subtitle" = "Корисници апликације за iOS су посетили Википедијине чланке $1 милијарду пута. За људе широм света Википедија је почетна тачка за одговор на неко питање, тражење информација за школу или посао или једноставно учење нове чињенице.";
 "year-in-review-collective-zero-ads" = "Логотип Викимедије";
 "year-in-review-day-friday" = "петак";
@@ -1317,6 +1312,7 @@
 "year-in-review-donate" = "Донирај";
 "year-in-review-donate-now" = "Донирајте сада";
 "year-in-review-finish" = "Готово";
+"year-in-review-highlights-articles-viewed-value" = "$1 милијарда";
 "year-in-review-highlights-share-logo-caption" = "Логотип Википедије";
 "year-in-review-intro-exit-confirmation-title" = "Сигурно желите да изађете?";
 "year-in-review-personalized-date-day-footer-v3" = "Омиљени дан за читање";
