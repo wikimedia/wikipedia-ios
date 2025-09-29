@@ -574,29 +574,26 @@ extension ColumnarCollectionViewController: ArticlePreviewingDelegate {
 
 extension ColumnarCollectionViewController: UITextViewDelegate {
     func tappedLink(_ url: URL, sourceTextView: UITextView) {
-        func tappedLink(_ url: URL, sourceTextView: UITextView) {
-            guard let articleURL = URL(string: url.absoluteString) else {
-                return
-            }
+        guard let articleURL = URL(string: url.absoluteString) else {
+            return
+        }
 
-            guard let nav = self.navigationController ?? self.parent?.navigationController else {
-                return
+        guard let nav = self.navigationController ?? self.parent?.navigationController else {
+            return
+        }
+
+        let linkCoordinator = LinkCoordinator(
+            navigationController: nav,
+            url: articleURL,
+            dataStore: nil, // todo check implementation
+            theme: self.theme,
+            articleSource: .undefined,
+            tabConfig: .appendToNewTabAndSetToCurrent
+        )
+        if let presented = nav.presentedViewController {
+            presented.dismiss(animated: true) {
+                linkCoordinator.start()
             }
-            
-            let linkCoordinator = LinkCoordinator(
-                navigationController: nav,
-                url: articleURL,
-                dataStore: nil, // todo check implementation
-                theme: self.theme,
-                articleSource: .undefined,
-                tabConfig: .appendToNewTabAndSetToCurrent
-            )
-            if let presented = nav.presentedViewController {
-                presented.dismiss(animated: true) {
-                    linkCoordinator.start()
-                }
-            }
-            
         }
     }
 
