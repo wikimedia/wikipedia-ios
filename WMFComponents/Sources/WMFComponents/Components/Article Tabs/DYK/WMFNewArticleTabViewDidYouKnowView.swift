@@ -15,14 +15,14 @@ public struct WMFNewArticleTabViewDidYouKnowView: View {
         return appEnvironment.theme
     }
 
-    // Todo: limit dynamic type sizes
     public var body: some View {
         VStack(alignment: .leading, spacing: 8) {
             HStack(spacing: 8) {
-                Image(uiImage: WMFSFSymbolIcon.for(symbol: .questionMarkBubble) ?? UIImage())
+                Image(uiImage: WMFSFSymbolIcon.for(symbol: .questionMarkBubble, compatibleWith: UITraitCollection(preferredContentSizeCategory: .large)) ?? UIImage())
                 Text(viewModel.dykLocalizedStrings.didYouKnowTitle)
-                    .font(Font(WMFFont.for(.subheadline)))
+                    .font(WMFSwiftUIFont.font(.boldSubheadline))
                     .foregroundStyle(Color(theme.text))
+                    .dynamicTypeSize(...DynamicTypeSize.xxxLarge)
             }
 
             TextViewWrapper(
@@ -34,8 +34,9 @@ public struct WMFNewArticleTabViewDidYouKnowView: View {
             .frame(height: textViewHeight)
 
             Text(viewModel.fromSource)
-                .font(Font.for(.caption1))
+                .font(WMFSwiftUIFont.font(.caption1))
                 .foregroundStyle(Color(theme.secondaryText))
+                .dynamicTypeSize(...DynamicTypeSize.xxxLarge)
         }
         .padding(16)
         .background(Color(theme.midBackground))

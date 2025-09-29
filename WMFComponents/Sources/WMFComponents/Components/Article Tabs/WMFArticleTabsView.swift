@@ -6,6 +6,11 @@ import UIKit
 public struct WMFArticleTabsView: View {
     @ObservedObject var appEnvironment = WMFAppEnvironment.current
     @Environment(\.colorScheme) var colorScheme
+    @Environment(\.sizeCategory) var sizeCategory: ContentSizeCategory
+
+    var viewHeight: CGFloat {
+        sizeCategory > .large ? 180 : 140
+    }
 
     private var theme: WMFTheme {
         return appEnvironment.theme
@@ -18,8 +23,6 @@ public struct WMFArticleTabsView: View {
     @State private var cellFrames: [String: CGRect] = [:]
 
     private var dykLinkDelegate: UITextViewDelegate?
-
-    var shouldShowBottom = true // testing only prop
 
     public init(viewModel: WMFArticleTabsViewModel, dykLinkDelegate: UITextViewDelegate?) {
         self.viewModel = viewModel
@@ -46,19 +49,20 @@ public struct WMFArticleTabsView: View {
                 .background(Color(theme.midBackground))
 
                 Group {
+
                     if let didYouKnowViewModel = viewModel.didYouKnowViewModel,
                        didYouKnowViewModel.didYouKnowFact?.isEmpty == false,
                        viewModel.shouldShowTabsV2 {
                         VStack(spacing: 0) {
                             Rectangle()
-                                .fill(Color(theme.secondaryText))
+                                .fill(Color(theme.secondaryText).opacity(0.5))
                                 .frame(height: 1 / UIScreen.main.scale)
                                 .frame(maxWidth: .infinity)
                             WMFNewArticleTabViewDidYouKnowView(
                                 viewModel: didYouKnowViewModel,
                                 linkDelegate: dykLinkDelegate
                             )
-                            .frame(height: 140)
+                            .frame(maxHeight: viewHeight)
                             .clipped()
                         }
                     }
