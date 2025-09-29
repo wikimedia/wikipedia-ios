@@ -6,7 +6,7 @@ import CocoaLumberjackSwift
 
 // Helper class to access donate coordinator logic from Obj-c
 @objc class WMFDonateCoordinatorWrapper: NSObject {
-    @objc static func metricsIDForSettingsProfileDonateSource(languageCode: String?) -> String? {
+    @MainActor @objc static func metricsIDForSettingsProfileDonateSource(languageCode: String?) -> String? {
         return DonateCoordinator.metricsID(for: .settingsProfile, languageCode: languageCode)
     }
 }
