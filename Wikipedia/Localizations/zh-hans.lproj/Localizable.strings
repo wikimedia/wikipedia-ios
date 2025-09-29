@@ -746,22 +746,17 @@
 "main-menu-zero-faq" = "维基百科Zero常见问题";
 // Fuzzy
 "microsite-yir-english-edits-bytes-slide-subtitle" = "在2024年，志愿者们为英文维基百科增添了4,104,852,969字节的内容。他们众志成城，共同铸就了一个日臻完善、以事实为依据且可靠的全球知识资源库。其实我们每个人都有知识可以分享，[快来学习如何参与。]($1)";
-// Fuzzy
-"microsite-yir-english-edits-bytes-slide-title" = "增加了 40 亿字节";
-// Fuzzy
-"microsite-yir-english-edits-slide-subtitle" = "志愿者们在超过300种不同语言版本的维基百科上共完成了98222407次修改。其中，英文维基百科的修改次数就超过了3700万次。每一天的每一个小时，都有志愿者在努力完善维基百科。";
-// Fuzzy
-"microsite-yir-english-edits-slide-title" = "编辑者们今年进行了9800万次修改";
+"microsite-yir-english-edits-bytes-slide-title" = "增加了 34 亿字节";
+"microsite-yir-english-edits-slide-subtitle" = "志愿者们在超过300种不同语言版本的维基百科上共完成了81,987,181次修改。其中，英文维基百科的修改次数就超过了3120万次。每一天的每一个小时，都有志愿者在努力完善维基百科。";
+"microsite-yir-english-edits-slide-title" = "编辑者们今年做出了将近8200万次修改";
 // Fuzzy
 "microsite-yir-english-reading-slide-subtitle" = "2025年，人们花费了大约24亿小时——相当于超过27.5万年！——阅读英文维基百科。无论是想要了解这个不断变化的世界，赢得朋友之间的打赌，还是回答一个好奇孩子的问题，维基百科都能随时为你提供帮助。";
 // Fuzzy
 "microsite-yir-english-reading-slide-title" = "我们花了29亿小时阅读";
 // Fuzzy
 "microsite-yir-english-saved-reading-slide-subtitle" = "活跃的iOS应用用户拥有超过6220万份阅读清单。将文章加入阅读清单，就能在离线状态下随时查看。此外，登录后还能在不同设备上同步阅读清单。";
-// Fuzzy
-"microsite-yir-english-saved-reading-slide-title" = "我们有超过6220万份阅读清单";
-// Fuzzy
-"microsite-yir-english-top-read-slide-subtitle" = "英语维基百科上访问量最高的五篇文章是：\n\n1. $1\n2. $2\n3. $3\n4. $4\n5. $5\n在我们的$6 专门博客文章$7 中了解更多。";
+"microsite-yir-english-saved-reading-slide-title" = "我们拥有超过3700万个已保存条目";
+"microsite-yir-english-top-read-slide-subtitle" = "当人们想要了解我们的世界——无论是好的、坏的、奇怪的还是狂野的——他们都会寻求于维基百科。英语维基百科上访问量最高的5篇文章是：\n\n1. $1\n2. $2\n3. $3\n4. $4\n5. $5\n\n在我们的$6专门博客文章$7中了解更多。";
 "microsite-yir-english-top-read-slide-title" = "英语维基百科最受欢迎的文章";
 "more-languages-tooltip-description" = "在超过300种语言中搜索维基百科";
 "more-languages-tooltip-title" = "添加语言";
@@ -1138,8 +1133,7 @@
 "serbian-variants-alert-body" = "维基百科应用现在支持以下塞尔维亚语变体作为应用内的主要语言或次要语言，从而使您更易于阅读，搜索和编辑首选变体：\n\nсрпски ћирилица Serbian, Cyrillic (sr-ec)\nsrpski latinica Serbian, Latin (sr-el)";
 "serbian-variants-alert-title" = "更新塞尔维亚语变体支持";
 "settings-account" = "账号";
-// Fuzzy
-"settings-appearance" = "阅读设置";
+"settings-appearance" = "应用程序主题";
 "settings-clear-cache" = "清空缓存数据";
 "settings-clear-cache-are-you-sure-message" = "清空缓存数据将腾出约$1空间。这将不会删除您保存的页面。";
 "settings-clear-cache-are-you-sure-title" = "清空缓存数据？";
@@ -1429,10 +1423,8 @@
 "year-in-review-base-donate-title" = "维基百科投放了 0 条广告";
 // Fuzzy
 "year-in-review-base-editors-subtitle" = "维基百科的志愿编辑社区在 iOS 应用上进行了超过 555,647 次编辑。维基百科的核心和灵魂是我们全球的志愿贡献者、捐赠者和像您一样的数十亿读者的社区——大家团结一致，共享对可靠信息的无限访问。";
-// Fuzzy
-"year-in-review-base-editors-title" = "iOS 应用上的编辑者进行了超过 $1 次编辑";
-// Fuzzy
-"year-in-review-base-edits-subtitle" = "今年，维基百科的平均编辑速度为每分钟 $1 次。文章由志愿者参考可靠信息来源协作创建和改进。我们所有人都有可以分享的知识。[了解如何参与]($2)。";
+"year-in-review-base-editors-title" = "维基百科官方应用程序上的编辑者做出了超过 $1 次编辑";
+"year-in-review-base-edits-subtitle" = "文章由志愿者参考可靠信息来源协作创建和改进。我们所有人都有可以分享的知识。[了解如何参与]($1)。";
 "year-in-review-base-edits-title" = "维基百科每分钟被编辑 $1 次";
 "year-in-review-base-reading-subtitle" = "维基百科拥有超过$1万篇文章，涵盖超过$2种活跃语言。您与数百万人一起扩展知识，探索多样化的主题。";
 "year-in-review-base-reading-title" = "维基百科提供 300 多种语言版本";
@@ -1442,8 +1434,7 @@
 "year-in-review-base-saved-title" = "我们有超过 $1 万个阅读列表";
 // Fuzzy
 "year-in-review-base-viewed-subtitle" = "iOS 应用用户浏览了维基百科文章 $1 亿次。对于全世界的人们来说，维基百科是解答疑问、查找上学或工作所需信息或学习新知识的第一站。";
-// Fuzzy
-"year-in-review-base-viewed-title" = "我们浏览了维基百科文章 $1 亿次";
+"year-in-review-base-viewed-title" = "我们已浏览了 $1 十亿次维基百科条目";
 "year-in-review-button-title" = "年度回顾";
 "year-in-review-collective-article-views" = "一个动画插图展示了一台电脑屏幕，上面打开了一个网络浏览器，正在浏览维基百科文章。";
 "year-in-review-collective-edits" = "一幅插画，两个维基百科拼图碎片各带一条信息。";
@@ -1476,8 +1467,7 @@
 "year-in-review-personalized-donate-subtitle" = "感谢您对知识免费的未来投资。今年，维基媒体基金会改进了技术，从而更好地服务每一位读者和志愿者，并开发了增强协作的工具，另外还支持了维基百科的更多语言版本。[进一步了解我们的工作]($1)。";
 "year-in-review-personalized-donate-title" = "您的慷慨让维基百科兴旺";
 "year-in-review-personalized-donation-thank-you" = "维基百科标志";
-// Fuzzy
-"year-in-review-personalized-edit-views-subtitle-format" = "全世界的读者感谢您做出的贡献。在过去 2 个月中，您编辑的文章总浏览量已达 $1 次。正因为有像您这样的编辑者，维基百科才能不断改进，成为基于事实的、可靠的全球知识资源库。";
+"year-in-review-personalized-edit-views-subtitle-format" = "全世界的读者感谢您做出的贡献。在过去 2 个月中，您编辑过的条目共获得了 $1 次浏览。正因为有像您这样的编辑者，维基百科才能不断改进，成为基于事实的、可靠的全球知识资源库。";
 "year-in-review-personalized-edit-views-title-format" = "您编辑的文章最近已被浏览超过 $1 次";
 "year-in-review-personalized-editing-title-format" = "您编辑了维基百科 {{PLURAL:$1|$1 次}}";
 "year-in-review-personalized-editing-title-format-500plus" = "您编辑了维基百科 500 多次";
