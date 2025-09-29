@@ -104,6 +104,7 @@
 "app-store-subtitle" = "Déi fräi Enzyklopedie";
 "appearance-settings-expand-tables" = "Tabellen opklappen";
 "appearance-settings-set-automatic-table-opening" = "Tabellenastellungen";
+"appearance-settings-set-icon-header" = "App-Symbol";
 "article-about-title" = "Iwwer dësen Artikel";
 "article-delete" = "Läschen";
 "article-deleted-accessibility-notification" = "{{PLURAL:$1|Artikel|Artikele}} geläscht";
@@ -542,8 +543,7 @@
 "main-menu-title" = "Méi";
 "main-menu-zero-faq" = "Wikipedia Zero FAQ";
 "main-page" = "Haaptsäit";
-// Fuzzy
-"microsite-yir-english-edits-bytes-slide-title" = "4 Milliarde Byte derbäigesat";
+"microsite-yir-english-edits-bytes-slide-title" = "3,4 Milliarde Byte derbäigesat";
 "more-languages-tooltip-description" = "Op Wikipedia a méi wéi 300 Sprooche sichen";
 "more-languages-tooltip-title" = "Sproochen derbäisetzen";
 "more-menu" = "Méi";
@@ -1055,9 +1055,11 @@
 "year-in-review-feature-announcement-title-personalized" = "Entdeckt Äre Wikipedia-Joresréckbléck";
 "year-in-review-highlights-articles-saved" = "Gespäichert Artikelen";
 "year-in-review-highlights-articles-viewed" = "Zuel vun de gekuckten Artikelen";
+"year-in-review-highlights-articles-viewed-value" = "$1 Milliard";
 "year-in-review-highlights-button-title" = "Highlights deelen";
 "year-in-review-highlights-categories" = "Kategorien, déi mech interesséiert hunn";
 "year-in-review-highlights-created-lists" = "Zuel vun de Lieslëschten, déi ugeluecht goufen";
+"year-in-review-highlights-edit-frequency-value" = "{{PLURAL:$1|$1 Mol}} pro Minutt";
 "year-in-review-highlights-favorite-day" = "Liblingsdag fir ze liesen";
 "year-in-review-highlights-personalized-articles" = "Artikelen, déi ech am längste gelies hunn";
 "year-in-review-highlights-reading-time" = "Minutte gelies";
