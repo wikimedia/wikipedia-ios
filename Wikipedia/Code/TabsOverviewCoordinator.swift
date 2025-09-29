@@ -27,7 +27,7 @@ final class TabsOverviewCoordinator: Coordinator {
     }
     
     private func surveyViewController() -> UIViewController {
-        let subtitle = WMFLocalizedString("tabs-survey-title", value: "Help improve the tabs feature. Are you satisfied with this feature?", comment: "Title for article tabs survey")
+        let subtitle = WMFLocalizedString("tabs-survey-title", value: "Help improve tabs. Are you satisfied with this feature?", comment: "Title for article tabs survey")
         
         let surveyLocalizedStrings = WMFSurveyViewModel.LocalizedStrings(
             title: CommonStrings.satisfactionSurveyTitle,
