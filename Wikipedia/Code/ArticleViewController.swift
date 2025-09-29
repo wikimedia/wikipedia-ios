@@ -478,7 +478,7 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
     var showTabsOverview: (() -> Void)?
 
     @objc func userDidTapTabs() {
-        showTabsOverview?()
+        makeTabsCoordinatorIfNeeded()?.start()
         if let wikimediaProject = WikimediaProject(siteURL: articleURL) {
             ArticleTabsFunnel.shared.logIconClick(interface: .article, project: wikimediaProject)
         }
