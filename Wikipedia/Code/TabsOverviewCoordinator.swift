@@ -133,7 +133,7 @@ final class TabsOverviewCoordinator: Coordinator {
                 
                 surveyVC.modalPresentationStyle = .pageSheet
                 if let sheet = surveyVC.sheetPresentationController {
-                    sheet.detents = [.medium()]
+                    sheet.detents = [.large()]
                     sheet.prefersGrabberVisible = false
                 }
             }
