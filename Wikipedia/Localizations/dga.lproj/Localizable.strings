@@ -804,6 +804,7 @@
 "serbian-variants-alert-body" = "A Wikipiideɛ app pampana ŋa tuuro la a Serbian paramare bee sakondere Kɔkɔɛ a app poɔ, lɛ vɛŋɛ a kannoo, bɔɔbu, ane maaloo e mɔlɔ:\n\nсрпски ћирилица Serbian, Cyrillic (sr-ec)\nsrpski latinica Serbian, Latin (sr-el)";
 "serbian-variants-alert-title" = "Eŋ a Serbian sommo";
 "settings-account" = "Yɛlɛ bezie";
+// Fuzzy
 "settings-appearance" = "Kannoo sommo yizie";
 "settings-clear-cache" = "Sãã cached\n data";
 "settings-clear-cache-are-you-sure-message" = "Sãã cached data kyɛ bare zie te ta $1. O koŋ iri bonzaa bare a gampɛle biŋ zie.";

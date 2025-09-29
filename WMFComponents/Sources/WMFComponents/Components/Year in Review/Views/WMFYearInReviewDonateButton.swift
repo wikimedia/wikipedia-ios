@@ -26,16 +26,16 @@ struct WMFYearInReviewDonateButton: View {
                         .foregroundStyle(Color(uiColor: theme.destructive))
                 }
                 .font(Font(WMFFont.for(.semiboldHeadline)))
-                .opacity(viewModel.isLoading ? 0 : 1)
+                .opacity(viewModel.isLoadingDonate ? 0 : 1)
 
-                if viewModel.isLoading {
+                if viewModel.isLoadingDonate {
                     ProgressView()
                         .progressViewStyle(CircularProgressViewStyle(tint: Color(uiColor: theme.destructive)))
                         .scaleEffect(1.2)
                 }
             }
         }
-        .disabled(viewModel.isLoading)
+        .disabled(viewModel.isLoadingDonate)
         .background(
             GeometryReader { geometry in
                 Color.clear
@@ -45,7 +45,7 @@ struct WMFYearInReviewDonateButton: View {
                     }
             }
         )
-        .animation(.easeInOut, value: viewModel.isLoading)
+        .animation(.easeInOut, value: viewModel.isLoadingDonate)
     }
 
 }

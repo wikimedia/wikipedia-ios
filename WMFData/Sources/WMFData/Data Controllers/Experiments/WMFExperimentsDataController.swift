@@ -46,8 +46,8 @@ final class WMFExperimentsDataController {
         case activityTabGroupBEdit = "ActivityTab_GroupB_Edit"
         case activityTabGroupCSuggestedEdit = "ActivityTab_GroupC_SuggestedEdit"
         case moreDynamicTabsControl = "MoreDynamicTabs_Control"
-        case moreDynamicTabsBecauseYouRead = "MoreDynamicTabs_BecauseYouRead"
-        case moreDynamicTabsDidYouKnow = "MoreDynamicTabs_DidYouKnow"
+        case moreDynamicTabsGroupB = "MoreDynamicTabs_GroupB"
+        case moreDynamicTabsGroupC = "MoreDynamicTabs_GroupC"
     }
     
     // MARK: Properties
@@ -56,7 +56,7 @@ final class WMFExperimentsDataController {
 
     private static let activityTabConfig = ExperimentConfig(experiment: .activityTab, percentageFileName: .activityTabPercent, bucketFileName: .activityTabBucket, bucketValueControl: .activityTabGroupAControl, bucketValueTest: .activityTabGroupBEdit, bucketValueTest2: .activityTabGroupCSuggestedEdit)
 
-    private static let moreDynamicTabsConfig = ExperimentConfig(experiment: .moreDynamicTabs, percentageFileName: .moreDynamicTabsPercent, bucketFileName: .moreDynamicTabsBucket, bucketValueControl: .moreDynamicTabsControl, bucketValueTest: .moreDynamicTabsBecauseYouRead, bucketValueTest2: .moreDynamicTabsDidYouKnow)
+    private static let moreDynamicTabsConfig = ExperimentConfig(experiment: .moreDynamicTabs, percentageFileName: .moreDynamicTabsPercent, bucketFileName: .moreDynamicTabsBucket, bucketValueControl: .moreDynamicTabsControl, bucketValueTest: .moreDynamicTabsGroupB, bucketValueTest2: .moreDynamicTabsGroupC)
 
     private let store: WMFKeyValueStore
     
@@ -99,9 +99,9 @@ final class WMFExperimentsDataController {
                 if randomInt <= percentage {
                     bucket = .moreDynamicTabsControl
                 } else if randomInt > percentage && randomInt <= percentage*2 {
-                    bucket = .moreDynamicTabsBecauseYouRead
+                    bucket = .moreDynamicTabsGroupB
                 } else {
-                    bucket = .moreDynamicTabsDidYouKnow
+                    bucket = .moreDynamicTabsGroupC
                 }
             case .activityTab:
                 if randomInt <= percentage {

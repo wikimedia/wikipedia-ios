@@ -227,6 +227,8 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
                                              selector:@selector(userWasLoggedIn:)
                                                  name:[WMFAuthenticationManager didLogInNotification]
                                                object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleAppLanguageDidChangeNotification:) name:WMFAppLanguageDidChangeNotification object:nil];
 
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(authManagerDidHandlePrimaryLanguageChange:)
@@ -360,6 +362,21 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
     WMFComponentNavigationController *nav4 = [self setupFourthTab:assignment];
     WMFComponentNavigationController *nav5 = [self rootNavigationControllerWithRootViewController:[self searchViewController]];
 
+    if (@available(iOS 18.0, *)) {
+        // A magic fix for https://phabricator.wikimedia.org/T403896
+        for (WMFComponentNavigationController *nav in @[nav1, nav2, nav3, nav4, nav5]) {
+            UITab *tab = [[UITab alloc] initWithTitle:nav.viewControllers[0].title
+                                                image:nav.viewControllers[0].tabBarItem.image
+                                           identifier:nav.viewControllers[0].title
+                               viewControllerProvider:^UIViewController *_Nonnull(__kindof UITab *tab) {
+                                   return nav;
+                               }];
+            tab.preferredPlacement = UITabPlacementFixed;
+            self.tabs = [self.tabs arrayByAddingObject:tab];
+            // Once set, `UITabBarController.viewControllers` and related properties and methods will not be called.
+        }
+    }
+    // This should be called all the time for backward compatibility
     [self setViewControllers:@[nav1, nav2, nav3, nav4, nav5] animated:NO];
 
     [self updateUserInterfaceStyleOfNavigationControllersForCurrentTheme];
@@ -1029,8 +1046,6 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
     [resumeAndAnnouncementsCompleteGroup enter];
     [self.dataStore.authenticationManager
         attemptLoginWithCompletion:^{
-            [self populateYearInReviewReportFor:WMFYearInReviewDataController.targetYear];
-
             [self checkRemoteAppConfigIfNecessary];
             if (!self.reachabilityNotifier) {
                 @weakify(self);
@@ -1483,7 +1498,7 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
 
 - (SearchViewController *)searchViewController {
     if (!_searchViewController) {
-        _searchViewController = [[SearchViewController alloc] initWithSource:EventLoggingSourceSearchTab customArticleCoordinatorNavigationController:nil needsAttachedView: NO isMainRootView:YES];
+        _searchViewController = [[SearchViewController alloc] initWithSource:EventLoggingSourceSearchTab customArticleCoordinatorNavigationController:nil isMainRootView:YES];
         [_searchViewController applyTheme:self.theme];
         _searchViewController.dataStore = self.dataStore;
         _searchViewController.tabBarItem.image = [UIImage imageNamed:@"search"];
@@ -2047,7 +2062,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
         [searchVC clear]; // clear search VC before bringing it forward
         [nc setViewControllers:mutableVCs animated:NO];
     } else {
-        searchVC = [[SearchViewController alloc] initWithSource:EventLoggingSourceUnknown customArticleCoordinatorNavigationController:nc needsAttachedView:NO isMainRootView:NO];
+        searchVC = [[SearchViewController alloc] initWithSource:EventLoggingSourceUnknown customArticleCoordinatorNavigationController:nc isMainRootView:NO];
         searchVC.shouldBecomeFirstResponder = YES;
         [searchVC applyTheme:self.theme];
         searchVC.dataStore = self.dataStore;
@@ -2196,7 +2211,6 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
             [self.dataStore.feedContentController updateContentSource:[WMFAnnouncementsContentSource class]
                                                                 force:YES
                                                            completion:nil];
-            [self populateYearInReviewReportFor:WMFYearInReviewDataController.targetYear];
             [self updateActivityTabLoginStateObjC];
         }
 
@@ -2204,6 +2218,10 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
                                                             force:YES
                                                        completion:nil];
     });
+}
+
+- (void)handleAppLanguageDidChangeNotification:(NSNotification *)note {
+    [self deleteYearInReviewPersonalizedNetworkData];
 }
 
 - (void)authManagerDidHandlePrimaryLanguageChange:(NSNotification *)note {

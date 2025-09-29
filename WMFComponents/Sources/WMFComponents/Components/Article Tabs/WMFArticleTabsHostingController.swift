@@ -17,7 +17,8 @@ public class WMFArticleTabsHostingController<HostedView: View>: WMFComponentHost
     private let viewModel: WMFArticleTabsViewModel
     private let doneButtonText: String
     private let articleTabsCount: Int
-    
+    private var format: String?
+
     public init(rootView: HostedView, viewModel: WMFArticleTabsViewModel, doneButtonText: String, articleTabsCount: Int) {
         self.viewModel = viewModel
         self.doneButtonText = doneButtonText
@@ -25,9 +26,9 @@ public class WMFArticleTabsHostingController<HostedView: View>: WMFComponentHost
         super.init(rootView: rootView)
         
         // Defining format outside the block fixes a retain cycle on WMFArticleTabsViewModel
-        let format = viewModel.localizedStrings.navBarTitleFormat
+        format = viewModel.localizedStrings.navBarTitleFormat
         viewModel.updateNavigationBarTitleAction = { [weak self] numTabs in
-            let newNavigationBarTitle = String.localizedStringWithFormat(format, numTabs)
+            let newNavigationBarTitle = String.localizedStringWithFormat(self?.format ?? "", numTabs)
             self?.configureNavigationBar(newNavigationBarTitle)
         }
     }
@@ -52,18 +53,12 @@ public class WMFArticleTabsHostingController<HostedView: View>: WMFComponentHost
     public override func viewDidLoad() {
         super.viewDidLoad()
         viewModel.loggingDelegate?.logArticleTabsOverviewImpression()
-
-        NotificationCenter.default.addObserver(
-                self,
-                selector: #selector(userDidTakeScreenshot),
-                name: UIApplication.userDidTakeScreenshotNotification,
-                object: nil
-            )
     }
 
     private func configureNavigationBar(_ title: String? = nil) {
-        let titleConfig = WMFNavigationBarTitleConfig(title: title ?? "", customView: nil, alignment: .centerCompact)
-        
+        let newNavigationBarTitle = String.localizedStringWithFormat(self.format ?? "", articleTabsCount)
+        let titleConfig = WMFNavigationBarTitleConfig(title: title ?? newNavigationBarTitle, customView: nil, alignment: .centerCompact)
+
         let closeConfig = WMFNavigationBarCloseButtonConfig(text: doneButtonText, target: self, action: #selector(tappedDone), alignment: .leading)
 
         configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: closeConfig, profileButtonConfig: nil, tabsButtonConfig: nil, searchBarConfig: nil, hideNavigationBarOnScroll: false)
@@ -77,38 +72,22 @@ public class WMFArticleTabsHostingController<HostedView: View>: WMFComponentHost
         viewModel.didTapAddTab()
     }
 
-    @objc private func userDidTakeScreenshot() {
-        viewModel.loggingDelegate?.logTabsOverviewScreenshot()
-    }
-
-
     @objc private func tappedOverflow() {
         viewModel.didTapAddTab()
     }
     
     var overflowMenu: UIMenu {
-        let tabsPreferences = UIAction(title: viewModel.localizedStrings.tabsPreferencesTitle, image: WMFSFSymbolIcon.for(symbol: .gear), handler: { [weak self] _ in
-            self?.openTabsPreferences()
-        })
-        
+
         let closeAllTabs = UIAction(title: viewModel.localizedStrings.closeAllTabs, image: WMFSFSymbolIcon.for(symbol: .close), handler: { [weak self] _ in
             Task {
                 await self?.presentCloseAllTabsConfirmationDialog()
             }
         })
-        
-        if articleTabsCount == 1 {
-            return UIMenu(title: String(), children: [tabsPreferences])
-        }
-        let children: [UIMenuElement] = [tabsPreferences, closeAllTabs]
+
+        let children: [UIMenuElement] = [closeAllTabs]
         let mainMenu = UIMenu(title: String(), children: children)
 
         return mainMenu
-    }
-    
-    private func openTabsPreferences() {
-        viewModel.didTabOpenTabs()
-
     }
 
     deinit {

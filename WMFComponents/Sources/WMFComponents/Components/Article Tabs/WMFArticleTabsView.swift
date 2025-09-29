@@ -1,6 +1,7 @@
 import SwiftUI
 import WMFData
 
+@available(iOS 16.4, *) // Note: the app is currently 16.6+, but the package config doesn't allow minor version configs
 public struct WMFArticleTabsView: View {
     @ObservedObject var appEnvironment = WMFAppEnvironment.current
     @Environment(\.colorScheme) var colorScheme
@@ -20,20 +21,28 @@ public struct WMFArticleTabsView: View {
 
     public var body: some View {
         GeometryReader { geometry in
-            if isReady {
-                tabsGrid(geometry)
-            } else {
-                ProgressView()
-                    .progressViewStyle(CircularProgressViewStyle())
-                    .frame(maxWidth: .infinity, maxHeight: .infinity)
-                    .background(Color(theme.midBackground))
+            Group {
+                if !isReady {
+                    loadingView
+                } else if viewModel.articleTabs.isEmpty {
+                    emptyStateContainer
+                } else {
+                    tabsGrid(geometry)
+                }
             }
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .background(Color(theme.midBackground))
         }
         .onReceive(viewModel.$articleTabs) { tabs in
-            guard !tabs.isEmpty, !isReady else { return }
-            Task {
-                if let tab = await viewModel.getCurrentTab() {
-                    currentTabID = tab.id
+            guard !isReady else { return }
+
+            if tabs.isEmpty {
+                isReady = true
+            } else {
+                Task {
+                    if let tab = await viewModel.getCurrentTab() {
+                        currentTabID = tab.id
+                    }
                     isReady = true
                 }
             }
@@ -41,6 +50,42 @@ public struct WMFArticleTabsView: View {
         .background(Color(theme.midBackground))
         .toolbarBackground(Color(theme.midBackground), for: .automatic)
     }
+
+    // MARK: - Loading / Empty
+
+    private var loadingView: some View {
+        ProgressView()
+            .progressViewStyle(CircularProgressViewStyle())
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+    }
+
+    private var emptyStateContainer: some View {
+        GeometryReader { geometry in
+            ScrollView(showsIndicators: true) {
+                VStack {
+                    let locStrings = WMFEmptyViewModel.LocalizedStrings(
+                        title: viewModel.localizedStrings.emptyStateTitle,
+                        subtitle: viewModel.localizedStrings.emptyStateSubtitle,
+                        titleFilter: nil,
+                        buttonTitle: nil,
+                        attributedFilterString: nil
+                    )
+                    let emptyViewModel = WMFEmptyViewModel(
+                        localizedStrings: locStrings,
+                        image: UIImage(named: "empty-tabs", in: .module, with: nil),
+                        imageColor: nil,
+                        numberOfFilters: 0
+                    )
+                    WMFEmptyView(viewModel: emptyViewModel, type: .noItems)
+                }
+                .frame(width: geometry.size.width, height: geometry.size.height, alignment: .center)
+            }
+            .background(Color(theme.paperBackground))
+            .scrollBounceBehavior(.always)
+        }
+    }
+
+    // MARK: - Grid
 
     private func tabsGrid(_ geometry: GeometryProxy) -> some View {
         ScrollViewReader { proxy in
@@ -75,6 +120,8 @@ public struct WMFArticleTabsView: View {
         }
     }
 }
+
+// MARK: - Tab content
 
 fileprivate struct WMFArticleTabsViewContent: View {
     @ObservedObject var appEnvironment = WMFAppEnvironment.current
@@ -165,8 +212,8 @@ fileprivate struct WMFArticleTabsViewContent: View {
                     .accessibilityHidden(true)
                     .padding(.horizontal, 8)
                     .padding(.top, -8)
+                    .frame(minWidth: 48, minHeight: 48)
                     .contentShape(Rectangle())
-                    .frame(minWidth: 44, minHeight: 44)
                 }
             }
             if let newTabTitle = viewModel.localizedStrings.mainPageTitle {
@@ -241,7 +288,7 @@ fileprivate struct WMFArticleTabsViewContent: View {
                     .padding(.horizontal, 8)
                     .padding(.top, -8)
                     .contentShape(Rectangle())
-                    .frame(minWidth: 44, minHeight: 44)
+                    .frame(minWidth: 48, minHeight: 48)
                 }
             }
 

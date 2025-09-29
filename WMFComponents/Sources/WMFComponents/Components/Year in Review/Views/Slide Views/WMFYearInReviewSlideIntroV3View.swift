@@ -6,6 +6,12 @@ struct WMFYearInReviewSlideIntroV3View: View {
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
     
     private let viewModel: WMFYearInReviewIntroV3ViewModel
+    @Binding var isPopulatingReport: Bool
+    
+    init(viewModel: WMFYearInReviewIntroV3ViewModel, isPopulatingReport: Binding<Bool>) {
+        self.viewModel = viewModel
+        self._isPopulatingReport = isPopulatingReport
+    }
     
     private var theme: WMFTheme {
         return appEnvironment.theme
@@ -13,10 +19,6 @@ struct WMFYearInReviewSlideIntroV3View: View {
     
     private var sizeClassPadding: CGFloat {
         horizontalSizeClass == .regular ? 64 : 32
-    }
-    
-    init(viewModel: WMFYearInReviewIntroV3ViewModel) {
-        self.viewModel = viewModel
     }
     
     var body: some View {
@@ -30,10 +32,8 @@ struct WMFYearInReviewSlideIntroV3View: View {
                     .font(Font(WMFFont.for(.caption2)))
                     .foregroundColor(Color(uiColor: theme.secondaryText))
                 
-                WMFLargeButton(configuration: .primary, title: viewModel.primaryButtonTitle) {
-                    withAnimation(.easeInOut(duration: 0.75)) {
+                WMFLargeButtonLoading(configuration: .primary, title: viewModel.primaryButtonTitle, isLoading: $isPopulatingReport) {
                         viewModel.tappedPrimaryButton()
-                    }
                 }
                 
                 WMFLargeButton(configuration: .secondary, title: viewModel.secondaryButtonTitle) {

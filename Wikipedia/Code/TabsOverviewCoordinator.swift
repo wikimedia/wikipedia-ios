@@ -10,10 +10,6 @@ final class TabsOverviewCoordinator: Coordinator {
     let dataStore: MWKDataStore
     private let dataController: WMFArticleTabsDataController
     private let summaryController: ArticleSummaryController
-    private var newTabCoordinator: NewArticleTabCoordinator?
-    private let userDefaultsStore = WMFDataEnvironment.current.userDefaultsStore
-    private var hostingController: UIHostingController<WMFNewArticleTabSettingsView>?
-    private var viewModel: WMFNewArticleTabSettingsViewModel?
 
     @discardableResult
     func start() -> Bool {
@@ -92,11 +88,7 @@ final class TabsOverviewCoordinator: Coordinator {
             guard let self else { return }
             self.tappedAddTab()
         }
-        
-        let didTapOpenPreferences: () -> Void = { [weak self] in
-            self?.didTapOpenTabsPreferences()
-        }
-        
+
         let displayDeleteAllTabsToast: (Int) -> Void = { [weak self] articleTabsCount in
             guard let self else { return }
             Task {
@@ -127,12 +119,6 @@ final class TabsOverviewCoordinator: Coordinator {
                 }
             }
         }
-
-        let needsMoreDynamicTabs = dataController.shouldShowMoreDynamicTabs
-
-        let pageTitle = needsMoreDynamicTabs ? CommonStrings.newTab : nil
-        let pageSubtitle = needsMoreDynamicTabs ? CommonStrings.tabThumbnailSubtitle : CommonStrings.mainPageSubtitle
-        let pageDescription = needsMoreDynamicTabs ? CommonStrings.tabThumbanailDescription : CommonStrings.mainPageDescription
         
         Task { [weak self] in
             guard let self else { return }
@@ -140,17 +126,18 @@ final class TabsOverviewCoordinator: Coordinator {
             
             let localizedStrings = WMFArticleTabsViewModel.LocalizedStrings(
                 navBarTitleFormat: WMFLocalizedString("tabs-navbar-title-format", value: "{{PLURAL:%1$d|%1$d tab|%1$d tabs}}", comment: "$1 is the amount of tabs. Navigation title for tabs, displaying how many open tabs."),
-                mainPageTitle: pageTitle,
-                mainPageSubtitle: pageSubtitle,
-                mainPageDescription: pageDescription,
+                mainPageTitle: nil,
+                mainPageSubtitle: CommonStrings.mainPageSubtitle,
+                mainPageDescription: CommonStrings.mainPageDescription,
                 closeTabAccessibility: WMFLocalizedString("tabs-close-tab", value: "Close tab", comment: "Accessibility label for close tab button"),
                 openTabAccessibility: WMFLocalizedString("tabs-open-tab", value: "Open tab", comment: "Accessibility label for opening a tab"),
-                tabsPreferencesTitle: CommonStrings.tabsPreferencesTitle,
                 closeAllTabs: CommonStrings.closeAllTabs,
                 cancelActionTitle: CommonStrings.cancelActionTitle,
                 closeAllTabsTitle: closeAllTabsTitle(numberTabs: articleTabsCount),
                 closeAllTabsSubtitle: closeAllTabsSubtitle(numberTabs: articleTabsCount),
-                closedAlertsNotification: closedAlertsNotification(numberTabs: articleTabsCount)
+                closedAlertsNotification: closedAlertsNotification(numberTabs: articleTabsCount),
+                emptyStateTitle: WMFLocalizedString("tabs-empty-view-title", value: "Your tabs will show up here", comment: "Title for the tabs overview screen when there are no tabs"),
+                emptyStateSubtitle: WMFLocalizedString("tabs-empty-view-subtitle", value: "Tap “+” to add tabs to this space or long press an article link to open it in a new tab. ", comment: "Subtitle for the tabs overview screen when there are no tabs")
             )
             
             let articleTabsViewModel = WMFArticleTabsViewModel(
@@ -159,90 +146,28 @@ final class TabsOverviewCoordinator: Coordinator {
                 loggingDelegate: self,
                 didTapTab: didTapTab,
                 didTapAddTab: didTapAddTab,
-                didTapOpenTabs: didTapOpenPreferences,
                 displayDeleteAllTabsToast: displayDeleteAllTabsToast
             )
             
-            let articleTabsView = WMFArticleTabsView(viewModel: articleTabsViewModel)
-            let hostingController = WMFArticleTabsHostingController(
+            let articleTabsView = await WMFArticleTabsView(viewModel: articleTabsViewModel)
+            let hostingController = await WMFArticleTabsHostingController(
                 rootView: articleTabsView,
                 viewModel: articleTabsViewModel,
                 doneButtonText: CommonStrings.doneTitle,
                 articleTabsCount: articleTabsCount
             )
             
-            let navVC = WMFComponentNavigationController(
+            let navVC = await WMFComponentNavigationController(
                 rootViewController: hostingController,
                 modalPresentationStyle: .overFullScreen
             )
             
-            navigationController.present(navVC, animated: true) { [weak self] in
+            await navigationController.present(navVC, animated: true) { [weak self] in
                 self?.dataController.updateSurveyDataTabsOverviewSeenCount()
                 guard self != nil else { return }
                 showSurveyClosure()
             }
         }
-    }
-
-    private func didTapOpenTabsPreferences() {
-        let viewModel = WMFNewArticleTabSettingsViewModel(
-            title: CommonStrings.tabsPreferencesTitle,
-            header: CommonStrings.newTabTheme,
-            options: [
-                CommonStrings.recommendations,
-                CommonStrings.didyouknow
-            ],
-            saveSelection: { [weak self] selectedIndex in
-                self?.saveSelection(selectedIndex: selectedIndex)
-            },
-            selectedIndex: self.getSelectedIndex(),
-            loggingDelegate: self
-        )
-
-        self.viewModel = viewModel
-
-        let view = WMFNewArticleTabSettingsView(viewModel: viewModel)
-        let hostingController = UIHostingController(rootView: view)
-        hostingController.title = CommonStrings.tabsPreferencesTitle
-        hostingController.navigationItem.largeTitleDisplayMode = .never
-
-        hostingController.navigationItem.leftBarButtonItem = UIBarButtonItem(
-            title: CommonStrings.doneTitle,
-            style: .done,
-            target: self,
-            action: #selector(self.doneButtonTapped)
-        )
-
-        self.hostingController = hostingController
-
-        let navController = WMFComponentNavigationController(rootViewController: hostingController)
-
-        let presenter = navigationController.presentedViewController ?? navigationController
-        presenter.present(navController, animated: true) { [weak self] in
-            self?.saveSelection(selectedIndex: viewModel.selectedIndex)
-        }
-    }
-
-    @objc private func doneButtonTapped() {
-        hostingController?.navigationController?.dismiss(animated: true)
-    }
-
-    private func getSelectedIndex() -> Int {
-        let isBYREnabled = (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsMoreDynamicTabsBYR.rawValue)) ?? false
-        let isDYKEnabled = (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsMoreDynamicTabsDYK.rawValue)) ?? false
-
-        return (isBYREnabled) ? 0 : (isDYKEnabled) ? 1 : 0
-    }
-    
-    private func saveSelection(selectedIndex: Int) {
-        let isBYR = selectedIndex == 0
-        let isDYK = selectedIndex == 1
-
-        try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsMoreDynamicTabsBYR.rawValue, value: isBYR)
-        try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsMoreDynamicTabsDYK.rawValue, value: isDYK)
-
-        dataController.moreDynamicTabsBYRIsEnabled = isBYR
-        dataController.moreDynamicTabsDYKIsEnabled = isDYK
     }
     
     private func tappedTab(_ tab: WMFArticleTabsDataController.WMFArticleTab) {
@@ -263,46 +188,16 @@ final class TabsOverviewCoordinator: Coordinator {
             }
             
             let tabConfig = ArticleTabConfig.assignParticularTabAndSetToCurrent(WMFArticleTabsDataController.Identifiers(tabIdentifier: tab.identifier, tabItemIdentifier: article.identifier))
-
-            let needsMoreDynamicTabs = dataController.shouldShowMoreDynamicTabs
-
-            // If we're showing more dynamic tabs, we need to push to the new tab experience instead of main page
-            if needsMoreDynamicTabs {
-                if tab.articles.last?.isMain == true {
-                    self.newTabCoordinator = NewArticleTabCoordinator(navigationController: self.navigationController, dataStore: self.dataStore, theme: self.theme, tabIdentifier: WMFArticleTabsDataController.Identifiers(tabIdentifier: tab.identifier, tabItemIdentifier: article.identifier), cameFromNewTab: true)
-                    self.newTabCoordinator?.start()
-                } else {
-                    let articleCoordinator = ArticleCoordinator(navigationController: navigationController, articleURL: articleURL, dataStore: MWKDataStore.shared(), theme: theme, needsAnimation: false, source: .undefined, isRestoringState: true, tabConfig: tabConfig)
-                    articleCoordinator.start()
-                }
-            } else {
                 // isRestoringState = true allows for us to retain the previous scroll position
                 let articleCoordinator = ArticleCoordinator(navigationController: navigationController, articleURL: articleURL, dataStore: MWKDataStore.shared(), theme: theme, needsAnimation: false, source: .undefined, isRestoringState: true, tabConfig: tabConfig)
                 articleCoordinator.start()
-            }
+
         }
         navigationController.dismiss(animated: true)
     }
     
     private func tappedAddTab() {
 
-        if dataController.shouldShowMoreDynamicTabs {
-
-            let isNewTabSearchOnTheStack = self.navigationController.viewControllers.lastIndex {
-                guard let svc = $0 as? SearchViewController else { return false }
-                return svc.isNewTab == true
-            }
-            // do not push a new tab if the user just came from a new tab
-            if isNewTabSearchOnTheStack != nil {
-                navigationController.dismiss(animated: true)
-            } else {
-                navigationController.dismiss(animated: true) {
-                    self.newTabCoordinator = NewArticleTabCoordinator(navigationController: self.navigationController, dataStore: self.dataStore, theme: self.theme, cameFromNewTab: false)
-                    self.newTabCoordinator?.start()
-                }
-            }
-            return
-        }
         guard let siteURL = dataStore.languageLinkController.appLanguage?.siteURL,
               let articleURL = siteURL.wmf_URL(withTitle: "Main Page") else {
             return
@@ -326,16 +221,6 @@ extension TabsOverviewCoordinator: WMFArticleTabsLoggingDelegate {
         if let url = wmfProject?.siteURL, let project =  WikimediaProject(siteURL:url) {
             ArticleTabsFunnel.shared.logArticleClick(project: project)
         }
-    }
-
-    func logTabsOverviewScreenshot() {
-        ArticleTabsFunnel.shared.logTabsOverviewScreenshot()
-    }
-}
-
-extension TabsOverviewCoordinator: WMFNewArticleTabSettingsLoggingDelegate {
-    func logPreference(index: Int) {
-        ArticleTabsFunnel.shared.logTabsPreferenceClick(action: index == 0 ? .recommendationPrefClick : .didYouKnowPrefClick)
     }
 }
 

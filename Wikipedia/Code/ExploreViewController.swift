@@ -1039,7 +1039,6 @@ extension ExploreViewController {
     
     /// Catch-all method for deciding what is the best modal to present on top of Explore at this point. This method needs careful if-else logic so that we do not present two modals at the same time, which may unexpectedly suppress one.
     fileprivate func presentModalsIfNeeded() {
-        presentArticleTabsAnnouncement()
         if needsYearInReviewAnnouncement() {
             updateProfileButton()
             presentYearInReviewAnnouncement()
@@ -1075,78 +1074,6 @@ extension ExploreViewController {
         }
         
         return true
-    }
-    
-    private var isBeforeAssignmentEndDate: Bool {
-            var dateComponents = DateComponents()
-            dateComponents.year = 2025
-            dateComponents.month = 12
-            dateComponents.day = 31
-            guard let endDate = Calendar.current.date(from: dateComponents) else {
-                return false
-            }
-
-            return endDate >= Date()
-        }
-    
-    func presentArticleTabsAnnouncement() {
-        guard isBeforeAssignmentEndDate,
-              !WMFArticleTabsDataController.shared.hasSeenFeatureAnnouncement,
-              WMFArticleTabsDataController.shared.shouldShowMoreDynamicTabs
-        else { return }
-        
-        let title = CommonStrings.articleTabsFeatureAnnouncementTitle
-        let secondaryButtonTitle = CommonStrings.articleTabsFeatureAnnouncementSubCTA
-        let primaryButtonTitle = CommonStrings.continueButton
-        
-        let item1Title = CommonStrings.articleTabsFeatureAnnouncementItem1Title
-        let item1Subtitle = CommonStrings.articleTabsFeatureAnnouncementItem1Subtitle
-        let item2Title = CommonStrings.articleTabsFeatureAnnouncementItem2Title
-        let item2Subtitle = CommonStrings.articleTabsFeatureAnnouncementItem2Subtitle
-        let item3Title = CommonStrings.articleTabsFeatureAnnouncementItem3Title
-        let item3Subtitle = CommonStrings.articleTabsFeatureAnnouncementItem3Subtitle
-        let item4Title = CommonStrings.articleTabsFeatureAnnouncementItem4Title
-        let item4Subtitle = CommonStrings.articleTabsFeatureAnnouncementItem4Subtitle
-        
-        let cells: [WMFOnboardingViewModel.WMFOnboardingCellViewModel] = [
-            WMFOnboardingViewModel.WMFOnboardingCellViewModel(icon: UIImage(systemName: "square.on.square")?.withRenderingMode(.alwaysTemplate), title: item1Title, subtitle: item1Subtitle),
-            WMFOnboardingViewModel.WMFOnboardingCellViewModel(icon: UIImage(systemName: "arrow.trianglehead.2.clockwise")?.withRenderingMode(.alwaysTemplate), title: item2Title, subtitle: item2Subtitle),
-            WMFOnboardingViewModel.WMFOnboardingCellViewModel(icon: UIImage(systemName: "link")?.withRenderingMode(.alwaysTemplate), title: item3Title, subtitle: item3Subtitle),
-            WMFOnboardingViewModel.WMFOnboardingCellViewModel(icon: UIImage(systemName: "lightbulb")?.withRenderingMode(.alwaysTemplate), title: item4Title, subtitle: item4Subtitle)
-        ]
-        
-        var aboutTabsURL: URL? {
-            var languageCodeSuffix = ""
-            if let primaryAppLanguageCode = dataStore.languageLinkController.appLanguage?.languageCode {
-                languageCodeSuffix = "\(primaryAppLanguageCode)"
-            }
-            return URL(string: "https://www.mediawiki.org/wiki/Special:MyLanguage/Wikimedia_Apps/Team/iOS/Tabbed_Browsing_(Tabs)?uselang=\(languageCodeSuffix)")
-        }
-        
-        let onboardingViewModel = WMFOnboardingViewModel(
-            title: title,
-            cells: cells,
-            primaryButtonTitle: primaryButtonTitle,
-            secondaryButtonTitle: secondaryButtonTitle,
-            primaryButtonAction: { [weak self] in
-                ArticleTabsFunnel.shared.logAnnouncementClick(action: .continueClick)
-                self?.navigationController?.presentedViewController?.dismiss(animated: true, completion: nil)
-            },
-            secondaryButtonAction: { [weak self] in
-                ArticleTabsFunnel.shared.logAnnouncementClick(action: .learnClick)
-                guard let aboutTabsURL else { return }
-                self?.displayURLWebView(url: aboutTabsURL)
-            }
-        )
-        let onboardingController = WMFOnboardingViewController(viewModel: onboardingViewModel)
-        
-        present(onboardingController, animated: true, completion: {
-            UIAccessibility.post(notification: .layoutChanged, argument: nil)
-            ArticleTabsFunnel.shared.logAnnouncementImpression()
-        })
-        
-        let dataController = WMFArticleTabsDataController.shared
-        dataController.hasSeenFeatureAnnouncement = true
     }
     
     private func displayURLWebView(url: URL) {

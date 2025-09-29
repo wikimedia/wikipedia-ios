@@ -2,8 +2,8 @@ import Foundation
 
 public protocol WMFDeveloperSettingsDataControlling: AnyObject {
     func loadFeatureConfig() -> WMFFeatureConfigResponse?
-    var enableMoreDynamicTabsBYR: Bool { get }
-    var enableMoreDynamicTabsDYK: Bool { get }
+    var enableMoreDynamicTabsGroupB: Bool { get }
+    var enableMoreDynamicTabsGroupC: Bool { get }
     var forceMaxArticleTabsTo5: Bool { get }
     var showYiRV2: Bool { get }
     var showYiRV3: Bool { get }
@@ -109,19 +109,19 @@ public protocol WMFDeveloperSettingsDataControlling: AnyObject {
         }
     }
 
-    public var enableMoreDynamicTabsBYR: Bool {
+    public var enableMoreDynamicTabsGroupB: Bool {
         get {
-            return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsMoreDynamicTabsBYR.rawValue)) ?? false
+            return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsMoreDynamicTabsGroupB.rawValue)) ?? false
         } set {
-            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsMoreDynamicTabsBYR.rawValue, value: newValue)
+            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsMoreDynamicTabsGroupB.rawValue, value: newValue)
         }
     }
 
-    public var enableMoreDynamicTabsDYK: Bool {
+    public var enableMoreDynamicTabsGroupC: Bool {
         get {
-            return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsMoreDynamicTabsDYK.rawValue)) ?? false
+            return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsMoreDynamicTabsGroupC.rawValue)) ?? false
         } set {
-            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsMoreDynamicTabsDYK.rawValue, value: newValue)
+            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsMoreDynamicTabsGroupC.rawValue, value: newValue)
         }
     }
     

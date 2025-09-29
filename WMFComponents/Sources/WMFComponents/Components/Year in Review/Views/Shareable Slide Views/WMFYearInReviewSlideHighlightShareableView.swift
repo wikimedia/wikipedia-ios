@@ -10,6 +10,26 @@ public struct WMFYearInReviewSlideHighlightShareableView: View {
     public init(viewModel: WMFYearInReviewSlideHighlightsViewModel) {
         self.viewModel = viewModel
     }
+    
+    private var fontTraitOverride: UITraitCollection {
+        UITraitCollection(preferredContentSizeCategory: .large)
+    }
+
+    private var hashtagFont: Font {
+        Font(WMFFont.for(.helveticaLargeHeadline, compatibleWith: fontTraitOverride))
+    }
+    
+    private var logoFont: Font {
+        Font(WMFFont.for(.helveticaCaption1, compatibleWith: fontTraitOverride))
+    }
+    
+    private var rowFont: Font {
+        Font(WMFFont.for(.helveticaBody, compatibleWith: fontTraitOverride))
+    }
+    
+    private var footerFont: Font {
+        Font(WMFFont.for(.body, compatibleWith: fontTraitOverride))
+    }
 
     public var body: some View {
         ZStack {
@@ -20,19 +40,21 @@ public struct WMFYearInReviewSlideHighlightShareableView: View {
                     Spacer(minLength: 0)
 
                     infoboxView
-                        .padding(.horizontal, 24)
+                        .frame(maxWidth: .infinity, alignment: .center)
+                        .padding(.horizontal, 35)
 
                     Spacer(minLength: 0)
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
 
                 Text("wikipedia.org/year-in-review")
-                    .font(Font(WMFFont.for(.callout)))
+                    .font(footerFont)
                     .foregroundStyle(Color(uiColor: WMFColor.black))
                     .multilineTextAlignment(.center)
                     .padding(.bottom, 16)
             }
-            .frame(width: 402, height: 847)
+            .frame(maxWidth: 393)
+            .frame(minHeight: 852)
             
         }
         .overlay(
@@ -45,28 +67,28 @@ public struct WMFYearInReviewSlideHighlightShareableView: View {
         VStack(spacing: 24) {
             VStack(spacing: 16) {
                 Text("#WikipediaYearInReview")
-                    .font(Font(WMFFont.for(.boldHeadline)))
+                    .font(hashtagFont)
                     .foregroundStyle(Color(uiColor: WMFColor.black))
                     .multilineTextAlignment(.center)
+                    .padding([.top], 8)
                 VStack(spacing: 8) {
                     Image("globe_yir", bundle: .module)
                         .resizable()
                         .scaledToFit()
-                        .frame(width: 196, height: 196)
+                        .frame(width: 166, height: 166)
                         .accessibilityHidden(true)
 
                     Text("Wikipedia logo")
-                        .font(Font(WMFFont.for(.footnote)))
+                        .font(logoFont)
                         .foregroundStyle(Color(WMFColor.black))
                         .multilineTextAlignment(.center)
                 }
 
                 WMFYearInReviewInfoboxView(viewModel: viewModel.infoBoxViewModel, isSharing: true)
-                    .frame(maxWidth: 324)
+                    .frame(maxWidth: 393)
             }
 
         }
-        .padding(8)
         .background(Color(WMFColor.gray100))
         .overlay(
             Rectangle()

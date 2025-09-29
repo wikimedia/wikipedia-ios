@@ -404,6 +404,7 @@
 "search-recent-title" = "Πρόσφατες αναζητήσεις";
 "search-result-redirected-from" = "Ανακατεύθυνση από: $1";
 "search-title" = "Αναζήτηση";
+// Fuzzy
 "settings-appearance" = "Προτιμήσεις ανάγνωσης";
 "settings-clear-cache-cancel" = "Ακύρωση";
 "settings-help-and-feedback" = "Βοήθεια και ανατροφοδότηση";

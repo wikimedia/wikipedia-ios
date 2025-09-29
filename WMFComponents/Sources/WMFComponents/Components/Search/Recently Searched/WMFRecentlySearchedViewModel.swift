@@ -31,35 +31,20 @@ public final class WMFRecentlySearchedViewModel: ObservableObject {
         }
     }
 
-    public var displayedSearchTerms: [RecentSearchTerm] {
-        needsAttachedView ? Array(recentSearchTerms.prefix(3)) : recentSearchTerms
-    }
-
     @Published public var recentSearchTerms: [RecentSearchTerm] = []
     @Published public var topPadding: CGFloat = 0
     public let localizedStrings: LocalizedStrings
-    let needsAttachedView: Bool
-    let becauseYouReadViewModel: WMFBecauseYouReadViewModel?
-    let didYouKnowViewModel: WMFNewArticleTabDidYouKnowViewModel?
     let deleteAllAction: () -> Void
     let deleteItemAction: (Int) -> Void
     let selectAction: (RecentSearchTerm) -> Void
-    public let tabsDataController: WMFArticleTabsDataController
-    public let devSettingsDataControler: WMFDeveloperSettingsDataController
-    public let onTapEdit: () -> Void
 
-    public init(recentSearchTerms: [RecentSearchTerm], localizedStrings: LocalizedStrings, needsAttachedView: Bool,  becauseYouReadViewModel: WMFBecauseYouReadViewModel?, didYouKnowViewModel: WMFNewArticleTabDidYouKnowViewModel?, deleteAllAction: @escaping () -> Void, deleteItemAction: @escaping (Int) -> Void, selectAction: @escaping (RecentSearchTerm) -> Void, onTapEdit: @escaping () -> Void) {
+    public init(recentSearchTerms: [RecentSearchTerm], topPadding: CGFloat, localizedStrings: LocalizedStrings, deleteAllAction: @escaping () -> Void, deleteItemAction: @escaping (Int) -> Void, selectAction: @escaping (RecentSearchTerm) -> Void) {
         self.recentSearchTerms = recentSearchTerms
+        self.topPadding = topPadding
         self.localizedStrings = localizedStrings
         self.deleteAllAction = deleteAllAction
         self.deleteItemAction = deleteItemAction
         self.selectAction = selectAction
-        self.needsAttachedView = needsAttachedView
-        self.becauseYouReadViewModel = becauseYouReadViewModel
-        self.didYouKnowViewModel = didYouKnowViewModel
-        self.tabsDataController =  WMFArticleTabsDataController.shared
-        self.devSettingsDataControler = WMFDeveloperSettingsDataController.shared
-        self.onTapEdit = onTapEdit
     }
 
 }
