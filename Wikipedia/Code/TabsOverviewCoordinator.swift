@@ -197,7 +197,7 @@ final class TabsOverviewCoordinator: Coordinator {
         }
 
         let localized = WMFNewArticleTabDidYouKnowViewModel.LocalizedStrings(
-            didYouKnowTitle: WMFLocalizedString("did-you-know", value: "Did you know", comment: "Text displayed as heading for section of new tab dedicated to DYK"),
+            didYouKnowTitle: WMFLocalizedString("did-you-know", value: "Did you know?", comment: "Text displayed as heading for section of tabs overview dedicated to Did You Know "),
             fromSource: self.stringWithLocalizedCurrentSiteLanguageReplacingPlaceholder(in: CommonStrings.fromWikipedia, fallingBackOn: CommonStrings.defaultFromWikipedia)
         )
 
