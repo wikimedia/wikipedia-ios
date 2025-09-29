@@ -59,6 +59,7 @@
 // Author: UniCollab
 // Author: Valencia212
 // Author: Vlad5250
+// Author: Vonavy
 // Author: WindEwriX
 // Author: Wirbel78
 // Author: Yuryleb
@@ -138,8 +139,24 @@
 "action-unsaved-accessibility-notification" = "Статья убрана из сохранённых";
 "action-update" = "Обновить";
 "activity-tab-add-images-title" = "Добавить изображения";
+"activity-tab-start-editing" = "Начать редактирование";
+"activity-tab-survey" = "Довольны ли вы экраном «Активность»? Что бы вы хотели видеть здесь в будущем?";
+"activity-tab-survey-title" = "Опрос об удовлетворенности";
+"activity-tab-title" = "Активность";
+"activity-tab-unsatisfied" = "Неудовлетворен(а)";
+"activity-tab-very-satisfied" = "Очень удовлетворен(а)";
+"activity-tab-very-unsatisfied" = "Очень неудовлетворен(а)";
+"activity-tab-view-editing-history" = "Просмотреть историю правок";
+"activity-tab-view-reading-history" = "Просмотреть историю чтения";
+"activity-tab-view-saved-articles" = "Просмотреть сохраненные статьи";
+"activity-tab-you-edited" = "На этой неделе вы редактировали {{PLURAL:$1|$1 раз|$1 раза|$1 раз}}.";
+"activity-tab-you-read" = "На этой неделе вы прочли {{PLURAL:$1|$1 статью|$1 статьи|$1 статей}}.";
+"activity-tab-you-saved" = "На этой неделе вы сохранили {{PLURAL:$1|$1 статью|$1 статьи|$1 статей}}.";
 "add-articles-to-reading-list" = "Добавить {{PLURAL:$1|$1 статью|$1 статьи|$1 статей}} в список для чтения";
 "advanced-settings-title" = "Дополнительные настройки";
+"alert-temporary-account" = "Вы используете временную учётную запись. Срок её действия истекает через 90 дней.";
+"alert-temporary-account-learn-more" = "Узнать больше.";
+"alt-text-feedback-survey-toast-title" = "Отзыв отправлен";
 "announcements-dismiss" = "Закрыть";
 "app-store-keywords" = "Википедия, статья, вики, энциклопедия, инфо, знание, прочитать, информация, чтение, определение";
 "app-store-release-notes" = "Лента в приложении теперь сделана полностью настраиваемой и лёгкой в использовании. Были улучшены сообщения локализации, а также повышена производительность приложения и, традиционно, исправлены некоторые ошибки.";
@@ -151,6 +168,7 @@
 "appearance-settings-image-dimming-footer" = "Уменьшает непрозрачность изображений в тёмной и чёрной темах";
 "appearance-settings-reading-themes" = "Темы для чтения";
 "appearance-settings-set-automatic-table-opening" = "Настройки таблиц";
+"appearance-settings-set-icon-header" = "Иконка приложения";
 "appearance-settings-text-sizing-example-text" = "Передвигайте ползунок, изменяя размер шрифта. Это приведёт к изменению размеров текстовых блоков приложения.";
 "appearance-settings-theme-options" = "Настройки темы оформления";
 "article-about-title" = "Об этой статье";
@@ -300,6 +318,7 @@
 "diff-thanks-sent" = "Ваше 'Спасибо' отправлено $1";
 "diff-thanks-sent-already" = "Вы уже отправили 'Спасибо' за это изменение";
 "diff-thanks-sent-cannot-unsend" = "Отправка благодарности не может быть отменена";
+"diff-unchanged-contextual-line" = "Контекстная строка, неизменная: $1";
 "diff-undo-message" = "Это приведёт к отмене изменений, внесённых в версиях статьи, показанных здесь. Чтобы продолжить, укажите причину отмены этого изменения.";
 "diff-undo-success" = "Эта версия была отменена.";
 "diff-unedited-lines-format" = "{{PLURAL:$1|$1 строка не изменилась|$1 строки не изменилось|$1 строк не изменилось}}";
@@ -319,6 +338,7 @@
 "donate-help-other-ways-to-give" = "Другие способы сделать пожертвование";
 "donate-help-problems-donating" = "Проблемы с отправкой пожертвования?";
 "donate-help-tax-deductibility-information" = "Информация о налоговых льготах";
+"donate-history-delete" = "Удалить локальную историю пожертвований";
 "donate-later-title" = "Мы напомним вам ещё раз завтра.";
 "donate-maximum-error-text" = "Мы не можем принимать пожертвования на сумму более $1 $2 через наш сайт. Пожалуйста, свяжитесь с нашими сотрудниками, работающими с крупными жертвователями, по адресу benefactors@wikimedia.org.";
 "donate-minimum-error-text" = "Пожалуйста, выберите сумму (минимум $1 $2)";
@@ -418,7 +438,10 @@
 "editor-toolbar-image-accessibility" = "Форматирование текста изображения";
 "editor-toolbar-indent-decrease-accessibility" = "Уменьшить отступ форматирования текста";
 "editor-toolbar-indent-increase-accessibility" = "Увеличить отступ форматирования текста";
+"editor-toolbar-italics-accessibility" = "Курсивное форматирование текста";
 "editor-toolbar-link-accessibility" = "Форматирование текста ссылки";
+"editor-toolbar-list-ordered-accessibility" = "Форматирование в виде нумерованного списка";
+"editor-toolbar-list-unordered-accessibility" = "Форматирование в виде ненумерованного списка";
 "editor-toolbar-open-text-format-menu-accessibility" = "Открыть меню форматирования текста";
 "editor-wikitext-loading-accessibility" = "Загрузка текста редактора";
 "editor-wikitext-textview-accessibility" = "Редактор вики-текста";
@@ -585,7 +608,7 @@
 "history-title" = "История";
 "home-button-explore-accessibility-label" = "Вернуться к ленте";
 "home-button-history-accessibility-label" = "Википедия, вернуться к Истории";
-"home-button-saved-accessibility-label" = "Википедии, вернуться к Сохраненным";
+"home-button-saved-accessibility-label" = "Википедия, вернуться к Сохранённым";
 "home-more-like-footer" = "Ещё статей, похожих на $1";
 "home-nearby-footer" = "Больше мест вблизи";
 "home-nearby-location-footer" = "Ещё поблизости от $1";
@@ -674,6 +697,8 @@
 "inuktitut-variants-alert-title" = "Обновления поддержки вариантов Инуктитут";
 "ip-account-cta-bottom" = "Продолжить без входа";
 "ip-account-cta-top" = "Войти или создать учётную запись";
+"ip-account-edit-sheet-subtitle" = "После записи вашей правки будет создана $1временная учётная запись$2 для защиты вашей конфиденциальности. $3Узнать больше.$4$5Создайте или войдите в существующую учётную запись, чтобы вносить будущие правки под своим именем и получить доступ к прочим функциям.";
+"ip-account-warning-subtitle" = "При записи для вас будет создана временная учётная запись.";
 "ip-account-warning-title" = "Вы не вошли в систему";
 "kazakh-variants-alert-body" = "Приложение Wikipedia теперь поддерживает следующие варианты казахского языка в качестве основных или дополнительных языков в приложении, что упрощает чтение, поиск и редактирование в предпочтительных вариантах:\n\nҚазақша Kazakh (kk)\nҚазақша Kazakh, Cyrillic (kk-cyrl)\nqazaqşa Kazakh, Latin (kk-latn)\nتوتە قازاقشا Kazakh, Arabic (kk-arab)";
 "kazakh-variants-alert-title" = "Обновление поддержки вариантов Казахского";
@@ -706,12 +731,9 @@
 "main-menu-title" = "Ещё";
 "main-menu-zero-faq" = "ЧЗВ по Wikipedia Zero";
 "main-page" = "Заглавная страница";
-// Fuzzy
-"microsite-yir-english-edits-bytes-slide-subtitle" = "В 2024 году добровольцы добавили 4 104 852 969 байт текста в англоязычную Википедию. В результате их работы создаётся постоянно совершенствующийся, основанный на фактах и ​​надёжный ресурс знаний, который они предоставляют миру. У каждого из нас есть знания, которыми можно поделиться. [Узнайте, как и вам принять участие]($1).";
-// Fuzzy
-"microsite-yir-english-edits-bytes-slide-title" = "Добавлено 4 миллиарда байт";
-// Fuzzy
-"microsite-yir-english-edits-slide-title" = "В этом году редакторы внесли 98 миллионов правок.";
+"microsite-yir-english-edits-bytes-slide-subtitle" = "В 2024 году добровольцы добавили 3 416 899 197 байт текста в англоязычную Википедию. В результате их работы создаётся постоянно совершенствующийся, основанный на фактах и ​​надёжный ресурс знаний, который они предоставляют миру. У каждого из нас есть знания, которыми можно поделиться. [Узнайте, как и вам принять участие]($1).";
+"microsite-yir-english-edits-bytes-slide-title" = "Добавлено 3,4 миллиарда байт";
+"microsite-yir-english-edits-slide-title" = "В этом году редакторы внесли около 82 миллионов правок.";
 "microsite-yir-english-top-read-slide-title" = "Самые популярные статьи английской Википедии";
 "more-languages-tooltip-description" = "Искать в Википедии на более чем 300 языках";
 "more-languages-tooltip-title" = "Добавить языки";
@@ -722,6 +744,7 @@
 "nearby-distance-label-km" = "$1 км";
 "nearby-distance-label-meters" = "$1 м";
 "nearby-distance-label-miles" = "$1 мил.";
+"new-article-tab-from-wikipedia-default" = "из Википедии";
 "new-article-tab-settings-did-you-know" = "Знаете ли вы?";
 "new-article-tab-settings-recommendations" = "Рекомендации";
 "new-password-instructions" = "Вы представились с помощью временного пароля.\nДля завершения входа необходимо задать новый пароль:";
@@ -870,6 +893,7 @@
 "on-this-day-no-internet-error" = "Нет доступных данных";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 в Википедии: $2 раздел";
 "on-this-day-title" = "В этот день…";
+"open-in-tab-tooltip-body" = "Зажмите заголовок статьи или синюю ссылку, чтобы открыть её в новой вкладке.";
 "open-in-tab-tooltip-title" = "Открыть в новой вкладке";
 "original-tab-button-popover-description" = "Нажмите 'W', чтобы вернуться к вкладке, с которой вы начали";
 "page-history-bot-edits" = "бот";
@@ -1087,8 +1111,7 @@
 "serbian-variants-alert-body" = "Приложение Wikipedia теперь поддерживает следующие варианты сербского языка в качестве основных или дополнительных языков в приложении, что упрощает чтение, поиск и редактирование в предпочтительных вариантах:\n\nсрпски ћирилица Serbian, Cyrillic (sr-ec)\nsrpski latinica Serbian, Latin (sr-el)";
 "serbian-variants-alert-title" = "Обновления поддержки вариантов Сербского";
 "settings-account" = "Учётная запись";
-// Fuzzy
-"settings-appearance" = "Настройки чтения";
+"settings-appearance" = "Тема приложения";
 "settings-clear-cache" = "Очистить кэш";
 "settings-clear-cache-are-you-sure-message" = "Очистка кэша освободит около $1 места на вашем устройстве. Это не удалит ваши сохранённые страницы.";
 "settings-clear-cache-are-you-sure-title" = "Очистить кэш?";
@@ -1363,12 +1386,10 @@
 "wikitext-upload-save-sign-in" = "Войти";
 "wikitext-upload-save-terms-and-licenses-ccsa4" = "Публикуя изменения, вы соглашаетесь с $1Условиями использования$2 и с тем, что размещаете свой вклад под лицензиями $3CC BY-SA 3.0$4 и $5GFDL$6. Вы также соглашаетесь с тем, что для атрибуции согласно условиям лицензии Creative Commons достаточно будет указать гиперссылку или URL страницы.";
 "wikitext-upload-save-terms-name" = "Условия использования";
-// Fuzzy
-"year-in-review-base-editors-title" = "Редакторы приложения для iOS сделали более $1 правок";
+"year-in-review-base-editors-title" = "Редакторы сделали более $1 правок в официальных приложениях Википедии";
 "year-in-review-base-edits-title" = "Википедия редактировалась $1 раз в минуту";
 "year-in-review-base-reading-title" = "Википедия доступна на более чем 300 языках";
-// Fuzzy
-"year-in-review-base-viewed-title" = "Мы просмотрели статьи Википедии $1 миллиард раз";
+"year-in-review-base-viewed-title" = "Мы просмотрели статьи Википедии $1 млрд раз";
 "year-in-review-button-title" = "Обзор года";
 "year-in-review-collective-edits" = "Иллюстрация двух объединённых фрагментов пазла с логотипом Википедии, каждый из которых несёт информацию.";
 "year-in-review-collective-edits-per-minute" = "Тиканье часов, которое символизирует время, потраченное людьми за чтением Википедии.";
@@ -1394,6 +1415,8 @@
 "year-in-review-survey-unsatisfied" = "Недоволен";
 "year-in-review-survey-very-satisfied" = "Очень доволен";
 "year-in-review-survey-very-unsatisfied" = "Очень недоволен";
+"year-in-review-time-morning" = "Утро";
+"year-in-review-time-night" = "Ночь";
 "year-in-review-wikipedia-w-accessibility-label" = "Логотип Википедии";
 "year-in-review-wmf-logo-accessibility-label" = "Логотип Фонда Викимедиа";
 "yesterday-title" = "Вчера";
