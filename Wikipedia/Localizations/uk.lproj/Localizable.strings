@@ -259,8 +259,8 @@
 "developer-settings-activity-tab-group-B" = "Встановити вкладку «Діяльність» групі B";
 "developer-settings-activity-tab-group-C" = "Встановити вкладку «Діяльність» групі C";
 "developer-settings-bypass-donation" = "Обійти пожертвування";
-"developer-settings-dynamic-tabs-BYR" = "Увімкнути вкладки з «Оскільки Ви читали»";
-"developer-settings-dynamic-tabs-DYK" = "Увімкнути вкладки з «Чи знаєте ви»";
+"developer-settings-dynamic-tabs-group-B" = "Увімкнути вкладки з групою B";
+"developer-settings-dynamic-tabs-group-C" = "Увімкнути вкладки з групою C";
 "developer-settings-enable-year-in-review" = "Увімкнути Огляд року";
 "developer-settings-send-analytics-to-wmflabs" = "Надсилати аналітику на wmflabs.";
 "developer-settings-suppress-image-rec-post" = "Не публікуйте рекомендації щодо редагування зображень.";
@@ -1217,6 +1217,8 @@
 "table-of-contents-hide-button-label" = "Приховати вміст";
 "table-of-contents-subheading-label" = "Підзаголовок $1";
 "tabs-close-tab" = "Закрити вкладку";
+"tabs-empty-view-subtitle" = "Натисніть «+», щоб додати вкладки до цього простору, або довго натисніть посилання на статтю, щоб відкрити його в новій вкладці.";
+"tabs-empty-view-title" = "Ваші вкладки відображатимуться тут";
 "tabs-main-page-description" = "Відкрийте для себе вибрані статті, свіжі новини, цікаві факти та ключову статистику на головній сторінці Вікіпедії.";
 "tabs-main-page-subtitle" = "Найцікавіше від Вікіпедії за сьогодні";
 "tabs-navbar-title-format" = "{{PLURAL:$1|$1 вкладка|$1 вкладки|$1 вкладок}}";

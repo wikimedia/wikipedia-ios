@@ -136,6 +136,14 @@ public protocol WMFArticleTabsDataControlling {
     private var coreDataStore: WMFCoreDataStore? {
         return _coreDataStore ?? WMFDataEnvironment.current.coreDataStore
     }
+
+    public var userHasHiddenArticleSuggestionsTabs: Bool {
+        get {
+            return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.userHasHiddenArticleSuggestionsTabs.rawValue)) ?? false
+        } set {
+            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.userHasHiddenArticleSuggestionsTabs.rawValue, value: newValue)
+        }
+    }
     
     // MARK: - Lifecycle
     
@@ -152,8 +160,7 @@ public protocol WMFArticleTabsDataControlling {
     }
     
     // MARK: - Experiment
-    
-    
+
     public func shouldAssignToBucket() -> Bool {
         return experimentsDataController?.bucketForExperiment(.moreDynamicTabs) == nil
     }
@@ -182,8 +189,6 @@ public protocol WMFArticleTabsDataControlling {
     @objc public var needsMoreDynamicTabs: Bool {
         return shouldShowMoreDynamicTabs
     }
-    
-    // MARK: Experiment
     
     private var primaryAppLanguageProject: WMFProject? {
         if let language = WMFDataEnvironment.current.appData.appLanguages.first {
