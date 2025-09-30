@@ -54,6 +54,22 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         return "https://www.mediawiki.org/wiki/Special:MyLanguage/Wikimedia_Apps/iOS_FAQ?uselang=\(languageCode ?? "en")#Editing"
     }
     
+    private func noncontributorTitle() -> String {
+        // Check if current date is before the temporary date (January 1, 2026)
+        let calendar = Calendar.current
+        var expiryDateComponents = DateComponents()
+        expiryDateComponents.year = 2026
+        expiryDateComponents.month = 1
+        expiryDateComponents.day = 1
+        let currentDate = Date()
+        
+        guard let expiryDate = calendar.date(from: expiryDateComponents), currentDate < expiryDate else {
+            return WMFLocalizedString("year-in-review-non-contributor-slide-title", value: "Unlock your custom contributor icon", comment: "Year in review, non contributor slide title")
+        }
+
+        return WMFLocalizedString("year-in-review-non-contributor-slide-title-past-jan", value: "Unlock your custom contributor icon for next year!", comment: "Year in review, non contributor slide title for on / after January 1, 2026")
+    }
+    
     private var localizedStrings: WMFYearInReviewViewModel.LocalizedStrings {
         return WMFYearInReviewViewModel.LocalizedStrings(
             donateButtonTitle: CommonStrings.donateTitle,
@@ -145,7 +161,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
             personalizedMostReadArticlesSlideSubtitle: personalizedListSlideSubtitle(items:),
             personalizedLocationSlideTitle: personalizedLocationSlideTitle(countryOrOcean:),
             personalizedLocationSlideSubtitle: personalizedLocationSlideSubtitle(articleNames:),
-            noncontributorTitle: WMFLocalizedString("year-in-review-non-contributor-slide-title", value: "Unlock your custom contributor icon", comment: "Year in review, non contributor slide title"),
+            noncontributorTitle: noncontributorTitle(),
             noncontributorSubtitle: noncontributorSlideSubtitle(),
             noncontributorButtonText: CommonStrings.donateTitle,
             contributorTitle: WMFLocalizedString("year-in-review-contributor-slide-title", value: "New icon unlocked", comment: "Year in review subtitle for contributors"),
@@ -303,7 +319,20 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
     }
 
     func noncontributorSlideSubtitle() -> String {
-        let format = WMFLocalizedString("year-in-review-noncontributor-slide-subtitle", value: "We’re glad Wikipedia was part of your 2025! [Learn more](%1$@) about the ways to unlock your icon by becoming a contributor—whether by editing Wikipedia or by donating to the Wikimedia Foundation, the non-profit behind it. If Wikipedia has been useful to you this year, please consider donating to help sustain its future and keep it free, ad-free, trustworthy, and accessible to all.", comment: "Year in review, noncontributor slide subtitle. %1$@ is replaced with a MediaWiki url with more information about WMF. Do not alter markdown when translating.")
+        // Check if current date is before the temporary date (January 1, 2026)
+        let calendar = Calendar.current
+        var expiryDateComponents = DateComponents()
+        expiryDateComponents.year = 2026
+        expiryDateComponents.month = 1
+        expiryDateComponents.day = 1
+        let currentDate = Date()
+        
+        guard let expiryDate = calendar.date(from: expiryDateComponents), currentDate < expiryDate else {
+            let format = WMFLocalizedString("year-in-review-noncontributor-slide-subtitle", value: "We’re glad Wikipedia was part of your 2025! [Learn more](%1$@) about the ways to unlock your icon by becoming a contributor—whether by editing Wikipedia or by donating to the Wikimedia Foundation, the non-profit behind it. If Wikipedia has been useful to you this year, please consider donating to help sustain its future and keep it free, ad-free, trustworthy, and accessible to all.", comment: "Year in review, noncontributor slide subtitle. %1$@ is replaced with a MediaWiki url with more information about WMF. Do not alter markdown when translating.")
+            return String.localizedStringWithFormat(format, editingFAQURLString)
+        }
+        
+        let format = WMFLocalizedString("year-in-review-noncontributor-slide-subtitle-post-jan", value: "We’re glad Wikipedia was part of your 2025! [Learn](%1$@) how you can unlock a special icon in your 2026 Year in Review by becoming a contributor—whether by editing Wikipedia or by donating to the Wikimedia Foundation, the nonprofit behind it. If Wikipedia will be useful to you this year, please consider donating to help sustain its future and keep it free, ad-free, trustworthy, and accessible to all.", comment: "Year in review, noncontributor slide subtitle. %1$@ is replaced with a MediaWiki url with more information about WMF. Do not alter markdown when translating. Post January")
         return String.localizedStringWithFormat(format, editingFAQURLString)
     }
     
