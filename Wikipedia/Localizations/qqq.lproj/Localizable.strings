@@ -924,7 +924,6 @@
 "percentile-40" = "40th percentile range";
 "percentile-5" = "5th percentile range";
 "percentile-50" = "50th percentile range";
-"percentile-below-50" = "Percentile range below 50th";
 "pictured" = "Indicates the person or item is pictured (as in a news story).";
 "places-accessibility-clear-saved-searches" = "Accessibility hint for clearing saved searches";
 "places-accessibility-group" = "Accessibility label for a map icon - $1 is replaced with the number of articles in the group {{Identical|Article}}";

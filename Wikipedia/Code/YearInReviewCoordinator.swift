@@ -118,7 +118,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
             collectiveZeroAdsSlideSubtitle: collectiveZeroAdsSlideSubtitle,
             personalizedYouReadSlideTitleV2: personalizedYouReadSlideTitleV2(readCount:),
             personalizedYouReadSlideSubtitleV2: personalizedYouReadSlideSubtitleV2(readCount:),
-            personalizedYouReadSlideTitleV3: personalizedYouReadSlideTitleV3(readCount:),
+            personalizedYouReadSlideTitleV3: personalizedYouReadSlideTitleV3(readCount: minutesRead:),
             personalizedYouReadSlideSubtitleV3: personalizedYouReadSlideSubtitleV3(readCount:),
             personalizedDateSlideTitleV2: personalizedDateSlideTitleV2(day:),
             personalizedDateSlideSubtitleV2: personalizedDateSlideSubtitleV2(day:),
@@ -370,18 +370,16 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         return String.localizedStringWithFormat(format, readCount, numArticlesString, numLanguagesString)
     }
     
-    func personalizedYouReadSlideTitleV3(readCount: Int) -> String {
-        let minutesRead = readCount * 3
+    func personalizedYouReadSlideTitleV3(readCount: Int, minutesRead: Int) -> String {
         let format = WMFLocalizedString("year-in-review-personalized-reading-title-v3-format", value: "You spent {{PLURAL:%1$d|%1$d minute|%1$d minutes}} reading {{PLURAL:%2$d|%2$d article|%2$d articles}} in 2025", comment: "Year in review, personalized reading article count slide title for users that read articles. %1$d is replaced with the number of minutes the user spent reading and %2$d is replaced with the number of articles the user read in 2025.")
         return String.localizedStringWithFormat(format, minutesRead, readCount)
     }
 
-    func percentileRange(for readCount: Int) -> String {
+    func percentileRange(for readCount: Int) -> String? {
         switch readCount {
         case ...335:
-            return WMFLocalizedString("percentile-below-50", value: "<50", comment: "Percentile range below 50th")
-            // Should never get here, safety net in case
-        case 356...1233:
+            return nil
+        case 336...1233:
             return WMFLocalizedString("percentile-50", value: "50", comment: "50th percentile range")
         case 1234...2455:
             return WMFLocalizedString("percentile-40", value: "40", comment: "40th percentile range")
@@ -420,11 +418,14 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
                 comment: "Year in review, personalized reading article count slide subtitle for users that read articles. **PERCENT** is the percentage number (i.e. '25%'), do not adjust it, percentage sign is added via the client. %1$d is the average number of articles read per user."
             )
             
-            let firstSentence = String.localizedStringWithFormat(format, 335)
-                .replacingOccurrences(of: "**PERCENT**", with: "<b>\(percentageString)%</b>")
-            
-            return "\(firstSentence)\n\n\(secondSentence)"
+            if let percentageString = percentageString {
+                let firstSentence = String.localizedStringWithFormat(format, 335)
+                    .replacingOccurrences(of: "**PERCENT**", with: "<b>\(percentageString)%</b>")
+                
+                return "\(firstSentence)\n\n\(secondSentence)"
+            }
         }
+        return secondSentence
     }
 
     func personalizedDateSlideTitleV2(day: Int) -> String {

@@ -924,7 +924,6 @@
 "percentile-40" = "40";
 "percentile-5" = "5";
 "percentile-50" = "50";
-"percentile-below-50" = "<50";
 "pictured" = "pictured";
 "places-accessibility-clear-saved-searches" = "Clear saved searches";
 "places-accessibility-group" = "$1 articles";
