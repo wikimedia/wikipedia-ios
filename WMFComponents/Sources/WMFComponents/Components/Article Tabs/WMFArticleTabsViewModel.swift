@@ -233,18 +233,6 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
         }
     }
 
-    public func didTapCloseAllTabs() {
-        Task {
-            guard let numberTabs = try? await dataController.tabsCount() else { return }
-            try? await dataController.deleteAllTabs()
-            Task { @MainActor in
-                displayDeleteAllTabsToast(numberTabs)
-                await loadTabs()
-            }
-        }
-
-    }
-
     var shouldShowTabsV2: Bool {
         return dataController.shouldShowMoreDynamicTabs
     }
