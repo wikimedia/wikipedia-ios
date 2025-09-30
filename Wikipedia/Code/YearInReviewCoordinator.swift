@@ -118,7 +118,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
             collectiveZeroAdsSlideSubtitle: collectiveZeroAdsSlideSubtitle,
             personalizedYouReadSlideTitleV2: personalizedYouReadSlideTitleV2(readCount:),
             personalizedYouReadSlideSubtitleV2: personalizedYouReadSlideSubtitleV2(readCount:),
-            personalizedYouReadSlideTitleV3: personalizedYouReadSlideTitleV3(readCount:minutesRead:),
+            personalizedYouReadSlideTitleV3: personalizedYouReadSlideTitleV3(readCount: minutesRead:),
             personalizedYouReadSlideSubtitleV3: personalizedYouReadSlideSubtitleV3(readCount:),
             personalizedDateSlideTitleV2: personalizedDateSlideTitleV2(day:),
             personalizedDateSlideSubtitleV2: personalizedDateSlideSubtitleV2(day:),
@@ -375,28 +375,31 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         return String.localizedStringWithFormat(format, minutesRead, readCount)
     }
 
-    func personalizedYouReadSlideSubtitleV3(readCount: Int) -> String {
-        
-        let minReadCount = 1
-        let maxReadCount = 43740
-        let containedReadCount = min(max(readCount, minReadCount), maxReadCount)
-        let percentage = 100 - (Double(containedReadCount) / Double(maxReadCount) * 100)
-        
-        let percentageString: String
-        if readCount > maxReadCount {
-            percentageString = "0.001"
-        } else {
-            percentageString = String(format: "%.3f", percentage)
+    func percentileRange(for readCount: Int) -> String? {
+        switch readCount {
+        case ...335:
+            return nil
+        case 336...1233:
+            return WMFLocalizedString("percentile-50", value: "50", comment: "50th percentile range")
+        case 1234...2455:
+            return WMFLocalizedString("percentile-40", value: "40", comment: "40th percentile range")
+        case 2456...4566:
+            return WMFLocalizedString("percentile-30", value: "30", comment: "30th percentile range")
+        case 4567...8900:
+            return WMFLocalizedString("percentile-20", value: "20", comment: "20th percentile range")
+        case 8901...12344:
+            return WMFLocalizedString("percentile-10", value: "10", comment: "10th percentile range")
+        case 12345...23455:
+            return WMFLocalizedString("percentile-5", value: "5", comment: "5th percentile range")
+        case 23456...43739:
+            return WMFLocalizedString("percentile-1", value: "1", comment: "1st percentile range")
+        default:
+            return WMFLocalizedString("percentile-0.01", value: "0.01", comment: "0.01th percentile range")
         }
-        
-        let format = WMFLocalizedString(
-            "year-in-review-personalized-reading-subtitle-format-v3",
-            value: "This puts you in the top **PERCENT** of Wikipedia readers globally. The average person reads {{PLURAL:%1$d|%1$d article|%1$d articles}} a year.",
-            comment: "Year in review, personalized reading article count slide subtitle for users that read articles. **PERCENT** is the percentage number (i.e. '25%'), do not adjust it, percentage sign is added via the client. %1$d is the average number of articles read per user."
-        )
-        
-        let firstSentence = String.localizedStringWithFormat(format, 335).replacingOccurrences(of: "**PERCENT**", with: "<b>\(percentageString)%</b>")
-        
+    }
+
+
+    func personalizedYouReadSlideSubtitleV3(readCount: Int) -> String {
         let secondSentence: String
         if primaryAppLanguage.isEnglishWikipedia {
             secondSentence = englishReadingSlideSubtitleShort
@@ -404,9 +407,27 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
             secondSentence = collectiveLanguagesSlideSubtitle
         }
         
-        return "\(firstSentence)\n\n\(secondSentence)"
+        if readCount < 336 {
+            return secondSentence
+        } else {
+            let percentageString = percentileRange(for: readCount)
+            
+            let format = WMFLocalizedString(
+                "year-in-review-personalized-reading-subtitle-format-v3",
+                value: "We estimate that puts you in the top **PERCENT** of Wikipedia readers globally. The average person reads {{PLURAL:%1$d|%1$d article|%1$d articles}} a year.",
+                comment: "Year in review, personalized reading article count slide subtitle for users that read articles. **PERCENT** is the percentage number (i.e. '25%'), do not adjust it, percentage sign is added via the client. %1$d is the average number of articles read per user."
+            )
+            
+            if let percentageString = percentageString {
+                let firstSentence = String.localizedStringWithFormat(format, 335)
+                    .replacingOccurrences(of: "**PERCENT**", with: "<b>\(percentageString)%</b>")
+                
+                return "\(firstSentence)\n\n\(secondSentence)"
+            }
+        }
+        return secondSentence
     }
-    
+
     func personalizedDateSlideTitleV2(day: Int) -> String {
         let format = WMFLocalizedString(
             "year-in-review-personalized-day-title-format",
@@ -843,15 +864,20 @@ extension YearInReviewCoordinator: YearInReviewCoordinatorDelegate {
             showLoginPromptFromIntroV3GetStarted()
         case .tappedIntroV3DoneWhileLoggedOut:
             showExitConfirmationPromptFromIntroV3Done()
-        case .donate(let rect):
-            let donateCoordinator = DonateCoordinator(navigationController: navigationController, donateButtonGlobalRect: rect, source: .yearInReview, dataStore: dataStore, theme: theme, navigationStyle: .present, setLoadingBlock: {  [weak self] loading in
+        case .donate(let getSourceRect):
+            
+            let donateSuccessAction: () -> Void = { [weak self] in
+                self?.viewModel?.donateDidSucceed()
+            }
+            
+            let donateCoordinator = DonateCoordinator(navigationController: navigationController, source: .yearInReview, dataStore: dataStore, theme: theme, navigationStyle: .present, setLoadingBlock: {  [weak self] loading in
                 guard let self,
                       let viewModel = self.viewModel else {
                     return
                 }
 
                 viewModel.isLoadingDonate = loading
-            })
+            }, getDonateButtonGlobalRect: getSourceRect, donateSuccessAction: donateSuccessAction)
 
             self.donateCoordinator = donateCoordinator
             donateCoordinator.start()

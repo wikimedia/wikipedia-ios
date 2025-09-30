@@ -34,6 +34,7 @@ public protocol WMFArticleTabsDataControlling {
         case missingAssignment
         case doesNotQualifyForExperiment
         case pastAssignmentEndDate
+        case missingURL
     }
     
     public struct WMFArticle: Codable {
@@ -43,14 +44,16 @@ public protocol WMFArticleTabsDataControlling {
         public let extract: String?
         public let imageURL: URL?
         public let project: WMFProject
-        
-        public init(identifier: UUID?, title: String, description: String? = nil, extract: String? = nil, imageURL: URL? = nil, project: WMFProject) {
+        public let articleURL: URL?
+
+        public init(identifier: UUID?, title: String, description: String? = nil, extract: String? = nil, imageURL: URL? = nil, project: WMFProject, articleURL: URL?) {
             self.identifier = identifier
             self.title = title
             self.description = description
             self.extract = extract
             self.imageURL = imageURL
             self.project = project
+            self.articleURL = articleURL
         }
         
         public var isMain: Bool {
@@ -328,7 +331,7 @@ public protocol WMFArticleTabsDataControlling {
     public var tabsMax: Int {
         return developerSettingsDataController.forceMaxArticleTabsTo5 ? 5 : 500
     }
-    
+
     public func createArticleTab(initialArticle: WMFArticle?, setAsCurrent: Bool = false) async throws -> Identifiers {
         
         guard let coreDataStore else {
@@ -346,12 +349,18 @@ public protocol WMFArticleTabsDataControlling {
         } else {
             if let primaryAppLanguage = WMFDataEnvironment.current.appData.appLanguages.first {
                 let project = WMFProject.wikipedia(primaryAppLanguage)
-                article = WMFArticle(identifier: nil, title: "Main_Page", project: project)
+                let title = "Main_Page"
+                guard let siteURL = project.siteURL,
+                      let articleURL = siteURL.wmfURL(withTitle: title, languageVariantCode: nil) else {
+                    throw CustomError.missingURL
+                }
+
+                article = WMFArticle(identifier: nil, title: title, project: project, articleURL: articleURL)
             } else {
                 throw CustomError.missingAppLanguage
             }
         }
-        
+
         return try await moc.perform { [weak self] in
             guard let self else { throw CustomError.missingSelf }
             
@@ -559,13 +568,19 @@ public protocol WMFArticleTabsDataControlling {
                     }
                 }
             }
-            
+
+
             if let cdArticleItem = adjacentArticle as? CDArticleTabItem,
                let title = cdArticleItem.page?.title,
                let identifier = cdArticleItem.identifier,
                let coreDataIdentifier = cdArticleItem.page?.projectID,
                let wmfProject = WMFProject(coreDataIdentifier: coreDataIdentifier) {
-                let wmfArticle = WMFArticle(identifier: identifier, title: title, project: wmfProject)
+
+                guard let siteURL = wmfProject.siteURL,
+                      let articleURL = siteURL.wmfURL(withTitle: title, languageVariantCode: nil) else {
+                    throw CustomError.missingURL
+                }
+                let wmfArticle = WMFArticle(identifier: identifier, title: title, project: wmfProject, articleURL: articleURL)
                 return wmfArticle
             }
             
@@ -574,7 +589,6 @@ public protocol WMFArticleTabsDataControlling {
         
         let result: WMFArticle? = try await moc.perform(block)
         return result
-        
     }
     
     public func setTabItemAsCurrent(tabIdentifier: UUID, tabItemIdentifier: UUID) async throws {
@@ -819,17 +833,35 @@ public protocol WMFArticleTabsDataControlling {
         guard let moc = backgroundContext else {
             throw CustomError.missingContext
         }
-        
-        return try await moc.perform {
-            let predicate = NSPredicate(format: "isCurrent == YES")
-            guard let currentTab = try coreDataStore.fetch(entityType: CDArticleTab.self, predicate: predicate, fetchLimit: 1, in: moc)?.first,
-                  let identifier = currentTab.identifier else {
-                throw CustomError.missingTab
-            }
-            return identifier
+
+        if let existingID = try await fetchCurrentTabID(coreDataStore: coreDataStore, moc: moc) {
+            return existingID
         }
+
+        guard shouldShowMoreDynamicTabs else {
+            throw CustomError.missingTab
+        }
+
+        let newTab = try await createArticleTab(initialArticle: nil, setAsCurrent: true)
+        return newTab.tabIdentifier
     }
-    
+
+        // MARK: - Helpers
+
+        /// Reads the current tab's UUID from Core Data on the context's queue.
+        private func fetchCurrentTabID(coreDataStore: WMFCoreDataStore, moc: NSManagedObjectContext) async throws -> UUID? {
+            try await moc.perform {
+                let predicate = NSPredicate(format: "isCurrent == YES")
+                let tab = try coreDataStore
+                    .fetch(entityType: CDArticleTab.self,
+                           predicate: predicate,
+                           fetchLimit: 1,
+                           in: moc)?
+                    .first
+                return tab?.identifier
+            }
+        }
+
     public func setTabAsCurrent(tabIdentifier: UUID) async throws {
         
         guard let coreDataStore else {
@@ -910,8 +942,13 @@ public protocol WMFArticleTabsDataControlling {
                           let project = WMFProject(coreDataIdentifier: projectID) else {
                         throw CustomError.unexpectedType
                     }
-                    
-                    let article = WMFArticle(identifier: identifier, title: title, project: project)
+
+                    guard let siteURL = project.siteURL,
+                          let articleURL = siteURL.wmfURL(withTitle: title, languageVariantCode: nil) else {
+                        throw CustomError.missingURL
+                    }
+
+                    let article = WMFArticle(identifier: identifier, title: title, project: project, articleURL: articleURL)
                     articles.append(article)
                     
                     // don't append any more after current article.
@@ -959,9 +996,12 @@ public protocol WMFArticleTabsDataControlling {
                   let project = WMFProject(coreDataIdentifier: projectID) else {
                 throw CustomError.missingTabItem
             }
-            
-            let tab = WMFArticleTab(identifier: tabIdentifier, timestamp: tabTimestamp, isCurrent: cdTab.isCurrent, articles: [WMFArticle(identifier: articleIdentifier, title: title, project: project)])
-            
+            guard let siteURL = project.siteURL,
+                  let articleURL = siteURL.wmfURL(withTitle: title, languageVariantCode: nil) else {
+                throw CustomError.missingURL
+            }
+            let tab = WMFArticleTab(identifier: tabIdentifier, timestamp: tabTimestamp, isCurrent: cdTab.isCurrent, articles: [WMFArticle(identifier: articleIdentifier, title: title, project: project, articleURL: articleURL)])
+
             try userDefaultsStore?.save(key: WMFUserDefaultsKey.articleTabRestoration.rawValue, value: tab)
         }
     }
@@ -1007,3 +1047,4 @@ private extension Locale {
         }
     }
 }
+

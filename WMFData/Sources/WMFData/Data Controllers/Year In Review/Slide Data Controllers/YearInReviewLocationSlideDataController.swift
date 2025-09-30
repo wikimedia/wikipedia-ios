@@ -6,6 +6,7 @@ final class YearInReviewLocationSlideDataController: YearInReviewSlideDataContro
     let year: Int
     var isEvaluated: Bool = false
     static var containsPersonalizedNetworkData = false
+    static var shouldFreeze = true
     
     private var legacyPageViews: [WMFLegacyPageView]
 
