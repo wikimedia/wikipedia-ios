@@ -265,13 +265,14 @@ public class WMFYearInReviewViewModel: ObservableObject {
         }
     }
     @Published var isShowingIntro: Bool = true
+    @Published var donateButtonRect: CGRect = .zero
     
     public let localizedStrings: LocalizedStrings
     
     private(set) var introV2ViewModel: WMFYearInReviewIntroV2ViewModel?
     private(set) var introV3ViewModel: WMFYearInReviewIntroV3ViewModel?
     
-    private(set) var slides: [WMFYearInReviewSlide] // doesn't include intro
+    @Published var slides: [WMFYearInReviewSlide] // doesn't include intro
     public let shareLink: String
     public let hashtag: String
     public let plaintextURL: String
@@ -429,8 +430,8 @@ public class WMFYearInReviewViewModel: ObservableObject {
                                     subtitle: localizedStrings.contributorSubtitle(editCount > 0, donateCount > 0),
                                     loggingID: "", // todo
                                     contributionStatus: .contributor,
-                                    onTappedDonateButton: { [weak self] sourceRect in
-                                        self?.handleDonate(sourceRect: sourceRect)
+                                    onTappedDonateButton: { [weak self] in
+                                        self?.handleDonate()
                                     },
                                     onToggleIcon: { isOn in
                                         self.toggleAppIcon(isOn)
@@ -983,8 +984,8 @@ public class WMFYearInReviewViewModel: ObservableObject {
             loggingID: "",
             contributionStatus: .noncontributor,
             forceHideDonateButton: forceHideDonateButton,
-            onTappedDonateButton: { [weak self] sourceRect in
-                self?.handleDonate(sourceRect: sourceRect)
+            onTappedDonateButton: { [weak self] in
+                self?.handleDonate()
             },
             onInfoButtonTap: tappedInfo,
             donateButtonTitle: localizedStrings.donateButtonTitle,
@@ -1007,6 +1008,23 @@ public class WMFYearInReviewViewModel: ObservableObject {
             coordinatorDelegate?.handleYearInReviewAction(.tappedIntroV3GetStartedWhileLoggedOut)
         } else {
             populateReportAndShowFirstSlide()
+        }
+    }
+    
+    private func populateReportAndUpdateSlides() {
+        Task { [weak self] in
+            guard let self else { return }
+            do {
+                try await self.populateYearInReviewReport()
+                Task { @MainActor [weak self] in
+                    
+                    guard let self else { return }
+                    
+                    self.updateSlides(isUserPermanent: isUserPermanent)
+                }
+            } catch {
+                // do nothing
+            }
         }
     }
     
@@ -1066,6 +1084,10 @@ public class WMFYearInReviewViewModel: ObservableObject {
     public func completedLoginFromIntroV3LoginPrompt() {
         isUserPermanent = true
         populateReportAndShowFirstSlide()
+    }
+    
+    public func donateDidSucceed() {
+        populateReportAndUpdateSlides()
     }
     
     private func incrementSlideIndex() {
@@ -1162,8 +1184,11 @@ public class WMFYearInReviewViewModel: ObservableObject {
         }
     }
     
-    func handleDonate(sourceRect: CGRect) {
-        coordinatorDelegate?.handleYearInReviewAction(.donate(sourceRect: sourceRect))
+    func handleDonate() {
+        let getSourceRect: () -> CGRect = { [weak self] in
+            return self?.donateButtonRect ?? .zero
+        }
+        coordinatorDelegate?.handleYearInReviewAction(.donate(getSourceRect: getSourceRect))
         logYearInReviewDidTapDonate()
     }
     
