@@ -701,7 +701,7 @@ public class WMFYearInReviewViewModel: ObservableObject {
                 slides.append(.standard(personalizedSlides.saveCountSlide ?? (primaryAppLanguage.isEnglishWikipedia ? englishReadingListSlide : collectiveSavedArticlesSlide)))
                 slides.append(.standard(personalizedSlides.editCountSlide ?? (primaryAppLanguage.isEnglishWikipedia ? englishEditsSlide : collectiveAmountEditsSlide)))
                 slides.append(.standard(personalizedSlides.viewCountSlide ?? (primaryAppLanguage.isEnglishWikipedia ? englishEditsBytesSlide : collectiveEditsPerMinuteSlide)))
-                slides.append(.contribution(personalizedSlides.donateCountSlideV3 ?? nonContributorSlide))
+                if shouldShowDonateButton { slides.append(.contribution(personalizedSlides.donateCountSlideV3 ?? nonContributorSlide)) }
                 slides.append(.highlights(getPersonalizedHighlights()))
             } else {
                 slides.append(.standard(primaryAppLanguage.isEnglishWikipedia ? englishHoursReadingSlide : collectiveLanguagesSlide))
@@ -709,7 +709,7 @@ public class WMFYearInReviewViewModel: ObservableObject {
                 slides.append(.standard(primaryAppLanguage.isEnglishWikipedia ? englishReadingListSlide : collectiveSavedArticlesSlide))
                 slides.append(.standard(primaryAppLanguage.isEnglishWikipedia ? englishEditsSlide : collectiveAmountEditsSlide))
                 slides.append(.standard(primaryAppLanguage.isEnglishWikipedia ? englishEditsBytesSlide : collectiveEditsPerMinuteSlide))
-                slides.append(.contribution(personalizedSlides.donateCountSlideV3 ?? nonContributorSlide))
+                if shouldShowDonateButton { slides.append(.contribution(personalizedSlides.donateCountSlideV3 ?? nonContributorSlide)) }
                 slides.append(.highlights(primaryAppLanguage.isEnglishWikipedia ? getEnglishCollectiveHighlights() : getCollectiveHighlights()))
             }
         } else if WMFDeveloperSettingsDataController.shared.showYiRV2 {
