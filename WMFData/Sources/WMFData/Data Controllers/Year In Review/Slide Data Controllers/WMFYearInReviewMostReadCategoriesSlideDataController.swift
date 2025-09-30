@@ -26,14 +26,23 @@ final class YearInReviewMostReadCategoriesSlideDataController: YearInReviewSlide
 
         let categoryCounts = try await WMFCategoriesDataController().fetchCategoryCounts(startDate: startDate, endDate: endDate)
 
-        let filteredTop5 = Array(categoryCounts
+        var filtered = categoryCounts
             .filter { key, _ in
                 key.categoryName.components(separatedBy: "_").count - 1 >= 2
             }
             .sorted { $0.value > $1.value }
-            .prefix(5)).map { item in
-                return item.key.categoryName.replacingOccurrences(of: "_", with: " ")
-            }
+            .prefix(5)
+
+        if filtered.isEmpty {
+            filtered = categoryCounts
+                .sorted { $0.value > $1.value }
+                .prefix(5)
+        }
+
+        let filteredTop5 = filtered.map { item in
+            item.key.categoryName.replacingOccurrences(of: "_", with: " ")
+        }
+
         mostReadCategories = filteredTop5
 
         isEvaluated = true

@@ -4,6 +4,7 @@ import WMFComponents
 import WMFData
 import CocoaLumberjackSwift
 
+@MainActor
 final class TabsOverviewCoordinator: Coordinator {
     var navigationController: UINavigationController
     var theme: Theme
@@ -62,6 +63,26 @@ final class TabsOverviewCoordinator: Coordinator {
     }
     
     
+    public func showAlertForArticleSuggestionsDisplayChangeConfirmation() {
+        if dataController.userHasHiddenArticleSuggestionsTabs {
+            WMFAlertManager.sharedInstance.showBottomAlertWithMessage(
+                WMFLocalizedString("tabs-suggested-articles-hide-suggestions-confirmation", value: "Suggestions are now hidden", comment: "Confirmation on hiding of the suggested articles in tabs."),
+                subtitle: nil,
+                buttonTitle: nil,
+                image: WMFSFSymbolIcon.for(symbol: .checkmark),
+                dismissPreviousAlerts: true
+            )
+        } else {
+            WMFAlertManager.sharedInstance.showBottomAlertWithMessage(
+                WMFLocalizedString("tabs-suggested-articles-show-suggestions-confirmation", value: "Suggestions are now visible", comment: "Confirmation on showing of the suggested articles in tabs."),
+                subtitle: nil,
+                buttonTitle: nil,
+                image: WMFSFSymbolIcon.for(symbol: .checkmark),
+                dismissPreviousAlerts: true
+            )
+        }
+    }
+    
     func closeAllTabsTitle(numberTabs: Int) -> String {
         let format = WMFLocalizedString("close-all-tabs-confirmation-title-with-value", value: "Close {{PLURAL:%1$d|%1$d tab|%1$d tabs}}?", comment: "Title of alert that asks user if they want to delete all tabs, $1 is representative of the number of tabs they have open.")
         return String.localizedStringWithFormat(format, numberTabs)
@@ -77,7 +98,6 @@ final class TabsOverviewCoordinator: Coordinator {
         return String.localizedStringWithFormat(format, numberTabs)
     }
     
-    
     private func presentTabs() {
         
         let didTapTab: (WMFArticleTabsDataController.WMFArticleTab) -> Void = { [weak self] tab in
@@ -87,6 +107,11 @@ final class TabsOverviewCoordinator: Coordinator {
         let didTapAddTab: () -> Void = { [weak self] in
             guard let self else { return }
             self.tappedAddTab()
+        }
+
+        let didTapShareTab: (WMFArticleTabsDataController.WMFArticleTab, CGRect?) -> Void = { [weak self] tab, frame in
+            guard let self else { return }
+            self.tappedShareTab(tab, sourceFrameInWindow: frame)
         }
 
         let displayDeleteAllTabsToast: (Int) -> Void = { [weak self] articleTabsCount in
@@ -131,13 +156,16 @@ final class TabsOverviewCoordinator: Coordinator {
                 mainPageDescription: CommonStrings.mainPageDescription,
                 closeTabAccessibility: WMFLocalizedString("tabs-close-tab", value: "Close tab", comment: "Accessibility label for close tab button"),
                 openTabAccessibility: WMFLocalizedString("tabs-open-tab", value: "Open tab", comment: "Accessibility label for opening a tab"),
+                shareTabButtonTitle: CommonStrings.shareActionTitle,
                 closeAllTabs: CommonStrings.closeAllTabs,
                 cancelActionTitle: CommonStrings.cancelActionTitle,
                 closeAllTabsTitle: closeAllTabsTitle(numberTabs: articleTabsCount),
                 closeAllTabsSubtitle: closeAllTabsSubtitle(numberTabs: articleTabsCount),
                 closedAlertsNotification: closedAlertsNotification(numberTabs: articleTabsCount),
+                hideSuggestedArticlesTitle: WMFLocalizedString("tabs-hide-suggested-articles", value: "Hide article suggestions", comment: "Hide suggested articles button title"),
+                showSuggestedArticlesTitle: WMFLocalizedString("tabs-show-suggested-articles", value: "Show article suggestions", comment: "Show suggested articles button title"),
                 emptyStateTitle: WMFLocalizedString("tabs-empty-view-title", value: "Your tabs will show up here", comment: "Title for the tabs overview screen when there are no tabs"),
-                emptyStateSubtitle: WMFLocalizedString("tabs-empty-view-subtitle", value: "Tap “+” to add tabs to this space or long press an article link to open it in a new tab. ", comment: "Subtitle for the tabs overview screen when there are no tabs")
+                emptyStateSubtitle: WMFLocalizedString("tabs-empty-view-subtitle", value: "Tap “+” to add tabs to this space or long press an article link to open it in a new tab.", comment: "Subtitle for the tabs overview screen when there are no tabs")
             )
             
             let articleTabsViewModel = WMFArticleTabsViewModel(
@@ -146,23 +174,26 @@ final class TabsOverviewCoordinator: Coordinator {
                 loggingDelegate: self,
                 didTapTab: didTapTab,
                 didTapAddTab: didTapAddTab,
+                didTapShareTab: didTapShareTab,
+                didToggleSuggestedArticles: showAlertForArticleSuggestionsDisplayChangeConfirmation,
                 displayDeleteAllTabsToast: displayDeleteAllTabsToast
             )
             
-            let articleTabsView = await WMFArticleTabsView(viewModel: articleTabsViewModel)
-            let hostingController = await WMFArticleTabsHostingController(
+            let articleTabsView = WMFArticleTabsView(viewModel: articleTabsViewModel)
+            let hostingController = WMFArticleTabsHostingController(
                 rootView: articleTabsView,
                 viewModel: articleTabsViewModel,
                 doneButtonText: CommonStrings.doneTitle,
-                articleTabsCount: articleTabsCount
+                articleTabsCount: articleTabsCount,
+                
             )
             
-            let navVC = await WMFComponentNavigationController(
+            let navVC = WMFComponentNavigationController(
                 rootViewController: hostingController,
                 modalPresentationStyle: .overFullScreen
             )
             
-            await navigationController.present(navVC, animated: true) { [weak self] in
+            navigationController.present(navVC, animated: true) { [weak self] in
                 self?.dataController.updateSurveyDataTabsOverviewSeenCount()
                 guard self != nil else { return }
                 showSurveyClosure()
@@ -209,6 +240,31 @@ final class TabsOverviewCoordinator: Coordinator {
         
         navigationController.dismiss(animated: true)
     }
+
+    private func tappedShareTab(_ tab: WMFArticleTabsDataController.WMFArticleTab, sourceFrameInWindow: CGRect?) {
+        guard let article = tab.articles.last, let url = article.articleURL else { return }
+        let articleURL = url.wmf_URLForTextSharing
+        let presenter = navigationController.presentedViewController ?? navigationController
+        shareURL(articleURL, from: presenter, sourceFrameInWindow: sourceFrameInWindow)
+    }
+
+
+    private func shareURL(_ url: URL, from presenter: UIViewController, sourceFrameInWindow: CGRect?) {
+        let activityVC = UIActivityViewController(activityItems: [url], applicationActivities: nil)
+
+        if let pop = activityVC.popoverPresentationController {
+            pop.sourceView = presenter.view
+            if let rectInWindow = sourceFrameInWindow {
+                let rectInPresenter = presenter.view.convert(rectInWindow, from: presenter.view.window)
+                pop.sourceRect = rectInPresenter
+            } else {
+                pop.sourceRect = presenter.view.bounds
+            }
+        }
+
+        presenter.present(activityVC, animated: true)
+    }
+
 }
 
 extension TabsOverviewCoordinator: WMFArticleTabsLoggingDelegate {
@@ -217,7 +273,7 @@ extension TabsOverviewCoordinator: WMFArticleTabsLoggingDelegate {
         ArticleTabsFunnel.shared.logTabsOverviewImpression()
     }
     
-    func logArticleTabsArticleClick(wmfProject: WMFProject?) {
+    nonisolated func logArticleTabsArticleClick(wmfProject: WMFProject?) {
         if let url = wmfProject?.siteURL, let project =  WikimediaProject(siteURL:url) {
             ArticleTabsFunnel.shared.logArticleClick(project: project)
         }
@@ -226,6 +282,7 @@ extension TabsOverviewCoordinator: WMFArticleTabsLoggingDelegate {
 
 /// Manages the lifecycle of TabsOverviewCoordinator independently of article tabs.
 /// Ensures the tabs UI works even if the current article tab is closed.
+@MainActor
 final class TabsCoordinatorManager {
 
     static let shared = TabsCoordinatorManager()
@@ -239,3 +296,4 @@ final class TabsCoordinatorManager {
         coordinator.start()
     }
 }
+

@@ -2,6 +2,7 @@ import Foundation
 import SwiftUI
 import WMFData
 
+@MainActor
 public protocol WMFArticleTabsLoggingDelegate: AnyObject {
     func logArticleTabsOverviewImpression()
     func logArticleTabsArticleClick(wmfProject: WMFProject?)
@@ -18,7 +19,9 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
 
     public let didTapTab: (WMFArticleTabsDataController.WMFArticleTab) -> Void
     public let didTapAddTab: () -> Void
+    public let didTapShareTab: (WMFArticleTabsDataController.WMFArticleTab, CGRect?) -> Void
     public let displayDeleteAllTabsToast: (Int) -> Void
+    public let didToggleSuggestedArticles: () -> Void
     
     public let localizedStrings: LocalizedStrings
     
@@ -27,6 +30,8 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
                 loggingDelegate: WMFArticleTabsLoggingDelegate?,
                 didTapTab: @escaping (WMFArticleTabsDataController.WMFArticleTab) -> Void,
                 didTapAddTab: @escaping () -> Void,
+                didTapShareTab: @escaping (WMFArticleTabsDataController.WMFArticleTab, CGRect?) -> Void,
+                didToggleSuggestedArticles: @escaping () -> Void,
                 displayDeleteAllTabsToast: @escaping (Int) -> Void) {
         self.dataController = dataController
         self.localizedStrings = localizedStrings
@@ -35,23 +40,13 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
         self.shouldShowCloseButton = false
         self.didTapTab = didTapTab
         self.didTapAddTab = didTapAddTab
+        self.didTapShareTab = didTapShareTab
         self.displayDeleteAllTabsToast = displayDeleteAllTabsToast
+        self.didToggleSuggestedArticles = didToggleSuggestedArticles
         super.init()
         Task {
             await loadTabs()
         }
-    }
-    
-    public func didTapCloseAllTabs() {
-        Task {
-            guard let numberTabs = try? await dataController.tabsCount() else { return }
-            try? await dataController.deleteAllTabs()
-            Task { @MainActor in
-                displayDeleteAllTabsToast(numberTabs)
-                await loadTabs()
-            }
-        }
-        
     }
     
     public struct LocalizedStrings {
@@ -61,26 +56,32 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
         public let mainPageDescription: String
         public let closeTabAccessibility: String
         public let openTabAccessibility: String
+        public let shareTabButtonTitle: String
         public let closeAllTabs: String
         public let cancelActionTitle: String
         public let closeAllTabsTitle: String
         public let closeAllTabsSubtitle: String
         public let closedAlertsNotification: String
+        public let hideSuggestedArticlesTitle: String
+        public let showSuggestedArticlesTitle: String
         public let emptyStateTitle: String
         public let emptyStateSubtitle: String
 
-        public init(navBarTitleFormat: String, mainPageTitle: String?, mainPageSubtitle: String, mainPageDescription: String, closeTabAccessibility: String, openTabAccessibility: String, closeAllTabs: String, cancelActionTitle: String, closeAllTabsTitle: String, closeAllTabsSubtitle: String, closedAlertsNotification: String, emptyStateTitle: String, emptyStateSubtitle: String) {
+        public init(navBarTitleFormat: String, mainPageTitle: String?, mainPageSubtitle: String, mainPageDescription: String, closeTabAccessibility: String, openTabAccessibility: String, shareTabButtonTitle: String, closeAllTabs: String, cancelActionTitle: String, closeAllTabsTitle: String, closeAllTabsSubtitle: String, closedAlertsNotification: String, hideSuggestedArticlesTitle: String, showSuggestedArticlesTitle: String, emptyStateTitle: String, emptyStateSubtitle: String) {
             self.navBarTitleFormat = navBarTitleFormat
             self.mainPageTitle = mainPageTitle
             self.mainPageSubtitle = mainPageSubtitle
             self.mainPageDescription = mainPageDescription
             self.closeTabAccessibility = closeTabAccessibility
             self.openTabAccessibility = openTabAccessibility
+            self.shareTabButtonTitle = shareTabButtonTitle
             self.closeAllTabs = closeAllTabs
             self.cancelActionTitle = cancelActionTitle
             self.closeAllTabsTitle = closeAllTabsTitle
             self.closeAllTabsSubtitle = closeAllTabsSubtitle
             self.closedAlertsNotification = closedAlertsNotification
+            self.hideSuggestedArticlesTitle = hideSuggestedArticlesTitle
+            self.showSuggestedArticlesTitle = showSuggestedArticlesTitle
             self.emptyStateTitle = emptyStateTitle
             self.emptyStateSubtitle = emptyStateSubtitle
         }
@@ -205,28 +206,155 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
             }
         }
     }
-    
-    func populateArticleSummary(_ tab: WMFArticleTabsDataController.WMFArticleTab) async -> WMFArticleTabsDataController.WMFArticleTab {
-        guard let lastArticle = tab.articles.last else {
-            return tab
+
+    public func didTapCloseAllTabs() {
+        Task {
+            guard let numberTabs = try? await dataController.tabsCount() else { return }
+            try? await dataController.deleteAllTabs()
+            Task { @MainActor in
+                displayDeleteAllTabsToast(numberTabs)
+                await loadTabs()
+            }
         }
-        
-        guard !lastArticle.isMain else {
-            return tab
+
+    }
+
+    var shouldShowTabsV2: Bool {
+        return dataController.shouldShowMoreDynamicTabs
+    }
+
+    // MARK: - Populate article summary
+
+    @MainActor private var incomingTabIDs = Set<String>()
+    @MainActor private var prefetchedTabIDs = Set<String>()
+
+    /// Kick off a prefetch immediately for the visible window of 24 tabs, then trickle the rest in the background
+    func prefetchAllSummariesTrickled(initialWindow: Int = 24,
+                                      pageSize: Int = 12,
+                                      delayBetweenBatchesNs: UInt64 = 150_000_000) {
+        let tabsSnapshot = articleTabs
+        let mainSubtitle = localizedStrings.mainPageSubtitle
+        let mainDescription = localizedStrings.mainPageDescription
+
+        Task { [weak self] in
+            guard let self else { return }
+            await self.prefetchBatch(
+                for: Array(tabsSnapshot.prefix(initialWindow)),
+                mainSubtitle: mainSubtitle,
+                mainDescription: mainDescription
+            )
         }
-        
-        let dataController = WMFArticleSummaryDataController()
-        do {
-            let summary = try await dataController.fetchArticleSummary(project: lastArticle.project, title: lastArticle.title)
-            
-            var newArticles = Array(tab.articles.prefix(tab.articles.count - 1))
-            let newArticle = WMFArticleTabsDataController.WMFArticle(identifier: lastArticle.identifier, title: lastArticle.title, description: summary.description, extract: summary.extract, imageURL: summary.thumbnailURL, project: lastArticle.project)
-            newArticles.append(newArticle)
-            let newTab = WMFArticleTabsDataController.WMFArticleTab(identifier: tab.identifier, timestamp: tab.timestamp, isCurrent: tab.isCurrent, articles: newArticles)
-            return newTab
-            
-        } catch {
-            return tab
+
+        // Background fetch remainder of tabs
+        Task.detached(priority: .background) { [weak self] in
+            guard let self else { return }
+            var remainder = Array(tabsSnapshot.dropFirst(initialWindow))
+
+            while !remainder.isEmpty {
+                let chunk = Array(remainder.prefix(pageSize))
+                await self.prefetchBatch(
+                    for: chunk,
+                    mainSubtitle: mainSubtitle,
+                    mainDescription: mainDescription
+                )
+                remainder.removeFirst(min(pageSize, remainder.count))
+                try? await Task.sleep(nanoseconds: delayBetweenBatchesNs)
+            }
+        }
+    }
+
+    /// Prefetch tabs snapshot info for thumbs and previews
+    private func prefetchBatch(for tabs: [ArticleTab], mainSubtitle: String, mainDescription: String) async {
+
+        struct Input: Sendable {
+            let id: String
+            let project: WMFProject
+            let title: String
+            let url: URL?
+            let isMain: Bool
+        }
+
+        let inputs: [Input] = await MainActor.run { [weak self] in
+            guard let self else { return [] }
+            return tabs.compactMap { tab -> Input? in
+                // Check prefetched items
+                if self.prefetchedTabIDs.contains(tab.id) || self.incomingTabIDs.contains(tab.id) { return nil }
+                guard let last = tab.data.articles.last else { return nil }
+                self.incomingTabIDs.insert(tab.id)
+                return Input(id: tab.id, project: last.project, title: last.title, url: last.articleURL, isMain: last.isMain)
+            }
+        }
+
+        guard !inputs.isEmpty else { return }
+
+        await withTaskGroup(of: (id: String, info: ArticleTab.Info?).self) { group in
+            for input in inputs {
+                group.addTask {
+                    do {
+                        let dc = WMFArticleSummaryDataController()
+                        let summary = try await dc.fetchArticleSummary(project: input.project, title: input.title)
+
+                        let subtitle = input.isMain ? mainSubtitle     : summary.description
+                        let desc     = input.isMain ? mainDescription  : summary.extract
+
+                        let info = ArticleTab.Info(
+                            subtitle: subtitle,
+                            image: summary.thumbnailURL,
+                            description: desc,
+                            url: input.url,
+                            snippet: desc
+                        )
+                        return (input.id, info)
+                    } catch {
+                        return (input.id, nil)
+                    }
+                }
+            }
+
+            for await (id, info) in group {
+                await MainActor.run { [weak self] in
+                    guard let self else { return }
+                    self.incomingTabIDs.remove(id)
+                    self.prefetchedTabIDs.insert(id)
+                    if let idx = self.articleTabs.firstIndex(where: { $0.id == id }),
+                       self.articleTabs[idx].info == nil {
+                        self.articleTabs[idx].info = info
+                    }
+                }
+            }
+        }
+    }
+
+    /// One-off fetch (newly visible cells or newly created tabs)
+    @MainActor
+    func ensureInfo(for tab: ArticleTab) async {
+        guard tab.info == nil, let last = tab.data.articles.last else { return }
+
+        if incomingTabIDs.contains(tab.id) || prefetchedTabIDs.contains(tab.id) { return }
+
+        incomingTabIDs.insert(tab.id)
+        Task.detached(priority: .utility) { [weak self] in
+            guard let self else { return }
+            defer { Task { @MainActor in self.incomingTabIDs.remove(tab.id) } }
+            do {
+                let dc = WMFArticleSummaryDataController()
+                let summary = try await dc.fetchArticleSummary(project: last.project, title: last.title)
+                let subtitle = last.isMain ? self.localizedStrings.mainPageSubtitle : summary.description
+                let snippet = last.isMain ? self.localizedStrings.mainPageDescription : summary.extract
+                let info = ArticleTab.Info(
+                    subtitle: subtitle,
+                    image: summary.thumbnailURL,
+                    description: snippet,
+                    url: last.articleURL,
+                    snippet: snippet
+                )
+                await MainActor.run {
+                    if tab.info == nil { tab.info = info }
+                    self.prefetchedTabIDs.insert(tab.id)
+                }
+            } catch {
+                print( "Unable to fetch article summary: \(error)")
+            }
         }
     }
 
@@ -252,8 +380,10 @@ class ArticleTab: Identifiable, Hashable, Equatable, ObservableObject {
         let subtitle: String?
         let image: URL?
         let description: String?
+        let url: URL?
+        let snippet: String?
     }
-    
+
     let title: String
     @Published var info: Info?
     

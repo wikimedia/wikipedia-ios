@@ -1,5 +1,6 @@
 import WMF
 
+@MainActor
 final class LinkCoordinator: Coordinator {
     
     enum Destination {
@@ -24,7 +25,8 @@ final class LinkCoordinator: Coordinator {
         self.previousPageViewObjectID = previousPageViewObjectID
         self.tabConfig = tabConfig
     }
-    
+
+    @MainActor
     @discardableResult
     func start() -> Bool {
         
