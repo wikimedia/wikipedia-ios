@@ -697,7 +697,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         let title = WMFLocalizedString("year-in-review-login-title", value: "Improve your Year in Review", comment: "Title of alert that asks user to login. Displayed after they completed the feature for the first time.")
         let subtitle = WMFLocalizedString("year-in-review-login-subtitle", value: "Login or create an account to be eligible for more personalized insights", comment: "Subtitle of alert that asks user to login. Displayed after they completed the feature for the first time.")
         let button1Title = CommonStrings.joinLoginTitle
-        let button2Title = CommonStrings.noThanksTitle
+        let button2Title = CommonStrings.continueWithoutLoggingIn
 
         let alert = UIAlertController(title: title, message: subtitle, preferredStyle: .alert)
         let action1 = UIAlertAction(title: button1Title, style: .default) { [weak self] action in
@@ -723,6 +723,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
             loginCoordinator.start()
         }
         let action2 = UIAlertAction(title: button2Title, style: .default) { action in
+           
             DonateFunnel.shared.logYearInReviewLoginPromptDidTapNoThanks()
         }
         alert.addAction(action1)
@@ -950,7 +951,7 @@ extension YearInReviewCoordinator: YearInReviewCoordinatorDelegate {
         let title = CommonStrings.yearInReviewLoginPromptIntroTitle
         let subtitle = CommonStrings.yearInReviewLoginPromptSubtitle
         let button1Title = CommonStrings.joinLoginTitle
-        let button2Title = CommonStrings.noThanksTitle
+        let button2Title = CommonStrings.continueWithoutLoggingIn
         
         let alert = UIAlertController(title: title, message: subtitle, preferredStyle: .alert)
 
@@ -983,7 +984,6 @@ extension YearInReviewCoordinator: YearInReviewCoordinatorDelegate {
         
         let action2 = UIAlertAction(title: button2Title, style: .default) { [weak self] action in
             guard let viewModel = self?.viewModel else { return }
-            
             viewModel.tappedIntroV3LoginPromptNoThanks()
         }
         
@@ -996,33 +996,10 @@ extension YearInReviewCoordinator: YearInReviewCoordinatorDelegate {
     }
     
     private func showExitConfirmationPromptFromIntroV3Done() {
-        let title = WMFLocalizedString("year-in-review-intro-exit-confirmation-title", value: "Are you sure you want to exit?", comment: "Title of alert that appears when a logged-out user attempts to exit on the Year in Review intro.")
-        let subtitle = WMFLocalizedString("year-in-review-intro-exit-confirmation-subtitle", value: "You can still see a collective Year in Review without logging in.", comment: "Subtitle of alert that appears when a logged-out user attempts to exit on the Year in Review intro.")
-        let button1Title = CommonStrings.getStartedTitle
-        let button2Title = CommonStrings.notNowTitle
-        
-        let alert = UIAlertController(title: title, message: subtitle, preferredStyle: .alert)
-
-        let action1 = UIAlertAction(title: button1Title, style: .default) { [weak self] action in
-            
-            guard let viewModel = self?.viewModel else { return }
-                    
-            viewModel.tappedIntroV3ExitConfirmationGetStarted()
-        }
-        
-        let action2 = UIAlertAction(title: button2Title, style: .default) { [weak self] action in
-            guard let self else { return }
-            
+        if navigationController.presentedViewController != nil {
             navigationController.dismiss(animated: true) {
-                WMFAlertManager.sharedInstance.showBottomAlertWithMessage(WMFLocalizedString("year-in-review-intro-exit-toast-title", value: "You can access your Year in Review later in Profile.", comment: "Toast displayed to user after the exit Year in Review on the intro slide."), subtitle: nil, buttonTitle: nil, image: nil, dismissPreviousAlerts: true)
+                WMFAlertManager.sharedInstance.showBottomAlertWithMessage(CommonStrings.youCanAccessYIR, subtitle: nil, buttonTitle: nil, image: nil, dismissPreviousAlerts: true)
             }
-        }
-        
-        if let presentedViewController = navigationController.presentedViewController {
-            alert.addAction(action1)
-            alert.addAction(action2)
-            
-            presentedViewController.present(alert, animated: true)
         }
     }
 }

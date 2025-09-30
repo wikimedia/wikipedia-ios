@@ -1324,6 +1324,7 @@
 "vanish-account-username-field" = "Username and user page";
 "vanish-account-warning-body" = "Vanishing is a **last resort** and should **only be used when you wish to stop editing forever** and also to hide as many of your past associations as possible.\n\nAccount deletion on Wikipedia is done by changing your account name to make it so others cannot recognize your contributions in a process called account vanishing. **Vanishing does not guarantee complete anonymity or remove contributions to the projects**.";
 "vanish-account-warning-title" = "Warning";
+"variants-alert-continue-without-logging-in" = "Continue without logging in";
 "variants-alert-dismiss-button" = "No thanks";
 "variants-alert-preferences-button" = "Review your preferences";
 "watch" = "Watch";
@@ -1498,8 +1499,6 @@
 "year-in-review-highlights-subtitle" = "We look forward to next year!";
 "year-in-review-highlights-times-edited" = "Times edited";
 "year-in-review-highlights-title" = "Thank you for spending your year with Wikipedia";
-"year-in-review-intro-exit-confirmation-subtitle" = "You can still see a collective Year in Review without logging in.";
-"year-in-review-intro-exit-confirmation-title" = "Are you sure you want to exit?";
 "year-in-review-intro-exit-toast-title" = "You can access your Year in Review later in Profile.";
 "year-in-review-intro-login-title" = "Log in for personalization";
 "year-in-review-login-subtitle" = "Login or create an account to be eligible for more personalized insights";
