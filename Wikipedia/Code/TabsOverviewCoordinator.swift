@@ -5,15 +5,27 @@ import WMFData
 import CocoaLumberjackSwift
 
 @MainActor
-final class TabsOverviewCoordinator: Coordinator {
+final class TabsOverviewCoordinator: NSObject, Coordinator {
     var navigationController: UINavigationController
     var theme: Theme
     let dataStore: MWKDataStore
     private let dataController: WMFArticleTabsDataController
     private let summaryController: ArticleSummaryController
-
+    
     public var didYouKnowProvider: WMFArticleTabsDataController.DidYouKnowProvider?
     public weak var dykLinkDelegate: UITextViewDelegate?
+    
+    private lazy var didYouKnowProviderClosure: (@MainActor () async -> [WMFDidYouKnow]?) = { [weak self] in
+        guard let self else { return nil }
+        guard let siteURL = dataStore.languageLinkController.appLanguage?.siteURL else { return nil }
+        let dc = NewArticleTabDataController(dataStore: dataStore)
+        do {
+            return try await dc.fetchDidYouKnowFacts(siteURL: siteURL)
+        } catch {
+            DDLogError("DYK fetch error: \(error) from HistoryViewController")
+            return nil
+        }
+    }
 
     @discardableResult
     func start() -> Bool {
@@ -186,7 +198,7 @@ final class TabsOverviewCoordinator: Coordinator {
                 displayDeleteAllTabsToast: displayDeleteAllTabsToast
             )
             
-            let articleTabsView = WMFArticleTabsView(viewModel: articleTabsViewModel, dykLinkDelegate: dykLinkDelegate)
+            let articleTabsView = WMFArticleTabsView(viewModel: articleTabsViewModel, dykLinkDelegate: self)
             let hostingController = WMFArticleTabsHostingController(
                 rootView: articleTabsView,
                 viewModel: articleTabsViewModel,
@@ -209,11 +221,7 @@ final class TabsOverviewCoordinator: Coordinator {
     }
 
     func loadDidYouKnowViewModel() async throws -> WMFTabsOverviewDidYouKnowViewModel? {
-        guard let provider = didYouKnowProvider else {
-            DDLogWarn("TabsOverviewCoordinator: no DYK provider attached")
-            return nil }
-
-        let facts = await provider()
+        let facts = await didYouKnowProviderClosure()
         guard let facts, !facts.isEmpty else {
             DDLogWarn("TabsOverviewCoordinator: DYK provider returned empty")
             return nil
@@ -347,3 +355,31 @@ final class TabsCoordinatorManager {
     }
 }
 
+extension TabsOverviewCoordinator: UITextViewDelegate {
+    func tappedLink(_ url: URL, sourceTextView: UITextView) {
+        guard let articleURL = URL(string: url.absoluteString) else {
+            return
+        }
+
+        let linkCoordinator = LinkCoordinator(
+            navigationController: self.navigationController,
+            url: articleURL,
+            dataStore: self.dataStore,
+            theme: self.theme,
+            articleSource: .undefined,
+            tabConfig: .appendToNewTabAndSetToCurrent
+        )
+        if let presented = self.navigationController.presentedViewController {
+            presented.dismiss(animated: true) {
+                linkCoordinator.start()
+            }
+        }
+
+    }
+
+    func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
+        tappedLink(URL, sourceTextView: textView)
+        return false
+    }
+
+}
