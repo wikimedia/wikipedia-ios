@@ -12,6 +12,7 @@ enum ArticleTabConfig {
     case adjacentArticleInTab(WMFArticleTabsDataController.Identifiers) // Tapping 'forward in tab' / 'back in tab' buttons on article toolbar
  }
 
+@MainActor
 protocol ArticleTabCoordinating: AnyObject {
     func trackArticleTab(articleViewController: ArticleViewController)
     func syncTabsOnArticleAppearance()
@@ -23,6 +24,7 @@ protocol ArticleTabCoordinating: AnyObject {
     var theme: Theme { get }
 }
 
+@MainActor
 extension ArticleTabCoordinating {
     
     func trackArticleTab(articleViewController: ArticleViewController) {
@@ -35,11 +37,12 @@ extension ArticleTabCoordinating {
         Task {
             guard let title = articleURL?.wmf_title,
                   let siteURL = articleURL?.wmf_site,
-                  let wmfProject = WikimediaProject(siteURL: siteURL)?.wmfProject else {
+                  let wmfProject = WikimediaProject(siteURL: siteURL)?.wmfProject,
+                  let articleURL = siteURL.wmf_URL(withTitle: title) else {
                 return
             }
 
-            let article = WMFArticleTabsDataController.WMFArticle(identifier: nil, title: title, project: wmfProject)
+            let article = WMFArticleTabsDataController.WMFArticle(identifier: nil, title: title, project: wmfProject, articleURL: articleURL)
             do {
                 
                 // If current tabs count is at 500, do not create any new tabs. Instead append article to current tab.
@@ -106,7 +109,8 @@ extension ArticleTabCoordinating {
             try await tabsDataController.deleteEmptyTabs()
         }
     }
-    
+
+    @MainActor
     func prepareToShowTabsOverview(articleViewController: ArticleViewController, _ dataStore: MWKDataStore) {
         articleViewController.showTabsOverview = { [weak navigationController, weak self] in
             guard let navController = navigationController, let self = self else { return }
@@ -135,8 +139,9 @@ final class ArticleCoordinator: NSObject, Coordinator, ArticleTabCoordinating {
     let tabConfig: ArticleTabConfig
     var tabIdentifier: UUID?
     var tabItemIdentifier: UUID?
+    var needsFocusOnSearch: Bool
     
-    init(navigationController: UINavigationController, articleURL: URL, dataStore: MWKDataStore, theme: Theme, needsAnimation: Bool = true, source: ArticleSource, isRestoringState: Bool = false, previousPageViewObjectID: NSManagedObjectID? = nil, tabConfig: ArticleTabConfig = .appendArticleAndAssignCurrentTab) {
+    init(navigationController: UINavigationController, articleURL: URL, dataStore: MWKDataStore, theme: Theme, needsAnimation: Bool = true, source: ArticleSource, isRestoringState: Bool = false, previousPageViewObjectID: NSManagedObjectID? = nil, tabConfig: ArticleTabConfig = .appendArticleAndAssignCurrentTab, needsFocusOnSearch: Bool = false) {
         self.navigationController = navigationController
         self.articleURL = articleURL
         self.dataStore = dataStore
@@ -146,10 +151,11 @@ final class ArticleCoordinator: NSObject, Coordinator, ArticleTabCoordinating {
         self.isRestoringState = isRestoringState
         self.previousPageViewObjectID = previousPageViewObjectID
         self.tabConfig = tabConfig
+        self.needsFocusOnSearch = needsFocusOnSearch
         super.init()
     }
     
-    @discardableResult
+    @MainActor @discardableResult
     func start() -> Bool {
         
         guard let articleURL else {
@@ -161,7 +167,7 @@ final class ArticleCoordinator: NSObject, Coordinator, ArticleTabCoordinating {
             self.articleURL?.wmf_languageVariantCode = dataStore.languageLinkController .swiftCompatiblePreferredLanguageVariantCodeForLanguageCode(articleURL.wmf_languageCode)
         }
         
-        guard let articleVC = ArticleViewController(articleURL: articleURL, dataStore: dataStore, theme: theme, source: source, previousPageViewObjectID: previousPageViewObjectID) else {
+        guard let articleVC = ArticleViewController(articleURL: articleURL, dataStore: dataStore, theme: theme, source: source, previousPageViewObjectID: previousPageViewObjectID, needsFocusOnSearch: needsFocusOnSearch) else {
             return false
         }
         articleVC.isRestoringState = isRestoringState

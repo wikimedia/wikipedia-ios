@@ -168,8 +168,10 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
     var previousArticleTab: WMFArticleTabsDataController.WMFArticle? = nil
     var nextArticleTab: WMFArticleTabsDataController.WMFArticle? = nil
     let tabDataController = WMFArticleTabsDataController.shared
+    
+    var needsFocusOnSearch: Bool
 
-    @objc init?(articleURL: URL, dataStore: MWKDataStore, theme: Theme, source: ArticleSource, schemeHandler: SchemeHandler? = nil, previousPageViewObjectID: NSManagedObjectID? = nil) {
+    @objc init?(articleURL: URL, dataStore: MWKDataStore, theme: Theme, source: ArticleSource, schemeHandler: SchemeHandler? = nil, previousPageViewObjectID: NSManagedObjectID? = nil, needsFocusOnSearch: Bool = false) {
 
         guard let article = dataStore.fetchOrCreateArticle(with: articleURL) else {
                 return nil
@@ -185,6 +187,7 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
         self.cacheController = cacheController
         self.articleViewSource = source
         self.previousPageViewObjectID = previousPageViewObjectID
+        self.needsFocusOnSearch = needsFocusOnSearch
 
         super.init(nibName: nil, bundle: nil)
         self.theme = theme
@@ -445,30 +448,6 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
         setup()
 
         setupForStateRestorationIfNecessary()
-        setupMoreDynamicTabsExperiment()
-    }
-
-    private func setupMoreDynamicTabsExperiment() {
-        guard tabDataController.shouldAssignToBucket() else {
-            return
-        }
-
-        do {
-            let assignment = try tabDataController.assignExperiment()
-            // TODO: Bring back logging when more dynamic tabs is relased
-            /*
-            switch assignment {
-            case .control:
-                ArticleTabsFunnel.shared.logGroupAssignment(group: "dynamic_a")
-            case .becauseYouRead:
-                ArticleTabsFunnel.shared.logGroupAssignment(group: "dynamic_b")
-            case .didYouKnow:
-                ArticleTabsFunnel.shared.logGroupAssignment(group: "dynamic_c")
-            }
-             */
-        } catch {
-            DDLogWarn("Failure assigning more dynamic tabs experiment: \(error)")
-        }
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -479,6 +458,17 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
         startSignificantlyViewedTimer()
 
         configureNavigationBar()
+        
+        if tabDataController.moreDynamicTabsGroupBEnabled && needsFocusOnSearch {
+            DispatchQueue.main.async { [weak self] in
+                guard let searchController = self?.navigationItem.searchController else {
+                    return
+                }
+                
+                searchController.isActive = true
+                searchController.searchBar.becomeFirstResponder()
+            }
+        }
     }
     
     var isFirstAppearance = true
