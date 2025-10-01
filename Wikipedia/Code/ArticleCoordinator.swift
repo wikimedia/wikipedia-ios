@@ -10,7 +10,6 @@ enum ArticleTabConfig {
     case assignParticularTabAndSetToCurrent(WMFArticleTabsDataController.Identifiers) // Tapping tab from tabs overview
     case assignNewTabAndSetToCurrent // Tapping add tab from tabs overview - Main Page
     case adjacentArticleInTab(WMFArticleTabsDataController.Identifiers) // Tapping 'forward in tab' / 'back in tab' buttons on article toolbar
-    case appendToNewTabAndSetToCurrent // Tapping DYK or BYR from tabs overview
  }
 
 @MainActor
@@ -87,10 +86,6 @@ extension ArticleTabCoordinating {
                     self.tabIdentifier = identifiers.tabIdentifier
                     self.tabItemIdentifier = identifiers.tabItemIdentifier
                 case .adjacentArticleInTab(let identifiers):
-                    self.tabIdentifier = identifiers.tabIdentifier
-                    self.tabItemIdentifier = identifiers.tabItemIdentifier
-                case .appendToNewTabAndSetToCurrent:
-                    let identifiers = try await tabsDataController.createArticleTab(initialArticle: article, setAsCurrent: true)
                     self.tabIdentifier = identifiers.tabIdentifier
                     self.tabItemIdentifier = identifiers.tabItemIdentifier
                 }

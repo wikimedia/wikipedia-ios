@@ -358,7 +358,7 @@ extension TabsOverviewCoordinator: UITextViewDelegate {
             dataStore: self.dataStore,
             theme: self.theme,
             articleSource: .undefined,
-            tabConfig: .appendToNewTabAndSetToCurrent
+            tabConfig: .appendArticleAndAssignNewTabAndSetToCurrent
         )
         if let presented = navigationController.presentedViewController {
             presented.dismiss(animated: true) {
