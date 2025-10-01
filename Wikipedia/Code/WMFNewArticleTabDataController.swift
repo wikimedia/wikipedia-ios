@@ -21,6 +21,27 @@ final class NewArticleTabDataController {
         dataStore.feedImportContext
     }
 
+    public func getRelatedArticles(for recordURLs: [URL?]) async throws -> [HistoryRecord] {
+        try await withThrowingTaskGroup(of: [HistoryRecord].self) { group in
+            for url in recordURLs {
+                group.addTask { [weak self] in
+                    guard let self else { return [] }
+                    return try await self.relatedArticles(for: url)
+                }
+            }
+            // from each batch of results (a batch per seed article), limit results per seed article
+            // this way we avoid only showing recommendations from the same article
+            let limit = recordURLs.count < 3 ? 2 : 1 // check if ipad Should Always be 5
+            var merged: [HistoryRecord] = []
+            for try await batch in group {
+
+                merged.append(contentsOf: batch.prefix(limit))
+            }
+            return merged
+        }
+    }
+
+
     private func relatedArticles(for url: URL?) async throws -> [HistoryRecord] {
         try await withCheckedThrowingContinuation { cont in
             relatedFetcher.fetchRelatedArticles(forArticleWithURL: url) { error, summariesByKey in
@@ -67,48 +88,6 @@ final class NewArticleTabDataController {
             dykFetcher.fetchDidYouKnow(withSiteURL: siteURL) { error, facts in
                 if let error { cont.resume(throwing: error) } else { cont.resume(returning: facts) }
             }
-        }
-    }
-
-    private func mostRecentHistoryRecordWithURL() async throws -> HistoryRecord? {
-
-        let moc = await self.obtainFeedImportContext()
-        var pickedSeed: WMFArticle?
-        return await moc.perform {
-            let req: NSFetchRequest<WMFArticle> = WMFArticle.fetchRequest()
-
-            let mainTitle = "Main Page"
-            let mainKey   = "Main_Page"
-            let excludeMain = NSPredicate(format: "NOT (displayTitle ==[cd] %@ OR key == %@)", mainTitle, mainKey)
-
-            let base = NSCompoundPredicate(andPredicateWithSubpredicates: [
-                        NSPredicate(format:"isExcludedFromFeed == NO AND (wasSignificantlyViewed == YES OR savedDate != nil)"),
-                        excludeMain
-                    ])
-            // Remember used articles
-            if !self.seenSeedKeys.isEmpty {
-                let exclude = NSPredicate(format: "NOT (key IN %@)", self.seenSeedKeys)
-                req.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [base, exclude])
-            } else {
-                req.predicate = base
-            }
-            // If we went through all articles, start again
-            let total = (try? moc.count(for: req)) ?? 0
-            if total == 0 {
-                self.seenSeedKeys.removeAll()
-            }
-            req.fetchOffset = Int.random(in: 0..<max(total,1))
-            req.fetchLimit  = 1
-
-            if let seed = (try? moc.fetch(req))?.first {
-                pickedSeed = seed
-                if let key = seed.key {
-                    self.seenSeedKeys.insert(key)
-                }
-            }
-            self.seed = pickedSeed
-
-            return self.seed?.toHistoryRecord()
         }
     }
 }

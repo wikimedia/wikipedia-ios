@@ -24,6 +24,8 @@ public struct WMFArticleTabsView: View {
 
     private var dykLinkDelegate: UITextViewDelegate?
 
+    let needsRecView = true // temp flag for testing
+
     public init(viewModel: WMFArticleTabsViewModel, dykLinkDelegate: UITextViewDelegate?) {
         self.viewModel = viewModel
         self.dykLinkDelegate = dykLinkDelegate
@@ -49,6 +51,10 @@ public struct WMFArticleTabsView: View {
                 .background(Color(theme.midBackground))
 
                 Group {
+                    if let recViewModel = viewModel.recommendedArticlesViewModel, needsRecView {
+                        WMFTabsOverviewRecommendationsView(title: recViewModel.title, items: recViewModel.getItems(), viewModel: recViewModel)
+
+                    }
 
                     if let didYouKnowViewModel = viewModel.didYouKnowViewModel,
                        didYouKnowViewModel.didYouKnowFact?.isEmpty == false,

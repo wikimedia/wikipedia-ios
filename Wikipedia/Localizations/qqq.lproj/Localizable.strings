@@ -1195,6 +1195,7 @@
 "tabs-main-page-subtitle" = "Main page subtitle";
 "tabs-navbar-title-format" = "$1 is the amount of tabs. Navigation title for tabs, displaying how many open tabs.";
 "tabs-open-tab" = "Accessibility label for opening a tab";
+"tabs-overview-recommendations-title" = "title for section on tabs overview with article recommendations";
 "tabs-overview-tooltip-body" = "Description for tooltip explaining the tabs overview functionality";
 "tabs-overview-tooltip-title" = "Title for tooltip explaining the tabs overview functionality";
 "tabs-show-suggested-articles" = "Show suggested articles button title";

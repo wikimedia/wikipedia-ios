@@ -240,11 +240,24 @@ final class WMFHistoryHostingController: WMFComponentHostingController<WMFHistor
         guard let nav = navigationController, let dataStore else { return nil }
         let created = TabsOverviewCoordinator(navigationController: nav, theme: theme, dataStore: dataStore, dykLinkDelegate: self)
         created.didYouKnowProvider = didYouKnowProviderClosure
+        created.relatedArticlesProvider = relatedArticlesProviderClosure
         _tabsCoordinator = created
         return created
     }
 
-    private lazy var didYouKnowProviderClosure: (@MainActor () async -> [WMFDidYouKnow]?) = { [weak self] in
+    private lazy var relatedArticlesProviderClosure: WMFArticleTabsDataController.RelatedArticlesProvider = { [weak self] sourceArticles in
+        guard let self, let dataStore = self.dataStore else { return nil }
+        let dc = NewArticleTabDataController(dataStore: dataStore)
+        do {
+            
+            return try await dc.getRelatedArticles(for: sourceArticles)
+        } catch {
+            DDLogError("Related articles fetch error: \(error) from HistoryViewController")
+            return nil
+        }
+    }
+
+    private lazy var didYouKnowProviderClosure: WMFArticleTabsDataController.DidYouKnowProvider = { [weak self] in
         guard let self, let dataStore = self.dataStore else { return nil }
         guard let siteURL = dataStore.languageLinkController.appLanguage?.siteURL else { return nil }
         let dc = NewArticleTabDataController(dataStore: dataStore)

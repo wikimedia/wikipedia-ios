@@ -13,6 +13,7 @@ final class TabsOverviewCoordinator: Coordinator {
     private let summaryController: ArticleSummaryController
 
     public var didYouKnowProvider: WMFArticleTabsDataController.DidYouKnowProvider?
+    public var relatedArticlesProvider: WMFArticleTabsDataController.RelatedArticlesProvider?
     public weak var dykLinkDelegate: UITextViewDelegate?
 
     @discardableResult
@@ -173,12 +174,14 @@ final class TabsOverviewCoordinator: Coordinator {
             )
 
             let dykVM = try? await loadDidYouKnowViewModel()
+            let recVM = try? await loadRecommendedArticlesViewModel()
 
             let articleTabsViewModel = WMFArticleTabsViewModel(
                 dataController: dataController,
                 localizedStrings: localizedStrings,
                 loggingDelegate: self,
                 didYouKnowViewModel: dykVM,
+                recommendedArticlesViewModel: recVM,
                 didTapTab: didTapTab,
                 didTapAddTab: didTapAddTab,
                 didTapShareTab: didTapShareTab,
@@ -206,6 +209,53 @@ final class TabsOverviewCoordinator: Coordinator {
                 showSurveyClosure()
             }
         }
+    }
+
+    func loadRecommendedArticlesViewModel() async throws -> WMFTabsOverviewRecommendationsViewModel? {
+        guard let relatedArticlesProvider else {
+            DDLogWarn("TabsOverviewCoordinator: no related articles provider attached")
+            return nil
+        }
+
+        let seedURLsSet = try? await getRecentTabArticleURLs()
+        guard let seedURLsSet else { return nil }
+
+        let articles = await relatedArticlesProvider(Array(seedURLsSet))
+
+        guard let articles, !articles.isEmpty else {
+            DDLogWarn("TabsOverviewCoordinator: related articles provider returned empty")
+            return nil
+        }
+        // need two or more articles for recommendations
+        if articles.count > 1 {
+            let title = WMFLocalizedString("tabs-overview-recommendations-title", value: "Based on your most recent tabs", comment: "title for section on tabs overview with article recommendations")
+            return WMFTabsOverviewRecommendationsViewModel(title: title, articles: articles)
+        }
+
+        return nil
+
+    }
+
+    // Returns unordered set of URLs
+    @MainActor
+    private func getRecentTabArticleURLs() async throws -> Set<URL> {
+        let articleTabs = try await dataController.fetchAllArticleTabs()
+        let limit = 5
+
+        if articleTabs.isEmpty {
+            return []
+        }
+        var urls: Set<URL> = Set<URL>()
+        urls.reserveCapacity(min(limit, articleTabs.count))
+
+        let newestFirst = articleTabs.reversed()
+
+        for tab in newestFirst.prefix(limit) {
+            if let url = tab.articles.last?.articleURL {
+                urls.insert(url)
+            }
+        }
+        return urls
     }
 
     func loadDidYouKnowViewModel() async throws -> WMFTabsOverviewDidYouKnowViewModel? {

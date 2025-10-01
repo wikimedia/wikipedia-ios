@@ -13,6 +13,7 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
     @Published var articleTabs: [ArticleTab]
     @Published var shouldShowCloseButton: Bool
     var didYouKnowViewModel: WMFTabsOverviewDidYouKnowViewModel?
+    var recommendedArticlesViewModel: WMFTabsOverviewRecommendationsViewModel?
 
     private(set) weak var loggingDelegate: WMFArticleTabsLoggingDelegate?
     private let dataController: WMFArticleTabsDataController
@@ -30,6 +31,7 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
                 localizedStrings: LocalizedStrings,
                 loggingDelegate: WMFArticleTabsLoggingDelegate?,
                 didYouKnowViewModel: WMFTabsOverviewDidYouKnowViewModel?,
+                recommendedArticlesViewModel: WMFTabsOverviewRecommendationsViewModel?,
                 didTapTab: @escaping (WMFArticleTabsDataController.WMFArticleTab) -> Void,
                 didTapAddTab: @escaping () -> Void,
                 didTapShareTab: @escaping (WMFArticleTabsDataController.WMFArticleTab, CGRect?) -> Void,
@@ -42,6 +44,7 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
         self.shouldShowCloseButton = false
         self.didTapTab = didTapTab
         self.didYouKnowViewModel = didYouKnowViewModel
+        self.recommendedArticlesViewModel = recommendedArticlesViewModel
         self.didTapAddTab = didTapAddTab
         self.didTapShareTab = didTapShareTab
         self.displayDeleteAllTabsToast = displayDeleteAllTabsToast

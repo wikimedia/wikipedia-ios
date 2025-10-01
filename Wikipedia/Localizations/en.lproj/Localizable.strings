@@ -1195,6 +1195,7 @@
 "tabs-main-page-subtitle" = "Wikipedia’s daily highlights";
 "tabs-navbar-title-format" = "{{PLURAL:$1|$1 tab|$1 tabs}}";
 "tabs-open-tab" = "Open tab";
+"tabs-overview-recommendations-title" = "Based on your most recent tabs";
 "tabs-overview-tooltip-body" = "Switch between open articles in the tabs overview.";
 "tabs-overview-tooltip-title" = "Tabs overview";
 "tabs-show-suggested-articles" = "Show article suggestions";
