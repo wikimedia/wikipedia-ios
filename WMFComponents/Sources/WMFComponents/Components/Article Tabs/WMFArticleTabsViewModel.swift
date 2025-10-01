@@ -220,7 +220,7 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
     }
 
     var shouldShowTabsV2: Bool {
-        return dataController.shouldShowMoreDynamicTabs
+        return dataController.shouldShowMoreDynamicTabsV2
     }
 
     // MARK: - Populate article summary

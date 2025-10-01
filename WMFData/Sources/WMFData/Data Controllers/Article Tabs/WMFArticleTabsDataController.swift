@@ -186,6 +186,35 @@ public protocol WMFArticleTabsDataControlling {
         }
     }
     
+    public func shouldAssignToBucketV2() -> Bool {
+        return experimentsDataController?.bucketForExperiment(.moreDynamicTabsV2) == nil
+    }
+    
+    public var shouldShowMoreDynamicTabsV2: Bool {
+        guard !developerSettingsDataController.enableMoreDynamicTabsV2GroupB else {
+            return true
+        }
+        
+        guard !developerSettingsDataController.enableMoreDynamicTabsV2GroupC else {
+            return true
+        }
+        
+        guard let assignment = try? getMoreDynamicTabsExperimentAssignmentV2() else {
+            return false
+        }
+        
+        switch assignment {
+        case .groupB, .groupC:
+            return true
+        case .control:
+            return false
+        }
+    }
+    
+    @objc public var needsMoreDynamicTabsV2: Bool {
+        return shouldShowMoreDynamicTabsV2
+    }
+    
     @objc public var needsMoreDynamicTabs: Bool {
         return shouldShowMoreDynamicTabs
     }
@@ -252,6 +281,40 @@ public protocol WMFArticleTabsDataControlling {
         return assignment
     }
     
+    public func getMoreDynamicTabsExperimentAssignmentV2() throws -> MoreDynamicTabsExperimentAssignment {
+        guard qualifiesForExperiment() else {
+            throw CustomError.doesNotQualifyForExperiment
+        }
+        
+        guard let experimentsDataController else {
+            throw CustomError.missingExperimentsDataController
+        }
+        
+        if let assignmentCache {
+            return assignmentCache
+        }
+        
+        guard let bucketValue = experimentsDataController.bucketForExperiment(.moreDynamicTabsV2) else {
+            throw CustomError.missingAssignment
+        }
+        
+        let assignment: MoreDynamicTabsExperimentAssignment
+        switch bucketValue {
+            
+        case .moreDynamicTabsV2Control:
+            assignment = .control
+        case .moreDynamicTabsV2GroupB:
+            assignment = .groupB
+        case .moreDynamicTabsV2GroupC:
+            assignment = .groupC
+        default:
+            throw CustomError.unexpectedAssignment
+        }
+        
+        self.assignmentCache = assignment
+        return assignment
+    }
+    
     public func assignExperiment() throws -> MoreDynamicTabsExperimentAssignment {
         guard qualifiesForExperiment() else {
             throw CustomError.doesNotQualifyForExperiment
@@ -275,6 +338,38 @@ public protocol WMFArticleTabsDataControlling {
         case .moreDynamicTabsGroupB:
             assignment = .groupB
         case .moreDynamicTabsGroupC:
+            assignment = .groupC
+        default:
+            throw CustomError.unexpectedAssignment
+        }
+        
+        self.assignmentCache = assignment
+        return assignment
+    }
+    
+    public func assignExperimentV2() throws -> MoreDynamicTabsExperimentAssignment {
+        guard qualifiesForExperiment() else {
+            throw CustomError.doesNotQualifyForExperiment
+        }
+        
+        guard isBeforeAssignmentEndDate else {
+            throw CustomError.pastAssignmentEndDate
+        }
+        
+        guard let experimentsDataController else {
+            throw CustomError.missingExperimentsDataController
+        }
+        
+        let bucketValue = try experimentsDataController.determineBucketForExperiment(.moreDynamicTabsV2, withPercentage: moreDynamicTabsExperimentPercentage)
+
+        let assignment: MoreDynamicTabsExperimentAssignment
+        
+        switch bucketValue {
+        case .moreDynamicTabsV2Control:
+            assignment = .control
+        case .moreDynamicTabsV2GroupB:
+            assignment = .groupB
+        case .moreDynamicTabsV2GroupC:
             assignment = .groupC
         default:
             throw CustomError.unexpectedAssignment

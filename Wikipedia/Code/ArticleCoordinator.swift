@@ -172,7 +172,7 @@ final class ArticleCoordinator: NSObject, Coordinator, ArticleTabCoordinating {
         prepareToShowTabsOverview(articleViewController: articleVC, dataStore)
         trackArticleTab(articleViewController: articleVC)
 
-        let inExperiment = WMFArticleTabsDataController.shared.shouldShowMoreDynamicTabs
+        let inExperiment = WMFArticleTabsDataController.shared.shouldShowMoreDynamicTabsV2
 
         switch tabConfig {
         case .adjacentArticleInTab:
