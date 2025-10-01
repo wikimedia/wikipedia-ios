@@ -56,7 +56,7 @@ final class NavigationStateController: NSObject {
             return
         }
         
-        let articleCoordinator = ArticleCoordinator(navigationController: selectedNavigationController, articleURL: articleURL, dataStore: dataStore, theme: theme, source: .undefined, isRestoringState: true, tabConfig: .assignParticularTabAndSetToCurrent(WMFArticleTabsDataController.Identifiers(tabIdentifier: tab.identifier, tabItemIdentifier: article.identifier)), linkDelegate: linkDelegate)
+        let articleCoordinator = ArticleCoordinator(navigationController: selectedNavigationController, articleURL: articleURL, dataStore: dataStore, theme: theme, source: .undefined, isRestoringState: true, tabConfig: .assignParticularTabAndSetToCurrent(WMFArticleTabsDataController.Identifiers(tabIdentifier: tab.identifier, tabItemIdentifier: article.identifier)))
         let success = articleCoordinator.start()
         if success {
             try? tabsDataController.clearCurrentStateForRestoration()

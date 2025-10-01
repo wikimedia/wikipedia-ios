@@ -58,7 +58,7 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
     private var _tabsCoordinator: TabsOverviewCoordinator?
     private var tabsCoordinator: TabsOverviewCoordinator? {
         guard let navigationController else { return nil }
-        _tabsCoordinator = TabsOverviewCoordinator(navigationController: navigationController, theme: theme, dataStore: dataStore, dykLinkDelegate: self)
+        _tabsCoordinator = TabsOverviewCoordinator(navigationController: navigationController, theme: theme, dataStore: dataStore)
         return _tabsCoordinator
     }
 
@@ -488,7 +488,7 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
     private func makeTabsCoordinatorIfNeeded() -> TabsOverviewCoordinator? {
         if let existing = _tabsCoordinator { return existing }
         guard let nav = navigationController else { return nil }
-        let created = TabsOverviewCoordinator(navigationController: nav, theme: theme, dataStore: dataStore, dykLinkDelegate: self)
+        let created = TabsOverviewCoordinator(navigationController: nav, theme: theme, dataStore: dataStore)
         created.didYouKnowProvider = didYouKnowProviderClosure
         _tabsCoordinator = created
         return created
@@ -1612,34 +1612,3 @@ extension ArticleViewController: UISearchControllerDelegate {
     }
 }
 
-extension ArticleViewController: UITextViewDelegate {
-    func tappedLink(_ url: URL, sourceTextView: UITextView) {
-        guard let articleURL = URL(string: url.absoluteString) else {
-            return
-        }
-
-        guard let nav = self.navigationController ?? self.parent?.navigationController else {
-            return
-        }
-
-        let linkCoordinator = LinkCoordinator(
-            navigationController: nav,
-            url: articleURL,
-            dataStore: self.dataStore,
-            theme: self.theme,
-            articleSource: .undefined,
-            tabConfig: .appendToNewTabAndSetToCurrent
-        )
-        if let presented = nav.presentedViewController {
-            presented.dismiss(animated: true) {
-                linkCoordinator.start()
-            }
-        }
-
-    }
-
-    func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
-        tappedLink(URL, sourceTextView: textView)
-        return false
-    }
-}

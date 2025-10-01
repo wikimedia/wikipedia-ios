@@ -301,7 +301,7 @@ class SavedViewController: ThemeableViewController, WMFNavigationBarConfiguring,
     private func makeTabsCoordinatorIfNeeded() -> TabsOverviewCoordinator? {
         if let existing = _tabsCoordinator { return existing }
         guard let nav = navigationController, let dataStore else { return nil }
-        let created = TabsOverviewCoordinator(navigationController: nav, theme: theme, dataStore: dataStore, dykLinkDelegate: self)
+        let created = TabsOverviewCoordinator(navigationController: nav, theme: theme, dataStore: dataStore)
         created.didYouKnowProvider = didYouKnowProviderClosure
         _tabsCoordinator = created
         return created
@@ -557,7 +557,7 @@ extension SavedViewController: ReadingListEntryCollectionViewControllerDelegate 
             return
         }
         
-        let coordinator = ArticleCoordinator(navigationController: navigationController, articleURL: articleURL, dataStore: dataStore ?? MWKDataStore.shared(), theme: theme, source: .undefined, linkDelegate: self)
+        let coordinator = ArticleCoordinator(navigationController: navigationController, articleURL: articleURL, dataStore: dataStore ?? MWKDataStore.shared(), theme: theme, source: .undefined)
         coordinator.start()
     }
 }
@@ -591,37 +591,5 @@ extension SavedViewController: LogoutCoordinatorDelegate {
         wmf_showKeepSavedArticlesOnDevicePanelIfNeeded(triggeredBy: .logout, theme: theme) {
             dataStore.authenticationManager.logout(initiatedBy: .user)
         }
-    }
-}
-
-extension SavedViewController: UITextViewDelegate {
-    func tappedLink(_ url: URL, sourceTextView: UITextView) {
-        guard let articleURL = URL(string: url.absoluteString) else {
-            return
-        }
-
-        guard let nav = self.navigationController ?? self.parent?.navigationController else {
-            return
-        }
-
-        let linkCoordinator = LinkCoordinator(
-            navigationController: nav,
-            url: articleURL,
-            dataStore: self.dataStore,
-            theme: self.theme,
-            articleSource: .undefined,
-            tabConfig: .appendToNewTabAndSetToCurrent
-        )
-        if let presented = nav.presentedViewController {
-            presented.dismiss(animated: true) {
-                linkCoordinator.start()
-            }
-        }
-
-    }
-
-    public func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
-        tappedLink(URL, sourceTextView: textView)
-        return false
     }
 }

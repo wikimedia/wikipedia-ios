@@ -87,7 +87,7 @@ class ArticleURLListViewController: ArticleCollectionViewController, WMFNavigati
     override func readMoreArticlePreviewActionSelected(with peekController: ArticlePeekPreviewViewController) {
         
         guard let navVC = navigationController else { return }
-        let coordinator = ArticleCoordinator(navigationController: navVC, articleURL: peekController.articleURL, dataStore: dataStore, theme: theme, source: .undefined, linkDelegate: self)
+        let coordinator = ArticleCoordinator(navigationController: navVC, articleURL: peekController.articleURL, dataStore: dataStore, theme: theme, source: .undefined)
         coordinator.start()
     }
 }

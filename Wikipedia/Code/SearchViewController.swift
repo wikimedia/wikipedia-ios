@@ -251,7 +251,7 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
     private func makeTabsCoordinatorIfNeeded() -> TabsOverviewCoordinator? {
         if let existing = _tabsCoordinator { return existing }
         guard let nav = navigationController, let dataStore else { return nil }
-        let created = TabsOverviewCoordinator(navigationController: nav, theme: theme, dataStore: dataStore, dykLinkDelegate: self)
+        let created = TabsOverviewCoordinator(navigationController: nav, theme: theme, dataStore: dataStore)
         created.didYouKnowProvider = didYouKnowProviderClosure
         _tabsCoordinator = created
         return created
@@ -491,7 +491,7 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
         let longPressSearchResultAndCommitAction: (URL) -> Void = { [weak self] articleURL in
             guard let self, let dataStore = self.dataStore else { return }
             guard let navVC = customArticleCoordinatorNavigationController ?? navigationController else { return }
-            let coordinator = ArticleCoordinator(navigationController: navVC, articleURL: articleURL, dataStore: dataStore, theme: self.theme, source: .search, linkDelegate: self)
+            let coordinator = ArticleCoordinator(navigationController: navVC, articleURL: articleURL, dataStore: dataStore, theme: self.theme, source: .search)
             coordinator.start()
         }
 
@@ -499,7 +499,7 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
             guard let self else { return }
 
             guard let navVC = customArticleCoordinatorNavigationController ?? navigationController else { return }
-            let articleCoordinator = ArticleCoordinator(navigationController: navVC, articleURL: articleURL, dataStore: MWKDataStore.shared(), theme: self.theme, source: .undefined, tabConfig: .appendArticleAndAssignCurrentTab, linkDelegate: self)
+            let articleCoordinator = ArticleCoordinator(navigationController: navVC, articleURL: articleURL, dataStore: MWKDataStore.shared(), theme: self.theme, source: .undefined, tabConfig: .appendArticleAndAssignCurrentTab)
             articleCoordinator.start()
         }
 
@@ -746,37 +746,5 @@ extension SearchViewController: LogoutCoordinatorDelegate {
 extension SearchViewController: YearInReviewBadgeDelegate {
     func updateYIRBadgeVisibility() {
         updateProfileButton()
-    }
-}
-
-extension SearchViewController: UITextViewDelegate {
-    func tappedLink(_ url: URL, sourceTextView: UITextView) {
-        guard let articleURL = URL(string: url.absoluteString) else {
-            return
-        }
-
-        guard let nav = self.navigationController ?? self.parent?.navigationController else {
-            return
-        }
-
-        let linkCoordinator = LinkCoordinator(
-            navigationController: nav,
-            url: articleURL,
-            dataStore: self.dataStore,
-            theme: self.theme,
-            articleSource: .undefined,
-            tabConfig: .appendToNewTabAndSetToCurrent
-        )
-        if let presented = nav.presentedViewController {
-            presented.dismiss(animated: true) {
-                linkCoordinator.start()
-            }
-        }
-
-    }
-
-    func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
-        tappedLink(URL, sourceTextView: textView)
-        return false
     }
 }

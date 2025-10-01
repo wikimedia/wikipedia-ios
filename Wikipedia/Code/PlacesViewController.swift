@@ -275,7 +275,7 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
     private func makeTabsCoordinatorIfNeeded() -> TabsOverviewCoordinator? {
         if let existing = _tabsCoordinator { return existing }
         guard let nav = navigationController else { return nil }
-        let created = TabsOverviewCoordinator(navigationController: nav, theme: theme, dataStore: dataStore, dykLinkDelegate: self)
+        let created = TabsOverviewCoordinator(navigationController: nav, theme: theme, dataStore: dataStore)
         created.didYouKnowProvider = didYouKnowProviderClosure
         _tabsCoordinator = created
         return created
@@ -1789,7 +1789,7 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
             guard let navigationController else {
                 return
             }
-            let articleCoordinator = ArticleCoordinator(navigationController: navigationController, articleURL: url, dataStore: dataStore, theme: theme, source: .places, linkDelegate: self)
+            let articleCoordinator = ArticleCoordinator(navigationController: navigationController, articleURL: url, dataStore: dataStore, theme: theme, source: .places)
             articleCoordinator.start()
             break
         case .save:
