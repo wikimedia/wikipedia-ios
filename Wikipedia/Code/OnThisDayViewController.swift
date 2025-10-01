@@ -113,7 +113,7 @@ class OnThisDayViewController: ColumnarCollectionViewController, WMFNavigationBa
     override func readMoreArticlePreviewActionSelected(with peekController: ArticlePeekPreviewViewController) {
         
         guard let navVC = navigationController else { return }
-        let coordinator = ArticleCoordinator(navigationController: navVC, articleURL: peekController.articleURL, dataStore: dataStore, theme: theme, source: .undefined, linkDelegate: self)
+        let coordinator = ArticleCoordinator(navigationController: navVC, articleURL: peekController.articleURL, dataStore: dataStore, theme: theme, source: .undefined)
         coordinator.start()
     }
 }
@@ -217,7 +217,7 @@ extension OnThisDayViewController: SideScrollingCollectionViewCellDelegate {
     func sideScrollingCollectionViewCell(_ sideScrollingCollectionViewCell: SideScrollingCollectionViewCell, didSelectArticleWithURL articleURL: URL, at indexPath: IndexPath) {
         guard let navigationController else { return }
         
-        let articleCoordinator = ArticleCoordinator(navigationController: navigationController, articleURL: articleURL, dataStore: dataStore, theme: theme, source: .undefined, linkDelegate: self)
+        let articleCoordinator = ArticleCoordinator(navigationController: navigationController, articleURL: articleURL, dataStore: dataStore, theme: theme, source: .undefined)
         articleCoordinator.start()
     }
 }
@@ -268,7 +268,7 @@ extension OnThisDayViewController: NestedCollectionViewContextMenuDelegate {
             
             guard let self else { return }
             
-            let coordinator = ArticleCoordinator(navigationController: navVC, articleURL: peekVC.articleURL, dataStore: MWKDataStore.shared(), theme: self.theme, source: .undefined, linkDelegate: self)
+            let coordinator = ArticleCoordinator(navigationController: navVC, articleURL: peekVC.articleURL, dataStore: MWKDataStore.shared(), theme: self.theme, source: .undefined)
             coordinator.start()
             self.previewedIndex = nil
         }

@@ -12,9 +12,6 @@ final class TabsOverviewCoordinator: NSObject, Coordinator {
     private let dataController: WMFArticleTabsDataController
     private let summaryController: ArticleSummaryController
     
-    public var didYouKnowProvider: WMFArticleTabsDataController.DidYouKnowProvider?
-    public weak var dykLinkDelegate: UITextViewDelegate?
-    
     private lazy var didYouKnowProviderClosure: (@MainActor () async -> [WMFDidYouKnow]?) = { [weak self] in
         guard let self else { return nil }
         guard let siteURL = dataStore.languageLinkController.appLanguage?.siteURL else { return nil }
@@ -33,14 +30,13 @@ final class TabsOverviewCoordinator: NSObject, Coordinator {
         return true
     }
 
-    public init(navigationController: UINavigationController, theme: Theme, dataStore: MWKDataStore, dykLinkDelegate: UITextViewDelegate?) {
+    public init(navigationController: UINavigationController, theme: Theme, dataStore: MWKDataStore) {
         self.navigationController = navigationController
         self.theme = theme
         self.dataStore = dataStore
         let dataController = WMFArticleTabsDataController.shared
         self.dataController = dataController
         self.summaryController = dataStore.articleSummaryController
-        self.dykLinkDelegate = dykLinkDelegate
     }
 
     private func surveyViewController() -> UIViewController {
@@ -278,7 +274,7 @@ final class TabsOverviewCoordinator: NSObject, Coordinator {
             
             let tabConfig = ArticleTabConfig.assignParticularTabAndSetToCurrent(WMFArticleTabsDataController.Identifiers(tabIdentifier: tab.identifier, tabItemIdentifier: article.identifier))
                 // isRestoringState = true allows for us to retain the previous scroll position
-            let articleCoordinator = ArticleCoordinator(navigationController: navigationController, articleURL: articleURL, dataStore: MWKDataStore.shared(), theme: theme, needsAnimation: false, source: .undefined, isRestoringState: true, tabConfig: tabConfig, linkDelegate: dykLinkDelegate)
+            let articleCoordinator = ArticleCoordinator(navigationController: navigationController, articleURL: articleURL, dataStore: MWKDataStore.shared(), theme: theme, needsAnimation: false, source: .undefined, isRestoringState: true, tabConfig: tabConfig)
                 articleCoordinator.start()
 
         }
@@ -292,7 +288,7 @@ final class TabsOverviewCoordinator: NSObject, Coordinator {
             return
         }
         
-        let articleCoordinator = ArticleCoordinator(navigationController: navigationController, articleURL: articleURL, dataStore: MWKDataStore.shared(), theme: theme, needsAnimation: false, source: .undefined, tabConfig: .assignNewTabAndSetToCurrent, linkDelegate: dykLinkDelegate)
+        let articleCoordinator = ArticleCoordinator(navigationController: navigationController, articleURL: articleURL, dataStore: MWKDataStore.shared(), theme: theme, needsAnimation: false, source: .undefined, tabConfig: .assignNewTabAndSetToCurrent)
         ArticleTabsFunnel.shared.logAddNewBlankTab()
         articleCoordinator.start()
         
@@ -347,10 +343,9 @@ final class TabsCoordinatorManager {
 
     private var tabsOverviewCoordinator: TabsOverviewCoordinator?
 
-    func presentTabsOverview(from navigationController: UINavigationController, theme: Theme, dataStore: MWKDataStore, didYouKnowProvider: WMFArticleTabsDataController.DidYouKnowProvider?, dykLinkDelegate: UITextViewDelegate?) {
-        let coordinator = TabsOverviewCoordinator(navigationController: navigationController, theme: theme, dataStore: dataStore, dykLinkDelegate: dykLinkDelegate)
+    func presentTabsOverview(from navigationController: UINavigationController, theme: Theme, dataStore: MWKDataStore) {
+        let coordinator = TabsOverviewCoordinator(navigationController: navigationController, theme: theme, dataStore: dataStore)
         self.tabsOverviewCoordinator = coordinator
-        self.tabsOverviewCoordinator?.didYouKnowProvider = didYouKnowProvider
         coordinator.start()
     }
 }

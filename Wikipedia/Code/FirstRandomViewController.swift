@@ -1,11 +1,8 @@
-import WMFData
-
 class FirstRandomViewController: UIViewController, Themeable {
     
     private let siteURL: URL
     private let dataStore: MWKDataStore
     private let theme: Theme
-    var didYouKnowProvider: WMFArticleTabsDataController.DidYouKnowProvider?
 
     init(siteURL: URL, dataStore: MWKDataStore, theme: Theme) {
         self.siteURL = siteURL
@@ -41,8 +38,7 @@ class FirstRandomViewController: UIViewController, Themeable {
                 }
                 
                 if let navigationController = self.navigationController {
-                    let randomCoordinator = RandomArticleCoordinator(navigationController: navigationController, articleURL: articleURL, siteURL: self.siteURL, dataStore: self.dataStore, theme: self.theme, source: .undefined, animated: false, replaceLastViewControllerInNavStack: true, linkDelegate: self)
-                    randomCoordinator.didYouKnowProvider = self.didYouKnowProvider
+                    let randomCoordinator = RandomArticleCoordinator(navigationController: navigationController, articleURL: articleURL, siteURL: self.siteURL, dataStore: self.dataStore, theme: self.theme, source: .undefined, animated: false, replaceLastViewControllerInNavStack: true)
                     randomCoordinator.start()
                 }
                 
@@ -52,37 +48,5 @@ class FirstRandomViewController: UIViewController, Themeable {
     
     func apply(theme: Theme) {
         view.backgroundColor = theme.colors.paperBackground
-    }
-}
-
-extension FirstRandomViewController: UITextViewDelegate {
-    func tappedLink(_ url: URL, sourceTextView: UITextView) {
-        guard let articleURL = URL(string: url.absoluteString) else {
-            return
-        }
-
-        guard let nav = self.navigationController ?? self.parent?.navigationController else {
-            return
-        }
-
-        let linkCoordinator = LinkCoordinator(
-            navigationController: nav,
-            url: articleURL,
-            dataStore: self.dataStore,
-            theme: self.theme,
-            articleSource: .undefined,
-            tabConfig: .appendToNewTabAndSetToCurrent
-        )
-        if let presented = nav.presentedViewController {
-            presented.dismiss(animated: true) {
-                linkCoordinator.start()
-            }
-        }
-
-    }
-
-    func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
-        tappedLink(URL, sourceTextView: textView)
-        return false
     }
 }

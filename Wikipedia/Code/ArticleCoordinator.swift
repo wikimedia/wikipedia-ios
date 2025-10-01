@@ -23,7 +23,6 @@ protocol ArticleTabCoordinating: AnyObject {
     var tabItemIdentifier: UUID? { get set }
     var navigationController: UINavigationController { get }
     var theme: Theme { get }
-    var linkDelegate: UITextViewDelegate? { get set }
 }
 
 @MainActor
@@ -117,16 +116,14 @@ extension ArticleTabCoordinating {
     }
 
     @MainActor
-    func prepareToShowTabsOverview(articleViewController: ArticleViewController, _ dataStore: MWKDataStore, didYouKnowProvider: WMFArticleTabsDataController.DidYouKnowProvider?) {
+    func prepareToShowTabsOverview(articleViewController: ArticleViewController, _ dataStore: MWKDataStore) {
         articleViewController.showTabsOverview = { [weak navigationController, weak self] in
             guard let navController = navigationController, let self = self else { return }
 
             TabsCoordinatorManager.shared.presentTabsOverview(
                 from: navController,
                 theme: theme,
-                dataStore: dataStore,
-                didYouKnowProvider: didYouKnowProvider,
-                dykLinkDelegate: linkDelegate
+                dataStore: dataStore
             )
         }
     }
@@ -147,9 +144,8 @@ final class ArticleCoordinator: NSObject, Coordinator, ArticleTabCoordinating {
     let tabConfig: ArticleTabConfig
     var tabIdentifier: UUID?
     var tabItemIdentifier: UUID?
-    var linkDelegate: UITextViewDelegate?
 
-    init(navigationController: UINavigationController, articleURL: URL, dataStore: MWKDataStore, theme: Theme, needsAnimation: Bool = true, source: ArticleSource, isRestoringState: Bool = false, previousPageViewObjectID: NSManagedObjectID? = nil, tabConfig: ArticleTabConfig = .appendArticleAndAssignCurrentTab, linkDelegate: UITextViewDelegate?) {
+    init(navigationController: UINavigationController, articleURL: URL, dataStore: MWKDataStore, theme: Theme, needsAnimation: Bool = true, source: ArticleSource, isRestoringState: Bool = false, previousPageViewObjectID: NSManagedObjectID? = nil, tabConfig: ArticleTabConfig = .appendArticleAndAssignCurrentTab) {
         self.navigationController = navigationController
         self.articleURL = articleURL
         self.dataStore = dataStore
@@ -159,7 +155,6 @@ final class ArticleCoordinator: NSObject, Coordinator, ArticleTabCoordinating {
         self.isRestoringState = isRestoringState
         self.previousPageViewObjectID = previousPageViewObjectID
         self.tabConfig = tabConfig
-        self.linkDelegate = linkDelegate
         super.init()
     }
     
@@ -179,7 +174,7 @@ final class ArticleCoordinator: NSObject, Coordinator, ArticleTabCoordinating {
             return false
         }
         articleVC.isRestoringState = isRestoringState
-        prepareToShowTabsOverview(articleViewController: articleVC, dataStore, didYouKnowProvider: articleVC.didYouKnowProviderClosure)
+        prepareToShowTabsOverview(articleViewController: articleVC, dataStore)
         trackArticleTab(articleViewController: articleVC)
 
         switch tabConfig {

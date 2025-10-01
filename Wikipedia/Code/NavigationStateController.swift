@@ -40,7 +40,7 @@ final class NavigationStateController: NSObject {
     }
     
     /// Finds the topmost article from persisted NavigationState and pushes it onto navigationController
-    @MainActor @objc func restoreLastArticle(for tabBarController: UITabBarController, in moc: NSManagedObjectContext, with theme: Theme, linkDelegate: UITextViewDelegate?,  completion: @escaping () -> Void) {
+    @MainActor @objc func restoreLastArticle(for tabBarController: UITabBarController, in moc: NSManagedObjectContext, with theme: Theme,  completion: @escaping () -> Void) {
 
         guard let selectedNavigationController = tabBarController.selectedViewController as? UINavigationController else {
             completion()
@@ -56,7 +56,7 @@ final class NavigationStateController: NSObject {
             return
         }
         
-        let articleCoordinator = ArticleCoordinator(navigationController: selectedNavigationController, articleURL: articleURL, dataStore: dataStore, theme: theme, source: .undefined, isRestoringState: true, tabConfig: .assignParticularTabAndSetToCurrent(WMFArticleTabsDataController.Identifiers(tabIdentifier: tab.identifier, tabItemIdentifier: article.identifier)), linkDelegate: linkDelegate)
+        let articleCoordinator = ArticleCoordinator(navigationController: selectedNavigationController, articleURL: articleURL, dataStore: dataStore, theme: theme, source: .undefined, isRestoringState: true, tabConfig: .assignParticularTabAndSetToCurrent(WMFArticleTabsDataController.Identifiers(tabIdentifier: tab.identifier, tabItemIdentifier: article.identifier)))
         let success = articleCoordinator.start()
         if success {
             try? tabsDataController.clearCurrentStateForRestoration()
