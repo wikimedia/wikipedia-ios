@@ -111,6 +111,7 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
                     data: tab
                 )
             }
+            await refreshCurrentTab()
             updateNavigationBarTitleAction?(articleTabs.count)
 
             if dataController.shouldShowMoreDynamicTabs {
@@ -135,10 +136,6 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
         } catch {
             print("Not able to get tab UUID")
         }
-    }
-
-    func isCurrentTab(_ tab: ArticleTab) -> Bool {
-        tab.id == currentTabID
     }
     
     @MainActor
@@ -224,6 +221,7 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
                     } else {
                         shouldShowCloseButton = articleTabs.count > 1
                     }
+                    await refreshCurrentTab()
                     updateNavigationBarTitleAction?(articleTabs.count)
                 }
                 

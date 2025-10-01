@@ -426,7 +426,7 @@ public protocol WMFArticleTabsDataControlling {
             try self.deleteAllTabs(moc: moc)
         }
         
-        if !moreDynamicTabsGroupBEnabled {
+        if !needsMoreDynamicTabs {
             _ = try? await self.createArticleTab(initialArticle: nil, setAsCurrent: true)
         }
     }

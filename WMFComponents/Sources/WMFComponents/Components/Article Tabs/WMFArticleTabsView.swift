@@ -271,7 +271,7 @@ fileprivate struct WMFArticleTabsViewContent: View {
         .overlay {
             RoundedRectangle(cornerRadius: 12)
                 .inset(by: 0.5)
-                .stroke(viewModel.isCurrentTab(tab) ? Color(uiColor: theme.secondaryText) : Color.clear, lineWidth: 1)
+                .stroke(viewModel.currentTabID == tab.id ? Color(uiColor: theme.secondaryText) : Color.clear, lineWidth: 1)
         }
         .task {
             await viewModel.refreshCurrentTab()
