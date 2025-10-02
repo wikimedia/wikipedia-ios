@@ -239,21 +239,8 @@ final class WMFHistoryHostingController: WMFComponentHostingController<WMFHistor
         if let existing = _tabsCoordinator { return existing }
         guard let nav = navigationController, let dataStore else { return nil }
         let created = TabsOverviewCoordinator(navigationController: nav, theme: theme, dataStore: dataStore)
-        created.relatedArticlesProvider = relatedArticlesProviderClosure
         _tabsCoordinator = created
         return created
-    }
-
-    private lazy var relatedArticlesProviderClosure: WMFArticleTabsDataController.RelatedArticlesProvider = { [weak self] sourceArticles in
-        guard let self, let dataStore = self.dataStore else { return nil }
-        let dc = NewArticleTabDataController(dataStore: dataStore)
-        do {
-            
-            return try await dc.getRelatedArticles(for: sourceArticles)
-        } catch {
-            DDLogError("Related articles fetch error: \(error) from HistoryViewController")
-            return nil
-        }
     }
 
     func tappedArticle(_ item: HistoryItem) {

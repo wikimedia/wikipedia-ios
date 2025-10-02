@@ -12,8 +12,6 @@ final class TabsOverviewCoordinator: NSObject, Coordinator {
     private let dataController: WMFArticleTabsDataController
     private let summaryController: ArticleSummaryController
 
-    public var relatedArticlesProvider: WMFArticleTabsDataController.RelatedArticlesProvider?
-
     @discardableResult
     func start() -> Bool {
         presentTabs()
@@ -209,15 +207,11 @@ final class TabsOverviewCoordinator: NSObject, Coordinator {
     }
 
     func loadRecommendedArticlesViewModel() async throws -> WMFTabsOverviewRecommendationsViewModel? {
-        guard let relatedArticlesProvider else {
-            DDLogWarn("TabsOverviewCoordinator: no related articles provider attached")
-            return nil
-        }
 
         let seedURLsSet = try? await getRecentTabArticleURLs()
         guard let seedURLsSet else { return nil }
 
-        let articles = await relatedArticlesProvider(Array(seedURLsSet))
+        let articles = await relatedArticlesProviderClosure(Array(seedURLsSet))
 
         guard let articles, !articles.isEmpty else {
             DDLogWarn("TabsOverviewCoordinator: related articles provider returned empty")
@@ -283,7 +277,18 @@ final class TabsOverviewCoordinator: NSObject, Coordinator {
         do {
             return try await dc.fetchDidYouKnowFacts(siteURL: siteURL)
         } catch {
-            DDLogError("DYK fetch error: \(error) from HistoryViewController")
+            DDLogError("DYK fetch error: \(error)")
+            return nil
+        }
+    }
+
+    private lazy var relatedArticlesProviderClosure: (@MainActor (_ sourceArticles: [URL?]) async -> [HistoryRecord]?) = { [weak self] sourceArticles in
+        guard let self else { return nil }
+        let dc = NewArticleTabDataController(dataStore: self.dataStore)
+        do {
+            return try await dc.getRelatedArticles(for: sourceArticles)
+        } catch {
+            DDLogError("Related articles fetch error: \(error)")
             return nil
         }
     }
