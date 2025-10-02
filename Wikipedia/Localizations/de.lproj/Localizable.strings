@@ -1558,6 +1558,7 @@
 "year-in-review-personalized-location-title-format" = "Artikel, die Sie gelesen haben, sind am nächsten zu $1.";
 "year-in-review-personalized-most-read-articles-title" = "Ihre Top-Artikel";
 "year-in-review-personalized-reading-subtitle-format" = "Dieses Jahr hast du {{PLURAL:$1|$1 Artikel}} gelesen. Bei Wikipedia sind $2 Millionen Artikel in über $3 aktiven Sprachen verfügbar. Du hast dich Millionen von Menschen angeschlossen, die ihr Wissen erweitern und verschiedene Themen erforschen wollen.";
+// Fuzzy
 "year-in-review-personalized-reading-subtitle-format-v3" = "Das bringt Sie in die Top **PERCENT** der Wikipedia-Leser weltweit. Die durchschnittliche Person liest {{PLURAL:$1|$1 Artikel}} pro Jahr.";
 "year-in-review-personalized-reading-title-format" = "Du hast dieses Jahr {{PLURAL:$1|$1 Artikel}} gelesen";
 "year-in-review-personalized-reading-title-v3-format" = "Sie haben {{PLURAL:$1|$1 Minute|$1 Minuten}} damit verbracht, {{PLURAL:$2|$2 Artikel}} im Jahr 2025 zu lesen";
