@@ -458,17 +458,6 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
         startSignificantlyViewedTimer()
 
         configureNavigationBar()
-        
-        if tabDataController.moreDynamicTabsGroupBEnabled && needsFocusOnSearch {
-            DispatchQueue.main.async { [weak self] in
-                guard let searchController = self?.navigationItem.searchController else {
-                    return
-                }
-                
-                searchController.isActive = true
-                searchController.searchBar.becomeFirstResponder()
-            }
-        }
     }
     
     var isFirstAppearance = true
@@ -478,6 +467,17 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
         trackBeganViewingDate()
         coordinator?.syncTabsOnArticleAppearance()
         loadNextAndPreviousArticleTabs()
+        
+        if tabDataController.moreDynamicTabsGroupBEnabled && needsFocusOnSearch {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) { [weak self] in
+                guard let searchController = self?.navigationItem.searchController else {
+                    return
+                }
+                
+                searchController.isActive = true
+                searchController.searchBar.becomeFirstResponder()
+            }
+        }
     }
     
     @objc func userDidTapProfile() {
