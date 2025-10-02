@@ -12,8 +12,6 @@ final class TabsOverviewCoordinator: NSObject, Coordinator {
     private let dataController: WMFArticleTabsDataController
     private let summaryController: ArticleSummaryController
 
-    public var didYouKnowProvider: WMFArticleTabsDataController.DidYouKnowProvider?
-
     @discardableResult
     func start() -> Bool {
         presentTabs()
@@ -207,11 +205,8 @@ final class TabsOverviewCoordinator: NSObject, Coordinator {
     }
 
     func loadDidYouKnowViewModel() async throws -> WMFTabsOverviewDidYouKnowViewModel? {
-        guard let provider = didYouKnowProvider else {
-            DDLogWarn("TabsOverviewCoordinator: no DYK provider attached")
-            return nil }
 
-        let facts = await provider()
+        let facts = await didYouKnowProviderClosure()
         guard let facts, !facts.isEmpty else {
             DDLogWarn("TabsOverviewCoordinator: DYK provider returned empty")
             return nil
@@ -228,6 +223,18 @@ final class TabsOverviewCoordinator: NSObject, Coordinator {
             dykLocalizedStrings: localized
         )
         return viewModel
+    }
+
+    private lazy var didYouKnowProviderClosure: (@MainActor () async -> [WMFDidYouKnow]?) = { [weak self] in
+        guard let self else { return nil }
+        guard let siteURL = dataStore.languageLinkController.appLanguage?.siteURL else { return nil }
+        let dc = NewArticleTabDataController(dataStore: dataStore)
+        do {
+            return try await dc.fetchDidYouKnowFacts(siteURL: siteURL)
+        } catch {
+            DDLogError("DYK fetch error: \(error) from HistoryViewController")
+            return nil
+        }
     }
 
     private func stringWithLocalizedCurrentSiteLanguageReplacingPlaceholder(in format: String, fallingBackOn genericString: String
@@ -337,10 +344,9 @@ final class TabsCoordinatorManager {
 
     private var tabsOverviewCoordinator: TabsOverviewCoordinator?
 
-    func presentTabsOverview(from navigationController: UINavigationController, theme: Theme, dataStore: MWKDataStore, didYouKnowProvider: WMFArticleTabsDataController.DidYouKnowProvider?) {
+    func presentTabsOverview(from navigationController: UINavigationController, theme: Theme, dataStore: MWKDataStore) {
         let coordinator = TabsOverviewCoordinator(navigationController: navigationController, theme: theme, dataStore: dataStore)
         self.tabsOverviewCoordinator = coordinator
-        self.tabsOverviewCoordinator?.didYouKnowProvider = didYouKnowProvider
         coordinator.start()
     }
 }

@@ -105,13 +105,6 @@ public protocol WMFArticleTabsDataControlling {
         }
     }
 
-    // MARK: - Dependency Injection Closures
-
-    /// Closure used to provide data fectching of Did You Know
-    public typealias DidYouKnowProvider = @MainActor () async -> [WMFDidYouKnow]?
-
-    private var didYouKnowProvider: DidYouKnowProvider?
-
     // MARK: - Properties
 
     @objc(sharedInstance)

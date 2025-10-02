@@ -262,24 +262,7 @@ extension WMFAppViewController {
     @objc func showRandomArticleFromShortcut(siteURL: URL?, animated: Bool) {
         guard let navVC = currentTabNavigationController else { return }
         let coordinator = RandomArticleCoordinator(navigationController: navVC, articleURL: nil, siteURL: siteURL, dataStore: dataStore, theme: theme, source: .undefined, animated: animated)
-        coordinator.didYouKnowProvider = makeDidYouKnowProvider(dataStore: dataStore)
         coordinator.start()
-    }
-
-    @MainActor
-    public func makeDidYouKnowProvider(dataStore: MWKDataStore) -> WMFArticleTabsDataController.DidYouKnowProvider {
-        return { [weak dataStore] in
-            guard let ds = dataStore,
-                  let siteURL = ds.languageLinkController.appLanguage?.siteURL else { return nil }
-
-            let dc = NewArticleTabDataController(dataStore: ds)
-            do {
-                return try await dc.fetchDidYouKnowFacts(siteURL: siteURL)
-            } catch {
-                DDLogError("DYK fetch error: \(error) from Shortcut")
-                return nil
-            }
-        }
     }
 
 }

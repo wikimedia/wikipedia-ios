@@ -11,7 +11,6 @@ final class RandomArticleCoordinator: Coordinator, ArticleTabCoordinating {
     private let source: ArticleSource
     private let animated: Bool
     private let replaceLastViewControllerInNavStack: Bool
-    var didYouKnowProvider: WMFArticleTabsDataController.DidYouKnowProvider?
 
     // Article Tabs Properties
     let tabConfig: ArticleTabConfig
@@ -44,7 +43,7 @@ final class RandomArticleCoordinator: Coordinator, ArticleTabCoordinating {
                 return false
             }
             
-            prepareToShowTabsOverview(articleViewController: vc, dataStore, didYouKnowProvider: didYouKnowProvider)
+            prepareToShowTabsOverview(articleViewController: vc, dataStore)
 
             trackArticleTab(articleViewController: vc)
             
@@ -65,7 +64,6 @@ final class RandomArticleCoordinator: Coordinator, ArticleTabCoordinating {
             }
             
             let vc = FirstRandomViewController(siteURL: siteURL, dataStore: dataStore, theme: theme)
-            vc.didYouKnowProvider = didYouKnowProvider
             navigationController.pushViewController(vc, animated: animated)
             
         }

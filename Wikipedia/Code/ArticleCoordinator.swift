@@ -111,15 +111,14 @@ extension ArticleTabCoordinating {
     }
 
     @MainActor
-    func prepareToShowTabsOverview(articleViewController: ArticleViewController, _ dataStore: MWKDataStore, didYouKnowProvider: WMFArticleTabsDataController.DidYouKnowProvider?) {
+    func prepareToShowTabsOverview(articleViewController: ArticleViewController, _ dataStore: MWKDataStore) {
         articleViewController.showTabsOverview = { [weak navigationController, weak self] in
             guard let navController = navigationController, let self = self else { return }
 
             TabsCoordinatorManager.shared.presentTabsOverview(
                 from: navController,
                 theme: theme,
-                dataStore: dataStore,
-                didYouKnowProvider: didYouKnowProvider
+                dataStore: dataStore
             )
         }
     }
@@ -170,9 +169,9 @@ final class ArticleCoordinator: NSObject, Coordinator, ArticleTabCoordinating {
             return false
         }
         articleVC.isRestoringState = isRestoringState
-        prepareToShowTabsOverview(articleViewController: articleVC, dataStore, didYouKnowProvider: articleVC.didYouKnowProviderClosure)
+        prepareToShowTabsOverview(articleViewController: articleVC, dataStore)
         trackArticleTab(articleViewController: articleVC)
-
+ 
         switch tabConfig {
         case .adjacentArticleInTab:
             var viewControllers = navigationController.viewControllers

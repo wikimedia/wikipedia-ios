@@ -252,21 +252,8 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
         if let existing = _tabsCoordinator { return existing }
         guard let nav = navigationController, let dataStore else { return nil }
         let created = TabsOverviewCoordinator(navigationController: nav, theme: theme, dataStore: dataStore)
-        created.didYouKnowProvider = didYouKnowProviderClosure
         _tabsCoordinator = created
         return created
-    }
-
-    private lazy var didYouKnowProviderClosure: (@MainActor () async -> [WMFDidYouKnow]?) = { [weak self] in
-        guard let self, let dataStore = self.dataStore else { return nil }
-        guard let siteURL = dataStore.languageLinkController.appLanguage?.siteURL else { return nil }
-        let dc = NewArticleTabDataController(dataStore: dataStore)
-        do {
-            return try await dc.fetchDidYouKnowFacts(siteURL: siteURL)
-        } catch {
-            DDLogError("DYK fetch error: \(error) from HistoryViewController")
-            return nil
-        }
     }
 
     private func embedResultsViewController() {

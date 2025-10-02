@@ -489,22 +489,10 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
         if let existing = _tabsCoordinator { return existing }
         guard let nav = navigationController else { return nil }
         let created = TabsOverviewCoordinator(navigationController: nav, theme: theme, dataStore: dataStore)
-        created.didYouKnowProvider = didYouKnowProviderClosure
         _tabsCoordinator = created
         return created
     }
 
-    public lazy var didYouKnowProviderClosure: (@MainActor () async -> [WMFDidYouKnow]?) = { [weak self] in
-        guard let self else { return nil }
-        guard let siteURL = dataStore.languageLinkController.appLanguage?.siteURL else { return nil }
-        let dc = NewArticleTabDataController(dataStore: dataStore)
-        do {
-            return try await dc.fetchDidYouKnowFacts(siteURL: siteURL)
-        } catch {
-            DDLogError("DYK fetch error: \(error) from AricleViewController")
-            return nil
-        }
-    }
 
     /// Catch-all method for deciding what is the best modal to present on top of Article at this point. This method needs careful if-else logic so that we do not present two modals at the same time, which may unexpectedly suppress one.
     private func presentModalsIfNeeded() {

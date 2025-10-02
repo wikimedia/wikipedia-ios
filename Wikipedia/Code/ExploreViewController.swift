@@ -237,22 +237,10 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         if let existing = _tabsCoordinator { return existing }
         guard let nav = navigationController, let dataStore else { return nil }
         let created = TabsOverviewCoordinator(navigationController: nav, theme: theme, dataStore: dataStore)
-        created.didYouKnowProvider = didYouKnowProviderClosure
         _tabsCoordinator = created
         return created
     }
 
-    private lazy var didYouKnowProviderClosure: (@MainActor () async -> [WMFDidYouKnow]?) = { [weak self] in
-        guard let self, let dataStore = self.dataStore else { return nil }
-        guard let siteURL = dataStore.languageLinkController.appLanguage?.siteURL else { return nil }
-        let dc = NewArticleTabDataController(dataStore: dataStore)
-        do {
-            return try await dc.fetchDidYouKnowFacts(siteURL: siteURL)
-        } catch {
-            DDLogError("DYK fetch error: \(error) from HistoryViewController")
-            return nil
-        }
-    }
 
     @objc func scrollToTop() {
         navigationController?.setNavigationBarHidden(false, animated: true)
@@ -642,7 +630,6 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
                 
                 // let articleSource = Explore tapped "Another random article" title
                 let randomCoordinator = RandomArticleCoordinator(navigationController: navigationController, articleURL: nil, siteURL: randomSiteURL, dataStore: dataStore, theme: theme, source: .undefined, animated: true)
-                randomCoordinator.didYouKnowProvider = didYouKnowProviderClosure
                 randomCoordinator.start()
                 return
             } else if let vc = group.detailViewControllerWithDataStore(dataStore, theme: theme, imageRecDelegate: self, imageRecLoggingDelegate: self) {
@@ -866,7 +853,6 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
                 }
                 
                 let randomArticleCoordinator = RandomArticleCoordinator(navigationController: navigationController, articleURL: articleURL, siteURL: nil, dataStore: dataStore, theme: theme, source: articleSource, animated: true)
-                randomArticleCoordinator.didYouKnowProvider = didYouKnowProviderClosure
                 randomArticleCoordinator.start()
                 return true
             default:
@@ -1016,7 +1002,6 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
                 if let navVC = navigationController {
                     if peekVC.needsRandomOnPush {
                         let coordinator = RandomArticleCoordinator(navigationController: navVC, articleURL: peekVC.articleURL, siteURL: nil, dataStore: dataStore, theme: theme, source: .undefined, animated: true)
-                        coordinator.didYouKnowProvider = self.didYouKnowProviderClosure
                         coordinator.start()
                     } else {
                         let coordinator = ArticleCoordinator(navigationController: navVC, articleURL: peekVC.articleURL, dataStore: dataStore, theme: theme, source: .undefined)
@@ -1034,7 +1019,6 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         guard let navVC = navigationController else { return }
         if peekController.needsRandomOnPush {
             let coordinator = RandomArticleCoordinator(navigationController: navVC, articleURL: peekController.articleURL, siteURL: nil, dataStore: dataStore, theme: theme, source: .undefined, animated: true)
-            coordinator.didYouKnowProvider = didYouKnowProviderClosure
             coordinator.start()
         } else {
             let coordinator = ArticleCoordinator(navigationController: navVC, articleURL: peekController.articleURL, dataStore: dataStore, theme: theme, source: .undefined)
