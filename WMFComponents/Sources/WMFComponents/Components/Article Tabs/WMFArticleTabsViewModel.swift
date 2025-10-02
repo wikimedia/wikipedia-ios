@@ -12,6 +12,7 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
     // articleTab should NEVER be empty - take care of logic of inserting main page in datacontroller/viewcontroller
     @Published var articleTabs: [ArticleTab]
     @Published var shouldShowCloseButton: Bool
+    let shouldShowCurrentTabBorder: Bool
     @Published var currentTabID: String?
 
     private(set) weak var loggingDelegate: WMFArticleTabsLoggingDelegate?
@@ -39,6 +40,7 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
         self.loggingDelegate = loggingDelegate
         self.articleTabs = []
         self.shouldShowCloseButton = false
+        self.shouldShowCurrentTabBorder = dataController.shouldShowMoreDynamicTabs
         self.didTapTab = didTapTab
         self.didTapAddTab = didTapAddTab
         self.didTapShareTab = didTapShareTab
