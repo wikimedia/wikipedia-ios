@@ -468,7 +468,7 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
         coordinator?.syncTabsOnArticleAppearance()
         loadNextAndPreviousArticleTabs()
         
-        if tabDataController.moreDynamicTabsGroupBEnabled && needsFocusOnSearch {
+        if tabDataController.moreDynamicTabsGroupBEnabled && needsFocusOnSearch && isFirstAppearance {
             DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) { [weak self] in
                 guard let searchController = self?.navigationItem.searchController else {
                     return
@@ -478,6 +478,7 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
                 searchController.searchBar.becomeFirstResponder()
             }
         }
+        isFirstAppearance = false
     }
     
     @objc func userDidTapProfile() {
