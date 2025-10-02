@@ -94,9 +94,13 @@ public struct WMFArticleTabsView: View {
 
                 await MainActor.run { isReady = true }
             }
+            viewModel.maybeStartSecondaryLoads()
         }
         .background(Color(theme.midBackground))
         .toolbarBackground(Color(theme.midBackground), for: .automatic)
+        .onAppear {
+            viewModel.maybeStartSecondaryLoads()
+        }
     }
 
     // MARK: - Loading / Empty

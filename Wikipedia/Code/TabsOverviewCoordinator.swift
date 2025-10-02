@@ -168,36 +168,33 @@ final class TabsOverviewCoordinator: NSObject, Coordinator {
                 emptyStateSubtitle: WMFLocalizedString("tabs-empty-view-subtitle", value: "Tap “+” to add tabs to this space or long press an article link to open it in a new tab.", comment: "Subtitle for the tabs overview screen when there are no tabs")
             )
 
-            var dykVM: WMFTabsOverviewDidYouKnowViewModel?
-            var recVM: WMFTabsOverviewRecommendationsViewModel?
-            let tabsCount = try? await dataController.tabsCount()
-
-            if let tabsCount, tabsCount >= 2 {
-                recVM = try? await loadRecommendedArticlesViewModel()
-            } else {
-                dykVM = try? await loadDidYouKnowViewModel()
-            }
-
             let articleTabsViewModel = WMFArticleTabsViewModel(
                 dataController: dataController,
                 localizedStrings: localizedStrings,
                 loggingDelegate: self,
-                didYouKnowViewModel: dykVM,
-                recommendedArticlesViewModel: recVM,
                 didTapTab: didTapTab,
                 didTapAddTab: didTapAddTab,
                 didTapShareTab: didTapShareTab,
                 didToggleSuggestedArticles: showAlertForArticleSuggestionsDisplayChangeConfirmation,
                 displayDeleteAllTabsToast: displayDeleteAllTabsToast
             )
-            
+
+            articleTabsViewModel.loadDidYouKnowViewModel = { [weak self] in
+                guard let self else { return nil }
+                return try? await self.loadDidYouKnowViewModel()
+            }
+
+            articleTabsViewModel.loadRecommendationsViewModel = { [weak self] in
+                guard let self else { return nil }
+                return try? await self.loadRecommendedArticlesViewModel()
+            }
+
             let articleTabsView = WMFArticleTabsView(viewModel: articleTabsViewModel, dykLinkDelegate: self)
             let hostingController = WMFArticleTabsHostingController(
                 rootView: articleTabsView,
                 viewModel: articleTabsViewModel,
                 doneButtonText: CommonStrings.doneTitle,
                 articleTabsCount: articleTabsCount,
-                
             )
             
             let navVC = WMFComponentNavigationController(
