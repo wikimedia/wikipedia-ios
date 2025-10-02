@@ -916,6 +916,14 @@
 "panel-not-logged-in-continue-edit-action-title" = "Edit without logging in";
 "panel-not-logged-in-subtitle" = "Your IP address will be publicly visible if you make any edits. If you $1log in$2 or $3create an account$4, your edits will be attributed to your username, along with other benefits.";
 "panel-not-logged-in-title" = "You are not logged in";
+"percentile-0.01" = "0.01";
+"percentile-1" = "1";
+"percentile-10" = "10";
+"percentile-20" = "20";
+"percentile-30" = "30";
+"percentile-40" = "40";
+"percentile-5" = "5";
+"percentile-50" = "50";
 "pictured" = "pictured";
 "places-accessibility-clear-saved-searches" = "Clear saved searches";
 "places-accessibility-group" = "$1 articles";
@@ -1530,7 +1538,7 @@
 "year-in-review-personalized-location-title-format" = "Articles you read are closest to $1";
 "year-in-review-personalized-most-read-articles-title" = "Your top articles";
 "year-in-review-personalized-reading-subtitle-format" = "You read {{PLURAL:$1|$1 article|$1 articles}}. Wikipedia had $2 million articles available across over $3 active languages. You joined millions in expanding knowledge and exploring diverse topics.";
-"year-in-review-personalized-reading-subtitle-format-v3" = "This puts you in the top **PERCENT** of Wikipedia readers globally. The average person reads {{PLURAL:$1|$1 article|$1 articles}} a year.";
+"year-in-review-personalized-reading-subtitle-format-v3" = "We estimate that puts you in the top **PERCENT** of Wikipedia readers globally. The average person reads {{PLURAL:$1|$1 article|$1 articles}} a year.";
 "year-in-review-personalized-reading-title-format" = "You read {{PLURAL:$1|$1 article|$1 articles}}";
 "year-in-review-personalized-reading-title-v3-format" = "You spent {{PLURAL:$1|$1 minute|$1 minutes}} reading {{PLURAL:$2|$2 article|$2 articles}} in 2025";
 "year-in-review-personalized-saved-articles" = "Illustration of a puzzle piece wearing a hardhat with computer screens in the back.";

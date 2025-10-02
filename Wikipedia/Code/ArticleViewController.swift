@@ -58,7 +58,7 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
     private var _tabsCoordinator: TabsOverviewCoordinator?
     private var tabsCoordinator: TabsOverviewCoordinator? {
         guard let navigationController else { return nil }
-        _tabsCoordinator = TabsOverviewCoordinator(navigationController: navigationController, theme: theme, dataStore: dataStore, dykLinkDelegate: self)
+        _tabsCoordinator = TabsOverviewCoordinator(navigationController: navigationController, theme: theme, dataStore: dataStore)
         return _tabsCoordinator
     }
 
@@ -488,23 +488,11 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
     private func makeTabsCoordinatorIfNeeded() -> TabsOverviewCoordinator? {
         if let existing = _tabsCoordinator { return existing }
         guard let nav = navigationController else { return nil }
-        let created = TabsOverviewCoordinator(navigationController: nav, theme: theme, dataStore: dataStore, dykLinkDelegate: self)
-        created.didYouKnowProvider = didYouKnowProviderClosure
+        let created = TabsOverviewCoordinator(navigationController: nav, theme: theme, dataStore: dataStore)
         _tabsCoordinator = created
         return created
     }
 
-    public lazy var didYouKnowProviderClosure: (@MainActor () async -> [WMFDidYouKnow]?) = { [weak self] in
-        guard let self else { return nil }
-        guard let siteURL = dataStore.languageLinkController.appLanguage?.siteURL else { return nil }
-        let dc = NewArticleTabDataController(dataStore: dataStore)
-        do {
-            return try await dc.fetchDidYouKnowFacts(siteURL: siteURL)
-        } catch {
-            DDLogError("DYK fetch error: \(error) from AricleViewController")
-            return nil
-        }
-    }
 
     /// Catch-all method for deciding what is the best modal to present on top of Article at this point. This method needs careful if-else logic so that we do not present two modals at the same time, which may unexpectedly suppress one.
     private func presentModalsIfNeeded() {
@@ -1612,34 +1600,3 @@ extension ArticleViewController: UISearchControllerDelegate {
     }
 }
 
-extension ArticleViewController: UITextViewDelegate {
-    func tappedLink(_ url: URL, sourceTextView: UITextView) {
-        guard let articleURL = URL(string: url.absoluteString) else {
-            return
-        }
-
-        guard let nav = self.navigationController ?? self.parent?.navigationController else {
-            return
-        }
-
-        let linkCoordinator = LinkCoordinator(
-            navigationController: nav,
-            url: articleURL,
-            dataStore: self.dataStore,
-            theme: self.theme,
-            articleSource: .undefined,
-            tabConfig: .appendToNewTabAndSetToCurrent
-        )
-        if let presented = nav.presentedViewController {
-            presented.dismiss(animated: true) {
-                linkCoordinator.start()
-            }
-        }
-
-    }
-
-    func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
-        tappedLink(URL, sourceTextView: textView)
-        return false
-    }
-}

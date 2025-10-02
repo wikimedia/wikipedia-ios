@@ -238,8 +238,7 @@ final class WMFHistoryHostingController: WMFComponentHostingController<WMFHistor
     private func makeTabsCoordinatorIfNeeded() -> TabsOverviewCoordinator? {
         if let existing = _tabsCoordinator { return existing }
         guard let nav = navigationController, let dataStore else { return nil }
-        let created = TabsOverviewCoordinator(navigationController: nav, theme: theme, dataStore: dataStore, dykLinkDelegate: self)
-        created.didYouKnowProvider = didYouKnowProviderClosure
+        let created = TabsOverviewCoordinator(navigationController: nav, theme: theme, dataStore: dataStore)
         created.relatedArticlesProvider = relatedArticlesProviderClosure
         _tabsCoordinator = created
         return created
@@ -257,21 +256,9 @@ final class WMFHistoryHostingController: WMFComponentHostingController<WMFHistor
         }
     }
 
-    private lazy var didYouKnowProviderClosure: WMFArticleTabsDataController.DidYouKnowProvider = { [weak self] in
-        guard let self, let dataStore = self.dataStore else { return nil }
-        guard let siteURL = dataStore.languageLinkController.appLanguage?.siteURL else { return nil }
-        let dc = NewArticleTabDataController(dataStore: dataStore)
-        do {
-            return try await dc.fetchDidYouKnowFacts(siteURL: siteURL)
-        } catch {
-            DDLogError("DYK fetch error: \(error) from HistoryViewController")
-            return nil
-        }
-    }
-
     func tappedArticle(_ item: HistoryItem) {
         if let articleURL = item.url, let dataStore, let navVC = navigationController {
-            let articleCoordinator = ArticleCoordinator(navigationController: navVC, articleURL: articleURL, dataStore: dataStore, theme: theme, source: .history, linkDelegate: self)
+            let articleCoordinator = ArticleCoordinator(navigationController: navVC, articleURL: articleURL, dataStore: dataStore, theme: theme, source: .history)
             articleCoordinator.start()
         }
     }
@@ -413,38 +400,6 @@ extension WMFHistoryViewController: LogoutCoordinatorDelegate {
         wmf_showKeepSavedArticlesOnDevicePanelIfNeeded(triggeredBy: .logout, theme: theme) {
             dataStore.authenticationManager.logout(initiatedBy: .user)
         }
-    }
-}
-
-extension WMFHistoryViewController: UITextViewDelegate {
-    func tappedLink(_ url: URL, sourceTextView: UITextView) {
-        guard let articleURL = URL(string: url.absoluteString) else {
-            return
-        }
-
-        guard let nav = self.navigationController ?? self.parent?.navigationController else {
-            return
-        }
-
-        let linkCoordinator = LinkCoordinator(
-            navigationController: nav,
-            url: articleURL,
-            dataStore: self.dataStore,
-            theme: self.theme,
-            articleSource: .undefined,
-            tabConfig: .appendToNewTabAndSetToCurrent
-        )
-        if let presented = nav.presentedViewController {
-            presented.dismiss(animated: true) {
-                linkCoordinator.start()
-            }
-        }
-
-    }
-
-    public func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
-        tappedLink(URL, sourceTextView: textView)
-        return false
     }
 }
 

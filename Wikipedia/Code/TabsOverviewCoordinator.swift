@@ -5,16 +5,14 @@ import WMFData
 import CocoaLumberjackSwift
 
 @MainActor
-final class TabsOverviewCoordinator: Coordinator {
+final class TabsOverviewCoordinator: NSObject, Coordinator {
     var navigationController: UINavigationController
     var theme: Theme
     let dataStore: MWKDataStore
     private let dataController: WMFArticleTabsDataController
     private let summaryController: ArticleSummaryController
 
-    public var didYouKnowProvider: WMFArticleTabsDataController.DidYouKnowProvider?
     public var relatedArticlesProvider: WMFArticleTabsDataController.RelatedArticlesProvider?
-    public weak var dykLinkDelegate: UITextViewDelegate?
 
     @discardableResult
     func start() -> Bool {
@@ -22,14 +20,13 @@ final class TabsOverviewCoordinator: Coordinator {
         return true
     }
 
-    public init(navigationController: UINavigationController, theme: Theme, dataStore: MWKDataStore, dykLinkDelegate: UITextViewDelegate?) {
+    public init(navigationController: UINavigationController, theme: Theme, dataStore: MWKDataStore) {
         self.navigationController = navigationController
         self.theme = theme
         self.dataStore = dataStore
         let dataController = WMFArticleTabsDataController.shared
         self.dataController = dataController
         self.summaryController = dataStore.articleSummaryController
-        self.dykLinkDelegate = dykLinkDelegate
     }
 
     private func surveyViewController() -> UIViewController {
@@ -189,7 +186,7 @@ final class TabsOverviewCoordinator: Coordinator {
                 displayDeleteAllTabsToast: displayDeleteAllTabsToast
             )
             
-            let articleTabsView = WMFArticleTabsView(viewModel: articleTabsViewModel, dykLinkDelegate: dykLinkDelegate)
+            let articleTabsView = WMFArticleTabsView(viewModel: articleTabsViewModel, dykLinkDelegate: self)
             let hostingController = WMFArticleTabsHostingController(
                 rootView: articleTabsView,
                 viewModel: articleTabsViewModel,
@@ -259,11 +256,8 @@ final class TabsOverviewCoordinator: Coordinator {
     }
 
     func loadDidYouKnowViewModel() async throws -> WMFTabsOverviewDidYouKnowViewModel? {
-        guard let provider = didYouKnowProvider else {
-            DDLogWarn("TabsOverviewCoordinator: no DYK provider attached")
-            return nil }
 
-        let facts = await provider()
+        let facts = await didYouKnowProviderClosure()
         guard let facts, !facts.isEmpty else {
             DDLogWarn("TabsOverviewCoordinator: DYK provider returned empty")
             return nil
@@ -280,6 +274,18 @@ final class TabsOverviewCoordinator: Coordinator {
             dykLocalizedStrings: localized
         )
         return viewModel
+    }
+
+    private lazy var didYouKnowProviderClosure: (@MainActor () async -> [WMFDidYouKnow]?) = { [weak self] in
+        guard let self else { return nil }
+        guard let siteURL = dataStore.languageLinkController.appLanguage?.siteURL else { return nil }
+        let dc = NewArticleTabDataController(dataStore: dataStore)
+        do {
+            return try await dc.fetchDidYouKnowFacts(siteURL: siteURL)
+        } catch {
+            DDLogError("DYK fetch error: \(error) from HistoryViewController")
+            return nil
+        }
     }
 
     private func stringWithLocalizedCurrentSiteLanguageReplacingPlaceholder(in format: String, fallingBackOn genericString: String
@@ -320,7 +326,7 @@ final class TabsOverviewCoordinator: Coordinator {
             
             let tabConfig = ArticleTabConfig.assignParticularTabAndSetToCurrent(WMFArticleTabsDataController.Identifiers(tabIdentifier: tab.identifier, tabItemIdentifier: article.identifier))
                 // isRestoringState = true allows for us to retain the previous scroll position
-            let articleCoordinator = ArticleCoordinator(navigationController: navigationController, articleURL: articleURL, dataStore: MWKDataStore.shared(), theme: theme, needsAnimation: false, source: .undefined, isRestoringState: true, tabConfig: tabConfig, linkDelegate: dykLinkDelegate)
+            let articleCoordinator = ArticleCoordinator(navigationController: navigationController, articleURL: articleURL, dataStore: MWKDataStore.shared(), theme: theme, needsAnimation: false, source: .undefined, isRestoringState: true, tabConfig: tabConfig)
                 articleCoordinator.start()
 
         }
@@ -334,7 +340,7 @@ final class TabsOverviewCoordinator: Coordinator {
             return
         }
         
-        let articleCoordinator = ArticleCoordinator(navigationController: navigationController, articleURL: articleURL, dataStore: MWKDataStore.shared(), theme: theme, needsAnimation: false, source: .undefined, tabConfig: .assignNewTabAndSetToCurrent, linkDelegate: dykLinkDelegate)
+        let articleCoordinator = ArticleCoordinator(navigationController: navigationController, articleURL: articleURL, dataStore: MWKDataStore.shared(), theme: theme, needsAnimation: false, source: .undefined, tabConfig: .assignNewTabAndSetToCurrent)
         ArticleTabsFunnel.shared.logAddNewBlankTab()
         articleCoordinator.start()
         
@@ -389,11 +395,39 @@ final class TabsCoordinatorManager {
 
     private var tabsOverviewCoordinator: TabsOverviewCoordinator?
 
-    func presentTabsOverview(from navigationController: UINavigationController, theme: Theme, dataStore: MWKDataStore, didYouKnowProvider: WMFArticleTabsDataController.DidYouKnowProvider?, dykLinkDelegate: UITextViewDelegate?) {
-        let coordinator = TabsOverviewCoordinator(navigationController: navigationController, theme: theme, dataStore: dataStore, dykLinkDelegate: dykLinkDelegate)
+    func presentTabsOverview(from navigationController: UINavigationController, theme: Theme, dataStore: MWKDataStore) {
+        let coordinator = TabsOverviewCoordinator(navigationController: navigationController, theme: theme, dataStore: dataStore)
         self.tabsOverviewCoordinator = coordinator
-        self.tabsOverviewCoordinator?.didYouKnowProvider = didYouKnowProvider
         coordinator.start()
     }
 }
 
+extension TabsOverviewCoordinator: UITextViewDelegate {
+    func tappedLink(_ url: URL, sourceTextView: UITextView) {
+        guard let articleURL = URL(string: url.absoluteString) else {
+            return
+        }
+
+
+        let linkCoordinator = LinkCoordinator(
+            navigationController: navigationController,
+            url: articleURL,
+            dataStore: self.dataStore,
+            theme: self.theme,
+            articleSource: .undefined,
+            tabConfig: .appendArticleAndAssignNewTabAndSetToCurrent
+        )
+        if let presented = navigationController.presentedViewController {
+            presented.dismiss(animated: true) {
+                linkCoordinator.start()
+            }
+        }
+
+    }
+
+    public func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
+        tappedLink(URL, sourceTextView: textView)
+        return false
+    }
+
+}

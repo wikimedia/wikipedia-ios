@@ -194,7 +194,7 @@ extension ArticleLocationCollectionViewController {
         }
         let articleURL = articleURLs[indexPath.item]
         
-        let articleCoordinator = ArticleCoordinator(navigationController: navigationController, articleURL: articleURL, dataStore: dataStore, theme: theme, source: articleSource, linkDelegate: self)
+        let articleCoordinator = ArticleCoordinator(navigationController: navigationController, articleURL: articleURL, dataStore: dataStore, theme: theme, source: articleSource)
         articleCoordinator.start()
     }
 }
@@ -225,7 +225,7 @@ extension ArticleLocationCollectionViewController: CollectionViewContextMenuShow
             
             guard let self else { return }
             
-            let coordinator = ArticleCoordinator(navigationController: navVC, articleURL: peekVC.articleURL, dataStore: MWKDataStore.shared(), theme: self.theme, source: articleSource, linkDelegate: self)
+            let coordinator = ArticleCoordinator(navigationController: navVC, articleURL: peekVC.articleURL, dataStore: MWKDataStore.shared(), theme: self.theme, source: articleSource)
             coordinator.start()
         }
     }
@@ -236,7 +236,7 @@ extension ArticleLocationCollectionViewController: CollectionViewContextMenuShow
             return
         }
         
-        let coordinator = ArticleCoordinator(navigationController: navVC, articleURL: peekController.articleURL, dataStore: MWKDataStore.shared(), theme: theme, source: articleSource, linkDelegate: self)
+        let coordinator = ArticleCoordinator(navigationController: navVC, articleURL: peekController.articleURL, dataStore: MWKDataStore.shared(), theme: theme, source: articleSource)
         coordinator.start()
     }
 

@@ -523,7 +523,7 @@ extension ColumnarCollectionViewController {
             
             guard let self else { return }
             
-            let coordinator = ArticleCoordinator(navigationController: navVC, articleURL: peekVC.articleURL, dataStore: MWKDataStore.shared(), theme: self.theme, source: .undefined, linkDelegate: self)
+            let coordinator = ArticleCoordinator(navigationController: navVC, articleURL: peekVC.articleURL, dataStore: MWKDataStore.shared(), theme: self.theme, source: .undefined)
             coordinator.start()
         }
     }
@@ -536,7 +536,7 @@ extension ColumnarCollectionViewController: ArticlePreviewingDelegate {
             return
         }
         
-        let coordinator = ArticleCoordinator(navigationController: navVC, articleURL: peekController.articleURL, dataStore: MWKDataStore.shared(), theme: theme, source: .undefined, linkDelegate: self)
+        let coordinator = ArticleCoordinator(navigationController: navVC, articleURL: peekController.articleURL, dataStore: MWKDataStore.shared(), theme: theme, source: .undefined)
         coordinator.start()
     }
     
@@ -567,38 +567,7 @@ extension ColumnarCollectionViewController: ArticlePreviewingDelegate {
     
     func openInNewTabArticlePreviewActionSelected(with peekController: ArticlePeekPreviewViewController) {
         guard let navVC = navigationController else { return }
-        let articleCoordinator = ArticleCoordinator(navigationController: navVC, articleURL: peekController.articleURL, dataStore: MWKDataStore.shared(), theme: theme, source: .undefined, tabConfig: .appendArticleAndAssignNewTabAndSetToCurrent, linkDelegate: self)
+        let articleCoordinator = ArticleCoordinator(navigationController: navVC, articleURL: peekController.articleURL, dataStore: MWKDataStore.shared(), theme: theme, source: .undefined, tabConfig: .appendArticleAndAssignNewTabAndSetToCurrent)
         articleCoordinator.start()
-    }
-}
-
-extension ColumnarCollectionViewController: UITextViewDelegate {
-    func tappedLink(_ url: URL, sourceTextView: UITextView) {
-        guard let articleURL = URL(string: url.absoluteString) else {
-            return
-        }
-
-        guard let nav = self.navigationController ?? self.parent?.navigationController else {
-            return
-        }
-
-        let linkCoordinator = LinkCoordinator(
-            navigationController: nav,
-            url: articleURL,
-            dataStore: nil, // todo check implementation
-            theme: self.theme,
-            articleSource: .undefined,
-            tabConfig: .appendToNewTabAndSetToCurrent
-        )
-        if let presented = nav.presentedViewController {
-            presented.dismiss(animated: true) {
-                linkCoordinator.start()
-            }
-        }
-    }
-
-    func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
-        tappedLink(URL, sourceTextView: textView)
-        return false
     }
 }

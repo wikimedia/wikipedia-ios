@@ -41,8 +41,7 @@ final class LinkCoordinator: Coordinator {
                 theme: theme,
                 source: articleSource,
                 previousPageViewObjectID: previousPageViewObjectID,
-                tabConfig: self.tabConfig,
-                linkDelegate: nil)
+                tabConfig: self.tabConfig)
 
             return articleCoordinator.start()
         case .unknown:
