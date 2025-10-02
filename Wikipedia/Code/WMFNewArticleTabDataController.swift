@@ -29,13 +29,9 @@ final class NewArticleTabDataController {
                     return try await self.relatedArticles(for: url)
                 }
             }
-            // from each batch of results (a batch per seed article), limit results per seed article
-            // this way we avoid only showing recommendations from the same article
-            let limit = recordURLs.count < 3 ? 2 : 1 // check if ipad Should Always be 5
             var merged: [HistoryRecord] = []
             for try await batch in group {
-
-                merged.append(contentsOf: batch.prefix(limit))
+                merged.append(contentsOf: batch.prefix(5))
             }
             return merged
         }

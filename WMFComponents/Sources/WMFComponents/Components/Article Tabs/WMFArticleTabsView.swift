@@ -57,17 +57,18 @@ public struct WMFArticleTabsView: View {
                                 .fill(Color(theme.secondaryText).opacity(0.5))
                                 .frame(height: 1 / UIScreen.main.scale)
                                 .frame(maxWidth: .infinity)
-                            if let recViewModel = viewModel.recommendedArticlesViewModel, needsRecView {
-                                WMFTabsOverviewRecommendationsView(viewModel: recViewModel)
-                                    .frame(maxHeight: viewHeight)
-                                    .clipped()
-                            } else if let didYouKnowViewModel = viewModel.didYouKnowViewModel,
-                                      didYouKnowViewModel.didYouKnowFact?.isEmpty == false {
-                                WMFTabsOverviewDidYouKnowView(
-                                    viewModel: didYouKnowViewModel,
-                                    linkDelegate: dykLinkDelegate
-                                )
-
+                            Group {
+                                if let recViewModel = viewModel.recommendedArticlesViewModel, needsRecView {
+                                    WMFTabsOverviewRecommendationsView(viewModel: recViewModel)
+                                        .frame(maxHeight: viewHeight)
+                                        .clipped()
+                                } else if let didYouKnowViewModel = viewModel.didYouKnowViewModel,
+                                          didYouKnowViewModel.didYouKnowFact?.isEmpty == false {
+                                    WMFTabsOverviewDidYouKnowView(
+                                        viewModel: didYouKnowViewModel,
+                                        linkDelegate: dykLinkDelegate
+                                    )
+                                }
                             }
                         }
                         .frame(maxHeight: viewHeight)

@@ -53,7 +53,14 @@ final class WMFHistoryHostingController: WMFComponentHostingController<WMFHistor
         return existingYirCoordinator
     }
 
-    private var _tabsCoordinator: TabsOverviewCoordinator?
+    private lazy var tabsCoordinator: TabsOverviewCoordinator? = { [weak self] in
+        guard let self, let nav = self.navigationController, let dataStore else { return nil }
+        return TabsOverviewCoordinator(
+            navigationController: nav,
+            theme: self.theme,
+            dataStore: dataStore
+        )
+    }()
 
     private var _profileCoordinator: ProfileCoordinator?
     private var profileCoordinator: ProfileCoordinator? {
@@ -181,7 +188,6 @@ final class WMFHistoryHostingController: WMFComponentHostingController<WMFHistor
         super.viewWillAppear(animated)
 
         configureNavigationBar()
-        makeTabsCoordinatorIfNeeded()
     }
 
     // MARK: - Methods
@@ -229,18 +235,8 @@ final class WMFHistoryHostingController: WMFComponentHostingController<WMFHistor
     }
 
     @objc func userDidTapTabs() {
-        guard let coordinator = makeTabsCoordinatorIfNeeded() else { return }
-        coordinator.start()
+        tabsCoordinator?.start()
         ArticleTabsFunnel.shared.logIconClick(interface: .history, project: nil)
-    }
-
-    @discardableResult
-    private func makeTabsCoordinatorIfNeeded() -> TabsOverviewCoordinator? {
-        if let existing = _tabsCoordinator { return existing }
-        guard let nav = navigationController, let dataStore else { return nil }
-        let created = TabsOverviewCoordinator(navigationController: nav, theme: theme, dataStore: dataStore)
-        _tabsCoordinator = created
-        return created
     }
 
     func tappedArticle(_ item: HistoryItem) {
