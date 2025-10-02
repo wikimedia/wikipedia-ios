@@ -13,7 +13,6 @@ public struct WMFArticleTabsView: View {
     @ObservedObject var viewModel: WMFArticleTabsViewModel
     /// Flag to allow us to know if we can scroll to the current tab position
     @State private var isReady: Bool = false
-    @State private var currentTabID: String?
     @State private var cellFrames: [String: CGRect] = [:]
 
     public init(viewModel: WMFArticleTabsViewModel) {
@@ -45,9 +44,6 @@ public struct WMFArticleTabsView: View {
                 if tabs.isEmpty {
                     await MainActor.run { isReady = true }
                     return
-                }
-                if let tab = await viewModel.getCurrentTab() {
-                    await MainActor.run { currentTabID = tab.id }
                 }
                 viewModel.prefetchAllSummariesTrickled(initialWindow: 24, pageSize: 12)
 
@@ -117,7 +113,7 @@ public struct WMFArticleTabsView: View {
                 .onAppear {
                     Task {
                         await Task.yield()
-                        if let id = currentTabID {
+                        if let id = viewModel.currentTabID {
                             proxy.scrollTo(id, anchor: .bottom)
                         }
                     }
@@ -190,7 +186,7 @@ public struct WMFArticleTabsView: View {
                 .onAppear {
                     Task {
                         await Task.yield()
-                        if let id = currentTabID {
+                        if let id = viewModel.currentTabID {
                             proxy.scrollTo(id, anchor: .bottom)
                         }
                     }
