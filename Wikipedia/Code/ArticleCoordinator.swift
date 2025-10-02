@@ -139,7 +139,7 @@ final class ArticleCoordinator: NSObject, Coordinator, ArticleTabCoordinating {
     let tabConfig: ArticleTabConfig
     var tabIdentifier: UUID?
     var tabItemIdentifier: UUID?
-    
+
     init(navigationController: UINavigationController, articleURL: URL, dataStore: MWKDataStore, theme: Theme, needsAnimation: Bool = true, source: ArticleSource, isRestoringState: Bool = false, previousPageViewObjectID: NSManagedObjectID? = nil, tabConfig: ArticleTabConfig = .appendArticleAndAssignCurrentTab) {
         self.navigationController = navigationController
         self.articleURL = articleURL
@@ -171,9 +171,7 @@ final class ArticleCoordinator: NSObject, Coordinator, ArticleTabCoordinating {
         articleVC.isRestoringState = isRestoringState
         prepareToShowTabsOverview(articleViewController: articleVC, dataStore)
         trackArticleTab(articleViewController: articleVC)
-
-        let inExperiment = WMFArticleTabsDataController.shared.shouldShowMoreDynamicTabs
-
+ 
         switch tabConfig {
         case .adjacentArticleInTab:
             var viewControllers = navigationController.viewControllers
@@ -184,15 +182,8 @@ final class ArticleCoordinator: NSObject, Coordinator, ArticleTabCoordinating {
             viewControllers.append(articleVC)
             navigationController.setViewControllers(viewControllers, animated: needsAnimation)
         default:
-            if inExperiment,
-               navigationController.viewControllers.last is SearchViewController {
-                var stack = navigationController.viewControllers
-                stack.removeLast()
-                stack.append(articleVC)
-                navigationController.setViewControllers(stack, animated: needsAnimation)
-            } else {
-                navigationController.pushViewController(articleVC, animated: needsAnimation)
-            }
+            navigationController.pushViewController(articleVC, animated: needsAnimation)
+
         }
         return true
     }
