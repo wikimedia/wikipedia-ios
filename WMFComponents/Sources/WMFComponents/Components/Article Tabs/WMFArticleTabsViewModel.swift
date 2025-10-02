@@ -13,6 +13,15 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
     @Published var articleTabs: [ArticleTab]
     @Published var shouldShowCloseButton: Bool
 
+    @Published var didYouKnowViewModel: WMFTabsOverviewDidYouKnowViewModel?
+    @Published var recommendedArticlesViewModel: WMFTabsOverviewRecommendationsViewModel?
+
+    @Published public var loadDidYouKnowViewModel: (@MainActor () async -> WMFTabsOverviewDidYouKnowViewModel?)?
+    @Published public var loadRecommendationsViewModel: (@MainActor () async -> WMFTabsOverviewRecommendationsViewModel?)?
+
+    // Flags to prevent the loading tasks run more than once, since we call them in two spots
+    @MainActor private var startedDYK = false
+    @MainActor private var startedRecs = false
 
     private(set) weak var loggingDelegate: WMFArticleTabsLoggingDelegate?
     private let dataController: WMFArticleTabsDataController
@@ -23,16 +32,6 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
     public let didTapShareTab: (WMFArticleTabsDataController.WMFArticleTab, CGRect?) -> Void
     public let displayDeleteAllTabsToast: (Int) -> Void
     public let didToggleSuggestedArticles: () -> Void
-
-    @Published var didYouKnowViewModel: WMFTabsOverviewDidYouKnowViewModel?
-    @Published var recommendedArticlesViewModel: WMFTabsOverviewRecommendationsViewModel?
-
-    public var loadDidYouKnowViewModel: (@MainActor () async -> WMFTabsOverviewDidYouKnowViewModel?)?
-    public var loadRecommendationsViewModel: (@MainActor () async -> WMFTabsOverviewRecommendationsViewModel?)?
-
-    // Flags to prevent the loading tasks run more than once, since we call them in two spots
-    @MainActor private var startedDYK = false
-    @MainActor private var startedRecs = false
 
     public let localizedStrings: LocalizedStrings
     

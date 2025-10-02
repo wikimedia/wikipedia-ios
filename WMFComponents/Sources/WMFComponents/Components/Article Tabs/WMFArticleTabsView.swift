@@ -24,8 +24,6 @@ public struct WMFArticleTabsView: View {
 
     private var dykLinkDelegate: UITextViewDelegate?
 
-    let needsRecView = true // temp flag for testing
-
     public init(viewModel: WMFArticleTabsViewModel, dykLinkDelegate: UITextViewDelegate?) {
         self.viewModel = viewModel
         self.dykLinkDelegate = dykLinkDelegate
@@ -49,34 +47,7 @@ public struct WMFArticleTabsView: View {
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .background(Color(theme.midBackground))
-
-                Group {
-                    if viewModel.shouldShowTabsV2 {
-                        VStack(spacing: 0) {
-                            Rectangle()
-                                .fill(Color(theme.secondaryText).opacity(0.5))
-                                .frame(height: 1 / UIScreen.main.scale)
-                                .frame(maxWidth: .infinity)
-                            Group {
-                                if let recViewModel = viewModel.recommendedArticlesViewModel, needsRecView {
-                                    WMFTabsOverviewRecommendationsView(viewModel: recViewModel)
-                                        .frame(maxHeight: viewHeight)
-                                        .clipped()
-                                } else if let didYouKnowViewModel = viewModel.didYouKnowViewModel,
-                                          didYouKnowViewModel.didYouKnowFact?.isEmpty == false {
-                                    WMFTabsOverviewDidYouKnowView(
-                                        viewModel: didYouKnowViewModel,
-                                        linkDelegate: dykLinkDelegate
-                                    )
-                                }
-                            }
-                        }
-                        .frame(maxHeight: viewHeight)
-                        .frame(maxWidth: .infinity)
-                        .clipped()
-                    }
-
-                }
+                bottomSection
             }
         }
         .onReceive(viewModel.$articleTabs) { tabs in
@@ -100,6 +71,41 @@ public struct WMFArticleTabsView: View {
         .toolbarBackground(Color(theme.midBackground), for: .automatic)
         .onAppear {
             viewModel.maybeStartSecondaryLoads()
+        }
+    }
+
+    // MARK: - Bottom Section
+
+    @ViewBuilder
+    private var bottomSection: some View {
+        let hasRec = (viewModel.recommendedArticlesViewModel != nil)
+        let hasDYK = (viewModel.didYouKnowViewModel?.didYouKnowFact?.isEmpty == false)
+
+        if viewModel.shouldShowTabsV2, hasRec || hasDYK {
+            VStack(spacing: 0) {
+                Rectangle()
+                    .fill(Color(theme.secondaryText).opacity(0.5))
+                    .frame(height: 1 / UIScreen.main.scale)
+                    .frame(maxWidth: .infinity)
+
+                if hasRec, let recVM = viewModel.recommendedArticlesViewModel {
+                    WMFTabsOverviewRecommendationsView(viewModel: recVM)
+                        .frame(maxHeight: viewHeight)
+                        .clipped()
+                        .transition(.move(edge: .bottom).combined(with: .opacity))
+                } else if hasDYK, let dykVM = viewModel.didYouKnowViewModel {
+                    WMFTabsOverviewDidYouKnowView(
+                        viewModel: dykVM,
+                        linkDelegate: dykLinkDelegate
+                    )
+                    .frame(maxHeight: viewHeight)
+                    .clipped()
+                    .transition(.move(edge: .bottom).combined(with: .opacity))
+                }
+            }
+            .frame(maxWidth: .infinity)
+            .background(Color(theme.midBackground))
+            .animation(.default, value: hasRec || hasDYK)
         }
     }
 
