@@ -8,6 +8,9 @@ public struct TextViewWrapper: UIViewRepresentable {
 
     @Binding var dynamicHeight: CGFloat
 
+    var maxLines: Int? = nil
+    var truncation: NSLineBreakMode = .byTruncatingTail
+
     var theme: WMFTheme {
         return appEnvironment.theme
     }
@@ -17,8 +20,9 @@ public struct TextViewWrapper: UIViewRepresentable {
         textView.isEditable = false
         textView.isScrollEnabled = false
         textView.delegate = linkDelegate
-        textView.textContainer.lineBreakMode = .byWordWrapping
+        textView.textContainer.lineBreakMode = truncation
         textView.textContainerInset = .zero
+        textView.textContainer.maximumNumberOfLines = maxLines ?? 0
         textView.textContainer.lineFragmentPadding = 0
         textView.backgroundColor = .clear
         textView.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
@@ -26,11 +30,21 @@ public struct TextViewWrapper: UIViewRepresentable {
     }
 
     public func updateUIView(_ uiView: UITextView, context: Context) {
+        uiView.textContainer.lineBreakMode = truncation
+        uiView.textContainer.maximumNumberOfLines = maxLines ?? 0
+
+        let trait = uiView.traitCollection
+
+        let normalFont = wmfScaledCappedFont(wmfStyle: .subheadline, textStyle: .subheadline, trait: trait, maxPointSize: 21)
+        let boldFont = wmfScaledCappedFont(wmfStyle: .boldSubheadline,textStyle: .subheadline, trait: trait, maxPointSize: 21)
+        let italicsFont = wmfScaledCappedFont(wmfStyle: .italicSubheadline,textStyle: .subheadline, trait: trait, maxPointSize: 21)
+        let boldItalicsFont = wmfScaledCappedFont(wmfStyle: .boldItalicSubheadline, textStyle: .subheadline, trait: trait, maxPointSize: 21)
+
         let styles = HtmlUtils.Styles(
-            font: WMFFont.for(.subheadline),
-            boldFont: WMFFont.for(.boldSubheadline),
-            italicsFont: WMFFont.for(.italicSubheadline),
-            boldItalicsFont: WMFFont.for(.boldItalicSubheadline),
+            font: normalFont,
+            boldFont: boldFont,
+            italicsFont: italicsFont,
+            boldItalicsFont: boldItalicsFont,
             color: theme.text,
             linkColor: theme.link,
             lineSpacing: 3
@@ -44,6 +58,14 @@ public struct TextViewWrapper: UIViewRepresentable {
                 self.dynamicHeight = size.height
             }
         }
+    }
+
+    // Limiting font size with WMFFont's compatibleWith: UITraitCollection(preferredContentSizeCategory: ...) wasn't effective
+    fileprivate func wmfScaledCappedFont(wmfStyle: WMFFont, textStyle: UIFont.TextStyle, trait: UITraitCollection, maxPointSize: CGFloat) -> UIFont {
+        let base = WMFFont.for(wmfStyle, compatibleWith: UITraitCollection(preferredContentSizeCategory: .large))
+        let scaledPoint = UIFontMetrics(forTextStyle: textStyle)
+            .scaledValue(for: base.pointSize, compatibleWith: trait)
+        return base.withSize(min(scaledPoint, maxPointSize))
     }
 }
 

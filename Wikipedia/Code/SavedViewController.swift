@@ -1,4 +1,5 @@
 import WMFComponents
+import CocoaLumberjackSwift
 import WMFData
 
 protocol SavedViewControllerDelegate: NSObjectProtocol {
@@ -71,11 +72,6 @@ class SavedViewController: ThemeableViewController, WMFNavigationBarConfiguring,
     }
     
     private var _tabsCoordinator: TabsOverviewCoordinator?
-    private var tabsCoordinator: TabsOverviewCoordinator? {
-        guard let navigationController, let dataStore else { return nil }
-        _tabsCoordinator = TabsOverviewCoordinator(navigationController: navigationController, theme: theme, dataStore: dataStore)
-        return _tabsCoordinator
-    }
     
     private var _profileCoordinator: ProfileCoordinator?
     private var profileCoordinator: ProfileCoordinator? {
@@ -294,12 +290,22 @@ class SavedViewController: ThemeableViewController, WMFNavigationBarConfiguring,
 
         configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: nil, profileButtonConfig: profileButtonConfig, tabsButtonConfig: tabsButtonConfig, searchBarConfig: searchConfig, hideNavigationBarOnScroll: hidesNavigationBarOnScroll)
     }
-    
+
     @objc func userDidTapTabs() {
-        _ = tabsCoordinator?.start()
+        guard let coordinator = makeTabsCoordinatorIfNeeded() else { return }
+        coordinator.start()
         ArticleTabsFunnel.shared.logIconClick(interface: .saved, project: nil)
     }
-    
+
+    @discardableResult
+    private func makeTabsCoordinatorIfNeeded() -> TabsOverviewCoordinator? {
+        if let existing = _tabsCoordinator { return existing }
+        guard let nav = navigationController, let dataStore else { return nil }
+        let created = TabsOverviewCoordinator(navigationController: nav, theme: theme, dataStore: dataStore)
+        _tabsCoordinator = created
+        return created
+    }
+
     @objc func userDidTapProfile() {
         
         guard let dataStore else {

@@ -1,11 +1,11 @@
-import Foundation
+import WMFData
 
 class FirstRandomViewController: UIViewController, Themeable {
     
     private let siteURL: URL
     private let dataStore: MWKDataStore
     private let theme: Theme
-    
+
     init(siteURL: URL, dataStore: MWKDataStore, theme: Theme) {
         self.siteURL = siteURL
         self.dataStore = dataStore
