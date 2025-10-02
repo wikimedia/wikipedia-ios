@@ -42,7 +42,7 @@ final class LinkCoordinator: Coordinator {
                 source: articleSource,
                 previousPageViewObjectID: previousPageViewObjectID,
                 tabConfig: self.tabConfig)
-            
+
             return articleCoordinator.start()
         case .unknown:
             return false

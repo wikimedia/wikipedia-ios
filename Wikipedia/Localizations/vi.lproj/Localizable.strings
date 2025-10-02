@@ -668,8 +668,7 @@
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 từ Wikipedia $2";
 "on-this-day-title" = "Ngày này năm xưa";
 "original-tab-button-popover-description" = "Chạm vào chữ “W” để quay lại thẻ ban đầu";
-// Fuzzy
-"page-history-bot-edits" = "sửa đổi bot";
+"page-history-bot-edits" = "bot";
 "page-history-compare-accessibility-hint" = "Chạm để chọn hai phiên bản để so sánh";
 "page-history-compare-title" = "So sánh";
 "page-history-graph-accessibility-label" = "Biểu đồ các sửa đổi qua thời gian";
@@ -870,8 +869,7 @@
 "serbian-variants-alert-body" = "Ứng dụng Wikipedia mới hỗ trợ các hệ chữ viết tiếng Serbia là ngôn ngữ giao diện chính hoặc phụ để cho bạn dễ tra cứu, tìm kiếm, và sửa đổi trong hệ chữ viết của bạn:\n\nсрпски ћирилица Serbia chữ Kirin (sr-ec)\nsrpski latinica Serbia chữ Latinh (sr-el)";
 "serbian-variants-alert-title" = "Cập nhật hỗ trợ hệ chữ viết trong tiếng Serbia";
 "settings-account" = "Tài khoản";
-// Fuzzy
-"settings-appearance" = "Tùy chọn đọc";
+"settings-appearance" = "Chủ đề ứng dụng";
 "settings-clear-cache" = "Xóa dữ liệu đệm";
 "settings-clear-cache-are-you-sure-message" = "Xóa dữ liệu đệm sẽ giải phóng khoảng $1 dung lượng. Việc này sẽ không xóa trang bạn đã lưu.";
 "settings-clear-cache-are-you-sure-title" = "Xóa dữ liệu đệm?";

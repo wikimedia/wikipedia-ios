@@ -82,11 +82,7 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
     }
 
     private var _tabsCoordinator: TabsOverviewCoordinator?
-    private var tabsCoordinator: TabsOverviewCoordinator? {
-        guard let navigationController, let dataStore else { return nil }
-        _tabsCoordinator = TabsOverviewCoordinator(navigationController: navigationController, theme: theme, dataStore: dataStore)
-        return _tabsCoordinator
-    }
+
     var customTabConfigUponArticleNavigation: ArticleTabConfig?
 
     private var yirDataController: WMFYearInReviewDataController? {
@@ -246,8 +242,18 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
     }
 
     @objc func userDidTapTabs() {
-        _ = tabsCoordinator?.start()
+        guard let coordinator = makeTabsCoordinatorIfNeeded() else { return }
+        coordinator.start()
         ArticleTabsFunnel.shared.logIconClick(interface: .search, project: nil)
+    }
+
+    @discardableResult
+    private func makeTabsCoordinatorIfNeeded() -> TabsOverviewCoordinator? {
+        if let existing = _tabsCoordinator { return existing }
+        guard let nav = navigationController, let dataStore else { return nil }
+        let created = TabsOverviewCoordinator(navigationController: nav, theme: theme, dataStore: dataStore)
+        _tabsCoordinator = created
+        return created
     }
 
     private func embedResultsViewController() {

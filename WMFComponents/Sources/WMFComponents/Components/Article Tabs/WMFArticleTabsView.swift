@@ -1,10 +1,16 @@
 import SwiftUI
 import WMFData
+import UIKit
 
 @available(iOS 16.4, *) // Note: the app is currently 16.6+, but the package config doesn't allow minor version configs
 public struct WMFArticleTabsView: View {
     @ObservedObject var appEnvironment = WMFAppEnvironment.current
     @Environment(\.colorScheme) var colorScheme
+    @Environment(\.sizeCategory) var sizeCategory: ContentSizeCategory
+
+    var viewHeight: CGFloat {
+        sizeCategory > .large ? 180 : 140
+    }
 
     private var theme: WMFTheme {
         return appEnvironment.theme
@@ -15,27 +21,52 @@ public struct WMFArticleTabsView: View {
     @State private var isReady: Bool = false
     @State private var cellFrames: [String: CGRect] = [:]
 
-    public init(viewModel: WMFArticleTabsViewModel) {
+    private var dykLinkDelegate: UITextViewDelegate?
+
+    public init(viewModel: WMFArticleTabsViewModel, dykLinkDelegate: UITextViewDelegate?) {
         self.viewModel = viewModel
+        self.dykLinkDelegate = dykLinkDelegate
     }
 
     public var body: some View {
         GeometryReader { geometry in
-            Group {
-                if !isReady {
-                    loadingView
-                } else if viewModel.articleTabs.isEmpty {
-                    emptyStateContainer
-                } else {
-                    if viewModel.shouldShowTabsV2 {
-                        tabsV2Grid(geometry)
+            VStack(spacing: 0) {
+                Group {
+                    if !isReady {
+                        loadingView
+                    } else if viewModel.articleTabs.isEmpty {
+                        emptyStateContainer
                     } else {
-                        tabsGrid(geometry)
+                        if viewModel.shouldShowTabsV2 {
+                            tabsV2Grid(geometry)
+                        } else {
+                            tabsGrid(geometry)
+                        }
+                    }
+                }
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .background(Color(theme.midBackground))
+
+                Group {
+
+                    if let didYouKnowViewModel = viewModel.didYouKnowViewModel,
+                       didYouKnowViewModel.didYouKnowFact?.isEmpty == false,
+                       viewModel.shouldShowTabsV2 {
+                        VStack(spacing: 0) {
+                            Rectangle()
+                                .fill(Color(theme.secondaryText).opacity(0.5))
+                                .frame(height: 1 / UIScreen.main.scale)
+                                .frame(maxWidth: .infinity)
+                            WMFTabsOverviewDidYouKnowView(
+                                viewModel: didYouKnowViewModel,
+                                linkDelegate: dykLinkDelegate
+                            )
+                            .frame(maxHeight: viewHeight)
+                            .clipped()
+                        }
                     }
                 }
             }
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .background(Color(theme.midBackground))
         }
         .onReceive(viewModel.$articleTabs) { tabs in
             guard !isReady else { return }

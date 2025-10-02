@@ -15,6 +15,9 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
     let shouldShowCurrentTabBorder: Bool
     @Published var currentTabID: String?
 
+    var didYouKnowViewModel: WMFTabsOverviewDidYouKnowViewModel?
+
+
     private(set) weak var loggingDelegate: WMFArticleTabsLoggingDelegate?
     private let dataController: WMFArticleTabsDataController
     public var updateNavigationBarTitleAction: ((Int) -> Void)?
@@ -30,6 +33,7 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
     public init(dataController: WMFArticleTabsDataController,
                 localizedStrings: LocalizedStrings,
                 loggingDelegate: WMFArticleTabsLoggingDelegate?,
+                didYouKnowViewModel: WMFTabsOverviewDidYouKnowViewModel?,
                 didTapTab: @escaping (WMFArticleTabsDataController.WMFArticleTab) -> Void,
                 didTapAddTab: @escaping () -> Void,
                 didTapShareTab: @escaping (WMFArticleTabsDataController.WMFArticleTab, CGRect?) -> Void,
@@ -42,6 +46,7 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
         self.shouldShowCloseButton = false
         self.shouldShowCurrentTabBorder = dataController.shouldShowMoreDynamicTabs
         self.didTapTab = didTapTab
+        self.didYouKnowViewModel = didYouKnowViewModel
         self.didTapAddTab = didTapAddTab
         self.didTapShareTab = didTapShareTab
         self.displayDeleteAllTabsToast = displayDeleteAllTabsToast

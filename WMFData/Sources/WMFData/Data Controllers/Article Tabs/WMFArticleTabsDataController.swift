@@ -104,12 +104,12 @@ public protocol WMFArticleTabsDataControlling {
             return OnboardingStatus(hasPresentedOnboardingTooltips: false)
         }
     }
-    
+
     // MARK: - Properties
-    
+
     @objc(sharedInstance)
     public static let shared = WMFArticleTabsDataController()
-    
+
     private let userDefaultsStore = WMFDataEnvironment.current.userDefaultsStore
     private let developerSettingsDataController: WMFDeveloperSettingsDataControlling
     
@@ -149,7 +149,8 @@ public protocol WMFArticleTabsDataControlling {
     
     public init(coreDataStore: WMFCoreDataStore? = WMFDataEnvironment.current.coreDataStore,
                 developerSettingsDataController: WMFDeveloperSettingsDataControlling = WMFDeveloperSettingsDataController.shared,
-                experimentStore: WMFKeyValueStore? = WMFDataEnvironment.current.sharedCacheStore) {
+                experimentStore: WMFKeyValueStore? = WMFDataEnvironment.current.sharedCacheStore
+    ) {
         self._coreDataStore = coreDataStore
         self.developerSettingsDataController = developerSettingsDataController
         if let experimentStore {
