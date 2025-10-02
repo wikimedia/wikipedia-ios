@@ -134,7 +134,7 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
     func refreshCurrentTab() async {
         do {
             let tabUUID = try await dataController.currentTabIdentifier()
-            currentTabID = tabUUID.uuidString
+            currentTabID = tabUUID?.uuidString
         } catch {
             print("Not able to get tab UUID")
         }
@@ -374,7 +374,9 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
 
     func getCurrentTab() async -> ArticleTab? {
         do {
-            let tabUUID = try await dataController.currentTabIdentifier()
+            guard let tabUUID = try await dataController.currentTabIdentifier() else {
+                return nil
+            }
 
             if let tab = articleTabs.first(where: {$0.id == tabUUID.uuidString}) {
                 return tab

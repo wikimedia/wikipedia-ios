@@ -45,6 +45,7 @@ extension ArticleTabCoordinating {
             let article = WMFArticleTabsDataController.WMFArticle(identifier: nil, title: title, project: wmfProject, articleURL: articleURL)
             do {
                 
+                // Reassign tabConfig if needed
                 // If current tabs count is at 500, do not create any new tabs. Instead append article to current tab.
                 var tabConfig = self.tabConfig
                 switch tabConfig {
@@ -62,14 +63,33 @@ extension ArticleTabCoordinating {
                     break
                 }
                 
+                // Reassign tabConfig if needed
+                // If there is no current tab but we were expecting one, create a new tab instead
+                let currentTabIdentifier = try await tabsDataController.currentTabIdentifier()
+                if currentTabIdentifier == nil {
+                    switch tabConfig {
+                    case .appendArticleAndAssignCurrentTabAndCleanoutFutureArticles,
+                            .appendArticleAndAssignCurrentTab:
+                        tabConfig = .appendArticleAndAssignNewTabAndSetToCurrent
+                    default:
+                        break
+                    }
+                }
+                
                 switch tabConfig {
                 case .appendArticleAndAssignCurrentTabAndCleanoutFutureArticles:
-                    let tabIdentifier = try await tabsDataController.currentTabIdentifier()
+                    guard let tabIdentifier = try await tabsDataController.currentTabIdentifier() else {
+                        DDLogError("Expected current tab identifier")
+                        return
+                    }
                     let identifiers = try await tabsDataController.appendArticle(article, toTabIdentifier: tabIdentifier, needsCleanoutOfFutureArticles: true)
                     self.tabIdentifier = identifiers.tabIdentifier
                     self.tabItemIdentifier = identifiers.tabItemIdentifier
                 case .appendArticleAndAssignCurrentTab:
-                    let tabIdentifier = try await tabsDataController.currentTabIdentifier()
+                    guard let tabIdentifier = try await tabsDataController.currentTabIdentifier() else {
+                        DDLogError("Expected current tab identifier")
+                        return
+                    }
                     let identifiers = try await tabsDataController.appendArticle(article, toTabIdentifier: tabIdentifier)
                     self.tabIdentifier = identifiers.tabIdentifier
                     self.tabItemIdentifier = identifiers.tabItemIdentifier
