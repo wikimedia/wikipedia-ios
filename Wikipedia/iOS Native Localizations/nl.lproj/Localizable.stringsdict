@@ -930,7 +930,7 @@
 	<key>year-in-review-personalized-reading-subtitle-format-v3</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Hiermee behoort u wereldwijd tot de top **PERCENT** van Wikipedia-lezers. De gemiddelde persoon leest %1$d artikel%#@v1@ per jaar.</string>
+		<string>Hiermee behoort u naar onze schatting wereldwijd tot de top **PERCENT** van Wikipedia-lezers. De gemiddelde persoon leest %1$d artikel%#@v1@ per jaar.</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
