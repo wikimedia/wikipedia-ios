@@ -168,8 +168,15 @@ final class TabsOverviewCoordinator: NSObject, Coordinator {
                 emptyStateSubtitle: WMFLocalizedString("tabs-empty-view-subtitle", value: "Tap “+” to add tabs to this space or long press an article link to open it in a new tab.", comment: "Subtitle for the tabs overview screen when there are no tabs")
             )
 
-            let dykVM = try? await loadDidYouKnowViewModel()
-            let recVM = try? await loadRecommendedArticlesViewModel()
+            var dykVM: WMFTabsOverviewDidYouKnowViewModel?
+            var recVM: WMFTabsOverviewRecommendationsViewModel?
+            let tabsCount = try? await dataController.tabsCount()
+
+            if let tabsCount, tabsCount >= 2 {
+                recVM = try? await loadRecommendedArticlesViewModel()
+            } else {
+                dykVM = try? await loadDidYouKnowViewModel()
+            }
 
             let articleTabsViewModel = WMFArticleTabsViewModel(
                 dataController: dataController,

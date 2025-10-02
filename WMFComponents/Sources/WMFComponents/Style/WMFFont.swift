@@ -275,6 +275,7 @@ public enum WMFFont {
 
 /// SwiftUI-native font tokens mirroring WMFFOnt
 public enum WMFSwiftUIFont {
+    case mediumSubheadline
     case boldSubheadline
     case caption1
 
@@ -283,6 +284,9 @@ public enum WMFSwiftUIFont {
 public extension WMFSwiftUIFont {
     static func font(_ style: WMFSwiftUIFont) -> Font {
         switch style {
+        case .mediumSubheadline:
+            return .system(.subheadline, design: .default).weight(.medium)
+
         case .boldSubheadline:
             return .system(.subheadline, design: .default).weight(.bold)
 

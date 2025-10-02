@@ -51,27 +51,30 @@ public struct WMFArticleTabsView: View {
                 .background(Color(theme.midBackground))
 
                 Group {
-                    if let recViewModel = viewModel.recommendedArticlesViewModel, needsRecView {
-                        WMFTabsOverviewRecommendationsView(title: recViewModel.title, items: recViewModel.getItems(), viewModel: recViewModel)
-
-                    }
-
-                    if let didYouKnowViewModel = viewModel.didYouKnowViewModel,
-                       didYouKnowViewModel.didYouKnowFact?.isEmpty == false,
-                       viewModel.shouldShowTabsV2 {
+                    if viewModel.shouldShowTabsV2 {
                         VStack(spacing: 0) {
                             Rectangle()
                                 .fill(Color(theme.secondaryText).opacity(0.5))
                                 .frame(height: 1 / UIScreen.main.scale)
                                 .frame(maxWidth: .infinity)
-                            WMFTabsOverviewDidYouKnowView(
-                                viewModel: didYouKnowViewModel,
-                                linkDelegate: dykLinkDelegate
-                            )
-                            .frame(maxHeight: viewHeight)
-                            .clipped()
+                            if let recViewModel = viewModel.recommendedArticlesViewModel, needsRecView {
+                                WMFTabsOverviewRecommendationsView(viewModel: recViewModel)
+                                    .frame(maxHeight: viewHeight)
+                                    .clipped()
+                            } else if let didYouKnowViewModel = viewModel.didYouKnowViewModel,
+                                      didYouKnowViewModel.didYouKnowFact?.isEmpty == false {
+                                WMFTabsOverviewDidYouKnowView(
+                                    viewModel: didYouKnowViewModel,
+                                    linkDelegate: dykLinkDelegate
+                                )
+
+                            }
                         }
+                        .frame(maxHeight: viewHeight)
+                        .frame(maxWidth: .infinity)
+                        .clipped()
                     }
+
                 }
             }
         }

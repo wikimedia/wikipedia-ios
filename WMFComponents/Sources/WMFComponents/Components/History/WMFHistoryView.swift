@@ -60,6 +60,7 @@ public struct WMFHistoryView: View {
             titleHtml: item.titleHtml,
             articleDescription: item.description,
             imageURLString: item.imageURLString,
+            titleLineLimit: 0,
             isSaved: item.isSaved,
             deleteAccessibilityLabel: viewModel.localizedStrings.deleteSwipeActionLabel,
             shareAccessibilityLabel: viewModel.localizedStrings.shareActionTitle,

@@ -6,27 +6,15 @@ import UIKit
 public struct WMFTabsOverviewRecommendationsView: View {
 
     let viewModel: WMFTabsOverviewRecommendationsViewModel
-
-    private let title: String
-    private let items: [HistoryItem]
-    private let horizontalInset: CGFloat
-    private let cardWidth: CGFloat?
+    private let horizontalInset: CGFloat = 16
     private let interCardSpacing: CGFloat
     private let topSpacing: CGFloat
 
     public init(
-        title: String,
-        items: [HistoryItem],
-        horizontalInset: CGFloat = 16,
-        cardWidth: CGFloat? = nil,
         interCardSpacing: CGFloat = 12,
-        topSpacing: CGFloat = 8,
+        topSpacing: CGFloat = 16,
         viewModel: WMFTabsOverviewRecommendationsViewModel
     ) {
-        self.title = title
-        self.items = items
-        self.horizontalInset = horizontalInset
-        self.cardWidth = cardWidth
         self.interCardSpacing = interCardSpacing
         self.topSpacing = topSpacing
         self.viewModel = viewModel
@@ -37,33 +25,23 @@ public struct WMFTabsOverviewRecommendationsView: View {
 
     public var body: some View {
         VStack(alignment: .leading, spacing: 0) {
-            // Title
-            Text(title)
-                .font(Font(WMFFont.for(.boldHeadline)))
+            Text(viewModel.title)
+                .font(WMFSwiftUIFont.font(.mediumSubheadline))
+                .dynamicTypeSize(...DynamicTypeSize.xxxLarge)
                 .foregroundStyle(Color(theme.text))
                 .padding(.horizontal, horizontalInset)
-                .padding(.bottom, topSpacing)
-                .accessibilityAddTraits(.isHeader)
-
-            // Strip
+                .padding(.top, topSpacing)
+                .padding(.bottom, 8)
             GeometryReader { geo in
-                let availableWidth = geo.size.width - (horizontalInset * 2)
-                let targetWidth = cardWidth ?? max(260, min(340, availableWidth * (availableWidth > 600 ? 0.36 : 0.44)))
-
                 ScrollContainer(
-                    items: items,
-                    cardWidth: targetWidth,
                     interCardSpacing: interCardSpacing,
                     horizontalInset: horizontalInset,
                     viewModel: viewModel
                 )
             }
-            .frame(height: calculatedStripHeight)
         }
-        .background(Color(theme.paperBackground))
+        .background(Color(theme.midBackground))
     }
-
-    private var calculatedStripHeight: CGFloat { 120 }
 }
 
 // MARK: - Internals
@@ -72,8 +50,7 @@ public struct WMFTabsOverviewRecommendationsView: View {
 private struct ScrollContainer: View {
     @ObservedObject var appEnvironment = WMFAppEnvironment.current
     private var theme: WMFTheme { appEnvironment.theme }
-    let items: [HistoryItem]
-    let cardWidth: CGFloat
+    let cardWidth: CGFloat = 234
     let interCardSpacing: CGFloat
     let horizontalInset: CGFloat
     let viewModel: WMFTabsOverviewRecommendationsViewModel
@@ -82,7 +59,7 @@ private struct ScrollContainer: View {
         if #available(iOS 17.0, *) {
             ScrollView(.horizontal) {
                 LazyHStack(spacing: interCardSpacing) {
-                    ForEach(items) { item in
+                    ForEach(viewModel.getItems()) { item in
                         Card(item: item, viewModel: viewModel)
                             .frame(width: cardWidth)
                             .scrollTargetLayout()
@@ -96,7 +73,7 @@ private struct ScrollContainer: View {
         } else {
             ScrollView(.horizontal, showsIndicators: false) {
                 LazyHStack(spacing: interCardSpacing) {
-                    ForEach(items) { item in
+                    ForEach(viewModel.getItems()) { item in
                         Card(item: item, viewModel: viewModel)
                             .frame(width: cardWidth)
                     }
@@ -114,6 +91,11 @@ private struct Card: View {
     private var theme: WMFTheme { appEnvironment.theme }
     let item: HistoryItem
     let viewModel: WMFTabsOverviewRecommendationsViewModel
+    @Environment(\.sizeCategory) var sizeCategory: ContentSizeCategory
+
+    var lineLimit: Int {
+        sizeCategory > .large ? 2 : 1
+    }
 
     var body: some View {
         Button(action: { viewModel.onTap(item) }) {
@@ -122,6 +104,7 @@ private struct Card: View {
                 titleHtml: item.titleHtml,
                 articleDescription: item.description,
                 imageURLString: item.imageURLString,
+                titleLineLimit: lineLimit,
                 isSaved: item.isSaved,
                 deleteAccessibilityLabel: "",
                 shareAccessibilityLabel: "",
@@ -139,8 +122,8 @@ private struct Card: View {
             .padding(.horizontal, 12)
             .padding(.vertical, 8)
             .background(
-                RoundedRectangle(cornerRadius: 16, style: .continuous)
-                    .fill(Color(theme.midBackground))
+                RoundedRectangle(cornerRadius: 8, style: .continuous)
+                    .fill(Color(theme.paperBackground))
                     .shadow(color: Color.black.opacity(0.10), radius: 10, x: 0, y: 4)
                     .shadow(color: Color.black.opacity(0.03), radius: 2, x: 0, y: 1)
             )

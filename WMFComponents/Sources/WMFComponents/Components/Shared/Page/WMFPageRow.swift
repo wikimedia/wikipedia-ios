@@ -13,6 +13,7 @@ struct WMFPageRow: View {
     let titleHtml: String
     let articleDescription: String?
     let imageURLString: String?
+    let titleLineLimit: Int
     let isSaved: Bool
     let deleteAccessibilityLabel: String?
     let shareAccessibilityLabel: String?
@@ -33,7 +34,7 @@ struct WMFPageRow: View {
                 Text(titleHtml)
                     .font(Font(WMFFont.for(.callout)))
                     .foregroundColor(Color(theme.text))
-
+                    .lineLimit(titleLineLimit)
                 if let description = articleDescription {
                     Text(description)
                         .font(Font(WMFFont.for(.subheadline)))
