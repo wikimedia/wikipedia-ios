@@ -892,7 +892,7 @@
 	<key>year-in-review-personalized-reading-subtitle-format-v3</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>這使您列入維基百科全球讀者的前 **PERCENT**。平均每人每年閱讀 %#@v1@ 篇條目。</string>
+		<string>我們估計您已列入維基百科全球讀者的前 **PERCENT**。平均每人每年閱讀 %#@v1@ 篇條目。</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>

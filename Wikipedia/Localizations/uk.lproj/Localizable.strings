@@ -1554,6 +1554,7 @@
 "year-in-review-personalized-location-title-format" = "Статті, які ви читали, найближчі до: $1";
 "year-in-review-personalized-most-read-articles-title" = "Ваші найчитаніші статті";
 "year-in-review-personalized-reading-subtitle-format" = "Ви прочитали {{PLURAL:$1|$1 статтю|$1 статті|$1 статей}}. У Вікіпедії було доступно $2 мільйона статей понад $3 активними мовами. Ви приєдналися до мільйонів у розширенні знань і дослідженні різноманітних тем.";
+// Fuzzy
 "year-in-review-personalized-reading-subtitle-format-v3" = "Таким чином ви належите до **PERCENT** найактивніших читачів Вікіпедії у світі. Середньостатистична людина читає {{PLURAL:$1|$1 статтю|$1 статті|$1 статей}} на рік.";
 "year-in-review-personalized-reading-title-format" = "Ви прочитали $1 {{PLURAL:$1|статтю|статті|статей}}";
 "year-in-review-personalized-reading-title-v3-format" = "Ви витратили {{PLURAL:$1|$1 хвилину|$1 хвилини|$1 хвилин}} на читання {{PLURAL:$2|$2 статті|$2 статей}} у 2025 році";
