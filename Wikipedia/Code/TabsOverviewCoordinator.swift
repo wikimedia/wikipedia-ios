@@ -236,9 +236,24 @@ final class TabsOverviewCoordinator: NSObject, Coordinator {
             comment: "title for section on tabs overview with article recommendations"
         )
 
-        return WMFTabsOverviewRecommendationsViewModel(title: title, articles: limitedArticles)
+        let onTapArticleAction: WMFTabsOverviewRecommendationsViewModel.OnRecordTapAction = { [weak self] historyItem in
+            guard let self else { return }
+            self.tappedArticle(historyItem)
+        }
+
+        return WMFTabsOverviewRecommendationsViewModel(title: title, articles: limitedArticles, onTapArticle: onTapArticleAction)
     }
 
+    func tappedArticle(_ item: HistoryItem) {
+        if let articleURL = item.url {
+            let articleCoordinator = ArticleCoordinator(navigationController: navigationController, articleURL: articleURL, dataStore: dataStore, theme: theme, source: .history, tabConfig: .appendArticleAndAssignNewTabAndSetToCurrent)
+            if let presented = navigationController.presentedViewController {
+                presented.dismiss(animated: true) {
+                    articleCoordinator.start()
+                }
+            }
+        }
+    }
 
     // Returns unordered set of URLs
     @MainActor
@@ -426,7 +441,6 @@ extension TabsOverviewCoordinator: UITextViewDelegate {
         guard let articleURL = URL(string: url.absoluteString) else {
             return
         }
-
 
         let linkCoordinator = LinkCoordinator(
             navigationController: navigationController,
