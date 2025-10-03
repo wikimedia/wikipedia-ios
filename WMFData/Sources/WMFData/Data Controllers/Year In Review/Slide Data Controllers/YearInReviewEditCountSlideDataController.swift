@@ -13,10 +13,10 @@ final class YearInReviewEditCountSlideDataController: YearInReviewSlideDataContr
     private let username: String?
     private let project: WMFProject?
     
-    private let yirConfig: YearInReviewFeatureConfig
+    private let yirConfig: WMFFeatureConfigResponse.Common.YearInReview
     private let service = WMFDataEnvironment.current.mediaWikiService
     
-    init(year: Int, yirConfig: YearInReviewFeatureConfig, dependencies: YearInReviewSlideDataControllerDependencies) {
+    init(year: Int, yirConfig: WMFFeatureConfigResponse.Common.YearInReview, dependencies: YearInReviewSlideDataControllerDependencies) {
         self.year = year
         self.yirConfig = yirConfig
         self.username = dependencies.username
@@ -49,8 +49,8 @@ final class YearInReviewEditCountSlideDataController: YearInReviewSlideDataContr
         return slide
     }
 
-    static func shouldPopulate(from config: YearInReviewFeatureConfig, userInfo: YearInReviewUserInfo) -> Bool {
-        return config.isEnabled && config.slideConfig.editCountIsEnabled && userInfo.username != nil
+    static func shouldPopulate(from config: WMFFeatureConfigResponse.Common.YearInReview, userInfo: YearInReviewUserInfo) -> Bool {
+        return config.isActive(for: Date()) && userInfo.username != nil
     }
     
     func fetchUserContributionsCount(username: String, project: WMFProject?, startDate: String, endDate: String) async throws -> (Int, Bool) {

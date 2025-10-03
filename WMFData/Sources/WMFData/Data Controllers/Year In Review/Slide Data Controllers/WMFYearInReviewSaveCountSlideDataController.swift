@@ -11,9 +11,9 @@ final class YearInReviewSaveCountSlideDataController: YearInReviewSlideDataContr
     private var savedData: SavedArticleSlideData?
     
     private weak var savedSlideDataDelegate: SavedArticleSlideDataDelegate?
-    private let yirConfig: YearInReviewFeatureConfig
+    private let yirConfig: WMFFeatureConfigResponse.Common.YearInReview
     
-    init(year: Int, yirConfig: YearInReviewFeatureConfig, dependencies: YearInReviewSlideDataControllerDependencies) {
+    init(year: Int, yirConfig: WMFFeatureConfigResponse.Common.YearInReview, dependencies: YearInReviewSlideDataControllerDependencies) {
         self.year = year
         self.yirConfig = yirConfig
         self.savedSlideDataDelegate = dependencies.savedSlideDataDelegate
@@ -44,7 +44,7 @@ final class YearInReviewSaveCountSlideDataController: YearInReviewSlideDataContr
         return slide
     }
 
-    static func shouldPopulate(from config: YearInReviewFeatureConfig, userInfo: YearInReviewUserInfo) -> Bool {
-        return config.isEnabled && config.slideConfig.saveCountIsEnabled
+    static func shouldPopulate(from config: WMFFeatureConfigResponse.Common.YearInReview, userInfo: YearInReviewUserInfo) -> Bool {
+        return config.isActive(for: Date())
     }
 }

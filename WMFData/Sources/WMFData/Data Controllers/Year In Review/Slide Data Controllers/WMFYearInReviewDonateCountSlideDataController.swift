@@ -16,9 +16,9 @@ final class YearInReviewDonateCountSlideDataController: YearInReviewSlideDataCon
     private var donateCount: Int?
     private var editCount: Int?
     
-    private let yirConfig: YearInReviewFeatureConfig
+    private let yirConfig: WMFFeatureConfigResponse.Common.YearInReview
     
-    init(year: Int, yirConfig: YearInReviewFeatureConfig, dependencies: YearInReviewSlideDataControllerDependencies) {
+    init(year: Int, yirConfig: WMFFeatureConfigResponse.Common.YearInReview, dependencies: YearInReviewSlideDataControllerDependencies) {
         self.year = year
         self.yirConfig = yirConfig
         self.username = dependencies.username
@@ -138,7 +138,7 @@ final class YearInReviewDonateCountSlideDataController: YearInReviewSlideDataCon
         return slide
     }
 
-    static func shouldPopulate(from config: YearInReviewFeatureConfig, userInfo: YearInReviewUserInfo) -> Bool {
-        config.isEnabled && config.slideConfig.donateCountIsEnabled
+    static func shouldPopulate(from config: WMFFeatureConfigResponse.Common.YearInReview, userInfo: YearInReviewUserInfo) -> Bool {
+        return config.isActive(for: Date())
     }
 }

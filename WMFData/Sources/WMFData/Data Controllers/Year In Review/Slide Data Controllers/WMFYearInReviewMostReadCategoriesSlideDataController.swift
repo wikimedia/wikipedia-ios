@@ -9,9 +9,9 @@ final class YearInReviewMostReadCategoriesSlideDataController: YearInReviewSlide
 
     private var mostReadCategories: [String]
 
-    private let yirConfig: YearInReviewFeatureConfig
+    private let yirConfig: WMFFeatureConfigResponse.Common.YearInReview
 
-    init(year: Int, yirConfig: YearInReviewFeatureConfig, dependencies: YearInReviewSlideDataControllerDependencies) {
+    init(year: Int, yirConfig: WMFFeatureConfigResponse.Common.YearInReview, dependencies: YearInReviewSlideDataControllerDependencies) {
         self.year = year
         self.yirConfig = yirConfig
         mostReadCategories = []
@@ -56,7 +56,7 @@ final class YearInReviewMostReadCategoriesSlideDataController: YearInReviewSlide
         return slide
     }
 
-    static func shouldPopulate(from config: YearInReviewFeatureConfig, userInfo: YearInReviewUserInfo) -> Bool {
-        config.isEnabled && config.slideConfig.categoriesIsEnabled
+    static func shouldPopulate(from config: WMFFeatureConfigResponse.Common.YearInReview, userInfo: YearInReviewUserInfo) -> Bool {
+        return config.isActive(for: Date())
     }
 }

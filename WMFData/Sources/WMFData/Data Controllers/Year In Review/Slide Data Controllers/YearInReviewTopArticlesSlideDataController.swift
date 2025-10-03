@@ -11,9 +11,9 @@ final class YearInReviewTopReadArticleSlideDataController: YearInReviewSlideData
     private var articles: [String]?
 
     private weak var legacyPageViewsDataDelegate: LegacyPageViewsDataDelegate?
-    private let yirConfig: YearInReviewFeatureConfig
+    private let yirConfig: WMFFeatureConfigResponse.Common.YearInReview
     
-    init(year: Int, yirConfig: YearInReviewFeatureConfig, dependencies: YearInReviewSlideDataControllerDependencies) {
+    init(year: Int, yirConfig: WMFFeatureConfigResponse.Common.YearInReview, dependencies: YearInReviewSlideDataControllerDependencies) {
         self.year = year
         self.yirConfig = yirConfig
         self.legacyPageViewsDataDelegate = dependencies.legacyPageViewsDataDelegate
@@ -48,8 +48,8 @@ final class YearInReviewTopReadArticleSlideDataController: YearInReviewSlideData
         return slide
     }
 
-    static func shouldPopulate(from config: YearInReviewFeatureConfig, userInfo: YearInReviewUserInfo) -> Bool {
-        return config.isEnabled && config.slideConfig.mostReadArticleIsEnabled
+    static func shouldPopulate(from config: WMFFeatureConfigResponse.Common.YearInReview, userInfo: YearInReviewUserInfo) -> Bool {
+        return config.isActive(for: Date())
     }
 }
 
