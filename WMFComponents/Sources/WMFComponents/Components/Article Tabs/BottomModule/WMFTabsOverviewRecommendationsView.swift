@@ -24,6 +24,8 @@ public struct WMFTabsOverviewRecommendationsView: View {
     private var theme: WMFTheme { appEnvironment.theme }
 
     public var body: some View {
+        let items = viewModel.items
+
         VStack(alignment: .leading, spacing: 0) {
             Text(viewModel.title)
                 .font(WMFSwiftUIFont.font(.mediumSubheadline))
@@ -32,13 +34,14 @@ public struct WMFTabsOverviewRecommendationsView: View {
                 .padding(.horizontal, horizontalInset)
                 .padding(.top, topSpacing)
                 .padding(.bottom, 8)
-            GeometryReader { geo in
-                ScrollContainer(
-                    interCardSpacing: interCardSpacing,
-                    horizontalInset: horizontalInset,
-                    viewModel: viewModel
-                )
-            }
+
+            ScrollContainer(
+                interCardSpacing: interCardSpacing,
+                horizontalInset: horizontalInset,
+                items: items,
+                viewModel: viewModel
+            )
+            .animation(nil, value: items.count)
         }
         .background(Color(theme.midBackground))
     }
@@ -53,27 +56,27 @@ private struct ScrollContainer: View {
     let cardWidth: CGFloat = 234
     let interCardSpacing: CGFloat
     let horizontalInset: CGFloat
+    let items: [HistoryItem]
     let viewModel: WMFTabsOverviewRecommendationsViewModel
 
     var body: some View {
         if #available(iOS 17.0, *) {
             ScrollView(.horizontal) {
                 LazyHStack(spacing: interCardSpacing) {
-                    ForEach(viewModel.getItems()) { item in
+                    ForEach(items) { item in
                         Card(item: item, viewModel: viewModel)
                             .frame(width: cardWidth)
                             .scrollTargetLayout()
                     }
                 }
-                .padding(.horizontal, horizontalInset)
             }
             .scrollTargetBehavior(.viewAligned)
             .scrollIndicators(.hidden)
-            .contentMargins(.horizontal, 0, for: .scrollContent)
+            .contentMargins(.horizontal, horizontalInset, for: .scrollContent)
         } else {
             ScrollView(.horizontal, showsIndicators: false) {
                 LazyHStack(spacing: interCardSpacing) {
-                    ForEach(viewModel.getItems()) { item in
+                    ForEach(items) { item in
                         Card(item: item, viewModel: viewModel)
                             .frame(width: cardWidth)
                     }

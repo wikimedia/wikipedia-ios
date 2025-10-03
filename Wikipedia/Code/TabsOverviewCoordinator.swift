@@ -210,26 +210,35 @@ final class TabsOverviewCoordinator: NSObject, Coordinator {
         }
     }
 
+    @MainActor
     func loadRecommendedArticlesViewModel() async throws -> WMFTabsOverviewRecommendationsViewModel? {
 
         let seedURLsSet = try? await getRecentTabArticleURLs()
         guard let seedURLsSet else { return nil }
 
-        let articles = await relatedArticlesProviderClosure(Array(seedURLsSet))
+        let seedURLs = Array(seedURLsSet)
+
+        let articles = await relatedArticlesProviderClosure(seedURLs)
 
         guard let articles, !articles.isEmpty else {
             DDLogWarn("TabsOverviewCoordinator: related articles provider returned empty")
             return nil
         }
-        // need two or more articles for recommendations
-        if articles.count > 1 {
-            let title = WMFLocalizedString("tabs-overview-recommendations-title", value: "Based on your most recent tabs", comment: "title for section on tabs overview with article recommendations")
-            return WMFTabsOverviewRecommendationsViewModel(title: title, articles: articles)
-        }
 
-        return nil
+        let limit = UIDevice.current.userInterfaceIdiom == .pad ? 5 : 3
+        let limitedArticles = Array(articles.prefix(limit))
 
+        guard limitedArticles.count > 1 else { return nil }
+
+        let title = WMFLocalizedString(
+            "tabs-overview-recommendations-title",
+            value: "Based on your most recent tabs",
+            comment: "title for section on tabs overview with article recommendations"
+        )
+
+        return WMFTabsOverviewRecommendationsViewModel(title: title, articles: limitedArticles)
     }
+
 
     // Returns unordered set of URLs
     @MainActor
