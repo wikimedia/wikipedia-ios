@@ -28,7 +28,7 @@ final class TabsOverviewCoordinator: NSObject, Coordinator {
     }
 
     private func surveyViewController() -> UIViewController {
-        let subtitle = WMFLocalizedString("tabs-survey-title", value: "Help improve the tabs feature. Are you satisfied with this feature?", comment: "Title for article tabs survey")
+        let subtitle = WMFLocalizedString("tabs-survey-title", value: "Help improve tabs. Are you satisfied with this feature?", comment: "Title for article tabs survey")
         
         let surveyLocalizedStrings = WMFSurveyViewModel.LocalizedStrings(
             title: CommonStrings.satisfactionSurveyTitle,
@@ -139,7 +139,7 @@ final class TabsOverviewCoordinator: NSObject, Coordinator {
                 
                 surveyVC.modalPresentationStyle = .pageSheet
                 if let sheet = surveyVC.sheetPresentationController {
-                    sheet.detents = [.medium()]
+                    sheet.detents = [.large()]
                     sheet.prefersGrabberVisible = false
                 }
             }

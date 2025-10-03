@@ -659,38 +659,43 @@ public protocol WMFArticleTabsDataControlling {
     }
     
     public func updateSurveyDataTabsOverviewSeenCount() {
-        var seenCount: Int = (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.articleTabsOverviewOpenedCount.rawValue)) ?? 0
+        var seenCount: Int = (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.articleTabsOverviewOpenedCountBandC.rawValue)) ?? 0
         
         seenCount += 1
-        try? userDefaultsStore?.save(key: WMFUserDefaultsKey.articleTabsOverviewOpenedCount.rawValue, value: seenCount)
+        try? userDefaultsStore?.save(key: WMFUserDefaultsKey.articleTabsOverviewOpenedCountBandC.rawValue, value: seenCount)
     }
-    
+
     public func updateSurveyDataTappedLongPressFlag() {
         try? userDefaultsStore?.save(key: WMFUserDefaultsKey.articleTabsDidTapOpenInNewTab.rawValue, value: true)
     }
     
     public func shouldShowSurvey() -> Bool {
-        // Make sure it's before July 31, 2025
+        // Make sure it's before January 31, 2026 for B and C
         let now = Date()
         let calendar = Calendar.current
-        let deadlineComponents = DateComponents(year: 2025, month: 7, day: 31)
+        let deadlineComponents = DateComponents(year: 2026, month: 1, day: 31)
         
         guard let deadline = calendar.date(from: deadlineComponents),
               now <= deadline else {
             return false
         }
         
-        let seenCount: Int = (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.articleTabsOverviewOpenedCount.rawValue)) ?? 0
-        let didTapLongPress = (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.articleTabsDidTapOpenInNewTab.rawValue)) ?? false
-        let seenSurvey = (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.articleTabsDidShowSurvey.rawValue)) ?? false
+        var seenCount: Int = 0
+        if shouldShowMoreDynamicTabs {
+            seenCount = (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.articleTabsOverviewOpenedCountBandC.rawValue)) ?? 0
+        }
+        
+        let seenSurvey = (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.articleTabsDidShowSurveyBandC.rawValue)) ?? false
         
         if seenSurvey {
             return false
         }
         
-        if seenCount >= 3 && didTapLongPress {
-            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.articleTabsDidShowSurvey.rawValue, value: true)
-            return true
+        if shouldShowMoreDynamicTabs {
+            if seenCount >= 4 {
+                try? userDefaultsStore?.save(key: WMFUserDefaultsKey.articleTabsDidShowSurveyBandC.rawValue, value: true)
+                return true
+            }
         }
         
         return false
