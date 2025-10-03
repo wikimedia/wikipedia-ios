@@ -161,31 +161,6 @@ public protocol WMFArticleTabsDataControlling {
     
     // MARK: - Experiment
 
-    public func shouldAssignToBucket() -> Bool {
-        return experimentsDataController?.bucketForExperiment(.moreDynamicTabs) == nil
-    }
-    
-    public var shouldShowMoreDynamicTabs: Bool {
-        guard !developerSettingsDataController.enableMoreDynamicTabsGroupB else {
-            return true
-        }
-        
-        guard !developerSettingsDataController.enableMoreDynamicTabsGroupC else {
-            return true
-        }
-        
-        guard let assignment = try? getMoreDynamicTabsExperimentAssignment() else {
-            return false
-        }
-        
-        switch assignment {
-        case .groupB, .groupC:
-            return true
-        case .control:
-            return false
-        }
-    }
-    
     public func shouldAssignToBucketV2() -> Bool {
         return experimentsDataController?.bucketForExperiment(.moreDynamicTabsV2) == nil
     }
@@ -213,10 +188,6 @@ public protocol WMFArticleTabsDataControlling {
     
     @objc public var needsMoreDynamicTabsV2: Bool {
         return shouldShowMoreDynamicTabsV2
-    }
-    
-    @objc public var needsMoreDynamicTabs: Bool {
-        return shouldShowMoreDynamicTabs
     }
     
     private var primaryAppLanguageProject: WMFProject? {
@@ -843,7 +814,7 @@ public protocol WMFArticleTabsDataControlling {
         
         let tabsCount = try tabsCount(moc: moc)
         
-        if tabsCount <= 1 && !shouldShowMoreDynamicTabs {
+        if tabsCount <= 1 && !shouldShowMoreDynamicTabsV2 {
             throw CustomError.cannotDeleteLastTab
         }
         
@@ -931,7 +902,7 @@ public protocol WMFArticleTabsDataControlling {
             return existingID
         }
 
-        guard shouldShowMoreDynamicTabs else {
+        guard shouldShowMoreDynamicTabsV2 else {
             throw CustomError.missingTab
         }
 
