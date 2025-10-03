@@ -23,6 +23,10 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
     @MainActor private var startedDYK = false
     @MainActor private var startedRecs = false
 
+    @Published var currentTabID: String?
+
+    let shouldShowCurrentTabBorder: Bool
+
     private(set) weak var loggingDelegate: WMFArticleTabsLoggingDelegate?
     private let dataController: WMFArticleTabsDataController
     public var updateNavigationBarTitleAction: ((Int) -> Void)?
@@ -48,6 +52,7 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
         self.loggingDelegate = loggingDelegate
         self.articleTabs = []
         self.shouldShowCloseButton = false
+        self.shouldShowCurrentTabBorder = dataController.shouldShowMoreDynamicTabs
         self.didTapTab = didTapTab
         self.didTapAddTab = didTapAddTab
         self.didTapShareTab = didTapShareTab
@@ -56,6 +61,17 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
         super.init()
         Task {
             await loadTabs()
+        }
+    }
+    
+    public func didTapCloseAllTabs() {
+        Task {
+            let numberTabs = articleTabs.count
+            try? await dataController.deleteAllTabs()
+            Task { @MainActor in
+                displayDeleteAllTabsToast(numberTabs)
+                await loadTabs()
+            }
         }
     }
     
@@ -69,15 +85,15 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
         public let shareTabButtonTitle: String
         public let closeAllTabs: String
         public let cancelActionTitle: String
-        public let closeAllTabsTitle: String
-        public let closeAllTabsSubtitle: String
+        public let closeAllTabsTitle: (Int) -> String
+        public let closeAllTabsSubtitle: (Int) -> String
         public let closedAlertsNotification: String
         public let hideSuggestedArticlesTitle: String
         public let showSuggestedArticlesTitle: String
         public let emptyStateTitle: String
         public let emptyStateSubtitle: String
 
-        public init(navBarTitleFormat: String, mainPageTitle: String?, mainPageSubtitle: String, mainPageDescription: String, closeTabAccessibility: String, openTabAccessibility: String, shareTabButtonTitle: String, closeAllTabs: String, cancelActionTitle: String, closeAllTabsTitle: String, closeAllTabsSubtitle: String, closedAlertsNotification: String, hideSuggestedArticlesTitle: String, showSuggestedArticlesTitle: String, emptyStateTitle: String, emptyStateSubtitle: String) {
+        public init(navBarTitleFormat: String, mainPageTitle: String?, mainPageSubtitle: String, mainPageDescription: String, closeTabAccessibility: String, openTabAccessibility: String, shareTabButtonTitle: String, closeAllTabs: String, cancelActionTitle: String, closeAllTabsTitle: @escaping (Int) -> String, closeAllTabsSubtitle: @escaping (Int) -> String, closedAlertsNotification: String, hideSuggestedArticlesTitle: String, showSuggestedArticlesTitle: String, emptyStateTitle: String, emptyStateSubtitle: String) {
             self.navBarTitleFormat = navBarTitleFormat
             self.mainPageTitle = mainPageTitle
             self.mainPageSubtitle = mainPageSubtitle
@@ -109,6 +125,7 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
                     data: tab
                 )
             }
+            await refreshCurrentTab()
             updateNavigationBarTitleAction?(articleTabs.count)
 
             if dataController.shouldShowMoreDynamicTabs {
@@ -146,14 +163,24 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
         }
     }
     // MARK: - Public funcs
-
+    
+    @MainActor
+    func refreshCurrentTab() async {
+        do {
+            let tabUUID = try await dataController.currentTabIdentifier()
+            currentTabID = tabUUID?.uuidString
+        } catch {
+            print("Not able to get tab UUID")
+        }
+    }
+    
+    @MainActor
     func shouldLockAspectRatio() -> Bool {
         if UIApplication.shared.preferredContentSizeCategory.isAccessibilityCategory {
             return false
         }
         return true
     }
-    
     
     func calculateColumns(for size: CGSize) -> Int {
         // If text is scaled up for accessibility, use single column
@@ -230,6 +257,7 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
                     } else {
                         shouldShowCloseButton = articleTabs.count > 1
                     }
+                    await refreshCurrentTab()
                     updateNavigationBarTitleAction?(articleTabs.count)
                 }
                 
@@ -237,18 +265,6 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
                 debugPrint("Error closing tab: \(error)")
             }
         }
-    }
-
-    public func didTapCloseAllTabs() {
-        Task {
-            guard let numberTabs = try? await dataController.tabsCount() else { return }
-            try? await dataController.deleteAllTabs()
-            Task { @MainActor in
-                displayDeleteAllTabsToast(numberTabs)
-                await loadTabs()
-            }
-        }
-
     }
 
     var shouldShowTabsV2: Bool {
@@ -392,7 +408,9 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
 
     func getCurrentTab() async -> ArticleTab? {
         do {
-            let tabUUID = try await dataController.currentTabIdentifier()
+            guard let tabUUID = try await dataController.currentTabIdentifier() else {
+                return nil
+            }
 
             if let tab = articleTabs.first(where: {$0.id == tabUUID.uuidString}) {
                 return tab

@@ -28,7 +28,7 @@ final class TabsOverviewCoordinator: NSObject, Coordinator {
     }
 
     private func surveyViewController() -> UIViewController {
-        let subtitle = WMFLocalizedString("tabs-survey-title", value: "Help improve the tabs feature. Are you satisfied with this feature?", comment: "Title for article tabs survey")
+        let subtitle = WMFLocalizedString("tabs-survey-title", value: "Help improve tabs. Are you satisfied with this feature?", comment: "Title for article tabs survey")
         
         let surveyLocalizedStrings = WMFSurveyViewModel.LocalizedStrings(
             title: CommonStrings.satisfactionSurveyTitle,
@@ -139,7 +139,7 @@ final class TabsOverviewCoordinator: NSObject, Coordinator {
                 
                 surveyVC.modalPresentationStyle = .pageSheet
                 if let sheet = surveyVC.sheetPresentationController {
-                    sheet.detents = [.medium()]
+                    sheet.detents = [.large()]
                     sheet.prefersGrabberVisible = false
                 }
             }
@@ -159,8 +159,12 @@ final class TabsOverviewCoordinator: NSObject, Coordinator {
                 shareTabButtonTitle: CommonStrings.shareActionTitle,
                 closeAllTabs: CommonStrings.closeAllTabs,
                 cancelActionTitle: CommonStrings.cancelActionTitle,
-                closeAllTabsTitle: closeAllTabsTitle(numberTabs: articleTabsCount),
-                closeAllTabsSubtitle: closeAllTabsSubtitle(numberTabs: articleTabsCount),
+                closeAllTabsTitle: { count in
+                    self.closeAllTabsTitle(numberTabs: count)
+                },
+                closeAllTabsSubtitle: { count in
+                    self.closeAllTabsSubtitle(numberTabs: count)
+                },
                 closedAlertsNotification: closedAlertsNotification(numberTabs: articleTabsCount),
                 hideSuggestedArticlesTitle: WMFLocalizedString("tabs-hide-suggested-articles", value: "Hide article suggestions", comment: "Hide suggested articles button title"),
                 showSuggestedArticlesTitle: WMFLocalizedString("tabs-show-suggested-articles", value: "Show article suggestions", comment: "Show suggested articles button title"),
@@ -386,13 +390,20 @@ final class TabsOverviewCoordinator: NSObject, Coordinator {
     }
     
     private func tappedAddTab() {
-
         guard let siteURL = dataStore.languageLinkController.appLanguage?.siteURL,
               let articleURL = siteURL.wmf_URL(withTitle: "Main Page") else {
             return
         }
         
-        let articleCoordinator = ArticleCoordinator(navigationController: navigationController, articleURL: articleURL, dataStore: MWKDataStore.shared(), theme: theme, needsAnimation: false, source: .undefined, tabConfig: .assignNewTabAndSetToCurrent)
+        let articleCoordinator = ArticleCoordinator(
+            navigationController: navigationController,
+            articleURL: articleURL,
+            dataStore: MWKDataStore.shared(),
+            theme: theme,
+            needsAnimation: false,
+            source: .undefined,
+            tabConfig: .assignNewTabAndSetToCurrent,
+            needsFocusOnSearch: true)
         ArticleTabsFunnel.shared.logAddNewBlankTab()
         articleCoordinator.start()
         
