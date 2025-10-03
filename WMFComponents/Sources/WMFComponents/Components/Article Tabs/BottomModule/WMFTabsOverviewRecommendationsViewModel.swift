@@ -19,11 +19,13 @@ public final class WMFTabsOverviewRecommendationsViewModel: ObservableObject {
     public var onTapArticle: OnRecordTapAction?
     public var shareRecordAction: ShareRecordAction?
 
+    var geometryFrames: [String: CGRect] = [:]
+
     private let imageDataController = WMFImageDataController()
 
     // MARK: - Init
 
-    public init(title: String, openButtonTitle: String, shareButtonTitle: String, articles: [HistoryRecord], onTapArticle: OnRecordTapAction? = nil, shareRecordAction: ShareRecordAction? = nil) {
+    public init(title: String, openButtonTitle: String, shareButtonTitle: String, articles: [HistoryRecord], onTapArticle: OnRecordTapAction?, shareRecordAction: ShareRecordAction? ) {
         self.title = title
         self.openButtonTitle = openButtonTitle
         self.shareButtonTitle = shareButtonTitle

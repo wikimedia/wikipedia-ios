@@ -211,7 +211,7 @@ final class TabsOverviewCoordinator: NSObject, Coordinator {
     }
 
     @MainActor
-    func loadRecommendedArticlesViewModel() async throws -> WMFTabsOverviewRecommendationsViewModel? {
+    private func loadRecommendedArticlesViewModel() async throws -> WMFTabsOverviewRecommendationsViewModel? {
 
         let seedURLsSet = try? await getRecentTabArticleURLs()
         guard let seedURLsSet else { return nil }
@@ -241,14 +241,21 @@ final class TabsOverviewCoordinator: NSObject, Coordinator {
             self.tappedArticle(historyItem)
         }
 
+        let shareArticleAction: WMFHistoryViewModel.ShareRecordAction = { [weak self] frame, historyItem in
+            guard let self else { return }
+            self.shareArticleRecommendation(item:historyItem, sourceFrameInWindow: frame)
+        }
+
         return WMFTabsOverviewRecommendationsViewModel(title: title,
                                                        openButtonTitle: CommonStrings.articleTabsOpen,
                                                        shareButtonTitle: CommonStrings.shareActionTitle,
                                                        articles: limitedArticles,
-                                                       onTapArticle: onTapArticleAction)
+                                                       onTapArticle: onTapArticleAction,
+                                                       shareRecordAction: shareArticleAction
+        )
     }
 
-    func tappedArticle(_ item: HistoryItem) {
+    private func tappedArticle(_ item: HistoryItem) {
         if let articleURL = item.url {
             let articleCoordinator = ArticleCoordinator(navigationController: navigationController, articleURL: articleURL, dataStore: dataStore, theme: theme, source: .history, tabConfig: .appendArticleAndAssignNewTabAndSetToCurrent)
             if let presented = navigationController.presentedViewController {
@@ -257,6 +264,13 @@ final class TabsOverviewCoordinator: NSObject, Coordinator {
                 }
             }
         }
+    }
+
+    private func shareArticleRecommendation(item: HistoryItem, sourceFrameInWindow: CGRect?) {
+        guard let url = item.url else { return }
+        let articleURL = url.wmf_URLForTextSharing
+        let presenter = navigationController.presentedViewController ?? navigationController
+        shareURL(articleURL, from: presenter, sourceFrameInWindow: sourceFrameInWindow)
     }
 
     // Returns unordered set of URLs
@@ -281,7 +295,7 @@ final class TabsOverviewCoordinator: NSObject, Coordinator {
         return urls
     }
 
-    func loadDidYouKnowViewModel() async throws -> WMFTabsOverviewDidYouKnowViewModel? {
+    private func loadDidYouKnowViewModel() async throws -> WMFTabsOverviewDidYouKnowViewModel? {
 
         let facts = await didYouKnowProviderClosure()
         guard let facts, !facts.isEmpty else {

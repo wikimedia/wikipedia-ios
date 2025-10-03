@@ -128,6 +128,18 @@ private struct Card: View {
                 .shadow(color: Color.black.opacity(0.03), radius: 2, x: 0, y: 1)
         )
         .onTapGesture { viewModel.onTap(item) }
+        .overlay(
+            GeometryReader { geometry in
+                Color.clear
+                    .onAppear {
+                        viewModel.geometryFrames[item.id] = geometry.frame(in: .global)
+                    }
+                    .onChange(of: geometry.frame(in: .global)) { newFrame in
+                        viewModel.geometryFrames[item.id] = newFrame
+                    }
+            }
+            .allowsHitTesting(false)
+        )
 
         row.contextMenu(menuItems: {
             Button {
@@ -137,7 +149,8 @@ private struct Card: View {
                 Image(uiImage: WMFSFSymbolIcon.for(symbol: .chevronForward) ?? UIImage())
             }
             Button {
-                viewModel.share(frame: nil, item: item)
+                let frame = viewModel.geometryFrames[item.id] ?? .zero
+                viewModel.share(frame: frame, item: item)
             } label: {
                 Text(viewModel.shareButtonTitle)
                 Image(uiImage: WMFSFSymbolIcon.for(symbol: .share) ?? UIImage())
