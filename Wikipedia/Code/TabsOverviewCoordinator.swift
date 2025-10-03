@@ -4,7 +4,8 @@ import WMFComponents
 import WMFData
 import CocoaLumberjackSwift
 
-final class TabsOverviewCoordinator: Coordinator {
+@MainActor
+final class TabsOverviewCoordinator: NSObject, Coordinator {
     var navigationController: UINavigationController
     var theme: Theme
     let dataStore: MWKDataStore
@@ -25,7 +26,7 @@ final class TabsOverviewCoordinator: Coordinator {
         self.dataController = dataController
         self.summaryController = dataStore.articleSummaryController
     }
-    
+
     private func surveyViewController() -> UIViewController {
         let subtitle = WMFLocalizedString("tabs-survey-title", value: "Help improve tabs. Are you satisfied with this feature?", comment: "Title for article tabs survey")
         
@@ -108,6 +109,11 @@ final class TabsOverviewCoordinator: Coordinator {
             self.tappedAddTab()
         }
 
+        let didTapShareTab: (WMFArticleTabsDataController.WMFArticleTab, CGRect?) -> Void = { [weak self] tab, frame in
+            guard let self else { return }
+            self.tappedShareTab(tab, sourceFrameInWindow: frame)
+        }
+
         let displayDeleteAllTabsToast: (Int) -> Void = { [weak self] articleTabsCount in
             guard let self else { return }
             Task {
@@ -150,6 +156,7 @@ final class TabsOverviewCoordinator: Coordinator {
                 mainPageDescription: CommonStrings.mainPageDescription,
                 closeTabAccessibility: WMFLocalizedString("tabs-close-tab", value: "Close tab", comment: "Accessibility label for close tab button"),
                 openTabAccessibility: WMFLocalizedString("tabs-open-tab", value: "Open tab", comment: "Accessibility label for opening a tab"),
+                shareTabButtonTitle: CommonStrings.shareActionTitle,
                 closeAllTabs: CommonStrings.closeAllTabs,
                 cancelActionTitle: CommonStrings.cancelActionTitle,
                 closeAllTabsTitle: closeAllTabsTitle(numberTabs: articleTabsCount),
@@ -160,19 +167,23 @@ final class TabsOverviewCoordinator: Coordinator {
                 emptyStateTitle: WMFLocalizedString("tabs-empty-view-title", value: "Your tabs will show up here", comment: "Title for the tabs overview screen when there are no tabs"),
                 emptyStateSubtitle: WMFLocalizedString("tabs-empty-view-subtitle", value: "Tap “+” to add tabs to this space or long press an article link to open it in a new tab.", comment: "Subtitle for the tabs overview screen when there are no tabs")
             )
-            
+
+            let dykVM = try? await loadDidYouKnowViewModel()
+
             let articleTabsViewModel = WMFArticleTabsViewModel(
                 dataController: dataController,
                 localizedStrings: localizedStrings,
                 loggingDelegate: self,
+                didYouKnowViewModel: dykVM,
                 didTapTab: didTapTab,
                 didTapAddTab: didTapAddTab,
+                didTapShareTab: didTapShareTab,
                 didToggleSuggestedArticles: showAlertForArticleSuggestionsDisplayChangeConfirmation,
                 displayDeleteAllTabsToast: displayDeleteAllTabsToast
             )
             
-            let articleTabsView = await WMFArticleTabsView(viewModel: articleTabsViewModel)
-            let hostingController = await WMFArticleTabsHostingController(
+            let articleTabsView = WMFArticleTabsView(viewModel: articleTabsViewModel, dykLinkDelegate: self)
+            let hostingController = WMFArticleTabsHostingController(
                 rootView: articleTabsView,
                 viewModel: articleTabsViewModel,
                 doneButtonText: CommonStrings.doneTitle,
@@ -180,19 +191,71 @@ final class TabsOverviewCoordinator: Coordinator {
                 
             )
             
-            let navVC = await WMFComponentNavigationController(
+            let navVC = WMFComponentNavigationController(
                 rootViewController: hostingController,
                 modalPresentationStyle: .overFullScreen
             )
             
-            await navigationController.present(navVC, animated: true) { [weak self] in
+            navigationController.present(navVC, animated: true) { [weak self] in
                 self?.dataController.updateSurveyDataTabsOverviewSeenCount()
                 guard self != nil else { return }
                 showSurveyClosure()
             }
         }
     }
-    
+
+    func loadDidYouKnowViewModel() async throws -> WMFTabsOverviewDidYouKnowViewModel? {
+
+        let facts = await didYouKnowProviderClosure()
+        guard let facts, !facts.isEmpty else {
+            DDLogWarn("TabsOverviewCoordinator: DYK provider returned empty")
+            return nil
+        }
+
+        let localized = WMFTabsOverviewDidYouKnowViewModel.LocalizedStrings(
+            didYouKnowTitle: WMFLocalizedString("did-you-know", value: "Did you know?", comment: "Text displayed as heading for section of tabs overview dedicated to Did You Know "),
+            fromSource: self.stringWithLocalizedCurrentSiteLanguageReplacingPlaceholder(in: CommonStrings.fromWikipedia, fallingBackOn: CommonStrings.defaultFromWikipedia)
+        )
+
+        let viewModel = WMFTabsOverviewDidYouKnowViewModel(
+            facts: facts.map { $0.html },
+            languageCode: dataStore.languageLinkController.appLanguage?.languageCode,
+            dykLocalizedStrings: localized
+        )
+        return viewModel
+    }
+
+    private lazy var didYouKnowProviderClosure: (@MainActor () async -> [WMFDidYouKnow]?) = { [weak self] in
+        guard let self else { return nil }
+        guard let siteURL = dataStore.languageLinkController.appLanguage?.siteURL else { return nil }
+        let dc = NewArticleTabDataController(dataStore: dataStore)
+        do {
+            return try await dc.fetchDidYouKnowFacts(siteURL: siteURL)
+        } catch {
+            DDLogError("DYK fetch error: \(error) from HistoryViewController")
+            return nil
+        }
+    }
+
+    private func stringWithLocalizedCurrentSiteLanguageReplacingPlaceholder(in format: String, fallingBackOn genericString: String
+    ) -> String {
+        guard let code = self.dataStore.languageLinkController.appLanguage?.languageCode else {
+            return genericString
+        }
+
+        if let language = Locale.current.localizedString(forLanguageCode: code) {
+            return String.localizedStringWithFormat(format, language)
+        } else {
+            if code == "test" {
+                return String.localizedStringWithFormat(format, "Test")
+            } else if code == "test2" {
+                return String.localizedStringWithFormat(format, "Test 2")
+            } else {
+                return genericString
+            }
+        }
+    }
+
     private func tappedTab(_ tab: WMFArticleTabsDataController.WMFArticleTab) {
         // If navigation controller is already displaying tab, just dismiss without pushing on any more tabs.
         if let displayedArticleViewController = navigationController.viewControllers.last as? ArticleViewController,
@@ -212,7 +275,7 @@ final class TabsOverviewCoordinator: Coordinator {
             
             let tabConfig = ArticleTabConfig.assignParticularTabAndSetToCurrent(WMFArticleTabsDataController.Identifiers(tabIdentifier: tab.identifier, tabItemIdentifier: article.identifier))
                 // isRestoringState = true allows for us to retain the previous scroll position
-                let articleCoordinator = ArticleCoordinator(navigationController: navigationController, articleURL: articleURL, dataStore: MWKDataStore.shared(), theme: theme, needsAnimation: false, source: .undefined, isRestoringState: true, tabConfig: tabConfig)
+            let articleCoordinator = ArticleCoordinator(navigationController: navigationController, articleURL: articleURL, dataStore: MWKDataStore.shared(), theme: theme, needsAnimation: false, source: .undefined, isRestoringState: true, tabConfig: tabConfig)
                 articleCoordinator.start()
 
         }
@@ -220,18 +283,50 @@ final class TabsOverviewCoordinator: Coordinator {
     }
     
     private func tappedAddTab() {
-
         guard let siteURL = dataStore.languageLinkController.appLanguage?.siteURL,
               let articleURL = siteURL.wmf_URL(withTitle: "Main Page") else {
             return
         }
         
-        let articleCoordinator = ArticleCoordinator(navigationController: navigationController, articleURL: articleURL, dataStore: MWKDataStore.shared(), theme: theme, needsAnimation: false, source: .undefined, tabConfig: .assignNewTabAndSetToCurrent)
+        let articleCoordinator = ArticleCoordinator(
+            navigationController: navigationController,
+            articleURL: articleURL,
+            dataStore: MWKDataStore.shared(),
+            theme: theme,
+            needsAnimation: false,
+            source: .undefined,
+            tabConfig: .assignNewTabAndSetToCurrent,
+            needsFocusOnSearch: true)
         ArticleTabsFunnel.shared.logAddNewBlankTab()
         articleCoordinator.start()
         
         navigationController.dismiss(animated: true)
     }
+
+    private func tappedShareTab(_ tab: WMFArticleTabsDataController.WMFArticleTab, sourceFrameInWindow: CGRect?) {
+        guard let article = tab.articles.last, let url = article.articleURL else { return }
+        let articleURL = url.wmf_URLForTextSharing
+        let presenter = navigationController.presentedViewController ?? navigationController
+        shareURL(articleURL, from: presenter, sourceFrameInWindow: sourceFrameInWindow)
+    }
+
+
+    private func shareURL(_ url: URL, from presenter: UIViewController, sourceFrameInWindow: CGRect?) {
+        let activityVC = UIActivityViewController(activityItems: [url], applicationActivities: nil)
+
+        if let pop = activityVC.popoverPresentationController {
+            pop.sourceView = presenter.view
+            if let rectInWindow = sourceFrameInWindow {
+                let rectInPresenter = presenter.view.convert(rectInWindow, from: presenter.view.window)
+                pop.sourceRect = rectInPresenter
+            } else {
+                pop.sourceRect = presenter.view.bounds
+            }
+        }
+
+        presenter.present(activityVC, animated: true)
+    }
+
 }
 
 extension TabsOverviewCoordinator: WMFArticleTabsLoggingDelegate {
@@ -240,7 +335,7 @@ extension TabsOverviewCoordinator: WMFArticleTabsLoggingDelegate {
         ArticleTabsFunnel.shared.logTabsOverviewImpression()
     }
     
-    func logArticleTabsArticleClick(wmfProject: WMFProject?) {
+    nonisolated func logArticleTabsArticleClick(wmfProject: WMFProject?) {
         if let url = wmfProject?.siteURL, let project =  WikimediaProject(siteURL:url) {
             ArticleTabsFunnel.shared.logArticleClick(project: project)
         }
@@ -249,6 +344,7 @@ extension TabsOverviewCoordinator: WMFArticleTabsLoggingDelegate {
 
 /// Manages the lifecycle of TabsOverviewCoordinator independently of article tabs.
 /// Ensures the tabs UI works even if the current article tab is closed.
+@MainActor
 final class TabsCoordinatorManager {
 
     static let shared = TabsCoordinatorManager()
@@ -258,7 +354,36 @@ final class TabsCoordinatorManager {
     func presentTabsOverview(from navigationController: UINavigationController, theme: Theme, dataStore: MWKDataStore) {
         let coordinator = TabsOverviewCoordinator(navigationController: navigationController, theme: theme, dataStore: dataStore)
         self.tabsOverviewCoordinator = coordinator
-
         coordinator.start()
     }
+}
+
+extension TabsOverviewCoordinator: UITextViewDelegate {
+    func tappedLink(_ url: URL, sourceTextView: UITextView) {
+        guard let articleURL = URL(string: url.absoluteString) else {
+            return
+        }
+
+
+        let linkCoordinator = LinkCoordinator(
+            navigationController: navigationController,
+            url: articleURL,
+            dataStore: self.dataStore,
+            theme: self.theme,
+            articleSource: .undefined,
+            tabConfig: .appendArticleAndAssignNewTabAndSetToCurrent
+        )
+        if let presented = navigationController.presentedViewController {
+            presented.dismiss(animated: true) {
+                linkCoordinator.start()
+            }
+        }
+
+    }
+
+    public func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
+        tappedLink(URL, sourceTextView: textView)
+        return false
+    }
+
 }

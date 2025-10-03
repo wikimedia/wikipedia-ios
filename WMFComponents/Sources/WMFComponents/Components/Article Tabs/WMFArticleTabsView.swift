@@ -1,10 +1,16 @@
 import SwiftUI
 import WMFData
+import UIKit
 
 @available(iOS 16.4, *) // Note: the app is currently 16.6+, but the package config doesn't allow minor version configs
 public struct WMFArticleTabsView: View {
     @ObservedObject var appEnvironment = WMFAppEnvironment.current
     @Environment(\.colorScheme) var colorScheme
+    @Environment(\.sizeCategory) var sizeCategory: ContentSizeCategory
+
+    var viewHeight: CGFloat {
+        sizeCategory > .large ? 180 : 140
+    }
 
     private var theme: WMFTheme {
         return appEnvironment.theme
@@ -13,38 +19,66 @@ public struct WMFArticleTabsView: View {
     @ObservedObject var viewModel: WMFArticleTabsViewModel
     /// Flag to allow us to know if we can scroll to the current tab position
     @State private var isReady: Bool = false
-    @State private var currentTabID: String?
+    @State private var cellFrames: [String: CGRect] = [:]
 
-    public init(viewModel: WMFArticleTabsViewModel) {
+    private var dykLinkDelegate: UITextViewDelegate?
+
+    public init(viewModel: WMFArticleTabsViewModel, dykLinkDelegate: UITextViewDelegate?) {
         self.viewModel = viewModel
+        self.dykLinkDelegate = dykLinkDelegate
     }
 
     public var body: some View {
         GeometryReader { geometry in
-            Group {
-                if !isReady {
-                    loadingView
-                } else if viewModel.articleTabs.isEmpty {
-                    emptyStateContainer
-                } else {
-                    tabsGrid(geometry)
+            VStack(spacing: 0) {
+                Group {
+                    if !isReady {
+                        loadingView
+                    } else if viewModel.articleTabs.isEmpty {
+                        emptyStateContainer
+                    } else {
+                        if viewModel.shouldShowTabsV2 {
+                            tabsV2Grid(geometry)
+                        } else {
+                            tabsGrid(geometry)
+                        }
+                    }
+                }
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .background(Color(theme.midBackground))
+
+                Group {
+
+                    if let didYouKnowViewModel = viewModel.didYouKnowViewModel,
+                       didYouKnowViewModel.didYouKnowFact?.isEmpty == false,
+                       viewModel.shouldShowTabsV2 {
+                        VStack(spacing: 0) {
+                            Rectangle()
+                                .fill(Color(theme.secondaryText).opacity(0.5))
+                                .frame(height: 1 / UIScreen.main.scale)
+                                .frame(maxWidth: .infinity)
+                            WMFTabsOverviewDidYouKnowView(
+                                viewModel: didYouKnowViewModel,
+                                linkDelegate: dykLinkDelegate
+                            )
+                            .frame(maxHeight: viewHeight)
+                            .clipped()
+                        }
+                    }
                 }
             }
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .background(Color(theme.midBackground))
         }
         .onReceive(viewModel.$articleTabs) { tabs in
             guard !isReady else { return }
 
-            if tabs.isEmpty {
-                isReady = true
-            } else {
-                Task {
-                    if let tab = await viewModel.getCurrentTab() {
-                        currentTabID = tab.id
-                    }
-                    isReady = true
+            Task {
+                if tabs.isEmpty {
+                    await MainActor.run { isReady = true }
+                    return
                 }
+                viewModel.prefetchAllSummariesTrickled(initialWindow: 24, pageSize: 12)
+
+                await MainActor.run { isReady = true }
             }
         }
         .background(Color(theme.midBackground))
@@ -98,7 +132,6 @@ public struct WMFArticleTabsView: View {
                                 accessibilityAction(named: viewModel.localizedStrings.openTabAccessibility) {
                                     viewModel.didTapTab(tab.data)
                                 }
-
                                 if viewModel.shouldShowCloseButton {
                                     accessibilityAction(named: viewModel.localizedStrings.closeTabAccessibility) {
                                         viewModel.closeTab(tab: tab)
@@ -111,13 +144,114 @@ public struct WMFArticleTabsView: View {
                 .onAppear {
                     Task {
                         await Task.yield()
-                        if let id = currentTabID {
+                        if let id = viewModel.currentTabID {
                             proxy.scrollTo(id, anchor: .bottom)
                         }
                     }
                 }
             }
         }
+    }
+
+    private func tabsV2Grid(_ geometry: GeometryProxy) -> some View {
+        ScrollViewReader { proxy in
+            ScrollView {
+                LazyVGrid(columns: Array(repeating: GridItem(.flexible()), count: viewModel.calculateColumns(for: geometry.size))) {
+                    ForEach(viewModel.articleTabs.sorted(by: { $0.dateCreated < $1.dateCreated }), id: \.id) { tab in
+                        WMFArticleTabsViewContent(viewModel: viewModel, tab: tab)
+                            .id(tab.id)
+                            .background(
+                                GeometryReader { geo in
+                                    Color.clear
+                                        .preference(key: TabGlobalFramePreferenceKey.self,
+                                                    value: [tab.id: geo.frame(in: .global)])
+                                }
+                            )
+                            .onAppear {
+                                Task { await viewModel.ensureInfo(for: tab) }
+                            }
+                            .contextMenu(menuItems: {
+                                Button {
+                                    viewModel.didTapTab(tab.data)
+                                } label: {
+                                    Text(viewModel.localizedStrings.openTabAccessibility)
+                                    Image(uiImage: WMFSFSymbolIcon.for(symbol: .chevronForward) ?? UIImage())
+                                }
+                                Button {
+                                    viewModel.didTapShareTab(tab.data, cellFrames[tab.id])
+                                } label: {
+                                    Text(viewModel.localizedStrings.shareTabButtonTitle)
+                                    Image(uiImage:  WMFSFSymbolIcon.for(symbol: .share) ?? UIImage())
+                                }
+                                if viewModel.shouldShowCloseButton {
+                                    Button(role: .destructive) {
+                                        viewModel.closeTab(tab: tab)
+                                    } label: {
+                                        Text(viewModel.localizedStrings.closeTabAccessibility)
+                                        Image(uiImage: WMFSFSymbolIcon.for(symbol: .close) ?? UIImage())
+                                    }
+                                }
+                            }, preview: {
+                                ArticlePreviewContainer(
+                                       tab: tab,
+                                       viewModel: viewModel,
+                                       build: { getPreviewViewModel(from: $0) }
+                                   )
+                            })
+                            .accessibilityActions {
+                                accessibilityAction(named: viewModel.localizedStrings.openTabAccessibility) {
+                                    viewModel.didTapTab(tab.data)
+                                }
+                                if viewModel.shouldShowCloseButton {
+                                    accessibilityAction(named: viewModel.localizedStrings.closeTabAccessibility) {
+                                        viewModel.closeTab(tab: tab)
+                                    }
+                                }
+                            }
+                    }
+                }
+                .onPreferenceChange(TabGlobalFramePreferenceKey.self) { updates in
+                    cellFrames.merge(updates, uniquingKeysWith: { _, new in new })
+                }
+                .padding(.horizontal, 8)
+                .onAppear {
+                    Task {
+                        await Task.yield()
+                        if let id = viewModel.currentTabID {
+                            proxy.scrollTo(id, anchor: .bottom)
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    private func getPreviewViewModel(from tab: ArticleTab) -> WMFArticlePreviewViewModel {
+        let info = tab.info
+        let last = tab.data.articles.last
+
+        if last?.isMain == true {
+            return WMFArticlePreviewViewModel(
+                url: info?.url ?? last?.articleURL,
+                titleHtml: viewModel.localizedStrings.mainPageTitle ?? tab.title,
+                description: info?.subtitle
+                ?? info?.description
+                ?? viewModel.localizedStrings.mainPageSubtitle,
+                image: UIImage(named: "globe_yir", in: .module, with: nil),
+                backgroundImage: UIImage(named: "main-page-bg", in: .module, with: nil),
+                isSaved: false,
+                snippet: info?.snippet ?? viewModel.localizedStrings.mainPageDescription
+            )
+        }
+
+        return WMFArticlePreviewViewModel(
+            url: info?.url ?? last?.articleURL,
+            titleHtml: tab.title,
+            description: info?.subtitle ?? info?.description,
+            imageURL: info?.image,
+            isSaved: false,
+            snippet: info?.snippet ?? last?.extract
+        )
     }
 }
 
@@ -161,6 +295,11 @@ fileprivate struct WMFArticleTabsViewContent: View {
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
         .background(Color(theme.chromeBackground))
         .cornerRadius(12)
+        .overlay {
+            RoundedRectangle(cornerRadius: 12)
+                .inset(by: 0.5)
+                .stroke(viewModel.currentTabID == tab.id && viewModel.shouldShowCurrentTabBorder ? Color(uiColor: theme.secondaryText) : Color.clear, lineWidth: 1)
+        }
         .shadow(color: Color.black.opacity(0.05), radius: 16, x: 0, y: 0)
         .contentShape(Rectangle())
         .modifier(AspectRatioModifier(shouldLockAspectRatio: viewModel.shouldLockAspectRatio()))
@@ -169,15 +308,6 @@ fileprivate struct WMFArticleTabsViewContent: View {
             viewModel.loggingDelegate?.logArticleTabsArticleClick(wmfProject: tab.data.articles.first?.project)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
-        .onAppear {
-            Task {
-                if tab.info == nil {
-                    let populatedTab = await viewModel.populateArticleSummary(tab.data)
-                    let info = ArticleTab.Info(subtitle: populatedTab.articles.last?.description, image: populatedTab.articles.last?.imageURL, description: populatedTab.articles.last?.extract)
-                    tab.info = info
-                }
-            }
-        }
     }
 
     private func mainPageTabContent() -> some View {
@@ -323,7 +453,6 @@ fileprivate struct WMFArticleTabsViewContent: View {
                     .font(Font(WMFFont.for(.caption1)))
                     .foregroundStyle(Color(theme.secondaryText))
                     .lineLimit(1)
-                
                 Divider()
                     .frame(width: 24)
                     .padding(.vertical, 8)
@@ -360,5 +489,24 @@ struct AspectRatioModifier: ViewModifier {
         } else {
             content
         }
+    }
+}
+
+private struct ArticlePreviewContainer: View {
+    @ObservedObject var tab: ArticleTab
+    @ObservedObject var viewModel: WMFArticleTabsViewModel
+    let build: (ArticleTab) -> WMFArticlePreviewViewModel
+
+    var body: some View {
+        WMFArticlePreviewView(viewModel: build(tab))
+            .task { await viewModel.ensureInfo(for: tab) }
+    }
+}
+
+/// Collect  frame size from each child tab to the parent grid view on Geometry Reader
+private struct TabGlobalFramePreferenceKey: PreferenceKey {
+    static var defaultValue: [String: CGRect] = [:]
+    static func reduce(value: inout [String: CGRect], nextValue: () -> [String: CGRect]) {
+        value.merge(nextValue(), uniquingKeysWith: { _, new in new })
     }
 }

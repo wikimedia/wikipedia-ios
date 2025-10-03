@@ -100,7 +100,7 @@ final class WMFYearInReviewDataControllerCreateOrRetrieveTests: XCTestCase {
 
         XCTAssertNotNil(report, "Expected a report to be retrieved")
         XCTAssertEqual(report?.year, year)
-        XCTAssertEqual(report?.slides.count, 7)
+        XCTAssertEqual(report?.slides.count, 5)
     }
 
     func testShouldCreateOrRetrieveYearInReviewWithNewReport() async throws {

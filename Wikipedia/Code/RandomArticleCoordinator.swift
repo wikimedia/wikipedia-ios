@@ -1,5 +1,7 @@
 import WMF
+import WMFData
 
+@MainActor
 final class RandomArticleCoordinator: Coordinator, ArticleTabCoordinating {
     let navigationController: UINavigationController
     private(set) var articleURL: URL?
@@ -9,12 +11,12 @@ final class RandomArticleCoordinator: Coordinator, ArticleTabCoordinating {
     private let source: ArticleSource
     private let animated: Bool
     private let replaceLastViewControllerInNavStack: Bool
-    
+
     // Article Tabs Properties
     let tabConfig: ArticleTabConfig
     var tabIdentifier: UUID?
     var tabItemIdentifier: UUID?
-    
+
     init(navigationController: UINavigationController, articleURL: URL?, siteURL: URL?, dataStore: MWKDataStore, theme: Theme, source: ArticleSource, animated: Bool, tabConfig: ArticleTabConfig = .appendArticleAndAssignCurrentTab, replaceLastViewControllerInNavStack: Bool = false) {
         self.navigationController = navigationController
         self.articleURL = articleURL
@@ -27,7 +29,7 @@ final class RandomArticleCoordinator: Coordinator, ArticleTabCoordinating {
         self.tabConfig = tabConfig
     }
     
-    @discardableResult
+    @MainActor @discardableResult
     func start() -> Bool {
         
         // We want to push on a particular random article.
@@ -42,6 +44,7 @@ final class RandomArticleCoordinator: Coordinator, ArticleTabCoordinating {
             }
             
             prepareToShowTabsOverview(articleViewController: vc, dataStore)
+
             trackArticleTab(articleViewController: vc)
             
             if replaceLastViewControllerInNavStack {

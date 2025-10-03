@@ -152,11 +152,15 @@ class ArticlePeekPreviewViewController: UIViewController {
                         
                         let tabsCount = try await articleTabsDataController.tabsCount()
                         let tabsMax = articleTabsDataController.tabsMax
-                        let article = WMFArticleTabsDataController.WMFArticle(identifier: nil, title: articleTitle, project: project)
+                        let article = WMFArticleTabsDataController.WMFArticle(identifier: nil, title: articleTitle, project: project, articleURL: article.url)
                         if tabsCount >= tabsMax {
                             
-                            let currentTabIdentifier = try await articleTabsDataController.currentTabIdentifier()
-                            _ = try await articleTabsDataController.appendArticle(article, toTabIdentifier: currentTabIdentifier)
+                            if let currentTabIdentifier = try await articleTabsDataController.currentTabIdentifier() {
+                                _ = try await articleTabsDataController.appendArticle(article, toTabIdentifier: currentTabIdentifier)
+                            } else {
+                                _ = try await articleTabsDataController.createArticleTab(initialArticle: article)
+                            }
+                            
                             
                             DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
                                 WMFAlertManager.sharedInstance.showBottomWarningAlertWithMessage(String.localizedStringWithFormat(CommonStrings.articleTabsLimitToastFormat, tabsMax), subtitle: nil,  buttonTitle: nil, image: WMFSFSymbolIcon.for(symbol: .exclamationMarkTriangleFill), dismissPreviousAlerts: true)
