@@ -681,7 +681,7 @@ public protocol WMFArticleTabsDataControlling {
         }
         
         var seenCount: Int = 0
-        if moreDynamicTabsGroupBEnabled || moreDynamicTabsGroupCEnabled {
+        if shouldShowMoreDynamicTabs {
             seenCount = (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.articleTabsOverviewOpenedCountBandC.rawValue)) ?? 0
         }
         
@@ -691,7 +691,7 @@ public protocol WMFArticleTabsDataControlling {
             return false
         }
         
-        if moreDynamicTabsGroupBEnabled || moreDynamicTabsGroupCEnabled {
+        if shouldShowMoreDynamicTabs {
             if seenCount >= 4 {
                 try? userDefaultsStore?.save(key: WMFUserDefaultsKey.articleTabsDidShowSurveyBandC.rawValue, value: true)
                 return true
