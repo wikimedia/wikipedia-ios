@@ -10,6 +10,8 @@ public final class WMFTabsOverviewRecommendationsViewModel: ObservableObject {
     // MARK: - Inputs & outputs
 
     public let title: String
+    public let openButtonTitle: String
+    public let shareButtonTitle: String
     private(set) var articles: [HistoryRecord]
 
     @Published public private(set) var items: [HistoryItem] = []
@@ -21,13 +23,10 @@ public final class WMFTabsOverviewRecommendationsViewModel: ObservableObject {
 
     // MARK: - Init
 
-    public init(
-        title: String,
-        articles: [HistoryRecord],
-        onTapArticle: OnRecordTapAction? = nil,
-        shareRecordAction: ShareRecordAction? = nil
-    ) {
+    public init(title: String, openButtonTitle: String, shareButtonTitle: String, articles: [HistoryRecord], onTapArticle: OnRecordTapAction? = nil, shareRecordAction: ShareRecordAction? = nil) {
         self.title = title
+        self.openButtonTitle = openButtonTitle
+        self.shareButtonTitle = shareButtonTitle
         self.articles = articles
         self.onTapArticle = onTapArticle
         self.shareRecordAction = shareRecordAction

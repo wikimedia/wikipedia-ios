@@ -241,7 +241,11 @@ final class TabsOverviewCoordinator: NSObject, Coordinator {
             self.tappedArticle(historyItem)
         }
 
-        return WMFTabsOverviewRecommendationsViewModel(title: title, articles: limitedArticles, onTapArticle: onTapArticleAction)
+        return WMFTabsOverviewRecommendationsViewModel(title: title,
+                                                       openButtonTitle: CommonStrings.articleTabsOpen,
+                                                       shareButtonTitle: CommonStrings.shareActionTitle,
+                                                       articles: limitedArticles,
+                                                       onTapArticle: onTapArticleAction)
     }
 
     func tappedArticle(_ item: HistoryItem) {

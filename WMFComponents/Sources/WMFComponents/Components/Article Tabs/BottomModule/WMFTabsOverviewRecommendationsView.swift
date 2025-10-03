@@ -89,49 +89,66 @@ private struct ScrollContainer: View {
 
 @MainActor
 private struct Card: View {
-
     @ObservedObject var appEnvironment = WMFAppEnvironment.current
     private var theme: WMFTheme { appEnvironment.theme }
+
     let item: HistoryItem
     let viewModel: WMFTabsOverviewRecommendationsViewModel
     @Environment(\.sizeCategory) var sizeCategory: ContentSizeCategory
 
-    var lineLimit: Int {
-        sizeCategory > .large ? 2 : 1
-    }
+    var lineLimit: Int { sizeCategory > .large ? 2 : 1 }
 
     var body: some View {
-        Button(action: { viewModel.onTap(item) }) {
-            WMFPageRow(
-                id: item.id,
-                titleHtml: item.titleHtml,
-                articleDescription: item.description,
-                imageURLString: item.imageURLString,
-                titleLineLimit: lineLimit,
-                isSaved: item.isSaved,
-                deleteAccessibilityLabel: "",
-                shareAccessibilityLabel: "",
-                saveAccessibilityLabel: "",
-                unsaveAccessibilityLabel: "",
-                showsSwipeActions: false,
-                deleteItemAction: nil,
-                shareItemAction: nil,
-                saveOrUnsaveItemAction: nil,
-                loadImageAction: { imageURLString in
-                    return try? await viewModel.loadImage(imageURLString: imageURLString)
-                }
-            )
-            .contentShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
-            .padding(.horizontal, 12)
-            .padding(.vertical, 8)
-            .background(
-                RoundedRectangle(cornerRadius: 8, style: .continuous)
-                    .fill(Color(theme.paperBackground))
-                    .shadow(color: Color.black.opacity(0.10), radius: 10, x: 0, y: 4)
-                    .shadow(color: Color.black.opacity(0.03), radius: 2, x: 0, y: 1)
-            )
-        }
-        .buttonStyle(.plain)
+        let row = WMFPageRow(
+            id: item.id,
+            titleHtml: item.titleHtml,
+            articleDescription: item.description,
+            imageURLString: item.imageURLString,
+            titleLineLimit: lineLimit,
+            isSaved: item.isSaved,
+            deleteAccessibilityLabel: "",
+            shareAccessibilityLabel: "",
+            saveAccessibilityLabel: "",
+            unsaveAccessibilityLabel: "",
+            showsSwipeActions: false,
+            deleteItemAction: nil,
+            shareItemAction: nil,
+            saveOrUnsaveItemAction: nil,
+            loadImageAction: { urlString in
+                try? await viewModel.loadImage(imageURLString: urlString)
+            }
+        )
+        .contentShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
+        .padding(.horizontal, 12)
+        .padding(.vertical, 8)
+        .background(
+            RoundedRectangle(cornerRadius: 8, style: .continuous)
+                .fill(Color(theme.paperBackground))
+                .shadow(color: Color.black.opacity(0.10), radius: 10, x: 0, y: 4)
+                .shadow(color: Color.black.opacity(0.03), radius: 2, x: 0, y: 1)
+        )
+        .onTapGesture { viewModel.onTap(item) }
+
+        row.contextMenu(menuItems: {
+            Button {
+                viewModel.onTap(item)
+            } label: {
+                Text(viewModel.openButtonTitle)
+                Image(uiImage: WMFSFSymbolIcon.for(symbol: .chevronForward) ?? UIImage())
+            }
+            Button {
+                viewModel.share(frame: nil, item: item)
+            } label: {
+                Text(viewModel.shareButtonTitle)
+                Image(uiImage: WMFSFSymbolIcon.for(symbol: .share) ?? UIImage())
+            }
+        }, preview: {
+            WMFArticlePreviewView(viewModel: getPreviewViewModel(from: item))
+        })
         .accessibilityElement(children: .combine)
+    }
+
+    private func getPreviewViewModel(from item: HistoryItem) -> WMFArticlePreviewViewModel {
+        return WMFArticlePreviewViewModel(url: item.url, titleHtml: item.titleHtml, description: item.description, imageURLString: item.imageURLString, isSaved: item.isSaved, snippet: item.snippet)
     }
 }
