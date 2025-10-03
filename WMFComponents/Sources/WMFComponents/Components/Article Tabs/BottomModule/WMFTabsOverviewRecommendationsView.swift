@@ -107,14 +107,7 @@ private struct Card: View {
             imageURLString: item.imageURLString,
             titleLineLimit: lineLimit,
             isSaved: item.isSaved,
-            deleteAccessibilityLabel: "",
-            shareAccessibilityLabel: "",
-            saveAccessibilityLabel: "",
-            unsaveAccessibilityLabel: "",
             showsSwipeActions: false,
-            deleteItemAction: nil,
-            shareItemAction: nil,
-            saveOrUnsaveItemAction: nil,
             loadImageAction: { urlString in
                 try? await viewModel.loadImage(imageURLString: urlString)
             }
