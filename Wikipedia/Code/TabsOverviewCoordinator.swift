@@ -159,8 +159,12 @@ final class TabsOverviewCoordinator: NSObject, Coordinator {
                 shareTabButtonTitle: CommonStrings.shareActionTitle,
                 closeAllTabs: CommonStrings.closeAllTabs,
                 cancelActionTitle: CommonStrings.cancelActionTitle,
-                closeAllTabsTitle: closeAllTabsTitle(numberTabs: articleTabsCount),
-                closeAllTabsSubtitle: closeAllTabsSubtitle(numberTabs: articleTabsCount),
+                closeAllTabsTitle: { count in
+                    self.closeAllTabsTitle(numberTabs: count)
+                },
+                closeAllTabsSubtitle: { count in
+                    self.closeAllTabsSubtitle(numberTabs: count)
+                },
                 closedAlertsNotification: closedAlertsNotification(numberTabs: articleTabsCount),
                 hideSuggestedArticlesTitle: WMFLocalizedString("tabs-hide-suggested-articles", value: "Hide article suggestions", comment: "Hide suggested articles button title"),
                 showSuggestedArticlesTitle: WMFLocalizedString("tabs-show-suggested-articles", value: "Show article suggestions", comment: "Show suggested articles button title"),

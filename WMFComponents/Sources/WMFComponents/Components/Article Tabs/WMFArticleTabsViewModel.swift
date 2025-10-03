@@ -59,7 +59,7 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
     
     public func didTapCloseAllTabs() {
         Task {
-            guard let numberTabs = try? await dataController.tabsCount() else { return }
+            let numberTabs = articleTabs.count
             try? await dataController.deleteAllTabs()
             Task { @MainActor in
                 displayDeleteAllTabsToast(numberTabs)
@@ -78,15 +78,15 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
         public let shareTabButtonTitle: String
         public let closeAllTabs: String
         public let cancelActionTitle: String
-        public let closeAllTabsTitle: String
-        public let closeAllTabsSubtitle: String
+        public let closeAllTabsTitle: (Int) -> String
+        public let closeAllTabsSubtitle: (Int) -> String
         public let closedAlertsNotification: String
         public let hideSuggestedArticlesTitle: String
         public let showSuggestedArticlesTitle: String
         public let emptyStateTitle: String
         public let emptyStateSubtitle: String
 
-        public init(navBarTitleFormat: String, mainPageTitle: String?, mainPageSubtitle: String, mainPageDescription: String, closeTabAccessibility: String, openTabAccessibility: String, shareTabButtonTitle: String, closeAllTabs: String, cancelActionTitle: String, closeAllTabsTitle: String, closeAllTabsSubtitle: String, closedAlertsNotification: String, hideSuggestedArticlesTitle: String, showSuggestedArticlesTitle: String, emptyStateTitle: String, emptyStateSubtitle: String) {
+        public init(navBarTitleFormat: String, mainPageTitle: String?, mainPageSubtitle: String, mainPageDescription: String, closeTabAccessibility: String, openTabAccessibility: String, shareTabButtonTitle: String, closeAllTabs: String, cancelActionTitle: String, closeAllTabsTitle: @escaping (Int) -> String, closeAllTabsSubtitle: @escaping (Int) -> String, closedAlertsNotification: String, hideSuggestedArticlesTitle: String, showSuggestedArticlesTitle: String, emptyStateTitle: String, emptyStateSubtitle: String) {
             self.navBarTitleFormat = navBarTitleFormat
             self.mainPageTitle = mainPageTitle
             self.mainPageSubtitle = mainPageSubtitle
