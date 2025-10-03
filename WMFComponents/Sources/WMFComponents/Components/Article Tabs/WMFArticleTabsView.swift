@@ -157,6 +157,9 @@ public struct WMFArticleTabsView: View {
                     ForEach(viewModel.articleTabs.sorted(by: { $0.dateCreated < $1.dateCreated }), id: \.id) { tab in
                         WMFArticleTabsViewContent(viewModel: viewModel, tab: tab)
                             .id(tab.id)
+                            .onAppear {
+                                Task { await viewModel.ensureInfo(for: tab) }
+                            }
                             .accessibilityActions {
                                 accessibilityAction(named: viewModel.localizedStrings.openTabAccessibility) {
                                     viewModel.didTapTab(tab.data)
