@@ -45,6 +45,7 @@ extension ArticleTabCoordinating {
             let article = WMFArticleTabsDataController.WMFArticle(identifier: nil, title: title, project: wmfProject, articleURL: articleURL)
             do {
                 
+                // Reassign tabConfig if needed
                 // If current tabs count is at 500, do not create any new tabs. Instead append article to current tab.
                 var tabConfig = self.tabConfig
                 switch tabConfig {
@@ -62,14 +63,33 @@ extension ArticleTabCoordinating {
                     break
                 }
                 
+                // Reassign tabConfig if needed
+                // If there is no current tab but we were expecting one, create a new tab instead
+                let currentTabIdentifier = try await tabsDataController.currentTabIdentifier()
+                if currentTabIdentifier == nil {
+                    switch tabConfig {
+                    case .appendArticleAndAssignCurrentTabAndCleanoutFutureArticles,
+                            .appendArticleAndAssignCurrentTab:
+                        tabConfig = .appendArticleAndAssignNewTabAndSetToCurrent
+                    default:
+                        break
+                    }
+                }
+                
                 switch tabConfig {
                 case .appendArticleAndAssignCurrentTabAndCleanoutFutureArticles:
-                    let tabIdentifier = try await tabsDataController.currentTabIdentifier()
+                    guard let tabIdentifier = try await tabsDataController.currentTabIdentifier() else {
+                        DDLogError("Expected current tab identifier")
+                        return
+                    }
                     let identifiers = try await tabsDataController.appendArticle(article, toTabIdentifier: tabIdentifier, needsCleanoutOfFutureArticles: true)
                     self.tabIdentifier = identifiers.tabIdentifier
                     self.tabItemIdentifier = identifiers.tabItemIdentifier
                 case .appendArticleAndAssignCurrentTab:
-                    let tabIdentifier = try await tabsDataController.currentTabIdentifier()
+                    guard let tabIdentifier = try await tabsDataController.currentTabIdentifier() else {
+                        DDLogError("Expected current tab identifier")
+                        return
+                    }
                     let identifiers = try await tabsDataController.appendArticle(article, toTabIdentifier: tabIdentifier)
                     self.tabIdentifier = identifiers.tabIdentifier
                     self.tabItemIdentifier = identifiers.tabItemIdentifier
@@ -139,8 +159,9 @@ final class ArticleCoordinator: NSObject, Coordinator, ArticleTabCoordinating {
     let tabConfig: ArticleTabConfig
     var tabIdentifier: UUID?
     var tabItemIdentifier: UUID?
+    var needsFocusOnSearch: Bool
     
-    init(navigationController: UINavigationController, articleURL: URL, dataStore: MWKDataStore, theme: Theme, needsAnimation: Bool = true, source: ArticleSource, isRestoringState: Bool = false, previousPageViewObjectID: NSManagedObjectID? = nil, tabConfig: ArticleTabConfig = .appendArticleAndAssignCurrentTab) {
+    init(navigationController: UINavigationController, articleURL: URL, dataStore: MWKDataStore, theme: Theme, needsAnimation: Bool = true, source: ArticleSource, isRestoringState: Bool = false, previousPageViewObjectID: NSManagedObjectID? = nil, tabConfig: ArticleTabConfig = .appendArticleAndAssignCurrentTab, needsFocusOnSearch: Bool = false) {
         self.navigationController = navigationController
         self.articleURL = articleURL
         self.dataStore = dataStore
@@ -150,6 +171,7 @@ final class ArticleCoordinator: NSObject, Coordinator, ArticleTabCoordinating {
         self.isRestoringState = isRestoringState
         self.previousPageViewObjectID = previousPageViewObjectID
         self.tabConfig = tabConfig
+        self.needsFocusOnSearch = needsFocusOnSearch
         super.init()
     }
     
@@ -165,15 +187,13 @@ final class ArticleCoordinator: NSObject, Coordinator, ArticleTabCoordinating {
             self.articleURL?.wmf_languageVariantCode = dataStore.languageLinkController .swiftCompatiblePreferredLanguageVariantCodeForLanguageCode(articleURL.wmf_languageCode)
         }
         
-        guard let articleVC = ArticleViewController(articleURL: articleURL, dataStore: dataStore, theme: theme, source: source, previousPageViewObjectID: previousPageViewObjectID) else {
+        guard let articleVC = ArticleViewController(articleURL: articleURL, dataStore: dataStore, theme: theme, source: source, previousPageViewObjectID: previousPageViewObjectID, needsFocusOnSearch: needsFocusOnSearch) else {
             return false
         }
         articleVC.isRestoringState = isRestoringState
         prepareToShowTabsOverview(articleViewController: articleVC, dataStore)
         trackArticleTab(articleViewController: articleVC)
-
-        let inExperiment = WMFArticleTabsDataController.shared.shouldShowMoreDynamicTabs
-
+ 
         switch tabConfig {
         case .adjacentArticleInTab:
             var viewControllers = navigationController.viewControllers
@@ -184,15 +204,8 @@ final class ArticleCoordinator: NSObject, Coordinator, ArticleTabCoordinating {
             viewControllers.append(articleVC)
             navigationController.setViewControllers(viewControllers, animated: needsAnimation)
         default:
-            if inExperiment,
-               navigationController.viewControllers.last is SearchViewController {
-                var stack = navigationController.viewControllers
-                stack.removeLast()
-                stack.append(articleVC)
-                navigationController.setViewControllers(stack, animated: needsAnimation)
-            } else {
-                navigationController.pushViewController(articleVC, animated: needsAnimation)
-            }
+            navigationController.pushViewController(articleVC, animated: needsAnimation)
+
         }
         return true
     }

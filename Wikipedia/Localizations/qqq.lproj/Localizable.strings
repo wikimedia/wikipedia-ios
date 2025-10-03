@@ -235,7 +235,7 @@
 "developer-settings-enable-year-in-review" = "Title for enabling the Year in Review feature. Displayed on the developer settings view.";
 "developer-settings-send-analytics-to-wmflabs" = "Title for setting to send analytics to a different backend. Displayed on the developer settings view.";
 "developer-settings-suppress-image-rec-post" = "Title for setting to suppress image recommendations edit postsing. Displayed on the developer settings view.";
-"did-you-know" = "Text displayed as heading for section of new tab dedicated to DYK";
+"did-you-know" = "Text displayed as heading for section of tabs overview dedicated to Did You Know";
 "diff-article-revision-history" = "Label for article edit history menu item in diff more menu.";
 "diff-change-added" = "Accessibility text announced in VoiceOver when content additions are announced in a diff. $1 is replaced with the added content.";
 "diff-change-paragraph-lines-moved-down" = "Accessibility text announced in VoiceOver to indicate content has moved. $1 is replaced by the number of lines.";

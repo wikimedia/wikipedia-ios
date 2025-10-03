@@ -1578,6 +1578,7 @@
 "year-in-review-personalized-location-title-format" = "المقالات التي تقرأها هي الأقرب إلى $1";
 "year-in-review-personalized-most-read-articles-title" = "أفضل مقالاتك";
 "year-in-review-personalized-reading-subtitle-format" = "لقد قرأت {{PLURAL:$1|$1 مقال|$1 مقالة}}. تحتوي ويكيبيديا على $2 مليون مقالة متاحة بأكثر من $3 لغات نشطة. لقد انضممت إلى ملايين الأشخاص في توسيع المعرفة واستكشاف مواضيع متنوعة.";
+// Fuzzy
 "year-in-review-personalized-reading-subtitle-format-v3" = "هذا يضعك ضمن أعلى **PERCENT** قراء ويكيبيديا عالميًا. يقرأ الشخص العادي {{PLURAL:$1|$1 مقالة|$1 مقالات}} سنويا.";
 "year-in-review-personalized-reading-title-format" = "لقد قرأت {{PLURAL:$1|$1 مقال|$1 مقالة}}";
 "year-in-review-personalized-reading-title-v3-format" = "لقد قضيت {{PLURAL:$1|$1 دقيقة|$1 دقائق}} في قراءة {{PLURAL:$2|$2 مقالة|$2 مقالات}} في عام 2025";
