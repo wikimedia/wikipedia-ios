@@ -10,7 +10,7 @@ public protocol WMFArticleTabsDataControlling {
     func appendArticle(_ article: WMFArticleTabsDataController.WMFArticle, toTabIdentifier identifier: UUID, needsCleanoutOfFutureArticles: Bool) async throws -> WMFArticleTabsDataController.Identifiers
     func setTabItemAsCurrent(tabIdentifier: UUID, tabItemIdentifier: UUID) async throws
     func setTabAsCurrent(tabIdentifier: UUID) async throws
-    func currentTabIdentifier() async throws -> UUID
+    func currentTabIdentifier() async throws -> UUID?
     func fetchAllArticleTabs() async throws -> [WMFArticleTabsDataController.WMFArticleTab]
 }
 
@@ -427,12 +427,14 @@ public protocol WMFArticleTabsDataControlling {
             try self.deleteAllTabs(moc: moc)
         }
         
-        _ = try? await self.createArticleTab(initialArticle: nil, setAsCurrent: true)
+        if !needsMoreDynamicTabs {
+            _ = try? await self.createArticleTab(initialArticle: nil, setAsCurrent: true)
+        }
     }
     
     public var moreDynamicTabsGroupBEnabled: Bool {
         get {
-            return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsMoreDynamicTabsGroupB.rawValue)) ?? true
+            return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsMoreDynamicTabsGroupB.rawValue)) ?? false
         } set {
             try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsMoreDynamicTabsGroupB.rawValue, value: newValue)
         }
@@ -440,7 +442,7 @@ public protocol WMFArticleTabsDataControlling {
     
     public var moreDynamicTabsGroupCEnabled: Bool {
         get {
-            return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsMoreDynamicTabsGroupC.rawValue)) ?? true
+            return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsMoreDynamicTabsGroupC.rawValue)) ?? false
         } set {
             try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsMoreDynamicTabsGroupC.rawValue, value: newValue)
         }
@@ -823,7 +825,7 @@ public protocol WMFArticleTabsDataControlling {
         try coreDataStore.saveIfNeeded(moc: moc)
     }
     
-    public func currentTabIdentifier() async throws -> UUID {
+    public func currentTabIdentifier() async throws -> UUID? {
         
         guard let coreDataStore else {
             throw WMFDataControllerError.coreDataStoreUnavailable
@@ -837,12 +839,7 @@ public protocol WMFArticleTabsDataControlling {
             return existingID
         }
 
-        guard shouldShowMoreDynamicTabs else {
-            throw CustomError.missingTab
-        }
-
-        let newTab = try await createArticleTab(initialArticle: nil, setAsCurrent: true)
-        return newTab.tabIdentifier
+        return nil
     }
 
         // MARK: - Helpers

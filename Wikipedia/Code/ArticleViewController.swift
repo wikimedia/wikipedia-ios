@@ -168,8 +168,10 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
     var previousArticleTab: WMFArticleTabsDataController.WMFArticle? = nil
     var nextArticleTab: WMFArticleTabsDataController.WMFArticle? = nil
     let tabDataController = WMFArticleTabsDataController.shared
+    
+    var needsFocusOnSearch: Bool
 
-    @objc init?(articleURL: URL, dataStore: MWKDataStore, theme: Theme, source: ArticleSource, schemeHandler: SchemeHandler? = nil, previousPageViewObjectID: NSManagedObjectID? = nil) {
+    @objc init?(articleURL: URL, dataStore: MWKDataStore, theme: Theme, source: ArticleSource, schemeHandler: SchemeHandler? = nil, previousPageViewObjectID: NSManagedObjectID? = nil, needsFocusOnSearch: Bool = false) {
 
         guard let article = dataStore.fetchOrCreateArticle(with: articleURL) else {
                 return nil
@@ -185,6 +187,7 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
         self.cacheController = cacheController
         self.articleViewSource = source
         self.previousPageViewObjectID = previousPageViewObjectID
+        self.needsFocusOnSearch = needsFocusOnSearch
 
         super.init(nibName: nil, bundle: nil)
         self.theme = theme
@@ -464,6 +467,18 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
         trackBeganViewingDate()
         coordinator?.syncTabsOnArticleAppearance()
         loadNextAndPreviousArticleTabs()
+        
+        if tabDataController.moreDynamicTabsGroupBEnabled && needsFocusOnSearch && isFirstAppearance {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) { [weak self] in
+                guard let searchController = self?.navigationItem.searchController else {
+                    return
+                }
+                
+                searchController.isActive = true
+                searchController.searchBar.becomeFirstResponder()
+            }
+        }
+        isFirstAppearance = false
     }
     
     @objc func userDidTapProfile() {

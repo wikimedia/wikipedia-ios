@@ -283,13 +283,20 @@ final class TabsOverviewCoordinator: NSObject, Coordinator {
     }
     
     private func tappedAddTab() {
-
         guard let siteURL = dataStore.languageLinkController.appLanguage?.siteURL,
               let articleURL = siteURL.wmf_URL(withTitle: "Main Page") else {
             return
         }
         
-        let articleCoordinator = ArticleCoordinator(navigationController: navigationController, articleURL: articleURL, dataStore: MWKDataStore.shared(), theme: theme, needsAnimation: false, source: .undefined, tabConfig: .assignNewTabAndSetToCurrent)
+        let articleCoordinator = ArticleCoordinator(
+            navigationController: navigationController,
+            articleURL: articleURL,
+            dataStore: MWKDataStore.shared(),
+            theme: theme,
+            needsAnimation: false,
+            source: .undefined,
+            tabConfig: .assignNewTabAndSetToCurrent,
+            needsFocusOnSearch: true)
         ArticleTabsFunnel.shared.logAddNewBlankTab()
         articleCoordinator.start()
         
