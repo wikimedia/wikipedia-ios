@@ -44,7 +44,7 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
         self.loggingDelegate = loggingDelegate
         self.articleTabs = []
         self.shouldShowCloseButton = false
-        self.shouldShowCurrentTabBorder = dataController.shouldShowMoreDynamicTabs
+        self.shouldShowCurrentTabBorder = dataController.shouldShowMoreDynamicTabsV2
         self.didTapTab = didTapTab
         self.didYouKnowViewModel = didYouKnowViewModel
         self.didTapAddTab = didTapAddTab

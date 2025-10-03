@@ -493,7 +493,7 @@ public protocol WMFArticleTabsDataControlling {
             try self.deleteAllTabs(moc: moc)
         }
         
-        if !needsMoreDynamicTabs {
+        if !needsMoreDynamicTabsV2 {
             _ = try? await self.createArticleTab(initialArticle: nil, setAsCurrent: true)
         }
     }
@@ -747,7 +747,7 @@ public protocol WMFArticleTabsDataControlling {
         }
         
         var seenCount: Int = 0
-        if shouldShowMoreDynamicTabs {
+        if shouldShowMoreDynamicTabsV2 {
             seenCount = (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.articleTabsOverviewOpenedCountBandC.rawValue)) ?? 0
         }
         
@@ -757,7 +757,7 @@ public protocol WMFArticleTabsDataControlling {
             return false
         }
         
-        if shouldShowMoreDynamicTabs {
+        if shouldShowMoreDynamicTabsV2 {
             if seenCount >= 4 {
                 try? userDefaultsStore?.save(key: WMFUserDefaultsKey.articleTabsDidShowSurveyBandC.rawValue, value: true)
                 return true
