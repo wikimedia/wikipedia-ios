@@ -380,14 +380,18 @@ public protocol WMFArticleTabsDataControlling {
             return try moc.count(for: fetchRequest)
         }
     }
+    
+    public var moreDynamicTabsGroupBEnabled: Bool {
+        ((try? getMoreDynamicTabsExperimentAssignment()) == .groupB) || developerSettingsDataController.enableMoreDynamicTabsV2GroupB
+    }
 
-    private var isGroupC: Bool {
-        ((try? getMoreDynamicTabsExperimentAssignment()) == .groupC) || developerSettingsDataController.enableMoreDynamicTabsGroupC
+    public var moreDynamicTabsGroupCEnabled: Bool {
+        ((try? getMoreDynamicTabsExperimentAssignment()) == .groupC) || developerSettingsDataController.enableMoreDynamicTabsV2GroupC
     }
 
     public func checkAndCreateInitialArticleTabIfNeeded() async throws {
 
-        guard !isGroupC else { return }
+        guard !moreDynamicTabsGroupCEnabled else { return }
 
         let count = try await tabsCount()
         if count == 0 {
@@ -495,22 +499,6 @@ public protocol WMFArticleTabsDataControlling {
         
         if !needsMoreDynamicTabsV2 {
             _ = try? await self.createArticleTab(initialArticle: nil, setAsCurrent: true)
-        }
-    }
-    
-    public var moreDynamicTabsGroupBEnabled: Bool {
-        get {
-            return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsMoreDynamicTabsGroupB.rawValue)) ?? false
-        } set {
-            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsMoreDynamicTabsGroupB.rawValue, value: newValue)
-        }
-    }
-    
-    public var moreDynamicTabsGroupCEnabled: Bool {
-        get {
-            return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsMoreDynamicTabsGroupC.rawValue)) ?? false
-        } set {
-            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsMoreDynamicTabsGroupC.rawValue, value: newValue)
         }
     }
     
