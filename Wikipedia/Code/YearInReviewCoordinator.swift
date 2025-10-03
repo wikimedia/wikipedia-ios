@@ -853,9 +853,12 @@ extension YearInReviewCoordinator: WMFYearInReviewLoggingDelegate {
 
 extension YearInReviewCoordinator: UIAdaptivePresentationControllerDelegate {
     public func presentationControllerWillDismiss(_ presentationController: UIPresentationController) {
-        WMFAlertManager.sharedInstance.showBottomAlertWithMessage(CommonStrings.youCanAccessYIR, subtitle: nil, buttonTitle: nil, image: nil, dismissPreviousAlerts: true)
         viewModel?.logYearInReviewDidTapDone()
         (self.navigationController as? WMFComponentNavigationController)?.turnOffForcePortrait()
+    }
+    
+    public func presentationControllerDidDismiss(_ presentationController: UIPresentationController) {
+        WMFAlertManager.sharedInstance.showBottomAlertWithMessage(CommonStrings.youCanAccessYIR, subtitle: nil, buttonTitle: nil, image: nil, dismissPreviousAlerts: true)
     }
 }
 
