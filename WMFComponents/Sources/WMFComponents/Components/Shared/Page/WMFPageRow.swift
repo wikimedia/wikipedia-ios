@@ -9,6 +9,7 @@ struct WMFPageRow: View {
         return appEnvironment.theme
     }
 
+    let needsLimitedFontSize: Bool
     let id: String
     let titleHtml: String
     let articleDescription: String?
@@ -30,19 +31,11 @@ struct WMFPageRow: View {
 
     var rowContent: some View {
         HStack(spacing: 4) {
-            VStack(alignment: .leading, spacing: 4) {
-                Text(titleHtml)
-                    .font(Font(WMFFont.for(.callout)))
-                    .foregroundColor(Color(theme.text))
-                    .lineLimit(titleLineLimit)
-                if let description = articleDescription {
-                    Text(description)
-                        .font(Font(WMFFont.for(.subheadline)))
-                        .foregroundColor(Color(theme.secondaryText))
-                        .lineLimit(1)
-                }
+            if needsLimitedFontSize {
+                textViewLimitedFontSize
+            } else {
+                regularTextView
             }
-
             Spacer()
             if let uiImage {
                 Image(uiImage: uiImage)
@@ -70,7 +63,41 @@ struct WMFPageRow: View {
             if let imageURLString {
                 self.uiImage = await loadImageAction(imageURLString)
             }
-            
+
+        }
+    }
+
+    @ViewBuilder
+    var textViewLimitedFontSize: some View {
+        VStack(alignment: .leading, spacing: 4) {
+            Text(titleHtml)
+                .font(WMFSwiftUIFont.font(.callout))
+                .foregroundColor(Color(theme.text))
+                .lineLimit(titleLineLimit)
+                .dynamicTypeSize(...DynamicTypeSize.xxxLarge)
+            if let description = articleDescription {
+                Text(description)
+                    .font(WMFSwiftUIFont.font(.subheadline))
+                    .foregroundColor(Color(theme.secondaryText))
+                    .dynamicTypeSize(...DynamicTypeSize.xxxLarge)
+                    .lineLimit(1)
+            }
+        }
+    }
+
+    @ViewBuilder
+    var regularTextView: some View {
+        VStack(alignment: .leading, spacing: 4) {
+            Text(titleHtml)
+                .font(WMFSwiftUIFont.font(.callout))
+                .foregroundColor(Color(theme.text))
+                .lineLimit(titleLineLimit)
+            if let description = articleDescription {
+                Text(description)
+                    .font(WMFSwiftUIFont.font(.subheadline))
+                    .foregroundColor(Color(theme.secondaryText))
+                    .lineLimit(1)
+            }
         }
     }
 

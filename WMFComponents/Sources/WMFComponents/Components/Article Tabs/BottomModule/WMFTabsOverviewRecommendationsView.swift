@@ -53,7 +53,7 @@ public struct WMFTabsOverviewRecommendationsView: View {
 private struct ScrollContainer: View {
     @ObservedObject var appEnvironment = WMFAppEnvironment.current
     private var theme: WMFTheme { appEnvironment.theme }
-    let cardWidth: CGFloat = 234
+    let cardWidth: CGFloat = 250
     let interCardSpacing: CGFloat
     let horizontalInset: CGFloat
     let items: [HistoryItem]
@@ -100,6 +100,7 @@ private struct Card: View {
 
     var body: some View {
         let row = WMFPageRow(
+            needsLimitedFontSize: true,
             id: item.id,
             titleHtml: item.titleHtml,
             articleDescription: item.description,
