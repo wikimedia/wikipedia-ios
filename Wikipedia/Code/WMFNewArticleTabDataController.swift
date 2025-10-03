@@ -21,22 +21,30 @@ final class NewArticleTabDataController {
         dataStore.feedImportContext
     }
 
-    public func getRelatedArticles(for recordURLs: [URL?]) async throws -> [HistoryRecord] {
-        try await withThrowingTaskGroup(of: [HistoryRecord].self) { group in
+    public func getRelatedArticles(for recordURLs: [URL?] ,maxTotal: Int) async throws -> [HistoryRecord] {
+
+        let batches: [[HistoryRecord]] = try await withThrowingTaskGroup(of: [HistoryRecord].self) { group in
             for url in recordURLs {
                 group.addTask { [weak self] in
                     guard let self else { return [] }
                     return try await self.relatedArticles(for: url)
                 }
             }
-            var merged: [HistoryRecord] = []
-            for try await batch in group {
-                merged.append(contentsOf: batch.prefix(5))
-            }
-            return merged
+            var out: [[HistoryRecord]] = []
+            for try await batch in group { out.append(batch) }
+            return out
         }
-    }
 
+        var joinedResults = batches.flatMap { $0 }
+
+        joinedResults.shuffle()
+
+        if joinedResults.count > maxTotal {
+            joinedResults.removeSubrange(maxTotal..<joinedResults.count)
+        }
+
+        return joinedResults
+    }
 
     private func relatedArticles(for url: URL?) async throws -> [HistoryRecord] {
         try await withCheckedThrowingContinuation { cont in

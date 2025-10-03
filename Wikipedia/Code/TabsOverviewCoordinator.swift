@@ -299,7 +299,8 @@ final class TabsOverviewCoordinator: NSObject, Coordinator {
         guard let self else { return nil }
         let dc = NewArticleTabDataController(dataStore: self.dataStore)
         do {
-            return try await dc.getRelatedArticles(for: sourceArticles)
+            let maxArticlesPerSource: Int =  UIDevice.current.userInterfaceIdiom == .pad ? 5 : 3
+            return try await dc.getRelatedArticles(for: sourceArticles, maxTotal: maxArticlesPerSource)
         } catch {
             DDLogError("Related articles fetch error: \(error)")
             return nil
