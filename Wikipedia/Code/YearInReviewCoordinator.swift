@@ -54,16 +54,20 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         return "https://www.mediawiki.org/wiki/Special:MyLanguage/Wikimedia_Apps/iOS_FAQ?uselang=\(languageCode ?? "en")#Editing"
     }
     
-    private func noncontributorTitle() -> String {
-        // Check if current date is before the temporary date (January 1, 2026)
+    private var expiryDate: Date? {
         let calendar = Calendar.current
         var expiryDateComponents = DateComponents()
         expiryDateComponents.year = 2026
         expiryDateComponents.month = 1
         expiryDateComponents.day = 1
+        return calendar.date(from: expiryDateComponents)
+    }
+    
+    private func noncontributorTitle() -> String {
+        // Check if current date is before the temporary date (January 1, 2026)
         let currentDate = Date()
         
-        guard let expiryDate = calendar.date(from: expiryDateComponents), currentDate < expiryDate else {
+        guard let expiryDate, currentDate < expiryDate else {
             return WMFLocalizedString("year-in-review-non-contributor-slide-title", value: "Unlock your custom contributor icon", comment: "Year in review, non contributor slide title")
         }
 
@@ -320,14 +324,9 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
 
     func noncontributorSlideSubtitle() -> String {
         // Check if current date is before the temporary date (January 1, 2026)
-        let calendar = Calendar.current
-        var expiryDateComponents = DateComponents()
-        expiryDateComponents.year = 2026
-        expiryDateComponents.month = 1
-        expiryDateComponents.day = 1
         let currentDate = Date()
         
-        guard let expiryDate = calendar.date(from: expiryDateComponents), currentDate < expiryDate else {
+        guard let expiryDate, currentDate < expiryDate else {
             let format = WMFLocalizedString("year-in-review-noncontributor-slide-subtitle", value: "We’re glad Wikipedia was part of your 2025! [Learn more](%1$@) about the ways to unlock your icon by becoming a contributor—whether by editing Wikipedia or by donating to the Wikimedia Foundation, the non-profit behind it. If Wikipedia has been useful to you this year, please consider donating to help sustain its future and keep it free, ad-free, trustworthy, and accessible to all.", comment: "Year in review, noncontributor slide subtitle. %1$@ is replaced with a MediaWiki url with more information about WMF. Do not alter markdown when translating.")
             return String.localizedStringWithFormat(format, editingFAQURLString)
         }
