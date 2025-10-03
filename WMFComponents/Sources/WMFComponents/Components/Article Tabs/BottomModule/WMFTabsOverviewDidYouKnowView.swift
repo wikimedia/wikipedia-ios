@@ -18,7 +18,9 @@ public struct WMFTabsOverviewDidYouKnowView: View {
     public var body: some View {
         VStack(alignment: .leading, spacing: 8) {
             HStack(spacing: 8) {
-                Image(uiImage: WMFSFSymbolIcon.for(symbol: .questionMarkBubble, compatibleWith: UITraitCollection(preferredContentSizeCategory: .large)) ?? UIImage())
+                if let image = WMFSFSymbolIcon.for(symbol: .questionMarkBubble, compatibleWith: UITraitCollection(preferredContentSizeCategory: .large)) {
+                    Image(uiImage: image)
+                }
                 Text(viewModel.dykLocalizedStrings.didYouKnowTitle)
                     .font(WMFSwiftUIFont.font(.boldSubheadline))
                     .foregroundStyle(Color(theme.text))
