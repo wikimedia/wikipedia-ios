@@ -161,6 +161,8 @@
 "appearance-settings-image-dimming-footer" = "Koyu ve siyah temalardaki görüntülerin opaklığını düşür.";
 "appearance-settings-reading-themes" = "Okuma temaları";
 "appearance-settings-set-automatic-table-opening" = "Tablo Ayarları";
+"appearance-settings-set-icon-footer" = "Katkıda bulunan simgesi, 2025 yılında Vikipedi'ye yaptığınız uygulama içi katkıları kutlamak için tasarlanmıştır. Bir sonraki Yılın İncelemesi'ne kadar kalacaktır.";
+"appearance-settings-set-icon-header" = "Uygulama Simgesi";
 "appearance-settings-text-sizing-example-text" = "Madde metin boyutunu değiştirmek için kaydırıcıyı sürükleyin. Uygulamadaki diğer metin alanlarını yeniden boyutlandırmak için sisteminizin metin boyutundan yararlanın.";
 "appearance-settings-theme-options" = "Tema seçenekleri";
 "article-about-title" = "Bu madde hakkında";
@@ -281,6 +283,8 @@
 "developer-settings-activity-tab-group-B" = "Etkinlik sekmesini Grup B'ye ayarla";
 "developer-settings-activity-tab-group-C" = "Etkinlik sekmesini Grup C'ye ayarla";
 "developer-settings-bypass-donation" = "Baypas Bağışı";
+"developer-settings-dynamic-tabs-group-B" = "B kümesiyle sekmeleri etkinleştir";
+"developer-settings-dynamic-tabs-group-C" = "C kümesiyle sekmeleri etkinleştir";
 "developer-settings-enable-year-in-review" = "Yıl İncelemesini Etkinleştir";
 "developer-settings-send-analytics-to-wmflabs" = "Analizleri wmflabs'a gönder.";
 "developer-settings-suppress-image-rec-post" = "Görsel önerileri düzenlemleri yayınlamayın.";
@@ -767,25 +771,16 @@
 "main-menu-title" = "Daha fazla";
 "main-menu-zero-faq" = "Wikipedia Zero SSS";
 "main-page" = "Anasayfa";
-// Fuzzy
-"microsite-yir-english-edits-bytes-slide-subtitle" = "2024'te gönüllüler İngilizce Vikipedi'ye 4.104.852.969 bayt ekledi. Birlikte yaptıkları tüm çalışmaların toplamı, dünyaya sundukları, sürekli gelişen, gerçeğe dayalı ve güvenilir bir bilgi kaynağına yol açmaktadır. Hepimizin paylaşacak bilgisi var, [nasıl katılacağınızı öğrenin]($1).";
-// Fuzzy
-"microsite-yir-english-edits-bytes-slide-title" = "4 milyar bayt eklendi";
-// Fuzzy
-"microsite-yir-english-edits-slide-subtitle" = "Gönüllüler, Vikipedi'nin 300'den fazla farklı dil sürümünde 98.222.407 değişiklik yaptı. İngilizce Vikipedi'de 37 milyondan fazla değişiklik yapıldı. Gönüllüler, her günün her saati Vikipedi'yi iyileştirmek için çalışmaktadır.";
-// Fuzzy
-"microsite-yir-english-edits-slide-title" = "Editörler bu yıl 98 milyon değişiklik yaptı";
-// Fuzzy
-"microsite-yir-english-reading-slide-subtitle" = "İnsanlar 2025 yılında yaklaşık 2,4 milyar saati, yani 275.000 yıldan uzun bir zamanı İngilizce Vikipedi'yi okuyarak geçirdiler. Değişen dünyamız hakkında bilgi edinmek, arkadaşlarınız arasında bir iddiayı kazanmak ya da meraklı bir çocuğun sorusunu yanıtlamak istediğinizde Vikipedi yanınızda.";
+"microsite-yir-english-edits-bytes-slide-subtitle" = "2024'te gönüllüler İngilizce Vikipedi'ye 3.416.899.197 bayt ekledi. Birlikte yaptıkları tüm çalışmaların toplamı, dünyaya sundukları, sürekli gelişen, gerçeğe dayalı ve güvenilir bir bilgi kaynağına yol açmaktadır. Hepimizin paylaşacak bilgisi var, [nasıl katılacağınızı öğrenin]($1).";
+"microsite-yir-english-edits-bytes-slide-title" = "3,4 milyar bayt eklendi";
+"microsite-yir-english-edits-slide-subtitle" = "Gönüllüler, Vikipedi'nin 300'den fazla farklı dil sürümünde 81.987.181 değişiklik yaptı. İngilizce Vikipedi'de 31,2 milyondan fazla değişiklik yapıldı. Gönüllüler, her günün her saati Vikipedi'yi iyileştirmek için çalışmaktadır.";
+"microsite-yir-english-edits-slide-title" = "Düzenleyiciler bu yıl yaklaşık 82 milyon değişiklik yaptı";
+"microsite-yir-english-reading-slide-subtitle" = "İnsanlar 2024 yılında yaklaşık 2,4 milyar saati, yani 275.000 yıldan uzun bir zamanı İngilizce Vikipedi'yi okuyarak geçirdiler. Değişen dünyamız hakkında bilgi edinmek, arkadaşlarınız arasında bir iddiayı kazanmak ya da meraklı bir çocuğun sorusunu yanıtlamak istediğinizde Vikipedi yanınızda.";
 "microsite-yir-english-reading-slide-subtitle-short" = "İnsanlar 2025 yılında yaklaşık 2,4 milyar saati, yani 275.000 yıldan uzun bir zamanı İngilizce Vikipedi'yi okuyarak geçirdiler.";
-// Fuzzy
-"microsite-yir-english-reading-slide-title" = "Okumaya 2,9 milyar saat harcadık";
-// Fuzzy
-"microsite-yir-english-saved-reading-slide-subtitle" = "Aktif iOS uygulaması kullanıcıları 62,2 milyondan fazla okuma listesine sahip. Maddeleri okuma listesine eklemek, o maddelere çevrimdışı olarak ulaşabilmeyi sağlar. Ayrıca oturum açarak okuma listelerinizi aygıtlarınız arasında eş zamanlayabilirsiniz.";
-// Fuzzy
-"microsite-yir-english-saved-reading-slide-title" = "62,2 milyondan fazla okuma listemiz oldu";
-// Fuzzy
-"microsite-yir-english-top-read-slide-subtitle" = "İngilizce Vikipedi'de en çok ziyaret edilen 5 madde:\n\n1. $1 \n2. $2 \n3. $3 \n4. $4 \n5. $5 \nDaha fazlasını $6özel günlük yazımızda$7 okuyabilirsiniz.";
+"microsite-yir-english-reading-slide-title" = "Okumaya 2,4 milyar saat harcadık";
+"microsite-yir-english-saved-reading-slide-subtitle" = "Bu yıl, etkin uygulama kullanıcılarının 37 milyondan fazla saklanan maddesi vardı. Maddeleri okuma listesine eklemek, o maddelere çevrimdışı olarak ulaşabilmeyi sağlar. Ayrıca oturum açarak okuma listelerinizi aygıtlarınız arasında eş zamanlayabilirsiniz.";
+"microsite-yir-english-saved-reading-slide-title" = "37 milyondan fazla saklanan maddemiz oldu";
+"microsite-yir-english-top-read-slide-subtitle" = "İnsanlar dünyamız hakkında bilgi edinmek istediklerinde - iyi, kötü, tuhaf ve çılgın - Vikipedi'ye yöneliyorlar. İngilizce Vikipedi'de en çok ziyaret edilen 5 madde:\n\n1. $1 \n2. $2 \n3. $3 \n4. $4 \n5. $5 \nDaha fazlasını $6özel günlük yazımızda$7 okuyabilirsiniz.";
 "microsite-yir-english-top-read-slide-title" = "İngilizce Vikipedi'nin en popüler maddeleri";
 "more-languages-tooltip-description" = "Vikipedi'yi 300'den fazla dilde arayın";
 "more-languages-tooltip-title" = "Dil ekle";
@@ -974,6 +969,7 @@
 "panel-not-logged-in-continue-edit-action-title" = "Oturum açmadan düzenle";
 "panel-not-logged-in-subtitle" = "Herhangi bir düzenleme yaparsanız IP adresiniz herkes tarafından görülebilir. $1Oturum açarsanız$2 ya da $3bir hesap oluşturursanız$4, düzenlemeleriniz diğer kazanımların yanı sıra kullanıcı adınızla da ilişkilendirilir.";
 "panel-not-logged-in-title" = "Oturum açmadınız";
+"percentile-0.01" = "0,01";
 "pictured" = "resimdeki";
 "places-accessibility-clear-saved-searches" = "Kayıtlı aramaları temizle";
 "places-accessibility-group" = "$1 madde";
@@ -1177,8 +1173,7 @@
 "serbian-variants-alert-body" = "Vikipedi uygulaması artık aşağıdaki Sırpça biçimlerini birincil veya ikincil dil olarak uygulama içinde destekliyor, bu şekilde tercih ettiğiniz biçimle daha kolay okuyabilir, aratabilir ve değişiklik yapabilirsiniz:\n\nсрпски ћирилица Sırpça, Kiril (sr-ec)\nsrpski latinica Sırpça, Latin (sr-el)";
 "serbian-variants-alert-title" = "Sırpça biçim desteği güncellemeleri";
 "settings-account" = "Hesap";
-// Fuzzy
-"settings-appearance" = "Okuma tercihleri";
+"settings-appearance" = "Uygulama teması";
 "settings-clear-cache" = "Önbellekteki verileri temizle";
 "settings-clear-cache-are-you-sure-message" = "Önbellekteki verileri silmek $1 kadar alan açacak. Kaydedilmiş sayfalarınız silinmeyecek.";
 "settings-clear-cache-are-you-sure-title" = "Önbellekteki veriler temizlensin mi?";
@@ -1247,12 +1242,18 @@
 "table-of-contents-hide-button-label" = "İçindekiler tablosunu gizle";
 "table-of-contents-subheading-label" = "Alt başlık $1";
 "tabs-close-tab" = "Sekmeyi kapat";
+"tabs-empty-view-subtitle" = "Bu alana sekme eklemek için “+” simgesine dokunun ya da yeni sekmede açmak için bir maddenin bağlantısına uzun basın.";
+"tabs-empty-view-title" = "Sekmeleriniz burada görünecek";
+"tabs-hide-suggested-articles" = "Madde önerilerini gizle";
 "tabs-main-page-description" = "Vikipedi'nin ana sayfasında öne çıkan maddeleri, son haberleri, ilginç gerçekleri ve anahtar sayımlamaları keşfedin.";
 "tabs-main-page-subtitle" = "Vikipedi'de günlük öne çıkanlar";
 "tabs-navbar-title-format" = "{{PLURAL:$1|$1 sekme}}";
 "tabs-open-tab" = "Sekmeyi aç";
 "tabs-overview-tooltip-body" = "Sekme genel görünümünde açık maddeler arasında geçiş yapın.";
 "tabs-overview-tooltip-title" = "Sekme genel görünümü";
+"tabs-show-suggested-articles" = "Madde önerilerini göster";
+"tabs-suggested-articles-hide-suggestions-confirmation" = "Öneriler artık gizli";
+"tabs-suggested-articles-show-suggestions-confirmation" = "Öneriler artık görünür";
 "tabs-survey-title" = "Sekmeler özelliğini iyileştirmeye yardımcı olun. Bu özellikten memnun musunuz?";
 "tabs-thumbnail-description" = "Herkesin düzenleyebileceği özgür ansiklopedi Vikipedi'yi keşfedin";
 "tabs-thumbnail-subtitle" = "Aramanıza buradan başlayın";
@@ -1489,23 +1490,16 @@
 "wikitext-upload-save-terms-name" = "Kullanım Şartları";
 "year-in-review-base-donate-subtitle" = "Yardımınızla, Vikipedi'nin arkasındaki kâr amacı gütmeyen kuruluş olan Wikimedia Vakfı, güvendiğiniz bilgilerin reklamsız ve güvenilir olmasını sağlamaya devam ederken, Vikipedi'nin en yeni araçlar ve teknolojilerle sorunsuz çalışmasını sağlayacaktır. Lütfen bugün bağış yapmayı düşünün. [Çalışmalarımız hakkında daha fazla bilgi edinin]($1).";
 "year-in-review-base-donate-title" = "Vikipedi'de 0 reklam yayımlandı";
-// Fuzzy
-"year-in-review-base-editors-subtitle" = "Vikipedi'nin gönüllü düzenleyicilerden oluşan topluluğu iOS uygulamasında 555.647'den fazla düzenleme yaptı. Vikipedi'nin kalbi ve ruhu, gönüllü katkıda bulunanlar, bağışçılar ve sizin gibi milyarlarca okuyucudan oluşan küresel topluluğumuzdur – hepsi güvenilir bilgiye sınırsız erişim sağlamak için birleşmiştir.";
-// Fuzzy
-"year-in-review-base-editors-title" = "iOS uygulamasındaki düzenleyiciler $1 ve daha fazla düzenleme yaptı";
-// Fuzzy
-"year-in-review-base-edits-subtitle" = "Vikipedi dakikada ortalama $1 kez düzenlendi. Maddeler güvenilir kaynaklar kullanılarak işbirlikçi bir şekilde oluşturulur ve geliştirilir. Hepimizin paylaşacak bilgisi vardır, [nasıl katılacağınızı öğrenin]($2).";
+"year-in-review-base-editors-subtitle" = "Vikipedi'nin kalbi ve ruhu, gönüllü katkıda bulunanlar, bağışçılar ve sizin gibi milyarlarca okuyucudan oluşan küresel topluluğumuzdur – hepsi güvenilir bilgiye sınırsız erişim sağlamak için birleşmiştir.";
+"year-in-review-base-editors-title" = "Resmi Vikipedi uygulamasındaki düzenleyiciler $1 ve daha fazla düzenleme yaptı";
+"year-in-review-base-edits-subtitle" = "Maddeler güvenilir kaynaklar kullanılarak işbirliği içinde oluşturulur ve geliştirilir. Hepimizin paylaşacak bilgisi vardır, [nasıl katılacağınızı öğrenin]($1).";
 "year-in-review-base-edits-title" = "Vikipedi dakikada $1 kez düzenlendi";
 "year-in-review-base-reading-subtitle" = "Vikipedi'de $2 ve daha fazla aktif dilde $1 ve daha fazla madde vardı. Bilgiyi genişletmek ve çeşitli konuları keşfetmek için milyonlara katıldınız.";
 "year-in-review-base-reading-title" = "Vikipedi 300 ve daha fazla dilde vardır";
-// Fuzzy
-"year-in-review-base-saved-subtitle" = "Aktif iOS uygulaması kullanıcıları 62,2 milyondan fazla okuma listesine sahip. Maddeleri okuma listesine eklemek, o maddelere çevrimdışı olarak ulaşabilmeyi sağlar. Ayrıca oturum açarak okuma listelerinizi aygıtlarınız arasında eş zamanlayabilirsiniz.";
-// Fuzzy
-"year-in-review-base-saved-title" = "$1 milyondan fazla okuma listemiz vardı";
-// Fuzzy
-"year-in-review-base-viewed-subtitle" = "iOS uygulaması kullanıcıları Vikipedi maddelerini $1 Milyar kez görüntüledi. Dünya çapındaki insanlar için Vikipedi, bir soruyu yanıtlamak, okul ya da iş için bilgi aramak ya da yeni bir bilgi edinmek için ilk duraktır.";
-// Fuzzy
-"year-in-review-base-viewed-title" = "Wikipedia maddelerini $1 Milyar kez görüntüledik";
+"year-in-review-base-saved-subtitle" = "Bu yıl, etkin uygulama kullanıcılarının $1 milyondan fazla saklanan maddesi vardı. Maddeleri okuma listesine eklemek, o maddelere çevrimdışı olarak ulaşabilmeyi sağlar. Ayrıca oturum açarak okuma listelerinizi aygıtlarınız arasında eş zamanlayabilirsiniz.";
+"year-in-review-base-saved-title" = "$1 milyondan fazla saklanan maddemiz vardı";
+"year-in-review-base-viewed-subtitle" = "Uygulama kullanıcıları Vikipedi maddelerini $1 milyar kez görüntüledi. Dünya çapındaki insanlar için Vikipedi, bir soruyu yanıtlamak, okul ya da iş için bilgi aramak ya da yeni bir bilgi edinmek için ilk duraktır.";
+"year-in-review-base-viewed-title" = "Vikipedi maddelerini $1 milyar kez görüntüledik";
 "year-in-review-button-title" = "Yılın Değerlendirmesi";
 "year-in-review-collective-article-views" = "Bir web tarayıcısı açıkken bir bilgisayar ekranının etkin olarak bir Vikipedi maddesinde gezindiğini gösteren canlandırmalı bir çizim.";
 "year-in-review-collective-edits" = "Her biri bir bilgi parçası taşıyan iki Vikipedi bulmaca parçasının çizimi.";
@@ -1516,6 +1510,9 @@
 "year-in-review-collective-zero-ads" = "Wikimedia logosu";
 "year-in-review-contributor-gift-subtitle" = "Şimdi açmazsanız daha sonra Ayarlar'da Temalar kısmından ulaşabilirsiniz.";
 "year-in-review-contributor-gift-title" = "Yeni uygulama simgesini etkinleştir";
+"year-in-review-contributor-slide-subtitle-donor" = "Özgür bilginin geleceğine yatırım yaptığınız için teşekkür ederiz.\n\n2025 yılında bağışçı olarak yaptığınız katkılar, özgür bilginin olduğu bir dünyaya giden yolu açmaya yardımcı oluyor ve bunun sonucunda özel bir katkıda bulunan simgesinin kilidini açtınız.";
+"year-in-review-contributor-slide-subtitle-editor" = "Özgür bilginin geleceğine yatırım yaptığınız için teşekkür ederiz.\n\n2025 yılında bir düzenleyici olarak yaptığınız katkılar, özgür bilginin olduğu bir dünyaya giden yolu açmaya yardımcı oluyor ve bunun sonucunda özel bir katkıda bulunan simgesinin kilidini açtınız.";
+"year-in-review-contributor-slide-subtitle-editor-and-donor" = "Özgür bilginin geleceğine yatırım yaptığınız için teşekkür ederiz.\n\n2025 yılında bağışçı ve düzenleyici olarak yaptığınız katkılar, özgür bilginin olduğu bir dünyaya giden yolu açmaya yardımcı oluyor ve bunun sonucunda özel bir katkıda bulunan simgesinin kilidini açtınız.";
 "year-in-review-contributor-slide-title" = "Yeni simge kilidi açıldı";
 "year-in-review-day-friday" = "Cuma günleri";
 "year-in-review-day-monday" = "Pazartesi günleri";
@@ -1538,20 +1535,22 @@
 "year-in-review-finish" = "Bitir";
 "year-in-review-highlights-articles-saved" = "Saklanan maddeler";
 "year-in-review-highlights-articles-viewed" = "Görüntülenen madde sayısı";
+"year-in-review-highlights-articles-viewed-value" = "$1 milyar";
 "year-in-review-highlights-button-title" = "Önemli noktaları paylaşın";
 "year-in-review-highlights-categories" = "İlgimi çeken kategoriler";
 "year-in-review-highlights-changes" = "Düzenleyicilerin yaptığı değişiklikler";
 "year-in-review-highlights-collective-time-spent" = "Okumaya harcanan saatler";
 "year-in-review-highlights-created-lists" = "Oluşturulan okuma listesi sayısı";
 "year-in-review-highlights-edit-frequency" = "Vikipedi ne sıklıkla düzenlendi?";
+"year-in-review-highlights-edit-frequency-value" = "Dakikada {{PLURAL:$1|$1 kez}}";
 "year-in-review-highlights-english-articles" = "İngilizce Vikipedi'deki en popüler maddeler";
 "year-in-review-highlights-favorite-day" = "Okumayı en sevilen gün";
-// Fuzzy
-"year-in-review-highlights-number-app-editors" = "Uygulamadaki düzenleyiciler";
+"year-in-review-highlights-number-app-editors" = "Uygulamadaki düzenlemeler";
 "year-in-review-highlights-personalized-articles" = "En uzun okuduğum maddeler";
 "year-in-review-highlights-reading-time" = "Okunan dakikalar";
 "year-in-review-highlights-share-logo-caption" = "Vikipedi logosu";
 "year-in-review-highlights-subtitle" = "Gelecek yılı sabırsızlıkla bekliyoruz!";
+"year-in-review-highlights-times-edited" = "Düzenlenen zaman";
 "year-in-review-highlights-title" = "Yılınızı Vikipedi ile geçirdiğiniz için teşekkür ederiz";
 "year-in-review-intro-exit-confirmation-subtitle" = "Giriş yapmadan da toplu bir Yılın İncelemesini görebilirsiniz.";
 "year-in-review-intro-exit-confirmation-title" = "Çıkmak istediğinize emin misiniz?";
@@ -1571,9 +1570,11 @@
 "year-in-review-personalized-donate-subtitle" = "Özgür bilginin geleceğine yatırım yaptığınız için teşekkür ederiz. Bu yıl, Wikimedia Vakfı her okuyucuya ve gönüllüye daha iyi hizmet vermek için teknolojiyi geliştirdi, iş birliğini güçlendiren araçlar geliştirdi ve Vikipedi'yi daha fazla dilde destekledi. [Çalışmalarımız hakkında daha fazla bilgi edinin]($1).";
 "year-in-review-personalized-donate-title" = "Cömertliğiniz Vikipedi'nin gelişmesine yardımcı oldu";
 "year-in-review-personalized-donation-thank-you" = "Wikimedia logosu";
-// Fuzzy
-"year-in-review-personalized-edit-views-subtitle-format" = "Dünya çapındaki okuyucular katkılarınızı takdir ediyor. Son 2 ayda düzenlediğiniz maddeler toplam $1 görüntüleme aldı. Sizin gibi düzenleyiciler sayesinde Vikipedi; dünya için sürekli gelişen, gerçeğe dayalı ve güvenilir bir bilgi kaynağıdır";
+"year-in-review-personalized-edit-views-subtitle-format" = "Dünya çapındaki okuyucular katkılarınızı takdir ediyor. Son 2 ayda düzenlediğiniz maddeler toplam $1 görüntüleme aldı. Sizin gibi düzenleyiciler sayesinde Vikipedi; dünya için sürekli gelişen, gerçeğe dayalı ve güvenilir bir bilgi kaynağıdır.";
 "year-in-review-personalized-edit-views-title-format" = "Düzenlemeleriniz son zamanlarda $1 ve daha fazla kez görüntülendi";
+"year-in-review-personalized-editing-subtitle-1" = "Dünya çapındaki Wikimedia projelerinde fark yaratan gönüllü düzenleyicilerden biri olduğunuz için teşekkür ederiz.";
+"year-in-review-personalized-editing-subtitle-2" = "Sizin gibi gönüllüler, Vikipedi'nin 300'den fazla farklı dil sürümünde 81.987.181 değişiklik yaptı.";
+"year-in-review-personalized-editing-subtitle-non-en" = "Dünya çapındaki Wikimedia projelerinde fark yaratan gönüllü düzenleyicilerden biri olduğunuz için teşekkür ederiz.";
 "year-in-review-personalized-editing-title-format" = "Vikipedi'de {{PLURAL:$1|$1 kez}} değişiklik yaptınız";
 "year-in-review-personalized-editing-title-format-500plus" = "Vikipedi'yi 500'den fazla kez düzenlediniz";
 "year-in-review-personalized-explore" = "Platforma yapılan bireysel katkıları simgeleyen, giderek küçük bir yapboz parçasına dönüşen Vikipedi küresini tutan bir elin canlandırmalı çizimi.";
@@ -1583,10 +1584,11 @@
 "year-in-review-personalized-location-title-format" = "Okuduğunuz maddelere en yakın yer $1";
 "year-in-review-personalized-most-read-articles-title" = "En çok okunan maddeleriniz";
 "year-in-review-personalized-reading-subtitle-format" = "{{PLURAL:$1|$1 madde}} okudunuz. Vikipedi'de $3 ve daha fazla etkin dilde $2 milyon madde var. Bilgiyi yayma ve çeşitli konuları keşfetme konusunda milyonlara katıldınız.";
-"year-in-review-personalized-reading-subtitle-format-v3" = "Bu, sizi küresel Vikipedi okuyucularının en üst **PERCENT** arasına sokar. Ortalama bir kişi yılda {{PLURAL:$1|$1 madde}} okur.";
+"year-in-review-personalized-reading-subtitle-format-v3" = "Bunun, sizi küresel Vikipedi okuyucularının en üst **PERCENT** arasına soktuğunu tahmin ediyoruz. Ortalama bir kişi yılda {{PLURAL:$1|$1 madde}} okur.";
 "year-in-review-personalized-reading-title-format" = "{{PLURAL:$1|$1 madde}} okudunuz";
 "year-in-review-personalized-reading-title-v3-format" = "2025 yılında {{PLURAL:$2|$2 madde}} okuyarak {{PLURAL:$1|$1 dakika}} geçirdiniz";
 "year-in-review-personalized-saved-articles" = "Arkasında bilgisayar ekranı olan, kask takan bir yapboz parçasının çizimi.";
+"year-in-review-personalized-saved-subtitle-format-v3" = "Bu maddelerden bir kaçı: $1, $2 ve $3. Saklanan her madde ilgi alanlarınızı yansıtır ve Vikipedi'de kişiselleştirilmiş bir bilgi tabanı oluşturmanıza yardımcı olur.\n\nEtkin uygulama kullanıcıları bu yıl $4 milyondan fazla madde sakladı.";
 "year-in-review-personalized-saved-title-format" = "{{PLURAL:$1|$1 madde}} sakladınız";
 "year-in-review-personalized-user-edits" = "Sürekli özgür bilgi oluşturulmasını simgeleyen, üst üste yığılmış baytları gösteren canlandırmalı bir çizim.";
 "year-in-review-personalized-weekday" = "İnsanların Vikipedi'yi okumaya harcadıkları zamanı simgeleyen bir saat işareti.";

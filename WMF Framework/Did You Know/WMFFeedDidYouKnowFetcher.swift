@@ -3,7 +3,7 @@ import WMFData
 public final class WMFFeedDidYouKnowFetcher: Fetcher {
     private let userDefaultsStore = WMFDataEnvironment.current.userDefaultsStore
 
-    public func fetchDidYouKnow(withSiteURL siteURL: URL, completion: @escaping (Error?, [WMFFeedDidYouKnow]?) -> Void) {
+    public func fetchDidYouKnow(withSiteURL siteURL: URL, completion: @escaping (Error?, [WMFDidYouKnow]?) -> Void) {
 
         let sharedCache = SharedContainerCache.init(fileName: self.cachedFileName(for: siteURL), subdirectoryPathComponent: SharedContainerCacheCommonNames.didYouKnowCache)
         var cache = sharedCache.loadCache() ?? DidYouKnowCache(didYouKnowItems: [])
@@ -31,7 +31,7 @@ public final class WMFFeedDidYouKnowFetcher: Fetcher {
             return
         }
 
-        session.jsonDecodableTask(with: taskURL) { (facts: [WMFFeedDidYouKnow]?, response, error) in
+        session.jsonDecodableTask(with: taskURL) { (facts: [WMFDidYouKnow]?, response, error) in
 
             if let error = error {
                 completion(error, cache.didYouKnowItems)

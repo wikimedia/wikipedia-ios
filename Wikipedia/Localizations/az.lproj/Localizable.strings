@@ -121,6 +121,8 @@
 "appearance-settings-image-dimming-footer" = "Tünd və qara temalarda şəkillərin qeyri-şəffaflığını azalt";
 "appearance-settings-reading-themes" = "Oxuma temaları";
 "appearance-settings-set-automatic-table-opening" = "Cədvəl Parametrləri";
+"appearance-settings-set-icon-footer" = "Töhfəçi ikonası 2025-ci ildə Vikipediyaya tətbiqdaxili töhfələrinizi qeyd edir. O, növbəti İlin İcmalına qədər qalacaq.";
+"appearance-settings-set-icon-header" = "Tətbiq İkonası";
 "appearance-settings-text-sizing-example-text" = "Məqalənin mətn ölçüsünü dəyişmək üçün slayderi sürüşdürün. Proqramdakı digər mətn sahələrinin ölçüsünü dəyişmək üçün sistem mətninizin ölçüsündən istifadə edin.";
 "appearance-settings-theme-options" = "Tema seçimləri";
 "article-about-title" = "Bu məqalə haqqında";
@@ -239,6 +241,7 @@
 "developer-settings-activity-tab-group-B" = "Fəaliyyət vərəqəsini B qrupuna təyin et";
 "developer-settings-activity-tab-group-C" = "Fəaliyyət vərəqəsini C qrupuna təyin et";
 "developer-settings-bypass-donation" = "İanəni atla";
+"developer-settings-dynamic-tabs-group-B" = "B qrupunun nişanlarını aktivləşdir";
 "developer-settings-enable-year-in-review" = "İlə Baxışı aktivləşdir";
 "developer-settings-send-analytics-to-wmflabs" = "Analitik datanı wmflabs-a göndər.";
 "developer-settings-suppress-image-rec-post" = "Şəkil tövsiyələrini redaktə etməyi paylaşma.";
@@ -1539,6 +1542,7 @@
 "year-in-review-personalized-location-title-format" = "Oxuduğunuz məqalələrə ən yaxın yer: $1.";
 "year-in-review-personalized-most-read-articles-title" = "Ən çox oxunan məqalələriniz";
 "year-in-review-personalized-reading-subtitle-format" = "Siz {{PLURAL:$1|$1 məqalə}} oxumusunuz. Vikipediyada $3+ aktiv dildə $2 məqalə mövcud olub. Siz biliyi genişləndirməkdə və müxtəlif mövzuları araşdırmaqda milyonlarla insana qoşulmusunuz.";
+// Fuzzy
 "year-in-review-personalized-reading-subtitle-format-v3" = "Bu, sizi qlobal miqyasda Vikipediya oxucuları arasında **PERCENT**-ə qoyur. Bir insan ortalama ildə {{PLURAL:$1|$1 məqalə}} oxuyur.";
 "year-in-review-personalized-reading-title-format" = "Siz {{PLURAL:$1|$1 məqalə}} oxumusunuz";
 "year-in-review-personalized-reading-title-v3-format" = "Siz 2025-ci ildə {{PLURAL:$2|$2 məqaləni}} oxumağa {{PLURAL:$1|$1 dəqiqə vaxt sərf etmisiniz}}";
