@@ -938,7 +938,7 @@
 	<key>year-in-review-personalized-reading-subtitle-format-v3</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Ова ве става во највисокиот **PERCENT** од читателите на Википедија во светот. Просечниот човек чита %#@v1@ годишно.</string>
+		<string>Проценуваме дека ова ве става во највисокиот **PERCENT** од читателите на Википедија во светот. Просечниот човек чита %#@v1@ годишно.</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>

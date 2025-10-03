@@ -737,6 +737,22 @@
 			<string>%1$d Mol</string>
 		</dict>
 	</dict>
+	<key>year-in-review-personalized-reading-subtitle-format-v3</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Domat gehéiert Dir eise Schätzungen no zu den ieweschte(n) **PERCENT** vu Wikipedia-Lieser weltwäit. D'Duerchschnëttspersoun liest %#@v1@ am Joer.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d Artikel</string>
+			<key>other</key>
+			<string>%1$d Artikelen</string>
+		</dict>
+	</dict>
 	<key>year-in-review-personalized-reading-title-format</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>

@@ -10,7 +10,7 @@ public protocol WMFArticleTabsDataControlling {
     func appendArticle(_ article: WMFArticleTabsDataController.WMFArticle, toTabIdentifier identifier: UUID, needsCleanoutOfFutureArticles: Bool) async throws -> WMFArticleTabsDataController.Identifiers
     func setTabItemAsCurrent(tabIdentifier: UUID, tabItemIdentifier: UUID) async throws
     func setTabAsCurrent(tabIdentifier: UUID) async throws
-    func currentTabIdentifier() async throws -> UUID
+    func currentTabIdentifier() async throws -> UUID?
     func fetchAllArticleTabs() async throws -> [WMFArticleTabsDataController.WMFArticleTab]
 }
 
@@ -104,12 +104,12 @@ public protocol WMFArticleTabsDataControlling {
             return OnboardingStatus(hasPresentedOnboardingTooltips: false)
         }
     }
-    
+
     // MARK: - Properties
-    
+
     @objc(sharedInstance)
     public static let shared = WMFArticleTabsDataController()
-    
+
     private let userDefaultsStore = WMFDataEnvironment.current.userDefaultsStore
     private let developerSettingsDataController: WMFDeveloperSettingsDataControlling
     
@@ -149,7 +149,8 @@ public protocol WMFArticleTabsDataControlling {
     
     public init(coreDataStore: WMFCoreDataStore? = WMFDataEnvironment.current.coreDataStore,
                 developerSettingsDataController: WMFDeveloperSettingsDataControlling = WMFDeveloperSettingsDataController.shared,
-                experimentStore: WMFKeyValueStore? = WMFDataEnvironment.current.sharedCacheStore) {
+                experimentStore: WMFKeyValueStore? = WMFDataEnvironment.current.sharedCacheStore
+    ) {
         self._coreDataStore = coreDataStore
         self.developerSettingsDataController = developerSettingsDataController
         if let experimentStore {
@@ -433,7 +434,7 @@ public protocol WMFArticleTabsDataControlling {
     
     public var moreDynamicTabsGroupBEnabled: Bool {
         get {
-            return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsMoreDynamicTabsGroupB.rawValue)) ?? true
+            return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsMoreDynamicTabsGroupB.rawValue)) ?? false
         } set {
             try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsMoreDynamicTabsGroupB.rawValue, value: newValue)
         }
@@ -441,7 +442,7 @@ public protocol WMFArticleTabsDataControlling {
     
     public var moreDynamicTabsGroupCEnabled: Bool {
         get {
-            return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsMoreDynamicTabsGroupC.rawValue)) ?? true
+            return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsMoreDynamicTabsGroupC.rawValue)) ?? false
         } set {
             try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsMoreDynamicTabsGroupC.rawValue, value: newValue)
         }
@@ -824,7 +825,7 @@ public protocol WMFArticleTabsDataControlling {
         try coreDataStore.saveIfNeeded(moc: moc)
     }
     
-    public func currentTabIdentifier() async throws -> UUID {
+    public func currentTabIdentifier() async throws -> UUID? {
         
         guard let coreDataStore else {
             throw WMFDataControllerError.coreDataStoreUnavailable
@@ -838,12 +839,7 @@ public protocol WMFArticleTabsDataControlling {
             return existingID
         }
 
-        guard shouldShowMoreDynamicTabs else {
-            throw CustomError.missingTab
-        }
-
-        let newTab = try await createArticleTab(initialArticle: nil, setAsCurrent: true)
-        return newTab.tabIdentifier
+        return nil
     }
 
         // MARK: - Helpers

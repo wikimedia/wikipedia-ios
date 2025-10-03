@@ -164,14 +164,14 @@ public final class WMFMockArticleTabsDataController: WMFArticleTabsDataControlli
         }
     }
     
-    public func currentTabIdentifier() async throws -> UUID {
+    public func currentTabIdentifier() async throws -> UUID? {
         for tab in tabs {
             if tab.isCurrent {
                 return tab.identifier
             }
         }
         
-        throw WMFArticleTabsDataController.CustomError.missingTab
+        return nil
     }
     
     public func setTabAsCurrent(tabIdentifier: UUID) async throws {

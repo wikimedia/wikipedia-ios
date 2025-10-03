@@ -458,17 +458,6 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
         startSignificantlyViewedTimer()
 
         configureNavigationBar()
-        
-        if tabDataController.moreDynamicTabsGroupBEnabled && needsFocusOnSearch {
-            DispatchQueue.main.async { [weak self] in
-                guard let searchController = self?.navigationItem.searchController else {
-                    return
-                }
-                
-                searchController.isActive = true
-                searchController.searchBar.becomeFirstResponder()
-            }
-        }
     }
     
     var isFirstAppearance = true
@@ -478,6 +467,18 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
         trackBeganViewingDate()
         coordinator?.syncTabsOnArticleAppearance()
         loadNextAndPreviousArticleTabs()
+        
+        if tabDataController.moreDynamicTabsGroupBEnabled && needsFocusOnSearch && isFirstAppearance {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) { [weak self] in
+                guard let searchController = self?.navigationItem.searchController else {
+                    return
+                }
+                
+                searchController.isActive = true
+                searchController.searchBar.becomeFirstResponder()
+            }
+        }
+        isFirstAppearance = false
     }
     
     @objc func userDidTapProfile() {
@@ -492,12 +493,22 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
     var showTabsOverview: (() -> Void)?
 
     @objc func userDidTapTabs() {
-        showTabsOverview?()
+        makeTabsCoordinatorIfNeeded()?.start()
         if let wikimediaProject = WikimediaProject(siteURL: articleURL) {
             ArticleTabsFunnel.shared.logIconClick(interface: .article, project: wikimediaProject)
         }
     }
-    
+
+    @discardableResult
+    private func makeTabsCoordinatorIfNeeded() -> TabsOverviewCoordinator? {
+        if let existing = _tabsCoordinator { return existing }
+        guard let nav = navigationController else { return nil }
+        let created = TabsOverviewCoordinator(navigationController: nav, theme: theme, dataStore: dataStore)
+        _tabsCoordinator = created
+        return created
+    }
+
+
     /// Catch-all method for deciding what is the best modal to present on top of Article at this point. This method needs careful if-else logic so that we do not present two modals at the same time, which may unexpectedly suppress one.
     private func presentModalsIfNeeded() {
 
@@ -1603,3 +1614,4 @@ extension ArticleViewController: UISearchControllerDelegate {
         SearchFunnel.shared.logSearchCancel(source: "article")
     }
 }
+

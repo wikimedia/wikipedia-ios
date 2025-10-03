@@ -1,6 +1,6 @@
 import Foundation
 
-internal struct WMFDidYouKnow: Codable {
-    let html: String
-    let text: String
+public struct WMFDidYouKnow: Codable {
+    public let html: String
+    public let text: String
 }
