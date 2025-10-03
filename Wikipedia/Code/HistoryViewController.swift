@@ -5,9 +5,7 @@ import WMF
 import Combine
 
 
-final class WMFHistoryHostingController: WMFComponentHostingController<WMFHistoryView> {
-
-}
+final class WMFHistoryHostingController: WMFComponentHostingController<WMFHistoryView> {}
 
 @objc public final class WMFHistoryViewController: WMFCanvasViewController, Themeable, WMFNavigationBarConfiguring, HintPresenting, MEPEventsProviding {
 
@@ -56,11 +54,6 @@ final class WMFHistoryHostingController: WMFComponentHostingController<WMFHistor
     }
 
     private var _tabsCoordinator: TabsOverviewCoordinator?
-    private var tabsCoordinator: TabsOverviewCoordinator? {
-        guard let navigationController, let dataStore else { return nil }
-        _tabsCoordinator = TabsOverviewCoordinator(navigationController: navigationController, theme: theme, dataStore: dataStore)
-        return _tabsCoordinator
-    }
 
     private var _profileCoordinator: ProfileCoordinator?
     private var profileCoordinator: ProfileCoordinator? {
@@ -188,6 +181,7 @@ final class WMFHistoryHostingController: WMFComponentHostingController<WMFHistor
         super.viewWillAppear(animated)
 
         configureNavigationBar()
+        makeTabsCoordinatorIfNeeded()
     }
 
     // MARK: - Methods
@@ -235,9 +229,20 @@ final class WMFHistoryHostingController: WMFComponentHostingController<WMFHistor
     }
 
     @objc func userDidTapTabs() {
-        tabsCoordinator?.start()
+        guard let coordinator = makeTabsCoordinatorIfNeeded() else { return }
+        coordinator.start()
         ArticleTabsFunnel.shared.logIconClick(interface: .history, project: nil)
     }
+
+    @discardableResult
+    private func makeTabsCoordinatorIfNeeded() -> TabsOverviewCoordinator? {
+        if let existing = _tabsCoordinator { return existing }
+        guard let nav = navigationController, let dataStore else { return nil }
+        let created = TabsOverviewCoordinator(navigationController: nav, theme: theme, dataStore: dataStore)
+        _tabsCoordinator = created
+        return created
+    }
+
 
     func tappedArticle(_ item: HistoryItem) {
         if let articleURL = item.url, let dataStore, let navVC = navigationController {

@@ -647,7 +647,7 @@ public class CommonStrings: NSObject {
     public static let joinLoginTitle = WMFLocalizedString("profile-page-join-title", value: "Log in / Join Wikipedia", comment: "Link to sign up or sign in")
     
     public static let noThanksTitle = WMFLocalizedString("variants-alert-dismiss-button", value: "No thanks", comment: "Dismiss button on alert used to inform users about variant support.")
-    public static let continueWithoutLoggingIn = WMFLocalizedString("variants-alert-continue-without-logging-in", value: "Continue without logging in", comment: "Button title to allow users to continue forward without logging in.")
+    public static let continueWithoutLoggingIn = WMFLocalizedString("ip-account-cta-bottom", value: "Continue without logging in", comment: "Continue without logging in button title")
     
     public static let notNowTitle = WMFLocalizedString("not-now-title", value: "Not now", comment: "Text for the dismiss button across various features.")
     

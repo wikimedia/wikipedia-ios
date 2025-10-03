@@ -235,7 +235,7 @@
 "developer-settings-enable-year-in-review" = "Enable Year in Review";
 "developer-settings-send-analytics-to-wmflabs" = "Send analytics to wmflabs.";
 "developer-settings-suppress-image-rec-post" = "Do not post image recommendations edit.";
-"did-you-know" = "Did you know";
+"did-you-know" = "Did you know?";
 "diff-article-revision-history" = "Article revision history";
 "diff-change-added" = "Addition, $1, addition end.";
 "diff-change-paragraph-lines-moved-down" = "Paragraph moved down {{PLURAL:$1|0=0 lines|$1 line|$1 lines}}. Go to new location.";
@@ -916,6 +916,14 @@
 "panel-not-logged-in-continue-edit-action-title" = "Edit without logging in";
 "panel-not-logged-in-subtitle" = "Your IP address will be publicly visible if you make any edits. If you $1log in$2 or $3create an account$4, your edits will be attributed to your username, along with other benefits.";
 "panel-not-logged-in-title" = "You are not logged in";
+"percentile-0.01" = "0.01";
+"percentile-1" = "1";
+"percentile-10" = "10";
+"percentile-20" = "20";
+"percentile-30" = "30";
+"percentile-40" = "40";
+"percentile-5" = "5";
+"percentile-50" = "50";
 "pictured" = "pictured";
 "places-accessibility-clear-saved-searches" = "Clear saved searches";
 "places-accessibility-group" = "$1 articles";
@@ -1200,7 +1208,7 @@
 "tabs-show-suggested-articles" = "Show article suggestions";
 "tabs-suggested-articles-hide-suggestions-confirmation" = "Suggestions are now hidden";
 "tabs-suggested-articles-show-suggestions-confirmation" = "Suggestions are now visible";
-"tabs-survey-title" = "Help improve the tabs feature. Are you satisfied with this feature?";
+"tabs-survey-title" = "Help improve tabs. Are you satisfied with this feature?";
 "tabs-thumbnail-description" = "Explore Wikipedia, the free encyclopedia that anyone can edit";
 "tabs-thumbnail-subtitle" = "Begin your search here";
 "tabs-title" = "Tabs";
@@ -1324,7 +1332,6 @@
 "vanish-account-username-field" = "Username and user page";
 "vanish-account-warning-body" = "Vanishing is a **last resort** and should **only be used when you wish to stop editing forever** and also to hide as many of your past associations as possible.\n\nAccount deletion on Wikipedia is done by changing your account name to make it so others cannot recognize your contributions in a process called account vanishing. **Vanishing does not guarantee complete anonymity or remove contributions to the projects**.";
 "vanish-account-warning-title" = "Warning";
-"variants-alert-continue-without-logging-in" = "Continue without logging in";
 "variants-alert-dismiss-button" = "No thanks";
 "variants-alert-preferences-button" = "Review your preferences";
 "watch" = "Watch";
@@ -1528,7 +1535,7 @@
 "year-in-review-personalized-location-title-format" = "Articles you read are closest to $1";
 "year-in-review-personalized-most-read-articles-title" = "Your top articles";
 "year-in-review-personalized-reading-subtitle-format" = "You read {{PLURAL:$1|$1 article|$1 articles}}. Wikipedia had $2 million articles available across over $3 active languages. You joined millions in expanding knowledge and exploring diverse topics.";
-"year-in-review-personalized-reading-subtitle-format-v3" = "This puts you in the top **PERCENT** of Wikipedia readers globally. The average person reads {{PLURAL:$1|$1 article|$1 articles}} a year.";
+"year-in-review-personalized-reading-subtitle-format-v3" = "We estimate that puts you in the top **PERCENT** of Wikipedia readers globally. The average person reads {{PLURAL:$1|$1 article|$1 articles}} a year.";
 "year-in-review-personalized-reading-title-format" = "You read {{PLURAL:$1|$1 article|$1 articles}}";
 "year-in-review-personalized-reading-title-v3-format" = "You spent {{PLURAL:$1|$1 minute|$1 minutes}} reading {{PLURAL:$2|$2 article|$2 articles}} in 2025";
 "year-in-review-personalized-saved-articles" = "Illustration of a puzzle piece wearing a hardhat with computer screens in the back.";

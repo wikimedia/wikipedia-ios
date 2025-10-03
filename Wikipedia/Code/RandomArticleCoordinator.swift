@@ -1,4 +1,5 @@
 import WMF
+import WMFData
 
 @MainActor
 final class RandomArticleCoordinator: Coordinator, ArticleTabCoordinating {
@@ -10,12 +11,12 @@ final class RandomArticleCoordinator: Coordinator, ArticleTabCoordinating {
     private let source: ArticleSource
     private let animated: Bool
     private let replaceLastViewControllerInNavStack: Bool
-    
+
     // Article Tabs Properties
     let tabConfig: ArticleTabConfig
     var tabIdentifier: UUID?
     var tabItemIdentifier: UUID?
-    
+
     init(navigationController: UINavigationController, articleURL: URL?, siteURL: URL?, dataStore: MWKDataStore, theme: Theme, source: ArticleSource, animated: Bool, tabConfig: ArticleTabConfig = .appendArticleAndAssignCurrentTab, replaceLastViewControllerInNavStack: Bool = false) {
         self.navigationController = navigationController
         self.articleURL = articleURL
@@ -43,6 +44,7 @@ final class RandomArticleCoordinator: Coordinator, ArticleTabCoordinating {
             }
             
             prepareToShowTabsOverview(articleViewController: vc, dataStore)
+
             trackArticleTab(articleViewController: vc)
             
             if replaceLastViewControllerInNavStack {

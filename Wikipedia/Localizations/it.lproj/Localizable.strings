@@ -698,6 +698,14 @@
 "panel-compare-revisions-title" = "Confronta versioni";
 "panel-not-logged-in-continue-edit-action-title" = "Modifica senza effettuare l'accesso";
 "panel-not-logged-in-title" = "Non hai effettuato l'accesso";
+"percentile-0.01" = "0,01";
+"percentile-1" = "1";
+"percentile-10" = "10";
+"percentile-20" = "20";
+"percentile-30" = "30";
+"percentile-40" = "40";
+"percentile-5" = "5";
+"percentile-50" = "50";
 "places-accessibility-clear-saved-searches" = "Cancella le ricerche salvate";
 "places-accessibility-group" = "$1 voci";
 "places-accessibility-show-as-list" = "Mostra come elenco";

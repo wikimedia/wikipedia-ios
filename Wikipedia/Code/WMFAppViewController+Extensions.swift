@@ -264,6 +264,7 @@ extension WMFAppViewController {
         let coordinator = RandomArticleCoordinator(navigationController: navVC, articleURL: nil, siteURL: siteURL, dataStore: dataStore, theme: theme, source: .undefined, animated: animated)
         coordinator.start()
     }
+
 }
 
 fileprivate extension UIViewController {

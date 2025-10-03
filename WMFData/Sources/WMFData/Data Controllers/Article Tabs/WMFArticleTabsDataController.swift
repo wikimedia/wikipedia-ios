@@ -10,7 +10,7 @@ public protocol WMFArticleTabsDataControlling {
     func appendArticle(_ article: WMFArticleTabsDataController.WMFArticle, toTabIdentifier identifier: UUID, needsCleanoutOfFutureArticles: Bool) async throws -> WMFArticleTabsDataController.Identifiers
     func setTabItemAsCurrent(tabIdentifier: UUID, tabItemIdentifier: UUID) async throws
     func setTabAsCurrent(tabIdentifier: UUID) async throws
-    func currentTabIdentifier() async throws -> UUID
+    func currentTabIdentifier() async throws -> UUID?
     func fetchAllArticleTabs() async throws -> [WMFArticleTabsDataController.WMFArticleTab]
 }
 
@@ -104,12 +104,12 @@ public protocol WMFArticleTabsDataControlling {
             return OnboardingStatus(hasPresentedOnboardingTooltips: false)
         }
     }
-    
+
     // MARK: - Properties
-    
+
     @objc(sharedInstance)
     public static let shared = WMFArticleTabsDataController()
-    
+
     private let userDefaultsStore = WMFDataEnvironment.current.userDefaultsStore
     private let developerSettingsDataController: WMFDeveloperSettingsDataControlling
     
@@ -149,7 +149,8 @@ public protocol WMFArticleTabsDataControlling {
     
     public init(coreDataStore: WMFCoreDataStore? = WMFDataEnvironment.current.coreDataStore,
                 developerSettingsDataController: WMFDeveloperSettingsDataControlling = WMFDeveloperSettingsDataController.shared,
-                experimentStore: WMFKeyValueStore? = WMFDataEnvironment.current.sharedCacheStore) {
+                experimentStore: WMFKeyValueStore? = WMFDataEnvironment.current.sharedCacheStore
+    ) {
         self._coreDataStore = coreDataStore
         self.developerSettingsDataController = developerSettingsDataController
         if let experimentStore {
@@ -426,12 +427,14 @@ public protocol WMFArticleTabsDataControlling {
             try self.deleteAllTabs(moc: moc)
         }
         
-        _ = try? await self.createArticleTab(initialArticle: nil, setAsCurrent: true)
+        if !needsMoreDynamicTabs {
+            _ = try? await self.createArticleTab(initialArticle: nil, setAsCurrent: true)
+        }
     }
     
     public var moreDynamicTabsGroupBEnabled: Bool {
         get {
-            return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsMoreDynamicTabsGroupB.rawValue)) ?? true
+            return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsMoreDynamicTabsGroupB.rawValue)) ?? false
         } set {
             try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsMoreDynamicTabsGroupB.rawValue, value: newValue)
         }
@@ -439,7 +442,7 @@ public protocol WMFArticleTabsDataControlling {
     
     public var moreDynamicTabsGroupCEnabled: Bool {
         get {
-            return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsMoreDynamicTabsGroupC.rawValue)) ?? true
+            return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsMoreDynamicTabsGroupC.rawValue)) ?? false
         } set {
             try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsMoreDynamicTabsGroupC.rawValue, value: newValue)
         }
@@ -656,38 +659,43 @@ public protocol WMFArticleTabsDataControlling {
     }
     
     public func updateSurveyDataTabsOverviewSeenCount() {
-        var seenCount: Int = (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.articleTabsOverviewOpenedCount.rawValue)) ?? 0
+        var seenCount: Int = (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.articleTabsOverviewOpenedCountBandC.rawValue)) ?? 0
         
         seenCount += 1
-        try? userDefaultsStore?.save(key: WMFUserDefaultsKey.articleTabsOverviewOpenedCount.rawValue, value: seenCount)
+        try? userDefaultsStore?.save(key: WMFUserDefaultsKey.articleTabsOverviewOpenedCountBandC.rawValue, value: seenCount)
     }
-    
+
     public func updateSurveyDataTappedLongPressFlag() {
         try? userDefaultsStore?.save(key: WMFUserDefaultsKey.articleTabsDidTapOpenInNewTab.rawValue, value: true)
     }
     
     public func shouldShowSurvey() -> Bool {
-        // Make sure it's before July 31, 2025
+        // Make sure it's before January 31, 2026 for B and C
         let now = Date()
         let calendar = Calendar.current
-        let deadlineComponents = DateComponents(year: 2025, month: 7, day: 31)
+        let deadlineComponents = DateComponents(year: 2026, month: 1, day: 31)
         
         guard let deadline = calendar.date(from: deadlineComponents),
               now <= deadline else {
             return false
         }
         
-        let seenCount: Int = (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.articleTabsOverviewOpenedCount.rawValue)) ?? 0
-        let didTapLongPress = (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.articleTabsDidTapOpenInNewTab.rawValue)) ?? false
-        let seenSurvey = (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.articleTabsDidShowSurvey.rawValue)) ?? false
+        var seenCount: Int = 0
+        if shouldShowMoreDynamicTabs {
+            seenCount = (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.articleTabsOverviewOpenedCountBandC.rawValue)) ?? 0
+        }
+        
+        let seenSurvey = (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.articleTabsDidShowSurveyBandC.rawValue)) ?? false
         
         if seenSurvey {
             return false
         }
         
-        if seenCount >= 3 && didTapLongPress {
-            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.articleTabsDidShowSurvey.rawValue, value: true)
-            return true
+        if shouldShowMoreDynamicTabs {
+            if seenCount >= 4 {
+                try? userDefaultsStore?.save(key: WMFUserDefaultsKey.articleTabsDidShowSurveyBandC.rawValue, value: true)
+                return true
+            }
         }
         
         return false
@@ -822,7 +830,7 @@ public protocol WMFArticleTabsDataControlling {
         try coreDataStore.saveIfNeeded(moc: moc)
     }
     
-    public func currentTabIdentifier() async throws -> UUID {
+    public func currentTabIdentifier() async throws -> UUID? {
         
         guard let coreDataStore else {
             throw WMFDataControllerError.coreDataStoreUnavailable
@@ -836,12 +844,7 @@ public protocol WMFArticleTabsDataControlling {
             return existingID
         }
 
-        guard shouldShowMoreDynamicTabs else {
-            throw CustomError.missingTab
-        }
-
-        let newTab = try await createArticleTab(initialArticle: nil, setAsCurrent: true)
-        return newTab.tabIdentifier
+        return nil
     }
 
         // MARK: - Helpers

@@ -13,6 +13,9 @@ protocol YearInReviewSlideDataControllerProtocol {
     
     /// Whether this data controller contains personalized network data (e.g. edit count, synced saved article count). If so, this data is cleared out upon logout in WMFYearInReviewDataController and will be fetched again the next time they log in.
     static var containsPersonalizedNetworkData: Bool { get }
+    
+    /// If true, populateYearInReviewReportData will always fetch and update this slide's data each time it is called. If false, populateYearInReviewReportData will skip this slide's data if it already exists in the report, essentially freezing it until the report is deleted.
+    static var shouldFreeze: Bool { get }
 
     /// Populate the slide’s data in the background context, using dependencies like saved data, page views, or edit stats.
     func populateSlideData(in context: NSManagedObjectContext) async throws

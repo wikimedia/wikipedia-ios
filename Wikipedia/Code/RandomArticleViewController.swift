@@ -1,4 +1,4 @@
-import Foundation
+import WMFData
 
 @objc(WMFRandomArticleViewController)
 class RandomArticleViewController: ArticleViewController {
