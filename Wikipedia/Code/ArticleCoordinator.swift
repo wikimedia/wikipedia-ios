@@ -193,7 +193,7 @@ final class ArticleCoordinator: NSObject, Coordinator, ArticleTabCoordinating {
         articleVC.isRestoringState = isRestoringState
         prepareToShowTabsOverview(articleViewController: articleVC, dataStore)
         trackArticleTab(articleViewController: articleVC)
- 
+
         switch tabConfig {
         case .adjacentArticleInTab:
             var viewControllers = navigationController.viewControllers

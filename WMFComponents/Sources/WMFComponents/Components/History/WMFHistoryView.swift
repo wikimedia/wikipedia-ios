@@ -56,10 +56,12 @@ public struct WMFHistoryView: View {
 
     private func rowView(for section: HistorySection, item: HistoryItem) -> some View {
         WMFPageRow(
+            needsLimitedFontSize: false,
             id: item.id,
             titleHtml: item.titleHtml,
             articleDescription: item.description,
             imageURLString: item.imageURLString,
+            titleLineLimit: 0,
             isSaved: item.isSaved,
             deleteAccessibilityLabel: viewModel.localizedStrings.deleteSwipeActionLabel,
             shareAccessibilityLabel: viewModel.localizedStrings.shareActionTitle,

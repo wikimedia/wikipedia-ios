@@ -140,6 +140,7 @@
 "article-revision-history" = "Историја чланка";
 "article-save-error-not-enough-space" = "Немате довољно простора на уређају да бисте сачували овај чланак";
 "article-share" = "Дели";
+"article-tabs-did-you-know-title" = "Да ли сте знали";
 "article-tabs-open" = "Отвори";
 "article-tabs-open-new-tab" = "Отвори у новој картици";
 "article-talk-page" = "Страница за разговор чланка";
@@ -216,6 +217,7 @@
 "developer-settings" = "Подешавања за програмере";
 "developer-settings-bypass-donation" = "Заобилажење донирања";
 "developer-settings-send-analytics-to-wmflabs" = "Пошаљи аналитику wmflabs-у.";
+"did-you-know" = "Да ли сте знали?";
 "diff-article-revision-history" = "Историја чланка";
 "diff-change-added" = "Додато, $1, додавање завршено.";
 "diff-change-removal" = "Уклоњено, $1, уклањање завршено.";
@@ -653,6 +655,7 @@
 "nearby-distance-label-meters" = "$1 м";
 "nearby-distance-label-miles" = "$1 миља";
 "new-article-tab-settings-did-you-know" = "Да ли сте знали?";
+"new-article-tab-settings-recommendations" = "Предлози";
 "new-password-instructions" = "Пријавили сте се са привременом лозинком. Да бисте завршили пријаву, овде поставите нову.";
 "new-password-title" = "Поставите лозинку";
 "new-tab" = "Нова картица";
@@ -1312,6 +1315,7 @@
 "year-in-review-donate" = "Донирај";
 "year-in-review-donate-now" = "Донирајте сада";
 "year-in-review-finish" = "Готово";
+"year-in-review-highlights-articles-saved" = "Сачувани чланци";
 "year-in-review-highlights-articles-viewed-value" = "$1 милијарда";
 "year-in-review-highlights-share-logo-caption" = "Логотип Википедије";
 "year-in-review-intro-exit-confirmation-title" = "Сигурно желите да изађете?";

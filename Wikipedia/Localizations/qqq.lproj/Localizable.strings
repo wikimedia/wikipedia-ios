@@ -230,8 +230,8 @@
 "developer-settings-activity-tab-group-B" = "Title for option to set activity tab experiment to group B";
 "developer-settings-activity-tab-group-C" = "Title for option to set activity tab experiment to group C";
 "developer-settings-bypass-donation" = "Title for option to bypass a donation in developer settings menu.";
-"developer-settings-dynamic-tabs-group-B" = "Title for option to enable tabs for Group B";
-"developer-settings-dynamic-tabs-group-C" = "Title for option to enable for Group C";
+"developer-settings-dynamic-tabs-group-B-v2" = "Title for option to enable tabs for Group B V2";
+"developer-settings-dynamic-tabs-group-C-v2" = "Title for option to enable for Group C V2";
 "developer-settings-enable-year-in-review" = "Title for enabling the Year in Review feature. Displayed on the developer settings view.";
 "developer-settings-send-analytics-to-wmflabs" = "Title for setting to send analytics to a different backend. Displayed on the developer settings view.";
 "developer-settings-suppress-image-rec-post" = "Title for setting to suppress image recommendations edit postsing. Displayed on the developer settings view.";
@@ -1203,6 +1203,7 @@
 "tabs-main-page-subtitle" = "Main page subtitle";
 "tabs-navbar-title-format" = "$1 is the amount of tabs. Navigation title for tabs, displaying how many open tabs.";
 "tabs-open-tab" = "Accessibility label for opening a tab";
+"tabs-overview-recommendations-title" = "title for section on tabs overview with article recommendations";
 "tabs-overview-tooltip-body" = "Description for tooltip explaining the tabs overview functionality";
 "tabs-overview-tooltip-title" = "Title for tooltip explaining the tabs overview functionality";
 "tabs-show-suggested-articles" = "Show suggested articles button title";

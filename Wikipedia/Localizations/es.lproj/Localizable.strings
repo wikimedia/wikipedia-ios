@@ -1269,6 +1269,7 @@
 "tabs-open-tab" = "Abrir pestaña";
 "tabs-overview-tooltip-body" = "Cambiar entre artículos abiertos en la descripción general de pestañas.";
 "tabs-overview-tooltip-title" = "Descripción general de las pestañas";
+// Fuzzy
 "tabs-survey-title" = "Ayuda a mejorar la función de pestañas. ¿Estás satisfecho con esta función?";
 // Fuzzy
 "tabs-thumbnail-description" = "Explora Wikipedia, la enciclopedia libre que cualquiera puede editar";
