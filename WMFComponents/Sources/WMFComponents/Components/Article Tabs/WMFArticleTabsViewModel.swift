@@ -12,7 +12,9 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
     // articleTab should NEVER be empty - take care of logic of inserting main page in datacontroller/viewcontroller
     @Published var articleTabs: [ArticleTab]
     @Published var shouldShowCloseButton: Bool
-    @Published var hasMultipleTabs: Bool = false
+    public var hasMultipleTabs: Bool {
+        return articleTabs.count >= 2
+    }
 
     @Published var didYouKnowViewModel: WMFTabsOverviewDidYouKnowViewModel?
     @Published var recommendedArticlesViewModel: WMFTabsOverviewRecommendationsViewModel?
@@ -138,7 +140,6 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
                     data: tab
                 )
             }
-            hasMultipleTabs = articleTabs.count >= 2
             await refreshCurrentTab()
             updateNavigationBarTitleAction?(articleTabs.count)
 
@@ -183,7 +184,6 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
         do {
             let tabUUID = try await dataController.currentTabIdentifier()
             currentTabID = tabUUID?.uuidString
-            hasMultipleTabs = articleTabs.count >= 2
         } catch {
             print("Not able to get tab UUID")
         }
