@@ -946,7 +946,7 @@
 	<key>year-in-review-personalized-reading-subtitle-format-v3</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Таким чином ви належите до **PERCENT** найактивніших читачів Вікіпедії у світі. Середньостатистична людина читає %#@v1@ на рік.</string>
+		<string>Ми підрахували, що ви належите до **PERCENT** найактивніших читачів Вікіпедії у світі. Середньостатистична людина читає %#@v1@ на рік.</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
