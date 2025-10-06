@@ -1208,7 +1208,6 @@
 "tabs-overview-tooltip-title" = "Title for tooltip explaining the tabs overview functionality";
 "tabs-show-suggested-articles" = "Show suggested articles button title";
 "tabs-suggested-articles-hide-suggestions-confirmation" = "Confirmation on hiding of the suggested articles in tabs.";
-"tabs-suggested-articles-show-suggestions-confirmation" = "Confirmation on showing of the suggested articles in tabs.";
 "tabs-survey-title" = "Title for article tabs survey";
 "tabs-thumbnail-description" = "New tab thumbanail description";
 "tabs-thumbnail-subtitle" = "New tab thumbanail subtitle";
