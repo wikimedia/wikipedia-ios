@@ -76,15 +76,11 @@ public struct WMFArticleTabsView: View {
 
     @ViewBuilder
     private var bottomSection: some View {
-        let hasMultipleTabs = viewModel.articleTabs.count >= 2
-        let eligibleForRecs = hasMultipleTabs
-        let eligibleForDYK  = !hasMultipleTabs
-
         let recReady = (viewModel.recommendedArticlesViewModel != nil)
         let dykReady = (viewModel.didYouKnowViewModel?.didYouKnowFact?.isEmpty == false)
 
-        let shouldShowRecs = viewModel.shouldShowTabsV2 && eligibleForRecs && recReady
-        let shouldShowDYK  = viewModel.shouldShowTabsV2 && eligibleForDYK  && dykReady
+        let shouldShowRecs = viewModel.shouldShowTabsV2 && viewModel.hasMultipleTabs
+        let shouldShowDYK  = viewModel.shouldShowTabsV2 && !viewModel.hasMultipleTabs
 
         if shouldShowRecs || shouldShowDYK {
             VStack(spacing: 0) {

@@ -12,6 +12,9 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
     // articleTab should NEVER be empty - take care of logic of inserting main page in datacontroller/viewcontroller
     @Published var articleTabs: [ArticleTab]
     @Published var shouldShowCloseButton: Bool
+    public var hasMultipleTabs: Bool {
+        return articleTabs.count >= 2
+    }
 
     @Published var didYouKnowViewModel: WMFTabsOverviewDidYouKnowViewModel?
     @Published var recommendedArticlesViewModel: WMFTabsOverviewRecommendationsViewModel?
@@ -144,7 +147,7 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
     func maybeStartSecondaryLoads() {
         let count = articleTabs.count
         
-        if count >= 2 {
+        if hasMultipleTabs {
             guard !startedRecs else { return }
             startedRecs = true
             Task { [weak self] in

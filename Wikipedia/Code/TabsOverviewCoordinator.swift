@@ -282,20 +282,30 @@ final class TabsOverviewCoordinator: NSObject, Coordinator {
     private func getRecentTabArticleURLs() async throws -> Set<URL> {
         let articleTabs = try await dataController.fetchAllArticleTabs()
         let limit = 5
+        let tabLimit = 2
 
         if articleTabs.isEmpty {
             return []
         }
+
         var urls: Set<URL> = Set<URL>()
-        urls.reserveCapacity(min(limit, articleTabs.count))
+        urls.reserveCapacity(limit)
 
-        let newestFirst = articleTabs.reversed()
+        let newestTabs = articleTabs.reversed().prefix(tabLimit)
 
-        for tab in newestFirst.prefix(limit) {
-            if let url = tab.articles.last?.articleURL {
-                urls.insert(url)
+        for tab in newestTabs {
+            for article in tab.articles.reversed() {
+                if urls.count < limit, let url = article.articleURL {
+                    urls.insert(url)
+                } else {
+                    break
+                }
+            }
+            if urls.count >= limit {
+                break
             }
         }
+
         return urls
     }
 
