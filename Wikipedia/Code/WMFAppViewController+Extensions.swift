@@ -1479,6 +1479,15 @@ extension WMFAppViewController: EditPreviewViewControllerLoggingDelegate {
 // MARK: - Tabs
 
  extension WMFAppViewController {
+     
+     @objc func assignMoreDynamicTabsV2ExperimentIfNeeded() {
+         do {
+             try WMFArticleTabsDataController.shared.assignExperimentV2IfNeeded()
+         } catch {
+             DDLogError("Failed to assign more dynamic tabs v2 experiment: \(error)")
+         }
+     }
+     
      @objc func checkAndCreateInitialArticleTab() {
         let dataController = WMFArticleTabsDataController.shared
          Task {
