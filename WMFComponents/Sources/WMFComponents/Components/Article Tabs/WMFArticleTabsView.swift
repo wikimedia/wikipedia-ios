@@ -46,7 +46,7 @@ public struct WMFArticleTabsView: View {
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .background(Color(theme.midBackground))
-                if viewModel.shouldShowTabsV2 {
+                if viewModel.shouldShowSuggestions {
                     bottomSection
                 }
             }

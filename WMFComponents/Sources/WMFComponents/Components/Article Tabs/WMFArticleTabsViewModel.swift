@@ -65,6 +65,7 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
         Task {
             await loadTabs()
         }
+        updateShouldShowSuggestions()
     }
     
     public func didTapCloseAllTabs() {
@@ -76,6 +77,17 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
                 await loadTabs()
             }
         }
+    }
+    
+    @Published public var shouldShowSuggestions: Bool = false
+    
+    private func updateShouldShowSuggestions() {
+        shouldShowSuggestions = dataController.shouldShowMoreDynamicTabsV2 &&
+        !dataController.userHasHiddenArticleSuggestionsTabs
+}
+    
+    public func refreshShouldShowSuggestionsFromDataController() {
+        updateShouldShowSuggestions()
     }
     
     public struct LocalizedStrings {

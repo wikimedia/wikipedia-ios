@@ -72,14 +72,6 @@ final class TabsOverviewCoordinator: NSObject, Coordinator {
                 image: WMFSFSymbolIcon.for(symbol: .checkmark),
                 dismissPreviousAlerts: true
             )
-        } else {
-            WMFAlertManager.sharedInstance.showBottomAlertWithMessage(
-                WMFLocalizedString("tabs-suggested-articles-show-suggestions-confirmation", value: "Suggestions are now visible", comment: "Confirmation on showing of the suggested articles in tabs."),
-                subtitle: nil,
-                buttonTitle: nil,
-                image: WMFSFSymbolIcon.for(symbol: .checkmark),
-                dismissPreviousAlerts: true
-            )
         }
     }
     
