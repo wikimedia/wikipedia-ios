@@ -44,7 +44,7 @@ public class WMFArticleTabsHostingController<HostedView: View>: WMFComponentHost
         
         configureNavigationBar()
         
-        if dataController.shouldShowMoreDynamicTabs {
+        if dataController.shouldShowMoreDynamicTabsV2 {
             navigationItem.rightBarButtonItems = [addTabButton, overflowButton]
         } else {
             navigationItem.rightBarButtonItem = addTabButton
@@ -105,7 +105,7 @@ public class WMFArticleTabsHostingController<HostedView: View>: WMFComponentHost
         })
         
         var children: [UIMenuElement]
-        if dataController.shouldShowMoreDynamicTabs {
+        if dataController.shouldShowMoreDynamicTabsV2 {
             if dataController.userHasHiddenArticleSuggestionsTabs {
                 children = [showArticleSuggestions, closeAllTabs]
             } else {

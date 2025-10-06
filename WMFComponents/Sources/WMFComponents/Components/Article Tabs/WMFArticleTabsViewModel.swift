@@ -53,7 +53,7 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
         self.loggingDelegate = loggingDelegate
         self.articleTabs = []
         self.shouldShowCloseButton = false
-        self.shouldShowCurrentTabBorder = dataController.shouldShowMoreDynamicTabs
+        self.shouldShowCurrentTabBorder = dataController.shouldShowMoreDynamicTabsV2
         self.didTapTab = didTapTab
         self.didTapAddTab = didTapAddTab
         self.didTapShareTab = didTapShareTab
@@ -80,7 +80,7 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
     @Published public var shouldShowSuggestions: Bool = false
     
     private func updateShouldShowSuggestions() {
-        shouldShowSuggestions = dataController.shouldShowMoreDynamicTabs &&
+        shouldShowSuggestions = dataController.shouldShowMoreDynamicTabsV2 &&
         !dataController.userHasHiddenArticleSuggestionsTabs
 }
     
@@ -142,7 +142,7 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
             await refreshCurrentTab()
             updateNavigationBarTitleAction?(articleTabs.count)
 
-            if dataController.shouldShowMoreDynamicTabs {
+            if dataController.shouldShowMoreDynamicTabsV2 {
                 shouldShowCloseButton = true
             } else {
                 shouldShowCloseButton = articleTabs.count > 1
@@ -267,7 +267,7 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
                 Task { @MainActor [weak self]  in
                     guard let self else { return }
                     articleTabs.removeAll { $0 == tab }
-                    if dataController.shouldShowMoreDynamicTabs {
+                    if dataController.shouldShowMoreDynamicTabsV2 {
                         shouldShowCloseButton = true
                     } else {
                         shouldShowCloseButton = articleTabs.count > 1
@@ -283,7 +283,7 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
     }
 
     var shouldShowTabsV2: Bool {
-        return dataController.shouldShowMoreDynamicTabs
+        return dataController.shouldShowMoreDynamicTabsV2
     }
 
     // MARK: - Populate article summary

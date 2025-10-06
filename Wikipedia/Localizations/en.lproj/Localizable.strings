@@ -230,8 +230,8 @@
 "developer-settings-activity-tab-group-B" = "Set activity tab to group B";
 "developer-settings-activity-tab-group-C" = "Set activity tab to group C";
 "developer-settings-bypass-donation" = "Bypass Donation";
-"developer-settings-dynamic-tabs-group-B" = "Enable tabs with group B";
-"developer-settings-dynamic-tabs-group-C" = "Enable tabs with group C";
+"developer-settings-dynamic-tabs-group-B-v2" = "Enable tabs V2 with group B";
+"developer-settings-dynamic-tabs-group-C-v2" = "Enable tabs V2 with group C";
 "developer-settings-enable-year-in-review" = "Enable Year in Review";
 "developer-settings-send-analytics-to-wmflabs" = "Send analytics to wmflabs.";
 "developer-settings-suppress-image-rec-post" = "Do not post image recommendations edit.";
