@@ -26,7 +26,7 @@ struct WMFPageRow: View {
     let saveOrUnsaveItemAction: (() -> Void)?
     let loadImageAction: (String?) async -> UIImage?
 
-    public init(appEnvironment: WMFAppEnvironment = WMFAppEnvironment.current, needsLimitedFontSize: Bool, id: String, titleHtml: String, articleDescription: String?, imageURLString: String?, titleLineLimit: Int, isSaved: Bool = false, deleteAccessibilityLabel: String? = nil, shareAccessibilityLabel: String? = nil, saveAccessibilityLabel: String? = nil, unsaveAccessibilityLabel: String? = nil, showsSwipeActions: Bool, deleteItemAction: (() -> Void)? = nil, shareItemAction: ((CGRect?) -> Void)? = nil, saveOrUnsaveItemAction: (() -> Void)? = nil, loadImageAction: @escaping (String?) async -> UIImage?, uiImage: UIImage? = nil) {
+    init(appEnvironment: WMFAppEnvironment = WMFAppEnvironment.current, needsLimitedFontSize: Bool, id: String, titleHtml: String, articleDescription: String?, imageURLString: String?, titleLineLimit: Int, isSaved: Bool = false, deleteAccessibilityLabel: String? = nil, shareAccessibilityLabel: String? = nil, saveAccessibilityLabel: String? = nil, unsaveAccessibilityLabel: String? = nil, showsSwipeActions: Bool, deleteItemAction: (() -> Void)? = nil, shareItemAction: ((CGRect?) -> Void)? = nil, saveOrUnsaveItemAction: (() -> Void)? = nil, loadImageAction: @escaping (String?) async -> UIImage?, uiImage: UIImage? = nil) {
         self.appEnvironment = appEnvironment
         self.needsLimitedFontSize = needsLimitedFontSize
         self.id = id
