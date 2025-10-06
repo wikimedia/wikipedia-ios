@@ -1,5 +1,6 @@
 // Messages for Azerbaijani (azərbaycanca)
 // Exported from translatewiki.net
+// Author: Gadir
 // Author: HNordeen (WMF)
 // Author: Hüseynzadə
 // Author: JorgeElias2302
@@ -982,7 +983,7 @@
 "profile-page-logged-out-year-in-review-subtext" = "Gələn il illik statistika əldə etmək üçün daxil olun və ya hesab yaradın";
 "profile-year-in-review-login-subtitle" = "İlin İcmalına baxmaq və daha çox fərdiləşdirilmiş məlumatlar əldə etmək üçün daxil olun və ya hesab yaradın.";
 "profile-year-in-review-login-title" = "İlin İcmalına baxa bilmək üçün daxil olun";
-"project-name-mediawiki" = "MediaViki";
+"project-name-mediawiki" = "MediaWiki";
 "project-name-wikibooks" = "Vikikitab";
 "project-name-wikidata" = "Vikidata";
 "project-name-wikimedia-commons" = "Vikianbar";
@@ -1209,6 +1210,7 @@
 "tabs-open-tab" = "Vərəqəni aç";
 "tabs-overview-tooltip-body" = "Vərəqələrin icmalında açıq məqalələr arasında keçid edin.";
 "tabs-overview-tooltip-title" = "Vərəqələrin icmalı";
+// Fuzzy
 "tabs-survey-title" = "Vərəqələr funksiyasını təkmilləşdirməyə kömək edin. Bu funksiyadan məmnunsunuz?";
 "tabs-thumbnail-description" = "Hər kəsin redaktə edə biləcəyi azad ensiklopediya olan Vikipediya ilə tanış olun";
 "tabs-thumbnail-subtitle" = "Axtarışınıza buradan başlayın";

@@ -920,6 +920,14 @@
 "panel-not-logged-in-continue-edit-action-title" = "Редактировать без входа в систему";
 "panel-not-logged-in-subtitle" = "Если вы внесёте какие-либо правки, ваш IP-адрес будет общедоступно виден. Если вы $1войдёте в систему$2 или $3создадите учётную запись$4, ваши правки будут связаны с вашим именем пользователя, а также с другими преимуществами учётной записи.";
 "panel-not-logged-in-title" = "Вы не вошли в систему";
+"percentile-0.01" = "0,01";
+"percentile-1" = "1";
+"percentile-10" = "10";
+"percentile-20" = "20";
+"percentile-30" = "30";
+"percentile-40" = "40";
+"percentile-5" = "5";
+"percentile-50" = "50";
 "pictured" = "иллюстрировано";
 "places-accessibility-clear-saved-searches" = "Очистить сохранённые поисковые запросы";
 "places-accessibility-group" = "$1 статьи";

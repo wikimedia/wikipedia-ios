@@ -255,7 +255,7 @@
 "developer-settings-bypass-donation" = "기부 건너뛰기";
 "developer-settings-send-analytics-to-wmflabs" = "wmflabs에 분석을 보냅니다.";
 "developer-settings-suppress-image-rec-post" = "이미지 제안 편집을 게시하지 않습니다.";
-"did-you-know" = "알고 계십니까";
+"did-you-know" = "알고 계십니까?";
 "diff-article-revision-history" = "문서 편집 역사";
 "diff-change-added" = "추가, $1, 추가 끝.";
 "diff-change-paragraph-moved" = "문단이 이동되었습니다. 이전 위치로 이동합니다.";
@@ -721,14 +721,10 @@
 "main-menu-title" = "더 보기";
 "main-menu-zero-faq" = "위키백과 제로 FAQ";
 "main-page" = "대문";
-// Fuzzy
-"microsite-yir-english-edits-bytes-slide-title" = "40억 바이트 추가됨";
-// Fuzzy
-"microsite-yir-english-edits-slide-title" = "편집자들은 올해 9,800만 건의 변경을 수행했습니다";
-// Fuzzy
-"microsite-yir-english-reading-slide-title" = "읽기에 29억 시간이 할애됐습니다";
-// Fuzzy
-"microsite-yir-english-saved-reading-slide-title" = "6,220만 개가 넘는 읽기 목록이 있습니다";
+"microsite-yir-english-edits-bytes-slide-title" = "34억 바이트 추가됨";
+"microsite-yir-english-edits-slide-title" = "편집자들은 올해 8,200만 건의 변경을 수행했습니다";
+"microsite-yir-english-reading-slide-title" = "읽기에 24억 시간이 할애됐습니다";
+"microsite-yir-english-saved-reading-slide-title" = "3,700만 개가 넘는 읽기 목록이 있습니다";
 "microsite-yir-english-top-read-slide-title" = "영어 위키백과의 가장 인기 있는 문서";
 "more-languages-tooltip-description" = "300개 이상의 언어에서 위키백과 검색";
 "more-languages-tooltip-title" = "언어 추가";
@@ -1107,8 +1103,7 @@
 "serbian-variants-alert-body" = "이제 위키백과 앱에서 아래의 세르비아어 변이형을 주 언어나 보조 언어로 설정할 수 있으며, 이를 통해 선호하는 변이형으로 문서의 열람, 검색, 편집 작업을 쉽게 할 수 있습니다.\n\nсрпски ћирилица 세르비아어 키릴 (sr-ec)\nsrpski latinica 세르비아어 라틴 (sr-el)";
 "serbian-variants-alert-title" = "세르비아어 변이형 지원 업데이트";
 "settings-account" = "계정";
-// Fuzzy
-"settings-appearance" = "읽기 환경 설정";
+"settings-appearance" = "앱 테마";
 "settings-clear-cache" = "캐시된 데이터 지우기";
 "settings-clear-cache-are-you-sure-message" = "캐시된 데이터를 지우면 약 $1의 공간을 확보할 것입니다. 당신이 저장한 문서를 삭제하지는 않습니다.";
 "settings-clear-cache-are-you-sure-title" = "캐시된 데이터를 지우시겠습니까?";

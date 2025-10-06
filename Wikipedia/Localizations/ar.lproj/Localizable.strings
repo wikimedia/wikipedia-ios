@@ -288,7 +288,7 @@
 "developer-settings-enable-year-in-review" = "تمكين مراجعة العام";
 "developer-settings-send-analytics-to-wmflabs" = "إرسال التحليلات إلى wmflabs.";
 "developer-settings-suppress-image-rec-post" = "لا تنشر توصيات الصور.";
-"did-you-know" = "هل تعلم";
+"did-you-know" = "هل تعلم؟";
 "diff-article-revision-history" = "تاريخ مراجعة المقال";
 "diff-change-added" = "إضافة $1 ، نهاية الإضافة.";
 "diff-change-paragraph-lines-moved-down" = "تم نقل الفقرة إلى الأسفل {{PLURAL:$1|0=0 سطر|$1 سطر}}. انتقل إلى الموقع الجديد.";
@@ -969,6 +969,14 @@
 "panel-not-logged-in-continue-edit-action-title" = "تحرير دون تسجيل الدخول";
 "panel-not-logged-in-subtitle" = "سيكون عنوان IP الخاص بك مرئيًا بشكل عام إذا أجريت أي تعديلات. إذا قمت بتسجيل الدخول $1 $2 أو $3 لإنشاء حساب $4 ، فسوف تُنسب تعديلاتك إلى اسم المستخدم الخاص بك ، إلى جانب المزايا الأخرى.";
 "panel-not-logged-in-title" = "لم تسجل الدخول.";
+"percentile-0.01" = "0.01";
+"percentile-1" = "1";
+"percentile-10" = "10";
+"percentile-20" = "20";
+"percentile-30" = "30";
+"percentile-40" = "40";
+"percentile-5" = "5";
+"percentile-50" = "50";
 "pictured" = "مصوّر";
 "places-accessibility-clear-saved-searches" = "مسح عمليات البحث المحفوظة";
 "places-accessibility-group" = "$1 مقالات";
@@ -1243,12 +1251,17 @@
 "tabs-close-tab" = "إغلاق علامة التبويب";
 "tabs-empty-view-subtitle" = "اضغط على \"+\" لإضافة علامات تبويب إلى هذه المساحة أو اضغط مطولاً على رابط مقال لفتحه في علامة تبويب جديدة.";
 "tabs-empty-view-title" = "ستظهر علامات التبويب الخاصة بك هنا";
+"tabs-hide-suggested-articles" = "إخفاء اقتراحات المقالة";
 "tabs-main-page-description" = "اكتشف المقالات المميزة، وأحدث الأخبار، والحقائق المثيرة للاهتمام، والإحصائيات الرئيسية على الصفحة الرئيسية لويكيبيديا.";
 "tabs-main-page-subtitle" = "أبرز أحداث ويكيبيديا اليومية";
 "tabs-navbar-title-format" = "{{PLURAL:$1|$1 لسان|$1 ألسنة}}";
 "tabs-open-tab" = "فتح علامة التبويب";
 "tabs-overview-tooltip-body" = "التبديل بين المقالات المفتوحة في النظرة العامة على علامات التبويب.";
 "tabs-overview-tooltip-title" = "نظرة عامة على علامات التبويب";
+"tabs-show-suggested-articles" = "عرض اقتراحات المقالة";
+"tabs-suggested-articles-hide-suggestions-confirmation" = "الاقتراحات مخفية الآن";
+"tabs-suggested-articles-show-suggestions-confirmation" = "الاقتراحات أصبحت مرئية الآن";
+// Fuzzy
 "tabs-survey-title" = "ساعد في تحسين ميزة علامات التبويب. هل أنت راضٍ عن هذه الميزة؟";
 "tabs-thumbnail-description" = "استكشف ويكيبيديا، الموسوعة الحرة التي يمكن لأي شخص تعديلها";
 "tabs-thumbnail-subtitle" = "ابدأ بحثك هنا";
@@ -1578,8 +1591,7 @@
 "year-in-review-personalized-location-title-format" = "المقالات التي تقرأها هي الأقرب إلى $1";
 "year-in-review-personalized-most-read-articles-title" = "أفضل مقالاتك";
 "year-in-review-personalized-reading-subtitle-format" = "لقد قرأت {{PLURAL:$1|$1 مقال|$1 مقالة}}. تحتوي ويكيبيديا على $2 مليون مقالة متاحة بأكثر من $3 لغات نشطة. لقد انضممت إلى ملايين الأشخاص في توسيع المعرفة واستكشاف مواضيع متنوعة.";
-// Fuzzy
-"year-in-review-personalized-reading-subtitle-format-v3" = "هذا يضعك ضمن أعلى **PERCENT** قراء ويكيبيديا عالميًا. يقرأ الشخص العادي {{PLURAL:$1|$1 مقالة|$1 مقالات}} سنويا.";
+"year-in-review-personalized-reading-subtitle-format-v3" = "نُقدّر أن هذا يضعك ضمن أعلى **نسبة** قراء ويكيبيديا عالميًا. يقرأ الشخص العادي {{PLURAL:$1| $1 مقالة| $1 مقالات}} سنويًا.";
 "year-in-review-personalized-reading-title-format" = "لقد قرأت {{PLURAL:$1|$1 مقال|$1 مقالة}}";
 "year-in-review-personalized-reading-title-v3-format" = "لقد قضيت {{PLURAL:$1|$1 دقيقة|$1 دقائق}} في قراءة {{PLURAL:$2|$2 مقالة|$2 مقالات}} في عام 2025";
 "year-in-review-personalized-saved-articles" = "رسم توضيحي لقطعة من اللغز ترتدي خوذة صلبة مع شاشات كمبيوتر في الخلف.";

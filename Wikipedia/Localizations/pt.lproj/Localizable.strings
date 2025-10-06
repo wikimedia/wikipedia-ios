@@ -195,6 +195,7 @@
 "description-welcome-descriptions-title" = "Descrições de artigos";
 "description-welcome-promise-title" = "Ao começar, prometo não utilizar de forma irresponsável esta funcionalidade";
 "description-welcome-start-editing-button" = "Começar a editar";
+// Fuzzy
 "did-you-know" = "Sabia que";
 "diff-article-revision-history" = "Historial de revisões do artigo";
 "diff-compare-header-from-info-heading" = "Edição anterior";

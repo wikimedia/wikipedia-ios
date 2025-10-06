@@ -1009,6 +1009,7 @@
 "tabs-navbar-title-format" = "{{PLURAL:$1|$1 タブ}}";
 "tabs-overview-tooltip-body" = "タブの概要で、開いている記事を切り替えます。";
 "tabs-overview-tooltip-title" = "タブの概要";
+// Fuzzy
 "tabs-survey-title" = "タブ機能の改善にご協力ください。この機能に満足していますか？";
 "talk-page-add-topic-button" = "トピックを追加";
 "talk-page-archives" = "アーカイブ";
