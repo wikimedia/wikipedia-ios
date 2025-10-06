@@ -18,8 +18,15 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         return try? WMFYearInReviewDataController()
     }
 
-    private var _tabsCoordinator: TabsOverviewCoordinator?
-    
+    private lazy var tabsCoordinator: TabsOverviewCoordinator? = { [weak self] in
+        guard let self, let nav = self.navigationController else { return nil }
+        return TabsOverviewCoordinator(
+            navigationController: nav,
+            theme: self.theme,
+            dataStore: self.dataStore
+        )
+    }()
+
     // Coordinator
     private var _profileCoordinator: ProfileCoordinator?
     private var profileCoordinator: ProfileCoordinator? {
@@ -121,7 +128,6 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         isGranularUpdatingEnabled = true
         restoreScrollPositionIfNeeded()
         configureNavigationBar()
-        makeTabsCoordinatorIfNeeded()
     }
 
     override func viewWillTransition(to size: CGSize, with coordinator: any UIViewControllerTransitionCoordinator) {
@@ -227,20 +233,9 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     }
     
     @objc func userDidTapTabs() {
-        guard let coordinator = makeTabsCoordinatorIfNeeded() else { return }
-        coordinator.start()
+        tabsCoordinator?.start()
         ArticleTabsFunnel.shared.logIconClick(interface: .feed, project: nil)
     }
-
-    @discardableResult
-    private func makeTabsCoordinatorIfNeeded() -> TabsOverviewCoordinator? {
-        if let existing = _tabsCoordinator { return existing }
-        guard let nav = navigationController, let dataStore else { return nil }
-        let created = TabsOverviewCoordinator(navigationController: nav, theme: theme, dataStore: dataStore)
-        _tabsCoordinator = created
-        return created
-    }
-
 
     @objc func scrollToTop() {
         navigationController?.setNavigationBarHidden(false, animated: true)

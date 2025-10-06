@@ -12,11 +12,20 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
     // articleTab should NEVER be empty - take care of logic of inserting main page in datacontroller/viewcontroller
     @Published var articleTabs: [ArticleTab]
     @Published var shouldShowCloseButton: Bool
-    let shouldShowCurrentTabBorder: Bool
+
+    @Published var didYouKnowViewModel: WMFTabsOverviewDidYouKnowViewModel?
+    @Published var recommendedArticlesViewModel: WMFTabsOverviewRecommendationsViewModel?
+
+    @Published public var loadDidYouKnowViewModel: (@MainActor () async -> WMFTabsOverviewDidYouKnowViewModel?)?
+    @Published public var loadRecommendationsViewModel: (@MainActor () async -> WMFTabsOverviewRecommendationsViewModel?)?
+
+    // Flags to prevent the loading tasks run more than once, since we call them in two spots
+    @MainActor private var startedDYK = false
+    @MainActor private var startedRecs = false
+
     @Published var currentTabID: String?
 
-    var didYouKnowViewModel: WMFTabsOverviewDidYouKnowViewModel?
-
+    let shouldShowCurrentTabBorder: Bool
 
     private(set) weak var loggingDelegate: WMFArticleTabsLoggingDelegate?
     private let dataController: WMFArticleTabsDataController
@@ -27,13 +36,12 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
     public let didTapShareTab: (WMFArticleTabsDataController.WMFArticleTab, CGRect?) -> Void
     public let displayDeleteAllTabsToast: (Int) -> Void
     public let didToggleSuggestedArticles: () -> Void
-    
+
     public let localizedStrings: LocalizedStrings
     
     public init(dataController: WMFArticleTabsDataController,
                 localizedStrings: LocalizedStrings,
                 loggingDelegate: WMFArticleTabsLoggingDelegate?,
-                didYouKnowViewModel: WMFTabsOverviewDidYouKnowViewModel?,
                 didTapTab: @escaping (WMFArticleTabsDataController.WMFArticleTab) -> Void,
                 didTapAddTab: @escaping () -> Void,
                 didTapShareTab: @escaping (WMFArticleTabsDataController.WMFArticleTab, CGRect?) -> Void,
@@ -46,7 +54,6 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
         self.shouldShowCloseButton = false
         self.shouldShowCurrentTabBorder = dataController.shouldShowMoreDynamicTabsV2
         self.didTapTab = didTapTab
-        self.didYouKnowViewModel = didYouKnowViewModel
         self.didTapAddTab = didTapAddTab
         self.didTapShareTab = didTapShareTab
         self.displayDeleteAllTabsToast = displayDeleteAllTabsToast
@@ -133,6 +140,28 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
         }
     }
 
+    @MainActor
+    func maybeStartSecondaryLoads() {
+        let count = articleTabs.count
+        
+        if count >= 2 {
+            guard !startedRecs else { return }
+            startedRecs = true
+            Task { [weak self] in
+                guard let self, let loader = self.loadRecommendationsViewModel,
+                      self.recommendedArticlesViewModel == nil else { return }
+                self.recommendedArticlesViewModel = await loader()
+            }
+        } else {
+            guard !startedDYK else { return }
+            startedDYK = true
+            Task { [weak self] in
+                guard let self, let loader = self.loadDidYouKnowViewModel,
+                      self.didYouKnowViewModel == nil else { return }
+                self.didYouKnowViewModel = await loader()
+            }
+        }
+    }
     // MARK: - Public funcs
     
     @MainActor

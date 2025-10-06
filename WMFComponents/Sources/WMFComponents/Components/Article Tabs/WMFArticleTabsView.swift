@@ -46,25 +46,8 @@ public struct WMFArticleTabsView: View {
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .background(Color(theme.midBackground))
-
-                Group {
-
-                    if let didYouKnowViewModel = viewModel.didYouKnowViewModel,
-                       didYouKnowViewModel.didYouKnowFact?.isEmpty == false,
-                       viewModel.shouldShowTabsV2 {
-                        VStack(spacing: 0) {
-                            Rectangle()
-                                .fill(Color(theme.secondaryText).opacity(0.5))
-                                .frame(height: 1 / UIScreen.main.scale)
-                                .frame(maxWidth: .infinity)
-                            WMFTabsOverviewDidYouKnowView(
-                                viewModel: didYouKnowViewModel,
-                                linkDelegate: dykLinkDelegate
-                            )
-                            .frame(maxHeight: viewHeight)
-                            .clipped()
-                        }
-                    }
+                if viewModel.shouldShowTabsV2 {
+                    bottomSection
                 }
             }
         }
@@ -80,9 +63,55 @@ public struct WMFArticleTabsView: View {
 
                 await MainActor.run { isReady = true }
             }
+            viewModel.maybeStartSecondaryLoads()
         }
         .background(Color(theme.midBackground))
         .toolbarBackground(Color(theme.midBackground), for: .automatic)
+        .onAppear {
+            viewModel.maybeStartSecondaryLoads()
+        }
+    }
+
+    // MARK: - Bottom Section
+
+    @ViewBuilder
+    private var bottomSection: some View {
+        let hasMultipleTabs = viewModel.articleTabs.count >= 2
+        let eligibleForRecs = hasMultipleTabs
+        let eligibleForDYK  = !hasMultipleTabs
+
+        let recReady = (viewModel.recommendedArticlesViewModel != nil)
+        let dykReady = (viewModel.didYouKnowViewModel?.didYouKnowFact?.isEmpty == false)
+
+        let shouldShowRecs = viewModel.shouldShowTabsV2 && eligibleForRecs && recReady
+        let shouldShowDYK  = viewModel.shouldShowTabsV2 && eligibleForDYK  && dykReady
+
+        if shouldShowRecs || shouldShowDYK {
+            VStack(spacing: 0) {
+                Rectangle()
+                    .fill(Color(theme.secondaryText).opacity(0.5))
+                    .frame(height: 1 / UIScreen.main.scale)
+                    .frame(maxWidth: .infinity)
+
+                if shouldShowRecs, let recVM = viewModel.recommendedArticlesViewModel {
+                    WMFTabsOverviewRecommendationsView(viewModel: recVM)
+                        .frame(maxHeight: viewHeight)
+                        .clipped()
+                        .transition(.move(edge: .bottom).combined(with: .opacity))
+                } else if shouldShowDYK, let dykVM = viewModel.didYouKnowViewModel {
+                    WMFTabsOverviewDidYouKnowView(
+                        viewModel: dykVM,
+                        linkDelegate: dykLinkDelegate
+                    )
+                    .frame(maxHeight: viewHeight)
+                    .clipped()
+                    .transition(.move(edge: .bottom).combined(with: .opacity))
+                }
+            }
+            .frame(maxWidth: .infinity)
+            .background(Color(theme.midBackground))
+            .animation(.default, value: shouldShowRecs || shouldShowDYK)
+        }
     }
 
     // MARK: - Loading / Empty
@@ -128,6 +157,9 @@ public struct WMFArticleTabsView: View {
                     ForEach(viewModel.articleTabs.sorted(by: { $0.dateCreated < $1.dateCreated }), id: \.id) { tab in
                         WMFArticleTabsViewContent(viewModel: viewModel, tab: tab)
                             .id(tab.id)
+                            .onAppear {
+                                Task { await viewModel.ensureInfo(for: tab) }
+                            }
                             .accessibilityActions {
                                 accessibilityAction(named: viewModel.localizedStrings.openTabAccessibility) {
                                     viewModel.didTapTab(tab.data)

@@ -9,10 +9,12 @@ struct WMFPageRow: View {
         return appEnvironment.theme
     }
 
+    let needsLimitedFontSize: Bool
     let id: String
     let titleHtml: String
     let articleDescription: String?
     let imageURLString: String?
+    let titleLineLimit: Int
     let isSaved: Bool
     let deleteAccessibilityLabel: String?
     let shareAccessibilityLabel: String?
@@ -24,24 +26,37 @@ struct WMFPageRow: View {
     let saveOrUnsaveItemAction: (() -> Void)?
     let loadImageAction: (String?) async -> UIImage?
 
+    public init(appEnvironment: WMFAppEnvironment = WMFAppEnvironment.current, needsLimitedFontSize: Bool, id: String, titleHtml: String, articleDescription: String?, imageURLString: String?, titleLineLimit: Int, isSaved: Bool = false, deleteAccessibilityLabel: String? = nil, shareAccessibilityLabel: String? = nil, saveAccessibilityLabel: String? = nil, unsaveAccessibilityLabel: String? = nil, showsSwipeActions: Bool, deleteItemAction: (() -> Void)? = nil, shareItemAction: ((CGRect?) -> Void)? = nil, saveOrUnsaveItemAction: (() -> Void)? = nil, loadImageAction: @escaping (String?) async -> UIImage?, uiImage: UIImage? = nil) {
+        self.appEnvironment = appEnvironment
+        self.needsLimitedFontSize = needsLimitedFontSize
+        self.id = id
+        self.titleHtml = titleHtml
+        self.articleDescription = articleDescription
+        self.imageURLString = imageURLString
+        self.titleLineLimit = titleLineLimit
+        self.isSaved = isSaved
+        self.deleteAccessibilityLabel = deleteAccessibilityLabel
+        self.shareAccessibilityLabel = shareAccessibilityLabel
+        self.saveAccessibilityLabel = saveAccessibilityLabel
+        self.unsaveAccessibilityLabel = unsaveAccessibilityLabel
+        self.showsSwipeActions = showsSwipeActions
+        self.deleteItemAction = deleteItemAction
+        self.shareItemAction = shareItemAction
+        self.saveOrUnsaveItemAction = saveOrUnsaveItemAction
+        self.loadImageAction = loadImageAction
+        self.uiImage = uiImage
+    }
+
     @State private var globalFrame: CGRect = .zero
     @State private var uiImage: UIImage?
 
     var rowContent: some View {
         HStack(spacing: 4) {
-            VStack(alignment: .leading, spacing: 4) {
-                Text(titleHtml)
-                    .font(Font(WMFFont.for(.callout)))
-                    .foregroundColor(Color(theme.text))
-
-                if let description = articleDescription {
-                    Text(description)
-                        .font(Font(WMFFont.for(.subheadline)))
-                        .foregroundColor(Color(theme.secondaryText))
-                        .lineLimit(1)
-                }
+            if needsLimitedFontSize {
+                textViewLimitedFontSize
+            } else {
+                regularTextView
             }
-
             Spacer()
             if let uiImage {
                 Image(uiImage: uiImage)
@@ -69,7 +84,41 @@ struct WMFPageRow: View {
             if let imageURLString {
                 self.uiImage = await loadImageAction(imageURLString)
             }
-            
+
+        }
+    }
+
+    @ViewBuilder
+    var textViewLimitedFontSize: some View {
+        VStack(alignment: .leading, spacing: 4) {
+            Text(titleHtml)
+                .font(WMFSwiftUIFont.font(.callout))
+                .foregroundColor(Color(theme.text))
+                .lineLimit(titleLineLimit)
+                .dynamicTypeSize(...DynamicTypeSize.xxxLarge)
+            if let description = articleDescription {
+                Text(description)
+                    .font(WMFSwiftUIFont.font(.subheadline))
+                    .foregroundColor(Color(theme.secondaryText))
+                    .dynamicTypeSize(...DynamicTypeSize.xxxLarge)
+                    .lineLimit(1)
+            }
+        }
+    }
+
+    @ViewBuilder
+    var regularTextView: some View {
+        VStack(alignment: .leading, spacing: 4) {
+            Text(titleHtml)
+                .font(WMFSwiftUIFont.font(.callout))
+                .foregroundColor(Color(theme.text))
+                .lineLimit(titleLineLimit)
+            if let description = articleDescription {
+                Text(description)
+                    .font(WMFSwiftUIFont.font(.subheadline))
+                    .foregroundColor(Color(theme.secondaryText))
+                    .lineLimit(1)
+            }
         }
     }
 
