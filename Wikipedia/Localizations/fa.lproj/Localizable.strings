@@ -219,6 +219,7 @@
 "developer-settings-enable-year-in-review" = "فعال‌سازی سال در یک نگاه";
 "developer-settings-send-analytics-to-wmflabs" = "ارسال تحلیل‌ها به wmflabs.";
 "developer-settings-suppress-image-rec-post" = "ویرایش پیشنهادهای تصویر را ارسال نکن.";
+// Fuzzy
 "did-you-know" = "آیا می‌دانستید";
 "diff-article-revision-history" = "تاریخچهٔ نسخه‌های مقاله";
 "diff-change-added" = "اضافه، $1، پایان اضافه.";
