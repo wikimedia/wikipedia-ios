@@ -12,6 +12,7 @@ import WMF
         case iconClick = "icon_click"
         case newTabClick = "new_tab_click"
         case newTabClickBackground = "new_tab_click_background"
+        case launch = "launch"
     }
 
     public enum ActiveInterface: String {
@@ -109,7 +110,7 @@ import WMF
     }
 
     func logGroupAssignment(group: String) {
-        logEvent(activeInterface: nil, action: .impression, actionData: ["group": group], project: nil)
+        logEvent(activeInterface: nil, action: .launch, actionData: ["group": group], project: nil)
     }
 
     func logAddNewBlankTab() {
