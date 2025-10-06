@@ -481,6 +481,8 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
             }
         }
         isFirstAppearance = false
+        
+        ArticleTabsFunnel.shared.logIconImpression(interface: .article, project: nil)
     }
     
     @objc func userDidTapProfile() {

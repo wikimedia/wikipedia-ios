@@ -106,7 +106,7 @@ import WMF
     }
 
     func logIconClick(interface: ArticleTabsFunnel.ActiveInterface, project: WikimediaProject?) {
-        logEvent(activeInterface: interface, action: .articleClick, project: project)
+        logEvent(activeInterface: interface, action: .iconClick, project: project)
     }
 
     func logGroupAssignment(group: String) {
