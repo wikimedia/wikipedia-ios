@@ -79,6 +79,7 @@
 "continue-reading-empty-title" = "அண்மையில் படித்த கட்டுரைகள் ஏதுமில்லை";
 "description-edit-length-warning" = "$2 இல் $1";
 "description-help-about-title" = "நிரலைப் பற்றி";
+// Fuzzy
 "did-you-know" = "உங்களுக்கு தெரியுமா";
 "dim-images" = "படங்களை மந்தப்படுத்து";
 "edit-summary-choice-fixed-grammar" = "நிலையான இலக்கணம்";

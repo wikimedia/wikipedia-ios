@@ -273,6 +273,7 @@
 "developer-settings-enable-year-in-review" = "Jahresrückblick aktivieren";
 "developer-settings-send-analytics-to-wmflabs" = "Analytics an wmflabs senden.";
 "developer-settings-suppress-image-rec-post" = "Bildempfehlungsbearbeitung nicht veröffentlichen.";
+// Fuzzy
 "did-you-know" = "Wusstest du";
 "diff-article-revision-history" = "Versionsgeschichte";
 "diff-change-added" = "Hinzufügung, $1, Hinzufügung Ende.";
@@ -1243,6 +1244,7 @@
 "tabs-open-tab" = "Tab öffnen";
 "tabs-overview-tooltip-body" = "Wechseln Sie zwischen geöffneten Artikeln in der Tab-Übersicht.";
 "tabs-overview-tooltip-title" = "Tab-Übersicht";
+// Fuzzy
 "tabs-survey-title" = "Helfen Sie bei der Verbesserung der Tab-Funktion. Sind Sie mit dieser Funktion zufrieden?";
 "tabs-thumbnail-description" = "Erkunden Sie Wikipedia, die freie Enzyklopädie, die jeder bearbeiten kann";
 "tabs-thumbnail-subtitle" = "Beginnen Sie hier Ihre Suche";

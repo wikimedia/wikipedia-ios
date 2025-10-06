@@ -213,6 +213,7 @@
 "description-welcome-descriptions-title" = "Tóm lược bài viết";
 "description-welcome-promise-title" = "Với việc bắt đầu sửa đổi lời tóm lược, tôi hứa sẽ không lạm dụng tính năng này";
 "description-welcome-start-editing-button" = "Bắt đầu sửa đổi";
+// Fuzzy
 "did-you-know" = "Bạn có biết";
 "diff-article-revision-history" = "Lịch sử sửa đổi bài viết";
 "diff-compare-header-from-info-heading" = "Sửa đổi trước";

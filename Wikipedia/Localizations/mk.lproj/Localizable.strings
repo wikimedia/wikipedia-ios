@@ -249,7 +249,7 @@
 "developer-settings-enable-year-in-review" = "Овозможи Преглед на годината";
 "developer-settings-send-analytics-to-wmflabs" = "Испраќај аналитика во WMFLabs.";
 "developer-settings-suppress-image-rec-post" = "Не објавувај уредувања на преорачани слики.";
-"did-you-know" = "Дали сте знаеле";
+"did-you-know" = "Дали сте знаеле?";
 "diff-article-revision-history" = "Историја на преработки на страницата";
 "diff-change-added" = "Додавање, $1, крај на додавањето.";
 "diff-change-paragraph-lines-moved-down" = "Пасусот е преместен {{PLURAL:$1|0=0 редови|$1 ред|$1 реда}} надолу. Одете на ново место.";
@@ -1217,12 +1217,13 @@
 "tabs-main-page-subtitle" = "Дневни истакнувања на Википедија";
 "tabs-navbar-title-format" = "{{PLURAL:$1|$1 јазиче|$1 јазичиња}}";
 "tabs-open-tab" = "Отвори јазиче";
+"tabs-overview-recommendations-title" = "Според вашите наскорешни јазичиња";
 "tabs-overview-tooltip-body" = "Префрлање помеѓу отворени статии во прегледот на јазичињата.";
 "tabs-overview-tooltip-title" = "Преглед на јазичиња";
 "tabs-show-suggested-articles" = "Прикажи предложени статии";
 "tabs-suggested-articles-hide-suggestions-confirmation" = "Предлозите сега се скриени";
 "tabs-suggested-articles-show-suggestions-confirmation" = "Предлозите сега се видливи";
-"tabs-survey-title" = "Помогнете ни да ги подобриме јазичињата во иднина. Дали сте задоволни со оваа функција?";
+"tabs-survey-title" = "Помогнете ни да ги подобриме јазичињата. Дали сте задоволни со оваа функција?";
 "tabs-thumbnail-description" = "Истражете ја Википедија, слободната енциклопедија што секој може да ја уредува";
 "tabs-thumbnail-subtitle" = "Тука започнете го вашето пребарување";
 "tabs-title" = "Јазичиња";
