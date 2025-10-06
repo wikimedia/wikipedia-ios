@@ -293,6 +293,7 @@
 "developer-settings-enable-year-in-review" = "Activer le Bilan de l'Année";
 "developer-settings-send-analytics-to-wmflabs" = "Envoyez les analyses à WMFlabs.";
 "developer-settings-suppress-image-rec-post" = "Ne publiez pas de recommandations d'édition d'image.";
+// Fuzzy
 "did-you-know" = "Le saviez-vous ?";
 "diff-article-revision-history" = "Historique des révisions de l’article";
 "diff-change-added" = "Ajout, $1, fin de l'ajout.";
@@ -1263,6 +1264,7 @@
 "tabs-open-tab" = "Ouvrir l'onglet";
 "tabs-overview-tooltip-body" = "Basculez entre les articles ouverts dans l'aperçu des onglets.";
 "tabs-overview-tooltip-title" = "Aperçu des onglets";
+// Fuzzy
 "tabs-survey-title" = "Aidez-nous à améliorer la fonctionnalité des onglets. Êtes-vous satisfait de cette fonctionnalité ?";
 "tabs-thumbnail-description" = "Explorez Wikipédia, l’encyclopédie libre que n’importe qui peut modifier";
 "tabs-thumbnail-subtitle" = "Commencez votre recherche ici";
