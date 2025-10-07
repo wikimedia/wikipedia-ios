@@ -15,6 +15,7 @@ import WMF
         case launch = "launch"
         case closeClick = "close_click"
         case closeTabClick = "close_tab_click"
+        case suggestedTabClick = "suggested_tab_click"
     }
 
     public enum ActiveInterface: String {
@@ -89,6 +90,10 @@ import WMF
     
     func logTabsOverviewCloseTab() {
         logEvent(activeInterface: .overview, action: .closeTabClick, project: nil)
+    }
+    
+    func logTabsOverviewTappedDYK() {
+        logEvent(activeInterface: .overview, action: .suggestedTabClick, actionData: ["suggested": "dyk"], project: nil)
     }
 
     func logFeedbackClose() {

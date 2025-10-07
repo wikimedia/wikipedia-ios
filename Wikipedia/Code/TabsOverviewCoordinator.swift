@@ -490,6 +490,8 @@ extension TabsOverviewCoordinator: UITextViewDelegate {
         guard let articleURL = URL(string: url.absoluteString) else {
             return
         }
+        
+        ArticleTabsFunnel.shared.logTabsOverviewTappedDYK()
 
         let linkCoordinator = LinkCoordinator(
             navigationController: navigationController,
