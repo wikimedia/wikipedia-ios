@@ -98,6 +98,10 @@ import WMF
     func logTabsOverviewTappedDYK() {
         logEvent(activeInterface: .overview, action: .suggestedTabClick, actionData: ["suggested": "dyk"], project: nil)
     }
+    
+    func logTabsOverviewTappedBYR() {
+        logEvent(activeInterface: .overview, action: .suggestedTabClick, actionData: ["suggested": "byr"], project: nil)
+    }
 
     func logFeedbackClose() {
         logEvent(activeInterface: .feedback, action: .closeFeedback, project: nil)

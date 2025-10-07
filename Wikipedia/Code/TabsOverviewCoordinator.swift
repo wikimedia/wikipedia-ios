@@ -242,6 +242,7 @@ final class TabsOverviewCoordinator: NSObject, Coordinator {
         let onTapArticleAction: WMFTabsOverviewRecommendationsViewModel.OnRecordTapAction = { [weak self] historyItem in
             guard let self else { return }
             self.tappedArticle(historyItem)
+            ArticleTabsFunnel.shared.logTabsOverviewTappedBYR()
         }
 
         let shareArticleAction: WMFHistoryViewModel.ShareRecordAction = { [weak self] frame, historyItem in
