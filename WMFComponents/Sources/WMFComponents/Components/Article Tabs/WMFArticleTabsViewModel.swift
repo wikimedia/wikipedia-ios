@@ -7,6 +7,7 @@ public protocol WMFArticleTabsLoggingDelegate: AnyObject {
     func logArticleTabsOverviewImpression()
     func logArticleTabsArticleClick(wmfProject: WMFProject?)
     func logArticleTabsOverviewTappedDone()
+    func logArticleTabsOverviewTappedCloseTab()
 }
 
 public class WMFArticleTabsViewModel: NSObject, ObservableObject {
@@ -264,12 +265,14 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
     }
     
     func closeTab(tab: ArticleTab) {
+        
         Task {
             do {
                 try await dataController.deleteArticleTab(identifier: tab.data.identifier)
                 
                 Task { @MainActor [weak self]  in
                     guard let self else { return }
+                    loggingDelegate?.logArticleTabsOverviewTappedCloseTab()
                     articleTabs.removeAll { $0 == tab }
                     if dataController.shouldShowMoreDynamicTabsV2 {
                         shouldShowCloseButton = true

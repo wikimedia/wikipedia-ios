@@ -458,6 +458,10 @@ extension TabsOverviewCoordinator: WMFArticleTabsLoggingDelegate {
         ArticleTabsFunnel.shared.logTabsOverviewImpression()
     }
     
+    func logArticleTabsOverviewTappedCloseTab() {
+        ArticleTabsFunnel.shared.logTabsOverviewCloseTab()
+    }
+    
     nonisolated func logArticleTabsArticleClick(wmfProject: WMFProject?) {
         if let url = wmfProject?.siteURL, let project =  WikimediaProject(siteURL:url) {
             ArticleTabsFunnel.shared.logTabsOverviewArticleClick(project: project)
