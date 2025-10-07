@@ -451,6 +451,7 @@ final class TabsOverviewCoordinator: NSObject, Coordinator {
 }
 
 extension TabsOverviewCoordinator: WMFArticleTabsLoggingDelegate {
+
     func logArticleTabsOverviewTappedDone() {
         ArticleTabsFunnel.shared.logTabsOverviewClose()
     }
@@ -475,6 +476,18 @@ extension TabsOverviewCoordinator: WMFArticleTabsLoggingDelegate {
     
     func logArticleTabsOverviewTappedShowSuggestions() {
         ArticleTabsFunnel.shared.logTabsOverflowShowArticleSuggestionsTap()
+    }
+    
+    func logArticleTabsOverviewTappedCloseAllTabs() {
+        ArticleTabsFunnel.shared.logTabsOverflowCloseAllTabsTap()
+    }
+    
+    func logArticleTabsOverviewTappedCloseAllTabsConfirmCancel() {
+        ArticleTabsFunnel.shared.logTabsOverviewCloseAllTabsConfirmCancelTap()
+    }
+    
+    func logArticleTabsOverviewTappedCloseAllTabsConfirmClose() {
+        ArticleTabsFunnel.shared.logTabsOverviewCloseAllTabsConfirmCloseTap()
     }
 }
 

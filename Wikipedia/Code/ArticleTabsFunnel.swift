@@ -20,6 +20,8 @@ import WMF
         case resultClick = "result_click"
         case hideSuggestClick = "hide_suggest_click"
         case showSuggestClick = "show_suggest_click"
+        case closeAllClick = "close_all_click"
+        case closeConfirmClick = "close_confirm_click"
     }
 
     public enum ActiveInterface: String {
@@ -164,6 +166,18 @@ import WMF
     
     func logTabsOverflowShowArticleSuggestionsTap() {
         logEvent(activeInterface: .tabsOverflow, action: .showSuggestClick, project: nil)
+    }
+    
+    func logTabsOverflowCloseAllTabsTap() {
+        logEvent(activeInterface: .tabsOverflow, action: .closeAllClick, project: nil)
+    }
+    
+    func logTabsOverviewCloseAllTabsConfirmCancelTap() {
+        logEvent(activeInterface: .tabsOverflow, action: .cancelClick, project: nil)
+    }
+    
+    func logTabsOverviewCloseAllTabsConfirmCloseTap() {
+        logEvent(activeInterface: .tabsOverflow, action: .closeConfirmClick, project: nil)
     }
 
 }
