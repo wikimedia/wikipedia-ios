@@ -22,8 +22,8 @@ final class YearInReviewTopReadArticleSlideDataController: YearInReviewSlideData
     func populateSlideData(in context: NSManagedObjectContext) async throws {
         let dataController = try WMFPageViewsDataController()
     
-        guard let startDate = yirConfig.dataPopulationStartDate,
-              let endDate = yirConfig.dataPopulationEndDate else {
+        guard let startDate = yirConfig.dataStartDate,
+              let endDate = yirConfig.dataEndDate else {
             throw NSError(domain: "", code: 0, userInfo: nil)
         }
         if let pageViewCounts = try? await dataController.fetchPageViewCounts(startDate: startDate, endDate: endDate) {

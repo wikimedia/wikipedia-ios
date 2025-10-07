@@ -20,8 +20,8 @@ final class YearInReviewMostReadDateSlideDataController: YearInReviewSlideDataCo
 
     func populateSlideData(in context: NSManagedObjectContext) async throws {
         
-        guard let startDate = yirConfig.dataPopulationStartDate,
-              let endDate = yirConfig.dataPopulationEndDate else {
+        guard let startDate = yirConfig.dataStartDate,
+              let endDate = yirConfig.dataEndDate else {
             throw NSError(domain: "", code: 0, userInfo: nil)
         }
         

@@ -26,10 +26,8 @@ final class YearInReviewEditCountSlideDataController: YearInReviewSlideDataContr
     func populateSlideData(in context: NSManagedObjectContext) async throws {
         guard let username, let project else { return }
         
-        guard let startDate = yirConfig.dataPopulationStartDateString,
-              let endDate = yirConfig.dataPopulationEndDateString else {
-            return
-        }
+        let startDate = yirConfig.dataStartDateString
+        let endDate = yirConfig.dataEndDateString
         
         let (edits, _) = try await fetchUserContributionsCount(username: username, project: project, startDate: startDate, endDate: endDate)
         

@@ -19,8 +19,8 @@ final class YearInReviewMostReadCategoriesSlideDataController: YearInReviewSlide
 
     func populateSlideData(in context: NSManagedObjectContext) async throws {
 
-        guard let startDate = yirConfig.dataPopulationStartDate,
-              let endDate = yirConfig.dataPopulationEndDate else {
+        guard let startDate = yirConfig.dataStartDate,
+              let endDate = yirConfig.dataEndDate else {
             return
         }
 

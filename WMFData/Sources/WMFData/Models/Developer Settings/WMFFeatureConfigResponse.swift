@@ -10,6 +10,8 @@ public struct WMFFeatureConfigResponse: Codable {
             public let year: Int
             public let activeStartDateString: String
             public let activeEndDateString: String
+            public let dataStartDateString: String
+            public let dataEndDateString: String
             public let languages: Int
             public let articles: Int
             public let savedArticlesApps: Int
@@ -30,6 +32,8 @@ public struct WMFFeatureConfigResponse: Codable {
                 case year
                 case activeStartDateString = "activeStartDate"
                 case activeEndDateString = "activeEndDate"
+                case dataStartDateString = "dataStartDate"
+                case dataEndDateString = "dataEndDate"
                 case languages
                 case articles
                 case savedArticlesApps
@@ -57,44 +61,14 @@ public struct WMFFeatureConfigResponse: Codable {
                 return dateFormatter.date(from: activeEndDateString)
             }
             
-            var dataPopulationStartDate: Date? {
-                var startComponents = DateComponents()
-                    startComponents.year = year
-                    startComponents.month = 1
-                    startComponents.day = 1
-                    startComponents.hour = 0
-                    startComponents.minute = 0
-                    startComponents.second = 0
-                return Calendar.current.date(from: startComponents)
+            var dataStartDate: Date? {
+                let dateFormatter = DateFormatter.mediaWikiAPIDateFormatter
+                return dateFormatter.date(from: dataStartDateString)
             }
             
-            var dataPopulationEndDate: Date? {
-                var startComponents = DateComponents()
-                    startComponents.year = year
-                    startComponents.month = 12
-                    startComponents.day = 31
-                    startComponents.hour = 23
-                    startComponents.minute = 59
-                    startComponents.second = 59
-                return Calendar.current.date(from: startComponents)
-            }
-            
-            var dataPopulationStartDateString: String? {
-                if let dataPopulationStartDate {
-                    let dateFormatter = DateFormatter.mediaWikiAPIDateFormatter
-                    return dateFormatter.string(from: dataPopulationStartDate)
-                }
-                
-                return nil
-            }
-            
-            var dataPopulationEndDateString: String? {
-                if let dataPopulationEndDate {
-                    let dateFormatter = DateFormatter.mediaWikiAPIDateFormatter
-                    return dateFormatter.string(from: dataPopulationEndDate)
-                }
-                
-                return nil
+            var dataEndDate: Date? {
+                let dateFormatter = DateFormatter.mediaWikiAPIDateFormatter
+                return dateFormatter.date(from: dataEndDateString)
             }
             
             func isActive(for date: Date) -> Bool {
