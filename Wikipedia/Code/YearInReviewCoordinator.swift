@@ -306,28 +306,52 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
     // MARK: - English Slide Strings
     
     var englishReadingSlideTitle: String {
-        WMFLocalizedString(
+        
+        guard let config = dataController.config else {
+            return ""
+        }
+        
+        let format = WMFLocalizedString(
             "microsite-yir-english-reading-slide-title",
-            value: "We spent 2.4 billion hours reading",
-            comment: "Reading slide title for English Year in Review."
+            value: "We spent {{PLURAL:%1$d|%1$d hour|%1$d hours}} reading",
+            comment: "Reading slide title for English Year in Review. %1$@ is replaced with the total number of hours read on English Wikipedia."
         )
+        
+        return String.localizedStringWithFormat(format, config.hoursReadEN)
     }
     
     var englishReadingSlideSubtitle: String {
-        WMFLocalizedString("microsite-yir-english-reading-slide-subtitle", value: "People spent an estimated 2.4 billion hours—over 275,000 years!—reading English Wikipedia in 2024. Wikipedia is there when you want to learn about our changing world, win a bet among friends, or answer a curious child’s question.", comment: "Reading slide subtitle for English Year in Review.")
+        
+        guard let config = dataController.config else {
+            return ""
+        }
+        
+        let format = WMFLocalizedString("microsite-yir-english-reading-slide-subtitle", value: "People spent an estimated {{PLURAL:%1$d|%1$d hour|%1$d hours}}—around {{PLURAL:%2$d|%2$d year|%2$d years}}!—reading English Wikipedia in %3$@. Wikipedia is there when you want to learn about our changing world, win a bet among friends, or answer a curious child’s question.", comment: "Reading slide subtitle for English Year in Review. %1$d is replaced with the total number of hours read on English Wikipedia. %2$d is replaced with the number of years estimation. %3$@ is replaced with the Year in Review target year (e.g. 2025).")
+        return String.localizedStringWithFormat(format, config.hoursReadEN, config.yearsReadEN, String(config.year))
     }
     
     var englishReadingSlideSubtitleShort: String {
-        WMFLocalizedString("microsite-yir-english-reading-slide-subtitle-short", value: "People spent an estimated 2.4 billion hours—over 275,000 years!—reading English Wikipedia in 2025.", comment: "Shortened reading slide subtitle for English Year in Review. This shortened sentence is appended to the personalized reading slide for EN Wiki users.")
+        guard let config = dataController.config else {
+            return ""
+        }
+        
+        let format = WMFLocalizedString("microsite-yir-english-reading-slide-subtitle-short", value: "People spent an estimated {{PLURAL:%1$d|%1$d hour|%1$d hours}}—around {{PLURAL:%2$d|%2$d year|%2$d years}}!—reading English Wikipedia in %3$@.", comment: "Shortened reading slide subtitle for English Year in Review. This shortened sentence is appended to the personalized reading slide for EN Wiki users. %1$d is replaced with the total number of hours read on English Wikipedia. %2$d is replaced with the number of years estimation. %3$@ is replaced with the Year in Review target year (e.g. 2025).")
+        return String.localizedStringWithFormat(format, config.hoursReadEN, config.yearsReadEN, String(config.year))
     }
 
     var englishTopReadSlideSubtitle: String {
+        
+        guard let config = dataController.config,
+              config.topReadEN.count == 5 else {
+            return ""
+        }
+        
         // Individual top read items
-        let item1 = "Deaths in 2024"
-        let item2 = "Kamala Harris"
-        let item3 = "2024 United States presidential election"
-        let item4 = "Lyle and Erik Menendez"
-        let item5 = "Donald Trump"
+        let item1 = config.topReadEN[0]
+        let item2 = config.topReadEN[1]
+        let item3 = config.topReadEN[2]
+        let item4 = config.topReadEN[3]
+        let item5 = config.topReadEN[4]
         
         let linkOpening = "<a href=\"\(topReadBlogPost)\">"
         let linkClosing = "</a>"
@@ -342,33 +366,63 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
     }
     
     var englishSavedReadingSlideTitle: String {
-        WMFLocalizedString("microsite-yir-english-saved-reading-slide-title", value: "We had over 37 million saved articles", comment: "Saved reading slide title for English Year in Review.")
+        guard let config = dataController.config else {
+            return ""
+        }
+        
+        let format = WMFLocalizedString("microsite-yir-english-saved-reading-slide-title", value: "We had {{PLURAL:%1$d|%1$d saved article|%1$d saved articles}}", comment: "Saved reading slide title for English Year in Review. %1$d is replaced with the total number of saved articles by active app users.")
+        return String.localizedStringWithFormat(format, config.savedArticlesApps)
     }
     
     var englishSavedReadingSlideSubtitle: String {
-        WMFLocalizedString("microsite-yir-english-saved-reading-slide-subtitle", value: "Active app users had over 37 million saved articles this year. Adding articles to reading lists allows you to access articles even while offline. You can also log in to sync reading lists across devices.", comment: "Saved reading slide subtitle for English Year in Review.")
+        guard let config = dataController.config else {
+            return ""
+        }
+        
+        let format = WMFLocalizedString("microsite-yir-english-saved-reading-slide-subtitle", value: "Active app users had {{PLURAL:%1$d|%1$d saved article|%1$d saved articles}} this year. Adding articles to reading lists allows you to access articles even while offline. You can also log in to sync reading lists across devices.", comment: "Saved reading slide subtitle for English Year in Review. %1$d is replaced with the total number of saved articles by active app users.")
+        return String.localizedStringWithFormat(format, config.savedArticlesApps)
     }
     
     var englishEditsSlideTitle: String {
-        WMFLocalizedString("microsite-yir-english-edits-slide-title", value: "Editors made nearly 82 million changes this year", comment: "Edits slide title for English Year in Review.")
+        guard let config = dataController.config else {
+            return ""
+        }
+        
+        let format = WMFLocalizedString("microsite-yir-english-edits-slide-title", value: "Editors made {{PLURAL:%1$d|%1$d change|%1$d changes}} this year", comment: "Edits slide title for English Year in Review. %1$d is replaced with the total number of edits made on Wikipedia across platforms.")
+        return String.localizedStringWithFormat(format, config.edits)
     }
     
     var englishEditsSlideSubtitle: String {
-        WMFLocalizedString("microsite-yir-english-edits-slide-subtitle", value: "Volunteers made 81,987,181 changes across over 300 different language editions of Wikipedia. Over 31.2 million changes were made on English Wikipedia. Every hour of every day, volunteers are working to improve Wikipedia.", comment: "Edits slide subtitle for English Year in Review.")
+        guard let config = dataController.config else {
+            return ""
+        }
+        
+        let format = WMFLocalizedString("microsite-yir-english-edits-slide-subtitle", value: "Volunteers made {{PLURAL:%1$d|%1$d change|%1$d changes}} {{PLURAL:%2$d|on %2$d language edition|across over %2$d different language editions}} of Wikipedia. {{PLURAL:%3$d|%3$d change|%3$d changes}} changes were made on English Wikipedia. Every hour of every day, volunteers are working to improve Wikipedia.", comment: "Edits slide subtitle for English Year in Review. %1$d is replaced by the total number of edits on Wikipedia across platforms. %2$d is replaced by the total number of languages on Wikipedia. %3$d is replaced by the total number of edits on English Wikipedia across platoforms.")
+        return String.localizedStringWithFormat(format, config.edits, config.languages, config.editsEN)
     }
     
     var englishEditsBytesSlideTitle: String {
-        WMFLocalizedString("microsite-yir-english-edits-bytes-slide-title",value: "3.4 billion bytes added", comment: "Edits bytes slide title for English Year in Review.")
+        guard let config = dataController.config else {
+            return ""
+        }
+        
+        let format = WMFLocalizedString("microsite-yir-english-edits-bytes-slide-title",value: "{{PLURAL:%1$d|%1$d byte|%1$d bytes}} added", comment: "Edits bytes slide title for English Year in Review. %1$d is replaced with the number of bytes added to English Wikipedia.")
+        return String.localizedStringWithFormat(format, config.bytesAddedEN)
     }
 
     var englishEditsBytesSlideSubtitle: String {
+        
+        guard let config = dataController.config else {
+            return ""
+        }
+        
         let format = WMFLocalizedString(
             "microsite-yir-english-edits-bytes-slide-subtitle",
-            value: "In 2024, volunteers added 3,416,899,197 bytes to English Wikipedia. The sum of all their work together leads to a steadily improving, fact-based, and reliable knowledge resource that they give to the world. All of us have knowledge to share, [learn how to participate](%1$@).",
-            comment: "Edits bytes slide subtitle for English Year in Review, %1$@ is replaced by link to learn to participate."
+            value: "In %1$@, volunteers added {{PLURAL:%2$d|%2$d byte|%2$d bytes}} to English Wikipedia. The sum of all their work together leads to a steadily improving, fact-based, and reliable knowledge resource that they give to the world. All of us have knowledge to share, [learn how to participate](%3$@).",
+            comment: "Edits bytes slide subtitle for English Year in Review. %1$@ is replaced with the Year in Review target year (e.g. 2025). %2$d is replaced with the number of bytes added to English Wikipedia. %3$@ is replaced by link to learn to participate."
         )
 
-        return String.localizedStringWithFormat(format, editingFAQURLString)
+        return String.localizedStringWithFormat(format, config.year, config.bytesAddedEN, editingFAQURLString)
     }
     
     // MARK: - Personalized Slide Strings
