@@ -18,6 +18,8 @@ import WMF
         case suggestedTabClick = "suggested_tab_click"
         case cancelClick = "cancel_click"
         case resultClick = "result_click"
+        case hideSuggestClick = "hide_suggest_click"
+        case showSuggestClick = "show_suggest_click"
     }
 
     public enum ActiveInterface: String {
@@ -33,6 +35,7 @@ import WMF
         case history = "history"
         case search = "search"
         case tabSearch = "tab_search"
+        case tabsOverflow = "tabs_overflow"
     }
 
     private struct Event: EventInterface {
@@ -153,6 +156,14 @@ import WMF
     
     func logTabsV2GroupBMainPageSearchResultTap(project: WikimediaProject) {
         logEvent(activeInterface: .tabSearch, action: .resultClick, project: project)
+    }
+    
+    func logTabsOverflowHideArticleSuggestionsTap() {
+        logEvent(activeInterface: .tabsOverflow, action: .hideSuggestClick, project: nil)
+    }
+    
+    func logTabsOverflowShowArticleSuggestionsTap() {
+        logEvent(activeInterface: .tabsOverflow, action: .showSuggestClick, project: nil)
     }
 
 }

@@ -8,6 +8,8 @@ public protocol WMFArticleTabsLoggingDelegate: AnyObject {
     func logArticleTabsArticleClick(wmfProject: WMFProject?)
     func logArticleTabsOverviewTappedDone()
     func logArticleTabsOverviewTappedCloseTab()
+    func logArticleTabsOverviewTappedHideSuggestions()
+    func logArticleTabsOverviewTappedShowSuggestions()
 }
 
 public class WMFArticleTabsViewModel: NSObject, ObservableObject {

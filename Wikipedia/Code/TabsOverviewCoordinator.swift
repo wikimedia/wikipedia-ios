@@ -468,6 +468,14 @@ extension TabsOverviewCoordinator: WMFArticleTabsLoggingDelegate {
             ArticleTabsFunnel.shared.logTabsOverviewArticleClick(project: project)
         }
     }
+    
+    func logArticleTabsOverviewTappedHideSuggestions() {
+        ArticleTabsFunnel.shared.logTabsOverflowHideArticleSuggestionsTap()
+    }
+    
+    func logArticleTabsOverviewTappedShowSuggestions() {
+        ArticleTabsFunnel.shared.logTabsOverflowShowArticleSuggestionsTap()
+    }
 }
 
 /// Manages the lifecycle of TabsOverviewCoordinator independently of article tabs.

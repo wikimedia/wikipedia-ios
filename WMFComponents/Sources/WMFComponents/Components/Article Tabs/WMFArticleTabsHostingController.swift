@@ -94,6 +94,7 @@ public class WMFArticleTabsHostingController<HostedView: View>: WMFComponentHost
             self.overflowButton.menu = self.overflowMenu
             viewModel.didToggleSuggestedArticles()
             viewModel.refreshShouldShowSuggestionsFromDataController()
+            viewModel.loggingDelegate?.logArticleTabsOverviewTappedHideSuggestions()
         })
         
         let showArticleSuggestions = UIAction(title: viewModel.localizedStrings.showSuggestedArticlesTitle, image: WMFSFSymbolIcon.for(symbol: .eye), handler: { [weak self] _ in
@@ -102,6 +103,7 @@ public class WMFArticleTabsHostingController<HostedView: View>: WMFComponentHost
             self.overflowButton.menu = self.overflowMenu
             viewModel.didToggleSuggestedArticles()
             viewModel.refreshShouldShowSuggestionsFromDataController()
+            viewModel.loggingDelegate?.logArticleTabsOverviewTappedShowSuggestions()
         })
         
         var children: [UIMenuElement]
