@@ -90,19 +90,15 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
             englishEditsAccessibilityLabel: WMFLocalizedString("year-in-review-english-edits", value: "A graph showing the top 10 most edited Wikipedia language editions in 2024: English with over 31 million edits, German with 5,508,570 edits, French with 5,276,385 edits, Spanish with 4,786,205 edits, Russian with 3,303,066 edits, Italian with 3,200,398 edits, Japanese with 2,973,657 edits, Chinese with 2,505,032 edits, Polish with 1,383,808 edits, and Ukrainian with 1,376,980 edits. The total number of edits across all Wikipedia editions in 2024 is 81,987,181.", comment: "Accessibility description for the collective edits slide."),
             collectiveEditsPerMinuteAccessibilityLabel: WMFLocalizedString("year-in-review-collective-edits-per-minute", value: "A clock ticking, symbolizing the time spent by people reading Wikipedia.", comment: "Accessibility description for the collective edits per minute slide."),
             collectiveZeroAdsAccessibilityLabel: WMFLocalizedString("year-in-review-collective-zero-ads", value: "Wikimedia logo", comment: "Accessibility description for the collective zero ads slide."),
-            englishReadingSlideTitle: WMFLocalizedString(
-                "microsite-yir-english-reading-slide-title",
-                value: "We spent 2.4 billion hours reading",
-                comment: "Reading slide title for English Year in Review."
-            ),
+            englishReadingSlideTitle: englishReadingSlideTitle,
             englishReadingSlideSubtitle: englishReadingSlideSubtitle,
             englishTopReadSlideTitle: WMFLocalizedString("microsite-yir-english-top-read-slide-title", value: "English Wikipedia’s most popular articles", comment: "Top read slide title for English Year in Review."),
             englishTopReadSlideSubtitle: englishTopReadSlideSubtitle,
-            englishSavedReadingSlideTitle: WMFLocalizedString("microsite-yir-english-saved-reading-slide-title", value: "We had over 37 million saved articles", comment: "Saved reading slide title for English Year in Review."),
-            englishSavedReadingSlideSubtitle: WMFLocalizedString("microsite-yir-english-saved-reading-slide-subtitle", value: "Active app users had over 37 million saved articles this year. Adding articles to reading lists allows you to access articles even while offline. You can also log in to sync reading lists across devices.", comment: "Saved reading slide subtitle for English Year in Review."),
-            englishEditsSlideTitle: WMFLocalizedString("microsite-yir-english-edits-slide-title", value: "Editors made nearly 82 million changes this year", comment: "Edits slide title for English Year in Review."),
-            englishEditsSlideSubtitle: WMFLocalizedString("microsite-yir-english-edits-slide-subtitle", value: "Volunteers made 81,987,181 changes across over 300 different language editions of Wikipedia. Over 31.2 million changes were made on English Wikipedia. Every hour of every day, volunteers are working to improve Wikipedia.", comment: "Edits slide subtitle for English Year in Review."),
-            englishEditsBytesSlideTitle: WMFLocalizedString("microsite-yir-english-edits-bytes-slide-title",value: "3.4 billion bytes added", comment: "Edits bytes slide title for English Year in Review."),
+            englishSavedReadingSlideTitle: englishSavedReadingSlideTitle,
+            englishSavedReadingSlideSubtitle: englishSavedReadingSlideSubtitle,
+            englishEditsSlideTitle: englishEditsSlideTitle,
+            englishEditsSlideSubtitle: englishEditsSlideSubtitle,
+            englishEditsBytesSlideTitle: englishEditsBytesSlideTitle,
             englishEditsBytesSlideSubtitle: englishEditsBytesSlideSubtitle,
             collectiveLanguagesSlideTitle: collectiveLanguagesSlideTitle,
             collectiveLanguagesSlideSubtitle: collectiveLanguagesSlideSubtitle,
@@ -309,6 +305,14 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
     
     // MARK: - English Slide Strings
     
+    var englishReadingSlideTitle: String {
+        WMFLocalizedString(
+            "microsite-yir-english-reading-slide-title",
+            value: "We spent 2.4 billion hours reading",
+            comment: "Reading slide title for English Year in Review."
+        )
+    }
+    
     var englishReadingSlideSubtitle: String {
         WMFLocalizedString("microsite-yir-english-reading-slide-subtitle", value: "People spent an estimated 2.4 billion hours—over 275,000 years!—reading English Wikipedia in 2024. Wikipedia is there when you want to learn about our changing world, win a bet among friends, or answer a curious child’s question.", comment: "Reading slide subtitle for English Year in Review.")
     }
@@ -335,6 +339,26 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         )
         
         return String.localizedStringWithFormat(format, item1, item2, item3, item4, item5, linkOpening, linkClosing)
+    }
+    
+    var englishSavedReadingSlideTitle: String {
+        WMFLocalizedString("microsite-yir-english-saved-reading-slide-title", value: "We had over 37 million saved articles", comment: "Saved reading slide title for English Year in Review.")
+    }
+    
+    var englishSavedReadingSlideSubtitle: String {
+        WMFLocalizedString("microsite-yir-english-saved-reading-slide-subtitle", value: "Active app users had over 37 million saved articles this year. Adding articles to reading lists allows you to access articles even while offline. You can also log in to sync reading lists across devices.", comment: "Saved reading slide subtitle for English Year in Review.")
+    }
+    
+    var englishEditsSlideTitle: String {
+        WMFLocalizedString("microsite-yir-english-edits-slide-title", value: "Editors made nearly 82 million changes this year", comment: "Edits slide title for English Year in Review.")
+    }
+    
+    var englishEditsSlideSubtitle: String {
+        WMFLocalizedString("microsite-yir-english-edits-slide-subtitle", value: "Volunteers made 81,987,181 changes across over 300 different language editions of Wikipedia. Over 31.2 million changes were made on English Wikipedia. Every hour of every day, volunteers are working to improve Wikipedia.", comment: "Edits slide subtitle for English Year in Review.")
+    }
+    
+    var englishEditsBytesSlideTitle: String {
+        WMFLocalizedString("microsite-yir-english-edits-bytes-slide-title",value: "3.4 billion bytes added", comment: "Edits bytes slide title for English Year in Review.")
     }
 
     var englishEditsBytesSlideSubtitle: String {
