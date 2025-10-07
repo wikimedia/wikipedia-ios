@@ -38,6 +38,7 @@ import WMF
         case search = "search"
         case tabSearch = "tab_search"
         case tabsOverflow = "tabs_overflow"
+        case mainPage = "main_page"
     }
 
     private struct Event: EventInterface {
@@ -134,6 +135,10 @@ import WMF
 
     func logIconClick(interface: ArticleTabsFunnel.ActiveInterface, project: WikimediaProject?) {
         logEvent(activeInterface: interface, action: .iconClick, project: project)
+    }
+    
+    func logIconClickMainPageV2GroupC(project: WikimediaProject) {
+        logEvent(activeInterface: .mainPage, action: .iconClick, project: project)
     }
 
     func logGroupAssignment(group: String) {

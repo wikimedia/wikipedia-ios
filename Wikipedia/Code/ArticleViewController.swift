@@ -173,6 +173,7 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
     
     private let needsFocusOnSearch: Bool
     private let needsLogTabsV2GroupBSearchEvents: Bool
+    private let needsLogTabsV2GroupCMainPageIconTapEvent: Bool
 
     @objc init?(articleURL: URL, dataStore: MWKDataStore, theme: Theme, source: ArticleSource, schemeHandler: SchemeHandler? = nil, previousPageViewObjectID: NSManagedObjectID? = nil, needsFocusOnSearch: Bool = false) {
 
@@ -196,6 +197,14 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
             self.needsLogTabsV2GroupBSearchEvents = true
         } else {
             self.needsLogTabsV2GroupBSearchEvents = false
+        }
+        
+        if let title = articleURL.wmf_title,
+           title == "Main_Page",
+           tabDataController.moreDynamicTabsGroupCEnabled {
+            self.needsLogTabsV2GroupCMainPageIconTapEvent = true
+        } else {
+            self.needsLogTabsV2GroupCMainPageIconTapEvent = false
         }
 
         super.init(nibName: nil, bundle: nil)
@@ -506,7 +515,11 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
     @objc func userDidTapTabs() {
         tabsCoordinator?.start()
         if let wikimediaProject = WikimediaProject(siteURL: articleURL) {
-            ArticleTabsFunnel.shared.logIconClick(interface: .article, project: wikimediaProject)
+            if needsLogTabsV2GroupCMainPageIconTapEvent {
+                ArticleTabsFunnel.shared.logIconClickMainPageV2GroupC(project: wikimediaProject)
+            } else {
+                ArticleTabsFunnel.shared.logIconClick(interface: .article, project: wikimediaProject)
+            }
         }
     }
 
