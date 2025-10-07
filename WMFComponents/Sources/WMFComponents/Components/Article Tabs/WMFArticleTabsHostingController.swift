@@ -66,7 +66,7 @@ public class WMFArticleTabsHostingController<HostedView: View>: WMFComponentHost
     }
     
     @objc func tappedDone() {
-        dismiss(animated: true, completion: nil)
+        viewModel.didTapDone()
     }
     
     @objc private func tappedAdd() {

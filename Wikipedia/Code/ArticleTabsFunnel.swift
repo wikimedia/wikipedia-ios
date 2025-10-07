@@ -13,6 +13,7 @@ import WMF
         case newTabClick = "new_tab_click"
         case newTabClickBackground = "new_tab_click_background"
         case launch = "launch"
+        case closeClick = "close_click"
     }
 
     public enum ActiveInterface: String {
@@ -77,8 +78,12 @@ import WMF
         logEvent(activeInterface: .overview, action: .impression, project: nil)
     }
 
-    func logArticleClick(project: WikimediaProject) {
+    func logTabsOverviewArticleClick(project: WikimediaProject) {
         logEvent(activeInterface: .overview, action: .articleClick, project: project)
+    }
+    
+    func logTabsOverviewClose() {
+        logEvent(activeInterface: .overview, action: .closeClick, project: nil)
     }
 
     func logFeedbackClose() {

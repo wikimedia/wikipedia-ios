@@ -6,6 +6,7 @@ import WMFData
 public protocol WMFArticleTabsLoggingDelegate: AnyObject {
     func logArticleTabsOverviewImpression()
     func logArticleTabsArticleClick(wmfProject: WMFProject?)
+    func logArticleTabsOverviewTappedDone()
 }
 
 public class WMFArticleTabsViewModel: NSObject, ObservableObject {
@@ -37,6 +38,7 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
     public let didTapTab: (WMFArticleTabsDataController.WMFArticleTab) -> Void
     public let didTapAddTab: () -> Void
     public let didTapShareTab: (WMFArticleTabsDataController.WMFArticleTab, CGRect?) -> Void
+    public let didTapDone: () -> Void
     public let displayDeleteAllTabsToast: (Int) -> Void
     public let didToggleSuggestedArticles: () -> Void
 
@@ -48,6 +50,7 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
                 didTapTab: @escaping (WMFArticleTabsDataController.WMFArticleTab) -> Void,
                 didTapAddTab: @escaping () -> Void,
                 didTapShareTab: @escaping (WMFArticleTabsDataController.WMFArticleTab, CGRect?) -> Void,
+                didTapDone: @escaping () -> Void,
                 didToggleSuggestedArticles: @escaping () -> Void,
                 displayDeleteAllTabsToast: @escaping (Int) -> Void) {
         self.dataController = dataController
@@ -59,6 +62,7 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
         self.didTapTab = didTapTab
         self.didTapAddTab = didTapAddTab
         self.didTapShareTab = didTapShareTab
+        self.didTapDone = didTapDone
         self.displayDeleteAllTabsToast = displayDeleteAllTabsToast
         self.didToggleSuggestedArticles = didToggleSuggestedArticles
         super.init()

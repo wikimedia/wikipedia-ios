@@ -100,6 +100,12 @@ final class TabsOverviewCoordinator: NSObject, Coordinator {
             guard let self else { return }
             self.tappedAddTab()
         }
+        
+        let didTapDone: () -> Void = { [weak self] in
+            guard let self else { return }
+            self.tappedDone()
+            self.logArticleTabsOverviewTappedDone()
+        }
 
         let didTapShareTab: (WMFArticleTabsDataController.WMFArticleTab, CGRect?) -> Void = { [weak self] tab, frame in
             guard let self else { return }
@@ -171,6 +177,7 @@ final class TabsOverviewCoordinator: NSObject, Coordinator {
                 didTapTab: didTapTab,
                 didTapAddTab: didTapAddTab,
                 didTapShareTab: didTapShareTab,
+                didTapDone: didTapDone,
                 didToggleSuggestedArticles: showAlertForArticleSuggestionsDisplayChangeConfirmation,
                 displayDeleteAllTabsToast: displayDeleteAllTabsToast
             )
@@ -411,6 +418,10 @@ final class TabsOverviewCoordinator: NSObject, Coordinator {
         
         navigationController.dismiss(animated: true)
     }
+    
+    private func tappedDone() {
+        navigationController.dismiss(animated: true)
+    }
 
     private func tappedShareTab(_ tab: WMFArticleTabsDataController.WMFArticleTab, sourceFrameInWindow: CGRect?) {
         guard let article = tab.articles.last, let url = article.articleURL else { return }
@@ -439,6 +450,9 @@ final class TabsOverviewCoordinator: NSObject, Coordinator {
 }
 
 extension TabsOverviewCoordinator: WMFArticleTabsLoggingDelegate {
+    func logArticleTabsOverviewTappedDone() {
+        ArticleTabsFunnel.shared.logTabsOverviewClose()
+    }
 
     func logArticleTabsOverviewImpression() {
         ArticleTabsFunnel.shared.logTabsOverviewImpression()
@@ -446,7 +460,7 @@ extension TabsOverviewCoordinator: WMFArticleTabsLoggingDelegate {
     
     nonisolated func logArticleTabsArticleClick(wmfProject: WMFProject?) {
         if let url = wmfProject?.siteURL, let project =  WikimediaProject(siteURL:url) {
-            ArticleTabsFunnel.shared.logArticleClick(project: project)
+            ArticleTabsFunnel.shared.logTabsOverviewArticleClick(project: project)
         }
     }
 }
