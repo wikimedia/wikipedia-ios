@@ -171,7 +171,8 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
     var nextArticleTab: WMFArticleTabsDataController.WMFArticle? = nil
     let tabDataController = WMFArticleTabsDataController.shared
     
-    var needsFocusOnSearch: Bool
+    private let needsFocusOnSearch: Bool
+    private let needsLogTabsV2GroupBSearchEvents: Bool
 
     @objc init?(articleURL: URL, dataStore: MWKDataStore, theme: Theme, source: ArticleSource, schemeHandler: SchemeHandler? = nil, previousPageViewObjectID: NSManagedObjectID? = nil, needsFocusOnSearch: Bool = false) {
 
@@ -189,7 +190,13 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
         self.cacheController = cacheController
         self.articleViewSource = source
         self.previousPageViewObjectID = previousPageViewObjectID
+        
         self.needsFocusOnSearch = needsFocusOnSearch
+        if needsFocusOnSearch && tabDataController.moreDynamicTabsGroupBEnabled {
+            self.needsLogTabsV2GroupBSearchEvents = true
+        } else {
+            self.needsLogTabsV2GroupBSearchEvents = false
+        }
 
         super.init(nibName: nil, bundle: nil)
         self.theme = theme
@@ -777,6 +784,11 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
         searchViewController.theme = theme
         searchViewController.shouldBecomeFirstResponder = true
         searchViewController.customTabConfigUponArticleNavigation = .appendArticleAndAssignCurrentTabAndCleanoutFutureArticles
+        searchViewController.additionalLogActionWhenTappingSearchResult = { [weak self] in
+            if let project = self?.project {
+                ArticleTabsFunnel.shared.logTabsV2GroupBMainPageSearchResultTap(project: project)
+            }
+        }
         
         let populateSearchBarWithTextAction: (String) -> Void = { [weak self] searchTerm in
             self?.navigationItem.searchController?.searchBar.text = searchTerm
@@ -785,7 +797,7 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
         
         searchViewController.populateSearchBarWithTextAction = populateSearchBarWithTextAction
         
-        let searchBarConfig = WMFNavigationBarSearchConfig(searchResultsController: searchViewController, searchControllerDelegate: self, searchResultsUpdater: self, searchBarDelegate: nil, searchBarPlaceholder: CommonStrings.searchBarPlaceholder, showsScopeBar: false, scopeButtonTitles: nil)
+        let searchBarConfig = WMFNavigationBarSearchConfig(searchResultsController: searchViewController, searchControllerDelegate: self, searchResultsUpdater: self, searchBarDelegate: self, searchBarPlaceholder: CommonStrings.searchBarPlaceholder, showsScopeBar: false, scopeButtonTitles: nil)
 
         configureNavigationBar(titleConfig: titleConfig, backButtonConfig: backButtonConfig, closeButtonConfig: nil, profileButtonConfig: profileButtonConfig, tabsButtonConfig: tabsButtonConfig, searchBarConfig: searchBarConfig, hideNavigationBarOnScroll: true)
     }
@@ -1609,3 +1621,10 @@ extension ArticleViewController: UISearchControllerDelegate {
     }
 }
 
+extension ArticleViewController: UISearchBarDelegate {
+    func cancelButtonClicked(_ searchBar: UISearchBar) {
+        if needsLogTabsV2GroupBSearchEvents, let project {
+            ArticleTabsFunnel.shared.logTabsV2GroupBMainPageCancelTap(project: project)
+        }
+    }
+}

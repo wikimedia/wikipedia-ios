@@ -30,6 +30,10 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
 
     // Assign if you don't want search result selection to do default navigation, and instead want to perform your own custom logic upon search result selection.
     var navigateToSearchResultAction: ((URL) -> Void)?
+    
+    // Assign for additional logging, run when tapping a search result
+    var additionalLogActionWhenTappingSearchResult: (() -> Void)?
+    
     // Set so that the correct search bar will have it's field populated once a "recently searched" term is selected. If this is missing, logic will default to navigationController?.searchController.searchBar for population.
     var populateSearchBarWithTextAction: ((String) -> Void)?
 
@@ -447,6 +451,10 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
                 return
             }
             SearchFunnel.shared.logSearchResultTap(position: indexPath.item, source: source.stringValue)
+            
+            if let additionalLogActionWhenTappingSearchResult {
+                additionalLogActionWhenTappingSearchResult()
+            }
 
             saveLastSearch()
 

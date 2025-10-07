@@ -16,6 +16,8 @@ import WMF
         case closeClick = "close_click"
         case closeTabClick = "close_tab_click"
         case suggestedTabClick = "suggested_tab_click"
+        case cancelClick = "cancel_click"
+        case resultClick = "result_click"
     }
 
     public enum ActiveInterface: String {
@@ -30,6 +32,7 @@ import WMF
         case saved = "saved"
         case history = "history"
         case search = "search"
+        case tabSearch = "tab_search"
     }
 
     private struct Event: EventInterface {
@@ -138,6 +141,14 @@ import WMF
 
     func logOpenArticleInBackgroundTab() {
         logEvent(activeInterface: .articleMenu, action: .newTabClickBackground, project: nil)
+    }
+    
+    func logTabsV2GroupBMainPageCancelTap(project: WikimediaProject) {
+        logEvent(activeInterface: .tabSearch, action: .cancelClick, project: project)
+    }
+    
+    func logTabsV2GroupBMainPageSearchResultTap(project: WikimediaProject) {
+        logEvent(activeInterface: .tabSearch, action: .resultClick, project: project)
     }
 
 }
