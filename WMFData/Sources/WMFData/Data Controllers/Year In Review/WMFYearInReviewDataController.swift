@@ -32,6 +32,15 @@ import CoreData
     @objc public static func dataControllerForObjectiveC() -> WMFYearInReviewDataController? {
         return try? WMFYearInReviewDataController()
     }
+    
+    public var config: WMFFeatureConfigResponse.Common.YearInReview? {
+        if let featureConfig = developerSettingsDataController.loadFeatureConfig(),
+           let config = featureConfig.common.yir(year: Self.targetYear) {
+            return config
+        }
+        
+        return nil
+    }
 
     public init(coreDataStore: WMFCoreDataStore? = WMFDataEnvironment.current.coreDataStore, userDefaultsStore: WMFKeyValueStore? = WMFDataEnvironment.current.userDefaultsStore, developerSettingsDataController: WMFDeveloperSettingsDataControlling = WMFDeveloperSettingsDataController.shared) throws {
 
@@ -105,15 +114,11 @@ import CoreData
             return true
         }
         
-        let yirConfig: WMFFeatureConfigResponse.Common.YearInReview?
-        if let featureConfig = developerSettingsDataController.loadFeatureConfig(),
-           let config = featureConfig.common.yir(year: Self.targetYear) {
-            yirConfig = config
-        } else {
+        guard let config = self.config else {
             return false
         }
 
-        guard let yirConfig = yirConfig, yirConfig.isActive(for: Date()) else {
+        guard config.isActive(for: Date()) else {
             return false
         }
         
@@ -168,20 +173,16 @@ import CoreData
             return false
         }
         
-        let yirConfig: WMFFeatureConfigResponse.Common.YearInReview
-        if let featureConfig = developerSettingsDataController.loadFeatureConfig(),
-           let config = featureConfig.common.yir(year: Self.targetYear) {
-            yirConfig = config
-        } else {
+        guard let config = self.config else {
             return false
         }
 
-        guard yirConfig.isActive(for: Date()) else {
+        guard config.isActive(for: Date()) else {
             return false
         }
 
         // Check remote valid country codes
-        let uppercaseConfigHideCountryCodes = yirConfig.hideCountryCodes.map { $0.uppercased() }
+        let uppercaseConfigHideCountryCodes = config.hideCountryCodes.map { $0.uppercased() }
         guard !uppercaseConfigHideCountryCodes.contains(countryCode.uppercased()) else {
             return false
         }
@@ -211,19 +212,15 @@ import CoreData
         guard let countryCode else {
             return false
         }
-
-        let yirConfig: WMFFeatureConfigResponse.Common.YearInReview
-        if let featureConfig = developerSettingsDataController.loadFeatureConfig(),
-           let config = featureConfig.common.yir(year: Self.targetYear) {
-            yirConfig = config
-        } else {
+        
+        guard let config = self.config else {
             return false
         }
 
         // Note: Purposefully not checking config's yirConfig.isActive here. We want to continue showing the Settings item after we have disabled the feature remotely.
 
         // Check remote valid country codes
-        let uppercaseConfigHideCountryCodes = yirConfig.hideCountryCodes.map { $0.uppercased() }
+        let uppercaseConfigHideCountryCodes = config.hideCountryCodes.map { $0.uppercased() }
         guard !uppercaseConfigHideCountryCodes.contains(countryCode.uppercased()) else {
             return false
         }
@@ -255,21 +252,17 @@ import CoreData
         guard let countryCode else {
             return false
         }
-
-        let yirConfig: WMFFeatureConfigResponse.Common.YearInReview
-        if let featureConfig = developerSettingsDataController.loadFeatureConfig(),
-           let config = featureConfig.common.yir(year: Self.targetYear) {
-            yirConfig = config
-        } else {
+        
+        guard let config = self.config else {
             return false
         }
         
-        guard yirConfig.isActive(for: Date()) else {
+        guard config.isActive(for: Date()) else {
             return false
         }
 
         // Check remote valid country codes
-        let uppercaseConfigHideCountryCodes = yirConfig.hideCountryCodes.map { $0.uppercased() }
+        let uppercaseConfigHideCountryCodes = config.hideCountryCodes.map { $0.uppercased() }
         guard !uppercaseConfigHideCountryCodes.contains(countryCode.uppercased()) else {
             return false
         }
@@ -313,18 +306,14 @@ import CoreData
         }
 
         let backgroundContext = try coreDataStore.newBackgroundContext
-
-        let yirConfig: WMFFeatureConfigResponse.Common.YearInReview
-        if let featureConfig = developerSettingsDataController.loadFeatureConfig(),
-           let config = featureConfig.common.yir(year: Self.targetYear) {
-            yirConfig = config
-        } else {
+        
+        guard let config = self.config else {
             return nil
         }
 
         let slideFactory = YearInReviewSlideDataControllerFactory(
             year: year,
-            config: yirConfig,
+            config: config,
             username: username,
             userID: userID,
             project: primaryAppLanguageProject,
@@ -488,11 +477,7 @@ import CoreData
 
     public func shouldHideDonateButton() -> Bool {
         
-        let yirConfig: WMFFeatureConfigResponse.Common.YearInReview
-        if let featureConfig = developerSettingsDataController.loadFeatureConfig(),
-           let config = featureConfig.common.yir(year: Self.targetYear) {
-            yirConfig = config
-        } else {
+        guard let config = self.config else {
             return false
         }
 
@@ -500,7 +485,7 @@ import CoreData
             return false
         }
 
-        guard yirConfig.hideDonateCountryCodes.contains(locale) else {
+        guard config.hideDonateCountryCodes.contains(locale) else {
             return false
         }
 
