@@ -156,7 +156,7 @@ extension ArticleViewController {
             return
         }
         
-        if WMFDeveloperSettingsDataController.shared.showYiRV2 {
+        if WMFDeveloperSettingsDataController.shared.showYiRV3 {
             let title = dataStore.authenticationManager.authStateIsPermanent ?  CommonStrings.exploreYIRTitlePersonalized : CommonStrings.exploreYiRTitle
             let body = dataStore.authenticationManager.authStateIsPermanent ? CommonStrings.yirFeatureAnnoucementBodyPersonalized : CommonStrings.yirFeatureAnnoucementBody
             let primaryButtonTitle = CommonStrings.continueButton

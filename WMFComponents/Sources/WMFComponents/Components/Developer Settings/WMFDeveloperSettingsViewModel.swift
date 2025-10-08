@@ -62,8 +62,6 @@ import WMFData
         let setActivityTabGroupC = WMFFormItemSelectViewModel(title: localizedStrings.setActivityTabGroupC, isSelected: WMFDeveloperSettingsDataController.shared.setActivityTabGroupC)
         
         
-        let showYiRV2 = WMFFormItemSelectViewModel(title: "Show Year in Review Version 2", isSelected: WMFDeveloperSettingsDataController.shared.showYiRV2)
-        
         let showYiRV3 = WMFFormItemSelectViewModel(title: "Show Year in Review Version 3", isSelected: WMFDeveloperSettingsDataController.shared.showYiRV3)
 
         // Form ViewModel
@@ -79,7 +77,6 @@ import WMFData
                 forceMaxArticleTabsTo5,
                 enableMoreDynamicTabsV2GroupB,
                 enableMoreDynamicTabsV2GroupC,
-                showYiRV2,
                 showYiRV3
             ], selectType: .multi)
         ])
@@ -117,7 +114,7 @@ import WMFData
             groupC: setActivityTabGroupC
         )
         
-        yirGroupCoordinator = YearInReviewGroupBindingCoordinator(showYiRV2: showYiRV2, showYiRV3: showYiRV3)
+        yirGroupCoordinator = YearInReviewGroupBindingCoordinator(showYiRV3: showYiRV3)
     }
 }
 
@@ -176,20 +173,9 @@ private final class MoreDynamicTabsV2GroupBindingCoordinator {
 private final class YearInReviewGroupBindingCoordinator {
     private var subscribers: Set<AnyCancellable> = []
 
-    init(showYiRV2: WMFFormItemSelectViewModel, showYiRV3: WMFFormItemSelectViewModel) {
-        
-        showYiRV2.$isSelected.sink { isSelected in
-            WMFDeveloperSettingsDataController.shared.showYiRV2 = isSelected
-            if isSelected {
-                showYiRV3.isSelected = false
-            }
-        }.store(in: &subscribers)
-
+    init(showYiRV3: WMFFormItemSelectViewModel) {
         showYiRV3.$isSelected.sink { isSelected in
             WMFDeveloperSettingsDataController.shared.showYiRV3 = isSelected
-            if isSelected {
-                showYiRV2.isSelected = false
-            }
         }.store(in: &subscribers)
     }
 }
