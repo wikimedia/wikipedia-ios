@@ -7,6 +7,12 @@ public struct WMFFeatureConfigResponse: Codable {
         
         public struct YearInReview: Codable {
             
+            public struct TopReadPercentage: Codable {
+                public let identifier: String
+                public let min: Int
+                public let max: Int?
+            }
+            
             public let year: Int
             public let activeStartDateString: String
             public let activeEndDateString: String
@@ -24,6 +30,7 @@ public struct WMFFeatureConfigResponse: Codable {
             public let hoursReadEN: Int
             public let yearsReadEN: Int
             public let topReadEN: [String]
+            public let topReadPercentages: [TopReadPercentage]
             public let bytesAddedEN: Int
             public let hideCountryCodes: [String]
             public let hideDonateCountryCodes: [String]
@@ -46,6 +53,7 @@ public struct WMFFeatureConfigResponse: Codable {
                 case hoursReadEN
                 case yearsReadEN
                 case topReadEN
+                case topReadPercentages
                 case bytesAddedEN
                 case hideCountryCodes
                 case hideDonateCountryCodes

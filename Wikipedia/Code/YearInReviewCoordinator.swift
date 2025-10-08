@@ -484,28 +484,52 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
 
     // todo: config?
     func percentileRange(for readCount: Int) -> String? {
-        switch readCount {
-        case ...335:
+        
+        guard let config = dataController.config else {
+            return ""
+        }
+        
+        var identifier: String? = nil
+        for topReadPercentage in config.topReadPercentages {
+            
+            guard let max = topReadPercentage.max else {
+                if readCount >= topReadPercentage.min {
+                    identifier = topReadPercentage.identifier
+                    break
+                }
+                continue
+            }
+            
+            if readCount >= topReadPercentage.min && readCount <= max {
+                identifier = topReadPercentage.identifier
+            }
+        }
+        
+        guard let identifier else {
             return nil
-        case 336...1233:
+        }
+        
+        switch identifier {
+        case "50":
             return WMFLocalizedString("percentile-50", value: "50", comment: "50th percentile range")
-        case 1234...2455:
+        case "40":
             return WMFLocalizedString("percentile-40", value: "40", comment: "40th percentile range")
-        case 2456...4566:
+        case "30":
             return WMFLocalizedString("percentile-30", value: "30", comment: "30th percentile range")
-        case 4567...8900:
+        case "20":
             return WMFLocalizedString("percentile-20", value: "20", comment: "20th percentile range")
-        case 8901...12344:
+        case "10":
             return WMFLocalizedString("percentile-10", value: "10", comment: "10th percentile range")
-        case 12345...23455:
+        case "5":
             return WMFLocalizedString("percentile-5", value: "5", comment: "5th percentile range")
-        case 23456...43739:
+        case "1":
             return WMFLocalizedString("percentile-1", value: "1", comment: "1st percentile range")
-        default:
+        case "0.01":
             return WMFLocalizedString("percentile-0.01", value: "0.01", comment: "0.01th percentile range")
+        default:
+            return nil
         }
     }
-
 
     func personalizedYouReadSlideSubtitleV3(readCount: Int) -> String {
         
