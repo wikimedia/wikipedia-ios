@@ -767,17 +767,17 @@
 			<key>NSStringFormatSpecTypeKey</key>
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
+			<string>@</string>
 			<key>one</key>
-			<string>%1$d kerran</string>
+			<string>%1$@ kerran</string>
 			<key>other</key>
-			<string>%1$d kertaa</string>
+			<string>%1$@ kertaa</string>
 		</dict>
 	</dict>
 	<key>year-in-review-personalized-reading-subtitle-format</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Luit %#@v1@. Wikipediassa oli saatavilla %2$d miljoonaa artikkelia yli %3$d aktiivisella kielellä. Liityit osaksi miljoonien ihmisten yhteisöä laajentamassa tietämystään ja tutkimassa moninaisia aiheita.</string>
+		<string>Luit %#@v1@. Wikipediassa oli saatavilla %2$@ miljoonaa artikkelia yli %3$d aktiivisella kielellä. Liityit osaksi miljoonien ihmisten yhteisöä laajentamassa tietämystään ja tutkimassa moninaisia aiheita.</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>

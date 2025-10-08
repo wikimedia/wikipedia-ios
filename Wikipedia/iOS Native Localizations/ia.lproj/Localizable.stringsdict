@@ -902,13 +902,13 @@
 	<key>year-in-review-highlights-edit-frequency-value</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%1$d vice%#@v1@ per minuta</string>
+		<string>%1$@ vice%#@v1@ per minuta</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
+			<string>@</string>
 			<key>one</key>
 			<string></string>
 			<key>other</key>
@@ -918,13 +918,13 @@
 	<key>year-in-review-personalized-editing-title-format</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Tu ha modificate Wikipedia %1$d vice%#@v1@</string>
+		<string>Tu ha modificate Wikipedia %1$@ vice%#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
+			<string>@</string>
 			<key>one</key>
 			<string></string>
 			<key>other</key>
@@ -934,7 +934,7 @@
 	<key>year-in-review-personalized-reading-subtitle-format</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Tu ha legite %1$d articulo%#@v1@. Wikipedia habeva %2$d milliones de articulos disponibile in %3$d linguas active. Tu te ha jungite a milliones pro expander le cognoscentia e explorar diverse topicos.</string>
+		<string>Tu ha legite %1$d articulo%#@v1@. Wikipedia habeva %2$@ milliones de articulos disponibile in %3$d linguas active. Tu te ha jungite a milliones pro expander le cognoscentia e explorar diverse topicos.</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>

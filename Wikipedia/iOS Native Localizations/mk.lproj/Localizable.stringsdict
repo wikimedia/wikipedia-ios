@@ -896,11 +896,11 @@
 			<key>NSStringFormatSpecTypeKey</key>
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
+			<string>@</string>
 			<key>one</key>
 			<string>едаш</string>
 			<key>other</key>
-			<string>%1$d пати</string>
+			<string>%1$@ пати</string>
 		</dict>
 	</dict>
 	<key>year-in-review-personalized-editing-title-format</key>
@@ -912,17 +912,17 @@
 			<key>NSStringFormatSpecTypeKey</key>
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
+			<string>@</string>
 			<key>one</key>
 			<string>еднаш</string>
 			<key>other</key>
-			<string>%1$d пати</string>
+			<string>%1$@ пати</string>
 		</dict>
 	</dict>
 	<key>year-in-review-personalized-reading-subtitle-format</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Прочитавте %#@v1@. Википедија имаше %2$d милиони статии на преку %3$d активни јазици. Се придруживте на милиони луѓе во проширување на знаењето и истражувањето на разновидни теми.</string>
+		<string>Прочитавте %#@v1@. Википедија имаше %2$@ милиони статии на преку %3$d активни јазици. Се придруживте на милиони луѓе во проширување на знаењето и истражувањето на разновидни теми.</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>

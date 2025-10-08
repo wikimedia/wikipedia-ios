@@ -883,17 +883,17 @@
 			<key>NSStringFormatSpecTypeKey</key>
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
+			<string>@</string>
 			<key>one</key>
 			<string>einmal</string>
 			<key>other</key>
-			<string>%1$d mal</string>
+			<string>%1$@ mal</string>
 		</dict>
 	</dict>
 	<key>year-in-review-personalized-reading-subtitle-format</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Dieses Jahr hast du %#@v1@ gelesen. Bei Wikipedia sind %2$d Millionen Artikel in über %3$d aktiven Sprachen verfügbar. Du hast dich Millionen von Menschen angeschlossen, die ihr Wissen erweitern und verschiedene Themen erforschen wollen.</string>
+		<string>Dieses Jahr hast du %#@v1@ gelesen. Bei Wikipedia sind %2$@ Millionen Artikel in über %3$d aktiven Sprachen verfügbar. Du hast dich Millionen von Menschen angeschlossen, die ihr Wissen erweitern und verschiedene Themen erforschen wollen.</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>

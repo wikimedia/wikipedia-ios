@@ -904,11 +904,11 @@
 			<key>NSStringFormatSpecTypeKey</key>
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
+			<string>@</string>
 			<key>one</key>
-			<string>%1$d раз</string>
+			<string>%1$@ раз</string>
 			<key>other</key>
-			<string>%1$d разів</string>
+			<string>%1$@ разів</string>
 		</dict>
 	</dict>
 	<key>year-in-review-personalized-editing-title-format</key>
@@ -920,17 +920,17 @@
 			<key>NSStringFormatSpecTypeKey</key>
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
+			<string>@</string>
 			<key>one</key>
-			<string>%1$d раз</string>
+			<string>%1$@ раз</string>
 			<key>other</key>
-			<string>%1$d разів</string>
+			<string>%1$@ разів</string>
 		</dict>
 	</dict>
 	<key>year-in-review-personalized-reading-subtitle-format</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Ви прочитали %#@v1@. У Вікіпедії було доступно %2$d мільйона статей понад %3$d активними мовами. Ви приєдналися до мільйонів у розширенні знань і дослідженні різноманітних тем.</string>
+		<string>Ви прочитали %#@v1@. У Вікіпедії було доступно %2$@ мільйона статей понад %3$d активними мовами. Ви приєдналися до мільйонів у розширенні знань і дослідженні різноманітних тем.</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>

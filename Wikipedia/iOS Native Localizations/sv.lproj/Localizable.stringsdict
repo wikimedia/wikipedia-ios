@@ -870,11 +870,11 @@
 			<key>NSStringFormatSpecTypeKey</key>
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
+			<string>@</string>
 			<key>one</key>
-			<string>%1$d gång</string>
+			<string>%1$@ gång</string>
 			<key>other</key>
-			<string>%1$d gånger</string>
+			<string>%1$@ gånger</string>
 		</dict>
 	</dict>
 	<key>year-in-review-personalized-editing-title-format</key>
@@ -886,17 +886,17 @@
 			<key>NSStringFormatSpecTypeKey</key>
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
+			<string>@</string>
 			<key>one</key>
-			<string>%1$d gång</string>
+			<string>%1$@ gång</string>
 			<key>other</key>
-			<string>%1$d gånger</string>
+			<string>%1$@ gånger</string>
 		</dict>
 	</dict>
 	<key>year-in-review-personalized-reading-subtitle-format</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Du har läst %#@v1@. Wikipedia fick %2$d miljoner artiklar tillgängliga på över %3$d aktiva språk. Du anslöt dig till miljoner andra för att utöka kunskapen och utforska olika ämnen.</string>
+		<string>Du har läst %#@v1@. Wikipedia fick %2$@ miljoner artiklar tillgängliga på över %3$d aktiva språk. Du anslöt dig till miljoner andra för att utöka kunskapen och utforska olika ämnen.</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>

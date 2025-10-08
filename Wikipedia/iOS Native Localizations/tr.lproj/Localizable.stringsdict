@@ -823,9 +823,9 @@
 			<key>NSStringFormatSpecTypeKey</key>
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
+			<string>@</string>
 			<key>other</key>
-			<string>%1$d kez</string>
+			<string>%1$@ kez</string>
 		</dict>
 	</dict>
 	<key>year-in-review-personalized-editing-title-format</key>
@@ -837,15 +837,15 @@
 			<key>NSStringFormatSpecTypeKey</key>
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
+			<string>@</string>
 			<key>other</key>
-			<string>%1$d kez</string>
+			<string>%1$@ kez</string>
 		</dict>
 	</dict>
 	<key>year-in-review-personalized-reading-subtitle-format</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@ okudunuz. Vikipedi'de %3$d ve daha fazla etkin dilde %2$d milyon madde var. Bilgiyi yayma ve çeşitli konuları keşfetme konusunda milyonlara katıldınız.</string>
+		<string>%#@v1@ okudunuz. Vikipedi'de %3$d ve daha fazla etkin dilde %2$@ milyon madde var. Bilgiyi yayma ve çeşitli konuları keşfetme konusunda milyonlara katıldınız.</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>

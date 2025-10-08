@@ -718,9 +718,9 @@
 			<key>NSStringFormatSpecTypeKey</key>
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
+			<string>@</string>
 			<key>other</key>
-			<string>%1$d Mol</string>
+			<string>%1$@ Mol</string>
 		</dict>
 	</dict>
 	<key>year-in-review-personalized-editing-title-format</key>
@@ -732,9 +732,9 @@
 			<key>NSStringFormatSpecTypeKey</key>
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
+			<string>@</string>
 			<key>other</key>
-			<string>%1$d Mol</string>
+			<string>%1$@ Mol</string>
 		</dict>
 	</dict>
 	<key>year-in-review-personalized-reading-subtitle-format-v3</key>

@@ -886,13 +886,13 @@
 	<key>year-in-review-highlights-edit-frequency-value</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%1$d %#@v1@ per minuut</string>
+		<string>%1$@ %#@v1@ per minuut</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
+			<string>@</string>
 			<key>other</key>
 			<string>keer</string>
 		</dict>
@@ -906,15 +906,15 @@
 			<key>NSStringFormatSpecTypeKey</key>
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
+			<string>@</string>
 			<key>other</key>
-			<string>%1$d keer</string>
+			<string>%1$@ keer</string>
 		</dict>
 	</dict>
 	<key>year-in-review-personalized-reading-subtitle-format</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>U hebt %1$d artikel%#@v1@ gelezen. Wikipedia bevatte %2$d miljoen artikelen in meer dan %3$d actieve talen. Samen met miljoenen anderen hebt u uw kennis uitgebreid en diverse onderwerpen verkend.</string>
+		<string>U hebt %1$d artikel%#@v1@ gelezen. Wikipedia bevatte %2$@ miljoen artikelen in meer dan %3$d actieve talen. Samen met miljoenen anderen hebt u uw kennis uitgebreid en diverse onderwerpen verkend.</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>

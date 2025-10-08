@@ -780,17 +780,17 @@
 			<key>NSStringFormatSpecTypeKey</key>
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
+			<string>@</string>
 			<key>one</key>
 			<string>פעם אחת</string>
 			<key>other</key>
-			<string>%1$d פעמים</string>
+			<string>%1$@ פעמים</string>
 		</dict>
 	</dict>
 	<key>year-in-review-personalized-reading-subtitle-format</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>קראת %#@v1@. בוויקיפדיה היו %2$d מיליון ערכים זמינים ביותר מ־%3$d שפות פעילות. הצטרפת למיליונים בהרחבת הידע ובחקירת נושאים מגוונים.</string>
+		<string>קראת %#@v1@. בוויקיפדיה היו %2$@ מיליון ערכים זמינים ביותר מ־%3$d שפות פעילות. הצטרפת למיליונים בהרחבת הידע ובחקירת נושאים מגוונים.</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
