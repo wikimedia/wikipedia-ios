@@ -779,7 +779,7 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
         searchViewController.dataStore = dataStore
         searchViewController.theme = theme
         searchViewController.shouldBecomeFirstResponder = true
-        searchViewController.customTabConfigUponArticleNavigation = .appendArticleAndAssignCurrentTabAndCleanoutFutureArticles
+        searchViewController.customTabConfigUponArticleNavigation = tabDataController.moreDynamicTabsGroupBEnabled && needsFocusOnSearch ? .appendArticleAndAssignCurrentTabAndRemovePrecedingMainPage : .appendArticleAndAssignCurrentTabAndCleanoutFutureArticles
         
         let populateSearchBarWithTextAction: (String) -> Void = { [weak self] searchTerm in
             self?.navigationItem.searchController?.searchBar.text = searchTerm
@@ -1317,7 +1317,9 @@ private extension ArticleViewController {
 
         // Sometimes there is a race condition where the Core Data store isn't yet ready to persist tabs information (for example, deep linking to an article when in a terminated state). We are trying again here.
         if coordinator?.tabIdentifier == nil || coordinator?.tabItemIdentifier == nil {
-            coordinator?.trackArticleTab(articleViewController: self)
+            Task {
+                await coordinator?.trackArticleTab(articleViewController: self)
+            }
         }
     }
     
