@@ -276,21 +276,29 @@ final class TabsOverviewCoordinator: NSObject, Coordinator {
         let limit = 5
         let tabLimit = 2
 
-        if articleTabs.isEmpty {
+        guard !articleTabs.isEmpty else {
             return []
         }
 
-        var urls: Set<URL> = Set<URL>()
+        guard let siteURL = dataStore.languageLinkController.appLanguage?.siteURL,
+              let mainPageURL = siteURL.wmf_URL(withTitle: "Main Page") else {
+            return []
+        }
+
+        var urls = Set<URL>()
         urls.reserveCapacity(limit)
 
-        let newestTabs = articleTabs.reversed().prefix(tabLimit)
+        let nonMainPageTabs = articleTabs.filter { tab in
+            tab.articles.contains { $0.articleURL != mainPageURL }
+        }
+
+        let newestTabs = nonMainPageTabs.reversed().prefix(tabLimit)
 
         for tab in newestTabs {
             for article in tab.articles.reversed() {
-                if urls.count < limit, let url = article.articleURL {
+                guard urls.count < limit, let url = article.articleURL else { break }
+                if url != mainPageURL {
                     urls.insert(url)
-                } else {
-                    break
                 }
             }
             if urls.count >= limit {
