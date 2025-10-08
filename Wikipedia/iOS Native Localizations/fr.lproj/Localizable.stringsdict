@@ -916,7 +916,7 @@
 	<key>year-in-review-personalized-reading-subtitle-format</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Cette année, vous avez consulté %#@v1@. Wikipédia propose %2$@ millions d’articles dans plus de %3$d langues actives. Vous avez rejoint des millions de personnes pour le développement de la connaissance et l’exploration de divers sujets.</string>
+		<string>Cette année, vous avez consulté %#@v1@. Wikipédia propose %2$@ millions d’articles dans plus de %3$@ langues actives. Vous avez rejoint des millions de personnes pour le développement de la connaissance et l’exploration de divers sujets.</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>

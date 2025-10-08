@@ -902,7 +902,7 @@
 	<key>year-in-review-personalized-reading-subtitle-format</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>لقد قرأت %#@v1@. تحتوي ويكيبيديا على %2$@ مليون مقالة متاحة بأكثر من %3$d لغات نشطة. لقد انضممت إلى ملايين الأشخاص في توسيع المعرفة واستكشاف مواضيع متنوعة.</string>
+		<string>لقد قرأت %#@v1@. تحتوي ويكيبيديا على %2$@ مليون مقالة متاحة بأكثر من %3$@ لغات نشطة. لقد انضممت إلى ملايين الأشخاص في توسيع المعرفة واستكشاف مواضيع متنوعة.</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>

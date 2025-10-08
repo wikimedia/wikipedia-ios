@@ -878,7 +878,7 @@
 	<key>year-in-review-personalized-reading-subtitle-format</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>您閱讀了%#@v1@文章。維基百科提供超過%2$@百萬篇文章，涵蓋超過%3$d種活躍的語言版本。您與數百萬人一起拓展知識，探索多樣化的主題。</string>
+		<string>您閱讀了%#@v1@文章。維基百科提供超過%2$@百萬篇文章，涵蓋超過%3$@種活躍的語言版本。您與數百萬人一起拓展知識，探索多樣化的主題。</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
