@@ -918,7 +918,7 @@
 	<key>year-in-review-personalized-reading-subtitle-format-v3</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>هذا يضعك ضمن أعلى **PERCENT** قراء ويكيبيديا عالميًا. يقرأ الشخص العادي %#@v1@ سنويا.</string>
+		<string>نُقدّر أن هذا يضعك ضمن أعلى **نسبة** قراء ويكيبيديا عالميًا. يقرأ الشخص العادي %#@v1@ سنويًا.</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -926,9 +926,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>%1$d مقالة</string>
+			<string> %1$d مقالة</string>
 			<key>other</key>
-			<string>%1$d مقالات</string>
+			<string> %1$d مقالات</string>
 		</dict>
 	</dict>
 	<key>year-in-review-personalized-reading-title-format</key>

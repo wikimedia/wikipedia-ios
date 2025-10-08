@@ -264,7 +264,7 @@
 "developer-settings-enable-year-in-review" = "Увімкнути Огляд року";
 "developer-settings-send-analytics-to-wmflabs" = "Надсилати аналітику на wmflabs.";
 "developer-settings-suppress-image-rec-post" = "Не публікуйте рекомендації щодо редагування зображень.";
-"did-you-know" = "Чи знаєте ви";
+"did-you-know" = "Чи знаєте ви?";
 "diff-article-revision-history" = "Історія редагування статті";
 "diff-change-added" = "Додавання, $1, кінець додавання.";
 "diff-change-paragraph-lines-moved-down" = "Абзац переміщено вниз на {{PLURAL:$1|0=0 рядків|$1 рядок|$1 рядки|$1 рядків}}. Перейти на нове місце.";
@@ -945,6 +945,14 @@
 "panel-not-logged-in-continue-edit-action-title" = "Редагувати без входу в систему";
 "panel-not-logged-in-subtitle" = "Ваша IP-адреса буде публічно видима, якщо ви редагуєте. Якщо Ви $1представитесь$2 або $3створите обліковку$4, редагування будуть приписані вашому імені користувача, разом з іншими перевагами.";
 "panel-not-logged-in-title" = "Ви не ввійшли в систему";
+"percentile-0.01" = "0,01";
+"percentile-1" = "1";
+"percentile-10" = "10";
+"percentile-20" = "20";
+"percentile-30" = "30";
+"percentile-40" = "40";
+"percentile-5" = "5";
+"percentile-50" = "50";
 "pictured" = "проілюстровано";
 "places-accessibility-clear-saved-searches" = "Очистити історію пошуку";
 "places-accessibility-group" = "$1 статей";
@@ -1219,12 +1227,17 @@
 "tabs-close-tab" = "Закрити вкладку";
 "tabs-empty-view-subtitle" = "Натисніть «+», щоб додати вкладки до цього простору, або довго натисніть посилання на статтю, щоб відкрити його в новій вкладці.";
 "tabs-empty-view-title" = "Ваші вкладки відображатимуться тут";
+"tabs-hide-suggested-articles" = "Приховати пропозиції статей";
 "tabs-main-page-description" = "Відкрийте для себе вибрані статті, свіжі новини, цікаві факти та ключову статистику на головній сторінці Вікіпедії.";
 "tabs-main-page-subtitle" = "Найцікавіше від Вікіпедії за сьогодні";
 "tabs-navbar-title-format" = "{{PLURAL:$1|$1 вкладка|$1 вкладки|$1 вкладок}}";
 "tabs-open-tab" = "Відкрити вкладку";
 "tabs-overview-tooltip-body" = "Перемикатися між відкритими статтями в огляді вкладок.";
 "tabs-overview-tooltip-title" = "Огляд вкладок";
+"tabs-show-suggested-articles" = "Показати пропозиції статей";
+"tabs-suggested-articles-hide-suggestions-confirmation" = "Пропозиції тепер приховані";
+"tabs-suggested-articles-show-suggestions-confirmation" = "Пропозиції тепер видно";
+// Fuzzy
 "tabs-survey-title" = "Допоможіть покращити функцію вкладок. Ви задоволені цією функцією?";
 "tabs-thumbnail-description" = "Ознайомтеся з Вікіпедією, вільною енциклопедією, яку може редагувати будь-хто";
 "tabs-thumbnail-subtitle" = "Почніть свій пошук тут";
@@ -1554,8 +1567,7 @@
 "year-in-review-personalized-location-title-format" = "Статті, які ви читали, найближчі до: $1";
 "year-in-review-personalized-most-read-articles-title" = "Ваші найчитаніші статті";
 "year-in-review-personalized-reading-subtitle-format" = "Ви прочитали {{PLURAL:$1|$1 статтю|$1 статті|$1 статей}}. У Вікіпедії було доступно $2 мільйона статей понад $3 активними мовами. Ви приєдналися до мільйонів у розширенні знань і дослідженні різноманітних тем.";
-// Fuzzy
-"year-in-review-personalized-reading-subtitle-format-v3" = "Таким чином ви належите до **PERCENT** найактивніших читачів Вікіпедії у світі. Середньостатистична людина читає {{PLURAL:$1|$1 статтю|$1 статті|$1 статей}} на рік.";
+"year-in-review-personalized-reading-subtitle-format-v3" = "Ми підрахували, що ви належите до **PERCENT** найактивніших читачів Вікіпедії у світі. Середньостатистична людина читає {{PLURAL:$1|$1 статтю|$1 статті|$1 статей}} на рік.";
 "year-in-review-personalized-reading-title-format" = "Ви прочитали $1 {{PLURAL:$1|статтю|статті|статей}}";
 "year-in-review-personalized-reading-title-v3-format" = "Ви витратили {{PLURAL:$1|$1 хвилину|$1 хвилини|$1 хвилин}} на читання {{PLURAL:$2|$2 статті|$2 статей}} у 2025 році";
 "year-in-review-personalized-saved-articles" = "Ілюстрація шматочка пазла в будівельній касці з комп'ютерними екранами позаду.";

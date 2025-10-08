@@ -44,7 +44,7 @@ public class WMFArticleTabsHostingController<HostedView: View>: WMFComponentHost
         
         configureNavigationBar()
         
-        if dataController.shouldShowMoreDynamicTabs {
+        if dataController.shouldShowMoreDynamicTabsV2 {
             navigationItem.rightBarButtonItems = [addTabButton, overflowButton]
         } else {
             navigationItem.rightBarButtonItem = addTabButton
@@ -90,20 +90,22 @@ public class WMFArticleTabsHostingController<HostedView: View>: WMFComponentHost
         
         let hideArticleSuggestions = UIAction(title: viewModel.localizedStrings.hideSuggestedArticlesTitle, image: WMFSFSymbolIcon.for(symbol: .eyeSlash), handler: { [weak self] _ in
             guard let self else { return }
-            self.dataController.userHasHiddenArticleSuggestionsTabs.toggle()
+            self.dataController.userHasHiddenArticleSuggestionsTabs = true
             self.overflowButton.menu = self.overflowMenu
             viewModel.didToggleSuggestedArticles()
+            viewModel.refreshShouldShowSuggestionsFromDataController()
         })
         
         let showArticleSuggestions = UIAction(title: viewModel.localizedStrings.showSuggestedArticlesTitle, image: WMFSFSymbolIcon.for(symbol: .eye), handler: { [weak self] _ in
             guard let self else { return }
-            self.dataController.userHasHiddenArticleSuggestionsTabs.toggle()
+            self.dataController.userHasHiddenArticleSuggestionsTabs = false
             self.overflowButton.menu = self.overflowMenu
             viewModel.didToggleSuggestedArticles()
+            viewModel.refreshShouldShowSuggestionsFromDataController()
         })
         
         var children: [UIMenuElement]
-        if dataController.shouldShowMoreDynamicTabs {
+        if dataController.shouldShowMoreDynamicTabsV2 {
             if dataController.userHasHiddenArticleSuggestionsTabs {
                 children = [showArticleSuggestions, closeAllTabs]
             } else {
@@ -124,10 +126,12 @@ public class WMFArticleTabsHostingController<HostedView: View>: WMFComponentHost
     private func presentCloseAllTabsConfirmationDialog() async {
         let button1Title = viewModel.localizedStrings.cancelActionTitle
         let button2Title = viewModel.localizedStrings.closeAllTabs
+        guard let tabsCount = try? await dataController.tabsCount() else { return }
+        
 
         let alert = UIAlertController(
-            title: viewModel.localizedStrings.closeAllTabsTitle,
-            message: viewModel.localizedStrings.closeAllTabsSubtitle,
+            title: viewModel.localizedStrings.closeAllTabsTitle(tabsCount),
+            message: viewModel.localizedStrings.closeAllTabsSubtitle(tabsCount),
             preferredStyle: .alert
         )
         

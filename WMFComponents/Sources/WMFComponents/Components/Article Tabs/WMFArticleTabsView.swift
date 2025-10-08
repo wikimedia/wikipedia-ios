@@ -19,7 +19,6 @@ public struct WMFArticleTabsView: View {
     @ObservedObject var viewModel: WMFArticleTabsViewModel
     /// Flag to allow us to know if we can scroll to the current tab position
     @State private var isReady: Bool = false
-    @State private var currentTabID: String?
     @State private var cellFrames: [String: CGRect] = [:]
 
     private var dykLinkDelegate: UITextViewDelegate?
@@ -47,25 +46,8 @@ public struct WMFArticleTabsView: View {
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .background(Color(theme.midBackground))
-
-                Group {
-
-                    if let didYouKnowViewModel = viewModel.didYouKnowViewModel,
-                       didYouKnowViewModel.didYouKnowFact?.isEmpty == false,
-                       viewModel.shouldShowTabsV2 {
-                        VStack(spacing: 0) {
-                            Rectangle()
-                                .fill(Color(theme.secondaryText).opacity(0.5))
-                                .frame(height: 1 / UIScreen.main.scale)
-                                .frame(maxWidth: .infinity)
-                            WMFTabsOverviewDidYouKnowView(
-                                viewModel: didYouKnowViewModel,
-                                linkDelegate: dykLinkDelegate
-                            )
-                            .frame(maxHeight: viewHeight)
-                            .clipped()
-                        }
-                    }
+                if viewModel.shouldShowSuggestions {
+                    bottomSection
                 }
             }
         }
@@ -77,16 +59,55 @@ public struct WMFArticleTabsView: View {
                     await MainActor.run { isReady = true }
                     return
                 }
-                if let tab = await viewModel.getCurrentTab() {
-                    await MainActor.run { currentTabID = tab.id }
-                }
                 viewModel.prefetchAllSummariesTrickled(initialWindow: 24, pageSize: 12)
 
                 await MainActor.run { isReady = true }
             }
+            viewModel.maybeStartSecondaryLoads()
         }
         .background(Color(theme.midBackground))
         .toolbarBackground(Color(theme.midBackground), for: .automatic)
+        .onAppear {
+            viewModel.maybeStartSecondaryLoads()
+        }
+    }
+
+    // MARK: - Bottom Section
+
+    @ViewBuilder
+    private var bottomSection: some View {
+        let recReady = (viewModel.recommendedArticlesViewModel != nil)
+        let dykReady = (viewModel.didYouKnowViewModel?.didYouKnowFact?.isEmpty == false)
+
+        let shouldShowRecs = viewModel.shouldShowTabsV2 && viewModel.hasMultipleTabs
+        let shouldShowDYK  = viewModel.shouldShowTabsV2 && !viewModel.hasMultipleTabs
+
+        if shouldShowRecs || shouldShowDYK {
+            VStack(spacing: 0) {
+                Rectangle()
+                    .fill(Color(theme.secondaryText).opacity(0.5))
+                    .frame(height: 1 / UIScreen.main.scale)
+                    .frame(maxWidth: .infinity)
+
+                if shouldShowRecs, let recVM = viewModel.recommendedArticlesViewModel {
+                    WMFTabsOverviewRecommendationsView(viewModel: recVM)
+                        .frame(maxHeight: viewHeight)
+                        .clipped()
+                        .transition(.move(edge: .bottom).combined(with: .opacity))
+                } else if shouldShowDYK, let dykVM = viewModel.didYouKnowViewModel {
+                    WMFTabsOverviewDidYouKnowView(
+                        viewModel: dykVM,
+                        linkDelegate: dykLinkDelegate
+                    )
+                    .frame(maxHeight: viewHeight)
+                    .clipped()
+                    .transition(.move(edge: .bottom).combined(with: .opacity))
+                }
+            }
+            .frame(maxWidth: .infinity)
+            .background(Color(theme.midBackground))
+            .animation(.default, value: shouldShowRecs || shouldShowDYK)
+        }
     }
 
     // MARK: - Loading / Empty
@@ -132,6 +153,9 @@ public struct WMFArticleTabsView: View {
                     ForEach(viewModel.articleTabs.sorted(by: { $0.dateCreated < $1.dateCreated }), id: \.id) { tab in
                         WMFArticleTabsViewContent(viewModel: viewModel, tab: tab)
                             .id(tab.id)
+                            .onAppear {
+                                Task { await viewModel.ensureInfo(for: tab) }
+                            }
                             .accessibilityActions {
                                 accessibilityAction(named: viewModel.localizedStrings.openTabAccessibility) {
                                     viewModel.didTapTab(tab.data)
@@ -148,7 +172,7 @@ public struct WMFArticleTabsView: View {
                 .onAppear {
                     Task {
                         await Task.yield()
-                        if let id = currentTabID {
+                        if let id = viewModel.currentTabID {
                             proxy.scrollTo(id, anchor: .bottom)
                         }
                     }
@@ -221,7 +245,7 @@ public struct WMFArticleTabsView: View {
                 .onAppear {
                     Task {
                         await Task.yield()
-                        if let id = currentTabID {
+                        if let id = viewModel.currentTabID {
                             proxy.scrollTo(id, anchor: .bottom)
                         }
                     }
@@ -299,6 +323,11 @@ fileprivate struct WMFArticleTabsViewContent: View {
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
         .background(Color(theme.chromeBackground))
         .cornerRadius(12)
+        .overlay {
+            RoundedRectangle(cornerRadius: 12)
+                .inset(by: 0.5)
+                .stroke(viewModel.currentTabID == tab.id && viewModel.shouldShowCurrentTabBorder ? Color(uiColor: theme.secondaryText) : Color.clear, lineWidth: 1)
+        }
         .shadow(color: Color.black.opacity(0.05), radius: 16, x: 0, y: 0)
         .contentShape(Rectangle())
         .modifier(AspectRatioModifier(shouldLockAspectRatio: viewModel.shouldLockAspectRatio()))

@@ -28,7 +28,7 @@ final class TabsOverviewCoordinator: NSObject, Coordinator {
     }
 
     private func surveyViewController() -> UIViewController {
-        let subtitle = WMFLocalizedString("tabs-survey-title", value: "Help improve the tabs feature. Are you satisfied with this feature?", comment: "Title for article tabs survey")
+        let subtitle = WMFLocalizedString("tabs-survey-title", value: "Help improve tabs. Are you satisfied with this feature?", comment: "Title for article tabs survey")
         
         let surveyLocalizedStrings = WMFSurveyViewModel.LocalizedStrings(
             title: CommonStrings.satisfactionSurveyTitle,
@@ -67,14 +67,6 @@ final class TabsOverviewCoordinator: NSObject, Coordinator {
         if dataController.userHasHiddenArticleSuggestionsTabs {
             WMFAlertManager.sharedInstance.showBottomAlertWithMessage(
                 WMFLocalizedString("tabs-suggested-articles-hide-suggestions-confirmation", value: "Suggestions are now hidden", comment: "Confirmation on hiding of the suggested articles in tabs."),
-                subtitle: nil,
-                buttonTitle: nil,
-                image: WMFSFSymbolIcon.for(symbol: .checkmark),
-                dismissPreviousAlerts: true
-            )
-        } else {
-            WMFAlertManager.sharedInstance.showBottomAlertWithMessage(
-                WMFLocalizedString("tabs-suggested-articles-show-suggestions-confirmation", value: "Suggestions are now visible", comment: "Confirmation on showing of the suggested articles in tabs."),
                 subtitle: nil,
                 buttonTitle: nil,
                 image: WMFSFSymbolIcon.for(symbol: .checkmark),
@@ -139,7 +131,7 @@ final class TabsOverviewCoordinator: NSObject, Coordinator {
                 
                 surveyVC.modalPresentationStyle = .pageSheet
                 if let sheet = surveyVC.sheetPresentationController {
-                    sheet.detents = [.medium()]
+                    sheet.detents = [.large()]
                     sheet.prefersGrabberVisible = false
                 }
             }
@@ -159,8 +151,12 @@ final class TabsOverviewCoordinator: NSObject, Coordinator {
                 shareTabButtonTitle: CommonStrings.shareActionTitle,
                 closeAllTabs: CommonStrings.closeAllTabs,
                 cancelActionTitle: CommonStrings.cancelActionTitle,
-                closeAllTabsTitle: closeAllTabsTitle(numberTabs: articleTabsCount),
-                closeAllTabsSubtitle: closeAllTabsSubtitle(numberTabs: articleTabsCount),
+                closeAllTabsTitle: { count in
+                    self.closeAllTabsTitle(numberTabs: count)
+                },
+                closeAllTabsSubtitle: { count in
+                    self.closeAllTabsSubtitle(numberTabs: count)
+                },
                 closedAlertsNotification: closedAlertsNotification(numberTabs: articleTabsCount),
                 hideSuggestedArticlesTitle: WMFLocalizedString("tabs-hide-suggested-articles", value: "Hide article suggestions", comment: "Hide suggested articles button title"),
                 showSuggestedArticlesTitle: WMFLocalizedString("tabs-show-suggested-articles", value: "Show article suggestions", comment: "Show suggested articles button title"),
@@ -168,27 +164,33 @@ final class TabsOverviewCoordinator: NSObject, Coordinator {
                 emptyStateSubtitle: WMFLocalizedString("tabs-empty-view-subtitle", value: "Tap “+” to add tabs to this space or long press an article link to open it in a new tab.", comment: "Subtitle for the tabs overview screen when there are no tabs")
             )
 
-            let dykVM = try? await loadDidYouKnowViewModel()
-
             let articleTabsViewModel = WMFArticleTabsViewModel(
                 dataController: dataController,
                 localizedStrings: localizedStrings,
                 loggingDelegate: self,
-                didYouKnowViewModel: dykVM,
                 didTapTab: didTapTab,
                 didTapAddTab: didTapAddTab,
                 didTapShareTab: didTapShareTab,
                 didToggleSuggestedArticles: showAlertForArticleSuggestionsDisplayChangeConfirmation,
                 displayDeleteAllTabsToast: displayDeleteAllTabsToast
             )
-            
+
+            articleTabsViewModel.loadDidYouKnowViewModel = { [weak self] in
+                guard let self else { return nil }
+                return try? await self.loadDidYouKnowViewModel()
+            }
+
+            articleTabsViewModel.loadRecommendationsViewModel = { [weak self] in
+                guard let self else { return nil }
+                return try? await self.loadRecommendedArticlesViewModel()
+            }
+
             let articleTabsView = WMFArticleTabsView(viewModel: articleTabsViewModel, dykLinkDelegate: self)
             let hostingController = WMFArticleTabsHostingController(
                 rootView: articleTabsView,
                 viewModel: articleTabsViewModel,
                 doneButtonText: CommonStrings.doneTitle,
                 articleTabsCount: articleTabsCount,
-                
             )
             
             let navVC = WMFComponentNavigationController(
@@ -204,7 +206,102 @@ final class TabsOverviewCoordinator: NSObject, Coordinator {
         }
     }
 
-    func loadDidYouKnowViewModel() async throws -> WMFTabsOverviewDidYouKnowViewModel? {
+    @MainActor
+    private func loadRecommendedArticlesViewModel() async throws -> WMFTabsOverviewRecommendationsViewModel? {
+
+        let seedURLsSet = try? await getRecentTabArticleURLs()
+        guard let seedURLsSet else { return nil }
+
+        let seedURLs = Array(seedURLsSet)
+
+        let articles = await relatedArticlesProviderClosure(seedURLs)
+
+        guard let articles, !articles.isEmpty else {
+            DDLogWarn("TabsOverviewCoordinator: related articles provider returned empty")
+            return nil
+        }
+
+        let limit = UIDevice.current.userInterfaceIdiom == .pad ? 5 : 3
+        let limitedArticles = Array(articles.prefix(limit))
+
+        guard limitedArticles.count > 1 else { return nil }
+
+        let title = WMFLocalizedString(
+            "tabs-overview-recommendations-title",
+            value: "Based on your most recent tabs",
+            comment: "title for section on tabs overview with article recommendations"
+        )
+
+        let onTapArticleAction: WMFTabsOverviewRecommendationsViewModel.OnRecordTapAction = { [weak self] historyItem in
+            guard let self else { return }
+            self.tappedArticle(historyItem)
+        }
+
+        let shareArticleAction: WMFHistoryViewModel.ShareRecordAction = { [weak self] frame, historyItem in
+            guard let self else { return }
+            self.shareArticleRecommendation(item:historyItem, sourceFrameInWindow: frame)
+        }
+
+        return WMFTabsOverviewRecommendationsViewModel(title: title,
+                                                       openButtonTitle: CommonStrings.articleTabsOpen,
+                                                       shareButtonTitle: CommonStrings.shareActionTitle,
+                                                       articles: limitedArticles,
+                                                       onTapArticle: onTapArticleAction,
+                                                       shareRecordAction: shareArticleAction
+        )
+    }
+
+    private func tappedArticle(_ item: HistoryItem) {
+        if let articleURL = item.url {
+            let articleCoordinator = ArticleCoordinator(navigationController: navigationController, articleURL: articleURL, dataStore: dataStore, theme: theme, source: .history, tabConfig: .appendArticleAndAssignNewTabAndSetToCurrent)
+            if let presented = navigationController.presentedViewController {
+                presented.dismiss(animated: true) {
+                    articleCoordinator.start()
+                }
+            }
+        }
+    }
+
+    private func shareArticleRecommendation(item: HistoryItem, sourceFrameInWindow: CGRect?) {
+        guard let url = item.url else { return }
+        let articleURL = url.wmf_URLForTextSharing
+        let presenter = navigationController.presentedViewController ?? navigationController
+        shareURL(articleURL, from: presenter, sourceFrameInWindow: sourceFrameInWindow)
+    }
+
+    // Returns unordered set of URLs
+    @MainActor
+    private func getRecentTabArticleURLs() async throws -> Set<URL> {
+        let articleTabs = try await dataController.fetchAllArticleTabs()
+        let limit = 5
+        let tabLimit = 2
+
+        if articleTabs.isEmpty {
+            return []
+        }
+
+        var urls: Set<URL> = Set<URL>()
+        urls.reserveCapacity(limit)
+
+        let newestTabs = articleTabs.reversed().prefix(tabLimit)
+
+        for tab in newestTabs {
+            for article in tab.articles.reversed() {
+                if urls.count < limit, let url = article.articleURL {
+                    urls.insert(url)
+                } else {
+                    break
+                }
+            }
+            if urls.count >= limit {
+                break
+            }
+        }
+
+        return urls
+    }
+
+    private func loadDidYouKnowViewModel() async throws -> WMFTabsOverviewDidYouKnowViewModel? {
 
         let facts = await didYouKnowProviderClosure()
         guard let facts, !facts.isEmpty else {
@@ -232,7 +329,19 @@ final class TabsOverviewCoordinator: NSObject, Coordinator {
         do {
             return try await dc.fetchDidYouKnowFacts(siteURL: siteURL)
         } catch {
-            DDLogError("DYK fetch error: \(error) from HistoryViewController")
+            DDLogError("DYK fetch error: \(error)")
+            return nil
+        }
+    }
+
+    private lazy var relatedArticlesProviderClosure: (@MainActor (_ sourceArticles: [URL?]) async -> [HistoryRecord]?) = { [weak self] sourceArticles in
+        guard let self else { return nil }
+        let dc = NewArticleTabDataController(dataStore: self.dataStore)
+        do {
+            let maxArticlesPerSource: Int =  UIDevice.current.userInterfaceIdiom == .pad ? 5 : 3
+            return try await dc.getRelatedArticles(for: sourceArticles, maxTotal: maxArticlesPerSource)
+        } catch {
+            DDLogError("Related articles fetch error: \(error)")
             return nil
         }
     }
@@ -283,13 +392,20 @@ final class TabsOverviewCoordinator: NSObject, Coordinator {
     }
     
     private func tappedAddTab() {
-
         guard let siteURL = dataStore.languageLinkController.appLanguage?.siteURL,
               let articleURL = siteURL.wmf_URL(withTitle: "Main Page") else {
             return
         }
         
-        let articleCoordinator = ArticleCoordinator(navigationController: navigationController, articleURL: articleURL, dataStore: MWKDataStore.shared(), theme: theme, needsAnimation: false, source: .undefined, tabConfig: .assignNewTabAndSetToCurrent)
+        let articleCoordinator = ArticleCoordinator(
+            navigationController: navigationController,
+            articleURL: articleURL,
+            dataStore: MWKDataStore.shared(),
+            theme: theme,
+            needsAnimation: false,
+            source: .undefined,
+            tabConfig: .assignNewTabAndSetToCurrent,
+            needsFocusOnSearch: true)
         ArticleTabsFunnel.shared.logAddNewBlankTab()
         articleCoordinator.start()
         
@@ -356,7 +472,6 @@ extension TabsOverviewCoordinator: UITextViewDelegate {
         guard let articleURL = URL(string: url.absoluteString) else {
             return
         }
-
 
         let linkCoordinator = LinkCoordinator(
             navigationController: navigationController,

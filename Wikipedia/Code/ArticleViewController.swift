@@ -55,12 +55,14 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
     // Tootltips
     public var tooltipViewModels: [WMFTooltipViewModel] = []
 
-    private var _tabsCoordinator: TabsOverviewCoordinator?
-    private var tabsCoordinator: TabsOverviewCoordinator? {
-        guard let navigationController else { return nil }
-        _tabsCoordinator = TabsOverviewCoordinator(navigationController: navigationController, theme: theme, dataStore: dataStore)
-        return _tabsCoordinator
-    }
+    private lazy var tabsCoordinator: TabsOverviewCoordinator? = { [weak self] in
+        guard let self, let nav = self.navigationController else { return nil }
+        return TabsOverviewCoordinator(
+            navigationController: nav,
+            theme: self.theme,
+            dataStore: self.dataStore
+        )
+    }()
 
     // Coordinator
     private var _profileCoordinator: ProfileCoordinator?
@@ -168,8 +170,10 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
     var previousArticleTab: WMFArticleTabsDataController.WMFArticle? = nil
     var nextArticleTab: WMFArticleTabsDataController.WMFArticle? = nil
     let tabDataController = WMFArticleTabsDataController.shared
+    
+    var needsFocusOnSearch: Bool
 
-    @objc init?(articleURL: URL, dataStore: MWKDataStore, theme: Theme, source: ArticleSource, schemeHandler: SchemeHandler? = nil, previousPageViewObjectID: NSManagedObjectID? = nil) {
+    @objc init?(articleURL: URL, dataStore: MWKDataStore, theme: Theme, source: ArticleSource, schemeHandler: SchemeHandler? = nil, previousPageViewObjectID: NSManagedObjectID? = nil, needsFocusOnSearch: Bool = false) {
 
         guard let article = dataStore.fetchOrCreateArticle(with: articleURL) else {
                 return nil
@@ -185,6 +189,7 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
         self.cacheController = cacheController
         self.articleViewSource = source
         self.previousPageViewObjectID = previousPageViewObjectID
+        self.needsFocusOnSearch = needsFocusOnSearch
 
         super.init(nibName: nil, bundle: nil)
         self.theme = theme
@@ -464,6 +469,18 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
         trackBeganViewingDate()
         coordinator?.syncTabsOnArticleAppearance()
         loadNextAndPreviousArticleTabs()
+        
+        if tabDataController.moreDynamicTabsGroupBEnabled && needsFocusOnSearch && isFirstAppearance {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) { [weak self] in
+                guard let searchController = self?.navigationItem.searchController else {
+                    return
+                }
+                
+                searchController.isActive = true
+                searchController.searchBar.becomeFirstResponder()
+            }
+        }
+        isFirstAppearance = false
     }
     
     @objc func userDidTapProfile() {
@@ -478,21 +495,11 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
     var showTabsOverview: (() -> Void)?
 
     @objc func userDidTapTabs() {
-        makeTabsCoordinatorIfNeeded()?.start()
+        tabsCoordinator?.start()
         if let wikimediaProject = WikimediaProject(siteURL: articleURL) {
             ArticleTabsFunnel.shared.logIconClick(interface: .article, project: wikimediaProject)
         }
     }
-
-    @discardableResult
-    private func makeTabsCoordinatorIfNeeded() -> TabsOverviewCoordinator? {
-        if let existing = _tabsCoordinator { return existing }
-        guard let nav = navigationController else { return nil }
-        let created = TabsOverviewCoordinator(navigationController: nav, theme: theme, dataStore: dataStore)
-        _tabsCoordinator = created
-        return created
-    }
-
 
     /// Catch-all method for deciding what is the best modal to present on top of Article at this point. This method needs careful if-else logic so that we do not present two modals at the same time, which may unexpectedly suppress one.
     private func presentModalsIfNeeded() {
