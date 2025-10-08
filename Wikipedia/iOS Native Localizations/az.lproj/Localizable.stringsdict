@@ -828,7 +828,7 @@
 	<key>year-in-review-personalized-reading-subtitle-format</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Siz %#@v1@ oxumusunuz. Vikipediyada %3$@+ aktiv dildə %2$@ məqalə mövcud olub. Siz biliyi genişləndirməkdə və müxtəlif mövzuları araşdırmaqda milyonlarla insana qoşulmusunuz.</string>
+		<string>Siz %#@v1@ oxumusunuz. Vikipediyada %3$d+ aktiv dildə %2$d məqalə mövcud olub. Siz biliyi genişləndirməkdə və müxtəlif mövzuları araşdırmaqda milyonlarla insana qoşulmusunuz.</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -865,29 +865,6 @@
 			<string>d</string>
 			<key>other</key>
 			<string>%1$d məqalə</string>
-		</dict>
-	</dict>
-	<key>year-in-review-personalized-reading-title-v3-format</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>Siz 2025-ci ildə %#@v2@ oxumağa %#@v1@</string>
-		<key>v1</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
-			<key>other</key>
-			<string>%1$d dəqiqə vaxt sərf etmisiniz</string>
-		</dict>
-		<key>v2</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
-			<key>other</key>
-			<string>%2$d məqaləni</string>
 		</dict>
 	</dict>
 	<key>year-in-review-personalized-saved-title-format</key>

@@ -777,7 +777,7 @@
 	<key>year-in-review-personalized-reading-subtitle-format</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Luit %#@v1@. Wikipediassa oli saatavilla %2$@ miljoonaa artikkelia yli %3$@ aktiivisella kielellä. Liityit osaksi miljoonien ihmisten yhteisöä laajentamassa tietämystään ja tutkimassa moninaisia aiheita.</string>
+		<string>Luit %#@v1@. Wikipediassa oli saatavilla %2$d miljoonaa artikkelia yli %3$d aktiivisella kielellä. Liityit osaksi miljoonien ihmisten yhteisöä laajentamassa tietämystään ja tutkimassa moninaisia aiheita.</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>

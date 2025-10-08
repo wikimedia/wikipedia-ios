@@ -539,7 +539,7 @@
 	<key>year-in-review-personalized-reading-subtitle-format</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>ਤੁਸੀਂ %#@v1@। ਵਿਕੀਪੀਡੀਆ ਵਿੱਚ %3$@ ਤੋਂ ਵੱਧ ਸਰਗਰਮ ਭਾਸ਼ਾਵਾਂ ਵਿੱਚ %2$@ ਲੱਖ ਲੇਖ ਉਪਲਬਧ ਸਨ। ਤੁਸੀਂ ਗਿਆਨ ਨੂੰ ਵਧਾਉਣ ਅਤੇ ਵੱਖ-ਵੱਖ ਵਿਸ਼ਿਆਂ ਦੀ ਪੜਚੋਲ ਕਰਨ ਵਿੱਚ ਲੱਖਾਂ ਲੋਕਾਂ ਵਿੱਚ ਸ਼ਾਮਲ ਹੋਏ।</string>
+		<string>ਤੁਸੀਂ %#@v1@। ਵਿਕੀਪੀਡੀਆ ਵਿੱਚ %3$d ਤੋਂ ਵੱਧ ਸਰਗਰਮ ਭਾਸ਼ਾਵਾਂ ਵਿੱਚ %2$d ਲੱਖ ਲੇਖ ਉਪਲਬਧ ਸਨ। ਤੁਸੀਂ ਗਿਆਨ ਨੂੰ ਵਧਾਉਣ ਅਤੇ ਵੱਖ-ਵੱਖ ਵਿਸ਼ਿਆਂ ਦੀ ਪੜਚੋਲ ਕਰਨ ਵਿੱਚ ਲੱਖਾਂ ਲੋਕਾਂ ਵਿੱਚ ਸ਼ਾਮਲ ਹੋਏ।</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
