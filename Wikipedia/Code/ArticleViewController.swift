@@ -463,6 +463,7 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
     }
     
     var isFirstAppearance = true
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         presentModalsIfNeeded()
@@ -471,13 +472,17 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
         loadNextAndPreviousArticleTabs()
         
         if tabDataController.moreDynamicTabsGroupBEnabled && needsFocusOnSearch && isFirstAppearance {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) { [weak self] in
-                guard let searchController = self?.navigationItem.searchController else {
-                    return
+            
+            DispatchQueue.main.async { [weak self] in
+                guard let self,
+                      let searchController = self.navigationItem.searchController else { return }
+                if !searchController.isActive {
+                    self.webView.isHidden = true
+                    searchController.isActive = true
                 }
-                
-                searchController.isActive = true
-                searchController.searchBar.becomeFirstResponder()
+                DispatchQueue.main.async {
+                    searchController.searchBar.becomeFirstResponder()
+                }
             }
         }
         isFirstAppearance = false
@@ -1600,10 +1605,15 @@ extension ArticleViewController: UISearchControllerDelegate {
         searchBarIsAnimating = true
     }
     
+    func willDismissSearchController(_ searchController: UISearchController) {
+        if tabDataController.moreDynamicTabsGroupBEnabled && needsFocusOnSearch {
+            webView.isHidden = false
+        }
+    }
+    
     func didDismissSearchController(_ searchController: UISearchController) {
         navigationController?.hidesBarsOnSwipe = true
         searchBarIsAnimating = false
         SearchFunnel.shared.logSearchCancel(source: "article")
     }
 }
-
