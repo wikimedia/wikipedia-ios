@@ -16,14 +16,14 @@ final class LinkCoordinator: Coordinator {
     private let previousPageViewObjectID: NSManagedObjectID?
     let tabConfig: ArticleTabConfig
     
-    init(navigationController: UINavigationController, url: URL, dataStore: MWKDataStore?, theme: Theme, articleSource: ArticleSource, previousPageViewObjectID: NSManagedObjectID? = nil, tabConfig: ArticleTabConfig = .appendArticleAndAssignCurrentTab) {
+    init(navigationController: UINavigationController, url: URL, dataStore: MWKDataStore?, theme: Theme, articleSource: ArticleSource, previousPageViewObjectID: NSManagedObjectID? = nil, tabConfig: ArticleTabConfig?) {
         self.navigationController = navigationController
         self.url = url
         self.dataStore = dataStore ?? MWKDataStore.shared()
         self.theme = theme
         self.articleSource = articleSource
         self.previousPageViewObjectID = previousPageViewObjectID
-        self.tabConfig = tabConfig
+        self.tabConfig = tabConfig ?? .appendArticleAndAssignCurrentTab
     }
 
     @MainActor
