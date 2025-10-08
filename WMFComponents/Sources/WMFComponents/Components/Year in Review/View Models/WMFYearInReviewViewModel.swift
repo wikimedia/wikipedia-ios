@@ -629,7 +629,7 @@ public class WMFYearInReviewViewModel: ObservableObject {
         
         self.slides = slides
         
-        if personalizedSlides.donateCountSlideV2 != nil || personalizedSlides.donateCountSlideV3 != nil {
+        if personalizedSlides.donateCountSlideV3 != nil {
             self.hasPersonalizedDonateSlide = true
         }
     }
@@ -895,11 +895,6 @@ public class WMFYearInReviewViewModel: ObservableObject {
         return slides[currentSlideIndex]
     }
     
-    func tappedIntroV2GetStarted() {
-        loggingDelegate?.logYearInReviewIntroDidTapContinue()
-        populateReportAndShowFirstSlide()
-    }
-    
     func tappedIntroV3GetStarted() {
         if !isUserPermanent {
             coordinatorDelegate?.handleYearInReviewAction(.tappedIntroV3GetStartedWhileLoggedOut)
@@ -1089,9 +1084,7 @@ public class WMFYearInReviewViewModel: ObservableObject {
     
     private var slideLoggingID: String {
         if isShowingIntro {
-            if let introV2ViewModel {
-                return introV2ViewModel.loggingID
-            } else if let introV3ViewModel {
+            if let introV3ViewModel {
                 return introV3ViewModel.loggingID
             }
         }
