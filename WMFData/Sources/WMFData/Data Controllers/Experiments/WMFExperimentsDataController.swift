@@ -116,9 +116,9 @@ final class WMFExperimentsDataController {
                 // if randomInt <= percentage {
                 //    bucket = .moreDynamicTabsV2Control
                 // } else if randomInt > percentage && randomInt <= percentage*2 {
-                    bucket = .moreDynamicTabsV2GroupB
+                //    bucket = .moreDynamicTabsV2GroupB
                 // } else {
-                //    bucket = .moreDynamicTabsV2GroupC
+                    bucket = .moreDynamicTabsV2GroupC
                 // }
             case .activityTab:
                 if randomInt <= percentage {
