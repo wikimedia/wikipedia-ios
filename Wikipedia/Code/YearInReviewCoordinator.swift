@@ -62,12 +62,6 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
             nextButtonTitle: CommonStrings.nextTitle,
             finishButtonTitle: WMFLocalizedString("year-in-review-finish", value: "Finish", comment: "Year in review finish button. Displayed on last slide and dismisses feature view."),
             shareText: WMFLocalizedString("year-in-review-share-text", value: "Here's my Wikipedia Year In Review. Created with the Wikipedia iOS app", comment: "Text shared the Year In Review slides"),
-            introV2Title: CommonStrings.exploreYiRTitle,
-            introV2TitlePersonalized: CommonStrings.exploreYIRTitlePersonalized,
-            introV2Subtitle: CommonStrings.exploreYIRBody,
-            introV2SubtitlePersonzalized: CommonStrings.exploreYIRBodyPersonalized,
-            introV2PrimaryButtonTitle: CommonStrings.getStartedTitle,
-            introV2SecondaryButtonTitle: CommonStrings.learnMoreTitle(),
             introV3Title: CommonStrings.exploreYIRTitlePersonalized,
             introV3Subtitle: CommonStrings.exploreYIRBodyV3,
             introV3Footer: CommonStrings.exploreYIRFooterV3,
@@ -116,12 +110,8 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
             collectiveEditsPerMinuteSlideSubtitle: collectiveEditsPerMinuteSlideSubtitle,
             collectiveZeroAdsSlideTitle: WMFLocalizedString("year-in-review-base-donate-title", value: "0 ads served on Wikipedia", comment: "Year in review, donate slide title when user has not made any donations that year."),
             collectiveZeroAdsSlideSubtitle: collectiveZeroAdsSlideSubtitle,
-            personalizedYouReadSlideTitleV2: personalizedYouReadSlideTitleV2(readCount:),
-            personalizedYouReadSlideSubtitleV2: personalizedYouReadSlideSubtitleV2(readCount:),
             personalizedYouReadSlideTitleV3: personalizedYouReadSlideTitleV3(readCount: minutesRead:),
             personalizedYouReadSlideSubtitleV3: personalizedYouReadSlideSubtitleV3(readCount:),
-            personalizedDateSlideTitleV2: personalizedDateSlideTitleV2(day:),
-            personalizedDateSlideSubtitleV2: personalizedDateSlideSubtitleV2(day:),
             personalizedDateSlideTitleV3: WMFLocalizedString("year-in-review-personalized-date-title-v3", value: "You have clear reading patterns", comment: "Year in review, personalized slide title for users that displays the time / day of the week / month they read most."),
             personalizedDateSlideTimeV3: getLocalizedTime(hour:),
             personalizedDateSlideTimeFooterV3: WMFLocalizedString("year-in-review-personalized-date-time-footer-v3", value: "Favorite time to read", comment: "Year in review, personalized slide footer text below the time-of-day that users read the most."),
@@ -348,27 +338,6 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
     }
     
     // MARK: - Personalized Slide Strings
-
-    func personalizedYouReadSlideTitleV2(readCount: Int) -> String {
-        let format = WMFLocalizedString("year-in-review-personalized-reading-title-format", value: "You read {{PLURAL:%1$d|%1$d article|%1$d articles}}", comment: "Year in review, personalized reading article count slide title for users that read articles. %1$d is replaced with the number of articles the user read.")
-        return String.localizedStringWithFormat(format, readCount)
-    }
-
-    func personalizedYouReadSlideSubtitleV2(readCount: Int) -> String {
-        let format = WMFLocalizedString("year-in-review-personalized-reading-subtitle-format", value: "You read {{PLURAL:%1$d|%1$d article|%1$d articles}}. Wikipedia had %2$@ million articles available across over %3$@ active languages. You joined millions in expanding knowledge and exploring diverse topics.", comment: "Year in review, personalized reading article count slide subtitle for users that read articles. %1$d is replaced with the number of articles the user read. %2$@ is replaced with the number of articles available across Wikipedia, for example, \"63.59\". %3$@ is replaced with the number of active languages available on Wikipedia, for example \"300\"")
-
-        let formatter = NumberFormatter()
-        formatter.numberStyle = .decimal
-        formatter.maximumFractionDigits = 0
-        let numArticles = NSNumber(63)
-        let numArticlesString = formatter.string(from: numArticles) ?? "63"
-
-        formatter.maximumFractionDigits = 0
-        let numLanguages = NSNumber(300)
-        let numLanguagesString = formatter.string(from: numLanguages) ?? "300"
-
-        return String.localizedStringWithFormat(format, readCount, numArticlesString, numLanguagesString)
-    }
     
     func personalizedYouReadSlideTitleV3(readCount: Int, minutesRead: Int) -> String {
         let format = WMFLocalizedString("year-in-review-personalized-reading-title-v3-format", value: "You spent {{PLURAL:%1$d|%1$d minute|%1$d minutes}} reading {{PLURAL:%2$d|%2$d article|%2$d articles}} in 2025", comment: "Year in review, personalized reading article count slide title for users that read articles. %1$d is replaced with the number of minutes the user spent reading and %2$d is replaced with the number of articles the user read in 2025.")
@@ -426,25 +395,6 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
             }
         }
         return secondSentence
-    }
-
-    func personalizedDateSlideTitleV2(day: Int) -> String {
-        let format = WMFLocalizedString(
-            "year-in-review-personalized-day-title-format",
-            value: "You read most on %1$@.",
-            comment: "Year in review, personalized slide title for users that displays the weekday they read most. %1$@ is replaced with the weekday."
-        )
-        
-        return String.localizedStringWithFormat(format, getLocalizedDay(day: day))
-    }
-    
-    func personalizedDateSlideSubtitleV2(day: Int) -> String {
-        let format = WMFLocalizedString(
-            "year-in-review-personalized-day-subtitle-format",
-            value: "You read the most articles on %1$@. It's clear that %1$@ are your prime day for exploring new content. Thanks for making the most of your reading time!",
-            comment: "Year in review, personalized slide subtitle for users that displays the weekday they read most. %1$@ is replaced with the weekday."
-        )
-        return String.localizedStringWithFormat(format, getLocalizedDay(day: day))
     }
     
     func getLocalizedMonth(month: Int) -> String {
@@ -711,7 +661,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
     }
 
     private func needsPostSurveyLoginPrompt() -> Bool {
-        return !dataStore.authenticationManager.authStateIsPermanent && WMFDeveloperSettingsDataController.shared.showYiRV2
+        return !dataStore.authenticationManager.authStateIsPermanent && WMFDeveloperSettingsDataController.shared.showYiRV3
     }
 
     private func presentPostSurveyLoginPrompt() {

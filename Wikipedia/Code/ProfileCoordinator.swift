@@ -159,7 +159,7 @@ final class ProfileCoordinator: NSObject, Coordinator, ProfileCoordinatorDelegat
         case .logDonateTap:
             self.logDonateTap()
         case .showYearInReview:
-            if let viewModel, !viewModel.isUserLoggedIn(), WMFDeveloperSettingsDataController.shared.showYiRV2 {
+            if let viewModel, !viewModel.isUserLoggedIn(), WMFDeveloperSettingsDataController.shared.showYiRV3 {
                 presentLoginPrompt()
             } else {
                 dismissProfile {

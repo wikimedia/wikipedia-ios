@@ -15,9 +15,7 @@ struct WMFYearInReviewBodyView: View {
     
     var body: some View {
         if viewModel.isShowingIntro {
-            if let introV2ViewModel = viewModel.introV2ViewModel {
-                WMFYearInReviewSlideIntroV2View(viewModel: introV2ViewModel)
-            } else if let introV3ViewModel = viewModel.introV3ViewModel {
+            if let introV3ViewModel = viewModel.introV3ViewModel {
                 WMFYearInReviewSlideIntroV3View(viewModel: introV3ViewModel, isPopulatingReport:$viewModel.isPopulatingReport)
             }
         } else {
