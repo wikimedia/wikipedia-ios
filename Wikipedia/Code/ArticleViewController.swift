@@ -171,7 +171,7 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
     var nextArticleTab: WMFArticleTabsDataController.WMFArticle? = nil
     let tabDataController = WMFArticleTabsDataController.shared
     
-    var needsFocusOnSearch: Bool
+    private let needsFocusOnSearch: Bool
 
     @objc init?(articleURL: URL, dataStore: MWKDataStore, theme: Theme, source: ArticleSource, schemeHandler: SchemeHandler? = nil, previousPageViewObjectID: NSManagedObjectID? = nil, needsFocusOnSearch: Bool = false) {
 
@@ -189,6 +189,7 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
         self.cacheController = cacheController
         self.articleViewSource = source
         self.previousPageViewObjectID = previousPageViewObjectID
+        
         self.needsFocusOnSearch = needsFocusOnSearch
 
         super.init(nibName: nil, bundle: nil)
@@ -486,6 +487,8 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
             }
         }
         isFirstAppearance = false
+        
+        ArticleTabsFunnel.shared.logIconImpression(interface: .article, project: nil)
     }
     
     @objc func userDidTapProfile() {
@@ -502,7 +505,12 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
     @objc func userDidTapTabs() {
         tabsCoordinator?.start()
         if let wikimediaProject = WikimediaProject(siteURL: articleURL) {
-            ArticleTabsFunnel.shared.logIconClick(interface: .article, project: wikimediaProject)
+            if let title = articleURL.wmf_title,
+               title == "Main_Page" {
+                ArticleTabsFunnel.shared.logIconClick(interface: .mainPage, project: wikimediaProject)
+            } else {
+                ArticleTabsFunnel.shared.logIconClick(interface: .article, project: wikimediaProject)
+            }
         }
     }
 
