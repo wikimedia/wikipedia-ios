@@ -681,16 +681,16 @@ public class WMFYearInReviewViewModel: ObservableObject {
                 } else {
                     slides.append(.standard(collectiveArticleViewsSlide))
                     
+                    if let topArticlesSlide = personalizedSlides.topArticlesSlide {
+                        slides.append(.standard(topArticlesSlide))
+                    }
+                    
                     if let mostReadDateSlideV3 = personalizedSlides.mostReadDateSlideV3 {
                         slides.append(.mostReadDateV3(mostReadDateSlideV3))
                     }
                     
                     if let categorySlide = personalizedSlides.mostReadCategoriesSlide {
                         slides.append(.standard(categorySlide))
-                    }
-                    
-                    if let topArticlesSlide = personalizedSlides.topArticlesSlide {
-                        slides.append(.standard(topArticlesSlide))
                     }
                     
                     if let locationSlide = personalizedSlides.locationSlide {
