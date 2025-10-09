@@ -283,8 +283,6 @@
 "developer-settings-activity-tab-group-B" = "تعيين علامة تبويب النشاط إلى المجموعة ب";
 "developer-settings-activity-tab-group-C" = "تعيين علامة تبويب النشاط إلى المجموعة C";
 "developer-settings-bypass-donation" = "التبرع بالدم";
-"developer-settings-dynamic-tabs-group-B" = "تمكين علامات التبويب مع المجموعة B";
-"developer-settings-dynamic-tabs-group-C" = "تمكين علامات التبويب مع المجموعة C";
 "developer-settings-enable-year-in-review" = "تمكين مراجعة العام";
 "developer-settings-send-analytics-to-wmflabs" = "إرسال التحليلات إلى wmflabs.";
 "developer-settings-suppress-image-rec-post" = "لا تنشر توصيات الصور.";
@@ -1260,7 +1258,6 @@
 "tabs-overview-tooltip-title" = "نظرة عامة على علامات التبويب";
 "tabs-show-suggested-articles" = "عرض اقتراحات المقالة";
 "tabs-suggested-articles-hide-suggestions-confirmation" = "الاقتراحات مخفية الآن";
-"tabs-suggested-articles-show-suggestions-confirmation" = "الاقتراحات أصبحت مرئية الآن";
 // Fuzzy
 "tabs-survey-title" = "ساعد في تحسين ميزة علامات التبويب. هل أنت راضٍ عن هذه الميزة؟";
 "tabs-thumbnail-description" = "استكشف ويكيبيديا، الموسوعة الحرة التي يمكن لأي شخص تعديلها";
