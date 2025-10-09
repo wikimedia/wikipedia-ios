@@ -1,6 +1,7 @@
 // Messages for Shan (တႆး)
 // Exported from translatewiki.net
 // Author: Nemo bis
+// Author: Sai Myo Thura Kyaw
 // Author: Saimawnkham
 
 "about-content-license" = "ဝႂ်ၶႂၢင်း ၶေႃႈၼႂ်း";
@@ -39,6 +40,7 @@
 "account-creation-saving" = "တိုၵ်ႉသိမ်းပၼ်ယူႇ...";
 "account-creation-title" = "ၵေႃႇသၢင်ႈဢၶွင်ႉဢၼ်မႂ်ႇ";
 "account-group-title" = "ဢၶွင်ႉၸဝ်ႈၵဝ်ႇ";
+"account-request-vanishing" = "ဢၵွင်ႉ Vanish";
 "account-talk-page-title" = "ၼႃႈလိၵ်ႈတႃႇဢုပ်ႇၸဝ်ႈၵဝ်ႇ";
 "account-talk-preferences-auto-sign-discussions" = "လၢႆးမိုဝ်းႁင်းတူဝ် လွင်ႈဢုပ်ႇဢူဝ်း";
 "account-talk-preferences-auto-sign-discussions-setting-explanation" = "လၢႆးမိုဝ်းႁင်းတူဝ် လွင်ႈဢုပ်ႇဢူဝ်းၼႆႉ တေၸႂ်ႉလၢႆးမိုဝ်း ဢၼ်မၵ်းမၼ်ႈဝႆႉ တီႈၼႂ်းၵၢၼ်တင်ႈလၢႆးမိုဝ်း";
@@ -47,7 +49,10 @@
 "action-add-to-reading-list" = "ထႅမ်သႂ်ႇၸူး တီႈၼႂ်း သဵၼ်ႈမၢႆလူ";
 "action-add-to-reading-list-short" = "ထႅမ်သႂ်ႇၸူး သဵၼ်ႈမၢႆ";
 "action-cancel" = "ယႃႉၶိုၼ်း";
+"action-discard-edit" = "ယႃႉပႅတ်ႈ လွင်ႈမႄးထတ်း";
+"action-discard-edits" = "ယႃႉပႅတ်ႈ လွင်ႈမႄးထတ်း";
 "action-find-in-page" = "သွၵ်ႈႁႃ ၼႂ်း ၼႃႈလိၵ်ႈ";
+"action-keep-editing" = "သိုပ်ႇမႄးထတ်း";
 "action-language-accessibility" = "လႅၵ်ႈလၢႆႈ ၽႃႇသႃႇၵႂၢမ်း";
 "action-move-to" = "ၶၢႆႉၸူး...";
 "action-move-to-reading-list" = "ၶၢႆႉသႂ်ႇၸူး တီႈၼႂ်းသဵၼ်ႈမၢႆလူ";
@@ -410,6 +415,7 @@
 "no-internet-connection" = "ဢမ်ႇမီးၵွင်ႉသၢၼ်ဢိၼ်ႇထႃႇၼႅတ်ႉ";
 "no-internet-connection-article-reload" = "ပိူင်ဢွၵ်ႇမႂ်ႇမႂ်ႇႁင်း ပွင်ႈၵႂၢမ်းဢၼ်ၼႆႉ လႅပ်ႈတေၸႂ်ႉလႆႈယဝ်ႉ၊ ၵူၺ်းၵႃႈဝႃႈ ပေႃးဢမ်ႇပႆႇမီး ၵွင်ႉသၢၼ်ဢိၼ်ႇထႃႇၼႅတ်ႉ လႅပ်ႈတေပႆႇၸၢင်ႈပိုတ်ႇတူၺ်းလႆႈ";
 "no-internet-connection-article-reload-button" = "ၶိုၼ်းဝိၼ်ႇၸူး ပိူင်ဢွၵ်ႇ ဢၼ်သိမ်းဝႆႉလိုၼ်းလင်သုတ်း";
+"notifications-center-empty-not-subscribed" = "ယၢမ်းလဵဝ် ၸဝ်ႈၵဝ်ႇ ဢမ်ႇလႆႈ တိတ်းတၢမ်း လွင်ႈၸႅင်ႈတိုၼ်ႇ ဝီႇၶီႇၽီးတီးယႃး သေဢၼ်ဢၼ်";
 // Fuzzy
 "notifications-center-feed-news-notification-button-text" = "ပိုတ်ႇလွင်ႈပၼ်ၾၢင်ႉ";
 "number-billions" = "$1B";
@@ -636,6 +642,9 @@
 "talk-page-new-banner-title" = "ၶႅၼ်းတေႃႈ ဝႆႉၸႂ်လီသေၵမ်း";
 "talk-page-new-reply-success-text" = "ၶေႃႈတွပ်ႇၶိုၼ်းၸဝ်ႈၵဝ်ႇ ပိုၼ်ႇဢွၵ်ႇၵႂႃႇ ၶႅမ်ႉလႅပ်ႈယဝ်ႉ";
 "talk-page-new-topic-success-text" = "လွင်ႈဢုပ်ႇဢူဝ်းၸဝ်ႈၵဝ်ႇ ပိုၼ်ႇဢွၵ်ႇၵႂႃႇ ၶႅမ်ႉလႅပ်ႈယဝ်ႉ";
+"talk-page-subscribe-to-topic" = "တိတ်းတၢမ်း";
+"talk-page-subscribed-alert-subtitle" = "တေလႆႈႁပ်ႉလွင်ႈၸႅင်ႈတိုၼ်ႇ ဢၼ်ၵဵဝ်ႇၵပ်းၶွမ်းမႅၼ်ႉမႂ်ႇ ၼႂ်းႁူဝ်ၶေႃႈၼႆႉ။";
+"talk-page-subscribed-alert-title" = "ၸဝ်ႈၵဝ်ႇ တိတ်းတၢမ်းယဝ်ႉ!";
 // Fuzzy
 "talk-page-title-article-talk" = "ပွင်ႈၵႂၢမ်း တႃႇဢုပ်ႇ";
 "talk-page-title-user-talk" = "တႃႇဢုပ်ႇ ၽူႈၸႂ်ႉတိုဝ်း";
