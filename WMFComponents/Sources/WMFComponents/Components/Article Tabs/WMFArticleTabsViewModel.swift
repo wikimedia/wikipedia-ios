@@ -12,14 +12,7 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
     // articleTab should NEVER be empty - take care of logic of inserting main page in datacontroller/viewcontroller
     @Published var articleTabs: [ArticleTab]
     @Published var shouldShowCloseButton: Bool
-    public var hasMultipleTabs: Bool {
-        var count = 0
-        for tab in articleTabs where !tab.isMain {
-            count += 1
-            if count >= 2 { return true }
-        }
-        return false
-    }
+    public let hasMultipleTabs: Bool
 
     @Published var didYouKnowViewModel: WMFTabsOverviewDidYouKnowViewModel?
     @Published var recommendedArticlesViewModel: WMFTabsOverviewRecommendationsViewModel?
@@ -54,7 +47,8 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
                 didTapAddTab: @escaping () -> Void,
                 didTapShareTab: @escaping (WMFArticleTabsDataController.WMFArticleTab, CGRect?) -> Void,
                 didToggleSuggestedArticles: @escaping () -> Void,
-                displayDeleteAllTabsToast: @escaping (Int) -> Void) {
+                displayDeleteAllTabsToast: @escaping (Int) -> Void,
+                hasMultipleTabs: Bool) {
         self.dataController = dataController
         self.localizedStrings = localizedStrings
         self.loggingDelegate = loggingDelegate
@@ -66,6 +60,7 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
         self.didTapShareTab = didTapShareTab
         self.displayDeleteAllTabsToast = displayDeleteAllTabsToast
         self.didToggleSuggestedArticles = didToggleSuggestedArticles
+        self.hasMultipleTabs = hasMultipleTabs
         super.init()
         Task {
             await loadTabs()

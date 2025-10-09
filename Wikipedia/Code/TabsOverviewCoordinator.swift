@@ -172,7 +172,8 @@ final class TabsOverviewCoordinator: NSObject, Coordinator {
                 didTapAddTab: didTapAddTab,
                 didTapShareTab: didTapShareTab,
                 didToggleSuggestedArticles: showAlertForArticleSuggestionsDisplayChangeConfirmation,
-                displayDeleteAllTabsToast: displayDeleteAllTabsToast
+                displayDeleteAllTabsToast: displayDeleteAllTabsToast,
+                hasMultipleTabs: articleTabsCount > 2
             )
 
             articleTabsViewModel.loadDidYouKnowViewModel = { [weak self] in
