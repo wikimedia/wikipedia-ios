@@ -21,9 +21,8 @@ extension UIViewController {
         }
 
         var needsYiRNotification = false
-        if let yirDataController,  let appLanguage = dataStore.languageLinkController.appLanguage {
-            let project = WMFProject.wikipedia(WMFLanguage(languageCode: appLanguage.languageCode, languageVariantCode: appLanguage.languageVariantCode))
-            needsYiRNotification = yirDataController.shouldShowYiRNotification(primaryAppLanguageProject: project, isLoggedOut: !dataStore.authenticationManager.authStateIsPermanent, isTemporaryAccount: isTemporaryAccount)
+        if let yirDataController {
+            needsYiRNotification = yirDataController.shouldShowYiRNotification(isLoggedOut: !dataStore.authenticationManager.authStateIsPermanent, isTemporaryAccount: isTemporaryAccount)
         }
         // do not override `hasUnreadNotifications` completely
         if needsYiRNotification {

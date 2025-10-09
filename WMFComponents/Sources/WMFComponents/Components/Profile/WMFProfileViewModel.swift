@@ -112,7 +112,7 @@ enum ProfileState {
 
         var needsYiRNotification = false
         if let yearInReviewDependencies {
-            needsYiRNotification = yearInReviewDependencies.dataController.shouldShowYiRNotification(primaryAppLanguageProject: yearInReviewDependencies.primaryAppLanguageProject, isLoggedOut: !isLoggedIn, isTemporaryAccount: isTemporaryAccount)
+            needsYiRNotification = yearInReviewDependencies.dataController.shouldShowYiRNotification(isLoggedOut: !isLoggedIn, isTemporaryAccount: isTemporaryAccount)
         }
 
         if isLoggedIn {
@@ -202,7 +202,7 @@ enum ProfileState {
             
             var section3Items = [donateItem]
             if let yearInReviewDependencies,
-               yearInReviewDependencies.dataController.shouldShowYearInReviewEntryPoint(countryCode: yearInReviewDependencies.countryCode, primaryAppLanguageProject: yearInReviewDependencies.primaryAppLanguageProject) {
+               yearInReviewDependencies.dataController.shouldShowYearInReviewEntryPoint(countryCode: yearInReviewDependencies.countryCode) {
                 section3Items = [donateItem, yearInReviewItem]
             }
             
@@ -418,7 +418,7 @@ enum ProfileState {
 
             var sections = [joinSection, donateSection, settingsSection]
             if let yearInReviewDependencies,
-               yearInReviewDependencies.dataController.shouldShowYearInReviewEntryPoint(countryCode: yearInReviewDependencies.countryCode, primaryAppLanguageProject: yearInReviewDependencies.primaryAppLanguageProject) {
+               yearInReviewDependencies.dataController.shouldShowYearInReviewEntryPoint(countryCode: yearInReviewDependencies.countryCode) {
                 sections = [joinSection, donateSection, yearInReviewSection, settingsSection]
             }
             

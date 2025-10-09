@@ -896,11 +896,11 @@
 			<key>NSStringFormatSpecTypeKey</key>
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
+			<string>@</string>
 			<key>one</key>
 			<string>едаш</string>
 			<key>other</key>
-			<string>%1$d пати</string>
+			<string>%1$@ пати</string>
 		</dict>
 	</dict>
 	<key>year-in-review-personalized-editing-title-format</key>
@@ -912,11 +912,11 @@
 			<key>NSStringFormatSpecTypeKey</key>
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
+			<string>@</string>
 			<key>one</key>
 			<string>еднаш</string>
 			<key>other</key>
-			<string>%1$d пати</string>
+			<string>%1$@ пати</string>
 		</dict>
 	</dict>
 	<key>year-in-review-personalized-reading-subtitle-format</key>
@@ -965,33 +965,6 @@
 			<string>%1$d статија</string>
 			<key>other</key>
 			<string>%1$d статии</string>
-		</dict>
-	</dict>
-	<key>year-in-review-personalized-reading-title-v3-format</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>Во 2025 г. проведовте %#@v1@ читајќи %#@v2@</string>
-		<key>v1</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
-			<key>one</key>
-			<string>%1$d минута</string>
-			<key>other</key>
-			<string>%1$d минути</string>
-		</dict>
-		<key>v2</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
-			<key>one</key>
-			<string>%2$d статија</string>
-			<key>other</key>
-			<string>%2$d статии</string>
 		</dict>
 	</dict>
 	<key>year-in-review-personalized-saved-title-format</key>

@@ -1056,14 +1056,11 @@ extension ExploreViewController {
             return false
         }
         
-        guard let yirDataController,
-              let appLanguage = dataStore.languageLinkController.appLanguage else {
+        guard let yirDataController else {
                   return false
         }
         
-        let project = WMFProject.wikipedia(WMFLanguage(languageCode: appLanguage.languageCode, languageVariantCode: appLanguage.languageVariantCode))
-        
-        guard yirDataController.shouldShowYearInReviewFeatureAnnouncement(primaryAppLanguageProject: project) else {
+        guard yirDataController.shouldShowYearInReviewFeatureAnnouncement() else {
             return false
         }
 

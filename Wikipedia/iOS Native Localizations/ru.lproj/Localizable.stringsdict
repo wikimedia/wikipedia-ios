@@ -919,9 +919,9 @@
 			<key>NSStringFormatSpecTypeKey</key>
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
+			<string>@</string>
 			<key>one</key>
-			<string>%1$d раз</string>
+			<string>%1$@ раз</string>
 			<key>other</key>
 			<string>раз</string>
 		</dict>

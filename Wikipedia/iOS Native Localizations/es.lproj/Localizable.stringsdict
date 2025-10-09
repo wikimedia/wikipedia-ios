@@ -861,11 +861,11 @@
 			<key>NSStringFormatSpecTypeKey</key>
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
+			<string>@</string>
 			<key>one</key>
-			<string>%1$d vez</string>
+			<string>%1$@ vez</string>
 			<key>other</key>
-			<string>%1$d veces</string>
+			<string>%1$@ veces</string>
 		</dict>
 	</dict>
 	<key>year-in-review-personalized-reading-subtitle-format</key>
