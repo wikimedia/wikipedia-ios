@@ -266,18 +266,8 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
     }
 
     @objc func userDidTapTabs() {
-        guard let coordinator = makeTabsCoordinatorIfNeeded() else { return }
-        coordinator.start()
+        tabsCoordinator?.start()
         ArticleTabsFunnel.shared.logIconClick(interface: .places, project: nil)
-    }
-
-    @discardableResult
-    private func makeTabsCoordinatorIfNeeded() -> TabsOverviewCoordinator? {
-        if let existing = _tabsCoordinator { return existing }
-        guard let nav = navigationController else { return nil }
-        let created = TabsOverviewCoordinator(navigationController: nav, theme: theme, dataStore: dataStore)
-        _tabsCoordinator = created
-        return created
     }
 
     private func configureNavigationBar() {
@@ -429,7 +419,14 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
         return existingYirCoordinator
     }
     
-    private var _tabsCoordinator: TabsOverviewCoordinator?
+    private lazy var tabsCoordinator: TabsOverviewCoordinator? = { [weak self] in
+        guard let self, let nav = self.navigationController else { return nil }
+        return TabsOverviewCoordinator(
+            navigationController: nav,
+            theme: self.theme,
+            dataStore: self.dataStore
+        )
+    }()
 
     private var _profileCoordinator: ProfileCoordinator?
     private var profileCoordinator: ProfileCoordinator? {

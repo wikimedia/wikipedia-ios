@@ -283,12 +283,10 @@
 "developer-settings-activity-tab-group-B" = "Etkinlik sekmesini Grup B'ye ayarla";
 "developer-settings-activity-tab-group-C" = "Etkinlik sekmesini Grup C'ye ayarla";
 "developer-settings-bypass-donation" = "Baypas Bağışı";
-"developer-settings-dynamic-tabs-group-B" = "B kümesiyle sekmeleri etkinleştir";
-"developer-settings-dynamic-tabs-group-C" = "C kümesiyle sekmeleri etkinleştir";
 "developer-settings-enable-year-in-review" = "Yıl İncelemesini Etkinleştir";
 "developer-settings-send-analytics-to-wmflabs" = "Analizleri wmflabs'a gönder.";
 "developer-settings-suppress-image-rec-post" = "Görsel önerileri düzenlemleri yayınlamayın.";
-"did-you-know" = "Biliyor muydunuz";
+"did-you-know" = "Biliyor muydunuz?";
 "diff-article-revision-history" = "Madde sürüm geçmişi";
 "diff-change-added" = "Ekleme, $1, ekleme sonu.";
 "diff-change-paragraph-lines-moved-down" = "Paragraf {{PLURAL:$1|$1 satır}} aşağıya taşındı. Yeni yere gidin.";
@@ -1249,12 +1247,12 @@
 "tabs-main-page-subtitle" = "Vikipedi'de günlük öne çıkanlar";
 "tabs-navbar-title-format" = "{{PLURAL:$1|$1 sekme}}";
 "tabs-open-tab" = "Sekmeyi aç";
+"tabs-overview-recommendations-title" = "En son sekmelerinize göre";
 "tabs-overview-tooltip-body" = "Sekme genel görünümünde açık maddeler arasında geçiş yapın.";
 "tabs-overview-tooltip-title" = "Sekme genel görünümü";
 "tabs-show-suggested-articles" = "Madde önerilerini göster";
 "tabs-suggested-articles-hide-suggestions-confirmation" = "Öneriler artık gizli";
-"tabs-suggested-articles-show-suggestions-confirmation" = "Öneriler artık görünür";
-"tabs-survey-title" = "Sekmeler özelliğini iyileştirmeye yardımcı olun. Bu özellikten memnun musunuz?";
+"tabs-survey-title" = "Sekmeleri iyileştirmeye yardımcı olun. Bu özellikten memnun musunuz?";
 "tabs-thumbnail-description" = "Herkesin düzenleyebileceği özgür ansiklopedi Vikipedi'yi keşfedin";
 "tabs-thumbnail-subtitle" = "Aramanıza buradan başlayın";
 "tabs-title" = "Sekmeler";
@@ -1559,8 +1557,7 @@
 "year-in-review-login-subtitle" = "Daha fazla kişiselleştirilmiş içgörüye erişmek için oturum açın ya da bir hesap oluşturun";
 "year-in-review-login-title" = "Yılın Değerlendirmenizi Geliştirin";
 "year-in-review-non-contributor-slide-title" = "Özel katkıda bulunan simgenizin kilidini açın";
-// Fuzzy
-"year-in-review-noncontributor-slide-subtitle" = "Katkıda bulunun ve özel bir katkıda bulunan simgesinin kilidini açın. Özgür bilgi hareketine katılmanın yolları hakkında [daha fazla bilgi edinin] ($1). Düzenleyici olabilir ya da Vikipedi'nin arkasındaki kâr amacı gütmeyen kuruluş olan Wikimedia Vakfı'na bağışta bulunabilirsiniz. Böylece, Vikipedi'nin en son teknoloji araç ve teknolojilerle sorunsuz çalışmasını sağlarken, güvendiğiniz bilgilerin reklamsız ve güvenilir kalmasını sağlayabilirsiniz.";
+"year-in-review-noncontributor-slide-subtitle" = "Vikipedi'nin 2025'inizin bir parçası olmasından mutluluk duyuyoruz! Katkıda bulunarak -Vikipedi'yi düzenleyerek ya da arkasındaki kâr amacı gütmeyen kuruluş Wikimedia Vakfı'na bağış yaparak- simgenizin kilidini açmanın yolları hakkında [daha fazla bilgi edinin]($1). Vikipedi bu yıl sizin için faydalı olduysa, geleceğini sürdürmesine ve ücretsiz, reklamsız, güvenilir ve herkes için erişilebilir kalmasına yardımcı olmak için lütfen bağış yapmayı düşünün.";
 "year-in-review-personalized-date-day-footer-v3" = "Okumayı en sevilen gün";
 "year-in-review-personalized-date-month-footer-v3" = "En çok okuduğunuz ay";
 "year-in-review-personalized-date-time-footer-v3" = "Okumayı en sevilen zaman";

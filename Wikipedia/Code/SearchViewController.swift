@@ -81,7 +81,14 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
         return existingProfileCoordinator
     }
 
-    private var _tabsCoordinator: TabsOverviewCoordinator?
+    private lazy var tabsCoordinator: TabsOverviewCoordinator? = { [weak self] in
+        guard let self, let nav = self.navigationController, let dataStore else { return nil }
+        return TabsOverviewCoordinator(
+            navigationController: nav,
+            theme: self.theme,
+            dataStore: dataStore
+        )
+    }()
 
     var customTabConfigUponArticleNavigation: ArticleTabConfig?
 
@@ -91,7 +98,7 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
 
     private let source: EventLoggingSource
 
-    // Used to push on after tapping search result. This is needed when SearchViewController is embedded directly as the system navigation bar's searchResultsController.
+    // Used to push on after tapping search result. This is needed when SearchViewController is embedded directly as the system navigation bar's searchResultsController (i.e. Explore and Article).
     private var customArticleCoordinatorNavigationController: UINavigationController?
 
     private var presentingSearchResults: Bool = false
@@ -242,18 +249,8 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
     }
 
     @objc func userDidTapTabs() {
-        guard let coordinator = makeTabsCoordinatorIfNeeded() else { return }
-        coordinator.start()
+        tabsCoordinator?.start()
         ArticleTabsFunnel.shared.logIconClick(interface: .search, project: nil)
-    }
-
-    @discardableResult
-    private func makeTabsCoordinatorIfNeeded() -> TabsOverviewCoordinator? {
-        if let existing = _tabsCoordinator { return existing }
-        guard let nav = navigationController, let dataStore else { return nil }
-        let created = TabsOverviewCoordinator(navigationController: nav, theme: theme, dataStore: dataStore)
-        _tabsCoordinator = created
-        return created
     }
 
     private func embedResultsViewController() {
@@ -456,8 +453,10 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
             if let navigateToSearchResultAction {
                 navigateToSearchResultAction(articleURL)
             } else if let customArticleCoordinatorNavigationController {
+                
+                let tabConfig = self.customTabConfigUponArticleNavigation ?? .appendArticleAndAssignCurrentTab
 
-                let linkCoordinator = LinkCoordinator(navigationController: customArticleCoordinatorNavigationController, url: articleURL, dataStore: dataStore, theme: theme, articleSource: .search, tabConfig: .appendArticleAndAssignCurrentTab)
+                let linkCoordinator = LinkCoordinator(navigationController: customArticleCoordinatorNavigationController, url: articleURL, dataStore: dataStore, theme: theme, articleSource: .search, tabConfig: tabConfig)
                 let success = linkCoordinator.start()
 
                 if !success {
@@ -465,8 +464,10 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
                 }
 
             } else if let navigationController {
+                
+                let tabConfig = self.customTabConfigUponArticleNavigation
 
-                let linkCoordinator = LinkCoordinator(navigationController: navigationController, url: articleURL, dataStore: dataStore, theme: theme, articleSource: .search)
+                let linkCoordinator = LinkCoordinator(navigationController: navigationController, url: articleURL, dataStore: dataStore, theme: theme, articleSource: .search, tabConfig: tabConfig)
                 let success = linkCoordinator.start()
 
                 if !success {

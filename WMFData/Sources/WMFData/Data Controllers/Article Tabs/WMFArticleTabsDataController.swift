@@ -33,6 +33,7 @@ public protocol WMFArticleTabsDataControlling {
         case unexpectedAssignment
         case missingAssignment
         case doesNotQualifyForExperiment
+        case alreadyAssignedExperiment
         case pastAssignmentEndDate
         case missingURL
     }
@@ -162,20 +163,20 @@ public protocol WMFArticleTabsDataControlling {
     
     // MARK: - Experiment
 
-    public func shouldAssignToBucket() -> Bool {
-        return experimentsDataController?.bucketForExperiment(.moreDynamicTabs) == nil
+    private func shouldAssignToBucketV2() -> Bool {
+        return experimentsDataController?.bucketForExperiment(.moreDynamicTabsV2) == nil
     }
     
-    public var shouldShowMoreDynamicTabs: Bool {
-        guard !developerSettingsDataController.enableMoreDynamicTabsGroupB else {
+    public var shouldShowMoreDynamicTabsV2: Bool {
+        guard !developerSettingsDataController.enableMoreDynamicTabsV2GroupB else {
             return true
         }
         
-        guard !developerSettingsDataController.enableMoreDynamicTabsGroupC else {
+        guard !developerSettingsDataController.enableMoreDynamicTabsV2GroupC else {
             return true
         }
         
-        guard let assignment = try? getMoreDynamicTabsExperimentAssignment() else {
+        guard let assignment = try? getMoreDynamicTabsExperimentAssignmentV2() else {
             return false
         }
         
@@ -187,10 +188,6 @@ public protocol WMFArticleTabsDataControlling {
         }
     }
     
-    @objc public var needsMoreDynamicTabs: Bool {
-        return shouldShowMoreDynamicTabs
-    }
-    
     private var primaryAppLanguageProject: WMFProject? {
         if let language = WMFDataEnvironment.current.appData.appLanguages.first {
             return WMFProject.wikipedia(language)
@@ -199,27 +196,28 @@ public protocol WMFArticleTabsDataControlling {
         return nil
     }
     
-    private var isBeforeAssignmentEndDate: Bool {
-        var dateComponents = DateComponents()
-        dateComponents.year = 2025
-        dateComponents.month = 9
-        dateComponents.day = 30
-        guard let endDate = Calendar.current.date(from: dateComponents) else {
-            return false
-        }
-        
-        return endDate >= Date()
-    }
+//    private var isBeforeAssignmentEndDate: Bool {
+//        var dateComponents = DateComponents()
+//        dateComponents.year = 2025
+//        dateComponents.month = 9
+//        dateComponents.day = 30
+//        guard let endDate = Calendar.current.date(from: dateComponents) else {
+//            return false
+//        }
+//        
+//        return endDate >= Date()
+//    }
     
-    public func qualifiesForExperiment() -> Bool {
+    private func qualifiesForExperiment() -> Bool {
         guard let primaryAppLanguageProject else {
             return false
         }
         
         return Locale.current.qualifiesForExperiment && primaryAppLanguageProject.qualifiesForExperiment
     }
-    
-    public func getMoreDynamicTabsExperimentAssignment() throws -> MoreDynamicTabsExperimentAssignment {
+
+    public func getMoreDynamicTabsExperimentAssignmentV2() throws -> MoreDynamicTabsExperimentAssignment {
+        
         guard qualifiesForExperiment() else {
             throw CustomError.doesNotQualifyForExperiment
         }
@@ -232,18 +230,18 @@ public protocol WMFArticleTabsDataControlling {
             return assignmentCache
         }
         
-        guard let bucketValue = experimentsDataController.bucketForExperiment(.moreDynamicTabs) else {
+        guard let bucketValue = experimentsDataController.bucketForExperiment(.moreDynamicTabsV2) else {
             throw CustomError.missingAssignment
         }
         
         let assignment: MoreDynamicTabsExperimentAssignment
         switch bucketValue {
             
-        case .moreDynamicTabsControl:
+        case .moreDynamicTabsV2Control:
             assignment = .control
-        case .moreDynamicTabsGroupB:
+        case .moreDynamicTabsV2GroupB:
             assignment = .groupB
-        case .moreDynamicTabsGroupC:
+        case .moreDynamicTabsV2GroupC:
             assignment = .groupC
         default:
             throw CustomError.unexpectedAssignment
@@ -253,29 +251,34 @@ public protocol WMFArticleTabsDataControlling {
         return assignment
     }
     
-    public func assignExperiment() throws -> MoreDynamicTabsExperimentAssignment {
+    public func assignExperimentV2IfNeeded() throws -> MoreDynamicTabsExperimentAssignment {
+        
+        guard shouldAssignToBucketV2() else {
+            throw CustomError.alreadyAssignedExperiment
+        }
+        
         guard qualifiesForExperiment() else {
             throw CustomError.doesNotQualifyForExperiment
         }
         
-        guard isBeforeAssignmentEndDate else {
-            throw CustomError.pastAssignmentEndDate
-        }
+//        guard isBeforeAssignmentEndDate else {
+//            throw CustomError.pastAssignmentEndDate
+//        }
         
         guard let experimentsDataController else {
             throw CustomError.missingExperimentsDataController
         }
         
-        let bucketValue = try experimentsDataController.determineBucketForExperiment(.moreDynamicTabs, withPercentage: 100) // TODO: Revert this change when tabs is ready to be released
+        let bucketValue = try experimentsDataController.determineBucketForExperiment(.moreDynamicTabsV2, withPercentage: moreDynamicTabsExperimentPercentage)
 
         let assignment: MoreDynamicTabsExperimentAssignment
         
         switch bucketValue {
-        case .moreDynamicTabsControl:
+        case .moreDynamicTabsV2Control:
             assignment = .control
-        case .moreDynamicTabsGroupB:
+        case .moreDynamicTabsV2GroupB:
             assignment = .groupB
-        case .moreDynamicTabsGroupC:
+        case .moreDynamicTabsV2GroupC:
             assignment = .groupC
         default:
             throw CustomError.unexpectedAssignment
@@ -283,6 +286,15 @@ public protocol WMFArticleTabsDataControlling {
         
         self.assignmentCache = assignment
         return assignment
+    }
+    
+    
+    public var moreDynamicTabsGroupBEnabled: Bool {
+        ((try? getMoreDynamicTabsExperimentAssignmentV2()) == .groupB) || developerSettingsDataController.enableMoreDynamicTabsV2GroupB
+    }
+
+    public var moreDynamicTabsGroupCEnabled: Bool {
+        ((try? getMoreDynamicTabsExperimentAssignmentV2()) == .groupC) || developerSettingsDataController.enableMoreDynamicTabsV2GroupC
     }
     
     // MARK: Onboarding
@@ -315,17 +327,15 @@ public protocol WMFArticleTabsDataControlling {
         }
     }
 
-    private var isGroupC: Bool {
-        ((try? getMoreDynamicTabsExperimentAssignment()) == .groupC) || developerSettingsDataController.enableMoreDynamicTabsGroupC
-    }
-
     public func checkAndCreateInitialArticleTabIfNeeded() async throws {
 
-        guard !isGroupC else { return }
+        guard !moreDynamicTabsGroupCEnabled else { return }
+        
+        let setAsCurrent = moreDynamicTabsGroupBEnabled ? false : true
 
         let count = try await tabsCount()
         if count == 0 {
-            _ = try await createArticleTab(initialArticle: nil, setAsCurrent: true)
+            _ = try await createArticleTab(initialArticle: nil, setAsCurrent: setAsCurrent)
         }
     }
     
@@ -427,24 +437,8 @@ public protocol WMFArticleTabsDataControlling {
             try self.deleteAllTabs(moc: moc)
         }
         
-        if !needsMoreDynamicTabs {
+        if !shouldShowMoreDynamicTabsV2 {
             _ = try? await self.createArticleTab(initialArticle: nil, setAsCurrent: true)
-        }
-    }
-    
-    public var moreDynamicTabsGroupBEnabled: Bool {
-        get {
-            return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsMoreDynamicTabsGroupB.rawValue)) ?? false
-        } set {
-            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsMoreDynamicTabsGroupB.rawValue, value: newValue)
-        }
-    }
-    
-    public var moreDynamicTabsGroupCEnabled: Bool {
-        get {
-            return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsMoreDynamicTabsGroupC.rawValue)) ?? false
-        } set {
-            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsMoreDynamicTabsGroupC.rawValue, value: newValue)
         }
     }
     
@@ -658,6 +652,8 @@ public protocol WMFArticleTabsDataControlling {
         }
     }
     
+    // MARK: - Survey
+    
     public func updateSurveyDataTabsOverviewSeenCount() {
         var seenCount: Int = (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.articleTabsOverviewOpenedCountBandC.rawValue)) ?? 0
         
@@ -681,7 +677,7 @@ public protocol WMFArticleTabsDataControlling {
         }
         
         var seenCount: Int = 0
-        if shouldShowMoreDynamicTabs {
+        if shouldShowMoreDynamicTabsV2 {
             seenCount = (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.articleTabsOverviewOpenedCountBandC.rawValue)) ?? 0
         }
         
@@ -691,7 +687,7 @@ public protocol WMFArticleTabsDataControlling {
             return false
         }
         
-        if shouldShowMoreDynamicTabs {
+        if shouldShowMoreDynamicTabsV2 {
             if seenCount >= 4 {
                 try? userDefaultsStore?.save(key: WMFUserDefaultsKey.articleTabsDidShowSurveyBandC.rawValue, value: true)
                 return true
@@ -756,7 +752,7 @@ public protocol WMFArticleTabsDataControlling {
         
         let tabsCount = try tabsCount(moc: moc)
         
-        if tabsCount <= 1 && !shouldShowMoreDynamicTabs {
+        if tabsCount <= 1 && !shouldShowMoreDynamicTabsV2 {
             throw CustomError.cannotDeleteLastTab
         }
         

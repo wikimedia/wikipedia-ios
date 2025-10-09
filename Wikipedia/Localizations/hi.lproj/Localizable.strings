@@ -182,6 +182,7 @@
 "description-welcome-descriptions-title" = "लेख विवरण";
 "description-welcome-promise-title" = "शुरू करने से, मैं यह वादा करता हूँ कि इस सुविधा का दुरुपयोग नहीं करूँगा(गी)।";
 "description-welcome-start-editing-button" = "संपादन शुरू करें";
+// Fuzzy
 "did-you-know" = "क्या आप जानते हैं";
 // Fuzzy
 "diff-compare-header-from-info-heading" = "मूल";

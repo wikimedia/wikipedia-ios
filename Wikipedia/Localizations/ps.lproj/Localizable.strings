@@ -110,6 +110,7 @@
 "appearance-settings-expand-tables" = "لښتيالونه غځول";
 "appearance-settings-reading-themes" = "لوست پوښۍ";
 "appearance-settings-set-automatic-table-opening" = "لښتيال اوڼنې";
+"appearance-settings-set-icon-header" = "کاريال نښه";
 "appearance-settings-theme-options" = "پوښۍ خوښنې";
 "article-about-title" = "د دې ليکنې په اړه";
 "article-delete" = "ړنگول";
@@ -188,6 +189,7 @@
 "developer-force-email-auth" = "اجباري برېښليک تاييد";
 "developer-settings" = "پراختياگر اوڼنې";
 "developer-settings-enable-year-in-review" = "کال بياکتنه چارنول";
+// Fuzzy
 "did-you-know" = "ايا پوهېدې";
 "diff-article-revision-history" = "مخ بياکتنې پېښليک";
 "diff-change-added" = "زياتي، $1، زياتي پای.";

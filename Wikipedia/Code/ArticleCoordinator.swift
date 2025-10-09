@@ -5,6 +5,7 @@ import CocoaLumberjackSwift
 
 enum ArticleTabConfig {
     case appendArticleAndAssignCurrentTab // Default navigation
+    case appendArticleAndAssignCurrentTabAndRemovePrecedingMainPage // When tapping + add tab > focused search bar experiment. Remove preceding Main Page in navigation stack before navigating.
     case appendArticleAndAssignCurrentTabAndCleanoutFutureArticles // Navigating from article blue link or article search
     case appendArticleAndAssignNewTabAndSetToCurrent // Open in new tab long press
     case assignParticularTabAndSetToCurrent(WMFArticleTabsDataController.Identifiers) // Tapping tab from tabs overview
@@ -14,7 +15,7 @@ enum ArticleTabConfig {
 
 @MainActor
 protocol ArticleTabCoordinating: AnyObject {
-    func trackArticleTab(articleViewController: ArticleViewController)
+    func trackArticleTab(articleViewController: ArticleViewController) async
     func syncTabsOnArticleAppearance()
     var articleURL: URL? { get }
     var tabConfig: ArticleTabConfig { get }
@@ -27,92 +28,117 @@ protocol ArticleTabCoordinating: AnyObject {
 @MainActor
 extension ArticleTabCoordinating {
     
-    func trackArticleTab(articleViewController: ArticleViewController) {
+    func trackArticleTab(articleViewController: ArticleViewController) async {
         
         articleViewController.coordinator = self
         
         let tabsDataController = WMFArticleTabsDataController.shared
 
-        // Handle Article Tabs
-        Task {
-            guard let title = articleURL?.wmf_title,
-                  let siteURL = articleURL?.wmf_site,
-                  let wmfProject = WikimediaProject(siteURL: siteURL)?.wmfProject,
-                  let articleURL = siteURL.wmf_URL(withTitle: title) else {
-                return
-            }
+        guard let title = articleURL?.wmf_title,
+              let siteURL = articleURL?.wmf_site,
+              let wmfProject = WikimediaProject(siteURL: siteURL)?.wmfProject,
+              let articleURL = siteURL.wmf_URL(withTitle: title) else {
+            return
+        }
 
-            let article = WMFArticleTabsDataController.WMFArticle(identifier: nil, title: title, project: wmfProject, articleURL: articleURL)
-            do {
-                
-                // Reassign tabConfig if needed
-                // If current tabs count is at 500, do not create any new tabs. Instead append article to current tab.
-                var tabConfig = self.tabConfig
-                switch tabConfig {
-                case .assignNewTabAndSetToCurrent, .appendArticleAndAssignNewTabAndSetToCurrent:
-                    let tabsCount = try await tabsDataController.tabsCount()
-                    let tabsMax = tabsDataController.tabsMax
-                    if tabsCount >= tabsMax {
-                        tabConfig = .appendArticleAndAssignCurrentTab
-                        
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-                            WMFAlertManager.sharedInstance.showBottomWarningAlertWithMessage(String.localizedStringWithFormat(CommonStrings.articleTabsLimitToastFormat, tabsMax), subtitle: nil,  buttonTitle: nil, image: WMFSFSymbolIcon.for(symbol: .exclamationMarkTriangleFill), dismissPreviousAlerts: true)
-                        }
+        let article = WMFArticleTabsDataController.WMFArticle(identifier: nil, title: title, project: wmfProject, articleURL: articleURL)
+        do {
+            
+            // Reassign tabConfig if needed
+            // If current tabs count is at 500, do not create any new tabs. Instead append article to current tab.
+            var tabConfig = self.tabConfig
+            switch tabConfig {
+            case .assignNewTabAndSetToCurrent, .appendArticleAndAssignNewTabAndSetToCurrent:
+                let tabsCount = try await tabsDataController.tabsCount()
+                let tabsMax = tabsDataController.tabsMax
+                if tabsCount >= tabsMax {
+                    tabConfig = .appendArticleAndAssignCurrentTab
+                    
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                        WMFAlertManager.sharedInstance.showBottomWarningAlertWithMessage(String.localizedStringWithFormat(CommonStrings.articleTabsLimitToastFormat, tabsMax), subtitle: nil,  buttonTitle: nil, image: WMFSFSymbolIcon.for(symbol: .exclamationMarkTriangleFill), dismissPreviousAlerts: true)
                     }
-                default:
-                    break
                 }
+            default:
+                break
+            }
+            
+            // Reassign tabConfig if needed
+            // If there is no current tab but we were expecting one, create a new tab instead
+            let currentTabIdentifier = try await tabsDataController.currentTabIdentifier()
+            if currentTabIdentifier == nil {
                 
-                // Reassign tabConfig if needed
-                // If there is no current tab but we were expecting one, create a new tab instead
-                let currentTabIdentifier = try await tabsDataController.currentTabIdentifier()
-                if currentTabIdentifier == nil {
+                let manuallySetTabAsCurrent = ((try? await manuallySetTabAsCurrentIfNeeded()) ?? false)
+
+                if !manuallySetTabAsCurrent {
                     switch tabConfig {
                     case .appendArticleAndAssignCurrentTabAndCleanoutFutureArticles,
-                            .appendArticleAndAssignCurrentTab:
+                            .appendArticleAndAssignCurrentTab,
+                            .appendArticleAndAssignCurrentTabAndRemovePrecedingMainPage:
                         tabConfig = .appendArticleAndAssignNewTabAndSetToCurrent
                     default:
                         break
                     }
                 }
-                
-                switch tabConfig {
-                case .appendArticleAndAssignCurrentTabAndCleanoutFutureArticles:
-                    guard let tabIdentifier = try await tabsDataController.currentTabIdentifier() else {
-                        DDLogError("Expected current tab identifier")
-                        return
-                    }
-                    let identifiers = try await tabsDataController.appendArticle(article, toTabIdentifier: tabIdentifier, needsCleanoutOfFutureArticles: true)
-                    self.tabIdentifier = identifiers.tabIdentifier
-                    self.tabItemIdentifier = identifiers.tabItemIdentifier
-                case .appendArticleAndAssignCurrentTab:
-                    guard let tabIdentifier = try await tabsDataController.currentTabIdentifier() else {
-                        DDLogError("Expected current tab identifier")
-                        return
-                    }
-                    let identifiers = try await tabsDataController.appendArticle(article, toTabIdentifier: tabIdentifier)
-                    self.tabIdentifier = identifiers.tabIdentifier
-                    self.tabItemIdentifier = identifiers.tabItemIdentifier
-                case .appendArticleAndAssignNewTabAndSetToCurrent:
-                    let identifiers = try await tabsDataController.createArticleTab(initialArticle: article, setAsCurrent: true)
-                    self.tabIdentifier = identifiers.tabIdentifier
-                    self.tabItemIdentifier = identifiers.tabItemIdentifier
-                case .assignParticularTabAndSetToCurrent(let identifiers):
-                    try await tabsDataController.setTabAsCurrent(tabIdentifier: identifiers.tabIdentifier)
-                    self.tabIdentifier = identifiers.tabIdentifier
-                    self.tabItemIdentifier = identifiers.tabItemIdentifier
-                case .assignNewTabAndSetToCurrent:
-                    let identifiers = try await tabsDataController.createArticleTab(initialArticle: nil, setAsCurrent: true)
-                    self.tabIdentifier = identifiers.tabIdentifier
-                    self.tabItemIdentifier = identifiers.tabItemIdentifier
-                case .adjacentArticleInTab(let identifiers):
-                    self.tabIdentifier = identifiers.tabIdentifier
-                    self.tabItemIdentifier = identifiers.tabItemIdentifier
+            }
+            
+            switch tabConfig {
+            case .appendArticleAndAssignCurrentTabAndCleanoutFutureArticles:
+                guard let tabIdentifier = try await tabsDataController.currentTabIdentifier() else {
+                    DDLogError("Expected current tab identifier")
+                    return
                 }
-            } catch {
-                DDLogError("Failed to handle tab configuration: \(error)")
+                let identifiers = try await tabsDataController.appendArticle(article, toTabIdentifier: tabIdentifier, needsCleanoutOfFutureArticles: true)
+                self.tabIdentifier = identifiers.tabIdentifier
+                self.tabItemIdentifier = identifiers.tabItemIdentifier
+            case .appendArticleAndAssignCurrentTab, .appendArticleAndAssignCurrentTabAndRemovePrecedingMainPage:
+                guard let tabIdentifier = try await tabsDataController.currentTabIdentifier() else {
+                    DDLogError("Expected current tab identifier")
+                    return
+                }
+                let identifiers = try await tabsDataController.appendArticle(article, toTabIdentifier: tabIdentifier)
+                self.tabIdentifier = identifiers.tabIdentifier
+                self.tabItemIdentifier = identifiers.tabItemIdentifier
+            case .appendArticleAndAssignNewTabAndSetToCurrent:
+                let identifiers = try await tabsDataController.createArticleTab(initialArticle: article, setAsCurrent: true)
+                self.tabIdentifier = identifiers.tabIdentifier
+                self.tabItemIdentifier = identifiers.tabItemIdentifier
+            case .assignParticularTabAndSetToCurrent(let identifiers):
+                try await tabsDataController.setTabAsCurrent(tabIdentifier: identifiers.tabIdentifier)
+                self.tabIdentifier = identifiers.tabIdentifier
+                self.tabItemIdentifier = identifiers.tabItemIdentifier
+            case .assignNewTabAndSetToCurrent:
+                let identifiers = try await tabsDataController.createArticleTab(initialArticle: nil, setAsCurrent: true)
+                self.tabIdentifier = identifiers.tabIdentifier
+                self.tabItemIdentifier = identifiers.tabItemIdentifier
+            case .adjacentArticleInTab(let identifiers):
+                self.tabIdentifier = identifiers.tabIdentifier
+                self.tabItemIdentifier = identifiers.tabItemIdentifier
+            }
+        } catch {
+            DDLogError("Failed to handle tab configuration: \(error)")
+        }
+    }
+    
+    private func manuallySetTabAsCurrentIfNeeded() async throws -> Bool {
+        
+        // If this is Group B, it may be that there is a single Main Page non-current tab (fresh launch experience). In this case, set this tab as current.
+        let tabsDataController = WMFArticleTabsDataController.shared
+        
+        if tabsDataController.moreDynamicTabsGroupBEnabled {
+            let tabs = try await tabsDataController.fetchAllArticleTabs()
+            if tabs.count == 1 {
+                let firstTab = tabs[0]
+                if firstTab.articles.count == 1 {
+                    let firstArticle = firstTab.articles[0]
+                    if firstArticle.title == "Main_Page" {
+                        try await tabsDataController.setTabAsCurrent(tabIdentifier: firstTab.identifier)
+                        return true
+                    }
+                }
             }
         }
+        
+        return false
     }
     
     // Cleanup needed when tapping Back button
@@ -192,21 +218,39 @@ final class ArticleCoordinator: NSObject, Coordinator, ArticleTabCoordinating {
         }
         articleVC.isRestoringState = isRestoringState
         prepareToShowTabsOverview(articleViewController: articleVC, dataStore)
-        trackArticleTab(articleViewController: articleVC)
- 
-        switch tabConfig {
-        case .adjacentArticleInTab:
-            var viewControllers = navigationController.viewControllers
-            if viewControllers.count > 0 {
-                viewControllers.removeLast()
-            }
+        
+        Task {
+            await trackArticleTab(articleViewController: articleVC)
             
-            viewControllers.append(articleVC)
-            navigationController.setViewControllers(viewControllers, animated: needsAnimation)
-        default:
-            navigationController.pushViewController(articleVC, animated: needsAnimation)
+            Task { @MainActor in
+                switch tabConfig {
+                case .adjacentArticleInTab:
+                    var viewControllers = navigationController.viewControllers
+                    if viewControllers.count > 0 {
+                        viewControllers.removeLast()
+                    }
+                    
+                    viewControllers.append(articleVC)
+                    navigationController.setViewControllers(viewControllers, animated: needsAnimation)
+                case .appendArticleAndAssignCurrentTabAndRemovePrecedingMainPage:
+                    
+                    var viewControllers = navigationController.viewControllers
+                    if viewControllers.count > 0,
+                       let lastArticle = viewControllers.last as? ArticleViewController,
+                       lastArticle.articleURL.wmf_title == "Main Page" {
+                        viewControllers.removeLast()
+                    }
+                    
+                    viewControllers.append(articleVC)
+                    navigationController.setViewControllers(viewControllers, animated: needsAnimation)
+                    
+                default:
+                    navigationController.pushViewController(articleVC, animated: needsAnimation)
 
+                }
+            }
         }
+        
         return true
     }
 

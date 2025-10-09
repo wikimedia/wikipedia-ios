@@ -264,6 +264,7 @@
 "developer-settings-enable-year-in-review" = "Aktivera årsöversikt";
 "developer-settings-send-analytics-to-wmflabs" = "Skicka analys till wmflabs.";
 "developer-settings-suppress-image-rec-post" = "Publicera inte redigering med bildrekommendationer.";
+// Fuzzy
 "did-you-know" = "Visste du att";
 "diff-article-revision-history" = "Artikelns versionshistorik";
 "diff-change-added" = "Nytt innehåll, $1, slut på nytt innehåll.";
@@ -1230,6 +1231,7 @@
 "tabs-open-tab" = "Öppna fliken";
 "tabs-overview-tooltip-body" = "Växla mellan öppna artiklar i fliköversikten.";
 "tabs-overview-tooltip-title" = "Fliköversikt";
+// Fuzzy
 "tabs-survey-title" = "Hjälp till att förbättra flikfunktionen. Är du nöjd med den här funktionen?";
 "tabs-thumbnail-description" = "Utforska Wikipedia, den fria encyklopedin som alla kan redigera";
 "tabs-thumbnail-subtitle" = "Börja söka här";

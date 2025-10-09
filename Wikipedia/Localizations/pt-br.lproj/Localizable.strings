@@ -281,6 +281,7 @@
 "developer-settings-enable-year-in-review" = "Ativar resumo do ano";
 "developer-settings-send-analytics-to-wmflabs" = "Enviar análises para wmflabs.";
 "developer-settings-suppress-image-rec-post" = "Não publicar recomendações de imagens editadas.";
+// Fuzzy
 "did-you-know" = "Você sabia";
 "diff-article-revision-history" = "Histórico de revisões do artigo";
 "diff-change-added" = "Adição, $1, fim de adição.";
@@ -1253,7 +1254,7 @@
 "tabs-overview-tooltip-title" = "Visão geral das guias";
 "tabs-show-suggested-articles" = "Mostrar sugestões de artigos";
 "tabs-suggested-articles-hide-suggestions-confirmation" = "As sugestões agora estão ocultas";
-"tabs-suggested-articles-show-suggestions-confirmation" = "As sugestões agora estão visíveis";
+// Fuzzy
 "tabs-survey-title" = "Ajude a melhorar o recurso de guias. Você está satisfeito com esse recurso?";
 "tabs-thumbnail-description" = "Explore a Wikipédia, a enciclopédia livre que qualquer pessoa pode editar.";
 "tabs-title" = "Guias";

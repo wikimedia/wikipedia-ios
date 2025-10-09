@@ -55,12 +55,14 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
     // Tootltips
     public var tooltipViewModels: [WMFTooltipViewModel] = []
 
-    private var _tabsCoordinator: TabsOverviewCoordinator?
-    private var tabsCoordinator: TabsOverviewCoordinator? {
-        guard let navigationController else { return nil }
-        _tabsCoordinator = TabsOverviewCoordinator(navigationController: navigationController, theme: theme, dataStore: dataStore)
-        return _tabsCoordinator
-    }
+    private lazy var tabsCoordinator: TabsOverviewCoordinator? = { [weak self] in
+        guard let self, let nav = self.navigationController else { return nil }
+        return TabsOverviewCoordinator(
+            navigationController: nav,
+            theme: self.theme,
+            dataStore: self.dataStore
+        )
+    }()
 
     // Coordinator
     private var _profileCoordinator: ProfileCoordinator?
@@ -461,6 +463,7 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
     }
     
     var isFirstAppearance = true
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         presentModalsIfNeeded()
@@ -469,13 +472,17 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
         loadNextAndPreviousArticleTabs()
         
         if tabDataController.moreDynamicTabsGroupBEnabled && needsFocusOnSearch && isFirstAppearance {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) { [weak self] in
-                guard let searchController = self?.navigationItem.searchController else {
-                    return
+            
+            DispatchQueue.main.async { [weak self] in
+                guard let self,
+                      let searchController = self.navigationItem.searchController else { return }
+                if !searchController.isActive {
+                    self.webView.isHidden = true
+                    searchController.isActive = true
                 }
-                
-                searchController.isActive = true
-                searchController.searchBar.becomeFirstResponder()
+                DispatchQueue.main.async {
+                    searchController.searchBar.becomeFirstResponder()
+                }
             }
         }
         isFirstAppearance = false
@@ -493,21 +500,11 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
     var showTabsOverview: (() -> Void)?
 
     @objc func userDidTapTabs() {
-        makeTabsCoordinatorIfNeeded()?.start()
+        tabsCoordinator?.start()
         if let wikimediaProject = WikimediaProject(siteURL: articleURL) {
             ArticleTabsFunnel.shared.logIconClick(interface: .article, project: wikimediaProject)
         }
     }
-
-    @discardableResult
-    private func makeTabsCoordinatorIfNeeded() -> TabsOverviewCoordinator? {
-        if let existing = _tabsCoordinator { return existing }
-        guard let nav = navigationController else { return nil }
-        let created = TabsOverviewCoordinator(navigationController: nav, theme: theme, dataStore: dataStore)
-        _tabsCoordinator = created
-        return created
-    }
-
 
     /// Catch-all method for deciding what is the best modal to present on top of Article at this point. This method needs careful if-else logic so that we do not present two modals at the same time, which may unexpectedly suppress one.
     private func presentModalsIfNeeded() {
@@ -782,7 +779,7 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
         searchViewController.dataStore = dataStore
         searchViewController.theme = theme
         searchViewController.shouldBecomeFirstResponder = true
-        searchViewController.customTabConfigUponArticleNavigation = .appendArticleAndAssignCurrentTabAndCleanoutFutureArticles
+        searchViewController.customTabConfigUponArticleNavigation = tabDataController.moreDynamicTabsGroupBEnabled && needsFocusOnSearch ? .appendArticleAndAssignCurrentTabAndRemovePrecedingMainPage : .appendArticleAndAssignCurrentTabAndCleanoutFutureArticles
         
         let populateSearchBarWithTextAction: (String) -> Void = { [weak self] searchTerm in
             self?.navigationItem.searchController?.searchBar.text = searchTerm
@@ -1320,7 +1317,9 @@ private extension ArticleViewController {
 
         // Sometimes there is a race condition where the Core Data store isn't yet ready to persist tabs information (for example, deep linking to an article when in a terminated state). We are trying again here.
         if coordinator?.tabIdentifier == nil || coordinator?.tabItemIdentifier == nil {
-            coordinator?.trackArticleTab(articleViewController: self)
+            Task {
+                await coordinator?.trackArticleTab(articleViewController: self)
+            }
         }
     }
     
@@ -1608,10 +1607,15 @@ extension ArticleViewController: UISearchControllerDelegate {
         searchBarIsAnimating = true
     }
     
+    func willDismissSearchController(_ searchController: UISearchController) {
+        if tabDataController.moreDynamicTabsGroupBEnabled && needsFocusOnSearch {
+            webView.isHidden = false
+        }
+    }
+    
     func didDismissSearchController(_ searchController: UISearchController) {
         navigationController?.hidesBarsOnSwipe = true
         searchBarIsAnimating = false
         SearchFunnel.shared.logSearchCancel(source: "article")
     }
 }
-
