@@ -517,9 +517,9 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
         if let wikimediaProject = WikimediaProject(siteURL: articleURL) {
             if needsLogTabsV2GroupCMainPageIconTapEvent {
                 ArticleTabsFunnel.shared.logIconClickMainPageV2GroupC(project: wikimediaProject)
-            } else {
-                ArticleTabsFunnel.shared.logIconClick(interface: .article, project: wikimediaProject)
             }
+            
+            ArticleTabsFunnel.shared.logIconClick(interface: .article, project: wikimediaProject)
         }
     }
 

@@ -10,8 +10,11 @@ import WMF
         case closeFeedback = "feedback_close_click"
         case submitFeedback = "feedback_submit_click"
         case iconClick = "icon_click"
+        case openClick = "open_click"
         case newTabClick = "new_tab_click"
         case newTabClickBackground = "new_tab_click_background"
+        case saveClick = "save_click"
+        case shareClick = "share_click"
         case launch = "launch"
         case closeClick = "close_click"
         case closeTabClick = "close_tab_click"
@@ -148,12 +151,24 @@ import WMF
     func logAddNewBlankTab() {
         logEvent(activeInterface: .overview, action: .newTabClick, project: nil)
     }
-
-    func logOpenArticleInNewTab() {
+    
+    func logLongPressOpen() {
         logEvent(activeInterface: .articleMenu, action: .newTabClick, project: nil)
     }
 
-    func logOpenArticleInBackgroundTab() {
+    func logLongPressOpenInNewTab() {
+        logEvent(activeInterface: .articleMenu, action: .newTabClick, project: nil)
+    }
+
+    func logLongPressOpenInBackgroundTab() {
+        logEvent(activeInterface: .articleMenu, action: .newTabClickBackground, project: nil)
+    }
+    
+    func logLongPressSave() {
+        logEvent(activeInterface: .articleMenu, action: .newTabClickBackground, project: nil)
+    }
+    
+    func logLongPressShare() {
         logEvent(activeInterface: .articleMenu, action: .newTabClickBackground, project: nil)
     }
     
