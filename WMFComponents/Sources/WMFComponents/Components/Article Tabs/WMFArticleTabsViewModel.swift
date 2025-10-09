@@ -13,7 +13,12 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
     @Published var articleTabs: [ArticleTab]
     @Published var shouldShowCloseButton: Bool
     public var hasMultipleTabs: Bool {
-        return articleTabs.count >= 2
+        var count = 0
+        for tab in articleTabs where !tab.isMain {
+            count += 1
+            if count >= 2 { return true }
+        }
+        return false
     }
 
     @Published var didYouKnowViewModel: WMFTabsOverviewDidYouKnowViewModel?
