@@ -172,7 +172,6 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
     let tabDataController = WMFArticleTabsDataController.shared
     
     private let needsFocusOnSearch: Bool
-    private let needsLogTabsV2GroupBSearchEvents: Bool
 
     @objc init?(articleURL: URL, dataStore: MWKDataStore, theme: Theme, source: ArticleSource, schemeHandler: SchemeHandler? = nil, previousPageViewObjectID: NSManagedObjectID? = nil, needsFocusOnSearch: Bool = false) {
 
@@ -192,11 +191,6 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
         self.previousPageViewObjectID = previousPageViewObjectID
         
         self.needsFocusOnSearch = needsFocusOnSearch
-        if needsFocusOnSearch && tabDataController.moreDynamicTabsGroupBEnabled {
-            self.needsLogTabsV2GroupBSearchEvents = true
-        } else {
-            self.needsLogTabsV2GroupBSearchEvents = false
-        }
 
         super.init(nibName: nil, bundle: nil)
         self.theme = theme
@@ -508,7 +502,7 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
         if let wikimediaProject = WikimediaProject(siteURL: articleURL) {
             if let title = articleURL.wmf_title,
                title == "Main_Page" {
-                ArticleTabsFunnel.shared.logIconClickMainPage(project: wikimediaProject)
+                ArticleTabsFunnel.shared.logIconClick(interface: .mainPage, project: wikimediaProject)
             } else {
                 ArticleTabsFunnel.shared.logIconClick(interface: .article, project: wikimediaProject)
             }
