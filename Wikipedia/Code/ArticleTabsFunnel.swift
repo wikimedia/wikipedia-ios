@@ -140,7 +140,7 @@ import WMF
         logEvent(activeInterface: interface, action: .iconClick, project: project)
     }
     
-    func logIconClickMainPageV2GroupC(project: WikimediaProject) {
+    func logIconClickMainPage(project: WikimediaProject) {
         logEvent(activeInterface: .mainPage, action: .iconClick, project: project)
     }
 
@@ -170,14 +170,6 @@ import WMF
     
     func logLongPressShare() {
         logEvent(activeInterface: .articleMenu, action: .newTabClickBackground, project: nil)
-    }
-    
-    func logTabsV2GroupBMainPageCancelTap(project: WikimediaProject) {
-        logEvent(activeInterface: .tabSearch, action: .cancelClick, project: project)
-    }
-    
-    func logTabsV2GroupBMainPageSearchResultTap(project: WikimediaProject) {
-        logEvent(activeInterface: .tabSearch, action: .resultClick, project: project)
     }
     
     func logTabsOverflowHideArticleSuggestionsTap() {
