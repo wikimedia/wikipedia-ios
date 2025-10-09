@@ -405,19 +405,37 @@ final class TabsOverviewCoordinator: NSObject, Coordinator {
             return
         }
         
-        let articleCoordinator = ArticleCoordinator(
-            navigationController: navigationController,
-            articleURL: articleURL,
-            dataStore: MWKDataStore.shared(),
-            theme: theme,
-            needsAnimation: false,
-            source: .undefined,
-            tabConfig: .assignNewTabAndSetToCurrent,
-            needsFocusOnSearch: true)
-        ArticleTabsFunnel.shared.logAddNewBlankTab()
-        articleCoordinator.start()
+        if dataController.moreDynamicTabsGroupBEnabled {
+            navigationController.dismiss(animated: true) { [weak self] in
+                guard let self else { return }
+                let articleCoordinator = ArticleCoordinator(
+                    navigationController: navigationController,
+                    articleURL: articleURL,
+                    dataStore: MWKDataStore.shared(),
+                    theme: theme,
+                    needsAnimation: false,
+                    source: .undefined,
+                    tabConfig: .assignNewTabAndSetToCurrent,
+                    needsFocusOnSearch: true)
+                ArticleTabsFunnel.shared.logAddNewBlankTab()
+                articleCoordinator.start()
+            }
+        } else {
+            let articleCoordinator = ArticleCoordinator(
+                navigationController: navigationController,
+                articleURL: articleURL,
+                dataStore: MWKDataStore.shared(),
+                theme: theme,
+                needsAnimation: false,
+                source: .undefined,
+                tabConfig: .assignNewTabAndSetToCurrent,
+                needsFocusOnSearch: true)
+            ArticleTabsFunnel.shared.logAddNewBlankTab()
+            articleCoordinator.start()
+            
+            navigationController.dismiss(animated: true)
+        }
         
-        navigationController.dismiss(animated: true)
     }
 
     private func tappedShareTab(_ tab: WMFArticleTabsDataController.WMFArticleTab, sourceFrameInWindow: CGRect?) {

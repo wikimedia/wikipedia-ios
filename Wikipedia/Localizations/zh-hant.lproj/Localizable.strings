@@ -277,8 +277,8 @@
 "developer-settings-activity-tab-group-B" = "將活動分頁設定成群組 B";
 "developer-settings-activity-tab-group-C" = "將活動分頁設定成群組 C";
 "developer-settings-bypass-donation" = "跳過捐贈";
-"developer-settings-dynamic-tabs-group-B" = "啟用群組B的分頁";
-"developer-settings-dynamic-tabs-group-C" = "啟用群組C的分頁";
+"developer-settings-dynamic-tabs-group-B-v2" = "啟用群組 B 的分頁 V2";
+"developer-settings-dynamic-tabs-group-C-v2" = "啟用群組 C 的分頁 V2";
 "developer-settings-enable-year-in-review" = "啟用年度回顧";
 "developer-settings-send-analytics-to-wmflabs" = "傳送分析給維基媒體基金會實驗室。";
 "developer-settings-suppress-image-rec-post" = "請不要發送圖片推薦編輯。";
@@ -1255,7 +1255,6 @@
 "tabs-overview-tooltip-title" = "分頁總覽";
 "tabs-show-suggested-articles" = "顯示條目建議";
 "tabs-suggested-articles-hide-suggestions-confirmation" = "建議現已隱藏";
-"tabs-suggested-articles-show-suggestions-confirmation" = "建議現已可見";
 "tabs-survey-title" = "請協助改善分頁。您對此功能滿意嗎？";
 "tabs-thumbnail-description" = "探索維基百科，一個任何人都可編輯的自由百科全書";
 "tabs-thumbnail-subtitle" = "在此來開始您的搜尋";

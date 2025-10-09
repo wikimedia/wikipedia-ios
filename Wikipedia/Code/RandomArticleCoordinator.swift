@@ -44,15 +44,19 @@ final class RandomArticleCoordinator: Coordinator, ArticleTabCoordinating {
             }
             
             prepareToShowTabsOverview(articleViewController: vc, dataStore)
-
-            trackArticleTab(articleViewController: vc)
             
-            if replaceLastViewControllerInNavStack {
-                var viewControllers = navigationController.viewControllers
-                viewControllers[viewControllers.count - 1] = vc
-                navigationController.setViewControllers(viewControllers, animated: animated)
-            } else {
-                navigationController.pushViewController(vc, animated: animated)
+            Task {
+                await trackArticleTab(articleViewController: vc)
+                
+                Task { @MainActor in
+                    if replaceLastViewControllerInNavStack {
+                        var viewControllers = navigationController.viewControllers
+                        viewControllers[viewControllers.count - 1] = vc
+                        navigationController.setViewControllers(viewControllers, animated: animated)
+                    } else {
+                        navigationController.pushViewController(vc, animated: animated)
+                    }
+                }
             }
             
         // Push on FirstRandomViewController (which fetches a random article on load) instead
