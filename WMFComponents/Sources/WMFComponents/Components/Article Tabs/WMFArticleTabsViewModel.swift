@@ -12,7 +12,7 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
     // articleTab should NEVER be empty - take care of logic of inserting main page in datacontroller/viewcontroller
     @Published var articleTabs: [ArticleTab]
     @Published var shouldShowCloseButton: Bool
-    public let hasMultipleTabs: Bool
+    @Published public var hasMultipleTabs: Bool = false
 
     @Published var didYouKnowViewModel: WMFTabsOverviewDidYouKnowViewModel?
     @Published var recommendedArticlesViewModel: WMFTabsOverviewRecommendationsViewModel?
@@ -47,8 +47,7 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
                 didTapAddTab: @escaping () -> Void,
                 didTapShareTab: @escaping (WMFArticleTabsDataController.WMFArticleTab, CGRect?) -> Void,
                 didToggleSuggestedArticles: @escaping () -> Void,
-                displayDeleteAllTabsToast: @escaping (Int) -> Void,
-                hasMultipleTabs: Bool) {
+                displayDeleteAllTabsToast: @escaping (Int) -> Void) {
         self.dataController = dataController
         self.localizedStrings = localizedStrings
         self.loggingDelegate = loggingDelegate
@@ -60,7 +59,6 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
         self.didTapShareTab = didTapShareTab
         self.displayDeleteAllTabsToast = displayDeleteAllTabsToast
         self.didToggleSuggestedArticles = didToggleSuggestedArticles
-        self.hasMultipleTabs = hasMultipleTabs
         super.init()
         Task {
             await loadTabs()
@@ -84,10 +82,27 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
     private func updateShouldShowSuggestions() {
         shouldShowSuggestions = dataController.shouldShowMoreDynamicTabsV2 &&
         !dataController.userHasHiddenArticleSuggestionsTabs
-}
+    }
     
     public func refreshShouldShowSuggestionsFromDataController() {
         updateShouldShowSuggestions()
+    }
+    
+    @MainActor
+    private func updateHasMultipleTabs() {
+        var count = 0
+        if articleTabs.isEmpty {
+            hasMultipleTabs = false
+            return
+        }
+        for tab in articleTabs where !tab.isMain {
+            count += 1
+            if count > 2 {
+                hasMultipleTabs = true
+                return
+            }
+        }
+        hasMultipleTabs = false
     }
     
     public struct LocalizedStrings {
@@ -140,6 +155,7 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
                     data: tab
                 )
             }
+            updateHasMultipleTabs()
             await refreshCurrentTab()
             updateNavigationBarTitleAction?(articleTabs.count)
 
@@ -157,6 +173,7 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
 
     @MainActor
     func maybeStartSecondaryLoads() {
+        updateHasMultipleTabs()
         if hasMultipleTabs {
             guard !startedRecs else { return }
             startedRecs = true
@@ -265,6 +282,7 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
                 Task { @MainActor [weak self]  in
                     guard let self else { return }
                     articleTabs.removeAll { $0 == tab }
+                    updateHasMultipleTabs()
                     if dataController.shouldShowMoreDynamicTabsV2 {
                         shouldShowCloseButton = true
                     } else {
