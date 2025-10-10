@@ -35,7 +35,6 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
     public let didTapTab: (WMFArticleTabsDataController.WMFArticleTab) -> Void
     public let didTapAddTab: () -> Void
     public let didTapShareTab: (WMFArticleTabsDataController.WMFArticleTab, CGRect?) -> Void
-    public let displayDeleteAllTabsToast: (Int) -> Void
     public let didToggleSuggestedArticles: () -> Void
 
     public let localizedStrings: LocalizedStrings
@@ -46,8 +45,7 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
                 didTapTab: @escaping (WMFArticleTabsDataController.WMFArticleTab) -> Void,
                 didTapAddTab: @escaping () -> Void,
                 didTapShareTab: @escaping (WMFArticleTabsDataController.WMFArticleTab, CGRect?) -> Void,
-                didToggleSuggestedArticles: @escaping () -> Void,
-                displayDeleteAllTabsToast: @escaping (Int) -> Void) {
+                didToggleSuggestedArticles: @escaping () -> Void) {
         self.dataController = dataController
         self.localizedStrings = localizedStrings
         self.loggingDelegate = loggingDelegate
@@ -57,7 +55,6 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
         self.didTapTab = didTapTab
         self.didTapAddTab = didTapAddTab
         self.didTapShareTab = didTapShareTab
-        self.displayDeleteAllTabsToast = displayDeleteAllTabsToast
         self.didToggleSuggestedArticles = didToggleSuggestedArticles
         super.init()
         Task {
@@ -68,10 +65,8 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
     
     public func didTapCloseAllTabs() {
         Task {
-            let numberTabs = articleTabs.count
             try? await dataController.deleteAllTabs()
             Task { @MainActor in
-                displayDeleteAllTabsToast(numberTabs)
                 await loadTabs()
             }
         }
