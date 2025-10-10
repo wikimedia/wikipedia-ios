@@ -157,8 +157,6 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
 
     @MainActor
     func maybeStartSecondaryLoads() {
-        let count = articleTabs.count
-        
         if hasMultipleTabs {
             guard !startedRecs else { return }
             startedRecs = true

@@ -76,9 +76,6 @@ public struct WMFArticleTabsView: View {
 
     @ViewBuilder
     private var bottomSection: some View {
-        let recReady = (viewModel.recommendedArticlesViewModel != nil)
-        let dykReady = (viewModel.didYouKnowViewModel?.didYouKnowFact?.isEmpty == false)
-
         let shouldShowRecs = viewModel.shouldShowTabsV2 && viewModel.hasMultipleTabs
         let shouldShowDYK  = viewModel.shouldShowTabsV2 && !viewModel.hasMultipleTabs
 
@@ -88,7 +85,7 @@ public struct WMFArticleTabsView: View {
                     .fill(Color(theme.secondaryText).opacity(0.5))
                     .frame(height: 1 / UIScreen.main.scale)
                     .frame(maxWidth: .infinity)
-
+                
                 if shouldShowRecs, let recVM = viewModel.recommendedArticlesViewModel {
                     WMFTabsOverviewRecommendationsView(viewModel: recVM)
                         .frame(maxHeight: viewHeight)
