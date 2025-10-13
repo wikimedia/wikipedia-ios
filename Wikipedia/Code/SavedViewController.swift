@@ -233,7 +233,7 @@ class SavedViewController: ThemeableViewController, WMFNavigationBarConfiguring,
     }
 
     override func viewDidAppear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
+        super.viewDidAppear(animated)
         ArticleTabsFunnel.shared.logIconImpression(interface: .saved, project: nil)
     }
 
