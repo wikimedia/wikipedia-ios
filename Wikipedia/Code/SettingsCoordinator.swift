@@ -2,7 +2,7 @@ import UIKit
 import WMF
 import WMFComponents
 
-final class SettingsCoordinator: Coordinator {
+@objc final class SettingsCoordinator: NSObject, Coordinator {
 
     // MARK: Coordinator Protocol Properties
     
@@ -12,13 +12,15 @@ final class SettingsCoordinator: Coordinator {
 
     private let theme: Theme
     private let dataStore: MWKDataStore
+    private(set) weak var settingsViewController: WMFSettingsViewController?
 
     // MARK: Lifecycle
 
-    init(navigationController: UINavigationController, theme: Theme, dataStore: MWKDataStore) {
+    @objc init(navigationController: UINavigationController, theme: Theme, dataStore: MWKDataStore) {
         self.navigationController = navigationController
         self.theme = theme
         self.dataStore = dataStore
+        super.init()
     }
 
     // MARK: Coordinator Protocol Methods
@@ -37,4 +39,20 @@ final class SettingsCoordinator: Coordinator {
         navigationController.present(navVC, animated: true)
         return true
     }
+
+    @discardableResult
+    @objc
+    func startEmbed() -> Bool {
+        guard settingsViewController == nil else { return true }
+
+        let vc = WMFSettingsViewController(dataStore: dataStore, theme: theme)
+//        vc.apply(theme)
+
+
+        self.settingsViewController = vc
+        return true
+    }
+
+    // Convenience for Obj-C
+    @objc var embeddedRootViewController: UIViewController? { settingsViewController }
 }

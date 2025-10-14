@@ -54,7 +54,7 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
 NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAlertsLibraryVersion";
 
 @interface WMFAppViewController () <UITabBarControllerDelegate, UINavigationControllerDelegate, UIGestureRecognizerDelegate, WMFThemeable, WMFWorkerControllerDelegate, WMFAppTabBarDelegate>
-
+@property (nonatomic, strong) SettingsCoordinator *settingsCoordinator;
 @property (nonatomic, strong) WMFPeriodicWorkerController *periodicWorkerController;
 @property (nonatomic, strong) WMFBackgroundFetcherController *backgroundFetcherController;
 @property (nonatomic, strong) WMFReachabilityNotifier *reachabilityNotifier;
@@ -2085,16 +2085,26 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 
 - (nonnull WMFSettingsViewController *)settingsViewController {
     if (!_settingsViewController) {
-        WMFSettingsViewController *settingsVC =
-            [WMFSettingsViewController settingsViewControllerWithDataStore:self.dataStore
-                                                                     theme:self.theme];
-        [settingsVC applyTheme:self.theme];
-        _settingsViewController = settingsVC;
+        WMFComponentNavigationController *injectedNav =
+            [[WMFComponentNavigationController alloc] initWithRootViewController:[UIViewController new]
+                                                         modalPresentationStyle:UIModalPresentationOverFullScreen];
+
+        self.settingsCoordinator = [[SettingsCoordinator alloc]
+            initWithNavigationController:injectedNav
+                                   theme:self.theme
+                                dataStore:self.dataStore];
+        [self.settingsCoordinator startEmbed];
+
+        _settingsViewController = (WMFSettingsViewController *)self.settingsCoordinator.embeddedRootViewController;
         _settingsViewController.title = [WMFCommonStrings settingsTitle];
-        _settingsViewController.tabBarItem.image = [UIImage imageNamed:@"tabbar-explore"];
+                _settingsViewController.tabBarItem = [[UITabBarItem alloc]
+                    initWithTitle:[WMFCommonStrings settingsTitle]
+                            image:[UIImage imageNamed:@"tabbar-explore"]
+                    selectedImage:[UIImage imageNamed:@"tabbar-explore-selected"]];
     }
     return _settingsViewController;
 }
+
 
 - (nonnull WMFComponentNavigationController *)settingsNavigationController {
     if (!_settingsNavigationController) {
