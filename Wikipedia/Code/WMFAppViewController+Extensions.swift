@@ -160,18 +160,6 @@ extension WMFAppViewController {
 
 }
 
-// MARK: - Notifications
-
-extension WMFAppViewController: NotificationsCenterPresentationDelegate {
-
-    /// Perform conditional presentation logic depending on origin `UIViewController`
-    public func userDidTapNotificationsCenter(from viewController: UIViewController? = nil) {
-        let viewModel = NotificationsCenterViewModel(notificationsController: dataStore.notificationsController, remoteNotificationsController: dataStore.remoteNotificationsController, languageLinkController: self.dataStore.languageLinkController)
-        let notificationsCenterViewController = NotificationsCenterViewController(theme: theme, viewModel: viewModel)
-        
-        currentTabNavigationController?.pushViewController(notificationsCenterViewController, animated: true)
-    }
-}
 
 extension WMFAppViewController {
     @objc func userDidTapPushNotification() {

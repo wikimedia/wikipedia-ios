@@ -1476,7 +1476,6 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
     if (!_exploreViewController) {
         _exploreViewController = [[ExploreViewController alloc] init];
         _exploreViewController.dataStore = self.dataStore;
-        _exploreViewController.notificationsCenterPresentationDelegate = self;
         _exploreViewController.tabBarItem.image = [UIImage imageNamed:@"tabbar-explore"];
         _exploreViewController.title = [WMFCommonStrings exploreTabTitle];
         [_exploreViewController applyTheme:self.theme];
@@ -2091,7 +2090,6 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
                                                                      theme:self.theme];
         [settingsVC applyTheme:self.theme];
         _settingsViewController = settingsVC;
-        _settingsViewController.notificationsCenterPresentationDelegate = self;
         _settingsViewController.title = [WMFCommonStrings settingsTitle];
         _settingsViewController.tabBarItem.image = [UIImage imageNamed:@"tabbar-explore"];
     }

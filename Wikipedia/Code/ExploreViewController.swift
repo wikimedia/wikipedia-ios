@@ -9,7 +9,6 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     public var presentedContentGroupKey: String?
     public var shouldRestoreScrollPosition = false
 
-    @objc public weak var notificationsCenterPresentationDelegate: NotificationsCenterPresentationDelegate?
     private let userDefaultsStore = WMFDataEnvironment.current.userDefaultsStore
 
     private weak var imageRecommendationsViewModel: WMFImageRecommendationsViewModel?
@@ -1424,10 +1423,6 @@ extension ExploreViewController: ExploreCardCollectionViewCellDelegate {
 
 // MARK: - Notifications Center
 extension ExploreViewController {
-
-    @objc func userDidTapNotificationsCenter() {
-        notificationsCenterPresentationDelegate?.userDidTapNotificationsCenter(from: self)
-    }
 
     @objc func pushNotificationBannerDidDisplayInForeground(_ notification: Notification) {
         dataStore.remoteNotificationsController.loadNotifications(force: true)
