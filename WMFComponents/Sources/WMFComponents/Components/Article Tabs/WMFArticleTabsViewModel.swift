@@ -92,7 +92,7 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
         }
         for tab in articleTabs where !tab.isMain {
             count += 1
-            if count > 2 {
+            if count >= 2 {
                 hasMultipleTabs = true
                 return
             }

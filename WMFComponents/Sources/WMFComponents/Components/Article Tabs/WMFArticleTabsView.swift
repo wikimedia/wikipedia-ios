@@ -65,7 +65,6 @@ public struct WMFArticleTabsView: View {
             }
             viewModel.maybeStartSecondaryLoads()
         }
-        .background(Color(theme.midBackground))
         .toolbarBackground(Color(theme.midBackground), for: .automatic)
         .onAppear {
             viewModel.maybeStartSecondaryLoads()
@@ -76,8 +75,10 @@ public struct WMFArticleTabsView: View {
 
     @ViewBuilder
     private var bottomSection: some View {
-        let shouldShowRecs = viewModel.shouldShowTabsV2 && viewModel.hasMultipleTabs
-        let shouldShowDYK  = viewModel.shouldShowTabsV2 && !viewModel.hasMultipleTabs
+        let recReady = (viewModel.recommendedArticlesViewModel != nil)
+        let dykReady = (viewModel.didYouKnowViewModel?.didYouKnowFact?.isEmpty == false)
+        let shouldShowRecs = viewModel.shouldShowTabsV2 && viewModel.hasMultipleTabs && recReady
+        let shouldShowDYK  = viewModel.shouldShowTabsV2 && !viewModel.hasMultipleTabs && dykReady
 
         if shouldShowRecs || shouldShowDYK {
             VStack(spacing: 0) {
