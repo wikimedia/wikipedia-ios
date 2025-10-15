@@ -65,7 +65,6 @@ public struct WMFArticleTabsView: View {
             }
             viewModel.maybeStartSecondaryLoads()
         }
-        .background(Color(theme.midBackground))
         .toolbarBackground(Color(theme.midBackground), for: .automatic)
         .onAppear {
             viewModel.maybeStartSecondaryLoads()
@@ -78,9 +77,8 @@ public struct WMFArticleTabsView: View {
     private var bottomSection: some View {
         let recReady = (viewModel.recommendedArticlesViewModel != nil)
         let dykReady = (viewModel.didYouKnowViewModel?.didYouKnowFact?.isEmpty == false)
-
-        let shouldShowRecs = viewModel.shouldShowTabsV2 && viewModel.hasMultipleTabs
-        let shouldShowDYK  = viewModel.shouldShowTabsV2 && !viewModel.hasMultipleTabs
+        let shouldShowRecs = viewModel.shouldShowTabsV2 && viewModel.hasMultipleTabs && recReady
+        let shouldShowDYK  = viewModel.shouldShowTabsV2 && !viewModel.hasMultipleTabs && dykReady
 
         if shouldShowRecs || shouldShowDYK {
             VStack(spacing: 0) {
@@ -88,7 +86,7 @@ public struct WMFArticleTabsView: View {
                     .fill(Color(theme.secondaryText).opacity(0.5))
                     .frame(height: 1 / UIScreen.main.scale)
                     .frame(maxWidth: .infinity)
-
+                
                 if shouldShowRecs, let recVM = viewModel.recommendedArticlesViewModel {
                     WMFTabsOverviewRecommendationsView(viewModel: recVM)
                         .frame(maxHeight: viewHeight)
@@ -139,7 +137,6 @@ public struct WMFArticleTabsView: View {
                 }
                 .frame(width: geometry.size.width, height: geometry.size.height, alignment: .center)
             }
-            .background(Color(theme.paperBackground))
             .scrollBounceBehavior(.always)
         }
     }
