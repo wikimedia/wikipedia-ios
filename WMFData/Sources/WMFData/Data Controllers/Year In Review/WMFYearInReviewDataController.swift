@@ -179,7 +179,6 @@ import CoreData
             return false
         }
 
-
         // Check remote valid country codes
         let uppercaseConfigCountryCodes = yirConfig.countryCodes.map { $0.uppercased() }
         guard uppercaseConfigCountryCodes.contains(countryCode.uppercased()) else {
@@ -225,7 +224,6 @@ import CoreData
         }
 
         // Note: Purposefully not checking config's yir.isEnabled here. We want to continue showing the Settings item after we have disabled the feature remotely.
-
 
         // Check remote valid country codes
         let uppercaseConfigCountryCodes = yirConfig.countryCodes.map { $0.uppercased() }
