@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct WMFActivityTabLoggedOutView: View {
+struct WMFActivityTabExperimentLoggedOutView: View {
     @ObservedObject var appEnvironment = WMFAppEnvironment.current
 
     var theme: WMFTheme {
@@ -10,9 +10,9 @@ struct WMFActivityTabLoggedOutView: View {
     var openHistory: () -> Void
     var loginAction: () -> Void
     
-    let viewModel: WMFActivityViewModel
+    let viewModel: WMFActivityExperimentViewModel
     
-    public init(viewModel: WMFActivityViewModel, loginAction: @escaping () -> Void, openHistory: @escaping () -> Void) {
+    public init(viewModel: WMFActivityExperimentViewModel, loginAction: @escaping () -> Void, openHistory: @escaping () -> Void) {
         self.viewModel = viewModel
         self.loginAction = loginAction
         self.openHistory = openHistory
@@ -35,6 +35,5 @@ struct WMFActivityTabLoggedOutView: View {
             Spacer()
         }
         .padding(20)
-
     }
 }

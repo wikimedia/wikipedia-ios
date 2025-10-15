@@ -5,11 +5,11 @@ import CocoaLumberjackSwift
 import WMFComponents
 import WMF
 
-final class WMFActivityTabHostingController: WMFComponentHostingController<WMFActivityView> {
+final class WMFActivityTabExperimentHostingController: WMFComponentHostingController<WMFActivityExperimentView> {
 
 }
 
-@objc public final class WMFActivityTabViewController: WMFCanvasViewController, Themeable, WMFNavigationBarConfiguring {
+@objc public final class WMFActivityTabExperimentViewController: WMFCanvasViewController, Themeable, WMFNavigationBarConfiguring {
     public func apply(theme: WMF.Theme) {
         guard viewIfLoaded != nil else {
             return
@@ -21,18 +21,18 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
         updateProfileButton()
     }
     
-    public let viewModel: WMFActivityViewModel
+    public let viewModel: WMFActivityExperimentViewModel
     public let showSurvey: () -> Void
     private let profileButtonConfig: WMFNavigationBarProfileButtonConfig?
     public let dataStore: MWKDataStore?
     var theme: Theme
     
-    public init(viewModel: WMFActivityViewModel, theme: Theme, showSurvey: @escaping () -> Void, profileButtonConfig: WMFNavigationBarProfileButtonConfig? = nil, dataStore: MWKDataStore) {
+    public init(viewModel: WMFActivityExperimentViewModel, theme: Theme, showSurvey: @escaping () -> Void, profileButtonConfig: WMFNavigationBarProfileButtonConfig? = nil, dataStore: MWKDataStore) {
         self.viewModel = viewModel
         self.showSurvey = showSurvey
         self.theme = theme
-        let view = WMFActivityView(viewModel: viewModel)
-        self.hostingViewController = WMFActivityTabHostingController(rootView: view)
+        let view = WMFActivityExperimentView(viewModel: viewModel)
+        self.hostingViewController = WMFActivityTabExperimentHostingController(rootView: view)
         self.profileButtonConfig = profileButtonConfig
         self.dataStore = dataStore
         super.init()
@@ -42,7 +42,7 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
         fatalError("init(coder:) has not been implemented")
     }
 
-    private let hostingViewController: WMFActivityTabHostingController
+    private let hostingViewController: WMFActivityTabExperimentHostingController
     
     private var yirDataController: WMFYearInReviewDataController? {
         return try? WMFYearInReviewDataController()
@@ -161,13 +161,13 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
     }
 }
 
-extension WMFActivityTabViewController: YearInReviewBadgeDelegate {
+extension WMFActivityTabExperimentViewController: YearInReviewBadgeDelegate {
     public func updateYIRBadgeVisibility() {
         updateProfileButton()
     }
 }
 
-extension WMFActivityTabViewController: LogoutCoordinatorDelegate {
+extension WMFActivityTabExperimentViewController: LogoutCoordinatorDelegate {
     func didTapLogout() {
         
         guard let dataStore else {

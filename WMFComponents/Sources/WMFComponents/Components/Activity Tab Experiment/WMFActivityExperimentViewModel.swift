@@ -2,7 +2,7 @@ import Foundation
 import SwiftUI
 import WMFData
 
-@objc public class WMFActivityViewModel: NSObject, ObservableObject {
+@objc public class WMFActivityExperimentViewModel: NSObject, ObservableObject {
 
     @Published var editActivityItem: ActivityItem?
     @Published var readActivityItem: ActivityItem?

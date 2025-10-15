@@ -774,7 +774,7 @@ extension WMFAppViewController {
         return viewController
     }
 
-    @objc func generateActivityTab(exploreViewController: ExploreViewController) -> WMFActivityTabViewController {
+    @objc func generateActivityTab(exploreViewController: ExploreViewController) -> WMFActivityTabExperimentViewController {
         
         var wikimediaProject: WikimediaProject? = nil
         var wmfProject: WMFProject? = nil
@@ -913,7 +913,7 @@ extension WMFAppViewController {
         }
 
         let isLoggedIn = dataStore.authenticationManager.authStateIsPermanent
-        let localizedStrings = WMFActivityViewModel.LocalizedStrings(
+        let localizedStrings = WMFActivityExperimentViewModel.LocalizedStrings(
             activityTabNoEditsAddImagesTitle: CommonStrings.activityTabNoEditsAddImagesTitle,
             activityTabNoEditsGenericTitle: CommonStrings.activityTabNoEditsGenericTitle,
             getActivityTabSaveTitle: activityTabSaveTitle,
@@ -929,7 +929,7 @@ extension WMFAppViewController {
             loggedOutSubtitle: CommonStrings.actitvityTabLoggedOutSubtitle
         )
         
-        let viewModel = WMFActivityViewModel(
+        let viewModel = WMFActivityExperimentViewModel(
             localizedStrings: localizedStrings,
             openHistory: openHistoryClosure,
             openHistoryLoggedOut: openHistoryLoggedOutClosure,
@@ -955,7 +955,7 @@ extension WMFAppViewController {
             })
         }
 
-        let activityTabViewController = WMFActivityTabViewController(viewModel: viewModel, theme: theme, showSurvey: showSurveyClosure, dataStore: dataStore)
+        let activityTabViewController = WMFActivityTabExperimentViewController(viewModel: viewModel, theme: theme, showSurvey: showSurveyClosure, dataStore: dataStore)
         
         let loginAction = { [weak self] in
             
@@ -1003,7 +1003,7 @@ extension WMFAppViewController {
         return activityTabViewController
     }
     
-    @objc func updateActivityTabProject(activityTabViewController: WMFActivityTabViewController) {
+    @objc func updateActivityTabProject(activityTabViewController: WMFActivityTabExperimentViewController) {
         if let siteURL = dataStore.languageLinkController.appLanguage?.siteURL,
            let wikimediaProject = WikimediaProject(siteURL: siteURL),
            let wmfProject = wikimediaProject.wmfProject {
@@ -1011,7 +1011,7 @@ extension WMFAppViewController {
         }
     }
     
-    @objc func updateActivityTabLoginState(activityTabViewController: WMFActivityTabViewController) {
+    @objc func updateActivityTabLoginState(activityTabViewController: WMFActivityTabExperimentViewController) {
         let isLoggedIn = dataStore.authenticationManager.authStateIsPermanent
         activityTabViewController.viewModel.isLoggedIn = isLoggedIn
         

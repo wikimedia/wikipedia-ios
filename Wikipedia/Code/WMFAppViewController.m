@@ -67,7 +67,7 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
 @property (nonatomic, strong, readonly) WMFSavedViewController *savedViewController;
 @property (nonatomic, strong, readonly) WMFPlacesViewController *placesViewController;
 @property (nonatomic, strong, readonly) WMFHistoryViewController *recentArticlesViewController;
-@property (nonatomic, strong, readonly) WMFActivityTabViewController *activityTabViewController;
+@property (nonatomic, strong, readonly) WMFActivityTabExperimentViewController *activityTabViewController;
 
 @property (nonatomic, strong) WMFSplashScreenViewController *splashScreenViewController;
 
@@ -1530,7 +1530,7 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
     return _recentArticlesViewController;
 }
 
-- (WMFActivityTabViewController *)activityTabViewController {
+- (WMFActivityTabExperimentViewController *)activityTabViewController {
     if (!_activityTabViewController) {
         _activityTabViewController = [self generateActivityTabWithExploreViewController:self.exploreViewController];
         _activityTabViewController.tabBarItem.image = [UIImage systemImageNamed:@"bolt.fill"];

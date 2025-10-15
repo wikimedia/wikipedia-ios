@@ -190,7 +190,7 @@ final class TabsOverviewCoordinator: NSObject, Coordinator {
                 rootView: articleTabsView,
                 viewModel: articleTabsViewModel,
                 doneButtonText: CommonStrings.doneTitle,
-                articleTabsCount: articleTabsCount,
+                articleTabsCount: articleTabsCount
             )
             
             let navVC = WMFComponentNavigationController(

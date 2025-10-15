@@ -1,16 +1,16 @@
 import SwiftUI
 import WMFData
 
-public struct WMFActivityView: View {
+public struct WMFActivityExperimentView: View {
     @ObservedObject var appEnvironment = WMFAppEnvironment.current
 
     var theme: WMFTheme {
         return appEnvironment.theme
     }
 
-    @ObservedObject var viewModel: WMFActivityViewModel
+    @ObservedObject var viewModel: WMFActivityExperimentViewModel
 
-    public init(viewModel: WMFActivityViewModel) {
+    public init(viewModel: WMFActivityExperimentViewModel) {
         self.viewModel = viewModel
     }
 
@@ -28,7 +28,7 @@ public struct WMFActivityView: View {
                     .padding(.bottom, 8)
 
                 if let editActivityItem = viewModel.editActivityItem {
-                    WMFActivityComponentView(
+                    WMFActivityExperimentComponentView(
                         activityItem: editActivityItem,
                         title: viewModel.title(for: editActivityItem.type),
                         onButtonTap: viewModel.action(for: editActivityItem.type),
@@ -42,7 +42,7 @@ public struct WMFActivityView: View {
                 }
 
                 if let readActivityItem = viewModel.readActivityItem {
-                    WMFActivityComponentView(
+                    WMFActivityExperimentComponentView(
                         activityItem: readActivityItem,
                         title: viewModel.title(for: readActivityItem.type),
                         onButtonTap: viewModel.action(for: readActivityItem.type),
@@ -56,7 +56,7 @@ public struct WMFActivityView: View {
                 }
 
                 if let savedActivityItem = viewModel.savedActivityItem {
-                    WMFActivityComponentView(
+                    WMFActivityExperimentComponentView(
                         activityItem: savedActivityItem,
                         title: viewModel.title(for: savedActivityItem.type),
                         onButtonTap: viewModel.action(for: savedActivityItem.type),
@@ -95,7 +95,7 @@ public struct WMFActivityView: View {
             .background(Color(theme.paperBackground))
         } else {
             if let loginAction = viewModel.loginAction {
-                WMFActivityTabLoggedOutView(viewModel: viewModel, loginAction: loginAction, openHistory: viewModel.openHistoryLoggedOut)
+                WMFActivityTabExperimentLoggedOutView(viewModel: viewModel, loginAction: loginAction, openHistory: viewModel.openHistoryLoggedOut)
             }
         }
     }
