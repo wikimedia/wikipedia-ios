@@ -91,8 +91,7 @@
 "search-recent-title" = "Нядаўна шукалі";
 "search-result-redirected-from" = "Перанакіравана з: $1";
 "search-title" = "Пошук";
-// Fuzzy
-"settings-appearance" = "Налады чытаньня";
+"settings-appearance" = "Тэма праграмы";
 "settings-title" = "Налады";
 "share-article-name-on-wikipedia" = "«$1» у Вікіпэдыі:";
 "table-of-contents-button-label" = "Зьмест";
