@@ -236,6 +236,8 @@
 "developer-settings-activity-tab-group-B" = "Mitter le scheda de activitate al gruppo B";
 "developer-settings-activity-tab-group-C" = "Mitter le scheda de activitate al gruppo C";
 "developer-settings-bypass-donation" = "Contornar donation";
+"developer-settings-dynamic-tabs-group-B-v2" = "Activar schedas V2 con gruppo B";
+"developer-settings-dynamic-tabs-group-C-v2" = "Activar schedas V2 con gruppo C";
 "developer-settings-enable-year-in-review" = "Activar le Summario del anno";
 "developer-settings-send-analytics-to-wmflabs" = "Inviar informationes analytic a wmflabs.";
 "developer-settings-suppress-image-rec-post" = "Non publicar le modification de recommendationes de imagine.";
