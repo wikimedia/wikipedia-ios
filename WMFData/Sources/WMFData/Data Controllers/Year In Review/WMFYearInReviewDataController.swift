@@ -56,8 +56,7 @@ import CoreData
     
     public func shouldShowYiRNotification(primaryAppLanguageProject: WMFProject?, isLoggedOut: Bool, isTemporaryAccount: Bool) -> Bool {
         
-        if !developerSettingsDataController.showYiRV2 &&
-            !developerSettingsDataController.showYiRV3 {
+        if !developerSettingsDataController.showYiRV3 {
             return false
         }
         
@@ -101,8 +100,7 @@ import CoreData
 
     func isAnnouncementActive() -> Bool {
         
-        if developerSettingsDataController.showYiRV2 ||
-            developerSettingsDataController.showYiRV3 {
+        if developerSettingsDataController.showYiRV3 {
             return true
         }
         
@@ -123,8 +121,7 @@ import CoreData
 
     public func shouldShowYearInReviewFeatureAnnouncement(primaryAppLanguageProject: WMFProject?) -> Bool {
         
-        if !developerSettingsDataController.showYiRV2 &&
-            !developerSettingsDataController.showYiRV3 {
+        if !developerSettingsDataController.showYiRV3 {
             return false
         }
         
@@ -156,8 +153,7 @@ import CoreData
     public func shouldShowYearInReviewEntryPoint(countryCode: String?, primaryAppLanguageProject: WMFProject?) -> Bool {
         assert(Thread.isMainThread, "This method must be called from the main thread in order to keep it synchronous")
         
-        if !developerSettingsDataController.showYiRV2 &&
-            !developerSettingsDataController.showYiRV3 {
+        if !developerSettingsDataController.showYiRV3 {
             return false
         }
 
@@ -182,7 +178,6 @@ import CoreData
         guard let yirConfig = yirConfig, yirConfig.isEnabled else {
             return false
         }
-
 
         // Check remote valid country codes
         let uppercaseConfigCountryCodes = yirConfig.countryCodes.map { $0.uppercased() }
@@ -214,8 +209,7 @@ import CoreData
 
     @objc public func shouldShowYearInReviewSettingsItem(countryCode: String?, primaryAppLanguageCode: String?) -> Bool {
         
-        if !developerSettingsDataController.showYiRV2 &&
-            !developerSettingsDataController.showYiRV3 {
+        if !developerSettingsDataController.showYiRV3 {
             return false
         }
 
@@ -230,7 +224,6 @@ import CoreData
         }
 
         // Note: Purposefully not checking config's yir.isEnabled here. We want to continue showing the Settings item after we have disabled the feature remotely.
-
 
         // Check remote valid country codes
         let uppercaseConfigCountryCodes = yirConfig.countryCodes.map { $0.uppercased() }
@@ -259,8 +252,7 @@ import CoreData
 
     func shouldPopulateYearInReviewReportData(countryCode: String?, primaryAppLanguageProject: WMFProject?) -> Bool {
         
-        if !developerSettingsDataController.showYiRV2 &&
-            !developerSettingsDataController.showYiRV3 {
+        if !developerSettingsDataController.showYiRV3 {
             return false
         }
         
