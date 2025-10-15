@@ -171,8 +171,7 @@ final class TabsOverviewCoordinator: NSObject, Coordinator {
                 didTapTab: didTapTab,
                 didTapAddTab: didTapAddTab,
                 didTapShareTab: didTapShareTab,
-                didToggleSuggestedArticles: showAlertForArticleSuggestionsDisplayChangeConfirmation,
-                displayDeleteAllTabsToast: displayDeleteAllTabsToast
+                didToggleSuggestedArticles: showAlertForArticleSuggestionsDisplayChangeConfirmation
             )
 
             articleTabsViewModel.loadDidYouKnowViewModel = { [weak self] in
@@ -190,7 +189,7 @@ final class TabsOverviewCoordinator: NSObject, Coordinator {
                 rootView: articleTabsView,
                 viewModel: articleTabsViewModel,
                 doneButtonText: CommonStrings.doneTitle,
-                articleTabsCount: articleTabsCount,
+                articleTabsCount: articleTabsCount
             )
             
             let navVC = WMFComponentNavigationController(
@@ -273,7 +272,7 @@ final class TabsOverviewCoordinator: NSObject, Coordinator {
     @MainActor
     private func getRecentTabArticleURLs() async throws -> Set<URL> {
         let articleTabs = try await dataController.fetchAllArticleTabs()
-        let limit = 5
+        let articleLimit = 1
         let tabLimit = 2
 
         guard !articleTabs.isEmpty else {
@@ -286,7 +285,7 @@ final class TabsOverviewCoordinator: NSObject, Coordinator {
         }
 
         var urls = Set<URL>()
-        urls.reserveCapacity(limit)
+        urls.reserveCapacity(tabLimit * articleLimit)
 
         let nonMainPageTabs = articleTabs.filter { tab in
             tab.articles.contains { $0.articleURL != mainPageURL }
@@ -296,13 +295,14 @@ final class TabsOverviewCoordinator: NSObject, Coordinator {
 
         for tab in newestTabs {
             for article in tab.articles.reversed() {
-                guard urls.count < limit, let url = article.articleURL else { break }
+                guard let url = article.articleURL else { break }
                 if url != mainPageURL {
                     urls.insert(url)
                 }
-            }
-            if urls.count >= limit {
-                break
+                
+                if urls.count >= articleLimit {
+                    break
+                }
             }
         }
 

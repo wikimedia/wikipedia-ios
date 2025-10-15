@@ -2,8 +2,15 @@ import Foundation
 
 @objc(WMFRelatedSearchFetcher)
 public final class RelatedSearchFetcher: Fetcher {
-
+    
     @objc public func fetchRelatedArticles(forArticleWithURL articleURL: URL?, completion: @escaping (Error?, [WMFInMemoryURLKey: ArticleSummary]?) -> Void) {
+        fetchRelatedArticles(forArticleWithURL: articleURL, limit: nil, completion: completion)
+    }
+
+    public func fetchRelatedArticles(forArticleWithURL articleURL: URL?, limit: Int? = nil, completion: @escaping (Error?, [WMFInMemoryURLKey: ArticleSummary]?) -> Void) {
+        
+        let limit = limit ?? 20
+        
         guard
             let articleURL = articleURL,
             let articleTitle = articleURL.wmf_title,
@@ -17,7 +24,7 @@ public final class RelatedSearchFetcher: Fetcher {
             "action": "query",
             "formatversion": 2,
             "generator": "search",
-            "gsrlimit": 20,
+            "gsrlimit": limit,
             "gsrnamespace": 0,
             "gsrqiprofile": "classic_noboostlinks",
             "gsrsearch": "morelike:\(articleTitle)",
