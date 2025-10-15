@@ -10,7 +10,13 @@ public protocol WMFArticleTabsLoggingDelegate: AnyObject {
 
 public class WMFArticleTabsViewModel: NSObject, ObservableObject {
     // articleTab should NEVER be empty - take care of logic of inserting main page in datacontroller/viewcontroller
-    @Published var articleTabs: [ArticleTab]
+    @Published var articleTabs: [ArticleTab] = [] {
+        didSet {
+            Task { @MainActor in
+                updateHasMultipleTabs()
+            }
+        }
+    }
     @Published var shouldShowCloseButton: Bool
     @Published public var hasMultipleTabs: Bool = false
 
@@ -278,6 +284,7 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
                     guard let self else { return }
                     articleTabs.removeAll { $0 == tab }
                     updateHasMultipleTabs()
+                    maybeStartSecondaryLoads()
                     if dataController.shouldShowMoreDynamicTabsV2 {
                         shouldShowCloseButton = true
                     } else {
