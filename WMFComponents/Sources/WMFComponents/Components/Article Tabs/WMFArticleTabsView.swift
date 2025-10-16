@@ -96,7 +96,7 @@ public struct WMFArticleTabsView: View {
                     WMFTabsOverviewDidYouKnowView(
                         viewModel: dykVM
                     )
-                    .frame(maxHeight: viewHeight)
+                    .fixedSize(horizontal: false, vertical: true)
                     .clipped()
                     .transition(.move(edge: .bottom).combined(with: .opacity))
                 }

@@ -61,7 +61,7 @@ public struct WMFTabsOverviewDidYouKnowView: View {
         }
         .padding(16)
         .background(Color(theme.midBackground))
-        .frame(maxWidth: .infinity)
+        .frame(maxWidth: .infinity, alignment: .leading)
     }
     
     // Limiting font size with WMFFont's compatibleWith: UITraitCollection(preferredContentSizeCategory: ...) wasn't effective
