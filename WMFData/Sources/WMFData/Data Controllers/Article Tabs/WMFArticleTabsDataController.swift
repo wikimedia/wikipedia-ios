@@ -169,10 +169,6 @@ public protocol WMFArticleTabsDataControlling {
     
     public var shouldShowMoreDynamicTabsV2: Bool {
 
-        guard isBeforeAssignmentEndDate else {
-            return false
-        }
-
         guard !developerSettingsDataController.enableMoreDynamicTabsV2GroupB else {
             return true
         }
