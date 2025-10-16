@@ -1532,7 +1532,7 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
 
 - (WMFActivityTabExperimentViewController *)activityTabViewController {
     if (!_activityTabViewController) {
-        _activityTabViewController = [self generateActivityTabWithExploreViewController:self.exploreViewController];
+        _activityTabViewController = [self generateActivityTabExperimentWithExploreViewController:self.exploreViewController];
         _activityTabViewController.tabBarItem.image = [UIImage systemImageNamed:@"bolt.fill"];
         _activityTabViewController.title = [WMFCommonStrings activityTitle];
     }

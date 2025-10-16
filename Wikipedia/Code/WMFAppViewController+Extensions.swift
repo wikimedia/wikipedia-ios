@@ -773,8 +773,12 @@ extension WMFAppViewController {
         let viewController = WMFHistoryViewController(viewModel: viewModel, dataController: historyDataController, theme: theme, dataStore: dataStore)
         return viewController
     }
+    
+    @objc func generateActivityTab() -> {
+        // 
+    }
 
-    @objc func generateActivityTab(exploreViewController: ExploreViewController) -> WMFActivityTabExperimentViewController {
+    @objc func generateActivityTabExperiment(exploreViewController: ExploreViewController) -> WMFActivityTabExperimentViewController {
         
         var wikimediaProject: WikimediaProject? = nil
         var wmfProject: WMFProject? = nil

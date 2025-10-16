@@ -77,7 +77,7 @@ public struct WMFActivityExperimentView: View {
                     guard let project = viewModel.project,
                           let username = viewModel.username else { return }
 
-                    let dataController = try WMFActivityDataController()
+                    let dataController = try WMFActivityExperimentDataController()
                     dataController.savedSlideDataDelegate = viewModel.savedSlideDataDelegate
                     dataController.legacyPageViewsDataDelegate = viewModel.legacyPageViewsDataDelegate
                     let activity = try await dataController.fetchAllStuff(username: username, project: project)
