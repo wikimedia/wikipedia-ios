@@ -191,7 +191,7 @@ final class TabsOverviewCoordinator: NSObject, Coordinator {
                 return try? await self.loadRecommendedArticlesViewModel()
             }
 
-            let articleTabsView = WMFArticleTabsView(viewModel: articleTabsViewModel, dykLinkDelegate: self)
+            let articleTabsView = WMFArticleTabsView(viewModel: articleTabsViewModel)
             let hostingController = WMFArticleTabsHostingController(
                 rootView: articleTabsView,
                 viewModel: articleTabsViewModel,
@@ -333,14 +333,17 @@ final class TabsOverviewCoordinator: NSObject, Coordinator {
         let viewModel = WMFTabsOverviewDidYouKnowViewModel(
             facts: facts.map { $0.html },
             languageCode: dataStore.languageLinkController.appLanguage?.languageCode,
-            tappedLinkAction: tappedLink(url:),
+            tappedLinkAction: tappedDYKLink(url:),
             dykLocalizedStrings: localized
         )
         return viewModel
     }
     
     
-    private func tappedLink(url: URL) {
+    private func tappedDYKLink(url: URL) {
+        
+        ArticleTabsFunnel.shared.logTabsOverviewTappedDYK()
+        
         guard let articleURL = URL(string: url.absoluteString) else {
             return
         }
@@ -553,35 +556,4 @@ final class TabsCoordinatorManager {
         self.tabsOverviewCoordinator = coordinator
         coordinator.start()
     }
-}
-
-extension TabsOverviewCoordinator: UITextViewDelegate {
-    func tappedLink(_ url: URL, sourceTextView: UITextView) {
-        guard let articleURL = URL(string: url.absoluteString) else {
-            return
-        }
-        
-        ArticleTabsFunnel.shared.logTabsOverviewTappedDYK()
-
-        let linkCoordinator = LinkCoordinator(
-            navigationController: navigationController,
-            url: articleURL,
-            dataStore: self.dataStore,
-            theme: self.theme,
-            articleSource: .undefined,
-            tabConfig: .appendArticleAndAssignNewTabAndSetToCurrent
-        )
-        if let presented = navigationController.presentedViewController {
-            presented.dismiss(animated: true) {
-                linkCoordinator.start()
-            }
-        }
-
-    }
-
-    public func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
-        tappedLink(URL, sourceTextView: textView)
-        return false
-    }
-
 }

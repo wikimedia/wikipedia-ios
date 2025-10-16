@@ -149,7 +149,7 @@ import WMF
     }
     
     func logLongPressOpen() {
-        logEvent(activeInterface: .articleMenu, action: .newTabClick, project: nil)
+        logEvent(activeInterface: .articleMenu, action: .openClick, project: nil)
     }
 
     func logLongPressOpenInNewTab() {
