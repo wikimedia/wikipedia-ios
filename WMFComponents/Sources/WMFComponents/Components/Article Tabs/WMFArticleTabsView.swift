@@ -21,11 +21,8 @@ public struct WMFArticleTabsView: View {
     @State private var isReady: Bool = false
     @State private var cellFrames: [String: CGRect] = [:]
 
-    private var dykLinkDelegate: UITextViewDelegate?
-
-    public init(viewModel: WMFArticleTabsViewModel, dykLinkDelegate: UITextViewDelegate?) {
+    public init(viewModel: WMFArticleTabsViewModel) {
         self.viewModel = viewModel
-        self.dykLinkDelegate = dykLinkDelegate
     }
 
     public var body: some View {
@@ -94,8 +91,7 @@ public struct WMFArticleTabsView: View {
                         .transition(.move(edge: .bottom).combined(with: .opacity))
                 } else if shouldShowDYK, let dykVM = viewModel.didYouKnowViewModel {
                     WMFTabsOverviewDidYouKnowView(
-                        viewModel: dykVM,
-                        linkDelegate: dykLinkDelegate
+                        viewModel: dykVM
                     )
                     .frame(maxHeight: viewHeight)
                     .clipped()
