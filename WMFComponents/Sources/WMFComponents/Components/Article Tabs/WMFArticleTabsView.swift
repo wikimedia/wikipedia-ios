@@ -94,10 +94,9 @@ public struct WMFArticleTabsView: View {
                         .transition(.move(edge: .bottom).combined(with: .opacity))
                 } else if shouldShowDYK, let dykVM = viewModel.didYouKnowViewModel {
                     WMFTabsOverviewDidYouKnowView(
-                        viewModel: dykVM,
-                        linkDelegate: dykLinkDelegate
+                        viewModel: dykVM
                     )
-                    .frame(maxHeight: viewHeight)
+                    .fixedSize(horizontal: false, vertical: true)
                     .clipped()
                     .transition(.move(edge: .bottom).combined(with: .opacity))
                 }
