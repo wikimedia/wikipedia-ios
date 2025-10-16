@@ -259,6 +259,8 @@
 "developer-settings-activity-tab-group-B" = "Встановити вкладку «Діяльність» групі B";
 "developer-settings-activity-tab-group-C" = "Встановити вкладку «Діяльність» групі C";
 "developer-settings-bypass-donation" = "Обійти пожертвування";
+"developer-settings-dynamic-tabs-group-B-v2" = "Увімкнути вкладки V2 з групою B";
+"developer-settings-dynamic-tabs-group-C-v2" = "Увімкнути вкладки V2 з групою C";
 "developer-settings-enable-year-in-review" = "Увімкнути Огляд року";
 "developer-settings-send-analytics-to-wmflabs" = "Надсилати аналітику на wmflabs.";
 "developer-settings-suppress-image-rec-post" = "Не публікуйте рекомендації щодо редагування зображень.";
@@ -1230,12 +1232,12 @@
 "tabs-main-page-subtitle" = "Найцікавіше від Вікіпедії за сьогодні";
 "tabs-navbar-title-format" = "{{PLURAL:$1|$1 вкладка|$1 вкладки|$1 вкладок}}";
 "tabs-open-tab" = "Відкрити вкладку";
+"tabs-overview-recommendations-title" = "На основі ваших недавніх вкладок";
 "tabs-overview-tooltip-body" = "Перемикатися між відкритими статтями в огляді вкладок.";
 "tabs-overview-tooltip-title" = "Огляд вкладок";
 "tabs-show-suggested-articles" = "Показати пропозиції статей";
 "tabs-suggested-articles-hide-suggestions-confirmation" = "Пропозиції тепер приховані";
-// Fuzzy
-"tabs-survey-title" = "Допоможіть покращити функцію вкладок. Ви задоволені цією функцією?";
+"tabs-survey-title" = "Допоможіть покращити вкладки. Ви задоволені цією функцією?";
 "tabs-thumbnail-description" = "Ознайомтеся з Вікіпедією, вільною енциклопедією, яку може редагувати будь-хто";
 "tabs-thumbnail-subtitle" = "Почніть свій пошук тут";
 "tabs-title" = "Вкладки";
