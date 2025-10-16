@@ -118,8 +118,7 @@ private struct Card: View {
         .background(
             RoundedRectangle(cornerRadius: 8, style: .continuous)
                 .fill(Color(theme.paperBackground))
-                .shadow(color: Color.black.opacity(0.10), radius: 10, x: 0, y: 4)
-                .shadow(color: Color.black.opacity(0.03), radius: 2, x: 0, y: 1)
+                .shadow(color: .black.opacity(0.1), radius: 3, x: 0, y: 0)
         )
         .onTapGesture { viewModel.onTap(item) }
         .overlay(
