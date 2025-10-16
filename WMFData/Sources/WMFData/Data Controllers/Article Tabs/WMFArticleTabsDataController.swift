@@ -168,6 +168,11 @@ public protocol WMFArticleTabsDataControlling {
     }
     
     public var shouldShowMoreDynamicTabsV2: Bool {
+
+        guard isBeforeAssignmentEndDate else {
+            return false
+        }
+
         guard !developerSettingsDataController.enableMoreDynamicTabsV2GroupB else {
             return true
         }
@@ -196,17 +201,17 @@ public protocol WMFArticleTabsDataControlling {
         return nil
     }
     
-//    private var isBeforeAssignmentEndDate: Bool {
-//        var dateComponents = DateComponents()
-//        dateComponents.year = 2025
-//        dateComponents.month = 9
-//        dateComponents.day = 30
-//        guard let endDate = Calendar.current.date(from: dateComponents) else {
-//            return false
-//        }
-//        
-//        return endDate >= Date()
-//    }
+    private var isBeforeAssignmentEndDate: Bool {
+        var dateComponents = DateComponents()
+        dateComponents.year = 2026
+        dateComponents.month = 1
+        dateComponents.day = 15
+        guard let endDate = Calendar.current.date(from: dateComponents) else {
+            return false
+        }
+        
+        return endDate >= Date()
+    }
     
     private func qualifiesForExperiment() -> Bool {
         guard let primaryAppLanguageProject else {
@@ -261,9 +266,9 @@ public protocol WMFArticleTabsDataControlling {
             throw CustomError.doesNotQualifyForExperiment
         }
         
-//        guard isBeforeAssignmentEndDate else {
-//            throw CustomError.pastAssignmentEndDate
-//        }
+        guard isBeforeAssignmentEndDate else {
+            throw CustomError.pastAssignmentEndDate
+        }
         
         guard let experimentsDataController else {
             throw CustomError.missingExperimentsDataController
