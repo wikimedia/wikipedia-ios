@@ -67,7 +67,8 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
 @property (nonatomic, strong, readonly) WMFSavedViewController *savedViewController;
 @property (nonatomic, strong, readonly) WMFPlacesViewController *placesViewController;
 @property (nonatomic, strong, readonly) WMFHistoryViewController *recentArticlesViewController;
-@property (nonatomic, strong, readonly) WMFActivityTabExperimentViewController *activityTabViewController;
+@property (nonatomic, strong, readonly) WMFActivityTabViewController *activityTabViewController;
+@property (nonatomic, strong, readonly) WMFActivityTabExperimentViewController *activityTabExperimentViewController;
 
 @property (nonatomic, strong) WMFSplashScreenViewController *splashScreenViewController;
 
@@ -121,6 +122,7 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
 @synthesize savedViewController = _savedViewController;
 @synthesize recentArticlesViewController = _recentArticlesViewController;
 @synthesize activityTabViewController = _activityTabViewController;
+@synthesize activityTabExperimentViewController = _activityTabExperimentViewController;
 @synthesize placesViewController = _placesViewController;
 
 - (void)dealloc {
@@ -1530,13 +1532,22 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
     return _recentArticlesViewController;
 }
 
-- (WMFActivityTabExperimentViewController *)activityTabViewController {
+- (WMFActivityTabViewController *)activityTabViewController {
     if (!_activityTabViewController) {
-        _activityTabViewController = [self generateActivityTabExperimentWithExploreViewController:self.exploreViewController];
+        _activityTabViewController = [self generateActivityTab];
         _activityTabViewController.tabBarItem.image = [UIImage systemImageNamed:@"bolt.fill"];
         _activityTabViewController.title = [WMFCommonStrings activityTitle];
     }
     return _activityTabViewController;
+}
+
+- (WMFActivityTabExperimentViewController *)activityTabExperimentViewController {
+    if (!_activityTabExperimentViewController) {
+        _activityTabExperimentViewController = [self generateActivityTabExperimentWithExploreViewController:self.exploreViewController];
+        _activityTabExperimentViewController.tabBarItem.image = [UIImage systemImageNamed:@"bolt.fill"];
+        _activityTabExperimentViewController.title = [WMFCommonStrings activityTitle];
+    }
+    return _activityTabExperimentViewController;
 }
 
 - (void)updateActivityTabLoginStateObjC {

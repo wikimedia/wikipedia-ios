@@ -774,8 +774,70 @@ extension WMFAppViewController {
         return viewController
     }
     
-    @objc func generateActivityTab() -> {
-        // 
+    @objc func generateActivityTab() async -> WMFActivityTabViewController {
+        let onWikipediaiOS = WMFLocalizedString(
+            "activity-tab-hours-on-wikipedia-ios",
+            value: "ON WIKIPEDIA iOS",
+            comment: "Activity tab header for on Wikipedia iOS, entirely capitalized except for iOS, which maintains its proper capitalization"
+        )
+
+        let activityTabDataController = WMFActivityTabDataController()
+
+        func usernamesReading(username: String) -> String {
+            let format = WMFLocalizedString(
+                "activity-tab-usernames-reading-title",
+                value: "%1$@'s reading",
+                comment: "Activity tab header, includes username and their reading, like User's reading where $1 is replaced with the username."
+            )
+            return String.localizedStringWithFormat(format, username)
+        }
+
+        func hoursMinutesRead(hours: Int, minutes: Int) -> String {
+            let format = WMFLocalizedString(
+                "activity-tab-hours-minutes-read",
+                value: "%1$@h %2$@m",
+                comment: "Activity tab header, $1 is the amount of hours they spent reading, h is for the first letter of Hours, $2 is the amount of minutes they spent reading, m is for the first letter of Minutes."
+            )
+            return String.localizedStringWithFormat(format, hours, minutes)
+        }
+
+        guard let username = dataStore.authenticationManager.authStatePermanentUsername else {
+            // Fallback: return an empty or default activity tab if user not logged in
+            let emptyViewModel = WMFActivityTabViewModel(localizedStrings: .init(
+                userNamesReading: "",
+                totalHoursMinutesRead: "",
+                onWikipediaiOS: onWikipediaiOS
+            ))
+            return WMFActivityTabViewController(dataStore: dataStore, viewModel: emptyViewModel, dataController: activityTabDataController)
+        }
+
+        let (hoursRead, minutesRead): (Int, Int)
+        do {
+            (hoursRead, minutesRead) = try await activityTabDataController.getTimeReadPast7Days() ?? (0,0)
+        } catch {
+            (hoursRead, minutesRead) = (0, 0)
+        }
+
+        let viewModel = WMFActivityTabViewModel(localizedStrings: .init(
+            userNamesReading: usernamesReading(username: username),
+            totalHoursMinutesRead: hoursMinutesRead(hours: hoursRead, minutes: minutesRead),
+            onWikipediaiOS: onWikipediaiOS
+        ))
+
+        return WMFActivityTabViewController(
+            dataStore: dataStore,
+            viewModel: viewModel,
+            dataController: activityTabDataController
+        )
+    }
+
+    
+    @objc func updateActivityTabProject(activityTabViewController: WMFActivityTabViewController) {
+        if let siteURL = dataStore.languageLinkController.appLanguage?.siteURL,
+           let wikimediaProject = WikimediaProject(siteURL: siteURL),
+           let wmfProject = wikimediaProject.wmfProject {
+            // activityTabViewController.viewModel.project = wmfProject
+        }
     }
 
     @objc func generateActivityTabExperiment(exploreViewController: ExploreViewController) -> WMFActivityTabExperimentViewController {
@@ -981,14 +1043,14 @@ extension WMFAppViewController {
                 
                 guard let self else { return }
                 
-                self.updateActivityTabLoginState(activityTabViewController: activityTabViewController)
+                self.updateActivityTabExperimentProject(activityTabViewController: activityTabViewController)
             }
             
             loginCoordinator.loginSuccessCompletion = { [weak self] in
                 
                 guard let self else { return }
                 
-                self.updateActivityTabLoginState(activityTabViewController: activityTabViewController)
+                self.updateActivityTabExperimentProject(activityTabViewController: activityTabViewController)
             }
 
             loginCoordinator.start()
@@ -1007,7 +1069,7 @@ extension WMFAppViewController {
         return activityTabViewController
     }
     
-    @objc func updateActivityTabProject(activityTabViewController: WMFActivityTabExperimentViewController) {
+    @objc func updateActivityTabExperimentProject(activityTabViewController: WMFActivityTabExperimentViewController) {
         if let siteURL = dataStore.languageLinkController.appLanguage?.siteURL,
            let wikimediaProject = WikimediaProject(siteURL: siteURL),
            let wmfProject = wikimediaProject.wmfProject {
@@ -1015,12 +1077,13 @@ extension WMFAppViewController {
         }
     }
     
-    @objc func updateActivityTabLoginState(activityTabViewController: WMFActivityTabExperimentViewController) {
+    @objc func updateActivityTabLoginState(activityTabViewController: WMFActivityTabViewController) {
+        //todo grey
         let isLoggedIn = dataStore.authenticationManager.authStateIsPermanent
-        activityTabViewController.viewModel.isLoggedIn = isLoggedIn
+        //activityTabViewController.viewModel.isLoggedIn = isLoggedIn
         
         if let username = dataStore.authenticationManager.authStatePermanentUsername {
-            activityTabViewController.viewModel.username = username
+            //activityTabViewController.username = username
         }
     }
     
