@@ -161,11 +161,11 @@ import WMF
     }
     
     func logLongPressSave() {
-        logEvent(activeInterface: .articleMenu, action: .newTabClickBackground, project: nil)
+        logEvent(activeInterface: .articleMenu, action: .saveClick, project: nil)
     }
     
     func logLongPressShare() {
-        logEvent(activeInterface: .articleMenu, action: .newTabClickBackground, project: nil)
+        logEvent(activeInterface: .articleMenu, action: .shareClick, project: nil)
     }
     
     func logTabsOverflowHideArticleSuggestionsTap() {
