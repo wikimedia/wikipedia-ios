@@ -66,7 +66,6 @@ public struct WMFArticleTabsView: View {
             viewModel.maybeStartSecondaryLoads()
         }
         .background(Color(theme.midBackground))
-        .toolbarBackground(Color(theme.midBackground), for: .automatic)
         .onAppear {
             viewModel.maybeStartSecondaryLoads()
         }
