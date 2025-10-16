@@ -314,7 +314,7 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 #pragma mark - Presentation
 
 - (void)presentViewControllerWrappedInNavigationController:(UIViewController<WMFThemeable> *)viewController {
-    WMFComponentNavigationController *navVC = [[WMFComponentNavigationController alloc] initWithRootViewController:viewController modalPresentationStyle:UIModalPresentationOverFullScreen];
+    WMFComponentNavigationController *navVC = [[WMFComponentNavigationController alloc] initWithRootViewController:viewController modalPresentationStyle:UIModalPresentationOverFullScreen customBarBackgroundColor:nil];
     [self presentViewController:navVC animated:YES completion:nil];
 }
 
