@@ -65,6 +65,7 @@ public struct WMFArticleTabsView: View {
             }
             viewModel.maybeStartSecondaryLoads()
         }
+        .background(Color(theme.midBackground))
         .toolbarBackground(Color(theme.midBackground), for: .automatic)
         .onAppear {
             viewModel.maybeStartSecondaryLoads()
@@ -136,6 +137,7 @@ public struct WMFArticleTabsView: View {
                 }
                 .frame(width: geometry.size.width, height: geometry.size.height, alignment: .center)
             }
+            .background(Color(theme.paperBackground))
             .scrollBounceBehavior(.always)
         }
     }
