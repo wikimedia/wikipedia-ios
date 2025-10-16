@@ -24,7 +24,7 @@ open class WMFComponentNavigationController: UINavigationController {
     // MARK: - Public
     
     @objc public init(rootViewController: UIViewController, modalPresentationStyle: UIModalPresentationStyle, customBarBackgroundColor: UIColor? = nil) {
-        self.customBarBackgroundColor = nil
+        self.customBarBackgroundColor = customBarBackgroundColor
         super.init(rootViewController: rootViewController)
         self.modalPresentationStyle = modalPresentationStyle
         subscribeToAppEnvironmentChanges()
