@@ -464,6 +464,7 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
     }
     
     var isFirstAppearance = true
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         presentModalsIfNeeded()
@@ -472,13 +473,17 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
         loadNextAndPreviousArticleTabs()
         
         if tabDataController.moreDynamicTabsGroupBEnabled && needsFocusOnSearch && isFirstAppearance {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) { [weak self] in
-                guard let searchController = self?.navigationItem.searchController else {
-                    return
+            
+            DispatchQueue.main.async { [weak self] in
+                guard let self,
+                      let searchController = self.navigationItem.searchController else { return }
+                if !searchController.isActive {
+                    self.webView.isHidden = true
+                    searchController.isActive = true
                 }
-                
-                searchController.isActive = true
-                searchController.searchBar.becomeFirstResponder()
+                DispatchQueue.main.async {
+                    searchController.searchBar.becomeFirstResponder()
+                }
             }
         }
         isFirstAppearance = false
@@ -782,7 +787,7 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
         searchViewController.dataStore = dataStore
         searchViewController.theme = theme
         searchViewController.shouldBecomeFirstResponder = true
-        searchViewController.customTabConfigUponArticleNavigation = .appendArticleAndAssignCurrentTabAndCleanoutFutureArticles
+        searchViewController.customTabConfigUponArticleNavigation = tabDataController.moreDynamicTabsGroupBEnabled && needsFocusOnSearch ? .appendArticleAndAssignCurrentTabAndRemovePrecedingMainPage : .appendArticleAndAssignCurrentTabAndCleanoutFutureArticles
         
         let populateSearchBarWithTextAction: (String) -> Void = { [weak self] searchTerm in
             self?.navigationItem.searchController?.searchBar.text = searchTerm
@@ -1320,7 +1325,9 @@ private extension ArticleViewController {
 
         // Sometimes there is a race condition where the Core Data store isn't yet ready to persist tabs information (for example, deep linking to an article when in a terminated state). We are trying again here.
         if coordinator?.tabIdentifier == nil || coordinator?.tabItemIdentifier == nil {
-            coordinator?.trackArticleTab(articleViewController: self)
+            Task {
+                await coordinator?.trackArticleTab(articleViewController: self)
+            }
         }
     }
     
@@ -1606,6 +1613,12 @@ extension ArticleViewController: UISearchControllerDelegate {
     func willPresentSearchController(_ searchController: UISearchController) {
         navigationController?.hidesBarsOnSwipe = false
         searchBarIsAnimating = true
+    }
+    
+    func willDismissSearchController(_ searchController: UISearchController) {
+        if tabDataController.moreDynamicTabsGroupBEnabled && needsFocusOnSearch {
+            webView.isHidden = false
+        }
     }
     
     func didDismissSearchController(_ searchController: UISearchController) {

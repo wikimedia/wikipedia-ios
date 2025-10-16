@@ -330,10 +330,12 @@ public protocol WMFArticleTabsDataControlling {
     public func checkAndCreateInitialArticleTabIfNeeded() async throws {
 
         guard !moreDynamicTabsGroupCEnabled else { return }
+        
+        let setAsCurrent = moreDynamicTabsGroupBEnabled ? false : true
 
         let count = try await tabsCount()
         if count == 0 {
-            _ = try await createArticleTab(initialArticle: nil, setAsCurrent: true)
+            _ = try await createArticleTab(initialArticle: nil, setAsCurrent: setAsCurrent)
         }
     }
     

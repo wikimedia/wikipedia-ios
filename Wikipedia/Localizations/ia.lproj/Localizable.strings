@@ -236,13 +236,12 @@
 "developer-settings-activity-tab-group-B" = "Mitter le scheda de activitate al gruppo B";
 "developer-settings-activity-tab-group-C" = "Mitter le scheda de activitate al gruppo C";
 "developer-settings-bypass-donation" = "Contornar donation";
-"developer-settings-dynamic-tabs-group-B" = "Activar schedas con gruppo B";
-"developer-settings-dynamic-tabs-group-C" = "Activar schedas con gruppo C";
+"developer-settings-dynamic-tabs-group-B-v2" = "Activar schedas V2 con gruppo B";
+"developer-settings-dynamic-tabs-group-C-v2" = "Activar schedas V2 con gruppo C";
 "developer-settings-enable-year-in-review" = "Activar le Summario del anno";
 "developer-settings-send-analytics-to-wmflabs" = "Inviar informationes analytic a wmflabs.";
 "developer-settings-suppress-image-rec-post" = "Non publicar le modification de recommendationes de imagine.";
-// Fuzzy
-"did-you-know" = "Sapeva tu que...";
+"did-you-know" = "Sapeva tu?";
 "diff-article-revision-history" = "Historia de versiones del articulo";
 "diff-change-added" = "Addition: $1. Fin del addition.";
 "diff-change-paragraph-lines-moved-down" = "Paragrapho displaciate a basso de {{PLURAL:$1|0=0 lineas|$1 linea|$1 lineas}}. Va al nove position.";
@@ -1210,13 +1209,12 @@
 "tabs-main-page-subtitle" = "Hodie sur Wikipedia";
 "tabs-navbar-title-format" = "$1 scheda{{PLURAL:$1||s}}";
 "tabs-open-tab" = "Aperir scheda";
+"tabs-overview-recommendations-title" = "Basate sur tu schedas le plus recente";
 "tabs-overview-tooltip-body" = "Cambia inter articulos aperte in le vista general de schedas.";
 "tabs-overview-tooltip-title" = "Vista general de schedas";
 "tabs-show-suggested-articles" = "Monstrar suggestiones de articulos";
 "tabs-suggested-articles-hide-suggestions-confirmation" = "Le suggestiones es ora celate";
-"tabs-suggested-articles-show-suggestions-confirmation" = "Le suggestiones es ora visibile";
-// Fuzzy
-"tabs-survey-title" = "Adjuta a meliorar le function de schedas. Es tu satisfacite de iste function?";
+"tabs-survey-title" = "Adjuta a meliorar le schedas. Es tu satisfacite de iste function?";
 "tabs-thumbnail-description" = "Explora Wikipedia, le encyclopedia libere al qual omnes pote contribuer";
 "tabs-thumbnail-subtitle" = "Comencia tu recerca hic";
 "tabs-title" = "Schedas";

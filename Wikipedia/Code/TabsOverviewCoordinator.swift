@@ -178,8 +178,7 @@ final class TabsOverviewCoordinator: NSObject, Coordinator {
                 didTapAddTab: didTapAddTab,
                 didTapShareTab: didTapShareTab,
                 didTapDone: didTapDone,
-                didToggleSuggestedArticles: showAlertForArticleSuggestionsDisplayChangeConfirmation,
-                displayDeleteAllTabsToast: displayDeleteAllTabsToast
+                didToggleSuggestedArticles: showAlertForArticleSuggestionsDisplayChangeConfirmation
             )
 
             articleTabsViewModel.loadDidYouKnowViewModel = { [weak self] in
@@ -197,7 +196,7 @@ final class TabsOverviewCoordinator: NSObject, Coordinator {
                 rootView: articleTabsView,
                 viewModel: articleTabsViewModel,
                 doneButtonText: CommonStrings.doneTitle,
-                articleTabsCount: articleTabsCount,
+                articleTabsCount: articleTabsCount
             )
             
             let navVC = WMFComponentNavigationController(
@@ -281,28 +280,37 @@ final class TabsOverviewCoordinator: NSObject, Coordinator {
     @MainActor
     private func getRecentTabArticleURLs() async throws -> Set<URL> {
         let articleTabs = try await dataController.fetchAllArticleTabs()
-        let limit = 5
+        let articleLimit = 1
         let tabLimit = 2
 
-        if articleTabs.isEmpty {
+        guard !articleTabs.isEmpty else {
             return []
         }
 
-        var urls: Set<URL> = Set<URL>()
-        urls.reserveCapacity(limit)
+        guard let siteURL = dataStore.languageLinkController.appLanguage?.siteURL,
+              let mainPageURL = siteURL.wmf_URL(withTitle: "Main Page") else {
+            return []
+        }
 
-        let newestTabs = articleTabs.reversed().prefix(tabLimit)
+        var urls = Set<URL>()
+        urls.reserveCapacity(tabLimit * articleLimit)
+
+        let nonMainPageTabs = articleTabs.filter { tab in
+            tab.articles.contains { $0.articleURL != mainPageURL }
+        }
+
+        let newestTabs = nonMainPageTabs.reversed().prefix(tabLimit)
 
         for tab in newestTabs {
             for article in tab.articles.reversed() {
-                if urls.count < limit, let url = article.articleURL {
+                guard let url = article.articleURL else { break }
+                if url != mainPageURL {
                     urls.insert(url)
-                } else {
+                }
+                
+                if urls.count >= articleLimit {
                     break
                 }
-            }
-            if urls.count >= limit {
-                break
             }
         }
 
@@ -405,19 +413,37 @@ final class TabsOverviewCoordinator: NSObject, Coordinator {
             return
         }
         
-        let articleCoordinator = ArticleCoordinator(
-            navigationController: navigationController,
-            articleURL: articleURL,
-            dataStore: MWKDataStore.shared(),
-            theme: theme,
-            needsAnimation: false,
-            source: .undefined,
-            tabConfig: .assignNewTabAndSetToCurrent,
-            needsFocusOnSearch: true)
-        ArticleTabsFunnel.shared.logAddNewBlankTab()
-        articleCoordinator.start()
+        if dataController.moreDynamicTabsGroupBEnabled {
+            navigationController.dismiss(animated: true) { [weak self] in
+                guard let self else { return }
+                let articleCoordinator = ArticleCoordinator(
+                    navigationController: navigationController,
+                    articleURL: articleURL,
+                    dataStore: MWKDataStore.shared(),
+                    theme: theme,
+                    needsAnimation: false,
+                    source: .undefined,
+                    tabConfig: .assignNewTabAndSetToCurrent,
+                    needsFocusOnSearch: true)
+                ArticleTabsFunnel.shared.logAddNewBlankTab()
+                articleCoordinator.start()
+            }
+        } else {
+            let articleCoordinator = ArticleCoordinator(
+                navigationController: navigationController,
+                articleURL: articleURL,
+                dataStore: MWKDataStore.shared(),
+                theme: theme,
+                needsAnimation: false,
+                source: .undefined,
+                tabConfig: .assignNewTabAndSetToCurrent,
+                needsFocusOnSearch: true)
+            ArticleTabsFunnel.shared.logAddNewBlankTab()
+            articleCoordinator.start()
+            
+            navigationController.dismiss(animated: true)
+        }
         
-        navigationController.dismiss(animated: true)
     }
     
     private func tappedDone() {

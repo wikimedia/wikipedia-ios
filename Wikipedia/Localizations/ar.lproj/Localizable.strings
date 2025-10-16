@@ -283,8 +283,8 @@
 "developer-settings-activity-tab-group-B" = "تعيين علامة تبويب النشاط إلى المجموعة ب";
 "developer-settings-activity-tab-group-C" = "تعيين علامة تبويب النشاط إلى المجموعة C";
 "developer-settings-bypass-donation" = "التبرع بالدم";
-"developer-settings-dynamic-tabs-group-B" = "تمكين علامات التبويب مع المجموعة B";
-"developer-settings-dynamic-tabs-group-C" = "تمكين علامات التبويب مع المجموعة C";
+"developer-settings-dynamic-tabs-group-B-v2" = "تمكين علامات التبويب V2 مع المجموعة B";
+"developer-settings-dynamic-tabs-group-C-v2" = "تمكين علامات التبويب V2 مع المجموعة C";
 "developer-settings-enable-year-in-review" = "تمكين مراجعة العام";
 "developer-settings-send-analytics-to-wmflabs" = "إرسال التحليلات إلى wmflabs.";
 "developer-settings-suppress-image-rec-post" = "لا تنشر توصيات الصور.";
@@ -854,7 +854,7 @@
 "notifications-center-more-action-accessibility-label" = "المزيد";
 "notifications-center-notifications-settings" = "إعدادات الإشعار";
 "notifications-center-num-selected-messages-format" = "{{PLURAL:$1| رسالة $1 | رسائل $1 }}";
-"notifications-center-onboarding-modal-continue-action" = "استمر";
+"notifications-center-onboarding-modal-continue-action" = "استمرار";
 "notifications-center-onboarding-modal-filters-message" = "قم بتصفية الإخطارات الخاصة بك عن طريق قراءة الحالة واكتب لتضييق صندوق الوارد الخاص بك بسهولة.";
 "notifications-center-onboarding-modal-filters-title" = "مرشحات";
 "notifications-center-onboarding-modal-learn-more-action" = "إعرف المزيد عن الإشعارات";
@@ -1256,13 +1256,12 @@
 "tabs-main-page-subtitle" = "أبرز أحداث ويكيبيديا اليومية";
 "tabs-navbar-title-format" = "{{PLURAL:$1|$1 لسان|$1 ألسنة}}";
 "tabs-open-tab" = "فتح علامة التبويب";
+"tabs-overview-recommendations-title" = "استنادًا إلى علامات التبويب الأحدث لديك";
 "tabs-overview-tooltip-body" = "التبديل بين المقالات المفتوحة في النظرة العامة على علامات التبويب.";
 "tabs-overview-tooltip-title" = "نظرة عامة على علامات التبويب";
 "tabs-show-suggested-articles" = "عرض اقتراحات المقالة";
 "tabs-suggested-articles-hide-suggestions-confirmation" = "الاقتراحات مخفية الآن";
-"tabs-suggested-articles-show-suggestions-confirmation" = "الاقتراحات أصبحت مرئية الآن";
-// Fuzzy
-"tabs-survey-title" = "ساعد في تحسين ميزة علامات التبويب. هل أنت راضٍ عن هذه الميزة؟";
+"tabs-survey-title" = "ساعد في تحسين علامات التبويب. هل أنت راضٍ عن هذه الميزة؟";
 "tabs-thumbnail-description" = "استكشف ويكيبيديا، الموسوعة الحرة التي يمكن لأي شخص تعديلها";
 "tabs-thumbnail-subtitle" = "ابدأ بحثك هنا";
 "tabs-title" = "علامات التبويب";

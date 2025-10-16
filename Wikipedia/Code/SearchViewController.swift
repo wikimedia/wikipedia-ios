@@ -99,7 +99,7 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
 
     private let source: EventLoggingSource
 
-    // Used to push on after tapping search result. This is needed when SearchViewController is embedded directly as the system navigation bar's searchResultsController.
+    // Used to push on after tapping search result. This is needed when SearchViewController is embedded directly as the system navigation bar's searchResultsController (i.e. Explore and Article).
     private var customArticleCoordinatorNavigationController: UINavigationController?
 
     private var presentingSearchResults: Bool = false
@@ -454,8 +454,10 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
             if let navigateToSearchResultAction {
                 navigateToSearchResultAction(articleURL)
             } else if let customArticleCoordinatorNavigationController {
+                
+                let tabConfig = self.customTabConfigUponArticleNavigation ?? .appendArticleAndAssignCurrentTab
 
-                let linkCoordinator = LinkCoordinator(navigationController: customArticleCoordinatorNavigationController, url: articleURL, dataStore: dataStore, theme: theme, articleSource: .search, tabConfig: .appendArticleAndAssignCurrentTab)
+                let linkCoordinator = LinkCoordinator(navigationController: customArticleCoordinatorNavigationController, url: articleURL, dataStore: dataStore, theme: theme, articleSource: .search, tabConfig: tabConfig)
                 let success = linkCoordinator.start()
 
                 if !success {
@@ -463,8 +465,10 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
                 }
 
             } else if let navigationController {
+                
+                let tabConfig = self.customTabConfigUponArticleNavigation
 
-                let linkCoordinator = LinkCoordinator(navigationController: navigationController, url: articleURL, dataStore: dataStore, theme: theme, articleSource: .search)
+                let linkCoordinator = LinkCoordinator(navigationController: navigationController, url: articleURL, dataStore: dataStore, theme: theme, articleSource: .search, tabConfig: tabConfig)
                 let success = linkCoordinator.start()
 
                 if !success {
