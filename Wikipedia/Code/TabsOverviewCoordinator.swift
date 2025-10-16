@@ -325,9 +325,31 @@ final class TabsOverviewCoordinator: NSObject, Coordinator {
         let viewModel = WMFTabsOverviewDidYouKnowViewModel(
             facts: facts.map { $0.html },
             languageCode: dataStore.languageLinkController.appLanguage?.languageCode,
+            tappedLinkAction: tappedLink(url:),
             dykLocalizedStrings: localized
         )
         return viewModel
+    }
+    
+    
+    private func tappedLink(url: URL) {
+        guard let articleURL = URL(string: url.absoluteString) else {
+            return
+        }
+
+        let linkCoordinator = LinkCoordinator(
+            navigationController: navigationController,
+            url: articleURL,
+            dataStore: self.dataStore,
+            theme: self.theme,
+            articleSource: .undefined,
+            tabConfig: .appendArticleAndAssignNewTabAndSetToCurrent
+        )
+        if let presented = navigationController.presentedViewController {
+            presented.dismiss(animated: true) {
+                linkCoordinator.start()
+            }
+        }
     }
 
     private lazy var didYouKnowProviderClosure: (@MainActor () async -> [WMFDidYouKnow]?) = { [weak self] in
