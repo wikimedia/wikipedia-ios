@@ -3,8 +3,8 @@ import SwiftUI
 import WMFData
 
 @objc public class WMFActivityTabViewModel: NSObject, ObservableObject {
-    let localizedStrings: LocalizedStrings
-    let username: String
+    var localizedStrings: LocalizedStrings
+    @Published var username: String
     @Published var hoursRead: Int
     @Published var minutesRead: Int
     
@@ -13,7 +13,7 @@ import WMFData
         self.username = username
         self.hoursRead = hoursRead
         self.minutesRead = minutesRead
-        print("USERNAME: \(username)\nHOURS: \(hoursRead)\nMINUTES: \(minutesRead)\n\n\n")
+        super.init()
     }
     
     public var usernamesReading: String {
@@ -23,21 +23,27 @@ import WMFData
     public var hoursMinutesRead: String {
         localizedStrings.totalHoursMinutesRead(hoursRead, minutesRead)
     }
-    
+
     public func updateHoursMinutesRead(hours: Int, minutes: Int) {
         self.hoursRead = hours
         self.minutesRead = minutes
     }
     
+    public func updateUsername(username: String) {
+        self.username = username
+    }
+
     public struct LocalizedStrings {
         let userNamesReading: (String) -> String
-        let totalHoursMinutesRead: (Int, Int) -> String
+        var totalHoursMinutesRead: (Int, Int) -> String
         let onWikipediaiOS: String
+        let timeSpentReading: String
         
-        public init(userNamesReading: @escaping (String) -> String, totalHoursMinutesRead: @escaping (Int, Int) -> String, onWikipediaiOS: String) {
+        public init(userNamesReading: @escaping (String) -> String, totalHoursMinutesRead: @escaping (Int, Int) -> String, onWikipediaiOS: String, timeSpentReading: String) {
             self.userNamesReading = userNamesReading
             self.totalHoursMinutesRead = totalHoursMinutesRead
             self.onWikipediaiOS = onWikipediaiOS
+            self.timeSpentReading = timeSpentReading
         }
     }
 }

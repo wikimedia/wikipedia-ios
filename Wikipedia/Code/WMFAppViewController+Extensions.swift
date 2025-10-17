@@ -785,6 +785,12 @@ extension WMFAppViewController {
             value: "ON WIKIPEDIA iOS",
             comment: "Activity tab header for on Wikipedia iOS, entirely capitalized except for iOS, which maintains its proper capitalization"
         )
+        
+        let timeSpentReading = WMFLocalizedString(
+            "activity-tab-time-spent-reading",
+            value: "Time spent reading this week",
+            comment: "Subtitle to describe the amount of time read this week which will be displayed above with hours and minutes"
+        )
 
         let activityTabDataController = WMFActivityTabDataController()
 
@@ -798,30 +804,23 @@ extension WMFAppViewController {
         }
 
         func hoursMinutesRead(hours: Int, minutes: Int) -> String {
+            let hoursString = hours.description
+            let minutesString = minutes.description
             let format = WMFLocalizedString(
                 "activity-tab-hours-minutes-read",
                 value: "%1$@h %2$@m",
                 comment: "Activity tab header, $1 is the amount of hours they spent reading, h is for the first letter of Hours, $2 is the amount of minutes they spent reading, m is for the first letter of Minutes."
             )
-            return String.localizedStringWithFormat(format, hours, minutes)
-        }
-
-        var username: String = ""
-        let permUsername = dataStore.authenticationManager.authStatePermanentUsername
-        let tempAccountUsername = dataStore.authenticationManager.authStateTemporaryUsername
-        
-        if permUsername == nil {
-            if let tempAccountUsername = tempAccountUsername {
-                username = tempAccountUsername
-            }
+            return String.localizedStringWithFormat(format, hoursString, minutesString)
         }
         
         let viewModel = WMFActivityTabViewModel(localizedStrings:
             WMFActivityTabViewModel.LocalizedStrings(
                 userNamesReading: usernamesReading(username:),
                 totalHoursMinutesRead: hoursMinutesRead(hours:minutes:),
-                onWikipediaiOS: onWikipediaiOS),
-           username: username, hoursRead: 0, minutesRead: 0)
+                onWikipediaiOS: onWikipediaiOS,
+                timeSpentReading: timeSpentReading),
+           username: dataStore.authenticationManager.authStatePermanentUsername ?? "", hoursRead: 0, minutesRead: 0)
 
 
         let controller = WMFActivityTabViewController(

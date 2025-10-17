@@ -24,7 +24,6 @@ public final class WMFActivityTabDataController {
         let hours = minutesRead / 60
         let minutes = minutesRead % 60
 
-        print("Time read: \(hours)h \(minutes)m")
         return (hours, minutes)
     }
     
