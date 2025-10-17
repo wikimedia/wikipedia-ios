@@ -19,6 +19,9 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
 
     let yearInReviewDonateText = WMFLocalizedString("year-in-review-donate", value: "Donate", comment: "Year in review donate button")
     weak var badgeDelegate: YearInReviewBadgeDelegate?
+    
+    // When true, presents a toast when they exit the Intro slide. Toast explains that they can access later via Profile menu.
+    public var needsExitFromIntroToast: Bool = false
 
     private var languageCode: String? {
         return dataStore.languageLinkController.appLanguage?.languageCode
@@ -1064,7 +1067,10 @@ extension YearInReviewCoordinator: UIAdaptivePresentationControllerDelegate {
     }
     
     public func presentationControllerDidDismiss(_ presentationController: UIPresentationController) {
-        WMFAlertManager.sharedInstance.showBottomAlertWithMessage(CommonStrings.youCanAccessYIR, subtitle: nil, buttonTitle: nil, image: nil, dismissPreviousAlerts: true)
+        if needsExitFromIntroToast, viewModel?.isShowingIntro ?? false {
+            WMFAlertManager.sharedInstance.showBottomAlertWithMessage(CommonStrings.youCanAccessYIR, subtitle: nil, buttonTitle: nil, image: nil, dismissPreviousAlerts: true)
+            needsExitFromIntroToast = false
+        }
     }
 }
 
@@ -1233,8 +1239,12 @@ extension YearInReviewCoordinator: YearInReviewCoordinatorDelegate {
     
     private func showExitToastFromIntroV3Done() {
         if navigationController.presentedViewController != nil {
-            navigationController.dismiss(animated: true) {
-                WMFAlertManager.sharedInstance.showBottomAlertWithMessage(CommonStrings.youCanAccessYIR, subtitle: nil, buttonTitle: nil, image: nil, dismissPreviousAlerts: true)
+            navigationController.dismiss(animated: true) { [weak self] in
+                guard let self else { return }
+                if needsExitFromIntroToast {
+                    WMFAlertManager.sharedInstance.showBottomAlertWithMessage(CommonStrings.youCanAccessYIR, subtitle: nil, buttonTitle: nil, image: nil, dismissPreviousAlerts: true)
+                    needsExitFromIntroToast = false
+                }
             }
         }
     }

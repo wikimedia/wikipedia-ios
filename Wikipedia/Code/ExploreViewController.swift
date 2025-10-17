@@ -1122,6 +1122,7 @@ extension ExploreViewController {
         } else if WMFDeveloperSettingsDataController.shared.showYiRV3 {
             // A change in V3 is that we just show the feature itself with a modified intro slide.
             // No feature announcement component
+            yirCoordinator?.needsExitFromIntroToast = true
             self.yirCoordinator?.start()
             yirDataController.hasPresentedYiRFeatureAnnouncementModel = true
         }
