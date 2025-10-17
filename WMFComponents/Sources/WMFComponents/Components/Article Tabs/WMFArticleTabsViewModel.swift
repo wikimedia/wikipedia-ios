@@ -6,6 +6,13 @@ import WMFData
 public protocol WMFArticleTabsLoggingDelegate: AnyObject {
     func logArticleTabsOverviewImpression()
     func logArticleTabsArticleClick(wmfProject: WMFProject?)
+    func logArticleTabsOverviewTappedDone()
+    func logArticleTabsOverviewTappedCloseTab()
+    func logArticleTabsOverviewTappedHideSuggestions()
+    func logArticleTabsOverviewTappedShowSuggestions()
+    func logArticleTabsOverviewTappedCloseAllTabs()
+    func logArticleTabsOverviewTappedCloseAllTabsConfirmCancel()
+    func logArticleTabsOverviewTappedCloseAllTabsConfirmClose()
 }
 
 public class WMFArticleTabsViewModel: NSObject, ObservableObject {
@@ -41,6 +48,7 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
     public let didTapTab: (WMFArticleTabsDataController.WMFArticleTab) -> Void
     public let didTapAddTab: () -> Void
     public let didTapShareTab: (WMFArticleTabsDataController.WMFArticleTab, CGRect?) -> Void
+    public let didTapDone: () -> Void
     public let didToggleSuggestedArticles: () -> Void
 
     public let localizedStrings: LocalizedStrings
@@ -51,6 +59,7 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
                 didTapTab: @escaping (WMFArticleTabsDataController.WMFArticleTab) -> Void,
                 didTapAddTab: @escaping () -> Void,
                 didTapShareTab: @escaping (WMFArticleTabsDataController.WMFArticleTab, CGRect?) -> Void,
+                didTapDone: @escaping () -> Void,
                 didToggleSuggestedArticles: @escaping () -> Void) {
         self.dataController = dataController
         self.localizedStrings = localizedStrings
@@ -61,6 +70,7 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
         self.didTapTab = didTapTab
         self.didTapAddTab = didTapAddTab
         self.didTapShareTab = didTapShareTab
+        self.didTapDone = didTapDone
         self.didToggleSuggestedArticles = didToggleSuggestedArticles
         super.init()
         Task {
@@ -276,12 +286,14 @@ public class WMFArticleTabsViewModel: NSObject, ObservableObject {
     }
     
     func closeTab(tab: ArticleTab) {
+        
         Task {
             do {
                 try await dataController.deleteArticleTab(identifier: tab.data.identifier)
                 
                 Task { @MainActor [weak self]  in
                     guard let self else { return }
+                    loggingDelegate?.logArticleTabsOverviewTappedCloseTab()
                     articleTabs.removeAll { $0 == tab }
                     updateHasMultipleTabs()
                     maybeStartSecondaryLoads()
