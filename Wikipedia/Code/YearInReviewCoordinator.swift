@@ -543,8 +543,8 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
             return ""
         }
         
-        let format = WMFLocalizedString("year-in-review-personalized-reading-title-v3-format", value: "You spent {{PLURAL:%1$d|%1$d minute|%1$d minutes}} minutes reading {{PLURAL:%2$d|%2$d article|%2$d articles}} in %3$@", comment: "Year in review, personalized reading article count slide title for users that read articles. %1$@ is replaced with the number of minutes the user spent reading and %2$d is replaced with the number of articles the user read in 2025. %3$@ is replaced with the Year in Review target year.")
-        return String.localizedStringWithFormat(format, readCount, minutesRead, String(config.year))
+        let format = WMFLocalizedString("year-in-review-personalized-reading-title-v3-format", value: "You spent {{PLURAL:%1$d|%1$d minute|%1$d minutes}} reading {{PLURAL:%2$d|%2$d article|%2$d articles}} in %3$@", comment: "Year in review, personalized reading article count slide title for users that read articles. %1$d is replaced with the number of minutes the user spent reading and %2$d is replaced with the number of articles the user read in 2025. %3$@ is replaced with the Year in Review target year.")
+        return String.localizedStringWithFormat(format, minutesRead, readCount, String(config.year))
     }
 
     func percentileRange(for readCount: Int) -> String? {
@@ -751,28 +751,24 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
     
     func personalizedYourEditsViewedSlideTitle(views: Int) -> String {
         
-        let viewsString = formatNumber(NSNumber(value: views), fractionDigits: 0)
-        
         let format = WMFLocalizedString(
             "year-in-review-personalized-edit-views-title-format",
-            value: "Your edits have been viewed more than %1$@ times recently",
-            comment: "Year in review, personalized slide title for users that display how many views their edits have. %1$@ is replaced with the amount of edit views."
+            value: "Your edits have been viewed more than {{PLURAL:%1$d|%1$d time|%1$d times}} recently",
+            comment: "Year in review, personalized slide title for users that display how many views their edits have. %1$d is replaced with the amount of edit views."
         )
         
-        return String.localizedStringWithFormat(format, viewsString)
+        return String.localizedStringWithFormat(format, views)
     }
     
     func personalizedYourEditsViewedSlideSubtitle(views: Int) -> String {
         
-        let viewsString = formatNumber(NSNumber(value: views), fractionDigits: 0)
-        
         let format = WMFLocalizedString(
             "year-in-review-personalized-edit-views-subtitle-format",
-            value: "Readers around the world appreciate your contributions. In the last 2 months, articles you've edited have received %1$@ total views. Thanks to editors like you, Wikipedia is a steadily improving, fact-based, and reliable knowledge resource for the world.",
-            comment: "Year in review, personalized slide subtitle for users that display how many views their edits have. %1$@ is replaced with the amount of edit views."
+            value: "Readers around the world appreciate your contributions. In the last 2 months, articles you've edited have received {{PLURAL:%1$d|%1$d view|%1$d total views}}. Thanks to editors like you, Wikipedia is a steadily improving, fact-based, and reliable knowledge resource for the world.",
+            comment: "Year in review, personalized slide subtitle for users that display how many views their edits have. %1$d is replaced with the amount of edit views."
         )
 
-        return String.localizedStringWithFormat(format, viewsString)
+        return String.localizedStringWithFormat(format, views)
     }
 
     func personalizedThankYouSubtitle(languageCode: String?) -> String {
