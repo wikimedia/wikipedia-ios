@@ -45,7 +45,7 @@ public class WMFArticleTabsHostingController<HostedView: View>: WMFComponentHost
         configureNavigationBar()
         
         if dataController.shouldShowMoreDynamicTabsV2 {
-            navigationItem.rightBarButtonItems = [addTabButton, overflowButton]
+            navigationItem.rightBarButtonItems = [overflowButton, addTabButton]
         } else {
             navigationItem.rightBarButtonItem = addTabButton
         }
@@ -66,7 +66,7 @@ public class WMFArticleTabsHostingController<HostedView: View>: WMFComponentHost
     }
     
     @objc func tappedDone() {
-        dismiss(animated: true, completion: nil)
+        viewModel.didTapDone()
     }
     
     @objc private func tappedAdd() {
@@ -85,6 +85,7 @@ public class WMFArticleTabsHostingController<HostedView: View>: WMFComponentHost
             handler: { [weak self] _ in
             Task {
                 await self?.presentCloseAllTabsConfirmationDialog()
+                self?.viewModel.loggingDelegate?.logArticleTabsOverviewTappedCloseAllTabs()
             }
         })
         
@@ -94,6 +95,7 @@ public class WMFArticleTabsHostingController<HostedView: View>: WMFComponentHost
             self.overflowButton.menu = self.overflowMenu
             viewModel.didToggleSuggestedArticles()
             viewModel.refreshShouldShowSuggestionsFromDataController()
+            viewModel.loggingDelegate?.logArticleTabsOverviewTappedHideSuggestions()
         })
         
         let showArticleSuggestions = UIAction(title: viewModel.localizedStrings.showSuggestedArticlesTitle, image: WMFSFSymbolIcon.for(symbol: .eye), handler: { [weak self] _ in
@@ -102,6 +104,7 @@ public class WMFArticleTabsHostingController<HostedView: View>: WMFComponentHost
             self.overflowButton.menu = self.overflowMenu
             viewModel.didToggleSuggestedArticles()
             viewModel.refreshShouldShowSuggestionsFromDataController()
+            viewModel.loggingDelegate?.logArticleTabsOverviewTappedShowSuggestions()
         })
         
         var children: [UIMenuElement]
@@ -135,12 +138,15 @@ public class WMFArticleTabsHostingController<HostedView: View>: WMFComponentHost
             preferredStyle: .alert
         )
         
-        let action1 = UIAlertAction(title: button1Title, style: .cancel)
+        let action1 = UIAlertAction(title: button1Title, style: .cancel, handler: { [weak self] _ in
+            self?.viewModel.loggingDelegate?.logArticleTabsOverviewTappedCloseAllTabsConfirmCancel()
+        })
         
         let action2 = UIAlertAction(title: button2Title, style: .destructive) { [weak self] _ in
             guard let self else { return }
             Task {
                 self.viewModel.didTapCloseAllTabs()
+                self.viewModel.loggingDelegate?.logArticleTabsOverviewTappedCloseAllTabsConfirmClose()
             }
         }
         

@@ -171,7 +171,11 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
     var nextArticleTab: WMFArticleTabsDataController.WMFArticle? = nil
     let tabDataController = WMFArticleTabsDataController.shared
     
-    var needsFocusOnSearch: Bool
+    private let needsFocusOnSearch: Bool
+    
+    private var isMainPage: Bool {
+        articleURL.wmf_title == "Main Page"
+    }
 
     @objc init?(articleURL: URL, dataStore: MWKDataStore, theme: Theme, source: ArticleSource, schemeHandler: SchemeHandler? = nil, previousPageViewObjectID: NSManagedObjectID? = nil, needsFocusOnSearch: Bool = false) {
 
@@ -189,6 +193,7 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
         self.cacheController = cacheController
         self.articleViewSource = source
         self.previousPageViewObjectID = previousPageViewObjectID
+        
         self.needsFocusOnSearch = needsFocusOnSearch
 
         super.init(nibName: nil, bundle: nil)
@@ -463,6 +468,7 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
     }
     
     var isFirstAppearance = true
+    var needsTabsIconImpressonOnCancel = false
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         presentModalsIfNeeded()
@@ -470,17 +476,33 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
         coordinator?.syncTabsOnArticleAppearance()
         loadNextAndPreviousArticleTabs()
         
+        var focusingOnSearch = false
         if tabDataController.moreDynamicTabsGroupBEnabled && needsFocusOnSearch && isFirstAppearance {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) { [weak self] in
-                guard let searchController = self?.navigationItem.searchController else {
-                    return
+            focusingOnSearch =  true
+            needsTabsIconImpressonOnCancel = true
+            DispatchQueue.main.async { [weak self] in
+                guard let self,
+                      let searchController = self.navigationItem.searchController else { return }
+                if !searchController.isActive {
+                    self.webView.isHidden = true
+                    searchController.isActive = true
                 }
-                
-                searchController.isActive = true
-                searchController.searchBar.becomeFirstResponder()
+                DispatchQueue.main.async {
+                    searchController.searchBar.becomeFirstResponder()
+                }
             }
         }
         isFirstAppearance = false
+        
+        if let project {
+            if isMainPage {
+                if !focusingOnSearch {
+                    ArticleTabsFunnel.shared.logIconImpression(interface: .mainPage, project: project)
+                }
+            } else {
+                ArticleTabsFunnel.shared.logIconImpression(interface: .article, project: project)
+            }
+        }
     }
     
     @objc func userDidTapProfile() {
@@ -497,7 +519,11 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
     @objc func userDidTapTabs() {
         tabsCoordinator?.start()
         if let wikimediaProject = WikimediaProject(siteURL: articleURL) {
-            ArticleTabsFunnel.shared.logIconClick(interface: .article, project: wikimediaProject)
+            if isMainPage {
+                ArticleTabsFunnel.shared.logIconClick(interface: .mainPage, project: wikimediaProject)
+            } else {
+                ArticleTabsFunnel.shared.logIconClick(interface: .article, project: wikimediaProject)
+            }
         }
     }
 
@@ -616,7 +642,7 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
                 return
         }
         
-        let needsCategories = self.articleURL.wmf_title != "Main Page"
+        let needsCategories = !isMainPage
         guard let request = try? WMFArticleDataController.ArticleInfoRequest(needsWatchedStatus: self.dataStore.authenticationManager.authStateIsPermanent, needsRollbackRights: false, needsCategories: needsCategories) else {
             self.needsWatchButton = false
             self.needsUnwatchFullButton = false
@@ -774,7 +800,7 @@ class ArticleViewController: ThemeableViewController, HintPresenting, UIScrollVi
         searchViewController.dataStore = dataStore
         searchViewController.theme = theme
         searchViewController.shouldBecomeFirstResponder = true
-        searchViewController.customTabConfigUponArticleNavigation = .appendArticleAndAssignCurrentTabAndCleanoutFutureArticles
+        searchViewController.customTabConfigUponArticleNavigation = tabDataController.moreDynamicTabsGroupBEnabled && needsFocusOnSearch ? .appendArticleAndAssignCurrentTabAndRemovePrecedingMainPage : .appendArticleAndAssignCurrentTabAndCleanoutFutureArticles
         
         let populateSearchBarWithTextAction: (String) -> Void = { [weak self] searchTerm in
             self?.navigationItem.searchController?.searchBar.text = searchTerm
@@ -1312,7 +1338,9 @@ private extension ArticleViewController {
 
         // Sometimes there is a race condition where the Core Data store isn't yet ready to persist tabs information (for example, deep linking to an article when in a terminated state). We are trying again here.
         if coordinator?.tabIdentifier == nil || coordinator?.tabItemIdentifier == nil {
-            coordinator?.trackArticleTab(articleViewController: self)
+            Task {
+                await coordinator?.trackArticleTab(articleViewController: self)
+            }
         }
     }
     
@@ -1600,10 +1628,19 @@ extension ArticleViewController: UISearchControllerDelegate {
         searchBarIsAnimating = true
     }
     
+    func willDismissSearchController(_ searchController: UISearchController) {
+        if tabDataController.moreDynamicTabsGroupBEnabled && needsFocusOnSearch {
+            webView.isHidden = false
+            if needsTabsIconImpressonOnCancel {
+                ArticleTabsFunnel.shared.logIconImpression(interface: .mainPage, project: project)
+                needsTabsIconImpressonOnCancel = false
+            }
+        }
+    }
+    
     func didDismissSearchController(_ searchController: UISearchController) {
         navigationController?.hidesBarsOnSwipe = true
         searchBarIsAnimating = false
         SearchFunnel.shared.logSearchCancel(source: "article")
     }
 }
-

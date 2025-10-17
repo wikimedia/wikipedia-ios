@@ -961,33 +961,6 @@
 			<string> %1$d articles</string>
 		</dict>
 	</dict>
-	<key>year-in-review-personalized-reading-title-v3-format</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>Vous avez passé %#@v1@ à lire un total de %#@v2@ en 2025</string>
-		<key>v1</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
-			<key>one</key>
-			<string>%1$d minute</string>
-			<key>other</key>
-			<string>%1$d minutes</string>
-		</dict>
-		<key>v2</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
-			<key>one</key>
-			<string>%2$d article</string>
-			<key>other</key>
-			<string>%2$d articles</string>
-		</dict>
-	</dict>
 	<key>year-in-review-personalized-saved-title-format</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>

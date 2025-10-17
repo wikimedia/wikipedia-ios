@@ -21,11 +21,8 @@ public struct WMFArticleTabsView: View {
     @State private var isReady: Bool = false
     @State private var cellFrames: [String: CGRect] = [:]
 
-    private var dykLinkDelegate: UITextViewDelegate?
-
-    public init(viewModel: WMFArticleTabsViewModel, dykLinkDelegate: UITextViewDelegate?) {
+    public init(viewModel: WMFArticleTabsViewModel) {
         self.viewModel = viewModel
-        self.dykLinkDelegate = dykLinkDelegate
     }
 
     public var body: some View {
@@ -66,7 +63,6 @@ public struct WMFArticleTabsView: View {
             viewModel.maybeStartSecondaryLoads()
         }
         .background(Color(theme.midBackground))
-        .toolbarBackground(Color(theme.midBackground), for: .automatic)
         .onAppear {
             viewModel.maybeStartSecondaryLoads()
         }
@@ -78,9 +74,8 @@ public struct WMFArticleTabsView: View {
     private var bottomSection: some View {
         let recReady = (viewModel.recommendedArticlesViewModel != nil)
         let dykReady = (viewModel.didYouKnowViewModel?.didYouKnowFact?.isEmpty == false)
-
-        let shouldShowRecs = viewModel.shouldShowTabsV2 && viewModel.hasMultipleTabs
-        let shouldShowDYK  = viewModel.shouldShowTabsV2 && !viewModel.hasMultipleTabs
+        let shouldShowRecs = viewModel.shouldShowTabsV2 && viewModel.hasMultipleTabs && recReady
+        let shouldShowDYK  = viewModel.shouldShowTabsV2 && !viewModel.hasMultipleTabs && dykReady
 
         if shouldShowRecs || shouldShowDYK {
             VStack(spacing: 0) {
@@ -88,7 +83,7 @@ public struct WMFArticleTabsView: View {
                     .fill(Color(theme.secondaryText).opacity(0.5))
                     .frame(height: 1 / UIScreen.main.scale)
                     .frame(maxWidth: .infinity)
-
+                
                 if shouldShowRecs, let recVM = viewModel.recommendedArticlesViewModel {
                     WMFTabsOverviewRecommendationsView(viewModel: recVM)
                         .frame(maxHeight: viewHeight)
@@ -96,10 +91,9 @@ public struct WMFArticleTabsView: View {
                         .transition(.move(edge: .bottom).combined(with: .opacity))
                 } else if shouldShowDYK, let dykVM = viewModel.didYouKnowViewModel {
                     WMFTabsOverviewDidYouKnowView(
-                        viewModel: dykVM,
-                        linkDelegate: dykLinkDelegate
+                        viewModel: dykVM
                     )
-                    .frame(maxHeight: viewHeight)
+                    .fixedSize(horizontal: false, vertical: true)
                     .clipped()
                     .transition(.move(edge: .bottom).combined(with: .opacity))
                 }

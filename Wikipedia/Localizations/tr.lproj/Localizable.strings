@@ -283,8 +283,6 @@
 "developer-settings-activity-tab-group-B" = "Etkinlik sekmesini Grup B'ye ayarla";
 "developer-settings-activity-tab-group-C" = "Etkinlik sekmesini Grup C'ye ayarla";
 "developer-settings-bypass-donation" = "Baypas Bağışı";
-"developer-settings-dynamic-tabs-group-B" = "B kümesiyle sekmeleri etkinleştir";
-"developer-settings-dynamic-tabs-group-C" = "C kümesiyle sekmeleri etkinleştir";
 "developer-settings-enable-year-in-review" = "Yıl İncelemesini Etkinleştir";
 "developer-settings-send-analytics-to-wmflabs" = "Analizleri wmflabs'a gönder.";
 "developer-settings-suppress-image-rec-post" = "Görsel önerileri düzenlemleri yayınlamayın.";
@@ -1254,7 +1252,6 @@
 "tabs-overview-tooltip-title" = "Sekme genel görünümü";
 "tabs-show-suggested-articles" = "Madde önerilerini göster";
 "tabs-suggested-articles-hide-suggestions-confirmation" = "Öneriler artık gizli";
-"tabs-suggested-articles-show-suggestions-confirmation" = "Öneriler artık görünür";
 "tabs-survey-title" = "Sekmeleri iyileştirmeye yardımcı olun. Bu özellikten memnun musunuz?";
 "tabs-thumbnail-description" = "Herkesin düzenleyebileceği özgür ansiklopedi Vikipedi'yi keşfedin";
 "tabs-thumbnail-subtitle" = "Aramanıza buradan başlayın";
