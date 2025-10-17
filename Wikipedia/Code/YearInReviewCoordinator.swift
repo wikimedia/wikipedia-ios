@@ -19,6 +19,9 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
 
     let yearInReviewDonateText = WMFLocalizedString("year-in-review-donate", value: "Donate", comment: "Year in review donate button")
     weak var badgeDelegate: YearInReviewBadgeDelegate?
+    
+    // When true, presents a toast when they exit the Intro slide. Toast explains that they can access later via Profile menu.
+    public var needsExitFromIntroToast: Bool = false
 
     private var languageCode: String? {
         return dataStore.languageLinkController.appLanguage?.languageCode
@@ -90,19 +93,15 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
             englishEditsAccessibilityLabel: WMFLocalizedString("year-in-review-english-edits", value: "A graph showing the top 10 most edited Wikipedia language editions in 2024: English with over 31 million edits, German with 5,508,570 edits, French with 5,276,385 edits, Spanish with 4,786,205 edits, Russian with 3,303,066 edits, Italian with 3,200,398 edits, Japanese with 2,973,657 edits, Chinese with 2,505,032 edits, Polish with 1,383,808 edits, and Ukrainian with 1,376,980 edits. The total number of edits across all Wikipedia editions in 2024 is 81,987,181.", comment: "Accessibility description for the collective edits slide."),
             collectiveEditsPerMinuteAccessibilityLabel: WMFLocalizedString("year-in-review-collective-edits-per-minute", value: "A clock ticking, symbolizing the time spent by people reading Wikipedia.", comment: "Accessibility description for the collective edits per minute slide."),
             collectiveZeroAdsAccessibilityLabel: WMFLocalizedString("year-in-review-collective-zero-ads", value: "Wikimedia logo", comment: "Accessibility description for the collective zero ads slide."),
-            englishReadingSlideTitle: WMFLocalizedString(
-                "microsite-yir-english-reading-slide-title",
-                value: "We spent 2.4 billion hours reading",
-                comment: "Reading slide title for English Year in Review."
-            ),
+            englishReadingSlideTitle: englishReadingSlideTitle,
             englishReadingSlideSubtitle: englishReadingSlideSubtitle,
             englishTopReadSlideTitle: WMFLocalizedString("microsite-yir-english-top-read-slide-title", value: "English Wikipedia’s most popular articles", comment: "Top read slide title for English Year in Review."),
             englishTopReadSlideSubtitle: englishTopReadSlideSubtitle,
-            englishSavedReadingSlideTitle: WMFLocalizedString("microsite-yir-english-saved-reading-slide-title", value: "We had over 37 million saved articles", comment: "Saved reading slide title for English Year in Review."),
-            englishSavedReadingSlideSubtitle: WMFLocalizedString("microsite-yir-english-saved-reading-slide-subtitle", value: "Active app users had over 37 million saved articles this year. Adding articles to reading lists allows you to access articles even while offline. You can also log in to sync reading lists across devices.", comment: "Saved reading slide subtitle for English Year in Review."),
-            englishEditsSlideTitle: WMFLocalizedString("microsite-yir-english-edits-slide-title", value: "Editors made nearly 82 million changes this year", comment: "Edits slide title for English Year in Review."),
-            englishEditsSlideSubtitle: WMFLocalizedString("microsite-yir-english-edits-slide-subtitle", value: "Volunteers made 81,987,181 changes across over 300 different language editions of Wikipedia. Over 31.2 million changes were made on English Wikipedia. Every hour of every day, volunteers are working to improve Wikipedia.", comment: "Edits slide subtitle for English Year in Review."),
-            englishEditsBytesSlideTitle: WMFLocalizedString("microsite-yir-english-edits-bytes-slide-title",value: "3.4 billion bytes added", comment: "Edits bytes slide title for English Year in Review."),
+            englishSavedReadingSlideTitle: englishSavedReadingSlideTitle,
+            englishSavedReadingSlideSubtitle: englishSavedReadingSlideSubtitle,
+            englishEditsSlideTitle: englishEditsSlideTitle,
+            englishEditsSlideSubtitle: englishEditsSlideSubtitle,
+            englishEditsBytesSlideTitle: englishEditsBytesSlideTitle,
             englishEditsBytesSlideSubtitle: englishEditsBytesSlideSubtitle,
             collectiveLanguagesSlideTitle: collectiveLanguagesSlideTitle,
             collectiveLanguagesSlideSubtitle: collectiveLanguagesSlideSubtitle,
@@ -133,8 +132,8 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
             personalizedSaveCountSlideSubtitle: personalizedSaveCountSlideSubtitle(saveCount:articleNames:),
             personalizedUserEditsSlideTitle: personzlizedUserEditsSlideTitle(editCount:),
             personzlizedUserEditsSlideTitle500Plus: WMFLocalizedString("year-in-review-personalized-editing-title-format-500plus", value: "You edited Wikipedia 500+ times", comment: "Year in review, personalized editing article count slide title for users that edited articles 500+ times."),
-            personzlizedUserEditsSlideSubtitleEN: personzlizedUserEditsSlideSubtitleEN(),
-            personzlizedUserEditsSlideSubtitleNonEN: personzlizedUserEditsSlideSubtitleFirstSentence(),
+            personzlizedUserEditsSlideSubtitleEN: personzlizedUserEditsSlideSubtitle(),
+            personzlizedUserEditsSlideSubtitleNonEN: personzlizedUserEditsSlideSubtitle(),
             personalizedYourEditsViewedSlideTitle: personalizedYourEditsViewedSlideTitle(views:),
             personalizedYourEditsViewedSlideSubtitle: personalizedYourEditsViewedSlideSubtitle(views:),
             personalizedThankYouTitle: WMFLocalizedString("year-in-review-personalized-donate-title", value: "Your generosity helped keep Wikipedia thriving", comment: "Year in review, personalized donate slide title for users that donated at least once that year. "),
@@ -162,8 +161,11 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
             favoriteCategoriesTitle: WMFLocalizedString("year-in-review-highlights-categories", value: "Categories that interested me", comment: "Title for the top categories for an user in the Year in review highlights slide"),
             editedArticlesTitle: WMFLocalizedString("year-in-review-highlights-times-edited", value: "Times edited", comment: "Title for the number of articles edited by an user in the Year in review highlights slide"),
             enWikiTopArticlesTitle: WMFLocalizedString("year-in-review-highlights-english-articles", value: "Most popular articles on English Wikipedia", comment: "Title for the list of most popular articles on English Wikipedia in the Year in review slide"),
+            enWikiTopArticlesValue: enWikiTopArticlesValue,
             hoursSpentReadingTitle: WMFLocalizedString("year-in-review-highlights-collective-time-spent", value: "Hours spent reading", comment: "Title for the estimation collective hours spent reading Wikipedia in the Year in review highlights slide"),
+            hoursSpentReadingValue: hoursSpentReadingValue,
             numberOfChangesMadeTitle: WMFLocalizedString("year-in-review-highlights-changes", value: "Changes editors made", comment: "Title for the number of changes editors made on Wikipedia in the Year in review highlights slide"),
+            numberOfChangesMadeValue: numberOfChangesMadeValue,
             numberOfViewedArticlesTitle: WMFLocalizedString("year-in-review-highlights-articles-viewed", value: "Number of viewed articles", comment: "Title for the number of viewed articles in Wikipedia in the Year in review highlights slide"),
             numberOfViewedArticlesValue: numberOfViewedArticlesValue,
             numberOfReadingListsTitle: WMFLocalizedString("year-in-review-highlights-created-lists", value: "Number of reading lists created", comment: "Title for the number of reading lists created collectivelly in the Year in Review highlights slide"),
@@ -192,65 +194,87 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
     // MARK: - Base Slide Strings
     
     var collectiveLanguagesSlideTitle: String {
-        let format = WMFLocalizedString("year-in-review-base-reading-title", value: "Wikipedia was available in more than 300 languages", comment: "Year in review, collective reading article count slide title, %1$@ is replaced with the number of languages available on Wikipedia, e.g. \"300\"")
         
-        let numLanguagesString = formatNumber(300, fractionDigits: 0)
-        return String.localizedStringWithFormat(format, numLanguagesString)
+        guard let config = dataController.config else {
+            return ""
+        }
+        
+        let languagesString = formatNumber(NSNumber(value: config.languages), fractionDigits: 0)
+        
+        let format = WMFLocalizedString("year-in-review-base-reading-title", value: "Wikipedia was available in more than %1$@ languages", comment: "Year in review, collective reading article count slide title, %1$@ is replaced with the number of languages available on Wikipedia, e.g. \"300\"")
+        
+        return String.localizedStringWithFormat(format, languagesString)
     }
 
     var collectiveLanguagesSlideSubtitle: String {
-        let format = WMFLocalizedString("year-in-review-base-reading-subtitle", value: "Wikipedia had more than %1$@ million articles across over %2$@ active languages. You joined millions in expanding knowledge and exploring diverse topics.", comment: "Year in review, collective reading count slide subtitle. %1$@ is replaced with a formatted number of articles available across Wikipedia, e.g. \"63\". %2$@ is replaced with the number of active languages available on Wikipedia, e.g. \"300\"")
-
-        let numArticlesString = formatNumber(63, fractionDigits: 0)
-        let numLanguagesString = formatNumber(300, fractionDigits: 0)
-
-        return String.localizedStringWithFormat(format, numArticlesString, numLanguagesString)
+        
+        guard let config = dataController.config else {
+            return ""
+        }
+        
+        let articlesString = formatNumber(NSNumber(value: config.articles), fractionDigits: 0)
+        let languagesString = formatNumber(NSNumber(value: config.languages), fractionDigits: 0)
+        
+        let format = WMFLocalizedString("year-in-review-base-reading-subtitle", value: "Wikipedia had %1$@ articles across over %2$@ active languages. You joined millions in expanding knowledge and exploring diverse topics.", comment: "Year in review, collective reading count slide subtitle. %1$@ is replaced with a formatted number of articles available across Wikipedia. %2$@ is replaced with the number of active languages available on Wikipedia")
+        
+        return String.localizedStringWithFormat(format, articlesString, languagesString)
     }
 
     var collectiveArticleViewsSlideTitle: String {
-        let format = WMFLocalizedString("year-in-review-base-viewed-title", value: "We have viewed Wikipedia articles %1$@ billion times", comment: "Year in review, collective article view count slide title. %1$@ is replaced with the text representing the number of article views across Wikipedia, e.g. \"1.5\".")
+        
+        guard let config = dataController.config else {
+            return ""
+        }
+        
+        let viewsString = formatNumber(NSNumber(value: config.viewsApps), fractionDigits: 0)
+        
+        let format = WMFLocalizedString("year-in-review-base-viewed-title", value: "App users viewed Wikipedia articles %1$@ times", comment: "Year in review, collective article view count slide title. %1$@ is replaced with the text representing the number of article views across Wikipedia on apps.")
 
-        let numArticleViewsString = formatNumber(1.5, fractionDigits: 2)
-
-        return String.localizedStringWithFormat(format, numArticleViewsString)
+        return String.localizedStringWithFormat(format, viewsString)
     }
 
     var collectiveArticleViewsSlideSubtitle: String {
-        let format = WMFLocalizedString("year-in-review-base-viewed-subtitle", value: "App users have viewed Wikipedia articles %1$@ billion times. For people around the world, Wikipedia is the first stop when answering a question, looking up information for school or work, or learning a new fact.", comment: "Year in review, collective article view count subtitle, %1$@ is replaced with the number of article views text, e.g. \"1.5\"")
-
-        let numArticleViewsString = formatNumber(1.5, fractionDigits: 2)
-
-        return String.localizedStringWithFormat(format, numArticleViewsString)
+        return WMFLocalizedString("year-in-review-base-viewed-subtitle", value: "For people around the world, Wikipedia is the first stop when answering a question, looking up information for school or work, or learning a new fact.", comment: "Year in review, collective article view count subtitle.")
     }
 
     var collectiveSavedArticlesSlideTitle: String {
-        let format = WMFLocalizedString("year-in-review-base-saved-title", value: "We had over %1$@ million saved articles", comment: "Year in review, collective saved articles count slide title, %1$@ is replaced with the number of saved articles text, e.g. \"37\".")
+        guard let config = dataController.config else {
+            return ""
+        }
+        
+        let savedString = formatNumber(NSNumber(value: config.savedArticlesApps), fractionDigits: 0)
+        
+        let format = WMFLocalizedString("year-in-review-base-saved-title", value: "App users had %1$@ saved articles", comment: "Year in review, collective saved articles count slide title, %1$@ is replaced with the total number of saved articles on apps.")
 
-        let numSavedArticlesString = formatNumber(37, fractionDigits: 0)
-        return String.localizedStringWithFormat(format, numSavedArticlesString)
+        return String.localizedStringWithFormat(format, savedString)
     }
     
     var collectiveSavedArticlesSlideSubtitle: String {
-        let format = WMFLocalizedString("year-in-review-base-saved-subtitle", value: "Active app users had over %1$@ million saved articles this year. Adding articles to reading lists allows you to access articles even while offline. You can also log in to sync reading lists across devices.", comment: "Year in review, collective saved articles count slide subtitle, , %1$@ is replaced with the number of saved articles text, e.g. \"37\".")
-
-        let numSavedArticlesString = formatNumber(37, fractionDigits: 0)
-        return String.localizedStringWithFormat(format, numSavedArticlesString)
+        return WMFLocalizedString("year-in-review-base-saved-subtitle", value: "Adding articles to reading lists allows you to access articles even while offline. You can also log in to sync reading lists across devices.", comment: "Year in review, collective saved articles count slide subtitle.")
     }
 
     var collectiveAmountEditsSlideTitle: String {
-        let format = WMFLocalizedString("year-in-review-base-editors-title", value: "Editors on the official Wikipedia apps made more than %1$@ edits", comment: "Year in review, collective edits count slide title, %1$@ is replaced with the number of edits text, e.g. \"452,257\".")
-
-        let numEditsString = formatNumber(452257, fractionDigits: 0)
-
-        return String.localizedStringWithFormat(format, numEditsString)
+        guard let config = dataController.config else {
+            return ""
+        }
+        
+        let editsString = formatNumber(NSNumber(value: config.editsApps), fractionDigits: 0)
+        
+        let format = WMFLocalizedString("year-in-review-base-editors-title", value: "Editors on the official Wikipedia apps made %1$@ edits", comment: "Year in review, collective edits count slide title, %1$@ is replaced with the number of edits made on apps.")
+        
+        return String.localizedStringWithFormat(format, editsString)
     }
 
     var collectiveEditsPerMinuteSlideTitle: String {
-        let format = WMFLocalizedString("year-in-review-base-edits-title", value: "Wikipedia was edited %1$@ times per minute", comment: "Year in review, collective edits per minute slide title, %1$@ is replaced with the number of edits per minute text, e.g. \"342\".")
+        guard let config = dataController.config else {
+            return ""
+        }
+        
+        let editsPerMinuteString = formatNumber(NSNumber(value: config.editsPerMinute), fractionDigits: 0)
+        
+        let format = WMFLocalizedString("year-in-review-base-edits-title", value: "Wikipedia was edited %1$@ times per minute", comment: "Year in review, collective edits per minute slide title, %1$@ is replaced with the number of edits per minute on Wikipedia across platforms.")
 
-        let numEditsPerMinString = formatNumber(342, fractionDigits: 0)
-
-        return String.localizedStringWithFormat(format, numEditsPerMinString)
+        return String.localizedStringWithFormat(format, editsPerMinuteString)
     }
 
     var collectiveEditsPerMinuteSlideSubtitle: String {
@@ -263,67 +287,151 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         return String.localizedStringWithFormat(format, aboutWikimediaURLString)
     }
     
+    var enWikiTopArticlesValue: [String] {
+        guard let config = dataController.config else {
+            return []
+        }
+        
+        return config.topReadEN
+    }
+    
+    var hoursSpentReadingValue: String {
+        guard let config = dataController.config else {
+            return ""
+        }
+        
+        return formatNumber(NSNumber(integerLiteral: config.hoursReadEN), fractionDigits: 0)
+    }
+    
+    var numberOfChangesMadeValue: String {
+        guard let config = dataController.config else {
+            return ""
+        }
+        
+        return formatNumber(NSNumber(integerLiteral: config.edits), fractionDigits: 0)
+    }
+    
     var numberOfViewedArticlesValue: String {
-        let format = WMFLocalizedString("year-in-review-highlights-articles-viewed-value", value: "%1$@ billion", comment: "Value for the number of viewed articles in Wikipedia in the Year in review highlights slide. %1$@ is replaced with the number of viewed articles, e.g. \"1.5\"")
-
-        let numViewedArticlesString = formatNumber(1.5, fractionDigits: 1)
-
-        return String.localizedStringWithFormat(format, numViewedArticlesString)
+        guard let config = dataController.config else {
+            return ""
+        }
+        
+        return formatNumber(NSNumber(integerLiteral: config.viewsApps), fractionDigits: 0)
     }
     
     var numberOfEditsValue: String {
-        return formatNumber(12435, fractionDigits: 0)
+        
+        guard let config = dataController.config else {
+            return ""
+        }
+        
+        return formatNumber(NSNumber(integerLiteral: config.editsApps), fractionDigits: 0)
     }
     
     var editFrequencyValue: String {
         
-        let format = WMFLocalizedString("year-in-review-highlights-edit-frequency-value", value: "{{PLURAL:%1$d|%1$d time|%1$d times}} per minute", comment: "Value for the frequency of edits on Wikipedia in the Year in review highlights slide. %1$d is replaced with the number of edits per minute, e.g. \"342\"")
+        guard let config = dataController.config else {
+            return ""
+        }
         
-        return String.localizedStringWithFormat(format, 342)
+        let format = WMFLocalizedString("year-in-review-highlights-edit-frequency-value", value: "{{PLURAL:%1$d|%1$d time|%1$d times}} per minute", comment: "Value for the frequency of edits on Wikipedia in the Year in review highlights slide. %1$d is replaced with the number of edits per minute.")
+        
+        return String.localizedStringWithFormat(format, config.editsPerMinute)
     }
     
     // MARK: - Contributor
     func contributorSlideSubtitle(isEditor: Bool, isDonator: Bool) -> String {
+        
+        guard let config = dataController.config else {
+            return ""
+        }
+        
         dataController.updateContributorStatus(isContributor: (isEditor || isDonator))
-        let editorText = WMFLocalizedString("year-in-review-contributor-slide-subtitle-editor", value: "Thank you for investing in the future of free knowledge.\n\nYour contributions as an editor in 2025 are helping pave the way to a world of free information and as a result you have unlocked a custom contributor icon.", comment: "Year in review, contributor slide subtitle, when user has edited that year.")
+        
+        let editorText = WMFLocalizedString("year-in-review-contributor-slide-subtitle-editor", value: "Thank you for investing in the future of free knowledge.\n\nYour contributions as an editor in %1$@ are helping pave the way to a world of free information and as a result you have unlocked a custom contributor icon.", comment: "Year in review, contributor slide subtitle, when user has edited that year. %1$@ is replaced with the Year in Review target year (e.g. 2025).")
 
-        let donorText = WMFLocalizedString("year-in-review-contributor-slide-subtitle-donor", value: "Thank you for investing in the future of free knowledge.\n\nYour contributions as a donor in 2025 are helping pave the way to a world of free information and as a result you have unlocked a custom contributor icon.", comment: "Year in review, contributor slide subtitle, when user has donated that year.")
+        let donorText = WMFLocalizedString("year-in-review-contributor-slide-subtitle-donor", value: "Thank you for investing in the future of free knowledge.\n\nYour contributions as a donor in %1$@ are helping pave the way to a world of free information and as a result you have unlocked a custom contributor icon.", comment: "Year in review, contributor slide subtitle, when user has donated that year. %1$@ is replaced with the Year in Review target year (e.g. 2025).")
 
-        let bothText = WMFLocalizedString("year-in-review-contributor-slide-subtitle-editor-and-donor", value: "Thank you for investing in the future of free knowledge.\n\nYour contributions as a donor and editor in 2025 are helping pave the way to a world of free information and as a result you have unlocked a custom contributor icon.", comment: "Year in review, contributor slide subtitle, when user has edited and donated that year.")
+        let bothText = WMFLocalizedString("year-in-review-contributor-slide-subtitle-editor-and-donor", value: "Thank you for investing in the future of free knowledge.\n\nYour contributions as a donor and editor in %1$@ are helping pave the way to a world of free information and as a result you have unlocked a custom contributor icon.", comment: "Year in review, contributor slide subtitle, when user has edited and donated that year. %1$@ is replaced with the Year in Review target year (e.g. 2025)")
 
         if isEditor && isDonator {
-            return bothText
+            return String.localizedStringWithFormat(bothText, String(config.year))
         } else if isEditor {
-            return editorText
+            return String.localizedStringWithFormat(editorText, String(config.year))
         } else if isDonator {
-            return donorText
+            return String.localizedStringWithFormat(donorText, String(config.year))
         } else {
             return ""
         }
     }
 
     func noncontributorSlideSubtitle() -> String {
-        let format = WMFLocalizedString("year-in-review-noncontributor-slide-subtitle", value: "We’re glad Wikipedia was part of your 2025! [Learn more](%1$@) about the ways to unlock your icon by becoming a contributor—whether by editing Wikipedia or by donating to the Wikimedia Foundation, the non-profit behind it. If Wikipedia has been useful to you this year, please consider donating to help sustain its future and keep it free, ad-free, trustworthy, and accessible to all.", comment: "Year in review, noncontributor slide subtitle. %1$@ is replaced with a MediaWiki url with more information about WMF. Do not alter markdown when translating.")
-        return String.localizedStringWithFormat(format, editingFAQURLString)
+        
+        guard let config = dataController.config else {
+            return ""
+        }
+        
+        let format = WMFLocalizedString("year-in-review-noncontributor-slide-subtitle", value: "We’re glad Wikipedia was part of your %1$@! [Learn more](%2$@) about the ways to unlock your icon by becoming a contributor—whether by editing Wikipedia or by donating to the Wikimedia Foundation, the non-profit behind it. If Wikipedia has been useful to you this year, please consider donating to help sustain its future and keep it free, ad-free, trustworthy, and accessible to all.", comment: "Year in review, noncontributor slide subtitle. %1$@ is replaced with the Year in Review target year (e.g. 2025). %2$@ is replaced with a MediaWiki url with more information about WMF. Do not alter markdown when translating.")
+        return String.localizedStringWithFormat(format, String(config.year), editingFAQURLString)
     }
     
     // MARK: - English Slide Strings
     
+    var englishReadingSlideTitle: String {
+        
+        guard let config = dataController.config else {
+            return ""
+        }
+        
+        let hoursReadENString = formatNumber(NSNumber(value: config.hoursReadEN), fractionDigits: 0)
+        
+        let format = WMFLocalizedString(
+            "microsite-yir-english-reading-slide-title",
+            value: "We spent %1$@ hours reading",
+            comment: "Reading slide title for English Year in Review. %1$@ is replaced with the total number of hours read on English Wikipedia."
+        )
+        
+        return String.localizedStringWithFormat(format, hoursReadENString)
+    }
+    
     var englishReadingSlideSubtitle: String {
-        WMFLocalizedString("microsite-yir-english-reading-slide-subtitle", value: "People spent an estimated 2.4 billion hours—over 275,000 years!—reading English Wikipedia in 2024. Wikipedia is there when you want to learn about our changing world, win a bet among friends, or answer a curious child’s question.", comment: "Reading slide subtitle for English Year in Review.")
+        
+        guard let config = dataController.config else {
+            return ""
+        }
+        
+        let hoursReadENString = formatNumber(NSNumber(value: config.hoursReadEN), fractionDigits: 0)
+        let yearsReadENString = formatNumber(NSNumber(value: config.yearsReadEN), fractionDigits: 0)
+        
+        let format = WMFLocalizedString("microsite-yir-english-reading-slide-subtitle", value: "People spent an estimated %1$@ hours—around %2$@ years!—reading English Wikipedia in %3$@. Wikipedia is there when you want to learn about our changing world, win a bet among friends, or answer a curious child’s question.", comment: "Reading slide subtitle for English Year in Review. %1$@ is replaced with the total number of hours read on English Wikipedia. %2$@ is replaced with the number of years estimation. %3$@ is replaced with the Year in Review target year (e.g. 2025).")
+        return String.localizedStringWithFormat(format, hoursReadENString, yearsReadENString, String(config.year))
     }
     
     var englishReadingSlideSubtitleShort: String {
-        WMFLocalizedString("microsite-yir-english-reading-slide-subtitle-short", value: "People spent an estimated 2.4 billion hours—over 275,000 years!—reading English Wikipedia in 2025.", comment: "Shortened reading slide subtitle for English Year in Review. This shortened sentence is appended to the personalized reading slide for EN Wiki users.")
+        guard let config = dataController.config else {
+            return ""
+        }
+        
+        let hoursReadENString = formatNumber(NSNumber(value: config.hoursReadEN), fractionDigits: 0)
+        let yearsReadENString = formatNumber(NSNumber(value: config.yearsReadEN), fractionDigits: 0)
+        
+        let format = WMFLocalizedString("microsite-yir-english-reading-slide-subtitle-short", value: "People spent an estimated %1$@ hours—around %2$@ years!—reading English Wikipedia in %3$@.", comment: "Shortened reading slide subtitle for English Year in Review. This shortened sentence is appended to the personalized reading slide for EN Wiki users. %1$@ is replaced with the total number of hours read on English Wikipedia. %2$@ is replaced with the number of years estimation. %3$@ is replaced with the Year in Review target year (e.g. 2025).")
+        return String.localizedStringWithFormat(format, hoursReadENString, yearsReadENString, String(config.year))
     }
 
     var englishTopReadSlideSubtitle: String {
+        
+        guard let config = dataController.config,
+              config.topReadEN.count == 5 else {
+            return ""
+        }
+        
         // Individual top read items
-        let item1 = "Deaths in 2024"
-        let item2 = "Kamala Harris"
-        let item3 = "2024 United States presidential election"
-        let item4 = "Lyle and Erik Menendez"
-        let item5 = "Donald Trump"
+        let item1 = config.topReadEN[0]
+        let item2 = config.topReadEN[1]
+        let item3 = config.topReadEN[2]
+        let item4 = config.topReadEN[3]
+        let item5 = config.topReadEN[4]
         
         let linkOpening = "<a href=\"\(topReadBlogPost)\">"
         let linkClosing = "</a>"
@@ -336,15 +444,79 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         
         return String.localizedStringWithFormat(format, item1, item2, item3, item4, item5, linkOpening, linkClosing)
     }
+    
+    var englishSavedReadingSlideTitle: String {
+        guard let config = dataController.config else {
+            return ""
+        }
+        
+        let savedArticlesString = formatNumber(NSNumber(value: config.savedArticlesApps), fractionDigits: 0)
+        
+        let format = WMFLocalizedString("microsite-yir-english-saved-reading-slide-title", value: "We had %1$@ saved articles", comment: "Saved reading slide title for English Year in Review. %1$@ is replaced with the total number of saved articles by active app users.")
+        return String.localizedStringWithFormat(format, savedArticlesString)
+    }
+    
+    var englishSavedReadingSlideSubtitle: String {
+        guard let config = dataController.config else {
+            return ""
+        }
+        
+        let savedArticlesString = formatNumber(NSNumber(value: config.savedArticlesApps), fractionDigits: 0)
+        
+        let format = WMFLocalizedString("microsite-yir-english-saved-reading-slide-subtitle", value: "Active app users had %1$@ saved articles this year. Adding articles to reading lists allows you to access articles even while offline. You can also log in to sync reading lists across devices.", comment: "Saved reading slide subtitle for English Year in Review. %1$@ is replaced with the total number of saved articles by active app users.")
+        return String.localizedStringWithFormat(format, savedArticlesString)
+    }
+    
+    var englishEditsSlideTitle: String {
+        guard let config = dataController.config else {
+            return ""
+        }
+        
+        let editsString = formatNumber(NSNumber(value: config.edits), fractionDigits: 0)
+        
+        let format = WMFLocalizedString("microsite-yir-english-edits-slide-title", value: "Editors made %1$@ changes this year", comment: "Edits slide title for English Year in Review. %1$@ is replaced with the total number of edits made on Wikipedia across platforms.")
+        return String.localizedStringWithFormat(format, editsString)
+    }
+    
+    var englishEditsSlideSubtitle: String {
+        guard let config = dataController.config else {
+            return ""
+        }
+        
+        let editsString = formatNumber(NSNumber(value: config.edits), fractionDigits: 0)
+        let languagesString = formatNumber(NSNumber(value: config.languages), fractionDigits: 0)
+        let editsENString = formatNumber(NSNumber(value: config.editsEN), fractionDigits: 0)
+        
+        let format = WMFLocalizedString("microsite-yir-english-edits-slide-subtitle", value: "Volunteers made %1$@ changes across over %2$@ different language editions of Wikipedia. %3$@ changes were made on English Wikipedia. Every hour of every day, volunteers are working to improve Wikipedia.", comment: "Edits slide subtitle for English Year in Review. %1$@ is replaced by the total number of edits on Wikipedia across platforms. %2$@ is replaced by the total number of languages on Wikipedia. %3$@ is replaced by the total number of edits on English Wikipedia across platoforms.")
+        return String.localizedStringWithFormat(format, editsString, languagesString, editsENString)
+    }
+    
+    var englishEditsBytesSlideTitle: String {
+        guard let config = dataController.config else {
+            return ""
+        }
+        
+        let bytesString = formatNumber(NSNumber(value: config.bytesAddedEN), fractionDigits: 0)
+        
+        let format = WMFLocalizedString("microsite-yir-english-edits-bytes-slide-title",value: "%1$@ bytes added", comment: "Edits bytes slide title for English Year in Review. %1$@ is replaced with the number of bytes added to English Wikipedia.")
+        return String.localizedStringWithFormat(format, bytesString)
+    }
 
     var englishEditsBytesSlideSubtitle: String {
+        
+        guard let config = dataController.config else {
+            return ""
+        }
+        
+        let bytesString = formatNumber(NSNumber(value: config.bytesAddedEN), fractionDigits: 0)
+        
         let format = WMFLocalizedString(
             "microsite-yir-english-edits-bytes-slide-subtitle",
-            value: "In 2024, volunteers added 3,416,899,197 bytes to English Wikipedia. The sum of all their work together leads to a steadily improving, fact-based, and reliable knowledge resource that they give to the world. All of us have knowledge to share, [learn how to participate](%1$@).",
-            comment: "Edits bytes slide subtitle for English Year in Review, %1$@ is replaced by link to learn to participate."
+            value: "In %1$@, volunteers added %2$@ bytes to English Wikipedia. The sum of all their work together leads to a steadily improving, fact-based, and reliable knowledge resource that they give to the world. All of us have knowledge to share, [learn how to participate](%3$@).",
+            comment: "Edits bytes slide subtitle for English Year in Review. %1$@ is replaced with the Year in Review target year (e.g. 2025). %2$@ is replaced with the number of bytes added to English Wikipedia. %3$@ is replaced by link to learn to participate."
         )
 
-        return String.localizedStringWithFormat(format, editingFAQURLString)
+        return String.localizedStringWithFormat(format, String(config.year), bytesString, editingFAQURLString)
     }
     
     // MARK: - Personalized Slide Strings
@@ -355,51 +527,83 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
     }
 
     func personalizedYouReadSlideSubtitleV2(readCount: Int) -> String {
-        let format = WMFLocalizedString("year-in-review-personalized-reading-subtitle-format", value: "You read {{PLURAL:%1$d|%1$d article|%1$d articles}}. Wikipedia had %2$@ million articles available across over %3$@ active languages. You joined millions in expanding knowledge and exploring diverse topics.", comment: "Year in review, personalized reading article count slide subtitle for users that read articles. %1$d is replaced with the number of articles the user read. %2$@ is replaced with the number of articles available across Wikipedia, for example, \"63.59\". %3$@ is replaced with the number of active languages available on Wikipedia, for example \"300\"")
-
-        let formatter = NumberFormatter()
-        formatter.numberStyle = .decimal
-        formatter.maximumFractionDigits = 0
-        let numArticles = NSNumber(63)
-        let numArticlesString = formatter.string(from: numArticles) ?? "63"
-
-        formatter.maximumFractionDigits = 0
-        let numLanguages = NSNumber(300)
-        let numLanguagesString = formatter.string(from: numLanguages) ?? "300"
-
-        return String.localizedStringWithFormat(format, readCount, numArticlesString, numLanguagesString)
+        
+        guard let config = dataController.config else {
+            return ""
+        }
+        
+        let articlesString = formatNumber(NSNumber(value: config.articles), fractionDigits: 0)
+        let languagesString = formatNumber(NSNumber(value: config.languages), fractionDigits: 0)
+        
+        let format = WMFLocalizedString("year-in-review-personalized-reading-subtitle-format", value: "You read {{PLURAL:%1$d|%1$d article|%1$d articles}}. Wikipedia had %2$@ articles available across over %3$@ active languages. You joined millions in expanding knowledge and exploring diverse topics.", comment: "Year in review, personalized reading article count slide subtitle for users that read articles. %1$d is replaced with the number of articles the user read. %2$@ is replaced with the number of articles available across Wikipedia. %3$@ is replaced with the number of active languages available on Wikipedia.")
+        
+        return String.localizedStringWithFormat(format, readCount, articlesString, languagesString)
     }
     
     func personalizedYouReadSlideTitleV3(readCount: Int, minutesRead: Int) -> String {
-        let format = WMFLocalizedString("year-in-review-personalized-reading-title-v3-format", value: "You spent {{PLURAL:%1$d|%1$d minute|%1$d minutes}} reading {{PLURAL:%2$d|%2$d article|%2$d articles}} in 2025", comment: "Year in review, personalized reading article count slide title for users that read articles. %1$d is replaced with the number of minutes the user spent reading and %2$d is replaced with the number of articles the user read in 2025.")
-        return String.localizedStringWithFormat(format, minutesRead, readCount)
+        
+        guard let config = dataController.config else {
+            return ""
+        }
+        
+        let format = WMFLocalizedString("year-in-review-personalized-reading-title-v3-format", value: "You spent {{PLURAL:%1$d|%1$d minute|%1$d minutes}} reading {{PLURAL:%2$d|%2$d article|%2$d articles}} in %3$@", comment: "Year in review, personalized reading article count slide title for users that read articles. %1$d is replaced with the number of minutes the user spent reading and %2$d is replaced with the number of articles the user read in 2025. %3$@ is replaced with the Year in Review target year.")
+        return String.localizedStringWithFormat(format, minutesRead, readCount, String(config.year))
     }
 
     func percentileRange(for readCount: Int) -> String? {
-        switch readCount {
-        case ...335:
+        
+        guard let config = dataController.config else {
+            return ""
+        }
+        
+        var identifier: String? = nil
+        for topReadPercentage in config.topReadPercentages {
+            
+            guard let max = topReadPercentage.max else {
+                if readCount >= topReadPercentage.min {
+                    identifier = topReadPercentage.identifier
+                    break
+                }
+                continue
+            }
+            
+            if readCount >= topReadPercentage.min && readCount <= max {
+                identifier = topReadPercentage.identifier
+            }
+        }
+        
+        guard let identifier else {
             return nil
-        case 336...1233:
+        }
+        
+        switch identifier {
+        case "50":
             return WMFLocalizedString("percentile-50", value: "50", comment: "50th percentile range")
-        case 1234...2455:
+        case "40":
             return WMFLocalizedString("percentile-40", value: "40", comment: "40th percentile range")
-        case 2456...4566:
+        case "30":
             return WMFLocalizedString("percentile-30", value: "30", comment: "30th percentile range")
-        case 4567...8900:
+        case "20":
             return WMFLocalizedString("percentile-20", value: "20", comment: "20th percentile range")
-        case 8901...12344:
+        case "10":
             return WMFLocalizedString("percentile-10", value: "10", comment: "10th percentile range")
-        case 12345...23455:
+        case "5":
             return WMFLocalizedString("percentile-5", value: "5", comment: "5th percentile range")
-        case 23456...43739:
+        case "1":
             return WMFLocalizedString("percentile-1", value: "1", comment: "1st percentile range")
-        default:
+        case "0.01":
             return WMFLocalizedString("percentile-0.01", value: "0.01", comment: "0.01th percentile range")
+        default:
+            return nil
         }
     }
 
-
     func personalizedYouReadSlideSubtitleV3(readCount: Int) -> String {
+        
+        guard let config = dataController.config else {
+            return ""
+        }
+        
         let secondSentence: String
         if primaryAppLanguage.isEnglishWikipedia {
             secondSentence = englishReadingSlideSubtitleShort
@@ -419,7 +623,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
             )
             
             if let percentageString = percentageString {
-                let firstSentence = String.localizedStringWithFormat(format, 335)
+                let firstSentence = String.localizedStringWithFormat(format, config.averageArticlesReadPerYear)
                     .replacingOccurrences(of: "**PERCENT**", with: "<b>\(percentageString)%</b>")
                 
                 return "\(firstSentence)\n\n\(secondSentence)"
@@ -527,7 +731,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         return String.localizedStringWithFormat(format, editCount)
     }
     
-    func personzlizedUserEditsSlideSubtitleEN() -> String {
+    func personzlizedUserEditsSlideSubtitle() -> String {
         return "\(personzlizedUserEditsSlideSubtitleFirstSentence()) \(personzlizedUserEditsSlideSubtitleSecondSentence())"
     }
 
@@ -536,38 +740,38 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
     }
     
     func personzlizedUserEditsSlideSubtitleSecondSentence() -> String {
-        return WMFLocalizedString("year-in-review-personalized-editing-subtitle-2", value: "Volunteers like you made 81,987,181 changes across over 300 different language editions of Wikipedia.", comment: "Year in review, personalized editing article count slide subtitle for users that edited articles.")
-    }
-    
-    func personzlizedUserEditsSlideSubtitleNonEN() -> String {
-        let format = WMFLocalizedString("year-in-review-personalized-editing-subtitle-non-en", value: "Thank you for being one of the volunteer editors making a difference on Wikimedia projects around the world.", comment: "Year in review, personalized editing article count slide subtitle for users that edited articles. %1$d is replaced with the number of edits the user made.")
-        return String.localizedStringWithFormat(format)
+        
+        guard let config = dataController.config else {
+            return ""
+        }
+        
+        let editsString = formatNumber(NSNumber(value: config.edits), fractionDigits: 0)
+        let languagesString = formatNumber(NSNumber(value: config.languages), fractionDigits: 0)
+        
+        let format = WMFLocalizedString("year-in-review-personalized-editing-subtitle-2", value: "Volunteers like you made %1$@ changes across %2$@ different language editions of Wikipedia.", comment: "Year in review, personalized editing article count slide subtitle for users that edited articles. %1$@ is replaced with the number of edits made by volunteers. %2$@ is replaced with the number of Wikipedia languages.")
+        return String.localizedStringWithFormat(format, editsString, languagesString)
     }
     
     func personalizedYourEditsViewedSlideTitle(views: Int) -> String {
+        
         let format = WMFLocalizedString(
             "year-in-review-personalized-edit-views-title-format",
-            value: "Your edits have been viewed more than %1$@ times recently",
-            comment: "Year in review, personalized slide title for users that display how many views their edits have. %1$@ is replaced with the amount of edit views."
+            value: "Your edits have been viewed more than {{PLURAL:%1$d|%1$d time|%1$d times}} recently",
+            comment: "Year in review, personalized slide title for users that display how many views their edits have. %1$d is replaced with the amount of edit views."
         )
         
-        let formatter = NumberFormatter()
-        formatter.numberStyle = .decimal
-        let formattedViews = formatter.string(from: NSNumber(value: views)) ?? "\(views)"
-        return String.localizedStringWithFormat(format, formattedViews)
+        return String.localizedStringWithFormat(format, views)
     }
     
     func personalizedYourEditsViewedSlideSubtitle(views: Int) -> String {
+        
         let format = WMFLocalizedString(
             "year-in-review-personalized-edit-views-subtitle-format",
-            value: "Readers around the world appreciate your contributions. In the last 2 months, articles you've edited have received %1$@ total views. Thanks to editors like you, Wikipedia is a steadily improving, fact-based, and reliable knowledge resource for the world.",
-            comment: "Year in review, personalized slide subtitle for users that display how many views their edits have. %1$@ is replaced with the amount of edit views."
+            value: "Readers around the world appreciate your contributions. In the last 2 months, articles you've edited have received {{PLURAL:%1$d|%1$d view|%1$d total views}}. Thanks to editors like you, Wikipedia is a steadily improving, fact-based, and reliable knowledge resource for the world.",
+            comment: "Year in review, personalized slide subtitle for users that display how many views their edits have. %1$d is replaced with the amount of edit views."
         )
-        
-        let formatter = NumberFormatter()
-        formatter.numberStyle = .decimal
-        let formattedViews = formatter.string(from: NSNumber(value: views)) ?? "\(views)"
-        return String.localizedStringWithFormat(format, formattedViews)
+
+        return String.localizedStringWithFormat(format, views)
     }
 
     func personalizedThankYouSubtitle(languageCode: String?) -> String {
@@ -581,19 +785,24 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
     }
 
     func personalizedSaveCountSlideSubtitle(saveCount: Int, articleNames: [String]) -> String {
+        
+        guard let config = dataController.config else {
+            return ""
+        }
+        
         let articleName1 = articleNames.count >= 1 ? "<b>\(articleNames[0])</b>" : ""
         let articleName2 = articleNames.count >= 2 ? "<b>\(articleNames[1])</b>" : ""
         let articleName3 = articleNames.count >= 3 ? "<b>\(articleNames[2])</b>" : ""
         
+        let savedArticlesString = formatNumber(NSNumber(value: config.savedArticlesApps), fractionDigits: 0)
+        
         let format = WMFLocalizedString(
             "year-in-review-personalized-saved-subtitle-format-v3",
-            value: "These articles included %1$@, %2$@, and %3$@. Each saved article reflects your interests and helps build a personalized knowledge base on Wikipedia.\n\nActive app users had over %4$@ million saved articles this year.",
-            comment: "Year in review, personalized saved articles slide subtitle. %1$@, %2$@ and %3$@ are replaced with up to three article names the user saved (each enclosed in <b> tags). %4$@ is replaced with the number of saved articles text, e.g. \"37\"."
+            value: "These articles included %1$@, %2$@, and %3$@. Each saved article reflects your interests and helps build a personalized knowledge base on Wikipedia.\n\nActive app users had %4$@ saved articles this year.",
+            comment: "Year in review, personalized saved articles slide subtitle. %1$@, %2$@ and %3$@ are replaced with up to three article names the user saved (each enclosed in <b> tags). %4$@ is replaced with the total number of saved articles across active app users."
         )
         
-        let numSavedArticlesString = formatNumber(37, fractionDigits: 0)
-        
-        return String.localizedStringWithFormat(format, articleName1, articleName2, articleName3, numSavedArticlesString)
+        return String.localizedStringWithFormat(format, articleName1, articleName2, articleName3, savedArticlesString)
     }
     
     func personalizedListSlideSubtitle(items: [String]) -> String {
@@ -744,6 +953,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
             loginCoordinator.start()
         }
         let action2 = UIAlertAction(title: button2Title, style: .default) { action in
+           
             DonateFunnel.shared.logYearInReviewLoginPromptDidTapNoThanks()
         }
         alert.addAction(action1)
@@ -855,6 +1065,13 @@ extension YearInReviewCoordinator: UIAdaptivePresentationControllerDelegate {
         viewModel?.logYearInReviewDidTapDone()
         (self.navigationController as? WMFComponentNavigationController)?.turnOffForcePortrait()
     }
+    
+    public func presentationControllerDidDismiss(_ presentationController: UIPresentationController) {
+        if needsExitFromIntroToast, viewModel?.isShowingIntro ?? false {
+            WMFAlertManager.sharedInstance.showBottomAlertWithMessage(CommonStrings.youCanAccessYIR, subtitle: nil, buttonTitle: nil, image: nil, dismissPreviousAlerts: true)
+            needsExitFromIntroToast = false
+        }
+    }
 }
 
 extension YearInReviewCoordinator: YearInReviewCoordinatorDelegate {
@@ -863,7 +1080,7 @@ extension YearInReviewCoordinator: YearInReviewCoordinatorDelegate {
         case .tappedIntroV3GetStartedWhileLoggedOut:
             showLoginPromptFromIntroV3GetStarted()
         case .tappedIntroV3DoneWhileLoggedOut:
-            showExitConfirmationPromptFromIntroV3Done()
+            showExitToastFromIntroV3Done()
         case .donate(let getSourceRect):
             
             let donateSuccessAction: () -> Void = { [weak self] in
@@ -976,7 +1193,7 @@ extension YearInReviewCoordinator: YearInReviewCoordinatorDelegate {
         let title = CommonStrings.yearInReviewLoginPromptIntroTitle
         let subtitle = CommonStrings.yearInReviewLoginPromptSubtitle
         let button1Title = CommonStrings.joinLoginTitle
-        let button2Title = CommonStrings.noThanksTitle
+        let button2Title = CommonStrings.continueWithoutLoggingIn
         
         let alert = UIAlertController(title: title, message: subtitle, preferredStyle: .alert)
 
@@ -1009,7 +1226,6 @@ extension YearInReviewCoordinator: YearInReviewCoordinatorDelegate {
         
         let action2 = UIAlertAction(title: button2Title, style: .default) { [weak self] action in
             guard let viewModel = self?.viewModel else { return }
-            
             viewModel.tappedIntroV3LoginPromptNoThanks()
         }
         
@@ -1021,34 +1237,15 @@ extension YearInReviewCoordinator: YearInReviewCoordinatorDelegate {
         }
     }
     
-    private func showExitConfirmationPromptFromIntroV3Done() {
-        let title = WMFLocalizedString("year-in-review-intro-exit-confirmation-title", value: "Are you sure you want to exit?", comment: "Title of alert that appears when a logged-out user attempts to exit on the Year in Review intro.")
-        let subtitle = WMFLocalizedString("year-in-review-intro-exit-confirmation-subtitle", value: "You can still see a collective Year in Review without logging in.", comment: "Subtitle of alert that appears when a logged-out user attempts to exit on the Year in Review intro.")
-        let button1Title = CommonStrings.getStartedTitle
-        let button2Title = CommonStrings.notNowTitle
-        
-        let alert = UIAlertController(title: title, message: subtitle, preferredStyle: .alert)
-
-        let action1 = UIAlertAction(title: button1Title, style: .default) { [weak self] action in
-            
-            guard let viewModel = self?.viewModel else { return }
-                    
-            viewModel.tappedIntroV3ExitConfirmationGetStarted()
-        }
-        
-        let action2 = UIAlertAction(title: button2Title, style: .default) { [weak self] action in
-            guard let self else { return }
-            
-            navigationController.dismiss(animated: true) {
-                WMFAlertManager.sharedInstance.showBottomAlertWithMessage(WMFLocalizedString("year-in-review-intro-exit-toast-title", value: "You can access your Year in Review later in Profile.", comment: "Toast displayed to user after the exit Year in Review on the intro slide."), subtitle: nil, buttonTitle: nil, image: nil, dismissPreviousAlerts: true)
+    private func showExitToastFromIntroV3Done() {
+        if navigationController.presentedViewController != nil {
+            navigationController.dismiss(animated: true) { [weak self] in
+                guard let self else { return }
+                if needsExitFromIntroToast {
+                    WMFAlertManager.sharedInstance.showBottomAlertWithMessage(CommonStrings.youCanAccessYIR, subtitle: nil, buttonTitle: nil, image: nil, dismissPreviousAlerts: true)
+                    needsExitFromIntroToast = false
+                }
             }
-        }
-        
-        if let presentedViewController = navigationController.presentedViewController {
-            alert.addAction(action1)
-            alert.addAction(action2)
-            
-            presentedViewController.present(alert, animated: true)
         }
     }
 }
