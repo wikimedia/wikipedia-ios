@@ -780,11 +780,11 @@
 			<key>NSStringFormatSpecTypeKey</key>
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
-			<string>@</string>
+			<string>d</string>
 			<key>one</key>
 			<string>פעם אחת</string>
 			<key>other</key>
-			<string>%1$@ פעמים</string>
+			<string>%1$d פעמים</string>
 		</dict>
 	</dict>
 	<key>year-in-review-personalized-reading-subtitle-format</key>

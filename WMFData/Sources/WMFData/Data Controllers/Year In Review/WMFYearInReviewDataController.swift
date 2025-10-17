@@ -157,8 +157,10 @@ import CoreData
 
     // MARK: Entry Point
 
-    public func shouldShowYearInReviewEntryPoint(countryCode: String?) -> Bool {
+    public func shouldShowYearInReviewEntryPoint(countryCode: String?, currentDate: Date? = Date()) -> Bool {
         assert(Thread.isMainThread, "This method must be called from the main thread in order to keep it synchronous")
+        
+        let currentDate = currentDate ?? Date()
         
         if !developerSettingsDataController.showYiRV2 &&
             !developerSettingsDataController.showYiRV3 {
@@ -177,7 +179,7 @@ import CoreData
             return false
         }
 
-        guard config.isActive(for: Date()) else {
+        guard config.isActive(for: currentDate) else {
             return false
         }
 

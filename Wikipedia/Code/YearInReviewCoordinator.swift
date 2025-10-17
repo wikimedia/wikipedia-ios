@@ -333,7 +333,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         
         let editsPerMinuteString = formatNumber(NSNumber(value: config.editsPerMinute), fractionDigits: 0)
         
-        let format = WMFLocalizedString("year-in-review-highlights-edit-frequency-value", value: "%1$@ times per minute", comment: "Value for the frequency of edits on Wikipedia in the Year in review highlights slide. %1$@ is replaced with the number of edits per minute.")
+        let format = WMFLocalizedString("year-in-review-highlights-edit-frequency-value", value: "{{PLURAL:%1$d|%1$d time|%1$d times}} per minute", comment: "Value for the frequency of edits on Wikipedia in the Year in review highlights slide. %1$d is replaced with the number of edits per minute.")
         
         return String.localizedStringWithFormat(format, editsPerMinuteString)
     }
@@ -731,7 +731,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
 
     func personzlizedUserEditsSlideTitle(editCount: Int) -> String {
         let editsString = formatNumber(NSNumber(value: editCount), fractionDigits: 0)
-        let format = WMFLocalizedString("year-in-review-personalized-editing-title-format", value: "You edited Wikipedia %1$@ times", comment: "Year in review, personalized editing article count slide title for users that edited articles. %1$@ is replaced with the number of edits the user made.")
+        let format = WMFLocalizedString("year-in-review-personalized-editing-title-format", value: "You edited Wikipedia {{PLURAL:%1$d|%1$d time|%1$d times}}", comment: "Year in review, personalized editing article count slide title for users that edited articles. %1$d is replaced with the number of edits the user made.")
         return String.localizedStringWithFormat(format, editsString)
     }
     

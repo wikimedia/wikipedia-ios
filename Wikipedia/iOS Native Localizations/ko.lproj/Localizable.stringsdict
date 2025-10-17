@@ -709,9 +709,9 @@
 			<key>NSStringFormatSpecTypeKey</key>
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
-			<string>@</string>
+			<string>d</string>
 			<key>other</key>
-			<string>%1$@회</string>
+			<string>%1$d회</string>
 		</dict>
 	</dict>
 	<key>year-in-review-personalized-reading-title-format</key>

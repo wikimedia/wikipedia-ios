@@ -767,11 +767,11 @@
 			<key>NSStringFormatSpecTypeKey</key>
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
-			<string>@</string>
+			<string>d</string>
 			<key>one</key>
-			<string>%1$@ kerran</string>
+			<string>%1$d kerran</string>
 			<key>other</key>
-			<string>%1$@ kertaa</string>
+			<string>%1$d kertaa</string>
 		</dict>
 	</dict>
 	<key>year-in-review-personalized-reading-subtitle-format</key>
