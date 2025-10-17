@@ -73,6 +73,8 @@
 "activity-tab-additional-thoughts" = "Asking user if they have any comments";
 "activity-tab-generic-no-edits" = "Title for users that have not made any edits.";
 "activity-tab-greeting" = "$1 is opening bold, $2 is the username, $3 is closing bold.";
+"activity-tab-hours-minutes-read" = "Activity tab header, $1 is the amount of hours they spent reading, h is for the first letter of Hours, $2 is the amount of minutes they spent reading, m is for the first letter of Minutes.";
+"activity-tab-hours-on-wikipedia-ios" = "Activity tab header for on Wikipedia iOS, entirely capitalized except for iOS, which maintains its proper capitalization";
 "activity-tab-logged-out-subtitle" = "Subtitle for activity tab when users are logged out.";
 "activity-tab-logged-out-title" = "Title for activity tab when users are logged out.";
 "activity-tab-neutral" = "Satisfaction survey neutral";
@@ -84,6 +86,7 @@
 "activity-tab-survey-title" = "Satisfaction survey view title";
 "activity-tab-title" = "Activity title";
 "activity-tab-unsatisfied" = "Satisfaction survey unsatisfied";
+"activity-tab-usernames-reading-title" = "Activity tab header, includes username and their reading, like User's reading where $1 is replaced with the username.";
 "activity-tab-very-satisfied" = "Satisfaction survey very satisfied";
 "activity-tab-very-unsatisfied" = "Satisfaction survey very unsatisfied";
 "activity-tab-view-editing-history" = "Button title for users to view their editing history.";

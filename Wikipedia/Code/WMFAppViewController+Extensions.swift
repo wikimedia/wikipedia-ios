@@ -774,7 +774,7 @@ extension WMFAppViewController {
         return viewController
     }
     
-    @objc func generateActivityTab() async -> WMFActivityTabViewController {
+    @objc func generateActivityTab() -> WMFActivityTabViewController {
         let onWikipediaiOS = WMFLocalizedString(
             "activity-tab-hours-on-wikipedia-ios",
             value: "ON WIKIPEDIA iOS",
@@ -801,34 +801,43 @@ extension WMFAppViewController {
             return String.localizedStringWithFormat(format, hours, minutes)
         }
 
-        guard let username = dataStore.authenticationManager.authStatePermanentUsername else {
-            // Fallback: return an empty or default activity tab if user not logged in
-            let emptyViewModel = WMFActivityTabViewModel(localizedStrings: .init(
-                userNamesReading: "",
-                totalHoursMinutesRead: "",
-                onWikipediaiOS: onWikipediaiOS
-            ))
-            return WMFActivityTabViewController(dataStore: dataStore, viewModel: emptyViewModel, dataController: activityTabDataController)
-        }
-
-        let (hoursRead, minutesRead): (Int, Int)
-        do {
-            (hoursRead, minutesRead) = try await activityTabDataController.getTimeReadPast7Days() ?? (0,0)
-        } catch {
-            (hoursRead, minutesRead) = (0, 0)
-        }
-
+        // Fallback view model for initial (possibly logged out or loading) state
+        let username = dataStore.authenticationManager.authStatePermanentUsername
         let viewModel = WMFActivityTabViewModel(localizedStrings: .init(
-            userNamesReading: usernamesReading(username: username),
-            totalHoursMinutesRead: hoursMinutesRead(hours: hoursRead, minutes: minutesRead),
+            userNamesReading: username.map { usernamesReading(username: $0) } ?? "",
+            totalHoursMinutesRead: "",
             onWikipediaiOS: onWikipediaiOS
         ))
 
-        return WMFActivityTabViewController(
+        let controller = WMFActivityTabViewController(
             dataStore: dataStore,
             viewModel: viewModel,
             dataController: activityTabDataController
         )
+
+        // Perform async update after creation
+        Task {
+            guard let username = username else { return }
+
+            let (hoursRead, minutesRead): (Int, Int)
+            do {
+                (hoursRead, minutesRead) = try await activityTabDataController.getTimeReadPast7Days() ?? (0, 0)
+            } catch {
+                (hoursRead, minutesRead) = (0, 0)
+            }
+
+            let updatedViewModel = WMFActivityTabViewModel(localizedStrings: .init(
+                userNamesReading: usernamesReading(username: username),
+                totalHoursMinutesRead: hoursMinutesRead(hours: hoursRead, minutes: minutesRead),
+                onWikipediaiOS: onWikipediaiOS
+            ))
+
+            await MainActor.run {
+                controller.updateViewModel(updatedViewModel)
+            }
+        }
+
+        return controller
     }
 
     
@@ -1078,12 +1087,12 @@ extension WMFAppViewController {
     }
     
     @objc func updateActivityTabLoginState(activityTabViewController: WMFActivityTabViewController) {
-        //todo grey
+        // todo grey
         let isLoggedIn = dataStore.authenticationManager.authStateIsPermanent
-        //activityTabViewController.viewModel.isLoggedIn = isLoggedIn
+        // activityTabViewController.viewModel.isLoggedIn = isLoggedIn
         
         if let username = dataStore.authenticationManager.authStatePermanentUsername {
-            //activityTabViewController.username = username
+            // activityTabViewController.username = username
         }
     }
     

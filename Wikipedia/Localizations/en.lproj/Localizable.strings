@@ -73,6 +73,8 @@
 "activity-tab-additional-thoughts" = "Any additional thoughts?";
 "activity-tab-generic-no-edits" = "You haven't edited this week. Start now to track your contributions.";
 "activity-tab-greeting" = "$1Hi $2$3 👋 Here's your weekly Wikipedia summary.";
+"activity-tab-hours-minutes-read" = "$1h $2m";
+"activity-tab-hours-on-wikipedia-ios" = "ON WIKIPEDIA iOS";
 "activity-tab-logged-out-subtitle" = "Track what you’ve read and view your contributions over time in a new way";
 "activity-tab-logged-out-title" = "Log in or create an account to see more editing and reading activity.";
 "activity-tab-neutral" = "Neutral";
@@ -84,6 +86,7 @@
 "activity-tab-survey-title" = "Satisfaction survey";
 "activity-tab-title" = "Activity";
 "activity-tab-unsatisfied" = "Unsatisfied";
+"activity-tab-usernames-reading-title" = "$1's reading";
 "activity-tab-very-satisfied" = "Very satisfied";
 "activity-tab-very-unsatisfied" = "Very unsatisfied";
 "activity-tab-view-editing-history" = "View editing history";

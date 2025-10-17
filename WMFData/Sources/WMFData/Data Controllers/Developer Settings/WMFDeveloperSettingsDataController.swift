@@ -7,6 +7,7 @@ public protocol WMFDeveloperSettingsDataControlling: AnyObject {
     var forceMaxArticleTabsTo5: Bool { get }
     var showYiRV2: Bool { get }
     var showYiRV3: Bool { get }
+    var showActivityTab: Bool { get }
 }
 
 @objc public final class WMFDeveloperSettingsDataController: NSObject, WMFDeveloperSettingsDataControlling {
@@ -154,6 +155,14 @@ public protocol WMFDeveloperSettingsDataControlling: AnyObject {
             return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsShowYiRV3.rawValue)) ?? false
         } set {
             try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsShowYiRV3.rawValue, value: newValue)
+        }
+    }
+    
+    public var showActivityTab: Bool {
+        get {
+            return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsShowActivityTab.rawValue)) ?? false
+        } set {
+            try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsShowActivityTab.rawValue, value: newValue)
         }
     }
 

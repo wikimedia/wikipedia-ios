@@ -26,7 +26,7 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
         let view = WMFActivityTabView(viewModel: viewModel)
         self.hostingController = WMFActivityTabHostingController(rootView: view)
         self.dataController = dataController
-        super.init()
+        super.init(nibName: nil, bundle: nil)
     }
     
     @MainActor required init?(coder: NSCoder) {
@@ -104,3 +104,12 @@ extension WMFActivityTabViewController: LogoutCoordinatorDelegate {
 }
 
 extension WMFActivityTabViewController: ShareableArticlesProvider {}
+
+@MainActor
+extension WMFActivityTabViewController {
+    func updateViewModel(_ newViewModel: WMFActivityTabViewModel) {
+        self.viewModel = newViewModel
+        
+        hostingController.rootView = WMFActivityTabView(viewModel: newViewModel)
+    }
+}

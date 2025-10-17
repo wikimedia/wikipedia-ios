@@ -65,6 +65,8 @@ import WMFData
         let showYiRV2 = WMFFormItemSelectViewModel(title: "Show Year in Review Version 2", isSelected: WMFDeveloperSettingsDataController.shared.showYiRV2)
         
         let showYiRV3 = WMFFormItemSelectViewModel(title: "Show Year in Review Version 3", isSelected: WMFDeveloperSettingsDataController.shared.showYiRV3)
+        
+        let showActivityTab = WMFFormItemSelectViewModel(title: "Show Activity Tab", isSelected: WMFDeveloperSettingsDataController.shared.showActivityTab)
 
         // Form ViewModel
         formViewModel = WMFFormViewModel(sections: [
@@ -80,7 +82,8 @@ import WMFData
                 enableMoreDynamicTabsV2GroupB,
                 enableMoreDynamicTabsV2GroupC,
                 showYiRV2,
-                showYiRV3
+                showYiRV3,
+                showActivityTab
             ], selectType: .multi)
         ])
 
@@ -107,6 +110,10 @@ import WMFData
         
         enableMoreDynamicTabsV2GroupB.$isSelected
             .sink { isSelected in WMFDeveloperSettingsDataController.shared.enableMoreDynamicTabsV2GroupB = isSelected }
+            .store(in: &subscribers)
+        
+        showActivityTab.$isSelected
+            .sink { isSelected in WMFDeveloperSettingsDataController.shared.showActivityTab = isSelected }
             .store(in: &subscribers)
         
         moreDynamicTabsV2GroupCoordinator = MoreDynamicTabsV2GroupBindingCoordinator(groupB: enableMoreDynamicTabsV2GroupB, groupC: enableMoreDynamicTabsV2GroupC)

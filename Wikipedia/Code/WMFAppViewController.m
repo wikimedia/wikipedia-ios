@@ -329,13 +329,14 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
     self.savedTabBarItemProgressBadgeManager = [[SavedTabBarItemProgressBadgeManager alloc] initWithTabBarItem:savedTabBarItem];
 }
 
-- (WMFComponentNavigationController *)setupFourthTab:(NSInteger)assignment {
-
+- (WMFComponentNavigationController *)setupFourthTab {
+    BOOL showActivityTab = [[NSUserDefaults standardUserDefaults] boolForKey:@"developer-settings-show-activity-tab"];
     WMFComponentNavigationController *nav4;
-    if (assignment == 0) {
-        nav4 = [self rootNavigationControllerWithRootViewController:[self recentArticlesViewController]];
-    } else {
+
+    if (showActivityTab) {
         nav4 = [self rootNavigationControllerWithRootViewController:[self activityTabViewController]];
+    } else {
+        nav4 = [self rootNavigationControllerWithRootViewController:[self recentArticlesViewController]];
     }
 
     return nav4;
@@ -356,12 +357,10 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
             break;
     }
 
-    NSInteger assignment = [self getAssignmentForActivityTabExperiment];
-
     WMFComponentNavigationController *nav1 = [self rootNavigationControllerWithRootViewController:mainViewController];
     WMFComponentNavigationController *nav2 = [self rootNavigationControllerWithRootViewController:[self placesViewController]];
     WMFComponentNavigationController *nav3 = [self rootNavigationControllerWithRootViewController:[self savedViewController]];
-    WMFComponentNavigationController *nav4 = [self setupFourthTab:assignment];
+    WMFComponentNavigationController *nav4 = [self setupFourthTab];
     WMFComponentNavigationController *nav5 = [self rootNavigationControllerWithRootViewController:[self searchViewController]];
 
     if (@available(iOS 18.0, *)) {
@@ -1323,11 +1322,18 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
             [self setSelectedIndex:WMFAppTabTypeSaved];
             [self.currentTabNavigationController popToRootViewControllerAnimated:animated];
             break;
-        case WMFUserActivityTypeHistory:
+        case WMFUserActivityTypeHistory: {
             [self dismissPresentedViewControllers];
+
             [self setSelectedIndex:WMFAppTabTypeRecent];
             [self.currentTabNavigationController popToRootViewControllerAnimated:animated];
-            break;
+
+            BOOL showActivityTab = [[NSUserDefaults standardUserDefaults] boolForKey:@"showActivityTab"];
+            if (showActivityTab) {
+                UIViewController *activityVC = [self.activityTabViewController init];
+                [self.currentTabNavigationController setViewControllers:@[activityVC] animated:NO];
+            }
+        } break;
         case WMFUserActivityTypeSearch:
             [self switchToSearchAnimated:animated];
             [self.searchViewController makeSearchBarBecomeFirstResponder];
@@ -1583,6 +1589,14 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 }
 
 - (void)setDidShowOnboarding {
+    [[NSUserDefaults standardUserDefaults] setObject:@YES forKey:WMFDidShowOnboarding];
+
+    // If the user is onboarding, variant info alerts do not need to be presented
+    // So, set the user default to the current library version
+    [[NSUserDefaults standardUserDefaults] setInteger:MWKDataStore.currentLibraryVersion forKey:WMFLanguageVariantAlertsLibraryVersion];
+}
+
+- (void)shouldShowActivityTab {
     [[NSUserDefaults standardUserDefaults] setObject:@YES forKey:WMFDidShowOnboarding];
 
     // If the user is onboarding, variant info alerts do not need to be presented

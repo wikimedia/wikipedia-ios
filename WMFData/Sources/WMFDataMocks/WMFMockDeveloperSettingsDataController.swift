@@ -36,6 +36,8 @@ final class WMFMockDeveloperSettingsDataController: WMFDeveloperSettingsDataCont
     var showYiRV2: Bool { return false }
     
     var showYiRV3: Bool { return true }
+    
+    var showActivityTab: Bool { return true }
 
     private let featureConfig: WMFData.WMFFeatureConfigResponse
     
