@@ -9,7 +9,6 @@ import CoreData
     private let userDefaultsStore: WMFKeyValueStore?
     private let developerSettingsDataController: WMFDeveloperSettingsDataControlling
 
-    public let targetConfigYearID = "2025.1"
     @objc public static let targetYear = 2025
     public static let appShareLink = "https://apps.apple.com/app/apple-store/id324715238?pt=208305&ct=yir_2024_share&mt=8"
 
@@ -33,6 +32,15 @@ import CoreData
     @objc public static func dataControllerForObjectiveC() -> WMFYearInReviewDataController? {
         return try? WMFYearInReviewDataController()
     }
+    
+    public var config: WMFFeatureConfigResponse.Common.YearInReview? {
+        if let featureConfig = developerSettingsDataController.loadFeatureConfig(),
+           let config = featureConfig.common.yir(year: Self.targetYear) {
+            return config
+        }
+        
+        return nil
+    }
 
     public init(coreDataStore: WMFCoreDataStore? = WMFDataEnvironment.current.coreDataStore, userDefaultsStore: WMFKeyValueStore? = WMFDataEnvironment.current.userDefaultsStore, developerSettingsDataController: WMFDeveloperSettingsDataControlling = WMFDeveloperSettingsDataController.shared) throws {
 
@@ -54,7 +62,7 @@ import CoreData
         return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.seenYearInReviewIntroSlide.rawValue)) ?? YiRNotificationAnnouncementStatus.default
     }
     
-    public func shouldShowYiRNotification(primaryAppLanguageProject: WMFProject?, isLoggedOut: Bool, isTemporaryAccount: Bool) -> Bool {
+    public func shouldShowYiRNotification(isLoggedOut: Bool, isTemporaryAccount: Bool) -> Bool {
         
         if !developerSettingsDataController.showYiRV2 &&
             !developerSettingsDataController.showYiRV3 {
@@ -66,9 +74,9 @@ import CoreData
         }
 
         if isLoggedOut {
-            return !hasTappedProfileItem && !hasSeenYiRIntroSlide && shouldShowYearInReviewEntryPoint(countryCode: Locale.current.region?.identifier, primaryAppLanguageProject: primaryAppLanguageProject)
+            return !hasTappedProfileItem && !hasSeenYiRIntroSlide && shouldShowYearInReviewEntryPoint(countryCode: Locale.current.region?.identifier)
         }
-        return !hasSeenYiRIntroSlide && shouldShowYearInReviewEntryPoint(countryCode: Locale.current.region?.identifier, primaryAppLanguageProject: primaryAppLanguageProject)
+        return !hasSeenYiRIntroSlide && shouldShowYearInReviewEntryPoint(countryCode: Locale.current.region?.identifier)
     }
     
     public var hasTappedProfileItem: Bool {
@@ -106,22 +114,18 @@ import CoreData
             return true
         }
         
-        let expiryDate: Date? = {
-            var expiryDateComponents = DateComponents()
-            expiryDateComponents.year = 2025
-            expiryDateComponents.month = 3
-            expiryDateComponents.day = 1
-            return Calendar.current.date(from: expiryDateComponents)
-        }()
-
-        guard let expiryDate else {
+        guard let config = self.config else {
             return false
         }
-        let currentDate = Date()
-        return currentDate <= expiryDate
+
+        guard config.isActive(for: Date()) else {
+            return false
+        }
+        
+        return true
     }
 
-    public func shouldShowYearInReviewFeatureAnnouncement(primaryAppLanguageProject: WMFProject?) -> Bool {
+    public func shouldShowYearInReviewFeatureAnnouncement() -> Bool {
         
         if !developerSettingsDataController.showYiRV2 &&
             !developerSettingsDataController.showYiRV3 {
@@ -136,7 +140,7 @@ import CoreData
             return false
         }
 
-        guard shouldShowYearInReviewEntryPoint(countryCode: Locale.current.region?.identifier, primaryAppLanguageProject: primaryAppLanguageProject) else {
+        guard shouldShowYearInReviewEntryPoint(countryCode: Locale.current.region?.identifier) else {
             return false
         }
 
@@ -153,8 +157,10 @@ import CoreData
 
     // MARK: Entry Point
 
-    public func shouldShowYearInReviewEntryPoint(countryCode: String?, primaryAppLanguageProject: WMFProject?) -> Bool {
+    public func shouldShowYearInReviewEntryPoint(countryCode: String?, currentDate: Date? = Date()) -> Bool {
         assert(Thread.isMainThread, "This method must be called from the main thread in order to keep it synchronous")
+        
+        let currentDate = currentDate ?? Date()
         
         if !developerSettingsDataController.showYiRV2 &&
             !developerSettingsDataController.showYiRV3 {
@@ -165,35 +171,21 @@ import CoreData
             return false
         }
 
-        guard let countryCode,
-              let primaryAppLanguageProject else {
+        guard let countryCode else {
             return false
         }
         
-        let yirConfig: WMFFeatureConfigResponse.IOS.YearInReview?
-
-        if let iosFeatureConfig = developerSettingsDataController.loadFeatureConfig()?.ios,
-           let config = iosFeatureConfig.yir(yearID: targetConfigYearID) {
-            yirConfig = config
-        } else {
+        guard let config = self.config else {
             return false
         }
 
-        guard let yirConfig = yirConfig, yirConfig.isEnabled else {
+        guard config.isActive(for: currentDate) else {
             return false
         }
-
 
         // Check remote valid country codes
-        let uppercaseConfigCountryCodes = yirConfig.countryCodes.map { $0.uppercased() }
-        guard uppercaseConfigCountryCodes.contains(countryCode.uppercased()) else {
-            return false
-        }
-
-        // Check remote valid primary app language wikis
-        let uppercaseConfigPrimaryAppLanguageCodes = yirConfig.primaryAppLanguageCodes.map { $0.uppercased() }
-        guard let languageCode = primaryAppLanguageProject.languageCode,
-              uppercaseConfigPrimaryAppLanguageCodes.contains(languageCode.uppercased()) else {
+        let uppercaseConfigHideCountryCodes = config.hideCountryCodes.map { $0.uppercased() }
+        guard !uppercaseConfigHideCountryCodes.contains(countryCode.uppercased()) else {
             return false
         }
 
@@ -212,35 +204,26 @@ import CoreData
 
     // MARK: - Hide Year in Review
 
-    @objc public func shouldShowYearInReviewSettingsItem(countryCode: String?, primaryAppLanguageCode: String?) -> Bool {
+    @objc public func shouldShowYearInReviewSettingsItem(countryCode: String?) -> Bool {
         
         if !developerSettingsDataController.showYiRV2 &&
             !developerSettingsDataController.showYiRV3 {
             return false
         }
 
-        guard let countryCode,
-              let primaryAppLanguageCode else {
+        guard let countryCode else {
+            return false
+        }
+        
+        guard let config = self.config else {
             return false
         }
 
-        guard let iosFeatureConfig = developerSettingsDataController.loadFeatureConfig()?.ios,
-              let yirConfig = iosFeatureConfig.yir(yearID: targetConfigYearID) else {
-            return false
-        }
-
-        // Note: Purposefully not checking config's yir.isEnabled here. We want to continue showing the Settings item after we have disabled the feature remotely.
-
+        // Note: Purposefully not checking config's yirConfig.isActive here. We want to continue showing the Settings item after we have disabled the feature remotely.
 
         // Check remote valid country codes
-        let uppercaseConfigCountryCodes = yirConfig.countryCodes.map { $0.uppercased() }
-        guard uppercaseConfigCountryCodes.contains(countryCode.uppercased()) else {
-            return false
-        }
-
-        // Check remote valid primary app language wikis
-        let uppercaseConfigPrimaryAppLanguageCodes = yirConfig.primaryAppLanguageCodes.map { $0.uppercased() }
-        guard uppercaseConfigPrimaryAppLanguageCodes.contains(primaryAppLanguageCode.uppercased()) else {
+        let uppercaseConfigHideCountryCodes = config.hideCountryCodes.map { $0.uppercased() }
+        guard !uppercaseConfigHideCountryCodes.contains(countryCode.uppercased()) else {
             return false
         }
 
@@ -257,7 +240,7 @@ import CoreData
 
     // MARK: Report Data Population
 
-    func shouldPopulateYearInReviewReportData(countryCode: String?, primaryAppLanguageProject: WMFProject?) -> Bool {
+    func shouldPopulateYearInReviewReportData(countryCode: String?) -> Bool {
         
         if !developerSettingsDataController.showYiRV2 &&
             !developerSettingsDataController.showYiRV3 {
@@ -267,36 +250,22 @@ import CoreData
         guard yearInReviewSettingsIsEnabled else {
             return false
         }
-
-        let yirConfig: WMFFeatureConfigResponse.IOS.YearInReview?
-
-        if let iosFeatureConfig = developerSettingsDataController.loadFeatureConfig()?.ios,
-           let config = iosFeatureConfig.yir(yearID: targetConfigYearID) {
-            yirConfig = config
-        } else {
+        
+        guard let countryCode else {
             return false
         }
         
-        guard let countryCode,
-              let primaryAppLanguageProject else {
+        guard let config = self.config else {
             return false
         }
-
-        guard let yirConfig = yirConfig, yirConfig.isEnabled else {
+        
+        guard config.isActive(for: Date()) else {
             return false
         }
 
         // Check remote valid country codes
-        let uppercaseConfigCountryCodes = yirConfig.countryCodes.map { $0.uppercased() }
-        guard uppercaseConfigCountryCodes.contains(countryCode.uppercased()) else {
-            return false
-        }
-
-        // Check remote valid primary app language wikis
-        let uppercaseConfigPrimaryAppLanguageCodes = yirConfig.primaryAppLanguageCodes.map { $0.uppercased() }
-
-        guard let languageCode = primaryAppLanguageProject.languageCode,
-              uppercaseConfigPrimaryAppLanguageCodes.contains(languageCode.uppercased()) else {
+        let uppercaseConfigHideCountryCodes = config.hideCountryCodes.map { $0.uppercased() }
+        guard !uppercaseConfigHideCountryCodes.contains(countryCode.uppercased()) else {
             return false
         }
 
@@ -326,9 +295,9 @@ import CoreData
     }
     
     @discardableResult
-    public func populateYearInReviewReportData(for year: Int, countryCode: String, primaryAppLanguageProject: WMFProject?, username: String?, userID: String?, savedSlideDataDelegate: SavedArticleSlideDataDelegate, legacyPageViewsDataDelegate: LegacyPageViewsDataDelegate) async throws -> WMFYearInReviewReport? {
+    public func populateYearInReviewReportData(for year: Int, countryCode: String,  primaryAppLanguageProject: WMFProject?, username: String?, userID: String?, savedSlideDataDelegate: SavedArticleSlideDataDelegate, legacyPageViewsDataDelegate: LegacyPageViewsDataDelegate) async throws -> WMFYearInReviewReport? {
 
-        guard shouldPopulateYearInReviewReportData(countryCode: countryCode, primaryAppLanguageProject: primaryAppLanguageProject) else {
+        guard shouldPopulateYearInReviewReportData(countryCode: countryCode) else {
             return nil
         }
 
@@ -340,38 +309,13 @@ import CoreData
 
         let backgroundContext = try coreDataStore.newBackgroundContext
         
-        var yirConfig: WMFFeatureConfigResponse.IOS.YearInReview? = nil
-
-        yirConfig = developerSettingsDataController.loadFeatureConfig()?.ios.yir(yearID: targetConfigYearID)
-
-        guard let yirConfig else {
+        guard let config = self.config else {
             return nil
         }
 
-        let slideConfig = SlideConfig(
-            readCountIsEnabled: .init(yirConfig.personalizedSlides.readCount.isEnabled),
-            editCountIsEnabled: .init(yirConfig.personalizedSlides.editCount.isEnabled),
-            donateCountIsEnabled: .init(yirConfig.personalizedSlides.donateCount.isEnabled),
-            saveCountIsEnabled: .init(yirConfig.personalizedSlides.saveCount.isEnabled),
-            mostReadDateIsEnabled: .init(yirConfig.personalizedSlides.mostReadDate.isEnabled),
-            viewCountIsEnabled: .init(yirConfig.personalizedSlides.viewCount.isEnabled),
-            mostReadArticleIsEnabled: .init(yirConfig.personalizedSlides.mostReadArticles.isEnabled),
-            categoriesIsEnabled: .init(yirConfig.personalizedSlides.mostReadCategories.isEnabled),
-            locationsIsEnabled: .init(yirConfig.personalizedSlides.locationArticles.isEnabled)
-        )
-
-        let featureConfig = YearInReviewFeatureConfig(
-            isEnabled: yirConfig.isEnabled,
-            slideConfig: slideConfig,
-            dataPopulationStartDateString: yirConfig.dataPopulationStartDateString,
-            dataPopulationEndDateString: yirConfig.dataPopulationEndDateString,
-            dataPopulationStartDate: yirConfig.dataPopulationStartDate,
-            dataPopulationEndDate: yirConfig.dataPopulationEndDate
-        )
-
         let slideFactory = YearInReviewSlideDataControllerFactory(
             year: year,
-            config: featureConfig,
+            config: config,
             username: username,
             userID: userID,
             project: primaryAppLanguageProject,
@@ -534,19 +478,16 @@ import CoreData
     }
 
     public func shouldHideDonateButton() -> Bool {
-        let yirConfig: WMFFeatureConfigResponse.IOS.YearInReview?
-
-        guard let iosFeatureConfig = developerSettingsDataController.loadFeatureConfig()?.ios,
-              let config = iosFeatureConfig.yir(yearID: targetConfigYearID) else {
+        
+        guard let config = self.config else {
             return false
         }
-        yirConfig = config
 
         guard let locale = Locale.current.region?.identifier else {
             return false
         }
 
-        guard let yirConfig = yirConfig, yirConfig.hideDonateCountryCodes.contains(locale) else {
+        guard config.hideDonateCountryCodes.contains(locale) else {
             return false
         }
 

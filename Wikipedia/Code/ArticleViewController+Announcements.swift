@@ -142,7 +142,7 @@ extension ArticleViewController {
             return false
         }
 
-        guard let wmfProject = project?.wmfProject, yirDataController.shouldShowYearInReviewFeatureAnnouncement(primaryAppLanguageProject: wmfProject) else {
+        guard let wmfProject = project?.wmfProject, yirDataController.shouldShowYearInReviewFeatureAnnouncement() else {
             return false
         }
         
