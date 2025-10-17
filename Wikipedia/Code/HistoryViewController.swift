@@ -189,6 +189,12 @@ final class WMFHistoryHostingController: WMFComponentHostingController<WMFHistor
 
         configureNavigationBar()
     }
+    
+    public override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        ArticleTabsFunnel.shared.logIconImpression(interface: .history, project: nil)
+    }
 
     // MARK: - Methods
 

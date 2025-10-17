@@ -1563,7 +1563,16 @@ extension WMFAppViewController: EditPreviewViewControllerLoggingDelegate {
      
      @objc func assignMoreDynamicTabsV2ExperimentIfNeeded() {
          do {
-             try WMFArticleTabsDataController.shared.assignExperimentV2IfNeeded()
+             let assignment = try WMFArticleTabsDataController.shared.assignExperimentV2IfNeeded()
+             
+             let groupName: String
+             switch assignment {
+             case .control: groupName = "dynamic_a"
+             case .groupB: groupName = "dynamic_b"
+             case .groupC: groupName = "dynamic_c"
+             }
+             
+             ArticleTabsFunnel.shared.logGroupAssignment(group: groupName)
          } catch {
              DDLogError("Failed to assign more dynamic tabs v2 experiment: \(error)")
          }
