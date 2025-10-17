@@ -201,7 +201,8 @@ final class TabsOverviewCoordinator: NSObject, Coordinator {
             
             let navVC = WMFComponentNavigationController(
                 rootViewController: hostingController,
-                modalPresentationStyle: .overFullScreen
+                modalPresentationStyle: .overFullScreen,
+                customBarBackgroundColor: theme.colors.midBackground
             )
             
             navigationController.present(navVC, animated: true) { [weak self] in
