@@ -21,11 +21,8 @@ public struct WMFArticleTabsView: View {
     @State private var isReady: Bool = false
     @State private var cellFrames: [String: CGRect] = [:]
 
-    private var dykLinkDelegate: UITextViewDelegate?
-
-    public init(viewModel: WMFArticleTabsViewModel, dykLinkDelegate: UITextViewDelegate?) {
+    public init(viewModel: WMFArticleTabsViewModel) {
         self.viewModel = viewModel
-        self.dykLinkDelegate = dykLinkDelegate
     }
 
     public var body: some View {

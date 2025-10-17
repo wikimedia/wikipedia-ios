@@ -30,6 +30,7 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
 
     // Assign if you don't want search result selection to do default navigation, and instead want to perform your own custom logic upon search result selection.
     var navigateToSearchResultAction: ((URL) -> Void)?
+    
     // Set so that the correct search bar will have it's field populated once a "recently searched" term is selected. If this is missing, logic will default to navigationController?.searchController.searchBar for population.
     var populateSearchBarWithTextAction: ((String) -> Void)?
 
@@ -145,7 +146,9 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
             }
         }
 
-        ArticleTabsFunnel.shared.logIconImpression(interface: .search, project: nil)
+        if isMainRootView {
+            ArticleTabsFunnel.shared.logIconImpression(interface: .search, project: nil)
+        }
     }
 
     override func viewDidLayoutSubviews() {
