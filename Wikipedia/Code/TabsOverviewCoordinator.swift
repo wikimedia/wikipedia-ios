@@ -171,8 +171,7 @@ final class TabsOverviewCoordinator: NSObject, Coordinator {
                 didTapTab: didTapTab,
                 didTapAddTab: didTapAddTab,
                 didTapShareTab: didTapShareTab,
-                didToggleSuggestedArticles: showAlertForArticleSuggestionsDisplayChangeConfirmation,
-                displayDeleteAllTabsToast: displayDeleteAllTabsToast
+                didToggleSuggestedArticles: showAlertForArticleSuggestionsDisplayChangeConfirmation
             )
 
             articleTabsViewModel.loadDidYouKnowViewModel = { [weak self] in
@@ -273,7 +272,7 @@ final class TabsOverviewCoordinator: NSObject, Coordinator {
     @MainActor
     private func getRecentTabArticleURLs() async throws -> Set<URL> {
         let articleTabs = try await dataController.fetchAllArticleTabs()
-        let limit = 5
+        let articleLimit = 1
         let tabLimit = 2
 
         guard !articleTabs.isEmpty else {
@@ -286,7 +285,7 @@ final class TabsOverviewCoordinator: NSObject, Coordinator {
         }
 
         var urls = Set<URL>()
-        urls.reserveCapacity(limit)
+        urls.reserveCapacity(tabLimit * articleLimit)
 
         let nonMainPageTabs = articleTabs.filter { tab in
             tab.articles.contains { $0.articleURL != mainPageURL }
@@ -296,13 +295,14 @@ final class TabsOverviewCoordinator: NSObject, Coordinator {
 
         for tab in newestTabs {
             for article in tab.articles.reversed() {
-                guard urls.count < limit, let url = article.articleURL else { break }
+                guard let url = article.articleURL else { break }
                 if url != mainPageURL {
                     urls.insert(url)
                 }
-            }
-            if urls.count >= limit {
-                break
+                
+                if urls.count >= articleLimit {
+                    break
+                }
             }
         }
 
@@ -325,9 +325,31 @@ final class TabsOverviewCoordinator: NSObject, Coordinator {
         let viewModel = WMFTabsOverviewDidYouKnowViewModel(
             facts: facts.map { $0.html },
             languageCode: dataStore.languageLinkController.appLanguage?.languageCode,
+            tappedLinkAction: tappedLink(url:),
             dykLocalizedStrings: localized
         )
         return viewModel
+    }
+    
+    
+    private func tappedLink(url: URL) {
+        guard let articleURL = URL(string: url.absoluteString) else {
+            return
+        }
+
+        let linkCoordinator = LinkCoordinator(
+            navigationController: navigationController,
+            url: articleURL,
+            dataStore: self.dataStore,
+            theme: self.theme,
+            articleSource: .undefined,
+            tabConfig: .appendArticleAndAssignNewTabAndSetToCurrent
+        )
+        if let presented = navigationController.presentedViewController {
+            presented.dismiss(animated: true) {
+                linkCoordinator.start()
+            }
+        }
     }
 
     private lazy var didYouKnowProviderClosure: (@MainActor () async -> [WMFDidYouKnow]?) = { [weak self] in
