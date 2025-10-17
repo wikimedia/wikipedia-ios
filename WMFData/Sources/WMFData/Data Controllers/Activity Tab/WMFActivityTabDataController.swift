@@ -2,6 +2,7 @@ import Foundation
 
 public final class WMFActivityTabDataController {
     public static let shared = WMFActivityTabDataController()
+    private let userDefaultsStore = WMFDataEnvironment.current.userDefaultsStore
     
     public init() {
         
@@ -26,4 +27,18 @@ public final class WMFActivityTabDataController {
         print("Time read: \(hours)h \(minutes)m")
         return (hours, minutes)
     }
+    
+    @objc public func getActivityAssignment() -> Int {
+        // TODO: More thoroughly assign experiment
+        if userHasHiddenArticleSuggestionsTabs { return 1 }
+        return 0
+    }
+
+     public var userHasHiddenArticleSuggestionsTabs: Bool {
+         get {
+             return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsShowActivityTab.rawValue)) ?? false
+         } set {
+             try? userDefaultsStore?.save(key: WMFUserDefaultsKey.developerSettingsShowActivityTab.rawValue, value: newValue)
+         }
+     }
 }

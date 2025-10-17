@@ -79,14 +79,106 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
 
         return existingProfileCoordinator
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        configureNavigationBar()
+    }
+
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        
+        if #available(iOS 18, *) {
+            if UIDevice.current.userInterfaceIdiom == .pad {
+                if previousTraitCollection?.horizontalSizeClass != traitCollection.horizontalSizeClass {
+                    configureNavigationBar()
+                }
+            }
+        }
+    }
+    
+    override func viewWillTransition(to size: CGSize, with coordinator: any UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+
+        coordinator.animate(alongsideTransition: nil) { [weak self] _ in
+            self?.calculateTopSafeAreaOverlayHeight()
+        }
+    }
+    
+    private lazy var moreBarButtonItem: UIBarButtonItem = {
+        let button = UIBarButtonItem(image: WMFSFSymbolIcon.for(symbol: .ellipsisCircle), primaryAction: nil, menu: overflowMenu)
+        button.accessibilityLabel = CommonStrings.moreButton
+        return button
+    }()
+    
+    var overflowMenu: UIMenu {
+        let mainMenu = UIMenu(title: String(), children: [])
+
+        return mainMenu
+    }
+    
+    private func configureNavigationBar() {
+        
+        var titleConfig: WMFNavigationBarTitleConfig = WMFNavigationBarTitleConfig(title: CommonStrings.activityTitle, customView: nil, alignment: .leadingCompact)
+        extendedLayoutIncludesOpaqueBars = false
+        if #available(iOS 18, *) {
+            if UIDevice.current.userInterfaceIdiom == .pad && traitCollection.horizontalSizeClass == .regular {
+                titleConfig = WMFNavigationBarTitleConfig(title: CommonStrings.savedTabTitle, customView: nil, alignment: .leadingLarge)
+                extendedLayoutIncludesOpaqueBars = true
+            }
+        }
+        
+        let profileButtonConfig: WMFNavigationBarProfileButtonConfig?
+        let tabsButtonConfig: WMFNavigationBarTabsButtonConfig?
+        if let dataStore {
+            profileButtonConfig = self.profileButtonConfig(target: self, action: #selector(userDidTapProfile), dataStore: dataStore, yirDataController: yirDataController, leadingBarButtonItem: nil)
+            tabsButtonConfig = self.tabsButtonConfig(target: self, action: #selector(userDidTapTabs), dataStore: dataStore, leadingBarButtonItem: moreBarButtonItem)
+        } else {
+            profileButtonConfig = nil
+            tabsButtonConfig = nil
+        }
+
+        configureNavigationBar(titleConfig: titleConfig, closeButtonConfig: nil, profileButtonConfig: profileButtonConfig, tabsButtonConfig: tabsButtonConfig, searchBarConfig: nil, hideNavigationBarOnScroll: false)
+    }
+
+    @objc func userDidTapTabs() {
+        tabsCoordinator?.start()
+        ArticleTabsFunnel.shared.logIconClick(interface: .saved, project: nil)
+    }
+
+    @objc func userDidTapProfile() {
+        
+        guard let dataStore else {
+            return
+        }
+        
+        guard let languageCode = dataStore.languageLinkController.appLanguage?.languageCode,
+              let metricsID = DonateCoordinator.metricsID(for: .savedProfile, languageCode: languageCode) else {
+            return
+        }
+        
+        DonateFunnel.shared.logSavedProfile(metricsID: metricsID)
+              
+        profileCoordinator?.start()
+    }
+    
+    private func updateProfileButton() {
+        
+        guard let dataStore else {
+            return
+        }
+        
+        let config = self.profileButtonConfig(target: self, action: #selector(userDidTapProfile), dataStore: dataStore, yirDataController: yirDataController, leadingBarButtonItem: nil)
+        updateNavigationBarProfileButton(needsBadge: config.needsBadge, needsBadgeLabel: CommonStrings.profileButtonBadgeTitle, noBadgeLabel: CommonStrings.profileButtonTitle)
+    }
 }
 
 // MARK: - Extensions
 
 extension WMFActivityTabViewController: YearInReviewBadgeDelegate {
     public func updateYIRBadgeVisibility() {
-        // updateProfileButton()
-        // todo
+         updateProfileButton()
     }
 }
 

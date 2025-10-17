@@ -329,14 +329,12 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
     self.savedTabBarItemProgressBadgeManager = [[SavedTabBarItemProgressBadgeManager alloc] initWithTabBarItem:savedTabBarItem];
 }
 
-- (WMFComponentNavigationController *)setupFourthTab {
-    BOOL showActivityTab = [[NSUserDefaults standardUserDefaults] boolForKey:@"developer-settings-show-activity-tab"];
+- (WMFComponentNavigationController *)setupFourthTab:(NSInteger)assignment {
     WMFComponentNavigationController *nav4;
-
-    if (showActivityTab) {
-        nav4 = [self rootNavigationControllerWithRootViewController:[self activityTabViewController]];
-    } else {
+    if (assignment == 0) {
         nav4 = [self rootNavigationControllerWithRootViewController:[self recentArticlesViewController]];
+    } else {
+        nav4 = [self rootNavigationControllerWithRootViewController:[self activityTabViewController]];
     }
 
     return nav4;
@@ -356,11 +354,13 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
             mainViewController = self.exploreViewController;
             break;
     }
+    
+    NSInteger assignment = [self getAssignmentForActivityTab];
 
     WMFComponentNavigationController *nav1 = [self rootNavigationControllerWithRootViewController:mainViewController];
     WMFComponentNavigationController *nav2 = [self rootNavigationControllerWithRootViewController:[self placesViewController]];
     WMFComponentNavigationController *nav3 = [self rootNavigationControllerWithRootViewController:[self savedViewController]];
-    WMFComponentNavigationController *nav4 = [self setupFourthTab];
+    WMFComponentNavigationController *nav4 = [self setupFourthTab:assignment];
     WMFComponentNavigationController *nav5 = [self rootNavigationControllerWithRootViewController:[self searchViewController]];
 
     if (@available(iOS 18.0, *)) {
