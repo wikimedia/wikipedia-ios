@@ -134,7 +134,7 @@ final class TempAccountSheetCoordinator: Coordinator {
             title: CommonStrings.ipWarningTitle,
             subtitle: ipEditorSubtitleString(),
             ctaTopString: WMFLocalizedString("ip-account-cta-top", value: "Log in or create an account", comment: "Log in or create an account button title"),
-            ctaBottomString: WMFLocalizedString("ip-account-cta-bottom", value: "Continue without logging in", comment: "Continue without logging in button title"),
+            ctaBottomString: CommonStrings.continueWithoutLoggingIn,
             done: CommonStrings.doneTitle,
             handleURL: { url in
                 guard let presentedViewController = self.navigationController.presentedViewController else {
