@@ -635,32 +635,5 @@
 			<string>%1$d వ్యాసాలు</string>
 		</dict>
 	</dict>
-	<key>year-in-review-personalized-reading-title-v3-format</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>2025 లో మీరు, %#@v2@ చదవడానికి %#@v1@ వెచ్చించారు</string>
-		<key>v1</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
-			<key>one</key>
-			<string>%1$d నిమిషం</string>
-			<key>other</key>
-			<string>%1$d నిమిషాలు</string>
-		</dict>
-		<key>v2</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
-			<key>one</key>
-			<string>%2$d వ్యాసాన్ని</string>
-			<key>other</key>
-			<string>%2$d వ్యాసాలను</string>
-		</dict>
-	</dict>
 </dict>
 </plist>

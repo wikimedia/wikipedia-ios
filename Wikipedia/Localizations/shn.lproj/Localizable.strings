@@ -56,6 +56,8 @@
 "action-language-accessibility" = "လႅၵ်ႈလၢႆႈ ၽႃႇသႃႇၵႂၢမ်း";
 "action-move-to" = "ၶၢႆႉၸူး...";
 "action-move-to-reading-list" = "ၶၢႆႉသႂ်ႇၸူး တီႈၼႂ်းသဵၼ်ႈမၢႆလူ";
+"action-next-revision-accessibility" = "လွင်ႈထတ်းသၢင်ဢၼ်တေမႃး";
+"action-previous-revision-accessibility" = "လွင်ႈထတ်းသၢင်မိူဝ်ႈပူၼ်ႉမႃး";
 "action-read" = "လူတူၺ်း";
 "action-redo" = "ႁဵတ်းၶိုၼ်း";
 "action-remove" = "ထွၼ်ပႅတ်ႈ";

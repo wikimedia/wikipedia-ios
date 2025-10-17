@@ -11,9 +11,9 @@ final class YearInReviewTopReadArticleSlideDataController: YearInReviewSlideData
     private var articles: [String]?
 
     private weak var legacyPageViewsDataDelegate: LegacyPageViewsDataDelegate?
-    private let yirConfig: YearInReviewFeatureConfig
+    private let yirConfig: WMFFeatureConfigResponse.Common.YearInReview
     
-    init(year: Int, yirConfig: YearInReviewFeatureConfig, dependencies: YearInReviewSlideDataControllerDependencies) {
+    init(year: Int, yirConfig: WMFFeatureConfigResponse.Common.YearInReview, dependencies: YearInReviewSlideDataControllerDependencies) {
         self.year = year
         self.yirConfig = yirConfig
         self.legacyPageViewsDataDelegate = dependencies.legacyPageViewsDataDelegate
@@ -22,8 +22,8 @@ final class YearInReviewTopReadArticleSlideDataController: YearInReviewSlideData
     func populateSlideData(in context: NSManagedObjectContext) async throws {
         let dataController = try WMFPageViewsDataController()
     
-        guard let startDate = yirConfig.dataPopulationStartDate,
-              let endDate = yirConfig.dataPopulationEndDate else {
+        guard let startDate = yirConfig.dataStartDate,
+              let endDate = yirConfig.dataEndDate else {
             throw NSError(domain: "", code: 0, userInfo: nil)
         }
         if let pageViewCounts = try? await dataController.fetchPageViewCounts(startDate: startDate, endDate: endDate) {
@@ -48,8 +48,8 @@ final class YearInReviewTopReadArticleSlideDataController: YearInReviewSlideData
         return slide
     }
 
-    static func shouldPopulate(from config: YearInReviewFeatureConfig, userInfo: YearInReviewUserInfo) -> Bool {
-        return config.isEnabled && config.slideConfig.mostReadArticleIsEnabled
+    static func shouldPopulate(from config: WMFFeatureConfigResponse.Common.YearInReview, userInfo: YearInReviewUserInfo) -> Bool {
+        return config.isActive(for: Date())
     }
 }
 

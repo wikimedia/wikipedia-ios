@@ -100,6 +100,12 @@ final class TabsOverviewCoordinator: NSObject, Coordinator {
             guard let self else { return }
             self.tappedAddTab()
         }
+        
+        let didTapDone: () -> Void = { [weak self] in
+            guard let self else { return }
+            self.tappedDone()
+            self.logArticleTabsOverviewTappedDone()
+        }
 
         let didTapShareTab: (WMFArticleTabsDataController.WMFArticleTab, CGRect?) -> Void = { [weak self] tab, frame in
             guard let self else { return }
@@ -171,8 +177,8 @@ final class TabsOverviewCoordinator: NSObject, Coordinator {
                 didTapTab: didTapTab,
                 didTapAddTab: didTapAddTab,
                 didTapShareTab: didTapShareTab,
-                didToggleSuggestedArticles: showAlertForArticleSuggestionsDisplayChangeConfirmation,
-                displayDeleteAllTabsToast: displayDeleteAllTabsToast
+                didTapDone: didTapDone,
+                didToggleSuggestedArticles: showAlertForArticleSuggestionsDisplayChangeConfirmation
             )
 
             articleTabsViewModel.loadDidYouKnowViewModel = { [weak self] in
@@ -185,17 +191,18 @@ final class TabsOverviewCoordinator: NSObject, Coordinator {
                 return try? await self.loadRecommendedArticlesViewModel()
             }
 
-            let articleTabsView = WMFArticleTabsView(viewModel: articleTabsViewModel, dykLinkDelegate: self)
+            let articleTabsView = WMFArticleTabsView(viewModel: articleTabsViewModel)
             let hostingController = WMFArticleTabsHostingController(
                 rootView: articleTabsView,
                 viewModel: articleTabsViewModel,
                 doneButtonText: CommonStrings.doneTitle,
-                articleTabsCount: articleTabsCount,
+                articleTabsCount: articleTabsCount
             )
             
             let navVC = WMFComponentNavigationController(
                 rootViewController: hostingController,
-                modalPresentationStyle: .overFullScreen
+                modalPresentationStyle: .overFullScreen,
+                customBarBackgroundColor: theme.colors.midBackground
             )
             
             navigationController.present(navVC, animated: true) { [weak self] in
@@ -235,6 +242,7 @@ final class TabsOverviewCoordinator: NSObject, Coordinator {
         let onTapArticleAction: WMFTabsOverviewRecommendationsViewModel.OnRecordTapAction = { [weak self] historyItem in
             guard let self else { return }
             self.tappedArticle(historyItem)
+            ArticleTabsFunnel.shared.logTabsOverviewTappedBYR()
         }
 
         let shareArticleAction: WMFHistoryViewModel.ShareRecordAction = { [weak self] frame, historyItem in
@@ -273,7 +281,7 @@ final class TabsOverviewCoordinator: NSObject, Coordinator {
     @MainActor
     private func getRecentTabArticleURLs() async throws -> Set<URL> {
         let articleTabs = try await dataController.fetchAllArticleTabs()
-        let limit = 5
+        let articleLimit = 1
         let tabLimit = 2
 
         guard !articleTabs.isEmpty else {
@@ -286,7 +294,7 @@ final class TabsOverviewCoordinator: NSObject, Coordinator {
         }
 
         var urls = Set<URL>()
-        urls.reserveCapacity(limit)
+        urls.reserveCapacity(tabLimit * articleLimit)
 
         let nonMainPageTabs = articleTabs.filter { tab in
             tab.articles.contains { $0.articleURL != mainPageURL }
@@ -296,13 +304,14 @@ final class TabsOverviewCoordinator: NSObject, Coordinator {
 
         for tab in newestTabs {
             for article in tab.articles.reversed() {
-                guard urls.count < limit, let url = article.articleURL else { break }
+                guard let url = article.articleURL else { break }
                 if url != mainPageURL {
                     urls.insert(url)
                 }
-            }
-            if urls.count >= limit {
-                break
+                
+                if urls.count >= articleLimit {
+                    break
+                }
             }
         }
 
@@ -325,9 +334,34 @@ final class TabsOverviewCoordinator: NSObject, Coordinator {
         let viewModel = WMFTabsOverviewDidYouKnowViewModel(
             facts: facts.map { $0.html },
             languageCode: dataStore.languageLinkController.appLanguage?.languageCode,
+            tappedLinkAction: tappedDYKLink(url:),
             dykLocalizedStrings: localized
         )
         return viewModel
+    }
+    
+    
+    private func tappedDYKLink(url: URL) {
+        
+        ArticleTabsFunnel.shared.logTabsOverviewTappedDYK()
+        
+        guard let articleURL = URL(string: url.absoluteString) else {
+            return
+        }
+
+        let linkCoordinator = LinkCoordinator(
+            navigationController: navigationController,
+            url: articleURL,
+            dataStore: self.dataStore,
+            theme: self.theme,
+            articleSource: .undefined,
+            tabConfig: .appendArticleAndAssignNewTabAndSetToCurrent
+        )
+        if let presented = navigationController.presentedViewController {
+            presented.dismiss(animated: true) {
+                linkCoordinator.start()
+            }
+        }
     }
 
     private lazy var didYouKnowProviderClosure: (@MainActor () async -> [WMFDidYouKnow]?) = { [weak self] in
@@ -437,6 +471,10 @@ final class TabsOverviewCoordinator: NSObject, Coordinator {
         }
         
     }
+    
+    private func tappedDone() {
+        navigationController.dismiss(animated: true)
+    }
 
     private func tappedShareTab(_ tab: WMFArticleTabsDataController.WMFArticleTab, sourceFrameInWindow: CGRect?) {
         guard let article = tab.articles.last, let url = article.articleURL else { return }
@@ -466,14 +504,42 @@ final class TabsOverviewCoordinator: NSObject, Coordinator {
 
 extension TabsOverviewCoordinator: WMFArticleTabsLoggingDelegate {
 
+    func logArticleTabsOverviewTappedDone() {
+        ArticleTabsFunnel.shared.logTabsOverviewClose()
+    }
+
     func logArticleTabsOverviewImpression() {
         ArticleTabsFunnel.shared.logTabsOverviewImpression()
     }
     
+    func logArticleTabsOverviewTappedCloseTab() {
+        ArticleTabsFunnel.shared.logTabsOverviewCloseTab()
+    }
+    
     nonisolated func logArticleTabsArticleClick(wmfProject: WMFProject?) {
         if let url = wmfProject?.siteURL, let project =  WikimediaProject(siteURL:url) {
-            ArticleTabsFunnel.shared.logArticleClick(project: project)
+            ArticleTabsFunnel.shared.logTabsOverviewArticleClick(project: project)
         }
+    }
+    
+    func logArticleTabsOverviewTappedHideSuggestions() {
+        ArticleTabsFunnel.shared.logTabsOverflowHideArticleSuggestionsTap()
+    }
+    
+    func logArticleTabsOverviewTappedShowSuggestions() {
+        ArticleTabsFunnel.shared.logTabsOverflowShowArticleSuggestionsTap()
+    }
+    
+    func logArticleTabsOverviewTappedCloseAllTabs() {
+        ArticleTabsFunnel.shared.logTabsOverflowCloseAllTabsTap()
+    }
+    
+    func logArticleTabsOverviewTappedCloseAllTabsConfirmCancel() {
+        ArticleTabsFunnel.shared.logTabsOverviewCloseAllTabsConfirmCancelTap()
+    }
+    
+    func logArticleTabsOverviewTappedCloseAllTabsConfirmClose() {
+        ArticleTabsFunnel.shared.logTabsOverviewCloseAllTabsConfirmCloseTap()
     }
 }
 
@@ -491,33 +557,4 @@ final class TabsCoordinatorManager {
         self.tabsOverviewCoordinator = coordinator
         coordinator.start()
     }
-}
-
-extension TabsOverviewCoordinator: UITextViewDelegate {
-    func tappedLink(_ url: URL, sourceTextView: UITextView) {
-        guard let articleURL = URL(string: url.absoluteString) else {
-            return
-        }
-
-        let linkCoordinator = LinkCoordinator(
-            navigationController: navigationController,
-            url: articleURL,
-            dataStore: self.dataStore,
-            theme: self.theme,
-            articleSource: .undefined,
-            tabConfig: .appendArticleAndAssignNewTabAndSetToCurrent
-        )
-        if let presented = navigationController.presentedViewController {
-            presented.dismiss(animated: true) {
-                linkCoordinator.start()
-            }
-        }
-
-    }
-
-    public func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
-        tappedLink(URL, sourceTextView: textView)
-        return false
-    }
-
 }

@@ -10,8 +10,21 @@ import WMF
         case closeFeedback = "feedback_close_click"
         case submitFeedback = "feedback_submit_click"
         case iconClick = "icon_click"
+        case openClick = "open_click"
         case newTabClick = "new_tab_click"
         case newTabClickBackground = "new_tab_click_background"
+        case saveClick = "save_click"
+        case shareClick = "share_click"
+        case launch = "launch"
+        case closeClick = "close_click"
+        case closeTabClick = "close_tab_click"
+        case suggestedTabClick = "suggested_tab_click"
+        case cancelClick = "cancel_click"
+        case resultClick = "result_click"
+        case hideSuggestClick = "hide_suggest_click"
+        case showSuggestClick = "show_suggest_click"
+        case closeAllClick = "close_all_click"
+        case closeConfirmClick = "close_confirm_click"
     }
 
     public enum ActiveInterface: String {
@@ -26,6 +39,9 @@ import WMF
         case saved = "saved"
         case history = "history"
         case search = "search"
+        case tabSearch = "tab_search"
+        case tabsOverflow = "tabs_overflow"
+        case mainPage = "main_page"
     }
 
     private struct Event: EventInterface {
@@ -76,8 +92,24 @@ import WMF
         logEvent(activeInterface: .overview, action: .impression, project: nil)
     }
 
-    func logArticleClick(project: WikimediaProject) {
+    func logTabsOverviewArticleClick(project: WikimediaProject) {
         logEvent(activeInterface: .overview, action: .articleClick, project: project)
+    }
+    
+    func logTabsOverviewClose() {
+        logEvent(activeInterface: .overview, action: .closeClick, project: nil)
+    }
+    
+    func logTabsOverviewCloseTab() {
+        logEvent(activeInterface: .overview, action: .closeTabClick, project: nil)
+    }
+    
+    func logTabsOverviewTappedDYK() {
+        logEvent(activeInterface: .overview, action: .suggestedTabClick, actionData: ["suggested": "dyk"], project: nil)
+    }
+    
+    func logTabsOverviewTappedBYR() {
+        logEvent(activeInterface: .overview, action: .suggestedTabClick, actionData: ["suggested": "byr"], project: nil)
     }
 
     func logFeedbackClose() {
@@ -105,23 +137,55 @@ import WMF
     }
 
     func logIconClick(interface: ArticleTabsFunnel.ActiveInterface, project: WikimediaProject?) {
-        logEvent(activeInterface: interface, action: .articleClick, project: project)
+        logEvent(activeInterface: interface, action: .iconClick, project: project)
     }
 
     func logGroupAssignment(group: String) {
-        logEvent(activeInterface: nil, action: .impression, actionData: ["group": group], project: nil)
+        logEvent(activeInterface: nil, action: .launch, actionData: ["group": group], project: nil)
     }
 
     func logAddNewBlankTab() {
         logEvent(activeInterface: .overview, action: .newTabClick, project: nil)
     }
+    
+    func logLongPressOpen() {
+        logEvent(activeInterface: .articleMenu, action: .openClick, project: nil)
+    }
 
-    func logOpenArticleInNewTab() {
+    func logLongPressOpenInNewTab() {
         logEvent(activeInterface: .articleMenu, action: .newTabClick, project: nil)
     }
 
-    func logOpenArticleInBackgroundTab() {
+    func logLongPressOpenInBackgroundTab() {
         logEvent(activeInterface: .articleMenu, action: .newTabClickBackground, project: nil)
+    }
+    
+    func logLongPressSave() {
+        logEvent(activeInterface: .articleMenu, action: .saveClick, project: nil)
+    }
+    
+    func logLongPressShare() {
+        logEvent(activeInterface: .articleMenu, action: .shareClick, project: nil)
+    }
+    
+    func logTabsOverflowHideArticleSuggestionsTap() {
+        logEvent(activeInterface: .tabsOverflow, action: .hideSuggestClick, project: nil)
+    }
+    
+    func logTabsOverflowShowArticleSuggestionsTap() {
+        logEvent(activeInterface: .tabsOverflow, action: .showSuggestClick, project: nil)
+    }
+    
+    func logTabsOverflowCloseAllTabsTap() {
+        logEvent(activeInterface: .tabsOverflow, action: .closeAllClick, project: nil)
+    }
+    
+    func logTabsOverviewCloseAllTabsConfirmCancelTap() {
+        logEvent(activeInterface: .tabsOverflow, action: .cancelClick, project: nil)
+    }
+    
+    func logTabsOverviewCloseAllTabsConfirmCloseTap() {
+        logEvent(activeInterface: .tabsOverflow, action: .closeConfirmClick, project: nil)
     }
 
 }
