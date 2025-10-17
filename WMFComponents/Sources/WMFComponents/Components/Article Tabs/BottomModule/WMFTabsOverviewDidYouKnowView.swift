@@ -41,7 +41,7 @@ public struct WMFTabsOverviewDidYouKnowView: View {
                     Image(uiImage: image)
                 }
                 Text(viewModel.dykLocalizedStrings.didYouKnowTitle)
-                    .font(WMFSwiftUIFont.font(.boldSubheadline))
+                    .font(WMFSwiftUIFont.font(.mediumBody))
                     .foregroundStyle(Color(theme.text))
                     .dynamicTypeSize(...DynamicTypeSize.xxxLarge)
             }

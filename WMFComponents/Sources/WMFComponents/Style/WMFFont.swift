@@ -280,6 +280,7 @@ public enum WMFSwiftUIFont {
     case subheadline
     case caption1
     case callout
+    case mediumBody
 
 }
 
@@ -296,6 +297,8 @@ public extension WMFSwiftUIFont {
             return .caption
         case .callout:
             return .callout
+        case .mediumBody:
+            return .system(.body, design: .default).weight(.medium)
         }
     }
 }
