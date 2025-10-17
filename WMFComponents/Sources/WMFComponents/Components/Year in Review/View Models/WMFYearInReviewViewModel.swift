@@ -270,7 +270,7 @@ public class WMFYearInReviewViewModel: ObservableObject {
             }
         }
     }
-    @Published var isShowingIntro: Bool = true
+    @Published public var isShowingIntro: Bool = true
     @Published var donateButtonRect: CGRect = .zero
     
     public let localizedStrings: LocalizedStrings
