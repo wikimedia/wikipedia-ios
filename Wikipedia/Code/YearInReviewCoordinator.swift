@@ -331,11 +331,9 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
             return ""
         }
         
-        let editsPerMinuteString = formatNumber(NSNumber(value: config.editsPerMinute), fractionDigits: 0)
-        
         let format = WMFLocalizedString("year-in-review-highlights-edit-frequency-value", value: "{{PLURAL:%1$d|%1$d time|%1$d times}} per minute", comment: "Value for the frequency of edits on Wikipedia in the Year in review highlights slide. %1$d is replaced with the number of edits per minute.")
         
-        return String.localizedStringWithFormat(format, editsPerMinuteString)
+        return String.localizedStringWithFormat(format, config.editsPerMinute)
     }
     
     // MARK: - Contributor
@@ -545,14 +543,10 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
             return ""
         }
         
-        let minutesString = formatNumber(NSNumber(value: minutesRead), fractionDigits: 0)
-        let articlesString = formatNumber(NSNumber(value: readCount), fractionDigits: 0)
-        
-        let format = WMFLocalizedString("year-in-review-personalized-reading-title-v3-format", value: "You spent %1$@ minutes reading %2$@ articles in %3$@", comment: "Year in review, personalized reading article count slide title for users that read articles. %1$@ is replaced with the number of minutes the user spent reading and %2$@ is replaced with the number of articles the user read in 2025. %3$@ is replaced with the Year in Review target year.")
-        return String.localizedStringWithFormat(format, minutesString, articlesString, String(config.year))
+        let format = WMFLocalizedString("year-in-review-personalized-reading-title-v3-format", value: "You spent {{PLURAL:%1$d|%1$d minute|%1$d minutes}} minutes reading {{PLURAL:%2$d|%2$d article|%2$d articles}} in %3$@", comment: "Year in review, personalized reading article count slide title for users that read articles. %1$@ is replaced with the number of minutes the user spent reading and %2$d is replaced with the number of articles the user read in 2025. %3$@ is replaced with the Year in Review target year.")
+        return String.localizedStringWithFormat(format, readCount, minutesRead, String(config.year))
     }
 
-    // todo: config?
     func percentileRange(for readCount: Int) -> String? {
         
         guard let config = dataController.config else {
@@ -730,9 +724,8 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
     }
 
     func personzlizedUserEditsSlideTitle(editCount: Int) -> String {
-        let editsString = formatNumber(NSNumber(value: editCount), fractionDigits: 0)
         let format = WMFLocalizedString("year-in-review-personalized-editing-title-format", value: "You edited Wikipedia {{PLURAL:%1$d|%1$d time|%1$d times}}", comment: "Year in review, personalized editing article count slide title for users that edited articles. %1$d is replaced with the number of edits the user made.")
-        return String.localizedStringWithFormat(format, editsString)
+        return String.localizedStringWithFormat(format, editCount)
     }
     
     func personzlizedUserEditsSlideSubtitle() -> String {

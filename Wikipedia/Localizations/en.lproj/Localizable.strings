@@ -1537,7 +1537,7 @@
 "year-in-review-personalized-reading-subtitle-format" = "You read {{PLURAL:$1|$1 article|$1 articles}}. Wikipedia had $2 articles available across over $3 active languages. You joined millions in expanding knowledge and exploring diverse topics.";
 "year-in-review-personalized-reading-subtitle-format-v3" = "We estimate that puts you in the top **PERCENT** of Wikipedia readers globally. The average person reads {{PLURAL:$1|$1 article|$1 articles}} a year.";
 "year-in-review-personalized-reading-title-format" = "You read {{PLURAL:$1|$1 article|$1 articles}}";
-"year-in-review-personalized-reading-title-v3-format" = "You spent $1 minutes reading $2 articles in $3";
+"year-in-review-personalized-reading-title-v3-format" = "You spent {{PLURAL:$1|$1 minute|$1 minutes}} minutes reading {{PLURAL:$2|$2 article|$2 articles}} in $3";
 "year-in-review-personalized-saved-articles" = "Illustration of a puzzle piece wearing a hardhat with computer screens in the back.";
 "year-in-review-personalized-saved-subtitle-format-v3" = "These articles included $1, $2, and $3. Each saved article reflects your interests and helps build a personalized knowledge base on Wikipedia.\n\nActive app users had $4 saved articles this year.";
 "year-in-review-personalized-saved-title-format" = "You saved {{PLURAL:$1|$1 article|$1 articles}}";
