@@ -15,8 +15,8 @@ public struct WMFActivityTabView: View {
     
     public var body: some View {
         VStack {
-            Text(viewModel.localizedStrings.userNamesReading)
-            Text(viewModel.localizedStrings.totalHoursMinutesRead)
+            Text(viewModel.usernamesReading)
+            Text(viewModel.hoursMinutesRead)
             Text(viewModel.localizedStrings.onWikipediaiOS)
         }
     }

@@ -6,12 +6,12 @@ import Combine
 
 final class WMFActivityTabHostingController: WMFComponentHostingController<WMFActivityTabView> {}
 
-@objc final class WMFActivityTabViewController: ThemeableViewController, WMFNavigationBarConfiguring, WMFNavigationBarHiding {
+@objc final class WMFActivityTabViewController: WMFCanvasViewController, WMFNavigationBarConfiguring, WMFNavigationBarHiding {
     
     var topSafeAreaOverlayView: UIView?
     
     var topSafeAreaOverlayHeightConstraint: NSLayoutConstraint?
-    
+    private var theme: Theme
     private var yirDataController: WMFYearInReviewDataController? {
         return try? WMFYearInReviewDataController()
     }
@@ -20,13 +20,14 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
     var viewModel: WMFActivityTabViewModel
     var dataController: WMFActivityTabDataController
     
-    public init(dataStore: MWKDataStore?, viewModel: WMFActivityTabViewModel, dataController: WMFActivityTabDataController) {
+    public init(dataStore: MWKDataStore?, theme: Theme, viewModel: WMFActivityTabViewModel, dataController: WMFActivityTabDataController) {
         self.dataStore = dataStore
         self.viewModel = viewModel
         let view = WMFActivityTabView(viewModel: viewModel)
         self.hostingController = WMFActivityTabHostingController(rootView: view)
         self.dataController = dataController
-        super.init(nibName: nil, bundle: nil)
+        self.theme = theme
+        super.init()
     }
     
     @MainActor required init?(coder: NSCoder) {
@@ -104,6 +105,19 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
         coordinator.animate(alongsideTransition: nil) { [weak self] _ in
             self?.calculateTopSafeAreaOverlayHeight()
         }
+    }
+    
+    public override func viewDidLoad() {
+        super.viewDidLoad()
+        Task {
+            if let (hours, minutes) = try? await dataController.getTimeReadPast7Days() {
+                viewModel.updateHoursMinutesRead(hours: hours, minutes: minutes)
+            } else {
+                viewModel.updateHoursMinutesRead(hours: 0, minutes: 0)
+            }
+        }
+
+        addComponent(hostingController, pinToEdges: true, respectSafeArea: true)
     }
     
     private lazy var moreBarButtonItem: UIBarButtonItem = {
@@ -196,12 +210,3 @@ extension WMFActivityTabViewController: LogoutCoordinatorDelegate {
 }
 
 extension WMFActivityTabViewController: ShareableArticlesProvider {}
-
-@MainActor
-extension WMFActivityTabViewController {
-    func updateViewModel(_ newViewModel: WMFActivityTabViewModel) {
-        self.viewModel = newViewModel
-        
-        hostingController.rootView = WMFActivityTabView(viewModel: newViewModel)
-    }
-}

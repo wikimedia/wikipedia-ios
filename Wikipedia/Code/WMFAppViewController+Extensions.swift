@@ -806,52 +806,32 @@ extension WMFAppViewController {
             return String.localizedStringWithFormat(format, hours, minutes)
         }
 
-        // Fallback view model for initial (possibly logged out or loading) state
-        let username = dataStore.authenticationManager.authStatePermanentUsername
-        let viewModel = WMFActivityTabViewModel(localizedStrings: .init(
-            userNamesReading: username.map { usernamesReading(username: $0) } ?? "",
-            totalHoursMinutesRead: "",
-            onWikipediaiOS: onWikipediaiOS
-        ))
+        var username: String = ""
+        let permUsername = dataStore.authenticationManager.authStatePermanentUsername
+        let tempAccountUsername = dataStore.authenticationManager.authStateTemporaryUsername
+        
+        if permUsername == nil {
+            if let tempAccountUsername = tempAccountUsername {
+                username = tempAccountUsername
+            }
+        }
+        
+        let viewModel = WMFActivityTabViewModel(localizedStrings:
+            WMFActivityTabViewModel.LocalizedStrings(
+                userNamesReading: usernamesReading(username:),
+                totalHoursMinutesRead: hoursMinutesRead(hours:minutes:),
+                onWikipediaiOS: onWikipediaiOS),
+           username: username, hoursRead: 0, minutesRead: 0)
+
 
         let controller = WMFActivityTabViewController(
             dataStore: dataStore,
+            theme: theme,
             viewModel: viewModel,
             dataController: activityTabDataController
         )
 
-        // Perform async update after creation
-        Task {
-            guard let username = username else { return }
-
-            let (hoursRead, minutesRead): (Int, Int)
-            do {
-                (hoursRead, minutesRead) = try await activityTabDataController.getTimeReadPast7Days() ?? (0, 0)
-            } catch {
-                (hoursRead, minutesRead) = (0, 0)
-            }
-
-            let updatedViewModel = WMFActivityTabViewModel(localizedStrings: .init(
-                userNamesReading: usernamesReading(username: username),
-                totalHoursMinutesRead: hoursMinutesRead(hours: hoursRead, minutes: minutesRead),
-                onWikipediaiOS: onWikipediaiOS
-            ))
-
-            await MainActor.run {
-                controller.updateViewModel(updatedViewModel)
-            }
-        }
-
         return controller
-    }
-
-    
-    @objc func updateActivityTabProject(activityTabViewController: WMFActivityTabViewController) {
-        if let siteURL = dataStore.languageLinkController.appLanguage?.siteURL,
-           let wikimediaProject = WikimediaProject(siteURL: siteURL),
-           let wmfProject = wikimediaProject.wmfProject {
-            // activityTabViewController.viewModel.project = wmfProject
-        }
     }
 
     @objc func generateActivityTabExperiment(exploreViewController: ExploreViewController) -> WMFActivityTabExperimentViewController {

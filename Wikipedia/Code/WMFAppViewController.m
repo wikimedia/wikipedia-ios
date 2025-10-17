@@ -490,7 +490,6 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
     [self updateExploreFeedPreferencesIfNecessaryForChange:note];
     [self.dataStore.feedContentController updateContentSources];
     [self updateWMFDataEnvironmentFromLanguagesDidChange];
-    [self updateActivityTabProjectWithActivityTabViewController:self.activityTabViewController];
 }
 
 /**
@@ -1330,8 +1329,7 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
 
             BOOL showActivityTab = [[NSUserDefaults standardUserDefaults] boolForKey:@"showActivityTab"];
             if (showActivityTab) {
-                UIViewController *activityVC = [self.activityTabViewController init];
-                [self.currentTabNavigationController setViewControllers:@[activityVC] animated:NO];
+                [self.currentTabNavigationController setViewControllers:@[_activityTabViewController] animated:NO];
             }
         } break;
         case WMFUserActivityTypeSearch:
