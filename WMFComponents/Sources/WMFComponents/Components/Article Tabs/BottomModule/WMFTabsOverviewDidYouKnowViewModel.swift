@@ -6,10 +6,12 @@ import WMFData
     
     public let languageCode: String?
     public let dykLocalizedStrings: LocalizedStrings
+    public let tappedLinkAction: (URL) -> Void
     
-    public init(facts: [String], languageCode: String?, dykLocalizedStrings: LocalizedStrings) {
+    public init(facts: [String], languageCode: String?, tappedLinkAction: @escaping (URL) -> Void, dykLocalizedStrings: LocalizedStrings) {
         self.facts = facts
         self.languageCode = languageCode
+        self.tappedLinkAction = tappedLinkAction
         self.dykLocalizedStrings = dykLocalizedStrings
     }
 

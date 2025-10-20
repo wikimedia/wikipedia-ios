@@ -927,6 +927,22 @@
 			<string>%1$d разів</string>
 		</dict>
 	</dict>
+	<key>year-in-review-personalized-reading-subtitle-format</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Ви прочитали %#@v1@. У Вікіпедії було доступно %2$@ мільйона статей понад %3$@ активними мовами. Ви приєдналися до мільйонів у розширенні знань і дослідженні різноманітних тем.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d статтю</string>
+			<key>other</key>
+			<string>%1$d статей</string>
+		</dict>
+	</dict>
 	<key>year-in-review-personalized-reading-subtitle-format-v3</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -943,10 +959,10 @@
 			<string>%1$d статей</string>
 		</dict>
 	</dict>
-	<key>year-in-review-personalized-reading-title-v3-format</key>
+	<key>year-in-review-personalized-reading-title-format</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Ви витратили %#@v1@ на читання %#@v2@ у 2025 році</string>
+		<string>Ви прочитали %1$d %#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -954,20 +970,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>%1$d хвилину</string>
+			<string>статтю</string>
 			<key>other</key>
-			<string>%1$d хвилин</string>
-		</dict>
-		<key>v2</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
-			<key>one</key>
-			<string>%2$d статті</string>
-			<key>other</key>
-			<string>%2$d статей</string>
+			<string>статей</string>
 		</dict>
 	</dict>
 	<key>year-in-review-personalized-saved-title-format</key>

@@ -911,6 +911,22 @@
 			<string>%1$d keer</string>
 		</dict>
 	</dict>
+	<key>year-in-review-personalized-reading-subtitle-format</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>U hebt %1$d artikel%#@v1@ gelezen. Wikipedia bevatte %2$@ miljoen artikelen in meer dan %3$@ actieve talen. Samen met miljoenen anderen hebt u uw kennis uitgebreid en diverse onderwerpen verkend.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string></string>
+			<key>other</key>
+			<string>en</string>
+		</dict>
+	</dict>
 	<key>year-in-review-personalized-reading-subtitle-format-v3</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -927,10 +943,10 @@
 			<string>en</string>
 		</dict>
 	</dict>
-	<key>year-in-review-personalized-reading-title-v3-format</key>
+	<key>year-in-review-personalized-reading-title-format</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>In 2025 hebt u %1$d %#@v1@ besteed aan het lezen van %2$d artikel%#@v2@</string>
+		<string>U hebt %#@v1@ gelezen</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -938,20 +954,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>minuut</string>
+			<string>%1$d artikel</string>
 			<key>other</key>
-			<string>minuten</string>
-		</dict>
-		<key>v2</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
-			<key>one</key>
-			<string></string>
-			<key>other</key>
-			<string>en</string>
+			<string>%1$d artikelen</string>
 		</dict>
 	</dict>
 	<key>year-in-review-personalized-saved-title-format</key>

@@ -21,11 +21,8 @@ public struct WMFArticleTabsView: View {
     @State private var isReady: Bool = false
     @State private var cellFrames: [String: CGRect] = [:]
 
-    private var dykLinkDelegate: UITextViewDelegate?
-
-    public init(viewModel: WMFArticleTabsViewModel, dykLinkDelegate: UITextViewDelegate?) {
+    public init(viewModel: WMFArticleTabsViewModel) {
         self.viewModel = viewModel
-        self.dykLinkDelegate = dykLinkDelegate
     }
 
     public var body: some View {
@@ -65,7 +62,7 @@ public struct WMFArticleTabsView: View {
             }
             viewModel.maybeStartSecondaryLoads()
         }
-        .toolbarBackground(Color(theme.midBackground), for: .automatic)
+        .background(Color(theme.midBackground))
         .onAppear {
             viewModel.maybeStartSecondaryLoads()
         }
@@ -94,10 +91,9 @@ public struct WMFArticleTabsView: View {
                         .transition(.move(edge: .bottom).combined(with: .opacity))
                 } else if shouldShowDYK, let dykVM = viewModel.didYouKnowViewModel {
                     WMFTabsOverviewDidYouKnowView(
-                        viewModel: dykVM,
-                        linkDelegate: dykLinkDelegate
+                        viewModel: dykVM
                     )
-                    .frame(maxHeight: viewHeight)
+                    .fixedSize(horizontal: false, vertical: true)
                     .clipped()
                     .transition(.move(edge: .bottom).combined(with: .opacity))
                 }
@@ -137,6 +133,7 @@ public struct WMFArticleTabsView: View {
                 }
                 .frame(width: geometry.size.width, height: geometry.size.height, alignment: .center)
             }
+            .background(Color(theme.paperBackground))
             .scrollBounceBehavior(.always)
         }
     }

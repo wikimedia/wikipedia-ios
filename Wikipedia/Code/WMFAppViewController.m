@@ -391,7 +391,7 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
 }
 
 - (WMFComponentNavigationController *)rootNavigationControllerWithRootViewController:(UIViewController *)rootViewController {
-    WMFComponentNavigationController *navigationController = [[WMFComponentNavigationController alloc] initWithRootViewController:rootViewController modalPresentationStyle:UIModalPresentationOverFullScreen];
+    WMFComponentNavigationController *navigationController = [[WMFComponentNavigationController alloc] initWithRootViewController:rootViewController modalPresentationStyle:UIModalPresentationOverFullScreen customBarBackgroundColor:nil];
     navigationController.delegate = self;
     return navigationController;
 }
@@ -2100,7 +2100,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 
 - (nonnull WMFComponentNavigationController *)settingsNavigationController {
     if (!_settingsNavigationController) {
-        WMFComponentNavigationController *navController = [[WMFComponentNavigationController alloc] initWithRootViewController:self.settingsViewController modalPresentationStyle:UIModalPresentationOverFullScreen];
+        WMFComponentNavigationController *navController = [[WMFComponentNavigationController alloc] initWithRootViewController:self.settingsViewController modalPresentationStyle:UIModalPresentationOverFullScreen customBarBackgroundColor:nil];
         [self applyTheme:self.theme toNavigationControllers:@[navController]];
         _settingsNavigationController = navController;
         _settingsNavigationController.delegate = self;

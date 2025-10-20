@@ -1056,14 +1056,11 @@ extension ExploreViewController {
             return false
         }
         
-        guard let yirDataController,
-              let appLanguage = dataStore.languageLinkController.appLanguage else {
+        guard let yirDataController else {
                   return false
         }
         
-        let project = WMFProject.wikipedia(WMFLanguage(languageCode: appLanguage.languageCode, languageVariantCode: appLanguage.languageVariantCode))
-        
-        guard yirDataController.shouldShowYearInReviewFeatureAnnouncement(primaryAppLanguageProject: project) else {
+        guard yirDataController.shouldShowYearInReviewFeatureAnnouncement() else {
             return false
         }
 
@@ -1103,6 +1100,7 @@ extension ExploreViewController {
         if WMFDeveloperSettingsDataController.shared.showYiRV3 {
             // A change in V3 is that we just show the feature itself with a modified intro slide.
             // No feature announcement component
+            yirCoordinator?.needsExitFromIntroToast = true
             self.yirCoordinator?.start()
             yirDataController.hasPresentedYiRFeatureAnnouncementModel = true
         }
