@@ -879,51 +879,6 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         }
     }
 
-    private func needsPostSurveyLoginPrompt() -> Bool {
-        return !dataStore.authenticationManager.authStateIsPermanent && WMFDeveloperSettingsDataController.shared.showYiRV3
-    }
-
-    private func presentPostSurveyLoginPrompt() {
-        let title = WMFLocalizedString("year-in-review-login-title", value: "Improve your Year in Review", comment: "Title of alert that asks user to login. Displayed after they completed the feature for the first time.")
-        let subtitle = WMFLocalizedString("year-in-review-login-subtitle", value: "Login or create an account to be eligible for more personalized insights", comment: "Subtitle of alert that asks user to login. Displayed after they completed the feature for the first time.")
-        let button1Title = CommonStrings.joinLoginTitle
-        let button2Title = CommonStrings.noThanksTitle
-
-        let alert = UIAlertController(title: title, message: subtitle, preferredStyle: .alert)
-        let action1 = UIAlertAction(title: button1Title, style: .default) { [weak self] action in
-
-            guard let self else { return }
-
-            DonateFunnel.shared.logYearInReviewLoginPromptDidTapLogin()
-            let loginCoordinator = LoginCoordinator(navigationController: self.navigationController, theme: self.theme)
-            
-            
-            loginCoordinator.loginSuccessCompletion = {
-                self.navigationController.dismiss(animated: true) {
-                    self.start()
-                }
-            }
-            
-            loginCoordinator.createAccountSuccessCustomDismissBlock = {
-                self.navigationController.dismiss(animated: true) {
-                    self.start()
-                }
-            }
-            
-            loginCoordinator.start()
-        }
-        let action2 = UIAlertAction(title: button2Title, style: .default) { action in
-           
-            DonateFunnel.shared.logYearInReviewLoginPromptDidTapNoThanks()
-        }
-        alert.addAction(action1)
-        alert.addAction(action2)
-
-        DonateFunnel.shared.logYearInReviewLoginPromptDidAppear()
-
-        navigationController.present(alert, animated: true)
-    }
-
     private func surveyViewController() -> UIViewController {
         let title = WMFLocalizedString("year-in-review-survey-title", value: "Satisfaction survey", comment: "Year in review survey title. Survey is displayed after user has viewed the last slide of their year in review feature.")
         let subtitle = WMFLocalizedString("year-in-review-survey-subtitle", value: "Help improve the Wikipedia Year in Review. Are you satisfied with this feature? What would like to see next year?", comment: "Year in review survey subtitle. Survey is displayed after user has viewed the last slide of their year in review feature.")
@@ -956,10 +911,6 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
 
             self?.navigationController.dismiss(animated: true, completion: { [weak self] in
                 guard let self else { return }
-
-                if self.needsPostSurveyLoginPrompt() {
-                    presentPostSurveyLoginPrompt()
-                }
             })
             DonateFunnel.shared.logYearInReviewSurveyDidTapCancel()
         }, submitAction: { [weak self] options, otherText in
@@ -968,13 +919,9 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
 
                 guard let self else { return }
 
-                if self.needsPostSurveyLoginPrompt() {
-                    presentPostSurveyLoginPrompt()
-                } else {
-                    let image = UIImage(systemName: "checkmark.circle.fill")
-                    WMFAlertManager.sharedInstance.showBottomAlertWithMessage(CommonStrings.feedbackSurveyToastTitle, subtitle: nil, image: image, type: .custom, customTypeName: "feedback-submitted", dismissPreviousAlerts: true)
-                    DonateFunnel.shared.logYearinReviewSurveySubmitSuccessToast()
-                }
+                let image = UIImage(systemName: "checkmark.circle.fill")
+                WMFAlertManager.sharedInstance.showBottomAlertWithMessage(CommonStrings.feedbackSurveyToastTitle, subtitle: nil, image: image, type: .custom, customTypeName: "feedback-submitted", dismissPreviousAlerts: true)
+                DonateFunnel.shared.logYearinReviewSurveySubmitSuccessToast()
             })
         })
 

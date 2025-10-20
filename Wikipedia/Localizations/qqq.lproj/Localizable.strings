@@ -1507,8 +1507,6 @@
 "year-in-review-highlights-title" = "Title for year in review highlights slide";
 "year-in-review-intro-exit-toast-title" = "Toast displayed to user after the exit Year in Review on the intro slide.";
 "year-in-review-intro-login-title" = "Title of alert that asks user to login if they want to view the personalized feature.";
-"year-in-review-login-subtitle" = "Subtitle of alert that asks user to login. Displayed after they completed the feature for the first time.";
-"year-in-review-login-title" = "Title of alert that asks user to login. Displayed after they completed the feature for the first time.";
 "year-in-review-non-contributor-slide-title" = "Year in review, non contributor slide title";
 "year-in-review-noncontributor-slide-subtitle" = "Year in review, noncontributor slide subtitle. $1 is replaced with the Year in Review target year (e.g. 2025). $2 is replaced with the Year in Review target year + 1 (e.g. 2026). $3 is replaced with a MediaWiki url with more information about editing. $4 is replaced with a MediaWiki url with more information about the Wikimedia Foundation. Do not alter markdown when translating.";
 "year-in-review-personalized-date-day-footer-v3" = "Year in review, personalized slide footer text below the day-of-week that users read the most.";
