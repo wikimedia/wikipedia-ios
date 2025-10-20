@@ -111,11 +111,11 @@ struct WMFYearInReviewContributionSlideView: View {
                             }
                         }
                     }
-                    .padding(EdgeInsets(top: 0, leading: sizeClassPadding, bottom: viewModel.contributionStatus == .noncontributor && !viewModel.forceHideDonateButton ? 66 : 0, trailing: sizeClassPadding))
+                    .padding(EdgeInsets(top: 0, leading: sizeClassPadding, bottom: viewModel.contributionStatus == .noncontributor && viewModel.contributionStatus == .noncontributor ? 66 : 0, trailing: sizeClassPadding))
                 }
             )
             
-            if viewModel.contributionStatus == .noncontributor && !viewModel.forceHideDonateButton {
+            if viewModel.contributionStatus == .noncontributor {
                 Group {
                     Button(action: { viewModel.onTappedDonateButton() }) {
                         Group {
