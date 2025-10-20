@@ -1465,10 +1465,10 @@
 "year-in-review-collective-zero-ads" = "Wikimedia logo";
 "year-in-review-contributor-gift-subtitle" = "If you don’t turn it on now, you can access it later in Settings under Theme.";
 "year-in-review-contributor-gift-title" = "Activate new app icon";
-"year-in-review-contributor-slide-subtitle-donor" = "Thank you for investing in the future of free knowledge.\n\nYour contributions as a donor in 2025 are helping pave the way to a world of free information and as a result you have unlocked a custom contributor icon.";
-"year-in-review-contributor-slide-subtitle-editor" = "Thank you for investing in the future of free knowledge.\n\nYour contributions as an editor in 2025 are helping pave the way to a world of free information and as a result you have unlocked a custom contributor icon.";
-"year-in-review-contributor-slide-subtitle-editor-and-donor" = "Thank you for investing in the future of free knowledge.\n\nYour contributions as a donor and editor in 2025 are helping pave the way to a world of free information and as a result you have unlocked a custom contributor icon.";
-"year-in-review-contributor-slide-title" = "New icon unlocked";
+"year-in-review-contributor-slide-subtitle-donor" = "Thank you for investing in the future of free knowledge.\n\nYour contributions as a donor in 2025 are helping pave the way to a world of free information and as a result you have unlocked a custom contributor icon for Wikipedia on your home screen.";
+"year-in-review-contributor-slide-subtitle-editor" = "Thank you for investing in the future of free knowledge.\n\nYour contributions as an editor in 2025 are helping pave the way to a world of free information and as a result you have unlocked a custom contributor icon for Wikipedia on your home screen.";
+"year-in-review-contributor-slide-subtitle-editor-and-donor" = "Thank you for investing in the future of free knowledge.\n\nYour contributions as a donor and editor in 2025 are helping pave the way to a world of free information and as a result you have unlocked a custom contributor icon for Wikipedia on your home screen.";
+"year-in-review-contributor-slide-title" = "New app icon unlocked for your home screen";
 "year-in-review-day-friday" = "Fridays";
 "year-in-review-day-monday" = "Mondays";
 "year-in-review-day-saturday" = "Saturdays";
@@ -1513,10 +1513,8 @@
 "year-in-review-intro-login-title" = "Log in for personalization";
 "year-in-review-login-subtitle" = "Login or create an account to be eligible for more personalized insights";
 "year-in-review-login-title" = "Improve your Year in Review";
-"year-in-review-non-contributor-slide-title" = "Unlock your custom contributor icon";
-"year-in-review-non-contributor-slide-title-past-jan" = "Unlock your custom contributor icon for next year!";
-"year-in-review-noncontributor-slide-subtitle" = "We’re glad Wikipedia was part of your 2025! [Learn more]($1) about the ways to unlock your icon by becoming a contributor—whether by editing Wikipedia or by donating to the Wikimedia Foundation, the non-profit behind it. If Wikipedia has been useful to you this year, please consider donating to help sustain its future and keep it free, ad-free, trustworthy, and accessible to all.";
-"year-in-review-noncontributor-slide-subtitle-post-jan" = "We’re glad Wikipedia was part of your 2025! [Learn]($1) how you can unlock a special icon in your 2026 Year in Review by becoming a contributor—whether by editing Wikipedia or by donating to the Wikimedia Foundation, the nonprofit behind it. If Wikipedia will be useful to you this year, please consider donating to help sustain its future and keep it free, ad-free, trustworthy, and accessible to all.";
+"year-in-review-non-contributor-slide-title" = "Unlock your contributor reward for next year!";
+"year-in-review-noncontributor-slide-subtitle" = "We’re glad Wikipedia was part of your 2025! Unlock a special reward in your 2026 Year in Review by becoming a contributor—whether by [editing Wikipedia]($1) or by donating to the [Wikimedia Foundation]($1), the non-profit behind it. If Wikipedia is useful to you, please consider donating to help sustain its future and keep it free, ad-free, trustworthy, and accessible to all.";
 "year-in-review-personalized-date-day-footer-v3" = "Favorite day to read";
 "year-in-review-personalized-date-month-footer-v3" = "Month you did the most reading";
 "year-in-review-personalized-date-time-footer-v3" = "Favorite time to read";

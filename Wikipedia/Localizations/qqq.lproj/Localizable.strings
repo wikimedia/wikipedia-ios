@@ -1468,7 +1468,7 @@
 "year-in-review-contributor-slide-subtitle-donor" = "Year in review, contributor slide subtitle, when user has donated that year.";
 "year-in-review-contributor-slide-subtitle-editor" = "Year in review, contributor slide subtitle, when user has edited that year.";
 "year-in-review-contributor-slide-subtitle-editor-and-donor" = "Year in review, contributor slide subtitle, when user has edited and donated that year.";
-"year-in-review-contributor-slide-title" = "Year in review subtitle for contributors";
+"year-in-review-contributor-slide-title" = "Year in review title for contributors";
 "year-in-review-day-friday" = "Localized name for Friday in plural form.";
 "year-in-review-day-monday" = "Localized name for Monday in plural form.";
 "year-in-review-day-saturday" = "Localized name for Saturday in plural form.";
@@ -1514,9 +1514,7 @@
 "year-in-review-login-subtitle" = "Subtitle of alert that asks user to login. Displayed after they completed the feature for the first time.";
 "year-in-review-login-title" = "Title of alert that asks user to login. Displayed after they completed the feature for the first time.";
 "year-in-review-non-contributor-slide-title" = "Year in review, non contributor slide title";
-"year-in-review-non-contributor-slide-title-past-jan" = "Year in review, non contributor slide title for on / after January 1, 2026";
-"year-in-review-noncontributor-slide-subtitle" = "Year in review, noncontributor slide subtitle. $1 is replaced with a MediaWiki url with more information about WMF. Do not alter markdown when translating.";
-"year-in-review-noncontributor-slide-subtitle-post-jan" = "Year in review, noncontributor slide subtitle. $1 is replaced with a MediaWiki url with more information about WMF. Do not alter markdown when translating. Post January";
+"year-in-review-noncontributor-slide-subtitle" = "Year in review, noncontributor slide subtitle. $1 is replaced with a MediaWiki url with more information about editing. $2 is replaced with a MediaWiki url with more information about the Wikimedia Foundation. Do not alter markdown when translating.";
 "year-in-review-personalized-date-day-footer-v3" = "Year in review, personalized slide footer text below the day-of-week that users read the most.";
 "year-in-review-personalized-date-month-footer-v3" = "Year in review, personalized slide footer text below the month that users read the most.";
 "year-in-review-personalized-date-time-footer-v3" = "Year in review, personalized slide footer text below the time-of-day that users read the most.";
