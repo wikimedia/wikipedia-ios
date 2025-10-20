@@ -20,6 +20,7 @@ public struct WMFArticleTabsView: View {
     /// Flag to allow us to know if we can scroll to the current tab position
     @State private var isReady: Bool = false
     @State private var cellFrames: [String: CGRect] = [:]
+    @State private var scrollProxy: ScrollViewProxy? = nil
 
     public init(viewModel: WMFArticleTabsViewModel) {
         self.viewModel = viewModel
@@ -96,6 +97,14 @@ public struct WMFArticleTabsView: View {
                     .fixedSize(horizontal: false, vertical: true)
                     .clipped()
                     .transition(.move(edge: .bottom).combined(with: .opacity))
+                }
+            }
+            .onAppear {
+                Task {
+                    await Task.yield()
+                    if let id = viewModel.currentTabID, let proxy = self.scrollProxy {
+                        proxy.scrollTo(id, anchor: .bottom)
+                    }
                 }
             }
             .frame(maxWidth: .infinity)
@@ -237,8 +246,9 @@ public struct WMFArticleTabsView: View {
                 }
                 .padding(.horizontal, 8)
                 .onAppear {
+                    self.scrollProxy = proxy
                     Task {
-                        await Task.yield()
+                        // await Task.yield()
                         if let id = viewModel.currentTabID {
                             proxy.scrollTo(id, anchor: .bottom)
                         }
@@ -247,7 +257,7 @@ public struct WMFArticleTabsView: View {
             }
         }
     }
-
+    
     private func getPreviewViewModel(from tab: ArticleTab) -> WMFArticlePreviewViewModel {
         let info = tab.info
         let last = tab.data.articles.last
