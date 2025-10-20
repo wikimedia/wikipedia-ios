@@ -290,7 +290,6 @@ public class WMFYearInReviewViewModel: ObservableObject {
     private var isUserPermanent: Bool // i.e. logged in
     private let primaryAppLanguage: WMFProject
     private let aboutYiRURL: URL?
-    private var hasPersonalizedDonateSlide: Bool
 
     // Highlights
     var savedCount: Int?
@@ -329,7 +328,6 @@ public class WMFYearInReviewViewModel: ObservableObject {
         self.introV2ViewModel = nil
         self.introV3ViewModel = nil
         self.slides = []
-        self.hasPersonalizedDonateSlide = false
         
         self.setupIntro(isUserPermanent: isUserPermanent)
     }
@@ -385,7 +383,6 @@ public class WMFYearInReviewViewModel: ObservableObject {
                                 title: localizedStrings.personalizedYouReadSlideTitleV2(readData.readCount),
                                 subtitle: localizedStrings.personalizedYouReadSlideSubtitleV2(readData.readCount),
                                 infoURL: aboutYiRURL,
-                                forceHideDonateButton: false,
                                 loggingID: "read_count_custom",
                                 tappedInfo: tappedInfo
                             )
@@ -397,7 +394,6 @@ public class WMFYearInReviewViewModel: ObservableObject {
                                 subtitle: localizedStrings.personalizedYouReadSlideSubtitleV3(readData.readCount),
                                 subtitleType: .html,
                                 infoURL: aboutYiRURL,
-                                forceHideDonateButton: false,
                                 loggingID: "read_count_custom",
                                 tappedInfo: tappedInfo
                             )
@@ -415,7 +411,6 @@ public class WMFYearInReviewViewModel: ObservableObject {
                                 title: editCount >= 500 ? localizedStrings.personzlizedUserEditsSlideTitle500Plus : localizedStrings.personalizedUserEditsSlideTitle(editCount),
                                 subtitle: primaryAppLanguage.isEnglishWikipedia ? localizedStrings.personzlizedUserEditsSlideSubtitleEN : localizedStrings.personzlizedUserEditsSlideSubtitleNonEN,
                                 infoURL: aboutYiRURL,
-                                forceHideDonateButton: false,
                                 loggingID: "edit_count_custom",
                                 tappedInfo: tappedInfo
                             )
@@ -459,7 +454,6 @@ public class WMFYearInReviewViewModel: ObservableObject {
                                 subtitle: localizedStrings.personalizedThankYouSubtitle(primaryAppLanguage.languageCode ?? "en"),
                                 subtitleType: .markdown,
                                 infoURL: aboutYiRURL,
-                                forceHideDonateButton: true,
                                 loggingID: "thank_custom",
                                 tappedLearnMore: tappedLearnMore(url:),
                                 tappedInfo: tappedInfo)
@@ -481,7 +475,6 @@ public class WMFYearInReviewViewModel: ObservableObject {
                                 subtitle: localizedStrings.personalizedSaveCountSlideSubtitle(count, savedSlideData.articleTitles),
                                 subtitleType: .html,
                                 infoURL: aboutYiRURL,
-                                forceHideDonateButton: false,
                                 loggingID: "save_count_custom",
                                 tappedInfo: tappedInfo
                             )
@@ -505,7 +498,6 @@ public class WMFYearInReviewViewModel: ObservableObject {
                                 title: localizedStrings.personalizedDateSlideTitleV2(mostReadDay.day),
                                 subtitle: localizedStrings.personalizedDateSlideSubtitleV2(mostReadDay.day),
                                 infoURL: aboutYiRURL,
-                                forceHideDonateButton: false,
                                 loggingID: "read_day_custom",
                                 tappedInfo: tappedInfo
                             )
@@ -521,7 +513,6 @@ public class WMFYearInReviewViewModel: ObservableObject {
                                 month: localizedStrings.personalizedDateSlideMonthV3(mostReadMonth.month),
                                 monthFooter: localizedStrings.personalizedDateSlideMonthFooterV3,
                                 infoURL: aboutYiRURL,
-                                forceHideDonateButton: false,
                                 loggingID: "read_day_custom",
                                 tappedInfo: tappedInfo
                             )
@@ -539,7 +530,6 @@ public class WMFYearInReviewViewModel: ObservableObject {
                                 title: localizedStrings.personalizedYourEditsViewedSlideTitle(viewCount),
                                 subtitle: localizedStrings.personalizedYourEditsViewedSlideSubtitle(viewCount),
                                 infoURL: aboutYiRURL,
-                                forceHideDonateButton: false,
                                 loggingID: "edit_view_count_custom",
                                 tappedInfo: tappedInfo
                             )
@@ -557,7 +547,6 @@ public class WMFYearInReviewViewModel: ObservableObject {
                                 subtitle: localizedStrings.personalizedMostReadCategoriesSlideSubtitle(mostReadCategories),
                                 subtitleType: .standard,
                                 infoURL: aboutYiRURL,
-                                forceHideDonateButton: false,
                                 loggingID: "", // TODO: logging ID,
                                 tappedInfo: tappedInfo)
                         }
@@ -574,7 +563,6 @@ public class WMFYearInReviewViewModel: ObservableObject {
                                 title: localizedStrings.personalizedMostReadArticlesSlideTitle,
                                 subtitle: localizedStrings.personalizedMostReadArticlesSlideSubtitle(topArticles),
                                 infoURL: aboutYiRURL,
-                                forceHideDonateButton: false,
                                 loggingID: "", // TODO: logging ID
                                 tappedInfo: tappedInfo
                             )
@@ -707,7 +695,15 @@ public class WMFYearInReviewViewModel: ObservableObject {
                 slides.append(.standard(personalizedSlides.saveCountSlide ?? (primaryAppLanguage.isEnglishWikipedia ? englishReadingListSlide : collectiveSavedArticlesSlide)))
                 slides.append(.standard(personalizedSlides.editCountSlide ?? (primaryAppLanguage.isEnglishWikipedia ? englishEditsSlide : collectiveAmountEditsSlide)))
                 slides.append(.standard(personalizedSlides.viewCountSlide ?? (primaryAppLanguage.isEnglishWikipedia ? englishEditsBytesSlide : collectiveEditsPerMinuteSlide)))
-                slides.append(.contribution(personalizedSlides.donateCountSlideV3 ?? nonContributorSlide))
+                
+                if let donateSlide = personalizedSlides.donateCountSlideV3 {
+                    // If donateSlide exists, user contributed in some form (donate count > 0 or edit count > 0),
+                    slides.append(.contribution(donateSlide))
+                } else if !shouldHideDonateButtonForCertainRegions() {
+                    // We want to hide slide entirely for non-donate regions, otherwise add non-contributor version of donate slide.
+                    slides.append(.contribution(nonContributorSlide))
+                }
+                
                 slides.append(.highlights(getPersonalizedHighlights()))
             } else {
                 slides.append(.standard(primaryAppLanguage.isEnglishWikipedia ? englishHoursReadingSlide : collectiveLanguagesSlide))
@@ -715,7 +711,15 @@ public class WMFYearInReviewViewModel: ObservableObject {
                 slides.append(.standard(primaryAppLanguage.isEnglishWikipedia ? englishReadingListSlide : collectiveSavedArticlesSlide))
                 slides.append(.standard(primaryAppLanguage.isEnglishWikipedia ? englishEditsSlide : collectiveAmountEditsSlide))
                 slides.append(.standard(primaryAppLanguage.isEnglishWikipedia ? englishEditsBytesSlide : collectiveEditsPerMinuteSlide))
-                slides.append(.contribution(personalizedSlides.donateCountSlideV3 ?? nonContributorSlide))
+                
+                if let donateSlide = personalizedSlides.donateCountSlideV3 {
+                    // If donateSlide exists, user contributed in some form (donate count > 0 or edit count > 0),
+                    slides.append(.contribution(donateSlide))
+                } else if !shouldHideDonateButtonForCertainRegions() {
+                    // We want to hide slide entirely for non-donate regions, otherwise add non-contributor version of donate slide.
+                    slides.append(.contribution(nonContributorSlide))
+                }
+                
                 slides.append(.highlights(primaryAppLanguage.isEnglishWikipedia ? getEnglishCollectiveHighlights() : getCollectiveHighlights()))
             }
         } else if WMFDeveloperSettingsDataController.shared.showYiRV2 {
@@ -737,10 +741,6 @@ public class WMFYearInReviewViewModel: ObservableObject {
         }
         
         self.slides = slides
-        
-        if personalizedSlides.donateCountSlideV2 != nil || personalizedSlides.donateCountSlideV3 != nil {
-            self.hasPersonalizedDonateSlide = true
-        }
     }
 
     func getPersonalizedHighlights() -> WMFYearInReviewSlideHighlightsViewModel {
@@ -818,7 +818,6 @@ public class WMFYearInReviewViewModel: ObservableObject {
             title: localizedStrings.englishReadingSlideTitle,
             subtitle: localizedStrings.englishReadingSlideSubtitle,
             infoURL: aboutYiRURL,
-            forceHideDonateButton: false,
             loggingID: "en_read_hours_base",
             tappedInfo: tappedInfo
         )
@@ -832,7 +831,6 @@ public class WMFYearInReviewViewModel: ObservableObject {
             subtitle: localizedStrings.englishTopReadSlideSubtitle,
             subtitleType: .html,
             infoURL: aboutYiRURL,
-            forceHideDonateButton: false,
             loggingID: "en_most_visit_base",
             tappedInfo: tappedInfo
         )
@@ -845,7 +843,6 @@ public class WMFYearInReviewViewModel: ObservableObject {
             title: localizedStrings.englishSavedReadingSlideTitle,
             subtitle: localizedStrings.englishSavedReadingSlideSubtitle,
             infoURL: aboutYiRURL,
-            forceHideDonateButton: false,
             loggingID: "en_list_count_base",
             tappedInfo: tappedInfo
         )
@@ -858,7 +855,6 @@ public class WMFYearInReviewViewModel: ObservableObject {
             title: localizedStrings.englishEditsSlideTitle,
             subtitle: localizedStrings.englishEditsSlideSubtitle,
             infoURL: aboutYiRURL,
-            forceHideDonateButton: false,
             loggingID: "en_edit_count_base",
             tappedInfo: tappedInfo
         )
@@ -872,7 +868,6 @@ public class WMFYearInReviewViewModel: ObservableObject {
             subtitle: localizedStrings.englishEditsBytesSlideSubtitle,
             subtitleType: .markdown,
             infoURL: aboutYiRURL,
-            forceHideDonateButton: false,
             loggingID: "en_byte_base",
             tappedInfo: tappedInfo
         )
@@ -904,7 +899,6 @@ public class WMFYearInReviewViewModel: ObservableObject {
             title: localizedStrings.collectiveLanguagesSlideTitle,
             subtitle: localizedStrings.collectiveLanguagesSlideSubtitle,
             infoURL: aboutYiRURL,
-            forceHideDonateButton: false,
             loggingID: "read_count_base",
             tappedInfo: tappedInfo
         )
@@ -917,7 +911,6 @@ public class WMFYearInReviewViewModel: ObservableObject {
             title: localizedStrings.collectiveArticleViewsSlideTitle,
             subtitle: localizedStrings.collectiveArticleViewsSlideSubtitle,
             infoURL: aboutYiRURL,
-            forceHideDonateButton: false,
             loggingID: "read_view_base",
             tappedInfo: tappedInfo
         )
@@ -930,7 +923,6 @@ public class WMFYearInReviewViewModel: ObservableObject {
             title: localizedStrings.collectiveSavedArticlesSlideTitle,
             subtitle: localizedStrings.collectiveSavedArticlesSlideSubtitle,
             infoURL: aboutYiRURL,
-            forceHideDonateButton: false,
             loggingID: "list_count_base",
             tappedInfo: tappedInfo
         )
@@ -943,7 +935,6 @@ public class WMFYearInReviewViewModel: ObservableObject {
             title: localizedStrings.collectiveAmountEditsSlideTitle,
             subtitle: localizedStrings.collectiveAmountEditsSlideSubtitle,
             infoURL: aboutYiRURL,
-            forceHideDonateButton: false,
             loggingID: "edit_count_base",
             tappedInfo: tappedInfo
         )
@@ -957,7 +948,6 @@ public class WMFYearInReviewViewModel: ObservableObject {
             subtitle: localizedStrings.collectiveEditsPerMinuteSlideSubtitle,
             subtitleType: .markdown,
             infoURL: aboutYiRURL,
-            forceHideDonateButton: false,
             loggingID: "edit_rate_base",
             tappedInfo: tappedInfo
         )
@@ -971,7 +961,6 @@ public class WMFYearInReviewViewModel: ObservableObject {
             subtitle: localizedStrings.collectiveZeroAdsSlideSubtitle(),
             subtitleType: .markdown,
             infoURL: aboutYiRURL,
-            forceHideDonateButton: false,
             loggingID: "ads_served_base",
             tappedLearnMore: tappedLearnMore(url:),
             tappedInfo: tappedInfo
@@ -979,7 +968,6 @@ public class WMFYearInReviewViewModel: ObservableObject {
     }
     
     private var nonContributorSlide: WMFYearInReviewContributorSlideViewModel {
-        let forceHideDonateButton = (try? WMFYearInReviewDataController().shouldHideDonateButton()) ?? false
         return WMFYearInReviewContributorSlideViewModel(
             gifName: "contribution-slide",
             altText: "",
@@ -987,7 +975,6 @@ public class WMFYearInReviewViewModel: ObservableObject {
             subtitle: localizedStrings.noncontributorSubtitle,
             loggingID: "",
             contributionStatus: .noncontributor,
-            forceHideDonateButton: forceHideDonateButton,
             onTappedDonateButton: { [weak self] in
                 self?.handleDonate()
             },
@@ -1218,49 +1205,30 @@ public class WMFYearInReviewViewModel: ObservableObject {
         }
     }
     
-    var shouldShowDonateButton: Bool {
+    var shouldShowTopNavDonateButton: Bool {
         if isShowingIntro {
             return false
         }
         
         // Config has certain countries that do not show donate button
-        let configShouldHide = (try? WMFYearInReviewDataController().shouldHideDonateButton()) ?? false
-        if configShouldHide {
+        if shouldHideDonateButtonForCertainRegions() {
             return false
         }
         
         let slide = currentSlide
         switch slide {
-        case .standard(let viewModel):
-            if viewModel.forceHideDonateButton {
-                return false
-            } else {
-                return true
-            }
-        case .contribution(let viewModel):
-            if viewModel.contributionStatus == .contributor {
-                if viewModel.forceHideDonateButton {
-                    return false
-                }
-                
-                return true
-            }
+        case .contribution:
             return false
         default:
-            return true
+            break
         }
+        
+        return true
     }
     
     func tappedLearnMore(url: URL) {
-        var shouldShowDonate = false
-        if slides.count - 1 == currentSlideIndex && !hasPersonalizedDonateSlide {
-            shouldShowDonate = true
-        }
-
-        // Always verify for regions we cannot ask for donations
-        shouldShowDonate = !shouldHideDonateButtonForCertainRegions()
-
-        coordinatorDelegate?.handleYearInReviewAction(.learnMore(url: url, shouldShowDonateButton: shouldShowDonate))
+        // TODO: audit this in https://phabricator.wikimedia.org/T406642
+        coordinatorDelegate?.handleYearInReviewAction(.learnMore(url: url, shouldShowDonateButton: !shouldHideDonateButtonForCertainRegions()))
         loggingDelegate?.logYearInReviewDonateDidTapLearnMore(slideLoggingID: slideLoggingID)
     }
 
