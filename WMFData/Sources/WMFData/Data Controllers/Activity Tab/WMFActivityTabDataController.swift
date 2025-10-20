@@ -29,11 +29,11 @@ public final class WMFActivityTabDataController {
     
     @objc public func getActivityAssignment() -> Int {
         // TODO: More thoroughly assign experiment
-        if userHasHiddenArticleSuggestionsTabs { return 1 }
+        if shouldShowActivityTab { return 1 }
         return 0
     }
 
-     public var userHasHiddenArticleSuggestionsTabs: Bool {
+     public var shouldShowActivityTab: Bool {
          get {
              return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsShowActivityTab.rawValue)) ?? false
          } set {
