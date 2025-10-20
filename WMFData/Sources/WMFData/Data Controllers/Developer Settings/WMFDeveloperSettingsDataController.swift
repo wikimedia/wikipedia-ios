@@ -158,7 +158,7 @@ public protocol WMFDeveloperSettingsDataControlling: AnyObject {
         }
     }
     
-    public var showActivityTab: Bool {
+    @objc public var showActivityTab: Bool {
         get {
             return (try? userDefaultsStore?.load(key: WMFUserDefaultsKey.developerSettingsShowActivityTab.rawValue)) ?? false
         } set {

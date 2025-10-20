@@ -142,6 +142,28 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
     return self;
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+}
+
+- (void)updateFourthTab {
+    NSInteger assignment = [self getAssignmentForActivityTab];
+
+    WMFComponentNavigationController *newNav4 = [self setupFourthTab:assignment];
+
+    NSInteger selectedIndex = self.selectedIndex;
+
+    dispatch_async(dispatch_get_main_queue(), ^{
+        NSMutableArray *viewControllers = [self.viewControllers mutableCopy];
+        if (viewControllers.count >= 4) {
+            viewControllers[3] = newNav4;
+            [self setViewControllers:viewControllers animated:NO];
+        }
+
+        self.selectedIndex = selectedIndex;
+    });
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.theme = [[NSUserDefaults standardUserDefaults] themeCompatibleWith:self.traitCollection];
@@ -229,7 +251,7 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
                                              selector:@selector(userWasLoggedIn:)
                                                  name:[WMFAuthenticationManager didLogInNotification]
                                                object:nil];
-    
+
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleAppLanguageDidChangeNotification:) name:WMFAppLanguageDidChangeNotification object:nil];
 
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -259,6 +281,11 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(showErrorBanner:)
                                                  name:NSNotification.showErrorBanner
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(activityTabDidChange:)
+                                                 name:@"ActivityTabDidChangeNotification"
                                                object:nil];
 
     [self observeArticleTabsNSNotifications];
@@ -354,7 +381,7 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
             mainViewController = self.exploreViewController;
             break;
     }
-    
+
     NSInteger assignment = [self getAssignmentForActivityTab];
 
     WMFComponentNavigationController *nav1 = [self rootNavigationControllerWithRootViewController:mainViewController];
@@ -863,6 +890,10 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appWillResignActiveWithNotification:) name:UIApplicationWillResignActiveNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appDidEnterBackgroundWithNotification:) name:UIApplicationDidEnterBackgroundNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(feedContentControllerBusyStateDidChange:) name:WMFExploreFeedContentControllerBusyStateDidChange object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(activityTabDidChange:)
+                                                 name:@"ActivityTabDidChangeNotification"
+                                               object:nil];
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(preferredLanguagesDidChange:) name:WMFPreferredLanguagesDidChangeNotification object:nil];
 
@@ -895,6 +926,10 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
 #else
     return nil;
 #endif
+}
+
+- (void)activityTabDidChange:(NSNotification *)notification {
+    [self updateFourthTab];
 }
 
 - (void)migrateIfNecessary {
@@ -1539,7 +1574,7 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
 - (WMFActivityTabViewController *)activityTabViewController {
     if (!_activityTabViewController) {
         _activityTabViewController = [self generateActivityTab];
-        _activityTabViewController.tabBarItem.image = [UIImage systemImageNamed:@"tabbar-recent"];
+        _activityTabViewController.tabBarItem.image = [UIImage imageNamed:@"tabbar-recent"];
         _activityTabViewController.title = [WMFCommonStrings activityTitle];
     }
     return _activityTabViewController;

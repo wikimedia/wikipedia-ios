@@ -113,8 +113,16 @@ import WMFData
             .store(in: &subscribers)
         
         showActivityTab.$isSelected
-            .sink { isSelected in WMFDeveloperSettingsDataController.shared.showActivityTab = isSelected }
+            .sink { isSelected in
+                WMFDeveloperSettingsDataController.shared.showActivityTab = isSelected
+                NotificationCenter.default.post(
+                    name: NSNotification.Name("ActivityTabDidChangeNotification"),
+                    object: nil,
+                    userInfo: ["isOn": isSelected]
+                )
+            }
             .store(in: &subscribers)
+
         
         moreDynamicTabsV2GroupCoordinator = MoreDynamicTabsV2GroupBindingCoordinator(groupB: enableMoreDynamicTabsV2GroupB, groupC: enableMoreDynamicTabsV2GroupC)
 
@@ -178,7 +186,6 @@ private final class MoreDynamicTabsV2GroupBindingCoordinator {
 
     }
 }
-
 
 private final class YearInReviewGroupBindingCoordinator {
     private var subscribers: Set<AnyCancellable> = []
