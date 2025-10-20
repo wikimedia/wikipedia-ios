@@ -307,6 +307,7 @@
 "edit-preview-simplified-format-message" = "Сав приказан садржај је у поједностављеном формату.";
 "edit-published" = "Измена је објављена";
 "edit-published-subtitle" = "Управо сте учинили Википедију бољом за свакога";
+"edit-sheet-temp-account-notice" = "Напомена у вези привременог налога";
 "edit-show-web-preview" = "Прикажи веб преглед";
 "edit-summary-add-summary-text" = "Додај опис измене";
 "edit-summary-choice-added-image" = "Додата слика";
@@ -616,6 +617,8 @@
 "insert-media-title" = "Убаци медиј";
 "ip-account-cta-bottom" = "Настави без пријаве";
 "ip-account-cta-top" = "Пријави ме / отвори налог";
+"ip-account-edit-sheet-subtitle" = "Оног тренутка кад начините измену $1привремени налог$2 ће бити направљен ради заштите Ваше приватности. $3Сазнајте више.$4$5Пријавите се или отворите налог да Ваше измене буду Вама приписане.";
+"ip-account-warning-subtitle" = "Објављивањем, привремени налог ће бити направљен.";
 "ip-account-warning-title" = "Нисте пријављени";
 "languages-settings-title" = "Језици";
 "languages-title" = "Промена језика";

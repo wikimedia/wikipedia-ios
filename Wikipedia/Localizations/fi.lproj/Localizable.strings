@@ -16,6 +16,7 @@
 // Author: McDutchie
 // Author: McSalama
 // Author: Mediawikitranslator
+// Author: Minilammas
 // Author: Moottori
 // Author: Nemo bis
 // Author: Nike
@@ -220,6 +221,7 @@
 "description-welcome-start-editing-button" = "Aloita muokkaaminen";
 "developer-settings" = "Kehittäjien asetukset";
 "developer-settings-enable-year-in-review" = "Ota vuosikatsaus käyttöön";
+"did-you-know" = "Tiesitkö?";
 "diff-article-revision-history" = "Artikkelin versiohistoria";
 "diff-change-added" = "Lisäys, $1, lisäyksen loppu.";
 "diff-change-paragraph-lines-moved-down" = "Kappaletta siirretty {{PLURAL:$1|0=0 riviä|$1 rivi|$1 riviä}} alaspäin. Siirry uuteen sijaintiin.";
@@ -1301,6 +1303,7 @@
 "year-in-review-feature-announcement-body" = "Tutustu kohokohtiin miten artikkeleita luetaan ja muokataan Wikipediassa.";
 "year-in-review-feature-announcement-title-personalized" = "Tutustu Wikipedia-vuoteesi";
 "year-in-review-feature-explore-body-personalized" = "Tutustu kohokohtiin lukemastasi ja muokkaamastasi sisällöstä Wikipedia-sovelluksessa vuonna 2024. Lukuhistoria säilytetään suojattuna. Kohokohdat muodostetaan laitteellesi tallennetun tiedon perusteella.";
+"year-in-review-highlights-articles-viewed-value" = "$1 miljardi";
 "year-in-review-login-title" = "Paranna vuosikatsausta";
 "year-in-review-personalized-day-subtitle-format" = "Luit eniten artikkeleita $1sin. Selvästi $1 on paras päiväsi uuden sisällön tutkimiseen. Kiitos, että käytit lukuaikasi parhaalla mahdollisella tavalla!";
 "year-in-review-personalized-day-title-format" = "Luit eniten $1sin";

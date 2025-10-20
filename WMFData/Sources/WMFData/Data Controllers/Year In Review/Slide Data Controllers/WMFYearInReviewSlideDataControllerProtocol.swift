@@ -24,9 +24,9 @@ protocol YearInReviewSlideDataControllerProtocol {
     func makeCDSlide(in context: NSManagedObjectContext) throws -> CDYearInReviewSlide
 
     /// Used to determine if the slide should be populated based on feature flags, user info, etc.
-    static func shouldPopulate(from config: YearInReviewFeatureConfig, userInfo: YearInReviewUserInfo) -> Bool
+    static func shouldPopulate(from config: WMFFeatureConfigResponse.Common.YearInReview, userInfo: YearInReviewUserInfo) -> Bool
     
-    init(year: Int, yirConfig: YearInReviewFeatureConfig, dependencies: YearInReviewSlideDataControllerDependencies)
+    init(year: Int, yirConfig: WMFFeatureConfigResponse.Common.YearInReview, dependencies: YearInReviewSlideDataControllerDependencies)
 }
 
 struct YearInReviewSlideDataControllerDependencies {
