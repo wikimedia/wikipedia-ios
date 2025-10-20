@@ -11,12 +11,11 @@ struct WMFYearInReviewSlideMostReadDateV3ViewModel {
     let month: String
     let monthFooter: String
     var infoURL: URL?
-    let forceHideDonateButton: Bool
     let loggingID: String
     let tappedLearnMore: ((URL) -> Void)?
     let tappedInfo: () -> Void
     
-    init(gifName: String, altText: String, title: String, time: String, timeFooter: String, day: String, dayFooter: String, month: String, monthFooter: String, infoURL: URL? = nil, forceHideDonateButton: Bool, loggingID: String, tappedLearnMore: ((URL) -> Void)? = nil, tappedInfo: @escaping () -> Void) {
+    init(gifName: String, altText: String, title: String, time: String, timeFooter: String, day: String, dayFooter: String, month: String, monthFooter: String, infoURL: URL? = nil,  loggingID: String, tappedLearnMore: ((URL) -> Void)? = nil, tappedInfo: @escaping () -> Void) {
         self.gifName = gifName
         self.altText = altText
         self.title = title
@@ -27,7 +26,6 @@ struct WMFYearInReviewSlideMostReadDateV3ViewModel {
         self.month = month
         self.monthFooter = monthFooter
         self.infoURL = infoURL
-        self.forceHideDonateButton = forceHideDonateButton
         self.loggingID = loggingID
         self.tappedLearnMore = tappedLearnMore
         self.tappedInfo = tappedInfo

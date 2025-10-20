@@ -32,7 +32,7 @@ struct WMFYearInReviewSlideIntroV3View: View {
                     .font(Font(WMFFont.for(.caption2)))
                     .foregroundColor(Color(uiColor: theme.secondaryText))
                 
-                WMFLargeButtonLoading(configuration: .primary, title: viewModel.primaryButtonTitle, isLoading: $isPopulatingReport) {
+                WMFLargeButtonLoading(configuration: .primary, title: viewModel.primaryButtonTitle, icon: nil, isLoading: $isPopulatingReport) {
                         viewModel.tappedPrimaryButton()
                 }
                 

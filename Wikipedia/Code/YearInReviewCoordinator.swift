@@ -57,6 +57,10 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         return "https://www.mediawiki.org/wiki/Special:MyLanguage/Wikimedia_Apps/iOS_FAQ?uselang=\(languageCode ?? "en")#Editing"
     }
     
+    private func noncontributorTitle() -> String {
+        return WMFLocalizedString("year-in-review-non-contributor-slide-title", value: "Unlock your contributor reward for next year!", comment: "Year in review, non contributor slide title")
+    }
+    
     private var localizedStrings: WMFYearInReviewViewModel.LocalizedStrings {
         return WMFYearInReviewViewModel.LocalizedStrings(
             donateButtonTitle: CommonStrings.donateTitle,
@@ -144,10 +148,10 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
             personalizedMostReadArticlesSlideSubtitle: personalizedListSlideSubtitle(items:),
             personalizedLocationSlideTitle: personalizedLocationSlideTitle(countryOrOcean:),
             personalizedLocationSlideSubtitle: personalizedLocationSlideSubtitle(articleNames:),
-            noncontributorTitle: WMFLocalizedString("year-in-review-non-contributor-slide-title", value: "Unlock your custom contributor icon", comment: "Year in review, non contributor slide title"),
+            noncontributorTitle: noncontributorTitle(),
             noncontributorSubtitle: noncontributorSlideSubtitle(),
             noncontributorButtonText: CommonStrings.donateTitle,
-            contributorTitle: WMFLocalizedString("year-in-review-contributor-slide-title", value: "New icon unlocked", comment: "Year in review subtitle for contributors"),
+            contributorTitle: WMFLocalizedString("year-in-review-contributor-slide-title", value: "New app icon unlocked for your home screen", comment: "Year in review title for contributors"),
             contributorSubtitle: contributorSlideSubtitle(isEditor:isDonator:),
             contributorGiftTitle: WMFLocalizedString("year-in-review-contributor-gift-title", value: "Activate new app icon", comment: "Year in review title for the new icon"),
             contributorGiftSubtitle: WMFLocalizedString("year-in-review-contributor-gift-subtitle", value: "If you don’t turn it on now, you can access it later in Settings under Theme.", comment: "Year in review subtitle for the new icon"),
@@ -347,12 +351,12 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
         }
         
         dataController.updateContributorStatus(isContributor: (isEditor || isDonator))
-        
-        let editorText = WMFLocalizedString("year-in-review-contributor-slide-subtitle-editor", value: "Thank you for investing in the future of free knowledge.\n\nYour contributions as an editor in %1$@ are helping pave the way to a world of free information and as a result you have unlocked a custom contributor icon.", comment: "Year in review, contributor slide subtitle, when user has edited that year. %1$@ is replaced with the Year in Review target year (e.g. 2025).")
 
-        let donorText = WMFLocalizedString("year-in-review-contributor-slide-subtitle-donor", value: "Thank you for investing in the future of free knowledge.\n\nYour contributions as a donor in %1$@ are helping pave the way to a world of free information and as a result you have unlocked a custom contributor icon.", comment: "Year in review, contributor slide subtitle, when user has donated that year. %1$@ is replaced with the Year in Review target year (e.g. 2025).")
+        let editorText = WMFLocalizedString("year-in-review-contributor-slide-subtitle-editor", value: "Thank you for investing in the future of free knowledge.\n\nYour contributions as an editor in %1$@ are helping pave the way to a world of free information and as a result you have unlocked a custom contributor icon for Wikipedia on your home screen.", comment: "Year in review, contributor slide subtitle, when user has edited that year. %1$@ is replaced with the Year in Review target year (e.g. 2025).")
 
-        let bothText = WMFLocalizedString("year-in-review-contributor-slide-subtitle-editor-and-donor", value: "Thank you for investing in the future of free knowledge.\n\nYour contributions as a donor and editor in %1$@ are helping pave the way to a world of free information and as a result you have unlocked a custom contributor icon.", comment: "Year in review, contributor slide subtitle, when user has edited and donated that year. %1$@ is replaced with the Year in Review target year (e.g. 2025)")
+        let donorText = WMFLocalizedString("year-in-review-contributor-slide-subtitle-donor", value: "Thank you for investing in the future of free knowledge.\n\nYour contributions as a donor in %1$@ are helping pave the way to a world of free information and as a result you have unlocked a custom contributor icon for Wikipedia on your home screen.", comment: "Year in review, contributor slide subtitle, when user has donated that year. %1$@ is replaced with the Year in Review target year (e.g. 2025).")
+
+        let bothText = WMFLocalizedString("year-in-review-contributor-slide-subtitle-editor-and-donor", value: "Thank you for investing in the future of free knowledge.\n\nYour contributions as a donor and editor in %1$@ are helping pave the way to a world of free information and as a result you have unlocked a custom contributor icon for Wikipedia on your home screen.", comment: "Year in review, contributor slide subtitle, when user has edited and donated that year.  %1$@ is replaced with the Year in Review target year (e.g. 2025).")
 
         if isEditor && isDonator {
             return String.localizedStringWithFormat(bothText, String(config.year))
@@ -371,8 +375,12 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
             return ""
         }
         
-        let format = WMFLocalizedString("year-in-review-noncontributor-slide-subtitle", value: "We’re glad Wikipedia was part of your %1$@! [Learn more](%2$@) about the ways to unlock your icon by becoming a contributor—whether by editing Wikipedia or by donating to the Wikimedia Foundation, the non-profit behind it. If Wikipedia has been useful to you this year, please consider donating to help sustain its future and keep it free, ad-free, trustworthy, and accessible to all.", comment: "Year in review, noncontributor slide subtitle. %1$@ is replaced with the Year in Review target year (e.g. 2025). %2$@ is replaced with a MediaWiki url with more information about WMF. Do not alter markdown when translating.")
-        return String.localizedStringWithFormat(format, String(config.year), editingFAQURLString)
+        let thisYear = config.year
+        let nextYear = config.year + 1
+
+        let format = WMFLocalizedString("year-in-review-noncontributor-slide-subtitle", value: "We’re glad Wikipedia was part of your %1$@! Unlock a special reward in your %2$@ Year in Review by becoming a contributor—whether by [editing Wikipedia](%3$@) or by donating to the [Wikimedia Foundation](%4$@), the non-profit behind it. If Wikipedia is useful to you, please consider donating to help sustain its future and keep it free, ad-free, trustworthy, and accessible to all.", comment: "Year in review, noncontributor slide subtitle. %1$@ is replaced with the Year in Review target year (e.g. 2025). %2$@ is replaced with the Year in Review target year + 1 (e.g. 2026). %3$@ is replaced with a MediaWiki url with more information about editing. %4$@ is replaced with a MediaWiki url with more information about the Wikimedia Foundation. Do not alter markdown when translating.")
+
+        return String.localizedStringWithFormat(format, String(thisYear), String(nextYear), editingFAQURLString, aboutWikimediaURLString)
     }
     
     // MARK: - English Slide Strings
