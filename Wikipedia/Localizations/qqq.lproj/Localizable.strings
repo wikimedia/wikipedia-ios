@@ -1507,16 +1507,12 @@
 "year-in-review-highlights-title" = "Title for year in review highlights slide";
 "year-in-review-intro-exit-toast-title" = "Toast displayed to user after the exit Year in Review on the intro slide.";
 "year-in-review-intro-login-title" = "Title of alert that asks user to login if they want to view the personalized feature.";
-"year-in-review-login-subtitle" = "Subtitle of alert that asks user to login. Displayed after they completed the feature for the first time.";
-"year-in-review-login-title" = "Title of alert that asks user to login. Displayed after they completed the feature for the first time.";
 "year-in-review-non-contributor-slide-title" = "Year in review, non contributor slide title";
 "year-in-review-noncontributor-slide-subtitle" = "Year in review, noncontributor slide subtitle. $1 is replaced with the Year in Review target year (e.g. 2025). $2 is replaced with the Year in Review target year + 1 (e.g. 2026). $3 is replaced with a MediaWiki url with more information about editing. $4 is replaced with a MediaWiki url with more information about the Wikimedia Foundation. Do not alter markdown when translating.";
 "year-in-review-personalized-date-day-footer-v3" = "Year in review, personalized slide footer text below the day-of-week that users read the most.";
 "year-in-review-personalized-date-month-footer-v3" = "Year in review, personalized slide footer text below the month that users read the most.";
 "year-in-review-personalized-date-time-footer-v3" = "Year in review, personalized slide footer text below the time-of-day that users read the most.";
 "year-in-review-personalized-date-title-v3" = "Year in review, personalized slide title for users that displays the time / day of the week / month they read most.";
-"year-in-review-personalized-day-subtitle-format" = "Year in review, personalized slide subtitle for users that displays the weekday they read most. $1 is replaced with the weekday.";
-"year-in-review-personalized-day-title-format" = "Year in review, personalized slide title for users that displays the weekday they read most. $1 is replaced with the weekday.";
 "year-in-review-personalized-donate-subtitle" = "Year in review, personalized donate slide subtitle for users that donated at least once that year. $1 is replaced with a MediaWiki url with more information about WMF. Do not alter markdown when translating.";
 "year-in-review-personalized-donate-title" = "Year in review, personalized donate slide title for users that donated at least once that year.";
 "year-in-review-personalized-donation-thank-you" = "Accessibility description for the personalized donation thank you slide.";
@@ -1532,9 +1528,7 @@
 "year-in-review-personalized-location-subtitle-format-3" = "Year in review, personalized location slide subtitle. $1, $2 and $3 are replaced with article names in the area they most read about, $4 and $5 are enclosing tags to make the names bold.";
 "year-in-review-personalized-location-title-format" = "Year in review, personalized location slide title. $1 is replaced with a country or ocean name.";
 "year-in-review-personalized-most-read-articles-title" = "Year in review, personalized most read articles slide title";
-"year-in-review-personalized-reading-subtitle-format" = "Year in review, personalized reading article count slide subtitle for users that read articles. $1 is replaced with the number of articles the user read. $2 is replaced with the number of articles available across Wikipedia. $3 is replaced with the number of active languages available on Wikipedia.";
 "year-in-review-personalized-reading-subtitle-format-v3" = "Year in review, personalized reading article count slide subtitle for users that read articles. **PERCENT** is the percentage number (i.e. '25%'), do not adjust it, percentage sign is added via the client. $1 is the average number of articles read per user.";
-"year-in-review-personalized-reading-title-format" = "Year in review, personalized reading article count slide title for users that read articles. $1 is replaced with the number of articles the user read.";
 "year-in-review-personalized-reading-title-v3-format" = "Year in review, personalized reading article count slide title for users that read articles. $1 is replaced with the number of minutes the user spent reading and $2 is replaced with the number of articles the user read in 2025. $3 is replaced with the Year in Review target year.";
 "year-in-review-personalized-saved-articles" = "Accessibility description for the personalized saved articles slide.";
 "year-in-review-personalized-saved-subtitle-format-v3" = "Year in review, personalized saved articles slide subtitle. $1, $2 and $3 are replaced with up to three article names the user saved (each enclosed in <b> tags). $4 is replaced with the total number of saved articles across active app users.";
