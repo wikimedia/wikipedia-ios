@@ -380,7 +380,7 @@ final class YearInReviewCoordinator: NSObject, Coordinator {
 
         let format = WMFLocalizedString("year-in-review-noncontributor-slide-subtitle", value: "We’re glad Wikipedia was part of your %1$@! Unlock a special reward in your %2$@ Year in Review by becoming a contributor—whether by [editing Wikipedia](%3$@) or by donating to the [Wikimedia Foundation](%4$@), the non-profit behind it. If Wikipedia is useful to you, please consider donating to help sustain its future and keep it free, ad-free, trustworthy, and accessible to all.", comment: "Year in review, noncontributor slide subtitle. %1$@ is replaced with the Year in Review target year (e.g. 2025). %2$@ is replaced with the Year in Review target year + 1 (e.g. 2026). %3$@ is replaced with a MediaWiki url with more information about editing. %4$@ is replaced with a MediaWiki url with more information about the Wikimedia Foundation. Do not alter markdown when translating.")
 
-        return String.localizedStringWithFormat(format, thisYear, nextYear, editingFAQURLString, aboutWikimediaURLString)
+        return String.localizedStringWithFormat(format, String(thisYear), String(nextYear), editingFAQURLString, aboutWikimediaURLString)
     }
     
     // MARK: - English Slide Strings

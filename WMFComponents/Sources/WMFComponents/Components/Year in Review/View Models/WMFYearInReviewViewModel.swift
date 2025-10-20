@@ -1205,7 +1205,7 @@ public class WMFYearInReviewViewModel: ObservableObject {
         }
     }
     
-    var shouldShowDonateButton: Bool {
+    var shouldShowTopNavDonateButton: Bool {
         if isShowingIntro {
             return false
         }
@@ -1217,10 +1217,8 @@ public class WMFYearInReviewViewModel: ObservableObject {
         
         let slide = currentSlide
         switch slide {
-        case .contribution(let viewModel):
-            if viewModel.contributionStatus == .contributor {
-                return false
-            }
+        case .contribution:
+            return false
         default:
             break
         }
@@ -1230,7 +1228,7 @@ public class WMFYearInReviewViewModel: ObservableObject {
     
     func tappedLearnMore(url: URL) {
         // TODO: audit this in https://phabricator.wikimedia.org/T406642
-        coordinatorDelegate?.handleYearInReviewAction(.learnMore(url: url, shouldShowDonateButton: shouldShowDonateButton))
+        coordinatorDelegate?.handleYearInReviewAction(.learnMore(url: url, shouldShowDonateButton: !shouldHideDonateButtonForCertainRegions()))
         loggingDelegate?.logYearInReviewDonateDidTapLearnMore(slideLoggingID: slideLoggingID)
     }
 
