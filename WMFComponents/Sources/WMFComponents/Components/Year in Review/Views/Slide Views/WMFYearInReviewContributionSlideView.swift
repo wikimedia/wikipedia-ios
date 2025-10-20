@@ -117,49 +117,7 @@ struct WMFYearInReviewContributionSlideView: View {
             
             if viewModel.contributionStatus == .noncontributor {
                 Group {
-                    Button(action: { viewModel.onTappedDonateButton() }) {
-                        Group {
-                            if parentViewModel.isLoadingDonate {
-                                ProgressView()
-                                    .progressViewStyle(CircularProgressViewStyle(tint: Color(uiColor: theme.destructive)))
-                                    .scaleEffect(1.2)
-                                    .background(
-                                        GeometryReader { geometry in
-                                            Color.clear
-                                                .onAppear {
-                                                    let frame = geometry.frame(in: .global)
-                                                    parentViewModel.donateButtonRect = frame
-                                                }
-                                        }
-                                    )
-                            } else {
-                                HStack(alignment: .center, spacing: 6) {
-                                    if let uiImage = WMFSFSymbolIcon.for(symbol: .heartFilled, font: .semiboldHeadline) {
-                                        Image(uiImage: uiImage)
-                                            .foregroundStyle(Color(uiColor: theme.destructive))
-                                        Text(viewModel.donateButtonTitle)
-                                            .font(Font(WMFFont.for(.semiboldHeadline)))
-                                            .foregroundStyle(Color(uiColor: theme.destructive))
-                                    }
-                                }
-                            }
-                        }
-                        .padding(.vertical, 11)
-                        .padding(.horizontal, 16)
-                        .frame(maxWidth: .infinity)
-                        .contentShape(RoundedRectangle(cornerRadius: 12))
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 12)
-                                .stroke(Color(uiColor: theme.newBorder), lineWidth: 1)
-                        )
-                        .background(
-                            RoundedRectangle(cornerRadius: 12)
-                                .fill(Color(uiColor: theme.midBackground))
-                        )
-                    }
-                    .padding(.horizontal, horizontalSizeClass == .regular ? 64 : 32)
-                    .padding(.bottom, 16)
-                    .buttonStyle(PlainButtonStyle())
+                    WMFLargeButtonLoading(configuration: .primary, title: viewModel.donateButtonTitle, isLoading: $parentViewModel.isLoadingDonate, action: viewModel.onTappedDonateButton)
                 }
                 .frame(maxWidth: .infinity)
                 .padding(.top, 12)
